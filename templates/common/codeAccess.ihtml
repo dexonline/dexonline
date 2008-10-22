@@ -1,6 +1,6 @@
 <p>Codul <i>DEX online</i> este disponibil liber (şi gratuit) sub licenţa
 GNU GPL. El a fost testat pe un sistem Fedora Core 4 standard cu
-pachete ca mysql, php, httpd şi cvs. Aveţi nevoie de PHP 5.0 (sau mai
+pachete ca mysql, php, httpd şi svn. Aveţi nevoie de PHP 5.0 (sau mai
 nou) configurat cu modulele <b>mbstring</b> şi <b>mysql</b>.</p>
 
 <p>De asemenea, aveţi nevoie şi de header-ele MySQL pentru development:
@@ -16,7 +16,7 @@ pachetul mysql-devel pe sisteme Fedora sau libmysql++-dev pe sisteme
 
   <pre style="background: #eeffff; border: 1px dashed green; padding: 6px;">
 cd /var/www/html
-cvs -z3 -d :pserver:anoncvs@voronet.francu.com:/usr/local/cvsroot checkout -P DEX
+svn checkout http://voronet.francu.com/repos/DEX
 cd DEX</pre>
 
   </li>
@@ -104,14 +104,14 @@ php resetDatabase.php</pre>
 
 
 Dacă modificaţi codul, nu veţi avea permisiunea de a adăuga
-modificările făcute direct cu comanda <code>cvs commit</code>, din
+modificările făcute direct cu comanda <code>svn commit</code>, din
 două motive: dorim ca accesul anonim să ofere doar drept de citire şi
 dorim să ne aruncăm şi noi privirea peste codul pe care dumneavoastră
 îl scrieţi înainte de a îl accepta. Pentru a ne trimite modificările
 făcute, executaţi comanda:
 
   <pre style="background: #eeffff; border: 1px dashed green; padding: 6px;">
-cvs -d :pserver:anoncvs@voronet.francu.com:/usr/local/cvsroot diff -uN > /tmp/diff.txt</pre>
+svn diff > /tmp/diff.txt</pre>
 
 Apoi trimiteţi-ne prin email fişierul
 <code>/tmp/diff.txt</code>. Atenţie, trebuie să anexaţi fişierul

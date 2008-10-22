@@ -506,6 +506,17 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     </tr>
     <tr>
       <td>
+        <a class="noBorder" href="http://subversion.tigris.org/">
+          <img src="{$imgRoot}/kudos/svn.png" alt="svn logo"/>
+        </a>
+      </td>
+      <td>
+        <b>Subversion</b> - Serveşte la întreţinerea codului şi permite editarea
+        lui simultană de către mai multe persoane.
+      </td>
+    </tr>
+    <tr>
+      <td>
         <a class="noBorder" href="http://www.cvshome.org/">
           <img src="{$imgRoot}/kudos/cvs.gif" alt="cvs logo"/>
         </a>
@@ -932,7 +943,7 @@ online</i> dacă nu pot să stau prea mult pe Internet?</a></h3>
 <h3><a name="cod">Vreau să scriu cod pentru <i>DEX online</i></a></h3>
 
   Sunteţi mană cerească! Puteţi vedea codul-sursă al <i>DEX online</i>
-  la <a href="http://cvs.dexonline.ro">http://cvs.dexonline.ro</a>. Dacă
+  la <a href="http://svn.dexonline.ro">http://svn.dexonline.ro</a>. Dacă
   doriţi să obţineţi o copie completă a codului şi să îl modificaţi,
   citiţi <a href="codeAccess.php">aceste instrucţiuni</a>.
 

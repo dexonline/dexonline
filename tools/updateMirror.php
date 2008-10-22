@@ -38,7 +38,7 @@ if ($doDatabaseCopy) {
 }
 
 if ($doCodeUpdate) {
-  os_executeAndAssert('cd ' . util_getRootPath() . '; /usr/bin/cvs -Q up -Pd');  
+  os_executeAndAssert('cd ' . util_getRootPath() . '; /usr/bin/svn up');  
 }
 
 log_scriptLog('updateMirror.php completed successfully (against all odds)');

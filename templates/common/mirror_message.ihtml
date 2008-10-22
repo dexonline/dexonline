@@ -1,0 +1,46 @@
+<html>
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Pagina dezactivata</title>
+  </head>
+
+  <body>
+    <h3>Pagină dezactivată</h3>
+
+    Există două motive pentru care această pagină ar putea fi dezactivată:
+
+    <ol>
+      <li>Acest site al <i>DEX online</i> este doar o copie a
+      site-ului principal aflat la <a href="http://dexonline.ro"
+      target="_blank" >http://dexonline.ro</a>, sau</li>
+
+      <li>Suntem în curs de migrare pe un server nou şi am dezactivat
+      unele funcţii pe durata migrării pentru a nu corupe baza de
+      date.</li>
+
+    </ol>
+
+    Următoarele funcţii sunt dezactivate:
+
+    <ul>
+      <li>Introducerea de noi definiţii;</li>
+      <li>Semnalarea erorilor;</li>
+      <li>Corectarea definiţiilor;</li>
+      <li>Conectarea utilizatorilor.</li>
+      <li>Accesul ca moderator.</li>
+    </ul>
+
+    Deocamdată, ne este greu din punct de vedere tehnic să permitem aceste
+    operaţii pe toate copiile site-ului DEX online, deoarece nu avem o
+    metodă bună să punem cap la cap modificările făcute în
+    locuri diferite. Vă invităm să vizitaţi site-ul nostru principal
+    pentru aceste operaţii.
+
+    <p/>
+
+    <a href="http://dexonline.ro" target="_blank">http://dexonline.ro</a>
+    &nbsp;&nbsp;&nbsp;
+    <a href="javascript:history.back(1)">Înapoi</a>
+</body>
+

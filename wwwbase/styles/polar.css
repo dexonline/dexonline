@@ -1,0 +1,237 @@
+body {
+  background-color: white;
+  color: black;
+  font-family: serif;
+}
+
+table.header {
+  background: #dcf0ff;
+  color: black;
+  border: 1px solid blue;
+  border-collapse: collapse;
+  font-family: sans-serif;
+  padding: 0;
+  white-space: nowrap;
+  width: 100%;
+}
+
+table.header tr td {
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+table.header tr td.logo {
+  padding-right: 8px;
+  width: 1%;
+}
+
+table.header tr td.title {
+  font-size: 110%;
+  padding-right: 10px;
+  text-align: right;
+  white-space: nowrap;
+  width: 1%;
+}
+
+table.header tr td.searchBoxContainer {
+  padding-left: 8px;
+}
+
+a.noBorder img {
+  border: 0;
+}
+
+span.pageTitle {
+  font-size: 130%;
+  font-weight: bold;
+}
+
+form.searchForm {
+  margin: 0;
+}
+
+span.definitionBodyCheckbox {
+  font-family: sans-serif;
+  font-size: 80%;
+  margin-left: 10px;
+}
+
+span.formPlug {
+  color: #444444;
+  font-size: 70%;
+}
+
+div.linkBar {
+  font-size: 80%;
+  margin-bottom: 10px;
+}
+
+div.linkBar a {
+  white-space: nowrap;
+}
+
+span.stopWords {
+  color: #777777;
+}
+
+table.footer {
+  border-top: 1px solid #cccccc;
+  font-family: sans-serif;
+  font-size: 80%;
+  margin-top: 10px;
+  width: 100%;
+}
+
+table.footer tr td {
+  vertical-align: top;
+}
+
+table.footer tr td.narrow {
+  text-align: center;
+  white-space: nowrap;
+  width: 1%;
+}
+
+span.def {
+  cursor: pointer;
+}
+
+span.defDetails {
+  color: #999999;
+  font-family: sans-serif;
+  font-size: 80%;
+}
+
+span.defDetails a {
+  color: #777777;
+}
+
+span.defDetails a:hover {
+  color: #555555;
+}
+
+div.defComment {
+  border: 1px dashed gray;
+  font-size: 90%;
+  margin-left: 2em;
+  margin-top: -8px;
+  padding-left: 4px;
+}
+
+div.resultBar {
+  font-family: sans-serif;
+  font-size: 85%;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+div.abbrev {
+  float: right;
+  font-weight: normal;
+}
+
+a.inflLink {
+  color: black;
+  font-weight: normal;
+  margin-left: 15px;
+  text-decoration: none;
+}
+
+a.inflLink:focus {
+  outline: none;
+}
+
+div.guideConfirmationMessage {
+  border: 2px solid #00cc00;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 3px;
+  text-align: center;
+  width: 30em;
+}
+
+table.rightWrong {
+  border-collapse: collapse;
+  border-spacing: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 94%;
+}
+
+table.rightWrong tr th {
+  background: #eeeeee;
+  border: 1px solid #cccccc;
+}
+
+table.rightWrong tr td {
+  border: 1px solid #cccccc;
+  padding: 4px;
+  vertical-align: top;
+}
+
+table.rightWrong tr td.right {
+  color: #006600;
+  width: 25%;
+}
+
+table.rightWrong tr td.wrong {
+  color: #660000;
+  width: 25%;
+}
+
+table.rightWrong tr td.notes {
+  width: 50%;
+}
+
+table.rightWrong tr td.actions {
+  font-family: sans-serif;
+  font-size: 80%;
+  vertical-align: middle;
+}
+
+div.guideEntryAddLink {
+  font-family: sans-serif;
+  font-size: 80%;
+  text-align: center;
+}
+
+div.debugInfo {
+	font-size: 75%;
+	color: #777;
+}
+
+pre.code {
+  background: #dcf0ff;
+  border: 1px solid blue;
+  margin-left: 3em;
+  margin-right: 3em;
+  padding: 5px;
+}
+
+div.randomTip {
+  background: #dcf0ff;
+  border: 1px solid blue;
+  font-family: sans-serif;
+  font-size: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 3px 6px;
+  width: 40%;
+}
+
+div.scrabbleModelName {
+  font-weight: bold;
+}
+
+pre.exportSample {
+  background: #ddffdd;
+  border: 1px solid black;
+  padding: 5px;
+  font-weight: bold;
+}
+
+span.deemph {
+  color: #777777;
+}

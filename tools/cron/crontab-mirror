@@ -1,0 +1,6 @@
+# Cron jobs to be executed only on mirrors.
+# WARNING: Some of the timezones may be wrong, doublecheck before installing.
+# WARNING: The path to the DEX installation may be wrong.
+
+# Sync the code and fetch the latest version of the database
+0 3 * * * (cd /var/www/dexon/public_html/DEX/tools && php updateMirror.php) >/dev/null 2>&1 || mail -s "DEX updateMirror failed" cata@francu.com

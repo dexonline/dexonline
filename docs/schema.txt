@@ -1,0 +1,235 @@
+Acest fişier este scris în limba engleză, deoarece există persoane
+interesate de baza de date a DEX online care nu vorbesc
+româneşte. Dacă aveţi nevoie de ajutor cu traducerea, vă rugăm
+contactaţi-ne la adresa contact@dexonline.ro.
+------------------------------------------------------------------------------
+
+DEX online schema documentation
+===============================
+
+This documentation is by no means complete. Nor do we promise to keep
+it up to date as the schema evolves. However, we try to explain in
+general how the data is stored and how the tables are connected.
+
+
+The Source table
+----------------
+
+A Source is essentially a dictionary from which we import
+definitions. It has attributes like Name, Author, Publisher and Year.
+
+
+The Definition table
+--------------------
+
+Id - Unique numeric ID.
+UserId - Matches User.Id.
+SourceId - Matches Source.Id.
+Lexicon - A bit of text extracted from the beginnning of the
+  definition. This is usually, though not always, equal to the term
+  being defined. It is not used for searching, but only for sorting
+  definitions.
+Displayed - Number of times the definition was displayed.
+InternalRep - The actual text.
+HtmlRep - HTML-formatted text, ready for printing in a browser.
+Status - 0 = active, 1 = temporary (not yet reviewed), 2 = deleted
+
+
+The lexems table
+----------------
+
+A lexem is essentially a word. Homonyms get separate lexems each.
+
+lexem_id - Unique numeric ID.
+lexem_forma - Base form of the word, including an (') for the
+  accent. This makes it impractical for searches.
+lexem_neaccentuat, lexem_utf8_general - These two have equal values,
+  obtained from lexem_forma by removing the accent. The fields have
+  different collates (utf8_romanian_ci and utf8_general_ci,
+  respectively). The former is used for searches including diacritics,
+  the latter is used for searches without diacritics, because in
+  utf8_general_ci ă = â = a, ş = s and so on.
+lexem_invers the reverse of lexem_neaccentuat. Only used in certain
+  admin tools where we need suffix matching.
+lexem_descr - Generally used to distinguish among homonyms.
+lexem_model_type, lexem_model_no - The declension model for this lexem
+lexem_restriction - A subset of the letters S (singular), P (plural),
+  U (unipersonal), I (impersonal), T (past tenses only). Indicates
+  that this lexem only generates a subset of the allowed word forms
+  for the lexem's model. To see which restrictions allow which forms,
+  use the 'constraints' table. For example, the verb "a ploua" ("to
+  rain") only allows third person singular form, hence the restriction I.
+lexem_comment - Admins can add comments. All lexems with non-empty
+  comments are reported on the admin page and should be reviewed and
+  fixed.
+lexem_is_loc - You can probably ignore this. Indicates whether the
+  lexem is included in LOC, the Official Word List accepted by the
+  Romanian Scrabble Federation for all its competitions. A few
+  moderators can modify this list.
+lexem_no_accent - If true, indicates that this lexem does not need an
+  accent. Otherwise, a report on the admin page shows all the lexems
+  for which lexem_forma does not include an accent.
+
+
+The LexemDefinitionMap table
+----------------------------
+
+This links lexems to definitions in a many-to-many relationship. At
+the moment, all homonym lexems are connected to all the
+definitions. In the long run, we plan to fix the database so that, for
+example, "mare" ("sea") and "mare" ("large") are only linked to their
+respective definitions.
+
+
+The inflections table
+---------------------
+
+This is a non-structured list of all the possible inflected forms in
+Romanian, for example "Substantiv neutru, Nominativ-Acuzativ, plural,
+nearticulat".
+
+
+The wordlist table
+------------------
+
+This stores all the inflected forms for all the lexems. All these
+forms are generated according to the lexem's model type and number.
+
+wl_form - The form, including an (') for the accent
+wl_neaccentuat, wl_utf8_general - Obtained from wl_form by removing
+  the apostrophe. Same rationale as for lexem_neaccentuat and
+  lexem_utf8_general.
+wl_lexem - Matches lexems.lexem_id
+wl_analyse - Matches inflections.infl_id
+wl_variant - 0-based counter for situations where multiple forms are
+  accepted for the same inflection (e.g. "cântaserăm" / "cântasem",
+  both accepted for the past perfect, plural, 1st person).
+
+EXAMPLE: Here is a SQL query that lists the paradigm for "ştiucă":
+
+select wl_form, infl_descr, wl_variant
+  from lexems, wordlist, inflections
+  where lexem_id = wl_lexem
+    and wl_analyse = infl_id
+    and lexem_neaccentuat = 'ştiucă'
+  order by infl_id;
+
+
+The model_types table
+---------------------
+
+The model types roughly correspond to parts of speech. One interesting
+model type is T (temporary). It indicates that we do not yet have a
+paradigm for this lexem. An admin will have to look at it and
+establish the correct model type and number. Until then, we do not
+display any paradigm for this lexem when the user searches for it.
+
+mt_canonical - Some model types have "dependants". For example A
+  (adjective) generates the same set of forms as MF (nouns with both
+  masculine and feminine forms, like "constructor"). We only store
+  information about A (the canonical model).
+
+
+The models table
+----------------
+
+This is the core of the inflection generator. The way we generate the
+inflected forms of each word is to group words into models. All the
+words having the same model are declensed the same way (in terms of
+letter transformations). Some models have thousands of words, while
+some models only have one word (these are basically exceptions). For
+every model we chose an exponent word and we enumerated its inflected
+forms explicitly. Then we extracted a set of "transformations" that
+transform the base form in each inflected form. To generate the
+paradigm of another lexem with the same model, we apply the same
+transforms.
+
+EXAMPLE: Model F117 has the exponent c'arte ("book"). The plural of
+c'arte is c'ărţi ("books"). Hence, the transform list to generate the
+plural is
+
+a -> ă
+t -> ţ
+e -> i
+
+Now if we label "p'arte" ("part") with the same model, F117, we can
+find its plural form by applying the same transforms. The result is
+"p'ărţi" ("parts").
+
+model_flag - Not really used now, we used it while we were building
+the database to allow admins to flag models with problems.
+
+
+The transforms table
+--------------------
+
+Trasnforms are essentially (from -> to) pairs. Each of the three
+transforms in the example above has an entry in this table.
+
+
+The model_description table
+---------------------------
+
+For every model, this table lists the acceptable inflections and the
+way to generate them
+
+md_id - Unique numeric ID.
+md_model - Matches models.model_id.
+md_infl - Matches inflections.infl_id.
+md_variant - 0-based counter where multiple variants are allowed for
+  the same md_infl. Matches wordlist.wl_variant.
+md_order - When multiple letter transformations are necessary to
+  obtain the inflected form from the base form, the order in which we
+  apply the transforms is important, hence this field (0-based).
+md_transf - Matches transforms.transf_id.
+md_accent_shift - Indicates where the accent falls in the inflected form:
+  100 - Unknown accent shift. We don't know where the accent falls,
+    because when we initially enumerated the paradigm for this model,
+    either the base form or the inflected form did not include an
+    accent.
+  101 - No accent shift. The accent falls in the exact same place as
+    it did in the base form. This indicates that the base form and the
+    inflected form are identical up to, and including, the accented
+    vowel.
+  other numbers - The accent falls on this vowel, counting from the
+    right, 1-based.
+md_vowel - Sometimes, due to morphologic phenomena, the vowel at the
+  position indicated by md_accent_shift is not the correct vowel to
+  bear accent. So in the model's exponent, the accented vowel may be
+  the 3rd from the right, but in other lexems of the same model, the
+  accented vowel could be the 4th or 2nd from the right, due mainly to
+  diphthongs. If the vowel at position md_accent_shift differs from
+  md_vowel, look one letter to the left or right for md_vowel and put
+  the accent on it.
+
+EXAMPLE: Here is how to find the paradigm for "c'arte", the exponent
+for F117:
+
+select model_exponent, infl_descr, md_variant, md_order,
+       md_accent_shift, md_vowel, transf_from, transf_to
+  from models, model_description, inflections, transforms
+  where model_id = md_model
+    and md_transf = transf_id
+    and md_infl = infl_id
+    and model_type = 'F'
+    and model_no = '117'
+  order by md_infl, md_variant, md_order;
+
+
+The participle_models table
+---------------------------
+
+Lexems labeled with the model_type 'VT' are transitive verbs and their
+participle form should be declensed as an adjective. For example, "a
+speria" (to scare) has the participled "speriat" (scared), which has
+the usual adjective forms "speriată", "speriaţi", "speriate"
+etc. Commonly, this adjective is declensed according to the model A2,
+but not always. The participle_models indicates, for every verb model,
+the corresponding adjective model to be used for participles.
+
+pm_id - Unique numeric ID.
+pm_verb_model - The number (not ID!) of the verb model. An entry in
+  models is guaranteed to exist with type V and number pm_verm_model.
+pm_participle_model - The number (not ID!) of the participle model. An
+  entry in models is guaranteed to exist with type A and number
+  pm_participle_model.

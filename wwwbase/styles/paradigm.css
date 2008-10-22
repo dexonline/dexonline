@@ -1,0 +1,57 @@
+div.lexem {
+  padding-left: 0;
+}
+
+span.lexemName {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+table.lexem {
+  border-collapse: collapse;
+  margin-left: 0;
+  margin-top: 10px;
+}
+
+table.lexem tr td {
+  border: 1px solid #dddddd;
+  padding: 0px 10px;
+}
+
+table.lexem tr td.inflection {
+  color: #555555;
+  font-style: italic;
+  text-align: center;
+}
+
+table.lexem tr td.form {
+  font-weight: bold;
+}
+
+table.lexem tr td.spacer {
+  height: 3px;
+}
+
+table.lexem tr td.person {
+  text-align: right;
+}
+
+div.noParadigm {
+  color: #555555;
+  font-style: italic;
+  padding-left: 80px;
+  white-space: nowrap;
+}
+
+span.isLoc {
+  color: green;
+  cursor: help;
+  font-weight: bold;
+}
+
+div.paradigm {
+  margin: 5px 50px;
+  padding: 5px;
+  display: none;
+  white-space: nowrap;
+}

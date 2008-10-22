@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../styles/flex.css" rel="stylesheet" type="text/css"/>
+    <title>DEX | {$sectionTitle|escape}</title>
+  </head>
+
+  <body>
+    {include file="admin/header.ihtml"
+             title="$sectionTitle"
+             items="$searchResults"}
+
+    {include file="admin/recentlyVisited.ihtml"}
+
+    {foreach from=$searchResults item=row}
+      {$row->definition->htmlRep}<br/>
+      <span class="defDetails">
+        Id: {$row->definition->id} |
+        Sursa: {$row->source->shortName|escape} |
+        Trimisă de {$row->user->nick|escape}</a>,
+        {$row->definition->createDate|date_format:"%e %b %Y"} |
+        {assign var=status value=`$row->definition->status`}
+        {assign var=statusName value=`$allStatuses[$status]`}
+        Starea: {$statusName} |
+
+        <a href="definitionEdit.php?definitionId={$row->definition->id}"
+          >Editează</a>
+      </span>
+      <br/>
+      {foreach from=$row->typos item=typo}
+        <span class="typo">* {$typo->problem|escape}</span><br/>
+      {/foreach}
+      <br/>
+    {/foreach}
+
+    {include file="common/bits/debugInfo.ihtml"}
+  </body>
+
+</html>

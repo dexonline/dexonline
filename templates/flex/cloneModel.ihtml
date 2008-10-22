@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../styles/flex.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../js/dex.js"></script>
+    <title>DEX | Clonare model: {$modelType}{$modelNumber}</title>
+  </head>
+  
+  <body>
+    {assign var="title" value="Clonare model: `$modelType``$modelNumber`"}
+    {include file="admin/header.ihtml" title="$title"}
+    {include file="admin/recentlyVisited.ihtml"}
+    {include file="common/errorMessage.ihtml"}
+
+    <form action="cloneModel.php" method="post">
+      <input type="hidden" name="modelType" value="{$modelType}"/>
+      <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
+
+      Număr nou de model:
+      <input type="text" name="newModelNumber" value="{$newModelNumber|escape}"/>
+      <br/>
+
+      <input type="checkbox" id="chooseLexems" name="chooseLexems"
+             value="1" checked="checked"
+             onclick="toggleDivVisibility('lexemDiv');"/>
+      <label for="chooseLexems">Doresc să migrez acum lexemele</label>
+      <br/>
+
+      <div id="lexemDiv" class="cm_lexemDiv" style="display: block">
+        Bifaţi lexemele pe care doriţi să le migraţi la noul model:
+        <br/>
+
+        {foreach from=$lexems item=l}
+          <input type="checkbox" id="lexem_{$l->id}" name="lexemId[]"
+                 value="{$l->id}"/>
+          <label for="lexem_{$l->id}">
+            {include file="common/bits/lexemName.ihtml" lexem=$l}
+            <span class="deemph">({$l->modelType}{$l->modelNumber})</span>
+          </label>
+          <br/>
+        {/foreach}
+      </div>
+
+      <!-- We want to disable the button on click, but still submit a value -->
+      <input type="hidden" name="cloneButton" value=""/>
+      <input type="submit" name="bogusButton" value="Clonează"
+             onclick="this.disabled=true; this.parentNode.cloneButton.value = '1';"/>
+    </form>
+  </body>
+</html>

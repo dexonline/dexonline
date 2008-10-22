@@ -1,0 +1,14 @@
+<div class="header">
+  <div class="title">
+    {$title|escape}
+    {if $items}({$items|@count}){/if}
+  </div>
+  {if !$noLinks}
+    <div class="links">
+      <a href="../">DEX online</a> |
+      <a href="../admin/">Pagina moderatorului</a> |
+      <a href="#" onclick="return adminHelpWindow();">Ajutor</a>
+    </div>
+  {/if}
+  <div style="clear: both;"></div>
+</div>

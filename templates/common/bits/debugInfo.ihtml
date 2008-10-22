@@ -1,0 +1,8 @@
+{if $debug}
+  <div class="debugInfo">
+    Pagină generată în
+    {php}echo debug_getRunningTimeInMillis();{/php}
+    ms.<br/>
+   {php}echo debug_getDebugInfoAsHtml();{/php}
+  </div>
+{/if}

@@ -1,0 +1,14 @@
+<br/>
+
+<form action="scrabbleLoc.php" method="get">
+  Versiunea LOC:
+  <select name="locVersion">
+    {foreach from=$locVersions item=lv}
+      <option value="{$lv->name|escape}">
+        {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"})
+      </option>
+    {/foreach}
+  </select>
+  <input type="submit" name="submitButton" value="Arată"
+         onclick="return hideSubmitButton(this)"/>
+</form>

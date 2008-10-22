@@ -1,0 +1,95 @@
+<html lang="ro">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link href="{$cssRoot}/slick.css" rel="stylesheet" type="text/css">
+  <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
+  <title>{$page_title|escape}</title>
+  <script type="text/javascript" src="js/dex.js"></script>
+</head>
+
+{if $show_search_box && $focus_search_box}
+  <body id="slickSkinBody" onLoad=document.frm.cuv.focus()>
+{else}
+  <body id="slickSkinBody">
+{/if}
+
+<div id="fond">
+  <div id="antet"><img src="{$imgRoot}/slick/logo.jpg"
+    alt="DEX online - Dicţionar explicativ al limbii române"></div>
+  <div id="meniu">
+  <table cellspacing="0">
+    <tr>
+      <td nowrap {if $slick_selected == "index"}class="sel"{/if}>
+        <a href="/">prima</a></td>
+      <td nowrap><a href="contrib.php">contribuie</a></td>
+      <td nowrap {if $slick_selected == "corect"}class="sel"{/if}>
+        <a href="corect.php" id="guideLink">corect/greşit</a></td>
+      <td nowrap><a href="javascript:abbrevwindow()">abrevieri</a></td>
+      <td nowrap {if $slick_selected == "faq"}class="sel"{/if}>
+        <a href="faq.php">informaţii</a></td>
+      <td nowrap {if $slick_selected == "tools"}class="sel"{/if}>
+        <a href="tools.php">unelte</a></td>
+      <td nowrap {if $slick_selected == "top"}class="sel"{/if}>
+        <a href="top.php">top</a></td>
+      <td width="100%">&nbsp;</td>
+      <td nowrap><a href="contact.php">contact</a></td>
+    </tr>
+  </table>
+  </div>
+  {if $show_search_box}
+    <div id="cautare">
+      <form name="frm" method="get" action="search.php">
+        Cuvântul:
+        <input name="cuv" value="{$cuv|escape}">
+        {include file="common/sourceDropDown.ihtml"}
+        <input type="submit" value="Caută">
+        <a href="javascript:helpWindow()">Ajutor</a>
+      </form>
+    </div>
+  {/if}
+  <div id="corp">
+    {include file=$contentTemplateName}
+  </div>
+	<div id="footer">
+  <table cellspacing="0">
+    <tr>
+      <td width="100%">&nbsp;</td>
+      <td nowrap>utilizator: <span id="user.nick">{$nick|escape}</td>
+
+      {if !$is_mirror}
+        {if $is_connected && $is_moderator}
+          <td nowrap><a href="admin">moderator</a></td>
+        {/if}
+        {if $is_connected}
+          <td nowrap><a href="account.php">contul meu</a></td>
+          <td nowrap><a href="logout.php" id="logoutLink">deconectare</a></td>
+        {else}
+          <td nowrap><a href="login.php" id="loginLink">conectare</a></td>
+	  <td nowrap><a href="signup.php">înscriere</a></td>
+        {/if}
+      {/if}
+    </tr>
+  </table>
+  </div>
+
+  <table class="tabelSumar">
+    <tr>
+      <td>
+        Starea curentă: <i>DEX online</i> a învăţat
+        <b>{$words_total}</b> de definiţii, din care
+        {$words_last_month} în ultima lună.<br/>
+      </td>
+      <td class="ingust">
+        {include file="common/trafic_ro.ihtml"}
+      </td>
+      {if $hostedBy}
+        <td class="ingust">
+          {include file="common/hosting/$hostedBy.ihtml"}
+        </td>
+      {/if}
+    </tr>
+  </table>
+</div>
+</body>
+</html>

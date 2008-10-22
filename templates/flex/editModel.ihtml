@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../styles/flex.css" rel="stylesheet" type="text/css"/>
+    <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../js/dex.js"></script>
+    <title>DEX | Editare model: {$modelType}{$modelNumber}</title>
+  </head>
+  
+  <body>
+    {assign var="title" value="Editare model: `$modelType``$modelNumber`"}
+    {include file="admin/header.ihtml" title="$title"}
+    {include file="admin/recentlyVisited.ihtml"}
+    {include file="common/errorMessage.ihtml"}
+
+    {if $wasPreviewed && count($errorMessage) == 0}
+      Examinaţi modificările afişate mai jos (dacă există) şi, dacă totul
+      arată normal, apăsaţi butonul "Salvează". Dacă nu, continuaţi editarea
+      şi apăsaţi din nou butonul "Testează".
+      <br/><br/>
+    {/if}
+
+    <form action="editModel.php" method="post">
+      <input type="hidden" name="modelType" value="{$modelType}"/>
+      <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
+
+      <table class="editModel">
+        <tr>
+          <td>
+            Număr model
+            <span class="small">(poate conţine orice caractere)</span>
+          </td>
+          <td class="input">
+            <input type="text" name="newModelNumber"
+                   value="{$newModelNumber|escape}"/>
+            {include file="admin/helpLink.ihtml" anchor="modelEdit"}
+          </td>
+        </tr>
+        <tr>
+          <td>Descriere</td>
+          <td class="input">
+            <input type="text" name="newDescription"
+                   value="{$newDescription|escape}"/>
+          </td>
+        </tr>
+        {if $adjModels}
+          <tr>
+            <td>Model de participiu</td>
+            <td class="input">
+              <select name="newParticipleNumber">
+                {foreach from=$adjModels item=m}
+                  <option value="{$m->number}"
+                    {if $m->number == $newParticipleNumber
+                      }selected="selected"{/if}
+                    >{$m->number}{if !$m->id}*{/if} ({$m->exponent})
+                  </option>
+                {/foreach}
+              </select>
+            </td>
+          </tr>
+        {/if}
+        <tr class="exponent">
+          <td>Exponent</td>
+          <td class="input">
+            <input type="text" name="newExponent" value="{$newExponent|escape}"/>
+          </td>
+        </tr>
+        {foreach from=$inflections item=infl key=i}
+          <tr>
+  	        <td>{$infl->description|escape}</td>
+  	        <td class="input">
+  	          <input type="text" name="forms_{$infl->id}"
+  		               value="{$inputValues[$i]|escape}"/>
+  	        </td>
+  	      </tr>
+        {/foreach}
+      </table>
+
+      {if $wasPreviewed}
+        {if $newModelNumber != $modelNumber ||
+            $newExponent != $exponent ||
+            $newDescription != $description ||
+            $newParticipleNumber != $participleNumber}
+          <h3>Schimbări globale:</h3>
+
+          <ul>
+            {if $newModelNumber != $modelNumber}
+              <li>Număr de model nou: {$newModelNumber|escape}</li>
+            {/if}
+            {if $newExponent != $exponent}
+              <li>Exponent nou: {$newExponent|escape}</li>
+            {/if}
+            {if $newDescription != $description}
+              <li>Descriere nouă: {$newDescription|escape}</li>
+            {/if}
+            {if $newParticipleNumber != $participleNumber}
+              <li>Model nou de participiu: A{$newParticipleNumber|escape}</li>
+            {/if}
+          </ul>
+        {/if}
+
+        {if count($regenTransforms)}
+          <h3>Lista de inflexiuni afectate ({$regenTransforms|@count}):</h3>
+          <ol>
+            {foreach from=$regenTransforms item=ignored key=inflId}
+              <li>{$inflectionMap[$inflId]->description|escape}</li>
+            {/foreach}
+          </ol>
+
+          <h3>Lexemele afectate ({$lexems|@count}) şi noile lor forme:</h3>
+    
+          <table class="changedForms">
+            <tr class="header">
+              <td class="lexem">Lexem</td>
+              <td class="model">Model</td>
+              {foreach from=$regenTransforms item=ignored key=ignored2}
+                <td class="forms">{counter name="otherCounter"}.</td>
+              {/foreach}
+            </tr>
+            <tr class="exponent">
+              <td class="lexem">{$newExponent}</td>
+              <td class="model">exponent</td>
+              {foreach from=$regenTransforms item=ignored key=inflId}
+                {assign var="variantArray" value="`$newForms[$inflId]`"}
+                <td class="forms">
+                  {foreach from=$variantArray item=form key=i
+                    }{if $i}, {/if
+                    }{$form|escape
+                  }{/foreach}
+                  {if !count($variantArray)}&mdash;{/if}
+                </td>
+              {/foreach}
+            </tr>
+            {foreach from=$lexems item=l key=lIndex}
+              <tr>
+                <td class="lexem">{$l->form|escape}</td>
+                <td class="model">{$l->modelType}{$l->modelNumber}</td>
+                {assign var="inflArray" value="`$regenForms[$lIndex]`"}
+                {foreach from=$inflArray item=variantArray key=inflId}
+                  <td class="forms">
+                    {foreach from=$variantArray item=form key=i
+                      }{if $i}, {/if
+                      }{$form|escape
+                    }{/foreach}
+                    {if !count($variantArray)}&mdash;{/if}
+                  </td>
+                {/foreach}
+              </tr>
+            {/foreach}
+          </table>
+        {/if}
+      {/if}
+
+      {if count($participles)}
+        <h3>Participii regenerate conform modelului
+          A{$newParticipleNumber}:</h3>
+
+        {foreach from=$participles item=p key=i}
+          {if $participleParadigms[$i]}
+            {include file="common/bits/paradigm.ihtml"
+                     lexem=$p
+                     wlMap=$participleParadigms[$i]
+                     modelType="A"}
+          {/if}
+        {/foreach}
+      {/if}
+
+      <br/>
+      <input type="submit" name="previewButton" value="Testează"/>
+      <!-- We want to disable the button on click, but still submit a value -->
+      <input type="hidden" name="confirmButton" value=""/>
+      {if $wasPreviewed && count($errorMessage) == 0}
+        <input type="submit" name="bogusButton" value="Salvează"
+               onclick="this.disabled=true; this.parentNode.confirmButton.value = '1';"/>
+      {/if}
+    </form>
+  </body>
+</html>

@@ -1,0 +1,186 @@
+366534|||||@COX�@  v. @\|coxo-\|coxo\|@. 
+366535|||||@COXO�@ Element prim de compunere savantă cu semnificaţia "(referitor la)  coapsă, şold", "al coapsei". [Var. $cox-$. / &lt; fr. $coxo-$, cf. lat. $coxa$]. 
+366550|||||@CRANIO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) craniu". [Pron. $-ni-o-$, var. $crani-$. / &lt; fr. $crânio-$, cf. gr. $kranion$]. 
+369919|||||@ESTEZIO�@ Element prim de compunere savantă cu semnificaţia "senzaţie", "sensibilitate". [Cf. fr. $esthésio-$, it. $estesio-$, gr. $aisthesis$].
+371036|||||@FLEB�@  v. @\|flebo�\|flebo\|@.
+371037|||||@FLEBO�@ Element prim de compunere savantă cu semnificaţia "(referitor la o) venă", "aparţinând venelor", "de vene". [Var. $fleb-$. / &lt; fr. $phléb(o)-$, it. $flebo-$, cf. gr. $phleps$ - venă].
+371249|||||@�FORÍE@ Element secund de compunere savantă cu semnificaţia "purtare", "comportament", "(referitor la) atitudine". [&lt; fr. $-phorie$, cf. gr. $phorein$ - a comporta].
+371254|||||@�FORM@ Element secund de compunere savantă cu semnificaţia "(referitor la) formă", "cu o anumită formă". [&lt; fr. $-forme$].
+375298|||||@�LOG@ Element secund de compunere savantă, cu sensul de "specialist", "tehnician", "vorbire", "discurs". [&lt; fr. $-logue$, it. $-logo$].
+375304|||||@�LOGÍE@ Element secund de compunere savantă, cu sensul de "disciplină", "ştiinţă", "expunere ştiinţifică". [&lt; fr. $-logie$, it. $-logia$, cf. gr. $-logia$ &lt; $logos$ - cuvânt, discurs].
+375317|||||@LOMB�@  v. @\|lombo�\|lombo\|@.
+377175|||||@NAZO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) nas". [Var. $naso-, naz-$. / &lt; lat. $nasus$].
+377207|||||@�NAÚT@ Element secund de compunere savantă, cu sensul de "care face parte din echipajul unei nave (de orice fel)", "navigator". [Pron. $-na-ut$. / cf. it. $nauta$, lat. $nauta$, gr. $nautes$].
+377441|||||@NEUR�@  v. @\|neuro-\|neuro\|@.
+377442|||||@NEURO�@ Element prim de compunere savantă cu semnificaţia "nerv", "nervos", "(referitor la) nervi, la sistemul nervos". [Pron. $ne-u-ro-$, var. $neur-, nevr-, nevro-$. / &lt; fr. $neuro-$, cf. gr. $neuron$ - nerv].
+377443|||||@NEVR�@  v. @\|neuro-\|neuro\|@.
+377444|||||@NEVRO�@  v. @\|neuro-\|neuro\|@.
+378691|||||@PARA�@ Element prim de compunere savantă cu semnificaţia "în afara, pe lângă", "contra". {&lt; fr., it. $para-$, cf. gr. $para$ - lângă, vecin].
+382496|||||@�SCAF@ Element secund de compunere savantă cu semnificaţia "barcă", "ambarcaţie". [&lt; it. $-scafo$, fr. $-scaphe$, cf. gr. $skaphe$].
+382497|||||@SCAFO�@ Element prim de compunere savantă cu semnificaţia "barcă", "ambarcaţie". [&lt; fr. $scapho-$, cf. gr. $skaphe$].
+382499|||||@VECTO�@  v. @\|vector\|vector\|@.
+382526|||||@SCATO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) excremente". [&lt; fr. $scato-$, cf. gr. $skor, skatos$].
+382536|||||@SCENO�@  v. @\|scenă (6)\|scenă\|@ [în DN].
+382537|||||@SCEN�@  v. @\|scenă (6)\|scenă\|@ [în DN].
+382556|||||@SCHIA�@ Element prim de compunere savantă cu semnificaţia "umbră", "umbros", "umbrit". [Pron. $schi-a-$, var. $scia-$. / &lt; fr. $skia$, cf. gr. $skia$].
+382557|||||@SCIA�@  v. @\|schia�\|schia\|@.
+382568|||||@SCHIZO�@ Element prim de compunere savantă cu semnificaţia "diviziune", "sciziune", "împărţire", "împărţit". [&lt; fr. $schizo-$, cf. gr. $schizein$ - a împărţi].
+382588|||||@SCINTILO�@  v. @\|scinti�\|scinti\|@.
+382589|||||@SCINTI�@ Element prim de compunere savantă cu semnificaţia "scânteie", "de scânteie", "scintilaţie". [Var. $scintilo-$. / &lt; fr. $scinti-, scintilo-$, cf. lat. $scintilla$].
+382606|||||@SCIZI�@ Element prim de compunere savantă cu semnificaţia "separare", "împărţire". [Cf. lat. $scissus$ &lt; $scindere$ - a despica].
+382611|||||@SCLERO�@ Element prim de compunere savantă cu semnificaţia "întăritură", "induraţie", "rigidizare", "sclerotică", "dur", "duritate". [Var. $scler-$ / &lt; fr. $scléro-$, it. $sclero-$, cf. gr. $skleros$ - dur].
+382612|||||@SCLER�@  v. @\|sclero�\|sclero\|@.
+382655|||||@�SCÓP@ Element secund de compunere savantă cu sensul "(persoană, aparat) care examinează", "care observă, priveşte". [&lt; fr. $-scope$, it. $-scopo$, cf. gr. $skopein$ - a privi].
+382656|||||@�SCOPÍE@ Element secund de compunere savantă cu semnificaţia "observaţie", "examinare", "privire". [&lt; fr. $-scopie$, it. $-scopia$, cf. gr. $-skopia$ &lt; $skopein$ - a privi].
+382675|||||@SCRIBO�@ Element prim de compunere savantă cu semnificaţia "(de) \|scrib\|scrib\|". [&lt; fr. $scribo-$, cf. lat. $scriba$].
+382681|||||@SCRIPTO�@ Element prim de compunere savantă cu semnificaţia "scris", "în scris", "scriptic". [Var. $script-$. / &lt; fr. $scripto-$, it. $scritto-$, cf. lat. $scriptus$ &lt; $scribere$ - a scrie].
+382682|||||@SCRIPT�@  v. @\|scripto�\|scripto\|@.
+382835|||||@SEISM�@   v. @\|seismo�\|seismo\|@.
+382836|||||@SEISMO�@ Element prim de compunere savantă cu semnificaţia "\|seism\|seism\|" (@1@). [Pron. $se-is-$, var. $seism-, sismo-$. / &lt; fr. $séismo-$, cf. gr. $seismos$].
+382837|||||@SISMO�@  v.  @\|seismo�\|seismo\|@.
+382847|||||@SELENO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) Lună", "al Lunii", "de (pe) Lună", "selenar", "lunar". [Var. $selen-$. / &lt; fr. $séléno-$, cf. gr. $selene$ - Lună].
+382848|||||@SELEN�@  v. @\|seleno�\|seleno\|@.
+382875|||||@SEMIO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) semne", "\|semn\|semn\|". [Pron. $-mi-o-$, var. $semeio-$. / &lt; fr. $sémio-, sémeio-$, cf. gr. $semeion$].
+382876|||||@SEMEIO�@  v. @\|semio�\|semio\|@.
+382958|||||@SEPT�@ Element prim de compunere savantă cu semnificaţia "şapte". [&lt; fr. $sept-$, cf. lat. $septem$].
+382963|||||@�SEPTIC�@ Element prim şi secund de compunere savantă cu semnificaţia "\|infectat\|infectat\|", "\|microbian\|microbian\|", "\|infecţios\|infecţios\|". [&lt; fr. $-septique$, cf. gr. $septikos$].
+382970|||||@SERICI�@ Element prim de compunere savantă cu semnificaţia "(referitor la) mătase", "mătăsos", "\|sericeu\|sericeu\|", "de mătase". [Var. $seri-$. / &lt; fr. $serici-$, cf. lat. $sericus$].
+382971|||||@SERI�@  v. @\|serici�\|serici\|@.
+382983|||||@SERO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|ser\|ser\|", "al serului". [&lt; fr. $séro-$, lat. $serum$ - ser].
+382998|||||@SERV�@  v. @\|servo�\|servo\|@.
+382999|||||@SERVO�@ Element prim de compunere savantă având semnificaţia de "aservit", "aservitor" pentru elementul care urmează. [Var. $serv-$. / &lt; fr., it. $servo-$].
+383029|||||@SEXA�@  v. @\|sex�\|sex\|@.
+383031|||||@SEXO�@ Element de compunere savantă cu semnificaţia "(referitor la) sex", "de sex", "al sexului". [&lt; fr. $sexo-$, cf. lat. $sexus$].
+383040|||||@SFERI�@  v. @\|sfero�\|sfero\|@.
+383041|||||@SFERO�@ Element prim de compunere savantă cu semnificaţia "(referitor la o) sferă (@1@), "sferic". [Var. $sferi-$. / &lt; fr. $sphero-$, cf. lat. $sphaera$, gr. $sphaira$].
+383072|||||@SIAL�@  v. @\|sialo�\|sialo\|@. 
+383073|||||@SIALO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|salivă\|salivă\|", "\|salivar\|salivar\|". [Pron. $si-a-$, var. $sial-$. / &lt; fr. $sialo-$, cf. gr. $sialon$].
+383090|||||@SIDERO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|fier\|fier\|", "de fier", "feros". [&lt; fr. $sidéro-$, cf. gr. $sideros$ - fier].
+383101|||||@SIFILI�@  v. @\|sifilo�\|sifilo\|@.
+383102|||||@SIFILO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|sifilis\|sifilis\|", "sifilitic", "\|lues\|lues\|", "luetic". [Var. $sifili-$. / &lt; fr. $syphili-$].
+383114|||||@SIGIL�@  v. @\|sigilo�\|sigilo\|@.
+383115|||||@SIGILO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|sigiliu\|sigiliu\|". [Var. $sigil-$. / &lt; lat. $sigillum$].
+383124|||||@�SILÁB@ Element secund de compunere savantă cu sensul de "silabă". [Var. $\|-silabic\|silabic\|$. / &lt; lat. $syllaba$, gr. $syllabe$].
+383145|||||@SILV�@  v. @\|silvi�\|silvi\|@.
+383146|||||@SILVI�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|pădure\|pădure\|", "\|silvic\|silvic\|". [Var. $silv-, silvo-$. / &lt; fr. $sylvi-$, cf. lat. $silva$].
+383147|||||@SILVO�@  v. @\|silvi�\|silvi\|@.
+383154|||||@SIN�@ Element prim de compunere savantă cu semnificaţia "împreună", "cu". [Var. $sim-$. / &lt; it. $sin-$, fr. $syn-$, cf. gr. $syn$].
+383155|||||@SIM�@  v. @\|sin�\|sin\|@.
+383175|||||@SIMIL�@  v. @\|simili�\|simili\|@.
+383176|||||@SIMILI�@ Element prim de compunere savantă cu semnificaţia "asemănător", "\|similar\|similar\|", "asemenea cu". [Var. $simil-$. / &lt; fr. $simili-$, cf. it. $simile$, lat. $similis$].
+383237|||||@SINDESM�@  v. @\|sindesmo�\|sindesmo\|@.
+383238|||||@SINDESMO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|ligamente\|ligament\|", "(referitor la)  \|ţesutul conjunctiv\|conjunctiv\|". [Var. $sindesm-$. / &lt; fr. $syndesmo-$, cf. gr. $syndesmos$ - fâşie, ligament].
+383263|||||@SINISTR�@  v. @\|sinistro�\|sinistro\|@.
+383264|||||@SINISTRO�@ Element prim de compunere savantă cu semnificaţia "(de) stânga", "stâng". Var. $sinistr-$. / &lt; fr. $sinistro-$, cf. lat. $sinister$ - stâng].
+383328|||||@SITIO�@ Element prim de compunere savantă cu semnificaţia "aliment", "alimentar". "hrană". [Var. $sito-$. / &lt; fr. $sitio-$, it. $sito-$, cf. gr. $sition$].
+383329|||||@SITO�@  v. @\|sitio�\|sitio\|@.
+383373|||||@SOCI�@  v. @\|socio�\|socio\|@.
+383374|||||@SOCIO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|societate\|societate\|", "\|social\|social\|". [Pron. $-ci-o-$, var. $soci-$. / &lt; fr., it. $socio-$, cf. lat. $socius$ - tovarăş].
+383421|||||@SOL�@ Element prim de compunere savantă cu semnificaţia "\|sol\|sol\|" (@1@), "pământ". [&lt; lat. $solum$].
+383430|||||@SOLENO�@ Element prim de compunere savantă cu semnificaţia  "\|tub\|tub\|", "\|tubular\|tubular\|". [&lt; it. $soleno-$, cf. gr. $solen$].
+383434|||||@SOLI�@  v. @\|solo�\|solo\|@.
+383455|||||@SOMAT�@  v. @\|somato�\|somato\|@.
+383456|||||@SOMATO�@ Element prim de compunere savantă cu semnificaţia "corp", "corporal". [Var. $somat-$. / &lt; fr. $somato-$, cf. gr. $soma, somatos$ - corp].
+383460|||||@SON�@ Element prim de compunere savantă cu semnificaţia "(referitor la) sunet", "sonor". [Var. $sona-, sono-$. / &lt; fr. $son$, lat. $sonus$].
+383461|||||@SONA�@  v. @\|son�\|son\|@.
+383462|||||@SONO�@  v. @\|son�\|son\|@.
+383513|||||@SPASMO�@  v. @\|spasm (2)\|spasm\|@ [în DN].
+383530|||||@SPECTRO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|spectru (@1@)\|spectru\| [în DN]"; "al spectrului", "spectral". [&lt; fr. $spectro-$, cf. lat. $spectrum$].
+383547|||||@SPELEO�@  v. @\|speo�\|speo\|@.
+383548|||||@SPEO�@ Element prim de compunere savantă cu sensul "(referitor la) peşteri", "peşteră". [Pron. $spe-o-$, var. $speleo-$. / &lt; fr. $spéléo-$, it. $speleo-$, cf. gr. $speos$].
+383559|||||@SPERM^1�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|spermă\|spermă\|", "\|sămânţă\|sămânţă\|", "\|spermatic\|spermatic\|". [Var. $spermato-, spermo-$. / &lt; fr. $sperm(o)-, spermat(o)-$, cf. gr. $sperma$].
+383560|||||@�SPERM^2@ Element secund de compunere savantă cu semnificaţia "(referitor la) \|sămânţă\|sămânţă\|". [ &lt; fr. $-sperme$, cf. gr. $sperma$].
+383561|||||@SPERMATO�@  v. @\|sperm^1�\|sperm\|@.
+383562|||||@SPERMO�@  v. @\|sperm^1�\|sperm\|@.
+383638|||||@SPIRO^1�@ Element prim de compunere savantă cu semnificaţia "\|spirală\|spirală\|", "\|spiră\|spiră\|", "în formă de" (sau "referitor la) spirală (spiră)". [Var. $spiral-, spirali-$. / &lt; fr., it. $spiro-$, cf. gr. $speira$].
+383642|||||@SPIRO^2�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|respiraţie\|respiraţie\|". [&lt; fr., it. $spiro-$, cf. lat. $spirare$ - a respira].
+383657|||||@SPLANCHNO�@  v. @\|splanhno�\|splanhno\|@.
+383658|||||@SPLANHNO�@  Element prim de compunere savantă care introduce în termeni referirea la "\|viscere\|viscere\|". [Scris şi $splanchno-$. / &lt; fr. $splanchno-$, cf. gr. $splanchnon$].
+383668|||||@SPLEN�@  v. @\|spleno�\|spleno\|@.
+383669|||||@SPLENO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|splină\|splină\|", "al splinei". [Var. $splen-$. / &lt; fr. $spléno-$, it. $spleno-$, cf. gr. $splen$].
+383689|||||@SPONDIL�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|coloana vertebrală\|coloană\|", "\|vertebră\|vertebră\|", "\|vertebral\|vertebral\|". [Var. $spondilo-$. / &lt; fr. $spondylo-$, it. $spondilo-$, cf. gr. $spondylos$].
+383690|||||@SPONDILO�@  v. @\|spondil�\|spondil\|@.
+383702|||||@SPONGIO�@ Element prim de compunere savantă cu semnificaţia "\|burete\|burete\|", "ca un burete", "\|buretos\|buretos\|", "\|spongios\|spongios\|". [&lt; fr. $spongio-$, cf. lat. $spongia$].
+383722|||||@SPORI�@  v. @\|sporo�\|sporo\|@.
+383759|||||@STAFILO�@ Element prim de compunere savantă cu semnificaţia "(în formă de) \|ciorchine\|ciorchine\|". [&lt; fr. $staphylo-$, cf. gr. $staphyle$].
+383786|||||@�STÁT@ Element secund de compunere savantă cu semnificaţia "\|stabilizator\|stabilizator\|". "care menţine \|staţionar\|staţionar\|". [&lt; fr., it. $-state$, cf. gr. $states$].
+383788|||||@�STÁTIC@ Element secund de compunere savantă cu semnificaţia "care stă (în picioare)". [&lt; fr. $-statique$, cf. gr. $statikos$].
+383799|||||@STATO�@ Element prim de compunere savantă cu semnificaţia "care stă drept", "(referitor la) \|statică\|statică\|", "(referitor la condiţiile de) \|echilibru\|echilibru\|". [&lt; fr., it. $stato-$, gr. $statos$].
+383814|||||@STAURO�@ Element prim de compunere savantă cu semnificaţia "(în formă de) \|cruce\|cruce\|". [Pron. $-sta-u-$. / &lt; fr., it.  $stauro-$, cf. gr. $stauros$].
+383819|||||@STEATO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|grăsime\|grăsime\|", "de grăsime", "\|gras\|gras\|". [Pron. $ste-a-$. / &lt; fr. $stéato-$, it. $steato-$, cf. gr. $stear, steatos$].
+383822|||||@STECHIO�@ Element prim de compunere savantă cu semnificaţia "\|element\|element\|". [Pron. $-chi-o-$, var. $stoechio-, stoichio-$. / &lt; fr. $stoechio-$, it. $stechio-$, cf. gr. $stoicheion$].
+383823|||||@STOECHIO�@  v. @\|stechio�\|stechio\|@.
+383824|||||@STOICHIO�@  v. @\|stechio�\|stechio\|@.
+383836|||||@�STEGÍE@ Element secund de compunere savantă cu semnificaţia "\|acoperiş\|acoperiş\|", "\|acoperământ\|acoperământ\|", "\|capac\|capac\|". [&lt; fr. $-stégie$, cf. gr. $stegos$].
+383837|||||@STEGO�@ Element prim de compunere savantă cu semnificaţia "\|acoperământ\|acoperământ\|", "\|acoperiş\|acoperiş\|". [&lt; fr. $stégo-$, it. $stego-$, cf. gr. $stegos$].
+383844|||||@�STENÍE@ Element secund de compunere savantă cu semnificaţia "\|putere\|putere\|". [&lt; fr. $-sthénie$, it. $-stenia$, cf. gr. $sthenos$].
+383845|||||@STENO�@ Element prim de compunere savantă cu semnificaţia "\|scurt\|scurt\|", "\|strâns\|strâns\|", "\|limitat\|limitat\|", "\|restrâns\|restrâns\|", "\|restrângere\|restrângere\|". [&lt; fr. $sténo-$, it. $steno-$, cf. gr. $stenos$].
+383858|||||@STERCO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) fecale", "de fecale", "fecal". [&lt; fr., it. $sterco-$, cf. lat. $stercus$].
+383862|||||@STEREO�@ Element prim de compunere savantă cu semnificaţia "\|solid\|solid\|", "\|rigid\|rigid\|"; "\|spaţial\|spaţial\|", "\|tridimensional\|tridimensional\|", "referitor la mai multe poziţii în spaţiu". [Pron. $-re-o-$. / &lt; fr. $stéréo-$, germ., it. $stereo-$, cf. gr. $stereos$ - solid].
+383905|||||@STERN�@ v. @\|sterno�\|sterno\|@.
+383906|||||@STERNO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|stern\|stern\|", "\|sternal\|sternal\|". [Var. $stern-$. / &lt; fr. $sterno-$, cf. lat. $sternum$].
+383915|||||@STETO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|piept\|piept\|", "(de) piept". [&lt; fr. $stétho-$, it. $steto-$, cf. gr. $stethos$ - piept].
+383923|||||@STILO�@ Element prim de compunere savantă cu semnificaţia "\|coloană\|coloană\|". [&lt; fr. $stylo-$, cf. gr. $stylos$, lat. $stilus$].
+383955|||||@STOMA�@  v. @\|stomato�\|stomato\|@.
+383956|||||@STOMAT�@  v. @\|stomato�\|stomato\|@.
+383957|||||@STOMATO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|gură\|gură\|", "\|bucal\|bucal\|", "\|deschidere\|deschidere\|". [Var. $stoma-, stomat-$. / &lt; fr., it. $stomato-$, cf. gr. $stoma, stomatos$].
+383966|||||@�STOMÍE@ Element secund de compunere savantă cu semnificaţia "\|deschidere\|deschidere\|", "\|deschizătură\|deschizătură\|", "\|gură\|gură\|". [&lt; fr. $-stomie$, it. $-stomia$, cf. gr. $stoma$ - gură].
+383975|||||@STRABO�@ Element prim de compunere savantă cu semnificaţia "\|încrucişat\|încrucişat\|", "\|cruciş\|cruciş\|", "\|saşiu\|saşiu\|". [Var. $strab-$. / &lt; fr., it. $strabo-$, cf. gr. $strabos$].
+383976|||||@STRAB�@  v. @\|strabo�\|strabo\|@.
+383986|||||@STRATI�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|strat\|strat\|", "\|stratigrafic\|stratigrafic\|". [Var. $strato-$. / &lt; fr., it. $strati-, strato-$, cf. lat. $stratum$].
+383987|||||@STRATO�@  v. @\|strati�\|strati\|@.
+384001|||||@STREPTO�@ Element prim de compunere savantă cu sensul de "\|răsucit\|răsucit\|", "\|întors\|întors\|", "\|contorsionat\|contorsionat\|". [&lt; fr., it. $strepto-$, cf. gr. $streptos$].
+384028|||||@STROBO�@ Element prim de compunere savantă cu semnificaţia "\|girator\|girator\|", "\|întoarcere\|întoarcere\|". / &lt; fr., it. $strobo-$, cf. gr. $strobos$].
+384226|||||@�SÚLC@ Element secund de compunere savantă cu sensul "\|despicat\|despicat\|", "\|crestat\|crestat\|". [&lt; lat. $sulcare$ - a brăzda].
+384254|||||@SUPER�@ Element prim de compunere savantă cu semnificaţia: @1.@ "\|Adăugare\|Adăugare\|", "\|adunare\|adunare\|", "\|suprapoziţie\|suprapoziţie\|", "\|exces\|exces\|". @2.@ "Care stă deasupra", "\|superior\|superior\|", "care trece dincolo", "întrece"; "condiţie, poziţie \|superioară\|superior\|". @3.@ "\|Extraordinar\|Extraordinar\|", "\|superlativ\|superlativ\|". V. @\|supra-\|supra\|@. [&lt; fr. $super-$, lat. $super$].
+384255|||||@SUPRA�@ Element prim de compunere savantă cu semnificaţia: @1.@ "\|Deasupra\|Deasupra\|", "\|peste\|peste\|", "care se adaugă". @2.@ "\|Supliment\|Supliment\|", "\|adăugare\|adăugare\|". @3.@ "Care trece peste o \|limită\|limită\|", "\|exces\|exces\|". @4.@ "\|Transcendent\|Transcendent\|", "de dincolo de lumea \|sensibilă\|sensibil\|", "\|supranatural\|supranatural\|". @5.@ "\|Superlativ\|Superlativ\|", "foarte", "\|extraordinar\|extraordinar\|", "prea". V. @\|super-\|super\|@. [&lt; fr. $supra-$, it. $sopra-$, cf. lat. $supra$].
+384423|||||@SUR�@ Element prim de compunere savantă cu semnificaţia "\|super\|super\|", "\|supra\|supra\|", "\|peste\|peste\|", "\|deasupra\|deasupra\|", "\|în exces\|exces\|". [&lt; fr. $sur-$].
+384426|||||@SURDO�@ Element prim de compunere savantă cu semnificaţia "\|surd\|surd\|", "\|surdină\|surdină\|". [&lt; @\|surd\|surd\|@].
+384576|||||@TAHI�@ Element prim de compunere savantă cu semnificaţia "\|rapid\|rapid\|", "\|accelerat\|accelerat\|", "\|turaţie\|turaţie\|". [Scris şi $tachi-$, var. $taheo-$ (pron. $-he-o-$), $taho-$. / &lt; fr. $tachy-, tachéo-$, germ. $tacho-$, cf. gr. $tachys$ - rapid]. 
+384577|||||@TACHI�@  v. @\|tahi�\|tahi\|@. 
+384578|||||@TAHEO�@  v. @\|tahi�\|tahi\|@ 
+384584|||||@TAFO�@ Element prim de compunere savantă cu semnificaţia "\|mormânt\|mormânt\|". [&lt; fr. $tapho-$, it. $tafo-$, cf. gr. $taphos$].
+384620|||||@TAHO�@  v. @\|tahi�\|tahi\|@ 
+384625|||||@TALO�@  v. @\|tal\|tal\|@.
+384628|||||@TALÁMO�@  v. @\|talamus\|talamus\|@.
+384631|||||@TALASO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|mare\|mare\|", "de mare", "\|marin\|marin\|". [Scris şi $thalaso-, thalasso-$. / &lt; fr. $thalasso-$, it. $talasso-$, cf. gr. $thalassa$].
+384632|||||@THALASO�@  v. @\|talaso�\|talaso\|@.
+384633|||||@THALASSO�@  v. @\|talaso�\|talaso\|@.
+384653|||||@TANATO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|moarte\|moarte\|". [Scris şi $thanato-$. / &lt; fr. $thanato-$, it. $tanato-$, cf. gr. $thanatos$ - moarte].
+384654|||||@THANATO�@  v. @\|tanato�\|tanato\|@.
+384696|||||@TARSO�@  v. @\|tars\|tars\|@.
+384711|||||@TAUMAT�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|minune\|minune\|". [Pron. $ta-u-$, scris şi $thaumat-$. / &lt; fr. $thaumat-$, it. $taumat-$, cf. gr. $thauma$].
+384712|||||@THAUMAT�@  v. @\|taumat�\|taumat\|@.
+384716|||||@TAUTO�@ Element prim de compunere savantă cu semnificaţia "\|identic\|identic\|", "la fel", "\|identitate\|identitate\|". [Pron. $ta-u-$. / &lt; it., fr. $tauto-$, cf. gr. $tauto$ - acelaşi].
+384724|||||@TAXI�@ Element prim de compunere savantă cu semnificaţia "\|dispoziţie\|dispoziţie\|", "\|ordine\|ordine\|", "\|clasificare\|clasificare\|". [Var. $taxo-$. / &lt; fr. $taxi-$, cf. gr. $taxis$ - ordonare, colecţie].
+384725|||||@TAXO�@  v. @\|taxi�\|taxi\|@.
+384739|||||@TE�@  v. @\|teo�\|teo\|@.
+384740|||||@TEO�@ Element prim de compunere savantă cu semnificaţia "\|zeu\|zeu\|", "\|dumnezeu\|dumnezeu\|". [Pron. $te-o-$, var. $te-$, scris şi $theo-$. / &lt; it. $teo-$, fr. $théo-$, cf. gr. $theos$].
+384741|||||@THEO�@  v. @\|teo�\|teo\|@.
+384748|||||@TEATRO�@  v. @\|teatru (II)\|II\|@ [în DN].
+384750|||||@THEATRO�@  v. @\|teatru (II)\|II\|@ [în DN].
+384752|||||@�TECĂ@ Element secund de compunere savantă cu semnificaţia "\|colecţie\|colecţie\|", "\|depozit\|depozit\|", "\|custodie\|custodie\|", "\|dulap\|dulap\|". [Scris şi $-thecă$. / &lt; it. $-teca$, fr. $-thèque$, cf. gr. $theke$].
+384753|||||@�THECĂ@  v. @\|�tecă\|tecă\|@.
+384754|||||@TECHN�@  v. @\|tehnic\|tehnic\|@ [în DN].
+384755|||||@TECHNI�@  v. @\|tehnic\|tehnic\|@ [în DN].
+384758|||||@TEHN�@  v. @\|tehnic\|tehnic\|@ [în DN].
+384759|||||@TEHNI�@  v. @\|tehnic\|tehnic\|@ [în DN].
+384760|||||@TEHNO�@  v. @\|tehnic\|tehnic\|@ [în DN].
+384761|||||@�TEHNÍE@ Element secund de compunere savantă cu semnificaţia "\|tehnică\|tehnică\|". [Scris şi $-technie$. / &lt; fr. $-technie$, it. $-tecnia$, cf. gr. $techne$].
+384762|||||@�TECHNÍE@  v. @\|�tehnie\|tehnie\|@.
+384764|||||@TEL�@ v. @\|tele�\|tele\|@.
+384765|||||@TELE�@ Element prim de compunere savantă cu semnificaţia "\|(de) la distanţă\|distanţă\|", "prin intermediul \|televiziunii\|televiziune\|". [Var. $tel-$. / &lt; fr. $télé-$, cf. gr. $tele$ - departe].
+384799|||||@TELEO�@ Element prim de compunere savantă cu semnificaţia "\|scop\|scop\|". [Pron. $-le-o-$. / &lt; fr. $téléo-$, it. $teleo-$, cf. gr. $telos, teleos$ - scop].
+384838|||||@TENO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|tendon\|tendon\|", "de tendoane". [Var. $ten-$. / &lt; fr. $téno-$, cf. gr. $tenon$].
+384839|||||@TEN�@  v. @\|teno�\|teno\|@.
+384913|||||@TERATO�@ Element prim de compunere savantă cu semnificaţia "\|monstru\|monstru\|", "\|monstruozitate\|monstruozitate\|", "\|malformaţie\|malformaţie\|". [&lt; fr. $térato-$, it. $terato-$, cf. gr. $teras, teratos$].
+384930|||||@TERIO�@ Element prim de compunere savantă cu semnificaţia "\|animal\|animal\|", "\|fiară\|fiară\|", "\|animalier\|animalier\|". [Pron. $-ri-o-$, var. $tero-$. / &lt; it. $terio-$, fr. $thério-$, cf. gr. $therion$].
+384931|||||@TERO^2�@  v. @\|terio�\|terio\|@.
+384932|||||@TERO^1�@ Element prim de compunere savantă cu semnificaţia "(de) \|vară\|vară\|", "\|văratic\|văratic\|". [&lt; fr. $théro-$, it. $tero-$, cf. gr. $theros$ - vară].
+384937|||||@�TÉRIU@ Element secund de compunere savantă cu semnificaţia "\|animal\|animal\|", "\|fiară\|fiară\|". [Pron. $-riu$. / &lt; it. $-terio$, fr. $-thèrium$, cf. gr. $therion$].
+384938|||||@TERMO�@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|căldură\|căldură\|", "\|temperatură\|temperatură\|", "\|termic\|termic\|". [Var. $term-, termi-$, scris şi $thermo-$. / &lt; fr. $thermo-$, it. $termo-$, cf. gr. $thermon$].
+385043|||||@TESMO�@ Element prim de compunere savantă cu semnificaţia "\|lege\|lege\|". [&lt; fr. $thesmo-$, it. $tesmo-$, cf. gr. $thesmos$].
+385125|||||@TIMOâ��@ Element prim de compunere savantă cu semnificaţia "\|valoare\|valoare\|", "\|apreciere\|apreciere\|", "\|rang\|rang\|". [&lt; fr., it. $timo-$, cf. gr. $time$ - valoare].
+385146|||||@TIOâ��@ Element prim de compunere savantă cu semnificaţia "(referitor la) \|sulf\|sulf\|", "cu (care conţine) sulf". [Pron. $ti-o-$. / &lt; fr. $thio-$, it. $tio-$, cf. gr. $theion$].
+385161|||||@TIPOâ��@ Element prim de compunere savantă cu semnificaţia "\|imprimat\|imprimat\|", "\|matriţă\|matriţă\|"; "\|exemplar\|exemplar\|",  "\|model\|model\|", "\|tip\|tip\|". [&lt; fr. $typo-$, it. $tipo-$, cf. gr. $typos$].
+403485|||||DARN adv. $În darn$ = în zadar. [< it. $indarno$].

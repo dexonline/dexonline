@@ -1,0 +1,15 @@
+# Only allow access to this subdirectory from the known mirrors.
+Order Deny,Allow
+Deny from all
+
+# voronet.francu.com
+Allow from 66.92.49.110
+
+# dictionare.edu.ro
+Allow from 193.231.32.39
+
+# hyperion.elvsoft.net
+Allow from 194.117.236.180
+
+# Wireless in my apartment, for development
+Allow from 65.45

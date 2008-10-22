@@ -1,0 +1,105 @@
+Această pagină tratează câteva din cele mai frecvente probleme de
+exprimare în limba română. Precizăm că NU avem autoritatea de a tranşa
+aceste probleme, dar putem băga mâna în foc că ceea ce scriem aici
+este corect. :) Mulţumiri celor de pe forumul de la
+
+<a href="http://www.desprecopii.com/forum/topic.asp?TOPIC_ID=16839">desprecopii.com</a>,
+
+care au pornit acest fir de discuţii şi au strâns un set iniţial de
+sugestii. Dacă aveţi sugestii, nu vă sfiiţi să ni le trimiteţi prin
+email.
+
+<br/><br/>
+
+{if $confirmationMessage != ''}
+  <div class="guideConfirmationMessage">{$confirmationMessage}</div>
+{/if}
+
+<form name="GuideEntryEdit" action="corect.php" method="post">
+  <table class="rightWrong" id="guideEntryTable">
+    <thead>
+      <tr>
+        <th>Corect</th>
+        <th>Greşit</th>
+        <th>Comentarii</th>
+        {if $is_moderator}
+          <th>Acţiuni</th>
+        {/if}
+      </tr>
+    </thead>
+    <tbody>
+      {foreach from=$guideEntries item=row}
+        <tr id="guideEntryRow{$row->id}">
+          {if $row->id == $editableGuideEntryId}
+            <td>
+              <a name="guideEntry{$row->id}"></a>
+              <textarea id="Correct" name="Correct" rows="6" cols="25"
+                >{$row->correct|escape}</textarea>
+            </td>
+            <td>
+              <textarea name="Wrong" rows="6" cols="25"
+                >{$row->wrong|escape}</textarea>
+            </td>
+            <td>
+              <textarea name="Comments" rows="6" cols="50"
+                >{$row->comments|escape}</textarea>
+            </td>
+            <td class="actions">
+              <input type="hidden" name="action" value="save"/>
+              <input type="hidden" name="guideEntryId"
+                     value="{$editableGuideEntryId}"/>
+              <input type="submit" name="saveButton" value="Salvează"/><br/>
+              <input type="submit" name="cancelButton" value="Anulează"/>
+            </td>
+          {else}
+            <td class="right">{$row->correctHtml}</td>
+            <td class="wrong">{$row->wrongHtml}</td>
+            <td class="notes">{$row->commentsHtml}</td>
+            {if $is_moderator}
+              <td class="actions">
+                <a id="edit{$row->id}"
+		   href="?action=edit&amp;guideEntryId={$row->id}#guideEntry{$row->id}">
+                  editează
+                </a><br/>
+                <a id="delete{$row->id}"
+		   href="?action=delete&amp;guideEntryId={$row->id}"
+                   onclick="return confirm('Confirmaţi ştergerea acestei înregistrări?');">
+                  şterge
+                </a>
+              </td>
+            {/if}
+          {/if}
+        </tr>
+      {/foreach}
+    </tbody>
+
+    {if $isAddFormVisible}
+      <tbody>
+        <tr>
+          <td>
+            <a name="newForm"></a>
+            <textarea id="Correct" name="Correct" rows="6" cols="25"
+              ></textarea>
+          </td>
+          <td>
+            <textarea name="Wrong" rows="6" cols="25"></textarea>
+          </td>
+          <td>
+            <textarea name="Comments" rows="6" cols="50"></textarea>
+          </td>
+          <td class="actions">
+            <input type="hidden" name="action" value="saveAdd"/>
+            <input type="submit" name="saveButton" value="Salvează"/><br/>
+            <input type="submit" name="cancelButton" value="Anulează"/>
+          </td>
+        </tr>
+      <tbody>
+    {/if}
+  </table>
+
+  {if $is_moderator && !$isAddFormVisible}
+    <div class="guideEntryAddLink">
+      <a href="?action=viewAddForm#newForm">Adaugă o înregistrare nouă</a>
+    </div>
+  {/if}
+</form>

@@ -1,0 +1,11 @@
+<select name="{$name}">
+  <option value="0"></option>
+  {foreach from=$modelTypes item=mt}
+    <option value="{$mt->id}"
+            {if $mt->id == $selectedId}
+              selected="selected"
+            {/if}>
+      {$mt->value|escape} ({$mt->description|escape})
+    </option>
+  {/foreach}
+</select>

@@ -1,0 +1,10 @@
+{* argument: $wlArray: array(WordList) *}
+
+{if count($wlArray) == 0}
+  &mdash;
+{else}
+  {foreach from=$wlArray item=wl key=i}{
+    if $i}, {/if}{
+    $wl->form}{
+    /foreach}
+{/if}

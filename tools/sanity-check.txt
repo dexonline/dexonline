@@ -1,0 +1,13 @@
+Steps to sanity check the server or one of its mirrors.
+
+- Run searches
+  - Word that should be found
+  - Word that should return more than ten results ("copil")
+  - Word that doesn't exist and should return approximate matches
+  - Word that doesn't exist and shouldn't return any approximate matches
+  - Regexp that should return some matches. Verify that scrolling through
+    pages is fast due to caching.
+  - Regexp that should not return any matches.
+  - Incorrect regexp like ma[ -- should print an error.
+- You should only have access to /download/mirrorAccess from the IPs of the
+  known mirrors.

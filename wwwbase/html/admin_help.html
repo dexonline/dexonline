@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link href="/styles/simple.css" rel="stylesheet" type="text/css"/>
+  <title>DEX - Mini-manual de moderare</title>
+</head>
+
+<body>
+Pagina moderatorului -- mini-instrucţiuni.
+
+<br/><br/>
+
+<a name="definitionSearch"></a>
+<b>Căutare definiţii</b> -- Puteţi folosi expresii regulate şi puteţi
+filtra rezultatele după dată, stare (activă/temporară/ştearsă) şi
+autor.<br/><br/>
+
+
+<a name="lexemName"></a>
+<b>Lexem :: Nume</b> -- Cuvântul-titlu. Accentul trebuie indicat chiar
+şi pentru lexemele monosilabice, altfel paradigma nu va conţine deloc
+accente. Indicaţi accentul prin apostrof ('a), nu îl includeţi în
+caracter (á). Valoarea acestui câmp este folosită la căutări şi este
+vizibilă public la afişarea flexiunilor unui cuvânt.<br/><br/>
+
+<a name="lexemDescription"></a>
+<b>Lexem :: Descriere</b> -- O scurtă explicaţie, vizibilă public,
+care diferenţiază lexemele omonime. Pentru cuvintele fără omonime, ea
+poate fi vidă.<br/><br/>
+
+<a name="lexemIsLoc"></a>
+<b>Lexem :: Inclus în LOC</b> -- <i>DEX online</i> menţine informaţii
+despre lexemele acceptate în LOC (Lista Oficială de Cuvinte), document
+folosit de Federaţia Română de Scrabble. Acest câmp este vizibil
+pentru toţi moderatorii, dar nu poate fi modificat decât de către un
+set restrâns de moderatori care au drept de gestiune a LOC.
+<br/><br/>
+
+<a name="lexemNoAccent"></a>
+<b>Lexem :: Necesită accent</b> -- Majoritatea lexemelor necesită
+accent. Excepţie fac cuvintele compuse, denumirile ştiinţifice de
+animale şi plante, elementele de compunere etc. Pagina moderatorului
+semnalează toate lexemele care nu au accent pentru a fi corectate. De
+aceea, dacă un lexem nu are nevoie de accent, selectaţi "Nu" pentru ca
+el să nu mai fie semnalat.
+<br/><br/>
+
+<a name="lexemComment"></a>
+<b>Lexem :: Comentariu despre paradigmă</b> -- Dacă observaţi greşeli
+în paradigma enumerată mai sus, notaţi-le în acest câmp şi ele vor fi
+semnalate unui moderator cu drept de gestiune a LOC.
+<br/><br/>
+
+<a name="lexemClone"></a>
+<b>Lexem :: Clonează</b> -- Acest buton creează un lexem aproape
+identic cu cel în curs de editare. El va avea acelaşi nume şi aceleaşi
+definiţii asociate. Descrierea noului lexem va fi prefixată cu
+cuvântul <b>CLONĂ.</b> Clona va fi creată fără flexiuni (modelul de
+flexionare temporar T1), chiar dacă lexemul original avea
+flexiuni. Folosiţi clonarea pentru a sparge un lexem nediferenţiat în
+două lexeme omonime. De exemplu, dacă iniţial toate definiţiile pentru
+<i>episcop</i> sunt reunite într-un singur lexem, puteţi să clonaţi
+acest lexem şi să adăugaţi descrierile "prelat" şi "aparat". Apoi
+trebuie să asociaţi definiţiile în mod corect cu cele două
+lexeme.<br/><br/>
+
+<a name="lexemDelete"></a>
+<b>Lexem :: Şterge</b> -- Acest buton şterge lexemul şi formele sale
+flexionare şi disociază definiţiile asociate cu acest
+lexem. Definiţiile în sine nu vor fi şterse, dar, dacă nu sunt
+asociate cu nici un alt lexem, ele vor deveni "neasociate", ceea ce
+înseamnă că nu vor fi niciodată afişate ca rezultat al unei
+căutări. Probabil trebuie să vă asiguraţi că definiţiile respective
+sunt asociate cu un alt lexem înainte de a-l şterge pe acesta.
+<b>Notă:</b> Lexemele care sunt parte din LOC nu pot fi şterse, pentru
+a preveni modificarea accidentală a LOC. Dacă sunteţi moderator cu
+drept de gestiune a LOC, scoateţi întâi lexemul din LOC, după care îl
+puteţi şterge.
+<br/><br/>
+
+<a name="lexemAssociateNew"></a>
+<b>Lexem :: Asociere definiţie nouă</b> -- Tastaţi ID-ul definiţiei
+pentru a o asocia cu acest lexem. Acest mecanism este greoi. Este
+mai comod să vizitaţi pagina definiţiei pe care doriţi să o asociaţi
+şi să adăugaţi acest lexem la lista ei de lexeme (deoarece în acel
+caz puteţi căuta lexemul după nume).<br/><br/>
+
+<a name="definitionAddLexem"></a>
+<b>Definiţie :: Adaugă un lexem</b> -- O definiţie poate fi asociată
+cu mai multe lexeme. De exemplu, există cuvinte omonime care se
+declină la fel, iar dicţionarul ortografic le tratează pe toate într-o
+singură definiţie. Este bine să asociem acea definiţie cu toate
+lexemele relevante. Lexemele astfel adăugate nu vor fi salvate până nu
+apăsaţi unul din butoanele "Acceptă" sau "Activează".<br/><br/>
+
+<a name="definitionDelete"></a>
+
+<b>Definiţie :: Starea ştearsă</b> -- Dacă treceţi o definiţie în
+starea ştearsă, ea va fi automat disociată de orice
+lexem. <b>Notă:</b> Din cauza unei limitări a sistemului, definiţia va
+fi imposibil de găsit la o căutare ulterioară, tocmai din cauză că, la
+ştergere, o disociem de orice lexem (iar căutarea se face după
+lexem). Definiţia este încă disponibilă în panoul de pagini recent
+vizitate.<br/><br/>
+
+<a name="definitionComment"></a>
+<b>Definiţie :: Comentariu</b> -- Dacă adăugaţi un comentariu, el va
+fi afişat într-un subalineat al definiţiei. Folosiţi acest câmp pentru
+a face adnotări pe marginea unei definiţii fără a altera forma
+originală a definiţiei. Pentru a şterge un comentariu, ştergeţi tot
+conţinutul acestui câmp.<br/><br/>
+
+<a name="definitionRefresh"></a>
+<b>Definiţie :: Reafişează</b> -- Tipăreşte definiţia şi comentariul
+cu modificările făcute. Modificările sunt "virtuale", adică nu sunt
+stocate şi în baza de date. Folosiţi acest buton de câte ori doriţi
+pentru a vedea interactiv rezultatul modificărilor făcute.<br/><br/>
+
+<a name="definitionActivate"></a>
+<b>Definiţie :: Activează</b> -- Acest buton acceptă modificările
+făcute şi, în plus, trece definiţia în starea activă. El este
+echivalent cu trecerea manuală a definiţiei în starea activă şi este
+oferit ca o scurtătură.<br/><br/>
+
+<a name="modelEdit"></a>
+<b>Model :: Editare</b> -- Aici puteţi edita exponentul ales pentru un
+model şi formele pentru diversele flexiuni. Folosiţi accente unde
+doriţi. Dacă o flexiune nu are forme, lăsaţi câmpul vid. Dacă o
+flexiune are mai multe forme, separaţi-le prin virgulă (,). Tipul
+modelului nu este editabil, dar numărul este (şi poate conţine şi alte
+caractere în afară de cifre).<br/><br/>
+
+<a name="modelClone"></a>
+<b>Model :: Clonare</b> -- În loc să permitem crearea de la zero a
+unui model nou, care probabil nu ar fi prea utilă, permitem clonarea
+unui model deja existent. Noul model va avea aceleaşi inflexiuni,
+acelaşi exponent şi (în cazul verbelor) acelaşi tip de participiu cu
+modelul original. Trebuie să indicaţi doar un nou număr de
+model. Opţional, puteţi alege lexemele etichetate cu modelul original
+pe care doriţi să le migraţi la modelul-clonă.<br/><br/>
+
+<a name="modelDelete"></a>
+<b>Model :: Ştergere</b> -- Când ştergeţi un model, toate lexemele
+etichetate cu acel model vor fi reetichetate cu modelul T1. (Vă va fi
+prezentat un ecran de confirmare cu lista acestor lexeme). Probabil
+este de dorit să reetichetaţi aceste lexeme cu modelele
+corespunzătoare, astfel ca în momentul ştergerii modelul să nu mai
+aibă nici un lexem.
+
+</body></html>

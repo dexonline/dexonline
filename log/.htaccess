@@ -1,0 +1,4 @@
+<Files userlog>
+  order deny,allow
+  Deny from all
+</Files>

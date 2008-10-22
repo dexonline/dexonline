@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="{$cssRoot}/polar.css" rel="stylesheet" type="text/css"/>
+    <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
+    <title>{$page_title|escape}</title>
+    <script type="text/javascript" src="js/dex.js"></script>
+  </head>
+
+  <body id="polarSkinBody"
+        {if $show_search_box && $focus_search_box}
+          onload="document.frm.cuv.focus()"
+        {/if}>
+
+    <table class="header">
+      <tr>
+        <td class="searchBoxContainer">
+          <div class="linkBar">
+            <a href="faq.php">Informaţii</a> |
+            <a href="contrib.php">Contribuie</a> |
+            <a href="corect.php" id="guideLink">Ghid de exprimare</a> |
+            <a href="tools.php">Unelte</a> |
+            <a href="top.php">Top</a> |            
+            <a href="contact.php">Contact</a>
+          </div>
+      
+          <form action="search.php" name="frm" class="searchForm">
+            <input type="text" name="cuv" value="{$cuv|escape}" size="20"
+              maxlength="50"/>
+            {include file="common/sourceDropDown.ihtml"}
+            <input type="submit" value="Caută"/>
+            <br/>
+            <span class="definitionBodyCheckbox">
+              <input type="checkbox" id="defBody"
+                     name="text" value="1"
+                     {if $text}checked="checked"{/if}
+              /><label for="defBody">Caută în tot textul definiţiilor</label>
+              (<a href="faq.php#fulltext">explicaţie</a>)
+            </span>
+          </form>
+        </td>
+        <td class="title">
+          <span class="pageTitle">DEX online</span><br/>
+          Dicţionare ale limbii române<br/>
+          <span class="formPlug">Peste {$words_rough} de definiţii</span>
+        </td>
+        <td class="logo">
+          <a href="{$wwwRoot}/" class="noBorder">
+            <img src="{$imgRoot}/polar/dexonline.png" alt="DEX online logo"
+                 class="logo"/></a>
+        </td>
+      </tr>
+    </table>
+      
+    {include file=$contentTemplateName}
+
+    <table class="footer">
+      <tr>
+        <td>
+          Starea curentă: <b>{$words_total}</b> de definiţii, din care
+          <b>{$words_last_month}</b> învăţate în ultima lună.<br/>
+
+          {if !$is_mirror}
+            Utilizator: <b id="user.nick">{$nick|escape}</b>
+            {if $is_connected && $is_moderator}
+              | <a href="admin">Pagina moderatorului</a>
+            {/if}
+            {if $is_connected}
+              | <a href="account.php">Contul meu</a>
+              | <a href="logout.php" id="logoutLink">Deconectare</a>
+            {else}
+              | <a href="login.php" id="loginLink">Conectare</a>
+              | <a href="signup.php">Înregistrare</a>
+            {/if}
+            <br/>
+          {/if}
+
+          Copyright (C) 2004-2008 DEX online. Copierea definiţiilor
+          este permisă sub <a
+          href="{$wwwRoot}/faq.php#licenta">licenţa GPL</a>, cu
+          condiţia păstrării acestei note.
+
+        </td>
+        <td class="narrow">
+          {include file="common/trafic_ro.ihtml"}
+        </td>
+        {if $hostedBy}
+          <td class="narrow">
+            {include file="common/hosting/$hostedBy.ihtml"}
+          </td>
+        {/if}
+      </tr>
+    </table>
+
+    {include file="common/bits/debugInfo.ihtml"}
+  </body>
+</html>

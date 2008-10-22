@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../styles/flex.css" rel="stylesheet" type="text/css"/>
+    <link href="../styles/paradigm.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../js/dex.js"></script>
+    <title>Flex | Verificare paradigme</title>
+  </head>
+
+  <body>
+    {include file="admin/header.ihtml"
+             title=$sectionTitle}
+    {include file="admin/recentlyVisited.ihtml"}
+
+    <form action="verifyParadigms.php" method="get">
+      Alegeţi tipul de model:
+      <select name="modelType">
+        {foreach from=$modelTypes item=mt}
+          <option value="{$mt->value|escape}"
+            {if $mt->value == $modelType}selected="selected"{/if}>
+            {$mt->value|escape} ({$mt->description|escape})
+          </option>
+        {/foreach}
+        <input type="submit" name="submitButton" value="Arată"
+               onclick="return hideSubmitButton(this)"/>
+      </select>
+    </form>
+
+    {if $modelType}
+      <b>Instrucţiuni:</b> Vă sunt prezentate numai modelele
+      neverificate încă.  Pentru fiecare model sunt alese maxim patru
+      lexeme relevante. Examinaţi-le şi, dacă totul este în regulă,
+      bifaţi modelul drept "corect". Dacă minim una din forme este
+      greşită, bifaţi modelul drept "greşit". Când vă plictisiţi,
+      navigaţi la sfârşitul paginii şi trimiteţi rezultatele. Puteţi
+      sări modele oriunde în cuprinsul paginii. Data viitoare când
+      vizitaţi această pagină, vă vor fi prezentate doar modelele
+      rămase.
+  
+      <br/>
+
+      <form action="verifyParadigms.php" method="post">
+        <input type="hidden" name="modelType" value="{$modelType}"/>
+  
+        {foreach from=$models item=model key=i}
+          {assign var="lexemArray" value=$lexems[$i]}
+          {assign var="wlMapArray" value=$wlMaps[$i]}
+          {assign var="no" value=`$model->number`}
+          <div class="verifyModel">
+            <span class="modelName">
+              Model: {$modelType}{$no} ({$model->exponent})
+            </span>
+            &nbsp;&nbsp;<a href="viewLexemsByModel.php?modelType={$modelType}&amp;modelNumber={$no}">Vezi toate lexemele</a>
+
+            {if $model->flag == 2}
+              <div class="verifyYes">
+                Acest model a fost deja verificat şi este corect.
+              </div>
+            {elseif $model->flag == 1}
+              <div class="verifyNo">
+                Acest model a fost deja verificat şi este greşit.
+              </div>
+            {elseif !count($lexemArray)}
+              <div class="verifyNo">
+                Nu există lexeme etichetate cu acest model.
+              </div>
+            {else}
+              {foreach from=$lexemArray item=l key=j}
+                <input type="hidden" name="lexems_{$no}[]"
+                       value="{$l->id}"/>
+                {include file="common/bits/paradigm.ihtml"
+                         lexem=$l
+                         wlMap=$wlMapArray[$j]}
+              {/foreach}
+      
+              <div class="buttons">
+                <input type="radio" name="model_{$no}" value="2"
+                       id="radio_{$no}_2"/>
+                <label for="radio_{$no}_2" class="verifyYes">
+                  Modelul este corect
+                </label>
+                &nbsp;&nbsp;
+    
+                <input type="radio" name="model_{$no}" value="1"
+                       id="radio_{$no}_1"/>
+                <label for="radio_{$no}_1" class="verifyNo">
+                  Modelul este greşit
+                </label>
+    
+                &nbsp;&nbsp;
+                <input type="radio" name="model_{$no}" value="0"
+                       id="radio_{$no}_0" checked="checked"/>
+                <label for="radio_{$no}_0" class="verifySkip">
+                  Ignoră acest model deocamdată
+                </label>
+    
+                <br/>
+                Comentariu (opţional):
+                <input type="text" name="com_{$no}"/>
+              </div>
+            {/if}
+          </div>
+        {/foreach}
+        <br/><br/>
+  
+        <input type="submit" name="updateModels" value="Trimite"/>
+      </form>
+    {/if}
+  </body>
+
+</html>

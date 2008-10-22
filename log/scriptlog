@@ -1,0 +1,7 @@
+2007-10-05 12:49:51 Running updateMirror.php with databaseCopy:yes codeUpdate:yes
+2007-10-05 12:49:51 Executing wget -q -O /tmp/dex-database.sql.gz http://dexonline.ro/download/mirrorAccess/dex-database.sql.gz
+2007-10-05 12:55:25 Executing gunzip /tmp/dex-database.sql.gz
+2007-10-05 12:55:30 Executing mysql -h localhost -u root --password='' DEX_dev < /tmp/dex-database.sql
+2007-10-05 12:58:23 Executing rm -f /tmp/dex-database.sql
+2007-10-05 12:58:24 Executing cd /home/cata/public_html/DEX2/; /usr/bin/cvs -Q up -Pd
+2007-10-05 12:58:26 updateMirror.php completed successfully (against all odds)

@@ -1,0 +1,18 @@
+<!-- BEGIN trafic.ro code v2.0 -->
+  <script type="text/javascript">t_rid="dexonlinero";</script>
+  <script type="text/javascript" src="http://storage.trafic.ro/js/trafic.js">
+  </script>
+  <noscript><a href="http://www.trafic.ro/top/?rid=dexonlinero">
+  <img src="http://log.trafic.ro/cgi-bin/pl.dll?rid=dexonlinero"
+       border="0" alt="trafic ranking"/></a></noscript>
+<!-- END trafic.ro code v2.0 -->
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-4173249-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>

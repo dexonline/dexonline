@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../styles/flex.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../js/dex.js"></script>
+    <title>Flex | Alegere sufix pentru etichetare asistată</title>
+  </head>
+
+  <body>
+    {include file="admin/header.ihtml"
+             title=$sectionTitle}
+    {include file="admin/recentlyVisited.ihtml"}
+
+    Mai întâi, alegeţi sufixul de examinat. În paranteză este trecut
+    numărul de lexeme care au sufixul ales.
+    <br/><br/>
+
+    <form action="bulkLabel.php" method="get">
+      Sufix: 
+      <select name="suffix">
+        {foreach from=$stats item=stat}
+          <option value="{$stat.0}">{$stat.0} ({$stat.1})</option>
+        {/foreach}
+      </select>
+
+      <input type="submit" name="ignoredSubmit" value="Continuă"
+             onclick="return hideSubmitButton(this)"/>
+    </form>
+
+    {include file="common/bits/debugInfo.ihtml"}
+  </body>
+
+</html>

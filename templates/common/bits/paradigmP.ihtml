@@ -1,0 +1,61 @@
+{assign var=baseInflId value=$smarty.const.INFL_P_OFFSET}
+
+<table class="lexem">
+  <tr>
+    <td colspan="2">
+      <span class="lexemName"
+        >{include file="common/bits/lexemName.ihtml" lexem=$lexem
+      }</span>
+      &nbsp; articol / numeral / adjectiv pronominal / pronume
+      {include file="common/bits/locInfo.ihtml lexem=$lexem}
+    </td>
+    <td class="inflection">masculin</td>
+    <td class="inflection">feminin</td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="inflection">nominativ-acuzativ</td>
+    <td class="inflection">singular</td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+4`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+  </tr>
+  <tr>
+    <td class="inflection">plural</td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+2`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+6`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="inflection">genitiv-dativ</td>
+    <td class="inflection">singular</td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+1`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+5`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+  </tr>
+  <tr>
+    <td class="inflection">plural</td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+3`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+7`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+  </tr>
+</table>

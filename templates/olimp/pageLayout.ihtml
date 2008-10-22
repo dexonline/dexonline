@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+  <head>
+    <title>{$page_title|escape}</title>
+  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+    <meta content="dex online dexonline dicţionar dicţionarul explicativ limbii române limba română" name="keywords">
+    <meta content="DEX online - Dicţionar explicativ al limbii române"
+          name="description">
+
+    <link rel="stylesheet" href="{$cssRoot}/olimp.css">
+    <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
+     <script type="text/javascript" src="js/dex.js"></script>
+  </head>
+
+  {if $dont_focus_search_box}
+    <body id="olimpSkinBody">
+  {else}
+    {literal}
+      <body id="olimpSkinBody"
+            onload="if (document.frm && document.frm.cuv) {document.frm.cuv.select(); document.frm.cuv.focus()}">
+    {/literal}	
+  {/if}
+
+<div class="continut">
+  <div class="bara_logo">
+    <a href="/">
+      <img class="imagine_logo" src="{$imgRoot}/olimp/logo.png"
+           title="DEX Online" alt="DEX Online" border="0"/>
+    </a>
+    <form name="frm" method="get" action="search.php">
+      <span class="camp_cautare">
+        Caută cuvântul: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="javascript:helpWindow()">Ajutor</a><br/> 
+        <input type="text" name="cuv" value="{$cuv|escape}"/>&nbsp;
+        <input type="submit" value="Caută"/>
+      </span>
+    </form>
+  </div>
+
+  <table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td class="meniu_stanga">
+        <div class="titlu">&nbsp;MENIU&nbsp;</div>
+        <a href="/">Pagina principală</a>
+        <a href="search2.php">Căutare avansată</a>
+        <a href="contrib.php">Contribuie la DEXonline</a>
+        <a href="corect.php" id="guideLink">Corect / greşit</a>
+        <a href="faq.php">Informaţii</a>
+        <a href="tools.php">Unelte</a>
+        <a href="top.php">Top voluntari</a>
+        <a href="contact.php">Contact</a>
+
+        <div class="titlu">&nbsp;UTILIZATOR&nbsp;</div>
+        <div style="text-align:center;font-weight:bold">
+          <span title="Pseudonim" id="user.nick">{$nick|escape}</span>
+        </div>
+        {if !$is_mirror}
+          {if $is_connected && $is_moderator}
+            <a href="admin/">Pagina moderatorului</a>
+          {/if}
+          {if $is_connected}
+            <a href="account.php">Contul meu</a>
+            <a href="logout.php" id="logoutLink">Deconectare</a>
+          {else}
+            <a href="login.php" id="loginLink">Conectare</a>
+            <a href="signup.php">Înscriere</a>
+          {/if} 
+        {/if}
+      </td>
+      <td class="text_pe_pagina" rowspan="2">
+        {include file=$contentTemplateName}
+      </td>
+    </tr>
+    <tr>
+      <td class="logos">
+        {if $hostedBy}
+          {include file="common/hosting/$hostedBy.ihtml"}
+        {/if}
+        {include file="common/trafic_ro.ihtml"}
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="bara_subsol">
+  &copy;2004 DEX online. Ultima actualizare:
+  {$actual|default:"05 aug 2004"}.
+  Pagină <span style="cursor:help; border-bottom:1px dashed #dedede;"
+               title="Nu include timpul de transfer al paginii de la
+                      serverul DEX online la calculatorul dvs."
+  >generată</span> în
+
+  {php}echo debug_getRunningTimeInMillis();{/php}
+
+  ms.
+</div>
+
+</body>
+</html>

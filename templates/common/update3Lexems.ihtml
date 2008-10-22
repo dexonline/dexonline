@@ -1,0 +1,20 @@
+<Lexems>
+  <NumResults>{$numResults}</NumResults>
+  {section name="ignored" start=0 loop=$numResults}
+    {php}fetchNextLexemRow();{/php}
+    <Lexem>
+      <Id>{$lexem->id}</Id>
+      <Timestamp>{$lexem->modDate}</Timestamp>
+      <Form>{$lexem->form|escape}</Form>
+      {if $lexem->description}
+        <Description>{$lexem->description|escape}</Description>
+      {/if}
+      {foreach from=$wordLists item=wl}
+        <Inflection>
+          <InflId>{$wl->inflectionId}</InflId>
+          <Form>{$wl->form|escape}</Form>
+        </Inflection>
+      {/foreach}
+    </Lexem>
+  {/section}
+</Lexems>

@@ -1,0 +1,7 @@
+{$lexem->unaccented|escape
+}{if $lexem->description
+  } ({$lexem->description|escape}){
+/if
+}{if !$lexem->unaccented && !$lexem->description
+  }[ID = {$lexem->id}]{
+/if}

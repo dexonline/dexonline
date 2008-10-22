@@ -1,0 +1,156 @@
+BODY {
+	background-color: white;
+}
+
+P {
+	text-align: justify;
+	padding-left: 0.05in;
+	padding-right: 0.05in;
+}
+
+A:link {
+	color: #0000ff;
+  text-decoration: none;
+}
+
+A:visited {
+	color: #0000ff;
+        text-decoration: none;
+}
+
+A:hover {
+	color: #ff0080;
+}
+
+A.ref {
+        color: blue;
+        text-decoration: none;
+}
+
+A:visited.ref {
+        color: blue;
+        text-decoration: none;
+}
+
+A:hover.ref {
+	color: #ff0080;
+}
+
+hr {
+	border: 0; 
+	height: 1px;
+	background: #ffc0a0;
+}
+
+div.copyright {
+  font-size: 80%;
+  text-align: center;
+}
+
+div.debugInfo {
+	font-size: 75%;
+	color: #777;
+}
+
+table.rightWrong {
+  border-collapse: collapse;
+  border-spacing: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 94%;
+}
+
+table.rightWrong tr th {
+  background: #eeeeee;
+  border: 1px solid #cccccc;
+}
+
+table.rightWrong tr td {
+  border: 1px solid #cccccc;
+  padding: 4px;
+  vertical-align: top;
+}
+
+table.rightWrong tr td.right {
+  color: #006600;
+  font-style: italic;
+  width: 24%;
+}
+
+table.rightWrong tr td.wrong {
+  color: #660000;
+  font-style: italic;
+  width: 24%;
+}
+
+table.rightWrong tr td.notes {
+  width: 46%;
+}
+
+div.defComment {
+  font-size: 90%;
+  margin-left: 2em;
+}
+
+span.defDetails {
+  color: #555555;
+  font-size: 90%;
+}
+
+div.contribSection {
+  background-color: #f0f0ff;
+  border: 1px solid #a0a0c0;
+  font-weight: bold;
+  padding: 3px 5px;
+}
+
+div.previewDiv {
+  border-bottom: 1px solid #a0a0c0;
+  border-left: 1px solid #a0a0c0;
+  border-right: 1px solid #a0a0c0;
+  padding: 3px 5px;
+}
+
+div.contribLinks {
+  display: inline;
+  float: right;
+  font-size: 80%;
+  font-weight: normal;
+}
+
+table.contribExample {
+  border-collapse: collapse;
+}
+
+table.contribExample tr td {
+  border-bottom: 1px solid #a0a0c0;
+  border-left: 1px solid #a0a0c0;
+  border-right: 1px solid #a0a0c0;
+  padding: 3px 5px;
+  width: 50%;
+}
+
+span.errorMessage {
+  color: red;
+}
+
+span.confirmationMessage {
+  color: green;
+}
+
+a.noBorder img {
+  border: 0;
+}
+
+div.resultBar {
+  background: #ffc0a0;
+  font-weight: bold;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+
+div.abbrev {
+  background: #ffc0a0;
+  float: right;
+  font-weight: normal;
+}

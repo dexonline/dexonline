@@ -1,0 +1,77 @@
+Bine aţi venit la DEX online, pagina dicţionarului explicativ al
+limbii române. <br /><br />
+
+Macheta paginii s-a schimbat pe perioada jocurilor olimpice de vară
+(13&mdash;29 aug).<br />
+
+Lăsaţi-vă cuprinşi de spiritul olimpic:
+<a href="search.php?cuv=prietenie">prietenie</a>,
+<a href="search.php?cuv=fairplay">fairplay</a>,
+<a href="search.php?cuv=onoare">onoare</a>,
+<a href="search.php?cuv=pace">pace</a>,
+<a href="search.php?cuv=glorie">glorie</a>.<br /><br />
+
+<img src="{$imgRoot}/olimp/cercuri2.gif"
+     alt="Cele 5 cercuri olimpice"
+     title="Cele 5 cercuri olimpice"
+     class="centru"
+     width="250"
+     height="121" />
+<br /><br />
+
+<p>
+  <b>DEX online</b> este transpunerea pe internet a unor dicţionare de
+  prestigiu ale limbii române. El este creat şi întreţinut de un
+  colectiv de voluntari. Definiţiile sunt preluate textual din sursele
+  menţionate, cu excepţia greşelilor evidente de tipar, pe care le-am
+  corectat. Baza de definiţii a DEX online este disponibilă gratuit sub
+  licenţa publică generală GNU (GPL). Vizitaţi paginile acestui site
+  pentru mai multe informaţii despre proiectul DEX online.
+</p>
+
+<p>
+  Mulţumiri speciale <a target="_blank"
+  href="http://www.siveco.ro/">firmei Siveco</a> şi <a target="_blank"
+  href="http://www.litera.ro/">Editurii Litera Internaţional</a>, care
+  ne-au pus la dispoziţie patru dicţionare complete sub licenţa
+  GPL. Detalii <a href="faq.php#autori">aici</a>.
+</p>
+
+<div class="titlu">Starea curentă a proiectului</div>
+  <i>DEX online</i> a învăţat <b>{$words_total}</b> definiţii, din
+  care <b>{$words_last_month}</b> în ultima lună.<br />
+</div>
+<br/>
+        
+{* lasa, te rog comentat 
+
+        <table class="tabel">
+        <tr><th >Cuvântul zilei</th></tr>
+
+    <tr><td ><b>MĂRGĂRIT&#xc1;R</b>, (<b>1, 2</b>) <i>mărgăritare</i>, s.n. (<b>3, 4</b>) s.m. <b>1.</b> S.n. <a class=ref href="/search.php?cuv=Boabă">Boabă</a> rotundă şi tare de culoare albă-strălucitoare cu reflexe sidefii, care se formează în corpul unor <a class=ref href="/search.php?cuv=scoica">scoici</a> şi care se întrebuinţează ca <a class=ref href="/search.php?cuv=podoabă">podoabă</a> de preţ; <a class=ref href="/search.php?cuv=perlă">perlă</a>. &loz; Loc. adj. <i>De mărgăritar</i> = <a class=ref href="/search.php?cuv=împodobit">împodobit</a>, bătut, <a class=ref href="/search.php?cuv=încrustat">încrustat</a> cu mărgăritare (<b>1</b>). &diams; Fig. Lucru fără <a class=ref href="/search.php?cuv=cusur">cusur</a>, de mare <a class=ref href="/search.php?cuv=valoare">valoare</a>. <b>2.</b> S.n. <a class=ref href="/search.php?cuv=Pietriş">Pietriş</a> mărunt la <a class=ref href="/search.php?cuv=beton">betoane</a> pentru <a class=ref href="/search.php?cuv=fatada">faţade</a>, <a class=ref href="/search.php?cuv=mozaic">mozaicuri</a>, pentru aşternut pe alei etc. <b>3.</b> S.m. (Bot.) <a class=ref href="/search.php?cuv=Lăcrimioară">Lăcrimioară</a>, cerceluş. <b>4.</b> S.m. Numele unei specii de <a class=ref href="/search.php?cuv=vâsc">vâsc</a> care creşte numai pe <a class=ref href="/search.php?cuv=stejar">stejari</a>, cu fructe în formă de bobiţe galbene (<i>Loranthus europaeus</i>) &#x2013; Din ngr. <b>margarit&#xe1;ri</b>.
+<br /><br />
+  	<span style="float:left"><font size=-1>Trimis de <b><a href="user.php?n=ana_zecheru">ana_zecheru</a>
+  	  </b>, 2002-05-22. Sursa: <a class=ref href="/faq.php#surse">DEX '98</a></font></span>
+	</td>
+  </tr>
+
+    <tr><td ><b>MĂRGĂRIT&#xc1;R</b> s. <b>1.</b> v. <i><a class=ref href="/search.php?cuv=perlă">perlă</a></i>. <b>2.</b> v. <i><a class=ref href="/search.php?cuv=lăcrimioară">lăcrimioară</a></i>. <b>3.</b> v. <i><a class=ref href="/search.php?cuv=vâsc">vâsc</a></i>.
+<br /><br />
+  	<span style="float:left"><font size=-1>Trimis de <b><a href="user.php?n=siveco">siveco</a>
+  	  </b>, 2004-08-04. Sursa: <a class=ref href="/faq.php#surse">Sinonime</a></font></span>
+	</td>
+  </tr>
+
+        </table>
+        <br /><br />                       
+*}
+        
+        <div class="titlu">Asistenţă</div>
+        <div>Consultarea dicţionarelor este gratuită şi nelimitată. Puteţi folosi caseta de editare din dreapta-sus a paginii, care acceptă şi <a href="javascript:helpWindow()">opţiuni avansate</a>.<br />
+      {if $is_connected}
+        Sunteţi conectat. Puteţi să modificaţi datele <a href="account.php">contului dvs.</a> de utilizator sau să vă <a href="logout.php">deconectaţi</a>.</div>
+      {else}
+        Dacă doriţi să contribuiţi la proiectul DEX online, vă recomandăm să vă <a href="signup.php">înregistraţi</a>.<br />
+        Dacă aveţi deja un cont la noi, vă puteţi <a href="login.php">conecta</a>.</div>
+      {/if}          
+        <br />

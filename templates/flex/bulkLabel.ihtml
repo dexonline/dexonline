@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../styles/flex.css" rel="stylesheet" type="text/css"/>
+    <link href="../styles/paradigm.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../js/flex.js"></script>
+    <title>Flex | {$sectionTitle|escape}</title>
+  </head>
+
+  <body>
+    {include file="admin/header.ihtml"
+             title=$sectionTitle}
+    {include file="admin/recentlyVisited.ihtml"}
+
+    <a href="bulkLabelSelectSuffix.php">Alege alt sufix</a><br/>
+
+    <ul>
+      <li>Sunt prezentate maxim 10 lexeme pe pagină.</li>
+      <li>
+        Restricţiile nu sunt luate în considerare în timp real (toate
+        formele vor fi afişate chiar dacă bifaţi unele restricţii),
+        dar vor fi procesate corect când trimiteţi formularul.
+      </li>
+      <li>
+        Dacă ignoraţi un lexem, el nu va mai reapărea în listă. În
+        acest caz, trebuie să adăugaţi un comentariu. Dacă nu adăugaţi
+        voi unul, va fi adăugat automat comentariul "De
+        revizuit (comentariu adăugat automat)".
+      </li>
+    </ul>
+
+    <form action="bulkLabel.php" method="post">
+      <input type="hidden" name="suffix" value="{$suffix|escape}"/>
+      {foreach from=$lexems item=l key=lIter}
+        <div class="blLexem">
+          <div class="blLexemName">
+            {$lIter+1}. {$l->unaccented|escape}
+            <a class="blEditLink"
+               href="../admin/lexemEdit.php?lexemId={$l->id}"
+              >editează</a>
+          </div>
+          <div class="blLexemBody">
+
+            <!-- Radio buttons to choose the model. -->
+            Model de flexiune:
+            {foreach from=$models item=m key=mIter}
+              {assign var="mId" value="`$m->modelType`_`$m->number`"}
+              {assign var="label" value="radio_`$l->id`_`$mId`"}
+              <input type="radio" name="lexem_{$l->id}" value="{$mId}"
+                     id="{$label|escape}"
+                     onclick="hideDiv('comment_{$l->id}'); return blUpdateParadigmVisibility(this)"
+                     {if !$mIter}checked="checked"{/if}
+              /><label for="{$label|escape}"
+              >{$m->modelType}{$m->number} ({$m->exponent})</label>
+              &nbsp;&nbsp;
+            {/foreach}
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="lexem_{$l->id}" value="0"
+                   id="radio_{$l->id}_0"
+                   onclick="showDiv('comment_{$l->id}'); return blUpdateParadigmVisibility(this)"
+            /><label for="radio_{$l->id}_0">Ignoră</label>
+            <br/>
+
+            <div id="comment_{$l->id}" style="display: none">
+              <span style="vertical-align: top">Comentariu:</span>
+              <textarea name="comment_{$l->id}" rows="8" cols="60"
+                        class="commentTextArea"
+              ></textarea>
+            </div>
+
+            <!-- Restriction checkboxes, if applicable -->
+            Restricţii:
+            <input type="checkbox" id="restr_{$l->id}_S"
+                   name="restr_{$l->id}[]" value="S"
+            /><label for="restr_{$l->id}_S">Singular</label>
+            &nbsp;&nbsp;
+            <input type="checkbox" id="restr_{$l->id}_P"
+                   name="restr_{$l->id}[]" value="P"
+            /><label for="restr_{$l->id}_P">Plural</label>
+            &nbsp;&nbsp;
+            <input type="checkbox" id="restr_{$l->id}_U"
+                   name="restr_{$l->id}[]" value="U"
+            /><label for="restr_{$l->id}_U">Unipersonal</label>
+            &nbsp;&nbsp;
+            <input type="checkbox" id="restr_{$l->id}_I"
+                   name="restr_{$l->id}[]" value="I"
+            /><label for="restr_{$l->id}_I">Impersonal</label>
+            &nbsp;&nbsp;
+            <input type="checkbox" id="restr_{$l->id}_T"
+                   name="restr_{$l->id}[]" value="T"
+            /><label for="restr_{$l->id}_T">Trecut</label>
+            &nbsp;&nbsp;
+            <br/>
+
+            <!-- Hide/show definitions -->
+            <a href="#" id="defLink_{$l->id}"
+               onclick="return blUpdateDefVisibility(this)"
+            >ascunde definiţiile</a>
+
+            <!-- Definitions -->
+            <div class="blDefinitions" id="definitions_{$l->id}">
+              {assign var="srArray" value="`$searchResults[$lIter]`"}
+              {foreach from=$srArray item=row}
+                {$row->definition->htmlRep}<br/>
+                <span class="defDetails">
+                  Sursa: {$row->source->shortName|escape} |
+                  {assign var=status value=`$row->definition->status`}
+                  {assign var=statusName value=`$allStatuses[$status]`}
+                  Starea: {$statusName}
+                </span>
+                <br/>
+              {/foreach}
+            </div>
+
+            <!-- Div containing all the paradigms. Only one of them will -->
+            <!-- be visible at any time. -->
+            <div id="paradigms_{$l->id}">
+              {assign var="wlMapArray" value="`$wlMapMatrix[$lIter]`"}
+              {foreach from=$wlMapArray item=wlMap key=pIter}
+                {if $pIter}
+                  {assign var="display" value="none"}
+                {else}
+                  {assign var="display" value="block"}
+                {/if}
+                {assign var="m" value="`$models[$pIter]`"}
+                <div class="blParadigm" style="display: {$display}"
+                     id="paradigm_{$l->id}_{$m->modelType}_{$m->number}">
+                  {include file="common/bits/paradigm.ihtml"
+                           modelType=$m->modelType
+                           lexem=$l
+                           wlMap=$wlMap}
+                </div>
+              {/foreach}
+            </div>
+          </div>
+        </div>
+      {/foreach}
+
+      <br/>
+      <input type="submit" name="submitButton" value="Trimite"/>
+    </form>
+
+    {include file="common/bits/debugInfo.ihtml"}
+  </body>
+
+</html>

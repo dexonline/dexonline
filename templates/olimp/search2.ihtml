@@ -1,0 +1,17 @@
+<form method="get" action="search.php">
+	<div class="titlu">Afişează definiţiile</div>
+	&nbsp;Cuvântul: <input name="cuv" value="{$cuv|escape}">
+	Sursa: {include file="common/sourceDropDown.ihtml"}
+	<input type="submit" value="Caută">
+</form> 
+
+<br/><br/>
+
+<div class="titlu">Asistenţă</div>
+
+<div>
+  Pentru opţiuni avansate de căutare, daţi
+  <a href="javascript:helpWindow()">clic aici</a>.
+</div>
+
+<br/>

@@ -1,0 +1,99 @@
+{assign var=baseInflId value=$smarty.const.INFL_A_OFFSET}
+
+<table class="lexem">
+  <tr>
+    <td colspan="2" rowspan="2">
+      <span class="lexemName"
+        >{include file="common/bits/lexemName.ihtml" lexem=$lexem
+      }</span>
+      &nbsp; {$title|escape}
+      {include file="common/bits/locInfo.ihtml lexem=$lexem}
+    </td>
+    <td colspan="2" class="inflection">masculin</td>
+    <td colspan="2" class="inflection">feminin</td>
+  </tr>
+  <tr>
+    <td class="inflection">nearticulat</td>
+    <td class="inflection">articulat</td>
+    <td class="inflection">nearticulat</td>
+    <td class="inflection">articulat</td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="inflection">nominativ-acuzativ</td>
+    <td class="inflection">singular</td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+4`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+8`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+12`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+  </tr>
+  <tr>
+    <td class="inflection">plural</td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+2`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+6`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+10`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+14`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="inflection">genitiv-dativ</td>
+    <td class="inflection">singular</td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+1`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+5`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+9`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+13`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+  </tr>
+  <tr>
+    <td class="inflection">plural</td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+3`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+7`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+11`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+15`}
+      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+    </td>
+  </tr>
+</table>

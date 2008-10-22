@@ -1,0 +1,51 @@
+<br/>
+
+<script type="text/javascript" src="js/flex.js"></script>
+
+<form action="viewModels.php" method="get">
+  Versiunea LOC:
+  <select name="locVersion" id="locVersionListId"
+          onchange="return updateModelTypeList(this, 'modelTypeListId');">
+    {foreach from=$locVersions item=lv}
+      <option value="{$lv->name|escape}"
+              {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
+        {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"})
+      </option>
+    {/foreach}
+  </select>
+
+  &nbsp;&nbsp; Model:
+  <select name="modelType" id="modelTypeListId"
+          onchange="return updateModelListWithLocVersion(this, 'modelListId')">
+    {foreach from=$modelTypes item=mt}
+      <option value="{$mt->value|escape}"
+              {if $mt->value == $selectedModelType}selected="selected"{/if}>
+        {$mt->value|escape} ({$mt->description|escape})
+      </option>
+    {/foreach}
+  </select>
+
+  &nbsp;&nbsp; Număr:
+  <select name="modelNumber" id="modelListId">
+    <option value="-1">Toate</option>
+    {foreach from=$models item=m}
+      <option value="{$m->number|escape}"
+        {if $m->number == $selectedModelNumber}selected="selected"{/if}
+        >{$m->number}{if !$m->id}*{/if} ({$m->exponent})
+      </option>
+    {/foreach}
+  </select>
+  <input type="submit" name="submitButton" value="Arată"
+         onclick="return hideSubmitButton(this)"/>
+</form>
+
+{if $modelsToDisplay}
+  {foreach from=$modelsToDisplay item=m key=i}
+    <div class="scrabbleModelName">
+      {$m->number}. {$m->exponent}
+    </div>
+    {include file="common/bits/paradigm.ihtml"
+             lexem=$lexems[$i]
+             wlMap=$paradigms[$i]}
+  {/foreach}
+{/if}

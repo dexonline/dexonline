@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+   <ShortName>DEX Online</ShortName>
+   <Description>Cauta definitii in Dictionarul Explicativ On-line</Description>
+   <Tags>dex dictionar</Tags>
+   <Contact>alex.lixandru@gmail.com</Contact>
+   <Url type="text/html" template="http://dexonline.ro/search.php?cuv={searchTerms}"/>
+   <LongName>DEX Online</LongName>
+   <Image height="16" width="16" type="image/vnd.microsoft.icon">http://dexonline.ro/favicon.ico</Image>
+   <Query role="example" searchTerms="dex"/>
+   <Developer>Alexandru Ionut Lixandru</Developer>
+   <Attribution>
+     Acest fisier este oferit de Alexandru Ionut Lixandru sub 'GNU General Public License'
+   </Attribution>
+   <SyndicationRight>open</SyndicationRight>
+   <AdultContent>false</AdultContent>
+   <Language>en-us</Language>
+   <Language>ro-ro</Language>
+   <Language>*</Language>
+   <OutputEncoding>UTF-8</OutputEncoding>
+   <InputEncoding>UTF-8</InputEncoding>
+   <moz:SearchForm>http://dexonline.ro/</moz:SearchForm>
+</OpenSearchDescription>

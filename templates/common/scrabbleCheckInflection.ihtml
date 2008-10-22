@@ -1,0 +1,40 @@
+<br/>
+
+Tastaţi o formă flexionară şi alegeţi versiunea LOC pentru a afla dacă
+vreunul din cuvintele din LOC generează acea formă.<br/><br/>
+
+<form action="scrabbleCheckInflection.php" method="get">
+  Forma:
+  <input type="text" name="form" value="{$form|escape}"/>
+  &nbsp;&nbsp;
+  Versiunea LOC:
+  <select name="locVersion">
+    {foreach from=$locVersions item=lv}
+      <option value="{$lv->name|escape}"
+              {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
+        {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"})
+      </option>
+    {/foreach}
+  </select>
+  <input type="submit" name="submitButton" value="Verifică"/>
+</form>
+
+{if isset($lexems)}
+  <ul>
+    {if count($lexems) == 0}
+      <li>Nici un cuvânt din LOC {$selectedLocVersion|escape} nu generează forma
+        <b>{$form|escape}.</b></li>
+    {else}
+      {foreach from=$wordlists item=wl key=i}
+        {assign var=l value=`$lexems[$i]`}
+        {assign var=infl value=`$inflections[$i]`}
+        <li>
+          <b>{$wl->form|escape}</b> provine din
+          <b>{$l->form|escape}</b>
+          {$l->modelType}{$l->modelNumber}{$l->restriction}
+          ({$infl->description|escape})
+        </li>
+      {/foreach}
+    {/if}
+  </ul>
+{/if}

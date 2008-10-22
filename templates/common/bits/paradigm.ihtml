@@ -1,0 +1,62 @@
+{* Arguments:
+   $lexem: Lexem;
+   $modelType: String; (optional; if missing, use $lexem->modelType)
+   $wlMap: HashMap($inflectionId -> Array(WordList))
+*}
+
+{if !$modelType}
+  {assign var=modelType value=$lexem->modelType}
+{/if}
+
+{if $modelType == 'T'}
+  {include file="common/bits/paradigmT.ihtml" lexem=$lexem}
+{elseif $modelType == 'I'}
+  {include file="common/bits/paradigmI.ihtml" lexem=$lexem wlMap=$wlMap}
+{elseif $modelType == 'A'}
+  {include file="common/bits/paradigmA.ihtml"
+           lexem=$lexem
+           wlMap=$wlMap
+           title="adjectiv"}
+{elseif $modelType == 'MF'}
+  {include file="common/bits/paradigmA.ihtml"
+           lexem=$lexem
+           wlMap=$wlMap
+           title="substantiv"}
+{elseif $modelType == 'M'}
+  {include file="common/bits/paradigmN.ihtml"
+           lexem=$lexem
+           wlMap=$wlMap
+           baseInflId=`$smarty.const.INFL_M_OFFSET`
+           title="substantiv masculin"}
+{elseif $modelType == 'F'}
+  {include file="common/bits/paradigmN.ihtml"
+           lexem=$lexem
+           wlMap=$wlMap
+           baseInflId=`$smarty.const.INFL_F_OFFSET`
+           title="substantiv feminin"}
+{elseif $modelType == 'N'}
+  {include file="common/bits/paradigmN.ihtml"
+           lexem=$lexem
+           wlMap=$wlMap
+           baseInflId=`$smarty.const.INFL_N_OFFSET`
+           title="substantiv neutru"}
+{elseif $modelType == 'P'}
+  {include file="common/bits/paradigmP.ihtml"
+           lexem=$lexem
+           wlMap=$wlMap}
+{elseif $modelType == 'V'}
+  {include file="common/bits/paradigmV.ihtml"
+           lexem=$lexem
+           wlMap=$wlMap
+           title="verb"}
+{elseif $modelType == 'VT'}
+  {include file="common/bits/paradigmV.ihtml"
+           lexem=$lexem
+           wlMap=$wlMap
+           title="verb tranzitiv"}
+{else}
+  <div class="lexem">
+    Nu pot afişa flexiunea lexemului
+    <span class="lexemName">{$lexem->unaccented|escape}</span>.
+  </div>
+{/if}

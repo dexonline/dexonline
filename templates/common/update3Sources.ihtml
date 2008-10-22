@@ -1,0 +1,13 @@
+<Sources>
+  <NumResults>{$sources|@count}</NumResults>
+  {foreach from=$sources item=s}
+    <Source>
+      <Id>{$s->id}</Id>
+      <ShortName>{$s->shortName|escape}</ShortName>
+      <Name>{$s->name|escape}</Name>
+      <Author>{$s->author|escape}</Author>
+      <Publisher>{$s->publisher|escape}</Publisher>
+      <Year>{$s->year|escape}</Year>
+    </Source>
+  {/foreach}
+</Sources>

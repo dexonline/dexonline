@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>DEX online - update.php</title>
+  </head>
+
+  <body>
+    <p>Acest script exportă baza de date a <i>DEX online</i> sau
+    porţiuni ale ei. Dacă doriţi să scrieţi un client care să
+    transfere baza de date şi să o folosească off-line, comunicaţi cu
+    acest script pentru a vă sincroniza periodic baza de date.</p>
+
+    <p><b>LICENŢĂ:</b> Copierea, folosirea şi redistribuirea acestor
+    definiţiilor din <i>DEX online</i> sunt permise sub <a
+    href="faq.php#licenta">Licenţa Publică Generală GNU</a>.</p>
+
+    <p><b>OBSERVAŢIE:</b> Este obligatoriu ca mecanismul pe care îl
+    folosiţi pentru transfer să accepte date comprimate cu gzip. Mai
+    exact, trebuie ca, la stabilirea conexiunii, să setaţi antetul
+    <b>Accept-Encoding: gzip</b> (cel puţin). Datele pe care le primiţi
+    sunt comprimate cu gzip; există biblioteci publice pentru cam orice
+    limbaj pe care le puteţi folosi pentru a decomprima datele. Dacă nu
+    vă conformaţi acestei cerinţe, veţi primi un răspuns 403
+    (Forbidden). De remarcat că orice browser modern foloseşte gzip,
+    deci îl puteţi folosi pentru a inspecta vizual datele.</p>
+
+    <p>Parametri acceptaţi de acest script:</p>
+
+    <h4>timestamp=&lt;long&gt;</h4>
+
+    <p>Data ultimei actualizări făcute. Scriptul va returna toate
+    definiţiile care au fost adăugate sau modificate după această
+    dată. <b>Timestamp</b> înseamnă numărul de secunde trecute de la 1
+    ianuarie 1970 GMT. Programul în care dezvoltaţi aplicaţia ar trebui
+    să aibă funcţii de conversie din data/ora calendaristică în
+    timestamp. Dacă nu, puteţi apela prima oară acest script cu
+    timestamp=0, pentru a prelua toate definiţiile.  Scriptul vă va
+    returna timestamp-ul curent, pe care îl puteti păstra şi folosi ca
+    parametru la următoarea actualizare.</p>
+
+    <h4>version=&lt;string&gt;</h4>
+
+    Versiunile acceptate în prezent şi caracteristicile lor sunt:
+
+    <ul>
+      <li><b>1.0:</b> Aceasta este prima versiune a protocolului. Dacă nu
+        specificaţi versiunea dorită, veţi primi implicit datele în versiunea
+        1.0.
+        <ul>
+	  <li>Înainte de lista rezultatelor, această versiune exportă câmpul
+          <tt>&lt;NumResults&gt;</tt>, care indică numărul aproximativ de
+	  rezultate conţinute în mesaj. Numărul nu este întotdeauna exact
+          deoarece baza de date se poate modifica în timpul
+          transferului.</li>
+          <li>Acceptă opţiunea <tt>flags=d</tt>, care include şi cuvăntul-titlu
+          cu diacritice pentru fiecare definiţie. Începând cu versiunea 2.0,
+          acest lucru se petrece automat.</li>
+        </ul>
+      </li>
+
+      <li><b>2.0:</b>
+        <ul>
+	  <li>Nu mai include câmpul <tt>&lt;NumResults&gt;</tt>. Pentru a avea
+          o măsură a progresului, folosiţi câmpul <tt>&lt;Timestamp&gt;</tt>,
+          prezent în fiecare definiţie. Datele sunt sortate în ordinea
+          crescătoare a acestui câmp.</li>
+          <li>Exportă toate cuvintele-cheie pentru fiecare definiţie (există
+          întotdeauna un cuvânt-cheie, dar pot exista mai multe).
+          Cuvintele-cheie sunt exportate atât cu diacritice (în câmpul
+          <tt>&lt;Dname&gt;</tt>), cât şi fără (în câmpul
+          <tt>&lt;Name&gt;</tt>).</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>flags=[ad]</h4>
+
+    <p>Opţiuni pentru a primi datele în diverse formate.</p>
+
+    <ul>
+       <li><b>a:</b> Exportă şi cuvântul-titlu cu diacritice pentru fiecare
+       definiţie. Această opţiune este ignorată începând cu versiunea 2.0.</li>
+
+       <li><b>d:</b> Înlocuieşte unele notaţii interne ale <i>DEX online</i>
+       (-, **, *, &lt;, &gt;) cu caractere Unicode (&amp;#x2013;, &amp;diams;,
+       &amp;loz;, &amp;lt;, &amp;gt;).</li>
+    </ul>
+
+  </body>
+</html>

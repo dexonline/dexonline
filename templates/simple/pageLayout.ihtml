@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link href="{$cssRoot}/simple.css" rel="stylesheet" type="text/css"/>
+  <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
+  <title>{$page_title|escape}</title>
+  <script type="text/javascript" src="js/dex.js"></script>
+</head>
+
+{if $show_search_box && $focus_search_box}
+  <body onload="document.frm.cuv.focus()" id="simpleSkinBody">
+{else}
+  <body id="simpleSkinBody">
+{/if}
+
+<table width="100%" border="0" cellspacing="0" cellpadding="2">
+  <tr>
+    <td width="84%" bgcolor="#ffc0a0">
+      <b>
+        DEX online &#x2013; Dicţionare ale limbii române
+      </b>
+    </td>
+    <td width="1%" rowspan="5">&nbsp;</td>
+    <td width="15%" nowrap="nowrap" bgcolor="#c0e0ff"><b>Legături</b></td>
+  </tr>
+
+  <tr>
+    <td valign="top" style="border:#ffc0a0 solid 1px;">
+      {if $show_search_box}
+        <form name="frm" method="get" action="search.php">
+          &nbsp;Cuvântul: <input name="cuv" value="{$cuv|escape}"/>
+      	  Sursa: {include file="common/sourceDropDown.ihtml"}
+          <input type="submit" value="Caută"/>
+          <a href="javascript:helpWindow()">Ajutor</a>
+        </form>
+      {/if}
+
+      {include file=$contentTemplateName}
+
+    </td>
+    <td style="border:#c0e0ff solid 1px;" rowspan="4" nowrap="nowrap"
+      valign="top">
+      Utilizator: <b id="user.nick">{$nick|escape}</b><br/>
+      {if !$main_page}
+        <a href="/">Pagina principală</a><br/>
+      {/if}
+
+      <a href="contrib.php">Contribuie la DEX!</a><br/>
+      <a href="corect.php" id="guideLink">Corect / greşit</a><br/>
+      <a href="faq.php">Informaţii</a><br/>
+      <a href="tools.php">Unelte</a><br/>
+      <a href="top.php">Top</a><br/>
+      <a href="contact.php">Contact</a>
+
+      <hr style="border:none; height:1px; background:#c0e0ff"/>
+
+      {if !$is_mirror}
+        {if $is_connected && $is_moderator}
+          <a href="admin/">Pagina moderatorului</a><br/>
+        {/if}
+        {if $is_connected}
+          <a href="account.php">Contul meu</a><br/>
+          <a href="logout.php" id="logoutLink">Deconectare</a><br/>
+        {else}
+          <a href="login.php" id="loginLink">Conectare utilizator</a><br/>
+	  <a href="signup.php">Înscriere utilizator</a><br/>
+        {/if}
+        <hr style="border:none; height:1px; background:#c0e0ff"/>
+      {/if}
+
+      <center>
+        {if $hostedBy}
+          {include file="common/hosting/$hostedBy.ihtml"}
+          <br/>
+        {/if}
+        {include file="common/trafic_ro.ihtml"}
+      </center>
+
+    </td>
+
+  </tr><tr>
+    <td height="1"><font size="-2">&nbsp;</font></td>
+  </tr><tr>
+    <td height="1" bgcolor="#a0e0a0"><b>Starea curentă</b></td>
+  </tr><tr>
+    <td height="1" style="border:#a0e0a0 solid 1px;">
+      <i>DEX online</i> a învăţat <b>{$words_total}</b> de definiţii,
+      din care <b>{$words_last_month}</b> în ultima lună.<br/>
+    </td>
+  </tr>
+</table>
+
+<div class="copyright">
+  Copyright (C) 2004-2008 DEX online. Copierea definiţiilor este
+  permisă sub <a href="{$wwwRoot}/faq.php#licenta">licenţa GPL</a>, cu
+  condiţia păstrării acestei note.
+</div>
+
+{if $debug}
+  <div class="debugInfo">
+    Pagină generată în
+
+    {php}echo debug_getRunningTimeInMillis();{/php}
+
+    ms.<br/>
+
+   {php}echo debug_getDebugInfoAsHtml();{/php}
+  </div>
+{/if}
+
+</body>
+</html>

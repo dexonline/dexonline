@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="/styles/simple.css" rel="stylesheet" type="text/css"/>
+    <title>DEX online - Instructiuni pentru cautare</title>
+  </head>
+
+  <body>
+
+    <p>Pentru a căuta cuvinte cu diacritice, le puteţi tasta fie ca
+    atare, dacă aveţi o tastatură românească, fie folosind notaţiile
+    <b>~a, ^a, ^i, ,s</b> şi <b>,t</b> pentru <b>ă, â, î, ş</b> şi
+    <b>ţ.</b> Sau puteţi tasta cuvântul fără diacritice.</p>
+
+    <p>Puteţi face căutări cu expresii regulate. Următoarele simboluri
+    speciale vă sunt disponibile:</p>
+
+    <ul>
+      <li><b>?</b> se potriveşte cu orice caracter. De exemplu,
+      <b>?z</b> va găsi toate cuvintele din două litere în
+      care a doua literă este <b>z</b>.</li>
+
+      <li><b>*</b> se potriveşte cu orice şir de caractere, inclusiv cu
+      şirul vid. De exemplu, <b>z*</b> va găsi toate cuvintele care încep cu
+      <b>z</b>.</li>
+
+      <li><b>s1|s2</b> se potriveşte cu oricare din cele două şiruri. De
+      exemplu, <b>ana|caiafa</b> va găsi definiţiile pentru <b>ana</b> şi
+      pentru <b>caiafa</b>.</li>
+
+      <li><b>[set]</b> se potriveşte cu oricare literă din set. De exemplu,
+      <b>ma[uy]*</b> va găsi cuvintele care încep cu <b>mau</b> sau
+      <b>may</b>.</li>
+
+      <li><b>[^set]</b> se potriveşte cu oricare literă care
+      <b>nu</b> este în set. De exemplu, <b>*gh[^ei]*</b> va găsi
+      cuvintele care conţin grupul <b>gh</b>, dar nu în contextul
+      <b>ghe</b> sau <b>ghi</b>.</li>
+    </ul>
+  </body>
+</html>

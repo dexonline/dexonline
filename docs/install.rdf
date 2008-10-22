@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="rdf:#$GZ0Y+1"
+                   em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   em:minVersion="2.0"
+                   em:maxVersion="5.0" />
+  <RDF:Description RDF:about="urn:mozilla:install-manifest"
+                   em:id="{9b5612b3-3786-4e7e-af06-2ace545e6a97}"
+                   em:name="ortoDEX"
+                   em:version="1.0"
+                   em:creator="DEX online"
+                   em:description="Corector ortografic pentru limba română"
+                   em:homepageURL="http://dexonline.ro"
+                   em:contributor="Cătălin Frâncu">
+    <em:targetApplication RDF:resource="rdf:#$GZ0Y+1"/>
+  </RDF:Description>
+</RDF:RDF>

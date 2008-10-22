@@ -1,0 +1,153 @@
+<div class="resultBar">
+  <div class="abbrev">
+    <a href="#" onclick="abbrevwindow(); return false;">Abrevieri</a>
+  </div>
+
+  {if $searchType == SEARCH_LEXEM || $searchType == SEARCH_WORDLIST}
+    {if count($results) == 1}
+      O definiţie pentru
+    {else}
+      {$results|@count} definiţii pentru
+    {/if}
+    {foreach from=$lexems item=lexem key=row_id}
+      <a href="search.php?lexemId={$lexem->id}">{$lexem->unaccented}</a
+      >{if $lexem->description} ({$lexem->description|escape}){/if
+      }{if $row_id < count($lexems) - 1},{/if}
+    {/foreach}
+
+  {elseif $searchType == SEARCH_APPROXIMATE}
+    {if count($lexems)}
+      Cuvântul "{$cuv|escape}" nu a fost găsit, dar am găsit următoarele cuvinte
+      apropiate:
+    {else}
+      Cuvântul "{$cuv|escape}" nu a fost găsit. Nu există nici un cuvânt similar.
+    {/if}
+
+  {elseif $searchType == SEARCH_DEF_ID}
+    {if count($results)}
+      Definiţia cu ID-ul {$cuv|escape}:
+    {else}
+      Nu există nici o definiţie cu ID-ul {$cuv|escape}.
+    {/if}
+
+  {elseif $searchType == SEARCH_REGEXP}
+    {if $numResults}
+      {if $numResults > count($lexems)}
+        {$numResults} rezultate pentru {$cuv|escape} (maxim {$lexems|@count} afişate):
+      {else}
+        {$numResults} rezultate pentru {$cuv|escape}:
+      {/if}
+    {else}
+      Nici un rezultat pentru {$cuv|escape}.
+    {/if}
+
+  {elseif $searchType == SEARCH_LEXEM_ID}
+    {if count($lexems) > 0}
+      {if count($results) == 1}
+        O definiţie pentru
+      {else}
+        {$results|@count} definiţii pentru
+      {/if}
+      {include file="common/bits/lexemName.ihtml" lexem=$lexems.0}
+    {else}
+      Nu există nici un lexem cu ID-ul căutat.
+    {/if}
+
+  {elseif $searchType == SEARCH_FULL_TEXT}
+    {if $lockExists}
+      Momentan nu puteţi căuta prin textul definiţiilor, deoarece indexul
+      este în curs de reconstrucţie. Această operaţie durează de obicei circa
+      10 minute. Ne cerem scuze pentru neplăcere.
+    {else}
+      {if $numResults == 1}
+        O definiţie cuprinde toate cuvintele căutate
+      {elseif $numResults > 1}
+        {$numResults} definiţii cuprind toate cuvintele căutate
+      {else}
+        Nici o definiţie nu conţine toate cuvintele căutate.
+      {/if}
+
+      {if $numResults > count($results)}
+        (maxim {$results|@count} afişate)
+      {/if}
+    {/if}
+  {/if}
+
+  {if $wordListMaps}
+    <a class="inflLink" href="#" onclick="return toggleInflVisibility();"
+       title="click pentru conjugarea / declinarea cuvintelor"
+      ><span id="inflArrow">&#x25b7;</span>flexiuni
+    </a>
+  {/if}
+</div>
+
+{if $wordListMaps}
+  <div class="paradigm" id="paradigmDiv">
+    {foreach from=$wordListMaps item=wlMap key=i}
+      {include file="common/bits/paradigm.ihtml"
+               lexem=$lexems[$i]
+               wlMap=$wlMap}
+    {/foreach}
+  </div>
+{/if}
+
+{if $stopWords}
+  <span class="stopWords">
+    Unul sau mai multe cuvinte au fost ignorate deoarece sunt prea comune:
+    <b>
+      {foreach from=$stopWords item=word}
+        {$word|escape}
+      {/foreach}
+    </b>
+  </span>
+{/if}
+
+{foreach from=$results item=row}
+  <p>
+    <span class="def" onclick="return searchClickedWord(event);">
+      {$row->definition->htmlRep}
+    </span>
+    <br/>
+
+    <span class="defDetails">
+      Sursa: <a class="ref" href="faq.php#surse"
+                title="{$row->source->name|escape}, {$row->source->year|escape}"
+	     >{$row->source->shortName|escape}</a> |
+
+      Trimisă de <a href="user.php?n={$row->user->nick|escape:"url"}"
+        >{$row->user->nick|escape}</a>,
+      {$row->definition->createDate|date_format:"%e %b %Y"}
+
+      {if $is_moderator}
+        | Id: {$row->definition->id}
+      {/if}
+
+      |
+      <a href="javascript:typoWindow({$row->definition->id})"
+      >Greşeală de tipar</a>
+
+      {if $is_moderator && !$is_mirror}
+        |
+        <a target="edit_window"
+           href="admin/definitionEdit.php?definitionId={$row->definition->id}">
+          Editează</a>
+      {/if}
+    </span>
+
+    {if $row->comment}
+      <div class="defComment">
+        Comentariu: {$row->comment->htmlContents} -
+        <a href="user.php?n={$row->commentAuthor->nick|escape:"url"}"
+        >{$row->commentAuthor->nick|escape}</a>
+      </div>
+    {/if}
+  </p>
+{/foreach}
+
+{if $searchType == SEARCH_APPROXIMATE || $searchType == SEARCH_REGEXP}
+  {foreach from=$lexems item=lexem key=row_id}
+    {if $row_id}|{/if}
+    <a href="search.php?lexemId={$lexem->id}"
+    >{include file="common/bits/lexemName.ihtml" lexem=$lexem}</a>
+  {/foreach}
+{/if}

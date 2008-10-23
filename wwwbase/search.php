@@ -119,12 +119,23 @@ if ($searchType == SEARCH_LEXEM || $searchType == SEARCH_WORDLIST ||
   smarty_assign('results', $searchResults);
   
   // Maps lexems to arrays of wordlists (some lexems may lack inflections)
+  // Also compute the text of the link to the paradigm div,
+  // which can be 'conjugări', 'declinări' or both
   if (isset($lexems)) {
     $wordListMaps = array();
+    $conjugations = false;
+    $declensions = false;
     foreach ($lexems as $l) {
       $wordListMaps[] = WordList::loadByLexemIdMapByInflectionId($l->id);
+      if ($l->modelType == 'V' || $l->modelType == 'VT') {
+        $conjugations = true;
+      } else {
+        $declensions = true;
+      }
     }
+    $declensionText = $conjugations ? ($declensions ? 'conjugări / declinări' : 'conjugări') : 'declinări';
     smarty_assign('wordListMaps', $wordListMaps);
+    smarty_assign('declensionText', $declensionText);
   }
 }
 

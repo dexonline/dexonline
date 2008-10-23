@@ -73,10 +73,10 @@
     {/if}
   {/if}
 
-  {if $wordListMaps}
+  {if $declensionText}
     <a class="inflLink" href="#" onclick="return toggleInflVisibility();"
        title="click pentru conjugarea / declinarea cuvintelor"
-      ><span id="inflArrow">&#x25b7;</span>flexiuni
+      ><span id="inflArrow">&#x25b7;</span>{$declensionText}
     </a>
   {/if}
 </div>

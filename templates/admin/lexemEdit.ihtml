@@ -100,7 +100,7 @@
       </table>
     </div>
 
-    {if $lexem->modelType == 'T' && $homonyms}
+    {if $lexem->modelType == 'T' && !$lexem->isLoc && $homonyms}
       <div class="lexemSectionHeader">Sugestii pentru dezambiguizare</div>
 
       <div class="lexemSection">

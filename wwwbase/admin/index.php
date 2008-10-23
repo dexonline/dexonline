@@ -10,6 +10,7 @@ $numTemporaryDefinitions = Definition::countByStatus(ST_PENDING);
 $numTemporaryLexems = Lexem::countTemporary();
 $numLexemsWithComments = Lexem::countHavingComments();
 $numLexemsWithoutAccents = Lexem::countWithoutAccents();
+$numAmbiguousLexems = Lexem::countAmbiguous();
 
 $models = Model::loadByType('A');
 
@@ -20,6 +21,7 @@ smarty_assign('numTemporaryDefinitions', $numTemporaryDefinitions);
 smarty_assign('numTemporaryLexems', $numTemporaryLexems);
 smarty_assign('numLexemsWithComments', $numLexemsWithComments);
 smarty_assign('numLexemsWithoutAccents', $numLexemsWithoutAccents);
+smarty_assign('numAmbiguousLexems', $numAmbiguousLexems);
 smarty_assign('recentLinks', RecentLink::loadForUser());
 smarty_assign("allStatuses", util_getAllStatuses());
 smarty_assign("allModeratorSources", Source::loadAllModeratorSources());

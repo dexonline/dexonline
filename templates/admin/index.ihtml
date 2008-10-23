@@ -80,6 +80,14 @@
     {/if}
     <br/>
 
+    {if $numAmbiguousLexems}
+      <a href="../flex/viewAmbiguousLexems.php"
+        >Lexeme ambigue: {$numAmbiguousLexems}</a>
+    {else}
+      Lexeme ambigue: 0
+    {/if}
+    <br/>
+
     <br/>
     <form action="lexemLookup.php" method="get">
       <table>

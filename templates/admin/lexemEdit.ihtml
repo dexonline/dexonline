@@ -13,7 +13,7 @@
   </head>
 
   <body>
-    {assign var="title" value="Editare lexem: `$lexem->id`"}
+    {assign var="title" value="Editare lexem: `$lexem->form` `$lexem->modelType``$lexem->modelNumber``$lexem->restriction`"}
     {include file="admin/header.ihtml" title="$title"}
     {include file="admin/recentlyVisited.ihtml"}
     {include file="common/errorMessage.ihtml"}
@@ -92,12 +92,29 @@
                 <a href="lexemEdit.php?lexemId={$h->id}"
                   >{include file="common/bits/lexemName.ihtml"
                             lexem=$h}</a>
+                [{$h->modelType}{$h->modelNumber}{$h->restriction}]
               {/foreach}
             </td>
           </tr>
         {/if}
       </table>
     </div>
+
+    {if $lexem->modelType == 'T' && $homonyms}
+      <div class="lexemSectionHeader">Sugestii pentru dezambiguizare</div>
+
+      <div class="lexemSection">
+        <ul>
+          {foreach from=$homonyms item=h}
+            <li>
+              <a href="lexemMerge.php?id1={$lexem->id}&amp;id2={$h->id}">
+                Unifică cu {$h->form} [{$h->modelType}{$h->modelNumber}{$h->restriction}]
+              </a>
+            </li>
+          {/foreach}
+        </ul>
+      </div>
+    {/if}
 
     <div class="lexemSectionHeader">Paradigmă</div>
 

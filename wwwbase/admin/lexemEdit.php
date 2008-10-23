@@ -61,12 +61,6 @@ if ($createDefinition) {
 
 if ($deleteLexem) {
   $homonyms = $lexem->loadHomonyms();
-  if ($lexem->modelType == 'VT') {
-    $lexem->deleteParticiple($lexem->modelNumber);
-  }
-  if ($lexem->modelType == 'VT' || $lexem->modelType == 'V') {
-    $lexem->deleteLongInfinitive();
-  }
   $lexem->delete();
   smarty_assign('lexem', $lexem);
   smarty_assign('homonyms', $homonyms);

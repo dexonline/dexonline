@@ -1456,6 +1456,15 @@ class Lexem {
     return Lexem::populateFromDbResult($dbResult);
   }
 
+  public static function countAmbiguous() {
+    return db_countAmbiguousLexems();
+  }
+
+  public static function loadAmbiguous() {
+    $dbResult = db_getAmbiguousLexems();
+    return Lexem::populateFromDbResult($dbResult);
+  }
+
   public static function loadRandomWithoutAccents($count) {
     $dbResult = db_getRandomLexemsWithoutAccents($count);
     return Lexem::populateFromDbResult($dbResult);    
@@ -1729,6 +1738,12 @@ class Lexem {
     if ($this->id) {
       LexemDefinitionMap::deleteByLexemId($this->id);
       WordList::deleteByLexemId($this->id);
+      if ($this->modelType == 'VT') {
+        $this->deleteParticiple($this->modelNumber);
+      }
+      if ($this->modelType == 'VT' || $this->modelType == 'V') {
+        $this->deleteLongInfinitive();
+      }
       db_deleteLexem($this);
     }
   }

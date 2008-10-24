@@ -45,8 +45,7 @@ if ($loginButton) {
     } else {
       // Login failed
       $error = ERR_BAD_LOGIN;
-      log_userLog("Unsuccessful login attempt email=$nickOrEmail " . 
-                  "password=$password ip=" . $_SERVER['REMOTE_ADDR']);
+      log_userLog("Unsuccessful login attempt email=$nickOrEmail ip=" . $_SERVER['REMOTE_ADDR']);
     }
   }
 } else if ($forgetButton) {
@@ -76,8 +75,7 @@ Toate cele bune,
 Echipa DEX online
 ";
 
-      log_userLog("password reset for $nickOrEmail requested from " .
-                  $_SERVER['REMOTE_ADDR']);
+      log_userLog("Password reset for $nickOrEmail requested from " . $_SERVER['REMOTE_ADDR']);
       $email = pref_getContactEmail();
       $result = mail($nickOrEmail, "Noua parola pentru DEX online", $body,
 		     "From: DEX online <$email>\r\n" .

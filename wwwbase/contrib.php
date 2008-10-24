@@ -34,17 +34,20 @@ if ($sendButton) {
     $definition->lexicon = text_extractLexicon($definition);
     $definition->save();
     $definition->id = db_getLastInsertedId();
+    log_userLog("Added definition {$definition->id} ({$definition->lexicon})");
 
     $lexems = Lexem::loadByUnaccented($name);
     if (count($lexems)) {
       // Reuse existing lexem.
       $lexem = $lexems[0];
+      log_userLog("Reusing lexem {$lexem->id} ({$lexem->form})");
     } else {
       // Create a new lexem.
       $lexem = Lexem::create($name, 'T', '1', '');
       $lexem->save();
       $lexem->id = db_getLastInsertedId();
       $lexem->regenerateParadigm();
+      log_userLog("Created lexem {$lexem->id} ({$lexem->form})");
     }
 
     LexemDefinitionMap::associate($lexem->id, $definition->id);

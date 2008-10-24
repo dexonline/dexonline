@@ -1,6 +1,7 @@
 <?php
 
 function log_userLog($s) {
+  $s = session_getUserNick() . ": " . $s;
   _log_namedLog('userlog', $s);
 }
 

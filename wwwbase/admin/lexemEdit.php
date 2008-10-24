@@ -70,6 +70,7 @@ if ($deleteLexem) {
 
 if ($cloneLexem) {
   $newLexem = $lexem->cloneLexem();
+  log_userLog("Cloned lexem {$lexem->id} ({$lexem->form}), new id is {$newLexem->id}");
   util_redirect("lexemEdit.php?lexemId={$newLexem->id}");
 }
 
@@ -164,6 +165,7 @@ if ($updateLexem && !$errorMessage) {
   // or the form has changed. It's easier to do it every time.
   $lexem->regenerateParadigm();
 
+  log_userLog("Edited lexem {$lexem->id} ({$lexem->form})");
   util_redirect("lexemEdit.php?lexemId={$lexem->id}");
 }
 

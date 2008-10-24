@@ -127,9 +127,7 @@ if ($acceptButton || $moveButton) {
       }
     }
     
-    $log_message = sprintf("%s edited definition %d", session_getUserNick(),
-                           $definition->id);
-    log_userLog($log_message);
+    log_userLog("Edited definition {$definition->id} ({$definition->lexicon})");
     util_redirect('definitionEdit.php?definitionId=' . $definitionId);
   } else {
     smarty_assign('errorMessage', $errorMessage);

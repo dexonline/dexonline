@@ -20,14 +20,12 @@ function session_login($user) {
   $cookie->save();
   setcookie("prefs[lll]", $cookie->cookieString,
 	    time() + ONE_MONTH_IN_SECONDS);
-  log_userLog('User ' . $user->nick . ' has logged in from ip ' .
-              $_SERVER['REMOTE_ADDR']);
-
-  header("Location: " . util_getWwwRoot() . "/");
-  exit;
+  log_userLog('Logged in, IP=' . $_SERVER['REMOTE_ADDR']);
+  util_redirect(util_getWwwRoot());
 }
 
 function session_logout() {
+  log_userLog('Logging out, IP=' . $_SERVER['REMOTE_ADDR']);
   $cookieString = session_getCookieSetting('lll');
   $cookie = Cookie::loadByCookieString($cookieString);
   $cookie->delete();

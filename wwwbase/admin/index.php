@@ -10,7 +10,9 @@ $numTemporaryDefinitions = Definition::countByStatus(ST_PENDING);
 $numTemporaryLexems = Lexem::countTemporary();
 $numLexemsWithComments = Lexem::countHavingComments();
 $numLexemsWithoutAccents = Lexem::countWithoutAccents();
-$numAmbiguousLexems = Lexem::countAmbiguous();
+// Disable this for now, it slows down the admin page.
+// $numAmbiguousLexems = Lexem::countAmbiguous();
+$numAmbiguousLexems = 0;
 
 $models = Model::loadByType('A');
 

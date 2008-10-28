@@ -987,6 +987,7 @@ function db_getLexemsByReverseSuffix($suffix, $excludeLexemId, $limit) {
   $query = "select * from lexems where lexem_invers like '$suffix%' " .
     "and lexem_model_type != 'T' " .
     "and lexem_id != $excludeLexemId " .
+    "group by lexem_model_type, lexem_model_no " .
     "limit $limit";
   return logged_query($query);
 }

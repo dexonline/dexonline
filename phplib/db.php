@@ -1225,7 +1225,7 @@ function db_selectSuffixesAndCountsForTemporaryLexems() {
     "count(*) as c from lexems " .
     "where lexem_model_type = 'T' " .
     "and lexem_comment = '' " .
-    "group by s having c >= 20 order by c desc, s";
+    "group by s having c >= 10 order by c desc, s";
   return logged_query($query);
 }
 

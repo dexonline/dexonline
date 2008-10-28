@@ -1,4 +1,8 @@
-{$lexem->unaccented|escape
+{if $accent
+  }{$lexem->form|escape
+}{else
+  }{$lexem->unaccented|escape
+}{/if
 }{if $lexem->description
   } ({$lexem->description|escape}){
 /if

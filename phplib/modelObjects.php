@@ -1081,6 +1081,24 @@ class Model {
     }
     db_deleteModel($this);
   }
+
+  /** Returns an array containing the type, number and restrictions **/
+  public static function splitName($name) {
+    $result = array();
+    $len = strlen($name);
+    $i = 0;
+    while ($i < $len && !ctype_digit($name[$i])) {
+      $i++;
+    }
+    $result[] = substr($name, 0, $i);
+    $j = $i;
+    while ($j < $len && ctype_digit($name[$j])) {
+      $j++;
+    }
+    $result[] = substr($name, $i, $j - $i);
+    $result[] = substr($name, $j);
+    return $result;
+  }
 }
 
 class ModelDescription {

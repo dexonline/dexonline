@@ -129,9 +129,8 @@
         se flexionează ca...
         {foreach from=$suggestedLexems item=l key=i}
           {if $i}|{/if}
-          <a href="lexemEdit.php?lexemId={$lexem->id}&amp;similarLexemId={$l->id}"
-            >{include file="common/bits/lexemName.ihtml" lexem=$l}</a>
-          ({$l->modelType}{$l->modelNumber}{$l->restriction})
+          {include file="common/bits/lexemName.ihtml" lexem=$l accent=1}
+          {include file="common/bits/similarModel.ihtml" lexem=$lexem similar=$l}
         {/foreach}
         <br/><br/>
   

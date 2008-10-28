@@ -1,0 +1,12 @@
+{if $similar->modelType == 'V' || $similar->modelType == 'VT'
+  }{assign var="tag" value="`$similar->modelNumber``$similar->restriction`"}
+  <a href="lexemEdit.php?lexemId={$lexem->id}&amp;similarModel=V{$tag}">V{$tag}</a> /
+  <a href="lexemEdit.php?lexemId={$lexem->id}&amp;similarModel=VT{$tag}">VT{$tag}</a>
+{elseif $similar->modelType == 'A' || $similar->modelType == 'MF'
+  }{assign var="tag" value="`$similar->modelNumber``$similar->restriction`"
+  }<a href="lexemEdit.php?lexemId={$lexem->id}&amp;similarModel=A{$tag}">A{$tag}</a> /
+  <a href="lexemEdit.php?lexemId={$lexem->id}&amp;similarModel=MF{$tag}">MF{$tag}</a
+>{else
+  }{assign var="tag" value="`$similar->modelType``$similar->modelNumber``$similar->restriction`"
+  }<a href="lexemEdit.php?lexemId={$lexem->id}&amp;similarModel={$tag}">{$tag}</a
+>{/if}

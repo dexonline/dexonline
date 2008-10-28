@@ -14,7 +14,7 @@ $lexemIsLoc = util_getRequestParameter('lexemIsLoc');
 $lexemNoAccent = util_getRequestParameter('lexemNoAccent');
 $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
-$similarLexemId = util_getRequestParameter('similarLexemId');
+$similarModel = util_getRequestParameter('similarModel');
 $similarLexemName = util_getRequestParameter('similarLexemName');
 $restrArray = util_getRequestParameter('restr');
 $restriction = $restrArray ? implode($restrArray, '') : '';
@@ -74,7 +74,7 @@ if ($cloneLexem) {
   util_redirect("lexemEdit.php?lexemId={$newLexem->id}");
 }
 
-if (!$similarLexemId && !$similarLexemName && !$refreshLexem &&
+if (!$similarModel && !$similarLexemName && !$refreshLexem &&
     !$updateLexem) {
   RecentLink::createOrUpdate('Lexem: ' . $lexem->getExtendedName());
 }
@@ -117,14 +117,14 @@ if ($lexemNoAccent !== null) {
 }
 
 // The new model type, number and restrictions can come from three sources:
-// $similarLexemId, $similarLexemName or ($modelType, $modelNumber,
+// $similarModel, $similarLexemName or ($modelType, $modelNumber,
 // $restriction) directly
 $errorMessage = '';
-if ($similarLexemId !== null) {
-  $similarLexem = Lexem::load($similarLexemId);
-  $lexem->modelType = $similarLexem->modelType;
-  $lexem->modelNumber = $similarLexem->modelNumber;
-  $lexem->restriction = $similarLexem->restriction;
+if ($similarModel !== null) {
+  $parts = Model::splitName($similarModel);
+  $lexem->modelType = $parts[0];
+  $lexem->modelNumber = $parts[1];
+  $lexem->restriction = $parts[2];
 } else if ($similarLexemName) {
   $matches = Lexem::loadByExtendedName($similarLexemName);
   if (count($matches) == 1) {

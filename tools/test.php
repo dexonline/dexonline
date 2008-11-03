@@ -129,7 +129,7 @@ assertEquals(_text_insertSuperscripts("copil^i^2"), "copil^i<sup>2</sup>");
 assertEquals('xxx &#x2662; &#x2666; < &#x2013; > yyy',
              _text_minimalInternalToHtml('xxx * ** < - > yyy'));
 
-assertEquals('&#x201e;abc&#x201c;&#x201e;&#x201c;',
+assertEquals('„abc”„”',
 	     _text_internalToHtml('"abc"""', FALSE));
 assertEquals('<b><i>bold and italic</i> bold only</b> regular.',
 	     _text_internalToHtml('@$bold and italic$ bold only@ regular.',

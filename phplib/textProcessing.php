@@ -593,7 +593,7 @@ function _text_internalToHtml($s, $obeyNewlines) {
       }
     } else if ($c == '"') {
       $inQuotes = !$inQuotes;
-      $result .= $inQuotes ? '&#x201e;' : '&#x201c;';
+      $result .= $inQuotes ? '„' : '”';
     } else if ($c == '@') {
       $inBold = !$inBold;
       $result .= $inBold ? '<b>' : '</b>';

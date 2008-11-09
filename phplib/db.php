@@ -1225,7 +1225,6 @@ function db_selectSuffixesAndCountsForTemporaryLexems() {
   $query = "select reverse(substring(lexem_invers, 1, 4)) as s, " .
     "count(*) as c from lexems " .
     "where lexem_model_type = 'T' " .
-    "and lexem_comment = '' " .
     "group by s having c >= 10 order by c desc, s";
   return logged_query($query);
 }
@@ -1257,8 +1256,7 @@ function db_selectModelsBySuffix($reverseSuffix) {
 function db_selectTemporaryLexemsBySuffix($reverseSuffix) {
   $query = "select * from lexems where lexem_model_type = 'T' " .
     "and lexem_invers like '$reverseSuffix%' " .
-    "and lexem_comment = '' " .
-    "order by lexem_neaccentuat limit 10";
+    "order by lexem_neaccentuat limit 20";
   return logged_query($query);
 }
 

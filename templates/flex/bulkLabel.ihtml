@@ -17,17 +17,15 @@
     <a href="bulkLabelSelectSuffix.php">Alege alt sufix</a><br/>
 
     <ul>
-      <li>Sunt prezentate maxim 10 lexeme pe pagină.</li>
+      <li>Sunt prezentate maxim 20 de lexeme pe pagină.</li>
       <li>
         Restricţiile nu sunt luate în considerare în timp real (toate
         formele vor fi afişate chiar dacă bifaţi unele restricţii),
         dar vor fi procesate corect când trimiteţi formularul.
       </li>
       <li>
-        Dacă ignoraţi un lexem, el nu va mai reapărea în listă. În
-        acest caz, trebuie să adăugaţi un comentariu. Dacă nu adăugaţi
-        voi unul, va fi adăugat automat comentariul "De
-        revizuit (comentariu adăugat automat)".
+        Dacă ignoraţi un lexem, el nu va fi modificat şi va continua să apară în listă.
+        Îi puteţi adăuga un comentariu, dacă doriţi.
       </li>
     </ul>
 
@@ -51,7 +49,6 @@
               <input type="radio" name="lexem_{$l->id}" value="{$mId}"
                      id="{$label|escape}"
                      onclick="hideDiv('comment_{$l->id}'); return blUpdateParadigmVisibility(this)"
-                     {if !$mIter}checked="checked"{/if}
               /><label for="{$label|escape}"
               >{$m->modelType}{$m->number} ({$m->exponent})</label>
               &nbsp;&nbsp;
@@ -59,15 +56,16 @@
             &nbsp;&nbsp;&nbsp;&nbsp;
             <input type="radio" name="lexem_{$l->id}" value="0"
                    id="radio_{$l->id}_0"
+                   checked="checked"
                    onclick="showDiv('comment_{$l->id}'); return blUpdateParadigmVisibility(this)"
             /><label for="radio_{$l->id}_0">Ignoră</label>
             <br/>
 
-            <div id="comment_{$l->id}" style="display: none">
+            <div id="comment_{$l->id}" class="bulkLabelComment">
               <span style="vertical-align: top">Comentariu:</span>
-              <textarea name="comment_{$l->id}" rows="8" cols="60"
+              <textarea name="comment_{$l->id}" rows="2" cols="60"
                         class="commentTextArea"
-              ></textarea>
+              >{$l->comment|escape}</textarea>
             </div>
 
             <!-- Restriction checkboxes, if applicable -->

@@ -297,3 +297,8 @@ input.miniDefTarget {
   font-family: serif;
   font-weight: bold;
 }
+
+div.bulkLabelComment {
+  font-size: 90%;
+  margin-left: 30px;
+}

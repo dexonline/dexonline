@@ -25,11 +25,7 @@ if ($submitButton) {
         $lexem->save();
         $lexem->regenerateParadigm();
       } else {
-        $comment = util_getRequestParameter('comment_' . $lexem->id);
-        if (!$comment) {
-          $comment = 'De revizuit (adăugat automat)';
-        }
-        $lexem->comment = $comment;
+        $lexem->comment = util_getRequestParameter('comment_' . $lexem->id);
         $lexem->save();
       }
     }
@@ -54,12 +50,17 @@ while ($dbRow = mysql_fetch_assoc($dbResult)) {
   $modelNumber = $dbRow['lexem_model_no'];
   $count = $dbRow['c'];
   if (!count($models) || ($count / $numLabeled >= 0.05)) {
-    $m = Model::loadByTypeNumber($modelType, $modelNumber);
-    if (!$m) {
-      $canonical = Model::loadCanonicalByTypeNumber($modelType, $modelNumber);
-      $m = Model::create($modelType, $modelNumber, '', $canonical->exponent);
+    if ($modelType == 'V' || $modelType == 'VT') {
+      $m = Model::loadByTypeNumber('V', $modelNumber);
+      $models[] = $m;
+      $models[] = Model::create('VT', $modelNumber, '', $m->exponent);
+    } else if ($modelType == 'A' || $modelType == 'MF') {
+      $m = Model::loadByTypeNumber('A', $modelNumber);
+      $models[] = $m;
+      $models[] = Model::create('MF', $modelNumber, '', $m->exponent);
+    } else {
+      $models[] = Model::loadByTypeNumber($modelType, $modelNumber);
     }
-    $models[] = $m;
     $hasInvariableModel = $hasInvariableModel || ($modelType == 'I');
   }
 }

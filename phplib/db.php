@@ -196,9 +196,10 @@ function db_countDefinitionsByStatus($status) {
 }
 
 function db_countRecentDefinitions($minCreateDate) {
-  return logged_query("select count(*) from Definition where " .
-                      "CreateDate >= $minCreateDate and " .
-                      "Status = " . ST_ACTIVE);
+  $query = "select count(*) from Definition where " .
+    "CreateDate >= $minCreateDate and " .
+    "Status = " . ST_ACTIVE;
+  return db_fetchInteger(logged_query($query));
 }
 
 function db_countDefinitionsHavingTypos() {

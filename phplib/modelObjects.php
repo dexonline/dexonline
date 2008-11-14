@@ -456,9 +456,6 @@ class Definition {
     }
     $last_month = time() - 30 * 86400;
     $result = Definition::countActiveSince($last_month);
-    $row = mysql_fetch_row($result);
-    mysql_free_result($result);
-    $result = (int)$row[0];
     fileCache_putWordCountLastMonth($result);
     return $result;
   }

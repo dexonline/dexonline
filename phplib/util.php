@@ -303,4 +303,10 @@ function util_enforceGzipEncoding() {
   }
 }
 
+function util_deleteFile($fileName) {
+  if (file_exists($fileName)) {
+    unlink($fileName);
+  }
+}
+
 ?>

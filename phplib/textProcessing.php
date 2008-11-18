@@ -1139,11 +1139,11 @@ function text_unicodeExplode($s) {
     } else if ($c >> 4 == 14) {
       // 1110vvvv 10vvvvvv 10vvvvvv
       $result[] = $s[$i] . $s[$i + 1] . $s[$i + 2];
-      $i += 2;
+      $i += 3;
     } else if ($c >> 3 == 30) {
       // 11110vvv 10vvvvvv 10vvvvvv 10vvvvvv
-      $result[] = $s[$i] . $s[$i + 1] . $s[$i + 2];
-      $i += 2;
+      $result[] = $s[$i] . $s[$i + 1] . $s[$i + 2] + $s[$i + 3];
+      $i += 4;
     } else {
       // dunno, skip it
       $i++;

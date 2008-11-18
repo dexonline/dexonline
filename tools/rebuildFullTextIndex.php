@@ -1,7 +1,7 @@
 <?
 require_once('../phplib/util.php');
 ini_set('max_execution_time', '3600');
-ini_set('memory_limit', '768000000');
+ini_set('memory_limit', '1024000000');
 assert_options(ASSERT_BAIL, 1);
 
 log_scriptLog('Running rebuildFullTextIndex.php.');
@@ -98,11 +98,12 @@ function extractWords($text) {
 }
 
 function buildWordMap() {
-  log_scriptLog('Caching all word forms.');
   $wlMap = array();
   $dbResult = mysql_query('select wl_neaccentuat, wl_lexem, wl_analyse ' .
                           'from wordlist');
   $numWordLists = mysql_num_rows($dbResult);
+  log_scriptLog('Caching $numWordLists word forms.');
+  $seen = 0;
   while (($dbRow = mysql_fetch_assoc($dbResult)) != null) {
     $form = $dbRow['wl_neaccentuat'];
     $lexemId = $dbRow['wl_lexem'];
@@ -112,6 +113,10 @@ function buildWordMap() {
       $wlMap[$form][] = $value;
     } else {
       $wlMap[$form] = array($value);
+    }
+    $seen++;
+    if ($seen % 10000 == 0) {
+      log_scriptLog("$seen word forms cached...");
     }
   }
   log_scriptLog("$numWordLists word forms cached.");

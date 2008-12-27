@@ -29,6 +29,7 @@ function smarty_init() {
   $smarty->assign('show_search_box', 1);
   $smarty->assign('focus_search_box', 1);
   $smarty->assign('hostedBy', pref_getHostedBy());
+  $smarty->assign('currentYear', date("Y"));
   $GLOBALS['smarty_theSmarty'] = $smarty;
 }
 

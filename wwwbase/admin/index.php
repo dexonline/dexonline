@@ -29,7 +29,6 @@ smarty_assign("allStatuses", util_getAllStatuses());
 smarty_assign("allModeratorSources", Source::loadAllModeratorSources());
 smarty_assign('modelTypes', ModelType::loadCanonical());
 smarty_assign('models', $models);
-smarty_assign('currentYear', date("Y"));
 smarty_displayWithoutSkin('admin/index.ihtml');
 
 ?>

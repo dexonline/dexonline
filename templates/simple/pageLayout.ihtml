@@ -94,7 +94,7 @@
 </table>
 
 <div class="copyright">
-  Copyright (C) 2004-2008 DEX online. Copierea definiţiilor este
+  Copyright (C) 2004-{$currentYear} DEX online. Copierea definiţiilor este
   permisă sub <a href="{$wwwRoot}/faq.php#licenta">licenţa GPL</a>, cu
   condiţia păstrării acestei note.
 </div>

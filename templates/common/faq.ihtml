@@ -367,7 +367,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
 
 <h3><a name="licenta">Licenţă</a></h3>
 
-<h4>Copyright (C) 2004-2008 DEX online.</h4>
+<h4>Copyright (C) 2004-{$currentYear} DEX online.</h4>
 
   <i>DEX online</i> (constituit din baza de definiţii şi codul sursă)
   este liber; îl puteţi redistribui şi/sau modifica în conformitate cu

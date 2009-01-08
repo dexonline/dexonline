@@ -1226,7 +1226,7 @@ function db_selectSuffixesAndCountsForTemporaryLexems() {
   $query = "select reverse(substring(lexem_invers, 1, 4)) as s, " .
     "count(*) as c from lexems " .
     "where lexem_model_type = 'T' " .
-    "group by s having c >= 10 order by c desc, s";
+    "group by s having c >= 5 order by c desc, s";
   return logged_query($query);
 }
 

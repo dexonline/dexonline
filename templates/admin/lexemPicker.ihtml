@@ -5,7 +5,7 @@
        autocomplete="off"/>
 <input type="hidden" name="{$submitName}" value="{$submitValue|escape}"/>
 {if $editLinkId}
-  <a href="{$wwwRoot}/admin/lexemEdit.php?lexemId={$editLinkId}">editează</a> |
+  <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$editLinkId}">editează</a> |
 {/if}
 {if $dissociateLink}
   <a href="#" onclick="return deleteLexemRow(this)">disociază</a>

@@ -95,7 +95,7 @@
 
 <div class="copyright">
   Copyright (C) 2004-{$currentYear} DEX online. Copierea definiţiilor este
-  permisă sub <a href="{$wwwRoot}/faq.php#licenta">licenţa GPL</a>, cu
+  permisă sub <a href="{$wwwRoot}faq.php#licenta">licenţa GPL</a>, cu
   condiţia păstrării acestei note.
 </div>
 

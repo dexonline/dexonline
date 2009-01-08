@@ -33,9 +33,7 @@ function session_logout() {
   unset($_COOKIE['prefs']['lll']);
   session_unset();
   session_destroy();
-
-  header("Location: " . util_getWwwRoot() . "/");
-  exit;
+  util_redirect(util_getWwwRoot());
 }
 
 // Try to load loing information from the long-lived cookie

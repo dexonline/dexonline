@@ -15,7 +15,7 @@
     {include file="admin/recentlyVisited.ihtml"}
 
     {foreach from=$lexems item=l key=row_id}
-      <a href="{$wwwRoot}/admin/lexemEdit.php?lexemId={$l->id}"
+      <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$l->id}"
         >{include file="common/bits/lexemName.ihtml" lexem=$l}
         ({$l->modelType}{$l->modelNumber
       })</a>

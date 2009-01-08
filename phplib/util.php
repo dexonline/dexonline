@@ -53,9 +53,9 @@ function util_defineWwwRoot() {
   $pos = strrpos($fileName, '/wwwbase/');
   
   if ($pos == FALSE) {
-    $GLOBALS['util_wwwRoot'] = '';
+    $GLOBALS['util_wwwRoot'] = '/';
   } else {
-    $GLOBALS['util_wwwRoot'] = substr($fileName, 0, $pos) . '/wwwbase';
+    $GLOBALS['util_wwwRoot'] = substr($fileName, 0, $pos) . '/wwwbase/';
   }
 }
 
@@ -68,11 +68,11 @@ function util_getWwwRoot() {
 }
 
 function util_getImgRoot() {
-  return util_getWwwRoot() . "/img"; 
+  return util_getWwwRoot() . "img"; 
 }
 
 function util_getCssRoot() {
-  return util_getWwwRoot() . "/styles"; 
+  return util_getWwwRoot() . "styles"; 
 }
 
 function util_requireOtherFiles() {

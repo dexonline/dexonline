@@ -47,7 +47,7 @@
           <span class="formPlug">Peste {$words_rough} de definiţii</span>
         </td>
         <td class="logo">
-          <a href="{$wwwRoot}/" class="noBorder">
+          <a href="{$wwwRoot}" class="noBorder">
             <img src="{$imgRoot}/polar/dexonline.png" alt="DEX online logo"
                  class="logo"/></a>
         </td>
@@ -79,7 +79,7 @@
 
           Copyright (C) 2004-{$currentYear} DEX online. Copierea definiţiilor
           este permisă sub <a
-          href="{$wwwRoot}/faq.php#licenta">licenţa GPL</a>, cu
+          href="{$wwwRoot}faq.php#licenta">licenţa GPL</a>, cu
           condiţia păstrării acestei note.
 
         </td>

@@ -21,6 +21,7 @@ if (!$definitionId) {
 
 $definition = Definition::load($definitionId);
 $comment = Comment::loadByDefinitionId($definitionId);
+$oldInternalRep = $definition->internalRep;
 
 if ($internalRep) {
   $definition->internalRep = text_internalizeDefinition($internalRep);
@@ -97,8 +98,7 @@ if ($acceptButton || $moveButton) {
     }
     
     // If the definition has changed, insert a diff record in the changes table
-    Definition::storeDiff($definition->id, session_getUserId(),
-			  $definition->internalRep);
+    Definition::storeOldVersion($definition->id, session_getUserId(), $oldInternalRep);
     
     // Accept the definition and delete the typos associated with it.
     $definition->save();

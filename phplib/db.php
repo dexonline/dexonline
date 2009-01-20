@@ -97,13 +97,13 @@ function logged_query($query) {
 
 /*************************** Users *******************************/
 
-function db_changesInsert($definitionId, $uid, $diff) {
+function db_changesInsert($definitionId, $userId, $oldInternalRep) {
   $now = time();
-  $diff = addslashes($diff);
+  $oldInternalRep = addslashes($oldInternalRep);
   return logged_query("insert into changes set " .
-                      "counter = $definitionId, " .
-                      "uid = $uid, " .
-                      "diff = '$diff', " .
+                      "definitionId = $definitionId, " .
+                      "userId = $userId, " .
+                      "internalRep = '$oldInternalRep', " .
                       "createDate = $now");
 }
 

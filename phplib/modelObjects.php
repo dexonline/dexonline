@@ -411,28 +411,8 @@ class Definition {
    * If the proposed definition differs from the one we have in the words
    * table, store the diff in the changes table.
    */
-  public static function storeDiff($definitionId, $uid, $newInternalRep) {
-    $definition = Definition::load($definitionId);
-    $oldInternalRep = $definition->internalRep;
-    
-    if ($oldInternalRep != $newInternalRep) {
-      $pipes = array();
-      $descriptorspec = array(array("pipe", "r"), array("pipe", "w"));
-      $proc = proc_open(util_getRootPath() . "tools/mydiff", $descriptorspec, 
-			$pipes);
-      fwrite($pipes[0], "$oldInternalRep\n");
-      fwrite($pipes[0], "$newInternalRep\n");
-      fclose($pipes[0]);
-      
-      $diff = "";
-      while (!feof($pipes[1])) {
-	$diff .= fread($pipes[1], 1024);
-      }
-      fclose($pipes[1]);
-      proc_close($proc);
-      
-      db_changesInsert($definitionId, $uid, $diff);
-    }
+  public static function storeOldVersion($definitionId, $userId, $oldInternalRep) {
+    db_changesInsert($definitionId, $userId, $oldInternalRep);
   }
 
   public static function getWordCount() {

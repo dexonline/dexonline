@@ -21,6 +21,3 @@ chmod 777 templates_c
 # Compile sql-functions.cc
 gcc -shared -I/usr/include/mysql -o tools/sql-functions.so \
     tools/sql-functions.cc
-
-# Compile mydiff.cc
-g++ -Wall -O3 -o tools/mydiff tools/mydiff.cc

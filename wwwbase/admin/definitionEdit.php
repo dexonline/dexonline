@@ -98,7 +98,9 @@ if ($acceptButton || $moveButton) {
     }
     
     // If the definition has changed, insert a diff record in the changes table
-    Definition::storeOldVersion($definition->id, session_getUserId(), $oldInternalRep);
+    if ($definition->internalRep !== $oldInternalRep) {
+      Definition::storeOldVersion($definition->id, session_getUserId(), $oldInternalRep);
+    }
     
     // Accept the definition and delete the typos associated with it.
     $definition->save();

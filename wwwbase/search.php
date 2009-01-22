@@ -97,6 +97,10 @@ if ($isAllDigits) {
 if ($searchType == SEARCH_WORDLIST) {
   $lexems = Lexem::searchWordlists($cuv, $hasDiacritics);
   if (count($lexems) == 0) {
+    $cuv_old = text_tryOldOrthography($cuv);
+    $lexems = Lexem::searchWordlists($cuv_old, $hasDiacritics);
+  }
+  if (count($lexems) == 0) {
     $searchType = SEARCH_APPROXIMATE;
     $lexems = Lexem::searchApproximate($cuv, $hasDiacritics);
   }

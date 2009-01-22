@@ -435,6 +435,24 @@ function text_removeAccents($s) {
 		     $s);
 }
 
+// Note: This does not handle the mixed case of old orthgraphy and no diacriticals (e.g. inminind instead of înmânând).
+// That case is inherently ambiguous. For example, if the query is 'gindind', the correct substitution is 'gândind',
+// where the second 'i' is left unchanged.
+function text_tryOldOrthography($cuv) {
+  if (preg_match('/^sînt(em|eţi)?$/', $cuv)) {
+    return str_replace('î', 'u', $cuv);
+  }
+
+  if (strlen($cuv) > 2) {
+    $interior = substr($cuv, 1, strlen($cuv) - 2);
+    if ( stripos($interior, 'î') ) {
+      return $cuv{0} . str_replace('î', 'â', $interior) . $cuv{strlen($cuv) - 1};
+    }
+  }
+
+  return NULL;
+}
+
 function _text_extractLexiconHelper($def) {
   $internalRep = $def->internalRep;
   if ($def->sourceId == 7 || $def->sourceId == 9) {

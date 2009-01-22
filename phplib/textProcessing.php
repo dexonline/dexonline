@@ -443,10 +443,10 @@ function text_tryOldOrthography($cuv) {
     return str_replace('î', 'u', $cuv);
   }
 
-  if (strlen($cuv) > 2) {
-    $interior = substr($cuv, 1, strlen($cuv) - 2);
-    if ( stripos($interior, 'î') ) {
-      return $cuv{0} . str_replace('î', 'â', $interior) . $cuv{strlen($cuv) - 1};
+  if (mb_strlen($cuv) > 2) {
+    $interior = mb_substr($cuv, 1, mb_strlen($cuv) - 2);
+    if (mb_stripos($interior, 'î') !== FALSE) {
+      return text_getCharAt($cuv, 0) . str_replace('î', 'â', $interior) . text_getLastChar($cuv);
     }
   }
 

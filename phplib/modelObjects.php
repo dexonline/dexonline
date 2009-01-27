@@ -1396,15 +1396,15 @@ class Lexem {
     return Lexem::populateFromDbResult($dbResult);
   }
 
-  public static function searchRegexp($regexp, $hasDiacritics) {
+  public static function searchRegexp($regexp, $hasDiacritics, $sourceId = NULL) {
     $mysqlRegexp = text_dexRegexpToMysqlRegexp($regexp);
-    $dbResult = db_searchRegexp($mysqlRegexp, $hasDiacritics);
+    $dbResult = db_searchRegexp($mysqlRegexp, $hasDiacritics, $sourceId);
     return Lexem::populateFromDbResult($dbResult);
   }
 
-  public static function countRegexpMatches($regexp, $hasDiacritics) {
+  public static function countRegexpMatches($regexp, $hasDiacritics, $sourceId = NULL) {
     $mysqlRegexp = text_dexRegexpToMysqlRegexp($regexp);
-    return db_countRegexpMatches($mysqlRegexp, $hasDiacritics);
+    return db_countRegexpMatches($mysqlRegexp, $hasDiacritics, $sourceId);
   }
 
   public static function countAll() {

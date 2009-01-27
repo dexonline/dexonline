@@ -75,8 +75,8 @@ smarty_assign('src_selected', $sourceId);
 // Regular expressions
 if ($hasRegexp) {
   $searchType = SEARCH_REGEXP;
-  $numResults = Lexem::countRegexpMatches($cuv, $hasDiacritics);
-  $lexems = Lexem::searchRegexp($cuv, $hasDiacritics);
+  $numResults = Lexem::countRegexpMatches($cuv, $hasDiacritics, $sourceId);
+  $lexems = Lexem::searchRegexp($cuv, $hasDiacritics, $sourceId);
   smarty_assign('numResults', $numResults);
   smarty_assign('lexems', $lexems);
 }

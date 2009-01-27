@@ -214,18 +214,30 @@ function db_getUnassociatedDefinitions() {
   return logged_query($query);
 }
 
-function db_searchRegexp($regexp, $hasDiacritics) {
+function db_searchRegexp($regexp, $hasDiacritics, $sourceId) {
   $field = $hasDiacritics ? 'lexem_neaccentuat' : 'lexem_utf8_general';
+  $sourceClause = $sourceId ? "and Definition.SourceId = $sourceId " : '';
+  $sourceJoin = $sourceId ?  "join LexemDefinitionMap " .
+    "on lexem_id = LexemDefinitionMap.LexemId " .
+    "join Definition on LexemDefinitionMap.DefinitionId = Definition.Id " : '';
   $query = "select * from lexems " .
+    $sourceJoin .
     "where $field $regexp " .
+    $sourceClause .
     "order by lexem_neaccentuat limit 1000";
   return logged_query($query);
 }
 
-function db_countRegexpMatches($regexp, $hasDiacritics) {
+function db_countRegexpMatches($regexp, $hasDiacritics, $sourceId) {
   $field = $hasDiacritics ? 'lexem_neaccentuat' : 'lexem_utf8_general';
+  $sourceClause = $sourceId ? "and Definition.SourceId = $sourceId " : '';
+  $sourceJoin = $sourceId ?  "join LexemDefinitionMap " .
+    "on lexem_id = LexemDefinitionMap.LexemId " .
+    "join Definition on LexemDefinitionMap.DefinitionId = Definition.Id " : '';
   $query = "select count(*) from lexems " .
-    "where $field $regexp ";
+    $sourceJoin .
+    "where $field $regexp " .
+    $sourceClause;
   return db_fetchInteger(logged_query($query));
 }
 

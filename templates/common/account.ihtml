@@ -11,6 +11,7 @@
   să vă introduceţi parola, pentru a ne asigura că dumneavoastră
   sunteţi într-adevăr proprietarul contului. Dacă nu doriţi să
   schimbaţi valoarea unui câmp, lăsaţi-l nemodificat.
+  <br/><br/>
 
   {if $send}
     <p><font color=red><b>
@@ -39,65 +40,56 @@
   {/if}
 
   <form name="frm" method="post" action="account.php">
-  <table cellspacing="2"><tr>
+  <table class="userEdit"><tr>
     <td>Numele de cont:</td>
-    <td><input type="text" name="nick" value="{$nick|escape}" size="16" maxlength="16"/></td>
-  </tr><tr>
-    <td>&nbsp;</td>
-    <td><font size="-1">(3-16 caractere din setul <b>A-Z, a-z, 0-9, &#x2013;</b> şi <b>_</b>)</font></td>
+    <td>
+      <input type="text" name="nick" value="{$nick|escape}" size="16" maxlength="16"/>
+      <span class="help">(3-16 caractere din setul <b>A-Z, a-z, 0-9, &#x2013;</b> şi <b>_</b>)</span>
+    </td>
   </tr><tr>
     <td>Parola actuală:</td>
     <td><input type="password" name="curPass" value="" size="16" maxlength="16"/></td>
   </tr><tr>
-    <td>&nbsp;</td>
-    <td><font size="-1">&nbsp;</font></td>
-  </tr><tr>
     <td>Noua parolă:</td>
-    <td><input type="password" name="newPass" value="{$newPass|escape}" size="16" maxlength="16"/></td>
-  </tr><tr>
-    <td>&nbsp;</td>
-    <td><font size="-1">(4-16 caractere - numai dacă doriţi să vă schimbaţi parola)</font></td>
+    <td>
+      <input type="password" name="newPass" value="{$newPass|escape}" size="16" maxlength="16"/>
+      <span class="help">(4-16 caractere - numai dacă doriţi să vă schimbaţi parola)</span>
+    </td>
   </tr><tr>
     <td>Noua parolă (verificare):</td>
     <td><input type="password" name="newPass2" value="{$newPass2|escape}" size="16" maxlength="16"/></td>
   </tr><tr>
-    <td>&nbsp;</td>
-    <td><font size="-1">&nbsp;</font></td>
-  </tr><tr>
-    <td>Numele real (opţional):</td>
-    <td><input type="text" name="name" value="{$name|escape}" size="40" maxlength="40"/></td>
-  </tr><tr>
-    <td>&nbsp;</td>
-    <td><font size="-1">&nbsp;</font></td>
+    <td>Numele real:</td>
+    <td>
+      <input type="text" name="name" value="{$name|escape}" size="40" maxlength="40"/>
+      <span class="help">opţional</span>
+    </td>
   </tr><tr>
     <td>Adresa de email:</td>
-    <td><input type="text" name="email" value="{$email|escape}" size="40" maxlength="40"/></td>
-  </tr><tr>
-    <td>&nbsp;</td>
-    <td><input type="checkbox" name="emailVisible" {if $emailVisible}checked="checked"{/if}/>Adresa mea este vizibilă tuturor utilizatorilor</td>
+    <td>
+      <input type="text" name="email" value="{$email|escape}" size="40" maxlength="40"/><br/>
+      <input type="checkbox" id="emailVisible" name="emailVisible" {if $emailVisible}checked="checked"{/if}/>
+      <label for="emailVisible">Adresa mea este vizibilă tuturor utilizatorilor</label>
+    </td>
   </tr><tr>
     <td>Preferințe</td>
     <td>
       {foreach from=$userPrefs key=value item=i}
         <input type="checkbox" name="userPrefs[]" id="cb_{$value}" value="{$value}" {if $i.checked}checked="checked"{/if}/>
         <label for="cb_{$value}">{$i.label}</label><br/>
+        <span class="help">{$i.comment}</span><br/>
       {/foreach}
     </td>
   </tr><tr>
     <td>Drept de moderator:</td>
-    <td><b>{if $is_moderator}Da{else}Nu{/if}</b></td>
-  </tr><tr>
-    <td>&nbsp;</td>
-    <td><font size="-1">
-    {if !$is_moderator}
-      Citiţi pagina de informaţii pentru a afla cum puteţi deveni	moderator.
-    {/if}
-    </font></td>
-  </tr><tr>
-    <td colspan="2" align="center">
-    <input type="submit" name="send" value="Modifică"/>
+    <td>
+      <b>{if $is_moderator}Da{else}Nu{/if}</b><br/>
+      {if !$is_moderator}
+        <span class="help">Citiţi pagina de informaţii pentru a afla cum puteţi deveni moderator.</span>
+      {/if}
     </td>
   </tr>
   </table>
+  <input type="submit" name="send" value="Modifică"/>
   </form>
 {/if}

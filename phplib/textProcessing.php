@@ -1196,6 +1196,9 @@ function text_separateStopWords($words, $hasDiacritics) {
 }
 
 function text_replace_st($tpl_output) {
+  // TODO: When ş/ţ are in a word by itself, they should be left alone.
+  // See for example the FAQ, the section on installing a Romanian keyboard,
+  // or the user account page itself.
   $tpl_output = str_replace('ş', 'ș', $tpl_output);
   $tpl_output = str_replace('ţ', 'ț', $tpl_output);
   $tpl_output = str_replace('Ş', 'Ș', $tpl_output);
@@ -1205,7 +1208,8 @@ function text_replace_st($tpl_output) {
 
 function text_replace_ai($tpl_output) {
   // TODO: When â is in a word by itself, it should be left as â.
-  // See for example the FAQ, the section on installing a Romanian keyboard
+  // See for example the FAQ, the section on installing a Romanian keyboard,
+  // or the user account page itself.
   $char_map = array(
     'â' => 'î',
     'Â' => 'Î',

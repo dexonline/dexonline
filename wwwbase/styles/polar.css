@@ -235,3 +235,13 @@ pre.exportSample {
 span.deemph {
   color: #777777;
 }
+
+span.help {
+  color: #777777;
+  font-size: 85%;
+}
+
+table.userEdit td {
+  padding-bottom: 5px;
+  vertical-align: top;
+}

@@ -7,98 +7,97 @@
   A fost o problemă la modificare, vă rugăm trimiteţi-ne un email
   pentru a ne ajuta să reparăm problema.
 {else}
-   Pentru a face orice modificări, tastaţi noile valori. Este nevoie
-   să vă introduceţi parola, pentru a ne asigura că dumneavoastră
-   sunteţi într-adevăr proprietarul contului. Dacă nu doriţi să
-   schimbaţi valoarea unui câmp, lăsaţi-l nemodificat.
+  Pentru a face orice modificări, tastaţi noile valori. Este nevoie
+  să vă introduceţi parola, pentru a ne asigura că dumneavoastră
+  sunteţi într-adevăr proprietarul contului. Dacă nu doriţi să
+  schimbaţi valoarea unui câmp, lăsaţi-l nemodificat.
 
-   {if $send}
-     <p><font color=red><b>
-     {if $error_code == ERR_NO_NICK}
-       Trebuie să vă alegeţi un nume de cont.
-     {elseif $error_code == ERR_NICK_LEN}
-       Numele de cont trebuie să aibă minim 3 caractere.
-     {elseif $error_code == ERR_NICK_CHARS}
-       Numele de cont poate conţine numai caracterele indicate.
-     {elseif $error_code == ERR_PASS_LEN}
-       Trebuie să vă alegeţi o parolă de minim 4 caractere.
-     {elseif $error_code == ERR_PASS_MISMATCH}
-       Parolele nu coincid.
-     {elseif $error_code == ERR_NO_EMAIL}
-       Trebuie să precizaţi noua adresa de email.
-     {elseif $error_code == ERR_BAD_EMAIL}
-       Adresa de email nu este validă.
-     {elseif $error_code == ERR_NICK_TAKEN}
-       Acest nume de cont este deja folosit.
-     {elseif $error_code == ERR_EMAIL_TAKEN}
-       Această adresă de email este deja folosită.
-     {elseif $error_code == ERR_CUR_PASS}
-       Parola actuală este incorectă.
-     {/if}
-     </b></font>
-   {/if}
+  {if $send}
+    <p><font color=red><b>
+    {if $error_code == ERR_NO_NICK}
+      Trebuie să vă alegeţi un nume de cont.
+    {elseif $error_code == ERR_NICK_LEN}
+      Numele de cont trebuie să aibă minim 3 caractere.
+    {elseif $error_code == ERR_NICK_CHARS}
+      Numele de cont poate conţine numai caracterele indicate.
+    {elseif $error_code == ERR_PASS_LEN}
+      Trebuie să vă alegeţi o parolă de minim 4 caractere.
+    {elseif $error_code == ERR_PASS_MISMATCH}
+      Parolele nu coincid.
+    {elseif $error_code == ERR_NO_EMAIL}
+      Trebuie să precizaţi noua adresa de email.
+    {elseif $error_code == ERR_BAD_EMAIL}
+      Adresa de email nu este validă.
+    {elseif $error_code == ERR_NICK_TAKEN}
+      Acest nume de cont este deja folosit.
+    {elseif $error_code == ERR_EMAIL_TAKEN}
+      Această adresă de email este deja folosită.
+    {elseif $error_code == ERR_CUR_PASS}
+      Parola actuală este incorectă.
+    {/if}
+    </b></font>
+  {/if}
 
-   <form name="frm" method="post" action="account.php">
-   <table cellspacing=2><tr>
-     <td>Numele de cont:</td>
-     <td><input type="text" name="nick" value="{$nick|escape}" size=16 maxlength=16>
-     </td>
-   </tr><tr>
-     <td>&nbsp;</td>
-     <td><font size=-1>(3-16 caractere din setul <b>A-Z, a-z, 0-9, &#x2013;</b>
-     şi <b>_</b>)</font></td>
-   </tr><tr>
-     <td>Parola actuală:</td>
-     <td><input type="password" name="curPass" value="" size=16 maxlength=16>
-     </td>
-   </tr><tr>
-     <td>&nbsp;</td>
-     <td><font size=-1>&nbsp;</font></td>
-   </tr><tr>
-     <td>Noua parolă:</td>
-     <td><input type="password" name="newPass" value="{$newPass|escape}"
-      size=16 maxlength=16></td>
-   </tr><tr>
-     <td>&nbsp;</td><td><font size=-1>(4-16 caractere - numai dacă
-     doriţi să vă schimbaţi parola)</font></td>
-   </tr><tr>
-     <td>Noua parolă (verificare):</td>
-     <td><input type="password" name="newPass2" value="{$newPass2|escape}"
-     size=16 maxlength=16></td>
-   </tr><tr>
-     <td>&nbsp;</td>
-     <td><font size=-1>&nbsp;</font></td>
-   </tr><tr>
-     <td>Numele real (opţional):</td>
-     <td><input type="text" name="name" value="{$name|escape}" size=40
-     maxlength=40></td>
-   </tr><tr>
-     <td>&nbsp;</td>
-     <td><font size=-1>&nbsp;</font></td>
-   </tr><tr>
-     <td>Adresa de email:</td>
-     <td><input type="text" name="email" value="{$email|escape}" size=40
-      maxlength=40></td>
-    </tr><tr>
-      <td>&nbsp;</td>
-      <td><input type="checkbox" name="emailVisible"
-      {if $emailVisible}checked{/if}>
-      Adresa mea este vizibilă tuturor utilizatorilor</td>
-    </tr><tr>
-      <td>Drept de moderator:</td>
-      <td><b>{if $is_moderator}Da{else}Nu{/if}</b></td>
-    </tr><tr>
-      <td>&nbsp;</td>
-      <td><font size=-1>
-      {if !$is_moderator}
-        Citiţi pagina de informaţii pentru a afla cum puteţi deveni
-	moderator.
-      {/if}
-      </font></td>
-    </tr><tr>
-      <td colspan=2 align=center>
-      <input type=submit name="send" value="Modifică">
-      </td>
-    </tr>
+  <form name="frm" method="post" action="account.php">
+  <table cellspacing="2"><tr>
+    <td>Numele de cont:</td>
+    <td><input type="text" name="nick" value="{$nick|escape}" size="16" maxlength="16"/></td>
+  </tr><tr>
+    <td>&nbsp;</td>
+    <td><font size="-1">(3-16 caractere din setul <b>A-Z, a-z, 0-9, &#x2013;</b> şi <b>_</b>)</font></td>
+  </tr><tr>
+    <td>Parola actuală:</td>
+    <td><input type="password" name="curPass" value="" size="16" maxlength="16"/></td>
+  </tr><tr>
+    <td>&nbsp;</td>
+    <td><font size="-1">&nbsp;</font></td>
+  </tr><tr>
+    <td>Noua parolă:</td>
+    <td><input type="password" name="newPass" value="{$newPass|escape}" size="16" maxlength="16"/></td>
+  </tr><tr>
+    <td>&nbsp;</td>
+    <td><font size="-1">(4-16 caractere - numai dacă doriţi să vă schimbaţi parola)</font></td>
+  </tr><tr>
+    <td>Noua parolă (verificare):</td>
+    <td><input type="password" name="newPass2" value="{$newPass2|escape}" size="16" maxlength="16"/></td>
+  </tr><tr>
+    <td>&nbsp;</td>
+    <td><font size="-1">&nbsp;</font></td>
+  </tr><tr>
+    <td>Numele real (opţional):</td>
+    <td><input type="text" name="name" value="{$name|escape}" size="40" maxlength="40"/></td>
+  </tr><tr>
+    <td>&nbsp;</td>
+    <td><font size="-1">&nbsp;</font></td>
+  </tr><tr>
+    <td>Adresa de email:</td>
+    <td><input type="text" name="email" value="{$email|escape}" size="40" maxlength="40"/></td>
+  </tr><tr>
+    <td>&nbsp;</td>
+    <td><input type="checkbox" name="emailVisible" {if $emailVisible}checked="checked"{/if}/>Adresa mea este vizibilă tuturor utilizatorilor</td>
+  </tr><tr>
+    <td>Preferințe</td>
+    <td>
+      {foreach from=$userPrefs key=value item=i}
+        <input type="checkbox" name="userPrefs[]" id="cb_{$value}" value="{$value}" {if $i.checked}checked="checked"{/if}/>
+        <label for="cb_{$value}">{$i.label}</label><br/>
+      {/foreach}
+    </td>
+  </tr><tr>
+    <td>Drept de moderator:</td>
+    <td><b>{if $is_moderator}Da{else}Nu{/if}</b></td>
+  </tr><tr>
+    <td>&nbsp;</td>
+    <td><font size="-1">
+    {if !$is_moderator}
+      Citiţi pagina de informaţii pentru a afla cum puteţi deveni	moderator.
+    {/if}
+    </font></td>
+  </tr><tr>
+    <td colspan="2" align="center">
+    <input type="submit" name="send" value="Modifică"/>
+    </td>
+  </tr>
   </table>
+  </form>
 {/if}

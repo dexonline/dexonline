@@ -8,7 +8,7 @@ $sourceId = util_getRequestIntParameter('source');
 $text = util_getRequestIntParameter('text');
 
 $searchType = SEARCH_WORDLIST;
-$hasDiacritics = FALSE;
+$hasDiacritics = session_user_prefers('FORCE_DIACRITICS');
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
 
@@ -17,7 +17,7 @@ if ($cuv) {
   $cuv = text_cleanupQueryKeepSpaces($cuv, $text);
   smarty_assign('cuv', $cuv);
   $arr = text_analyzeQuery($cuv);
-  $hasDiacritics = $arr[0];
+  $hasDiacritics = session_user_prefers('FORCE_DIACRITICS') || $arr[0];
   $hasRegexp = $arr[1];
   $isAllDigits = $arr[2];
   if (!$hasRegexp) {

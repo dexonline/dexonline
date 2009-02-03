@@ -16,8 +16,7 @@ $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
 $similarModel = util_getRequestParameter('similarModel');
 $similarLexemName = util_getRequestParameter('similarLexemName');
-$restrArray = util_getRequestParameter('restr');
-$restriction = $restrArray ? implode($restrArray, '') : '';
+$restriction = util_getRequestCheckboxArray('restr', '');
 $miniDefTarget = util_getRequestParameter('miniDefTarget');
 
 $refreshLexem = util_getRequestParameter('refreshLexem');

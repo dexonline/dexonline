@@ -98,6 +98,11 @@ function session_getUserId() {
     ? $_SESSION['user']->id : 0;
 }
 
+function session_user_prefers($pref) {
+  return isset($_SESSION['user']) && isset($_SESSION['user']->prefs) 
+    && in_array($pref, split(',', $_SESSION['user']->prefs));
+}
+
 function session_getSkin() {
   $cookieSkin = session_getCookieSetting('skin');
   if ($cookieSkin && session_isValidSkin($cookieSkin)) {

@@ -175,6 +175,7 @@ class User {
   public $emailVisible = 0;
   public $password;
   public $moderator = 0;
+  public $prefs = '';
 
   public static function load($id) {
     $dbRow = db_getUserById($id);
@@ -218,6 +219,7 @@ class User {
     $this->emailVisible = $dbRow['EmailVisible'];
     $this->password = $dbRow['Password'];
     $this->moderator = $dbRow['Moderator'];
+    $this->prefs = $dbRow['Preferences'];
   }
 
   public function save() {

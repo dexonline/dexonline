@@ -178,6 +178,11 @@ function util_getRequestIntParameterWithDefault($name, $default) {
   return ($string == NULL) ? $default : (int)$string;
 }
 
+function util_getRequestCheckboxArray($name, $separator) {
+  $arr = util_getRequestParameter($name);
+  return $arr ? implode($arr, $separator) : '';
+}
+
 function util_redirect($location) {
   header("Location: $location");
   exit;

@@ -2,6 +2,25 @@
 require_once("../phplib/util.php");
 util_assertNotMirror();
 
+// Set of all customizable user preferences
+$userPreferencesSet = array(
+  'COMMA_BELOW' => array(
+	  'value' => 1 << 0,
+    'label' => 'Vreau să văd cu standard românesc (virguliţă în locul sedilei)',
+    'checked' => false, 
+  ),
+  'FORCE_DIACRITICS' => array(
+    'value' => 1 << 1,
+    'label' => 'Pun eu diacritice în căutare',
+    'checked' => false, 
+  ),
+  'OLD_ORTHOGRAPHY' => array(
+    'value' => 1 << 2,
+    'label' => 'Folosesc ortografia folosită pînă în 1995 (î din i)',
+    'checked' => false, 
+  ),
+);
+
 // Define error codes
 define("OK", 0);
 define("ERR_NO_NICK", 1);
@@ -24,8 +43,12 @@ $curPass = util_getRequestParameter('curPass');
 $name = util_getRequestParameter('name');
 $email = util_getRequestParameter('email');
 $emailVisible = util_getRequestParameter('emailVisible');
+$userPrefs = util_getRequestCheckboxArray('userPrefs', ',');
 
 $user = session_getUser();
+if (!$user) {
+  util_redirect('login.php');
+}
 
 $error = OK;
 if ($sendButton) {
@@ -73,6 +96,7 @@ if ($sendButton) {
     if ($newPass) {
       $user->password = md5($newPass);
     }
+    $user->prefs = $userPrefs;
     $user->save();
     session_setUser($user);
   }
@@ -84,6 +108,13 @@ if ($sendButton) {
   $name = $user->name;
   $email = $user->email;
   $emailVisible = $user->emailVisible;
+  $userPrefs = $user->prefs;
+}
+
+foreach(split(',',$userPrefs) as $pref) {
+  if( isset($userPreferencesSet[$pref]) ) {
+    $userPreferencesSet[$pref]['checked'] = true;
+  }
 }
 
 smarty_assign('error_code', $error);
@@ -95,6 +126,7 @@ smarty_assign('curPass', $curPass);
 smarty_assign('name', $name);
 smarty_assign('email', $email);
 smarty_assign('emailVisible', $emailVisible);
+smarty_assign('userPrefs', $userPreferencesSet);
 smarty_assign('page_title', 'DEX online - Modificare date personale');
 smarty_assign('show_search_box', 0);
 

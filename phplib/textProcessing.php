@@ -1195,4 +1195,33 @@ function text_separateStopWords($words, $hasDiacritics) {
   return array($properWords, $stopWords);
 }
 
+function text_replace_st($tpl_output) {
+  $tpl_output = str_replace('ş', 'ș', $tpl_output);
+  $tpl_output = str_replace('ţ', 'ț', $tpl_output);
+  $tpl_output = str_replace('Ş', 'Ș', $tpl_output);
+  $tpl_output = str_replace('Ţ', 'Ț', $tpl_output);
+  return $tpl_output;
+}
+
+function text_replace_ai($tpl_output) {
+  // TODO: When â is in a word by itself, it should be left as â.
+  // See for example the FAQ, the section on installing a Romanian keyboard
+  $char_map = array(
+    'â' => 'î',
+    'Â' => 'Î',
+    'ấ'  => '\'î',
+    'Ấ' => '\'Î',
+  );
+
+  foreach ($char_map as $a => $i) {
+    $tpl_output = str_replace($a, $i, $tpl_output);
+    $tpl_output = preg_replace("/(r(?:o|u)m)$i(n)/i", "\${1}$a\${2}", $tpl_output);
+  }
+
+  // sunt(em,eţi) -> sînt(em,eţi)
+  // TODO: This still doesn't work well for the search 'fi' when the paradigm is expanded.
+  // The paradigm contains some apostrophes which trip the regexp.
+  $tpl_output = preg_replace("/(\W)sunt(em|eţi)?/i", "\${1}sînt\${2}", $tpl_output);
+  return $tpl_output;
+}
 ?>

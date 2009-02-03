@@ -462,6 +462,7 @@ function db_updateDefinitionDisplayed($definition) {
 }
 
 function db_insertUser($user) {
+  // Note: No user preferences at this point
   $query = sprintf("insert into User set Nick = '%s', " .
                    "Name = '%s', " .
                    "Email = '%s', " .
@@ -484,13 +485,15 @@ function db_updateUser($user) {
                    "Name = '%s', " .
                    "Email = '%s', " .
                    "EmailVisible = '%s', " .
-                   "Password = '%s' " .
+                   "Password = '%s', " .
+                   "Preferences = '%s' " .
                    "where Id = '%d'",
                    addslashes($user->nick),
                    addslashes($user->name),
                    addslashes($user->email),
                    $user->emailVisible,
                    $user->password,
+                   addslashes($user->prefs),
                    $user->id);
   return logged_query($query);
 }

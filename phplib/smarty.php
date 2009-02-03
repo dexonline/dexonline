@@ -40,6 +40,7 @@ function smarty_isInitialized() {
 function smarty_displayCommonPageWithSkin($templateName) {
   smarty_assign('contentTemplateName', "common/$templateName");
   $fileName = session_getSkin() . '/pageLayout.ihtml';
+  smarty_register_outputfilters();
   $GLOBALS['smarty_theSmarty']->display($fileName);
 }
 
@@ -47,14 +48,33 @@ function smarty_displayPageWithSkin($templateName) {
   $skin = session_getSkin();
   smarty_assign('contentTemplateName', "$skin/$templateName");
   $fileName = "$skin/pageLayout.ihtml";
+  smarty_register_outputfilters();
   $GLOBALS['smarty_theSmarty']->display($fileName);
 }
 
 function smarty_displayWithoutSkin($templateName) {
+  smarty_register_outputfilters();
   $GLOBALS['smarty_theSmarty']->display($templateName);
 }
 
 function smarty_assign($variable, $value) {
   $GLOBALS['smarty_theSmarty']->assign($variable, $value);
+}
+
+function smarty_filter_display_st_academically($tpl_output, &$smarty) {
+  $tpl_output = text_replace_st($tpl_output);
+  return $tpl_output;
+}
+
+function smarty_filter_display_old_orthography($tpl_output, &$smarty) {
+  $tpl_output = text_replace_ai($tpl_output);
+  return $tpl_output;
+}
+
+function smarty_register_outputfilters() {
+  if (session_user_prefers('COMMA_BELOW') ) 
+    $GLOBALS['smarty_theSmarty']->register_outputfilter('smarty_filter_display_st_academically');
+  if (session_user_prefers('OLD_ORTHOGRAPHY') ) 
+    $GLOBALS['smarty_theSmarty']->register_outputfilter('smarty_filter_display_old_orthography');
 }
 ?>

@@ -2,7 +2,7 @@
 <div class="randomTip">
   <b>Sugestie:</b>
 
-  {assign var="numHints" value="7"}
+  {assign var="numHints" value="8"}
   {math equation="rand(0, $numHints - 1)" assign="rnd"}
 
    {if $rnd == 0}
@@ -32,5 +32,7 @@
      Puteţi vedea flexiunea oricărui cuvânt (conjugarea verbelor sau
      declinarea substantivelor şi adjectivelor). După ce căutaţi un
      cuvânt, daţi click pe "Flexiuni".
+   {elseif $rnd == 7}
+     Dacă vă înregistraţi, puteţi alege diverse <a href="account.php">opţiuni</a> pentru grafia cu î sau â, cu sedilă sau cu virgulă, pentru căutarea cu diacritice etc.
    {/if}
 </div>

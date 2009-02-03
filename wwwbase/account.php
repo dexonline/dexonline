@@ -19,8 +19,8 @@ $userPreferencesSet = array(
   ),
   'OLD_ORTHOGRAPHY' => array(
     'value' => 1 << 2,
-    'label' => 'Folosesc ortografia folosită pînă în 1995 (î din i)',
-    'comment' => 'Până în 1995, „â” era folosit doar în cuvântul „român” şi cuvintele derivate.',
+    'label' => 'Folosesc ortografia folosită pînă în 1993 (î din i)',
+    'comment' => 'Până în 1993, „â” era folosit doar în cuvântul „român” şi cuvintele derivate.',
     'checked' => false, 
   ),
 );

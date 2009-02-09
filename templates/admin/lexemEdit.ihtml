@@ -246,7 +246,7 @@
       {/foreach}
 
       {if !count($searchResults)}
-        Nu există nici o definiţie. Puteţi crea o
+        Nu există nicio definiţie. Puteţi crea o
         mini-definiţie. Introduceţi termenul-destinaţie, fără alte
         formatări (bold, italic etc.):<br/>
 

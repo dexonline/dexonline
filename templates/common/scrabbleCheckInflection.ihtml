@@ -22,7 +22,7 @@ vreunul din cuvintele din LOC generează acea formă.<br/><br/>
 {if isset($lexems)}
   <ul>
     {if count($lexems) == 0}
-      <li>Nici un cuvânt din LOC {$selectedLocVersion|escape} nu generează forma
+      <li>Niciun cuvânt din LOC {$selectedLocVersion|escape} nu generează forma
         <b>{$form|escape}.</b></li>
     {else}
       {foreach from=$wordlists item=wl key=i}

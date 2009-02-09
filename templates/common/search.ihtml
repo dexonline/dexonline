@@ -20,14 +20,14 @@
       Cuvântul "{$cuv|escape}" nu a fost găsit, dar am găsit următoarele cuvinte
       apropiate:
     {else}
-      Cuvântul "{$cuv|escape}" nu a fost găsit. Nu există nici un cuvânt similar.
+      Cuvântul "{$cuv|escape}" nu a fost găsit. Nu există niciun cuvânt similar.
     {/if}
 
   {elseif $searchType == SEARCH_DEF_ID}
     {if count($results)}
       Definiţia cu ID-ul {$cuv|escape}:
     {else}
-      Nu există nici o definiţie cu ID-ul {$cuv|escape}.
+      Nu există nicio definiţie cu ID-ul {$cuv|escape}.
     {/if}
 
   {elseif $searchType == SEARCH_REGEXP}
@@ -38,7 +38,7 @@
         {$numResults} rezultate pentru {$cuv|escape}:
       {/if}
     {else}
-      Nici un rezultat pentru {$cuv|escape}.
+      Niciun rezultat pentru {$cuv|escape}.
     {/if}
 
   {elseif $searchType == SEARCH_LEXEM_ID}
@@ -50,7 +50,7 @@
       {/if}
       {include file="common/bits/lexemName.ihtml" lexem=$lexems.0}
     {else}
-      Nu există nici un lexem cu ID-ul căutat.
+      Nu există niciun lexem cu ID-ul căutat.
     {/if}
 
   {elseif $searchType == SEARCH_FULL_TEXT}
@@ -64,7 +64,7 @@
       {elseif $numResults > 1}
         {$numResults} definiţii cuprind toate cuvintele căutate
       {else}
-        Nici o definiţie nu conţine toate cuvintele căutate.
+        Nicio definiţie nu conţine toate cuvintele căutate.
       {/if}
 
       {if $numResults > count($results)}

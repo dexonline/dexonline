@@ -23,18 +23,18 @@
 
     {if $numUnassociatedLexems}
       <a href="viewUnassociatedLexems.php"
-       >Lexeme neasociate cu nici o definiţie: {$numUnassociatedLexems}</a>
+       >Lexeme neasociate cu nicio definiţie: {$numUnassociatedLexems}</a>
     {else}
-      Lexeme neasociate cu nici o definiţie: 0
+      Lexeme neasociate cu nicio definiţie: 0
     {/if}
     <br/>
 
     {if $numUnassociatedDefinitions}
       <a href="viewUnassociatedDefinitions.php"
-       >Definiţii neasociate cu nici un lexem:
+       >Definiţii neasociate cu niciun lexem:
        {$numUnassociatedDefinitions}</a>
     {else}
-      Definiţii neasociate cu nici un lexem: 0
+      Definiţii neasociate cu niciun lexem: 0
     {/if}
     <br/>
 

@@ -65,7 +65,7 @@
   unui cu totul alt cuvânt?</a></li>
 
   <li><a href="#nici_o_definitie">Unele cuvinte sunt menţionate, dar
-  nu au nici o definiţie. E normal?</a></li>
+  nu au nicio definiţie. E normal?</a></li>
 
 </ul>
 
@@ -348,7 +348,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   deoarece modificarea datelor este dezactivată (nu puteţi corecta
   definiţii sau semnala greşeli de tipar). Dar în ce priveşte
   consultarea dicţionarelor, între site-ul principal şi mirror-uri nu
-  există nici o diferenţă. Folosiţi oricare din site-uri vi se pare
+  există nicio diferenţă. Folosiţi oricare din site-uri vi se pare
   mai rapid.
 
 
@@ -374,7 +374,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   termenii Licenţei Publice Generale GNU aşa cum este ea publicată de
   Free Software Foundation; fie versiunea 2 a Licenţei, fie (la
   latitudinea dumneavoastră) orice versiune ulterioară.  Acest program
-  este distribuit cu speranţa că vă va fi util, dar FĂRĂ NICI O
+  este distribuit cu speranţa că vă va fi util, dar FĂRĂ NICIO
   GARANŢIE, chiar fără garanţia implicită de vandabilitate sau
   conformitate unui anumit scop. Citiţi Licenţa Publică Generală GNU
   pentru detalii.  Puteţi găsi o copie a Licenţei Publice Generale GNU
@@ -388,7 +388,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   definiţiilor. <b>Nu</b> dorim să ne substituim autorilor originali
   ai dicţionarelor incluse. Precizăm din nou că <i>DEX online</i> este
   doar o copie online a DEX, ediţia 1998 şi a altor dicţionare asupra
-  cărora nu avem nici un fel de pretenţii de paternitate. Este posibil
+  cărora nu avem niciun fel de pretenţii de paternitate. Este posibil
   ca, în urma unor convorbiri ulterioare cu Academia Română, această
   licenţă să devină invalidă. Este posibil chiar ca, din motive
   legale, să fim nevoiţi a revizui conţinutul acestui
@@ -626,7 +626,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   <i>DEX online</i> a apărut în august 2001. În primele sale luni, el
   a avut o evoluţie lentă şi haotică, iar fondul de cuvinte a rămas
   extrem de limitat (sub 40 de cuvinte). Din această cauză, primii
-  vizitatori ai proiectului nu găseau nici un cuvânt din câte căutau,
+  vizitatori ai proiectului nu găseau niciun cuvânt din câte căutau,
   se plictiseau şi plecau fără să mai revină, şi în general cam toată
   lumea era convinsă că această idee n-o să prindă niciodată. Multe
   mesaje primite îmi spuneau personal acest lucru în termeni care de
@@ -1097,7 +1097,7 @@ cu totul alt cuvânt?</a></h3>
 
   Cea mai probabilă explicaţie este că aţi căutat un cuvânt care nu
   există în <i>DEX online</i> (fie pentru că nu există în limba română,
-  fie pentru că nici unul din dicţionarele pe care le avem nu-l
+  fie pentru că niciunul din dicţionarele pe care le avem nu-l
   menţionează). În această situaţie, <i>DEX online</i> vă oferă automat
   cuvintele care diferă prin cel mult o literă de cuvântul introdus
   (maxim cinci).
@@ -1112,12 +1112,12 @@ cu totul alt cuvânt?</a></h3>
 
 
 <h3><a name="nici_o_definitie">Unele cuvinte sunt menţionate, dar nu
-au nici o definiţie. E normal?</a></h3>
+au nicio definiţie. E normal?</a></h3>
 
   Da. Multe cuvinte din <i>Dicţionarul ortografic, ortoepic şi
   morfologic</i> nu au definiţie. Este firesc, deoarece respectivul
   dicţionar tratează ortografia, nu semantica. Întâmplarea face că
-  nici un alt dicţionar din cele pe care le avem nu le menţionează,
+  niciun alt dicţionar din cele pe care le avem nu le menţionează,
   dar sperăm ca în timp să facem rost şi de definiţiile acelor
   cuvinte. Un asemenea exemplu este <a
   href="search.php?cuv=volemic">volemic</a>.

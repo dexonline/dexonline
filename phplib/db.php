@@ -426,7 +426,8 @@ function db_updateDefinition($definition) {
                    "HtmlRep = '%s', " .
                    "Status = '%d', " .
                    "CreateDate = '%d', " .
-                   "ModDate = '%d' " .
+                   "ModDate = '%d', " .
+                   "ModUserId = '%d' " .
                    "where Id = '%d'",
                    $definition->userId,
                    $definition->sourceId,
@@ -437,6 +438,7 @@ function db_updateDefinition($definition) {
                    $definition->status,
                    $definition->createDate,
                    $definition->modDate,
+                   session_getUserId(),
                    $definition->id);
   return logged_query($query);
 }

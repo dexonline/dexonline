@@ -745,8 +745,10 @@ function text_cleanupQuery($query) {
 }
 
 function text_cleanupQueryKeepSpaces($query, $keepSpaces) {
-  $query = str_replace(array('"', "'"),
-                       array("", ""), $query);
+  $query = str_replace(array('"', "'"), array("", ""), $query);
+  if (text_startsWith($query, 'a ') && !$keepSpaces) {
+    $query = substr($query, 2);
+  }
   if (!$keepSpaces) {
     $query = str_replace(' ', '', $query);
   }

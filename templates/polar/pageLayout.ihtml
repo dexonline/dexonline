@@ -77,7 +77,7 @@
             <br/>
           {/if}
 
-          Copyright (C) 2004-{$currentYear} DEX online. Copierea definiţiilor
+          Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro). Copierea definiţiilor
           este permisă sub <a
           href="{$wwwRoot}faq.php#licenta">licenţa GPL</a>, cu
           condiţia păstrării acestei note.

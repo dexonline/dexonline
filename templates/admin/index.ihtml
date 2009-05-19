@@ -163,6 +163,13 @@
     </form>
     <br/>
 
+    <form action="../flex/viewTemporaryLexems.php" method="get">
+      Listează lexemele fără paradigme din sursa:
+      {include file="common/sourceDropDown.ihtml" sources=$allModeratorSources skipAnySource=1}
+      <input type="submit" value="Listează"/>
+    </form>
+    <br/>
+
     {if $is_flex_moderator}
       {* We should be done with this one:
       Pentru a verifica corectitudinea paradigmelor,

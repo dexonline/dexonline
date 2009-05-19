@@ -1435,6 +1435,11 @@ class Lexem {
     return Lexem::populateFromDbResult($dbResult);
   }
 
+  public static function loadTemporaryFromSource($sourceId) {
+    $dbResult = db_getTemporaryLexemsFromSource($sourceId);
+    return Lexem::populateFromDbResult($dbResult);
+  }
+
   public static function countHavingComments() {
     return db_countLexemsWithComments();
   }

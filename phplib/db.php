@@ -1087,8 +1087,15 @@ function db_countTemporaryLexems() {
 }
 
 function db_getTemporaryLexems() {
-  $query = 'select * from lexems where lexem_model_type = "T" ' .
-    'order by lexem_neaccentuat limit 1000';
+  $query = 'select * from lexems where lexem_model_type = "T" order by lexem_neaccentuat';
+  return logged_query($query);
+}
+
+function db_getTemporaryLexemsFromSource($sourceId) {
+  $query = "select distinct lexems.* from lexems, LexemDefinitionMap, Definition " .
+    "where lexems.lexem_id = LexemDefinitionMap.LexemId and LexemDefinitionMap.DefinitionId = Definition.Id " .
+    "and Definition.Status = 0 and Definition.SourceId = $sourceId and lexem_model_type = 'T' " .
+    "order by lexem_neaccentuat";
   return logged_query($query);
 }
 

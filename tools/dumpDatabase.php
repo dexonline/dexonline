@@ -5,6 +5,7 @@ require_once("../phplib/util.php");
 $TMP_DIR = '/tmp';
 $FILENAME = 'dex-database.sql';
 $GZ_FILENAME = 'dex-database.sql.gz';
+$LICENSE = util_getRootPath() . '/tools/dumpDatabaseLicense.txt';
 
 $COMMON_COMMAND = sprintf("mysqldump -h %s -u %s --password='%s' %s ",
                           pref_getDbHost(),
@@ -15,6 +16,7 @@ $COMMON_COMMAND = sprintf("mysqldump -h %s -u %s --password='%s' %s ",
 $schemaOnly = array('RecentLink', 'Cookie');
 $alteredFields = array('User' => array('Email' => 'anonymous@anonymous.com',
                                        'Password' => ''));
+$currentYear = date("Y");
 
 // Full/Public dump: the public dump omits the user table, which contains
 // emails and md5-ed passwords.
@@ -49,7 +51,9 @@ if ($doFullDump) {
 }
 
 os_executeAndAssert("rm -f $TMP_DIR/$FILENAME");
-$mysql = "$COMMON_COMMAND $tablesToIgnore > $TMP_DIR/$FILENAME";
+os_executeAndAssert("echo \"-- Copyright (C) 2004-$currentYear DEX online (http://dexonline.ro)\" > $TMP_DIR/$FILENAME");
+os_executeAndAssert("cat $LICENSE >> $TMP_DIR/$FILENAME");
+$mysql = "$COMMON_COMMAND $tablesToIgnore >> $TMP_DIR/$FILENAME";
 os_executeAndAssert($mysql);
 
 // Dump only the schema for some tables

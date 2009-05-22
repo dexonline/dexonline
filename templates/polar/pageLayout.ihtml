@@ -9,11 +9,7 @@
     <script type="text/javascript" src="js/dex.js"></script>
   </head>
 
-  <body id="polarSkinBody"
-        {if $show_search_box && $focus_search_box}
-          onload="document.frm.cuv.focus()"
-        {/if}>
-
+  <body id="polarSkinBody">
     <table class="header">
       <tr>
         <td class="searchBoxContainer">
@@ -27,8 +23,12 @@
           </div>
       
           <form action="search.php" name="frm" class="searchForm">
-            <input type="text" name="cuv" value="{$cuv|escape}" size="20"
-              maxlength="50"/>
+            <input type="text" name="cuv" value="{$cuv|escape}" size="20" maxlength="50"/>
+              {if $show_search_box && $focus_search_box}
+                <script type="text/javascript">
+                  document.frm.cuv.select();document.frm.cuv.focus()
+                </script>
+              {/if}
             {include file="common/sourceDropDown.ihtml"}
             <input type="submit" value="Caută"/>
             <br/>

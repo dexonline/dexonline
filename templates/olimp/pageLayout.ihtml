@@ -12,14 +12,7 @@
      <script type="text/javascript" src="js/dex.js"></script>
   </head>
 
-  {if $dont_focus_search_box}
-    <body id="olimpSkinBody">
-  {else}
-    {literal}
-      <body id="olimpSkinBody"
-            onload="if (document.frm && document.frm.cuv) {document.frm.cuv.select(); document.frm.cuv.focus()}">
-    {/literal}	
-  {/if}
+  <body id="olimpSkinBody">
 
 <div class="continut">
   <div class="bara_logo">
@@ -32,6 +25,11 @@
         Caută cuvântul: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <a href="javascript:helpWindow()">Ajutor</a><br/> 
         <input type="text" name="cuv" value="{$cuv|escape}"/>&nbsp;
+        {if !$dont_focus_search_box}
+          <script type="text/javascript">
+            document.frm.cuv.select();document.frm.cuv.focus();
+          </script>
+        {/if}
         <input type="submit" value="Caută"/>
       </span>
     </form>

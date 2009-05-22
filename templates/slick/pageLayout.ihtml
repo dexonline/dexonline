@@ -8,11 +8,7 @@
   <script type="text/javascript" src="js/dex.js"></script>
 </head>
 
-{if $show_search_box && $focus_search_box}
-  <body id="slickSkinBody" onLoad=document.frm.cuv.focus()>
-{else}
-  <body id="slickSkinBody">
-{/if}
+<body id="slickSkinBody">
 
 <div id="fond">
   <div id="antet"><img src="{$imgRoot}/slick/logo.jpg"
@@ -42,6 +38,11 @@
       <form name="frm" method="get" action="search.php">
         Cuvântul:
         <input name="cuv" value="{$cuv|escape}">
+        {if $show_search_box && $focus_search_box}
+          <script type="text/javascript">
+            document.frm.cuv.select();document.frm.cuv.focus();
+          </script>
+        {/if}
         {include file="common/sourceDropDown.ihtml"}
         <input type="submit" value="Caută">
         <a href="javascript:helpWindow()">Ajutor</a>

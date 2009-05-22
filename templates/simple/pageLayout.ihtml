@@ -10,11 +10,7 @@
   <script type="text/javascript" src="js/dex.js"></script>
 </head>
 
-{if $show_search_box && $focus_search_box}
-  <body onload="document.frm.cuv.focus()" id="simpleSkinBody">
-{else}
-  <body id="simpleSkinBody">
-{/if}
+<body id="simpleSkinBody">
 
 <table width="100%" border="0" cellspacing="0" cellpadding="2">
   <tr>
@@ -32,6 +28,11 @@
       {if $show_search_box}
         <form name="frm" method="get" action="search.php">
           &nbsp;Cuvântul: <input name="cuv" value="{$cuv|escape}"/>
+          {if $show_search_box && $focus_search_box}
+            <script type="text/javascript">
+              document.frm.cuv.select();document.frm.cuv.focus();
+            </script>
+          {/if}
       	  Sursa: {include file="common/sourceDropDown.ihtml"}
           <input type="submit" value="Caută"/>
           <a href="javascript:helpWindow()">Ajutor</a>

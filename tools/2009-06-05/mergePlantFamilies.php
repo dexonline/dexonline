@@ -6,7 +6,7 @@ $PLURAL_INFLECTIONS = array(3, 11, 19, 27, 35);
 $SOURCES = loadSources();
 define('DRY_RUN', true);
 
-$dbResult = mysql_query('select * from lexems where (lexem_model_type = "QQQ") or (lexem_model_type in ("M", "F", "N") and lexem_restriction like "%P%")' .
+$dbResult = mysql_query('select * from lexems where (lexem_model_type = "T") or (lexem_model_type in ("MQ", "FQ", "NQ") and lexem_restriction like "%P%")' .
                         'order by lexem_neaccentuat');
 $found = 0;
 

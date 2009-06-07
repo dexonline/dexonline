@@ -210,6 +210,15 @@
         avem de unde alege...) pentru care puteţi indica unde pică accentul.
       </div>
       <br/>
+
+      Pentru a încerca unificarea lexemelor la plural cu cele la
+      singular, <a href="../flex/mergeLexems.php">click aici</a>.
+
+      <div class="flexExplanation">
+        Această unificare se pretează în special la familiile de plante
+        și animale, dar și la alte lexeme care apar cu restricția „P”
+        într-o sursă, dar fără restricții în altă sursă.
+      </div>
     {/if}
 
     {include file="common/bits/debugInfo.ihtml"}

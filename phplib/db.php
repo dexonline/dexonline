@@ -1285,6 +1285,17 @@ function db_selectTemporaryLexemsBySuffix($reverseSuffix) {
   return logged_query($query);
 }
 
+function db_selectPluralLexemsByModelType($modelType) {
+  if ($modelType == 'T') {
+    $whereClause = 'lexem_model_type = "T"';
+  } else if ($modelType) {
+    $whereClause = "lexem_model_type = '{$modelType}' and lexem_restriction like '%P%'";
+  } else {
+    $whereClause = '(lexem_model_type = "T") or (lexem_model_type in ("M", "F", "N") and lexem_restriction like "%P%")';
+  }
+  return logged_query("select * from lexems where {$whereClause} order by lexem_neaccentuat");
+}
+
 function db_getLexemDefinitionMapByLexemIdDefinitionId($lexemId,
                                                        $definitionId) {
   $query = "select * from LexemDefinitionMap " .

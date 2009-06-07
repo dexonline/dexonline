@@ -121,6 +121,44 @@ function hideDiv(divId) {
   div.style.display = 'none';
 }
 
+function mlUpdateDefVisibility(lexemId, divId) {
+  var div = document.getElementById(divId);
+  // If the definitions are already loaded, then just toggle the div's visibility.
+  if (!div.defsLoaded) {
+    var url = '../ajax/getDefinitionsForLexem.php?lexemId=' + lexemId;
+    makeGetRequest(url, populateDefinitionList, divId);
+  } else if (div.style.display == 'none') {
+    div.style.display = 'block';
+  } else {
+    div.style.display = 'none';
+  }
+  return false;
+}
+
+function populateDefinitionList(httpRequest, divId) {
+  if (httpRequest.readyState == 4) {
+    if (httpRequest.status == 200) {
+      result = httpRequest.responseText;
+      var lines = result.split('\n');
+      var div = document.getElementById(divId);
+
+      for (var i = 0; i < lines.length && lines[i]; i += 4) {
+        var defId = lines[i];
+        var source = lines[i + 1];
+        var status = lines[i + 2];
+        var defText = lines[i + 3];
+        div.innerHTML += defText + "<br/>";
+        div.innerHTML += '<span class="defDetails">Id: ' + defId + ' | Sursa: ' + source + ' | Starea: ' + status + '</span><br/>';
+      }
+
+      div.style.display = "block";
+      div.defsLoaded = true;
+    } else {
+      alert('Nu pot descărca definițiile!');
+    }
+  }
+}
+
 function apSelectLetter(lexemId, cIndex) {
   if (cIndex != -1) {
     var span = document.getElementById('letter_' + lexemId + '_' + cIndex);

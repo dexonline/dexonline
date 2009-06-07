@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../styles/flex.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../js/dex.js"></script>
+    <script type="text/javascript" src="../js/flex.js"></script>
+    <title>Flex | {$sectionTitle|escape}</title>
+  </head>
+
+  <body>
+    {include file="admin/header.ihtml" title=$sectionTitle}
+    {include file="admin/recentlyVisited.ihtml"}
+
+    Pentru fiecare lexem la plural sunt indicate lexemele la singular
+    corespunzătoare. Bifați unul sau mai multe, după caz. Puteți salva
+    pagina în orice moment; lexemele rămase vor fi afișate din nou la
+    reîncărcarea paginii. Pentru moment, nu există o modalitate de a
+    „ignora” un lexem. Lexemele pe care nu le unificați vor apărea mereu
+    în listă.
+
+    <br/><br/>
+
+    <form method="get" action="">
+      Filtrează după tipul lexemului:
+      <select name="modelType">
+        <option value="">Toate</option>
+        <option value="M" {if $modelType == 'M'}selected="selected"{/if}>M</option>
+        <option value="F" {if $modelType == 'F'}selected="selected"{/if}>F</option>
+        <option value="N" {if $modelType == 'N'}selected="selected"{/if}>N</option>
+        <option value="T" {if $modelType == 'T'}selected="selected"{/if}>T</option>
+      </select>
+      <input type="submit" value="Filtrează"/>
+    </form>
+
+    <h3>{$lexems|@count} rezultate</h3>
+
+    <form action="" method="post">
+      <input type="hidden" name="modelType" value="{$modelType}"/>
+
+      {foreach from=$lexems item=l key=lIter}
+        <div class="blLexem">
+          <div class="blLexemName">
+            {$lIter+1}. {$l->form|escape} {$l->modelType}{$l->modelNumber}{$l->restriction}
+            <a class="blEditLink" href="../admin/lexemEdit.php?lexemId={$l->id}">editează</a>
+            <a class="blEditLink" href="#" onclick="return mlUpdateDefVisibility({$l->id}, 'def_{$l->id}')">definiții</a>
+          </div>
+          <div id="def_{$l->id}" class="blDefinitions" style="display:none"></div>
+          <div class="blLexemBody">
+            {foreach from=$l->matches item=match}
+              {assign var="checkboxId" value="merge_`$l->id`_`$match->id`"}
+              <input type="checkbox" id="{$checkboxId}" name="{$checkboxId}" value="1"/>
+              <label for="{$checkboxId}"> 
+                Unifică cu {$match->form} {$match->modelType}{$match->modelNumber}{$match->restriction}
+              </label>
+              <a href="../admin/lexemEdit.php?lexemId={$match->id}">editează</a>
+              <a href="#" onclick="return mlUpdateDefVisibility({$match->id}, 'def_{$match->id}')">definiții</a>
+              <br/>
+              <div id="def_{$match->id}" class="blDefinitions" style="display:none"></div>
+            {/foreach}
+          </div>
+        </div>
+      {/foreach}
+
+      <input type="submit" name="submitButton" value="Salvează"/>
+    </form>
+
+    {include file="common/bits/debugInfo.ihtml"}
+  </body>
+
+</html>

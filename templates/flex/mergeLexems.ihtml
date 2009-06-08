@@ -41,10 +41,19 @@
 
       {foreach from=$lexems item=l key=lIter}
         <div class="blLexem">
-          <div class="blLexemName">
-            {$lIter+1}. {$l->form|escape} {$l->modelType}{$l->modelNumber}{$l->restriction}
-            <a class="blEditLink" href="../admin/lexemEdit.php?lexemId={$l->id}">editează</a>
-            <a class="blEditLink" href="#" onclick="return mlUpdateDefVisibility({$l->id}, 'def_{$l->id}')">definiții</a>
+          <div class="blLexemTitle">
+            <span class="name">{$lIter+1}. {$l->form|escape}</span>
+            {$l->modelType}{$l->modelNumber}{$l->restriction}
+            <span class="{if $l->isLoc}isLoc{else}isNotLoc{/if}">LOC</span>
+            {* foreach from=$l->wordLists item=wl}
+              {$wl->form}
+            {/foreach *}
+            <a class="noBorder" target="_blank" href="../admin/lexemEdit.php?lexemId={$l->id}">
+              <img src={$imgRoot}/icons/pencil.png alt="editează" title="editează lexemul"/>
+            </a>
+            <a class="noBorder" href="#" onclick="return mlUpdateDefVisibility({$l->id}, 'def_{$l->id}')">
+              <img src={$imgRoot}/icons/book_open.png alt="definiții" title="arată definițiile"/>
+            </a>
           </div>
           <div id="def_{$l->id}" class="blDefinitions" style="display:none"></div>
           <div class="blLexemBody">
@@ -54,9 +63,37 @@
               <label for="{$checkboxId}"> 
                 Unifică cu {$match->form} {$match->modelType}{$match->modelNumber}{$match->restriction}
               </label>
-              <a href="../admin/lexemEdit.php?lexemId={$match->id}">editează</a>
-              <a href="#" onclick="return mlUpdateDefVisibility({$match->id}, 'def_{$match->id}')">definiții</a>
+              <span class="{if $match->isLoc}isLoc{else}isNotLoc{/if}">LOC</span>
+              <a class="noBorder" target="_blank" href="../admin/lexemEdit.php?lexemId={$match->id}">
+                <img src={$imgRoot}/icons/pencil.png alt="editează" title="editează lexemul"/>
+              </a>
+              <a class="noBorder" href="#" onclick="return mlUpdateDefVisibility({$match->id}, 'def_{$match->id}')">
+                <img src={$imgRoot}/icons/book_open.png alt="definiții" title="arată definițiile"/>
+              </a>
               <br/>
+              {if ($l->isLoc && !$match->isLoc) || $match->lostForms}
+                <ul class="mlNotes">
+                  {if ($l->isLoc && !$match->isLoc)}
+                    <li>Acest lexem va fi adăugat la LOC</li>
+                  {/if}
+                  {if $match->addedForms}
+                    <li>
+                      Următoarele forme vor fi adăugate la LOC:
+                      {foreach from=$match->addedForms item=form}
+                        {$form}
+                      {/foreach}
+                    </li>
+                  {/if}
+                  {if $match->lostForms}
+                    <li>
+                      Următoarele forme se vor pierde:
+                      {foreach from=$match->lostForms item=form}
+                        {$form}
+                      {/foreach}
+                    </li>
+                  {/if}
+                </ul>
+              {/if}
               <div id="def_{$match->id}" class="blDefinitions" style="display:none"></div>
             {/foreach}
           </div>

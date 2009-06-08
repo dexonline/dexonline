@@ -191,18 +191,29 @@ div.blLexem {
   margin-top: 10px;
 }
 
-div.blLexemName {
+div.blLexemTitle {
   background: #dddddd;
   border-bottom: 1px solid black;
-  font-weight: bold;
-  font-size: 120%;
   padding-left: 10px;
 }
 
-div.blLexemName a.blEditLink {
-  font-size: 83%;
-  font-weight: normal;
-  margin-left: 20px;
+div.blLexemTitle span.name {
+  font-weight: bold;
+  font-size: 120%;    
+}
+
+span.isLoc {
+  color: green;
+  font-weight: bold;
+}
+
+span.isNotLoc {
+  color: red;
+  text-decoration: line-through;
+}
+
+div.blLexemTitle a {
+  margin-left: 5px;
   vertical-align: 10%;
 }
 
@@ -301,4 +312,12 @@ input.miniDefTarget {
 div.bulkLabelComment {
   font-size: 90%;
   margin-left: 30px;
+}
+
+a.noBorder img {
+  border: 0;
+}
+
+ul.mlNotes {
+  margin: 5px 0px;
 }

@@ -33,11 +33,11 @@
       <input type="hidden" name="suffix" value="{$suffix|escape}"/>
       {foreach from=$lexems item=l key=lIter}
         <div class="blLexem">
-          <div class="blLexemName">
-            {$lIter+1}. {$l->unaccented|escape}
-            <a class="blEditLink"
-               href="../admin/lexemEdit.php?lexemId={$l->id}"
-              >editează</a>
+          <div class="blLexemTitle">
+            <span class="name">{$lIter+1}. {$l->unaccented|escape}</span>
+            <a class="noBorder" href="../admin/lexemEdit.php?lexemId={$l->id}">
+              <img src={$imgRoot}/icons/pencil.png alt="editează" title="editează lexemul"/>
+            </a>
           </div>
           <div class="blLexemBody">
 

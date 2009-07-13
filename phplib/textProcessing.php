@@ -567,7 +567,7 @@ function _text_convertReferencesToHtml($s) {
  * Replaces \_[-+]?[0-9]+ with <sub>...</sub>.
  */
 function _text_insertSuperscripts($text) {
-  $patterns = array("/\^([+-]?\d+)/", "/_([+-]?\d+)/",
+  $patterns = array("/\^(\d)/", "/_(\d)/",
                     "/\^\{([^}]*)\}/", "/_\{([^}]*)\}/");
   $replace = array("<sup>$1</sup>", "<sub>$1</sub>",
                    "<sup>$1</sup>", "<sub>$1</sub>");

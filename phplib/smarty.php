@@ -61,7 +61,7 @@ function smarty_assign($variable, $value) {
   $GLOBALS['smarty_theSmarty']->assign($variable, $value);
 }
 
-function smarty_filter_display_st_academically($tpl_output, &$smarty) {
+function smarty_filter_display_st_cedilla_below($tpl_output, &$smarty) {
   $tpl_output = text_replace_st($tpl_output);
   return $tpl_output;
 }
@@ -72,8 +72,8 @@ function smarty_filter_display_old_orthography($tpl_output, &$smarty) {
 }
 
 function smarty_register_outputfilters() {
-  if (session_user_prefers('COMMA_BELOW') ) 
-    $GLOBALS['smarty_theSmarty']->register_outputfilter('smarty_filter_display_st_academically');
+  if (session_user_prefers('CEDILLA_BELOW') ) 
+    $GLOBALS['smarty_theSmarty']->register_outputfilter('smarty_filter_display_st_cedilla_below');
   if (session_user_prefers('OLD_ORTHOGRAPHY') ) 
     $GLOBALS['smarty_theSmarty']->register_outputfilter('smarty_filter_display_old_orthography');
 }

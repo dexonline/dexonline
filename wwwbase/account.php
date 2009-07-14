@@ -4,9 +4,9 @@ util_assertNotMirror();
 
 // Set of all customizable user preferences
 $userPreferencesSet = array(
-  'COMMA_BELOW' => array(
+  'CEDILLA_BELOW' => array(
 	  'value' => 1 << 0,
-    'label' => 'Vreau să văd cu standard românesc (virguliță în locul sedilei)',
+    'label' => 'Vreau să văd ş și ţ cu sedilă (în loc virguliță)',
     'comment' => 'Scrierea corectă este cu ș și ț în loc de ş și ţ, dar este posibil ca aceste simboluri să nu fie afișate corect în browserul dumneavoastră.',
     'checked' => false, 
   ),

@@ -1200,15 +1200,12 @@ function text_separateStopWords($words, $hasDiacritics) {
 }
 
 function text_replace_st($tpl_output) {
-  // Do nothing for now -- we migrated to the comma-below characters.
-  // We could reuse this filter for people who want the cedilla-below characters.
   // TODO: When ș/ț are in a word by itself, they should be left alone.
-  // See for example the FAQ, the section on installing a Romanian keyboard,
-  // or the user account page itself.
-  // $tpl_output = str_replace('ș', 'ș', $tpl_output);
-  // $tpl_output = str_replace('ț', 'ț', $tpl_output);
-  // $tpl_output = str_replace('Ș', 'Ș', $tpl_output);
-  // $tpl_output = str_replace('Ț', 'Ț', $tpl_output);
+  // See for example the user account page itself.
+  $tpl_output = str_replace('ș', 'ş', $tpl_output);
+  $tpl_output = str_replace('ț', 'ţ', $tpl_output);
+  $tpl_output = str_replace('Ș', 'Ş', $tpl_output);
+  $tpl_output = str_replace('Ț', 'Ţ', $tpl_output);
   return $tpl_output;
 }
 

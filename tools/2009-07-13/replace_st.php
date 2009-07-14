@@ -12,7 +12,6 @@ $FIELDS = array(
                 'User' => array('Name'),
                 'inflections' => array('infl_descr'),
                 'lexems' => array('lexem_forma', 'lexem_neaccentuat', 'lexem_utf8_general', 'lexem_invers', 'lexem_descr', 'lexem_parse_info', 'lexem_comment'),
-                'model_exponents' => array('form'),
                 'model_types' => array('mt_descr'),
                 'models' => array('model_descr', 'model_exponent'),
                 'transforms' => array('transf_from', 'transf_to', 'transf_descr'),

@@ -19,7 +19,7 @@ $FIELDS = array(
                 'wordlist' => array('wl_form', 'wl_neaccentuat', 'wl_utf8_general'),
                 );
 
-$MAPPINGS = array(array('ș', 'ș'), array('Ș', 'Ș'), array('ț', 'ț'), array('Ț', 'ț'));
+$MAPPINGS = array(array('ş', 'ș'), array('Ş', 'Ș'), array('ţ', 'ț'), array('Ţ', 'Ț'));
 
 foreach ($FIELDS as $table => $fields) {
   foreach ($fields as $field) {

@@ -1,17 +1,17 @@
-<p>Codul <i>DEX online</i> este disponibil liber (şi gratuit) sub licenţa
+<p>Codul <i>DEX online</i> este disponibil liber (și gratuit) sub licența
 GNU GPL. El a fost testat pe un sistem Fedora Core 4 standard cu
-pachete ca mysql, php, httpd şi svn. Aveţi nevoie de PHP 5.0 (sau mai
-nou) configurat cu modulele <b>mbstring</b> şi <b>mysql</b>.</p>
+pachete ca mysql, php, httpd și svn. Aveți nevoie de PHP 5.0 (sau mai
+nou) configurat cu modulele <b>mbstring</b> și <b>mysql</b>.</p>
 
-<p>De asemenea, aveţi nevoie şi de header-ele MySQL pentru development:
+<p>De asemenea, aveți nevoie și de header-ele MySQL pentru development:
 pachetul mysql-devel pe sisteme Fedora sau libmysql++-dev pe sisteme
  Debian (Ubuntu).</p>
 
-<p>Iată cum puteţi obţine o copie a codului şi a bazei de date:</p>
+<p>Iată cum puteți obține o copie a codului și a bazei de date:</p>
 
 <ol>
-  <li>Alegeţi-vă directorul unde doriţi să lucraţi, să spunem
-  <code>/var/www/html/DEX</code>, şi descărcaţi o copie a codului
+  <li>Alegeți-vă directorul unde doriți să lucrați, să spunem
+  <code>/var/www/html/DEX</code>, și descărcați o copie a codului
   sursă:
 
   <pre style="background: #eeffff; border: 1px dashed green; padding: 6px;">
@@ -21,20 +21,20 @@ cd DEX</pre>
 
   </li>
 
-  <li>Configuraţi codul pentru prima dată. Acest pas poate produce diverse
+  <li>Configurați codul pentru prima dată. Acest pas poate produce diverse
   erori, deoarece scriptul <code>setup</code> nu este bine pus la punct.
 
   <pre style="background: #eeffff; border: 1px dashed green; padding: 6px;">
 tools/setup</pre>
   </li>
 
-  <li>Modificaţi fişierul dex.conf conform cu setările
-  sistemului. Cel mai probabil, nu va trebui să modificaţi decât
+  <li>Modificați fișierul dex.conf conform cu setările
+  sistemului. Cel mai probabil, nu va trebui să modificați decât
   valorile variabilelor <code>mysql_*</code>.</li>
 
-  <li>Ca root, copiaţi fişierul <code>sql-functions.so</code> în
-  <code>/usr/lib</code>. Acest fişier extinde limbajul MySQL cu
-  câteva funcţii noi.
+  <li>Ca root, copiați fișierul <code>sql-functions.so</code> în
+  <code>/usr/lib</code>. Acest fișier extinde limbajul MySQL cu
+  câteva funcții noi.
 
   <pre style="background: #eeffff; border: 1px dashed green; padding: 6px;">
 scp tools/sql-functions.so root@0:/usr/lib</pre>
@@ -42,21 +42,21 @@ scp tools/sql-functions.so root@0:/usr/lib</pre>
   </li>
 
 
-  <li>Folosind contul root din MySQL, adăugaţi această funcţie nouă la Mysql:
+  <li>Folosind contul root din MySQL, adăugați această funcție nouă la Mysql:
 
   <pre style="background: #eeffff; border: 1px dashed green; padding: 6px;">
 create function dist2 returns integer soname "sql-functions.so";</pre>
   </li>
 
-  <li>Reporniţi serverul de MysQL:
+  <li>Reporniți serverul de MysQL:
 
   <pre style="background: #eeffff; border: 1px dashed green; padding: 6px;">
 ssh root@0 service mysqld restart</pre>
 
   </li>
 
-  <li>Creaţi o bază de date miniaturală, folosind parametrii
-  specificaţi în <code>dex.conf</code>. De remarcat că acest script va
+  <li>Creați o bază de date miniaturală, folosind parametrii
+  specificați în <code>dex.conf</code>. De remarcat că acest script va
   refuza să creeze o bază de date cu numele <code>DEX</code>, acest
   nume fiind rezervat pentru baza de date reală.
 
@@ -68,16 +68,16 @@ php resetDatabase.php</pre>
 
 
 
-  <li>Instalaţi <a href="http://smarty.php.net">Smarty</a>. Este
-  posibil ca distribuţia de Linux pe care o folosiţi să ofere un pachet
+  <li>Instalați <a href="http://smarty.php.net">Smarty</a>. Este
+  posibil ca distribuția de Linux pe care o folosiți să ofere un pachet
   Smarty. De exemplu, Fedora oferă pachetul php-Smarty iar Debian
   (Ubuntu) oferă pachetul &quot;smarty&quot;.
 
   </li>
 
-  <li>Dacă doriţi să creaţi un server virtual pentru copia
-  dumneavoastră, adăugaţi această directivă la fişierul de
-  configurare al httpd (care de obicei se găseşte în
+  <li>Dacă doriți să creați un server virtual pentru copia
+  dumneavoastră, adăugați această directivă la fișierul de
+  configurare al httpd (care de obicei se găsește în
   <code>/etc/httpd/conf/httpd.conf</code>):
 
   <pre style="background: #eeffff; border: 1px dashed green; padding: 6px;">
@@ -86,33 +86,33 @@ php resetDatabase.php</pre>
 	ServerName dex.domeniulmeu.com
 &lt;/VirtualHost&gt;</pre>
 
-  Evident, această modificare presupune că sunteţi posesorul domeniului
-  <code>domeniulmeu.com</code> şi că aţi creat subdomeniul
+  Evident, această modificare presupune că sunteți posesorul domeniului
+  <code>domeniulmeu.com</code> și că ați creat subdomeniul
   <code>dex</code>.
 
   </li>
 
-  <li>Accesaţi pagina principală a copiei dumneavoastră la
+  <li>Accesați pagina principală a copiei dumneavoastră la
   <code>http://dex.domeniulmeu.com</code> sau la
   <code>http://localhost/DEX/wwwbase</code>. Totul ar trebui să meargă
-  bine. Dacă nu, vă rugăm contactaţi-ne ca să actualizăm acest
+  bine. Dacă nu, vă rugăm contactați-ne ca să actualizăm acest
   document. Sau, dat fiind că acest document este parte din cod, îl
-  puteţi corecta singuri :)
+  puteți corecta singuri :)
   </li>
 
 </ol>
 
 
-Dacă modificaţi codul, nu veţi avea permisiunea de a adăuga
+Dacă modificați codul, nu veți avea permisiunea de a adăuga
 modificările făcute direct cu comanda <code>svn commit</code>, din
-două motive: dorim ca accesul anonim să ofere doar drept de citire şi
-dorim să ne aruncăm şi noi privirea peste codul pe care dumneavoastră
-îl scrieţi înainte de a îl accepta. Pentru a ne trimite modificările
-făcute, executaţi comanda:
+două motive: dorim ca accesul anonim să ofere doar drept de citire și
+dorim să ne aruncăm și noi privirea peste codul pe care dumneavoastră
+îl scrieți înainte de a îl accepta. Pentru a ne trimite modificările
+făcute, executați comanda:
 
   <pre style="background: #eeffff; border: 1px dashed green; padding: 6px;">
 svn diff > /tmp/diff.txt</pre>
 
-Apoi trimiteţi-ne prin email fişierul
-<code>/tmp/diff.txt</code>. Atenţie, trebuie să anexaţi fişierul
-separat, nu doar să îl includeţi în corpul mesajului.
+Apoi trimiteți-ne prin email fișierul
+<code>/tmp/diff.txt</code>. Atenție, trebuie să anexați fișierul
+separat, nu doar să îl includeți în corpul mesajului.

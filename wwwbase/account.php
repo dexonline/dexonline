@@ -6,21 +6,21 @@ util_assertNotMirror();
 $userPreferencesSet = array(
   'COMMA_BELOW' => array(
 	  'value' => 1 << 0,
-    'label' => 'Vreau să văd cu standard românesc (virguliţă în locul sedilei)',
-    'comment' => 'Scrierea corectă este cu ș şi ț în loc de ş şi ţ, dar este posibil ca aceste simboluri să nu fie afişate corect în browserul dumneavoastră.',
+    'label' => 'Vreau să văd cu standard românesc (virguliță în locul sedilei)',
+    'comment' => 'Scrierea corectă este cu ș și ț în loc de ş și ţ, dar este posibil ca aceste simboluri să nu fie afișate corect în browserul dumneavoastră.',
     'checked' => false, 
   ),
   'FORCE_DIACRITICS' => array(
     'value' => 1 << 1,
     'label' => 'Pun eu diacritice în căutare',
-    'comment' => 'Fără această opţiune, o căutare după „mal” va returna şi rezultatele pentru „mâl”. Cu această opţiune, rezultatele pentru „mâl” nu mai sunt returnate decât ' .
-                 'când căutaţi explicit „mâl”.',
+    'comment' => 'Fără această opțiune, o căutare după „mal” va returna și rezultatele pentru „mâl”. Cu această opțiune, rezultatele pentru „mâl” nu mai sunt returnate decât ' .
+                 'când căutați explicit „mâl”.',
     'checked' => false, 
   ),
   'OLD_ORTHOGRAPHY' => array(
     'value' => 1 << 2,
     'label' => 'Folosesc ortografia folosită pînă în 1993 (î din i)',
-    'comment' => 'Până în 1993, „â” era folosit doar în cuvântul „român” şi cuvintele derivate.',
+    'comment' => 'Până în 1993, „â” era folosit doar în cuvântul „român” și cuvintele derivate.',
     'checked' => false, 
   ),
 );

@@ -2,7 +2,7 @@
 require_once("../../phplib/util.php"); 
 util_assertModeratorStatus();
 util_assertNotMirror();
-RecentLink::createOrUpdate('Căutare definiţii');
+RecentLink::createOrUpdate('Căutare definiții');
 
 $name = util_getRequestParameter('name');
 $status = util_getRequestIntParameter('status');
@@ -49,7 +49,7 @@ if ($searchButton) {
 }
 
 smarty_assign('searchResults', $searchResults);
-smarty_assign('sectionTitle', 'Căutare definiţii');
+smarty_assign('sectionTitle', 'Căutare definiții');
 smarty_assign('allStatuses', util_getAllStatuses());
 smarty_assign('recentLinks', RecentLink::loadForUser());
 smarty_displayWithoutSkin('admin/definitionList.ihtml');

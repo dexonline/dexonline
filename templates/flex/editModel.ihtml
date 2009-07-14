@@ -16,9 +16,9 @@
     {include file="common/errorMessage.ihtml"}
 
     {if $wasPreviewed && count($errorMessage) == 0}
-      Examinaţi modificările afişate mai jos (dacă există) şi, dacă totul
-      arată normal, apăsaţi butonul "Salvează". Dacă nu, continuaţi editarea
-      şi apăsaţi din nou butonul "Testează".
+      Examinați modificările afișate mai jos (dacă există) și, dacă totul
+      arată normal, apăsați butonul "Salvează". Dacă nu, continuați editarea
+      și apăsați din nou butonul "Testează".
       <br/><br/>
     {/if}
 
@@ -30,7 +30,7 @@
         <tr>
           <td>
             Număr model
-            <span class="small">(poate conţine orice caractere)</span>
+            <span class="small">(poate conține orice caractere)</span>
           </td>
           <td class="input">
             <input type="text" name="newModelNumber"
@@ -109,7 +109,7 @@
             {/foreach}
           </ol>
 
-          <h3>Lexemele afectate ({$lexems|@count}) şi noile lor forme:</h3>
+          <h3>Lexemele afectate ({$lexems|@count}) și noile lor forme:</h3>
     
           <table class="changedForms">
             <tr class="header">

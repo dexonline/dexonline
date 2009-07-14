@@ -6,11 +6,11 @@
   {math equation="rand(0, $numHints - 1)" assign="rnd"}
 
    {if $rnd == 0}
-     Doriţi să vă instalaţi <i>DEX online</i> pe calculatorul de
-     acasă?  Citiţi <a href="faq.php#offline">această secţiune</a> din
-     pagina de informaţii.
+     Doriți să vă instalați <i>DEX online</i> pe calculatorul de
+     acasă?  Citiți <a href="faq.php#offline">această secțiune</a> din
+     pagina de informații.
    {elseif $rnd == 1}
-     Puteţi face căutări cu <i>expresii regulate</i>, care sunt mult
+     Puteți face căutări cu <i>expresii regulate</i>, care sunt mult
      mai puternice decât căutarea unui singur cuvânt. De exemplu,
      căutarea <i>dif*</i> va lista toate cuvintele care încep cu
      <i>dif-</i>. Detalii <a href="faq.php#regexp">aici</a>.
@@ -19,20 +19,20 @@
      mai rapide pentru dumneavoastră decât site-ul principal. Detalii
      <a href="faq.php#mirrors">aici</a>.
    {elseif $rnd == 3}
-     Dacă observaţi o greşeală de tipar într-o definiţie, ne-o puteţi
-     semnala! După fiecare definiţie există o legătură în acest scop.
+     Dacă observați o greșeală de tipar într-o definiție, ne-o puteți
+     semnala! După fiecare definiție există o legătură în acest scop.
    {elseif $rnd == 4}
-     Puteţi schimba aspectul paginii din pagina de <a
+     Puteți schimba aspectul paginii din pagina de <a
      href="tools.php">unelte</a> (unele designuri nu sunt complet
-     funcţionale).
+     funcționale).
    {elseif $rnd == 5}
-     Puteţi da click pe orice cuvânt din interiorul unei definiţii
-     pentru a naviga la definiţia acelui cuvânt.
+     Puteți da click pe orice cuvânt din interiorul unei definiții
+     pentru a naviga la definiția acelui cuvânt.
    {elseif $rnd == 6}
-     Puteţi vedea flexiunea oricărui cuvânt (conjugarea verbelor sau
-     declinarea substantivelor şi adjectivelor). După ce căutaţi un
-     cuvânt, daţi click pe "Flexiuni".
+     Puteți vedea flexiunea oricărui cuvânt (conjugarea verbelor sau
+     declinarea substantivelor și adjectivelor). După ce căutați un
+     cuvânt, dați click pe "Flexiuni".
    {elseif $rnd == 7}
-     Dacă vă înregistraţi, puteţi alege diverse <a href="account.php">opţiuni</a> pentru grafia cu î sau â, cu sedilă sau cu virgulă, pentru căutarea cu diacritice etc.
+     Dacă vă înregistrați, puteți alege diverse <a href="account.php">opțiuni</a> pentru grafia cu î sau â, cu sedilă sau cu virgulă, pentru căutarea cu diacritice etc.
    {/if}
 </div>

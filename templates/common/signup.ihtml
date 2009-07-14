@@ -1,34 +1,34 @@
 {if $is_connected}
-  Sunteţi deja înregistrat şi conectat!
+  Sunteți deja înregistrat și conectat!
 {elseif $send && $error_code == OK}
-  Înscrierea s-a făcut cu succes! Acum vă puteţi
+  Înscrierea s-a făcut cu succes! Acum vă puteți
   <a href="login.php">conecta</a>.
 {else}
-  <p>Dacă nu intenţionaţi să ne trimiteţi
-  definiţii, <b>nu este nevoie să vă înscrieţi</b>.
-  Puteţi consulta <i>DEX online</i> după pofta inimii şi ca
-  utilizator anonim. Ce aveţi de câştigat dacă vă
-  înscrieţi:
+  <p>Dacă nu intenționați să ne trimiteți
+  definiții, <b>nu este nevoie să vă înscrieți</b>.
+  Puteți consulta <i>DEX online</i> după pofta inimii și ca
+  utilizator anonim. Ce aveți de câștigat dacă vă
+  înscrieți:
 
   <p><ul>
-  <li>Definiţiile pe care le trimiteţi se vor adăuga în
+  <li>Definițiile pe care le trimiteți se vor adăuga în
   contul dumneavoastră, aducându-vă un loc mai bun în topul
-  voluntarilor si multă recunoştinţă din partea
-  utilizatorilor :) Altfel, definiţiile sunt trimise cu titlu anonim.
+  voluntarilor si multă recunoștință din partea
+  utilizatorilor :) Altfel, definițiile sunt trimise cu titlu anonim.
 
-  <li>După ce contribuiţi cu cel puţin 100 de definiţii,
-  puteţi cere un cont de moderator. Acesta vă dă dreptul de a
-  accepta/respinge definiţii trimise de alţii, de a corecta
-  greşeli de tipar ş.a.m.d.
+  <li>După ce contribuiți cu cel puțin 100 de definiții,
+  puteți cere un cont de moderator. Acesta vă dă dreptul de a
+  accepta/respinge definiții trimise de alții, de a corecta
+  greșeli de tipar ș.a.m.d.
   </ul>
 
   <p><b>Avem nevoie de adresa dumneavoastră de email</b> pentru a putea
-  ţine legătura pe marginea definiţiilor pe care ni le
-  trimiteţi. Aveţi opţiunea de a vă face adresa de email
+  ține legătura pe marginea definițiilor pe care ni le
+  trimiteți. Aveți opțiunea de a vă face adresa de email
   invizibilă tuturor în afară de administratorul <i>DEX
-  online</i>. Nu aveţi nicio grijă, nu vom divulga adresa de email
-  nimănui dacă dumneavoastră nu doriţi asta. Şi noi
-  primim mesaje nesolicitate (spam) şi ştim ce "plăcere" este.
+  online</i>. Nu aveți nicio grijă, nu vom divulga adresa de email
+  nimănui dacă dumneavoastră nu doriți asta. Și noi
+  primim mesaje nesolicitate (spam) și știm ce "plăcere" este.
 
   <p>Acestea fiind zise...
 
@@ -38,17 +38,17 @@
   {if $send}
     <font color=red><b>
     {if $error_code == ERR_NO_NICK}
-      Trebuie să vă alegeţi un nume de cont.
+      Trebuie să vă alegeți un nume de cont.
     {elseif $error_code == ERR_NICK_LEN}
       Numele de cont trebuie să aibă minim 3 caractere.
     {elseif $error_code == ERR_NICK_CHARS}
-      Numele de cont poate conţine numai caracterele indicate.
+      Numele de cont poate conține numai caracterele indicate.
     {elseif $error_code == ERR_PASS_LEN}
-      Trebuie să vă alegeţi o parolă de minim 4 caractere.
+      Trebuie să vă alegeți o parolă de minim 4 caractere.
     {elseif $error_code == ERR_PASS_MISMATCH}
       Parolele nu coincid.
     {elseif $error_code == ERR_NO_EMAIL}
-      Trebuie să precizaţi adresa de email.
+      Trebuie să precizați adresa de email.
     {elseif $error_code == ERR_BAD_EMAIL}
       Adresa de email nu este validă.
     {elseif $error_code == ERR_NICK_TAKEN}
@@ -57,7 +57,7 @@
       Această adresă de email este deja folosită.
     {else}  {* $error_code == ERR_OTHER *}
       A fost o problemă la înregistrare. Vă rugăm
-      trimiteţi-ne un email pentru a ne ajuta să depanăm
+      trimiteți-ne un email pentru a ne ajuta să depanăm
       problema.
     {/if}
     </b></font>
@@ -73,7 +73,7 @@
   </tr></tr>
     <td>&nbsp;</td>
     <td><font size=-1>(3-16 caractere din setul <b>A-Z, a-z,  0-9, &#x2013;</b>
-     şi <b>_</b>)</font></td>
+     și <b>_</b>)</font></td>
 
   </tr><tr>
     <td>Parola:</td>
@@ -92,7 +92,7 @@
     <td><font size=-1>&nbsp;</font></td>
 
   </tr><tr>
-    <td>Numele real (opţional):</td>
+    <td>Numele real (opțional):</td>
     <td><input type="text" name="name" value="{$name|escape}"
     size=40 maxlength=40/></td>
   </tr><tr>

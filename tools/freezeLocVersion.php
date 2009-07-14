@@ -56,7 +56,7 @@ print "Creating database $dbName\n";
 mysql_query("create database $dbName");
 $fileName = tempnam('/tmp', 'freeze_');
 print "Dumping tables to $fileName\n";
-$tablesToDump = "constraints dmlr_models inflections lexems " .
+$tablesToDump = "constraints inflections lexems " .
   "model_description model_types models participle_models transforms wordlist";
 $mysql = sprintf("mysqldump -h %s -u %s --password='%s' %s %s > %s",
                  pref_getDbHost(),

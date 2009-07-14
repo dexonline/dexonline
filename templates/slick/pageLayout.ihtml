@@ -12,7 +12,7 @@
 
 <div id="fond">
   <div id="antet"><img src="{$imgRoot}/slick/logo.jpg"
-    alt="DEX online - Dicţionar explicativ al limbii române"></div>
+    alt="DEX online - Dicționar explicativ al limbii române"></div>
   <div id="meniu">
   <table cellspacing="0">
     <tr>
@@ -20,10 +20,10 @@
         <a href="/">prima</a></td>
       <td nowrap><a href="contrib.php">contribuie</a></td>
       <td nowrap {if $slick_selected == "corect"}class="sel"{/if}>
-        <a href="corect.php" id="guideLink">corect/greşit</a></td>
+        <a href="corect.php" id="guideLink">corect/greșit</a></td>
       <td nowrap><a href="javascript:abbrevwindow()">abrevieri</a></td>
       <td nowrap {if $slick_selected == "faq"}class="sel"{/if}>
-        <a href="faq.php">informaţii</a></td>
+        <a href="faq.php">informații</a></td>
       <td nowrap {if $slick_selected == "tools"}class="sel"{/if}>
         <a href="tools.php">unelte</a></td>
       <td nowrap {if $slick_selected == "top"}class="sel"{/if}>
@@ -77,8 +77,8 @@
   <table class="tabelSumar">
     <tr>
       <td>
-        Starea curentă: <i>DEX online</i> a învăţat
-        <b>{$words_total}</b> de definiţii, din care
+        Starea curentă: <i>DEX online</i> a învățat
+        <b>{$words_total}</b> de definiții, din care
         {$words_last_month} în ultima lună.<br/>
       </td>
       <td class="ingust">

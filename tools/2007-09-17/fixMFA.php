@@ -182,7 +182,7 @@ function isAdjective($defs) {
 
 function isMfNoun($defs) {
   foreach ($defs as $d) {
-    if (preg_match("/s[ .]+m[ .]+şi f\\./i", $d->internalRep) ||
+    if (preg_match("/s[ .]+m[ .]+și f\\./i", $d->internalRep) ||
         preg_match("/s[ .]+m[ .]+f\\./i", $d->internalRep) ||
         preg_match("/^@[^@]+@ +s. +[^mnf]/i", $d->internalRep)) {
       return true;

@@ -15,7 +15,7 @@
     {include file="admin/recentlyVisited.ihtml"}
 
     <form action="verifyParadigms.php" method="get">
-      Alegeţi tipul de model:
+      Alegeți tipul de model:
       <select name="modelType">
         {foreach from=$modelTypes item=mt}
           <option value="{$mt->value|escape}"
@@ -29,14 +29,14 @@
     </form>
 
     {if $modelType}
-      <b>Instrucţiuni:</b> Vă sunt prezentate numai modelele
+      <b>Instrucțiuni:</b> Vă sunt prezentate numai modelele
       neverificate încă.  Pentru fiecare model sunt alese maxim patru
-      lexeme relevante. Examinaţi-le şi, dacă totul este în regulă,
-      bifaţi modelul drept "corect". Dacă minim una din forme este
-      greşită, bifaţi modelul drept "greşit". Când vă plictisiţi,
-      navigaţi la sfârşitul paginii şi trimiteţi rezultatele. Puteţi
+      lexeme relevante. Examinați-le și, dacă totul este în regulă,
+      bifați modelul drept "corect". Dacă minim una din forme este
+      greșită, bifați modelul drept "greșit". Când vă plictisiți,
+      navigați la sfârșitul paginii și trimiteți rezultatele. Puteți
       sări modele oriunde în cuprinsul paginii. Data viitoare când
-      vizitaţi această pagină, vă vor fi prezentate doar modelele
+      vizitați această pagină, vă vor fi prezentate doar modelele
       rămase.
   
       <br/>
@@ -56,11 +56,11 @@
 
             {if $model->flag == 2}
               <div class="verifyYes">
-                Acest model a fost deja verificat şi este corect.
+                Acest model a fost deja verificat și este corect.
               </div>
             {elseif $model->flag == 1}
               <div class="verifyNo">
-                Acest model a fost deja verificat şi este greşit.
+                Acest model a fost deja verificat și este greșit.
               </div>
             {elseif !count($lexemArray)}
               <div class="verifyNo">
@@ -86,7 +86,7 @@
                 <input type="radio" name="model_{$no}" value="1"
                        id="radio_{$no}_1"/>
                 <label for="radio_{$no}_1" class="verifyNo">
-                  Modelul este greşit
+                  Modelul este greșit
                 </label>
     
                 &nbsp;&nbsp;
@@ -97,7 +97,7 @@
                 </label>
     
                 <br/>
-                Comentariu (opţional):
+                Comentariu (opțional):
                 <input type="text" name="com_{$no}"/>
               </div>
             {/if}

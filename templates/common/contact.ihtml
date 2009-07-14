@@ -1,31 +1,31 @@
-Înainte de a ne trimite un email, vă rugăm citiţi pagina de <a
-href="faq.php">informaţii</a> pentru a vă asigura că întrebarea
+Înainte de a ne trimite un email, vă rugăm citiți pagina de <a
+href="faq.php">informații</a> pentru a vă asigura că întrebarea
 dumneavoastră nu este deja tratată acolo. În special:
 
 <ul>
-  <li>Dacă vreţi să aflaţi sensul unui cuvânt care lipseşte din <i>DEX
-  online,</i> probabil nu vă putem ajuta. Niciunul din dicţionarele
-  pe care le oferim nu conţine acel cuvânt, iar voluntarii <i>DEX
-  online</i> nu sunt lingvişti de profesie.</li>
+  <li>Dacă vreți să aflați sensul unui cuvânt care lipsește din <i>DEX
+  online,</i> probabil nu vă putem ajuta. Niciunul din dicționarele
+  pe care le oferim nu conține acel cuvânt, iar voluntarii <i>DEX
+  online</i> nu sunt lingviști de profesie.</li>
 
-  <li>Dacă doriţi să ne propuneţi un schimb de link-uri, nu ne
+  <li>Dacă doriți să ne propuneți un schimb de link-uri, nu ne
   interesează. <i>DEX online</i> a ajuns acolo unde este prin meritul
-  propriu şi fiecare link către noi vine de la o persoană care ne-a
-  considerat utili. Acesta este principiul democraţiei pe
+  propriu și fiecare link către noi vine de la o persoană care ne-a
+  considerat utili. Acesta este principiul democrației pe
   web. Schimburile artificiale de link-uri sunt împotriva acestei
-  democraţii.</li>
+  democrații.</li>
 
-  <li>Dacă doriţi să instalaţi <i>DEX online</i> pe calculatorul
-  dumneavoastră personal, vizitaţi pagina de <a
+  <li>Dacă doriți să instalați <i>DEX online</i> pe calculatorul
+  dumneavoastră personal, vizitați pagina de <a
   href="tools.php">unelte</a>.</li>
 
-  <li>Dacă doriţi o copie a bazei de date, citiţi <a
+  <li>Dacă doriți o copie a bazei de date, citiți <a
   href="faq.php#database">acest
   paragraf</a>.</li>
 
-  <li>Dacă vreţi să ne felicitaţi, scrieţi-ne neapărat! Cuvinte
+  <li>Dacă vreți să ne felicitați, scrieți-ne neapărat! Cuvinte
   frumoase ne face întotdeauna plăcere să auzim :)</li>
 </ul>
 
 Adresa noastră de email este <a
-href="mailto:{$contact_email|escape}">{$contact_email|escape}</a>. Vă aşteptăm!
+href="mailto:{$contact_email|escape}">{$contact_email|escape}</a>. Vă așteptăm!

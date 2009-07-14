@@ -19,7 +19,7 @@
   </tr>
 
   <tr>
-    <td>Definiţii trimise:</td>
+    <td>Definiții trimise:</td>
     <td><b>{$userData.num_words} (locul {$userData.rank_words})</b></td>
   </tr>
 

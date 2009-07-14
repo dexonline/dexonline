@@ -1,6 +1,6 @@
 <br/>
 
-Tastaţi o formă flexionară şi alegeţi versiunea LOC pentru a afla dacă
+Tastați o formă flexionară și alegeți versiunea LOC pentru a afla dacă
 vreunul din cuvintele din LOC generează acea formă.<br/><br/>
 
 <form action="scrabbleCheckInflection.php" method="get">

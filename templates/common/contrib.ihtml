@@ -11,11 +11,11 @@
 <body onload="contribBodyLoad()">
   <div class="contribSection">
     <div class="contribLinks">
-      <a href="javascript:formatwindow()">Instrucţiuni</a>
+      <a href="javascript:formatwindow()">Instrucțiuni</a>
       &nbsp; | &nbsp;
       <a href="index.php">Pagina principală</a>
     </div>
-    Trimiteţi o definiţie &nbsp;&nbsp;
+    Trimiteți o definiție &nbsp;&nbsp;
   </div>
 
   <form name="frm" method="post" action="contrib.php">
@@ -31,8 +31,8 @@
         <tr>
           <td colspan="2">
             <span class="confirmationMessage">
-              Definiţia a fost trimisă! Un moderator o va examina în
-              scurt timp. Vă mulţumim!
+              Definiția a fost trimisă! Un moderator o va examina în
+              scurt timp. Vă mulțumim!
             </span>
           </td>
         </tr>
@@ -45,11 +45,11 @@
         <tr>
           <td>&nbsp;</td>
           <td>
-            Definiţia dumneavoastră va fi trimisă, dar nu veţi primi credit
+            Definiția dumneavoastră va fi trimisă, dar nu veți primi credit
             (laude, glorie) pentru ea. Vă recomandăm să vă
-            <a href="login.php?target=contrib.php">conectaţi</a>
-            sau, dacă nu aveţi un cont pe <i>DEX online</i>, să vă
-            <a href="signup.php">înscrieţi</a>.
+            <a href="login.php?target=contrib.php">conectați</a>
+            sau, dacă nu aveți un cont pe <i>DEX online</i>, să vă
+            <a href="signup.php">înscrieți</a>.
           </td>
         </tr>
       {/if}
@@ -74,12 +74,12 @@
       </tr>
     </table>
 
-    Definiţia:<br/>
+    Definiția:<br/>
       <textarea name="def" rows="10" cols="80"
                 onkeypress="contribKeyPressed()">{$def|escape}</textarea><br/>
       <input type="submit" name="send" value="Trimite"/>
-      <input type="reset" name="clear" value="Şterge"
-             onclick="return confirm('Confirmaţi ştergerea definiţiei?')"/>
+      <input type="reset" name="clear" value="Șterge"
+             onclick="return confirm('Confirmați ștergerea definiției?')"/>
   </form>
 
   <div class="contribSection">
@@ -90,7 +90,7 @@
     {if $previewDivContent}
       {$previewDivContent}
     {else}
-      Aici puteţi vedea rezultatul (se actualizează automat la fiecare
+      Aici puteți vedea rezultatul (se actualizează automat la fiecare
       5 secunde).
     {/if}
   </div>
@@ -117,8 +117,8 @@
       <td>
         <b>HAIDUCÍE,</b> <i>haiducii,</i> s.f. <b>1.</b> Luptă armată
         a unor cete de haiduci (<b>1</b>) împotriva asupritorilor,
-        frecventă la sfârşitul evului mediu în ţările româneşti şi în
-        Peninsula Balcanică. <b>2.</b> Viaţă sau îndeletnicire de
+        frecventă la sfârșitul evului mediu în țările românești și în
+        Peninsula Balcanică. <b>2.</b> Viață sau îndeletnicire de
         haiduc (<b>1</b>). <b>3.</b> Purtare, deprindere de haiduc
         (<b>1</b>). &#x2013; <b>Haiduc</b> + suf. <i>-ie.</i>
       </td>
@@ -128,18 +128,18 @@
   <br/>
 
   <div class="contribSection">
-    Atenţie!
+    Atenție!
   </div>
 
-  Vă rugăm insistent să trimiteţi numai definiţii din sursele
-  acceptate. <b>Nu putem accepta definiţii provenite din opinia
+  Vă rugăm insistent să trimiteți numai definiții din sursele
+  acceptate. <b>Nu putem accepta definiții provenite din opinia
   dumneavoastră personală</b>. Aceasta ar duce la scăderea
-  credibilităţii <i>DEX online</i> sau ar putea omite sensuri
-  secundare ale cuvântului. Vă rugăm să respectaţi pe cât posibil
-  instrucţiunile de formatare, în special simbolurile diacritice. Dacă
-  efortul necesar corectării definiţiei pe care ne-o trimiteţi este
-  mai mare decât tastarea ei de la zero, bunăvoinţa dumneavoastră este
-  irosită. Definiţiile care nu se conformează acestor rugăminţi vor fi
+  credibilității <i>DEX online</i> sau ar putea omite sensuri
+  secundare ale cuvântului. Vă rugăm să respectați pe cât posibil
+  instrucțiunile de formatare, în special simbolurile diacritice. Dacă
+  efortul necesar corectării definiției pe care ne-o trimiteți este
+  mai mare decât tastarea ei de la zero, bunăvoința dumneavoastră este
+  irosită. Definițiile care nu se conformează acestor rugăminți vor fi
   respinse. Întrucât numărul de voluntari a crescut considerabil în
   ultima vreme, regretăm că nu putem garanta un răspuns individual.
 

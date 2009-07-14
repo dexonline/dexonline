@@ -74,7 +74,7 @@ function populateModelList(httpRequest, argArray) {
         select.options[select.options.length] = new Option(display, number);
       }
     } else {
-      alert('Nu pot descărca lista de exponenţi pentru modele!');
+      alert('Nu pot descărca lista de exponenți pentru modele!');
     }
   }
 }
@@ -103,10 +103,10 @@ function blUpdateDefVisibility(anchor) {
   var div = document.getElementById('definitions_' + lexemId);
   if (div.style.display == 'none') {
     div.style.display = 'block';
-    anchor.innerHTML = 'ascunde definiţiile';
+    anchor.innerHTML = 'ascunde definițiile';
   } else {
     div.style.display = 'none';
-    anchor.innerHTML = 'arată definiţiile';
+    anchor.innerHTML = 'arată definițiile';
   }
   return false;
 }

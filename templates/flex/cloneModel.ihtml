@@ -29,7 +29,7 @@
       <br/>
 
       <div id="lexemDiv" class="cm_lexemDiv" style="display: block">
-        Bifaţi lexemele pe care doriţi să le migraţi la noul model:
+        Bifați lexemele pe care doriți să le migrați la noul model:
         <br/>
 
         {foreach from=$lexems item=l}

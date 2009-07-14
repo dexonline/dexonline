@@ -14,9 +14,9 @@ if ($sendButton) {
 
   $errorMessage = '';
   if (!$name) {
-    $errorMessage = 'Trebuie să introduceţi un cuvânt-titlu.';
+    $errorMessage = 'Trebuie să introduceți un cuvânt-titlu.';
   } else if (!$def) {
-    $errorMessage = 'Trebuie să introduceţi o definiţie.';
+    $errorMessage = 'Trebuie să introduceți o definiție.';
   }
 
   if ($errorMessage) {

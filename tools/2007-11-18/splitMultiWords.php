@@ -27,7 +27,7 @@ while (($dbRow = mysql_fetch_assoc($dbResult)) != null) {
       $baseForms = Lexem::searchWordlists($part, true);
       if (!count($baseForms)) {
         $baseForm = Lexem::create($part, 'T', '1', '');
-        $baseForm->comment = "Provine din despărţirea lexemului [{$l->form}]";
+        $baseForm->comment = "Provine din despărțirea lexemului [{$l->form}]";
         $baseForm->noAccent = true;
         $baseForm->save();
         $baseForm->id = db_getLastInsertedId();

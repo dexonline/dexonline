@@ -9,7 +9,7 @@ debug_off();
 DEFINE('REG_TR_OPEN', '/<tr[^>]*>/');
 DEFINE('REG_TR_CLOSE', '/<\/tr>/');
 DEFINE('REG_TD', '/<td[^>]*>([^<]*)<\/td>/');
-DEFINE('LEGAL_WORD_CHARACTERS', "aăâbcdefghiîjklmnopqrsştţuvwxyz'");
+DEFINE('LEGAL_WORD_CHARACTERS', "aăâbcdefghiîjklmnopqrsștțuvwxyz'");
 
 function parseArguments() {
   global $argv;
@@ -43,8 +43,8 @@ function readAndFormatFile($fileName) {
 			    '&#351;', '&#354;', '&#355;'),
 		      array(' ', ' ', '&', '"', 'ă',
 			    '',
-			    'Ă', 'ă', 'Ş',
-			    'Ş', 'Ţ', 'ţ'),
+			    'Ă', 'ă', 'Ș',
+			    'Ș', 'Ț', 'ț'),
 		      $data);
   $data = preg_replace('/<span style="">(&nbsp;| )*<\/span>/', '', $data);
   $data = preg_replace('/<font class="font\d+">/', '', $data);
@@ -152,10 +152,10 @@ function assertEqualArrays($expected, $actual) {
 }
 
 function normalizeForm($form) {
-  // Special case 1: staro-s/ş-ti or staro-s/ş-tii or staro-s/ş-tilor
-  if (text_startsWith($form, 'staro-s/ş-ti')) {
+  // Special case 1: staro-s/ș-ti or staro-s/ș-tii or staro-s/ș-tilor
+  if (text_startsWith($form, 'staro-s/ș-ti')) {
     $rest = mb_substr($form, 12);
-    return array("starosti$rest", "staroşti$rest");
+    return array("starosti$rest", "staroști$rest");
   }
 
   // Special case 2: [a]iastalaltă (-tă-)
@@ -249,8 +249,8 @@ function runTestSuite() {
                     normalizeForm(" m'ama    ( t'ata   )   "));
   assertEqualArrays(array("a", "b", "c", "d", "e"),
                     normalizeForm("a/b/c (d / e)"));
-  assertEqualArrays(array("starostilor", "staroştilor"),
-                    normalizeForm("staro-s/ş-tilor"));
+  assertEqualArrays(array("starostilor", "staroștilor"),
+                    normalizeForm("staro-s/ș-tilor"));
   assertEqualArrays(array("abcde", "acde", "abce", "ace"),
                     normalizeForm("a[b]c[d]e"));
   assertEqualArrays(array("abef", "abgh", "cdef", "cdgh"),

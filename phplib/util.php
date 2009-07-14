@@ -110,7 +110,7 @@ function util_defineConstants() {
   
   $GLOBALS['wordStatuses'] = array(ST_ACTIVE => "Activă",
                                    ST_PENDING => "Temporară",
-                                   ST_DELETED => "Ştearsă");
+                                   ST_DELETED => "Ștearsă");
 
   define("SEARCH_REGEXP", 0);
   define("SEARCH_LEXEM", 1);
@@ -218,8 +218,8 @@ function util_hideEmptyRequestParameters() {
 
 function util_assertModeratorStatus() {
   if (!session_userIsModerator()) {
-    smarty_assign('errorMessage', 'Nu aveţi acces ca moderator! ' .
-                  'Vă rugăm să vă <a href="../login.php">autentificaţi</a> ' .
+    smarty_assign('errorMessage', 'Nu aveți acces ca moderator! ' .
+                  'Vă rugăm să vă <a href="../login.php">autentificați</a> ' .
                   'mai întâi.');
     smarty_displayWithoutSkin('common/errorMessage.ihtml');
     exit;

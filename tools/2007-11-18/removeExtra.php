@@ -43,7 +43,7 @@ while (($dbRow = mysql_fetch_assoc($dbResult)) != null) {
   if (!$found) {
     $lower = text_unicodeToLower($extra);
     foreach ($defs as $def) {
-      $letterSet = 'A-Za-zăâîşţĂÂÎŞŢ';
+      $letterSet = 'A-Za-zăâîșțĂÂÎȘȚ';
       $letter = "[$letterSet]";
       $letterOrDash = "[-$letterSet]";
       $other = "[^-$letterSet]";

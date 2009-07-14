@@ -19,7 +19,7 @@ while (count($cells)) {
   // The first two cells are the model number and 'm.'
   assert(substr($cells[0], -1) == '.');
   assert($cells[1] == 'm.');
-  // We might have one extra cell called 'Alternanţa'
+  // We might have one extra cell called 'Alternanța'
   assert(count($cells) == 10 || count($cells) == 11);
   $modelNumber = substr($cells[0], 0, strlen($cells[0]) - 1);
   $transf = (count($cells) == 11) ? $cells[10] : '';

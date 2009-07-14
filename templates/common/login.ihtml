@@ -1,31 +1,31 @@
 {if $is_connected}
-  Sunteţi deja conectat!
+  Sunteți deja conectat!
 {elseif $login && $error_code == OK}
   <script language="javascript">location.replace("{$target}");</script>
 {elseif $forget && $error_code == OK}
-  Parola a fost resetată. Verificaţi-vă poşta în câteva minute
-  pentru a afla noua parolă, apoi <a href="login.php">reconectaţi-vă</a>.
+  Parola a fost resetată. Verificați-vă poșta în câteva minute
+  pentru a afla noua parolă, apoi <a href="login.php">reconectați-vă</a>.
 {elseif $forget && $error_code == ERR_NO_MESSAGE}
   Parola a fost schimbată, dar nu v-am putut trimite emailul cu noua
-  parolă. Trimiteţi-ne un email pentru a rezolva problema manual.
+  parolă. Trimiteți-ne un email pentru a rezolva problema manual.
 {else}
-  Pentru a vă conecta, introduceţi adresa de email sau numele de
-  cont şi parola. Dacă v-aţi uitat parola, introduceţi doar adresa
-  de email şi apăsaţi butonul "Mi-am uitat parola". O nouă parolă
-  va fi generată şi trimisă pe adresa dumneavoastră de email.
+  Pentru a vă conecta, introduceți adresa de email sau numele de
+  cont și parola. Dacă v-ați uitat parola, introduceți doar adresa
+  de email și apăsați butonul "Mi-am uitat parola". O nouă parolă
+  va fi generată și trimisă pe adresa dumneavoastră de email.
 
   {if $error_code != OK}
     <p><font color=red><b>
     {if $error_code == ERR_NO_NICK}
-      Trebuie să introduceţi adresa de email sau numele de cont.
+      Trebuie să introduceți adresa de email sau numele de cont.
     {elseif $error_code == ERR_NO_PASS}
-      Trebuie să introduceţi parola.
+      Trebuie să introduceți parola.
     {elseif $error_code == ERR_BAD_LOGIN}
-      Adresa, numele de cont sau parola sunt greşite.
+      Adresa, numele de cont sau parola sunt greșite.
     {elseif $error_code == ERR_BAD_EMAIL}
       Adresa {$nickOrEmail|escape} nu este înregistrată în <i>DEX online</i>.
     {elseif $error_code == ERR_NO_EMAIL}
-      Pentru a vă reseta parola, trebuie să vă introduceţi adresa de email.
+      Pentru a vă reseta parola, trebuie să vă introduceți adresa de email.
     {/if}
     </b></font>
   {/if}

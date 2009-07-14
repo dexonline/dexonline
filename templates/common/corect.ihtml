@@ -1,12 +1,12 @@
 Această pagină tratează câteva din cele mai frecvente probleme de
-exprimare în limba română. Precizăm că NU avem autoritatea de a tranşa
+exprimare în limba română. Precizăm că NU avem autoritatea de a tranșa
 aceste probleme, dar putem băga mâna în foc că ceea ce scriem aici
-este corect. :) Mulţumiri celor de pe forumul de la
+este corect. :) Mulțumiri celor de pe forumul de la
 
 <a href="http://www.desprecopii.com/forum/topic.asp?TOPIC_ID=16839">desprecopii.com</a>,
 
-care au pornit acest fir de discuţii şi au strâns un set iniţial de
-sugestii. Dacă aveţi sugestii, nu vă sfiiţi să ni le trimiteţi prin
+care au pornit acest fir de discuții și au strâns un set inițial de
+sugestii. Dacă aveți sugestii, nu vă sfiiți să ni le trimiteți prin
 email.
 
 <br/><br/>
@@ -20,10 +20,10 @@ email.
     <thead>
       <tr>
         <th>Corect</th>
-        <th>Greşit</th>
+        <th>Greșit</th>
         <th>Comentarii</th>
         {if $is_moderator}
-          <th>Acţiuni</th>
+          <th>Acțiuni</th>
         {/if}
       </tr>
     </thead>
@@ -63,8 +63,8 @@ email.
                 </a><br/>
                 <a id="delete{$row->id}"
 		   href="?action=delete&amp;guideEntryId={$row->id}"
-                   onclick="return confirm('Confirmaţi ştergerea acestei înregistrări?');">
-                  şterge
+                   onclick="return confirm('Confirmați ștergerea acestei înregistrări?');">
+                  șterge
                 </a>
               </td>
             {/if}

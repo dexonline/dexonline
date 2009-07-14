@@ -59,9 +59,9 @@ if ($lexemNames) {
         }
         if (!$found) {
           $errorMessage = (count($matches) == 0)
-            ? "Lexemul <i>".htmlentities($lexemName)."</i> nu există. Folosiţi " .
+            ? "Lexemul <i>".htmlentities($lexemName)."</i> nu există. Folosiți " .
             "lista de sugestii pentru a-l corecta."
-            : "Lexemul <i>".htmlentities($lexemName)."</i> este ambiguu. Folosiţi " .
+            : "Lexemul <i>".htmlentities($lexemName)."</i> este ambiguu. Folosiți " .
             "lista de sugestii pentru dezambiguizare.";
           $lexems[] = Lexem::create($lexemName, 0, '', '');
           // We won't be needing $ldms since there is an error.
@@ -95,11 +95,6 @@ if ($acceptButton || $moveButton) {
     // status to Active
     if ($moveButton) {
       $definition->status = ST_ACTIVE;
-    }
-    
-    // If the definition has changed, insert a diff record in the changes table
-    if ($definition->internalRep !== $oldInternalRep) {
-      Definition::storeOldVersion($definition->id, session_getUserId(), $oldInternalRep);
     }
     
     // Accept the definition and delete the typos associated with it.
@@ -141,7 +136,7 @@ $source = Source::load($definition->sourceId);
 if (!$refreshButton && !$acceptButton && !$moveButton) {
   // If a button was pressed, then this is a POST request and the URL
   // does not contain the definition ID.
-  RecentLink::createOrUpdate(sprintf("Definiţie: %s (%s)",
+  RecentLink::createOrUpdate(sprintf("Definiție: %s (%s)",
                                      $definition->lexicon,
                                      $source->shortName));
 }

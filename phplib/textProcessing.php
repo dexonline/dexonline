@@ -14,6 +14,7 @@ function text_init() {
 				       "'o", "'O", '`o', '`O', '^o', '^O',
 				       ':o', ':O', '~o', '~O', '~r', '~R',
 				       '~s', '~S', ',s', ',S', ',t', ',T',
+				       'ş', 'Ş', 'ţ', 'Ţ',
 				       "'u", "'U", '`u', '`U', '^u', '^U',
 				       ':u', ':U', '~u', '~U',
 				       "'y", "'Y", ':y', ':Y', '~z', '~Z');
@@ -29,7 +30,8 @@ function text_init() {
 				    'ï', 'Ï', 'ĩ', 'Ĩ', 'ñ', 'Ñ',
 				    'ó', 'Ó', 'ò', 'Ò', 'ô', 'Ô',
 				    'ö', 'Ö', 'õ', 'Õ', 'ř', 'Ř',
-				    'š', 'Š', 'ş', 'Ş', 'ţ', 'Ţ',
+				    'š', 'Š', 'ș', 'Ș', 'ț', 'Ț',
+				    'ș', 'Ș', 'ț', 'Ț',
 				    'ú', 'Ú', 'ù', 'Ù', 'û', 'Û',
 				    'ü', 'Ü', 'ŭ', 'Ŭ',
 				    'ý', 'Ý', 'ÿ', 'Ÿ', 'ž', 'Ž');
@@ -93,7 +95,7 @@ function text_init() {
                                 "fr",
                                 "în",
                                 "îi",
-                                "îţi",
+                                "îți",
                                 "lat",
                                 "la",
                                 "mai",
@@ -113,13 +115,13 @@ function text_init() {
                                 "sil",
                                 "sg",
                                 "suf",
-                                "şi",
+                                "și",
                                 "te",
                                 "tine",
                                 "tranz",
                                 "tu",
-                                "ţi",
-                                "ţie",
+                                "ți",
+                                "ție",
                                 "un",
                                 "unor",
                                 "unui",
@@ -165,7 +167,7 @@ function text_init() {
 				       array('g', 's'), // merge, mulge
 				       array('g', 'ps'), // frige, suge
 				       array('g', 't'), // frânge, sparge
-				       array('h', 'ş'), // leah
+				       array('h', 'ș'), // leah
 				       array('i', 'ă'), // dormi
 				       array('i', 'e'),
 				       array('i', 'â'), // vinde
@@ -187,22 +189,22 @@ function text_init() {
 				       array('oa', 'e'),
 				       array('oa', 'o'),
 				       array('oa', 'u'), // coase
-				       array('s', 'ş'),
-				       array('sc', 'şt'), // mosc
+				       array('s', 'ș'),
+				       array('sc', 'șt'), // mosc
 				       array('sc', 'st'), // fantasc
-				       array('ss', 'ş'), // gauss
-				       array('şt', 'sc'), // naşte
-				       array('şc', 'şt'), // găluşcă
-				       array('ş', 's'), // ieşi
-				       array('t', 'ţ'),
+				       array('ss', 'ș'), // gauss
+				       array('șt', 'sc'), // naște
+				       array('șc', 'șt'), // gălușcă
+				       array('ș', 's'), // ieși
+				       array('t', 'ț'),
 				       array('t', 's'), // admite
-				       array('tt', 'ţ'), // watt
-				       array('ţ', 't'), // sughiţa
+				       array('tt', 'ț'), // watt
+				       array('ț', 't'), // sughița
 				       array('u', 'i'),
-				       array('u', ''), // acaţiu
+				       array('u', ''), // acațiu
 				       array('u', 'o'), // turna
 				       array('u', 'oa'), // turna
-				       array('x', 'cş'),
+				       array('x', 'cș'),
 				       array('z', 'j'),
 				       array('z', 'd'), // auzi
 
@@ -223,34 +225,34 @@ function text_init() {
 				       array('fi', 'îi'),
 				       array('fi', 'îs'),
 				       array('fi', 'erai'),
-				       array('fi', 'eraţi'),
+				       array('fi', 'erați'),
 				       array('fi', 'fu'),
-				       array('ii', 'iam'), // vâjii, scârţii
-				       array('ii', 'iai'), // vâjii, scârţii
-				       array('ii', 'ia'), // vâjii, scârţii
-				       array('ii', 'iaţi'), // vâjii, scârţii
-				       array('ii', 'iau'), // vâjii, scârţii
+				       array('ii', 'iam'), // vâjii, scârții
+				       array('ii', 'iai'), // vâjii, scârții
+				       array('ii', 'ia'), // vâjii, scârții
+				       array('ii', 'iați'), // vâjii, scârții
+				       array('ii', 'iau'), // vâjii, scârții
 				       array('părea', 'pai'),
 				       array('avea', 'a'),
  				       array('vrea', 'vom'),
- 				       array('vrea', 'veţi'),
+ 				       array('vrea', 'veți'),
  				       array('vrea', 'vor'),
  				       array('vrea', 'vei'),
- 				       array('vrea', 'eţi'),
+ 				       array('vrea', 'eți'),
  				       array('vrea', 'voi'),
  				       array('vrea', 'ei'),
  				       array('vrea', 'va'),
- 				       array('vrea', 'ăţi'),
+ 				       array('vrea', 'ăți'),
  				       array('vrea', 'oi'),
  				       array('vrea', 'o'),
  				       array('vrea', 'îi'),
  				       array('vrea', 'a'),
- 				       array('vrea', 'îţi'),
+ 				       array('vrea', 'îți'),
 				       array('vrea', 'ăi'),
 				       array('mânea', 'mas'),
 				       array('mânea', 'mâie'),
 				       array('mânea', 'măse'),
-				       array('ţine', 'ţi'),
+				       array('ține', 'ți'),
 				       array('pune', 'pu'),
 				       array('aduce', 'adă'),
 				       array('rămâne', 'rămâie'),
@@ -439,7 +441,7 @@ function text_removeAccents($s) {
 // That case is inherently ambiguous. For example, if the query is 'gindind', the correct substitution is 'gândind',
 // where the second 'i' is left unchanged.
 function text_tryOldOrthography($cuv) {
-  if (preg_match('/^sînt(em|eţi)?$/', $cuv)) {
+  if (preg_match('/^sînt(em|eți)?$/', $cuv)) {
     return str_replace('î', 'u', $cuv);
   }
 
@@ -1060,7 +1062,7 @@ function text_placeAccent($s, $pos, $vowel) {
                  text_getCharAt($s, $i + 1) == $vowel) {
         $i++;
       } else {
-        //print "Nu pot găsi vocala $vowel la poziţia $pos în şirul $s\n";
+        //print "Nu pot găsi vocala $vowel la poziția $pos în șirul $s\n";
       }
     }
     $s = text_insert($s, "'", $i);
@@ -1198,13 +1200,15 @@ function text_separateStopWords($words, $hasDiacritics) {
 }
 
 function text_replace_st($tpl_output) {
-  // TODO: When ş/ţ are in a word by itself, they should be left alone.
+  // Do nothing for now -- we migrated to the comma-below characters.
+  // We could reuse this filter for people who want the cedilla-below characters.
+  // TODO: When ș/ț are in a word by itself, they should be left alone.
   // See for example the FAQ, the section on installing a Romanian keyboard,
   // or the user account page itself.
-  $tpl_output = str_replace('ş', 'ș', $tpl_output);
-  $tpl_output = str_replace('ţ', 'ț', $tpl_output);
-  $tpl_output = str_replace('Ş', 'Ș', $tpl_output);
-  $tpl_output = str_replace('Ţ', 'Ț', $tpl_output);
+  // $tpl_output = str_replace('ș', 'ș', $tpl_output);
+  // $tpl_output = str_replace('ț', 'ț', $tpl_output);
+  // $tpl_output = str_replace('Ș', 'Ș', $tpl_output);
+  // $tpl_output = str_replace('Ț', 'Ț', $tpl_output);
   return $tpl_output;
 }
 
@@ -1224,10 +1228,10 @@ function text_replace_ai($tpl_output) {
     $tpl_output = preg_replace("/(r(?:o|u)m)$i(n)/i", "\${1}$a\${2}", $tpl_output);
   }
 
-  // sunt(em,eţi) -> sînt(em,eţi)
+  // sunt(em,eți) -> sînt(em,eți)
   // TODO: This still doesn't work well for the search 'fi' when the paradigm is expanded.
   // The paradigm contains some apostrophes which trip the regexp.
-  $tpl_output = preg_replace("/(\W)sunt(em|eţi)?/i", "\${1}sînt\${2}", $tpl_output);
+  $tpl_output = preg_replace("/(\W)sunt(em|eți)?/i", "\${1}sînt\${2}", $tpl_output);
   return $tpl_output;
 }
 ?>

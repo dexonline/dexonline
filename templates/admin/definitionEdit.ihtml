@@ -7,11 +7,11 @@
     <link href="../styles/lexemPicker.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="../js/dex.js"></script>
     <script type="text/javascript" src="../js/lexemPicker.js"></script>
-    <title>DEX | Editare definiţie</title>
+    <title>DEX | Editare definiție</title>
   </head>
 
   <body>
-    {assign var="title" value="Editare definiţie: `$def->id`"}
+    {assign var="title" value="Editare definiție: `$def->id`"}
     {include file="admin/header.ihtml"
              title="$title"}
 
@@ -87,7 +87,7 @@
         </tr>
         {if count($typos)}
           <tr>
-            <td>Greşeli de tipar:</td>
+            <td>Greșeli de tipar:</td>
             <td>
               {foreach from=$typos item=typo}
                 <span class="typo">* {$typo->problem|escape}</span><br/>
@@ -96,7 +96,7 @@
           </tr>
         {/if}
         <tr>
-          <td>Conţinut:</td>
+          <td>Conținut:</td>
           <td>
             <textarea name="internalRep" rows="15" cols="80"
             >{$def->internalRep|escape}</textarea>
@@ -105,7 +105,7 @@
         <tr>
           <td>
             Comentariu<br/>
-            (opţional):<br/>
+            (opțional):<br/>
             {include file="admin/helpLink.ihtml" anchor="definitionComment"}
           </td>
           <td>
@@ -115,7 +115,7 @@
         </tr>
         <tr>
           <td colspan="3" class="buttonRow">
-            <input type="submit" name="but_refresh" value="Reafişează"/>
+            <input type="submit" name="but_refresh" value="Reafișează"/>
             {include file="admin/helpLink.ihtml" anchor="definitionRefresh"}
             &nbsp;&nbsp;
             <input type="submit" name="but_accept" value="Acceptă"/>

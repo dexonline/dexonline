@@ -14,7 +14,7 @@ if ($skin) {
 }
 
 smarty_assign('page_title',
-	      'DEX online - Dicţionar explicativ al limbii române');
+	      'DEX online - Dicționar explicativ al limbii române');
 smarty_assign('slick_selected', 'index');
 smarty_displayPageWithSkin('index.ihtml');
 ?>

@@ -1,32 +1,32 @@
 {if !$is_connected}
-  Nu sunteţi conectat!
+  Nu sunteți conectat!
 {elseif $send && $error_code == OK}
-  Modificarea s-a făcut cu succes! Puteţi reveni la
+  Modificarea s-a făcut cu succes! Puteți reveni la
   <a href="{$wwwRoot}">pagina principală</a>.
 {elseif $send && $error_code == ERR_OTHER}
-  A fost o problemă la modificare, vă rugăm trimiteţi-ne un email
+  A fost o problemă la modificare, vă rugăm trimiteți-ne un email
   pentru a ne ajuta să reparăm problema.
 {else}
-  Pentru a face orice modificări, tastaţi noile valori. Este nevoie
-  să vă introduceţi parola, pentru a ne asigura că dumneavoastră
-  sunteţi într-adevăr proprietarul contului. Dacă nu doriţi să
-  schimbaţi valoarea unui câmp, lăsaţi-l nemodificat.
+  Pentru a face orice modificări, tastați noile valori. Este nevoie
+  să vă introduceți parola, pentru a ne asigura că dumneavoastră
+  sunteți într-adevăr proprietarul contului. Dacă nu doriți să
+  schimbați valoarea unui câmp, lăsați-l nemodificat.
   <br/><br/>
 
   {if $send}
     <p><font color=red><b>
     {if $error_code == ERR_NO_NICK}
-      Trebuie să vă alegeţi un nume de cont.
+      Trebuie să vă alegeți un nume de cont.
     {elseif $error_code == ERR_NICK_LEN}
       Numele de cont trebuie să aibă minim 3 caractere.
     {elseif $error_code == ERR_NICK_CHARS}
-      Numele de cont poate conţine numai caracterele indicate.
+      Numele de cont poate conține numai caracterele indicate.
     {elseif $error_code == ERR_PASS_LEN}
-      Trebuie să vă alegeţi o parolă de minim 4 caractere.
+      Trebuie să vă alegeți o parolă de minim 4 caractere.
     {elseif $error_code == ERR_PASS_MISMATCH}
       Parolele nu coincid.
     {elseif $error_code == ERR_NO_EMAIL}
-      Trebuie să precizaţi noua adresa de email.
+      Trebuie să precizați noua adresa de email.
     {elseif $error_code == ERR_BAD_EMAIL}
       Adresa de email nu este validă.
     {elseif $error_code == ERR_NICK_TAKEN}
@@ -44,7 +44,7 @@
     <td>Numele de cont:</td>
     <td>
       <input type="text" name="nick" value="{$nick|escape}" size="16" maxlength="16"/>
-      <span class="help">(3-16 caractere din setul <b>A-Z, a-z, 0-9, &#x2013;</b> şi <b>_</b>)</span>
+      <span class="help">(3-16 caractere din setul <b>A-Z, a-z, 0-9, &#x2013;</b> și <b>_</b>)</span>
     </td>
   </tr><tr>
     <td>Parola actuală:</td>
@@ -53,7 +53,7 @@
     <td>Noua parolă:</td>
     <td>
       <input type="password" name="newPass" value="{$newPass|escape}" size="16" maxlength="16"/>
-      <span class="help">(4-16 caractere - numai dacă doriţi să vă schimbaţi parola)</span>
+      <span class="help">(4-16 caractere - numai dacă doriți să vă schimbați parola)</span>
     </td>
   </tr><tr>
     <td>Noua parolă (verificare):</td>
@@ -62,7 +62,7 @@
     <td>Numele real:</td>
     <td>
       <input type="text" name="name" value="{$name|escape}" size="40" maxlength="40"/>
-      <span class="help">opţional</span>
+      <span class="help">opțional</span>
     </td>
   </tr><tr>
     <td>Adresa de email:</td>
@@ -85,7 +85,7 @@
     <td>
       <b>{if $is_moderator}Da{else}Nu{/if}</b><br/>
       {if !$is_moderator}
-        <span class="help">Citiţi pagina de informaţii pentru a afla cum puteţi deveni moderator.</span>
+        <span class="help">Citiți pagina de informații pentru a afla cum puteți deveni moderator.</span>
       {/if}
     </td>
   </tr>

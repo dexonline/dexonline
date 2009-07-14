@@ -14,7 +14,7 @@
       <tr>
         <td class="searchBoxContainer">
           <div class="linkBar">
-            <a href="faq.php">Informaţii</a> |
+            <a href="faq.php">Informații</a> |
             <a href="contrib.php">Contribuie</a> |
             <a href="corect.php" id="guideLink">Ghid de exprimare</a> |
             <a href="tools.php">Unelte</a> |
@@ -36,15 +36,15 @@
               <input type="checkbox" id="defBody"
                      name="text" value="1"
                      {if $text}checked="checked"{/if}
-              /><label for="defBody">Caută în tot textul definiţiilor</label>
-              (<a href="faq.php#fulltext">explicaţie</a>)
+              /><label for="defBody">Caută în tot textul definițiilor</label>
+              (<a href="faq.php#fulltext">explicație</a>)
             </span>
           </form>
         </td>
         <td class="title">
           <span class="pageTitle">DEX online</span><br/>
-          Dicţionare ale limbii române<br/>
-          <span class="formPlug">Peste {$words_rough} de definiţii</span>
+          Dicționare ale limbii române<br/>
+          <span class="formPlug">Peste {$words_rough} de definiții</span>
         </td>
         <td class="logo">
           <a href="{$wwwRoot}" class="noBorder">
@@ -59,8 +59,8 @@
     <table class="footer">
       <tr>
         <td>
-          Starea curentă: <b>{$words_total}</b> de definiţii, din care
-          <b>{$words_last_month}</b> învăţate în ultima lună.<br/>
+          Starea curentă: <b>{$words_total}</b> de definiții, din care
+          <b>{$words_last_month}</b> învățate în ultima lună.<br/>
 
           {if !$is_mirror}
             Utilizator: <b id="user.nick">{$nick|escape}</b>
@@ -77,10 +77,10 @@
             <br/>
           {/if}
 
-          Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro). Copierea definiţiilor
+          Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro). Copierea definițiilor
           este permisă sub <a
-          href="{$wwwRoot}faq.php#licenta">licenţa GPL</a>, cu
-          condiţia păstrării acestei note.
+          href="{$wwwRoot}faq.php#licenta">licența GPL</a>, cu
+          condiția păstrării acestei note.
 
         </td>
         <td class="narrow">

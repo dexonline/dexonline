@@ -14,7 +14,7 @@ os_executeAndAssert("cp ../docs/install.rdf $tmpDir/");
 $mysqlFile = tempnam('/tmp', 'mysql_');
 os_executeAndAssert("rm $mysqlFile");
 $query = "select distinct wl_neaccentuat from wordlist " .
-  "where wl_neaccentuat rlike '^[a-zăâîşţ]+$' " .
+  "where wl_neaccentuat rlike '^[a-zăâîșț]+$' " .
   "into outfile '$mysqlFile'";
 log_scriptLog("Running mysql query: [$query]");
 mysql_query($query);

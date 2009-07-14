@@ -5,11 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../styles/flex.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="../js/dex.js"></script>
-    <title>DEX | Ştergere model: {$modelType}{$modelNumber}</title>
+    <title>DEX | Ștergere model: {$modelType}{$modelNumber}</title>
   </head>
   
   <body>
-    {assign var="title" value="Ştergere model: `$modelType``$modelNumber`"}
+    {assign var="title" value="Ștergere model: `$modelType``$modelNumber`"}
     {include file="admin/header.ihtml" title="$title"}
     {include file="admin/recentlyVisited.ihtml"}
     {include file="common/errorMessage.ihtml"}
@@ -20,9 +20,9 @@
 
       {if count($lexems)}
         Există {$lexems|@count} lexem(e) etichetate cu acest model. Dacă
-        apăsaţi butonul "Confirmă", ele vor fi reetichetate cu modelul T1.
+        apăsați butonul "Confirmă", ele vor fi reetichetate cu modelul T1.
       {else}
-        Nu există lexeme etichetate cu acest model. Modelul poate fi şters
+        Nu există lexeme etichetate cu acest model. Modelul poate fi șters
         fără probleme.
       {/if}
       <br/><br/>

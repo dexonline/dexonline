@@ -92,7 +92,7 @@ if ($previewButton || $confirmButton) {
           $regenTransforms[$infl->id][] = $transforms;
         } else {
           $errorMessage[] = "Nu pot extrage transformările între " .
-            "$newExponent şi ".htmlentities($form).".";
+            "$newExponent și ".htmlentities($form).".";
           
         }
       }

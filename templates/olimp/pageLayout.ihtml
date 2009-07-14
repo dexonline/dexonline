@@ -3,8 +3,8 @@
   <head>
     <title>{$page_title|escape}</title>
   	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-    <meta content="dex online dexonline dicţionar dicţionarul explicativ limbii române limba română" name="keywords">
-    <meta content="DEX online - Dicţionar explicativ al limbii române"
+    <meta content="dex online dexonline dicționar dicționarul explicativ limbii române limba română" name="keywords">
+    <meta content="DEX online - Dicționar explicativ al limbii române"
           name="description">
 
     <link rel="stylesheet" href="{$cssRoot}/olimp.css">
@@ -42,8 +42,8 @@
         <a href="/">Pagina principală</a>
         <a href="search2.php">Căutare avansată</a>
         <a href="contrib.php">Contribuie la DEXonline</a>
-        <a href="corect.php" id="guideLink">Corect / greşit</a>
-        <a href="faq.php">Informaţii</a>
+        <a href="corect.php" id="guideLink">Corect / greșit</a>
+        <a href="faq.php">Informații</a>
         <a href="tools.php">Unelte</a>
         <a href="top.php">Top voluntari</a>
         <a href="contact.php">Contact</a>

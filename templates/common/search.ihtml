@@ -5,9 +5,9 @@
 
   {if $searchType == SEARCH_LEXEM || $searchType == SEARCH_WORDLIST}
     {if count($results) == 1}
-      O definiţie pentru
+      O definiție pentru
     {else}
-      {$results|@count} definiţii pentru
+      {$results|@count} definiții pentru
     {/if}
     {foreach from=$lexems item=lexem key=row_id}
       <a href="search.php?lexemId={$lexem->id}">{$lexem->unaccented}</a
@@ -25,15 +25,15 @@
 
   {elseif $searchType == SEARCH_DEF_ID}
     {if count($results)}
-      Definiţia cu ID-ul {$cuv|escape}:
+      Definiția cu ID-ul {$cuv|escape}:
     {else}
-      Nu există nicio definiţie cu ID-ul {$cuv|escape}.
+      Nu există nicio definiție cu ID-ul {$cuv|escape}.
     {/if}
 
   {elseif $searchType == SEARCH_REGEXP}
     {if $numResults}
       {if $numResults > count($lexems)}
-        {$numResults} rezultate pentru {$cuv|escape} (maxim {$lexems|@count} afişate):
+        {$numResults} rezultate pentru {$cuv|escape} (maxim {$lexems|@count} afișate):
       {else}
         {$numResults} rezultate pentru {$cuv|escape}:
       {/if}
@@ -44,9 +44,9 @@
   {elseif $searchType == SEARCH_LEXEM_ID}
     {if count($lexems) > 0}
       {if count($results) == 1}
-        O definiţie pentru
+        O definiție pentru
       {else}
-        {$results|@count} definiţii pentru
+        {$results|@count} definiții pentru
       {/if}
       {include file="common/bits/lexemName.ihtml" lexem=$lexems.0}
     {else}
@@ -55,20 +55,20 @@
 
   {elseif $searchType == SEARCH_FULL_TEXT}
     {if $lockExists}
-      Momentan nu puteţi căuta prin textul definiţiilor, deoarece indexul
-      este în curs de reconstrucţie. Această operaţie durează de obicei circa
+      Momentan nu puteți căuta prin textul definițiilor, deoarece indexul
+      este în curs de reconstrucție. Această operație durează de obicei circa
       10 minute. Ne cerem scuze pentru neplăcere.
     {else}
       {if $numResults == 1}
-        O definiţie cuprinde toate cuvintele căutate
+        O definiție cuprinde toate cuvintele căutate
       {elseif $numResults > 1}
-        {$numResults} definiţii cuprind toate cuvintele căutate
+        {$numResults} definiții cuprind toate cuvintele căutate
       {else}
-        Nicio definiţie nu conţine toate cuvintele căutate.
+        Nicio definiție nu conține toate cuvintele căutate.
       {/if}
 
       {if $numResults > count($results)}
-        (maxim {$results|@count} afişate)
+        (maxim {$results|@count} afișate)
       {/if}
     {/if}
   {/if}
@@ -124,7 +124,7 @@
 
       |
       <a href="javascript:typoWindow({$row->definition->id})"
-      >Greşeală de tipar</a>
+      >Greșeală de tipar</a>
 
       {if $is_moderator && !$is_mirror}
         |

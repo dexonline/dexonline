@@ -409,14 +409,6 @@ class Definition {
     return Definition::populateFromDbResult($dbResult);
   }
 
-  /**
-   * If the proposed definition differs from the one we have in the words
-   * table, store the diff in the changes table.
-   */
-  public static function storeOldVersion($definitionId, $userId, $oldInternalRep) {
-    db_changesInsert($definitionId, $userId, $oldInternalRep);
-  }
-
   public static function getWordCount() {
     $cachedWordCount = fileCache_getWordCount();
     if ($cachedWordCount) {
@@ -1348,12 +1340,12 @@ class Lexem {
     }
     $numAccents = mb_substr_count($this->form, "'");
     if ($numAccents > 1) {
-      return 'Nu puteţi pune mai mult de un accent.';
+      return 'Nu puteți pune mai mult de un accent.';
     } else if ($numAccents && $this->noAccent) {
-      return 'Aţi indicat că lexemul nu necesită accent, dar forma ' .
-        'conţine un accent.';
+      return 'Ați indicat că lexemul nu necesită accent, dar forma ' .
+        'conține un accent.';
     } else if (!$numAccents && !$this->noAccent) {
-      return 'Adăugaţi un accent sau bifaţi câmpul "Nu necesită accent".';
+      return 'Adăugați un accent sau bifați câmpul "Nu necesită accent".';
     }
     return null;
   }
@@ -1366,19 +1358,19 @@ class Lexem {
       $char = text_getCharAt($restriction, $i);
       if ($char == 'T' || $char == 'U' || $char == 'I') {
         if ($modelType != 'V' && $modelType != 'VT') {
-          return "Restricţia <b>$char</b> se aplică numai verbelor";
+          return "Restricția <b>$char</b> se aplică numai verbelor";
         }
       } else if ($char == 'S') {
         $hasS = true;
       } else if ($char == 'P') {
         $hasP = true;
       } else {
-        return "Restricţia <b>$char</b> este incorectă.";
+        return "Restricția <b>$char</b> este incorectă.";
       }
     }
 
     if ($hasS && $hasP) {
-      return "Restricţiile <b>S</b> şi <b>P</b> nu pot coexista.";
+      return "Restricțiile <b>S</b> și <b>P</b> nu pot coexista.";
     }
     return NULL;
   }

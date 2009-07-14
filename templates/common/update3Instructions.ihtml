@@ -9,71 +9,71 @@
 
   <body>
     <p>Acest script exportă baza de date a <i>DEX online</i> sau
-    porţiuni ale ei. Dacă doriţi să scrieţi un client care să
-    transfere baza de date şi să o folosească off-line, comunicaţi cu
+    porțiuni ale ei. Dacă doriți să scrieți un client care să
+    transfere baza de date și să o folosească off-line, comunicați cu
     acest script pentru a sincroniza periodic baza de date.</p>
 
-    <h2>Generalităţi</h2>
+    <h2>Generalități</h2>
 
     <ul>
 
-      <li>Copierea, folosirea şi redistribuirea definiţiilor
+      <li>Copierea, folosirea și redistribuirea definițiilor
       din <i>DEX online</i> sunt permise
-      sub <a href="faq.php#licenta">Licenţa Publică Generală
+      sub <a href="faq.php#licenta">Licența Publică Generală
       GNU</a>.</li>
 
-      <li>Este obligatoriu ca mecanismul pe care îl folosiţi pentru transfer
+      <li>Este obligatoriu ca mecanismul pe care îl folosiți pentru transfer
       să accepte date comprimate cu gzip. Mai exact, trebuie ca, la
-      stabilirea conexiunii HTTP, să setaţi antetul <b>Accept-Encoding:
-      gzip</b> (cel puţin). Datele pe care le primiţi sunt comprimate cu
+      stabilirea conexiunii HTTP, să setați antetul <b>Accept-Encoding:
+      gzip</b> (cel puțin). Datele pe care le primiți sunt comprimate cu
       gzip; există biblioteci publice pentru cam orice limbaj pe care le
-      puteţi folosi pentru a decomprima datele. Dacă nu vă conformaţi
-      acestei cerinţe, veţi primi un răspuns 403 (Forbidden). De
-      remarcat că orice browser modern foloseşte gzip, deci îl puteţi
+      puteți folosi pentru a decomprima datele. Dacă nu vă conformați
+      acestei cerințe, veți primi un răspuns 403 (Forbidden). De
+      remarcat că orice browser modern folosește gzip, deci îl puteți
       folosi pentru a inspecta vizual datele.</li>
 
       <li>Un <b>timestamp</b> semnifică numărul de secunde trecute de
-      la 1 ianuarie 1970 GMT. Limbajul în care dezvoltaţi aplicaţia ar
-      trebui să aibă funcţii de conversie din data/ora calendaristică
+      la 1 ianuarie 1970 GMT. Limbajul în care dezvoltați aplicația ar
+      trebui să aibă funcții de conversie din data/ora calendaristică
       în timestamp. Când clientul se conectează la server, trebuie
       să-i comunice serverului timestamp-ul ultimei actualizări făcute
       (sau 0 dacă este prima oară când clientul se conectează).
       Scriptul va returna toate datele modificate începând cu acel
-      timestamp, precum şi timestamp-ul curent, pe care îl puteţi
-      păstra şi folosi ca parametru la următoarea actualizare.</li>
+      timestamp, precum și timestamp-ul curent, pe care îl puteți
+      păstra și folosi ca parametru la următoarea actualizare.</li>
 
-      <li>Serverul îşi exportă datele în ordinea cronologică a
+      <li>Serverul își exportă datele în ordinea cronologică a
       modificărilor. Dacă conexiunea se întrerupe prematur, clientul
       poate reapela scriptul cu ultimul timestamp pe care l-a primit,
       pentru a continua de unde a rămas.</li>
 
-      <li><a href="html/formatting.html">Instrucţiunile</a> despre
-      formatarea definiţiilor sunt accesibile din pagina de
-      contribuţii.</li>
+      <li><a href="html/formatting.html">Instrucțiunile</a> despre
+      formatarea definițiilor sunt accesibile din pagina de
+      contribuții.</li>
 
     </ul>
 
     <h2>Date exportate</h2>
 
     Scriptul exportă separat diverse tipuri de date. Pentru a
-    transfera toate datele, trebuie să invocaţi de mai multe ori acest
+    transfera toate datele, trebuie să invocați de mai multe ori acest
     script, folosind parametrul GET <b>export=...</b> pentru a
-    controla tipul de date. Nu este obligatoriu să transferaţi toate
+    controla tipul de date. Nu este obligatoriu să transferați toate
     tipurile de date la fiecare sincronizare a clientului, dar am
-    făcut această separare pentru uşurinţa implementării.
+    făcut această separare pentru ușurința implementării.
 
 
 
     <h3>Surse</h3>
 
-    DEX online îşi preia definiţiile din diferite "surse", care de
-    obicei se referă la un dicţionar tipărit, identificat prin titlu,
-    autor, editură şi an de apariţie. Lista de surse este întotdeauna
-    exportată complet. Ea se modifică rar şi vă recomandăm să o
-    resincronizaţi numai dacă observaţi că aţi primit definiţii care
+    DEX online își preia definițiile din diferite "surse", care de
+    obicei se referă la un dicționar tipărit, identificat prin titlu,
+    autor, editură și an de apariție. Lista de surse este întotdeauna
+    exportată complet. Ea se modifică rar și vă recomandăm să o
+    resincronizați numai dacă observați că ați primit definiții care
     folosesc surse necunoscute.<br/><br/>
 
-    Parametri acceptaţi:
+    Parametri acceptați:
 
     <ul>
       <li>export=sources</li>
@@ -86,11 +86,11 @@
   &lt;NumResults><i>număr</i>&lt;/NumResults>
   &lt;Source>
     &lt;Id><i>număr</i>&lt;/Id>
-    &lt;ShortName><i>şir</i>&lt;/ShortName>
-    &lt;Name><i>şir</i>&lt;/Name>
-    &lt;Author><i>şir</i>&lt;/Author>
-    &lt;Publisher><i>şir</i>&lt;/Publisher>
-    &lt;Year><i>şir</i>&lt;/Year>
+    &lt;ShortName><i>șir</i>&lt;/ShortName>
+    &lt;Name><i>șir</i>&lt;/Name>
+    &lt;Author><i>șir</i>&lt;/Author>
+    &lt;Publisher><i>șir</i>&lt;/Publisher>
+    &lt;Year><i>șir</i>&lt;/Year>
   &lt;/Source>
   ....
 &lt;/Sources></pre>
@@ -103,7 +103,7 @@
   &lt;Source>
     &lt;Id>1&lt;/Id>
     &lt;ShortName>DEX '98&lt;/ShortName>
-    &lt;Name>Dicţionarul explicativ al limbii române&lt;/Name>
+    &lt;Name>Dicționarul explicativ al limbii române&lt;/Name>
     &lt;Author>Academia Română, Institutul de Lingvistică "Iorgu Iordan"&lt;/Author>
     &lt;Publisher>Editura Univers Enciclopedic&lt;/Publisher>
     &lt;Year>1998&lt;/Year>
@@ -113,9 +113,9 @@
 
 
 
-    <h3>Definiţii</h3>
+    <h3>Definiții</h3>
 
-    Parametri acceptaţi:
+    Parametri acceptați:
 
     <ul>
       <li>export=definitions</li>
@@ -127,18 +127,18 @@
     <pre class="exportSample">
 &lt;Definitions>
   &lt;NumResults><i>număr</i>&lt;/NumResults>
-  &lt;Definition>                         ;; Exemplu de definiţie modificată
+  &lt;Definition>                         ;; Exemplu de definiție modificată
     &lt;Id><i>număr</i>&lt;/Id>
     &lt;Timestamp><i>număr</i>&lt;/Timestamp>
-    &lt;UserName><i>şir</i>&lt;/UserName>
+    &lt;UserName><i>șir</i>&lt;/UserName>
     &lt;SourceId><i>număr</i>&lt;/SourceId>
-    &lt;Text><i>şir</i>&lt;/Text>
+    &lt;Text><i>șir</i>&lt;/Text>
     &lt;LexemId><i>număr</i>&lt;/LexemId>
     &lt;LexemId><i>număr</i>&lt;/LexemId>
     &lt;LexemId><i>număr</i>&lt;/LexemId>
     ...
   &lt;/Definition>
-  &lt;Definition>                         ;; Exemplu de definiţie ştearsă
+  &lt;Definition>                         ;; Exemplu de definiție ștearsă
     &lt;Id><i>număr</i>&lt;/Id>
     &lt;Timestamp><i>număr</i>&lt;/Timestamp>
     &lt;Deleted/>
@@ -157,8 +157,8 @@
     &lt;UserName>ana_zecheru&lt;/UserName>
     &lt;SourceId>1&lt;/SourceId>
     &lt;Text>@FÁTA MORGÁNA@ s.f. Fenomen optic frecvent în regiunile calde, datorită căruia imaginile
-obiectelor aflate la (sau dincolo de) orizont apar ca şi cum s-ar reflecta într-o apă. ** Apariţie
-înşelătoare, iluzie trecătoare. - Cuv. it.&lt;/Text>
+obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta într-o apă. ** Apariție
+înșelătoare, iluzie trecătoare. - Cuv. it.&lt;/Text>
     &lt;LexemId>35579&lt;/LexemId>
     &lt;LexemId>90887&lt;/LexemId>
     &lt;LexemId>90889&lt;/LexemId>
@@ -174,24 +174,24 @@ obiectelor aflate la (sau dincolo de) orizont apar ca şi cum s-ar reflecta înt
 
     <ul>
 
-      <li>Definiţiile sunt listate în ordinea crescătoare a
-      timestamp-ului modificării. Pentru definiţiile şterse este
+      <li>Definițiile sunt listate în ordinea crescătoare a
+      timestamp-ului modificării. Pentru definițiile șterse este
       listat doar câmpul <code>&lt;Deleted/></code>. Pentru
-      definiţiile modificate sau adăugate, sunt listaţi autorul,
-      sursa, textul propriu-zis şi zero sau mai multe cuvinte (numite
-      lexeme) cu care definiţia este asociată.</li>
+      definițiile modificate sau adăugate, sunt listați autorul,
+      sursa, textul propriu-zis și zero sau mai multe cuvinte (numite
+      lexeme) cu care definiția este asociată.</li>
 
-      <li>Este posibil ca, în cazul unei definiţii şterse, să vă fie
+      <li>Este posibil ca, în cazul unei definiții șterse, să vă fie
       transmis un identificator pe care clientul dumneavoastră nu îl
-      are în baza de date. Acest lucru se întâmplă când o definiţie
-      este ştearsă pe site fără să fi trecut vreodată prin starea
-      "activă" (iniţial toate definiţiile trimise pentru <i>DEX
+      are în baza de date. Acest lucru se întâmplă când o definiție
+      este ștearsă pe site fără să fi trecut vreodată prin starea
+      "activă" (inițial toate definițiile trimise pentru <i>DEX
       online</i> intră în starea "temporară" până când sunt
-      moderate). În această situaţie, ignoraţi pur şi simplu
+      moderate). În această situație, ignorați pur și simplu
       înregistrarea.</li>
 
-      <li>Când setul de lexeme asociate cu o definiţie se schimbă,
-      întreaga definiţie este resincronizată.</li>
+      <li>Când setul de lexeme asociate cu o definiție se schimbă,
+      întreaga definiție este resincronizată.</li>
 
     </ul>
 
@@ -201,13 +201,13 @@ obiectelor aflate la (sau dincolo de) orizont apar ca şi cum s-ar reflecta înt
 
     Această categorie exportă tipurile distincte de flexiuni folosite de
     <i>DEX online,</i> care reprezintă un subset al flexiunilor limbii
-    române (de exemplu, momentan <i>DEX online</i> nu foloseşte
-    vocativul substantivelor). Şi această categorie este exportată
+    române (de exemplu, momentan <i>DEX online</i> nu folosește
+    vocativul substantivelor). Și această categorie este exportată
     complet, întrucât se modifică foarte rar (vă recomandăm să o
-    transferaţi numai atunci când, la sincronizarea lexemelor,
-    întâlniţi o valoare nouă pentru parametrul <code>InflId</code>).<br/><br/>
+    transferați numai atunci când, la sincronizarea lexemelor,
+    întâlniți o valoare nouă pentru parametrul <code>InflId</code>).<br/><br/>
 
-    Parametri acceptaţi:
+    Parametri acceptați:
 
     <ul>
       <li>export=inflections</li>
@@ -220,7 +220,7 @@ obiectelor aflate la (sau dincolo de) orizont apar ca şi cum s-ar reflecta înt
   &lt;NumResults><i>număr</i>&lt;/NumResults>
   &lt;Inflection>
     &lt;Id><i>număr</i>&lt;/Id>
-    &lt;Description><i>şir</i>&lt;/Description>
+    &lt;Description><i>șir</i>&lt;/Description>
   &lt;/Inflection>
   &lt;Inflection>
     ...
@@ -250,10 +250,10 @@ obiectelor aflate la (sau dincolo de) orizont apar ca şi cum s-ar reflecta înt
 
     "Lexemul" este un termen lingvistic pentru cuvânt. Un lexem este
     caracterizat printr-un identificator numeric unic, un nume, o
-    descriere opţională (folosită pentru diferenţierea omonimelor) şi
+    descriere opțională (folosită pentru diferențierea omonimelor) și
     o listă de forme flexionare.
 
-    Parametri acceptaţi:
+    Parametri acceptați:
 
     <ul>
       <li>export=lexems</li>
@@ -268,15 +268,15 @@ obiectelor aflate la (sau dincolo de) orizont apar ca şi cum s-ar reflecta înt
   &lt;Lexem>
     &lt;Id><i>număr</i>&lt;/Id>
     &lt;Timestamp><i>număr</i>&lt;/Timestamp>
-    &lt;Form><i>şir</i>&lt;/Form>                    ;; Forma poate include un apostrof înainte de vocala accentuată
-    &lt;Description><i>şir</i>&lt;/Description>      ;; Opţional
+    &lt;Form><i>șir</i>&lt;/Form>                    ;; Forma poate include un apostrof înainte de vocala accentuată
+    &lt;Description><i>șir</i>&lt;/Description>      ;; Opțional
     &lt;Inflection>                        ;; Formele flexionare
       &lt;InflId><i>număr</i>&lt;/InflId>
-      &lt;Form><i>şir</i>&lt;/Form>
+      &lt;Form><i>șir</i>&lt;/Form>
     &lt;/Inflection>
     &lt;Inflection>
       &lt;InflId><i>număr</i>&lt;/InflId>
-      &lt;Form><i>şir</i>&lt;/Form>
+      &lt;Form><i>șir</i>&lt;/Form>
     &lt;/Inflection>
     ...
   &lt/Lexem>
@@ -348,28 +348,28 @@ obiectelor aflate la (sau dincolo de) orizont apar ca şi cum s-ar reflecta înt
       <li>Lexemele sunt listate în ordinea crescătoare a
       timestamp-ului modificării.</li>
 
-      <li>Scriptul nu trimite informaţii despre ştergerea unui
-      lexem. Când un lexem este şters în <i>DEX online</i>, el este în
-      mod automat disociat de toate definiţiile cu care era
-      asociat. Clientul dumneavoastră va primi noile definiţii (când
-      sincronizează secţiunea de definiţii) şi va face şi el
+      <li>Scriptul nu trimite informații despre ștergerea unui
+      lexem. Când un lexem este șters în <i>DEX online</i>, el este în
+      mod automat disociat de toate definițiile cu care era
+      asociat. Clientul dumneavoastră va primi noile definiții (când
+      sincronizează secțiunea de definiții) și va face și el
       disocierea. Nu este o problemă dacă clientul păstrează lexemul
       pe termen nelimitat, deoarece el nu mai este folosit, iar
-      ştergerea unui lexem este o operaţie rară.</li>
+      ștergerea unui lexem este o operație rară.</li>
 
-      <li>Dacă cel puţin una din formele flexionare se modifică,
+      <li>Dacă cel puțin una din formele flexionare se modifică,
       întreg lexemul va fi resincronizat.</li>
 
-      <li>Lexemul are întoteauna cel puţin o formă flexionară. Echipa
+      <li>Lexemul are întoteauna cel puțin o formă flexionară. Echipa
       <i>DEX online</i> nu a terminat încă de etichetat toate lexemele
-      şi deci paradigmele unor lexeme sunt încă necunoscute. Chiar şi
+      și deci paradigmele unor lexeme sunt încă necunoscute. Chiar și
       acele lexeme au o singură formă flexionară, corespunzătoare unei
       flexiuni "temporare".</li>
 
-      <li>Nu vă recomandăm să folosiţi numele lexemului (cel din
-      câmpul form) pentru căutări. Folosiţi formele flexionare pentru
+      <li>Nu vă recomandăm să folosiți numele lexemului (cel din
+      câmpul form) pentru căutări. Folosiți formele flexionare pentru
       aceasta. De cele mai multe ori, numele lexemului coincide cu
-      prima dintre formele flexionare, iar când nu este aşa, există un
+      prima dintre formele flexionare, iar când nu este așa, există un
       motiv.</li>
 
     </ul>

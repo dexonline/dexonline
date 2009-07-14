@@ -75,7 +75,7 @@ log_scriptLog('rebuildFullTextIndex.php completed successfully ' .
 /***************************************************************************/
 
 function extractWords($text) {
-  $alphabet = 'abcdefghijklmnopqrstuvwxyzăâîşţ';
+  $alphabet = 'abcdefghijklmnopqrstuvwxyzăâîșț';
 
   $text = text_unicodeToLower($text);
   $text = text_removeAccents($text);

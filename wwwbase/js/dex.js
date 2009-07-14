@@ -1,5 +1,5 @@
 var dom = { ELEMENT_NODE: 1, TEXT_NODE: 3 };
-var Alphabet = 'a-záàäåăâçèéëìíïîòóöşţùúüŭ';
+var Alphabet = 'a-záàäåăâçèéëìíïîòóöșțùúüŭ';
 
 function abbrevwindow() {
   window.open('html/abrev.html', 'mywindow',
@@ -122,7 +122,7 @@ function contribPostRequestCallback(httpRequest, argument /* ignored */) {
       result = httpRequest.responseText;
     } else {
       result = 'Este o problemă la comunicarea cu serverul. ' +
-        'Nu pot afişa rezultatul, dar voi reîncerca în 5 secunde.';
+        'Nu pot afișa rezultatul, dar voi reîncerca în 5 secunde.';
       contribKeyPressed();   // Force another attempt in 5 seconds.
     }
     document.getElementById('previewDiv').innerHTML = result;
@@ -237,7 +237,7 @@ function addProvider(url) {
   try {
     window.external.AddSearchProvider(url);
   } catch (e) {
-    alert('Aveţi nevoie de Firefox 2.0 sau Internet Explorer 7 ' +
+    alert('Aveți nevoie de Firefox 2.0 sau Internet Explorer 7 ' +
           'pentru a adăuga DEX online la lista motoarelor de căutare.');
   }
 }
@@ -257,7 +257,7 @@ function debug(obj) {
 }
 
 function confirmDissociateDefinition(id) {
-  return confirm('Doriţi să disociaţi definiţia ' + id + ' de acest lexem?');
+  return confirm('Doriți să disociați definiția ' + id + ' de acest lexem?');
 }
 
 /**

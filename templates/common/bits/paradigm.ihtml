@@ -56,7 +56,7 @@
            title="verb tranzitiv"}
 {else}
   <div class="lexem">
-    Nu pot afişa flexiunea lexemului
+    Nu pot afișa flexiunea lexemului
     <span class="lexemName">{$lexem->unaccented|escape}</span>.
   </div>
 {/if}

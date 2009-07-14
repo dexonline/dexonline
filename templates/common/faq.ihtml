@@ -1,4 +1,4 @@
-<b>Informaţii generale</b>
+<b>Informații generale</b>
 
 <ul>
   <li><a href="#ce_este">Ce este <i>DEX online?</i></a></li>
@@ -6,32 +6,32 @@
   <li><a href="#motiv">Cum a apărut <i>DEX online?</i></a></li>
   <li><a href="#autori">Cine sunt autorii proiectului <i>DEX
   online?</i></a></li>
-  <li><a href="#surse">Ce dicţionare cuprinde <i>DEX
+  <li><a href="#surse">Ce dicționare cuprinde <i>DEX
   online?</i></a></li>
   <li><a href="#offline">Pot să-mi instalez <i>DEX online</i> pe
   calculatorul de acasă? Dar pe Pocket PC?</a></li>
   <li><a href="#DICT"><i>DEX online</i> implementează protocolul DICT?</a></li>
-  <li><a href="#lista_email">Aveţi o listă de email?</a></li>
-  <li><a href="#mirrors">Aveţi un mirror mai rapid?</a></li>
-  <li><a href="#database">Cum obţin o copie a bazei de date?</a></li>
-  <li><a href="#licenta">Licenţă</a></li>
+  <li><a href="#lista_email">Aveți o listă de email?</a></li>
+  <li><a href="#mirrors">Aveți un mirror mai rapid?</a></li>
+  <li><a href="#database">Cum obțin o copie a bazei de date?</a></li>
+  <li><a href="#licenta">Licență</a></li>
   <li><a href="#kudos">Software liber</a></li>
   <li><a href="http://dexonline.blogspot.com">Blog</a> - istoria
-  romanţată a <i>DEX online</i> ;)</li>
-  <li><a href="#istoric">Scurt istoric şi fapt divers</a></li>
+  romanțată a <i>DEX online</i> ;)</li>
+  <li><a href="#istoric">Scurt istoric și fapt divers</a></li>
   <li><a href="#cacofonie">Documentul ăsta e plin de cacofonii!</a></li>
 </ul>
 
-<b>Cum puteţi ajuta</b>
+<b>Cum puteți ajuta</b>
 
 <ul>
-  <li><a href="#greseala_tipar">Am găsit o greşeală în <i>DEX
+  <li><a href="#greseala_tipar">Am găsit o greșeală în <i>DEX
   online</i>, ce fac?</a></li>
   <li><a href="#link_extern">Cum includ un formular de căutare în
   <i>DEX online</i> în pagina mea de web?</a></li>
-  <li><a href="#contribuie">Cum contribui cu definiţii la <i>DEX
+  <li><a href="#contribuie">Cum contribui cu definiții la <i>DEX
   online?</i></a></li>
-  <li><a href="#contribuie_offline">Cum contribui cu definiţii la <i>DEX
+  <li><a href="#contribuie_offline">Cum contribui cu definiții la <i>DEX
   online</i> dacă nu pot să stau prea mult pe Internet?</a></li>
   <li><a href="#moderator">Vreau să devin moderator al <i>DEX
   online</i></a></li>
@@ -42,7 +42,7 @@
   <li><a href="#client">Vreau să scriu un client pentru <i>DEX
   online</i></a></li>
   <li><a href="#scramble">Am contribuit la <i>DEX online</i>, dar
-  adresa mea de email e scrisă greşit!</a></li>
+  adresa mea de email e scrisă greșit!</a></li>
   <li><a href="#otrs">OTRS</a></li>
 </ul>
 
@@ -50,90 +50,90 @@
 
 <ul>
 
-  <li><a href="#fulltext">Ce înseamnă opţiunea "Caută în tot textul
-  definiţiilor"?</a></li>
+  <li><a href="#fulltext">Ce înseamnă opțiunea "Caută în tot textul
+  definițiilor"?</a></li>
 
   <li><a href="#diacritice">Pot să folosesc diacritice în cuvintele
   căutate?</a></li>
 
   <li><a href="#tastare_diacritice">Cum tastez diacriticele <i>ă, â,
-  î, ş, ţ?</i></a></li>
+  î, ș, ț?</i></a></li>
 
   <li><a href="#regexp">Pot să folosesc expresii regulate?</a></li>
 
-  <li><a href="#aprox">De ce, când caut un cuvânt, primesc definiţia
+  <li><a href="#aprox">De ce, când caut un cuvânt, primesc definiția
   unui cu totul alt cuvânt?</a></li>
 
-  <li><a href="#nici_o_definitie">Unele cuvinte sunt menţionate, dar
-  nu au nicio definiţie. E normal?</a></li>
+  <li><a href="#nici_o_definitie">Unele cuvinte sunt menționate, dar
+  nu au nicio definiție. E normal?</a></li>
 
 </ul>
 
 
 <h3><a name="ce_este">Ce este <i>DEX online?</i></a></h3>
 
-  <i>DEX online</i> este transpunerea pe Internet a unor dicţionare de
-  prestigiu ale limbii române. El este creat şi întreţinut de un
-  colectiv de voluntari. Definiţiile sunt preluate textual din sursele
-  menţionate, cu excepţia greşelilor evidente de tipar, pe care le-am
+  <i>DEX online</i> este transpunerea pe Internet a unor dicționare de
+  prestigiu ale limbii române. El este creat și întreținut de un
+  colectiv de voluntari. Definițiile sunt preluate textual din sursele
+  menționate, cu excepția greșelilor evidente de tipar, pe care le-am
   corectat. <i>DEX online</i> este un proiect distribuit; oricine
-  doreşte poate ajuta la dezvoltarea proiectului, de exemplu <a
-  href="contrib.php">contribuind</a> cu definiţii noi.
+  dorește poate ajuta la dezvoltarea proiectului, de exemplu <a
+  href="contrib.php">contribuind</a> cu definiții noi.
 
   <br/><br/>
 
   Accesul la <i>DEX online</i> va fi întotdeauna gratuit.  Baza de
-  definiţii a <i>DEX online</i> este <a
-  href="#database">disponibilă</a> liber şi gratuit sub licenţa
+  definiții a <i>DEX online</i> este <a
+  href="#database">disponibilă</a> liber și gratuit sub licența
   publică generală GNU (GPL).
 
 
 <h3><a name="ce_nu_este">Ce nu este <i>DEX online?</i></a></h3>
 
-  Există multe păreri greşite despre rostul şi principiile <i>DEX
+  Există multe păreri greșite despre rostul și principiile <i>DEX
   online.</i> Multă lume încearcă să ne ceară ajutorul acolo unde nu-l
   putem oferi sau să ne ajute în feluri care nu ne folosesc. Încercăm
   deci să lămurim câteva lucruri:
 
   <ul>
 
-    <li><b>Nu</b> suntem lingvişti de profesie. Voluntarii care
-    întreţin proiectul sunt pasionaţi de limba română şi unii din ei
-    au mai multe cunoştinţe lingvistice decât omul mediu, dar
-    atât. Dacă ne scrieţi un mesaj întrebându-ne care este sensul unui
-    cuvânt sau cum se foloseşte corect o expresie, vom încerca să vă
+    <li><b>Nu</b> suntem lingviști de profesie. Voluntarii care
+    întrețin proiectul sunt pasionați de limba română și unii din ei
+    au mai multe cunoștințe lingvistice decât omul mediu, dar
+    atât. Dacă ne scrieți un mesaj întrebându-ne care este sensul unui
+    cuvânt sau cum se folosește corect o expresie, vom încerca să vă
     dăm un răspuns competent, dar nu unul cu autoritate. Este posibil
-    să nu ştim nici noi mai multe decât puteţi afla dumneavoastră din
-    definiţiile din <i>DEX online.</i></li>
+    să nu știm nici noi mai multe decât puteți afla dumneavoastră din
+    definițiile din <i>DEX online.</i></li>
 
-    <li><b>Nu</b> suntem subordonaţi Academiei Române nici altui
+    <li><b>Nu</b> suntem subordonați Academiei Române nici altui
     for. De la începutul proiectului am încercat să colaborăm cu
-    Academia Română, dar nu a existat dorinţa de comunicare. Suntem
+    Academia Română, dar nu a existat dorința de comunicare. Suntem
     recunoscători Academiei Române că nu s-a împotrivit proiectului
     <i>DEX online</i>, dar o colaborare în adevăratul sens al
     cuvântului nu a existat niciodată.</li>
 
-    <li><b>Nu</b> suntem autorii definiţiilor prezentate. După fiecare
-    din definiţii, precizăm clar care este sursa folosită. Există un
-    set mic de excepţii, cele cu sursa "Neoficial", dar încercăm să nu
+    <li><b>Nu</b> suntem autorii definițiilor prezentate. După fiecare
+    din definiții, precizăm clar care este sursa folosită. Există un
+    set mic de excepții, cele cu sursa "Neoficial", dar încercăm să nu
     mai folosim această sursă.</li>
 
-    <li><b>Nu</b> dorim să modificăm definiţiile existente, deoarece
-    nu ne aparţin, dar sistemul ne permite să facem adnotări pe
+    <li><b>Nu</b> dorim să modificăm definițiile existente, deoarece
+    nu ne aparțin, dar sistemul ne permite să facem adnotări pe
     marginea lor.</li>
 
-    <li><b>Nu</b> dorim să extindem dicţionarul cu definiţii provenite
-    din opinia personală a unui utilizator. Ne bazăm pe contribuţiile
+    <li><b>Nu</b> dorim să extindem dicționarul cu definiții provenite
+    din opinia personală a unui utilizator. Ne bazăm pe contribuțiile
     voluntare, dar ele trebuie să provină dintr-o sursă autorizată
-    (prin care de obicei înţelegem un dicţionar tipărit). Aceasta ne
+    (prin care de obicei înțelegem un dicționar tipărit). Aceasta ne
     conferă mai multă autoritate.</li>
 
-    <li><b>Nu</b> oferim un dicţionar complet. Aşa ceva nu există,
-    nici chiar după ce am încorporat cinci dicţionare întregi. Dar
-    calitatea <i>DEX online</i> a crescut în permanenţă în ultimii ani
-    şi sperăm să continuăm aşa.</li>
+    <li><b>Nu</b> oferim un dicționar complet. Așa ceva nu există,
+    nici chiar după ce am încorporat cinci dicționare întregi. Dar
+    calitatea <i>DEX online</i> a crescut în permanență în ultimii ani
+    și sperăm să continuăm așa.</li>
 
-    <li><b>Nu</b> oferim un dicţionar bilingv. Există deja dicţionare
+    <li><b>Nu</b> oferim un dicționar bilingv. Există deja dicționare
     bilingve pe Internet de o calitate foarte bună.</li>
 
   </ul>
@@ -141,61 +141,61 @@
 
 <h3><a name="motiv">Cum a apărut <i>DEX online?</i></a></h3>
 
-  Suntem în secolul XXI şi orice naţie care se respectă trebuie să
-  aibă un dicţionar explicativ pe Internet. Am pornit proiectul <i>DEX
-  online</i> în 2001 pentru că cineva trebuia să o facă (şi n-a fost
-  uşor: primele 30,000 de definiţii le-am tastat manual). Pentru
-  majoritatea românilor din afara României, dar şi pentru mulţi
-  dinăuntrul ei, acesta este singurul dicţionar explicativ la care au
+  Suntem în secolul XXI și orice nație care se respectă trebuie să
+  aibă un dicționar explicativ pe Internet. Am pornit proiectul <i>DEX
+  online</i> în 2001 pentru că cineva trebuia să o facă (și n-a fost
+  ușor: primele 30,000 de definiții le-am tastat manual). Pentru
+  majoritatea românilor din afara României, dar și pentru mulți
+  dinăuntrul ei, acesta este singurul dicționar explicativ la care au
   acces.
 
   <br/><br/>
 
-  Avantajele <i>DEX online</i> faţă de un dicţionar pe hârtie sunt:
+  Avantajele <i>DEX online</i> față de un dicționar pe hârtie sunt:
 
   <ul>
     <li><b>Căutarea mai simplă a cuvintelor.</b> Tastarea cuvântului ia
-    mai puţin decât frunzărirea paginilor.</li>
+    mai puțin decât frunzărirea paginilor.</li>
 
-    <li><b>Căutări aproximative.</b> Dacă nu cunoaşteţi
-    forma corectă a unui cuvânt, puteţi încerca o scriere aproximativă
-    şi <i>DEX online</i> va găsi forma corectă. De exemplu, căutând
-    cuvântul <a href="/search.php?cuv=geizer">geizer</a>, veţi fi
-    trimişi la forma corectă "gheizer".</li>
+    <li><b>Căutări aproximative.</b> Dacă nu cunoașteți
+    forma corectă a unui cuvânt, puteți încerca o scriere aproximativă
+    și <i>DEX online</i> va găsi forma corectă. De exemplu, căutând
+    cuvântul <a href="/search.php?cuv=geizer">geizer</a>, veți fi
+    trimiși la forma corectă "gheizer".</li>
   
-    <li><b>Trimiterile.</b> Definiţiile conţin la rândul lor cuvinte
-    care pot fi necunoscute. Într-un dicţionar pe hârtie, este necesară
-    o nouă căutare pentru a găsi explicaţia cuvântului necunoscut. În
+    <li><b>Trimiterile.</b> Definițiile conțin la rândul lor cuvinte
+    care pot fi necunoscute. Într-un dicționar pe hârtie, este necesară
+    o nouă căutare pentru a găsi explicația cuvântului necunoscut. În
     <i>DEX online</i>, trimiterea se face printr-un click pe cuvântul
     necunoscut.</li>
   
-    <li><b>Căutarea mai multor definiţii simultan</b>, folosind expresii
+    <li><b>Căutarea mai multor definiții simultan</b>, folosind expresii
     regulate (vezi <a href="#regexp">căutarea cu expresii
     regulate</a>).</li>
   
-    <li><b>Căutarea în mai multe dicţionare simultan.</b> Dacă definiţia
-    unui cuvânt a fost găsită şi în DEX, şi în Dicţionarul de
-    Neologisme, vă vor fi prezentate ambele definiţii.</li>
+    <li><b>Căutarea în mai multe dicționare simultan.</b> Dacă definiția
+    unui cuvânt a fost găsită și în DEX, și în Dicționarul de
+    Neologisme, vă vor fi prezentate ambele definiții.</li>
   
     <li><b>Corectarea erorilor.</b> Oricine depistează o eroare de
-    ortografie într-o definiţie o poate semnala, şi greşeala va fi
-    corectată rapid. Textul unui dicţionar pe hârtie este bătut în
+    ortografie într-o definiție o poate semnala, și greșeala va fi
+    corectată rapid. Textul unui dicționar pe hârtie este bătut în
     cuie.</li>
   
     <li><b>Extensibilitatea</b>. Voluntarii <i>DEX online</i>
-    îmbogăţesc în permanenţă baza de date cu definiţii noi şi fac
-    comentarii pe marginea celor existente, dacă găsesc ambiguităţi
-    sau contradicţii.</li>
+    îmbogățesc în permanență baza de date cu definiții noi și fac
+    comentarii pe marginea celor existente, dacă găsesc ambiguități
+    sau contradicții.</li>
 
-    <li><b>Aplicaţiile externe.</b> De vreme ce baza de date a <i>DEX
-    online</i> este disponibilă liber şi gratuit, multă lume o
-    foloseşte pentru scopuri din cele mai variate, de la un dicţionar
-    explicativ offline (pe care îl puteţi instala şi folosi pe
-    calculatorul dumneavoastră) până la dicţionare de rime, corectoare
-    ortografice sau jocuri de spânzurătoare şi rebus.</li>
+    <li><b>Aplicațiile externe.</b> De vreme ce baza de date a <i>DEX
+    online</i> este disponibilă liber și gratuit, multă lume o
+    folosește pentru scopuri din cele mai variate, de la un dicționar
+    explicativ offline (pe care îl puteți instala și folosi pe
+    calculatorul dumneavoastră) până la dicționare de rime, corectoare
+    ortografice sau jocuri de spânzurătoare și rebus.</li>
 
     <li><b>Generator de flexiuni.</b> Un subproiect al
-    <i>DEX online</i> este să înveţe declinările şi conjugările
+    <i>DEX online</i> este să învețe declinările și conjugările
     tuturor cuvintelor limbii române, astfel ca oricine are dubii să
     poată găsi un răspuns.</li>
   </ul>
@@ -206,72 +206,72 @@ online?</i></a></h3>
 
   <ul>
     <li><a href="http://catalin.francu.com">Cătălin Frâncu</a> -
-    Iniţiatorul proiectului şi programator.</li>
+    Inițiatorul proiectului și programator.</li>
 
-    <li><a href="http://www.scrabblero.ro/">Federaţia Română de
+    <li><a href="http://www.scrabblero.ro/">Federația Română de
     Scrabble</a>, din rândurile căreia au provenit primii voluntari ai
-    <i>DEX online</i>. Din numeroasele discuţii cu membrii acestei
-    federaţii s-au născut multe idei despre dezvoltarea acestui
+    <i>DEX online</i>. Din numeroasele discuții cu membrii acestei
+    federații s-au născut multe idei despre dezvoltarea acestui
     proiect.</li>
 
-    <li>Voluntarii listaţi în <a href="top.php">topul
-    voluntarilor</a>, care au adăugat definiţii în <i>DEX
+    <li>Voluntarii listați în <a href="top.php">topul
+    voluntarilor</a>, care au adăugat definiții în <i>DEX
     online</i>. Cei mai activi dintre ei au tastat sute de pagini de
-    definiţii!</li>
+    definiții!</li>
 
-    <li>Firma <a href="http://siveco.ro">Siveco</a> şi
-    editurile <a href="http://litera.ro">Litera Internaţional</a>
-    şi <a href="http://www.saeculum.ro/">Saeculum</a>, care ne-au pus
-    la dispoziţie cinci dicţionare complete şi ne-au permis
-    redistribuirea lor sub licenţa GPL. Firma Siveco ne oferă şi
+    <li>Firma <a href="http://siveco.ro">Siveco</a> și
+    editurile <a href="http://litera.ro">Litera Internațional</a>
+    și <a href="http://www.saeculum.ro/">Saeculum</a>, care ne-au pus
+    la dispoziție cinci dicționare complete și ne-au permis
+    redistribuirea lor sub licența GPL. Firma Siveco ne oferă și
     găzduire pentru primul <a href="#mirrors">mirror</a> al <i>DEX
     online.</i></li>
 
-    <li>Matei Gall, Octavian Mocanu şi Radu Borza, autorii componentei
-    <i>Dex Flex</i> (numită şi <i>Flex online).</i> Această componentă
-    permite utilizatorilor să vadă conjugările verbelor şi declinările
-    substantivelor şi adjectivelor limbii române.</li>
+    <li>Matei Gall, Octavian Mocanu și Radu Borza, autorii componentei
+    <i>Dex Flex</i> (numită și <i>Flex online).</i> Această componentă
+    permite utilizatorilor să vadă conjugările verbelor și declinările
+    substantivelor și adjectivelor limbii române.</li>
 
     <li>Firma <a href="http://www.elvsoft.com">Elvsoft</a>, care
-    găzduieşte serverul principal al <i>DEX online</i>.</li>
+    găzduiește serverul principal al <i>DEX online</i>.</li>
 
     <li>Octavian Procopiuc, Ion Silvestru, Federico Mestrone, Octavian
-    Râşniţă şi Alexandru Mirea, autorii <a
-    href="tools.php">aplicaţiilor</a> pentru descărcarea şi
+    Râșniță și Alexandru Mirea, autorii <a
+    href="tools.php">aplicațiilor</a> pentru descărcarea și
     consultarea offline a bazei de date.</li>
 
     <li><a href="http://www.racai.ro">Institutul de Cercetare în
-    Inteligenţă Artificială</a> al Academiei Române, care ne-a pus la
-    dispoziţie 3.000 de definiţiii din DEX în format digital. La
-    vremea respectivă, când definiţiile erau culese manual, iar <i>DEX
-    online</i> avea cu totul 10.000 de definiţii, cele 3.000
+    Inteligență Artificială</a> al Academiei Române, care ne-a pus la
+    dispoziție 3.000 de definițiii din DEX în format digital. La
+    vremea respectivă, când definițiile erau culese manual, iar <i>DEX
+    online</i> avea cu totul 10.000 de definiții, cele 3.000
     suplimentare au fost aur curat.</li>
 
-    <li><a href="http://timbru.com">Gabriel Radic</a> şi Dan Alexandru,
+    <li><a href="http://timbru.com">Gabriel Radic</a> și Dan Alexandru,
     autori a două skin-uri pentru <i>DEX online.</i></li>
 
     <li>Marius Alexandru, care ne-a convins că nu o să ajungem
-    nicăieri dacă vom continua să re-tastăm definiţiile, a căutat un
-    software bun pentru recunoaşterea optică a caracterelor şi a
+    nicăieri dacă vom continua să re-tastăm definițiile, a căutat un
+    software bun pentru recunoașterea optică a caracterelor și a
     scanat sute de pagini din DEX.</li>
 
-    <li><a href="http://www.mit.edu/~michel">Mihai Ibănescu</a> şi <a
+    <li><a href="http://www.mit.edu/~michel">Mihai Ibănescu</a> și <a
     href="http://marius.scurtescu.com/">Marius Scurtescu</a>, autorii
     <a href="tools.php">scriptului</a> care adaugă <i>DEX online</i>
     la cutia de căutare din Firefox sau Mozilla</li>
   </ul>
 
-<h3><a name="surse">Ce dicţionare cuprinde <i>DEX
+<h3><a name="surse">Ce dicționare cuprinde <i>DEX
 online?</i></a></h3>
 
-  Iniţial, DEX online şi-a propus să ofere o copie pe Internet a
+  Inițial, DEX online și-a propus să ofere o copie pe Internet a
   DEX. Acest proiect a fost completat în 2004. Ulterior, am încorporat
-  în întregime şi patru dicţionare de la Editura Litera (de sinonime,
-  de antonime, ortografic şi Noul Dicţionar Explicativ), precum şi
-  MDN <i>(Marele dicţionar de neologisme</i>, Editura
-  Saeculum). Într-o măsură mai mică, am folosit şi definiţii din multe
-  alte surse pentru a îmbogăţi baza de date şi a o face mai
-  utilă. Iată lista completă a dicţionarelor folosite:
+  în întregime și patru dicționare de la Editura Litera (de sinonime,
+  de antonime, ortografic și Noul Dicționar Explicativ), precum și
+  MDN <i>(Marele dicționar de neologisme</i>, Editura
+  Saeculum). Într-o măsură mai mică, am folosit și definiții din multe
+  alte surse pentru a îmbogăți baza de date și a o face mai
+  utilă. Iată lista completă a dicționarelor folosite:
 
   <ul>
     {foreach from=$sources item=source}
@@ -286,31 +286,31 @@ online?</i></a></h3>
 <h3><a name="offline">Pot să-mi instalez <i>DEX online</i> pe
 calculatorul de acasă? Dar pe Pocket PC?</a></h3>
 
-  Da. Vizitaţi pagina de <a href="tools.php">unelte</a> şi citiţi
-  secţiunea despre aplicaţii offline. Aceste aplicaţii transferă baza
+  Da. Vizitați pagina de <a href="tools.php">unelte</a> și citiți
+  secțiunea despre aplicații offline. Aceste aplicații transferă baza
   de date a DEX online pe calculatorul pe care sunt instalate, după
-  care o pot consulta şi în absenţa unei legături la internet.
+  care o pot consulta și în absența unei legături la internet.
 
 
 <h3><a name="DICT"><i>DEX online</i> implementează protocolul DICT?</a></h3>
 
-  Da. Configuraţi aplicaţia folosită (de exemplu gnome-dictionary) cu
+  Da. Configurați aplicația folosită (de exemplu gnome-dictionary) cu
   serverul dexonline.ro (sau oricare dintre <a
-  href="#mirrors">mirror-uri</a>) şi portul 2628.
+  href="#mirrors">mirror-uri</a>) și portul 2628.
 
 
-<h3><a name="lista_email">Aveţi o listă de email?</a></h3>
+<h3><a name="lista_email">Aveți o listă de email?</a></h3>
 
-  Da. Dacă doriţi să fiţi la curent cu evoluţia şi aspectele tehnice
-  ale <i>DEX online</i>, vă puteţi abona pe lista noastră de email
-  trimiţând un email la <a
+  Da. Dacă doriți să fiți la curent cu evoluția și aspectele tehnice
+  ale <i>DEX online</i>, vă puteți abona pe lista noastră de email
+  trimițând un email la <a
   href="mailto:dictionar-subscribe@yahoogroups.com">dictionar-subscribe@yahoogroups.com</a>. Volumul
   estimativ este de trei-patru mesaje pe zi. Arhivele acestei liste se
   află la <a
   href="http://groups.yahoo.com/group/dictionar">http://groups.yahoo.com/group/dictionar</a>.
 
 
-<h3><a name="mirrors">Aveţi un mirror mai rapid?</a></h3>
+<h3><a name="mirrors">Aveți un mirror mai rapid?</a></h3>
 
   Posibil! În prezent, <i>DEX online</i> este accesibil în patru locuri:
 
@@ -321,7 +321,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
 
     <li><a href="http://dictionare.edu.ro">dictionare.edu.ro</a>
     &ndash; Mirror găzduit în România de <a
-    href="http://www.siveco.ro">firma Siveco</a> şi <a
+    href="http://www.siveco.ro">firma Siveco</a> și <a
     href="http://portal.edu.ro">Portalul SEI</a>.</li>
 
     <li><a href="http://voronet.dexonline.ro">voronet.dexonline.ro</a>
@@ -335,9 +335,9 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   </ol>
 
   Următoarele mirroruri sunt neoficiale. Ele sunt realizate de
-  persoane care au dorit să sprijine proiectul <i>DEX online</i> şi le
-  mulţumim din suflet, dar nu garantăm că aceste servere
-  vor fi în permanenţă funcţionale.
+  persoane care au dorit să sprijine proiectul <i>DEX online</i> și le
+  mulțumim din suflet, dar nu garantăm că aceste servere
+  vor fi în permanență funcționale.
 
   <ol>
     <li><a href="http://dex.webcast.ro">dex.webcast.ro</a></li>
@@ -345,53 +345,53 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
 
   Un "mirror" este un termen tehnic pentru o copie fidelă a unui
   site. În cazul <i>DEX online</i>, mirror-urile nu sunt 100% fidele,
-  deoarece modificarea datelor este dezactivată (nu puteţi corecta
-  definiţii sau semnala greşeli de tipar). Dar în ce priveşte
-  consultarea dicţionarelor, între site-ul principal şi mirror-uri nu
-  există nicio diferenţă. Folosiţi oricare din site-uri vi se pare
+  deoarece modificarea datelor este dezactivată (nu puteți corecta
+  definiții sau semnala greșeli de tipar). Dar în ce privește
+  consultarea dicționarelor, între site-ul principal și mirror-uri nu
+  există nicio diferență. Folosiți oricare din site-uri vi se pare
   mai rapid.
 
 
-<h3><a name="database">Cum obţin o copie a bazei de date?</a></h3>
+<h3><a name="database">Cum obțin o copie a bazei de date?</a></h3>
 
   Baza de date a <i>DEX online</i> este disponibilă în format SQL la
   <a
-  href="http://dexonline.ro/download/dex-database.sql.gz">http://dexonline.ro/download/dex-database.sql.gz</a>. Citiţi
-  mai jos informaţiile despre <a href="#licenta">licenţă</a>. Baza de
-  date conţine cuvintele-titlu, definiţiile, comentariile, greşelile
-  de tipar, ghidul de exprimare corectă şi formele flexionare ale
-  cuvintelor, în măsura în care există. Singurele informaţii pe care
+  href="http://dexonline.ro/download/dex-database.sql.gz">http://dexonline.ro/download/dex-database.sql.gz</a>. Citiți
+  mai jos informațiile despre <a href="#licenta">licență</a>. Baza de
+  date conține cuvintele-titlu, definițiile, comentariile, greșelile
+  de tipar, ghidul de exprimare corectă și formele flexionare ale
+  cuvintelor, în măsura în care există. Singurele informații pe care
   nu le exportăm în baza de date sunt datele personale ale
-  utilizatorilor înregistraţi.
+  utilizatorilor înregistrați.
 
 
-<h3><a name="licenta">Licenţă</a></h3>
+<h3><a name="licenta">Licență</a></h3>
 
 <h4>Copyright (C) 2004-{$currentYear} DEX online.</h4>
 
-  <i>DEX online</i> (constituit din baza de definiţii şi codul sursă)
-  este liber; îl puteţi redistribui şi/sau modifica în conformitate cu
-  termenii Licenţei Publice Generale GNU aşa cum este ea publicată de
-  Free Software Foundation; fie versiunea 2 a Licenţei, fie (la
+  <i>DEX online</i> (constituit din baza de definiții și codul sursă)
+  este liber; îl puteți redistribui și/sau modifica în conformitate cu
+  termenii Licenței Publice Generale GNU așa cum este ea publicată de
+  Free Software Foundation; fie versiunea 2 a Licenței, fie (la
   latitudinea dumneavoastră) orice versiune ulterioară.  Acest program
-  este distribuit cu speranţa că vă va fi util, dar FĂRĂ NICIO
-  GARANŢIE, chiar fără garanţia implicită de vandabilitate sau
-  conformitate unui anumit scop. Citiţi Licenţa Publică Generală GNU
-  pentru detalii.  Puteţi găsi o copie a Licenţei Publice Generale GNU
-  <a href="http://www.gnu.org/copyleft/gpl.html">aici</a> şi o
+  este distribuit cu speranța că vă va fi util, dar FĂRĂ NICIO
+  GARANȚIE, chiar fără garanția implicită de vandabilitate sau
+  conformitate unui anumit scop. Citiți Licența Publică Generală GNU
+  pentru detalii.  Puteți găsi o copie a Licenței Publice Generale GNU
+  <a href="http://www.gnu.org/copyleft/gpl.html">aici</a> și o
   traducere a ei în limba română <a href="license.php">aici</a>.
 
-<h4>Explicaţie</h4>
+<h4>Explicație</h4>
 
-  Am pus această licenţă pe definiţiile existente în <i>DEX online</i>
+  Am pus această licență pe definițiile existente în <i>DEX online</i>
   pentru a ne asuma paternitatea asupra formei digitale a
-  definiţiilor. <b>Nu</b> dorim să ne substituim autorilor originali
-  ai dicţionarelor incluse. Precizăm din nou că <i>DEX online</i> este
-  doar o copie online a DEX, ediţia 1998 şi a altor dicţionare asupra
-  cărora nu avem niciun fel de pretenţii de paternitate. Este posibil
+  definițiilor. <b>Nu</b> dorim să ne substituim autorilor originali
+  ai dicționarelor incluse. Precizăm din nou că <i>DEX online</i> este
+  doar o copie online a DEX, ediția 1998 și a altor dicționare asupra
+  cărora nu avem niciun fel de pretenții de paternitate. Este posibil
   ca, în urma unor convorbiri ulterioare cu Academia Română, această
-  licenţă să devină invalidă. Este posibil chiar ca, din motive
-  legale, să fim nevoiţi a revizui conţinutul acestui
+  licență să devină invalidă. Este posibil chiar ca, din motive
+  legale, să fim nevoiți a revizui conținutul acestui
   site. Deocamdată, însă, aceste convorbiri nu au avut loc. Cât timp
   lucrurile vor rămâne în această stare, dorim ca nimeni să nu poată
   confisca, patenta sau îngrădi accesul la baza de date a
@@ -399,45 +399,45 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
 
   <br/><br/>
 
-  În cazul în care doriţi să preluaţi definiţii din <i>DEX online</i>,
-  licenţa GPL vă obligă la două lucruri:
+  În cazul în care doriți să preluați definiții din <i>DEX online</i>,
+  licența GPL vă obligă la două lucruri:
 
   <ol>
-    <li>Să oferiţi mai departe aceste definiţii tot sub licenţa GPL.</li>
+    <li>Să oferiți mai departe aceste definiții tot sub licența GPL.</li>
 
-    <li>Să includeţi nota de copyright aflată la sfârşitul fiecărei
+    <li>Să includeți nota de copyright aflată la sfârșitul fiecărei
     pagini din <i>DEX online</i>, inclusiv URL-ul http://dexonline.ro.</li>
 
   </ol>
 
-  Am pus această licenţă pe definiţii:
+  Am pus această licență pe definiții:
 
   <ol>
     <li>Pentru a ne asigura că baza de date a <i>DEX online</i>, care este
-    în prezent cel mai complet dicţionar explicativ al limbii române, va
-    rămâne întotdeauna gratuită. Puteţi folosi această bază de definiţii
+    în prezent cel mai complet dicționar explicativ al limbii române, va
+    rămâne întotdeauna gratuită. Puteți folosi această bază de definiții
     în orice scopuri, comerciale sau necomerciale.</li>
 
     <li>Pentru a ne asigura că oricine va folosi această bază de date
     va fi la rândul său obligat să o ofere mai departe în mod
-    gratuit. Mai exact, oricui foloseşte această bază de date i se
+    gratuit. Mai exact, oricui folosește această bază de date i se
     interzice să îngreuneze copierea mai departe a acestei baze de
-    date. Aceasta este intenţia <a
+    date. Aceasta este intenția <a
     href="http://www.gnu.org/copyleft/">copyleft</a>, în cadrul căruia
-    intră şi Licenţa Publică Generală GNU.</li>
+    intră și Licența Publică Generală GNU.</li>
 
-    <li>Pentru a ne asigura că, în cazul în care cineva preia şi
+    <li>Pentru a ne asigura că, în cazul în care cineva preia și
     modifică baza de date a <i>DEX online</i>, noi nu putem fi
-    socotiţi răspunzători. <i>DEX online</i> îşi propune să ofere o
-    copie fidelă a multor dicţionare, dar nu promitem că această copie
+    socotiți răspunzători. <i>DEX online</i> își propune să ofere o
+    copie fidelă a multor dicționare, dar nu promitem că această copie
     va fi distribuită identic odată ce iese din mâinile noastre.</li>
     
     <li>Pentru că suntem de părere că acest document este foarte
-    preţios şi este un instrument benefic pentru limba şi cultura
-    română. Considerăm că acest document trebuie să fie public şi că
-    el s-ar răspândi oricum, chiar şi fără voia noastră. De aceea,
-    dorim să oferim acest document de la sursă şi să preîntâmpinăm
-    apariţia unei pieţe negre pentru acest document.</li>
+    prețios și este un instrument benefic pentru limba și cultura
+    română. Considerăm că acest document trebuie să fie public și că
+    el s-ar răspândi oricum, chiar și fără voia noastră. De aceea,
+    dorim să oferim acest document de la sursă și să preîntâmpinăm
+    apariția unei piețe negre pentru acest document.</li>
   </ol>
 
 
@@ -446,9 +446,9 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
 
   Majoritatea software-ului folosit de DEX online este <b><a
   href="http://www.gnu.org/philosophy/philosophy.ro.html">software
-  liber</a></b>. Faptul că <i>DEX online</i> îşi bazează existenţa
+  liber</a></b>. Faptul că <i>DEX online</i> își bazează existența
   pe o cantitate impresionantă de software liber spune multe despre
-  nobleţea şi viabilitatea acestui principiu.
+  noblețea și viabilitatea acestui principiu.
 
   <br/><br/>
 
@@ -501,7 +501,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
       </td>
       <td>
         <b>GCC</b> - Compilatorul de C++ cu care au fost compilate
-        bucăţile de cod pentru care viteza este esenţială.
+        bucățile de cod pentru care viteza este esențială.
       </td>
     </tr>
     <tr>
@@ -511,7 +511,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
         </a>
       </td>
       <td>
-        <b>Subversion</b> - Serveşte la întreţinerea codului şi permite editarea
+        <b>Subversion</b> - Servește la întreținerea codului și permite editarea
         lui simultană de către mai multe persoane.
       </td>
     </tr>
@@ -522,7 +522,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
         </a>
       </td>
       <td>
-        <b>CVS</b> - Serveşte la întreţinerea codului şi permite editarea
+        <b>CVS</b> - Servește la întreținerea codului și permite editarea
         lui simultană de către mai multe persoane.
       </td>
     </tr>
@@ -534,7 +534,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
       </td>
       <td>
         <b>OTRS (Open Ticket Request System)</b> - Permite colaborarea
-        între mai mulţi voluntari pentru a răspunde la mesajele venite
+        între mai mulți voluntari pentru a răspunde la mesajele venite
         pe adresa de contact.
       </td>
     </tr>
@@ -545,8 +545,8 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
         </a>
       </td>
       <td>
-        <b>Smarty</b> - Permite crearea de şabloane PHP, ceea ce a
-        simplificat enorm codul şi a permis adăugarea de design-uri
+        <b>Smarty</b> - Permite crearea de șabloane PHP, ceea ce a
+        simplificat enorm codul și a permis adăugarea de design-uri
         multiple.
       </td>
     </tr>
@@ -557,8 +557,8 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
         </a>
       </td>
       <td>
-        <b>PHP Accelerator</b> - Un cache PHP care îmbunătăţeşte
-        mult viteza de execuţie a scripturilor.
+        <b>PHP Accelerator</b> - Un cache PHP care îmbunătățește
+        mult viteza de execuție a scripturilor.
       </td>
     </tr>
     <tr>
@@ -592,7 +592,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
         </a>
       </td>
       <td>
-        <b>gzip</b> - Compresor folosit in comunicarea cu aplicaţiile
+        <b>gzip</b> - Compresor folosit in comunicarea cu aplicațiile
         offline.
       </td>
     </tr>
@@ -603,7 +603,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
         </a>
       </td>
       <td>
-        <b>ABBYY FineReader</b> - Programul folosit pentru recunoaşterea
+        <b>ABBYY FineReader</b> - Programul folosit pentru recunoașterea
         optică (OCR) a paginilor preluate. Acesta este singurul program
         comercial folosit.
       </td>
@@ -611,54 +611,54 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   </table>
 
 
-<h3><a name="istoric">Scurt istoric şi fapt divers</a></h3>
+<h3><a name="istoric">Scurt istoric și fapt divers</a></h3>
 
   Numele meu este <a href="http://catalin.francu.com">Cătălin
-  Frâncu</a>. De profesie sunt programator şi singura pregătire
-  lingvistică am primit-o în şcoala generală. Mă ocup de partea
-  tehnică a acestui proiect numai în timpul liber, care se împuţinează
-  de la un an la altul. Totuşi, efortul meu este o joacă pe lângă cel
-  al <a href="top.php">voluntarilor</a> care şi-au asumat o sarcină
-  mult mai migăloasă: introducerea de definiţii.
+  Frâncu</a>. De profesie sunt programator și singura pregătire
+  lingvistică am primit-o în școala generală. Mă ocup de partea
+  tehnică a acestui proiect numai în timpul liber, care se împuținează
+  de la un an la altul. Totuși, efortul meu este o joacă pe lângă cel
+  al <a href="top.php">voluntarilor</a> care și-au asumat o sarcină
+  mult mai migăloasă: introducerea de definiții.
 
   <br/><br/>
 
   <i>DEX online</i> a apărut în august 2001. În primele sale luni, el
-  a avut o evoluţie lentă şi haotică, iar fondul de cuvinte a rămas
+  a avut o evoluție lentă și haotică, iar fondul de cuvinte a rămas
   extrem de limitat (sub 40 de cuvinte). Din această cauză, primii
   vizitatori ai proiectului nu găseau niciun cuvânt din câte căutau,
-  se plictiseau şi plecau fără să mai revină, şi în general cam toată
+  se plictiseau și plecau fără să mai revină, și în general cam toată
   lumea era convinsă că această idee n-o să prindă niciodată. Multe
   mesaje primite îmi spuneau personal acest lucru în termeni care de
-  care mai pitoreşti :)
+  care mai pitorești :)
   
   <br/><br/>
 
-  Primii care au depus un efort susţinut şi sistematic pentru trecerea
+  Primii care au depus un efort susținut și sistematic pentru trecerea
   de această fază au fost membrii <a
-  href="http://www.scrabblero.ro/">Federaţiei Române de
+  href="http://www.scrabblero.ro/">Federației Române de
   Scrabble</a>. Ei au demonstrat că ideea din spatele <i>DEX
-  online</i> este viabilă şi că voluntari se găsesc.  Odată trecut de
-  masa critică de 2000-3000 cuvinte, DEX online a câştigat
-  popularitate. În paralel, am implementat funcţii noi cum ar fi
-  trimiterile şi expresiile regulate, şi am simplificat mult sintaxa
-  pentru introducerea de noi definiţii. Cu timpul s-au adăugat noi
-  voluntari şi ritmul de învăţare a crescut, depăşind 1000 cuvinte pe
-  lună în unele luni. Dacă această evoluţie se menţine, estimez un
-  total de 30.000 cuvinte la sfârşitul anului 2003.
+  online</i> este viabilă și că voluntari se găsesc.  Odată trecut de
+  masa critică de 2000-3000 cuvinte, DEX online a câștigat
+  popularitate. În paralel, am implementat funcții noi cum ar fi
+  trimiterile și expresiile regulate, și am simplificat mult sintaxa
+  pentru introducerea de noi definiții. Cu timpul s-au adăugat noi
+  voluntari și ritmul de învățare a crescut, depășind 1000 cuvinte pe
+  lună în unele luni. Dacă această evoluție se menține, estimez un
+  total de 30.000 cuvinte la sfârșitul anului 2003.
   
   <br/><br/>
 
   Multă vreme, <i>DEX online</i> a rulat pe calculatorul meu
   personal, pe care trebuia să îl resetez uneori pentru a juca jocuri
   pe calculator :) Începând din decembrie 2002, <i>DEX online</i> are
-  un calculator dedicat (tot personal) şi este activ non-stop.
+  un calculator dedicat (tot personal) și este activ non-stop.
   
   <br/><br/>
 
-  În iunie 2003 am depăşit 20.000 cuvinte. În paralel,
-  am îmbunătăţit mult interfaţa. De exemplu, în
-  timpul introducerii unei definiţii, textul formatat este afişat
+  În iunie 2003 am depășit 20.000 cuvinte. În paralel,
+  am îmbunătățit mult interfața. De exemplu, în
+  timpul introducerii unei definiții, textul formatat este afișat
   interactiv, fără a mai fi necesară apăsarea butonului
   <i>Test</i>. De asemenea, am adăugat paginarea rezultatelor, astfel
   încât navigarea prin mii de rezultate a devenit posibilă.
@@ -666,15 +666,15 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   <br/><br/>
 
   În iulie 2003 am cumpărat reclame în paginile Google
-  (adwords.google.com). Pentru numai $2/zi am câştigat 40 de
-  vizitatori noi pe zi (pe lângă aproximativ 200, câţi aveam
+  (adwords.google.com). Pentru numai $2/zi am câștigat 40 de
+  vizitatori noi pe zi (pe lângă aproximativ 200, câți aveam
   anterior). Din păcate, $2/zi se însumează la $60/lună,
   ceea ce nu îmi pot permite pe termen lung. Momentan, campania adwords este
   oprită.
   
   <br/><br/>
 
-  Cam o dată la două-trei zile primesc o definiţie
+  Cam o dată la două-trei zile primesc o definiție
   obscenă, de obicei a unui cuvânt cu 4 litere pe care îl
   găsim scris prin lifturi.
   
@@ -682,18 +682,18 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   <br/><br/>
 
   În septembrie 2003, la sugestia lui Cătălin
-  Niţica, am adăugat o interfaţă care vă
-  permite să folosiţi <i>DEX online</i> cu <b>Gnome
-  Dictionary</b> sub linux / RedHat. Pentru a porni applet-ul, daţi
-  click dreapta pe taskbar şi selectaţi "Add to panel /
-  Accessories / Dictionary Lookup", sau lansaţi "gnome-dictionary"
+  Nițica, am adăugat o interfață care vă
+  permite să folosiți <i>DEX online</i> cu <b>Gnome
+  Dictionary</b> sub linux / RedHat. Pentru a porni applet-ul, dați
+  click dreapta pe taskbar și selectați "Add to panel /
+  Accessories / Dictionary Lookup", sau lansați "gnome-dictionary"
   dintr-un terminal. Pentru a face căutări în <i>DEX
   online</i>, programul trebuie configurat cu serverul
-  <b>dexonline.ro</b> şi portul <b>2628</b>. Din păcate,
-  Gnome Dictionary este un proiect destul de primitiv şi nu poate
-  formata definiţiile la fel de frumos ca în pagina de
-  web. Veţi remarca lipsa diacriticelor şi a trimiterilor
-  în special. Dar... funcţionează şi este extrem de
+  <b>dexonline.ro</b> și portul <b>2628</b>. Din păcate,
+  Gnome Dictionary este un proiect destul de primitiv și nu poate
+  formata definițiile la fel de frumos ca în pagina de
+  web. Veți remarca lipsa diacriticelor și a trimiterilor
+  în special. Dar... funcționează și este extrem de
   convenabil!
   
   <br/><br/>
@@ -702,29 +702,29 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   
   <br/><br/>
 
-  În noiembrie 2003 am adăugat pagina <a href="/corect.php">Corect / greşit</a>. 
+  În noiembrie 2003 am adăugat pagina <a href="/corect.php">Corect / greșit</a>. 
   
   <br/><br/>
 
-  Din ianuarie 2004, oricine observă o greşeală de tipar o
+  Din ianuarie 2004, oricine observă o greșeală de tipar o
   poate semnala printr-un simplu click.
   
   <br/><br/>
 
-  Pe 15 februarie 2004 am depăşit 30.000 cuvinte.
+  Pe 15 februarie 2004 am depășit 30.000 cuvinte.
   
   <br/><br/>
 
-  În aprilie 2004 am primit un cadou de Paşti de $300 din partea
+  În aprilie 2004 am primit un cadou de Paști de $300 din partea
   unei firme din România, cu care am putut cumpăra ABBYY FineReader
   7.0 Professional. Sper ca acest lucru să ne mărească mult ritmul
-  de învăţare.
+  de învățare.
   
   <br/><br/>
 
-  Pe 24 aprilie 2004 am fost daţi pentru prima oară la
-  ziar!  Articolul respectiv, din <i>Jurnalul Naţional</i>, a fost
-  cel mai citit articol din ediţia online a ziarului.
+  Pe 24 aprilie 2004 am fost dați pentru prima oară la
+  ziar!  Articolul respectiv, din <i>Jurnalul Național</i>, a fost
+  cel mai citit articol din ediția online a ziarului.
   
   <br/><br/>
 
@@ -733,105 +733,105 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   <br/><br/>
 
   Pe 1 august 2004 am terminat de cules DEX-ul (circa 65.000 de
-  definiţii). A fost chiar un moment deosebit, am avut sentimentul că
-  n-am trăit degeaba, lucru reflectat şi de numeroasele mesaje de
-  felicitare venite din partea diverşilor admiratori care aşteptaseră
+  definiții). A fost chiar un moment deosebit, am avut sentimentul că
+  n-am trăit degeaba, lucru reflectat și de numeroasele mesaje de
+  felicitare venite din partea diverșilor admiratori care așteptaseră
   momentul.
 
   <br/><br/>
 
-  În septembrie 2004, firma Siveco şi Editura Litera Internaţional
-  ne-au pus la dispoziţie patru dicţionare noi. Cu acestea, <i>DEX
-  online</i> a sărit brusc la aproape 200.000 definiţii.
+  În septembrie 2004, firma Siveco și Editura Litera Internațional
+  ne-au pus la dispoziție patru dicționare noi. Cu acestea, <i>DEX
+  online</i> a sărit brusc la aproape 200.000 definiții.
 
   <br/><br/>
 
-  În următorii doi ani, <i>DEX online</i> a crescut cu mai puţine
+  În următorii doi ani, <i>DEX online</i> a crescut cu mai puține
   evenimente notabile, dar a crescut. În august 2006 aveam peste
-  283.000 de definiţii.
+  283.000 de definiții.
   
   <br/><br/>
 
   În iulie 2006 am adăugat cod care le permite moderatorilor să adauge
-  comentarii pe marginea definiţiilor. Aceasta a împăcat principiul
-  nostru de a păstra definiţiile exact aşa cum le-am preluat din
+  comentarii pe marginea definițiilor. Aceasta a împăcat principiul
+  nostru de a păstra definițiile exact așa cum le-am preluat din
   sursele autorizate cu nevoia evidentă de a face adnotări acolo unde
-  există ambiguităţi, omisiuni şi contradicţii între diversele
-  dicţionare.
+  există ambiguități, omisiuni și contradicții între diversele
+  dicționare.
 
   <br/><br/>
 
   În august 2006 am lansat subproiectul <i>Dex Flex.</i> Acest
-  subproiect urmăreşte să producă o listă completă a cuvintelor limbii
-  române împreună cu toate formele lor flexionare (declinări şi
-  conjugări). Şi acest proiect este distribuit. Moderatorii
+  subproiect urmărește să producă o listă completă a cuvintelor limbii
+  române împreună cu toate formele lor flexionare (declinări și
+  conjugări). Și acest proiect este distribuit. Moderatorii
   colaborează pentru a eticheta fiecare cuvânt cu partea de vorbire
-  potrivită, identificând în acelaşi timp diversele excepţii şi
+  potrivită, identificând în același timp diversele excepții și
   fenomene morfologice.
 
   <br/><br/>
 
   În septembrie 2006 am mutat serverul principal în România. Sperăm ca
   această mutare să ducă la timpi mai buni de acces la site, având în
-  vedere că majoritatea vizitatorilor noştri vin din România.
+  vedere că majoritatea vizitatorilor noștri vin din România.
 
   <br/><br/>
 
-  În august 2007 am completat proiectul <i>Dex Flex</i> (numit şi
+  În august 2007 am completat proiectul <i>Dex Flex</i> (numit și
   <i>Flex online)</i> prin încorporarea <a
   href="http://scrabrom.3x.ro/Loc.html">Listei Oficiale de
   Cuvinte</a> elaborată de <a
-  href="http://www.scrabblero.ro/">Federaţia Română de
-  Scrabble</a>. Matei Gall şi Octavian Mocanu au întreţinut şi
-  perfecţionat această listă ani de zile, iar Radu Borza şi Cătălin
+  href="http://www.scrabblero.ro/">Federația Română de
+  Scrabble</a>. Matei Gall și Octavian Mocanu au întreținut și
+  perfecționat această listă ani de zile, iar Radu Borza și Cătălin
   Frâncu au convertit documentul la un format utilizabil în <i>DEX
   online</i>. Această componentă le permite utilizatorilor să vadă
-  formele flexionare ale oricărui cuvânt al limbii române şi este
-  punctul de plecare pentru multe alte îmbunătăţiri pe care le avem în
+  formele flexionare ale oricărui cuvânt al limbii române și este
+  punctul de plecare pentru multe alte îmbunătățiri pe care le avem în
   plan.
 
   <br/><br/>
 
-  În septembrie 2007 am adăugat integral <i>Marele Dicţionar de
-  Neologisme</i> publicat de Editura Saeculum şi redistribuit sub
-  licenţa GPL prin amabilitatea firmei Siveco.
+  În septembrie 2007 am adăugat integral <i>Marele Dicționar de
+  Neologisme</i> publicat de Editura Saeculum și redistribuit sub
+  licența GPL prin amabilitatea firmei Siveco.
 
 
 <h3><a name="cacofonie">Documentul ăsta e plin de cacofonii!</a></h3>
 
   Da. Autorul acestui document nu crede în cacofonii. Dacă alăturarea
-  a două cuvinte inofensive îi duce pe unii cu gândul la trivialităţi,
-  este problema lor. De multe ori, construcţiile la care ajungem
+  a două cuvinte inofensive îi duce pe unii cu gândul la trivialități,
+  este problema lor. De multe ori, construcțiile la care ajungem
   încercând să evităm o cacofonie zgârie urechea mai rău decât
-  cacofonia însăşi. Alte limbi nu se străduie deloc să le evite şi
+  cacofonia însăși. Alte limbi nu se străduie deloc să le evite și
   autorul crede că spaima pe care cacofoniile le provoacă vorbitorilor
-  de limbă română se datorează numai automatismelor învăţate în şcoala
+  de limbă română se datorează numai automatismelor învățate în școala
   primară.
 
 
-<h3><a name="greseala_tipar">Am găsit o greşeală în <i>DEX online</i>,
+<h3><a name="greseala_tipar">Am găsit o greșeală în <i>DEX online</i>,
 ce fac?</a></h3>
 
-  Dacă observaţi o greşeală de tipar într-o definiţie, apăsaţi pe
+  Dacă observați o greșeală de tipar într-o definiție, apăsați pe
   butonul <img src="{$imgRoot}/simple/warning.gif" alt="warning
-  sign"/> sau pe legătura <i>Greşeală de tipar</i>, aflate după
-  definiţie, pentru a semnala greşeala. Puteţi ataşa şi o scurtă
-  descriere a problemei. Vă rugăm să folosiţi această metodă
-  <b>numai</b> pentru greşeli de tipar (litere lipsă, diacritice lipsă
-  etc.), <b>nu</b> pentru a semnala definiţii care vi se par greşite
+  sign"/> sau pe legătura <i>Greșeală de tipar</i>, aflate după
+  definiție, pentru a semnala greșeala. Puteți atașa și o scurtă
+  descriere a problemei. Vă rugăm să folosiți această metodă
+  <b>numai</b> pentru greșeli de tipar (litere lipsă, diacritice lipsă
+  etc.), <b>nu</b> pentru a semnala definiții care vi se par greșite
   sau incomplete.  Preferăm să lăsăm corecturile de ordin semantic în
-  seama autorilor dicţionarelor. Vă rugăm de asemenea să fiţi cât de
-  expliciţi se poate în semnalarea erorii, de preferinţă indicând
-  exact care este cuvântul greşit.
+  seama autorilor dicționarelor. Vă rugăm de asemenea să fiți cât de
+  expliciți se poate în semnalarea erorii, de preferință indicând
+  exact care este cuvântul greșit.
 
 
 <h3><a name="link_extern">Cum fac să includ un formular de căutare
 în <i>DEX online</i> în pagina mea de web?</a></h3>
 
-  Cel mai simplu este să adăugaţi un link către
-  <b>http://dexonline.ro</b>. Acesta ne este şi nouă de mare folos,
-  întrucât ne creşte popularitatea şi ne îmbunătăţeşte cotarea în
-  ochii motoarelor de căutare. Puteţi adăuga şi o cutie de căutare în
+  Cel mai simplu este să adăugați un link către
+  <b>http://dexonline.ro</b>. Acesta ne este și nouă de mare folos,
+  întrucât ne crește popularitatea și ne îmbunătățește cotarea în
+  ochii motoarelor de căutare. Puteți adăuga și o cutie de căutare în
   <i>DEX online</i> direct din pagina dumneavoastră, inserând
   următorul cod HTML în pagină:
 
@@ -841,88 +841,88 @@ ce fac?</a></h3>
     &lt;/form></pre>
 
 
-<h3><a name="contribuie">Cum contribui cu definiţii la <i>DEX
+<h3><a name="contribuie">Cum contribui cu definiții la <i>DEX
 online?</i></a></h3>
 
-  Dacă ne folosiţi când aveţi nevoie şi dacă le spuneţi despre noi
-  prietenilor dumneavoastră care au nevoie de un dicţionar, ne faceţi
-  deja un mare bine. Dacă doriţi să adăugaţi definiţii la <i>DEX
+  Dacă ne folosiți când aveți nevoie și dacă le spuneți despre noi
+  prietenilor dumneavoastră care au nevoie de un dicționar, ne faceți
+  deja un mare bine. Dacă doriți să adăugați definiții la <i>DEX
   online,</i> vă suntem cu atât mai recunoscători! Mecanismul este
-  simplu: vizitaţi <a href="contrib.php">pagina de contribuţii</a>,
-  introduceţi o definiţie şi trimiteţi-ne-o. Noi preluăm definiţia (cu
-  o întârziere de cel mult o zi), corectăm eventualele greşeli de
-  tipar şi o activăm. Din acest moment, ea este parte din <i>DEX
+  simplu: vizitați <a href="contrib.php">pagina de contribuții</a>,
+  introduceți o definiție și trimiteți-ne-o. Noi preluăm definiția (cu
+  o întârziere de cel mult o zi), corectăm eventualele greșeli de
+  tipar și o activăm. Din acest moment, ea este parte din <i>DEX
   online!</i>
 
   <br/><br/>
 
-  Dorim ca definiţiile trimise să fie cât mai conforme cu dicţionarele
-  de unde provin.  Altfel, moderarea definiţiilor trimise de
-  dumneavoastră durează la fel de mult ca şi tastarea lor de la zero,
-  şi deci întreaga încercare de a distribui efortul nu îşi mai atinge
-  scopul. Pentru aceasta, vă rugăm să citiţi cu atenţie următoarele
-  sugestii înainte de a introduce o definiţie şi să le respectaţi cât
+  Dorim ca definițiile trimise să fie cât mai conforme cu dicționarele
+  de unde provin.  Altfel, moderarea definițiilor trimise de
+  dumneavoastră durează la fel de mult ca și tastarea lor de la zero,
+  și deci întreaga încercare de a distribui efortul nu își mai atinge
+  scopul. Pentru aceasta, vă rugăm să citiți cu atenție următoarele
+  sugestii înainte de a introduce o definiție și să le respectați cât
   mai bine:
 
   <ul>
-    <li>Înainte de a trimite o definiţie, căutaţi cuvântul pentru a vă
-    asigura că el nu are deja definiţii mai complete decât cea pe care
-    intenţionaţi să ne-o trimiteţi. Ar fi păcat să vă irosiţi timpul şi
-    bunăvoinţa culegând definiţii care nu aduc nimic nou.</li>
+    <li>Înainte de a trimite o definiție, căutați cuvântul pentru a vă
+    asigura că el nu are deja definiții mai complete decât cea pe care
+    intenționați să ne-o trimiteți. Ar fi păcat să vă irosiți timpul și
+    bunăvoința culegând definiții care nu aduc nimic nou.</li>
 
-    <li>Introduceţi numai cuvinte din <a href="#surse">sursele
-    acceptate</a>. Dacă aveţi sugestii pentru adăugarea de noi surse,
-    nu ezitaţi să ne scrieţi.</li>
+    <li>Introduceți numai cuvinte din <a href="#surse">sursele
+    acceptate</a>. Dacă aveți sugestii pentru adăugarea de noi surse,
+    nu ezitați să ne scrieți.</li>
 
-    <li>Respectaţi cât mai bine formatarea definiţiei în textul
-    original: diacritice şi accente (Ă, Â, Î, Ş, Ţ, Ö), litere
-    <b>aldine</b> sau <i>cursive</i>, indici<sup>1</sup> şi caractere
-    speciale (&loz;, &diams;). Puteţi citi <a
-    href="html/formatting.html">detalii</a> despre cum puteţi
-    introduce foarte uşor aceste simboluri</li>
+    <li>Respectați cât mai bine formatarea definiției în textul
+    original: diacritice și accente (Ă, Â, Î, Ș, Ț, Ö), litere
+    <b>aldine</b> sau <i>cursive</i>, indici<sup>1</sup> și caractere
+    speciale (&loz;, &diams;). Puteți citi <a
+    href="html/formatting.html">detalii</a> despre cum puteți
+    introduce foarte ușor aceste simboluri</li>
 
-    <li>Dacă observaţi erori evidente în definiţii (greşeli de tipar),
-    corectaţi-le. Dacă însă vi se pare că sensul definiţiei este
-    greşit, vă rugăm nu încercaţi să-l îmbunătăţiţi. Suntem de acord
-    că orice dicţionar are lacune şi definiţii învechite, dar preferăm
+    <li>Dacă observați erori evidente în definiții (greșeli de tipar),
+    corectați-le. Dacă însă vi se pare că sensul definiției este
+    greșit, vă rugăm nu încercați să-l îmbunătățiți. Suntem de acord
+    că orice dicționar are lacune și definiții învechite, dar preferăm
     să lăsăm corectarea acestora în seama autorilor lui de drept. Un
-    dicţionar bazat pe improvizaţie personală nu poate căpăta o prea
+    dicționar bazat pe improvizație personală nu poate căpăta o prea
     mare trecere în ochii publicului larg.</li>
   </ul>
 
 
-<h3><a name="contribuie_offline">Cum contribui cu definiţii la <i>DEX
+<h3><a name="contribuie_offline">Cum contribui cu definiții la <i>DEX
 online</i> dacă nu pot să stau prea mult pe Internet?</a></h3>
 
-  Dacă doriţi să ne ajutaţi în mod substanţial, o puteţi face şi
-  culegând definiţiile offline, adică fără a fi conectat la
-  Internet. Puteţi folosi orice editor de texte vă place mai
+  Dacă doriți să ne ajutați în mod substanțial, o puteți face și
+  culegând definițiile offline, adică fără a fi conectat la
+  Internet. Puteți folosi orice editor de texte vă place mai
   mult. Formatele preferate sunt text simplu, HTML sau Open Office,
-  dar acceptăm şi Microsoft Word. Apoi, trimiteţi-ne documentul
+  dar acceptăm și Microsoft Word. Apoi, trimiteți-ne documentul
   tehnoredactat prin <a href="contact.php">email</a>. Vă rugăm să
-  respectaţi următoarele cerinţe:
+  respectați următoarele cerințe:
 
   <ul>
-    <li>Dacă preferaţi culegerea offline, vă rugăm să trimiteţi
-    minimum 50 de cuvinte. Fişierul pe care dumneavoastră îl trimiteţi
+    <li>Dacă preferați culegerea offline, vă rugăm să trimiteți
+    minimum 50 de cuvinte. Fișierul pe care dumneavoastră îl trimiteți
     trebuie să mai treacă prin câteva modificări, care consumă destul
     de mult timp. Acest timp este independent de numărul de cuvinte,
     deci se "amortizează" foarte bine pentru 50 de cuvinte sau mai
     multe, dar este o cheltuială inutilă pentru un număr mic de
     cuvinte.</li>
 
-    <li>Nu uitaţi să respectaţi toate <a
+    <li>Nu uitați să respectați toate <a
     href="html/formatting.html">formatările</a> în textul cules.</li>
 
-    <li>Pe cât posibil, încercaţi să respectaţi următoarea paginare a
-    definiţiilor: pe prima linie se scrie cuvântul, cu diacritice şi
-    fără accent, iar pe a doua linie definiţia; apoi un nou cuvânt, o
-    nouă definiţie ş.a.m.d., ca în exemplul de mai jos:</li>
+    <li>Pe cât posibil, încercați să respectați următoarea paginare a
+    definițiilor: pe prima linie se scrie cuvântul, cu diacritice și
+    fără accent, iar pe a doua linie definiția; apoi un nou cuvânt, o
+    nouă definiție ș.a.m.d., ca în exemplul de mai jos:</li>
   </ul>
 
   <pre class="code">
     zavergiu
-    <b>ZAVERGÍU</b>, <i>zavergii</i>, s.m. Revoluţionar grec din 1821: <i>p. gener.</i> răsculat, răzvrătit. - <b>Zaveră</b> + suf. -<i>giu</i>.
+    <b>ZAVERGÍU</b>, <i>zavergii</i>, s.m. Revoluționar grec din 1821: <i>p. gener.</i> răsculat, răzvrătit. - <b>Zaveră</b> + suf. -<i>giu</i>.
     zavescă
     <b>ZAVÉSCĂ</b> s.f. (Înv.) Taxă specială plătită vistieriei în evul mediu, în Moldova, pentru redeschiderea unui proces. - Et. nec.
     ...</pre>
@@ -931,46 +931,46 @@ online</i> dacă nu pot să stau prea mult pe Internet?</a></h3>
 <h3><a name="moderator">Vreau să devin moderator al <i>DEX online</i></a></h3>
 
   Moderatorii <i>DEX online</i> au acces aproape neîngrădit la baza de
-  date, incluzând moderarea definiţiilor recent trimise, editarea
+  date, incluzând moderarea definițiilor recent trimise, editarea
   celor existente sau modificarea formelor flexionare ale
   cuvintelor. De aceea, acordăm dreptul de moderator persoanelor care
-  şi-au dovedit bunele intenţii faţă de <i>DEX online.</i> De exemplu,
-  după ce contribuiţi cu cel puţin 100 de definiţii la <i>DEX
-  online</i>, puteţi cere să deveniţi moderator. <a
-  href="contact.php">Scrieţi-ne</a> pentru detalii.
+  și-au dovedit bunele intenții față de <i>DEX online.</i> De exemplu,
+  după ce contribuiți cu cel puțin 100 de definiții la <i>DEX
+  online</i>, puteți cere să deveniți moderator. <a
+  href="contact.php">Scrieți-ne</a> pentru detalii.
 
 
 <h3><a name="cod">Vreau să scriu cod pentru <i>DEX online</i></a></h3>
 
-  Sunteţi mană cerească! Puteţi vedea codul-sursă al <i>DEX online</i>
+  Sunteți mană cerească! Puteți vedea codul-sursă al <i>DEX online</i>
   la <a href="http://svn.dexonline.ro">http://svn.dexonline.ro</a>. Dacă
-  doriţi să obţineţi o copie completă a codului şi să îl modificaţi,
-  citiţi <a href="codeAccess.php">aceste instrucţiuni</a>.
+  doriți să obțineți o copie completă a codului și să îl modificați,
+  citiți <a href="codeAccess.php">aceste instrucțiuni</a>.
 
 
 <h3><a name="bug">Vreau să repar un bug în <i>DEX online</i></a></h3>
 
-  Vă mulţumim anticipat! Lista de bug-uri din <i>DEX online</i> este
+  Vă mulțumim anticipat! Lista de bug-uri din <i>DEX online</i> este
   la <a
   href="http://bugzilla.dexonline.ro">http://bugzilla.dexonline.ro</a>.
 
 
 <h3><a name="client">Vreau să scriu un client pentru <i>DEX online</i></a></h3>
 
-  <i>DEX online</i> ştie să răspundă la întrebări de tipul "vreau
-  toate definiţiile şi cuvintele care s-au modificat de la data
-  <i>X</i>". Puteţi deci scrie un client care se conectează periodic
-  la <i>DEX online</i> pentru a transfera ultimele noutăţi. Pentru mai
-  multe informaţii, citiţi <a href="update3.php">documentaţia</a>
+  <i>DEX online</i> știe să răspundă la întrebări de tipul "vreau
+  toate definițiile și cuvintele care s-au modificat de la data
+  <i>X</i>". Puteți deci scrie un client care se conectează periodic
+  la <i>DEX online</i> pentru a transfera ultimele noutăți. Pentru mai
+  multe informații, citiți <a href="update3.php">documentația</a>
   protocolului de sincronizare.
 
 <h3><a name="scramble">Am contribuit la <i>DEX online</i>, dar
-adresa mea de email e scrisă greşit!</a></h3>
+adresa mea de email e scrisă greșit!</a></h3>
 
-  Aceasta a fost şi intenţia noastră, datorită modului în care unii
-  oameni s-au gândit să câştige bani pe Internet. Ei au nişte programe
-  care navighează pe Internet, deschid pagini la întâmplare şi extrag
-  toate bucăţile de text care arată ca o adresă de email. Apoi vând
+  Aceasta a fost și intenția noastră, datorită modului în care unii
+  oameni s-au gândit să câștige bani pe Internet. Ei au niște programe
+  care navighează pe Internet, deschid pagini la întâmplare și extrag
+  toate bucățile de text care arată ca o adresă de email. Apoi vând
   adresele de email astfel extrase, cu milioanele, diverselor companii
   care vând te miri ce pe Internet. Aceste companii încep să-i agaseze
   pe proprietarii respectivelor adrese cu zeci de emailuri
@@ -978,146 +978,146 @@ adresa mea de email e scrisă greşit!</a></h3>
 
   <br/><br/>
 
-  Dacă am fi lăsat toate adresele în forma lor originală, toţi
-  voluntarii care şi-au dat adresa de email ar fi început să primească
+  Dacă am fi lăsat toate adresele în forma lor originală, toți
+  voluntarii care și-au dat adresa de email ar fi început să primească
   spam (care poate ajunge lejer la 100 de mesaje pe zi). Din acest
   motiv am alterat un pic adresele de email, astfel încât ele să fie
-  inteligibile de către un om, dar (sper) nu şi de către un
-  program. În plus, voluntarii au dreptul de a-şi ascunde complet
+  inteligibile de către un om, dar (sper) nu și de către un
+  program. În plus, voluntarii au dreptul de a-și ascunde complet
   adresa de email.
 
 
 <h3><a name="otrs">OTRS</a></h3>
 
-  Dacă sunteţi moderator al <i>DEX online,</i> ne puteţi ajuta să
+  Dacă sunteți moderator al <i>DEX online,</i> ne puteți ajuta să
   răspundem la emailurile venite pe adresa de contact. Acestea vin în
-  număr relativ mare, dar avem unelte pentru a uşura
+  număr relativ mare, dar avem unelte pentru a ușura
   răspunsurile. Folosim un pachet software numit OTRS, care permite
   mai multor voluntari să conlucreze pentru a răspunde la
   emailuri. OTRS permite răspunsuri-tip cu care putem procesa foarte
-  uşor majoritatea mesajelor primite. <a
-  href="contact.php">Scrieţi-ne</a> dacă sunteţi interesat.
+  ușor majoritatea mesajelor primite. <a
+  href="contact.php">Scrieți-ne</a> dacă sunteți interesat.
 
 
-<h3><a name="fulltext">Ce înseamnă opţiunea "Caută în tot textul
-definiţiilor"?</a></h3>
+<h3><a name="fulltext">Ce înseamnă opțiunea "Caută în tot textul
+definițiilor"?</a></h3>
 
-  Când această opţiune <b>nu</b> este bifată, <i>DEX online</i> caută
-  numai prin cuvintele-titlu ale definiţiilor. De exemplu, o căutare
-  după cuvântul "copil" va produce doar definiţiile pentru "copil".
-  Când această opţiune este bifată, o căutare după cuvântul "copil" va
-  produce toate definiţiile care conţin, oriunde în cuprinsul lor,
+  Când această opțiune <b>nu</b> este bifată, <i>DEX online</i> caută
+  numai prin cuvintele-titlu ale definițiilor. De exemplu, o căutare
+  după cuvântul "copil" va produce doar definițiile pentru "copil".
+  Când această opțiune este bifată, o căutare după cuvântul "copil" va
+  produce toate definițiile care conțin, oriunde în cuprinsul lor,
   cuvântul "copil" (sau "copii", "copilului" sau alte forme
-  flexionare). Acest tip de căutare este util când nu vă mai amintiţi
-  un cuvânt, dar vă amintiţi câteva proprietăţi ale lui. De exemplu, o
+  flexionare). Acest tip de căutare este util când nu vă mai amintiți
+  un cuvânt, dar vă amintiți câteva proprietăți ale lui. De exemplu, o
   căutare după 
   <a href="search.php?cuv=medicament%20doz%C4%83%20mic%C4%83&text=1"
   >medicament doză mică</a> va produce rezultate relevante ca
-  "homeopatie", "picătură", "alcaloid" şi altele.<br/><br/>
+  "homeopatie", "picătură", "alcaloid" și altele.<br/><br/>
 
-  Dacă doriţi numai să căutaţi un cuvânt, vă recomandăm să <b>nu</b>
-  bifaţi această opţiune. Ea încetineşte căutarea, iar rezultatele
-  prezentate vă pot pune în încurcătură (deoarece veţi primi şi
-  definiţiile altor cuvinte care poate nu vă interesează). De exemplu,
-  dacă doriţi definiţia pentru "copil", dar din greşeală bifaţi
-  această opţiune, veţi primi şi definiţiile pentru "abandon",
-  "adopta", "ala-bala" şi multe alte definiţii nerelevante.
+  Dacă doriți numai să căutați un cuvânt, vă recomandăm să <b>nu</b>
+  bifați această opțiune. Ea încetinește căutarea, iar rezultatele
+  prezentate vă pot pune în încurcătură (deoarece veți primi și
+  definițiile altor cuvinte care poate nu vă interesează). De exemplu,
+  dacă doriți definiția pentru "copil", dar din greșeală bifați
+  această opțiune, veți primi și definițiile pentru "abandon",
+  "adopta", "ala-bala" și multe alte definiții nerelevante.
 
 
 <h3><a name="diacritice">Pot să folosesc diacritice în cuvintele
 căutate?</a></h3>
 
-  Da, dar nu este obligatoriu. <i>DEX online</i> "înţelege" termenii
-  căutaţi şi cu şi fără diacritice. De exemplu, dacă căutaţi <a
-  href="search.php?cuv=fata">fata</a>, veţi primi definiţii pentru
-  <i>fată, faţă. făta, făţa, fâţa</i> şi
-  <i>fâţă</i>. Dacă doriţi definiţiile pentru <i>fată</i> în mod
-  special, căutaţi <a href="search.php?cuv=fată">fată</a> cu
+  Da, dar nu este obligatoriu. <i>DEX online</i> "înțelege" termenii
+  căutați și cu și fără diacritice. De exemplu, dacă căutați <a
+  href="search.php?cuv=fata">fata</a>, veți primi definiții pentru
+  <i>fată, față. făta, făța, fâța</i> și
+  <i>fâță</i>. Dacă doriți definițiile pentru <i>fată</i> în mod
+  special, căutați <a href="search.php?cuv=fată">fată</a> cu
   diacritice.
 
 
 <h3><a name="tastare_diacritice">Cum tastez diacriticele <i>ă, â, î,
-ş, ţ?</i></a></h3>
+ș, ț?</i></a></h3>
 
-  Dacă folosiţi Windows XP, mergeţi în <i>Control Panel &#x2192;
+  Dacă folosiți Windows XP, mergeți în <i>Control Panel &#x2192;
   Regional and Language Options &#x2192; Languages &#x2192;
-  Details</i> şi adăugaţi tastatura românească. Tot acolo, la <i>Key
-  Settings,</i> puteţi alege cum să comutaţi între tastatura americană
-  şi cea românească (combinaţia implicită este Alt-Shift). "Tastatura
+  Details</i> și adăugați tastatura românească. Tot acolo, la <i>Key
+  Settings,</i> puteți alege cum să comutați între tastatura americană
+  și cea românească (combinația implicită este Alt-Shift). "Tastatura
   românească" este de fapt o mapare care face ca tastele de pe
   tastatura dumneavoastră să producă alte caractere când le
-  apăsaţi. În particular, diacriticele româneşti <i>ă, â, î, ş</i> şi
-  <i>ţ</i> sunt asignate tastelor
-  <i>[. \, ], ;</i> şi <i>'</i>.
+  apăsați. În particular, diacriticele românești <i>ă, â, î, ș</i> și
+  <i>ț</i> sunt asignate tastelor
+  <i>[. \, ], ;</i> și <i>'</i>.
 
   <br/><br/>
 
-  Dacă folosiţi altă variantă de Windows sau alt sistem de operare,
-  trebuie să le configuraţi în mod similar. Tastatura românească este
-  standard, deci diacriticele româneşti se vor afla în aceleaşi
-  poziţii pe tastatură.
+  Dacă folosiți altă variantă de Windows sau alt sistem de operare,
+  trebuie să le configurați în mod similar. Tastatura românească este
+  standard, deci diacriticele românești se vor afla în aceleași
+  poziții pe tastatură.
 
   <br/><br/>
 
-  Dacă nu doriţi să instalaţi maparea românească de tastatură, puteţi
-  folosi notaţiile <i>~a, ^a, ^i, ,s</i> şi <i>,t</i> respectiv pentru
-  <i>ă, â, î, ş</i> şi <i>ţ</i>.
+  Dacă nu doriți să instalați maparea românească de tastatură, puteți
+  folosi notațiile <i>~a, ^a, ^i, ,s</i> și <i>,t</i> respectiv pentru
+  <i>ă, â, î, ș</i> și <i>ț</i>.
 
 
 <h3><a name="regexp">Pot să folosesc expresii regulate?</a></h3>
 
-  Da. Folosiţi următoarele simboluri:
+  Da. Folosiți următoarele simboluri:
 
   <ul>
-    <li><b>?</b> se potriveşte cu orice caracter. De exemplu,
+    <li><b>?</b> se potrivește cu orice caracter. De exemplu,
     <b>?z</b> va găsi toate cuvintele din două litere în
     care a doua literă este <b>z</b>.</li>
 
-    <li><b>*</b> se potriveşte cu orice şir de caractere, inclusiv cu
-    şirul vid. De exemplu, <b>z*</b> va găsi toate cuvintele care încep cu
+    <li><b>*</b> se potrivește cu orice șir de caractere, inclusiv cu
+    șirul vid. De exemplu, <b>z*</b> va găsi toate cuvintele care încep cu
     <b>z</b>.</li>
 
-    <li><b>s1|s2</b> se potriveşte cu oricare din cele două şiruri. De
-    exemplu, <b>ana|caiafa</b> va găsi definiţiile pentru <b>ana</b> şi
+    <li><b>s1|s2</b> se potrivește cu oricare din cele două șiruri. De
+    exemplu, <b>ana|caiafa</b> va găsi definițiile pentru <b>ana</b> și
     pentru <b>caiafa</b>.</li>
 
-    <li><b>[set]</b> se potriveşte cu oricare literă din set. De exemplu,
+    <li><b>[set]</b> se potrivește cu oricare literă din set. De exemplu,
     <b>ma[uy]*</b> va găsi cuvintele care încep cu <b>mau</b> sau
     <b>may</b>.</li>
 
-    <li><b>[^set]</b> se potriveşte cu oricare literă care
+    <li><b>[^set]</b> se potrivește cu oricare literă care
     <b>nu</b> este în set. De exemplu, <b>*gh[^ei]*</b> va găsi
-    cuvintele care conţin grupul <b>gh</b>, dar nu în contextul
+    cuvintele care conțin grupul <b>gh</b>, dar nu în contextul
     <b>ghe</b> sau <b>ghi</b>.</li>
   </ul>
 
 
-<h3><a name="aprox">De ce, când caut un cuvânt, primesc definiţia unui
+<h3><a name="aprox">De ce, când caut un cuvânt, primesc definiția unui
 cu totul alt cuvânt?</a></h3>
 
-  Cea mai probabilă explicaţie este că aţi căutat un cuvânt care nu
+  Cea mai probabilă explicație este că ați căutat un cuvânt care nu
   există în <i>DEX online</i> (fie pentru că nu există în limba română,
-  fie pentru că niciunul din dicţionarele pe care le avem nu-l
-  menţionează). În această situaţie, <i>DEX online</i> vă oferă automat
+  fie pentru că niciunul din dicționarele pe care le avem nu-l
+  menționează). În această situație, <i>DEX online</i> vă oferă automat
   cuvintele care diferă prin cel mult o literă de cuvântul introdus
   (maxim cinci).
 
   <br/><br/>
 
-  O altă explicaţie este că aţi căutat o variantă a unui cuvânt sau un
-  cuvânt care admite variante. De exemplu, dacă căutaţi cuvântul <a
+  O altă explicație este că ați căutat o variantă a unui cuvânt sau un
+  cuvânt care admite variante. De exemplu, dacă căutați cuvântul <a
   href="search.php?cuv=cearceaf">cearceaf</a>,
-  veţi primi şi definiţia pentru <i>cearşaf</i>, care este forma
+  veți primi și definiția pentru <i>cearșaf</i>, care este forma
   literară.
 
 
-<h3><a name="nici_o_definitie">Unele cuvinte sunt menţionate, dar nu
-au nicio definiţie. E normal?</a></h3>
+<h3><a name="nici_o_definitie">Unele cuvinte sunt menționate, dar nu
+au nicio definiție. E normal?</a></h3>
 
-  Da. Multe cuvinte din <i>Dicţionarul ortografic, ortoepic şi
-  morfologic</i> nu au definiţie. Este firesc, deoarece respectivul
-  dicţionar tratează ortografia, nu semantica. Întâmplarea face că
-  niciun alt dicţionar din cele pe care le avem nu le menţionează,
-  dar sperăm ca în timp să facem rost şi de definiţiile acelor
+  Da. Multe cuvinte din <i>Dicționarul ortografic, ortoepic și
+  morfologic</i> nu au definiție. Este firesc, deoarece respectivul
+  dicționar tratează ortografia, nu semantica. Întâmplarea face că
+  niciun alt dicționar din cele pe care le avem nu le menționează,
+  dar sperăm ca în timp să facem rost și de definițiile acelor
   cuvinte. Un asemenea exemplu este <a
   href="search.php?cuv=volemic">volemic</a>.

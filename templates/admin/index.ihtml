@@ -17,40 +17,40 @@
              title="DEX online - Pagina moderatorului"}
     {include file="admin/recentlyVisited.ihtml"}
 
-    Aici găsiţi, deocamdată, un sumar al problemelor din baza de date
-    care necesită atenţie şi câteva mecanisme de căutare a lexemelor
-    şi definiţiilor.<br/><br/>
+    Aici găsiți, deocamdată, un sumar al problemelor din baza de date
+    care necesită atenție și câteva mecanisme de căutare a lexemelor
+    și definițiilor.<br/><br/>
 
     {if $numUnassociatedLexems}
       <a href="viewUnassociatedLexems.php"
-       >Lexeme neasociate cu nicio definiţie: {$numUnassociatedLexems}</a>
+       >Lexeme neasociate cu nicio definiție: {$numUnassociatedLexems}</a>
     {else}
-      Lexeme neasociate cu nicio definiţie: 0
+      Lexeme neasociate cu nicio definiție: 0
     {/if}
     <br/>
 
     {if $numUnassociatedDefinitions}
       <a href="viewUnassociatedDefinitions.php"
-       >Definiţii neasociate cu niciun lexem:
+       >Definiții neasociate cu niciun lexem:
        {$numUnassociatedDefinitions}</a>
     {else}
-      Definiţii neasociate cu niciun lexem: 0
+      Definiții neasociate cu niciun lexem: 0
     {/if}
     <br/>
 
     {if $numDefinitionsWithTypos}
-      <a href="viewTypos.php">Definiţii cu greşeli de tipar:
+      <a href="viewTypos.php">Definiții cu greșeli de tipar:
       {$numDefinitionsWithTypos}</a>
     {else}
-      Definiţii cu greşeli de tipar: 0
+      Definiții cu greșeli de tipar: 0
     {/if}
     <br/>
 
     {if $numTemporaryDefinitions}
       <a href="viewPendingDefinitions.php"
-        >Definiţii nemoderate: {$numTemporaryDefinitions}</a>
+        >Definiții nemoderate: {$numTemporaryDefinitions}</a>
     {else}
-      Definiţii nemoderate: 0
+      Definiții nemoderate: 0
     {/if}
     <br/>
 
@@ -125,14 +125,14 @@
         <input type="submit" name="editModel" value="Editează"/>
         <input type="submit" name="cloneModel" value="Clonează"/>
         {include file="admin/helpLink.ihtml" anchor="modelClone"}
-        <input type="submit" name="deleteModel" value="Şterge"/>
+        <input type="submit" name="deleteModel" value="Șterge"/>
         {include file="admin/helpLink.ihtml" anchor="modelDelete"}
       </form>
       <br/>
     {/if}
 
     <form action="definitionLookup.php" method="post">
-      Caută definiţii:
+      Caută definiții:
       <input type="text" name="name" size="10" value="*"/>
       &nbsp; &nbsp; starea:
       {include file="common/statusDropDown.ihtml"
@@ -151,7 +151,7 @@
                name="mo1" start=1 end=13}
       {include file="common/bits/numericDropDown.ihtml"
                name="da1" start=1 end=32}
-      &nbsp; &nbsp; şi
+      &nbsp; &nbsp; și
       {include file="common/bits/numericDropDown.ihtml"
                name="yr2" start=2001 end=`$currentYear+1` selected=$currentYear}
       {include file="common/bits/numericDropDown.ihtml"
@@ -175,13 +175,13 @@
       Pentru a verifica corectitudinea paradigmelor,
       <a href="../flex/verifyParadigms.php">click aici</a>.
       <div class="flexExplanation">
-        Rostul acestei pagini este de a verifica prin inspecţie
-        corectitudinea modelelor desfăşurate extrase de scriptul lui
+        Rostul acestei pagini este de a verifica prin inspecție
+        corectitudinea modelelor desfășurate extrase de scriptul lui
         Radu din LOC3/4. Pagina vă oferă maxim 4 lexeme din fiecare
         model, pe care încearcă să le aleagă cu sufixe cât mai
-        diferite. După ce trecem prin toate modelele şi le etichetăm
-        drept corecte sau greşite, îi trimitem lui Radu lista de greşeli
-        descoperite, pentru ca el să-şi poată îmbunătăţi scriptul de
+        diferite. După ce trecem prin toate modelele și le etichetăm
+        drept corecte sau greșite, îi trimitem lui Radu lista de greșeli
+        descoperite, pentru ca el să-și poată îmbunătăți scriptul de
         extragere a modelelor.
       </div>
       <br/>
@@ -192,13 +192,13 @@
   
       <div class="flexExplanation">
         Rostul acestei pagini este de a facilita etichetarea în masă a
-        lexemelor care există în DEX online, dar nu şi în LOC, pe baza
+        lexemelor care există în DEX online, dar nu și în LOC, pe baza
         sufixelor. De exemplu, există sute de lexeme neetichetate
-        terminate în „-tate”. Există şi 900 de lexeme din LOC terminate
-        în „-tate” şi absolut toate au modelul F117, deci aproape sigur
-        şi cele noi vor fi etichetate cu acelaşi model. Rolul
-        operatorului uman este să identifice excepţiile şi să indice
-        eventualele restricţii de flexionare.
+        terminate în „-tate”. Există și 900 de lexeme din LOC terminate
+        în „-tate” și absolut toate au modelul F117, deci aproape sigur
+        și cele noi vor fi etichetate cu același model. Rolul
+        operatorului uman este să identifice excepțiile și să indice
+        eventualele restricții de flexionare.
       </div>
       <br/>
 
@@ -206,8 +206,8 @@
       <a href="../flex/placeAccents.php">click aici</a>.
   
       <div class="flexExplanation">
-        Veţi primi o pagină cu 10 lexeme alese la întâmplare (deocamdată
-        avem de unde alege...) pentru care puteţi indica unde pică accentul.
+        Veți primi o pagină cu 10 lexeme alese la întâmplare (deocamdată
+        avem de unde alege...) pentru care puteți indica unde pică accentul.
       </div>
       <br/>
 

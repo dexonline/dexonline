@@ -16,7 +16,7 @@
   <tr>
     <td width="84%" bgcolor="#ffc0a0">
       <b>
-        DEX online &#x2013; Dicţionare ale limbii române
+        DEX online &#x2013; Dicționare ale limbii române
       </b>
     </td>
     <td width="1%" rowspan="5">&nbsp;</td>
@@ -50,8 +50,8 @@
       {/if}
 
       <a href="contrib.php">Contribuie la DEX!</a><br/>
-      <a href="corect.php" id="guideLink">Corect / greşit</a><br/>
-      <a href="faq.php">Informaţii</a><br/>
+      <a href="corect.php" id="guideLink">Corect / greșit</a><br/>
+      <a href="faq.php">Informații</a><br/>
       <a href="tools.php">Unelte</a><br/>
       <a href="top.php">Top</a><br/>
       <a href="contact.php">Contact</a>
@@ -88,16 +88,16 @@
     <td height="1" bgcolor="#a0e0a0"><b>Starea curentă</b></td>
   </tr><tr>
     <td height="1" style="border:#a0e0a0 solid 1px;">
-      <i>DEX online</i> a învăţat <b>{$words_total}</b> de definiţii,
+      <i>DEX online</i> a învățat <b>{$words_total}</b> de definiții,
       din care <b>{$words_last_month}</b> în ultima lună.<br/>
     </td>
   </tr>
 </table>
 
 <div class="copyright">
-  Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro). Copierea definiţiilor este
-  permisă sub <a href="{$wwwRoot}faq.php#licenta">licenţa GPL</a>, cu
-  condiţia păstrării acestei note.
+  Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro). Copierea definițiilor este
+  permisă sub <a href="{$wwwRoot}faq.php#licenta">licența GPL</a>, cu
+  condiția păstrării acestei note.
 </div>
 
 {if $debug}

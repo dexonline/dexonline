@@ -5,13 +5,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../styles/flex.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="../js/dex.js"></script>
-    <title>Confirmare ştergere lexem</title>
+    <title>Confirmare ștergere lexem</title>
   </head>
 
   <body>
     Lexemul
     {include file="common/bits/lexemName.ihtml" lexem=$lexem}
-    a fost şters. Puteţi vizita unul dintre omonimele listate mai jos sau
+    a fost șters. Puteți vizita unul dintre omonimele listate mai jos sau
     merge înapoi la <a href="../admin">pagina moderatorului</a>.
     <br/><br/>
 

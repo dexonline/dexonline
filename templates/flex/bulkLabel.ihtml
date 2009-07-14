@@ -19,13 +19,13 @@
     <ul>
       <li>Sunt prezentate maxim 20 de lexeme pe pagină.</li>
       <li>
-        Restricţiile nu sunt luate în considerare în timp real (toate
-        formele vor fi afişate chiar dacă bifaţi unele restricţii),
-        dar vor fi procesate corect când trimiteţi formularul.
+        Restricțiile nu sunt luate în considerare în timp real (toate
+        formele vor fi afișate chiar dacă bifați unele restricții),
+        dar vor fi procesate corect când trimiteți formularul.
       </li>
       <li>
-        Dacă ignoraţi un lexem, el nu va fi modificat şi va continua să apară în listă.
-        Îi puteţi adăuga un comentariu, dacă doriţi.
+        Dacă ignorați un lexem, el nu va fi modificat și va continua să apară în listă.
+        Îi puteți adăuga un comentariu, dacă doriți.
       </li>
     </ul>
 
@@ -69,7 +69,7 @@
             </div>
 
             <!-- Restriction checkboxes, if applicable -->
-            Restricţii:
+            Restricții:
             <input type="checkbox" id="restr_{$l->id}_S"
                    name="restr_{$l->id}[]" value="S"
             /><label for="restr_{$l->id}_S">Singular</label>
@@ -95,7 +95,7 @@
             <!-- Hide/show definitions -->
             <a href="#" id="defLink_{$l->id}"
                onclick="return blUpdateDefVisibility(this)"
-            >ascunde definiţiile</a>
+            >ascunde definițiile</a>
 
             <!-- Definitions -->
             <div class="blDefinitions" id="definitions_{$l->id}">

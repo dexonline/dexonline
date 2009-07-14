@@ -13,11 +13,11 @@
     {include file="admin/header.ihtml" title=$sectionTitle}
     {include file="admin/recentlyVisited.ihtml"}
 
-    Daţi click pe litera care trebuie accentuată sau bifaţi "Nu
+    Dați click pe litera care trebuie accentuată sau bifați "Nu
     necesită accent" pentru lexemele care nu necesită accent (cuvinte
-    compuse, cuvinte latineşti etc.). Lexemele sunt alese la
-    întâmplare dintre toate cele neaccentuate. Dacă nu ştiţi ce să
-    faceţi cu un lexem, săriţi-l (nu bifaţi nimic).
+    compuse, cuvinte latinești etc.). Lexemele sunt alese la
+    întâmplare dintre toate cele neaccentuate. Dacă nu știți ce să
+    faceți cu un lexem, săriți-l (nu bifați nimic).
 
     <form action="placeAccents.php" method="post">
       {foreach from=$lexems item=l}
@@ -47,7 +47,7 @@
             <td>
               <a class="ap_discreetLink" href="#"
                  onclick="return toggleDivVisibility('defs_{$l->id}');"
-                >Definiţii</a>
+                >Definiții</a>
             </td>
           </tr>
         </table>

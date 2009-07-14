@@ -13,7 +13,7 @@
              title=$sectionTitle}
     {include file="admin/recentlyVisited.ihtml"}
 
-    Mai întâi, alegeţi sufixul de examinat. În paranteză este trecut
+    Mai întâi, alegeți sufixul de examinat. În paranteză este trecut
     numărul de lexeme care au sufixul ales.
     <br/><br/>
 

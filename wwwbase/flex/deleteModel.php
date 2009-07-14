@@ -25,7 +25,7 @@ if ($deleteButton) {
   exit;
 }
 
-RecentLink::createOrUpdate('Ştergere model: ' . $model->getName());
+RecentLink::createOrUpdate('Ștergere model: ' . $model->getName());
 smarty_assign('modelType', $modelType);
 smarty_assign('modelNumber', $modelNumber);
 smarty_assign('lexems', $lexems);

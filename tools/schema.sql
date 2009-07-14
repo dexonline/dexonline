@@ -166,20 +166,6 @@ CREATE TABLE `User` (
 ) ENGINE=MyISAM AUTO_INCREMENT=10875 DEFAULT CHARSET=utf8 COLLATE=utf8_romanian_ci;
 
 --
--- Table structure for table `changes`
---
-
-DROP TABLE IF EXISTS `changes`;
-CREATE TABLE `changes` (
-  `id` int(11) NOT NULL auto_increment,
-  `counter` int(11) NOT NULL default '0',
-  `uid` int(11) NOT NULL default '0',
-  `diff` text collate utf8_romanian_ci,
-  `createDate` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20547 DEFAULT CHARSET=utf8 COLLATE=utf8_romanian_ci;
-
---
 -- Table structure for table `inflections`
 --
 

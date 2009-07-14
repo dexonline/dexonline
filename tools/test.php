@@ -31,7 +31,7 @@ assertEquals(1000000, int_size($s));
 
 // Check that we've got the shorthand->Unicode mappings right
 assertEquals(text_shorthandToUnicode("~a"), 'ă');
-assertEquals(text_shorthandToUnicode("~a^a^i,s,t"), 'ăâîşţ');
+assertEquals(text_shorthandToUnicode("~a^a^i,s,t"), 'ăâîșț');
 assertEquals(text_shorthandToUnicode("'^a'^A^'a^'A"), 'ấẤấẤ');
 assertEquals(text_shorthandToUnicode("'~a'~A~'a~'A"), 'ắẮắẮ');
 assertEquals(text_shorthandToUnicode("~a~A^a^A'a'A"), 'ăĂâÂáÁ');
@@ -44,7 +44,7 @@ assertEquals(text_shorthandToUnicode("'i'I`i`I^i^I"), 'íÍìÌîÎ');
 assertEquals(text_shorthandToUnicode(":i:I~i~I~n~N"), 'ïÏĩĨñÑ');
 assertEquals(text_shorthandToUnicode("'o'O`o`O^o^O"), 'óÓòÒôÔ');
 assertEquals(text_shorthandToUnicode(":o:O~o~O~r~R"), 'öÖõÕřŘ');
-assertEquals(text_shorthandToUnicode("~s~S,s,S,t,T"), 'šŠşŞţŢ');
+assertEquals(text_shorthandToUnicode("~s~S,s,S,t,T"), 'šŠșȘțȚ');
 assertEquals(text_shorthandToUnicode("'u'U`u`U^u^U"), 'úÚùÙûÛ');
 assertEquals(text_shorthandToUnicode(":u:U~u~U"), 'üÜŭŬ');
 assertEquals(text_shorthandToUnicode("'y'Y:y:Y~z~Z"), 'ýÝÿŸžŽ');
@@ -73,8 +73,8 @@ assertEquals(mb_substr('íÍìÌîÎ', 3, 2), 'Ìî');
 
 // Test string reversal
 assertEquals('cba', text_reverse('abc'));
-assertEquals('ţşîâă', text_reverse('ăâîşţ'));
-assertEquals('ŢŞÎÂĂ', text_reverse('ĂÂÎŞŢ'));
+assertEquals('țșîâă', text_reverse('ăâîșț'));
+assertEquals('ȚȘÎÂĂ', text_reverse('ĂÂÎȘȚ'));
 
 // Check suffix removals
 assertEquals(_text_removeKnownSuffixes(''), '');
@@ -122,7 +122,7 @@ assertEquals('<a class="ref" href="/search.php?cuv=y">x</a> foobar ' .
 	     '<a class="ref" href="/search.php?cuv=t">z</a>',
 	     _text_convertReferencesToHtml('|x|y| foobar |z|t|'));
 
-assertEquals(_text_insertSuperscripts("copil^+123. copil_-123----"),
+assertEquals(_text_insertSuperscripts("copil^{+123}. copil_{-123}----"),
 	     "copil<sup>+123</sup>. copil<sub>-123</sub>----");
 assertEquals(_text_insertSuperscripts("copil^i^2"), "copil^i<sup>2</sup>");
 
@@ -138,8 +138,8 @@ assertEquals('<@bold, but inside tag@>',
 	     _text_internalToHtml('<@bold, but inside tag@>', FALSE));
 assertEquals('foo &lt; <i>bar</i>',
 	     _text_internalToHtml('foo &lt; $bar$', FALSE));
-assertEquals('c&nbsp;ă&nbsp;ţ&nbsp;e&nbsp;l',
-	     _text_internalToHtml('%căţel%', FALSE));
+assertEquals('c&nbsp;ă&nbsp;ț&nbsp;e&nbsp;l',
+	     _text_internalToHtml('%cățel%', FALSE));
 assertEquals('foo b&nbsp;a&nbsp;r &nbsp;&amp; bib',
 	     _text_internalToHtml('foo %bar &amp;% bib', FALSE));
 assertEquals('u&nbsp;n&nbsp;u, &nbsp;d&nbsp;o&nbsp;i',
@@ -151,14 +151,14 @@ assertEquals("okely\ndokely",
 assertEquals("okely<br/>\ndokely",
 	     _text_internalToHtml("okely\ndokely", TRUE));
 
-$internalDef = '@MÁRE^2@, $mări$, s.f. Nume generic dat vastelor întinderi de apă stătătoare, adânci şi sărate, de pe suprafaţa |Pământului|Pământ|, care de obicei sunt unite cu |oceanul|ocean| printr-o |strâmtoare|strâmtoare|; parte a oceanului de lângă |ţărm|ţărm|; $p.ext.$ ocean. * Expr $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări şi ţări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă şansele de reuşită sunt minime. $Peste (nouă) mări şi (nouă) ţări$ = foarte departe. ** Fig. Suprafaţă vastă; întindere mare; imensitate. ** Fig. Mulţime (nesfârşită), cantitate foarte mare. - Lat. @mare, -is@.';
+$internalDef = '@MÁRE^2@, $mări$, s.f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu |oceanul|ocean| printr-o |strâmtoare|strâmtoare|; parte a oceanului de lângă |țărm|țărm|; $p.ext.$ ocean. * Expr $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.';
 assertEquals($internalDef,
 	     text_internalizeDefinition('@M\'ARE^2@, $m~ari$, s.f. Nume generic dat vastelor ^intinderi de ap~a st~at~atoare, ad^anci ,si s~arate, de pe suprafa,ta |P~am^antului|-|, care de obicei sunt unite cu |oceanul|-| printr-o |str^amtoare||; parte a oceanului de l^ang~a |,t~arm||; $p.ext.$ ocean. * Expr $Marea cu sarea$ = mult, totul; imposibilul. $A v^antura m~ari ,si ,t~ari$ = a c~al~atori mult. $A ^incerca marea cu degetul$ = a face o ^incercare, chiar dac~a ,sansele de reu,sit~a sunt minime. $Peste (nou~a) m~ari ,si (nou~a) ,t~ari$ = foarte departe. ** Fig. Suprafa,t~a vast~a; ^intindere mare; imensitate. ** Fig. Mul,time (nesf^ar,sit~a), cantitate foarte mare. - Lat. @mare, -is@.'));
-assertEquals('<b>MÁRE<sup>2</sup></b>, <i>mări</i>, s.f. Nume generic dat vastelor întinderi de apă stătătoare, adânci şi sărate, de pe suprafaţa <a class="ref" href="/search.php?cuv=Pământ">Pământului</a>, care de obicei sunt unite cu <a class="ref" href="/search.php?cuv=ocean">oceanul</a> printr-o <a class="ref" href="/search.php?cuv=strâmtoare">strâmtoare</a>; parte a oceanului de lângă <a class="ref" href="/search.php?cuv=ţărm">ţărm</a>; <i>p.ext.</i> ocean. &#x2662; Expr <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări şi ţări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă şansele de reuşită sunt minime. <i>Peste (nouă) mări şi (nouă) ţări</i> = foarte departe. &#x2666; Fig. Suprafaţă vastă; întindere mare; imensitate. &#x2666; Fig. Mulţime (nesfârşită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is</b>.',
+assertEquals('<b>MÁRE<sup>2</sup></b>, <i>mări</i>, s.f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/search.php?cuv=Pământ">Pământului</a>, care de obicei sunt unite cu <a class="ref" href="/search.php?cuv=ocean">oceanul</a> printr-o <a class="ref" href="/search.php?cuv=strâmtoare">strâmtoare</a>; parte a oceanului de lângă <a class="ref" href="/search.php?cuv=țărm">țărm</a>; <i>p.ext.</i> ocean. &#x2662; Expr <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. &#x2666; Fig. Suprafață vastă; întindere mare; imensitate. &#x2666; Fig. Mulțime (nesfârșită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is</b>.',
 	     text_htmlize($internalDef));
 assertEquals($internalDef, text_internalizeDefinition($internalDef));
 
-assertEquals('căţel', text_internalizeWordName("C~A,t'EL"));
+assertEquals('cățel', text_internalizeWordName("C~A,t'EL"));
 assertEquals('ă', text_internalizeWordName("~~A~~!@#$%^&*()123456790"));
 
 assertEquals('casă', text_removeAccents('cásă'));
@@ -184,7 +184,7 @@ $def->internalRep = 'mamă';
 assertEquals('mamă', text_extractLexicon($def));
 
 assert(text_hasRegexp('asd[0-9]'));
-assert(!text_hasRegexp('ăâîşţ'));
+assert(!text_hasRegexp('ăâîșț'));
 assert(text_hasRegexp('cop?l'));
 
 assertEquals("like 'cop%l'", text_dexRegexpToMysqlRegexp('cop*l'));
@@ -202,7 +202,7 @@ assertEqualArrays(array(0, 0, 0), text_analyzeQuery('mama'));
 assertEqualArrays(array(1, 0, 0), text_analyzeQuery('mamă'));
 assertEqualArrays(array(0, 1, 0), text_analyzeQuery('cop?l'));
 assertEqualArrays(array(0, 1, 0), text_analyzeQuery('cop[c-g]l'));
-assertEqualArrays(array(1, 1, 0), text_analyzeQuery('căţ[c-g]l'));
+assertEqualArrays(array(1, 1, 0), text_analyzeQuery('căț[c-g]l'));
 assertEqualArrays(array(0, 0, 1), text_analyzeQuery('1234567'));
 
 assertEquals('&#x25;&#x7e;&#x24;&#x40;&#x27;',
@@ -250,7 +250,7 @@ assertEquals('', $t[2]->from);
 assertEquals('uri', $t[2]->to);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = text_extractTransforms('sămânţă', 'seminţe', 0);
+$t = text_extractTransforms('sămânță', 'semințe', 0);
 assertEquals(4, count($t));
 assertEquals('ă', $t[0]->from);
 assertEquals('e', $t[0]->to);
@@ -260,7 +260,7 @@ assertEquals('ă', $t[2]->from);
 assertEquals('e', $t[2]->to);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = text_extractTransforms('deşert', 'deşartelor', 0);
+$t = text_extractTransforms('deșert', 'deșartelor', 0);
 assertEquals(3, count($t));
 assertEquals('e', $t[0]->from);
 assertEquals('a', $t[0]->to);
@@ -428,12 +428,12 @@ assertEquals("apă", text_placeAccent("apă", 3, ''));
 assertEquals("'a", text_placeAccent("a", 1, ''));
 assertEquals("a", text_placeAccent("a", 2, ''));
 
-assertEquals("şa'ibă", text_placeAccent("şaibă", 2, ''));
-assertEquals("ş'aibă", text_placeAccent("şaibă", 3, ''));
-assertEquals("ş'aibă", text_placeAccent("şaibă", 2, 'a'));
-assertEquals("ş'aibă", text_placeAccent("şaibă", 3, 'a'));
-assertEquals("şa'ibă", text_placeAccent("şaibă", 2, 'i'));
-assertEquals("şa'ibă", text_placeAccent("şaibă", 3, 'i'));
+assertEquals("șa'ibă", text_placeAccent("șaibă", 2, ''));
+assertEquals("ș'aibă", text_placeAccent("șaibă", 3, ''));
+assertEquals("ș'aibă", text_placeAccent("șaibă", 2, 'a'));
+assertEquals("ș'aibă", text_placeAccent("șaibă", 3, 'a'));
+assertEquals("șa'ibă", text_placeAccent("șaibă", 2, 'i'));
+assertEquals("șa'ibă", text_placeAccent("șaibă", 3, 'i'));
 
 assertEquals("unfuckingbelievable", text_insert("unbelievable", "fucking", 2));
 assertEquals("abcdef", text_insert("cdef", "ab", 0));
@@ -441,13 +441,13 @@ assertEquals("abcdef", text_insert("abcd", "ef", 4));
 
 assertEquals('mamă      ', text_padRight('mamă', 10));
 assertEquals('mama      ', text_padRight('mama', 10));
-assertEquals('ăâîşţ   ', text_padRight('ăâîşţ', 8));
-assertEquals('ăâîşţ', text_padRight('ăâîşţ', 5));
-assertEquals('ăâîşţ', text_padRight('ăâîşţ', 3));
+assertEquals('ăâîșț   ', text_padRight('ăâîșț', 8));
+assertEquals('ăâîșț', text_padRight('ăâîșț', 5));
+assertEquals('ăâîșț', text_padRight('ăâîșț', 3));
 
 assertEqualArrays(array('c', 'a', 'r'), text_unicodeExplode('car'));
-assertEqualArrays(array('ă', 'a', 'â', 'ş', 'ţ'),
-                  text_unicodeExplode('ăaâşţ'));
+assertEqualArrays(array('ă', 'a', 'â', 'ș', 'ț'),
+                  text_unicodeExplode('ăaâșț'));
 
 assertEqualArrays(array(1, 5, 10),
                   util_intersectArrays(array(1, 3, 5, 7, 9, 10),

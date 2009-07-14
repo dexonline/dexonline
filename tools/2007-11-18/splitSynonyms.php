@@ -144,7 +144,7 @@ while (($dbRow = mysql_fetch_assoc($dbResult)) != null) {
         if (!count($lexems)) {
           print "Creez lexemul [$part]\n";
           $lexem = Lexem::create($part, 'T', '1', '');
-          $lexem->comment = 'Creat pentru despărţirea în cuvinte a unui ' .
+          $lexem->comment = 'Creat pentru despărțirea în cuvinte a unui ' .
             'alt lexem';
           $lexem->save();
           $lexem->id = db_getLastInsertedId();

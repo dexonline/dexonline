@@ -18,7 +18,7 @@
     {include file="admin/recentlyVisited.ihtml"}
     {include file="common/errorMessage.ihtml"}
 
-    <div class="lexemSectionHeader">Proprietăţi</div>
+    <div class="lexemSectionHeader">Proprietăți</div>
 
     <form action="lexemEdit.php" method="post">
     <div class="lexemSection">
@@ -120,9 +120,9 @@
 
     {if $is_flex_moderator}
       <div class="lexemSection">
-        Puteţi face etichetarea în trei moduri: (1) alegeţi una dintre
-        sugestii; (2) indicaţi un cuvânt care se flexionează la fel; sau
-        (3) indicaţi tipul şi numărul modelului.
+        Puteți face etichetarea în trei moduri: (1) alegeți una dintre
+        sugestii; (2) indicați un cuvânt care se flexionează la fel; sau
+        (3) indicați tipul și numărul modelului.
         <br/><br/>
   
         <b>1. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b>
@@ -160,7 +160,7 @@
         </select>
         <br/>
   
-        cu restricţiile
+        cu restricțiile
         <input type="checkbox" id="restrS" name="restr[]" value="S"
           {if $restrS}checked="checked"{/if}/>
         <label for="restrS">Singular</label>
@@ -196,23 +196,23 @@
         >{$lexem->comment|escape}</textarea>
     </div>
 
-    <div class="lexemSectionHeader">Acţiuni</div>
+    <div class="lexemSectionHeader">Acțiuni</div>
 
     <div class="lexemSection">
-      <input type="submit" name="refreshLexem" value="Reafişează"/>
+      <input type="submit" name="refreshLexem" value="Reafișează"/>
       &nbsp;&nbsp;
       <input type="submit" name="updateLexem" value="Salvează"/>
       &nbsp;&nbsp;
       <input type="submit" name="cloneLexem" value="Clonează"/>
       {include file="admin/helpLink.ihtml" anchor="lexemClone"}
       &nbsp;&nbsp;
-      <input type="submit" name="deleteLexem" value="Şterge"
+      <input type="submit" name="deleteLexem" value="Șterge"
            {if $lexem->isLoc}disabled="disabled"{/if}
-           onclick="return confirm('Confirmaţi ştergerea acestui lexem?');"/>
+           onclick="return confirm('Confirmați ștergerea acestui lexem?');"/>
       {include file="admin/helpLink.ihtml" anchor="lexemDelete"}
       <br/>
 
-      Asociază definiţia cu ID-ul:
+      Asociază definiția cu ID-ul:
       <input type="text" name="associateDefinitionId"/>
       <input type="submit" name="associateDefinition" value="Asociază"/>
       {include file="admin/helpLink.ihtml" anchor="lexemAssociateNew"}
@@ -220,7 +220,7 @@
     </form>
 
     <div class="lexemSectionHeader">
-      Definiţii asociate ({$searchResults|@count}):
+      Definiții asociate ({$searchResults|@count}):
     </div>
 
     <div class="lexemSection">
@@ -246,8 +246,8 @@
       {/foreach}
 
       {if !count($searchResults)}
-        Nu există nicio definiţie. Puteţi crea o
-        mini-definiţie. Introduceţi termenul-destinaţie, fără alte
+        Nu există nicio definiție. Puteți crea o
+        mini-definiție. Introduceți termenul-destinație, fără alte
         formatări (bold, italic etc.):<br/>
 
         <form action="lexemEdit.php" method="post">

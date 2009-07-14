@@ -58,7 +58,7 @@ while ($dbRow = mysql_fetch_assoc($dbResult)) {
     }
 
     //print "$baseForm=>$form\n";
-    if (!text_validateAlphabet($form, "aăâbcdefghiîjklmnopqrsştţuvwxyz'")) {
+    if (!text_validateAlphabet($form, "aăâbcdefghiîjklmnopqrsștțuvwxyz'")) {
       die("Illegal characters in form $form\n");
     }
     $transforms = text_extractTransforms($baseForm, $form,

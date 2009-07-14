@@ -74,7 +74,7 @@ function logged_query($query) {
     $message = "A intervenit o eroare $errno la comunicarea cu baza de date: ";
 
     if ($errno == 1139) {
-      $message .= "Verificaţi că parantezele folosite sunt închise corect.";
+      $message .= "Verificați că parantezele folosite sunt închise corect.";
     } else if ($errno == 1049) {
       $message .= "Nu există o bază de date pentru această versiune LOC.";
     } else {
@@ -96,16 +96,6 @@ function logged_query($query) {
 }
 
 /*************************** Users *******************************/
-
-function db_changesInsert($definitionId, $userId, $oldInternalRep) {
-  $now = time();
-  $oldInternalRep = addslashes($oldInternalRep);
-  return logged_query("insert into changes set " .
-                      "definitionId = $definitionId, " .
-                      "userId = $userId, " .
-                      "internalRep = '$oldInternalRep', " .
-                      "createDate = $now");
-}
 
 function db_getUserById($id) {
   $query = "select * from User where Id = '$id'";

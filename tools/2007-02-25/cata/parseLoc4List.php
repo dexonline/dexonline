@@ -1,7 +1,7 @@
 <?
 require_once("common.php");
 DEFINE('FILE_NAME', '/tmp/loc4-list.html');
-DEFINE('LEGAL_LEXEM_CHARACTERS', "aăâbcdefghiîjklmnopqrsştţuvwxyzäåçéöüù'");
+DEFINE('LEGAL_LEXEM_CHARACTERS', "aăâbcdefghiîjklmnopqrsștțuvwxyzäåçéöüù'");
 $GLOBALS['modelTypes'] = array('A', 'I', 'F', 'M', 'MF', 'N', 'P', 'V', 'VT');
 list($verbose, $fileName) = parseArguments();
 $data = readAndFormatFileL($fileName);
@@ -79,8 +79,8 @@ function readAndFormatFileL($fileName) {
 
   $data = str_replace(array("\n", "\r", '&#258;', '&#259;', '&#350;',
                             '&#354;', '&#355;', '&#269;'),
-                      array(' ', ' ', 'Ă', 'ă', 'Ş',
-                            'Ţ', 'ţ', 'č'),
+                      array(' ', ' ', 'Ă', 'ă', 'Ș',
+                            'Ț', 'ț', 'č'),
                       $data);
   $data = preg_replace('/ +/', ' ', $data);
   return $data;
@@ -288,14 +288,14 @@ function saveLexemWithExceptions($l) {
                       array('administratoare', 'MF', '66', ''),
                       array('ăllalt', 'P', '23', ''),
                       array('ălalalt', 'P', '23', ''),
-                      array('beşi', 'V', '319', ''),
+                      array('beși', 'V', '319', ''),
                       array('câtea', 'F', '151', ''),
                       array('celalalt', 'P', '31', ''),
                       array('cellalt', 'P', '31', ''),
-                      array('greaţă', 'F', '38', ''),
+                      array('greață', 'F', '38', ''),
                       array('istalalt', 'P', '63', ''),
                       array('istălalt', 'P', '63', ''),
-                      array('înşi', 'MF', '4', ''),
+                      array('înși', 'MF', '4', ''),
                       array('mielea', 'P', '74', ''),
                       array('oară', 'MF', '28', ''),
                       array('oare', 'MF', '66', ''),

@@ -33,7 +33,7 @@ insert into Definition set
 
 insert into Word set
 	Id = 2,
-	Name = "fâţă",
+	Name = "fâță",
 	Priority = 0,
 	DefinitionId = 2;
 
@@ -41,9 +41,9 @@ insert into Definition set
 	Id = 2,
 	UserId = 1,
 	SourceId = 1,
-	Lexicon = "fâţă",
-	InternalRep = '@FẤŢĂ,@ $fâţe,$ s.f. |Peşte|peste| mic care se fâţâie.',
-	HtmlRep = '<b>FẤŢĂ,</b> <i>fâţe,</i> s.f. <a class="ref" href="/search.php?cuv=peste">Peşte</a> mic care se fâţâie.';
+	Lexicon = "fâță",
+	InternalRep = '@FẤȚĂ,@ $fâțe,$ s.f. |Pește|peste| mic care se fâțâie.',
+	HtmlRep = '<b>FẤȚĂ,</b> <i>fâțe,</i> s.f. <a class="ref" href="/search.php?cuv=peste">Pește</a> mic care se fâțâie.';
 
 insert into Word set
 	Id = 3,
@@ -77,8 +77,8 @@ insert into Definition set
 	UserId = 1,
 	SourceId = 1,
 	Lexicon = "mare",
-	InternalRep = "@MÁRE^2@, $mări$, s.f. Nume generic dat vastelor întinderi de apă stătătoare, adânci şi sărate, de pe suprafaţa |Pământului|Pământ|, care de obicei sunt unite cu |oceanul|ocean| printr-o |strâmtoare|strâmtoare|; parte a oceanului de lângă |ţărm|ţărm|; $p.ext.$ ocean. * Expr $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări şi ţări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă şansele de reuşită sunt minime. $Peste (nouă) mări şi (nouă) ţări$ = foarte departe. ** Fig. Suprafaţă vastă; întindere mare; imensitate. ** Fig. Mulţime (nesfârşită), cantitate foarte mare. - Lat. @mare, -is@.",
-	HtmlRep = '<b>MÁRE<sup>2</sup></b>, <i>mări</i>, s.f. Nume generic dat vastelor întinderi de apă stătătoare, adânci şi sărate, de pe suprafaţa <a class="ref" href="/search.php?cuv=Pământ">Pământului</a>, care de obicei sunt unite cu <a class="ref" href="/search.php?cuv=ocean">oceanul</a> printr-o <a class="ref" href="/search.php?cuv=strâmtoare">strâmtoare</a>; parte a oceanului de lângă <a class="ref" href="/search.php?cuv=ţărm">ţărm</a>; <i>p.ext.</i> ocean. &loz; Expr <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări şi ţări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă şansele de reuşită sunt minime. <i>Peste (nouă) mări şi (nouă) ţări</i> = foarte departe. &diams; Fig. Suprafaţă vastă; întindere mare; imensitate. &diams; Fig. Mulţime (nesfârşită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is</b>.';
+	InternalRep = "@MÁRE^2@, $mări$, s.f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu |oceanul|ocean| printr-o |strâmtoare|strâmtoare|; parte a oceanului de lângă |țărm|țărm|; $p.ext.$ ocean. * Expr $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.",
+	HtmlRep = '<b>MÁRE<sup>2</sup></b>, <i>mări</i>, s.f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/search.php?cuv=Pământ">Pământului</a>, care de obicei sunt unite cu <a class="ref" href="/search.php?cuv=ocean">oceanul</a> printr-o <a class="ref" href="/search.php?cuv=strâmtoare">strâmtoare</a>; parte a oceanului de lângă <a class="ref" href="/search.php?cuv=țărm">țărm</a>; <i>p.ext.</i> ocean. &loz; Expr <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. &diams; Fig. Suprafață vastă; întindere mare; imensitate. &diams; Fig. Mulțime (nesfârșită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is</b>.';
 
 update Definition set
 	Status = 0,
@@ -87,12 +87,12 @@ update Definition set
 
 
 insert into GuideEntry set
-  Correct = '@Aşa@ e bine!',
-  CorrectHtml = '<b>Aşa</b> e bine!',
-  Wrong = '@Aşa@ e rău!',
-  WrongHtml = '<b>Aşa</b> e rău!',
-  Comments = 'Şi o explicaţie, cu |legătură|copil|.',
-  CommentsHtml = 'Şi o explicaţie, cu <a class="ref" href="/search.php?cuv=copil">legătură</a>.',
+  Correct = '@Așa@ e bine!',
+  CorrectHtml = '<b>Așa</b> e bine!',
+  Wrong = '@Așa@ e rău!',
+  WrongHtml = '<b>Așa</b> e rău!',
+  Comments = 'Și o explicație, cu |legătură|copil|.',
+  CommentsHtml = 'Și o explicație, cu <a class="ref" href="/search.php?cuv=copil">legătură</a>.',
   Status = 0,
 	createDate = unix_timestamp(),
 	modDate = unix_timestamp();
@@ -100,7 +100,7 @@ INSERT INTO Source (
   ShortName, Name, Author, Publisher, Year, CanContribute, CanModerate
 ) VALUES
   ("DEX '98",
-  "Dicţionarul explicativ al limbii române",
+  "Dicționarul explicativ al limbii române",
   'Academia Română, Institutul de Lingvistică "Iorgu Iordan"',
   "Editura Univers Enciclopedic",
   "1998",
@@ -108,15 +108,15 @@ INSERT INTO Source (
   1),
 
   ("Sinonime",
-  "Dicţionar de sinonime",
-  "Mircea şi Luiza Seche",
-  "Editura Litera Internaţional",
+  "Dicționar de sinonime",
+  "Mircea și Luiza Seche",
+  "Editura Litera Internațional",
   "2002",
   1,
   1),
 
   ("Neoficial",
-  "Această sursă include definiţii ale unor cuvinte de uz curent care nu există în nici unul din celelalte dicţionare",
+  "Această sursă include definiții ale unor cuvinte de uz curent care nu există în nici unul din celelalte dicționare",
   "",
   "",
   "",

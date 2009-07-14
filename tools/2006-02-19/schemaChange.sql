@@ -17,135 +17,135 @@ CREATE TABLE GuideEntry (
 INSERT INTO GuideEntry (Correct, Wrong, Comments) VALUES
   ('Eu am numai trei picioare.\nNu am decât 10000 lei.',
    'Am decât 10000 lei.',
-   '$Numai$ se foloseşte în construcţii afirmative, iar $decât$ se foloseşte în construcţii negative.'),
+   '$Numai$ se folosește în construcții afirmative, iar $decât$ se folosește în construcții negative.'),
 
   ('Eu sunt',
    'Eu sînt, eu sânt',
-   'Fără comentarii. Dacă ţineţi morţiş să vă împotriviţi normelor ortografice curente şi să scrieţi cum aţi învăţat, scrieţi $eu sînt$. $Eu sânt$ este greşit după ambele seturi de norme.'),
+   'Fără comentarii. Dacă țineți morțiș să vă împotriviți normelor ortografice curente și să scrieți cum ați învățat, scrieți $eu sînt$. $Eu sânt$ este greșit după ambele seturi de norme.'),
 
    ('Înger\nA hotărî\nReîntregire\nHotărât\nHotărând',
     'Ânger\nA hotărâ\nReântregire\nHotărît\nHotărînd',
-    'Se foloseşte $î$, nu $â$, la începutul cuvântului, la sfârşitul cuvântului şi în cuvintele formate cu prefix dacă $î$ este prima literă din rădăcină. Participiul şi gerunziul verbelor nu fac excepţie: dacă participiul se formează cu $-ât$ sau dacă gerunziul se formează cu $-ând,$ folosim $â$.'),
+    'Se folosește $î$, nu $â$, la începutul cuvântului, la sfârșitul cuvântului și în cuvintele formate cu prefix dacă $î$ este prima literă din rădăcină. Participiul și gerunziul verbelor nu fac excepție: dacă participiul se formează cu $-ât$ sau dacă gerunziul se formează cu $-ând,$ folosim $â$.'),
 
    ('Fii cuminte!\nNu fi fraier!\nSă fii punctual.',
     'Fi cuminte!\nNu fii fraier!\nSă fi punctual.',
-    'Pentru imperativul afirmativ $(fii cuminte!)$ şi pentru conjunctiv $(să fii punctual)$ n-am argumente, dar aşa e :) Imperativul negativ se formează întotdeauna cu $nu$ + infinitivul verbului: $nu veni, nu pleca, nu uita$. Deci, în cazul lui $a fi$, avem $nu fi fraier!$'),
+    'Pentru imperativul afirmativ $(fii cuminte!)$ și pentru conjunctiv $(să fii punctual)$ n-am argumente, dar așa e :) Imperativul negativ se formează întotdeauna cu $nu$ + infinitivul verbului: $nu veni, nu pleca, nu uita$. Deci, în cazul lui $a fi$, avem $nu fi fraier!$'),
 
    ('Filozofie',
     'Filosofie',
-    'Aşa e în |DEX|filozo*|. Pentru $filozof$ este menţionată ca formă acceptată şi $filosof$, ceea ce ne face să credem că şi $filosofie$ este o formă acceptată pentru $filozofie$. Oricum, forma de bază este $filozofie, filozof$.'),
+    'Așa e în |DEX|filozo*|. Pentru $filozof$ este menționată ca formă acceptată și $filosof$, ceea ce ne face să credem că și $filosofie$ este o formă acceptată pentru $filozofie$. Oricum, forma de bază este $filozofie, filozof$.'),
 
-   ('Munţii noştri',
-    'Munţii noştrii',
-    'Singurul motiv pentru care s-ar adăuga un al doilea $i$ este articolul hotărât. Dar $noştri$ este pronume şi nu se articulează niciodată.'),
+   ('Munții noștri',
+    'Munții noștrii',
+    'Singurul motiv pentru care s-ar adăuga un al doilea $i$ este articolul hotărât. Dar $noștri$ este pronume și nu se articulează niciodată.'),
 
-   ('Băiatul a cărui carte\nFata a cărei carte\nBăiatul ale cărui cărţi\nFata ale cărei cărţi\nBăieţii a căror carte\nFetele a căror carte\nBăieţii ale căror cărţi\nFetele ale căror cărţi\n\nBăiatul al cărui câine\nFata al cărei câine\nBăiatul ai cărui câini\nFata ai cărei câini\nBăieţii al căror câine\nFetele al căror câine\nBăieţii ai căror câini\nFetele ai căror câini',
+   ('Băiatul a cărui carte\nFata a cărei carte\nBăiatul ale cărui cărți\nFata ale cărei cărți\nBăieții a căror carte\nFetele a căror carte\nBăieții ale căror cărți\nFetele ale căror cărți\n\nBăiatul al cărui câine\nFata al cărei câine\nBăiatul ai cărui câini\nFata ai cărei câini\nBăieții al căror câine\nFetele al căror câine\nBăieții ai căror câini\nFetele ai căror câini',
     'Oricum altcumva',
-    '"Băiatul $pauză pauză$ cărţi", un subiect drag nouă. Ca principiu de viaţă, e mult mai bine să vă opriţi din vorbire două secunde şi să judecaţi construcţia decât să o spuneţi cum s-o nimeri. Mai ales când audienţei îi pasă. :) Regula de construcţie este acordul "în cruce": $al / a / ai / ale$ se acordă cu obiectul $(cartea / cărţile)$, iar $cărui / cărei / căror$ se acordă cu posesorul ($băiatul / fata$ etc).'),
+    '"Băiatul $pauză pauză$ cărți", un subiect drag nouă. Ca principiu de viață, e mult mai bine să vă opriți din vorbire două secunde și să judecați construcția decât să o spuneți cum s-o nimeri. Mai ales când audienței îi pasă. :) Regula de construcție este acordul "în cruce": $al / a / ai / ale$ se acordă cu obiectul $(cartea / cărțile)$, iar $cărui / cărei / căror$ se acordă cu posesorul ($băiatul / fata$ etc).'),
 
    ('Eu creez\nTu creezi\nEl creează',
     'Eu crez\nTu crezi\nEl crează',
-    'Verbul $a crea$, deşi se termină în $-ea$, nu este un verb de grupa a II-a, ci de grupa I. Sufixul este $-a$, iar rădăcina este $cre-$. Pentru uşurinţă, conjugaţi-l ca şi pe $a lucra$, înlocuind $lucr-$ cu $cre-$. Oriunde $a lucra$ se conjugă cu un $e$, $a crea$ se conjugă cu doi ($eu lucrez - eu creez$). Formele $crez, crezi, crează$ există în limba română în cu totul alt context; ele sunt conjugări populare ale verbului $a crede$.'),
+    'Verbul $a crea$, deși se termină în $-ea$, nu este un verb de grupa a II-a, ci de grupa I. Sufixul este $-a$, iar rădăcina este $cre-$. Pentru ușurință, conjugați-l ca și pe $a lucra$, înlocuind $lucr-$ cu $cre-$. Oriunde $a lucra$ se conjugă cu un $e$, $a crea$ se conjugă cu doi ($eu lucrez - eu creez$). Formele $crez, crezi, crează$ există în limba română în cu totul alt context; ele sunt conjugări populare ale verbului $a crede$.'),
 
    ('Eu creez\nEu agreez\nEu întemeiez\nEu încleiez\n',
     'Eu creiez\nEu agreiez\nEu întemeez\nEu încleez\n',
-    'Dacă infinitivul verbului se termină în $-ia, (a întemeia, a încleia)$ atunci litera $i$ apare şi la persoana I a timpului prezent, altfel nu $(a crea, a agrea).$'),
+    'Dacă infinitivul verbului se termină în $-ia, (a întemeia, a încleia)$ atunci litera $i$ apare și la persoana I a timpului prezent, altfel nu $(a crea, a agrea).$'),
 
    ('Fumător inveterat\nAdevăr învederat',
     'Invers',
-    'Paronime - vezi |definiţiile|înve*erat|'),
+    'Paronime - vezi |definițiile|înve*erat|'),
 
-   ('@Masculin@\nEu însumi\nTu însuţi\nEl însuşi\nNoi înşine\nVoi înşivă\nEi înşişi\n\n@Feminin@\nEu însămi\nTu însăţi\nEa însăşi\nNoi însene\nVoi însevă\nEle înseşi (însele)\n',
+   ('@Masculin@\nEu însumi\nTu însuți\nEl însuși\nNoi înșine\nVoi înșivă\nEi înșiși\n\n@Feminin@\nEu însămi\nTu însăți\nEa însăși\nNoi însene\nVoi însevă\nEle înseși (însele)\n',
     'Oricum altcumva',
     'Pronume de întărire - vezi |DEX|însumi|.'),
 
    ('Repercusiune',
     'Repercursiune',
-    'Vezi |definiţia|repercusiune|.'),
+    'Vezi |definiția|repercusiune|.'),
 
    ('Oprobriu',
     'Oprobiu',
-    'Vezi |definiţia|oprobriu|.'),
+    'Vezi |definiția|oprobriu|.'),
 
    ('Complet, complect',
     '',
-    '|DEX-ul|comple*t| menţionează $complect$ ca variantă acceptată a lui $complet$. Totuşi, dacă până acum aţi folosit $complet$, vă sugerăm să-l folosiţi şi în continuare. :)'),
+    '|DEX-ul|comple*t| menționează $complect$ ca variantă acceptată a lui $complet$. Totuși, dacă până acum ați folosit $complet$, vă sugerăm să-l folosiți și în continuare. :)'),
 
    ('Delincvent',
     'Delicvent',
-    'Vezi |definiţia|delincvent|. $Delicvent$ este doar o formă acceptată (ca şi $complet / complect...)$'),
+    'Vezi |definiția|delincvent|. $Delicvent$ este doar o formă acceptată (ca și $complet / complect...)$'),
 
    ('Piuneză',
     'Pioneză',
-    'Vezi |definiţia|piuneză|. $Pioneză$ este doar o formă acceptată.$'),
+    'Vezi |definiția|piuneză|. $Pioneză$ este doar o formă acceptată.$'),
 
    ('Saxana',
     'Sarsana',
-    'Vezi |definiţia|saxana|.'),
+    'Vezi |definiția|saxana|.'),
 
    ('Crevetă, pl. crevete',
-    'Crevete, pl. creveţi',
-    'Vezi |definiţia|crevetă|.'),
+    'Crevete, pl. creveți',
+    'Vezi |definiția|crevetă|.'),
 
    ('Robinet, pl. robinete',
-    'Robinet, pl. robineţi',
-    'Vezi |definiţia|robinet|.'),
+    'Robinet, pl. robineți',
+    'Vezi |definiția|robinet|.'),
 
    ('Suport, pl. suporturi',
-    'Suport, pl. suporţi',
-    'Vezi |definiţia|suport|.'),
+    'Suport, pl. suporți',
+    'Vezi |definiția|suport|.'),
 
    ('Balot, pl. baloturi',
-    'Balot, pl. baloţi',
-    'Vezi |definiţia|balot|.'),
+    'Balot, pl. baloți',
+    'Vezi |definiția|balot|.'),
 
    ('Acumulator, pl. acumulatoare',
     'Acumulator, pl. acumulatori',
-    'Vezi |definiţia|acumulator|. $Acumulatori$ este o formă acceptată de unele dicţionare.'),
+    'Vezi |definiția|acumulator|. $Acumulatori$ este o formă acceptată de unele dicționare.'),
 
    ('Laser, pl. lasere',
     'Laser, pl. laseri',
-    'Vezi |definiţia|laser|.'),
+    'Vezi |definiția|laser|.'),
 
    ('Reactor, pl. reactoare',
     'Reactor, pl. reactori',
-    'Vezi |definiţia|reactor|.'),
+    'Vezi |definiția|reactor|.'),
 
    ('Festival, pl. festivaluri',
     'Festival, pl. festivale',
-    'Vezi |definiţia|festival|.'),
+    'Vezi |definiția|festival|.'),
 
    ('Jantă, pl. jante',
-    'Jeantă, pl. jenţi',
-    'Vezi |definiţia|jantă|.'),
+    'Jeantă, pl. jenți',
+    'Vezi |definiția|jantă|.'),
 
    ('Acciz, pl. accize',
     'Acciză',
-    'Vezi |definiţia|acciz|.'),
+    'Vezi |definiția|acciz|.'),
 
    ('Grep sau grepfrut sau grape-fruit',
     'Oricum altcumva',
-    'Vezi |definiţiile|grepfrut|.'),
+    'Vezi |definițiile|grepfrut|.'),
 
    ('Ingrediente (pl. lui ingredient)',
-    'Ingredienţi',
-    'Vezi |definiţia|ingredient|.'),
+    'Ingredienți',
+    'Vezi |definiția|ingredient|.'),
 
    ('Amândurora (dativul lui amândoi)',
     'Amândorura',
-    'Vezi |definiţia|amândoi|. Cum spunem $tuturor$, nu $totorur$, la fel spunem şi $amândurora.'),
+    'Vezi |definiția|amândoi|. Cum spunem $tuturor$, nu $totorur$, la fel spunem și $amândurora.'),
 
    ('De asemenea',
     'Deasemenea',
     '$Deasemenea$ nu există în DEX.'),
 
-   ('Merită să aştepţi',
-    'Se merită să aştepţi',
+   ('Merită să aștepți',
+    'Se merită să aștepți',
     'Verbul |a merita|| nu este reflexiv.'),
 
-   ('Ce-i cu cărţile astea pe masă?',
-    'Ce-s cu cărţile astea pe masă?',
-    'Folosirea verbului $a fi$ la plural nu are sens şi nu are legătură cu faptul că vorbim despre mai multe cărţi. Un exemplu şi mai evident este $Ce este cu voi aici?$, nu $Ce sunteţi cu voi aici?$'),
+   ('Ce-i cu cărțile astea pe masă?',
+    'Ce-s cu cărțile astea pe masă?',
+    'Folosirea verbului $a fi$ la plural nu are sens și nu are legătură cu faptul că vorbim despre mai multe cărți. Un exemplu și mai evident este $Ce este cu voi aici?$, nu $Ce sunteți cu voi aici?$'),
 
    ('Serviciu',
     'Servici',
@@ -153,46 +153,46 @@ INSERT INTO GuideEntry (Correct, Wrong, Comments) VALUES
 
    ('Mi-ar plăcea',
     'Mi-ar place',
-    'Infinitivul verbului este $a plăcea$ (vezi |definiţia|plăcea|), iar condiţional-optativul se formează cu verbul auxiliar $a avea$ (în acest caz, $ar$) şi cu infinitivul.'),
+    'Infinitivul verbului este $a plăcea$ (vezi |definiția|plăcea|), iar condițional-optativul se formează cu verbul auxiliar $a avea$ (în acest caz, $ar$) și cu infinitivul.'),
 
    ('Cartea de pe noptieră\nCartea după noptieră',
     '-',
-    '$|DEX|după|$ menţionează $de pe$ ca sens impropriu al lui $după$ (sensul 5). Totuşi, denaturarea sensului este foarte mare şi consider că folosirea lui $după$ este foarte neliterară.'),
+    '$|DEX|după|$ menționează $de pe$ ca sens impropriu al lui $după$ (sensul 5). Totuși, denaturarea sensului este foarte mare și consider că folosirea lui $după$ este foarte neliterară.'),
 
    ('Cartea pe care am citit-o\nOmul pe care l-am întrebat\n\nCartea care mi-a plăcut\nOmul care mi-a răspuns',
     'Cartea care am citit-o\nOmul care l-am întrebat',
-    'În toate cazurile avem de-a face cu propoziţii subordonate: "pe care am citit-o", "pe care l-am întrebat" etc. În primele două, "pe care" este complement direct, arătând asupra cui se efectuează acţiunea: $Pe cine am citit? Pe ea, pe carte. Pe cine am întrebat? Pe el, pe om.$ Complementul direct este în cazul acuzativ, de aceea este nevoie şi de prepoziţia $pe$.\n\nÎn ultimele două cazuri, "care" este subiect, arătând cine face acţiunea: $Cine a plăcut? Cartea. Cine a răspuns? Omul.$ Subiectul este în cazul nominativ, de aceea nu este nevoie de prepoziţia $pe$. $Cartea care am citit-o$ este o contaminare între cele două construcţii şi este incorectă.'),
+    'În toate cazurile avem de-a face cu propoziții subordonate: "pe care am citit-o", "pe care l-am întrebat" etc. În primele două, "pe care" este complement direct, arătând asupra cui se efectuează acțiunea: $Pe cine am citit? Pe ea, pe carte. Pe cine am întrebat? Pe el, pe om.$ Complementul direct este în cazul acuzativ, de aceea este nevoie și de prepoziția $pe$.\n\nÎn ultimele două cazuri, "care" este subiect, arătând cine face acțiunea: $Cine a plăcut? Cartea. Cine a răspuns? Omul.$ Subiectul este în cazul nominativ, de aceea nu este nevoie de prepoziția $pe$. $Cartea care am citit-o$ este o contaminare între cele două construcții și este incorectă.'),
 
    ('Optsprezece',
     'Oricum altcumva',
-    'DEX (vezi |definiţia|optsprezece|) nu indică nici o altă variantă acceptată.'),
+    'DEX (vezi |definiția|optsprezece|) nu indică nici o altă variantă acceptată.'),
 
    ('Optulea',
     'Oricum altcumva',
-    'DEX (vezi |definiţia|optulea|) nu indică nici o altă variantă acceptată.'),
+    'DEX (vezi |definiția|optulea|) nu indică nici o altă variantă acceptată.'),
 
    ('Mă doare apendicele.\nMă dor amigdalele.',
     'Mă doare apendicita.\nMă doare amigdalita.',
-    'Apendicita şi amigdalita sunt boli. Ele nu sunt părţi ale corpului, deci nu au cum să doară. $Mă doare amigdalita$ este la fel de incorect ca şi $mă doare durerea de cap.$'),
+    'Apendicita și amigdalita sunt boli. Ele nu sunt părți ale corpului, deci nu au cum să doară. $Mă doare amigdalita$ este la fel de incorect ca și $mă doare durerea de cap.$'),
 
    ('Un copil\nDoi copii\nCopiii se joacă\n\nUn cobai\nDoi cobai\nCobaii sunt rozătoare\n',
     'Copii se joacă\n\nCobaiii sunt rozătoare\n',
     'În cele mai multe cazuri, forma de plural articulat a substantivelor masculine se formează prin adăugarea literei $i$ la forma nearticulată. Substantivele care au doi $i$ la plural $(copii, ulii, vizitii)$ capătă trei $i$ în forma articulată $(copiii, uliii, vizitiii)$, iar substantivele care au un singur $i$ la plural $(oameni, cobai)$ capătă doi $i$ în forma articulată $(oamenii, cobaii).$'),
 
-   ('Majoritatea salariaţilor este mulţumită...',
-    'Majoritatea salariaţilor sunt mulţumiţi...',
-    'Este pur şi simplu vorba despre acordul subiectului cu predicatul. $Majoritate$ este la singular, deci şi verbul $a fi$ trebuie pus la singular. Ce-i drept, $majoritate$ este un substantiv colectiv, cu sens de plural, dar forma gramaticală este în continuare cea de singular. Un exemplu şi mai elocvent este $tineretul merge la mare$ (nu $tineretul merg la mare).$'),
+   ('Majoritatea salariaților este mulțumită...',
+    'Majoritatea salariaților sunt mulțumiți...',
+    'Este pur și simplu vorba despre acordul subiectului cu predicatul. $Majoritate$ este la singular, deci și verbul $a fi$ trebuie pus la singular. Ce-i drept, $majoritate$ este un substantiv colectiv, cu sens de plural, dar forma gramaticală este în continuare cea de singular. Un exemplu și mai elocvent este $tineretul merge la mare$ (nu $tineretul merg la mare).$'),
 
-   ('Cel mai bine plătită doctoriţă',
-    'Cea mai bine plătită doctoriţă',
-    'Formarea superlativului cu expresia $cel mai$ se referă, în acest caz, la adverbul $bine,$ nu la adjectivul $plătită.$ Doctoriţa nu este $cea mai plătită,$ ci cea plătită $cel mai bine.$ Şi, întrucât adverbele nu au gen, număr sau caz, superlativul se formează implicit cu $cel$ pus la masculin.'),
+   ('Cel mai bine plătită doctoriță',
+    'Cea mai bine plătită doctoriță',
+    'Formarea superlativului cu expresia $cel mai$ se referă, în acest caz, la adverbul $bine,$ nu la adjectivul $plătită.$ Doctorița nu este $cea mai plătită,$ ci cea plătită $cel mai bine.$ Și, întrucât adverbele nu au gen, număr sau caz, superlativul se formează implicit cu $cel$ pus la masculin.'),
 
-   ('Până număr până la trei să plecaţi de-aici!',
-    'Până număr la trei să plecaţi de-aici!',
-    'Numărăm (de la unu) $până$ la trei. Probabil prezenţa primului $până$ creează confuzie, dar este necesar şi cel de-al doilea.'),
+   ('Până număr până la trei să plecați de-aici!',
+    'Până număr la trei să plecați de-aici!',
+    'Numărăm (de la unu) $până$ la trei. Probabil prezența primului $până$ creează confuzie, dar este necesar și cel de-al doilea.'),
 
-   ('Dă-te la o parte.\nDaţi-vă jos.',
-    'De-te la o parte\nDădeţi-vă jos.',
+   ('Dă-te la o parte.\nDați-vă jos.',
+    'De-te la o parte\nDădeți-vă jos.',
     'Fără comentarii.'),
 
    ('Nu face asta.',
@@ -201,11 +201,11 @@ INSERT INTO GuideEntry (Correct, Wrong, Comments) VALUES
 
    ('Chiuvetă',
     'Ghiuvetă',
-    'Vezi |definiţia|chiuvetă|.'),
+    'Vezi |definiția|chiuvetă|.'),
 
    ('A avansa',
     'A avansa înainte',
-    '$A avansa$ implică noţiunea de înaintare.'),
+    '$A avansa$ implică noțiunea de înaintare.'),
 
    ('De ce râzi?',
     'De ce te râzi?',
@@ -213,112 +213,112 @@ INSERT INTO GuideEntry (Correct, Wrong, Comments) VALUES
 
    ('Îmi place cineva',
     'Îmi place de cineva',
-    '$Cineva$ este subiect gramatical, deci trebuie pus în cazul nominativ, fără prepoziţia $de$.'),
+    '$Cineva$ este subiect gramatical, deci trebuie pus în cazul nominativ, fără prepoziția $de$.'),
 
    ('Orar, pl. orare',
     'Orar, pl. orarii',
-    'Vezi |definiţia|orar|.'),
+    'Vezi |definiția|orar|.'),
 
    ('Drajeu, pl. drajeuri',
     'Drajeu, pl. drajee',
-    'Vezi |definiţia|drajeu|.'),
+    'Vezi |definiția|drajeu|.'),
 
-   ('Preţ mare',
-    'Preţ scump',
-    'Un produs este scump atunci când preţul său este mare. $Preţ scump$ este o struţo-cămilă.'),
+   ('Preț mare',
+    'Preț scump',
+    'Un produs este scump atunci când prețul său este mare. $Preț scump$ este o struțo-cămilă.'),
 
-   ('sandviş / sandvici / sanviş',
+   ('sandviș / sandvici / sanviș',
     'Oricum altcumva',
-    'DEX (vezi |definiţia|sandviş|) indică $sandviş$ ca formă corectă, iar celelalte două ca variante acceptate.'),
+    'DEX (vezi |definiția|sandviș|) indică $sandviș$ ca formă corectă, iar celelalte două ca variante acceptate.'),
 
    ('Nes (prescurtare de la nescafe)',
     'Ness',
-    'Vezi |definiţia|nes|.'),
+    'Vezi |definiția|nes|.'),
 
    ('Lubrifiant',
     'Lubrefiant',
-    'Vezi |definiţia|lubrifiant|.'),
+    'Vezi |definiția|lubrifiant|.'),
 
-   ('Preşedinţie',
-    'Preşedenţie',
-    'Vezi |definiţia|preşedinţie|. România are preşedinte, nu "preşedente"!'),
+   ('Președinție',
+    'Președenție',
+    'Vezi |definiția|președinție|. România are președinte, nu "președente"!'),
 
    ('Anticameră',
     'Antecameră',
-    'Vezi |definiţia|anticameră|. O ediţie veche a Dicţionarului de neologisme acceptă totuşi şi $antecameră$ ca variantă.'),
+    'Vezi |definiția|anticameră|. O ediție veche a Dicționarului de neologisme acceptă totuși și $antecameră$ ca variantă.'),
 
    ('Cotidian (ziar), pl. cotidiene',
     'Cotidian, pl. cotidiane',
-    'Vezi |definiţia|cotidian|.'),
+    'Vezi |definiția|cotidian|.'),
 
    ('Eu continuu',
     'Eu continui',
-    'Vezi definiţia|continua|.'),
+    'Vezi definiția|continua|.'),
 
    ('Genuflexiune',
     'Genoflexiune',
-    'Vezi |definiţia|genuflexiune|.'),
+    'Vezi |definiția|genuflexiune|.'),
 
    ('Remarcă, pl. remarce',
     'Remarcă, pl. remarci',
-    'Vezi |definiţia|remarcă|.'),
+    'Vezi |definiția|remarcă|.'),
 
    ('Să aibă parte',
     'Să aibe parte',
-    'Vezi |definiţia|avea| (mai ales cea din Dicţionarul ortografic).'),
+    'Vezi |definiția|avea| (mai ales cea din Dicționarul ortografic).'),
 
    ('Abia',
     'Abea',
-    'Vezi |definiţia|abia|.'),
+    'Vezi |definiția|abia|.'),
 
-   ('El/ea se aşază',
-    'El/ea se aşează',
-    'Vezi |definiţia|aşeza|.'),
+   ('El/ea se așază',
+    'El/ea se așează',
+    'Vezi |definiția|așeza|.'),
 
    ('Clasa întâi',
     'Clasa întâia\nClasa a-ntâia',
-    'Vezi |definiţia|întâi|.'),
+    'Vezi |definiția|întâi|.'),
 
    ('Colonel, pl. colonei',
     'Colonel, pl. coloneli',
-    'Vezi |definiţia|colonel|.'),
+    'Vezi |definiția|colonel|.'),
 
    ('Sticlă de un litru',
     'Sticlă de un kilogram',
     'Volumul se măsoară în litri. Dacă umplem o sticlă de un litru cu mercur, ea va cântări peste 13 kilograme, iar dacă o umplem cu ulei de floarea soarelui, ea va cântări numai 920 de grame! Deci "sticlă de un kilogram" nu are sens.'),
 
-   ('Greşeală',
-    'Greşală',
-    'La fel ca şi $repezeală, umezeală$ (nu $repezală, umezală).$'),
+   ('Greșeală',
+    'Greșală',
+    'La fel ca și $repezeală, umezeală$ (nu $repezală, umezală).$'),
 
-   ('Până la adânci bătrâneţi',
-    'Până la adânci bătrâneţe',
-    '$Adânci$ este la plural, deci şi $bătrâneţi$ trebuie pus la plural.'),
+   ('Până la adânci bătrâneți',
+    'Până la adânci bătrânețe',
+    '$Adânci$ este la plural, deci și $bătrâneți$ trebuie pus la plural.'),
 
    ('Ora douăsprezece',
     'Ora doisprezece',
     'La fel cum spunem $ora două,$ nu $ora doi$.'),
 
-   ('Am luat un pix de la ei şi li l-am dat înapoi',
-    'Am luat un pix de la ei şi i l-am dat înapoi',
+   ('Am luat un pix de la ei și li l-am dat înapoi',
+    'Am luat un pix de la ei și i l-am dat înapoi',
     'Deoarece am dat pixul înapoi mai multor persoane, corect este $...li l-am dat...$'),
 
    ('Obstetrică',
     'Obstretică',
-    'Vezi |definiţia|obstetric|.'),
+    'Vezi |definiția|obstetric|.'),
 
-   ('Nu există aşa ceva',
-    'Nu se există aşa ceva',
+   ('Nu există așa ceva',
+    'Nu se există așa ceva',
     'Verbul |a exista| nu este reflexiv.'),
 
-   ('Linişte! Să se audă musca!',
-    'Linişte! Să nu se audă musca!',
+   ('Liniște! Să se audă musca!',
+    'Liniște! Să nu se audă musca!',
     'Daca musca @nu@ se aude, probabil e gălăgie.'),
 
-   ('Cu surle şi tobe',
-    'Cu surle şi trâmbiţe',
-    'Surla şi trâmbiţa sunt amândouă instrumente de suflat. O paradă militară are şi instrumente de suflat şi de percuţie.'),
+   ('Cu surle și tobe',
+    'Cu surle și trâmbițe',
+    'Surla și trâmbița sunt amândouă instrumente de suflat. O paradă militară are și instrumente de suflat și de percuție.'),
 
-   ('Datorită publicului şi încurajărilor acestuia...',
-    'Datorită publicului şi a încurajărilor acestuia...',
-    'După $datorită$ se foloseşte dativul. Articolul posesiv $a (al, ai, ale)$ este specific genitivului, deci nu are ce căuta aici.');
+   ('Datorită publicului și încurajărilor acestuia...',
+    'Datorită publicului și a încurajărilor acestuia...',
+    'După $datorită$ se folosește dativul. Articolul posesiv $a (al, ai, ale)$ este specific genitivului, deci nu are ce căuta aici.');

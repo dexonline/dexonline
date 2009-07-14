@@ -1,11 +1,11 @@
-<h4>Clienţi off-line</h4>
+<h4>Clienți off-line</h4>
 
-Aceste aplicaţii transferă definiţiile din <i>DEX online</i> pe
-calculatorul dumneavoastră personal. Ulterior, le puteţi consulta şi
-în absenţa unei conexiuni la internet. <i>DEXter</i> şi <i>DEX
-Offline</i> sunt momentan nefuncţionale, deoarece protocolul prin
-care <i>DEX online</i> îşi exportă baza de date s-a schimbat, iar cele
-două aplicaţii nu au fost aduse la zi.
+Aceste aplicații transferă definițiile din <i>DEX online</i> pe
+calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
+în absența unei conexiuni la internet. <i>DEXter</i> și <i>DEX
+Offline</i> sunt momentan nefuncționale, deoarece protocolul prin
+care <i>DEX online</i> își exportă baza de date s-a schimbat, iar cele
+două aplicații nu au fost aduse la zi.
 
 <ul>
   <li><a href="http://qDex.sourceforge.net/">qdex</a> (GPL, disponibil pentru Windows sau GNU Linux, autor Tim Anghel);</li>
@@ -24,9 +24,9 @@ două aplicaţii nu au fost aduse la zi.
   Mestrone);</li>
 
   <li><a href="http://www.tranzactiibursiere.ro/maestro/">Maestro
-  DEX</a> (client GPL pentru Linux sau Windows, cu o interfaţă
+  DEX</a> (client GPL pentru Linux sau Windows, cu o interfață
   prietenoasă pentru nevăzători, include conjugări / declinări de
-  cuvinte, autor Octavian Râşniţă);</li>
+  cuvinte, autor Octavian Râșniță);</li>
 
   <li><a href="http://pocketdex.aamedia.ro//">PocketDEX</a> (client
   pentru Windows CE, inclusiv Pocket PC, autor Alexandru Mirea);</li>
@@ -36,16 +36,16 @@ două aplicaţii nu au fost aduse la zi.
   MB); <span class="deemph">(link indisponibil temporar)</li>
 
   <li><a href="http://dexoffline.sourceforge.net/">DEX Offline</a> (4
-  MB). Această interfaţă depinde de alte pachete, deci este posibil să
-  aveţi mai mult de instalat.</li>
+  MB). Această interfață depinde de alte pachete, deci este posibil să
+  aveți mai mult de instalat.</li>
 </ul>
 
 <h4>Designul paginii</h4>
 
-<i>DEX online</i> şi-a schimbat înfăţişarea de câteva ori de-a lungul
+<i>DEX online</i> și-a schimbat înfățișarea de câteva ori de-a lungul
 anilor. Designul curent este <i>polar,</i> iar vechile designuri sunt
-disponibile mai jos. Precizăm că numai designul curent este ţinut la
-zi cu cele mai noi funcţii ale <i>DEX online</i>.
+disponibile mai jos. Precizăm că numai designul curent este ținut la
+zi cu cele mai noi funcții ale <i>DEX online</i>.
 
 <ul>
   <li><a href="index.php?skin=polar">polar</a></li>
@@ -58,64 +58,64 @@ zi cu cele mai noi funcţii ale <i>DEX online</i>.
 <h4>Integrare în browser</h4>
 
 <ul>
-  <li>Instalaţi un corector ortografic pentru limba română pentru
+  <li>Instalați un corector ortografic pentru limba română pentru
   Firefox: <a href="download/dex-ff.xpi"
   onclick="return installFirefoxSpellChecker(event);">click aici</a>.
 
     <ul>
-      <li>Pentru a folosi corectorul, deschideţi meniul <i>Edit >
-      Preferences,</i> selectaţi panoul <i>Advanced</i> şi bifaţi
-      opţiunea <i>Check my spelling as I type.</i> Pentru a activa
-      limba română (în locul limbii engleze), daţi click dreapta în
-      orice cutie de editare şi selectaţi <i>Languages >
+      <li>Pentru a folosi corectorul, deschideți meniul <i>Edit >
+      Preferences,</i> selectați panoul <i>Advanced</i> și bifați
+      opțiunea <i>Check my spelling as I type.</i> Pentru a activa
+      limba română (în locul limbii engleze), dați click dreapta în
+      orice cutie de editare și selectați <i>Languages >
       Romanian.</i></li>
     </ul>
   </li>
 
-  <li>Adăugaţi <i>DEX online</i> la cutia de căutare din Firefox 2.x,
+  <li>Adăugați <i>DEX online</i> la cutia de căutare din Firefox 2.x,
   Firefox 3.0 sau Internet Explorer 7: <a href="#"
   onclick="addProvider('http://dexonline.ro/download/dex.xml'); return
-  false;">click aici</a>. Mulţumiri lui Alexandru Lixandru.</li>
+  false;">click aici</a>. Mulțumiri lui Alexandru Lixandru.</li>
 
-  <li>Un alt link, funcţional în Firefox şi Mozilla: <a href="#"
-  onclick="addToEngines(); return false">click aici</a>. Mulţumiri
+  <li>Un alt link, funcțional în Firefox și Mozilla: <a href="#"
+  onclick="addToEngines(); return false">click aici</a>. Mulțumiri
   lui <a href="http://www.mit.edu/~michel">Mihai Ibănescu</a>, care a
-  creat cele două fişiere, şi
+  creat cele două fișiere, și
   lui <a href="http://marius.scurtescu.com/">Marius Scurtescu</a>,
   care ne-a oferit codul JavaScript pentru instalarea printr-un singur
   click.</li>
 
-  <li>Aţi întâlnit cuvinte pe care nu le cunoaşteţi în pagini
-  româneşti? Acest modul Firefox vă permite să le căutaţi cu uşurinţă
-  în DEX online. Salvaţi <a href="download/dex-context-search.xml">acest
-  fişier</a> în directorul <tt>searchplugins/</tt> al aplicaţiei
-  Firefox şi reporniţi Firefox. Acum, dacă selectaţi orice cuvânt şi
-  daţi click-dreapta, veţi avea opţiunea să-l căutaţi în DEX online.
-  Mulţumiri lui Radu George Mureşan.</li>
+  <li>Ați întâlnit cuvinte pe care nu le cunoașteți în pagini
+  românești? Acest modul Firefox vă permite să le căutați cu ușurință
+  în DEX online. Salvați <a href="download/dex-context-search.xml">acest
+  fișier</a> în directorul <tt>searchplugins/</tt> al aplicației
+  Firefox și reporniți Firefox. Acum, dacă selectați orice cuvânt și
+  dați click-dreapta, veți avea opțiunea să-l căutați în DEX online.
+  Mulțumiri lui Radu George Mureșan.</li>
 
 </ul>
 
-<h4><a name="scrabble">Unelte pentru Federaţia Română de Scrabble</a></h4>
+<h4><a name="scrabble">Unelte pentru Federația Română de Scrabble</a></h4>
 
 <ul>
 
   <li><a href="scrabbleLoc.php">Lista Oficială de Cuvinte</a>
-  acceptată de Federaţia Română de Scrabble.
+  acceptată de Federația Română de Scrabble.
 
     <ul>
       <li><a href="html/locLegend.html">Precizări</a> privind
-      notaţiile din listă</li>
+      notațiile din listă</li>
     </ul>
   </li>
 
   <li><a href="viewModels.php">Lista modelelor de flexiune</a>.</li>
   <li><a href="scrabbleCheckInflection.php">Verificare formă
-  flexionară</a> - aflaţi rapid dacă o formă flexionară este în
+  flexionară</a> - aflați rapid dacă o formă flexionară este în
   LOC.</li>
 
   {if $is_flex_moderator}
     <li><a href="scrabbleUniqueForms.php">Lista formelor unice</a>
-    (fără diacritice, accente, dublete, cu lungimi între 2 şi 15
+    (fără diacritice, accente, dublete, cu lungimi între 2 și 15
     litere).</li>
   {/if}
 

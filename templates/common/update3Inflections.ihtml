@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Inflections>
   <NumResults>{$inflections|@count}</NumResults>
   {foreach from=$inflections item=i}

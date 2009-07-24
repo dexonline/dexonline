@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Definitions>
   <NumResults>{$numResults}</NumResults>
   {section name="ignored" start=0 loop=$numResults}

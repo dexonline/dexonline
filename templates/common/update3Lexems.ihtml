@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Lexems>
   <NumResults>{$numResults}</NumResults>
   {section name="ignored" start=0 loop=$numResults}
@@ -11,8 +12,8 @@
       {/if}
       {foreach from=$wordLists item=wl}
         <Inflection>
-          <InflId>{$wl->inflectionId}</InflId>
-          <Form>{$wl->form|escape}</Form>
+          <IId>{$wl->inflectionId}</IId>
+          <IForm>{$wl->form|escape}</IForm>
         </Inflection>
       {/foreach}
     </Lexem>

@@ -346,17 +346,21 @@ function db_getLexemsByMinModDate($modDate) {
 }
 
 function db_getUpdate3Definitions($modDate) {
+  // Do not report deleted / pending definitions the first time this script is invoked
+  $statusClause = $modDate ? "" : " and Status = 0";
   $query = "select * from Definition " .
-    "where ModDate >= '$modDate' " .
+    "where ModDate >= '$modDate' $statusClause " .
     "order by ModDate, Id";
   return logged_query($query);
 }
 
 function db_getUpdate3LexemIds($modDate) {
+  // Do not report deleted / pending definitions the first time this script is invoked
+  $statusClause = $modDate ? "" : " and Status = 0";
   $query = "select Definition.Id, LexemId " .
     "from Definition force index(ModDate), LexemDefinitionMap " .
     "where Definition.Id = LexemDefinitionMap.DefinitionId " .
-    "and Definition.ModDate >= $modDate " .
+    "and Definition.ModDate >= $modDate $statusClause " .
     "order by Definition.ModDate, Definition.Id";
   return logged_query($query);
 }

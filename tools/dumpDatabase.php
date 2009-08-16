@@ -13,7 +13,7 @@ $COMMON_COMMAND = sprintf("mysqldump -h %s -u %s --password='%s' %s ",
                           pref_getDbPassword(),
                           pref_getDbDatabase());
 
-$schemaOnly = array('RecentLink', 'Cookie');
+$schemaOnly = array('RecentLink', 'Cookie', 'history_Comment', 'history_Definition');
 $alteredFields = array('User' => array('Email' => 'anonymous@anonymous.com',
                                        'Password' => ''));
 $currentYear = date("Y");
@@ -38,13 +38,13 @@ log_scriptLog('Running dumpDatabase.php with argument ' .
 
 $dbName = pref_getDbDatabase();
 $tablesToIgnore = '';
+foreach ($schemaOnly as $table) {
+  $tablesToIgnore .= "--ignore-table=$dbName.$table ";
+}
 if ($doFullDump) {
   $targetDir = util_getRootPath() . '/wwwbase/download/mirrorAccess/';
 } else {
   $targetDir = util_getRootPath() . '/wwwbase/download/';
-  foreach ($schemaOnly as $table) {
-    $tablesToIgnore .= "--ignore-table=$dbName.$table ";
-  }
   foreach ($alteredFields as $table => $fields) {
     $tablesToIgnore .= "--ignore-table=$dbName.$table ";
   }
@@ -57,14 +57,12 @@ $mysql = "$COMMON_COMMAND $tablesToIgnore >> $TMP_DIR/$FILENAME";
 os_executeAndAssert($mysql);
 
 // Dump only the schema for some tables
-if (!$doFullDump) {
-  $command = "$COMMON_COMMAND --no-data";
-  foreach ($schemaOnly as $table) {
-    $command .= " $table";
-  }
-  $command .= " >> $TMP_DIR/$FILENAME";
-  os_executeAndAssert($command);
+$command = "$COMMON_COMMAND --no-data";
+foreach ($schemaOnly as $table) {
+  $command .= " $table";
 }
+$command .= " >> $TMP_DIR/$FILENAME";
+os_executeAndAssert($command);
 
 // Alter some fields for other tables
 if (!$doFullDump) {

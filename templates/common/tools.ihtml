@@ -8,12 +8,9 @@ care <i>DEX online</i> își exportă baza de date s-a schimbat, iar cele
 două aplicații nu au fost aduse la zi.
 
 <ul>
-  <li><a href="http://qDex.sourceforge.net/">qdex</a> (GPL, disponibil pentru Windows sau GNU Linux, autor Tim Anghel);</li>
-
   <li><a href="http://dixit.sourceforge.net/">Dixit</a> (GPL,
-  disponibil pentru Windows sau GNU Linux, autor Octavian
-  Procopiuc). Dixit este o versiune anterioară a lui qDex, bazată pe
-  QT3.</li>
+  disponibil pentru Windows sau GNU Linux, autori Tim Anghel și Octavian
+  Procopiuc). Dixit folosește bibliotecile QT pentru interfața grafică.</li>
 
   <li><a href="http://www.lex.md/">DEX.Ro</a> (autor <a
   href="mailto:silvestru@yahoo.com">Ion Silvestru</a>);</li>

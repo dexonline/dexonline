@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="{$cssRoot}/polar.css" rel="stylesheet" type="text/css"/>
     <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
+    <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex-context-search.xml" title="Căutare dexonline.ro"/>
     <title>{$page_title|escape}</title>
     <script type="text/javascript" src="js/dex.js"></script>
   </head>

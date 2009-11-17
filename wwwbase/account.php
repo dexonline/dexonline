@@ -6,8 +6,8 @@ util_assertNotMirror();
 $userPreferencesSet = array(
   'CEDILLA_BELOW' => array(
 	  'value' => 1 << 0,
-    'label' => 'Vreau să văd ş și ţ cu sedilă (în loc virguliță)',
-    'comment' => 'Scrierea corectă este cu ș și ț în loc de ş și ţ, dar este posibil ca aceste simboluri să nu fie afișate corect în browserul dumneavoastră.',
+    'label' => 'Vreau să văd ş și ţ cu sedilă (în loc de virguliță)',
+    'comment' => 'Scrierea corectă este cu &#x219; și &#x21b; în loc de ş și ţ, dar este posibil ca aceste simboluri să nu fie afișate corect în browserul dumneavoastră.',
     'checked' => false, 
   ),
   'FORCE_DIACRITICS' => array(
@@ -20,7 +20,7 @@ $userPreferencesSet = array(
   'OLD_ORTHOGRAPHY' => array(
     'value' => 1 << 2,
     'label' => 'Folosesc ortografia folosită pînă în 1993 (î din i)',
-    'comment' => 'Până în 1993, „â” era folosit doar în cuvântul „român” și cuvintele derivate.',
+    'comment' => 'Până în 1993, „&#xe2;” era folosit doar în cuvântul „român” și cuvintele derivate.',
     'checked' => false, 
   ),
 );

@@ -20,7 +20,7 @@ $userPreferencesSet = array(
   'OLD_ORTHOGRAPHY' => array(
     'value' => 1 << 2,
     'label' => 'Folosesc ortografia folosită pînă în 1993 (î din i)',
-    'comment' => 'Până în 1993, „&#xe2;” era folosit doar în cuvântul „român” și cuvintele derivate.',
+    'comment' => 'Până în 1993, „&#xe2;” era folosit doar în cuvântul „român”, în cuvintele derivate și în unele nume proprii.',
     'checked' => false, 
   ),
 );

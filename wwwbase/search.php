@@ -33,8 +33,7 @@ if ($text) {
     $definitions = array();
   } else {
     $words = split(' +', $cuv);
-    list($properWords, $stopWords) = text_separateStopWords($words,
-                                                            $hasDiacritics);
+    list($properWords, $stopWords) = text_separateStopWords($words, $hasDiacritics);
     smarty_assign('stopWords', $stopWords);
     $defIds = Definition::searchFullText($properWords, $hasDiacritics);
     smarty_assign('numResults', count($defIds));

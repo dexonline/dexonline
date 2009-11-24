@@ -369,6 +369,9 @@ class Definition {
         : util_intersectArrays($intersection, $defIds);
       debug_stopClock("Intersected with lexems for $word");
     }
+    if ($intersection === null) { // This can happen when the query is all stopwords
+      $intersection = array();
+    }
 
     $shortestInvervals = array();
 

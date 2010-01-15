@@ -25,7 +25,7 @@ două aplicații nu au fost aduse la zi.
     {foreach from=$clients item=client}
       <td class="osList">
         {foreach from=$client.os item=os}
-          <img src="{$imgRoot}/icons/{$os}.png" alt="{$os}">
+          <img src="{$imgRoot}/icons/{$os}.png" alt="{$os}"/>
           {$osNames[$os]}
           <br/>
         {/foreach}
@@ -48,7 +48,7 @@ două aplicații nu au fost aduse la zi.
           {/if}
         </td>
       {/foreach}
-    <tr>
+    </tr>
   {/foreach}
 
   <tr class="color2">
@@ -78,7 +78,7 @@ două aplicații nu au fost aduse la zi.
 <ul>
   <!-- a href="http://dapyx-soft.com/~bogdan/dexter.zip" DEXter este momentan indisponibil -->
 
-  <li><b>Notă:</b> DEX Offline</a> este neactualizat de câțiva ani și nu mai poate comunica adecvat cu DEX online.</li>
+  <li><b>Notă:</b> DEX Offline este neactualizat de câțiva ani și nu mai poate comunica adecvat cu DEX online.</li>
 </ul>
 
 <h4>Designul paginii</h4>

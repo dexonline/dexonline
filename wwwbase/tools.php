@@ -50,7 +50,7 @@ $clients = array(
         'urls' => array('website' => 'http://dex.adrianvintu.com/', 'Market' => 'market://details?id=com.dex'),
         'os' => array('android'),
         'requires' => array(),
-        'authors' => array('Adrian Vântu' => ''),
+        'authors' => array('Adrian Vîntu' => ''),
         'license' => 'Freeware',
         'options' => array('vision' => 0, 'sync' => 0, 'regexp' => 0, 'suggest' => 0, 'diacritics' => 0, 'full' => 0, 'flex' => 1, 'click' => 0, 'history' => 0)),
 

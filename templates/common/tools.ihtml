@@ -7,39 +7,78 @@ Offline</i> sunt momentan nefuncționale, deoarece protocolul prin
 care <i>DEX online</i> își exportă baza de date s-a schimbat, iar cele
 două aplicații nu au fost aduse la zi.
 
+<table id="offlineClients">
+  <tr class="color1">
+    <td class="clientHeader"></td>
+    {foreach from=$clients item=client}
+      <td class="columnHeader">
+        <span class="clientName">{$client.name}</span><br/>
+        {foreach from=$client.urls item=url key=text}
+          <a href="{$url}">{$text}</a>
+        {/foreach}
+      </td>
+    {/foreach}
+  </tr>
+
+  <tr class="color2">
+    <td class="clientHeader">Platforme</td>
+    {foreach from=$clients item=client}
+      <td class="osList">
+        {foreach from=$client.os item=os}
+          <img src="{$imgRoot}/icons/{$os}.png" alt="{$os}">
+          {$osNames[$os]}
+          <br/>
+        {/foreach}
+      </td>
+    {/foreach}
+  </tr>
+
+  {foreach from=$clientOptions item=option key=id}
+    <tr class="{cycle values="color1,color2"}">
+      <td class="clientHeader">
+        {$option.0}
+        <div class="optionDesc">{$option.1}</div>
+      </td>
+      {foreach from=$clients item=client}
+        <td class="option">
+          {if $client.options[$id]}
+            <img src="{$imgRoot}/icons/check.png" alt="da" title="da"/>
+          {else}
+            <img src="{$imgRoot}/icons/cross.png" alt="nu" title="nu"/>
+          {/if}
+        </td>
+      {/foreach}
+    <tr>
+  {/foreach}
+
+  <tr class="color2">
+    <td class="clientHeader">Autori</td>
+    {foreach from=$clients item=client}
+      <td>
+        {foreach from=$client.authors item=email key=name}
+          {if $email}
+            <a href="mailto:{$email}">{$name}</a>
+          {else}
+            {$name}
+          {/if}
+          <br/>
+        {/foreach}
+      </td>
+    {/foreach}
+  </tr>
+
+  <tr class="color1">
+    <td class="clientHeader">Licență</td>
+    {foreach from=$clients item=client}
+      <td>{$client.license}</td>
+    {/foreach}
+  </tr>
+</table>
+
 <ul>
-  <li><a href="http://dixit.sourceforge.net/">Dixit</a> (GPL,
-  disponibil pentru Windows sau GNU Linux, autori Tim Anghel și Octavian
-  Procopiuc). Dixit folosește bibliotecile QT pentru interfața grafică.</li>
+  <!-- a href="http://dapyx-soft.com/~bogdan/dexter.zip" DEXter este momentan indisponibil -->
 
-  <li><a href="http://dexoffline.blogspot.com/">DEX.Ro</a> (autor <a
-  href="mailto:silvestru@yahoo.com">Ion Silvestru</a>);</li>
-
-  <li><a href="http://dex.adrianvintu.com/">DEX pentru Android</a>
-  (autor <a href="mailto:adrianvintu@yahoo.com">Adrian Vîntu</a>);
-  disponibil direct de pe Android Market la <a
-  href="market://details?id=com.dex">market://details?id=com.dex</a>.</li>
-
-  <li><a
-  href="http://www.federicomestrone.com/jadex/">JaDEX</a>
-  (client Java, portabil pe orice sistem de operare, autor Federico
-  Mestrone);</li>
-
-  <li><a href="http://www.tranzactiibursiere.ro/maestro/">Maestro
-  DEX</a> (client GPL pentru Linux sau Windows, cu o interfață
-  prietenoasă pentru nevăzători, include conjugări / declinări de
-  cuvinte, autor Octavian Râșniță);</li>
-
-  <li><a href="http://pocketdex.aamedia.ro//">PocketDEX</a> (client
-  pentru Windows CE, inclusiv Pocket PC, autor Alexandru Mirea);</li>
-
-  <li>
-  <!-- a href="http://dapyx-soft.com/~bogdan/dexter.zip" -->DEXter (2.6
-  MB); <span class="deemph">(link indisponibil temporar)</li>
-
-  <li><a href="http://dexoffline.sourceforge.net/">DEX Offline</a> (4
-  MB). Această interfață depinde de alte pachete, deci este posibil să
-  aveți mai mult de instalat.</li>
+  <li><b>Notă:</b> DEX Offline</a> este neactualizat de câțiva ani și nu mai poate comunica adecvat cu DEX online.</li>
 </ul>
 
 <h4>Designul paginii</h4>

@@ -245,3 +245,49 @@ table.userEdit td {
   padding-bottom: 5px;
   vertical-align: top;
 }
+
+table#offlineClients {
+  border-collapse: collapse;
+  margin: 20px auto 0px auto;
+}
+
+table#offlineClients tr.color1 {
+  background-color: #eeeeee;
+}
+
+table#offlineClients tr.color2 {
+  background-color: #f8f8f8;
+}
+
+table#offlineClients td {
+  border: 1px solid #aaaaaa;
+  padding: 5px 10px;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+table#offlineClients td.clientHeader {
+  font-weight: bold;
+  text-align: left;
+  vertical-align: middle;
+}
+
+table#offlineClients .clientName {
+  font-weight: bold;
+}
+
+table#offlineClients td.columnHeader {
+  text-align: center;
+}
+
+table#offlineClients td.option {
+  text-align: center;
+  vertical-align: middle;
+}
+
+table#offlineClients .optionDesc {
+  font-size: 75%;
+  font-weight: normal;
+  padding-left: 20px;
+  white-space: normal;
+}

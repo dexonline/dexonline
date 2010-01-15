@@ -52,6 +52,17 @@ două aplicații nu au fost aduse la zi.
   {/foreach}
 
   <tr class="color2">
+    <td class="clientHeader">Cerințe</td>
+    {foreach from=$clients item=client}
+      <td>
+        {foreach from=$client.requires item=req}
+          {$req}<br/>
+        {/foreach}
+      </td>
+    {/foreach}
+  </tr>
+
+  <tr class="color1">
     <td class="clientHeader">Autori</td>
     {foreach from=$clients item=client}
       <td>
@@ -67,7 +78,7 @@ două aplicații nu au fost aduse la zi.
     {/foreach}
   </tr>
 
-  <tr class="color1">
+  <tr class="color2">
     <td class="clientHeader">Licență</td>
     {foreach from=$clients item=client}
       <td>{$client.license}</td>

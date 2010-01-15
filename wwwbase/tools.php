@@ -21,19 +21,19 @@ $clients = array(
         'license' => 'GPL',
         'options' => array('vision' => 1, 'sync' => 1, 'regexp' => 1, 'suggest' => 1, 'diacritics' => 1, 'full' => 1, 'flex' => 1, 'click' => 1, 'history' => 1)),
 
-  array('name' => 'Dixit',
-        'urls' => array('website' => 'http://dixit.sourceforge.net/'),
-        'os' => array('linux', 'windows'),
-        'authors' => array('Tim Anghel' => '', 'Octavian Procopiuc' => ''),
-        'license' => 'GPL',
-        'options' => array('vision' => 0, 'sync' => 1, 'regexp' => 1, 'suggest' => 1, 'diacritics' => 0, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 1)),
-
   array('name' => 'JaDEX',
         'urls' => array('website' => 'http://www.federicomestrone.com/jadex/'),
         'os' => array('java', 'linux', 'mac', 'windows'),
         'authors' => array('Federico Mestrone' => ''),
         'license' => '',
         'options' => array('vision' => 0, 'sync' => 1, 'regexp' => 1, 'suggest' => 0, 'diacritics' => 1, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 1)),
+
+  array('name' => 'Dixit',
+        'urls' => array('website' => 'http://dixit.sourceforge.net/'),
+        'os' => array('linux', 'windows'),
+        'authors' => array('Tim Anghel' => '', 'Octavian Procopiuc' => ''),
+        'license' => 'GPL',
+        'options' => array('vision' => 0, 'sync' => 1, 'regexp' => 1, 'suggest' => 1, 'diacritics' => 0, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 1)),
 
   array('name' => 'DEX.ro',
         'urls' => array('website' => 'http://dex-ro.blogspot.com/'),

@@ -155,15 +155,16 @@ function db_selectDefinitionsHavingTypos() {
 }
 
 function db_selectDefinitionsForLexemIds($lexemIds, $sourceId, $preferredWord) {
-  $sourceClause = $sourceId ? "and Definition.SourceId = $sourceId" : '';
-  $query = "select distinct Definition.* " .
-    "from Definition, LexemDefinitionMap " .
-    "where Definition.Id = LexemDefinitionMap.DefinitionId " .
-    "and LexemDefinitionMap.LexemId in ($lexemIds) " .
-    "and Definition.Status = 0 " .
+  $sourceClause = $sourceId ? "and D.SourceId = $sourceId" : '';
+  $query = "select distinct D.* " .
+    "from Definition D, LexemDefinitionMap L, Source S " .
+    "where D.Id = L.DefinitionId " .
+    "and L.LexemId in ($lexemIds) " .
+	"and D.SourceId = S.Id " .
+    "and D.Status = 0 " .
     $sourceClause .
-    " order by (Lexicon = '$preferredWord') desc, " .
-    "Definition.Lexicon, Definition.SourceId";
+    " order by (D.Lexicon = '$preferredWord') desc, " .
+    "S.IsOfficial desc, D.Lexicon, S.DisplayOrder";
   return logged_query($query);
 }
 
@@ -308,11 +309,12 @@ function db_searchDefId($defId) {
 
 function db_searchLexemId($lexemId) {
   $lexemId = addslashes($lexemId);
-  $query = "select Definition.* from Definition, LexemDefinitionMap " .
-    "where Definition.Id = LexemDefinitionMap.DefinitionId " .
-    "and LexemDefinitionMap.LexemId = '$lexemId' " .
-    "and Definition.Status = 0 " .
-    "order by Definition.Lexicon, Definition.SourceId";
+  $query = "select D.* from Definition D, LexemDefinitionMap L, Source S " .
+    "where D.Id = L.DefinitionId " .
+    "and D.SourceId = S.Id " .
+    "and L.LexemId = '$lexemId' " .
+    "and D.Status = 0 " .
+    "order by S.IsOfficial, D.Lexicon, S.DisplayOrder";
   return logged_query($query);
 }
 

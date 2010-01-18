@@ -9,12 +9,12 @@ două aplicații nu au fost aduse la zi.
 
 <table id="offlineClients">
   <tr class="color1">
-    <td class="clientHeader"></td>
+    <td class="empty"></td>
     {foreach from=$clients item=client}
       <td class="columnHeader">
-        <span class="clientName">{$client.name}</span><br/>
+        <span class="clientName"><a href="{$client.name[1]}">{$client.name[0]}</span></a><br/>
         {foreach from=$client.urls item=url key=text}
-          <a href="{$url}">{$text}</a>
+          (<a href="{$url}">{$text}</a>)
         {/foreach}
       </td>
     {/foreach}
@@ -63,6 +63,13 @@ două aplicații nu au fost aduse la zi.
   </tr>
 
   <tr class="color1">
+    <td class="clientHeader">Spațiu necesar</td>
+    {foreach from=$clients item=client}
+      <td>{$client.space}</td>
+    {/foreach}
+  </tr>
+
+  <tr class="color2">
     <td class="clientHeader">Autori</td>
     {foreach from=$clients item=client}
       <td>
@@ -78,7 +85,7 @@ două aplicații nu au fost aduse la zi.
     {/foreach}
   </tr>
 
-  <tr class="color2">
+  <tr class="color1">
     <td class="clientHeader">Licență</td>
     {foreach from=$clients item=client}
       <td>{$client.license}</td>

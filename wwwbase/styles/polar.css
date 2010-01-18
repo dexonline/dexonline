@@ -252,11 +252,11 @@ table#offlineClients {
 }
 
 table#offlineClients tr.color1 {
-  background-color: #eeeeee;
+  background-color: #f8f8f8;
 }
 
 table#offlineClients tr.color2 {
-  background-color: #f8f8f8;
+  background-color: #eeeeee;
 }
 
 table#offlineClients td {
@@ -270,6 +270,12 @@ table#offlineClients td.clientHeader {
   font-weight: bold;
   text-align: left;
   vertical-align: middle;
+}
+
+table#offlineClients td.empty {
+  background-color: white;
+  border-left: 0px;
+  border-top: 0px;
 }
 
 table#offlineClients .clientName {

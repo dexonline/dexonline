@@ -81,6 +81,8 @@ class Source {
   public $year;
   public $canContribute;
   public $canModerate;
+  public $isOfficial;
+  public $displayOrder;
 
   public static function load($id) {
     $dbRow = db_getSourceById($id);
@@ -131,6 +133,8 @@ class Source {
     $this->year = $dbRow['Year'];
     $this->canContribute = $dbRow['CanContribute'];
     $this->canModerate = $dbRow['CanModerate'];
+    $this->isOfficial = $dbRow['IsOfficial'];
+    $this->displayOrder = $dbRow['DisplayOrder'];
   }
 }
 
@@ -318,7 +322,7 @@ class Definition {
     return db_getDefinitionsByMinModDate($modDate);
   }
 
-  public static function loadForLexems($lexems, $sourceId, $preferredWord) {
+  public static function loadForLexems($lexems, $sourceId, $preferredWord, $exclude_unofficial = false) {
     if (!count($lexems)) {
       return array();
     }
@@ -330,7 +334,7 @@ class Definition {
       $lexemIds .= $lexem->id;
     }
     $dbResult = db_selectDefinitionsForLexemIds($lexemIds, $sourceId,
-                                                $preferredWord);
+                                                $preferredWord, $exclude_unofficial);
     return Definition::populateFromDbResult($dbResult);
   }
 
@@ -338,8 +342,8 @@ class Definition {
     return Definition::createFromDbRow(db_searchDefId($defId));
   }
 
-  public static function searchLexemId($lexemId) {
-    $dbResult = db_searchLexemId($lexemId);
+  public static function searchLexemId($lexemId, $exclude_unofficial = false) {
+    $dbResult = db_searchLexemId($lexemId, $exclude_unofficial);
     return Definition::populateFromDbResult($dbResult);
   }
 

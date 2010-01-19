@@ -23,6 +23,12 @@ $userPreferencesSet = array(
     'comment' => 'Până în 1993, „&#xe2;” era folosit doar în cuvântul „român”, în cuvintele derivate și în unele nume proprii.',
     'checked' => false, 
   ),
+  'EXCLUDE_UNOFFICIAL' => array(
+  	'value' => 1 << 3,
+	'label' => 'Vreau să vizualizez numai definițiile „oficiale”',
+	'comment' => 'Sursele „neoficiale” nu au girul niciunei instituții acreditate de Academia Română sau a vreunei edituri de prestigiu', 
+	'checked' => false,
+  ),
 );
 
 // Define error codes

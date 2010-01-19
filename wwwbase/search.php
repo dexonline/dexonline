@@ -9,6 +9,7 @@ $text = util_getRequestIntParameter('text');
 
 $searchType = SEARCH_WORDLIST;
 $hasDiacritics = session_user_prefers('FORCE_DIACRITICS');
+$exclude_unofficial = session_user_prefers('EXCLUDE_UNOFFICIAL');
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
 
@@ -23,7 +24,7 @@ if ($cuv) {
   if (!$hasRegexp) {
     $cuv = text_cleanupNonRegexpQuery($cuv);
   }
-  smarty_assign('page_title', 'DEX online - Cautare: ' . $cuv);
+  smarty_assign('page_title', 'DEX online - Căutare: ' . $cuv);
 }
 
 if ($text) {
@@ -55,14 +56,21 @@ if ($lexemId) {
     $lexemId = '';
   }
   $lexem = Lexem::load($lexemId);
-  $definitions = Definition::searchLexemId($lexemId);
+  $definitions = Definition::searchLexemId($lexemId, $exclude_unofficial);
   $searchResults = SearchResult::mapDefinitionArray($definitions);
   smarty_assign('results', $searchResults);
   if ($lexem) {
     $lexems = array($lexem);
     smarty_assign('cuv', $lexem->unaccented);
-    smarty_assign('page_title', 'DEX online - Lexem: ' . $lexem->unaccented);
-  } else {
+	if ($definitions) {
+		smarty_assign('page_title', 'DEX online - Lexem: ' . $lexem->unaccented);
+	}
+	else {
+		smarty_assign('page_title', 'DEX online - Lexem neoficial: ' . $lexem->unaccented);
+		smarty_assign('exclude_unofficial', $exclude_unofficial);
+	}
+  }
+  else {
     $lexems = array();
     smarty_assign('page_title', 'DEX online - Eroare');
   }
@@ -107,7 +115,7 @@ if ($searchType == SEARCH_WORDLIST) {
   smarty_assign('lexems', $lexems);
   if ($searchType == SEARCH_LEXEM || $searchType == SEARCH_WORDLIST) {
     // For successful searches, load the definitions and inflections
-    $definitions = Definition::loadForLexems($lexems, $sourceId, $cuv);
+    $definitions = Definition::loadForLexems($lexems, $sourceId, $cuv, $exclude_unofficial);
     $searchResults = SearchResult::mapDefinitionArray($definitions);
   }
 }

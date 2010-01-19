@@ -87,9 +87,11 @@ table.rightWrong tr td.notes {
   width: 46%;
 }
 
-div.defComment {
+span.defComment {
   font-size: 90%;
-  margin-left: 2em;
+  margin-left: 24px;
+  margin-top: 16px;
+  display: block;
 }
 
 span.defDetails {

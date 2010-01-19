@@ -234,9 +234,11 @@ table.rightWrong tr td.notes {
   width: 46%;
 }
 
-div.defComment {
+span.defComment {
   margin-left: 2em;
+  margin-top: 16px;
   font-size: 90%;
+  display: block;
 }
 
 a.noBorder img {

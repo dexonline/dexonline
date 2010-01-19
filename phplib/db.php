@@ -154,14 +154,16 @@ function db_selectDefinitionsHavingTypos() {
                       "order by Lexicon limit 500");
 }
 
-function db_selectDefinitionsForLexemIds($lexemIds, $sourceId, $preferredWord) {
+function db_selectDefinitionsForLexemIds($lexemIds, $sourceId, $preferredWord, $exclude_unofficial) {
   $sourceClause = $sourceId ? "and D.SourceId = $sourceId" : '';
+  $excludeClause = $exclude_unofficial ? "and S.IsOfficial <> 0 " : '';
   $query = "select distinct D.* " .
     "from Definition D, LexemDefinitionMap L, Source S " .
     "where D.Id = L.DefinitionId " .
     "and L.LexemId in ($lexemIds) " .
 	"and D.SourceId = S.Id " .
     "and D.Status = 0 " .
+	$excludeClause . 
     $sourceClause .
     " order by (D.Lexicon = '$preferredWord') desc, " .
     "S.IsOfficial desc, D.Lexicon, S.DisplayOrder";
@@ -307,12 +309,14 @@ function db_searchDefId($defId) {
   return db_fetchSingleRow(logged_query($query));
 }
 
-function db_searchLexemId($lexemId) {
+function db_searchLexemId($lexemId, $exclude_unofficial) {
   $lexemId = addslashes($lexemId);
+  $excludeClause = $exclude_unofficial ? "and S.IsOfficial <> 0 " : '';
   $query = "select D.* from Definition D, LexemDefinitionMap L, Source S " .
     "where D.Id = L.DefinitionId " .
     "and D.SourceId = S.Id " .
     "and L.LexemId = '$lexemId' " .
+	$excludeClause . 
     "and D.Status = 0 " .
     "order by S.IsOfficial, D.Lexicon, S.DisplayOrder";
   return logged_query($query);

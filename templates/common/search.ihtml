@@ -4,7 +4,9 @@
   </div>
 
   {if $searchType == SEARCH_LEXEM || $searchType == SEARCH_WORDLIST}
-    {if count($results) == 1}
+    {if count($results) == 0}
+      Am găsit numai definiții „neoficiale” pentru
+    {elseif count($results) == 1}
       O definiție pentru
     {else}
       {$results|@count} definiții pentru
@@ -43,12 +45,16 @@
 
   {elseif $searchType == SEARCH_LEXEM_ID}
     {if count($lexems) > 0}
-      {if count($results) == 1}
-        O definiție pentru
-      {else}
-        {$results|@count} definiții pentru
-      {/if}
-      {include file="common/bits/lexemName.ihtml" lexem=$lexems.0}
+	  {if $exclude_unofficial}
+		  Lexemul cu ID-ul căutat există, dar este „neoficial”.
+	  {else}
+		  {if count($results) == 1}
+			O definiție pentru
+		  {else}
+			{$results|@count} definiții pentru
+		  {/if}
+		  {include file="common/bits/lexemName.ihtml" lexem=$lexems.0}
+	  {/if}
     {else}
       Nu există niciun lexem cu ID-ul căutat.
     {/if}
@@ -135,11 +141,11 @@
     </span>
 
     {if $row->comment}
-      <div class="defComment">
+      <span class="defComment">
         Comentariu: {$row->comment->htmlContents} -
         <a href="user.php?n={$row->commentAuthor->nick|escape:"url"}"
         >{$row->commentAuthor->nick|escape}</a>
-      </div>
+      </span>
     {/if}
   </p>
 {/foreach}

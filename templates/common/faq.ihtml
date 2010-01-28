@@ -960,9 +960,9 @@ online</i> dacă nu pot să stau prea mult pe Internet?</a></h3>
 
 <h3><a name="bug">Vreau să repar un bug în <i>DEX online</i></a></h3>
 
-  Vă mulțumim anticipat! Lista de bug-uri din <i>DEX online</i> este
-  la <a
-  href="http://bugzilla.dexonline.ro">http://bugzilla.dexonline.ro</a>.
+  Vă mulțumim anticipat! Iată <a
+  href="http://bugs.dexonline.ro/report/1">lista de bug-uri active</a>
+  din <i>DEX online</i>.
 
 
 <h3><a name="client">Vreau să scriu un client pentru <i>DEX online</i></a></h3>

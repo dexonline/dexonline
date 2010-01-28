@@ -12,6 +12,7 @@ $hasDiacritics = session_user_prefers('FORCE_DIACRITICS');
 $exclude_unofficial = session_user_prefers('EXCLUDE_UNOFFICIAL');
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
+$showParadigm = util_getRequestParameter('showParadigm');
 
 if ($cuv) {
   // Keep spaces for full-text searches.
@@ -152,6 +153,7 @@ if ($searchType == SEARCH_LEXEM || $searchType == SEARCH_WORDLIST ||
 
 smarty_assign('text', $text);
 smarty_assign('searchType', $searchType);
+smarty_assign('showParadigm', $showParadigm);
 smarty_displayCommonPageWithSkin('search.ihtml');
 
 ?>

@@ -49,9 +49,17 @@ span.isLoc {
   font-weight: bold;
 }
 
-div.paradigm {
+div.paradigmShow, div.paradigmHide {
   margin: 5px 50px;
   padding: 5px;
-  display: none;
   white-space: nowrap;
+}
+
+div.paradigmShow {
+  display: block;
+
+}
+
+div.paradigmHide {
+  display: none;
 }

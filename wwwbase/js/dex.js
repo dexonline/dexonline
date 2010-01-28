@@ -210,12 +210,13 @@ function toggleDivVisibility(divId) {
 function toggleInflVisibility() {
   var div = document.getElementById('paradigmDiv');
   var arrow = document.getElementById('inflArrow');
-  if (div.style.display == 'block') {
-    div.style.display = 'none';
-    arrow.innerHTML = '&#x25b7;';
-  } else {
-    div.style.display = 'block';
+  if (div.className == 'paradigmHide') {
+	div.className = 'paradigmShow';
     arrow.innerHTML = '&#x25bd;';
+  }
+  else {
+	div.className = 'paradigmHide';
+    arrow.innerHTML = '&#x25b7;';
   }
   return false;
 }

@@ -29,6 +29,12 @@ $userPreferencesSet = array(
 	'comment' => 'Sursele „neoficiale” nu au girul niciunei instituții acreditate de Academia Română sau a vreunei edituri de prestigiu', 
 	'checked' => false,
   ),
+  'SHOW_PARADIGM' => array(
+  	'value' => 1 << 4,
+	'label' => 'Doresc flexiunile să fie expandate',
+	'comment' => 'Implicit, flexiunile sînt ascunse', 
+	'checked' => false,
+  ),
 );
 
 // Define error codes

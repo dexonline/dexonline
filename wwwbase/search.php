@@ -12,7 +12,7 @@ $hasDiacritics = session_user_prefers('FORCE_DIACRITICS');
 $exclude_unofficial = session_user_prefers('EXCLUDE_UNOFFICIAL');
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
-$showParadigm = util_getRequestParameter('showParadigm');
+$showParadigm = util_getRequestParameter('showParadigm') || session_user_prefers('SHOW_PARADIGM');
 
 if ($cuv) {
   // Keep spaces for full-text searches.

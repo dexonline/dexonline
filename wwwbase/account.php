@@ -31,8 +31,8 @@ $userPreferencesSet = array(
   ),
   'SHOW_PARADIGM' => array(
   	'value' => 1 << 4,
-	'label' => 'Doresc flexiunile să fie expandate',
-	'comment' => 'Implicit, flexiunile sînt ascunse', 
+	'label' => 'Doresc ca flexiunile să fie expandate',
+	'comment' => 'Implicit, flexiunile sunt ascunse', 
 	'checked' => false,
   ),
 );

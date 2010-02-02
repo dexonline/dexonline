@@ -110,4 +110,8 @@ function pref_getFrozenLocVersions() {
   return array_slice($lvs, 0, -1);
 }
 
+function pref_getAdsense() {
+  return pref_getServerPreference('adsense');  
+}
+
 ?>

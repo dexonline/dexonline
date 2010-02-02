@@ -203,3 +203,8 @@ span.defComment {
 a.noBorder img {
   border: 0;
 }
+
+div#adsense {
+  float: right;
+  margin: 5px;
+}

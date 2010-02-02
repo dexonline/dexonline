@@ -87,73 +87,89 @@
   {/if}
 </div>
 
-{if $wordListMaps}
-  <div class="{if $showParadigm}paradigmShow{else}paradigmHide{/if}" id="paradigmDiv">
-    {foreach from=$wordListMaps item=wlMap key=i}
-      {include file="common/bits/paradigm.ihtml"
-               lexem=$lexems[$i]
-               wlMap=$wlMap}
-    {/foreach}
-  </div>
-{/if}
+<div id="resultsWrapper">
+  {if $adsense}
+    <div id="adsense">
+      <script type="text/javascript"><!--
+        google_ad_client = "pub-0984612625745348";
+        /* 120x240, created 2/2/10 */
+        google_ad_slot = "2796908849";
+        google_ad_width = 120;
+        google_ad_height = 240; //-->
+      </script>
+      <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+      </script>
+    </div>
+  {/if}
 
-{if $stopWords}
-  <span class="stopWords">
-    Unul sau mai multe cuvinte au fost ignorate deoarece sunt prea comune:
-    <b>
-      {foreach from=$stopWords item=word}
-        {$word|escape}
+  {if $wordListMaps}
+    <div class="{if $showParadigm}paradigmShow{else}paradigmHide{/if}" id="paradigmDiv">
+      {foreach from=$wordListMaps item=wlMap key=i}
+        {include file="common/bits/paradigm.ihtml"
+                 lexem=$lexems[$i]
+                 wlMap=$wlMap}
       {/foreach}
-    </b>
-  </span>
-{/if}
-
-{foreach from=$results item=row}
-  <p>
-    <span class="def" onclick="return searchClickedWord(event);">
-      {$row->definition->htmlRep}
+    </div>
+  {/if}
+  
+  {if $stopWords}
+    <span class="stopWords">
+      Unul sau mai multe cuvinte au fost ignorate deoarece sunt prea comune:
+      <b>
+        {foreach from=$stopWords item=word}
+          {$word|escape}
+        {/foreach}
+      </b>
     </span>
-    <br/>
-
-    <span class="defDetails">
-      Sursa: <a class="ref" href="faq.php#surse"
-                title="{$row->source->name|escape}, {$row->source->year|escape}"
-	     >{$row->source->shortName|escape}</a> |
-
-      Trimisă de <a href="user.php?n={$row->user->nick|escape:"url"}"
-        >{$row->user->nick|escape}</a>,
-      {$row->definition->createDate|date_format:"%e %b %Y"}
-
-      {if $is_moderator}
-        | Id: {$row->definition->id}
-      {/if}
-
-      |
-      <a href="javascript:typoWindow({$row->definition->id})"
-      >Greșeală de tipar</a>
-
-      {if $is_moderator && !$is_mirror}
-        |
-        <a target="edit_window"
-           href="admin/definitionEdit.php?definitionId={$row->definition->id}">
-          Editează</a>
-      {/if}
-    </span>
-
-    {if $row->comment}
-      <span class="defComment">
-        Comentariu: {$row->comment->htmlContents} -
-        <a href="user.php?n={$row->commentAuthor->nick|escape:"url"}"
-        >{$row->commentAuthor->nick|escape}</a>
+  {/if}
+  
+  {foreach from=$results item=row}
+    <p>
+      <span class="def" onclick="return searchClickedWord(event);">
+        {$row->definition->htmlRep}
       </span>
-    {/if}
-  </p>
-{/foreach}
-
-{if $searchType == SEARCH_APPROXIMATE || $searchType == SEARCH_REGEXP}
-  {foreach from=$lexems item=lexem key=row_id}
-    {if $row_id}|{/if}
-    <a href="search.php?lexemId={$lexem->id}"
-    >{include file="common/bits/lexemName.ihtml" lexem=$lexem}</a>
+      <br/>
+  
+      <span class="defDetails">
+        Sursa: <a class="ref" href="faq.php#surse"
+                  title="{$row->source->name|escape}, {$row->source->year|escape}"
+  	     >{$row->source->shortName|escape}</a> |
+  
+        Trimisă de <a href="user.php?n={$row->user->nick|escape:"url"}"
+          >{$row->user->nick|escape}</a>,
+        {$row->definition->createDate|date_format:"%e %b %Y"}
+  
+        {if $is_moderator}
+          | Id: {$row->definition->id}
+        {/if}
+  
+        |
+        <a href="javascript:typoWindow({$row->definition->id})"
+        >Greșeală de tipar</a>
+  
+        {if $is_moderator && !$is_mirror}
+          |
+          <a target="edit_window"
+             href="admin/definitionEdit.php?definitionId={$row->definition->id}">
+            Editează</a>
+        {/if}
+      </span>
+  
+      {if $row->comment}
+        <span class="defComment">
+          Comentariu: {$row->comment->htmlContents} -
+          <a href="user.php?n={$row->commentAuthor->nick|escape:"url"}"
+          >{$row->commentAuthor->nick|escape}</a>
+        </span>
+      {/if}
+    </p>
   {/foreach}
-{/if}
+  
+  {if $searchType == SEARCH_APPROXIMATE || $searchType == SEARCH_REGEXP}
+    {foreach from=$lexems item=lexem key=row_id}
+      {if $row_id}|{/if}
+      <a href="search.php?lexemId={$lexem->id}"
+      >{include file="common/bits/lexemName.ihtml" lexem=$lexem}</a>
+    {/foreach}
+  {/if}
+</div>

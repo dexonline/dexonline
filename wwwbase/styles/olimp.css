@@ -263,3 +263,8 @@ span.defDetails {
   font-size: 80%;
   margin-left: 2em;
 }
+
+div#adsense {
+  float: right;
+  margin: 5px;
+}

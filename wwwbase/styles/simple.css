@@ -156,3 +156,8 @@ div.abbrev {
   float: right;
   font-weight: normal;
 }
+
+div#adsense {
+  float: right;
+  margin: 5px;
+}

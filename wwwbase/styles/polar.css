@@ -114,6 +114,7 @@ span.defComment {
   border: 1px dashed gray;
   font-size: 90%;
   margin-left: 2em;
+  margin-right: 130px;
   margin-top: 8px;
   padding-left: 4px;
   display: block;
@@ -297,4 +298,9 @@ table#offlineClients .optionDesc {
   font-weight: normal;
   padding-left: 20px;
   white-space: normal;
+}
+
+div#adsense {
+  float: right;
+  margin: 5px;
 }

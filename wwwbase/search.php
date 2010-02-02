@@ -154,6 +154,7 @@ if ($searchType == SEARCH_LEXEM || $searchType == SEARCH_WORDLIST ||
 smarty_assign('text', $text);
 smarty_assign('searchType', $searchType);
 smarty_assign('showParadigm', $showParadigm);
+smarty_assign('adsense', pref_getAdsense());
 smarty_displayCommonPageWithSkin('search.ihtml');
 
 ?>

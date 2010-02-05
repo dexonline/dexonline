@@ -2127,4 +2127,34 @@ class FullTextIndex {
   }
 }
 
+
+class Variable {
+  public $name;
+  public $value;
+
+  public static function peek($name, $default = null) {
+    $result = new Variable();
+    $dbRow = db_getVariable($name);
+    if (!$dbRow) {
+      return $default;
+    }
+    $result->populateFromDbRow($dbRow);
+    return $result->value;
+  }
+
+  public static function poke($name, $value) {
+    $v = self::peek($name);
+    if ($v) {
+      db_updateVariable($name, $value);
+    } else {
+      db_insertVariable($name, $value);
+    }
+  }
+
+  private function populateFromDbRow($dbRow) {
+    $this->name = $dbRow['Name'];
+    $this->value = $dbRow['Value'];
+  }
+}
+
 ?>

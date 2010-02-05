@@ -95,6 +95,20 @@ function logged_query($query) {
   return $result;
 }
 
+function db_tableExists($tableName) {
+  return db_fetchSingleRow(logged_query("show tables like '$tableName'")) !== false;
+}
+
+function db_executeSqlFile($fileName) {
+  $statements = file_get_contents($fileName);
+  $statements = explode(';', $statements);
+  foreach ($statements as $statement) {
+    if (trim($statement) != '') {
+      logged_query($statement);
+    }
+  }
+}
+
 /*************************** Users *******************************/
 
 function db_getUserById($id) {
@@ -1550,6 +1564,23 @@ function db_getSourceByShortName($shortName) {
   $shortName = addslashes($shortName);
   $query = "select * from Source where ShortName = '$shortName'";
   return db_fetchSingleRow(logged_query($query));
+}
+
+/****************************** Variables *****************************/
+
+function db_getVariable($name) {
+  $query = "select * from Variable where Name = '$name'";
+  return db_fetchSingleRow(logged_query($query));
+}
+
+function db_insertVariable($name, $value) {
+  $query = sprintf("insert into Variable set name = '%s', value = '%s'", addslashes($name), addslashes($value));
+  return logged_query($query);
+}
+
+function db_updateVariable($name, $value) {
+  $query = sprintf("update Variable set name = '%s', value = '%s'", addslashes($name), addslashes($value));
+  return logged_query($query);
 }
 
 ?>

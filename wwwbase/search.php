@@ -13,6 +13,7 @@ $exclude_unofficial = session_user_prefers('EXCLUDE_UNOFFICIAL');
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
 $showParadigm = util_getRequestParameter('showParadigm') || session_user_prefers('SHOW_PARADIGM');
+$paradigmLink = $_SERVER['REQUEST_URI'] . (util_getRequestParameter('showParadigm') ? '' : '&showParadigm=1');
 
 if ($cuv) {
   // Keep spaces for full-text searches.
@@ -154,6 +155,7 @@ if ($searchType == SEARCH_LEXEM || $searchType == SEARCH_WORDLIST ||
 smarty_assign('text', $text);
 smarty_assign('searchType', $searchType);
 smarty_assign('showParadigm', $showParadigm);
+smarty_assign('paradigmLink', $paradigmLink);
 smarty_assign('adsense', pref_getAdsense());
 smarty_displayCommonPageWithSkin('search.ihtml');
 

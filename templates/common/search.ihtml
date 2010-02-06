@@ -109,6 +109,7 @@
                  lexem=$lexems[$i]
                  wlMap=$wlMap}
       {/foreach}
+	  <a class="paradigmLink" title="Link către această pagină, dar cu flexiunile expandate!" href="{$paradigmLink}">Link către această paradigmă</a> 
     </div>
   {/if}
   

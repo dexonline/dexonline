@@ -5,6 +5,6 @@
 {else}
   {foreach from=$wlArray item=wl key=i}{
     if $i}, {/if}{
-    $wl->form}{
-    /foreach}
+		$wl->form|regex_replace:"/\'(a|e|i|o|u|ă|î|â)/":"<font class=\"accented\">\$1</font>"}{
+  /foreach}
 {/if}

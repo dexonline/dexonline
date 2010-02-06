@@ -4,7 +4,6 @@ div.lexem {
 
 span.lexemName {
   font-weight: bold;
-  text-decoration: underline;
 }
 
 table.lexem {
@@ -21,11 +20,17 @@ table.lexem tr td {
 table.lexem tr td.inflection {
   color: #555555;
   font-style: italic;
+  font-size: small;
   text-align: center;
 }
 
 table.lexem tr td.form {
+  font-style: italic;
+}
+
+table.lexem tr td.form .accented{
   font-weight: bold;
+  font-style: normal;
 }
 
 table.lexem tr td.spacer {
@@ -62,4 +67,8 @@ div.paradigmShow {
 
 div.paradigmHide {
   display: none;
+}
+
+.paradigmLink {
+  font-size: small;
 }

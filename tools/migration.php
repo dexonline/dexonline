@@ -37,7 +37,7 @@ print "Current schema version is <$schemaVersion>\n";
 $patchFiles = getPatches(PATCH_DIR, $schemaVersion);
 $numPatches = 0;
 foreach ($patchFiles as $fileName) {
-  runPatch(PATCH_DIR . "/" . $fileName, $dryRun);
+  runPatch(PATCH_DIR . $fileName, $dryRun);
   $numPatches++;
   $schemaVersion = stripExtension($fileName);
 }

@@ -416,6 +416,31 @@ class Definition {
     return Definition::populateFromDbResult($dbResult);
   }
 
+  // Return definitions that are associateed with at least two of the lexems
+  public static function searchMultipleWords($words, $hasDiacritics, $sourceId, $exclude_unofficial) {
+    $defCounts = array();
+    foreach ($words as $word) {
+      $lexems = Lexem::searchWordlists($word, $hasDiacritics);
+      if (count($lexems)) {
+        $definitions = Definition::loadForLexems($lexems, $sourceId, $word, $exclude_unofficial);
+        foreach ($definitions as $def) {
+          $defCounts[$def->id] = array_key_exists($def->id, $defCounts) ? $defCounts[$def->id] + 1 : 1;
+        }
+      }
+    }
+    arsort($defCounts);
+
+    $result = array();
+    foreach ($defCounts as $defId => $cnt) {
+      if ($cnt >= 2) {
+        $result[] = Definition::load($defId);
+      } else {
+        break;
+      }
+    }
+    return $result;
+  }
+
   public static function getWordCount() {
     $cachedWordCount = fileCache_getWordCount();
     if ($cachedWordCount) {
@@ -1346,9 +1371,8 @@ class Lexem {
       return 'Forma nu poate fi vidă.';
     }
     $numAccents = mb_substr_count($this->form, "'");
-    if ($numAccents > 1) {
-      return 'Nu puteți pune mai mult de un accent.';
-    } else if ($numAccents && $this->noAccent) {
+    // Note: we allow multiple accents for lexems like hárcea-párcea
+    if ($numAccents && $this->noAccent) {
       return 'Ați indicat că lexemul nu necesită accent, dar forma ' .
         'conține un accent.';
     } else if (!$numAccents && !$this->noAccent) {

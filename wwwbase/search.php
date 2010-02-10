@@ -16,16 +16,12 @@ $showParadigm = util_getRequestParameter('showParadigm') || session_user_prefers
 $paradigmLink = $_SERVER['REQUEST_URI'] . (util_getRequestParameter('showParadigm') ? '' : '&showParadigm=1');
 
 if ($cuv) {
-  // Keep spaces for full-text searches.
-  $cuv = text_cleanupQueryKeepSpaces($cuv, $text);
+  $cuv = text_cleanupQuery($cuv);
   smarty_assign('cuv', $cuv);
   $arr = text_analyzeQuery($cuv);
   $hasDiacritics = session_user_prefers('FORCE_DIACRITICS') || $arr[0];
   $hasRegexp = $arr[1];
   $isAllDigits = $arr[2];
-  if (!$hasRegexp) {
-    $cuv = text_cleanupNonRegexpQuery($cuv);
-  }
   smarty_assign('page_title', 'DEX online - Căutare: ' . $cuv);
 }
 
@@ -110,20 +106,36 @@ if ($searchType == SEARCH_WORDLIST) {
     $lexems = Lexem::searchWordlists($cuv_old, $hasDiacritics);
   }
   if (count($lexems) == 0) {
+    $searchType = SEARCH_MULTIWORD;
+    $words = split('[ .-]+', $cuv);
+    if (count($words) > 1) {
+      $ignoredWords = array_slice($words, 5);
+      $words = array_slice($words, 0, 5);
+      $definitions = Definition::searchMultipleWords($words, $hasDiacritics, $sourceId, $exclude_unofficial);
+      smarty_assign('ignoredWords', $ignoredWords);
+    }
+  }
+  if (count($lexems) == 0 && empty($definitions)) {
     $searchType = SEARCH_APPROXIMATE;
     $lexems = Lexem::searchApproximate($cuv, $hasDiacritics);
+    if (count($lexems) == 1) {
+      // Convenience redirect when there is only one correct form
+      util_redirect($_SERVER['PHP_SELF'] . '?cuv=' . $lexems[0]->unaccented);
+    }
   }
 
   smarty_assign('lexems', $lexems);
-  if ($searchType == SEARCH_LEXEM || $searchType == SEARCH_WORDLIST) {
+  if ($searchType == SEARCH_WORDLIST) {
     // For successful searches, load the definitions and inflections
     $definitions = Definition::loadForLexems($lexems, $sourceId, $cuv, $exclude_unofficial);
+  }
+
+  if (isset($definitions)) {
     $searchResults = SearchResult::mapDefinitionArray($definitions);
   }
 }
 
-if ($searchType == SEARCH_LEXEM || $searchType == SEARCH_WORDLIST ||
-    $searchType == SEARCH_LEXEM_ID || $searchType == SEARCH_FULL_TEXT) {
+if ($searchType == SEARCH_WORDLIST || $searchType == SEARCH_LEXEM_ID || $searchType == SEARCH_FULL_TEXT || $searchType == SEARCH_MULTIWORD) {
   foreach ($definitions as $def) {
     $def->displayed = $def->displayed + 1;
     $def->saveDisplayedValue();
@@ -134,7 +146,7 @@ if ($searchType == SEARCH_LEXEM || $searchType == SEARCH_WORDLIST ||
   // Maps lexems to arrays of wordlists (some lexems may lack inflections)
   // Also compute the text of the link to the paradigm div,
   // which can be 'conjugări', 'declinări' or both
-  if (isset($lexems)) {
+  if (!empty($lexems)) {
     $wordListMaps = array();
     $conjugations = false;
     $declensions = false;

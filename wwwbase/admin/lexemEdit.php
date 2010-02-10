@@ -80,7 +80,7 @@ if (!$similarModel && !$similarLexemName && !$refreshLexem &&
 
 if ($lexemForm !== null) {
   $oldUnaccented = $lexem->unaccented;
-  $lexem->form = text_internalize($lexemForm, true);
+  $lexem->form = text_formatLexem($lexemForm);
   $lexem->unaccented = str_replace("'", '', $lexem->form);
   $lexem->reverse = text_reverse($lexem->unaccented);
   if ($lexem->unaccented != $oldUnaccented) {

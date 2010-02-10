@@ -1,6 +1,6 @@
 <?php
 require_once("../phplib/util.php");
-smarty_assign('page_title', 'DEX online - Greseli frecvente in limba romana');
+smarty_assign('page_title', 'DEX online - Ghid de exprimare');
 smarty_assign('show_search_box', 0);
 smarty_assign('slick_selected', 'corect');
 

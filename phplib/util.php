@@ -113,7 +113,7 @@ function util_defineConstants() {
                                    ST_DELETED => "Ștearsă");
 
   define("SEARCH_REGEXP", 0);
-  define("SEARCH_LEXEM", 1);
+  define("SEARCH_MULTIWORD", 1);
   define("SEARCH_WORDLIST", 2);
   define("SEARCH_APPROXIMATE", 3);
   define("SEARCH_DEF_ID", 4);
@@ -165,8 +165,7 @@ function util_getRequestParameter($name) {
 }
 
 function util_getRequestParameterWithDefault($name, $default) {
-  return array_key_exists($name, $_REQUEST) ?
-    $_REQUEST[$name] : $default;
+  return array_key_exists($name, $_REQUEST) ? $_REQUEST[$name] : $default;
 }
 
 function util_getRequestIntParameter($name) {

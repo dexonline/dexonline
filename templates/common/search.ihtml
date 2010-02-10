@@ -3,7 +3,7 @@
     <a href="#" onclick="abbrevwindow(); return false;">Abrevieri</a>
   </div>
 
-  {if $searchType == SEARCH_LEXEM || $searchType == SEARCH_WORDLIST}
+  {if $searchType == SEARCH_WORDLIST}
     {if count($results) == 0}
       Am găsit numai definiții „neoficiale” pentru
     {elseif count($results) == 1}
@@ -22,7 +22,7 @@
       Cuvântul "{$cuv|escape}" nu a fost găsit, dar am găsit următoarele cuvinte
       apropiate:
     {else}
-      Cuvântul "{$cuv|escape}" nu a fost găsit. Nu există niciun cuvânt similar.
+      Niciun rezultat relevant pentru "{$cuv|escape}".
     {/if}
 
   {elseif $searchType == SEARCH_DEF_ID}
@@ -77,6 +77,12 @@
         (maxim {$results|@count} afișate)
       {/if}
     {/if}
+
+
+  {elseif $searchType == SEARCH_MULTIWORD}
+    {$results|@count} definiții se potrivesc cu cel puțin doi dintre termenii căutați. Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat
+    sau puteți căuta <a href="?cuv={$cuv}&amp;text=1">în tot corpul definițiilor</a>.
+
   {/if}
 
   {if $declensionText}
@@ -118,6 +124,17 @@
       Unul sau mai multe cuvinte au fost ignorate deoarece sunt prea comune:
       <b>
         {foreach from=$stopWords item=word}
+          {$word|escape}
+        {/foreach}
+      </b>
+    </span>
+  {/if}
+  
+  {if $ignoredWords}
+    <span class="stopWords">
+      Sunt permise maxim 5 cuvinte. Următoarele cuvinte au fost ignorate:
+      <b>
+        {foreach from=$ignoredWords item=word}
           {$word|escape}
         {/foreach}
       </b>

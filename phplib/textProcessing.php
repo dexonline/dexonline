@@ -48,6 +48,7 @@ function text_init() {
 				 'o', 'O', 'o', 'O', 'o', 'O',
 				 'o', 'O', 'o', 'O', 'r', 'R',
 				 's', 'S', 's', 'S', 't', 'T',
+				 's', 'S', 't', 'T',
 				 'u', 'U', 'u', 'U', 'u', 'U',
 				 'u', 'U', 'u', 'U',
 				 'y', 'Y', 'y', 'Y', 'z', 'Z');
@@ -68,7 +69,7 @@ function text_init() {
                                        'o', 'O', 'u', 'U', 'y', 'Y');
 
   $GLOBALS['text_illegalNameChars'] =
-    ' !@#$%^&*()-_+=\\|[]{},.<>/?;:\'"`~0123456789';
+    '!@#$%^&*()-_+=\\|[]{},.<>/?;:\'"`~0123456789';
 
   $GLOBALS['vowels'] = "aăâäåeéiîoöuüùy";
 
@@ -275,26 +276,20 @@ function text_init() {
 
 /**** Conversions from whatever the user typed in to our internal format ****/
 
-function text_internalizeWordName($name) {
-  $name = text_shorthandToUnicode($name);
-  // We don't want to store cásă as our name, because it wouldn't respond to
-  // the query casă.
-  $name = text_removeAccents($name);
-  $name = trim($name);
-  $name = strip_tags($name);
-  $name = text_unicodeToLower($name);
-  // Strip HTML escape codes
-  $name = preg_replace("/&[^;]+;/", "", $name);
-  // Strip all illegal characters
-  $result = '';
-  $len = mb_strlen($name);
-  for ($i = 0; $i < $len; $i++) {
-    $c = text_getCharAt($name, $i);
-    if (strstr($GLOBALS['text_illegalNameChars'], $c) === FALSE) {
-      $result .= $c;
-    }
+function text_process($s, $ops) {
+  foreach ($ops as $op) {
+    $s = call_user_func($op, $s);
   }
-  return $result;
+  return $s;
+}
+
+function text_internalizeWordName($name) {
+  return text_process($name, array('text_shorthandToUnicode', 'text_removeAccents', 'strip_tags', 'text_unicodeToLower',
+                                   'text_stripHtmlEscapeCodes', 'text_stripWhiteSpace', 'text_stripIllegalCharacters'));
+}
+
+function text_formatLexem($s) {
+  return text_process($s, array('text_shorthandToUnicode', 'text_explicitAccents', 'trim', 'strip_tags', 'text_stripHtmlEscapeCodes'));
 }
 
 // If preserveAccent is true, then c'as~a is converted to c'asă, but not
@@ -303,9 +298,7 @@ function text_internalize($text, $preserveAccent) {
   if ($preserveAccent) {
     $text = str_replace("'", "*****", $text);
   }
-  $text = text_shorthandToUnicode($text);
-  $text = trim($text);
-  $text = strip_tags($text);
+  $text = text_process($text, array('text_shorthandToUnicode', 'trim', 'strip_tags'));
   if ($preserveAccent) {
     $text = str_replace("*****", "'", $text);
   }
@@ -743,16 +736,9 @@ function text_unicodeToUpper($s) {
 }
 
 function text_cleanupQuery($query) {
-  return text_cleanupQueryKeepSpaces($query, false);
-}
-
-function text_cleanupQueryKeepSpaces($query, $keepSpaces) {
   $query = str_replace(array('"', "'"), array("", ""), $query);
-  if (text_startsWith($query, 'a ') && !$keepSpaces) {
+  if (text_startsWith($query, 'a ')) {
     $query = substr($query, 2);
-  }
-  if (!$keepSpaces) {
-    $query = str_replace(' ', '', $query);
   }
   $query = trim($query);
   $query = strip_tags($query);
@@ -761,15 +747,10 @@ function text_cleanupQueryKeepSpaces($query, $keepSpaces) {
   }
   $query = text_unicodeToLower($query);
   $query = text_removeAccents($query);
-  $query = preg_replace("/&[^;]+;/", "", $query);
-  $query = str_replace('\\', '', $query);
-  return $query;
-}
-
-// Once we know a query does not contain regular expressions, we can discard
-// several symbols, such as dashes.
-function text_cleanupNonRegexpQuery($query) {
-  $query = str_replace('-', '', $query);
+  $query = text_stripHtmlEscapeCodes($query);
+  // Delete all kinds of illegal symbols, but use them as word delimiters. Allow dots, dashes and spaces
+  $query = preg_replace("/[!@#$%&()_+=\\{}'\":;<>,\/]/", " ", $query);
+  $query = preg_replace("/\s+/", " ", $query);
   return $query;
 }
 
@@ -1197,6 +1178,30 @@ function text_separateStopWords($words, $hasDiacritics) {
   }
 
   return array($properWords, $stopWords);
+}
+
+function text_explicitAccents($s) {
+  return str_replace($GLOBALS['text_accented'], $GLOBALS['text_explicitAccent'], $s);
+}
+
+function text_stripWhiteSpace($s) {
+  return str_replace(' ', '', $s);
+}
+
+function text_stripHtmlEscapeCodes($s) {
+  return preg_replace("/&[^;]+;/", "", $s);
+}
+
+function text_stripIllegalCharacters($s) {
+  $result = '';
+  $len = mb_strlen($s);
+  for ($i = 0; $i < $len; $i++) {
+    $c = text_getCharAt($s, $i);
+    if (strstr($GLOBALS['text_illegalNameChars'], $c) === FALSE) {
+      $result .= $c;
+    }
+  }
+  return $result;
 }
 
 function text_replace_st($tpl_output) {

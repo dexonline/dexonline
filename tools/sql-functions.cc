@@ -1,7 +1,8 @@
 /**
  * How to extend MySQL with a C function
- * gcc -shared -I/usr/include/mysql -o /usr/lib/sql-functions.so \
- * sql-functions.cc
+ * gcc -fPIC -shared -I/usr/include/mysql -o sql-functions.so sql-functions.cc
+ *
+ * Obtain root permissions and move sql-functions.so to /usr/lib.
  * 
  * In mysql:
  * create function dist2 returns integer soname "sql-functions.so";

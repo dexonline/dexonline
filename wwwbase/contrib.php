@@ -36,6 +36,7 @@ if ($sendButton) {
     $definition->id = db_getLastInsertedId();
     log_userLog("Added definition {$definition->id} ({$definition->lexicon})");
 
+    $name = text_formatLexem($name);
     $lexems = Lexem::loadByForm($name);
     if (!count($lexems)) {
       $lexems = Lexem::loadByUnaccented($name);

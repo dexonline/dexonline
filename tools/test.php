@@ -474,4 +474,7 @@ assertEquals(4, util_findSnippet(array(array(1, 2, 10),
                                        array(6, 20),
                                        array(8, 15))));
 
+assertEquals('$abc$ @def@', text_formatLexem('$abc$ @def@')); // This is intentional -- lexem formatting is very lenient.
+assertEquals("m'amă m'are", text_formatLexem("m'am~a máre  "));
+
 ?>

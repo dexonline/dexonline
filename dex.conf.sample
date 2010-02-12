@@ -10,4 +10,4 @@ debugUser=reggie
 hostedBy=
 smartyClass=smarty/Smarty.class.php
 locVersions=4.0 09/18/2007, 5.0 current
-adsense=1
+adsense=none

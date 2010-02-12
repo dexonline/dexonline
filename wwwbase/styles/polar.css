@@ -300,7 +300,12 @@ table#offlineClients .optionDesc {
   white-space: normal;
 }
 
-div#adsense {
+div#adsenseHorizontal {
+  margin: 12px auto;
+  width: 468px;
+}
+
+div#adsenseVertical {
   float: right;
   margin: 5px;
 }

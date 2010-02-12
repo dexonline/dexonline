@@ -94,18 +94,8 @@
 </div>
 
 <div id="resultsWrapper">
-  {if $adsense}
-    <div id="adsense">
-      <script type="text/javascript"><!--
-        google_ad_client = "pub-0984612625745348";
-        /* 120x240, created 2/2/10 */
-        google_ad_slot = "2796908849";
-        google_ad_width = 120;
-        google_ad_height = 240; //-->
-      </script>
-      <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-      </script>
-    </div>
+  {if $adsense == 'vertical'}
+    <div id="adsenseVertical">{include file="common/bits/adsense_vertical.ihtml"}</div>
   {/if}
 
   {if $wordListMaps}
@@ -141,7 +131,7 @@
     </span>
   {/if}
   
-  {foreach from=$results item=row}
+  {foreach from=$results item=row key=i}
     <p>
       <span class="def" onclick="return searchClickedWord(event);">
         {$row->definition->htmlRep}
@@ -181,6 +171,10 @@
         </span>
       {/if}
     </p>
+
+    {if $adsense == 'horizontal' && $adsensePos == $i}
+      <div id="adsenseHorizontal">{include file="common/bits/adsense_horizontal.ihtml"}</div>
+    {/if}
   {/foreach}
   
   {if $searchType == SEARCH_APPROXIMATE || $searchType == SEARCH_REGEXP}
@@ -189,5 +183,9 @@
       <a href="search.php?lexemId={$lexem->id}"
       >{include file="common/bits/lexemName.ihtml" lexem=$lexem}</a>
     {/foreach}
+  {/if}
+
+  {if $adsense == 'horizontal' && $adsensePos == -1}
+    <div id="adsenseHorizontal">{include file="common/bits/adsense_horizontal.ihtml"}</div>
   {/if}
 </div>

@@ -59,6 +59,15 @@ $clients = array(
         'license' => 'Freeware',
         'options' => array('vision' => 0, 'sync' => 0, 'regexp' => 0, 'suggest' => 0, 'diacritics' => 0, 'full' => 0, 'flex' => 1, 'click' => 0, 'history' => 0)),
 
+  array('name' => array('iDEX', 'http://www.mobiletouch.ro/aplicatii-iphone/2/idex-dictionare-ale-limbii-romane'),
+        'urls' => array(),
+        'os' => array('iphone'),
+        'space' => '55 MB',
+        'requires' => array(),
+        'authors' => array('Mobile Touch' => ''),
+        'license' => 'Freeware',
+        'options' => array('vision' => 0, 'sync' => 1, 'regexp' => 0, 'suggest' => 1, 'diacritics' => 0, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 1)),
+
   array('name' => array('PocketDEX', 'http://pocketdex.aamedia.ro/'),
         'urls' => array(),
         'os' => array('windowsce'),
@@ -78,7 +87,7 @@ $clients = array(
         'options' => array('vision' => 0, 'sync' => 1, 'regexp' => 0, 'suggest' => 0, 'diacritics' => 0, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 1)),
 );
 
-$osNames = array('android' => 'Android', 'java' => 'Java', 'linux' => 'GNU / Linux', 'mac' => 'Mac', 'windows' => 'Windows', 'windowsce' => 'Windows CE');
+$osNames = array('android' => 'Android', 'iphone' => 'iPhone', 'java' => 'Java', 'linux' => 'GNU / Linux', 'mac' => 'Mac', 'windows' => 'Windows', 'windowsce' => 'Windows CE');
 
 smarty_assign('page_title', 'DEX online - Unelte');
 smarty_assign('show_search_box', 0);

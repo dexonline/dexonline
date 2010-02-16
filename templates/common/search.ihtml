@@ -95,7 +95,7 @@
 
 <div id="resultsWrapper">
   {if $adsense == 'vertical'}
-    <div id="adsenseVertical">{include file="common/bits/adsense_vertical.ihtml"}</div>
+    <div id="adsenseVertical">{include file="common/bits/adsense_skyscraper.ihtml"}</div>
   {/if}
 
   {if $wordListMaps}

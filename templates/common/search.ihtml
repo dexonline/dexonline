@@ -19,17 +19,12 @@
 
   {elseif $searchType == SEARCH_APPROXIMATE}
     {if count($lexems)}
-      Cuvântul "{$cuv|escape}" nu a fost găsit, dar am găsit următoarele cuvinte
-      apropiate:
-    {else}
-      Niciun rezultat relevant pentru "{$cuv|escape}".
+      Cuvântul "{$cuv|escape}" nu a fost găsit, dar am găsit următoarele cuvinte apropiate:
     {/if}
 
   {elseif $searchType == SEARCH_DEF_ID}
     {if count($results)}
       Definiția cu ID-ul {$cuv|escape}:
-    {else}
-      Nu există nicio definiție cu ID-ul {$cuv|escape}.
     {/if}
 
   {elseif $searchType == SEARCH_REGEXP}
@@ -39,8 +34,6 @@
       {else}
         {$numResults} rezultate pentru {$cuv|escape}:
       {/if}
-    {else}
-      Niciun rezultat pentru {$cuv|escape}.
     {/if}
 
   {elseif $searchType == SEARCH_LEXEM_ID}

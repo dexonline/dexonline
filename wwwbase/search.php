@@ -84,6 +84,9 @@ if ($hasRegexp) {
   $lexems = Lexem::searchRegexp($cuv, $hasDiacritics, $sourceId);
   smarty_assign('numResults', $numResults);
   smarty_assign('lexems', $lexems);
+  if (!$numResults) {
+    session_setFlash("Niciun rezultat pentru {$cuv}.");
+  }
 }
 
 // Definition.Id search
@@ -93,6 +96,8 @@ if ($isAllDigits) {
   $definitions = array();
   if ($def) {
     $definitions[] = $def;
+  } else {
+    session_setFlash("Nu există nicio definiție cu ID-ul {$cuv}.");
   }
   $searchResults = SearchResult::mapDefinitionArray($definitions);
   smarty_assign('results', $searchResults);
@@ -122,6 +127,8 @@ if ($searchType == SEARCH_WORDLIST) {
       // Convenience redirect when there is only one correct form
       session_setFlash("Ați fost redirectat automat la forma „{$lexems[0]->unaccented}”.");
       util_redirect($_SERVER['PHP_SELF'] . '?cuv=' . $lexems[0]->unaccented);
+    } else if (!count($lexems)) {
+      session_setFlash("Niciun rezultat relevant pentru „{$cuv}”.");
     }
   }
 

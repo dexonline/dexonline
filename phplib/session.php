@@ -142,16 +142,7 @@ function session_isDebug() {
 }
 
 function session_setFlash($message) {
-  $_SESSION['Flash.Message'] = $message;
-}
-
-function session_getFlash() {
-  if (array_key_exists('Flash.Message', $_SESSION)) {
-    $result = $_SESSION['Flash.Message'];
-    unset($_SESSION['Flash.Message']);
-    return $result;
-  }
-  return null;
+  $_SESSION['flashMessage'] = $message;
 }
 
 ?>

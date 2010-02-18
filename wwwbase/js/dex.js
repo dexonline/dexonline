@@ -1,5 +1,7 @@
 var dom = { ELEMENT_NODE: 1, TEXT_NODE: 3 };
 var Alphabet = 'a-záàäåăâçèéëìíïîòóöșțùúüŭ';
+var letter = '[' + Alphabet + ']';
+var nonLetter = '[^' + Alphabet + ']';
 
 function abbrevwindow() {
   window.open('html/abrev.html', 'mywindow',
@@ -348,8 +350,6 @@ function wordUnderMouse(elem, evt) {
 }
 
 function expandRangeToWord(range) {
-  var letter = '[' + Alphabet + ']';
-  var nonLetter = '[^' + Alphabet + ']';
   var startOfWord = new RegExp('^' + nonLetter + letter + '+$', 'i');
   var endOfWord = new RegExp('^' + letter + '+' + nonLetter + '$', 'i');
   var whitespace = new RegExp('^' + nonLetter + '+$', 'i');
@@ -379,6 +379,14 @@ function expandRangeToWord(range) {
   return range.toString();
 }
 
+function isValidWord(word) {
+	var reWord = new RegExp('^' + letter + '+$', 'i');
+	if ((word != null) && reWord.test(word)) {
+		return true;
+	}
+	return false;
+}
+
 function searchClickedWord(evt) {
   var st = getSelectedText();
   if (st && st != '') {
@@ -386,13 +394,16 @@ function searchClickedWord(evt) {
     return false;
   }
   var word = getWordFromEvent(evt);
-  if (word != null && word != '') {
+  if ( isValidWord(word) ) {
     source = document.getElementById('sourceDropDown').value;    
     loc = 'search.php?cuv=' + word;
     if (source) {
       loc += '&source=' + source;
     }
     window.location = loc;
+  }
+  else {
+	  return false;
   }
   return true;
 }

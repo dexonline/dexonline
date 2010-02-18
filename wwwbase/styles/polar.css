@@ -70,6 +70,14 @@ div.linkBar a {
   white-space: nowrap;
 }
 
+div.flashMessage {
+  border: 2px solid green;
+  padding: 0.5em;
+  margin: 10px auto;
+  text-align: center;
+  width: 40em;
+}
+
 span.stopWords {
   color: #777777;
 }

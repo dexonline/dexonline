@@ -120,6 +120,7 @@ if ($searchType == SEARCH_WORDLIST) {
     $lexems = Lexem::searchApproximate($cuv, $hasDiacritics);
     if (count($lexems) == 1) {
       // Convenience redirect when there is only one correct form
+      session_setFlash("Ați fost redirectat automat la forma „{$lexems[0]->unaccented}”.");
       util_redirect($_SERVER['PHP_SELF'] . '?cuv=' . $lexems[0]->unaccented);
     }
   }

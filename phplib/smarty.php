@@ -30,6 +30,7 @@ function smarty_init() {
   $smarty->assign('focus_search_box', 1);
   $smarty->assign('hostedBy', pref_getHostedBy());
   $smarty->assign('currentYear', date("Y"));
+  $smarty->assign('flashMessage', session_getFlash());
   $GLOBALS['smarty_theSmarty'] = $smarty;
 }
 

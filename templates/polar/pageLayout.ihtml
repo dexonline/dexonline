@@ -54,7 +54,10 @@
         </td>
       </tr>
     </table>
-      
+
+    {if $flashMessage}
+      <div class="flashMessage">{$flashMessage}</div>
+    {/if}
     {include file=$contentTemplateName}
 
     <table class="footer">

@@ -37,7 +37,7 @@ $clients = array(
         'os' => array('linux', 'windows'),
         'space' => '88 MB',
         'requires' => array('QT, g++', '(numai sub Linux)'),
-        'authors' => array('Octavian Procopiuc' => '', 'Tim Anghel' => ''),
+        'authors' => array('Octavian Procopiuc' => ''),
         'license' => 'GPL',
         'options' => array('vision' => 0, 'sync' => 1, 'regexp' => 1, 'suggest' => 1, 'diacritics' => 0, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 1)),
 

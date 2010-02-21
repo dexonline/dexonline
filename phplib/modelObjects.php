@@ -516,8 +516,16 @@ class Definition {
 
 
 class Typo {
+  public $id;
   public $definitionId;
   public $problem;
+
+  public static function load($id) {
+    $result = new Typo();
+    $dbRow = db_getTypoById($id);
+    $result->populateFromDbRow($dbRow);
+    return $result;
+  }
 
   public static function loadByDefinitionId($definitionId) {
     $dbResult = db_getTyposByDefinitionId($definitionId);
@@ -528,17 +536,25 @@ class Typo {
     $result = array();
     while ($dbRow = mysql_fetch_assoc($dbResult)) {
       $typo = new Typo();
-      $typo->definitionId = $dbRow['DefinitionId'];
-      $typo->problem = $dbRow['Problem'];
+      $typo->populateFromDbRow($dbRow);
       $result[] = $typo;
     }
     mysql_free_result($dbResult);
     return $result;
   }
 
+  private function populateFromDbRow($dbRow) {
+    $this->id = $dbRow['Id'];
+    $this->definitionId = $dbRow['DefinitionId'];
+    $this->problem = $dbRow['Problem'];
+  }
+
   public function save() {
-    // TODO: Add an Id field to prevent accidental multiple inserts.
     db_insertTypo($this);
+  }
+
+  public function delete() {
+    db_deleteTypo($this);
   }
 
   public static function deleteAllByDefinitionId($definitionId) {

@@ -4,6 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../styles/flex.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../js/dex.js"></script>
     <title>DEX | {$sectionTitle|escape}</title>
   </head>
 
@@ -30,7 +31,12 @@
       </span>
       <br/>
       {foreach from=$row->typos item=typo}
-        <span class="typo">* {$typo->problem|escape}</span><br/>
+        <div id="typo{$typo->id}">
+          <span class="typo">* {$typo->problem|escape}</span>
+          <span class="defDetails">
+            <a href="#" title="Ignoră această raportare" onclick="return ignoreTypo('typo{$typo->id}', {$typo->id});">Ignoră</a>
+          </span>
+        </div>
       {/foreach}
       <br/>
     {/foreach}

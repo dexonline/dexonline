@@ -392,6 +392,11 @@ function db_getUpdate3Lexems($modDate) {
   return logged_query($query);
 }
 
+function db_getTypoById($id) {
+  $query = "select * from Typo where Id = '$id'";
+  return db_fetchSingleRow(logged_query($query));
+}
+
 function db_insertTypo($typo) {
   $query = sprintf("insert into Typo set " .
                    "DefinitionId = '%d', " .
@@ -407,6 +412,10 @@ function db_getTyposByDefinitionId($definitionId) {
 
 function db_deleteTyposByDefinitionId($definitionId) {
   return logged_query("delete from Typo where DefinitionId = '$definitionId'");
+}
+
+function db_deleteTypo($typo) {
+  logged_query("delete from Typo where Id = {$typo->id}");
 }
 
 function db_insertDefinition($definition) {

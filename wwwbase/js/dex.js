@@ -441,3 +441,19 @@ function installFirefoxSpellChecker(evt) {
   InstallTrigger.install(params);
   return false;
 }
+
+function ignoreTypo(typoDivId, typoId) {
+  makePostRequest('../ajax/ignoreTypo.php', 'id=' + typoId, ignoreTypoCallback, typoDivId);
+  return false;
+}
+
+function ignoreTypoCallback(httpRequest, typoDivId) {
+  if (httpRequest.readyState == 4) {
+    if (httpRequest.status == 200) {
+      var typoDiv = document.getElementById(typoDivId);
+      typoDiv.style.display = 'none';
+    } else {
+      alert('A apărut o problemă la comunicarea cu serverul. Greșeala de tipar nu a fost încă ștearsă.');
+    }
+  }
+}

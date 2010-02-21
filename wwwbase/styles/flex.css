@@ -321,3 +321,7 @@ a.noBorder img {
 ul.mlNotes {
   margin: 5px 0px;
 }
+
+span.spaced {
+  letter-spacing: 3px;
+}

@@ -582,12 +582,6 @@ function _text_internalToHtml($s, $obeyNewlines) {
   $inItalic = FALSE;
   $inQuotes = FALSE;
   $inSpaced = FALSE;
-  $firstInSpaced = FALSE;
-  // In spaced-out mode, do not insert &nbsp; between & and ;. This
-  // would cause %<% to be printed as & # l t ;. Note that we don't
-  // allow the user to input HTML escape codes, but we may generate
-  // them ourselves by calling htmlspecialchars() above.
-  $inAmpSpaced = FALSE;
 
   $result = '';
   $len = mb_strlen($s);
@@ -620,23 +614,9 @@ function _text_internalToHtml($s, $obeyNewlines) {
     } else if ($c == "\n") {
       $result .= $obeyNewlines ? "<br/>\n" : "\n";
     } else if ($c == '%') {
-      // Only toggle in_spaced. Then, before each character below, add &nbsp;
       $inSpaced = !$inSpaced;
-      $firstInSpaced = TRUE; // No &nbsp; before the first character
+      $result .= $inSpaced ? '<span class="spaced">' : '</span>';
     } else {
-      if ($inSpaced) {
-        if (!$firstInSpaced && !$inAmpSpaced && $c != ',' && $c != '.' &&
-            $c != ' ' && $c != '>') {
-          $result .= "&nbsp;";
-        }
-        $firstInSpaced = FALSE;
-
-        if ($c == '&') {
-          $inAmpSpaced = TRUE;
-        } else if ($c == ';') {
-          $inAmpSpaced = FALSE;
-        }
-      }
       $result .= $c;
     }
   }

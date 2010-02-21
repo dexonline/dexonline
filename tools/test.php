@@ -138,14 +138,10 @@ assertEquals('<@bold, but inside tag@>',
 	     _text_internalToHtml('<@bold, but inside tag@>', FALSE));
 assertEquals('foo &lt; <i>bar</i>',
 	     _text_internalToHtml('foo &lt; $bar$', FALSE));
-assertEquals('c&nbsp;ă&nbsp;ț&nbsp;e&nbsp;l',
-	     _text_internalToHtml('%cățel%', FALSE));
-assertEquals('foo b&nbsp;a&nbsp;r &nbsp;&amp; bib',
-	     _text_internalToHtml('foo %bar &amp;% bib', FALSE));
-assertEquals('u&nbsp;n&nbsp;u, &nbsp;d&nbsp;o&nbsp;i',
-	     _text_internalToHtml('%unu, doi%', FALSE));
-assertEquals('a&nbsp;b <b>&nbsp;c&nbsp;d</b>',
-	     _text_internalToHtml('%ab @cd@%', FALSE));
+assertEquals('<span class="spaced">cățel</span>', _text_internalToHtml('%cățel%', FALSE));
+assertEquals('foo <span class="spaced">bar &amp;</span> bib', _text_internalToHtml('foo %bar &amp;% bib', FALSE));
+assertEquals('<span class="spaced">unu, doi</span>', _text_internalToHtml('%unu, doi%', FALSE));
+assertEquals('<span class="spaced">ab <b>cd</b></span>', _text_internalToHtml('%ab @cd@%', FALSE));
 assertEquals("okely\ndokely",
 	     _text_internalToHtml("okely\ndokely", FALSE));
 assertEquals("okely<br/>\ndokely",

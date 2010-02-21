@@ -317,3 +317,7 @@ div#adsenseVertical {
   float: right;
   margin: 5px;
 }
+
+span.spaced {
+  letter-spacing: 3px;
+}

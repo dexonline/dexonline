@@ -457,3 +457,19 @@ function ignoreTypoCallback(httpRequest, typoDivId) {
     }
   }
 }
+
+function deleteDefinition(defDivId, defId) {
+  makePostRequest('../ajax/deleteDefinition.php', 'id=' + defId, deleteDefinitionCallback, defDivId);
+  return false;
+}
+
+function deleteDefinitionCallback(httpRequest, defDivId) {
+  if (httpRequest.readyState == 4) {
+    if (httpRequest.status == 200) {
+      var defDiv = document.getElementById(defDivId);
+      defDiv.style.display = 'none';
+    } else {
+      alert('A apărut o problemă la comunicarea cu serverul. Definiția nu a fost încă ștearsă.');
+    }
+  }
+}

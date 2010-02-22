@@ -208,3 +208,19 @@ div#adsense {
   float: right;
   margin: 5px;
 }
+
+div.flashMessage {
+  border: 2px solid red;
+  padding: 0.5em;
+  margin: 10px auto;
+  text-align: center;
+  width: 40em;
+}
+
+div.errorType {
+  border: 2px solid red;
+}
+
+div.infoType {
+  border: 2px solid green;
+}

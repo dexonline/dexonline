@@ -78,6 +78,14 @@ div.flashMessage {
   width: 40em;
 }
 
+div.errorType {
+  border: 2px solid red;
+}
+
+div.infoType {
+  border: 2px solid green;
+}
+
 span.stopWords {
   color: #777777;
 }

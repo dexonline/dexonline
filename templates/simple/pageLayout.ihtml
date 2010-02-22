@@ -39,6 +39,7 @@
         </form>
       {/if}
 
+	  {include file="common/flashMessages.ihtml"}
       {include file=$contentTemplateName}
 
     </td>

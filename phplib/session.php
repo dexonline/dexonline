@@ -141,8 +141,9 @@ function session_isDebug() {
   return session_getUserNick() == pref_getDebugUser();
 }
 
-function session_setFlash($message) {
+function session_setFlash($message, $type = 'error') {
   $_SESSION['flashMessage'] = $message;
+  $_SESSION['flashMessageType'] = $type;
 }
 
 ?>

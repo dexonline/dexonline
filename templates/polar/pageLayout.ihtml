@@ -55,10 +55,7 @@
       </tr>
     </table>
 
-    {if $smarty.session.flashMessage}
-      <div class="flashMessage">{$smarty.session.flashMessage}</div>
-      {php}unset($_SESSION['flashMessage']);{/php}
-    {/if}
+	{include file="common/flashMessages.ihtml"}
     {include file=$contentTemplateName}
 
     <table class="footer">

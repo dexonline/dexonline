@@ -1152,14 +1152,12 @@ function db_getRandomLexemsWithoutAccents($count) {
 }
 
 function db_countAmbiguousLexems() {
-  $query = "select count(distinct a.lexem_id) from lexems a, lexems b where a.lexem_model_type = 'T'" .
-    "and a.lexem_id != b.lexem_id and a.lexem_neaccentuat = b.lexem_neaccentuat and a.lexem_descr = b.lexem_descr order by a.lexem_neaccentuat";
+  $query = "select count(*) from (select lexems.*, count(*) as c from lexems where lexem_descr = '' group by lexem_forma having c > 1) as t1";
   return db_fetchInteger(logged_query($query));
 }
 
 function db_getAmbiguousLexems() {
-  $query = "select distinct a.* from lexems a, lexems b where a.lexem_model_type = 'T'" .
-    "and a.lexem_id != b.lexem_id and a.lexem_neaccentuat = b.lexem_neaccentuat and a.lexem_descr = b.lexem_descr order by a.lexem_neaccentuat";
+  $query = "select lexems.*, count(*) as c from lexems where lexem_descr = '' group by lexem_forma having c > 1";
   return logged_query($query);
 }
 

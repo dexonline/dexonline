@@ -473,3 +473,24 @@ function deleteDefinitionCallback(httpRequest, defDivId) {
     }
   }
 }
+
+function startReportCounters() {
+  reports = ['unassociatedLexems', 'unassociatedDefinitions', 'definitionsWithTypos', 'temporaryDefinitions', 'temporaryLexems', 'lexemsWithComments',
+             'lexemsWithoutAccents', 'ambiguousLexems'];
+  for (var i = 0; i < reports.length; i++) {
+    makePostRequest('../ajax/reportCounter.php', 'report=' + reports[i], startReportCountersCallback, 'span_' + reports[i]);
+  }
+}
+
+function startReportCountersCallback(httpRequest, spanId) {
+  if (httpRequest.readyState == 4) {
+    if (httpRequest.status == 200) {
+      var span = document.getElementById(spanId);
+      if (span) {
+        span.innerHTML = httpRequest.responseText;
+      }
+    } else {
+        span.innerHTML = 'eroare la încărcare';
+    }
+  }
+}

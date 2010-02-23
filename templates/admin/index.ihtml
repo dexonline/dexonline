@@ -11,7 +11,7 @@
     <title>DEX | Pagina moderatorului</title>
   </head>
 
-  <body>
+  <body onload="startReportCounters()">
 
     {include file="admin/header.ihtml"
              title="DEX online - Pagina moderatorului"}
@@ -21,72 +21,31 @@
     care necesită atenție și câteva mecanisme de căutare a lexemelor
     și definițiilor.<br/><br/>
 
-    {if $numUnassociatedLexems}
-      <a href="viewUnassociatedLexems.php"
-       >Lexeme neasociate cu nicio definiție: {$numUnassociatedLexems}</a>
-    {else}
-      Lexeme neasociate cu nicio definiție: 0
-    {/if}
-    <br/>
+    <a href="viewUnassociatedLexems.php">Lexeme neasociate cu nicio definiție:</a>
+    <span id="span_unassociatedLexems"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
 
-    {if $numUnassociatedDefinitions}
-      <a href="viewUnassociatedDefinitions.php"
-       >Definiții neasociate cu niciun lexem:
-       {$numUnassociatedDefinitions}</a>
-    {else}
-      Definiții neasociate cu niciun lexem: 0
-    {/if}
-    <br/>
+    <a href="viewUnassociatedDefinitions.php">Definiții neasociate cu niciun lexem:</a>
+    <span id="span_unassociatedDefinitions"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
 
-    {if $numDefinitionsWithTypos}
-      <a href="viewTypos.php">Definiții cu greșeli de tipar:
-      {$numDefinitionsWithTypos}</a>
-    {else}
-      Definiții cu greșeli de tipar: 0
-    {/if}
-    <br/>
+    <a href="viewTypos.php">Definiții cu greșeli de tipar:</a>
+    <span id="span_definitionsWithTypos"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
 
-    {if $numTemporaryDefinitions}
-      <a href="viewPendingDefinitions.php"
-        >Definiții nemoderate: {$numTemporaryDefinitions}</a>
-    {else}
-      Definiții nemoderate: 0
-    {/if}
-    <br/>
+    <a href="viewPendingDefinitions.php">Definiții nemoderate:</a>
+    <span id="span_temporaryDefinitions"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
 
     {if $is_flex_moderator}  
-      {if $numTemporaryLexems}
-        <a href="../flex/viewTemporaryLexems.php"
-          >Lexeme fără paradigme: {$numTemporaryLexems}</a>
-      {else}
-        Lexeme fără paradigme: 0
-      {/if}
-      <br/>
+      <a href="../flex/viewTemporaryLexems.php">Lexeme fără paradigme:</a>
+      <span id="span_temporaryLexems"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
 
-      {if $numLexemsWithComments}
-        <a href="../flex/viewLexemsWithComments.php"
-          >Lexeme cu comentarii: {$numLexemsWithComments}</a>
-      {else}
-        Lexeme cu comentarii: 0
-      {/if}
-      <br/>
+      <a href="../flex/viewLexemsWithComments.php">Lexeme cu comentarii:</a>
+      <span id="span_lexemsWithComments"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
     {/if}
 
-    {if $numLexemsWithoutAccents}
-      <a href="../flex/viewLexemsWithoutAccents.php"
-        >Lexeme fără accent: {$numLexemsWithoutAccents}</a>
-    {else}
-      Lexeme fără accent: 0
-    {/if}
-    <br/>
+    <a href="../flex/viewLexemsWithoutAccents.php">Lexeme fără accent:</a>
+    <span id="span_lexemsWithoutAccents"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
 
-    {if $numAmbiguousLexems}
-      <a href="../flex/viewAmbiguousLexems.php"
-        >Lexeme ambigue: {$numAmbiguousLexems}</a>
-    {else}
-      Lexeme ambigue: 0
-    {/if}
-    <br/>
+    <a href="../flex/viewAmbiguousLexems.php">Lexeme ambigue:</a>
+    <span id="span_ambiguousLexems"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
 
     <br/>
     <form action="lexemLookup.php" method="get">

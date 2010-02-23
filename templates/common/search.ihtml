@@ -167,8 +167,8 @@
       {/if}
     </p>
 
-    {if $adsense == 'horizontal' && $adsensePos == $i}
-      <div id="adsenseHorizontal">{include file="common/bits/adsense_horizontal.ihtml"}</div>
+    {if $adsense == 'leaderboard' && $adsensePos == $i}
+      <div id="adsenseLeaderboard">{include file="common/bits/adsense_leaderboard.ihtml"}</div>
     {/if}
   {/foreach}
   
@@ -180,7 +180,7 @@
     {/foreach}
   {/if}
 
-  {if $adsense == 'horizontal' && $adsensePos == -1}
-    <div id="adsenseHorizontal">{include file="common/bits/adsense_horizontal.ihtml"}</div>
+  {if $adsense == 'leaderboard' && $adsensePos == -1}
+    <div id="adsenseLeaderboard">{include file="common/bits/adsense_leaderboard.ihtml"}</div>
   {/if}
 </div>

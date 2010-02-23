@@ -321,6 +321,11 @@ div#adsenseHorizontal {
   width: 468px;
 }
 
+div#adsenseLeaderboard {
+  margin: 12px auto;
+  width: 728px;
+}
+
 div#adsenseVertical {
   float: right;
   margin: 5px;

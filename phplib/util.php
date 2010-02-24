@@ -183,6 +183,7 @@ function util_getRequestCheckboxArray($name, $separator) {
 }
 
 function util_redirect($location) {
+  header("HTTP/1.1 301 Moved Permanently");
   header("Location: $location");
   exit;
 }

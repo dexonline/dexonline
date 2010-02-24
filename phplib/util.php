@@ -319,7 +319,7 @@ function util_deleteFile($fileName) {
  * 3) http://dexonline.ro/text[-<sursa>]/<text>
  */
 function util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm) {
-  if (strpos($_SERVER['REQUEST_URI'], '/search.php?') == false) {
+  if (strpos($_SERVER['REQUEST_URI'], '/search.php?') === false) {
     return;    // The url is already friendly.
   }
 

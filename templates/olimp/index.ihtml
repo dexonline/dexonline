@@ -5,11 +5,11 @@ Macheta paginii s-a schimbat pe perioada jocurilor olimpice de vară
 (13&mdash;29 aug).<br />
 
 Lăsați-vă cuprinși de spiritul olimpic:
-<a href="search.php?cuv=prietenie">prietenie</a>,
-<a href="search.php?cuv=fairplay">fairplay</a>,
-<a href="search.php?cuv=onoare">onoare</a>,
-<a href="search.php?cuv=pace">pace</a>,
-<a href="search.php?cuv=glorie">glorie</a>.<br /><br />
+<a href="{$wwwRoot}definitie/prietenie">prietenie</a>,
+<a href="{$wwwRoot}definitie/fairplay">fairplay</a>,
+<a href="{$wwwRoot}definitie/onoare">onoare</a>,
+<a href="{$wwwRoot}definitie/pace">pace</a>,
+<a href="{$wwwRoot}definitie/glorie">glorie</a>.<br /><br />
 
 <img src="{$imgRoot}/olimp/cercuri2.gif"
      alt="Cele 5 cercuri olimpice"
@@ -34,7 +34,7 @@ Lăsați-vă cuprinși de spiritul olimpic:
   href="http://www.siveco.ro/">firmei Siveco</a> și <a target="_blank"
   href="http://www.litera.ro/">Editurii Litera Internațional</a>, care
   ne-au pus la dispoziție patru dicționare complete sub licența
-  GPL. Detalii <a href="faq.php#autori">aici</a>.
+  GPL. Detalii <a href="{$wwwRoot}faq.php#autori">aici</a>.
 </p>
 
 <div class="titlu">Starea curentă a proiectului</div>
@@ -48,14 +48,14 @@ Lăsați-vă cuprinși de spiritul olimpic:
         <table class="tabel">
         <tr><th >Cuvântul zilei</th></tr>
 
-    <tr><td ><b>MĂRGĂRIT&#xc1;R</b>, (<b>1, 2</b>) <i>mărgăritare</i>, s.n. (<b>3, 4</b>) s.m. <b>1.</b> S.n. <a class=ref href="/search.php?cuv=Boabă">Boabă</a> rotundă și tare de culoare albă-strălucitoare cu reflexe sidefii, care se formează în corpul unor <a class=ref href="/search.php?cuv=scoica">scoici</a> și care se întrebuințează ca <a class=ref href="/search.php?cuv=podoabă">podoabă</a> de preț; <a class=ref href="/search.php?cuv=perlă">perlă</a>. &loz; Loc. adj. <i>De mărgăritar</i> = <a class=ref href="/search.php?cuv=împodobit">împodobit</a>, bătut, <a class=ref href="/search.php?cuv=încrustat">încrustat</a> cu mărgăritare (<b>1</b>). &diams; Fig. Lucru fără <a class=ref href="/search.php?cuv=cusur">cusur</a>, de mare <a class=ref href="/search.php?cuv=valoare">valoare</a>. <b>2.</b> S.n. <a class=ref href="/search.php?cuv=Pietriș">Pietriș</a> mărunt la <a class=ref href="/search.php?cuv=beton">betoane</a> pentru <a class=ref href="/search.php?cuv=fatada">fațade</a>, <a class=ref href="/search.php?cuv=mozaic">mozaicuri</a>, pentru așternut pe alei etc. <b>3.</b> S.m. (Bot.) <a class=ref href="/search.php?cuv=Lăcrimioară">Lăcrimioară</a>, cerceluș. <b>4.</b> S.m. Numele unei specii de <a class=ref href="/search.php?cuv=vâsc">vâsc</a> care crește numai pe <a class=ref href="/search.php?cuv=stejar">stejari</a>, cu fructe în formă de bobițe galbene (<i>Loranthus europaeus</i>) &#x2013; Din ngr. <b>margarit&#xe1;ri</b>.
+    <tr><td ><b>MĂRGĂRIT&#xc1;R</b>, (<b>1, 2</b>) <i>mărgăritare</i>, s.n. (<b>3, 4</b>) s.m. <b>1.</b> S.n. <a class=ref href="{$wwwRoot}definitie/Boabă">Boabă</a> rotundă și tare de culoare albă-strălucitoare cu reflexe sidefii, care se formează în corpul unor <a class=ref href="{$wwwRoot}definitie/scoica">scoici</a> și care se întrebuințează ca <a class=ref href="{$wwwRoot}definitie/podoabă">podoabă</a> de preț; <a class=ref href="{$wwwRoot}definitie/perlă">perlă</a>. &loz; Loc. adj. <i>De mărgăritar</i> = <a class=ref href="{$wwwRoot}definitie/împodobit">împodobit</a>, bătut, <a class=ref href="{$wwwRoot}definitie/încrustat">încrustat</a> cu mărgăritare (<b>1</b>). &diams; Fig. Lucru fără <a class=ref href="{$wwwRoot}definitie/cusur">cusur</a>, de mare <a class=ref href="{$wwwRoot}definitie/valoare">valoare</a>. <b>2.</b> S.n. <a class=ref href="{$wwwRoot}definitie/Pietriș">Pietriș</a> mărunt la <a class=ref href="{$wwwRoot}definitie/beton">betoane</a> pentru <a class=ref href="{$wwwRoot}definitie/fatada">fațade</a>, <a class=ref href="{$wwwRoot}definitie/mozaic">mozaicuri</a>, pentru așternut pe alei etc. <b>3.</b> S.m. (Bot.) <a class=ref href="{$wwwRoot}definitie/Lăcrimioară">Lăcrimioară</a>, cerceluș. <b>4.</b> S.m. Numele unei specii de <a class=ref href="{$wwwRoot}definitie/vâsc">vâsc</a> care crește numai pe <a class=ref href="{$wwwRoot}definitie/stejar">stejari</a>, cu fructe în formă de bobițe galbene (<i>Loranthus europaeus</i>) &#x2013; Din ngr. <b>margarit&#xe1;ri</b>.
 <br /><br />
   	<span style="float:left"><font size=-1>Trimis de <b><a href="user.php?n=ana_zecheru">ana_zecheru</a>
   	  </b>, 2002-05-22. Sursa: <a class=ref href="/faq.php#surse">DEX '98</a></font></span>
 	</td>
   </tr>
 
-    <tr><td ><b>MĂRGĂRIT&#xc1;R</b> s. <b>1.</b> v. <i><a class=ref href="/search.php?cuv=perlă">perlă</a></i>. <b>2.</b> v. <i><a class=ref href="/search.php?cuv=lăcrimioară">lăcrimioară</a></i>. <b>3.</b> v. <i><a class=ref href="/search.php?cuv=vâsc">vâsc</a></i>.
+    <tr><td ><b>MĂRGĂRIT&#xc1;R</b> s. <b>1.</b> v. <i><a class=ref href="{$wwwRoot}definitie/perlă">perlă</a></i>. <b>2.</b> v. <i><a class=ref href="{$wwwRoot}definitie/lăcrimioară">lăcrimioară</a></i>. <b>3.</b> v. <i><a class=ref href="{$wwwRoot}definitie/vâsc">vâsc</a></i>.
 <br /><br />
   	<span style="float:left"><font size=-1>Trimis de <b><a href="user.php?n=siveco">siveco</a>
   	  </b>, 2004-08-04. Sursa: <a class=ref href="/faq.php#surse">Sinonime</a></font></span>
@@ -69,9 +69,9 @@ Lăsați-vă cuprinși de spiritul olimpic:
         <div class="titlu">Asistență</div>
         <div>Consultarea dicționarelor este gratuită și nelimitată. Puteți folosi caseta de editare din dreapta-sus a paginii, care acceptă și <a href="javascript:helpWindow()">opțiuni avansate</a>.<br />
       {if $is_connected}
-        Sunteți conectat. Puteți să modificați datele <a href="account.php">contului dvs.</a> de utilizator sau să vă <a href="logout.php">deconectați</a>.</div>
+        Sunteți conectat. Puteți să modificați datele <a href="{$wwwRoot}account.php">contului dvs.</a> de utilizator sau să vă <a href="{$wwwRoot}logout.php">deconectați</a>.</div>
       {else}
-        Dacă doriți să contribuiți la proiectul DEX online, vă recomandăm să vă <a href="signup.php">înregistrați</a>.<br />
-        Dacă aveți deja un cont la noi, vă puteți <a href="login.php">conecta</a>.</div>
+        Dacă doriți să contribuiți la proiectul DEX online, vă recomandăm să vă <a href="{$wwwRoot}signup.php">înregistrați</a>.<br />
+        Dacă aveți deja un cont la noi, vă puteți <a href="{$wwwRoot}login.php">conecta</a>.</div>
       {/if}          
         <br />

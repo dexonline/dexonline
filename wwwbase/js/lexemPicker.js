@@ -85,8 +85,7 @@ function scrollLexem(input, step) {
 }
 
 function requestLexemSuggestions(input) {
-  makeGetRequest('../ajax/getLexems.php?query=' + input.value,
-                 showLexemTable, input);
+  makeGetRequest(wwwRoot + 'ajax/getLexems.php?query=' + input.value, showLexemTable, input);
 }
 
 function showLexemTable(httpRequest, input) {

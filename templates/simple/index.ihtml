@@ -13,5 +13,5 @@
   href="http://www.siveco.ro/">firmei Siveco</a> și <a target="_blank"
   href="http://www.litera.ro/">Editurii Litera Internațional</a>, care
   ne-au pus la dispoziție patru dicționare complete sub licența
-  GPL. Detalii <a href="faq.php#autori">aici</a>.
+  GPL. Detalii <a href="{$wwwRoot}faq.php#autori">aici</a>.
 </p>

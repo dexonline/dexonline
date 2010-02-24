@@ -160,7 +160,7 @@
     <li><b>Căutări aproximative.</b> Dacă nu cunoașteți
     forma corectă a unui cuvânt, puteți încerca o scriere aproximativă
     și <i>DEX online</i> va găsi forma corectă. De exemplu, căutând
-    cuvântul <a href="/search.php?cuv=geizer">geizer</a>, veți fi
+    cuvântul <a href="{$wwwRoot}definitie/geizer">geizer</a>, veți fi
     trimiși la forma corectă "gheizer".</li>
   
     <li><b>Trimiterile.</b> Definițiile conțin la rândul lor cuvinte
@@ -712,7 +712,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   
   <br/><br/>
 
-  În noiembrie 2003 am adăugat pagina <a href="/corect.php">Corect / greșit</a>. 
+  În noiembrie 2003 am adăugat pagina <a href="corect.php">Corect / greșit</a>. 
   
   <br/><br/>
 
@@ -1020,9 +1020,7 @@ definițiilor"?</a></h3>
   cuvântul "copil" (sau "copii", "copilului" sau alte forme
   flexionare). Acest tip de căutare este util când nu vă mai amintiți
   un cuvânt, dar vă amintiți câteva proprietăți ale lui. De exemplu, o
-  căutare după 
-  <a href="search.php?cuv=medicament%20doz%C4%83%20mic%C4%83&text=1"
-  >medicament doză mică</a> va produce rezultate relevante ca
+  căutare după <a href="text/medicament+doză+mică">medicament doză mică</a> va produce rezultate relevante ca
   "homeopatie", "picătură", "alcaloid" și altele.<br/><br/>
 
   Dacă doriți numai să căutați un cuvânt, vă recomandăm să <b>nu</b>
@@ -1039,10 +1037,10 @@ căutate?</a></h3>
 
   Da, dar nu este obligatoriu. <i>DEX online</i> "înțelege" termenii
   căutați și cu și fără diacritice. De exemplu, dacă căutați <a
-  href="search.php?cuv=fata">fata</a>, veți primi definiții pentru
+  href="definitie/fata">fata</a>, veți primi definiții pentru
   <i>fată, față. făta, făța, fâța</i> și
   <i>fâță</i>. Dacă doriți definițiile pentru <i>fată</i> în mod
-  special, căutați <a href="search.php?cuv=fată">fată</a> cu
+  special, căutați <a href="definitie/fată">fată</a> cu
   diacritice.
 
 
@@ -1115,8 +1113,7 @@ cu totul alt cuvânt?</a></h3>
   <br/><br/>
 
   O altă explicație este că ați căutat o variantă a unui cuvânt sau un
-  cuvânt care admite variante. De exemplu, dacă căutați cuvântul <a
-  href="search.php?cuv=cearceaf">cearceaf</a>,
+  cuvânt care admite variante. De exemplu, dacă căutați cuvântul <a href="definitie/cearceaf">cearceaf</a>,
   veți primi și definiția pentru <i>cearșaf</i>, care este forma
   literară.
 
@@ -1129,5 +1126,4 @@ au nicio definiție. E normal?</a></h3>
   dicționar tratează ortografia, nu semantica. Întâmplarea face că
   niciun alt dicționar din cele pe care le avem nu le menționează,
   dar sperăm ca în timp să facem rost și de definițiile acelor
-  cuvinte. Un asemenea exemplu este <a
-  href="search.php?cuv=volemic">volemic</a>.
+  cuvinte. Un asemenea exemplu este <a href="definitie/volemic">volemic</a>.

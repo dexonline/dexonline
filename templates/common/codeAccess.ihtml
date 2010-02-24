@@ -92,6 +92,14 @@ php resetDatabase.php</pre>
 
   </li>
 
+  <li>Modificați <code>wwwbase/.htaccess</code> conform nevoilor
+  dumneavoastră. Acest fișier nu este sub controlul lui Subversion. El
+  este copiat după <code>docs/.htaccess</code> atunci când rulați
+  <code>tools/setup</code>. În particular, dacă rulați <i>DEX
+  online</i> de sub un director utilizator <code>(/~user/...),</code>
+  atunci va trebui probabil să decomentați linia referitoare la
+  <code>RewriteBase</code>.</li>
+
   <li>Accesați pagina principală a copiei dumneavoastră la
   <code>http://dex.domeniulmeu.com</code> sau la
   <code>http://localhost/DEX/wwwbase</code>. Totul ar trebui să meargă

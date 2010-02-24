@@ -1567,6 +1567,12 @@ function db_getSourceById($id) {
   return db_fetchSingleRow(logged_query($query));
 }
 
+function db_getSourceByUrlName($urlName) {
+  $urlName = addslashes($urlName);
+  $query = "select * from Source where UrlName = '$urlName'";
+  return db_fetchSingleRow(logged_query($query));
+}
+
 function db_getSourceByShortName($shortName) {
   $shortName = addslashes($shortName);
   $query = "select * from Source where ShortName = '$shortName'";

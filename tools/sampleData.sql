@@ -29,7 +29,7 @@ insert into Definition set
 	SourceId = 3,
 	Lexicon = "fată",
 	InternalRep = '@FÁTĂ,@ $fete,$ s.f. |Persoană (@1@)|Persoană| care nu bea bere.',
-	HtmlRep = '<b>FÁTĂ,</b> <i>fete,</i> s.f. <a class="ref" href="/search.php?cuv=Persoană">Persoană (<b>1</b>)</a> care nu bea bere.';
+	HtmlRep = '<b>FÁTĂ,</b> <i>fete,</i> s.f. <a class="ref" href="/definitie/Persoană">Persoană (<b>1</b>)</a> care nu bea bere.';
 
 insert into Word set
 	Id = 2,
@@ -43,7 +43,7 @@ insert into Definition set
 	SourceId = 1,
 	Lexicon = "fâță",
 	InternalRep = '@FẤȚĂ,@ $fâțe,$ s.f. |Pește|peste| mic care se fâțâie.',
-	HtmlRep = '<b>FẤȚĂ,</b> <i>fâțe,</i> s.f. <a class="ref" href="/search.php?cuv=peste">Pește</a> mic care se fâțâie.';
+	HtmlRep = '<b>FẤȚĂ,</b> <i>fâțe,</i> s.f. <a class="ref" href="/definitie/peste">Pește</a> mic care se fâțâie.';
 
 insert into Word set
 	Id = 3,
@@ -57,7 +57,7 @@ insert into Definition set
 	SourceId = 2,
 	Lexicon = "copil",
 	InternalRep = '@COPIL@ Trimitere cu minus: |dealurilor|deal|',
-	HtmlRep = '<b>COPIL</b> Trimitere cu minus: <a class="ref" href="/search.php?cuv=deal">dealurilor</a>';
+	HtmlRep = '<b>COPIL</b> Trimitere cu minus: <a class="ref" href="/definitie/deal">dealurilor</a>';
 
 insert into Word set
 	Id = 4,
@@ -78,7 +78,7 @@ insert into Definition set
 	SourceId = 1,
 	Lexicon = "mare",
 	InternalRep = "@MÁRE^2@, $mări$, s.f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu |oceanul|ocean| printr-o |strâmtoare|strâmtoare|; parte a oceanului de lângă |țărm|țărm|; $p.ext.$ ocean. * Expr $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.",
-	HtmlRep = '<b>MÁRE<sup>2</sup></b>, <i>mări</i>, s.f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/search.php?cuv=Pământ">Pământului</a>, care de obicei sunt unite cu <a class="ref" href="/search.php?cuv=ocean">oceanul</a> printr-o <a class="ref" href="/search.php?cuv=strâmtoare">strâmtoare</a>; parte a oceanului de lângă <a class="ref" href="/search.php?cuv=țărm">țărm</a>; <i>p.ext.</i> ocean. &loz; Expr <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. &diams; Fig. Suprafață vastă; întindere mare; imensitate. &diams; Fig. Mulțime (nesfârșită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is</b>.';
+	HtmlRep = '<b>MÁRE<sup>2</sup></b>, <i>mări</i>, s.f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu <a class="ref" href="/definitie/ocean">oceanul</a> printr-o <a class="ref" href="/definitie/strâmtoare">strâmtoare</a>; parte a oceanului de lângă <a class="ref" href="/definitie/țărm">țărm</a>; <i>p.ext.</i> ocean. &loz; Expr <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. &diams; Fig. Suprafață vastă; întindere mare; imensitate. &diams; Fig. Mulțime (nesfârșită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is</b>.';
 
 update Definition set
 	Status = 0,
@@ -92,7 +92,7 @@ insert into GuideEntry set
   Wrong = '@Așa@ e rău!',
   WrongHtml = '<b>Așa</b> e rău!',
   Comments = 'Și o explicație, cu |legătură|copil|.',
-  CommentsHtml = 'Și o explicație, cu <a class="ref" href="/search.php?cuv=copil">legătură</a>.',
+  CommentsHtml = 'Și o explicație, cu <a class="ref" href="/definitie/copil">legătură</a>.',
   Status = 0,
 	createDate = unix_timestamp(),
 	modDate = unix_timestamp();

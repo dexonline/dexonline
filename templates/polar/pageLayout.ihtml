@@ -7,7 +7,7 @@
     <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
     <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex-context-search.xml" title="Căutare dexonline.ro"/>
     <title>{$page_title|escape}</title>
-    <script type="text/javascript" src="js/dex.js"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/dex.js"></script>
   </head>
 
   <body id="polarSkinBody">
@@ -15,22 +15,22 @@
       <tr>
         <td class="searchBoxContainer">
           <div class="linkBar">
-            <a href="faq.php">Informații</a> |
-            <a href="contrib.php">Contribuie</a> |
-            <a href="corect.php" id="guideLink">Ghid de exprimare</a> |
-            <a href="tools.php">Unelte</a> |
-            <a href="top.php">Top</a> |            
-            <a href="contact.php">Contact</a>
+            <a href="{$wwwRoot}faq.php">Informații</a> |
+            <a href="{$wwwRoot}contrib.php">Contribuie</a> |
+            <a href="{$wwwRoot}corect.php" id="guideLink">Ghid de exprimare</a> |
+            <a href="{$wwwRoot}tools.php">Unelte</a> |
+            <a href="{$wwwRoot}top.php">Top</a> |            
+            <a href="{$wwwRoot}contact.php">Contact</a>
           </div>
       
-          <form action="search.php" name="frm" class="searchForm">
+          <form action="{$wwwRoot}search.php" name="frm" class="searchForm">
             <input type="text" name="cuv" value="{$cuv|escape}" size="20" maxlength="50"/>
               {if $show_search_box && $focus_search_box}
                 <script type="text/javascript">
                   document.frm.cuv.select();document.frm.cuv.focus();
                 </script>
               {/if}
-            {include file="common/sourceDropDown.ihtml"}
+            {include file="common/sourceDropDown.ihtml" urlName=1}
             <input type="submit" value="Caută"/>
             <br/>
             <span class="definitionBodyCheckbox">
@@ -38,7 +38,7 @@
                      name="text" value="1"
                      {if $text}checked="checked"{/if}
               /><label for="defBody">Caută în tot textul definițiilor</label>
-              (<a href="faq.php#fulltext">explicație</a>)
+              (<a href="{$wwwRoot}faq.php#fulltext">explicație</a>)
             </span>
           </form>
         </td>
@@ -67,21 +67,20 @@
           {if !$is_mirror}
             Utilizator: <b id="user.nick">{$nick|escape}</b>
             {if $is_connected && $is_moderator}
-              | <a href="admin">Pagina moderatorului</a>
+              | <a href="{$wwwRoot}admin">Pagina moderatorului</a>
             {/if}
             {if $is_connected}
-              | <a href="account.php">Contul meu</a>
-              | <a href="logout.php" id="logoutLink">Deconectare</a>
+              | <a href="{$wwwRoot}account.php">Contul meu</a>
+              | <a href="{$wwwRoot}logout.php" id="logoutLink">Deconectare</a>
             {else}
-              | <a href="login.php" id="loginLink">Conectare</a>
-              | <a href="signup.php">Înregistrare</a>
+              | <a href="{$wwwRoot}login.php" id="loginLink">Conectare</a>
+              | <a href="{$wwwRoot}signup.php">Înregistrare</a>
             {/if}
             <br/>
           {/if}
 
           Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro). Copierea definițiilor
-          este permisă sub <a
-          href="{$wwwRoot}faq.php#licenta">licența GPL</a>, cu
+          este permisă sub <a href="{$wwwRoot}faq.php#licenta">licența GPL</a>, cu
           condiția păstrării acestei note.
 
         </td>

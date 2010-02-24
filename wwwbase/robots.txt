@@ -1,3 +1,4 @@
 # We don't want THAT in Google's quick links, do we?
 User-agent: *
 Disallow: /search.php?cuv=muie
+Disallow: /definitie/muie

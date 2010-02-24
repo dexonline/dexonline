@@ -75,6 +75,7 @@ class GuideEntry {
 class Source {
   public $id;
   public $shortName;
+  public $urlName;
   public $name;
   public $author;
   public $publisher;
@@ -89,6 +90,16 @@ class Source {
     $result = new Source();
     $result->populateFromDbRow($dbRow);
     return $result;
+  }
+
+  public static function loadByUrlName($urlName) {
+    $dbRow = db_getSourceByUrlName($urlName);
+    if ($dbRow) {
+      $result = new Source();
+      $result->populateFromDbRow($dbRow);
+      return $result;
+    }
+    return null;
   }
 
   public static function loadAllContribSources() {
@@ -127,6 +138,7 @@ class Source {
   public function populateFromDbRow($dbRow) {
     $this->id = $dbRow['Id']; 
     $this->shortName = $dbRow['ShortName'];
+    $this->urlName = $dbRow['UrlName'];
     $this->name = $dbRow['Name'];
     $this->author = $dbRow['Author'];
     $this->publisher = $dbRow['Publisher'];

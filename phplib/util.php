@@ -189,7 +189,6 @@ function util_redirect($location) {
 
 /**
  * Redirect to the same URL while removing empty GET parameters.
- * Intended for use with search.php, where the source is frequently empty.
  */
 function util_hideEmptyRequestParameters() {
   $needToRedirect = false;
@@ -218,7 +217,7 @@ function util_hideEmptyRequestParameters() {
 function util_assertModeratorStatus() {
   if (!session_userIsModerator()) {
     smarty_assign('errorMessage', 'Nu aveți acces ca moderator! ' .
-                  'Vă rugăm să vă <a href="../login.php">autentificați</a> ' .
+                  'Vă rugăm să vă <a href="' . util_getWwwRoot() . 'login.php">autentificați</a> ' .
                   'mai întâi.');
     smarty_displayWithoutSkin('common/errorMessage.ihtml');
     exit;
@@ -311,6 +310,35 @@ function util_deleteFile($fileName) {
   if (file_exists($fileName)) {
     unlink($fileName);
   }
+}
+
+/**
+ * Search engine friendly URLs used for the search page:
+ * 1) http://dexonline.ro/definitie[-<sursa>]/<cuvânt>[/paradigma]
+ * 2) http://dexonline.ro/lexem[-<sursa>]/<lexemId>[/paradigma]
+ * 3) http://dexonline.ro/text[-<sursa>]/<text>
+ */
+function util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm) {
+  if (strpos($_SERVER['REQUEST_URI'], '/search.php?') == false) {
+    return;    // The url is already friendly.
+  }
+
+  $cuv = urlencode($cuv);
+  $sourceUrlName = urlencode($sourceUrlName);
+
+  $sourcePart = $sourceUrlName ? "-{$sourceUrlName}" : '';
+  $paradigmPart = $showParadigm ? '/paradigma' : '';
+
+  if ($text) {
+    $url = "text{$sourcePart}/{$cuv}";
+  } else if ($lexemId) {
+    $url = "lexem{$sourcePart}/{$lexemId}{$paradigmPart}";
+  } else {
+    $url = "definitie{$sourcePart}/{$cuv}{$paradigmPart}";
+  }
+
+  util_redirect(util_getWwwRoot() . $url);
+  exit();
 }
 
 ?>

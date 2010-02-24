@@ -1,7 +1,7 @@
-<form method="get" action="search.php">
+<form method="get" action="{$wwwRoot}search.php">
 	<div class="titlu">Afișează definițiile</div>
 	&nbsp;Cuvântul: <input name="cuv" value="{$cuv|escape}">
-	Sursa: {include file="common/sourceDropDown.ihtml"}
+	Sursa: {include file="common/sourceDropDown.ihtml" urlName=1}
 	<input type="submit" value="Caută">
 </form> 
 

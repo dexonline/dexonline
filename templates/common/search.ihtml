@@ -1,6 +1,6 @@
 <div class="resultBar">
   <div class="abbrev">
-    <a href="#" onclick="abbrevwindow(); return false;">Abrevieri</a>
+    <a href="#" onclick="abbrevWindow(); return false;">Abrevieri</a>
   </div>
 
   {if $searchType == SEARCH_WORDLIST}
@@ -12,7 +12,7 @@
       {$results|@count} definiții pentru
     {/if}
     {foreach from=$lexems item=lexem key=row_id}
-      <a href="search.php?lexemId={$lexem->id}">{$lexem->unaccented}</a
+      <a href="{$wwwRoot}lexem/{$lexem->id}">{$lexem->unaccented}</a
       >{if $lexem->description} ({$lexem->description|escape}){/if
       }{if $row_id < count($lexems) - 1},{/if}
     {/foreach}
@@ -74,7 +74,7 @@
 
   {elseif $searchType == SEARCH_MULTIWORD}
     {$results|@count} definiții se potrivesc cu cel puțin doi dintre termenii căutați. Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat
-    sau puteți căuta <a href="?cuv={$cuv}&amp;text=1">în tot corpul definițiilor</a>.
+    sau puteți căuta <a href="{$wwwRoot}text/{$cuv|escape:url}">în tot corpul definițiilor</a>.
 
   {/if}
 
@@ -134,12 +134,10 @@
       <br/>
   
       <span class="defDetails">
-        Sursa: <a class="ref" href="faq.php#surse"
-                  title="{$row->source->name|escape}, {$row->source->year|escape}"
+        Sursa: <a class="ref" href="{$wwwRoot}faq.php#surse" title="{$row->source->name|escape}, {$row->source->year|escape}"
   	     >{$row->source->shortName|escape}</a> |
   
-        Trimisă de <a href="user.php?n={$row->user->nick|escape:"url"}"
-          >{$row->user->nick|escape}</a>,
+        Trimisă de <a href="{$wwwRoot}user.php?n={$row->user->nick|escape:"url"}">{$row->user->nick|escape}</a>,
         {$row->definition->createDate|date_format:"%e %b %Y"}
   
         {if $is_moderator}
@@ -147,21 +145,17 @@
         {/if}
   
         |
-        <a href="javascript:typoWindow({$row->definition->id})"
-        >Greșeală de tipar</a>
+        <a href="javascript:typoWindow({$row->definition->id})">Greșeală de tipar</a>
   
         {if $is_moderator && !$is_mirror}
-          |
-          <a target="edit_window"
-             href="admin/definitionEdit.php?definitionId={$row->definition->id}">
-            Editează</a>
+          | <a target="edit_window" href="{$wwwRoot}admin/definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
         {/if}
       </span>
   
       {if $row->comment}
         <span class="defComment">
           Comentariu: {$row->comment->htmlContents} -
-          <a href="user.php?n={$row->commentAuthor->nick|escape:"url"}"
+          <a href="{$wwwRoot}user.php?n={$row->commentAuthor->nick|escape:"url"}"
           >{$row->commentAuthor->nick|escape}</a>
         </span>
       {/if}
@@ -175,8 +169,7 @@
   {if $searchType == SEARCH_APPROXIMATE || $searchType == SEARCH_REGEXP}
     {foreach from=$lexems item=lexem key=row_id}
       {if $row_id}|{/if}
-      <a href="search.php?lexemId={$lexem->id}"
-      >{include file="common/bits/lexemName.ihtml" lexem=$lexem}</a>
+      <a href="{$wwwRoot}lexem/{$lexem->id}">{include file="common/bits/lexemName.ihtml" lexem=$lexem}</a>
     {/foreach}
   {/if}
 

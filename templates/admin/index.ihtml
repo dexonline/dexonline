@@ -22,30 +22,30 @@
     și definițiilor.<br/><br/>
 
     <a href="viewUnassociatedLexems.php">Lexeme neasociate cu nicio definiție:</a>
-    <span id="span_unassociatedLexems"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
+    <span id="span_unassociatedLexems"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 
     <a href="viewUnassociatedDefinitions.php">Definiții neasociate cu niciun lexem:</a>
-    <span id="span_unassociatedDefinitions"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
+    <span id="span_unassociatedDefinitions"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 
     <a href="viewTypos.php">Definiții cu greșeli de tipar:</a>
-    <span id="span_definitionsWithTypos"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
+    <span id="span_definitionsWithTypos"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 
     <a href="viewPendingDefinitions.php">Definiții nemoderate:</a>
-    <span id="span_temporaryDefinitions"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
+    <span id="span_temporaryDefinitions"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 
     {if $is_flex_moderator}  
       <a href="../flex/viewTemporaryLexems.php">Lexeme fără paradigme:</a>
-      <span id="span_temporaryLexems"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
+      <span id="span_temporaryLexems"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 
       <a href="../flex/viewLexemsWithComments.php">Lexeme cu comentarii:</a>
-      <span id="span_lexemsWithComments"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
+      <span id="span_lexemsWithComments"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
     {/if}
 
     <a href="../flex/viewLexemsWithoutAccents.php">Lexeme fără accent:</a>
-    <span id="span_lexemsWithoutAccents"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
+    <span id="span_lexemsWithoutAccents"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 
     <a href="../flex/viewAmbiguousLexems.php">Lexeme ambigue:</a>
-    <span id="span_ambiguousLexems"><img src="../img/icons/hourglass.png" alt="hourglass"/></span><br/>
+    <span id="span_ambiguousLexems"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 
     <br/>
     <form action="lexemLookup.php" method="get">

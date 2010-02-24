@@ -1,0 +1,18 @@
+Order Deny,Allow
+Allow from all
+<IfModule mod_php5.c>
+  php_flag magic_quotes_gpc off
+</IfModule>
+
+RewriteEngine on
+# Uncomment the next line when running DEX online from within a user directory
+# RewriteBase /~cata/DEX/wwwbase/
+
+RewriteRule ^text(-([^/]+))?/(.*)$ search.php?cuv=$3&source=$2&text=1 [L]
+
+# Third argument is always /paradigma
+RewriteCond %{REQUEST_URI} /.*/paradigma$
+RewriteRule (.*)/paradigma$ $1&showParadigm=1
+
+RewriteRule ^definitie(-([^/]+))?/(.*)$ search.php?cuv=$3&source=$2 [PT,L]
+RewriteRule ^lexem(-([^/]+))?/(.*)$ search.php?lexemId=$3&source=$2 [PT,L]

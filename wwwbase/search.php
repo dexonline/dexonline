@@ -1,22 +1,29 @@
 <?php
 require_once("../phplib/util.php");
 
-util_hideEmptyRequestParameters();
 $cuv = util_getRequestParameter('cuv');
 $lexemId = util_getRequestParameter('lexemId');
-$sourceId = util_getRequestIntParameter('source');
+$sourceUrlName = util_getRequestParameter('source');
 $text = util_getRequestIntParameter('text');
+$showParadigm = util_getRequestParameter('showParadigm');
+
+if ($cuv) {
+  $cuv = text_cleanupQuery($cuv);
+}
+
+$redirectUrl = util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm);
 
 $searchType = SEARCH_WORDLIST;
 $hasDiacritics = session_user_prefers('FORCE_DIACRITICS');
 $exclude_unofficial = session_user_prefers('EXCLUDE_UNOFFICIAL');
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
-$showParadigm = util_getRequestParameter('showParadigm') || session_user_prefers('SHOW_PARADIGM');
-$paradigmLink = $_SERVER['REQUEST_URI'] . (util_getRequestParameter('showParadigm') ? '' : '&showParadigm=1');
+$showParadigm = $showParadigm || session_user_prefers('SHOW_PARADIGM');
+$paradigmLink = $_SERVER['REQUEST_URI'] . (util_getRequestParameter('showParadigm') ? '' : '/paradigma');
+$source = $sourceUrlName ? Source::loadByUrlName($sourceUrlName) : null;
+$sourceId = $source ? $source->id : null;
 
 if ($cuv) {
-  $cuv = text_cleanupQuery($cuv);
   smarty_assign('cuv', $cuv);
   $arr = text_analyzeQuery($cuv);
   $hasDiacritics = session_user_prefers('FORCE_DIACRITICS') || $arr[0];
@@ -126,7 +133,7 @@ if ($searchType == SEARCH_WORDLIST) {
     if (count($lexems) == 1) {
       // Convenience redirect when there is only one correct form
       session_setFlash("Ați fost redirecționat automat la forma „{$lexems[0]->unaccented}”.");
-      util_redirect($_SERVER['PHP_SELF'] . '?cuv=' . $lexems[0]->unaccented);
+      util_redirect(util_getWwwRoot() . 'definitie/' . $lexems[0]->unaccented);
     } else if (!count($lexems)) {
       session_setFlash("Niciun rezultat relevant pentru „{$cuv}”.");
     }

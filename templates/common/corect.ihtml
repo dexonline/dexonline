@@ -57,12 +57,10 @@ email.
             <td class="notes">{$row->commentsHtml}</td>
             {if $is_moderator}
               <td class="actions">
-                <a id="edit{$row->id}"
-		   href="?action=edit&amp;guideEntryId={$row->id}#guideEntry{$row->id}">
+                <a id="edit{$row->id}" href="?action=edit&amp;guideEntryId={$row->id}#guideEntry{$row->id}">
                   editează
                 </a><br/>
-                <a id="delete{$row->id}"
-		   href="?action=delete&amp;guideEntryId={$row->id}"
+                <a id="delete{$row->id}" href="?action=delete&amp;guideEntryId={$row->id}"
                    onclick="return confirm('Confirmați ștergerea acestei înregistrări?');">
                   șterge
                 </a>

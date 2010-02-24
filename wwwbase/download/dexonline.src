@@ -7,7 +7,7 @@
    name="DEX online"
    description="DEX online search"
    method="GET"
-   action="http://dexonline.ro/search.php" 
+   action="http://dexonline.ro/definitie" 
 >
 
 <input name="cuv" user>

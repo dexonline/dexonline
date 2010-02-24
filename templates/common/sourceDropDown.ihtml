@@ -3,7 +3,12 @@
     <option value="">Toate sursele</option>
   {/if}
   {foreach from=$sources item=source}
-    <option value="{$source->id}"
+    {if $urlName}
+      {assign var="submitValue" value=$source->urlName}
+    {else}
+      {assign var="submitValue" value=$source->id}
+    {/if}
+    <option value="{$submitValue}"
       {if $src_selected == $source->id}selected="selected"{/if}
       >{$source->shortName|escape}</option>
   {/foreach}

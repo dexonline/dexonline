@@ -5,7 +5,7 @@
   <link href="{$cssRoot}/slick.css" rel="stylesheet" type="text/css">
   <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
   <title>{$page_title|escape}</title>
-  <script type="text/javascript" src="js/dex.js"></script>
+  <script type="text/javascript" src="{$wwwRoot}js/dex.js"></script>
 </head>
 
 <body id="slickSkinBody">
@@ -17,25 +17,25 @@
   <table cellspacing="0">
     <tr>
       <td nowrap {if $slick_selected == "index"}class="sel"{/if}>
-        <a href="/">prima</a></td>
-      <td nowrap><a href="contrib.php">contribuie</a></td>
+        <a href="{$wwwRoot}">prima</a></td>
+      <td nowrap><a href="{$wwwRoot}contrib.php">contribuie</a></td>
       <td nowrap {if $slick_selected == "corect"}class="sel"{/if}>
-        <a href="corect.php" id="guideLink">corect/greșit</a></td>
-      <td nowrap><a href="javascript:abbrevwindow()">abrevieri</a></td>
+        <a href="{$wwwRoot}corect.php" id="guideLink">corect/greșit</a></td>
+      <td nowrap><a href="javascript:abbrevWindow()">abrevieri</a></td>
       <td nowrap {if $slick_selected == "faq"}class="sel"{/if}>
-        <a href="faq.php">informații</a></td>
+        <a href="{$wwwRoot}faq.php">informații</a></td>
       <td nowrap {if $slick_selected == "tools"}class="sel"{/if}>
-        <a href="tools.php">unelte</a></td>
+        <a href="{$wwwRoot}tools.php">unelte</a></td>
       <td nowrap {if $slick_selected == "top"}class="sel"{/if}>
-        <a href="top.php">top</a></td>
+        <a href="{$wwwRoot}top.php">top</a></td>
       <td width="100%">&nbsp;</td>
-      <td nowrap><a href="contact.php">contact</a></td>
+      <td nowrap><a href="{$wwwRoot}contact.php">contact</a></td>
     </tr>
   </table>
   </div>
   {if $show_search_box}
     <div id="cautare">
-      <form name="frm" method="get" action="search.php">
+      <form name="frm" method="get" action="{$wwwRoot}search.php">
         Cuvântul:
         <input name="cuv" value="{$cuv|escape}">
         {if $show_search_box && $focus_search_box}
@@ -43,7 +43,7 @@
             document.frm.cuv.select();document.frm.cuv.focus();
           </script>
         {/if}
-        {include file="common/sourceDropDown.ihtml"}
+        {include file="common/sourceDropDown.ihtml" urlName=1}
         <input type="submit" value="Caută">
         <a href="javascript:helpWindow()">Ajutor</a>
       </form>
@@ -61,14 +61,14 @@
 
       {if !$is_mirror}
         {if $is_connected && $is_moderator}
-          <td nowrap><a href="admin">moderator</a></td>
+          <td nowrap><a href="{$wwwRoot}admin">moderator</a></td>
         {/if}
         {if $is_connected}
-          <td nowrap><a href="account.php">contul meu</a></td>
-          <td nowrap><a href="logout.php" id="logoutLink">deconectare</a></td>
+          <td nowrap><a href="{$wwwRoot}account.php">contul meu</a></td>
+          <td nowrap><a href="{$wwwRoot}logout.php" id="logoutLink">deconectare</a></td>
         {else}
-          <td nowrap><a href="login.php" id="loginLink">conectare</a></td>
-	  <td nowrap><a href="signup.php">înscriere</a></td>
+          <td nowrap><a href="{$wwwRoot}login.php" id="loginLink">conectare</a></td>
+          <td nowrap><a href="{$wwwRoot}signup.php">înscriere</a></td>
         {/if}
       {/if}
     </tr>

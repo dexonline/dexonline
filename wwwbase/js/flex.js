@@ -1,6 +1,6 @@
 function updateModelTypeList(locVersionSelect, modelTypeListId) {
   var value = locVersionSelect.options[locVersionSelect.selectedIndex].value;
-  url = 'ajax/getModelTypesForLocVersion.php?locVersion=' + value;
+  url = wwwRoot + 'ajax/getModelTypesForLocVersion.php?locVersion=' + value;
   if (window.location.toString().indexOf('/admin/') != -1) {
     url = '../' + url;
   }
@@ -12,7 +12,7 @@ function updateModelListWithLocVersion(mtSelect, modelListId) {
   var lvSelect = document.getElementById('locVersionListId');
   var lv = lvSelect.options[lvSelect.selectedIndex].value;
   var mt = mtSelect.options[mtSelect.selectedIndex].value;
-  url = 'ajax/getModelsForLocVersionModelType.php' +
+  url = wwwRoot + 'ajax/getModelsForLocVersionModelType.php' +
     '?locVersion=' + lv +
     '&modelType=' + mt;
   makeGetRequest(url, populateModelList, [true, modelListId]);
@@ -21,7 +21,7 @@ function updateModelListWithLocVersion(mtSelect, modelListId) {
 
 function updateModelList(modelTypeSelect, modelListId) {
   var value = modelTypeSelect.options[modelTypeSelect.selectedIndex].value;
-  makeGetRequest('../ajax/getModelsForLocVersionModelType.php?modelType=' +
+  makeGetRequest(wwwRoot + 'ajax/getModelsForLocVersionModelType.php?modelType=' +
                  value, populateModelList, [false, modelListId]);
   return false;
 }
@@ -125,7 +125,7 @@ function mlUpdateDefVisibility(lexemId, divId) {
   var div = document.getElementById(divId);
   // If the definitions are already loaded, then just toggle the div's visibility.
   if (!div.defsLoaded) {
-    var url = '../ajax/getDefinitionsForLexem.php?lexemId=' + lexemId;
+    var url = wwwRoot + 'ajax/getDefinitionsForLexem.php?lexemId=' + lexemId;
     makeGetRequest(url, populateDefinitionList, divId);
   } else if (div.style.display == 'none') {
     div.style.display = 'block';

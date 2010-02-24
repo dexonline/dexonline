@@ -2,19 +2,27 @@ var dom = { ELEMENT_NODE: 1, TEXT_NODE: 3 };
 var Alphabet = 'a-záàäåăâçèéëìíïîòóöșțùúüŭ';
 var letter = '[' + Alphabet + ']';
 var nonLetter = '[^' + Alphabet + ']';
+var wwwRoot = getWwwRoot();
 
-function abbrevwindow() {
-  window.open('html/abrev.html', 'mywindow',
-              'menubar=no,scrollbars=yes,toolbar=no,width=400,height=400');
+function getWwwRoot() {
+  var pos = window.location.href.indexOf('/wwwbase/');
+  if (pos == -1) {
+    return '/';
+  } else {
+    return window.location.href.substr(0, pos + 9);
+  }
+}
+
+function abbrevWindow() {
+  window.open(wwwRoot + 'html/abrev.html', 'mywindow', 'menubar=no,scrollbars=yes,toolbar=no,width=400,height=400');
 }
 
 function helpWindow() {
-  window.open('html/search_help.html', 'helpWindow',
-              'menubar=no,scrollbars=yes,toolbar=no,width=400,height=200');
+  window.open(wwwRoot + 'html/search_help.html', 'helpWindow', 'menubar=no,scrollbars=yes,toolbar=no,width=400,height=200');
 }
 
 function adminHelpWindow(anchorName) {
-  var url = '../html/admin_help.html';
+  var url = wwwRoot + '/html/admin_help.html';
   if (anchorName) {
     url += '#' + anchorName;
   }
@@ -24,14 +32,14 @@ function adminHelpWindow(anchorName) {
 }
 
 function typoWindow(definitionId) {
-  window.open('flag_typo.php?definitionId=' + definitionId,
+  window.open(wwwRoot + 'flag_typo.php?definitionId=' + definitionId,
               'typoWindow',
               'menubar=no,scrollbars=yes,toolbar=no,width=500,height=400');
 }
 
 // Functions for the contribution page
 function formatwindow() {
-  window.open('html/formatting.html','formatwindow',
+  window.open(wwwRoot + 'html/formatting.html','formatwindow',
               'menubar=no,scrollbars=yes,toolbar=no,width=500,height=400');
 }
 
@@ -55,7 +63,7 @@ function contribUpdatePreviewDiv() {
   var previewDiv = document.getElementById('previewDiv');
   if (previewDiv.keyWasPressed) {
     var internalRep = document.frm.def.value;
-    makePostRequest('ajax/htmlize.php',
+    makePostRequest(wwwRoot + 'ajax/htmlize.php',
                     'internalRep=' + myEncodeURI(internalRep),
                     contribPostRequestCallback, null);
     previewDiv.keyWasPressed = false;
@@ -396,10 +404,8 @@ function searchClickedWord(evt) {
   var word = getWordFromEvent(evt);
   if ( isValidWord(word) ) {
     source = document.getElementById('sourceDropDown').value;    
-    loc = 'search.php?cuv=' + word;
-    if (source) {
-      loc += '&source=' + source;
-    }
+    sourcePart = source ? '-' + source : '';
+    loc = wwwRoot + 'definitie' + sourcePart + '/' + word;
     window.location = loc;
   }
   else {
@@ -443,7 +449,7 @@ function installFirefoxSpellChecker(evt) {
 }
 
 function ignoreTypo(typoDivId, typoId) {
-  makePostRequest('../ajax/ignoreTypo.php', 'id=' + typoId, ignoreTypoCallback, typoDivId);
+  makePostRequest(wwwRoot + 'ajax/ignoreTypo.php', 'id=' + typoId, ignoreTypoCallback, typoDivId);
   return false;
 }
 
@@ -459,7 +465,7 @@ function ignoreTypoCallback(httpRequest, typoDivId) {
 }
 
 function deleteDefinition(defDivId, defId) {
-  makePostRequest('../ajax/deleteDefinition.php', 'id=' + defId, deleteDefinitionCallback, defDivId);
+  makePostRequest(wwwRoot + 'ajax/deleteDefinition.php', 'id=' + defId, deleteDefinitionCallback, defDivId);
   return false;
 }
 
@@ -478,7 +484,7 @@ function startReportCounters() {
   reports = ['unassociatedLexems', 'unassociatedDefinitions', 'definitionsWithTypos', 'temporaryDefinitions', 'temporaryLexems', 'lexemsWithComments',
              'lexemsWithoutAccents', 'ambiguousLexems'];
   for (var i = 0; i < reports.length; i++) {
-    makePostRequest('../ajax/reportCounter.php', 'report=' + reports[i], startReportCountersCallback, 'span_' + reports[i]);
+    makePostRequest(wwwRoot + 'ajax/reportCounter.php', 'report=' + reports[i], startReportCountersCallback, 'span_' + reports[i]);
   }
 }
 

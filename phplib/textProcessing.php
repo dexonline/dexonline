@@ -553,7 +553,7 @@ function _text_minimalInternalToHtml($s) {
 
 function _text_convertReferencesToHtml($s) {
   return preg_replace('/\|([^|]*)\|([^|]*)\|/',
-		      '<a class="ref" href="/search.php?cuv=$2">$1</a>',
+		      '<a class="ref" href="/definitie/$2">$1</a>',
 		      $s);
 }
 

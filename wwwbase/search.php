@@ -131,12 +131,14 @@ if ($searchType == SEARCH_WORDLIST) {
     $searchType = SEARCH_APPROXIMATE;
     $lexems = Lexem::searchApproximate($cuv, $hasDiacritics);
     if (count($lexems) == 1) {
-      // Convenience redirect when there is only one correct form
       session_setFlash("Ați fost redirecționat automat la forma „{$lexems[0]->unaccented}”.");
-      util_redirect(util_getWwwRoot() . 'definitie/' . $lexems[0]->unaccented);
     } else if (!count($lexems)) {
       session_setFlash("Niciun rezultat relevant pentru „{$cuv}”.");
     }
+  }
+  if (count($lexems) == 1 && $cuv != $lexems[0]->unaccented) {
+    // Convenience redirect when there is only one correct form. We want all pages to be canonical
+    util_redirect(util_getWwwRoot() . 'definitie/' . $lexems[0]->unaccented);
   }
 
   smarty_assign('lexems', $lexems);

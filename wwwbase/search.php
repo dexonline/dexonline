@@ -29,7 +29,7 @@ if ($cuv) {
   $hasDiacritics = session_user_prefers('FORCE_DIACRITICS') || $arr[0];
   $hasRegexp = $arr[1];
   $isAllDigits = $arr[2];
-  smarty_assign('page_title', 'DEX online - Căutare: ' . $cuv);
+  smarty_assign('page_title', "Definiție: {$cuv} | DEX online");
 }
 
 if ($text) {
@@ -67,17 +67,15 @@ if ($lexemId) {
   if ($lexem) {
     $lexems = array($lexem);
     smarty_assign('cuv', $lexem->unaccented);
-	if ($definitions) {
-		smarty_assign('page_title', 'DEX online - Lexem: ' . $lexem->unaccented);
-	}
-	else {
-		smarty_assign('page_title', 'DEX online - Lexem neoficial: ' . $lexem->unaccented);
-		smarty_assign('exclude_unofficial', $exclude_unofficial);
-	}
-  }
-  else {
+    if ($definitions) {
+      smarty_assign('page_title', "Lexem: {$lexem->unaccented} | DEX online");
+    } else {
+      smarty_assign('page_title', "Lexem neoficial: {$lexem->unaccented} | DEX online");
+      smarty_assign('exclude_unofficial', $exclude_unofficial);
+    }
+  } else {
     $lexems = array();
-    smarty_assign('page_title', 'DEX online - Eroare');
+    smarty_assign('page_title', "Eroare | DEX online");
   }
   smarty_assign('lexems', $lexems);
 }

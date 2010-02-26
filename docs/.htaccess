@@ -10,8 +10,7 @@ RewriteEngine on
 
 RewriteRule ^text(-([^/]+))?/(.*)$ search.php?cuv=$3&source=$2&text=1 [L]
 
-# Third argument is always /paradigma
-RewriteCond %{REQUEST_URI} /.*/paradigma$
+RewriteCond %{REQUEST_URI} /(definitie|lexem)/.+/paradigma$
 RewriteRule (.*)/paradigma$ $1&showParadigm=1
 
 RewriteRule ^definitie(-([^/]+))?/(.*)$ search.php?cuv=$3&source=$2 [PT,L]

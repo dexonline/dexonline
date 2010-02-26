@@ -7,3 +7,6 @@
 
 # Regenerate the full-text index Saturdays at 4am.
 0 4 * * 6 (cd /var/www/dexon/public_html/DEX/tools && php rebuildFullTextIndex.php) >/dev/null 2>&1 || mail -s "DEX rebuildFullTextIndex failed" cata@francu.com
+
+# Regenerate the sitemap Saturdays at 5am.
+0 5 * * 6 (cd /var/www/dexon/public_html/DEX/tools && php generateSitemap.php) >/dev/null 2>&1 || mail -s "DEX generateSitemap failed" cata@francu.com

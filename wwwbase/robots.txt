@@ -1,4 +1,7 @@
-# We don't want THAT in Google's quick links, do we?
+Sitemap: http://dexonline.ro/sitemap.xml
+
 User-agent: *
+# We don't want THAT in Google's quick links, do we?
 Disallow: /search.php?cuv=muie
 Disallow: /definitie/muie
+Disallow: /index.php?skin=*

@@ -725,7 +725,6 @@ function text_cleanupQuery($query) {
   if (!text_hasRegexp($query)) {
     $query = text_shorthandToUnicode($query);
   }
-  $query = text_unicodeToLower($query);
   $query = text_removeAccents($query);
   $query = text_stripHtmlEscapeCodes($query);
   // Delete all kinds of illegal symbols, but use them as word delimiters. Allow dots, dashes and spaces

@@ -480,7 +480,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://httpd.apache.org/">
-          <img src="{$imgRoot}/kudos/apache.gif" alt="apache logo"/>
+          <img src="{$imgRoot}/kudos/apache.png" alt="apache logo"/>
         </a>
       </td>
       <td><b>Apache HTTP Server</b> - Serverul de web.</td>
@@ -518,7 +518,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://www.cvshome.org/">
-          <img src="{$imgRoot}/kudos/cvs.gif" alt="cvs logo"/>
+          <img src="{$imgRoot}/kudos/cvs.png" alt="cvs logo"/>
         </a>
       </td>
       <td>
@@ -529,7 +529,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://otrs.org/">
-          <img src="{$imgRoot}/kudos/otrs.gif" alt="OTRS logo"/>
+          <img src="{$imgRoot}/kudos/otrs.png" alt="OTRS logo"/>
         </a>
       </td>
       <td>
@@ -553,7 +553,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://www.php-accelerator.co.uk/">
-          <img src="{$imgRoot}/kudos/phpa.gif" alt="php accelerator logo"/>
+          <img src="{$imgRoot}/kudos/phpa.png" alt="php accelerator logo"/>
         </a>
       </td>
       <td>
@@ -609,7 +609,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://abbyy.com/">
-          <img src="{$imgRoot}/kudos/abbyy.gif" alt="abbyy logo"/>
+          <img src="{$imgRoot}/kudos/abbyy.png" alt="abbyy logo"/>
         </a>
       </td>
       <td>

@@ -6,38 +6,38 @@ span.lexemName {
   font-weight: bold;
 }
 
-table.lexem {
+.lexem {
   border-collapse: collapse;
   margin-left: 0;
   margin-top: 10px;
 }
 
-table.lexem tr td {
+.lexem td {
   border: 1px solid #dddddd;
   padding: 0px 10px;
 }
 
-table.lexem tr td.inflection {
+.lexem td.inflection {
   color: #555555;
   font-style: italic;
   font-size: small;
   text-align: center;
 }
 
-table.lexem tr td.form {
+.lexem td.form {
   font-style: italic;
 }
 
-table.lexem tr td.form .accented{
+.lexem td.form .accented{
   font-weight: bold;
   font-style: normal;
 }
 
-table.lexem tr td.spacer {
+.lexem td.spacer {
   height: 3px;
 }
 
-table.lexem tr td.person {
+.lexem tr td.person {
   text-align: right;
 }
 

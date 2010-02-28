@@ -4,7 +4,7 @@ body {
   font-family: serif;
 }
 
-table.header {
+.header {
   background: #dcf0ff;
   color: black;
   border: 1px solid blue;
@@ -15,17 +15,22 @@ table.header {
   width: 100%;
 }
 
-table.header tr td {
+.header td {
   padding-bottom: 8px;
   padding-top: 8px;
 }
 
-table.header tr td.logo {
+.header td.logo {
   padding-right: 8px;
   width: 1%;
 }
 
-table.header tr td.title {
+img.logo {
+  width: 105px;
+  height: 70px;
+}
+
+.header td.title {
   font-size: 110%;
   padding-right: 10px;
   text-align: right;
@@ -33,11 +38,11 @@ table.header tr td.title {
   width: 1%;
 }
 
-table.header tr td.searchBoxContainer {
+.header td.searchBoxContainer {
   padding-left: 8px;
 }
 
-a.noBorder img {
+.noBorder img {
   border: 0;
 }
 
@@ -61,12 +66,12 @@ span.formPlug {
   font-size: 70%;
 }
 
-div.linkBar {
+.linkBar {
   font-size: 80%;
   margin-bottom: 10px;
 }
 
-div.linkBar a {
+.linkBar a {
   white-space: nowrap;
 }
 
@@ -90,7 +95,7 @@ span.stopWords {
   color: #777777;
 }
 
-table.footer {
+.footer {
   border-top: 1px solid #cccccc;
   font-family: sans-serif;
   font-size: 80%;
@@ -98,11 +103,11 @@ table.footer {
   width: 100%;
 }
 
-table.footer tr td {
+.footer td {
   vertical-align: top;
 }
 
-table.footer tr td.narrow {
+.footer td.narrow {
   text-align: center;
   white-space: nowrap;
   width: 1%;
@@ -112,17 +117,17 @@ span.def {
   cursor: pointer;
 }
 
-span.defDetails {
+.defDetails {
   color: #999999;
   font-family: sans-serif;
   font-size: 80%;
 }
 
-span.defDetails a {
+.defDetails a {
   color: #777777;
 }
 
-span.defDetails a:hover {
+.defDetails a:hover {
   color: #555555;
 }
 
@@ -170,7 +175,7 @@ div.guideConfirmationMessage {
   width: 30em;
 }
 
-table.rightWrong {
+.rightWrong {
   border-collapse: collapse;
   border-spacing: 0px;
   margin-left: auto;
@@ -178,32 +183,32 @@ table.rightWrong {
   width: 94%;
 }
 
-table.rightWrong tr th {
+.rightWrong th {
   background: #eeeeee;
   border: 1px solid #cccccc;
 }
 
-table.rightWrong tr td {
+.rightWrong td {
   border: 1px solid #cccccc;
   padding: 4px;
   vertical-align: top;
 }
 
-table.rightWrong tr td.right {
+.rightWrong td.right {
   color: #006600;
   width: 25%;
 }
 
-table.rightWrong tr td.wrong {
+.rightWrong td.wrong {
   color: #660000;
   width: 25%;
 }
 
-table.rightWrong tr td.notes {
+.rightWrong td.notes {
   width: 50%;
 }
 
-table.rightWrong tr td.actions {
+.rightWrong td.actions {
   font-family: sans-serif;
   font-size: 80%;
   vertical-align: middle;
@@ -255,74 +260,74 @@ span.help {
   font-size: 85%;
 }
 
-table.userEdit td {
+.userEdit td {
   padding-bottom: 5px;
   vertical-align: top;
 }
 
-table#offlineClients {
+#offlineClients {
   border-collapse: collapse;
   margin: 20px auto 0px auto;
 }
 
-table#offlineClients tr.color1 {
+#offlineClients tr.color1 {
   background-color: #f8f8f8;
 }
 
-table#offlineClients tr.color2 {
+#offlineClients tr.color2 {
   background-color: #eeeeee;
 }
 
-table#offlineClients td {
+#offlineClients td {
   border: 1px solid #aaaaaa;
   padding: 5px 10px;
   vertical-align: top;
   white-space: nowrap;
 }
 
-table#offlineClients td.clientHeader {
+#offlineClients td.clientHeader {
   font-weight: bold;
   text-align: left;
   vertical-align: middle;
 }
 
-table#offlineClients td.empty {
+#offlineClients td.empty {
   background-color: white;
   border-left: 0px;
   border-top: 0px;
 }
 
-table#offlineClients .clientName {
+#offlineClients .clientName {
   font-weight: bold;
 }
 
-table#offlineClients td.columnHeader {
+#offlineClients td.columnHeader {
   text-align: center;
 }
 
-table#offlineClients td.option {
+#offlineClients td.option {
   text-align: center;
   vertical-align: middle;
 }
 
-table#offlineClients .optionDesc {
+#offlineClients .optionDesc {
   font-size: 75%;
   font-weight: normal;
   padding-left: 20px;
   white-space: normal;
 }
 
-div#adsenseHorizontal {
+#adsenseHorizontal {
   margin: 12px auto;
   width: 468px;
 }
 
-div#adsenseLeaderboard {
+#adsenseLeaderboard {
   margin: 12px auto;
   width: 728px;
 }
 
-div#adsenseVertical {
+#adsenseVertical {
   float: right;
   margin: 5px;
 }

@@ -11,11 +11,17 @@
     {else}
       {$results|@count} definiții pentru
     {/if}
-    {foreach from=$lexems item=lexem key=row_id}
-      <a href="{$wwwRoot}lexem/{$lexem->id}">{$lexem->unaccented}</a
-      >{if $lexem->description} ({$lexem->description|escape}){/if
-      }{if $row_id < count($lexems) - 1},{/if}
-    {/foreach}
+
+    {if count($lexems) == 1}
+      {* If there is exactly one lexem, do not link to the lexem page, because it would print an almost exact duplicate of this page. *}
+      {include file="common/bits/lexemName.ihtml" lexem=$lexems.0}      
+    {else}
+      {foreach from=$lexems item=lexem key=row_id}
+        <a href="{$wwwRoot}lexem/{$lexem->id}">{$lexem->unaccented}</a
+        >{if $lexem->description} ({$lexem->description|escape}){/if
+        }{if $row_id < count($lexems) - 1},{/if}
+      {/foreach}
+    {/if}
 
   {elseif $searchType == SEARCH_APPROXIMATE}
     {if count($lexems)}

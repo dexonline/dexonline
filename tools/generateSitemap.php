@@ -17,17 +17,33 @@ log_scriptLog('Running generateSitemap.php');
 openNewFile();
 addOtherUrls();
 
-$query = 'select * from lexems order by lexem_id';
+$query = 'select lexem_id, lexem_neaccentuat from lexems order by lexem_neaccentuat';
 log_scriptLog("Running mysql query: [$query]");
 $dbResult = mysql_query($query);
 
-// Generate the Sitemap files
-$numLexems = mysql_num_rows($dbResult);
-while ($dbRow = mysql_fetch_assoc($dbResult)) {
-  $lexem = Lexem::createFromDbRow($dbRow);
-  addUrl('http://dexonline.ro/definitie/' . urlencode($lexem->unaccented));
-  addUrl("http://dexonline.ro/lexem/{$lexem->id}");
+$rowB = array(null, null);
+$rowC = array(null, null);
+while ($dbRow = mysql_fetch_array($dbResult)) {
+  // Keep a moving window of 3 lexems that we can use to eliminate duplicates
+  $rowA = $rowB;
+  $rowB = $rowC;
+  $rowC = $dbRow;
+  if ($rowB[1] && $rowB[1] != $rowA[1]) {
+    // If 2 or more lexems have identical forms, only add a definition URL for the first one
+    addUrl('http://dexonline.ro/definitie/' . urlencode($rowB[1]));
+  }
+  if ($rowB[0] && ($rowB[1] == $rowA[1] || $rowB[1] == $rowC[1])) {
+    // Only add a link to the lexem if it has homonyms. Otherwise, its page is identical to the definition page.
+    addUrl("http://dexonline.ro/lexem/{$rowB[0]}");
+  }
 }
+// Now process the last row
+if ($rowC[1] == $rowB[1]) {
+  addUrl("http://dexonline.ro/lexem/{$rowC[0]}");
+} else {
+  addUrl('http://dexonline.ro/definitie/' . urlencode($rowC[1]));
+}
+
 closeCurrentFile();
 generateIndexFile();
 log_scriptLog('generateSitemap.php completed');

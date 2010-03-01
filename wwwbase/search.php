@@ -136,7 +136,8 @@ if ($searchType == SEARCH_WORDLIST) {
   }
   if (count($lexems) == 1 && $cuv != $lexems[0]->unaccented) {
     // Convenience redirect when there is only one correct form. We want all pages to be canonical
-    util_redirect(util_getWwwRoot() . 'definitie/' . $lexems[0]->unaccented);
+    $sourcePart = $source ? "-{$source->urlName}" : '';
+    util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$lexems[0]->unaccented}");
   }
 
   smarty_assign('lexems', $lexems);

@@ -42,7 +42,7 @@ if ($dissociateDefinitionId) {
 if ($createDefinition) {
   $def = new Definition();
   $def->userId = session_getUserId();
-  $def->sourceId = Source::loadUnofficial()->id;
+  $def->sourceId = Source::get('shortName="Neoficial"')->id;
   $def->lexicon = $lexem->unaccented;
   $def->internalRep =
     '@' . text_unicodeToUpper(text_internalize($lexem->form, false)) .

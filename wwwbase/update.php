@@ -41,7 +41,7 @@ return;
 
 function createSourceMap() {
   $sourceMap = array();
-  $sources = Source::loadAllSources();
+  $sources = Source::findAll('');
   foreach ($sources as $source) {
     $sourceMap[$source->id] = $source;
   }

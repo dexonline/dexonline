@@ -8,7 +8,7 @@ util_assertNotMirror();
 $sourceId = util_getRequestParameter('source');
 
 if ($sourceId) {
-  $source = Source::load($sourceId);
+  $source = Source::get("id={$sourceId}");
   RecentLink::createOrUpdate("Lexeme neetichetate {$source->shortName}");
   smarty_assign('sectionTitle', "Lexeme neetichetate {$source->shortName}");
   $lexems = Lexem::loadTemporaryFromSource($sourceId);

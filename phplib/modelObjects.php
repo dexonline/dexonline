@@ -37,81 +37,19 @@ class GuideEntry extends BaseObject {
 }
 
 
-class Source {
-  public $id;
-  public $shortName;
-  public $urlName;
-  public $name;
-  public $author;
-  public $publisher;
-  public $year;
-  public $canContribute;
-  public $canModerate;
-  public $isOfficial;
-  public $displayOrder;
+class Source extends BaseObject {
+  var $_table = 'Source';
 
-  public static function load($id) {
-    $dbRow = db_getSourceById($id);
-    $result = new Source();
-    $result->populateFromDbRow($dbRow);
-    return $result;
+  // Static version of load()
+  public static function get($where) {
+    $s = new Source();
+    $s->load($where);
+    return $s->id ? $s : null;
   }
 
-  public static function loadByUrlName($urlName) {
-    $dbRow = db_getSourceByUrlName($urlName);
-    if ($dbRow) {
-      $result = new Source();
-      $result->populateFromDbRow($dbRow);
-      return $result;
-    }
-    return null;
-  }
-
-  public static function loadAllContribSources() {
-    $dbResult = db_selectAllContribSources();
-    return Source::populateFromDbResult($dbResult);
-  }
-
-  public static function loadAllModeratorSources() {
-    $dbResult = db_selectAllModeratorSources();
-    return Source::populateFromDbResult($dbResult);
-  }
-
-  public static function loadAllSources() {
-    $dbResult = db_selectAllSources();
-    return Source::populateFromDbResult($dbResult);
-  }
-
-  public static function loadUnofficial() {
-    $dbRow = db_getSourceByShortName('Neoficial');
-    $result = new Source();
-    $result->populateFromDbRow($dbRow);
-    return $result;
-  }
-
-  public static function populateFromDbResult($dbResult) {
-    $result = array();
-    while ($dbRow = mysql_fetch_assoc($dbResult)) {
-      $source = new Source();
-      $source->populateFromDbRow($dbRow);
-      $result[] = $source;
-    }
-    mysql_free_result($dbResult);
-    return $result;
-  }
-
-  public function populateFromDbRow($dbRow) {
-    $this->id = $dbRow['Id']; 
-    $this->shortName = $dbRow['ShortName'];
-    $this->urlName = $dbRow['UrlName'];
-    $this->name = $dbRow['Name'];
-    $this->author = $dbRow['Author'];
-    $this->publisher = $dbRow['Publisher'];
-    $this->year = $dbRow['Year'];
-    $this->canContribute = $dbRow['CanContribute'];
-    $this->canModerate = $dbRow['CanModerate'];
-    $this->isOfficial = $dbRow['IsOfficial'];
-    $this->displayOrder = $dbRow['DisplayOrder'];
+  public static function findAll($where) {
+    $s = new Source();
+    return $s->find($where);
   }
 }
 
@@ -553,7 +491,7 @@ class SearchResult {
       $result = new SearchResult();
       $result->definition = $definition;
       $result->user = User::load($definition->userId);
-      $result->source = Source::load($definition->sourceId);
+      $result->source = Source::get("id={$definition->sourceId}");
       $result->typos = Typo::loadByDefinitionId($definition->id);
       $result->comment = Comment::loadByDefinitionId($definition->id);
       if ($result->comment) {

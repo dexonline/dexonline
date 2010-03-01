@@ -63,7 +63,7 @@ if ($sendButton) {
   smarty_assign('sourceId', session_getDefaultContribSourceId());
 }
 
-smarty_assign('contribSources', Source::loadAllContribSources());
+smarty_assign('contribSources', Source::findAll('canContribute'));
 smarty_displayWithoutSkin('common/contrib.ihtml');
 
 ?>

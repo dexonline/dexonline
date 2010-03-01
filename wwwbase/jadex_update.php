@@ -24,7 +24,7 @@ header('Content-Type: text/plain;charset=UTF-8');
 $timestamp = util_getRequestIntParameter('timestamp');
 $defDbResult = Definition::loadByMinModDate($timestamp);
 $lexemDbResult = Lexem::loadNamesByMinModDate($timestamp);
-$sources = Source::loadAllSources();
+$sources = Source::findAll('');
 userCache_init();
 $currentLexem = array(0, ''); // Force loading a lexem on the next comparison.
 

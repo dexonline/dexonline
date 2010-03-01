@@ -20,7 +20,7 @@ $hasRegexp = FALSE;
 $isAllDigits = FALSE;
 $showParadigm = $showParadigm || session_user_prefers('SHOW_PARADIGM');
 $paradigmLink = $_SERVER['REQUEST_URI'] . (util_getRequestParameter('showParadigm') ? '' : '/paradigma');
-$source = $sourceUrlName ? Source::loadByUrlName($sourceUrlName) : null;
+$source = $sourceUrlName ? Source::get("urlName='$sourceUrlName'") : null;
 $sourceId = $source ? $source->id : null;
 
 if ($cuv) {

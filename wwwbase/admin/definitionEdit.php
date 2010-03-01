@@ -131,7 +131,7 @@ if ($acceptButton || $moveButton) {
   }
 }
 
-$source = Source::load($definition->sourceId);
+$source = Source::get("id={$definition->sourceId}");
 
 if (!$refreshButton && !$acceptButton && !$moveButton) {
   // If a button was pressed, then this is a POST request and the URL
@@ -148,7 +148,7 @@ smarty_assign('comment', $comment);
 smarty_assign('lexems', $lexems);
 smarty_assign('typos', Typo::loadByDefinitionId($definition->id));
 smarty_assign("allStatuses", util_getAllStatuses());
-smarty_assign("allModeratorSources", Source::loadAllModeratorSources());
+smarty_assign("allModeratorSources", Source::findAll('canModerate'));
 smarty_assign('recentLinks', RecentLink::loadForUser());
 smarty_displayWithoutSkin('admin/definitionEdit.ihtml');
 

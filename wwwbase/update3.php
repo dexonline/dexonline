@@ -15,7 +15,7 @@ $export = util_getRequestParameter('export');
 $timestamp = util_getRequestIntParameter('timestamp');
 
 if ($export == 'sources') {
-  smarty_assign('sources', Source::loadAllSources());
+  smarty_assign('sources', Source::findAll(''));
   smarty_displayWithoutSkin('common/update3Sources.ihtml');
 } else if ($export == 'inflections') {
   smarty_assign('inflections', Inflection::loadAll());

@@ -83,7 +83,7 @@ function handle_line($fd) {
       socket_write($fd, ".\r\n");
       socket_write($fd, "250 ok\r\n");
     } else if ($tok == "db" || $tok == "databases") {
-      $sources = Source::loadAllSources();
+      $sources = Source::findAll('');
       socket_write($fd, "110 " . count($sources) .
 		   " databases present\r\n");
       foreach ($sources as $source) {
@@ -217,7 +217,9 @@ function source_exists($sourceId) {
   if ($sourceId == "*" || $sourceId == '!') {
     return true;
   }
-  return Source::load($sourceId);
+  $s = new Source();
+  $s->load("id=$sourceId");
+  return $s->id;
 }
 
 function strategy_exists($strategy) {

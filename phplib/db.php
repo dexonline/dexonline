@@ -1519,37 +1519,6 @@ function db_getNumMetRestrictions($restr, $inflId) {
   return db_fetchInteger(logged_query($query));
 }
 
-/****************************** Sources ******************************/
-
-function db_selectAllContribSources() {
-  return logged_query("select * from Source where CanContribute");
-}
-
-function db_selectAllModeratorSources() {
-  return logged_query("select * from Source where CanModerate");
-}
-
-function db_selectAllSources() {
-  return logged_query("select * from Source");
-}
-
-function db_getSourceById($id) {
-  $query = "select * from Source where Id = '$id'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getSourceByUrlName($urlName) {
-  $urlName = addslashes($urlName);
-  $query = "select * from Source where UrlName = '$urlName'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getSourceByShortName($shortName) {
-  $shortName = addslashes($shortName);
-  $query = "select * from Source where ShortName = '$shortName'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
 /****************************** Variables *****************************/
 
 function db_getVariable($name) {

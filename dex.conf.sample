@@ -1,7 +1,4 @@
-mysql_host=localhost
-mysql_db=DEX
-mysql_user=root
-mysql_password=
+database=mysql://root@localhost/DEX
 mysql_loc_prefix=LOC_
 contact=contact@dexonline.ro
 default_skin=polar
@@ -11,3 +8,5 @@ hostedBy=
 smartyClass=smarty/Smarty.class.php
 locVersions=4.0 09/18/2007, 5.0 current
 adsense=none
+adoDbClass=adodb/adodb.inc.php
+adoDbActiveRecordClass=adodb/adodb-active-record.inc.php

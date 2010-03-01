@@ -27,12 +27,8 @@ log_scriptLog('Running updateMirror.php with databaseCopy:' .
 if ($doDatabaseCopy) {
   os_executeAndAssert('wget -q -O /tmp/dex-database.sql.gz ' . DATABASE_URL);
   os_executeAndAssert('gunzip /tmp/dex-database.sql.gz');
-  $mysql = sprintf("mysql -h %s -u %s --password='%s' %s " .
-                   "< /tmp/dex-database.sql",
-                   pref_getDbHost(),
-                   pref_getDbUser(),
-                   pref_getDbPassword(),
-                   pref_getDbDatabase());
+  $parts = db_splitDsn();
+  $mysql = sprintf("mysql -h %s -u %s --password='%s' %s < /tmp/dex-database.sql", $parts['host'], $parts['user'], $parts['password'], $parts['database']);
   os_executeAndAssert($mysql);
   os_executeAndAssert('rm -f /tmp/dex-database.sql');
 }

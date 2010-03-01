@@ -23,7 +23,6 @@ function pref_loadPreferences($fileName) {
   }
 
   $GLOBALS['serverPreferences'] = $prefs;
-  
 }
 
 function pref_getServerPreference($name) {
@@ -40,22 +39,6 @@ function pref_isMirror() {
 
 function pref_getDefaultSkin() {
   return pref_getServerPreference('default_skin');
-}
-
-function pref_getDbHost() {
-  return pref_getServerPreference('mysql_host');
-}
-
-function pref_getDbUser() {
-  return pref_getServerPreference('mysql_user');
-}
-
-function pref_getDbPassword() {
-  return pref_getServerPreference('mysql_password');
-}
-
-function pref_getDbDatabase() {
-  return pref_getServerPreference('mysql_db');
 }
 
 function pref_getLocPrefix() {

@@ -7,11 +7,8 @@ $FILENAME = 'dex-database.sql';
 $GZ_FILENAME = 'dex-database.sql.gz';
 $LICENSE = util_getRootPath() . '/tools/dumpDatabaseLicense.txt';
 
-$COMMON_COMMAND = sprintf("mysqldump -h %s -u %s --password='%s' %s ",
-                          pref_getDbHost(),
-                          pref_getDbUser(),
-                          pref_getDbPassword(),
-                          pref_getDbDatabase());
+$parts = db_splitDsn();
+$COMMON_COMMAND = sprintf("mysqldump -h %s -u %s --password='%s' %s ", $parts['host'], $parts['user'], $parts['password'], $parts['database']);
 
 $schemaOnly = array('RecentLink', 'Cookie', 'history_Comment', 'history_Definition');
 $alteredFields = array('User' => array('Email' => 'anonymous@anonymous.com',
@@ -36,7 +33,7 @@ for ($i = 1; $i < count($argv); $i++) {
 log_scriptLog('Running dumpDatabase.php with argument ' .
               ($doFullDump ? 'full' : 'public'));
 
-$dbName = pref_getDbDatabase();
+$dbName = $parts['database'];
 $tablesToIgnore = '';
 foreach ($schemaOnly as $table) {
   $tablesToIgnore .= "--ignore-table=$dbName.$table ";

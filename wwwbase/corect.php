@@ -7,7 +7,10 @@ smarty_assign('slick_selected', 'corect');
 // There may be some actions to perform here
 $action = util_getRequestParameter('action');
 $id = util_getRequestIntParameter('guideEntryId');
-$guideEntry = $id ? GuideEntry::load($id) : new GuideEntry();
+$guideEntry = new GuideEntry();
+if ($id) {
+  $guideEntry->load("id={$id}");
+}
 if ($action == 'delete') {
   if (!session_userIsModerator()) {
     smarty_assign('confirmationMessage', 'Nu aveți drept de moderator :(');
@@ -26,7 +29,8 @@ if ($action == 'delete') {
     $guideEntry->correct = util_getRequestParameter('Correct');
     $guideEntry->wrong = util_getRequestParameter('Wrong');
     $guideEntry->comments = util_getRequestParameter('Comments');
-    $guideEntry->normalizeAndSave();
+    $guideEntry->normalize();
+    $guideEntry->save();
     smarty_assign('confirmationMessage', 'Modificare reușită.');
   } else {
     smarty_assign('confirmationMessage', 'Modificare anulată.');
@@ -41,7 +45,8 @@ if ($action == 'delete') {
     $guideEntry->correct = util_getRequestParameter('Correct');
     $guideEntry->wrong = util_getRequestParameter('Wrong');
     $guideEntry->comments = util_getRequestParameter('Comments');
-    $guideEntry->normalizeAndSave();
+    $guideEntry->normalize();
+    $guideEntry->save();
     smarty_assign('confirmationMessage', 'Adăugare reușită.');
   } else {
     smarty_assign('confirmationMessage', 'Adăugare anulată.');

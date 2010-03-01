@@ -1,53 +1,28 @@
 <?
 
-class GuideEntry {
-  public $id;
-  public $correct;
-  public $correctHtml;
-  public $wrong;
-  public $wrongHtml;
-  public $comments;
-  public $commentsHtml;
-  public $status = ST_ACTIVE;
-  public $createDate;
-  public $modDate;
+class BaseObject extends ADOdb_Active_Record {
+  public function save() {
+    if ($this->createDate === null) {
+      $this->createDate = $this->modDate = time();
+    }
+    if (is_string($this->modDate)) {
+      $this->modDate = time();
+    }
+    parent::save();
+  }
+}
 
-  public static function load($id) {
-    $result = new GuideEntry();
-    $dbRow = db_getGuideEntryById($id);
-    $result->populateFromDbRow($dbRow);
-    return $result;
+class GuideEntry extends BaseObject {
+  var $_table = 'GuideEntry';
+
+  function __construct() {
+    parent::__construct();
+    $this->status = ST_ACTIVE;
   }
 
   public static function loadAllActive() {
-    $dbResult = db_selectAllActiveGuideEntries();
-    $guideEntryArray = array();
-
-    while ($dbRow = mysql_fetch_assoc($dbResult)) {
-      $guideEntry = new GuideEntry();
-      $guideEntry->populateFromDbRow($dbRow);
-      $guideEntryArray[] = $guideEntry;
-    }
-
-    return $guideEntryArray;
-  }
-
-  private function populateFromDbRow($dbRow) {
-    $this->id = $dbRow['Id'];
-    $this->correct = $dbRow['Correct'];
-    $this->correctHtml = $dbRow['CorrectHtml'];
-    $this->wrong = $dbRow['Wrong'];
-    $this->wrongHtml = $dbRow['WrongHtml'];
-    $this->comments = $dbRow['Comments'];
-    $this->commentsHtml = $dbRow['CommentsHtml'];
-    $this->status = $dbRow['Status'];
-    $this->createDate = $dbRow['CreateDate'];
-    $this->modDate = $dbRow['ModDate'];
-  }
-
-  public function normalizeAndSave() {
-    $this->normalize();
-    $this->save();
+    $ge = new GuideEntry();
+    return $ge->find("Status = 0");
   }
 
   public function normalize() {
@@ -58,16 +33,6 @@ class GuideEntry {
     $this->correctHtml = text_htmlizeWithNewlines($this->correct, TRUE);
     $this->wrongHtml = text_htmlizeWithNewlines($this->wrong, TRUE);
     $this->commentsHtml = text_htmlizeWithNewlines($this->comments, TRUE);    
-  }
-
-  public function save() {
-    $this->modDate = time();
-    if ($this->id) {
-      db_updateGuideEntry($this);
-    } else {
-      $this->createDate = time();
-      db_insertGuideEntry($this);
-    }
   }
 }
 

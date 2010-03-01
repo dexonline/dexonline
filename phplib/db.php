@@ -1,15 +1,46 @@
 <?
 
-function db_init($host, $user, $password, $database) {
-  $db = mysql_connect($host, $user, $password);
-  mysql_select_db($database, $db);
-  mysql_query('set names utf8');
-  return $db;
+function db_init() {
+  $db = NewADOConnection(pref_getServerPreference('database'));
+  if (!$db) {
+    die("Connection failed");
+  }
+  ADOdb_Active_Record::SetDatabaseAdapter($db);
+  $db->Execute('set names utf8');
+  // $db->debug = true;
 }
 
 function db_changeDatabase($dbName) {
   $dbName = addslashes($dbName);
   return logged_query("use $dbName");
+}
+
+/**                                                                                                                                                                                     
+ * Returns an array mapping user, password, host and database                                                                                                                           
+ * to their respective values.                                                                                                                                                          
+ */
+function db_splitDsn() {
+  $result = array();
+  $dsn = pref_getServerPreference('database');
+  $prefix = 'mysql://';
+  assert(text_startsWith($dsn, $prefix));
+  $dsn = substr($dsn, strlen($prefix));
+
+  $parts = split("[:@/]", $dsn);
+  assert(count($parts) == 3 || count($parts) == 4);
+
+  if (count($parts) == 4) {
+    $result['user'] = $parts[0];
+    $result['password'] = $parts[1];
+    $result['host'] = $parts[2];
+    $result['database'] = $parts[3];
+  } else {
+    $result['user'] = $parts[0];
+    $result['host'] = $parts[1];
+    $result['database'] = $parts[2];
+    $result['password'] = '';
+  }
+  return $result;
 }
 
 /**
@@ -562,66 +593,6 @@ function db_appendUserNick($row) {
   $usrRow = mysql_fetch_assoc($result);
   $row['nick'] = $usrRow['nick'];
   return $row;
-}
-
-
-/****************************** Guide entries ******************************/
-
-function db_selectAllActiveGuideEntries() {
-  return logged_query("select * from GuideEntry where Status = 0");
-}
-
-function db_getGuideEntryById($id) {
-  $query = "select * from GuideEntry where Id = '$id'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_updateGuideEntry($guideEntry) {
-  $query = sprintf("update GuideEntry set " .
-                   "Correct = '%s', " .
-                   "CorrectHtml = '%s', " .
-                   "Wrong = '%s', " .
-                   "WrongHtml = '%s', " .
-                   "Comments = '%s', " .
-                   "CommentsHtml = '%s', " .
-                   "Status = '%s', " .
-                   "CreateDate = '%s', " .
-                   "ModDate = '%s' " .
-                   "where Id = '%s'",
-                   addslashes($guideEntry->correct),
-                   addslashes($guideEntry->correctHtml),
-                   addslashes($guideEntry->wrong),
-                   addslashes($guideEntry->wrongHtml),
-                   addslashes($guideEntry->comments),
-                   addslashes($guideEntry->commentsHtml),
-                   $guideEntry->status,
-                   $guideEntry->createDate,
-                   $guideEntry->modDate,
-                   $guideEntry->id);
-  return logged_query($query);
-}
-
-function db_insertGuideEntry($guideEntry) {
-  $query = sprintf("insert into GuideEntry set " .
-                   "Correct = '%s', " .
-                   "CorrectHtml = '%s', " .
-                   "Wrong = '%s', " .
-                   "WrongHtml = '%s', " .
-                   "Comments = '%s', " .
-                   "CommentsHtml = '%s', " .
-                   "Status = '%s', " .
-                   "CreateDate = '%s', " .
-                   "ModDate = '%s' ",
-                   addslashes($guideEntry->correct),
-                   addslashes($guideEntry->correctHtml),
-                   addslashes($guideEntry->wrong),
-                   addslashes($guideEntry->wrongHtml),
-                   addslashes($guideEntry->comments),
-                   addslashes($guideEntry->commentsHtml),
-                   $guideEntry->status,
-                   $guideEntry->createDate,
-                   $guideEntry->modDate);
-  return logged_query($query);
 }
 
 

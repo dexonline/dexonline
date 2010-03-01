@@ -58,21 +58,11 @@ $fileName = tempnam('/tmp', 'freeze_');
 print "Dumping tables to $fileName\n";
 $tablesToDump = "constraints inflections lexems " .
   "model_description model_types models participle_models transforms wordlist";
-$mysql = sprintf("mysqldump -h %s -u %s --password='%s' %s %s > %s",
-                 pref_getDbHost(),
-                 pref_getDbUser(),
-                 pref_getDbPassword(),
-                 pref_getDbDatabase(),
-                 $tablesToDump,
-                 $fileName);
+$parts = db_splitDsn();
+$mysql = sprintf("mysqldump -h %s -u %s --password='%s' %s %s > %s", $parts['host'], $parts['user'], $parts['password'], $parts['database'], $tablesToDump, $fileName);
 os_executeAndAssert($mysql);
 print "Importing $fileName to $dbName\n";
-$import = sprintf("mysql -h %s -u %s --password='%s' %s < %s",
-		  pref_getDbHost(),
-		  pref_getDbUser(),
-		  pref_getDbPassword(),
-		  $dbName,
-		  $fileName);
+$import = sprintf("mysql -h %s -u %s --password='%s' %s < %s", $parts['host'], $parts['user'], $parts['password'], $dbName, $fileName);
 os_executeAndAssert($import);
 print "Success!\n";
 

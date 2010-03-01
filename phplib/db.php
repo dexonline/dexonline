@@ -332,7 +332,7 @@ function db_searchLexemId($lexemId, $exclude_unofficial) {
     "and L.LexemId = '$lexemId' " .
 	$excludeClause . 
     "and D.Status = 0 " .
-    "order by S.IsOfficial, D.Lexicon, S.DisplayOrder";
+    "order by S.IsOfficial, S.DisplayOrder, D.Lexicon";
   return logged_query($query);
 }
 

@@ -25,9 +25,7 @@ două aplicații nu au fost aduse la zi.
     {foreach from=$clients item=client}
       <td class="osList">
         {foreach from=$client.os item=os}
-          <img src="{$imgRoot}/icons/{$os}.png" alt="{$os}"/>
-          {$osNames[$os]}
-          <br/>
+          <img src="{$imgRoot}/icons/{$os}.png" alt="{$os}" title="{$osNames[$os]}" />
         {/foreach}
       </td>
     {/foreach}

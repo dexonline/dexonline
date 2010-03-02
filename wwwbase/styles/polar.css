@@ -268,6 +268,7 @@ span.help {
 #offlineClients {
   border-collapse: collapse;
   margin: 20px auto 0px auto;
+  font-size: small;
 }
 
 #offlineClients tr.color1 {
@@ -280,8 +281,9 @@ span.help {
 
 #offlineClients td {
   border: 1px solid #aaaaaa;
-  padding: 5px 10px;
-  vertical-align: top;
+  padding: 5px;
+  vertical-align: center;
+  text-align: center;
   white-space: nowrap;
 }
 

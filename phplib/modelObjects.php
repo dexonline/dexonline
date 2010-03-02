@@ -420,7 +420,7 @@ class SearchResult {
       $result->typos = Typo::loadByDefinitionId($definition->id);
       $result->comment = Comment::loadByDefinitionId($definition->id);
       if ($result->comment) {
-        $result->commentAuthor = User::get("id = $result->comment->userId");
+        $result->commentAuthor = User::get("id = {$result->comment->userId}");
       }
       $results[] = $result;
     }

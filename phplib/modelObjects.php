@@ -42,9 +42,9 @@ class Source extends BaseObject {
 
   // Static version of load()
   public static function get($where) {
-    $s = new Source();
-    $s->load($where);
-    return $s->id ? $s : null;
+    $obj = new Source();
+    $obj->load($where);
+    return $obj->id ? $obj : null;
   }
 
   public static function findAll($where) {
@@ -54,99 +54,24 @@ class Source extends BaseObject {
 }
 
 
-class Cookie {
-  public $id;
-  public $cookieString;
-  public $userId;
-  public $createDate;
+class Cookie extends BaseObject {
+  var $_table = 'Cookie';
 
-  public static function loadByCookieString($cookieString) {
-    $result = new Cookie();
-    $dbRow = db_getCookieByCookieString($cookieString);
-    $result->populateFromDbRow($dbRow);
-    return $result;
-  }
-
-  public function save() {
-    assert(!$this->id);
-    $this->createDate = time();    
-    db_insertCookie($this);
-  }
-
-  public function delete() {
-    db_deleteCookie($this);
-  }
-
-  public function populateFromDbRow($dbRow) {
-    $this->id = $dbRow['Id'];
-    $this->cookieString = $dbRow['CookieString'];
-    $this->userId = $dbRow['UserId'];
-    $this->createDate = $dbRow['CreateDate'];
+  public static function get($where) {
+    $obj = new Cookie();
+    $obj->load($where);
+    return $obj->id ? $obj : null;
   }
 }
 
 
-class User {
-  public $id;
-  public $nick;
-  public $name;
-  public $email;
-  public $emailVisible = 0;
-  public $password;
-  public $moderator = 0;
-  public $prefs = '';
+class User extends BaseObject {
+  var $_table = 'User';
 
-  public static function load($id) {
-    $dbRow = db_getUserById($id);
-    return User::loadFromDbRow($dbRow);
-  }
-
-  public static function loadByNickEmailPassword($nickOrEmail, $password) {
-    $dbRow = db_getUserByNickEmailPassword($nickOrEmail, $password);
-    return User::loadFromDbRow($dbRow);
-  }
-
-  public static function loadByNick($nick) {
-    $dbRow = db_getUserByNick($nick);
-    return User::loadFromDbRow($dbRow);
-  }
-
-  public static function loadByEmail($email) {
-    $dbRow = db_getUserByEmail($email);
-    return User::loadFromDbRow($dbRow);
-  }
-
-  public static function loadByCookieString($cookieString) {
-    $dbRow = db_getUserByCookieString($cookieString);
-    return User::loadFromDbRow($dbRow);
-  }
-
-  private static function loadFromDbRow($dbRow) {
-    if (!$dbRow) {
-      return null;
-    }
-    $result = new User();
-    $result->populateFromDbRow($dbRow);
-    return $result;
-  }
-
-  private function populateFromDbRow($dbRow) {
-    $this->id = $dbRow['Id'];
-    $this->nick = $dbRow['Nick'];
-    $this->name = $dbRow['Name'];
-    $this->email = $dbRow['Email'];
-    $this->emailVisible = $dbRow['EmailVisible'];
-    $this->password = $dbRow['Password'];
-    $this->moderator = $dbRow['Moderator'];
-    $this->prefs = $dbRow['Preferences'];
-  }
-
-  public function save() {
-    if ($this->id) {
-      db_updateUser($this);
-    } else {
-      db_insertUser($this);
-    }
+  public static function get($where) {
+    $obj = new User();
+    $obj->load($where);
+    return $obj->id ? $obj : null;
   }
 
   public function __toString() {
@@ -490,12 +415,12 @@ class SearchResult {
     foreach($definitionArray as $definition) {
       $result = new SearchResult();
       $result->definition = $definition;
-      $result->user = User::load($definition->userId);
+      $result->user = User::get("id = $definition->userId");
       $result->source = Source::get("id={$definition->sourceId}");
       $result->typos = Typo::loadByDefinitionId($definition->id);
       $result->comment = Comment::loadByDefinitionId($definition->id);
       if ($result->comment) {
-        $result->commentAuthor = User::load($result->comment->userId);
+        $result->commentAuthor = User::get("id = $result->comment->userId");
       }
       $results[] = $result;
     }

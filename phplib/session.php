@@ -27,8 +27,10 @@ function session_login($user) {
 function session_logout() {
   log_userLog('Logging out, IP=' . $_SERVER['REMOTE_ADDR']);
   $cookieString = session_getCookieSetting('lll');
-  $cookie = Cookie::loadByCookieString($cookieString);
-  $cookie->delete();
+  $cookie = Cookie::get("cookieString = '$cookieString'");
+  if ($cookie->id) {
+    $cookie->delete();
+  }
   setcookie("prefs[lll]", NULL, time() - 3600);
   unset($_COOKIE['prefs']['lll']);
   session_unset();
@@ -41,7 +43,7 @@ function session_loadUserFromCookie() {
   if (!isset($_COOKIE['prefs']) || !isset($_COOKIE['prefs']['lll'])) {
     return;
   }
-  $user = User::loadByCookieString($_COOKIE['prefs']['lll']);
+  $user = User::get('cookieString = "' . $_COOKIE['prefs']['lll'] . '"');
   if ($user) {
     session_setUser($user);
   } else {
@@ -99,8 +101,7 @@ function session_getUserId() {
 }
 
 function session_user_prefers($pref) {
-  return isset($_SESSION['user']) && isset($_SESSION['user']->prefs) 
-    && in_array($pref, split(',', $_SESSION['user']->prefs));
+  return isset($_SESSION['user']) && isset($_SESSION['user']->preferences) && in_array($pref, split(',', $_SESSION['user']->preferences));
 }
 
 function session_getSkin() {
@@ -118,8 +119,7 @@ function session_setSkin($skin) {
 }
 
 function session_isValidSkin($skin) {
-  return file_exists(util_getRootPath() . "templates/$skin") &&
-    !strstr($skin, '/');
+  return file_exists(util_getRootPath() . "templates/$skin") && !strstr($skin, '/');
 }
 
 function session_sendSkinCookie() {

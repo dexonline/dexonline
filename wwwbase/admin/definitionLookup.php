@@ -31,7 +31,7 @@ if ($searchButton) {
 
   $userId = '';
   if ($nick) {
-    $user = User::loadByNick($nick);
+    $user = User::get("nick = '$nick'");
     if ($user) {
       $userId = $user->id;
     }

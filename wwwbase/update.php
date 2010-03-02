@@ -57,7 +57,7 @@ function userCache_get($key) {
     return $GLOBALS['USER'][$key];
   }
 
-  $user = User::load($key);
+  $user = User::get("id = $key");
   $GLOBALS['USER'][$key] = $user;
   return $user;
 }

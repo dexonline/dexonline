@@ -72,9 +72,11 @@ function smarty_filter_display_old_orthography($tpl_output, &$smarty) {
 }
 
 function smarty_register_outputfilters() {
-  if (session_user_prefers('CEDILLA_BELOW') ) 
+  if (session_user_prefers('CEDILLA_BELOW')) {
     $GLOBALS['smarty_theSmarty']->register_outputfilter('smarty_filter_display_st_cedilla_below');
-  if (session_user_prefers('OLD_ORTHOGRAPHY') ) 
+  }
+  if (session_user_prefers('OLD_ORTHOGRAPHY')) {
     $GLOBALS['smarty_theSmarty']->register_outputfilter('smarty_filter_display_old_orthography');
+  }
 }
 ?>

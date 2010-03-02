@@ -143,7 +143,7 @@ if (!$refreshButton && !$acceptButton && !$moveButton) {
 
 smarty_assign('def', $definition);
 smarty_assign('source', $source);
-smarty_assign('user', User::load($definition->userId));
+smarty_assign('user', User::get("id = {$definition->userId}"));
 smarty_assign('comment', $comment);
 smarty_assign('lexems', $lexems);
 smarty_assign('typos', Typo::loadByDefinitionId($definition->id));

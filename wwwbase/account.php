@@ -90,14 +90,14 @@ if ($sendButton) {
 
   // Verify that the email address and nickname are unique..
   if (!$error) {
-    $userByNick = User::loadByNick($nick);
+    $userByNick = User::get("nick = '$nick'");
     if ($userByNick && $userByNick->id != $user->id) {
       $error = ERR_NICK_TAKEN;
     }
   }
   
   if (!$error) {
-    $userByEmail = User::loadByEmail($email);
+    $userByEmail = User::get("email = '$email'");
     if ($userByEmail && $userByEmail->id != $user->id) {
       $error = ERR_EMAIL_TAKEN;
     }
@@ -112,7 +112,7 @@ if ($sendButton) {
     if ($newPass) {
       $user->password = md5($newPass);
     }
-    $user->prefs = $userPrefs;
+    $user->preferences = $userPrefs;
     $user->save();
     session_setUser($user);
   }
@@ -124,11 +124,11 @@ if ($sendButton) {
   $name = $user->name;
   $email = $user->email;
   $emailVisible = $user->emailVisible;
-  $userPrefs = $user->prefs;
+  $userPrefs = $user->preferences;
 }
 
-foreach(split(',',$userPrefs) as $pref) {
-  if( isset($userPreferencesSet[$pref]) ) {
+foreach (split(',', $userPrefs) as $pref) {
+  if (isset($userPreferencesSet[$pref]) ) {
     $userPreferencesSet[$pref]['checked'] = true;
   }
 }
@@ -143,7 +143,7 @@ smarty_assign('name', $name);
 smarty_assign('email', $email);
 smarty_assign('emailVisible', $emailVisible);
 smarty_assign('userPrefs', $userPreferencesSet);
-smarty_assign('page_title', 'DEX online - Modificare date personale');
+smarty_assign('page_title', 'DEX online - Contul meu');
 smarty_assign('show_search_box', 0);
 
 smarty_displayCommonPageWithSkin('account.ihtml');

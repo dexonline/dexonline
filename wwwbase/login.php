@@ -39,7 +39,7 @@ if ($loginButton) {
   } else if ($password == '') {
     $error = ERR_NO_PASS;
   } else {
-    $user = User::loadByNickEmailPassword($nickOrEmail, md5($password));
+    $user = User::get(sprintf("password = '%s' and (email = '%s' or nick = '%s')", md5($password), $nickOrEmail, $nickOrEmail));
     if ($user) {
       session_login($user);
     } else {
@@ -52,7 +52,7 @@ if ($loginButton) {
   if ($nickOrEmail == '') {
     $error = ERR_NO_EMAIL;
   } else {
-    $user = User::loadByEmail($nickOrEmail);
+    $user = User::get("email = '$nickOrEmail'");
     if ($user) {
       $password = util_randomCapitalLetterString(12);
       $user->password = md5($password);

@@ -15,10 +15,9 @@ function db_changeDatabase($dbName) {
   return logged_query("use $dbName");
 }
 
-/**                                                                                                                                                                                     
- * Returns an array mapping user, password, host and database                                                                                                                           
- * to their respective values.                                                                                                                                                          
- */
+/**
+ * Returns an array mapping user, password, host and database to their respective values.
+ **/
 function db_splitDsn() {
   $result = array();
   $dsn = pref_getServerPreference('database');
@@ -139,40 +138,6 @@ function db_executeSqlFile($fileName) {
     }
   }
 }
-
-/*************************** Users *******************************/
-
-function db_getUserById($id) {
-  $query = "select * from User where Id = '$id'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getUserByNick($nick) {
-  $nick = addslashes($nick);
-  $query = "select * from User where Nick = '$nick'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getUserByEmail($email) {
-  $email = addslashes($email);
-  $query = "select * from User where Email = '$email'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getUserByNickEmailPassword($nickOrEmail, $password) {
-  $nickOrEmail = addslashes($nickOrEmail);
-  $query = "select * from User " .
-    "where (Email = '$nickOrEmail' or Nick = '$nickOrEmail') " .
-    "and Password = '$password'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getUserByIdPassword($id, $password) {
-  $query = "select * from User " .
-    "where Id = '$id' and Password = '$password'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
 
 function db_getDefinitionById($id) {
   $query = "select * from Definition where Id = '$id'";
@@ -515,84 +480,6 @@ function db_updateDefinitionDisplayed($definition) {
                    $definition->displayed,
                    $definition->id);
   return logged_query($query);
-}
-
-function db_insertUser($user) {
-  // Note: No user preferences at this point
-  $query = sprintf("insert into User set Nick = '%s', " .
-                   "Name = '%s', " .
-                   "Email = '%s', " .
-                   "EmailVisible = '%s', " .
-                   "Password = '%s', " .
-                   "Moderator = '%s'",
-                   addslashes($user->nick),
-                   addslashes($user->name),
-                   addslashes($user->email),
-                   $user->emailVisible,
-                   $user->password,
-                   $user->moderator);
-  return logged_query($query);
-}
-
-function db_updateUser($user) {
-  // Note: We never save the moderator value here. That should only be done
-  // explicitly from the MySQL prompt by an admin.
-  $query = sprintf("update User set Nick = '%s', " .
-                   "Name = '%s', " .
-                   "Email = '%s', " .
-                   "EmailVisible = '%s', " .
-                   "Password = '%s', " .
-                   "Preferences = '%s' " .
-                   "where Id = '%d'",
-                   addslashes($user->nick),
-                   addslashes($user->name),
-                   addslashes($user->email),
-                   $user->emailVisible,
-                   $user->password,
-                   addslashes($user->prefs),
-                   $user->id);
-  return logged_query($query);
-}
-
-function db_getUserByCookieString($cookieString) {
-  $query = "select User.* from User, Cookie " .
-    "where Cookie.CookieString = '$cookieString' " .
-    "and User.Id = Cookie.UserId";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_insertCookie($cookie) {
-  $query = sprintf("insert into Cookie set CookieString = '%s', " .
-                   "UserId = '%d', CreateDate = '%d'",
-                   $cookie->cookieString,
-                   $cookie->userId,
-                   $cookie->createDate);
-  return logged_query($query);
-}
-
-function db_getCookieByCookieString($cookieString) {
-  $query = sprintf("select * from Cookie where CookieString = '%s'",
-                   addslashes($cookieString));
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_deleteCookie($cookie) {
-  logged_query("delete from Cookie where Id = '" . $cookie->id . "'");
-}
-
-function db_deleteCookiesBefore($timestamp) {
-  $query = "delete from Cookie where CreateDate < $timestamp";
-  logged_query($query);
-}
-
-/**
- * Searches and appends the user's nick for the id found in $row['uid'].
- */
-function db_appendUserNick($row) {
-  $result = db_usrSelectNickById($row['uid']);
-  $usrRow = mysql_fetch_assoc($result);
-  $row['nick'] = $usrRow['nick'];
-  return $row;
 }
 
 

@@ -3,7 +3,7 @@ require_once("../phplib/util.php");
 
 // Parse or initialize the GET/POST arguments
 $nick = util_getRequestParameter('n');
-$user = User::loadByNick($nick);
+$user = User::get("nick = '$nick'");
 
 $userData = array();
 $userData['user'] = $user;

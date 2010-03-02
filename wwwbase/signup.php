@@ -52,18 +52,12 @@ if ($sendButton) {
 
   // Connect to the database and verify that there are no duplicates.
   // The email address and nickname must be unique.
-  if ($error == OK) {
-    $user = User::loadByNick($nick);
-    if ($user) {
-      $error = ERR_NICK_TAKEN;
-    }
+  if ($error == OK && User::get("nick = '$nick'")) {
+    $error = ERR_NICK_TAKEN;
   }
 
-  if ($error == OK) {
-    $user = User::loadByEmail($email);
-    if ($user) {
-      $error = ERR_EMAIL_TAKEN;
-    }
+  if ($error == OK && User::get("email = '$email'")) {
+    $error = ERR_EMAIL_TAKEN;
   }
 
   // Things are swell, create account and display acknowledgement

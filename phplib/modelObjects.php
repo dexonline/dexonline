@@ -2083,32 +2083,23 @@ class FullTextIndex {
 }
 
 
-class Variable {
-  public $name;
-  public $value;
+class Variable extends BaseObject {
+  var $_table = 'Variable';
 
   public static function peek($name, $default = null) {
-    $result = new Variable();
-    $dbRow = db_getVariable($name);
-    if (!$dbRow) {
-      return $default;
-    }
-    $result->populateFromDbRow($dbRow);
-    return $result->value;
+    $v = new Variable();
+    $v->load("name = '$name'");
+    return $v->name ? $v->value : $default;
   }
 
   public static function poke($name, $value) {
-    $v = self::peek($name);
-    if ($v) {
-      db_updateVariable($name, $value);
-    } else {
-      db_insertVariable($name, $value);
+    $v = new Variable();
+    $v->load("name = '$name'");
+    if (!$v->name) {
+      $v->name = $name;
     }
-  }
-
-  private function populateFromDbRow($dbRow) {
-    $this->name = $dbRow['Name'];
-    $this->value = $dbRow['Value'];
+    $v->value = $value;
+    $v->save();
   }
 }
 

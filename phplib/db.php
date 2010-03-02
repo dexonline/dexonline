@@ -1519,21 +1519,4 @@ function db_getNumMetRestrictions($restr, $inflId) {
   return db_fetchInteger(logged_query($query));
 }
 
-/****************************** Variables *****************************/
-
-function db_getVariable($name) {
-  $query = "select * from Variable where Name = '$name'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_insertVariable($name, $value) {
-  $query = sprintf("insert into Variable set name = '%s', value = '%s'", addslashes($name), addslashes($value));
-  return logged_query($query);
-}
-
-function db_updateVariable($name, $value) {
-  $query = sprintf("update Variable set name = '%s', value = '%s'", addslashes($name), addslashes($value));
-  return logged_query($query);
-}
-
 ?>

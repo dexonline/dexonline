@@ -124,7 +124,14 @@ if ($sendButton) {
   $name = $user->name;
   $email = $user->email;
   $emailVisible = $user->emailVisible;
-  $userPrefs = $user->preferences;
+  if (is_string($user->prefs)) {
+    // Legacy code for people who were logged in when we migrated User to AdoDB.
+    // After a new login this problem will go away.
+    // TODO: Remove this code after April 3rd 2010.
+    $userPrefs = $user->prefs;
+  } else {
+    $userPrefs = $user->preferences;
+  }
 }
 
 foreach (split(',', $userPrefs) as $pref) {

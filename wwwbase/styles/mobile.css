@@ -3,6 +3,7 @@ html, body, div.pagediv{height:100%;}
 body {
   background-color: white;
   color: black;
+  margin: 0px;
   font-family: serif;
 }
 

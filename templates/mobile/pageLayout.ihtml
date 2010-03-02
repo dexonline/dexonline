@@ -24,7 +24,7 @@
         <div class="searchBoxContainer">
           <form action="{$wwwRoot}search.php" name="frm" class="searchForm">
 	    Introduceţi cuvântul de căutat: <br />
-            <input type="text" name="cuv" value="{$cuv|escape}" size="20" maxlength="50"/>
+            <input type="text" name="cuv" size="15" value="{$cuv|escape}" maxlength="50"/>
               {if $show_search_box && $focus_search_box}
                 <script type="text/javascript">
                   document.frm.cuv.select();document.frm.cuv.focus();
@@ -53,11 +53,12 @@
           {if !$is_mirror}
             Utilizator: <b id="user.nick">{$nick|escape}</b>
             {if $is_connected}
-              | <a href="account.php">Contul meu</a>
-              | <a href="logout.php" id="logoutLink">Deconectare</a>
+              | <a href="{$wwwRoot}account.php">Contul meu</a>
+              | <a href="{$wwwRoot}logout.php" id="logoutLink">Deconectare</a>
             {else}
-              | <a href="login.php" id="loginLink">Conectare</a>
-              | <a href="signup.php">Înregistrare</a>
+			  | <a href="{$wwwRoot}account.php">Preferințe</a>
+              | <a href="{$wwwRoot}login.php" id="loginLink">Conectare</a>
+              | <a href="{$wwwRoot}signup.php">Înregistrare</a>
             {/if}
             <br/>
           {/if}

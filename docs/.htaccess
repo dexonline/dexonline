@@ -15,3 +15,5 @@ RewriteRule (.*)/paradigma$ $1&showParadigm=1
 
 RewriteRule ^definitie(-([^/]+))?/(.*)$ search.php?cuv=$3&source=$2 [PT,L]
 RewriteRule ^lexem(-([^/]+))?/(.*)$ search.php?lexemId=$3&source=$2 [PT,L]
+
+RewriteRule ^legaturi$ links.php

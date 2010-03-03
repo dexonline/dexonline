@@ -426,8 +426,7 @@ function text_shorthandToUnicode($s) {
 }
 
 function text_removeAccents($s) {
-  return str_replace($GLOBALS['text_accented'], $GLOBALS['text_unacccented'],
-		     $s);
+  return str_replace($GLOBALS['text_accented'], $GLOBALS['text_unacccented'], $s);
 }
 
 // Note: This does not handle the mixed case of old orthgraphy and no diacriticals (e.g. inminind instead of înmânând).
@@ -725,7 +724,6 @@ function text_cleanupQuery($query) {
   if (!text_hasRegexp($query)) {
     $query = text_shorthandToUnicode($query);
   }
-  $query = text_removeAccents($query);
   $query = text_stripHtmlEscapeCodes($query);
   // Delete all kinds of illegal symbols, but use them as word delimiters. Allow dots, dashes and spaces
   $query = preg_replace("/[!@#$%&()_+=\\{}'\":;<>,\/]/", " ", $query);

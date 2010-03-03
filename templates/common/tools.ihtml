@@ -2,32 +2,33 @@
 
 Aceste aplicații transferă definițiile din <i>DEX online</i> pe
 calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
-în absența unei conexiuni la internet. <i>DEXter</i> și <i>DEX
-Offline</i> sunt momentan nefuncționale, deoarece protocolul prin
-care <i>DEX online</i> își exportă baza de date s-a schimbat, iar cele
-două aplicații nu au fost aduse la zi.
+în absența unei conexiuni la internet. 
 
 <table id="offlineClients">
   <tr class="color1">
     <td class="empty"></td>
     {foreach from=$clients item=client}
+	  {if $client.available}
       <td class="columnHeader">
-        <span class="clientName"><a href="{$client.name[1]}">{$client.name[0]}</span></a><br/>
+        <span class="clientName"><a href="{$client.name[1]}">{$client.name[0]}</a></span><br/>
         {foreach from=$client.urls item=url key=text}
           (<a href="{$url}">{$text}</a>)
         {/foreach}
       </td>
+	  {/if}
     {/foreach}
   </tr>
 
   <tr class="color2">
     <td class="clientHeader">Platforme</td>
     {foreach from=$clients item=client}
+	  {if $client.available}
       <td class="osList">
         {foreach from=$client.os item=os}
           <img src="{$imgRoot}/icons/{$os}.png" alt="{$os}" title="{$osNames[$os]}" />
         {/foreach}
       </td>
+	  {/if}
     {/foreach}
   </tr>
 
@@ -38,6 +39,7 @@ două aplicații nu au fost aduse la zi.
         <div class="optionDesc">{$option.1}</div>
       </td>
       {foreach from=$clients item=client}
+		{if $client.available}
         <td class="option">
           {if $client.options[$id]}
             <img src="{$imgRoot}/icons/check.png" alt="da" title="da"/>
@@ -45,6 +47,7 @@ două aplicații nu au fost aduse la zi.
             <img src="{$imgRoot}/icons/cross.png" alt="nu" title="nu"/>
           {/if}
         </td>
+	    {/if}
       {/foreach}
     </tr>
   {/foreach}
@@ -52,24 +55,29 @@ două aplicații nu au fost aduse la zi.
   <tr class="color2">
     <td class="clientHeader">Cerințe</td>
     {foreach from=$clients item=client}
+	  {if $client.available}
       <td>
         {foreach from=$client.requires item=req}
           {$req}<br/>
         {/foreach}
       </td>
+	  {/if}
     {/foreach}
   </tr>
 
   <tr class="color1">
     <td class="clientHeader">Spațiu necesar</td>
     {foreach from=$clients item=client}
+	  {if $client.available}
       <td>{$client.space}</td>
+	  {/if}
     {/foreach}
   </tr>
 
   <tr class="color2">
     <td class="clientHeader">Autori</td>
     {foreach from=$clients item=client}
+	  {if $client.available}
       <td>
         {foreach from=$client.authors item=email key=name}
           {if $email}
@@ -80,22 +88,27 @@ două aplicații nu au fost aduse la zi.
           <br/>
         {/foreach}
       </td>
+	  {/if}
     {/foreach}
   </tr>
 
   <tr class="color1">
     <td class="clientHeader">Licență</td>
     {foreach from=$clients item=client}
+	  {if $client.available}
       <td>{$client.license}</td>
+	  {/if}
     {/foreach}
   </tr>
 </table>
 
+<!--
 <ul>
-  <!-- a href="http://dapyx-soft.com/~bogdan/dexter.zip" DEXter este momentan indisponibil -->
+  <a href="http://dapyx-soft.com/~bogdan/dexter.zip"> DEXter este momentan indisponibil </a>
 
-  <li><b>Notă:</b> DEX Offline este neactualizat de câțiva ani și nu mai poate comunica adecvat cu DEX online.</li>
+  <li><b>Notă:</b> DEX Offline este neactualizat de câțiva ani și nu mai poate comunica adecvat cu DEX online.</li> 
 </ul>
+-->
 
 <h4>Designul paginii</h4>
 

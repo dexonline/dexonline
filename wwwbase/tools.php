@@ -15,6 +15,7 @@ $clientOptions = array(
 
 $clients = array(
   array('name' => array('Maestro DEX', 'http://www.tranzactiibursiere.ro/maestro/'),
+        'available' => true,
         'urls' => array(),
         'os' => array('linux', 'windows'),
         'space' => '490 MB',
@@ -24,6 +25,7 @@ $clients = array(
         'options' => array('vision' => 1, 'sync' => 1, 'regexp' => 1, 'suggest' => 1, 'diacritics' => 1, 'full' => 1, 'flex' => 1, 'click' => 1, 'history' => 1)),
 
   array('name' => array('JaDEX', 'http://www.federicomestrone.com/jadex/'),
+        'available' => true,
         'urls' => array(),
         'os' => array('java', 'linux', 'mac', 'windows'),
         'space' => '170 MB',
@@ -33,6 +35,7 @@ $clients = array(
         'options' => array('vision' => 0, 'sync' => 1, 'regexp' => 1, 'suggest' => 0, 'diacritics' => 1, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 1)),
 
   array('name' => array('Dixit', 'http://dixit.sourceforge.net/'),
+        'available' => true,
         'urls' => array(),
         'os' => array('linux', 'windows'),
         'space' => '88 MB',
@@ -42,6 +45,7 @@ $clients = array(
         'options' => array('vision' => 0, 'sync' => 1, 'regexp' => 1, 'suggest' => 1, 'diacritics' => 0, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 1)),
 
   array('name' => array('DEX.ro', 'http://dex-ro.blogspot.com/'),
+        'available' => true,
         'urls' => array(),
         'os' => array('windows'),
         'space' => '75 MB',
@@ -51,6 +55,7 @@ $clients = array(
         'options' => array('vision' => 0, 'sync' => 1, 'regexp' => 1, 'suggest' => 1, 'diacritics' => 0, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 1)),
 
   array('name' => array('DEX pentru Android', 'http://dex.adrianvintu.com/'),
+        'available' => true,
         'urls' => array('Market' => 'market://details?id=com.dex'),
         'os' => array('android'),
         'space' => '490 MB',
@@ -60,6 +65,7 @@ $clients = array(
         'options' => array('vision' => 0, 'sync' => 0, 'regexp' => 0, 'suggest' => 0, 'diacritics' => 0, 'full' => 0, 'flex' => 1, 'click' => 0, 'history' => 0)),
 
   array('name' => array('iDEX', 'http://www.mobiletouch.ro/aplicatii-iphone/2/idex-dictionare-ale-limbii-romane'),
+        'available' => true,
         'urls' => array(),
         'os' => array('iphone'),
         'space' => '55 MB',
@@ -69,6 +75,7 @@ $clients = array(
         'options' => array('vision' => 0, 'sync' => 1, 'regexp' => 0, 'suggest' => 1, 'diacritics' => 0, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 1)),
 
   array('name' => array('PocketDEX', 'http://pocketdex.aamedia.ro/'),
+        'available' => true,
         'urls' => array(),
         'os' => array('windowsce'),
         'space' => '21 MB',
@@ -77,7 +84,18 @@ $clients = array(
         'license' => 'Freeware',
         'options' => array('vision' => 0, 'sync' => 0, 'regexp' => 0, 'suggest' => 0, 'diacritics' => 0, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 1)),
 
-  array('name' => array('DEX Offline*', 'http://dexoffline.sourceforge.net/'),
+  array('name' => array('DEXter', 'http://dapyx-soft.com/~bogdan/dexter.zip'),
+        'available' => false,
+        'urls' => array(),
+        'os' => array('windows'),
+        'space' => '10 MB',
+        'requires' => array(),
+        'authors' => array('Bogdan' => ''),
+        'license' => 'Freeware',
+        'options' => array('vision' => 0, 'sync' => 0, 'regexp' => 0, 'suggest' => 0, 'diacritics' => 0, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 0)),
+
+  array('name' => array('DEX Offline', 'http://dexoffline.sourceforge.net/'),
+        'available' => false,
         'urls' => array(),
         'os' => array('windows'),
         'space' => '10 MB',

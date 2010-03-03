@@ -180,13 +180,13 @@ if ($searchType == SEARCH_WORDLIST || $searchType == SEARCH_LEXEM_ID || $searchT
   }
 }
 
-// Compute AdSense placement: show it after 1500 bytes' worth of definition have been displayed
+// Compute AdSense placement: show it after 1500 bytes' worth of definition, but no more than 3
 if (isset($definitions)) {
   smarty_assign('adsensePos', count($definitions) - 1);
   $len = 0;
   foreach ($definitions as $i => $def) {
     $len += strlen($def->internalRep);
-    if ($len >= 1500) {
+    if ($len >= 1500 || $i == 2) {
       smarty_assign('adsensePos', $i);
       break;
     }

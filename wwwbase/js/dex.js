@@ -22,7 +22,7 @@ function helpWindow() {
 }
 
 function adminHelpWindow(anchorName) {
-  var url = wwwRoot + '/html/admin_help.html';
+  var url = wwwRoot + 'html/admin_help.html';
   if (anchorName) {
     url += '#' + anchorName;
   }

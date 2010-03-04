@@ -56,7 +56,7 @@ $clients = array(
 
   array('name' => array('DEX pentru Android', 'http://dex.adrianvintu.com/'),
         'available' => true,
-        'urls' => array('Market' => 'market://details?id=com.dex'),
+        'urls' => array('Market' => 'market://search?q=pub:%22Adrian%20Vintu%22'),
         'os' => array('android'),
         'space' => '490 MB',
         'requires' => array(),

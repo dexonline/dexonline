@@ -1,4 +1,4 @@
 <a href="#" onclick="adminHelpWindow('{$anchor}'); return false;">
-  <img src="{$imgRoot}/common/qmark.png" alt="ajutor" title="ajutor"
+  <img src="{$imgRoot}/icons/help.png" alt="ajutor" title="ajutor"
        style="border: 0px"/>
 </a>

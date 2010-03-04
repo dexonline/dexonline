@@ -1127,6 +1127,22 @@ class Lexem {
     return Lexem::populateFromDbResult($dbResult);
   }
 
+  /**
+   * Load all lexems having the same form as one of the given lexems, but exclude the given lexems.
+   **/
+  public function loadSetHomonyms($lexems) {
+    $names = array();
+    $ids = array();
+    foreach ($lexems as $l) {
+      $names[] = "'{$l->unaccented}'";
+      $ids[] = "'{$l->id}'";
+    }
+    // Write the query right here -- we're converting it to ADOdb soon anyway.
+    $query = sprintf("select * from lexems where lexem_neaccentuat in (%s) and lexem_id not in (%s)", join(',', $names), join(',', $ids));
+    $dbResult = logged_query($query);
+    return Lexem::populateFromDbResult($dbResult);    
+  }
+
   public function loadSuggestions($limit) {
     $query = $this->reverse;
     $lo = 0;

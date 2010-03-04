@@ -6,6 +6,7 @@ util_assertNotMirror();
 $definitionId = util_getRequestIntParameter('definitionId');
 $lexemNames = util_getRequestParameter('lexemName');
 $lexemIds = util_getRequestParameter('lexemId');
+$associateLexemId = util_getRequestParameter('associateLexemId');
 $sourceId = util_getRequestIntParameter('source');
 $internalRep = util_getRequestParameter('internalRep');
 $status = util_getRequestIntParameterWithDefault('status', null);
@@ -22,6 +23,11 @@ if (!$definitionId) {
 $definition = Definition::load($definitionId);
 $comment = Comment::loadByDefinitionId($definitionId);
 $oldInternalRep = $definition->internalRep;
+
+if ($associateLexemId) {
+  LexemDefinitionMap::associate($associateLexemId, $definitionId);
+  util_redirect("definitionEdit.php?definitionId={$definitionId}");
+}
 
 if ($internalRep) {
   $definition->internalRep = text_internalizeDefinition($internalRep);
@@ -147,6 +153,7 @@ smarty_assign('user', User::get("id = {$definition->userId}"));
 smarty_assign('comment', $comment);
 smarty_assign('lexems', $lexems);
 smarty_assign('typos', Typo::loadByDefinitionId($definition->id));
+smarty_assign('homonyms', Lexem::loadSetHomonyms($lexems));
 smarty_assign("allStatuses", util_getAllStatuses());
 smarty_assign("allModeratorSources", Source::findAll('canModerate'));
 smarty_assign('recentLinks', RecentLink::loadForUser());

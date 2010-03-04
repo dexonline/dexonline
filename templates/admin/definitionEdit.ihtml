@@ -56,12 +56,27 @@
             </td>
           </tr>
         {/foreach}
+
+        {foreach from=$homonyms item=h key=i}
+          <tr>
+            <td>
+              <img src="{$imgRoot}/icons/error.png" alt="warning"/>
+              Omonim:
+            </td>
+            <td>
+              {include file="common/bits/lexemName.ihtml" lexem=$h}
+              <a href="lexemEdit.php?lexemId={$h->id}">editează</a> |
+              <a href="?definitionId={$def->id}&amp;associateLexemId={$h->id}">asociază</a>
+            </td>
+          </tr>
+        {/foreach}
       </table>
 
       <a href="#" onclick="addLexemRow('lexemTable'); return false;">
         Adaugă un lexem
         {include file="admin/helpLink.ihtml" anchor="definitionAddLexem"}
       </a>
+      <br/><br/>
 
       <table class="editableFields">
         <tr>

@@ -28,7 +28,7 @@ function session_logout() {
   log_userLog('Logging out, IP=' . $_SERVER['REMOTE_ADDR']);
   $cookieString = session_getCookieSetting('lll');
   $cookie = Cookie::get("cookieString = '$cookieString'");
-  if ($cookie->id) {
+  if ($cookie) {
     $cookie->delete();
   }
   setcookie("prefs[lll]", NULL, time() - 3600);
@@ -43,7 +43,8 @@ function session_loadUserFromCookie() {
   if (!isset($_COOKIE['prefs']) || !isset($_COOKIE['prefs']['lll'])) {
     return;
   }
-  $user = User::get('cookieString = "' . $_COOKIE['prefs']['lll'] . '"');
+  $cookie = Cookie::get(sprintf('cookieString = "%s"', $_COOKIE['prefs']['lll']));
+  $user = $cookie ? User::get("id={$cookie->userId}") : null;
   if ($user) {
     session_setUser($user);
   } else {

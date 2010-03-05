@@ -345,4 +345,11 @@ function util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $show
   exit();
 }
 
+/** Relaxed browser check. Currently checks for a few major browser. Can have false negatives, but (hopefully) no false positives. **/
+function util_isDesktopBrowser() {
+  $u = $_SERVER['HTTP_USER_AGENT'];
+  return (strpos($u, 'Firefox') !== false) || (strpos($u, 'MSIE') !== false) || (strpos($u, 'Chrome') !== false) ||
+    (strpos($u, 'Opera') !== false) || (strpos($u, 'Safari') !== false);
+}
+
 ?>

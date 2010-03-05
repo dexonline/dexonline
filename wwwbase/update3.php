@@ -14,6 +14,11 @@ header('Content-type: text/xml');
 $export = util_getRequestParameter('export');
 $timestamp = util_getRequestIntParameter('timestamp');
 
+if ($export && util_isDesktopBrowser() && !session_getUser()) {
+  smarty_displayCommonPageWithSkin('updateError.ihtml');
+  exit();
+}
+
 if ($export == 'sources') {
   smarty_assign('sources', Source::findAll(''));
   smarty_displayWithoutSkin('common/update3Sources.ihtml');

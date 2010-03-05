@@ -18,10 +18,16 @@ if (strstr($acceptEncoding, "gzip") === FALSE) {
   return;
 }
 
-header('Content-type: text/xml');
-
 $timestamp = util_getRequestIntParameter('timestamp');
 $version = util_getRequestParameterWithDefault('version', '1.0');
+
+if ($timestamp !== null && util_isDesktopBrowser() && !session_getUser()) {
+  smarty_displayCommonPageWithSkin('updateError.ihtml');
+  exit();
+}
+
+header('Content-type: text/xml');
+
 $defDbResult = Definition::loadByMinModDate($timestamp);
 $lexemDbResult = Lexem::loadNamesByMinModDate($timestamp);
 $sourceMap = createSourceMap();

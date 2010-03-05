@@ -335,8 +335,15 @@ class Definition {
     return $d;
   }
 
-  public function saveDisplayedValue() {
-    db_updateDefinitionDisplayed($this);
+  public function incrementDisplayCount(&$definitions) {
+    if (count($definitions)) {
+      $ids = array();
+      foreach($definitions as $def) {
+        $ids[] = $def->id;
+      }
+      $idString = implode(',', $ids);
+      db_execute("update Definition set Displayed = Displayed + 1 where Id in ({$idString})");
+    }
   }
 
   public static function updateModDate($defId) {

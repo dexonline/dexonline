@@ -152,11 +152,7 @@ if ($searchType == SEARCH_WORDLIST) {
 }
 
 if ($searchType == SEARCH_WORDLIST || $searchType == SEARCH_LEXEM_ID || $searchType == SEARCH_FULL_TEXT || $searchType == SEARCH_MULTIWORD) {
-  foreach ($definitions as $def) {
-    $def->displayed = $def->displayed + 1;
-    $def->saveDisplayedValue();
-  }
-  
+  Definition::incrementDisplayCount($definitions);
   smarty_assign('results', $searchResults);
   
   // Maps lexems to arrays of wordlists (some lexems may lack inflections)

@@ -490,14 +490,6 @@ function db_updateLexemModDate($lexemId, $modDate) {
   return logged_query($query);
 }
 
-function db_updateDefinitionDisplayed($definition) {
-  $query = sprintf("update Definition set Displayed = '%d' " .
-                   "where Id = '%d'",
-                   $definition->displayed,
-                   $definition->id);
-  return logged_query($query);
-}
-
 function db_getLexemHomonyms($lexem) {
   $unaccented = addslashes($lexem->unaccented);
   $query = "select * from lexems " .

@@ -1045,6 +1045,9 @@ class Lexem {
    * Load all lexems having the same form as one of the given lexems, but exclude the given lexems.
    **/
   public function loadSetHomonyms($lexems) {
+    if (count($lexems) == 0) {
+      return array();
+    }
     $names = array();
     $ids = array();
     foreach ($lexems as $l) {

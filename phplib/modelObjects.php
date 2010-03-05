@@ -418,7 +418,7 @@ class SearchResult {
       $result->user = User::get("id = $definition->userId");
       $result->source = Source::get("id={$definition->sourceId}");
       $result->typos = Typo::loadByDefinitionId($definition->id);
-      $result->comment = Comment::loadByDefinitionId($definition->id);
+      $result->comment = Comment::get("definitionId = {$definition->id} and status = " . ST_ACTIVE);
       if ($result->comment) {
         $result->commentAuthor = User::get("id = {$result->comment->userId}");
       }
@@ -501,89 +501,34 @@ class TopEntry {
   }
 }
 
-class Comment {
-  public $id;
-  public $definitionId;
-  public $userId;
-  public $status = ST_ACTIVE;
-  public $contents;
-  public $htmlContents;
+class Comment extends BaseObject {
+  var $_table = 'Comment';
 
-  public static function load($id) {
-    $result = new Comment();
-    $dbRow = db_getCommentById($id);
-    $result->populateFromDbRow($dbRow);
-    return $result;
+  function __construct() {
+    parent::__construct();
+    $this->status = ST_ACTIVE;
   }
 
-  public static function loadByDefinitionId($definitionId) {
-    $dbRow = db_getCommentByDefinitionId($definitionId);
-    if ($dbRow) {
-      $result = new Comment();
-      $result->populateFromDbRow($dbRow);
-      return $result;
-    } else {
-      return NULL;
-    }
-  }
-
-  private function populateFromDbRow($dbRow) {
-    $this->id = $dbRow['Id'];
-    $this->definitionId = $dbRow['DefinitionId'];
-    $this->userId = $dbRow['UserId'];
-    $this->status = $dbRow['Status'];
-    $this->contents = $dbRow['Contents'];
-    $this->htmlContents = $dbRow['HtmlContents'];
-  }
-
-  public function normalizeAndSave() {
-    $this->normalize();
-    $this->save();
-  }
-
-  public function normalize() {
-    $this->contents = text_internalizeDefinition($this->contents);
-    $this->htmlContents = text_htmlizeWithNewlines($this->contents, TRUE);    
-  }
-
-  public function save() {
-    if ($this->id) {
-      db_updateComment($this);
-    } else {
-      db_insertComment($this);
-    }
+  public static function get($where) {
+    $obj = new Comment();
+    $obj->load($where);
+    return $obj->id ? $obj : null;
   }
 }
 
-class RecentLink {
-  public $id;
-  public $userId;
-  public $visitDate;
-  public $url;
-  public $text;
+class RecentLink extends BaseObject {
+  var $_table = 'RecentLink';
 
-  public static function load($id) {
-    $result = new RecentLink();
-    $dbRow = db_getRecentLinkById($id);
-    $result->populateFromDbRow($dbRow);
-    return $result;
+  public static function get($where) {
+    $obj = new RecentLink();
+    $obj->load($where);
+    return $obj->id ? $obj : null;
   }
-
-  public static function loadByUserIdUrlText($userId, $url, $text) {
-    $dbRow = db_getRecentLinkByUserIdUrlText($userId, $url, $text);
-    if ($dbRow) {
-      $result = new RecentLink();
-      $result->populateFromDbRow($dbRow);
-      return $result;
-    } else {
-      return null;
-    }
-  }  
 
   public static function createOrUpdate($text) {
     $userId = session_getUserId();
     $url = $_SERVER['REQUEST_URI'];
-    $rl = RecentLink::loadByUserIdUrlText($userId, $url, $text);
+    $rl = self::get(sprintf("userId = %s and url = '%s' and text = '%s'", $userId, addslashes($url), addslashes($text)));
 
     if (!$rl) {
       $rl = new RecentLink();
@@ -599,44 +544,13 @@ class RecentLink {
   // Also deletes the ones in excess of MAX_RECENT_LINKS
   public static function loadForUser() {
     $userId = session_getUserId();
-    $dbResult = db_getRecentLinksByUserId($userId);
-    $recentLinks = RecentLink::populateFromDbResult($dbResult);
+    $rl = new RecentLink();
+    $recentLinks = $rl->find("userId = {$userId} order by visitDate desc");
     while (count($recentLinks) > MAX_RECENT_LINKS) {
       $deadLink = array_pop($recentLinks);
       $deadLink->delete();
     }
     return $recentLinks;
-  }
-
-  public function populateFromDbRow($dbRow) {
-    $this->id = $dbRow['Id']; 
-    $this->userId = $dbRow['UserId'];
-    $this->visitDate = $dbRow['VisitDate'];
-    $this->url = $dbRow['Url'];
-    $this->text = $dbRow['Text'];
-  }
-
-  public static function populateFromDbResult($dbResult) {
-    $result = array();
-    while ($dbRow = mysql_fetch_assoc($dbResult)) {
-      $obj = new RecentLink();
-      $obj->populateFromDbRow($dbRow);
-      $result[] = $obj;
-    }
-    mysql_free_result($dbResult);
-    return $result;
-  }
-
-  public function delete() {
-    db_deleteRecentLink($this);
-  }
-
-  public function save() {
-    if ($this->id) {
-      db_updateRecentLink($this);
-    } else {
-      db_insertRecentLink($this);
-    }
   }
 }
 

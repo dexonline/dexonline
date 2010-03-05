@@ -21,7 +21,7 @@ if (!$definitionId) {
 }
 
 $definition = Definition::load($definitionId);
-$comment = Comment::loadByDefinitionId($definitionId);
+$comment = Comment::get("definitionId = '{$definitionId}' and status = " . ST_ACTIVE);
 $oldInternalRep = $definition->internalRep;
 
 if ($associateLexemId) {

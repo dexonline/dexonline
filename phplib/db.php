@@ -482,113 +482,12 @@ function db_updateDefinitionDisplayed($definition) {
   return logged_query($query);
 }
 
-
-/****************************** Comments ******************************/
-
-function db_getCommentById($id) {
-  $query = "select * from Comment where Id = '$id'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getCommentByDefinitionId($definitionId) {
-  $query = "select * from Comment ".
-    "where DefinitionId = '$definitionId' " .
-    "and Status = ". ST_ACTIVE;
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_updateComment($comment) {
-  $query = sprintf("update Comment set " .
-                   "DefinitionId = '%s', " .
-                   "UserId = '%s', " .
-                   "Status = '%s', " .
-                   "Contents = '%s', " .
-                   "HtmlContents = '%s' " .
-                   "where Id = '%s'",
-                   $comment->definitionId,
-                   $comment->userId,
-                   $comment->status,
-                   addslashes($comment->contents),
-                   addslashes($comment->htmlContents),
-                   $comment->id);
-  return logged_query($query);
-}
-
-function db_insertComment($comment) {
-  $query = sprintf("insert into Comment set " .
-                   "DefinitionId = '%s', " .
-                   "UserId = '%s', " .
-                   "Status = '%s', " .
-                   "Contents = '%s', " .
-                   "HtmlContents = '%s'",
-                   $comment->definitionId,
-                   $comment->userId,
-                   $comment->status,
-                   addslashes($comment->contents),
-                   addslashes($comment->htmlContents));
-  return logged_query($query);
-}
-
 function db_getLexemHomonyms($lexem) {
   $unaccented = addslashes($lexem->unaccented);
   $query = "select * from lexems " .
     "where lexem_neaccentuat = '" . $unaccented . "' " .
     "and lexem_id != " . $lexem->id;
   return logged_query($query);
-}
-
-function db_getRecentLinkById($id) {
-  $query = "select * from RecentLink where Id = '$id'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getRecentLinksByUserId($userId) {
-  $query = "select * from RecentLink where UserId = '$userId' " .
-    "order by VisitDate desc";
-  return logged_query($query);
-}
-
-function db_getRecentLinkByUserIdUrlText($userId, $url, $text) {
-  $url = addslashes($url);
-  $text = addslashes($text);
-  $query = "select * from RecentLink " .
-    "where UserId = '$userId' " .
-    "and Url = '$url' " .
-    "and Text = '$text' ";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_insertRecentLink($rl) {
-  $query = sprintf("insert into RecentLink set " .
-                   "UserId = '%d', " .
-                   "VisitDate = '%d', " .
-                   "Url = '%s', " .
-                   "Text = '%s'" ,
-                   $rl->userId,
-                   $rl->visitDate,
-                   addslashes($rl->url),
-                   addslashes($rl->text));
-  return logged_query($query);
-}
-
-function db_updateRecentLink($rl) {
-  $query = sprintf("update RecentLink set " .
-                   "UserId = '%d', " .
-                   "VisitDate = '%d', " .
-                   "Url = '%s', " .
-                   "Text = '%s' " .
-                   "where Id = '%d'",
-                   $rl->userId,
-                   $rl->visitDate,
-                   addslashes($rl->url),
-                   addslashes($rl->text),
-                   $rl->id);
-  return logged_query($query);
-}
-
-function db_deleteRecentLink($recentLink) {
-  $query = "delete from RecentLink where Id = " . $recentLink->id;
-  logged_query($query);
 }
 
 function db_getModelTypeById($id) {

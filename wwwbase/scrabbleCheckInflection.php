@@ -18,7 +18,7 @@ if ($locVersion && $form) {
   $inflections = array();
   foreach ($wordlists as $wl) {
     $lexems[] = Lexem::load($wl->lexemId);
-    $inflections[] = Inflection::load($wl->inflectionId);
+    $inflections[] = Inflection::get("id = {$wl->inflectionId}");
   }
   smarty_assign('form', $form);
   smarty_assign('selectedLocVersion', $locVersion);

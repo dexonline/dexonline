@@ -155,9 +155,9 @@ assertEquals('casă', text_removeAccents('cásă'));
 assertEquals('mama', text_cleanupQuery("'mama'"));
 assertEquals('mama', text_cleanupQuery('"mama"'));
 assertEquals('aăbcdef', text_cleanupQuery("aăbc<mamă foo bar>def"));
-assertEquals('aăbcdef', text_cleanupQuery("AĂBC<MAMĂ FOO BAR>DEF"));
+assertEquals('AĂBCDEF', text_cleanupQuery("AĂBC<MAMĂ FOO BAR>DEF"));
 assertEquals('aăbcdef', text_cleanupQuery("a~abc<mam~a foo bar>def"));
-assertEquals('aăbcdef', text_cleanupQuery("a~ABc<mam~a foo bar>def"));
+assertEquals('aĂBcdef', text_cleanupQuery("a~ABc<mam~a foo bar>def"));
 assertEquals('1234', text_cleanupQuery('12&qweasd;34'));
 
 assert(text_hasDiacritics('mamă'));
@@ -379,27 +379,20 @@ assertEquals('', $t[0]->from);
 assertEquals('ului', $t[0]->to);
 assertEquals(NO_ACCENT_SHIFT, $t[1]);
 
-$i = Inflection::load(INFL_M_OFFSET);
-assertEquals('Substantiv masculin, Nominativ-Acuzativ, singular, nearticulat',
-             $i->description);
-$i = Inflection::load(INFL_F_OFFSET);
-assertEquals('Substantiv feminin, Nominativ-Acuzativ, singular, nearticulat',
-             $i->description);
-$i = Inflection::load(INFL_N_OFFSET);
-assertEquals('Substantiv neutru, Nominativ-Acuzativ, singular, nearticulat',
-             $i->description);
-$i = Inflection::load(INFL_A_OFFSET);
-assertEquals('Adjectiv, masculin, Nominativ-Acuzativ, singular, nearticulat',
-             $i->description);
-$i = Inflection::load(INFL_P_OFFSET);
-assertEquals('Pronume, Nominativ-Acuzativ, singular, masculin',
-             $i->description);
-$i = Inflection::load(INFL_V_OFFSET);
-assertEquals('Verb, Infinitiv prezent',
-             $i->description);
-$i = Inflection::load(INFL_V_PREZ_OFFSET);
-assertEquals('Verb, Indicativ, prezent, persoana I, singular',
-             $i->description);
+$i = Inflection::get("id = " . INFL_M_OFFSET);
+assertEquals('Substantiv masculin, Nominativ-Acuzativ, singular, nearticulat', $i->description);
+$i = Inflection::get("id = " . INFL_F_OFFSET);
+assertEquals('Substantiv feminin, Nominativ-Acuzativ, singular, nearticulat', $i->description);
+$i = Inflection::get("id = " . INFL_N_OFFSET);
+assertEquals('Substantiv neutru, Nominativ-Acuzativ, singular, nearticulat', $i->description);
+$i = Inflection::get("id = " . INFL_A_OFFSET);
+assertEquals('Adjectiv, masculin, Nominativ-Acuzativ, singular, nearticulat', $i->description);
+$i = Inflection::get("id = " . INFL_P_OFFSET);
+assertEquals('Pronume, Nominativ-Acuzativ, singular, masculin', $i->description);
+$i = Inflection::get("id = " . INFL_V_OFFSET);
+assertEquals('Verb, Infinitiv prezent', $i->description);
+$i = Inflection::get("id = " . INFL_V_PREZ_OFFSET);
+assertEquals('Verb, Indicativ, prezent, persoana I, singular', $i->description);
 
 assertEquals(1, text_countVowels('abc'));
 assertEquals(2, text_countVowels('abcde'));

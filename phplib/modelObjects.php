@@ -650,88 +650,46 @@ class ModelType {
 }
 
 
-class Inflection {
-  public $id;
-  public $description;
+class Inflection extends BaseObject {
+  var $_table = 'Inflection';
 
-  public static function create($description) {
-    $i = new Inflection();
-    $i->description = $description;
-    return $i;
-  }
-
-  public static function load($id) {
-    $dbRow = db_getInflectionById($id);
-    return Inflection::createFromDbRow($dbRow);
+  public static function get($where) {
+    $obj = new Inflection();
+    $obj->load($where);
+    return $obj->id ? $obj : null;
   }
 
   public static function loadInfinitive() {
-    $dbRow = db_getInfinitiveInflection();
-    return Inflection::createFromDbRow($dbRow);
+    return self::get("description like '%infinitiv prezent%'");
   }
 
   public static function loadParticiple() {
-    $dbRow = db_getParticipleInflection();
-    return Inflection::createFromDbRow($dbRow);
+    return self::get("description like '%participiu%'");
   }
 
   public static function loadLongInfinitive() {
-    $dbRow = db_getLongInfinitiveInflection();
-    return Inflection::createFromDbRow($dbRow);
-  }
-
-  public static function loadAll() {
-    $dbResult = db_selectAllInflections();
-    return Inflection::populateFromDbResult($dbResult);
-  }
-
-  public static function loadForModel($modelId) {
-    return db_getInflectionsForModelId($modelId);
+    return self::get("description like '%infinitiv lung%'");
   }
 
   public static function loadByModelType($modelType) {
-    $dbResult = db_getInflectionsByModelType($modelType);
-    return Inflection::populateFromDbResult($dbResult);
-  }
-
-  public static function loadAllMapByInflectionId() {
-    $inflections = Inflection::loadAll();
-    return mapByInflectionId($inflections);
-  }
-
-  public static function mapByInflectionId($inflectionList) {
     $result = array();
-    foreach ($inflectionList as $i) {
+    $dbResult = db_execute("select distinct Inflection.* from models, model_description, Inflection " .
+                           "where md_model = model_id and md_infl = Inflection.id and model_type = '$modelType' order by md_infl");
+    while (!$dbResult->EOF) {
+      $i = new Inflection();
+      $i->set($dbResult->fields);
+      $result[] = $i;
+      $dbResult->MoveNext();
+    }
+    return $result;
+  }
+
+  public static function mapById($inflections) {
+    $result = array();
+    foreach ($inflections as $i) {
       $result[$i->id] = $i;
     }
     return $result;
-  }
-
-  public static function createFromDbRow($dbRow) {
-    if (!$dbRow) {
-      return NULL;
-    }
-    $i = new Inflection();
-    $i->id = $dbRow['infl_id']; 
-    $i->description = $dbRow['infl_descr'];
-    return $i;
-  }
-
-  public static function populateFromDbResult($dbResult) {
-    $result = array();
-    while ($dbRow = mysql_fetch_assoc($dbResult)) {
-      $result[] = Inflection::createFromDbRow($dbRow);
-    }
-    mysql_free_result($dbResult);
-    return $result;
-  }
-
-  public function save() {
-    if ($this->id) {
-      db_updateInflection($this);
-    } else {
-      db_insertInflection($this);
-    }
   }
 }
 
@@ -1445,7 +1403,9 @@ class Lexem {
   public function generateParadigm() {
     $model = Model::loadCanonicalByTypeNumber($this->modelType,
                                               $this->modelNumber);
-    $inflIds = Inflection::loadForModel($model->id);
+    // Select inflection IDs for this model
+    $dbResult = db_execute("select distinct md_infl from model_description where md_model = {$model->id} order by md_infl");
+    $inflIds = db_getScalarArray2($dbResult);
     $wordLists = array();
     foreach ($inflIds as $inflId) {
       $wl = $this->generateInflectedFormWithModel($inflId, $model->id);

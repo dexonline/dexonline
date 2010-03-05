@@ -175,7 +175,7 @@ $definitionLexem = text_unicodeToUpper(text_internalize($lexem->form, false));
 // Generate new wordlists, but do not overwrite the old ones.
 $wordLists = $lexem->generateParadigm();
 if (!is_array($wordLists)) {
-  $infl = Inflection::load($wordLists);
+  $infl = Inflection::get("id = {$wordLists}");
   if (!$errorMessage) {
     $errorMessage = "Nu pot genera inflexiunea '".htmlentities($infl->description)."' " .
       "conform modelului {$lexem->modelType}{$lexem->modelNumber}.";

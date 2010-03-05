@@ -7,7 +7,12 @@ function db_init() {
   }
   ADOdb_Active_Record::SetDatabaseAdapter($db);
   $db->Execute('set names utf8');
+  $GLOBALS['db'] = $db;
   // $db->debug = true;
+}
+
+function db_execute($query) {
+  return $GLOBALS['db']->execute($query);
 }
 
 function db_changeDatabase($dbName) {
@@ -82,6 +87,17 @@ function db_getScalarArray($dbSet) {
     $result[] = $row[0];
   }
   mysql_free_result($dbSet);
+  return $result;
+}
+
+// ADOdb version
+// TODO: delete old version and rename this one after converting FullTextIndex to ADOdb
+function db_getScalarArray2($recordSet) {
+  $result = array();
+  while (!$recordSet->EOF) {
+    $result[] = $recordSet->fields[0];
+    $recordSet->MoveNext();
+  }
   return $result;
 }
 
@@ -648,64 +664,6 @@ function db_deleteModelDescriptionsByModel($modelId) {
 function db_deleteModelType($modelType) {
   $query = "delete from model_types where mt_id = " . $modelType->id;
   logged_query($query);
-}
-
-function db_getInflectionById($id) {
-  $query = "select * from inflections where infl_id = '$id'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getParticipleInflection() {
-  $query = "select * from inflections where infl_descr like '%participiu%'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getInfinitiveInflection() {
-  $query = "select * from inflections " .
-    "where infl_descr like '%infinitiv prezent%'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getLongInfinitiveInflection() {
-  $query = "select * from inflections " .
-    "where infl_descr like '%infinitiv lung%'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getInflectionsForModelId($modelId) {
-  $query = "select distinct md_infl from model_description " .
-    "where md_model = $modelId order by md_infl";
-  return db_getScalarArray(logged_query($query));
-}
-
-function db_getInflectionsByModelType($modelType) {
-  $modelType = addslashes($modelType);
-  $query = "select distinct inflections.* " .
-    "from models, model_description, inflections " .
-    "where md_model = model_id and md_infl = infl_id " .
-    "and model_type = '$modelType' order by md_infl";
-  return logged_query($query);
-}
-
-function db_selectAllInflections() {
-  $query = 'select * from inflections order by infl_id';
-  return logged_query($query);
-}
-
-function db_insertInflection($inf) {
-  $query = sprintf("insert into inflections set " .
-                   "infl_descr = '%s'",
-                   addslashes($inf->description));
-  return logged_query($query);
-}
-
-function db_updateInflection($inf) {
-  $query = sprintf("update inflections set " .
-                   "infl_descr = '%s' " .
-                   "where infl_id = '%d'",
-                   addslashes($inf->description),
-                   $inf->id);
-  return logged_query($query);
 }
 
 function db_getModelByTypeNumber($type, $number) {

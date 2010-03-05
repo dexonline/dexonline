@@ -243,7 +243,7 @@ if (!$previewButton && !$confirmButton) {
 }
 
 smarty_assign('inflections', $inflections);
-smarty_assign('inflectionMap', Inflection::mapByInflectionId($inflections));
+smarty_assign('inflectionMap', Inflection::mapById($inflections));
 smarty_assign('modelType', $modelType);
 smarty_assign('modelNumber', $modelNumber);
 smarty_assign('newModelNumber', $newModelNumber);

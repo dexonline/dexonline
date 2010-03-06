@@ -1,5 +1,7 @@
 <?
 
+ADOdb_Active_Record::$_changeNames = false; // Do not pluralize table names
+
 class BaseObject extends ADOdb_Active_Record {
   public function save() {
     if ($this->createDate === null) {
@@ -13,8 +15,6 @@ class BaseObject extends ADOdb_Active_Record {
 }
 
 class GuideEntry extends BaseObject {
-  var $_table = 'GuideEntry';
-
   function __construct() {
     parent::__construct();
     $this->status = ST_ACTIVE;
@@ -38,8 +38,6 @@ class GuideEntry extends BaseObject {
 
 
 class Source extends BaseObject {
-  var $_table = 'Source';
-
   // Static version of load()
   public static function get($where) {
     $obj = new Source();
@@ -55,8 +53,6 @@ class Source extends BaseObject {
 
 
 class Cookie extends BaseObject {
-  var $_table = 'Cookie';
-
   public static function get($where) {
     $obj = new Cookie();
     $obj->load($where);
@@ -66,8 +62,6 @@ class Cookie extends BaseObject {
 
 
 class User extends BaseObject {
-  var $_table = 'User';
-
   public static function get($where) {
     $obj = new User();
     $obj->load($where);
@@ -509,8 +503,6 @@ class TopEntry {
 }
 
 class Comment extends BaseObject {
-  var $_table = 'Comment';
-
   function __construct() {
     parent::__construct();
     $this->status = ST_ACTIVE;
@@ -524,8 +516,6 @@ class Comment extends BaseObject {
 }
 
 class RecentLink extends BaseObject {
-  var $_table = 'RecentLink';
-
   public static function get($where) {
     $obj = new RecentLink();
     $obj->load($where);
@@ -658,8 +648,6 @@ class ModelType {
 
 
 class Inflection extends BaseObject {
-  var $_table = 'Inflection';
-
   public static function get($where) {
     $obj = new Inflection();
     $obj->load($where);
@@ -1251,11 +1239,9 @@ class Lexem {
 
   // Assumes that $participleNumber is the correct participle (adjective)
   // model for $modelNumber.
-  public static function loadParticiplesForVerbModel($modelNumber,
-                                                     $participleNumber) {
+  public static function loadParticiplesForVerbModel($modelNumber, $participleNumber) {
     $infl = Inflection::loadParticiple();
-    $dbResult = db_getParticiplesForVerbModel($modelNumber, $participleNumber,
-                                              $infl->id);
+    $dbResult = db_getParticiplesForVerbModel($modelNumber, $participleNumber, $infl->id);
     return Lexem::populateFromDbResult($dbResult);    
   }
 
@@ -1272,17 +1258,17 @@ class Lexem {
       $model = Model::loadCanonicalByTypeNumber($this->modelType,
 						$this->modelNumber);
       $pm = ParticipleModel::loadByVerbModel($model->number);
-      $this->regeneratePastParticiple($pm->participleModel);
+      $this->regeneratePastParticiple($pm->adjectiveModel);
     }
     if ($this->modelType == 'V' || $this->modelType == 'VT') {
       $this->regenerateLongInfinitive();
     }
   }
 
-  public function regeneratePastParticiple($participleModel) {
+  public function regeneratePastParticiple($adjectiveModel) {
     $infl = Inflection::loadParticiple();
     $wordlist = WordList::loadByLexemIdInflectionId($this->id, $infl->id);
-    $model = Model::loadByTypeNumber('A', $participleModel);
+    $model = Model::loadByTypeNumber('A', $adjectiveModel);
     
     foreach ($wordlist as $wl) {
       // Load an existing lexem only if it has the same model as $model or
@@ -1431,7 +1417,7 @@ class Lexem {
   public function deleteParticiple($oldModelNumber) {
     $infl = Inflection::loadParticiple();
     $pm = ParticipleModel::loadByVerbModel($oldModelNumber);
-    $this->_deleteDependentModels($infl->id, 'A', array($pm->participleModel));
+    $this->_deleteDependentModels($infl->id, 'A', array($pm->adjectiveModel));
   }
 
   /**
@@ -1445,7 +1431,7 @@ class Lexem {
 
   /**
    * Delete lexems that do not have their own definitions.
-   * Arguments for participles: 'A', $participleModel.
+   * Arguments for participles: 'A', $adjectiveModel.
    * Arguments for long infinitives: 'F', ('107', '113').
    */
   private function _deleteDependentModels($inflId, $modelType, $modelNumbers) {
@@ -1779,51 +1765,16 @@ class WordList {
   }
 }
 
-class ParticipleModel {
-  public $id;
-  public $verbModel;
-  public $participleModel;
-
-  public static function create($verbModel, $participleModel) {
-    $pm = new ParticipleModel();
-    $pm->verbModel = $verbModel;
-    $pm->participleModel = $participleModel;
-    return $pm;
+class ParticipleModel extends BaseObject {
+  public static function get($where) {
+    $obj = new ParticipleModel();
+    $obj->load($where);
+    return $obj->id ? $obj : null;
   }
 
   public static function loadByVerbModel($verbModel) {
-    $dbRow = db_getParticipleModelByVerbModel($verbModel);
-    return ParticipleModel::createFromDbRow($dbRow);
-  }
-
-  public static function createFromDbRow($dbRow) {
-    if (!$dbRow) {
-      return NULL;
-    }
-    $pm = ParticipleModel::create($dbRow['pm_verb_model'],
-                                  $dbRow['pm_participle_model']);
-    $pm->id = $dbRow['pm_id'];
-    return $pm;
-  }
-
-  public function save() {
-    if ($this->id) {
-      db_updateParticipleModel($this);
-    } else {
-      db_insertParticipleModel($this);
-    }
-  }
-
-  public function delete() {
-    db_deleteParticipleModel($this);
-  }
-
-  public static function updateVerbModel($modelNumber, $newModelNumber) {
-    return db_updateParticipleModelVerb($modelNumber, $newModelNumber);
-  }
-
-  public static function updateAdjectiveModel($modelNumber, $newModelNumber) {
-    return db_updateParticipleModelAdjective($modelNumber, $newModelNumber);
+    $verbModel = addslashes($verbModel);
+    return self::get("verbModel = '{$verbModel}'");
   }
 }
 
@@ -1879,8 +1830,6 @@ class FullTextIndex extends BaseObject {
 
 
 class Variable extends BaseObject {
-  var $_table = 'Variable';
-
   public static function peek($name, $default = null) {
     $v = new Variable();
     $v->load("name = '$name'");

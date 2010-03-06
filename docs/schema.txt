@@ -1,7 +1,7 @@
-Acest fişier este scris în limba engleză, deoarece există persoane
+Acest fișier este scris în limba engleză, deoarece există persoane
 interesate de baza de date a DEX online care nu vorbesc
-româneşte. Dacă aveţi nevoie de ajutor cu traducerea, vă rugăm
-contactaţi-ne la adresa contact@dexonline.ro.
+românește. Dacă aveți nevoie de ajutor cu traducerea, vă rugăm
+contactați-ne la adresa contact@dexonline.ro.
 ------------------------------------------------------------------------------
 
 DEX online schema documentation
@@ -48,7 +48,7 @@ lexem_neaccentuat, lexem_utf8_general - These two have equal values,
   different collates (utf8_romanian_ci and utf8_general_ci,
   respectively). The former is used for searches including diacritics,
   the latter is used for searches without diacritics, because in
-  utf8_general_ci ă = â = a, ş = s and so on.
+  utf8_general_ci ă = â = a, ș = s and so on.
 lexem_invers the reverse of lexem_neaccentuat. Only used in certain
   admin tools where we need suffix matching.
 lexem_descr - Generally used to distinguish among homonyms.
@@ -105,13 +105,13 @@ wl_variant - 0-based counter for situations where multiple forms are
   accepted for the same inflection (e.g. "cântaserăm" / "cântasem",
   both accepted for the past perfect, plural, 1st person).
 
-EXAMPLE: Here is a SQL query that lists the paradigm for "ştiucă":
+EXAMPLE: Here is a SQL query that lists the paradigm for "știucă":
 
 select wl_form, Inflection.description, wl_variant
   from lexems, wordlist, Inflection
   where lexem_id = wl_lexem
     and wl_analyse = Inflection.id
-    and lexem_neaccentuat = 'ştiucă'
+    and lexem_neaccentuat = 'știucă'
   order by Inflection.id;
 
 
@@ -145,16 +145,16 @@ paradigm of another lexem with the same model, we apply the same
 transforms.
 
 EXAMPLE: Model F117 has the exponent c'arte ("book"). The plural of
-c'arte is c'ărţi ("books"). Hence, the transform list to generate the
+c'arte is c'ărți ("books"). Hence, the transform list to generate the
 plural is
 
 a -> ă
-t -> ţ
+t -> ț
 e -> i
 
 Now if we label "p'arte" ("part") with the same model, F117, we can
 find its plural form by applying the same transforms. The result is
-"p'ărţi" ("parts").
+"p'ărți" ("parts").
 
 model_flag - Not really used now, we used it while we were building
 the database to allow admins to flag models with problems.
@@ -216,20 +216,20 @@ select model_exponent, Inflection.description, md_variant, md_order,
   order by md_infl, md_variant, md_order;
 
 
-The participle_models table
+The participleModel table
 ---------------------------
 
 Lexems labeled with the model_type 'VT' are transitive verbs and their
 participle form should be declensed as an adjective. For example, "a
-speria" (to scare) has the participled "speriat" (scared), which has
-the usual adjective forms "speriată", "speriaţi", "speriate"
+speria" (to scare) has the participle "speriat" (scared), which has
+the usual adjective forms "speriată", "speriați", "speriate"
 etc. Commonly, this adjective is declensed according to the model A2,
-but not always. The participle_models indicates, for every verb model,
+but not always. The participleModel indicates, for every verb model,
 the corresponding adjective model to be used for participles.
 
-pm_id - Unique numeric ID.
-pm_verb_model - The number (not ID!) of the verb model. An entry in
-  models is guaranteed to exist with type V and number pm_verm_model.
-pm_participle_model - The number (not ID!) of the participle model. An
+id - Unique numeric ID.
+verbModel - The number (not ID!) of the verb model. An entry in
+  models is guaranteed to exist with type V and number verbModel.
+adjectiveModel - The number (not ID!) of the adjective model. An
   entry in models is guaranteed to exist with type A and number
-  pm_participle_model.
+  adjectiveModel.

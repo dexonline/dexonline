@@ -857,8 +857,7 @@ function db_getAmbiguousLexems() {
   return logged_query($query);
 }
 
-function db_getParticiplesForVerbModel($modelNumber, $participleNumber,
-                                       $partInflId) {
+function db_getParticiplesForVerbModel($modelNumber, $participleNumber, $partInflId) {
   $query = "select part.* from lexems part, wordlist, lexems infin " .
     "where infin.lexem_model_type = 'VT' " .
     "and infin.lexem_model_no = '$modelNumber' " .
@@ -1156,57 +1155,6 @@ function db_deleteWordListsByLexemId($lexemId) {
   $lexemId = addslashes($lexemId);
   $query = "delete from wordlist where wl_lexem = '$lexemId'";
   return logged_query($query);
-}
-
-function db_getParticipleModelByVerbModel($verbModel) {
-  $verbModel = addslashes($verbModel);
-  $query = "select * from participle_models " .
-    "where pm_verb_model = '$verbModel'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_insertParticipleModel($pm) {
-  $query = sprintf("insert into participle_models set " .
-                   "pm_verb_model = '%s', " .
-                   "pm_participle_model = '%s'",
-                   addslashes($pm->verbModel),
-                   addslashes($pm->participleModel));
-  return logged_query($query);
-}
-
-function db_updateParticipleModel($pm) {
-  $query = sprintf("update participle_models set " .
-                   "pm_verb_model = '%s', " .
-                   "pm_participle_model = '%s' " .
-                   "where pm_id = '%d'",
-                   addslashes($pm->verbModel),
-                   addslashes($pm->participleModel),
-                   $pm->id);
-  return logged_query($query);
-}
-
-function db_deleteParticipleModel($pm) {
-  return logged_query("delete from participle_models where pm_id = {$pm->id}");
-}
-
-function db_updateParticipleModelVerb($modelNumber, $newModelNumber) {
-  $query = sprintf("update participle_models set " .
-                   "pm_verb_model = '%s' " .
-                   "where pm_verb_model = '%s'",
-                   addslashes($newModelNumber),
-                   addslashes($modelNumber)
-                   );
-  logged_query($query);
-}
-
-function db_updateParticipleModelAdjective($modelNumber, $newModelNumber) {
-  $query = sprintf("update participle_models set " .
-                   "pm_participle_model = '%s' " .
-                   "where pm_participle_model = '%s'",
-                   addslashes($newModelNumber),
-                   addslashes($modelNumber)
-                   );
-  logged_query($query);
 }
 
 function db_getNumMetRestrictions($restr, $inflId) {

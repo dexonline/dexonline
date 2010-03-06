@@ -44,7 +44,9 @@ if ($cloneButton) {
     // Clone the participle model
     if ($modelType == 'V') {
       $pm = ParticipleModel::loadByVerbModel($modelNumber);
-      $clonePm = ParticipleModel::create($newModelNumber, $pm->participleModel);
+      $clonePm = new ParticipleModel();
+      $clonePm->verbModel = $newModelNumber;
+      $clonePm->adjectiveModel = $pm->adjectiveModel;
       $clonePm->save();
     }
 

@@ -25,7 +25,7 @@ foreach($wordLists as $wl) {
 }
 
 $participleNumber = ($modelType == 'V')
-  ? ParticipleModel::loadByVerbModel($modelNumber)->participleModel
+  ? ParticipleModel::loadByVerbModel($modelNumber)->adjectiveModel
   : '';
 
 if ($previewButton || $confirmButton) {
@@ -189,9 +189,12 @@ if ($previewButton || $confirmButton) {
 
     if ($modelNumber != $newModelNumber) {
       if ($modelType == 'V') {
-        ParticipleModel::updateVerbModel($modelNumber, $newModelNumber);
+        $oldPm = ParticipleModel::loadByVerbModel($modelNumber);
+        $oldPm->verbModel = $newModelNumber;
+        $oldPm->save();
       } else if ($modelType == 'A') {
-        ParticipleModel::updateAdjectiveModel($modelNumber, $newModelNumber);
+        // Update all participle models that use this adjective model
+        db_execute("update ParticipleModel set adjectivModel = '%s' where adjectivModel = '%s'", addslashes($newModelNumber), addslashes($modelNumber));
       }
 
       foreach ($lexems as $l) {
@@ -204,7 +207,7 @@ if ($previewButton || $confirmButton) {
 
     if ($participleNumber != $newParticipleNumber) {
       $pm = ParticipleModel::loadByVerbModel($newModelNumber);
-      $pm->participleModel = $newParticipleNumber;
+      $pm->adjectiveModel = $newParticipleNumber;
       $pm->save();
 
       $participles = Lexem::loadParticiplesForVerbModel($modelNumber,

@@ -81,18 +81,7 @@ function db_getArray($dbSet) {
   return $result;
 }
 
-function db_getScalarArray($dbSet) {
-  $result = array();
-  while ($dbSet && $row = mysql_fetch_row($dbSet)) {
-    $result[] = $row[0];
-  }
-  mysql_free_result($dbSet);
-  return $result;
-}
-
-// ADOdb version
-// TODO: delete old version and rename this one after converting FullTextIndex to ADOdb
-function db_getScalarArray2($recordSet) {
+function db_getScalarArray($recordSet) {
   $result = array();
   while (!$recordSet->EOF) {
     $result[] = $recordSet->fields[0];
@@ -1218,33 +1207,6 @@ function db_updateParticipleModelAdjective($modelNumber, $newModelNumber) {
                    addslashes($modelNumber)
                    );
   logged_query($query);
-}
-
-function db_getFullTextIndexesByLexemIds($lexemIds) {
-  $query = "select distinct DefinitionId from FullTextIndex " .
-    "where LexemId in ($lexemIds) order by DefinitionId";
-  return db_getScalarArray(logged_query($query));
-}
-
-function db_getPositionsByLexemIdsDefinitionId($lexemIds, $defId) {
-  $query = "select distinct Position from FullTextIndex " .
-    "where LexemId in ($lexemIds) " .
-    "and DefinitionId = $defId " .
-    "order by Position";
-  return db_getScalarArray(logged_query($query));
-}
-
-function db_insertFullTextIndex($fti) {
-  $query = sprintf("insert into FullTextIndex set " .
-                   "LexemId = %d, " .
-                   "InflectionId = %d, " .
-                   "DefinitionId = %d, " .
-                   "Position = %d ",
-                   $fti->lexemId,
-                   $fti->inflectionId,
-                   $fti->definitionId,
-                   $fti->position);
-  return logged_query($query);
 }
 
 function db_getNumMetRestrictions($restr, $inflId) {

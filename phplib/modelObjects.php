@@ -1412,7 +1412,7 @@ class Lexem {
                                               $this->modelNumber);
     // Select inflection IDs for this model
     $dbResult = db_execute("select distinct md_infl from model_description where md_model = {$model->id} order by md_infl");
-    $inflIds = db_getScalarArray2($dbResult);
+    $inflIds = db_getScalarArray($dbResult);
     $wordLists = array();
     foreach ($inflIds as $inflId) {
       $wl = $this->generateInflectedFormWithModel($inflId, $model->id);
@@ -1863,47 +1863,17 @@ class LocVersion {
   }
 }
 
-class FullTextIndex {
-  public $lexemId;
-  public $inflectionId;
-  public $definitionId;
-  public $position;
-
-  public static function create($lexemId, $inflectionId, $definitionId,
-                                $position) {
-    $fti = new FullTextIndex();
-    $fti->lexemId = $lexemId;
-    $fti->inflectionId = $inflectionId;
-    $fti->definitionId = $definitionId;
-    $fti->position = $position;
-    return $fti;
-  }
-
+class FullTextIndex extends BaseObject {
   // Takes a comma-separated string of lexem ids
   public static function loadDefinitionIdsForLexems($lexemIds) {
     if (!$lexemIds) {
       return array();
     }
-    return db_getFullTextIndexesByLexemIds($lexemIds);
+    return db_getScalarArray(db_execute("select distinct DefinitionId from FullTextIndex where LexemId in ($lexemIds) order by DefinitionId"));
   }
 
-  public static function loadPositionsByLexemIdsDefinitionId($lexemIds,
-                                                             $defId) {
-    return db_getPositionsByLexemIdsDefinitionId($lexemIds, $defId);
-  }
-
-  public static function createFromDbRow($dbRow) {
-    if (!$dbRow) {
-      return NULL;
-    }
-    return FullTextIndex::create($dbRow['LexemId'],
-                                 $dbRow['InflectionId'],
-                                 $dbRow['DefinitionId'],
-                                 $dbRow['Position']);
-  }
-
-  public function save() {
-    db_insertFullTextIndex($this);
+  public static function loadPositionsByLexemIdsDefinitionId($lexemIds, $defId) {
+    return db_getScalarArray(db_execute("select distinct Position from FullTextIndex where LexemId in ($lexemIds) and DefinitionId = $defId order by Position"));
   }
 }
 

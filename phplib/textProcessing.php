@@ -837,7 +837,7 @@ function text_extractTransformsNoAccents($from, $to, $isPronoun) {
   }
   
   if (count($transforms) == 0) {
-    $transforms[] = Transform::create('', '', '');
+    $transforms[] = new Transform('', '');
     return $transforms;
   }
 
@@ -846,7 +846,7 @@ function text_extractTransformsNoAccents($from, $to, $isPronoun) {
   // 'a'->'', which would generate the form 'căpat'. The correct set of
   // transforms here is 'ă'->'a', 'ă'->'ă' and 'a'->''.
   for ($i = 0; $i < count($transforms); $i++) {
-    $bitFrom = $transforms[$i]->from;
+    $bitFrom = $transforms[$i]->transfFrom;
     if ($bitFrom != '') {
       $place1 = $places[$i] + mb_strlen($bitFrom);
       $place2 = ($i == count($transforms) - 1)
@@ -856,8 +856,7 @@ function text_extractTransformsNoAccents($from, $to, $isPronoun) {
       if ($posFound !== false && $posFound < $place2) {
         // Add another transform $bitFrom->$bitFrom, so that this newly found
         // occurrence does not "steal" the transform.
-        array_splice($transforms, $i + 1, 0,
-                     array(Transform::create($bitFrom, $bitFrom, '')));
+        array_splice($transforms, $i + 1, 0, array(new Transform($bitFrom, $bitFrom)));
         array_splice($places, $i + 1, 0, $posFound);
         // print "Adding $bitFrom -> $bitFrom to [$from][$to]\n";
       }
@@ -872,11 +871,11 @@ function _text_extractTransformsHelper($from, $to, &$transforms, &$places,
   if (!$from && !$to) {
     return 1;
   } else if (!$from) {
-    $transforms[] = Transform::create('', $to, '');
+    $transforms[] = new Transform('', $to);
     $places[] = $commonLength;
     return 1;
   } else if (!$to) {
-    $transforms[] = Transform::create($from, '', '');
+    $transforms[] = new Transform($from, '');
     $places[] = $commonLength;
     return 1;
   }
@@ -894,7 +893,7 @@ function _text_extractTransformsHelper($from, $to, &$transforms, &$places,
   // Try one of the predefined combinations
   foreach ($GLOBALS['text_suffixPairs'] as $pair) {
     if (text_startsWith($from, $pair[0]) && text_startsWith($to, $pair[1])) {
-      $transforms[] = Transform::create($pair[0], $pair[1], '');
+      $transforms[] = new Transform($pair[0], $pair[1]);
       $places[] = $commonLength;
       $newFrom = mb_substr($from, mb_strlen($pair[0]));
       $newTo = mb_substr($to, mb_strlen($pair[1]));
@@ -920,15 +919,15 @@ function _text_extractPronounTransforms($from, $to, &$transforms, &$places) {
 
   // We have one special case
   if ($from == 'doisprezecelea' && $to == 'douăsprezecea') {
-    $transforms[] = Transform::create('i', 'uă', '');
-    $transforms[] = Transform::create('lea', 'a', '');
+    $transforms[] = new Transform('i', 'uă');
+    $transforms[] = new Transform('lea', 'a');
     $places[] = 2;
     $places[] = 11;
     return 1;
   }
 
   if (text_startsWith($to, $from)) {
-    $t = Transform::create('', mb_substr($to, mb_strlen($from)), '');
+    $t = new Transform('', mb_substr($to, mb_strlen($from)));
     $transforms[] = $t;
     $places[] = mb_strlen($from);
     return 1;
@@ -948,7 +947,7 @@ function _text_extractPronounTransforms($from, $to, &$transforms, &$places) {
     $place++;
   }
 
-  $transforms[] = Transform::create($from, $to, '');
+  $transforms[] = new Transform($from, $to);
   $places[] = $place;
   return 1;
 }
@@ -1054,7 +1053,7 @@ function text_applyTransforms($s, $transforms, $accentShift, $accentedVowel) {
   $places = array();
   for ($i = count($transforms) - 1; $i >= 0; $i--) {
     assert($transforms[$i]);
-    $tfrom = $transforms[$i]->from;
+    $tfrom = $transforms[$i]->transfFrom;
     $tlen = mb_strlen($tfrom);
     if ($tfrom == '') {
       assert($i == count($transforms) - 1);
@@ -1079,8 +1078,8 @@ function text_applyTransforms($s, $transforms, $accentShift, $accentedVowel) {
   $previous = 0;
   for ($i = 0; $i < count($transforms); $i++) {
     $result .= mb_substr($s, $previous, $places[$i] - $previous);
-    $result .= $transforms[$i]->to;
-    $previous = $places[$i] + mb_strlen($transforms[$i]->from);
+    $result .= $transforms[$i]->transfTo;
+    $previous = $places[$i] + mb_strlen($transforms[$i]->transfFrom);
   }
   if ($previous < mb_strlen($s)) {
     $result .= mb_substr($s, $previous);

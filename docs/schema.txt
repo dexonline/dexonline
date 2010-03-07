@@ -160,10 +160,10 @@ model_flag - Not really used now, we used it while we were building
 the database to allow admins to flag models with problems.
 
 
-The transforms table
+The Transform table
 --------------------
 
-Trasnforms are essentially (from -> to) pairs. Each of the three
+Transforms are essentially (from -> to) pairs. Each of the three
 transforms in the example above has an entry in this table.
 
 
@@ -181,7 +181,7 @@ md_variant - 0-based counter where multiple variants are allowed for
 md_order - When multiple letter transformations are necessary to
   obtain the inflected form from the base form, the order in which we
   apply the transforms is important, hence this field (0-based).
-md_transf - Matches transforms.transf_id.
+md_transf - Matches Transform.id.
 md_accent_shift - Indicates where the accent falls in the inflected form:
   100 - Unknown accent shift. We don't know where the accent falls,
     because when we initially enumerated the paradigm for this model,
@@ -206,10 +206,10 @@ EXAMPLE: Here is how to find the paradigm for "c'arte", the exponent
 for F117:
 
 select model_exponent, Inflection.description, md_variant, md_order,
-       md_accent_shift, md_vowel, transf_from, transf_to
-  from models, model_description, Inflection, transforms
+       md_accent_shift, md_vowel, transfFrom, transfTo
+  from models, model_description, Inflection, Transform
   where model_id = md_model
-    and md_transf = transf_id
+    and md_transf = Transform.id
     and md_infl = Inflection.id
     and model_type = 'F'
     and model_no = '117'

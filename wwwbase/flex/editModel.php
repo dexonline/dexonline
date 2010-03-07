@@ -169,9 +169,8 @@ if ($previewButton || $confirmButton) {
         for ($i = count($transforms) - 1; $i >= 0; $i--) {
           $t = $transforms[$i];
           // Make sure the transform has an ID.
-          $t = Transform::createOrLoad($t->from, $t->to);
-          $md = ModelDescription::create($model->id, $inflId, $variant, $order,
-                                         $t->id, $accentShift, $accentedVowel);
+          $t = Transform::createOrLoad($t->transfFrom, $t->transfTo);
+          $md = ModelDescription::create($model->id, $inflId, $variant, $order, $t->id, $accentShift, $accentedVowel);
           $md->save();
           $order++;
         }

@@ -1083,43 +1083,6 @@ function db_deleteAllLexemDefinitionMaps() {
   logged_query($query);
 }
 
-function db_getTransformById($id) {
-  $query = "select * from transforms where transf_id = '$id'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getTransformByFromTo($from, $to) {
-  $query = sprintf("select * from transforms where transf_from = '%s' " .
-                   "and transf_to = '%s'",
-                   addslashes($from),
-                   addslashes($to));
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_insertTransform($transform) {
-  $query = sprintf("insert into transforms set " .
-                   "transf_from = '%s', " .
-                   "transf_to = '%s', " .
-                   "transf_descr = '%s'",
-                   addslashes($transform->from),
-                   addslashes($transform->to),
-                   addslashes($transform->description));
-  return logged_query($query);
-}
-
-function db_updateTransform($transform) {
-  $query = sprintf("update transforms set " .
-                   "transf_from = '%s', " .
-                   "transf_to = '%s', " .
-                   "transf_descr = '%s' " .
-                   "where transf_id = '%d'",
-                   addslashes($transform->from),
-                   addslashes($transform->to),
-                   addslashes($transform->description),
-                   $transform->id);
-  return logged_query($query);
-}
-
 function db_getWordListsByLexemId($lexemId) {
   $query = "select * from wordlist where wl_lexem = $lexemId " .
     "order by wl_analyse, wl_variant";

@@ -1372,7 +1372,7 @@ class Lexem {
       // Load the transforms
       $transforms = array();
       for ($i = $end - 1; $i >= $start; $i--) {
-        $transforms[] = Transform::load($mds[$i]->transformId);
+        $transforms[] = Transform::get("id = " . $mds[$i]->transformId);
       }
       
       $result = text_applyTransforms($this->form, $transforms,
@@ -1388,8 +1388,7 @@ class Lexem {
   }
   
   public function generateParadigm() {
-    $model = Model::loadCanonicalByTypeNumber($this->modelType,
-                                              $this->modelNumber);
+    $model = Model::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
     // Select inflection IDs for this model
     $dbResult = db_execute("select distinct md_infl from model_description where md_model = {$model->id} order by md_infl");
     $inflIds = db_getScalarArray($dbResult);
@@ -1604,72 +1603,32 @@ class LexemDefinitionMap {
   }
 }
 
-class Transform {
-  public $id;
-  public $from;
-  public $to;
-  public $description;
-
-  public function toString() {
-    $from = $this->from ? $this->from : 'nil';
-    $to = $this->to ? $this->to : 'nil';
-    return "($from=>$to)";
+class Transform extends BaseObject {
+  function __construct($from = null, $to = null) {
+    parent::__construct();
+    $this->transfFrom = $from;
+    $this->transfTo = $to;
   }
 
-  public static function create($from, $to, $description) {
-    $t = new Transform();
-    $t->from = $from;
-    $t->to = $to;
-    $t->description = $description;
-    return $t;
+  public static function get($where) {
+    $obj = new Transform();
+    $obj->load($where);
+    return $obj->id ? $obj : null;
   }
 
   public static function createOrLoad($from, $to) {
-    $t = Transform::loadByFromTo($from, $to);
+    $t = self::get("transfFrom = '{$from}' and transfTo = '{$to}'");
     if (!$t) {
-      $t = Transform::create($from, $to, '');
+      $t = new Transform($from, $to);
       $t->save();
-      $t->id = db_getLastInsertedId();
     }
     return $t;
   }
 
-  public static function load($id) {
-    $dbRow = db_getTransformById($id);
-    return Transform::createFromDbRow($dbRow);
-  }
-
-  public static function loadByFromTo($from, $to) {
-    $dbRow = db_getTransformByFromTo($from, $to);
-    return Transform::createFromDbRow($dbRow);
-  }
-
-  public static function createFromDbRow($dbRow) {
-    if (!$dbRow) {
-      return null;
-    }
-    $t = Transform::create($dbRow['transf_from'],
-                           $dbRow['transf_to'],
-                           $dbRow['transf_descr']);
-    $t->id = $dbRow['transf_id'];
-    return $t;
-  }
-
-  public static function populateFromDbResult($dbResult) {
-    $result = array();
-    while ($dbRow = mysql_fetch_assoc($dbResult)) {
-      $result[] = Transform::createFromDbRow($dbRow);
-    }
-    mysql_free_result($dbResult);
-    return $result;
-  }
-
-  public function save() {
-    if ($this->id) {
-      db_updateTransform($this);
-    } else {
-      db_insertTransform($this);
-    }
+  public function __toString() {
+    $from = $this->transfFrom ? $this->transfFrom : 'nil';
+    $to = $this->transfTo ? $this->transfTo : 'nil';
+    return "($from=>$to)";
   }
 }
 

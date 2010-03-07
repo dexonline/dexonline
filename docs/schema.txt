@@ -57,7 +57,7 @@ lexem_restriction - A subset of the letters S (singular), P (plural),
   U (unipersonal), I (impersonal), T (past tenses only). Indicates
   that this lexem only generates a subset of the allowed word forms
   for the lexem's model. To see which restrictions allow which forms,
-  use the 'constraints' table. For example, the verb "a ploua" ("to
+  use the ConstraintMap table. For example, the verb "a ploua" ("to
   rain") only allows third person singular form, hence the restriction I.
 lexem_comment - Admins can add comments. All lexems with non-empty
   comments are reported on the admin page and should be reviewed and

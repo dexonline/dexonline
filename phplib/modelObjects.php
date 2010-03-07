@@ -1346,14 +1346,8 @@ class Lexem {
     }
   }
 
-  public function generateInflectedForm($inflId) {
-    $model = Model::loadCanonicalByTypeNumber($this->modelType,
-                                              $this->modelNumber);    
-    return generateInflectedFormWithModel($inflId, $model->id);
-  }
-
   public function generateInflectedFormWithModel($inflId, $modelId) {
-    if (!Constraint::validInflection($inflId, $this->restriction)) {
+    if (!ConstraintMap::validInflection($inflId, $this->restriction)) {
       return array();
     }
     $wordLists = array();
@@ -1778,22 +1772,17 @@ class ParticipleModel extends BaseObject {
   }
 }
 
-/**
- * This class has very limited usage and therefore will not have the usual
- * fields and methods.
- */
-class Constraint {
+class ConstraintMap extends BaseObject {
 
   /**
-   * Given a restriction like 'PT', and an inflection, returns true iff
-   * the inflection ID is valid under all the restrictions.
+   * Given a restriction like 'PT', and an inflection, returns true iff the inflection ID is valid under all the restrictions.
    */
   public static function validInflection($inflId, $restr) {
     if (!$restr) {
       return true;
     }
-    $a = db_getNumMetRestrictions($restr, $inflId);
-    return ($a == mb_strlen($restr));
+    $numAllowed = db_getSingleValue(db_execute("select count(*) from ConstraintMap where locate(code, '$restr') > 0 and inflectionId = $inflId"));
+    return ($numAllowed == mb_strlen($restr));
   }
 }
 

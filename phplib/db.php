@@ -90,6 +90,10 @@ function db_getScalarArray($recordSet) {
   return $result;
 }
 
+function db_getSingleValue($recordSet) {
+  return $recordSet->fields[0];
+}
+
 function db_getCompactIntArray($dbSet) {
   $result = int_create(mysql_num_rows($dbSet));
   $pos = 0;
@@ -1155,14 +1159,6 @@ function db_deleteWordListsByLexemId($lexemId) {
   $lexemId = addslashes($lexemId);
   $query = "delete from wordlist where wl_lexem = '$lexemId'";
   return logged_query($query);
-}
-
-function db_getNumMetRestrictions($restr, $inflId) {
-  $restr = addslashes($restr);
-  $query = "select count(*) from constraints " .
-    "where locate(constr_id, '$restr') > 0 " .
-    "and infl_id = $inflId";
-  return db_fetchInteger(logged_query($query));
 }
 
 ?>

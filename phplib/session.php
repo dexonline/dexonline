@@ -102,7 +102,27 @@ function session_getUserId() {
 }
 
 function session_user_prefers($pref) {
-  return isset($_SESSION['user']) && isset($_SESSION['user']->preferences) && in_array($pref, split(',', $_SESSION['user']->preferences));
+  if (isset($_SESSION['user'])) {
+    return isset($_SESSION['user']) && isset($_SESSION['user']->preferences) && in_array($pref, split(',', $_SESSION['user']->preferences));
+  }
+  else {
+    $prefs = session_getCookieSetting('anonymousPrefs');
+    return in_array($pref, split(',', $prefs));
+  }
+}
+
+function session_setAnonymousPrefs($pref) {
+  $_COOKIE['prefs']['anonymousPrefs'] = $pref;
+  session_sendAnonymousPrefs();
+}
+
+function session_sendAnonymousPrefs() {
+  setcookie('prefs[anonymousPrefs]', session_getAnonymousPrefs(), time() + 3600 * 24 * 365, "/");
+}
+
+function session_getAnonymousPrefs() {
+  $cookiePrefs = session_getCookieSetting('anonymousPrefs');
+  return $cookiePrefs ? $cookiePrefs : '';
 }
 
 function session_getSkin() {

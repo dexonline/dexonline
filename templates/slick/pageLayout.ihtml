@@ -67,6 +67,7 @@
           <td nowrap><a href="{$wwwRoot}account.php">contul meu</a></td>
           <td nowrap><a href="{$wwwRoot}logout.php" id="logoutLink">deconectare</a></td>
         {else}
+		  <td nowrap><a href="{$wwwRoot}prefs.php">Preferințe</a></td>
           <td nowrap><a href="{$wwwRoot}login.php" id="loginLink">conectare</a></td>
           <td nowrap><a href="{$wwwRoot}signup.php">înscriere</a></td>
         {/if}

@@ -67,6 +67,7 @@
           <a href="{$wwwRoot}account.php">Contul meu</a><br/>
           <a href="{$wwwRoot}logout.php" id="logoutLink">Deconectare</a><br/>
         {else}
+	      <a href="{$wwwRoot}prefs.php">Preferințe</a><br/>
           <a href="{$wwwRoot}login.php" id="loginLink">Conectare utilizator</a><br/>
           <a href="{$wwwRoot}signup.php">Înscriere utilizator</a><br/>
         {/if}

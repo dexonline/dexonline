@@ -3,7 +3,7 @@
   <a href="{$wwwRoot}">pagina principală</a>.
 {/if}
 <form name="frm" method="post" action="prefs.php">
-<table class="userEdit"><tr>
+<table class="userEdit">
   <tr>
     <td>Preferințe</td>
     <td>

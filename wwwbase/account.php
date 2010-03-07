@@ -3,20 +3,6 @@ require_once("../phplib/util.php");
 require_once("../phplib/userPreferences.php");
 util_assertNotMirror();
 
-// Define error codes
-define("OK", 0);
-define("ERR_NO_NICK", 1);
-define("ERR_NICK_LEN", 2);
-define("ERR_NICK_CHARS", 3);
-define("ERR_PASS_LEN", 4);
-define("ERR_PASS_MISMATCH", 5);
-define("ERR_NO_EMAIL", 6);
-define("ERR_BAD_EMAIL", 7);
-define("ERR_NICK_TAKEN", 8);
-define("ERR_EMAIL_TAKEN", 9);
-define("ERR_CUR_PASS", 10);
-define("ERR_OTHER", 11);
-
 $sendButton = util_getRequestParameter('send');
 $nick = util_getRequestParameter('nick');
 $newPass = util_getRequestParameter('newPass');
@@ -32,40 +18,43 @@ if (!$user) {
   util_redirect('login.php');
 }
 
-$error = OK;
 if ($sendButton) {
-
   // First, a few syntactic checks
+  $error = true;
   if ($nick == "") {
-    $error = ERR_NO_NICK;
+    session_setFlash('Trebuie să vă alegeți un nume de cont.');
   } else if (strlen($nick) < 3) {
-    $error = ERR_NICK_LEN;
+    session_setFlash('Numele de cont trebuie să aibă minim 3 caractere.');
   } else if ($nick != preg_replace("/[^a-zA-Z0-9_-]/", "", $nick)) {
-    $error = ERR_NICK_CHARS;
+    session_setFlash('Numele de cont poate conține numai caracterele indicate.');
   } else if (strlen($newPass) > 0 && strlen($newPass) < 4) {
-    $error = ERR_PASS_LEN;
+    session_setFlash('Trebuie să vă alegeți o parolă de minim 4 caractere.');
   } else if ($newPass != $newPass2) {
-    $error = ERR_PASS_MISMATCH;
+    session_setFlash('Parolele nu coincid.');
   } else if ($email == "") {
-    $error = ERR_NO_EMAIL;
+    session_setFlash('Trebuie să precizați noua adresă de email.');
   } else if (!strstr($email, '.') || !strstr($email, '@')) {
-    $error = ERR_BAD_EMAIL;
+    session_setFlash('Adresa de email nu este validă.');
   } else if (md5($curPass) != $user->password) {
-    $error = ERR_CUR_PASS;
+    session_setFlash('Parola actuală este incorectă.');
+  } else {
+    $error = false;
   }
 
   // Verify that the email address and nickname are unique..
   if (!$error) {
     $userByNick = User::get("nick = '$nick'");
     if ($userByNick && $userByNick->id != $user->id) {
-      $error = ERR_NICK_TAKEN;
+      $error = true;
+      session_setFlash('Acest nume de cont este deja folosit.');
     }
   }
   
   if (!$error) {
     $userByEmail = User::get("email = '$email'");
     if ($userByEmail && $userByEmail->id != $user->id) {
-      $error = ERR_EMAIL_TAKEN;
+      $error = true;
+      session_setFlash('Această adresă de email este deja folosită.');
     }
   }
   
@@ -81,6 +70,7 @@ if ($sendButton) {
     $user->preferences = $userPrefs;
     $user->save();
     session_setUser($user);
+    session_setFlash('Informațiile au fost salvate.', 'info');
   }
 } else {
   $nick = $user->nick;
@@ -106,8 +96,6 @@ foreach (split(',', $userPrefs) as $pref) {
   }
 }
 
-smarty_assign('error_code', $error);
-smarty_assign('send', !empty($sendButton));
 smarty_assign('nick', $nick);
 smarty_assign('newPass', $newPass);
 smarty_assign('newPass2', $newPass2);

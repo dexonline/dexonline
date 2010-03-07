@@ -1,45 +1,8 @@
-{if !$is_connected}
-  Nu sunteți conectat!
-{elseif $send && $error_code == OK}
-  Modificarea s-a făcut cu succes! Puteți reveni la
-  <a href="{$wwwRoot}">pagina principală</a>.
-{elseif $send && $error_code == ERR_OTHER}
-  A fost o problemă la modificare, vă rugăm trimiteți-ne un email
-  pentru a ne ajuta să reparăm problema.
-{else}
-  Pentru a face orice modificări, tastați noile valori. Este nevoie
-  să vă introduceți parola, pentru a ne asigura că dumneavoastră
-  sunteți într-adevăr proprietarul contului. Dacă nu doriți să
-  schimbați valoarea unui câmp, lăsați-l nemodificat.
-  <br/><br/>
+Pentru a face orice modificări, tastați noile valori. Este nevoie să vă introduceți parola, pentru a ne asigura că dumneavoastră
+sunteți într-adevăr proprietarul contului. Dacă nu doriți să schimbați valoarea unui câmp, lăsați-l nemodificat.
+<br/><br/>
 
-  {if $send}
-    <p><font color=red><b>
-    {if $error_code == ERR_NO_NICK}
-      Trebuie să vă alegeți un nume de cont.
-    {elseif $error_code == ERR_NICK_LEN}
-      Numele de cont trebuie să aibă minim 3 caractere.
-    {elseif $error_code == ERR_NICK_CHARS}
-      Numele de cont poate conține numai caracterele indicate.
-    {elseif $error_code == ERR_PASS_LEN}
-      Trebuie să vă alegeți o parolă de minim 4 caractere.
-    {elseif $error_code == ERR_PASS_MISMATCH}
-      Parolele nu coincid.
-    {elseif $error_code == ERR_NO_EMAIL}
-      Trebuie să precizați noua adresa de email.
-    {elseif $error_code == ERR_BAD_EMAIL}
-      Adresa de email nu este validă.
-    {elseif $error_code == ERR_NICK_TAKEN}
-      Acest nume de cont este deja folosit.
-    {elseif $error_code == ERR_EMAIL_TAKEN}
-      Această adresă de email este deja folosită.
-    {elseif $error_code == ERR_CUR_PASS}
-      Parola actuală este incorectă.
-    {/if}
-    </b></font>
-  {/if}
-
-  <form name="frm" method="post" action="account.php">
+<form name="frm" method="post" action="account.php">
   <table class="userEdit"><tr>
     <td>Numele de cont:</td>
     <td>
@@ -91,5 +54,4 @@
   </tr>
   </table>
   <input type="submit" name="send" value="Modifică"/>
-  </form>
-{/if}
+</form>

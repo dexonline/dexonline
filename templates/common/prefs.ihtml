@@ -1,7 +1,3 @@
-{if $send}
-  Modificarea s-a făcut cu succes! Puteți reveni la
-  <a href="{$wwwRoot}">pagina principală</a>.
-{/if}
 <form name="frm" method="post" action="prefs.php">
 <table class="userEdit">
   <tr>

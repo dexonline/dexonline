@@ -7,13 +7,14 @@
     <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
     <title>{$page_title|escape}</title>
     <script type="text/javascript" src="{$wwwRoot}js/dex.js"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/mobile.js"></script>
   </head>
 
-  <body id="mobileSkinBody">
+  <body id="mobileSkinBody" onload="fixMobile();">
   <table class="fullheight">
   <tr><td>
     <div class="header">
-        <!--div class="title">DEX online</div-->  
+        <!--div class="title">DEX online</div--> 
           <div class="linkBar">
             <a href="{$wwwRoot}faq.php">Informații</a> |
             <a href="{$wwwRoot}corect.php" id="guideLink">Ghid de exprimare</a> |
@@ -65,11 +66,6 @@
 
           Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro). 
         </td>
-        {if $hostedBy}
-          <td class="narrow">
-            {include file="common/hosting/$hostedBy.ihtml"}
-          </td>
-        {/if}
       </tr>
     </table>
   </td></tr>

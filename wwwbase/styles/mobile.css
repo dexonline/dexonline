@@ -123,10 +123,8 @@ div.abbrev {
 }
 
 a.inflLink {
-  color: black;
   font-weight: normal;
   margin-left: 15px;
-  text-decoration: none;
 }
 
 a.inflLink:focus {

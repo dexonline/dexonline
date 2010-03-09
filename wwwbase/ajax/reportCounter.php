@@ -12,7 +12,7 @@ switch($reportId) {
   case 'temporaryLexems': echo Lexem::countTemporary(); break;
   case 'lexemsWithComments': echo Lexem::countHavingComments(); break;
   case 'lexemsWithoutAccents': echo Lexem::countWithoutAccents(); break;
-  case 'ambiguousLexems': echo Lexem::countAmbiguous(); break;
+  // case 'ambiguousLexems': echo Lexem::countAmbiguous(); break; // This one is expensive
   default: echo 'Necunoscut';
 }
 

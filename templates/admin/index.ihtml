@@ -45,7 +45,7 @@
     <span id="span_lexemsWithoutAccents"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 
     <a href="../flex/viewAmbiguousLexems.php">Lexeme ambigue:</a>
-    <span id="span_ambiguousLexems"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
+    <span id="span_ambiguousLexems">(numărătoare dezactivată)</span><br/>
 
     <br/>
     <form action="lexemLookup.php" method="get">

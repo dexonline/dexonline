@@ -13,7 +13,7 @@ if ($cuv) {
 
 $redirectUrl = util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm);
 
-$searchType = SEARCH_WORDLIST;
+$searchType = SEARCH_INFLECTED;
 $hasDiacritics = session_user_prefers('FORCE_DIACRITICS');
 $exclude_unofficial = session_user_prefers('EXCLUDE_UNOFFICIAL');
 $hasRegexp = FALSE;
@@ -109,11 +109,11 @@ if ($isAllDigits) {
 }
 
 // Normal search
-if ($searchType == SEARCH_WORDLIST) {
-  $lexems = Lexem::searchWordlists($cuv, $hasDiacritics);
+if ($searchType == SEARCH_INFLECTED) {
+  $lexems = Lexem::searchInflectedForms($cuv, $hasDiacritics);
   if (count($lexems) == 0) {
     $cuv_old = text_tryOldOrthography($cuv);
-    $lexems = Lexem::searchWordlists($cuv_old, $hasDiacritics);
+    $lexems = Lexem::searchInflectedForms($cuv_old, $hasDiacritics);
   }
   if (count($lexems) == 0) {
     $searchType = SEARCH_MULTIWORD;
@@ -141,7 +141,7 @@ if ($searchType == SEARCH_WORDLIST) {
   }
 
   smarty_assign('lexems', $lexems);
-  if ($searchType == SEARCH_WORDLIST) {
+  if ($searchType == SEARCH_INFLECTED) {
     // For successful searches, load the definitions and inflections
     $definitions = Definition::loadForLexems($lexems, $sourceId, $cuv, $exclude_unofficial);
   }
@@ -151,19 +151,19 @@ if ($searchType == SEARCH_WORDLIST) {
   }
 }
 
-if ($searchType == SEARCH_WORDLIST || $searchType == SEARCH_LEXEM_ID || $searchType == SEARCH_FULL_TEXT || $searchType == SEARCH_MULTIWORD) {
+if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $searchType == SEARCH_FULL_TEXT || $searchType == SEARCH_MULTIWORD) {
   Definition::incrementDisplayCount($definitions);
   smarty_assign('results', $searchResults);
   
-  // Maps lexems to arrays of wordlists (some lexems may lack inflections)
+  // Maps lexems to arrays of inflected forms (some lexems may lack inflections)
   // Also compute the text of the link to the paradigm div,
   // which can be 'conjugări', 'declinări' or both
   if (!empty($lexems)) {
-    $wordListMaps = array();
+    $ifMaps = array();
     $conjugations = false;
     $declensions = false;
     foreach ($lexems as $l) {
-      $wordListMaps[] = WordList::loadByLexemIdMapByInflectionId($l->id);
+      $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
       if ($l->modelType == 'V' || $l->modelType == 'VT') {
         $conjugations = true;
       } else {
@@ -171,7 +171,7 @@ if ($searchType == SEARCH_WORDLIST || $searchType == SEARCH_LEXEM_ID || $searchT
       }
     }
     $declensionText = $conjugations ? ($declensions ? 'conjugări / declinări' : 'conjugări') : 'declinări';
-    smarty_assign('wordListMaps', $wordListMaps);
+    smarty_assign('ifMaps', $ifMaps);
     smarty_assign('declensionText', $declensionText);
   }
 }

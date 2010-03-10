@@ -81,7 +81,7 @@ function fetchNextLexemRow() {
   $dbRow = mysql_fetch_assoc($lexemDbResult);
   $lexem = Lexem::createFromDbRow($dbRow);
 
-  smarty_assign('wordLists', WordList::loadByLexemId($lexem->id));
+  smarty_assign('ifs', InflectedForm::loadByLexemId($lexem->id));
   smarty_assign('lexem', $lexem);
 }
 

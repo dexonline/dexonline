@@ -10,19 +10,18 @@ if ($locVersion && $form) {
   db_changeDatabase($dbName);
 
   $form = text_cleanupQuery($form);
-  $hasDiacritics = text_hasDiacritics($form);
   smarty_assign('page_title', 'DEX online - Verificare LOC: ' . $form);
 
-  $wordlists = Wordlist::loadLoc($form, $hasDiacritics);
+  $ifs = loadLoc($form);
   $lexems = array();
   $inflections = array();
-  foreach ($wordlists as $wl) {
-    $lexems[] = Lexem::load($wl->lexemId);
-    $inflections[] = Inflection::get("id = {$wl->inflectionId}");
+  foreach ($ifs as $if) {
+    $lexems[] = Lexem::load($if->lexemId);
+    $inflections[] = Inflection::get("id = {$if->inflectionId}");
   }
   smarty_assign('form', $form);
   smarty_assign('selectedLocVersion', $locVersion);
-  smarty_assign('wordlists', $wordlists);
+  smarty_assign('ifs', $ifs);
   smarty_assign('lexems', $lexems);
   smarty_assign('inflections', $inflections);
 }
@@ -30,5 +29,20 @@ if ($locVersion && $form) {
 setlocale(LC_ALL, "ro_RO");
 smarty_assign('locVersions', array_reverse(pref_getFrozenLocVersions()));
 smarty_displayCommonPageWithSkin('scrabbleCheckInflection.ihtml');
+
+
+function loadLoc($cuv) {
+  $field = text_hasDiacritics($cuv) ? 'formNoAccent' : 'formUtf8General';
+  $result = array();
+  $dbResult = db_execute("select distinct i.* from InflectedForm i, lexems where lexemId = lexem_id and {$field} = '{$cuv}' " .
+                         "and lexem_is_loc order by lexem_neaccentuat");
+  while (!$dbResult->EOF) {
+    $if = new InflectedForm();
+    $if->set($dbResult->fields);
+    $result[] = $if;
+    $dbResult->MoveNext();
+  }
+  return $result;
+}
 
 ?>

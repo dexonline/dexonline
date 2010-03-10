@@ -47,35 +47,36 @@ $lexems = array();
 while ($row = mysql_fetch_assoc($dbResult)) {
   $lexem = Lexem::createFromDbRow($row);
   $lexem->matches = array();
-  $wordLists = WordList::loadByUnaccented($lexem->unaccented);
+  $if = new InflectedForm();
+  $ifs = $if->find("formNoAccent = '{$lexem->unaccented}'");
 
-  foreach ($wordLists as $wl) {
-    if (in_array($wl->inflectionId, $PLURAL_INFLECTIONS) && $wl->lexemId != $lexem->id) {
-      $lexem->matches[] = Lexem::load($wl->lexemId);
+  foreach ($ifs as $if) {
+    if (in_array($if->inflectionId, $PLURAL_INFLECTIONS) && $if->lexemId != $lexem->id) {
+      $lexem->matches[] = Lexem::load($if->lexemId);
     }
   }
 
   if (count($lexem->matches)) {
-    $lexem->wordLists = WordList::loadByLexemId($lexem->id);
+    $lexem->ifs = InflectedForm::loadByLexemId($lexem->id);
     // When a plural LOC lexem is merged into a non-LOC singular, we end up losing some word forms from LOC.
     // Therefore, we have to add the singular lexem to LOC as well. Matei says it is ok to expand LOC this way.
-    $srcWls = loadWlArrayByLexemId($lexem->id);
+    $srcIfs = loadIfArrayByLexemId($lexem->id);
     foreach ($lexem->matches as $match) {
-      $destWls = loadWlArrayByLexemId($match->id);
+      $destIfs = loadIfArrayByLexemId($match->id);
       $match->addedForms = array();
       $match->lostForms = array();
       if ($lexem->isLoc && !$match->isLoc) {
         // Forms that are going to be added to LOC
-        foreach ($destWls as $destWl) {
-          if (!in_array($destWl, $srcWls)) {
-            $match->addedForms[] = $destWl;
+        foreach ($destIfs as $destIf) {
+          if (!in_array($destIf, $srcIfs)) {
+            $match->addedForms[] = $destIf;
           }
         }
       }
       // Forms that will disappear after the merge -- these should be rare.
-      foreach ($srcWls as $srcWl) {
-        if (!in_array($srcWl, $destWls)) {
-          $match->lostForms[] = $srcWl;
+      foreach ($srcIfs as $srcIf) {
+        if (!in_array($srcIf, $destIfs)) {
+          $match->lostForms[] = $srcIf;
         }
       }
     }
@@ -93,12 +94,12 @@ smarty_displayWithoutSkin('flex/mergeLexems.ihtml');
 
 /***************************************************/
 
-/** Returns an array containing only the accented forms, not the entire WordList objects **/
-function loadWlArrayByLexemId($lexemId) {
-  $wls = WordList::loadByLexemId($lexemId);
+/** Returns an array containing only the accented forms, not the entire InflectedForm objects **/
+function loadIfArrayByLexemId($lexemId) {
+  $ifs = InflectedForm::loadByLexemId($lexemId);
   $result = array();
-  foreach ($wls as $wl) {
-    $result[] = $wl->form;
+  foreach ($ifs as $if) {
+    $result[] = $if->form;
   }
   return $result;
 }

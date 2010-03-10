@@ -186,7 +186,7 @@ class Definition {
 
     $matchingLexems = array();
     foreach ($words as $word) {
-      $lexems = Lexem::searchWordlists($word, $hasDiacritics);
+      $lexems = Lexem::searchInflectedForms($word, $hasDiacritics);
       $lexemIds = '';
       foreach ($lexems as $lexem) {
         if ($lexemIds) {
@@ -254,7 +254,7 @@ class Definition {
   public static function searchMultipleWords($words, $hasDiacritics, $sourceId, $exclude_unofficial) {
     $defCounts = array();
     foreach ($words as $word) {
-      $lexems = Lexem::searchWordlists($word, $hasDiacritics);
+      $lexems = Lexem::searchInflectedForms($word, $hasDiacritics);
       if (count($lexems)) {
         $definitions = Definition::loadForLexems($lexems, $sourceId, $word, $exclude_unofficial);
         foreach ($definitions as $def) {
@@ -1153,8 +1153,8 @@ class Lexem {
     return Lexem::populateFromDbResult($dbResult);
   }
 
-  public static function searchWordlists($cuv, $hasDiacritics) {
-    $dbResult = db_searchWordlists($cuv, $hasDiacritics);
+  public static function searchInflectedForms($cuv, $hasDiacritics) {
+    $dbResult = db_searchInflectedForms($cuv, $hasDiacritics);
     return Lexem::populateFromDbResult($dbResult);
   }
 
@@ -1246,12 +1246,12 @@ class Lexem {
   }
 
   public function regenerateParadigm() {
-    $wordLists = $this->generateParadigm();
-    assert(is_array($wordLists));
+    $ifs = $this->generateParadigm();
+    assert(is_array($ifs));
 
-    WordList::deleteByLexemId($this->id);
-    foreach($wordLists as $wl) {
-      $wl->save();
+    InflectedForm::deleteByLexemId($this->id);
+    foreach($ifs as $if) {
+      $if->save();
     }
 
     if ($this->modelType == 'VT') {
@@ -1267,17 +1267,17 @@ class Lexem {
 
   public function regeneratePastParticiple($adjectiveModel) {
     $infl = Inflection::loadParticiple();
-    $wordlist = WordList::loadByLexemIdInflectionId($this->id, $infl->id);
+    $if = new InflectedForm();
+    $ifs = $if->find("lexemId = {$this->id} and inflectionId = {$infl->id}");
     $model = Model::loadByTypeNumber('A', $adjectiveModel);
     
-    foreach ($wordlist as $wl) {
+    foreach ($ifs as $if) {
       // Load an existing lexem only if it has the same model as $model or
       // $temporaryModel. Otherwise create a new lexem.
-      $lexems = Lexem::loadByUnaccented($wl->unaccented);
+      $lexems = Lexem::loadByUnaccented($if->formNoAccent);
       $lexem = null;
       foreach ($lexems as $l) {
-        if ($l->modelType == 'T' ||
-            ($l->modelType == 'A' && $l->modelNumber = $model->number)) {
+        if ($l->modelType == 'T' || ($l->modelType == 'A' && $l->modelNumber = $model->number)) {
           $lexem = $l;
         }
       }
@@ -1289,7 +1289,7 @@ class Lexem {
         $lexem->noAccent = false;
         $lexem->save();
       } else {
-        $lexem = Lexem::create($wl->form, 'A', $model->number, '');
+        $lexem = Lexem::create($if->form, 'A', $model->number, '');
         $lexem->isLoc = $this->isLoc;
         $lexem->save();
         $lexem->id = db_getLastInsertedId();
@@ -1306,16 +1306,17 @@ class Lexem {
 
   public function regenerateLongInfinitive() {
     $infl = Inflection::loadLongInfinitive();
-    $wordlist = WordList::loadByLexemIdInflectionId($this->id, $infl->id);
+    $if = new InflectedForm();
+    $ifs = $if->find("lexemId = {$this->id} and inflectionId = {$infl->id}");
     $f107 = Model::loadByTypeNumber('F', 107);
     $f113 = Model::loadByTypeNumber('F', 113);
     
-    foreach ($wordlist as $wl) {
-      $model = text_endsWith($wl->unaccented, 'are') ? $f113 : $f107;
+    foreach ($ifs as $if) {
+      $model = text_endsWith($if->formNoAccent, 'are') ? $f113 : $f107;
       
       // Load an existing lexem only if it has one of the models F113, F107
       // or T1. Otherwise create a new lexem.
-      $lexems = Lexem::loadByUnaccented($wl->unaccented);
+      $lexems = Lexem::loadByUnaccented($if->formNoAccent);
       $lexem = null;
       foreach ($lexems as $l) {
         if ($l->modelType == 'T' ||
@@ -1331,7 +1332,7 @@ class Lexem {
         $lexem->noAccent = false;
         $lexem->save();
       } else {
-        $lexem = Lexem::create($wl->form, 'F', $model->number, '');
+        $lexem = Lexem::create($if->form, 'F', $model->number, '');
         $lexem->isLoc = $this->isLoc;
         $lexem->save();
         $lexem->id = db_getLastInsertedId();
@@ -1350,7 +1351,7 @@ class Lexem {
     if (!ConstraintMap::validInflection($inflId, $this->restriction)) {
       return array();
     }
-    $wordLists = array();
+    $ifs = array();
     // These will be sorted by variant and order
     $mds = ModelDescription::loadByModelIdInflectionId($modelId, $inflId);
  
@@ -1380,11 +1381,11 @@ class Lexem {
       if (!$result) {
         return null;
       }
-      $wordLists[] = WordList::create($result, $this->id, $inflId, $variant);
+      $ifs[] = new InflectedForm($result, $this->id, $inflId, $variant);
       $start = $end;
     }
     
-    return $wordLists;
+    return $ifs;
   }
   
   public function generateParadigm() {
@@ -1392,15 +1393,15 @@ class Lexem {
     // Select inflection IDs for this model
     $dbResult = db_execute("select distinct md_infl from model_description where md_model = {$model->id} order by md_infl");
     $inflIds = db_getScalarArray($dbResult);
-    $wordLists = array();
+    $ifs = array();
     foreach ($inflIds as $inflId) {
-      $wl = $this->generateInflectedFormWithModel($inflId, $model->id);
-      if ($wl === null) {
+      $if = $this->generateInflectedFormWithModel($inflId, $model->id);
+      if ($if === null) {
         return $inflId;
       }
-      $wordLists = array_merge($wordLists, $wl);
+      $ifs = array_merge($ifs, $if);
     }
-    return $wordLists;
+    return $ifs;
   }
 
   /**
@@ -1428,7 +1429,8 @@ class Lexem {
    * Arguments for long infinitives: 'F', ('107', '113').
    */
   private function _deleteDependentModels($inflId, $modelType, $modelNumbers) {
-    $wordlist = WordList::loadByLexemIdInflectionId($this->id, $inflId);
+    $if = new InflectedForm();
+    $ifs = $if->find("lexemId = {$this->id} and inflectionId = {$inflId}");
     $ldms = LexemDefinitionMap::loadByLexemId($this->id);
 
     $defHash = array();
@@ -1436,9 +1438,9 @@ class Lexem {
       $defHash[$ldm->definitionId] = true;
     }
     
-    foreach ($wordlist as $wl) {
+    foreach ($ifs as $if) {
       // Delete lexems of model T1 or A{$pm}
-      $lexems = Lexem::loadByUnaccented($wl->unaccented);
+      $lexems = Lexem::loadByUnaccented($if->formNoAccent);
       foreach ($lexems as $l) {
         if ($l->modelType == 'T' ||
             ($l->modelType == $modelType &&
@@ -1497,7 +1499,7 @@ class Lexem {
   public function delete() {
     if ($this->id) {
       LexemDefinitionMap::deleteByLexemId($this->id);
-      WordList::deleteByLexemId($this->id);
+      InflectedForm::deleteByLexemId($this->id);
       if ($this->modelType == 'VT') {
         $this->deleteParticiple($this->modelNumber);
       }
@@ -1632,89 +1634,45 @@ class Transform extends BaseObject {
   }
 }
 
-class WordList {
-  // WordList::unacccented is mapped to two fields in the database,
-  // wl_neaccentuat and wl_utf8_general. These fields will always have
-  // identical values, but they are stored with different collates to
-  // speed up searches with/without diacritics.
-  public $form;
-  public $unaccented;
-  public $lexemId;
-  public $inflectionId;
-  public $variant;
-
-  public static function create($form, $lexemId, $inflectionId, $variant) {
-    $wl = new WordList();
-    $wl->form = $form;
-    $wl->unaccented = str_replace("'", '', $form);
-    $wl->lexemId = $lexemId;
-    $wl->inflectionId = $inflectionId;
-    $wl->variant = $variant;
-    return $wl;
+class InflectedForm extends BaseObject {
+  function __construct($form = null, $lexemId = null, $inflectionId = null, $variant = null) {
+    parent::__construct();
+    $this->form = $form;
+    $this->formNoAccent = str_replace("'", '', $form);
+    $this->formUtf8General = $this->formNoAccent;
+    $this->lexemId = $lexemId;
+    $this->inflectionId = $inflectionId;
+    $this->variant = $variant;
   }
 
   public static function loadByLexemId($lexemId) {
-    $dbResult = db_getWordListsByLexemId($lexemId);
-    return WordList::populateFromDbResult($dbResult);
+    $if = new InflectedForm();
+    return $if->find("lexemId = {$lexemId} order by inflectionId, variant");
   }
 
   public static function loadByLexemIdMapByInflectionId($lexemId) {
-    $wordLists = WordList::loadByLexemId($lexemId);
-    return WordList::mapByInflectionId($wordLists);
+    return self::mapByInflectionId(self::loadByLexemId($lexemId));
   }
 
-  public static function mapByInflectionId($wordLists) {
+  public static function mapByInflectionId($ifs) {
     $result = array();
-    foreach ($wordLists as $wl) {
-      if (array_key_exists($wl->inflectionId, $result)) {
-        // The wordlists are already sorted by variant
-        $result[$wl->inflectionId][] = $wl;
+    foreach ($ifs as $if) {
+      if (array_key_exists($if->inflectionId, $result)) {
+        // The inflected forms are already sorted by variant
+        $result[$if->inflectionId][] = $if;
       } else {
-        $result[$wl->inflectionId] = array($wl);
+        $result[$if->inflectionId] = array($if);
       }
     }
     return $result;
   }
 
-  public static function loadByLexemIdInflectionId($lexemId, $inflectionId) {
-    $dbResult = db_getWordListByLexemIdInflectionId($lexemId, $inflectionId);
-    return WordList::populateFromDbResult($dbResult);
-  }
-
-  public static function loadByUnaccented($unaccented) {
-    $dbResult = db_getWordListsByUnaccented($unaccented);
-    return WordList::populateFromDbResult($dbResult);
-  }
-
-  // Used by the scrabble LOC verification tool
-  public static function loadLoc($cuv, $hasDiacritics) {
-    $dbResult = db_getLocWordlists($cuv, $hasDiacritics);
-    return Wordlist::populateFromDbResult($dbResult);
-  }
-
-  public static function createFromDbRow($dbRow) {
-    if (!$dbRow) {
-      return null;
-    }
-    return WordList::create($dbRow['wl_form'], $dbRow['wl_lexem'],
-                            $dbRow['wl_analyse'], $dbRow['wl_variant']);
-  }
-
-  public static function populateFromDbResult($dbResult) {
-    $result = array();
-    while ($dbRow = mysql_fetch_assoc($dbResult)) {
-      $result[] = WordList::createFromDbRow($dbRow);
-    }
-    mysql_free_result($dbResult);
-    return $result;
-  }
-
-  public function save() {
-    db_insertWordList($this);
-  }
-
   public static function deleteByLexemId($lexemId) {
-    db_deleteWordListsByLexemId($lexemId);
+    $if = new InflectedForm();
+    $ifs = $if->find("lexemId = {$lexemId}");
+    foreach ($ifs as $if) {
+      $if->delete();
+    }
   }
 }
 

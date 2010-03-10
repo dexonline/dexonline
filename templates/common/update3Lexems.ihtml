@@ -10,10 +10,10 @@
       {if $lexem->description}
         <Description>{$lexem->description|escape}</Description>
       {/if}
-      {foreach from=$wordLists item=wl}
+      {foreach from=$ifs item=if}
         <Inflection>
-          <IId>{$wl->inflectionId}</IId>
-          <IForm>{$wl->form|escape}</IForm>
+          <IId>{$if->inflectionId}</IId>
+          <IForm>{$if->form|escape}</IForm>
         </Inflection>
       {/foreach}
     </Lexem>

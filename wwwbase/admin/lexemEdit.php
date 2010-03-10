@@ -172,17 +172,17 @@ $definitions = Definition::loadByLexemId($lexem->id);
 $searchResults = SearchResult::mapDefinitionArray($definitions);
 $definitionLexem = text_unicodeToUpper(text_internalize($lexem->form, false));
 
-// Generate new wordlists, but do not overwrite the old ones.
-$wordLists = $lexem->generateParadigm();
-if (!is_array($wordLists)) {
-  $infl = Inflection::get("id = {$wordLists}");
+// Generate new inflected forms, but do not overwrite the old ones.
+$ifs = $lexem->generateParadigm();
+if (!is_array($ifs)) {
+  $infl = Inflection::get("id = {$ifs}");
   if (!$errorMessage) {
     $errorMessage = "Nu pot genera inflexiunea '".htmlentities($infl->description)."' " .
       "conform modelului {$lexem->modelType}{$lexem->modelNumber}.";
   }
 } else {
-  $wlMap = WordList::mapByInflectionId($wordLists);
-  smarty_assign('wlMap', $wlMap);
+  $ifMap = InflectedForm::mapByInflectionId($ifs);
+  smarty_assign('ifMap', $ifMap);
   smarty_assign('searchResults', $searchResults);
 }
 

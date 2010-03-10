@@ -6,3 +6,4 @@ Disallow: /search.php?cuv=muie
 Disallow: /definitie/muie
 Disallow: /index.php?skin=*
 Disallow: /download/dex-database.sql.gz
+Disallow: /scrabbleUniqueForms.php

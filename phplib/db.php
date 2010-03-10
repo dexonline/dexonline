@@ -261,19 +261,11 @@ function db_searchLexems($cuv, $hasDiacritics) {
   return logged_query($query);
 }
 
-function db_searchWordlists($cuv, $hasDiacritics) {
-  $field = $hasDiacritics ? 'wl_neaccentuat' : 'wl_utf8_general';
-  $query = "select distinct lexems.* from wordlist, lexems " .
-    "where wl_lexem = lexem_id and $field = '$cuv' " .
+function db_searchInflectedForms($cuv, $hasDiacritics) {
+  $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
+  $query = "select distinct lexems.* from InflectedForm, lexems " .
+    "where lexemId = lexem_id and $field = '$cuv' " .
     "order by lexem_neaccentuat";
-  return logged_query($query);
-}
-
-function db_getLocWordlists($cuv, $hasDiacritics) {
-  $field = $hasDiacritics ? 'wl_neaccentuat' : 'wl_utf8_general';
-  $query = "select distinct wordlist.* from wordlist, lexems " .
-    "where wl_lexem = lexem_id and $field = '$cuv' " .
-    "and lexem_is_loc order by lexem_neaccentuat";
   return logged_query($query);
 }
 
@@ -862,12 +854,12 @@ function db_getAmbiguousLexems() {
 }
 
 function db_getParticiplesForVerbModel($modelNumber, $participleNumber, $partInflId) {
-  $query = "select part.* from lexems part, wordlist, lexems infin " .
+  $query = "select part.* from lexems part, InflectedForm, lexems infin " .
     "where infin.lexem_model_type = 'VT' " .
     "and infin.lexem_model_no = '$modelNumber' " .
-    "and wl_lexem = infin.lexem_id " .
-    "and wl_analyse = $partInflId " .
-    "and part.lexem_neaccentuat = wl_neaccentuat " .
+    "and lexemId = infin.lexem_id " .
+    "and inflectionId = $partInflId " .
+    "and part.lexem_neaccentuat = formNoAccent " .
     "and part.lexem_model_type = 'A' " .
     "and part.lexem_model_no = '$participleNumber' " .
     "order by part.lexem_neaccentuat";
@@ -1081,47 +1073,6 @@ function db_deleteLexemDefinitionMapByLexemIdDefinitionId($lexemId,
 function db_deleteAllLexemDefinitionMaps() {
   $query = "delete from LexemDefinitionMap";
   logged_query($query);
-}
-
-function db_getWordListsByLexemId($lexemId) {
-  $query = "select * from wordlist where wl_lexem = $lexemId " .
-    "order by wl_analyse, wl_variant";
-  return logged_query($query);
-}
-
-function db_getWordListByLexemIdInflectionId($lexemId, $inflectionId) {
-  $query = "select * from wordlist where wl_lexem = $lexemId " .
-    "and wl_analyse = $inflectionId";
-  return logged_query($query);
-}
-
-function db_getWordListsByUnaccented($unaccented) {
-  $unaccented = addslashes($unaccented);
-  $query = "select * from wordlist where wl_neaccentuat = '$unaccented'";
-  return logged_query($query);
-}
-
-function db_insertWordList($wl) {
-  $query = sprintf("insert into wordlist set " .
-                   "wl_form = '%s', " .
-                   "wl_neaccentuat = '%s', " .
-                   "wl_utf8_general = '%s', " .
-                   "wl_lexem = '%d', " .
-                   "wl_analyse = '%d', " .
-                   "wl_variant = '%d'",
-                   addslashes($wl->form),
-                   addslashes($wl->unaccented),
-                   addslashes($wl->unaccented),
-                   $wl->lexemId,
-                   $wl->inflectionId,
-		   $wl->variant);
-  return logged_query($query);
-}
-
-function db_deleteWordListsByLexemId($lexemId) {
-  $lexemId = addslashes($lexemId);
-  $query = "delete from wordlist where wl_lexem = '$lexemId'";
-  return logged_query($query);
 }
 
 ?>

@@ -31,12 +31,12 @@ if ($locVersion && $modelType && $modelNumber) {
     $l = Lexem::loadByUnaccentedCanonicalModel($m->exponent, $modelType,
                                                $m->number);
     if ($l) {
-      $paradigm = WordList::loadByLexemIdMapByInflectionId($l->id);
+      $paradigm = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
     } else {
       $l = Lexem::create($m->exponent, $modelType, $m->number, '');
       $l->isLoc = true;
-      $wlArray = $l->generateParadigm();
-      $paradigm = WordList::mapByInflectionId($wlArray);
+      $ifArray = $l->generateParadigm();
+      $paradigm = InflectedForm::mapByInflectionId($ifArray);
     }
     $lexems[] = $l;
     $paradigms[] = $paradigm;

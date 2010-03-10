@@ -3,7 +3,7 @@
     <a href="#" onclick="abbrevWindow(); return false;">Abrevieri</a>
   </div>
 
-  {if $searchType == SEARCH_WORDLIST}
+  {if $searchType == SEARCH_INFLECTED}
     {if count($results) == 0}
       Am găsit numai definiții „neoficiale” pentru
     {elseif count($results) == 1}
@@ -99,12 +99,12 @@
     <div id="adsenseVertical">{include file="common/bits/adsense_skyscraper.ihtml"}</div>
   {/if}
 
-  {if $wordListMaps}
+  {if $ifMaps}
     <div class="{if $showParadigm}paradigmShow{else}paradigmHide{/if}" id="paradigmDiv">
-      {foreach from=$wordListMaps item=wlMap key=i}
+      {foreach from=$ifMaps item=ifMap key=i}
         {include file="common/bits/paradigm.ihtml"
                  lexem=$lexems[$i]
-                 wlMap=$wlMap}
+                 ifMap=$ifMap}
       {/foreach}
 	  <a class="paradigmLink" title="Link către această pagină, dar cu flexiunile expandate!" href="{$paradigmLink}">Link către această paradigmă</a> 
     </div>

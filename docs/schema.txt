@@ -89,28 +89,28 @@ Romanian, for example "Substantiv neutru, Nominativ-Acuzativ, plural,
 nearticulat".
 
 
-The wordlist table
+The InflectedForm table
 ------------------
 
 This stores all the inflected forms for all the lexems. All these
 forms are generated according to the lexem's model type and number.
 
-wl_form - The form, including an (') for the accent
-wl_neaccentuat, wl_utf8_general - Obtained from wl_form by removing
+form - The form, including an (') for the accent
+formNoAccent, formUtf8General - Obtained from form by removing
   the apostrophe. Same rationale as for lexem_neaccentuat and
   lexem_utf8_general.
-wl_lexem - Matches lexems.lexem_id
-wl_analyse - Matches Inflection.id
-wl_variant - 0-based counter for situations where multiple forms are
+lexemId - Matches lexems.lexem_id
+inflectionId - Matches Inflection.id
+variant - 0-based counter for situations where multiple forms are
   accepted for the same inflection (e.g. "cântaserăm" / "cântasem",
   both accepted for the past perfect, plural, 1st person).
 
 EXAMPLE: Here is a SQL query that lists the paradigm for "știucă":
 
-select wl_form, Inflection.description, wl_variant
-  from lexems, wordlist, Inflection
-  where lexem_id = wl_lexem
-    and wl_analyse = Inflection.id
+select form, Inflection.description, variant
+  from lexems, InflectedForm, Inflection
+  where lexem_id = lexemId
+    and inflectionId = Inflection.id
     and lexem_neaccentuat = 'știucă'
   order by Inflection.id;
 
@@ -177,7 +177,7 @@ md_id - Unique numeric ID.
 md_model - Matches models.model_id.
 md_infl - Matches Inflection.id.
 md_variant - 0-based counter where multiple variants are allowed for
-  the same md_infl. Matches wordlist.wl_variant.
+  the same md_infl. Matches InflectedForm.variant.
 md_order - When multiple letter transformations are necessary to
   obtain the inflected form from the base form, the order in which we
   apply the transforms is important, hence this field (0-based).

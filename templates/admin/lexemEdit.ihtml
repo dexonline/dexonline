@@ -183,9 +183,8 @@
       </div>
     {/if}
 
-    {if $wlMap && !$errorMessage}
-      {include file="common/bits/paradigm.ihtml"
-               lexem=$lexem wlMap=$wlMap}
+    {if $ifMap && !$errorMessage}
+      {include file="common/bits/paradigm.ihtml" lexem=$lexem ifMap=$ifMap}
     {/if}
 
     <div class="lexemSection">

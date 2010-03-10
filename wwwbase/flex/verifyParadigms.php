@@ -43,7 +43,7 @@ if ($modelType) {
 if ($modelType) {
   $models = Model::loadByType($modelType);
   $lexems = array();
-  $wlMaps = array();
+  $ifMaps = array();
 
   foreach ($models as $model) {
     // Load the distinct 3-letter suffixes, in descending order of the
@@ -68,17 +68,17 @@ if ($modelType) {
     $lexems[] = $lexemArray;
 
     // Now for each lexem in $lexemArray, load the list of inflections.
-    $wlMapArray = array();
+    $ifMapArray = array();
     foreach ($lexemArray as $l) {
-      $wlMapArray[] = WordList::loadByLexemIdMapByInflectionId($l->id);
+      $ifMapArray[] = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
     }
-    $wlMaps[] = $wlMapArray;
+    $ifMaps[] = $ifMapArray;
   }
 
   smarty_assign('modelType', $modelType);
   smarty_assign('models', $models);
   smarty_assign('lexems', $lexems);
-  smarty_assign('wlMaps', $wlMaps);
+  smarty_assign('ifMaps', $ifMaps);
 }
 
 smarty_assign('modelTypes', ModelType::loadCanonical());

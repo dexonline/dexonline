@@ -46,7 +46,7 @@
   
         {foreach from=$models item=model key=i}
           {assign var="lexemArray" value=$lexems[$i]}
-          {assign var="wlMapArray" value=$wlMaps[$i]}
+          {assign var="ifMapArray" value=$ifMaps[$i]}
           {assign var="no" value=`$model->number`}
           <div class="verifyModel">
             <span class="modelName">
@@ -72,7 +72,7 @@
                        value="{$l->id}"/>
                 {include file="common/bits/paradigm.ihtml"
                          lexem=$l
-                         wlMap=$wlMapArray[$j]}
+                         ifMap=$ifMapArray[$j]}
               {/foreach}
       
               <div class="buttons">

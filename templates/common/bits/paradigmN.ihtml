@@ -15,22 +15,22 @@
     <td class="inflection">singular</td>
     <td class="form">
       {assign var=inflId value=`$baseInflId`}
-      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
     </td>
     <td class="form">
       {assign var=inflId value=`$baseInflId+4`}
-      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
     </td>
   </tr>
   <tr>
     <td class="inflection">plural</td>
     <td class="form">
       {assign var=inflId value=`$baseInflId+2`}
-      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
     </td>
     <td class="form">
       {assign var=inflId value=`$baseInflId+6`}
-      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
     </td>
   </tr>
   <tr>
@@ -38,22 +38,22 @@
     <td class="inflection">singular</td>
     <td class="form">
       {assign var=inflId value=`$baseInflId+1`}
-      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
     </td>
     <td class="form">
       {assign var=inflId value=`$baseInflId+5`}
-      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
     </td>
   </tr>
   <tr>
     <td class="inflection">plural</td>
     <td class="form">
       {assign var=inflId value=`$baseInflId+3`}
-      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
     </td>
     <td class="form">
       {assign var=inflId value=`$baseInflId+7`}
-      {include file="common/bits/wlArray.ihtml" wlArray=$wlMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
     </td>
   </tr>
 </table>

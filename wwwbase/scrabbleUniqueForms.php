@@ -3,18 +3,16 @@ require_once("../phplib/util.php");
 ini_set('max_execution_time', '3600');
 ini_set("memory_limit", "128000000");
 
-$query = "select wordlist.* from wordlist, lexems " .
-  "where wl_lexem = lexem_id " .
+$query = "select InflectedForm.formNoAccent from InflectedForm, lexems " .
+  "where lexemId = lexem_id " .
   "and lexem_is_loc " .
-  "and char_length(wl_neaccentuat) between 2 and 15";
+  "and char_length(formNoAccent) between 2 and 15";
 $dbResult = mysql_query($query);
 
 ob_start();
 
-while ($dbRow = mysql_fetch_assoc($dbResult)) {
-  $wl = WordList::createFromDbRow($dbRow);
-  $form = $wl->unaccented;
-  print "$form\r\n";
+while ($dbRow = mysql_fetch_row($dbResult)) {
+  print "{$dbRow[0]}\r\n";
 }
 
 $s = ob_get_contents();

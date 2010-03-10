@@ -46,6 +46,6 @@
     </div>
     {include file="common/bits/paradigm.ihtml"
              lexem=$lexems[$i]
-             wlMap=$paradigms[$i]}
+             ifMap=$paradigms[$i]}
   {/foreach}
 {/if}

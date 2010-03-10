@@ -15,13 +15,13 @@ $inflections = Inflection::loadByModelType($modelType);
 $model = Model::loadByTypeNumber($modelType, $modelNumber);
 $exponent = $model->exponent;
 $lexem = Lexem::create($exponent, $modelType, $modelNumber, '');
-$wordLists = $lexem->generateParadigm();
+$ifs = $lexem->generateParadigm();
 $forms = array();
 foreach ($inflections as $infl) {
   $forms[$infl->id] = array();
 }
-foreach($wordLists as $wl) {
-  $forms[$wl->inflectionId][] = $wl->form;
+foreach($ifs as $if) {
+  $forms[$if->inflectionId][] = $if->form;
 }
 
 $participleNumber = ($modelType == 'V')
@@ -134,9 +134,9 @@ if ($previewButton || $confirmButton) {
                                                       $participleNumber);
     foreach ($participles as $p) {
       $p->modelNumber = $newParticipleNumber;
-      $wordLists = $p->generateParadigm();
-      if (is_array($wordLists)) {
-        $participleParadigms[] = WordList::mapByInflectionId($wordLists);
+      $ifs = $p->generateParadigm();
+      if (is_array($ifs)) {
+        $participleParadigms[] = InflectedForm::mapByInflectionId($ifs);
       } else {
         $errorMessage[] = "Nu pot declina participiul \"".htmlentities($p->form)."\" " .
           "conform modelului A$newParticipleNumber.";

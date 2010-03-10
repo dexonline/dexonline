@@ -25,11 +25,11 @@ vreunul din cuvintele din LOC generează acea formă.<br/><br/>
       <li>Niciun cuvânt din LOC {$selectedLocVersion|escape} nu generează forma
         <b>{$form|escape}.</b></li>
     {else}
-      {foreach from=$wordlists item=wl key=i}
+      {foreach from=$ifs item=if key=i}
         {assign var=l value=`$lexems[$i]`}
         {assign var=infl value=`$inflections[$i]`}
         <li>
-          <b>{$wl->form|escape}</b> provine din
+          <b>{$if->form|escape}</b> provine din
           <b>{$l->form|escape}</b>
           {$l->modelType}{$l->modelNumber}{$l->restriction}
           ({$infl->description|escape})

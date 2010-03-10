@@ -74,25 +74,25 @@ if (!$hasInvariableModel) {
 // to each possible model.
 $lexems = Lexem::loadTemporaryBySuffix($reverseSuffix);
 
-// $wlMapMatrix[$i][$j] = array of WordLists for lexem $i and model $j
-$wlMapMatrix = array();
+// $ifMapMatrix[$i][$j] = array of InflectedForms for lexem $i and model $j
+$ifMapMatrix = array();
 foreach ($lexems as $l) {
   $origModelType = $l->modelType;
   $origModelNumber = $l->modelNumber;
-  $wlMapArray = array();
+  $ifMapArray = array();
   foreach ($models as $m) {
     $l->modelType = $m->modelType;
     $l->modelNumber = $m->number;
-    $wl = $l->generateParadigm();
-    if (is_array($wl)) {
-      $wlMapArray[] = WordList::mapByInflectionId($wl);
+    $if = $l->generateParadigm();
+    if (is_array($if)) {
+      $ifMapArray[] = InflectedForm::mapByInflectionId($if);
     } else {
-      $wlMapArray[] = null;
+      $ifMapArray[] = null;
     }
   }
   $l->modelType = $origModelType;
   $l->modelNumber = $origModelNumber;
-  $wlMapMatrix[] = $wlMapArray;
+  $ifMapMatrix[] = $ifMapArray;
 }
 
 // Load the definitions for each lexem
@@ -106,7 +106,7 @@ smarty_assign('suffix', $suffix);
 smarty_assign('lexems', $lexems);
 smarty_assign('models', $models);
 smarty_assign('searchResults', $searchResults);
-smarty_assign('wlMapMatrix', $wlMapMatrix);
+smarty_assign('ifMapMatrix', $ifMapMatrix);
 smarty_assign('allStatuses', util_getAllStatuses());
 smarty_assign('sectionTitle', "Sufix: $suffix");
 smarty_assign('recentLinks', RecentLink::loadForUser());

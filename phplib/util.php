@@ -117,7 +117,7 @@ function util_defineConstants() {
 
   define("SEARCH_REGEXP", 0);
   define("SEARCH_MULTIWORD", 1);
-  define("SEARCH_WORDLIST", 2);
+  define("SEARCH_INFLECTED", 2);
   define("SEARCH_APPROXIMATE", 3);
   define("SEARCH_DEF_ID", 4);
   define("SEARCH_LEXEM_ID", 5);

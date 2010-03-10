@@ -13,7 +13,7 @@ if (!lock_acquire(LOCK_FULL_TEXT_INDEX)) {
 log_scriptLog("Clearing table FullTextIndex.");
 mysql_query('delete from FullTextIndex');
 
-$wlMap = array();
+$ifMap = array();
 $dbResult = mysql_query('select * from Definition where Status = 0');
 $numDefs = mysql_num_rows($dbResult);
 $defsSeen = 0;
@@ -32,11 +32,11 @@ while (($dbRow = mysql_fetch_assoc($dbResult)) != null) {
     if (text_isStopWord($word, true)) {
       // Nothing, this word is ignored.
     } else {
-      if (!array_key_exists($word, $wlMap)) {
+      if (!array_key_exists($word, $ifMap)) {
         cacheWordForm($word);
       }
-      if (array_key_exists($word, $wlMap)) {
-        $lexemList = split(',', $wlMap[$word]);
+      if (array_key_exists($word, $ifMap)) {
+        $lexemList = split(',', $ifMap[$word]);
         for ($i = 0; $i < count($lexemList); $i += 2) {
           fwrite($handle, $lexemList[$i] . "\t" . $lexemList[$i + 1] . "\t" .
                  $def->id . "\t" . $position . "\n");
@@ -52,7 +52,7 @@ while (($dbRow = mysql_fetch_assoc($dbResult)) != null) {
      $runTime = debug_getRunningTimeInMillis() / 1000;
      $speed = round($defsSeen / $runTime);
      log_scriptLog("$defsSeen of $numDefs definitions indexed ($speed defs/sec). " .
-                   "Word map has " . count($wlMap) . " entries. " .
+                   "Word map has " . count($ifMap) . " entries. " .
                    "Memory used: " . round(memory_get_usage() / 1048576, 1) . " MB.");
   }
 }
@@ -102,15 +102,15 @@ function extractWords($text) {
 }
 
 function cacheWordForm($word) {
-  global $wlMap;
-  $dbResult = mysql_query("select wl_lexem, wl_analyse from wordlist where wl_neaccentuat = '$word'");
+  global $ifMap;
+  $dbResult = mysql_query("select lexemId, inflectionId from InflectedForm where formNoAccent = '$word'");
   $value = '';
   while (($dbRow = mysql_fetch_assoc($dbResult)) != null) {
-    $value .= ',' . $dbRow['wl_lexem'] . ',' . $dbRow['wl_analyse'];
+    $value .= ',' . $dbRow['lexemId'] . ',' . $dbRow['inflectionId'];
   }
   mysql_free_result($dbResult);
   if ($value) {
-    $wlMap[$word] = substr($value, 1);
+    $ifMap[$word] = substr($value, 1);
   }
 }
 

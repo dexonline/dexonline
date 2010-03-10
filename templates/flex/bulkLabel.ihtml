@@ -115,8 +115,8 @@
             <!-- Div containing all the paradigms. Only one of them will -->
             <!-- be visible at any time. -->
             <div id="paradigms_{$l->id}">
-              {assign var="wlMapArray" value="`$wlMapMatrix[$lIter]`"}
-              {foreach from=$wlMapArray item=wlMap key=pIter}
+              {assign var="ifMapArray" value="`$ifMapMatrix[$lIter]`"}
+              {foreach from=$ifMapArray item=ifMap key=pIter}
                 {if $pIter}
                   {assign var="display" value="none"}
                 {else}
@@ -128,7 +128,7 @@
                   {include file="common/bits/paradigm.ihtml"
                            modelType=$m->modelType
                            lexem=$l
-                           wlMap=$wlMap}
+                           ifMap=$ifMap}
                 </div>
               {/foreach}
             </div>

@@ -154,14 +154,13 @@
       {/if}
 
       {if count($participles)}
-        <h3>Participii regenerate conform modelului
-          A{$newParticipleNumber}:</h3>
+        <h3>Participii regenerate conform modelului A{$newParticipleNumber}:</h3>
 
         {foreach from=$participles item=p key=i}
           {if $participleParadigms[$i]}
             {include file="common/bits/paradigm.ihtml"
                      lexem=$p
-                     wlMap=$participleParadigms[$i]
+                     ifMap=$participleParadigms[$i]
                      modelType="A"}
           {/if}
         {/foreach}

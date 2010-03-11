@@ -8,7 +8,7 @@ $def = Definition::get("id = {$defId}");
 if ($def && $def->id) {
   $def->status = ST_DELETED;
   $def->save();
-  Typo::deleteAllByDefinitionId($def->id);
+  db_execute("delete from Typo where definitionId = {$def->id}");
 
   // TODO: This code replicates code in definitionEdit.php
   // If by deleting this definition, any associated lexems become unassociated, delete them

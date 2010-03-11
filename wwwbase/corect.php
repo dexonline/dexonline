@@ -8,6 +8,7 @@ smarty_assign('slick_selected', 'corect');
 $action = util_getRequestParameter('action');
 $id = util_getRequestIntParameter('guideEntryId');
 $guideEntry = new GuideEntry();
+$guideEntry->status = ST_ACTIVE;
 if ($id) {
   $guideEntry->load("id={$id}");
 }
@@ -53,6 +54,6 @@ if ($action == 'delete') {
   }
 }
 
-smarty_assign('guideEntries', GuideEntry::loadAllActive());
+smarty_assign('guideEntries', db_find(new GuideEntry(), "status = 0"));
 smarty_displayCommonPageWithSkin('corect.ihtml');
 ?>

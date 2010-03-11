@@ -5,8 +5,7 @@ require_once "../phplib/util.php";
 log_scriptLog('Running purgeOldCookies.php');
 
 $thirtyTwoDaysAgo = time() - 31 * 24 * 3600;
-$c = new Cookie();
-$cookies = $c->find("createDate < $thirtyTwoDaysAgo");
+$cookies = db_find(new Cookie(), "createDate < $thirtyTwoDaysAgo");
 foreach ($cookies as $cookie) {
   $cookie->delete();
 }

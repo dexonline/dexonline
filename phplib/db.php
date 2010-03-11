@@ -102,6 +102,10 @@ function db_getObjects($obj, $dbResult) {
   return $result;
 }
 
+// One-line syntactic sugar for find()
+function db_find($obj, $where) {
+  return $obj->find($where);
+}
 
 function db_getSingleValue($query) {
   $recordSet = db_execute($query);
@@ -250,32 +254,6 @@ function db_getUpdate3Lexems($modDate) {
     "where ModDate >= '$modDate' " .
     "order by ModDate, lexem_id";
   return logged_query($query);
-}
-
-function db_getTypoById($id) {
-  $query = "select * from Typo where Id = '$id'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_insertTypo($typo) {
-  $query = sprintf("insert into Typo set " .
-                   "DefinitionId = '%d', " .
-                   "Problem = '%s'",
-                   $typo->definitionId,
-                   addslashes($typo->problem));
-  return logged_query($query);
-}
-
-function db_getTyposByDefinitionId($definitionId) {
-  return logged_query("select * from Typo where DefinitionId = '$definitionId'");
-}
-
-function db_deleteTyposByDefinitionId($definitionId) {
-  return logged_query("delete from Typo where DefinitionId = '$definitionId'");
-}
-
-function db_deleteTypo($typo) {
-  logged_query("delete from Typo where Id = {$typo->id}");
 }
 
 function db_updateLexemModDate($lexemId, $modDate) {

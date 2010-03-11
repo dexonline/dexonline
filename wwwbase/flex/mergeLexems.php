@@ -47,8 +47,7 @@ $lexems = array();
 while ($row = mysql_fetch_assoc($dbResult)) {
   $lexem = Lexem::createFromDbRow($row);
   $lexem->matches = array();
-  $if = new InflectedForm();
-  $ifs = $if->find("formNoAccent = '{$lexem->unaccented}'");
+  $ifs = db_find(new InflectedForm(), "formNoAccent = '{$lexem->unaccented}'");
 
   foreach ($ifs as $if) {
     if (in_array($if->inflectionId, $PLURAL_INFLECTIONS) && $if->lexemId != $lexem->id) {

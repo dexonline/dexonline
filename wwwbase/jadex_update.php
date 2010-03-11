@@ -24,7 +24,7 @@ header('Content-Type: text/plain;charset=UTF-8');
 $timestamp = util_getRequestIntParameter('timestamp');
 $defDbResult = db_execute("select * from Definition where status = " . ST_ACTIVE . " and modDate >= '$timestamp' order by modDate, id");
 $lexemDbResult = Lexem::loadNamesByMinModDate($timestamp);
-$sources = Source::findAll('');
+$sources = db_find(new Source(), '1');
 userCache_init();
 $currentLexem = array(0, ''); // Force loading a lexem on the next comparison.
 

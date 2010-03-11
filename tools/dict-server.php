@@ -83,7 +83,7 @@ function handle_line($fd) {
       socket_write($fd, ".\r\n");
       socket_write($fd, "250 ok\r\n");
     } else if ($tok == "db" || $tok == "databases") {
-      $sources = Source::findAll('');
+      $sources = db_find(new Source(), '1');
       socket_write($fd, "110 " . count($sources) .
 		   " databases present\r\n");
       foreach ($sources as $source) {

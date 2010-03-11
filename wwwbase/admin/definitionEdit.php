@@ -105,7 +105,7 @@ if ($acceptButton || $moveButton) {
     
     // Accept the definition and delete the typos associated with it.
     $definition->save();
-    Typo::deleteAllByDefinitionId($definition->id);
+    db_execute("delete from Typo where definitionId = {$definition->id}");
     if ($comment) {
       $comment->save();
     }
@@ -152,10 +152,10 @@ smarty_assign('source', $source);
 smarty_assign('user', User::get("id = {$definition->userId}"));
 smarty_assign('comment', $comment);
 smarty_assign('lexems', $lexems);
-smarty_assign('typos', Typo::loadByDefinitionId($definition->id));
+smarty_assign('typos', db_find(new Typo(), "definitionId = {$definition->id}"));
 smarty_assign('homonyms', Lexem::loadSetHomonyms($lexems));
 smarty_assign("allStatuses", util_getAllStatuses());
-smarty_assign("allModeratorSources", Source::findAll('canModerate'));
+smarty_assign("allModeratorSources", db_find(new Source(), 'canModerate'));
 smarty_assign('recentLinks', RecentLink::loadForUser());
 smarty_displayWithoutSkin('admin/definitionEdit.ihtml');
 

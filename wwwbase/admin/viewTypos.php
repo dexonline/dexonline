@@ -4,8 +4,7 @@ util_assertModeratorStatus();
 util_assertNotMirror();
 RecentLink::createOrUpdate('Greșeli de tipar');
 
-$d = new Definition();
-$defs = $d->find("id in (select DefinitionId from Typo) order by lexicon");
+$defs = db_find(new Definition(), "id in (select definitionId from Typo) order by lexicon");
 
 smarty_assign('searchResults', SearchResult::mapDefinitionArray($defs));
 smarty_assign('sectionTitle', 'Definiții cu greșeli de tipar');

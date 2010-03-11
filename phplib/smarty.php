@@ -11,7 +11,7 @@ function smarty_init() {
   $smarty->assign('wwwRoot', util_getWwwRoot());
   $smarty->assign('cssRoot', util_getCssRoot());
   $smarty->assign('imgRoot', util_getImgRoot());
-  $smarty->assign('sources', Source::findAll(''));
+  $smarty->assign('sources', db_find(new Source(), '1'));
   $smarty->assign('is_connected', session_userExists());
   $smarty->assign('is_moderator', session_userIsModerator());
   $smarty->assign('is_flex_moderator', session_userIsFlexModerator());
@@ -22,8 +22,7 @@ function smarty_init() {
   $wordCountRough = $wordCount - ($wordCount % 10000);
   $smarty->assign('words_total', util_formatNumber($wordCount, 0));
   $smarty->assign('words_rough', util_formatNumber($wordCountRough, 0));
-  $smarty->assign('words_last_month',
-		  util_formatNumber(Definition::getWordCountLastMonth(), 0));
+  $smarty->assign('words_last_month', util_formatNumber(Definition::getWordCountLastMonth(), 0));
   $smarty->assign('contact_email', pref_getContactEmail());
   $smarty->assign('debug', session_isDebug());
   $smarty->assign('show_search_box', 1);

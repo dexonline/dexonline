@@ -15,16 +15,6 @@ class BaseObject extends ADOdb_Active_Record {
 }
 
 class GuideEntry extends BaseObject {
-  function __construct() {
-    parent::__construct();
-    $this->status = ST_ACTIVE;
-  }
-
-  public static function loadAllActive() {
-    $ge = new GuideEntry();
-    return $ge->find("status = 0");
-  }
-
   public function normalize() {
     $this->correct = text_internalizeDefinition($this->correct);
     $this->wrong = text_internalizeDefinition($this->wrong);
@@ -43,11 +33,6 @@ class Source extends BaseObject {
     $obj = new Source();
     $obj->load($where);
     return $obj->id ? $obj : null;
-  }
-
-  public static function findAll($where) {
-    $s = new Source();
-    return $s->find($where);
   }
 }
 
@@ -196,9 +181,8 @@ class Definition extends BaseObject {
     if ($status == ST_DELETED) {
       // Deleted definitions are not associated with any lexem
       $collate = $hasDiacritics ? '' : 'collate utf8_general_ci';
-      $d = new Definition();
-      return $d->find("lexicon $collate $regexp and status = " . ST_DELETED . " and createDate between $beginTime and $endTime " .
-                      "$sourceClause $userClause order by lexicon, sourceId limit 500");
+      return db_find(new Definition(), "lexicon $collate $regexp and status = " . ST_DELETED . " and createDate between $beginTime and $endTime " .
+                     "$sourceClause $userClause order by lexicon, sourceId limit 500");
     } else {
       $field = $hasDiacritics ? 'lexem_neaccentuat' : 'lexem_utf8_general';
       $dbResult = db_execute("select distinct Definition.* from lexems join LexemDefinitionMap on lexem_id = LexemDefinitionMap.LexemId " .
@@ -278,51 +262,7 @@ class Definition extends BaseObject {
 }
 
 
-class Typo {
-  public $id;
-  public $definitionId;
-  public $problem;
-
-  public static function load($id) {
-    $result = new Typo();
-    $dbRow = db_getTypoById($id);
-    $result->populateFromDbRow($dbRow);
-    return $result;
-  }
-
-  public static function loadByDefinitionId($definitionId) {
-    $dbResult = db_getTyposByDefinitionId($definitionId);
-    return Typo::populateFromDbResult($dbResult);
-  }
-
-  public static function populateFromDbResult($dbResult) {
-    $result = array();
-    while ($dbRow = mysql_fetch_assoc($dbResult)) {
-      $typo = new Typo();
-      $typo->populateFromDbRow($dbRow);
-      $result[] = $typo;
-    }
-    mysql_free_result($dbResult);
-    return $result;
-  }
-
-  private function populateFromDbRow($dbRow) {
-    $this->id = $dbRow['Id'];
-    $this->definitionId = $dbRow['DefinitionId'];
-    $this->problem = $dbRow['Problem'];
-  }
-
-  public function save() {
-    db_insertTypo($this);
-  }
-
-  public function delete() {
-    db_deleteTypo($this);
-  }
-
-  public static function deleteAllByDefinitionId($definitionId) {
-    db_deleteTyposByDefinitionId($definitionId);
-  }
+class Typo extends BaseObject {
 }
 
 class SearchResult {
@@ -340,7 +280,7 @@ class SearchResult {
       $result->definition = $definition;
       $result->user = User::get("id = $definition->userId");
       $result->source = Source::get("id={$definition->sourceId}");
-      $result->typos = Typo::loadByDefinitionId($definition->id);
+      $result->typos = db_find(new Typo(), "definitionId = {$definition->id}");
       $result->comment = Comment::get("definitionId = {$definition->id} and status = " . ST_ACTIVE);
       if ($result->comment) {
         $result->commentAuthor = User::get("id = {$result->comment->userId}");
@@ -463,8 +403,7 @@ class RecentLink extends BaseObject {
   // Also deletes the ones in excess of MAX_RECENT_LINKS
   public static function loadForUser() {
     $userId = session_getUserId();
-    $rl = new RecentLink();
-    $recentLinks = $rl->find("userId = {$userId} order by visitDate desc");
+    $recentLinks = db_find(new RecentLink(), "userId = {$userId} order by visitDate desc");
     while (count($recentLinks) > MAX_RECENT_LINKS) {
       $deadLink = array_pop($recentLinks);
       $deadLink->delete();
@@ -1183,8 +1122,7 @@ class Lexem {
 
   public function regeneratePastParticiple($adjectiveModel) {
     $infl = Inflection::loadParticiple();
-    $if = new InflectedForm();
-    $ifs = $if->find("lexemId = {$this->id} and inflectionId = {$infl->id}");
+    $ifs = db_find(new InflectedForm(), "lexemId = {$this->id} and inflectionId = {$infl->id}");
     $model = Model::loadByTypeNumber('A', $adjectiveModel);
     
     foreach ($ifs as $if) {
@@ -1222,8 +1160,7 @@ class Lexem {
 
   public function regenerateLongInfinitive() {
     $infl = Inflection::loadLongInfinitive();
-    $if = new InflectedForm();
-    $ifs = $if->find("lexemId = {$this->id} and inflectionId = {$infl->id}");
+    $ifs = db_find(new InflectedForm(), "lexemId = {$this->id} and inflectionId = {$infl->id}");
     $f107 = Model::loadByTypeNumber('F', 107);
     $f113 = Model::loadByTypeNumber('F', 113);
     
@@ -1345,8 +1282,7 @@ class Lexem {
    * Arguments for long infinitives: 'F', ('107', '113').
    */
   private function _deleteDependentModels($inflId, $modelType, $modelNumbers) {
-    $if = new InflectedForm();
-    $ifs = $if->find("lexemId = {$this->id} and inflectionId = {$inflId}");
+    $ifs = db_find(new InflectedForm(), "lexemId = {$this->id} and inflectionId = {$inflId}");
     $ldms = LexemDefinitionMap::loadByLexemId($this->id);
 
     $defHash = array();
@@ -1562,8 +1498,7 @@ class InflectedForm extends BaseObject {
   }
 
   public static function loadByLexemId($lexemId) {
-    $if = new InflectedForm();
-    return $if->find("lexemId = {$lexemId} order by inflectionId, variant");
+    return db_find(new InflectedForm(), "lexemId = {$lexemId} order by inflectionId, variant");
   }
 
   public static function loadByLexemIdMapByInflectionId($lexemId) {
@@ -1584,8 +1519,7 @@ class InflectedForm extends BaseObject {
   }
 
   public static function deleteByLexemId($lexemId) {
-    $if = new InflectedForm();
-    $ifs = $if->find("lexemId = {$lexemId}");
+    $ifs = db_find(new InflectedForm(), "lexemId = {$lexemId}");
     foreach ($ifs as $if) {
       $if->delete();
     }

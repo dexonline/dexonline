@@ -20,11 +20,10 @@ if ($export && util_isDesktopBrowser() && !session_getUser()) {
 }
 
 if ($export == 'sources') {
-  smarty_assign('sources', Source::findAll(''));
+  smarty_assign('sources', db_find(new Source(), '1'));
   smarty_displayWithoutSkin('common/update3Sources.ihtml');
 } else if ($export == 'inflections') {
-  $i = new Inflection();
-  smarty_assign('inflections', $i->find('1 order by Id'));
+  smarty_assign('inflections', db_find(new Inflection(), '1 order by Id'));
   smarty_displayWithoutSkin('common/update3Inflections.ihtml');
 } else if ($export == 'definitions') {
   userCache_init();

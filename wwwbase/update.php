@@ -28,19 +28,18 @@ if ($timestamp !== null && util_isDesktopBrowser() && !session_getUser()) {
 
 header('Content-type: text/xml');
 
-$defDbResult = Definition::loadByMinModDate($timestamp);
+$defDbResult = db_execute("select * from Definition where status = " . ST_ACTIVE . " and modDate >= '$timestamp' order by modDate, id");
 $lexemDbResult = Lexem::loadNamesByMinModDate($timestamp);
 $sourceMap = createSourceMap();
 userCache_init();
 $currentLexem = array(0, ''); // Force loading a lexem on the next comparison.
 
 smarty_assign('defDbResult', $defDbResult);
-smarty_assign('numResults', mysql_num_rows($defDbResult));
+smarty_assign('numResults', $defDbResult->RowCount());
 smarty_assign('currentTimestamp', time());
 smarty_assign('version', $version);
 smarty_assign('includeNameWithDiacritics', hasFlag('a'));
 smarty_displayWithoutSkin('common/update.ihtml');
-mysql_free_result($defDbResult);
 return;
 
 
@@ -79,8 +78,9 @@ function fetchNextRow() {
   global $sourceMap;
   global $currentLexem;
 
-  $dbRow = mysql_fetch_assoc($defDbResult);
-  $def = Definition::createFromDbRow($dbRow);
+  $def = new Definition();
+  $def->set($defDbResult->fields);
+  $defDbResult->MoveNext();
   $def->internalRep = text_xmlizeRequired($def->internalRep);
   if (hasFlag('d')) {
     $def->internalRep = text_xmlizeOptional($def->internalRep);

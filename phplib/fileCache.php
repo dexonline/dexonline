@@ -1,7 +1,6 @@
 <?php
 define('CACHE_EXPIRATION_SECONDS', 86400);
 define('CACHE_PREFIX', '/tmp/dexcache_');
-define('CKEY_REGEXP_TIMESTAMP', 'regexp_timestamp');
 define('CKEY_TOP', 'top');
 define('CKEY_WORDS_ALL', 'words_all');
 define('CKEY_WORDS_LAST_MONTH', 'words_last_month');
@@ -65,28 +64,6 @@ function fileCache_getTop() {
 
 function fileCache_putTop($value) {
   fileCache_put(CKEY_TOP, $value);
-}
-
-function fileCache_getRegexpTimestamp() {
-  return fileCache_get(CKEY_REGEXP_TIMESTAMP);
-}
-
-function fileCache_putRegexpTimestamp($ts) {
-  return fileCache_put(CKEY_REGEXP_TIMESTAMP, $ts);
-}
-
-function _fileCache_getKeyForQuery($cuv, $sourceId) {
-  return "query_" . md5($cuv) . "_$sourceId";
-}
-
-function fileCache_getQueryResults($cuv, $sourceId) {
-  $key = _fileCache_getKeyForQuery($cuv, $sourceId);
-  return fileCache_get($key);
-}
-
-function fileCache_putQueryResults($cuv, $sourceId, $defIds) {
-  $key = _fileCache_getKeyForQuery($cuv, $sourceId);
-  fileCache_put($key, $defIds);
 }
 
 function _fileCache_getKeyForModeratorIp($ip) {

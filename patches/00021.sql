@@ -1,0 +1,11 @@
+alter table Definition change Id id int not null auto_increment,
+  change UserId userId int(11) not null,
+  change SourceId sourceId int(11) not null,
+  change Lexicon lexicon varchar(100),
+  change Displayed displayed int(11) not null,
+  change InternalRep internalRep text,
+  change HtmlRep htmlRep text,
+  change Status status int(11) not null,
+  change CreateDate createDate int(11) not null,
+  change ModDate modDate int(11) not null,
+  change ModUserId modUserId int(11) not null;

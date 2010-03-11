@@ -20,7 +20,7 @@ if (!$definitionId) {
   return;
 }
 
-$definition = Definition::load($definitionId);
+$definition = Definition::get("id = {$definitionId}");
 $comment = Comment::get("definitionId = '{$definitionId}' and status = " . ST_ACTIVE);
 $oldInternalRep = $definition->internalRep;
 

@@ -22,17 +22,17 @@ definitions. It has attributes like Name, Author, Publisher and Year.
 The Definition table
 --------------------
 
-Id - Unique numeric ID.
-UserId - Matches User.Id.
-SourceId - Matches Source.Id.
-Lexicon - A bit of text extracted from the beginnning of the
+id - Unique numeric ID.
+userId - Matches User.id.
+sourceId - Matches Source.id.
+lexicon - A bit of text extracted from the beginnning of the
   definition. This is usually, though not always, equal to the term
   being defined. It is not used for searching, but only for sorting
   definitions.
-Displayed - Number of times the definition was displayed.
-InternalRep - The actual text.
-HtmlRep - HTML-formatted text, ready for printing in a browser.
-Status - 0 = active, 1 = temporary (not yet reviewed), 2 = deleted
+displayed - Number of times the definition was displayed.
+internalRep - The actual text.
+htmlRep - HTML-formatted text, ready for printing in a browser.
+status - 0 = active, 1 = temporary (not yet reviewed), 2 = deleted
 
 
 The lexems table

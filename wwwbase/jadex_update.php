@@ -22,7 +22,7 @@ if ( strstr($acceptEncoding, 'gzip') === FALSE ) {
 header('Content-Type: text/plain;charset=UTF-8');
 
 $timestamp = util_getRequestIntParameter('timestamp');
-$defDbResult = Definition::loadByMinModDate($timestamp);
+$defDbResult = db_execute("select * from Definition where status = " . ST_ACTIVE . " and modDate >= '$timestamp' order by modDate, id");
 $lexemDbResult = Lexem::loadNamesByMinModDate($timestamp);
 $sources = Source::findAll('');
 userCache_init();
@@ -33,7 +33,7 @@ print "<jadexUpdate version='1.0'>\n";
 // timestamp
 print time() . "\n";
 // total results expected
-print mysql_num_rows($defDbResult) . "\n";
+print $defDbResult->RowCount() . "\n";
 // sources
 foreach ( $sources as $source ) {
 	// marker
@@ -48,8 +48,10 @@ foreach ( $sources as $source ) {
 	print "</source>\n";
 }
 
-while ( $dbRow = mysql_fetch_assoc($defDbResult) ) {
-	$def = Definition::createFromDbRow($dbRow);
+while (!$defDbResult->EOF) {
+  $def = new Definition();
+  $def->set($defDbResult->fields);
+  $defDbResult->MoveNext();
 	$def->internalRep = text_xmlizeRequired($def->internalRep);
 
 	$lexemNames = array();

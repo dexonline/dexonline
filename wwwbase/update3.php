@@ -28,10 +28,12 @@ if ($export == 'sources') {
   smarty_displayWithoutSkin('common/update3Inflections.ihtml');
 } else if ($export == 'definitions') {
   userCache_init();
-  $defDbResult = db_getUpdate3Definitions($timestamp);
+  $d = new Definition();
+  $statusClause = $timestamp ? '' : ' and status = 0';
+  $defDbResult = db_execute("select * from Definition where modDate >= '$timestamp' $statusClause order by modDate, id");
   $lexemDbResult = db_getUpdate3LexemIds($timestamp);
   $currentLexem = mysql_fetch_row($lexemDbResult);
-  smarty_assign('numResults', mysql_num_rows($defDbResult));
+  smarty_assign('numResults', $defDbResult->RowCount());
   smarty_displayWithoutSkin('common/update3Definitions.ihtml');
 } else if ($export == 'lexems') {
   $lexemDbResult = db_getUpdate3Lexems($timestamp);
@@ -60,8 +62,9 @@ function fetchNextRow() {
   global $lexemDbResult;
   global $currentLexem;
 
-  $dbRow = mysql_fetch_assoc($defDbResult);
-  $def = Definition::createFromDbRow($dbRow);
+  $def = new Definition();
+  $def->set($defDbResult->fields);
+  $defDbResult->MoveNext();
   $def->internalRep = text_xmlizeRequired($def->internalRep);
 
   $lexemIds = array();

@@ -144,12 +144,12 @@ function match($sourceId, $strategy, $cuv, $fd) {
   $hasDiacritics = $arr[0];
   $field = $hasDiacritics ? 'lexem_neaccentuat' : 'lexem_utf8_general';
 
-  $query = "select distinct lexems.lexem_neaccentuat, Definition.SourceId " .
+  $query = "select distinct lexems.lexem_neaccentuat, Definition.sourceId " .
     "from lexems " .
     "join LexemDefinitionMap " .
     "on lexem_id = LexemDefinitionMap.LexemId " .
-    "join Definition on LexemDefinitionMap.DefinitionId = Definition.Id " .
-    "where Definition.Status = 0";
+    "join Definition on LexemDefinitionMap.DefinitionId = Definition.id " .
+    "where Definition.status = 0";
   if ($strategy == "." || $strategy == "approx")
     $query .= " and dist2('$cuv', $field)";
   else if ($strategy == "exact")
@@ -158,9 +158,9 @@ function match($sourceId, $strategy, $cuv, $fd) {
     $query .= " and $field like '%$cuv%'";
   }
   if ($sourceId != "*" && $sourceId != '!') {
-    $query .= " and Definition.SourceId = '$sourceId'";
+    $query .= " and Definition.sourceId = '$sourceId'";
   }
-  $query .= " order by lexem_neaccentuat, Definition.SourceId";
+  $query .= " order by lexem_neaccentuat, Definition.sourceId";
   $result = mysql_query($query);
 
   if (!mysql_num_rows($result)) {
@@ -171,8 +171,7 @@ function match($sourceId, $strategy, $cuv, $fd) {
   socket_write($fd, "152 " . mysql_num_rows($result) . " match(es) found\r\n");
 
   while ($row = mysql_fetch_array($result))
-    socket_write($fd, $row['SourceId'] . " \"" . $row['lexem_neaccentuat'] .
-                 "\"\r\n");
+    socket_write($fd, $row['sourceId'] . " \"" . $row['lexem_neaccentuat'] . "\"\r\n");
 
   socket_write($fd, ".\r\n");
   socket_write($fd, "250 ok\r\n");

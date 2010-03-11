@@ -36,13 +36,7 @@ function loadLoc($cuv) {
   $result = array();
   $dbResult = db_execute("select distinct i.* from InflectedForm i, lexems where lexemId = lexem_id and {$field} = '{$cuv}' " .
                          "and lexem_is_loc order by lexem_neaccentuat");
-  while (!$dbResult->EOF) {
-    $if = new InflectedForm();
-    $if->set($dbResult->fields);
-    $result[] = $if;
-    $dbResult->MoveNext();
-  }
-  return $result;
+  return db_getObjects(new InflectedForm(), $dbResult);
 }
 
 ?>

@@ -4,7 +4,7 @@ util_assertModeratorStatus();
 util_assertNotMirror();
 
 $defId = util_getRequestParameter('id');
-$def = Definition::load($defId);
+$def = Definition::get("id = {$defId}");
 if ($def && $def->id) {
   $def->status = ST_DELETED;
   $def->save();

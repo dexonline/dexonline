@@ -5,7 +5,7 @@ util_assertNotMirror();
 
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Semnalare greseala de tipar</title>
+<title>Semnalare greșeală de tipar</title>
 </head><body onLoad="if (document.frm) document.frm.problem.focus()">
 
 <?php
@@ -13,7 +13,7 @@ util_assertNotMirror();
 // Parse or initialize the GET/POST arguments
 $problem = util_getRequestParameter('problem');
 $definitionId = util_getRequestIntParameter('definitionId');
-$definition = Definition::load($definitionId);
+$definition = Definition::get("id = {$definitionId}");
 
 if ($problem && $definitionId) {
   $typo = new Typo();

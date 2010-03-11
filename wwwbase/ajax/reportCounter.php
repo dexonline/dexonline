@@ -7,7 +7,7 @@ $reportId = util_getRequestParameter('report');
 switch($reportId) {
   case 'unassociatedLexems': echo Lexem::countUnassociated(); break;
   case 'unassociatedDefinitions': echo Definition::countUnassociated(); break;
-  case 'definitionsWithTypos': echo Definition::countHavingTypos(); break;
+  case 'definitionsWithTypos': echo db_getSingleValue('select count(distinct DefinitionId) from Typo'); break;
   case 'temporaryDefinitions': echo Definition::countByStatus(ST_PENDING); break;
   case 'temporaryLexems': echo Lexem::countTemporary(); break;
   case 'lexemsWithComments': echo Lexem::countHavingComments(); break;

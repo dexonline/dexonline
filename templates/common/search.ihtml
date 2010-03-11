@@ -143,7 +143,11 @@
         Sursa: <a class="ref" href="{$wwwRoot}faq.php#surse" title="{$row->source->name|escape}, {$row->source->year|escape}"
   	     >{$row->source->shortName|escape}</a> |
   
-        Trimisă de <a href="{$wwwRoot}user.php?n={$row->user->nick|escape:"url"}">{$row->user->nick|escape}</a>,
+        {if $row->user->id}
+          Trimisă de <a href="{$wwwRoot}user.php?n={$row->user->nick|escape:"url"}">{$row->user->nick|escape}</a>,
+        {else}
+          Trimisă de anonim,
+        {/if}
         {$row->definition->createDate|date_format:"%e %b %Y"}
   
         {if $is_moderator}

@@ -22,7 +22,7 @@ class GuideEntry extends BaseObject {
 
   public static function loadAllActive() {
     $ge = new GuideEntry();
-    return $ge->find("Status = 0");
+    return $ge->find("status = 0");
   }
 
   public function normalize() {
@@ -74,89 +74,40 @@ class User extends BaseObject {
 }
 
 
-class Definition {
-  public $id;
-  public $userId;
-  public $sourceId;
-  public $lexicon;
-  public $displayed = 0;
-  public $internalRep;
-  public $htmlRep;
-  public $status = ST_PENDING;
-  public $createDate;
-  public $modDate;
-
-  public static function load($id) {
-    return Definition::createFromDbRow(db_getDefinitionById($id));
+class Definition extends BaseObject {
+  function __construct() {
+    parent::__construct();
+    $this->status = ST_PENDING;
   }
 
-  public static function loadByIds($ids) {
-    if (count($ids) == 0) {
-      return array();
-    }
-    $idString = implode(',', $ids);
-    $dbResult = db_getDefinitionsByIds($idString);
-    return Definition::populateFromDbResult($dbResult);
+  public static function get($where) {
+    $obj = new Definition();
+    $obj->load($where);
+    return $obj->id ? $obj : null;
   }
 
   public static function loadByLexemId($lexemId) {
-    $dbResult = db_getDefinitionsByLexemId($lexemId);
-    return Definition::populateFromDbResult($dbResult);
-  }
-
-  public static function loadUnassociated() {
-    $dbResult = db_getUnassociatedDefinitions();
-    return Definition::populateFromDbResult($dbResult);
-  }
-
-  public static function countAll() {
-    return db_countDefinitions();
+    $dbResult = db_execute("select Definition.* from Definition, LexemDefinitionMap where Definition.id = LexemDefinitionMap.DefinitionId " .
+                           "and LexemDefinitionMap.LexemId = {$lexemId} and status in (0, 1) order by sourceId");
+    return db_getObjects(new Definition(), $dbResult);
   }
 
   public static function countAssociated() {
-    return db_countAssociatedDefinitions();
+    // same as select count(distinct DefinitionId) from LexemDefinitionMap, only faster.
+    return db_getSingleValue('select count(*) from (select count(*) from LexemDefinitionMap group by DefinitionId) as someLabel');
   }
 
   // Counts the unassociated definitions in the active or temporary statuses.
   public static function countUnassociated() {
-    return Definition::countAll() - Definition::countAssociated() - 
-      Definition::countByStatus(ST_DELETED);
+    $all = db_getSingleValue("select count(*) from Definition");
+    return $all - self::countAssociated() - self::countByStatus(ST_DELETED);
   }
 
   public static function countByStatus($status) {
-    return db_countDefinitionsByStatus($status);
+    return db_getSingleValue("select count(*) from Definition where status = $status");
   }
 
-  public static function countActiveSince($minCreateDate) {
-    return db_countRecentDefinitions($minCreateDate);
-  }
-
-  public static function countHavingTypos() {
-    return db_countDefinitionsHavingTypos();
-  }
-
-  public static function loadApproximateMatches($word, $collation, $sourceId) {
-    $dbResult = db_getApproximateActiveDefinitions($word, $collation,
-                                                   $sourceId);
-    return Definition::populateFromDbResult($dbResult);
-  }
-
-  public static function loadDictResults($word, $sourceId) {
-    $dbResult = db_selectDefinitionsForDict($word, $sourceId);
-    return Definition::populateFromDbResult($dbResult);
-  }
-
-  public static function loadDefinitionsHavingTypos() {
-    $dbResult = db_selectDefinitionsHavingTypos();
-    return Definition::populateFromDbResult($dbResult);
-  }
-
-  // Returns a MySQL result set
-  public static function loadByMinModDate($modDate) {
-    return db_getDefinitionsByMinModDate($modDate);
-  }
-
-  public static function loadForLexems($lexems, $sourceId, $preferredWord, $exclude_unofficial = false) {
+  public static function loadForLexems(&$lexems, $sourceId, $preferredWord, $exclude_unofficial = false) {
     if (!count($lexems)) {
       return array();
     }
@@ -167,18 +118,22 @@ class Definition {
       }
       $lexemIds .= $lexem->id;
     }
-    $dbResult = db_selectDefinitionsForLexemIds($lexemIds, $sourceId,
-                                                $preferredWord, $exclude_unofficial);
-    return Definition::populateFromDbResult($dbResult);
-  }
 
-  public static function searchDefId($defId) {
-    return Definition::createFromDbRow(db_searchDefId($defId));
+    $sourceClause = $sourceId ? "and D.sourceId = $sourceId" : '';
+    $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
+    $dbResult = db_execute(sprintf("select distinct D.* from Definition D, LexemDefinitionMap L, Source S " .
+                                   "where D.id = L.DefinitionId and L.LexemId in (%s) and D.sourceId = S.id and D.status = 0 %s %s " .
+                                   "order by (D.lexicon = '$preferredWord') desc, S.isOfficial desc, D.lexicon, S.displayOrder",
+                                   $lexemIds, $excludeClause, $sourceClause));
+    return db_getObjects(new Definition(), $dbResult);
   }
 
   public static function searchLexemId($lexemId, $exclude_unofficial = false) {
-    $dbResult = db_searchLexemId($lexemId, $exclude_unofficial);
-    return Definition::populateFromDbResult($dbResult);
+    $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
+    $dbResult = db_execute("select D.* from Definition D, LexemDefinitionMap L, Source S where D.id = L.DefinitionId " .
+                           "and D.sourceId = S.id and L.LexemId = '$lexemId' $excludeClause and D.status = 0 " .
+                           "order by S.isOfficial desc, S.displayOrder, D.lexicon");
+    return db_getObjects(new Definition(), $dbResult);
   }
 
   public static function searchFullText($words, $hasDiacritics) {
@@ -220,8 +175,7 @@ class Definition {
       // positions)
       $p = array();
       foreach ($matchingLexems as $lexemIds) {
-        $p[] = FullTextIndex::loadPositionsByLexemIdsDefinitionId($lexemIds,
-                                                                  $defId);
+        $p[] = FullTextIndex::loadPositionsByLexemIdsDefinitionId($lexemIds, $defId);
       }
       $shortestIntervals[] = util_findSnippet($p);
     }
@@ -234,29 +188,34 @@ class Definition {
     return $intersection;
   }
 
-  // Only returns the definition ID's
-  public static function searchModerator($cuv, $hasDiacritics, $sourceId,
-                                         $status, $userId, $beginTime,
-                                         $endTime) {
+  public static function searchModerator($cuv, $hasDiacritics, $sourceId, $status, $userId, $beginTime, $endTime) {
     $regexp = text_dexRegexpToMysqlRegexp($cuv);
+    $sourceClause = $sourceId ? "and Definition.sourceId = $sourceId" : '';
+    $userClause = $userId ? "and Definition.userId = $userId" : '';
+
     if ($status == ST_DELETED) {
       // Deleted definitions are not associated with any lexem
-      $dbResult = db_searchDeleted($regexp, $hasDiacritics, $sourceId, $userId,
-                                   $beginTime, $endTime);
+      $collate = $hasDiacritics ? '' : 'collate utf8_general_ci';
+      $d = new Definition();
+      return $d->find("lexicon $collate $regexp and status = " . ST_DELETED . " and createDate between $beginTime and $endTime " .
+                      "$sourceClause $userClause order by lexicon, sourceId limit 500");
     } else {
-      $dbResult = db_searchModerator($regexp, $hasDiacritics, $sourceId,
-                                     $status, $userId, $beginTime, $endTime);
+      $field = $hasDiacritics ? 'lexem_neaccentuat' : 'lexem_utf8_general';
+      $dbResult = db_execute("select distinct Definition.* from lexems join LexemDefinitionMap on lexem_id = LexemDefinitionMap.LexemId " .
+                             "join Definition on LexemDefinitionMap.DefinitionId = Definition.id where $field $regexp " .
+                             "and Definition.status = $status and Definition.createDate >= $beginTime and Definition.createDate <= $endTime " .
+                             "$sourceClause $userClause order by lexicon, sourceId limit 500");
+      return db_getObjects(new Definition(), $dbResult);
     }
-    return Definition::populateFromDbResult($dbResult);
   }
 
-  // Return definitions that are associateed with at least two of the lexems
+  // Return definitions that are associated with at least two of the lexems
   public static function searchMultipleWords($words, $hasDiacritics, $sourceId, $exclude_unofficial) {
     $defCounts = array();
     foreach ($words as $word) {
       $lexems = Lexem::searchInflectedForms($word, $hasDiacritics);
       if (count($lexems)) {
-        $definitions = Definition::loadForLexems($lexems, $sourceId, $word, $exclude_unofficial);
+        $definitions = self::loadForLexems($lexems, $sourceId, $word, $exclude_unofficial);
         foreach ($definitions as $def) {
           $defCounts[$def->id] = array_key_exists($def->id, $defCounts) ? $defCounts[$def->id] + 1 : 1;
         }
@@ -267,7 +226,7 @@ class Definition {
     $result = array();
     foreach ($defCounts as $defId => $cnt) {
       if ($cnt >= 2) {
-        $result[] = Definition::load($defId);
+        $result[] = self::get("id = {$defId}");
       } else {
         break;
       }
@@ -280,13 +239,9 @@ class Definition {
     if ($cachedWordCount) {
       return $cachedWordCount;
     }
-    // MySQL takes much longer to count the active definitions.
-    $all = Definition::countAll();
-    $pending = Definition::countByStatus(ST_PENDING);
-    $deleted = Definition::countByStatus(ST_DELETED);
-    $active = $all - $pending - $deleted;
-    fileCache_putWordCount($active);
-    return $active;
+    $result = self::countByStatus(ST_ACTIVE);
+    fileCache_putWordCount($result);
+    return $result;
   }
 
   public static function getWordCountLastMonth() {
@@ -295,38 +250,9 @@ class Definition {
       return $cachedWordCountLastMonth;
     }
     $last_month = time() - 30 * 86400;
-    $result = Definition::countActiveSince($last_month);
+    $result = db_getSingleValue("select count(*) from Definition where createDate >= $last_month and status = " . ST_ACTIVE);
     fileCache_putWordCountLastMonth($result);
     return $result;
-  }
-
-  public static function populateFromDbResult($dbResult) {
-    $definitionArray = array();
-
-    while ($dbRow = mysql_fetch_assoc($dbResult)) {
-      $definitionArray[] = Definition::createFromDbRow($dbRow);
-    }
-
-    mysql_free_result($dbResult);
-    return $definitionArray;
-  }
-
-  public static function createFromDbRow($dbRow) {
-    if (!$dbRow) {
-      return null;
-    }
-    $d = new Definition();
-    $d->id = $dbRow['Id'];
-    $d->userId = $dbRow['UserId'];
-    $d->sourceId = $dbRow['SourceId'];
-    $d->displayed = $dbRow['Displayed'];
-    $d->lexicon = $dbRow['Lexicon'];
-    $d->internalRep = $dbRow['InternalRep'];
-    $d->htmlRep = $dbRow['HtmlRep'];
-    $d->status = $dbRow['Status'];
-    $d->createDate = $dbRow['CreateDate'];
-    $d->modDate = $dbRow['ModDate'];
-    return $d;
   }
 
   public function incrementDisplayCount(&$definitions) {
@@ -336,22 +262,18 @@ class Definition {
         $ids[] = $def->id;
       }
       $idString = implode(',', $ids);
-      db_execute("update Definition set Displayed = Displayed + 1 where Id in ({$idString})");
+      db_execute("update Definition set displayed = displayed + 1 where id in ({$idString})");
     }
   }
 
   public static function updateModDate($defId) {
-    return db_updateDefinitionModDate($defId, time());
+    $modDate = time();
+    return db_execute("update Definition set modDate = '$modDate' where id = '$defId'");
   }
 
   public function save() {
-    $this->modDate = time();
-    if ($this->id) {
-      db_updateDefinition($this);
-    } else {
-      $this->createDate = time();
-      db_insertDefinition($this);
-    }
+    $this->modUserId = session_getUserId();
+    return parent::save();
   }
 }
 
@@ -670,13 +592,7 @@ class Inflection extends BaseObject {
     $result = array();
     $dbResult = db_execute("select distinct Inflection.* from models, model_description, Inflection " .
                            "where md_model = model_id and md_infl = Inflection.id and model_type = '$modelType' order by md_infl");
-    while (!$dbResult->EOF) {
-      $i = new Inflection();
-      $i->set($dbResult->fields);
-      $result[] = $i;
-      $dbResult->MoveNext();
-    }
-    return $result;
+    return db_getObjects(new Inflection(), $dbResult);
   }
 
   public static function mapById($inflections) {
@@ -1564,7 +1480,7 @@ class LexemDefinitionMap {
 
   public static function associate($lexemId, $definitionId) {
     // The definition and the lexem should exist
-    $definition = Definition::load($definitionId);
+    $definition = Definition::get("id = {$definitionId}");
     $lexem = Lexem::load($lexemId);
     if (!$definition || !$lexem) {
       return;
@@ -1698,7 +1614,7 @@ class ConstraintMap extends BaseObject {
     if (!$restr) {
       return true;
     }
-    $numAllowed = db_getSingleValue(db_execute("select count(*) from ConstraintMap where locate(code, '$restr') > 0 and inflectionId = $inflId"));
+    $numAllowed = db_getSingleValue("select count(*) from ConstraintMap where locate(code, '$restr') > 0 and inflectionId = $inflId");
     return ($numAllowed == mb_strlen($restr));
   }
 }

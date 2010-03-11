@@ -1,5 +1,5 @@
 <p>Codul <i>DEX online</i> este disponibil liber (și gratuit) sub licența
-GNU GPL. El a fost testat pe un sistem Fedora Core 4 standard cu
+GNU GPL. El a fost testat pe sisteme Ubuntu și Fedora standard cu
 pachete ca mysql, php, httpd și svn. Aveți nevoie de PHP 5.0 (sau mai
 nou) configurat cu modulele <b>mbstring</b> și <b>mysql</b>.</p>
 

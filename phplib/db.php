@@ -90,7 +90,21 @@ function db_getScalarArray($recordSet) {
   return $result;
 }
 
-function db_getSingleValue($recordSet) {
+function db_getObjects($obj, $dbResult) {
+  $class = get_class($obj);
+  $result = array();
+  while (!$dbResult->EOF) {
+    $x = new $class;
+    $x->set($dbResult->fields);
+    $result[] = $x;
+    $dbResult->MoveNext();
+  }
+  return $result;
+}
+
+
+function db_getSingleValue($query) {
+  $recordSet = db_execute($query);
   return $recordSet->fields[0];
 }
 
@@ -148,90 +162,12 @@ function db_executeSqlFile($fileName) {
   }
 }
 
-function db_getDefinitionById($id) {
-  $query = "select * from Definition where Id = '$id'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getDefinitionsByIds($ids) {
-  $query = "select * from Definition where Id in ($ids) order by Lexicon";
-  return logged_query($query);
-}
-
-function db_getDefinitionsByLexemId($lexemId) {
-  $query = "select Definition.* from Definition, LexemDefinitionMap " .
-    "where Definition.Id = LexemDefinitionMap.DefinitionId " .
-    "and LexemDefinitionMap.LexemId = $lexemId " .
-    "and Status in (0, 1) " .
-    "order by SourceId";
-  return logged_query($query);
-}
-
-function db_selectDefinitionsHavingTypos() {
-  return logged_query("select distinct Definition.* from Definition, Typo " .
-                      "where Definition.Id = Typo.DefinitionId " .
-                      "order by Lexicon limit 500");
-}
-
-function db_selectDefinitionsForLexemIds($lexemIds, $sourceId, $preferredWord, $exclude_unofficial) {
-  $sourceClause = $sourceId ? "and D.SourceId = $sourceId" : '';
-  $excludeClause = $exclude_unofficial ? "and S.IsOfficial <> 0 " : '';
-  $query = "select distinct D.* " .
-    "from Definition D, LexemDefinitionMap L, Source S " .
-    "where D.Id = L.DefinitionId " .
-    "and L.LexemId in ($lexemIds) " .
-	"and D.SourceId = S.Id " .
-    "and D.Status = 0 " .
-	$excludeClause . 
-    $sourceClause .
-    " order by (D.Lexicon = '$preferredWord') desc, " .
-    "S.IsOfficial desc, D.Lexicon, S.DisplayOrder";
-  return logged_query($query);
-}
-
-function db_countDefinitions() {
-  return db_fetchInteger(logged_query("select count(*) from Definition"));
-}
-
-function db_countAssociatedDefinitions() {
-  // same as select count(distinct DefinitionId) from LexemDefinitionMap,
-  // only faster.
-  $query = 'select count(*) from ' .
-    '(select count(*) from LexemDefinitionMap group by DefinitionId) ' .
-    'as someLabel';
-  return db_fetchInteger(logged_query($query));
-}
-
-function db_countDefinitionsByStatus($status) {
-  $query = "select count(*) from Definition where Status = $status";
-  return db_fetchInteger(logged_query($query));
-}
-
-function db_countRecentDefinitions($minCreateDate) {
-  $query = "select count(*) from Definition where " .
-    "CreateDate >= $minCreateDate and " .
-    "Status = " . ST_ACTIVE;
-  return db_fetchInteger(logged_query($query));
-}
-
-function db_countDefinitionsHavingTypos() {
-  $query = 'select count(distinct DefinitionId) from Typo';
-  return db_fetchInteger(logged_query($query));
-}
-
-function db_getUnassociatedDefinitions() {
-  $query = 'select * from Definition ' .
-    'where Status != 2 ' .
-    'and Id not in (select DefinitionId from LexemDefinitionMap)';
-  return logged_query($query);
-}
-
 function db_searchRegexp($regexp, $hasDiacritics, $sourceId) {
   $field = $hasDiacritics ? 'lexem_neaccentuat' : 'lexem_utf8_general';
-  $sourceClause = $sourceId ? "and Definition.SourceId = $sourceId " : '';
+  $sourceClause = $sourceId ? "and Definition.sourceId = $sourceId " : '';
   $sourceJoin = $sourceId ?  "join LexemDefinitionMap " .
     "on lexem_id = LexemDefinitionMap.LexemId " .
-    "join Definition on LexemDefinitionMap.DefinitionId = Definition.Id " : '';
+    "join Definition on LexemDefinitionMap.DefinitionId = Definition.id " : '';
   $query = "select * from lexems " .
     $sourceJoin .
     "where $field $regexp " .
@@ -242,10 +178,10 @@ function db_searchRegexp($regexp, $hasDiacritics, $sourceId) {
 
 function db_countRegexpMatches($regexp, $hasDiacritics, $sourceId) {
   $field = $hasDiacritics ? 'lexem_neaccentuat' : 'lexem_utf8_general';
-  $sourceClause = $sourceId ? "and Definition.SourceId = $sourceId " : '';
+  $sourceClause = $sourceId ? "and Definition.sourceId = $sourceId " : '';
   $sourceJoin = $sourceId ?  "join LexemDefinitionMap " .
     "on lexem_id = LexemDefinitionMap.LexemId " .
-    "join Definition on LexemDefinitionMap.DefinitionId = Definition.Id " : '';
+    "join Definition on LexemDefinitionMap.DefinitionId = Definition.id " : '';
   $query = "select count(*) from lexems " .
     $sourceJoin .
     "where $field $regexp " .
@@ -277,108 +213,35 @@ function db_searchApproximate($cuv, $hasDiacritics) {
   return logged_query($query);
 }
 
-function db_searchModerator($regexp, $hasDiacritics, $sourceId, $status,
-                            $userId, $minCreateDate, $maxCreateDate) {
-  $field = $hasDiacritics ? 'lexem_neaccentuat' : 'lexem_utf8_general';
-  $sourceClause = $sourceId ? "and Definition.SourceId = $sourceId" : '';
-  $userClause = $userId ? "and Definition.UserId = $userId" : '';
-
-  $query = "select distinct Definition.* " .
-    "from lexems " .
-    "join LexemDefinitionMap " .
-    "on lexem_id = LexemDefinitionMap.LexemId " .
-    "join Definition on LexemDefinitionMap.DefinitionId = Definition.Id " .
-    "where $field $regexp " .
-    "and Definition.Status = $status " .
-    "and Definition.CreateDate >= $minCreateDate " .
-    "and Definition.CreateDate <= $maxCreateDate " .
-    $sourceClause . " " . $userClause . " " .
-    "order by Definition.Lexicon, Definition.SourceId " .
-    "limit 500";
-  return logged_query($query);
-}
-
-function db_searchDeleted($regexp, $hasDiacritics, $sourceId, $userId,
-                          $minCreateDate, $maxCreateDate) {
-  $collate = $hasDiacritics ? '' : 'collate utf8_general_ci';
-  $sourceClause = $sourceId ? "and Definition.SourceId = $sourceId" : '';
-  $userClause = $userId ? "and Definition.UserId = $userId" : '';
-
-  $query = "select * from Definition " .
-    "where Lexicon $collate $regexp " .
-    "and Status = " . ST_DELETED . " " .
-    "and CreateDate >= $minCreateDate " .
-    "and CreateDate <= $maxCreateDate " .
-    $sourceClause . " " . $userClause . " " .
-    "order by Lexicon, SourceId " .
-    "limit 500";
-  return logged_query($query);
-}
-
-function db_searchDefId($defId) {
-  $query = "select * from Definition where Id = '$defId' and Status = 0 ";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_searchLexemId($lexemId, $exclude_unofficial) {
-  $lexemId = addslashes($lexemId);
-  $excludeClause = $exclude_unofficial ? "and S.IsOfficial <> 0 " : '';
-  $query = "select D.* from Definition D, LexemDefinitionMap L, Source S " .
-    "where D.Id = L.DefinitionId " .
-    "and D.SourceId = S.Id " .
-    "and L.LexemId = '$lexemId' " .
-	$excludeClause . 
-    "and D.Status = 0 " .
-    "order by S.IsOfficial desc, S.DisplayOrder, D.Lexicon";
-  return logged_query($query);
-}
-
 function db_selectTop() {
-  return logged_query("select Nick, count(*) as NumDefinitions, " .
-                      "sum(length(InternalRep)) as NumChars, " .
-                      "max(CreateDate) as Timestamp " .
+  return logged_query("select nick, count(*) as NumDefinitions, " .
+                      "sum(length(internalRep)) as NumChars, " .
+                      "max(createDate) as Timestamp " .
                       "from Definition, User " .
-                      "where Definition.UserId = User.Id " .
-                      "and Definition.Status = 0 " .
-                      "group by Nick");
-}
-
-function db_getDefinitionsByMinModDate($modDate) {
-  $query = "select * from Definition " .
-    "where Status = " . ST_ACTIVE . " and " .
-    "ModDate >= '$modDate' " .
-    "order by ModDate, Id";
-  return logged_query($query);
+                      "where userId = user.id " .
+                      "and status = 0 " .
+                      "group by nick");
 }
 
 function db_getLexemsByMinModDate($modDate) {
-  $query = "select Definition.Id, lexem_neaccentuat " .
-    "from Definition force index(ModDate), LexemDefinitionMap, lexems " .
-    "where Definition.Id = LexemDefinitionMap.DefinitionId " .
+  $query = "select Definition.id, lexem_neaccentuat " .
+    "from Definition force index(modDate), LexemDefinitionMap, lexems " .
+    "where Definition.id = LexemDefinitionMap.DefinitionId " .
     "and LexemDefinitionMap.LexemId = lexem_id " .
-    "and Definition.Status = 0 " .
-    "and Definition.ModDate >= $modDate " .
-    "order by Definition.ModDate, Definition.Id";
-  return logged_query($query);
-}
-
-function db_getUpdate3Definitions($modDate) {
-  // Do not report deleted / pending definitions the first time this script is invoked
-  $statusClause = $modDate ? "" : " and Status = 0";
-  $query = "select * from Definition " .
-    "where ModDate >= '$modDate' $statusClause " .
-    "order by ModDate, Id";
+    "and Definition.status = 0 " .
+    "and Definition.modDate >= $modDate " .
+    "order by Definition.modDate, Definition.id";
   return logged_query($query);
 }
 
 function db_getUpdate3LexemIds($modDate) {
   // Do not report deleted / pending definitions the first time this script is invoked
-  $statusClause = $modDate ? "" : " and Status = 0";
-  $query = "select Definition.Id, LexemId " .
-    "from Definition force index(ModDate), LexemDefinitionMap " .
-    "where Definition.Id = LexemDefinitionMap.DefinitionId " .
-    "and Definition.ModDate >= $modDate $statusClause " .
-    "order by Definition.ModDate, Definition.Id";
+  $statusClause = $modDate ? "" : " and status = 0";
+  $query = "select Definition.id, LexemId " .
+    "from Definition force index(modDate), LexemDefinitionMap " .
+    "where Definition.id = LexemDefinitionMap.DefinitionId " .
+    "and Definition.modDate >= $modDate $statusClause " .
+    "order by Definition.modDate, Definition.id";
   return logged_query($query);
 }
 
@@ -413,60 +276,6 @@ function db_deleteTyposByDefinitionId($definitionId) {
 
 function db_deleteTypo($typo) {
   logged_query("delete from Typo where Id = {$typo->id}");
-}
-
-function db_insertDefinition($definition) {
-  $query = sprintf("insert into Definition set UserId = '%d', " .
-                   "SourceId = '%d', " .
-                   "Displayed = '%d', " .
-                   "Lexicon = '%s', " .
-                   "InternalRep = '%s', " .
-                   "HtmlRep = '%s', " .
-                   "Status = '%d', " .
-                   "CreateDate = '%d', " .
-                   "ModDate = '%d'",
-                   $definition->userId,
-                   $definition->sourceId,
-                   $definition->displayed,
-                   addslashes($definition->lexicon),
-                   addslashes($definition->internalRep),
-                   addslashes($definition->htmlRep),
-                   $definition->status,
-                   $definition->createDate,
-                   $definition->modDate);
-  return logged_query($query);
-}
-
-function db_updateDefinition($definition) {
-  $query = sprintf("update Definition set UserId = '%d', " .
-                   "SourceId = '%d', " .
-                   "Displayed = '%d', " .
-                   "Lexicon = '%s', " .
-                   "InternalRep = '%s', " .
-                   "HtmlRep = '%s', " .
-                   "Status = '%d', " .
-                   "CreateDate = '%d', " .
-                   "ModDate = '%d', " .
-                   "ModUserId = '%d' " .
-                   "where Id = '%d'",
-                   $definition->userId,
-                   $definition->sourceId,
-                   $definition->displayed,
-                   addslashes($definition->lexicon),
-                   addslashes($definition->internalRep),
-                   addslashes($definition->htmlRep),
-                   $definition->status,
-                   $definition->createDate,
-                   $definition->modDate,
-                   session_getUserId(),
-                   $definition->id);
-  return logged_query($query);
-}
-
-function db_updateDefinitionModDate($defId, $modDate) {
-  $query = sprintf("update Definition set ModDate = '$modDate' " .
-                   "where Id = '$defId'");
-  return logged_query($query);
 }
 
 function db_updateLexemModDate($lexemId, $modDate) {
@@ -808,8 +617,8 @@ function db_getTemporaryLexems() {
 
 function db_getTemporaryLexemsFromSource($sourceId) {
   $query = "select distinct lexems.* from lexems, LexemDefinitionMap, Definition " .
-    "where lexems.lexem_id = LexemDefinitionMap.LexemId and LexemDefinitionMap.DefinitionId = Definition.Id " .
-    "and Definition.Status = 0 and Definition.SourceId = $sourceId and lexem_model_type = 'T' " .
+    "where lexems.lexem_id = LexemDefinitionMap.LexemId and LexemDefinitionMap.DefinitionId = Definition.id " .
+    "and Definition.status = 0 and Definition.sourceId = $sourceId and lexem_model_type = 'T' " .
     "order by lexem_neaccentuat";
   return logged_query($query);
 }

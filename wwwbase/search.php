@@ -48,7 +48,7 @@ if ($text) {
     // Load definitions in the given order
     $definitions = array();
     foreach ($defIds as $defId) {
-      $definitions[] = Definition::load($defId);
+      $definitions[] = Definition::get("id = {$defId}");
     }
   }
   $searchResults = SearchResult::mapDefinitionArray($definitions);
@@ -94,10 +94,10 @@ if ($hasRegexp) {
   }
 }
 
-// Definition.Id search
+// Definition.id search
 if ($isAllDigits) {
   $searchType = SEARCH_DEF_ID;
-  $def = Definition::searchDefId($cuv);
+  $def = Definition::get("id = '$cuv' and status = 0"); 
   $definitions = array();
   if ($def) {
     $definitions[] = $def;

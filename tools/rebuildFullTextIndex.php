@@ -14,7 +14,7 @@ log_scriptLog("Clearing table FullTextIndex.");
 mysql_query('delete from FullTextIndex');
 
 $ifMap = array();
-$dbResult = mysql_query('select * from Definition where Status = 0');
+$dbResult = mysql_query('select id, internalRep from Definition where status = 0');
 $numDefs = mysql_num_rows($dbResult);
 $defsSeen = 0;
 $indexSize = 0;
@@ -24,9 +24,8 @@ log_scriptLog("Writing index to file $fileName.");
 debug_init();
 debug_off();
 
-while (($dbRow = mysql_fetch_assoc($dbResult)) != null) {
-  $def = Definition::createFromDbRow($dbRow);
-  $words = extractWords($def->internalRep);
+while (($dbRow = mysql_fetch_row($dbResult)) != null) {
+  $words = extractWords($dbRow[1]);
 
   foreach ($words as $position => $word) {
     if (text_isStopWord($word, true)) {
@@ -38,8 +37,7 @@ while (($dbRow = mysql_fetch_assoc($dbResult)) != null) {
       if (array_key_exists($word, $ifMap)) {
         $lexemList = split(',', $ifMap[$word]);
         for ($i = 0; $i < count($lexemList); $i += 2) {
-          fwrite($handle, $lexemList[$i] . "\t" . $lexemList[$i + 1] . "\t" .
-                 $def->id . "\t" . $position . "\n");
+          fwrite($handle, $lexemList[$i] . "\t" . $lexemList[$i + 1] . "\t" . $dbRow[0] . "\t" . $position . "\n");
           $indexSize++;
         }
       } else {

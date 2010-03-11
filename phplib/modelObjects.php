@@ -62,6 +62,7 @@ class User extends BaseObject {
 class Definition extends BaseObject {
   function __construct() {
     parent::__construct();
+    $this->displayed = 0;
     $this->status = ST_PENDING;
   }
 

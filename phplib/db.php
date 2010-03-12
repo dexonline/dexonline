@@ -270,55 +270,6 @@ function db_getLexemHomonyms($lexem) {
   return logged_query($query);
 }
 
-function db_getModelTypeById($id) {
-  $query = "select * from model_types where mt_id = '$id'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getModelTypeByValue($value) {
-  $value = addslashes($value);
-  $query = "select * from model_types where mt_value = '$value'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_selectAllModelTypes() {
-  $query = 'select * from model_types order by mt_value';
-  return logged_query($query);
-}
-
-function db_selectAllCanonicalModelTypes() {
-  $query = 'select * from model_types where mt_value = mt_canonical ' .
-    'and mt_value != "T" ' .
-    'order by mt_value';
-  return logged_query($query);
-}
-
-function db_countModelsByModelType($mt) {
-  $query = "select count(*) from models where model_type = '" . $mt->value
-    . "'";
-  return db_fetchInteger(logged_query($query));
-}
-
-function db_insertModelType($mt) {
-  $query = sprintf("insert into model_types set " .
-                   "mt_value = '%s', " .
-                   "mt_descr = '%s'",
-                   addslashes($mt->value),
-                   addslashes($mt->description));
-  return logged_query($query);
-}
-
-function db_updateModelType($mt) {
-  $query = sprintf("update model_types set " .
-                   "mt_value = '%s', " .
-                   "mt_descr = '%s' " .
-                   "where mt_id = '%d'",
-                   addslashes($mt->value),
-                   addslashes($mt->description),
-                   $mt->id);
-  return logged_query($query);
-}
-
 function db_insertModel($m) {
   $query = sprintf("insert into models set " .
                    "model_type = '%s', " .
@@ -425,11 +376,6 @@ function db_deleteModelDescriptionsByModel($modelId) {
   return logged_query($query);
 }
 
-function db_deleteModelType($modelType) {
-  $query = "delete from model_types where mt_id = " . $modelType->id;
-  logged_query($query);
-}
-
 function db_getModelByTypeNumber($type, $number) {
   $type = addslashes($type);
   $number = addslashes($number);
@@ -524,23 +470,22 @@ function db_getLexemsByModel($modelType, $modelNumber) {
 function db_getLexemByCanonicalModelSuffix($modelType, $modelNumber, $suffix) {
   $modelType = addslashes($modelType);
   $modelNumber = addslashes($modelNumber);
-  $query = "select lexems.* from lexems, model_types " .
-    "where lexem_model_type = mt_value " .
-    "and mt_canonical = '$modelType' " .
+  $query = "select lexems.* from lexems, ModelType " .
+    "where lexem_model_type = code " .
+    "and canonical = '$modelType' " .
     "and lexem_model_no = '$modelNumber' " .
     "and lexem_invers like '$suffix%' " .
     "order by lexem_forma desc limit 1";
   return db_fetchSingleRow(logged_query($query));
 }
 
-function db_getLexemByUnaccentedCanonicalModel($unaccented, $modelType,
-                                               $modelNumber) {
+function db_getLexemByUnaccentedCanonicalModel($unaccented, $modelType, $modelNumber) {
   $unaccented = addslashes($unaccented);
   $modelType = addslashes($modelType);
   $modelNumber = addslashes($modelNumber);
-  $query = "select lexems.* from lexems, model_types " .
-    "where lexem_model_type = model_types.mt_value " .
-    "and model_types.mt_canonical = '$modelType' " .
+  $query = "select lexems.* from lexems, ModelType " .
+    "where lexem_model_type = code " .
+    "and canonical = '$modelType' " .
     "and lexem_model_no = '$modelNumber' ".
     "and lexem_neaccentuat = '$unaccented' " .
     "limit 1";
@@ -550,9 +495,9 @@ function db_getLexemByUnaccentedCanonicalModel($unaccented, $modelType,
 function db_getLexemsByCanonicalModel($modelType, $modelNumber) {
   $modelType = addslashes($modelType);
   $modelNumber = addslashes($modelNumber);
-  $query = "select lexems.* from lexems, model_types " .
-    "where lexem_model_type = model_types.mt_value " .
-    "and model_types.mt_canonical = '$modelType' " .
+  $query = "select lexems.* from lexems, ModelType " .
+    "where lexem_model_type = code " .
+    "and canonical = '$modelType' " .
     "and lexem_model_no = '$modelNumber'" .
     "order by lexem_neaccentuat";
   return logged_query($query);
@@ -737,9 +682,9 @@ function db_selectModelStatsWithSuffixes($modelType, $modelNumber) {
   $modelNumber = addslashes($modelNumber);
 
   $query = "select substring(lexem_invers, 1, 3) as s " .
-    "from lexems, model_types " .
-    "where lexem_model_type = mt_value " .
-    "and mt_canonical = '$modelType' " .
+    "from lexems, ModelType " .
+    "where lexem_model_type = code " .
+    "and canonical = '$modelType' " .
     "and lexem_model_no = '$modelNumber' " .
     "group by s order by count(*) desc";
   return logged_query($query);

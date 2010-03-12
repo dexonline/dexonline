@@ -413,98 +413,19 @@ class RecentLink extends BaseObject {
   }
 }
 
-class ModelType {
-  public $id;
-  public $value;
-  public $description;
-
-  public static function load($id) {
-    $dbRow = db_getModelTypeById($id);
-    if ($dbRow) {
-      $result = new ModelType();
-      $result->populateFromDbRow($dbRow);
-      return $result;
-    } else {
-      return null;
-    }
-  }
-
-  public static function loadByValue($value) {
-    $dbRow = db_getModelTypeByValue($value);
-    if ($dbRow) {
-      $result = new ModelType();
-      $result->populateFromDbRow($dbRow);
-      return $result;
-    } else {
-      return null;
-    }    
-  }
-
-  public static function loadAll() {
-    $dbResult = db_selectAllModelTypes();
-    return ModelType::populateFromDbResult($dbResult);
-  }
-
+class ModelType extends BaseObject {
   public static function loadCanonical() {
-    $dbResult = db_selectAllCanonicalModelTypes();
-    return ModelType::populateFromDbResult($dbResult);    
+    return db_find(new ModelType(), 'code = canonical and code != "T" order by code');
   }
 
-  public static function canonicalize($modelType) {
-    if ($modelType == 'VT') {
+  public static function canonicalize($code) {
+    if ($code == 'VT') {
       return 'V';
-    } else if ($modelType == 'MF') {
+    } else if ($code == 'MF') {
       return 'A';
     } else {
-      return $modelType;
+      return $code;
     }
-  }
-
-  public static function getExtendedSet($modelType) {
-    if ($modelType == 'A' || $modelType == 'MF') {
-      return array('A', 'MF');
-    } else if ($modelType == 'V' || $modelType == 'VT') {
-      return array('V', 'VT');
-    } else {
-      return array($modelType);
-    }
-  }
-
-  public function getExtendedName() {
-    return $this->value . ' (' . $this->description . ')';
-  }
-
-  public function countModels() {
-    return db_countModelsByModelType($this);
-  }
-
-  public function populateFromDbRow($dbRow) {
-    $this->id = $dbRow['mt_id']; 
-    $this->value = $dbRow['mt_value'];
-    $this->description = $dbRow['mt_descr'];
-  }
-
-  public static function populateFromDbResult($dbResult) {
-    $result = array();
-    while ($dbRow = mysql_fetch_assoc($dbResult)) {
-      $mt = new ModelType();
-      $mt->populateFromDbRow($dbRow);
-      $result[] = $mt;
-    }
-    mysql_free_result($dbResult);
-    return $result;
-  }
-
-  public function save() {
-    if ($this->id) {
-      db_updateModelType($this);
-    } else {
-      db_insertModelType($this);
-    }
-  }
-
-  public function delete() {
-    db_deleteModelType($this);
   }
 }
 
@@ -911,18 +832,13 @@ class Lexem {
     return Lexem::populateFromDbResult($dbResult);    
   }
 
-  public static function loadByCanonicalModelSuffix($modelType,
-                                                    $modelNumber, $suffix) {
-    $dbRow = db_getLexemByCanonicalModelSuffix($modelType, $modelNumber,
-                                               $suffix);
+  public static function loadByCanonicalModelSuffix($modelType, $modelNumber, $suffix) {
+    $dbRow = db_getLexemByCanonicalModelSuffix($modelType, $modelNumber, $suffix);
     return Lexem::createFromDbRow($dbRow);
   }
 
-  public static function loadByUnaccentedCanonicalModel($unaccented,
-                                                        $modelType,
-                                                        $modelNumber) {
-    $dbRow = db_getLexemByUnaccentedCanonicalModel($unaccented, $modelType,
-                                                   $modelNumber);
+  public static function loadByUnaccentedCanonicalModel($unaccented, $modelType, $modelNumber) {
+    $dbRow = db_getLexemByUnaccentedCanonicalModel($unaccented, $modelType, $modelNumber);
     return Lexem::createFromDbRow($dbRow);
   }
 

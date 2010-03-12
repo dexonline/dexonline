@@ -28,8 +28,7 @@ if ($locVersion && $modelType && $modelNumber) {
   $paradigms = array();
 
   foreach ($modelsToDisplay as $m) {
-    $l = Lexem::loadByUnaccentedCanonicalModel($m->exponent, $modelType,
-                                               $m->number);
+    $l = Lexem::loadByUnaccentedCanonicalModel($m->exponent, $modelType, $m->number);
     if ($l) {
       $paradigm = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
     } else {
@@ -51,7 +50,7 @@ if ($locVersion && $modelType && $modelNumber) {
 }
 
 $modelTypes = ModelType::loadCanonical();
-$models = Model::loadByType($modelType ? $modelType : $modelTypes[0]->value);
+$models = Model::loadByType($modelType ? $modelType : $modelTypes[0]->code);
 
 smarty_assign('locVersions', $locVersions);
 smarty_assign('modelTypes', $modelTypes);

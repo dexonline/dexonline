@@ -144,9 +144,9 @@
         <select name="modelType"
                 onchange="return updateModelList(this, 'modelListId')">
           {foreach from=$modelTypes item=mt}
-            <option value="{$mt->value|escape}"
-              {if $mt->value == $lexem->modelType}selected="selected"{/if}
-              >{$mt->value|escape}
+            <option value="{$mt->code|escape}"
+              {if $mt->code == $lexem->modelType}selected="selected"{/if}
+              >{$mt->code|escape}
             </option>
           {/foreach}
         </select>

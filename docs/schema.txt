@@ -115,7 +115,7 @@ select form, Inflection.description, variant
   order by Inflection.id;
 
 
-The model_types table
+The ModelType table
 ---------------------
 
 The model types roughly correspond to parts of speech. One interesting
@@ -124,7 +124,7 @@ paradigm for this lexem. An admin will have to look at it and
 establish the correct model type and number. Until then, we do not
 display any paradigm for this lexem when the user searches for it.
 
-mt_canonical - Some model types have "dependants". For example A
+canonical - Some model types have "dependants". For example A
   (adjective) generates the same set of forms as MF (nouns with both
   masculine and feminine forms, like "constructor"). We only store
   information about A (the canonical model).

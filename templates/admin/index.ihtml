@@ -69,7 +69,7 @@
         <select name="modelType"
                 onchange="return updateModelList(this, 'modelListId')">
           {foreach from=$modelTypes item=mt}
-            <option value="{$mt->value|escape}">{$mt->value|escape}</option>
+            <option value="{$mt->code|escape}">{$mt->code|escape}</option>
           {/foreach}
         </select>
         <select name="modelNumber" id="modelListId">

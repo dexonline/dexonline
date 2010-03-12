@@ -46,8 +46,7 @@ if ($modelType) {
   $ifMaps = array();
 
   foreach ($models as $model) {
-    // Load the distinct 3-letter suffixes, in descending order of the
-    // frequency.
+    // Load the distinct 3-letter suffixes, in descending order of the frequency.
     $dbResult = db_selectModelStatsWithSuffixes($modelType, $model->number);
     $suffixes = array();
     while ($dbRow = mysql_fetch_assoc($dbResult)) {

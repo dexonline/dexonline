@@ -217,8 +217,12 @@ function toggleDivVisibility(divId) {
   return false;
 }
 
-function toggleInflVisibility() {
+function toggleInflVisibility(value, lexem) {
   var div = document.getElementById('paradigmDiv');
+  if (div.innerHTML == '') {
+	  param = (lexem ? 'lexemId' : 'cuv') + '=' + value;
+	  makeGetRequest(wwwRoot + 'paradigm.php?ajax=1&' + param, getParadigmCallback, null);
+  }
   var arrow = document.getElementById('inflArrow');
   if (div.className == 'paradigmHide') {
 	div.className = 'paradigmShow';
@@ -229,6 +233,17 @@ function toggleInflVisibility() {
     arrow.innerHTML = '&#x25b7;';
   }
   return false;
+}
+
+function getParadigmCallback(httpRequest) {
+  if (httpRequest.readyState == 4) {
+    if (httpRequest.status == 200) {
+      var paradigmDiv = document.getElementById("paradigmDiv");
+      paradigmDiv.innerHTML = httpRequest.responseText;
+    } else {
+      alert('A apărut o problemă la comunicarea cu serverul. Greșeala de tipar nu a fost încă ștearsă.');
+    }
+  }
 }
 
 function addToEngines() {

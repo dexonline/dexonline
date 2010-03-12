@@ -87,10 +87,14 @@
   &nbsp;
 
   {if $declensionText}
-    <a class="inflLink" href="#" onclick="return toggleInflVisibility();"
+	  {if $onlyParadigm}
+	    {$declensionText}
+	  {else}
+    <a class="inflLink" href="#" onclick="return toggleInflVisibility({if $lexemId}'{$lexemId}',1{else}'{$cuv|escape:url}'{/if});"
        title="click pentru conjugarea / declinarea cuvintelor"
       ><span id="inflArrow">&#x25b7;</span>{$declensionText}
     </a>
+	  {/if}
   {/if}
 </div>
 
@@ -99,17 +103,8 @@
     <div id="adsenseVertical">{include file="common/bits/adsense_skyscraper.ihtml"}</div>
   {/if}
 
-  {if $ifMaps}
-    <div class="{if $showParadigm}paradigmShow{else}paradigmHide{/if}" id="paradigmDiv">
-      {foreach from=$ifMaps item=ifMap key=i}
-        {include file="common/bits/paradigm.ihtml"
-                 lexem=$lexems[$i]
-                 ifMap=$ifMap}
-      {/foreach}
-	  <a class="paradigmLink" title="Link către această pagină, dar cu flexiunile expandate!" href="{$paradigmLink}">Link către această paradigmă</a> 
-    </div>
-  {/if}
-  
+    <div class="{if $showParadigm}paradigmShow{else}paradigmHide{/if}" id="paradigmDiv">{include file="common/bits/multiParadigm.ihtml"}</div>
+ 
   {if $stopWords}
     <span class="stopWords">
       Unul sau mai multe cuvinte au fost ignorate deoarece sunt prea comune:

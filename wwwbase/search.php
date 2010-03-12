@@ -57,6 +57,7 @@ if ($text) {
 // LexemId search
 if ($lexemId) {
   $searchType = SEARCH_LEXEM_ID;
+  smarty_assign('lexemId', $lexemId);
   if (!text_validateAlphabet($lexemId, '0123456789')) {
     $lexemId = '';
   }
@@ -154,7 +155,7 @@ if ($searchType == SEARCH_INFLECTED) {
 if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $searchType == SEARCH_FULL_TEXT || $searchType == SEARCH_MULTIWORD) {
   Definition::incrementDisplayCount($definitions);
   smarty_assign('results', $searchResults);
-  
+ 
   // Maps lexems to arrays of inflected forms (some lexems may lack inflections)
   // Also compute the text of the link to the paradigm div,
   // which can be 'conjugări', 'declinări' or both
@@ -163,7 +164,8 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
     $conjugations = false;
     $declensions = false;
     foreach ($lexems as $l) {
-      $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
+	  if ($showParadigm)
+        $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
       if ($l->modelType == 'V' || $l->modelType == 'VT') {
         $conjugations = true;
       } else {
@@ -171,9 +173,12 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
       }
     }
     $declensionText = $conjugations ? ($declensions ? 'conjugări / declinări' : 'conjugări') : 'declinări';
-    smarty_assign('ifMaps', $ifMaps);
+
+	if ($showParadigm)
+      smarty_assign('ifMaps', $ifMaps);
     smarty_assign('declensionText', $declensionText);
   }
+
 }
 
 // Compute AdSense placement: show it after 1500 bytes' worth of definition, but no more than 3

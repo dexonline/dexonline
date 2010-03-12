@@ -87,13 +87,13 @@
   &nbsp;
 
   {if $declensionText}
-	  {if $onlyParadigm}
-	    {$declensionText}
-	  {else}
+	  {if $ajax}
     <a class="inflLink" href="#" onclick="return toggleInflVisibility({if $lexemId}'{$lexemId}',1{else}'{$cuv|escape:url}'{/if});"
        title="click pentru conjugarea / declinarea cuvintelor"
       ><span id="inflArrow">&#x25b7;</span>{$declensionText}
     </a>
+	  {else}
+	    {$declensionText}
 	  {/if}
   {/if}
 </div>

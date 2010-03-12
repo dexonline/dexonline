@@ -451,8 +451,8 @@ class Inflection extends BaseObject {
 
   public static function loadByModelType($modelType) {
     $result = array();
-    $dbResult = db_execute("select distinct Inflection.* from models, model_description, Inflection " .
-                           "where md_model = model_id and md_infl = Inflection.id and model_type = '$modelType' order by md_infl");
+    $dbResult = db_execute("select distinct Inflection.* from models, ModelDescription, Inflection " .
+                           "where modelId = model_id and inflectionId = Inflection.id and model_type = '$modelType' order by inflectionId");
     return db_getObjects(new Inflection(), $dbResult);
   }
 
@@ -577,7 +577,7 @@ class Model {
   }
 
   public function delete() {
-    ModelDescription::deleteByModel($this->id);
+    db_execute("delete from ModelDescription where modelId = '{$this->id}'");
     if ($this->modelType == 'V') {
       $pm = ParticipleModel::loadByVerbModel($this->number);
       $pm->delete();
@@ -604,75 +604,18 @@ class Model {
   }
 }
 
-class ModelDescription {
-  public $id;
-  public $modelId;
-  public $inflectionId;
-  public $variant;
-  public $order;
-  public $transformId;
-  public $accentShift;
-  public $accentedVowel;
-
-  public static function create($modelId, $inflectionId, $variant, $order,
-                                $transformId, $accentShift, $accentedVowel) {
-    $md = new ModelDescription();
-    $md->modelId = $modelId;
-    $md->inflectionId = $inflectionId;
-    $md->variant = $variant;
-    $md->order = $order;
-    $md->transformId = $transformId;
-    $md->accentShift = $accentShift;
-    $md->accentedVowel = $accentedVowel;
-    return $md;
-  }
-
-  public static function loadByModelId($modelId) {
-    $dbResult = db_getModelDescriptionsByModelId($modelId);
-    return ModelDescription::populateFromDbResult($dbResult);
-  }
-
-  public static function loadByModelIdInflectionId($modelId, $inflId) {
-    $dbResult = db_getModelDescriptionsByModelIdInflId($modelId, $inflId);
-    return ModelDescription::populateFromDbResult($dbResult);
-  }
-
-  public function populateFromDbRow($dbRow) {
-    $this->id = $dbRow['md_id'];
-    $this->modelId = $dbRow['md_model']; 
-    $this->inflectionId = $dbRow['md_infl']; 
-    $this->variant = $dbRow['md_variant']; 
-    $this->order = $dbRow['md_order']; 
-    $this->transformId = $dbRow['md_transf'];
-    $this->accentShift = $dbRow['md_accent_shift'];
-    $this->accentedVowel = $dbRow['md_vowel'];
-  }
-
-  public static function populateFromDbResult($dbResult) {
-    $result = array();
-    while ($dbRow = mysql_fetch_assoc($dbResult)) {
-      $md = new ModelDescription();
-      $md->populateFromDbRow($dbRow);
-      $result[] = $md;
+class ModelDescription extends BaseObject {
+  function __construct($other = null) {
+    parent::__construct();
+    if ($other instanceof ModelDescription) {
+      $this->modelId = $other->modelId;
+      $this->inflectionId = $other->inflectionId;
+      $this->variant = $other->variant;
+      $this->applOrder = $other->applOrder;
+      $this->transformId = $other->transformId;
+      $this->accentShift = $other->accentShift;
+      $this->vowel = $other->vowel;
     }
-    mysql_free_result($dbResult);
-    return $result;
-  }
-
-  public function save() {
-    if ($this->id) {
-      db_updateModelDescription($this);
-    } else {
-      db_insertModelDescription($this);
-    }
-  }
-
-  public static function deleteByModelInflection($modelId, $inflectionId) {
-    return db_deleteModelDescriptionsByModelInflection($modelId, $inflectionId);
-  }
-
-  public static function deleteByModel($modelId) {
-    return db_deleteModelDescriptionsByModel($modelId);
   }
 }
 
@@ -1122,20 +1065,19 @@ class Lexem {
       return array();
     }
     $ifs = array();
-    // These will be sorted by variant and order
-    $mds = ModelDescription::loadByModelIdInflectionId($modelId, $inflId);
+    $mds = db_find(new ModelDescription(), "modelId = '$modelId' and inflectionId = '$inflId' order by variant, applOrder");
  
     $start = 0;
     while ($start < count($mds)) {
-      // Identify all the md's that differ only by the order
+      // Identify all the md's that differ only by the applOrder
       $end = $start + 1;
-      while ($end < count($mds) && $mds[$end]->order != 0) {
+      while ($end < count($mds) && $mds[$end]->applOrder != 0) {
         $end++;
       }
       
       $inflId = $mds[$start]->inflectionId;
       $accentShift = $mds[$start]->accentShift;
-      $vowel = $mds[$start]->accentedVowel;
+      $vowel = $mds[$start]->vowel;
       
       // Apply all the transforms from $start to $end - 1.
       $variant = $mds[$start]->variant;
@@ -1161,7 +1103,7 @@ class Lexem {
   public function generateParadigm() {
     $model = Model::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
     // Select inflection IDs for this model
-    $dbResult = db_execute("select distinct md_infl from model_description where md_model = {$model->id} order by md_infl");
+    $dbResult = db_execute("select distinct inflectionId from ModelDescription where modelId = {$model->id} order by inflectionId");
     $inflIds = db_getScalarArray($dbResult);
     $ifs = array();
     foreach ($inflIds as $inflId) {

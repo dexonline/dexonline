@@ -151,8 +151,7 @@ if ($previewButton || $confirmButton) {
   if ($confirmButton) {
     // Save the transforms and model descriptions
     foreach ($regenTransforms as $inflId => $transformMatrix) {
-      // Delete ModelDescriptions for the model and inflId, for all variants
-      ModelDescription::deleteByModelInflection($model->id, $inflId);
+      db_execute("delete from ModelDescription where modelId = {$model->id} and inflectionId = {$inflId}");
       $formArray = $newForms[$inflId];
       $variant = 0;
       foreach ($transformMatrix as $i => $transforms) {
@@ -170,9 +169,15 @@ if ($previewButton || $confirmButton) {
           $t = $transforms[$i];
           // Make sure the transform has an ID.
           $t = Transform::createOrLoad($t->transfFrom, $t->transfTo);
-          $md = ModelDescription::create($model->id, $inflId, $variant, $order, $t->id, $accentShift, $accentedVowel);
+          $md = new ModelDescription();
+          $md->modelId = $model->id;
+          $md->inflectionId = $inflId;
+          $md->variant = $variant;
+          $md->applOrder = $order++;
+          $md->transformId = $t->id;
+          $md->accentShift = $accentShift;
+          $md->vowel = $accentedVowel;
           $md->save();
-          $order++;
         }
         $variant++;
       }

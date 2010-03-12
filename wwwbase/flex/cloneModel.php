@@ -34,11 +34,11 @@ if ($cloneButton) {
     $cloneModel->id = db_getLastInsertedId();
 
     // Clone the model descriptions
-    $mds = ModelDescription::loadByModelId($model->id);
+    $mds = db_find(new ModelDescription(), "modelId = '{$model->id}' order by inflectionId, variant, applOrder");
     foreach ($mds as $md) {
-      $md->id = 0;
-      $md->modelId = $cloneModel->id;
-      $md->save();
+      $newMd = new ModelDescription($md);
+      $newMd->modelId = $cloneModel->id;
+      $newMd->save();
     }
 
     // Clone the participle model
@@ -51,7 +51,7 @@ if ($cloneButton) {
     }
 
     // Migrate the selected lexems.
-    if ($chooseLexems) {
+    if ($chooseLexems && $lexemIds) {
       foreach ($lexemIds as $lexemId) {
         $l = Lexem::load($lexemId);
         $l->modelNumber = $newModelNumber;

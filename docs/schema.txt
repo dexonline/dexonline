@@ -167,22 +167,22 @@ Transforms are essentially (from -> to) pairs. Each of the three
 transforms in the example above has an entry in this table.
 
 
-The model_description table
+The ModelDescription table
 ---------------------------
 
 For every model, this table lists the acceptable inflections and the
 way to generate them
 
-md_id - Unique numeric ID.
-md_model - Matches models.model_id.
-md_infl - Matches Inflection.id.
-md_variant - 0-based counter where multiple variants are allowed for
-  the same md_infl. Matches InflectedForm.variant.
-md_order - When multiple letter transformations are necessary to
+id - Unique numeric ID.
+modelId - Matches models.model_id.
+inflectionId - Matches Inflection.id.
+variant - 0-based counter where multiple variants are allowed for
+  the same inflectionId. Matches InflectedForm.variant.
+applOrder - When multiple letter transformations are necessary to
   obtain the inflected form from the base form, the order in which we
   apply the transforms is important, hence this field (0-based).
-md_transf - Matches Transform.id.
-md_accent_shift - Indicates where the accent falls in the inflected form:
+transformId - Matches Transform.id.
+accentShift - Indicates where the accent falls in the inflected form:
   100 - Unknown accent shift. We don't know where the accent falls,
     because when we initially enumerated the paradigm for this model,
     either the base form or the inflected form did not include an
@@ -193,27 +193,27 @@ md_accent_shift - Indicates where the accent falls in the inflected form:
     vowel.
   other numbers - The accent falls on this vowel, counting from the
     right, 1-based.
-md_vowel - Sometimes, due to morphologic phenomena, the vowel at the
-  position indicated by md_accent_shift is not the correct vowel to
+vowel - Sometimes, due to morphologic phenomena, the vowel at the
+  position indicated by accentShift is not the correct vowel to
   bear accent. So in the model's exponent, the accented vowel may be
   the 3rd from the right, but in other lexems of the same model, the
   accented vowel could be the 4th or 2nd from the right, due mainly to
-  diphthongs. If the vowel at position md_accent_shift differs from
-  md_vowel, look one letter to the left or right for md_vowel and put
+  diphthongs. If the vowel at position accentShift differs from
+  vowel, look one letter to the left or right for vowel and put
   the accent on it.
 
 EXAMPLE: Here is how to find the paradigm for "c'arte", the exponent
 for F117:
 
-select model_exponent, Inflection.description, md_variant, md_order,
-       md_accent_shift, md_vowel, transfFrom, transfTo
-  from models, model_description, Inflection, Transform
-  where model_id = md_model
-    and md_transf = Transform.id
-    and md_infl = Inflection.id
+select model_exponent, Inflection.description, variant, applOrder,
+       accentShift, vowel, transfFrom, transfTo
+  from models, ModelDescription, Inflection, Transform
+  where model_id = modelId
+    and transformId = Transform.id
+    and inflectionId = Inflection.id
     and model_type = 'F'
     and model_no = '117'
-  order by md_infl, md_variant, md_order;
+  order by inflectionId, variant, applOrder;
 
 
 The participleModel table

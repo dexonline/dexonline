@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../styles/flex.css" rel="stylesheet" type="text/css"/>
+    {include file="common/bits/css.ihtml" flex=1}
     <title>DEX | {$sectionTitle|escape}</title>
   </head>
 

@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="{$cssRoot}/polar.css" rel="stylesheet" type="text/css"/>
-    <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
+    {include file="common/bits/css.ihtml" paradigm=1 polar=1}
     <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex-context-search.xml" title="Căutare dexonline.ro"/>
     <title>{$page_title|escape}</title>
     {include file="common/bits/js.ihtml" dex=1}

@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="styles/simple.css" rel="stylesheet" type="text/css"/>
+    {include file="common/bits/css.ihtml" simple=1}
     <title>Contribuie la DEX!</title>
     {include file="common/bits/js.ihtml" dex=1}
   </head>

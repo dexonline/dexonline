@@ -4,11 +4,8 @@
     <title>{$page_title|escape}</title>
   	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
     <meta content="dex online dexonline dicționar dicționarul explicativ limbii române limba română" name="keywords">
-    <meta content="DEX online - Dicționar explicativ al limbii române"
-          name="description">
-
-    <link rel="stylesheet" href="{$cssRoot}/olimp.css">
-    <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
+    <meta content="DEX online - Dicționar explicativ al limbii române" name="description">
+    {include file="common/bits/css.ihtml" olimp=1 paradigm=1}
     {include file="common/bits/js.ihtml" dex=1}
   </head>
 

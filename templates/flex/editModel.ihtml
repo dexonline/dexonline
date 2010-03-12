@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href="../styles/flex.css" rel="stylesheet" type="text/css"/>
-    <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
+    {include file="common/bits/css.ihtml" flex=1 paradigm=1}
     {include file="common/bits/js.ihtml" dex=1}
     <title>DEX | Editare model: {$modelType}{$modelNumber}</title>
   </head>

@@ -4,8 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <link href="{$cssRoot}/simple.css" rel="stylesheet" type="text/css"/>
-  <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
+  {include file="common/bits/css.ihtml" paradigm=1 simple=1}
   <title>{$page_title|escape}</title>
   {include file="common/bits/js.ihtml" dex=1}
 </head>

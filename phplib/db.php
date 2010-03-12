@@ -222,7 +222,7 @@ function db_selectTop() {
                       "sum(length(internalRep)) as NumChars, " .
                       "max(createDate) as Timestamp " .
                       "from Definition, User " .
-                      "where userId = user.id " .
+                      "where userId = User.id " .
                       "and status = 0 " .
                       "group by nick");
 }

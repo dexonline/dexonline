@@ -307,7 +307,7 @@ class TopEntry {
 
     while ($dbRow = mysql_fetch_assoc($dbResult)) {
       $topEntry = new TopEntry();
-      $topEntry->userNick = $dbRow['Nick'];
+      $topEntry->userNick = $dbRow['nick'];
       $topEntry->numDefinitions = $dbRow['NumDefinitions'];
       $topEntry->numChars = $dbRow['NumChars'];
       $topEntry->timestamp = $dbRow['Timestamp'];

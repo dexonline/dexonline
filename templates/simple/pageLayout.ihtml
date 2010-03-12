@@ -7,7 +7,7 @@
   <link href="{$cssRoot}/simple.css" rel="stylesheet" type="text/css"/>
   <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
   <title>{$page_title|escape}</title>
-  <script type="text/javascript" src="{$wwwRoot}js/dex.js"></script>
+  {include file="common/bits/js.ihtml" dex=1}
 </head>
 
 <body id="simpleSkinBody">

@@ -6,8 +6,7 @@
     <link href="{$cssRoot}/mobile.css" rel="stylesheet" type="text/css"/>
     <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
     <title>{$page_title|escape}</title>
-    <script type="text/javascript" src="{$wwwRoot}js/dex.js"></script>
-    <script type="text/javascript" src="{$wwwRoot}js/mobile.js"></script>
+    {include file="common/bits/js.ihtml" dex=1 mobile=1}
   </head>
 
   <body id="mobileSkinBody" onload="fixMobile();">

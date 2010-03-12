@@ -92,7 +92,7 @@
 	  {else}
     <a class="inflLink" href="#" onclick="return toggleInflVisibility({if $lexemId}'{$lexemId}',1{else}'{$cuv|escape:url}'{/if});"
        title="click pentru conjugarea / declinarea cuvintelor"
-      ><span id="inflArrow">&#x25b7;</span>{$declensionText}
+      ><span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span>{$declensionText}
     </a>
 	  {/if}
   {/if}

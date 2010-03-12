@@ -241,7 +241,7 @@ function getParadigmCallback(httpRequest) {
       var paradigmDiv = document.getElementById("paradigmDiv");
       paradigmDiv.innerHTML = httpRequest.responseText;
     } else {
-      alert('A apărut o problemă la comunicarea cu serverul. Greșeala de tipar nu a fost încă ștearsă.');
+      alert('A apărut o problemă la comunicarea cu serverul. Nu pot afișa paradigma.');
     }
   }
 }

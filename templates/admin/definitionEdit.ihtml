@@ -5,8 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../styles/flex.css" rel="stylesheet" type="text/css"/>
     <link href="../styles/lexemPicker.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="../js/dex.js"></script>
-    <script type="text/javascript" src="../js/lexemPicker.js"></script>
+    {include file="common/bits/js.ihtml" dex=1 lexemPicker=1}
     <title>DEX | Editare definiție</title>
   </head>
 

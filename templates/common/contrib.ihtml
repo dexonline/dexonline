@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="styles/simple.css" rel="stylesheet" type="text/css"/>
     <title>Contribuie la DEX!</title>
-    <script type="text/javascript" src="js/dex.js"></script>
+    {include file="common/bits/js.ihtml" dex=1}
   </head>
 
 <body onload="contribBodyLoad()">

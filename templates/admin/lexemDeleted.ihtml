@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../styles/flex.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="../js/dex.js"></script>
+    {include file="common/bits/js.ihtml" dex=1}
     <title>Confirmare ștergere lexem</title>
   </head>
 

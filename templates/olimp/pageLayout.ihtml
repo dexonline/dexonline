@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="{$cssRoot}/olimp.css">
     <link href="{$cssRoot}/paradigm.css" rel="stylesheet" type="text/css"/>
-     <script type="text/javascript" src="{$wwwRoot}js/dex.js"></script>
+    {include file="common/bits/js.ihtml" dex=1}
   </head>
 
   <body id="olimpSkinBody">

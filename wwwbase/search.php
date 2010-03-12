@@ -174,8 +174,9 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
     }
     $declensionText = $conjugations ? ($declensions ? 'conjugări / declinări' : 'conjugări') : 'declinări';
 
-	if ($showParadigm)
+    if ($showParadigm) {
       smarty_assign('ifMaps', $ifMaps);
+    }
     smarty_assign('declensionText', $declensionText);
   }
 

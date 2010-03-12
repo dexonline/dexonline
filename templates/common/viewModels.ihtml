@@ -1,6 +1,6 @@
 <br/>
 
-<script type="text/javascript" src="js/flex.js"></script>
+{include file="common/bits/js.ihtml" flex=1}
 
 <form action="viewModels.php" method="get">
   Versiunea LOC:

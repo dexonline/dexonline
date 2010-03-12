@@ -6,9 +6,7 @@
     <link href="../styles/flex.css" rel="stylesheet" type="text/css"/>
     <link href="../styles/paradigm.css" rel="stylesheet" type="text/css"/>
     <link href="../styles/lexemPicker.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="../js/dex.js"></script>
-    <script type="text/javascript" src="../js/flex.js"></script>
-    <script type="text/javascript" src="../js/lexemPicker.js"></script>
+    {include file="common/bits/js.ihtml" dex=1 flex=1 lexemPicker=1}
     <title>DEX | Editare lexem: {$lexem->form|escape}</title>
   </head>
 

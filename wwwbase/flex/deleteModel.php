@@ -9,7 +9,7 @@ $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
 $deleteButton = util_getRequestParameter('deleteButton');
 
-$model = Model::loadByTypeNumber($modelType, $modelNumber);
+$model = Model::get("modelType = '{$modelType}' and number = '{$modelNumber}'");
 $lexems = Lexem::loadByCanonicalModel($modelType, $modelNumber);
 
 if ($deleteButton) {
@@ -25,7 +25,7 @@ if ($deleteButton) {
   exit;
 }
 
-RecentLink::createOrUpdate('Ștergere model: ' . $model->getName());
+RecentLink::createOrUpdate("Ștergere model: {$model}");
 smarty_assign('modelType', $modelType);
 smarty_assign('modelNumber', $modelNumber);
 smarty_assign('lexems', $lexems);

@@ -130,7 +130,7 @@ canonical - Some model types have "dependants". For example A
   information about A (the canonical model).
 
 
-The models table
+The Model table
 ----------------
 
 This is the core of the inflection generator. The way we generate the
@@ -156,7 +156,7 @@ Now if we label "p'arte" ("part") with the same model, F117, we can
 find its plural form by applying the same transforms. The result is
 "p'ărți" ("parts").
 
-model_flag - Not really used now, we used it while we were building
+flag - Not really used now, we used it while we were building
 the database to allow admins to flag models with problems.
 
 
@@ -174,7 +174,7 @@ For every model, this table lists the acceptable inflections and the
 way to generate them
 
 id - Unique numeric ID.
-modelId - Matches models.model_id.
+modelId - Matches Model.id.
 inflectionId - Matches Inflection.id.
 variant - 0-based counter where multiple variants are allowed for
   the same inflectionId. Matches InflectedForm.variant.
@@ -205,14 +205,14 @@ vowel - Sometimes, due to morphologic phenomena, the vowel at the
 EXAMPLE: Here is how to find the paradigm for "c'arte", the exponent
 for F117:
 
-select model_exponent, Inflection.description, variant, applOrder,
+select exponent, Inflection.description, variant, applOrder,
        accentShift, vowel, transfFrom, transfTo
-  from models, ModelDescription, Inflection, Transform
-  where model_id = modelId
+  from Model, ModelDescription, Inflection, Transform
+  where Model.id = modelId
     and transformId = Transform.id
     and inflectionId = Inflection.id
-    and model_type = 'F'
-    and model_no = '117'
+    and Model.ModelType = 'F'
+    and Model.number = '117'
   order by inflectionId, variant, applOrder;
 
 
@@ -229,7 +229,7 @@ the corresponding adjective model to be used for participles.
 
 id - Unique numeric ID.
 verbModel - The number (not ID!) of the verb model. An entry in
-  models is guaranteed to exist with type V and number verbModel.
+  Model is guaranteed to exist with type V and number verbModel.
 adjectiveModel - The number (not ID!) of the adjective model. An
-  entry in models is guaranteed to exist with type A and number
+  entry in Model is guaranteed to exist with type A and number
   adjectiveModel.

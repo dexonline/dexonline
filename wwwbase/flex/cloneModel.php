@@ -26,12 +26,9 @@ if ($cloneButton) {
 
   if (!count($errorMessages)) {
     // Clone the model
-    $model = Model::loadByTypeNumber($modelType, $modelNumber);
-    $cloneModel = Model::create($modelType, $newModelNumber,
-                                "Clonat după $modelType$modelNumber",
-                                $model->exponent);
+    $model = Model::get("modelType = '{$modelType}' and number = '{$modelNumber}'");
+    $cloneModel = new Model($modelType, $newModelNumber, "Clonat după $modelType$modelNumber", $model->exponent);
     $cloneModel->save();
-    $cloneModel->id = db_getLastInsertedId();
 
     // Clone the model descriptions
     $mds = db_find(new ModelDescription(), "modelId = '{$model->id}' order by inflectionId, variant, applOrder");

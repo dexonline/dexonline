@@ -451,8 +451,8 @@ class Inflection extends BaseObject {
 
   public static function loadByModelType($modelType) {
     $result = array();
-    $dbResult = db_execute("select distinct Inflection.* from models, ModelDescription, Inflection " .
-                           "where modelId = model_id and inflectionId = Inflection.id and model_type = '$modelType' order by inflectionId");
+    $dbResult = db_execute("select distinct Inflection.* from Model, ModelDescription, Inflection " .
+                           "where modelId = Model.id and inflectionId = Inflection.id and modelType = '$modelType' order by inflectionId");
     return db_getObjects(new Inflection(), $dbResult);
   }
 
@@ -465,115 +465,30 @@ class Inflection extends BaseObject {
   }
 }
 
-class Model {
-  public $id;
-  public $modelType;
-  public $number;
-  public $description;
-  public $exponent;
-  public $flag = 0;
-
-  public static function create($modelType, $number, $description, $exponent) {
-    $m = new Model();
-    $m->modelType = $modelType;
-    $m->number = $number;
-    $m->description = $description;
-    $m->exponent = $exponent;
-    return $m;
+class Model extends BaseObject {
+  function __construct($modelType = '', $number = '', $description = '', $exponent = '') {
+    parent::__construct();
+    $this->modelType = $modelType;
+    $this->number = $number;
+    $this->description = $description;
+    $this->exponent = $exponent;
+    $this->flag = 0;
   }
 
-  public function getName() {
-    return $this->modelType . $this->number;
-  }
-
-  public static function load($id) {
-    $dbRow = db_getModelById($id);
-    if ($dbRow) {
-      $result = new Model();
-      $result->populateFromDbRow($dbRow);
-      return $result;
-    } else {
-      return null;
-    }    
+  public static function get($where) {
+    $obj = new Model();
+    $obj->load($where);
+    return $obj->id ? $obj : null;
   }
 
   public static function loadByType($type) {
-    if (!function_exists('splitModelNumber')) {
-      function splitModelNumber($s) {
-        $i = 0;
-        $len = strlen($s);
-        while ($i < $len && ctype_digit($s[$i])) {
-          $i++;
-        }
-        return array(substr($s, 0, $i), substr($s, $i));
-      }
-      
-      function cmp($a, $b) {
-        // Split $a and $b in numbers and versions
-        list ($numA, $restA) = splitModelNumber($a->number);
-        list ($numB, $restB) = splitModelNumber($b->number);
-        if ($numA == $numB) {
-          return strcasecmp($restA, $restB);
-        } else {
-          return $numA - $numB;
-        }
-      }
-    }
-
     $type = ModelType::canonicalize($type);
-    $dbResult = db_getModelsByType($type);
-    $models = Model::populateFromDbResult($dbResult);
-    usort($models, "cmp");
-    return $models;
-  }
-
-  public static function loadByTypeNumber($type, $number) {
-    $dbRow = db_getModelByTypeNumber($type, $number);
-    if ($dbRow) {
-      $result = new Model();
-      $result->populateFromDbRow($dbRow);
-      return $result;
-    } else {
-      return null;
-    }
+    return db_find(new Model(), "modelType = '{$type}' order by cast(number as unsigned)");
   }
 
   public static function loadCanonicalByTypeNumber($type, $number) {
     $type = ModelType::canonicalize($type);
-    return Model::loadByTypeNumber($type, $number);
-  }
-
-  public static function loadAll() {
-    $dbResult = db_selectAllModels();
-    return Model::populateFromDbResult($dbResult);
-  }
-
-  public function populateFromDbRow($dbRow) {
-    $this->id = $dbRow['model_id']; 
-    $this->modelType = $dbRow['model_type']; 
-    $this->number = $dbRow['model_no']; 
-    $this->description = $dbRow['model_descr'];
-    $this->exponent = $dbRow['model_exponent'];
-    $this->flag = $dbRow['model_flag'];
-  }
-
-  public static function populateFromDbResult($dbResult) {
-    $result = array();
-    while ($dbRow = mysql_fetch_assoc($dbResult)) {
-      $model = new Model();
-      $model->populateFromDbRow($dbRow);
-      $result[] = $model;
-    }
-    mysql_free_result($dbResult);
-    return $result;
-  }
-
-  public function save() {
-    if ($this->id) {
-      db_updateModel($this);
-    } else {
-      db_insertModel($this);
-    }
+    return Model::get("modelType = '{$type}' and number = '{$number}'");
   }
 
   public function delete() {
@@ -582,7 +497,7 @@ class Model {
       $pm = ParticipleModel::loadByVerbModel($this->number);
       $pm->delete();
     }
-    db_deleteModel($this);
+    parent::delete();
   }
 
   /** Returns an array containing the type, number and restrictions **/
@@ -601,6 +516,10 @@ class Model {
     $result[] = substr($name, $i, $j - $i);
     $result[] = substr($name, $j);
     return $result;
+  }
+
+  public function __toString() {
+    return $this->modelType . $this->number;
   }
 }
 
@@ -983,8 +902,8 @@ class Lexem {
   public function regeneratePastParticiple($adjectiveModel) {
     $infl = Inflection::loadParticiple();
     $ifs = db_find(new InflectedForm(), "lexemId = {$this->id} and inflectionId = {$infl->id}");
-    $model = Model::loadByTypeNumber('A', $adjectiveModel);
-    
+    $model = Model::get("modelType = 'A' and number = '{$adjectiveModel}'");
+
     foreach ($ifs as $if) {
       // Load an existing lexem only if it has the same model as $model or
       // $temporaryModel. Otherwise create a new lexem.
@@ -1021,8 +940,8 @@ class Lexem {
   public function regenerateLongInfinitive() {
     $infl = Inflection::loadLongInfinitive();
     $ifs = db_find(new InflectedForm(), "lexemId = {$this->id} and inflectionId = {$infl->id}");
-    $f107 = Model::loadByTypeNumber('F', 107);
-    $f113 = Model::loadByTypeNumber('F', 113);
+    $f107 = Model::get("modelType = 'F' and number = '107'");
+    $f113 = Model::get("modelType = 'F' and number = '113'");
     
     foreach ($ifs as $if) {
       $model = text_endsWith($if->formNoAccent, 'are') ? $f113 : $f107;

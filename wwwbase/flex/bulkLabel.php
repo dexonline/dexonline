@@ -51,15 +51,15 @@ while ($dbRow = mysql_fetch_assoc($dbResult)) {
   $count = $dbRow['c'];
   if (!count($models) || ($count / $numLabeled >= 0.05)) {
     if ($modelType == 'V' || $modelType == 'VT') {
-      $m = Model::loadByTypeNumber('V', $modelNumber);
+      $m = Model::get("modelType = 'V' and number = '{$modelNumber}'");
       $models[] = $m;
-      $models[] = Model::create('VT', $modelNumber, '', $m->exponent);
+      $models[] = new Model('VT', $modelNumber, '', $m->exponent);
     } else if ($modelType == 'A' || $modelType == 'MF') {
-      $m = Model::loadByTypeNumber('A', $modelNumber);
+      $m = Model::get("modelType = 'A' and number = '{$modelNumber}'");
       $models[] = $m;
-      $models[] = Model::create('MF', $modelNumber, '', $m->exponent);
+      $models[] = new Model('MF', $modelNumber, '', $m->exponent);
     } else {
-      $models[] = Model::loadByTypeNumber($modelType, $modelNumber);
+      $models[] = Model::get("modelType = '{$modelType}' and number = '{$modelNumber}'");
     }
     $hasInvariableModel = $hasInvariableModel || ($modelType == 'I');
   }
@@ -67,7 +67,7 @@ while ($dbRow = mysql_fetch_assoc($dbResult)) {
 
 // Always add the Invariable model
 if (!$hasInvariableModel) {
-  $models[] = Model::loadByTypeNumber('I', 1);
+  $models[] = Model::get("modelType = 'I' and number = '1'");
 }
 
 // Load at most 10 lexems having this suffix and flex them according

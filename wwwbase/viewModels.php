@@ -22,7 +22,7 @@ if ($locVersion && $modelType && $modelNumber) {
   if ($modelNumber == -1) {
     $modelsToDisplay = Model::loadByType($modelType);
   } else {
-    $modelsToDisplay = array(Model::loadByTypeNumber($modelType, $modelNumber));
+    $modelsToDisplay = array(Model::get("modelType = '{$modelType}' and number= '{$modelNumber}'"));
   }
   $lexems = array();
   $paradigms = array();

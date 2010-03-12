@@ -56,7 +56,7 @@ print "Creating database $dbName\n";
 mysql_query("create database $dbName");
 $fileName = tempnam('/tmp', 'freeze_');
 print "Dumping tables to $fileName\n";
-$tablesToDump = "ConstraintMap Inflection lexems ModelDescription ModelType models ParticipleModel Transform InflectedForm";
+$tablesToDump = "ConstraintMap Inflection lexems ModelDescription ModelType Model ParticipleModel Transform InflectedForm";
 $parts = db_splitDsn();
 $mysql = sprintf("mysqldump -h %s -u %s --password='%s' %s %s > %s", $parts['host'], $parts['user'], $parts['password'], $parts['database'], $tablesToDump, $fileName);
 os_executeAndAssert($mysql);

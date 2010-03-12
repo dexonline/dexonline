@@ -270,68 +270,6 @@ function db_getLexemHomonyms($lexem) {
   return logged_query($query);
 }
 
-function db_insertModel($m) {
-  $query = sprintf("insert into models set " .
-                   "model_type = '%s', " .
-                   "model_no = '%s', " .
-                   "model_descr = '%s', " .
-                   "model_exponent = '%s', " .
-                   "model_flag = '%d'",
-                   addslashes($m->modelType),
-                   addslashes($m->number),
-                   addslashes($m->description),
-                   addslashes($m->exponent),
-                   $m->flag
-                   );
-  return logged_query($query);
-}
-
-function db_updateModel($m) {
-  $query = sprintf("update models set " .
-                   "model_type = '%s', " .
-                   "model_no = '%s', " .
-                   "model_descr = '%s', " .
-                   "model_exponent = '%s', " .
-                   "model_flag = '%d' " .
-                   "where model_id = '%d'",
-                   addslashes($m->modelType),
-                   addslashes($m->number),
-                   addslashes($m->description),
-                   addslashes($m->exponent),
-                   $m->flag,
-                   $m->id);
-  return logged_query($query);
-}
-
-function db_deleteModel($model) {
-  return logged_query("delete from models where model_id = {$model->id}");
-}
-
-function db_getModelByTypeNumber($type, $number) {
-  $type = addslashes($type);
-  $number = addslashes($number);
-  $query = "select * from models where model_type = '$type' " .
-    "and model_no = '$number'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getModelsByType($type) {
-  $type = addslashes($type);
-  $query = "select * from models where model_type = '$type' " .
-    "order by cast(model_no as unsigned)";
-  return logged_query($query);
-}
-
-function db_getModelById($id) {
-  $query = "select * from models where model_id = $id";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_selectAllModels() {
-  $query = 'select * from models order by model_type, model_no';
-  return logged_query($query);
-}
-
 function db_getLexemById($id) {
   $query = "select * from lexems where lexem_id = '$id'";
   return db_fetchSingleRow(logged_query($query));

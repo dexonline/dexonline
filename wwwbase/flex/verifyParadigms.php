@@ -9,10 +9,9 @@ $modelType = util_getRequestParameter('modelType');
 if ($updateModels) {
   foreach ($_REQUEST as $name => $value) {
     if (text_startsWith($name, 'model_') && $value != '0') {
-      $parts = split('_', $name);
-      assert(count($parts) == 2);
+      $parts = split('_', $name, 2);
       assert($parts[0] == 'model');
-      $modelNumber = $parts[1];
+      $modelNumber = str_replace('_', '.', $parts[1]); // stupid PHP replaces . with _ in incoming data
 
       // If given, add a comment to the lexems that were shown for this model.
       $comment = util_getRequestParameter("com_$modelNumber");
@@ -26,7 +25,7 @@ if ($updateModels) {
       }
 
       // Now mark this model with the flag value.
-      $m = Model::loadByTypeNumber($modelType, $modelNumber);
+      $m = Model::get("modelType = '{$modelType}' and number = '{$modelNumber}'");
       $m->flag = $value;
       $m->save();
     }

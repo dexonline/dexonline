@@ -12,7 +12,7 @@ $confirmButton = util_getRequestParameter('confirmButton');
 
 $inflections = Inflection::loadByModelType($modelType);
 // Load the original data
-$model = Model::loadByTypeNumber($modelType, $modelNumber);
+$model = Model::get("modelType = '{$modelType}' and number = '{$modelNumber}'");
 $exponent = $model->exponent;
 $lexem = Lexem::create($exponent, $modelType, $modelNumber, '');
 $ifs = $lexem->generateParadigm();
@@ -246,7 +246,7 @@ foreach ($inflections as $infl) {
 }
 
 if (!$previewButton && !$confirmButton) {
-  RecentLink::createOrUpdate('Editare model: ' . $model->getName());
+  RecentLink::createOrUpdate("Editare model: {$model}");
 }
 
 smarty_assign('inflections', $inflections);

@@ -64,7 +64,7 @@ $declensionText = $conjugations ? ($declensions ? 'conjugări / declinări' : 'c
 smarty_assign('lexems', $lexems);
 smarty_assign('ifMaps', $ifMaps);
 smarty_assign('showParadigm', true);
-smarty_assign('ajax', $ajax);
+smarty_assign('onlyParadigm', !$ajax);
 smarty_assign('declensionText', $declensionText);
 }
 

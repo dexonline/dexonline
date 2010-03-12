@@ -23,7 +23,7 @@ if ($export == 'sources') {
   smarty_assign('sources', db_find(new Source(), '1'));
   smarty_displayWithoutSkin('common/update3Sources.ihtml');
 } else if ($export == 'inflections') {
-  smarty_assign('inflections', db_find(new Inflection(), '1 order by Id'));
+  smarty_assign('inflections', db_find(new Inflection(), '1 order by id'));
   smarty_displayWithoutSkin('common/update3Inflections.ihtml');
 } else if ($export == 'definitions') {
   userCache_init();

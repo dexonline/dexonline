@@ -12,12 +12,12 @@ if ($def && $def->id) {
 
   // TODO: This code replicates code in definitionEdit.php
   // If by deleting this definition, any associated lexems become unassociated, delete them
-  $ldms = LexemDefinitionMap::loadByDefinitionId($def->id);
-  LexemDefinitionMap::deleteByDefinitionId($def->id);
+  $ldms = db_find(new LexemDefinitionMap(), "definitionId = {$def->id}");
+  db_execute("delete from LexemDefinitionMap where definitionId = {$def->id}");
 
   foreach ($ldms as $ldm) {
     $l = Lexem::load($ldm->lexemId);
-    $otherLdms = LexemDefinitionMap::loadByLexemId($l->id);
+    $otherLdms = db_find(new LexemDefinitionMap(), "lexemId = {$l->id}");
     if (!$l->isLoc && !count($otherLdms)) {
       $l->delete();
     }

@@ -33,7 +33,6 @@ if ($sendButton) {
     $definition->htmlRep = text_htmlize($def);
     $definition->lexicon = text_extractLexicon($definition);
     $definition->save();
-    $definition->id = db_getLastInsertedId();
     log_userLog("Added definition {$definition->id} ({$definition->lexicon})");
 
     $name = text_formatLexem($name);

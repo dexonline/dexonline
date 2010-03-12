@@ -170,8 +170,8 @@ function db_searchRegexp($regexp, $hasDiacritics, $sourceId) {
   $field = $hasDiacritics ? 'lexem_neaccentuat' : 'lexem_utf8_general';
   $sourceClause = $sourceId ? "and Definition.sourceId = $sourceId " : '';
   $sourceJoin = $sourceId ?  "join LexemDefinitionMap " .
-    "on lexem_id = LexemDefinitionMap.LexemId " .
-    "join Definition on LexemDefinitionMap.DefinitionId = Definition.id " : '';
+    "on lexem_id = LexemDefinitionMap.lexemId " .
+    "join Definition on LexemDefinitionMap.definitionId = Definition.id " : '';
   $query = "select * from lexems " .
     $sourceJoin .
     "where $field $regexp " .
@@ -184,8 +184,8 @@ function db_countRegexpMatches($regexp, $hasDiacritics, $sourceId) {
   $field = $hasDiacritics ? 'lexem_neaccentuat' : 'lexem_utf8_general';
   $sourceClause = $sourceId ? "and Definition.sourceId = $sourceId " : '';
   $sourceJoin = $sourceId ?  "join LexemDefinitionMap " .
-    "on lexem_id = LexemDefinitionMap.LexemId " .
-    "join Definition on LexemDefinitionMap.DefinitionId = Definition.id " : '';
+    "on lexem_id = LexemDefinitionMap.lexemId " .
+    "join Definition on LexemDefinitionMap.definitionId = Definition.id " : '';
   $query = "select count(*) from lexems " .
     $sourceJoin .
     "where $field $regexp " .
@@ -230,8 +230,8 @@ function db_selectTop() {
 function db_getLexemsByMinModDate($modDate) {
   $query = "select Definition.id, lexem_neaccentuat " .
     "from Definition force index(modDate), LexemDefinitionMap, lexems " .
-    "where Definition.id = LexemDefinitionMap.DefinitionId " .
-    "and LexemDefinitionMap.LexemId = lexem_id " .
+    "where Definition.id = LexemDefinitionMap.definitionId " .
+    "and LexemDefinitionMap.lexemId = lexem_id " .
     "and Definition.status = 0 " .
     "and Definition.modDate >= $modDate " .
     "order by Definition.modDate, Definition.id";
@@ -241,9 +241,9 @@ function db_getLexemsByMinModDate($modDate) {
 function db_getUpdate3LexemIds($modDate) {
   // Do not report deleted / pending definitions the first time this script is invoked
   $statusClause = $modDate ? "" : " and status = 0";
-  $query = "select Definition.id, LexemId " .
+  $query = "select Definition.id, lexemId " .
     "from Definition force index(modDate), LexemDefinitionMap " .
-    "where Definition.id = LexemDefinitionMap.DefinitionId " .
+    "where Definition.id = definitionId " .
     "and Definition.modDate >= $modDate $statusClause " .
     "order by Definition.modDate, Definition.id";
   return logged_query($query);
@@ -338,9 +338,7 @@ function db_getLexemById($id) {
 }
 
 function db_getLexemsByDefinitionId($definitionId) {
-  $query = "select lexems.* from lexems, LexemDefinitionMap " .
-    "where lexems.lexem_id = LexemDefinitionMap.LexemId " .
-    "and LexemDefinitionMap.DefinitionId = '$definitionId'";
+  $query = "select lexems.* from lexems, LexemDefinitionMap where lexem_id = lexemId and definitionId = '$definitionId'";
   return logged_query($query);
 }
 
@@ -440,17 +438,13 @@ function db_countLexems() {
 }
 
 function db_countAssociatedLexems() {
-  // same as select count(distinct LexemId) from LexemDefinitionMap,
-  // only faster.
-  $query = 'select count(*) from (select count(*) from LexemDefinitionMap ' .
-    'group by LexemId) as someLabel';
+  // same as select count(distinct lexemId) from LexemDefinitionMap, only faster.
+  $query = 'select count(*) from (select count(*) from LexemDefinitionMap group by lexemId) as someLabel';
   return db_fetchInteger(logged_query($query));
 }
 
 function db_getUnassociatedLexems() {
-  $query = 'select * from lexems ' .
-    'where lexem_id not in (select LexemId from LexemDefinitionMap) ' .
-    'order by lexem_neaccentuat';
+  $query = 'select * from lexems where lexem_id not in (select lexemId from LexemDefinitionMap) order by lexem_neaccentuat';
   return logged_query($query);
 }
 
@@ -471,7 +465,7 @@ function db_getTemporaryLexems() {
 
 function db_getTemporaryLexemsFromSource($sourceId) {
   $query = "select distinct lexems.* from lexems, LexemDefinitionMap, Definition " .
-    "where lexems.lexem_id = LexemDefinitionMap.LexemId and LexemDefinitionMap.DefinitionId = Definition.id " .
+    "where lexems.lexem_id = LexemDefinitionMap.lexemId and LexemDefinitionMap.definitionId = Definition.id " .
     "and Definition.status = 0 and Definition.sourceId = $sourceId and lexem_model_type = 'T' " .
     "order by lexem_neaccentuat";
   return logged_query($query);
@@ -669,73 +663,6 @@ function db_selectPluralLexemsByModelType($modelType) {
     $whereClause = '(lexem_model_type = "T") or (lexem_model_type in ("M", "F", "N") and lexem_restriction like "%P%")';
   }
   return logged_query("select * from lexems where {$whereClause} order by lexem_neaccentuat");
-}
-
-function db_getLexemDefinitionMapByLexemIdDefinitionId($lexemId,
-                                                       $definitionId) {
-  $query = "select * from LexemDefinitionMap " .
-    "where LexemId = '$lexemId' " .
-    "and DefinitionId = '$definitionId'";
-  return db_fetchSingleRow(logged_query($query));
-}
-
-function db_getLexemDefinitionMapsByLexemId($lexemId) {
-  $query = "select * from LexemDefinitionMap " .
-    "where LexemId = '$lexemId'";
-  return logged_query($query);
-}
-
-function db_getLexemDefinitionMapsByDefinitionId($definitionId) {
-  $query = "select * from LexemDefinitionMap " .
-    "where DefinitionId = '$definitionId'";
-  return logged_query($query);
-}
-
-function db_insertLexemDefinitionMap($ldm) {
-  $query = sprintf("insert into LexemDefinitionMap set " .
-                   "LexemId = '%d', " .
-                   "DefinitionId = '%d' ",
-                   $ldm->lexemId,
-                   $ldm->definitionId);
-  return logged_query($query);
-}
-
-function db_updateLexemDefinitionMap($ldm) {
-  $query = sprintf("update LexemDefinitionMap set " .
-                   "LexemId = '%d', " .
-                   "DefinitionId = '%d' " .
-                   "where Id = '%d'",
-                   $ldm->lexemId,
-                   $ldm->definitionId,
-                   $ldm->id);
-  return logged_query($query);
-}
-
-function db_deleteLexemDefinitionMap($ldm) {
-  logged_query("delete from LexemDefinitionMap where Id = '" . $ldm->id . "'");
-}
-
-function db_deleteLexemDefinitionMapsByDefinitionId($definitionId) {
-  $query = "delete from LexemDefinitionMap where DefinitionId = $definitionId";
-  logged_query($query);
-}
-
-function db_deleteLexemDefinitionMapsByLexemId($lexemId) {
-  $query = "delete from LexemDefinitionMap where LexemId = $lexemId";
-  logged_query($query);
-}
-
-function db_deleteLexemDefinitionMapByLexemIdDefinitionId($lexemId,
-                                                          $definitionId) {
-  $query = "delete from LexemDefinitionMap " .
-    "where LexemId = '$lexemId' " .
-    "and DefinitionId = '$definitionId'";
-  logged_query($query);
-}
-
-function db_deleteAllLexemDefinitionMaps() {
-  $query = "delete from LexemDefinitionMap";
-  logged_query($query);
 }
 
 ?>

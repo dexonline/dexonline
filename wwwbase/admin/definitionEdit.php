@@ -51,7 +51,7 @@ if ($lexemNames) {
       $matches = Lexem::loadByExtendedName($lexemName);
       if (count($matches) == 1) {
         $lexems[] = $matches[0];
-        $ldms[] = LexemDefinitionMap::create($matches[0]->id, $definitionId);
+        $ldms[] = new LexemDefinitionMap($matches[0]->id, $definitionId);
       } else {
         // If ambiguous, and if we have a corresponding lexemId, try to use it
         $lexemId = $lexemIds[$i];
@@ -60,7 +60,7 @@ if ($lexemNames) {
           if ($matches[$j]->id == $lexemId) {
             $found = true;
             $lexems[] = $matches[$j];
-            $ldms[] = LexemDefinitionMap::create($lexemId, $definitionId);
+            $ldms[] = new LexemDefinitionMap($lexemId, $definitionId);
           }
         }
         if (!$found) {
@@ -111,20 +111,19 @@ if ($acceptButton || $moveButton) {
     }
 
     if ($definition->status == ST_DELETED) {
-      // If by deleting this definition, any associated lexems become
-      // unassociated, delete them
-      $ldms = LexemDefinitionMap::loadByDefinitionId($definition->id);
-      LexemDefinitionMap::deleteByDefinitionId($definition->id);
+      // If by deleting this definition, any associated lexems become unassociated, delete them
+      $ldms = db_find(new LexemDefinitionMap(), "definitionId = {$definition->id}");
+      db_execute("delete from LexemDefinitionMap where definitionId = {$definition->id}");
 
       foreach ($ldms as $ldm) {
         $l = Lexem::load($ldm->lexemId);
-        $otherLdms = LexemDefinitionMap::loadByLexemId($l->id);
+        $otherLdms = db_find(new LexemDefinitionMap(), "lexemId = {$l->id}");
         if (!$l->isLoc && !count($otherLdms)) {
           $l->delete();
         }
       }
     } else {
-      LexemDefinitionMap::deleteByDefinitionId($definitionId);
+      db_execute("delete from LexemDefinitionMap where definitionId = {$definitionId}");
       foreach ($ldms as $ldm) {
         $ldm->save();
       }

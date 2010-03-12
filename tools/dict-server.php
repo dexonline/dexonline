@@ -147,8 +147,8 @@ function match($sourceId, $strategy, $cuv, $fd) {
   $query = "select distinct lexems.lexem_neaccentuat, Definition.sourceId " .
     "from lexems " .
     "join LexemDefinitionMap " .
-    "on lexem_id = LexemDefinitionMap.LexemId " .
-    "join Definition on LexemDefinitionMap.DefinitionId = Definition.id " .
+    "on lexem_id = LexemDefinitionMap.lexemId " .
+    "join Definition on LexemDefinitionMap.definitionId = Definition.id " .
     "where Definition.status = 0";
   if ($strategy == "." || $strategy == "approx")
     $query .= " and dist2('$cuv', $field)";

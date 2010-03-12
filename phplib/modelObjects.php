@@ -73,14 +73,14 @@ class Definition extends BaseObject {
   }
 
   public static function loadByLexemId($lexemId) {
-    $dbResult = db_execute("select Definition.* from Definition, LexemDefinitionMap where Definition.id = LexemDefinitionMap.DefinitionId " .
-                           "and LexemDefinitionMap.LexemId = {$lexemId} and status in (0, 1) order by sourceId");
+    $dbResult = db_execute("select Definition.* from Definition, LexemDefinitionMap where Definition.id = definitionId " .
+                           "and LexemDefinitionMap.lexemId = {$lexemId} and status in (0, 1) order by sourceId");
     return db_getObjects(new Definition(), $dbResult);
   }
 
   public static function countAssociated() {
-    // same as select count(distinct DefinitionId) from LexemDefinitionMap, only faster.
-    return db_getSingleValue('select count(*) from (select count(*) from LexemDefinitionMap group by DefinitionId) as someLabel');
+    // same as select count(distinct definitionId) from LexemDefinitionMap, only faster.
+    return db_getSingleValue('select count(*) from (select count(*) from LexemDefinitionMap group by definitionId) as someLabel');
   }
 
   // Counts the unassociated definitions in the active or temporary statuses.
@@ -108,7 +108,7 @@ class Definition extends BaseObject {
     $sourceClause = $sourceId ? "and D.sourceId = $sourceId" : '';
     $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
     $dbResult = db_execute(sprintf("select distinct D.* from Definition D, LexemDefinitionMap L, Source S " .
-                                   "where D.id = L.DefinitionId and L.LexemId in (%s) and D.sourceId = S.id and D.status = 0 %s %s " .
+                                   "where D.id = L.definitionId and L.lexemId in (%s) and D.sourceId = S.id and D.status = 0 %s %s " .
                                    "order by (D.lexicon = '$preferredWord') desc, S.isOfficial desc, D.lexicon, S.displayOrder",
                                    $lexemIds, $excludeClause, $sourceClause));
     return db_getObjects(new Definition(), $dbResult);
@@ -116,8 +116,8 @@ class Definition extends BaseObject {
 
   public static function searchLexemId($lexemId, $exclude_unofficial = false) {
     $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
-    $dbResult = db_execute("select D.* from Definition D, LexemDefinitionMap L, Source S where D.id = L.DefinitionId " .
-                           "and D.sourceId = S.id and L.LexemId = '$lexemId' $excludeClause and D.status = 0 " .
+    $dbResult = db_execute("select D.* from Definition D, LexemDefinitionMap L, Source S where D.id = L.definitionId " .
+                           "and D.sourceId = S.id and L.lexemId = '$lexemId' $excludeClause and D.status = 0 " .
                            "order by S.isOfficial desc, S.displayOrder, D.lexicon");
     return db_getObjects(new Definition(), $dbResult);
   }
@@ -186,8 +186,8 @@ class Definition extends BaseObject {
                      "$sourceClause $userClause order by lexicon, sourceId limit 500");
     } else {
       $field = $hasDiacritics ? 'lexem_neaccentuat' : 'lexem_utf8_general';
-      $dbResult = db_execute("select distinct Definition.* from lexems join LexemDefinitionMap on lexem_id = LexemDefinitionMap.LexemId " .
-                             "join Definition on LexemDefinitionMap.DefinitionId = Definition.id where $field $regexp " .
+      $dbResult = db_execute("select distinct Definition.* from lexems join LexemDefinitionMap on lexem_id = LexemDefinitionMap.lexemId " .
+                             "join Definition on LexemDefinitionMap.definitionId = Definition.id where $field $regexp " .
                              "and Definition.status = $status and Definition.createDate >= $beginTime and Definition.createDate <= $endTime " .
                              "$sourceClause $userClause order by lexicon, sourceId limit 500");
       return db_getObjects(new Definition(), $dbResult);
@@ -1009,7 +1009,7 @@ class Lexem {
         $lexem->id = db_getLastInsertedId();
 
         // Also associate the new lexem with the same definitions as $this.
-        $ldms = LexemDefinitionMap::loadByLexemId($this->id);
+        $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$this->id}");
         foreach ($ldms as $ldm) {
           LexemDefinitionMap::associate($lexem->id, $ldm->definitionId);
         }
@@ -1051,7 +1051,7 @@ class Lexem {
         $lexem->id = db_getLastInsertedId();
 
         // Also associate the new lexem with the same definitions as $this.
-        $ldms = LexemDefinitionMap::loadByLexemId($this->id);
+        $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$this->id}");
         foreach ($ldms as $ldm) {
           LexemDefinitionMap::associate($lexem->id, $ldm->definitionId);
         }
@@ -1142,7 +1142,7 @@ class Lexem {
    */
   private function _deleteDependentModels($inflId, $modelType, $modelNumbers) {
     $ifs = db_find(new InflectedForm(), "lexemId = {$this->id} and inflectionId = {$inflId}");
-    $ldms = LexemDefinitionMap::loadByLexemId($this->id);
+    $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$this->id}");
 
     $defHash = array();
     foreach($ldms as $ldm) {
@@ -1157,7 +1157,7 @@ class Lexem {
             ($l->modelType == $modelType &&
              in_array($l->modelNumber, $modelNumbers))) {
           $ownDefinitions = false;
-          $ldms = LexemDefinitionMap::loadByLexemId($l->id);
+          $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$l->id}");
           foreach ($ldms as $ldm) {
             if (!array_key_exists($ldm->definitionId, $defHash)) {
               $ownDefinitions = true;
@@ -1184,7 +1184,7 @@ class Lexem {
     $clone->id = db_getLastInsertedId();
     
     // Clone the definition list
-    $ldms = LexemDefinitionMap::loadByLexemId($this->id);
+    $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$this->id}");
     foreach ($ldms as $ldm) {
       LexemDefinitionMap::associate($clone->id, $ldm->definitionId);
     }
@@ -1222,55 +1222,11 @@ class Lexem {
   }
 }
 
-class LexemDefinitionMap {
-  public $id;
-  public $lexemId;
-  public $definitionId;
-
-  public static function create($lexemId, $definitionId) {
-    $ldm = new LexemDefinitionMap();
-    $ldm->lexemId = $lexemId;
-    $ldm->definitionId = $definitionId;
-    return $ldm;
-  }
-
-  public static function load($lexemId, $definitionId) {
-    $dbRow = db_getLexemDefinitionMapByLexemIdDefinitionId($lexemId,
-                                                           $definitionId);
-    if ($dbRow) {
-      $result = new LexemDefinitionMap();
-      $result->populateFromDbRow($dbRow);
-      return $result;
-    } else {
-      return null;
-    }
-  }
-
-  public static function loadByLexemId($lexemId) {
-    $dbResult = db_getLexemDefinitionMapsByLexemId($lexemId);
-    return LexemDefinitionMap::populateFromDbResult($dbResult);
-  }
-
-  public static function loadByDefinitionId($definitionId) {
-    $dbResult = db_getLexemDefinitionMapsByDefinitionId($definitionId);
-    return LexemDefinitionMap::populateFromDbResult($dbResult);
-  }
-
-  public function populateFromDbRow($dbRow) {
-    $this->id = $dbRow['Id']; 
-    $this->lexemId = $dbRow['LexemId'];
-    $this->definitionId = $dbRow['DefinitionId'];
-  }
-
-  public static function populateFromDbResult($dbResult) {
-    $result = array();
-    while ($dbRow = mysql_fetch_assoc($dbResult)) {
-      $ldm = new LexemDefinitionMap();
-      $ldm->populateFromDbRow($dbRow);
-      $result[] = $ldm;
-    }
-    mysql_free_result($dbResult);
-    return $result;
+class LexemDefinitionMap extends BaseObject {
+  function __construct($lexemId = null, $definitionId = null) {
+    parent::__construct();
+    $this->lexemId = $lexemId;
+    $this->definitionId = $definitionId;
   }
 
   public static function associate($lexemId, $definitionId) {
@@ -1282,37 +1238,34 @@ class LexemDefinitionMap {
     }
 
     // The association itself should not exist.
-    $ldm = LexemDefinitionMap::load($lexemId, $definitionId);
-    if (!$ldm) {
-      $ldm = LexemDefinitionMap::create($lexemId, $definitionId);
+    $ldm = new LexemDefinitionMap();
+    $ldm->load("lexemId = {$lexemId} and definitionId = {$definitionId}");
+    if (!$ldm->id) {
+      $ldm = new LexemDefinitionMap($lexemId, $definitionId);
       $ldm->save();
     }
   }
 
   public static function dissociate($lexemId, $definitionId) {
-    db_deleteLexemDefinitionMapByLexemIdDefinitionId($lexemId, $definitionId);
+    $ldm = new LexemDefinitionMap();
+    $ldm->load("lexemId = {$lexemId} and definitionId = {$definitionId}");
+    if ($ldm->id) {
+      $ldm->delete();
+    }
     Definition::updateModDate($definitionId);
   }
 
   public function save() {
-    if ($this->id) {
-      db_updateLexemDefinitionMap($this);
-    } else {
-      db_insertLexemDefinitionMap($this);
-    }
+    parent::save();
     Definition::updateModDate($this->definitionId);
   }  
 
-  public static function deleteByDefinitionId($definitionId) {
-    db_deleteLexemDefinitionMapsByDefinitionId($definitionId);
-  }
-
   public static function deleteByLexemId($lexemId) {
-    $ldms = LexemDefinitionMap::loadByLexemId($lexemId);
+    $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$lexemId}");
     foreach ($ldms as $ldm) {
       Definition::updateModDate($ldm->definitionId);
+      $ldm->delete();
     }
-    db_deleteLexemDefinitionMapsByLexemId($lexemId);
   }
 }
 
@@ -1435,11 +1388,11 @@ class FullTextIndex extends BaseObject {
     if (!$lexemIds) {
       return array();
     }
-    return db_getScalarArray(db_execute("select distinct DefinitionId from FullTextIndex where LexemId in ($lexemIds) order by DefinitionId"));
+    return db_getScalarArray(db_execute("select distinct definitionId from FullTextIndex where lexemId in ($lexemIds) order by definitionId"));
   }
 
   public static function loadPositionsByLexemIdsDefinitionId($lexemIds, $defId) {
-    return db_getScalarArray(db_execute("select distinct Position from FullTextIndex where LexemId in ($lexemIds) and DefinitionId = $defId order by Position"));
+    return db_getScalarArray(db_execute("select distinct position from FullTextIndex where lexemId in ($lexemIds) and definitionId = $defId order by position"));
   }
 }
 

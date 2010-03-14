@@ -1,9 +1,13 @@
 <?php
 require_once("../phplib/util.php");
 
+define('TYPE_SHOW_ONLY_VERBS', 'conjugare');
+define('TYPE_SHOW_NO_VERBS', 'declinare');
+
 $cuv = util_getRequestParameter('cuv');
 $lexemId = util_getRequestParameter('lexemId');
 $ajax = util_getRequestParameter('ajax');
+$type = util_getRequestParameter('type');
 
 if ($cuv) {
   $cuv = text_cleanupQuery($cuv);
@@ -51,17 +55,35 @@ if (!empty($lexems)) {
   $ifMaps = array();
   $conjugations = false;
   $declensions = false;
+  $filtered_lexems = array();
   foreach ($lexems as $l) {
-    $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
-    if ($l->modelType == 'V' || $l->modelType == 'VT') {
-	  $conjugations = true;
-    } else {
-	  $declensions = true;
-    }
+	if (TYPE_SHOW_ONLY_VERBS == $type) {
+	  if ($l->modelType == 'V' || $l->modelType == 'VT') {
+		$filtered_lexems[] = $l;
+	    $conjugations = true;
+        $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
+	  }
+	}
+	elseif (TYPE_SHOW_NO_VERBS == $type) {
+	  if ($l->modelType != 'V' && $l->modelType != 'VT') {
+		$filtered_lexems[] = $l;
+	    $declensions = true;
+        $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
+	  }
+	}
+	else {
+	  $filtered_lexems[] = $l;
+      $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
+      if ($l->modelType == 'V' || $l->modelType == 'VT') {
+	    $conjugations = true;
+      } else {
+	    $declensions = true;
+      }
+	}
   }
 
-$declensionText = $conjugations ? ($declensions ? 'conjugări / declinări' : 'conjugări') : 'declinări';
-smarty_assign('lexems', $lexems);
+$declensionText = $conjugations ? ($declensions ? 'conjugări / declinări' : 'conjugări') : ($declensions ? 'declinări' : '');
+smarty_assign('lexems', $filtered_lexems);
 smarty_assign('ifMaps', $ifMaps);
 smarty_assign('showParadigm', true);
 smarty_assign('onlyParadigm', !$ajax);

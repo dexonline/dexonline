@@ -82,12 +82,19 @@ if (!empty($lexems)) {
 	}
   }
 
-$declensionText = $conjugations ? ($declensions ? 'conjugări / declinări' : 'conjugări') : ($declensions ? 'declinări' : '');
-smarty_assign('lexems', $filtered_lexems);
-smarty_assign('ifMaps', $ifMaps);
-smarty_assign('showParadigm', true);
-smarty_assign('onlyParadigm', !$ajax);
-smarty_assign('declensionText', $declensionText);
+  if (empty($filtered_lexems)) {
+    session_setFlash("Niciun rezultat pentru {$cuv}.");
+  }
+
+  $declensionText = $conjugations ? ($declensions ? 'conjugări / declinări' : 'conjugări') : ($declensions ? 'declinări' : '');
+  smarty_assign('lexems', $filtered_lexems);
+  smarty_assign('ifMaps', $ifMaps);
+  smarty_assign('showParadigm', true);
+  smarty_assign('onlyParadigm', !$ajax);
+  smarty_assign('declensionText', $declensionText);
+}
+else {
+  session_setFlash("Niciun rezultat pentru {$cuv}.");
 }
 
 if ($ajax) {

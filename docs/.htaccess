@@ -16,4 +16,8 @@ RewriteRule (.*)/paradigma$ $1&showParadigm=1
 RewriteRule ^definitie(-([^/]+))?/(.*)$ search.php?cuv=$3&source=$2 [PT,L]
 RewriteRule ^lexem(-([^/]+))?/(.*)$ search.php?lexemId=$3&source=$2 [PT,L]
 
+RewriteRule ^flexiune/lexem/(.*)$ paradigm.php?lexemId=$1 [PT,L]
+RewriteRule ^flexiune/(.*)$ paradigm.php?cuv=$1 [PT,L]
+RewriteRule ^(declinare|conjugare)/(.*)$ paradigm.php?cuv=$2&type=$1 [PT,L]
+
 RewriteRule ^legaturi$ links.php

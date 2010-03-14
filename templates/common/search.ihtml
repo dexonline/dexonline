@@ -17,7 +17,7 @@
       {include file="common/bits/lexemName.ihtml" lexem=$lexems.0}      
     {else}
       {foreach from=$lexems item=lexem key=row_id}
-        <a href="{$wwwRoot}lexem/{$lexem->id}">{$lexem->unaccented}</a
+        <a href="{$wwwRoot}lexem/{$lexem->id}">{$lexem->formNoAccent}</a
         >{if $lexem->description} ({$lexem->description|escape}){/if
         }{if $row_id < count($lexems) - 1},{/if}
       {/foreach}

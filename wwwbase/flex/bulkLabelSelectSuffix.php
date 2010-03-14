@@ -1,11 +1,13 @@
 <?
 require_once("../../phplib/util.php"); 
 
-$dbResult = db_selectSuffixesAndCountsForTemporaryLexems();
+// Select suffixes and counts for temporary lexems.
+$dbResult = db_execute("select reverse(substring(reverse, 1, 4)) as s, count(*) as c from Lexem where modelType = 'T' " .
+                       "group by s having c >= 5 order by c desc, s");
 $stats = array();
-
-while ($dbRow = mysql_fetch_assoc($dbResult)) {
-  $stats[] = array($dbRow['s'], $dbRow['c']);
+while (!$dbResult->EOF) {
+  $stats[] = array($dbResult->fields['s'], $dbResult->fields['c']);
+  $dbResult->MoveNext();
 }
 
 smarty_assign('stats', $stats);

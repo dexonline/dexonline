@@ -7,7 +7,7 @@ RecentLink::createOrUpdate('Lexeme fără accent');
 
 smarty_assign('sectionTitle', 'Lexeme fără accent');
 smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_assign('lexems', Lexem::loadWithoutAccents());
+smarty_assign('lexems', db_find(new Lexem(), "form not rlike '\'' and not noAccent"));
 smarty_displayWithoutSkin('admin/lexemList.ihtml');
 
 ?>

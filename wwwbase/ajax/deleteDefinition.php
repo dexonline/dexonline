@@ -16,7 +16,7 @@ if ($def && $def->id) {
   db_execute("delete from LexemDefinitionMap where definitionId = {$def->id}");
 
   foreach ($ldms as $ldm) {
-    $l = Lexem::load($ldm->lexemId);
+    $l = Lexem::get("id = {$ldm->lexemId}");
     $otherLdms = db_find(new LexemDefinitionMap(), "lexemId = {$l->id}");
     if (!$l->isLoc && !count($otherLdms)) {
       $l->delete();

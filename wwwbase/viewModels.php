@@ -28,11 +28,17 @@ if ($locVersion && $modelType && $modelNumber) {
   $paradigms = array();
 
   foreach ($modelsToDisplay as $m) {
-    $l = Lexem::loadByUnaccentedCanonicalModel($m->exponent, $modelType, $m->number);
+    // Load by canonical model, so if $modelType is V, look for a lexem with type V or VT.
+    $slashExponent = addslashes($m->exponent);
+    $dbResult = db_execute("select Lexem.* from Lexem, ModelType where modelType = code and canonical = '{$modelType}' " .
+                           "and modelNumber = '{$m->number}' and form = '{$slashExponent}' limit 1");
+    $tmpLexems = db_getObjects(new Lexem(), $dbResult);
+    $l = count($tmpLexems) ? $tmpLexems[0] : null;
+
     if ($l) {
       $paradigm = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
     } else {
-      $l = Lexem::create($m->exponent, $modelType, $m->number, '');
+      $l = new Lexem($m->exponent, $modelType, $m->number, '');
       $l->isLoc = true;
       $ifArray = $l->generateParadigm();
       $paradigm = InflectedForm::mapByInflectionId($ifArray);

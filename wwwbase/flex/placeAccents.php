@@ -11,7 +11,7 @@ if ($submitButton) {
       $parts = split('_', $name);
       assert(count($parts) == 2);
       assert($parts[0] == 'position');
-      $lexem = Lexem::load($parts[1]);
+      $lexem = Lexem::get("id = " . $parts[1]);
       $noAccent = util_getRequestParameter('noAccent_' . $lexem->id);
 
       if ($noAccent) {
@@ -32,7 +32,7 @@ if ($submitButton) {
 
 $chars = array();
 $searchResults = array();
-$lexems = Lexem::loadRandomWithoutAccents(10);
+$lexems = db_find(new Lexem(), "form not rlike '\'' and not noAccent order by rand() limit 10");
 foreach($lexems as $l) {
   $charArray = array();
   $form = text_unicodeToUpper($l->form);
@@ -52,6 +52,7 @@ smarty_assign('sectionTitle', 'Plasare accente');
 smarty_assign('lexems', $lexems);
 smarty_assign('chars', $chars);
 smarty_assign('searchResults', $searchResults);
+smarty_assign("allStatuses", util_getAllStatuses());
 smarty_assign('recentLinks', RecentLink::loadForUser());
 smarty_displayWithoutSkin('flex/placeAccents.ihtml');
 

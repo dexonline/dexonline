@@ -496,7 +496,8 @@ function deleteDefinitionCallback(httpRequest, defDivId) {
 }
 
 function startReportCounters() {
-  reports = ['unassociatedLexems', 'unassociatedDefinitions', 'definitionsWithTypos', 'temporaryDefinitions', 'temporaryLexems', 'lexemsWithComments', 'lexemsWithoutAccents'];
+  reports = ['unassociatedLexems', 'unassociatedDefinitions', 'definitionsWithTypos', 'temporaryDefinitions', 'temporaryLexems', 'lexemsWithComments',
+             'lexemsWithoutAccents'];
   for (var i = 0; i < reports.length; i++) {
     makePostRequest(wwwRoot + 'ajax/reportCounter.php', 'report=' + reports[i], startReportCountersCallback, 'span_' + reports[i]);
   }

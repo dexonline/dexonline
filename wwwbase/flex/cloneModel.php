@@ -50,7 +50,7 @@ if ($cloneButton) {
     // Migrate the selected lexems.
     if ($chooseLexems && $lexemIds) {
       foreach ($lexemIds as $lexemId) {
-        $l = Lexem::load($lexemId);
+        $l = Lexem::get("id = {$lexemId}");
         $l->modelNumber = $newModelNumber;
         $l->save();
         // It is not necessary to regenerate the paradigm for now, since

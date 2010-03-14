@@ -6,8 +6,8 @@ util_assertNotMirror();
 $id1 = util_getRequestParameter('id1');
 $id2 = util_getRequestParameter('id2');
 
-$l1 = Lexem::load($id1);
-$l2 = Lexem::load($id2);
+$l1 = Lexem::get("id = {$id1}");
+$l2 = Lexem::get("id = {$id2}");
 
 $defs = Definition::loadByLexemId($l1->id);
 foreach ($defs as $def) {

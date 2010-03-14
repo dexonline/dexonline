@@ -35,40 +35,40 @@ htmlRep - HTML-formatted text, ready for printing in a browser.
 status - 0 = active, 1 = temporary (not yet reviewed), 2 = deleted
 
 
-The lexems table
+The Lexem table
 ----------------
 
 A lexem is essentially a word. Homonyms get separate lexems each.
 
-lexem_id - Unique numeric ID.
-lexem_forma - Base form of the word, including an (') for the
+id - Unique numeric ID.
+form - Base form of the word, including an (') for the
   accent. This makes it impractical for searches.
-lexem_neaccentuat, lexem_utf8_general - These two have equal values,
-  obtained from lexem_forma by removing the accent. The fields have
+formNoAccent, formUtf8General - These two have equal values,
+  obtained from Lexem.form by removing the accent. The fields have
   different collates (utf8_romanian_ci and utf8_general_ci,
   respectively). The former is used for searches including diacritics,
   the latter is used for searches without diacritics, because in
   utf8_general_ci ă = â = a, ș = s and so on.
-lexem_invers the reverse of lexem_neaccentuat. Only used in certain
+reverse - the reverse of formNoAccent. Only used in certain
   admin tools where we need suffix matching.
-lexem_descr - Generally used to distinguish among homonyms.
-lexem_model_type, lexem_model_no - The declension model for this lexem
-lexem_restriction - A subset of the letters S (singular), P (plural),
+description - Generally used to distinguish among homonyms.
+modelType, modelNumber - The declension model for this lexem
+restriction - A subset of the letters S (singular), P (plural),
   U (unipersonal), I (impersonal), T (past tenses only). Indicates
   that this lexem only generates a subset of the allowed word forms
   for the lexem's model. To see which restrictions allow which forms,
   use the ConstraintMap table. For example, the verb "a ploua" ("to
   rain") only allows third person singular form, hence the restriction I.
-lexem_comment - Admins can add comments. All lexems with non-empty
+comment - Admins can add comments. All lexems with non-empty
   comments are reported on the admin page and should be reviewed and
   fixed.
-lexem_is_loc - You can probably ignore this. Indicates whether the
+isLoc - You can probably ignore this. Indicates whether the
   lexem is included in LOC, the Official Word List accepted by the
   Romanian Scrabble Federation for all its competitions. A few
   moderators can modify this list.
-lexem_no_accent - If true, indicates that this lexem does not need an
+noAccent - If true, indicates that this lexem does not need an
   accent. Otherwise, a report on the admin page shows all the lexems
-  for which lexem_forma does not include an accent.
+  for which Lexem.form does not include an accent.
 
 
 The LexemDefinitionMap table
@@ -97,9 +97,8 @@ forms are generated according to the lexem's model type and number.
 
 form - The form, including an (') for the accent
 formNoAccent, formUtf8General - Obtained from form by removing
-  the apostrophe. Same rationale as for lexem_neaccentuat and
-  lexem_utf8_general.
-lexemId - Matches lexems.lexem_id
+  the apostrophe. Same rationale as for formNoAccent and formUtf8General.
+lexemId - Matches Lexem.id
 inflectionId - Matches Inflection.id
 variant - 0-based counter for situations where multiple forms are
   accepted for the same inflection (e.g. "cântaserăm" / "cântasem",
@@ -108,10 +107,10 @@ variant - 0-based counter for situations where multiple forms are
 EXAMPLE: Here is a SQL query that lists the paradigm for "știucă":
 
 select form, Inflection.description, variant
-  from lexems, InflectedForm, Inflection
-  where lexem_id = lexemId
+  from Lexem, InflectedForm, Inflection
+  where Lexem.id = lexemId
     and inflectionId = Inflection.id
-    and lexem_neaccentuat = 'știucă'
+    and formNoAccent = 'știucă'
   order by Inflection.id;
 
 

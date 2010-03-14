@@ -185,8 +185,8 @@ class Definition extends BaseObject {
       return db_find(new Definition(), "lexicon $collate $regexp and status = " . ST_DELETED . " and createDate between $beginTime and $endTime " .
                      "$sourceClause $userClause order by lexicon, sourceId limit 500");
     } else {
-      $field = $hasDiacritics ? 'lexem_neaccentuat' : 'lexem_utf8_general';
-      $dbResult = db_execute("select distinct Definition.* from lexems join LexemDefinitionMap on lexem_id = LexemDefinitionMap.lexemId " .
+      $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
+      $dbResult = db_execute("select distinct Definition.* from Lexem join LexemDefinitionMap on Lexem.id = LexemDefinitionMap.lexemId " .
                              "join Definition on LexemDefinitionMap.definitionId = Definition.id where $field $regexp " .
                              "and Definition.status = $status and Definition.createDate >= $beginTime and Definition.createDate <= $endTime " .
                              "$sourceClause $userClause order by lexicon, sourceId limit 500");
@@ -301,18 +301,20 @@ class TopEntry {
   public $days; // since last submission
 
   private static function loadUnsortedTopData() {
-    $dbResult = db_selectTop();
+    $dbResult = db_execute("select nick, count(*) as NumDefinitions, sum(length(internalRep)) as NumChars, max(createDate) as Timestamp " .
+                           "from Definition, User where userId = User.id and status = 0 group by nick");
     $topEntries = array();
     $now = time();
 
-    while ($dbRow = mysql_fetch_assoc($dbResult)) {
+    while (!$dbResult->EOF) {
       $topEntry = new TopEntry();
-      $topEntry->userNick = $dbRow['nick'];
-      $topEntry->numDefinitions = $dbRow['NumDefinitions'];
-      $topEntry->numChars = $dbRow['NumChars'];
-      $topEntry->timestamp = $dbRow['Timestamp'];
+      $topEntry->userNick = $dbResult->fields['nick'];
+      $topEntry->numDefinitions = $dbResult->fields['NumDefinitions'];
+      $topEntry->numChars = $dbResult->fields['NumChars'];
+      $topEntry->timestamp = $dbResult->fields['Timestamp'];
       $topEntry->days = intval(($now - $topEntry->timestamp) / 86400);
       $topEntries[] = $topEntry;
+      $dbResult->MoveNext();
     }
 
     return $topEntries;
@@ -538,82 +540,28 @@ class ModelDescription extends BaseObject {
   }
 }
 
-class Lexem {
-  public $id;
-  public $form;
-  // Lexem::unaccented is mapped to two fields in the database,
-  // lexem_neaccentuat and lexem_utf8_general. These fields will absolutely
-  // always have identical values, but they are stored with different
-  // collations to speed up searches with/without diacritics.
-  public $unaccented;
-  public $reverse;
-  public $description;
-  public $modelType;
-  public $modelNumber;
-  public $restriction;
-  public $parseInfo = '';
-  public $comment = '';
-  public $isLoc = FALSE;
-  public $noAccent = FALSE;
-  public $createDate;
-  public $modDate;
-
-  public function getExtendedName() {
-    if ($this->description) {
-      return $this->unaccented . ' (' . $this->description . ')';
-    } else {
-      return $this->unaccented;
+class Lexem extends BaseObject {
+  function __construct($form = null, $modelType = null, $modelNumber = null, $restriction = '') {
+    parent::__construct();
+    if ($form) {
+      $this->form = $form;
+      $this->formNoAccent = str_replace("'", '', $form);
+      $this->formUtf8General = $this->formNoAccent;
+      $this->reverse = text_reverse($this->formNoAccent);
     }
+    $this->description = '';
+    $this->modelType = $modelType;
+    $this->modelNumber = $modelNumber;
+    $this->restriction = $restriction;
+    $this->comment = '';
+    $this->isLoc = false;
+    $this->noAccent = false;
   }
 
-  public static function create($form, $modelType, $modelNumber,
-                                $restriction) {
-    $l = new Lexem();
-    $l->form = $form;
-    $l->unaccented = str_replace("'", '', $l->form);
-    $l->reverse = text_reverse($l->unaccented);
-    $l->modelType = $modelType;
-    $l->modelNumber = $modelNumber;
-    $l->restriction = $restriction;
-    return $l;
-  }
-
-  public static function load($id) {
-    $dbRow = db_getLexemById($id);
-    return Lexem::createFromDbRow($dbRow);
-  }
-
-  public static function loadByDefinitionId($definitionId) {
-    $dbResult = db_getLexemsByDefinitionId($definitionId);
-    return Lexem::populateFromDbResult($dbResult);
-  }
-
-  public static function loadByUnaccented($unaccented) {
-    $dbResult = db_getLexemsByUnaccented($unaccented);
-    return Lexem::populateFromDbResult($dbResult);
-  }
-
-  public static function loadByForm($form) {
-    $dbResult = db_getLexemsByForm($form);
-    return Lexem::populateFromDbResult($dbResult);
-  }
-
-  public static function loadByPartialUnaccented($name) {
-    $dbResult = db_getLexemsByPartialUnaccented($name);
-    return Lexem::populateFromDbResult($dbResult);
-  }
-
-  public static function loadByUnaccentedPartialDescription($name,
-                                                            $description) {
-    $dbResult = db_getLexemsByUnaccentedPartialDescription($name,
-                                                           $description);
-    return Lexem::populateFromDbResult($dbResult);
-  }
-
-  public static function loadByUnaccentedDescription($unaccented,
-                                                     $description) {
-    $dbResult = db_getLexemsByUnaccentedDescription($unaccented, $description);
-    return Lexem::populateFromDbResult($dbResult);
+  public static function get($where) {
+    $obj = new Lexem();
+    $obj->load($where);
+    return $obj->id ? $obj : null;
   }
 
   public static function loadByExtendedName($extName) {
@@ -625,258 +573,58 @@ class Lexem {
     } else {
       $description = '';
     }
-    return Lexem::loadByUnaccentedDescription($name, $description);
-  }
-
-  public function loadHomonyms() {
-    $dbResult = db_getLexemHomonyms($this);
-    return Lexem::populateFromDbResult($dbResult);
-  }
-
-  /**
-   * Load all lexems having the same form as one of the given lexems, but exclude the given lexems.
-   **/
-  public function loadSetHomonyms($lexems) {
-    if (count($lexems) == 0) {
-      return array();
-    }
-    $names = array();
-    $ids = array();
-    foreach ($lexems as $l) {
-      $names[] = "'{$l->unaccented}'";
-      $ids[] = "'{$l->id}'";
-    }
-    // Write the query right here -- we're converting it to ADOdb soon anyway.
-    $query = sprintf("select * from lexems where lexem_neaccentuat in (%s) and lexem_id not in (%s)", join(',', $names), join(',', $ids));
-    $dbResult = logged_query($query);
-    return Lexem::populateFromDbResult($dbResult);    
-  }
-
-  public function loadSuggestions($limit) {
-    $query = $this->reverse;
-    $lo = 0;
-    $hi = mb_strlen($query);
-    $result = array();
-
-    while ($lo <= $hi) {
-      $mid = (int)(($lo + $hi) / 2);
-      $partial = mb_substr($query, 0, $mid);
-      $lexems = Lexem::loadByReverseSuffix($partial, $this->id, $limit);
-      if (count($lexems)) {
-        $result = $lexems;
-        $lo = $mid + 1;
-      } else {
-        $hi = $mid - 1;
-      }
-    }
-    return $result;
-  }
-
-  public static function loadByReverseSuffix($suffix, $excludeLexemId,
-					     $limit) {
-    $dbResult = db_getLexemsByReverseSuffix($suffix, $excludeLexemId, $limit);
-    return Lexem::populateFromDbResult($dbResult);
-  }
-
-  public static function loadTemporaryBySuffix($reverseSuffix) {
-    $dbResult = db_selectTemporaryLexemsBySuffix($reverseSuffix);
-    return Lexem::populateFromDbResult($dbResult);
-  }
-
-  public static function loadByModel($modelType, $modelNumber) {
-    $dbResult = db_getLexemsByModel($modelType, $modelNumber);
-    return Lexem::populateFromDbResult($dbResult);    
+    return db_find(new Lexem(), "formNoAccent = '{$name}' and description = '{$description}'");
   }
 
   // For V1, this loads all lexems in (V1, VT1)
   public static function loadByCanonicalModel($modelType, $modelNumber) {
-    $dbResult = db_getLexemsByCanonicalModel($modelType, $modelNumber);
-    return Lexem::populateFromDbResult($dbResult);    
-  }
-
-  public static function loadByCanonicalModelSuffix($modelType, $modelNumber, $suffix) {
-    $dbRow = db_getLexemByCanonicalModelSuffix($modelType, $modelNumber, $suffix);
-    return Lexem::createFromDbRow($dbRow);
-  }
-
-  public static function loadByUnaccentedCanonicalModel($unaccented, $modelType, $modelNumber) {
-    $dbRow = db_getLexemByUnaccentedCanonicalModel($unaccented, $modelType, $modelNumber);
-    return Lexem::createFromDbRow($dbRow);
+    $dbResult = db_execute("select Lexem.* from Lexem, ModelType where modelType = code and canonical = '{$modelType}' and modelNumber = '{$modelNumber}' " .
+                           "order by formNoAccent");
+    return db_getObjects(new Lexem(), $dbResult);
   }
 
   /**
    * For update.php
    */
   public static function loadNamesByMinModDate($modDate) {
-    return db_getLexemsByMinModDate($modDate);
-  }
-
-  public static function createFromDbRow($dbRow) {
-    if (!$dbRow) {
-      return NULL;
-    }
-    $l = new Lexem();
-    $l->id = $dbRow['lexem_id']; 
-    $l->form = $dbRow['lexem_forma']; 
-    $l->unaccented = $dbRow['lexem_neaccentuat']; 
-    $l->reverse = $dbRow['lexem_invers']; 
-    $l->description = $dbRow['lexem_descr']; 
-    $l->modelType = $dbRow['lexem_model_type']; 
-    $l->modelNumber = $dbRow['lexem_model_no']; 
-    $l->restriction = $dbRow['lexem_restriction'];
-    $l->parseInfo = $dbRow['lexem_parse_info'];
-    $l->comment = $dbRow['lexem_comment'];
-    $l->isLoc = $dbRow['lexem_is_loc'];
-    $l->noAccent = $dbRow['lexem_no_accent'];
-    $l->createDate = $dbRow['CreateDate'];
-    $l->modDate = $dbRow['ModDate'];
-    return $l;
-  }
-
-  public static function populateFromDbResult($dbResult) {
-    $result = array();
-    while ($dbRow = mysql_fetch_assoc($dbResult)) {
-      $result[] = Lexem::createFromDbRow($dbRow);
-    }
-    mysql_free_result($dbResult);
-    return $result;
-  }
-
-  public function validate() {
-    if (!$this->form) {
-      return 'Forma nu poate fi vidă.';
-    }
-    $numAccents = mb_substr_count($this->form, "'");
-    // Note: we allow multiple accents for lexems like hárcea-párcea
-    if ($numAccents && $this->noAccent) {
-      return 'Ați indicat că lexemul nu necesită accent, dar forma ' .
-        'conține un accent.';
-    } else if (!$numAccents && !$this->noAccent) {
-      return 'Adăugați un accent sau bifați câmpul "Nu necesită accent".';
-    }
-    return null;
-  }
-
-  // Returns an error message or NULL if there are no errors.
-  public static function validateRestriction($modelType, $restriction) {
-    $hasS = false;
-    $hasP = false;
-    for ($i = 0; $i < mb_strlen($restriction); $i++) {
-      $char = text_getCharAt($restriction, $i);
-      if ($char == 'T' || $char == 'U' || $char == 'I') {
-        if ($modelType != 'V' && $modelType != 'VT') {
-          return "Restricția <b>$char</b> se aplică numai verbelor";
-        }
-      } else if ($char == 'S') {
-        $hasS = true;
-      } else if ($char == 'P') {
-        $hasP = true;
-      } else {
-        return "Restricția <b>$char</b> este incorectă.";
-      }
-    }
-
-    if ($hasS && $hasP) {
-      return "Restricțiile <b>S</b> și <b>P</b> nu pot coexista.";
-    }
-    return NULL;
-  }
-
-  public static function searchLexems($cuv, $hasDiacritics) {
-    $dbResult = db_searchLexems($cuv, $hasDiacritics);
-    return Lexem::populateFromDbResult($dbResult);
+    return db_execute("select D.id, formNoAccent from Definition D force index(modDate), LexemDefinitionMap M, Lexem L " .
+                      "where D.id = definitionId and lexemId = L.id and status = 0 and D.modDate >= {$modDate} order by D.modDate, D.id");
   }
 
   public static function searchInflectedForms($cuv, $hasDiacritics) {
-    $dbResult = db_searchInflectedForms($cuv, $hasDiacritics);
-    return Lexem::populateFromDbResult($dbResult);
+    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
+    $dbResult = db_execute("select distinct L.* from InflectedForm I, Lexem L where I.lexemId = L.id and I.$field = '$cuv' order by L.formNoAccent");
+    return db_getObjects(new Lexem(), $dbResult);
   }
 
   public static function searchApproximate($cuv, $hasDiacritics) {
-    $dbResult = db_searchApproximate($cuv, $hasDiacritics);
-    return Lexem::populateFromDbResult($dbResult);
+    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
+    return db_find(new Lexem(), "dist2($field, '$cuv') order by formNoAccent");
   }
 
-  public static function searchRegexp($regexp, $hasDiacritics, $sourceId = NULL) {
+  public static function searchRegexp($regexp, $hasDiacritics, $sourceId) {
     $mysqlRegexp = text_dexRegexpToMysqlRegexp($regexp);
-    $dbResult = db_searchRegexp($mysqlRegexp, $hasDiacritics, $sourceId);
-    return Lexem::populateFromDbResult($dbResult);
+    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
+    if (!$sourceId) {
+      return db_find(new Lexem(), "$field $mysqlRegexp order by formNoAccent limit 1000");
+    }
+    $dbResult = db_execute("select distinct L.* from Lexem L join LexemDefinitionMap on L.id = lexemId join Definition D on definitionId = D.id " .
+                           "where $field $mysqlRegexp and sourceId = $sourceId order by formNoAccent limit 1000");
+    return db_getObjects(new Lexem(), $dbResult);
   }
 
-  public static function countRegexpMatches($regexp, $hasDiacritics, $sourceId = NULL) {
+  public static function countRegexpMatches($regexp, $hasDiacritics, $sourceId) {
     $mysqlRegexp = text_dexRegexpToMysqlRegexp($regexp);
-    return db_countRegexpMatches($mysqlRegexp, $hasDiacritics, $sourceId);
-  }
-
-  public static function countAll() {
-    return db_countLexems();
-  }
-
-  public static function countAssociated() {
-    return db_countAssociatedLexems();
-  }
-
-  public static function countUnassociated() {
-    return Lexem::countAll() - Lexem::countAssociated();
+    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
+    if (!$sourceId) {
+      return db_getSingleValue("select count(*) from Lexem where $field $mysqlRegexp");
+    }
+    return db_getSingleValue("select count(distinct L.id) from Lexem L join LexemDefinitionMap on L.id = lexemId join Definition D on definitionId = D.id " .
+                             "where $field $mysqlRegexp and sourceId = $sourceId order by formNoAccent");
   }
 
   public static function loadUnassociated() {
-    $dbResult = db_getUnassociatedLexems();
-    return Lexem::populateFromDbResult($dbResult);
-  }
-
-  public static function countTemporary() {
-    return db_countTemporaryLexems();
-  }
-
-  public static function loadTemporary() {
-    $dbResult = db_getTemporaryLexems();
-    return Lexem::populateFromDbResult($dbResult);
-  }
-
-  public static function loadTemporaryFromSource($sourceId) {
-    $dbResult = db_getTemporaryLexemsFromSource($sourceId);
-    return Lexem::populateFromDbResult($dbResult);
-  }
-
-  public static function countHavingComments() {
-    return db_countLexemsWithComments();
-  }
-
-  public static function loadHavingComments() {
-    $dbResult = db_getLexemsWithComments();
-    return Lexem::populateFromDbResult($dbResult);
-  }
-
-  public static function countWithoutAccents() {
-    return db_countLexemsWithoutAccents();
-  }
-
-  public static function loadWithoutAccents() {
-    $dbResult = db_getLexemsWithoutAccents();
-    return Lexem::populateFromDbResult($dbResult);
-  }
-
-  public static function countAmbiguous() {
-    return db_countAmbiguousLexems();
-  }
-
-  public static function loadAmbiguous() {
-    $dbResult = db_getAmbiguousLexems();
-    return Lexem::populateFromDbResult($dbResult);
-  }
-
-  public static function loadRandomWithoutAccents($count) {
-    $dbResult = db_getRandomLexemsWithoutAccents($count);
-    return Lexem::populateFromDbResult($dbResult);    
-  }
-
-  // Assumes that $participleNumber is the correct participle (adjective)
-  // model for $modelNumber.
-  public static function loadParticiplesForVerbModel($modelNumber, $participleNumber) {
-    $infl = Inflection::loadParticiple();
-    $dbResult = db_getParticiplesForVerbModel($modelNumber, $participleNumber, $infl->id);
-    return Lexem::populateFromDbResult($dbResult);    
+    return db_find(new Lexem(), "id not in (select lexemId from LexemDefinitionMap) order by formNoAccent");
   }
 
   public function regenerateParadigm() {
@@ -889,8 +637,7 @@ class Lexem {
     }
 
     if ($this->modelType == 'VT') {
-      $model = Model::loadCanonicalByTypeNumber($this->modelType,
-						$this->modelNumber);
+      $model = Model::loadCanonicalByTypeNumber($this->modelType,	$this->modelNumber);
       $pm = ParticipleModel::loadByVerbModel($model->number);
       $this->regeneratePastParticiple($pm->adjectiveModel);
     }
@@ -905,9 +652,8 @@ class Lexem {
     $model = Model::get("modelType = 'A' and number = '{$adjectiveModel}'");
 
     foreach ($ifs as $if) {
-      // Load an existing lexem only if it has the same model as $model or
-      // $temporaryModel. Otherwise create a new lexem.
-      $lexems = Lexem::loadByUnaccented($if->formNoAccent);
+      // Load an existing lexem only if it has the same model as $model or T1. Otherwise create a new lexem.
+      $lexems = db_find(new Lexem(), "formNoAccent = '{$if->formNoAccent}'");
       $lexem = null;
       foreach ($lexems as $l) {
         if ($l->modelType == 'T' || ($l->modelType == 'A' && $l->modelNumber = $model->number)) {
@@ -922,10 +668,9 @@ class Lexem {
         $lexem->noAccent = false;
         $lexem->save();
       } else {
-        $lexem = Lexem::create($if->form, 'A', $model->number, '');
+        $lexem = new Lexem($if->form, 'A', $model->number, '');
         $lexem->isLoc = $this->isLoc;
         $lexem->save();
-        $lexem->id = db_getLastInsertedId();
 
         // Also associate the new lexem with the same definitions as $this.
         $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$this->id}");
@@ -946,13 +691,11 @@ class Lexem {
     foreach ($ifs as $if) {
       $model = text_endsWith($if->formNoAccent, 'are') ? $f113 : $f107;
       
-      // Load an existing lexem only if it has one of the models F113, F107
-      // or T1. Otherwise create a new lexem.
-      $lexems = Lexem::loadByUnaccented($if->formNoAccent);
+      // Load an existing lexem only if it has one of the models F113, F107 or T1. Otherwise create a new lexem.
+      $lexems = db_find(new Lexem(), "formNoAccent = '{$if->formNoAccent}'");
       $lexem = null;
       foreach ($lexems as $l) {
-        if ($l->modelType == 'T' ||
-            ($l->modelType == 'F' && $l->modelNumber == $model->number)) {
+        if ($l->modelType == 'T' || ($l->modelType == 'F' && $l->modelNumber == $model->number)) {
           $lexem = $l;
         }
       }
@@ -964,10 +707,9 @@ class Lexem {
         $lexem->noAccent = false;
         $lexem->save();
       } else {
-        $lexem = Lexem::create($if->form, 'F', $model->number, '');
+        $lexem = new Lexem($if->form, 'F', $model->number, '');
         $lexem->isLoc = $this->isLoc;
         $lexem->save();
-        $lexem->id = db_getLastInsertedId();
 
         // Also associate the new lexem with the same definitions as $this.
         $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$this->id}");
@@ -1007,8 +749,7 @@ class Lexem {
         $transforms[] = Transform::get("id = " . $mds[$i]->transformId);
       }
       
-      $result = text_applyTransforms($this->form, $transforms,
-                                     $accentShift, $vowel);
+      $result = text_applyTransforms($this->form, $transforms, $accentShift, $vowel);
       if (!$result) {
         return null;
       }
@@ -1023,7 +764,7 @@ class Lexem {
     $model = Model::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
     // Select inflection IDs for this model
     $dbResult = db_execute("select distinct inflectionId from ModelDescription where modelId = {$model->id} order by inflectionId");
-    $inflIds = db_getScalarArray($dbResult);
+    $inflIds = db_getArray($dbResult);
     $ifs = array();
     foreach ($inflIds as $inflId) {
       $if = $this->generateInflectedFormWithModel($inflId, $model->id);
@@ -1056,7 +797,7 @@ class Lexem {
 
   /**
    * Delete lexems that do not have their own definitions.
-   * Arguments for participles: 'A', $adjectiveModel.
+   * Arguments for participles: 'A', ($adjectiveModel).
    * Arguments for long infinitives: 'F', ('107', '113').
    */
   private function _deleteDependentModels($inflId, $modelType, $modelNumbers) {
@@ -1069,12 +810,9 @@ class Lexem {
     }
     
     foreach ($ifs as $if) {
-      // Delete lexems of model T1 or A{$pm}
-      $lexems = Lexem::loadByUnaccented($if->formNoAccent);
+      $lexems = db_find(new Lexem(), "formNoAccent = '{$if->formNoAccent}'");
       foreach ($lexems as $l) {
-        if ($l->modelType == 'T' ||
-            ($l->modelType == $modelType &&
-             in_array($l->modelNumber, $modelNumbers))) {
+        if ($l->modelType == 'T' || ($l->modelType == $modelType && in_array($l->modelNumber, $modelNumbers))) {
           $ownDefinitions = false;
           $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$l->id}");
           foreach ($ldms as $ldm) {
@@ -1091,53 +829,22 @@ class Lexem {
     }
   }
 
-  public function cloneLexem() {
-    $clone = Lexem::create($this->form, 'T', 1, '');
-    $clone->parseInfo = $this->parseInfo;
-    $clone->comment = $this->comment;
-    $clone->description = ($this->description)
-      ? "CLONĂ " . $this->description
-      : "CLONĂ";
-    $clone->noAccent = $this->noAccent;
-    $clone->save();
-    $clone->id = db_getLastInsertedId();
-    
-    // Clone the definition list
-    $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$this->id}");
-    foreach ($ldms as $ldm) {
-      LexemDefinitionMap::associate($clone->id, $ldm->definitionId);
-    }
-
-    $clone->regenerateParadigm();
-    return $clone;
-  }
-
-  public function save() {
-    $this->modDate = time();
-    if ($this->id) {
-      db_updateLexem($this);
-    } else {
-      $this->createDate = time();
-      db_insertLexem($this);
-    }
-  }
-
-  public function updateModDate() {
-    return db_updateLexemModDate($this->id, time());
-  }
-
   public function delete() {
     if ($this->id) {
-      LexemDefinitionMap::deleteByLexemId($this->id);
-      InflectedForm::deleteByLexemId($this->id);
       if ($this->modelType == 'VT') {
         $this->deleteParticiple($this->modelNumber);
       }
       if ($this->modelType == 'VT' || $this->modelType == 'V') {
         $this->deleteLongInfinitive();
       }
-      db_deleteLexem($this);
+      LexemDefinitionMap::deleteByLexemId($this->id);
+      InflectedForm::deleteByLexemId($this->id);
     }
+    parent::delete();
+  }
+
+  public function __toString() {
+    return $this->description ? "{$this->formNoAccent} ({$this->description})" : $this->formNoAccent;
   }
 }
 
@@ -1151,7 +858,7 @@ class LexemDefinitionMap extends BaseObject {
   public static function associate($lexemId, $definitionId) {
     // The definition and the lexem should exist
     $definition = Definition::get("id = {$definitionId}");
-    $lexem = Lexem::load($lexemId);
+    $lexem = Lexem::get("id = {$lexemId}");
     if (!$definition || !$lexem) {
       return;
     }
@@ -1307,11 +1014,11 @@ class FullTextIndex extends BaseObject {
     if (!$lexemIds) {
       return array();
     }
-    return db_getScalarArray(db_execute("select distinct definitionId from FullTextIndex where lexemId in ($lexemIds) order by definitionId"));
+    return db_getArray(db_execute("select distinct definitionId from FullTextIndex where lexemId in ($lexemIds) order by definitionId"));
   }
 
   public static function loadPositionsByLexemIdsDefinitionId($lexemIds, $defId) {
-    return db_getScalarArray(db_execute("select distinct position from FullTextIndex where lexemId in ($lexemIds) and definitionId = $defId order by position"));
+    return db_getArray(db_execute("select distinct position from FullTextIndex where lexemId in ($lexemIds) and definitionId = $defId order by position"));
   }
 }
 

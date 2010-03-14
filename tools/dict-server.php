@@ -142,14 +142,10 @@ function match($sourceId, $strategy, $cuv, $fd) {
   $cuv = text_cleanupQuery($cuv);
   $arr = text_analyzeQuery($cuv);
   $hasDiacritics = $arr[0];
-  $field = $hasDiacritics ? 'lexem_neaccentuat' : 'lexem_utf8_general';
+  $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
 
-  $query = "select distinct lexems.lexem_neaccentuat, Definition.sourceId " .
-    "from lexems " .
-    "join LexemDefinitionMap " .
-    "on lexem_id = LexemDefinitionMap.lexemId " .
-    "join Definition on LexemDefinitionMap.definitionId = Definition.id " .
-    "where Definition.status = 0";
+  $query = "select distinct formNoAccent, sourceId from Lexem join LexemDefinitionMap on Lexem.id = lexemId " .
+    "join Definition on LexemDefinitionMap.definitionId = Definition.id where Definition.status = 0";
   if ($strategy == "." || $strategy == "approx")
     $query .= " and dist2('$cuv', $field)";
   else if ($strategy == "exact")
@@ -160,7 +156,7 @@ function match($sourceId, $strategy, $cuv, $fd) {
   if ($sourceId != "*" && $sourceId != '!') {
     $query .= " and Definition.sourceId = '$sourceId'";
   }
-  $query .= " order by lexem_neaccentuat, Definition.sourceId";
+  $query .= " order by formNoAccent, sourceId";
   $result = mysql_query($query);
 
   if (!mysql_num_rows($result)) {
@@ -171,7 +167,7 @@ function match($sourceId, $strategy, $cuv, $fd) {
   socket_write($fd, "152 " . mysql_num_rows($result) . " match(es) found\r\n");
 
   while ($row = mysql_fetch_array($result))
-    socket_write($fd, $row['sourceId'] . " \"" . $row['lexem_neaccentuat'] . "\"\r\n");
+    socket_write($fd, $row['sourceId'] . " \"" . $row['formNoAccent'] . "\"\r\n");
 
   socket_write($fd, ".\r\n");
   socket_write($fd, "250 ok\r\n");
@@ -188,9 +184,8 @@ function lookup($sourceId, $cuv, $fd) {
   }
   $cuv = text_cleanupQuery($cuv);
   $arr = text_analyzeQuery($cuv);
-  $hasDiacritics = $arr[0];
-
-  $lexems = Lexem::searchLexems($cuv, $hasDiacritics);
+  $field = $arr[0] ? 'formNoAccent' : 'formUtf8General';
+  $lexems = db_find(new Lexem(), "{$field} = '{$cuv}' order by formNoAccent");
   $definitions = Definition::loadForLexems($lexems, $sourceId, $cuv);
   $searchResults = SearchResult::mapDefinitionArray($definitions);
 

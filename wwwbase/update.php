@@ -89,13 +89,13 @@ function fetchNextRow() {
   $lexemNames = array();
   $lexemLatinNames = array();
   while (merge_compare($def, $currentLexem) < 0) {
-    $currentLexem = mysql_fetch_row($lexemDbResult);
+    $currentLexem = fetchNextLexem();
   }
 
   while (merge_compare($def, $currentLexem) == 0) {
     $lexemNames[] = $currentLexem[1];
     $lexemLatinNames[] = text_unicodeToLatin($currentLexem[1]);
-    $currentLexem = mysql_fetch_row($lexemDbResult);
+    $currentLexem = fetchNextLexem();
   }
 
   smarty_assign('def', $def);
@@ -103,6 +103,14 @@ function fetchNextRow() {
   smarty_assign('lexemLatinNames', $lexemLatinNames);
   smarty_assign('source', $sourceMap[$def->sourceId]);
   smarty_assign('user', userCache_get($def->userId));
+}
+
+function fetchNextLexem() {
+  global $lexemDbResult;
+
+  $result = $lexemDbResult->fields;
+  $lexemDbResult->MoveNext();
+  return $result;
 }
 
 function merge_compare(&$def, &$lexem) {

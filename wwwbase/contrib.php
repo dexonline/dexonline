@@ -36,9 +36,9 @@ if ($sendButton) {
     log_userLog("Added definition {$definition->id} ({$definition->lexicon})");
 
     $name = text_formatLexem($name);
-    $lexems = Lexem::loadByForm($name);
+    $lexems = db_find(new Lexem(), "form = '{$name}'");
     if (!count($lexems)) {
-      $lexems = Lexem::loadByUnaccented($name);
+      $lexems = db_find(new Lexem(), "formNoAccent = '{$name}'");
     }
     if (count($lexems)) {
       // Reuse existing lexem.
@@ -46,9 +46,8 @@ if ($sendButton) {
       log_userLog("Reusing lexem {$lexem->id} ({$lexem->form})");
     } else {
       // Create a new lexem.
-      $lexem = Lexem::create($name, 'T', '1', '');
+      $lexem = new Lexem($name, 'T', '1', '');
       $lexem->save();
-      $lexem->id = db_getLastInsertedId();
       $lexem->regenerateParadigm();
       log_userLog("Created lexem {$lexem->id} ({$lexem->form})");
     }

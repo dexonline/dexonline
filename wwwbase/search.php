@@ -61,17 +61,17 @@ if ($lexemId) {
   if (!text_validateAlphabet($lexemId, '0123456789')) {
     $lexemId = '';
   }
-  $lexem = Lexem::load($lexemId);
+  $lexem = Lexem::get("id = {$lexemId}");
   $definitions = Definition::searchLexemId($lexemId, $exclude_unofficial);
   $searchResults = SearchResult::mapDefinitionArray($definitions);
   smarty_assign('results', $searchResults);
   if ($lexem) {
     $lexems = array($lexem);
-    smarty_assign('cuv', $lexem->unaccented);
+    smarty_assign('cuv', $lexem->formNoAccent);
     if ($definitions) {
-      smarty_assign('page_title', "Lexem: {$lexem->unaccented} | DEX online");
+      smarty_assign('page_title', "Lexem: {$lexem->formNoAccent} | DEX online");
     } else {
-      smarty_assign('page_title', "Lexem neoficial: {$lexem->unaccented} | DEX online");
+      smarty_assign('page_title', "Lexem neoficial: {$lexem->formNoAccent} | DEX online");
       smarty_assign('exclude_unofficial', $exclude_unofficial);
     }
   } else {
@@ -130,15 +130,15 @@ if ($searchType == SEARCH_INFLECTED) {
     $searchType = SEARCH_APPROXIMATE;
     $lexems = Lexem::searchApproximate($cuv, $hasDiacritics);
     if (count($lexems) == 1) {
-      session_setFlash("Ați fost redirecționat automat la forma „{$lexems[0]->unaccented}”.");
+      session_setFlash("Ați fost redirecționat automat la forma „{$lexems[0]->formNoAccent}”.");
     } else if (!count($lexems)) {
       session_setFlash("Niciun rezultat relevant pentru „{$cuv}”.");
     }
   }
-  if (count($lexems) == 1 && $cuv != $lexems[0]->unaccented) {
+  if (count($lexems) == 1 && $cuv != $lexems[0]->formNoAccent) {
     // Convenience redirect when there is only one correct form. We want all pages to be canonical
     $sourcePart = $source ? "-{$source->urlName}" : '';
-    util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$lexems[0]->unaccented}");
+    util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$lexems[0]->formNoAccent}");
   }
 
   smarty_assign('lexems', $lexems);

@@ -57,6 +57,6 @@
 {else}
   <div class="lexem">
     Nu pot afișa flexiunea lexemului
-    <span class="lexemName">{$lexem->unaccented|escape}</span>.
+    <span class="lexemName">{$lexem->formNoAccent|escape}</span>.
   </div>
 {/if}

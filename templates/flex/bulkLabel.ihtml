@@ -33,7 +33,7 @@
       {foreach from=$lexems item=l key=lIter}
         <div class="blLexem">
           <div class="blLexemTitle">
-            <span class="name">{$lIter+1}. {$l->unaccented|escape}</span>
+            <span class="name">{$lIter+1}. {$l->formNoAccent|escape}</span>
             <a class="noBorder" href="../admin/lexemEdit.php?lexemId={$l->id}">
               <img src={$imgRoot}/icons/pencil.png alt="editează" title="editează lexemul"/>
             </a>
@@ -116,14 +116,8 @@
             <div id="paradigms_{$l->id}">
               {assign var="ifMapArray" value="`$ifMapMatrix[$lIter]`"}
               {foreach from=$ifMapArray item=ifMap key=pIter}
-                {if $pIter}
-                  {assign var="display" value="none"}
-                {else}
-                  {assign var="display" value="block"}
-                {/if}
                 {assign var="m" value="`$models[$pIter]`"}
-                <div class="blParadigm" style="display: {$display}"
-                     id="paradigm_{$l->id}_{$m->modelType}_{$m->number}">
+                <div class="blParadigm" style="display: none" id="paradigm_{$l->id}_{$m->modelType}_{$m->number}">
                   {include file="common/bits/paradigm.ihtml"
                            modelType=$m->modelType
                            lexem=$l

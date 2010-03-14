@@ -37,9 +37,9 @@
         {foreach from=$lexems item=l}
           {if $l->description}
             {assign var="lexemName"
-                    value="`$l->unaccented` (`$l->description`)"}
+                    value="`$l->formNoAccent` (`$l->description`)"}
           {else}
-            {assign var="lexemName" value="`$l->unaccented`"}
+            {assign var="lexemName" value="`$l->formNoAccent`"}
           {/if}
           <tr>
             <td>Lexem:</td>

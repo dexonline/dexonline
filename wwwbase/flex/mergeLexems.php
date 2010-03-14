@@ -14,8 +14,8 @@ if ($submitButton) {
       $parts = split('_', $name);
       assert(count($parts) == 3);
       assert($parts[0] == 'merge');
-      $src = Lexem::load($parts[1]);
-      $dest = Lexem::load($parts[2]);
+      $src = Lexem::get("id = " . $parts[1]);
+      $dest = Lexem::get("id = " . $parts[2]);
 
       // Merge $src into $dest
       $defs = Definition::loadByLexemId($src->id);
@@ -41,17 +41,26 @@ if ($submitButton) {
 }
 
 $PLURAL_INFLECTIONS = array(3, 11, 19, 27, 35);
-$dbResult = db_selectPluralLexemsByModelType($modelType);
+if ($modelType == 'T') {
+  $whereClause = 'modelType = "T"';
+} else if ($modelType) {
+  $whereClause = "modelType = '{$modelType}' and restriction like '%P%'";
+} else {
+  $whereClause = '(modelType = "T") or (modelType in ("M", "F", "N") and restriction like "%P%")';
+}
+$dbResult = db_execute("select * from Lexem where {$whereClause} order by formNoAccent");
 
 $lexems = array();
-while ($row = mysql_fetch_assoc($dbResult)) {
-  $lexem = Lexem::createFromDbRow($row);
+while (!$dbResult->EOF) {
+  $lexem = new Lexem();
+  $lexem->set($dbResult->fields);
+  $dbResult->MoveNext();
   $lexem->matches = array();
-  $ifs = db_find(new InflectedForm(), "formNoAccent = '{$lexem->unaccented}'");
+  $ifs = db_find(new InflectedForm(), "formNoAccent = '{$lexem->formNoAccent}'");
 
   foreach ($ifs as $if) {
     if (in_array($if->inflectionId, $PLURAL_INFLECTIONS) && $if->lexemId != $lexem->id) {
-      $lexem->matches[] = Lexem::load($if->lexemId);
+      $lexem->matches[] = Lexem::get("id = {$if->lexemId}");
     }
   }
 

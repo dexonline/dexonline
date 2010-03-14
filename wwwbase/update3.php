@@ -30,13 +30,14 @@ if ($export == 'sources') {
   $d = new Definition();
   $statusClause = $timestamp ? '' : ' and status = 0';
   $defDbResult = db_execute("select * from Definition where modDate >= '$timestamp' $statusClause order by modDate, id");
-  $lexemDbResult = db_getUpdate3LexemIds($timestamp);
-  $currentLexem = mysql_fetch_row($lexemDbResult);
+  $lexemDbResult = db_execute("select Definition.id, lexemId from Definition force index(modDate), LexemDefinitionMap " .
+                              "where Definition.id = definitionId and modDate >= {$timestamp} {$statusClause} order by modDate, Definition.id");
+  $currentLexem = fetchNextLexemTuple();
   smarty_assign('numResults', $defDbResult->RowCount());
   smarty_displayWithoutSkin('common/update3Definitions.ihtml');
 } else if ($export == 'lexems') {
-  $lexemDbResult = db_getUpdate3Lexems($timestamp);
-  smarty_assign('numResults', mysql_num_rows($lexemDbResult));
+  $lexemDbResult = db_execute("select * from Lexem where modDate >= '{$timestamp}' order by modDate, id");
+  smarty_assign('numResults', $lexemDbResult->RowCount());
   smarty_displayWithoutSkin('common/update3Lexems.ihtml');
 }
 
@@ -56,6 +57,17 @@ function userCache_get($key) {
   return $user;
 }
 
+function fetchNextLexemTuple() {
+  global $lexemDbResult;
+
+  if ($lexemDbResult->EOF) {
+    return null;
+  }
+  $result = array($lexemDbResult->fields[0], $lexemDbResult->fields[1]);
+  $lexemDbResult->MoveNext();
+  return $result;
+}
+
 function fetchNextRow() {
   global $defDbResult;
   global $lexemDbResult;
@@ -69,7 +81,7 @@ function fetchNextRow() {
   $lexemIds = array();
   while ($currentLexem && $currentLexem[0] == $def->id) {
     $lexemIds[] = $currentLexem[1];
-    $currentLexem = mysql_fetch_row($lexemDbResult);
+    $currentLexem = fetchNextLexemTuple();
   }
 
   smarty_assign('def', $def);
@@ -80,8 +92,9 @@ function fetchNextRow() {
 function fetchNextLexemRow() {
   global $lexemDbResult;
 
-  $dbRow = mysql_fetch_assoc($lexemDbResult);
-  $lexem = Lexem::createFromDbRow($dbRow);
+  $lexem = new Lexem();
+  $lexem->set($lexemDbResult->fields);
+  $lexemDbResult->MoveNext();
 
   smarty_assign('ifs', InflectedForm::loadByLexemId($lexem->id));
   smarty_assign('lexem', $lexem);

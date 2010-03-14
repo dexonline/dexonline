@@ -25,7 +25,7 @@ $cloneLexem = util_getRequestParameter('cloneLexem');
 $deleteLexem = util_getRequestParameter('deleteLexem');
 $createDefinition = util_getRequestParameter('createDefinition');
 
-$lexem = Lexem::load($lexemId);
+$lexem = Lexem::get("id = {$lexemId}");
 $oldModelType = $lexem->modelType;
 $oldModelNumber = $lexem->modelNumber;
 
@@ -43,14 +43,13 @@ if ($createDefinition) {
   $def = new Definition();
   $def->userId = session_getUserId();
   $def->sourceId = Source::get('shortName="Neoficial"')->id;
-  $def->lexicon = $lexem->unaccented;
+  $def->lexicon = $lexem->formNoAccent;
   $def->internalRep =
     '@' . text_unicodeToUpper(text_internalize($lexem->form, false)) .
     '@ v. @' . $miniDefTarget . '.@';
   $def->htmlRep = text_htmlize($def->internalRep);
   $def->status = ST_ACTIVE;
   $def->save();
-  $def->id = db_getLastInsertedId();
 
   LexemDefinitionMap::associate($lexem->id, $def->id);
 
@@ -59,7 +58,7 @@ if ($createDefinition) {
 }
 
 if ($deleteLexem) {
-  $homonyms = $lexem->loadHomonyms();
+  $homonyms = db_find(new Lexem(), "formNoAccent = '{$lexem->formNoAccent}' and id != {$lexem->id}");
   $lexem->delete();
   smarty_assign('lexem', $lexem);
   smarty_assign('homonyms', $homonyms);
@@ -68,22 +67,21 @@ if ($deleteLexem) {
 }
 
 if ($cloneLexem) {
-  $newLexem = $lexem->cloneLexem();
+  $newLexem = _cloneLexem($lexem);
   log_userLog("Cloned lexem {$lexem->id} ({$lexem->form}), new id is {$newLexem->id}");
   util_redirect("lexemEdit.php?lexemId={$newLexem->id}");
 }
 
-if (!$similarModel && !$similarLexemName && !$refreshLexem &&
-    !$updateLexem) {
-  RecentLink::createOrUpdate('Lexem: ' . $lexem->getExtendedName());
+if (!$similarModel && !$similarLexemName && !$refreshLexem && !$updateLexem) {
+  RecentLink::createOrUpdate("Lexem: {$lexem}");
 }
 
 if ($lexemForm !== null) {
-  $oldUnaccented = $lexem->unaccented;
+  $oldUnaccented = $lexem->formNoAccent;
   $lexem->form = text_formatLexem($lexemForm);
-  $lexem->unaccented = str_replace("'", '', $lexem->form);
-  $lexem->reverse = text_reverse($lexem->unaccented);
-  if ($lexem->unaccented != $oldUnaccented) {
+  $lexem->formNoAccent = str_replace("'", '', $lexem->form);
+  $lexem->reverse = text_reverse($lexem->formNoAccent);
+  if ($lexem->formNoAccent != $oldUnaccented) {
     $lexem->modelType = 'T';
     $lexem->modelNumber = 1;
   }
@@ -143,12 +141,11 @@ if ($similarModel !== null) {
 }
 
 if (!$errorMessage) {
-  $errorMessage = $lexem->validate();
+  $errorMessage = validate($lexem);
 }
 
 if (!$errorMessage) {
-  $errorMessage = Lexem::validateRestriction($lexem->modelType,
-                                             $lexem->restriction);
+  $errorMessage = validateRestriction($lexem->modelType, $lexem->restriction);
 }
 
 if ($updateLexem && !$errorMessage) {
@@ -191,8 +188,8 @@ $models = Model::loadByType($lexem->modelType);
 smarty_assign('lexem', $lexem);
 smarty_assign('searchResults', $searchResults);
 smarty_assign('definitionLexem', $definitionLexem);
-smarty_assign('homonyms', $lexem->loadHomonyms());
-smarty_assign('suggestedLexems', $lexem->loadSuggestions(5));
+smarty_assign('homonyms', db_find(new Lexem(), "formNoAccent = '{$lexem->formNoAccent}' and id != {$lexem->id}"));
+smarty_assign('suggestedLexems', loadSuggestions($lexem, 5));
 smarty_assign('restrS', text_contains($lexem->restriction, 'S'));
 smarty_assign('restrP', text_contains($lexem->restriction, 'P'));
 smarty_assign('restrU', text_contains($lexem->restriction, 'U'));
@@ -204,5 +201,81 @@ smarty_assign('allStatuses', util_getAllStatuses());
 smarty_assign('errorMessage', $errorMessage);
 smarty_assign('recentLinks', RecentLink::loadForUser());
 smarty_displayWithoutSkin('admin/lexemEdit.ihtml');
+
+function validate($lexem) {
+  if (!$lexem->form) {
+    return 'Forma nu poate fi vidă.';
+  }
+  $numAccents = mb_substr_count($lexem->form, "'");
+  // Note: we allow multiple accents for lexems like hárcea-párcea
+  if ($numAccents && $lexem->noAccent) {
+    return 'Ați indicat că lexemul nu necesită accent, dar forma conține un accent.';
+  } else if (!$numAccents && !$lexem->noAccent) {
+    return 'Adăugați un accent sau bifați câmpul "Nu necesită accent".';
+  }
+  return null;
+}
+
+function validateRestriction($modelType, $restriction) {
+  $hasS = false;
+  $hasP = false;
+  for ($i = 0; $i < mb_strlen($restriction); $i++) {
+    $char = text_getCharAt($restriction, $i);
+    if ($char == 'T' || $char == 'U' || $char == 'I') {
+      if ($modelType != 'V' && $modelType != 'VT') {
+        return "Restricția <b>$char</b> se aplică numai verbelor";
+      }
+    } else if ($char == 'S') {
+      $hasS = true;
+    } else if ($char == 'P') {
+      $hasP = true;
+    } else {
+      return "Restricția <b>$char</b> este incorectă.";
+    }
+  }
+  
+  if ($hasS && $hasP) {
+    return "Restricțiile <b>S</b> și <b>P</b> nu pot coexista.";
+  }
+  return null;
+}
+
+function loadSuggestions($lexem, $limit) {
+  $query = $lexem->reverse;
+  $lo = 0;
+  $hi = mb_strlen($query);
+  $result = array();
+
+  while ($lo <= $hi) {
+    $mid = (int)(($lo + $hi) / 2);
+    $partial = mb_substr($query, 0, $mid);
+    $lexems = db_find(new Lexem(), "reverse like '{$partial}%' and modelType != 'T' and id != {$lexem->id} group by modelType, modelNumber limit {$limit}");
+    
+    if (count($lexems)) {
+      $result = $lexems;
+      $lo = $mid + 1;
+    } else {
+      $hi = $mid - 1;
+    }
+  }
+  return $result;
+}
+
+function _cloneLexem($lexem) {
+  $clone = new Lexem($lexem->form, 'T', 1, '');
+  $clone->comment = $lexem->comment;
+  $clone->description = ($lexem->description) ? "CLONĂ {$lexem->description}" : "CLONĂ";
+  $clone->noAccent = $lexem->noAccent;
+  $clone->save();
+    
+  // Clone the definition list
+  $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$lexem->id}");
+  foreach ($ldms as $ldm) {
+    LexemDefinitionMap::associate($clone->id, $ldm->definitionId);
+  }
+
+  $clone->regenerateParadigm();
+  return $clone;
+}
 
 ?>

@@ -1,11 +1,11 @@
 {if $accent
   }{$lexem->form|escape
 }{else
-  }{$lexem->unaccented|escape
+  }{$lexem->formNoAccent|escape
 }{/if
 }{if $lexem->description
   } ({$lexem->description|escape}){
 /if
-}{if !$lexem->unaccented && !$lexem->description
+}{if !$lexem->formNoAccent && !$lexem->description
   }[ID = {$lexem->id}]{
 /if}

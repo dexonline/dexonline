@@ -24,11 +24,11 @@ if ($lexemId) {
   if (!text_validateAlphabet($lexemId, '0123456789')) {
     $lexemId = '';
   }
-  $lexem = Lexem::load($lexemId);
+  $lexem = Lexem::get("id = {$lexemId}");
   if ($lexem) {
     $lexems = array($lexem);
-    smarty_assign('cuv', $lexem->unaccented);
-    smarty_assign('page_title', "Paradigmă: {$lexem->unaccented} | DEX online");
+    smarty_assign('cuv', $lexem->formNoAccent);
+    smarty_assign('page_title', "Paradigmă: {$lexem->formNoAccent} | DEX online");
   } else {
     $lexems = array();
     smarty_assign('page_title', "Eroare | DEX online");

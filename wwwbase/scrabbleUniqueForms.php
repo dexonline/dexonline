@@ -3,10 +3,7 @@ require_once("../phplib/util.php");
 ini_set('max_execution_time', '3600');
 ini_set("memory_limit", "128000000");
 
-$query = "select InflectedForm.formNoAccent from InflectedForm, lexems " .
-  "where lexemId = lexem_id " .
-  "and lexem_is_loc " .
-  "and char_length(formNoAccent) between 2 and 15";
+$query = "select I.formNoAccent from InflectedForm I, Lexem L where I.lexemId = L.id and L.isLoc and char_length(I.formNoAccent) between 2 and 15";
 $dbResult = mysql_query($query);
 
 ob_start();

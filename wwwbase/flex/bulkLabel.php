@@ -12,7 +12,7 @@ if ($submitButton) {
       $parts = split('_', $name);
       assert(count($parts) == 2);
       assert($parts[0] == 'lexem');
-      $lexem = Lexem::load($parts[1]);
+      $lexem = Lexem::get("id = " . $parts[1]);
 
       if ($modelId) {
         $parts = split('_', $modelId);
@@ -37,18 +37,20 @@ $reverseSuffix = text_reverse($suffix);
 
 RecentLink::createOrUpdate("Etichetare asistată: -$suffix");
 
-$numLabeled = db_countLabeledBySuffix($reverseSuffix);
+$numLabeled = db_getSingleValue("select count(*) from Lexem where modelType != 'T' and reverse like '{$reverseSuffix}%'");
 
 // Collect all the models that appear in at least 5% of the already
 // labeled lexems. Always select at least one model, in the unlikely case
 // that no model has over 5%.
 $models = array();
 $hasInvariableModel = false;
-$dbResult = db_selectModelsBySuffix($reverseSuffix);
-while ($dbRow = mysql_fetch_assoc($dbResult)) {
-  $modelType = $dbRow['lexem_model_type'];
-  $modelNumber = $dbRow['lexem_model_no'];
-  $count = $dbRow['c'];
+$dbResult = db_execute("select modelType, modelNumber, count(*) as c from Lexem where modelType != 'T' and reverse like '{$reverseSuffix}%' " .
+                       "group by modelType, modelNumber order by c desc");
+while (!$dbResult->EOF) {
+  $modelType = $dbResult->fields['modelType'];
+  $modelNumber = $dbResult->fields['modelNumber'];
+  $count = $dbResult->fields['c'];
+  $dbResult->MoveNext();
   if (!count($models) || ($count / $numLabeled >= 0.05)) {
     if ($modelType == 'V' || $modelType == 'VT') {
       $m = Model::get("modelType = 'V' and number = '{$modelNumber}'");
@@ -70,9 +72,7 @@ if (!$hasInvariableModel) {
   $models[] = Model::get("modelType = 'I' and number = '1'");
 }
 
-// Load at most 10 lexems having this suffix and flex them according
-// to each possible model.
-$lexems = Lexem::loadTemporaryBySuffix($reverseSuffix);
+$lexems = db_find(new Lexem(), "modelType = 'T' and reverse like '{$reverseSuffix}%' order by formNoAccent limit 20");
 
 // $ifMapMatrix[$i][$j] = array of InflectedForms for lexem $i and model $j
 $ifMapMatrix = array();

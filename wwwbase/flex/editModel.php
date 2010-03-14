@@ -14,7 +14,7 @@ $inflections = Inflection::loadByModelType($modelType);
 // Load the original data
 $model = Model::get("modelType = '{$modelType}' and number = '{$modelNumber}'");
 $exponent = $model->exponent;
-$lexem = Lexem::create($exponent, $modelType, $modelNumber, '');
+$lexem = new Lexem($exponent, $modelType, $modelNumber, '');
 $ifs = $lexem->generateParadigm();
 $forms = array();
 foreach ($inflections as $infl) {
@@ -130,8 +130,7 @@ if ($previewButton || $confirmButton) {
   // Now load the affected adjectives if the participle model changed
   if ($participleNumber != $newParticipleNumber) {
     $participleParadigms = array();
-    $participles = Lexem::loadParticiplesForVerbModel($modelNumber,
-                                                      $participleNumber);
+    $participles = loadParticiplesForVerbModel($modelNumber, $participleNumber);
     foreach ($participles as $p) {
       $p->modelNumber = $newParticipleNumber;
       $ifs = $p->generateParadigm();
@@ -186,7 +185,8 @@ if ($previewButton || $confirmButton) {
     // Regenerate the affected inflections for every lexem
     if (count($regenTransforms)) {
       foreach ($lexems as $l) {
-        $l->updateModDate();
+        $l->modDate = time();
+        $l->save();
         $l->regenerateParadigm();
       }
     }
@@ -214,8 +214,7 @@ if ($previewButton || $confirmButton) {
       $pm->adjectiveModel = $newParticipleNumber;
       $pm->save();
 
-      $participles = Lexem::loadParticiplesForVerbModel($modelNumber,
-                                                        $participleNumber);
+      $participles = loadParticiplesForVerbModel($modelNumber, $participleNumber);
       foreach ($participles as $p) {
         $p->modelNumber = $newParticipleNumber;
         $p->save();
@@ -291,6 +290,15 @@ function anyAccents($strArray) {
     }
   }
   return false;
+}
+
+// Assumes that $participleNumber is the correct participle (adjective) model for $modelNumber.
+function loadParticiplesForVerbModel($modelNumber, $participleNumber) {
+  $infl = Inflection::loadParticiple();
+  $dbResult = db_execute("select part.* from Lexem part, InflectedForm i, Lexem infin where infin.modelType = 'VT' and infin.modelNumber = '$modelNumber' " .
+                         "and i.lexemId = infin.id and i.inflectionId = {$infl->id} and part.formNoAccent = i.formNoAccent and part.modelType = 'A' " .
+                         "and part.modelNumber = '$participleNumber' order by part.formNoAccent");
+  return db_getObjects(new Lexem(), $dbResult);
 }
 
 ?>

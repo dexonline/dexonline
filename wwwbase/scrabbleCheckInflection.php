@@ -16,7 +16,7 @@ if ($locVersion && $form) {
   $lexems = array();
   $inflections = array();
   foreach ($ifs as $if) {
-    $lexems[] = Lexem::load($if->lexemId);
+    $lexems[] = Lexem::get("id = {$if->lexemId}");
     $inflections[] = Inflection::get("id = {$if->inflectionId}");
   }
   smarty_assign('form', $form);
@@ -34,8 +34,8 @@ smarty_displayCommonPageWithSkin('scrabbleCheckInflection.ihtml');
 function loadLoc($cuv) {
   $field = text_hasDiacritics($cuv) ? 'formNoAccent' : 'formUtf8General';
   $result = array();
-  $dbResult = db_execute("select distinct i.* from InflectedForm i, lexems where lexemId = lexem_id and {$field} = '{$cuv}' " .
-                         "and lexem_is_loc order by lexem_neaccentuat");
+  $dbResult = db_execute("select distinct I.* from InflectedForm I, Lexem L where I.lexemId = L.id and I.{$field} = '{$cuv}' " .
+                         "and L.isLoc order by L.formNoAccent");
   return db_getObjects(new InflectedForm(), $dbResult);
 }
 

@@ -26,7 +26,7 @@ if ($searchButton) {
   $hasDiacritics = $arr[0];
   $hasRegexp = $arr[1];
   $isAllDigits = $arr[2];
-  $field = $hasDiacritics ? 'lexem_neaccentuat' : 'lexem_utf8_general';
+  $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
   // TODO: Fixme.
 
   $userId = '';
@@ -40,8 +40,7 @@ if ($searchButton) {
   $endTime = mktime(23, 59, 59, $mo2, $da2, $yr2);
   
   // Query the database and output the results
-  $defs = Definition::searchModerator($name, $hasDiacritics, $sourceId,
-                                      $status, $userId, $beginTime, $endTime);
+  $defs = Definition::searchModerator($name, $hasDiacritics, $sourceId, $status, $userId, $beginTime, $endTime);
   $searchResults = SearchResult::mapDefinitionArray($defs);
   fileCache_putModeratorQueryResults($ip, $searchResults);
 } else {

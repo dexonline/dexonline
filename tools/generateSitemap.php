@@ -17,7 +17,7 @@ log_scriptLog('Running generateSitemap.php');
 openNewFile();
 addOtherUrls();
 
-$query = 'select lexem_id, lexem_neaccentuat from lexems order by lexem_neaccentuat';
+$query = 'select id, formNoAccent from Lexem order by formNoAccent';
 log_scriptLog("Running mysql query: [$query]");
 $dbResult = mysql_query($query);
 

@@ -18,7 +18,7 @@ if ($updateModels) {
       if ($comment) {
         $lexemIds = util_getRequestParameter("lexems_$modelNumber");
         foreach ($lexemIds as $lexemId) {
-          $lexem = Lexem::load($lexemId);
+          $lexem = Lexem::get("id = {$lexemId}");
           $lexem->comment = $comment;
           $lexem->save();
         }
@@ -46,10 +46,12 @@ if ($modelType) {
 
   foreach ($models as $model) {
     // Load the distinct 3-letter suffixes, in descending order of the frequency.
-    $dbResult = db_selectModelStatsWithSuffixes($modelType, $model->number);
+    $dbResult = db_execute("select substring(reverse, 1, 3) as s from Lexem, ModelType where modelType = code and canonical = '{$modelType}' " .
+                           "and modelNumber = '{$model->number}' group by s order by count(*) desc");
     $suffixes = array();
-    while ($dbRow = mysql_fetch_assoc($dbResult)) {
-      $suffixes[] = $dbRow['s'];
+    while (!$dbResult->EOF) {
+      $suffixes[] = $dbResult->fields['s'];
+      $dbResult->MoveNext();
     }
     $len = count($suffixes);
 
@@ -58,9 +60,10 @@ if ($modelType) {
       // Load the two most frequent and two least frequent suffixes, or all
       // of them if there are less than 4.
       if ($i <= 1 || $i >= $len - 2) {
-        $lexemArray[] = Lexem::loadByCanonicalModelSuffix($modelType,
-                                                          $model->number,
-                                                          $suffixes[$i]);
+        $dbResult = db_execute("select Lexem.* from Lexem, ModelType where modelType = code and canonical = '{$modelType}' " .
+                               "and modelNumber = '{$model->number}' and reverse like '{$suffixes[$i]}%' order by form desc limit 1");
+        $tmp = db_getObjects(new Lexem(), $dbResult);
+        $lexemArray[] = $tmp[0];
       }
     }
     $lexems[] = $lexemArray;

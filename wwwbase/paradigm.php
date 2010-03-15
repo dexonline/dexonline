@@ -16,11 +16,6 @@ if ($cuv) {
 $searchType = SEARCH_INFLECTED;
 $hasDiacritics = session_user_prefers('FORCE_DIACRITICS');
 
-if ($cuv) {
-  smarty_assign('cuv', $cuv);
-  smarty_assign('page_title', "Paradigmă: {$cuv} | DEX online");
-}
-
 // LexemId search
 if ($lexemId) {
   $searchType = SEARCH_LEXEM_ID;
@@ -31,11 +26,10 @@ if ($lexemId) {
   $lexem = Lexem::get("id = {$lexemId}");
   if ($lexem) {
     $lexems = array($lexem);
-    smarty_assign('cuv', $lexem->formNoAccent);
-    smarty_assign('page_title', "Paradigmă: {$lexem->formNoAccent} | DEX online");
+	$cuv = $lexem->formNoAccent;
   } else {
     $lexems = array();
-    smarty_assign('page_title', "Eroare | DEX online");
+	$cuv = NULL;
   }
 }
 
@@ -84,17 +78,25 @@ if (!empty($lexems)) {
 
   if (empty($filtered_lexems)) {
     session_setFlash("Niciun rezultat pentru {$cuv}.");
+    smarty_assign('page_title', "Eroare | DEX online");
   }
 
-  $declensionText = $conjugations ? ($declensions ? 'conjugări / declinări' : 'conjugări') : ($declensions ? 'declinări' : '');
+  $declensionText = $conjugations ? ($declensions ? 'Conjugare / Declinare' : 'Conjugare') : ($declensions ? 'Declinare' : '');
+
+  if ($cuv && !empty($filtered_lexems)) {
+    smarty_assign('cuv', $cuv);
+    smarty_assign('page_title', "{$declensionText}: {$cuv} | DEX online");
+    smarty_assign('declensionText', "{$declensionText}: {$cuv}");
+  }
+
   smarty_assign('lexems', $filtered_lexems);
   smarty_assign('ifMaps', $ifMaps);
   smarty_assign('showParadigm', true);
   smarty_assign('onlyParadigm', !$ajax);
-  smarty_assign('declensionText', $declensionText);
 }
 else {
   session_setFlash("Niciun rezultat pentru {$cuv}.");
+  smarty_assign('page_title', "Eroare | DEX online");
 }
 
 if ($ajax) {

@@ -129,7 +129,7 @@
   
   {foreach from=$results item=row key=i}
     <p>
-      <span class="def" onclick="return searchClickedWord(event);">
+      <span class="def" onclick="return searchClickedWord(event);" title="Click pentru a naviga la acest cuvânt">
         {$row->definition->htmlRep}
       </span>
       <br/>

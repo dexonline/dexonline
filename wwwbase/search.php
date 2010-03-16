@@ -29,7 +29,7 @@ if ($cuv) {
   $hasDiacritics = session_user_prefers('FORCE_DIACRITICS') || $arr[0];
   $hasRegexp = $arr[1];
   $isAllDigits = $arr[2];
-  smarty_assign('page_title', "Definiție: {$cuv} | DEX online");
+  smarty_assign('page_title', "Definitie: {$cuv} | DEX online");
 }
 
 if ($text) {

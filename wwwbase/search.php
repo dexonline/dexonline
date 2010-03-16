@@ -30,6 +30,7 @@ if ($cuv) {
   $hasRegexp = $arr[1];
   $isAllDigits = $arr[2];
   smarty_assign('page_title', "Definitie: {$cuv} | DEX online");
+  smarty_assign('page_description', "Definiții, sinonime, antonime, expresii, conjugări și declinări pentru {$cuv}");
 }
 
 if ($text) {

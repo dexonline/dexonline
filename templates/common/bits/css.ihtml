@@ -17,7 +17,7 @@
   <link href="{$wwwRoot}styles/paradigm.css?v=1" rel="stylesheet" type="text/css"/>
 {/if}
 {if $polar}
-  <link href="{$wwwRoot}styles/polar.css?v=1" rel="stylesheet" type="text/css"/>
+  <link href="{$wwwRoot}styles/polar.css?v=2" rel="stylesheet" type="text/css"/>
 {/if}
 {if $simple}
   <link href="{$wwwRoot}styles/simple.css?v=1" rel="stylesheet" type="text/css"/>

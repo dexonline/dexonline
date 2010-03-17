@@ -13,6 +13,9 @@
   </head>
 
   <body id="polarSkinBody">
+    {if $openx}
+      <div id="openx">{include file="common/bits/openx.ihtml"}</div>
+    {/if}
     <table class="header">
       <tr>
         <td class="searchBoxContainer">

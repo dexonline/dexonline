@@ -285,3 +285,8 @@ span.help {
 span.spaced {
   letter-spacing: 3px;
 }
+
+#openx {
+  text-align: center;
+  margin-bottom: 5px;
+}

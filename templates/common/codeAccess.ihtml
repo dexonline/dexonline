@@ -38,7 +38,7 @@ tools/setup</pre>
 
   <li>Modificați fișierul dex.conf conform cu setările
   sistemului. Cel mai probabil, nu va trebui să modificați decât
-  valorile variabilelor <code>mysql_*</code>.</li>
+  valoarea variabilei <code>database</code>.</li>
 
   <li>Ca root, copiați fișierul <code>sql-functions.so</code> în
   <code>/usr/lib</code>. Acest fișier extinde limbajul MySQL cu

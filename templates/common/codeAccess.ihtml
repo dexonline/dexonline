@@ -1,7 +1,7 @@
 <p>Codul <i>DEX online</i> este disponibil liber (și gratuit) sub licența
 GNU GPL. El a fost testat pe sisteme Ubuntu și Fedora standard cu
 pachete ca mysql, php, httpd și svn. Aveți nevoie de PHP 5.0 (sau mai
-nou) configurat cu modulele <b>mbstring</b> și <b>mysql</b>.</p>
+nou) configurat cu modulele <b>mbstring</b> și <b>mysql</b>, precum și de bibliotecile Smarty, AdoDB și AdoDB Active Records.</p>
 
 <p>De asemenea, aveți nevoie și de header-ele MySQL pentru development:
 pachetul mysql-devel pe sisteme Fedora sau libmysql++-dev pe sisteme
@@ -10,6 +10,14 @@ pachetul mysql-devel pe sisteme Fedora sau libmysql++-dev pe sisteme
 <p>Iată cum puteți obține o copie a codului și a bazei de date:</p>
 
 <ol>
+  <li>
+    Asigurați-vă că sistemul dumneavoastră permite citirea și tastarea diacriticelor românești <b>ĂÂÎȘȚ.</b> În particular, asigurați-vă că puteți folosi
+    diacriticele Ș și Ț cu virgulă (nu Ş și Ţ cu sedilă). Editorul dumneavoastră trebuie să poată deschide și salva fișiere fără a corupe
+    semnele diacritice din ele. Orice sistem Linux modern se descurcă perfect cu aceste simboluri. Sub Gnome, singura operație necesară este adăugarea unei
+    mapări românești de tastatură (System / Preferences / Keyboard / Layouts / Add / Country:Romania). Recomandăm varianta simplă (Romania), care practic lasă
+    tastatura originală nemodificată și adaugă diacriticele românești folosind talta AltGr (Alt din dreapta).
+  </li>
+
   <li>Alegeți-vă directorul unde doriți să lucrați, să spunem
   <code>/var/www/html/DEX</code>, și descărcați o copie a codului
   sursă:
@@ -110,6 +118,7 @@ php migration.php
 
 </ol>
 
+Pentru a ține ulterior clientul la zi, rulați „svn update”, apoi „php migration.php” pentru a vă asigura că schema bazei de date concordă cu codul.<br/><br/>
 
 Dacă modificați codul, nu veți avea permisiunea de a adăuga
 modificările făcute direct cu comanda <code>svn commit</code>, din

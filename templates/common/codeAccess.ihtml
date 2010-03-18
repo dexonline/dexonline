@@ -51,27 +51,27 @@ create function dist2 returns integer soname "sql-functions.so";</pre>
   <li>Reporniți serverul de MysQL:
 
   <pre style="background: #eeffff; border: 1px dashed green; padding: 6px;">
-ssh root@0 service mysqld restart</pre>
+sudo /etc/init.d/mysql restart</pre>
 
   </li>
 
-  <li>Creați o bază de date miniaturală, folosind parametrii
-  specificați în <code>dex.conf</code>. De remarcat că acest script va
-  refuza să creeze o bază de date cu numele <code>DEX</code>, acest
-  nume fiind rezervat pentru baza de date reală.
+  <li>Descărcați baza de date a DEX online și importați-o în MySQL. De asemenea, migrați schema bazei de date la ultima versiune pentru cazul (improbabil) în care
+codul din Subversion este mai nou decât codul care rulează pe dexonline.ro.
 
   <pre style="background: #eeffff; border: 1px dashed green; padding: 6px;">
-cd tools/
-php resetDatabase.php</pre>
+wget -O /tmp/dex-database.sql.gz http://dexonline.ro/download/dex-database.sql.gz
+gunzip /tmp/dex-database.sql.gz
+mysql -u ... -p ... DEX < /tmp/dex-database.sql
+cd tools
+php migration.php
+</pre>
 
   </li>
 
 
 
-  <li>Instalați <a href="http://smarty.php.net">Smarty</a>. Este
-  posibil ca distribuția de Linux pe care o folosiți să ofere un pachet
-  Smarty. De exemplu, Fedora oferă pachetul php-Smarty iar Debian
-  (Ubuntu) oferă pachetul &quot;smarty&quot;.
+  <li>Instalați <a href="http://smarty.php.net">Smarty</a> și <a href="http://adodb.sourceforge.net/">AdoDB</a>. Este
+  posibil ca distribuția de Linux pe care o folosiți să ofere pachete pentru aceste programe. De exemplu, Ubuntu oferă pachetele „libphp-adodb” și „smarty”.
 
   </li>
 

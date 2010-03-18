@@ -8,7 +8,7 @@ then
   cp dex.conf.sample dex.conf
 fi
 
-# Make the logs and the Smarty compiled templates directory world-readable
+# Make the logs and the Smarty compiled templates directory world-writable
 chmod 777 log
 touch log/userlog
 chmod 666 log/userlog
@@ -24,5 +24,4 @@ then
 fi
 
 # Compile sql-functions.cc
-gcc -shared -I/usr/include/mysql -o tools/sql-functions.so \
-    tools/sql-functions.cc
+gcc -shared -I/usr/include/mysql -o tools/sql-functions.so tools/sql-functions.cc

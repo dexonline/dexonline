@@ -109,8 +109,8 @@ class Definition extends BaseObject {
     $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
     $dbResult = db_execute(sprintf("select distinct D.* from Definition D, LexemDefinitionMap L, Source S " .
                                    "where D.id = L.definitionId and L.lexemId in (%s) and D.sourceId = S.id and D.status = 0 %s %s " .
-                                   "order by (D.lexicon = '$preferredWord') desc, S.isOfficial desc, D.lexicon, S.displayOrder",
-                                   $lexemIds, $excludeClause, $sourceClause));
+                                   "order by (D.lexicon collate utf8_general_ci = '%s') desc, S.isOfficial desc, D.lexicon, S.displayOrder",
+                                   $lexemIds, $excludeClause, $sourceClause, $preferredWord));
     return db_getObjects(new Definition(), $dbResult);
   }
 

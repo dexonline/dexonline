@@ -11,12 +11,9 @@ $parts = db_splitDsn();
 $COMMON_COMMAND = sprintf("mysqldump -h %s -u %s --password='%s' %s ", $parts['host'], $parts['user'], $parts['password'], $parts['database']);
 
 $schemaOnly = array('RecentLink', 'Cookie', 'history_Comment', 'history_Definition');
-$alteredFields = array('User' => array('Email' => 'anonymous@anonymous.com',
-                                       'Password' => ''));
 $currentYear = date("Y");
 
-// Full/Public dump: the public dump omits the user table, which contains
-// emails and md5-ed passwords.
+// Full/Public dump: the public dump omits the user table, which contains emails and md5-ed passwords.
 $doFullDump = false;
 
 for ($i = 1; $i < count($argv); $i++) {
@@ -30,8 +27,7 @@ for ($i = 1; $i < count($argv); $i++) {
   }
 }
 
-log_scriptLog('Running dumpDatabase.php with argument ' .
-              ($doFullDump ? 'full' : 'public'));
+log_scriptLog('Running dumpDatabase.php with argument ' . ($doFullDump ? 'full' : 'public'));
 
 $dbName = $parts['database'];
 $tablesToIgnore = '';
@@ -42,9 +38,7 @@ if ($doFullDump) {
   $targetDir = util_getRootPath() . '/wwwbase/download/mirrorAccess/';
 } else {
   $targetDir = util_getRootPath() . '/wwwbase/download/';
-  foreach ($alteredFields as $table => $fields) {
-    $tablesToIgnore .= "--ignore-table=$dbName.$table ";
-  }
+  $tablesToIgnore .= "--ignore-table=$dbName.User ";
 }
 
 os_executeAndAssert("rm -f $TMP_DIR/$FILENAME");
@@ -61,19 +55,15 @@ foreach ($schemaOnly as $table) {
 $command .= " >> $TMP_DIR/$FILENAME";
 os_executeAndAssert($command);
 
-// Alter some fields for other tables
+// Anonymize the User table
 if (!$doFullDump) {
-  foreach ($alteredFields as $table => $fieldArray) {
-    $copyTable = "_{$table}_Copy";
-    mysql_query("create table $copyTable select * from $table");
-    foreach ($fieldArray as $field => $value) {
-      mysql_query("update $copyTable set $field = '$value'");
-    }
-    os_executeAndAssert("$COMMON_COMMAND $copyTable " .
-                        "| sed 's/$copyTable/$table/g' " .
-                        ">> $TMP_DIR/$FILENAME");
-    mysql_query("drop table $copyTable");
-  }
+  log_scriptLog('Anonymizing the User table');
+  mysql_query("create table _User_Copy like User");
+  mysql_query("insert into _User_Copy select * from User");
+  mysql_query("update _User_Copy set password = ''");
+  mysql_query("update _User_Copy set email = concat(id, '@anonymous.com')");
+  os_executeAndAssert("$COMMON_COMMAND _User_Copy | sed 's/_User_Copy/User/g' >> $TMP_DIR/$FILENAME");
+  mysql_query("drop table _User_Copy");
 }
 
 os_executeAndAssert("gzip -f $TMP_DIR/$FILENAME");

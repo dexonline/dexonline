@@ -111,6 +111,7 @@ function makePostRequest(url, parameters, callback, argument) {
   httpRequest.setRequestHeader("Content-length", parameters.length);
   httpRequest.setRequestHeader("Connection", "close");
   httpRequest.send(parameters);
+  return false;
 }
 
 function makeGetRequest(url, callback, argument) {
@@ -124,6 +125,7 @@ function makeGetRequest(url, callback, argument) {
   }
   httpRequest.open('GET', url, true);
   httpRequest.send(null);
+  return false;
 }
 
 function contribPostRequestCallback(httpRequest, argument /* ignored */) {
@@ -292,15 +294,16 @@ function confirmDissociateDefinition(id) {
  * See http://www.faqts.com/knowledge_base/view.phtml/aid/33674/fid/145
  **/
 function getWordFromEvent(evt) {
+  var range = null;
   if (document.body && document.body.createTextRange) {
     /* IE */
-    var range = document.body.createTextRange();
+    range = document.body.createTextRange();
     range.moveToPoint(evt.clientX, evt.clientY);
     range.expand('word');
     return range.text;
   } else if (evt.rangeParent && document.createRange) {
     /* Mozilla */
-    var range = document.createRange();
+    range = document.createRange();
     range.setStart(evt.rangeParent, evt.rangeOffset);
     range.setEnd(evt.rangeParent, evt.rangeOffset);
     expandRangeToWord(range);

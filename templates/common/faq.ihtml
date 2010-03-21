@@ -1044,7 +1044,7 @@ căutate?</a></h3>
   diacritice.
 
 
-<h3><a name="tastare_diacritice">Cum tastez diacriticele <i>ă, â, î,
+<h3><a name="tastare_diacritice">Cum tastez diacriticele <i>ă, &#xe2;, î,
 ș, ț?</i></a></h3>
 
   Dacă folosiți Windows XP, mergeți în <i>Control Panel &#x2192;
@@ -1054,7 +1054,7 @@ căutate?</a></h3>
   și cea românească (combinația implicită este Alt-Shift). "Tastatura
   românească" este de fapt o mapare care face ca tastele de pe
   tastatura dumneavoastră să producă alte caractere când le
-  apăsați. În particular, diacriticele românești <i>ă, â, î, ș</i> și
+  apăsați. În particular, diacriticele românești <i>ă, &#xe2;, î, ș</i> și
   <i>ț</i> sunt asignate tastelor
   <i>[. \, ], ;</i> și <i>'</i>.
 
@@ -1069,7 +1069,7 @@ căutate?</a></h3>
 
   Dacă nu doriți să instalați maparea românească de tastatură, puteți
   folosi notațiile <i>~a, ^a, ^i, ,s</i> și <i>,t</i> respectiv pentru
-  <i>ă, â, î, ș</i> și <i>ț</i>.
+  <i>ă, &#xe2;, î, ș</i> și <i>ț</i>.
 
 
 <h3><a name="regexp">Pot să folosesc expresii regulate?</a></h3>

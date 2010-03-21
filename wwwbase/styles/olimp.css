@@ -10,15 +10,6 @@ BODY {
 	background: #a1acb9;
 }
 
-HR {
-	width: 80%;
-	align: center;
-	border:none; 
-	height:1px;
-	color: #a1acb9;
-	background:#a1acb9;
-}
-
 A:link, A:visited {
     text-decoration: none !important;
     color: #0072C2; 
@@ -79,7 +70,7 @@ td.logos {
 .meniu_stanga A {
 	width: 150px;
 	margin: 0;
-	float: auto;
+	float: inherit;
 	display: block;
 }
 

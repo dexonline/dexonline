@@ -27,8 +27,7 @@ if ($searchButton) {
   $hasRegexp = $arr[1];
   $isAllDigits = $arr[2];
   $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-  // TODO: Fixme.
-
+  
   $userId = '';
   if ($nick) {
     $user = User::get("nick = '$nick'");

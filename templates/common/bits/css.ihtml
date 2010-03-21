@@ -8,10 +8,10 @@
   <link href="{$wwwRoot}styles/lexemPicker.css?v=1" rel="stylesheet" type="text/css"/>
 {/if}
 {if $mobile}
-  <link href="{$wwwRoot}styles/mobile.css?v=1" rel="stylesheet" type="text/css"/>
+  <link href="{$wwwRoot}styles/mobile.css?v=2" rel="stylesheet" type="text/css"/>
 {/if}
 {if $olimp}
-  <link href="{$wwwRoot}styles/olimp.css?v=1" rel="stylesheet" type="text/css"/>
+  <link href="{$wwwRoot}styles/olimp.css?v=2" rel="stylesheet" type="text/css"/>
 {/if}
 {if $paradigm}
   <link href="{$wwwRoot}styles/paradigm.css?v=1" rel="stylesheet" type="text/css"/>

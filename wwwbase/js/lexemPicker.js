@@ -21,7 +21,7 @@ function deleteLexemRow(anchor) {
 
 function lexemPickerKeyEvent(input, e) {
   if (!e) {
-    var e = window.event;
+    e = window.event;
   }
   code = e.keyCode;
 

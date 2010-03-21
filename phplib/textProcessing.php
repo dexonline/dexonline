@@ -1181,8 +1181,6 @@ function text_stripIllegalCharacters($s) {
 }
 
 function text_replace_st($tpl_output) {
-  // TODO: When ș/ț are in a word by itself, they should be left alone.
-  // See for example the user account page itself.
   $tpl_output = str_replace('ș', 'ş', $tpl_output);
   $tpl_output = str_replace('ț', 'ţ', $tpl_output);
   $tpl_output = str_replace('Ș', 'Ş', $tpl_output);
@@ -1191,9 +1189,6 @@ function text_replace_st($tpl_output) {
 }
 
 function text_replace_ai($tpl_output) {
-  // TODO: When â is in a word by itself, it should be left as â.
-  // See for example the FAQ, the section on installing a Romanian keyboard,
-  // or the user account page itself.
   $char_map = array(
     'â' => 'î',
     'Â' => 'Î',

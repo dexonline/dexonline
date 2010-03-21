@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     {include file="common/bits/css.ihtml" paradigm=1 polar=1}
-    <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex-context-search.xml" title="Căutare dexonline.ro"/>
+    <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
     <title>{$page_title|escape}</title>
     {if $page_description}
       <meta name="description" content="{$page_description}"/>

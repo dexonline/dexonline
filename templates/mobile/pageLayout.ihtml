@@ -47,6 +47,11 @@
     <table class="footer">
       <tr>
         <td>
+            {include file="common/hosting/$hostedBy.ihtml"}
+        </td>
+      </tr>
+      <tr>
+        <td>
           Starea curentă: <b>{$words_total}</b> de definiţii (<b>{$words_last_month}</b> în ultima lună)<br/>
 
           {if !$is_mirror}

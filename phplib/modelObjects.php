@@ -1041,4 +1041,27 @@ class Variable extends BaseObject {
   }
 }
 
+
+class AdsLink extends BaseObject {
+	public static function getUrlByKey($skey) {
+		$al = new AdsLink();
+		$al->load("skey = ", $skey);
+		return $al->url;
+	}
+}
+
+
+class AdsClick extends BaseObject {
+	function __construct($skey, $ip) {
+		parent::__construct();
+		$this->skey = $skey;
+		$this->ip = ip2long($ip);
+	}
+
+	public static function addClick($skey, $ip) {
+		$ac = new AdsClick($skey, $ip);
+		$ac->save();
+	}
+}
+
 ?>

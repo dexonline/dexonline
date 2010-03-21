@@ -10,9 +10,9 @@
 
 <p>
 
-  Mulțumiri speciale <a href="http://www.siveco.ro/">firmei Siveco</a>
-  și editurilor <a href="http://www.litera.ro/">Litera
-  Internațional</a> și <a href="http://www.saeculum.ro/">Saeculum</a>,
+  Mulțumiri speciale <a href="goto.php?key=siveco">firmei Siveco</a>
+  și editurilor <a href="goto.php?key=litera">Litera
+  Internațional</a> și <a href="goto.php?key=saeculum">Saeculum</a>,
   care ne-au pus la dispoziție cinci dicționare complete sub licența
   GPL. Detalii <a href="{$wwwRoot}faq.php#autori">aici</a>.
 

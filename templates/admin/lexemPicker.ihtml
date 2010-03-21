@@ -1,5 +1,5 @@
 <input type="text" name="{$fieldName}" value="{$displayValue|escape}" size="40"
-       onkeydown="return lexemPickerKeyEvent(this, event);"
+       onkeypress="return lexemPickerKeyEvent(this, event);"
        onblur="return lexemPickerBlur(this);"
        onchange="return lexemPickerChange(this);"
        autocomplete="off"/>

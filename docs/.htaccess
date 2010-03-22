@@ -14,6 +14,8 @@ RewriteRule ^text(-([^/]+))?/(.*)$ search.php?cuv=$3&source=$2&text=1 [L]
 RewriteCond %{REQUEST_URI} /(definitie|lexem)/.+/paradigma$
 RewriteRule (.*)/paradigma$ $1&showParadigm=1
 
+RewriteRule ^spre/(.*)$ goto.php?key=$1 [PT,L]
+
 RewriteRule ^definitie(-([^/]+))?/(.*)$ search.php?cuv=$3&source=$2 [PT,L]
 RewriteRule ^lexem(-([^/]+))?/(.*)$ search.php?lexemId=$3&source=$2 [PT,L]
 

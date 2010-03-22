@@ -14,7 +14,7 @@
 
     {if count($lexems) == 1}
       {* If there is exactly one lexem, do not link to the lexem page, because it would print an almost exact duplicate of this page. *}
-      {include file="common/bits/lexemName.ihtml" lexem=$lexems.0}      
+      «{include file="common/bits/lexemName.ihtml" lexem=$lexems.0}»
     {else}
       {foreach from=$lexems item=lexem key=row_id}
         <a href="{$wwwRoot}lexem/{$lexem->id}">{$lexem->formNoAccent}</a
@@ -25,7 +25,7 @@
 
   {elseif $searchType == SEARCH_APPROXIMATE}
     {if count($lexems)}
-      Cuvântul "{$cuv|escape}" nu a fost găsit, dar am găsit următoarele cuvinte apropiate:
+      Cuvântul «{$cuv|escape}» nu a fost găsit, dar am găsit următoarele cuvinte apropiate:
     {/if}
 
   {elseif $searchType == SEARCH_DEF_ID}
@@ -36,23 +36,23 @@
   {elseif $searchType == SEARCH_REGEXP}
     {if $numResults}
       {if $numResults > count($lexems)}
-        {$numResults} rezultate pentru {$cuv|escape} (maxim {$lexems|@count} afișate):
+        {$numResults} rezultate pentru «{$cuv|escape}» (maxim {$lexems|@count} afișate):
       {else}
-        {$numResults} rezultate pentru {$cuv|escape}:
+        {$numResults} rezultate pentru «{$cuv|escape}»:
       {/if}
     {/if}
 
   {elseif $searchType == SEARCH_LEXEM_ID}
     {if count($lexems) > 0}
 	  {if $exclude_unofficial}
-		  Lexemul cu ID-ul căutat există, dar este „neoficial”.
+		  Lexemul cu ID-ul căutat există, dar este neoficial.
 	  {else}
 		  {if count($results) == 1}
 			O definiție pentru
 		  {else}
 			{$results|@count} definiții pentru
 		  {/if}
-		  {include file="common/bits/lexemName.ihtml" lexem=$lexems.0}
+		  «{include file="common/bits/lexemName.ihtml" lexem=$lexems.0}»
 	  {/if}
     {else}
       Nu există niciun lexem cu ID-ul căutat.

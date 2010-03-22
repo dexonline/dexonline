@@ -33,7 +33,7 @@ print "<jadexUpdate version='1.0'>\n";
 // timestamp
 print time() . "\n";
 // total results expected
-print $defDbResult->RowCount() . "\n";
+print $lexemDbResult->RowCount() . "\n";
 // sources
 foreach ( $sources as $source ) {
   // marker

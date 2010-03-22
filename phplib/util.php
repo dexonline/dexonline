@@ -159,6 +159,14 @@ function util_isWebBasedScript() {
   return isset($_SERVER['REMOTE_ADDR']);
 }
 
+function util_getFullServerUrl() {
+  $host = $_SERVER['SERVER_NAME'];
+  $port =  $_SERVER['SERVER_PORT'];
+  $path = util_getWwwRoot();
+
+  return ($port == '80') ? "http://$host$path" : "http://$host:$port$path";
+}
+
 function util_formatNumber($n, $decimals) {
   return number_format($n, $decimals, ',', '.');
 }
@@ -242,6 +250,12 @@ function util_assertNotMirror() {
   if (pref_isMirror()) {
     smarty_displayWithoutSkin('common/mirror_message.ihtml');
     exit;
+  }
+}
+
+function util_assertNotLoggedIn() {
+  if (session_getUser()) {
+    util_redirect(util_getWwwRoot());
   }
 }
 

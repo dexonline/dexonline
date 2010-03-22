@@ -60,7 +60,7 @@
       </tr>
     </table>
 
-	{include file="common/flashMessages.ihtml"}
+    {include file="common/flashMessages.ihtml"}
     {include file=$contentTemplateName}
 
     <table class="footer">

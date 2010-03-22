@@ -8,7 +8,7 @@
 30 3 * * * (cd /var/www/dexon/public_html/DEX/tools && php dumpDatabase.php) >/dev/null 2>&1 || mail -s "DEX dumpDatabase (public) failed" cata@francu.com
 
 # Remove login cookies older than one month
-50 2 * * * (cd /var/www/dexon/public_html/DEX/tools && php purgeOldCookies.php) >/dev/null 2>&1 || mail -s "DEX purgeOldCookies failed" cata@francu.com
+50 2 * * * (cd /var/www/dexon/public_html/DEX/tools && php purgeOldData.php) >/dev/null 2>&1 || mail -s "DEX purgeOldData failed" cata@francu.com
 
 # Regenerate the Firefox spell checker extension
 55 2 * * * (cd /var/www/dexon/public_html/DEX/tools && php rebuildFirefoxSpellChecker.php) >/dev/null 2>&1 || mail -s "DEX rebuildFirefoxSpellChecker failed" cata@francu.com

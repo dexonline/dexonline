@@ -57,6 +57,10 @@ function smarty_displayWithoutSkin($templateName) {
   $GLOBALS['smarty_theSmarty']->display($templateName);
 }
 
+function smarty_fetch($templateName) {
+  return $GLOBALS['smarty_theSmarty']->fetch($templateName);
+}
+
 function smarty_assign($variable, $value) {
   $GLOBALS['smarty_theSmarty']->assign($variable, $value);
 }

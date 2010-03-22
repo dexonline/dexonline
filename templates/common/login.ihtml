@@ -1,48 +1,21 @@
-{if $is_connected}
-  Sunteți deja conectat!
-{elseif $login && $error_code == OK}
-  <script language="javascript">location.replace("{$target}");</script>
-{elseif $forget && $error_code == OK}
-  Parola a fost resetată. Verificați-vă poșta în câteva minute
-  pentru a afla noua parolă, apoi <a href="login.php">reconectați-vă</a>.
-{elseif $forget && $error_code == ERR_NO_MESSAGE}
-  Parola a fost schimbată, dar nu v-am putut trimite emailul cu noua
-  parolă. Trimiteți-ne un email pentru a rezolva problema manual.
-{else}
-  Pentru a vă conecta, introduceți adresa de email sau numele de
-  cont și parola. Dacă v-ați uitat parola, introduceți doar adresa
-  de email și apăsați butonul "Mi-am uitat parola". O nouă parolă
-  va fi generată și trimisă pe adresa dumneavoastră de email.
+Pentru a vă conecta, introduceți adresa de email sau numele de cont și parola. Dacă v-ați uitat parola, introduceți doar adresa
+de email și apăsați butonul „Mi-am uitat parola”. Vă va fi trimis un email cu instrucțiuni pentru schimbarea parolei.
 
-  {if $error_code != OK}
-    <p><font color=red><b>
-    {if $error_code == ERR_NO_NICK}
-      Trebuie să introduceți adresa de email sau numele de cont.
-    {elseif $error_code == ERR_NO_PASS}
-      Trebuie să introduceți parola.
-    {elseif $error_code == ERR_BAD_LOGIN}
-      Adresa, numele de cont sau parola sunt greșite.
-    {elseif $error_code == ERR_BAD_EMAIL}
-      Adresa {$nickOrEmail|escape} nu este înregistrată în <i>DEX online</i>.
-    {elseif $error_code == ERR_NO_EMAIL}
-      Pentru a vă reseta parola, trebuie să vă introduceți adresa de email.
-    {/if}
-    </b></font>
-  {/if}
-
-  <p><form name="loginForm" method="post" action="login.php">
-  <table><tr>
+<p><form name="loginForm" method="post" action="login.php">
+<table>
+  <tr>
     <td>Adresa de email sau numele de cont:</td>
     <td><input type="text" name="email" value="{$nickOrEmail|escape}" size=30></td>
-  </tr><tr>
+  </tr>
+  <tr>
     <td>Parola:</td>
-    <td><input type="password" name="password" value="{$password|escape}"
-      size=30></td>
-  </tr><tr>
+    <td><input type="password" name="password" value="{$password|escape}" size=30></td>
+  </tr>
+  <tr>
     <td colspan=2 align=center>
       <input type=submit id="login" name="login" value="Conectare">
       <input type=submit name="forget" value="Mi-am uitat parola">
       <input type=hidden name="target" value="{$target|escape}">
     </td>
-  </tr></table>
-{/if}
+  </tr>
+</table>

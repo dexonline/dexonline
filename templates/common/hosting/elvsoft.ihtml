@@ -1,2 +1,3 @@
-<a href="goto.php?key=elvsoft">Găzduire web: Elvsoft</a>
-<br/>
+<a href="goto.php?key=elvsoft" class="noBorder" target="_blank" rel="nofollow">
+  <img src="{$imgRoot}/hosting/elvsoft.png" alt="elvsoft logo"/>
+</a>

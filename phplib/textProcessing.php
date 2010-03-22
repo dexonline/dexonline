@@ -728,6 +728,7 @@ function text_cleanupQuery($query) {
   // Delete all kinds of illegal symbols, but use them as word delimiters. Allow dots, dashes and spaces
   $query = preg_replace("/[!@#$%&()_+=\\\\{}'\":;<>,\/]/", " ", $query);
   $query = preg_replace("/\s+/", " ", $query);
+  $query = mb_substr($query, 0, 50);
   return $query;
 }
 

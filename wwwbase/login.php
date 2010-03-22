@@ -52,7 +52,7 @@ if ($loginButton) {
       smarty_assign('token', $pt->token);
       $body = smarty_fetch('email/resetPassword.ihtml');
       $email = pref_getContactEmail();
-      $result = mail($nickOrEmail, "Noua parolă pentru DEX online", $body, "From: DEX online <$email>\r\nReply-To: $email");
+      $result = mail($nickOrEmail, "Schimbarea parolei pentru DEX online", $body, "From: DEX online <$email>\r\nReply-To: $email");
     }
     // Display a confirmation even for incorrect addresses.
     smarty_displayCommonPageWithSkin('passwordRecoveryEmailSent.ihtml');

@@ -36,47 +36,52 @@ print time() . "\n";
 print $defDbResult->RowCount() . "\n";
 // sources
 foreach ( $sources as $source ) {
-	// marker
-	print "<source>\n";
-	print $source->id . "\n";
-	print $source->shortName . "\n";
-	print $source->name . "\n";
-	print $source->author. "\n";
-	print $source->publisher . "\n";
-	print $source->year . "\n";
-	// marker
-	print "</source>\n";
+  // marker
+  print "<source>\n";
+  print $source->id . "\n";
+  print $source->shortName . "\n";
+  print $source->name . "\n";
+  print $source->author. "\n";
+  print $source->publisher . "\n";
+  print $source->year . "\n";
+  // marker
+  print "</source>\n";
 }
 
 while (!$defDbResult->EOF) {
   $def = new Definition();
   $def->set($defDbResult->fields);
   $defDbResult->MoveNext();
-	$def->internalRep = text_xmlizeRequired($def->internalRep);
+  $def->internalRep = text_xmlizeRequired($def->internalRep);
 
-	$lexemNames = array();
-	$lexemLatinNames = array();
-	while ( merge_compare($def, $currentLexem) < 0 ) {
-		$currentLexem = fetchNextLexem();
-	}
+  $lexemNames = array();
+  $lexemLatinNames = array();
+  while ( merge_compare($def, $currentLexem) < 0 ) {
+    $currentLexem = fetchNextLexem();
+  }
 
-	while (merge_compare($def, $currentLexem) == 0) {
-		$lexemNames[] = $currentLexem[1];
-		$lexemLatinNames[] = text_unicodeToLatin($currentLexem[1]);
-		$currentLexem = fetchNextLexem();
-		// marker
-		print "<entry>\n";
-		print $def->id . "\n";
-		print $lexemLatinNames[0] . "\n";
-		print $lexemNames[0] . "\n";
-		print $def->sourceId . "\n";
-		print userCache_get($def->userId)->nick . "\n";
-		print $def->modDate . "\n";
-		// definition can span multiple line, so read until marker
-		print $def->internalRep . "\n";
-		// marker
-		print "</entry>\n";
-	}
+  while (merge_compare($def, $currentLexem) == 0) {
+    $lexemNames[] = $currentLexem[1];
+    $lexemLatinNames[] = text_unicodeToLatin($currentLexem[1]);
+    $currentLexem = fetchNextLexem();
+    // marker
+    print "<entry>\n";
+    print $def->id . "\n";
+    print $lexemLatinNames[0] . "\n";
+    print $lexemNames[0] . "\n";
+    print $def->sourceId . "\n";
+    $user = userCache_get($def->userId);
+    if ($user) {
+      print "{$user->nick}\n";
+    } else {
+      print "anonim\n";
+    }
+    print $def->modDate . "\n";
+    // definition can span multiple line, so read until marker
+    print $def->internalRep . "\n";
+    // marker
+    print "</entry>\n";
+  }
 }
 
 // end marker

@@ -78,7 +78,7 @@ $clients = array(
         'available' => true,
         'urls' => array(),
         'os' => array('iphone'),
-        'space' => '40 MB',
+        'space' => '70 MB',
         'requires' => array(),
         'authors' => array('Federico Mestrone' => ''),
         'license' => 'Freeware',

@@ -79,7 +79,6 @@
       <li>Venitul lunar este pur fictiv;</li>
       <li>Numărul de caractere trimise este calculat până în prezent. La momentul oportun, vom îngheța data acestor calcule,
           pentru a delimita contribuțiile prezente de cele trecute;</li>
-      <li>Numărul de caractere trimise exclude dicționarele importate automat (
     </ul>
 
     Metodologie:<br/>

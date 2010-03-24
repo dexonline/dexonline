@@ -175,6 +175,9 @@
         și animale, dar și la alte lexeme care apar cu restricția „P”
         într-o sursă, dar fără restricții în altă sursă.
       </div>
+      <br/>
+
+      <a href="financials.php">Raport financiar</a> (în lucru!)
     {/if}
 
     {include file="common/bits/debugInfo.ihtml"}

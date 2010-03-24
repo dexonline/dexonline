@@ -9,7 +9,7 @@
   {include file="common/bits/js.ihtml" dex=1}
 </head>
 
-<body id="simpleSkinBody">
+<body>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="2">
   <tr>

@@ -9,7 +9,7 @@
     {include file="common/bits/js.ihtml" dex=1}
   </head>
 
-  <body id="olimpSkinBody">
+<body>
 
 <div class="continut">
   <div class="bara_logo">

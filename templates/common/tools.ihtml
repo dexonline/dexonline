@@ -102,29 +102,6 @@ calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
   </tr>
 </table>
 
-<!--
-<ul>
-  <a href="http://dapyx-soft.com/~bogdan/dexter.zip"> DEXter este momentan indisponibil </a>
-
-  <li><b>Notă:</b> DEX Offline este neactualizat de câțiva ani și nu mai poate comunica adecvat cu DEX online.</li> 
-</ul>
--->
-
-<h4>Designul paginii</h4>
-
-<i>DEX online</i> și-a schimbat înfățișarea de câteva ori de-a lungul
-anilor. Designul curent este <i>polar,</i> iar vechile designuri sunt
-disponibile mai jos. Precizăm că numai designul curent este ținut la
-zi cu cele mai noi funcții ale <i>DEX online</i>.
-
-<ul>
-  <li><a href="index.php?skin=polar">polar</a></li>
-  <li><a href="index.php?skin=simple">simple</a></li>
-  <li><a href="index.php?skin=slick">slick</a> (autor
-      <a href="http://timbru.com/">Gabriel Radic</a>)</li>
-  <li><a href="index.php?skin=olimp">Olimp</a> (autor Dan Alexandru)</li>
-</ul>
-
 <h4>Integrare în browser</h4>
 
 <ul>

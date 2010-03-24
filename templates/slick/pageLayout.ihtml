@@ -7,7 +7,7 @@
   {include file="common/bits/js.ihtml" dex=1}
 </head>
 
-<body id="slickSkinBody">
+<body>
 
 <div id="fond">
   <div id="antet"><img src="{$imgRoot}/slick/logo.jpg"

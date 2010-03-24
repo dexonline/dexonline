@@ -44,6 +44,17 @@ sunteți într-adevăr proprietarul contului. Dacă nu doriți să schimbați va
       {/foreach}
     </td>
   </tr><tr>
+    <td>Design</td>
+    <td>
+      <select name="skin">
+        {foreach from=$availableSkins item=i}
+          <option value="{$i}" {if $i == $skin}selected="selected"{/if}>{$i|capitalize}</option>
+        {/foreach}
+      </select>
+      <br/>
+      <span class="help">Notă: numai designul Polar este ținut la zi cu cele mai noi funcții</span>
+    </td>
+  </tr><tr>
     <td>Drept de moderator:</td>
     <td>
       <b>{if $is_moderator}Da{else}Nu{/if}</b><br/>

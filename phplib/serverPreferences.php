@@ -37,10 +37,6 @@ function pref_isMirror() {
   return pref_getServerPreference('mirror');
 }
 
-function pref_getDefaultSkin() {
-  return pref_getServerPreference('default_skin');
-}
-
 function pref_getLocPrefix() {
   return pref_getServerPreference('mysql_loc_prefix');
 }

@@ -125,25 +125,22 @@ function session_getAnonymousPrefs() {
 }
 
 function session_getSkin() {
-  $cookieSkin = session_getCookieSetting('skin');
-  if ($cookieSkin && session_isValidSkin($cookieSkin)) {
-    return $cookieSkin;
-  } else {
-    return pref_getDefaultSkin();
-  }
+  $user = session_getUser();
+  $skin = ($user && $user->skin) ? $user->skin : session_getCookieSetting('skin');
+  return ($skin && session_isValidSkin($skin)) ? $skin : pref_getServerPreference('default_skin');
 }
 
 function session_setSkin($skin) {
   $_COOKIE['prefs']['skin'] = $skin;
-  session_sendSkinCookie();
+  setcookie('prefs[skin]', session_getSkin(), time() + 3600 * 24 * 365, "/");
+}
+
+function session_getAvailableSkins() {
+  return array('polar', 'simple', 'slick', 'olimp');
 }
 
 function session_isValidSkin($skin) {
-  return file_exists(util_getRootPath() . "templates/$skin") && !strstr($skin, '/');
-}
-
-function session_sendSkinCookie() {
-  setcookie('prefs[skin]', session_getSkin(), time() + 3600 * 24 * 365, "/");
+  return in_array($skin, session_getAvailableSkins());
 }
 
 function session_setSourceCookie($source) {

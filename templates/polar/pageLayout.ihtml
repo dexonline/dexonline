@@ -12,7 +12,7 @@
     {include file="common/bits/js.ihtml" dex=1}
   </head>
 
-  <body id="polarSkinBody">
+  <body>
     {if $openx}
       <div id="openx">{include file="common/bits/openx.ihtml"}</div>
     {/if}

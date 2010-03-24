@@ -8,7 +8,7 @@
     {include file="common/bits/js.ihtml" dex=1 mobile=1}
   </head>
 
-  <body id="mobileSkinBody" onload="fixMobile();">
+  <body onload="fixMobile();">
   <table class="fullheight">
   <tr><td>
     <div class="header">

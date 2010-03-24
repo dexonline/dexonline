@@ -12,6 +12,7 @@ $name = util_getRequestParameter('name');
 $email = util_getRequestParameter('email');
 $emailVisible = util_getRequestParameter('emailVisible');
 $userPrefs = util_getRequestCheckboxArray('userPrefs', ',');
+$skin = util_getRequestParameter('skin');
 
 $user = session_getUser();
 if (!$user) {
@@ -68,6 +69,9 @@ if ($sendButton) {
       $user->password = md5($newPass);
     }
     $user->preferences = $userPrefs;
+    if (session_isValidSkin($skin)) {
+      $user->skin = $skin;
+    }
     $user->save();
     session_setUser($user);
     session_setFlash('Informațiile au fost salvate.', 'info');
@@ -80,6 +84,7 @@ if ($sendButton) {
   $name = $user->name;
   $email = $user->email;
   $emailVisible = $user->emailVisible;
+  $skin = session_getSkin();
   if (is_string($user->prefs)) {
     // Legacy code for people who were logged in when we migrated User to AdoDB.
     // After a new login this problem will go away.
@@ -104,6 +109,8 @@ smarty_assign('name', $name);
 smarty_assign('email', $email);
 smarty_assign('emailVisible', $emailVisible);
 smarty_assign('userPrefs', $userPreferencesSet);
+smarty_assign('skin', $skin);
+smarty_assign('availableSkins', session_getAvailableSkins());
 smarty_assign('page_title', 'DEX online - Contul meu');
 smarty_assign('show_search_box', 0);
 

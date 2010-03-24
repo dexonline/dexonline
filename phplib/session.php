@@ -140,7 +140,7 @@ function session_getAvailableSkins() {
 }
 
 function session_isValidSkin($skin) {
-  return in_array($skin, session_getAvailableSkins());
+  return in_array($skin, session_getAvailableSkins()) || ($skin == 'mobile');
 }
 
 function session_setSourceCookie($source) {

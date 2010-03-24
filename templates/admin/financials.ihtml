@@ -82,6 +82,15 @@
       <li>Numărul de caractere trimise exclude dicționarele importate automat (
     </ul>
 
+    Metodologie:<br/>
+    <ul>
+      <li><b>Caractere:</b> Se ignoră definițiile trimise de Radu pe 15.09.2007 (ziua când am important MDN), precum și definițiile
+      trimise de RACAI și siveco. Pentru restul definițiilor active, se calculează suma lungimilor definițiilor trimise de fiecare
+      utilizator. Aceste cifre coincid cu cele din top, eventual cu mici diferențe, deoarece topul se calculează numai o dată pe zi.</li>
+
+      <li><b>Restul:</b> Se folosesc procentele convenite la ședință.</li>
+    </ul>
+
   </body>
 
 </html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {include file="common/bits/css.ihtml" flex=1 lexemPicker=1}
+    <title>DEX | Ciornă Finanțe</title>
+
+    {literal}
+    <style type="text/css">
+      #finTable {
+        border-collapse: collapse;
+        margin: 10px auto 0 auto;
+      }
+      #finTable tr td, #finTable tr th {
+        border: 1px solid #ccc;
+        padding: 2px 5px;
+      }
+      .number {
+        text-align: right;
+      }
+      .weighted {
+        font-size: 80%;
+      }
+    </style>
+    {/literal}
+  </head>
+
+  <body>
+
+    {include file="admin/header.ihtml" title="DEX online - Ciornă pentru finanțe"}
+    {include file="admin/recentlyVisited.ihtml"}
+
+    <form action="financials.php" method="get">
+      Venit lunar (€): <input type="text" name="income" value="{$income}"/>
+      <input type="submit" name="submitButton" value="Recalculează"/>
+    </form>
+
+    <table id="finTable">
+      <tr>
+        <td><b>Utilizator</b></td>
+        {foreach from=$categories item=cat}
+          <td class="number">
+            <b>{$cat->name}</b><br/>
+            {$cat->weight*100|string_format:"%.2f"}%
+          </td>
+        {/foreach}
+        <td><b>Procent total<b></td>
+        <td><b>Venit (€)<b></td>
+      </tr>
+      {foreach from=$fins item=fin}
+        {if $fin->share >= 0.001}
+          <tr style="background: {cycle values="#f4f4f4,#fff"}">
+            <td>{$fin->user->nick}</td>
+            {foreach from=$fin->values item=value key=i}
+              <td class="number">
+                {if $value}
+                  {if is_float($value)}
+                    {$value*100|string_format:"%.2f"}%
+                  {else}
+                    {$value}
+                  {/if}
+                  <span class="weighted">({$fin->weights[$i]*$categories[$i]->weight*100|string_format:"%.2f"}%)</span>
+                {/if}
+              </td>
+            {/foreach}
+            <td class="number">{$fin->share*100|string_format:"%.2f"}%</td>
+            <td class="number">{$income*$fin->share|string_format:"%.2f"}</td>
+          </tr>
+        {/if}
+      {/foreach}
+    </table>
+
+    Observații:</br>
+    <ul>
+      <li>Sunt afișați numai utilizatorii cu un procent total mai mare decât 0.1%;</li>
+      <li>Pe fiecare coloană, suma numerelor din paranteză este egală cu ponderea respectivei coloane;</li>
+      <li>Procentul total al fiecărui utilizator este suma numerelor din paranteză de pe linia sa;</li>
+      <li>Venitul lunar este pur fictiv;</li>
+      <li>Numărul de caractere trimise este calculat până în prezent. La momentul oportun, vom îngheța data acestor calcule,
+          pentru a delimita contribuțiile prezente de cele trecute;</li>
+      <li>Numărul de caractere trimise exclude dicționarele importate automat (
+    </ul>
+
+  </body>
+
+</html>

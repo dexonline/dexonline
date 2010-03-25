@@ -94,7 +94,7 @@ smarty_assign('fins', $fins);
 smarty_assign('total', $total);
 smarty_assign('categories', $CATEGORIES);
 smarty_assign('income', $income);
-smarty_displayWithoutSkin('admin/financials.ihtml');
+smarty_displayWithoutSkin('private/financials.ihtml');
 
 /*************************************************************************/
 

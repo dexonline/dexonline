@@ -177,7 +177,7 @@
       </div>
       <br/>
 
-      <a href="financials.php">Raport financiar</a> (în lucru!)
+      <a href="{$wwwRoot}private/financials.php">Ciornă financiară</a> (în lucru!)
     {/if}
 
     {include file="common/bits/debugInfo.ihtml"}

@@ -32,7 +32,20 @@
     {include file="admin/recentlyVisited.ihtml"}
 
     <form action="financials.php" method="get">
-      Venit lunar (€): <input type="text" name="income" value="{$income}"/>
+      <table>
+        <tr>
+          <td>Venit lunar (€):</td>
+          <td><input type="text" name="income" value="{$income}"/></td>
+        </tr>
+        <tr>
+          <td>Ziua zero:</td>
+          <td>
+            {include file="common/bits/numericDropDown.ihtml" name="year" start=2001 end=`$currentYear+1` selected=$year}
+            {include file="common/bits/numericDropDown.ihtml" name="month" start=1 end=13 selected=$month}
+            {include file="common/bits/numericDropDown.ihtml" name="day" start=1 end=32 selected=$day}
+          </td>
+        </tr>
+      </table>
       <input type="submit" name="submitButton" value="Recalculează"/>
     </form>
 
@@ -77,8 +90,7 @@
       <li>Pe fiecare coloană, suma numerelor din paranteză este egală cu ponderea respectivei coloane;</li>
       <li>Procentul total al fiecărui utilizator este suma numerelor din paranteză de pe linia sa;</li>
       <li>Venitul lunar este pur fictiv;</li>
-      <li>Numărul de caractere trimise este calculat până în prezent. La momentul oportun, vom îngheța data acestor calcule,
-          pentru a delimita contribuțiile prezente de cele trecute;</li>
+      <li>Ziua zero este ultima zi a „trecutului”. Contribuțiile din trecut sunt socotite până la ziua zero inclusiv.</li>
     </ul>
 
     Metodologie:<br/>

@@ -5,6 +5,13 @@ util_assertFlexModeratorStatus();
 util_assertNotMirror();
 
 $income = util_getRequestParameterWithDefault('income', 10000);
+$year = util_getRequestParameterWithDefault('year', date("Y"));
+$month = util_getRequestParameterWithDefault('month', date("n"));
+$day = util_getRequestParameterWithDefault('day', date("j"));
+
+// The last day of the past era. Past contributions are computed up to and including this day.
+$dayZero = sprintf("%04d%02d%02d", $year, $month, $day);
+$timestampZero = mktime(23, 59, 59, $month, $day, $year);
 
 // Categories of contributions
 define('CAT_CHARS', 0);
@@ -36,10 +43,15 @@ $IGNORE_USERIDS = ignoreUserIds(array('siveco', 'RACAI')); // And anonymous
 
 // Count the number of characters submitted by users
 // Exclude the dictionaries we imported in bulk (MDN and the ones from Litera)
-$mdnBulkImportChars = db_getSingleValue("select sum(length(internalRep)) from Definition where sourceId = {$MDN->id} and status = 0 " .
-                                        "and userId = {$RADU->id} and left(from_unixtime(createDate), 10) = '{$MDN_IMPORT_DATE}'");
+if ($MDN_IMPORT_DATE <= $dayZero) {
+  $mdnBulkImportChars = db_getSingleValue("select sum(length(internalRep)) from Definition where sourceId = {$MDN->id} and status = 0 " .
+                                          "and userId = {$RADU->id} and left(from_unixtime(createDate), 10) = '{$MDN_IMPORT_DATE}'");
+} else {
+ $mdnBulkImportChars = 0;
+}
 
-$totalChars = db_getSingleValue("select sum(length(internalRep)) from Definition where status = 0 and userId not in ($IGNORE_USERIDS)");
+$totalChars = db_getSingleValue("select sum(length(internalRep)) from Definition where status = 0 and userId not in ($IGNORE_USERIDS) " .
+                                "and createDate <= {$timestampZero}");
 $totalChars -= $mdnBulkImportChars;
 
 $total = new Fin(null);
@@ -51,29 +63,38 @@ $total->values[CAT_MODERATOR] = 1.0;
 $total->values[CAT_SAVINGS] = 1.0;
 
 $fins = array(); // userId -> financial record for that user
-$dbResult = db_execute("select userId, sum(length(internalRep)) as n from Definition where status = 0 and userId not in ($IGNORE_USERIDS) group by userId");
+$dbResult = db_execute("select userId, sum(length(internalRep)) as n from Definition where status = 0 and userId not in ($IGNORE_USERIDS) " .
+                       "and createDate <= $timestampZero group by userId");
 while (!$dbResult->EOF) {
   $fin = new Fin(User::get("id = {$dbResult->fields[0]}"));
   $fin->values[CAT_CHARS] = $dbResult->fields[1];
   $fins[$fin->user->id] = $fin;
   $dbResult->MoveNext();
 }
-$fins[$RADU->id]->values[CAT_CHARS] -= $mdnBulkImportChars;
-
 // Assign the other categories -- only Matei, Radu, Tavi and Cata participated here.
 // These will, in time, be replaced by more accurate measurements once we decide on a methodology
-$fins[$CATA->id]->values[CAT_CODE] = 0.75;
-$fins[$RADU->id]->values[CAT_CODE] = 0.25;
-$fins[$CATA->id]->values[CAT_EMAIL] = 0.20;
-$fins[$RADU->id]->values[CAT_EMAIL] = 0.80;
-$fins[$CATA->id]->values[CAT_FLEXOR] = 1/6;
-$fins[$MATEI->id]->values[CAT_FLEXOR] = 0.5;
-$fins[$RADU->id]->values[CAT_FLEXOR] = 1/6;
-$fins[$TAVI->id]->values[CAT_FLEXOR] = 1/6;
-$fins[$CATA->id]->values[CAT_MODERATOR] = 0.1;
-$fins[$MATEI->id]->values[CAT_MODERATOR] = 0.7;
-$fins[$RADU->id]->values[CAT_MODERATOR] = 0.1;
-$fins[$TAVI->id]->values[CAT_MODERATOR] = 0.1;
+if ($CATA && array_key_exists($CATA->id, $fins)) {
+  $fins[$CATA->id]->values[CAT_CODE] = 0.75;
+  $fins[$CATA->id]->values[CAT_EMAIL] = 0.20;
+  $fins[$CATA->id]->values[CAT_FLEXOR] = 1/6;
+  $fins[$CATA->id]->values[CAT_MODERATOR] = 0.1;
+}
+if ($MATEI && array_key_exists($MATEI->id, $fins)) {
+  $fins[$MATEI->id]->values[CAT_FLEXOR] = 0.5;
+  $fins[$MATEI->id]->values[CAT_MODERATOR] = 0.7;
+}
+if ($RADU && array_key_exists($RADU->id, $fins)) {
+  $fins[$RADU->id]->values[CAT_CHARS] -= $mdnBulkImportChars;
+  $fins[$RADU->id]->values[CAT_CODE] = 0.25;
+  $fins[$RADU->id]->values[CAT_EMAIL] = 0.80;
+  $fins[$RADU->id]->values[CAT_FLEXOR] = 1/6;
+  $fins[$RADU->id]->values[CAT_MODERATOR] = 0.1;
+}
+if ($TAVI && array_key_exists($TAVI->id, $fins)) {
+  $fins[$TAVI->id]->values[CAT_FLEXOR] = 1/6;
+  $fins[$TAVI->id]->values[CAT_MODERATOR] = 0.1;
+}
+
 $codexFin = new Fin($CODEX);
 $codexFin->values[CAT_SAVINGS] = 1.0;
 $fins[] = $codexFin;
@@ -94,6 +115,9 @@ smarty_assign('fins', $fins);
 smarty_assign('total', $total);
 smarty_assign('categories', $CATEGORIES);
 smarty_assign('income', $income);
+smarty_assign('year', $year);
+smarty_assign('month', $month);
+smarty_assign('day', $day);
 smarty_displayWithoutSkin('private/financials.ihtml');
 
 /*************************************************************************/

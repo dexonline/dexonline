@@ -35,7 +35,7 @@ userCache_init();
 $currentLexem = array(0, ''); // Force loading a lexem on the next comparison.
 
 smarty_assign('defDbResult', $defDbResult);
-smarty_assign('numResults', $lexemDbResult->RowCount());
+smarty_assign('numResults', $defDbResult->RowCount());
 smarty_assign('currentTimestamp', time());
 smarty_assign('version', $version);
 smarty_assign('includeNameWithDiacritics', hasFlag('a'));

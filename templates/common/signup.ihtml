@@ -65,7 +65,7 @@
     
   <p><form name="frm" method="post" action="signup.php">
 
-  <table cellspacing=2>
+  <table class="userEdit">
   <tr>
     <td>Numele de cont:</td>
     <td><input type="text" name="nick" value="{$nick|escape}" size=16

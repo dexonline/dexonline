@@ -2,7 +2,7 @@ Pentru a vă conecta, introduceți adresa de email sau numele de cont și parola
 de email și apăsați butonul „Mi-am uitat parola”. Vă va fi trimis un email cu instrucțiuni pentru schimbarea parolei.
 
 <p><form name="loginForm" method="post" action="login.php">
-<table>
+<table class="userEdit">
   <tr>
     <td>Adresa de email sau numele de cont:</td>
     <td><input type="text" name="email" value="{$nickOrEmail|escape}" size=30></td>

@@ -86,10 +86,12 @@ div.flashMessage {
 }
 
 div.errorType {
+  background: url("../img/icons/error.png") no-repeat 10px center;
   border: 2px solid red;
 }
 
 div.infoType {
+  background: url("../img/icons/info.png") no-repeat 10px center;
   border: 2px solid green;
 }
 
@@ -150,11 +152,6 @@ div.resultBar {
   margin-top: 5px;
 }
 
-div.abbrev {
-  float: right;
-  font-weight: normal;
-}
-
 a.inflLink {
   color: black;
   font-weight: normal;
@@ -164,17 +161,6 @@ a.inflLink {
 
 a.inflLink:focus {
   outline: none;
-}
-
-div.guideConfirmationMessage {
-  border: 2px solid #00cc00;
-  font-weight: bold;
-  margin-bottom: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 3px;
-  text-align: center;
-  width: 30em;
 }
 
 .rightWrong {
@@ -289,4 +275,39 @@ span.spaced {
 #openx {
   text-align: center;
   margin-bottom: 5px;
+}
+
+.userTop {
+  border-collapse: collapse;
+  margin: 15px auto;
+}
+
+.userTop th {
+  background: #d0d0d0;
+}
+
+.userTop td, .userTop th {
+  border: 2px solid white;
+  text-align: center;
+}
+
+.userTop .nick {
+  text-align: left;
+  width: 200px;
+}
+
+.userTop .color1 {
+  background: #eee;
+}
+
+.userTop .color2 {
+  background: #d0d0d0;
+}
+
+.userTop .fwdLink {
+  text-align: right;
+}
+
+.userTopLinks {
+  font-size: 80%;
 }

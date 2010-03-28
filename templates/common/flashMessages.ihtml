@@ -1,6 +1,5 @@
 {if $smarty.session.flashMessage}
   <div class="flashMessage {$smarty.session.flashMessageType}Type">
-    <img align="left" src="{$imgRoot}/icons/{$smarty.session.flashMessageType}.png"/>
     {$smarty.session.flashMessage}
   </div>
   {php}

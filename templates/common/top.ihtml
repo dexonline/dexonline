@@ -7,43 +7,38 @@ scanate la îndemâna celor care doreau să ne ajute, dar nu aveau un
 DEX tipărit. Fără el, <i>DEX online</i> nu ar fi ajuns atât de
 departe, atât de repede.
 
-<p><center>
-<table border=0>
-  <tr bgcolor=#d0d0d0>
+<table class="userTop">
+  <tr>
     <th>Loc</th>
     <th align=left>
        {assign var="x" value="`$smarty.const.CRIT_NICK`"}
-       <a href="top.php?crit={$x}&ord={$title_links[$x]}">
-       Nume</a>
+       <a href="top.php?crit={$x}&ord={$title_links[$x]}">Nume</a>
     </th>
     <th>
       {assign var="x" value="`$smarty.const.CRIT_CHARS`"}
-      <a href="top.php?crit={$x}&ord={$title_links[$x]}">
-      Nr. caractere</a>
+      <a href="top.php?crit={$x}&ord={$title_links[$x]}">Nr. caractere</a>
     </th>
     <th>
       {assign var="x" value="`$smarty.const.CRIT_WORDS`"}
-      <a href="top.php?crit={$x}&ord={$title_links[$x]}">
-      Nr. cuvinte</a>
+      <a href="top.php?crit={$x}&ord={$title_links[$x]}">Nr. cuvinte</a>
     </th>
     <th>
       {assign var="x" value="`$smarty.const.CRIT_DATE`"}
-      <a href="top.php?crit={$x}&ord={$title_links[$x]}">
-      Data ultimei trimiteri</a>
+      <a href="top.php?crit={$x}&ord={$title_links[$x]}">Data ultimei trimiteri</a>
     </th>
   </tr>
 
   {foreach from=$data item=row key=place}
-    <tr bgcolor={cycle values="#eeeeee,#d0d0d0"}>
-      <td align="center">{$place+$start+1}</td>
-      <td width=200 nowrap>
-	<a href="user.php?n={$row->userNick|escape:"url"}">{$row->userNick|escape}</a>
+    <tr class={cycle values="color1,color2"}>
+      <td>{$place+$start+1}</td>
+      <td class="nick">
+        <a href="user.php?n={$row->userNick|escape:"url"}">{$row->userNick|escape}</a>
       </td>
-      <td align="center">{$row->numChars}</td>
-      <td align="center">{$row->numDefinitions}</td>
+      <td>{$row->numChars}</td>
+      <td>{$row->numDefinitions}</td>
 
       {math equation="max(255 - days, 0)" days=$row->days assign=color}
-      <td align="center">
+      <td>
         {if $row->timestamp <= 10}<b>{/if}
         <font color={$color|string_format:"#%2x0000"}>
           {$row->timestamp|date_format:"%d %b %Y"}
@@ -54,21 +49,16 @@ departe, atât de repede.
   {/foreach}
 
   {* Links to previous and next pages *}
-  <tr>
+  <tr class="userTopLinks">
     <td>
       {if $prev_start != -1}
-        <font size=-1>
-        <a href="top.php?crit={$crit}&ord={$ord}&start={$prev_start}">
-	înapoi</a></font>
+        <a href="top.php?crit={$crit}&ord={$ord}&start={$prev_start}">înapoi</a>
       {/if}
     </td>
-    <td colspan=4 align=right>
+    <td colspan=4 class="fwdLink">
       {if $next_start != -1}
-        <font size=-1>
-        <a href="top.php?crit={$crit}&ord={$ord}&start={$next_start}">
-	înainte</a></font>
+        <a href="top.php?crit={$crit}&ord={$ord}&start={$next_start}">înainte</a>
       {/if}
     </td>
   </tr>
 </table>
-</center>

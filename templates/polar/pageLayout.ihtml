@@ -25,6 +25,7 @@
             <a href="{$wwwRoot}corect.php" id="guideLink">Ghid de exprimare</a> |
             <a href="{$wwwRoot}tools.php">Unelte</a> |
             <a href="{$wwwRoot}top.php">Top</a> |            
+            <a href="#" onclick="abbrevWindow(); return false;">Abrevieri</a> |
             <a href="{$wwwRoot}contact.php">Contact</a>
           </div>
       

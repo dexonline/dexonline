@@ -1,42 +1,6 @@
-<html>
-<!-- TODO: Convert to Unicode -->
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="../styles/simple.css" rel="stylesheet" type="text/css">
-<title>Standarde de formatare</title>
-
-<style type="text/css">
-<!--
-  table {
-    border-collapse: collapse;
-    border-spacing: 0px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  td {
-    border: 1px solid black;
-    padding: 0px 3px;
-    text-align: center;
-  }
-  th {
-    background-color: #dddddd;
-    border: 1px solid black;
-  }
--->
-</style>
-
-</head>
-
-<body>
-
-<p>Vă mulțumim mult pentru dorința de a ne ajuta!
-Întrucât fiecare definiție trimisă de
-dumneavoastră trebuie examinată și eventual
-corectată de un moderator, este important să
-încercați să respectați standardele de
-formatare. Altfel, corectarea definiției trimise durează la
-fel de mult ca și tastarea de la zero și
-bunăvoința dumneavoastră este irosită.
+Vă mulțumim mult pentru dorința de a ne ajuta! Întrucât fiecare definiție trimisă de dumneavoastră trebuie examinată și eventual
+corectată de un moderator, este important să încercați să respectați standardele de formatare. Altfel, corectarea definiției trimise durează la
+fel de mult ca și tastarea de la zero și bunăvoința dumneavoastră este irosită.
 
 <ol>
   <li><a href="#a1">Formate și simboluri diacritice</a></li>
@@ -56,7 +20,7 @@ de la tastatură. Dacă nu, puteți folosi notațiile din tabelul de mai
 jos.
 
 <p>
-<table>
+<table class="static">
 <tr>
   <th>Efectul dorit</th>
   <th>Secvența</th>
@@ -95,10 +59,10 @@ jos.
   <td>text_1</td>
 </tr><tr>
   <td>text<sup>secvență mai lungă</sup></td>
-  <td>text^{secvență mai lungă}</td>
+  <td>text^{literal}{secvență mai lungă}{/literal}</td>
 </tr><tr>
   <td>text<sub>secvență mai lungă</sub></td>
-  <td>text_{secvență mai lungă}</td>
+  <td>text_{literal}{secvență mai lungă}{/literal}</td>
 </tr><tr>
   <td>&loz;</td>
   <td>*</td>
@@ -117,7 +81,7 @@ textului aerisit). Pentru a reda textual aceste caractere,
 prefixați-le cu simbolul \ (backslash). De exemplu:
 <br/><br/>
 
-<table>
+<table class="static">
 <tr>
   <th>Efectul dorit</th>
   <th>Secvența</th>
@@ -210,7 +174,7 @@ pe ecran, precum și cuvântul la care doriți să se facă trimiterea,
 trimiterea la "bazedov" în exemplul de mai jos:
 
 <p>
-<table>
+<table class="static">
   <tr>
     <th>Efectul dorit</th>
     <th>Secvența</th>
@@ -236,6 +200,3 @@ tastați &lt;b&gt;, veți obține exact &lt;b&gt;. Motivul este că nu
 dorim să particularizăm conținutul bazei de date la limbajul HTML, ci
 dorim ca ea să fie disponibilă și altor aplicații, care poate nu
 folosesc acest limbaj.
-
-</body>
-</html>

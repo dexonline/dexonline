@@ -142,7 +142,7 @@ calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
 
 </ul>
 
-<h4><a name="scrabble">Unelte pentru Federația Română de Scrabble</a></h4>
+<h4>Unelte pentru Federația Română de Scrabble</h4>
 
 <ul>
 
@@ -150,8 +150,7 @@ calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
   acceptată de Federația Română de Scrabble.
 
     <ul>
-      <li><a href="html/locLegend.html">Precizări</a> privind
-      notațiile din listă</li>
+      <li><a href="static.php?c=loc">Precizări</a> privind notațiile din listă</li>
     </ul>
   </li>
 

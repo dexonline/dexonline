@@ -117,11 +117,6 @@ div.resultBar {
   margin-top: 5px;
 }
 
-div.abbrev {
-  float: right;
-  font-weight: normal;
-}
-
 a.inflLink {
   font-weight: normal;
   margin-left: 15px;
@@ -129,17 +124,6 @@ a.inflLink {
 
 a.inflLink:focus {
   outline: none;
-}
-
-div.guideConfirmationMessage {
-  border: 2px solid #00cc00;
-  font-weight: bold;
-  margin-bottom: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 3px;
-  text-align: center;
-  width: 30em;
 }
 
 table.rightWrong {

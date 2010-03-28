@@ -1,5 +1,3 @@
 {if $lexem->isLoc && $is_flex_moderator}
-  <span class="isLoc"
-        title="Inclus în lista oficială de cuvinte a jocului de scrabble"
-  >[LOC]</span>
+  <span class="isLoc" title="Inclus în lista oficială de cuvinte a jocului de scrabble">[LOC]</span>
 {/if}      

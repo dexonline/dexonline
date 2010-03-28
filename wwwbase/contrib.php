@@ -23,7 +23,7 @@ if ($sendButton) {
     smarty_assign('wordName', $name);
     smarty_assign('sourceId', $sourceId);
     smarty_assign('def', $def);
-    smarty_assign('errorMessage', $errorMessage);
+    session_setFlash($errorMessage);
     smarty_assign('previewDivContent', text_htmlize($def));
   } else {
     $definition = new Definition();
@@ -53,15 +53,15 @@ if ($sendButton) {
     }
 
     LexemDefinitionMap::associate($lexem->id, $definition->id);
-
-    smarty_assign('submissionSuccessful', 1);
-    smarty_assign('sourceId', session_getDefaultContribSourceId());
+    session_setFlash('Definiția a fost trimisă. Un moderator o va examina în scurt timp. Vă mulțumim!', 'info');
+    util_redirect('contrib.php');
   }
 } else {
   smarty_assign('sourceId', session_getDefaultContribSourceId());
 }
 
 smarty_assign('contribSources', db_find(new Source(), 'canContribute'));
-smarty_displayWithoutSkin('common/contrib.ihtml');
+smarty_assign('page_title', 'DEX online - Contribuie cu definiții');
+smarty_displayCommonPageWithSkin('contrib.ihtml');
 
 ?>

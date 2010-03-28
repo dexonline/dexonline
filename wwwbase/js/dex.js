@@ -14,7 +14,7 @@ function getWwwRoot() {
 }
 
 function abbrevWindow() {
-  window.open(wwwRoot + 'html/abrev.html', 'mywindow', 'menubar=no,scrollbars=yes,toolbar=no,width=400,height=400');
+  window.open(wwwRoot + 'static.php?c=abrev', 'mywindow', 'menubar=no,scrollbars=yes,toolbar=no,width=400,height=400');
 }
 
 function helpWindow() {
@@ -39,8 +39,7 @@ function typoWindow(definitionId) {
 
 // Functions for the contribution page
 function formatwindow() {
-  window.open(wwwRoot + 'html/formatting.html','formatwindow',
-              'menubar=no,scrollbars=yes,toolbar=no,width=500,height=400');
+  window.open(wwwRoot + 'static.php?c=format','formatwindow', 'menubar=no,scrollbars=yes,toolbar=no,width=500,height=400');
 }
 
 function myEncodeURI(s) {

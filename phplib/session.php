@@ -136,7 +136,7 @@ function session_setSkin($skin) {
 }
 
 function session_getAvailableSkins() {
-  return array('polar', 'simple', 'slick', 'olimp');
+  return array('zepu', 'polar', 'simple', 'slick', 'olimp');
 }
 
 function session_isValidSkin($skin) {

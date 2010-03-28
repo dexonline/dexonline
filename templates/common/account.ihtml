@@ -52,7 +52,7 @@ sunteți într-adevăr proprietarul contului. Dacă nu doriți să schimbați va
         {/foreach}
       </select>
       <br/>
-      <span class="help">Notă: numai designul Polar este ținut la zi cu cele mai noi funcții</span>
+      <span class="help">Notă: numai designul Zepu este ținut la zi cu cele mai noi funcții</span>
     </td>
   </tr><tr>
     <td>Drept de moderator:</td>

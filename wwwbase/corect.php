@@ -14,43 +14,44 @@ if ($id) {
 }
 if ($action == 'delete') {
   if (!session_userIsModerator()) {
-    smarty_assign('confirmationMessage', 'Nu aveți drept de moderator :(');
+    session_setFlash('Nu aveți drept de moderator.');
   } else {
     $guideEntry->status = ST_DELETED;
     $guideEntry->save();
-    smarty_assign('confirmationMessage', 'Înregistrarea a fost ștearsă.');
+    session_setFlash('Înregistrarea a fost ștearsă.', 'info');
+    util_redirect('corect.php');
   }
 } else if ($action == 'edit') {
   smarty_assign('editableGuideEntryId', $id);
 } else if ($action == 'save') {
   $saveButton = util_getRequestParameter('saveButton');
   if (!session_userIsModerator()) {
-    smarty_assign('confirmationMessage', 'Nu aveți drept de moderator :(');
+    session_setFlash('Nu aveți drept de moderator.');
   } else if ($saveButton) {
     $guideEntry->correct = util_getRequestParameter('Correct');
     $guideEntry->wrong = util_getRequestParameter('Wrong');
     $guideEntry->comments = util_getRequestParameter('Comments');
     $guideEntry->normalize();
     $guideEntry->save();
-    smarty_assign('confirmationMessage', 'Modificare reușită.');
+    session_setFlash('Modificare reușită.', 'info');
   } else {
-    smarty_assign('confirmationMessage', 'Modificare anulată.');
+    session_setFlash('Modificare anulată.');
   }
 } else if ($action == 'viewAddForm') {
   smarty_assign('isAddFormVisible', TRUE);
 } else if ($action == 'saveAdd') {
   $saveButton = util_getRequestParameter('saveButton');
   if (!session_userIsModerator()) {
-    smarty_assign('confirmationMessage', 'Nu aveți drept de moderator :(');
+    session_setFlash('Nu aveți drept de moderator.');
   } else if ($saveButton) {
     $guideEntry->correct = util_getRequestParameter('Correct');
     $guideEntry->wrong = util_getRequestParameter('Wrong');
     $guideEntry->comments = util_getRequestParameter('Comments');
     $guideEntry->normalize();
     $guideEntry->save();
-    smarty_assign('confirmationMessage', 'Adăugare reușită.');
+    session_setFlash('Adăugare reușită.', 'info');
   } else {
-    smarty_assign('confirmationMessage', 'Adăugare anulată.');
+    session_setFlash('Adăugare anulată.');
   }
 }
 

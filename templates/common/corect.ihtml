@@ -1,19 +1,7 @@
-Această pagină tratează câteva din cele mai frecvente probleme de
-exprimare în limba română. Vă reamintim că <i>DEX online</i> nu este
-afiliat în nici un fel Academiei Române. Mulțumiri celor de pe forumul
-de la
-
-<a href="http://www.desprecopii.com/forum/topic.asp?TOPIC_ID=16839">desprecopii.com</a>,
-
-care au pornit acest fir de discuții și au strâns un set inițial de
-sugestii. Dacă aveți sugestii, nu vă sfiiți să ni le trimiteți prin
-email.
+Această pagină tratează câteva din cele mai frecvente probleme de exprimare în limba română. Vă reamintim că <i>DEX online</i> nu este
+afiliat în nici un fel Academiei Române. Dacă aveți sugestii pentru acest ghid, vă rugăm să ni le trimiteți prin email.
 
 <br/><br/>
-
-{if $confirmationMessage != ''}
-  <div class="guideConfirmationMessage">{$confirmationMessage}</div>
-{/if}
 
 <form name="GuideEntryEdit" action="corect.php" method="post">
   <table class="rightWrong" id="guideEntryTable">

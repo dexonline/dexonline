@@ -51,6 +51,9 @@ if ($text) {
     foreach ($defIds as $defId) {
       $definitions[] = Definition::get("id = {$defId}");
     }
+    if (!count($defIds)) {
+      session_setFlash('Nicio definiție nu conține toate cuvintele căutate.');
+    }
   }
   $searchResults = SearchResult::mapDefinitionArray($definitions);
 }
@@ -78,6 +81,7 @@ if ($lexemId) {
   } else {
     $lexems = array();
     smarty_assign('page_title', "Eroare | DEX online");
+    session_setFlash("Nu există niciun lexem cu ID-ul căutat.");
   }
   smarty_assign('lexems', $lexems);
 }
@@ -202,6 +206,7 @@ smarty_assign('text', $text);
 smarty_assign('searchType', $searchType);
 smarty_assign('showParadigm', $showParadigm);
 smarty_assign('paradigmLink', $paradigmLink);
+smarty_assign('onZepuSearchPage', 1);
 smarty_assign('adsense', pref_getAdsense());
 smarty_displayCommonPageWithSkin('search.ihtml');
 

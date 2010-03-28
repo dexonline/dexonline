@@ -101,39 +101,6 @@ span.defDetails {
   font-size: 90%;
 }
 
-div.contribSection {
-  background-color: #f0f0ff;
-  border: 1px solid #a0a0c0;
-  font-weight: bold;
-  padding: 3px 5px;
-}
-
-div.previewDiv {
-  border-bottom: 1px solid #a0a0c0;
-  border-left: 1px solid #a0a0c0;
-  border-right: 1px solid #a0a0c0;
-  padding: 3px 5px;
-}
-
-div.contribLinks {
-  display: inline;
-  float: right;
-  font-size: 80%;
-  font-weight: normal;
-}
-
-table.contribExample {
-  border-collapse: collapse;
-}
-
-table.contribExample tr td {
-  border-bottom: 1px solid #a0a0c0;
-  border-left: 1px solid #a0a0c0;
-  border-right: 1px solid #a0a0c0;
-  padding: 3px 5px;
-  width: 50%;
-}
-
 span.errorMessage {
   color: red;
 }

@@ -9,7 +9,7 @@
   <li><a href="#surse">Ce dicționare cuprinde <i>DEX
   online?</i></a></li>
   <li><a href="#offline">Pot să-mi instalez <i>DEX online</i> pe
-  calculatorul de acasă? Dar pe Pocket PC?</a></li>
+  calculatorul de acasă? Dar pe dispozitive mobile?</a></li>
   <li><a href="#DICT"><i>DEX online</i> implementează protocolul DICT?</a></li>
   <li><a href="#lista_email">Aveți o listă de email?</a></li>
   <li><a href="#mirrors">Aveți un mirror mai rapid?</a></li>
@@ -70,7 +70,7 @@
 </ul>
 
 
-<h3><a name="ce_este">Ce este <i>DEX online?</i></a></h3>
+<h3><a name="ce_este"></a>Ce este <i>DEX online?</i></h3>
 
   <i>DEX online</i> este transpunerea pe Internet a unor dicționare de
   prestigiu ale limbii române. El este creat și întreținut de un
@@ -88,7 +88,7 @@
   publică generală GNU (GPL).
 
 
-<h3><a name="ce_nu_este">Ce nu este <i>DEX online?</i></a></h3>
+<h3><a name="ce_nu_este"></a>Ce nu este <i>DEX online?</i></h3>
 
   Există multe păreri greșite despre rostul și principiile <i>DEX
   online.</i> Multă lume încearcă să ne ceară ajutorul acolo unde nu-l
@@ -139,7 +139,7 @@
   </ul>
 
 
-<h3><a name="motiv">Cum a apărut <i>DEX online?</i></a></h3>
+<h3><a name="motiv"></a>Cum a apărut <i>DEX online?</i></h3>
 
   Suntem în secolul XXI și orice nație care se respectă trebuie să
   aibă un dicționar explicativ pe Internet. Am pornit proiectul <i>DEX
@@ -201,8 +201,7 @@
   </ul>
 
 
-<h3><a name="autori">Cine sunt autorii proiectului <i>DEX
-online?</i></a></h3>
+<h3><a name="autori"></a>Cine sunt autorii proiectului <i>DEX online?</i></h3>
 
   <ul>
     <li><a href="http://catalin.francu.com">Cătălin Frâncu</a> -
@@ -261,8 +260,7 @@ online?</i></a></h3>
     la cutia de căutare din Firefox sau Mozilla</li>
   </ul>
 
-<h3><a name="surse">Ce dicționare cuprinde <i>DEX
-online?</i></a></h3>
+<h3><a name="surse"></a>Ce dicționare cuprinde <i>DEX online?</i></h3>
 
   Inițial, DEX online și-a propus să ofere o copie pe Internet a
   DEX. Acest proiect a fost completat în 2004. Ulterior, am încorporat
@@ -283,8 +281,7 @@ online?</i></a></h3>
   </ul>
 
 
-<h3><a name="offline">Pot să-mi instalez <i>DEX online</i> pe
-calculatorul de acasă? Dar pe Pocket PC?</a></h3>
+<h3><a name="offline"></a>Pot să-mi instalez <i>DEX online</i> pe calculatorul de acasă? Dar pe dispozitive mobile?</h3>
 
   Da. Vizitați pagina de <a href="tools.php">unelte</a> și citiți
   secțiunea despre aplicații offline. Aceste aplicații transferă baza
@@ -292,14 +289,14 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   care o pot consulta și în absența unei legături la internet.
 
 
-<h3><a name="DICT"><i>DEX online</i> implementează protocolul DICT?</a></h3>
+<h3><a name="DICT"></a><i>DEX online</i> implementează protocolul DICT?</h3>
 
   Da. Configurați aplicația folosită (de exemplu gnome-dictionary) cu
   serverul dexonline.ro (sau oricare dintre <a
   href="#mirrors">mirror-uri</a>) și portul 2628.
 
 
-<h3><a name="lista_email">Aveți o listă de email?</a></h3>
+<h3><a name="lista_email"></a>Aveți o listă de email?</h3>
 
   Da. Dacă doriți să fiți la curent cu evoluția și aspectele tehnice
   ale <i>DEX online</i>, vă puteți abona pe lista noastră de email
@@ -310,7 +307,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   href="http://groups.yahoo.com/group/dictionar">http://groups.yahoo.com/group/dictionar</a>.
 
 
-<h3><a name="mirrors">Aveți un mirror mai rapid?</a></h3>
+<h3><a name="mirrors"></a>Aveți un mirror mai rapid?</h3>
 
   Posibil! În prezent, <i>DEX online</i> este accesibil în patru locuri:
 
@@ -365,7 +362,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   utilizatorilor înregistrați.
 
 
-<h3><a name="licenta">Licență</a></h3>
+<h3><a name="licenta"></a>Licență</h3>
 
 <h4>Copyright (C) 2004-{$currentYear} DEX online.</h4>
 
@@ -442,7 +439,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
 
 
 <a name="kudos"></a>
-<h3>Software liber</h3>
+<h3><a name="kudos"></a>Software liber</h3>
 
   Majoritatea software-ului folosit de DEX online este <b><a
   href="http://www.gnu.org/philosophy/philosophy.ro.html">software
@@ -456,7 +453,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://fedora.redhat.com/">
-          <img src="{$imgRoot}/kudos/fedora.png" alt="fedora logo"/>
+          <img src="{$imgRoot}/kudos/fedora.png" alt="fedora logo" class="noBorder"/>
         </a>
       </td>
       <td><b>Fedora Linux</b> - Sistemul de operare.</td>
@@ -464,7 +461,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://www.php.net/">
-          <img src="{$imgRoot}/kudos/php.png" alt="php logo"/>
+          <img src="{$imgRoot}/kudos/php.png" alt="php logo" class="noBorder"/>
         </a>
       </td>
       <td><b>PHP</b> - Limbajul în care sunt scrise toate paginile de web.</td>
@@ -472,7 +469,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://www.mysql.com/">
-          <img src="{$imgRoot}/kudos/mysql.png" alt="mysql logo"/>
+          <img src="{$imgRoot}/kudos/mysql.png" alt="mysql logo" class="noBorder"/>
         </a>
       </td>
       <td><b>MySQL</b> - Baza de date.</td>
@@ -480,7 +477,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://httpd.apache.org/">
-          <img src="{$imgRoot}/kudos/apache.png" alt="apache logo"/>
+          <img src="{$imgRoot}/kudos/apache.png" alt="apache logo" class="noBorder"/>
         </a>
       </td>
       <td><b>Apache HTTP Server</b> - Serverul de web.</td>
@@ -488,7 +485,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://www.gnu.org/software/emacs/">
-          <img src="{$imgRoot}/kudos/emacs.png" alt="emacs logo"/>
+          <img src="{$imgRoot}/kudos/emacs.png" alt="emacs logo" class="noBorder"/>
         </a>
       </td>
       <td><b>Emacs</b> - Editorul de text cu care a fost scris tot codul.</td>
@@ -496,7 +493,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://gcc.gnu.org/">
-          <img src="{$imgRoot}/kudos/gcc.png" alt="gnu logo"/>
+          <img src="{$imgRoot}/kudos/gcc.png" alt="gnu logo" class="noBorder"/>
         </a>
       </td>
       <td>
@@ -507,7 +504,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://subversion.tigris.org/">
-          <img src="{$imgRoot}/kudos/svn.png" alt="svn logo"/>
+          <img src="{$imgRoot}/kudos/svn.png" alt="svn logo" class="noBorder"/>
         </a>
       </td>
       <td>
@@ -518,7 +515,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://www.cvshome.org/">
-          <img src="{$imgRoot}/kudos/cvs.png" alt="cvs logo"/>
+          <img src="{$imgRoot}/kudos/cvs.png" alt="cvs logo" class="noBorder"/>
         </a>
       </td>
       <td>
@@ -529,7 +526,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://otrs.org/">
-          <img src="{$imgRoot}/kudos/otrs.png" alt="OTRS logo"/>
+          <img src="{$imgRoot}/kudos/otrs.png" alt="OTRS logo" class="noBorder"/>
         </a>
       </td>
       <td>
@@ -541,7 +538,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://smarty.php.net/">
-          <img src="{$imgRoot}/kudos/smarty.gif" alt="smarty logo"/>
+          <img src="{$imgRoot}/kudos/smarty.gif" alt="smarty logo" class="noBorder"/>
         </a>
       </td>
       <td>
@@ -553,7 +550,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://www.php-accelerator.co.uk/">
-          <img src="{$imgRoot}/kudos/phpa.png" alt="php accelerator logo"/>
+          <img src="{$imgRoot}/kudos/phpa.png" alt="php accelerator logo" class="noBorder"/>
         </a>
       </td>
       <td>
@@ -564,7 +561,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://www.mozilla.com/firefox/">
-          <img src="{$imgRoot}/kudos/firefox.png" alt="firefox logo"/>
+          <img src="{$imgRoot}/kudos/firefox.png" alt="firefox logo" class="noBorder"/>
         </a>
       </td>
       <td><b>Firefox</b> - Browser<b>ul</b> de web.</td>
@@ -572,7 +569,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://galeon.sourceforge.net/">
-          <img src="{$imgRoot}/kudos/galeon.gif" alt="galeon logo"/>
+          <img src="{$imgRoot}/kudos/galeon.gif" alt="galeon logo" class="noBorder"/>
         </a>
       </td>
       <td><b>Galeon</b> - Browser de web folosit pentru testare.</td>
@@ -580,7 +577,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://mozilla.org/">
-          <img src="{$imgRoot}/kudos/mozilla.png" alt="mozilla logo"/>
+          <img src="{$imgRoot}/kudos/mozilla.png" alt="mozilla logo" class="noBorder"/>
         </a>
       </td>
       <td><b>Mozilla</b> - Browser de web folosit pentru testare.</td>
@@ -588,7 +585,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://www.gzip.org/">
-          <img src="{$imgRoot}/kudos/gzip.jpg" alt="gzip logo"/>
+          <img src="{$imgRoot}/kudos/gzip.jpg" alt="gzip logo" class="noBorder"/>
         </a>
       </td>
       <td>
@@ -599,7 +596,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://www.silvestre.com.ar/?p=5">
-          <img src="{$imgRoot}/kudos/nuovo.png" alt="nuovo logo"/>
+          <img src="{$imgRoot}/kudos/nuovo.png" alt="nuovo logo" class="noBorder"/>
         </a>
       </td>
       <td>
@@ -609,7 +606,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
     <tr>
       <td>
         <a class="noBorder" href="http://abbyy.com/">
-          <img src="{$imgRoot}/kudos/abbyy.png" alt="abbyy logo"/>
+          <img src="{$imgRoot}/kudos/abbyy.png" alt="abbyy logo" class="noBorder"/>
         </a>
       </td>
       <td>
@@ -621,7 +618,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   </table>
 
 
-<h3><a name="istoric">Scurt istoric și fapt divers</a></h3>
+<h3><a name="istoric"></a>Scurt istoric și fapt divers</h3>
 
   Numele meu este <a href="http://catalin.francu.com">Cătălin
   Frâncu</a>. De profesie sunt programator și singura pregătire
@@ -807,7 +804,7 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   licența GPL prin amabilitatea firmei Siveco.
 
 
-<h3><a name="cacofonie">Documentul ăsta e plin de cacofonii!</a></h3>
+<h3><a name="cacofonie"></a>Documentul ăsta e plin de cacofonii!</h3>
 
   Da. Autorul acestui document nu crede în cacofonii. Dacă alăturarea
   a două cuvinte inofensive îi duce pe unii cu gândul la trivialități,
@@ -819,12 +816,10 @@ calculatorul de acasă? Dar pe Pocket PC?</a></h3>
   primară.
 
 
-<h3><a name="greseala_tipar">Am găsit o greșeală în <i>DEX online</i>,
-ce fac?</a></h3>
+<h3><a name="greseala_tipar"></a>Am găsit o greșeală în <i>DEX online</i>, ce fac?</h3>
 
   Dacă observați o greșeală de tipar într-o definiție, apăsați pe
-  butonul <img src="{$imgRoot}/simple/warning.gif" alt="warning
-  sign"/> sau pe legătura <i>Greșeală de tipar</i>, aflate după
+  legătura <i>Greșeală de tipar</i>, aflată după
   definiție, pentru a semnala greșeala. Puteți atașa și o scurtă
   descriere a problemei. Vă rugăm să folosiți această metodă
   <b>numai</b> pentru greșeli de tipar (litere lipsă, diacritice lipsă
@@ -835,8 +830,7 @@ ce fac?</a></h3>
   exact care este cuvântul greșit.
 
 
-<h3><a name="link_extern">Cum fac să includ un formular de căutare
-în <i>DEX online</i> în pagina mea de web?</a></h3>
+<h3><a name="link_extern"></a>Cum fac să includ un formular de căutare în <i>DEX online</i> în pagina mea de web?</h3>
 
   Cel mai simplu este să adăugați un link către
   <b>http://dexonline.ro</b>. Acesta ne este și nouă de mare folos,
@@ -851,8 +845,7 @@ ce fac?</a></h3>
     &lt;/form></pre>
 
 
-<h3><a name="contribuie">Cum contribui cu definiții la <i>DEX
-online?</i></a></h3>
+<h3><a name="contribuie"></a>Cum contribui cu definiții la <i>DEX online?</i></h3>
 
   Dacă ne folosiți când aveți nevoie și dacă le spuneți despre noi
   prietenilor dumneavoastră care au nevoie de un dicționar, ne faceți
@@ -888,7 +881,7 @@ online?</i></a></h3>
     original: diacritice și accente (Ă, Â, Î, Ș, Ț, Ö), litere
     <b>aldine</b> sau <i>cursive</i>, indici<sup>1</sup> și caractere
     speciale (&loz;, &diams;). Puteți citi <a
-    href="html/formatting.html">detalii</a> despre cum puteți
+    href="static.php?c=format">detalii</a> despre cum puteți
     introduce foarte ușor aceste simboluri</li>
 
     <li>Dacă observați erori evidente în definiții (greșeli de tipar),
@@ -901,8 +894,7 @@ online?</i></a></h3>
   </ul>
 
 
-<h3><a name="contribuie_offline">Cum contribui cu definiții la <i>DEX
-online</i> dacă nu pot să stau prea mult pe Internet?</a></h3>
+<h3><a name="contribuie_offline"></a>Cum contribui cu definiții la <i>DEX online</i> dacă nu pot să stau prea mult pe Internet?</h3>
 
   Dacă doriți să ne ajutați în mod substanțial, o puteți face și
   culegând definițiile offline, adică fără a fi conectat la
@@ -921,8 +913,7 @@ online</i> dacă nu pot să stau prea mult pe Internet?</a></h3>
     multe, dar este o cheltuială inutilă pentru un număr mic de
     cuvinte.</li>
 
-    <li>Nu uitați să respectați toate <a
-    href="html/formatting.html">formatările</a> în textul cules.</li>
+    <li>Nu uitați să respectați toate <a href="static.php?c=format">formatările</a> în textul cules.</li>
 
     <li>Pe cât posibil, încercați să respectați următoarea paginare a
     definițiilor: pe prima linie se scrie cuvântul, cu diacritice și
@@ -938,7 +929,7 @@ online</i> dacă nu pot să stau prea mult pe Internet?</a></h3>
     ...</pre>
 
 
-<h3><a name="moderator">Vreau să devin moderator al <i>DEX online</i></a></h3>
+<h3><a name="moderator"></a>Vreau să devin moderator al <i>DEX online</i></h3>
 
   Moderatorii <i>DEX online</i> au acces aproape neîngrădit la baza de
   date, incluzând moderarea definițiilor recent trimise, editarea
@@ -950,7 +941,7 @@ online</i> dacă nu pot să stau prea mult pe Internet?</a></h3>
   href="contact.php">Scrieți-ne</a> pentru detalii.
 
 
-<h3><a name="cod">Vreau să scriu cod pentru <i>DEX online</i></a></h3>
+<h3><a name="cod"></a>Vreau să scriu cod pentru <i>DEX online</i></h3>
 
   Sunteți mană cerească! Puteți vedea codul-sursă al <i>DEX online</i>
   la <a href="http://svn.dexonline.ro">http://svn.dexonline.ro</a>. Dacă
@@ -958,14 +949,14 @@ online</i> dacă nu pot să stau prea mult pe Internet?</a></h3>
   citiți <a href="codeAccess.php">aceste instrucțiuni</a>.
 
 
-<h3><a name="bug">Vreau să repar un bug în <i>DEX online</i></a></h3>
+<h3><a name="bug"></a>Vreau să repar un bug în <i>DEX online</i></h3>
 
   Vă mulțumim anticipat! Iată <a
   href="http://bugs.dexonline.ro/report/1">lista de bug-uri active</a>
   din <i>DEX online</i>.
 
 
-<h3><a name="client">Vreau să scriu un client pentru <i>DEX online</i></a></h3>
+<h3><a name="client"></a>Vreau să scriu un client pentru <i>DEX online</i></h3>
 
   <i>DEX online</i> știe să răspundă la întrebări de tipul "vreau
   toate definițiile și cuvintele care s-au modificat de la data
@@ -974,8 +965,7 @@ online</i> dacă nu pot să stau prea mult pe Internet?</a></h3>
   multe informații, citiți <a href="update3.php">documentația</a>
   protocolului de sincronizare.
 
-<h3><a name="scramble">Am contribuit la <i>DEX online</i>, dar
-adresa mea de email e scrisă greșit!</a></h3>
+<h3><a name="scramble"></a>Am contribuit la <i>DEX online</i>, dar adresa mea de email e scrisă greșit!</h3>
 
   Aceasta a fost și intenția noastră, datorită modului în care unii
   oameni s-au gândit să câștige bani pe Internet. Ei au niște programe
@@ -997,7 +987,7 @@ adresa mea de email e scrisă greșit!</a></h3>
   adresa de email.
 
 
-<h3><a name="otrs">OTRS</a></h3>
+<h3><a name="otrs"></a>OTRS</h3>
 
   Dacă sunteți moderator al <i>DEX online,</i> ne puteți ajuta să
   răspundem la emailurile venite pe adresa de contact. Acestea vin în
@@ -1009,8 +999,7 @@ adresa mea de email e scrisă greșit!</a></h3>
   href="contact.php">Scrieți-ne</a> dacă sunteți interesat.
 
 
-<h3><a name="fulltext">Ce înseamnă opțiunea "Caută în tot textul
-definițiilor"?</a></h3>
+<h3><a name="fulltext"></a>Ce înseamnă opțiunea "Caută în tot textul definițiilor"?</h3>
 
   Când această opțiune <b>nu</b> este bifată, <i>DEX online</i> caută
   numai prin cuvintele-titlu ale definițiilor. De exemplu, o căutare
@@ -1032,8 +1021,7 @@ definițiilor"?</a></h3>
   "adopta", "ala-bala" și multe alte definiții nerelevante.
 
 
-<h3><a name="diacritice">Pot să folosesc diacritice în cuvintele
-căutate?</a></h3>
+<h3><a name="diacritice"></a>Pot să folosesc diacritice în cuvintele căutate?</h3>
 
   Da, dar nu este obligatoriu. <i>DEX online</i> "înțelege" termenii
   căutați și cu și fără diacritice. De exemplu, dacă căutați <a
@@ -1044,8 +1032,7 @@ căutate?</a></h3>
   diacritice.
 
 
-<h3><a name="tastare_diacritice">Cum tastez diacriticele <i>ă, &#xe2;, î,
-ș, ț?</i></a></h3>
+<h3><a name="tastare_diacritice"></a>Cum tastez diacriticele <i>ă, &#xe2;, î, ș, ț?</i></h3>
 
   Dacă folosiți Windows XP, mergeți în <i>Control Panel &#x2192;
   Regional and Language Options &#x2192; Languages &#x2192;
@@ -1072,7 +1059,7 @@ căutate?</a></h3>
   <i>ă, &#xe2;, î, ș</i> și <i>ț</i>.
 
 
-<h3><a name="regexp">Pot să folosesc expresii regulate?</a></h3>
+<h3><a name="regexp"></a>Pot să folosesc expresii regulate?</h3>
 
   Da. Folosiți următoarele simboluri:
 
@@ -1100,8 +1087,7 @@ căutate?</a></h3>
   </ul>
 
 
-<h3><a name="aprox">De ce, când caut un cuvânt, primesc definiția unui
-cu totul alt cuvânt?</a></h3>
+<h3><a name="aprox"></a>De ce, când caut un cuvânt, primesc definiția unui cu totul alt cuvânt?</h3>
 
   Cea mai probabilă explicație este că ați căutat un cuvânt care nu
   există în <i>DEX online</i> (fie pentru că nu există în limba română,
@@ -1118,8 +1104,7 @@ cu totul alt cuvânt?</a></h3>
   literară.
 
 
-<h3><a name="nici_o_definitie">Unele cuvinte sunt menționate, dar nu
-au nicio definiție. E normal?</a></h3>
+<h3><a name="nici_o_definitie"></a>Unele cuvinte sunt menționate, dar nu au nicio definiție. E normal?</h3>
 
   Da. Multe cuvinte din <i>Dicționarul ortografic, ortoepic și
   morfologic</i> nu au definiție. Este firesc, deoarece respectivul

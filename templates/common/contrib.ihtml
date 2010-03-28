@@ -1,147 +1,93 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" simple=1}
-    <title>Contribuie la DEX!</title>
-    {include file="common/bits/js.ihtml" dex=1}
-  </head>
+<h2>Trimiteți o definiție</h2>
 
-<body onload="contribBodyLoad()">
-  <div class="contribSection">
-    <div class="contribLinks">
-      <a href="javascript:formatwindow()">Instrucțiuni</a>
-      &nbsp; | &nbsp;
-      <a href="index.php">Pagina principală</a>
-    </div>
-    Trimiteți o definiție &nbsp;&nbsp;
-  </div>
-
-  <form name="frm" method="post" action="contrib.php">
-    <table>
-      {if $errorMessage}
-        <tr>
-          <td colspan="2">
-            <span class="errorMessage">{$errorMessage}</span>
-          </td>
-        </tr>
-      {/if}
-      {if $submissionSuccessful}
-        <tr>
-          <td colspan="2">
-            <span class="confirmationMessage">
-              Definiția a fost trimisă! Un moderator o va examina în
-              scurt timp. Vă mulțumim!
-            </span>
-          </td>
-        </tr>
-      {/if}
-      <tr>
-        <td>Utilizator:</td>
-        <td><b>{$nick|escape}</b></td>
-      </tr>
-      {if !$is_connected}
-        <tr>
-          <td>&nbsp;</td>
-          <td>
-            Definiția dumneavoastră va fi trimisă, dar nu veți primi credit
-            (laude, glorie) pentru ea. Vă recomandăm să vă
-            <a href="login.php?target=contrib.php">conectați</a>
-            sau, dacă nu aveți un cont pe <i>DEX online</i>, să vă
-            <a href="signup.php">înscrieți</a>.
-          </td>
-        </tr>
-      {/if}
-
-      <tr>
-        <td style="white-space: nowrap">
-          Cuvântul (cu diacritice):
-        </td>
-        <td>
-          <input name="wordName" value="{$wordName|escape}" size="24"/>
-        </td>
-      </tr>
-
-      <tr>
-        <td><a href="faq.php#surse">Sursa:</a></td>
-        <td>
-          {include file="common/sourceDropDown.ihtml"
-                   sources=$contribSources
-                   src_selected=$sourceId
-                   skipAnySource=1}
-        </td>
-      </tr>
-    </table>
-
-    Definiția:<br/>
-      <textarea name="def" rows="10" cols="80"
-                onkeypress="contribKeyPressed()">{$def|escape}</textarea><br/>
-      <input type="submit" name="send" value="Trimite"/>
-      <input type="reset" name="clear" value="Șterge"
-             onclick="return confirm('Confirmați ștergerea definiției?')"/>
-  </form>
-
-  <div class="contribSection">
-    Rezultat
-  </div>
-
-  <div id="previewDiv" class="previewDiv">
-    {if $previewDivContent}
-      {$previewDivContent}
-    {else}
-      Aici puteți vedea rezultatul (se actualizează automat la fiecare
-      5 secunde).
-    {/if}
-  </div>
-
-  <br/>
-
-  <div class="contribSection">
-    Exemplu
-  </div>
-
-  <table class="contribExample">
+<form name="frm" method="post" action="contrib.php">
+  <table class="userEdit">
     <tr>
-      <td>
-        <tt>
-          @HAIDUC'IE,@ $haiducii,$ s.f. @1.@ Lupt~a armat~a a unor cete de
-          haiduci (@1@) ^impotriva asupritorilor, frecvent~a la
-          sf^ar,situl evului mediu ^in ,t~arile rom^ane,sti ,si ^in
-          Peninsula Balcanic~a. @2.@ Via,t~a sau ^indeletnicire de haiduc
-          (@1@). @3.@ Purtare, deprindere de haiduc (@1@). - @Haiduc@ +
-          suf. $-ie.$
-        </tt>
-      </td>
+      <td>Utilizator:</td>
+      <td><b>{$nick|escape}</b></td>
+    </tr>
 
+    <tr>
+      <td>Cuvântul (cu diacritice):</td>
+      <td><input name="wordName" value="{$wordName|escape}" size="24"/></td>
+    </tr>
+
+    <tr>
+      <td>Sursa:</td>
       <td>
-        <b>HAIDUCÍE,</b> <i>haiducii,</i> s.f. <b>1.</b> Luptă armată
-        a unor cete de haiduci (<b>1</b>) împotriva asupritorilor,
-        frecventă la sfârșitul evului mediu în țările românești și în
-        Peninsula Balcanică. <b>2.</b> Viață sau îndeletnicire de
-        haiduc (<b>1</b>). <b>3.</b> Purtare, deprindere de haiduc
-        (<b>1</b>). &#x2013; <b>Haiduc</b> + suf. <i>-ie.</i>
+        {include file="common/sourceDropDown.ihtml" sources=$contribSources src_selected=$sourceId skipAnySource=1}
+        <a href="faq.php#surse">lista de surse acceptate</a>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Definiția:</td>
+      <td><textarea name="def" rows="15" cols="90" onkeypress="contribKeyPressed()">{$def|escape}</textarea></td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td>
+        <input type="submit" name="send" value="Trimite"/>
+        <input type="reset" name="clear" value="Șterge" onclick="return confirm('Confirmați ștergerea definiției?')"/>
       </td>
     </tr>
   </table>
+</form>
 
-  <br/>
+<h2>Rezultat</h2>
 
-  <div class="contribSection">
-    Atenție!
-  </div>
+<div id="previewDiv" class="contribPreview">
+  {if $previewDivContent}
+    {$previewDivContent}
+  {else}
+    Aici puteți vedea rezultatul (se actualizează automat la fiecare 5 secunde).
+  {/if}
+</div>
 
-  Vă rugăm insistent să trimiteți numai definiții din sursele
-  acceptate. <b>Nu putem accepta definiții provenite din opinia
-  dumneavoastră personală</b>. Aceasta ar duce la scăderea
-  credibilității <i>DEX online</i> sau ar putea omite sensuri
-  secundare ale cuvântului. Vă rugăm să respectați pe cât posibil
-  instrucțiunile de formatare, în special simbolurile diacritice. Dacă
-  efortul necesar corectării definiției pe care ne-o trimiteți este
-  mai mare decât tastarea ei de la zero, bunăvoința dumneavoastră este
-  irosită. Definițiile care nu se conformează acestor rugăminți vor fi
-  respinse. Întrucât numărul de voluntari a crescut considerabil în
-  ultima vreme, regretăm că nu putem garanta un răspuns individual.
+<br/>
 
-</body>
-</html>
+<h2>Exemplu</h2>
+
+<table class="contribExample">
+  <tr>
+    <th>Tastați...</th>
+    <th>Pentru a obține...</th>
+  </tr>
+  <tr>
+    <td>
+      <tt>
+        @HAIDUC'IE,@ $haiducii,$ s.f. @1.@ Lupt~a armat~a a unor cete de
+        haiduci (@1@) ^impotriva asupritorilor, frecvent~a la
+        sf^ar,situl evului mediu ^in ,t~arile rom^ane,sti ,si ^in
+        Peninsula Balcanic~a. @2.@ Via,t~a sau ^indeletnicire de haiduc
+        (@1@). @3.@ Purtare, deprindere de haiduc (@1@). - @Haiduc@ +
+        suf. $-ie.$
+      </tt>
+    </td>
+
+    <td>
+      <b>HAIDUCÍE,</b> <i>haiducii,</i> s.f. <b>1.</b> Luptă armată
+      a unor cete de haiduci (<b>1</b>) împotriva asupritorilor,
+      frecventă la sfârșitul evului mediu în țările românești și în
+      Peninsula Balcanică. <b>2.</b> Viață sau îndeletnicire de
+      haiduc (<b>1</b>). <b>3.</b> Purtare, deprindere de haiduc
+      (<b>1</b>). &#x2013; <b>Haiduc</b> + suf. <i>-ie.</i>
+    </td>
+  </tr>
+</table>
+
+<br/>
+
+<h2>Atenție!</h2>
+
+<p>
+  Vă rugăm să respectați <a href="javascript:formatwindow()">instrucțiunile de formatare</a> și să trimiteți numai definiții din sursele
+  acceptate. <b>Nu putem accepta definiții provenite din opinia dumneavoastră personală</b>. Aceasta ar duce la scăderea credibilității
+  <i>DEX online</i> sau ar putea omite sensuri secundare ale cuvântului. Vă rugăm în special să tastați definițiile cu diacritice (ĂÂÎȘȚ).
+  Dacă efortul necesar corectării definiției pe care ne-o trimiteți este mai mare decât tastarea ei de la zero, bunăvoința dumneavoastră
+  este irosită. Definițiile care nu se conformează acestor rugăminți vor fi respinse. Întrucât numărul de voluntari a crescut considerabil
+  în ultima vreme, regretăm că nu putem garanta un răspuns individual.
+</p>
+
+<script type="text/javascript">contribBodyLoad();</script>

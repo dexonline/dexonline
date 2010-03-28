@@ -1,104 +1,98 @@
-<div class="resultBar">
-  <div class="abbrev">
-    <a href="#" onclick="abbrevWindow(); return false;">Abrevieri</a>
+{if count($lexems) || count($results) }
+  <div class="resultBar">
+    {if $searchType == SEARCH_INFLECTED}
+      {if count($results) == 0}
+        Am găsit numai definiții „neoficiale” pentru
+      {elseif count($results) == 1}
+        O definiție pentru
+      {else}
+        {$results|@count} definiții pentru
+      {/if}
+  
+      {if count($lexems) == 1}
+        {* If there is exactly one lexem, do not link to the lexem page, because it would print an almost exact duplicate of this page. *}
+        «{include file="common/bits/lexemName.ihtml" lexem=$lexems.0}»
+      {else}
+        {foreach from=$lexems item=lexem key=row_id}
+          <a href="{$wwwRoot}lexem/{$lexem->id}">{$lexem->formNoAccent}</a
+          >{if $lexem->description} ({$lexem->description|escape}){/if
+          }{if $row_id < count($lexems) - 1},{/if}
+        {/foreach}
+      {/if}
+  
+    {elseif $searchType == SEARCH_APPROXIMATE}
+      {if count($lexems)}
+        Cuvântul «{$cuv|escape}» nu a fost găsit, dar am găsit următoarele cuvinte apropiate:
+      {/if}
+  
+    {elseif $searchType == SEARCH_DEF_ID}
+      {if count($results)}
+        Definiția cu ID-ul {$cuv|escape}:
+      {/if}
+  
+    {elseif $searchType == SEARCH_REGEXP}
+      {if $numResults}
+        {if $numResults > count($lexems)}
+          {$numResults} rezultate pentru «{$cuv|escape}» (maxim {$lexems|@count} afișate):
+        {else}
+          {$numResults} rezultate pentru «{$cuv|escape}»:
+        {/if}
+      {/if}
+  
+    {elseif $searchType == SEARCH_LEXEM_ID}
+      {if count($lexems) > 0}
+        {if $exclude_unofficial}
+          Lexemul cu ID-ul căutat există, dar este neoficial.
+        {else}
+          {if count($results) == 1}
+            O definiție pentru
+          {else}
+            {$results|@count} definiții pentru
+          {/if}
+          «{include file="common/bits/lexemName.ihtml" lexem=$lexems.0}»
+        {/if}
+      {/if}
+  
+    {elseif $searchType == SEARCH_FULL_TEXT}
+      {if $lockExists}
+        Momentan nu puteți căuta prin textul definițiilor, deoarece indexul
+        este în curs de reconstrucție. Această operație durează de obicei circa
+        10 minute. Ne cerem scuze pentru neplăcere.
+      {else}
+        {if $numResults == 1}
+          O definiție cuprinde toate cuvintele căutate
+        {elseif $numResults > 1}
+          {$numResults} definiții cuprind toate cuvintele căutate
+        {/if}
+  
+        {if $numResults > count($results)}
+          (maxim {$results|@count} afișate)
+        {/if}
+      {/if}
+  
+  
+    {elseif $searchType == SEARCH_MULTIWORD}
+      {$results|@count} definiții se potrivesc cu cel puțin doi dintre termenii căutați. Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat
+      sau puteți căuta <a href="{$wwwRoot}text/{$cuv|escape:url}">în tot corpul definițiilor</a>.
+  
+    {/if}
+  
+    &nbsp;
+  
+    {if $declensionText}
+      {if $onlyParadigm}
+        {$declensionText}
+      {else}
+      <a class="inflLink" href="#" onclick="return toggleInflVisibility({if $lexemId}'{$lexemId}',1{else}'{$cuv|escape:url}'{/if});"
+         title="click pentru conjugarea / declinarea cuvintelor"
+        ><span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span>{$declensionText}
+      </a>
+      {/if}
+    {/if}
   </div>
+{/if}
 
-  {if $searchType == SEARCH_INFLECTED}
-    {if count($results) == 0}
-      Am găsit numai definiții „neoficiale” pentru
-    {elseif count($results) == 1}
-      O definiție pentru
-    {else}
-      {$results|@count} definiții pentru
-    {/if}
-
-    {if count($lexems) == 1}
-      {* If there is exactly one lexem, do not link to the lexem page, because it would print an almost exact duplicate of this page. *}
-      «{include file="common/bits/lexemName.ihtml" lexem=$lexems.0}»
-    {else}
-      {foreach from=$lexems item=lexem key=row_id}
-        <a href="{$wwwRoot}lexem/{$lexem->id}">{$lexem->formNoAccent}</a
-        >{if $lexem->description} ({$lexem->description|escape}){/if
-        }{if $row_id < count($lexems) - 1},{/if}
-      {/foreach}
-    {/if}
-
-  {elseif $searchType == SEARCH_APPROXIMATE}
-    {if count($lexems)}
-      Cuvântul «{$cuv|escape}» nu a fost găsit, dar am găsit următoarele cuvinte apropiate:
-    {/if}
-
-  {elseif $searchType == SEARCH_DEF_ID}
-    {if count($results)}
-      Definiția cu ID-ul {$cuv|escape}:
-    {/if}
-
-  {elseif $searchType == SEARCH_REGEXP}
-    {if $numResults}
-      {if $numResults > count($lexems)}
-        {$numResults} rezultate pentru «{$cuv|escape}» (maxim {$lexems|@count} afișate):
-      {else}
-        {$numResults} rezultate pentru «{$cuv|escape}»:
-      {/if}
-    {/if}
-
-  {elseif $searchType == SEARCH_LEXEM_ID}
-    {if count($lexems) > 0}
-	  {if $exclude_unofficial}
-		  Lexemul cu ID-ul căutat există, dar este neoficial.
-	  {else}
-		  {if count($results) == 1}
-			O definiție pentru
-		  {else}
-			{$results|@count} definiții pentru
-		  {/if}
-		  «{include file="common/bits/lexemName.ihtml" lexem=$lexems.0}»
-	  {/if}
-    {else}
-      Nu există niciun lexem cu ID-ul căutat.
-    {/if}
-
-  {elseif $searchType == SEARCH_FULL_TEXT}
-    {if $lockExists}
-      Momentan nu puteți căuta prin textul definițiilor, deoarece indexul
-      este în curs de reconstrucție. Această operație durează de obicei circa
-      10 minute. Ne cerem scuze pentru neplăcere.
-    {else}
-      {if $numResults == 1}
-        O definiție cuprinde toate cuvintele căutate
-      {elseif $numResults > 1}
-        {$numResults} definiții cuprind toate cuvintele căutate
-      {else}
-        Nicio definiție nu conține toate cuvintele căutate.
-      {/if}
-
-      {if $numResults > count($results)}
-        (maxim {$results|@count} afișate)
-      {/if}
-    {/if}
-
-
-  {elseif $searchType == SEARCH_MULTIWORD}
-    {$results|@count} definiții se potrivesc cu cel puțin doi dintre termenii căutați. Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat
-    sau puteți căuta <a href="{$wwwRoot}text/{$cuv|escape:url}">în tot corpul definițiilor</a>.
-
-  {/if}
-
-  &nbsp;
-
-  {if $declensionText}
-	  {if $onlyParadigm}
-	    {$declensionText}
-	  {else}
-    <a class="inflLink" href="#" onclick="return toggleInflVisibility({if $lexemId}'{$lexemId}',1{else}'{$cuv|escape:url}'{/if});"
-       title="click pentru conjugarea / declinarea cuvintelor"
-      ><span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span>{$declensionText}
-    </a>
-	  {/if}
-  {/if}
-</div>
-
-<div id="resultsWrapper">
+<div id="resultsWrapper" class="txt">
   {if $adsense == 'vertical'}
     <div id="adsenseVertical">{include file="common/bits/adsense_skyscraper.ihtml"}</div>
   {/if}
@@ -107,7 +101,7 @@
  
   {if $stopWords}
     <span class="stopWords">
-      Unul sau mai multe cuvinte au fost ignorate deoarece sunt prea comune:
+      Următoarele cuvinte au fost ignorate deoarece sunt prea comune:
       <b>
         {foreach from=$stopWords item=word}
           {$word|escape}
@@ -136,7 +130,7 @@
   
       <span class="defDetails">
         Sursa: <a class="ref" href="{$wwwRoot}faq.php#surse" title="{$row->source->name|escape}, {$row->source->year|escape}"
-  	     >{$row->source->shortName|escape}</a> |
+        >{$row->source->shortName|escape}</a> |
   
         {if $row->user->id}
           Trimisă de <a href="{$wwwRoot}user.php?n={$row->user->nick|escape:"url"}">{$row->user->nick|escape}</a>,

@@ -47,7 +47,7 @@
       poate reapela scriptul cu ultimul timestamp pe care l-a primit,
       pentru a continua de unde a rămas.</li>
 
-      <li><a href="html/formatting.html">Instrucțiunile</a> despre
+      <li><a href="static.php?c=format">Instrucțiunile</a> despre
       formatarea definițiilor sunt accesibile din pagina de
       contribuții.</li>
 

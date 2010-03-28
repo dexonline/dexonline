@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    {include file="common/bits/css.ihtml" zepu=1}
+    {include file="common/bits/js.ihtml" dex=1}
+    <title>{$page_title|escape}</title>
+    {if $page_description}
+      <meta name="description" content="{$page_description}"/>
+    {/if}
+    <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
+  </head>
+
+  <body>
+    <div id="menuTop">
+      <div class="menuT">
+        <div class="userActions">
+          {if !$is_mirror}
+            {if $is_connected}
+              <span id="userNick">{$nick|escape}</span>
+              {if $is_moderator}
+                <a href="{$wwwRoot}admin">Pagina moderatorului</a>&nbsp;
+              {/if}
+              <a href="{$wwwRoot}account.php">Contul meu</a>&nbsp;
+              <a href="{$wwwRoot}logout.php">Deconectare</a>
+            {else}
+			        <a href="{$wwwRoot}prefs.php">Preferințe</a>&nbsp;
+              <a href="{$wwwRoot}login.php">Conectare</a>&nbsp;
+              <a href="{$wwwRoot}signup.php">Înregistrare</a>
+            {/if}
+          {/if}
+        </div>
+      </div>
+    </div>
+
+    <div id="header">
+      <br/>
+      {include file="common/bits/adsense_leaderboard.ihtml"}
+    </div>
+
+    <div id="Container">
+      <div id="menu">
+        {if !$hideZepuSmallLogo}
+          <a href="{$wwwRoot}">
+            <img src="{$imgRoot}/zepu/dexonline_logo_mic.jpg" class="noBorder" width="111" height="25" alt="DEX online small logo"/>
+          </a>
+        {/if}
+        <ul>
+          <li><a href="{$wwwRoot}faq.php">Informații</a></li>
+          <li><a href="{$wwwRoot}contrib.php">Contribuie</a></li>
+          <li><a href="{$wwwRoot}corect.php" id="guideLink">Ghid de exprimare</a></li>
+          <li><a href="{$wwwRoot}tools.php">Unelte</a></li>
+          <li><a href="{$wwwRoot}top.php">Top</a></li>
+          <li><a href="#" onclick="abbrevWindow(); return false;">Abrevieri</a></li>
+          <li><a href="{$wwwRoot}contact.php">Contact</a></li>
+        </ul>
+      </div>
+
+      {include file="common/flashMessages.ihtml"}
+
+      {if $onZepuSearchPage}
+        <div id="Search2">
+          {include file="zepu/search.ihtml"}
+        </div>
+      {/if}
+
+      <div id="contentProper">
+        {include file=$contentTemplateName}
+      </div>
+    </div>
+
+    <div class="clearer"></div>
+
+    <div id="Footer">
+      Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro). Copierea definițiilor este permisă sub
+      <a href="{$wwwRoot}faq.php#licenta">licența GPL</a>, cu condiția păstrării acestei note.
+    </div>
+    <div id="links">
+      <div class="traficRO">{include file="common/trafic_ro.ihtml"}</div>
+      <a href="http://stat.trafic.ro/stat/dexonlinero" target="_blank">
+        <img src="{$imgRoot}/zepu/traficro.png" class="noBorder" width="88" height="31" alt="statistici trafic.ro"/>
+      </a>
+      {if $hostedBy}{include file="common/hosting/$hostedBy.ihtml"}{/if}
+    </div>
+    {include file="common/bits/debugInfo.ihtml"}
+  </body>
+</html>

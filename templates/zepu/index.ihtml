@@ -1,0 +1,22 @@
+<div id="Logo"><img src="{$imgRoot}/zepu/dexonline_logo.png" width="392" height="137" alt="DEX online logo"/></div>
+
+<div class="clearer"></div>
+
+<div id="Search">
+  {include file="zepu/search.ihtml"}
+</div>
+
+<div class="clearer"></div>
+
+<div class="statusReport">
+  Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.
+</div>
+
+<div class="clearer"></div>
+
+<div class="hptxt">
+  DEX online este transpunerea pe internet a unor dicționare de prestigiu ale limbii române. El este creat și întreținut de un colectiv de voluntari.
+  Definițiile sunt preluate textual din sursele menționate. Baza de definiții a DEX online este disponibilă gratuit sub licența publică generală GNU (GPL).
+  Mulțumiri speciale <a href="{$wwwRoot}spre/siveco">firmei Siveco</a> și editurilor <a href="{$wwwRoot}spre/litera">Litera Internațional</a> și
+  <a href="{$wwwRoot}spre/saeculum">Saeculum</a>, care ne-au pus la dispoziție cinci dicționare complete sub licența GPL.
+</div>

@@ -222,6 +222,13 @@ table td, table th {
   cursor: pointer;
 }
 
+span.defComment {
+  border: 1px solid #eea77e;
+  margin: 8px 130px 0 20px;
+  padding: 4px;
+  display: block;
+}
+
 #contentProper {
   margin-top: 10px;
 }

@@ -15,19 +15,13 @@ $timestampZero = mktime(23, 59, 59, $month, $day, $year);
 
 // Categories of contributions
 define('CAT_CHARS', 0);
-define('CAT_CODE', 1);
-define('CAT_EMAIL', 2);
-define('CAT_FLEXOR', 3);
-define('CAT_MODERATOR', 4);
-define('CAT_SAVINGS', 5);
-define('NUM_CATEGORIES', 6);
+define('CAT_ADMIN', 1);
+define('CAT_SAVINGS', 2);
+define('NUM_CATEGORIES', 3);
 
 $CATEGORIES = array(
   CAT_CHARS => new Category('Caractere', 'caractere', 0.30),
-  CAT_CODE  => new Category('Cod + analiză', 'procente', 0.25),
-  CAT_EMAIL => new Category('Emailuri', 'procente', 0.05),
-  CAT_FLEXOR => new Category('Flexor', 'procente', 0.10),
-  CAT_MODERATOR => new Category('Moderare', 'procente', 0.20),
+  CAT_ADMIN => new Category('Administrare', 'procente', 0.60),
   CAT_SAVINGS => new Category('Economii', 'procente', 0.10),
 );
 assertCorrectCategories();
@@ -56,10 +50,7 @@ $totalChars -= $mdnBulkImportChars;
 
 $total = new Fin(null);
 $total->values[CAT_CHARS] = $totalChars;
-$total->values[CAT_CODE] = 1.0;
-$total->values[CAT_EMAIL] = 1.0;
-$total->values[CAT_FLEXOR] = 1.0;
-$total->values[CAT_MODERATOR] = 1.0;
+$total->values[CAT_ADMIN] = 1.0;
 $total->values[CAT_SAVINGS] = 1.0;
 
 $fins = array(); // userId -> financial record for that user
@@ -74,25 +65,17 @@ while (!$dbResult->EOF) {
 // Assign the other categories -- only Matei, Radu, Tavi and Cata participated here.
 // These will, in time, be replaced by more accurate measurements once we decide on a methodology
 if ($CATA && array_key_exists($CATA->id, $fins)) {
-  $fins[$CATA->id]->values[CAT_CODE] = 0.75;
-  $fins[$CATA->id]->values[CAT_EMAIL] = 0.20;
-  $fins[$CATA->id]->values[CAT_FLEXOR] = 1/6;
-  $fins[$CATA->id]->values[CAT_MODERATOR] = 0.1;
+  $fins[$CATA->id]->values[CAT_ADMIN] = 0.25;
 }
 if ($MATEI && array_key_exists($MATEI->id, $fins)) {
-  $fins[$MATEI->id]->values[CAT_FLEXOR] = 0.5;
-  $fins[$MATEI->id]->values[CAT_MODERATOR] = 0.7;
+  $fins[$MATEI->id]->values[CAT_ADMIN] = 0.25;
 }
 if ($RADU && array_key_exists($RADU->id, $fins)) {
   $fins[$RADU->id]->values[CAT_CHARS] -= $mdnBulkImportChars;
-  $fins[$RADU->id]->values[CAT_CODE] = 0.25;
-  $fins[$RADU->id]->values[CAT_EMAIL] = 0.80;
-  $fins[$RADU->id]->values[CAT_FLEXOR] = 1/6;
-  $fins[$RADU->id]->values[CAT_MODERATOR] = 0.1;
+  $fins[$RADU->id]->values[CAT_ADMIN] = 0.25;
 }
 if ($TAVI && array_key_exists($TAVI->id, $fins)) {
-  $fins[$TAVI->id]->values[CAT_FLEXOR] = 1/6;
-  $fins[$TAVI->id]->values[CAT_MODERATOR] = 0.1;
+  $fins[$TAVI->id]->values[CAT_ADMIN] = 0.25;
 }
 
 $codexFin = new Fin($CODEX);

@@ -22,7 +22,8 @@ if ( strstr($acceptEncoding, 'gzip') === FALSE ) {
 header('Content-Type: text/plain;charset=UTF-8');
 
 $timestamp = util_getRequestIntParameter('timestamp');
-$defDbResult = db_execute("select * from Definition where status = " . ST_ACTIVE . " and modDate >= '$timestamp' order by modDate, id");
+$defDbResult = db_execute("select * from Definition where status = " . ST_ACTIVE . " and sourceId in (select id from Source where canDistribute) " .
+                          "and modDate >= '$timestamp' order by modDate, id");
 $lexemDbResult = Lexem::loadNamesByMinModDate($timestamp);
 $sources = db_find(new Source(), '1');
 userCache_init();
@@ -54,21 +55,19 @@ while (!$defDbResult->EOF) {
   $defDbResult->MoveNext();
   $def->internalRep = text_xmlizeRequired($def->internalRep);
 
-  $lexemNames = array();
-  $lexemLatinNames = array();
   while ( merge_compare($def, $currentLexem) < 0 ) {
     $currentLexem = fetchNextLexem();
   }
 
   while (merge_compare($def, $currentLexem) == 0) {
-    $lexemNames[] = $currentLexem[1];
-    $lexemLatinNames[] = text_unicodeToLatin($currentLexem[1]);
+    $lexemNames = $currentLexem[1];
+    $lexemLatinNames = text_unicodeToLatin($currentLexem[1]);
     $currentLexem = fetchNextLexem();
     // marker
     print "<entry>\n";
     print $def->id . "\n";
-    print $lexemLatinNames[0] . "\n";
-    print $lexemNames[0] . "\n";
+    print $lexemLatinNames . "\n";
+    print $lexemNames . "\n";
     print $def->sourceId . "\n";
     $user = userCache_get($def->userId);
     if ($user) {

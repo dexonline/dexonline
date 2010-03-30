@@ -82,10 +82,8 @@
 
   <br/><br/>
 
-  Accesul la <i>DEX online</i> va fi întotdeauna gratuit.  Baza de
-  definiții a <i>DEX online</i> este <a
-  href="#database">disponibilă</a> liber și gratuit sub licența
-  publică generală GNU (GPL).
+  Accesul la <i>DEX online</i> va fi întotdeauna gratuit. O parte din baza de definiții a <i>DEX online</i> este <a
+  href="#database">disponibilă</a> liber și gratuit sub licența publică generală GNU (GPL).
 
 
 <h3><a name="ce_nu_este"></a>Ce nu este <i>DEX online?</i></h3>
@@ -221,8 +219,7 @@
     <li>Firma <a href="{$wwwRoot}spre/siveco">Siveco</a> și
     editurile <a href="{$wwwRoot}spre/litera">Litera Internațional</a>
     și <a href="{$wwwRoot}spre/saeculum">Saeculum</a>, care ne-au pus
-    la dispoziție cinci dicționare complete și ne-au permis
-    redistribuirea lor sub licența GPL. Firma Siveco ne oferă și
+    la dispoziție cinci dicționare complete. Firma Siveco ne oferă și
     găzduire pentru primul <a href="#mirrors">mirror</a> al <i>DEX
     online.</i></li>
 
@@ -364,7 +361,12 @@
 
 <h3><a name="licenta"></a>Licență</h3>
 
-<h4>Copyright (C) 2004-{$currentYear} DEX online.</h4>
+<h4>Pentru dicționarele Editurii Litera: Copyright (C) Editura Litera.</h4>
+
+Pentru patru dintre dicționare (Dicționar de sinonime, Dicționar de antonime, Dicționar ortografic, Nodex), toate drepturile sunt
+rezervate Editurii Litera. Copierea definițiilor din aceste dicționare este interzisă fără acordul explicit al Editurii Litera.
+
+<h4>Pentru restul dicționarelor: Copyright (C) 2004-{$currentYear} DEX online.</h4>
 
   <i>DEX online</i> (constituit din baza de definiții și codul sursă)
   este liber; îl puteți redistribui și/sau modifica în conformitate cu

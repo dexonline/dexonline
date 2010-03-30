@@ -38,7 +38,7 @@ if ($doFullDump) {
   $targetDir = util_getRootPath() . '/wwwbase/download/mirrorAccess/';
 } else {
   $targetDir = util_getRootPath() . '/wwwbase/download/';
-  $tablesToIgnore .= "--ignore-table=$dbName.User ";
+  $tablesToIgnore .= "--ignore-table=$dbName.User --ignore-table=$dbName.Definition ";
 }
 
 os_executeAndAssert("rm -f $TMP_DIR/$FILENAME");
@@ -55,8 +55,8 @@ foreach ($schemaOnly as $table) {
 $command .= " >> $TMP_DIR/$FILENAME";
 os_executeAndAssert($command);
 
-// Anonymize the User table
 if (!$doFullDump) {
+  // Anonymize the User table
   log_scriptLog('Anonymizing the User table');
   mysql_query("create table _User_Copy like User");
   mysql_query("insert into _User_Copy select * from User");
@@ -64,6 +64,11 @@ if (!$doFullDump) {
   mysql_query("update _User_Copy set email = concat(id, '@anonymous.com')");
   os_executeAndAssert("$COMMON_COMMAND _User_Copy | sed 's/_User_Copy/User/g' >> $TMP_DIR/$FILENAME");
   mysql_query("drop table _User_Copy");
+
+  // Dump only the Definitions for which we have redistribution rights
+  log_scriptLog('Filtering the Definition table');
+  os_executeAndAssert("$COMMON_COMMAND Definition --lock-all-tables --where='Definition.sourceId in (select id from Source where canDistribute)' " .
+                      ">> $TMP_DIR/$FILENAME");
 }
 
 os_executeAndAssert("gzip -f $TMP_DIR/$FILENAME");

@@ -16,7 +16,7 @@
 
 <div class="hptxt">
   DEX online este transpunerea pe internet a unor dicționare de prestigiu ale limbii române. El este creat și întreținut de un colectiv de voluntari.
-  Definițiile sunt preluate textual din sursele menționate. Baza de definiții a DEX online este disponibilă gratuit sub licența publică generală GNU (GPL).
-  Mulțumiri speciale <a href="{$wwwRoot}spre/siveco">firmei Siveco</a> și editurilor <a href="{$wwwRoot}spre/litera">Litera Internațional</a> și
-  <a href="{$wwwRoot}spre/saeculum">Saeculum</a>, care ne-au pus la dispoziție cinci dicționare complete sub licența GPL.
+  Definițiile sunt preluate textual din sursele menționate. O parte din baza de definiții a DEX online este disponibilă gratuit sub licența publică
+  generală GNU (GPL). Mulțumiri speciale <a href="{$wwwRoot}spre/siveco">firmei Siveco</a> și editurilor <a href="{$wwwRoot}spre/litera">Litera
+  Internațional</a> și <a href="{$wwwRoot}spre/saeculum">Saeculum</a>, care ne-au pus la dispoziție cinci dicționare complete.
 </div>

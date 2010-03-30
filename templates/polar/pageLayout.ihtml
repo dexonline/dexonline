@@ -86,9 +86,7 @@
             <br/>
           {/if}
 
-          Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro). Copierea definițiilor
-          este permisă sub <a href="{$wwwRoot}faq.php#licenta">licența GPL</a>, cu
-          condiția păstrării acestei note.
+          Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro) &#x2022; <a href="{$wwwRoot}faq.php#licenta">Informații despre licență</a>
 
         </td>
         <td class="narrow">

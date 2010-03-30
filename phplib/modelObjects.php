@@ -588,7 +588,8 @@ class Lexem extends BaseObject {
    */
   public static function loadNamesByMinModDate($modDate) {
     return db_execute("select D.id, formNoAccent from Definition D force index(modDate), LexemDefinitionMap M, Lexem L " .
-                      "where D.id = definitionId and lexemId = L.id and status = 0 and D.modDate >= {$modDate} order by D.modDate, D.id");
+                      "where D.id = definitionId and lexemId = L.id and status = 0 and D.modDate >= {$modDate} " .
+                      "and sourceId in (select id from Source where canDistribute) order by D.modDate, D.id");
   }
 
   public static function searchInflectedForms($cuv, $hasDiacritics) {

@@ -28,7 +28,8 @@ if ($timestamp !== null && util_isDesktopBrowser() && !session_getUser()) {
 
 header('Content-type: text/xml');
 
-$defDbResult = db_execute("select * from Definition where status = " . ST_ACTIVE . " and modDate >= '$timestamp' order by modDate, id");
+$defDbResult = db_execute("select * from Definition where status = " . ST_ACTIVE . " and sourceId in (select id from Source where canDistribute) " .
+                          "and modDate >= '$timestamp' order by modDate, id");
 $lexemDbResult = Lexem::loadNamesByMinModDate($timestamp);
 $sourceMap = createSourceMap();
 userCache_init();

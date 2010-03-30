@@ -29,9 +29,12 @@ if ($export == 'sources') {
   userCache_init();
   $d = new Definition();
   $statusClause = $timestamp ? '' : ' and status = 0';
-  $defDbResult = db_execute("select * from Definition where modDate >= '$timestamp' $statusClause order by modDate, id");
+  $defDbResult = db_execute("select * from Definition where modDate >= '$timestamp' and sourceId in (select id from Source where canDistribute) " .
+                            "$statusClause order by modDate, id"); // 
   $lexemDbResult = db_execute("select Definition.id, lexemId from Definition force index(modDate), LexemDefinitionMap " .
-                              "where Definition.id = definitionId and modDate >= {$timestamp} {$statusClause} order by modDate, Definition.id");
+                              "where Definition.id = definitionId and modDate >= {$timestamp} " .
+                              "and sourceId in (select id from Source where canDistribute) " .
+                              "{$statusClause} order by modDate, Definition.id");
   $currentLexem = fetchNextLexemTuple();
   smarty_assign('numResults', $defDbResult->RowCount());
   smarty_displayWithoutSkin('common/update3Definitions.ihtml');

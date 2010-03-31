@@ -207,10 +207,8 @@ table td, table th {
 
 .hptxt {
   color: #771818;
-  font-weight: bold;
-  margin: 35px 0px 15px 120px;
-  text-align: center;
-  width: 630px;
+  margin: 35px 0px 15px 100px;
+  width: 670px;
 }
 
 .txt {
@@ -220,6 +218,13 @@ table td, table th {
 
 .def {
   cursor: pointer;
+}
+
+.defDetails {
+  color :#999;
+  display: block;
+  font-size: 11px;
+  padding-top: 5px;
 }
 
 span.defComment {

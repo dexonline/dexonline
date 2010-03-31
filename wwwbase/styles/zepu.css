@@ -82,6 +82,18 @@ table td, table th {
   height: 20px;
 }
 
+.plug {
+  color: #fc9;
+  float: left;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 12px;
+  margin-left: 15px;
+  margin-top: 6px;
+  padding: 0px;
+  text-shadow: -1px -1px 0px #000;
+  width: 610px;
+}
+
 .userActions {
   float: right;
   margin-right: 40px;
@@ -227,11 +239,15 @@ table td, table th {
   padding-top: 5px;
 }
 
-span.defComment {
-  border: 1px solid #eea77e;
-  margin: 8px 130px 0 20px;
-  padding: 4px;
+.defComment {
+  background: #eee3ae;
+  color: #333;
   display: block;
+  margin-left:15px;
+  margin-top: 5px;
+  padding: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 
 #contentProper {

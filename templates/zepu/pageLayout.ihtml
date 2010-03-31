@@ -14,6 +14,7 @@
   <body>
     <div id="menuTop">
       <div class="menuT">
+        <h1 class="plug">DEX online - Dicționare ale limbii române</h1>
         <div class="userActions">
           {if !$is_mirror}
             {if $is_connected}

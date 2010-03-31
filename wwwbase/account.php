@@ -112,7 +112,5 @@ smarty_assign('userPrefs', $userPreferencesSet);
 smarty_assign('skin', $skin);
 smarty_assign('availableSkins', session_getAvailableSkins());
 smarty_assign('page_title', 'DEX online - Contul meu');
-smarty_assign('show_search_box', 0);
-
 smarty_displayCommonPageWithSkin('account.ihtml');
 ?>

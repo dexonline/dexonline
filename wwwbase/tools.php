@@ -118,8 +118,6 @@ $clients = array(
 $osNames = array('android' => 'Android', 'iphone' => 'iPhone', 'java' => 'Java', 'linux' => 'GNU / Linux', 'mac' => 'Mac', 'windows' => 'Windows', 'windowsce' => 'Windows CE');
 
 smarty_assign('page_title', 'DEX online - Unelte');
-smarty_assign('show_search_box', 0);
-smarty_assign('slick_selected', 'tools');
 smarty_assign('clients', $clients);
 smarty_assign('clientOptions', $clientOptions);
 smarty_assign('osNames', $osNames);

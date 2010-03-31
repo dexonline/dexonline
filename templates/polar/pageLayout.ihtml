@@ -31,11 +31,7 @@
       
           <form action="{$wwwRoot}search.php" name="frm" class="searchForm">
             <input type="text" name="cuv" value="{$cuv|escape}" size="20" maxlength="50"/>
-              {if $show_search_box && $focus_search_box}
-                <script type="text/javascript">
-                  document.frm.cuv.select();document.frm.cuv.focus();
-                </script>
-              {/if}
+            <script type="text/javascript">document.frm.cuv.select();document.frm.cuv.focus();</script>
             {include file="common/sourceDropDown.ihtml" urlName=1}
             <input type="submit" value="Caută"/>
             <br/>

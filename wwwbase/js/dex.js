@@ -17,17 +17,12 @@ function abbrevWindow() {
   window.open(wwwRoot + 'static.php?c=abrev', 'mywindow', 'menubar=no,scrollbars=yes,toolbar=no,width=400,height=400');
 }
 
-function helpWindow() {
-  window.open(wwwRoot + 'html/search_help.html', 'helpWindow', 'menubar=no,scrollbars=yes,toolbar=no,width=400,height=200');
-}
-
 function adminHelpWindow(anchorName) {
-  var url = wwwRoot + 'html/admin_help.html';
+  var url = wwwRoot + 'static.php?c=adminHelp';
   if (anchorName) {
     url += '#' + anchorName;
   }
-  window.open(url, 'adminHelpWindow',
-              'menubar=no,scrollbars=yes,toolbar=no,width=400,height=400');
+  window.open(url, 'adminHelpWindow', 'menubar=no,scrollbars=yes,toolbar=no,width=400,height=400');
   return false;
 }
 

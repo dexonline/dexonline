@@ -29,7 +29,5 @@ smarty_assign('userPrefs', $userPreferencesSet);
 smarty_assign('skin', $skin);
 smarty_assign('availableSkins', session_getAvailableSkins());
 smarty_assign('page_title', 'DEX online - Preferințe');
-smarty_assign('show_search_box', 0);
-
 smarty_displayCommonPageWithSkin('prefs.ihtml');
 ?>

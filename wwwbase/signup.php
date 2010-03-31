@@ -74,6 +74,5 @@ if ($sendButton) {
 
 smarty_assign('error_code', $error);
 smarty_assign('page_title', 'DEX online - Inscriere utilizator nou');
-smarty_assign('show_search_box', 0);
 smarty_displayCommonPageWithSkin('signup.ihtml');
 ?>

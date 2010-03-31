@@ -1,23 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <link href="../styles/simple.css" rel="stylesheet" type="text/css"/>
-  <title>DEX - Mini-manual de moderare</title>
-</head>
-
-<body>
-Pagina moderatorului -- mini-instrucțiuni.
-
-<br/><br/>
+<h3>Pagina moderatorului -- mini-instrucțiuni</h3>
 
 <a name="definitionSearch"></a>
 <b>Căutare definiții</b> -- Puteți folosi expresii regulate și puteți
 filtra rezultatele după dată, stare (activă/temporară/ștearsă) și
 autor.<br/><br/>
-
 
 <a name="lexemName"></a>
 <b>Lexem :: Nume</b> -- Cuvântul-titlu. Accentul trebuie indicat chiar
@@ -149,5 +135,3 @@ prezentat un ecran de confirmare cu lista acestor lexeme). Probabil
 este de dorit să reetichetați aceste lexeme cu modelele
 corespunzătoare, astfel ca în momentul ștergerii modelul să nu mai
 aibă niciun lexem.
-
-</body></html>

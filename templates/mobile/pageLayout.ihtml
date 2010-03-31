@@ -25,11 +25,7 @@
           <form action="{$wwwRoot}search.php" name="frm" class="searchForm">
 	    Introduceţi cuvântul de căutat: <br />
             <input type="text" name="cuv" size="15" value="{$cuv|escape}" maxlength="50"/>
-              {if $show_search_box && $focus_search_box}
-                <script type="text/javascript">
-                  document.frm.cuv.select();document.frm.cuv.focus();
-                </script>
-              {/if}
+            <script type="text/javascript">document.frm.cuv.select();document.frm.cuv.focus();</script>
             <input type="submit" value="Caută"/>
             {include file="common/sourceDropDown.ihtml" 
 			skipAnySource=true

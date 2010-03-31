@@ -61,6 +61,5 @@ if ($loginButton) {
 }
 
 smarty_assign('page_title', 'DEX online - Conectare utilizator');
-smarty_assign('show_search_box', 0);
 smarty_displayCommonPageWithSkin('login.ihtml');
 ?>

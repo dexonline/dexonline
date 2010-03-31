@@ -60,8 +60,6 @@ smarty_assign('prev_start', $prev_start);
 smarty_assign('next_start', $next_start);
 smarty_assign('title_links', $title_links);
 smarty_assign('page_title', 'DEX online - Topul voluntarilor');
-smarty_assign('show_search_box', 0);
-smarty_assign('slick_selected', 'top');
 
 setlocale (LC_ALL, 'ro_RO');
 smarty_displayCommonPageWithSkin('top.ihtml');

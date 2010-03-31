@@ -25,8 +25,6 @@ function smarty_init() {
   $smarty->assign('words_last_month', util_formatNumber(Definition::getWordCountLastMonth(), 0));
   $smarty->assign('contact_email', pref_getContactEmail());
   $smarty->assign('debug', session_isDebug());
-  $smarty->assign('show_search_box', 1);
-  $smarty->assign('focus_search_box', 1);
   $smarty->assign('hostedBy', pref_getHostedBy());
   $smarty->assign('currentYear', date("Y"));
   $smarty->assign('openx', pref_getServerPreference('openx'));

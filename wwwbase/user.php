@@ -43,6 +43,5 @@ if ($user) {
 
 smarty_assign('user', $user);
 smarty_assign('userData', $userData);
-smarty_assign('show_search_box', 0);
 smarty_displayCommonPageWithSkin('user.ihtml');
 ?>

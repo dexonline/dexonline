@@ -110,7 +110,7 @@ smarty_assign('email', $email);
 smarty_assign('emailVisible', $emailVisible);
 smarty_assign('userPrefs', $userPreferencesSet);
 smarty_assign('skin', $skin);
-smarty_assign('availableSkins', session_getAvailableSkins());
+smarty_assign('availableSkins', pref_getServerPreference('skins'));
 smarty_assign('page_title', 'DEX online - Contul meu');
 smarty_displayCommonPageWithSkin('account.ihtml');
 ?>

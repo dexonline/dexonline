@@ -1,7 +1,7 @@
 database=mysql://root@localhost/DEX
 mysql_loc_prefix=LOC_
 contact=contact@dexonline.ro
-default_skin=polar
+skins = zepu, polar
 mirror=0
 debugUser=reggie
 hostedBy=

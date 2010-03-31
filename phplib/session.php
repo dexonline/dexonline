@@ -127,7 +127,12 @@ function session_getAnonymousPrefs() {
 function session_getSkin() {
   $user = session_getUser();
   $skin = ($user && $user->skin) ? $user->skin : session_getCookieSetting('skin');
-  return ($skin && session_isValidSkin($skin)) ? $skin : pref_getServerPreference('default_skin');
+  if ($skin && session_isValidSkin($skin)) {
+    return $skin;
+  } else {
+    $skins = pref_getServerPreference('skins');
+    return $skins[0];
+  }
 }
 
 function session_setSkin($skin) {
@@ -135,12 +140,8 @@ function session_setSkin($skin) {
   setcookie('prefs[skin]', session_getSkin(), time() + 3600 * 24 * 365, "/");
 }
 
-function session_getAvailableSkins() {
-  return array('zepu', 'polar');
-}
-
 function session_isValidSkin($skin) {
-  return in_array($skin, session_getAvailableSkins()) || ($skin == 'mobile');
+  return in_array($skin, pref_getServerPreference('skins'));
 }
 
 function session_setSourceCookie($source) {

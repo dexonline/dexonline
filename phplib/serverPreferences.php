@@ -13,11 +13,17 @@ function pref_loadPreferences($fileName) {
   $prefs = array();
   foreach ($lines as $line_num => $line) {
     list($var, $value) = split("=", trim($line), 2);
+    $var = trim($var);
+    $value = trim($value);
     if (!empty($var)) {
       if (strstr($value, ",")) {
-	$prefs[$var] = split(",", $value);
+        $parts = split(",", $value);
+        foreach ($parts as $i => $part) {
+          $parts[$i] = trim($part);
+        }
+        $prefs[$var] = $parts;
       } else {
-	$prefs[$var] = $value;
+        $prefs[$var] = $value;
       }
     }
   }

@@ -3,9 +3,11 @@ body {
   color: #333;
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 12px;
+  height: 100%;
   margin: 0px;
   padding: 0px;
   text-align: left;
+  width: 100%;
 }
   
 a {
@@ -23,7 +25,7 @@ h2 {
   font-family: "Times New Roman", Times, serif;
   font-size: 18px;
   font-weight: normal;
-  margin-bottom: 15px 0px;
+  margin: 15px 0px;
 }
 
 h3 {
@@ -197,6 +199,7 @@ table td, table th {
 .search_field {
   background-color: transparent;
   border: 0;
+  color: #000;
   float: left;
   font: 1.0em Arial;
   height: 20px;

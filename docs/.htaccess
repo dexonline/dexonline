@@ -29,4 +29,5 @@ RewriteRule ^(declinare|conjugare)/lexem/(.*)$ paradigm.php?lexemId=$2&type=$1 [
 RewriteRule ^flexiune/(.*)$ paradigm.php?cuv=$1 [PT,L]
 RewriteRule ^(declinare|conjugare)/(.*)$ paradigm.php?cuv=$2&type=$1 [PT,L]
 
-RewriteRule ^legaturi$ links.php
+RewriteRule ^legaturi$ links.php [PT,L]
+RewriteRule ^cuvinte/(.*)$ wordList.php?letter=$1 [PT,L]

@@ -9,7 +9,11 @@
 <div class="clearer"></div>
 
 <div class="statusReport">
-  Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.
+  Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.<br/>
+  Liste de cuvinte:
+  {foreach from=$letters item=letter}
+    <a href="{$wwwRoot}cuvinte/{$letter}">{$letter|capitalize}</a>
+  {/foreach}
 </div>
 
 <div class="clearer"></div>

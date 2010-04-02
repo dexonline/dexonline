@@ -264,6 +264,7 @@ table td, table th {
   margin: 45px 0px 10px 170px;
   padding: 10px;
   width: 510px;
+  text-align: center;
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
 }

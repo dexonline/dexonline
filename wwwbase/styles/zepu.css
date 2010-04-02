@@ -174,7 +174,6 @@ table td, table th {
 }
 
 #Search {
-  background: url("../img/zepu/cautaBG.png") no-repeat left top;
   height: auto;
   margin: 25px 0px 25px 170px;
   padding: 0;
@@ -182,7 +181,6 @@ table td, table th {
 }
 
 #Search2 {
-  background: url("../img/zepu/cautaBG.png") no-repeat left top;
   height: auto;
   margin: 20px 0px 15px 15px;
   padding: 0;
@@ -192,21 +190,22 @@ table td, table th {
 .search_button {
   border: 0px;
   left: 100px;
-  margin-left: 10px;
-  top: -1px;
+  margin-left: 5px;
+  vertical-align: top;
 }
 
 .search_field {
-  background-color: transparent;
-  border: 0;
+  background-color: #fff;
+  border: 2px solid #f7c68e;
   color: #000;
-  float: left;
-  font: 1.0em Arial;
-  height: 20px;
-  margin-left: 7px;
-  margin-top: 15px;
-  padding: 0px;
-  width: 447px;
+  font: 18px Arial;
+  height: 22px;
+  margin-left: 0px;
+  margin-top: 10px;
+  padding: 0px 0px 0px 2px;
+  width: 452px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
 }
 
 #sourceDropDown {

@@ -17,5 +17,5 @@
   <link href="{$wwwRoot}styles/polar.css?v=3" rel="stylesheet" type="text/css"/>
 {/if}
 {if $zepu}
-  <link href="{$wwwRoot}styles/zepu.css?v=3" rel="stylesheet" type="text/css"/>
+  <link href="{$wwwRoot}styles/zepu.css?v=4" rel="stylesheet" type="text/css"/>
 {/if}

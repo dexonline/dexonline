@@ -1,4 +1,4 @@
-<form action="{$wwwRoot}search.php" name="frm">
+<form action="{$wwwRoot}search.php" name="frm" onsubmit="return friendlyRedirect()">
   <input type="text" name="cuv" class="search_field" value="{$cuv|escape}"  maxlength="50"/>
   <input type="image" value="Search" class="search_button" src="{$imgRoot}/zepu/cauta.jpg" alt="Caută"/>
   <br/>

@@ -4,6 +4,14 @@ var letter = '[' + Alphabet + ']';
 var nonLetter = '[^' + Alphabet + ']';
 var wwwRoot = getWwwRoot();
 
+function friendlyRedirect() {
+  action = document.frm.text.checked ? 'text' : 'definitie';
+  source = document.frm.source.value;
+  sourcePart = source ? '-' + source : '';
+  window.location = wwwRoot + action + sourcePart + '/' + document.frm.cuv.value;
+  return false;
+}
+
 function getWwwRoot() {
   var pos = window.location.href.indexOf('/wwwbase/');
   if (pos == -1) {
@@ -415,7 +423,7 @@ function searchClickedWord(evt) {
   }
   var word = getWordFromEvent(evt);
   if ( isValidWord(word) ) {
-    source = document.getElementById('sourceDropDown').value;    
+    source = document.frm.source.value;
     sourcePart = source ? '-' + source : '';
     loc = wwwRoot + 'definitie' + sourcePart + '/' + word;
     window.location = loc;

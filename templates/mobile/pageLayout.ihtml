@@ -22,7 +22,7 @@
             <a href="{$wwwRoot}contact.php">Contact</a>
           </div>
         <div class="searchBoxContainer">
-          <form action="{$wwwRoot}search.php" name="frm" class="searchForm">
+          <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return friendlyRedirect()">
 	    Introduceţi cuvântul de căutat: <br />
             <input type="text" name="cuv" size="15" value="{$cuv|escape}" maxlength="50"/>
             <script type="text/javascript">document.frm.cuv.select();document.frm.cuv.focus();</script>

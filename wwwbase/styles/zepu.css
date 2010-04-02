@@ -1,5 +1,5 @@
 body {
-  background: #fdf1b6;
+  background: #fff;
   color: #333;
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 12px;
@@ -103,14 +103,14 @@ table td, table th {
 
 #userNick {
   background: url("../img/icons/user_orange.png") no-repeat;
-  color: #f2d591;
+  color: #fc9;
   font-weight: bold;
   padding-left: 18px;
   padding-right: 5px;
 }
 
 #menuTop a {
-  color: #f2d591;
+  color: #fc9;
   font-size: 10px;
 }
 
@@ -120,7 +120,7 @@ table td, table th {
 }
 
 #header {
-  background: url("../img/zepu/bhHeader.png") no-repeat bottom #f2d591;
+  background: url("../img/zepu/bhHeader.png") no-repeat bottom #fff;
   height: 125px;
   text-align: center;
 }
@@ -386,12 +386,6 @@ div.paradigmHide {
 #links {
   margin-top: 10px;
   text-align: center;
-}
-
-#links .traficRO {
-  height: 1px;
-  overflow: hidden;
-  width: 1px;
 }
 
 .noBorder {

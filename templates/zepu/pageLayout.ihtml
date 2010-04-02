@@ -43,7 +43,7 @@
       <div id="menu">
         {if !$hideZepuSmallLogo}
           <a href="{$wwwRoot}">
-            <img src="{$imgRoot}/zepu/dexonline_logo_mic.jpg" class="noBorder" width="111" height="25" alt="DEX online small logo"/>
+            <img src="{$imgRoot}/zepu/dexonline_logo_mic.png" class="noBorder" width="111" height="25" alt="DEX online small logo"/>
           </a>
         {/if}
         <ul>
@@ -76,10 +76,7 @@
       Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro) &#x2022; <a href="{$wwwRoot}faq.php#licenta">Informații despre licență</a>
     </div>
     <div id="links">
-      <div class="traficRO">{include file="common/trafic_ro.ihtml"}</div>
-      <a href="http://stat.trafic.ro/stat/dexonlinero" target="_blank">
-        <img src="{$imgRoot}/zepu/traficro.png" class="noBorder" width="88" height="31" alt="statistici trafic.ro"/>
-      </a>
+      {include file="common/trafic_ro.ihtml"}
       {if $hostedBy}{include file="common/hosting/$hostedBy.ihtml"}{/if}
     </div>
     {include file="common/bits/debugInfo.ihtml"}

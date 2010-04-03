@@ -7,7 +7,7 @@ switch ($content) {
   case 'adminHelp': $title = 'Mini-manual de moderare'; break;
   case 'format': $title = 'Standarde de formatare'; break;
   case 'loc': $title = 'Legendă LOC'; break;
-  default: $title = 'Informații';
+  default: exit;
 }
 
 smarty_assign('title', "$title | DEX online");

@@ -1,20 +1,8 @@
 <p>
-  <b>DEX online</b> este transpunerea pe internet a unor dicționare de
-  prestigiu ale limbii române. El este creat și întreținut de un
-  colectiv de voluntari. Definițiile sunt preluate textual din sursele
-  menționate, cu excepția greșelilor evidente de tipar, pe care le-am
-  corectat. O parte din baza de definiții a DEX online este disponibilă gratuit sub
-  licența publică generală GNU (GPL). Vizitați paginile acestui site
-  pentru mai multe informații despre proiectul DEX online.
-</p>
-
-<p>
-
-  Mulțumiri speciale <a href="{$wwwRoot}spre/siveco">firmei Siveco</a>
-  și editurilor <a href="{$wwwRoot}spre/litera">Litera
-  Internațional</a> și <a href="{$wwwRoot}spre/saeculum">Saeculum</a>,
-  care ne-au pus la dispoziție cinci dicționare complete. Detalii <a href="{$wwwRoot}faq.php#autori">aici</a>.
-
+  DEX online este transpunerea pe internet a unor dicționare de prestigiu ale limbii române. El este creat și întreținut de un colectiv de voluntari.
+  Definițiile sunt preluate textual din sursele menționate. O parte din baza de definiții a DEX online este disponibilă gratuit sub licența publică
+  generală GNU (GPL). Mulțumiri speciale <a href="{$wwwRoot}spre/siveco">firmei Siveco</a> și editurilor <a href="{$wwwRoot}spre/litera">Litera
+  Internațional</a> și <a href="{$wwwRoot}spre/saeculum">Saeculum</a>, care ne-au pus la dispoziție cinci dicționare complete.
 </p>
 
 {include file="common/randomTip.ihtml"}

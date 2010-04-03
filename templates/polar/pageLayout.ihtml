@@ -57,6 +57,7 @@
       </tr>
     </table>
 
+    <div id="adsenseLeaderboard">{include file="common/bits/adsense_leaderboard_polar.ihtml"}</div>
     {include file="common/flashMessages.ihtml"}
     {include file=$contentTemplateName}
 

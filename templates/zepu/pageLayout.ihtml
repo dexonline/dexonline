@@ -36,7 +36,7 @@
 
     <div id="header">
       <br/>
-      {include file="common/bits/adsense_leaderboard.ihtml"}
+      {include file="common/bits/adsense_leaderboard_zepu.ihtml"}
     </div>
 
     <div id="Container">

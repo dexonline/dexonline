@@ -121,6 +121,7 @@ table td, table th {
 
 #header {
   background: url("../img/zepu/bhHeader.png") no-repeat bottom #fff;
+  font-size: 6px;
   height: 125px;
   text-align: center;
 }

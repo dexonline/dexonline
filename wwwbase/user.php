@@ -35,10 +35,10 @@ if ($user) {
   }
   
   $userData['rank_chars'] = $rankChars + 1;
-  smarty_assign('page_title', "DEX online - Profilul utilizatorului $nick");
+  smarty_assign('page_title', "Utilizator: $nick");
 } else {
   smarty_assign('missingNick', $nick);
-  smarty_assign('page_title', 'DEX online - Utilizator inexistent');
+  smarty_assign('page_title', 'Eroare');
 }
 
 smarty_assign('user', $user);

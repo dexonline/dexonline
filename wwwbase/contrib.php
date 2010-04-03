@@ -61,7 +61,7 @@ if ($sendButton) {
 }
 
 smarty_assign('contribSources', db_find(new Source(), 'canContribute'));
-smarty_assign('page_title', 'DEX online - Contribuie cu definiții');
+smarty_assign('page_title', 'Contribuie cu definiții');
 smarty_displayCommonPageWithSkin('contrib.ihtml');
 
 ?>

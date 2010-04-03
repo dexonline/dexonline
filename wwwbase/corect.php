@@ -1,6 +1,6 @@
 <?php
 require_once("../phplib/util.php");
-smarty_assign('page_title', 'DEX online - Ghid de exprimare');
+smarty_assign('page_title', 'Ghid de exprimare');
 
 // There may be some actions to perform here
 $action = util_getRequestParameter('action');

@@ -59,7 +59,7 @@ smarty_assign('count', COUNT);
 smarty_assign('prev_start', $prev_start);
 smarty_assign('next_start', $next_start);
 smarty_assign('title_links', $title_links);
-smarty_assign('page_title', 'DEX online - Topul voluntarilor');
+smarty_assign('page_title', 'Topul voluntarilor');
 
 setlocale (LC_ALL, 'ro_RO');
 smarty_displayCommonPageWithSkin('top.ihtml');

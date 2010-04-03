@@ -10,7 +10,7 @@ if ($locVersion && $form) {
   db_changeDatabase($dbName);
 
   $form = text_cleanupQuery($form);
-  smarty_assign('page_title', 'DEX online - Verificare LOC: ' . $form);
+  smarty_assign('page_title', 'Verificare LOC: ' . $form);
 
   $ifs = loadLoc($form);
   $lexems = array();
@@ -24,6 +24,8 @@ if ($locVersion && $form) {
   smarty_assign('ifs', $ifs);
   smarty_assign('lexems', $lexems);
   smarty_assign('inflections', $inflections);
+} else {
+  smarty_assign('page_title', 'Căutare formă flexionară în LOC ' . $form);
 }
 
 setlocale(LC_ALL, "ro_RO");

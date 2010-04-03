@@ -29,7 +29,7 @@ if ($cuv) {
   $hasDiacritics = session_user_prefers('FORCE_DIACRITICS') || $arr[0];
   $hasRegexp = $arr[1];
   $isAllDigits = $arr[2];
-  smarty_assign('page_title', "Definitie: {$cuv} | DEX online");
+  smarty_assign('page_title', "Definitie: {$cuv}");
   smarty_assign('page_description', "Definiții, sinonime, antonime, expresii, conjugări și declinări pentru {$cuv}");
 }
 
@@ -73,14 +73,14 @@ if ($lexemId) {
     $lexems = array($lexem);
     smarty_assign('cuv', $lexem->formNoAccent);
     if ($definitions) {
-      smarty_assign('page_title', "Lexem: {$lexem->formNoAccent} | DEX online");
+      smarty_assign('page_title', "Lexem: {$lexem->formNoAccent}");
     } else {
-      smarty_assign('page_title', "Lexem neoficial: {$lexem->formNoAccent} | DEX online");
+      smarty_assign('page_title', "Lexem neoficial: {$lexem->formNoAccent}");
       smarty_assign('exclude_unofficial', $exclude_unofficial);
     }
   } else {
     $lexems = array();
-    smarty_assign('page_title', "Eroare | DEX online");
+    smarty_assign('page_title', "Eroare");
     session_setFlash("Nu există niciun lexem cu ID-ul căutat.");
   }
   smarty_assign('lexems', $lexems);

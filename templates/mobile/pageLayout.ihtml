@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     {include file="common/bits/css.ihtml" mobile=1 paradigm=1}
-    <title>{$page_title|escape}</title>
+    <title>{$page_title|escape} | DEX online</title>
     {include file="common/bits/js.ihtml" dex=1 mobile=1}
   </head>
 

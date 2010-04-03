@@ -6,5 +6,6 @@ $forms = db_getArray(db_execute("select distinct formNoAccent from Lexem where f
 
 smarty_assign('forms', $forms);
 smarty_assign('letter', $letter);
+smarty_assign('page_title', "Cuvinte care încep cu " . mb_strtoupper($letter));
 smarty_displayCommonPageWithSkin('wordList.ihtml');
 ?>

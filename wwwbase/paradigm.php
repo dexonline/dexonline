@@ -78,14 +78,14 @@ if (!empty($lexems)) {
 
   if (empty($filtered_lexems)) {
     session_setFlash("Niciun rezultat pentru {$cuv}.");
-    smarty_assign('page_title', "Eroare | DEX online");
+    smarty_assign('page_title', "Eroare");
   }
 
   $declensionText = $conjugations ? ($declensions ? 'Conjugare / Declinare' : 'Conjugare') : ($declensions ? 'Declinare' : '');
 
   if ($cuv && !empty($filtered_lexems)) {
     smarty_assign('cuv', $cuv);
-    smarty_assign('page_title', "{$declensionText}: {$cuv} | DEX online");
+    smarty_assign('page_title', "{$declensionText}: {$cuv}");
     smarty_assign('declensionText', "{$declensionText}: {$cuv}");
   }
 
@@ -96,7 +96,7 @@ if (!empty($lexems)) {
 }
 else {
   session_setFlash("Niciun rezultat pentru {$cuv}.");
-  smarty_assign('page_title', "Eroare | DEX online");
+  smarty_assign('page_title', "Eroare");
 }
 
 if ($ajax) {

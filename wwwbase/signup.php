@@ -73,6 +73,6 @@ if ($sendButton) {
 }
 
 smarty_assign('error_code', $error);
-smarty_assign('page_title', 'DEX online - Inscriere utilizator nou');
+smarty_assign('page_title', 'Creare cont');
 smarty_displayCommonPageWithSkin('signup.ihtml');
 ?>

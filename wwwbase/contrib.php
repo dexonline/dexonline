@@ -35,7 +35,7 @@ if ($sendButton) {
     $definition->save();
     log_userLog("Added definition {$definition->id} ({$definition->lexicon})");
 
-    $name = text_formatLexem($name);
+    $name = addslashes(text_formatLexem($name));
     $lexems = db_find(new Lexem(), "form = '{$name}'");
     if (!count($lexems)) {
       $lexems = db_find(new Lexem(), "formNoAccent = '{$name}'");

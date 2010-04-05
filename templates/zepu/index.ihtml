@@ -12,7 +12,7 @@
   Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.<br/>
   Liste de cuvinte:
   {foreach from=$letters item=letter}
-    <a href="{$wwwRoot}cuvinte/{$letter}">{$letter|capitalize}</a>
+    <a href="{$wwwRoot}cuvinte/{$letter|escape:url}">{$letter|mb_strtoupper}</a>
   {/foreach}
 </div>
 

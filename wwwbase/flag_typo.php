@@ -6,7 +6,7 @@ util_assertNotMirror();
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Semnalare greșeală de tipar</title>
-</head><body onLoad="if (document.frm) document.frm.problem.focus()">
+</head><body onLoad="if (document.frmFlag) document.frmFlag.problem.focus()">
 
 <?php
 
@@ -26,7 +26,7 @@ if ($problem && $definitionId) {
   echo 'Vă rugăm să precizați care este greșeala de tipar (maxim 200 ' .
     'caractere). NU folosiți acest formular pentru a raporta greșeli de ' .
     'ordin semantic.<br/><br/>';
-  echo '<form name="frm" method="post" action="flag_typo.php">';
+  echo '<form name="frmFlag" method="post" action="flag_typo.php">';
   echo 'Greșeala: <input type="text" name="problem" maxlength=200 '.
     'size=50><p>';
   echo '<input type="submit" value=" Trimite ">';

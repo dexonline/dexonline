@@ -63,7 +63,7 @@
     </b></font>
   {/if}
     
-  <p><form name="frm" method="post" action="signup.php">
+  <p><form method="post" action="signup.php">
 
   <table class="userEdit">
   <tr>

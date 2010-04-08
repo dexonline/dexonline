@@ -8,7 +8,7 @@ function friendlyRedirect() {
   action = document.frm.text.checked ? 'text' : 'definitie';
   source = document.frm.source.value;
   sourcePart = source ? '-' + source : '';
-  window.location = wwwRoot + action + sourcePart + '/' + document.frm.cuv.value;
+  window.location = wwwRoot + action + sourcePart + '/' + encodeURIComponent(document.frm.cuv.value);
   return false;
 }
 
@@ -52,7 +52,7 @@ function myEncodeURI(s) {
 }
 
 function contribBodyLoad() {
-  document.frm.wordName.focus();
+  document.frmContrib.wordName.focus();
   contribUpdatePreviewDiv();
 }
 
@@ -64,7 +64,7 @@ function contribKeyPressed() {
 function contribUpdatePreviewDiv() {
   var previewDiv = document.getElementById('previewDiv');
   if (previewDiv.keyWasPressed) {
-    var internalRep = document.frm.def.value;
+    var internalRep = document.frmContrib.def.value;
     makePostRequest(wwwRoot + 'ajax/htmlize.php',
                     'internalRep=' + myEncodeURI(internalRep),
                     contribPostRequestCallback, null);
@@ -425,7 +425,7 @@ function searchClickedWord(evt) {
   if ( isValidWord(word) ) {
     source = document.frm.source.value;
     sourcePart = source ? '-' + source : '';
-    loc = wwwRoot + 'definitie' + sourcePart + '/' + word;
+    loc = wwwRoot + 'definitie' + sourcePart + '/' + encodeURIComponent(word);
     window.location = loc;
   }
   else {

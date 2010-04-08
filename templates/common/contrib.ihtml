@@ -1,6 +1,6 @@
 <h2>Trimiteți o definiție</h2>
 
-<form name="frm" method="post" action="contrib.php">
+<form name="frmContrib" method="post" action="contrib.php">
   <table class="userEdit">
     <tr>
       <td>Utilizator:</td>

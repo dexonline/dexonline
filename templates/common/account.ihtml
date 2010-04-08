@@ -2,7 +2,7 @@ Pentru a face orice modificări, tastați noile valori. Este nevoie să vă intr
 sunteți într-adevăr proprietarul contului. Dacă nu doriți să schimbați valoarea unui câmp, lăsați-l nemodificat.
 <br/><br/>
 
-<form name="frm" method="post" action="account.php">
+<form method="post" action="account.php">
   <table class="userEdit"><tr>
     <td>Numele de cont:</td>
     <td>

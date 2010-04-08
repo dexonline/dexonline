@@ -1,5 +1,5 @@
 {* TODO: This replicates code from account.ihtml *}
-<form name="frm" method="post" action="prefs.php">
+<form method="post" action="prefs.php">
 <table class="userEdit">
   <tr>
     <td>Preferințe</td>

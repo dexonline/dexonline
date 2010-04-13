@@ -180,6 +180,7 @@ function text_init() {
 				       array('î', 'e'), // vârî, coborî
 				       array('î', 'a'), // vârî, coborî
 				       array('k', 'c'), // tadjik / tadjici
+				       array('k', ''), // gobseck / gobseci
 				       array('l', 'i'),
 				       array('n', 's'), // pune, rămâne
 				       array('o', 'oa'),

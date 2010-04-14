@@ -68,9 +68,9 @@ function populateModelList(httpRequest, argArray) {
 
       for (var i = 0; i < lines.length && lines[i]; i += 3) {
         var id = lines[i];
-        var number = lines[i + 1];
+        var number = encodeURIComponent(lines[i + 1]);
         var exponent = lines[i + 2];
-        var display = number + (id == '0' ? '*' : '') + ' (' + exponent + ')';
+        var display = lines[i + 1] + (id == '0' ? '*' : '') + ' (' + exponent + ')';
         select.options[select.options.length] = new Option(display, number);
       }
     } else {

@@ -71,7 +71,7 @@
         </select>
         <select name="modelNumber" id="modelListId">
           {foreach from=$models item=m}
-            <option value="{$m->number}"
+            <option value="{$m->number|escape:url}"
               {if $m->number == $model->number}selected="selected"{/if}
               >{$m->number}{if !$m->id}*{/if} ({$m->exponent})
             </option>

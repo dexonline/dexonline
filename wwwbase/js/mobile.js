@@ -5,9 +5,13 @@ function fixMobile() {
 	}
 }
 
-function toggleInflVisibility() {
+function toggleInflVisibility(value, lexem) {
   var div = document.getElementById('paradigmDiv');
   var arrow = document.getElementById('inflArrow');
+  if (div.innerHTML == '') {
+	  param = (lexem ? 'lexemId' : 'cuv') + '=' + value;
+	  makeGetRequest(wwwRoot + 'paradigm.php?ajax=1&' + param, getParadigmCallback, null);
+  }
   if (div.className == 'paradigmHide') {
 	div.className = 'paradigmShow';
     arrow.innerHTML = 'Ascunde ';

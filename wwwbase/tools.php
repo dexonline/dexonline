@@ -82,7 +82,7 @@ $clients = array(
         'requires' => array(),
         'authors' => array('Federico Mestrone' => ''),
         'license' => 'Freeware',
-        'options' => array('vision' => 0, 'sync' => 0, 'regexp' => 1, 'suggest' => 0, 'diacritics' => 1, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 0)),
+        'options' => array('vision' => 0, 'sync' => 1, 'regexp' => 1, 'suggest' => 0, 'diacritics' => 1, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 0)),
 
   array('name' => array('PocketDEX', 'http://pocketdex.aamedia.ro/'),
         'available' => true,

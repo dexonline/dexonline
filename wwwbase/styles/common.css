@@ -52,3 +52,8 @@
   padding-left: 20px;
   white-space: normal;
 }
+
+.lexemTags {
+  font-size: 75%;
+  color: green;
+}

@@ -1,5 +1,7 @@
 <?
 require_once("../../phplib/util.php"); 
+require_once("../../phplib/lexemSources.php"); 
+
 util_assertModeratorStatus();
 util_assertNotMirror();
 setlocale(LC_ALL, "ro_RO");
@@ -9,6 +11,8 @@ $dissociateDefinitionId = util_getRequestParameter('dissociateDefinitionId');
 $associateDefinitionId = util_getRequestParameter('associateDefinitionId');
 $lexemForm = util_getRequestParameter('lexemForm');
 $lexemDescription = util_getRequestParameter('lexemDescription');
+$lexemSources = util_getRequestParameter('lexemSources');
+$lexemTags = util_getRequestParameter('lexemTags');
 $lexemComment = util_getRequestParameter('lexemComment');
 $lexemIsLoc = util_getRequestParameter('lexemIsLoc');
 $lexemNoAccent = util_getRequestParameter('lexemNoAccent');
@@ -90,6 +94,14 @@ if ($lexemForm !== null) {
 if ($lexemDescription !== null) {
   $lexem->description = text_internalize($lexemDescription, false);
 }
+
+if ($lexemTags !== null) {
+  $lexem->tags = text_internalize($lexemTags, false);
+}
+
+if ($lexemSources !== null) {
+  $lexem->source = join(',', $lexemSources);
+}	
 
 if ($lexemComment !== null) {
   $newComment = trim(text_internalize($lexemComment, false));
@@ -185,7 +197,12 @@ if (!is_array($ifs)) {
 
 $models = Model::loadByType($lexem->modelType);
 
+$sources = getSourceArrayChecked($lexem->source);
+$sourceNames = getNamesOfSources($lexem->source);
+
 smarty_assign('lexem', $lexem);
+smarty_assign('sources', $sources);
+smarty_assign('sourceNames', $sourceNames);
 smarty_assign('searchResults', $searchResults);
 smarty_assign('definitionLexem', $definitionLexem);
 smarty_assign('homonyms', db_find(new Lexem(), "formNoAccent = '{$lexem->formNoAccent}' and id != {$lexem->id}"));

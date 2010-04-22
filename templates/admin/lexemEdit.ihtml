@@ -43,6 +43,22 @@
         </tr>
         <tr>
           <td>
+            Etichete:
+            {include file="admin/helpLink.ihtml"
+                     anchor="lexemTags"}
+          </td>
+          <td>
+			{foreach from=$sources key=k item=v}
+		  	<input type="checkbox" name="lexemSources[]" value="{$k}" {if $v.checked}checked="true"{/if}>{$v.name}</input>
+			{/foreach}
+
+			<br/>
+            <input type="text" name="lexemTags"
+                   value="{$lexem->tags|escape}" size="40"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
             Inclus în LOC
             {include file="admin/helpLink.ihtml" anchor="lexemIsLoc"}
           </td>

@@ -4,4 +4,5 @@
   }</span>
   &nbsp; invariabil
   {include file="common/bits/locInfo.ihtml lexem=$lexem}
+  {include file="common/bits/lexemTags.ihtml lexem=$lexem}
 </div>

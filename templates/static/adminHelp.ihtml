@@ -17,6 +17,14 @@ vizibilă public la afișarea flexiunilor unui cuvânt.<br/><br/>
 care diferențiază lexemele omonime. Pentru cuvintele fără omonime, ea
 poate fi vidă.<br/><br/>
 
+<a name="lexemTags"></a>
+<b>Lexem :: Etichete</b> -- O scurtă clasificare, vizibilă public,
+care marchează sursa flexiunii. Pentru cuvintele cu flexiuni în DOOM-ul
+curent (DOOM2 în acest moment), ea poate fi vidă. Sursele pot reprezenta
+dicționare, autori cunoscuți, inclusiv părerea moderatorului, dar trebuie 
+documentate clar aceste situații.
+<br/><br/>
+
 <a name="lexemIsLoc"></a>
 <b>Lexem :: Inclus în LOC</b> -- <i>DEX online</i> menține informații
 despre lexemele acceptate în LOC (Lista Oficială de Cuvinte), document

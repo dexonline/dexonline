@@ -1,5 +1,6 @@
 <?php
 require_once("../phplib/util.php");
+require_once("../phplib/lexemSources.php"); 
 
 define('TYPE_SHOW_ONLY_VERBS', 'conjugare');
 define('TYPE_SHOW_NO_VERBS', 'declinare');
@@ -89,6 +90,12 @@ if (!empty($lexems)) {
     smarty_assign('declensionText', "{$declensionText}: {$cuv}");
   }
 
+  $sourceNamesArr = array();
+  foreach($lexems as $l) {
+	  $sourceNamesArr[] = getNamesOfSources($l->source);
+  }
+
+  smarty_assign('sourceNamesArr', $sourceNamesArr);
   smarty_assign('lexems', $filtered_lexems);
   smarty_assign('ifMaps', $ifMaps);
   smarty_assign('showParadigm', true);

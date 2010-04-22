@@ -2,7 +2,9 @@
   {foreach from=$ifMaps item=ifMap key=i}
 	{include file="common/bits/paradigm.ihtml"
 			 lexem=$lexems[$i]
-			 ifMap=$ifMap}
+			 ifMap=$ifMap
+			 sourceNames=$sourceNamesArr[$i]}
+
   {/foreach}
   {if $ajax}
   <a class="paradigmLink" title="Link către această pagină, dar cu flexiunile expandate!" href="{$paradigmLink}">Link către această paradigmă</a> 

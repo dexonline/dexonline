@@ -550,6 +550,8 @@ class Lexem extends BaseObject {
       $this->reverse = text_reverse($this->formNoAccent);
     }
     $this->description = '';
+    $this->tags = '';
+    $this->source = '';
     $this->modelType = $modelType;
     $this->modelNumber = $modelNumber;
     $this->restriction = $restriction;

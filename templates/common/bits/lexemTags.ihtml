@@ -1,0 +1,6 @@
+{if $lexem->source
+  }<br/><spam class="lexemTags">Surse flexiune: {$sourceNames}</spam>{
+/if}
+{if $lexem->tags
+  }<br/><spam class="lexemTags">{$lexem->tags|escape}</spam>{
+/if}

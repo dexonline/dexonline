@@ -102,6 +102,12 @@ calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
   </tr>
 </table>
 
+<br/>
+Informațiile din acest tabel poartă o dublă licență: Licența Publică Generală GNU (care se aplică întregului site) și
+licența <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0</a>. Informațiile pot fi
+folosite (copiate, modificate, adaptate, etc) de către siteul http://wikipedia.org. Datele sunt adunate de pe forumul
+dictionar@yahoogroups.com prin colaborare cu dezvoltatorii aplicațiilor.
+
 <h4>Integrare în browser</h4>
 
 <ul>
@@ -166,4 +172,3 @@ calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
   {/if}
 
 </ul>
-

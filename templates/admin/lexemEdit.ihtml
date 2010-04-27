@@ -203,7 +203,7 @@
       Comentarii despre paradigmă:
       {include file="admin/helpLink.ihtml" anchor="lexemComment"}
       <br/>
-      <textarea name="lexemComment" rows="8" cols="60" class="commentTextArea"
+      <textarea name="lexemComment" rows="4" cols="60" class="commentTextArea"
         >{$lexem->comment|escape}</textarea>
     </div>
 

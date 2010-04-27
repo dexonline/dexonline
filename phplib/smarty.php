@@ -11,7 +11,7 @@ function smarty_init() {
   $smarty->assign('wwwRoot', util_getWwwRoot());
   $smarty->assign('cssRoot', util_getCssRoot());
   $smarty->assign('imgRoot', util_getImgRoot());
-  $smarty->assign('sources', db_find(new Source(), '1'));
+  $smarty->assign('sources', db_find(new Source(), '1 order by displayOrder'));
   $smarty->assign('is_connected', session_userExists());
   $smarty->assign('is_moderator', session_userIsModerator());
   $smarty->assign('is_flex_moderator', session_userIsFlexModerator());

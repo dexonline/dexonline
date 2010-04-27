@@ -1,11 +1,14 @@
 <?
 //It should be in sync with table Lexem, field source
 $GLOBALS['lexemSourcesArray'] = array(
-	"doom2" => array( "name" => "DOOM 2" ), 
-	"dex98" => array( "name" => "DEX '98" ), 
-	"dmlr" 	=> array( "name" => "DMLR" ), 
-	"doom" 	=> array( "name" => "DOOM" ), 
-	"dex09" => array( "name" => "DEX '09" )
+	"doom"	=> array( "name" => "DOOM" ), 
+	"dex" 	=> array( "name" => "DEX" ), 
+	"dmlr"	=> array( "name" => "DMLR" ), 
+	"nodex"	=> array( "name" => "NODEX" ),
+	"mda"	=> array( "name" => "MDA" ),
+	"der"	=> array( "name" => "DER" ),
+	"orto"	=> array( "name" => "Ortografic" ),
+	"dlrm"	=> array( "name" => "DLRM '58" ),
 );
 
 function getNamesOfSources($sourceList) {

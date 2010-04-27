@@ -1,5 +1,6 @@
 <?php
 require_once("../phplib/util.php");
+require_once("../phplib/lexemSources.php"); 
 
 $cuv = util_getRequestParameter('cuv');
 $lexemId = util_getRequestParameter('lexemId');
@@ -183,6 +184,13 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
       smarty_assign('ifMaps', $ifMaps);
     }
     smarty_assign('declensionText', $declensionText);
+
+	$sourceNamesArr = array();
+	foreach($lexems as $l) {
+	  $sourceNamesArr[] = getNamesOfSources($l->source);
+	}
+
+	smarty_assign('sourceNamesArr', $sourceNamesArr);
   }
 
 }

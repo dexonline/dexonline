@@ -8,6 +8,7 @@ $income = util_getRequestParameterWithDefault('income', 10000);
 $year = util_getRequestParameterWithDefault('year', date("Y"));
 $month = util_getRequestParameterWithDefault('month', date("n"));
 $day = util_getRequestParameterWithDefault('day', date("j"));
+$allUsers = util_getRequestParameter('allUsers');
 
 // The last day of the past era. Past contributions are computed up to and including this day.
 $dayZero = sprintf("%04d%02d%02d", $year, $month, $day);
@@ -101,6 +102,7 @@ smarty_assign('income', $income);
 smarty_assign('year', $year);
 smarty_assign('month', $month);
 smarty_assign('day', $day);
+smarty_assign('allUsers', $allUsers);
 smarty_displayWithoutSkin('private/financials.ihtml');
 
 /*************************************************************************/

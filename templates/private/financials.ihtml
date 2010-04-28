@@ -45,6 +45,10 @@
             {include file="common/bits/numericDropDown.ihtml" name="day" start=1 end=32 selected=$day}
           </td>
         </tr>
+        <tr>
+          <td><label for="allUsers">Toți utilizatorii:</label></td>
+          <td><input type="checkbox" id="allUsers" name="allUsers" value="1" {if $allUsers}checked="checked"{/if}/></td>
+        </tr>
       </table>
       <input type="submit" name="submitButton" value="Recalculează"/>
     </form>
@@ -62,7 +66,7 @@
         <td><b>Venit (€)<b></td>
       </tr>
       {foreach from=$fins item=fin}
-        {if $fin->share >= 0.001}
+        {if $allUsers || $fin->share >= 0.001}
           <tr style="background: {cycle values="#f4f4f4,#fff"}">
             <td>{$fin->user->nick}</td>
             {foreach from=$fin->values item=value key=i}

@@ -1,0 +1,2 @@
+update Definition set internalRep = replace(internalRep, 'Sil$. $', 'Sil. '), htmlRep = replace(htmlRep, 'Sil<i>. </i>', 'Sil. ') where binary internalRep like '%Sil$. $%' and binary htmlRep like '%Sil<i>. </i>%' and status = 0 and sourceId in (6, 7, 8, 9);
+update Definition set internalRep = replace(internalRep, 'Sil$.$', 'Sil.'), htmlRep = replace(htmlRep, 'Sil<i>.</i>', 'Sil.') where binary internalRep like '%Sil$.$%' and binary htmlRep like '%Sil<i>.</i>%' and status = 0 and sourceId in (6, 7, 8, 9);

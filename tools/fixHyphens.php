@@ -33,7 +33,7 @@ while (!$dbResult->EOF) {
       // See if this is a common composite word like 's-a' or 'și-a'
       if (!in_array(mb_strtolower("{$part1}-{$part2}"), $COMMON_WORDS)) {
         // See if this is a gerund
-        if (!text_endsWith($part1, 'ndu') || ($part2 != 'și' && $part2 != 'se' && $part2 != 'l')) {
+        if (!text_endsWith($part1, 'ndu') || ($part2 != 'și' && $part2 != 'se' && $part2 != 'l' && $part2 != 'i' && $part2 != 'le')) {
           // See if there is a "sil." indication right before, in which case skip this part
           $silStart = max(0, $first - 20);
           if (mb_stripos(mb_substr($rep, $silStart, 20), 'sil.') === false) {

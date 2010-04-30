@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    {include file="common/bits/css.ihtml" elev=1}
+    {include file="common/bits/js.ihtml" dex=1}
+    <title>{$page_title|escape} | DEX online</title>
+    {if $page_description}
+      <meta name="description" content="{$page_description}"/>
+    {/if}
+    <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
+  </head>
+
+  <body>
+    <div id="header">
+      <br/>
+      {include file="common/bits/adsense_leaderboard_zepu.ihtml"}
+    </div>
+
+    <div id="Container">
+      <div id="menu">
+        {if !$hideZepuSmallLogo}
+          <a href="{$wwwRoot}">
+            <img src="{$imgRoot}/elev/dexonline_logo_mic.png" class="noBorder" width="111" height="25" alt="DEX online small logo"/>
+          </a>
+        {/if}
+        <ul>
+          <li><a href="{$wwwRoot}faq.php">Informații</a></li>
+          <li><a href="{$wwwRoot}contrib.php">Contribuie</a></li>
+          <li><a href="{$wwwRoot}corect.php" id="guideLink">Ghid de exprimare</a></li>
+          <li><a href="{$wwwRoot}tools.php">Unelte</a></li>
+          <li><a href="{$wwwRoot}top.php">Top</a></li>
+          <li><a href="#" onclick="abbrevWindow(); return false;">Abrevieri</a></li>
+          <li><a href="{$wwwRoot}contact.php">Contact</a></li>
+        </ul>
+
+        <ul id="userActions">
+          {if !$is_mirror}
+            <li>
+              <span id="userNick">{$nick|escape}</span> [+]
+              <ul>
+                {if $is_connected}
+                  {if $is_moderator}
+                    <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
+                  {/if}
+                  <li><a href="{$wwwRoot}account.php">Contul meu</a></li>
+                  <li><a href="{$wwwRoot}logout.php">Deconectare</a></li>
+                {else}
+                  <li><a href="{$wwwRoot}prefs.php">Preferințe</a><li>
+                  <li><a href="{$wwwRoot}login.php">Conectare</a><li>
+                  <li><a href="{$wwwRoot}signup.php">Înregistrare</a><li>
+                {/if}
+              </ul>
+            </li>
+          {/if}
+        </ul>
+
+      </div>
+
+      {include file="common/flashMessages.ihtml"}
+
+      {if $onZepuSearchPage}
+        <div id="Search2">
+          {include file="elev/search.ihtml"}
+        </div>
+      {/if}
+
+      <div id="contentProper">
+        {include file=$contentTemplateName}
+      </div>
+    </div>
+
+    <div class="clearer"></div>
+
+    <div id="Footer">
+      Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro) &#x2022; <a href="{$wwwRoot}faq.php#licenta">Informații despre licență</a>
+    </div>
+    <div id="links">
+      {include file="common/trafic_ro.ihtml"}
+      {if $hostedBy}{include file="common/hosting/$hostedBy.ihtml"}{/if}
+    </div>
+    {include file="common/bits/debugInfo.ihtml"}
+  </body>
+</html>

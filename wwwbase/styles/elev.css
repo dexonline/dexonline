@@ -84,44 +84,30 @@ table td, table th {
   height: 20px;
 }
 
-.plug {
-  color: #fc9;
-  float: left;
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 12px;
-  margin-left: 15px;
-  margin-top: 6px;
-  padding: 0px;
-  text-shadow: -1px -1px 0px #000;
+#userActions {
+  float: right;
+  height: 88px;
+  text-align: right;
 }
 
-#userActions, #userActions ul {
-  float: right;
-	padding: 0;
-	margin: 0;
-	list-style: none;  
+#userActions ul {
+	list-style: none;
+  margin-top: 5px;
+  padding: 0px;
 }
 
 #userActions a {
-	display: block;
-	width: 12em;
+  color: #771818;
+  font-size: 11px;
+  text-decoration: none;
+}
+
+#userActions a:hover {
+  color: #000;
 }
 
 #userActions li {
-	float: left;
-	width: 12em;
-}
-
-#userActions li ul {
-  background: white;
-  border: 1px solid #761818;
-	position: absolute;
-	width: 12em;
-	left: -999em;
-}
-
-#userActions li:hover ul {
-	left: auto;
+	display: block;
 }
 
 #userNick {
@@ -131,9 +117,16 @@ table td, table th {
 
 #header {
   background: url("../img/elev/bhHeader.png") no-repeat bottom #fff;
-  font-size: 6px;
-  height: 125px;
-  text-align: center;
+  height: 110px;
+}
+
+#headerContainer {
+  margin: 8px auto;
+  width: 860px;
+}
+
+#banner {
+  float: left;
 }
 
 #menu {
@@ -180,7 +173,7 @@ table td, table th {
 
 #Logo {
   height: 82px;
-  margin: 30px auto 10px auto;
+  margin: 30px auto 5px auto;
   width: 316px;
 }
 
@@ -213,7 +206,7 @@ table td, table th {
 
 .search_field {
   background-color: #fff;
-  border: 2px solid #f7c68e;
+  border: 1px solid #761818;
   color: #000;
   font: 18px Arial;
   height: 22px;
@@ -274,7 +267,7 @@ table td, table th {
 
 .statusReport {
   background: #faf8ed;
-  border: 2px solid #f6c68e;
+  border: 1px solid #761818;
   color: #771818;
   font-weight: bold;
   margin: 45px 0px 10px 160px;
@@ -388,7 +381,7 @@ div.paradigmHide {
   font-weight: normal;
 }
 
-#Footer { width: 875px;
+#Footer {
   background: url("../img/elev/footerBG.png") no-repeat top center;
   color: #771818;
   font-size: 10px;
@@ -397,6 +390,7 @@ div.paradigmHide {
   margin: auto;
   padding-top: 20px;
   text-align: center;
+  width: 875px;
 }
 
 #links {

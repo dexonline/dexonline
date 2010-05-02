@@ -165,6 +165,15 @@ table td, table th {
   position: relative;
 }
 
+.smallLogo {
+  float: left;
+  margin: 8px 10px 0px 0px;
+}
+
+#searchForm {
+  float: left;
+}
+
 #Search2 {
   height: auto;
   margin: 10px 0px 15px 15px;

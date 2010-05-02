@@ -1,4 +1,10 @@
-<form action="{$wwwRoot}search.php" name="frm" onsubmit="return friendlyRedirect()">
+{if !$onHomePage}
+  <a href="{$wwwRoot}" class="smallLogo">
+    <img src="{$imgRoot}/elev/dexonline_logo_mic.png" class="noBorder" width="111" height="25" alt="DEX online small logo"
+         title="Pagina principală DEX online"/>
+  </a>
+{/if}
+<form action="{$wwwRoot}search.php" name="frm" onsubmit="return friendlyRedirect()" id="searchForm">
   <input type="text" name="cuv" class="search_field" value="{$cuv|escape}"  maxlength="50"/>
   <input type="image" value="Search" class="search_button" src="{$imgRoot}/elev/cauta.png" alt="Caută"/>
   {if !$advancedSearch}

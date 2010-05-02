@@ -39,12 +39,6 @@
 
     <div id="Container">
       <div id="menu">
-        {if !$hideZepuSmallLogo}
-          <a href="{$wwwRoot}">
-            <img src="{$imgRoot}/elev/dexonline_logo_mic.png" class="noBorder" width="111" height="25" alt="DEX online small logo"
-                    title="Pagina principală DEX online"/>
-          </a>
-        {/if}
         <ul>
           <li><a href="{$wwwRoot}faq.php">Informații</a></li>
           <li><a href="{$wwwRoot}contrib.php">Contribuie</a></li>
@@ -59,7 +53,7 @@
 
       {include file="common/flashMessages.ihtml"}
 
-      {if !$hideZepuSmallLogo}
+      {if !$onHomePage}
         <div id="Search2">
           {include file="elev/search.ihtml"}
         </div>

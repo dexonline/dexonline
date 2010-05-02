@@ -41,7 +41,7 @@
 
     <div id="Container">
       <div id="menu">
-        {if !$hideZepuSmallLogo}
+        {if !$onHomePage}
           <a href="{$wwwRoot}">
             <img src="{$imgRoot}/zepu/dexonline_logo_mic.png" class="noBorder" width="111" height="25" alt="DEX online small logo"/>
           </a>

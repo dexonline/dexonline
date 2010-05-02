@@ -62,17 +62,6 @@ table td, table th {
   height: 1px;
 }
 
-#menuTop {
-  background: url("../img/elev/bgMenuTop.png") no-repeat bottom #761818;
-  height: 15px;
-}
-
-#menuTop .menuT {
-  height: auto;
-  margin: auto;
-  width: 875px;
-}
-
 #staticBody {
   background: #fff;
   color: #000;
@@ -104,6 +93,7 @@ table td, table th {
 
 #userActions a:hover {
   color: #000;
+  text-decoration: underline;
 }
 
 #userActions li {
@@ -169,6 +159,7 @@ table td, table th {
 
 #menu a:hover {
   color: #000;
+  text-decoration: underline;
 }
 
 #Logo {
@@ -192,7 +183,7 @@ table td, table th {
 
 #Search2 {
   height: auto;
-  margin: 20px 0px 15px 15px;
+  margin: 10px 0px 15px 15px;
   padding: 0;
   position: relative;
 }

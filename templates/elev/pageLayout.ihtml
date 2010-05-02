@@ -59,7 +59,7 @@
 
       {include file="common/flashMessages.ihtml"}
 
-      {if $onZepuSearchPage}
+      {if !$hideZepuSmallLogo}
         <div id="Search2">
           {include file="elev/search.ihtml"}
         </div>

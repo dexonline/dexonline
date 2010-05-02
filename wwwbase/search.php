@@ -215,6 +215,7 @@ smarty_assign('searchType', $searchType);
 smarty_assign('showParadigm', $showParadigm);
 smarty_assign('paradigmLink', $paradigmLink);
 smarty_assign('onZepuSearchPage', 1);
+smarty_assign('advancedSearch', $text || $sourceId);
 smarty_assign('adsense', pref_getAdsense());
 smarty_displayCommonPageWithSkin('search.ihtml');
 

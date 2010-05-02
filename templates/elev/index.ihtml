@@ -4,7 +4,7 @@
 <div class="clearer"></div>
 
 <div id="Search">
-  {include file="elev/search.ihtml"}
+  {include file="elev/search.ihtml" advancedSearch=1}
 </div>
 
 <div class="clearer"></div>

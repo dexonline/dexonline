@@ -83,10 +83,10 @@
       {if $onlyParadigm}
         {$declensionText}
       {else}
-      <a class="inflLink" href="#" onclick="return toggleInflVisibility({if $lexemId}'{$lexemId}',1{else}'{$cuv|escape:url}'{/if});"
-         title="click pentru conjugarea / declinarea cuvintelor"
-        ><span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span>{$declensionText}
-      </a>
+        <span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span>
+        <a class="inflLink" href="#" onclick="return toggleInflVisibility({if $lexemId}'{$lexemId}',1{else}'{$cuv|escape:url}'{/if});"
+           title="click pentru conjugarea / declinarea cuvintelor">{$declensionText}
+        </a>
       {/if}
     {/if}
   </div>

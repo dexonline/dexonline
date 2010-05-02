@@ -1,4 +1,4 @@
-<h2>Trimiteți o definiție</h2>
+<h3>Trimiteți o definiție</h3>
 
 <form name="frmContrib" method="post" action="contrib.php">
   <table class="userEdit">
@@ -35,7 +35,7 @@
   </table>
 </form>
 
-<h2>Rezultat</h2>
+<h3>Rezultat</h3>
 
 <div id="previewDiv" class="contribPreview">
   {if $previewDivContent}
@@ -47,7 +47,7 @@
 
 <br/>
 
-<h2>Exemplu</h2>
+<h3>Exemplu</h3>
 
 <table class="contribExample">
   <tr>
@@ -79,7 +79,7 @@
 
 <br/>
 
-<h2>Atenție!</h2>
+<h3>Atenție!</h3>
 
 <p>
   Vă rugăm să respectați <a href="javascript:formatwindow()">instrucțiunile de formatare</a> și să trimiteți numai definiții din sursele

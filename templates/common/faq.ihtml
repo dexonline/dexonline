@@ -343,7 +343,7 @@
   mai rapid.
 
 
-<h3><a name="database">Cum obțin o copie a bazei de date?</a></h3>
+<h3><a name="database"></a>Cum obțin o copie a bazei de date?</h3>
 
   Baza de date a <i>DEX online</i> este disponibilă în format SQL la
   <a
@@ -437,7 +437,6 @@ rezervate Editurii Litera. Copierea definițiilor din aceste dicționare este in
   </ol>
 
 
-<a name="kudos"></a>
 <h3><a name="kudos"></a>Software liber</h3>
 
   Majoritatea software-ului folosit de DEX online este <b><a

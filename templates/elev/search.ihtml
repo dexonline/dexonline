@@ -8,7 +8,7 @@
   <input type="text" name="cuv" class="search_field" value="{$cuv|escape}"  maxlength="50"/>
   <input type="image" value="Search" class="search_button" src="{$imgRoot}/elev/cauta.png" alt="Caută"/>
   {if !$advancedSearch}
-    <a href="#" onclick="toggleDivVisibility('advSearch')">Căutare avansată</a>
+    <a href="#" onclick="return toggleDivVisibility('advSearch')">Căutare avansată</a>
   {/if}
   <div id="advSearch" {if !$advancedSearch}style="display: none"{/if}>
     <input type="checkbox" name="text" value="1" id="defBody" {if $text}checked="checked"{/if}/>

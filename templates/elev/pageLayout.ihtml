@@ -40,6 +40,7 @@
     <div id="Container">
       <div id="menu">
         <ul>
+          {if !$onHomePage}<li><a href="{$wwwRoot}faq.php" title="Pagina principală DEX online">Acasă</a></li>{/if}
           <li><a href="{$wwwRoot}faq.php">Informații</a></li>
           <li><a href="{$wwwRoot}contrib.php">Contribuie</a></li>
           <li><a href="{$wwwRoot}corect.php" id="guideLink">Ghid de exprimare</a></li>

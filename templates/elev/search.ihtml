@@ -5,7 +5,7 @@
   </a>
 {/if}
 <form action="{$wwwRoot}search.php" name="frm" onsubmit="return friendlyRedirect()" id="searchForm">
-  <input type="text" name="cuv" class="search_field" value="{$cuv|escape}"  maxlength="50"/>
+  <input type="text" name="cuv" class="search_field" value="{$cuv|escape}"  maxlength="50" title="Caută"/>
   <input type="image" value="Search" class="search_button" src="{$imgRoot}/elev/cauta.png" alt="Caută"/>
   {if !$advancedSearch}
     <a href="#" onclick="return toggleDivVisibility('advSearch')">Căutare avansată</a>

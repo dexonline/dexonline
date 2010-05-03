@@ -10,16 +10,19 @@
   online?</i></a></li>
   <li><a href="#offline">Pot să-mi instalez <i>DEX online</i> pe
   calculatorul de acasă? Dar pe dispozitive mobile?</a></li>
-  <li><a href="#DICT"><i>DEX online</i> implementează protocolul DICT?</a></li>
-  <li><a href="#lista_email">Aveți o listă de email?</a></li>
-  <li><a href="#mirrors">Aveți un mirror mai rapid?</a></li>
-  <li><a href="#database">Cum obțin o copie a bazei de date?</a></li>
-  <li><a href="#licenta">Licență</a></li>
-  <li><a href="#kudos">Software liber</a></li>
-  <li><a href="http://dexonline.blogspot.com">Blog</a> - istoria
-  romanțată a <i>DEX online</i> ;)</li>
-  <li><a href="#istoric">Scurt istoric și fapt divers</a></li>
-  <li><a href="#cacofonie">Documentul ăsta e plin de cacofonii!</a></li>
+</ul>
+
+<b>Căutare</b>
+
+<ul>
+
+  <li><a href="#fulltext">Ce înseamnă opțiunea „Caută în tot textul definițiilor”?</a></li>
+  <li><a href="#diacritice">Pot să folosesc diacritice în cuvintele căutate?</a></li>
+  <li><a href="#tastare_diacritice">Cum tastez diacriticele <i>ă, â, î, ș, ț?</i></a></li>
+  <li><a href="#regexp">Pot să folosesc expresii regulate?</a></li>
+  <li><a href="#aprox">De ce, când caut un cuvânt, primesc definiția unui cu totul alt cuvânt?</a></li>
+  <li><a href="#nici_o_definitie">Unele cuvinte sunt menționate, dar nu au nicio definiție. E normal?</a></li>
+
 </ul>
 
 <b>Cum puteți ajuta</b>
@@ -46,27 +49,19 @@
   <li><a href="#otrs">OTRS</a></li>
 </ul>
 
-<b>Căutare</b>
+<b>Informații diverse</b>
 
 <ul>
-
-  <li><a href="#fulltext">Ce înseamnă opțiunea "Caută în tot textul
-  definițiilor"?</a></li>
-
-  <li><a href="#diacritice">Pot să folosesc diacritice în cuvintele
-  căutate?</a></li>
-
-  <li><a href="#tastare_diacritice">Cum tastez diacriticele <i>ă, â,
-  î, ș, ț?</i></a></li>
-
-  <li><a href="#regexp">Pot să folosesc expresii regulate?</a></li>
-
-  <li><a href="#aprox">De ce, când caut un cuvânt, primesc definiția
-  unui cu totul alt cuvânt?</a></li>
-
-  <li><a href="#nici_o_definitie">Unele cuvinte sunt menționate, dar
-  nu au nicio definiție. E normal?</a></li>
-
+  <li><a href="#DICT"><i>DEX online</i> implementează protocolul DICT?</a></li>
+  <li><a href="#lista_email">Aveți o listă de email?</a></li>
+  <li><a href="#mirrors">Aveți un mirror mai rapid?</a></li>
+  <li><a href="#database">Cum obțin o copie a bazei de date?</a></li>
+  <li><a href="#licenta">Licență</a></li>
+  <li><a href="#kudos">Software liber</a></li>
+  <li><a href="http://dexonline.blogspot.com">Blog</a> - istoria
+  romanțată a <i>DEX online</i> ;)</li>
+  <li><a href="#istoric">Scurt istoric și fapt divers</a></li>
+  <li><a href="#cacofonie">Documentul ăsta e plin de cacofonii!</a></li>
 </ul>
 
 
@@ -113,7 +108,7 @@
 
     <li><b>Nu</b> suntem autorii definițiilor prezentate. După fiecare
     din definiții, precizăm clar care este sursa folosită. Există un
-    set mic de excepții, cele cu sursa "Neoficial", dar încercăm să nu
+    set mic de excepții, cele cu sursa „Neoficial”, dar încercăm să nu
     mai folosim această sursă.</li>
 
     <li><b>Nu</b> dorim să modificăm definițiile existente, deoarece
@@ -159,7 +154,7 @@
     forma corectă a unui cuvânt, puteți încerca o scriere aproximativă
     și <i>DEX online</i> va găsi forma corectă. De exemplu, căutând
     cuvântul <a href="{$wwwRoot}definitie/geizer">geizer</a>, veți fi
-    trimiși la forma corectă "gheizer".</li>
+    trimiși la forma corectă „gheizer”.</li>
   
     <li><b>Trimiterile.</b> Definițiile conțin la rândul lor cuvinte
     care pot fi necunoscute. Într-un dicționar pe hârtie, este necesară
@@ -283,6 +278,304 @@
   care o pot consulta și în absența unei legături la internet.
 
 
+<h3><a name="fulltext"></a>Ce înseamnă opțiunea „Caută în tot textul definițiilor”?</h3>
+
+  Când această opțiune <b>nu</b> este bifată, <i>DEX online</i> caută
+  numai prin cuvintele-titlu ale definițiilor. De exemplu, o căutare
+  după cuvântul „copil” va produce doar definițiile pentru „copil”.
+  Când această opțiune este bifată, o căutare după cuvântul „copil” va
+  produce toate definițiile care conțin, oriunde în cuprinsul lor,
+  cuvântul „copil” (sau „copii”, „copilului” sau alte forme
+  flexionare). Acest tip de căutare este util când nu vă mai amintiți
+  un cuvânt, dar vă amintiți câteva proprietăți ale lui. De exemplu, o
+  căutare după <a href="text/medicament+doză+mică">medicament doză mică</a> va produce rezultate relevante ca
+  „homeopatie”, „picătură”, „alcaloid” și altele.<br/><br/>
+
+  Dacă doriți numai să căutați un cuvânt, vă recomandăm să <b>nu</b>
+  bifați această opțiune. Ea încetinește căutarea, iar rezultatele
+  prezentate vă pot pune în încurcătură (deoarece veți primi și
+  definițiile altor cuvinte care poate nu vă interesează). De exemplu,
+  dacă doriți definiția pentru „copil”, dar din greșeală bifați
+  această opțiune, veți primi și definițiile pentru „abandon”,
+  „adopta”, „ala-bala” și multe alte definiții nerelevante.
+
+
+<h3><a name="diacritice"></a>Pot să folosesc diacritice în cuvintele căutate?</h3>
+
+  Da, dar nu este obligatoriu. <i>DEX online</i> „înțelege” termenii
+  căutați și cu și fără diacritice. De exemplu, dacă căutați <a
+  href="definitie/fata">fata</a>, veți primi definiții pentru
+  <i>fată, față. făta, făța, fâța</i> și
+  <i>fâță</i>. Dacă doriți definițiile pentru <i>fată</i> în mod
+  special, căutați <a href="definitie/fată">fată</a> cu
+  diacritice.
+
+
+<h3><a name="tastare_diacritice"></a>Cum tastez diacriticele <i>ă, &#xe2;, î, ș, ț?</i></h3>
+
+  Dacă folosiți Windows XP, mergeți în <i>Control Panel &#x2192;
+  Regional and Language Options &#x2192; Languages &#x2192;
+  Details</i> și adăugați tastatura românească. Tot acolo, la <i>Key
+  Settings,</i> puteți alege cum să comutați între tastatura americană
+  și cea românească (combinația implicită este Alt-Shift). „Tastatura
+  românească” este de fapt o mapare care face ca tastele de pe
+  tastatura dumneavoastră să producă alte caractere când le
+  apăsați. În particular, diacriticele românești <i>ă, &#xe2;, î, ș</i> și
+  <i>ț</i> sunt asignate tastelor
+  <i>[. \, ], ;</i> și <i>'</i>.
+
+  <br/><br/>
+
+  Dacă folosiți altă variantă de Windows sau alt sistem de operare,
+  trebuie să le configurați în mod similar. Tastatura românească este
+  standard, deci diacriticele românești se vor afla în aceleași
+  poziții pe tastatură.
+
+  <br/><br/>
+
+  Dacă nu doriți să instalați maparea românească de tastatură, puteți
+  folosi notațiile <i>~a, ^a, ^i, ,s</i> și <i>,t</i> respectiv pentru
+  <i>ă, &#xe2;, î, ș</i> și <i>ț</i>.
+
+
+<h3><a name="regexp"></a>Pot să folosesc expresii regulate?</h3>
+
+  Da. Folosiți următoarele simboluri:
+
+  <ul>
+    <li><b>?</b> se potrivește cu orice caracter. De exemplu,
+    <b>?z</b> va găsi toate cuvintele din două litere în
+    care a doua literă este <b>z</b>.</li>
+
+    <li><b>*</b> se potrivește cu orice șir de caractere, inclusiv cu
+    șirul vid. De exemplu, <b>z*</b> va găsi toate cuvintele care încep cu
+    <b>z</b>.</li>
+
+    <li><b>s1|s2</b> se potrivește cu oricare din cele două șiruri. De
+    exemplu, <b>ana|caiafa</b> va găsi definițiile pentru <b>ana</b> și
+    pentru <b>caiafa</b>.</li>
+
+    <li><b>[set]</b> se potrivește cu oricare literă din set. De exemplu,
+    <b>ma[uy]*</b> va găsi cuvintele care încep cu <b>mau</b> sau
+    <b>may</b>.</li>
+
+    <li><b>[^set]</b> se potrivește cu oricare literă care
+    <b>nu</b> este în set. De exemplu, <b>*gh[^ei]*</b> va găsi
+    cuvintele care conțin grupul <b>gh</b>, dar nu în contextul
+    <b>ghe</b> sau <b>ghi</b>.</li>
+  </ul>
+
+
+<h3><a name="aprox"></a>De ce, când caut un cuvânt, primesc definiția unui cu totul alt cuvânt?</h3>
+
+  Cea mai probabilă explicație este că ați căutat un cuvânt care nu
+  există în <i>DEX online</i> (fie pentru că nu există în limba română,
+  fie pentru că niciunul din dicționarele pe care le avem nu-l
+  menționează). În această situație, <i>DEX online</i> vă oferă automat
+  cuvintele care diferă prin cel mult o literă de cuvântul introdus
+  (maxim cinci).
+
+  <br/><br/>
+
+  O altă explicație este că ați căutat o variantă a unui cuvânt sau un
+  cuvânt care admite variante. De exemplu, dacă căutați cuvântul <a href="definitie/cearceaf">cearceaf</a>,
+  veți primi și definiția pentru <i>cearșaf</i>, care este forma
+  literară.
+
+
+<h3><a name="nici_o_definitie"></a>Unele cuvinte sunt menționate, dar nu au nicio definiție. E normal?</h3>
+
+  Da. Multe cuvinte din <i>Dicționarul ortografic, ortoepic și
+  morfologic</i> nu au definiție. Este firesc, deoarece respectivul
+  dicționar tratează ortografia, nu semantica. Întâmplarea face că
+  niciun alt dicționar din cele pe care le avem nu le menționează,
+  dar sperăm ca în timp să facem rost și de definițiile acelor
+  cuvinte. Un asemenea exemplu este <a href="definitie/volemic">volemic</a>.
+
+
+<h3><a name="greseala_tipar"></a>Am găsit o greșeală în <i>DEX online</i>, ce fac?</h3>
+
+  Dacă observați o greșeală de tipar într-o definiție, apăsați pe
+  legătura <i>Greșeală de tipar</i>, aflată după
+  definiție, pentru a semnala greșeala. Puteți atașa și o scurtă
+  descriere a problemei. Vă rugăm să folosiți această metodă
+  <b>numai</b> pentru greșeli de tipar (litere lipsă, diacritice lipsă
+  etc.), <b>nu</b> pentru a semnala definiții care vi se par greșite
+  sau incomplete.  Preferăm să lăsăm corecturile de ordin semantic în
+  seama autorilor dicționarelor. Vă rugăm de asemenea să fiți cât de
+  expliciți se poate în semnalarea erorii, de preferință indicând
+  exact care este cuvântul greșit.
+
+
+<h3><a name="link_extern"></a>Cum fac să includ un formular de căutare în <i>DEX online</i> în pagina mea de web?</h3>
+
+  Cel mai simplu este să adăugați un link către
+  <b>http://dexonline.ro</b>. Acesta ne este și nouă de mare folos,
+  întrucât ne crește popularitatea și ne îmbunătățește cotarea în
+  ochii motoarelor de căutare. Puteți adăuga și o cutie de căutare în
+  <i>DEX online</i> direct din pagina dumneavoastră, inserând
+  următorul cod HTML în pagină:
+
+  <pre class="code">
+    &lt;form method="get" action="http://dexonline.ro/search.php">
+      DEX: &lt;input name="cuv"/> &lt;input type="submit" value="Caută"/>
+    &lt;/form></pre>
+
+
+<h3><a name="contribuie"></a>Cum contribui cu definiții la <i>DEX online?</i></h3>
+
+  Dacă ne folosiți când aveți nevoie și dacă le spuneți despre noi
+  prietenilor dumneavoastră care au nevoie de un dicționar, ne faceți
+  deja un mare bine. Dacă doriți să adăugați definiții la <i>DEX
+  online,</i> vă suntem cu atât mai recunoscători! Mecanismul este
+  simplu: vizitați <a href="contrib.php">pagina de contribuții</a>,
+  introduceți o definiție și trimiteți-ne-o. Noi preluăm definiția (cu
+  o întârziere de cel mult o zi), corectăm eventualele greșeli de
+  tipar și o activăm. Din acest moment, ea este parte din <i>DEX
+  online!</i>
+
+  <br/><br/>
+
+  Dorim ca definițiile trimise să fie cât mai conforme cu dicționarele
+  de unde provin.  Altfel, moderarea definițiilor trimise de
+  dumneavoastră durează la fel de mult ca și tastarea lor de la zero,
+  și deci întreaga încercare de a distribui efortul nu își mai atinge
+  scopul. Pentru aceasta, vă rugăm să citiți cu atenție următoarele
+  sugestii înainte de a introduce o definiție și să le respectați cât
+  mai bine:
+
+  <ul>
+    <li>Înainte de a trimite o definiție, căutați cuvântul pentru a vă
+    asigura că el nu are deja definiții mai complete decât cea pe care
+    intenționați să ne-o trimiteți. Ar fi păcat să vă irosiți timpul și
+    bunăvoința culegând definiții care nu aduc nimic nou.</li>
+
+    <li>Introduceți numai cuvinte din <a href="#surse">sursele
+    acceptate</a>. Dacă aveți sugestii pentru adăugarea de noi surse,
+    nu ezitați să ne scrieți.</li>
+
+    <li>Respectați cât mai bine formatarea definiției în textul
+    original: diacritice și accente (Ă, Â, Î, Ș, Ț, Ö), litere
+    <b>aldine</b> sau <i>cursive</i>, indici<sup>1</sup> și caractere
+    speciale (&loz;, &diams;). Puteți citi <a
+    href="static.php?c=format">detalii</a> despre cum puteți
+    introduce foarte ușor aceste simboluri</li>
+
+    <li>Dacă observați erori evidente în definiții (greșeli de tipar),
+    corectați-le. Dacă însă vi se pare că sensul definiției este
+    greșit, vă rugăm nu încercați să-l îmbunătățiți. Suntem de acord
+    că orice dicționar are lacune și definiții învechite, dar preferăm
+    să lăsăm corectarea acestora în seama autorilor lui de drept. Un
+    dicționar bazat pe improvizație personală nu poate căpăta o prea
+    mare trecere în ochii publicului larg.</li>
+  </ul>
+
+
+<h3><a name="contribuie_offline"></a>Cum contribui cu definiții la <i>DEX online</i> dacă nu pot să stau prea mult pe Internet?</h3>
+
+  Dacă doriți să ne ajutați în mod substanțial, o puteți face și
+  culegând definițiile offline, adică fără a fi conectat la
+  Internet. Puteți folosi orice editor de texte vă place mai
+  mult. Formatele preferate sunt text simplu, HTML sau Open Office,
+  dar acceptăm și Microsoft Word. Apoi, trimiteți-ne documentul
+  tehnoredactat prin <a href="contact.php">email</a>. Vă rugăm să
+  respectați următoarele cerințe:
+
+  <ul>
+    <li>Dacă preferați culegerea offline, vă rugăm să trimiteți
+    minimum 50 de cuvinte. Fișierul pe care dumneavoastră îl trimiteți
+    trebuie să mai treacă prin câteva modificări, care consumă destul
+    de mult timp. Acest timp este independent de numărul de cuvinte,
+    deci se „amortizează” foarte bine pentru 50 de cuvinte sau mai
+    multe, dar este o cheltuială inutilă pentru un număr mic de
+    cuvinte.</li>
+
+    <li>Nu uitați să respectați toate <a href="static.php?c=format">formatările</a> în textul cules.</li>
+
+    <li>Pe cât posibil, încercați să respectați următoarea paginare a
+    definițiilor: pe prima linie se scrie cuvântul, cu diacritice și
+    fără accent, iar pe a doua linie definiția; apoi un nou cuvânt, o
+    nouă definiție ș.a.m.d., ca în exemplul de mai jos:</li>
+  </ul>
+
+  <pre class="code">
+    zavergiu
+    <b>ZAVERGÍU</b>, <i>zavergii</i>, s.m. Revoluționar grec din 1821: <i>p. gener.</i> răsculat, răzvrătit. - <b>Zaveră</b> + suf. -<i>giu</i>.
+    zavescă
+    <b>ZAVÉSCĂ</b> s.f. (Înv.) Taxă specială plătită vistieriei în evul mediu, în Moldova, pentru redeschiderea unui proces. - Et. nec.
+    ...</pre>
+
+
+<h3><a name="moderator"></a>Vreau să devin moderator al <i>DEX online</i></h3>
+
+  Moderatorii <i>DEX online</i> au acces aproape neîngrădit la baza de
+  date, incluzând moderarea definițiilor recent trimise, editarea
+  celor existente sau modificarea formelor flexionare ale
+  cuvintelor. De aceea, acordăm dreptul de moderator persoanelor care
+  și-au dovedit bunele intenții față de <i>DEX online.</i> De exemplu,
+  după ce contribuiți cu cel puțin 100 de definiții la <i>DEX
+  online</i>, puteți cere să deveniți moderator. <a
+  href="contact.php">Scrieți-ne</a> pentru detalii.
+
+
+<h3><a name="cod"></a>Vreau să scriu cod pentru <i>DEX online</i></h3>
+
+  Sunteți mană cerească! Puteți vedea codul-sursă al <i>DEX online</i>
+  la <a href="http://svn.dexonline.ro">http://svn.dexonline.ro</a>. Dacă
+  doriți să obțineți o copie completă a codului și să îl modificați,
+  citiți <a href="codeAccess.php">aceste instrucțiuni</a>.
+
+
+<h3><a name="bug"></a>Vreau să repar un bug în <i>DEX online</i></h3>
+
+  Vă mulțumim anticipat! Iată <a
+  href="http://bugs.dexonline.ro/report/1">lista de bug-uri active</a>
+  din <i>DEX online</i>.
+
+
+<h3><a name="client"></a>Vreau să scriu un client pentru <i>DEX online</i></h3>
+
+  <i>DEX online</i> știe să răspundă la întrebări de tipul „vreau
+  toate definițiile și cuvintele care s-au modificat de la data
+  <i>X</i>”. Puteți deci scrie un client care se conectează periodic
+  la <i>DEX online</i> pentru a transfera ultimele noutăți. Pentru mai
+  multe informații, citiți <a href="update3.php">documentația</a>
+  protocolului de sincronizare.
+
+<h3><a name="scramble"></a>Am contribuit la <i>DEX online</i>, dar adresa mea de email e scrisă greșit!</h3>
+
+  Aceasta a fost și intenția noastră, datorită modului în care unii
+  oameni s-au gândit să câștige bani pe Internet. Ei au niște programe
+  care navighează pe Internet, deschid pagini la întâmplare și extrag
+  toate bucățile de text care arată ca o adresă de email. Apoi vând
+  adresele de email astfel extrase, cu milioanele, diverselor companii
+  care vând te miri ce pe Internet. Aceste companii încep să-i agaseze
+  pe proprietarii respectivelor adrese cu zeci de emailuri
+  nesolicitate (binecunoscutul „spam”).
+
+  <br/><br/>
+
+  Dacă am fi lăsat toate adresele în forma lor originală, toți
+  voluntarii care și-au dat adresa de email ar fi început să primească
+  spam (care poate ajunge lejer la 100 de mesaje pe zi). Din acest
+  motiv am alterat un pic adresele de email, astfel încât ele să fie
+  inteligibile de către un om, dar (sper) nu și de către un
+  program. În plus, voluntarii au dreptul de a-și ascunde complet
+  adresa de email.
+
+
+<h3><a name="otrs"></a>OTRS</h3>
+
+  Dacă sunteți moderator al <i>DEX online,</i> ne puteți ajuta să
+  răspundem la emailurile venite pe adresa de contact. Acestea vin în
+  număr relativ mare, dar avem unelte pentru a ușura
+  răspunsurile. Folosim un pachet software numit OTRS, care permite
+  mai multor voluntari să conlucreze pentru a răspunde la
+  emailuri. OTRS permite răspunsuri-tip cu care putem procesa foarte
+  ușor majoritatea mesajelor primite. <a
+  href="contact.php">Scrieți-ne</a> dacă sunteți interesat.
+
+
 <h3><a name="DICT"></a><i>DEX online</i> implementează protocolul DICT?</h3>
 
   Da. Configurați aplicația folosită (de exemplu gnome-dictionary) cu
@@ -334,7 +627,7 @@
     <li><a href="http://dex.webcast.ro">dex.webcast.ro</a></li>
   </ol>
 
-  Un "mirror" este un termen tehnic pentru o copie fidelă a unui
+  Un „mirror” este un termen tehnic pentru o copie fidelă a unui
   site. În cazul <i>DEX online</i>, mirror-urile nu sunt 100% fidele,
   deoarece modificarea datelor este dezactivată (nu puteți corecta
   definiții sau semnala greșeli de tipar). Dar în ce privește
@@ -690,8 +983,8 @@ rezervate Editurii Litera. Copierea definițiilor din aceste dicționare este in
   Nițica, am adăugat o interfață care vă
   permite să folosiți <i>DEX online</i> cu <b>Gnome
   Dictionary</b> sub linux / RedHat. Pentru a porni applet-ul, dați
-  click dreapta pe taskbar și selectați "Add to panel /
-  Accessories / Dictionary Lookup", sau lansați "gnome-dictionary"
+  click dreapta pe taskbar și selectați „Add to panel /
+  Accessories / Dictionary Lookup”, sau lansați <code>gnome-dictionary</code>
   dintr-un terminal. Pentru a face căutări în <i>DEX
   online</i>, programul trebuie configurat cu serverul
   <b>dexonline.ro</b> și portul <b>2628</b>. Din păcate,
@@ -801,6 +1094,14 @@ rezervate Editurii Litera. Copierea definițiilor din aceste dicționare este in
   Neologisme</i> publicat de Editura Saeculum și redistribuit sub
   licența GPL prin amabilitatea firmei Siveco.
 
+  <br/><br/>
+
+  În martie 2010 am creat <a href="http://m.dexonline.ro">m.dexonline.ro</a>, varianta siteului optimizată pentru dispozitivele mobile.
+
+  <br/><br/>
+
+  În aprilie 2010 am trecut la un design nou cu mai multă personalitate.
+
 
 <h3><a name="cacofonie"></a>Documentul ăsta e plin de cacofonii!</h3>
 
@@ -812,301 +1113,3 @@ rezervate Editurii Litera. Copierea definițiilor din aceste dicționare este in
   autorul crede că spaima pe care cacofoniile le provoacă vorbitorilor
   de limbă română se datorează numai automatismelor învățate în școala
   primară.
-
-
-<h3><a name="greseala_tipar"></a>Am găsit o greșeală în <i>DEX online</i>, ce fac?</h3>
-
-  Dacă observați o greșeală de tipar într-o definiție, apăsați pe
-  legătura <i>Greșeală de tipar</i>, aflată după
-  definiție, pentru a semnala greșeala. Puteți atașa și o scurtă
-  descriere a problemei. Vă rugăm să folosiți această metodă
-  <b>numai</b> pentru greșeli de tipar (litere lipsă, diacritice lipsă
-  etc.), <b>nu</b> pentru a semnala definiții care vi se par greșite
-  sau incomplete.  Preferăm să lăsăm corecturile de ordin semantic în
-  seama autorilor dicționarelor. Vă rugăm de asemenea să fiți cât de
-  expliciți se poate în semnalarea erorii, de preferință indicând
-  exact care este cuvântul greșit.
-
-
-<h3><a name="link_extern"></a>Cum fac să includ un formular de căutare în <i>DEX online</i> în pagina mea de web?</h3>
-
-  Cel mai simplu este să adăugați un link către
-  <b>http://dexonline.ro</b>. Acesta ne este și nouă de mare folos,
-  întrucât ne crește popularitatea și ne îmbunătățește cotarea în
-  ochii motoarelor de căutare. Puteți adăuga și o cutie de căutare în
-  <i>DEX online</i> direct din pagina dumneavoastră, inserând
-  următorul cod HTML în pagină:
-
-  <pre class="code">
-    &lt;form method="get" action="http://dexonline.ro/search.php">
-      DEX: &lt;input name="cuv"/> &lt;input type="submit" value="Caută"/>
-    &lt;/form></pre>
-
-
-<h3><a name="contribuie"></a>Cum contribui cu definiții la <i>DEX online?</i></h3>
-
-  Dacă ne folosiți când aveți nevoie și dacă le spuneți despre noi
-  prietenilor dumneavoastră care au nevoie de un dicționar, ne faceți
-  deja un mare bine. Dacă doriți să adăugați definiții la <i>DEX
-  online,</i> vă suntem cu atât mai recunoscători! Mecanismul este
-  simplu: vizitați <a href="contrib.php">pagina de contribuții</a>,
-  introduceți o definiție și trimiteți-ne-o. Noi preluăm definiția (cu
-  o întârziere de cel mult o zi), corectăm eventualele greșeli de
-  tipar și o activăm. Din acest moment, ea este parte din <i>DEX
-  online!</i>
-
-  <br/><br/>
-
-  Dorim ca definițiile trimise să fie cât mai conforme cu dicționarele
-  de unde provin.  Altfel, moderarea definițiilor trimise de
-  dumneavoastră durează la fel de mult ca și tastarea lor de la zero,
-  și deci întreaga încercare de a distribui efortul nu își mai atinge
-  scopul. Pentru aceasta, vă rugăm să citiți cu atenție următoarele
-  sugestii înainte de a introduce o definiție și să le respectați cât
-  mai bine:
-
-  <ul>
-    <li>Înainte de a trimite o definiție, căutați cuvântul pentru a vă
-    asigura că el nu are deja definiții mai complete decât cea pe care
-    intenționați să ne-o trimiteți. Ar fi păcat să vă irosiți timpul și
-    bunăvoința culegând definiții care nu aduc nimic nou.</li>
-
-    <li>Introduceți numai cuvinte din <a href="#surse">sursele
-    acceptate</a>. Dacă aveți sugestii pentru adăugarea de noi surse,
-    nu ezitați să ne scrieți.</li>
-
-    <li>Respectați cât mai bine formatarea definiției în textul
-    original: diacritice și accente (Ă, Â, Î, Ș, Ț, Ö), litere
-    <b>aldine</b> sau <i>cursive</i>, indici<sup>1</sup> și caractere
-    speciale (&loz;, &diams;). Puteți citi <a
-    href="static.php?c=format">detalii</a> despre cum puteți
-    introduce foarte ușor aceste simboluri</li>
-
-    <li>Dacă observați erori evidente în definiții (greșeli de tipar),
-    corectați-le. Dacă însă vi se pare că sensul definiției este
-    greșit, vă rugăm nu încercați să-l îmbunătățiți. Suntem de acord
-    că orice dicționar are lacune și definiții învechite, dar preferăm
-    să lăsăm corectarea acestora în seama autorilor lui de drept. Un
-    dicționar bazat pe improvizație personală nu poate căpăta o prea
-    mare trecere în ochii publicului larg.</li>
-  </ul>
-
-
-<h3><a name="contribuie_offline"></a>Cum contribui cu definiții la <i>DEX online</i> dacă nu pot să stau prea mult pe Internet?</h3>
-
-  Dacă doriți să ne ajutați în mod substanțial, o puteți face și
-  culegând definițiile offline, adică fără a fi conectat la
-  Internet. Puteți folosi orice editor de texte vă place mai
-  mult. Formatele preferate sunt text simplu, HTML sau Open Office,
-  dar acceptăm și Microsoft Word. Apoi, trimiteți-ne documentul
-  tehnoredactat prin <a href="contact.php">email</a>. Vă rugăm să
-  respectați următoarele cerințe:
-
-  <ul>
-    <li>Dacă preferați culegerea offline, vă rugăm să trimiteți
-    minimum 50 de cuvinte. Fișierul pe care dumneavoastră îl trimiteți
-    trebuie să mai treacă prin câteva modificări, care consumă destul
-    de mult timp. Acest timp este independent de numărul de cuvinte,
-    deci se "amortizează" foarte bine pentru 50 de cuvinte sau mai
-    multe, dar este o cheltuială inutilă pentru un număr mic de
-    cuvinte.</li>
-
-    <li>Nu uitați să respectați toate <a href="static.php?c=format">formatările</a> în textul cules.</li>
-
-    <li>Pe cât posibil, încercați să respectați următoarea paginare a
-    definițiilor: pe prima linie se scrie cuvântul, cu diacritice și
-    fără accent, iar pe a doua linie definiția; apoi un nou cuvânt, o
-    nouă definiție ș.a.m.d., ca în exemplul de mai jos:</li>
-  </ul>
-
-  <pre class="code">
-    zavergiu
-    <b>ZAVERGÍU</b>, <i>zavergii</i>, s.m. Revoluționar grec din 1821: <i>p. gener.</i> răsculat, răzvrătit. - <b>Zaveră</b> + suf. -<i>giu</i>.
-    zavescă
-    <b>ZAVÉSCĂ</b> s.f. (Înv.) Taxă specială plătită vistieriei în evul mediu, în Moldova, pentru redeschiderea unui proces. - Et. nec.
-    ...</pre>
-
-
-<h3><a name="moderator"></a>Vreau să devin moderator al <i>DEX online</i></h3>
-
-  Moderatorii <i>DEX online</i> au acces aproape neîngrădit la baza de
-  date, incluzând moderarea definițiilor recent trimise, editarea
-  celor existente sau modificarea formelor flexionare ale
-  cuvintelor. De aceea, acordăm dreptul de moderator persoanelor care
-  și-au dovedit bunele intenții față de <i>DEX online.</i> De exemplu,
-  după ce contribuiți cu cel puțin 100 de definiții la <i>DEX
-  online</i>, puteți cere să deveniți moderator. <a
-  href="contact.php">Scrieți-ne</a> pentru detalii.
-
-
-<h3><a name="cod"></a>Vreau să scriu cod pentru <i>DEX online</i></h3>
-
-  Sunteți mană cerească! Puteți vedea codul-sursă al <i>DEX online</i>
-  la <a href="http://svn.dexonline.ro">http://svn.dexonline.ro</a>. Dacă
-  doriți să obțineți o copie completă a codului și să îl modificați,
-  citiți <a href="codeAccess.php">aceste instrucțiuni</a>.
-
-
-<h3><a name="bug"></a>Vreau să repar un bug în <i>DEX online</i></h3>
-
-  Vă mulțumim anticipat! Iată <a
-  href="http://bugs.dexonline.ro/report/1">lista de bug-uri active</a>
-  din <i>DEX online</i>.
-
-
-<h3><a name="client"></a>Vreau să scriu un client pentru <i>DEX online</i></h3>
-
-  <i>DEX online</i> știe să răspundă la întrebări de tipul "vreau
-  toate definițiile și cuvintele care s-au modificat de la data
-  <i>X</i>". Puteți deci scrie un client care se conectează periodic
-  la <i>DEX online</i> pentru a transfera ultimele noutăți. Pentru mai
-  multe informații, citiți <a href="update3.php">documentația</a>
-  protocolului de sincronizare.
-
-<h3><a name="scramble"></a>Am contribuit la <i>DEX online</i>, dar adresa mea de email e scrisă greșit!</h3>
-
-  Aceasta a fost și intenția noastră, datorită modului în care unii
-  oameni s-au gândit să câștige bani pe Internet. Ei au niște programe
-  care navighează pe Internet, deschid pagini la întâmplare și extrag
-  toate bucățile de text care arată ca o adresă de email. Apoi vând
-  adresele de email astfel extrase, cu milioanele, diverselor companii
-  care vând te miri ce pe Internet. Aceste companii încep să-i agaseze
-  pe proprietarii respectivelor adrese cu zeci de emailuri
-  nesolicitate (binecunoscutul "spam").
-
-  <br/><br/>
-
-  Dacă am fi lăsat toate adresele în forma lor originală, toți
-  voluntarii care și-au dat adresa de email ar fi început să primească
-  spam (care poate ajunge lejer la 100 de mesaje pe zi). Din acest
-  motiv am alterat un pic adresele de email, astfel încât ele să fie
-  inteligibile de către un om, dar (sper) nu și de către un
-  program. În plus, voluntarii au dreptul de a-și ascunde complet
-  adresa de email.
-
-
-<h3><a name="otrs"></a>OTRS</h3>
-
-  Dacă sunteți moderator al <i>DEX online,</i> ne puteți ajuta să
-  răspundem la emailurile venite pe adresa de contact. Acestea vin în
-  număr relativ mare, dar avem unelte pentru a ușura
-  răspunsurile. Folosim un pachet software numit OTRS, care permite
-  mai multor voluntari să conlucreze pentru a răspunde la
-  emailuri. OTRS permite răspunsuri-tip cu care putem procesa foarte
-  ușor majoritatea mesajelor primite. <a
-  href="contact.php">Scrieți-ne</a> dacă sunteți interesat.
-
-
-<h3><a name="fulltext"></a>Ce înseamnă opțiunea "Caută în tot textul definițiilor"?</h3>
-
-  Când această opțiune <b>nu</b> este bifată, <i>DEX online</i> caută
-  numai prin cuvintele-titlu ale definițiilor. De exemplu, o căutare
-  după cuvântul "copil" va produce doar definițiile pentru "copil".
-  Când această opțiune este bifată, o căutare după cuvântul "copil" va
-  produce toate definițiile care conțin, oriunde în cuprinsul lor,
-  cuvântul "copil" (sau "copii", "copilului" sau alte forme
-  flexionare). Acest tip de căutare este util când nu vă mai amintiți
-  un cuvânt, dar vă amintiți câteva proprietăți ale lui. De exemplu, o
-  căutare după <a href="text/medicament+doză+mică">medicament doză mică</a> va produce rezultate relevante ca
-  "homeopatie", "picătură", "alcaloid" și altele.<br/><br/>
-
-  Dacă doriți numai să căutați un cuvânt, vă recomandăm să <b>nu</b>
-  bifați această opțiune. Ea încetinește căutarea, iar rezultatele
-  prezentate vă pot pune în încurcătură (deoarece veți primi și
-  definițiile altor cuvinte care poate nu vă interesează). De exemplu,
-  dacă doriți definiția pentru "copil", dar din greșeală bifați
-  această opțiune, veți primi și definițiile pentru "abandon",
-  "adopta", "ala-bala" și multe alte definiții nerelevante.
-
-
-<h3><a name="diacritice"></a>Pot să folosesc diacritice în cuvintele căutate?</h3>
-
-  Da, dar nu este obligatoriu. <i>DEX online</i> "înțelege" termenii
-  căutați și cu și fără diacritice. De exemplu, dacă căutați <a
-  href="definitie/fata">fata</a>, veți primi definiții pentru
-  <i>fată, față. făta, făța, fâța</i> și
-  <i>fâță</i>. Dacă doriți definițiile pentru <i>fată</i> în mod
-  special, căutați <a href="definitie/fată">fată</a> cu
-  diacritice.
-
-
-<h3><a name="tastare_diacritice"></a>Cum tastez diacriticele <i>ă, &#xe2;, î, ș, ț?</i></h3>
-
-  Dacă folosiți Windows XP, mergeți în <i>Control Panel &#x2192;
-  Regional and Language Options &#x2192; Languages &#x2192;
-  Details</i> și adăugați tastatura românească. Tot acolo, la <i>Key
-  Settings,</i> puteți alege cum să comutați între tastatura americană
-  și cea românească (combinația implicită este Alt-Shift). "Tastatura
-  românească" este de fapt o mapare care face ca tastele de pe
-  tastatura dumneavoastră să producă alte caractere când le
-  apăsați. În particular, diacriticele românești <i>ă, &#xe2;, î, ș</i> și
-  <i>ț</i> sunt asignate tastelor
-  <i>[. \, ], ;</i> și <i>'</i>.
-
-  <br/><br/>
-
-  Dacă folosiți altă variantă de Windows sau alt sistem de operare,
-  trebuie să le configurați în mod similar. Tastatura românească este
-  standard, deci diacriticele românești se vor afla în aceleași
-  poziții pe tastatură.
-
-  <br/><br/>
-
-  Dacă nu doriți să instalați maparea românească de tastatură, puteți
-  folosi notațiile <i>~a, ^a, ^i, ,s</i> și <i>,t</i> respectiv pentru
-  <i>ă, &#xe2;, î, ș</i> și <i>ț</i>.
-
-
-<h3><a name="regexp"></a>Pot să folosesc expresii regulate?</h3>
-
-  Da. Folosiți următoarele simboluri:
-
-  <ul>
-    <li><b>?</b> se potrivește cu orice caracter. De exemplu,
-    <b>?z</b> va găsi toate cuvintele din două litere în
-    care a doua literă este <b>z</b>.</li>
-
-    <li><b>*</b> se potrivește cu orice șir de caractere, inclusiv cu
-    șirul vid. De exemplu, <b>z*</b> va găsi toate cuvintele care încep cu
-    <b>z</b>.</li>
-
-    <li><b>s1|s2</b> se potrivește cu oricare din cele două șiruri. De
-    exemplu, <b>ana|caiafa</b> va găsi definițiile pentru <b>ana</b> și
-    pentru <b>caiafa</b>.</li>
-
-    <li><b>[set]</b> se potrivește cu oricare literă din set. De exemplu,
-    <b>ma[uy]*</b> va găsi cuvintele care încep cu <b>mau</b> sau
-    <b>may</b>.</li>
-
-    <li><b>[^set]</b> se potrivește cu oricare literă care
-    <b>nu</b> este în set. De exemplu, <b>*gh[^ei]*</b> va găsi
-    cuvintele care conțin grupul <b>gh</b>, dar nu în contextul
-    <b>ghe</b> sau <b>ghi</b>.</li>
-  </ul>
-
-
-<h3><a name="aprox"></a>De ce, când caut un cuvânt, primesc definiția unui cu totul alt cuvânt?</h3>
-
-  Cea mai probabilă explicație este că ați căutat un cuvânt care nu
-  există în <i>DEX online</i> (fie pentru că nu există în limba română,
-  fie pentru că niciunul din dicționarele pe care le avem nu-l
-  menționează). În această situație, <i>DEX online</i> vă oferă automat
-  cuvintele care diferă prin cel mult o literă de cuvântul introdus
-  (maxim cinci).
-
-  <br/><br/>
-
-  O altă explicație este că ați căutat o variantă a unui cuvânt sau un
-  cuvânt care admite variante. De exemplu, dacă căutați cuvântul <a href="definitie/cearceaf">cearceaf</a>,
-  veți primi și definiția pentru <i>cearșaf</i>, care este forma
-  literară.
-
-
-<h3><a name="nici_o_definitie"></a>Unele cuvinte sunt menționate, dar nu au nicio definiție. E normal?</h3>
-
-  Da. Multe cuvinte din <i>Dicționarul ortografic, ortoepic și
-  morfologic</i> nu au definiție. Este firesc, deoarece respectivul
-  dicționar tratează ortografia, nu semantica. Întâmplarea face că
-  niciun alt dicționar din cele pe care le avem nu le menționează,
-  dar sperăm ca în timp să facem rost și de definițiile acelor
-  cuvinte. Un asemenea exemplu este <a href="definitie/volemic">volemic</a>.

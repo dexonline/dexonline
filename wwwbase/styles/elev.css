@@ -165,11 +165,6 @@ table td, table th {
   position: relative;
 }
 
-.smallLogo {
-  float: left;
-  margin: 8px 10px 0px 0px;
-}
-
 #searchForm {
   float: left;
 }
@@ -227,7 +222,7 @@ table td, table th {
   color :#999;
   display: block;
   font-size: 11px;
-  padding-top: 5px;
+  padding-top: 2px;
 }
 
 .defDetails a {

@@ -1,11 +1,15 @@
-<form action="{$wwwRoot}search.php" name="frm" onsubmit="return friendlyRedirect()">
-  <input type="text" name="cuv" class="search_field" value="{$cuv|escape}"  maxlength="50"/>
+<form action="{$wwwRoot}search.php" name="frm" onsubmit="return friendlyRedirect()" id="searchForm">
+  <input type="text" name="cuv" class="search_field" value="{$cuv|escape}"  maxlength="50" title="Caută"/>
   <input type="image" value="Search" class="search_button" src="{$imgRoot}/zepu/cauta.png" alt="Caută"/>
-  <br/>
-  <input type="checkbox" name="text" value="1" id="defBody" {if $text}checked="checked"{/if}/>
-  <label for="defBody">Caută în tot textul definițiilor</label>
-  (<a href="{$wwwRoot}faq.php#fulltext">explicație</a>)
-  {include file="common/sourceDropDown.ihtml" urlName=1}
+  {if !$advancedSearch}
+    <a href="#" onclick="return toggleDivVisibility('advSearch')">Căutare avansată</a>
+  {/if}
+  <div id="advSearch" {if !$advancedSearch}style="display: none"{/if}>
+    <input type="checkbox" name="text" value="1" id="defBody" {if $text}checked="checked"{/if}/>
+    <label for="defBody">Caută în tot textul definițiilor</label>
+    (<a href="{$wwwRoot}faq.php#fulltext">explicație</a>)
+    {include file="common/sourceDropDown.ihtml" urlName=1}
+  </div>
 </form>
 <div class="clearer"></div> 
 <script type="text/javascript">

@@ -1,9 +1,10 @@
-<div id="Logo"><img src="{$imgRoot}/zepu/dexonline_logo.png" width="392" height="137" alt="DEX online logo"/></div>
+<div id="Logo"><img src="{$imgRoot}/zepu/dexonline_logo.png" width="316" height="82" alt="DEX online logo"/></div>
+<div id="whoami">Dicționare ale limbii române</div>
 
 <div class="clearer"></div>
 
 <div id="Search">
-  {include file="zepu/search.ihtml"}
+  {include file="zepu/search.ihtml" advancedSearch=1}
 </div>
 
 <div class="clearer"></div>

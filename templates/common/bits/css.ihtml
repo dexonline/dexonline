@@ -1,9 +1,6 @@
 {if $admin}
   <link href="{$wwwRoot}styles/admin.css?v=1" rel="stylesheet" type="text/css"/>
 {/if}
-{if $elev}
-  <link href="{$wwwRoot}styles/elev.css?v=1" rel="stylesheet" type="text/css"/>
-{/if}
 {if $flex}
   <link href="{$wwwRoot}styles/flex.css?v=2" rel="stylesheet" type="text/css"/>
 {/if}
@@ -20,5 +17,5 @@
   <link href="{$wwwRoot}styles/polar.css?v=3" rel="stylesheet" type="text/css"/>
 {/if}
 {if $zepu}
-  <link href="{$wwwRoot}styles/zepu.css?v=6" rel="stylesheet" type="text/css"/>
+  <link href="{$wwwRoot}styles/zepu.css?v=7" rel="stylesheet" type="text/css"/>
 {/if}

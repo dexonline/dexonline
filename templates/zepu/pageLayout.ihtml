@@ -12,41 +12,40 @@
   </head>
 
   <body>
-    <div id="menuTop">
-      <div class="menuT">
-        <h1 class="plug">DEX online - Dicționare ale limbii române</h1>
-        <div class="userActions">
+    <div id="header">
+      <div id="headerContainer">
+        <div id="banner">{include file="common/bits/adsense_leaderboard_zepu.ihtml"}</div>
+        <div id="userActions">
           {if !$is_mirror}
-            {if $is_connected}
-              <span id="userNick">{$nick|escape}</span>
-              {if $is_moderator}
-                <a href="{$wwwRoot}admin">Pagina moderatorului</a>&nbsp;
+            <span id="userNick">{$nick|escape}</span><br/>
+            <ul id="userUl">
+              {if $is_connected}
+                {if $is_moderator}
+                  <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
+                {/if}
+                <li><a href="{$wwwRoot}account.php">Contul meu</a></li>
+                <li><a href="{$wwwRoot}logout.php">Deconectare</a></li>
+              {else}
+                <li><a href="{$wwwRoot}prefs.php">Preferințe</a></li>
+                <li><a href="{$wwwRoot}login.php">Conectare</a></li>
+                <li><a href="{$wwwRoot}signup.php">Înregistrare</a></li>
               {/if}
-              <a href="{$wwwRoot}account.php">Contul meu</a>&nbsp;
-              <a href="{$wwwRoot}logout.php">Deconectare</a>
-            {else}
-			        <a href="{$wwwRoot}prefs.php">Preferințe</a>&nbsp;
-              <a href="{$wwwRoot}login.php">Conectare</a>&nbsp;
-              <a href="{$wwwRoot}signup.php">Înregistrare</a>
-            {/if}
+            </ul>
           {/if}
         </div>
       </div>
     </div>
 
-    <div id="header">
-      <br/>
-      {include file="common/bits/adsense_leaderboard_zepu.ihtml"}
-    </div>
 
     <div id="Container">
       <div id="menu">
-        {if !$onHomePage}
-          <a href="{$wwwRoot}">
-            <img src="{$imgRoot}/zepu/dexonline_logo_mic.png" class="noBorder" width="111" height="25" alt="DEX online small logo"/>
-          </a>
-        {/if}
         <ul>
+          {if !$onHomePage}
+            <a href="{$wwwRoot}">
+              <img src="{$imgRoot}/zepu/dexonline_logo_mic.png" class="noBorder" width="111" height="25" alt="DEX online small logo"
+                   title="Pagina principală DEX online"/>
+            </a>
+          {/if}
           <li><a href="{$wwwRoot}faq.php">Informații</a></li>
           <li><a href="{$wwwRoot}contrib.php">Contribuie</a></li>
           <li><a href="{$wwwRoot}corect.php" id="guideLink">Ghid de exprimare</a></li>
@@ -55,11 +54,12 @@
           <li><a href="#" onclick="abbrevWindow(); return false;">Abrevieri</a></li>
           <li><a href="{$wwwRoot}contact.php">Contact</a></li>
         </ul>
+
       </div>
 
       {include file="common/flashMessages.ihtml"}
 
-      {if $onZepuSearchPage}
+      {if !$onHomePage}
         <div id="Search2">
           {include file="zepu/search.ihtml"}
         </div>

@@ -159,10 +159,9 @@ table td, table th {
 }
 
 #Search {
-  height: auto;
   margin: 25px 0px 25px 170px;
-  padding: 0;
-  position: relative;
+  padding: 0px;
+  width: 545px;
 }
 
 #searchForm {
@@ -170,10 +169,8 @@ table td, table th {
 }
 
 #Search2 {
-  height: auto;
   margin: 10px 0px 15px 15px;
-  padding: 0;
-  position: relative;
+  padding: 0px;
 }
 
 .search_button {

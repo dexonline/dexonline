@@ -1,4 +1,4 @@
-<div id="Logo"><img src="{$imgRoot}/zepu/dexonline_logo.png" width="316" height="82" alt="DEX online logo"/></div>
+<div id="Logo"><img src="{$imgRoot}/zepu/logo.png" width="316" height="82" alt="DEX online logo"/></div>
 <div id="whoami">Dicționare ale limbii române</div>
 
 <div class="clearer"></div>

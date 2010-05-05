@@ -846,6 +846,11 @@ class Lexem extends BaseObject {
     parent::delete();
   }
 
+  public function save() {
+    $this->formUtf8General = $this->formNoAccent;
+    parent::save();
+  }  
+
   public function __toString() {
     return $this->description ? "{$this->formNoAccent} ({$this->description})" : $this->formNoAccent;
   }
@@ -965,6 +970,11 @@ class InflectedForm extends BaseObject {
       $if->delete();
     }
   }
+
+  public function save() {
+    $this->formUtf8General = $this->formNoAccent;
+    parent::save();
+  }  
 }
 
 class ParticipleModel extends BaseObject {

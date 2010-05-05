@@ -243,8 +243,14 @@ function validateRestriction($modelType, $restriction) {
         return "Restricția <b>$char</b> se aplică numai verbelor";
       }
     } else if ($char == 'S') {
+      if ($modelType == 'I' || $modelType == 'T') {
+        return "Restricția S nu se aplică modelului $modelType";
+      }
       $hasS = true;
     } else if ($char == 'P') {
+      if ($modelType == 'I' || $modelType == 'T') {
+        return "Restricția P nu se aplică modelului $modelType";
+      }
       $hasP = true;
     } else {
       return "Restricția <b>$char</b> este incorectă.";

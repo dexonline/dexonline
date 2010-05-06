@@ -14,7 +14,7 @@
         «{include file="common/bits/lexemName.ihtml" lexem=$lexems.0}»
       {else}
         {foreach from=$lexems item=lexem key=row_id}
-          <a href="{$wwwRoot}lexem/{$lexem->id}">{$lexem->formNoAccent}</a
+          <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{$lexem->formNoAccent}</a
           >{if $lexem->description} ({$lexem->description|escape}){/if
           }{if $row_id < count($lexems) - 1},{/if}
         {/foreach}
@@ -27,7 +27,7 @@
   
     {elseif $searchType == SEARCH_DEF_ID}
       {if count($results)}
-        Definiția cu ID-ul {$cuv|escape}:
+        Definiția cu ID-ul {$defId|escape}:
       {/if}
   
     {elseif $searchType == SEARCH_REGEXP}
@@ -142,8 +142,8 @@
           | Id: {$row->definition->id}
         {/if}
   
-        |
-        <a href="javascript:typoWindow({$row->definition->id})">Greșeală de tipar</a>
+        | <a href="javascript:typoWindow({$row->definition->id})">Greșeală de tipar</a>
+        | <a href="{$wwwRoot}definitie/{$row->definition->lexicon}/{$row->definition->id}" title="Link doar către această definiție">Permalink</a>
   
         {if $is_moderator && !$is_mirror}
           | <a target="edit_window" href="{$wwwRoot}admin/definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
@@ -167,7 +167,7 @@
   {if $searchType == SEARCH_APPROXIMATE || $searchType == SEARCH_REGEXP}
     {foreach from=$lexems item=lexem key=row_id}
       {if $row_id}|{/if}
-      <a href="{$wwwRoot}lexem/{$lexem->id}">{include file="common/bits/lexemName.ihtml" lexem=$lexem}</a>
+      <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{include file="common/bits/lexemName.ihtml" lexem=$lexem}</a>
     {/foreach}
   {/if}
 

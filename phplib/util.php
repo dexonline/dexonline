@@ -332,11 +332,12 @@ function util_deleteFile($fileName) {
 
 /**
  * Search engine friendly URLs used for the search page:
- * 1) http://dexonline.ro/definitie[-<sursa>]/<cuvânt>[/paradigma]
- * 2) http://dexonline.ro/lexem[-<sursa>]/<lexemId>[/paradigma]
+ * 1) http://dexonline.ro/definitie[-<sursa>]/<cuvânt>[/<defId>][/paradigma]
+ * 2) http://dexonline.ro/lexem[-<sursa>]/<cuvânt>[/<lexemId>][/paradigma]
  * 3) http://dexonline.ro/text[-<sursa>]/<text>
+ * Links of the old form (search.php?...) can only come via the search form and should not contain lexemId / definitionId.
  */
-function util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm) {
+function util_redirectToFriendlyUrl($cuv, $sourceUrlName, $text, $showParadigm) {
   if (strpos($_SERVER['REQUEST_URI'], '/search.php?') === false) {
     return;    // The url is already friendly.
   }
@@ -349,8 +350,6 @@ function util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $show
 
   if ($text) {
     $url = "text{$sourcePart}/{$cuv}";
-  } else if ($lexemId) {
-    $url = "lexem{$sourcePart}/{$lexemId}{$paradigmPart}";
   } else {
     $url = "definitie{$sourcePart}/{$cuv}{$paradigmPart}";
   }

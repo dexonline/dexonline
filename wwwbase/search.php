@@ -4,6 +4,7 @@ require_once("../phplib/lexemSources.php");
 
 $cuv = util_getRequestParameter('cuv');
 $lexemId = util_getRequestParameter('lexemId');
+$defId = util_getRequestParameter('defId');
 $sourceUrlName = util_getRequestParameter('source');
 $text = util_getRequestIntParameter('text');
 $showParadigm = util_getRequestParameter('showParadigm');
@@ -12,7 +13,7 @@ if ($cuv) {
   $cuv = text_cleanupQuery($cuv);
 }
 
-$redirectUrl = util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm);
+util_redirectToFriendlyUrl($cuv, $sourceUrlName, $text, $showParadigm);
 
 $searchType = SEARCH_INFLECTED;
 $hasDiacritics = session_user_prefers('FORCE_DIACRITICS');
@@ -34,6 +35,13 @@ if ($cuv) {
   smarty_assign('page_description', "Definiții, sinonime, antonime, expresii, conjugări și declinări pentru {$cuv}");
 }
 
+if ($isAllDigits) {
+  $d = Definition::get("id = {$cuv}");
+  if ($d) {
+    util_redirect(util_getWwwRoot() . "definitie/{$d->lexicon}/{$d->id}");
+  }
+}
+
 if ($text) {
   $searchType = SEARCH_FULL_TEXT;
   if (lock_exists(LOCK_FULL_TEXT_INDEX)) {
@@ -49,8 +57,8 @@ if ($text) {
     $defIds = array_slice($defIds, 0, 500);
     // Load definitions in the given order
     $definitions = array();
-    foreach ($defIds as $defId) {
-      $definitions[] = Definition::get("id = {$defId}");
+    foreach ($defIds as $id) {
+      $definitions[] = Definition::get("id = {$id}");
     }
     if (!count($defIds)) {
       session_setFlash('Nicio definiție nu conține toate cuvintele căutate.');
@@ -61,6 +69,7 @@ if ($text) {
 
 // LexemId search
 if ($lexemId) {
+  // We don't really use $cuv here
   $searchType = SEARCH_LEXEM_ID;
   smarty_assign('lexemId', $lexemId);
   if (!text_validateAlphabet($lexemId, '0123456789')) {
@@ -102,14 +111,15 @@ if ($hasRegexp) {
 }
 
 // Definition.id search
-if ($isAllDigits) {
+if ($defId) {
+  smarty_assign('defId', $defId);
   $searchType = SEARCH_DEF_ID;
-  $def = Definition::get("id = '$cuv' and status = 0"); 
+  $def = Definition::get("id = '$defId' and status = 0"); 
   $definitions = array();
   if ($def) {
     $definitions[] = $def;
   } else {
-    session_setFlash("Nu există nicio definiție cu ID-ul {$cuv}.");
+    session_setFlash("Nu există nicio definiție cu ID-ul {$defId}.");
   }
   $searchResults = SearchResult::mapDefinitionArray($definitions);
   smarty_assign('results', $searchResults);
@@ -214,7 +224,6 @@ smarty_assign('text', $text);
 smarty_assign('searchType', $searchType);
 smarty_assign('showParadigm', $showParadigm);
 smarty_assign('paradigmLink', $paradigmLink);
-smarty_assign('onZepuSearchPage', 1);
 smarty_assign('advancedSearch', $text || $sourceId);
 smarty_assign('adsense', pref_getAdsense());
 smarty_displayCommonPageWithSkin('search.ihtml');

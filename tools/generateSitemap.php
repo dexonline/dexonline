@@ -34,12 +34,12 @@ while ($dbRow = mysql_fetch_array($dbResult)) {
   }
   if ($rowB[0] && ($rowB[1] == $rowA[1] || $rowB[1] == $rowC[1])) {
     // Only add a link to the lexem if it has homonyms. Otherwise, its page is identical to the definition page.
-    addUrl("http://dexonline.ro/lexem/{$rowB[0]}");
+    addUrl("http://dexonline.ro/lexem/{$rowB[1]}/{$rowB[0]}");
   }
 }
 // Now process the last row
 if ($rowC[1] == $rowB[1]) {
-  addUrl("http://dexonline.ro/lexem/{$rowC[0]}");
+  addUrl("http://dexonline.ro/lexem/{$rowC[1]}/{$rowC[0]}");
 } else {
   addUrl('http://dexonline.ro/definitie/' . urlencode($rowC[1]));
 }

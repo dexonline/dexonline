@@ -3,7 +3,7 @@ afiliat în niciun fel Academiei Române. Dacă aveți sugestii pentru acest ghi
 
 <br/><br/>
 
-<form name="GuideEntryEdit" action="ghid" method="post">
+<form name="GuideEntryEdit" action="ghid-exprimare" method="post">
   <table class="rightWrong" id="guideEntryTable">
     <thead>
       <tr>

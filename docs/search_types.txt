@@ -1,0 +1,51 @@
+Here is a detailed list of search parameter combinations.
+
+Search form parameters
+======================
+
+$cuv      $text (checkbox)      $source      Result
+-------------------------------------------------------------------------------------
+null      0                     null         404 page
+null      0                     <source>     404 page
+null      1                     null         no results
+null      1                     <source>     no results
+<cuv>     0                     null         redirects to /definitie/copil
+<cuv>     0                     <source>     redirects to /definitie-<source>/<cuv>
+<cuv>     1                     null         redirects to /text/<cuv>
+<cuv>     1                     <source>     redirects to /text-<source>/<cuv>
+
+Notes:
+- The search forms normally submits to search.php?cuv=$cuv&text=$text&source=$source
+- However, there is JavaScript code that intercepts the onSubmit() and redirects straight to the friendly URL
+- If the JavaScript code doesn't run for any reason, we have a server-side redirect in place
+- If the query is all digits, and a definition exists with that ID, we redirect to /definition/<lexicon>/<id>
+
+Definitions: /definitie[-<source>]/<cuv>[/<id>][/paradigma]
+===========================================================
+
+$cuv      $source      $id        paradigma   Example                               Result
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+null      null         null       0           /definitie                            404 page
+null      null         null       1           /definitie//paradigma                 Cannot occur from user input, redirects to /definitie/paradigmă
+null      null         <number>   0           /definitie//1234                      Cannot occur from user input, redirects to /definitie/afro/1234
+null      null         <number>   1           /definitie//1234/paradigma            Cannot occur from user input, redirects to /definitie/afro/1234
+null      <source>     null       0           /definitie-dex                        404 page
+null      <source>     null       1           /definitie-dex//paradigma             Cannot occur from user input, redirects to /definitie-dex/paradigmă
+null      <source>     <number>   0           /definitie-dex//1234                  Cannot occur from user input, redirects to /definitie/afro/1234
+null      <source>     <number>   1           /definitie-dex//1234/paradigma        Cannot occur from user input, redirects to /definitie/afro/1234
+<cuv>     null         null       0           /definitie/copil                      Displays all definitions for copil
+<cuv>     null         null       1           /definitie/copil/paradigma            Displays all definitions and paradigms for copil
+<cuv>     null         <number>   0           /definitie/copil/8920                 Displays the definition with ID = 8920
+<cuv>     null         <number>   1           /definitie/copil/8920/paradigma       Displays the definition with ID = 8920 (no paradigm, as there are no lexems)
+<cuv>     <source>     null       0           /definitie-dex/copil                  Displays definitions for copil from DEX
+<cuv>     <source>     null       1           /definitie-dex/copil/paradigma        Displays definitions for copil from DEX and paradigms
+<cuv>     <source>     <number>   0           /definitie-dex/copil/8920             Displays the definition with ID = 8920 (source is ignored)
+<cuv>     <source>     <number>   1           /definitie-dex/copil/8920/paradigma   Displays the definition with ID = 8920 (source and paradigm are ignored)
+
+RewriteRule /lexem[-<source>]/<cuv>[/<id>][/paradigma]
+======================================================
+
+Notes:
+- /lexem is not reachable from user input. The search form only submits to /definitie or /text
+- As such, links to /lexem are internally generated and are somewhat trusted
+- The only form in use is /lexem/<formNoAccent>/<id>

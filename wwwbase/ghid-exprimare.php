@@ -17,7 +17,7 @@ if ($action == 'delete') {
     $guideEntry->status = ST_DELETED;
     $guideEntry->save();
     session_setFlash('Înregistrarea a fost ștearsă.', 'info');
-    util_redirect('ghid');
+    util_redirect('ghid-exprimare');
   }
 } else if ($action == 'edit') {
   smarty_assign('editableGuideEntryId', $id);
@@ -54,5 +54,5 @@ if ($action == 'delete') {
 }
 
 smarty_assign('guideEntries', db_find(new GuideEntry(), "status = 0"));
-smarty_displayCommonPageWithSkin('ghid.ihtml');
+smarty_displayCommonPageWithSkin('ghid-exprimare.ihtml');
 ?>

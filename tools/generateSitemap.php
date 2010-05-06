@@ -71,7 +71,7 @@ function addOtherUrls() {
   addUrl('http://dexonline.ro/cod-sursa');
   addUrl('http://dexonline.ro/contact');
   addUrl('http://dexonline.ro/contribuie');
-  addUrl('http://dexonline.ro/ghid');
+  addUrl('http://dexonline.ro/ghid-exprimare');
   addUrl('http://dexonline.ro/informatii');
   addUrl('http://dexonline.ro/inregistrare');
   addUrl('http://dexonline.ro/licenta-gpl');

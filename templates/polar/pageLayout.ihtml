@@ -20,13 +20,13 @@
       <tr>
         <td class="searchBoxContainer">
           <div class="linkBar">
-            <a href="{$wwwRoot}faq.php">Informații</a> |
-            <a href="{$wwwRoot}contrib.php">Contribuie</a> |
-            <a href="{$wwwRoot}corect.php" id="guideLink">Ghid de exprimare</a> |
-            <a href="{$wwwRoot}tools.php">Unelte</a> |
-            <a href="{$wwwRoot}top.php">Top</a> |            
+            <a href="{$wwwRoot}informatii">Informații</a> |
+            <a href="{$wwwRoot}contribuie">Contribuie</a> |
+            <a href="{$wwwRoot}ghid">Ghid de exprimare</a> |
+            <a href="{$wwwRoot}unelte">Unelte</a> |
+            <a href="{$wwwRoot}top">Top</a> |            
             <a href="#" onclick="abbrevWindow(); return false;">Abrevieri</a> |
-            <a href="{$wwwRoot}contact.php">Contact</a>
+            <a href="{$wwwRoot}contact">Contact</a>
           </div>
       
           <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return friendlyRedirect()">
@@ -40,7 +40,7 @@
                      name="text" value="1"
                      {if $text}checked="checked"{/if}
               /><label for="defBody">Caută în tot textul definițiilor</label>
-              (<a href="{$wwwRoot}faq.php#fulltext">explicație</a>)
+              (<a href="{$wwwRoot}informatii#fulltext">explicație</a>)
             </span>
           </form>
         </td>
@@ -73,17 +73,17 @@
               | <a href="{$wwwRoot}admin">Pagina moderatorului</a>
             {/if}
             {if $is_connected}
-              | <a href="{$wwwRoot}account.php">Contul meu</a>
-              | <a href="{$wwwRoot}logout.php" id="logoutLink">Deconectare</a>
+              | <a href="{$wwwRoot}contul-meu">Contul meu</a>
+              | <a href="{$wwwRoot}logout" id="logoutLink">Deconectare</a>
             {else}
-			  | <a href="{$wwwRoot}prefs.php">Preferințe</a>
-              | <a href="{$wwwRoot}login.php" id="loginLink">Conectare</a>
-              | <a href="{$wwwRoot}signup.php">Înregistrare</a>
+              | <a href="{$wwwRoot}preferinte">Preferințe</a>
+              | <a href="{$wwwRoot}login" id="loginLink">Conectare</a>
+              | <a href="{$wwwRoot}inregistrare">Înregistrare</a>
             {/if}
             <br/>
           {/if}
 
-          Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro) &#x2022; <a href="{$wwwRoot}faq.php#licenta">Informații despre licență</a>
+          Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro) &#x2022; <a href="{$wwwRoot}informatii#licenta">Informații despre licență</a>
 
         </td>
         <td class="narrow">

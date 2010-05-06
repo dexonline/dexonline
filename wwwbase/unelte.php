@@ -121,5 +121,5 @@ smarty_assign('page_title', 'Unelte');
 smarty_assign('clients', $clients);
 smarty_assign('clientOptions', $clientOptions);
 smarty_assign('osNames', $osNames);
-smarty_displayCommonPageWithSkin('tools.ihtml');
+smarty_displayCommonPageWithSkin('unelte.ihtml');
 ?>

@@ -2,7 +2,7 @@
 require_once('../phplib/util.php');
 
 // TODO: Add user pages
-// TODO: Add inflection models (from viewModels.php)
+// TODO: Add inflection models (from modele-flexiune.php)
 
 define('FILE_SIZE_LIMIT', 9000000);
 define('FILE_URL_LIMIT', 45000);
@@ -68,16 +68,16 @@ function addUrl($url) {
 
 function addOtherUrls() {
   addUrl('http://dexonline.ro/');
-  addUrl('http://dexonline.ro/faq.php');
-  addUrl('http://dexonline.ro/contrib.php');
-  addUrl('http://dexonline.ro/corect.php');
-  addUrl('http://dexonline.ro/tools.php');
-  addUrl('http://dexonline.ro/top.php');
-  addUrl('http://dexonline.ro/contact.php');
-  addUrl('http://dexonline.ro/login.php');
-  addUrl('http://dexonline.ro/signup.php');
-  addUrl('http://dexonline.ro/license.php');
-  addUrl('http://dexonline.ro/codeAccess.php');
+  addUrl('http://dexonline.ro/cod-sursa');
+  addUrl('http://dexonline.ro/contact');
+  addUrl('http://dexonline.ro/contribuie');
+  addUrl('http://dexonline.ro/ghid');
+  addUrl('http://dexonline.ro/informatii');
+  addUrl('http://dexonline.ro/inregistrare');
+  addUrl('http://dexonline.ro/licenta-gpl');
+  addUrl('http://dexonline.ro/login');
+  addUrl('http://dexonline.ro/unelte');
+  addUrl('http://dexonline.ro/top');
   addUrl('http://dexonline.ro/update.php');
   addUrl('http://dexonline.ro/update3.php');
 }

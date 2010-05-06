@@ -37,6 +37,6 @@ if ($user && $submitButton) {
 
 smarty_assign('user', $user);
 smarty_assign('token', $token);
-smarty_displayCommonPageWithSkin('passwordRecovery.ihtml');
+smarty_displayCommonPageWithSkin('recuperare-parola.ihtml');
 
 ?>

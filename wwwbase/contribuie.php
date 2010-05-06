@@ -54,7 +54,7 @@ if ($sendButton) {
 
     LexemDefinitionMap::associate($lexem->id, $definition->id);
     session_setFlash('Definiția a fost trimisă. Un moderator o va examina în scurt timp. Vă mulțumim!', 'info');
-    util_redirect('contrib.php');
+    util_redirect('contribuie');
   }
 } else {
   smarty_assign('sourceId', session_getDefaultContribSourceId());
@@ -62,6 +62,6 @@ if ($sendButton) {
 
 smarty_assign('contribSources', db_find(new Source(), 'canContribute'));
 smarty_assign('page_title', 'Contribuie cu definiții');
-smarty_displayCommonPageWithSkin('contrib.ihtml');
+smarty_displayCommonPageWithSkin('contribuie.ihtml');
 
 ?>

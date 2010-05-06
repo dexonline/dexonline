@@ -16,7 +16,7 @@ $skin = util_getRequestParameter('skin');
 
 $user = session_getUser();
 if (!$user) {
-  util_redirect('login.php');
+  util_redirect('login');
 }
 
 if ($sendButton) {
@@ -112,5 +112,5 @@ smarty_assign('userPrefs', $userPreferencesSet);
 smarty_assign('skin', $skin);
 smarty_assign('availableSkins', pref_getServerPreference('skins'));
 smarty_assign('page_title', 'Contul meu');
-smarty_displayCommonPageWithSkin('account.ihtml');
+smarty_displayCommonPageWithSkin('contul-meu.ihtml');
 ?>

@@ -154,25 +154,22 @@ with the application developers.
 
 </ul>
 
-<h4>Unelte pentru Federația Română de Scrabble</h4>
+<h4><a name="scrabble"></a>Unelte pentru Federația Română de Scrabble</h4>
 
 <ul>
 
-  <li><a href="scrabbleLoc.php">Lista Oficială de Cuvinte</a>
-  acceptată de Federația Română de Scrabble.
+  <li><a href="scrabble-loc">Lista Oficială de Cuvinte</a> acceptată de Federația Română de Scrabble.
 
     <ul>
       <li><a href="static.php?c=loc">Precizări</a> privind notațiile din listă</li>
     </ul>
   </li>
 
-  <li><a href="viewModels.php">Lista modelelor de flexiune</a>.</li>
-  <li><a href="scrabbleCheckInflection.php">Verificare formă
-  flexionară</a> - aflați rapid dacă o formă flexionară este în
-  LOC.</li>
+  <li><a href="modele-flexiune">Lista modelelor de flexiune</a>.</li>
+  <li><a href="scrabble-flexiune">Verificare formă flexionară</a> - aflați rapid dacă o formă flexionară este în LOC.</li>
 
   {if $is_flex_moderator}
-    <li><a href="scrabbleUniqueForms.php">Lista formelor unice</a>
+    <li><a href="scrabble-forme">Lista formelor unice</a>
     (fără diacritice, accente, dublete, cu lungimi între 2 și 15
     litere).</li>
   {/if}

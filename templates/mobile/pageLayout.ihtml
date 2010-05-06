@@ -14,27 +14,27 @@
     <div class="header">
         <!--div class="title">DEX online</div--> 
           <div class="linkBar">
-            <a href="{$wwwRoot}faq.php">Informații</a> |
-            <a href="{$wwwRoot}corect.php" id="guideLink">Ghid de exprimare</a> |
-            <a href="{$wwwRoot}tools.php">Unelte</a> |
-            <a href="{$wwwRoot}top.php">Top</a> |            
+            <a href="{$wwwRoot}informatii">Informații</a> |
+            <a href="{$wwwRoot}ghid">Ghid de exprimare</a> |
+            <a href="{$wwwRoot}unelte">Unelte</a> |
+            <a href="{$wwwRoot}top">Top</a> |            
             <a href="#" onclick="abbrevWindow(); return false;">Abrevieri</a> |
-            <a href="{$wwwRoot}contact.php">Contact</a>
+            <a href="{$wwwRoot}contact">Contact</a>
           </div>
         <div class="searchBoxContainer">
           <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return friendlyRedirect()">
-	    Introduceţi cuvântul de căutat: <br />
+      Introduceţi cuvântul de căutat: <br />
             <input type="text" name="cuv" size="15" value="{$cuv|escape}" maxlength="50"/>
             <script type="text/javascript">document.frm.cuv.select();document.frm.cuv.focus();</script>
             <input type="submit" value="Caută"/>
             {include file="common/sourceDropDown.ihtml" 
-			skipAnySource=true
-			urlName=1
-			}
+      skipAnySource=true
+      urlName=1
+      }
           </form>
         </div>
     </div>
-	<hr/>
+  <hr/>
 
   </td></tr>
   <tr><td height="100%" valign="top">
@@ -54,12 +54,12 @@
           {if !$is_mirror}
             Utilizator: <b id="user.nick">{$nick|escape}</b>
             {if $is_connected}
-              | <a href="{$wwwRoot}account.php">Contul meu</a>
-              | <a href="{$wwwRoot}logout.php" id="logoutLink">Deconectare</a>
+              | <a href="{$wwwRoot}contul-meu">Contul meu</a>
+              | <a href="{$wwwRoot}logout" id="logoutLink">Deconectare</a>
             {else}
-			  | <a href="{$wwwRoot}prefs.php">Preferințe</a>
-              | <a href="{$wwwRoot}login.php" id="loginLink">Conectare</a>
-              | <a href="{$wwwRoot}signup.php">Înregistrare</a>
+              | <a href="{$wwwRoot}preferinte">Preferințe</a>
+              | <a href="{$wwwRoot}login" id="loginLink">Conectare</a>
+              | <a href="{$wwwRoot}inregistrare">Înregistrare</a>
             {/if}
             <br/>
           {/if}

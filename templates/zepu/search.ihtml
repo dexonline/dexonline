@@ -7,7 +7,7 @@
   <div id="advSearch" {if !$advancedSearch}style="display: none"{/if}>
     <input type="checkbox" name="text" value="1" id="defBody" {if $text}checked="checked"{/if}/>
     <label for="defBody">Caută în tot textul definițiilor</label>
-    (<a href="{$wwwRoot}faq.php#fulltext">explicație</a>)
+    (<a href="{$wwwRoot}informatii#fulltext">explicație</a>)
     {include file="common/sourceDropDown.ihtml" urlName=1}
   </div>
 </form>

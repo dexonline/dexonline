@@ -1,5 +1,5 @@
-{* TODO: This replicates code from account.ihtml *}
-<form method="post" action="prefs.php">
+{* TODO: This replicates code from contul-meu.ihtml *}
+<form method="post" action="preferinte">
 <table class="userEdit">
   <tr>
     <td>Preferințe</td>

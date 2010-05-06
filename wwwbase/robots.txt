@@ -4,6 +4,6 @@ User-agent: *
 # We don't want THAT in Google's quick links, do we?
 Disallow: /search.php?cuv=muie
 Disallow: /definitie/muie
-Disallow: /prefs.php
+Disallow: /preferinte
 Disallow: /download/dex-database.sql.gz
-Disallow: /scrabbleUniqueForms.php
+Disallow: /scrabble-forme

@@ -23,12 +23,12 @@
                 {if $is_moderator}
                   <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
                 {/if}
-                <li><a href="{$wwwRoot}account.php">Contul meu</a></li>
-                <li><a href="{$wwwRoot}logout.php">Deconectare</a></li>
+                <li><a href="{$wwwRoot}contul-meu">Contul meu</a></li>
+                <li><a href="{$wwwRoot}logout">Deconectare</a></li>
               {else}
-                <li><a href="{$wwwRoot}prefs.php">Preferințe</a></li>
-                <li><a href="{$wwwRoot}login.php">Conectare</a></li>
-                <li><a href="{$wwwRoot}signup.php">Înregistrare</a></li>
+                <li><a href="{$wwwRoot}preferinte">Preferințe</a></li>
+                <li><a href="{$wwwRoot}login">Conectare</a></li>
+                <li><a href="{$wwwRoot}inregistrare">Înregistrare</a></li>
               {/if}
             </ul>
           {/if}
@@ -46,13 +46,13 @@
                    title="Pagina principală DEX online"/>
             </a>
           {/if}
-          <li><a href="{$wwwRoot}faq.php">Informații</a></li>
-          <li><a href="{$wwwRoot}contrib.php">Contribuie</a></li>
-          <li><a href="{$wwwRoot}corect.php" id="guideLink">Ghid de exprimare</a></li>
-          <li><a href="{$wwwRoot}tools.php">Unelte</a></li>
-          <li><a href="{$wwwRoot}top.php">Top</a></li>
+          <li><a href="{$wwwRoot}informatii">Informații</a></li>
+          <li><a href="{$wwwRoot}contribuie">Contribuie</a></li>
+          <li><a href="{$wwwRoot}ghid">Ghid de exprimare</a></li>
+          <li><a href="{$wwwRoot}unelte">Unelte</a></li>
+          <li><a href="{$wwwRoot}top">Top</a></li>
           <li><a href="#" onclick="abbrevWindow(); return false;">Abrevieri</a></li>
-          <li><a href="{$wwwRoot}contact.php">Contact</a></li>
+          <li><a href="{$wwwRoot}contact">Contact</a></li>
         </ul>
 
       </div>
@@ -73,7 +73,7 @@
     <div class="clearer"></div>
 
     <div id="Footer">
-      Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro) &#x2022; <a href="{$wwwRoot}faq.php#licenta">Informații despre licență</a>
+      Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro) &#x2022; <a href="{$wwwRoot}informatii#licenta">Informații despre licență</a>
     </div>
     <div id="links">
       {include file="common/trafic_ro.ihtml"}

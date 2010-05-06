@@ -3,7 +3,7 @@
 Tastați o formă flexionară și alegeți versiunea LOC pentru a afla dacă
 vreunul din cuvintele din LOC generează acea formă.<br/><br/>
 
-<form action="scrabbleCheckInflection.php" method="get">
+<form action="scrabble-flexiune" method="get">
   Forma:
   <input type="text" name="form" value="{$form|escape}"/>
   &nbsp;&nbsp;

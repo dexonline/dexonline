@@ -35,7 +35,7 @@ function adminHelpWindow(anchorName) {
 }
 
 function typoWindow(definitionId) {
-  window.open(wwwRoot + 'flag_typo.php?definitionId=' + definitionId,
+  window.open(wwwRoot + 'greseala?definitionId=' + definitionId,
               'typoWindow',
               'menubar=no,scrollbars=yes,toolbar=no,width=500,height=400');
 }

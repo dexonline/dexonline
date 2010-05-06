@@ -13,7 +13,7 @@ if ($sendButton) {
     session_setSkin($skin);
   }
   session_setFlash('Preferințele au fost salvate.', 'info');
-  util_redirect('prefs.php');
+  util_redirect('preferinte');
 } else {
   $userPrefs = session_getAnonymousPrefs();
   $skin = session_getSkin();
@@ -29,5 +29,5 @@ smarty_assign('userPrefs', $userPreferencesSet);
 smarty_assign('skin', $skin);
 smarty_assign('availableSkins', pref_getServerPreference('skins'));
 smarty_assign('page_title', 'Preferințe');
-smarty_displayCommonPageWithSkin('prefs.ihtml');
+smarty_displayCommonPageWithSkin('preferinte.ihtml');
 ?>

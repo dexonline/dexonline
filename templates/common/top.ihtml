@@ -7,19 +7,19 @@ Comparativ, Biblia are circa 3.500.000 de caractere.
     <th>Loc</th>
     <th align=left>
        {assign var="x" value="`$smarty.const.CRIT_NICK`"}
-       <a href="top.php?crit={$x}&ord={$title_links[$x]}">Nume</a>
+       <a href="top?crit={$x}&ord={$title_links[$x]}">Nume</a>
     </th>
     <th>
       {assign var="x" value="`$smarty.const.CRIT_CHARS`"}
-      <a href="top.php?crit={$x}&ord={$title_links[$x]}">Nr. caractere</a>
+      <a href="top?crit={$x}&ord={$title_links[$x]}">Nr. caractere</a>
     </th>
     <th>
       {assign var="x" value="`$smarty.const.CRIT_WORDS`"}
-      <a href="top.php?crit={$x}&ord={$title_links[$x]}">Nr. definiții</a>
+      <a href="top?crit={$x}&ord={$title_links[$x]}">Nr. definiții</a>
     </th>
     <th>
       {assign var="x" value="`$smarty.const.CRIT_DATE`"}
-      <a href="top.php?crit={$x}&ord={$title_links[$x]}">Data ultimei trimiteri</a>
+      <a href="top?crit={$x}&ord={$title_links[$x]}">Data ultimei trimiteri</a>
     </th>
   </tr>
 
@@ -27,7 +27,7 @@ Comparativ, Biblia are circa 3.500.000 de caractere.
     <tr class={cycle values="color1,color2"}>
       <td>{$place+$start+1}</td>
       <td class="nick">
-        <a href="user.php?n={$row->userNick|escape:"url"}">{$row->userNick|escape}</a>
+        <a href="utilizator/{$row->userNick|escape:"url"}">{$row->userNick|escape}</a>
       </td>
       <td>{$row->numChars|number_format:0:',':'.'}</td>
       <td>{$row->numDefinitions|number_format:0:',':'.'}</td>
@@ -47,12 +47,12 @@ Comparativ, Biblia are circa 3.500.000 de caractere.
   <tr class="userTopLinks">
     <td>
       {if $prev_start != -1}
-        <a href="top.php?crit={$crit}&ord={$ord}&start={$prev_start}">înapoi</a>
+        <a href="top?crit={$crit}&ord={$ord}&start={$prev_start}">înapoi</a>
       {/if}
     </td>
     <td colspan=4 class="fwdLink">
       {if $next_start != -1}
-        <a href="top.php?crit={$crit}&ord={$ord}&start={$next_start}">înainte</a>
+        <a href="top?crit={$crit}&ord={$ord}&start={$next_start}">înainte</a>
       {/if}
     </td>
   </tr>

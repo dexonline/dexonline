@@ -1,7 +1,7 @@
 {if $user}
   Pentru a completa procesul de schimbare a parolei, vă rugăm să vă alegeți o parolă nouă:
 
-  <form action="passwordRecovery.php" method="post">
+  <form action="recuperare-parola" method="post">
     <input type="hidden" name="token" value="{$token|escape}"/>
     <table class="userEdit">
       <tr>

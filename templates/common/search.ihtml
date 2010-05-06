@@ -129,11 +129,11 @@
       <br/>
   
       <span class="defDetails">
-        Sursa: <a class="ref" href="{$wwwRoot}faq.php#surse" title="{$row->source->name|escape}, {$row->source->year|escape}"
+        Sursa: <a class="ref" href="{$wwwRoot}informatii#surse" title="{$row->source->name|escape}, {$row->source->year|escape}"
         >{$row->source->shortName|escape}</a> |
   
         {if $row->user->id}
-          Adăugată de <a href="{$wwwRoot}user.php?n={$row->user->nick|escape:"url"}">{$row->user->nick|escape}</a>
+          Adăugată de <a href="{$wwwRoot}utilizator/{$row->user->nick|escape:"url"}">{$row->user->nick|escape}</a>
         {else}
           Adăugată de anonim
         {/if}
@@ -153,7 +153,7 @@
       {if $row->comment}
         <span class="defComment">
           Comentariu: {$row->comment->htmlContents} -
-          <a href="{$wwwRoot}user.php?n={$row->commentAuthor->nick|escape:"url"}"
+          <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}"
           >{$row->commentAuthor->nick|escape}</a>
         </span>
       {/if}

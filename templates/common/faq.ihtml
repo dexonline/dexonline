@@ -73,7 +73,7 @@
   menționate, cu excepția greșelilor evidente de tipar, pe care le-am
   corectat. <i>DEX online</i> este un proiect distribuit; oricine
   dorește poate ajuta la dezvoltarea proiectului, de exemplu <a
-  href="contrib.php">contribuind</a> cu definiții noi.
+  href="contribuie">contribuind</a> cu definiții noi.
 
   <br/><br/>
 
@@ -206,7 +206,7 @@
     federații s-au născut multe idei despre dezvoltarea acestui
     proiect.</li>
 
-    <li>Voluntarii listați în <a href="top.php">topul
+    <li>Voluntarii listați în <a href="top">topul
     voluntarilor</a>, care au adăugat definiții în <i>DEX
     online</i>. Cei mai activi dintre ei au tastat sute de pagini de
     definiții!</li>
@@ -228,7 +228,7 @@
 
     <li>Octavian Procopiuc, Ion Silvestru, Federico Mestrone, Octavian
     Râșniță și Alexandru Mirea, autorii <a
-    href="tools.php">aplicațiilor</a> pentru descărcarea și
+    href="unelte">aplicațiilor</a> pentru descărcarea și
     consultarea offline a bazei de date.</li>
 
     <li><a href="http://www.racai.ro">Institutul de Cercetare în
@@ -245,7 +245,7 @@
 
     <li><a href="http://www.mit.edu/~michel">Mihai Ibănescu</a> și <a
     href="http://marius.scurtescu.com/">Marius Scurtescu</a>, autorii
-    <a href="tools.php">scriptului</a> care adaugă <i>DEX online</i>
+    <a href="unelte">scriptului</a> care adaugă <i>DEX online</i>
     la cutia de căutare din Firefox sau Mozilla</li>
   </ul>
 
@@ -272,7 +272,7 @@
 
 <h3><a name="offline"></a>Pot să-mi instalez <i>DEX online</i> pe calculatorul de acasă? Dar pe dispozitive mobile?</h3>
 
-  Da. Vizitați pagina de <a href="tools.php">unelte</a> și citiți
+  Da. Vizitați pagina de <a href="unelte">unelte</a> și citiți
   secțiunea despre aplicații offline. Aceste aplicații transferă baza
   de date a DEX online pe calculatorul pe care sunt instalate, după
   care o pot consulta și în absența unei legături la internet.
@@ -428,7 +428,7 @@
   prietenilor dumneavoastră care au nevoie de un dicționar, ne faceți
   deja un mare bine. Dacă doriți să adăugați definiții la <i>DEX
   online,</i> vă suntem cu atât mai recunoscători! Mecanismul este
-  simplu: vizitați <a href="contrib.php">pagina de contribuții</a>,
+  simplu: vizitați <a href="contribuie">pagina de contribuții</a>,
   introduceți o definiție și trimiteți-ne-o. Noi preluăm definiția (cu
   o întârziere de cel mult o zi), corectăm eventualele greșeli de
   tipar și o activăm. Din acest moment, ea este parte din <i>DEX
@@ -478,7 +478,7 @@
   Internet. Puteți folosi orice editor de texte vă place mai
   mult. Formatele preferate sunt text simplu, HTML sau Open Office,
   dar acceptăm și Microsoft Word. Apoi, trimiteți-ne documentul
-  tehnoredactat prin <a href="contact.php">email</a>. Vă rugăm să
+  tehnoredactat prin <a href="contact">email</a>. Vă rugăm să
   respectați următoarele cerințe:
 
   <ul>
@@ -515,7 +515,7 @@
   și-au dovedit bunele intenții față de <i>DEX online.</i> De exemplu,
   după ce contribuiți cu cel puțin 100 de definiții la <i>DEX
   online</i>, puteți cere să deveniți moderator. <a
-  href="contact.php">Scrieți-ne</a> pentru detalii.
+  href="contact">Scrieți-ne</a> pentru detalii.
 
 
 <h3><a name="cod"></a>Vreau să scriu cod pentru <i>DEX online</i></h3>
@@ -523,7 +523,7 @@
   Sunteți mană cerească! Puteți vedea codul-sursă al <i>DEX online</i>
   la <a href="http://svn.dexonline.ro">http://svn.dexonline.ro</a>. Dacă
   doriți să obțineți o copie completă a codului și să îl modificați,
-  citiți <a href="codeAccess.php">aceste instrucțiuni</a>.
+  citiți <a href="cod-sursa">aceste instrucțiuni</a>.
 
 
 <h3><a name="bug"></a>Vreau să repar un bug în <i>DEX online</i></h3>
@@ -573,7 +573,7 @@
   mai multor voluntari să conlucreze pentru a răspunde la
   emailuri. OTRS permite răspunsuri-tip cu care putem procesa foarte
   ușor majoritatea mesajelor primite. <a
-  href="contact.php">Scrieți-ne</a> dacă sunteți interesat.
+  href="contact">Scrieți-ne</a> dacă sunteți interesat.
 
 
 <h3><a name="DICT"></a><i>DEX online</i> implementează protocolul DICT?</h3>
@@ -668,7 +668,7 @@ rezervate Editurii Litera. Copierea definițiilor din aceste dicționare este in
   conformitate unui anumit scop. Citiți Licența Publică Generală GNU
   pentru detalii.  Puteți găsi o copie a Licenței Publice Generale GNU
   <a href="http://www.gnu.org/copyleft/gpl.html">aici</a> și o
-  traducere a ei în limba română <a href="license.php">aici</a>.
+  traducere a ei în limba română <a href="licenta-gpl">aici</a>.
 
 <h4>Explicație</h4>
 
@@ -916,7 +916,7 @@ rezervate Editurii Litera. Copierea definițiilor din aceste dicționare este in
   lingvistică am primit-o în școala generală. Mă ocup de partea
   tehnică a acestui proiect numai în timpul liber, care se împuținează
   de la un an la altul. Totuși, efortul meu este o joacă pe lângă cel
-  al <a href="top.php">voluntarilor</a> care și-au asumat o sarcină
+  al <a href="top">voluntarilor</a> care și-au asumat o sarcină
   mult mai migăloasă: introducerea de definiții.
 
   <br/><br/>
@@ -1000,7 +1000,7 @@ rezervate Editurii Litera. Copierea definițiilor din aceste dicționare este in
   
   <br/><br/>
 
-  În noiembrie 2003 am adăugat pagina <a href="corect.php">Corect / greșit</a>. 
+  În noiembrie 2003 am adăugat pagina <a href="ghid">Corect / greșit</a>. 
   
   <br/><br/>
 

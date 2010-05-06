@@ -7,23 +7,23 @@
 
    {if $rnd == 0}
      Doriți să vă instalați <i>DEX online</i> pe calculatorul de
-     acasă?  Citiți <a href="{$wwwRoot}faq.php#offline">această secțiune</a> din
+     acasă?  Citiți <a href="{$wwwRoot}informatii#offline">această secțiune</a> din
      pagina de informații.
    {elseif $rnd == 1}
      Puteți face căutări cu <i>expresii regulate</i>, care sunt mult
      mai puternice decât căutarea unui singur cuvânt. De exemplu,
      căutarea <i>dif*</i> va lista toate cuvintele care încep cu
-     <i>dif-</i>. Detalii <a href="{$wwwRoot}faq.php#regexp">aici</a>.
+     <i>dif-</i>. Detalii <a href="{$wwwRoot}informatii#regexp">aici</a>.
    {elseif $rnd == 2}
      Există mirror-uri (copii) ale <i>DEX online</i> care ar putea fi
      mai rapide pentru dumneavoastră decât site-ul principal. Detalii
-     <a href="{$wwwRoot}faq.php#mirrors">aici</a>.
+     <a href="{$wwwRoot}informatii#mirrors">aici</a>.
    {elseif $rnd == 3}
      Dacă observați o greșeală de tipar într-o definiție, ne-o puteți
      semnala! După fiecare definiție există o legătură în acest scop.
    {elseif $rnd == 4}
      Puteți schimba aspectul paginii din pagina de <a
-     href="{$wwwRoot}tools.php">unelte</a> (unele designuri nu sunt complet
+     href="{$wwwRoot}unelte">unelte</a> (unele designuri nu sunt complet
      funcționale).
    {elseif $rnd == 5}
      Puteți da click pe orice cuvânt din interiorul unei definiții
@@ -33,6 +33,7 @@
      declinarea substantivelor și adjectivelor). După ce căutați un
      cuvânt, dați click pe "Flexiuni".
    {elseif $rnd == 7}
-     Dacă vă înregistrați, puteți alege diverse <a href="{$wwwRoot}account.php">opțiuni</a> pentru grafia cu î sau â, cu sedilă sau cu virgulă, pentru căutarea cu diacritice etc.
+     Dacă vă înregistrați, puteți alege diverse <a href="{$wwwRoot}contul-meu">opțiuni</a> pentru grafia cu î sau â, cu sedilă sau cu virgulă,
+     pentru căutarea cu diacritice etc.
    {/if}
 </div>

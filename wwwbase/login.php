@@ -10,7 +10,7 @@ $loginButton = util_getRequestParameter('login');
 $forgetButton = util_getRequestParameter('forget');
 
 if (!$target) {
-  $target = 'index.php';
+  $target = util_getWwwRoot();
 }
 
 smarty_assign('nickOrEmail', $nickOrEmail);
@@ -55,6 +55,7 @@ if ($loginButton) {
       $result = mail($nickOrEmail, "Schimbarea parolei pentru DEX online", $body, "From: DEX online <$email>\r\nReply-To: $email");
     }
     // Display a confirmation even for incorrect addresses.
+    smarty_assign('page_title', 'Recuperarea parolei');
     smarty_displayCommonPageWithSkin('passwordRecoveryEmailSent.ihtml');
     exit;
   }

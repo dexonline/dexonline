@@ -1,6 +1,6 @@
 <h3>Trimiteți o definiție</h3>
 
-<form name="frmContrib" method="post" action="contrib.php">
+<form name="frmContrib" method="post" action="contribuie">
   <table class="userEdit">
     <tr>
       <td>Utilizator:</td>
@@ -16,7 +16,7 @@
       <td>Sursa:</td>
       <td>
         {include file="common/sourceDropDown.ihtml" sources=$contribSources src_selected=$sourceId skipAnySource=1}
-        <a href="faq.php#surse">lista de surse acceptate</a>
+        <a href="informatii#surse">lista de surse acceptate</a>
       </td>
     </tr>
 

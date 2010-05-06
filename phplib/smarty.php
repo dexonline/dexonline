@@ -17,7 +17,6 @@ function smarty_init() {
   $smarty->assign('is_flex_moderator', session_userIsFlexModerator());
   $smarty->assign('is_mirror', pref_isMirror());
   $smarty->assign('nick', session_getUserNick());
-  $smarty->assign('main_page', $_SERVER['PHP_SELF'] == "/index.php");
   $wordCount = Definition::getWordCount();
   $wordCountRough = $wordCount - ($wordCount % 10000);
   $smarty->assign('words_total', util_formatNumber($wordCount, 0));

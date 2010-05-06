@@ -74,5 +74,5 @@ if ($sendButton) {
 
 smarty_assign('error_code', $error);
 smarty_assign('page_title', 'Creare cont');
-smarty_displayCommonPageWithSkin('signup.ihtml');
+smarty_displayCommonPageWithSkin('inregistrare.ihtml');
 ?>

@@ -2,7 +2,7 @@
 
 {include file="common/bits/js.ihtml" flex=1}
 
-<form action="viewModels.php" method="get">
+<form action="modele-flexiune" method="get">
   Versiunea LOC:
   <select name="locVersion" id="locVersionListId"
           onchange="return updateModelTypeList(this, 'modelTypeListId');">

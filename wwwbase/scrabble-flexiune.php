@@ -30,7 +30,7 @@ if ($locVersion && $form) {
 
 setlocale(LC_ALL, "ro_RO");
 smarty_assign('locVersions', array_reverse(pref_getFrozenLocVersions()));
-smarty_displayCommonPageWithSkin('scrabbleCheckInflection.ihtml');
+smarty_displayCommonPageWithSkin('scrabble-flexiune.ihtml');
 
 
 function loadLoc($cuv) {

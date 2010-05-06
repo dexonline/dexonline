@@ -61,6 +61,6 @@ $models = Model::loadByType($modelType ? $modelType : $modelTypes[0]->code);
 smarty_assign('locVersions', $locVersions);
 smarty_assign('modelTypes', $modelTypes);
 smarty_assign('models', $models);
-smarty_displayCommonPageWithSkin('viewModels.ihtml');
+smarty_displayCommonPageWithSkin('modele-flexiune.ihtml');
 
 ?>

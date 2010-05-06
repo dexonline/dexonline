@@ -1,5 +1,5 @@
 Înainte de a ne trimite un email, vă rugăm citiți pagina de <a
-href="faq.php">informații</a> pentru a vă asigura că întrebarea
+href="informatii">informații</a> pentru a vă asigura că întrebarea
 dumneavoastră nu este deja tratată acolo. În special:
 
 <ul>
@@ -16,12 +16,9 @@ dumneavoastră nu este deja tratată acolo. În special:
   democrații.</li>
 
   <li>Dacă doriți să instalați <i>DEX online</i> pe calculatorul
-  dumneavoastră personal, vizitați pagina de <a
-  href="tools.php">unelte</a>.</li>
+  dumneavoastră personal, vizitați pagina de <a href="unelte">unelte</a>.</li>
 
-  <li>Dacă doriți o copie a bazei de date, citiți <a
-  href="faq.php#database">acest
-  paragraf</a>.</li>
+  <li>Dacă doriți o copie a bazei de date, citiți <a href="informatii#database">acest paragraf</a>.</li>
 
   <li>Dacă vreți să ne felicitați, scrieți-ne neapărat! Cuvinte
   frumoase ne face întotdeauna plăcere să auzim :)</li>

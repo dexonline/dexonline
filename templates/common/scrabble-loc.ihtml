@@ -1,6 +1,6 @@
 <br/>
 
-<form action="scrabbleLoc.php" method="get">
+<form action="scrabble-loc" method="get">
   Versiunea LOC:
   <select name="locVersion">
     {foreach from=$locVersions item=lv}

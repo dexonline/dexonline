@@ -2,7 +2,7 @@
   Sunteți deja înregistrat și conectat!
 {elseif $send && $error_code == OK}
   Înscrierea s-a făcut cu succes! Acum vă puteți
-  <a href="login.php">conecta</a>.
+  <a href="login">conecta</a>.
 {else}
   <p>Dacă nu intenționați să ne trimiteți
   definiții, <b>nu este nevoie să vă înscrieți</b>.
@@ -63,7 +63,7 @@
     </b></font>
   {/if}
     
-  <p><form method="post" action="signup.php">
+  <p><form method="post" action="inregistrare">
 
   <table class="userEdit">
   <tr>

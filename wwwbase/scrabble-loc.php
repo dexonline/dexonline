@@ -24,7 +24,7 @@ if ($locVersion) {
 
 setlocale(LC_ALL, "ro_RO");
 smarty_assign('locVersions', array_reverse(pref_getFrozenLocVersions()));
-smarty_displayCommonPageWithSkin('scrabbleLoc.ihtml');
+smarty_displayCommonPageWithSkin('scrabble-loc.ihtml');
 
 
 ?>

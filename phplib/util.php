@@ -229,7 +229,7 @@ function util_hideEmptyRequestParameters() {
 function util_assertModeratorStatus() {
   if (!session_userIsModerator()) {
     smarty_assign('errorMessage', 'Nu aveți acces ca moderator! ' .
-                  'Vă rugăm să vă <a href="' . util_getWwwRoot() . 'login.php">autentificați</a> ' .
+                  'Vă rugăm să vă <a href="' . util_getWwwRoot() . 'login">autentificați</a> ' .
                   'mai întâi.');
     smarty_displayWithoutSkin('common/errorMessage.ihtml');
     exit;

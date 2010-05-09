@@ -2,7 +2,11 @@
   <div class="resultBar">
     {if $searchType == SEARCH_INFLECTED}
       {if count($results) == 0}
-        Am găsit numai definiții „neoficiale” pentru
+	    {if $src_selected}
+		Nu am găsit în acest dicționar definiția lui 
+		{else}
+        Am găsit numai definiții „neoficiale” pentru 
+		{/if}
       {elseif count($results) == 1}
         O definiție pentru
       {else}
@@ -79,15 +83,23 @@
   
     &nbsp;
   
-    {if $declensionText}
-      {if $onlyParadigm}
-        {$declensionText}
-      {else}
-        <span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span>
-        <a class="inflLink" href="#" onclick="return toggleInflVisibility({if $lexemId}'{$lexemId}',1{else}'{$cuv|escape:url}'{/if});"
-           title="click pentru conjugarea / declinarea cuvintelor">{$declensionText}
-        </a>
+    {if count($results) }
+      {if $declensionText}
+        {if $onlyParadigm}
+          {$declensionText}
+        {else}
+          <a class="inflLink" href="#" onclick="return toggleInflVisibility({if $lexemId}'{$lexemId}',1{else}'{$cuv|escape:url}'{/if});"
+            title="click pentru conjugarea / declinarea cuvintelor"><span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span> {$declensionText}
+          </a>
+        {/if}
       {/if}
+	{else}
+	  {if count($lexems) > 0 }
+	    {if $src_selected}
+	  <br/>
+	  Repetați căutarea <a href="/definitie/{$cuv|escape}">în toate dicționarele</a>
+	    {/if}
+	  {/if}
     {/if}
   </div>
 {/if}

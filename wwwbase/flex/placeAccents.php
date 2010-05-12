@@ -8,7 +8,7 @@ $submitButton = util_getRequestParameter('submitButton');
 if ($submitButton) {
   foreach ($_REQUEST as $name => $position) {
     if (text_startsWith($name, 'position_')) {
-      $parts = split('_', $name);
+      $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
       assert($parts[0] == 'position');
       $lexem = Lexem::get("id = " . $parts[1]);

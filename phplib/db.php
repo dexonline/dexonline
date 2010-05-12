@@ -30,7 +30,7 @@ function db_splitDsn() {
   assert(text_startsWith($dsn, $prefix));
   $dsn = substr($dsn, strlen($prefix));
 
-  $parts = split("[:@/]", $dsn);
+  $parts = preg_split("/[:@/]/", $dsn);
   assert(count($parts) == 3 || count($parts) == 4);
 
   if (count($parts) == 4) {

@@ -2,7 +2,7 @@
 require_once("../../phplib/util.php");
 
 $query = util_getRequestParameter('query');
-$parts = split('\(', $query, 2);
+$parts = preg_split('/\(/', $query, 2);
 $name = trim($parts[0]);
 
 if (count($parts) == 2) {

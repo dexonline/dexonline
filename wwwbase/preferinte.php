@@ -19,7 +19,7 @@ if ($sendButton) {
   $skin = session_getSkin();
 }
 
-foreach (split(',', $userPrefs) as $pref) {
+foreach (preg_split('/,/', $userPrefs) as $pref) {
   if (isset($userPreferencesSet[$pref]) ) {
     $userPreferencesSet[$pref]['checked'] = true;
   }

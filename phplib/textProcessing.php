@@ -991,7 +991,7 @@ function text_validateAlphabet($s, $alphabet) {
 
 // Returns the number of vowels after the accent (') in $s.
 function text_findAccentPosition($s) {
-  $parts = split("'", $s);
+  $parts = preg_split("/\'/", $s);
   assert(count($parts) <= 2);
   if (count($parts) == 1) {
     return 0; // No accent at all

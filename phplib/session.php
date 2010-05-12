@@ -103,10 +103,10 @@ function session_getUserId() {
 
 function session_user_prefers($pref) {
   if (isset($_SESSION['user'])) {
-    return isset($_SESSION['user']->preferences) && in_array($pref, split(',', $_SESSION['user']->preferences));
+    return isset($_SESSION['user']->preferences) && in_array($pref, preg_split('/,/', $_SESSION['user']->preferences));
   } else {
     $prefs = session_getCookieSetting('anonymousPrefs');
-    return in_array($pref, split(',', $prefs));
+    return in_array($pref, preg_split('/,/', $prefs));
   }
 }
 

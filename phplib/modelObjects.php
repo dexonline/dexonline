@@ -567,7 +567,7 @@ class Lexem extends BaseObject {
   }
 
   public static function loadByExtendedName($extName) {
-    $parts = split('\(', $extName, 2);
+    $parts = preg_split('/\(/', $extName, 2);
     $name = trim($parts[0]);
     if (count($parts) == 2) {
       $description = trim($parts[1]);

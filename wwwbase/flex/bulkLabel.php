@@ -9,13 +9,13 @@ $submitButton = util_getRequestParameter('submitButton');
 if ($submitButton) {
   foreach ($_REQUEST as $name => $modelId) {
     if (text_startsWith($name, 'lexem_')) {
-      $parts = split('_', $name);
+      $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
       assert($parts[0] == 'lexem');
       $lexem = Lexem::get("id = " . $parts[1]);
 
       if ($modelId) {
-        $parts = split('_', $modelId);
+        $parts = preg_split('/_/', $modelId);
         assert(count($parts) == 2);
         $lexem->modelType = $parts[0];
         $lexem->modelNumber = $parts[1];

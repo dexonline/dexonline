@@ -38,11 +38,11 @@ if ($previewButton || $confirmButton) {
   foreach ($_REQUEST as $name => $value) {
     if (text_startsWith($name, 'forms_')) {
       $formArray = array();
-      $parts = split('_', $name);
+      $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
       assert($parts[0] == 'forms');
       $inflId = $parts[1];
-      $parts = split(',', $value);
+      $parts = preg_split('/,/', $value);
       foreach ($parts as $form) {
         $form = trim($form);
         if ($form) {

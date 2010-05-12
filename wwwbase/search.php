@@ -48,7 +48,7 @@ if ($text) {
     smarty_assign('lockExists', true);
     $definitions = array();
   } else {
-    $words = split(' +', $cuv);
+    $words = preg_split('/ +/', $cuv);
     list($properWords, $stopWords) = text_separateStopWords($words, $hasDiacritics);
     smarty_assign('stopWords', $stopWords);
     $defIds = Definition::searchFullText($properWords, $hasDiacritics);
@@ -134,7 +134,7 @@ if ($searchType == SEARCH_INFLECTED) {
   }
   if (count($lexems) == 0) {
     $searchType = SEARCH_MULTIWORD;
-    $words = split('[ .-]+', $cuv);
+    $words = preg_split('/[ .-]+/', $cuv);
     if (count($words) > 1) {
       $ignoredWords = array_slice($words, 5);
       $words = array_slice($words, 0, 5);

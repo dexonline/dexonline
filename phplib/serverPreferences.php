@@ -1,7 +1,7 @@
 <?php
   /**
    * Handles Java-style property files. If a property value contains a comma,
-   * we split it and map the property name to the resulting list.
+   * we preg_split it and map the property name to the resulting list.
    */
 pref_loadPreferences(util_getRootPath() . "dex.conf");
 
@@ -12,12 +12,12 @@ function pref_loadPreferences($fileName) {
 
   $prefs = array();
   foreach ($lines as $line_num => $line) {
-    list($var, $value) = split("=", trim($line), 2);
+    list($var, $value) = preg_split("/=/", trim($line), 2);
     $var = trim($var);
     $value = trim($value);
     if (!empty($var)) {
       if (strstr($value, ",")) {
-        $parts = split(",", $value);
+        $parts = preg_split("/,/", $value);
         foreach ($parts as $i => $part) {
           $parts[$i] = trim($part);
         }
@@ -68,12 +68,12 @@ function pref_getLocVersions() {
     $result = array();
     $locParts = pref_getServerPreference('locVersions');
     if (!is_array($locParts)) {
-      $locParts = split(',', $locParts);
+      $locParts = preg_split('/,/', $locParts);
     }
     foreach ($locParts as $part) {
       $part = trim($part);
       if ($part) {
-	$versionAndDate = split(' ', $part);
+	$versionAndDate = preg_split('/ /', $part);
 	assert(count($versionAndDate == 2));
 	$lv = new LocVersion();
 	$lv->name = trim($versionAndDate[0]);

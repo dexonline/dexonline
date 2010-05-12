@@ -11,7 +11,7 @@ if ($submitButton) {
   $lexemsToDelete = array();
   foreach ($_REQUEST as $name => $value) {
     if (text_startsWith($name, 'merge_') && $value) {
-      $parts = split('_', $name);
+      $parts = preg_split('/_/', $name);
       assert(count($parts) == 3);
       assert($parts[0] == 'merge');
       $src = Lexem::get("id = " . $parts[1]);

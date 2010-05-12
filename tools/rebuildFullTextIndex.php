@@ -35,7 +35,7 @@ while (($dbRow = mysql_fetch_row($dbResult)) != null) {
         cacheWordForm($word);
       }
       if (array_key_exists($word, $ifMap)) {
-        $lexemList = split(',', $ifMap[$word]);
+        $lexemList = preg_split('/,/', $ifMap[$word]);
         for ($i = 0; $i < count($lexemList); $i += 2) {
           fwrite($handle, $lexemList[$i] . "\t" . $lexemList[$i + 1] . "\t" . $dbRow[0] . "\t" . $position . "\n");
           $indexSize++;

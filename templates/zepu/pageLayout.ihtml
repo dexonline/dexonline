@@ -39,13 +39,13 @@
 
     <div id="Container">
       <div id="menu">
+        {if !$onHomePage}
+          <a href="{$wwwRoot}">
+            <img src="{$imgRoot}/zepu/dexonline_logo_mic.png" class="noBorder" width="111" height="25" alt="DEX online small logo"
+                 title="Pagina principală DEX online"/>
+          </a>
+        {/if}
         <ul>
-          {if !$onHomePage}
-            <a href="{$wwwRoot}">
-              <img src="{$imgRoot}/zepu/dexonline_logo_mic.png" class="noBorder" width="111" height="25" alt="DEX online small logo"
-                   title="Pagina principală DEX online"/>
-            </a>
-          {/if}
           <li><a href="{$wwwRoot}informatii">Informații</a></li>
           <li><a href="{$wwwRoot}contribuie">Contribuie</a></li>
           <li><a href="{$wwwRoot}ghid-exprimare">Ghid de exprimare</a></li>

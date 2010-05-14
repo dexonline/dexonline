@@ -26,7 +26,7 @@ function smarty_init() {
   $smarty->assign('debug', session_isDebug());
   $smarty->assign('hostedBy', pref_getHostedBy());
   $smarty->assign('currentYear', date("Y"));
-  $smarty->assign('openx', pref_getServerPreference('openx'));
+  $smarty->assign('bannerH', pref_getServerPreference('bannerH'));
   $GLOBALS['smarty_theSmarty'] = $smarty;
 }
 

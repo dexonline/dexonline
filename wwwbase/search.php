@@ -205,27 +205,11 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
 
 }
 
-// Compute AdSense placement: show it after 1500 bytes' worth of definition, but no more than 3
-if (isset($definitions)) {
-  smarty_assign('adsensePos', count($definitions) - 1);
-  $len = 0;
-  foreach ($definitions as $i => $def) {
-    $len += strlen($def->internalRep);
-    if ($len >= 1500 || $i == 2) {
-      smarty_assign('adsensePos', $i);
-      break;
-    }
-  }
-} else {
-  smarty_assign('adsensePos', -1);
-}
-
 smarty_assign('text', $text);
 smarty_assign('searchType', $searchType);
 smarty_assign('showParadigm', $showParadigm);
 smarty_assign('paradigmLink', $paradigmLink);
 smarty_assign('advancedSearch', $text || $sourceId);
-smarty_assign('adsense', pref_getAdsense());
 smarty_displayCommonPageWithSkin('search.ihtml');
 
 ?>

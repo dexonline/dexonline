@@ -105,11 +105,7 @@
 {/if}
 
 <div id="resultsWrapper" class="txt">
-  {if $adsense == 'vertical'}
-    <div id="adsenseVertical">{include file="common/bits/adsense_skyscraper.ihtml"}</div>
-  {/if}
-
-    <div class="{if $showParadigm}paradigmShow{else}paradigmHide{/if}" id="paradigmDiv">{include file="common/bits/multiParadigm.ihtml"}</div>
+  <div class="{if $showParadigm}paradigmShow{else}paradigmHide{/if}" id="paradigmDiv">{include file="common/bits/multiParadigm.ihtml"}</div>
  
   {if $stopWords}
     <span class="stopWords">
@@ -170,10 +166,6 @@
         </span>
       {/if}
     </p>
-
-    {if $adsense == 'leaderboard' && $adsensePos == $i}
-      <div id="adsenseLeaderboard">{include file="common/bits/adsense_leaderboard.ihtml"}</div>
-    {/if}
   {/foreach}
   
   {if $searchType == SEARCH_APPROXIMATE || $searchType == SEARCH_REGEXP}
@@ -181,9 +173,5 @@
       {if $row_id}|{/if}
       <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{include file="common/bits/lexemName.ihtml" lexem=$lexem}</a>
     {/foreach}
-  {/if}
-
-  {if $adsense == 'leaderboard' && $adsensePos == -1}
-    <div id="adsenseLeaderboard">{include file="common/bits/adsense_leaderboard.ihtml"}</div>
   {/if}
 </div>

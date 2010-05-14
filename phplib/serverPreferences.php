@@ -3,33 +3,7 @@
    * Handles Java-style property files. If a property value contains a comma,
    * we preg_split it and map the property name to the resulting list.
    */
-pref_loadPreferences(util_getRootPath() . "dex.conf");
-
-function pref_loadPreferences($fileName) {
-  if (!($lines = file($fileName))) {
-    return false;
-  }
-
-  $prefs = array();
-  foreach ($lines as $line_num => $line) {
-    list($var, $value) = preg_split("/=/", trim($line), 2);
-    $var = trim($var);
-    $value = trim($value);
-    if (!empty($var)) {
-      if (strstr($value, ",")) {
-        $parts = preg_split("/,/", $value);
-        foreach ($parts as $i => $part) {
-          $parts[$i] = trim($part);
-        }
-        $prefs[$var] = $parts;
-      } else {
-        $prefs[$var] = $value;
-      }
-    }
-  }
-
-  $GLOBALS['serverPreferences'] = $prefs;
-}
+$GLOBALS['serverPreferences'] = parse_ini_file(util_getRootPath() . "dex.conf");
 
 function pref_getServerPreference($name) {
   if (array_key_exists($name, $GLOBALS['serverPreferences'])) {
@@ -93,10 +67,6 @@ function pref_getFrozenLocVersions() {
   assert(count($lvs) >= 2);
   assert(!$lvs[count($lvs) - 1]->freezeTimestamp);
   return array_slice($lvs, 0, -1);
-}
-
-function pref_getAdsense() {
-  return pref_getServerPreference('adsense');  
 }
 
 ?>

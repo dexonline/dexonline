@@ -14,7 +14,7 @@
   <body>
     <div id="header">
       <div id="headerContainer">
-        <div id="banner">{include file="common/bits/adsense_leaderboard_zepu.ihtml"}</div>
+        {include file="common/bits/bannerH.ihtml"}
         <div id="userActions">
           {if !$is_mirror}
             <span id="userNick">{$nick|escape}</span><br/>

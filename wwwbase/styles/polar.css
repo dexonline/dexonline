@@ -252,28 +252,13 @@ span.help {
   vertical-align: top;
 }
 
-#adsenseHorizontal {
-  margin: 12px auto;
-  width: 468px;
-}
-
-#adsenseLeaderboard {
+#bannerH {
   margin: 12px auto;
   width: 728px;
 }
 
-#adsenseVertical {
-  float: right;
-  margin: 5px;
-}
-
 span.spaced {
   letter-spacing: 3px;
-}
-
-#openx {
-  text-align: center;
-  margin-bottom: 5px;
 }
 
 .userTop {

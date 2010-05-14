@@ -1,13 +1,41 @@
-database=mysql://root@localhost/DEX
-mysql_loc_prefix=LOC_
-contact=contact@dexonline.ro
-skins = zepu, polar
-mirror=0
-debugUser=reggie
-hostedBy=
-smartyClass=smarty/Smarty.class.php
-locVersions=4.0 09/18/2007, 5.0 current
-adsense=none
-adoDbClass=adodb/adodb.inc.php
-adoDbActiveRecordClass=adodb/adodb-active-record.inc.php
-openx=0
+; Configuration file for a DEX online installation
+
+; Locations of the AdoDB and AdoDB Active Record files
+adoDbActiveRecordClass = adodb/adodb-active-record.inc.php
+adoDbClass = adodb/adodb.inc.php
+
+; Types of banners to be served for the horizontal and vertical banner.
+; Banner sizes are always leaderboard (728x90, 90x728).
+; Choices are "openx", "adsense" or "none".
+bannerH = none
+bannerV = none
+
+; Contact email, sprinkled throughout the site
+contact = contact@dexonline.ro
+
+; AdoDB connection
+database = mysql://root@localhost/DEX
+
+; Show some debug information when this user is logged in.
+debugUser = reggie
+
+; Show our web host logo
+hostedBy =
+
+; LOC versions (for scrabble users). Each version should have a corresponding LOC_* database.
+; See also mysql_loc_prefix
+locVersions[] = 4.0 09/18/2007
+locVersions[] = 5.0 current
+
+; If this site is a mirror, certain features will be disabled: user login, typo reporting etc.
+mirror = 0
+
+; Prefix for the LOC databases.
+mysql_loc_prefix = LOC_
+
+; Available skins
+skins[] = zepu
+skins[] = polar
+
+; Location of the smarty class file.
+smartyClass = smarty/Smarty.class.php

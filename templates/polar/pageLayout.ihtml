@@ -13,9 +13,6 @@
   </head>
 
   <body>
-    {if $openx}
-      <div id="openx">{include file="common/bits/openx.ihtml"}</div>
-    {/if}
     <table class="header">
       <tr>
         <td class="searchBoxContainer">
@@ -57,7 +54,7 @@
       </tr>
     </table>
 
-    <div id="adsenseLeaderboard">{include file="common/bits/adsense_leaderboard_polar.ihtml"}</div>
+    {include file="common/bits/bannerH.ihtml"}
     {include file="common/flashMessages.ihtml"}
     {include file=$contentTemplateName}
 

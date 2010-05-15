@@ -27,5 +27,9 @@
     <script type="text/javascript"
     src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
     </script>
+  {elseif $bannerH == 'fake'}
+    <div style="background: #761818; color: white; font-size: 20px; height: 90px; width: 728px;">
+      Banner fals
+    </div>
   {/if}
 </div>

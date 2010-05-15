@@ -6,7 +6,8 @@ adoDbClass = adodb/adodb.inc.php
 
 ; Types of banners to be served for the horizontal and vertical banner.
 ; Banner sizes are always leaderboard (728x90, 90x728).
-; Choices are "openx", "adsense" or "none".
+; Choices are "openx", "adsense", "fake" or "none".
+; The option "fake" displays a placeholder banner and can be used in development/beta (so as not to steal real impressions from campaigns).
 bannerH = none
 bannerV = none
 

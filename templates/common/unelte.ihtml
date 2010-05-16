@@ -168,7 +168,7 @@ with the application developers.
   <li><a href="modele-flexiune">Lista modelelor de flexiune</a>.</li>
   <li><a href="scrabble-flexiune">Verificare formă flexionară</a> - aflați rapid dacă o formă flexionară este în LOC.</li>
 
-  {if $is_flex_moderator}
+  {if $sUser->moderator & $smarty.const.PRIV_LOC}
     <li><a href="scrabble-forme">Lista formelor unice</a>
     (fără diacritice, accente, dublete, cu lungimi între 2 și 15
     litere).</li>

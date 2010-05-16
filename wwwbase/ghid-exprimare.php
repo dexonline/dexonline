@@ -11,7 +11,7 @@ if ($id) {
   $guideEntry->load("id={$id}");
 }
 if ($action == 'delete') {
-  if (!session_userIsModerator()) {
+  if (!util_isModerator(PRIV_GUIDE)) {
     session_setFlash('Nu aveți drept de moderator.');
   } else {
     $guideEntry->status = ST_DELETED;
@@ -23,7 +23,7 @@ if ($action == 'delete') {
   smarty_assign('editableGuideEntryId', $id);
 } else if ($action == 'save') {
   $saveButton = util_getRequestParameter('saveButton');
-  if (!session_userIsModerator()) {
+  if (!util_isModerator(PRIV_GUIDE)) {
     session_setFlash('Nu aveți drept de moderator.');
   } else if ($saveButton) {
     $guideEntry->correct = util_getRequestParameter('Correct');
@@ -39,7 +39,7 @@ if ($action == 'delete') {
   smarty_assign('isAddFormVisible', TRUE);
 } else if ($action == 'saveAdd') {
   $saveButton = util_getRequestParameter('saveButton');
-  if (!session_userIsModerator()) {
+  if (!util_isModerator(PRIV_GUIDE)) {
     session_setFlash('Nu aveți drept de moderator.');
   } else if ($saveButton) {
     $guideEntry->correct = util_getRequestParameter('Correct');

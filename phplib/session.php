@@ -68,17 +68,6 @@ function session_userExists() {
   return isset($_SESSION['user']) && isset($_SESSION['user']->id);
 }
 
-function session_userIsModerator() {
-  return isset($_SESSION['user']) && isset($_SESSION['user']->moderator)
-    && ($_SESSION['user']->moderator == 1);
-}
-
-function session_userIsFlexModerator() {
-  $allowed = array("gall" => 1, "tavi" => 1, "raduborza" => 1, "cata" => 1);
-  $user = session_getUser();
-  return $user && array_key_exists($user->nick, $allowed);
-}
-
 function session_getUser() {
   if (!session_userExists()) {
     return FALSE;

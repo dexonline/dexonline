@@ -2,7 +2,7 @@
 require_once("../../phplib/util.php"); 
 require_once("../../phplib/lexemSources.php"); 
 
-util_assertModeratorStatus();
+util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 setlocale(LC_ALL, "ro_RO");
 

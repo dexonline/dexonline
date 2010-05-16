@@ -1,6 +1,6 @@
 <?
 require_once("../../phplib/util.php"); 
-util_assertFlexModeratorStatus();
+util_assertModerator(PRIV_LOC);
 util_assertNotMirror();
 
 $modelType = util_getRequestParameter('modelType');

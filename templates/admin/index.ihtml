@@ -30,7 +30,7 @@
     <a href="viewPendingDefinitions.php">Definiții nemoderate:</a>
     <span id="span_temporaryDefinitions"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 
-    {if $is_flex_moderator}  
+    {if $sUser->moderator & $smarty.const.PRIV_LOC}  
       <a href="../flex/viewTemporaryLexems.php">Lexeme fără paradigme:</a>
       <span id="span_temporaryLexems"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 
@@ -60,7 +60,7 @@
     </form>
     <br/>
 
-    {if $is_flex_moderator}
+    {if $sUser->moderator & $smarty.const.PRIV_LOC}
       <form action="../flex/dispatchModelAction.php" method="get">
         Modelul:
         <select name="modelType"
@@ -126,7 +126,7 @@
     </form>
     <br/>
 
-    {if $is_flex_moderator}
+    {if $sUser->moderator & $smarty.const.PRIV_LOC}
       {* We should be done with this one:
       Pentru a verifica corectitudinea paradigmelor,
       <a href="../flex/verifyParadigms.php">click aici</a>.
@@ -176,8 +176,11 @@
         într-o sursă, dar fără restricții în altă sursă.
       </div>
       <br/>
+    {/if}
 
-      <a href="{$wwwRoot}private/financials.php">Ciornă financiară</a> (în lucru!)
+    {if $sUser->moderator & $smarty.const.PRIV_ADMIN}
+      <a href="{$wwwRoot}private/financials.php">Ciornă financiară</a> (în lucru!)<br/>
+      <a href="{$wwwRoot}moderatori">Vizualizare / editare moderatori</a>
     {/if}
 
     {include file="common/bits/debugInfo.ihtml"}

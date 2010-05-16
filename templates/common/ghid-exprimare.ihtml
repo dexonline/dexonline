@@ -10,7 +10,7 @@ afiliat în niciun fel Academiei Române. Dacă aveți sugestii pentru acest ghi
         <th>Corect</th>
         <th>Greșit</th>
         <th>Comentarii</th>
-        {if $is_moderator}
+        {if $sUser->moderator & $smarty.const.PRIV_GUIDE}
           <th>Acțiuni</th>
         {/if}
       </tr>
@@ -43,7 +43,7 @@ afiliat în niciun fel Academiei Române. Dacă aveți sugestii pentru acest ghi
             <td class="right">{$row->correctHtml}</td>
             <td class="wrong">{$row->wrongHtml}</td>
             <td class="notes">{$row->commentsHtml}</td>
-            {if $is_moderator}
+	    {if $sUser->moderator & $smarty.const.PRIV_GUIDE}
               <td class="actions">
                 <a id="edit{$row->id}" href="?action=edit&amp;guideEntryId={$row->id}#guideEntry{$row->id}">
                   editează
@@ -83,7 +83,7 @@ afiliat în niciun fel Academiei Române. Dacă aveți sugestii pentru acest ghi
     {/if}
   </table>
 
-  {if $is_moderator && !$isAddFormVisible}
+  {if ($sUser->moderator & $smarty.const.PRIV_GUIDE) && !$isAddFormVisible}
     <div class="guideEntryAddLink">
       <a href="?action=viewAddForm#newForm">Adaugă o înregistrare nouă</a>
     </div>

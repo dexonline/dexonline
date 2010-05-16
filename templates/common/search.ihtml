@@ -146,14 +146,14 @@
           Adăugată de anonim
         {/if}
 
-        {if $is_moderator}
+        {if $sUser->moderator & $smarty.const.PRIV_EDIT}
           | Id: {$row->definition->id}
         {/if}
   
         | <a href="javascript:typoWindow({$row->definition->id})">Greșeală de tipar</a>
         | <a href="{$wwwRoot}definitie/{$row->definition->lexicon}/{$row->definition->id}" title="Link doar către această definiție">Permalink</a>
   
-        {if $is_moderator && !$is_mirror}
+        {if ($sUser->moderator & $smarty.const.PRIV_EDIT) && !$is_mirror}
           | <a target="edit_window" href="{$wwwRoot}admin/definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
         {/if}
       </span>

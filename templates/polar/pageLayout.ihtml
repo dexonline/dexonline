@@ -66,10 +66,10 @@
 
           {if !$is_mirror}
             Utilizator: <b id="user.nick">{$nick|escape}</b>
-            {if $is_connected && $is_moderator}
+            {if $sUser->moderator & $smarty.const.PRIV_EDIT}
               | <a href="{$wwwRoot}admin">Pagina moderatorului</a>
             {/if}
-            {if $is_connected}
+            {if $sUser}
               | <a href="{$wwwRoot}contul-meu">Contul meu</a>
               | <a href="{$wwwRoot}logout" id="logoutLink">Deconectare</a>
             {else}

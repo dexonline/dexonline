@@ -1,6 +1,6 @@
 <?
 require_once("../../phplib/util.php"); 
-util_assertModeratorStatus();
+util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
 $id1 = util_getRequestParameter('id1');

@@ -19,8 +19,8 @@
           {if !$is_mirror}
             <span id="userNick">{$nick|escape}</span><br/>
             <ul id="userUl">
-              {if $is_connected}
-                {if $is_moderator}
+              {if $sUser}
+                {if $sUser->moderator & $smarty.const.PRIV_EDIT}
                   <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
                 {/if}
                 <li><a href="{$wwwRoot}contul-meu">Contul meu</a></li>

@@ -137,6 +137,13 @@ function util_defineConstants() {
   define('NO_ACCENT_SHIFT', 101);
 
   define('LOCK_FULL_TEXT_INDEX', 'full_text_index');
+
+  define('PRIV_ADMIN', 0x01);
+  define('PRIV_LOC', 0x02);
+  define('PRIV_EDIT', 0x04);
+  define('PRIV_GUIDE', 0x08);
+  define('NUM_PRIVILEGES', 4);
+  $GLOBALS['PRIV_NAMES'] = array('Administrator', 'Moderator LOC', 'Moderator', 'Editor al ghidului de exprimare');
 }
 
 function util_getAllStatuses() {
@@ -226,24 +233,19 @@ function util_hideEmptyRequestParameters() {
   }
 }
 
-function util_assertModeratorStatus() {
-  if (!session_userIsModerator()) {
-    smarty_assign('errorMessage', 'Nu aveți acces ca moderator! ' .
-                  'Vă rugăm să vă <a href="' . util_getWwwRoot() . 'login">autentificați</a> ' .
-                  'mai întâi.');
-    smarty_displayWithoutSkin('common/errorMessage.ihtml');
+function util_assertModerator($type) {
+  if (!util_isModerator($type)) {
+    session_setFlash('Nu aveți privilegii suficiente pentru a accesa această pagină.');
+    util_redirect(util_getWwwRoot());
     exit;
   }
 }
 
-function util_assertFlexModeratorStatus() {
-  if (!session_userIsFlexModerator()) {
-    smarty_assign('errorMessage', 'Dex Flex este un proiect în lucru. ' .
-                  'Momentan, lista utilizatorilor care au acces este foarte ' .
-                  'limitată.');
-    smarty_displayWithoutSkin('common/errorMessage.ihtml');
-    exit;
-  }
+function util_isModerator($type) {
+  // Check the actual database, not the session user
+  $userId = session_getUserId();
+  $user = $userId ? User::get("id = $userId") : null;
+  return $user ? ($user->moderator & $type) : false;
 }
 
 function util_assertNotMirror() {

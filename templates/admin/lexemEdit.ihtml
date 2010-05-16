@@ -63,7 +63,7 @@
             {include file="admin/helpLink.ihtml" anchor="lexemIsLoc"}
           </td>
           <td>
-            {if $is_flex_moderator}
+            {if $sUser->moderator & $smarty.const.PRIV_LOC}  
               <input type="radio" name="lexemIsLoc" value="1"
                      id="lexemIsLocYes"
                      {if $lexem->isLoc}checked="checked"{/if}/>
@@ -130,7 +130,7 @@
 
     <div class="lexemSectionHeader">Paradigmă</div>
 
-    {if $is_flex_moderator}
+    {if $sUser->moderator & $smarty.const.PRIV_LOC}  
       <div class="lexemSection">
         Puteți face etichetarea în trei moduri: (1) alegeți una dintre
         sugestii; (2) indicați un cuvânt care se flexionează la fel; sau

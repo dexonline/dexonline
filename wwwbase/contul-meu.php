@@ -111,6 +111,7 @@ smarty_assign('emailVisible', $emailVisible);
 smarty_assign('userPrefs', $userPreferencesSet);
 smarty_assign('skin', $skin);
 smarty_assign('availableSkins', pref_getServerPreference('skins'));
+smarty_assign('privilegeNames', $PRIV_NAMES);
 smarty_assign('page_title', 'Contul meu');
 smarty_displayCommonPageWithSkin('contul-meu.ihtml');
 ?>

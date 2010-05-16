@@ -55,11 +55,15 @@ sunteți într-adevăr proprietarul contului. Dacă nu doriți să schimbați va
       <span class="help">Notă: numai designul Zepu este ținut la zi cu cele mai noi funcții</span>
     </td>
   </tr><tr>
-    <td>Drept de moderator:</td>
+    <td>Privilegii:</td>
     <td>
-      <b>{if $is_moderator}Da{else}Nu{/if}</b><br/>
-      {if !$is_moderator}
-        <span class="help">Citiți pagina de informații pentru a afla cum puteți deveni moderator.</span>
+      {if $sUser->moderator > 0}
+        {section name="bit" loop=$smarty.const.NUM_PRIVILEGES}
+          {math equation="1 << x" x=$smarty.section.bit.index assign="mask"}
+	  {if $sUser->moderator & $mask}{$privilegeNames[$smarty.section.bit.index]};{/if}
+        {/section}
+      {else}
+        Niciunul
       {/if}
     </td>
   </tr>

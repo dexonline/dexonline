@@ -53,7 +53,7 @@
 
           {if !$is_mirror}
             Utilizator: <b id="user.nick">{$nick|escape}</b>
-            {if $is_connected}
+            {if $sUser}
               | <a href="{$wwwRoot}contul-meu">Contul meu</a>
               | <a href="{$wwwRoot}logout" id="logoutLink">Deconectare</a>
             {else}

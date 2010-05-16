@@ -21,7 +21,7 @@ $exclude_unofficial = session_user_prefers('EXCLUDE_UNOFFICIAL');
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
 $showParadigm = $showParadigm || session_user_prefers('SHOW_PARADIGM');
-$paradigmLink = $_SERVER['REQUEST_URI'] . (util_getRequestParameter('showParadigm') ? '' : '/paradigma');
+$paradigmLink = $_SERVER['REQUEST_URI'] . ($showParadigm ? '' : '/paradigma');
 $source = $sourceUrlName ? Source::get("urlName='$sourceUrlName'") : null;
 $sourceId = $source ? $source->id : null;
 

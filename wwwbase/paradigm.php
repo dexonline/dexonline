@@ -10,10 +10,6 @@ $lexemId = util_getRequestParameter('lexemId');
 $ajax = util_getRequestParameter('ajax');
 $type = util_getRequestParameter('type');
 
-if ($cuv) {
-  $cuv = text_cleanupQuery($cuv);
-}
-
 $searchType = SEARCH_INFLECTED;
 $hasDiacritics = session_user_prefers('FORCE_DIACRITICS');
 
@@ -32,6 +28,17 @@ if ($lexemId) {
     $lexems = array();
 	$cuv = NULL;
   }
+}
+
+if ($lexemId) {
+  smarty_assign('paradigmLink', "/lexem/$cuv/$lexemId/paradigma");
+}
+else {
+  smarty_assign('paradigmLink', "/definitie/$cuv/paradigma");
+}
+
+if ($cuv) {
+  $cuv = text_cleanupQuery($cuv);
 }
 
 // Normal search

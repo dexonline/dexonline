@@ -42,11 +42,13 @@
   </td></tr>
   <tr><td>
     <table class="footer">
+      {if $hostedBy}
       <tr>
         <td>
             {include file="common/hosting/$hostedBy.ihtml"}
         </td>
       </tr>
+	  {/if}
       <tr>
         <td>
           Starea curentă: <b>{$words_total}</b> de definiţii (<b>{$words_last_month}</b> în ultima lună)<br/>

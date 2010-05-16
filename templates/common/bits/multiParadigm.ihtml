@@ -6,8 +6,8 @@
 			 sourceNames=$sourceNamesArr[$i]}
 
   {/foreach}
-  {if $ajax}
-  <a class="paradigmLink" title="Link către această pagină, dar cu flexiunile expandate!" href="{$paradigmLink}">Link către această paradigmă</a> 
+  {if $onlyParadigm}
   {else}
+  <a class="paradigmLink" title="Link către această pagină, dar cu flexiunile expandate!" href="{$paradigmLink}">Link către această paradigmă</a> 
   {/if}
 {/if}

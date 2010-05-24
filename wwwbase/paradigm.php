@@ -11,7 +11,8 @@ $ajax = util_getRequestParameter('ajax');
 $type = util_getRequestParameter('type');
 
 $searchType = SEARCH_INFLECTED;
-$hasDiacritics = session_user_prefers('FORCE_DIACRITICS');
+$arr = text_analyzeQuery($cuv);
+$hasDiacritics = session_user_prefers('FORCE_DIACRITICS') || $arr[0];
 
 // LexemId search
 if ($lexemId) {

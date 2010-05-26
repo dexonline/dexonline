@@ -127,6 +127,20 @@
     <br/>
 
     {if $sUser->moderator & $smarty.const.PRIV_LOC}
+      <form action="../flex/viewLocLexems.php" method="get">
+        Listează lexemele din sursa:
+        {include file="common/sourceDropDown.ihtml" sources=$allModeratorSources skipAnySource=1}
+        <select name="loc" id="sourceDropDown">
+          <option value="2">indiferent de LOC</option>
+          <option value="1">incluse în LOC</option>
+          <option value="0">neincluse în LOC</option>
+        </select>
+        <input type="submit" value="Listează"/>
+      </form>
+      <br/>
+    {/if}
+
+    {if $sUser->moderator & $smarty.const.PRIV_LOC}
       {* We should be done with this one:
       Pentru a verifica corectitudinea paradigmelor,
       <a href="../flex/verifyParadigms.php">click aici</a>.

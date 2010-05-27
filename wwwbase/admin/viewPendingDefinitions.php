@@ -4,8 +4,16 @@ util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 RecentLink::createOrUpdate('Definiții nemoderate');
 
+$sourceId = 0;
+$sourceUrlName = util_getRequestParameter('source');
+if ( $sourceUrlName ) {
+  $source = $sourceUrlName ? Source::get("urlName='$sourceUrlName'") : null;
+  $sourceId = $source ? $source->id : 0;
+  smarty_assign('src_selected', $sourceId);
+}
+
 $ip = $_SERVER['REMOTE_ADDR'];
-$defs = Definition::searchModerator('*', '', 0, ST_PENDING, 0, 0, time());
+$defs = Definition::searchModerator('*', '', $sourceId, ST_PENDING, 0, 0, time());
 $searchResults = SearchResult::mapDefinitionArray($defs);
 fileCache_putModeratorQueryResults($ip, $searchResults);
 

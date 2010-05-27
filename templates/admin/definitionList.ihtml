@@ -11,7 +11,8 @@
   <body>
     {include file="admin/header.ihtml"
              title="$sectionTitle"
-             items="$searchResults"}
+             items="$searchResults"
+			 showSources="true"}
 
     {include file="admin/recentlyVisited.ihtml"}
 

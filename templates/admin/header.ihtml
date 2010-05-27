@@ -4,6 +4,15 @@
     {if $items}({$items|@count}){/if}
     {if $dbResult}({$dbResult->RowCount()}){/if}
   </div>
+
+  {if $showSources}
+  <div class="title">
+    <form name="frm" class="searchForm" onChange="this.submit();">
+    {include file="common/sourceDropDown.ihtml" urlName=1}
+    </form>
+  </div>
+  {/if}
+
   {if !$noLinks}
     <div class="links">
       <a href="../">DEX online</a> |

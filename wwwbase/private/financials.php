@@ -1,7 +1,7 @@
 <?
 // TODO: Impose upper limit on the date, so we can start talking about "past" and "present" contributions.
 require_once("../../phplib/util.php"); 
-util_assertFlexModeratorStatus();
+util_assertModerator(PRIV_LOC);
 util_assertNotMirror();
 
 $income = util_getRequestParameterWithDefault('income', 10000);

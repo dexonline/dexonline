@@ -2,6 +2,7 @@
   <div class="title">
     {$title|escape}
     {if $items}({$items|@count}){/if}
+    {if $dbResult}({$dbResult->RowCount()}){/if}
   </div>
   {if !$noLinks}
     <div class="links">

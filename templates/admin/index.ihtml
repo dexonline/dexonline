@@ -45,7 +45,7 @@
     <span id="span_ambiguousLexems">(numărătoare dezactivată)</span><br/>
 
     <br/>
-    <form action="lexemLookup.php" method="get">
+    <form action="lexemLookup.php" method="get" name="lexemForm">
       <table>
         <tr>
           <td>Caută lexem:</td>
@@ -58,6 +58,9 @@
         </tr>
       </table>
     </form>
+    <script type="text/javascript">
+      document.lexemForm.lexemName.select();document.lexemForm.lexemName.focus();
+    </script>
     <br/>
 
     {if $sUser->moderator & $smarty.const.PRIV_LOC}

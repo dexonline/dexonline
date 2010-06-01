@@ -138,6 +138,8 @@
           <option value="1">incluse în LOC</option>
           <option value="0">neincluse în LOC</option>
         </select>
+        trimise de <span class="deemph">(opțional)</span>
+        <input type="text" name="nick" size="10" value=""/>
         <input type="submit" value="Listează"/>
       </form>
       <br/>

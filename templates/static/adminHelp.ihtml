@@ -142,4 +142,10 @@ etichetate cu acel model vor fi reetichetate cu modelul T1. (Vă va fi
 prezentat un ecran de confirmare cu lista acestor lexeme). Probabil
 este de dorit să reetichetați aceste lexeme cu modelele
 corespunzătoare, astfel ca în momentul ștergerii modelul să nu mai
-aibă niciun lexem.
+aibă niciun lexem.<br/><br/>
+
+<a name="sources"></a>
+<b>Editare surse</b> -- Editați oricare dintre valorile pentru nume, autor, editură etc. „Nume scurt” se referă la numele sursei prezentat după fiecare definiție.
+„Nume URL” se referă la numele care apare în URL la căutarea într-o anumită sursă, cum ar fi http://dexonline.ro/definitie-<b>der</b>/copil.
+Pe ultima linie puteți adăuga o sursă nouă. Ordonarea surselor este funcțională, dar este greoaie deocamdată.
+Sursele neoficiale sunt întotdeauna listate după cele oficiale, indiferent de ordonarea manuală.

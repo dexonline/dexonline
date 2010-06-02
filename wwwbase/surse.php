@@ -20,7 +20,7 @@ if ($moveDown) {
 if ($submitButton) {
   foreach($ids as $id) {
     $src = ($id == 'new') ? new Source : Source::get("id = {$id}");
-    $src->name = text_util_getRequestParameter("name_{$id}");
+    $src->name = util_getRequestParameter("name_{$id}");
     $src->shortName = util_getRequestParameter("shortName_{$id}");
     $src->urlName = util_getRequestParameter("urlName_{$id}");
     $src->ahutor = util_getRequestParameter("author_{$id}");

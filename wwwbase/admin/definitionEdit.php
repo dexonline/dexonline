@@ -151,7 +151,7 @@ smarty_assign('lexems', $lexems);
 smarty_assign('typos', db_find(new Typo(), "definitionId = {$definition->id}"));
 smarty_assign('homonyms', loadSetHomonyms($lexems));
 smarty_assign("allStatuses", util_getAllStatuses());
-smarty_assign("allModeratorSources", db_find(new Source(), 'canModerate'));
+smarty_assign("allModeratorSources", db_find(new Source(), 'canModerate order by displayOrder'));
 smarty_assign('recentLinks', RecentLink::loadForUser());
 smarty_displayWithoutSkin('admin/definitionEdit.ihtml');
 

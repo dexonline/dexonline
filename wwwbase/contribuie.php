@@ -60,7 +60,7 @@ if ($sendButton) {
   smarty_assign('sourceId', session_getDefaultContribSourceId());
 }
 
-smarty_assign('contribSources', db_find(new Source(), 'canContribute'));
+smarty_assign('contribSources', db_find(new Source(), 'canContribute order by displayOrder'));
 smarty_assign('page_title', 'Contribuie cu definiții');
 smarty_displayCommonPageWithSkin('contribuie.ihtml');
 

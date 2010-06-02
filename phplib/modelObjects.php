@@ -640,7 +640,7 @@ class Lexem extends BaseObject {
     }
 
     if ($this->modelType == 'VT') {
-      $model = Model::loadCanonicalByTypeNumber($this->modelType,	$this->modelNumber);
+      $model = Model::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
       $pm = ParticipleModel::loadByVerbModel($model->number);
       $this->regeneratePastParticiple($pm->adjectiveModel);
     }

@@ -24,6 +24,16 @@ $clients = array(
         'license' => 'GPL',
         'options' => array('vision' => 1, 'sync' => 1, 'regexp' => 1, 'suggest' => 1, 'diacritics' => 1, 'full' => 1, 'flex' => 1, 'click' => 1, 'history' => 1)),
 
+  array('name' => array('PyDEX', 'http://pydex.lemonsoftware.eu/'),
+        'available' => true,
+        'urls' => array(),
+        'os' => array('linux', 'mac', 'windows'),
+        'space' => '250 MB',
+        'requires' => array('wxPython'),
+        'authors' => array('Cristian Năvălici' => ''),
+        'license' => 'GPLv3',
+        'options' => array('vision' => 0, 'sync' => 1, 'regexp' => 0, 'suggest' => 0, 'diacritics' => 1, 'full' => 1, 'flex' => 1, 'click' => 0, 'history' => 1)),
+
   array('name' => array('JaDEX', 'http://www.federicomestrone.com/jadex/'),
         'available' => true,
         'urls' => array(),

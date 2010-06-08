@@ -22,7 +22,9 @@ while (!$dbResult->EOF) {
     }
     foreach ($lexems as $longInf) {
       if (!$longInf->isLoc) {
-	print "I {$longInf->formNoAccent} nu este în LOC {$LEXEM_EDIT_URL}{$longInf->id}\n";
+        print "I {$longInf->formNoAccent} nu este în LOC {$LEXEM_EDIT_URL}{$longInf->id}\n";
+        $longInf->isLoc = 1;
+        $longInf->save();
       }
     }
   }
@@ -35,12 +37,14 @@ while (!$dbResult->EOF) {
       $partForm = $if->formNoAccent;
       $lexems = db_find(new Lexem(), "formNoAccent = '{$partForm}' and modelType = 'A' and modelNumber = '{$pm->adjectiveModel}'");
       if (count($lexems) != 1) {
-	print "P {$partForm} are " . count($lexems) . " lexeme corespunzătoare\n";
+        print "P {$partForm} are " . count($lexems) . " lexeme corespunzătoare\n";
       }
       foreach ($lexems as $part) {
-	if (!$part->isLoc) {
-	  print "P {$part->formNoAccent} nu este în LOC {$LEXEM_EDIT_URL}{$part->id}\n";
-	}
+        if (!$part->isLoc) {
+          print "P {$part->formNoAccent} nu este în LOC {$LEXEM_EDIT_URL}{$part->id}\n";
+          $part->isLoc = 1;
+          $part->save();
+        }
       }
     }
   }

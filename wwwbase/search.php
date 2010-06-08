@@ -202,7 +202,22 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
 
 	smarty_assign('sourceNamesArr', $sourceNamesArr);
   }
+}
 
+$adsModules = pref_getServerPreference('adsModulesH');
+if ($adsModules) {
+  require_once util_getRootPath() . 'phplib/ads/adsModule.php';
+  foreach ($adsModules as $adsModule) {
+    require_once util_getRootPath() . "phplib/ads/{$adsModule}/{$adsModule}AdsModule.php";
+    $className = ucfirst($adsModule) . 'AdsModule';
+    $module = new $className;
+    $result = $module->run(empty($lexems) ? null : $lexems, empty($definitions) ? null : $definitions);
+    if ($result) {
+      smarty_assign('adsProvider', $adsModule);
+      smarty_assign('adsProviderParams', $result);
+      break;
+    }
+  }
 }
 
 smarty_assign('text', $text);

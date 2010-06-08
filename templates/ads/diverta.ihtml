@@ -1,0 +1,86 @@
+{if $hasImage}
+  {math equation="696-w" w=`$book->thumbWidth` assign=textWidth}
+{else}
+  {assign var=textWidth value=706}
+{/if}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Diverta Ad</title>
+    <style type="text/css">
+      body {ldelim}
+        margin: 0px;
+        padding: 0px;
+      {rdelim}
+
+      a {ldelim}
+        border: 0px;
+        color: white;
+        text-decoration: none;
+      {rdelim}
+
+      img {ldelim}
+        border: 0px;
+      {rdelim}
+
+      .wrapper {ldelim}
+        background: url('{$imgRoot}/diverta/bg.png') no-repeat;
+        color: white;
+        display: block;
+        height: 90px;
+        width: 728px;
+      {rdelim}
+
+      .coverImg {ldelim}
+        float: left;
+        height: {$book->thumbHeight}px;
+        padding: 3px 0px 3px 10px;
+        width: {$book->thumbWidth}px;
+      {rdelim}
+
+      .textWrapper {ldelim}
+        float: left;
+        height: 90px;
+        overflow: hidden;
+        padding: 0 10px;
+        text-align: center;
+        width: {$textWidth}px;
+      {rdelim}
+
+      .title {ldelim}
+        font-size: 20px;
+        margin-top: 10px;
+      {rdelim}
+
+      .author {ldelim}
+        font-size: 14px;
+      {rdelim}
+
+      .prop {ldelim}
+        font-size: 14px;
+        margin-top: 8px;
+      {rdelim}
+    </style>
+  </head>
+  <body>
+
+<a class="wrapper" href="{$book->url}" target="_blank">
+  {if $hasImage}
+    <img class="coverImg" src="{$imgRoot}/diverta/thumb/{$book->sku}.jpg" alt="imagine copertă"/>
+  {/if}
+  <div class="textWrapper">
+    <div class="title">{$book->title|truncate:58}</div>
+    <div class="author">
+      {if $book->author == '***'}
+        &nbsp;
+      {else}
+        de {$book->author}
+      {/if}
+    </div>
+    <div class="prop">Volum disponibil acum la <b>dol.ro &mdash; Diverta Online</b></div>
+  </div>
+</a>
+
+  </body>
+</html>

@@ -34,10 +34,12 @@ function util_ConfigurePhp() {
 function util_defineRootPath() {
   $fileName = realpath($_SERVER['SCRIPT_FILENAME']);
   $pos = strrpos($fileName, '/wwwbase/');
+  // Some offline scripts, such as dict-server.php, run from the tools or phplib directories.
   if ($pos === FALSE) {
-    // Some offline scripts, such as dict-server.php, run from the tools
-    // directory.
     $pos = strrpos($fileName, '/tools/');
+  }
+  if ($pos === FALSE) {
+    $pos = strrpos($fileName, '/phplib/');
   }
   $GLOBALS['util_rootPath'] = substr($fileName, 0, $pos + 1);
 }
@@ -365,6 +367,15 @@ function util_isDesktopBrowser() {
   $u = $_SERVER['HTTP_USER_AGENT'];
   return (strpos($u, 'Firefox') !== false) || (strpos($u, 'MSIE') !== false) || (strpos($u, 'Chrome') !== false) ||
     (strpos($u, 'Opera') !== false) || (strpos($u, 'Safari') !== false);
+}
+
+function util_fetchUrl($url) {
+  $ch = curl_init($url);
+  curl_setopt($ch, CURLOPT_HEADER, 0);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  $result = curl_exec($ch);
+  curl_close($ch);
+  return $result;
 }
 
 ?>

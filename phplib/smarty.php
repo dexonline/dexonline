@@ -47,6 +47,10 @@ function smarty_displayPageWithSkin($templateName) {
   $GLOBALS['smarty_theSmarty']->display($fileName);
 }
 
+function smarty_display($templateName) {
+  $GLOBALS['smarty_theSmarty']->display($templateName);
+}
+
 function smarty_displayWithoutSkin($templateName) {
   smarty_register_outputfilters();
   $GLOBALS['smarty_theSmarty']->display($templateName);

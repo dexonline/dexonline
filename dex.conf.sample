@@ -4,6 +4,12 @@
 adoDbActiveRecordClass = adodb/adodb-active-record.inc.php
 adoDbClass = adodb/adodb.inc.php
 
+; Modules that are allowed to run and possibly serve a banner instead of the bannerH and bannerV choices below
+; These will be invoked in the order they are listed until one of them serves a banner.
+; If none of them has a relevant banner, we fall back to bannerH and bannerV
+; adsModulesH[] = module1
+; adsModulesH[] = module2
+
 ; Types of banners to be served for the horizontal and vertical banner.
 ; Banner sizes are always leaderboard (728x90, 90x728).
 ; Choices are "openx", "adsense", "fake" or "none".

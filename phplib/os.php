@@ -22,4 +22,17 @@ function os_executeAndAssertDebug($command, $debug) {
     os_errorAndExit("Failed command: $command (code $exit_code)");
   }
 }
+
+function os_executeAndReturnOutput($command) {
+  $exit_code = 0;
+  $output = null;
+  exec($command, $output, $exit_code);
+  if ($exit_code) {
+    print("ERROR: Failed command: $command (code $exit_code)\n");
+    var_dump($output);
+    exit;
+  }
+  return $output;
+}
+
 ?>

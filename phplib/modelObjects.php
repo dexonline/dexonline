@@ -661,6 +661,8 @@ class Lexem extends BaseObject {
       foreach ($lexems as $l) {
         if ($l->modelType == 'T' || ($l->modelType == 'A' && $l->modelNumber = $model->number)) {
           $lexem = $l;
+        } else if ($this->isLoc && !$l->isLoc) {
+          session_setFlash("Lexemul {$l->formNoAccent} ({$l->modelType}{$l->modelNumber}), care nu este în LOC, nu a fost modificat.", 'info');
         }
       }
       if ($lexem) {
@@ -704,6 +706,8 @@ class Lexem extends BaseObject {
       foreach ($lexems as $l) {
         if ($l->modelType == 'T' || ($l->modelType == 'F' && $l->modelNumber == $model->number)) {
           $lexem = $l;
+        } else if ($this->isLoc && !$l->isLoc) {
+          session_setFlash("Lexemul {$l->formNoAccent} ({$l->modelType}{$l->modelNumber}), care nu este în LOC, nu a fost modificat.", 'info');
         }
       }
       if ($lexem) {

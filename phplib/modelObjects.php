@@ -683,6 +683,7 @@ class Lexem extends BaseObject {
         foreach ($ldms as $ldm) {
           LexemDefinitionMap::associate($lexem->id, $ldm->definitionId);
         }
+        session_setFlash("Am creat automat lexemul {$lexem->formNoAccent} (A{$lexem->modelNumber}) și l-am asociat cu toate definițiile verbului.", 'info');
       }
       $lexem->regenerateParadigm();
     }
@@ -725,6 +726,7 @@ class Lexem extends BaseObject {
         foreach ($ldms as $ldm) {
           LexemDefinitionMap::associate($lexem->id, $ldm->definitionId);
         }
+        session_setFlash("Am creat automat lexemul {$lexem->formNoAccent} (F{$lexem->modelNumber}) și l-am asociat cu toate definițiile verbului.", 'info');
       }
       $lexem->regenerateParadigm();
     }

@@ -314,3 +314,24 @@ ul.mlNotes {
 span.spaced {
   letter-spacing: 3px;
 }
+
+div.flashMessage {
+  font-weight: bold;
+  margin: 10px auto;
+  padding: 10px 10px 10px 40px;
+  width: 40em;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+}
+
+div.errorType {
+  background: url("../img/icons/error.png") no-repeat 10px center;
+  border: 2px solid #eea77e;
+  color: #c00;
+}
+
+div.infoType {
+  background: url("../img/icons/info.png") no-repeat 10px center;
+  border: 2px solid #a7ee7e;
+  color: green;
+}

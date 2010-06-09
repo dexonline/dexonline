@@ -667,7 +667,10 @@ class Lexem extends BaseObject {
         $lexem->modelType = 'A';
         $lexem->modelNumber = $model->number;
         $lexem->restriction = '';
-        $lexem->isLoc = $this->isLoc;
+        if ($this->isLoc && !$lexem->isLoc) {
+          $lexem->isLoc = $this->isLoc;
+          session_setFlash("Lexemul {$lexem->formNoAccent}, care nu era în LOC, a fost inclus automat în LOC.", 'info');
+        }
         $lexem->noAccent = false;
         $lexem->save();
       } else {
@@ -706,7 +709,10 @@ class Lexem extends BaseObject {
         $lexem->modelType = 'F';
         $lexem->modelNumber = $model->number;
         $lexem->restriction = '';
-        $lexem->isLoc = $this->isLoc;
+        if ($this->isLoc && !$lexem->isLoc) {
+          $lexem->isLoc = $this->isLoc;
+          session_setFlash("Lexemul {$lexem->formNoAccent}, care nu era în LOC, a fost inclus automat în LOC.", 'info');
+        }
         $lexem->noAccent = false;
         $lexem->save();
       } else {

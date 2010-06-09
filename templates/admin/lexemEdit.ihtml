@@ -13,6 +13,7 @@
     {include file="admin/header.ihtml" title="$title"}
     {include file="admin/recentlyVisited.ihtml"}
     {include file="common/errorMessage.ihtml"}
+    {include file="common/flashMessages.ihtml"}
 
     <div class="lexemSectionHeader">Proprietăți</div>
 

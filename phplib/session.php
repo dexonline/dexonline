@@ -149,7 +149,8 @@ function session_isDebug() {
 }
 
 function session_setFlash($message, $type = 'error') {
-  $_SESSION['flashMessage'] = $message;
+  $oldMessage = array_key_exists('flashMessage', $_SESSION) ? $_SESSION['flashMessage'] : '';
+  $_SESSION['flashMessage'] = "{$oldMessage}{$message}<br/>";
   $_SESSION['flashMessageType'] = $type;
 }
 

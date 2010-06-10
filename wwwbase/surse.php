@@ -23,7 +23,7 @@ if ($submitButton) {
     $src->name = util_getRequestParameter("name_{$id}");
     $src->shortName = util_getRequestParameter("shortName_{$id}");
     $src->urlName = util_getRequestParameter("urlName_{$id}");
-    $src->ahutor = util_getRequestParameter("author_{$id}");
+    $src->author = util_getRequestParameter("author_{$id}");
     $src->publisher = util_getRequestParameter("publisher_{$id}");
     $src->year = util_getRequestParameter("year_{$id}");
     $src->canContribute = util_getRequestParameterWithDefault("canContribute_{$id}", 0);

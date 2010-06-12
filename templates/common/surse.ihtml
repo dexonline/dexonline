@@ -1,11 +1,11 @@
 <form method="post" action="surse">
-  <table>
+  <table class="sources">
     <tr>
       <th>Ordonare</th>
       <th>Date {include file="admin/helpLink.ihtml" anchor="sources"}</th>
+      <th>Oficial</th>
       <th>Contribuie</th>
       <th>Moderare</th>
-      <th>Oficial</th>
       <th>Distribuie</th>
     </tr>
     {foreach from=$sources item=s}
@@ -16,16 +16,22 @@
         </td>
         <td>
           <input type="hidden" name="ids[]" value="{$s->id}"/>
-          Nume: <input type="text" name="name_{$s->id}" value="{$s->name}" size="45"/><br/>
+          Nume: <input type="text" name="name_{$s->id}" value="{$s->name}" size="80"/><br/>
           Nume scurt: <input type="text" name="shortName_{$s->id}" value="{$s->shortName}" size="10"/>
-          Nume URL: <input type="text" name="urlName_{$s->id}" value="{$s->urlName}" size="10"/><br/>
-          Autor: <input type="text" name="author_{$s->id}" value="{$s->author}" size="45"/><br/>
-          Editură: <input type="text" name="publisher_{$s->id}" value="{$s->publisher}" size="25"/>
+          Autor: <input type="text" name="author_{$s->id}" value="{$s->author}" size="55"/><br/>
+          Nume URL: <input type="text" name="urlName_{$s->id}" value="{$s->urlName}" size="10"/>
+          Editură: <input type="text" name="publisher_{$s->id}" value="{$s->publisher}" size="35"/>
           An: <input type="text" name="year_{$s->id}" value="{$s->year}" size="10"/><br/>
         </td>
+        <td>
+	      <select name="isOfficial_{$s->id}">
+		    <option value="2" {if $s->isOfficial==2 }selected{/if}>Oficial</option>
+		    <option value="1" {if $s->isOfficial==1 }selected{/if}>Specializat</option>
+		    <option value="0" {if $s->isOfficial==0 }selected{/if}>Neoficial</option>
+	      </select>
+		</td>
         <td><input type="checkbox" name="canContribute_{$s->id}" value="1" {if $s->canContribute}checked="checked"{/if}/></td>
         <td><input type="checkbox" name="canModerate_{$s->id}" value="1" {if $s->canModerate}checked="checked"{/if}/></td>
-        <td><input type="checkbox" name="isOfficial_{$s->id}" value="1" {if $s->isOfficial}checked="checked"{/if}/></td>
         <td><input type="checkbox" name="canDistribute_{$s->id}" value="1" {if $s->canDistribute}checked="checked"{/if}/></td>
       </tr>
     {/foreach}
@@ -33,16 +39,22 @@
       <td>Adaugă:</td>
       <td>
         <input type="hidden" name="ids[]" value="new"/>
-        Nume: <input type="text" name="name_new" value="" size="45"/><br/>
+        Nume: <input type="text" name="name_new" value="" size="80"/><br/>
         Nume scurt: <input type="text" name="shortName_new" value="" size="10"/>
-        Nume URL: <input type="text" name="urlName_new" value="" size="10"/><br/>
-        Autor: <input type="text" name="author_new" value="" size="45"/><br/>
-        Editură: <input type="text" name="publisher_new" value="" size="25"/>
+        Autor: <input type="text" name="author_new" value="" size="55"/><br/>
+        Nume URL: <input type="text" name="urlName_new" value="" size="10"/>
+        Editură: <input type="text" name="publisher_new" value="" size="35"/>
         An: <input type="text" name="year_new" value="" size="10"/><br/>
       </td>
+      <td>
+	    <select name="isOfficial_new">
+		  <option value="2">Oficial</option>
+		  <option value="1">Specializat</option>
+		  <option value="0">Neoficial</option>
+	    </select>
+	  </td>
       <td><input type="checkbox" name="canContribute_new" value="1"/></td>
       <td><input type="checkbox" name="canModerate_new" value="1"/></td>
-      <td><input type="checkbox" name="isOfficial_new" value="1"/></td>
       <td><input type="checkbox" name="canDistribute_new" value="1"/></td>
     </tr>
   </table>

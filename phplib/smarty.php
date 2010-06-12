@@ -11,7 +11,7 @@ function smarty_init() {
   $smarty->assign('wwwRoot', util_getWwwRoot());
   $smarty->assign('cssRoot', util_getCssRoot());
   $smarty->assign('imgRoot', util_getImgRoot());
-  $smarty->assign('sources', db_find(new Source(), '1 order by displayOrder'));
+  $smarty->assign('sources', db_find(new Source(), '1 order by isOfficial desc, displayOrder'));
   $smarty->assign('sUser', session_getUser());
   $smarty->assign('is_mirror', pref_isMirror());
   $smarty->assign('nick', session_getUserNick());

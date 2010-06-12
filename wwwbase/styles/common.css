@@ -57,3 +57,19 @@
   font-size: 75%;
   color: green;
 }
+
+table.sources {
+  border-width: 1px;
+}
+
+table.sources th, table.sources td {
+  -moz-border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  text-align: center;
+  font-size: 80%;
+}
+
+table.sources td {
+  color: blue;
+}

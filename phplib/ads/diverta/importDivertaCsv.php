@@ -16,15 +16,19 @@ if (count($opts) != 9) {
 define('CSV_DELIMITER', getDelimiter($opts['d']));
 os_executeAndAssert('mkdir -p ' . ORIG_FILE_PREFIX);
 
-$lines = file($opts['f']);
-$numLines = count($lines);
-foreach ($lines as $i => $line) {
-  if ($i < $opts['h']) {
+if (!file_exists($opts['f'])) {
+  print "Input file does not exist.\n";
+  exit();
+}
+$handle = fopen($opts['f'], "r");
+$i = 0;
+while (($fields = fgetcsv($handle, 10000, CSV_DELIMITER)) !== false) {
+  $i++;
+  if ($i <= $opts['h']) {
     continue;
   }
-  $fields = str_getcsv($line, CSV_DELIMITER);
   $sku = $fields[$opts['s']];
-  print "Line $i/$numLines: [$sku]\n";
+  print "Line $i: [$sku]\n";
 
   // Reuse the record or create a new one
   $book = DivertaBook::get("sku = '{$sku}'");

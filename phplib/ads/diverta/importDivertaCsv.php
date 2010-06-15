@@ -9,21 +9,21 @@ define('IMG_NORMAL', 0);
 define('IMG_NOT_JPEG', 1);
 define('IMG_CORRUPT', 2);
 
-$opts = getopt(null, array('file:', 'header-rows:', 'delim:', 'sku:', 'title:', 'author:', 'publisher:', 'url:', 'image-url:'));
+$opts = getopt('f:h:d:s:t:a:p:u:i:');
 if (count($opts) != 9) {
   usage();
 }
-define('CSV_DELIMITER', getDelimiter($opts['delim']));
+define('CSV_DELIMITER', getDelimiter($opts['d']));
 os_executeAndAssert('mkdir -p ' . ORIG_FILE_PREFIX);
 
-$lines = file($opts['file']);
+$lines = file($opts['f']);
 $numLines = count($lines);
 foreach ($lines as $i => $line) {
-  if ($i < $opts['header-rows']) {
+  if ($i < $opts['h']) {
     continue;
   }
   $fields = str_getcsv($line, CSV_DELIMITER);
-  $sku = $fields[$opts['sku']];
+  $sku = $fields[$opts['s']];
   print "Line $i/$numLines: [$sku]\n";
 
   // Reuse the record or create a new one
@@ -37,11 +37,11 @@ foreach ($lines as $i => $line) {
     $book->impressions = 0;
     $book->clicks = 0;
   }
-  $book->title = $fields[$opts['title']];
-  $book->author = $fields[$opts['author']];
-  $book->publisher = $fields[$opts['publisher']];
-  $book->imageUrl = IMG_URL_PREFIX . $fields[$opts['image-url']];
-  $book->url = $fields[$opts['url']];
+  $book->title = $fields[$opts['t']];
+  $book->author = $fields[$opts['a']];
+  $book->publisher = $fields[$opts['p']];
+  $book->imageUrl = IMG_URL_PREFIX . $fields[$opts['i']];
+  $book->url = $fields[$opts['u']];
   $book->save();
   print "  [{$book->title}] by [{$book->author}]\n";
 
@@ -118,15 +118,15 @@ function isImage($fileName) {
 
 function usage() {
   print "Required arguments:\n";
-  print "--file         input file\n";
-  print "--header-rows  number of header rows to discard\n";
-  print "--delim        CSV delimiter (one of the strings 'tab', 'comma' or 'space'\n";
-  print "--sku          column number for the sku (all column numbers are 0-based)\n";
-  print "--title        column number for the title\n";
-  print "--author       column number for the author\n";
-  print "--publisher    column number for the publisher\n";
-  print "--url          column number for the book URL\n";
-  print "--image-url    column number for the image URL\n";
+  print "--f (file)         input file\n";
+  print "--h (header-rows)  number of header rows to discard\n";
+  print "--d (delim)        CSV delimiter (one of the strings 'tab', 'comma' or 'space'\n";
+  print "--s (sku)          column number for the sku (all column numbers are 0-based)\n";
+  print "--t (title)        column number for the title\n";
+  print "--a (author)       column number for the author\n";
+  print "--p (publisher)    column number for the publisher\n";
+  print "--u (url)          column number for the book URL\n";
+  print "--i (image-url)    column number for the image URL\n";
   exit(1);
 }
 
@@ -135,7 +135,7 @@ function getDelimiter($string) {
     case 'tab': return "\t";
     case 'comma': return ',';
     case 'space': return ' ';
-    default: print "--delim can be one of the strings 'tab', 'comma' or 'space'\n"; exit(1);
+    default: print "-d can be one of the strings 'tab', 'comma' or 'space'\n"; exit(1);
   }
 }
 

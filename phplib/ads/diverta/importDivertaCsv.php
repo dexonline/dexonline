@@ -84,6 +84,10 @@ foreach ($lines as $i => $line) {
       print "  Corrupted image ";
     }
   } elseif ($alreadyResized) {
+    list ($thumbWidth, $thumbHeight, $ignored) = preg_split('/\|/', getImageInfo($thumbName));
+    $book->thumbWidth = $thumbWidth;
+    $book->thumbHeight = $thumbHeight;
+    $book->save();
     print "  Already processed, skipping ";
   } else {
     print "  Cannot fetch image! ";

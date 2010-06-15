@@ -22,10 +22,7 @@ class DivertaAdsModule extends AdsModule {
     $books = db_getObjects(new DivertaBook(), db_execute("select distinct b.* from diverta_Book b, diverta_Index i where b.id = i.bookId and i.lexemId in ({$lexemIdString}) order by impressions"));
 
     if (count($books)) {
-      $book = $books[0];
-      $book->impressions++;
-      $book->save();
-      return array('bookId' => $book->id, 'bookUrl' => 'http://google.com');
+      return array('bookId' => $books[0]->id);
     }
     return null;
   }

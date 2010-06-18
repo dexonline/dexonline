@@ -12,7 +12,6 @@ os_executeAndAssert("echo 'SET UTF-8' > $tmpDir/dictionaries/ro-dex.aff");
 os_executeAndAssert("cp ../docs/install.rdf $tmpDir/");
 
 $mysqlFile = tempnam('/tmp', 'mysql_');
-os_executeAndAssert("rm $mysqlFile");
 $query = "select distinct formNoAccent from InflectedForm " .
   "where formNoAccent rlike '^[a-zăâîșț]+$' " .
   "into outfile '$mysqlFile'";

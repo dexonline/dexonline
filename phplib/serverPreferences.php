@@ -41,19 +41,16 @@ function pref_getLocVersions() {
   if (!array_key_exists('locVersions', $GLOBALS)) {
     $result = array();
     $locParts = pref_getServerPreference('locVersions');
-    if (!is_array($locParts)) {
-      $locParts = preg_split('/,/', $locParts);
-    }
     foreach ($locParts as $part) {
       $part = trim($part);
       if ($part) {
-	$versionAndDate = preg_split('/ /', $part);
-	assert(count($versionAndDate == 2));
-	$lv = new LocVersion();
-	$lv->name = trim($versionAndDate[0]);
-	$date = trim($versionAndDate[1]);
-	$lv->freezeTimestamp = ($date == 'current') ? null : strtotime($date);
-	$result[] = $lv;
+        $versionAndDate = preg_split('/ /', $part);
+        assert(count($versionAndDate == 2));
+        $lv = new LocVersion();
+        $lv->name = trim($versionAndDate[0]);
+        $date = trim($versionAndDate[1]);
+        $lv->freezeTimestamp = ($date == 'current') ? null : strtotime($date);
+        $result[] = $lv;
       }
     }
     $GLOBALS['locVersions'] = $result;

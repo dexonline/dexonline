@@ -1,30 +1,60 @@
 <?
 require_once("../phplib/util.php");
+define('DB_QUERY', 'select * from Lexem where isLoc order by formNoAccent');
 $locVersion = util_getRequestParameter('locVersion');
+$newLocVersion = util_getRequestParameter('newLocVersion');
+
+if ($newLocVersion) {
+  if ($locVersion == $newLocVersion) {
+    session_setFlash('Ați selectat aceeași versiune LOC de două ori');
+    util_redirect('scrabble-loc');
+  }
+
+  $file1 = tempnam('/tmp', 'loc_diff_');
+  $file2 = tempnam('/tmp', 'loc_diff_');
+  writeLexems($locVersion, $file1);
+  writeLexems($newLocVersion, $file2);
+  $diff = os_executeAndReturnOutput("diff $file1 $file2 || true");
+
+  print "<pre>\n";
+  foreach ($diff as $line) {
+    if (text_startsWith($line, '< ')) {
+      print sprintf("<span style=\"color: red\">%s: %s</span>\n", $locVersion, substr($line, 2));
+    } else if (text_startsWith($line, '> ')) {
+      print sprintf("<span style=\"color: green\">%s: %s</span>\n", $newLocVersion, substr($line, 2));
+    }
+  }
+  print "</pre>\n";
+
+  util_deleteFile($file1);
+  util_deleteFile($file2);
+  exit;
+}
 
 if ($locVersion) {
-  $lv = new LocVersion();
-  $lv->name = $locVersion;
-  $dbName = pref_getLocPrefix() . $lv->getDbName();
-  db_changeDatabase($dbName);
-
   header('Content-type: text/plain; charset=UTF-8');
-  $dbResult = db_execute("select * from Lexem where isLoc order by formNoAccent");
+  writeLexems($locVersion, 'php://output');
+  exit;
+}
+
+setlocale(LC_ALL, "ro_RO");
+smarty_assign('locVersions', array_reverse(pref_getLocVersions()));
+smarty_displayCommonPageWithSkin('scrabble-loc.ihtml');
+
+function writeLexems($locVersion, $fileName) {
+  LocVersion::changeDatabase($locVersion);
+  $dbResult = db_execute(DB_QUERY);
+  $handle = fopen($fileName, 'w');
   while (!$dbResult->EOF) {
     $l = new Lexem();
     $l->set($dbResult->fields);
     $dbResult->MoveNext();
-    print text_padRight(text_unicodeToUpper($l->form), 20);
-    print text_padRight($l->modelType, 4);
-    print text_padRight($l->modelNumber, 8);
-    print $l->restriction . "\n";
+    fprintf($handle, text_padRight(text_unicodeToUpper($l->form), 20));
+    fprintf($handle, text_padRight($l->modelType, 4));
+    fprintf($handle, text_padRight($l->modelNumber, 8));
+    fprintf($handle, $l->restriction . "\n");
   }
-  return;
+  fclose($handle);
 }
-
-setlocale(LC_ALL, "ro_RO");
-smarty_assign('locVersions', array_reverse(pref_getFrozenLocVersions()));
-smarty_displayCommonPageWithSkin('scrabble-loc.ihtml');
-
 
 ?>

@@ -30,7 +30,7 @@
     <a href="viewPendingDefinitions.php">Definiții nemoderate:</a>
     <span id="span_temporaryDefinitions"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 
-    {if $sUser->moderator & $smarty.const.PRIV_LOC}  
+    {if $sUser->moderator & $smarty.const.PRIV_LOC}
       <a href="../flex/viewTemporaryLexems.php">Lexeme fără paradigme:</a>
       <span id="span_temporaryLexems"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 

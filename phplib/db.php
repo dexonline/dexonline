@@ -17,6 +17,7 @@ function db_execute($query) {
 
 function db_changeDatabase($dbName) {
   $dbName = addslashes($dbName);
+  db_init();
   return logged_query("use $dbName");
 }
 

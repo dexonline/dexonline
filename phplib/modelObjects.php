@@ -1031,6 +1031,19 @@ class LocVersion {
   public function getDbName() {
     return str_replace('.', '_', $this->name);
   }
+
+  public static function changeDatabase($versionName) {
+    $lvs = array_reverse(pref_getLocVersions());
+    if ($versionName == $lvs[0]->name) {
+      $dbInfo = db_splitDsn();
+      $dbName = $dbInfo['database'];
+    } else {
+      $lv = new LocVersion();
+      $lv->name = $versionName;
+      $dbName = pref_getLocPrefix() . $lv->getDbName();
+    }
+    db_changeDatabase($dbName);
+  }
 }
 
 class FullTextIndex extends BaseObject {

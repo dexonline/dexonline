@@ -28,7 +28,7 @@ if ($locVersion && $form) {
   smarty_assign('page_title', 'Căutare formă flexionară în LOC ' . $form);
 }
 
-setlocale(LC_ALL, "ro_RO");
+setlocale(LC_ALL, "ro_RO.utf8");
 smarty_assign('locVersions', array_reverse(pref_getFrozenLocVersions()));
 smarty_displayCommonPageWithSkin('scrabble-flexiune.ihtml');
 

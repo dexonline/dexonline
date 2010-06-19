@@ -487,6 +487,7 @@ div.infoType {
 
 .userTop td, .userTop th {
   text-align: center;
+  padding-right: 20px;
 }
 
 .userTop .nick {
@@ -530,4 +531,27 @@ span.spaced {
 
 table.static {
   margin-left: 20px;
+}
+
+/* jquery tablesorter stuff */
+th.header {
+  background: url("../img/icons/jquery/bg.gif") no-repeat center right;
+  cursor: pointer;
+}
+
+th.headerSortUp {
+  background-image: url("../img/icons/jquery/asc.gif");
+  background-color: #bb4848;
+}
+
+th.headerSortDown {
+  background-image: url("../img/icons/jquery/desc.gif");
+  background-color: #bb4848;
+}
+
+input.pagedisplay {
+  border: 0px;
+  text-align: center;
+  vertical-align: top;
+  width: 50px;
 }

@@ -10,3 +10,15 @@
 {if $mobile}
   <script type="text/javascript" src="{$wwwRoot}js/mobile.js?v=1"></script>
 {/if}
+
+{* External resources *}
+
+{if $jquery}
+  <script type="text/javascript" src="{$wwwRoot}js/jquery-1.4.2.min.js"></script>
+{/if}
+{if $tablesorter}
+  <script type="text/javascript" src="{$wwwRoot}js/jquery.tablesorter.min.js"></script>
+{/if}
+{if $pager}
+  <script type="text/javascript" src="{$wwwRoot}js/jquery.tablesorter.pager.js"></script>
+{/if}

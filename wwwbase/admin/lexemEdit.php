@@ -4,7 +4,7 @@ require_once("../../phplib/lexemSources.php");
 
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
-setlocale(LC_ALL, "ro_RO");
+setlocale(LC_ALL, "ro_RO.utf8");
 
 $lexemId = util_getRequestParameter('lexemId');
 $dissociateDefinitionId = util_getRequestParameter('dissociateDefinitionId');

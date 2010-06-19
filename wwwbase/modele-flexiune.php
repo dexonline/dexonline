@@ -1,6 +1,6 @@
 <?
 require_once("../phplib/util.php"); 
-setlocale(LC_ALL, "ro_RO");
+setlocale(LC_ALL, "ro_RO.utf8");
 debug_off();
 
 $locVersion = util_getRequestParameter('locVersion');

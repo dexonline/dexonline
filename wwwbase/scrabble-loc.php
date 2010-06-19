@@ -37,7 +37,7 @@ if ($locVersion) {
   exit;
 }
 
-setlocale(LC_ALL, "ro_RO");
+setlocale(LC_ALL, "ro_RO.utf8");
 smarty_assign('locVersions', array_reverse(pref_getLocVersions()));
 smarty_displayCommonPageWithSkin('scrabble-loc.ihtml');
 

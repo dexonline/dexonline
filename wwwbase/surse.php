@@ -40,6 +40,8 @@ if ($submitButton) {
   util_redirect('surse');
 }
 
+// Note that we do NOT sort sources by isOfficial here, otherwise reordering will not work.
+smarty_assign('sources', db_find(new Source(), '1 order by displayOrder'));
 smarty_assign('page_title', 'Surse');
 smarty_displayCommonPageWithSkin('surse.ihtml');
 

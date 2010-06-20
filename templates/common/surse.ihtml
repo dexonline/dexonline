@@ -24,12 +24,12 @@
           An: <input type="text" name="year_{$s->id}" value="{$s->year}" size="10"/><br/>
         </td>
         <td>
-	      <select name="isOfficial_{$s->id}">
-		    <option value="2" {if $s->isOfficial==2 }selected{/if}>Oficial</option>
-		    <option value="1" {if $s->isOfficial==1 }selected{/if}>Specializat</option>
-		    <option value="0" {if $s->isOfficial==0 }selected{/if}>Neoficial</option>
-	      </select>
-		</td>
+          <select name="isOfficial_{$s->id}">
+            <option value="2" {if $s->isOfficial==2 }selected{/if}>Oficial</option>
+            <option value="1" {if $s->isOfficial==1 }selected{/if}>Specializat</option>
+            <option value="0" {if $s->isOfficial==0 }selected{/if}>Neoficial</option>
+          </select>
+        </td>
         <td><input type="checkbox" name="canContribute_{$s->id}" value="1" {if $s->canContribute}checked="checked"{/if}/></td>
         <td><input type="checkbox" name="canModerate_{$s->id}" value="1" {if $s->canModerate}checked="checked"{/if}/></td>
         <td><input type="checkbox" name="canDistribute_{$s->id}" value="1" {if $s->canDistribute}checked="checked"{/if}/></td>
@@ -47,12 +47,12 @@
         An: <input type="text" name="year_new" value="" size="10"/><br/>
       </td>
       <td>
-	    <select name="isOfficial_new">
-		  <option value="2">Oficial</option>
-		  <option value="1">Specializat</option>
-		  <option value="0">Neoficial</option>
-	    </select>
-	  </td>
+        <select name="isOfficial_new">
+          <option value="2">Oficial</option>
+          <option value="1">Specializat</option>
+          <option value="0">Neoficial</option>
+        </select>
+      </td>
       <td><input type="checkbox" name="canContribute_new" value="1"/></td>
       <td><input type="checkbox" name="canModerate_new" value="1"/></td>
       <td><input type="checkbox" name="canDistribute_new" value="1"/></td>

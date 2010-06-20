@@ -300,9 +300,39 @@ class TopEntry {
   public $timestamp; // of last submission
   public $days; // since last submission
 
-  private static function loadUnsortedTopData() {
-    $dbResult = db_execute("select nick, count(*) as NumDefinitions, sum(length(internalRep)) as NumChars, max(createDate) as Timestamp " .
-                           "from Definition, User where userId = User.id and status = 0 group by nick");
+  private static function getSqlStatement($manual) {
+    $bulk = array(array(null, Source::get("shortName = 'MDN'"), '2007-09-15'),
+                  array(null, Source::get("shortName = 'DOOM 2'"), '2010-05-02'),
+                  array(null, Source::get("shortName = 'Petro-Sedim'"), null),
+                  array(null, Source::get("shortName = 'DSL'"), null),
+                  array(null, Source::get("shortName = 'GTA'"), null),
+                  array(User::get("nick = 'siveco'"), null, null),
+                  array(User::get("nick = 'RACAI'"), null, null));
+    $conditions = array();
+    foreach ($bulk as $tuple) {
+      $parts = array();
+      if ($tuple[0]) {
+        $parts[] = "(userId = {$tuple[0]->id})";
+      }
+      if ($tuple[1]) {
+        $parts[] = "(sourceId = {$tuple[1]->id})";
+      }
+      if ($tuple[2]) {
+        $parts[] = "(left(from_unixtime(createDate), 10) = '{$tuple[2]}')";
+      }
+      $conditions[] = '(' . implode(' and ', $parts) . ')';
+    }
+    $clause = '(' . implode(' or ', $conditions) . ')';
+    if ($manual) {
+      $clause = "not {$clause}";
+    }
+
+    return "select nick, count(*) as NumDefinitions, sum(length(internalRep)) as NumChars, max(createDate) as Timestamp from Definition, User where userId = User.id and status = 0 and $clause group by nick";
+  }
+
+  private static function loadUnsortedTopData($manual) {
+    $statement = self::getSqlStatement($manual);
+    $dbResult = db_execute($statement);
     $topEntries = array();
     $now = time();
 
@@ -320,11 +350,11 @@ class TopEntry {
     return $topEntries;
   }
 
-  private static function getUnsortedTopData() {
-    $data = fileCache_getTop();
+  private static function getUnsortedTopData($manual) {
+    $data = fileCache_getTop($manual);
     if (!$data) {
-      $data = TopEntry::loadUnsortedTopData();
-      fileCache_putTop($data);
+      $data = TopEntry::loadUnsortedTopData($manual);
+      fileCache_putTop($data, $manual);
     }
     return $data;
   }
@@ -336,8 +366,8 @@ class TopEntry {
    * @param crit  Criterion to sorty by
    * @param ord  Order to sort in (ascending/descending)
    */
-  public static function getTopData($crit, $ord) {
-    $topEntries = TopEntry::getUnsortedTopData();
+  public static function getTopData($crit, $ord, $manual) {
+    $topEntries = TopEntry::getUnsortedTopData($manual);
     
     $nick = array();
     $numWords = array();

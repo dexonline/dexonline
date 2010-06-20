@@ -1,0 +1,72 @@
+<table id="{$tableId}" class="userTop">
+  <thead>
+    <tr>
+      <th>Loc</th>
+      <th>
+         Nume
+      </th>
+      <th>
+        Nr. caractere
+      </th>
+      <th>
+        Nr. definiții
+      </th>
+      <th>
+        Data ultimei trimiteri
+      </th>
+    </tr>
+  </thead>
+
+  {if $pager}
+    <tfoot>
+      <tr id="{$tableId}Pager">
+        <td colspan="5">
+          <img src="{$imgRoot}/icons/control_start.png" class="first" alt="Prima pagină"/>
+          <img src="{$imgRoot}/icons/control_rewind.png" class="prev" alt="Pagina anterioară"/>
+          <input type="text" class="pagedisplay" size="5"/>
+          <img src="{$imgRoot}/icons/control_fastforward.png" class="next" alt="Pagina următoare"/>
+          <img src="{$imgRoot}/icons/control_end.png" class="last" alt="Ultima pagină"/>
+          <select class="pagesize">
+            <option value="15">15 pe pagină</option>
+            <option value="30">30 pe pagină</option>
+            <option value="50">50 pe pagină</option>
+          </select>
+        </td>
+      </tr>
+    </tfoot>
+  {/if}
+
+  <tbody>
+    {foreach from=$data item=row key=place}
+      <tr class="{cycle values="color1,color2"}">
+        <td>{$place+1}</td>
+        <td class="nick"><a href="utilizator/{$row->userNick|escape:"url"}">{$row->userNick|escape}</a></td>
+        <td>{$row->numChars|number_format:0:',':'.'}</td>
+        <td>{$row->numDefinitions|number_format:0:',':'.'}</td>
+ 
+        {math equation="max(255 - days, 0)" days=$row->days assign=color}
+        <td style="color: {$color|string_format:"#%02x0000"}">{$row->timestamp|date_format:"%d.%m.%Y"}</td>
+      </tr>
+    {/foreach}
+  </tbody>
+</table>
+
+<script type="text/javascript">
+  $(document).ready(function() {ldelim}
+    $("#{$tableId}").tablesorter({ldelim}
+      headers: {ldelim}
+        2: {ldelim} sorter: 'stripDots' {rdelim},
+        3: {ldelim} sorter: 'stripDots' {rdelim},
+        4: {ldelim} sorter: 'ddmmyyyy' {rdelim},
+      {rdelim},
+      sortList: [[2,1]],
+      sortInitialOrder: "desc"
+    {rdelim})
+    {if $pager}.tablesorterPager({ldelim}container: $("#{$tableId}Pager"), size: 15, positionFixed: false{rdelim}){/if}
+    ;
+  
+    $("#{$tableId} .header").click(function() {ldelim}
+      $("#{$tableId} tfoot .first").click();
+    {rdelim});
+  {rdelim});
+</script>

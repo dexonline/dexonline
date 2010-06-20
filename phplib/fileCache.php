@@ -58,12 +58,12 @@ function fileCache_putWordCountLastMonth($value) {
   fileCache_put(CKEY_WORDS_LAST_MONTH, $value);
 }
 
-function fileCache_getTop() {
-  return fileCache_get(CKEY_TOP);
+function fileCache_getTop($manual) {
+  return fileCache_get(CKEY_TOP . ($manual ? '1' : '0'));
 }
 
-function fileCache_putTop($value) {
-  fileCache_put(CKEY_TOP, $value);
+function fileCache_putTop($value, $manual) {
+  fileCache_put(CKEY_TOP . ($manual ? '1' : '0'), $value);
 }
 
 function _fileCache_getKeyForModeratorIp($ip) {

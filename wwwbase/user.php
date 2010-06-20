@@ -12,7 +12,7 @@ if ($user) {
   $user->email = text_scrambleEmail($user->email);
   
   // Find the rank of this user by number of words and number of characters
-  $topWords = TopEntry::getTopData(CRIT_WORDS, SORT_DESC);
+  $topWords = TopEntry::getTopData(CRIT_WORDS, SORT_DESC, true);
   $numUsers = count($topWords);
   $rankWords = 0;
   while ($rankWords < $numUsers && $topWords[$rankWords]->userNick != $nick) {
@@ -27,7 +27,7 @@ if ($user) {
     $userData['num_chars'] = $topEntry->numChars;
   }
   
-  $topChars = TopEntry::getTopData(CRIT_CHARS, SORT_DESC);
+  $topChars = TopEntry::getTopData(CRIT_CHARS, SORT_DESC, true);
   $numUsers = count($topChars);
   $rankChars = 0;
   while ($rankChars < $numUsers && $topChars[$rankChars]->userNick != $nick) {

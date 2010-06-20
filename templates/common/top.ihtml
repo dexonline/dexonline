@@ -1,60 +1,18 @@
 {include file="common/bits/js.ihtml jquery=1 pager=1 tablesorter=1}
 
-Inimoșii "ctitori" ai <i>DEX online</i> sunt listați mai jos.  Dacă <i>DEX online</i> v-a fost vreodată de folos, lor trebuie să le
+<h3>Topul contribuțiilor manuale</h3>
+
+Inimoșii „ctitori” ai <i>DEX online</i> sunt listați mai jos.  Dacă <i>DEX online</i> v-a fost vreodată de folos, lor trebuie să le
 mulțumiți. Pentru fiecare utilizator sunt indicate numărul de definiții trimise și numărul total de caractere din acele definiții.
 Comparativ, Biblia are circa 3.500.000 de caractere.
 
-<table id="userTop" class="userTop">
-  <thead>
-    <tr>
-      <th>Loc</th>
-      <th>
-         Nume
-      </th>
-      <th>
-        Nr. caractere
-      </th>
-      <th>
-        Nr. definiții
-      </th>
-      <th>
-        Data ultimei trimiteri
-      </th>
-    </tr>
-  </thead>
+{include file="common/bits/top.ihtml" data=$manualData tableId="manualTop" pager=1}
 
-  <tfoot>
-    <tr id="userTopPager">
-      <td colspan="5">
-        <img src="{$imgRoot}/icons/control_start.png" class="first" alt="Prima pagină"/>
-        <img src="{$imgRoot}/icons/control_rewind.png" class="prev" alt="Pagina anterioară"/>
-        <input type="text" class="pagedisplay" size="5"/>
-        <img src="{$imgRoot}/icons/control_fastforward.png" class="next" alt="Pagina următoare"/>
-        <img src="{$imgRoot}/icons/control_end.png" class="last" alt="Ultima pagină"/>
-        <select class="pagesize">
-          <option value="10">10 pe pagină</option>
-          <option selected="selected" value="20">20 pe pagină</option>
-          <option value="30">30 pe pagină</option>
-          <option value="40">40 pe pagină</option>
-        </select>
-      </td>
-    </tr>
-  </tfoot>
+<h3>Topul contribuțiilor automate</h3>
 
-  <tbody>
-    {foreach from=$data item=row key=place}
-      <tr class="{cycle values="color1,color2"}">
-        <td>{$place+1}</td>
-        <td class="nick"><a href="utilizator/{$row->userNick|escape:"url"}">{$row->userNick|escape}</a></td>
-        <td>{$row->numChars|number_format:0:',':'.'}</td>
-        <td>{$row->numDefinitions|number_format:0:',':'.'}</td>
- 
-        {math equation="max(255 - days, 0)" days=$row->days assign=color}
-        <td style="color: {$color|string_format:"#%02x0000"}">{$row->timestamp|date_format:"%d.%m.%Y"}</td>
-      </tr>
-    {/foreach}
-  </tbody>
-</table>
+În această categorie intră definiții introduse automat și dicționare puse la dispoziție în format digital.
+
+{include file="common/bits/top.ihtml" data=$bulkData tableId="bulkTop" pager=0}
 
 <script type="text/javascript">
   {literal}
@@ -82,21 +40,5 @@ Comparativ, Biblia are circa 3.500.000 de caractere.
         type: 'text'
     });
 
-    $(document).ready(function() {
-      $("#userTop").tablesorter({
-        headers: {
-          2: { sorter: 'stripDots' },
-          3: { sorter: 'stripDots' },
-          4: { sorter: 'ddmmyyyy' },
-        },
-        sortList: [[2,1]],
-        sortInitialOrder: "desc"
-      })
-      .tablesorterPager({container: $("#userTopPager"), size: 20, positionFixed: false});
-
-      $("#userTop .header").click(function() {
-        $("#userTop tfoot .first").click();
-      });
-    });
   {/literal}
 </script>

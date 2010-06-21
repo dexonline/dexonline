@@ -13,7 +13,7 @@
   </head>
 
   <body>
-    <table class="header">
+    <table class="theader">
       <tr>
         <td class="searchBoxContainer">
           <div class="linkBar">

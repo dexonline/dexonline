@@ -6,7 +6,7 @@ body {
   font-family: serif;
 }
 
-.header {
+.theader {
   background: #dcf0ff;
   color: black;
   border: 1px solid blue;
@@ -17,12 +17,12 @@ body {
   width: 100%;
 }
 
-.header td {
+.theader td {
   padding-bottom: 8px;
   padding-top: 8px;
 }
 
-.header td.logo {
+.theader td.logo {
   padding-right: 8px;
   width: 1%;
 }
@@ -32,7 +32,7 @@ img.logo {
   height: 70px;
 }
 
-.header td.title {
+.theader td.title {
   font-size: 110%;
   padding-right: 10px;
   text-align: right;
@@ -40,7 +40,7 @@ img.logo {
   width: 1%;
 }
 
-.header td.searchBoxContainer {
+.theader td.searchBoxContainer {
   padding-left: 8px;
 }
 
@@ -271,6 +271,7 @@ span.spaced {
 }
 
 .userTop td, .userTop th {
+  padding-right: 20px;
   border: 2px solid white;
   text-align: center;
 }
@@ -285,7 +286,7 @@ span.spaced {
 }
 
 .userTop .color2 {
-  background: #d0d0d0;
+  background: #eee;
 }
 
 .userTop .fwdLink {
@@ -295,3 +296,20 @@ span.spaced {
 .userTopLinks {
   font-size: 80%;
 }
+
+/* jquery tablesorter stuff */
+th.header {
+  background: #999 url("../img/icons/jquery/bg.gif") no-repeat center right;
+  cursor: pointer;
+}
+
+th.headerSortUp {
+  background-image: url("../img/icons/jquery/asc.gif");
+  background-color: #bb4848;
+}
+
+th.headerSortDown {
+  background-image: url("../img/icons/jquery/desc.gif");
+  background-color: #bb4848;
+}
+

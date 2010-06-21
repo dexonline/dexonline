@@ -1,7 +1,7 @@
 <?
 require_once('../phplib/util.php');
 
-$shortopts = "f:u:s:t:hvid"; 
+$shortopts = "f:u:s:c:t:hvid"; 
 $options = getopt($shortopts);
 
 function HELP() {
@@ -13,6 +13,7 @@ Options:
 	-f fileName (mandatory)
 	-u userId (mandatory)
 	-s sourceId (mandatory)
+	-c check against sourceId)
 	-t status (mandatory: 0 - active, 1 - temporary, 2 - deleted)
 	-i = use inflections for multilexem entries
 	-d = dry run
@@ -52,6 +53,11 @@ if (!file_exists($fileName)) exit("Error: file $fileName doesn't exist!\n");
 CHECK($options, 't');
 $status = $options['t'];
 
+$checkSourceId = NULL;
+if (isset($options['c'])) {
+	$checkSourceId = $options['c'];
+}
+
 $verbose = false;
 if (isset($options['v'])) {
 	$verbose = true;
@@ -79,6 +85,27 @@ while ($i < count($lines)) {
     preg_match('/^@([^@]+)@/', $def, $matches);
     $lname = preg_replace("/[!*'^1234567890]/", "", $matches[1]);
 
+	if (isset($checkSourceId)) {
+		if($verbose) echo(" * Check if the definition already exists\n");
+		$def = db_find(new Definition(), "lexicon = '{$name}' and sourceId = {$sourceId}");
+		if ( count($def) ) {
+			if($verbose) echo("\t Definition already introduced\n");
+			continue;
+		}
+		else {
+			$def = db_find(new Definition(), "lexicon = '{$name}' and sourceId = {$checkSourceId}");
+		}
+
+		if ( count($def) ) {
+			if($verbose) echo("\t Definition exists in the checked dictionary\n");
+			# TODO: check the other possible differences
+			continue;
+		}
+		else {
+			if($verbose) echo("\t Definition not exist – it will be added!\n");
+		}
+	}
+
 	if($verbose) echo(" * Inserting definition for '$lname'...\n");
     $definition = new Definition();
     $definition->userId = $userId;
@@ -91,8 +118,10 @@ while ($i < count($lines)) {
     if($verbose) echo("\tAdded definition {$definition->id} ({$definition->lexicon})\n");
 
     $lname = addslashes(text_formatLexem($lname));
-	$names = preg_split("/[\s,]+/", $lname);
+	$names = preg_split("/[\s,\/()]+/", $lname);
 	foreach ($names as $name) {
+		if ($name == '') continue;
+
 		if($verbose) echo("\t * Process part: {$name}\n");
 
 		$lexems = db_find(new Lexem(), "form = '{$name}'");

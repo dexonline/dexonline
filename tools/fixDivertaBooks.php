@@ -4,9 +4,9 @@ require_once('../phplib/util.php');
 require_once('../phplib/ads/adsModule.php');
 require_once('../phplib/ads/diverta/divertaAdsModule.php');
 
-$opts = getopt(null, array('start-id:'));
+$opts = getopt('s:');
 if (count($opts) != 1) {
-  print "Usage: fixDivertaBooks --startId <id>\n";
+  print "Usage: fixDivertaBooks -s <start-id>\n";
   exit;
 }
 
@@ -30,7 +30,7 @@ $PREFERRED_FORMS = array('a' => 'a',                 // not ă â
                          'top' => 'top',             // not țop
 );
 
-$books = db_find(new DivertaBook(), "id >= {$opts['start-id']} order by id limit 30");
+$books = db_find(new DivertaBook(), "id >= {$opts['s']} order by id limit 30");
 foreach ($books as $book) {
   print "Loaded: {$book->id} [{$book->title}]\n";
   $origTitle = $book->title;

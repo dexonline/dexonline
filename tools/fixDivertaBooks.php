@@ -30,7 +30,7 @@ $PREFERRED_FORMS = array('a' => 'a',                 // not ă â
                          'top' => 'top',             // not țop
 );
 
-$books = db_find(new DivertaBook(), "id >= {$opts['s']} order by id limit 30");
+$books = db_find(new DivertaBook(), "id >= {$opts['s']} order by id");
 foreach ($books as $book) {
   print "Loaded: {$book->id} [{$book->title}]\n";
   $origTitle = $book->title;

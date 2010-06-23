@@ -62,6 +62,8 @@ foreach ($books as $book) {
   }
   $book->title = str_replace(array('`', '…', '–', '’', ' .', ' ,', ' :', ' ?', ' !', 'intr-'),
                              array("'", '...', '-', "'", '.', ',', ':', '?', '!', 'într-'), $book->title);
+  $book->title = preg_replace('/([IVX]+) a/', '$1-a', $book->title);
+  $book->title = preg_replace('/([IVX]+) lea/', '$1-lea', $book->title);
   print "Prelim: {$book->id} [{$book->title}]\n";
 
   // Extract words
@@ -75,7 +77,7 @@ foreach ($books as $book) {
       $inWord = true;
     } else {
       if ($inWord) {
-        $newTitle .= matchCase(suggest($word), $word);
+        $newTitle = appendWord($newTitle, matchCase(suggest($word), $word));
       }
       $word = '';
       $inWord = false;
@@ -83,12 +85,18 @@ foreach ($books as $book) {
     }
   }
   if ($inWord) {
-    $newTitle .= matchCase(suggest($word), $word);
+    $newTitle = appendWord($newTitle, matchCase(suggest($word), $word));
   }
   $book->title = $newTitle;
-  print "Final:  {$book->id} [{$book->title}]\n";
+  print "Final:  {$book->id} [{$book->title}]    [$book->url]\n";
   if ($book->title != $origTitle) {
-    $response = kbdInput("Save? [Y/n]", array('y', 'n', ''));
+    do {
+      $response = kbdInput("Save? [Y]es/[n]o/[e]dit ", array('y', 'n', 'e', ''));
+      if ($response == 'e') {
+        $book->title = kbdInput("Enter new title: ", null);
+        print "Final:  {$book->id} [{$book->title}]    [$book->url]\n";
+      }
+    } while ($response == 'e');
     if ($response != 'n') {
       $book->save();
     }
@@ -137,12 +145,25 @@ function choice($word, $forms) {
   return ($choice == '') ? $word : $forms[$choice - 1];
 }
 
+// Reads a line from STDIN until it matches one of the given choices.
+// If $choices is null, any input is accepted.
 function kbdInput($message, $choices) {
   do {
     print $message;
     $response = trim(fgets(STDIN));
-  } while (!in_array($response, $choices));
+  } while ($choices && !in_array($response, $choices));
   return $response;
+}
+
+// Mostly just an append, but inserts a space after punctuation
+function appendWord($title, $word) {
+  if ($title) {
+    $last = mb_substr($title, '-1');
+    if (strpos(',.)?!:;', $last) !== false) {
+      $title .= ' ';
+    }
+  }
+  return $title . $word;
 }
 
 ?>

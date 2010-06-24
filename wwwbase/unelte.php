@@ -48,7 +48,7 @@ $clients = array(
         'available' => true,
         'urls' => array(),
         'os' => array('linux', 'windows'),
-        'space' => '88 MB',
+        'space' => '48 MB',
         'requires' => array('QT, g++', '(numai sub Linux)'),
         'authors' => array('Octavian Procopiuc' => ''),
         'license' => 'GPL',

@@ -15,12 +15,18 @@ $PREFERRED_FORMS = array('a' => 'a',                 // not ă â
                          'al' => 'al',               // not ăl
                          'carte' => 'carte',         // not cârțe
                          'cartea' => 'cartea',       // not cârtea
+                         'clasa' => 'clasa',         // not clasă
                          'fara' => 'fără',           // not fara fară
+                         'i' => 'i',                 // as in Clasa I
+                         'ii' => 'ii',               // as in Clasa a II-a
                          'in' => 'în',               // not in
                          'la' => 'la',               // not lă
                          'mai' => 'mai',             // not măi mâi
                          'mare' => 'mare',           // not măre mâre
                          'marea' => 'marea',         // not mărea
+                         'povesti' => 'povești',     // not povesti
+                         'print' => 'prinț',         // not print
+                         'printul' => 'prințul',     // not printul
                          's' => 's',                 // not ș
                          'sa' => 'să',               // not sa șa
                          'si' => 'și',               // not si
@@ -32,7 +38,7 @@ $PREFERRED_FORMS = array('a' => 'a',                 // not ă â
 
 $books = db_find(new DivertaBook(), "id >= {$opts['s']} order by id");
 foreach ($books as $book) {
-  print "Loaded: {$book->id} [{$book->title}]\n";
+  print "Loaded: {$book->id} [{$book->title}]    [$book->url]\n";
   $origTitle = $book->title;
 
   // Preliminary stuff
@@ -88,13 +94,13 @@ foreach ($books as $book) {
     $newTitle = appendWord($newTitle, matchCase(suggest($word), $word));
   }
   $book->title = $newTitle;
-  print "Final:  {$book->id} [{$book->title}]    [$book->url]\n";
+  print "Final:  {$book->id} [{$book->title}]\n";
   if ($book->title != $origTitle) {
     do {
       $response = kbdInput("Save? [Y]es/[n]o/[e]dit ", array('y', 'n', 'e', ''));
       if ($response == 'e') {
         $book->title = kbdInput("Enter new title: ", null);
-        print "Final:  {$book->id} [{$book->title}]    [$book->url]\n";
+        print "Final:  {$book->id} [{$book->title}]\n";
       }
     } while ($response == 'e');
     if ($response != 'n') {

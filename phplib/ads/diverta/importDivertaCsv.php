@@ -9,8 +9,8 @@ define('IMG_NORMAL', 0);
 define('IMG_NOT_JPEG', 1);
 define('IMG_CORRUPT', 2);
 
-$opts = getopt('f:h:d:s:t:a:p:u:i:');
-if (count($opts) != 9) {
+$opts = getopt('f:h:d:s:t:a:p:u:i:o:');
+if (count($opts) != 10) {
   usage();
 }
 define('CSV_DELIMITER', getDelimiter($opts['d']));
@@ -41,15 +41,23 @@ while (($fields = fgetcsv($handle, 10000, CSV_DELIMITER)) !== false) {
     $book->impressions = 0;
     $book->clicks = 0;
   }
-  $book->title = $fields[$opts['t']];
-  $book->author = $fields[$opts['a']];
-  $book->publisher = $fields[$opts['p']];
-  $book->imageUrl = IMG_URL_PREFIX . $fields[$opts['i']];
-  $book->url = $fields[$opts['u']];
+  if (overwrite($book, $opts, 't')) {
+    $book->title = $fields[$opts['t']];
+  }
+  if (overwrite($book, $opts, 'a')) {
+    $book->author = $fields[$opts['a']];
+  }
+  if (overwrite($book, $opts, 'p')) {
+    $book->publisher = $fields[$opts['p']];
+  }
+  if (overwrite($book, $opts, 'i')) {
+    $book->imageUrl = IMG_URL_PREFIX . $fields[$opts['i']];
+  }
+  if (overwrite($book, $opts, 'u')) {
+    $book->url = $fields[$opts['u']];
+  }
   $book->save();
   print "  [{$book->title}] by [{$book->author}]\n";
-
-  associateLexems($book);
 
   // Grab the image unless we already have it
   $fileName = ORIG_FILE_PREFIX . "{$sku}.jpg";
@@ -131,6 +139,8 @@ function usage() {
   print "--p (publisher)    column number for the publisher\n";
   print "--u (url)          column number for the book URL\n";
   print "--i (image-url)    column number for the image URL\n";
+  print "--o (overwrite)    fields to overwrite ([t]itle, [a]uthor, [p]ublisher,\n";
+  print "                   [u]rl, [i]mage-url)\n";
   exit(1);
 }
 
@@ -143,30 +153,9 @@ function getDelimiter($string) {
   }
 }
 
-function associateLexems(&$book) {
-  db_execute("delete from diverta_Index where bookId = {$book->id}");
-  $hasDiacritics = text_hasDiacritics($book->title);
-  $title = mb_strtolower($book->title);
-  $title = str_replace(array(',', '.'), '', $title);
-  $titleWords = preg_split("/\\s+/", $title);
-  $lexemIds = array();
-
-  foreach ($titleWords as $word) {
-    if (!text_isStopWord($word, $hasDiacritics)) {
-      $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-      $wordLexemIds = db_getArray(db_execute("select distinct lexemId from InflectedForm where $field = '" . addslashes($word) . "'"));
-      foreach ($wordLexemIds as $lexemId) {
-        $lexemIds[$lexemId] = true;
-      }
-    }
-  }
-
-  foreach ($lexemIds as $lexemId => $ignored) {
-    $index = new DivertaIndex();
-    $index->lexemId = $lexemId;
-    $index->bookId = $book->id;
-    $index->save();
-  }
+function overwrite($book, $opts, $letter) {
+  // Always allow overwrites when we create a new Book.
+  return (!$book->id) || (strpos($opts['o'], $letter) !== false);
 }
 
 ?>

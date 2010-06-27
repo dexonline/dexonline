@@ -10,7 +10,7 @@ $LICENSE = util_getRootPath() . '/tools/dumpDatabaseLicense.txt';
 $parts = db_splitDsn();
 $COMMON_COMMAND = sprintf("mysqldump -h %s -u %s --password='%s' %s ", $parts['host'], $parts['user'], $parts['password'], $parts['database']);
 
-$schemaOnly = array('RecentLink', 'Cookie', 'history_Comment', 'history_Definition', 'diverta_Book', 'diverta_Index');
+$schemaOnly = array('RecentLink', 'Cookie', 'history_Comment', 'history_Definition');
 $currentYear = date("Y");
 
 // Full/Public dump: the public dump omits the user table, which contains emails and md5-ed passwords.
@@ -38,7 +38,7 @@ if ($doFullDump) {
   $targetDir = util_getRootPath() . '/wwwbase/download/mirrorAccess/';
 } else {
   $targetDir = util_getRootPath() . '/wwwbase/download/';
-  $tablesToIgnore .= "--ignore-table=$dbName.User --ignore-table=$dbName.Definition ";
+  $tablesToIgnore .= "--ignore-table=$dbName.User --ignore-table=$dbName.Definition --ignore-table=$dbName.diverta_Book --ignore-table=$dbName.divertaIndex ";
 }
 
 os_executeAndAssert("rm -f $TMP_DIR/$FILENAME");

@@ -22,7 +22,21 @@ class DivertaAdsModule extends AdsModule {
     $books = db_getObjects(new DivertaBook(), db_execute("select distinct b.* from diverta_Book b, diverta_Index i where b.id = i.bookId and i.lexemId in ({$lexemIdString}) order by impressions"));
 
     if (count($books)) {
-      return array('bookId' => $books[0]->id);
+      // 20% chance to serve the book with the fewest impressions / 80% chance to serve the book with the highest CTR
+      if (rand(0, 99) < 20) {
+        return array('bookId' => $books[0]->id);
+      } else {
+        $best = 0;
+        $bestCtr = 0.00;
+        foreach ($books as $i => $book) {
+          $ctr = $book->impressions ? ($book->clicks / $book->impressions) : 0.00;
+          if ($ctr > $bestCtr) {
+            $bestCtr = $ctr;
+            $best = $i;
+          }
+        }
+        return array('bookId' => $books[$best]->id);
+      }
     }
     return null;
   }

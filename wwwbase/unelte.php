@@ -64,6 +64,16 @@ $clients = array(
         'license' => 'Freeware',
         'options' => array('vision' => 0, 'sync' => 1, 'regexp' => 1, 'suggest' => 1, 'diacritics' => 0, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 1)),
 
+  array('name' => array('DEX Offline', 'http://www.macuser.ro/dexoffline/'),
+        'available' => true,
+        'urls' => array(),
+        'os' => array('mac'),
+        'space' => '100 MB',
+        'requires' => array('MAC OS X Leopard', 'sau mai nou,', 'Dictionary.app'),
+        'authors' => array('Cristian Băluță' => ''),
+        'license' => 'Freeware',
+        'options' => array('vision' => 0, 'sync' => 0, 'regexp' => 0, 'suggest' => 1, 'diacritics' => 1, 'full' => 0, 'flex' => 0, 'click' => 1, 'history' => 0)),
+
   array('name' => array('DEX pentru Android', 'http://dex.adrianvintu.com/'),
         'available' => true,
         'urls' => array('Market' => 'market://search?q=pub:%22Adrian%20Vintu%22'),

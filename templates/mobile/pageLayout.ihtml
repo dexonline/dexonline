@@ -12,7 +12,6 @@
   <table class="fullheight">
   <tr><td>
     <div class="header">
-        <!--div class="title">DEX online</div--> 
           <div class="linkBar">
             <a href="{$wwwRoot}informatii">Informații</a> |
             <a href="{$wwwRoot}ghid-exprimare">Ghid de exprimare</a> |
@@ -28,9 +27,9 @@
             <script type="text/javascript">document.frm.cuv.select();document.frm.cuv.focus();</script>
             <input type="submit" value="Caută"/>
             {include file="common/sourceDropDown.ihtml" 
-      skipAnySource=true
-      urlName=1
-      }
+			skipAnySource=false
+      		urlName=1
+      		}
           </form>
         </div>
     </div>

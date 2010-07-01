@@ -1,6 +1,7 @@
 <?php
 require_once("../phplib/util.php");
 require_once("../phplib/lexemSources.php"); 
+require_once("../phplib/ads/adsModule.php");
 
 $cuv = util_getRequestParameter('cuv');
 $lexemId = util_getRequestParameter('lexemId');
@@ -204,21 +205,7 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
   }
 }
 
-$adsModules = pref_getServerPreference('adsModulesH');
-if ($adsModules) {
-  require_once util_getRootPath() . 'phplib/ads/adsModule.php';
-  foreach ($adsModules as $adsModule) {
-    require_once util_getRootPath() . "phplib/ads/{$adsModule}/{$adsModule}AdsModule.php";
-    $className = ucfirst($adsModule) . 'AdsModule';
-    $module = new $className;
-    $result = $module->run(empty($lexems) ? null : $lexems, empty($definitions) ? null : $definitions);
-    if ($result) {
-      smarty_assign('adsProvider', $adsModule);
-      smarty_assign('adsProviderParams', $result);
-      break;
-    }
-  }
-}
+AdsModule::runAllModules(empty($lexems) ? null : $lexems, empty($definitions) ? null : $definitions);
 
 smarty_assign('text', $text);
 smarty_assign('searchType', $searchType);

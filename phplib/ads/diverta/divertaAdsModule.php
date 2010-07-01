@@ -2,6 +2,13 @@
 class DivertaAdsModule extends AdsModule {
 
   public function run($lexems, $definitions) {
+    if (empty($lexems) && empty($definitions)) {
+      // If we are called from a page with no keywords, display one of the top 10 highest CTR books.
+      $random = rand(0, 9);
+      $book = DivertaBook::get("impressions order by clicks/impressions desc limit $random, 1");
+      return array('bookId' => $book->id);
+    }
+    
     $lexemIds = array();
     if (!empty($lexems)) {
       foreach ($lexems as $l) {

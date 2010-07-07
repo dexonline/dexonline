@@ -320,7 +320,7 @@ function _text_migrateFormatChars($s) {
   $len = strlen($s);
   $i = 0;
   $state = array('$' => false, '@' => false, '%' => false);
-  $value = array_fill(0, $len, 4); // 0 = punctuation (.,;:), 1 = closing char, 2 = whitespace, 3 = opening char, 4 = other
+  $value = $len ? array_fill(0, $len, 4) : array(); // 0 = punctuation (.,;:), 1 = closing char, 2 = whitespace, 3 = opening char, 4 = other
   while ($i < $len) {
     $c = $s[$i];
     if ($c == '\\') {

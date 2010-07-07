@@ -52,8 +52,9 @@ function myEncodeURI(s) {
 }
 
 function contribBodyLoad() {
-  document.frmContrib.wordName.focus();
+  document.frmContrib['lexemNames[]'][1].focus();
   contribUpdatePreviewDiv();
+  $('#frmContrib').find('.autocompletable').autocomplete(wwwRoot + 'ajax/getLexems.php');
 }
 
 function contribKeyPressed() {
@@ -211,7 +212,7 @@ function startsWith(str, sub) {
 function debug(obj) {
   var s = '';
   for (prop in obj) {
-    if (!startsWith(obj[prop].toString(), 'function ')) {
+    if (obj[prop] && !startsWith(obj[prop].toString(), 'function ')) {
       s += prop + ':' + obj[prop] + '\n';
     }
   }
@@ -457,5 +458,12 @@ function addLexemRow() {
   var tr = $('#blankRow').clone().appendTo('#lexemTable tbody').removeAttr('id').css('display', 'table-row');
   tr.find("input").autocomplete(wwwRoot + "ajax/getLexems");
   tr.find("input").focus();
+  return false;
+}
+
+function contribAddLexemRow() {
+  var div = $('#blankDiv').clone().appendTo('#lexemHolder').removeAttr('id').css('display', 'block');
+  div.find("input").autocomplete(wwwRoot + "ajax/getLexems");
+  div.find("input").focus();
   return false;
 }

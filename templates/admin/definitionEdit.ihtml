@@ -3,8 +3,8 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" flex=1 lexemPicker=1}
-    {include file="common/bits/js.ihtml" dex=1 lexemPicker=1}
+    {include file="common/bits/css.ihtml" flex=1 autocomplete=1}
+    {include file="common/bits/js.ihtml" dex=1 jquery=1 autocomplete=1}
     <title>DEX | Editare definiție</title>
   </head>
 
@@ -24,33 +24,26 @@
     <form action="definitionEdit.php" method="post">
       <input type="hidden" name="definitionId" value="{$def->id}"/>
       <table class="editableFields" id="lexemTable">
-        <tr style="display:none">
+        <tr id="blankRow" style="display:none">
           <td>Lexem:</td>
           <td>
-            {include file="common/bits/lexemPicker.ihtml"
-                     fieldName="lexemName[]"
-                     submitName="lexemId[]"
-                     dissociateLink="1"}
+            <input type="text" name="lexemName[]" value="" size="40"/>
+            <a href="#" onclick="$(this).closest('tr').remove(); return false;">disociază</a>
           </td>
-        <tr>
+        </tr>
 
         {foreach from=$lexems item=l}
           {if $l->description}
-            {assign var="lexemName"
-                    value="`$l->formNoAccent` (`$l->description`)"}
+            {assign var="lexemName" value="`$l->formNoAccent` (`$l->description`)"}
           {else}
             {assign var="lexemName" value="`$l->formNoAccent`"}
           {/if}
           <tr>
             <td>Lexem:</td>
             <td>
-              {include file="common/bits/lexemPicker.ihtml"
-                       displayValue="$lexemName"
-                       fieldName="lexemName[]"
-                       submitName="lexemId[]"
-                       submitValue="`$l->id`"
-                       editLinkId="`$l->id`"
-                       dissociateLink="1"}
+              <input type="text" name="lexemName[]" value="{$lexemName}" size="40"/>
+              <a href="#" onclick="$(this).closest('tr').remove(); return false;">disociază</a> |
+              <a href="lexemEdit.php?lexemId={$l->id}">editează</a>
             </td>
           </tr>
         {/foreach}
@@ -70,10 +63,12 @@
         {/foreach}
       </table>
 
-      <a href="#" onclick="addLexemRow('lexemTable'); return false;">
-        Adaugă un lexem
-        {include file="admin/helpLink.ihtml" anchor="definitionAddLexem"}
-      </a>
+      <script type="text/javascript">
+        $('#lexemTable').find('input').autocomplete('{$wwwRoot}ajax/getLexems.php');
+      </script>
+
+      <a href="#" onclick="return addLexemRow();">Adaugă un lexem</a>
+      {include file="admin/helpLink.ihtml" anchor="definitionAddLexem"}
       <br/><br/>
 
       <table class="editableFields">

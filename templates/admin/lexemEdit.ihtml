@@ -3,8 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" flex=1 lexemPicker=1 paradigm=1}
-    {include file="common/bits/js.ihtml" dex=1 flex=1 lexemPicker=1}
+    {include file="common/bits/css.ihtml" flex=1 autocomplete=1 paradigm=1}
+    {include file="common/bits/js.ihtml" dex=1 flex=1 jquery=1 autocomplete=1}
     <title>DEX | Editare lexem: {$lexem->form|escape}</title>
   </head>
 
@@ -148,8 +148,11 @@
         <br/><br/>
   
         <b>2. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b>
-        se flexionează ca...<br/>
-        {include file="common/bits/lexemPicker.ihtml" fieldName="similarLexemName"}
+        se flexionează ca
+        <input id="similarLexem" type="text" name="similarLexemName" value="" size="40"/>
+        <script type="text/javascript">
+          $("#similarLexem").autocomplete("{$wwwRoot}ajax/getLexems.php");
+        </script>
         <br/><br/>
   
         <b>3. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b>

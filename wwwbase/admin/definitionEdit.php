@@ -5,7 +5,6 @@ util_assertNotMirror();
 
 $definitionId = util_getRequestIntParameter('definitionId');
 $lexemNames = util_getRequestParameter('lexemName');
-$lexemIds = util_getRequestParameter('lexemId');
 $associateLexemId = util_getRequestParameter('associateLexemId');
 $sourceId = util_getRequestIntParameter('source');
 $internalRep = util_getRequestParameter('internalRep');
@@ -45,31 +44,19 @@ if ($internalRep || $sourceId) {
 if ($lexemNames) {
   $lexems = array();
   $ldms = array();
-  for ($i = 0; $i < count($lexemNames); $i++) {
-    $lexemName = trim($lexemNames[$i]);
+  foreach ($lexemNames as $lexemName) {
+    $lexemName = trim($lexemName);
     if ($lexemName) {
       $matches = Lexem::loadByExtendedName($lexemName);
-      if (count($matches) == 1) {
-        $lexems[] = $matches[0];
-        $ldms[] = new LexemDefinitionMap($matches[0]->id, $definitionId);
+      if (count($matches) >= 1) {
+        foreach ($matches as $match) {
+          $lexems[] = $match;
+          $ldms[] = new LexemDefinitionMap($match->id, $definitionId);
+        }
       } else {
-        // If ambiguous, and if we have a corresponding lexemId, try to use it
-        $lexemId = $lexemIds[$i];
-        $found = false;
-        for ($j = 0; $j < count($matches); $j++) {
-          if ($matches[$j]->id == $lexemId) {
-            $found = true;
-            $lexems[] = $matches[$j];
-            $ldms[] = new LexemDefinitionMap($lexemId, $definitionId);
-          }
-        }
-        if (!$found) {
-          $errorMessage = (count($matches) == 0)
-            ? "Lexemul <i>".htmlentities($lexemName)."</i> nu există. Folosiți lista de sugestii pentru a-l corecta."
-            : "Lexemul <i>".htmlentities($lexemName)."</i> este ambiguu. Folosiți lista de sugestii pentru dezambiguizare.";
-          $lexems[] = new Lexem($lexemName, 0, '', '');
-          // We won't be needing $ldms since there is an error.
-        }
+        $errorMessage = "Lexemul <i>".htmlentities($lexemName)."</i> nu există. Folosiți lista de sugestii pentru a-l corecta.";
+        $lexems[] = new Lexem($lexemName, 0, '', '');
+        // We won't be needing $ldms since there is an error.
       }
     }
   }

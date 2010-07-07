@@ -3,8 +3,8 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" flex=1 lexemPicker=1}
-    {include file="common/bits/js.ihtml" dex=1 flex=1 lexemPicker=1}
+    {include file="common/bits/css.ihtml" flex=1 autocomplete=1}
+    {include file="common/bits/js.ihtml" dex=1 flex=1 jquery=1 autocomplete=1}
     <title>DEX | Pagina moderatorului</title>
   </head>
 
@@ -50,7 +50,10 @@
         <tr>
           <td>Caută lexem:</td>
           <td>
-            {include file="common/bits/lexemPicker.ihtml" fieldName="lexemName"}
+            <input id="lexemName" type="text" name="lexemName" value="" size="40"/>
+            <script type="text/javascript">
+              $("#lexemName").autocomplete("{$wwwRoot}ajax/getLexems.php");
+            </script>
           </td>
           <td>
             <input type="submit" name="searchLexem" value="Caută"/>

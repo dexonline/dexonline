@@ -143,74 +143,6 @@ function contribPostRequestCallback(httpRequest, argument /* ignored */) {
   }
 }
 
-function findChildWithNodeName(node, name) {
-  for (var i = 0; i < node.childNodes.length; i++) {
-    if (node.childNodes[i].nodeName == name) {
-      return node.childNodes[i];
-    }
-  }
-  return null;
-}
-
-function findNextSiblingWithNodeName(node, name) {
-  if (!node) {
-    return null;
-  }
-  do {
-    node = node.nextSibling;
-  } while (node && node.nodeName != name);
-  return node;
-}
-
-function findPreviousSiblingWithNodeName(node, name) {
-  if (!node) {
-    return null;
-  }
-  do {
-    node = node.previousSibling;
-  } while (node && node.nodeName != name);
-  return node;
-}
-
-function flexAddRow(tableId) {
-  var tbl = document.getElementById(tableId);
-  var tbody = findChildWithNodeName(tbl, 'TBODY');
-  var prototypeRow = tbl.rows[1];
-  var clone = prototypeRow.cloneNode(true);
-  clone.id = '';
-  clone.style.display = 'table-row';
-  tbody.appendChild(clone);
-}
-
-function flexDeleteRow(anchor) {
-  var row = anchor.parentNode.parentNode;
-  var tbody = row.parentNode;
-  tbody.removeChild(row);
-  return false;
-}
-
-function findPreviousRow(row) {
-  row = row.previousSibling;
-  while (row && row.nodeName != 'TR') {
-    row = row.previousSibling;
-  }
-  return row;
-}
-
-function findNextRow(row) {
-  row = row.nextSibling;
-  while (row && row.nodeName != 'TR') {
-    row = row.nextSibling;
-  }
-  return row;
-}
-
-function removeAllTableRowsExceptFirst(table) {
-  while (table.rows.length > 1) {
-    table.deleteRow(-1);
-  }
-}
-
 function toggleDivVisibility(divId) {
   var div = document.getElementById(divId);
   if (div.style.display == 'block') {
@@ -519,4 +451,11 @@ function startReportCountersCallback(httpRequest, spanId) {
         span.innerHTML = 'eroare la încărcare';
     }
   }
+}
+
+function addLexemRow() {
+  var tr = $('#blankRow').clone().appendTo('#lexemTable tbody').removeAttr('id').css('display', 'table-row');
+  tr.find("input").autocomplete(wwwRoot + "ajax/getLexems");
+  tr.find("input").focus();
+  return false;
 }

@@ -4,9 +4,6 @@
 {if $flex}
   <link href="{$wwwRoot}styles/flex.css?v=2" rel="stylesheet" type="text/css"/>
 {/if}
-{if $lexemPicker}
-  <link href="{$wwwRoot}styles/lexemPicker.css?v=1" rel="stylesheet" type="text/css"/>
-{/if}
 {if $mobile}
   <link href="{$wwwRoot}styles/mobile.css?v=3" rel="stylesheet" type="text/css"/>
 {/if}
@@ -18,4 +15,10 @@
 {/if}
 {if $zepu}
   <link href="{$wwwRoot}styles/zepu.css?v=10" rel="stylesheet" type="text/css"/>
+{/if}
+
+{* External resources *}
+
+{if $autocomplete}
+  <link href="{$wwwRoot}styles/jquery.autocomplete.css?v=1" rel="stylesheet" type="text/css"/>
 {/if}

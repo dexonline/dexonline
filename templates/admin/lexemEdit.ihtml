@@ -149,7 +149,7 @@
   
         <b>2. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b>
         se flexionează ca...<br/>
-        {include file="admin/lexemPicker.ihtml" fieldName="similarLexemName"}
+        {include file="common/bits/lexemPicker.ihtml" fieldName="similarLexemName"}
         <br/><br/>
   
         <b>3. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b>

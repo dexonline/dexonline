@@ -27,7 +27,7 @@
         <tr style="display:none">
           <td>Lexem:</td>
           <td>
-            {include file="admin/lexemPicker.ihtml"
+            {include file="common/bits/lexemPicker.ihtml"
                      fieldName="lexemName[]"
                      submitName="lexemId[]"
                      dissociateLink="1"}
@@ -44,7 +44,7 @@
           <tr>
             <td>Lexem:</td>
             <td>
-              {include file="admin/lexemPicker.ihtml"
+              {include file="common/bits/lexemPicker.ihtml"
                        displayValue="$lexemName"
                        fieldName="lexemName[]"
                        submitName="lexemId[]"

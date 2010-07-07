@@ -50,7 +50,7 @@
         <tr>
           <td>Caută lexem:</td>
           <td>
-            {include file="admin/lexemPicker.ihtml" fieldName="lexemName"}
+            {include file="common/bits/lexemPicker.ihtml" fieldName="lexemName"}
           </td>
           <td>
             <input type="submit" name="searchLexem" value="Caută"/>

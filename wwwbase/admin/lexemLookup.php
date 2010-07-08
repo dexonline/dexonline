@@ -2,7 +2,13 @@
 require_once("../../phplib/util.php"); 
 
 $lexemName = util_getRequestParameter('lexemName');
-$lexems = Lexem::loadByExtendedName($lexemName);
+
+if (text_hasRegexp($lexemName)) {
+  $hasDiacritics = text_hasDiacritics($lexemName);
+  $lexems = Lexem::searchRegexp($lexemName, $hasDiacritics, null);
+} else {
+  $lexems = Lexem::loadByExtendedName($lexemName);
+}
 
 if (count($lexems) == 1) {
   util_redirect('lexemEdit.php?lexemId=' . $lexems[0]->id);

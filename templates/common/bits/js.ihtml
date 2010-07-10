@@ -1,5 +1,5 @@
 {if $dex}
-  <script type="text/javascript" src="{$wwwRoot}js/dex.js?v=9"></script>
+  <script type="text/javascript" src="{$wwwRoot}js/dex.js?v=10"></script>
 {/if}
 {if $flex}
   <script type="text/javascript" src="{$wwwRoot}js/flex.js?v=1"></script>

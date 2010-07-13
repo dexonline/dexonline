@@ -10,7 +10,7 @@ $modified = 0;
 while (!$dbResult->EOF) {
   $def = new Definition();
   $def->set($dbResult->fields);
-  $newRep = text_internalizeDefinition($def->internalRep);
+  $newRep = text_internalizeDefinition($def->internalRep, $def->sourceId);
   if ($newRep !== $def->internalRep) {
     if (trim($newRep) !== trim($def->internalRep)) {
       fwrite($f1, "{$def->id} {$def->internalRep}\nOK{$def->id}\n");
@@ -18,7 +18,7 @@ while (!$dbResult->EOF) {
       $modified++;
     }
     $def->internalRep = $newRep;
-    $definition->htmlRep = text_htmlize($newRep);
+    $def->htmlRep = text_htmlize($newRep, $def->sourceId);
     $def->save();
   }
   $dbResult->MoveNext();

@@ -16,13 +16,13 @@ class BaseObject extends ADOdb_Active_Record {
 
 class GuideEntry extends BaseObject {
   public function normalize() {
-    $this->correct = text_internalizeDefinition($this->correct);
-    $this->wrong = text_internalizeDefinition($this->wrong);
-    $this->comments = text_internalizeDefinition($this->comments);
+    $this->correct = text_internalizeDefinition($this->correct, 0);
+    $this->wrong = text_internalizeDefinition($this->wrong, 0);
+    $this->comments = text_internalizeDefinition($this->comments, 0);
     
-    $this->correctHtml = text_htmlizeWithNewlines($this->correct, TRUE);
-    $this->wrongHtml = text_htmlizeWithNewlines($this->wrong, TRUE);
-    $this->commentsHtml = text_htmlizeWithNewlines($this->comments, TRUE);    
+    $this->correctHtml = text_htmlizeWithNewlines($this->correct, 0, TRUE);
+    $this->wrongHtml = text_htmlizeWithNewlines($this->wrong, 0, TRUE);
+    $this->commentsHtml = text_htmlizeWithNewlines($this->comments, 0, TRUE);    
   }
 }
 

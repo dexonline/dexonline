@@ -9,6 +9,7 @@ fel de mult ca și tastarea de la zero și bunăvoința dumneavoastră este iros
   <li><a href="#a4">Spațiere</a></li>
   <li><a href="#a5">Trimiteri</a></li>
   <li><a href="#a6">Etichete HTML</a></li>
+  <li><a href="#a7">Abrevieri</a></li>
 </ol>
 
 
@@ -51,6 +52,9 @@ jos.
 </tr><tr>
   <td>a e r i s i t</td>
   <td>%aerisit%</td>
+</tr><tr>
+  <td><span style="font-size: 90%; color: #555;">abr.</span></td>
+  <td>#abr.#</td>
 </tr><tr>
   <td>text<sup>1</sup></td>
   <td>text^1</td>
@@ -200,3 +204,15 @@ tastați &lt;b&gt;, veți obține exact &lt;b&gt;. Motivul este că nu
 dorim să particularizăm conținutul bazei de date la limbajul HTML, ci
 dorim ca ea să fie disponibilă și altor aplicații, care poate nu
 folosesc acest limbaj.
+
+
+<h3><a name="a7"></a>Abrevieri</h3>
+
+Sistemul detectează automat multe din abrevierile folosite și le
+încadrează între două semne <b>#</b>. Astfel, <b>#Expr.#</b> va fi înlocuit cu
+<span style="font-size: 90%; color: #555">Expr.</span> (cu sensul de
+<b>expresie</b>). Totuși, sistemul nu va face modificări în situațiile
+ambigue în care o abreviere coincide cu un alt cuvânt. De exemplu,
+<b>lat.</b> poate însemna <b>limba latină</b> dar și cuvântul <b>lat</b> la
+sfârșitul unei propoziții (urmat de punct). În aceste situații, puteți
+delimita manual abrevierea: <b>#lat.#</b>.

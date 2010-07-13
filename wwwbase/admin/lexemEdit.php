@@ -51,7 +51,7 @@ if ($createDefinition) {
   $def->internalRep =
     '@' . text_unicodeToUpper(text_internalize($lexem->form, false)) .
     '@ v. @' . $miniDefTarget . '.@';
-  $def->htmlRep = text_htmlize($def->internalRep);
+  $def->htmlRep = text_htmlize($def->internalRep, $def->sourceId);
   $def->status = ST_ACTIVE;
   $def->save();
 

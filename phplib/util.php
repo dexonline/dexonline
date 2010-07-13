@@ -111,6 +111,10 @@ function util_defineConstants() {
   define("ST_PENDING", 1);
   define("ST_DELETED", 2);
 
+  define("ABBREV_NOT_REVIEWED", 0);
+  define("ABBREV_AMBIGUOUS", 1);
+  define("ABBREV_REVIEW_COMPLETE", 2);
+
   define("MAX_RECENT_LINKS", 20);
   
   $GLOBALS['wordStatuses'] = array(ST_ACTIVE => "Activă",

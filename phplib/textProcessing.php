@@ -306,12 +306,13 @@ function text_internalize($text, $preserveAccent) {
   return $text;
 }
 
-function text_internalizeDefinition($def) {
+function text_internalizeDefinition($def, $sourceId, &$ambiguousMatches = null) {
   $def = trim($def);
   $def = text_shorthandToUnicode($def);
   $def = _text_migrateFormatChars($def);
   // Do not strip tags here. strip_tags will strip them even if they're not
   // closed, so things like "< fr." will get stripped.
+  $def = _text_markAbbreviations($def, $sourceId, $ambiguousMatches);
   return _text_internalizeAllReferences($def);
 }
 
@@ -591,18 +592,19 @@ function text_extractLexicon($def) {
 /****** Conversions from our internal format to HTML (for search.php) ********/
 
 // Converts the text to html.
-function text_htmlize($s) {
-  return text_htmlizeWithNewlines($s, FALSE);
+function text_htmlize($s, $sourceId) {
+  return text_htmlizeWithNewlines($s, $sourceId, FALSE);
 }
 
 // Converts the text to html. If $obeyNewlines is TRUE, replaces \n with
 // <br/>\n; otherwise leaves \n as \n.
-function text_htmlizeWithNewlines($s, $obeyNewlines) {
+function text_htmlizeWithNewlines($s, $sourceId, $obeyNewlines) {
   $s = htmlspecialchars($s, ENT_NOQUOTES);
-  $s = _text_minimalInternalToHtml($s);
   $s = _text_convertReferencesToHtml($s);
   $s = _text_insertSuperscripts($s);
   $s = _text_internalToHtml($s, $obeyNewlines);
+  $s = _text_htmlizeAbbreviations($s, $sourceId);
+  $s = _text_minimalInternalToHtml($s);
   return $s;
 }
 
@@ -777,6 +779,14 @@ function text_unicodeToLower($s) {
 
 function text_unicodeToUpper($s) {
   return mb_strtoupper($s);
+}
+
+// Assumes that the string is trimmed
+function text_capitalize($s) {
+  if (!$s) {
+    return $s;
+  }
+  return text_unicodeToUpper(text_getCharAt($s, 0)) . mb_substr($s, 1);
 }
 
 function text_cleanupQuery($query) {
@@ -1273,4 +1283,118 @@ function text_replace_ai($tpl_output) {
   $tpl_output = preg_replace("/(\W)sunt(em|eți)?/i", "\${1}sînt\${2}", $tpl_output);
   return $tpl_output;
 }
+
+/**
+ * Creates a map($sourceId => map($from, pair($to, $ambiguous))).
+ * That is, for each sourceId and abbreviated text, we store the expanded text and whether the abbreviation is ambiguous.
+ * An ambigious abbreviation such as "top" or "gen" also has a meaning as an inflected form.
+ * Ambiguous abbreviations should be expanded carefully, or with human approval.
+ */
+function text_loadAbbreviations() {
+  if (empty($GLOBALS['abbrev'])) {
+    $raw = parse_ini_file(util_getRootPath() . "docs/abbrev.conf", true);
+    $result = array();
+    foreach ($raw['sources'] as $sourceId => $sectionList) {
+      $sections = preg_split('/, */', $sectionList);
+      $list = array();
+      foreach ($sections as $section) {
+        // If an abbreviation is defined in several sections, use the one that's defined later
+        $list = array_merge($list, $raw[$section]);
+      }
+      $result[$sourceId] = array();
+      foreach ($list as $from => $to) {
+        $ambiguous = ($from[0] == '*');
+        if ($ambiguous) {
+          $from = substr($from, 1);
+        }
+        $numWords = 1 + substr_count($from, ' ');
+        $regexp = str_replace(array('.', ' '), array("\\.", ' *'), $from);
+        $pattern = "[^a-zăâîșțáéíóú]({$regexp})([^a-zăâîșțáéíóú]|$)";
+        $result[$sourceId][$from] = array('to' => $to, 'ambiguous' => $ambiguous, 'regexp' => $pattern, 'numWords' => $numWords);
+      }
+      // Sort the list by number of words, then by ambiguous
+      uasort($result[$sourceId], '_text_abbrevCmp');
+    }
+    $GLOBALS['abbrev'] = $result;
+  }
+  return $GLOBALS['abbrev'];
+}
+
+function _text_abbrevCmp($a, $b) {
+  if ($a['numWords'] < $b['numWords']) {
+    return 1;
+  } else if ($a['numWords'] > $b['numWords']) {
+    return -1;
+  } else {
+    return $a['ambiguous'] - $b['ambiguous'];
+  }
+}
+
+function _text_markAbbreviations($s, $sourceId, &$ambiguousMatches = null) {
+  $abbrevs = text_loadAbbreviations();
+  $hashMap = _text_constructHashMap($s);
+  if (!array_key_exists($sourceId, $abbrevs)) {
+    return $s;
+  }
+  foreach ($abbrevs[$sourceId] as $from => $tuple) {
+    $matches = array();
+    preg_match_all("/{$tuple['regexp']}/i", $s, $matches, PREG_OFFSET_CAPTURE);
+    if (count($matches[1])) {
+      foreach (array_reverse($matches[1]) as $match) {
+        $orig = $match[0];
+        $position = $match[1];
+
+        if (!$hashMap[$position]) { // Don't replace anything if we are already between hash signs
+          if ($tuple['ambiguous']) {
+            if ($ambiguousMatches !== null) {
+              $ambiguousMatches[] = array('abbrev' => $from, 'position' => $position, 'length' => strlen($orig));
+            }
+          } else {
+            $replacement = text_isUppercase(text_getCharAt($orig, 0)) ? text_capitalize($from) : $from;
+            $s = substr_replace($s, "#$replacement#", $position, strlen($orig));
+            array_splice($hashMap, $position, strlen($orig), array_fill(0, 2 + strlen($replacement), true));
+          }
+        }
+      }
+    }
+  }
+  return $s;
+}
+
+/** Returns a parallel array of booleans. Each element is true if $s[$i] lies inside a pair of hash signs, false otherwise **/
+function _text_constructHashMap($s) {
+  $inHash = false;
+  $result = array();
+  for ($i = 0; $i < strlen($s); $i++) {
+    $c = $s[$i];
+    if ($c == '#') {
+      $result[] = true;
+      $inHash = !$inHash;
+    } else {
+      $result[] = $inHash;
+    }
+  }
+  return $result;
+}
+
+function _text_htmlizeAbbreviations($s, $sourceId) {
+  $abbrevs = text_loadAbbreviations();
+  if (!array_key_exists($sourceId, $abbrevs)) {
+    return $s;
+  }
+
+  $matches = array();
+  preg_match_all("/#([^#]*)#/", $s, $matches, PREG_OFFSET_CAPTURE);
+  if (count($matches[1])) {
+    foreach (array_reverse($matches[1]) as $match) {
+      $from = $match[0];
+      $lower = text_unicodeToLower($from);
+      $position = $match[1];
+      $hint = array_key_exists($lower, $abbrevs[$sourceId]) ? $abbrevs[$sourceId][$lower]['to'] : 'abreviere necunoscută';
+      $s = substr_replace($s, "<span class=\"abbrev\" title=\"$hint\">$from</span>", $position - 1, 2 + strlen($from));
+    }
+  }
+  return $s;
+}
+
 ?>

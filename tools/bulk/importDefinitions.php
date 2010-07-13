@@ -111,8 +111,8 @@ while ($i < count($lines)) {
     $definition->userId = $userId;
     $definition->sourceId = $sourceId;
     $definition->status = $status;
-    $definition->internalRep = text_internalizeDefinition($def);
-    $definition->htmlRep = text_htmlize($definition->internalRep);
+    $definition->internalRep = text_internalizeDefinition($def, $sourceId);
+    $definition->htmlRep = text_htmlize($definition->internalRep, $sourceId);
     $definition->lexicon = text_extractLexicon($definition);
     $definition->save();
     if($verbose) echo("\tAdded definition {$definition->id} ({$definition->lexicon})\n");

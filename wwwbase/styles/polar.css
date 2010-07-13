@@ -297,6 +297,10 @@ span.spaced {
   font-size: 80%;
 }
 
+.abbrev {
+  color: #555;
+}
+
 /* jquery tablesorter stuff */
 th.header {
   background: #999 url("../img/icons/jquery/bg.gif") no-repeat center right;

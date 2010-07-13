@@ -1,8 +1,8 @@
 {if $dex}
-  <script type="text/javascript" src="{$wwwRoot}js/dex.js?v=10"></script>
+  <script type="text/javascript" src="{$wwwRoot}js/dex.js?v=11"></script>
 {/if}
 {if $flex}
-  <script type="text/javascript" src="{$wwwRoot}js/flex.js?v=1"></script>
+  <script type="text/javascript" src="{$wwwRoot}js/flex.js?v=2"></script>
 {/if}
 {if $mobile}
   <script type="text/javascript" src="{$wwwRoot}js/mobile.js?v=1"></script>

@@ -29,8 +29,8 @@ if ($associateLexemId) {
 }
 
 if ($internalRep) {
-  $definition->internalRep = text_internalizeDefinition($internalRep);
-  $definition->htmlRep = text_htmlize($definition->internalRep);
+  $definition->internalRep = text_internalizeDefinition($internalRep, $sourceId);
+  $definition->htmlRep = text_htmlize($definition->internalRep, $sourceId);
 }
 if (isset($status)) {
   $definition->status = (int)$status;
@@ -72,8 +72,8 @@ if ($commentContents) {
   }
   if ($commentContents != $comment->contents) {
     $comment->userId = session_getUserId();
-    $comment->contents = text_internalizeDefinition($commentContents);
-    $comment->htmlContents = text_htmlize($comment->contents);
+    $comment->contents = text_internalizeDefinition($commentContents, $sourceId);
+    $comment->htmlContents = text_htmlize($comment->contents, $sourceId);
   }
 } else if ($comment) {
   // User wiped out the existing comment, set status to DELETED.

@@ -3,8 +3,9 @@
 require_once("../../phplib/util.php");
 
 $internalRep = util_getRequestParameter('internalRep');
-$reallyInternalRep = text_internalizeDefinition($internalRep);
-$htmlRep = text_htmlize($reallyInternalRep);
+$sourceId = util_getRequestParameter('sourceId');
+$reallyInternalRep = text_internalizeDefinition($internalRep, $sourceId);
+$htmlRep = text_htmlize($reallyInternalRep, $sourceId);
 echo $htmlRep;
 
 ?>

@@ -9,7 +9,7 @@ $sendButton = util_getRequestParameter('send');
 
 if ($sendButton) {
   session_setSourceCookie($sourceId);
-  $def = text_internalizeDefinition($def);
+  $def = text_internalizeDefinition($def, $sourceId);
   $lexemNames = deleteEmptyElements($lexemNames);
 
   $errorMessage = '';
@@ -24,13 +24,13 @@ if ($sendButton) {
     smarty_assign('sourceId', $sourceId);
     smarty_assign('def', $def);
     session_setFlash($errorMessage);
-    smarty_assign('previewDivContent', text_htmlize($def));
+    smarty_assign('previewDivContent', text_htmlize($def, $sourceId));
   } else {
     $definition = new Definition();
     $definition->userId = session_getUserId();
     $definition->sourceId = $sourceId;
     $definition->internalRep = $def;
-    $definition->htmlRep = text_htmlize($def);
+    $definition->htmlRep = text_htmlize($def, $sourceId);
     $definition->lexicon = text_extractLexicon($definition);
     $definition->save();
     log_userLog("Added definition {$definition->id} ({$definition->lexicon})");

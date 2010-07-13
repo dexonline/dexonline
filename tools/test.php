@@ -16,7 +16,10 @@ function assertEquals($expected, $actual) {
 function assertEqualArrays($expected, $actual) {
   assertEquals(count($expected), count($actual));
   for ($i = 0; $i < count($expected); $i++) {
-    assertEquals($expected[$i], $actual[$i]);
+    $elemE = each($expected);
+    $elemA = each($actual);
+    assertEquals($elemE[0], $elemA[0]);
+    assertEquals($elemE[1], $elemA[1]);
   }
 }
 
@@ -140,12 +143,32 @@ assertEquals("okely\ndokely",
 assertEquals("okely<br/>\ndokely",
 	     _text_internalToHtml("okely\ndokely", TRUE));
 
-$internalDef = '@MÁRE^2,@ $mări,$ s.f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu |oceanul|ocean| printr-o |strâmtoare|strâmtoare|; parte a oceanului de lângă |țărm|țărm|; $p.ext.$ ocean. * Expr $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is.@';
-assertEquals($internalDef,
-	     text_internalizeDefinition('@M\'ARE^2@, $m~ari$, s.f. Nume generic dat vastelor ^intinderi de ap~a st~at~atoare, ad^anci ,si s~arate, de pe suprafa,ta |P~am^antului|-|, care de obicei sunt unite cu |oceanul|-| printr-o |str^amtoare||; parte a oceanului de l^ang~a |,t~arm||; $p.ext.$ ocean. * Expr $Marea cu sarea$ = mult, totul; imposibilul. $A v^antura m~ari ,si ,t~ari$ = a c~al~atori mult. $A ^incerca marea cu degetul$ = a face o ^incercare, chiar dac~a ,sansele de reu,sit~a sunt minime. $Peste (nou~a) m~ari ,si (nou~a) ,t~ari$ = foarte departe. ** Fig. Suprafa,t~a vast~a; ^intindere mare; imensitate. ** Fig. Mul,time (nesf^ar,sit~a), cantitate foarte mare. - Lat. @mare, -is@.'));
-assertEquals('<b>MÁRE<sup>2</sup>,</b> <i>mări,</i> s.f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu <a class="ref" href="/definitie/ocean">oceanul</a> printr-o <a class="ref" href="/definitie/strâmtoare">strâmtoare</a>; parte a oceanului de lângă <a class="ref" href="/definitie/țărm">țărm</a>; <i>p.ext.</i> ocean. &#x2662; Expr <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. &#x2666; Fig. Suprafață vastă; întindere mare; imensitate. &#x2666; Fig. Mulțime (nesfârșită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is.</b>',
-	     text_htmlize($internalDef));
-assertEquals($internalDef, text_internalizeDefinition($internalDef));
+assertEquals("@FILLER@ #adj. dem.# (antepus), art.", _text_markAbbreviations("@FILLER@ adj. dem. (antepus), art.", 1));
+assertEquals("@FILLER@ #adj. dem.# (antepus), art.", _text_markAbbreviations("@FILLER@ adj. dem. (antepus), art.", 1));
+assertEquals("@FILLER@ #loc. adv. și adj.# @MORE FILLER@", _text_markAbbreviations("@FILLER@ loc. adv. și adj. @MORE FILLER@", 1));
+assertEquals("@FILLER@ #arg.# șarg. catarg. ăarg. țarg. @FILLER@", _text_markAbbreviations("@FILLER@ arg. șarg. catarg. ăarg. țarg. @FILLER@", 1));
+assertEquals("@FILLER@ #et. nec.#", _text_markAbbreviations("@FILLER@ et. nec.", 1));
+assertEquals("@FILLER@ #art. hot.# @FILLER@", _text_markAbbreviations("@FILLER@ art.hot. @FILLER@", 1));
+assertEquals("@FILLER@ #art. hot.# @FILLER@", _text_markAbbreviations("@FILLER@ #art. hot.# @FILLER@", 1));
+assertEquals("FOO ornit. BAR", _text_markAbbreviations("FOO ornit. BAR", 99)); // Inexistent source
+assertEquals("FOO BAR", _text_markAbbreviations("FOO BAR", 1)); // No abbreviations
+assertEquals("FOO dat. BAR", _text_markAbbreviations("FOO dat. BAR", 1)); // Ambiguous abbreviations
+// A more complex example which also reports ambiguous matches
+$ambiguousMatches = array();
+assertEquals("FOO dat. #arh.# #loc. adv.# BAR", _text_markAbbreviations("FOO dat. arh. loc. adv. BAR", 1, $ambiguousMatches));
+assertEquals(1, count($ambiguousMatches));
+assertEqualArrays(array('abbrev' => 'dat.', 'position' => 4, 'length' => 4), $ambiguousMatches[0]);
+
+assertEquals("FOO <span class=\"abbrev\" title=\"farmacie; farmacologie\">farm.</span> BAR", text_htmlize("FOO #farm.# BAR", 1)); /** Semicolon in abbreviation **/
+assertEquals("FOO <span class=\"abbrev\" title=\"substantiv masculin\">s. m.</span> BAR", text_htmlize("FOO #s. m.# BAR", 1));
+assertEquals("FOO <span class=\"abbrev\" title=\"abreviere necunoscută\">brrb. ghhg.</span> BAR", text_htmlize("FOO #brrb. ghhg.# BAR", 1));
+
+$internalRep = '@MÁRE^2,@ $mări,$ #s. f.# Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu |oceanul|ocean| printr-o |strâmtoare|strâmtoare|; parte a oceanului de lângă |țărm|țărm|; $#p. ext.#$ ocean. * #Expr.# $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** #Fig.# Suprafață vastă; întindere mare; imensitate. ** #Fig.# Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is.@';
+assertEquals($internalRep,
+             text_internalizeDefinition('@M\'ARE^2@, $m~ari$, s. f. Nume generic dat vastelor ^intinderi de ap~a st~at~atoare, ad^anci ,si s~arate, de pe suprafa,ta |P~am^antului|-|, care de obicei sunt unite cu |oceanul|-| printr-o |str^amtoare||; parte a oceanului de l^ang~a |,t~arm||; $p.ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A v^antura m~ari ,si ,t~ari$ = a c~al~atori mult. $A ^incerca marea cu degetul$ = a face o ^incercare, chiar dac~a ,sansele de reu,sit~a sunt minime. $Peste (nou~a) m~ari ,si (nou~a) ,t~ari$ = foarte departe. ** Fig. Suprafa,t~a vast~a; ^intindere mare; imensitate. ** Fig. Mul,time (nesf^ar,sit~a), cantitate foarte mare. - Lat. @mare, -is@.', 1));
+assertEquals('<b>MÁRE<sup>2</sup>,</b> <i>mări,</i> <span class="abbrev" title="substantiv feminin">s. f.</span> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu <a class="ref" href="/definitie/ocean">oceanul</a> printr-o <a class="ref" href="/definitie/strâmtoare">strâmtoare</a>; parte a oceanului de lângă <a class="ref" href="/definitie/țărm">țărm</a>; <i><span class="abbrev" title="prin extensiune">p. ext.</span></i> ocean. &#x2662; <span class="abbrev" title="expresie">Expr.</span> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. &#x2666; <span class="abbrev" title="figurat">Fig.</span> Suprafață vastă; întindere mare; imensitate. &#x2666; <span class="abbrev" title="figurat">Fig.</span> Mulțime (nesfârșită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is.</b>',
+             text_htmlize($internalRep, 1));
+assertEquals($internalRep, text_internalizeDefinition($internalRep, 1));
 
 assertEquals('@MÁRE^2,@ $mări,$ s.f.', _text_migrateFormatChars('@MÁRE^2@, $mări$, s.f.'));
 assertEquals('@$%spaced% text$@', _text_migrateFormatChars('@$ % spaced % text $@'));

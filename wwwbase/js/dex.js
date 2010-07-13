@@ -67,7 +67,7 @@ function contribUpdatePreviewDiv() {
   if (previewDiv.keyWasPressed) {
     var internalRep = document.frmContrib.def.value;
     makePostRequest(wwwRoot + 'ajax/htmlize.php',
-                    'internalRep=' + myEncodeURI(internalRep),
+                    'internalRep=' + myEncodeURI(internalRep) + '&amp;sourceId=' + document.frmContrib.source.value,
                     contribPostRequestCallback, null);
     previewDiv.keyWasPressed = false;
   }
@@ -435,7 +435,7 @@ function deleteDefinitionCallback(httpRequest, defDivId) {
 
 function startReportCounters() {
   reports = ['unassociatedLexems', 'unassociatedDefinitions', 'definitionsWithTypos', 'temporaryDefinitions', 'temporaryLexems', 'lexemsWithComments',
-             'lexemsWithoutAccents'];
+             'lexemsWithoutAccents', 'definitionsWithAmbiguousAbbrev'];
   for (var i = 0; i < reports.length; i++) {
     makePostRequest(wwwRoot + 'ajax/reportCounter.php', 'report=' + reports[i], startReportCountersCallback, 'span_' + reports[i]);
   }

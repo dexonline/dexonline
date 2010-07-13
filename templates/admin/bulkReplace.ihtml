@@ -31,7 +31,7 @@
       <br/>
     {/foreach}
 
-    <form action="bulkReplace" method="get">
+    <form action="bulkReplace.php" method="get">
       <input type="hidden" name="search" value="{$search|escape}"/>
       <input type="hidden" name="replace" value="{$replace|escape}"/>
       <input type="hidden" name="source" value="{$sourceId}"/>

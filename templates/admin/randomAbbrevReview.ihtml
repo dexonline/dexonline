@@ -34,6 +34,7 @@
       {/foreach}
       <br/>
       <input type="submit" name="submitButton" id="submitButton" value="OK" style="margin-top: 5px;" {if count($ambiguities)}disabled="disabled"{/if}/>
+      &nbsp; <a href="definitionEdit.php?definitionId={$def->id}">Editează</a>
     </form>
 
     <br/>

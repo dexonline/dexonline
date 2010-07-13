@@ -10,9 +10,9 @@
 
   <body onload="startReportCounters()">
 
-    {include file="admin/header.ihtml"
-             title="DEX online - Pagina moderatorului"}
+    {include file="admin/header.ihtml" title="DEX online - Pagina moderatorului"}
     {include file="admin/recentlyVisited.ihtml"}
+    {include file="common/flashMessages.ihtml"}
 
     Aici găsiți, deocamdată, un sumar al problemelor din baza de date
     care necesită atenție și câteva mecanisme de căutare a lexemelor

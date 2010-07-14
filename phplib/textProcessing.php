@@ -320,7 +320,7 @@ function _text_migrateFormatChars($s) {
   // First, check that all format chars come in pairs
   $len = strlen($s);
   $i = 0;
-  $state = array('$' => false, '@' => false, '%' => false, '#' => false);
+  $state = array('$' => false, '@' => false, '%' => false);
   $value = $len ? array_fill(0, $len, 4) : array(); // 0 = punctuation (.,;:), 1 = closing char, 2 = whitespace, 3 = opening char, 4 = other
   while ($i < $len) {
     $c = $s[$i];
@@ -348,7 +348,7 @@ function _text_migrateFormatChars($s) {
   // - closing chars need to move left past whitespace
   // Therefore, take every string consisting of (w)hitespace, (p)unctuation, (o)pening chars and (c)losing chars and rearrange it as p,c,w,o
   $matches = array();
-  preg_match_all('/[ .,;:@$%#]+/', $s, $matches, PREG_OFFSET_CAPTURE);
+  preg_match_all('/[ .,;:@$%]+/', $s, $matches, PREG_OFFSET_CAPTURE);
   if (count($matches)) {
     foreach ($matches[0] as $match) {
       $chars = str_split($match[0]);

@@ -14,12 +14,7 @@
              title="$title"}
 
     {include file="admin/recentlyVisited.ihtml"}
-
-    {if $errorMessage}
-      <table class="errorMessage">
-        <tr><td>{$errorMessage}</td></tr>
-      </table>
-    {/if}
+    {include file="common/flashMessages.ihtml"}
 
     <form action="definitionEdit.php" method="post">
       <input type="hidden" name="definitionId" value="{$def->id}"/>

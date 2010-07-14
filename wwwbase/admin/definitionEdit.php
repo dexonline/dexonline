@@ -13,7 +13,7 @@ $commentContents = util_getRequestParameter('commentContents');
 $refreshButton = util_getRequestParameter('but_refresh');
 $acceptButton = util_getRequestParameter('but_accept');
 $moveButton = util_getRequestParameter('but_move');
-$errorMessage = '';
+$hasErrors = false;
 
 if (!$definitionId) {
   return;
@@ -29,8 +29,15 @@ if ($associateLexemId) {
 }
 
 if ($internalRep) {
+  $errors = array();
   $definition->internalRep = text_internalizeDefinition($internalRep, $sourceId);
-  $definition->htmlRep = text_htmlize($definition->internalRep, $sourceId);
+  $definition->htmlRep = text_htmlize($definition->internalRep, $sourceId, $errors);
+  if (!empty($errors)) {
+    $hasErrors = true;
+    foreach ($errors as $error) {
+      session_setFlash($error);
+    }
+  }
 }
 if (isset($status)) {
   $definition->status = (int)$status;
@@ -58,7 +65,8 @@ if ($lexemNames) {
           }
         }
       } else {
-        $errorMessage = "Lexemul <i>".htmlentities($lexemName)."</i> nu există. Folosiți lista de sugestii pentru a-l corecta.";
+        $hasErrors = true;
+        session_setFlash("Lexemul <i>".htmlentities($lexemName)."</i> nu există. Folosiți lista de sugestii pentru a-l corecta.");
         $lexems[] = new Lexem($lexemName, 0, '', '');
         // We won't be needing $ldms since there is an error.
       }
@@ -85,45 +93,41 @@ if ($commentContents) {
   $comment->userId = session_getUserId();  
 }
 
-if ($acceptButton || $moveButton) {
-  if (!$errorMessage) {
-    // The only difference between these two is that but_move also changes the
-    // status to Active
-    if ($moveButton) {
-      $definition->status = ST_ACTIVE;
-    }
-    
-    // Accept the definition and delete the typos associated with it.
-    $definition->save();
-    db_execute("delete from Typo where definitionId = {$definition->id}");
-    if ($comment) {
-      $comment->save();
-    }
-
-    if ($definition->status == ST_DELETED) {
-      // If by deleting this definition, any associated lexems become unassociated, delete them
-      $ldms = db_find(new LexemDefinitionMap(), "definitionId = {$definition->id}");
-      db_execute("delete from LexemDefinitionMap where definitionId = {$definition->id}");
-
-      foreach ($ldms as $ldm) {
-        $l = Lexem::get("id = {$ldm->lexemId}");
-        $otherLdms = db_find(new LexemDefinitionMap(), "lexemId = {$l->id}");
-        if (!$l->isLoc && !count($otherLdms)) {
-          $l->delete();
-        }
-      }
-    } else {
-      db_execute("delete from LexemDefinitionMap where definitionId = {$definitionId}");
-      foreach ($ldms as $ldm) {
-        $ldm->save();
-      }
-    }
-    
-    log_userLog("Edited definition {$definition->id} ({$definition->lexicon})");
-    util_redirect('definitionEdit.php?definitionId=' . $definitionId);
-  } else {
-    smarty_assign('errorMessage', $errorMessage);
+if (($acceptButton || $moveButton) && !$hasErrors) {
+  // The only difference between these two is that but_move also changes the
+  // status to Active
+  if ($moveButton) {
+    $definition->status = ST_ACTIVE;
   }
+    
+  // Accept the definition and delete the typos associated with it.
+  $definition->save();
+  db_execute("delete from Typo where definitionId = {$definition->id}");
+  if ($comment) {
+    $comment->save();
+  }
+
+  if ($definition->status == ST_DELETED) {
+    // If by deleting this definition, any associated lexems become unassociated, delete them
+    $ldms = db_find(new LexemDefinitionMap(), "definitionId = {$definition->id}");
+    db_execute("delete from LexemDefinitionMap where definitionId = {$definition->id}");
+
+    foreach ($ldms as $ldm) {
+      $l = Lexem::get("id = {$ldm->lexemId}");
+      $otherLdms = db_find(new LexemDefinitionMap(), "lexemId = {$l->id}");
+      if (!$l->isLoc && !count($otherLdms)) {
+        $l->delete();
+      }
+    }
+  } else {
+    db_execute("delete from LexemDefinitionMap where definitionId = {$definitionId}");
+    foreach ($ldms as $ldm) {
+      $ldm->save();
+    }
+  }
+    
+  log_userLog("Edited definition {$definition->id} ({$definition->lexicon})");
+  util_redirect('definitionEdit.php?definitionId=' . $definitionId);
 }
 
 $source = Source::get("id={$definition->sourceId}");

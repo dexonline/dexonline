@@ -161,7 +161,9 @@ assertEqualArrays(array('abbrev' => 'dat.', 'position' => 4, 'length' => 4), $am
 
 assertEquals("FOO <span class=\"abbrev\" title=\"farmacie; farmacologie\">farm.</span> BAR", text_htmlize("FOO #farm.# BAR", 1)); /** Semicolon in abbreviation **/
 assertEquals("FOO <span class=\"abbrev\" title=\"substantiv masculin\">s. m.</span> BAR", text_htmlize("FOO #s. m.# BAR", 1));
-assertEquals("FOO <span class=\"abbrev\" title=\"abreviere necunoscută\">brrb. ghhg.</span> BAR", text_htmlize("FOO #brrb. ghhg.# BAR", 1));
+$errors = array();
+assertEquals("FOO <span class=\"abbrev\" title=\"abreviere necunoscută\">brrb. ghhg.</span> BAR", text_htmlize("FOO #brrb. ghhg.# BAR", 1, $errors));
+assertEqualArrays(array(0 => 'Abreviere necunoscută: «brrb. ghhg.». Verificați că după fiecare punct există un spațiu.'), $errors);
 
 $internalRep = '@MÁRE^2,@ $mări,$ #s. f.# Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu |oceanul|ocean| printr-o |strâmtoare|strâmtoare|; parte a oceanului de lângă |țărm|țărm|; $#p. ext.#$ ocean. * #Expr.# $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** #Fig.# Suprafață vastă; întindere mare; imensitate. ** #Fig.# Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is.@';
 assertEquals($internalRep,

@@ -320,7 +320,7 @@ function _text_migrateFormatChars($s) {
   // First, check that all format chars come in pairs
   $len = strlen($s);
   $i = 0;
-  $state = array('$' => false, '@' => false, '%' => false);
+  $state = array('$' => false, '@' => false, '%' => false, '#' => false);
   $value = $len ? array_fill(0, $len, 4) : array(); // 0 = punctuation (.,;:), 1 = closing char, 2 = whitespace, 3 = opening char, 4 = other
   while ($i < $len) {
     $c = $s[$i];
@@ -348,7 +348,7 @@ function _text_migrateFormatChars($s) {
   // - closing chars need to move left past whitespace
   // Therefore, take every string consisting of (w)hitespace, (p)unctuation, (o)pening chars and (c)losing chars and rearrange it as p,c,w,o
   $matches = array();
-  preg_match_all('/[ .,;:@$%]+/', $s, $matches, PREG_OFFSET_CAPTURE);
+  preg_match_all('/[ .,;:@$%#]+/', $s, $matches, PREG_OFFSET_CAPTURE);
   if (count($matches)) {
     foreach ($matches[0] as $match) {
       $chars = str_split($match[0]);
@@ -591,19 +591,14 @@ function text_extractLexicon($def) {
 
 /****** Conversions from our internal format to HTML (for search.php) ********/
 
-// Converts the text to html.
-function text_htmlize($s, $sourceId) {
-  return text_htmlizeWithNewlines($s, $sourceId, FALSE);
-}
-
 // Converts the text to html. If $obeyNewlines is TRUE, replaces \n with
-// <br/>\n; otherwise leaves \n as \n.
-function text_htmlizeWithNewlines($s, $sourceId, $obeyNewlines) {
+// <br/>\n; otherwise leaves \n as \n. Collects unrecoverable errors in $errors.
+function text_htmlize($s, $sourceId, &$errors = null, $obeyNewlines = false) {
   $s = htmlspecialchars($s, ENT_NOQUOTES);
   $s = _text_convertReferencesToHtml($s);
   $s = _text_insertSuperscripts($s);
   $s = _text_internalToHtml($s, $obeyNewlines);
-  $s = _text_htmlizeAbbreviations($s, $sourceId);
+  $s = _text_htmlizeAbbreviations($s, $sourceId, $errors);
   $s = _text_minimalInternalToHtml($s);
   return $s;
 }
@@ -1377,7 +1372,7 @@ function _text_constructHashMap($s) {
   return $result;
 }
 
-function _text_htmlizeAbbreviations($s, $sourceId) {
+function _text_htmlizeAbbreviations($s, $sourceId, &$errors = null) {
   $abbrevs = text_loadAbbreviations();
   if (!array_key_exists($sourceId, $abbrevs)) {
     return $s;
@@ -1390,7 +1385,14 @@ function _text_htmlizeAbbreviations($s, $sourceId) {
       $from = $match[0];
       $lower = text_unicodeToLower($from);
       $position = $match[1];
-      $hint = array_key_exists($lower, $abbrevs[$sourceId]) ? $abbrevs[$sourceId][$lower]['to'] : 'abreviere necunoscută';
+      if (array_key_exists($lower, $abbrevs[$sourceId])) {
+        $hint =  $abbrevs[$sourceId][$lower]['to'];
+      } else {
+        $hint =  'abreviere necunoscută';
+        if ($errors !== null) {
+          $errors[] = "Abreviere necunoscută: «{$from}». Verificați că după fiecare punct există un spațiu.";
+        }
+      }
       $s = substr_replace($s, "<span class=\"abbrev\" title=\"$hint\">$from</span>", $position - 1, 2 + strlen($from));
     }
   }

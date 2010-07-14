@@ -20,9 +20,10 @@ class GuideEntry extends BaseObject {
     $this->wrong = text_internalizeDefinition($this->wrong, 0);
     $this->comments = text_internalizeDefinition($this->comments, 0);
     
-    $this->correctHtml = text_htmlizeWithNewlines($this->correct, 0, TRUE);
-    $this->wrongHtml = text_htmlizeWithNewlines($this->wrong, 0, TRUE);
-    $this->commentsHtml = text_htmlizeWithNewlines($this->comments, 0, TRUE);    
+    $ignored = array();
+    $this->correctHtml = text_htmlize($this->correct, 0, $ignored, true);
+    $this->wrongHtml = text_htmlize($this->wrong, 0, $ignored, true);
+    $this->commentsHtml = text_htmlize($this->comments, 0, $ignored, true);    
   }
 }
 

@@ -112,8 +112,12 @@
             {include file="admin/helpLink.ihtml" anchor="definitionComment"}
           </td>
           <td>
-            <textarea name="commentContents" rows="5" cols="80"
-              >{$comment->contents|escape}</textarea>
+            <textarea name="commentContents" rows="5" cols="80">{$comment->contents|escape}</textarea><br/>
+            {if $commentUser}
+              <input id="preserveCommentUser" type="checkbox" name="preserveCommentUser" value="1" checked="checked">
+              <label for="preserveCommentUser">Păstrează autorul comentariului original ({$commentUser->nick|escape})</label>
+              {include file="admin/helpLink.ihtml" anchor="commentOwner"}
+            {/if}
           </td>
         </tr>
         <tr>
@@ -142,7 +146,9 @@
     </span>
 
     <br/><br/>
-    Comentariu: {$comment->htmlContents}
+    {if $comment}
+      Comentariu: {$comment->htmlContents}
+    {/if}
 
   </body>
 </html>

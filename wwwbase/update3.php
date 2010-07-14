@@ -13,6 +13,7 @@ util_enforceGzipEncoding();
 header('Content-type: text/xml');
 $export = util_getRequestParameter('export');
 $timestamp = util_getRequestIntParameter('timestamp');
+$version = util_getRequestParameterWithDefault('version', '3.0');
 
 if ($export && util_isDesktopBrowser() && !session_getUser()) {
   smarty_displayCommonPageWithSkin('updateError.ihtml');
@@ -25,6 +26,9 @@ if ($export == 'sources') {
 } else if ($export == 'inflections') {
   smarty_assign('inflections', db_find(new Inflection(), '1 order by id'));
   smarty_displayWithoutSkin('common/update3Inflections.ihtml');
+} else if ($export == 'abbrev') {
+  smarty_assign('abbrev', text_loadRawAbbreviations());
+  smarty_displayWithoutSkin('common/update3Abbrev.ihtml');
 } else if ($export == 'definitions') {
   userCache_init();
   $d = new Definition();
@@ -87,9 +91,18 @@ function fetchNextRow() {
     $currentLexem = fetchNextLexemTuple();
   }
 
+  prepareDefForVersion($def);
+
   smarty_assign('def', $def);
   smarty_assign('lexemIds', $lexemIds);
   smarty_assign('user', userCache_get($def->userId));
+}
+
+function prepareDefForVersion(&$def) {
+  global $version;
+  if ($version == '3.0') {
+    $def->internalRep = str_replace('#', '', $def->internalRep);
+  }
 }
 
 function fetchNextLexemRow() {

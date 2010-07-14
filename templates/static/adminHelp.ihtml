@@ -107,6 +107,11 @@ a face adnotări pe marginea unei definiții fără a altera forma
 originală a definiției. Pentru a șterge un comentariu, ștergeți tot
 conținutul acestui câmp.<br/><br/>
 
+<a name="commentOwner"></a>
+<b>Definiție :: Autorul comentariului</b> -- Dacă modificați un comentariu existent, puteți alege să vă treceți drept autor al comentariului sau să păstrați autorul versiunii anterioare.
+Sistemul nu ia această decizie automat, deoarece nu am găsit o metrică potrivită (lungimea comentariului nu este un criteriu relevant).
+Nu fiți modești; dacă considerați că ați îmbunătățit semnificativ comentariul, însușiți-vi-l!<br/><br/>
+
 <a name="definitionRefresh"></a>
 <b>Definiție :: Reafișează</b> -- Tipărește definiția și comentariul
 cu modificările făcute. Modificările sunt "virtuale", adică nu sunt

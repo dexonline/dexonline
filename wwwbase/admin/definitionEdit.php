@@ -10,6 +10,7 @@ $sourceId = util_getRequestIntParameter('source');
 $internalRep = util_getRequestParameter('internalRep');
 $status = util_getRequestIntParameterWithDefault('status', null);
 $commentContents = util_getRequestParameter('commentContents');
+$preserveCommentUser = util_getRequestParameter('preserveCommentUser');
 $refreshButton = util_getRequestParameter('but_refresh');
 $acceptButton = util_getRequestParameter('but_accept');
 $moveButton = util_getRequestParameter('but_move');
@@ -21,6 +22,7 @@ if (!$definitionId) {
 
 $definition = Definition::get("id = {$definitionId}");
 $comment = Comment::get("definitionId = '{$definitionId}' and status = " . ST_ACTIVE);
+$commentUser = $comment ? User::get("id = {$comment->userId}") : null;
 $oldInternalRep = $definition->internalRep;
 
 if ($associateLexemId) {
@@ -82,10 +84,13 @@ if ($commentContents) {
     $comment = new Comment();
     $comment->definitionId = $definitionId;
   }
-  if ($commentContents != $comment->contents) {
-    $comment->userId = session_getUserId();
-    $comment->contents = text_internalizeDefinition($commentContents, $sourceId);
+  $newContents = text_internalizeDefinition($commentContents, $sourceId);
+  if ($newContents != $comment->contents) {
+    $comment->contents = $newContents;
     $comment->htmlContents = text_htmlize($comment->contents, $sourceId);
+    if (!$preserveCommentUser) {
+      $comment->userId = session_getUserId();
+    }
   }
 } else if ($comment) {
   // User wiped out the existing comment, set status to DELETED.
@@ -142,6 +147,7 @@ smarty_assign('def', $definition);
 smarty_assign('source', $source);
 smarty_assign('user', User::get("id = {$definition->userId}"));
 smarty_assign('comment', $comment);
+smarty_assign('commentUser', $commentUser);
 smarty_assign('lexems', $lexems);
 smarty_assign('typos', db_find(new Typo(), "definitionId = {$definition->id}"));
 smarty_assign('homonyms', loadSetHomonyms($lexems));

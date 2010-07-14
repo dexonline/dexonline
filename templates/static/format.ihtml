@@ -18,16 +18,15 @@ fel de mult ca și tastarea de la zero și bunăvoința dumneavoastră este iros
 Dacă aveți o tastatură românească, sau dacă ați instalat maparea
 tastaturii românești, puteți introduce diacriticele românești direct
 de la tastatură. Dacă nu, puteți folosi notațiile din tabelul de mai
-jos.
+jos.<br/><br/>
 
-<p>
 <table class="static">
 <tr>
   <th>Efectul dorit</th>
   <th>Secvența</th>
 </tr><tr>
-  <td width=105>ă ğ ž etc.</td>
-  <td width=115>~a ~g ~z etc.</td>
+  <td width="105">ă ğ ž etc.</td>
+  <td width="115">~a ~g ~z etc.</td>
 </tr><tr>
   <td>à è ì etc.</td>
   <td>`a `e `i etc.</td>
@@ -104,7 +103,7 @@ prefixați-le cu simbolul \ (backslash). De exemplu:
 
 <h3><a name="a3"></a>Caractere Unicode</h3>
 
-<p>Dacă doriți să folosiți alt simbol care nu poate fi introdus
+Dacă doriți să folosiți alt simbol care nu poate fi introdus
 conform regulilor de mai sus, căutați-l în <a
 href="http://unicode.org/charts">tabelele Unicode</a>. Să spunem că
 doriți să tastați litera grecească α, care are codul Unicode
@@ -134,50 +133,46 @@ bază de definiții.
 <li>În cele ce urmează prin <i>semn de punctuație</i> înțelegem punct,
 virgulă, punct și virgulă, două puncte, puncte de suspensie, semnul
 întrebării sau semnul exclamării. Prin <i>paranteze</i> înțelegem
-paranteze rotunde, pătrate sau acolade.
+paranteze rotunde, pătrate sau acolade.</li>
 
-<li>După semnele de punctuație se lasă spațiu, iar înainte nu.
+<li>După semnele de punctuație se lasă spațiu, iar înainte nu.</li>
 
 <li>În exteriorul parantezelor se lasă spațiu, iar în interior (între
-paranteze și primul/ultimul cuvânt încadrat) nu.
+paranteze și primul/ultimul cuvânt încadrat) nu.</li>
 
 <li>Semnele de punctuație moștenesc formatul (bold / italic)
-cuvântului pe care îl urmează.
+cuvântului pe care îl urmează.</li>
 
 <li>Parantezele deschise/închise moștenesc formatul cuvântului pe care
-îl precedă / urmează.
+îl precedă / urmează.</li>
 
 <li>Indicii superiori și inferiori moștenesc formatul (bold / italic)
-cuvântului pe care îl urmează.
+cuvântului pe care îl urmează.</li>
 
 <li>Simbolurile speciale (+ &loz; &diams;), precum și semnul &#x2013;,
 care desparte definiția unui cuvânt de etimologia lui (în DEX),
-trebuie încadrate de spații.
+trebuie încadrate de spații.</li>
 
 <li>Folosiți doar ghilimelele și cratima prezente pe tastatura
 dumneavoastră. Nu încercați să introduceți ghilimele diferite pentru
 începutul și sfârșitul unui citat sau cratime mai lungi decât semnul
-minus normal. <i>DEX online</i> știe să facă automat aceste înlocuiri.
+minus normal. <i>DEX online</i> știe să facă automat aceste înlocuiri.</li>
 
-<li><b>Excepții:</b> <i>s.m., s.f.</i> și <i>s.n.</i> se scriu legat
-(fără spațiu după punct); referirile la anumite sensuri ale
-cuvintelor: (<b>1</b>), (<b>2</b>) se scriu cu paranteze normale, fără
-bold.
+<li><b>Excepție:</b>Referirile la anumite sensuri ale cuvintelor: (<b>1</b>), (<b>2</b>) se scriu cu paranteze normale, fără bold.</li>
 
 </ul>
 
 
 <h3><a name="a5"></a>Trimiteri</h3>
 
-<p>Implicit, când dați click pe orice cuvânt dintr-o definiție, <i>DEX
+Implicit, când dați click pe orice cuvânt dintr-o definiție, <i>DEX
 online</i> navighează la definiția acelui cuvânt. Acolo unde
 considerați necesar, puteți insera și trimiteri la alte
 cuvinte. Trimiterile se realizează încadrând textul care doriți să apară
 pe ecran, precum și cuvântul la care doriți să se facă trimiterea,
 între trei caractere "|" (bară verticală). De exemplu, remarcați
-trimiterea la "bazedov" în exemplul de mai jos:
+trimiterea la "bazedov" în exemplul de mai jos:<br/><br/>
 
-<p>
 <table class="static">
   <tr>
     <th>Efectul dorit</th>

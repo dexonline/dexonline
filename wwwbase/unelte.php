@@ -82,7 +82,7 @@ $clients = array(
         'requires' => array(),
         'authors' => array('Adrian Vîntu' => ''),
         'license' => 'Freeware',
-        'options' => array('vision' => 0, 'sync' => 0, 'regexp' => 0, 'suggest' => 0, 'diacritics' => 0, 'full' => 0, 'flex' => 1, 'click' => 0, 'history' => 0)),
+        'options' => array('vision' => 0, 'sync' => 0, 'regexp' => 1, 'suggest' => 0, 'diacritics' => 0, 'full' => 0, 'flex' => 1, 'click' => 0, 'history' => 0)),
 
   array('name' => array('iDEX', 'http://www.mobiletouch.ro/aplicatii-iphone/2/idex-dictionare-ale-limbii-romane'),
         'available' => true,

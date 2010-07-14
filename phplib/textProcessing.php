@@ -1279,6 +1279,10 @@ function text_replace_ai($tpl_output) {
   return $tpl_output;
 }
 
+function text_loadRawAbbreviations() {
+  return parse_ini_file(util_getRootPath() . "docs/abbrev.conf", true);
+}
+
 /**
  * Creates a map($sourceId => map($from, pair($to, $ambiguous))).
  * That is, for each sourceId and abbreviated text, we store the expanded text and whether the abbreviation is ambiguous.
@@ -1287,7 +1291,7 @@ function text_replace_ai($tpl_output) {
  */
 function text_loadAbbreviations() {
   if (empty($GLOBALS['abbrev'])) {
-    $raw = parse_ini_file(util_getRootPath() . "docs/abbrev.conf", true);
+    $raw = text_loadRawAbbreviations();
     $result = array();
     foreach ($raw['sources'] as $sourceId => $sectionList) {
       $sections = preg_split('/, */', $sectionList);

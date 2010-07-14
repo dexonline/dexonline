@@ -53,6 +53,17 @@
 
     </ul>
 
+
+    <h2>Versiuni</h2>
+
+    <img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/>
+
+    Opțional, puteți adăuga parametrul <b>version</b> la
+    URL. Versiunea implicită este 3.0 (din motive istorice), iar
+    versiunea curentă este 3.1. Pe parcursul documentului, diferențele
+    dintre versiuni sunt semnalate cu simbolul <img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/>.
+
+
     <h2>Date exportate</h2>
 
     Scriptul exportă separat diverse tipuri de date. Pentru a
@@ -193,6 +204,8 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
       <li>Când setul de lexeme asociate cu o definiție se schimbă,
       întreaga definiție este resincronizată.</li>
 
+      <li><img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/> DEX online indică abrevierile între două semne „#”. De exemplu, #expr.# înseamnă „expresie”.
+      Din motive istorice, versiunea 3.0 nu exportă aceste caractere. Versiunile începând cu 3.1 le exportă. Vedeți și secțiunea specială despre abrevieri.
     </ul>
 
 
@@ -372,6 +385,77 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
       prima dintre formele flexionare, iar când nu este așa, există un
       motiv.</li>
 
+    </ul>
+
+
+    <h3>Abrevieri</h3>
+
+    Această categorie exportă abrevierile folosite de DEX online, așa cum au fost ele moștenite din dicționarele originale. Această categorie este exportată complet.
+    Vă recomandăm să o transferați numai atunci când, la sincronizarea definițiilor, întâlniți o abreviere necunoscută. Nu toate dicționarele au fost prelucrate pentru
+    expandarea abrevierilor, dar le vom procesa pe toate, în timp.<br/><br/>
+
+    <img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/> Aceste informații sunt exportate pentru orice versiune le solicitați, dar vă vor fi de folos
+    în special începând cu versiunea 3.1, când abrevierile sunt delimitate în definiții prin semne „#”.
+
+
+    Parametri acceptați:
+
+    <ul>
+      <li>export=abbrev
+      <span class="deemph">&nbsp;(Cuvântul „abbreviations” era prea lung, așa că l-am... abreviat...)</span></li>
+    </ul>
+
+    Formatul este:
+
+    <pre class="exportSample">
+&lt;AbbrevList>
+  &lt;Sources>
+    &lt;Source id="<i>număr</i>" sections="<i>secțiuni_CSV</i>"/>
+    &lt;Source id="<i>număr</i>" sections="<i>secțiuni_CSV</i>"/>
+    ...
+  &lt;/Sources>
+  &lt;Section name="nume_secțiune">
+    &lt;Abbrev short="forma_scurtă" long="forma_completă"/>
+    &lt;Abbrev short="forma_scurtă" long="forma_completă"/>
+    ...
+  &lt;/Section>
+  ....
+&lt;/AbbrevList></pre>
+
+    De exemplu:
+
+    <pre class="exportSample">
+&lt;AbbrevList>
+  &lt;Sources>
+    &lt;Source id="0" sections="common"/>
+    &lt;Source id="1" sections="common, dex"/>
+    &lt;Source id="2" sections="common, dex"/>
+    ...
+  &lt;/Sources>
+  &lt;Section name="common">
+    &lt;Abbrev short="adj." long="adjectiv"/>
+    &lt;Abbrev short="pl." long="plural"/>
+    &lt;Abbrev short="sg." long="singular"/>
+    &lt;Abbrev short="mil." long="termen militar"/>
+  &lt;/Section>
+  &lt;Section name="dex">
+    &lt;Abbrev short="a. cr." long="înainte de Cristos"/>
+    &lt;Abbrev short="abr." long="abreviat, abreviere"/>
+    &lt;Abbrev short="mil." long="milion"/>
+    ...
+  &lt;/Section>
+  ....
+&lt;/AbbrevList></pre>
+
+    Precizări:
+
+    <ul>
+      <li>Întrucât multe din dicționare folosesc sisteme asemănătoare sau chiar identice de abrevieri (de exemplu diversele ediții din DEX), am creat un sistem bazat pe secțiuni.
+      În exemplul de mai sus, sursele sunt 0, 1, 2..., iar sursele 1 și 2 folosesc un set identic de abrevieri, compus din secțiunile „common” și „dex”.</li>
+
+      <li>Dacă o abreviere este definită în mai multe secțiuni, trebuie folosită valoarea din secțiunea definită mai târziu în eticheta &lt;Source>.
+      De exemplu, DEX folosește secțiunile „common, dex” și ambele secțiuni definesc o abreviere pentru „mil.”. În acest caz, trebuie folosită valoarea „milion”.
+      În practică nu avem încă o astfel de situație, dar anticipăm apariția ei pe măsură ce procesăm noi dicționare.</li>
     </ul>
 
   </body>

@@ -43,6 +43,7 @@ if ($internalRep || $sourceId) {
 }
 if ($lexemNames) {
   $lexems = array();
+  $lexemIds = array();
   $ldms = array();
   foreach ($lexemNames as $lexemName) {
     $lexemName = trim($lexemName);
@@ -50,8 +51,11 @@ if ($lexemNames) {
       $matches = Lexem::loadByExtendedName($lexemName);
       if (count($matches) >= 1) {
         foreach ($matches as $match) {
-          $lexems[] = $match;
-          $ldms[] = new LexemDefinitionMap($match->id, $definitionId);
+          if (!in_array($match->id, $lexemIds)) {
+            $lexemIds[] = $match->id;
+            $lexems[] = $match;
+            $ldms[] = new LexemDefinitionMap($match->id, $definitionId);
+          }
         }
       } else {
         $errorMessage = "Lexemul <i>".htmlentities($lexemName)."</i> nu există. Folosiți lista de sugestii pentru a-l corecta.";

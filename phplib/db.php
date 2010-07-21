@@ -125,7 +125,7 @@ function db_tableExists($tableName) {
 
 function db_executeSqlFile($fileName) {
   $statements = file_get_contents($fileName);
-  $statements = explode(';', $statements);
+  $statements = explode(";\n", $statements);
   foreach ($statements as $statement) {
     if (trim($statement) != '') {
       logged_query($statement);

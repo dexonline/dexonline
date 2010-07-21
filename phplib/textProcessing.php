@@ -54,7 +54,7 @@ function text_init() {
 				 'y', 'Y', 'y', 'Y', 'z', 'Z');
 
   $GLOBALS['text_internal'] = array(' - ', ' ** ', ' * ');
-  $GLOBALS['text_html'] = array(' &#x2013; ', ' &#x2666; ', ' &#x2662; ');
+  $GLOBALS['text_html'] = array(' &#x2013; ', ' &#x2666; ', ' &#x25ca; ');
 
   $GLOBALS['text_accented'] = array('á', 'Á', 'ắ', 'Ắ', 'ấ', 'Ấ',
                                     'é', 'É', 'í', 'Í', 'î́', 'Î́',

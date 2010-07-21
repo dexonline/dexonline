@@ -9,7 +9,7 @@ $clientOptions = array(
   'diacritics' => array('Cu / fără diacritice', 'Acest client oferă opțiuni pentru tastarea căutărilor cu sau fără diacritice.'),
   'full' => array('Căutare full-text', 'Acest client poate căuta nu doar cuvintele-titlu, ci și întreg textul definițiilor.'),
   'flex' => array('Căutare forme flexionare', 'Acest client poate căuta declinări și conjugări ale cuvintelor, cum ar fi «meargă» în loc de «merge».'),
-  'click' => array('Click pe cuvânt', 'Când dați click pe un cuvânt dintr-o definiție, acest client navighează la definiția acelui cuvânt.'),
+  'click' => array('Clic pe cuvânt', 'Când dați clic pe un cuvânt dintr-o definiție, acest client navighează la definiția acelui cuvânt.'),
   'history' => array('Istoria căutărilor', 'Acest client ține minte ultimele cuvinte căutate și poate naviga între ele.'),
 );
 

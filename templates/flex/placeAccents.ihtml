@@ -12,7 +12,7 @@
     {include file="admin/header.ihtml" title=$sectionTitle}
     {include file="admin/recentlyVisited.ihtml"}
 
-    Dați click pe litera care trebuie accentuată sau bifați "Nu
+    Dați clic pe litera care trebuie accentuată sau bifați "Nu
     necesită accent" pentru lexemele care nu necesită accent (cuvinte
     compuse, cuvinte latinești etc.). Lexemele sunt alese la
     întâmplare dintre toate cele neaccentuate. Dacă nu știți ce să

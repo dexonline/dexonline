@@ -119,13 +119,13 @@ with the application developers.
 <ul>
   <li>Instalați un corector ortografic pentru limba română pentru
   Firefox: <a href="download/dex-ff.xpi"
-  onclick="return installFirefoxSpellChecker(event);">click aici</a>.
+  onclick="return installFirefoxSpellChecker(event);">clic aici</a>.
 
     <ul>
       <li>Pentru a folosi corectorul, deschideți meniul <i>Edit >
       Preferences,</i> selectați panoul <i>Advanced</i> și bifați
       opțiunea <i>Check my spelling as I type.</i> Pentru a activa
-      limba română (în locul limbii engleze), dați click dreapta în
+      limba română (în locul limbii engleze), dați clic-dreapta în
       orice cutie de editare și selectați <i>Languages >
       Romanian.</i></li>
     </ul>
@@ -134,22 +134,22 @@ with the application developers.
   <li>Adăugați <i>DEX online</i> la cutia de căutare din Firefox 2.x,
   Firefox 3.0 sau Internet Explorer 7: <a href="#"
   onclick="addProvider('http://dexonline.ro/download/dex.xml'); return
-  false;">click aici</a>. Mulțumiri lui Alexandru Lixandru.</li>
+  false;">clic aici</a>. Mulțumiri lui Alexandru Lixandru.</li>
 
   <li>Un alt link, funcțional în Firefox și Mozilla: <a href="#"
-  onclick="addToEngines(); return false">click aici</a>. Mulțumiri
+  onclick="addToEngines(); return false">clic aici</a>. Mulțumiri
   lui <a href="http://www.mit.edu/~michel">Mihai Ibănescu</a>, care a
   creat cele două fișiere, și
   lui <a href="http://marius.scurtescu.com/">Marius Scurtescu</a>,
   care ne-a oferit codul JavaScript pentru instalarea printr-un singur
-  click.</li>
+  clic.</li>
 
   <li>Ați întâlnit cuvinte pe care nu le cunoașteți în pagini
   românești? Acest modul Firefox vă permite să le căutați cu ușurință
   în DEX online. Salvați <a href="download/dex-context-search.xml">acest
   fișier</a> în directorul <tt>searchplugins/</tt> al aplicației
   Firefox și reporniți Firefox. Acum, dacă selectați orice cuvânt și
-  dați click-dreapta, veți avea opțiunea să-l căutați în DEX online.
+  dați clic-dreapta, veți avea opțiunea să-l căutați în DEX online.
   Mulțumiri lui Radu George Mureșan.</li>
 
   <li>O <a href="https://chrome.google.com/extensions/detail/adpeehopdngemnfahceoeppdadkiagka">extensie Google Chrome</a>, autor OviTeodor.</li>

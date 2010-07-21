@@ -159,7 +159,7 @@
     <li><b>Trimiterile.</b> Definițiile conțin la rândul lor cuvinte
     care pot fi necunoscute. Într-un dicționar pe hârtie, este necesară
     o nouă căutare pentru a găsi explicația cuvântului necunoscut. În
-    <i>DEX online</i>, trimiterea se face printr-un click pe cuvântul
+    <i>DEX online</i>, trimiterea se face printr-un clic pe cuvântul
     necunoscut.</li>
   
     <li><b>Căutarea mai multor definiții simultan</b>, folosind expresii
@@ -983,7 +983,7 @@ rezervate Editurii Litera. Copierea definițiilor din aceste dicționare este in
   Nițica, am adăugat o interfață care vă
   permite să folosiți <i>DEX online</i> cu <b>Gnome
   Dictionary</b> sub linux / RedHat. Pentru a porni applet-ul, dați
-  click dreapta pe taskbar și selectați „Add to panel /
+  clic-dreapta pe taskbar și selectați „Add to panel /
   Accessories / Dictionary Lookup”, sau lansați <code>gnome-dictionary</code>
   dintr-un terminal. Pentru a face căutări în <i>DEX
   online</i>, programul trebuie configurat cu serverul
@@ -1005,7 +1005,7 @@ rezervate Editurii Litera. Copierea definițiilor din aceste dicționare este in
   <br/><br/>
 
   Din ianuarie 2004, oricine observă o greșeală de tipar o
-  poate semnala printr-un simplu click.
+  poate semnala printr-un simplu clic.
   
   <br/><br/>
 

@@ -170,7 +170,7 @@
     {if $sUser->moderator & $smarty.const.PRIV_LOC}
       {* We should be done with this one:
       Pentru a verifica corectitudinea paradigmelor,
-      <a href="../flex/verifyParadigms.php">click aici</a>.
+      <a href="../flex/verifyParadigms.php">clic aici</a>.
       <div class="flexExplanation">
         Rostul acestei pagini este de a verifica prin inspecție
         corectitudinea modelelor desfășurate extrase de scriptul lui
@@ -185,7 +185,7 @@
       *}
   
       Pentru a încerca etichetarea asistată a cuvintelor,
-      <a href="../flex/bulkLabelSelectSuffix.php">click aici</a>.
+      <a href="../flex/bulkLabelSelectSuffix.php">clic aici</a>.
   
       <div class="flexExplanation">
         Rostul acestei pagini este de a facilita etichetarea în masă a
@@ -200,7 +200,7 @@
       <br/>
 
       Pentru a încerca plasarea asistată a accentelor,
-      <a href="../flex/placeAccents.php">click aici</a>.
+      <a href="../flex/placeAccents.php">clic aici</a>.
   
       <div class="flexExplanation">
         Veți primi o pagină cu 10 lexeme alese la întâmplare (deocamdată
@@ -209,7 +209,7 @@
       <br/>
 
       Pentru a încerca unificarea lexemelor la plural cu cele la
-      singular, <a href="../flex/mergeLexems.php">click aici</a>.
+      singular, <a href="../flex/mergeLexems.php">clic aici</a>.
 
       <div class="flexExplanation">
         Această unificare se pretează în special la familiile de plante

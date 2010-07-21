@@ -89,7 +89,7 @@
           {$declensionText}
         {else}
           <a class="inflLink" href="#" onclick="return toggleInflVisibility({if $lexemId}'{$lexemId}',1{else}'{$cuv|escape:url}'{/if});"
-            title="click pentru conjugarea / declinarea cuvintelor"><span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span> {$declensionText}
+            title="clic pentru conjugarea / declinarea cuvintelor"><span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span> {$declensionText}
           </a>
         {/if}
       {/if}
@@ -131,7 +131,7 @@
   
   {foreach from=$results item=row key=i}
     <p>
-      <span class="def" onclick="return searchClickedWord(event);" title="Click pentru a naviga la acest cuvânt">
+      <span class="def" onclick="return searchClickedWord(event);" title="Clic pentru a naviga la acest cuvânt">
         {$row->definition->htmlRep}
       </span>
       <br/>

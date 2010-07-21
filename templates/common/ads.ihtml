@@ -32,7 +32,7 @@ Vă puteți alege opțiuni ca:
   <li>Derularea campaniei numai între anumite ore ale zilei sau zile ale săptămânii;</li>
   <li>Limitarea numărului de afișări pentru un vizitator unic;</li>
   <li>Livrarea reclamelor numai către vizitatori din anumite țări;</li>
-  <li>Vă oferim și acces la detalii despre derularea campaniei dumneavoastră (numărul de afișări efectuare / rămase, numărul de clickuri etc.). Datele prezentate au o întârziere de circa 24 de ore.</li>
+  <li>Vă oferim și acces la detalii despre derularea campaniei dumneavoastră (numărul de afișări efectuare / rămase, numărul de clicuri etc.). Datele prezentate au o întârziere de circa 24 de ore.</li>
 </ul>
 
 
@@ -50,7 +50,7 @@ Vă puteți alege opțiuni ca:
   <li>Statisticile de pe <a href="http://stat.trafic.ro/stat/dexonlinero/">trafic.ro</a> sunt publice. Statisticile de pe
   <a href="http://www.google.com/analytics/">Google Analytics</a> sunt disponibile la cerere.</li>
 
-  <li>Contorizarea afișărilor și a clickurilor se face prin serverul <a href="spre/openx">OpenX</a>, un sistem robust și rapid, folosit de peste 50.000 de websiteuri.</li>
+  <li>Contorizarea afișărilor și a clicurilor se face prin serverul <a href="spre/openx">OpenX</a>, un sistem robust și rapid, folosit de peste 50.000 de websiteuri.</li>
 
   <li>În general, suntem interesați strict de publicarea reclamelor contra cost. Nu promitem să onorăm cereri de schimburi de bannere sau de barter de altă natură.</li>
 </ul>

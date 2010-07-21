@@ -26,12 +26,12 @@
      href="{$wwwRoot}unelte">unelte</a> (unele designuri nu sunt complet
      funcționale).
    {elseif $rnd == 5}
-     Puteți da click pe orice cuvânt din interiorul unei definiții
+     Puteți da clic pe orice cuvânt din interiorul unei definiții
      pentru a naviga la definiția acelui cuvânt.
    {elseif $rnd == 6}
      Puteți vedea flexiunea oricărui cuvânt (conjugarea verbelor sau
      declinarea substantivelor și adjectivelor). După ce căutați un
-     cuvânt, dați click pe "Flexiuni".
+     cuvânt, dați clic pe "Flexiuni".
    {elseif $rnd == 7}
      Dacă vă înregistrați, puteți alege diverse <a href="{$wwwRoot}contul-meu">opțiuni</a> pentru grafia cu î sau â, cu sedilă sau cu virgulă,
      pentru căutarea cu diacritice etc.

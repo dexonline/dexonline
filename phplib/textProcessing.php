@@ -1397,7 +1397,7 @@ function _text_htmlizeAbbreviations($s, $sourceId, &$errors = null) {
           $errors[] = "Abreviere necunoscută: «{$from}». Verificați că după fiecare punct există un spațiu.";
         }
       }
-      $s = substr_replace($s, "<span class=\"abbrev\" title=\"$hint\">$from</span>", $position - 1, 2 + strlen($from));
+      $s = substr_replace($s, "<abbr class=\"abbrev\" title=\"$hint\">$from</abbr>", $position - 1, 2 + strlen($from));
     }
   }
   return $s;

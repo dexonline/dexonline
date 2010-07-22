@@ -1,9 +1,6 @@
 <?
 require_once "../phplib/util.php";
-$dbResult = db_execute("select * from Definition where status = 0 order by id");
-
-$f1 = fopen("/tmp/orig.txt", "w");
-$f2 = fopen("/tmp/new.txt", "w");
+$dbResult = db_execute("select * from Definition where status = 0 and sourceId in (1, 2, 3, 4, 5) order by id");
 
 $i = 0;
 $modified = 0;
@@ -11,25 +8,19 @@ while (!$dbResult->EOF) {
   $def = new Definition();
   $def->set($dbResult->fields);
   $newRep = text_internalizeDefinition($def->internalRep, $def->sourceId);
-  if ($newRep !== $def->internalRep) {
-    if (trim($newRep) !== trim($def->internalRep)) {
-      fwrite($f1, "{$def->id} {$def->internalRep}\nOK{$def->id}\n");
-      fwrite($f2, "{$def->id} {$newRep}\nOK{$def->id}\n");
-      $modified++;
-    }
+  $newHtmlRep = text_htmlize($newRep, $def->sourceId);
+  if ($newRep !== $def->internalRep || $newHtmlRep !== $def->htmlRep) {
+    $modified++;
     $def->internalRep = $newRep;
-    $def->htmlRep = text_htmlize($newRep, $def->sourceId);
+    $def->htmlRep = $newHtmlRep;
     $def->save();
   }
   $dbResult->MoveNext();
   $i++;
-  if ($i % 10000 == 0) {
+  if ($i % 1000 == 0) {
     print "$i definitions reprocessed, $modified modified.\n";
   }
 }
 print "$i definitions reprocessed, $modified modified.\n";
-
-fclose($f1);
-fclose($f2);
 
 ?>

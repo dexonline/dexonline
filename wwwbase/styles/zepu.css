@@ -533,10 +533,6 @@ table.static {
   margin-left: 20px;
 }
 
-.abbrev {
-  color: #555;
-}
-
 /* jquery tablesorter stuff */
 th.header {
   background: url("../img/icons/jquery/bg.gif") no-repeat center right;

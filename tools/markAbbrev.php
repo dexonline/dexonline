@@ -1,6 +1,6 @@
 <?
 require_once "../phplib/util.php";
-$dbResult = db_execute("select * from Definition where sourceId in (1, 2, 3, 4, 5) and status = 0 order by id limit 100000");
+$dbResult = db_execute("select * from Definition where sourceId = 26 and status = 0 order by id");
 
 $i = 0;
 $modified = 0;
@@ -34,7 +34,7 @@ while (!$dbResult->EOF) {
   $def->save();
   $dbResult->MoveNext();
   $i++;
-  if ($i % 10000 == 0) {
+  if ($i % 1000 == 0) {
     print "$i definitions reprocessed, $modified modified, $ambiguousDefinitions ambiguous with $ambiguities ambiguities.\n";
   }
 }

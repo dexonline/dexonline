@@ -38,7 +38,7 @@
         &nbsp; <a href="definitionEdit.php?definitionId={$def->id}">Editează</a>
       </form>
     {else}
-      Nu există definiții de revizuit deocamdată.
+      Nu există definiții de revizuit deocamdată. Ura!<br/>
     {/if}
 
     <br/>

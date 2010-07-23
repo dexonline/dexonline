@@ -9,7 +9,8 @@ $sendButton = util_getRequestParameter('send');
 
 if ($sendButton) {
   session_setSourceCookie($sourceId);
-  $def = text_internalizeDefinition($def, $sourceId);
+  $ambiguousMatches = array();
+  $def = text_internalizeDefinition($def, $sourceId, $ambiguousMatches);
   $lexemNames = deleteEmptyElements($lexemNames);
 
   $errorMessage = '';
@@ -32,6 +33,7 @@ if ($sendButton) {
     $definition->internalRep = $def;
     $definition->htmlRep = text_htmlize($def, $sourceId);
     $definition->lexicon = text_extractLexicon($definition);
+    $definition->abbrevReview = count($ambiguousMatches) ? ABBREV_AMBIGUOUS : ABBREV_REVIEW_COMPLETE;
     $definition->save();
     log_userLog("Added definition {$definition->id} ({$definition->lexicon})");
 

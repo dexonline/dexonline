@@ -67,7 +67,7 @@ function contribUpdatePreviewDiv() {
   if (previewDiv.keyWasPressed) {
     var internalRep = document.frmContrib.def.value;
     makePostRequest(wwwRoot + 'ajax/htmlize.php',
-                    'internalRep=' + myEncodeURI(internalRep) + '&amp;sourceId=' + document.frmContrib.source.value,
+                    'internalRep=' + myEncodeURI(internalRep) + '&sourceId=' + document.frmContrib.source.value,
                     contribPostRequestCallback, null);
     previewDiv.keyWasPressed = false;
   }

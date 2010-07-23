@@ -38,37 +38,38 @@ if ($submitButton) {
 $MARKER = 'DEADBEEF'; // any string that won't occur naturally in a definition
 
 $def = Definition::get('abbrevReview = 1 order by rand() limit 1');
-// $def = Definition::get('id = 54507');
 
-// Collect the positions of ambiguous abbreviations
-$matches = array();
-_text_markAbbreviations($def->internalRep, $def->sourceId, $matches);
-usort($matches, 'positionCmp');
+if ($def) {
+  // Collect the positions of ambiguous abbreviations
+  $matches = array();
+  _text_markAbbreviations($def->internalRep, $def->sourceId, $matches);
+  usort($matches, 'positionCmp');
 
-// Inject our marker around each ambiguity and htmlize the definition
-$s = $def->internalRep;
-foreach ($matches as $m) {
-  $s = substr($s, 0, $m['position']) . " $MARKER " . substr($s, $m['position'], $m['length']) . " $MARKER " . substr($s, $m['position'] + $m['length']);
-}
-$s = text_htmlize($s, $def->sourceId);
-
-// Split the definition into n ambiguities and n+1 bits of text between the ambiguities
-$text = array();
-$ambiguities = array();
-while (($p = strpos($s, $MARKER)) !== false) {
-  $chunk = trim(substr($s, 0, $p));
-  $s = trim(substr($s, $p + strlen($MARKER)));
-  if (count($text) == count($ambiguities)) {
-    $text[] = $chunk;
-  } else {
-    $ambiguities[] = $chunk;
+  // Inject our marker around each ambiguity and htmlize the definition
+  $s = $def->internalRep;
+  foreach ($matches as $m) {
+    $s = substr($s, 0, $m['position']) . " $MARKER " . substr($s, $m['position'], $m['length']) . " $MARKER " . substr($s, $m['position'] + $m['length']);
   }
+  $s = text_htmlize($s, $def->sourceId);
+
+  // Split the definition into n ambiguities and n+1 bits of text between the ambiguities
+  $text = array();
+  $ambiguities = array();
+  while (($p = strpos($s, $MARKER)) !== false) {
+    $chunk = trim(substr($s, 0, $p));
+    $s = trim(substr($s, $p + strlen($MARKER)));
+    if (count($text) == count($ambiguities)) {
+      $text[] = $chunk;
+    } else {
+      $ambiguities[] = $chunk;
+    }
+  }
+  $text[] = trim($s);
+  smarty_assign('text', $text);
+  smarty_assign('ambiguities', $ambiguities);
 }
-$text[] = trim($s);
 
 smarty_assign('def', $def);
-smarty_assign('text', $text);
-smarty_assign('ambiguities', $ambiguities);
 smarty_assign('recentLinks', RecentLink::loadForUser());
 smarty_displayWithoutSkin('admin/randomAbbrevReview.ihtml');
 

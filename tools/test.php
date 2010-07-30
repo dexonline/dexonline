@@ -23,6 +23,11 @@ function assertEqualArrays($expected, $actual) {
   }
 }
 
+function assertAbbreviations($typed, $internal, $html, $sourceId) {
+  assertEquals($internal, _text_markAbbreviations($typed, $sourceId));
+  assertEquals($html, text_htmlize($internal, $sourceId));
+}
+
 /********************* Tests for intArray.php  ************************/
 $s = int_create(1000000);
 assertEquals(0, int_get($s, 1234));
@@ -171,6 +176,25 @@ assertEquals($internalRep,
 assertEquals('<b>MÁRE<sup>2</sup>,</b> <i>mări,</i> <abbr class="abbrev" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu <a class="ref" href="/definitie/ocean">oceanul</a> printr-o <a class="ref" href="/definitie/strâmtoare">strâmtoare</a>; parte a oceanului de lângă <a class="ref" href="/definitie/țărm">țărm</a>; <i><abbr class="abbrev" title="prin extensiune">p. ext.</abbr></i> ocean. &#x25ca; <abbr class="abbrev" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is.</b>',
              text_htmlize($internalRep, 1));
 assertEquals($internalRep, text_internalizeDefinition($internalRep, 1));
+
+// Test various capitalization combos with abbreviations
+// - When internalizing the definition, preserve the capitalization if the defined abbreviation is capitalized;
+//   otherwise, capitalize the first letter (if necessary) and convert the rest to lowercase
+// - If the defined abbreviation contains capital letters, then only match text with identical capitalization
+// - If the defined abbreviation does not contain capital letters, then match text regardless of capitalization
+// - When htmlizing the definition, use the expansion from the abbreviation that best matches the case.
+assertAbbreviations("FILLER adv. FILLER", "FILLER #adv.# FILLER", "FILLER <abbr class=\"abbrev\" title=\"adverb\">adv.</abbr> FILLER", 1);
+assertAbbreviations("FILLER Adv. FILLER", "FILLER #Adv.# FILLER", "FILLER <abbr class=\"abbrev\" title=\"adverb\">Adv.</abbr> FILLER", 1);
+assertAbbreviations("FILLER BWV FILLER", "FILLER #BWV# FILLER", "FILLER <abbr class=\"abbrev\" title=\"Bach-Werke-Verzeichnis\">BWV</abbr> FILLER", 32);
+assertAbbreviations("FILLER bwv FILLER", "FILLER bwv FILLER", "FILLER bwv FILLER", 32);
+assertAbbreviations("FILLER bWv FILLER", "FILLER bWv FILLER", "FILLER bWv FILLER", 32);
+assertAbbreviations("FILLER ed. FILLER", "FILLER #ed.# FILLER", "FILLER <abbr class=\"abbrev\" title=\"ediție, editat\">ed.</abbr> FILLER", 32);
+assertAbbreviations("FILLER Ed. FILLER", "FILLER #Ed.# FILLER", "FILLER <abbr class=\"abbrev\" title=\"Editura\">Ed.</abbr> FILLER", 32);
+assertAbbreviations("FILLER ED. FILLER", "FILLER #Ed.# FILLER", "FILLER <abbr class=\"abbrev\" title=\"Editura\">Ed.</abbr> FILLER", 32);
+
+// Abbreviation includes special characters
+assertAbbreviations("FILLER RRHA, TMC FILLER", "FILLER #RRHA, TMC# FILLER",
+		    "FILLER <abbr class=\"abbrev\" title=\"Revue Roumaine d'Histoire de l'Art, série Théâtre, Musique, Cinématographie\">RRHA, TMC</abbr> FILLER", 32);
 
 assertEquals('@MÁRE^2,@ $mări,$ s.f.', _text_migrateFormatChars('@MÁRE^2@, $mări$, s.f.'));
 assertEquals('@$%spaced% text$@', _text_migrateFormatChars('@$ % spaced % text $@'));

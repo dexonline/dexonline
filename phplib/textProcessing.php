@@ -1309,7 +1309,8 @@ function text_loadAbbreviations() {
         $numWords = 1 + substr_count($from, ' ');
         $regexp = str_replace(array('.', ' '), array("\\.", ' *'), $from);
         $pattern = "[^a-zăâîșțáéíóú]({$regexp})([^a-zăâîșțáéíóú]|$)";
-        $result[$sourceId][$from] = array('to' => $to, 'ambiguous' => $ambiguous, 'regexp' => $pattern, 'numWords' => $numWords);
+        $hasCaps = ($from !== mb_strtolower($from));
+        $result[$sourceId][$from] = array('to' => $to, 'ambiguous' => $ambiguous, 'regexp' => $pattern, 'numWords' => $numWords, 'hasCaps' => $hasCaps);
       }
       // Sort the list by number of words, then by ambiguous
       uasort($result[$sourceId], '_text_abbrevCmp');
@@ -1337,7 +1338,9 @@ function _text_markAbbreviations($s, $sourceId, &$ambiguousMatches = null) {
   }
   foreach ($abbrevs[$sourceId] as $from => $tuple) {
     $matches = array();
-    preg_match_all("/{$tuple['regexp']}/i", $s, $matches, PREG_OFFSET_CAPTURE);
+    // Perform a case-sensitive match if the pattern contains any uppercase, case-insensitive otherwise
+    $modifier = $tuple['hasCaps'] ? "" : "i";
+    preg_match_all("/{$tuple['regexp']}/$modifier", $s, $matches, PREG_OFFSET_CAPTURE);
     if (count($matches[1])) {
       foreach (array_reverse($matches[1]) as $match) {
         $orig = $match[0];
@@ -1376,6 +1379,22 @@ function _text_constructHashMap($s) {
   return $result;
 }
 
+// Similar to array_key_exists, but better handling of capitalization.
+// E.g. the array keys can include both "Ed." (Editura) and "ed." (ediție), or
+// we may look for a specific capitalization (BWV, but not bwv; AM, but not am)
+function _text_bestAbbrevMatch($s, $abbrevList) {
+  $lowS = mb_strtolower($s);
+  $bestMatch = null;
+  foreach ($abbrevList as $from => $tuple) {
+    if ($tuple['hasCaps'] && ($from == $s)) {
+      return $from;
+    } else if (!$tuple['hasCaps'] && ($from == $lowS)) {
+      $bestMatch = $from;
+    }
+  }
+  return $bestMatch;
+}
+
 function _text_htmlizeAbbreviations($s, $sourceId, &$errors = null) {
   $abbrevs = text_loadAbbreviations();
   if (!array_key_exists($sourceId, $abbrevs)) {
@@ -1387,10 +1406,10 @@ function _text_htmlizeAbbreviations($s, $sourceId, &$errors = null) {
   if (count($matches[1])) {
     foreach (array_reverse($matches[1]) as $match) {
       $from = $match[0];
-      $lower = text_unicodeToLower($from);
+      $matchingKey = _text_bestAbbrevMatch($from, $abbrevs[$sourceId]);
       $position = $match[1];
-      if (array_key_exists($lower, $abbrevs[$sourceId])) {
-        $hint =  $abbrevs[$sourceId][$lower]['to'];
+      if ($matchingKey) {
+        $hint =  $abbrevs[$sourceId][$matchingKey]['to'];
       } else {
         $hint =  'abreviere necunoscută';
         if ($errors !== null) {

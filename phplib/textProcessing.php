@@ -1308,7 +1308,7 @@ function text_loadAbbreviations() {
         }
         $numWords = 1 + substr_count($from, ' ');
         $regexp = str_replace(array('.', ' '), array("\\.", ' *'), $from);
-        $pattern = "[^-a-zăâîșțáéíóúA-ZĂÂÎȘȚÁÉÍÓÚ]({$regexp})([^-a-zăâîșțáéíóúA-ZĂÂÎȘȚÁÉÍÓÚ]|$)";
+        $pattern = "[^-a-zăâîșțáéíóúA-ZĂÂÎȘȚÁÉÍÓÚ.]({$regexp})([^-a-zăâîșțáéíóúA-ZĂÂÎȘȚÁÉÍÓÚ.]|$)";
         $hasCaps = ($from !== mb_strtolower($from));
         $result[$sourceId][$from] = array('to' => $to, 'ambiguous' => $ambiguous, 'regexp' => $pattern, 'numWords' => $numWords, 'hasCaps' => $hasCaps);
       }

@@ -10,7 +10,9 @@ while (!$dbResult->EOF) {
   $def = new Definition();
   $def->set($dbResult->fields);
   $ambiguousMatches = array();
-  $newRep = text_internalizeDefinition($def->internalRep, $def->sourceId, $ambiguousMatches);
+  // Remove existing hash signs
+  $newRep = str_replace('#', '', $def->internalRep);
+  $newRep = text_internalizeDefinition($newRep, $def->sourceId, $ambiguousMatches);
   if (count($ambiguousMatches) || ($newRep !== $def->internalRep)) {
     print "{$def->id} {$newRep}\n";
   }

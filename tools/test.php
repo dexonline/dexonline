@@ -164,6 +164,10 @@ assertEquals("FOO dat. #arh.# #loc. adv.# BAR", _text_markAbbreviations("FOO dat
 assertEquals(1, count($ambiguousMatches));
 assertEqualArrays(array('abbrev' => 'dat.', 'position' => 4, 'length' => 4), $ambiguousMatches[0]);
 
+$ambiguousMatches = array();
+assertEquals("FOO s-a dus BAR", _text_markAbbreviations("FOO s-a dus BAR", 32, $ambiguousMatches));
+assertEquals(0, count($ambiguousMatches));
+
 assertEquals("FOO <abbr class=\"abbrev\" title=\"farmacie; farmacologie\">farm.</abbr> BAR", text_htmlize("FOO #farm.# BAR", 1)); /** Semicolon in abbreviation **/
 assertEquals("FOO <abbr class=\"abbrev\" title=\"substantiv masculin\">s. m.</abbr> BAR", text_htmlize("FOO #s. m.# BAR", 1));
 $errors = array();
@@ -195,6 +199,11 @@ assertAbbreviations("FILLER ED. FILLER", "FILLER #Ed.# FILLER", "FILLER <abbr cl
 // Abbreviation includes special characters
 assertAbbreviations("FILLER RRHA, TMC FILLER", "FILLER #RRHA, TMC# FILLER",
 		    "FILLER <abbr class=\"abbrev\" title=\"Revue Roumaine d'Histoire de l'Art, série Théâtre, Musique, Cinématographie\">RRHA, TMC</abbr> FILLER", 32);
+assertAbbreviations("FILLER adj. interog.-rel. FILLER", "FILLER #adj. interog.-rel.# FILLER",
+                    "FILLER <abbr class=\"abbrev\" title=\"adjectiv interogativ-relativ\">adj. interog.-rel.</abbr> FILLER", 1);
+
+// Abbreviation is not delimited by spaces
+assertAbbreviations("AGNUS DEI", "AGNUS DEI", "AGNUS DEI", 32);
 
 assertEquals('@MÁRE^2,@ $mări,$ s.f.', _text_migrateFormatChars('@MÁRE^2@, $mări$, s.f.'));
 assertEquals('@$%spaced% text$@', _text_migrateFormatChars('@$ % spaced % text $@'));

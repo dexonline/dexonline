@@ -1336,6 +1336,8 @@ function _text_markAbbreviations($s, $sourceId, &$ambiguousMatches = null) {
   if (!array_key_exists($sourceId, $abbrevs)) {
     return $s;
   }
+  // Do not report two ambiguities at the same position, for example M. and m.
+  $positionsUsed = array();
   foreach ($abbrevs[$sourceId] as $from => $tuple) {
     $matches = array();
     // Perform a case-sensitive match if the pattern contains any uppercase, case-insensitive otherwise
@@ -1348,8 +1350,9 @@ function _text_markAbbreviations($s, $sourceId, &$ambiguousMatches = null) {
 
         if (!$hashMap[$position]) { // Don't replace anything if we are already between hash signs
           if ($tuple['ambiguous']) {
-            if ($ambiguousMatches !== null) {
+            if ($ambiguousMatches !== null && !array_key_exists($position, $positionsUsed)) {
               $ambiguousMatches[] = array('abbrev' => $from, 'position' => $position, 'length' => strlen($orig));
+	      $positionsUsed[$position] = true;
             }
           } else {
             $replacement = text_isUppercase(text_getCharAt($orig, 0)) ? text_capitalize($from) : $from;

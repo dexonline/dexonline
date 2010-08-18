@@ -101,7 +101,7 @@ function fetchNextRow() {
 function prepareDefForVersion(&$def) {
   global $version;
   if ($version == '3.0') {
-    $def->internalRep = str_replace('#', '', $def->internalRep);
+    $def->internalRep = preg_replace('/([^&])#/', '\1', $def->internalRep);
   }
 }
 

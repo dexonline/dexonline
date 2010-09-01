@@ -1,0 +1,6 @@
+/var/log/httpd/*log {
+    weekly
+    rotate 400
+    missingok
+    compress
+}

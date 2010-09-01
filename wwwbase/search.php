@@ -10,6 +10,11 @@ $sourceUrlName = util_getRequestParameter('source');
 $text = util_getRequestIntParameter('text');
 $showParadigm = util_getRequestParameter('showParadigm');
 
+$redirect = session_getWithDefault('redirect', false);
+$redirectFrom = session_getWithDefault('init_word', '');
+unset($_SESSION['redirect']);
+unset($_SESSION['init_word']);
+
 if ($cuv) {
   $cuv = text_cleanupQuery($cuv);
 }
@@ -155,6 +160,8 @@ if ($searchType == SEARCH_INFLECTED) {
   if (count($lexems) == 1 && $cuv != $lexems[0]->formNoAccent) {
     // Convenience redirect when there is only one correct form. We want all pages to be canonical
     $sourcePart = $source ? "-{$source->urlName}" : '';
+    $_SESSION['redirect'] = true;
+    $_SESSION['init_word'] = $cuv;
     util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$lexems[0]->formNoAccent}");
   }
 
@@ -203,6 +210,12 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
 
 	smarty_assign('sourceNamesArr', $sourceNamesArr);
   }
+}
+
+if (pref_getServerPreference('logSearch')) {
+  $logDefinitions = isset($definitions) ? $definitions : array();
+  $log = new Log($cuv, $redirectFrom, $searchType, $redirect, $logDefinitions);
+  $log->logData();
 }
 
 AdsModule::runAllModules(empty($lexems) ? null : $lexems, empty($definitions) ? null : $definitions);

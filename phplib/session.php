@@ -154,4 +154,13 @@ function session_setFlash($message, $type = 'error') {
   $_SESSION['flashMessageType'] = $type;
 }
 
+function session_getWithDefault($name, $default) {
+  if (isset($_SESSION)){
+    if (array_key_exists($name, $_SESSION)) {
+      return $_SESSION[$name];
+    }
+  }
+  return $default;
+}
+
 ?>

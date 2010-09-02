@@ -700,36 +700,80 @@ class Lexem extends BaseObject {
                       "and sourceId in (select id from Source where canDistribute) order by D.modDate, D.id");
   }
 
-  public static function searchInflectedForms($cuv, $hasDiacritics) {
+  public static function searchInflectedForms($cuv, $hasDiacritics, $useMemcache = false) {
+    if ($useMemcache) {
+      $key = "inflected_" . ($hasDiacritics ? '1' : '0') . "_$cuv";
+      $result = mc_get($key);
+      if ($result) {
+        return $result;
+      }
+    }
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     $dbResult = db_execute("select distinct L.* from InflectedForm I, Lexem L where I.lexemId = L.id and I.$field = '$cuv' order by L.formNoAccent");
-    return db_getObjects(new Lexem(), $dbResult);
+    $result = db_getObjects(new Lexem(), $dbResult);
+    if ($useMemcache) {
+      mc_set($key, $result);
+    }
+    return $result;
   }
 
-  public static function searchApproximate($cuv, $hasDiacritics) {
+  public static function searchApproximate($cuv, $hasDiacritics, $useMemcache = false) {
+    if ($useMemcache) {
+      $key = "approx_" . ($hasDiacritics ? '1' : '0') . "_$cuv";
+      $result = mc_get($key);
+      if ($result) {
+        return $result;
+      }
+    }
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-    return db_find(new Lexem(), "dist2($field, '$cuv') order by formNoAccent");
+    $result = db_find(new Lexem(), "dist2($field, '$cuv') order by formNoAccent");
+    if ($useMemcache) {
+      mc_set($key, $result);
+    }
+    return $result;
   }
 
-  public static function searchRegexp($regexp, $hasDiacritics, $sourceId) {
+  public static function searchRegexp($regexp, $hasDiacritics, $sourceId, $useMemcache) {
+    if ($useMemcache) {
+      $key = "regexp_" . ($hasDiacritics ? '1' : '0') . "_" . ($sourceId ? $sourceId : 0) . "_$regexp";
+      $result = mc_get($key);
+      if ($result) {
+        return $result;
+      }
+    }
     $mysqlRegexp = text_dexRegexpToMysqlRegexp($regexp);
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-    if (!$sourceId) {
-      return db_find(new Lexem(), "$field $mysqlRegexp order by formNoAccent limit 1000");
+    if ($sourceId) {
+      $dbResult = db_execute("select distinct L.* from Lexem L join LexemDefinitionMap on L.id = lexemId join Definition D on definitionId = D.id " .
+                             "where $field $mysqlRegexp and sourceId = $sourceId order by formNoAccent limit 1000");
+      $result = db_getObjects(new Lexem(), $dbResult);
+    } else {
+      $result = db_find(new Lexem(), "$field $mysqlRegexp order by formNoAccent limit 1000");
     }
-    $dbResult = db_execute("select distinct L.* from Lexem L join LexemDefinitionMap on L.id = lexemId join Definition D on definitionId = D.id " .
-                           "where $field $mysqlRegexp and sourceId = $sourceId order by formNoAccent limit 1000");
-    return db_getObjects(new Lexem(), $dbResult);
+    if ($useMemcache) {
+      mc_set($key, $result);
+    }
+    return $result;
   }
 
-  public static function countRegexpMatches($regexp, $hasDiacritics, $sourceId) {
+  public static function countRegexpMatches($regexp, $hasDiacritics, $sourceId, $useMemcache) {
+    if ($useMemcache) {
+      $key = "regexpCount_" . ($hasDiacritics ? '1' : '0') . "_" . ($sourceId ? $sourceId : 0) . "_$regexp";
+      $result = mc_get($key);
+      if ($result) {
+        return $result;
+      }
+    }
     $mysqlRegexp = text_dexRegexpToMysqlRegexp($regexp);
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-    if (!$sourceId) {
-      return db_getSingleValue("select count(*) from Lexem where $field $mysqlRegexp");
+    $result = $sourceId ?
+      db_getSingleValue("select count(distinct L.id) from Lexem L join LexemDefinitionMap on L.id = lexemId join Definition D on definitionId = D.id " .
+                        "where $field $mysqlRegexp and sourceId = $sourceId order by formNoAccent") :
+      db_getSingleValue("select count(*) from Lexem where $field $mysqlRegexp");
+    if ($useMemcache) {
+      mc_set($key, $result);
     }
-    return db_getSingleValue("select count(distinct L.id) from Lexem L join LexemDefinitionMap on L.id = lexemId join Definition D on definitionId = D.id " .
-                             "where $field $mysqlRegexp and sourceId = $sourceId order by formNoAccent");
+    return $result;
   }
 
   public static function loadUnassociated() {

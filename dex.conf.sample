@@ -48,6 +48,9 @@ logResults = 0
 ; Possible values: 0.00 <= logSampling <= 1.00
 logSampling = 0.10
 
+; Whether to use the memcached server
+memcache = 1
+
 ; If this site is a mirror, certain features will be disabled: user login, typo reporting etc.
 mirror = 0
 

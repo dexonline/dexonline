@@ -17,6 +17,7 @@ function util_initEverything() {
   $GLOBALS['util_db'] = db_init();
   session_init();
   text_init();
+  mc_init();
 
   if (util_isWebBasedScript()) {
     smarty_init();
@@ -95,6 +96,7 @@ function util_requireOtherFiles() {
   require_once("$root/phplib/session.php");
   require_once("$root/phplib/smarty.php");
   require_once("$root/phplib/textProcessing.php");
+  require_once("$root/phplib/memcache.php");
 }
 
 function util_defineConstants() {

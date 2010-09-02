@@ -107,8 +107,8 @@ smarty_assign('src_selected', $sourceId);
 // Regular expressions
 if ($hasRegexp) {
   $searchType = SEARCH_REGEXP;
-  $numResults = Lexem::countRegexpMatches($cuv, $hasDiacritics, $sourceId);
-  $lexems = Lexem::searchRegexp($cuv, $hasDiacritics, $sourceId);
+  $numResults = Lexem::countRegexpMatches($cuv, $hasDiacritics, $sourceId, true);
+  $lexems = Lexem::searchRegexp($cuv, $hasDiacritics, $sourceId, true);
   smarty_assign('numResults', $numResults);
   smarty_assign('lexems', $lexems);
   if (!$numResults) {
@@ -133,10 +133,10 @@ if ($defId) {
 
 // Normal search
 if ($searchType == SEARCH_INFLECTED) {
-  $lexems = Lexem::searchInflectedForms($cuv, $hasDiacritics);
+  $lexems = Lexem::searchInflectedForms($cuv, $hasDiacritics, true);
   if (count($lexems) == 0) {
     $cuv_old = text_tryOldOrthography($cuv);
-    $lexems = Lexem::searchInflectedForms($cuv_old, $hasDiacritics);
+    $lexems = Lexem::searchInflectedForms($cuv_old, $hasDiacritics, true);
   }
   if (count($lexems) == 0) {
     $searchType = SEARCH_MULTIWORD;
@@ -150,7 +150,7 @@ if ($searchType == SEARCH_INFLECTED) {
   }
   if (count($lexems) == 0 && empty($definitions)) {
     $searchType = SEARCH_APPROXIMATE;
-    $lexems = Lexem::searchApproximate($cuv, $hasDiacritics);
+    $lexems = Lexem::searchApproximate($cuv, $hasDiacritics, true);
     if (count($lexems) == 1) {
       session_setFlash("Ați fost redirecționat automat la forma „{$lexems[0]->formNoAccent}”.");
     } else if (!count($lexems)) {

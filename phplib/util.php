@@ -1,4 +1,5 @@
 <?php
+define('ADODB_OUTP', 'debug_adodbHandler');
 define('ADODB_ASSOC_CASE', 2);
 $ADODB_ASSOC_CASE = 2;
 util_initEverything();

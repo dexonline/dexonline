@@ -68,7 +68,7 @@ class Log extends BaseObject {
       $numResultsToLog = min(count($results), pref_getServerPreference('logResults'));
       $this->resultList = '';
       for ($i = 0; $i < $numResultsToLog; $i++) {
-	$this->resultList .= ($this->resultList ? ',' : '') . $results[$i]->id;
+        $this->resultList .= ($this->resultList ? ',' : '') . $results[$i]->id;
       }
     }
   }
@@ -88,16 +88,17 @@ class Log extends BaseObject {
     }
     catch (Exception $e) {
       try {
-	$f = fopen(pref_getServerPreference('logPath'), 'wt');
+        $f = fopen(pref_getServerPreference('logPath'), 'wt');
       }
       catch (Exception $e) {
-	throw new Exception('Error trying to access the log file', -1, $e);
+        throw new Exception('Error trying to access the log file', -1, $e);
       }
     }
 
     $date = date('Y-m-d H:i:s');
+    $millis = debug_getRunningTimeInMillis();
     $line = "[{$this->query}]\t[{$this->queryBeforeRedirect}]\t{$this->searchType}\t{$this->registeredUser}\t{$this->skin}\t" .
-      "{$this->preferences}\t{$this->resultCount}\t{$this->resultList}\t{$this->redirect}\t{$date}\n";
+      "{$this->preferences}\t{$this->resultCount}\t{$this->resultList}\t{$this->redirect}\t{$date}\t{$millis}\n";
     fwrite($f, $line);
     fclose($f);
   }

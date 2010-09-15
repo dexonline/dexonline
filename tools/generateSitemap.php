@@ -68,7 +68,6 @@ function addUrl($url) {
 
 function addOtherUrls() {
   addUrl('http://dexonline.ro/');
-  addUrl('http://dexonline.ro/cod-sursa');
   addUrl('http://dexonline.ro/contact');
   addUrl('http://dexonline.ro/contribuie');
   addUrl('http://dexonline.ro/ghid-exprimare');

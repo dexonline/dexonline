@@ -28,7 +28,6 @@ RewriteRule ^(declinare|conjugare)/(.*)$ paradigm.php?cuv=$2&type=$1 [PT,L]
 
 # Non-search pages
 RewriteRule ^404$ simple.php?p=404 [PT,L]
-RewriteRule ^cod-sursa$ simple.php?p=codeAccess [PT,L]
 RewriteRule ^contact$ simple.php?p=contact [PT,L]
 RewriteRule ^informatii$ simple.php?p=faq [PT,L]
 RewriteRule ^legaturi$ simple.php?p=links [PT,L]
@@ -38,7 +37,6 @@ RewriteRule ^cuvinte/(.*)$ wordList.php?letter=$1 [PT,L]
 
 # Redirect old php pages to new ones (only where we care about the link / pagerank)
 RewriteRule ^faq.php$ /informatii [R=301,L]
-RewriteRule ^codeAccess.php$ /cod-sursa [R=301,L]
 RewriteRule ^contact.php$ /contact [R=301,L]
 RewriteRule ^contrib.php$ /contribuie [R=301,L]
 RewriteRule ^corect.php$ /ghid-exprimare [R=301,L]

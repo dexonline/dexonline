@@ -8,7 +8,7 @@ function db_init() {
   ADOdb_Active_Record::SetDatabaseAdapter($db);
   $db->Execute('set names utf8');
   $GLOBALS['db'] = $db;
-  $db->debug = true; //just for debug
+  // $db->debug = true; //just for debug
 }
 
 function db_execute($query) {

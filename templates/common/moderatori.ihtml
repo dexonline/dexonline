@@ -1,11 +1,12 @@
 <form method="post" action="moderatori">
-  <table>
+  <table class="sources">
     <tr>
       <th>Nume utilizator</th>
       <th>Admin</th>
       <th>Moderator LOC</th>
       <th>Moderator</th>
       <th>Ghid de exprimare</th>
+	  <th>Cuvântul zilei</th>
     </tr>
     {foreach from=$users item=user}
       <tr>

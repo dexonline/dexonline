@@ -156,6 +156,14 @@
         {if ($sUser->moderator & $smarty.const.PRIV_EDIT) && !$is_mirror}
           | <a target="edit_window" href="{$wwwRoot}admin/definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
         {/if}
+  
+        {if ($sUser->moderator & $smarty.const.PRIV_WOTD) && !$is_mirror}
+		  {if $row->wotd}
+		  | În lista de WotD
+		  {else}
+          | <a href="{$wwwRoot}wotdAdd.php?defId={$row->definition->id}">Adaugă WotD</a>
+		  {/if}
+        {/if}
       </span>
   
       {if $row->comment}

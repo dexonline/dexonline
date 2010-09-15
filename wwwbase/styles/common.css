@@ -68,6 +68,7 @@ table.sources th, table.sources td {
   border-width: 1px;
   text-align: center;
   font-size: 80%;
+  color: blue;
 }
 
 table.sources td {

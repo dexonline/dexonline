@@ -364,6 +364,7 @@ class SearchResult {
       if ($result->comment) {
         $result->commentAuthor = User::get("id = {$result->comment->userId}");
       }
+	  $result->wotd = WordOfTheDay::getStatus($definition->id);
       $results[] = $result;
     }
     return $results;
@@ -1259,5 +1260,61 @@ class PasswordToken extends BaseObject {
     return $obj->id ? $obj : null;
   }
 }
+
+
+class Abbreviation extends BaseObject {
+	public static function getAbbrById($id) {
+		$abbr = new Abbreviation();
+		$abbr->load("id = ", $id);
+		return $abbr->description;
+	}
+
+	public static function getAbbrByTerm($abbr, $source = NULL) {
+		$query = "SELECT source_id, description from Abbreviation WHERE abbr='$abbr'";
+		if ($source) $query .= " AND source_id = $source";
+		$dbResult = db_execute($query);
+		return db_getObjects(new Abbreviation(), $dbResult);
+	}
+
+}
+
+
+class WordOfTheDayRel extends BaseObject {
+	public function countDefs($defId) {
+		$query = "SELECT count(*) from WordOfTheDayRel WHERE defId = $defId";
+		$count = db_getSingleValue($query);
+		return $count;
+	}
+}
+
+
+class WordOfTheDay extends BaseObject {
+	public static function get($where) {
+		$obj = new WordOfTheDay();
+		$obj = load($where);
+		return $obj->id ? $obj : null;
+	}
+
+	public function getStatus($refId, $refType = 'Definition') {
+		$query = "SELECT W.id from WordOfTheDay W JOIN WordOfTheDayRel R ON W.id=R.wotdId WHERE R.refId = $refId AND refType='$refType'";
+		$dbResult = db_execute($query);
+		return $dbResult ? $dbResult->fields('id') : NULL;
+	}
+
+    public function save() {
+        $this->userId = session_getUserId();
+        parent::save();
+
+		$obj = new WordOfTheDayRel();
+		$obj->refId = $this->defId;
+		$obj->refType = 'Definition';
+		$obj->wotdId = $this->id;
+		$obj->save();
+
+		return $obj;
+    }
+
+}
+
 
 ?>

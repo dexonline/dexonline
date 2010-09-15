@@ -151,8 +151,9 @@ function util_defineConstants() {
   define('PRIV_LOC', 0x02);
   define('PRIV_EDIT', 0x04);
   define('PRIV_GUIDE', 0x08);
-  define('NUM_PRIVILEGES', 4);
-  $GLOBALS['PRIV_NAMES'] = array('Administrator', 'Moderator LOC', 'Moderator', 'Editor al ghidului de exprimare');
+  define('PRIV_WOTD', 0x16);
+  define('NUM_PRIVILEGES', 5);
+  $GLOBALS['PRIV_NAMES'] = array('Administrator', 'Moderator LOC', 'Moderator', 'Editor al ghidului de exprimare', 'Editor al cuvântului zilei');
 }
 
 function util_getAllStatuses() {

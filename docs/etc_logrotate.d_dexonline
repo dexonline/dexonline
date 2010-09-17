@@ -1,4 +1,4 @@
-/var/log/httpd/*log {
+/var/log/dex-query.log {
     weekly
     rotate 400
     missingok

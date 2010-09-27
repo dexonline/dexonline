@@ -22,3 +22,9 @@
 {if $autocomplete}
   <script type="text/javascript" src="{$wwwRoot}js/jquery.autocomplete.pack.js"></script>
 {/if}
+{if $jqgrid}
+  <script type="text/javascript" src="{$wwwRoot}js/grid.locale-en.js?v=1"></script>
+  <script type="text/javascript" src="{$wwwRoot}js/jquery.datepicker.pack.js?v=1"></script>
+  <script type="text/javascript" src="{$wwwRoot}js/jquery.jqGrid.min.js?v=1"></script>
+  <script type="text/javascript" src="{$wwwRoot}js/jqgrid.init.js?v=1"></script>
+{/if}

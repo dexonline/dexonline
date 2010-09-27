@@ -41,7 +41,7 @@ class Log extends BaseObject {
    * @param boolean $redirect If true, then the result is a redirect [OPTIONAL]
    * @param Definition[] $results The results [OPTIONAL]
    * @access public
-   * @return void	
+   * @return void
    **/
   public function __construct($query, $queryBeforeRedirect, $searchType, $redirect = false, &$results = null) {
     if (!pref_getServerPreference('logSearch') || lcg_value() > pref_getServerPreference('logSampling')) {
@@ -63,7 +63,7 @@ class Log extends BaseObject {
     $this->resultCount = count($results);
     $this->redirect = ($redirect ? 'y' : 'n');
     $this->resultList = '';
-	 	
+    
     if ($results != null) {
       $numResultsToLog = min(count($results), pref_getServerPreference('logResults'));
       $this->resultList = '';
@@ -72,7 +72,7 @@ class Log extends BaseObject {
       }
     }
   }
-	
+  
   /**
    * Saves an entry into the log table
    * @access public
@@ -1301,19 +1301,34 @@ class WordOfTheDay extends BaseObject {
 		return $dbResult ? $dbResult->fields('id') : NULL;
 	}
 
-    public function save() {
-        $this->userId = session_getUserId();
-        parent::save();
+  public function save() {
+    $this->userId = session_getUserId();
+    parent::save();
 
 		$obj = new WordOfTheDayRel();
+    
 		$obj->refId = $this->defId;
-		$obj->refType = 'Definition';
+    if ($this->refType == null){
+      $obj->refType = 'Definition';
+    } else {
+      $obj->refType = $this->refType;
+    }
 		$obj->wotdId = $this->id;
+
+    if ($this->oldDefinitionId != null){
+      $rows = db_find(new WordOfTheDayRel(), 'wotdId = ' . $obj->wotdId . ' and refId = ' . $this->oldDefinitionId);
+      var_dump($rows);
+      if (count($rows) > 0){
+        $objDel = new WordOfTheDayRel();
+        $objDel->id = $rows[0]->id;
+        $objDel->Delete();
+      }
+    }
+
 		$obj->save();
 
 		return $obj;
-    }
-
+  }
 }
 
 

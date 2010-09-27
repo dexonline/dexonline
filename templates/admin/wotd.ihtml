@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {include file="common/bits/css.ihtml" flex=1}
+    {include file="common/bits/css.ihtml" jqgrid=1}
+    {include file="common/bits/css.ihtml" autocomplete=1}
+    {include file="common/bits/js.ihtml" jquery=1}
+    {include file="common/bits/js.ihtml" dex=1}
+    {include file="common/bits/js.ihtml" jqgrid=1}
+    {include file="common/bits/js.ihtml" autocomplete=1}
+    <title>DEX | {$sectionTitle|escape}</title>
+  </head>
+
+  <body onload="initGrid()">
+    {include file="admin/header.ihtml" title="DEX online - Word of the Day"}
+    {include file="admin/recentlyVisited.ihtml"}
+
+    <table id="wotdGrid"></table>
+    <div id="wotdPaging"></div>
+
+    <div id="tmp">
+      
+    </div>
+
+    {include file="common/bits/debugInfo.ihtml"}
+  </body>
+
+</html>

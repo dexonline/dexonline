@@ -7,7 +7,7 @@
 define('LOG_FILENAME', '/var/log/load.log');
 define('DATA_FILENAME', '/tmp/gnuplot%02d.dat');
 define('PNG_FILENAME', dirname($_SERVER['SCRIPT_NAME']) . '/../wwwbase/stat/img/gnuplot%02d-%d.png');
-define('DAYS_SINCE_EPOCH', intval(time() / 86400));
+define('DAYS_SINCE_EPOCH', daysSinceEpoch(time()));
 define('NUM_DAYS', 7);
 
 $records = loadLogFile(LOG_FILENAME);
@@ -28,7 +28,7 @@ function loadLogFile($filename) {
     $r->hour = strftime("%H", $r->timestamp);
     $r->minute = strftime("%M", $r->timestamp);
     $r->date = strftime("%a %d %b %Y", $r->timestamp);
-    $r->daysAgo = DAYS_SINCE_EPOCH - intval($r->timestamp / 86400);
+    $r->daysAgo = DAYS_SINCE_EPOCH - daysSinceEpoch($r->timestamp);
     $r->load1 = $loads[0];
     $r->load5 = $loads[1];
     $r->load15 = $loads[2];
@@ -40,11 +40,11 @@ function loadLogFile($filename) {
 function outputGnuPlotData($records, $filename) {
   $handles = array();
   for ($i = 0; $i < NUM_DAYS; $i++) {
-    $handle[] = fopen(sprintf($filename, $i), 'w');
+    $handles[] = fopen(sprintf($filename, $i), 'w');
   }
   foreach ($records as $r) {
     if ($r->daysAgo < NUM_DAYS) {
-      fwrite($handle[$r->daysAgo], "{$r->hour}:{$r->minute} {$r->load1} {$r->load5} {$r->load15}\n");
+      fwrite($handles[$r->daysAgo], "{$r->hour}:{$r->minute} {$r->load1} {$r->load5} {$r->load15}\n");
     }
   }
   foreach ($handles as $f) {
@@ -95,5 +95,8 @@ class Record {
   public $load15;
 }
 
+function daysSinceEpoch($time) {
+  return intval(($time + 10800) / 86400); // Compensate for time zone difference
+}
 
 ?>

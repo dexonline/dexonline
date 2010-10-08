@@ -45,7 +45,7 @@
   <li><a href="#client">Vreau să scriu un client pentru <i>DEX
   online</i></a></li>
   <li><a href="#scramble">Am contribuit la <i>DEX online</i>, dar
-  adresa mea de email e scrisă greșit!</a></li>
+  adresa mea de e-mail e scrisă greșit!</a></li>
   <li><a href="#otrs">OTRS</a></li>
 </ul>
 
@@ -53,7 +53,7 @@
 
 <ul>
   <li><a href="#DICT"><i>DEX online</i> implementează protocolul DICT?</a></li>
-  <li><a href="#lista_email">Aveți o listă de email?</a></li>
+  <li><a href="#lista_email">Aveți o listă de e-mail?</a></li>
   <li><a href="#mirrors">Aveți un mirror mai rapid?</a></li>
   <li><a href="#database">Cum obțin o copie a bazei de date?</a></li>
   <li><a href="#licenta">Licență</a></li>
@@ -478,7 +478,7 @@
   Internet. Puteți folosi orice editor de texte vă place mai
   mult. Formatele preferate sunt text simplu, HTML sau Open Office,
   dar acceptăm și Microsoft Word. Apoi, trimiteți-ne documentul
-  tehnoredactat prin <a href="contact">email</a>. Vă rugăm să
+  tehnoredactat prin <a href="contact">e-mail</a>. Vă rugăm să
   respectați următoarele cerințe:
 
   <ul>
@@ -540,36 +540,36 @@
   multe informații, citiți <a href="update3.php">documentația</a>
   protocolului de sincronizare.
 
-<h3><a name="scramble"></a>Am contribuit la <i>DEX online</i>, dar adresa mea de email e scrisă greșit!</h3>
+<h3><a name="scramble"></a>Am contribuit la <i>DEX online</i>, dar adresa mea de e-mail e scrisă greșit!</h3>
 
   Aceasta a fost și intenția noastră, datorită modului în care unii
   oameni s-au gândit să câștige bani pe Internet. Ei au niște programe
   care navighează pe Internet, deschid pagini la întâmplare și extrag
-  toate bucățile de text care arată ca o adresă de email. Apoi vând
-  adresele de email astfel extrase, cu milioanele, diverselor companii
+  toate bucățile de text care arată ca o adresă de e-mail. Apoi vând
+  adresele de e-mail astfel extrase, cu milioanele, diverselor companii
   care vând te miri ce pe Internet. Aceste companii încep să-i agaseze
-  pe proprietarii respectivelor adrese cu zeci de emailuri
+  pe proprietarii respectivelor adrese cu zeci de e-mailuri
   nesolicitate (binecunoscutul „spam”).
 
   <br/><br/>
 
   Dacă am fi lăsat toate adresele în forma lor originală, toți
-  voluntarii care și-au dat adresa de email ar fi început să primească
+  voluntarii care și-au dat adresa de e-mail ar fi început să primească
   spam (care poate ajunge lejer la 100 de mesaje pe zi). Din acest
-  motiv am alterat un pic adresele de email, astfel încât ele să fie
+  motiv am alterat un pic adresele de e-mail, astfel încât ele să fie
   inteligibile de către un om, dar (sper) nu și de către un
   program. În plus, voluntarii au dreptul de a-și ascunde complet
-  adresa de email.
+  adresa de e-mail.
 
 
 <h3><a name="otrs"></a>OTRS</h3>
 
   Dacă sunteți moderator al <i>DEX online,</i> ne puteți ajuta să
-  răspundem la emailurile venite pe adresa de contact. Acestea vin în
+  răspundem la e-mailurile venite pe adresa de contact. Acestea vin în
   număr relativ mare, dar avem unelte pentru a ușura
   răspunsurile. Folosim un pachet software numit OTRS, care permite
   mai multor voluntari să conlucreze pentru a răspunde la
-  emailuri. OTRS permite răspunsuri-tip cu care putem procesa foarte
+  e-mailuri. OTRS permite răspunsuri-tip cu care putem procesa foarte
   ușor majoritatea mesajelor primite. <a
   href="contact">Scrieți-ne</a> dacă sunteți interesat.
 
@@ -581,11 +581,11 @@
   href="#mirrors">mirror-uri</a>) și portul 2628.
 
 
-<h3><a name="lista_email"></a>Aveți o listă de email?</h3>
+<h3><a name="lista_email"></a>Aveți o listă de e-mail?</h3>
 
   Da. Dacă doriți să fiți la curent cu evoluția și aspectele tehnice
-  ale <i>DEX online</i>, vă puteți abona pe lista noastră de email
-  trimițând un email la <a
+  ale <i>DEX online</i>, vă puteți abona pe lista noastră de e-mail
+  trimițând un e-mail la <a
   href="mailto:dictionar-subscribe@yahoogroups.com">dictionar-subscribe@yahoogroups.com</a>. Volumul
   estimativ este de trei-patru mesaje pe zi. Arhivele acestei liste se
   află la <a

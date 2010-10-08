@@ -22,11 +22,11 @@
   greșeli de tipar ș.a.m.d.
   </ul>
 
-  <p><b>Avem nevoie de adresa dumneavoastră de email</b> pentru a putea
+  <p><b>Avem nevoie de adresa dumneavoastră de e-mail</b> pentru a putea
   ține legătura pe marginea definițiilor pe care ni le
-  trimiteți. Aveți opțiunea de a vă face adresa de email
+  trimiteți. Aveți opțiunea de a vă face adresa de e-mail
   invizibilă tuturor în afară de administratorul <i>DEX
-  online</i>. Nu aveți nicio grijă, nu vom divulga adresa de email
+  online</i>. Nu aveți nicio grijă, nu vom divulga adresa de e-mail
   nimănui dacă dumneavoastră nu doriți asta. Și noi
   primim mesaje nesolicitate (spam) și știm ce "plăcere" este.
 
@@ -48,16 +48,16 @@
     {elseif $error_code == ERR_PASS_MISMATCH}
       Parolele nu coincid.
     {elseif $error_code == ERR_NO_EMAIL}
-      Trebuie să precizați adresa de email.
+      Trebuie să precizați adresa de e-mail.
     {elseif $error_code == ERR_BAD_EMAIL}
-      Adresa de email nu este validă.
+      Adresa de e-mail nu este validă.
     {elseif $error_code == ERR_NICK_TAKEN}
       Acest nume de cont este deja folosit.
     {elseif $error_code == ERR_EMAIL_TAKEN}
-      Această adresă de email este deja folosită.
+      Această adresă de e-mail este deja folosită.
     {else}  {* $error_code == ERR_OTHER *}
       A fost o problemă la înregistrare. Vă rugăm
-      trimiteți-ne un email pentru a ne ajuta să depanăm
+      trimiteți-ne un e-mail pentru a ne ajuta să depanăm
       problema.
     {/if}
     </b></font>
@@ -100,7 +100,7 @@
     <td><font size=-1>&nbsp;</font></td>
 
   </tr><tr>
-    <td>Adresa de email:</td>
+    <td>Adresa de e-mail:</td>
     <td><input type="text" name="email" value="{$email|escape}"
     size=40 maxlength=40/></td>
   </tr><tr>

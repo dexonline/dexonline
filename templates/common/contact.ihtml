@@ -1,4 +1,4 @@
-Înainte de a ne trimite un email, vă rugăm citiți pagina de <a
+Înainte de a ne trimite un e-mail, vă rugăm citiți pagina de <a
 href="informatii">informații</a> pentru a vă asigura că întrebarea
 dumneavoastră nu este deja tratată acolo. În special:
 
@@ -24,5 +24,5 @@ dumneavoastră nu este deja tratată acolo. În special:
   frumoase ne face întotdeauna plăcere să auzim :)</li>
 </ul>
 
-Adresa noastră de email este <a
+Adresa noastră de e-mail este <a
 href="mailto:{$contact_email|escape}">{$contact_email|escape}</a>. Vă așteptăm!

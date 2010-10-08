@@ -28,7 +28,7 @@ sunteți într-adevăr proprietarul contului. Dacă nu doriți să schimbați va
       <span class="help">opțional</span>
     </td>
   </tr><tr>
-    <td>Adresa de email:</td>
+    <td>Adresa de e-mail:</td>
     <td>
       <input type="text" name="email" value="{$email|escape}" size="40" maxlength="40"/><br/>
       <input type="checkbox" id="emailVisible" name="emailVisible" {if $emailVisible}checked="checked"{/if}/>

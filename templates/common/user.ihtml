@@ -10,7 +10,7 @@
   {/if}
 
   {if $user->emailVisible}
-    <tr><td>Email:</td><td><b>{$user->email|escape}</b></td></tr>
+    <tr><td>E-mail:</td><td><b>{$user->email|escape}</b></td></tr>
   {/if}
 
   <tr>

@@ -53,6 +53,7 @@ function outputGnuPlotData($records, $filename) {
 }
 
 function generatePngs($dataFilename, $pngFilename) {
+  $tmpFilename = '/tmp/gnuplot.conf';
   $titles = array("1-minute", "5-minute", "15-minute");
   for ($i = 0; $i < NUM_DAYS; $i++) {
     for ($j = 0; $j < 3; $j++) {
@@ -61,10 +62,23 @@ function generatePngs($dataFilename, $pngFilename) {
       $dataCol = $j + 2;
       $title = $titles[$j];
       $date = strftime("%m/%d/%Y", time() - 86400 * $i);
-      $cmd = "gnuplot -e 'set terminal png size 400,200; set output \"$output\"; set xdata time; set format x \"%H\"; set timefmt \"%H:%M\"; set xrange [\"00:00\":\"24:00\"]; set yrange [0:10]; " .
-        "set grid; set xlabel \"\"; unset ylabel; set title \"$title load average, $date\"; set key off; plot \"$input\" using 1:$dataCol with lines;'";
-      print "$cmd\n";
-      exec($cmd);
+
+      $f = fopen($tmpFilename, 'w');
+      fwrite($f, "set terminal png size 400,200\n" .
+             "set output \"$output\"\n" .
+             "set xdata time\n" .
+             "set format x \"%H\"\n" .
+             "set timefmt \"%H:%M\"\n" .
+             "set xrange [\"00:00\":\"24:00\"]\n" .
+             "set yrange [0:10]\n" .
+             "set grid\n" .
+             "set xlabel \"\"\n" .
+             "unset ylabel\n" .
+             "set title \"$title load average, $date\"\n" .
+             "set key off\n" .
+             "plot \"$input\" using 1:$dataCol with lines\n");
+      fclose($f);
+      exec("gnuplot $tmpFilename");
     }
   }
 }

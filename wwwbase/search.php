@@ -177,7 +177,7 @@ if ($searchType == SEARCH_INFLECTED) {
 }
 
 if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $searchType == SEARCH_FULL_TEXT || $searchType == SEARCH_MULTIWORD) {
-  Definition::incrementDisplayCount($definitions);
+  // Definition::incrementDisplayCount($definitions);
   smarty_assign('results', $searchResults);
  
   // Maps lexems to arrays of inflected forms (some lexems may lack inflections)

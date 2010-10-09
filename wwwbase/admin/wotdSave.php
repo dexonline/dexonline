@@ -122,7 +122,7 @@ class wotdSave{
 
 require_once("../../phplib/util.php");
 require_once("../../phplib/modelObjects.php");
-util_assertModerator(PRIV_EDIT);
+util_assertModerator(PRIV_WOTD);
 util_assertNotMirror();
 
 if (array_key_exists('oper', $_POST)){

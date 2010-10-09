@@ -203,7 +203,7 @@ sql;
 }
 
 require_once("../../phplib/util.php");
-util_assertModerator(PRIV_EDIT);
+util_assertModerator(PRIV_WOTD);
 util_assertNotMirror();
 
 $app = new wotdTableRows($_GET['page'], $_GET['rows'], $_GET['sidx'], $_GET['sord'], (array_key_exists('_search', $_GET) && $_GET['_search'] == 'true' ? array('field' => $_GET['searchField'], 'value' => $_GET['searchString'], 'operator' => $_GET['searchOper']) : null));

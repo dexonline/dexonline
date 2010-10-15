@@ -22,11 +22,13 @@ $goodSourceIds = array(Source::get("shortName = \"DEX '75\"")->id,
 
 // Select all the LOC lexems associated with definitions from DN / MDN.
 // Process verbs first because we will need to look at their participles / long infinitives later.
-$query = "select distinct Lexem.* from Lexem, LexemDefinitionMap, Definition where Lexem.id = LexemDefinitionMap.lexemId and LexemDefinitionMap.definitionId = Definition.id " .
-  "and Lexem.isLoc and Definition.sourceId in (17, 21) order by Lexem.modelType in ('V', 'VT') desc, Lexem.formNoAccent";
-$lexems = db_getObjects(new Lexem(), db_execute($query));
+$query = "select * from Lexem where isLoc order by Lexem.modelType in ('V', 'VT') desc, Lexem.formNoAccent";
+$dbResult = db_execute($query);
 
-foreach($lexems as $l) {
+while (!$dbResult->EOF) {
+  $l = new Lexem();
+  $l->set($dbResult->fields);
+  $dbResult->MoveNext();
   $definitions = Definition::loadByLexemId($l->id);
   $hasGoodSourceIds = false;
   $i = 0;
@@ -35,14 +37,29 @@ foreach($lexems as $l) {
     $i++;
   }
   if (!$hasGoodSourceIds) {
+    $isDerivative = false;
     // Check if the lexem is a long infinitive or a participle
-    $numVerbs = db_getSingleValue("select count(distinct Lexem.id) from Lexem, InflectedForm where Lexem.id = InflectedForm.lexemId and Lexem.isLoc " .
-                                  "and InflectedForm.formNoAccent = '{$l->formNoAccent}' and InflectedForm.inflectionId in (50, 52)");
-    if ($numVerbs) {
-      print "Keeping http://dexonline.ro/lexem/{$l->formNoAccent}/{$l->id}\n";
+    $verbQuery = "select distinct Lexem.* from Lexem, InflectedForm where Lexem.id = InflectedForm.lexemId and Lexem.isLoc " .
+      "and InflectedForm.formNoAccent = '{$l->formNoAccent}' and InflectedForm.inflectionId in (50, 52)";
+    $verbs = db_getObjects(new Lexem(), db_execute($verbQuery));
+    if (count($verbs) && ($l->modelType == 'F') && ($l->modelNumber == '107' || $l->modelNumber == '113')) {
+      $isDerivative = true; // Long infinitive
     } else {
+      foreach ($verbs as $verb) {
+        $pm = ParticipleModel::loadByVerbModel($verb->modelNumber);
+        if ($l->modelType == 'A' && $l->modelNumber == $pm->adjectiveModel) {
+          $isDerivative = true; // Participle
+        }
+      }
+    }
+
+    if (!$isDerivative) {
       // Clear the isLoc bit
-      print "http://dexonline.ro/lexem/{$l->formNoAccent}/{$l->id}\n";
+      print "http://dexonline.ro/lexem/{$l->formNoAccent}/{$l->id}";
+      if (count($verbs)) {
+        print " [omonim]";
+      }
+      print "\n";
       $l->isLoc = false;
       $l->save();
     }

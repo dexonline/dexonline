@@ -18,9 +18,8 @@ while (!$dbResult->EOF) {
 
 // Next, load the corrected file (Matei provided this as an errata to Dan's file)
 $lexemDlrmMap = array();
-$lines = file(CORRECTED_FILENAME, FILE_IGNORE_NEW_LINES);
-foreach ($lines as $line) {
-  $fields = str_getcsv($line);
+$f = fopen(CORRECTED_FILENAME, 'r');
+while (($fields = fgetcsv($f)) !== false) {
   $formNoAccent = locNotationToDexNotation($fields[0]);
   $model = $fields[1] ? $fields[1] : 'I1';
   $lexem = Lexem::get("formNoAccent = '{$formNoAccent}' and concat(modelType, modelNumber, restriction) = '$model'");
@@ -28,11 +27,11 @@ foreach ($lines as $line) {
     $lexemDlrmMap[$lexem->id] = true;
   }
 }
+fclose($f);
 
 // Next, load the file and build a hashmap of DLRM lexems to keep in LOC
-$lines = file(FILENAME, FILE_IGNORE_NEW_LINES);
-foreach ($lines as $line) {
-  $fields = str_getcsv($line);
+$f = fopen(FILENAME, 'r');
+while (($fields = fgetcsv($f)) !== false) {
   $formNoAccent = locNotationToDexNotation($fields[1]);
   $models = preg_split('/\s+/', trim($fields[2]));
   $modelStrings = '';
@@ -65,6 +64,7 @@ foreach ($lines as $line) {
     $lexemDlrmMap[$l->id] = true;
   }
 }
+fclose($f);
 
 // Next, go through all the lexems. Those in $lexemDlrmMap and those that were in LOC 4.1 will remain in LOC, the rest will be excluded.
 $dbResult = db_execute("select * from Lexem");

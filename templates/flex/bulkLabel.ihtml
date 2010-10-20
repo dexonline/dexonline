@@ -118,7 +118,7 @@
               {foreach from=$ifMapArray item=ifMap key=pIter}
                 {assign var="m" value="`$models[$pIter]`"}
                 <div class="blParadigm" style="display: none" id="paradigm_{$l->id}_{$m->modelType}_{$m->number}">
-                  {include file="common/bits/paradigm.ihtml"
+                  {include file="common/paradigm/current/paradigm.ihtml"
                            modelType=$m->modelType
                            lexem=$l
                            ifMap=$ifMap}

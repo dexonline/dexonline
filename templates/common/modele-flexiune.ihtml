@@ -44,7 +44,7 @@
     <div class="scrabbleModelName">
       {$m->number}. {$m->exponent|regex_replace:"/\'(a|e|i|o|u|ă|î|â)/":"<font class=\"accented\">\$1</font>"}
     </div>
-    {include file="common/bits/paradigm.ihtml"
+    {include file="common/paradigm/$selectedLocVersion/paradigm.ihtml"
              lexem=$lexems[$i]
              ifMap=$paradigms[$i]}
   {/foreach}

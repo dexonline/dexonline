@@ -1,5 +1,5 @@
-{assign var=baseInflId value=$smarty.const.INFL_V_OFFSET}
-{assign var=baseTenseId value=$smarty.const.INFL_V_PREZ_OFFSET}
+{assign var=baseInflId value=49}
+{assign var=baseTenseId value=54}
 
 <table class="lexem">
   <tr>

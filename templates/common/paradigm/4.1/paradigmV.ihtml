@@ -1,0 +1,211 @@
+{assign var=baseInflId value=49}
+{assign var=baseTenseId value=54}
+
+<table class="lexem">
+  <tr>
+    <td colspan="2" rowspan="3">
+      <span class="lexemName"
+        >{include file="common/bits/lexemName.ihtml" lexem=$lexem
+      }</span>
+      &nbsp; {$title|escape}
+      {include file="common/bits/locInfo.ihtml lexem=$lexem}
+      {include file="common/bits/lexemTags.ihtml lexem=$lexem}
+    </td>
+    <td class="inflection">infinitiv</td>
+    <td class="inflection">infinitiv lung</td>
+    <td class="inflection">participiu</td>
+    <td class="inflection">gerunziu</td>
+    <td colspan="2" class="inflection">imperativ pers. a II-a</td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="form">
+      {assign var=inflId value=`$baseInflId`}
+      {if count($ifMap[$inflId]) > 0}(a){/if}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td rowspan="2" class="form">
+      {assign var=inflId value=`$baseInflId+1`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td rowspan="2" class="form">
+      {assign var=inflId value=`$baseInflId+3`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td rowspan="2" class="form">
+      {assign var=inflId value=`$baseInflId+4`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="inflection">singular</td>
+    <td class="inflection">plural</td>
+  </tr>
+  <tr>
+    <td class="form">
+      {assign var=inflId value=`$baseInflId+2`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+10`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="8" class="spacer"></td>
+  </tr>
+
+  <tr>
+    <td class="inflection">numărul</td>
+    <td class="inflection">persoana</td>
+    <td class="inflection">prezent</td>
+    <td class="inflection">conjunctiv prezent</td>
+    <td class="inflection">imperfect</td>
+    <td class="inflection">perfect simplu</td>
+    <td colspan="2" class="inflection">mai mult ca perfect</td>
+  </tr>
+  <tr>
+    <td rowspan="3" class="inflection">singular</td>
+    <td class="inflection person">I (eu)</td>    
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+0`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+6`}
+      {if count($ifMap[$inflId]) > 0}(să){/if}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+12`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+18`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td colspan="2" class="form">
+      {assign var=inflId value=`$baseTenseId+24`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+  </tr>
+  <tr>
+    <td class="inflection person">a II-a (tu)</td>    
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+1`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+7`}
+      {if count($ifMap[$inflId]) > 0}(să){/if}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+13`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+19`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td colspan="2" class="form">
+      {assign var=inflId value=`$baseTenseId+25`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+  </tr>
+  <tr>
+    <td class="inflection person">a III-a (el, ea)</td>    
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+2`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+8`}
+      {if count($ifMap[$inflId]) > 0}(să){/if}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+14`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+20`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td colspan="2" class="form">
+      {assign var=inflId value=`$baseTenseId+26`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="3" class="inflection">plural</td>
+    <td class="inflection person">I (noi)</td>    
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+3`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+9`}
+      {if count($ifMap[$inflId]) > 0}(să){/if}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+15`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+21`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td colspan="2" class="form">
+      {assign var=inflId value=`$baseTenseId+27`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+  </tr>
+  <tr>
+    <td class="inflection person">a II-a (voi)</td>    
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+4`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+10`}
+      {if count($ifMap[$inflId]) > 0}(să){/if}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+16`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+22`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td colspan="2" class="form">
+      {assign var=inflId value=`$baseTenseId+28`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+  </tr>
+  <tr>
+    <td class="inflection person">a III-a (ei, ele)</td>    
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+5`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+11`}
+      {if count($ifMap[$inflId]) > 0}(să){/if}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+17`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td class="form">
+      {assign var=inflId value=`$baseTenseId+23`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+    <td colspan="2" class="form">
+      {assign var=inflId value=`$baseTenseId+29`}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+    </td>
+  </tr>
+</table>

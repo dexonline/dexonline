@@ -85,7 +85,7 @@ foreach ($lexems as $l) {
     $l->modelNumber = $m->number;
     $if = $l->generateParadigm();
     if (is_array($if)) {
-      $ifMapArray[] = InflectedForm::mapByInflectionId($if);
+      $ifMapArray[] = InflectedForm::mapByInflectionRank($if);
     } else {
       $ifMapArray[] = null;
     }

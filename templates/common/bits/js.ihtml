@@ -1,5 +1,5 @@
 {if $dex}
-  <script type="text/javascript" src="{$wwwRoot}js/dex.js?v=12"></script>
+  <script type="text/javascript" src="{$wwwRoot}js/dex.js?v=13"></script>
 {/if}
 {if $flex}
   <script type="text/javascript" src="{$wwwRoot}js/flex.js?v=2"></script>
@@ -27,4 +27,7 @@
   <script type="text/javascript" src="{$wwwRoot}js/jquery.datepicker.pack.js?v=1"></script>
   <script type="text/javascript" src="{$wwwRoot}js/jquery.jqGrid.min.js?v=1"></script>
   <script type="text/javascript" src="{$wwwRoot}js/jqgrid.init.js?v=1"></script>
+{/if}
+{if $jqTableDnd}
+  <script type="text/javascript" src="{$wwwRoot}js/jquery.tablednd_0_5.js?v=1"></script>
 {/if}

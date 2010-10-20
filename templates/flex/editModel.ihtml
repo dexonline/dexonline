@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     {include file="common/bits/css.ihtml" flex=1 paradigm=1}
-    {include file="common/bits/js.ihtml" dex=1}
+    {include file="common/bits/js.ihtml" dex=1 jquery=1}
     <title>DEX | Editare model: {$modelType}{$modelNumber}</title>
   </head>
   
@@ -31,6 +31,7 @@
             Număr model
             <span class="small">(poate conține orice caractere)</span>
           </td>
+          <td></td>
           <td class="input">
             <input type="text" name="newModelNumber"
                    value="{$newModelNumber|escape}"/>
@@ -39,6 +40,7 @@
         </tr>
         <tr>
           <td>Descriere</td>
+          <td></td>
           <td class="input">
             <input type="text" name="newDescription"
                    value="{$newDescription|escape}"/>
@@ -47,6 +49,7 @@
         {if $adjModels}
           <tr>
             <td>Model de participiu</td>
+            <td></td>
             <td class="input">
               <select name="newParticipleNumber">
                 {foreach from=$adjModels item=m}
@@ -62,16 +65,33 @@
         {/if}
         <tr class="exponent">
           <td>Exponent</td>
+          <td></td>
           <td class="input">
             <input type="text" name="newExponent" value="{$newExponent|escape}"/>
           </td>
         </tr>
-        {foreach from=$inflections item=infl key=i}
-          <tr>
-  	        <td>{$infl->description|escape}</td>
-  	        <td class="input">
-  	          <input type="text" name="forms_{$infl->id}"
-  		               value="{$inputValues[$i]|escape}"/>
+
+        <tr>
+          <th>Inflexiune</th>
+          <th></th>
+          <th>Forme și bifă LOC</th>
+        </tr>
+
+        {foreach from=$newForms item=forms key=inflId}
+          <tr class="{cycle values="odd,even"}">
+  	        <td>{$inflectionMap[$inflId]->description|escape}</td>
+            <td class="addSign">
+              <a class="noBorder" href="#" onclick="return editModelAppendBox({$inflId})">
+                <img src="{$imgRoot}/icons/add.png" alt="plus"/>
+              </a>
+            </td>
+  	        <td class="input" id="td_{$inflId}">
+              {foreach from=$forms item=tuple key=i}
+                <p>
+                  <input type="text" name="forms_{$inflId}_{$i}" value="{$tuple.form|escape}"/>
+                  <input type="checkbox" name="isLoc_{$inflId}_{$i}" value="1" {if $tuple.isLoc}checked="checked"{/if}/>
+                </p>
+              {/foreach}
   	        </td>
   	      </tr>
         {/foreach}
@@ -124,9 +144,9 @@
               {foreach from=$regenTransforms item=ignored key=inflId}
                 {assign var="variantArray" value="`$newForms[$inflId]`"}
                 <td class="forms">
-                  {foreach from=$variantArray item=form key=i
+                  {foreach from=$variantArray item=tuple key=i
                     }{if $i}, {/if
-                    }{$form|escape
+                    }{$tuple.form|escape
                   }{/foreach}
                   {if !count($variantArray)}&mdash;{/if}
                 </td>
@@ -157,7 +177,7 @@
 
         {foreach from=$participles item=p key=i}
           {if $participleParadigms[$i]}
-            {include file="common/bits/paradigm.ihtml"
+            {include file="common/paradigm/current/paradigm.ihtml"
                      lexem=$p
                      ifMap=$participleParadigms[$i]
                      modelType="A"}
@@ -168,10 +188,8 @@
       <br/>
       <input type="submit" name="previewButton" value="Testează"/>
       <!-- We want to disable the button on click, but still submit a value -->
-      <input type="hidden" name="confirmButton" value=""/>
       {if $wasPreviewed && count($errorMessage) == 0}
-        <input type="submit" name="bogusButton" value="Salvează"
-               onclick="this.disabled=true; this.parentNode.confirmButton.value = '1';"/>
+        <input type="submit" name="confirmButton" value="Salvează"/>
       {/if}
     </form>
   </body>

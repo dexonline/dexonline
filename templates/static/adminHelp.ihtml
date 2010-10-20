@@ -128,9 +128,13 @@ oferit ca o scurtătură.<br/><br/>
 <b>Model :: Editare</b> -- Aici puteți edita exponentul ales pentru un
 model și formele pentru diversele flexiuni. Folosiți accente unde
 doriți. Dacă o flexiune nu are forme, lăsați câmpul vid. Dacă o
-flexiune are mai multe forme, separați-le prin virgulă (,). Tipul
-modelului nu este editabil, dar numărul este (și poate conține și alte
-caractere în afară de cifre).<br/><br/>
+flexiune are mai multe forme, apăsați semnul + pentru a obține câte
+câmpuri doriți. Pentru a șterge o formă, ștergeți conținutul câmpului
+respectiv. Dacă bifați/debifați o formă pentru LOC, rezultatul se va
+aplica tuturor formelor corespunzătoare ale lexemelor din acest model,
+dar nu și la alte modele. Tipul modelului nu este editabil, dar
+numărul este (și poate conține și alte caractere în afară de
+cifre).<br/><br/>
 
 <a name="modelClone"></a>
 <b>Model :: Clonare</b> -- În loc să permitem crearea de la zero a

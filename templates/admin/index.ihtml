@@ -95,6 +95,10 @@
         {include file="admin/helpLink.ihtml" anchor="modelDelete"}
       </form>
       <br/>
+
+      Editare inflexiuni: <a href="../editor-modele/inflexiuni">click
+      aici</a>
+      <br/><br/>
     {/if}
 
     <form action="definitionLookup.php" method="post">

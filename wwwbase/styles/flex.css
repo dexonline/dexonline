@@ -236,12 +236,29 @@ table.editModel {
   margin-bottom: 10px;
 }
 
+table.editModel tr th {
+  text-align: left;
+}
+
 table.editModel tr td.input {
   padding-left: 10px;
 }
 
+table.editModel tr td.addSign {
+  vertical-align: bottom;
+}
+
 table.editModel tr.exponent td {
   border-bottom: 1px solid #aaaaaa;
+}
+
+table.editModel tr.even {
+  background: #ddd;
+}
+
+table.editModel p {
+  margin: 0;
+  padding: 0;
 }
 
 table.changedForms {

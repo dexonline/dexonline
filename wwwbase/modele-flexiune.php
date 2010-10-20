@@ -36,12 +36,11 @@ if ($locVersion && $modelType && $modelNumber) {
     $l = count($tmpLexems) ? $tmpLexems[0] : null;
 
     if ($l) {
-      $paradigm = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
+      $paradigm = getExistingForms($l->id, $locVersion);
     } else {
       $l = new Lexem($m->exponent, $modelType, $m->number, '');
       $l->isLoc = true;
-      $ifArray = $l->generateParadigm();
-      $paradigm = InflectedForm::mapByInflectionId($ifArray);
+      $paradigm = getNewForms($l, $locVersion);
     }
     $lexems[] = $l;
     $paradigms[] = $paradigm;
@@ -63,4 +62,26 @@ smarty_assign('modelTypes', $modelTypes);
 smarty_assign('models', $models);
 smarty_displayCommonPageWithSkin('modele-flexiune.ihtml');
 
+/*************************************************************************/
+
+/**
+ * Load the forms to display for a model when a lexem already exists. This code is specific to each LOC version.
+ */
+function getExistingForms($lexemId, $locVersion) {
+  if ($locVersion >= '5.0') {
+    return InflectedForm::loadByLexemIdMapByInflectionRank($lexemId);
+  } else {
+    return InflectedForm::loadByLexemIdMapByInflectionId($lexemId);
+  }
+}
+
+function getNewForms($lexem, $locVersion) {
+  $ifArray = $lexem->generateParadigm();
+  if ($locVersion >= '5.0') {
+    return InflectedForm::mapByInflectionRank($ifArray);
+  } else {
+    return InflectedForm::mapByInflectionId($ifArray);
+  }
+}
+  
 ?>

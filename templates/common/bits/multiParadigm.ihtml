@@ -1,9 +1,10 @@
+{if !$version}
+  {assign var="version" value="current"}
+{/if}
 {if $ifMaps}
   {foreach from=$ifMaps item=ifMap key=i}
-	{include file="common/bits/paradigm.ihtml"
-			 lexem=$lexems[$i]
-			 ifMap=$ifMap
-			 sourceNames=$sourceNamesArr[$i]}
+
+  {include file=common/paradigm/$version/paradigm.ihtml lexem=$lexems[$i] ifMap=$ifMap sourceNames=$sourceNamesArr[$i]}
 
   {/foreach}
   {if $onlyParadigm}

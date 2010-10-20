@@ -134,14 +134,6 @@ function util_defineConstants() {
 
   define("INFINITY", 1000000000);
 
-  define('INFL_M_OFFSET', 1);
-  define('INFL_F_OFFSET', 9);
-  define('INFL_N_OFFSET', 17);
-  define('INFL_A_OFFSET', 25);
-  define('INFL_P_OFFSET', 41);
-  define('INFL_V_OFFSET', 49);
-  define('INFL_V_PREZ_OFFSET', 54);
-
   define('UNKNOWN_ACCENT_SHIFT', 100);
   define('NO_ACCENT_SHIFT', 101);
 
@@ -247,7 +239,6 @@ function util_assertModerator($type) {
   if (!util_isModerator($type)) {
     session_setFlash('Nu aveți privilegii suficiente pentru a accesa această pagină.');
     util_redirect(util_getWwwRoot());
-    exit;
   }
 }
 
@@ -367,7 +358,6 @@ function util_redirectToFriendlyUrl($cuv, $sourceUrlName, $text, $showParadigm) 
   }
 
   util_redirect(util_getWwwRoot() . $url);
-  exit();
 }
 
 /** Relaxed browser check. Currently checks for a few major browser. Can have false negatives, but (hopefully) no false positives. **/

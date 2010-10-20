@@ -523,6 +523,12 @@ class RecentLink extends BaseObject {
 }
 
 class ModelType extends BaseObject {
+  public static function get($where) {
+    $obj = new ModelType();
+    $obj->load($where);
+    return $obj->id ? $obj : null;
+  }
+
   public static function loadCanonical() {
     return db_find(new ModelType(), 'code = canonical and code != "T" order by code');
   }
@@ -538,6 +544,8 @@ class ModelType extends BaseObject {
   }
 }
 
+class ModelTypeInflection extends BaseObject {
+}
 
 class Inflection extends BaseObject {
   public static function get($where) {
@@ -558,19 +566,17 @@ class Inflection extends BaseObject {
     return self::get("description like '%infinitiv lung%'");
   }
 
-  public static function loadByModelType($modelType) {
-    $result = array();
-    $dbResult = db_execute("select distinct Inflection.* from Model, ModelDescription, Inflection " .
-                           "where modelId = Model.id and inflectionId = Inflection.id and modelType = '$modelType' order by inflectionId");
-    return db_getObjects(new Inflection(), $dbResult);
-  }
-
   public static function mapById($inflections) {
     $result = array();
     foreach ($inflections as $i) {
       $result[$i->id] = $i;
     }
     return $result;
+  }
+
+  public function delete() {
+    db_execute("update Inflection set rank = rank - 1 where modelType = '{$this->modelType}' and rank > {$this->rank}");
+    parent::delete();
   }
 }
 
@@ -644,6 +650,27 @@ class ModelDescription extends BaseObject {
       $this->accentShift = $other->accentShift;
       $this->vowel = $other->vowel;
     }
+  }
+
+  public static function get($where) {
+    $obj = new ModelDescription();
+    $obj->load($where);
+    return $obj->id ? $obj : null;
+  }
+
+  static function getByModelIdMapByInflectionIdVariantApplOrder($modelId) {
+    $mds = db_find(new ModelDescription, "modelId = {$modelId} order by inflectionId, variant, applOrder");
+    $map = array();
+    foreach ($mds as $md) {
+      if (!array_key_exists($md->inflectionId, $map)) {
+        $map[$md->inflectionId] = array();
+      }
+      if (!array_key_exists($md->variant, $map[$md->inflectionId])) {
+        $map[$md->inflectionId][$md->variant] = array();
+      }
+      $map[$md->inflectionId][$md->variant][$md->applOrder] = $md;
+    }
+    return $map;
   }
 }
 
@@ -1112,6 +1139,37 @@ class InflectedForm extends BaseObject {
 
   public static function loadByLexemIdMapByInflectionId($lexemId) {
     return self::mapByInflectionId(self::loadByLexemId($lexemId));
+  }
+
+  public static function loadByLexemIdMapByInflectionRank($lexemId) {
+    $result = array();
+    // Sadly, we cannot load the rank here as well, because $if->set($dbResult->fields) would no longer work.
+    $dbResult = db_execute("select InflectedForm.*, rank from InflectedForm, Inflection where inflectionId = Inflection.id and lexemId = {$lexemId} order by rank, variant");
+    while (!$dbResult->EOF) {
+      $rank = $dbResult->fields['rank'];
+      array_pop($dbResult->fields); // Pop the ['rank'] and [nnn] keys;
+      array_pop($dbResult->fields); // otherwise $if->set() won't work -- AdoDB panics because of the extra fields.
+      $if = new InflectedForm();
+      $if->set($dbResult->fields);
+      if (!array_key_exists($rank, $result)) {
+        $result[$rank] = array();
+      }
+      $result[$rank][] = $if;
+      $dbResult->MoveNext();
+    }
+    return $result;
+  }
+
+  public static function mapByInflectionRank($ifs) {
+    $result = array();
+    foreach ($ifs as $if) {
+      $inflection = Inflection::get("id = {$if->inflectionId}");
+      if (!array_key_exists($inflection->rank, $result)) {
+        $result[$inflection->rank] = array();
+      }
+      $result[$inflection->rank][] = $if;
+    }
+    return $result;
   }
 
   public static function mapByInflectionId($ifs) {

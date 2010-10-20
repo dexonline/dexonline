@@ -2,7 +2,7 @@
   <link href="{$wwwRoot}styles/admin.css?v=1" rel="stylesheet" type="text/css"/>
 {/if}
 {if $flex}
-  <link href="{$wwwRoot}styles/flex.css?v=4" rel="stylesheet" type="text/css"/>
+  <link href="{$wwwRoot}styles/flex.css?v=5" rel="stylesheet" type="text/css"/>
 {/if}
 {if $mobile}
   <link href="{$wwwRoot}styles/mobile.css?v=3" rel="stylesheet" type="text/css"/>
@@ -14,7 +14,7 @@
   <link href="{$wwwRoot}styles/polar.css?v=7" rel="stylesheet" type="text/css"/>
 {/if}
 {if $zepu}
-  <link href="{$wwwRoot}styles/zepu.css?v=13" rel="stylesheet" type="text/css"/>
+  <link href="{$wwwRoot}styles/zepu.css?v=14" rel="stylesheet" type="text/css"/>
 {/if}
 
 {* External resources *}

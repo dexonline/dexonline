@@ -492,6 +492,7 @@ div.infoType {
 
 .userTop .nick {
   text-align: left;
+  white-space: nowrap;
   width: 200px;
 }
 

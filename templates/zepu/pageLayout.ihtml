@@ -59,7 +59,7 @@
 
       {include file="common/flashMessages.ihtml"}
 
-      {if !$onHomePage}
+      {if !$onHomePage && !$suggestHiddenSearchForm}
         <div id="Search2">
           {include file="zepu/search.ihtml"}
         </div>

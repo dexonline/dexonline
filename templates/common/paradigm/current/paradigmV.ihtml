@@ -1,0 +1,172 @@
+<table class="lexem">
+  <tr>
+    <td colspan="2" rowspan="3">
+      <span class="lexemName"
+        >{include file="common/bits/lexemName.ihtml" lexem=$lexem
+      }</span>
+      &nbsp; {$title|escape}
+      {include file="common/bits/locInfo.ihtml lexem=$lexem}
+      {include file="common/bits/lexemTags.ihtml lexem=$lexem}
+    </td>
+    <td class="inflection">infinitiv</td>
+    <td class="inflection">infinitiv lung</td>
+    <td class="inflection">participiu</td>
+    <td class="inflection">gerunziu</td>
+    <td colspan="2" class="inflection">imperativ pers. a II-a</td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="form">
+      {if count($ifMap[1]) > 0}(a){/if}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[1]}
+    </td>
+    <td rowspan="2" class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[2]}
+    </td>
+    <td rowspan="2" class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[5]}
+    </td>
+    <td rowspan="2" class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[6]}
+    </td>
+    <td class="inflection">singular</td>
+    <td class="inflection">plural</td>
+  </tr>
+  <tr>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[3]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[4]}
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="8" class="spacer"></td>
+  </tr>
+
+  <tr>
+    <td class="inflection">numărul</td>
+    <td class="inflection">persoana</td>
+    <td class="inflection">prezent</td>
+    <td class="inflection">conjunctiv prezent</td>
+    <td class="inflection">imperfect</td>
+    <td class="inflection">perfect simplu</td>
+    <td colspan="2" class="inflection">mai mult ca perfect</td>
+  </tr>
+  <tr>
+    <td rowspan="3" class="inflection">singular</td>
+    <td class="inflection person">I (eu)</td>    
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[7]}
+    </td>
+    <td class="form">
+      {if count($ifMap[13]) > 0}(să){/if}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[13]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[19]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[25]}
+    </td>
+    <td colspan="2" class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[31]}
+    </td>
+  </tr>
+  <tr>
+    <td class="inflection person">a II-a (tu)</td>    
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[8]}
+    </td>
+    <td class="form">
+      {if count($ifMap[14]) > 0}(să){/if}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[14]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[20]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[26]}
+    </td>
+    <td colspan="2" class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[32]}
+    </td>
+  </tr>
+  <tr>
+    <td class="inflection person">a III-a (el, ea)</td>    
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[9]}
+    </td>
+    <td class="form">
+      {if count($ifMap[15]) > 0}(să){/if}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[15]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[21]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[27]}
+    </td>
+    <td colspan="2" class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[33]}
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="3" class="inflection">plural</td>
+    <td class="inflection person">I (noi)</td>    
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[10]}
+    </td>
+    <td class="form">
+      {if count($ifMap[16]) > 0}(să){/if}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[16]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[22]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[28]}
+    </td>
+    <td colspan="2" class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[34]}
+    </td>
+  </tr>
+  <tr>
+    <td class="inflection person">a II-a (voi)</td>    
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[11]}
+    </td>
+    <td class="form">
+      {if count($ifMap[17]) > 0}(să){/if}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[17]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[23]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[29]}
+    </td>
+    <td colspan="2" class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[35]}
+    </td>
+  </tr>
+  <tr>
+    <td class="inflection person">a III-a (ei, ele)</td>    
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[12]}
+    </td>
+    <td class="form">
+      {if count($ifMap[18]) > 0}(să){/if}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[18]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[24]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[30]}
+    </td>
+    <td colspan="2" class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[36]}
+    </td>
+  </tr>
+</table>

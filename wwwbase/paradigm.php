@@ -60,29 +60,29 @@ if (!empty($lexems)) {
   $declensions = false;
   $filtered_lexems = array();
   foreach ($lexems as $l) {
-	if (TYPE_SHOW_ONLY_VERBS == $type) {
-	  if ($l->modelType == 'V' || $l->modelType == 'VT') {
-		$filtered_lexems[] = $l;
-	    $conjugations = true;
-        $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
-	  }
-	}
-	elseif (TYPE_SHOW_NO_VERBS == $type) {
-	  if ($l->modelType != 'V' && $l->modelType != 'VT') {
-		$filtered_lexems[] = $l;
-	    $declensions = true;
-        $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
-	  }
-	}
-	else {
-	  $filtered_lexems[] = $l;
-      $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
+    if (TYPE_SHOW_ONLY_VERBS == $type) {
       if ($l->modelType == 'V' || $l->modelType == 'VT') {
-	    $conjugations = true;
-      } else {
-	    $declensions = true;
+        $filtered_lexems[] = $l;
+        $conjugations = true;
+        $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
       }
-	}
+    }
+    elseif (TYPE_SHOW_NO_VERBS == $type) {
+      if ($l->modelType != 'V' && $l->modelType != 'VT') {
+        $filtered_lexems[] = $l;
+        $declensions = true;
+        $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
+      }
+    }
+    else {
+      $filtered_lexems[] = $l;
+      $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
+      if ($l->modelType == 'V' || $l->modelType == 'VT') {
+        $conjugations = true;
+      } else {
+        $declensions = true;
+      }
+    }
   }
 
   if (empty($filtered_lexems)) {

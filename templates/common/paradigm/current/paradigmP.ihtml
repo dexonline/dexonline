@@ -1,5 +1,3 @@
-{assign var=baseInflId value=$smarty.const.INFL_P_OFFSET}
-
 <table class="lexem">
   <tr>
     <td colspan="2">
@@ -17,46 +15,38 @@
     <td rowspan="2" class="inflection">nominativ-acuzativ</td>
     <td class="inflection">singular</td>
     <td class="form">
-      {assign var=inflId value=`$baseInflId`}
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[1]}
     </td>
     <td class="form">
-      {assign var=inflId value=`$baseInflId+4`}
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[5]}
     </td>
   </tr>
   <tr>
     <td class="inflection">plural</td>
     <td class="form">
-      {assign var=inflId value=`$baseInflId+2`}
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[3]}
     </td>
     <td class="form">
-      {assign var=inflId value=`$baseInflId+6`}
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[7]}
     </td>
   </tr>
   <tr>
     <td rowspan="2" class="inflection">genitiv-dativ</td>
     <td class="inflection">singular</td>
     <td class="form">
-      {assign var=inflId value=`$baseInflId+1`}
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[2]}
     </td>
     <td class="form">
-      {assign var=inflId value=`$baseInflId+5`}
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[6]}
     </td>
   </tr>
   <tr>
     <td class="inflection">plural</td>
     <td class="form">
-      {assign var=inflId value=`$baseInflId+3`}
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[4]}
     </td>
     <td class="form">
-      {assign var=inflId value=`$baseInflId+7`}
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[$inflId]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[8]}
     </td>
   </tr>
 </table>

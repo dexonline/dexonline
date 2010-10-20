@@ -188,8 +188,9 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
     $conjugations = false;
     $declensions = false;
     foreach ($lexems as $l) {
-	  if ($showParadigm)
-        $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionId($l->id);
+      if ($showParadigm) {
+        $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
+      }
       if ($l->modelType == 'V' || $l->modelType == 'VT') {
         $conjugations = true;
       } else {

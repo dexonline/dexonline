@@ -9,48 +9,48 @@
 {/if}
 
 {if $modelType == 'T'}
-  {include file="common/bits/paradigmT.ihtml" lexem=$lexem}
+  {include file="common/paradigm/4.0/paradigmT.ihtml" lexem=$lexem}
 {elseif $modelType == 'I'}
-  {include file="common/bits/paradigmI.ihtml" lexem=$lexem ifMap=$ifMap}
+  {include file="common/paradigm/4.0/paradigmI.ihtml" lexem=$lexem ifMap=$ifMap}
 {elseif $modelType == 'A'}
-  {include file="common/bits/paradigmA.ihtml"
+  {include file="common/paradigm/4.0/paradigmA.ihtml"
            lexem=$lexem
            ifMap=$ifMap
            title="adjectiv"}
 {elseif $modelType == 'MF'}
-  {include file="common/bits/paradigmA.ihtml"
+  {include file="common/paradigm/4.0/paradigmA.ihtml"
            lexem=$lexem
            ifMap=$ifMap
            title="substantiv"}
 {elseif $modelType == 'M'}
-  {include file="common/bits/paradigmN.ihtml"
+  {include file="common/paradigm/4.0/paradigmN.ihtml"
            lexem=$lexem
            ifMap=$ifMap
-           baseInflId=`$smarty.const.INFL_M_OFFSET`
+           baseInflId=1
            title="substantiv masculin"}
 {elseif $modelType == 'F'}
-  {include file="common/bits/paradigmN.ihtml"
+  {include file="common/paradigm/4.0/paradigmN.ihtml"
            lexem=$lexem
            ifMap=$ifMap
-           baseInflId=`$smarty.const.INFL_F_OFFSET`
+           baseInflId=9
            title="substantiv feminin"}
 {elseif $modelType == 'N'}
-  {include file="common/bits/paradigmN.ihtml"
+  {include file="common/paradigm/4.0/paradigmN.ihtml"
            lexem=$lexem
            ifMap=$ifMap
-           baseInflId=`$smarty.const.INFL_N_OFFSET`
+           baseInflId=17
            title="substantiv neutru"}
 {elseif $modelType == 'P'}
-  {include file="common/bits/paradigmP.ihtml"
+  {include file="common/paradigm/4.0/paradigmP.ihtml"
            lexem=$lexem
            ifMap=$ifMap}
 {elseif $modelType == 'V'}
-  {include file="common/bits/paradigmV.ihtml"
+  {include file="common/paradigm/4.0/paradigmV.ihtml"
            lexem=$lexem
            ifMap=$ifMap
            title="verb"}
 {elseif $modelType == 'VT'}
-  {include file="common/bits/paradigmV.ihtml"
+  {include file="common/paradigm/4.0/paradigmV.ihtml"
            lexem=$lexem
            ifMap=$ifMap
            title="verb tranzitiv"}

@@ -88,6 +88,9 @@ This is a non-structured list of all the possible inflected forms in
 Romanian, for example "Substantiv neutru, Nominativ-Acuzativ, plural,
 nearticulat".
 
+modelType - For simplicity, each inflection is only used with one part
+  of speech as indicated here.
+
 
 The InflectedForm table
 ------------------
@@ -180,6 +183,8 @@ variant - 0-based counter where multiple variants are allowed for
 applOrder - When multiple letter transformations are necessary to
   obtain the inflected form from the base form, the order in which we
   apply the transforms is important, hence this field (0-based).
+isLoc - Whether this (modelId, inflectionId, variant) is accepted in
+  LOC. Only meaningful for rows where applOrder = 0;
 transformId - Matches Transform.id.
 accentShift - Indicates where the accent falls in the inflected form:
   100 - Unknown accent shift. We don't know where the accent falls,

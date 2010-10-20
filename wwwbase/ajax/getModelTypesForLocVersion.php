@@ -9,7 +9,7 @@ db_changeDatabase($dbName);
 
 $modelTypes = ModelType::loadCanonical();
 foreach ($modelTypes as $m) {
-  print "{$m->value}\n{$m->description}\n";
+  print "{$m->code}\n{$m->description}\n";
 }
 
 ?>

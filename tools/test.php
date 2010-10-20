@@ -442,21 +442,6 @@ assertEquals('', $t[0]->transfFrom);
 assertEquals('ului', $t[0]->transfTo);
 assertEquals(NO_ACCENT_SHIFT, $t[1]);
 
-$i = Inflection::get("id = " . INFL_M_OFFSET);
-assertEquals('Substantiv masculin, Nominativ-Acuzativ, singular, nearticulat', $i->description);
-$i = Inflection::get("id = " . INFL_F_OFFSET);
-assertEquals('Substantiv feminin, Nominativ-Acuzativ, singular, nearticulat', $i->description);
-$i = Inflection::get("id = " . INFL_N_OFFSET);
-assertEquals('Substantiv neutru, Nominativ-Acuzativ, singular, nearticulat', $i->description);
-$i = Inflection::get("id = " . INFL_A_OFFSET);
-assertEquals('Adjectiv, masculin, Nominativ-Acuzativ, singular, nearticulat', $i->description);
-$i = Inflection::get("id = " . INFL_P_OFFSET);
-assertEquals('Pronume, Nominativ-Acuzativ, singular, masculin', $i->description);
-$i = Inflection::get("id = " . INFL_V_OFFSET);
-assertEquals('Verb, Infinitiv prezent', $i->description);
-$i = Inflection::get("id = " . INFL_V_PREZ_OFFSET);
-assertEquals('Verb, Indicativ, prezent, persoana I, singular', $i->description);
-
 assertEquals(1, text_countVowels('abc'));
 assertEquals(2, text_countVowels('abcde'));
 assertEquals(8, text_countVowels('aeiouăâî'));

@@ -69,7 +69,7 @@
               {foreach from=$lexemArray item=l key=j}
                 <input type="hidden" name="lexems_{$no}[]"
                        value="{$l->id}"/>
-                {include file="common/bits/paradigm.ihtml"
+                {include file="common/paradigm/current/paradigm.ihtml"
                          lexem=$l
                          ifMap=$ifMapArray[$j]}
               {/foreach}

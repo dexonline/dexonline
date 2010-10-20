@@ -156,7 +156,7 @@ function toggleDivVisibility(divId) {
 
 function toggleInflVisibility(value, lexem) {
   var div = document.getElementById('paradigmDiv');
-  if (div.innerHTML == '') {
+  if (trim(div.innerHTML) == '') {
 	  param = (lexem ? 'lexemId' : 'cuv') + '=' + value;
 	  makeGetRequest(wwwRoot + 'paradigm.php?ajax=1&' + param, getParadigmCallback, null);
   }
@@ -466,4 +466,22 @@ function contribAddLexemRow() {
   div.find("input").autocomplete(wwwRoot + "ajax/getLexems.php");
   div.find("input").focus();
   return false;
+}
+
+function editModelAppendBox(inflId) {
+  var obj = $('#td_' + inflId);
+  var count = $('#td_' + inflId + '> p').length;
+  obj.append('<p>');
+  obj.append('<input type="text" name="forms_' + inflId + '_' + count + '" value=""/> ');
+  obj.append('<input type="checkbox" name="isLoc_' + inflId + '_' + count + '" value="1" checked="checked"/>');
+  obj.append('</p>');
+  return false;
+}
+
+function trim(str) {
+	var	str = str.replace(/^\s\s*/, ''),
+    ws = /\s/,
+		i = str.length;
+	while (ws.test(str.charAt(--i)));
+	return str.slice(0, i + 1);
 }

@@ -48,6 +48,10 @@
     <a href="../flex/viewAmbiguousLexems.php">Lexeme ambigue:</a>
     <span id="span_ambiguousLexems">(numărătoare dezactivată)</span><br/>
 
+    {if $canEditWotd}
+      <a href="wotd.php">Word of the Day:</a>
+      <span id="span_wotd"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
+    {/if}
     <br/>
     <form action="lexemLookup.php" method="get" name="lexemForm">
       <table>

@@ -1,8 +1,8 @@
 {include file="common/bits/js.ihtml jquery=1 jqTableDnd=1}
 
-<h2>Editare inflexiuni</h2>
+<h2>Editare flexiuni</h2>
 
-<form method="post" action="inflexiuni">
+<form method="post" action="flexiuni">
   <table id="inflections" class="userTop">
     <thead>
       <tr>
@@ -53,7 +53,7 @@
 
 <b>Instrucțiuni:</b> Trageți de rânduri pentru a le reordona, apoi apăsați <i>Salvează</i>. Acest tabel enumeră setul cel mai cuprinzător de forme pe care le poate avea un model de tipul {$mt->code}.
 Pentru fiecare model în parte, veți avea posibilitatea să specificați forme lipsă (de exemplu, pentru V666) sau forme cu mai multe valori (de exemplu, mai mult ca perfectul verbelor).
-Vi se permite ștergerea doar a acelor inflexiuni care nu sunt folosite în niciun model (de obicei, cele nou create).
+Vi se permite ștergerea doar a acelor flexiuni care nu sunt folosite în niciun model (de obicei, cele nou create).
 
 <script type="text/javascript">
   $(document).ready(function() {ldelim}

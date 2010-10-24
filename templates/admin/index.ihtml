@@ -100,7 +100,7 @@
       </form>
       <br/>
 
-      Editare inflexiuni: <a href="../editor-modele/inflexiuni">click
+      Editare flexiuni: <a href="../editor-modele/flexiuni">click
       aici</a>
       <br/><br/>
     {/if}

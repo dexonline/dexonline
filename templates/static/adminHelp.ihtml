@@ -139,7 +139,7 @@ cifre).<br/><br/>
 <a name="modelClone"></a>
 <b>Model :: Clonare</b> -- În loc să permitem crearea de la zero a
 unui model nou, care probabil nu ar fi prea utilă, permitem clonarea
-unui model deja existent. Noul model va avea aceleași inflexiuni,
+unui model deja existent. Noul model va avea aceleași flexiuni,
 același exponent și (în cazul verbelor) același tip de participiu cu
 modelul original. Trebuie să indicați doar un nou număr de
 model. Opțional, puteți alege lexemele etichetate cu modelul original

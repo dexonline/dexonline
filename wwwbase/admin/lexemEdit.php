@@ -186,7 +186,7 @@ $ifs = $lexem->generateParadigm();
 if (!is_array($ifs)) {
   $infl = Inflection::get("id = {$ifs}");
   if (!$errorMessage) {
-    $errorMessage = "Nu pot genera inflexiunea '".htmlentities($infl->description)."' " .
+    $errorMessage = "Nu pot genera flexiunea '".htmlentities($infl->description)."' " .
       "conform modelului {$lexem->modelType}{$lexem->modelNumber}.";
   }
 } else {

@@ -11,7 +11,7 @@ $deleteInflectionId = util_getRequestParameter('deleteInflectionId');
 if ($deleteInflectionId) {
   $infl = Inflection::get("id = {$deleteInflectionId}");
   $infl->delete();
-  util_redirect('inflexiuni');
+  util_redirect('flexiuni');
 }
 
 if ($submitButton) {
@@ -34,7 +34,7 @@ if ($submitButton) {
     $infl->save();
   }
 
-  util_redirect('inflexiuni');
+  util_redirect('flexiuni');
 }
 
 // Tag inflections which can be safely deleted (only those that aren't being used by any model)
@@ -44,10 +44,10 @@ foreach ($inflections as $infl) {
   $infl->canDelete = !in_array($infl->id, $usedInflectionIds);
 }
 
-smarty_assign('page_title', 'Editare inflexiuni');
+smarty_assign('page_title', 'Editare flexiuni');
 smarty_assign('suggestHiddenSearchForm', true);
 smarty_assign('inflections', $inflections);
 smarty_assign('modelTypes', ModelType::loadCanonical());
-smarty_displayCommonPageWithSkin('editor-modele/inflexiuni.ihtml');
+smarty_displayCommonPageWithSkin('editor-modele/flexiuni.ihtml');
 
 ?>

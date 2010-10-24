@@ -72,7 +72,7 @@
         </tr>
 
         <tr>
-          <th>Inflexiune</th>
+          <th>Flexiune</th>
           <th></th>
           <th>Forme și bifă LOC</th>
         </tr>
@@ -121,7 +121,7 @@
         {/if}
 
         {if count($regenTransforms)}
-          <h3>Lista de inflexiuni afectate ({$regenTransforms|@count}):</h3>
+          <h3>Lista de flexiuni afectate ({$regenTransforms|@count}):</h3>
           <ol>
             {foreach from=$regenTransforms item=ignored key=inflId}
               <li>{$inflectionMap[$inflId]->description|escape}</li>

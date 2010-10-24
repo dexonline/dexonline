@@ -11,6 +11,8 @@ $modelNumber = util_getRequestParameter('modelNumber');
 $previewButton = util_getRequestParameter('previewButton');
 $confirmButton = util_getRequestParameter('confirmButton');
 
+$modelType = ModelType::canonicalize($modelType);
+
 $inflections = db_find(new Inflection(), "modelType = '{$modelType}' order by rank");
 // Load the original data
 $model = Model::get("modelType = '{$modelType}' and number = '{$modelNumber}'");

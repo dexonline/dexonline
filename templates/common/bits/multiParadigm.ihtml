@@ -3,12 +3,15 @@
 {/if}
 {if $ifMaps}
   {foreach from=$ifMaps item=ifMap key=i}
-
-  {include file=common/paradigm/$version/paradigm.ihtml lexem=$lexems[$i] ifMap=$ifMap sourceNames=$sourceNamesArr[$i]}
-
+    {include file=common/paradigm/$version/paradigm.ihtml lexem=$lexems[$i] ifMap=$ifMap sourceNames=$sourceNamesArr[$i]}
+    {if $sUser->moderator & $smarty.const.PRIV_LOC}
+      Editează:
+      <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexems[$i]->id}">lexemul</a> |
+      <a href="{$wwwRoot}flex/editModel.php?modelType={$lexems[$i]->modelType}&amp;modelNumber={$lexems[$i]->modelNumber}">modelul {$lexems[$i]->modelType}{$lexems[$i]->modelNumber}</a>
+    {/if}
   {/foreach}
   {if $onlyParadigm}
   {else}
-  <a class="paradigmLink" title="Link către această pagină, dar cu flexiunile expandate!" href="{$paradigmLink}">Link către această paradigmă</a> 
+    <div><a class="paradigmLink" title="Link către această pagină, dar cu flexiunile expandate!" href="{$paradigmLink}">Link către această paradigmă</a></div>
   {/if}
 {/if}

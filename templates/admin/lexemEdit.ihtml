@@ -200,7 +200,7 @@
     {/if}
 
     {if $ifMap && !$errorMessage}
-      {include file="common/bits/paradigm.ihtml" lexem=$lexem ifMap=$ifMap}
+      {include file="common/paradigm/current/paradigm.ihtml" lexem=$lexem ifMap=$ifMap}
     {/if}
 
     <div class="lexemSection">

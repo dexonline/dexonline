@@ -190,7 +190,7 @@ if (!is_array($ifs)) {
       "conform modelului {$lexem->modelType}{$lexem->modelNumber}.";
   }
 } else {
-  $ifMap = InflectedForm::mapByInflectionId($ifs);
+  $ifMap = InflectedForm::mapByInflectionRank($ifs);
   smarty_assign('ifMap', $ifMap);
   smarty_assign('searchResults', $searchResults);
 }

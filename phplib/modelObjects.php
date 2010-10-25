@@ -928,13 +928,14 @@ class Lexem extends BaseObject {
       while ($end < count($mds) && $mds[$end]->applOrder != 0) {
         $end++;
       }
-      
+
       $inflId = $mds[$start]->inflectionId;
       $accentShift = $mds[$start]->accentShift;
       $vowel = $mds[$start]->vowel;
       
       // Apply all the transforms from $start to $end - 1.
       $variant = $mds[$start]->variant;
+      $recommended = $mds[$start]->recommended;
       
       // Load the transforms
       $transforms = array();
@@ -946,7 +947,7 @@ class Lexem extends BaseObject {
       if (!$result) {
         return null;
       }
-      $ifs[] = new InflectedForm($result, $this->id, $inflId, $variant);
+      $ifs[] = new InflectedForm($result, $this->id, $inflId, $variant, $recommended);
       $start = $end;
     }
     
@@ -1123,7 +1124,7 @@ class Transform extends BaseObject {
 }
 
 class InflectedForm extends BaseObject {
-  function __construct($form = null, $lexemId = null, $inflectionId = null, $variant = null) {
+  function __construct($form = null, $lexemId = null, $inflectionId = null, $variant = null, $recommended = 1) {
     parent::__construct();
     $this->form = $form;
     $this->formNoAccent = str_replace("'", '', $form);
@@ -1131,6 +1132,7 @@ class InflectedForm extends BaseObject {
     $this->lexemId = $lexemId;
     $this->inflectionId = $inflectionId;
     $this->variant = $variant;
+    $this->recommended = $recommended;
   }
 
   public static function loadByLexemId($lexemId) {

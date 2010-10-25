@@ -106,6 +106,9 @@ inflectionId - Matches Inflection.id
 variant - 0-based counter for situations where multiple forms are
   accepted for the same inflection (e.g. "cântaserăm" / "cântasem",
   both accepted for the past perfect, plural, 1st person).
+recommended - true if the form is still in use in current speech.
+  This corresponds to ModelDescription.recommended, but is cached
+  on every InflectedForm for speed.
 
 EXAMPLE: Here is a SQL query that lists the paradigm for "știucă":
 
@@ -185,6 +188,8 @@ applOrder - When multiple letter transformations are necessary to
   apply the transforms is important, hence this field (0-based).
 isLoc - Whether this (modelId, inflectionId, variant) is accepted in
   LOC. Only meaningful for rows where applOrder = 0;
+recommended - true if the resulting inflected form is still in use in
+  current speech.
 transformId - Matches Transform.id.
 accentShift - Indicates where the accent falls in the inflected form:
   100 - Unknown accent shift. We don't know where the accent falls,

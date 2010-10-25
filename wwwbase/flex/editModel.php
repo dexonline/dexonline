@@ -25,7 +25,9 @@ foreach ($inflections as $infl) {
   $forms[$infl->id] = array();
 }
 foreach ($ifs as $if) {
-  $forms[$if->inflectionId][] = array('form' => $if->form, 'isLoc' => $mdMap[$if->inflectionId][$if->variant][0]->isLoc);
+  $forms[$if->inflectionId][] = array('form' => $if->form,
+                                      'isLoc' => $mdMap[$if->inflectionId][$if->variant][0]->isLoc,
+                                      'recommended' => $mdMap[$if->inflectionId][$if->variant][0]->recommended);
 }
 
 $participleNumber = ($modelType == 'V') ? ParticipleModel::loadByVerbModel($modelNumber)->adjectiveModel : '';
@@ -71,6 +73,7 @@ if ($previewButton || $confirmButton) {
   // (2) an accent was added in the exponent and some forms contain accents OR
   // (3) the exponent changed (other than by adding an accent)
   // We do NOT do anything when the isLoc values change.
+  // We do propagate the change to all InflectedForms when the values for recommended change.
   foreach ($inflections as $infl) {
     if (!equalArrays($forms[$infl->id], $newForms[$infl->id]) ||
         $exponentAccentAdded && anyAccents($newForms[$infl->id]) ||
@@ -158,6 +161,7 @@ if ($previewButton || $confirmButton) {
           $md->variant = $variant;
           $md->applOrder = $order++;
           $md->isLoc = false;
+          $md->recommended = false;
           $md->transformId = $t->id;
           $md->accentShift = $accentShift;
           $md->vowel = $accentedVowel;
@@ -172,7 +176,17 @@ if ($previewButton || $confirmButton) {
       foreach ($tupleArray as $variant => $tuple) {
         $md = ModelDescription::get("modelId = {$model->id} and inflectionId = {$inflId} and variant = {$variant} and applOrder = 0");
         $md->isLoc = $tuple['isLoc'];
+        $md->recommended = $tuple['recommended'];
         $md->save();
+      }
+    }
+
+    // Set the recommended bits appropriately
+    foreach ($newForms as $inflId => $tupleArray) {
+      foreach ($tupleArray as $variant => $tuple) {
+        $recommended = intval($tuple['recommended']);
+        db_execute("update InflectedForm i, Lexem l, Model m, ModelType mt set i.recommended = {$recommended} where i.lexemId = l.id and l.modelType = mt.code " .
+                   "and mt.canonical = m.modelType and l.modelNumber = m.number and m.id = {$model->id} and i.inflectionId = {$inflId} and variant = {$variant}");
       }
     }
 
@@ -236,7 +250,7 @@ $inputValues = array();
 foreach ($inflections as $infl) {
   $inputValues[$infl->id] = array();
   foreach ($newForms[$infl->id] as $form) {
-    $inputValues[$infl->id][] = array("form" => $form, "isLoc" => 1);
+    $inputValues[$infl->id][] = array('form' => $form, 'isLoc' => 1, 'recommended' => 1);
   }
 }
 
@@ -266,7 +280,7 @@ smarty_displayWithoutSkin('flex/editModel.ihtml');
 /****************************************************************************/
 
 /**
- * $a, $b: arrays of ($form, $isLoc) tuples. Only compares the forms.
+ * $a, $b: arrays of ($form, $isLoc, $recommended) tuples. Only compares the forms.
  */
 function equalArrays($a, $b) {
   if (count($a) != count($b)) {
@@ -283,7 +297,7 @@ function equalArrays($a, $b) {
 }
 
 /**
- * $v: an array of ($form, $isLoc) tuples.
+ * $v: an array of ($form, $isLoc, $recommended) tuples.
  */
 function anyAccents($v) {
   foreach ($v as $tuple) {
@@ -304,7 +318,7 @@ function loadParticiplesForVerbModel($modelNumber, $participleNumber) {
 }
 
 /**
- * Read forms and isLoc checkboxes from the request.
+ * Read forms and isLoc/recommended checkboxes from the request.
  * The map is already populated with all the applicable inflection IDs.
  * InflectionId's and variants are coded in the request parameters.
  **/
@@ -318,7 +332,7 @@ function readRequest(&$map) {
       $variant = $parts[2];
       $form = trim($value);
       if ($form) {
-        $map[$inflId][$variant] = array('form' => $form, 'isLoc' => false);
+        $map[$inflId][$variant] = array('form' => $form, 'isLoc' => false, 'recommended' => false);
       }
     } else if (text_startsWith($name, 'isLoc_')) {
       $parts = preg_split('/_/', $name);
@@ -328,6 +342,15 @@ function readRequest(&$map) {
       $variant = $parts[2];
       if (array_key_exists($variant, $map[$inflId])) {
         $map[$inflId][$variant]['isLoc'] = true;
+      }
+    } else if (text_startsWith($name, 'recommended_')) {
+      $parts = preg_split('/_/', $name);
+      assert(count($parts) == 3);
+      assert($parts[0] == 'recommended');
+      $inflId = $parts[1];
+      $variant = $parts[2];
+      if (array_key_exists($variant, $map[$inflId])) {
+        $map[$inflId][$variant]['recommended'] = true;
       }
     }
   }

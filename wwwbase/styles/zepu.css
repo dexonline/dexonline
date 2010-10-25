@@ -348,6 +348,11 @@ div.paradigmHide {
   font-size: small;
 }
 
+span.notRecommended {
+  color: #761818;
+  cursor: help;
+}
+
 .scrabbleModelName {
   font-size: 110%;
   font-weight: bold;

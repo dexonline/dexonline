@@ -240,8 +240,22 @@ table.editModel tr th {
   text-align: left;
 }
 
+table.editModel tr th.input {
+  padding-left: 10px;
+}
+
 table.editModel tr td.input {
   padding-left: 10px;
+}
+
+.fieldColumn {
+  float: left;
+  width: 200px;
+}
+
+.checkboxColumn {
+  float: left;
+  width: 60px;
 }
 
 table.editModel tr td.addSign {

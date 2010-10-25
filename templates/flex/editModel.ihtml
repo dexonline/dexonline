@@ -74,7 +74,11 @@
         <tr>
           <th>Flexiune</th>
           <th></th>
-          <th>Forme și bifă LOC</th>
+          <th class="input">
+            <span class="fieldColumn">Forme</span>
+            <span class="checkboxColumn">LOC</span>
+            <span class="checkboxColumn">Recom.</span>
+          </th>
         </tr>
 
         {foreach from=$newForms item=forms key=inflId}
@@ -88,8 +92,9 @@
   	        <td class="input" id="td_{$inflId}">
               {foreach from=$forms item=tuple key=i}
                 <p>
-                  <input type="text" name="forms_{$inflId}_{$i}" value="{$tuple.form|escape}"/>
-                  <input type="checkbox" name="isLoc_{$inflId}_{$i}" value="1" {if $tuple.isLoc}checked="checked"{/if}/>
+                  <input class="fieldColumn" type="text" name="forms_{$inflId}_{$i}" value="{$tuple.form|escape}"/>
+                  <input class="checkboxColumn" type="checkbox" name="isLoc_{$inflId}_{$i}" value="1" {if $tuple.isLoc}checked="checked"{/if}/>
+                  <input class="checkboxColumn" type="checkbox" name="recommended_{$inflId}_{$i}" value="1" {if $tuple.recommended}checked="checked"{/if}/>
                 </p>
               {/foreach}
   	        </td>

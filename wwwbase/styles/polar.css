@@ -297,6 +297,11 @@ span.spaced {
   font-size: 80%;
 }
 
+span.notRecommended {
+  color: #761818;
+  cursor: help;
+}
+
 /* jquery tablesorter stuff */
 th.header {
   background: #999 url("../img/icons/jquery/bg.gif") no-repeat center right;

@@ -15,7 +15,7 @@
 </form>
 <br/>
 
-{if $lv->freezeTimestamp || ($sUser->moderator & $smarty.const.PRIV_LOC)}
+{if $sUser->moderator & $smarty.const.PRIV_LOC}
   <form action="scrabble-loc" method="get">
     Compară două versiuni LOC (cea veche prima):
     <select name="locVersion">

@@ -52,6 +52,7 @@
           <li><a href="{$wwwRoot}unelte">Unelte</a></li>
           <li><a href="{$wwwRoot}top">Top</a></li>
           <li><a href="#" onclick="abbrevWindow(); return false;">Abrevieri</a></li>
+          <li><a href="{$wwwRoot}publicitate">Publicitate</a></li>
           <li><a href="{$wwwRoot}contact">Contact</a></li>
         </ul>
 

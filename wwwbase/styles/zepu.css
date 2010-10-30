@@ -349,8 +349,14 @@ div.paradigmHide {
 }
 
 span.notRecommended {
-  color: #761818;
+  color: #1010c0;
   cursor: help;
+  font-style: italic;
+}
+
+div.notRecommendedLegend {
+  color: #1010c0;
+  font-style: italic;
 }
 
 .scrabbleModelName {

@@ -32,10 +32,10 @@ if ($lexemId) {
 }
 
 if ($lexemId) {
-  smarty_assign('paradigmLink', "/lexem/$cuv/$lexemId/paradigma");
+  smarty_assign('paradigmLink', util_getWwwRoot() . "lexem/$cuv/$lexemId/paradigma");
 }
 else {
-  smarty_assign('paradigmLink', "/definitie/$cuv/paradigma");
+  smarty_assign('paradigmLink', util_getWwwRoot() . "definitie/$cuv/paradigma");
 }
 
 if ($cuv) {
@@ -102,6 +102,17 @@ if (!empty($lexems)) {
   foreach($lexems as $l) {
 	  $sourceNamesArr[] = getNamesOfSources($l->source);
   }
+
+  // This paragraph replicates code from paradigm.php
+  $hasUnrecommendedForms = false;
+  foreach ($ifMaps as $ifMap) {
+    foreach ($ifMap as $rank => $ifs) {
+      foreach ($ifs as $if) {
+        $hasUnrecommendedForms |= !$if->recommended;
+      }
+    }
+  }
+  smarty_assign('hasUnrecommendedForms', $hasUnrecommendedForms);
 
   smarty_assign('sourceNamesArr', $sourceNamesArr);
   smarty_assign('lexems', $filtered_lexems);

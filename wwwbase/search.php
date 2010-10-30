@@ -199,6 +199,16 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
     }
     $declensionText = $conjugations ? ($declensions ? 'conjugări / declinări' : 'conjugări') : 'declinări';
 
+    $hasUnrecommendedForms = false;
+    foreach ($ifMaps as $ifMap) {
+      foreach ($ifMap as $rank => $ifs) {
+        foreach ($ifs as $if) {
+          $hasUnrecommendedForms |= !$if->recommended;
+        }
+      }
+    }
+    smarty_assign('hasUnrecommendedForms', $hasUnrecommendedForms);
+
     if ($showParadigm) {
       smarty_assign('ifMaps', $ifMaps);
     }

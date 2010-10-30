@@ -10,6 +10,9 @@
       <a href="{$wwwRoot}flex/editModel.php?modelType={$lexems[$i]->modelType}&amp;modelNumber={$lexems[$i]->modelNumber}">modelul {$lexems[$i]->modelType}{$lexems[$i]->modelNumber}</a>
     {/if}
   {/foreach}
+  {if $hasUnrecommendedForms}
+    <div class="notRecommendedLegend">* Formă nerecomandată</div>
+  {/if}
   {if $onlyParadigm}
   {else}
     <div><a class="paradigmLink" title="Link către această pagină, dar cu flexiunile expandate!" href="{$paradigmLink}">Link către această paradigmă</a></div>

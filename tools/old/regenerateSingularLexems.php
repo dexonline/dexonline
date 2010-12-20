@@ -1,6 +1,7 @@
 <?php
 
 require_once("../../phplib/util.php");
+ini_set('memory_limit', '512000000');
 
 $lexems = db_find(new Lexem(), 'restriction like "%S%" or restriction like "%P%"');
 $count = count($lexems);

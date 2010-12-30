@@ -4,6 +4,8 @@
  * Loads a log file and draws load graphs for the last few days.
  **/
 
+ini_set('memory_limit', '256000000');
+
 define('LOG_FILENAME', '/var/log/load.log');
 define('DATA_FILENAME', '/tmp/gnuplot%02d.dat');
 define('PNG_FILENAME', dirname($_SERVER['SCRIPT_NAME']) . '/../wwwbase/stat/img/gnuplot%02d-%d.png');

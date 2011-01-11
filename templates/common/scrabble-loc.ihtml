@@ -15,24 +15,22 @@
 </form>
 <br/>
 
-{if $sUser->moderator & $smarty.const.PRIV_LOC}
-  <form action="scrabble-loc" method="get">
-    Compară două versiuni LOC (cea veche prima):
-    <select name="locVersion">
-      {foreach from=$locVersions item=lv key=i}
-        <option value="{$lv->name|escape}" {if $i == 1}selected="selected"{/if}>
-          {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
-        </option>
-      {/foreach}
-    </select>
-    cu
-    <select name="newLocVersion">
-      {foreach from=$locVersions item=lv}
-        <option value="{$lv->name|escape}">
-          {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
-        </option>
-      {/foreach}
-    </select>
-    <input type="submit" name="submitButton" value="Compară" onclick="return hideSubmitButton(this)"/>
-  </form>
-{/if}
+<form action="scrabble-loc" method="get">
+  Compară două versiuni LOC (cea veche prima):
+  <select name="locVersion">
+    {foreach from=$locVersions item=lv key=i}
+      <option value="{$lv->name|escape}" {if $i == 1}selected="selected"{/if}>
+        {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
+      </option>
+    {/foreach}
+  </select>
+  cu
+  <select name="newLocVersion">
+    {foreach from=$locVersions item=lv}
+      <option value="{$lv->name|escape}">
+        {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
+      </option>
+    {/foreach}
+  </select>
+  <input type="submit" name="submitButton" value="Compară" onclick="return hideSubmitButton(this)"/>
+</form>

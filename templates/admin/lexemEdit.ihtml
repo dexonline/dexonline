@@ -27,7 +27,7 @@
             {include file="admin/helpLink.ihtml" anchor="lexemName"}
           </td>
           <td>
-            {if $sUser->moderator & $smarty.const.PRIV_LOC}  
+            {if $canEditForm}  
               <input type="text" name="lexemForm" value="{$lexem->form|escape}" size="40"/>
             {else}
               <input type="hidden" name="lexemForm" value="{$lexem->form|escape}"/>
@@ -41,7 +41,7 @@
             {include file="admin/helpLink.ihtml" anchor="lexemDescription"}
           </td>
           <td>
-            {if $sUser->moderator & $smarty.const.PRIV_LOC}  
+            {if $canEditForm}  
               <input type="text" name="lexemDescription" value="{$lexem->description|escape}" size="40"/>
             {else}
               <input type="hidden" name="lexemDescription" value="{$lexem->description|escape}"/>

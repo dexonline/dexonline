@@ -199,6 +199,7 @@ $models = Model::loadByType($lexem->modelType);
 
 $sources = getSourceArrayChecked($lexem->source);
 $sourceNames = getNamesOfSources($lexem->source);
+$canEditForm = !$lexem->isLoc || util_isModerator(PRIV_LOC);
 
 smarty_assign('lexem', $lexem);
 smarty_assign('sources', $sources);
@@ -214,6 +215,7 @@ smarty_assign('restrI', text_contains($lexem->restriction, 'I'));
 smarty_assign('restrT', text_contains($lexem->restriction, 'T'));
 smarty_assign('modelTypes', db_find(new ModelType(), '1 order by code'));
 smarty_assign('models', $models);
+smarty_assign('canEditForm', $canEditForm);
 smarty_assign('allStatuses', util_getAllStatuses());
 smarty_assign('errorMessage', $errorMessage);
 smarty_assign('recentLinks', RecentLink::loadForUser());

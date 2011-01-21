@@ -10,7 +10,9 @@ autor.<br/><br/>
 și pentru lexemele monosilabice, altfel paradigma nu va conține deloc
 accente. Indicați accentul prin apostrof ('a), nu îl includeți în
 caracter (á). Valoarea acestui câmp este folosită la căutări și este
-vizibilă public la afișarea flexiunilor unui cuvânt.<br/><br/>
+vizibilă public la afișarea flexiunilor unui cuvânt. Odată ce un lexem
+a fost inclus în LOC, numele și descrierea lexemului mai pot fi
+modificate numai de către moderatorii LOC.<br/><br/>
 
 <a name="lexemDescription"></a>
 <b>Lexem :: Descriere</b> -- O scurtă explicație, vizibilă public,

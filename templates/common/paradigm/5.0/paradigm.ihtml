@@ -1,0 +1,35 @@
+{* Arguments:
+   $lexem: Lexem;
+   $modelType: String; (optional; if missing, use $lexem->modelType)
+   $ifMap: HashMap($rank -> Array(InflectedForm))
+*}
+
+{if !$modelType}
+  {assign var=modelType value=$lexem->modelType}
+{/if}
+
+{if $modelType == 'T'}
+  {include file="common/paradigm/current/paradigmT.ihtml" lexem=$lexem}
+{elseif $modelType == 'I'}
+  {include file="common/paradigm/current/paradigmI.ihtml" lexem=$lexem ifMap=$ifMap}
+{elseif $modelType == 'A'}
+  {include file="common/paradigm/current/paradigmA.ihtml" lexem=$lexem ifMap=$ifMap title="adjectiv"}
+{elseif $modelType == 'MF'}
+  {include file="common/paradigm/current/paradigmA.ihtml" lexem=$lexem ifMap=$ifMap title="substantiv"}
+{elseif $modelType == 'M'}
+  {include file="common/paradigm/current/paradigmN.ihtml" lexem=$lexem ifMap=$ifMap title="substantiv masculin"}
+{elseif $modelType == 'F'}
+  {include file="common/paradigm/current/paradigmN.ihtml" lexem=$lexem ifMap=$ifMap title="substantiv feminin"}
+{elseif $modelType == 'N'}
+  {include file="common/paradigm/current/paradigmN.ihtml" lexem=$lexem ifMap=$ifMap title="substantiv neutru"}
+{elseif $modelType == 'P'}
+  {include file="common/paradigm/current/paradigmP.ihtml" lexem=$lexem ifMap=$ifMap}
+{elseif $modelType == 'V'}
+  {include file="common/paradigm/current/paradigmV.ihtml" lexem=$lexem ifMap=$ifMap title="verb"}
+{elseif $modelType == 'VT'}
+  {include file="common/paradigm/current/paradigmV.ihtml" lexem=$lexem ifMap=$ifMap title="verb tranzitiv"}
+{else}
+  <div class="lexem">
+    Nu pot afișa flexiunea lexemului <span class="lexemName">{$lexem->formNoAccent|escape}</span>.
+  </div>
+{/if}

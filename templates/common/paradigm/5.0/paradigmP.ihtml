@@ -1,0 +1,52 @@
+<table class="lexem">
+  <tr>
+    <td colspan="2">
+      <span class="lexemName"
+        >{include file="common/bits/lexemName.ihtml" lexem=$lexem
+      }</span>
+      &nbsp; articol / numeral / adjectiv pronominal / pronume
+      {include file="common/bits/locInfo.ihtml lexem=$lexem}
+      {include file="common/bits/lexemTags.ihtml lexem=$lexem}
+    </td>
+    <td class="inflection">masculin</td>
+    <td class="inflection">feminin</td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="inflection">nominativ-acuzativ</td>
+    <td class="inflection">singular</td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[1]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[5]}
+    </td>
+  </tr>
+  <tr>
+    <td class="inflection">plural</td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[3]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[7]}
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="inflection">genitiv-dativ</td>
+    <td class="inflection">singular</td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[2]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[6]}
+    </td>
+  </tr>
+  <tr>
+    <td class="inflection">plural</td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[4]}
+    </td>
+    <td class="form">
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[8]}
+    </td>
+  </tr>
+</table>

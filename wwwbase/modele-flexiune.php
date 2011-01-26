@@ -7,17 +7,14 @@ $locVersion = util_getRequestParameter('locVersion');
 $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
 
-$locVersions = array_reverse(pref_getFrozenLocVersions());
+$locVersions = pref_getLocVersions();
 
 if ($locVersion && $modelType && $modelNumber) {
   smarty_assign('selectedLocVersion', $locVersion);
   smarty_assign('selectedModelType', $modelType);
   smarty_assign('selectedModelNumber', $modelNumber);
 
-  $lv = new LocVersion();
-  $lv->name = $locVersion;
-  $dbName = pref_getLocPrefix() . $lv->getDbName();
-  db_changeDatabase($dbName);
+  LocVersion::changeDatabase($locVersion);
 
   if ($modelNumber == -1) {
     $modelsToDisplay = Model::loadByType($modelType);
@@ -50,8 +47,8 @@ if ($locVersion && $modelType && $modelNumber) {
   smarty_assign('lexems', $lexems);
   smarty_assign('paradigms', $paradigms);
 } else {
-  $dbName = pref_getLocPrefix() . $locVersions[0]->getDbName();
-  db_changeDatabase($dbName);
+  smarty_assign('selectedLocVersion', $locVersions[1]->name);
+  LocVersion::changeDatabase($locVersion);
 }
 
 $modelTypes = ModelType::loadCanonical();

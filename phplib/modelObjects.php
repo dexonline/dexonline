@@ -1244,8 +1244,8 @@ class LocVersion {
   }
 
   public static function changeDatabase($versionName) {
-    $lvs = array_reverse(pref_getLocVersions());
-    if ($versionName == $lvs[0]->name) {
+    $lvs = pref_getLocVersions();
+    if ($versionName == $lvs[0]->name || !$versionName) {
       $dbInfo = db_splitDsn();
       $dbName = $dbInfo['database'];
     } else {

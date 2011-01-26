@@ -5,10 +5,7 @@ $modelType = util_getRequestParameter('modelType');
 $locVersion = util_getRequestParameter('locVersion');
 
 if ($locVersion) {
-  $lv = new LocVersion();
-  $lv->name = $locVersion;
-  $dbName = pref_getLocPrefix() . $lv->getDbName();
-  db_changeDatabase($dbName);
+  LocVersion::changeDatabase($locVersion);
 }
 
 $models = Model::loadByType($modelType);

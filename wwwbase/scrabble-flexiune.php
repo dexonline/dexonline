@@ -3,12 +3,10 @@ require_once("../phplib/util.php");
 $form = util_getRequestParameter('form');
 $locVersion = util_getRequestParameter('locVersion');
 
-if ($locVersion && $form) {
-  $lv = new LocVersion();
-  $lv->name = $locVersion;
-  $dbName = pref_getLocPrefix() . $lv->getDbName();
-  db_changeDatabase($dbName);
+$locVersions = pref_getLocVersions();
 
+if ($locVersion && $form) {
+  LocVersion::changeDatabase($locVersion);
   $form = text_cleanupQuery($form);
   smarty_assign('page_title', 'Verificare LOC: ' . $form);
 
@@ -25,11 +23,12 @@ if ($locVersion && $form) {
   smarty_assign('lexems', $lexems);
   smarty_assign('inflections', $inflections);
 } else {
+  smarty_assign('selectedLocVersion', $locVersions[1]->name);
   smarty_assign('page_title', 'Căutare formă flexionară în LOC ' . $form);
 }
 
 setlocale(LC_ALL, "ro_RO.utf8");
-smarty_assign('locVersions', array_reverse(pref_getFrozenLocVersions()));
+smarty_assign('locVersions', $locVersions);
 smarty_displayCommonPageWithSkin('scrabble-flexiune.ihtml');
 
 

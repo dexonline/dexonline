@@ -3,9 +3,9 @@
 <form action="scrabble-loc" method="get">
   Versiunea LOC:
   <select name="locVersion">
-    {foreach from=$locVersions item=lv}
+    {foreach from=$locVersions item=lv key=i}
       {if $lv->freezeTimestamp || ($sUser->moderator & $smarty.const.PRIV_LOC)}
-        <option value="{$lv->name|escape}">
+        <option value="{$lv->name|escape}" {if $i == 1}selected="selected"{/if}>
           {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
         </option>
       {/if}

@@ -10,9 +10,8 @@ vreunul din cuvintele din LOC generează acea formă.<br/><br/>
   Versiunea LOC:
   <select name="locVersion">
     {foreach from=$locVersions item=lv}
-      <option value="{$lv->name|escape}"
-              {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
-        {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"})
+      <option value="{$lv->name|escape}" {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
+        {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
       </option>
     {/foreach}
   </select>

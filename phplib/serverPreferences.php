@@ -53,17 +53,9 @@ function pref_getLocVersions() {
         $result[] = $lv;
       }
     }
-    $GLOBALS['locVersions'] = $result;
+    $GLOBALS['locVersions'] = array_reverse($result);
   }
   return $GLOBALS['locVersions'];
-}
-
-function pref_getFrozenLocVersions() {
-  // Return all versions but the current one.
-  $lvs = pref_getLocVersions();
-  assert(count($lvs) >= 2);
-  assert(!$lvs[count($lvs) - 1]->freezeTimestamp);
-  return array_slice($lvs, 0, -1);
 }
 
 ?>

@@ -1,6 +1,6 @@
 <?
 require_once "../phplib/util.php";
-$dbResult = db_execute("select * from Definition where sourceId = 25 and status = 0 order by id");
+$dbResult = db_execute("select * from Definition where sourceId = 15 and status = 0 order by id");
 
 $i = 0;
 $modified = 0;

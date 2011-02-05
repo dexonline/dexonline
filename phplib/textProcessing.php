@@ -1342,7 +1342,7 @@ function _text_markAbbreviations($s, $sourceId, &$ambiguousMatches = null) {
     $matches = array();
     // Perform a case-sensitive match if the pattern contains any uppercase, case-insensitive otherwise
     $modifier = $tuple['hasCaps'] ? "" : "i";
-    preg_match_all("/{$tuple['regexp']}/$modifier", $s, $matches, PREG_OFFSET_CAPTURE);
+    preg_match_all("/{$tuple['regexp']}/u$modifier", $s, $matches, PREG_OFFSET_CAPTURE); // We always add the /u modifier for Unicode
     if (count($matches[1])) {
       foreach (array_reverse($matches[1]) as $match) {
         $orig = $match[0];

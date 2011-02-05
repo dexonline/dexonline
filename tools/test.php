@@ -153,6 +153,7 @@ assertEquals("@FILLER@ #adj. dem.# (antepus), art.", _text_markAbbreviations("@F
 assertEquals("@FILLER@ #loc. adv. și adj.# @MORE FILLER@", _text_markAbbreviations("@FILLER@ loc. adv. și adj. @MORE FILLER@", 1));
 assertEquals("@FILLER@ #arg.# șarg. catarg. ăarg. țarg. @FILLER@", _text_markAbbreviations("@FILLER@ arg. șarg. catarg. ăarg. țarg. @FILLER@", 1));
 assertEquals("@FILLER@ #et. nec.#", _text_markAbbreviations("@FILLER@ et. nec.", 1));
+assertEquals("@FILLER@ #Înv.# @MORE FILLER@", _text_markAbbreviations("@FILLER@ Înv. @MORE FILLER@", 1)); // Unicode uppercase
 assertEquals("@FILLER@ #art. hot.# @FILLER@", _text_markAbbreviations("@FILLER@ art.hot. @FILLER@", 1));
 assertEquals("@FILLER@ #art. hot.# @FILLER@", _text_markAbbreviations("@FILLER@ #art. hot.# @FILLER@", 1));
 assertEquals("FOO ornit. BAR", _text_markAbbreviations("FOO ornit. BAR", 99)); // Inexistent source

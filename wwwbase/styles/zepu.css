@@ -65,14 +65,14 @@ table td, table th {
 
 #userActions {
   float: right;
-  height: 88px;
   text-align: right;
 }
 
 #userActions ul {
-	list-style: none;
+  list-style: none;
   margin-top: 5px;
   padding: 0px;
+  display: inline;
 }
 
 #userActions a {
@@ -84,8 +84,14 @@ table td, table th {
   text-decoration: underline;
 }
 
-#userActions li {
-	display: block;
+#userActions.withBanner li {
+  display: block;
+  padding-top: 6px;
+}
+
+#userActions.withoutBanner li {
+  display: inline;
+  padding-left: 10px;
 }
 
 #userNick {
@@ -95,7 +101,14 @@ table td, table th {
 
 #header {
   background: url("../img/zepu/bhHeader.png") no-repeat bottom #fff;
+}
+
+#header.withBanner {
   height: 110px;
+}
+
+#header.withoutBanner {
+  height: 36px;
 }
 
 #headerContainer {
@@ -103,8 +116,16 @@ table td, table th {
   width: 860px;
 }
 
-#bannerH {
+#banner_top_728x90 {
   float: left;
+}
+
+#banner_main_468x60 {
+  margin-left: 201px;
+}
+
+#banner_beforeResults_728x90 {
+  margin-left: 15px;
 }
 
 #menu {

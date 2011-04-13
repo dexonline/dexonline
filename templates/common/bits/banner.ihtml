@@ -1,0 +1,25 @@
+{** Arguments: id, width and height. Expects corresponding values in the [skin-*] section of dex.conf. **}
+<div id="banner_{$id}">
+  {if $adsProvider == 'diverta'}
+    {include file="common/bits/openxGeneric.ihtml" zoneId="140385" params=$adsProviderParams}
+  {elseif $bannerType == 'openx'}
+    {assign var="key" value="openx_`$id`"}
+    {include file="common/bits/openxGeneric.ihtml" zoneId=$skinVariables.$key}
+  {elseif $bannerType == 'adsense'}
+    {assign var="key" value="adsense_`$id`"}
+    <script type="text/javascript"><!--
+    google_ad_client = "ca-pub-2697300012216849";
+    google_ad_slot = "{$skinVariables.$key.id}";
+    google_ad_width = {$skinVariables.$key.width};
+    google_ad_height = {$skinVariables.$key.height};
+    //-->
+    </script>
+    <script type="text/javascript"
+    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+    </script>
+  {elseif $bannerType == 'fake'}
+    <div style="background: #761818; color: white; font-size: 20px; height: {$height}px; width: {$width}px;">
+      Banner fals
+    </div>
+  {/if}
+</div>

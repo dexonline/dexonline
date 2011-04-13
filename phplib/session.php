@@ -133,6 +133,15 @@ function session_isValidSkin($skin) {
   return in_array($skin, pref_getServerPreference('skins'));
 }
 
+/**
+ * Returns an array of the skin-specific preferences defined in the section skin-{$skin}.
+ * Returns an empty array if the section is not defined. Never returns false/null.
+ **/
+function session_getSkinPreferences($skin) {
+  $prefs = pref_getServerPreference("skin-{$skin}");
+  return $prefs ? $prefs : array();
+}
+
 function session_setSourceCookie($source) {
   setcookie('prefs[source]', $source, time() + 3600 * 24 * 365, "/");
 }

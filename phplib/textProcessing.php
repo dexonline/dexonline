@@ -1425,4 +1425,11 @@ function _text_htmlizeAbbreviations($s, $sourceId, &$errors = null) {
   return $s;
 }
 
+/** Simple wrapper to call parse_str and return the array it produces **/
+function text_parseStr($s) {
+  $result = array();
+  parse_str($s, $result);
+  return $result;
+}
+
 ?>

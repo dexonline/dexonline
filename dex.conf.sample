@@ -4,18 +4,17 @@
 adoDbActiveRecordClass = adodb/adodb-active-record.inc.php
 adoDbClass = adodb/adodb.inc.php
 
-; Modules that are allowed to run and possibly serve a banner instead of the bannerH and bannerV choices below
+; Modules that are allowed to run and possibly serve a banner instead of the bannerType choice below.
 ; These will be invoked in the order they are listed until one of them serves a banner.
-; If none of them has a relevant banner, we fall back to bannerH and bannerV
-; adsModulesH[] = module1
-; adsModulesH[] = module2
+; If none of them has a relevant banner, we fall back to bannerType.
+; adsModulesH[] = diverta
+; adsModulesH[] = someOtherModule
 
-; Types of banners to be served for the horizontal and vertical banner.
-; Banner sizes are always leaderboard (728x90, 90x728).
+; Type of banner to be served.
+; Banner sizes are dictated by the skin. See templates/common/bits/banner.ihtml.
 ; Choices are "openx", "adsense", "fake" or "none".
 ; The option "fake" displays a placeholder banner and can be used in development/beta (so as not to steal real impressions from campaigns).
-bannerH = none
-bannerV = none
+bannerType = openx
 
 ; Contact email, sprinkled throughout the site
 contact = contact@dexonline.ro
@@ -31,8 +30,10 @@ hostedBy =
 
 ; LOC versions (for scrabble users). Each version should have a corresponding LOC_* database.
 ; See also mysql_loc_prefix
-locVersions[] = 4.0 09/18/2007
-locVersions[] = 5.0 current
+locVersions[] = 4.0 10/09/2007
+locVersions[] = 4.1 01/11/2008
+locVersions[] = 5.0 01/24/2011
+locVersions[] = 6.0 current
 
 ; Whether or not to log query-related information
 logSearch = 1
@@ -63,3 +64,19 @@ skins[] = polar
 
 ; Location of the smarty class file.
 smartyClass = smarty/Smarty.class.php
+
+[skin-zepu]
+; Display a 728x90 banner at the top most of the time.
+; For the rest, display banners (468x60 or 728x90) after the search box.
+topBannerProbability = 0.95
+adsense_top_728x90 = "id=2054526829&width=728&height=90"
+adsense_main_468x60 = "id=7726748553&width=468&height=60"
+adsense_beforeResults_728x90 = "id=5836287659&width=728&height=90"
+openx_top_728x90 = 121346
+openx_main_468x60 = 201502
+openx_beforeResults_728x90 = 201501
+
+[skin-polar]
+; No tweaks here
+adsense_top_728x90 = "id=2054526829&width=728&height=90"
+openx_top_728x90 = 121346

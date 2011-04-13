@@ -24,7 +24,7 @@ function smarty_init() {
   $smarty->assign('debug', session_isDebug());
   $smarty->assign('hostedBy', pref_getHostedBy());
   $smarty->assign('currentYear', date("Y"));
-  $smarty->assign('bannerH', pref_getServerPreference('bannerH'));
+  $smarty->assign('bannerType', pref_getServerPreference('bannerType'));
   $GLOBALS['smarty_theSmarty'] = $smarty;
 }
 
@@ -32,23 +32,40 @@ function smarty_isInitialized() {
   return array_key_exists('smarty_theSmarty', $GLOBALS);
 }
 
+function smarty_display() {
+  $skin = session_getSkin();
+
+  // Set some skin variables based on the skin preferences in the config file.
+  $skinVariables = session_getSkinPreferences($skin);
+  switch ($skin) {
+  case 'zepu':
+    if (rand(0, 9999) < $skinVariables['topBannerProbability'] * 10000) {
+      $skinVariables['topBanner'] = true;
+      $skinVariables['afterSearchBoxBanner'] = false;
+    } else {
+      $skinVariables['topBanner'] = false;
+      $skinVariables['afterSearchBoxBanner'] = true;
+    }
+    break;
+  case 'polar':
+    // No tweaks here
+    break;
+  }
+  smarty_assign('skinVariables', $skinVariables);
+
+  smarty_register_outputfilters();
+  $GLOBALS['smarty_theSmarty']->display("$skin/pageLayout.ihtml");
+}
+
 function smarty_displayCommonPageWithSkin($templateName) {
   smarty_assign('contentTemplateName', "common/$templateName");
-  $fileName = session_getSkin() . '/pageLayout.ihtml';
-  smarty_register_outputfilters();
-  $GLOBALS['smarty_theSmarty']->display($fileName);
+  smarty_display();
 }
 
 function smarty_displayPageWithSkin($templateName) {
   $skin = session_getSkin();
   smarty_assign('contentTemplateName', "$skin/$templateName");
-  $fileName = "$skin/pageLayout.ihtml";
-  smarty_register_outputfilters();
-  $GLOBALS['smarty_theSmarty']->display($fileName);
-}
-
-function smarty_display($templateName) {
-  $GLOBALS['smarty_theSmarty']->display($templateName);
+  smarty_display();
 }
 
 function smarty_displayWithoutSkin($templateName) {

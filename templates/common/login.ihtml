@@ -1,7 +1,10 @@
 Pentru a vă conecta, introduceți adresa de e-mail sau numele de cont și parola. Dacă v-ați uitat parola, introduceți doar adresa
 de e-mail și apăsați butonul „Mi-am uitat parola”. Vă va fi trimis un e-mail cu instrucțiuni pentru schimbarea parolei.
+<br/><br/>
 
-<p><form name="loginForm" method="post" action="login">
+Nu aveți cont? <a href="{$wwwRoot}inregistrare">Înregistrați-vă</a>!<br/><br/>
+
+<form name="loginForm" method="post" action="login">
 <table class="userEdit">
   <tr>
     <td>Adresa de e-mail sau numele de cont:</td>
@@ -19,3 +22,4 @@ de e-mail și apăsați butonul „Mi-am uitat parola”. Vă va fi trimis un e-
     </td>
   </tr>
 </table>
+</form>

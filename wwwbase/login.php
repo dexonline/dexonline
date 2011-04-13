@@ -62,5 +62,6 @@ if ($loginButton) {
 }
 
 smarty_assign('page_title', 'Conectare utilizator');
+smarty_assign('suggestHiddenSearchForm', true);
 smarty_displayCommonPageWithSkin('login.ihtml');
 ?>

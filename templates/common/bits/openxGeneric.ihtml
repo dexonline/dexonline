@@ -3,7 +3,7 @@
    var m3_r = Math.floor(Math.random()*99999999999);
    if (!document.MAX_used) document.MAX_used = ',';
    document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
-   document.write ("?zoneid={$zoneId}&amp;charset=UTF-8");
+   document.write ("?zoneid={$zoneId}");
    document.write ('&amp;cb=' + m3_r);
    {foreach from=$params item=value key=key}
      document.write('&amp;{$key}={$value}');

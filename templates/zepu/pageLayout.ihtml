@@ -12,13 +12,15 @@
   </head>
 
   <body>
-    <div id="header">
+    <div id="header" class="{if $skinVariables.topBanner}withBanner{else}withoutBanner{/if}">
       <div id="headerContainer">
-        {include file="common/bits/bannerH.ihtml"}
-        <div id="userActions">
+        {if $skinVariables.topBanner}
+          {include file="common/bits/banner.ihtml" id="top_728x90" width="728" height="90"}
+        {/if}
+        <div id="userActions" class="{if $skinVariables.topBanner}withBanner{else}withoutBanner{/if}">
           {if !$is_mirror}
-            <span id="userNick">{$nick|escape}</span><br/>
-            <ul id="userUl">
+            <span id="userNick">{$nick|escape}</span>
+            <ul>
               {if $sUser}
                 {if $sUser->moderator & $smarty.const.PRIV_EDIT}
                   <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
@@ -28,7 +30,6 @@
               {else}
                 <li><a href="{$wwwRoot}preferinte">Preferințe</a></li>
                 <li><a href="{$wwwRoot}login">Conectare</a></li>
-                <li><a href="{$wwwRoot}inregistrare">Înregistrare</a></li>
               {/if}
             </ul>
           {/if}
@@ -36,6 +37,7 @@
       </div>
     </div>
 
+    <div class="clearer"></div>
 
     <div id="Container">
       <div id="menu">
@@ -64,6 +66,10 @@
         <div id="Search2">
           {include file="zepu/search.ihtml"}
         </div>
+      {/if}
+
+      {if !$onHomePage && $skinVariables.afterSearchBoxBanner}
+        {include file="common/bits/banner.ihtml" id="beforeResults_728x90" width="728" height="90"}
       {/if}
 
       <div id="contentProper">

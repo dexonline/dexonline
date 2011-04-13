@@ -7,6 +7,10 @@
   {include file="zepu/search.ihtml" advancedSearch=1}
 </div>
 
+{if $skinVariables.afterSearchBoxBanner}
+  {include file="common/bits/banner.ihtml" id="main_468x60" width="468" height="60"}
+{/if}
+
 <div class="clearer"></div>
 
 <div class="statusReport">

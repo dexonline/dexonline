@@ -82,6 +82,7 @@ function util_getCssRoot() {
 
 function util_requireOtherFiles() {
   $root = util_getRootPath();
+  require_once("$root/phplib/textProcessing.php");
   require_once("$root/phplib/serverPreferences.php");
   require_once(pref_getServerPreference('adoDbClass'));
   require_once(pref_getServerPreference('adoDbActiveRecordClass'));
@@ -95,7 +96,6 @@ function util_requireOtherFiles() {
   require_once("$root/phplib/os.php");
   require_once("$root/phplib/session.php");
   require_once("$root/phplib/smarty.php");
-  require_once("$root/phplib/textProcessing.php");
   require_once("$root/phplib/memcache.php");
 }
 

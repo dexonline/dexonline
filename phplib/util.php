@@ -131,6 +131,7 @@ function util_defineConstants() {
   define("SEARCH_DEF_ID", 4);
   define("SEARCH_LEXEM_ID", 5);
   define("SEARCH_FULL_TEXT", 6);
+  define("SEARCH_WOTD", 6);
 
   define("INFINITY", 1000000000);
 

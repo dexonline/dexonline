@@ -1,11 +1,17 @@
 function beginEdit(id){
   $('#displayDate').datepicker({ dateFormat: 'yy-mm-dd' });
-  $('#lexicon').autocomplete("wotdGetDefinitions.php").result(function(event, item){
-    var lexicon = item[0].replace(/^([^ | ^\-]*) -.*$/, '$1');
-    var definitionId = item[0].replace(/^[^\[|\[^\{]*\[\{([0-9]+)\}\]$/, '$1');
-    $('#definitionId').val(definitionId);
-    $('#lexicon').val(lexicon);
-  });
+  if($('#lexicon').val()){
+      $('#lexicon').attr('readonly', true);
+  }
+  else {
+      $('#lexicon').attr('readonly', false);
+      $('#lexicon').autocomplete("wotdGetDefinitions.php").result(function(event, item){
+        var lexicon = item[0].replace(/^([^ | ^\-]*) -.*$/, '$1');
+        var definitionId = item[0].replace(/^[^\[|\[^\{]*\[\{([0-9]+)\}\]$/, '$1');
+        $('#definitionId').val(definitionId);
+        $('#lexicon').val(lexicon);
+      });
+  }
   $('#priority')[0].style.width = '400px';
   $('#displayDate')[0].style.width = '400px';
   $('#lexicon')[0].style.width = '400px';

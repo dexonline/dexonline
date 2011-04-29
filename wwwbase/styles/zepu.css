@@ -277,6 +277,20 @@ table td, table th {
   -webkit-border-radius: 7px;
 }
 
+.statusReportMini {
+  display: none;  
+  background: #f4f4f4;
+  border: 1px solid #761818;
+  color: #333;
+  margin: 45px auto 10px;
+  padding: 5px;
+  width: 200px;
+  text-align: center;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+}
+
+div.resultBar {
 div.resultBar {
   background: #f4f4f4;
   border: 1px solid #aaa;

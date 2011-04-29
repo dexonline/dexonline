@@ -1,0 +1,4 @@
+<div id="wotd" class="statusReportMini">
+<script>loadWotd()</script>
+</div>
+

@@ -183,6 +183,23 @@ function getParadigmCallback(httpRequest) {
   }
 }
 
+function loadWotd() {
+    makeGetRequest(wwwRoot + 'da-mi/cuvantul-zilei', getWotdCallback, null);
+}
+
+function getWotdCallback (httpRequest){
+  if (httpRequest.readyState == 4) {
+    if (httpRequest.status == 200) {
+        var wotd = document.getElementById('wotd');
+        wotd.innerHTML = 'Cuvântul zilei: ' + httpRequest.responseText;
+        wotd.style.display = 'block';
+    }
+    else {
+        //do something in case of error
+    }
+  }
+}
+
 function addToEngines() {
   if ((typeof window.sidebar == 'object') &&
       (typeof window.sidebar.addSearchEngine == 'function')) {

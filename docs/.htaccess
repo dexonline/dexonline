@@ -25,6 +25,9 @@ RewriteRule ^flexiune/lexem/(.*)$ paradigm.php?lexemId=$1 [PT,L]
 RewriteRule ^(declinare|conjugare)/lexem/(.*)$ paradigm.php?lexemId=$2&type=$1 [PT,L]
 RewriteRule ^flexiune/(.*)$ paradigm.php?cuv=$1 [PT,L]
 RewriteRule ^(declinare|conjugare)/(.*)$ paradigm.php?cuv=$2&type=$1 [PT,L]
+RewriteRule ^cuvantul-zilei$ wotd.php [PT,L]
+RewriteRule ^cuvantul-zilei/(.*)$ wotd.php?d=$1 [PT,L]
+RewriteRule ^da-mi/cuvantul-zilei$ wotd.php?t=url [PT,L]
 
 # Non-search pages
 RewriteRule ^404$ simple.php?p=404 [PT,L]

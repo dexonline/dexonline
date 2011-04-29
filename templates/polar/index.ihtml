@@ -5,4 +5,9 @@
   Internațional</a> și <a href="{$wwwRoot}spre/saeculum">Saeculum</a>, care ne-au pus la dispoziție cinci dicționare complete.
 </p>
 
+<div id="wotd" class="statusReportMini">
+<script>loadWotd()</script>
+</div>
+<br/>
+
 {include file="common/randomTip.ihtml"}

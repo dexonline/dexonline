@@ -51,6 +51,7 @@
           <li><a href="{$wwwRoot}informatii">Informații</a></li>
           <li><a href="{$wwwRoot}contribuie">Contribuie</a></li>
           <li><a href="{$wwwRoot}ghid-exprimare">Ghid de exprimare</a></li>
+          <li><a href="{$wwwRoot}cuvantul-zilei">Cuvântul zilei</a></li>
           <li><a href="{$wwwRoot}unelte">Unelte</a></li>
           <li><a href="{$wwwRoot}top">Top</a></li>
           <li><a href="#" onclick="abbrevWindow(); return false;">Abrevieri</a></li>

@@ -364,7 +364,7 @@ class SearchResult {
       if ($result->comment) {
         $result->commentAuthor = User::get("id = {$result->comment->userId}");
       }
-	  $result->wotd = WordOfTheDay::getStatus($definition->id);
+      $result->wotd = WordOfTheDay::getStatus($definition->id);
       $results[] = $result;
     }
     return $results;
@@ -460,10 +460,10 @@ class TopEntry {
     $ord = (int) $ord;
     if ($crit == CRIT_CHARS) {
       array_multisort($numChars, SORT_NUMERIC, $ord, $nick, SORT_ASC,
-		      $topEntries);
+              $topEntries);
     } else if ($crit == CRIT_WORDS) {
       array_multisort($numWords, SORT_NUMERIC, $ord, $nick, SORT_ASC,
-		      $topEntries);
+              $topEntries);
     } else if ($crit == CRIT_NICK) {
       array_multisort($nick, $ord, $topEntries);
     } else /* $crit == CRIT_DATE */ {
@@ -1292,25 +1292,25 @@ class Variable extends BaseObject {
 
 
 class AdsLink extends BaseObject {
-	public static function getUrlByKey($skey) {
-		$al = new AdsLink();
-		$al->load("skey = ", $skey);
-		return $al->url;
-	}
+    public static function getUrlByKey($skey) {
+        $al = new AdsLink();
+        $al->load("skey = ", $skey);
+        return $al->url;
+    }
 }
 
 
 class AdsClick extends BaseObject {
-	function __construct($skey, $ip) {
-		parent::__construct();
-		$this->skey = $skey;
-		$this->ip = ip2long($ip);
-	}
+    function __construct($skey, $ip) {
+        parent::__construct();
+        $this->skey = $skey;
+        $this->ip = ip2long($ip);
+    }
 
-	public static function addClick($skey, $ip) {
-		$ac = new AdsClick($skey, $ip);
-		$ac->save();
-	}
+    public static function addClick($skey, $ip) {
+        $ac = new AdsClick($skey, $ip);
+        $ac->save();
+    }
 }
 
 class PasswordToken extends BaseObject {
@@ -1323,72 +1323,85 @@ class PasswordToken extends BaseObject {
 
 
 class Abbreviation extends BaseObject {
-	public static function getAbbrById($id) {
-		$abbr = new Abbreviation();
-		$abbr->load("id = ", $id);
-		return $abbr->description;
-	}
+    public static function getAbbrById($id) {
+        $abbr = new Abbreviation();
+        $abbr->load("id = ", $id);
+        return $abbr->description;
+    }
 
-	public static function getAbbrByTerm($abbr, $source = NULL) {
-		$query = "SELECT source_id, description from Abbreviation WHERE abbr='$abbr'";
-		if ($source) $query .= " AND source_id = $source";
-		$dbResult = db_execute($query);
-		return db_getObjects(new Abbreviation(), $dbResult);
-	}
+    public static function getAbbrByTerm($abbr, $source = NULL) {
+        $query = "SELECT source_id, description from Abbreviation WHERE abbr='$abbr'";
+        if ($source) $query .= " AND source_id = $source";
+        $dbResult = db_execute($query);
+        return db_getObjects(new Abbreviation(), $dbResult);
+    }
 
 }
 
 
 class WordOfTheDayRel extends BaseObject {
-	public function countDefs($defId) {
-		$query = "SELECT count(*) from WordOfTheDayRel WHERE defId = $defId";
-		$count = db_getSingleValue($query);
-		return $count;
-	}
+    public function countDefs($refId) {
+        $query = "SELECT count(*) from WordOfTheDayRel WHERE refId = $refId";
+        $count = db_getSingleValue($query);
+        return $count;
+    }
+
+    public static function getRefId($wotdId) {
+        $query = "select refId from WordOfTheDayRel where wotdId=$wotdId";
+        $dbResult = db_execute($query);
+        return $dbResult ? $dbResult->fields('refId') : NULL;
+    }
 }
 
 
 class WordOfTheDay extends BaseObject {
-	public static function get($where) {
-		$obj = new WordOfTheDay();
-		$obj = load($where);
-		return $obj->id ? $obj : null;
-	}
-
-	public function getStatus($refId, $refType = 'Definition') {
-		$query = "SELECT W.id from WordOfTheDay W JOIN WordOfTheDayRel R ON W.id=R.wotdId WHERE R.refId = $refId AND refType='$refType'";
-		$dbResult = db_execute($query);
-		return $dbResult ? $dbResult->fields('id') : NULL;
-	}
-
-  public function save() {
-    $this->userId = session_getUserId();
-    parent::save();
-
-		$obj = new WordOfTheDayRel();
-    
-		$obj->refId = $this->defId;
-    if ($this->refType == null){
-      $obj->refType = 'Definition';
-    } else {
-      $obj->refType = $this->refType;
-    }
-		$obj->wotdId = $this->id;
-
-    if ($this->oldDefinitionId != null){
-      $rows = db_find(new WordOfTheDayRel(), 'wotdId = ' . $obj->wotdId . ' and refId = ' . $this->oldDefinitionId);
-      var_dump($rows);
-      if (count($rows) > 0){
-        $objDel = new WordOfTheDayRel();
-        $objDel->id = $rows[0]->id;
-        $objDel->Delete();
-      }
+    public static function get($where) {
+        $obj = new WordOfTheDay();
+        $obj = load($where);
+        return $obj->id ? $obj : null;
     }
 
-		$obj->save();
+    public function getTodaysWord() {
+        $query = "select id from WordOfTheDay where displayDate=curdate()";
+        $dbResult = db_execute($query);
+        return $dbResult ? $dbResult->fields('id') : NULL;
+    }
 
-		return $obj;
-  }
+    public function getOldWotD($date) {
+        $query = "select id from WordOfTheDay where displayDate='$date'";
+        $dbResult = db_execute($query);
+        return $dbResult ? $dbResult->fields('id') : NULL;
+    }
+
+    public function updateTodaysWord() {
+        $query = "update WordOfTheDay set displayDate=CURDATE() order by priority, rand() limit 1";
+        db_execute($query);
+    }
+
+    public function getStatus($refId, $refType = 'Definition') {
+        $query = "SELECT W.id from WordOfTheDay W JOIN WordOfTheDayRel R ON W.id=R.wotdId WHERE R.refId = $refId AND refType='$refType'";
+        $dbResult = db_execute($query);
+        return $dbResult ? $dbResult->fields('id') : NULL;
+    }
+
+    public function save() {
+        $this->userId = session_getUserId();
+        parent::save();
+
+        $obj = new WordOfTheDayRel();
+        $obj->refId = $this->defId;
+        if ($this->refType == null){
+             $obj->refType = 'Definition';
+        } else {
+             $obj->refType = $this->refType;
+        }
+
+        $obj->wotdId = $this->id;
+        $obj->save();
+
+        return $obj;
+    }
+
 }
 
 

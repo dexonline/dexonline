@@ -34,6 +34,9 @@
         Definiția cu ID-ul {$defId|escape}:
       {/if}
   
+    {elseif $searchType == SEARCH_WOTD}
+        Cuvântul zilei {if ($fdate)}(din {$fdate}){/if}
+
     {elseif $searchType == SEARCH_REGEXP}
       {if $numResults}
         {if $numResults > count($lexems)}

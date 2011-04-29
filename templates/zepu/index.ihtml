@@ -21,6 +21,10 @@
   {/foreach}
 </div>
 
+<div id="wotd" class="statusReportMini">
+<script>loadWotd()</script>
+</div>
+
 <div class="clearer"></div>
 
 <div class="hptxt">

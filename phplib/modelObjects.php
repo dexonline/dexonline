@@ -1361,6 +1361,12 @@ class WordOfTheDay extends BaseObject {
         return $obj->id ? $obj : null;
     }
 
+    public static function getRSSWotD() {
+        $query = "SELECT * FROM WordOfTheDay WHERE displayDate IS NOT NULL ORDER BY displayDate DESC LIMIT 25";
+        $dbResult = db_execute($query);
+        return db_getObjects(new WordOfTheDay(), $dbResult);
+    }
+
     public function getTodaysWord() {
         $query = "select id from WordOfTheDay where displayDate=curdate()";
         $dbResult = db_execute($query);

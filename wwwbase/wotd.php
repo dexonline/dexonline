@@ -6,15 +6,44 @@ util_assertNotMirror();
 $date = util_getRequestParameter('d');
 $type = util_getRequestParameter('t');
 
+# RSS stuff - could be separated from the rest
+# TODO optimize & factorize
+# TODO create new template for WotD stuff
+if ($type == 'rss') {
+    $words = WordOfTheDay::getRSSWotD();
+    $results = array();
+    foreach ($words as $w) {
+        $item = array();
+        $ts = strtotime($w->displayDate);
+        $defId = WordOfTheDayRel::getRefId($w->id);
+        $def = Definition::get("id = '$defId' and status = 0");
+        $item['title'] = $def->lexicon;
+        $item['description'] = $def->htmlRep;
+        $item['pubDate'] = date('D, d M Y H:i:s', $ts) . ' EEST';
+        $item['link'] = 'http://' . $_SERVER['HTTP_HOST'] . '/cuvantul-zilei/' . date('Y/m/d', $ts);
+
+        $results[] = $item;
+    }
+
+    header("Content-type: text/xml");
+    smarty_assign('rss_title', 'Cuvântul zilei');
+    smarty_assign('rss_link', 'http://' . $_SERVER['HTTP_HOST'] . '/rss/cuvantul-zilei/');
+    smarty_assign('rss_description', 'Doza zilnică de cuvinte propuse de DEXonline!');
+    smarty_assign('rss_pubDate', date('D, d M Y H:i:s') . ' EEST');
+    smarty_assign('results', $results);
+    smarty_displayWithoutSkin('common/rss.ixml');
+    exit;
+}
+
 # get today's date
 # check if there's defined a wotd
 # if yes return it
 # if not randomly choose one
 # save it to DB (actually save the today's date)
 # and return it
-#
 
 $wotd = new WordOfTheDay();
+
 if ($date) {
     $fdate = date("Y-m-d", strtotime($date));
     smarty_assign('fdate', $fdate);

@@ -28,6 +28,7 @@ RewriteRule ^(declinare|conjugare)/(.*)$ paradigm.php?cuv=$2&type=$1 [PT,L]
 RewriteRule ^cuvantul-zilei$ wotd.php [PT,L]
 RewriteRule ^cuvantul-zilei/(.*)$ wotd.php?d=$1 [PT,L]
 RewriteRule ^da-mi/cuvantul-zilei$ wotd.php?t=url [PT,L]
+RewriteRule ^rss/cuvantul-zilei$ wotd.php?t=rss [PT,L]
 
 # Non-search pages
 RewriteRule ^404$ simple.php?p=404 [PT,L]

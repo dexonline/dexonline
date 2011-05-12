@@ -74,7 +74,8 @@ class wotdSave{
       $table->_saved = true;
       $table->oldDefinitionId = $this->oldDefinitionId;
     }
-    $table->displayDate = $this->displayDate;
+    if ($this->displayDate)
+        $table->displayDate = $this->displayDate;
     $table->priority = $this->priority;
     $table->refId = $this->refId;
     $table->defId = $this->refId;

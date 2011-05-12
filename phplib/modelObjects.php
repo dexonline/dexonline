@@ -1362,7 +1362,7 @@ class WordOfTheDay extends BaseObject {
     }
 
     public static function getRSSWotD() {
-        $query = "SELECT * FROM WordOfTheDay WHERE displayDate > '2011-01-01' ORDER BY displayDate DESC LIMIT 25";
+        $query = "SELECT * FROM WordOfTheDay WHERE displayDate > '2011-01-01' AND displayDate < NOW() ORDER BY displayDate DESC LIMIT 25";
         $dbResult = db_execute($query);
         return db_getObjects(new WordOfTheDay(), $dbResult);
     }
@@ -1380,7 +1380,7 @@ class WordOfTheDay extends BaseObject {
     }
 
     public function updateTodaysWord() {
-        $query = "update WordOfTheDay set displayDate=CURDATE() order by priority, rand() limit 1";
+        $query = "update WordOfTheDay set displayDate=CURDATE() where displayDate is null order by priority, rand() limit 1";
         db_execute($query);
     }
 

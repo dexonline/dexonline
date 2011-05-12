@@ -1390,7 +1390,7 @@ class WordOfTheDay extends BaseObject {
         return $dbResult ? $dbResult->fields('id') : NULL;
     }
 
-    public function save($userId) {
+    public function save($userId = NULL) {
         $this->userId = $userId ? $userId : session_getUserId();
         parent::save();
 

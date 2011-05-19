@@ -66,6 +66,7 @@ if ($sendButton) {
 
 smarty_assign('contribSources', db_find(new Source(), 'canContribute order by displayOrder'));
 smarty_assign('page_title', 'Contribuie cu definiții');
+smarty_assign('suggestNoBanner', true);
 smarty_displayCommonPageWithSkin('contribuie.ihtml');
 
 /**************************************************************************/

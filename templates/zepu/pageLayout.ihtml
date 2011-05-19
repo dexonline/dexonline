@@ -69,7 +69,7 @@
         </div>
       {/if}
 
-      {if !$onHomePage && !suggestNoBanner && $skinVariables.afterSearchBoxBanner}
+      {if !$onHomePage && !$suggestNoBanner && $skinVariables.afterSearchBoxBanner}
         {include file="common/bits/banner.ihtml" id="beforeResults_728x90" width="728" height="90"}
       {/if}
 

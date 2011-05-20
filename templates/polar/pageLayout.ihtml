@@ -3,13 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" paradigm=1 polar=1}
-    <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
     <title>{$page_title|escape} | DEX online</title>
-    {if $page_description}
-      <meta name="description" content="{$page_description}"/>
-    {/if}
-    {include file="common/bits/js.ihtml" dex=1}
+{if $page_description}
+    <meta name="description" content="{$page_description}"/>
+{/if}
+{if $page_keywords}
+    <meta name="keywords" content="{$page_keywords}"/>
+{/if}
+{include file="common/bits/css.ihtml" paradigm=1 polar=1}
+    <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
+{include file="common/bits/js.ihtml" dex=1}
   </head>
 
   <body>

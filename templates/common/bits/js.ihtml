@@ -1,33 +1,31 @@
 {if $dex}
-  <script type="text/javascript" src="{$wwwRoot}js/dex.js?v=14"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/dex.js?v=14"></script>
 {/if}
 {if $flex}
-  <script type="text/javascript" src="{$wwwRoot}js/flex.js?v=2"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/flex.js?v=2"></script>
 {/if}
 {if $mobile}
-  <script type="text/javascript" src="{$wwwRoot}js/mobile.js?v=1"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/mobile.js?v=1"></script>
 {/if}
-
 {* External resources *}
-
 {if $jquery}
-  <script type="text/javascript" src="{$wwwRoot}js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/jquery-1.4.2.min.js"></script>
 {/if}
 {if $tablesorter}
-  <script type="text/javascript" src="{$wwwRoot}js/jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/jquery.tablesorter.min.js"></script>
 {/if}
 {if $pager}
-  <script type="text/javascript" src="{$wwwRoot}js/jquery.tablesorter.pager.js"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/jquery.tablesorter.pager.js"></script>
 {/if}
 {if $autocomplete}
-  <script type="text/javascript" src="{$wwwRoot}js/jquery.autocomplete.pack.js"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/jquery.autocomplete.pack.js"></script>
 {/if}
 {if $jqgrid}
-  <script type="text/javascript" src="{$wwwRoot}js/grid.locale-en.js?v=1"></script>
-  <script type="text/javascript" src="{$wwwRoot}js/jquery.datepicker.pack.js?v=1"></script>
-  <script type="text/javascript" src="{$wwwRoot}js/jquery.jqGrid.min.js?v=1"></script>
-  <script type="text/javascript" src="{$wwwRoot}js/jqgrid.init.js?v=1"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/grid.locale-en.js?v=1"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/jquery.datepicker.pack.js?v=1"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/jquery.jqGrid.min.js?v=1"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/jqgrid.init.js?v=1"></script>
 {/if}
 {if $jqTableDnd}
-  <script type="text/javascript" src="{$wwwRoot}js/jquery.tablednd_0_5.js?v=1"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/jquery.tablednd_0_5.js?v=1"></script>
 {/if}

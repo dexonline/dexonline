@@ -46,10 +46,12 @@ $wotd = new WordOfTheDay();
 
 if ($date) {
     $fdate = date("Y-m-d", strtotime($date));
+    $titleDate = " ({$fdate})";
     smarty_assign('fdate', $fdate);
     $id = $wotd->getOldWotD($fdate);
 }
 else {
+    $titleDate = "";
     $id = $wotd->getTodaysWord();
     if (!$id) {
         $wotd->updateTodaysWord();
@@ -58,7 +60,12 @@ else {
 }
 
 $defId = WordOfTheDayRel::getRefId($id);
-$def = Definition::get("id = '$defId' and status = 0"); 
+$def = Definition::get("id = '$defId' and status = 0");
+$cuv = $def->lexicon;
+
+smarty_assign('page_title', "Cuvântul zilei{$titleDate}: {$cuv}");
+smarty_assign('page_keywords', "Cuvântul zilei, {$cuv}, dexonline, DEX online, Cuvântul zilei{$titleDate}");
+smarty_assign('page_description', "Cuvântul zilei{$titleDate} de la dexonline");
 
 if ($type == 'url') {
     smarty_assign('wwwRoot', 'http://' . $_SERVER['HTTP_HOST'] . '/');

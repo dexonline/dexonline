@@ -37,8 +37,6 @@ if ($cuv) {
   $hasDiacritics = session_user_prefers('FORCE_DIACRITICS') || $arr[0];
   $hasRegexp = $arr[1];
   $isAllDigits = $arr[2];
-  smarty_assign('page_title', "Definitie: {$cuv}");
-  smarty_assign('page_description', "Definiții, sinonime, antonime, expresii, conjugări și declinări pentru {$cuv}");
 }
 
 if ($isAllDigits) {
@@ -176,6 +174,8 @@ if ($searchType == SEARCH_INFLECTED) {
   }
 }
 
+$conjugations = NULL;
+$declensions = NULL;
 if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $searchType == SEARCH_FULL_TEXT || $searchType == SEARCH_MULTIWORD) {
   // Definition::incrementDisplayCount($definitions);
   smarty_assign('results', $searchResults);
@@ -214,12 +214,12 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
     }
     smarty_assign('declensionText', $declensionText);
 
-	$sourceNamesArr = array();
-	foreach($lexems as $l) {
-	  $sourceNamesArr[] = getNamesOfSources($l->source);
-	}
+    $sourceNamesArr = array();
+    foreach($lexems as $l) {
+      $sourceNamesArr[] = getNamesOfSources($l->source);
+    }
 
-	smarty_assign('sourceNamesArr', $sourceNamesArr);
+    smarty_assign('sourceNamesArr', $sourceNamesArr);
   }
 }
 
@@ -229,6 +229,52 @@ if (pref_getServerPreference('logSearch')) {
   $log->logData();
 }
 
+$sourceList = array();
+if ($searchResults) {
+  foreach ($searchResults as $row) {
+      if (!in_array($row->source->shortName, $sourceList)) {
+        $sourceList[] = $row->source->shortName;
+      }
+  }
+}
+
+// META tags - TODO move in a dedicated file
+if ($cuv) {
+  $page_keywords = "{$cuv}, definiție {$cuv}";
+  $page_description = "Dicționar dexonline (DEX online). Definiții";
+  if (in_array('Sinonime', $sourceList)) {
+    $page_keywords .= ", sinonime {$cuv}";
+    $page_description .= ', sinonime';
+  }
+  if (in_array('Antonime', $sourceList)) {
+    $page_keywords .= ", antonime {$cuv}";
+    $page_description .= ', antonime';
+  }
+  if(!is_null($conjugations)) {
+    $page_keywords .= ", conjugări {$cuv}";
+    $page_description .= ', conjugări';
+  }
+  if (!is_null($declensions)) {
+    $page_keywords .= ", declinări {$cuv}";
+    $page_description .= ', declinări';
+  }
+  if (!is_null($conjugations) || !is_null($declensions)) {
+    $page_keywords .= ", paradigmă {$cuv}";
+    $page_description .= ', paradigme';
+  }
+  $page_keywords .= ", dexonline, DEX online";
+  $page_description .= " pentru {$cuv}";
+
+  if (count($sourceList)) {
+    $page_description .= " din dicționarele: " . implode(", ", $sourceList);
+  }
+
+  smarty_assign('page_title', "{$cuv} - definitie");
+  smarty_assign('page_keywords', $page_keywords);
+  smarty_assign('page_description', $page_description);
+}
+
+// Ads
 AdsModule::runAllModules(empty($lexems) ? null : $lexems, empty($definitions) ? null : $definitions);
 
 smarty_assign('text', $text);

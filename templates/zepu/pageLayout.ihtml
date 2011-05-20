@@ -1,13 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    {include file="common/bits/css.ihtml" zepu=1}
-    {include file="common/bits/js.ihtml" dex=1}
     <title>{$page_title|escape} | DEX online</title>
-    {if $page_description}
-      <meta name="description" content="{$page_description}"/>
-    {/if}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{if $page_description}
+    <meta name="description" content="{$page_description}"/>
+{/if}
+{if $page_keywords}
+    <meta name="keywords" content="{$page_keywords}"/>
+{/if}
+{include file="common/bits/css.ihtml" zepu=1}
+{include file="common/bits/js.ihtml" dex=1}
     <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
   </head>
 

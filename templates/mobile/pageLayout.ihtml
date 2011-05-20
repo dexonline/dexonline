@@ -3,9 +3,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" mobile=1 paradigm=1}
     <title>{$page_title|escape} | DEX online</title>
-    {include file="common/bits/js.ihtml" dex=1 mobile=1}
+{if $page_description}
+    <meta name="description" content="{$page_description}"/>
+{/if}
+{if $page_keywords}
+    <meta name="keywords" content="{$page_keywords}"/>
+{/if}
+{include file="common/bits/css.ihtml" mobile=1 paradigm=1}
+{include file="common/bits/js.ihtml" dex=1 mobile=1}
   </head>
 
   <body onload="fixMobile();">
@@ -27,9 +33,9 @@
             <script type="text/javascript">document.frm.cuv.select();document.frm.cuv.focus();</script>
             <input type="submit" value="Caută"/>
             {include file="common/sourceDropDown.ihtml" 
-			skipAnySource=false
-      		urlName=1
-      		}
+            skipAnySource=false
+              urlName=1
+              }
           </form>
         </div>
     </div>
@@ -47,7 +53,7 @@
             {include file="common/hosting/$hostedBy.ihtml"}
         </td>
       </tr>
-	  {/if}
+      {/if}
       <tr>
         <td>
           Starea curentă: <b>{$words_total}</b> de definiţii (<b>{$words_last_month}</b> în ultima lună)<br/>

@@ -61,7 +61,7 @@ else {
 
 $defId = WordOfTheDayRel::getRefId($id);
 $def = Definition::get("id = '$defId' and status = 0");
-$cuv = $def->lexicon;
+$cuv = ($def && $def->lexicon) ? $def->lexicon : '';
 
 smarty_assign('page_title', "Cuvântul zilei{$titleDate}: {$cuv}");
 smarty_assign('page_keywords', "Cuvântul zilei, {$cuv}, dexonline, DEX online, Cuvântul zilei{$titleDate}");
@@ -79,8 +79,11 @@ else {
     $definitions = array();
     if ($def) {
         $definitions[] = $def;
-    } else {
-        session_setFlash("Eroare: momentan „Cuvîntul zilei” nu func?ionează.");
+    } elseif ($date && (time() < strtotime($date))) {
+        header("Location: /cuvantul-zilei");
+    }
+    else {
+        session_setFlash("Eroare: momentan „Cuvîntul zilei” nu functionează.");
     }
     $searchResults = SearchResult::mapDefinitionArray($definitions);
     smarty_assign('results', $searchResults);

@@ -230,7 +230,7 @@ if (pref_getServerPreference('logSearch')) {
 }
 
 $sourceList = array();
-if ($searchResults) {
+if (isset($searchResults)) {
   foreach ($searchResults as $row) {
       if (!in_array($row->source->shortName, $sourceList)) {
         $sourceList[] = $row->source->shortName;

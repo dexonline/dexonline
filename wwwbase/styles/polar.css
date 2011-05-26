@@ -387,3 +387,8 @@ th.headerSortDown {
   text-align: center;
 }
 
+.fb_bottom {
+  border-top: 1px solid #CCCCCC;
+  padding-top: 15px;
+  margin-top: 10px;
+}

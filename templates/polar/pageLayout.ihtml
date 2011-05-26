@@ -63,6 +63,13 @@
     {include file="common/flashMessages.ihtml"}
     {include file=$contentTemplateName}
 
+
+    <div class="fb_bottom">
+      <div id="fb-root"></div>
+      <script src="http://connect.facebook.net/ro_RO/all.js#appId=173110666079819&amp;xfbml=1"></script>
+      <fb:like href="http://facebook.com/dexonline" send="true" width="800" ref="polar_bottom" show_faces="false"></fb:like>
+    </div>
+
     <table class="footer">
       <tr>
         <td>

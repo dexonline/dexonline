@@ -83,6 +83,11 @@
 
     <div class="clearer"></div>
 
+    <div class="fb_bottom">
+      <div id="fb-root"></div>
+      <script src="http://connect.facebook.net/ro_RO/all.js#appId=173110666079819&amp;xfbml=1"></script>
+      <fb:like href="http://facebook.com/dexonline" send="true" width="875" ref="zepu_bottom" show_faces="true"></fb:like>
+    </div>
     <div id="Footer">
       Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro) &#x2022; <a href="{$wwwRoot}informatii#licenta">Informații despre licență</a>
     </div>

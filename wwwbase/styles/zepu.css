@@ -659,3 +659,8 @@ input.pagedisplay {
   width: 875px;
   margin-top: 20px;
 }
+
+.fb_top {
+  float: right;
+  margin-top: -3px;
+}

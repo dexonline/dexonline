@@ -1,12 +1,15 @@
 {if count($lexems) || count($results) }
-  <div class="resultBar">
+<div class="resultBar">
+  <div class="fb_top">
+  <iframe src="http://www.facebook.com/plugins/like.php?ref=zepu_top&locale=ro_RO&app_id=225575497453880&amp;href=http%3A%2F%2Ffacebook.com%2Fdexonline&&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
+  </div>
     {if $searchType == SEARCH_INFLECTED}
       {if count($results) == 0}
-	    {if $src_selected}
-		Nu am găsit în acest dicționar definiția lui 
-		{else}
+      {if $src_selected}
+    Nu am găsit în acest dicționar definiția lui 
+    {else}
         Am găsit numai definiții „neoficiale” pentru 
-		{/if}
+    {/if}
       {elseif count($results) == 1}
         O definiție pentru
       {else}
@@ -34,9 +37,6 @@
         Definiția cu ID-ul {$defId|escape}:
       {/if}
   
-    {elseif $searchType == SEARCH_WOTD}
-        Cuvântul zilei {if ($fdate)}(din {$fdate}){/if}
-
     {elseif $searchType == SEARCH_REGEXP}
       {if $numResults}
         {if $numResults > count($lexems)}
@@ -77,6 +77,9 @@
         {/if}
       {/if}
   
+    {elseif $searchType == SEARCH_WOTD}
+        Cuvântul zilei {if ($fdate)}(din {$fdate}){/if}
+
   
     {elseif $searchType == SEARCH_MULTIWORD}
       {$results|@count} definiții se potrivesc cu cel puțin doi dintre termenii căutați. Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat
@@ -96,13 +99,13 @@
           </a>
         {/if}
       {/if}
-	{else}
-	  {if count($lexems) > 0 }
-	    {if $src_selected}
-	  <br/>
-	  Repetați căutarea <a href="/definitie/{$cuv|escape}">în toate dicționarele</a>
-	    {/if}
-	  {/if}
+  {else}
+    {if count($lexems) > 0 }
+      {if $src_selected}
+    <br/>
+    Repetați căutarea <a href="/definitie/{$cuv|escape}">în toate dicționarele</a>
+      {/if}
+    {/if}
     {/if}
   </div>
 {/if}
@@ -161,11 +164,11 @@
         {/if}
   
         {if ($sUser->moderator & $smarty.const.PRIV_WOTD) && !$is_mirror}
-		  {if $row->wotd}
-		  | În lista de WotD
-		  {else}
+      {if $row->wotd}
+      | În lista de WotD
+      {else}
           | <a href="{$wwwRoot}wotdAdd.php?defId={$row->definition->id}">Adaugă WotD</a>
-		  {/if}
+      {/if}
         {/if}
       </span>
   

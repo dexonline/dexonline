@@ -392,3 +392,7 @@ th.headerSortDown {
   padding-top: 15px;
   margin-top: 10px;
 }
+
+.fb_top {
+  float: right;
+}

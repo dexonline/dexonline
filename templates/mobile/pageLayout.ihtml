@@ -43,7 +43,7 @@
 
   </td></tr>
   <tr><td height="100%" valign="top">
-    {include file=$contentTemplateName}
+    {include file=$contentTemplateName from=mobile}
   </td></tr>
   <tr><td>
     <table class="footer">

@@ -11,6 +11,7 @@ define('DATA_FILENAME', '/tmp/gnuplot%02d.dat');
 define('PNG_FILENAME', dirname($_SERVER['SCRIPT_NAME']) . '/../wwwbase/stat/img/gnuplot%02d-%d.png');
 define('DAYS_SINCE_EPOCH', daysSinceEpoch(time()));
 define('NUM_DAYS', 7);
+define('TAIL_LINES', NUM_DAYS * 24 * 60); // One line per minute
 
 $records = loadLogFile(LOG_FILENAME);
 outputGnuPlotData($records, DATA_FILENAME);
@@ -19,7 +20,9 @@ generatePngs(DATA_FILENAME, PNG_FILENAME);
 /*************************************************************************/
 
 function loadLogFile($filename) {
-  $lines = file($filename, FILE_IGNORE_NEW_LINES);
+  $tmpFilename = tempnam('/tmp', 'tail_');
+  exec(sprintf("tail -n %d %s > %s", TAIL_LINES, $filename, $tmpFilename));
+  $lines = file($tmpFilename, FILE_IGNORE_NEW_LINES);
   $records = array();
   foreach ($lines as $line) {
     $r = new Record;
@@ -36,6 +39,7 @@ function loadLogFile($filename) {
     $r->load15 = $loads[2];
     $records[] = $r;
   }
+  unlink($tmpFilename);
   return $records;
 }
 

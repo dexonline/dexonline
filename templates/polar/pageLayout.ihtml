@@ -27,7 +27,6 @@
             <a href="{$wwwRoot}unelte">Unelte</a> |
             <a href="{$wwwRoot}top">Top</a> |
             <a href="#" onclick="abbrevWindow(); return false;">Abrevieri</a> |
-            <a href="{$wwwRoot}publicitate">Publicitate</a> |
             <a href="{$wwwRoot}contact">Contact</a>
           </div>
 

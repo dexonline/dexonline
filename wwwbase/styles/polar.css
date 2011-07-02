@@ -387,12 +387,22 @@ th.headerSortDown {
   text-align: center;
 }
 
-.fb_bottom {
+.bottomline {
   border-top: 1px solid #CCCCCC;
-  padding-top: 15px;
-  margin-top: 10px;
 }
 
-.fb_top {
+.fb_bottom, .plus_bottom {
+  padding-top: 15px;
+}
+
+.fb_bottom {
+  display: inline-block;
+}
+
+.plus_bottom {
+  display: inline;
+}
+
+.fb_top, .plus_top {
   float: right;
 }

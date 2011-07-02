@@ -63,6 +63,11 @@
     {include file=$contentTemplateName from=polar}
 
 
+    <div class="bottomline"></div>
+    <div class="plus_bottom">
+      <script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
+      <g:plusone href="http://dexonline.ro"></g:plusone>
+    </div>
     <div class="fb_bottom">
       <div id="fb-root"></div>
       <script src="http://connect.facebook.net/ro_RO/all.js#appId=173110666079819&amp;xfbml=1"></script>

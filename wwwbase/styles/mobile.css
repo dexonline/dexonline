@@ -238,6 +238,6 @@ table.fullheight {
   text-align: center;
 }
 
-.fb_top {
+.fb_top, .plus_top {
   float: right;
 }

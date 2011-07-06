@@ -11,5 +11,5 @@
 # Regenerate the sitemap Saturdays at 5am.
 0 5 * * 6 (cd /var/www/dexon/public_html/DEX/tools && php generateSitemap.php) >/dev/null 2>&1 || mail -s "DEX generateSitemap failed" cata@francu.com
 
-# Generate images for the log monitor
-10 */3 * * * (cd /var/www/dexon/public_html/DEX/tools && php generateLoadMonitorGraphs.php ) >/dev/null 2>&1 || mail -s "DEX generateLoadMonitorGraphs failed" cata@francu.com
+# Email sar report
+50 23 * * * sar -q -r -S | mail -s "$HOSTNAME Daily_Sar_Report" cata@francu.com

@@ -19,8 +19,6 @@
 
 $VERSION='$Id: memcache.php,v 1.1.2.3 2008/08/28 18:07:54 mikl Exp $';
 
-define('ADMIN_USERNAME','memcache'); 	// Admin Username
-define('ADMIN_PASSWORD','mumcache');  	// Admin Password
 define('DATE_FORMAT','Y/m/d H:i:s');
 define('GRAPH_SIZE',200);
 define('MAX_ITEM_DUMP',50);
@@ -30,21 +28,6 @@ $MEMCACHE_SERVERS[] = 'localhost:11211'; // add more as an array
 
 
 ////////// END OF DEFAULT CONFIG AREA /////////////////////////////////////////////////////////////
-
-///////////////// Password protect ////////////////////////////////////////////////////////////////
-if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']) ||
-           $_SERVER['PHP_AUTH_USER'] != ADMIN_USERNAME ||$_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD) {
-			Header("WWW-Authenticate: Basic realm=\"Memcache Login\"");
-			Header("HTTP/1.0 401 Unauthorized");
-
-			echo <<<EOB
-				<html><body>
-				<h1>Rejected!</h1>
-				<big>Wrong Username or Password!</big>
-				</body></html>
-EOB;
-			exit;
-}
 
 ///////////MEMCACHE FUNCTIONS /////////////////////////////////////////////////////////////////////
 

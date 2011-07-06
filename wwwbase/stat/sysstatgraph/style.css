@@ -1,0 +1,190 @@
+body {
+	color: #000;
+	font-size: 62.5%;
+	margin: 10px;
+}
+
+body,input {
+	font-family: Verdana,Geneva,Arial,Helvetica,sans-serif;
+}
+
+a {
+	color: #00f;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+h1 {
+	font-size: 2em;
+	margin: 0 0 0.5em 0;
+}
+
+p {
+	font-size: 1.1em;
+	margin: 0 0 1em 0;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+#content {
+	border-bottom: 2px solid #000;
+	border-top: 2px solid #000;
+	margin-bottom: 1em;
+	padding-top: 2em;
+}
+
+/* -- table of contents -- */
+#toc {
+	font-size: 1.1em;
+	margin: 0 0 4em 1.5em;
+}
+
+/* -- graph -- */
+.graph {
+	height: 360px;
+	position: relative;
+	z-index: 50;
+}
+
+.graph h2 {
+	font-size: 1.4em;
+	margin: 0 48px;
+}
+
+/* -- graph axis lines and value markers -- */
+.graph .axislines {
+	border-bottom: 1px solid #000;
+	border-left: 1px solid #000;
+	left: 48px;
+	padding: 4px 0 4px 4px;
+	position: absolute;
+	top: 35px;
+}
+
+.graph .axislines canvas {
+	cursor: crosshair;
+}
+
+.graph .markervalue,
+.graph .markertime {
+	font-size: 0.9em;
+	margin: 0;
+	position: absolute;
+}
+
+.graph .markervalue {
+	background: url(img/valuenotch.gif) no-repeat 100% 0;
+	left: -49px;
+	padding-right: 2px;
+	text-align: right;
+	width: 46px;
+}
+
+.graph .markertime {
+	background: url(img/timenotch.gif) no-repeat 100% 0;
+	padding-right: 2px;
+	text-align: right;
+	top: 221px;
+	width: 78px;
+}
+
+.graph .markertime span {
+	display: block;
+}
+
+/* -- graph legend -- */
+.graph .legend {
+	left: 0;
+	list-style: none;
+	position: absolute;
+	top: 265px;
+}
+
+.graph .legend li {
+	float: left;
+	font-size: 1em;
+	margin-right: 20px;
+}
+
+.graph .legend .box {
+	background: #f00;
+	border: 1px solid #000;
+	float: left;
+	height: 12px;
+	padding: 0;
+	width: 12px;
+}
+
+.graph .legend div {
+	margin-left: 20px;
+}
+
+.graph .legend span {
+	display: block;
+	white-space: nowrap;
+}
+
+/* -- graph info box -- */
+#graphinfobox {
+	background: #ccc;
+	border: 1px solid #000;
+	opacity: 0.8;
+	padding: 10px;
+	position: absolute;
+	width: 230px;
+}
+
+#graphinfobox div {
+	font-weight: bold;
+}
+
+#graphinfobox div.date {
+	border-bottom: 1px solid #000;
+	margin-bottom: 5px;
+}
+
+#graphinfobox div span {
+	font-weight: normal;
+	margin-left: 5px;
+}
+
+/* -- table of contents side box area -- */
+#toc {
+	background: url(img/open.gif) #ccc no-repeat 50% 50%;
+	border: 1px solid #000;
+	display: block;
+	font-size: 1.1em;
+	list-style: none;
+	margin: 0;
+	opacity: 0.8;
+	padding: 0.8em 12px;
+	position: fixed;
+	right: 0;
+	text-align: left;
+	top: 70px;
+	width: 5px;
+	z-index: 100;
+}
+
+#toc.open {
+	background-image: none;
+}
+
+#toc li {
+	display: block;
+	margin: 0;
+	overflow: hidden;
+	padding: 0 0 3px 5px;
+	white-space: nowrap;
+}
+
+#toc li a {
+	color: #000;
+	font-weight: bold;
+}
+

@@ -1,12 +1,12 @@
 <?
 require_once('../phplib/util.php');
 ini_set('max_execution_time', '3600');
-ini_set('memory_limit', '128000000');
+ini_set('memory_limit', '256M');
 assert_options(ASSERT_BAIL, 1);
 
 log_scriptLog('Running rebuildFullTextIndex.php.');
 if (!lock_acquire(LOCK_FULL_TEXT_INDEX)) {
-  log_scriptLog('Exiting: lock already exists!');
+  os_errorAndExit('Lock already exists!');
   exit;
 }
 
@@ -61,7 +61,9 @@ log_scriptLog("Index size: $indexSize entries.");
 
 os_executeAndAssert("chmod 666 $fileName");
 log_scriptLog("Importing file $fileName into table FullTextIndex");
-mysql_query("load data infile '$fileName' into table FullTextIndex");
+if (!mysql_query("load data local infile '$fileName' into table FullTextIndex")) {
+  os_errorAndExit("MySQL says: " . mysql_error());
+}
 util_deleteFile($fileName);
 
 if (!lock_release(LOCK_FULL_TEXT_INDEX)) {

@@ -120,15 +120,15 @@ table td, table th {
   width: 860px;
 }
 
-#banner_top_728x90 {
+#banner_top {
   float: left;
 }
 
-#banner_main_468x60 {
-  margin-left: 201px;
+#banner_mainPage {
+  margin-left: 71px;
 }
 
-#banner_beforeResults_728x90 {
+#banner_beforeResults {
   margin-left: 15px;
 }
 

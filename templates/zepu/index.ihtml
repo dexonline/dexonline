@@ -8,7 +8,7 @@
 </div>
 
 {if $skinVariables.afterSearchBoxBanner}
-  {include file="common/bits/banner.ihtml" id="main_468x60" width="468" height="60"}
+  {include file="common/bits/banner.ihtml" id="mainPage" width="728" height="90"}
 {/if}
 
 <div class="clearer"></div>

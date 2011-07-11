@@ -18,7 +18,7 @@
     <div id="header" class="{if $skinVariables.topBanner}withBanner{else}withoutBanner{/if}">
       <div id="headerContainer">
         {if $skinVariables.topBanner}
-          {include file="common/bits/banner.ihtml" id="top_728x90" width="728" height="90"}
+          {include file="common/bits/banner.ihtml" id="top" width="728" height="90"}
         {/if}
         <div id="userActions" class="{if $skinVariables.topBanner}withBanner{else}withoutBanner{/if}">
           {if !$is_mirror}
@@ -81,7 +81,7 @@
       {/if}
 
       {if !$onHomePage && !$suggestNoBanner && $skinVariables.afterSearchBoxBanner}
-        {include file="common/bits/banner.ihtml" id="beforeResults_728x90" width="728" height="90"}
+        {include file="common/bits/banner.ihtml" id="beforeResults" width="728" height="90"}
       {/if}
 
       <div id="contentProper">

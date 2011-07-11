@@ -14,7 +14,7 @@ adoDbClass = adodb/adodb.inc.php
 ; Banner sizes are dictated by the skin. See templates/common/bits/banner.ihtml.
 ; Choices are "openx", "adsense", "fake" or "none".
 ; The option "fake" displays a placeholder banner and can be used in development/beta (so as not to steal real impressions from campaigns).
-bannerType = openx
+bannerType = adsense
 
 ; Contact email, sprinkled throughout the site
 contact = contact@dexonline.ro
@@ -66,17 +66,17 @@ skins[] = polar
 smartyClass = smarty/Smarty.class.php
 
 [skin-zepu]
-; Display a 728x90 banner at the top most of the time.
-; For the rest, display banners (468x60 or 728x90) after the search box.
-topBannerProbability = 0.95
-adsense_top_728x90 = "id=2054526829&width=728&height=90"
-adsense_main_468x60 = "id=7726748553&width=468&height=60"
-adsense_beforeResults_728x90 = "id=5836287659&width=728&height=90"
-openx_top_728x90 = 121346
-openx_main_468x60 = 201502
-openx_beforeResults_728x90 = 201501
+; Display a 728x90 banner at the top as dictated by topBannerProbability.
+; Otherwise display banners  after the search box.
+topBannerProbability = 0.00
+adsense_top = "id=2054526829&width=728&height=90"
+adsense_mainPage = "id=1220723485&width=728&height=90"
+adsense_beforeResults = "id=2401834072&width=728&height=90"
+openx_top = 121346
+openx_mainPage = 216368
+openx_beforeResults = 201501
 
 [skin-polar]
 ; No tweaks here
-adsense_top_728x90 = "id=2054526829&width=728&height=90"
-openx_top_728x90 = 121346
+adsense_top = "id=2054526829&width=728&height=90"
+openx_top = 121346

@@ -29,6 +29,7 @@ if ($action == 'delete') {
     $guideEntry->correct = util_getRequestParameter('Correct');
     $guideEntry->wrong = util_getRequestParameter('Wrong');
     $guideEntry->comments = util_getRequestParameter('Comments');
+    $guideEntry->modUserId = session_getUserId();
     $guideEntry->normalize();
     $guideEntry->save();
     session_setFlash('Modificare reușită.', 'info');
@@ -45,6 +46,7 @@ if ($action == 'delete') {
     $guideEntry->correct = util_getRequestParameter('Correct');
     $guideEntry->wrong = util_getRequestParameter('Wrong');
     $guideEntry->comments = util_getRequestParameter('Comments');
+    $guideEntry->userId = session_getUserId();
     $guideEntry->normalize();
     $guideEntry->save();
     session_setFlash('Adăugare reușită.', 'info');

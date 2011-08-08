@@ -503,3 +503,40 @@ function trim(str) {
 	while (ws.test(str.charAt(--i)));
 	return str.slice(0, i + 1);
 }
+
+/** http://javascript-array.com/scripts/jquery_simple_drop_down_menu/ **/
+var jsddm_timeout = 500;
+var jsddm_closetimer = 0;
+var jsddm_menuitem = 0;
+
+function jsddm_open() {
+  jsddm_canceltimer();
+  jsddm_close();
+  jsddm_menuitem = $(this).find('ul').eq(0).css('visibility', 'visible');
+}
+
+function jsddm_close() {
+  if (jsddm_menuitem) {
+    jsddm_menuitem.css('visibility', 'hidden');
+  }
+}
+
+function jsddm_timer() {
+  jsddm_closetimer = window.setTimeout(jsddm_close, jsddm_timeout);
+}
+
+function jsddm_canceltimer() {
+  if (jsddm_closetimer) {
+    window.clearTimeout(jsddm_closetimer);
+    jsddm_closetimer = null;
+  }
+}
+
+$(document).ready(function() {
+  $('#mainMenu > li').bind('mouseover', jsddm_open);
+  $('#mainMenu > li').bind('mouseout',  jsddm_timer);
+  $('#userMenu > li').bind('mouseover', jsddm_open);
+  $('#userMenu > li').bind('mouseout',  jsddm_timer);
+});
+
+document.onclick = jsddm_close;

@@ -68,13 +68,41 @@ span.formPlug {
   font-size: 70%;
 }
 
-.linkBar {
+#mainMenu {
   font-size: 80%;
-  margin-bottom: 10px;
+  margin: -10px 0 10px 0;
+  padding: 0 0 10px 0;
 }
 
-.linkBar a {
+#mainMenu li {
+  float: left;
+  list-style: none;
+  margin-right: 5px;
+}
+
+#mainMenu li a {
   white-space: nowrap;
+}
+
+#mainMenu li ul {
+  background: white;
+  border: 1px solid blue;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  visibility: hidden;
+  z-index: 50;
+}
+
+#mainMenu li ul li {
+  display: inline;
+  float: none;
+}
+
+#mainMenu li ul li a {
+  display: block;
+  padding: 3px 5px;
+  width: auto;
 }
 
 div.flashMessage {
@@ -250,11 +278,6 @@ span.help {
 .userEdit td {
   padding-bottom: 5px;
   vertical-align: top;
-}
-
-#banner_top {
-  margin: 12px auto;
-  width: 728px;
 }
 
 span.spaced {

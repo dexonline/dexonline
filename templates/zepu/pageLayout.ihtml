@@ -10,66 +10,68 @@
     <meta name="keywords" content="{$page_keywords}"/>
 {/if}
 {include file="common/bits/css.ihtml" zepu=1}
-{include file="common/bits/js.ihtml" dex=1}
+{include file="common/bits/js.ihtml" dex=1 jquery=1}
     <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
   </head>
 
   <body>
-    <div id="header" class="{if $skinVariables.topBanner}withBanner{else}withoutBanner{/if}">
-      <div id="headerContainer">
-        {if $skinVariables.topBanner}
-          {include file="common/bits/banner.ihtml" id="top" width="728" height="90"}
-        {/if}
-        <div id="userActions" class="{if $skinVariables.topBanner}withBanner{else}withoutBanner{/if}">
-          {if !$is_mirror}
-            <span id="userNick">{$nick|escape}</span>
-            <ul>
-              {if $sUser}
-                {if $sUser->moderator & $smarty.const.PRIV_EDIT}
-                  <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
-                {/if}
-                <li><a href="{$wwwRoot}contul-meu">Contul meu</a></li>
-                <li><a href="{$wwwRoot}logout">Deconectare</a></li>
-              {else}
-                <li><a href="{$wwwRoot}preferinte">Preferințe</a></li>
-                <li><a href="{$wwwRoot}login">Conectare</a></li>
-              {/if}
-            </ul>
-          {/if}
-        </div>
-      </div>
-    </div>
-
-    <div class="clearer"></div>
-
     <div id="Container">
       <div id="menu">
         {if !$onHomePage}
-          <a href="{$wwwRoot}">
+          <a href="{$wwwRoot}" id="homeLink">
             <img src="{$imgRoot}/zepu/dexonline_logo_mic.png" class="noBorder" width="111" height="25" alt="DEX online small logo"
                  title="Pagina principală DEX online"/>
           </a>
         {/if}
-        {if $onHomePage}
-          <div class="fb_top">
+        <div class="fb_top">
           <iframe src="http://www.facebook.com/plugins/like.php?ref=zepu_home&locale=ro_RO&app_id=225575497453880&amp;href=http%3A%2F%2Ffacebook.com%2Fdexonline&&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
           </div>
           <div class="plus_top">
           <script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
           <g:plusone size="medium" href="http://dexonline.ro"></g:plusone>
-          </div>
-        {/if}
-        <ul>
-          <li><a href="{$wwwRoot}informatii">Informații</a></li>
-          <li><a href="{$wwwRoot}contribuie">Contribuie</a></li>
-          <li><a href="{$wwwRoot}ghid-exprimare">Ghid de exprimare</a></li>
-          <li><a href="{$wwwRoot}cuvantul-zilei">Cuvântul zilei</a></li>
-          <li><a href="{$wwwRoot}unelte">Unelte</a></li>
-          <li><a href="{$wwwRoot}top">Top</a></li>
-          <li><a href="#" onclick="abbrevWindow(); return false;">Abrevieri</a></li>
-          <li><a href="{$wwwRoot}contact">Contact</a></li>
+        </div>
+        <ul id="mainMenu">
+          <li><a href="#" onclick="return false;">Despre noi</a>
+            <ul>
+              <li><a href="{$wwwRoot}informatii">Informații</a></li>
+              <li><a href="#" onclick="abbrevWindow(); return false;">Abrevieri folosite</a></li>
+              <li><a href="{$wwwRoot}contact">Contact</a></li>
+            </ul>
+          </li>
+          <li><a href="#" onclick="return false;">Implică-te</a>
+            <ul>
+              <li><a href="{$wwwRoot}contribuie">Contribuie cu definiții</a></li>
+              <li><a href="{$wwwRoot}top">Topul voluntarilor</a></li>
+            </ul>
+          </li>
+          <li><a href="#" onclick="return false;">Resurse</a>
+            <ul>
+              <li><a href="{$wwwRoot}ghid-exprimare">Ghid de exprimare</a></li>
+              <li><a href="{$wwwRoot}cuvantul-zilei">Cuvântul zilei</a></li>
+              <li><a href="{$wwwRoot}unelte">Unelte</a></li>
+              <li><a href="{$wwwRoot}legaturi">Legături externe</a></li>
+            </ul>
+          </li>
         </ul>
-
+        {if !$is_mirror}
+          <ul id="userMenu">
+            <li id="userNick"><a href="#" onclick="return false;">{$nick|escape}</a>
+              <ul>
+                {if $sUser}
+                  {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+                    <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
+                  {/if}
+                  <li><a href="{$wwwRoot}contul-meu">Contul meu</a></li>
+                  <li><a href="{$wwwRoot}logout">Deconectare</a></li>
+                {else}
+                  <li><a href="{$wwwRoot}preferinte">Preferințe</a></li>
+                  <li><a href="{$wwwRoot}login">Conectare</a></li>
+                {/if}
+              </ul>
+            </li>
+          </ul>
+        {/if}
+        </ul>
       </div>
 
       {include file="common/flashMessages.ihtml"}

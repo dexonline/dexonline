@@ -12,23 +12,37 @@
 {/if}
 {include file="common/bits/css.ihtml" paradigm=1 polar=1}
     <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
-{include file="common/bits/js.ihtml" dex=1}
+{include file="common/bits/js.ihtml" dex=1 jquery=1}
   </head>
 
   <body>
     <table class="theader">
       <tr>
         <td class="searchBoxContainer">
-          <div class="linkBar">
-            <a href="{$wwwRoot}informatii">Informații</a> |
-            <a href="{$wwwRoot}contribuie">Contribuie</a> |
-            <a href="{$wwwRoot}ghid-exprimare">Ghid de exprimare</a> |
-            <a href="{$wwwRoot}cuvantul-zilei">Cuvântul zilei</a> |
-            <a href="{$wwwRoot}unelte">Unelte</a> |
-            <a href="{$wwwRoot}top">Top</a> |
-            <a href="#" onclick="abbrevWindow(); return false;">Abrevieri</a> |
-            <a href="{$wwwRoot}contact">Contact</a>
-          </div>
+          <ul id="mainMenu">
+            <li><a href="#" onclick="return false;">Despre noi</a> |
+              <ul>
+                <li><a href="{$wwwRoot}informatii">Informații</a></li>
+                <li><a href="#" onclick="abbrevWindow(); return false;">Abrevieri folosite</a></li>
+                <li><a href="{$wwwRoot}contact">Contact</a></li>
+              </ul>
+            </li>
+            <li><a href="#" onclick="return false;">Implică-te</a> |
+              <ul>
+                <li><a href="{$wwwRoot}contribuie">Contribuie cu definiții</a></li>
+                <li><a href="{$wwwRoot}top">Topul voluntarilor</a></li>
+              </ul>
+            </li>
+            <li><a href="#" onclick="return false;">Resurse</a>
+              <ul>
+                <li><a href="{$wwwRoot}ghid-exprimare">Ghid de exprimare</a></li>
+                <li><a href="{$wwwRoot}cuvantul-zilei">Cuvântul zilei</a></li>
+                <li><a href="{$wwwRoot}unelte">Unelte</a></li>
+                <li><a href="{$wwwRoot}legaturi">Legături externe</a></li>
+              </ul>
+            </li>
+          </ul>
+          <div style="clear:both;"></div>
 
           <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return friendlyRedirect()">
             <input type="text" name="cuv" value="{$cuv|escape}" size="20" maxlength="50"/>

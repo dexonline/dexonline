@@ -39,13 +39,7 @@ function smarty_display() {
   $skinVariables = session_getSkinPreferences($skin);
   switch ($skin) {
   case 'zepu':
-    if (rand(0, 9999) < $skinVariables['topBannerProbability'] * 10000) {
-      $skinVariables['topBanner'] = true;
-      $skinVariables['afterSearchBoxBanner'] = false;
-    } else {
-      $skinVariables['topBanner'] = false;
-      $skinVariables['afterSearchBoxBanner'] = true;
-    }
+    $skinVariables['afterSearchBoxBanner'] = true;
     break;
   case 'polar':
     // No tweaks here

@@ -67,61 +67,16 @@ table td, table th {
   height: 20px;
 }
 
-#userActions {
-  float: right;
-  text-align: right;
-}
-
-#userActions ul {
-  list-style: none;
-  margin-top: 5px;
-  padding: 0px;
-  display: inline;
-}
-
-#userActions a {
-  font-size: 11px;
-  text-decoration: none;
-}
-
-#userActions a:hover {
-  text-decoration: underline;
-}
-
-#userActions.withBanner li {
-  display: block;
-  padding-top: 6px;
-}
-
-#userActions.withoutBanner li {
-  display: inline;
-  padding-left: 10px;
-}
-
 #userNick {
   background: url("../img/icons/user_orange.png") no-repeat;
+  display: block;
+  float: right;
   padding-left: 18px;
+  margin-bottom: 10px;
 }
 
 #header {
   background: url("../img/zepu/bhHeader.png") no-repeat bottom #fff;
-}
-
-#header.withBanner {
-  height: 110px;
-}
-
-#header.withoutBanner {
-  height: 36px;
-}
-
-#headerContainer {
-  margin: 8px auto;
-  width: 860px;
-}
-
-#banner_top {
-  float: left;
 }
 
 #banner_mainPage {
@@ -140,34 +95,59 @@ table td, table th {
   width: 860px;
 }
 
-#menu ul {
-  height: auto;
-  line-height: normal;
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-  text-align: center;
+#homeLink {
+  float: left;
+  padding-right: 15px;
 }
 
-#menu li {
-  display: inline;
-  height: auto;
-  text-decoration: none;
+#mainMenu {
+  float: left;
+  margin: 0;
+  padding: 0;
 }
 
-#menu a {
+#userMenu {
+  float: right;
+  margin: 0;
+  padding: 0px 10px;
+}
+
+#mainMenu li, #userMenu li{
   float: left;
   font-size: 11px;
-  height: 20px;
-  line-height: 180%;
-  margin-right: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
+  list-style: none;
+}
+
+#mainMenu li a, #userMenu li a {
+  color: black;
+  display: block;
+  padding: 1px 15px 5px 0px;
   text-decoration: none;
+  white-space: nowrap;
+}
+
+#mainMenu li ul, #userMenu li ul {
+  background: white;
+  border: 1px solid #761818;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  visibility: hidden;
+  z-index: 50;
+}
+
+#mainMenu li ul li, #userMenu li ul li {
+  display: inline;
+  float: none;
+}
+
+#mainMenu li ul li a, #userMenu li ul li a {
+  color: #761818;
+  padding: 3px 5px;
   width: auto;
 }
 
-#menu a:hover {
+#mainMenu li ul li a:hover, #userMenu li ul li a:hover {
   text-decoration: underline;
 }
 
@@ -223,7 +203,7 @@ table td, table th {
 #Container {
   width: 875px;
   height: 100%;
-  margin: auto;
+  margin: 8px auto;
 }
 
 .hptxt {

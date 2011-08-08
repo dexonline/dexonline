@@ -66,13 +66,9 @@ skins[] = polar
 smartyClass = smarty/Smarty.class.php
 
 [skin-zepu]
-; Display a 728x90 banner at the top as dictated by topBannerProbability.
-; Otherwise display banners  after the search box.
-topBannerProbability = 0.00
-adsense_top = "id=2054526829&width=728&height=90"
+; Display banners  after the search box.
 adsense_mainPage = "id=1220723485&width=728&height=90"
 adsense_beforeResults = "id=2401834072&width=728&height=90"
-openx_top = 121346
 openx_mainPage = 216368
 openx_beforeResults = 201501
 

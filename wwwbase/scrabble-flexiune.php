@@ -35,7 +35,9 @@ smarty_displayCommonPageWithSkin('scrabble-flexiune.ihtml');
 function loadLoc($cuv) {
   $field = text_hasDiacritics($cuv) ? 'formNoAccent' : 'formUtf8General';
   $result = array();
-  $dbResult = db_execute("select distinct I.* from InflectedForm I, Lexem L, ModelDescription MD where I.lexemId = L.id and I.inflectionId = MD.inflectionId and I.variant = MD.variant " .
+  $dbResult = db_execute("select distinct I.* from InflectedForm I, Lexem L, Model M, ModelDescription MD, ModelType MT " .
+			 "where I.lexemId = L.id and L.modelType = MT.code and MT.canonical = M.modelType and L.modelNumber = M.number and M.id = MD.modelId " .
+			 "and I.inflectionId = MD.inflectionId and I.variant = MD.variant and MD.applOrder = 0 " .
 			 "and I.{$field} = '{$cuv}' and L.isLoc and MD.isLoc order by L.formNoAccent");
   return db_getObjects(new InflectedForm(), $dbResult);
 }

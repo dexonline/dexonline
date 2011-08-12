@@ -532,11 +532,13 @@ function jsddm_canceltimer() {
   }
 }
 
-$(document).ready(function() {
-  $('#mainMenu > li').bind('mouseover', jsddm_open);
-  $('#mainMenu > li').bind('mouseout',  jsddm_timer);
-  $('#userMenu > li').bind('mouseover', jsddm_open);
-  $('#userMenu > li').bind('mouseout',  jsddm_timer);
-});
+if (typeof jQuery != 'undefined') { 
+  $(document).ready(function() {
+    $('#mainMenu > li').bind('mouseover', jsddm_open);
+    $('#mainMenu > li').bind('mouseout',  jsddm_timer);
+    $('#userMenu > li').bind('mouseover', jsddm_open);
+    $('#userMenu > li').bind('mouseout',  jsddm_timer);
+  });
+}
 
 document.onclick = jsddm_close;

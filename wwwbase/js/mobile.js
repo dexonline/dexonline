@@ -3,6 +3,7 @@ function fixMobile() {
 	if (arrow) {
 		arrow.innerHTML = 'Arată ';
 	}
+	window.scrollTo(0, 1);
 }
 
 function toggleInflVisibility(value, lexem) {

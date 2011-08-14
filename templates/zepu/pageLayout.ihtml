@@ -52,6 +52,9 @@
               <li><a href="{$wwwRoot}legaturi">Legături externe</a></li>
             </ul>
           </li>
+          {if $isMobile}
+            <li id="mobileLink"><a href="{$wwwRoot}mobil">Versiunea pentru mobil</a></li>
+          {/if}
         </ul>
         {if !$is_mirror}
           <ul id="userMenu">

@@ -368,6 +368,14 @@ function util_isDesktopBrowser() {
     (strpos($u, 'Opera') !== false) || (strpos($u, 'Safari') !== false);
 }
 
+/** Keep this in sync with docs/.htaccess and wwwbase/.htaccess **/
+function util_isMobile($userAgent = null) {
+  if (!$userAgent) {
+    $userAgent = $_SERVER['HTTP_USER_AGENT'];
+  }
+  return preg_match('/^(DoCoMo|J-PHONE|KDDI|UP.Browser|DDIPOCKET|.*iPhone.*|.*iPod.*|.*BlackBerry.*|.*Windows.CE.*|.*LG.*|.*HTC.*|.*MOT.*|.*Motorola.*|.*Nokia.*|.*Samsung.*|.*SonyEricsson.*|.*Palm.*|.*Symbian.*|.*Android.*)/i', $userAgent);
+}
+
 function util_fetchUrl($url) {
   $ch = curl_init($url);
   curl_setopt($ch, CURLOPT_HEADER, 0);

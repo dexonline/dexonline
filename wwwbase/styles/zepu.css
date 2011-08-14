@@ -67,6 +67,11 @@ table td, table th {
   height: 20px;
 }
 
+#mobileLink {
+  background: url("../img/icons/phone.png") no-repeat;
+  padding-left: 16px;
+}
+
 #userNick {
   background: url("../img/icons/user_orange.png") no-repeat;
   display: block;

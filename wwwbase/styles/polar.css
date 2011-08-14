@@ -429,3 +429,8 @@ th.headerSortDown {
 .fb_top, .plus_top {
   float: right;
 }
+
+#mobileLink {
+  background: url("../img/icons/phone.png") no-repeat;
+  padding-left: 16px;
+}

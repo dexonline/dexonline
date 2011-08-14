@@ -508,4 +508,10 @@ assertEquals(4, util_findSnippet(array(array(1, 2, 10),
 assertEquals('$abc$ @def@', text_formatLexem('$abc$ @def@')); // This is intentional -- lexem formatting is very lenient.
 assertEquals("m'amă m'are", text_formatLexem("m'am~a máre  "));
 
+// Mobile detection
+assertEquals(true, util_isMobile('Linux Android'));
+assertEquals(true, util_isMobile('android'));
+assertEquals(true, util_isMobile('some nOkIa model'));
+assertEquals(false, util_isMobile('some version of Firefox'));
+
 ?>

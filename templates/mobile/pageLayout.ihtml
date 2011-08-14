@@ -65,6 +65,8 @@
       {/if}
       <tr>
         <td>
+          <a id="desktopLink" href="{$wwwRoot}desktop">Versiunea pentru desktop</a><br/>
+
           Starea curentă: <b>{$words_total}</b> de definiţii (<b>{$words_last_month}</b> în ultima lună)<br/>
 
           {if !$is_mirror}

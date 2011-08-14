@@ -8,3 +8,5 @@ Disallow: /definitie/muie
 Disallow: /preferinte
 Disallow: /download/dex-database.sql.gz
 Disallow: /scrabble-forme
+Disallow: /desktop
+Disallow: /mobil

@@ -8,6 +8,10 @@ RewriteEngine on
 # Uncomment the next line when running DEX online from within a user directory
 # RewriteBase /~cata/DEX/wwwbase/
 
+#####################################################################################
+# This section is desktop-specific and it should be commented out on m.dexonline.ro #
+#####################################################################################
+
 # Redirect mobiles to mobile's server, unless they have a cookie saying they want the desktop version
 # Keep this in sync with phplib/util.php:util_isMobile()
 RewriteCond %{HTTP_user_agent} ^(DoCoMo|J-PHONE|KDDI|UP.Browser|DDIPOCKET|.*iPhone.*|.*iPod.*|.*BlackBerry.*|.*Windows.CE.*|.*LG.*|.*HTC.*|.*MOT.*|.*Motorola.*|.*Nokia.*|.*Samsung.*|.*SonyEricsson.*|.*Palm.*|.*Symbian.*|.*Android.*) [NC]
@@ -16,6 +20,17 @@ RewriteRule (.*)  http://m.dexonline.ro/$1 [R,L]
 
 # When the user visits dexonline.ro/mobil, delete the desktopVersion cookie and send them to m.dexonline.ro
 RewriteRule ^mobil$ http://m.dexonline.ro [CO=desktopVersion:0:.dexonline.ro:-1]
+
+#####################################################################################################
+# This section is mobile-specific and it should be commented out on all sites except m.dexonline.ro #
+#####################################################################################################
+
+# When the user visits m.dexonline.ro/desktop, set a 10-year cookie and send them to dexonline.ro
+RewriteRule ^desktop$ http://dexonline.ro [CO=desktopVersion:1:.dexonline.ro:5256000]
+
+################################################################
+# The rest of the file is common to mobile and desktop servers #
+################################################################
 
 # SEO rewrites
 RewriteRule ^text(-([^/]+))?/(.*)$ search.php?cuv=$3&source=$2&text=1 [L]

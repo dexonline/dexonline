@@ -241,3 +241,8 @@ table.fullheight {
 .fb_top, .plus_top {
   float: right;
 }
+
+#desktopLink {
+  background: url("../img/icons/computer.png") no-repeat;
+  padding-left: 20px;
+}

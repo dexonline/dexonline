@@ -210,9 +210,9 @@
   Arhiva cuvintelor zilei:
       {/if}
   </div>
-  {/if}
-  {if not $fdate}
+      {if not $fdate}
   <div id="wotdArchive" class="wotdArchive"></div>
   <script>loadAjaxContent('/arhiva/cuvantul-zilei/','#wotdArchive')</script>
+      {/if}
   {/if}
 </div>

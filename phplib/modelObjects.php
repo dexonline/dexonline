@@ -185,10 +185,14 @@ class Definition extends BaseObject {
 
     $sourceClause = $sourceId ? "and D.sourceId = $sourceId" : '';
     $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
-    $dbResult = db_execute(sprintf("select distinct D.* from Definition D, LexemDefinitionMap L, Source S " .
-                                   "where D.id = L.definitionId and L.lexemId in (%s) and D.sourceId = S.id and D.status = 0 %s %s " .
-                                   "order by (D.lexicon = '%s') desc, S.isOfficial desc, D.lexicon, S.displayOrder",
-                                   $lexemIds, $excludeClause, $sourceClause, $preferredWord));
+    $query = sprintf("select distinct D.* from Definition D, LexemDefinitionMap L, Source S " .
+                     "where D.id = L.definitionId and L.lexemId in (%s) and D.sourceId = S.id and D.status = 0 %s %s " .
+                     "order by S.isOfficial desc, (D.lexicon = '%s') desc, S.displayOrder, D.lexicon",
+                     $lexemIds, $excludeClause, $sourceClause, $preferredWord);
+/*echo "<pre>";
+print_r($query);
+echo "</pre>";*/
+    $dbResult = db_execute($query);
     return db_getObjects(new Definition(), $dbResult);
   }
 
@@ -1341,18 +1345,44 @@ class Abbreviation extends BaseObject {
 
 class WordOfTheDayRel extends BaseObject {
     public function countDefs($refId) {
-        $query = "SELECT count(*) from WordOfTheDayRel WHERE refId = $refId";
+        $query = "SELECT count(*) from WordOfTheDayRel WHERE refId = $refId" ;
         $count = db_getSingleValue($query);
         return $count;
     }
 
     public static function getRefId($wotdId) {
-        $query = "select refId from WordOfTheDayRel where wotdId=$wotdId";
+        $query = "select refId from WordOfTheDayRel where wotdId=$wotdId AND refId<>0";
         $dbResult = db_execute($query);
         return $dbResult ? $dbResult->fields('refId') : NULL;
     }
 }
 
+class WotDArchive {
+    public $displayDate;
+    public $lexicon;
+    public $linkDate;
+    public $dayOfWeek;
+    public $dayOfMonth;
+
+    public function set($record) {
+        $this->displayDate = $record['displayDate'];
+        $this->lexicon = $record['lexicon'];
+        $this->linkDate = $record['linkDate'];
+        $this->dayOfWeek= $record['dayOfWeek'];
+        $this->dayOfMonth= $record['dayOfMonth'];
+    }
+
+    public static function setOnlyDate($date) {
+        $obj = new WotDArchive();
+        $obj->displayDate = $date;
+        $obj->lexicon = '';
+        $obj->linkDate = '';
+        $dow = date('N', strtotime($date));
+        $obj->dayOfWeek = ($dow == 7) ? 1 : $dow+1;
+        $obj->dayOfMonth = date('j', strtotime($date));
+        return $obj;
+    }
+}
 
 class WordOfTheDay extends BaseObject {
     public static function get($where) {
@@ -1365,6 +1395,34 @@ class WordOfTheDay extends BaseObject {
         $query = "SELECT * FROM WordOfTheDay WHERE displayDate > '2011-01-01' AND displayDate < NOW() ORDER BY displayDate DESC LIMIT 25";
         $dbResult = db_execute($query);
         return db_getObjects(new WordOfTheDay(), $dbResult);
+    }
+
+/*
+    public static function getArchiveWotD() {
+        $query = "SELECT displayDate, lexicon, replace(displayDate, '-', '/') linkDate FROM WordOfTheDay W
+        JOIN WordOfTheDayRel R ON W.id=R.wotdId
+        JOIN Definition D ON R.refId=D.id AND D.status=0 AND R.refType='Definition'
+        WHERE displayDate BETWEEN DATE_ADD(LAST_DAY(DATE_SUB(NOW(), INTERVAL 2 MONTH)), INTERVAL 1 DAY) AND  NOW()
+        ORDER BY displayDate DESC";
+
+        $dbRes = db_execute($query);
+        $dbResult = db_getObjects(new WotDArchive(), $dbRes);
+
+        return $dbResult;
+    }
+*/
+
+    public static function getArchiveWotD($year, $month) {
+        $query = "SELECT displayDate, lexicon, replace(displayDate, '-', '/') linkDate, DAYOFWEEK(displayDate) dayOfWeek, DAYOFMONTH(displayDate) dayOfMonth 
+        FROM WordOfTheDay W
+        JOIN WordOfTheDayRel R ON W.id=R.wotdId
+        JOIN Definition D ON R.refId=D.id AND D.status=0 AND R.refType='Definition'
+        WHERE MONTH(displayDate)={$month} AND YEAR(displayDate)={$year}
+        ORDER BY displayDate"; //TODO
+        $dbRes = db_execute($query);
+        $dbResult = db_getObjects(new WotDArchive(), $dbRes);
+
+        return $dbResult;
     }
 
     public function getTodaysWord() {

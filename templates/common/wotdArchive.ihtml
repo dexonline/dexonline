@@ -1,0 +1,48 @@
+<table class="wotdArchiveTable">
+  <tr class="wotdHeader">
+    <td>{if $showPrev==1}<div onclick="loadAjaxContent('{$prevMonth}', '#wotdArchive');" class="nav">&lt;&lt;</div>{else}&nbsp;{/if}</td>
+    <td colspan=5>{$month} {$year}</td>
+    <td>{if $showNext==1}<div onclick="loadAjaxContent('{$nextMonth}', '#wotdArchive');" class="nav">&gt;&gt;</div>{else}&nbsp;{/if}</td>
+  </tr>
+  <tr>
+    <td>Luni</td>
+    <td>Marți</td>
+    <td>Miercuri</td>
+    <td>Joi</td>
+    <td>Vineri</td>
+    <td>Sâmbătă</td>
+    <td>Duminică</td>
+  </tr>
+{foreach from=$words item=word key=row_id name=loop}
+    {if $smarty.foreach.loop.first}
+      {if $word->dayOfWeek == 2}
+      <tr>
+      {else}
+      {assign var=loopCount value=6}
+      {if $word->dayOfWeek > 1}
+      {assign var=loopCount value=$word->dayOfWeek-2}
+      {/if}
+      <tr>
+      {section name=preCal loop=$loopCount}
+      <td>&nbsp;</td>
+      {/section}
+      {/if}
+    {/if}
+    {if $word->dayOfWeek == 2}<tr>{/if}
+    <td>
+    <div class="wotdDoM">{$word->dayOfMonth}</div>
+    <div>{if $word->lexicon}<a href="/cuvantul-zilei/{$word->linkDate}">{$word->lexicon}</a>{else}&nbsp;{/if}</div>
+    </td>
+    {if $word->dayOfWeek == 1}</tr>{/if}
+    {if $smarty.foreach.loop.last}
+      {if $word->dayOfWeek == 1}
+      </tr>
+      {else}
+        {section name=preCal start=$word->dayOfWeek-2 loop=6}
+        <td>&nbsp;</td>
+        {/section}
+        </tr>
+      {/if}
+    {/if}
+{/foreach}
+</table>

@@ -44,9 +44,22 @@ if ($type == 'rss') {
 $wotd = new WordOfTheDay();
 
 if ($date) {
-    $fdate = date("Y-m-d", strtotime($date));
+    $currentDate = strtotime($date);
+    $fdate = date("Y-m-d", $currentDate);
     $titleDate = " ({$fdate})";
     smarty_assign('fdate', $fdate);
+    // wotd navigator
+    $pre = '/cuvantul-zilei/';
+    $prev = strtotime("yesterday", $currentDate);
+    if ($prev > strtotime("2011/05/01")) {
+        $prevday = $pre . date("Y/m/d", $prev);
+        smarty_assign('prevday', $prevday);
+    }
+    $next = strtotime("tomorrow", $currentDate);
+    if ($next < time()) {
+        $nextday = $pre . date("Y/m/d", $next);
+        smarty_assign('nextday', $nextday);
+    }
     $id = $wotd->getOldWotD($fdate);
 }
 else {
@@ -56,6 +69,9 @@ else {
         $wotd->updateTodaysWord();
         $id = $wotd->getTodaysWord();
     }
+#archive
+#    $words = WordOfTheDay::getArchiveWotD();
+#    smarty_assign('words', $words);
 }
 
 $defId = WordOfTheDayRel::getRefId($id);

@@ -34,7 +34,12 @@ h3, h4{
 }
 
 h4 {
-    color: #761818;
+  color: #761818;
+}
+
+span.h4sub {
+  font-style: italic;
+  color: #AAA;
 }
 
 p {
@@ -652,4 +657,48 @@ input.pagedisplay {
 .fb_top, .plus_top{
   float: right;
   margin-top: -3px;
+}
+
+.wotdArchive {
+  margin-left: 10px;
+  padding: 5px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+}
+
+.wotdArchiveTitle {
+  width: 767px;
+  background: #f4f4f4;
+  border: 1px solid #aaa;
+  font-size: 11px;
+  margin: 10px 15px 0px 15px;
+  padding: 5px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+}
+
+.wotdArchiveTable td {
+  text-align:right;
+  width: 90px;
+}
+
+.wotdArchiveTable tr.wotdHeader td{
+  text-align:center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.nav {
+  cursor: pointer;
+  color: #761818;
+}
+
+.nav:hover {
+  text-decoration: underline;
+  color: #CC0000;
+}
+
+.wotdDoM {
+  font-size: 16px;
+  font-weight: bold;
 }

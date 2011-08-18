@@ -147,6 +147,20 @@ span.stopWords {
 
 span.def {
   cursor: pointer;
+  font-size: small;
+}
+
+h4 {
+  font-size: 100%;
+  margin-bottom: 0;
+  margin-top: 40px;
+  color: #666;
+}
+
+span.h4sub {
+  font-size: 85%;
+  font-style: italic;
+  color: #AAA;
 }
 
 .defDetails {
@@ -433,4 +447,51 @@ th.headerSortDown {
 #mobileLink {
   background: url("../img/icons/phone.png") no-repeat;
   padding-left: 16px;
+}
+
+.wotdArchive {
+  margin-bottom: 10px;
+}
+
+.wotdArchiveTitle {
+  font-family: sans-serif;
+  font-size: 85%;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.wotdArchiveTable {
+  font-family: sans-serif;
+  border-collapse:collapse;
+  border: 1px solid;
+}
+
+.wotdArchiveTable td {
+  text-align:right;
+  font-size: 12px;
+  width: 90px;
+  border: 1px solid blue;
+  padding: 3px;
+  color: #555;
+}
+
+.wotdArchiveTable tr.wotdHeader td{
+  text-align:center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.nav {
+  cursor: pointer;
+  color: #0000CC;
+}
+
+.nav:hover {
+  text-decoration: underline;
+  color: #0000FF;
+}
+
+.wotdDoM {
+  font-size: 16px;
+  font-weight: bold;
 }

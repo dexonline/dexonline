@@ -131,8 +131,21 @@
       </b>
     </span>
   {/if}
-  
+
+  {assign var=notDisplayedUnoffical value=true}
+  {assign var=notDisplayedSpec value=true}
   {foreach from=$results item=row key=i}
+  {if $searchType != SEARCH_FULL_TEXT }
+  {if $row->source->isOfficial == 1 && $notDisplayedSpec}
+    <h4>Definiții din dicționare specializate</h4><span class="h4sub">Aceste definiții pot explica numai anumite înțelesuri ale cuvintelor.</span><br/>
+    <hr/>
+    {assign var=notDisplayedSpec value=false}
+  {elseif $row->source->isOfficial == 0 && $notDisplayedUnoffical}
+    <h4>Definiții din dicționare neoficiale</h4><span class="h4sub">Deoarece nu sunt editate de lexicografi, aceste definiții pot conține erori, deci e preferabilă consultarea altor dicționare în paralel.</span><br/>
+    <hr/>
+    {assign var=notDisplayedUnoffical value=false}
+  {/if}
+  {/if}
     <p>
       <span class="def" onclick="return searchClickedWord(event);" title="Clic pentru a naviga la acest cuvânt">
         {$row->definition->htmlRep}
@@ -184,5 +197,22 @@
       {if $row_id}|{/if}
       <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{include file="common/bits/lexemName.ihtml" lexem=$lexem}</a>
     {/foreach}
+  {/if}
+
+  {if $searchType == SEARCH_WOTD}
+      {if $fdate}
+  <div class="resultBar">
+  Navigați printre cuvintele zilei:
+          {if $prevday}<a href="{$prevday}">« Precedentul</a>{/if} 
+          {if $nextday}<a href="{$nextday}">Următorul »</a>{/if}
+      {else}
+  <div class="wotdArchiveTitle">
+  Arhiva cuvintelor zilei:
+      {/if}
+  </div>
+  {/if}
+  {if not $fdate}
+  <div id="wotdArchive" class="wotdArchive"></div>
+  <script>loadAjaxContent('/arhiva/cuvantul-zilei/','#wotdArchive')</script>
   {/if}
 </div>

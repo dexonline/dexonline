@@ -178,6 +178,11 @@ $conjugations = NULL;
 $declensions = NULL;
 if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $searchType == SEARCH_FULL_TEXT || $searchType == SEARCH_MULTIWORD) {
   // Definition::incrementDisplayCount($definitions);
+/*
+echo "<pre>";
+print_r($searchResults);
+echo "</pre>";
+*/
   smarty_assign('results', $searchResults);
  
   // Maps lexems to arrays of inflected forms (some lexems may lack inflections)

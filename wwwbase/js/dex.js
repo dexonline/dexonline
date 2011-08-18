@@ -4,6 +4,12 @@ var letter = '[' + Alphabet + ']';
 var nonLetter = '[^' + Alphabet + ']';
 var wwwRoot = getWwwRoot();
 
+function loadAjaxContent(url, elid) {
+    $.get(url, function(data) {
+        $(elid).html(data);
+    });
+}
+
 function friendlyRedirect() {
   action = document.frm.text.checked ? 'text' : 'definitie';
   source = document.frm.source.value;

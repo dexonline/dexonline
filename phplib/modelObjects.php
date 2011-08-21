@@ -387,8 +387,10 @@ class TopEntry {
     $bulk = array(array(null, Source::get("shortName = 'MDN'"), '2007-09-15'),
                   array(null, Source::get("shortName = 'Petro-Sedim'"), null),
                   array(null, Source::get("shortName = 'GTA'"), null),
+                  array(null, Source::get("shortName = 'DCR2'"), null),
                   array(User::get("nick = 'siveco'"), null, null),
-                  array(User::get("nick = 'RACAI'"), null, null));
+                  array(User::get("nick = 'RACAI'"), null, null),
+                  );
     $conditions = array();
     foreach ($bulk as $tuple) {
       $parts = array();

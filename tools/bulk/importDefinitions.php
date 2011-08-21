@@ -1,7 +1,7 @@
 <?
 require_once('../phplib/util.php');
 
-$shortopts = "f:u:s:c:t:hvid"; 
+$shortopts = "f:u:s:c:t:x:p:hvid"; 
 $options = getopt($shortopts);
 
 function HELP() {
@@ -16,6 +16,8 @@ Options:
 	-c check against sourceId)
 	-t status (mandatory: 0 - active, 1 - temporary, 2 - deleted)
 	-i = use inflections for multilexem entries
+    -x = exclude lexems beginning with
+    -p = split lexem using this char
 	-d = dry run
 	-h = help
 	-v = verbose
@@ -56,6 +58,16 @@ $status = $options['t'];
 $checkSourceId = NULL;
 if (isset($options['c'])) {
 	$checkSourceId = $options['c'];
+}
+
+$excludeChar = NULL;
+if (isset($options['x'])) {
+	$excludeChar = $options['x'];
+}
+
+$splitChar = NULL;
+if (isset($options['p'])) {
+	$splitChar = $options[''];
 }
 
 $verbose = false;
@@ -118,11 +130,14 @@ while ($i < count($lines)) {
     if($verbose) echo("\tAdded definition {$definition->id} ({$definition->lexicon})\n");
 
     $lname = addslashes(text_formatLexem($lname));
-	$names = preg_split("/[\s,\/()]+/", $lname);
+	$names = preg_split("/[-\s,\/()]+/", $lname);
 	foreach ($names as $name) {
 		if ($name == '') continue;
+        if (isset($excludeChar) && ($name[0])==$excludeChar) continue;
+        $name = str_replace("'", '', $name);
+        $name = str_replace("\\", '', $name);
 
-		if($verbose) echo("\t * Process part: {$name}\n");
+		if($verbose) echo("\t * Process part: '{$name}'\n");
 
 		$lexems = db_find(new Lexem(), "form = '{$name}'");
 		if (!count($lexems)) {

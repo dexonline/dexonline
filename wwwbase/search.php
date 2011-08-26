@@ -270,11 +270,16 @@ if ($cuv) {
   $page_keywords .= ", dexonline, DEX online";
   $page_description .= " pentru {$cuv}";
 
+  $page_title = '';
   if (count($sourceList)) {
     $page_description .= " din dicționarele: " . implode(", ", $sourceList);
+    if (count($sourceList) == 1) {
+        $page_title = ' ' . $sourceList[0];
+    }
   }
+  $page_title .= $showParadigm ? ' si paradigme' : '';
 
-  smarty_assign('page_title', "{$cuv} - definitie");
+  smarty_assign('page_title', "{$cuv} - definitie{$page_title}");
   smarty_assign('page_keywords', $page_keywords);
   smarty_assign('page_description', $page_description);
 }

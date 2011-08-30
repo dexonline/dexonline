@@ -501,7 +501,7 @@ div.flashMessage {
 }
 
 div.errorType {
-  background: url("../img/icons/error.png") no-repeat 10px center;
+  background: url("../img/icons/exclamation.png") no-repeat 10px center;
   border: 2px solid #eea77e;
   color: #c00;
 }
@@ -567,6 +567,17 @@ span.spaced {
 .contribExample td, .contribExample th {
   border: 1px solid #aaa;
   padding: 3px 10px;
+}
+
+#contribLogin {
+  background: url("../img/icons/exclamation.png") no-repeat 0px center;
+  padding: 5px 20px;
+}
+
+#formattingLink {
+  background: url("../img/icons/page_white_text.png") no-repeat 0px center;
+  float: right;
+  padding: 5px 0 0 20px;
 }
 
 table.static {

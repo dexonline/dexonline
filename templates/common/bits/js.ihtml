@@ -21,7 +21,7 @@
 {/if}
 
 {if $dex}
-    <script type="text/javascript" src="{$wwwRoot}js/dex.js?v=16"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/dex.js?v=17"></script>
 {/if}
 {if $flex}
     <script type="text/javascript" src="{$wwwRoot}js/flex.js?v=2"></script>

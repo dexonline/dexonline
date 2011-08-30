@@ -46,7 +46,7 @@
         {foreach from=$homonyms item=h key=i}
           <tr>
             <td>
-              <img src="{$imgRoot}/icons/error.png" alt="warning"/>
+              <img src="{$imgRoot}/icons/exclamation.png" alt="warning"/>
               Omonim:
             </td>
             <td>

@@ -356,7 +356,7 @@ div.flashMessage {
 }
 
 div.errorType {
-  background: url("../img/icons/error.png") no-repeat 10px center;
+  background: url("../img/icons/exclamation.png") no-repeat 10px center;
   border: 2px solid #eea77e;
   color: #c00;
 }

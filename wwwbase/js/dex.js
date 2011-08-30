@@ -46,11 +46,6 @@ function typoWindow(definitionId) {
               'menubar=no,scrollbars=yes,toolbar=no,width=500,height=400');
 }
 
-// Functions for the contribution page
-function formatwindow() {
-  window.open(wwwRoot + 'static.php?c=format','formatwindow', 'menubar=no,scrollbars=yes,toolbar=no,width=500,height=400');
-}
-
 function myEncodeURI(s) {
   var encoded = encodeURI(s);
   encoded = encoded.replace(/\+/g, '%2B');

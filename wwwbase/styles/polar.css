@@ -114,7 +114,7 @@ div.flashMessage {
 }
 
 div.errorType {
-  background: url("../img/icons/error.png") no-repeat 10px center;
+  background: url("../img/icons/exclamation.png") no-repeat 10px center;
   border: 2px solid red;
 }
 
@@ -494,4 +494,9 @@ th.headerSortDown {
 .wotdDoM {
   font-size: 16px;
   font-weight: bold;
+}
+
+#contribLogin {
+  background: url("../img/icons/exclamation.png") no-repeat 0px center;
+  padding: 5px 20px;
 }

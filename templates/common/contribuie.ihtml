@@ -2,12 +2,14 @@
 
 <h3>Trimiteți o definiție</h3>
 
+{if !$sUser}
+  <div id="contribLogin">
+    Dacă doriți să primiți credit pentru definițiile trimise, vă recomandăm să vă <a href="{$wwwRoot}inregistrare">înregistrați</a>.
+  </div>
+{/if}
+
 <form id="frmContrib" name="frmContrib" method="post" action="contribuie">
   <table class="userEdit">
-    <tr>
-      <td>Utilizator:</td>
-      <td><b>{$nick|escape}</b></td>
-    </tr>
 
     <tr>
       <td>Cuvântul definit:</td>
@@ -39,6 +41,7 @@
       <td>
         {include file="common/sourceDropDown.ihtml" sources=$contribSources src_selected=$sourceId skipAnySource=1}
         <a href="informatii#surse">lista de surse acceptate</a>
+        <div id="formattingLink"><a href="http://wiki.dexonline.ro/wiki/Ghidul_voluntarului" target="_blank">instrucțiuni de formatare</a></div>
       </td>
     </tr>
 
@@ -92,18 +95,5 @@
     </td>
   </tr>
 </table>
-
-<br/>
-
-<h3>Atenție!</h3>
-
-<p>
-  Vă rugăm să respectați <a href="javascript:formatwindow()">instrucțiunile de formatare</a> și să trimiteți numai definiții din sursele
-  acceptate. <b>Nu putem accepta definiții provenite din opinia dumneavoastră personală</b>. Aceasta ar duce la scăderea credibilității
-  <i>DEX online</i> sau ar putea omite sensuri secundare ale cuvântului. Vă rugăm în special să tastați definițiile cu diacritice (ĂÂÎȘȚ).
-  Dacă efortul necesar corectării definiției pe care ne-o trimiteți este mai mare decât tastarea ei de la zero, bunăvoința dumneavoastră
-  este irosită. Definițiile care nu se conformează acestor rugăminți vor fi respinse. Întrucât numărul de voluntari a crescut considerabil
-  în ultima vreme, regretăm că nu putem garanta un răspuns individual.
-</p>
 
 <script type="text/javascript">contribBodyLoad();</script>

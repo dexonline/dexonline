@@ -708,9 +708,9 @@ class Lexem extends BaseObject {
 
   public static function loadByExtendedName($extName) {
     $parts = preg_split('/\(/', $extName, 2);
-    $name = trim($parts[0]);
+    $name = addslashes(trim($parts[0]));
     if (count($parts) == 2) {
-      $description = trim($parts[1]);
+      $description = addslashes(trim($parts[1]));
       $description = str_replace(')', '', $description);
     } else {
       $description = '';

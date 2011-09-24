@@ -363,6 +363,9 @@ function util_redirectToFriendlyUrl($cuv, $sourceUrlName, $text, $showParadigm) 
 
 /** Relaxed browser check. Currently checks for a few major browser. Can have false negatives, but (hopefully) no false positives. **/
 function util_isDesktopBrowser() {
+  if (!util_isWebBasedScript()) {
+    return false;
+  }
   $u = $_SERVER['HTTP_USER_AGENT'];
   return (strpos($u, 'Firefox') !== false) || (strpos($u, 'MSIE') !== false) || (strpos($u, 'Chrome') !== false) ||
     (strpos($u, 'Opera') !== false) || (strpos($u, 'Safari') !== false);
@@ -370,6 +373,9 @@ function util_isDesktopBrowser() {
 
 /** Keep this in sync with docs/.htaccess and wwwbase/.htaccess **/
 function util_isMobile($userAgent = null) {
+  if (!util_isWebBasedScript()) {
+    return false;
+  }
   if (!$userAgent) {
     $userAgent = $_SERVER['HTTP_USER_AGENT'];
   }

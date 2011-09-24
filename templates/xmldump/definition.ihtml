@@ -1,0 +1,7 @@
+  <Definition id="{$def->id}">
+    <Timestamp>{$def->modDate}</Timestamp>
+    <UserName>{$nick|escape}</UserName>
+    <SourceId>{$def->sourceId}</SourceId>
+    <Text>{$def->internalRep}</Text>
+  </Definition>
+

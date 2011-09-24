@@ -48,4 +48,38 @@ smarty_assign('sections', $sections);
 $abbrevs_xml = smarty_fetch('xmldump/abbrev.ihtml');
 file_put_contents("$FOLDER/$TODAY-abbrevs.xml.gz", gzencode($abbrevs_xml));
 
+# dump definitions table
+$users = getActiveUsers();
+$defResults = db_execute("SELECT * FROM Definition WHERE sourceId IN " .
+                         "(SELECT id FROM Source WHERE canDistribute) " .
+                         " AND status = 0");
+
+$defsFile = gzopen("$FOLDER/$TODAY-definitions.xml.gz", 'wb9');
+gzwrite($defsFile, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+gzwrite($defsFile, "<Definitions>\n");
+while (!$defResults->EOF) {
+  $def = new Definition();
+  $def->set($defResults->fields);
+  $def->internalRep = text_xmlizeRequired($def->internalRep);
+  smarty_assign('def', $def);
+  smarty_assign('nick', $users[$def->userId]);
+  $abbrevs_xml = smarty_fetch('xmldump/definition.ihtml');
+  gzwrite($defsFile, $abbrevs_xml);
+  $defResults->MoveNext();
+}
+gzwrite($defsFile, "</Definitions>\n");
+gzclose($defsFile);
+
+
+function getActiveUsers() {
+  $usersResults = db_execute("SELECT id, nick FROM User WHERE id IN ".
+                "(SELECT DISTINCT userId FROM Definition WHERE status = 0)");
+  $users = array();
+  while (!$usersResults->EOF) {
+    $users[$usersResults->fields[0]] = $usersResults->fields[1];
+    $usersResults->MoveNext();
+  }
+  return $users;
+}
+
 ?>

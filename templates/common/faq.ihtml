@@ -60,7 +60,7 @@
 <ul>
   <li><a href="#DICT"><i>DEX online</i> implementează protocolul DICT?</a></li>
   <li><a href="#lista_email">Aveți o listă de e-mail?</a></li>
-  <li><a href="#mirrors">Aveți un mirror mai rapid?</a></li>
+  <li><a href="#mirrors">Aveți un mirror (server-oglindă) mai rapid?</a></li>
   <li><a href="#database">Cum obțin o copie a bazei de date?</a></li>
   <li><a href="#licenta">Licență</a></li>
   <li><a href="#kudos">Software liber</a></li>
@@ -221,7 +221,7 @@
     editurile <a href="{$wwwRoot}spre/litera">Litera Internațional</a>
     și <a href="{$wwwRoot}spre/saeculum">Saeculum</a>, care ne-au pus
     la dispoziție cinci dicționare complete. Firma Siveco ne oferă și
-    găzduire pentru primul <a href="#mirrors">mirror</a> al <i>DEX
+    găzduire pentru primul <a href="#mirrors">mirror (server-oglindă)</a> al <i>DEX
     online.</i></li>
 
     <li>Matei Gall, Octavian Mocanu și Radu Borza, autorii componentei
@@ -584,7 +584,7 @@
 
   Da. Configurați aplicația folosită (de exemplu gnome-dictionary) cu
   serverul dexonline.ro (sau oricare dintre <a
-  href="#mirrors">mirror-uri</a>) și portul 2628.
+  href="#mirrors">mirror-uri (servere-oglindă)</a>) și portul 2628.
 
 
 <h3><a name="lista_email"></a>Aveți o listă de e-mail?</h3>
@@ -598,7 +598,7 @@
   href="http://groups.yahoo.com/group/dictionar">http://groups.yahoo.com/group/dictionar</a>.
 
 
-<h3><a name="mirrors"></a>Aveți un mirror mai rapid?</h3>
+<h3><a name="mirrors"></a>Aveți un mirror (server-oglindă) mai rapid?</h3>
 
   Posibil! În prezent, <i>DEX online</i> este accesibil în patru locuri:
 
@@ -608,21 +608,21 @@
     de firma Elvsoft.</li>
 
     <li><a href="http://dictionare.edu.ro">dictionare.edu.ro</a>
-    &ndash; Mirror găzduit în România de <a
+    &ndash; Server găzduit în România de <a
     href="{$wwwRoot}spre/siveco">firma Siveco</a> și <a
     href="http://portal.edu.ro">Portalul SEI</a>.</li>
 
     <li><a href="http://voronet.dexonline.ro">voronet.dexonline.ro</a>
-    &ndash; Mirror în București, pe un calculator aflat în sufrageria
-    lui Cătălin. Acest mirror a rezistat cu bravură cinci ani ca
+    &ndash; Server în București, pe un calculator aflat în sufrageria
+    lui Cătălin. Acest server a rezistat cu bravură cinci ani ca
     server principal al <i>DEX online</i>, până am găsit găzduire
     propriu-zisă.</li>
 
     <li><a href="http://dex.cartiere.ro">dex.cartiere.ro</a>
-    &ndash; Mirror creat prin amabilitatea lui Constantin Gelu.</li>
+    &ndash; Server creat prin amabilitatea lui Constantin Gelu.</li>
   </ol>
 
-  Următoarele mirroruri sunt neoficiale. Ele sunt realizate de
+  Următoarele servere-oglindă sunt neoficiale. Ele sunt realizate de
   persoane care au dorit să sprijine proiectul <i>DEX online</i> și le
   mulțumim din suflet, dar nu garantăm că aceste servere
   vor fi în permanență funcționale.
@@ -631,7 +631,7 @@
     <li><a href="http://dex.webcast.ro">dex.webcast.ro</a></li>
   </ol>
 
-  Un „mirror” este un termen tehnic pentru o copie fidelă a unui
+  Un „mirror” sau server-oglindă este un termen tehnic pentru o copie fidelă a unui
   site. În cazul <i>DEX online</i>, mirror-urile nu sunt 100% fidele,
   deoarece modificarea datelor este dezactivată (nu puteți corecta
   definiții sau semnala greșeli de tipar). Dar în ce privește

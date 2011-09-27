@@ -131,6 +131,11 @@ with the application developers.
     </ul>
   </li>
 
+  <li>
+    Puteți instala un <a href="http://www.ieaddons.com/ro/addons/detail.aspx?id=12819">accelerator pentru Internet Explorer</a>. El vă permite să
+    selectați un cuvânt din pagină și să-l căutați rapid în <i>DEX online</i>.
+  </li>
+
   <li>Adăugați <i>DEX online</i> la cutia de căutare din Firefox 2.x,
   Firefox 3.0 sau Internet Explorer 7: <a href="#"
   onclick="addProvider('http://dexonline.ro/download/dex.xml'); return

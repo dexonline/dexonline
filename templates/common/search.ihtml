@@ -168,11 +168,20 @@
           Adăugată de anonim
         {/if}
 
-        {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+        {if $sUser->moderator & $smarty.const.PRIV_EDIT} 
           | Id: {$row->definition->id}
         {/if}
   
         | <a href="javascript:typoWindow({$row->definition->id})">Greșeală de tipar</a>
+
+        {if $sUser}
+          {if $row->bookmark}
+            | Adăugat la favorite 
+          {else}
+            | <a href="{$wwwRoot}bookmarkAdd.php?definitionId={$row->definition->id}">Adaugă la favorite</a>
+          {/if}
+        {/if}
+
         | <a href="{$wwwRoot}definitie/{$row->definition->lexicon}/{$row->definition->id}" title="Link doar către această definiție">Permalink</a>
   
         {if ($sUser->moderator & $smarty.const.PRIV_EDIT) && !$is_mirror}

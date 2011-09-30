@@ -104,6 +104,7 @@
             {/if}
             {if $sUser}
               | <a href="{$wwwRoot}contul-meu">Contul meu</a>
+              | <a href="{$wwwRoot}cuvinte-favorite">Cuvinte favorite</a>
               | <a href="{$wwwRoot}logout" id="logoutLink">Deconectare</a>
             {else}
               | <a href="{$wwwRoot}preferinte">Preferințe</a>

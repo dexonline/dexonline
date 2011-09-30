@@ -500,3 +500,11 @@ th.headerSortDown {
   background: url("../img/icons/exclamation.png") no-repeat 0px center;
   padding: 5px 20px;
 }
+
+.favoriteDef {
+  margin-bottom: 16px;
+}
+
+.favoriteDef span {
+  padding-left: 2em;
+}

@@ -369,6 +369,7 @@ class SearchResult {
         $result->commentAuthor = User::get("id = {$result->comment->userId}");
       }
       $result->wotd = WordOfTheDay::getStatus($definition->id);
+      $result->bookmark = UserWordBookmark::getStatus(session_getUserId(), $definition->id);
       $results[] = $result;
     }
     return $results;
@@ -1344,7 +1345,6 @@ class Abbreviation extends BaseObject {
 
 }
 
-
 class WordOfTheDayRel extends BaseObject {
     public function countDefs($refId) {
         $query = "SELECT count(*) from WordOfTheDayRel WHERE refId = $refId" ;
@@ -1385,6 +1385,7 @@ class WotDArchive {
         return $obj;
     }
 }
+
 
 class WordOfTheDay extends BaseObject {
     public static function get($where) {
@@ -1470,5 +1471,39 @@ class WordOfTheDay extends BaseObject {
 
 }
 
+class UserWordBookmarkDisplayObject extends UserWordBookmark {
+  public static function getByUser($userId) {
+    $result = array();
+    $query = "SELECT UWB.id as id, UWB.userId as userId, UWB.definitionId as definitionId, UWB.createDate as createDate, ".
+      "D.htmlRep as htmlRep, D.lexicon as lexicon " .
+      "FROM UserWordBookmark UWB, Definition D WHERE UWB.userId = $userId AND UWB.definitionId = D.id";
+    $dbRes = db_execute($query);
+    foreach ($dbRes as $res) {
+      $obj = new UserWordBookmarkDisplayObject();
+      $obj->id = $res['id'];
+      $obj->userId = $res['userId'];
+      $obj->definitionId = $res['definitionId'];
+      $obj->createDate = $res['createDate'];
+      $obj->html = $res['htmlRep'];
+      $obj->lexicon = $res['lexicon'];
+      $result[] = $obj;
+    }
+    return $result; 
+  }
+}
+
+class UserWordBookmark extends BaseObject {
+  public static function getStatus($userId, $definitionId) {
+    $query = "SELECT id FROM UserWordBookmark WHERE userId = $userId AND definitionId = $definitionId";
+    $dbResult = db_execute($query);
+    return $dbResult ? $dbResult->fields('id') : NULL;
+  }
+
+  public static function loadByUserIdAndDefinitionId($userId, $definitionId) {
+    $query = "SELECT * FROM UserWordBookmark WHERE userId = $userId AND definitionId = $definitionId";
+    $dbResult = db_execute($query);
+    return db_getObjects(new UserWordBookmark(), $dbResult);
+  }
+}
 
 ?>

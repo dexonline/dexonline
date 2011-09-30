@@ -45,6 +45,10 @@ function pref_getDebugUser() {
   return pref_getServerPreference('debugUser');
 }
 
+function pref_getMaxBookmarks() {
+  return pref_getServerPreference('maxBookmarks');
+}
+
 function pref_getHostedBy() {
   return pref_getServerPreference('hostedBy');
 }

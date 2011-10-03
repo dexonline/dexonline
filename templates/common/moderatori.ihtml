@@ -5,8 +5,8 @@
       <th>Admin</th>
       <th>Moderator LOC</th>
       <th>Moderator</th>
-      <th>Ghid de exprimare</th>
-	  <th>Cuvântul zilei</th>
+      <th>Ghid de exprimare<br/>(nefolosit)</th>
+      <th>Cuvântul zilei</th>
     </tr>
     {foreach from=$users item=user}
       <tr>

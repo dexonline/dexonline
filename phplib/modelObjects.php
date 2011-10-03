@@ -14,20 +14,6 @@ class BaseObject extends ADOdb_Active_Record {
   }
 }
 
-class GuideEntry extends BaseObject {
-  public function normalize() {
-    $this->correct = text_internalizeDefinition($this->correct, 0);
-    $this->wrong = text_internalizeDefinition($this->wrong, 0);
-    $this->comments = text_internalizeDefinition($this->comments, 0);
-    
-    $ignored = array();
-    $this->correctHtml = text_htmlize($this->correct, 0, $ignored, true);
-    $this->wrongHtml = text_htmlize($this->wrong, 0, $ignored, true);
-    $this->commentsHtml = text_htmlize($this->comments, 0, $ignored, true);    
-  }
-}
-
-
 /**
  * Class used to log data when a search is performed
  **/

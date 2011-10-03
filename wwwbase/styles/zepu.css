@@ -475,43 +475,6 @@ div.notRecommendedLegend {
   white-space: normal;
 }
 
-.rightWrong {
-  border-collapse: collapse;
-  border-spacing: 0px;
-}
-
-.rightWrong th {
-  text-align: center;
-}
-
-.rightWrong td {
-  vertical-align: top;
-}
-
-.rightWrong td.right {
-  color: #060;
-  width: 25%;
-}
-
-.rightWrong td.wrong {
-  color: #600;
-  width: 25%;
-}
-
-.rightWrong td.notes {
-  width: 50%;
-}
-
-.rightWrong td.actions {
-  font-size: 80%;
-  vertical-align: middle;
-}
-
-div.guideEntryAddLink {
-  font-size: 80%;
-  text-align: center;
-}
-
 div.flashMessage {
   font-weight: bold;
   margin: 10px auto;

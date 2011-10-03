@@ -204,51 +204,6 @@ a.inflLink:focus {
   outline: none;
 }
 
-.rightWrong {
-  border-collapse: collapse;
-  border-spacing: 0px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 94%;
-}
-
-.rightWrong th {
-  background: #eeeeee;
-  border: 1px solid #cccccc;
-}
-
-.rightWrong td {
-  border: 1px solid #cccccc;
-  padding: 4px;
-  vertical-align: top;
-}
-
-.rightWrong td.right {
-  color: #006600;
-  width: 25%;
-}
-
-.rightWrong td.wrong {
-  color: #660000;
-  width: 25%;
-}
-
-.rightWrong td.notes {
-  width: 50%;
-}
-
-.rightWrong td.actions {
-  font-family: sans-serif;
-  font-size: 80%;
-  vertical-align: middle;
-}
-
-div.guideEntryAddLink {
-  font-family: sans-serif;
-  font-size: 80%;
-  text-align: center;
-}
-
 div.debugInfo {
 	font-size: 75%;
 	color: #777;

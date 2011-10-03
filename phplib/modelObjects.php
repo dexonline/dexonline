@@ -1476,7 +1476,7 @@ class UserWordBookmarkDisplayObject extends UserWordBookmark {
     $result = array();
     $query = "SELECT UWB.id as id, UWB.userId as userId, UWB.definitionId as definitionId, UWB.createDate as createDate, ".
       "D.htmlRep as htmlRep, D.lexicon as lexicon " .
-      "FROM UserWordBookmark UWB, Definition D WHERE UWB.userId = $userId AND UWB.definitionId = D.id";
+      "FROM UserWordBookmark UWB, Definition D WHERE UWB.userId = $userId AND UWB.definitionId = D.id ORDER BY lexicon";
     $dbRes = db_execute($query);
     foreach ($dbRes as $res) {
       $obj = new UserWordBookmarkDisplayObject();

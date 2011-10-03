@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("../../phplib/util.php");
 
 $query = util_getRequestParameter('q');

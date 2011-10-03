@@ -1,4 +1,4 @@
-<?
+<?php
 // Now that a Concept maps several Words to several Definitions, we
 // can no longer use the first Word to compute the Lexicon field. We have to
 // extract it from the definition.

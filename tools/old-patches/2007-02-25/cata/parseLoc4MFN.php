@@ -1,4 +1,4 @@
-<?
+<?php
 // Expected: 257 models. Model 666 appears twice, but one of the instances has
 // "display: none". Also, note models 657 and 657'.
 require_once("common.php");

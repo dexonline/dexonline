@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("../../phplib/util.php"); 
 util_hideEmptyRequestParameters();
 util_assertModerator(PRIV_LOC);

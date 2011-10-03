@@ -1,4 +1,4 @@
-<?
+<?php
 class DivertaAdsModule extends AdsModule {
 
   public function run($lexems, $definitions) {

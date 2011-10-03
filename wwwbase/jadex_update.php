@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../phplib/util.php');
 
 // Allow this script to run indefinitely long
@@ -134,4 +134,4 @@ function usage() {
     <p>This page is meant for automated use by the <a href="http://www.federicomestrone.com/jadex/">JaDEX application</a> only!</p>
   </body>
 </html>
-<? } ?>
+<?php } ?>

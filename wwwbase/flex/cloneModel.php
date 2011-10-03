@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("../../phplib/util.php"); 
 ini_set('max_execution_time', '3600');
 util_assertModerator(PRIV_LOC);

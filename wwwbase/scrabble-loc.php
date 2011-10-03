@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("../phplib/util.php");
 define('DB_QUERY', 'select * from Lexem where isLoc order by formNoAccent');
 $locVersion = util_getRequestParameter('locVersion');

@@ -1,4 +1,4 @@
-<?
+<?php
 // After migrating the entire schema to UTF8, some definitions were
 // converted badly.
 require_once("../../phplib/util.php");

@@ -1,4 +1,4 @@
-<?
+<?php
 
 function db_init() {
   $db = NewADOConnection(pref_getServerPreference('database'));

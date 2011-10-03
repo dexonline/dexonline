@@ -1,4 +1,4 @@
-<?
+<?php
 require_once "../phplib/util.php";
 $dbResult = db_execute("select * from Definition where status = 0 and sourceId in (1, 2, 3, 4, 5) order by id");
 

@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("../../phplib/util.php"); 
 ini_set("memory_limit", "256000000");
 util_hideEmptyRequestParameters();

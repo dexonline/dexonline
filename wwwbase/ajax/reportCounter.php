@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();

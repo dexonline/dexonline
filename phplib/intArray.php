@@ -1,4 +1,4 @@
-<?
+<?php
 
 function int_create($size) {
   $buf = str_repeat(chr(0), 4 * $size + 4);

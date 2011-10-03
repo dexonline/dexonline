@@ -1,4 +1,4 @@
-<?
+<?php
 
 $PREFIX = "http://www.dol.ro/magazin/";
 $PREFIX_PREG = "http:\/\/www.dol.ro\/magazin\/";

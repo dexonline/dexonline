@@ -1,4 +1,4 @@
-<?
+<?php
 // Fix the rough guide entries entered by schemaChange.sql. Those were taken
 // directly from the static HTML page.
 require_once("../../phplib/util.php");

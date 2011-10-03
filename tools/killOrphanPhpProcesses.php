@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("../phplib/util.php");
 
 $PS_COMMAND = 'ps -eo user,pid,etime,args --no-headers --sort etime';

@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("../../phplib/util.php");
 
 $modelType = util_getRequestParameter('modelType');

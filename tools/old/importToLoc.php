@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * This script applies data migration patches, including SQL code and PHP scripts.
  * Overview:

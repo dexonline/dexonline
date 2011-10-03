@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * Remove from LOC all the lexems which

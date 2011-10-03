@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("common.php");
 DEFINE('FILE_NAME', '/tmp/loc4-p.html');
 DEFINE('EXPECTED_MODELS', 91);

@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("../phplib/util.php"); 
 setlocale(LC_ALL, "ro_RO.utf8");
 debug_off();

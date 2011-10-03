@@ -1,4 +1,4 @@
-<?
+<?php
 //It should be in sync with table Lexem, field source
 $GLOBALS['lexemSourcesArray'] = array(
 	"doom"	=> array( "name" => "DOOM" ), 

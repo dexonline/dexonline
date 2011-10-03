@@ -1,4 +1,4 @@
-<?
+<?php
 // This is nowhere near perfect, but it's a decent approximation for starters.
 // Gives each lexem a frequency between 0.00 and 1.00
 // Stop words defined in textProcessing.php get 1.00

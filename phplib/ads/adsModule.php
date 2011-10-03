@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * An abstract class defining methods common to all ads modules.
 **/

@@ -1,4 +1,4 @@
-<?
+<?php
 // We want the internalRep field to contain ONLY Unicode.
 // TODO: Fix all tables, not just definitions.
 require_once("../../phplib/util.php");

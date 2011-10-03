@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("../phplib/util.php");
 
 // Allow this script to run indefinitely long

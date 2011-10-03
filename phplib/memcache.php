@@ -1,4 +1,4 @@
-<?
+<?php
 
 function mc_init() {
   $GLOBALS['memcache'] = false;

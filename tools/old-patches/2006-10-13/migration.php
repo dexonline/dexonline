@@ -1,4 +1,4 @@
-<?
+<?php
 
 // WARNING! Run AFTER applying schemaChanges.sql
 //

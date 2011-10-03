@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../../phplib/util.php');
 assert_options(ASSERT_BAIL, 1);
 debug_off();

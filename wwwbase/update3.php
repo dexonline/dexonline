@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("../phplib/util.php");
 set_time_limit(0);
 

@@ -1,4 +1,4 @@
-<?
+<?php
 header('Content-type: application/x-javascript');
 require_once("../phplib/util.php");
 require_once("../phplib/ads/adsModule.php");

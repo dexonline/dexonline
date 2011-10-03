@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * Copy LOC info from 4.1 back to 5.0, then include DLRM lexems from the list that Matei provided.

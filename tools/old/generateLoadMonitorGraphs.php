@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * Loads a log file and draws load graphs for the last few days.

@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("../phplib/util.php");
 
 log_scriptLog('Running rebuildFirefoxSpellChecker.php.');

@@ -1,4 +1,4 @@
-<?
+<?php
 
 ADOdb_Active_Record::$_changeNames = false; // Do not pluralize table names
 

@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../phplib/util.php');
 
 $shortopts = "f:u:s:c:t:x:p:hvid"; 

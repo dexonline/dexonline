@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("common.php");
 DEFINE('FILE_NAME', '/tmp/loc4-list.html');
 DEFINE('LEGAL_LEXEM_CHARACTERS', "aăâbcdefghiîjklmnopqrsștțuvwxyzäåçéöüù'");

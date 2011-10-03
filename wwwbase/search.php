@@ -165,8 +165,9 @@ if ($searchType == SEARCH_INFLECTED) {
 
   smarty_assign('lexems', $lexems);
   if ($searchType == SEARCH_INFLECTED) {
-    // For successful searches, load the definitions and inflections
+    // For successful searches, load the definitions, inflections and linguistic articles
     $definitions = Definition::loadForLexems($lexems, $sourceId, $cuv, $exclude_unofficial);
+    smarty_assign('wikiArticles', WikiArticle::loadForLexems($lexems));
   }
 
   if (isset($definitions)) {

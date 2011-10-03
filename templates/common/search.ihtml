@@ -86,23 +86,21 @@
   
     &nbsp;
   
-    {if count($results) }
-      {if $declensionText}
-        {if $onlyParadigm}
-          {$declensionText}
-        {else}
-          <a class="inflLink" href="#" onclick="return toggleInflVisibility({if $lexemId}'{$lexemId}',1{else}'{$cuv|escape:url}'{/if});"
-            title="clic pentru conjugarea / declinarea cuvintelor"><span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span> {$declensionText}
-          </a>
-        {/if}
-      {/if}
-  {else}
-    {if count($lexems) > 0 }
-      {if $src_selected}
-    <br/>
-    Repetați căutarea <a href="/definitie/{$cuv|escape}">în toate dicționarele</a>
+    {if $declensionText}
+      {if $onlyParadigm}
+        {$declensionText}
+      {else}
+        <a class="inflLink" href="#" onclick="return toggleInflVisibility({if $lexemId}'{$lexemId}',1{else}'{$cuv|escape:url}'{/if});"
+          title="clic pentru conjugarea / declinarea cuvintelor"><span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span> {$declensionText}
+        </a>
       {/if}
     {/if}
+
+    {if !count($results) && count($lexems) }
+      {if $src_selected}
+        <br/>
+        Repetați căutarea <a href="/definitie/{$cuv|escape}">în toate dicționarele</a>
+      {/if}
     {/if}
   </div>
 {/if}
@@ -130,6 +128,15 @@
         {/foreach}
       </b>
     </span>
+  {/if}
+
+  {if $wikiArticles}
+    <div class="wikiArticleLink">
+      Articole pe această temă:
+      {foreach from=$wikiArticles item=wa}
+        <a href="{$wwwRoot}articol/{$wa->getUrlTitle()}">{$wa->title}</a>
+      {/foreach}
+    </div>
   {/if}
 
   {assign var=notDisplayedUnoffical value=true}

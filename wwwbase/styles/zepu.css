@@ -304,6 +304,27 @@ div.resultBar {
   -webkit-border-radius: 7px;
 }
 
+.wikiArticleLink {
+  background: #ffffff url("../img/icons/information.png") left center no-repeat;
+  font-size: 11px;
+  margin: 0px 0px 10px 5px;
+  padding: 5px 5px 5px 20px;
+}
+
+div.wikiTitle {
+  font-size: 18px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+#guideNotice {
+  background: #ffffff url("../img/icons/information.png") left center no-repeat;  
+  font-size: 120%;
+  font-weight: bold;
+  margin: 0px 0px 10px 5px;
+  padding: 5px 5px 5px 20px;
+}
+
 a.inflLink {
   font-weight: bold;
 }

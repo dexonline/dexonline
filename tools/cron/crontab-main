@@ -11,5 +11,8 @@
 # Regenerate the sitemap Saturdays at 5am.
 0 5 * * 6 (cd /var/www/dexon/public_html/DEX/tools && php generateSitemap.php) >/dev/null 2>&1 || mail -s "DEX generateSitemap failed" cata@francu.com
 
+# Import wiki articles
+50 1 * * * (cd /var/www/dexon/public_html/DEX/tools && php syncWikiArticles.php --full) >/dev/null 2>&1 || mail -s "DEX syncWikiArticles failed" cata@francu.com
+
 # Email sar report
 50 23 * * * sar -q -r -S | mail -s "$HOSTNAME Daily_Sar_Report" cata@francu.com

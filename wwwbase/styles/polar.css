@@ -501,6 +501,36 @@ th.headerSortDown {
   padding: 5px 20px;
 }
 
+.wikiArticleLink {
+  background: #ffffff url("../img/icons/information.png") left center no-repeat;
+  margin: 5px 0 0 5px;
+  padding: 0px 0px 0px 20px;
+}
+
+.wikiArticle table {
+  border-collapse: collapse;
+}
+
+.wikiArticle td, .wikiArticle th {
+  border: 1px solid #aaa;
+  padding: 2px 10px;
+}
+
+div.wikiTitle {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+#guideNotice {
+  background: #ffffff url("../img/icons/information.png") left center no-repeat;  
+  font-size: 120%;
+  font-weight: bold;
+  margin: 0px 0px 10px 5px;
+  padding: 5px 5px 5px 20px;
+}
+
 .favoriteDef {
   margin-bottom: 16px;
 }

@@ -1,0 +1,36 @@
+{if $wa->title == "Ghid de exprimare"}
+  <div id="guideNotice">
+    Ghidul de exprimare are o structură nouă. <a href="#" onclick="return false;">detalii</a>
+  </div>
+  <p id="guideInfo">
+    Pentru a trata mai bine unele probleme de exprimare corectă, am înlocuit ghidul de exprimare cu o secțiune de <a href="articole">articole pe teme
+    lingvistice</a>. Meniul <i>Resurse</i> conține o legătură către lista articolelor. La căutarea în <i>DEX online</i> pot apărea legături către
+    articolele relevante, acolo unde avem articole mai ample pe marginea cuvântului căutat.
+    Intenția noastră este să împărțim acest ghid în articole pe diverse teme și, în timp, să cooptăm lingviști profesioniști pentru a îmbunătăți calitatea articolelor.
+  </div>
+
+  {include file="common/bits/js.ihtml" jquery=1}
+  <script type="text/javascript"> 
+    jQuery(document).ready(function() {ldelim}
+      jQuery("#guideInfo").hide();
+      jQuery("#guideNotice").click(function() {ldelim} jQuery(this).next("#guideInfo").slideToggle(200); {rdelim});
+    {rdelim});
+  </script> 
+{/if}
+
+{if $wa}
+  <div class="wikiTitle">{$wa->title}</div>
+  <div class="wikiArticle">{$wa->htmlContents}</div>
+{else}
+  <div class="wikiTitle">Articol inexistent</div>
+  <div class="wikiArticle">Articolul pe care îl căutați nu există.</div>
+{/if}
+
+<div class="wikiTitle">Alte articole lingvistice</div>
+
+{foreach from=$wikiTitles item=titlePair}
+  {if $titlePair[0] != $wa->title}
+    <a href="{$wwwRoot}articol/{$titlePair[1]}">{$titlePair[0]}</a>
+    <a href="">{$title}</a><br/>
+  {/if}
+{/foreach}

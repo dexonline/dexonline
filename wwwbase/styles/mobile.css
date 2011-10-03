@@ -246,3 +246,30 @@ table.fullheight {
   background: url("../img/icons/computer.png") no-repeat;
   padding-left: 20px;
 }
+
+.wikiArticleLink {
+  background: #ffffff url("../img/icons/information.png") left center no-repeat;
+  margin-left : 5px;
+  padding: 10px 0px 0px 20px;
+}
+
+div.wikiTitle {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.wikiArticle table {
+  border-collapse: collapse;
+}
+
+.wikiArticle td, .wikiArticle th {
+  border: 1px solid #aaa;
+  padding: 2px 5px;
+}
+
+#guideNotice {
+  background: #ffffff url("../img/icons/information.png") left center no-repeat;  
+  margin: 0px 0px 10px 5px;
+  padding: 5px 5px 5px 20px;
+}

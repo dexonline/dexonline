@@ -1,3 +1,1 @@
-<a href="http://portal.edu.ro" class="noBorder">
-  <img src="{$imgRoot}/hosting/sei.png" alt="SEI logo"/>
-</a>
+<a id="hostingSei" href="{$wwwRoot}spre/sei" target="_blank" rel="nofollow"></a>

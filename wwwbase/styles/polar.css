@@ -493,3 +493,19 @@ div.wikiTitle {
 .favoriteDef span {
   padding-left: 2em;
 }
+
+#hostingElvsoft {
+  background: url("../img/sprite.png") -520px -90px no-repeat;
+  display: inline-block;
+  height: 31px;
+  vertical-align: top;
+  width: 88px;
+}
+
+#hostingSei {
+  background: url("../img/sprite.png") -435px -90px no-repeat;
+  display: inline-block;
+  height: 72px;
+  vertical-align: top;
+  width: 82px;
+}

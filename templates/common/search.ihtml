@@ -185,7 +185,7 @@
           {if $row->bookmark}
             | Adăugat la favorite 
           {else}
-            | <a href="{$wwwRoot}bookmarkAdd.php?definitionId={$row->definition->id}">Adaugă la favorite</a>
+            | <a class="bookmark-add-button" href="{$wwwRoot}ajax/bookmarkAdd.php?definitionId={$row->definition->id}">Adaugă la favorite</a>
           {/if}
         {/if}
 
@@ -213,6 +213,19 @@
       {/if}
     </p>
   {/foreach}
+
+  {if $sUser}
+    {literal}
+    <script type="text/javascript">
+    $(function () {
+      $('.bookmark-add-button').click(function () {
+        addBookmark($(this));
+        return false;
+      });
+    });
+    </script>
+    {/literal}
+  {/if}
   
   {if $searchType == SEARCH_APPROXIMATE || $searchType == SEARCH_REGEXP}
     {foreach from=$lexems item=lexem key=row_id}

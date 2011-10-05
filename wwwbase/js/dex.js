@@ -505,6 +505,83 @@ function trim(str) {
 	return str.slice(0, i + 1);
 }
 
+// Add/remove bookmarks
+function addBookmark(linkElement) {
+  var url = linkElement.attr('href'); 
+  var ajaxLoader = createAjaxLoader();
+
+  // show ajax indicator
+  linkElement.replaceWith(ajaxLoader);
+
+  $.ajax({
+    url: url,
+    success: function (data) { handleAjaxResponse(data, ajaxLoader, addBookmarkSuccess, bookmarkResponseError) },
+    error: function () { bookmarkResponseError(ajaxLoader); },
+    dataType: 'json'
+  });
+}
+
+function addBookmarkSuccess(targetEl) {
+  targetEl.replaceWith('Adăugat la favorite');
+}
+
+function removeBookmark(linkElement) {
+  var url = linkElement.attr('href');
+  var ajaxLoader = createAjaxLoader();
+
+  // show ajax indicator
+  linkElement.replaceWith(ajaxLoader);
+
+  $.ajax({
+    url: url,
+    success: function (data) { handleAjaxResponse(data, ajaxLoader, removeBookmarkSuccess, bookmarkResponseError) },
+    error: function () { bookmarkResponseError(ajaxLoader); },
+    dataType: 'json'
+  });
+  removeBookmarkSuccess(ajaxLoader);
+}
+
+function removeBookmarkSuccess(targetEl) {
+  var favDef = targetEl.closest('div.favoriteDef');
+  var favDefsDiv = favDef.parent();
+
+  // remove element from the DOM
+  favDef.remove();
+
+  // update favorites index
+  var favDefs = favDefsDiv.children('div');
+  if (favDefs.length > 0) {
+    for(var i=0; i < favDefs.length; i++) {
+      var index = i + 1;
+      var fav = $(favDefs[i]);
+      fav.children('b').text(index + '.');
+    }
+  } else {
+    favDefsDiv.text('Nu aveți niciun cuvânt favorit.');
+  }
+}
+
+function bookmarkResponseError(targetEl, msg) {
+  if(msg == null) {
+    msg = 'Eroare la încărcare';
+  }
+  targetEl.replaceWith(msg);
+}
+
+function handleAjaxResponse(data, targetEl, successCallback, errorCallback) {
+  if(data.status == 'success') {
+    successCallback(targetEl);
+  } else if (data.status == 'redirect') {
+    window.location.replace(wwwRoot + data.url);
+  } else {
+    errorCallback(targetEl, data.msg);
+  }
+}
+
+function createAjaxLoader() {
+  return $('<img src="' + wwwRoot + 'img/icons/ajax-indicator.gif" />');
+}
+
 /** http://javascript-array.com/scripts/jquery_simple_drop_down_menu/ **/
 var jsddm_timeout = 500;
 var jsddm_closetimer = 0;

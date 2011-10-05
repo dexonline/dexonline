@@ -1,12 +1,17 @@
-<?
+<?php
 
-require_once("../phplib/util.php");
+require_once("../../phplib/util.php");
 
 $definitionId = util_getRequestParameter('definitionId');
 
+$response = array();
 $userId = session_getUserId();
 if (!$userId) {
-  util_redirect('login');
+  $response['status'] = 'redirect';
+  $response['url'] = 'login';
+
+  echo json_encode($response);
+  exit();
 }
 
 $bookmarkList = UserWordBookmark::loadByUserIdAndDefinitionId($userId, $definitionId);
@@ -18,7 +23,7 @@ if ($bookmarkList) {
     }
   }
 }
+$response['status'] = 'success';
 
-$whereToGo = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/';
-header("Location: {$whereToGo}");
+echo json_encode($response);
 ?>

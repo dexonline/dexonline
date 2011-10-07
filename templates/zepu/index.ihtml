@@ -22,7 +22,7 @@
 </div>
 
 <div id="wotd" class="statusReportMini">
-  {include file="common/bits/wotdurl.ihtml"}
+  Cuvântul zilei: {include file="common/bits/wotdurl.ihtml"}
 </div>
 
 <div class="clearer"></div>

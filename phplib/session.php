@@ -163,6 +163,11 @@ function session_setFlash($message, $type = 'error') {
   $_SESSION['flashMessageType'] = $type;
 }
 
+function session_clearFlash() {
+  unset($_SESSION['flashMessage']);
+  unset($_SESSION['flashMessageType']);
+}
+
 function session_getWithDefault($name, $default) {
   if (isset($_SESSION)){
     if (array_key_exists($name, $_SESSION)) {

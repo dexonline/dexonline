@@ -61,6 +61,16 @@ mirror = 0
 ; Prefix for the LOC databases.
 mysql_loc_prefix = LOC_
 
+; Whether or not to cache definition pages for users who don't have a prefs cookie.
+; This currently means users who (a) are not logged in, (b) have no anonymousPrefs and (c) use the default skin.
+pageCache = 0
+
+; Page cache directory
+pageCacheDir = pageCache
+
+; Page cache expiration in hours
+pageCacheExpiration = 168
+
 ; Available skins
 skins[] = zepu
 skins[] = polar

@@ -2,6 +2,13 @@
 require_once("../phplib/util.php");
 require_once("../phplib/lexemSources.php"); 
 require_once("../phplib/ads/adsModule.php");
+require_once("../phplib/pageCache.php");
+
+$cachedPage = pageCache_get();
+if ($cachedPage) {
+  print $cachedPage;
+  exit;
+}
 
 $cuv = util_getRequestParameter('cuv');
 $lexemId = util_getRequestParameter('lexemId');
@@ -178,12 +185,6 @@ if ($searchType == SEARCH_INFLECTED) {
 $conjugations = NULL;
 $declensions = NULL;
 if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $searchType == SEARCH_FULL_TEXT || $searchType == SEARCH_MULTIWORD) {
-  // Definition::incrementDisplayCount($definitions);
-/*
-echo "<pre>";
-print_r($searchResults);
-echo "</pre>";
-*/
   smarty_assign('results', $searchResults);
  
   // Maps lexems to arrays of inflected forms (some lexems may lack inflections)
@@ -293,6 +294,13 @@ smarty_assign('searchType', $searchType);
 smarty_assign('showParadigm', $showParadigm);
 smarty_assign('paradigmLink', $paradigmLink);
 smarty_assign('advancedSearch', $text || $sourceId);
-smarty_displayCommonPageWithSkin('search.ihtml');
+
+// Capture this information now, because rendering the template wil clear $_SESSION['flashMessage']
+$hasFlashMessages = array_key_exists('flashMessage', $_SESSION);
+$output = smarty_fetchCommonPageWithSkin('search.ihtml');
+if (!$hasFlashMessages && (!empty($lexems) || !empty($definitions))) {
+  pageCache_put($output);
+}
+print $output;
 
 ?>

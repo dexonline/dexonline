@@ -23,5 +23,11 @@ then
   cp docs/.htaccess wwwbase/
 fi
 
+if [ ! -e pageCache ]
+then
+  mkdir pageCache
+fi
+chmod 777 pageCache
+
 # Compile sql-functions.cc
 g++ -fPIC -shared -I/usr/include/mysql -o tools/sql-functions.so tools/sql-functions.cc

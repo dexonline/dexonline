@@ -34,6 +34,10 @@ function smarty_isInitialized() {
 }
 
 function smarty_display() {
+  print smarty_fetchSkin();
+}
+
+function smarty_fetchSkin() {
   $skin = session_getSkin();
 
   // Set some skin variables based on the skin preferences in the config file.
@@ -49,12 +53,16 @@ function smarty_display() {
   smarty_assign('skinVariables', $skinVariables);
 
   smarty_register_outputfilters();
-  $GLOBALS['smarty_theSmarty']->display("$skin/pageLayout.ihtml");
+  return $GLOBALS['smarty_theSmarty']->fetch("$skin/pageLayout.ihtml");
 }
 
 function smarty_displayCommonPageWithSkin($templateName) {
-  smarty_assign('contentTemplateName', "common/$templateName");
-  smarty_display();
+  print smarty_fetchCommonPageWithSkin($templateName);
+}
+
+function smarty_fetchCommonPageWithSkin($templateName) {
+  smarty_assign('contentTemplateName', "common/$templateName");  
+  return smarty_fetchSkin();
 }
 
 function smarty_displayPageWithSkin($templateName) {

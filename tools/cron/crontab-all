@@ -12,3 +12,6 @@
 
 # Regenerate the Firefox spell checker extension
 55 2 * * * (cd /var/www/dexon/public_html/DEX/tools && php rebuildFirefoxSpellChecker.php) >/dev/null 2>&1 || mail -s "DEX rebuildFirefoxSpellChecker failed" cata@francu.com
+
+# Expire old page cache entries
+3 * * * * (cd /var/www/dexon/public_html/DEX/tools && php expirePageCache.php) >/dev/null 2>&1

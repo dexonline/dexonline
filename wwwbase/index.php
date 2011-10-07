@@ -10,5 +10,19 @@ if (rand(0, 99) < 50) {
 smarty_assign('page_title', 'Dicționar explicativ al limbii române');
 smarty_assign('onHomePage', '1');
 smarty_assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțuvwxyz'));
+
+/* WotD part */
+$wotd = new WordOfTheDay();
+$titleDate = "";
+$id = $wotd->getTodaysWord();
+if (!$id) {
+    $wotd->updateTodaysWord();
+    $id = $wotd->getTodaysWord();
+}
+$defId = WordOfTheDayRel::getRefId($id);
+$def = Definition::get("id = '$defId' and status = 0");
+smarty_assign('title', $def->lexicon);
+smarty_assign('today', date('Y/m/d'));
+
 smarty_displayPageWithSkin('index.ihtml');
 ?>

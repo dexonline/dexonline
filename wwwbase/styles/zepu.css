@@ -276,7 +276,6 @@ table td, table th {
 }
 
 .statusReportMini {
-  display: none;  
   background: #f4f4f4;
   border: 1px solid #761818;
   color: #333;

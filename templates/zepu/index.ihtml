@@ -22,7 +22,7 @@
 </div>
 
 <div id="wotd" class="statusReportMini">
-<script>loadWotd()</script>
+  {include file="common/bits/wotdurl.ihtml"}
 </div>
 
 <div class="clearer"></div>

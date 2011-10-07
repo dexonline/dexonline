@@ -181,7 +181,6 @@ table.fullheight {
 }
 
 .statusReportMini {
-  display: none;  
   background: none repeat scroll 0 0 #DCF0FF;
   border: 1px solid blue;
   font-family: sans-serif;

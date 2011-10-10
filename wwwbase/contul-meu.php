@@ -73,7 +73,7 @@ if ($sendButton) {
       $user->skin = $skin;
     }
     $user->save();
-    session_setUser($user);
+    session_setVariable('user', $user);
     session_setFlash('Informațiile au fost salvate.', 'info');
   }
 } else {

@@ -2,13 +2,12 @@
 
 define('PAGE_CACHE', true);
 define('PAGE_CACHE_DIR', 'pageCache');
-session_start();
 
 function pageCache_get() {
   // Check if we are allowed to use the cached page
   if (!PAGE_CACHE) { return false; }       // Page caching is disabled
   if (array_key_exists('prefs', $_COOKIE)) { return false; }          // This user has non-default preferences or is logged in
-  if (array_key_exists('flashMessage', $_SESSION)) { return false; }  // There is a flash to display so we need a fresh page
+  if (isset($_SESSION) && array_key_exists('flashMessage', $_SESSION)) { return false; }  // There is a flash to display so we need a fresh page
 
   $fullPath = pageCache_getFileName();
   if (file_exists($fullPath)) {

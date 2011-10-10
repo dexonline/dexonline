@@ -21,8 +21,8 @@ $showParadigm = util_getRequestParameter('showParadigm');
 
 $redirect = session_getWithDefault('redirect', false);
 $redirectFrom = session_getWithDefault('init_word', '');
-unset($_SESSION['redirect']);
-unset($_SESSION['init_word']);
+session_unsetVariable('redirect');
+session_unsetVariable('init_word');
 
 if ($cuv) {
   $cuv = text_cleanupQuery($cuv);
@@ -167,8 +167,8 @@ if ($searchType == SEARCH_INFLECTED) {
   if (count($lexems) == 1 && $cuv != $lexems[0]->formNoAccent) {
     // Convenience redirect when there is only one correct form. We want all pages to be canonical
     $sourcePart = $source ? "-{$source->urlName}" : '';
-    $_SESSION['redirect'] = true;
-    $_SESSION['init_word'] = $cuv;
+    session_setVariable('redirect', true);
+    session_setVariable('init_word', $cuv);
     util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$lexems[0]->formNoAccent}");
   }
 
@@ -298,7 +298,7 @@ smarty_assign('paradigmLink', $paradigmLink);
 smarty_assign('advancedSearch', $text || $sourceId);
 
 // Capture this information now, because rendering the template wil clear $_SESSION['flashMessage']
-$hasFlashMessages = array_key_exists('flashMessage', $_SESSION);
+$hasFlashMessages = session_variableExists('flashMessage');
 $output = smarty_fetchCommonPageWithSkin('search.ihtml');
 if (!$hasFlashMessages && (!empty($lexems) || !empty($definitions))) {
   pageCache_put($output);

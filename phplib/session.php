@@ -3,10 +3,6 @@
 function session_init() {
   // TODO: Optimize this. Load cookie first, then start session if necessary.
   if (util_isWebBasedScript()) {
-    if (!isset($_SESSION)) {
-      session_start();
-    }
-
     if (!session_userExists()) {
       session_loadUserFromCookie();
     }
@@ -15,7 +11,7 @@ function session_init() {
 }
 
 function session_login($user) {
-  session_setUser($user);
+  session_setVariable('user', $user);
   $cookie = new Cookie();
   $cookie->userId = $user->id;
   $cookie->cookieString = util_randomCapitalLetterString(12);
@@ -35,6 +31,10 @@ function session_logout() {
   }
   setcookie("prefs[lll]", NULL, time() - 3600);
   unset($_COOKIE['prefs']['lll']);
+  session_start(); // It has to have been started in order to be destroyed.
+  if (ini_get("session.use_cookies")) {
+    setcookie(session_name(), '', time() - 86400); // expire it
+  }
   session_unset();
   session_destroy();
   util_redirect(util_getWwwRoot());
@@ -48,7 +48,7 @@ function session_loadUserFromCookie() {
   $cookie = Cookie::get(sprintf('cookieString = "%s"', $_COOKIE['prefs']['lll']));
   $user = $cookie ? User::get("id={$cookie->userId}") : null;
   if ($user) {
-    session_setUser($user);
+    session_setVariable('user', $user);
   } else {
     // There is a cookie, but it is invalid
     setcookie("prefs[lll]", NULL, time() - 3600);
@@ -67,7 +67,7 @@ function session_getCookieSetting($name) {
 }
 
 function session_userExists() {
-  return isset($_SESSION['user']) && isset($_SESSION['user']->id);
+  return session_variableExists('user') && isset($_SESSION['user']->id);
 }
 
 function session_getUser() {
@@ -78,17 +78,13 @@ function session_getUser() {
   return $_SESSION['user'];
 }
 
-function session_setUser($user) {
-  $_SESSION['user'] = $user;
-}
-
 function session_getUserNick() {
-  return isset($_SESSION['user']) && isset($_SESSION['user']->nick)
+  return session_variableExists('user') && isset($_SESSION['user']->nick)
     ? $_SESSION['user']->nick : "Anonim";
 }
 
 function session_getUserId() {
-  return isset($_SESSION['user']) && isset($_SESSION['user']->id)
+  return session_variableExists('user') && isset($_SESSION['user']->id)
     ? $_SESSION['user']->id : 0;
 }
 
@@ -160,14 +156,14 @@ function session_isDebug() {
 }
 
 function session_setFlash($message, $type = 'error') {
-  $oldMessage = array_key_exists('flashMessage', $_SESSION) ? $_SESSION['flashMessage'] : '';
-  $_SESSION['flashMessage'] = "{$oldMessage}{$message}<br/>";
-  $_SESSION['flashMessageType'] = $type;
+  $oldMessage = session_variableExists('flashMessage') ? $_SESSION['flashMessage'] : '';
+  session_setVariable('flashMessage', "{$oldMessage}{$message}<br/>");
+  session_setVariable('flashMessageType', $type);
 }
 
 function session_clearFlash() {
-  unset($_SESSION['flashMessage']);
-  unset($_SESSION['flashMessageType']);
+  session_unsetVariable('flashMessage');
+  session_unsetVariable('flashMessageType');
 }
 
 function session_getWithDefault($name, $default) {
@@ -177,6 +173,24 @@ function session_getWithDefault($name, $default) {
     }
   }
   return $default;
+}
+
+function session_setVariable($var, $value) {
+  // Lazy start of the session so we don't send a PHPSESSID cookie unless we have to
+  if (!isset($_SESSION)) {
+    session_start();
+  }
+  $_SESSION[$var] = $value;
+}
+
+function session_unsetVariable($var) {
+  if (isset($_SESSION)) {
+    unset($_SESSION[$var]);
+  }
+}
+
+function session_variableExists($var) {
+  return isset($_SESSION) && isset($_SESSION[$var]);
 }
 
 ?>

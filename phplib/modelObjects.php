@@ -37,7 +37,7 @@ class Log extends BaseObject {
     $this->query = $query;
     $this->queryBeforeRedirect = $queryBeforeRedirect;
     $this->searchType = $searchType;
-    if (isset($_SESSION) && array_key_exists('user', $_SESSION)) {
+    if (session_variableExists('user')) {
       $this->registeredUser = 'y';
       $this->preferences = $_SESSION['user']->preferences; 
     }
@@ -1509,7 +1509,7 @@ class WordOfTheDay extends BaseObject {
         db_execute($query);
     }
 
-    public function getStatus($refId, $refType = 'Definition') {
+    public static function getStatus($refId, $refType = 'Definition') {
         $query = "SELECT W.id from WordOfTheDay W JOIN WordOfTheDayRel R ON W.id=R.wotdId WHERE R.refId = $refId AND refType='$refType'";
         $dbResult = db_execute($query);
         return $dbResult ? $dbResult->fields('id') : NULL;

@@ -7,10 +7,10 @@ util_assertNotMirror();
 
 $defId = util_getRequestParameter('defId');
 
-$wotd = new WordOfTheDay();
-$status = $wotd->getStatus($defId);
+$status = WordOfTheDay::getStatus($defId);
 
 if (is_null($status)) {
+  $wotd = new WordOfTheDay();
 	$wotd->defId = $defId;
 	$wotd->priority = 0;
 	$wotd->save();

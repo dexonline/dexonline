@@ -8,7 +8,7 @@ $userId = 471;
 
 foreach($list as $defId) {
     $wotd = new WordOfTheDay();
-    $status = $wotd->getStatus($defId);
+    $status = WordOfTheDay::getStatus($defId);
     # if defId is not already in the list, add it
     if (is_null($status)) {
         $wotd->defId = $defId;

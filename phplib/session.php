@@ -1,7 +1,9 @@
 <?php
 
 function session_init() {
-  // TODO: Optimize this. Load cookie first, then start session if necessary.
+  if (isset($_COOKIE[session_name()])) {
+    session_start();
+  }
   if (util_isWebBasedScript()) {
     if (!session_userExists()) {
       session_loadUserFromCookie();
@@ -31,12 +33,7 @@ function session_logout() {
   }
   setcookie("prefs[lll]", NULL, time() - 3600);
   unset($_COOKIE['prefs']['lll']);
-  session_start(); // It has to have been started in order to be destroyed.
-  if (ini_get("session.use_cookies")) {
-    setcookie(session_name(), '', time() - 86400); // expire it
-  }
-  session_unset();
-  session_destroy();
+  session_kill();
   util_redirect(util_getWwwRoot());
 }
 
@@ -186,11 +183,27 @@ function session_setVariable($var, $value) {
 function session_unsetVariable($var) {
   if (isset($_SESSION)) {
     unset($_SESSION[$var]);
+    if (!count($_SESSION)) {
+      // Note that this will prevent us from creating another session this same request.
+      // This does not seem to cause a problem at the moment.
+      session_kill();
+    }
   }
 }
 
 function session_variableExists($var) {
   return isset($_SESSION) && isset($_SESSION[$var]);
+}
+
+function session_kill() {
+  if (!isset($_SESSION)) {
+    session_start(); // It has to have been started in order to be destroyed.
+  }
+  session_unset();
+  session_destroy();
+  if (ini_get("session.use_cookies")) {
+    setcookie(session_name(), '', time() - 3600, '/'); // expire it
+  }
 }
 
 ?>

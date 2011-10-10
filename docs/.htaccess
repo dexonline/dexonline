@@ -1,7 +1,8 @@
 Order Deny,Allow
 Allow from all
 <IfModule mod_php5.c>
-  php_flag magic_quotes_gpc off
+  php_value error_reporting E_ALL
+  php_flag display_errors on
 </IfModule>
 
 RewriteEngine on

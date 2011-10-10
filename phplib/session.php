@@ -3,7 +3,9 @@
 function session_init() {
   // TODO: Optimize this. Load cookie first, then start session if necessary.
   if (util_isWebBasedScript()) {
-    session_start();
+    if (!isset($_SESSION)) {
+      session_start();
+    }
 
     if (!session_userExists()) {
       session_loadUserFromCookie();

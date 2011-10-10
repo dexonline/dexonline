@@ -1,14 +1,16 @@
 <?php
-require_once("../phplib/util.php");
-require_once("../phplib/lexemSources.php"); 
-require_once("../phplib/ads/adsModule.php");
-require_once("../phplib/pageCache.php");
 
+// Check the page cache before loading the rest of the PHP code
+require_once("../phplib/pageCache.php");
 $cachedPage = pageCache_get();
 if ($cachedPage) {
   print $cachedPage;
   exit;
 }
+
+require_once("../phplib/util.php");
+require_once("../phplib/lexemSources.php"); 
+require_once("../phplib/ads/adsModule.php");
 
 $cuv = util_getRequestParameter('cuv');
 $lexemId = util_getRequestParameter('lexemId');

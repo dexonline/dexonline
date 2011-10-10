@@ -1,8 +1,12 @@
 <?php
 
+define('PAGE_CACHE', true);
+define('PAGE_CACHE_DIR', 'pageCache');
+session_start();
+
 function pageCache_get() {
   // Check if we are allowed to use the cached page
-  if (!pref_getServerPreference('pageCache')) { return false; }       // Page caching is disabled
+  if (!PAGE_CACHE) { return false; }       // Page caching is disabled
   if (array_key_exists('prefs', $_COOKIE)) { return false; }          // This user has non-default preferences or is logged in
   if (array_key_exists('flashMessage', $_SESSION)) { return false; }  // There is a flash to display so we need a fresh page
 
@@ -15,7 +19,7 @@ function pageCache_get() {
 
 function pageCache_put($output) {
   // Check if we are allowed to cache this page
-  if (!pref_getServerPreference('pageCache')) { return; } // Page caching is disabled
+  if (!PAGE_CACHE) { return; } // Page caching is disabled
   if (array_key_exists('prefs', $_COOKIE)) { return; }    // This page is user-specific (logged in, uses prefs or uses custom skin)
 
   $fullPath = pageCache_getFileName();
@@ -26,7 +30,7 @@ function pageCache_put($output) {
 function pageCache_getFileName() {
   $uri = urldecode($_SERVER['REQUEST_URI']);
   $hash = crc32($uri) % 1000; // Avoid one directory with 1.000.000 files
-  return util_getRootPath() . pref_getServerPreference('pageCacheDir') . '/' . $hash . $uri . '.html';
+  return '../' . PAGE_CACHE_DIR . '/' . $hash . $uri . '.html';
 }
 
 ?>

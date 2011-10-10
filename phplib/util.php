@@ -6,7 +6,6 @@ util_initEverything();
 
 function util_initEverything() {
   // smarty < session_start/end : smarty caches the person's nickname.
-  util_configurePhp();
   util_defineRootPath();
   util_defineWwwRoot();
   // At this point the server preferences are loaded (when
@@ -22,15 +21,6 @@ function util_initEverything() {
   if (util_isWebBasedScript()) {
     smarty_init();
   }
-}
-
-function util_ConfigurePhp() {
-  error_reporting(E_ALL);
-  ini_set("display_errors", "On");
-  // This cannot be configured here and has to be configured in
-  // wwwbase/.htaccess
-  // ini_set("magic_quotes_gpc", "Off");
-  ini_set("session.use_trans_sid", "0");
 }
 
 function util_defineRootPath() {

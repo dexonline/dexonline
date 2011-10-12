@@ -208,7 +208,7 @@ function removeOldDumps($folder, $today, $lastDump) {
       $date = $matches[1];
       if ($date != $today && $date != $lastDump) {
         log_scriptLog("  deleting $file");
-        unlink($file);
+        unlink("$folder/$file");
       }
     }
   }

@@ -1,12 +1,15 @@
+# This could be used through Varnish or other proxies.
+SetEnvIf X-Forwarded-For "^82\.76\.132\.186$" GOODIP
+SetEnvIf X-Forwarded-For "^193\.231\.32\.4" GOODIP
+
 # Only allow access to this subdirectory from the known mirrors.
 Order Deny,Allow
 Deny from all
+
+Allow from env=GOODIP
 
 # voronet.francu.com
 Allow from 82.76.132.186
 
 # dictionare.edu.ro
 Allow from 193.231.32.4
-
-# hyperion.elvsoft.net
-Allow from 194.117.236.180

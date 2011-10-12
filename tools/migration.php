@@ -40,9 +40,10 @@ foreach ($patchFiles as $fileName) {
   runPatch(PATCH_DIR . $fileName, $dryRun);
   $numPatches++;
   $schemaVersion = stripExtension($fileName);
-}
-if (!$dryRun) {
-  Variable::poke('Schema.version', $schemaVersion);
+  if (!$dryRun) {
+    // Update after each patch, in case one of the patches terminates with error.
+    Variable::poke('Schema.version', $schemaVersion);
+  }
 }
 print "$numPatches patches applied.\n";
 print "New schema version is <$schemaVersion>\n";

@@ -1,25 +1,28 @@
 <?php
 
 require_once("../phplib/util.php");
-
 smarty_init();
 
 $TODAY = date("Ymd");
 $FOLDER = util_getRootPath() . '/wwwbase/download/xmldump';
+$LAST_DUMP = getLastDumpDate($FOLDER);
 
-log_scriptLog("generating dump for $TODAY");
+log_scriptLog("generating dump for $TODAY; previous dump is $LAST_DUMP");
 
 // dump sources table
+log_scriptLog("dumping sources");
 smarty_assign('sources', db_find(new Source(), '1 ORDER BY id'));
 $sources_xml = smarty_fetch('xmldump/sources.ihtml');
 file_put_contents("$FOLDER/$TODAY-sources.xml.gz", gzencode($sources_xml));
 
 // dump inflections table
+log_scriptLog("dumping inflections");
 smarty_assign('inflections', db_find(new Inflection(), '1 ORDER BY id'));
 $inflections_xml = smarty_fetch('xmldump/inflections.ihtml');
 file_put_contents("$FOLDER/$TODAY-inflections.xml.gz", gzencode($inflections_xml));
 
 // dump abbrev table
+log_scriptLog("dumping abbreviations");
 $raw_abbrevs = text_loadRawAbbreviations();
 $sources = array();
 $sections = array();
@@ -49,6 +52,7 @@ $abbrevs_xml = smarty_fetch('xmldump/abbrev.ihtml');
 file_put_contents("$FOLDER/$TODAY-abbrevs.xml.gz", gzencode($abbrevs_xml));
 
 // dump definitions table
+log_scriptLog("dumping definitions");
 $users = getActiveUsers();
 $defResults = db_execute("SELECT * FROM Definition WHERE sourceId IN (SELECT id FROM Source WHERE canDistribute) AND status = 0");
 $defsFile = gzopen("$FOLDER/$TODAY-definitions.xml.gz", 'wb9');
@@ -68,6 +72,7 @@ gzwrite($defsFile, "</Definitions>\n");
 gzclose($defsFile);
 
 // dump lexems and inflected forms table
+log_scriptLog("dumping lexems and inflected forms");
 $lexemResults = db_execute("SELECT * FROM Lexem");
 $lexemFile = gzopen("$FOLDER/$TODAY-lexems.xml.gz", 'wb9');
 gzwrite($lexemFile, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
@@ -85,6 +90,7 @@ gzwrite($lexemFile, "</Lexems>\n");
 gzclose($lexemFile);
 
 // dump lexem-definition map
+log_scriptLog("dumping lexem-definition map");
 $ldmResults = db_execute("SELECT M.lexemId, M.definitionId FROM LexemDefinitionMap M, Definition D " .
                          "WHERE D.id = M.definitionId and D.sourceId in (SELECT id FROM Source WHERE canDistribute) AND D.status = 0 " .
                          "ORDER BY M.lexemId, M.definitionId");
@@ -108,6 +114,24 @@ function getActiveUsers() {
     $usersResults->MoveNext();
   }
   return $users;
+}
+
+function getLastDumpDate($folder) {
+  $files = scandir($folder, 1); //descending
+  foreach ($files as $file) {
+    $matches = array();
+    if (preg_match('/^(\\d\\d\\d\\d\\d\\d\\d\\d)-abbrevs.xml.gz$/', $file, $matches)) {
+      $candidate = $matches[1];
+      if (file_exists("$folder/$candidate-definitions.xml.gz") &&
+          file_exists("$folder/$candidate-inflections.xml.gz") &&
+          file_exists("$folder/$candidate-ldm.xml.gz") &&
+          file_exists("$folder/$candidate-lexems.xml.gz") &&
+          file_exists("$folder/$candidate-sources.xml.gz")) {
+        return $candidate;
+      }
+    }
+  }
+  return null;
 }
 
 ?>

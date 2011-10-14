@@ -14,12 +14,13 @@ adoDbClass = adodb/adodb.inc.php
 ; Banner sizes are dictated by the skin. See templates/common/bits/banner.ihtml.
 ; Choices are "openx", "adsense", "fake" or "none".
 ; The option "fake" displays a placeholder banner and can be used in development/beta (so as not to steal real impressions from campaigns).
-bannerType = adsense
+bannerType = fake
 
 ; Contact email, sprinkled throughout the site
 contact = contact@dexonline.ro
 
 ; AdoDB connection
+; database = 'mysql://root:pwd@localhost/mydb'
 database = mysql://root@localhost/DEX
 
 ; Show some debug information when this user is logged in.
@@ -36,7 +37,7 @@ locVersions[] = 5.0 01/24/2011
 locVersions[] = 6.0 current
 
 ; Whether or not to log query-related information
-logSearch = 1
+logSearch = 0
 
 ; Full name of the log file
 logPath = /var/log/dex-query.log
@@ -53,7 +54,7 @@ logSampling = 0.10
 maxBookmarks = 100
 
 ; Whether to use the memcached server
-memcache = 1
+memcache = 0
 
 ; If this site is a mirror, certain features will be disabled: user login, typo reporting etc.
 mirror = 0
@@ -79,13 +80,13 @@ skins[] = polar
 smartyClass = smarty/Smarty.class.php
 
 [skin-zepu]
-; Display banners  after the search box.
+; Display banners after the search box.
 adsense_mainPage = "id=1220723485&width=728&height=90"
 adsense_beforeResults = "id=2401834072&width=728&height=90"
 openx_mainPage = 216368
 openx_beforeResults = 201501
 
 [skin-polar]
-; No tweaks here
+; Display banners at the top of every page
 adsense_top = "id=2054526829&width=728&height=90"
 openx_top = 121346

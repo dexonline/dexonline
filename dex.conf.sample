@@ -1,6 +1,7 @@
 ; Configuration file for a DEX online installation
 
-; Locations of the AdoDB and AdoDB Active Record files
+; Locations of the AdoDB and AdoDB Active Record files.
+; These can be absolute file names or relative to one of the paths in include_path
 adoDbActiveRecordClass = adodb/adodb-active-record.inc.php
 adoDbClass = adodb/adodb.inc.php
 
@@ -77,6 +78,7 @@ skins[] = zepu
 skins[] = polar
 
 ; Location of the smarty class file.
+; This can be an absolute file name or relative to one of the paths in include_path
 smartyClass = smarty/Smarty.class.php
 
 [skin-zepu]

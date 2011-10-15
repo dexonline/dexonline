@@ -508,3 +508,8 @@ div.wikiTitle {
   vertical-align: top;
   width: 82px;
 }
+
+abbr {
+  border-bottom: 1px dotted #aaa;
+  cursor: help;
+}

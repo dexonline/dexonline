@@ -29,6 +29,7 @@ function listDaysOfMonth($year, $month) {
 
 function createCalendar($year, $month) {
     $days = listDaysOfMonth($year, $month);
+    $today = date('Y-m-d');
 
     $words = WordOfTheDay::getArchiveWotD($year, $month);
     $inv = array();
@@ -38,7 +39,7 @@ function createCalendar($year, $month) {
 
     $new_words = array();
     foreach($days as $day) {
-        if (array_key_exists($day, $inv)) {
+        if ($day <= $today && array_key_exists($day, $inv)) {
             $new_words[] = $words[$inv[$day]];
         }
         else {

@@ -79,6 +79,18 @@ function db_getObjects($obj, $dbResult) {
   return $result;
 }
 
+function db_getObjectsMapById($obj, $dbResult) {
+  $class = get_class($obj);
+  $result = array();
+  while (!$dbResult->EOF) {
+    $x = new $class;
+    $x->set($dbResult->fields);
+    $result[$x->id] = $x;
+    $dbResult->MoveNext();
+  }
+  return $result;
+}
+
 // One-line syntactic sugar for find()
 function db_find($obj, $where) {
   return $obj->find($where);

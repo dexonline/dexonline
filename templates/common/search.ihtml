@@ -261,7 +261,7 @@
       </div>
     {if not $fdate}
       <div id="wotdArchive" class="wotdArchive"></div>
-      <script>loadAjaxContent('{$wwwRoot}/arhiva/cuvantul-zilei/','#wotdArchive')</script>
+      <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/','#wotdArchive')</script>
     {/if}
   {/if}
 </div>

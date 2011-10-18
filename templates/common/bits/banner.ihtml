@@ -1,3 +1,4 @@
+{assign var="adsProvider" value=$adsProvider|default:null}
 {** Arguments: id, width and height. Expects corresponding values in the [skin-*] section of dex.conf. **}
 <div id="banner_{$id}">
   {if $adsProvider == 'diverta'}

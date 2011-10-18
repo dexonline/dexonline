@@ -5,8 +5,8 @@
         >{include file="common/bits/lexemName.ihtml" lexem=$lexem
       }</span>
       &nbsp; {$title|escape}
-      {include file="common/bits/locInfo.ihtml lexem=$lexem}
-      {include file="common/bits/lexemTags.ihtml lexem=$lexem}
+      {include file="common/bits/locInfo.ihtml" lexem=$lexem}
+      {include file="common/bits/lexemTags.ihtml" lexem=$lexem}
     </td>
     <td colspan="2" class="inflection">masculin</td>
     <td colspan="2" class="inflection">feminin</td>
@@ -21,81 +21,81 @@
     <td rowspan="2" class="inflection">nominativ-acuzativ</td>
     <td class="inflection">singular</td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[1]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[1]|default:null}
     </td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[5]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[5]|default:null}
     </td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[9]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[9]|default:null}
     </td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[13]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[13]|default:null}
     </td>
   </tr>
   <tr>
     <td class="inflection">plural</td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[3]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[3]|default:null}
     </td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[7]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[7]|default:null}
     </td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[11]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[11]|default:null}
     </td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[15]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[15]|default:null}
     </td>
   </tr>
   <tr>
     <td rowspan="2" class="inflection">genitiv-dativ</td>
     <td class="inflection">singular</td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[2]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[2]|default:null}
     </td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[6]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[6]|default:null}
     </td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[10]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[10]|default:null}
     </td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[14]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[14]|default:null}
     </td>
   </tr>
   <tr>
     <td class="inflection">plural</td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[4]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[4]|default:null}
     </td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[8]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[8]|default:null}
     </td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[12]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[12]|default:null}
     </td>
     <td class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[16]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[16]|default:null}
     </td>
   </tr>
   <tr>
     <td rowspan="2" class="inflection">vocativ</td>
     <td class="inflection">singular</td>
     <td colspan="2" class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[17]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[17]|default:null}
     </td>
     <td colspan="2" class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[19]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[19]|default:null}
     </td>
   </tr>
   <tr>
     <td class="inflection">plural</td>
     <td colspan="2" class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[18]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[18]|default:null}
     </td>
     <td colspan="2" class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[20]}
+      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[20]|default:null}
     </td>
   </tr>
 </table>

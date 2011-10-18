@@ -35,12 +35,25 @@ $sourceMap = createSourceMap();
 userCache_init();
 $currentLexem = array(0, ''); // Force loading a lexem on the next comparison.
 
-smarty_assign('defDbResult', $defDbResult);
-smarty_assign('numResults', $defDbResult->RowCount());
-smarty_assign('currentTimestamp', time());
-smarty_assign('version', $version);
-smarty_assign('includeNameWithDiacritics', hasFlag('a'));
-smarty_displayWithoutSkin('common/update.ihtml');
+print "<!DOCTYPE dict [\n";
+print "  <!ENTITY diams \"&#x2666;\">\n";
+print "  <!ENTITY loz \"&#x25ca;\">\n";
+print "  <!ENTITY rsquo \"&#x2019;\">\n";
+print "]>\n";
+print "<Dictionary>\n";
+print "  <Timestamp>" . time() . "</Timestamp>\n";
+if ($version == '1.0') {
+  print "    <NumResults>" . $defDbResult->RowCount() . "</NumResults>\n";
+}
+
+while (!$defDbResult->EOF) {
+  fetchNextRow();
+  smarty_assign('version', $version);
+  smarty_assign('includeNameWithDiacritics', hasFlag('a'));
+  smarty_displayWithoutSkin('common/update.ihtml');
+}
+
+print "</Dictionary>\n";
 return;
 
 

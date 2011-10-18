@@ -4,7 +4,7 @@
   Versiunea LOC:
   <select name="locVersion">
     {foreach from=$locVersions item=lv key=i}
-      {if $lv->freezeTimestamp || ($sUser->moderator & $smarty.const.PRIV_LOC)}
+      {if $lv->freezeTimestamp || ($sUser && ($sUser->moderator & $smarty.const.PRIV_LOC))}
         <option value="{$lv->name|escape}" {if $i == 1}selected="selected"{/if}>
           {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
         </option>

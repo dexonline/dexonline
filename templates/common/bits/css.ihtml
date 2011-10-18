@@ -1,26 +1,26 @@
-{if $admin}
+{if isset($admin)}
     <link href="{$wwwRoot}styles/admin.css?v=1" rel="stylesheet" type="text/css"/>
 {/if}
-{if $flex}
+{if isset($flex)}
     <link href="{$wwwRoot}styles/flex.css?v=7" rel="stylesheet" type="text/css"/>
 {/if}
-{if $mobile}
+{if isset($mobile)}
     <link href="{$wwwRoot}styles/mobile.css?v=9" rel="stylesheet" type="text/css"/>
 {/if}
-{if $paradigm}
+{if isset($paradigm)}
     <link href="{$wwwRoot}styles/paradigm.css?v=1" rel="stylesheet" type="text/css"/>
 {/if}
-{if $polar}
+{if isset($polar)}
     <link href="{$wwwRoot}styles/polar.css?v=21" rel="stylesheet" type="text/css"/>
 {/if}
-{if $zepu}
+{if isset($zepu)}
     <link href="{$wwwRoot}styles/zepu.css?v=28" rel="stylesheet" type="text/css"/>
 {/if}
 {* External resources *}
-{if $autocomplete}
+{if isset($autocomplete)}
     <link href="{$wwwRoot}styles/jquery.autocomplete.css?v=1" rel="stylesheet" type="text/css"/>
 {/if}
-{if $jqgrid}
+{if isset($jqgrid)}
     <link href="{$wwwRoot}styles/ui.jqgrid.css?v=1" rel="stylesheet" type="text/css"/>
     <link href="{$wwwRoot}styles/jquery-ui-1.8.5.custom.css?v=1" rel="stylesheet" type="text/css"/>
 {/if}

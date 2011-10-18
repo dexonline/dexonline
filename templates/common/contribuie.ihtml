@@ -1,4 +1,7 @@
-{include file="common/bits/js.ihtml jquery=1 autocomplete=1}
+{assign var="def" value=$def|default:null}
+{assign var="lexemNames" value=$lexemNames|default:null}
+{assign var="previewDivContent" value=$previewDivContent|default:null}
+{include file="common/bits/js.ihtml" jquery=1 autocomplete=1}
 
 <h3>Trimiteți o definiție</h3>
 

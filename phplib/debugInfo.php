@@ -34,17 +34,6 @@ function debug_getRunningTimeInMillis() {
   return debug_getTimeInMillis() - $GLOBALS['debugInfo_startTimestamp'];
 }
 
-function debug_getDebugInfoAsHtml() {
-  $s = '';
-  foreach ($GLOBALS['debugInfo'] as $line) {
-    if ($s) {
-      $s .= "<br/>\n";
-    }
-    $s .= htmlspecialchars($line);
-  }
-  return $s;
-}
-
 /**
  * Handler for ADOConnection::outp().
  * Note that the timers for these commands are off by 1, because AdoDB logs the SQL statement before it executes it.

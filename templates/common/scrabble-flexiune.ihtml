@@ -1,3 +1,5 @@
+{assign var="form" value=$form|default:""}
+{assign var="selectedLocVersion" value=$selectedLocVersion|default:null}
 <br/>
 
 Tastați o formă flexionară și alegeți versiunea LOC pentru a afla dacă
@@ -25,8 +27,8 @@ vreunul din cuvintele din LOC generează acea formă.<br/><br/>
         <b>{$form|escape}.</b></li>
     {else}
       {foreach from=$ifs item=if key=i}
-        {assign var=l value=`$lexems[$i]`}
-        {assign var=infl value=`$inflections[$i]`}
+        {assign var=l value="`$lexems[$i]`"}
+        {assign var=infl value="`$inflections[$i]`"}
         <li>
           <b>{$if->form|escape}</b> provine din
           <b>{$l->form|escape}</b>

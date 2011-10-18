@@ -1,3 +1,4 @@
+{assign var=ambiguities value=$ambiguities|default:null}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -18,7 +19,7 @@
       <form action="" method="post">
         <input type="hidden" name="definitionId" value="{$def->id}"/>
         {foreach from=$text item=chunk key=i}
-          {assign var="amb" value=`$ambiguities[$i]`}
+          {assign var="amb" value="`$ambiguities[$i]`"}
           {$chunk}
           {if $amb}
             <br/>

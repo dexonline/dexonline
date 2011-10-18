@@ -1,4 +1,4 @@
-{include file="common/bits/js.ihtml jquery=1 pager=1 tablesorter=1}
+{include file="common/bits/js.ihtml" jquery=1 pager=1 tablesorter=1}
 
 <h3>Topul contribuțiilor manuale</h3>
 

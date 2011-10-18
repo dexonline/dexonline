@@ -112,7 +112,7 @@
             {include file="admin/helpLink.ihtml" anchor="definitionComment"}
           </td>
           <td>
-            <textarea name="commentContents" rows="5" cols="80">{$comment->contents|escape}</textarea><br/>
+            <textarea name="commentContents" rows="5" cols="80">{if $comment}{$comment->contents|escape}{/if}</textarea><br/>
             {if $commentUser}
               <input id="preserveCommentUser" type="checkbox" name="preserveCommentUser" value="1" checked="checked">
               <label for="preserveCommentUser">Păstrează autorul comentariului original ({$commentUser->nick|escape})</label>
@@ -140,8 +140,8 @@
       Id: {$def->id} |
       Sursa: {$source->shortName|escape} |
       Trimisă de {$user->nick|escape}, {$def->createDate|date_format:"%e %b %Y"} |
-      {assign var=status value=`$def->status`}
-      {assign var=statusName value=`$allStatuses[$status]`}
+      {assign var=status value="`$def->status`"}
+      {assign var=statusName value="`$allStatuses[$status]`"}
       Starea: {$statusName}
     </span>
 

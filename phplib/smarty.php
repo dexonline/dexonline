@@ -5,7 +5,7 @@ require_once(pref_getSmartyClass());
 // Create an instance of Smarty, assign some default parameters for the
 // header and footer and return it.
 function smarty_init() {
-  $smarty = new Smarty;
+  $smarty = new Smarty();
   $smarty->template_dir = util_getRootPath() . 'templates';
   $smarty->compile_dir = util_getRootPath() . 'templates_c';
   $smarty->assign('wwwRoot', util_getWwwRoot());
@@ -26,6 +26,9 @@ function smarty_init() {
   $smarty->assign('currentYear', date("Y"));
   $smarty->assign('bannerType', pref_getServerPreference('bannerType'));
   $smarty->assign('isMobile', util_isMobile());
+  smarty_registerFunction($smarty, 'clearFlashMessage', 'smarty_function_clearFlashMessage');
+  smarty_registerFunction($smarty, 'getRunningTimeInMillis', 'smarty_function_getRunningTimeInMillis');
+  $smarty->assign('GLOBALS', $GLOBALS);
   $GLOBALS['smarty_theSmarty'] = $smarty;
 }
 
@@ -96,10 +99,38 @@ function smarty_filter_display_old_orthography($tpl_output, &$smarty) {
 
 function smarty_register_outputfilters() {
   if (session_user_prefers('CEDILLA_BELOW')) {
-    $GLOBALS['smarty_theSmarty']->register_outputfilter('smarty_filter_display_st_cedilla_below');
+    smarty_registerOutputFilter($GLOBALS['smarty_theSmarty'], 'smarty_filter_display_st_cedilla_below');
   }
   if (session_user_prefers('OLD_ORTHOGRAPHY')) {
-    $GLOBALS['smarty_theSmarty']->register_outputfilter('smarty_filter_display_old_orthography');
+    smarty_registerOutputFilter($GLOBALS['smarty_theSmarty'], 'smarty_filter_display_old_orthography');
   }
 }
+
+function smarty_registerOutputFilter($smarty, $functionName) {
+  if (method_exists($smarty, 'registerFilter')) {
+    // Smarty v3 syntax
+    $smarty->registerFilter('output', $functionName);
+  } else {
+    $smarty->register_outputfilter($functionName);
+  }
+}
+
+function smarty_registerFunction($smarty, $smartyTagName, $functionName) {
+  if (method_exists($smarty, 'registerPlugin')) {
+    // Smarty v3 syntax
+    $smarty->registerPlugin('function', $smartyTagName, $functionName);
+  } else {
+    $smarty->register_function($smartyTagName, $functionName);
+  }
+}
+
+function smarty_function_clearFlashMessage($params, &$smarty) { 
+  session_unsetVariable('flashMessage');
+  session_unsetVariable('flashMessageType');
+}
+
+function smarty_function_getRunningTimeInMillis($params, &$smarty) {
+  return debug_getRunningTimeInMillis();
+}
+
 ?>

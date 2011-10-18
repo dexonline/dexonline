@@ -1,3 +1,8 @@
+{assign var="onHomePage" value=$onHomePage|default:false}
+{assign var="page_description" value=$page_description|default:''}
+{assign var="page_keywords" value=$page_keywords|default:''}
+{assign var="suggestHiddenSearchForm" value=$suggestHiddenSearchForm|default:false}
+{assign var="suggestNoBanner" value=$suggestNoBanner|default:false}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>

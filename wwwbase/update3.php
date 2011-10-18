@@ -36,16 +36,48 @@ if ($export == 'sources') {
   $defDbResult = db_execute("select * from Definition where modDate >= '$timestamp' and sourceId in (select id from Source where canDistribute) " .
                             "$statusClause order by modDate, id"); // 
   $lexemDbResult = db_execute("select Definition.id, lexemId from Definition force index(modDate), LexemDefinitionMap " .
-                              "where Definition.id = definitionId and modDate >= {$timestamp} " .
+                              "where Definition.id = definitionId and Definition.modDate >= {$timestamp} " .
                               "and sourceId in (select id from Source where canDistribute) " .
-                              "{$statusClause} order by modDate, Definition.id");
+                              "{$statusClause} order by Definition.modDate, Definition.id");
   $currentLexem = fetchNextLexemTuple();
-  smarty_assign('numResults', $defDbResult->RowCount());
-  smarty_displayWithoutSkin('common/update3Definitions.ihtml');
+  print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+  print "<Definitions>\n";
+  print "  <NumResults>" . $defDbResult->RowCount() . "</NumResults>\n";
+
+  while (!$defDbResult->EOF) {
+    $def = new Definition();
+    $def->set($defDbResult->fields);
+    $defDbResult->MoveNext();
+    $def->internalRep = text_xmlizeRequired($def->internalRep);
+
+    $lexemIds = array();
+    while ($currentLexem && $currentLexem[0] == $def->id) {
+      $lexemIds[] = $currentLexem[1];
+      $currentLexem = fetchNextLexemTuple();
+    }
+    prepareDefForVersion($def);
+    smarty_assign('def', $def);
+    smarty_assign('lexemIds', $lexemIds);
+    smarty_assign('user', userCache_get($def->userId));
+    smarty_displayWithoutSkin('common/update3Definitions.ihtml');
+  }
+
+  print "</Definitions>\n";
 } else if ($export == 'lexems') {
   $lexemDbResult = db_execute("select * from Lexem where modDate >= '{$timestamp}' order by modDate, id");
-  smarty_assign('numResults', $lexemDbResult->RowCount());
-  smarty_displayWithoutSkin('common/update3Lexems.ihtml');
+  print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+  print "<Lexems>\n";
+  print "<NumResults>" . $lexemDbResult->RowCount() . "</NumResults>\n";
+  while (!$lexemDbResult->EOF) {
+    $lexem = new Lexem();
+    $lexem->set($lexemDbResult->fields);
+    $lexemDbResult->MoveNext();
+
+    smarty_assign('ifs', InflectedForm::loadByLexemId($lexem->id));
+    smarty_assign('lexem', $lexem);
+    smarty_displayWithoutSkin('common/update3Lexems.ihtml');
+  }
+  print "</Lexems>\n";
 }
 
 /****************************************************************************/
@@ -75,45 +107,11 @@ function fetchNextLexemTuple() {
   return $result;
 }
 
-function fetchNextRow() {
-  global $defDbResult;
-  global $lexemDbResult;
-  global $currentLexem;
-
-  $def = new Definition();
-  $def->set($defDbResult->fields);
-  $defDbResult->MoveNext();
-  $def->internalRep = text_xmlizeRequired($def->internalRep);
-
-  $lexemIds = array();
-  while ($currentLexem && $currentLexem[0] == $def->id) {
-    $lexemIds[] = $currentLexem[1];
-    $currentLexem = fetchNextLexemTuple();
-  }
-
-  prepareDefForVersion($def);
-
-  smarty_assign('def', $def);
-  smarty_assign('lexemIds', $lexemIds);
-  smarty_assign('user', userCache_get($def->userId));
-}
-
 function prepareDefForVersion(&$def) {
   global $version;
   if ($version == '3.0') {
     $def->internalRep = preg_replace('/([^&])#/', '\1', $def->internalRep);
   }
-}
-
-function fetchNextLexemRow() {
-  global $lexemDbResult;
-
-  $lexem = new Lexem();
-  $lexem->set($lexemDbResult->fields);
-  $lexemDbResult->MoveNext();
-
-  smarty_assign('ifs', InflectedForm::loadByLexemId($lexem->id));
-  smarty_assign('lexem', $lexem);
 }
 
 ?>

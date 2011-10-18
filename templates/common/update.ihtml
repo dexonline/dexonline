@@ -1,16 +1,3 @@
-<!DOCTYPE dict [
-  <!ENTITY diams "&#x2666;">
-  <!ENTITY loz "&#x25ca;">
-  <!ENTITY rsquo "&#x2019;">
-]>
-<Dictionary>
-  <Timestamp>{$currentTimestamp}</Timestamp>
-  {if $version == "1.0"}
-    <NumResults>{$numResults}</NumResults>
-  {/if}
-
-  {section name="sectionName" start=0 loop=$numResults}
-    {php}fetchNextRow();{/php}
     <Entry>
       <Id>{$def->id}</Id>
       {if $version == "1.0"}
@@ -32,6 +19,4 @@
         <Dname>{$lexemNames.0|escape}</Dname>
       {/if}
     </Entry>
-  {/section}
 
-</Dictionary>

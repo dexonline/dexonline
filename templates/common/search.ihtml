@@ -1,12 +1,26 @@
+{assign var="declensionText" value=$declensionText|default:null}
+{assign var="exclude_unofficial" value=$exclude_unofficial|default:false}
+{assign var="fdate" value=$fdate|default:null}
+{assign var="ignoredWords" value=$ignoredWords|default:null}
+{assign var="lexems" value=$lexems|default:null}
+{assign var="lexemId" value=$lexemId|default:null}
+{assign var="lockExists" value=$lockExists|default:false}
+{assign var="nextday" value=$nextday|default:null}
+{assign var="onlyParadigm" value=$onlyParadigm|default:false}
+{assign var="prevday" value=$prevday|default:null}
+{assign var="results" value=$results|default:null}
+{assign var="showParadigm" value=$showParadigm|default:false}
+{assign var="stopWords" value=$stopWords|default:null}
+{assign var="wikiArticles" value=$wikiArticles|default:null}
 {if count($lexems) || count($results) }
   <div class="resultBar">
-    {if $searchType == SEARCH_INFLECTED}
+    {if $searchType == $smarty.const.SEARCH_INFLECTED}
       {if count($results) == 0}
-      {if $src_selected}
-    Nu am găsit în acest dicționar definiția lui 
-    {else}
-        Am găsit numai definiții „neoficiale” pentru 
-    {/if}
+        {if $src_selected}
+          Nu am găsit în acest dicționar definiția lui 
+        {else}
+          Am găsit numai definiții „neoficiale” pentru 
+        {/if}
       {elseif count($results) == 1}
         O definiție pentru
       {else}
@@ -24,17 +38,17 @@
         {/foreach}
       {/if}
   
-    {elseif $searchType == SEARCH_APPROXIMATE}
+    {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
       {if count($lexems)}
         Cuvântul «{$cuv|escape}» nu a fost găsit, dar am găsit următoarele cuvinte apropiate:
       {/if}
   
-    {elseif $searchType == SEARCH_DEF_ID}
+    {elseif $searchType == $smarty.const.SEARCH_DEF_ID}
       {if count($results)}
         Definiția cu ID-ul {$defId|escape}:
       {/if}
   
-    {elseif $searchType == SEARCH_REGEXP}
+    {elseif $searchType == $smarty.const.SEARCH_REGEXP}
       {if $numResults}
         {if $numResults > count($lexems)}
           {$numResults} rezultate pentru «{$cuv|escape}» (maxim {$lexems|@count} afișate):
@@ -43,7 +57,7 @@
         {/if}
       {/if}
   
-    {elseif $searchType == SEARCH_LEXEM_ID}
+    {elseif $searchType == $smarty.const.SEARCH_LEXEM_ID}
       {if count($lexems) > 0}
         {if $exclude_unofficial}
           Lexemul cu ID-ul căutat există, dar este neoficial.
@@ -57,7 +71,7 @@
         {/if}
       {/if}
   
-    {elseif $searchType == SEARCH_FULL_TEXT}
+    {elseif $searchType == $smarty.const.SEARCH_FULL_TEXT}
       {if $lockExists}
         Momentan nu puteți căuta prin textul definițiilor, deoarece indexul
         este în curs de reconstrucție. Această operație durează de obicei circa
@@ -74,11 +88,11 @@
         {/if}
       {/if}
   
-    {elseif $searchType == SEARCH_WOTD}
+    {elseif $searchType == $smarty.const.SEARCH_WOTD}
         Cuvântul zilei {if ($fdate)}(din {$fdate}){/if}
 
   
-    {elseif $searchType == SEARCH_MULTIWORD}
+    {elseif $searchType == $smarty.const.SEARCH_MULTIWORD}
       {$results|@count} definiții se potrivesc cu cel puțin doi dintre termenii căutați. Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat
       sau puteți căuta <a href="{$wwwRoot}text/{$cuv|escape:url}">în tot corpul definițiilor</a>.
   
@@ -96,7 +110,7 @@
       {/if}
     {/if}
 
-    {if !count($results) && count($lexems) }
+    {if !count($results) && count($lexems)}
       {if $src_selected}
         <br/>
         Repetați căutarea <a href="/definitie/{$cuv|escape}">în toate dicționarele</a>
@@ -139,20 +153,20 @@
     </div>
   {/if}
 
-  {assign var=notDisplayedUnoffical value=true}
+  {assign var=notDisplayedUnofficial value=true}
   {assign var=notDisplayedSpec value=true}
   {foreach from=$results item=row key=i}
-  {if $searchType != SEARCH_FULL_TEXT }
-  {if $row->source->isOfficial == 1 && $notDisplayedSpec}
-    <h4>Definiții din dicționare specializate</h4><span class="h4sub">Aceste definiții pot explica numai anumite înțelesuri ale cuvintelor.</span><br/>
-    <hr/>
-    {assign var=notDisplayedSpec value=false}
-  {elseif $row->source->isOfficial == 0 && $notDisplayedUnoffical}
-    <h4>Definiții din dicționare neoficiale</h4><span class="h4sub">Deoarece nu sunt editate de lexicografi, aceste definiții pot conține erori, deci e preferabilă consultarea altor dicționare în paralel.</span><br/>
-    <hr/>
-    {assign var=notDisplayedUnoffical value=false}
-  {/if}
-  {/if}
+    {if $searchType != $smarty.const.SEARCH_FULL_TEXT }
+      {if $row->source->isOfficial == 1 && $notDisplayedSpec}
+        <h4>Definiții din dicționare specializate</h4><span class="h4sub">Aceste definiții pot explica numai anumite înțelesuri ale cuvintelor.</span><br/>
+        <hr/>
+        {assign var=notDisplayedSpec value=false}
+      {elseif $row->source->isOfficial == 0 && $notDisplayedUnofficial}
+        <h4>Definiții din dicționare neoficiale</h4><span class="h4sub">Deoarece nu sunt editate de lexicografi, aceste definiții pot conține erori, deci e preferabilă consultarea altor dicționare în parale</span><br/>
+        <hr/>
+        {assign var=notDisplayedUnofficial value=false}
+      {/if}
+    {/if}
     <p>
       <span class="def" onclick="return searchClickedWord(event);" title="Clic pentru a naviga la acest cuvânt">
         {$row->definition->htmlRep}
@@ -175,7 +189,7 @@
           Adăugată de anonim
         {/if}
 
-        {if $sUser->moderator & $smarty.const.PRIV_EDIT} 
+        {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT)} 
           | Id: {$row->definition->id}
         {/if}
   
@@ -191,16 +205,16 @@
 
         | <a href="{$wwwRoot}definitie/{$row->definition->lexicon}/{$row->definition->id}" title="Link doar către această definiție">Permalink</a>
   
-        {if ($sUser->moderator & $smarty.const.PRIV_EDIT) && !$is_mirror}
+        {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT) && !$is_mirror}
           | <a target="edit_window" href="{$wwwRoot}admin/definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
         {/if}
   
-        {if ($sUser->moderator & $smarty.const.PRIV_WOTD) && !$is_mirror}
-      {if $row->wotd}
-      | În lista de WotD
-      {else}
-          | <a href="{$wwwRoot}wotdAdd.php?defId={$row->definition->id}">Adaugă WotD</a>
-      {/if}
+        {if $sUser && ($sUser->moderator & $smarty.const.PRIV_WOTD) && !$is_mirror}
+          {if $row->wotd}
+            | În lista de WotD
+          {else}
+            | <a href="{$wwwRoot}wotdAdd.php?defId={$row->definition->id}">Adaugă WotD</a>
+          {/if}
         {/if}
       </span>
   
@@ -227,27 +241,27 @@
     {/literal}
   {/if}
   
-  {if $searchType == SEARCH_APPROXIMATE || $searchType == SEARCH_REGEXP}
+  {if $searchType == $smarty.const.SEARCH_APPROXIMATE || $searchType == $smarty.const.SEARCH_REGEXP}
     {foreach from=$lexems item=lexem key=row_id}
       {if $row_id}|{/if}
       <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{include file="common/bits/lexemName.ihtml" lexem=$lexem}</a>
     {/foreach}
   {/if}
 
-  {if $searchType == SEARCH_WOTD}
-      {if $fdate}
-  <div class="resultBar">
-  Navigați printre cuvintele zilei:
-          {if $prevday}<a href="{$prevday}">« Precedentul</a>{/if} 
-          {if $nextday}<a href="{$nextday}">Următorul »</a>{/if}
-      {else}
-  <div class="wotdArchiveTitle">
-  Arhiva cuvintelor zilei:
-      {/if}
-  </div>
-      {if not $fdate}
-  <div id="wotdArchive" class="wotdArchive"></div>
-  <script>loadAjaxContent('/arhiva/cuvantul-zilei/','#wotdArchive')</script>
-      {/if}
+  {if $searchType == $smarty.const.SEARCH_WOTD}
+    {if $fdate}
+      <div class="resultBar">
+        Navigați printre cuvintele zilei:
+        {if $prevday}<a href="{$wwwRoot}{$prevday}">« Precedentul</a>{/if} 
+        {if $nextday}<a href="{$wwwRoot}{$nextday}">Următorul »</a>{/if}
+    {else}
+      <div class="wotdArchiveTitle">
+      Arhiva cuvintelor zilei:
+    {/if}
+      </div>
+    {if not $fdate}
+      <div id="wotdArchive" class="wotdArchive"></div>
+      <script>loadAjaxContent('{$wwwRoot}/arhiva/cuvantul-zilei/','#wotdArchive')</script>
+    {/if}
   {/if}
 </div>

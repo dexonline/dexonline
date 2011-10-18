@@ -158,11 +158,6 @@ function session_setFlash($message, $type = 'error') {
   session_setVariable('flashMessageType', $type);
 }
 
-function session_clearFlash() {
-  session_unsetVariable('flashMessage');
-  session_unsetVariable('flashMessageType');
-}
-
 function session_getWithDefault($name, $default) {
   if (isset($_SESSION)){
     if (array_key_exists($name, $_SESSION)) {

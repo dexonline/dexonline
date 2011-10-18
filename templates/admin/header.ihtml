@@ -1,3 +1,7 @@
+{assign var=dbResult value=$dbResult|default:null}
+{assign var=items value=$items|default:null}
+{assign var=noLinks value=$noLinks|default:false}
+{assign var=showSources value=$showSources|default:false}
 <div class="header">
   <div class="title">
     {$title|escape}

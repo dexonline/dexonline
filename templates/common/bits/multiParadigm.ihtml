@@ -1,10 +1,10 @@
-{if !$version}
-  {assign var="version" value="current"}
-{/if}
+{assign var="hasUnrecommendedForms" value=$hasUnrecommendedForms|default:false}
+{assign var="ifMaps" value=$ifMaps|default:null}
+{assign var="version" value=$version|default:"current"}
 {if $ifMaps}
   {foreach from=$ifMaps item=ifMap key=i}
-    {include file=common/paradigm/$version/paradigm.ihtml lexem=$lexems[$i] ifMap=$ifMap sourceNames=$sourceNamesArr[$i]}
-    {if $sUser->moderator & $smarty.const.PRIV_LOC}
+    {include file="common/paradigm/$version/paradigm.ihtml" lexem=$lexems[$i] ifMap=$ifMap sourceNames=$sourceNamesArr[$i]}
+    {if $sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
       Editează:
       <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexems[$i]->id}">lexemul</a> |
       <a href="{$wwwRoot}flex/editModel.php?modelType={$lexems[$i]->modelType}&amp;modelNumber={$lexems[$i]->modelNumber}">modelul {$lexems[$i]->modelType}{$lexems[$i]->modelNumber}</a>

@@ -1,6 +1,6 @@
 <?php
 
-define('PAGE_CACHE', true);
+define('PAGE_CACHE', false);
 define('PAGE_CACHE_DIR', 'pageCache');
 
 function pageCache_get() {

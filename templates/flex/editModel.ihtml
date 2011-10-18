@@ -1,3 +1,6 @@
+{assign var="adjModels" value=$adjModels|default:null}
+{assign var="participles" value=$participles|default:null}
+{assign var="regenTransforms" value=$regenTransforms|default:null}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -149,10 +152,12 @@
               {foreach from=$regenTransforms item=ignored key=inflId}
                 {assign var="variantArray" value="`$newForms[$inflId]`"}
                 <td class="forms">
-                  {foreach from=$variantArray item=tuple key=i
-                    }{if $i}, {/if
-                    }{$tuple.form|escape
-                  }{/foreach}
+                  {strip}
+                    {foreach from=$variantArray item=tuple key=i}
+                      {if $i}, {/if}
+                      {$tuple.form|escape}
+                    {/foreach}
+                  {/strip}
                   {if !count($variantArray)}&mdash;{/if}
                 </td>
               {/foreach}
@@ -164,11 +169,13 @@
                 {assign var="inflArray" value="`$regenForms[$lIndex]`"}
                 {foreach from=$inflArray item=variantArray key=inflId}
                   <td class="forms">
-                    {foreach from=$variantArray item=form key=i
-                      }{if $i}, {/if
-                      }{$form|escape
-                    }{/foreach}
-                    {if !count($variantArray)}&mdash;{/if}
+                    {strip}
+                      {foreach from=$variantArray item=form key=i}
+                        {if $i}, {/if}
+                        {$form|escape}
+                      {/foreach}
+                      {if !count($variantArray)}&mdash;{/if}
+                    {/strip}
                   </td>
                 {/foreach}
               </tr>

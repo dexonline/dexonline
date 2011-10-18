@@ -54,6 +54,7 @@ if ($locVersion && $modelType && $modelNumber) {
 $modelTypes = ModelType::loadCanonical();
 $models = Model::loadByType($modelType ? $modelType : $modelTypes[0]->code);
 
+smarty_assign('page_title', 'Modele de flexiune');
 smarty_assign('locVersions', $locVersions);
 smarty_assign('modelTypes', $modelTypes);
 smarty_assign('models', $models);

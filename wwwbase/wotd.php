@@ -49,7 +49,7 @@ if ($date) {
     $titleDate = " ({$fdate})";
     smarty_assign('fdate', $fdate);
     // wotd navigator
-    $pre = '/cuvantul-zilei/';
+    $pre = 'cuvantul-zilei/';
     $prev = strtotime("yesterday", $currentDate);
     if ($prev > strtotime("2011/05/01")) {
         $prevday = $pre . date("Y/m/d", $prev);

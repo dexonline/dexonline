@@ -1,3 +1,6 @@
+{assign var="skipAnySource" value=$skipAnySource|default:''}
+{assign var="src_selected" value=$src_selected|default:null}
+{assign var="urlName" value=$urlName|default:false}
 <select name="source" id="sourceDropDown">
   {if !$skipAnySource}
     <option value="">Toate sursele</option>

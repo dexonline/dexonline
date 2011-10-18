@@ -1,3 +1,4 @@
+{assign var="modelsToDisplay" value=$modelsToDisplay|default:null}
 <br/>
 
 {include file="common/bits/js.ihtml" flex=1}

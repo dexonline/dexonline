@@ -4,9 +4,7 @@
    $ifMap: HashMap($rank -> Array(InflectedForm))
 *}
 
-{if !$modelType}
-  {assign var=modelType value=$lexem->modelType}
-{/if}
+{assign var=modelType value=$modelType|default:$lexem->modelType}
 
 {if $modelType == 'T'}
   {include file="common/paradigm/current/paradigmT.ihtml" lexem=$lexem}

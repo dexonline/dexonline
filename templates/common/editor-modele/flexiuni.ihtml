@@ -51,7 +51,7 @@
   </table>
 </form>
 
-<b>Instrucțiuni:</b> Trageți de rânduri pentru a le reordona, apoi apăsați <i>Salvează</i>. Acest tabel enumeră setul cel mai cuprinzător de forme pe care le poate avea un model de tipul {$mt->code}.
+<b>Instrucțiuni:</b> Trageți de rânduri pentru a le reordona, apoi apăsați <i>Salvează</i>. Acest tabel enumeră setul cel mai cuprinzător de forme pe care le poate avea fiecare tip de model.
 Pentru fiecare model în parte, veți avea posibilitatea să specificați forme lipsă (de exemplu, pentru V666) sau forme cu mai multe valori (de exemplu, mai mult ca perfectul verbelor).
 Vi se permite ștergerea doar a acelor flexiuni care nu sunt folosite în niciun model (de obicei, cele nou create).
 

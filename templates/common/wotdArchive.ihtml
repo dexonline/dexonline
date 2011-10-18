@@ -1,8 +1,8 @@
 <table class="wotdArchiveTable">
   <tr class="wotdHeader">
-    <td>{if $showPrev==1}<div onclick="loadAjaxContent('{$prevMonth}', '#wotdArchive');" class="nav">&lt;&lt;</div>{else}&nbsp;{/if}</td>
+    <td>{if $showPrev==1}<div onclick="loadAjaxContent('{$wwwRoot}{$prevMonth}', '#wotdArchive');" class="nav">&lt;&lt;</div>{else}&nbsp;{/if}</td>
     <td colspan=5>{$month} {$year}</td>
-    <td>{if $showNext==1}<div onclick="loadAjaxContent('{$nextMonth}', '#wotdArchive');" class="nav">&gt;&gt;</div>{else}&nbsp;{/if}</td>
+    <td>{if $showNext==1}<div onclick="loadAjaxContent('{$wwwRoot}{$nextMonth}', '#wotdArchive');" class="nav">&gt;&gt;</div>{else}&nbsp;{/if}</td>
   </tr>
   <tr>
     <td>Luni</td>
@@ -31,7 +31,7 @@
     {if $word->dayOfWeek == 2}<tr>{/if}
     <td>
     <div class="wotdDoM">{$word->dayOfMonth}</div>
-    <div>{if $word->lexicon}<a href="/cuvantul-zilei/{$word->linkDate}">{$word->lexicon}</a>{else}&nbsp;{/if}</div>
+    <div>{if $word->lexicon}<a href="{$wwwRoot}cuvantul-zilei/{$word->linkDate}">{$word->lexicon}</a>{else}&nbsp;{/if}</div>
     </td>
     {if $word->dayOfWeek == 1}</tr>{/if}
     {if $smarty.foreach.loop.last}

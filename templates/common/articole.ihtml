@@ -1,8 +1,5 @@
 <div class="wikiTitle">Articole lingvistice</div>
 
 {foreach from=$wikiTitles item=titlePair}
-  {if $titlePair[0] != $wa->title}
-    <a href="{$wwwRoot}articol/{$titlePair[1]}">{$titlePair[0]}</a>
-    <a href="">{$title}</a><br/>
-  {/if}
+  <a href="{$wwwRoot}articol/{$titlePair[1]}">{$titlePair[0]}</a><br/>
 {/foreach}

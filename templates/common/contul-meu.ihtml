@@ -57,7 +57,7 @@ sunteți într-adevăr proprietarul contului. Dacă nu doriți să schimbați va
   </tr><tr>
     <td>Privilegii:</td>
     <td>
-      {if $sUser->moderator > 0}
+      {if $sUser && ($sUser->moderator > 0)}
         {section name="bit" loop=$smarty.const.NUM_PRIVILEGES}
           {math equation="1 << x" x=$smarty.section.bit.index assign="mask"}
 	  {if $sUser->moderator & $mask}{$privilegeNames[$smarty.section.bit.index]};{/if}

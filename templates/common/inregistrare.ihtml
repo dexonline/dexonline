@@ -1,6 +1,6 @@
 {if $sUser}
   Sunteți deja înregistrat și conectat!
-{elseif $send && $error_code == OK}
+{elseif $send && $error_code == $smarty.const.OK}
   Înscrierea s-a făcut cu succes! Acum vă puteți
   <a href="login">conecta</a>.
 {else}
@@ -37,25 +37,25 @@
   {* Print the error message *}
   {if $send}
     <font color=red><b>
-    {if $error_code == ERR_NO_NICK}
+    {if $error_code == $smarty.const.ERR_NO_NICK}
       Trebuie să vă alegeți un nume de cont.
-    {elseif $error_code == ERR_NICK_LEN}
+    {elseif $error_code == $smarty.const.ERR_NICK_LEN}
       Numele de cont trebuie să aibă minim 3 caractere.
-    {elseif $error_code == ERR_NICK_CHARS}
+    {elseif $error_code == $smarty.const.ERR_NICK_CHARS}
       Numele de cont poate conține numai caracterele indicate.
-    {elseif $error_code == ERR_PASS_LEN}
+    {elseif $error_code == $smarty.const.ERR_PASS_LEN}
       Trebuie să vă alegeți o parolă de minim 4 caractere.
-    {elseif $error_code == ERR_PASS_MISMATCH}
+    {elseif $error_code == $smarty.const.ERR_PASS_MISMATCH}
       Parolele nu coincid.
-    {elseif $error_code == ERR_NO_EMAIL}
+    {elseif $error_code == $smarty.const.ERR_NO_EMAIL}
       Trebuie să precizați adresa de e-mail.
-    {elseif $error_code == ERR_BAD_EMAIL}
+    {elseif $error_code == $smarty.const.ERR_BAD_EMAIL}
       Adresa de e-mail nu este validă.
-    {elseif $error_code == ERR_NICK_TAKEN}
+    {elseif $error_code == $smarty.const.ERR_NICK_TAKEN}
       Acest nume de cont este deja folosit.
-    {elseif $error_code == ERR_EMAIL_TAKEN}
+    {elseif $error_code == $smarty.const.ERR_EMAIL_TAKEN}
       Această adresă de e-mail este deja folosită.
-    {else}  {* $error_code == ERR_OTHER *}
+    {else}  {* $error_code == $smarty.const.ERR_OTHER *}
       A fost o problemă la înregistrare. Vă rugăm
       trimiteți-ne un e-mail pentru a ne ajuta să depanăm
       problema.

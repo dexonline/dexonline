@@ -85,10 +85,7 @@
         </select>
         <select name="modelNumber" id="modelListId">
           {foreach from=$models item=m}
-            <option value="{$m->number|escape:url}"
-              {if $m->number == $model->number}selected="selected"{/if}
-              >{$m->number}{if !$m->id}*{/if} ({$m->exponent})
-            </option>
+            <option value="{$m->number|escape:url}">{$m->number}{if !$m->id}*{/if} ({$m->exponent})</option>
           {/foreach}
         </select>
         <input type="submit" name="showLexems" value="Arată toate lexemele"/>
@@ -119,15 +116,16 @@
       {include file="common/sourceDropDown.ihtml" sources=$allModeratorSources}
       <br/>
       &nbsp; &nbsp; &nbsp; &nbsp; între
+      {assign var="nextYear" value=$currentYear+1}
       {include file="common/bits/numericDropDown.ihtml"
-               name="yr1" start=2001 end=`$currentYear+1`}
+               name="yr1" start=2001 end=$nextYear}
       {include file="common/bits/numericDropDown.ihtml"
                name="mo1" start=1 end=13}
       {include file="common/bits/numericDropDown.ihtml"
                name="da1" start=1 end=32}
       &nbsp; &nbsp; și
       {include file="common/bits/numericDropDown.ihtml"
-               name="yr2" start=2001 end=`$currentYear+1` selected=$currentYear}
+               name="yr2" start=2001 end=$nextYear selected=$currentYear}
       {include file="common/bits/numericDropDown.ihtml"
                name="mo2" start=1 end=13 selected=12}
       {include file="common/bits/numericDropDown.ihtml"

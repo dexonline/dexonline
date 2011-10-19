@@ -12,7 +12,7 @@ if ($sendButton) {
   if (session_isValidSkin($skin)) {
     session_setSkin($skin);
   }
-  session_setFlash('Preferințele au fost salvate.', 'info');
+  flash_add('Preferințele au fost salvate.', 'info');
   util_redirect('preferinte');
 } else {
   $userPrefs = session_getAnonymousPrefs();

@@ -6,7 +6,7 @@ $newLocVersion = util_getRequestParameter('newLocVersion');
 
 if ($newLocVersion) {
   if ($locVersion == $newLocVersion) {
-    session_setFlash('Ați selectat aceeași versiune LOC de două ori');
+    flash_add('Ați selectat aceeași versiune LOC de două ori');
     util_redirect('scrabble-loc');
   }
 

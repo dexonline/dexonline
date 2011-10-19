@@ -74,7 +74,7 @@ if ($text) {
       $definitions[] = Definition::get("id = {$id}");
     }
     if (!count($defIds)) {
-      session_setFlash('Nicio definiție nu conține toate cuvintele căutate.');
+      flash_add('Nicio definiție nu conține toate cuvintele căutate.');
     }
   }
   $searchResults = SearchResult::mapDefinitionArray($definitions);
@@ -104,7 +104,7 @@ if ($lexemId) {
   } else {
     $lexems = array();
     smarty_assign('page_title', "Eroare");
-    session_setFlash("Nu există niciun lexem cu ID-ul căutat.");
+    flash_add("Nu există niciun lexem cu ID-ul căutat.");
   }
   smarty_assign('lexems', $lexems);
 }
@@ -119,7 +119,7 @@ if ($hasRegexp) {
   smarty_assign('numResults', $numResults);
   smarty_assign('lexems', $lexems);
   if (!$numResults) {
-    session_setFlash("Niciun rezultat pentru {$cuv}.");
+    flash_add("Niciun rezultat pentru {$cuv}.");
   }
 }
 
@@ -132,7 +132,7 @@ if ($defId) {
   if ($def) {
     $definitions[] = $def;
   } else {
-    session_setFlash("Nu există nicio definiție cu ID-ul {$defId}.");
+    flash_add("Nu există nicio definiție cu ID-ul {$defId}.");
   }
   $searchResults = SearchResult::mapDefinitionArray($definitions);
   smarty_assign('results', $searchResults);
@@ -159,9 +159,9 @@ if ($searchType == SEARCH_INFLECTED) {
     $searchType = SEARCH_APPROXIMATE;
     $lexems = Lexem::searchApproximate($cuv, $hasDiacritics, true);
     if (count($lexems) == 1) {
-      session_setFlash("Ați fost redirecționat automat la forma „{$lexems[0]->formNoAccent}”.");
+      flash_add("Ați fost redirecționat automat la forma „{$lexems[0]->formNoAccent}”.");
     } else if (!count($lexems)) {
-      session_setFlash("Niciun rezultat relevant pentru „{$cuv}”.");
+      flash_add("Niciun rezultat relevant pentru „{$cuv}”.");
     }
   }
   if (count($lexems) == 1 && $cuv != $lexems[0]->formNoAccent) {

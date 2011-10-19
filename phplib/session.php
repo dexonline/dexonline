@@ -152,12 +152,6 @@ function session_isDebug() {
   return session_getUserNick() == pref_getDebugUser();
 }
 
-function session_setFlash($message, $type = 'error') {
-  $oldMessage = session_variableExists('flashMessage') ? $_SESSION['flashMessage'] : '';
-  session_setVariable('flashMessage', "{$oldMessage}{$message}<br/>");
-  session_setVariable('flashMessageType', $type);
-}
-
 function session_getWithDefault($name, $default) {
   if (isset($_SESSION)){
     if (array_key_exists($name, $_SESSION)) {

@@ -24,7 +24,7 @@ if ($sendButton) {
     smarty_assign('lexemNames', $lexemNames);
     smarty_assign('sourceId', $sourceId);
     smarty_assign('def', $def);
-    session_setFlash($errorMessage);
+    flash_add($errorMessage);
     smarty_assign('previewDivContent', text_htmlize($def, $sourceId));
   } else {
     $definition = new Definition();
@@ -57,7 +57,7 @@ if ($sendButton) {
         }
       }
     }
-    session_setFlash('Definiția a fost trimisă. Un moderator o va examina în scurt timp. Vă mulțumim!', 'info');
+    flash_add('Definiția a fost trimisă. Un moderator o va examina în scurt timp. Vă mulțumim!', 'info');
     util_redirect('contribuie');
   }
 } else {

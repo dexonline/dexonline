@@ -26,7 +26,6 @@ function smarty_init() {
   $smarty->assign('currentYear', date("Y"));
   $smarty->assign('bannerType', pref_getServerPreference('bannerType'));
   $smarty->assign('isMobile', util_isMobile());
-  smarty_registerFunction($smarty, 'clearFlashMessage', 'smarty_function_clearFlashMessage');
   smarty_registerFunction($smarty, 'getRunningTimeInMillis', 'smarty_function_getRunningTimeInMillis');
   $smarty->assign('GLOBALS', $GLOBALS);
   $GLOBALS['smarty_theSmarty'] = $smarty;
@@ -122,11 +121,6 @@ function smarty_registerFunction($smarty, $smartyTagName, $functionName) {
   } else {
     $smarty->register_function($smartyTagName, $functionName);
   }
-}
-
-function smarty_function_clearFlashMessage($params, &$smarty) { 
-  session_unsetVariable('flashMessage');
-  session_unsetVariable('flashMessageType');
 }
 
 function smarty_function_getRunningTimeInMillis($params, &$smarty) {

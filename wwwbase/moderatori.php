@@ -21,12 +21,12 @@ if ($submitButton) {
       $user->moderator = array_sum($newCheckboxes);
       $user->save();
     } else {
-      session_setFlash("Numele de utilizator „{$newNick}” nu există");
+      flash_add("Numele de utilizator „{$newNick}” nu există");
       util_redirect("moderatori");
     }
   }
 
-  session_setFlash('Modificările au fost salvate', 'info');
+  flash_add('Modificările au fost salvate', 'info');
   util_redirect("moderatori");
 }
 

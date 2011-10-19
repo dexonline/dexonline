@@ -21,22 +21,22 @@ smarty_assign('forget', !empty($forgetButton));
 if ($loginButton) {
   // User tried to log in
   if ($nickOrEmail == '') {
-    session_setFlash('Trebuie să introduceți adresa de email sau numele de cont.');
+    flash_add('Trebuie să introduceți adresa de email sau numele de cont.');
   } else if ($password == '') {
-    session_setFlash('Trebuie să introduceți parola.');
+    flash_add('Trebuie să introduceți parola.');
   } else {
     $user = User::get(sprintf("password = '%s' and (email = '%s' or nick = '%s')", md5($password), $nickOrEmail, $nickOrEmail));
     if ($user) {
       session_login($user);
       util_redirect($target);
     } else {
-      session_setFlash('Adresa de email, numele de cont sau parola sunt greșite.');
+      flash_add('Adresa de email, numele de cont sau parola sunt greșite.');
       log_userLog("Unsuccessful login attempt email=$nickOrEmail ip=" . $_SERVER['REMOTE_ADDR']);
     }
   }
 } else if ($forgetButton) {
   if ($nickOrEmail == '') {
-    session_setFlash('Pentru a vă reseta parola, trebuie să introduceți adresa de email.');
+    flash_add('Pentru a vă reseta parola, trebuie să introduceți adresa de email.');
   } else {
     $user = User::get("email = '$nickOrEmail'");
     if ($user) {

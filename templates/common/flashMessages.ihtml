@@ -1,6 +1,5 @@
-{if isset($smarty.session.flashMessage)}
-  <div class="flashMessage {$smarty.session.flashMessageType}Type">
-    {$smarty.session.flashMessage}
+{if isset($GLOBALS.flashMessage)}
+  <div class="flashMessage {$GLOBALS.flashMessageType}Type">
+    {$GLOBALS.flashMessage}
   </div>
-  {clearFlashMessage}
 {/if}

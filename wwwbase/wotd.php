@@ -98,7 +98,7 @@ else {
         header("Location: /cuvantul-zilei");
     }
     else {
-        session_setFlash("Eroare: momentan „Cuvîntul zilei” nu functionează.");
+        flash_add("Eroare: momentan „Cuvîntul zilei” nu funcționează.");
     }
     $searchResults = SearchResult::mapDefinitionArray($definitions);
     smarty_assign('results', $searchResults);

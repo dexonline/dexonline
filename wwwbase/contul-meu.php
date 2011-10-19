@@ -23,21 +23,21 @@ if ($sendButton) {
   // First, a few syntactic checks
   $error = true;
   if ($nick == "") {
-    session_setFlash('Trebuie să vă alegeți un nume de cont.');
+    flash_add('Trebuie să vă alegeți un nume de cont.');
   } else if (strlen($nick) < 3) {
-    session_setFlash('Numele de cont trebuie să aibă minim 3 caractere.');
+    flash_add('Numele de cont trebuie să aibă minim 3 caractere.');
   } else if ($nick != preg_replace("/[^a-zA-Z0-9_-]/", "", $nick)) {
-    session_setFlash('Numele de cont poate conține numai caracterele indicate.');
+    flash_add('Numele de cont poate conține numai caracterele indicate.');
   } else if (strlen($newPass) > 0 && strlen($newPass) < 4) {
-    session_setFlash('Trebuie să vă alegeți o parolă de minim 4 caractere.');
+    flash_add('Trebuie să vă alegeți o parolă de minim 4 caractere.');
   } else if ($newPass != $newPass2) {
-    session_setFlash('Parolele nu coincid.');
+    flash_add('Parolele nu coincid.');
   } else if ($email == "") {
-    session_setFlash('Trebuie să precizați noua adresă de email.');
+    flash_add('Trebuie să precizați noua adresă de email.');
   } else if (!strstr($email, '.') || !strstr($email, '@')) {
-    session_setFlash('Adresa de email nu este validă.');
+    flash_add('Adresa de email nu este validă.');
   } else if (md5($curPass) != $user->password) {
-    session_setFlash('Parola actuală este incorectă.');
+    flash_add('Parola actuală este incorectă.');
   } else {
     $error = false;
   }
@@ -47,7 +47,7 @@ if ($sendButton) {
     $userByNick = User::get("nick = '$nick'");
     if ($userByNick && $userByNick->id != $user->id) {
       $error = true;
-      session_setFlash('Acest nume de cont este deja folosit.');
+      flash_add('Acest nume de cont este deja folosit.');
     }
   }
   
@@ -55,7 +55,7 @@ if ($sendButton) {
     $userByEmail = User::get("email = '$email'");
     if ($userByEmail && $userByEmail->id != $user->id) {
       $error = true;
-      session_setFlash('Această adresă de email este deja folosită.');
+      flash_add('Această adresă de email este deja folosită.');
     }
   }
   
@@ -74,7 +74,7 @@ if ($sendButton) {
     }
     $user->save();
     session_setVariable('user', $user);
-    session_setFlash('Informațiile au fost salvate.', 'info');
+    flash_add('Informațiile au fost salvate.', 'info');
   }
 } else {
   $nick = $user->nick;

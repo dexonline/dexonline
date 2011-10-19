@@ -17,6 +17,7 @@ function util_initEverything() {
   session_init();
   text_init();
   mc_init();
+  flash_restoreFromSession();
 
   if (util_isWebBasedScript()) {
     smarty_init();
@@ -79,6 +80,7 @@ function util_requireOtherFiles() {
   require_once("$root/phplib/db.php");
   require_once("$root/phplib/debugInfo.php");
   require_once("$root/phplib/fileCache.php");
+  require_once("$root/phplib/flashMessage.php");
   require_once("$root/phplib/intArray.php");
   require_once("$root/phplib/lock.php");
   require_once("$root/phplib/logging.php");
@@ -194,6 +196,7 @@ function util_getRequestCheckboxArray($name, $separator) {
 }
 
 function util_redirect($location) {
+  flash_saveToSession();
   header("HTTP/1.1 301 Moved Permanently");
   header("Location: $location");
   exit;
@@ -228,7 +231,7 @@ function util_hideEmptyRequestParameters() {
 
 function util_assertModerator($type) {
   if (!util_isModerator($type)) {
-    session_setFlash('Nu aveți privilegii suficiente pentru a accesa această pagină.');
+    flash_add('Nu aveți privilegii suficiente pentru a accesa această pagină.');
     util_redirect(util_getWwwRoot());
   }
 }

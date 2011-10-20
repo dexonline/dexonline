@@ -81,7 +81,6 @@ function util_requireOtherFiles() {
   require_once("$root/phplib/debugInfo.php");
   require_once("$root/phplib/fileCache.php");
   require_once("$root/phplib/flashMessage.php");
-  require_once("$root/phplib/intArray.php");
   require_once("$root/phplib/lock.php");
   require_once("$root/phplib/logging.php");
   require_once("$root/phplib/modelObjects.php");

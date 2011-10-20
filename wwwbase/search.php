@@ -1,13 +1,5 @@
 <?php
 
-// Check the page cache before loading the rest of the PHP code
-require_once("../phplib/pageCache.php");
-$cachedPage = pageCache_get();
-if ($cachedPage) {
-  print $cachedPage;
-  exit;
-}
-
 require_once("../phplib/util.php");
 require_once("../phplib/lexemSources.php"); 
 require_once("../phplib/ads/adsModule.php");
@@ -297,12 +289,6 @@ smarty_assign('showParadigm', $showParadigm);
 smarty_assign('paradigmLink', $paradigmLink);
 smarty_assign('advancedSearch', $text || $sourceId);
 
-// Capture this information now, because rendering the template wil clear $_SESSION['flashMessage']
-$hasFlashMessages = session_variableExists('flashMessage');
-$output = smarty_fetchCommonPageWithSkin('search.ihtml');
-if (!$hasFlashMessages && (!empty($lexems) || !empty($definitions))) {
-  pageCache_put($output);
-}
-print $output;
+smarty_displayCommonPageWithSkin('search.ihtml');
 
 ?>

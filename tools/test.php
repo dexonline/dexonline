@@ -28,13 +28,6 @@ function assertAbbreviations($typed, $internal, $html, $sourceId) {
   assertEquals($html, text_htmlize($internal, $sourceId));
 }
 
-/********************* Tests for intArray.php  ************************/
-$s = int_create(1000000);
-assertEquals(0, int_get($s, 1234));
-int_put($s, 1234, 12345678);
-assertEquals(12345678, int_get($s, 1234));
-assertEquals(1000000, int_size($s));
-
 /********************* Tests for textProcessing.php ************************/
 
 // Check that we've got the shorthand->Unicode mappings right

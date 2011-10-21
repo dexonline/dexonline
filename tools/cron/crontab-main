@@ -14,5 +14,8 @@
 # Import wiki articles
 50 1 * * * (cd /var/www/dexon/public_html/DEX/tools && php syncWikiArticles.php --full) >/dev/null 2>&1 || mail -s "DEX syncWikiArticles failed" cata@francu.com
 
+# Dump the XML database and weekly diffs
+30 5 * * 6 (cd /var/www/dexon/public_html/DEX/tools && php dumpDatabaseXml.php) >/dev/null 2>&1
+
 # Email sar report
 50 23 * * * sar -q -r -S | mail -s "$HOSTNAME Daily_Sar_Report" cata@francu.com

@@ -343,6 +343,9 @@ class SearchResult {
   public $commentAuthor = NULL;
 
   public static function mapDefinitionArray($definitionArray) {
+    if (empty($definitionArray)) {
+      return array();
+    }
     $results = array();
     $defIds = array();
     $sourceIds = array();

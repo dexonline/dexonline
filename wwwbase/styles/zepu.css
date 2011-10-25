@@ -729,3 +729,27 @@ input.pagedisplay {
   vertical-align: top;
   width: 82px;
 }
+
+.istoriaDefinitieiContainer .changeSetHeader {
+  margin: 1em 0;
+  color: #999;
+  border-bottom: 1px solid #CCC;
+}
+
+.istoriaDefinitieiContainer .changeSetDiff {
+  margin-left: 2em;
+}
+
+div.internalRepDiff {
+  border-left: 5px solid #eee;
+  padding-left: 15px;
+}
+
+div.internalRepDiff ins {
+  background-color: #AFA;
+  text-decoration: none;
+}
+
+div.internalRepDiff del {
+  background-color: #FAA;
+}

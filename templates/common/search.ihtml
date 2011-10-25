@@ -208,6 +208,10 @@
         {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT) && !$is_mirror}
           | <a target="edit_window" href="{$wwwRoot}admin/definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
         {/if}
+
+        {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT) && !$is_mirror}
+          | <a href="{$wwwRoot}istoria-definitiei?id={$row->definition->id}">Istoria definiției</a>
+        {/if}
   
         {if $sUser && ($sUser->moderator & $smarty.const.PRIV_WOTD) && !$is_mirror}
           {if $row->wotd}

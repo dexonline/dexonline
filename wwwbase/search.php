@@ -17,7 +17,7 @@ session_unsetVariable('redirect');
 session_unsetVariable('init_word');
 
 if ($cuv) {
-  $cuv = text_cleanupQuery($cuv);
+  $cuv = StringUtil::cleanupQuery($cuv);
 }
 
 util_redirectToFriendlyUrl($cuv, $sourceUrlName, $text, $showParadigm);
@@ -34,7 +34,7 @@ $sourceId = $source ? $source->id : null;
 
 if ($cuv) {
   smarty_assign('cuv', $cuv);
-  $arr = text_analyzeQuery($cuv);
+  $arr = StringUtil::analyzeQuery($cuv);
   $hasDiacritics = session_user_prefers('FORCE_DIACRITICS') || $arr[0];
   $hasRegexp = $arr[1];
   $isAllDigits = $arr[2];
@@ -54,7 +54,7 @@ if ($text) {
     $definitions = array();
   } else {
     $words = preg_split('/ +/', $cuv);
-    list($properWords, $stopWords) = text_separateStopWords($words, $hasDiacritics);
+    list($properWords, $stopWords) = StringUtil::separateStopWords($words, $hasDiacritics);
     smarty_assign('stopWords', $stopWords);
     $defIds = Definition::searchFullText($properWords, $hasDiacritics);
     smarty_assign('numResults', count($defIds));
@@ -77,7 +77,7 @@ if ($lexemId) {
   // We don't really use $cuv here
   $searchType = SEARCH_LEXEM_ID;
   smarty_assign('lexemId', $lexemId);
-  if (!text_validateAlphabet($lexemId, '0123456789')) {
+  if (!StringUtil::validateAlphabet($lexemId, '0123456789')) {
     $lexemId = '';
   }
   $lexem = Lexem::get("id = {$lexemId}");
@@ -134,7 +134,7 @@ if ($defId) {
 if ($searchType == SEARCH_INFLECTED) {
   $lexems = Lexem::searchInflectedForms($cuv, $hasDiacritics, true);
   if (count($lexems) == 0) {
-    $cuv_old = text_tryOldOrthography($cuv);
+    $cuv_old = StringUtil::tryOldOrthography($cuv);
     $lexems = Lexem::searchInflectedForms($cuv_old, $hasDiacritics, true);
   }
   if (count($lexems) == 0) {

@@ -11,14 +11,14 @@ $ajax = util_getRequestParameter('ajax');
 $type = util_getRequestParameter('type');
 
 $searchType = SEARCH_INFLECTED;
-$arr = text_analyzeQuery($cuv);
+$arr = StringUtil::analyzeQuery($cuv);
 $hasDiacritics = session_user_prefers('FORCE_DIACRITICS') || $arr[0];
 
 // LexemId search
 if ($lexemId) {
   $searchType = SEARCH_LEXEM_ID;
   smarty_assign('lexemId', $lexemId);
-  if (!text_validateAlphabet($lexemId, '0123456789')) {
+  if (!StringUtil::validateAlphabet($lexemId, '0123456789')) {
     $lexemId = '';
   }
   $lexem = Lexem::get("id = {$lexemId}");
@@ -39,14 +39,14 @@ else {
 }
 
 if ($cuv) {
-  $cuv = text_cleanupQuery($cuv);
+  $cuv = StringUtil::cleanupQuery($cuv);
 }
 
 // Normal search
 if ($searchType == SEARCH_INFLECTED) {
   $lexems = Lexem::searchInflectedForms($cuv, $hasDiacritics);
   if (count($lexems) == 0) {
-    $cuv_old = text_tryOldOrthography($cuv);
+    $cuv_old = StringUtil::tryOldOrthography($cuv);
     $lexems = Lexem::searchInflectedForms($cuv_old, $hasDiacritics);
   }
 }

@@ -80,7 +80,7 @@ if ($previewButton || $confirmButton) {
         $exponentChanged) {
       $regenTransforms[$infl->id] = array();
       foreach ($newForms[$infl->id] as $tuple) {
-        $transforms = text_extractTransforms($newExponent, $tuple['form'], $isPronoun);
+        $transforms = FlexStringUtil::extractTransforms($newExponent, $tuple['form'], $isPronoun);
         if ($transforms) {
           $regenTransforms[$infl->id][] = $transforms;
         } else {
@@ -106,7 +106,7 @@ if ($previewButton || $confirmButton) {
         } else {
           $accentedVowel = '';
         }
-        $result = text_applyTransforms($l->form, $transforms, $accentShift, $accentedVowel);
+        $result = FlexStringUtil::applyTransforms($l->form, $transforms, $accentShift, $accentedVowel);
         $regenRow[$inflId][] = $result;
         if (!$result && count($errorMessage) <= 20) {
           $errorMessage[] = "Nu pot calcula una din formele lexemului " . htmlentities($l->form) . ".";
@@ -324,7 +324,7 @@ function loadParticiplesForVerbModel($modelNumber, $participleNumber) {
  **/
 function readRequest(&$map) {
   foreach ($_REQUEST as $name => $value) {
-    if (text_startsWith($name, 'forms_')) {
+    if (StringUtil::startsWith($name, 'forms_')) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 3);
       assert($parts[0] == 'forms');
@@ -334,7 +334,7 @@ function readRequest(&$map) {
       if ($form) {
         $map[$inflId][$variant] = array('form' => $form, 'isLoc' => false, 'recommended' => false);
       }
-    } else if (text_startsWith($name, 'isLoc_')) {
+    } else if (StringUtil::startsWith($name, 'isLoc_')) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 3);
       assert($parts[0] == 'isLoc');
@@ -343,7 +343,7 @@ function readRequest(&$map) {
       if (array_key_exists($variant, $map[$inflId])) {
         $map[$inflId][$variant]['isLoc'] = true;
       }
-    } else if (text_startsWith($name, 'recommended_')) {
+    } else if (StringUtil::startsWith($name, 'recommended_')) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 3);
       assert($parts[0] == 'recommended');

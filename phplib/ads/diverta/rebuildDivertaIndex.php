@@ -8,14 +8,14 @@ $numBooks = count($books);
 print "Reindexing $numBooks book titles.\n";
 foreach ($books as $i => $book) {
   db_execute("delete from diverta_Index where bookId = {$book->id}");
-  $hasDiacritics = text_hasDiacritics($book->title);
+  $hasDiacritics = StringUtil::hasDiacritics($book->title);
   $title = mb_strtolower($book->title);
   $title = str_replace(array(',', '.'), '', $title);
   $titleWords = preg_split("/\\s+/", $title);
   $lexemIds = array();
 
   foreach ($titleWords as $word) {
-    if (!text_isStopWord($word, $hasDiacritics)) {
+    if (!StringUtil::isStopWord($word, $hasDiacritics)) {
       $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
       $wordLexemIds = db_getArray(db_execute("select distinct lexemId from InflectedForm where $field = '" . addslashes($word) . "'"));
       foreach ($wordLexemIds as $lexemId) {

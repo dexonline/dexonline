@@ -28,7 +28,7 @@ function db_splitDsn() {
   $result = array();
   $dsn = pref_getServerPreference('database');
   $prefix = 'mysql://';
-  assert(text_startsWith($dsn, $prefix));
+  assert(StringUtil::startsWith($dsn, $prefix));
   $dsn = substr($dsn, strlen($prefix));
 
   $parts = preg_split("/[:@\/]/", $dsn);

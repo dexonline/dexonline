@@ -27,7 +27,7 @@ if ($export == 'sources') {
   smarty_assign('inflections', db_find(new Inflection(), '1 order by id'));
   smarty_displayWithoutSkin('common/update3Inflections.ihtml');
 } else if ($export == 'abbrev') {
-  smarty_assign('abbrev', text_loadRawAbbreviations());
+  smarty_assign('abbrev', AdminStringUtil::loadRawAbbreviations());
   smarty_displayWithoutSkin('common/update3Abbrev.ihtml');
 } else if ($export == 'definitions') {
   userCache_init();
@@ -48,7 +48,7 @@ if ($export == 'sources') {
     $def = new Definition();
     $def->set($defDbResult->fields);
     $defDbResult->MoveNext();
-    $def->internalRep = text_xmlizeRequired($def->internalRep);
+    $def->internalRep = AdminStringUtil::xmlizeRequired($def->internalRep);
 
     $lexemIds = array();
     while ($currentLexem && $currentLexem[0] == $def->id) {

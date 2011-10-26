@@ -3,9 +3,9 @@ require_once("../../phplib/util.php");
 
 $lexemName = util_getRequestParameter('lexemName');
 
-if (text_hasRegexp($lexemName)) {
-  $hasDiacritics = text_hasDiacritics($lexemName);
-  $lexems = Lexem::searchRegexp($lexemName, $hasDiacritics, null);
+if (StringUtil::hasRegexp($lexemName)) {
+  $hasDiacritics = StringUtil::hasDiacritics($lexemName);
+  $lexems = Lexem::searchRegexp($lexemName, $hasDiacritics, null, true);
 } else {
   $lexems = Lexem::loadByExtendedName($lexemName);
 }

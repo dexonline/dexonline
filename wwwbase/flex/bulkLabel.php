@@ -8,7 +8,7 @@ $submitButton = util_getRequestParameter('submitButton');
 
 if ($submitButton) {
   foreach ($_REQUEST as $name => $modelId) {
-    if (text_startsWith($name, 'lexem_')) {
+    if (StringUtil::startsWith($name, 'lexem_')) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
       assert($parts[0] == 'lexem');
@@ -33,7 +33,7 @@ if ($submitButton) {
   util_redirect("bulkLabel.php?suffix=$suffix");
 }
 
-$reverseSuffix = text_reverse($suffix);
+$reverseSuffix = StringUtil::reverse($suffix);
 
 RecentLink::createOrUpdate("Etichetare asistată: -$suffix");
 

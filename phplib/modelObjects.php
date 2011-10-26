@@ -243,7 +243,7 @@ echo "</pre>";*/
   }
 
   public static function searchModerator($cuv, $hasDiacritics, $sourceId, $status, $userId, $beginTime, $endTime) {
-    $regexp = text_dexRegexpToMysqlRegexp($cuv);
+    $regexp = StringUtil::dexRegexpToMysqlRegexp($cuv);
     $sourceClause = $sourceId ? "and Definition.sourceId = $sourceId" : '';
     $userClause = $userId ? "and Definition.userId = $userId" : '';
 
@@ -712,7 +712,7 @@ class Lexem extends BaseObject {
       $this->form = $form;
       $this->formNoAccent = str_replace("'", '', $form);
       $this->formUtf8General = $this->formNoAccent;
-      $this->reverse = text_reverse($this->formNoAccent);
+      $this->reverse = StringUtil::reverse($this->formNoAccent);
     }
     $this->description = '';
     $this->tags = '';
@@ -800,7 +800,7 @@ class Lexem extends BaseObject {
         return $result;
       }
     }
-    $mysqlRegexp = text_dexRegexpToMysqlRegexp($regexp);
+    $mysqlRegexp = StringUtil::dexRegexpToMysqlRegexp($regexp);
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     if ($sourceId) {
       $dbResult = db_execute("select distinct L.* from Lexem L join LexemDefinitionMap on L.id = lexemId join Definition D on definitionId = D.id " .
@@ -823,7 +823,7 @@ class Lexem extends BaseObject {
         return $result;
       }
     }
-    $mysqlRegexp = text_dexRegexpToMysqlRegexp($regexp);
+    $mysqlRegexp = StringUtil::dexRegexpToMysqlRegexp($regexp);
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     $result = $sourceId ?
       db_getSingleValue("select count(distinct L.id) from Lexem L join LexemDefinitionMap on L.id = lexemId join Definition D on definitionId = D.id " .
@@ -907,7 +907,7 @@ class Lexem extends BaseObject {
     $f113 = Model::get("modelType = 'F' and number = '113'");
     
     foreach ($ifs as $if) {
-      $model = text_endsWith($if->formNoAccent, 'are') ? $f113 : $f107;
+      $model = StringUtil::endsWith($if->formNoAccent, 'are') ? $f113 : $f107;
       
       // Load an existing lexem only if it has one of the models F113, F107 or T1. Otherwise create a new lexem.
       $lexems = db_find(new Lexem(), "formNoAccent = '{$if->formNoAccent}'");
@@ -974,7 +974,7 @@ class Lexem extends BaseObject {
         $transforms[] = Transform::get("id = " . $mds[$i]->transformId);
       }
       
-      $result = text_applyTransforms($this->form, $transforms, $accentShift, $vowel);
+      $result = FlexStringUtil::applyTransforms($this->form, $transforms, $accentShift, $vowel);
       if (!$result) {
         return null;
       }
@@ -1385,7 +1385,7 @@ class WikiArticle extends BaseObject {
     foreach ($matches[1] as $match) {
       $parts = explode(',', $match);
       foreach ($parts as $part) {
-        $result[] = text_unicodeToLower(trim($part));
+        $result[] = mb_strtolower(trim($part));
       }
     }
     return $result;

@@ -24,156 +24,156 @@ function assertEqualArrays($expected, $actual) {
 }
 
 function assertAbbreviations($typed, $internal, $html, $sourceId) {
-  assertEquals($internal, _text_markAbbreviations($typed, $sourceId));
-  assertEquals($html, text_htmlize($internal, $sourceId));
+  assertEquals($internal, AdminStringUtil::markAbbreviations($typed, $sourceId));
+  assertEquals($html, AdminStringUtil::htmlize($internal, $sourceId));
 }
 
-/********************* Tests for textProcessing.php ************************/
+/********************* Tests for stringUtil.php ************************/
 
 // Check that we've got the shorthand->Unicode mappings right
-assertEquals(text_shorthandToUnicode("~a"), 'ă');
-assertEquals(text_shorthandToUnicode("~a^a^i,s,t"), 'ăâîșț');
-assertEquals(text_shorthandToUnicode("'^a'^A^'a^'A"), 'ấẤấẤ');
-assertEquals(text_shorthandToUnicode("'~a'~A~'a~'A"), 'ắẮắẮ');
-assertEquals(text_shorthandToUnicode("~a~A^a^A'a'A"), 'ăĂâÂáÁ');
-assertEquals(text_shorthandToUnicode("`a`A:a:A"), 'àÀäÄ');
-assertEquals(text_shorthandToUnicode(",c,C'c'C~c~C"), 'çÇćĆčČ');
-assertEquals(text_shorthandToUnicode("'e'E`e`E^e^E"), 'éÉèÈêÊ');
-assertEquals(text_shorthandToUnicode(":e:E~e~E~g~G"), 'ëËĕĔğĞ');
-assertEquals(text_shorthandToUnicode("'^i'^I^'i^'I"), 'î́Î́î́Î́');
-assertEquals(text_shorthandToUnicode("'i'I`i`I^i^I"), 'íÍìÌîÎ');
-assertEquals(text_shorthandToUnicode(":i:I~i~I~n~N"), 'ïÏĩĨñÑ');
-assertEquals(text_shorthandToUnicode("'o'O`o`O^o^O"), 'óÓòÒôÔ');
-assertEquals(text_shorthandToUnicode(":o:O~o~O~r~R"), 'öÖõÕřŘ');
-assertEquals(text_shorthandToUnicode("~s~S,s,S,t,T"), 'šŠșȘțȚ');
-assertEquals(text_shorthandToUnicode("'u'U`u`U^u^U"), 'úÚùÙûÛ');
-assertEquals(text_shorthandToUnicode(":u:U~u~U"), 'üÜŭŬ');
-assertEquals(text_shorthandToUnicode("'y'Y:y:Y~z~Z"), 'ýÝÿŸžŽ');
+assertEquals(AdminStringUtil::shorthandToUnicode("~a"), 'ă');
+assertEquals(AdminStringUtil::shorthandToUnicode("~a^a^i,s,t"), 'ăâîșț');
+assertEquals(AdminStringUtil::shorthandToUnicode("'^a'^A^'a^'A"), 'ấẤấẤ');
+assertEquals(AdminStringUtil::shorthandToUnicode("'~a'~A~'a~'A"), 'ắẮắẮ');
+assertEquals(AdminStringUtil::shorthandToUnicode("~a~A^a^A'a'A"), 'ăĂâÂáÁ');
+assertEquals(AdminStringUtil::shorthandToUnicode("`a`A:a:A"), 'àÀäÄ');
+assertEquals(AdminStringUtil::shorthandToUnicode(",c,C'c'C~c~C"), 'çÇćĆčČ');
+assertEquals(AdminStringUtil::shorthandToUnicode("'e'E`e`E^e^E"), 'éÉèÈêÊ');
+assertEquals(AdminStringUtil::shorthandToUnicode(":e:E~e~E~g~G"), 'ëËĕĔğĞ');
+assertEquals(AdminStringUtil::shorthandToUnicode("'^i'^I^'i^'I"), 'î́Î́î́Î́');
+assertEquals(AdminStringUtil::shorthandToUnicode("'i'I`i`I^i^I"), 'íÍìÌîÎ');
+assertEquals(AdminStringUtil::shorthandToUnicode(":i:I~i~I~n~N"), 'ïÏĭĬñÑ');
+assertEquals(AdminStringUtil::shorthandToUnicode("'o'O`o`O^o^O"), 'óÓòÒôÔ');
+assertEquals(AdminStringUtil::shorthandToUnicode(":o:O~o~O~r~R"), 'öÖõÕřŘ');
+assertEquals(AdminStringUtil::shorthandToUnicode("~s~S,s,S,t,T"), 'šŠșȘțȚ');
+assertEquals(AdminStringUtil::shorthandToUnicode("'u'U`u`U^u^U"), 'úÚùÙûÛ');
+assertEquals(AdminStringUtil::shorthandToUnicode(":u:U~u~U"), 'üÜŭŬ');
+assertEquals(AdminStringUtil::shorthandToUnicode("'y'Y:y:Y~z~Z"), 'ýÝÿŸžŽ');
 
-assertEquals('acegyzACEGYZ', text_unicodeToLatin("ắčèğýžẮČÈĞÝŽ"));
+assertEquals('acegyzACEGYZ', StringUtil::unicodeToLatin("ắčèğýžẮČÈĞÝŽ"));
 
-assertEquals('mama', text_unicodeToLower('mama'));
-assertEquals('mama', text_unicodeToLower('maMa'));
-assertEquals('mama', text_unicodeToLower('MAmA'));
-assertEquals('mamă', text_unicodeToLower('MAmă'));
-assertEquals('mamă', text_unicodeToLower('MAmĂ'));
-assertEquals('abcúùû', text_unicodeToLower('ABCÚÙÛ'));
-assertEquals('ÿ', text_unicodeToLower('Ÿ'));
+assertEquals('mama', mb_strtolower('mama'));
+assertEquals('mama', mb_strtolower('maMa'));
+assertEquals('mama', mb_strtolower('MAmA'));
+assertEquals('mamă', mb_strtolower('MAmă'));
+assertEquals('mamă', mb_strtolower('MAmĂ'));
+assertEquals('abcúùû', mb_strtolower('ABCÚÙÛ'));
+assertEquals('ÿ', mb_strtolower('Ÿ'));
 
-assertEquals('MAMA', text_unicodeToUpper('MAMA'));
-assertEquals('MAMA', text_unicodeToUpper('MAmA'));
-assertEquals('MAMA', text_unicodeToUpper('MAmA'));
-assertEquals('MAMĂ', text_unicodeToUpper('MamĂ'));
-assertEquals('MAMĂ', text_unicodeToUpper('maMă'));
-assertEquals('ABCÚÙÛ', text_unicodeToUpper('abcúùû'));
-assertEquals('Ÿ', text_unicodeToUpper('ÿ'));
+assertEquals('MAMA', mb_strtoupper('MAMA'));
+assertEquals('MAMA', mb_strtoupper('MAmA'));
+assertEquals('MAMA', mb_strtoupper('MAmA'));
+assertEquals('MAMĂ', mb_strtoupper('MamĂ'));
+assertEquals('MAMĂ', mb_strtoupper('maMă'));
+assertEquals('ABCÚÙÛ', mb_strtoupper('abcúùû'));
+assertEquals('Ÿ', mb_strtoupper('ÿ'));
 
 // Check that we're using the right encoding
 assertEquals(mb_strlen('íÍìÌîÎ'), 6);
 assertEquals(mb_substr('íÍìÌîÎ', 3, 2), 'Ìî');
 
 // Test string reversal
-assertEquals('cba', text_reverse('abc'));
-assertEquals('țșîâă', text_reverse('ăâîșț'));
-assertEquals('ȚȘÎÂĂ', text_reverse('ĂÂÎȘȚ'));
+assertEquals('cba', StringUtil::reverse('abc'));
+assertEquals('țșîâă', StringUtil::reverse('ăâîșț'));
+assertEquals('ȚȘÎÂĂ', StringUtil::reverse('ĂÂÎȘȚ'));
 
 // Check suffix removals
-assertEquals(_text_removeKnownSuffixes(''), '');
-assertEquals(_text_removeKnownSuffixes('mama'), 'mama');
-assertEquals(_text_removeKnownSuffixes('farmaciei'), 'farmacie');
-assertEquals(_text_removeKnownSuffixes('dealului'), 'deal');
-assertEquals(_text_removeKnownSuffixes('dealul'), 'deal');
-assertEquals(_text_removeKnownSuffixes('dealuri'), 'deal');
-assertEquals(_text_removeKnownSuffixes('dealurilor'), 'deal');
-assertEquals(_text_removeKnownSuffixes('copacilor'), 'copac');
-assertEquals(_text_removeKnownSuffixes('bogată'), 'bogat');
-assertEquals(_text_removeKnownSuffixes('bogate'), 'bogat');
+assertEquals(AdminStringUtil::removeKnownSuffixes(''), '');
+assertEquals(AdminStringUtil::removeKnownSuffixes('mama'), 'mama');
+assertEquals(AdminStringUtil::removeKnownSuffixes('farmaciei'), 'farmacie');
+assertEquals(AdminStringUtil::removeKnownSuffixes('dealului'), 'deal');
+assertEquals(AdminStringUtil::removeKnownSuffixes('dealul'), 'deal');
+assertEquals(AdminStringUtil::removeKnownSuffixes('dealuri'), 'deal');
+assertEquals(AdminStringUtil::removeKnownSuffixes('dealurilor'), 'deal');
+assertEquals(AdminStringUtil::removeKnownSuffixes('copacilor'), 'copac');
+assertEquals(AdminStringUtil::removeKnownSuffixes('bogată'), 'bogat');
+assertEquals(AdminStringUtil::removeKnownSuffixes('bogate'), 'bogat');
 
-assertEquals(_text_getLastWord(''), '');
-assertEquals(_text_getLastWord('foo'), 'foo');
-assertEquals(_text_getLastWord('foo bar'), 'bar');
-assertEquals(_text_getLastWord('foo bar (@1@)'), 'bar');
-assertEquals(_text_getLastWord('foo bar õÕ (@1@)'), 'õÕ');
+assertEquals(AdminStringUtil::getLastWord(''), '');
+assertEquals(AdminStringUtil::getLastWord('foo'), 'foo');
+assertEquals(AdminStringUtil::getLastWord('foo bar'), 'bar');
+assertEquals(AdminStringUtil::getLastWord('foo bar (@1@)'), 'bar');
+assertEquals(AdminStringUtil::getLastWord('foo bar õÕ (@1@)'), 'õÕ');
 
-assertEquals(_text_internalizeAllReferences('|foo|bar|'), '|foo|bar|');
-assertEquals(_text_internalizeAllReferences('|foo moo|bar|'), '|foo moo|bar|');
-assertEquals(_text_internalizeAllReferences('|foo moo (@1@)|bar|'),
+assertEquals(AdminStringUtil::internalizeAllReferences('|foo|bar|'), '|foo|bar|');
+assertEquals(AdminStringUtil::internalizeAllReferences('|foo moo|bar|'), '|foo moo|bar|');
+assertEquals(AdminStringUtil::internalizeAllReferences('|foo moo (@1@)|bar|'),
 	     '|foo moo (@1@)|bar|');
-assertEquals(_text_internalizeAllReferences('|foo||'), '|foo|foo|');
-assertEquals(_text_internalizeAllReferences('|foo moo||'), '|foo moo|moo|');
-assertEquals(_text_internalizeAllReferences('|foo moo (@1@)||'),
+assertEquals(AdminStringUtil::internalizeAllReferences('|foo||'), '|foo|foo|');
+assertEquals(AdminStringUtil::internalizeAllReferences('|foo moo||'), '|foo moo|moo|');
+assertEquals(AdminStringUtil::internalizeAllReferences('|foo moo (@1@)||'),
 	     '|foo moo (@1@)|moo|');
-assertEquals(_text_internalizeAllReferences('|dealului|-|'), '|dealului|deal|');
-assertEquals(_text_internalizeAllReferences('|vax albina|-|'),
+assertEquals(AdminStringUtil::internalizeAllReferences('|dealului|-|'), '|dealului|deal|');
+assertEquals(AdminStringUtil::internalizeAllReferences('|vax albina|-|'),
 	     '|vax albina|vax albina|');
-assertEquals(_text_internalizeAllReferences('text 1 |foo|| text 2 |dealul|-| text 3'),
+assertEquals(AdminStringUtil::internalizeAllReferences('text 1 |foo|| text 2 |dealul|-| text 3'),
 	     'text 1 |foo|foo| text 2 |dealul|deal| text 3');
 
-assertEquals('<a class="ref" href="/definitie/y">x</a>', _text_convertReferencesToHtml('|x|y|'));
-assertEquals('<a class="ref" href="/definitie/î">ă</a>', _text_convertReferencesToHtml('|ă|î|'));
-assertEquals('<a class="ref" href="/definitie/ab cd ef">ab cd ef</a>', _text_convertReferencesToHtml('|ab cd ef|ab cd ef|'));
-assertEquals('<a class="ref" href="/definitie/ab cd ef (@1@)">ab cd ef (@1@)</a>', _text_convertReferencesToHtml('|ab cd ef (@1@)|ab cd ef (@1@)|'));
-assertEquals('<a class="ref" href="/definitie/ab cd õÕ (@1@)">ab cd õÕ (@1@)</a>', _text_convertReferencesToHtml('|ab cd õÕ (@1@)|ab cd õÕ (@1@)|'));
-assertEquals('<a class="ref" href="/definitie/y">x</a> foobar <a class="ref" href="/definitie/t">z</a>', _text_convertReferencesToHtml('|x|y| foobar |z|t|'));
+assertEquals('<a class="ref" href="/definitie/y">x</a>', AdminStringUtil::convertReferencesToHtml('|x|y|'));
+assertEquals('<a class="ref" href="/definitie/î">ă</a>', AdminStringUtil::convertReferencesToHtml('|ă|î|'));
+assertEquals('<a class="ref" href="/definitie/ab cd ef">ab cd ef</a>', AdminStringUtil::convertReferencesToHtml('|ab cd ef|ab cd ef|'));
+assertEquals('<a class="ref" href="/definitie/ab cd ef (@1@)">ab cd ef (@1@)</a>', AdminStringUtil::convertReferencesToHtml('|ab cd ef (@1@)|ab cd ef (@1@)|'));
+assertEquals('<a class="ref" href="/definitie/ab cd õÕ (@1@)">ab cd õÕ (@1@)</a>', AdminStringUtil::convertReferencesToHtml('|ab cd õÕ (@1@)|ab cd õÕ (@1@)|'));
+assertEquals('<a class="ref" href="/definitie/y">x</a> foobar <a class="ref" href="/definitie/t">z</a>', AdminStringUtil::convertReferencesToHtml('|x|y| foobar |z|t|'));
 
-assertEquals(_text_insertSuperscripts("copil^{+123}. copil_{-123}----"),
+assertEquals(AdminStringUtil::insertSuperscripts("copil^{+123}. copil_{-123}----"),
 	     "copil<sup>+123</sup>. copil<sub>-123</sub>----");
-assertEquals(_text_insertSuperscripts("copil^i^2"), "copil^i<sup>2</sup>");
+assertEquals(AdminStringUtil::insertSuperscripts("copil^i^2"), "copil^i<sup>2</sup>");
 
 assertEquals('xxx &#x25ca; &#x2666; < &#x2013; > yyy',
-             _text_minimalInternalToHtml('xxx * ** < - > yyy'));
+             AdminStringUtil::minimalInternalToHtml('xxx * ** < - > yyy'));
 
 assertEquals('„abc”„”',
-	     _text_internalToHtml('"abc"""', FALSE));
+	     AdminStringUtil::internalToHtml('"abc"""', FALSE));
 assertEquals('<b><i>bold and italic</i> bold only</b> regular.',
-	     _text_internalToHtml('@$bold and italic$ bold only@ regular.',
+	     AdminStringUtil::internalToHtml('@$bold and italic$ bold only@ regular.',
 				  FALSE));
 assertEquals('<@bold, but inside tag@>',
-	     _text_internalToHtml('<@bold, but inside tag@>', FALSE));
+	     AdminStringUtil::internalToHtml('<@bold, but inside tag@>', FALSE));
 assertEquals('foo &lt; <i>bar</i>',
-	     _text_internalToHtml('foo &lt; $bar$', FALSE));
-assertEquals('<span class="spaced">cățel</span>', _text_internalToHtml('%cățel%', FALSE));
-assertEquals('foo <span class="spaced">bar &amp;</span> bib', _text_internalToHtml('foo %bar &amp;% bib', FALSE));
-assertEquals('<span class="spaced">unu, doi</span>', _text_internalToHtml('%unu, doi%', FALSE));
-assertEquals('<span class="spaced">ab <b>cd</b></span>', _text_internalToHtml('%ab @cd@%', FALSE));
+	     AdminStringUtil::internalToHtml('foo &lt; $bar$', FALSE));
+assertEquals('<span class="spaced">cățel</span>', AdminStringUtil::internalToHtml('%cățel%', FALSE));
+assertEquals('foo <span class="spaced">bar &amp;</span> bib', AdminStringUtil::internalToHtml('foo %bar &amp;% bib', FALSE));
+assertEquals('<span class="spaced">unu, doi</span>', AdminStringUtil::internalToHtml('%unu, doi%', FALSE));
+assertEquals('<span class="spaced">ab <b>cd</b></span>', AdminStringUtil::internalToHtml('%ab @cd@%', FALSE));
 assertEquals("okely\ndokely",
-	     _text_internalToHtml("okely\ndokely", FALSE));
+	     AdminStringUtil::internalToHtml("okely\ndokely", FALSE));
 assertEquals("okely<br/>\ndokely",
-	     _text_internalToHtml("okely\ndokely", TRUE));
+	     AdminStringUtil::internalToHtml("okely\ndokely", TRUE));
 
-assertEquals("@FILLER@ #adj. dem.# (antepus), art.", _text_markAbbreviations("@FILLER@ adj. dem. (antepus), art.", 1));
-assertEquals("@FILLER@ #adj. dem.# (antepus), art.", _text_markAbbreviations("@FILLER@ adj. dem. (antepus), art.", 1));
-assertEquals("@FILLER@ #loc. adv. și adj.# @MORE FILLER@", _text_markAbbreviations("@FILLER@ loc. adv. și adj. @MORE FILLER@", 1));
-assertEquals("@FILLER@ #arg.# șarg. catarg. ăarg. țarg. @FILLER@", _text_markAbbreviations("@FILLER@ arg. șarg. catarg. ăarg. țarg. @FILLER@", 1));
-assertEquals("@FILLER@ #et. nec.#", _text_markAbbreviations("@FILLER@ et. nec.", 1));
-assertEquals("@FILLER@ #Înv.# @MORE FILLER@", _text_markAbbreviations("@FILLER@ Înv. @MORE FILLER@", 1)); // Unicode uppercase
-assertEquals("@FILLER@ #art. hot.# @FILLER@", _text_markAbbreviations("@FILLER@ art.hot. @FILLER@", 1));
-assertEquals("@FILLER@ #art. hot.# @FILLER@", _text_markAbbreviations("@FILLER@ #art. hot.# @FILLER@", 1));
-assertEquals("FOO ornit. BAR", _text_markAbbreviations("FOO ornit. BAR", 99)); // Inexistent source
-assertEquals("FOO BAR", _text_markAbbreviations("FOO BAR", 1)); // No abbreviations
-assertEquals("FOO dat. BAR", _text_markAbbreviations("FOO dat. BAR", 1)); // Ambiguous abbreviations
+assertEquals("@FILLER@ #adj. dem.# (antepus), art.", AdminStringUtil::markAbbreviations("@FILLER@ adj. dem. (antepus), art.", 1));
+assertEquals("@FILLER@ #adj. dem.# (antepus), art.", AdminStringUtil::markAbbreviations("@FILLER@ adj. dem. (antepus), art.", 1));
+assertEquals("@FILLER@ #loc. adv. și adj.# @MORE FILLER@", AdminStringUtil::markAbbreviations("@FILLER@ loc. adv. și adj. @MORE FILLER@", 1));
+assertEquals("@FILLER@ #arg.# șarg. catarg. ăarg. țarg. @FILLER@", AdminStringUtil::markAbbreviations("@FILLER@ arg. șarg. catarg. ăarg. țarg. @FILLER@", 1));
+assertEquals("@FILLER@ #et. nec.#", AdminStringUtil::markAbbreviations("@FILLER@ et. nec.", 1));
+assertEquals("@FILLER@ #Înv.# @MORE FILLER@", AdminStringUtil::markAbbreviations("@FILLER@ Înv. @MORE FILLER@", 1)); // Unicode uppercase
+assertEquals("@FILLER@ #art. hot.# @FILLER@", AdminStringUtil::markAbbreviations("@FILLER@ art.hot. @FILLER@", 1));
+assertEquals("@FILLER@ #art. hot.# @FILLER@", AdminStringUtil::markAbbreviations("@FILLER@ #art. hot.# @FILLER@", 1));
+assertEquals("FOO ornit. BAR", AdminStringUtil::markAbbreviations("FOO ornit. BAR", 99)); // Inexistent source
+assertEquals("FOO BAR", AdminStringUtil::markAbbreviations("FOO BAR", 1)); // No abbreviations
+assertEquals("FOO dat. BAR", AdminStringUtil::markAbbreviations("FOO dat. BAR", 1)); // Ambiguous abbreviations
 // A more complex example which also reports ambiguous matches
 $ambiguousMatches = array();
-assertEquals("FOO dat. #arh.# #loc. adv.# BAR", _text_markAbbreviations("FOO dat. arh. loc. adv. BAR", 1, $ambiguousMatches));
+assertEquals("FOO dat. #arh.# #loc. adv.# BAR", AdminStringUtil::markAbbreviations("FOO dat. arh. loc. adv. BAR", 1, $ambiguousMatches));
 assertEquals(1, count($ambiguousMatches));
 assertEqualArrays(array('abbrev' => 'dat.', 'position' => 4, 'length' => 4), $ambiguousMatches[0]);
 
 $ambiguousMatches = array();
-assertEquals("FOO s-a dus BAR", _text_markAbbreviations("FOO s-a dus BAR", 32, $ambiguousMatches));
+assertEquals("FOO s-a dus BAR", AdminStringUtil::markAbbreviations("FOO s-a dus BAR", 32, $ambiguousMatches));
 assertEquals(0, count($ambiguousMatches));
 
-assertEquals("FOO <abbr class=\"abbrev\" title=\"farmacie; farmacologie\">farm.</abbr> BAR", text_htmlize("FOO #farm.# BAR", 1)); /** Semicolon in abbreviation **/
-assertEquals("FOO <abbr class=\"abbrev\" title=\"substantiv masculin\">s. m.</abbr> BAR", text_htmlize("FOO #s. m.# BAR", 1));
+assertEquals("FOO <abbr class=\"abbrev\" title=\"farmacie; farmacologie\">farm.</abbr> BAR", AdminStringUtil::htmlize("FOO #farm.# BAR", 1)); /** Semicolon in abbreviation **/
+assertEquals("FOO <abbr class=\"abbrev\" title=\"substantiv masculin\">s. m.</abbr> BAR", AdminStringUtil::htmlize("FOO #s. m.# BAR", 1));
 $errors = array();
-assertEquals("FOO <abbr class=\"abbrev\" title=\"abreviere necunoscută\">brrb. ghhg.</abbr> BAR", text_htmlize("FOO #brrb. ghhg.# BAR", 1, $errors));
+assertEquals("FOO <abbr class=\"abbrev\" title=\"abreviere necunoscută\">brrb. ghhg.</abbr> BAR", AdminStringUtil::htmlize("FOO #brrb. ghhg.# BAR", 1, $errors));
 assertEqualArrays(array(0 => 'Abreviere necunoscută: «brrb. ghhg.». Verificați că după fiecare punct există un spațiu.'), $errors);
 
 $internalRep = '@MÁRE^2,@ $mări,$ #s. f.# Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu |oceanul|ocean| printr-o |strâmtoare|strâmtoare|; parte a oceanului de lângă |țărm|țărm|; $#p. ext.#$ ocean. * #Expr.# $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** #Fig.# Suprafață vastă; întindere mare; imensitate. ** #Fig.# Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is.@';
 assertEquals($internalRep,
-             text_internalizeDefinition('@M\'ARE^2@, $m~ari$, s. f. Nume generic dat vastelor ^intinderi de ap~a st~at~atoare, ad^anci ,si s~arate, de pe suprafa,ta |P~am^antului|-|, care de obicei sunt unite cu |oceanul|-| printr-o |str^amtoare||; parte a oceanului de l^ang~a |,t~arm||; $p.ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A v^antura m~ari ,si ,t~ari$ = a c~al~atori mult. $A ^incerca marea cu degetul$ = a face o ^incercare, chiar dac~a ,sansele de reu,sit~a sunt minime. $Peste (nou~a) m~ari ,si (nou~a) ,t~ari$ = foarte departe. ** Fig. Suprafa,t~a vast~a; ^intindere mare; imensitate. ** Fig. Mul,time (nesf^ar,sit~a), cantitate foarte mare. - Lat. @mare, -is@.', 1));
+             AdminStringUtil::internalizeDefinition('@M\'ARE^2@, $m~ari$, s. f. Nume generic dat vastelor ^intinderi de ap~a st~at~atoare, ad^anci ,si s~arate, de pe suprafa,ta |P~am^antului|-|, care de obicei sunt unite cu |oceanul|-| printr-o |str^amtoare||; parte a oceanului de l^ang~a |,t~arm||; $p.ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A v^antura m~ari ,si ,t~ari$ = a c~al~atori mult. $A ^incerca marea cu degetul$ = a face o ^incercare, chiar dac~a ,sansele de reu,sit~a sunt minime. $Peste (nou~a) m~ari ,si (nou~a) ,t~ari$ = foarte departe. ** Fig. Suprafa,t~a vast~a; ^intindere mare; imensitate. ** Fig. Mul,time (nesf^ar,sit~a), cantitate foarte mare. - Lat. @mare, -is@.', 1));
 assertEquals('<b>MÁRE<sup>2</sup>,</b> <i>mări,</i> <abbr class="abbrev" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu <a class="ref" href="/definitie/ocean">oceanul</a> printr-o <a class="ref" href="/definitie/strâmtoare">strâmtoare</a>; parte a oceanului de lângă <a class="ref" href="/definitie/țărm">țărm</a>; <i><abbr class="abbrev" title="prin extensiune">p. ext.</abbr></i> ocean. &#x25ca; <abbr class="abbrev" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is.</b>',
-             text_htmlize($internalRep, 1));
-assertEquals($internalRep, text_internalizeDefinition($internalRep, 1));
+             AdminStringUtil::htmlize($internalRep, 1));
+assertEquals($internalRep, AdminStringUtil::internalizeDefinition($internalRep, 1));
 
 // Test various capitalization combos with abbreviations
 // - When internalizing the definition, preserve the capitalization if the defined abbreviation is capitalized;
@@ -199,64 +199,60 @@ assertAbbreviations("FILLER adj. interog.-rel. FILLER", "FILLER #adj. interog.-r
 // Abbreviation is not delimited by spaces
 assertAbbreviations("AGNUS DEI", "AGNUS DEI", "AGNUS DEI", 32);
 
-assertEquals('@MÁRE^2,@ $mări,$ s.f.', _text_migrateFormatChars('@MÁRE^2@, $mări$, s.f.'));
-assertEquals('@$%spaced% text$@', _text_migrateFormatChars('@$ % spaced % text $@'));
-assertEquals('40\% dolomite', _text_migrateFormatChars('40\% dolomite'));
-assertEquals('40 %dolomite%', _text_migrateFormatChars('40% dolomite%'));
+assertEquals('@MÁRE^2,@ $mări,$ s.f.', AdminStringUtil::migrateFormatChars('@MÁRE^2@, $mări$, s.f.'));
+assertEquals('@$%spaced% text$@', AdminStringUtil::migrateFormatChars('@$ % spaced % text $@'));
+assertEquals('40\% dolomite', AdminStringUtil::migrateFormatChars('40\% dolomite'));
+assertEquals('40 %dolomite%', AdminStringUtil::migrateFormatChars('40% dolomite%'));
 
-assertEquals('cățel', text_internalizeWordName("C~A,t'EL"));
-assertEquals('ă', text_internalizeWordName("~~A~~!@#$%^&*()123456790"));
+assertEquals('cățel', AdminStringUtil::internalizeWordName("C~A,t'EL"));
+assertEquals('ă', AdminStringUtil::internalizeWordName("~~A~~!@#$%^&*()123456790"));
 
-assertEquals('casă', text_removeAccents('cásă'));
+assertEquals('casă', AdminStringUtil::removeAccents('cásă'));
 
-assertEquals('mama', text_cleanupQuery("'mama'"));
-assertEquals('mama', text_cleanupQuery('"mama"'));
-assertEquals('aăbcdef', text_cleanupQuery("aăbc<mamă foo bar>def"));
-assertEquals('AĂBCDEF', text_cleanupQuery("AĂBC<MAMĂ FOO BAR>DEF"));
-assertEquals('aăbcdef', text_cleanupQuery("a~abc<mam~a foo bar>def"));
-assertEquals('aĂBcdef', text_cleanupQuery("a~ABc<mam~a foo bar>def"));
-assertEquals('1234', text_cleanupQuery('12&qweasd;34'));
+assertEquals('mama', StringUtil::cleanupQuery("'mama'"));
+assertEquals('mama', StringUtil::cleanupQuery('"mama"'));
+assertEquals('aăbcdef', StringUtil::cleanupQuery("aăbc<mamă foo bar>def"));
+assertEquals('AĂBCDEF', StringUtil::cleanupQuery("AĂBC<MAMĂ FOO BAR>DEF"));
+assertEquals('a~abcdef', StringUtil::cleanupQuery("a~abc<mam~a foo bar>def"));
+assertEquals('a~ABcdef', StringUtil::cleanupQuery("a~ABc<mam~a foo bar>def"));
+assertEquals('1234', StringUtil::cleanupQuery('12&qweasd;34'));
 
-assert(text_hasDiacritics('mamă'));
-assert(!text_hasDiacritics('mama'));
+assert(StringUtil::hasDiacritics('mamă'));
+assert(!StringUtil::hasDiacritics('mama'));
 
 $def = new Definition();
 $def->sourceId = 1;
 $def->internalRep = 'abcd';
-assertEquals('abcd', text_extractLexicon($def));
+assertEquals('abcd', AdminStringUtil::extractLexicon($def));
 $def->internalRep = 'wxyz';
-assertEquals('wxyz', text_extractLexicon($def));
+assertEquals('wxyz', AdminStringUtil::extractLexicon($def));
 $def->internalRep = 'mamă';
-assertEquals('mamă', text_extractLexicon($def));
+assertEquals('mamă', AdminStringUtil::extractLexicon($def));
 
-assert(text_hasRegexp('asd[0-9]'));
-assert(!text_hasRegexp('ăâîșț'));
-assert(text_hasRegexp('cop?l'));
+assert(StringUtil::hasRegexp('asd[0-9]'));
+assert(!StringUtil::hasRegexp('ăâîșț'));
+assert(StringUtil::hasRegexp('cop?l'));
 
-assertEquals("like 'cop%l'", text_dexRegexpToMysqlRegexp('cop*l'));
-assertEquals("like 'cop_l'", text_dexRegexpToMysqlRegexp('cop?l'));
-assertEquals("rlike '^(cop[a-z]l)$'",
-	     text_dexRegexpToMysqlRegexp('cop[a-z]l'));
-assertEquals("rlike '^(cop[^a-z]l)$'",
-	     text_dexRegexpToMysqlRegexp('cop[^a-z]l'));
-assertEquals("rlike '^(cop[â-z]l)$'",
-	     text_dexRegexpToMysqlRegexp('cop[â-z]l'));
-assertEquals("rlike '^(cop[â-z]l.*)$'",
-	     text_dexRegexpToMysqlRegexp('cop[â-z]l*'));
+assertEquals("like 'cop%l'", StringUtil::dexRegexpToMysqlRegexp('cop*l'));
+assertEquals("like 'cop_l'", StringUtil::dexRegexpToMysqlRegexp('cop?l'));
+assertEquals("rlike '^(cop[a-z]l)$'", StringUtil::dexRegexpToMysqlRegexp('cop[a-z]l'));
+assertEquals("rlike '^(cop[^a-z]l)$'", StringUtil::dexRegexpToMysqlRegexp('cop[^a-z]l'));
+assertEquals("rlike '^(cop[â-z]l)$'", StringUtil::dexRegexpToMysqlRegexp('cop[â-z]l'));
+assertEquals("rlike '^(cop[â-z]l.*)$'", StringUtil::dexRegexpToMysqlRegexp('cop[â-z]l*'));
 
-assertEqualArrays(array(0, 0, 0), text_analyzeQuery('mama'));
-assertEqualArrays(array(1, 0, 0), text_analyzeQuery('mamă'));
-assertEqualArrays(array(0, 1, 0), text_analyzeQuery('cop?l'));
-assertEqualArrays(array(0, 1, 0), text_analyzeQuery('cop[c-g]l'));
-assertEqualArrays(array(1, 1, 0), text_analyzeQuery('căț[c-g]l'));
-assertEqualArrays(array(0, 0, 1), text_analyzeQuery('1234567'));
+assertEqualArrays(array(0, 0, 0), StringUtil::analyzeQuery('mama'));
+assertEqualArrays(array(1, 0, 0), StringUtil::analyzeQuery('mamă'));
+assertEqualArrays(array(0, 1, 0), StringUtil::analyzeQuery('cop?l'));
+assertEqualArrays(array(0, 1, 0), StringUtil::analyzeQuery('cop[c-g]l'));
+assertEqualArrays(array(1, 1, 0), StringUtil::analyzeQuery('căț[c-g]l'));
+assertEqualArrays(array(0, 0, 1), StringUtil::analyzeQuery('1234567'));
 
 assertEquals('&#x25;&#x7e;&#x24;&#x40;&#x27;',
-             text_xmlizeRequired('\\%\\~\\$\\@\\\''));
+             AdminStringUtil::xmlizeRequired('\\%\\~\\$\\@\\\''));
 assertEquals('&lt;&gt;&amp;',
-             text_xmlizeRequired('<>&'));
+             AdminStringUtil::xmlizeRequired('<>&'));
 
-$t = text_extractTransforms('arde', 'arzând', 0);
+$t = FlexStringUtil::extractTransforms('arde', 'arzând', 0);
 assertEquals(4, count($t));
 assertEquals('d', $t[0]->transfFrom);
 assertEquals('z', $t[0]->transfTo);
@@ -266,7 +262,7 @@ assertEquals('', $t[2]->transfFrom);
 assertEquals('ând', $t[2]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = text_extractTransforms('frumos', 'frumoasă', 0);
+$t = FlexStringUtil::extractTransforms('frumos', 'frumoasă', 0);
 assertEquals(3, count($t));
 assertEquals('o', $t[0]->transfFrom);
 assertEquals('oa', $t[0]->transfTo);
@@ -274,19 +270,19 @@ assertEquals('', $t[1]->transfFrom);
 assertEquals('ă', $t[1]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[2]);
 
-$t = text_extractTransforms('fi', 'sunt', 0);
+$t = FlexStringUtil::extractTransforms('fi', 'sunt', 0);
 assertEquals(2, count($t));
 assertEquals('fi', $t[0]->transfFrom);
 assertEquals('sunt', $t[0]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[1]);
 
-$t = text_extractTransforms('abil', 'abilul', 0);
+$t = FlexStringUtil::extractTransforms('abil', 'abilul', 0);
 assertEquals(2, count($t));
 assertEquals('', $t[0]->transfFrom);
 assertEquals('ul', $t[0]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[1]);
 
-$t = text_extractTransforms('alamă', 'alămuri', 0);
+$t = FlexStringUtil::extractTransforms('alamă', 'alămuri', 0);
 assertEquals(4, count($t));
 assertEquals('a', $t[0]->transfFrom);
 assertEquals('ă', $t[0]->transfTo);
@@ -296,7 +292,7 @@ assertEquals('', $t[2]->transfFrom);
 assertEquals('uri', $t[2]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = text_extractTransforms('sămânță', 'semințe', 0);
+$t = FlexStringUtil::extractTransforms('sămânță', 'semințe', 0);
 assertEquals(4, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('e', $t[0]->transfTo);
@@ -306,7 +302,7 @@ assertEquals('ă', $t[2]->transfFrom);
 assertEquals('e', $t[2]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = text_extractTransforms('deșert', 'deșartelor', 0);
+$t = FlexStringUtil::extractTransforms('deșert', 'deșartelor', 0);
 assertEquals(3, count($t));
 assertEquals('e', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
@@ -314,7 +310,7 @@ assertEquals('', $t[1]->transfFrom);
 assertEquals('elor', $t[1]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[2]);
 
-$t = text_extractTransforms('cumătră', 'cumetrelor', 0);
+$t = FlexStringUtil::extractTransforms('cumătră', 'cumetrelor', 0);
 assertEquals(4, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('e', $t[0]->transfTo);
@@ -324,7 +320,7 @@ assertEquals('', $t[2]->transfFrom);
 assertEquals('lor', $t[2]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = text_extractTransforms('crăpa', 'crapă', 0);
+$t = FlexStringUtil::extractTransforms('crăpa', 'crapă', 0);
 assertEquals(3, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
@@ -332,7 +328,7 @@ assertEquals('a', $t[1]->transfFrom);
 assertEquals('ă', $t[1]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[2]);
 
-$t = text_extractTransforms('stradă', 'străzi', 0);
+$t = FlexStringUtil::extractTransforms('stradă', 'străzi', 0);
 assertEquals(4, count($t));
 assertEquals('a', $t[0]->transfFrom);
 assertEquals('ă', $t[0]->transfTo);
@@ -342,7 +338,7 @@ assertEquals('ă', $t[2]->transfFrom);
 assertEquals('i', $t[2]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = text_extractTransforms('frumos', 'frumoasă', 0);
+$t = FlexStringUtil::extractTransforms('frumos', 'frumoasă', 0);
 assertEquals(3, count($t));
 assertEquals('o', $t[0]->transfFrom);
 assertEquals('oa', $t[0]->transfTo);
@@ -350,7 +346,7 @@ assertEquals('', $t[1]->transfFrom);
 assertEquals('ă', $t[1]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[2]);
 
-$t = text_extractTransforms('groapă', 'gropilor', 0);
+$t = FlexStringUtil::extractTransforms('groapă', 'gropilor', 0);
 assertEquals(4, count($t));
 assertEquals('a', $t[0]->transfFrom);
 assertEquals('', $t[0]->transfTo);
@@ -360,7 +356,7 @@ assertEquals('', $t[2]->transfFrom);
 assertEquals('lor', $t[2]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = text_extractTransforms('căpăta', 'capăt', 0);
+$t = FlexStringUtil::extractTransforms('căpăta', 'capăt', 0);
 assertEquals(4, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
@@ -370,7 +366,7 @@ assertEquals('a', $t[2]->transfFrom);
 assertEquals('', $t[2]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = text_extractTransforms('răscrăcăra', 'răscracăr', 0);
+$t = FlexStringUtil::extractTransforms('răscrăcăra', 'răscracăr', 0);
 assertEquals(4, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
@@ -380,7 +376,7 @@ assertEquals('a', $t[2]->transfFrom);
 assertEquals('', $t[2]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = text_extractTransforms('răscrăcăra', 'rascrăcăr', 0);
+$t = FlexStringUtil::extractTransforms('răscrăcăra', 'rascrăcăr', 0);
 assertEquals(5, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
@@ -392,14 +388,14 @@ assertEquals('a', $t[3]->transfFrom);
 assertEquals('', $t[3]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[4]);
 
-$t = text_extractTransforms('foo', 'foo', 0);
+$t = FlexStringUtil::extractTransforms('foo', 'foo', 0);
 assertEquals(2, count($t));
 assertEquals('', $t[0]->transfFrom);
 assertEquals('', $t[0]->transfTo);
 assertEquals(UNKNOWN_ACCENT_SHIFT, $t[1]);
 
 // Try some accents
-$t = text_extractTransforms("căpăt'a", "c'apăt", 0);
+$t = FlexStringUtil::extractTransforms("căpăt'a", "c'apăt", 0);
 assertEquals(5, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
@@ -410,7 +406,7 @@ assertEquals('', $t[2]->transfTo);
 assertEquals('a', $t[3]);
 assertEquals(2, $t[4]);
 
-$t = text_extractTransforms("c'ăpăta", "cap'ăt", 0);
+$t = FlexStringUtil::extractTransforms("c'ăpăta", "cap'ăt", 0);
 assertEquals(5, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
@@ -421,7 +417,7 @@ assertEquals('', $t[2]->transfTo);
 assertEquals('ă', $t[3]);
 assertEquals(1, $t[4]);
 
-$t = text_extractTransforms("n'ailon", "nailo'ane", 0);
+$t = FlexStringUtil::extractTransforms("n'ailon", "nailo'ane", 0);
 assertEquals(4, count($t));
 assertEquals('o', $t[0]->transfFrom);
 assertEquals('oa', $t[0]->transfTo);
@@ -430,48 +426,48 @@ assertEquals('e', $t[1]->transfTo);
 assertEquals('a', $t[2]);
 assertEquals(2, $t[3]);
 
-$t = text_extractTransforms("n'ailon", "n'ailonului", 0);
+$t = FlexStringUtil::extractTransforms("n'ailon", "n'ailonului", 0);
 assertEquals(2, count($t));
 assertEquals('', $t[0]->transfFrom);
 assertEquals('ului', $t[0]->transfTo);
 assertEquals(NO_ACCENT_SHIFT, $t[1]);
 
-assertEquals(1, text_countVowels('abc'));
-assertEquals(2, text_countVowels('abcde'));
-assertEquals(8, text_countVowels('aeiouăâî'));
+assertEquals(1, FlexStringUtil::countVowels('abc'));
+assertEquals(2, FlexStringUtil::countVowels('abcde'));
+assertEquals(8, FlexStringUtil::countVowels('aeiouăâî'));
 
-assertEquals('cásă', text_internalize("c'as~a", false));
-assertEquals("c'asă", text_internalize("c'as~a", true));
+assertEquals('cásă', AdminStringUtil::internalize("c'as~a", false));
+assertEquals("c'asă", AdminStringUtil::internalize("c'as~a", true));
 
-assertEquals("cas'ă", text_placeAccent("casă", 1, ''));
-assertEquals("c'asă", text_placeAccent("casă", 2, ''));
-assertEquals("casă", text_placeAccent("casă", 3, ''));
-assertEquals("ap'ă", text_placeAccent("apă", 1, ''));
-assertEquals("'apă", text_placeAccent("apă", 2, ''));
-assertEquals("apă", text_placeAccent("apă", 3, ''));
-assertEquals("'a", text_placeAccent("a", 1, ''));
-assertEquals("a", text_placeAccent("a", 2, ''));
+assertEquals("cas'ă", FlexStringUtil::placeAccent("casă", 1, ''));
+assertEquals("c'asă", FlexStringUtil::placeAccent("casă", 2, ''));
+assertEquals("casă", FlexStringUtil::placeAccent("casă", 3, ''));
+assertEquals("ap'ă", FlexStringUtil::placeAccent("apă", 1, ''));
+assertEquals("'apă", FlexStringUtil::placeAccent("apă", 2, ''));
+assertEquals("apă", FlexStringUtil::placeAccent("apă", 3, ''));
+assertEquals("'a", FlexStringUtil::placeAccent("a", 1, ''));
+assertEquals("a", FlexStringUtil::placeAccent("a", 2, ''));
 
-assertEquals("șa'ibă", text_placeAccent("șaibă", 2, ''));
-assertEquals("ș'aibă", text_placeAccent("șaibă", 3, ''));
-assertEquals("ș'aibă", text_placeAccent("șaibă", 2, 'a'));
-assertEquals("ș'aibă", text_placeAccent("șaibă", 3, 'a'));
-assertEquals("șa'ibă", text_placeAccent("șaibă", 2, 'i'));
-assertEquals("șa'ibă", text_placeAccent("șaibă", 3, 'i'));
+assertEquals("șa'ibă", FlexStringUtil::placeAccent("șaibă", 2, ''));
+assertEquals("ș'aibă", FlexStringUtil::placeAccent("șaibă", 3, ''));
+assertEquals("ș'aibă", FlexStringUtil::placeAccent("șaibă", 2, 'a'));
+assertEquals("ș'aibă", FlexStringUtil::placeAccent("șaibă", 3, 'a'));
+assertEquals("șa'ibă", FlexStringUtil::placeAccent("șaibă", 2, 'i'));
+assertEquals("șa'ibă", FlexStringUtil::placeAccent("șaibă", 3, 'i'));
 
-assertEquals("unfuckingbelievable", text_insert("unbelievable", "fucking", 2));
-assertEquals("abcdef", text_insert("cdef", "ab", 0));
-assertEquals("abcdef", text_insert("abcd", "ef", 4));
+assertEquals("unfuckingbelievable", FlexStringUtil::insert("unbelievable", "fucking", 2));
+assertEquals("abcdef", FlexStringUtil::insert("cdef", "ab", 0));
+assertEquals("abcdef", FlexStringUtil::insert("abcd", "ef", 4));
 
-assertEquals('mamă      ', text_padRight('mamă', 10));
-assertEquals('mama      ', text_padRight('mama', 10));
-assertEquals('ăâîșț   ', text_padRight('ăâîșț', 8));
-assertEquals('ăâîșț', text_padRight('ăâîșț', 5));
-assertEquals('ăâîșț', text_padRight('ăâîșț', 3));
+assertEquals('mamă      ', AdminStringUtil::padRight('mamă', 10));
+assertEquals('mama      ', AdminStringUtil::padRight('mama', 10));
+assertEquals('ăâîșț   ', AdminStringUtil::padRight('ăâîșț', 8));
+assertEquals('ăâîșț', AdminStringUtil::padRight('ăâîșț', 5));
+assertEquals('ăâîșț', AdminStringUtil::padRight('ăâîșț', 3));
 
-assertEqualArrays(array('c', 'a', 'r'), text_unicodeExplode('car'));
+assertEqualArrays(array('c', 'a', 'r'), AdminStringUtil::unicodeExplode('car'));
 assertEqualArrays(array('ă', 'a', 'â', 'ș', 'ț'),
-                  text_unicodeExplode('ăaâșț'));
+                  AdminStringUtil::unicodeExplode('ăaâșț'));
 
 assertEqualArrays(array(1, 5, 10),
                   util_intersectArrays(array(1, 3, 5, 7, 9, 10),
@@ -498,13 +494,7 @@ assertEquals(4, util_findSnippet(array(array(1, 2, 10),
                                        array(6, 20),
                                        array(8, 15))));
 
-assertEquals('$abc$ @def@', text_formatLexem('$abc$ @def@')); // This is intentional -- lexem formatting is very lenient.
-assertEquals("m'amă m'are", text_formatLexem("m'am~a máre  "));
-
-// Mobile detection
-assertEquals(true, util_isMobile('Linux Android'));
-assertEquals(true, util_isMobile('android'));
-assertEquals(true, util_isMobile('some nOkIa model'));
-assertEquals(false, util_isMobile('some version of Firefox'));
+assertEquals('$abc$ @def@', AdminStringUtil::formatLexem('$abc$ @def@')); // This is intentional -- lexem formatting is very lenient.
+assertEquals("m'amă m'are", AdminStringUtil::formatLexem("m'am~a máre  "));
 
 ?>

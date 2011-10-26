@@ -2,7 +2,16 @@
 define('ADODB_OUTP', 'debug_adodbHandler');
 define('ADODB_ASSOC_CASE', 2);
 $ADODB_ASSOC_CASE = 2;
+mb_internal_encoding("UTF-8");
 util_initEverything();
+
+function __autoload($className) {
+  switch ($className) {
+  case 'StringUtil': require_once('stringUtil.php'); break;
+  case 'FlexStringUtil': require_once('flexStringUtil.php'); break;
+  case 'AdminStringUtil': require_once('adminStringUtil.php'); break;
+  }
+}
 
 function util_initEverything() {
   // smarty < session_start/end : smarty caches the person's nickname.
@@ -15,7 +24,6 @@ function util_initEverything() {
   util_defineConstants();
   $GLOBALS['util_db'] = db_init();
   session_init();
-  text_init();
   mc_init();
   flash_restoreFromSession();
 
@@ -73,7 +81,6 @@ function util_getCssRoot() {
 
 function util_requireOtherFiles() {
   $root = util_getRootPath();
-  require_once("$root/phplib/textProcessing.php");
   require_once("$root/phplib/serverPreferences.php");
   require_once(pref_getServerPreference('adoDbClass'));
   require_once(pref_getServerPreference('adoDbActiveRecordClass'));

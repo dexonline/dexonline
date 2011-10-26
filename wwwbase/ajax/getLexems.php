@@ -3,8 +3,8 @@ require_once("../../phplib/util.php");
 
 $query = util_getRequestParameter('q');
 $parts = preg_split('/\(/', $query, 2);
-$name = text_internalizeWordName(trim($parts[0]));
-$field = text_hasDiacritics($name) ? 'formNoAccent' : 'formUtf8General';
+$name = AdminStringUtil::internalizeWordName(trim($parts[0]));
+$field = StringUtil::hasDiacritics($name) ? 'formNoAccent' : 'formUtf8General';
 
 if (count($parts) == 2) {
   $description = trim($parts[1]);

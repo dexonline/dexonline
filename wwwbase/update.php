@@ -95,9 +95,9 @@ function fetchNextRow() {
   $def = new Definition();
   $def->set($defDbResult->fields);
   $defDbResult->MoveNext();
-  $def->internalRep = text_xmlizeRequired($def->internalRep);
+  $def->internalRep = AdminStringUtil::xmlizeRequired($def->internalRep);
   if (hasFlag('d')) {
-    $def->internalRep = text_xmlizeOptional($def->internalRep);
+    $def->internalRep = AdminStringUtil::xmlizeOptional($def->internalRep);
   }
 
   $lexemNames = array();
@@ -108,7 +108,7 @@ function fetchNextRow() {
 
   while (merge_compare($def, $currentLexem) == 0) {
     $lexemNames[] = $currentLexem[1];
-    $lexemLatinNames[] = text_unicodeToLatin($currentLexem[1]);
+    $lexemLatinNames[] = StringUtil::unicodeToLatin($currentLexem[1]);
     $currentLexem = fetchNextLexem();
   }
 

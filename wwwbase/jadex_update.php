@@ -53,7 +53,7 @@ while (!$defDbResult->EOF) {
   $def = new Definition();
   $def->set($defDbResult->fields);
   $defDbResult->MoveNext();
-  $def->internalRep = text_xmlizeRequired($def->internalRep);
+  $def->internalRep = AdminStringUtil::xmlizeRequired($def->internalRep);
 
   while ( merge_compare($def, $currentLexem) < 0 ) {
     $currentLexem = fetchNextLexem();
@@ -61,7 +61,7 @@ while (!$defDbResult->EOF) {
 
   while (merge_compare($def, $currentLexem) == 0) {
     $lexemNames = $currentLexem[1];
-    $lexemLatinNames = text_unicodeToLatin($currentLexem[1]);
+    $lexemLatinNames = StringUtil::unicodeToLatin($currentLexem[1]);
     $currentLexem = fetchNextLexem();
     // marker
     print "<entry>\n";

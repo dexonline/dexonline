@@ -26,8 +26,8 @@ $searchResults = SearchResult::mapDefinitionArray($defs);
 foreach ($defs as $def) {
   $def->internalRep = str_replace($search, $replace, $def->internalRep);
   $ambiguousMatches = array();
-  $def->internalRep = text_internalizeDefinition($def->internalRep, $def->sourceId, $ambiguousMatches);
-  $def->htmlRep = text_htmlize($def->internalRep, $def->sourceId);
+  $def->internalRep = AdminStringUtil::internalizeDefinition($def->internalRep, $def->sourceId, $ambiguousMatches);
+  $def->htmlRep = AdminStringUtil::htmlize($def->internalRep, $def->sourceId);
   // Complete or un-complete the abbreviation review
   if (!count($ambiguousMatches) && $def->abbrevReview == ABBREV_AMBIGUOUS) {
     $def->abbrevReview = ABBREV_REVIEW_COMPLETE;

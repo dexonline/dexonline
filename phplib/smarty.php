@@ -87,12 +87,12 @@ function smarty_assign($variable, $value) {
 }
 
 function smarty_filter_display_st_cedilla_below($tpl_output, &$smarty) {
-  $tpl_output = text_replace_st($tpl_output);
+  $tpl_output = StringUtil::replace_st($tpl_output);
   return $tpl_output;
 }
 
 function smarty_filter_display_old_orthography($tpl_output, &$smarty) {
-  $tpl_output = text_replace_ai($tpl_output);
+  $tpl_output = StringUtil::replace_ai($tpl_output);
   return $tpl_output;
 }
 

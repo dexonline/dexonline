@@ -10,7 +10,7 @@ $sendButton = util_getRequestParameter('send');
 if ($sendButton) {
   session_setSourceCookie($sourceId);
   $ambiguousMatches = array();
-  $def = text_internalizeDefinition($def, $sourceId, $ambiguousMatches);
+  $def = AdminStringUtil::internalizeDefinition($def, $sourceId, $ambiguousMatches);
   $lexemNames = deleteEmptyElements($lexemNames);
 
   $errorMessage = '';
@@ -25,21 +25,21 @@ if ($sendButton) {
     smarty_assign('sourceId', $sourceId);
     smarty_assign('def', $def);
     flash_add($errorMessage);
-    smarty_assign('previewDivContent', text_htmlize($def, $sourceId));
+    smarty_assign('previewDivContent', AdminStringUtil::htmlize($def, $sourceId));
   } else {
     $definition = new Definition();
     $definition->userId = session_getUserId();
     $definition->sourceId = $sourceId;
     $definition->internalRep = $def;
-    $definition->htmlRep = text_htmlize($def, $sourceId);
-    $definition->lexicon = text_extractLexicon($definition);
+    $definition->htmlRep = AdminStringUtil::htmlize($def, $sourceId);
+    $definition->lexicon = AdminStringUtil::extractLexicon($definition);
     $definition->abbrevReview = count($ambiguousMatches) ? ABBREV_AMBIGUOUS : ABBREV_REVIEW_COMPLETE;
     $definition->save();
     log_userLog("Added definition {$definition->id} ({$definition->lexicon})");
 
     $ldms = array();
     foreach ($lexemNames as $lexemName) {
-      $lexemName = addslashes(text_formatLexem($lexemName));
+      $lexemName = addslashes(AdminStringUtil::formatLexem($lexemName));
       if ($lexemName) {
         $matches = Lexem::loadByExtendedName($lexemName);
         if (count($matches) >= 1) {

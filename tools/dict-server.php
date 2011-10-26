@@ -139,8 +139,8 @@ function match($sourceId, $strategy, $cuv, $fd) {
     return;
   }
 
-  $cuv = text_cleanupQuery($cuv);
-  $arr = text_analyzeQuery($cuv);
+  $cuv = StringUtil::cleanupQuery($cuv);
+  $arr = StringUtil::analyzeQuery($cuv);
   $hasDiacritics = $arr[0];
   $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
 
@@ -182,8 +182,8 @@ function lookup($sourceId, $cuv, $fd) {
   if ($sourceId == '*' || $sourceId == '!') {
     $sourceId = 0;
   }
-  $cuv = text_cleanupQuery($cuv);
-  $arr = text_analyzeQuery($cuv);
+  $cuv = StringUtil::cleanupQuery($cuv);
+  $arr = StringUtil::analyzeQuery($cuv);
   $field = $arr[0] ? 'formNoAccent' : 'formUtf8General';
   $lexems = db_find(new Lexem(), "{$field} = '{$cuv}' order by formNoAccent");
   $definitions = Definition::loadForLexems($lexems, $sourceId, $cuv);

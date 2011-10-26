@@ -94,7 +94,7 @@ function dumpInflections($fileName) {
 
 function dumpAbbrevs($fileName) {
   log_scriptLog("dumping abbreviations");
-  $raw_abbrevs = text_loadRawAbbreviations();
+  $raw_abbrevs = AdminStringUtil::loadRawAbbreviations();
   $sources = array();
   $sections = array();
   foreach ($raw_abbrevs as $name => $raw_section) {
@@ -134,7 +134,7 @@ function dumpDefinitions($query, $fileName, $message) {
   while (!$results->EOF) {
     $def = new Definition();
     $def->set($results->fields);
-    $def->internalRep = text_xmlizeRequired($def->internalRep);
+    $def->internalRep = AdminStringUtil::xmlizeRequired($def->internalRep);
     smarty_assign('def', $def);
     smarty_assign('nick', $USERS[$def->userId]);
     gzwrite($file, smarty_fetch('xmldump/definition.ihtml'));

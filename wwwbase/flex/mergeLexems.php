@@ -10,7 +10,7 @@ $submitButton = util_getRequestParameter('submitButton');
 if ($submitButton) {
   $lexemsToDelete = array();
   foreach ($_REQUEST as $name => $value) {
-    if (text_startsWith($name, 'merge_') && $value) {
+    if (StringUtil::startsWith($name, 'merge_') && $value) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 3);
       assert($parts[0] == 'merge');

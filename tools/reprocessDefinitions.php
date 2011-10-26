@@ -7,8 +7,8 @@ $modified = 0;
 while (!$dbResult->EOF) {
   $def = new Definition();
   $def->set($dbResult->fields);
-  $newRep = text_internalizeDefinition($def->internalRep, $def->sourceId);
-  $newHtmlRep = text_htmlize($newRep, $def->sourceId);
+  $newRep = AdminStringUtil::internalizeDefinition($def->internalRep, $def->sourceId);
+  $newHtmlRep = AdminStringUtil::htmlize($newRep, $def->sourceId);
   if ($newRep !== $def->internalRep || $newHtmlRep !== $def->htmlRep) {
     $modified++;
     $def->internalRep = $newRep;

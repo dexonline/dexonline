@@ -28,7 +28,7 @@ while (($dbRow = mysql_fetch_row($dbResult)) != null) {
   $words = extractWords($dbRow[1]);
 
   foreach ($words as $position => $word) {
-    if (text_isStopWord($word, true)) {
+    if (StringUtil::isStopWord($word, true)) {
       // Nothing, this word is ignored.
     } else {
       if (!array_key_exists($word, $ifMap)) {
@@ -77,12 +77,12 @@ log_scriptLog('rebuildFullTextIndex.php completed successfully ' .
 function extractWords($text) {
   $alphabet = 'abcdefghijklmnopqrstuvwxyzăâîșț';
 
-  $text = text_unicodeToLower($text);
-  $text = text_removeAccents($text);
+  $text = mb_strtolower($text);
+  $text = AdminStringUtil::removeAccents($text);
   $result = array();
 
   $currentWord = '';
-  $chars = text_unicodeExplode($text);
+  $chars = AdminStringUtil::unicodeExplode($text);
   foreach ($chars as $c) {
     if (strpos($alphabet, $c) !== false) {
       $currentWord .= $c;

@@ -123,13 +123,13 @@ while ($i < count($lines)) {
     $definition->userId = $userId;
     $definition->sourceId = $sourceId;
     $definition->status = $status;
-    $definition->internalRep = text_internalizeDefinition($def, $sourceId);
-    $definition->htmlRep = text_htmlize($definition->internalRep, $sourceId);
-    $definition->lexicon = text_extractLexicon($definition);
+    $definition->internalRep = AdminStringUtil::internalizeDefinition($def, $sourceId);
+    $definition->htmlRep = AdminStringUtil::htmlize($definition->internalRep, $sourceId);
+    $definition->lexicon = AdminStringUtil::extractLexicon($definition);
     $definition->save();
     if($verbose) echo("\tAdded definition {$definition->id} ({$definition->lexicon})\n");
 
-    $lname = addslashes(text_formatLexem($lname));
+    $lname = addslashes(AdminStringUtil::formatLexem($lname));
 	$names = preg_split("/[-\s,\/()]+/", $lname);
 	foreach ($names as $name) {
 		if ($name == '') continue;

@@ -1,5 +1,6 @@
 <?php
 require_once("../phplib/util.php");
+ini_set('max_execution_time', '3600');
 define('DB_QUERY', 'select * from Lexem where isLoc order by formNoAccent');
 $locVersion = util_getRequestParameter('locVersion');
 $newLocVersion = util_getRequestParameter('newLocVersion');
@@ -18,9 +19,9 @@ if ($newLocVersion) {
 
   print "<pre>\n";
   foreach ($diff as $line) {
-    if (text_startsWith($line, '< ')) {
+    if (StringUtil::startsWith($line, '< ')) {
       print sprintf("<span style=\"color: red\">%s: %s</span>\n", $locVersion, substr($line, 2));
-    } else if (text_startsWith($line, '> ')) {
+    } else if (StringUtil::startsWith($line, '> ')) {
       print sprintf("<span style=\"color: green\">%s: %s</span>\n", $newLocVersion, substr($line, 2));
     }
   }
@@ -49,9 +50,9 @@ function writeLexems($locVersion, $fileName) {
     $l = new Lexem();
     $l->set($dbResult->fields);
     $dbResult->MoveNext();
-    fprintf($handle, text_padRight(text_unicodeToUpper($l->form), 20));
-    fprintf($handle, text_padRight($l->modelType, 4));
-    fprintf($handle, text_padRight($l->modelNumber, 8));
+    fprintf($handle, AdminStringUtil::padRight(mb_strtoupper($l->form), 20));
+    fprintf($handle, AdminStringUtil::padRight($l->modelType, 4));
+    fprintf($handle, AdminStringUtil::padRight($l->modelNumber, 8));
     fprintf($handle, $l->restriction . "\n");
   }
   fclose($handle);

@@ -17,7 +17,7 @@ while ($dbRow = mysql_fetch_row($dbResult)) {
 fclose($file);
 
 $s = file_get_contents($fileName);
-$s = text_unicodeToLatin($s);
+$s = StringUtil::unicodeToLatin($s);
 $s = strtoupper($s);
 $file = fopen($fileName, 'w');
 fwrite($file, $s);

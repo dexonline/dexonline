@@ -54,7 +54,7 @@ function getPatches($dir, $after) {
   $result = array();
   if ($dirHandle = opendir($dir)) {
     while (($fileName = readdir($dirHandle)) !== false) {
-      if (preg_match(PATCH_REGEXP, $fileName) && stripExtension($fileName) > $after && !text_endsWith($fileName, '~')) {
+      if (preg_match(PATCH_REGEXP, $fileName) && stripExtension($fileName) > $after && !StringUtil::endsWith($fileName, '~')) {
         $result[] = $fileName;
       }
     }

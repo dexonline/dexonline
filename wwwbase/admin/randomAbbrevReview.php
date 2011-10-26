@@ -11,26 +11,26 @@ if ($submitButton) {
   // Collect the user choices
   $choices = array();
   foreach ($_REQUEST as $name => $value) {
-    if (text_startsWith($name, 'radio_')) {
+    if (StringUtil::startsWith($name, 'radio_')) {
       $choices[substr($name, 6)] = $value;
     }
   }
 
   // Collect the positions of ambiguous abbreviations
   $matches = array();
-  _text_markAbbreviations($def->internalRep, $def->sourceId, $matches);
+  AdminStringUtil::markAbbreviations($def->internalRep, $def->sourceId, $matches);
   usort($matches, 'positionCmp');
 
   $s = $def->internalRep;
   foreach ($matches as $i => $m) {
     if ($choices[count($choices) - 1 - $i] == 'abbrev') {
       $orig = substr($s, $m['position'], $m['length']);
-      $replacement = text_isUppercase(text_getCharAt($orig, 0)) ? text_capitalize($m['abbrev']) : $m['abbrev'];
+      $replacement = StringUtil::isUppercase(StringUtil::getCharAt($orig, 0)) ? AdminStringUtil::capitalize($m['abbrev']) : $m['abbrev'];
       $s = substr_replace($s, "#{$replacement}#", $m['position'], $m['length']);
     }
   }
   $def->internalRep = $s;
-  $def->htmlRep = text_htmlize($def->internalRep, $def->sourceId);
+  $def->htmlRep = AdminStringUtil::htmlize($def->internalRep, $def->sourceId);
   $def->abbrevReview = ABBREV_REVIEW_COMPLETE;
   $def->save();
 }
@@ -42,7 +42,7 @@ $def = Definition::get('abbrevReview = 1 order by rand() limit 1');
 if ($def) {
   // Collect the positions of ambiguous abbreviations
   $matches = array();
-  _text_markAbbreviations($def->internalRep, $def->sourceId, $matches);
+  AdminStringUtil::markAbbreviations($def->internalRep, $def->sourceId, $matches);
   usort($matches, 'positionCmp');
 
   // Inject our marker around each ambiguity and htmlize the definition
@@ -50,7 +50,7 @@ if ($def) {
   foreach ($matches as $m) {
     $s = substr($s, 0, $m['position']) . " $MARKER " . substr($s, $m['position'], $m['length']) . " $MARKER " . substr($s, $m['position'] + $m['length']);
   }
-  $s = text_htmlize($s, $def->sourceId);
+  $s = AdminStringUtil::htmlize($s, $def->sourceId);
 
   // Split the definition into n ambiguities and n+1 bits of text between the ambiguities
   $text = array();

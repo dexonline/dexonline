@@ -7,7 +7,7 @@ $submitButton = util_getRequestParameter('submitButton');
 
 if ($submitButton) {
   foreach ($_REQUEST as $name => $position) {
-    if (text_startsWith($name, 'position_')) {
+    if (StringUtil::startsWith($name, 'position_')) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
       assert($parts[0] == 'position');
@@ -35,10 +35,10 @@ $searchResults = array();
 $lexems = db_find(new Lexem(), "form not rlike '\'' and not noAccent order by rand() limit 10");
 foreach($lexems as $l) {
   $charArray = array();
-  $form = text_unicodeToUpper($l->form);
+  $form = mb_strtoupper($l->form);
   $len = mb_strlen($form);
   for ($i = 0; $i < $len; $i++) {
-    $c = text_getCharAt($form, $i);;
+    $c = StringUtil::getCharAt($form, $i);;
     $charArray[] = ctype_space($c) ? '&nbsp;' : $c;
   }
   $chars[$l->id] = $charArray;

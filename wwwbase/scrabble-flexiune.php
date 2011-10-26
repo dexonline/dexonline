@@ -7,7 +7,7 @@ $locVersions = pref_getLocVersions();
 
 if ($locVersion && $form) {
   LocVersion::changeDatabase($locVersion);
-  $form = text_cleanupQuery($form);
+  $form = StringUtil::cleanupQuery($form);
   smarty_assign('page_title', 'Verificare LOC: ' . $form);
 
   $ifs = loadLoc($form);
@@ -33,7 +33,7 @@ smarty_displayCommonPageWithSkin('scrabble-flexiune.ihtml');
 
 
 function loadLoc($cuv) {
-  $field = text_hasDiacritics($cuv) ? 'formNoAccent' : 'formUtf8General';
+  $field = StringUtil::hasDiacritics($cuv) ? 'formNoAccent' : 'formUtf8General';
   $result = array();
   $dbResult = db_execute("select distinct I.* from InflectedForm I, Lexem L, Model M, ModelDescription MD, ModelType MT " .
 			 "where I.lexemId = L.id and L.modelType = MT.code and MT.canonical = M.modelType and L.modelNumber = M.number and M.id = MD.modelId " .

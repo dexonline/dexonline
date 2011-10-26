@@ -32,8 +32,8 @@ if ($associateLexemId) {
 
 if ($internalRep) {
   $errors = array();
-  $definition->internalRep = text_internalizeDefinition($internalRep, $sourceId);
-  $definition->htmlRep = text_htmlize($definition->internalRep, $sourceId, $errors);
+  $definition->internalRep = AdminStringUtil::internalizeDefinition($internalRep, $sourceId);
+  $definition->htmlRep = AdminStringUtil::htmlize($definition->internalRep, $sourceId, $errors);
   if (!empty($errors)) {
     $hasErrors = true;
     foreach ($errors as $error) {
@@ -48,7 +48,7 @@ if ($sourceId) {
   $definition->sourceId = (int)$sourceId;
 }
 if ($internalRep || $sourceId) {
-  $definition->lexicon = text_extractLexicon($definition);
+  $definition->lexicon = AdminStringUtil::extractLexicon($definition);
 }
 if ($lexemNames) {
   $lexems = array();
@@ -84,10 +84,10 @@ if ($commentContents) {
     $comment = new Comment();
     $comment->definitionId = $definitionId;
   }
-  $newContents = text_internalizeDefinition($commentContents, $sourceId);
+  $newContents = AdminStringUtil::internalizeDefinition($commentContents, $sourceId);
   if ($newContents != $comment->contents) {
     $comment->contents = $newContents;
-    $comment->htmlContents = text_htmlize($comment->contents, $sourceId);
+    $comment->htmlContents = AdminStringUtil::htmlize($comment->contents, $sourceId);
     if (!$preserveCommentUser) {
       $comment->userId = session_getUserId();
     }

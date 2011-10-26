@@ -21,8 +21,8 @@ $ip = $_SERVER['REMOTE_ADDR'];
 // Execute query and display results
 // Convert wildcards to mysql format
 if ($searchButton) {
-  $name = text_cleanupQuery($name);
-  $arr = text_analyzeQuery($name);
+  $name = StringUtil::cleanupQuery($name);
+  $arr = StringUtil::analyzeQuery($name);
   $hasDiacritics = $arr[0];
   $hasRegexp = $arr[1];
   $isAllDigits = $arr[2];

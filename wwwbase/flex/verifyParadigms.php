@@ -8,7 +8,7 @@ $modelType = util_getRequestParameter('modelType');
 
 if ($updateModels) {
   foreach ($_REQUEST as $name => $value) {
-    if (text_startsWith($name, 'model_') && $value != '0') {
+    if (StringUtil::startsWith($name, 'model_') && $value != '0') {
       $parts = preg_split('/_/', $name, 2);
       assert($parts[0] == 'model');
       $modelNumber = str_replace('_', '.', $parts[1]); // stupid PHP replaces . with _ in incoming data

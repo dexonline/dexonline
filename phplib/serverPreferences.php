@@ -12,10 +12,10 @@ function pref_parsePreferenceFile() {
     if (is_array($value)) {
       $processed[$key] = array();
       foreach ($value as $key2 => $value2) {
-        $processed[$key][$key2] = (strpos($value2, '&') === false) ? $value2 : text_parseStr($value2);
+        $processed[$key][$key2] = (strpos($value2, '&') === false) ? $value2 : StringUtil::parseStr($value2);
       }
     } else {
-      $processed[$key] = (strpos($value, '&') === false) ? $value : text_parseStr($value);
+      $processed[$key] = (strpos($value, '&') === false) ? $value : StringUtil::parseStr($value);
     }
   }
   $GLOBALS['serverPreferences'] = $processed;

@@ -9,7 +9,7 @@ $userData = array();
 $userData['user'] = $user;
 
 if ($user) {
-  $user->email = text_scrambleEmail($user->email);
+  $user->email = StringUtil::scrambleEmail($user->email);
   
   // Find the rank of this user by number of words and number of characters
   $topWords = TopEntry::getTopData(CRIT_WORDS, SORT_DESC, true);

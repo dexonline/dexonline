@@ -49,9 +49,9 @@ if ($createDefinition) {
   $def->sourceId = Source::get('shortName="Neoficial"')->id;
   $def->lexicon = $lexem->formNoAccent;
   $def->internalRep =
-    '@' . text_unicodeToUpper(text_internalize($lexem->form, false)) .
+    '@' . mb_strtoupper(AdminStringUtil::internalize($lexem->form, false)) .
     '@ v. @' . $miniDefTarget . '.@';
-  $def->htmlRep = text_htmlize($def->internalRep, $def->sourceId);
+  $def->htmlRep = AdminStringUtil::htmlize($def->internalRep, $def->sourceId);
   $def->status = ST_ACTIVE;
   $def->save();
 
@@ -82,9 +82,9 @@ if (!$similarModel && !$similarLexemName && !$refreshLexem && !$updateLexem) {
 
 if ($lexemForm !== null) {
   $oldUnaccented = $lexem->formNoAccent;
-  $lexem->form = text_formatLexem($lexemForm);
+  $lexem->form = AdminStringUtil::formatLexem($lexemForm);
   $lexem->formNoAccent = str_replace("'", '', $lexem->form);
-  $lexem->reverse = text_reverse($lexem->formNoAccent);
+  $lexem->reverse = StringUtil::reverse($lexem->formNoAccent);
   if ($lexem->formNoAccent != $oldUnaccented) {
     $lexem->modelType = 'T';
     $lexem->modelNumber = 1;
@@ -92,11 +92,11 @@ if ($lexemForm !== null) {
 }
 
 if ($lexemDescription !== null) {
-  $lexem->description = text_internalize($lexemDescription, false);
+  $lexem->description = AdminStringUtil::internalize($lexemDescription, false);
 }
 
 if ($lexemTags !== null) {
-  $lexem->tags = text_internalize($lexemTags, false);
+  $lexem->tags = AdminStringUtil::internalize($lexemTags, false);
 }
 
 if ($lexemSources !== null) {
@@ -104,11 +104,11 @@ if ($lexemSources !== null) {
 }	
 
 if ($lexemComment !== null) {
-  $newComment = trim(text_internalize($lexemComment, false));
+  $newComment = trim(AdminStringUtil::internalize($lexemComment, false));
   $oldComment = trim($lexem->comment);
-  if (text_startsWith($newComment, $oldComment) &&
+  if (StringUtil::startsWith($newComment, $oldComment) &&
       $newComment != $oldComment &&
-      !text_endsWith($newComment, ']]')) {
+      !StringUtil::endsWith($newComment, ']]')) {
     $newComment .= " [[" . session_getUser() . ", " .
       strftime("%d %b %Y %H:%M") . "]]\n";
   } else if ($newComment) {
@@ -179,7 +179,7 @@ if ($updateLexem && !$errorMessage) {
 
 $definitions = Definition::loadByLexemId($lexem->id);
 $searchResults = SearchResult::mapDefinitionArray($definitions);
-$definitionLexem = text_unicodeToUpper(text_internalize($lexem->form, false));
+$definitionLexem = mb_strtoupper(AdminStringUtil::internalize($lexem->form, false));
 
 // Generate new inflected forms, but do not overwrite the old ones.
 $ifs = $lexem->generateParadigm();
@@ -208,11 +208,11 @@ smarty_assign('searchResults', $searchResults);
 smarty_assign('definitionLexem', $definitionLexem);
 smarty_assign('homonyms', db_find(new Lexem(), "formNoAccent = '{$lexem->formNoAccent}' and id != {$lexem->id}"));
 smarty_assign('suggestedLexems', loadSuggestions($lexem, 5));
-smarty_assign('restrS', text_contains($lexem->restriction, 'S'));
-smarty_assign('restrP', text_contains($lexem->restriction, 'P'));
-smarty_assign('restrU', text_contains($lexem->restriction, 'U'));
-smarty_assign('restrI', text_contains($lexem->restriction, 'I'));
-smarty_assign('restrT', text_contains($lexem->restriction, 'T'));
+smarty_assign('restrS', FlexStringUtil::contains($lexem->restriction, 'S'));
+smarty_assign('restrP', FlexStringUtil::contains($lexem->restriction, 'P'));
+smarty_assign('restrU', FlexStringUtil::contains($lexem->restriction, 'U'));
+smarty_assign('restrI', FlexStringUtil::contains($lexem->restriction, 'I'));
+smarty_assign('restrT', FlexStringUtil::contains($lexem->restriction, 'T'));
 smarty_assign('modelTypes', db_find(new ModelType(), '1 order by code'));
 smarty_assign('models', $models);
 smarty_assign('canEditForm', $canEditForm);
@@ -239,7 +239,7 @@ function validateRestriction($modelType, $restriction) {
   $hasS = false;
   $hasP = false;
   for ($i = 0; $i < mb_strlen($restriction); $i++) {
-    $char = text_getCharAt($restriction, $i);
+    $char = StringUtil::getCharAt($restriction, $i);
     if ($char == 'T' || $char == 'U' || $char == 'I') {
       if ($modelType != 'V' && $modelType != 'VT') {
         return "Restricția <b>$char</b> se aplică numai verbelor";

@@ -15,7 +15,7 @@ if ($newLocVersion) {
   $file2 = tempnam('/tmp', 'loc_diff_');
   writeLexems($locVersion, $file1);
   writeLexems($newLocVersion, $file2);
-  $diff = os_executeAndReturnOutput("diff $file1 $file2 || true");
+  $diff = OS::executeAndReturnOutput("diff $file1 $file2 || true");
 
   print "<pre>\n";
   foreach ($diff as $line) {

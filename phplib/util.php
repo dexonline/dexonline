@@ -92,7 +92,6 @@ function util_requireOtherFiles() {
   require_once("$root/phplib/debugInfo.php");
   require_once("$root/phplib/flashMessage.php");
   require_once("$root/phplib/logging.php");
-  require_once("$root/phplib/os.php");
   require_once("$root/phplib/session.php");
   require_once("$root/phplib/smarty.php");
   require_once("$root/phplib/memcache.php");

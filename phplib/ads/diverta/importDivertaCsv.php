@@ -14,7 +14,7 @@ if (count($opts) != 10) {
   usage();
 }
 define('CSV_DELIMITER', getDelimiter($opts['d']));
-os_executeAndAssert('mkdir -p ' . ORIG_FILE_PREFIX);
+OS::executeAndAssert('mkdir -p ' . ORIG_FILE_PREFIX);
 
 if (!file_exists($opts['f'])) {
   print "Input file does not exist.\n";
@@ -82,7 +82,7 @@ while (($fields = fgetcsv($handle, 10000, CSV_DELIMITER)) !== false) {
     if ($imgType == IMG_NORMAL) {
       list ($width, $height, $bytes) = preg_split('/\|/', getImageInfo($fileName));
       print "  {$width}x{$height}, {$bytes} bytes ";
-      os_executeAndAssert("convert -trim -fuzz \"3%\" -geometry 200x84 \"$fileName\" \"$thumbName\"");
+      OS::executeAndAssert("convert -trim -fuzz \"3%\" -geometry 200x84 \"$fileName\" \"$thumbName\"");
       if ($width <= 90 && $height <= 90) {
         print "*small* ";
       }
@@ -108,20 +108,20 @@ while (($fields = fgetcsv($handle, 10000, CSV_DELIMITER)) !== false) {
 }
 
 function getImageInfo($fileName) {
-  $output = os_executeAndReturnOutput("identify -format \"%w|%h|%b\" \"$fileName\"");
+  $output = OS::executeAndReturnOutput("identify -format \"%w|%h|%b\" \"$fileName\"");
   assert(count($output) == 1);
   return $output[0];
 }
 
 function isImage($fileName) {
   // Check that the image exists
-  $output = os_executeAndReturnOutput("file \"$fileName\"");
+  $output = OS::executeAndReturnOutput("file \"$fileName\"");
   assert(count($output) == 1);
   if (strpos($output[0], 'JPEG image data') === false) {
     return IMG_NOT_JPEG;
   }
 
-  $output = os_executeAndReturnOutput("identify -verbose \"$fileName\" 2>&1 1>/dev/null");
+  $output = OS::executeAndReturnOutput("identify -verbose \"$fileName\" 2>&1 1>/dev/null");
   if (count($output)) {
     return IMG_CORRUPT; // because there are warnings
   }

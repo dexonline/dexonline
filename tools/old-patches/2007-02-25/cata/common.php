@@ -26,7 +26,7 @@ function parseArguments() {
       runTestSuite();
       exit;
     } else {
-      os_errorAndExit("Unknown flag: $arg");
+      OS::errorAndExit("Unknown flag: $arg");
     }
   }
   return array($verbose, $fileName);

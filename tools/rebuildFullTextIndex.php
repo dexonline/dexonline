@@ -6,7 +6,7 @@ assert_options(ASSERT_BAIL, 1);
 
 log_scriptLog('Running rebuildFullTextIndex.php.');
 if (!Lock::acquire(LOCK_FULL_TEXT_INDEX)) {
-  os_errorAndExit('Lock already exists!');
+  OS::errorAndExit('Lock already exists!');
   exit;
 }
 
@@ -59,10 +59,10 @@ fclose($handle);
 log_scriptLog("$defsSeen of $numDefs definitions indexed.");
 log_scriptLog("Index size: $indexSize entries.");
 
-os_executeAndAssert("chmod 666 $fileName");
+OS::executeAndAssert("chmod 666 $fileName");
 log_scriptLog("Importing file $fileName into table FullTextIndex");
 if (!mysql_query("load data local infile '$fileName' into table FullTextIndex")) {
-  os_errorAndExit("MySQL says: " . mysql_error());
+  OS::errorAndExit("MySQL says: " . mysql_error());
 }
 util_deleteFile($fileName);
 

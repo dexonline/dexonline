@@ -9,7 +9,7 @@ for ($i = 1; $i < count($argv); $i++) {
   if ($arg == "-a") {
     $migrateAll = true;
   } else {
-    os_errorAndExit("Unknown flag: $arg");
+    OS::errorAndExit("Unknown flag: $arg");
   }
 }
 

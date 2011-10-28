@@ -59,10 +59,10 @@ print "Dumping tables to $fileName\n";
 $tablesToDump = "ConstraintMap Inflection Lexem ModelDescription ModelType Model ParticipleModel Transform InflectedForm";
 $parts = db_splitDsn();
 $mysql = sprintf("mysqldump -h %s -u %s --password='%s' %s %s > %s", $parts['host'], $parts['user'], $parts['password'], $parts['database'], $tablesToDump, $fileName);
-os_executeAndAssert($mysql);
+OS::executeAndAssert($mysql);
 print "Importing $fileName to $dbName\n";
 $import = sprintf("mysql -h %s -u %s --password='%s' %s < %s", $parts['host'], $parts['user'], $parts['password'], $dbName, $fileName);
-os_executeAndAssert($import);
+OS::executeAndAssert($import);
 print "Success!\n";
 
 /****************************************************************************/

@@ -15,7 +15,7 @@ for ($i = 1; $i < count($argv); $i++) {
   } else if ($arg == '-nd') {
     $doDatabaseCopy = false;
   } else {
-    os_errorAndExit("Unknown flag: $arg");
+    OS::errorAndExit("Unknown flag: $arg");
   }
 }
 
@@ -25,16 +25,16 @@ log_scriptLog('Running updateMirror.php with databaseCopy:' .
               ($doCodeUpdate ? 'yes' : 'no'));
 
 if ($doDatabaseCopy) {
-  os_executeAndAssert('wget -q -O /tmp/dex-database.sql.gz ' . DATABASE_URL);
-  os_executeAndAssert('gunzip /tmp/dex-database.sql.gz');
+  OS::executeAndAssert('wget -q -O /tmp/dex-database.sql.gz ' . DATABASE_URL);
+  OS::executeAndAssert('gunzip /tmp/dex-database.sql.gz');
   $parts = db_splitDsn();
   $mysql = sprintf("mysql -h %s -u %s --password='%s' %s < /tmp/dex-database.sql", $parts['host'], $parts['user'], $parts['password'], $parts['database']);
-  os_executeAndAssert($mysql);
-  os_executeAndAssert('rm -f /tmp/dex-database.sql');
+  OS::executeAndAssert($mysql);
+  OS::executeAndAssert('rm -f /tmp/dex-database.sql');
 }
 
 if ($doCodeUpdate) {
-  os_executeAndAssert('cd ' . util_getRootPath() . '; /usr/bin/svn up');  
+  OS::executeAndAssert('cd ' . util_getRootPath() . '; /usr/bin/svn up');  
 }
 
 log_scriptLog('updateMirror.php completed successfully (against all odds)');

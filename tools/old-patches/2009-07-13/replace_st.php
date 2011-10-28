@@ -28,7 +28,7 @@ foreach ($FIELDS as $table => $fields) {
       if (mysql_query($query)) {
         print "    " . mysql_affected_rows() . " rows affected.\n";
       } else {
-        os_errorAndExit(mysql_error());
+        OS::errorAndExit(mysql_error());
       }
     }
   }

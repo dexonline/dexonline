@@ -24,10 +24,10 @@ fwrite($file, $s);
 fclose($file);
 
 $fileName2 = tempnam('/tmp', 'unique_');
-os_executeAndAssert("sort -u $fileName -o $fileName2");
+OS::executeAndAssert("sort -u $fileName -o $fileName2");
 
 header('Content-type: text/plain');
 print file_get_contents($fileName2);
-os_executeAndAssert("rm -f $fileName $fileName2");
+OS::executeAndAssert("rm -f $fileName $fileName2");
 
 ?>

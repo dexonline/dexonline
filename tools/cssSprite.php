@@ -26,20 +26,20 @@ foreach ($argv as $i => $arg) {
   } else if ($arg == '--split') {
     $split = true;
   } else if ($i) {
-    os_errorAndExit("Unknown flag: $arg");
+    OS::errorAndExit("Unknown flag: $arg");
   }
 }
 
 if ($merge === $split) {
-  os_errorAndExit("Please specify exactly one of --merge or --split");
+  OS::errorAndExit("Please specify exactly one of --merge or --split");
 }
 
 if ($merge) {
-  os_executeAndAssert("convert -size $GEOMETRY xc:white $SPRITE");
+  OS::executeAndAssert("convert -size $GEOMETRY xc:white $SPRITE");
   foreach ($IMAGES as $i) {
-    os_executeAndAssert("convert $SPRITE {$i['file']} -geometry +{$i['x']}+{$i['y']} -compose over -composite $SPRITE");
+    OS::executeAndAssert("convert $SPRITE {$i['file']} -geometry +{$i['x']}+{$i['y']} -compose over -composite $SPRITE");
   }
-  os_executeAndAssert("optipng $SPRITE");
+  OS::executeAndAssert("optipng $SPRITE");
   print "Composed and optimized sprite in $SPRITE\n";
 } else {
   print "Splitting is not implemented yet.\n";

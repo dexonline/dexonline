@@ -88,7 +88,7 @@ function closeCurrentFile() {
 
   fprintf($g_curFile, "</urlset>\n");
   fclose($g_curFile);
-  os_executeAndAssert("gzip - < {$g_curFileName} > ../wwwbase/sitemap{$g_numFiles}.xml.gz");
+  OS::executeAndAssert("gzip - < {$g_curFileName} > ../wwwbase/sitemap{$g_numFiles}.xml.gz");
   util_deleteFile($g_curFileName);
 }
 

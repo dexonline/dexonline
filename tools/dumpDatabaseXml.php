@@ -180,8 +180,8 @@ function dumpLdmDiff($oldFileName, $newFileName, $diffFileName) {
   log_scriptLog('dumping lexem-definition map diff');
   $tmpFile1 = tempnam('/tmp', 'ldm');
   $tmpFile2 = tempnam('/tmp', 'ldm');
-  os_executeAndAssert("gunzip -c $oldFileName > $tmpFile1");
-  os_executeAndAssert("gunzip -c $newFileName > $tmpFile2");
+  OS::executeAndAssert("gunzip -c $oldFileName > $tmpFile1");
+  OS::executeAndAssert("gunzip -c $newFileName > $tmpFile2");
   $output = null;
   exec("diff $tmpFile1 $tmpFile2", $output, $exit_code);
   $file = gzopen($diffFileName, 'wb9');

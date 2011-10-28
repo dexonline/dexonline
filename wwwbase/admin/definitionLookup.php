@@ -41,9 +41,9 @@ if ($searchButton) {
   // Query the database and output the results
   $defs = Definition::searchModerator($name, $hasDiacritics, $sourceId, $status, $userId, $beginTime, $endTime);
   $searchResults = SearchResult::mapDefinitionArray($defs);
-  fileCache_putModeratorQueryResults($ip, $searchResults);
+  FileCache::putModeratorQueryResults($ip, $searchResults);
 } else {
-  $searchResults = fileCache_getModeratorQueryResults($ip);
+  $searchResults = FileCache::getModeratorQueryResults($ip);
 }
 
 smarty_assign('searchResults', $searchResults);

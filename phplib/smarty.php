@@ -15,11 +15,6 @@ function smarty_init() {
   $smarty->assign('sUser', session_getUser());
   $smarty->assign('is_mirror', pref_isMirror());
   $smarty->assign('nick', session_getUserNick());
-  $wordCount = Definition::getWordCount();
-  $wordCountRough = $wordCount - ($wordCount % 10000);
-  $smarty->assign('words_total', util_formatNumber($wordCount, 0));
-  $smarty->assign('words_rough', util_formatNumber($wordCountRough, 0));
-  $smarty->assign('words_last_month', util_formatNumber(Definition::getWordCountLastMonth(), 0));
   $smarty->assign('contact_email', pref_getContactEmail());
   $smarty->assign('debug', session_isDebug());
   $smarty->assign('hostedBy', pref_getHostedBy());
@@ -43,13 +38,22 @@ function smarty_fetchSkin() {
   $skin = session_getSkin();
 
   // Set some skin variables based on the skin preferences in the config file.
+  // Also assign some skin-specific variables so we don't compute them unless we need them
   $skinVariables = session_getSkinPreferences($skin);
   switch ($skin) {
   case 'zepu':
     $skinVariables['afterSearchBoxBanner'] = true;
     break;
   case 'polar':
-    // No tweaks here
+    $wordCount = Definition::getWordCount();
+    $wordCountRough = $wordCount - ($wordCount % 10000);
+    smarty_assign('words_total', util_formatNumber($wordCount, 0));
+    smarty_assign('words_rough', util_formatNumber($wordCountRough, 0));
+    smarty_assign('words_last_month', util_formatNumber(Definition::getWordCountLastMonth(), 0));
+    break;
+  case 'mobile':
+    smarty_assign('words_total', util_formatNumber(Definition::getWordCount(), 0));
+    smarty_assign('words_last_month', util_formatNumber(Definition::getWordCountLastMonth(), 0));
     break;
   }
   smarty_assign('skinVariables', $skinVariables);

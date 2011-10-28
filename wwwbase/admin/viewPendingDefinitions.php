@@ -15,7 +15,7 @@ if ( $sourceUrlName ) {
 $ip = $_SERVER['REMOTE_ADDR'];
 $defs = Definition::searchModerator('*', '', $sourceId, ST_PENDING, 0, 0, time());
 $searchResults = SearchResult::mapDefinitionArray($defs);
-fileCache_putModeratorQueryResults($ip, $searchResults);
+FileCache::putModeratorQueryResults($ip, $searchResults);
 
 smarty_assign('searchResults', $searchResults);
 smarty_assign('sectionTitle', 'Definiții nemoderate');

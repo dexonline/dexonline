@@ -58,10 +58,10 @@ class TopEntry {
   }
 
   private static function getUnsortedTopData($manual) {
-    $data = fileCache_getTop($manual);
+    $data = FileCache::getTop($manual);
     if (!$data) {
       $data = TopEntry::loadUnsortedTopData($manual);
-      fileCache_putTop($data, $manual);
+      FileCache::putTop($data, $manual);
     }
     return $data;
   }

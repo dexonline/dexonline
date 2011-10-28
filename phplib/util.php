@@ -90,7 +90,6 @@ function util_requireOtherFiles() {
   require_once(pref_getServerPreference('adoDbActiveRecordClass'));
   require_once("$root/phplib/db.php");
   require_once("$root/phplib/debugInfo.php");
-  require_once("$root/phplib/fileCache.php");
   require_once("$root/phplib/flashMessage.php");
   require_once("$root/phplib/lock.php");
   require_once("$root/phplib/logging.php");

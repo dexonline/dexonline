@@ -165,23 +165,23 @@ echo "</pre>";*/
   }
 
   public static function getWordCount() {
-    $cachedWordCount = fileCache_getWordCount();
+    $cachedWordCount = FileCache::getWordCount();
     if ($cachedWordCount) {
       return $cachedWordCount;
     }
     $result = self::countByStatus(ST_ACTIVE);
-    fileCache_putWordCount($result);
+    FileCache::putWordCount($result);
     return $result;
   }
 
   public static function getWordCountLastMonth() {
-    $cachedWordCountLastMonth = fileCache_getWordCountLastMonth();
+    $cachedWordCountLastMonth = FileCache::getWordCountLastMonth();
     if ($cachedWordCountLastMonth) {
       return $cachedWordCountLastMonth;
     }
     $last_month = time() - 30 * 86400;
     $result = db_getSingleValue("select count(*) from Definition where createDate >= $last_month and status = " . ST_ACTIVE);
-    fileCache_putWordCountLastMonth($result);
+    FileCache::putWordCountLastMonth($result);
     return $result;
   }
 

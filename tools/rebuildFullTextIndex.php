@@ -5,7 +5,7 @@ ini_set('memory_limit', '256M');
 assert_options(ASSERT_BAIL, 1);
 
 log_scriptLog('Running rebuildFullTextIndex.php.');
-if (!lock_acquire(LOCK_FULL_TEXT_INDEX)) {
+if (!Lock::acquire(LOCK_FULL_TEXT_INDEX)) {
   os_errorAndExit('Lock already exists!');
   exit;
 }
@@ -66,7 +66,7 @@ if (!mysql_query("load data local infile '$fileName' into table FullTextIndex"))
 }
 util_deleteFile($fileName);
 
-if (!lock_release(LOCK_FULL_TEXT_INDEX)) {
+if (!Lock::release(LOCK_FULL_TEXT_INDEX)) {
   log_scriptLog('WARNING: could not release lock!');
 }
 log_scriptLog('rebuildFullTextIndex.php completed successfully ' .

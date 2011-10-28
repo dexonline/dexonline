@@ -72,20 +72,14 @@
       {/if}
   
     {elseif $searchType == $smarty.const.SEARCH_FULL_TEXT}
-      {if $lockExists}
-        Momentan nu puteți căuta prin textul definițiilor, deoarece indexul
-        este în curs de reconstrucție. Această operație durează de obicei circa
-        10 minute. Ne cerem scuze pentru neplăcere.
-      {else}
-        {if $numResults == 1}
-          O definiție cuprinde toate cuvintele căutate
-        {elseif $numResults > 1}
-          {$numResults} definiții cuprind toate cuvintele căutate
-        {/if}
-  
-        {if $numResults > count($results)}
-          (maxim {$results|@count} afișate)
-        {/if}
+      {if $numResults == 1}
+        O definiție cuprinde toate cuvintele căutate
+      {elseif $numResults > 1}
+        {$numResults} definiții cuprind toate cuvintele căutate
+      {/if}
+
+      {if $numResults > count($results)}
+        (maxim {$results|@count} afișate)
       {/if}
   
     {elseif $searchType == $smarty.const.SEARCH_WOTD}
@@ -117,6 +111,11 @@
       {/if}
     {/if}
   </div>
+{/if}
+
+{if $searchType == $smarty.const.SEARCH_FULL_TEXT && $lockExists}
+  Momentan nu puteți căuta prin textul definițiilor, deoarece indexul este în curs de reconstrucție. Această operație durează de obicei circa
+  10 minute. Ne cerem scuze pentru neplăcere.
 {/if}
 
 <div id="resultsWrapper" class="txt">

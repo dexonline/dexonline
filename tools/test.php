@@ -476,14 +476,14 @@ assertEqualArrays(array(),
                   util_intersectArrays(array(2, 4, 6, 8),
                                        array(1, 3, 5, 7)));
 
-assert(!lock_release('test'));
-assert(!lock_exists('test'));
-assert(lock_acquire('test'));
-assert(lock_exists('test'));
-assert(!lock_acquire('test'));
-assert(lock_release('test'));
-assert(!lock_exists('test'));
-assert(!lock_release('test'));
+assert(!Lock::release('test'));
+assert(!Lock::exists('test'));
+assert(Lock::acquire('test'));
+assert(Lock::exists('test'));
+assert(!Lock::acquire('test'));
+assert(Lock::release('test'));
+assert(!Lock::exists('test'));
+assert(!Lock::release('test'));
 
 assertEquals(0, util_findSnippet(array(array(1, 2, 10))));
 assertEquals(1, util_findSnippet(array(array(1, 2, 10),

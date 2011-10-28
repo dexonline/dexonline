@@ -49,7 +49,7 @@ if ($isAllDigits) {
 
 if ($text) {
   $searchType = SEARCH_FULL_TEXT;
-  if (lock_exists(LOCK_FULL_TEXT_INDEX)) {
+  if (Lock::exists(LOCK_FULL_TEXT_INDEX)) {
     smarty_assign('lockExists', true);
     $definitions = array();
   } else {

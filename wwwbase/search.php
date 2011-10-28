@@ -1,7 +1,6 @@
 <?php
 
 require_once("../phplib/util.php");
-require_once("../phplib/lexemSources.php"); 
 require_once("../phplib/ads/adsModule.php");
 
 $cuv = util_getRequestParameter('cuv');
@@ -217,7 +216,7 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
 
     $sourceNamesArr = array();
     foreach($lexems as $l) {
-      $sourceNamesArr[] = getNamesOfSources($l->source);
+      $sourceNamesArr[] = LexemSources::getNamesOfSources($l->source);
     }
 
     smarty_assign('sourceNamesArr', $sourceNamesArr);

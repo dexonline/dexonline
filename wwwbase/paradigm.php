@@ -1,6 +1,5 @@
 <?php
 require_once("../phplib/util.php");
-require_once("../phplib/lexemSources.php"); 
 
 define('TYPE_SHOW_ONLY_VERBS', 'conjugare');
 define('TYPE_SHOW_NO_VERBS', 'declinare');
@@ -100,7 +99,7 @@ if (!empty($lexems)) {
 
   $sourceNamesArr = array();
   foreach($lexems as $l) {
-	  $sourceNamesArr[] = getNamesOfSources($l->source);
+    $sourceNamesArr[] = LexemSources::getNamesOfSources($l->source);
   }
 
   // This paragraph replicates code from paradigm.php

@@ -1,6 +1,5 @@
 <?php
 require_once("../../phplib/util.php"); 
-require_once("../../phplib/lexemSources.php"); 
 
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
@@ -197,8 +196,8 @@ if (!is_array($ifs)) {
 
 $models = Model::loadByType($lexem->modelType);
 
-$sources = getSourceArrayChecked($lexem->source);
-$sourceNames = getNamesOfSources($lexem->source);
+$sources = LexemSources::getSourceArrayChecked($lexem->source);
+$sourceNames = LexemSources::getNamesOfSources($lexem->source);
 $canEditForm = !$lexem->isLoc || util_isModerator(PRIV_LOC);
 
 smarty_assign('lexem', $lexem);

@@ -6,10 +6,13 @@ mb_internal_encoding("UTF-8");
 util_initEverything();
 
 function __autoload($className) {
-  switch ($className) {
-  case 'StringUtil': require_once('stringUtil.php'); break;
-  case 'FlexStringUtil': require_once('flexStringUtil.php'); break;
-  case 'AdminStringUtil': require_once('adminStringUtil.php'); break;
+  $choices = array(util_getRootPath() . "phplib/{$className}.php",
+                   util_getRootPath() . "phplib/models/{$className}.php");
+  foreach ($choices as $choice) {
+    if (file_exists($choice)) {
+      require_once($choice);
+      return;
+    }
   }
 }
 
@@ -20,6 +23,7 @@ function util_initEverything() {
   // At this point the server preferences are loaded (when
   // util_requireOtherFiles() includes serverPreferences.php)
   util_requireOtherFiles();
+  ADOdb_Active_Record::$_changeNames = false; // Do not pluralize table names
   debug_init();
   util_defineConstants();
   $GLOBALS['util_db'] = db_init();
@@ -90,7 +94,6 @@ function util_requireOtherFiles() {
   require_once("$root/phplib/flashMessage.php");
   require_once("$root/phplib/lock.php");
   require_once("$root/phplib/logging.php");
-  require_once("$root/phplib/modelObjects.php");
   require_once("$root/phplib/os.php");
   require_once("$root/phplib/session.php");
   require_once("$root/phplib/smarty.php");

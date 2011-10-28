@@ -1,7 +1,6 @@
 <?php
 
 require_once('../phplib/util.php');
-require_once("../phplib/modelObjects.php");
 
 $list = array_slice($argv, 1);
 $userId = 471;

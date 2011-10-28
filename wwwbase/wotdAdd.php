@@ -1,7 +1,6 @@
 <?php
 
 require_once("../phplib/util.php");
-require_once("../phplib/modelObjects.php");
 util_assertModerator(PRIV_WOTD);
 util_assertNotMirror();
 

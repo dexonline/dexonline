@@ -1,7 +1,6 @@
 <?php
 
 require_once("../phplib/util.php");
-require_once("../phplib/modelObjects.php");
 
 $year = (int) util_getRequestParameter('y');
 $month = (int) util_getRequestParameter('m');

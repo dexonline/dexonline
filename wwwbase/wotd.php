@@ -1,7 +1,6 @@
 <?php
 
 require_once("../phplib/util.php");
-require_once("../phplib/modelObjects.php");
 $date = util_getRequestParameter('d');
 $type = util_getRequestParameter('t');
 

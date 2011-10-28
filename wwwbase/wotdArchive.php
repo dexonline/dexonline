@@ -71,7 +71,7 @@ $showPrev = (($year > 2011) || (($year == 2011) && ($month > 5))) ? 1 : 0;
 $showNext = (time() < mktime(0, 0, 0, $month + 1, 1, $year)) ? 0 : 1;
 smarty_assign('showPrev', $showPrev);
 smarty_assign('showNext', $showNext);
-$prefix = '/arhiva/cuvantul-zilei';
+$prefix = 'arhiva/cuvantul-zilei';
 if ($month == '01') {
     $prevMonth = $prefix . '/' . ($year - 1) . '/12';
 }

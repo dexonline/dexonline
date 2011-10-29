@@ -24,7 +24,7 @@ $email = util_getRequestParameter('email');
 $emailVisible = util_getRequestParameter('emailVisible');
 
 smarty_assign('send', !empty($sendButton));
-smarty_assign('nick', $nick);
+smarty_assign('r_nick', $nick);
 smarty_assign('password', $password);
 smarty_assign('password2', $password2);
 smarty_assign('name', $name);

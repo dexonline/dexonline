@@ -8,18 +8,18 @@
   definiții, <b>nu este nevoie să vă înscrieți</b>.
   Puteți consulta <i>DEX online</i> după pofta inimii și ca
   utilizator anonim. Ce aveți de câștigat dacă vă
-  înscrieți:
+  înscrieți:</p>
 
   <ul>
   <li>Definițiile pe care le trimiteți se vor adăuga în
   contul dumneavoastră, aducându-vă un loc mai bun în topul
   voluntarilor și multă recunoștință din partea
-  utilizatorilor :) Altfel, definițiile sunt trimise cu titlu anonim.
+  utilizatorilor :) Altfel, definițiile sunt trimise cu titlu anonim.</li>
 
   <li>După ce contribuiți cu cel puțin 100 de definiții,
   puteți cere un cont de moderator. Acesta vă dă dreptul de a
   accepta/respinge definiții trimise de alții, de a corecta
-  greșeli de tipar ș.a.m.d.
+  greșeli de tipar ș.a.m.d.</li>
   </ul>
 
   <p><b>Avem nevoie de adresa dumneavoastră de e-mail</b> pentru a putea
@@ -28,11 +28,11 @@
   invizibilă tuturor în afară de administratorul <i>DEX
   online</i>. Nu aveți nicio grijă, nu vom divulga adresa de e-mail
   nimănui dacă dumneavoastră nu doriți asta. Și noi
-  primim mesaje nesolicitate (spam) și știm ce "plăcere" este.
+  primim mesaje nesolicitate (spam) și știm ce "plăcere" este.</p>
 
-  <p>Acestea fiind zise...
+  <p>Acestea fiind zise...</p>
 
-  <hr/>
+  <hr>
 
   {* Print the error message *}
   {if $send}
@@ -63,7 +63,7 @@
     </b></font>
   {/if}
     
-  <p><form method="post" action="inregistrare">
+  <p><form method="post" action="inregistrare" name="inregistrare">
 
   <table class="userEdit">
   <tr>
@@ -115,4 +115,5 @@
     </td>
   </tr>
   </table>
+  </form>
 {/if}

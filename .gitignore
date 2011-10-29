@@ -2,3 +2,4 @@ dex.conf
 log/
 tools/sql-functions.so
 wwwbase/.htaccess
+*.pyc

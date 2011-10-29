@@ -37,7 +37,7 @@ if ($internalRep) {
   if (!empty($errors)) {
     $hasErrors = true;
     foreach ($errors as $error) {
-      flash_add($error);
+      FlashMessage::add($error);
     }
   }
 }
@@ -68,7 +68,7 @@ if ($lexemNames) {
         }
       } else {
         $hasErrors = true;
-        flash_add("Lexemul <i>".htmlentities($lexemName)."</i> nu există. Folosiți lista de sugestii pentru a-l corecta.");
+        FlashMessage::add("Lexemul <i>".htmlentities($lexemName)."</i> nu există. Folosiți lista de sugestii pentru a-l corecta.");
         $lexems[] = new Lexem($lexemName, 0, '', '');
         // We won't be needing $ldms since there is an error.
       }

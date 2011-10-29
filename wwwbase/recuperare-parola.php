@@ -11,26 +11,26 @@ $submitButton = util_getRequestParameter('submitButton');
 $pt = PasswordToken::get("token = '{$token}'");
 $user = null;
 if (!$pt) {
-  flash_add('Ați introdus un cod de recuperare incorect.');
+  FlashMessage::add('Ați introdus un cod de recuperare incorect.');
 } else if ($pt->createDate < time() - 24 * 3600) {
-  flash_add('Codul de recuperare introdus a expirat.');
+  FlashMessage::add('Codul de recuperare introdus a expirat.');
 } else {
   $user = User::get("id = {$pt->userId}");
   if (!$user) {
-    flash_add('Ați introdus un cod de recuperare incorect.');
+    FlashMessage::add('Ați introdus un cod de recuperare incorect.');
   }
 }
 
 if ($user && $submitButton) {
   if (strlen($password) < 4 || strlen($password) > 16) {
-    flash_add('Parola trebuie să aibă între 4 și 16 caractere.');
+    FlashMessage::add('Parola trebuie să aibă între 4 și 16 caractere.');
   } else if ($password != $password2) {
-    flash_add('Parolele nu coincid.');
+    FlashMessage::add('Parolele nu coincid.');
   } else {
     $user->password = md5($password);
     $user->save();
     $pt->delete();
-    flash_add('Noua parolă a fost salvată.', 'info');
+    FlashMessage::add('Noua parolă a fost salvată.', 'info');
     session_login($user);
   }
 }

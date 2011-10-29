@@ -85,7 +85,7 @@ if (!empty($lexems)) {
   }
 
   if (empty($filtered_lexems)) {
-    flash_add("Niciun rezultat pentru {$cuv}.");
+    FlashMessage::add("Niciun rezultat pentru {$cuv}.");
     smarty_assign('page_title', "Eroare");
   }
 
@@ -120,7 +120,7 @@ if (!empty($lexems)) {
   smarty_assign('onlyParadigm', !$ajax);
 }
 else {
-  flash_add("Niciun rezultat pentru {$cuv}.");
+  FlashMessage::add("Niciun rezultat pentru {$cuv}.");
   smarty_assign('page_title', "Eroare");
 }
 

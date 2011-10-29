@@ -29,7 +29,7 @@ function util_initEverything() {
   $GLOBALS['util_db'] = db_init();
   session_init();
   mc_init();
-  flash_restoreFromSession();
+  FlashMessage::restoreFromSession();
 
   if (util_isWebBasedScript()) {
     smarty_init();
@@ -90,7 +90,6 @@ function util_requireOtherFiles() {
   require_once(pref_getServerPreference('adoDbActiveRecordClass'));
   require_once("$root/phplib/db.php");
   require_once("$root/phplib/debugInfo.php");
-  require_once("$root/phplib/flashMessage.php");
   require_once("$root/phplib/logging.php");
   require_once("$root/phplib/session.php");
   require_once("$root/phplib/smarty.php");
@@ -202,7 +201,7 @@ function util_getRequestCheckboxArray($name, $separator) {
 }
 
 function util_redirect($location) {
-  flash_saveToSession();
+  FlashMessage::saveToSession();
   header("HTTP/1.1 301 Moved Permanently");
   header("Location: $location");
   exit;
@@ -237,7 +236,7 @@ function util_hideEmptyRequestParameters() {
 
 function util_assertModerator($type) {
   if (!util_isModerator($type)) {
-    flash_add('Nu aveți privilegii suficiente pentru a accesa această pagină.');
+    FlashMessage::add('Nu aveți privilegii suficiente pentru a accesa această pagină.');
     util_redirect(util_getWwwRoot());
   }
 }

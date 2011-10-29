@@ -166,7 +166,7 @@ class Lexem extends BaseObject {
         if ($l->modelType == 'T' || ($l->modelType == 'A' && $l->modelNumber = $model->number)) {
           $lexem = $l;
         } else if ($this->isLoc && !$l->isLoc) {
-          flash_add("Lexemul {$l->formNoAccent} ({$l->modelType}{$l->modelNumber}), care nu este în LOC, nu a fost modificat.", 'info');
+          FlashMessage::add("Lexemul {$l->formNoAccent} ({$l->modelType}{$l->modelNumber}), care nu este în LOC, nu a fost modificat.", 'info');
         }
       }
       if ($lexem) {
@@ -175,7 +175,7 @@ class Lexem extends BaseObject {
         $lexem->restriction = '';
         if ($this->isLoc && !$lexem->isLoc) {
           $lexem->isLoc = $this->isLoc;
-          flash_add("Lexemul {$lexem->formNoAccent}, care nu era în LOC, a fost inclus automat în LOC.", 'info');
+          FlashMessage::add("Lexemul {$lexem->formNoAccent}, care nu era în LOC, a fost inclus automat în LOC.", 'info');
         }
         $lexem->noAccent = false;
         $lexem->save();
@@ -189,7 +189,7 @@ class Lexem extends BaseObject {
         foreach ($ldms as $ldm) {
           LexemDefinitionMap::associate($lexem->id, $ldm->definitionId);
         }
-        flash_add("Am creat automat lexemul {$lexem->formNoAccent} (A{$lexem->modelNumber}) și l-am asociat cu toate definițiile verbului.", 'info');
+        FlashMessage::add("Am creat automat lexemul {$lexem->formNoAccent} (A{$lexem->modelNumber}) și l-am asociat cu toate definițiile verbului.", 'info');
       }
       $lexem->regenerateParadigm();
     }
@@ -211,7 +211,7 @@ class Lexem extends BaseObject {
         if ($l->modelType == 'T' || ($l->modelType == 'F' && $l->modelNumber == $model->number)) {
           $lexem = $l;
         } else if ($this->isLoc && !$l->isLoc) {
-          flash_add("Lexemul {$l->formNoAccent} ({$l->modelType}{$l->modelNumber}), care nu este în LOC, nu a fost modificat.", 'info');
+          FlashMessage::add("Lexemul {$l->formNoAccent} ({$l->modelType}{$l->modelNumber}), care nu este în LOC, nu a fost modificat.", 'info');
         }
       }
       if ($lexem) {
@@ -220,7 +220,7 @@ class Lexem extends BaseObject {
         $lexem->restriction = '';
         if ($this->isLoc && !$lexem->isLoc) {
           $lexem->isLoc = $this->isLoc;
-          flash_add("Lexemul {$lexem->formNoAccent}, care nu era în LOC, a fost inclus automat în LOC.", 'info');
+          FlashMessage::add("Lexemul {$lexem->formNoAccent}, care nu era în LOC, a fost inclus automat în LOC.", 'info');
         }
         $lexem->noAccent = false;
         $lexem->save();
@@ -234,7 +234,7 @@ class Lexem extends BaseObject {
         foreach ($ldms as $ldm) {
           LexemDefinitionMap::associate($lexem->id, $ldm->definitionId);
         }
-        flash_add("Am creat automat lexemul {$lexem->formNoAccent} (F{$lexem->modelNumber}) și l-am asociat cu toate definițiile verbului.", 'info');
+        FlashMessage::add("Am creat automat lexemul {$lexem->formNoAccent} (F{$lexem->modelNumber}) și l-am asociat cu toate definițiile verbului.", 'info');
       }
       $lexem->regenerateParadigm();
     }

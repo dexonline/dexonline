@@ -14,9 +14,9 @@ $sourceClause = $sourceId ? "and sourceId = $sourceId" : '';
 $count = db_getSingleValue("select count(*) from Definition where status = 0 {$sourceClause} and binary internalRep like '%{$search}%'");
 if ($count > $MAX_AFFECTED) {
   if ($realRun) {
-    flash_add("{$count} definiții se potrivesc, numai {$MAX_AFFECTED} au fost modificate.", 'info');
+    FlashMessage::add("{$count} definiții se potrivesc, numai {$MAX_AFFECTED} au fost modificate.", 'info');
   } else {
-    flash_add("{$count} definiții se potrivesc, maxim {$MAX_AFFECTED} vor fi modificate.");
+    FlashMessage::add("{$count} definiții se potrivesc, maxim {$MAX_AFFECTED} vor fi modificate.");
   }
 }
 

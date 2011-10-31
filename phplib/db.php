@@ -1,7 +1,12 @@
 <?php
 
 function db_init() {
-  $db = NewADOConnection(pref_getServerPreference('database'));
+  $functestFile = pref_getSectionPreference('functest', 'functestLockFile');
+  if ($functestFile && file_exists($functestFile)) {
+    $db = NewADOConnection(pref_getSectionPreference('functest', 'functestDatabase'));
+  } else {
+    $db = NewADOConnection(pref_getServerPreference('database'));
+  }
   if (!$db) {
     die("Connection failed");
   }

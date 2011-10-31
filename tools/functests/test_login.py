@@ -1,21 +1,40 @@
 # encoding: utf-8
-
-import unittest2 as unittest
-import subprocess
-import tempfile
 from StringIO import StringIO
-import py
-import mechanize
-
-
-_folder = py.path.local(__file__).dirpath().dirpath().dirpath()
-config_path = _folder.join('dex.conf')
-backup_config_path = _folder.join('dex.conf.TESTBAK')
-URL_BASE = 'http://127.0.0.1'
-
-
+import ConfigParser
 import lxml.cssselect
 import lxml.html.soupparser
+import mechanize
+import py
+import re
+import subprocess
+import sys
+import tempfile
+import unittest2 as unittest
+
+
+CONFIG_FILE = py.path.local(__file__).dirpath().dirpath().dirpath().join('dex.conf').strpath
+CONFIG = ConfigParser.ConfigParser()
+CONFIG.read(CONFIG_FILE)
+LOCK_FILE = py.path.local(CONFIG.get('functest', 'functestLockFile'))
+URL_BASE = CONFIG.get('functest', 'baseUrl').strip(' \'"')
+
+def parseDsn(dsn):
+    dsnPattern = re.compile("(^\w+)://(\w+)(:(\w+))?@(\w+)(:(\d+))?/(\w+)$");
+    match = dsnPattern.match(dsn)
+    if match is None:
+        return None
+    groups = match.groups()
+    assert groups[0] == 'mysql' # we can only handle the mysql protocol
+    assert groups[6] is None # we cannot handle port numbers
+    return { 'user': groups[1], 'password': groups[3], 'host': groups[4], 'database': groups[7] }
+
+# Takes a dictionary obtained with parseDsn
+def getMysqlArgs(dict):
+    result = ['-u', dict['user'], '-h', dict['host']]
+    if dict['password'] is not None:
+        result.append('--password="' + dict['password'] + '"')
+    result.append(dict['database'])
+    return result
 
 def parse_html(html):
     return lxml.html.soupparser.fromstring(html)
@@ -24,34 +43,27 @@ def csstext(target, selector):
     sel = lxml.cssselect.CSSSelector(selector)
     return ' '.join(e.text_content() for e in sel(target)).strip()
 
-
 def setUpModule():
-    global orig_config
-    if backup_config_path.check():
+    if LOCK_FILE.check():
         # previous test run did not finish
         tearDownModule()
-    with config_path.open('rb') as f:
-        orig_config = f.read()
-    config_path.rename(backup_config_path)
-    with config_path.open('wb') as f:
-        f.write(orig_config +
-                "\ndatabase = mysql://root@localhost/DEXtest\n")
+    LOCK_FILE.ensure() # touch the lock file
 
-    # TODO use http://docs.python.org/library/configparser
+    # copy the schema from the database
+    mainDbDict = parseDsn(CONFIG.get('global', 'database'))
+    mainDbArgs = getMysqlArgs(mainDbDict)
+    functestDbDict = parseDsn(CONFIG.get('functest', 'functestDatabase'))
+    functestDbArgs = getMysqlArgs(functestDbDict)
 
-    subprocess.check_call(['mysql', '-u', 'root',
-                           '-e', 'create database DEXtest character set utf8'])
-
-    p = subprocess.Popen(['mysqldump', '-u', 'root',
-                          'DEX', '--no-data'], stdout=subprocess.PIPE)
+    subprocess.check_call(['mysql'] + mainDbArgs + ['-e', 'create database %s character set utf8' % functestDbDict['database']])
+    p = subprocess.Popen(['mysqldump'] + mainDbArgs + ['--no-data'], stdout=subprocess.PIPE)
     sql_dump, p_err = p.communicate()
 
     tmp_file = tempfile.TemporaryFile()
     with tmp_file:
         tmp_file.write(sql_dump)
         tmp_file.seek(0)
-        subprocess.check_call(['mysql', '-u', 'root',
-                               'DEXtest'], stdin=tmp_file)
+        subprocess.check_call(['mysql'] + functestDbArgs, stdin=tmp_file)
 
     # create one user for all the tests
     br = mechanize.Browser()
@@ -59,9 +71,10 @@ def setUpModule():
 
 
 def tearDownModule():
-    subprocess.check_call(['mysql', '-u', 'root',
-                           '-e', 'drop database DEXtest'])
-    backup_config_path.rename(config_path)
+    functestDbDict = parseDsn(CONFIG.get('functest', 'functestDatabase'))
+    functestDbArgs = getMysqlArgs(functestDbDict)
+    subprocess.check_call(['mysql'] + functestDbArgs + ['-e', 'drop database if exists %s' % functestDbDict['database']])
+    LOCK_FILE.remove()
 
 
 def click_first(br, **kwargs):

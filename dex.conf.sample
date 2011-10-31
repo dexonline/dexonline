@@ -72,6 +72,22 @@ skins[] = polar
 ; This can be an absolute file name or relative to one of the paths in include_path
 smartyClass = smarty/Smarty.class.php
 
+[functest]
+; URL that the functional test engine will exercise
+; This is the URL you normally go to in development
+; baseUrl = "http://domain.com/path"
+baseUrl = "http://localhost/~user/DEX/wwwbase/"
+
+; Database to use for functional tests.
+; Comment this out in production.
+functestDatabase = mysql://root@localhost/DEXtest
+
+; Lock file to use for functional tests.
+; The testing infrastructure should touch this file at the beginning and delete it at the end.
+; DEX online will read functestDatabase instead of database if this file exists.
+; Comment this out in production.
+functestLockFile = /tmp/dex-functest
+
 [skin-zepu]
 ; Display banners after the search box.
 adsense_mainPage = "id=1220723485&width=728&height=90"

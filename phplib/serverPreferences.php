@@ -34,6 +34,14 @@ function pref_getServerPreference($name) {
   }
 }
 
+function pref_getSectionPreference($section, $name) {
+  if (array_key_exists($section, $GLOBALS['serverPreferences']) && array_key_exists($name, $GLOBALS['serverPreferences'][$section])) {
+    return $GLOBALS['serverPreferences'][$section][$name];
+  } else {
+    return false;
+  }
+}
+
 function pref_isMirror() {
   return pref_getServerPreference('mirror');
 }

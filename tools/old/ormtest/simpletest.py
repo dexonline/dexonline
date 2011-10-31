@@ -1,4 +1,19 @@
 #!/usr/bin/env python
+# To run this script:
+# - move tools/old/ormTest.php into wwwbase/
+# - edit the baseUrl in the PageLoader() constructor in main()
+# - create a virtual environment in the same directory as this file:
+#
+#    virtualenv sandbox
+#
+# - install the required packages:
+#
+#    sandbox/bin/pip install -r requirements.txt
+#
+# - install any additional packages required (e.g. python-mysqldb)
+# - run the benchmark:
+#
+#    sandbox/bin/python simpletest.py
 
 from time import time
 from contextlib import contextmanager
@@ -46,7 +61,7 @@ def timer():
 
 
 def main():
-    loader = PageLoader('http://localhost/')
+    loader = PageLoader('http://localhost/~cata/DEX2/wwwbase')
     lexems = iter(get_random_lexems())
 
     adodb = idiorm = 0

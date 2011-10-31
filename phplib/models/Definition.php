@@ -130,7 +130,7 @@ echo "</pre>";*/
       return db_find(new Definition(), "lexicon $collate $regexp and status = " . ST_DELETED . " and createDate between $beginTime and $endTime " .
                      "$sourceClause $userClause order by lexicon, sourceId limit 500");
     } else {
-      $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
+      $field = 'formNoAccent';
       $dbResult = db_execute("select distinct Definition.* from Lexem join LexemDefinitionMap on Lexem.id = LexemDefinitionMap.lexemId " .
                              "join Definition on LexemDefinitionMap.definitionId = Definition.id where $field $regexp " .
                              "and Definition.status = $status and Definition.createDate >= $beginTime and Definition.createDate <= $endTime " .

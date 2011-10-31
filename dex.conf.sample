@@ -1,5 +1,6 @@
 ; Configuration file for a DEX online installation
 
+[global]
 ; Locations of the AdoDB and AdoDB Active Record files.
 ; These can be absolute file names or relative to one of the paths in include_path
 adoDbActiveRecordClass = adodb/adodb-active-record.inc.php

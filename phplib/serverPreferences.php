@@ -7,22 +7,27 @@ pref_parsePreferenceFile();
 
 function pref_parsePreferenceFile() {
   $raw = parse_ini_file(util_getRootPath() . "dex.conf", true);
-  $processed = array();
-  foreach ($raw as $key => $value) {
+  _pref_traverseRecursivePreferences($raw);
+  $GLOBALS['serverPreferences'] = $raw;
+}
+
+function _pref_traverseRecursivePreferences(&$pref) {
+  foreach ($pref as $key => $value) {
     if (is_array($value)) {
-      $processed[$key] = array();
-      foreach ($value as $key2 => $value2) {
-        $processed[$key][$key2] = (strpos($value2, '&') === false) ? $value2 : StringUtil::parseStr($value2);
-      }
+      _pref_traverseRecursivePreferences($value);
+      $pref[$key] = $value;
     } else {
-      $processed[$key] = (strpos($value, '&') === false) ? $value : StringUtil::parseStr($value);
+      $pref[$key] = (strpos($value, '&') === false) ? $value : StringUtil::parseStr($value);
     }
   }
-  $GLOBALS['serverPreferences'] = $processed;
 }
 
 function pref_getServerPreference($name) {
-  if (array_key_exists($name, $GLOBALS['serverPreferences'])) {
+  if (array_key_exists('global', $GLOBALS['serverPreferences']) && array_key_exists($name, $GLOBALS['serverPreferences']['global'])) {
+    return $GLOBALS['serverPreferences']['global'][$name];
+  } else if (array_key_exists($name, $GLOBALS['serverPreferences'])) {
+    // DEPRECATED. Python requires all INI file options to be contained in sections
+    // We don't mind that, but we offer a fallback until people upgrade to the new config.
     return $GLOBALS['serverPreferences'][$name];
   } else {
     return false;

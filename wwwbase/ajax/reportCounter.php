@@ -13,7 +13,8 @@ switch($reportId) {
   case 'lexemsWithComments': echo db_getSingleValue("select count(*) from Lexem where comment != ''"); break;
   case 'lexemsWithoutAccents': echo db_getSingleValue("select count(*) from Lexem where form not rlike '\'' and not noAccent"); break;
   case 'wotd': echo db_getSingleValue("select count(*) from WordOfTheDay"); break;
-  case 'definitionsWithAmbiguousAbbrev': echo db_getSingleValue("select count(*) from Definition where abbrevReview = " . ABBREV_AMBIGUOUS); break;
+  case 'definitionsWithAmbiguousAbbrev':
+    echo db_getSingleValue("select count(*) from Definition where status != " . ST_DELETED . " and abbrevReview = " . ABBREV_AMBIGUOUS); break;
   case 'ambiguousLexems': // This one is expensive
     echo db_getSingleValue("select count(*) from (select id from Lexem where description = '' group by form having count(*) > 1) as t1");
     break;

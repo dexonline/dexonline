@@ -37,7 +37,7 @@ if ($submitButton) {
 
 $MARKER = 'DEADBEEF'; // any string that won't occur naturally in a definition
 
-$def = Definition::get('abbrevReview = 1 order by rand() limit 1');
+$def = Definition::get('status != ' . ST_DELETED . ' and abbrevReview = ' . ABBREV_AMBIGUOUS . ' order by rand() limit 1');
 
 if ($def) {
   // Collect the positions of ambiguous abbreviations

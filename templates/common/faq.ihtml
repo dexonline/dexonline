@@ -543,7 +543,7 @@
   toate definițiile și cuvintele care s-au modificat de la data
   <i>X</i>”. Puteți deci scrie un client care se conectează periodic
   la <i>DEX online</i> pentru a transfera ultimele noutăți. Pentru mai
-  multe informații, citiți <a href="update3.php">documentația</a>
+  multe informații, citiți <a href="update4.php">documentația</a>
   protocolului de sincronizare.
 
 <h3><a name="scramble"></a>Am contribuit la <i>DEX online</i>, dar adresa mea de e-mail e scrisă greșit!</h3>

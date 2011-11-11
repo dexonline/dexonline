@@ -1,14 +1,13 @@
 <?php
 require_once "../phplib/util.php";
-$dbResult = db_execute("select * from Definition where sourceId = 33 and status = 0 order by id");
+$dbResult = db_execute("select id from Definition where sourceId = 33 and status = 0 order by id", PDO::FETCH_ASSOC);
 
 $i = 0;
 $modified = 0;
 $ambiguousDefinitions = 0;
 $ambiguities = 0;
-while (!$dbResult->EOF) {
-  $def = new Definition();
-  $def->set($dbResult->fields);
+foreach ($dbResult as $row) {
+  $def = Definition::get_by_id($row['id']);
   $ambiguousMatches = array();
   // Remove existing hash signs
   $newRep = str_replace('#', '', $def->internalRep);
@@ -34,7 +33,6 @@ while (!$dbResult->EOF) {
     $def->abbrevReview = ABBREV_REVIEW_COMPLETE;
   }
   $def->save();
-  $dbResult->MoveNext();
   $i++;
   if ($i % 1000 == 0) {
     print "$i definitions reprocessed, $modified modified, $ambiguousDefinitions ambiguous with $ambiguities ambiguities.\n";

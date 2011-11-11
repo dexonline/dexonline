@@ -14,7 +14,7 @@ require_once("../phplib/ads/{$provider}/{$provider}AdsModule.php");
 
 if ($provider == 'diverta') {
   $bookId = util_getRequestParameter('bookId');
-  $book = DivertaBook::get("id = '{$bookId}'");
+  $book = DivertaBook::get_by_id($bookId);
   if (!$book) {
     exit;
   }

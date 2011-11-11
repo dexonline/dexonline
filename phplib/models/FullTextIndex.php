@@ -1,16 +1,19 @@
 <?php
 
 class FullTextIndex extends BaseObject {
-  // Takes a comma-separated string of lexem ids
+  public static $_table = 'FullTextIndex';
+
   public static function loadDefinitionIdsForLexems($lexemIds) {
-    if (!$lexemIds) {
+    if (empty($lexemIds)) {
       return array();
     }
-    return db_getArray(db_execute("select distinct definitionId from FullTextIndex where lexemId in ($lexemIds) order by definitionId"));
+    $query = 'select distinct definitionId from FullTextIndex where lexemId in (' . join(',', $lexemIds) . ') order by definitionId';
+    return db_getArray($query);
   }
 
   public static function loadPositionsByLexemIdsDefinitionId($lexemIds, $defId) {
-    return db_getArray(db_execute("select distinct position from FullTextIndex where lexemId in ($lexemIds) and definitionId = $defId order by position"));
+    return db_getArray('select distinct position from FullTextIndex where lexemId in (' . join(',', $lexemIds) .
+                       ") and definitionId = $defId order by position");
   }
 }
 

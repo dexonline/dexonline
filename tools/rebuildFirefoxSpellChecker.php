@@ -11,12 +11,11 @@ OS::executeAndAssert("mkdir $tmpDir/dictionaries");
 OS::executeAndAssert("echo 'SET UTF-8' > $tmpDir/dictionaries/ro-dex.aff");
 OS::executeAndAssert("cp ../docs/install.rdf $tmpDir/");
 
-$mysqlFile = tempnam('/tmp', 'mysql_');
-$query = "select distinct formNoAccent from InflectedForm " .
-  "where formNoAccent rlike '^[a-zăâîșț]+$' " .
-  "into outfile '$mysqlFile'";
+$mysqlFile = '/tmp/mysql_firefox.sql';
+util_deleteFile($mysqlFile);
+$query = "select distinct formNoAccent from InflectedForm where formNoAccent rlike '^[a-zăâîșț]+$' into outfile '$mysqlFile'";
 log_scriptLog("Running mysql query: [$query]");
-mysql_query($query);
+db_execute($query);
 
 log_scriptLog("Prepending line count");
 OS::executeAndAssert("wc -l $mysqlFile | cut -d ' ' -f 1 > $tmpDir/dictionaries/ro-dex.dic");

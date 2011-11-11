@@ -1,7 +1,7 @@
 <?php
 require_once("../phplib/util.php");
 
-$lvs = pref_getLocVersions();
+$lvs = array_reverse(pref_getLocVersions());
 if (count($lvs) < 2) {
   die("ERROR: You need at least two LOC versions in dex.conf: " .
       "one that indicates the version to be frozen and " .
@@ -53,7 +53,7 @@ if ($currentLv->freezeTimestamp) {
 // Now create a database for $lvToFreeze and copy the relevant tables there.
 $dbName = $locDbPrefix . $lvToFreeze->getDbName();
 print "Creating database $dbName\n";
-mysql_query("create database $dbName");
+db_execute("create database $dbName");
 $fileName = tempnam('/tmp', 'freeze_');
 print "Dumping tables to $fileName\n";
 $tablesToDump = "ConstraintMap Inflection Lexem ModelDescription ModelType Model ParticipleModel Transform InflectedForm";
@@ -68,10 +68,8 @@ print "Success!\n";
 /****************************************************************************/
 
 function databaseExists($dbName) {
-  $query = "show databases like '$dbName'";
-  $numRows = mysql_num_rows(mysql_query($query));
-  assert($numRows == 0 || $numRows == 1);
-  return $numRows;
+  $r = ORM::for_table('Definition')->raw_query("show databases like '$dbName'", null)->find_one();
+  return ($r !== false);
 }
 
 ?>

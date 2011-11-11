@@ -1,5 +1,6 @@
 # encoding: utf-8
 from StringIO import StringIO
+import nose
 import ConfigParser
 import lxml.cssselect
 import lxml.html.soupparser
@@ -10,7 +11,6 @@ import subprocess
 import sys
 import tempfile
 import unittest2 as unittest
-
 
 CONFIG_FILE = py.path.local(__file__).dirpath().dirpath().dirpath().join('dex.conf').strpath
 CONFIG = ConfigParser.ConfigParser()
@@ -42,6 +42,10 @@ def parse_html(html):
 def csstext(target, selector):
     sel = lxml.cssselect.CSSSelector(selector)
     return ' '.join(e.text_content() for e in sel(target)).strip()
+
+def assertElementExists(page, selector):
+    sel = lxml.cssselect.CSSSelector(selector)
+    assert len(sel(page)) == 1
 
 def setUpModule():
     if LOCK_FILE.check():
@@ -84,12 +88,12 @@ def click_first(br, **kwargs):
     return resp
 
 
-def create_account(br, nick, email, password):
+def create_account(br, nick, email, password, password2 = None):
     br.open(URL_BASE + '/inregistrare').read()
-    br.select_form(name="inregistrare")
+    br.select_form(name='inregistrare')
     br['nick'] = nick
     br['password'] = password
-    br['password2'] = password
+    br['password2'] = password2 if password2 else password
     br['email'] = email
     resp = br.submit()
     return resp
@@ -98,14 +102,54 @@ def create_account(br, nick, email, password):
 def log_in(br, email, password):
     br.open(URL_BASE + '/')
     click_first(br, text_regex='^Conectare$')
-    br.select_form(name="loginForm")
+    br.select_form(name='loginForm')
     br['email'] = email
     br['password'] = password
     resp = br.submit()
     return resp
 
+# Note that we can only set/get the first checkbox in an array of 5 checkboxes all having the name "userPrefs[]"
+# This seems to be a bug in mechanize:
+#   forms = [f for f in br.forms()]
+#   print forms[1].controls
+# This prints a bunch of text/password controls, but only ONE CheckboxControl
+def edit_account(br, nick, password, new_password, new_password2, name, email, design, pref_st):
+    br.open(URL_BASE + '/contul-meu').read()
+    br.select_form(name='accountForm')
+    if nick: br['nick'] = nick
+    if password: br['curPass'] = password
+    if new_password: br['newPass'] = new_password
+    if new_password2: br['newPass2'] = new_password2
+    if name: br['name'] = name
+    if email: br['email'] = email
+    if design: br['skin'] = [design]
+    if pref_st is not None: br.find_control('userPrefs[]').items[0].selected = pref_st
+    resp = br.submit()
+    return resp
 
 class LoginTest(unittest.TestCase):
+
+    def test_register_bad_info(self):
+        br = mechanize.Browser()
+        resp = create_account(br, '', '', '')
+        html = resp.read()
+        self.assertIn('Trebuie să vă alegeți un nume de cont', html)
+
+        resp = create_account(br, 'john', '', '')
+        html = resp.read()
+        self.assertIn('Trebuie să vă alegeți o parolă', html)
+
+        resp = create_account(br, 'john', 'john@john.com', 'password', 'mismatched password')
+        html = resp.read()
+        self.assertIn('Parolele nu coincid', html)
+
+        resp = create_account(br, 'vasile', 'john@john.com', 'password')
+        html = resp.read()
+        self.assertIn('Acest nume de cont este deja folosit', html)
+
+        resp = create_account(br, 'john', 'vasile@example.com', 'password')
+        html = resp.read()
+        self.assertIn('Această adresă de e-mail este deja folosită', html)
 
     def test_create_account(self):
         br = mechanize.Browser()
@@ -120,8 +164,7 @@ class LoginTest(unittest.TestCase):
         br = mechanize.Browser()
         resp = log_in(br, 'vasile@example.com', 'p@ssw0rd')
         page = parse_html(resp.read())
-        self.assertEqual(csstext(page, 'ul#userMenu li#userNick > a'),
-                         "vasile")
+        self.assertEqual(csstext(page, 'ul#userMenu li#userNick > a'), 'vasile')
 
     def test_log_out(self):
         br = mechanize.Browser()
@@ -130,3 +173,21 @@ class LoginTest(unittest.TestCase):
         html = resp.read()
         self.assertNotIn('vasile', html)
         self.assertIn('Anonim', html)
+
+    def test_my_account(self):
+        br = mechanize.Browser()
+        log_in(br, 'vasile@example.com', 'p@ssw0rd')
+        resp = edit_account(br, nick = None, password = None, new_password = None, new_password2 = None,
+                            name = None, email = None, design = None, pref_st = None)
+        html = resp.read()
+        self.assertIn('Parola actuală este incorectă', html)
+
+        resp = edit_account(br, nick = None, password = 'p@ssw0rd', new_password = None, new_password2 = None,
+                            name = 'Vasile Popescu', email = None, design = 'polar', pref_st = True)
+        html = resp.read()
+        page = parse_html(html)
+        # Note the ţ instead of ț below, since we checked cb_CEDILLA_BELOW
+        self.assertEqual(csstext(page, 'div.flashMessage'), u'Informaţiile au fost salvate.')
+        assertElementExists(page, 'input[name=name][value="Vasile Popescu"]')
+        assertElementExists(page, 'input#cb_CEDILLA_BELOW[checked=checked]')
+        self.assertEqual(csstext(page, 'select[name=skin] option[selected=selected]'), 'Polar')

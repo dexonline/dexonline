@@ -3,13 +3,13 @@ require_once("../../phplib/util.php");
 ini_set('max_execution_time', '3600');
 util_assertModerator(PRIV_LOC);
 util_assertNotMirror();
-debug_off();
+DebugInfo::disable();
 
 $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
 $deleteButton = util_getRequestParameter('deleteButton');
 
-$model = Model::get("modelType = '{$modelType}' and number = '{$modelNumber}'");
+$model = Model::factory('FlexModel')->where('modelType', $modelType)->where('number', $modelNumber)->find_one();
 $lexems = Lexem::loadByCanonicalModel($modelType, $modelNumber);
 
 if ($deleteButton) {

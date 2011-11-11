@@ -44,12 +44,10 @@ smarty_displayCommonPageWithSkin('scrabble-loc.ihtml');
 
 function writeLexems($locVersion, $fileName) {
   LocVersion::changeDatabase($locVersion);
-  $dbResult = db_execute(DB_QUERY);
+  $dbResult = db_execute(DB_QUERY, PDO::FETCH_ASSOC);
   $handle = fopen($fileName, 'w');
-  while (!$dbResult->EOF) {
-    $l = new Lexem();
-    $l->set($dbResult->fields);
-    $dbResult->MoveNext();
+  foreach ($dbResult as $row) {
+    $l = Model::factory('Lexem')->create($row);
     fprintf($handle, AdminStringUtil::padRight(mb_strtoupper($l->form), 20));
     fprintf($handle, AdminStringUtil::padRight($l->modelType, 4));
     fprintf($handle, AdminStringUtil::padRight($l->modelNumber, 8));

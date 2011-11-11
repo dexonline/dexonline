@@ -1,87 +1,48 @@
 <?php
 
 class WordOfTheDay extends BaseObject {
-    public static function get($where) {
-        $obj = new WordOfTheDay();
-        $obj = load($where);
-        return $obj->id ? $obj : null;
-    }
+  public static $_table = 'WordOfTheDay';
 
-    public static function getRSSWotD() {
-        $query = "SELECT * FROM WordOfTheDay WHERE displayDate > '2011-01-01' AND displayDate < NOW() ORDER BY displayDate DESC LIMIT 25";
-        $dbResult = db_execute($query);
-        return db_getObjects(new WordOfTheDay(), $dbResult);
-    }
+  public static function getRSSWotD() {
+    return Model::factory('WordOfTheDay')->where_gt('displayDate', '2011-01-01')->where_raw('displayDate < NOW()')
+      ->order_by_desc('displayDate')->limit(25)->find_many();
+  }
 
-/*
-    public static function getArchiveWotD() {
-        $query = "SELECT displayDate, lexicon, replace(displayDate, '-', '/') linkDate FROM WordOfTheDay W
-        JOIN WordOfTheDayRel R ON W.id=R.wotdId
-        JOIN Definition D ON R.refId=D.id AND D.status=0 AND R.refType='Definition'
-        WHERE displayDate BETWEEN DATE_ADD(LAST_DAY(DATE_SUB(NOW(), INTERVAL 2 MONTH)), INTERVAL 1 DAY) AND  NOW()
-        ORDER BY displayDate DESC";
-
-        $dbRes = db_execute($query);
-        $dbResult = db_getObjects(new WotDArchive(), $dbRes);
-
-        return $dbResult;
-    }
-*/
-
-    public static function getArchiveWotD($year, $month) {
-        $query = "SELECT displayDate, lexicon, replace(displayDate, '-', '/') linkDate, DAYOFWEEK(displayDate) dayOfWeek, DAYOFMONTH(displayDate) dayOfMonth 
+  public static function getArchiveWotD($year, $month) {
+    $query = "SELECT displayDate, lexicon, replace(displayDate, '-', '/') linkDate, DAYOFWEEK(displayDate) dayOfWeek, DAYOFMONTH(displayDate) dayOfMonth 
         FROM WordOfTheDay W
         JOIN WordOfTheDayRel R ON W.id=R.wotdId
         JOIN Definition D ON R.refId=D.id AND D.status=0 AND R.refType='Definition'
         WHERE MONTH(displayDate)={$month} AND YEAR(displayDate)={$year}
         ORDER BY displayDate"; //TODO
-        $dbRes = db_execute($query);
-        $dbResult = db_getObjects(new WotDArchive(), $dbRes);
-
-        return $dbResult;
+    $dbRes = db_execute($query);
+    $results = array();
+    foreach ($dbRes as $row) {
+      $wotda = new WotDArchive();
+      $wotda->set($row);
+      $results[] = $wotda;
     }
 
-    public function getTodaysWord() {
-        $query = "select id from WordOfTheDay where displayDate=curdate()";
-        $dbResult = db_execute($query);
-        return $dbResult ? $dbResult->fields('id') : NULL;
-    }
+    return $results;
+  }
 
-    public function getOldWotD($date) {
-        $query = "select id from WordOfTheDay where displayDate='$date'";
-        $dbResult = db_execute($query);
-        return $dbResult ? $dbResult->fields('id') : NULL;
-    }
+  public static function getTodaysWord() {
+    return Model::factory('WordOfTheDay')->select('id')->where_raw('displayDate = curdate()')->find_one();
+  }
 
-    public function updateTodaysWord() {
-        $query = "update WordOfTheDay set displayDate=CURDATE() where displayDate is null order by priority, rand() limit 1";
-        db_execute($query);
-    }
+  public static function getOldWotD($date) {
+    return WordOfTheDay::get_by_displayDate($date);
+  }
 
-    public static function getStatus($refId, $refType = 'Definition') {
-        $query = "SELECT W.id from WordOfTheDay W JOIN WordOfTheDayRel R ON W.id=R.wotdId WHERE R.refId = $refId AND refType='$refType'";
-        $dbResult = db_execute($query);
-        return $dbResult ? $dbResult->fields('id') : NULL;
-    }
+  public static function updateTodaysWord() {
+    db_execute('update WordOfTheDay set displayDate=curdate() where displayDate is null order by priority, rand() limit 1');
+  }
 
-    public function save($userId = NULL) {
-        $this->userId = $userId ? $userId : session_getUserId();
-        parent::save();
-
-        $obj = new WordOfTheDayRel();
-        $obj->refId = $this->defId;
-        if ($this->refType == null){
-             $obj->refType = 'Definition';
-        } else {
-             $obj->refType = $this->refType;
-        }
-
-        $obj->wotdId = $this->id;
-        $obj->save();
-
-        return $obj;
-    }
-
+  public static function getStatus($refId, $refType = 'Definition') {
+    $result = Model::factory('WordOfTheDay')->table_alias('W')->select('W.id')->join('WordOfTheDayRel', 'W.id = R.wotdId', 'R')
+      ->where('R.refId', $refId)->where('refType', $refType)->find_one();
+    return $result ? $result->id : NULL;
+  }
 }
 
 ?>

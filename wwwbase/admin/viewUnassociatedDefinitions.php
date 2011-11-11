@@ -5,7 +5,7 @@ util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 RecentLink::createOrUpdate('Definiții neasociate');
 
-$defs = db_find(new Definition(), "status != 2 and id not in (select definitionId from LexemDefinitionMap)");
+$defs = Model::factory('Definition')->where_raw("status != 2 and id not in (select definitionId from LexemDefinitionMap)")->find_many();
 
 smarty_assign('searchResults', SearchResult::mapDefinitionArray($defs));
 smarty_assign('sectionTitle', 'Definiții neasociate');

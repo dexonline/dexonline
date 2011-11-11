@@ -11,7 +11,7 @@ $sourceId = util_getRequestParameter('source');
 $realRun = util_getRequestParameter('realRun');
 
 $sourceClause = $sourceId ? "and sourceId = $sourceId" : '';
-$count = db_getSingleValue("select count(*) from Definition where status = 0 {$sourceClause} and binary internalRep like '%{$search}%'");
+$count = Model::factory('Definition')->where_raw("status = 0 {$sourceClause} and binary internalRep like '%{$search}%'")->count();
 if ($count > $MAX_AFFECTED) {
   if ($realRun) {
     FlashMessage::add("{$count} definiții se potrivesc, numai {$MAX_AFFECTED} au fost modificate.", 'info');
@@ -20,7 +20,8 @@ if ($count > $MAX_AFFECTED) {
   }
 }
 
-$defs = db_find(new Definition(), "status = 0 {$sourceClause} and binary internalRep like '%{$search}%' order by id limit {$MAX_AFFECTED}");
+$defs = Model::factory('Definition')->where_raw("status = 0 {$sourceClause} and binary internalRep like '%{$search}%'")->order_by_asc('id')
+  ->limit($MAX_AFFECTED)->find_many();
 $searchResults = SearchResult::mapDefinitionArray($defs);
 
 foreach ($defs as $def) {

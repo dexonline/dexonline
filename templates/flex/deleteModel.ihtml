@@ -14,7 +14,7 @@
     {include file="admin/recentlyVisited.ihtml"}
     {include file="common/errorMessage.ihtml"}
 
-    <form action="deleteModel.php" method="post">
+    <form action="deleteModel.php" method="post" onsubmit="this.bogusButton.disabled = true;">
       <input type="hidden" name="modelType" value="{$modelType}"/>
       <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
 
@@ -37,9 +37,8 @@
        <br/>
 
       <!-- We want to disable the button on click, but still submit a value -->
-      <input type="hidden" name="deleteButton" value=""/>
-      <input type="submit" name="bogusButton" value="Confirmă"
-             onclick="this.disabled=true; this.parentNode.deleteButton.value = '1';"/>
+      <input type="hidden" name="deleteButton" value="1"/>
+      <input type="submit" name="bogusButton" value="Confirmă"/>
     </form>
   </body>
 </html>

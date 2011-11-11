@@ -25,7 +25,7 @@ if ($loginButton) {
   } else if ($password == '') {
     FlashMessage::add('Trebuie să introduceți parola.');
   } else {
-    $user = User::get(sprintf("password = '%s' and (email = '%s' or nick = '%s')", md5($password), $nickOrEmail, $nickOrEmail));
+    $user = Model::factory('User')->where('password', md5($password))->where_raw("(email = '{$nickOrEmail}' or nick = '{$nickOrEmail}')")->find_one();
     if ($user) {
       session_login($user);
       util_redirect($target);
@@ -38,11 +38,11 @@ if ($loginButton) {
   if ($nickOrEmail == '') {
     FlashMessage::add('Pentru a vă reseta parola, trebuie să introduceți adresa de email.');
   } else {
-    $user = User::get("email = '$nickOrEmail'");
+    $user = User::get_by_email($nickOrEmail);
     if ($user) {
       log_userLog("Password recovery requested for $nickOrEmail from " . $_SERVER['REMOTE_ADDR']);
       // Create the token
-      $pt = new PasswordToken();
+      $pt = Model::factory('PasswordToken')->create();
       $pt->userId = $user->id;
       $pt->token = util_randomCapitalLetterString(20);
       $pt->save();

@@ -12,7 +12,7 @@
     {include file="admin/header.ihtml"
              title="$sectionTitle"
              items="$searchResults"
-			 showSources="true"}
+             showSources="true"}
 
     {include file="admin/recentlyVisited.ihtml"}
 

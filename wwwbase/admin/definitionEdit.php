@@ -20,9 +20,9 @@ if (!$definitionId) {
   return;
 }
 
-$definition = Definition::get("id = {$definitionId}");
-$comment = Comment::get("definitionId = '{$definitionId}' and status = " . ST_ACTIVE);
-$commentUser = $comment ? User::get("id = {$comment->userId}") : null;
+$definition = Definition::get_by_id($definitionId);
+$comment = Model::factory('Comment')->where('definitionId', $definitionId)->where('status', ST_ACTIVE)->find_one();
+$commentUser = $comment ? User::get_by_id($comment->userId) : null;
 $oldInternalRep = $definition->internalRep;
 
 if ($associateLexemId) {
@@ -63,25 +63,25 @@ if ($lexemNames) {
           if (!in_array($match->id, $lexemIds)) {
             $lexemIds[] = $match->id;
             $lexems[] = $match;
-            $ldms[] = new LexemDefinitionMap($match->id, $definitionId);
+            $ldms[] = LexemDefinitionMap::create($match->id, $definitionId);
           }
         }
       } else {
         $hasErrors = true;
         FlashMessage::add("Lexemul <i>".htmlentities($lexemName)."</i> nu există. Folosiți lista de sugestii pentru a-l corecta.");
-        $lexems[] = new Lexem($lexemName, 0, '', '');
+        $lexems[] = Lexem::create($lexemName, 0, '', '');
         // We won't be needing $ldms since there is an error.
       }
     }
   }
 } else {
-  $dbResult = db_execute("select Lexem.* from Lexem, LexemDefinitionMap where Lexem.id = lexemId and definitionId = {$definitionId}");
-  $lexems = db_getObjects(new Lexem(), $dbResult);
+  $lexems = Model::factory('Lexem')->select('Lexem.*')->join('LexemDefinitionMap', 'Lexem.id = lexemId')->where('definitionId', $definitionId)->find_many();
 }
 
 if ($commentContents) {
   if (!$comment) {
-    $comment = new Comment();
+    $comment = Model::factory('comment')->create();
+    $commend->status = ST_ACTIVE;
     $comment->definitionId = $definitionId;
   }
   $newContents = AdminStringUtil::internalizeDefinition($commentContents, $sourceId);
@@ -114,12 +114,12 @@ if (($acceptButton || $moveButton) && !$hasErrors) {
 
   if ($definition->status == ST_DELETED) {
     // If by deleting this definition, any associated lexems become unassociated, delete them
-    $ldms = db_find(new LexemDefinitionMap(), "definitionId = {$definition->id}");
+    $ldms = LexemDefinitionMap::get_all_by_definitionId($def->id);
     db_execute("delete from LexemDefinitionMap where definitionId = {$definition->id}");
 
     foreach ($ldms as $ldm) {
-      $l = Lexem::get("id = {$ldm->lexemId}");
-      $otherLdms = db_find(new LexemDefinitionMap(), "lexemId = {$l->id}");
+      $l = Lexem::get_by_id($ldm->lexemId);
+      $otherLdms = LexemDefinitionMap::get_all_by_lexemId($l->id);
       if (!$l->isLoc && !count($otherLdms)) {
         $l->delete();
       }
@@ -135,7 +135,7 @@ if (($acceptButton || $moveButton) && !$hasErrors) {
   util_redirect('definitionEdit.php?definitionId=' . $definitionId);
 }
 
-$source = Source::get("id={$definition->sourceId}");
+$source = Source::get_by_id($definition->sourceId);
 
 if (!$refreshButton && !$acceptButton && !$moveButton) {
   // If a button was pressed, then this is a POST request and the URL
@@ -145,14 +145,14 @@ if (!$refreshButton && !$acceptButton && !$moveButton) {
 
 smarty_assign('def', $definition);
 smarty_assign('source', $source);
-smarty_assign('user', User::get("id = {$definition->userId}"));
+smarty_assign('user', User::get_by_id($definition->userId));
 smarty_assign('comment', $comment);
 smarty_assign('commentUser', $commentUser);
 smarty_assign('lexems', $lexems);
-smarty_assign('typos', db_find(new Typo(), "definitionId = {$definition->id}"));
+smarty_assign('typos', Typo::get_all_by_definitionId($definition->id));
 smarty_assign('homonyms', loadSetHomonyms($lexems));
 smarty_assign("allStatuses", util_getAllStatuses());
-smarty_assign("allModeratorSources", db_find(new Source(), 'canModerate order by displayOrder'));
+smarty_assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 smarty_assign('recentLinks', RecentLink::loadForUser());
 smarty_displayWithoutSkin('admin/definitionEdit.ihtml');
 
@@ -166,10 +166,10 @@ function loadSetHomonyms($lexems) {
   $names = array();
   $ids = array();
   foreach ($lexems as $l) {
-    $names[] = "'{$l->formNoAccent}'";
-    $ids[] = "'{$l->id}'";
+    $names[] = $l->formNoAccent;
+    $ids[] = $l->id;
   }
-  return db_find(new Lexem(), sprintf("formNoAccent in (%s) and id not in (%s)", join(',', $names), join(',', $ids)));
+  return Model::factory('Lexem')->where_in('formNoAccent', $names)->where_not_in('id', $ids)->find_many();
 }
 
 ?>

@@ -13,10 +13,10 @@ util_assertNotMirror();
 // Parse or initialize the GET/POST arguments
 $problem = util_getRequestParameter('problem');
 $definitionId = util_getRequestIntParameter('definitionId');
-$definition = Definition::get("id = {$definitionId}");
+$definition = Definition::get_by_id($definitionId);
 
 if ($problem && $definitionId) {
-  $typo = new Typo();
+  $typo = Model::factory('Typo')->create();
   $typo->definitionId = $definitionId;
   $typo->problem = $problem;
   $typo->save();

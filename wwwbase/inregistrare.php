@@ -52,17 +52,17 @@ if ($sendButton) {
 
   // Connect to the database and verify that there are no duplicates.
   // The email address and nickname must be unique.
-  if ($error == OK && User::get("nick = '$nick'")) {
+  if ($error == OK && User::get_by_nick($nick)) {
     $error = ERR_NICK_TAKEN;
   }
 
-  if ($error == OK && User::get("email = '$email'")) {
+  if ($error == OK && User::get_by_email($email)) {
     $error = ERR_EMAIL_TAKEN;
   }
 
   // Things are swell, create account and display acknowledgement
   if ($error == OK) {
-    $user = new User();
+    $user = Model::factory('User')->create();
     $user->nick = $nick;
     $user->name = $name;
     $user->email = $email;

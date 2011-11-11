@@ -4,7 +4,7 @@ ini_set('memory_limit', '512M');
 ini_set('max_execution_time', '3600');
 util_assertModerator(PRIV_LOC);
 util_assertNotMirror();
-debug_off();
+DebugInfo::disable();
 
 $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
@@ -13,11 +13,11 @@ $confirmButton = util_getRequestParameter('confirmButton');
 
 $modelType = ModelType::canonicalize($modelType);
 
-$inflections = db_find(new Inflection(), "modelType = '{$modelType}' order by rank");
+$inflections = Model::factory('Inflection')->where('modelType', $modelType)->order_by_asc('rank')->find_many();
 // Load the original data
-$model = Model::get("modelType = '{$modelType}' and number = '{$modelNumber}'");
+$model = Model::factory('FlexModel')->where('modelType', $modelType)->where('number', $modelNumber)->find_one();
 $exponent = $model->exponent;
-$lexem = new Lexem($exponent, $modelType, $modelNumber, '');
+$lexem = Lexem::create($exponent, $modelType, $modelNumber, '');
 $ifs = $lexem->generateParadigm();
 $mdMap = ModelDescription::getByModelIdMapByInflectionIdVariantApplOrder($model->id);
 $forms = array();
@@ -58,7 +58,7 @@ $exponentChanged = ($exponent != $newExponent && !$exponentAccentAdded);
 $errorMessage = array();
 if ($newModelNumber != $modelNumber) {
   // Disallow duplicate model numbers
-  $m = Model::loadCanonicalByTypeNumber($modelType, $newModelNumber);
+  $m = FlexModel::loadCanonicalByTypeNumber($modelType, $newModelNumber);
   if ($m) {
     $errorMessage[] = "Modelul $modelType$newModelNumber există deja.";
   }
@@ -155,7 +155,7 @@ if ($previewButton || $confirmButton) {
           $t = $transforms[$i];
           // Make sure the transform has an ID.
           $t = Transform::createOrLoad($t->transfFrom, $t->transfTo);
-          $md = new ModelDescription();
+          $md = Model::factory('ModelDescription')->create();
           $md->modelId = $model->id;
           $md->inflectionId = $inflId;
           $md->variant = $variant;
@@ -174,7 +174,8 @@ if ($previewButton || $confirmButton) {
     // Set the isLoc bits appropriately
     foreach ($newForms as $inflId => $tupleArray) {
       foreach ($tupleArray as $variant => $tuple) {
-        $md = ModelDescription::get("modelId = {$model->id} and inflectionId = {$inflId} and variant = {$variant} and applOrder = 0");
+        $md = Model::factory('ModelDescription')->where('modelId', $model->id)->where('inflectionId', $inflId)->where('variant', $variant)
+          ->where('applOrder', 0)->find_one();
         $md->isLoc = $tuple['isLoc'];
         $md->recommended = $tuple['recommended'];
         $md->save();
@@ -243,7 +244,7 @@ if ($previewButton || $confirmButton) {
 }
 
 if ($modelType == 'V') {
-  smarty_assign('adjModels', Model::loadByType('A'));
+  smarty_assign('adjModels', FlexModel::loadByType('A'));
 }
 
 $inputValues = array();
@@ -311,10 +312,10 @@ function anyAccents($v) {
 // Assumes that $participleNumber is the correct participle (adjective) model for $modelNumber.
 function loadParticiplesForVerbModel($modelNumber, $participleNumber) {
   $infl = Inflection::loadParticiple();
-  $dbResult = db_execute("select part.* from Lexem part, InflectedForm i, Lexem infin where infin.modelType = 'VT' and infin.modelNumber = '$modelNumber' " .
-                         "and i.lexemId = infin.id and i.inflectionId = {$infl->id} and part.formNoAccent = i.formNoAccent and part.modelType = 'A' " .
-                         "and part.modelNumber = '$participleNumber' order by part.formNoAccent");
-  return db_getObjects(new Lexem(), $dbResult);
+  return Model::factory('Lexem')->table_alias('part')->join('InflectedForm', 'part.formNoAccent = i.formNoAccent', 'i')
+    ->join('Lexem', 'i.lexemId = infin.id', 'infin')->select('part.*')->where('infin.modelType', 'VT')->where('infin.modelNumber', $modelNumber)
+    ->where('i.inflectionId', $infl->id)->where('part.modelType', 'A')->where('part.modelNumber', $participleNumber)->order_by_asc('part.formNoAccent')
+    ->find_many();
 }
 
 /**

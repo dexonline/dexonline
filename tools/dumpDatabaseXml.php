@@ -52,9 +52,8 @@ removeOldDumps($FOLDER, $TODAY, $LAST_DUMP);
 function getActiveUsers() {
   $results = db_execute("SELECT id, nick FROM User WHERE id IN (SELECT DISTINCT userId FROM Definition)");
   $users = array();
-  while (!$results->EOF) {
-    $users[$results->fields[0]] = $results->fields[1];
-    $results->MoveNext();
+  foreach ($results as $row) {
+    $users[$row[0]] = $row[1];
   }
   return $users;
 }
@@ -80,14 +79,14 @@ function getLastDumpDate($folder) {
 
 function dumpSources($fileName) {
   log_scriptLog("dumping sources");
-  smarty_assign('sources', db_find(new Source(), '1 ORDER BY id'));
+  smarty_assign('sources', Model::factory('Source')->order_by_asc('id')->find_many());
   $xml = smarty_fetch('xmldump/sources.ihtml');
   file_put_contents($fileName, gzencode($xml));
 }
 
 function dumpInflections($fileName) {
   log_scriptLog("dumping inflections");
-  smarty_assign('inflections', db_find(new Inflection(), '1 ORDER BY id'));
+  smarty_assign('inflections', Model::factory('Inflection')->order_by_asc('id')->find_many());
   $xml = smarty_fetch('xmldump/inflections.ihtml');
   file_put_contents($fileName, gzencode($xml));
 }
@@ -131,14 +130,12 @@ function dumpDefinitions($query, $fileName, $message) {
   $file = gzopen($fileName, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<Definitions>\n");
-  while (!$results->EOF) {
-    $def = new Definition();
-    $def->set($results->fields);
+  foreach ($results as $row) {
+    $def = Model::factory('Definition')->create($row);
     $def->internalRep = AdminStringUtil::xmlizeRequired($def->internalRep);
     smarty_assign('def', $def);
     smarty_assign('nick', $USERS[$def->userId]);
     gzwrite($file, smarty_fetch('xmldump/definition.ihtml'));
-    $results->MoveNext();
   }
   gzwrite($file, "</Definitions>\n");
   gzclose($file);
@@ -150,13 +147,11 @@ function dumpLexems($query, $fileName, $message) {
   $file = gzopen($fileName, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<Lexems>\n");
-  while (!$results->EOF) {
-    $lexem = new Lexem();
-    $lexem->set($results->fields);
+  foreach($results as $row) {
+    $lexem = Model::factory('Lexem')->create($row);
     smarty_assign('lexem', $lexem);
     smarty_assign('ifs', InflectedForm::loadByLexemId($lexem->id));
     gzwrite($file, smarty_fetch('xmldump/lexem.ihtml'));
-    $results->MoveNext();
   }
   gzwrite($file, "</Lexems>\n");
   gzclose($file);
@@ -168,9 +163,8 @@ function dumpLdm($query, $fileName, $message) {
   $file = gzopen($fileName, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<LexemDefinitionMap>\n");
-  while (!$results->EOF) {
-    gzwrite($file, sprintf("  <Map lexemId=\"%s\" definitionId=\"%s\"/>\n", $results->fields[0], $results->fields[1]));
-    $results->MoveNext();
+  foreach ($results as $row) {
+    gzwrite($file, "  <Map lexemId=\"{$row[0]}\" definitionId=\"{$row[1]}\"/>\n");
   }
   gzwrite($file, "</LexemDefinitionMap>\n");
   gzclose($file);

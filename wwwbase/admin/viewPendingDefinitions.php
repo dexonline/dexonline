@@ -7,7 +7,7 @@ RecentLink::createOrUpdate('Definiții nemoderate');
 $sourceId = 0;
 $sourceUrlName = util_getRequestParameter('source');
 if ( $sourceUrlName ) {
-  $source = $sourceUrlName ? Source::get("urlName='$sourceUrlName'") : null;
+  $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
   $sourceId = $source ? $source->id : 0;
   smarty_assign('src_selected', $sourceId);
 }

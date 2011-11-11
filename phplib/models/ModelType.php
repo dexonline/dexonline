@@ -1,14 +1,10 @@
 <?php
 
 class ModelType extends BaseObject {
-  public static function get($where) {
-    $obj = new ModelType();
-    $obj->load($where);
-    return $obj->id ? $obj : null;
-  }
+  public static $_table = 'ModelType';
 
   public static function loadCanonical() {
-    return db_find(new ModelType(), 'code = canonical and code != "T" order by code');
+    return Model::factory('ModelType')->where_raw('code = canonical')->where_not_equal('code', 'T')->order_by_asc('code')->find_many();
   }
 
   public static function canonicalize($code) {

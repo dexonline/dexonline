@@ -11,7 +11,7 @@ if ($submitButton) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
       assert($parts[0] == 'position');
-      $lexem = Lexem::get("id = " . $parts[1]);
+      $lexem = Lexem::get_by_id($parts[1]);
       $noAccent = util_getRequestParameter('noAccent_' . $lexem->id);
 
       if ($noAccent) {
@@ -32,7 +32,8 @@ if ($submitButton) {
 
 $chars = array();
 $searchResults = array();
-$lexems = db_find(new Lexem(), "form not rlike '\'' and not noAccent order by rand() limit 10");
+$lexems = Model::factory('Lexem')->raw_query("select * from Lexem where form not rlike '\'' and not noAccent order by rand() limit 10", null)
+  ->find_many();
 foreach($lexems as $l) {
   $charArray = array();
   $form = mb_strtoupper($l->form);

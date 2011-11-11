@@ -43,11 +43,11 @@ print "]>\n";
 print "<Dictionary>\n";
 print "  <Timestamp>" . time() . "</Timestamp>\n";
 if ($version == '1.0') {
-  print "    <NumResults>" . $defDbResult->RowCount() . "</NumResults>\n";
+  print "    <NumResults>" . $defDbResult->rowCount() . "</NumResults>\n";
 }
 
-while (!$defDbResult->EOF) {
-  fetchNextRow();
+foreach ($defDbResult as $row) {
+  fetchNextRow($row);
   smarty_assign('version', $version);
   smarty_assign('includeNameWithDiacritics', hasFlag('a'));
   smarty_displayWithoutSkin('common/update.ihtml');
@@ -60,7 +60,7 @@ return;
 
 function createSourceMap() {
   $sourceMap = array();
-  $sources = db_find(new Source(), '1');
+  $sources = Model::factory('Source')->find_many();
   foreach ($sources as $source) {
     $sourceMap[$source->id] = $source;
   }
@@ -76,7 +76,7 @@ function userCache_get($key) {
     return $GLOBALS['USER'][$key];
   }
 
-  $user = User::get("id = $key");
+  $user = User::get_by_id($key);
   $GLOBALS['USER'][$key] = $user;
   return $user;
 }
@@ -86,15 +86,12 @@ function hasFlag($f) {
 	  strstr($_GET['flags'], $f) !== FALSE);
 }
 
-function fetchNextRow() {
-  global $defDbResult;
+function fetchNextRow($row) {
   global $lexemDbResult;
   global $sourceMap;
   global $currentLexem;
 
-  $def = new Definition();
-  $def->set($defDbResult->fields);
-  $defDbResult->MoveNext();
+  $def = Model::factory('Definition')->create($row);
   $def->internalRep = AdminStringUtil::xmlizeRequired($def->internalRep);
   if (hasFlag('d')) {
     $def->internalRep = AdminStringUtil::xmlizeOptional($def->internalRep);
@@ -103,13 +100,13 @@ function fetchNextRow() {
   $lexemNames = array();
   $lexemLatinNames = array();
   while (merge_compare($def, $currentLexem) < 0) {
-    $currentLexem = fetchNextLexem();
+    $currentLexem = $lexemDbResult->fetch();
   }
 
   while (merge_compare($def, $currentLexem) == 0) {
     $lexemNames[] = $currentLexem[1];
     $lexemLatinNames[] = StringUtil::unicodeToLatin($currentLexem[1]);
-    $currentLexem = fetchNextLexem();
+    $currentLexem = $lexemDbResult->fetch();
   }
 
   smarty_assign('def', $def);
@@ -117,14 +114,6 @@ function fetchNextRow() {
   smarty_assign('lexemLatinNames', $lexemLatinNames);
   smarty_assign('source', $sourceMap[$def->sourceId]);
   smarty_assign('user', userCache_get($def->userId));
-}
-
-function fetchNextLexem() {
-  global $lexemDbResult;
-
-  $result = $lexemDbResult->fields;
-  $lexemDbResult->MoveNext();
-  return $result;
 }
 
 function merge_compare(&$def, &$lexem) {

@@ -19,11 +19,11 @@ addOtherUrls();
 
 $query = 'select id, formNoAccent from Lexem order by formNoAccent';
 log_scriptLog("Running mysql query: [$query]");
-$dbResult = mysql_query($query);
+$dbResult = db_execute($query);
 
 $rowB = array(null, null);
 $rowC = array(null, null);
-while ($dbRow = mysql_fetch_array($dbResult)) {
+foreach ($dbResult as $dbRow) {
   // Keep a moving window of 3 lexems that we can use to eliminate duplicates
   $rowA = $rowB;
   $rowB = $rowC;

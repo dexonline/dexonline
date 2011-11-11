@@ -10,13 +10,13 @@ $submitButton = util_getRequestParameter('submitButton');
 if ($submitButton) {
   foreach ($userIds as $userId) {
     $checkboxes = util_getRequestParameterWithDefault("priv_$userId", array());
-    $user = User::get("id = $userId");
+    $user = User::get_by_id($userId);
     $user->moderator = array_sum($checkboxes);
     $user->save();
   }
 
   if ($newNick) {
-    $user = User::get("nick = '$newNick'");
+    $user = User::get_by_nick($newNick);
     if ($user) {
       $user->moderator = array_sum($newCheckboxes);
       $user->save();
@@ -31,7 +31,7 @@ if ($submitButton) {
 }
 
 smarty_assign('page_title', 'Moderatori');
-smarty_assign('users', db_find(new User(), "moderator != 0 order by nick"));
+smarty_assign('users', Model::factory('User')->where_not_equal('moderator', 0)->order_by_asc('nick')->find_many());
 smarty_displayCommonPageWithSkin('moderatori.ihtml');
 
 ?>

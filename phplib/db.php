@@ -3,35 +3,41 @@
 function db_init() {
   $functestFile = pref_getSectionPreference('functest', 'functestLockFile');
   if ($functestFile && file_exists($functestFile)) {
-    $db = NewADOConnection(pref_getSectionPreference('functest', 'functestDatabase'));
+    $dsn = pref_getSectionPreference('functest', 'functestDatabase');
   } else {
-    $db = NewADOConnection(pref_getServerPreference('database'));
+    $dsn = pref_getServerPreference('database');
   }
-  if (!$db) {
-    die("Connection failed");
-  }
-  ADOdb_Active_Record::SetDatabaseAdapter($db);
-  $db->Execute('set names utf8');
-  $GLOBALS['db'] = $db;
-  // $db->debug = true; //just for debug
+  $parts = db_splitDsn($dsn);
+  ORM::configure(sprintf("mysql:host=%s;dbname=%s", $parts['host'], $parts['database']));
+  ORM::configure('username', $parts['user']);
+  ORM::configure('password', $parts['password']);
+  // If you enable query logging, you can then run var_dump(ORM::get_query_log());
+  // ORM::configure('logging', true);
+  ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 }
 
-function db_execute($query) {
-  return $GLOBALS['db']->execute($query);
+// Returns a DB result set that you can iterate with foreach($result as $row)
+function db_execute($query, $fetchStyle = PDO::FETCH_BOTH) {
+  DebugInfo::resetClock();
+  $result = ORM::get_db()->query($query, $fetchStyle);
+  DebugInfo::stopClock("Low-level query: $query");
+  return $result;
 }
 
 function db_changeDatabase($dbName) {
   $dbName = addslashes($dbName);
   db_init();
-  return logged_query("use $dbName");
+  return db_execute("use $dbName");
 }
 
 /**
  * Returns an array mapping user, password, host and database to their respective values.
  **/
-function db_splitDsn() {
+function db_splitDsn($dsn = null) {
   $result = array();
-  $dsn = pref_getServerPreference('database');
+  if (!$dsn) {
+    $dsn = pref_getServerPreference('database');
+  }
   $prefix = 'mysql://';
   assert(StringUtil::startsWith($dsn, $prefix));
   $dsn = substr($dsn, strlen($prefix));
@@ -53,99 +59,37 @@ function db_splitDsn() {
   return $result;
 }
 
-function db_fetchSingleRow($result) {
-  if ($result) {
-    $row = mysql_fetch_assoc($result);
-    mysql_free_result($result);
-    return $row;
-  } else {
-    return NULL;
+// Idiorm has no way of returning a result set, so we do this at the PDO level; otherwise we could end up with huge arrays of Models.
+// Example: full text search of the word 'mică'
+function db_getArray($query) {
+  $dbResult = ORM::get_db()->query($query);
+  $results = array();
+  foreach ($dbResult as $row) {
+    $results[] = $row[0];
   }
+  return $results;
 }
 
-function db_getArray($recordSet) {
-  $result = array();
-  while (!$recordSet->EOF) {
-    $result[] = $recordSet->fields[0];
-    $recordSet->MoveNext();
-  }
-  return $result;
-}
-
-function db_getObjects($obj, $dbResult) {
-  $class = get_class($obj);
-  $result = array();
-  while (!$dbResult->EOF) {
-    $x = new $class;
-    $x->set($dbResult->fields);
-    $result[] = $x;
-    $dbResult->MoveNext();
-  }
-  return $result;
-}
-
-function db_getObjectsMapById($obj, $dbResult) {
-  $class = get_class($obj);
-  $result = array();
-  while (!$dbResult->EOF) {
-    $x = new $class;
-    $x->set($dbResult->fields);
-    $result[$x->id] = $x;
-    $dbResult->MoveNext();
-  }
-  return $result;
-}
-
-// One-line syntactic sugar for find()
-function db_find($obj, $where) {
-  return $obj->find($where);
-}
-
+// Normally you can do this with Idiorm's ->count() method, but that doesn't work for complicated queries
+// E.g. select count(distinct Lexem.id) from ...
 function db_getSingleValue($query) {
   $recordSet = db_execute($query);
-  return $recordSet->fields[0];
-}
-
-function logged_query($query) {
-  debug_resetClock();
-  $result = mysql_query($query);
-  debug_stopClock($query);
-  if (!$result) {
-    $errno = mysql_errno();
-    $message = "A intervenit o eroare $errno la comunicarea cu baza de date: ";
-
-    if ($errno == 1139) {
-      $message .= "Verificați că parantezele folosite sunt închise corect.";
-    } else if ($errno == 1049) {
-      $message .= "Nu există o bază de date pentru această versiune LOC.";
-    } else {
-      $message .= mysql_error();
-    }
-
-    $query = htmlspecialchars($query);
-    $message .= "<br/>Query MySQL: [$query]<br/>";
-
-    if (smarty_isInitialized()) {
-      smarty_assign('errorMessage', $message);
-      smarty_displayCommonPageWithSkin('errorMessage.ihtml');
-    } else {
-      var_dump($message);
-    }
-    exit;  
-  }
-  return $result;
+  $row = $recordSet->fetch();
+  return $row[0];
 }
 
 function db_tableExists($tableName) {
-  return db_fetchSingleRow(logged_query("show tables like '$tableName'")) !== false;
+  $r = ORM::for_table($tableName)->raw_query("show tables like '$tableName'", null)->find_one();
+  return ($r !== false);
 }
 
 function db_executeSqlFile($fileName) {
   $statements = file_get_contents($fileName);
   $statements = explode(";\n", $statements);
   foreach ($statements as $statement) {
-    if (trim($statement) != '') {
-      logged_query($statement);
+    $statement = trim($statement);
+    if ($statement != '') {
+      db_execute($statement);
     }
   }
 }

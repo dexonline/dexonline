@@ -1,11 +1,6 @@
 ; Configuration file for a DEX online installation
 
 [global]
-; Locations of the AdoDB and AdoDB Active Record files.
-; These can be absolute file names or relative to one of the paths in include_path
-adoDbActiveRecordClass = adodb/adodb-active-record.inc.php
-adoDbClass = adodb/adodb.inc.php
-
 ; Modules that are allowed to run and possibly serve a banner instead of the bannerType choice below.
 ; These will be invoked in the order they are listed until one of them serves a banner.
 ; If none of them has a relevant banner, we fall back to bannerType.
@@ -21,7 +16,7 @@ bannerType = fake
 ; Contact email, sprinkled throughout the site
 contact = contact@dexonline.ro
 
-; AdoDB connection
+; Database connection
 ; database = 'mysql://root:pwd@localhost/mydb'
 database = mysql://root@localhost/DEX
 

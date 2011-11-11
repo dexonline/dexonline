@@ -174,22 +174,6 @@
     {/if}
 
     {if $sUser->moderator & $smarty.const.PRIV_LOC}
-      {* We should be done with this one:
-      Pentru a verifica corectitudinea paradigmelor,
-      <a href="../flex/verifyParadigms.php">clic aici</a>.
-      <div class="flexExplanation">
-        Rostul acestei pagini este de a verifica prin inspecție
-        corectitudinea modelelor desfășurate extrase de scriptul lui
-        Radu din LOC3/4. Pagina vă oferă maxim 4 lexeme din fiecare
-        model, pe care încearcă să le aleagă cu sufixe cât mai
-        diferite. După ce trecem prin toate modelele și le etichetăm
-        drept corecte sau greșite, îi trimitem lui Radu lista de greșeli
-        descoperite, pentru ca el să-și poată îmbunătăți scriptul de
-        extragere a modelelor.
-      </div>
-      <br/>
-      *}
-  
       Pentru a încerca etichetarea asistată a cuvintelor,
       <a href="../flex/bulkLabelSelectSuffix.php">clic aici</a>.
   

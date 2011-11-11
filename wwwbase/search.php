@@ -28,7 +28,7 @@ $hasRegexp = FALSE;
 $isAllDigits = FALSE;
 $showParadigm = $showParadigm || session_user_prefers('SHOW_PARADIGM');
 $paradigmLink = $_SERVER['REQUEST_URI'] . ($showParadigm ? '' : '/paradigma');
-$source = $sourceUrlName ? Source::get("urlName='$sourceUrlName'") : null;
+$source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
 $sourceId = $source ? $source->id : null;
 
 if ($cuv) {
@@ -40,7 +40,7 @@ if ($cuv) {
 }
 
 if ($isAllDigits) {
-  $d = Definition::get("id = {$cuv}");
+  $d = Definition::get_by_id($cuv);
   if ($d) {
     util_redirect(util_getWwwRoot() . "definitie/{$d->lexicon}/{$d->id}");
   }
@@ -62,7 +62,7 @@ if ($text) {
     // Load definitions in the given order
     $definitions = array();
     foreach ($defIds as $id) {
-      $definitions[] = Definition::get("id = {$id}");
+      $definitions[] = Definition::get_by_id($id);
     }
     if (!count($defIds)) {
       FlashMessage::add('Nicio definiție nu conține toate cuvintele căutate.');
@@ -79,7 +79,7 @@ if ($lexemId) {
   if (!StringUtil::validateAlphabet($lexemId, '0123456789')) {
     $lexemId = '';
   }
-  $lexem = Lexem::get("id = {$lexemId}");
+  $lexem = Lexem::get_by_id($lexemId);
   $definitions = Definition::searchLexemId($lexemId, $exclude_unofficial);
   $searchResults = SearchResult::mapDefinitionArray($definitions);
   smarty_assign('results', $searchResults);
@@ -118,7 +118,7 @@ if ($hasRegexp) {
 if ($defId) {
   smarty_assign('defId', $defId);
   $searchType = SEARCH_DEF_ID;
-  $def = Definition::get("id = '$defId' and status = 0"); 
+  $def = Model::factory('Definition')->where('id', $defId)->where('status', ST_ACTIVE)->find_one();
   $definitions = array();
   if ($def) {
     $definitions[] = $def;

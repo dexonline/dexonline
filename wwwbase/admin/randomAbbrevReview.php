@@ -6,7 +6,7 @@ util_assertNotMirror();
 $submitButton = util_getRequestParameter('submitButton');
 if ($submitButton) {
   $defId = util_getRequestParameter('definitionId');
-  $def = Definition::get("id = {$defId}");
+  $def = Definition::get_by_id($defId);
 
   // Collect the user choices
   $choices = array();
@@ -37,7 +37,8 @@ if ($submitButton) {
 
 $MARKER = 'DEADBEEF'; // any string that won't occur naturally in a definition
 
-$def = Definition::get('status != ' . ST_DELETED . ' and abbrevReview = ' . ABBREV_AMBIGUOUS . ' order by rand() limit 1');
+$def = Model::factory('Definition')->raw_query('select * from Definition where status != ' . ST_DELETED .
+                                               ' and abbrevReview = ' . ABBREV_AMBIGUOUS . ' order by rand() limit 1', null)->find_one();
 
 if ($def) {
   // Collect the positions of ambiguous abbreviations

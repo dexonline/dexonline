@@ -14,7 +14,7 @@ function session_init() {
 
 function session_login($user) {
   session_setVariable('user', $user);
-  $cookie = new Cookie();
+  $cookie = Model::factory('Cookie')->create();
   $cookie->userId = $user->id;
   $cookie->cookieString = util_randomCapitalLetterString(12);
   $cookie->save();
@@ -27,7 +27,7 @@ function session_login($user) {
 function session_logout() {
   log_userLog('Logging out, IP=' . $_SERVER['REMOTE_ADDR']);
   $cookieString = session_getCookieSetting('lll');
-  $cookie = Cookie::get("cookieString = '$cookieString'");
+  $cookie = Cookie::get_by_cookieString($cookieString);
   if ($cookie) {
     $cookie->delete();
   }
@@ -42,8 +42,8 @@ function session_loadUserFromCookie() {
   if (!isset($_COOKIE['prefs']) || !isset($_COOKIE['prefs']['lll'])) {
     return;
   }
-  $cookie = Cookie::get(sprintf('cookieString = "%s"', $_COOKIE['prefs']['lll']));
-  $user = $cookie ? User::get("id={$cookie->userId}") : null;
+  $cookie = Cookie::get_by_cookieString($_COOKIE['prefs']['lll']);
+  $user = $cookie ? User::get_by_id($cookie->userId) : null;
   if ($user) {
     session_setVariable('user', $user);
   } else {
@@ -146,10 +146,6 @@ function session_getDefaultContribSourceId() {
   // Previously we stored some short name, not the source id -- just return
   // FALSE in that case
   return is_numeric($value) ? $value : FALSE;
-}
-
-function session_isDebug() {
-  return session_getUserNick() == pref_getDebugUser();
 }
 
 function session_getWithDefault($name, $default) {

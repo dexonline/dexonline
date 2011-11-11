@@ -11,7 +11,7 @@
     {include file="admin/header.ihtml" title="$sectionTitle" dbResult="$lexemDbResult"}
 
     {include file="admin/recentlyVisited.ihtml"}
-    {section name="ignored" start=0 loop=$lexemDbResult->RowCount()}
+    {section name="ignored" start=0 loop=$lexemDbResult->rowCount()}
       {php}fetchNextRow();{/php}
       <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$l->id}"
         >{include file="common/bits/lexemName.ihtml" lexem=$l}
@@ -26,9 +26,7 @@
 {php}
   function fetchNextRow() {
     global $lexemDbResult;
-    $l = new Lexem();
-    $l->set($lexemDbResult->fields);
-    $lexemDbResult->MoveNext();
+    $l = Model::factory('Lexem')->create($lexemDbResult->fetch());
     smarty_assign('l', $l);
   }
 {/php}

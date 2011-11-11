@@ -6,13 +6,13 @@
   <div class="title">
     {$title|escape}
     {if $items}({$items|@count}){/if}
-    {if $dbResult}({$dbResult->RowCount()}){/if}
+    {if $dbResult}({$dbResult->rowCount()}){/if}
   </div>
 
   {if $showSources}
-  <div class="title">
-    <form name="frm" class="searchForm" onChange="this.submit();">
-    {include file="common/sourceDropDown.ihtml" urlName=1}
+  <div class="title"> 
+    <form name="frm" class="searchForm">
+    {include file="common/sourceDropDown.ihtml" urlName=1 autosubmit=1}
     </form>
   </div>
   {/if}

@@ -11,20 +11,19 @@ if (!Lock::acquire(LOCK_FULL_TEXT_INDEX)) {
 }
 
 log_scriptLog("Clearing table FullTextIndex.");
-mysql_query('delete from FullTextIndex');
+db_execute('delete from FullTextIndex');
 
 $ifMap = array();
-$dbResult = mysql_query('select id, internalRep from Definition where status = 0');
-$numDefs = mysql_num_rows($dbResult);
+$dbResult = db_execute('select id, internalRep from Definition where status = 0');
+$numDefs = $dbResult->rowCount();
 $defsSeen = 0;
 $indexSize = 0;
 $fileName = tempnam('/tmp', 'index_');
 $handle = fopen($fileName, 'w');
 log_scriptLog("Writing index to file $fileName.");
-debug_init();
-debug_off();
+DebugInfo::disable();
 
-while (($dbRow = mysql_fetch_row($dbResult)) != null) {
+foreach ($dbResult as $dbRow) {
   $words = extractWords($dbRow[1]);
 
   foreach ($words as $position => $word) {
@@ -47,11 +46,11 @@ while (($dbRow = mysql_fetch_row($dbResult)) != null) {
   }
 
   if (++$defsSeen % 10000 == 0) {
-     $runTime = debug_getRunningTimeInMillis() / 1000;
-     $speed = round($defsSeen / $runTime);
-     log_scriptLog("$defsSeen of $numDefs definitions indexed ($speed defs/sec). " .
-                   "Word map has " . count($ifMap) . " entries. " .
-                   "Memory used: " . round(memory_get_usage() / 1048576, 1) . " MB.");
+    $runTime = DebugInfo::getRunningTimeInMillis() / 1000;
+    $speed = round($defsSeen / $runTime);
+    log_scriptLog("$defsSeen of $numDefs definitions indexed ($speed defs/sec). " .
+                  "Word map has " . count($ifMap) . " entries. " .
+                  "Memory used: " . round(memory_get_usage() / 1048576, 1) . " MB.");
   }
 }
 
@@ -61,8 +60,8 @@ log_scriptLog("Index size: $indexSize entries.");
 
 OS::executeAndAssert("chmod 666 $fileName");
 log_scriptLog("Importing file $fileName into table FullTextIndex");
-if (!mysql_query("load data local infile '$fileName' into table FullTextIndex")) {
-  OS::errorAndExit("MySQL says: " . mysql_error());
+if (!db_execute("load data local infile '$fileName' into table FullTextIndex")) {
+  OS::errorAndExit("MySQL error");
 }
 util_deleteFile($fileName);
 
@@ -103,12 +102,11 @@ function extractWords($text) {
 
 function cacheWordForm($word) {
   global $ifMap;
-  $dbResult = mysql_query("select lexemId, inflectionId from InflectedForm where formNoAccent = '$word'");
+  $dbResult = db_execute("select lexemId, inflectionId from InflectedForm where formNoAccent = '$word'");
   $value = '';
-  while (($dbRow = mysql_fetch_assoc($dbResult)) != null) {
+  foreach ($dbResult as $dbRow) {
     $value .= ',' . $dbRow['lexemId'] . ',' . $dbRow['inflectionId'];
   }
-  mysql_free_result($dbResult);
   if ($value) {
     $ifMap[$word] = substr($value, 1);
   }

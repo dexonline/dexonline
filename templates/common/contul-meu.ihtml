@@ -2,7 +2,7 @@ Pentru a face orice modificări, tastați noile valori. Este nevoie să vă intr
 sunteți într-adevăr proprietarul contului. Dacă nu doriți să schimbați valoarea unui câmp, lăsați-l nemodificat.
 <br/><br/>
 
-<form method="post" action="contul-meu">
+<form method="post" action="contul-meu" name="accountForm">
   <table class="userEdit"><tr>
     <td>Numele de cont:</td>
     <td>

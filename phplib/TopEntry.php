@@ -8,12 +8,12 @@ class TopEntry {
   public $days; // since last submission
 
   private static function getSqlStatement($manual) {
-    $bulk = array(array(null, Source::get("shortName = 'MDN'"), '2007-09-15'),
-                  array(null, Source::get("shortName = 'Petro-Sedim'"), null),
-                  array(null, Source::get("shortName = 'GTA'"), null),
-                  array(null, Source::get("shortName = 'DCR2'"), null),
-                  array(User::get("nick = 'siveco'"), null, null),
-                  array(User::get("nick = 'RACAI'"), null, null),
+    $bulk = array(array(null, Source::get_by_shortName('MDN'), '2007-09-15'),
+                  array(null, Source::get_by_shortName('Petro-Sedim'), null),
+                  array(null, Source::get_by_shortName('GTA'), null),
+                  array(null, Source::get_by_shortName('DCR2'), null),
+                  array(User::get_by_nick('siveco'), null, null),
+                  array(User::get_by_nick('RACAI'), null, null),
                   );
     $conditions = array();
     foreach ($bulk as $tuple) {
@@ -43,15 +43,14 @@ class TopEntry {
     $topEntries = array();
     $now = time();
 
-    while (!$dbResult->EOF) {
+    foreach($dbResult as $row) {
       $topEntry = new TopEntry();
-      $topEntry->userNick = $dbResult->fields['nick'];
-      $topEntry->numDefinitions = $dbResult->fields['NumDefinitions'];
-      $topEntry->numChars = $dbResult->fields['NumChars'];
-      $topEntry->timestamp = $dbResult->fields['Timestamp'];
+      $topEntry->userNick = $row['nick'];
+      $topEntry->numDefinitions = $row['NumDefinitions'];
+      $topEntry->numChars = $row['NumChars'];
+      $topEntry->timestamp = $row['Timestamp'];
       $topEntry->days = intval(($now - $topEntry->timestamp) / 86400);
       $topEntries[] = $topEntry;
-      $dbResult->MoveNext();
     }
 
     return $topEntries;

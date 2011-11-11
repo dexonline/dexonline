@@ -1,19 +1,22 @@
 <?php
 
 class InflectedForm extends BaseObject {
-  function __construct($form = null, $lexemId = null, $inflectionId = null, $variant = null, $recommended = 1) {
-    parent::__construct();
-    $this->form = $form;
-    $this->formNoAccent = str_replace("'", '', $form);
-    $this->formUtf8General = $this->formNoAccent;
-    $this->lexemId = $lexemId;
-    $this->inflectionId = $inflectionId;
-    $this->variant = $variant;
-    $this->recommended = $recommended;
+  public static $_table = 'InflectedForm';
+
+  public static function create($form = null, $lexemId = null, $inflectionId = null, $variant = null, $recommended = 1) {
+    $if = Model::factory('InflectedForm')->create();
+    $if->form = $form;
+    $if->formNoAccent = str_replace("'", '', $form);
+    $if->formUtf8General = $if->formNoAccent;
+    $if->lexemId = $lexemId;
+    $if->inflectionId = $inflectionId;
+    $if->variant = $variant;
+    $if->recommended = $recommended;
+    return $if;
   }
 
   public static function loadByLexemId($lexemId) {
-    return db_find(new InflectedForm(), "lexemId = {$lexemId} order by inflectionId, variant");
+    return Model::factory('InflectedForm')->where('lexemId', $lexemId)->order_by_asc('inflectionId')->order_by_asc('variant')->find_many();
   }
 
   public static function loadByLexemIdMapByInflectionId($lexemId) {
@@ -22,19 +25,15 @@ class InflectedForm extends BaseObject {
 
   public static function loadByLexemIdMapByInflectionRank($lexemId) {
     $result = array();
-    // Sadly, we cannot load the rank here as well, because $if->set($dbResult->fields) would no longer work.
-    $dbResult = db_execute("select InflectedForm.*, rank from InflectedForm, Inflection where inflectionId = Inflection.id and lexemId = {$lexemId} order by rank, variant");
-    while (!$dbResult->EOF) {
-      $rank = $dbResult->fields['rank'];
-      array_pop($dbResult->fields); // Pop the ['rank'] and [nnn] keys;
-      array_pop($dbResult->fields); // otherwise $if->set() won't work -- AdoDB panics because of the extra fields.
-      $if = new InflectedForm();
-      $if->set($dbResult->fields);
+    // These inflected forms have an extra field (rank) from the join
+    $ifs = Model::factory('InflectedForm')->select('InflectedForm.*')->select('rank')->join('Inflection', 'inflectionId = Inflection.id')
+      ->where('lexemId', $lexemId)->order_by_asc('rank')->order_by_asc('variant')->find_many();
+    foreach ($ifs as $if) {
+      $rank = $if->rank;
       if (!array_key_exists($rank, $result)) {
         $result[$rank] = array();
       }
       $result[$rank][] = $if;
-      $dbResult->MoveNext();
     }
     return $result;
   }
@@ -42,7 +41,7 @@ class InflectedForm extends BaseObject {
   public static function mapByInflectionRank($ifs) {
     $result = array();
     foreach ($ifs as $if) {
-      $inflection = Inflection::get("id = {$if->inflectionId}");
+      $inflection = Inflection::get_by_id($if->inflectionId);
       if (!array_key_exists($inflection->rank, $result)) {
         $result[$inflection->rank] = array();
       }
@@ -65,7 +64,7 @@ class InflectedForm extends BaseObject {
   }
 
   public static function deleteByLexemId($lexemId) {
-    $ifs = db_find(new InflectedForm(), "lexemId = {$lexemId}");
+    $ifs = InflectedForm::get_all_by_lexemId($lexemId);
     foreach ($ifs as $if) {
       $if->delete();
     }

@@ -8,7 +8,7 @@ $sourceId = util_getRequestParameter('source');
 $nick = util_getRequestParameter('nick');
 $loc = util_getRequestParameter('loc');
 
-$source = Source::get("id={$sourceId}");
+$source = Source::get_by_id($sourceId);
 switch ($loc) {
   case 0:
     $srcClause = " and not l.isLoc";
@@ -27,7 +27,7 @@ switch ($loc) {
 
 $nickClause = '';
 if ($nick) {
-  $user = User::get("nick = '{$nick}'");
+  $user = User::get_by_nick($nick);
   if ($user) {
     $nickClause = "and d.userId = {$user->id}";
   }

@@ -68,7 +68,7 @@ class Log {
     }
 
     $date = date('Y-m-d H:i:s');
-    $millis = debug_getRunningTimeInMillis();
+    $millis = DebugInfo::getRunningTimeInMillis();
     $line = "[{$this->query}]\t[{$this->queryBeforeRedirect}]\t{$this->searchType}\t{$this->registeredUser}\t{$this->skin}\t" .
       "{$this->preferences}\t{$this->resultCount}\t{$this->resultList}\t{$this->redirect}\t{$date}\t{$millis}\n";
     fwrite($f, $line);

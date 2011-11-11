@@ -1,33 +1,36 @@
 <?php
 
-class Model extends BaseObject {
-  function __construct($modelType = '', $number = '', $description = '', $exponent = '') {
-    parent::__construct();
-    $this->modelType = $modelType;
-    $this->number = $number;
-    $this->description = $description;
-    $this->exponent = $exponent;
-    $this->flag = 0;
-  }
+// Used to be named Model, but that name collided with Idiorm's class.
+class FlexModel extends BaseObject {
+  public static $_table = 'Model';
 
-  public static function get($where) {
-    $obj = new Model();
-    $obj->load($where);
-    return $obj->id ? $obj : null;
+  public static function create($modelType = '', $number = '', $description = '', $exponent = '') {
+    $fm = Model::factory('FlexModel')->create();
+    $fm->modelType = $modelType;
+    $fm->number = $number;
+    $fm->description = $description;
+    $fm->exponent = $exponent;
+    $fm->flag = 0;
+    return $fm;
   }
 
   public static function loadByType($type) {
     $type = ModelType::canonicalize($type);
-    return db_find(new Model(), "modelType = '{$type}' order by cast(number as unsigned)");
+    // Need a raw query here because order_by_asc() expects a field, nothing more
+    return Model::factory('FlexModel')
+      ->raw_query("select * from Model where modelType = '{$type}' order by cast(number as unsigned)", null)->find_many();
   }
 
   public static function loadCanonicalByTypeNumber($type, $number) {
     $type = ModelType::canonicalize($type);
-    return Model::get("modelType = '{$type}' and number = '{$number}'");
+    return Model::factory('FlexModel')->where('modelType', $type)->where('number', $number)->find_one();
   }
 
   public function delete() {
-    db_execute("delete from ModelDescription where modelId = '{$this->id}'");
+    $mds = ModelDescription::get_by_modelId($this->id);
+    foreach ($mds as $md) {
+      $md->delete();
+    }
     if ($this->modelType == 'V') {
       $pm = ParticipleModel::loadByVerbModel($this->number);
       $pm->delete();

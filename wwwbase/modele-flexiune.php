@@ -1,7 +1,7 @@
 <?php
 require_once("../phplib/util.php"); 
 setlocale(LC_ALL, "ro_RO.utf8");
-debug_off();
+DebugInfo::disable();
 
 $locVersion = util_getRequestParameter('locVersion');
 $modelType = util_getRequestParameter('modelType');
@@ -17,25 +17,22 @@ if ($locVersion && $modelType && $modelNumber) {
   LocVersion::changeDatabase($locVersion);
 
   if ($modelNumber == -1) {
-    $modelsToDisplay = Model::loadByType($modelType);
+    $modelsToDisplay = FlexModel::loadByType($modelType);
   } else {
-    $modelsToDisplay = array(Model::get("modelType = '{$modelType}' and number= '{$modelNumber}'"));
+    $modelsToDisplay = array(Model::factory('FlexModel')->where('modelType', $modelType)->where('number', $modelNumber)->find_one());
   }
   $lexems = array();
   $paradigms = array();
 
   foreach ($modelsToDisplay as $m) {
     // Load by canonical model, so if $modelType is V, look for a lexem with type V or VT.
-    $slashExponent = addslashes($m->exponent);
-    $dbResult = db_execute("select Lexem.* from Lexem, ModelType where modelType = code and canonical = '{$modelType}' " .
-                           "and modelNumber = '{$m->number}' and form = '{$slashExponent}' limit 1");
-    $tmpLexems = db_getObjects(new Lexem(), $dbResult);
-    $l = count($tmpLexems) ? $tmpLexems[0] : null;
+    $l = Model::factory('Lexem')->select('Lexem.*')->join('ModelType', 'modelType = code')->where('canonical', $modelType)
+      ->where('modelNumber', $m->number)->where('form', $m->exponent)->limit(1)->find_one();
 
     if ($l) {
       $paradigm = getExistingForms($l->id, $locVersion);
     } else {
-      $l = new Lexem($m->exponent, $modelType, $m->number, '');
+      $l = Lexem::create($m->exponent, $modelType, $m->number, '');
       $l->isLoc = true;
       $paradigm = getNewForms($l, $locVersion);
     }
@@ -47,12 +44,12 @@ if ($locVersion && $modelType && $modelNumber) {
   smarty_assign('lexems', $lexems);
   smarty_assign('paradigms', $paradigms);
 } else {
-  smarty_assign('selectedLocVersion', $locVersions[1]->name);
-  LocVersion::changeDatabase($locVersion);
+  smarty_assign('selectedLocVersion', $locVersions[0]->name);
+  // LocVersion::changeDatabase($locVersion);
 }
 
 $modelTypes = ModelType::loadCanonical();
-$models = Model::loadByType($modelType ? $modelType : $modelTypes[0]->code);
+$models = FlexModel::loadByType($modelType ? $modelType : $modelTypes[0]->code);
 
 smarty_assign('page_title', 'Modele de flexiune');
 smarty_assign('locVersions', $locVersions);

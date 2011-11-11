@@ -1,12 +1,11 @@
 <?php
 require_once "../phplib/util.php";
-$dbResult = db_execute("select * from Definition where status = 0 and sourceId in (1, 2, 3, 4, 5) order by id");
+$dbResult = db_execute("select * from Definition where status = 0 and sourceId in (33) order by id", PDO::FETCH_ASSOC);
 
 $i = 0;
 $modified = 0;
-while (!$dbResult->EOF) {
-  $def = new Definition();
-  $def->set($dbResult->fields);
+foreach ($dbResult as $row) {
+  $def = Model::factory('Definition')->create($row);
   $newRep = AdminStringUtil::internalizeDefinition($def->internalRep, $def->sourceId);
   $newHtmlRep = AdminStringUtil::htmlize($newRep, $def->sourceId);
   if ($newRep !== $def->internalRep || $newHtmlRep !== $def->htmlRep) {
@@ -15,7 +14,6 @@ while (!$dbResult->EOF) {
     $def->htmlRep = $newHtmlRep;
     $def->save();
   }
-  $dbResult->MoveNext();
   $i++;
   if ($i % 1000 == 0) {
     print "$i definitions reprocessed, $modified modified.\n";

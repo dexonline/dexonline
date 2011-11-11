@@ -8,7 +8,7 @@ if ($locVersion) {
   LocVersion::changeDatabase($locVersion);
 }
 
-$models = Model::loadByType($modelType);
+$models = FlexModel::loadByType($modelType);
 
 foreach ($models as $m) {
   print "{$m->id}\n{$m->number}\n{$m->exponent}\n";

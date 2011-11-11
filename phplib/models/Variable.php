@@ -1,16 +1,17 @@
 <?php
 
 class Variable extends BaseObject {
+  public static $_table = 'Variable';
+
   public static function peek($name, $default = null) {
-    $v = new Variable();
-    $v->load("name = '$name'");
-    return $v->name ? $v->value : $default;
+    $v = Variable::get_by_name($name);
+    return $v ? $v->value : $default;
   }
 
   public static function poke($name, $value) {
-    $v = new Variable();
-    $v->load("name = '$name'");
-    if (!$v->name) {
+    $v = Variable::get_by_name($name);
+    if (!$v) {
+      $v = Model::factory('Variable')->create();
       $v->name = $name;
     }
     $v->value = $value;

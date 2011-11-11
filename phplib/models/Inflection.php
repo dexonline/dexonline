@@ -1,22 +1,14 @@
 <?php
 
 class Inflection extends BaseObject {
-  public static function get($where) {
-    $obj = new Inflection();
-    $obj->load($where);
-    return $obj->id ? $obj : null;
-  }
-
-  public static function loadInfinitive() {
-    return self::get("description like '%infinitiv prezent%'");
-  }
+  public static $_table = 'Inflection';
 
   public static function loadParticiple() {
-    return self::get("description like '%participiu%'");
+    return Model::factory('Inflection')->where_like('description', '%participiu%')->find_one();
   }
 
   public static function loadLongInfinitive() {
-    return self::get("description like '%infinitiv lung%'");
+    return Model::factory('Inflection')->where_like('description', '%infinitiv lung%')->find_one();
   }
 
   public static function mapById($inflections) {

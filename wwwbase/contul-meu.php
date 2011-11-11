@@ -44,7 +44,7 @@ if ($sendButton) {
 
   // Verify that the email address and nickname are unique..
   if (!$error) {
-    $userByNick = User::get("nick = '$nick'");
+    $userByNick = User::get_by_nick($nick);
     if ($userByNick && $userByNick->id != $user->id) {
       $error = true;
       FlashMessage::add('Acest nume de cont este deja folosit.');
@@ -52,7 +52,7 @@ if ($sendButton) {
   }
   
   if (!$error) {
-    $userByEmail = User::get("email = '$email'");
+    $userByEmail = User::get_by_email($email);
     if ($userByEmail && $userByEmail->id != $user->id) {
       $error = true;
       FlashMessage::add('Această adresă de email este deja folosită.');
@@ -85,14 +85,7 @@ if ($sendButton) {
   $email = $user->email;
   $emailVisible = $user->emailVisible;
   $skin = session_getSkin();
-  if (is_string($user->prefs)) {
-    // Legacy code for people who were logged in when we migrated User to AdoDB.
-    // After a new login this problem will go away.
-    // TODO: Remove this code after April 3rd 2010.
-    $userPrefs = $user->prefs;
-  } else {
-    $userPrefs = $user->preferences;
-  }
+  $userPrefs = $user->preferences;
 }
 
 foreach (preg_split('/,/', $userPrefs) as $pref) {

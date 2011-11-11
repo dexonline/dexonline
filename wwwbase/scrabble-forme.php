@@ -7,11 +7,11 @@ $query = "select I.formNoAccent from InflectedForm I, Lexem L, Model M, ModelDes
   "where I.lexemId = L.id and L.modelType = MT.code and MT.canonical = M.modelType and L.modelNumber = M.number and M.id = MD.modelId " .
   "and MD.inflectionId = I.inflectionId and MD.variant = I.variant and MD.applOrder = 0 and L.isLoc and MD.isLoc " .
   "and char_length(I.formNoAccent) between 2 and 15";
-$dbResult = mysql_query($query);
+$dbResult = db_execute($query);
 
 $fileName = tempnam('/tmp', 'unique_');
 $file = fopen($fileName, 'w');
-while ($dbRow = mysql_fetch_row($dbResult)) {
+foreach ($dbResult as $dbRow) {
   fwrite($file, "{$dbRow[0]}\r\n");
 }
 fclose($file);

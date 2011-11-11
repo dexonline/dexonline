@@ -3,6 +3,7 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 util_hideEmptyRequestParameters();
+DebugInfo::disable();
 
 $modelType = util_getRequestParameter('modelType');
 $submitButton = util_getRequestParameter('submitButton');
@@ -14,8 +15,8 @@ if ($submitButton) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 3);
       assert($parts[0] == 'merge');
-      $src = Lexem::get("id = " . $parts[1]);
-      $dest = Lexem::get("id = " . $parts[2]);
+      $src = Lexem::get_by_id($parts[1]);
+      $dest = Lexem::get_by_id($parts[2]);
 
       // Merge $src into $dest
       $defs = Definition::loadByLexemId($src->id);
@@ -48,21 +49,20 @@ if ($modelType == 'T') {
 } else {
   $whereClause = '(modelType = "T") or (modelType in ("M", "F", "N") and restriction like "%P%")';
 }
-$dbResult = db_execute("select * from Lexem where {$whereClause} order by formNoAccent");
+$dbResult = db_execute("select * from Lexem where {$whereClause} order by formNoAccent", PDO::FETCH_ASSOC);
 
 $lexems = array();
-while (!$dbResult->EOF) {
-  $lexem = new Lexem();
-  $lexem->set($dbResult->fields);
-  $dbResult->MoveNext();
-  $lexem->matches = array();
-  $ifs = db_find(new InflectedForm(), "formNoAccent = '{$lexem->formNoAccent}'");
+foreach ($dbResult as $row) {
+  $lexem = Model::factory('Lexem')->create($row);
+  $matches = array();
+  $ifs = InflectedForm::get_all_by_formNoAccent($lexem->formNoAccent);
 
   foreach ($ifs as $if) {
     if (in_array($if->inflectionId, $PLURAL_INFLECTIONS) && $if->lexemId != $lexem->id) {
-      $lexem->matches[] = Lexem::get("id = {$if->lexemId}");
+      $matches[] = Lexem::get_by_id($if->lexemId);
     }
   }
+  $lexem->matches = $matches;
 
   if (count($lexem->matches)) {
     $lexem->ifs = InflectedForm::loadByLexemId($lexem->id);
@@ -71,22 +71,24 @@ while (!$dbResult->EOF) {
     $srcIfs = loadIfArrayByLexemId($lexem->id);
     foreach ($lexem->matches as $match) {
       $destIfs = loadIfArrayByLexemId($match->id);
-      $match->addedForms = array();
-      $match->lostForms = array();
+      $addedForms = array();
+      $lostForms = array();
       if ($lexem->isLoc && !$match->isLoc) {
         // Forms that are going to be added to LOC
         foreach ($destIfs as $destIf) {
           if (!in_array($destIf, $srcIfs)) {
-            $match->addedForms[] = $destIf;
+            $addedForms[] = $destIf;
           }
         }
       }
       // Forms that will disappear after the merge -- these should be rare.
       foreach ($srcIfs as $srcIf) {
         if (!in_array($srcIf, $destIfs)) {
-          $match->lostForms[] = $srcIf;
+          $lostForms[] = $srcIf;
         }
       }
+      $lexem->addedForms = $addedForms;
+      $lexem->lostForms = $lostForms;
     }
     $lexems[] = $lexem;
   }

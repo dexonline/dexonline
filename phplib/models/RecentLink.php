@@ -1,19 +1,15 @@
 <?php
 
 class RecentLink extends BaseObject {
-  public static function get($where) {
-    $obj = new RecentLink();
-    $obj->load($where);
-    return $obj->id ? $obj : null;
-  }
+  public static $_table = 'RecentLink';
 
   public static function createOrUpdate($text) {
     $userId = session_getUserId();
     $url = $_SERVER['REQUEST_URI'];
-    $rl = self::get(sprintf("userId = %s and url = '%s' and text = '%s'", $userId, addslashes($url), addslashes($text)));
+    $rl = Model::factory('RecentLink')->where('userId', $userId)->where('url', addslashes($url))->where('text', addslashes($text))->find_one();
 
     if (!$rl) {
-      $rl = new RecentLink();
+      $rl = Model::factory('RecentLink')->create();
       $rl->userId = $userId;
       $rl->url = $url;
       $rl->text = $text;
@@ -26,7 +22,7 @@ class RecentLink extends BaseObject {
   // Also deletes the ones in excess of MAX_RECENT_LINKS
   public static function loadForUser() {
     $userId = session_getUserId();
-    $recentLinks = db_find(new RecentLink(), "userId = {$userId} order by visitDate desc");
+    $recentLinks = Model::factory('RecentLink')->where('userId', $userId)->order_by_desc('visitDate')->find_many();
     while (count($recentLinks) > MAX_RECENT_LINKS) {
       $deadLink = array_pop($recentLinks);
       $deadLink->delete();

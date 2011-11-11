@@ -25,7 +25,7 @@ $timestamp = util_getRequestIntParameter('timestamp');
 $defDbResult = db_execute("select * from Definition where status = " . ST_ACTIVE . " and sourceId in (select id from Source where canDistribute) " .
                           "and modDate >= '$timestamp' order by modDate, id");
 $lexemDbResult = Lexem::loadNamesByMinModDate($timestamp);
-$sources = db_find(new Source(), '1');
+$sources = Model::factory('Source')->find_many();
 userCache_init();
 $currentLexem = array(0, ''); // Force loading a lexem on the next comparison.
 
@@ -34,7 +34,7 @@ print "<jadexUpdate version='1.0'>\n";
 // timestamp
 print time() . "\n";
 // total results expected
-print $lexemDbResult->RowCount() . "\n";
+print $lexemDbResult->rowCount() . "\n";
 // sources
 foreach ( $sources as $source ) {
   // marker
@@ -49,20 +49,18 @@ foreach ( $sources as $source ) {
   print "</source>\n";
 }
 
-while (!$defDbResult->EOF) {
-  $def = new Definition();
-  $def->set($defDbResult->fields);
-  $defDbResult->MoveNext();
+foreach ($defDbResult as $row) {
+  $def = Model::factory('Definition')->create($row);
   $def->internalRep = AdminStringUtil::xmlizeRequired($def->internalRep);
 
   while ( merge_compare($def, $currentLexem) < 0 ) {
-    $currentLexem = fetchNextLexem();
+    $currentLexem = $lexemDbResult->fetch();
   }
 
   while (merge_compare($def, $currentLexem) == 0) {
     $lexemNames = $currentLexem[1];
     $lexemLatinNames = StringUtil::unicodeToLatin($currentLexem[1]);
-    $currentLexem = fetchNextLexem();
+    $currentLexem = $lexemDbResult->fetch();
     // marker
     print "<entry>\n";
     print $def->id . "\n";
@@ -95,17 +93,9 @@ function userCache_get($key) {
     return $GLOBALS['USER'][$key];
   }
 
-  $user = User::get("id = $key");
+  $user = User::get_by_id($key);
   $GLOBALS['USER'][$key] = $user;
   return $user;
-}
-
-function fetchNextLexem() {
-  global $lexemDbResult;
-
-  $result = $lexemDbResult->fields;
-  $lexemDbResult->MoveNext();
-  return $result;
 }
 
 function merge_compare(&$def, &$lexem) {

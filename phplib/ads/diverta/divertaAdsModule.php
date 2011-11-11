@@ -6,12 +6,14 @@ class DivertaAdsModule extends AdsModule {
       // If we are called from a page with no keywords, display one of the top 10 highest CTR books.
       $random = rand(0, 9);
       // TODO: Label books as mature
-      $book = DivertaBook::get("impressions " .
-			       "and title not like '%sex%' " .
-			       "and title not like '%erotic%' " . 
-			       "and title not like '%bordel%' " . 
-			       "and title not like '%glamour%' " . 
-			       "order by clicks/impressions desc limit $random, 1");
+      $book = Model::factory('DivertaBook')
+        ->raw_query("select * from diverta_Book where impressions " .
+                    "and title not like '%sex%' " .
+                    "and title not like '%erotic%' " . 
+                    "and title not like '%bordel%' " . 
+                    "and title not like '%glamour%' " . 
+                    "order by clicks/impressions desc limit $random, 1", null)
+        ->find_one();
       return array('bookId' => $book->id);
     }
     
@@ -26,13 +28,14 @@ class DivertaAdsModule extends AdsModule {
       foreach ($definitions as $def) {
         $defIdString .= ",{$def->id}";
       }
-      $lexemIds = db_getArray(db_execute("select distinct lexemId from LexemDefinitionMap where DefinitionId in ($defIdString)"));
+      $lexemIds = db_getArray("select distinct lexemId from LexemDefinitionMap where DefinitionId in ($defIdString)");
     }
     if (count($lexemIds) == 0 || count($lexemIds) >= 100) {
       return null; // No keywords or too many keywords (indicating a regexp search)
     }
     $lexemIdString = join(',', $lexemIds);
-    $books = db_getObjects(new DivertaBook(), db_execute("select distinct b.* from diverta_Book b, diverta_Index i where b.id = i.bookId and i.lexemId in ({$lexemIdString}) order by impressions"));
+    $books = Model::factory('DivertaBook')->table_alias('b')->select('b.*')->join(DivertaIndex::$_table, 'b.id = i.bookId', 'i')
+      ->where_in('i.lexemId', $lexemIds)->order_by_asc('impressions')->find_many();
 
     if (count($books)) {
       // 20% chance to serve the book with the fewest impressions / 80% chance to serve the book with the highest CTR
@@ -56,17 +59,11 @@ class DivertaAdsModule extends AdsModule {
 }
 
 class DivertaBook extends BaseObject {
-	var $_table = 'diverta_Book';
-
-  public static function get($where) {
-    $obj = new DivertaBook();
-    $obj->load($where);
-    return $obj->id ? $obj : null;
-  }
+  public static $_table = 'diverta_Book';
 }
 
 class DivertaIndex extends BaseObject {
-	var $_table = 'diverta_Index';
+  public static $_table = 'diverta_Index';
 }
 
 ?>

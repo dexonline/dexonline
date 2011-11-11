@@ -35,13 +35,13 @@ foreach ($xml->query->pages->page as $page) {
   $lastRevId = (int)$page->attributes()->lastrevid;
   $fullUrl = (string)$page->attributes()->fullurl;
 
-  $curPage = WikiArticle::get("pageId = $pageId");
+  $curPage = WikiArticle::get_by_pageId($pageId);
   if (!$curPage || $curPage->revId < $lastRevId) {
     $pageRenderUrl = sprintf(PAGE_RENDER_URL, $pageId);
     $pageRawUrl = sprintf(PAGE_RAW_URL, $pageId);
 
     if (!$curPage) {
-      $curPage = new WikiArticle();
+      $curPage = Model::factory('WikiArticle')->create();
       $curPage->pageId = $pageId;
     }
     $curPage->revId = $lastRevId;
@@ -61,7 +61,7 @@ foreach ($xml->query->pages->page as $page) {
     WikiKeyword::deleteByWikiArticleId($curPage->id);
     $keywords = $curPage->extractKeywords();
     foreach ($keywords as $keyword) {
-      $wk = new WikiKeyword();
+      $wk = Model::factory('WikiKeyword')->create();
       $wk->wikiArticleId = $curPage->id;
       $wk->keyword = $keyword;
       $wk->save();
@@ -73,10 +73,10 @@ foreach ($xml->query->pages->page as $page) {
 // Now delete all the pages on our side that aren't category members because
 //   (a) they have been deleted or
 //   (b) they have been removed from the category
-$ourIds = db_getArray(db_execute('select pageId from WikiArticle'));
+$ourIds = db_getArray('select pageId from WikiArticle');
 foreach ($ourIds as $ourId) {
   if (!array_key_exists($ourId, $pageIdHash)) {
-    $curPage = WikiArticle::get("pageId = $ourId");
+    $curPage = WikiArticle::get_by_pageId($ourId);
     log_scriptLog("Deleting page #{$curPage->pageId} \"{$curPage->title}\"");
     $curPage->delete();
   }

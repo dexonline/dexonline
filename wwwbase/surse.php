@@ -19,7 +19,7 @@ if ($moveDown) {
 
 if ($submitButton) {
   foreach($ids as $id) {
-    $src = ($id == 'new') ? new Source : Source::get("id = {$id}");
+    $src = ($id == 'new') ? Model::factory('Source')->create() : Source::get_by_id($id);
     $src->name = util_getRequestParameter("name_{$id}");
     $src->shortName = util_getRequestParameter("shortName_{$id}");
     $src->urlName = util_getRequestParameter("urlName_{$id}");
@@ -41,13 +41,13 @@ if ($submitButton) {
 }
 
 // Note that we do NOT sort sources by isOfficial here, otherwise reordering will not work.
-smarty_assign('sources', db_find(new Source(), '1 order by displayOrder'));
+smarty_assign('sources', Model::factory('Source')->order_by_asc('displayOrder')->find_many());
 smarty_assign('page_title', 'Surse');
 smarty_displayCommonPageWithSkin('surse.ihtml');
 
 function switchSources($ord1, $ord2) {
-  $src1 = Source::get("displayOrder = {$ord1}");
-  $src2 = Source::get("displayOrder = {$ord2}");
+  $src1 = Source::get_by_displayOrder($ord1);
+  $src2 = Source::get_by_displayOrder($ord2);
   if ($src1 && $src2) {
     $src1->displayOrder = $ord2;
     $src2->displayOrder = $ord1;

@@ -28,7 +28,7 @@ $cloneLexem = util_getRequestParameter('cloneLexem');
 $deleteLexem = util_getRequestParameter('deleteLexem');
 $createDefinition = util_getRequestParameter('createDefinition');
 
-$lexem = Lexem::get("id = {$lexemId}");
+$lexem = Lexem::get_by_id($lexemId);
 $oldModelType = $lexem->modelType;
 $oldModelNumber = $lexem->modelNumber;
 
@@ -43,9 +43,10 @@ if ($dissociateDefinitionId) {
 }
 
 if ($createDefinition) {
-  $def = new Definition();
+  $def = Model::factory('Definition')->create();
+  $def->displayed = 0;
   $def->userId = session_getUserId();
-  $def->sourceId = Source::get('shortName="Neoficial"')->id;
+  $def->sourceId = Source::get_by_shortName('Neoficial')->id;
   $def->lexicon = $lexem->formNoAccent;
   $def->internalRep =
     '@' . mb_strtoupper(AdminStringUtil::internalize($lexem->form, false)) .
@@ -61,7 +62,7 @@ if ($createDefinition) {
 }
 
 if ($deleteLexem) {
-  $homonyms = db_find(new Lexem(), "formNoAccent = '{$lexem->formNoAccent}' and id != {$lexem->id}");
+  $homonyms = Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many();
   $lexem->delete();
   smarty_assign('lexem', $lexem);
   smarty_assign('homonyms', $homonyms);
@@ -129,7 +130,7 @@ if ($lexemNoAccent !== null) {
 // $restriction) directly
 $errorMessage = '';
 if ($similarModel !== null) {
-  $parts = Model::splitName($similarModel);
+  $parts = FlexModel::splitName($similarModel);
   $lexem->modelType = $parts[0];
   $lexem->modelNumber = $parts[1];
   $lexem->restriction = $parts[2];
@@ -183,7 +184,7 @@ $definitionLexem = mb_strtoupper(AdminStringUtil::internalize($lexem->form, fals
 // Generate new inflected forms, but do not overwrite the old ones.
 $ifs = $lexem->generateParadigm();
 if (!is_array($ifs)) {
-  $infl = Inflection::get("id = {$ifs}");
+  $infl = Inflection::get_by_id($ifs);
   if (!$errorMessage) {
     $errorMessage = "Nu pot genera flexiunea '".htmlentities($infl->description)."' " .
       "conform modelului {$lexem->modelType}{$lexem->modelNumber}.";
@@ -194,7 +195,7 @@ if (!is_array($ifs)) {
   smarty_assign('searchResults', $searchResults);
 }
 
-$models = Model::loadByType($lexem->modelType);
+$models = FlexModel::loadByType($lexem->modelType);
 
 $sources = LexemSources::getSourceArrayChecked($lexem->source);
 $sourceNames = LexemSources::getNamesOfSources($lexem->source);
@@ -205,14 +206,14 @@ smarty_assign('sources', $sources);
 smarty_assign('sourceNames', $sourceNames);
 smarty_assign('searchResults', $searchResults);
 smarty_assign('definitionLexem', $definitionLexem);
-smarty_assign('homonyms', db_find(new Lexem(), "formNoAccent = '{$lexem->formNoAccent}' and id != {$lexem->id}"));
+smarty_assign('homonyms', Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many());
 smarty_assign('suggestedLexems', loadSuggestions($lexem, 5));
 smarty_assign('restrS', FlexStringUtil::contains($lexem->restriction, 'S'));
 smarty_assign('restrP', FlexStringUtil::contains($lexem->restriction, 'P'));
 smarty_assign('restrU', FlexStringUtil::contains($lexem->restriction, 'U'));
 smarty_assign('restrI', FlexStringUtil::contains($lexem->restriction, 'I'));
 smarty_assign('restrT', FlexStringUtil::contains($lexem->restriction, 'T'));
-smarty_assign('modelTypes', db_find(new ModelType(), '1 order by code'));
+smarty_assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
 smarty_assign('models', $models);
 smarty_assign('canEditForm', $canEditForm);
 smarty_assign('allStatuses', util_getAllStatuses());
@@ -273,7 +274,8 @@ function loadSuggestions($lexem, $limit) {
   while ($lo <= $hi) {
     $mid = (int)(($lo + $hi) / 2);
     $partial = mb_substr($query, 0, $mid);
-    $lexems = db_find(new Lexem(), "reverse like '{$partial}%' and modelType != 'T' and id != {$lexem->id} group by modelType, modelNumber limit {$limit}");
+    $lexems = Model::factory('Lexem')->where_like('reverse', "{$partial}%")->where_not_equal('modelType', 'T')->where_not_equal('id', $lexem->id)
+      ->group_by('modelType')->group_by('modelNumber')->limit($limit)->find_many();
     
     if (count($lexems)) {
       $result = $lexems;
@@ -286,14 +288,14 @@ function loadSuggestions($lexem, $limit) {
 }
 
 function _cloneLexem($lexem) {
-  $clone = new Lexem($lexem->form, 'T', 1, '');
+  $clone = Lexem::create($lexem->form, 'T', 1, '');
   $clone->comment = $lexem->comment;
   $clone->description = ($lexem->description) ? "CLONĂ {$lexem->description}" : "CLONĂ";
   $clone->noAccent = $lexem->noAccent;
   $clone->save();
     
   // Clone the definition list
-  $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$lexem->id}");
+  $ldms = LexemDefinitionMap::get_all_by_lexemId($lexem->id);
   foreach ($ldms as $ldm) {
     LexemDefinitionMap::associate($clone->id, $ldm->definitionId);
   }

@@ -13,6 +13,9 @@
     transfere baza de date și să o folosească off-line, comunicați cu
     acest script pentru a sincroniza periodic baza de date.</p>
 
+    <p><img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/> Acest script este învechit și va fi retras din folosință la 1 martie 2012. El a
+      fost înlocuit de versiunea următoare, <a href="{$wwwRoot}update4.php">update4.php</a>.</p>
+
     <h2>Generalități</h2>
 
     <ul>

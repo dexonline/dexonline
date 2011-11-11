@@ -7,7 +7,7 @@ if (mb_strlen($letter) != '1') {
   exit;
 }
 
-$forms = db_getArray(db_execute("select distinct formNoAccent from Lexem where formNoAccent like '{$letter}%' order by formNoAccent"));
+$forms = db_getArray("select distinct formNoAccent from Lexem where formNoAccent like '{$letter}%' order by formNoAccent");
 
 smarty_assign('forms', $forms);
 smarty_assign('letter', $letter);

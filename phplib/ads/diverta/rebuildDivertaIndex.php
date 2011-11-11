@@ -1,9 +1,10 @@
 <?php
+// TODO: Convert to Idiorm if this is ever needed again
 require_once('phplib/util.php');
 require_once('phplib/ads/adsModule.php');
 require_once('phplib/ads/diverta/divertaAdsModule.php');
 
-$books = db_find(new DivertaBook(), "1 order by id");
+$books = Model::factory('DivertaBook')->order_by_asc('id')->find_many();
 $numBooks = count($books);
 print "Reindexing $numBooks book titles.\n";
 foreach ($books as $i => $book) {

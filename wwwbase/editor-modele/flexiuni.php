@@ -9,7 +9,7 @@ $newModelType = util_getRequestParameter('newModelType');
 $deleteInflectionId = util_getRequestParameter('deleteInflectionId');
 
 if ($deleteInflectionId) {
-  $infl = Inflection::get("id = {$deleteInflectionId}");
+  $infl = Inflection::get_by_id($deleteInflectionId);
   $infl->delete();
   util_redirect('flexiuni');
 }
@@ -18,7 +18,7 @@ if ($submitButton) {
   // Re-rank the inflections according to the order in $inflectionIds
   $modelTypeMap = array();
   foreach ($inflectionIds as $inflId) {
-    $infl = Inflection::get("id = {$inflId}");
+    $infl = Inflection::get_by_id($inflId);
     $rank = array_key_exists($infl->modelType, $modelTypeMap) ? $modelTypeMap[$infl->modelType] + 1 : 1;
     $modelTypeMap[$infl->modelType] = $rank;
     $infl->rank = $rank;
@@ -27,7 +27,7 @@ if ($submitButton) {
 
   // Add a new inflection if one is given
   if ($newDescription) {
-    $infl = new Inflection();
+    $infl = Model::factory('Inflection')->create();
     $infl->description = $newDescription;
     $infl->modelType = $newModelType;
     $infl->rank = $modelTypeMap[$newModelType] + 1;
@@ -38,8 +38,8 @@ if ($submitButton) {
 }
 
 // Tag inflections which can be safely deleted (only those that aren't being used by any model)
-$inflections = db_find(new Inflection(), "1 order by modelType, rank");
-$usedInflectionIds = db_getArray(db_execute("select distinct inflectionId from ModelDescription"));
+$inflections = Model::factory('Inflection')->order_by_asc('modelType')->order_by_asc('rank')->find_many();
+$usedInflectionIds = db_getArray('select distinct inflectionId from ModelDescription');
 foreach ($inflections as $infl) {
   $infl->canDelete = !in_array($infl->id, $usedInflectionIds);
 }

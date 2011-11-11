@@ -3,7 +3,7 @@ require_once("../phplib/util.php");
 
 $title = util_getRequestParameter('title');
 $wikiTitle = WikiArticle::urlTitleToWikiTitle($title);
-$wa = WikiArticle::get(sprintf('title = "%s"', addslashes($wikiTitle)));
+$wa = WikiArticle::get_by_title(addslashes($wikiTitle));
 
 if ($wa) {
   smarty_assign('wa', $wa);

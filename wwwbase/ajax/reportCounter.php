@@ -5,20 +5,23 @@ util_assertNotMirror();
 
 $reportId = util_getRequestParameter('report');
 switch($reportId) {
- case 'unassociatedLexems': echo count(Lexem::loadUnassociated()); break;
-  case 'unassociatedDefinitions': echo Definition::countUnassociated(); break;
-  case 'definitionsWithTypos': echo db_getSingleValue('select count(distinct definitionId) from Typo'); break;
-  case 'temporaryDefinitions': echo Definition::countByStatus(ST_PENDING); break;
-  case 'temporaryLexems': echo db_getSingleValue("select count(*) from Lexem where modelType = 'T'"); break;
-  case 'lexemsWithComments': echo db_getSingleValue("select count(*) from Lexem where comment != ''"); break;
-  case 'lexemsWithoutAccents': echo db_getSingleValue("select count(*) from Lexem where form not rlike '\'' and not noAccent"); break;
-  case 'wotd': echo db_getSingleValue("select count(*) from WordOfTheDay"); break;
-  case 'definitionsWithAmbiguousAbbrev':
-    echo db_getSingleValue("select count(*) from Definition where status != " . ST_DELETED . " and abbrevReview = " . ABBREV_AMBIGUOUS); break;
-  case 'ambiguousLexems': // This one is expensive
-    echo db_getSingleValue("select count(*) from (select id from Lexem where description = '' group by form having count(*) > 1) as t1");
-    break;
-  default: echo 'Necunoscut';
+case 'unassociatedLexems': echo count(Lexem::loadUnassociated()); break;
+case 'unassociatedDefinitions': echo Definition::countUnassociated(); break;
+case 'definitionsWithTypos': echo Model::factory('Typo')->select('definitionId')->distinct()->count(); break;
+case 'temporaryDefinitions': echo Definition::countByStatus(ST_PENDING); break;
+case 'temporaryLexems': echo Model::factory('Lexem')->where('modelType', 'T')->count(); break;
+case 'lexemsWithComments': echo Model::factory('Lexem')->where_not_equal('comment', '')->count(); break;
+case 'lexemsWithoutAccents': echo Model::factory('Lexem')->where_raw("form not rlike '\''")->where('noAccent', false)->count(); break;
+case 'wotd': echo Model::factory('WordOfTheDay')->count(); break;
+case 'definitionsWithAmbiguousAbbrev':
+  echo Model::factory('Definition')->where_not_equal('status', ST_DELETED)->where('abbrevReview', ABBREV_AMBIGUOUS)->count(); break;
+case 'ambiguousLexems': // This one is expensive
+  $r = Model::factory('Lexem')
+    ->raw_query("select count(*) as c from (select id from Lexem where description = '' group by form having count(*) > 1) as t1", null)
+    ->find_one();
+  print $r->c;
+  break;
+default: echo 'Necunoscut';
 }
 
 ?>

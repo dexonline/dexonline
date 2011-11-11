@@ -20,7 +20,7 @@ if ($lexemId) {
   if (!StringUtil::validateAlphabet($lexemId, '0123456789')) {
     $lexemId = '';
   }
-  $lexem = Lexem::get("id = {$lexemId}");
+  $lexem = Lexem::get_by_id($lexemId);
   if ($lexem) {
     $lexems = array($lexem);
 	$cuv = $lexem->formNoAccent;

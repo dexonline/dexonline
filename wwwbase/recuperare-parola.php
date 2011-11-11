@@ -8,14 +8,14 @@ $password = util_getRequestParameter('password');
 $password2 = util_getRequestParameter('password2');
 $submitButton = util_getRequestParameter('submitButton');
 
-$pt = PasswordToken::get("token = '{$token}'");
+$pt = PasswordToken::get_by_token($token);
 $user = null;
 if (!$pt) {
   FlashMessage::add('Ați introdus un cod de recuperare incorect.');
 } else if ($pt->createDate < time() - 24 * 3600) {
   FlashMessage::add('Codul de recuperare introdus a expirat.');
 } else {
-  $user = User::get("id = {$pt->userId}");
+  $user = User::get_by_id($pt->userId);
   if (!$user) {
     FlashMessage::add('Ați introdus un cod de recuperare incorect.');
   }

@@ -9,9 +9,10 @@ $field = StringUtil::hasDiacritics($name) ? 'formNoAccent' : 'formUtf8General';
 if (count($parts) == 2) {
   $description = trim($parts[1]);
   $description = str_replace(')', '', $description);
-  $lexems = db_find(new Lexem(), "$field = '{$name}' and description like '{$description}%' order by formNoAccent, description limit 10");
+  $lexems = Model::factory('Lexem')->where($field, $name)->where_like('description', "{$description}%")
+    ->order_by_asc('formNoAccent')->order_by_asc('description')->limit(10)->find_many();
 } else {
-  $lexems = db_find(new Lexem(), "$field like '{$name}%' order by formNoAccent limit 10");
+  $lexems = Model::factory('Lexem')->where_like($field, "{$name}%")->order_by_asc('formNoAccent')->limit(10)->find_many();
 }
 
 foreach ($lexems as $l) {

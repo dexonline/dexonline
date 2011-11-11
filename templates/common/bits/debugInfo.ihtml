@@ -1,8 +1,12 @@
-{if $debug}
+{getDebugInfo}
+{if $debug_enabled}
   <div class="debugInfo">
-    Pagină generată în {getRunningTimeInMillis} ms.<br/>
-    {foreach from=$GLOBALS.debugInfo item=line}
+    Pagină generată în {$debug_runningTimeMillis} ms.<br/>
+    {foreach from=$debug_messages item=line}
       {$line|escape}<br/>
+    {/foreach}
+    {foreach from=$debug_ormQueryLog item=query}
+      Idiorm query: {$query}<br/>
     {/foreach}
   </div>
 {/if}

@@ -14,15 +14,13 @@ smarty_assign('words_total', util_formatNumber(Definition::getWordCount(), 0));
 smarty_assign('words_last_month', util_formatNumber(Definition::getWordCountLastMonth(), 0));
 
 /* WotD part */
-$wotd = new WordOfTheDay();
-$titleDate = "";
-$id = $wotd->getTodaysWord();
-if (!$id) {
-    $wotd->updateTodaysWord();
-    $id = $wotd->getTodaysWord();
+$wotd = WordOfTheDay::getTodaysWord();
+if (!$wotd) {
+  WordOfTheDay::updateTodaysWord();
+  $wotd = WordOfTheDay::getTodaysWord();
 }
-$defId = WordOfTheDayRel::getRefId($id);
-$def = Definition::get("id = '$defId' and status = 0");
+$defId = WordOfTheDayRel::getRefId($wotd->id);
+$def = Model::factory('Definition')->where('id', $defId)->where('status', ST_ACTIVE)->find_one();
 smarty_assign('title', $def->lexicon);
 smarty_assign('today', date('Y/m/d'));
 

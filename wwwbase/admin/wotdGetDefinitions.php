@@ -30,11 +30,10 @@ class wotdGetDefinitions{
       $where = " lexicon like '%{$q}%'";
     }
     $where .= " order by lexicon = '{$q}', lexicon, id limit 20";
-    $definitions = db_find(new Definition(), $where);
+    $definitions = Model::factory('Definition')->raw_query("select * from Definition where $where", null)->find_many();
     $result = '';
     foreach ($definitions as $definition){
-      $sources = db_find(new Source(), 'id = ' . $definition->sourceId);
-      $source = $sources[0];
+      $source = Source::get_by_id($definition->sourceId);
       $result .= ($result == '' ? '' : "\n") . $definition->lexicon . " - " . substr($definition->internalRep, 0, 80) . ' (' . $source->shortName . ') [{' . $definition->id . '}]';
     }
     return $result;

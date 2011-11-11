@@ -16,10 +16,10 @@ if (!$userId) {
 
 $bookmarks = UserWordBookmarkDisplayObject::getByUser($userId);
 if (count($bookmarks) < pref_getMaxBookmarks()) {
-  $bookmark = new UserWordBookmark();
-  $status = $bookmark->getStatus($userId, $definitionId);
+  $existing = Model::factory('UserWordBookmark')->where('userId', $userId)->where('definitionId', $definitionId)->find_one();
   
-  if (is_null($status)) {
+  if (!$existing) {
+    $bookmark = Model::factory('UserWordBookmark')->create();
     $bookmark->userId = $userId; 
     $bookmark->definitionId = $definitionId;
     $bookmark->save();

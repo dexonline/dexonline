@@ -37,6 +37,7 @@ class wotdSave{
 
   /**
    * The old definition ID (used for editing purposes)
+   * This is currently unused -- cata
    * @var int $oldDefinitionId
    * @access protected
    * */
@@ -68,22 +69,25 @@ class wotdSave{
    * @return void
    * */
   protected function doSave() {
-    $table = new WordOfTheDay();
     if ($this->id != null){
-      $table->id = $this->id;
-      $table->_saved = true;
-      $table->oldDefinitionId = $this->oldDefinitionId;
+      $wotd = WordOfTheDay::get_by_id($this->id);
+      // $wotd->oldDefinitionId = $this->oldDefinitionId;
+    } else {
+      $wotd = Model::factory('WordOfTheDay')->create();
     }
-    if ($this->displayDate)
-        $table->displayDate = $this->displayDate;
-    $table->priority = $this->priority;
-    $table->refId = $this->refId;
-    $table->defId = $this->refId;
-    $table->refType = $this->refType;
 
-    $ok = $table->save();
-    if (!$ok) return $table->ErrorMsg();
+    if ($this->displayDate) {
+      $wotd->displayDate = $this->displayDate;
+    }
+    $wotd->userId = session_getUserId();
+    $wotd->priority = $this->priority;
+    $wotd->save();
 
+    $wotdr = Model::factory('WordOfTheDayRel')->create();
+    $wotdr->refId = $this->refId;
+    $wotdr->refType = $this->refType ? $this->refType : 'Definition';
+    $wotdr->wotdId = $wotd->id;
+    $wotdr->save();
     return '';
   }
 
@@ -93,22 +97,21 @@ class wotdSave{
    * @return string
    * */
   protected function doDelete() {
-    $table = new WordOfTheDay();
-    $table->id = $this->id;
+    $wotd = WordOfTheDay::get_by_id($this->id);
+    $wotd->delete();
 
-    $ok = $table->Delete();
-    if (!$ok) return $table->ErrorMsg();
-
+    $wotdr = WordOfTheDayRel::get_by_wotdId($this->id);
+    $wotdr->delete();
     return '';
   }
 
-    /**
+  /**
    * Runs the application
    * @param string $oper The operation to perform (edit|del) [OPTIONAL]
    * @access public
    * @return void
    * */
-  public function run($oper = 'edit') {
+  public function run($oper) {
     header('Content-Type: text/plain; charset=UTF-8');
     if ($oper == 'edit' || $oper == 'add'){
       echo $this->doSave();
@@ -125,18 +128,19 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_WOTD);
 util_assertNotMirror();
 
-if (array_key_exists('oper', $_POST)){
-  if ($_POST['oper'] == 'edit'){
-    $app = new wotdSave($_POST['id'], $_POST['displayDate'], $_POST['priority'], $_POST['definitionId'], $_POST['refType'],
-             (array_key_exists('oldDefinitionId', $_POST) ? $_POST['oldDefinitionId'] : null));
-  }
-  else if ($_POST['oper'] == 'del'){
-    $app = new wotdSave($_POST['id']);
-  }
-  else if ($_POST['oper'] == 'add'){
-    $app = new wotdSave(null, $_POST['displayDate'], $_POST['priority'], $_POST['definitionId'], $_POST['refType'], null);
-  }
-  $app->run($_POST['oper']);
+$oper = util_getRequestParameter('oper');
+$id = util_getRequestParameter('id');
+$displayDate = util_getRequestParameter('displayDate');
+$priority = util_getRequestParameter('priority');
+$definitionId = util_getRequestParameter('definitionId');
+$refType = util_getRequestParameter('refType');
+$oldDefinitionId = util_getRequestParameter('oldDefinitionId');
+
+switch ($oper) {
+case 'edit': $app = new wotdSave($id, $displayDate, $priority, $definitionId, $refType, $oldDefinitionId); break;
+case 'del': $app = new wotdSave($id); break;
+case 'add': $app = new wotdSave(null, $displayDate, $priority, $definitionId, $refType, null); break;
 }
+$app->run($oper);
 
 ?>

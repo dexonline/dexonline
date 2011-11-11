@@ -220,7 +220,7 @@ assertEquals('1234', StringUtil::cleanupQuery('12&qweasd;34'));
 assert(StringUtil::hasDiacritics('mamă'));
 assert(!StringUtil::hasDiacritics('mama'));
 
-$def = new Definition();
+$def = Model::factory('Definition')->create();
 $def->sourceId = 1;
 $def->internalRep = 'abcd';
 assertEquals('abcd', AdminStringUtil::extractLexicon($def));

@@ -1,29 +1,26 @@
 <?php
 
 class Lexem extends BaseObject {
-  function __construct($form = null, $modelType = null, $modelNumber = null, $restriction = '') {
-    parent::__construct();
-    if ($form) {
-      $this->form = $form;
-      $this->formNoAccent = str_replace("'", '', $form);
-      $this->formUtf8General = $this->formNoAccent;
-      $this->reverse = StringUtil::reverse($this->formNoAccent);
-    }
-    $this->description = '';
-    $this->tags = '';
-    $this->source = '';
-    $this->modelType = $modelType;
-    $this->modelNumber = $modelNumber;
-    $this->restriction = $restriction;
-    $this->comment = '';
-    $this->isLoc = false;
-    $this->noAccent = false;
-  }
+  public static $_table = 'Lexem';
 
-  public static function get($where) {
-    $obj = new Lexem();
-    $obj->load($where);
-    return $obj->id ? $obj : null;
+  public static function create($form = null, $modelType = null, $modelNumber = null, $restriction = '') {
+    $l = Model::factory('Lexem')->create();
+    if ($form) {
+      $l->form = $form;
+      $l->formNoAccent = str_replace("'", '', $form);
+      $l->formUtf8General = $l->formNoAccent;
+      $l->reverse = StringUtil::reverse($l->formNoAccent);
+    }
+    $l->description = '';
+    $l->tags = '';
+    $l->source = '';
+    $l->modelType = $modelType;
+    $l->modelNumber = $modelNumber;
+    $l->restriction = $restriction;
+    $l->comment = '';
+    $l->isLoc = false;
+    $l->noAccent = false;
+    return $l;
   }
 
   public static function loadByExtendedName($extName) {
@@ -35,14 +32,13 @@ class Lexem extends BaseObject {
     } else {
       $description = '';
     }
-    return db_find(new Lexem(), "formNoAccent = '{$name}' and description = '{$description}'");
+    return Model::factory('Lexem')->where('formNoAccent', $name)->where('description', $description)->find_many();
   }
 
   // For V1, this loads all lexems in (V1, VT1)
   public static function loadByCanonicalModel($modelType, $modelNumber) {
-    $dbResult = db_execute("select Lexem.* from Lexem, ModelType where modelType = code and canonical = '{$modelType}' and modelNumber = '{$modelNumber}' " .
-                           "order by formNoAccent");
-    return db_getObjects(new Lexem(), $dbResult);
+    return Model::factory('Lexem')->select('Lexem.*')->join('ModelType', 'modelType = code')->where('canonical', $modelType)->where('modelNumber', $modelNumber)
+      ->order_by_asc('formNoAccent')->find_many();
   }
 
   /**
@@ -63,8 +59,8 @@ class Lexem extends BaseObject {
       }
     }
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-    $dbResult = db_execute("select distinct L.* from InflectedForm I, Lexem L where I.lexemId = L.id and I.$field = '$cuv' order by L.formNoAccent");
-    $result = db_getObjects(new Lexem(), $dbResult);
+    $result = Model::factory('Lexem')->select('Lexem.*')->distinct()->join('InflectedForm', 'Lexem.id = InflectedForm.lexemId')
+      ->where("InflectedForm.$field", $cuv)->order_by_asc('Lexem.formNoAccent')->find_many();
     if ($useMemcache) {
       mc_set($key, $result);
     }
@@ -80,7 +76,7 @@ class Lexem extends BaseObject {
       }
     }
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-    $result = db_find(new Lexem(), "dist2($field, '$cuv') order by formNoAccent");
+    $result = Model::factory('Lexem')->where_raw("dist2($field, '$cuv')")->order_by_asc('formNoAccent')->find_many();
     if ($useMemcache) {
       mc_set($key, $result);
     }
@@ -98,11 +94,12 @@ class Lexem extends BaseObject {
     $mysqlRegexp = StringUtil::dexRegexpToMysqlRegexp($regexp);
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     if ($sourceId) {
-      $dbResult = db_execute("select distinct L.* from Lexem L join LexemDefinitionMap on L.id = lexemId join Definition D on definitionId = D.id " .
-                             "where $field $mysqlRegexp and sourceId = $sourceId order by formNoAccent limit 1000");
-      $result = db_getObjects(new Lexem(), $dbResult);
+      // Suppres warnings from idiorm's log query function, which uses vsprintf, which trips on extra % signs.
+      $result = @Model::factory('Lexem')->select('Lexem.*')->distinct()->join('LexemDefinitionMap', 'Lexem.id = lexemId')
+        ->join('Definition', 'definitionId = Definition.id')->where_raw("$field $mysqlRegexp")->where('sourceId', $sourceId)
+        ->order_by_asc('formNoAccent')->limit(1000)->find_many();
     } else {
-      $result = db_find(new Lexem(), "$field $mysqlRegexp order by formNoAccent limit 1000");
+      $result = @Model::factory('Lexem')->where_raw("$field $mysqlRegexp")->order_by_asc('formNoAccent')->limit(1000)->find_many();
     }
     if ($useMemcache) {
       mc_set($key, $result);
@@ -123,7 +120,7 @@ class Lexem extends BaseObject {
     $result = $sourceId ?
       db_getSingleValue("select count(distinct L.id) from Lexem L join LexemDefinitionMap on L.id = lexemId join Definition D on definitionId = D.id " .
                         "where $field $mysqlRegexp and sourceId = $sourceId order by formNoAccent") :
-      db_getSingleValue("select count(*) from Lexem where $field $mysqlRegexp");
+      Model::factory('Lexem')->where_raw("$field $mysqlRegexp")->count();
     if ($useMemcache) {
       mc_set($key, $result);
     }
@@ -131,7 +128,8 @@ class Lexem extends BaseObject {
   }
 
   public static function loadUnassociated() {
-    return db_find(new Lexem(), "id not in (select lexemId from LexemDefinitionMap) order by formNoAccent");
+    return Model::factory('Lexem')
+      ->raw_query('select * from Lexem where id not in (select lexemId from LexemDefinitionMap) order by formNoAccent', null)->find_many();
   }
 
   public function regenerateParadigm() {
@@ -144,7 +142,7 @@ class Lexem extends BaseObject {
     }
 
     if ($this->modelType == 'VT') {
-      $model = Model::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
+      $model = FlexModel::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
       $pm = ParticipleModel::loadByVerbModel($model->number);
       $this->regeneratePastParticiple($pm->adjectiveModel);
     }
@@ -155,12 +153,12 @@ class Lexem extends BaseObject {
 
   public function regeneratePastParticiple($adjectiveModel) {
     $infl = Inflection::loadParticiple();
-    $ifs = db_find(new InflectedForm(), "lexemId = {$this->id} and inflectionId = {$infl->id}");
-    $model = Model::get("modelType = 'A' and number = '{$adjectiveModel}'");
+    $ifs = Model::factory('InflectedForm')->where('lexemId', $this->id)->where('inflectionId', $infl->id)->find_many();
+    $model = Model::factory('FlexModel')->where('modelType', 'A')->where('number', $adjectiveModel)->find_one();
 
     foreach ($ifs as $if) {
       // Load an existing lexem only if it has the same model as $model or T1. Otherwise create a new lexem.
-      $lexems = db_find(new Lexem(), "formNoAccent = '{$if->formNoAccent}'");
+      $lexems = Lexem::get_all_by_formNoAccent($if->formNoAccent);
       $lexem = null;
       foreach ($lexems as $l) {
         if ($l->modelType == 'T' || ($l->modelType == 'A' && $l->modelNumber = $model->number)) {
@@ -180,12 +178,12 @@ class Lexem extends BaseObject {
         $lexem->noAccent = false;
         $lexem->save();
       } else {
-        $lexem = new Lexem($if->form, 'A', $model->number, '');
+        $lexem = Lexem::create($if->form, 'A', $model->number, '');
         $lexem->isLoc = $this->isLoc;
         $lexem->save();
 
         // Also associate the new lexem with the same definitions as $this.
-        $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$this->id}");
+        $ldms = LexemDefinitionMap::get_all_by_lexemId($this->id);
         foreach ($ldms as $ldm) {
           LexemDefinitionMap::associate($lexem->id, $ldm->definitionId);
         }
@@ -197,15 +195,15 @@ class Lexem extends BaseObject {
 
   public function regenerateLongInfinitive() {
     $infl = Inflection::loadLongInfinitive();
-    $ifs = db_find(new InflectedForm(), "lexemId = {$this->id} and inflectionId = {$infl->id}");
-    $f107 = Model::get("modelType = 'F' and number = '107'");
-    $f113 = Model::get("modelType = 'F' and number = '113'");
+    $ifs = Model::factory('InflectedForm')->where('lexemId', $this->id)->where('inflectionId', $infl->id)->find_many();
+    $f107 = Model::factory('FlexModel')->where('modelType', 'F')->where('number', '107')->find_one();
+    $f113 = Model::factory('FlexModel')->where('modelType', 'F')->where('number', '113')->find_one();
     
     foreach ($ifs as $if) {
       $model = StringUtil::endsWith($if->formNoAccent, 'are') ? $f113 : $f107;
       
       // Load an existing lexem only if it has one of the models F113, F107 or T1. Otherwise create a new lexem.
-      $lexems = db_find(new Lexem(), "formNoAccent = '{$if->formNoAccent}'");
+      $lexems = Lexem::get_all_by_formNoAccent($if->formNoAccent);
       $lexem = null;
       foreach ($lexems as $l) {
         if ($l->modelType == 'T' || ($l->modelType == 'F' && $l->modelNumber == $model->number)) {
@@ -225,12 +223,12 @@ class Lexem extends BaseObject {
         $lexem->noAccent = false;
         $lexem->save();
       } else {
-        $lexem = new Lexem($if->form, 'F', $model->number, '');
+        $lexem = Lexem::create($if->form, 'F', $model->number, '');
         $lexem->isLoc = $this->isLoc;
         $lexem->save();
 
         // Also associate the new lexem with the same definitions as $this.
-        $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$this->id}");
+        $ldms = LexemDefinitionMap::get_all_by_lexemId($this->id);
         foreach ($ldms as $ldm) {
           LexemDefinitionMap::associate($lexem->id, $ldm->definitionId);
         }
@@ -245,7 +243,8 @@ class Lexem extends BaseObject {
       return array();
     }
     $ifs = array();
-    $mds = db_find(new ModelDescription(), "modelId = '$modelId' and inflectionId = '$inflId' order by variant, applOrder");
+    $mds = Model::factory('ModelDescription')->where('modelId', $modelId)->where('inflectionId', $inflId)
+      ->order_by_asc('variant')->order_by_asc('applOrder')->find_many();
  
     $start = 0;
     while ($start < count($mds)) {
@@ -266,14 +265,14 @@ class Lexem extends BaseObject {
       // Load the transforms
       $transforms = array();
       for ($i = $end - 1; $i >= $start; $i--) {
-        $transforms[] = Transform::get("id = " . $mds[$i]->transformId);
+        $transforms[] = Transform::get_by_id($mds[$i]->transformId);
       }
       
       $result = FlexStringUtil::applyTransforms($this->form, $transforms, $accentShift, $vowel);
       if (!$result) {
         return null;
       }
-      $ifs[] = new InflectedForm($result, $this->id, $inflId, $variant, $recommended);
+      $ifs[] = InflectedForm::create($result, $this->id, $inflId, $variant, $recommended);
       $start = $end;
     }
     
@@ -281,10 +280,9 @@ class Lexem extends BaseObject {
   }
   
   public function generateParadigm() {
-    $model = Model::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
+    $model = FlexModel::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
     // Select inflection IDs for this model
-    $dbResult = db_execute("select distinct inflectionId from ModelDescription where modelId = {$model->id} order by inflectionId");
-    $inflIds = db_getArray($dbResult);
+    $inflIds = db_getArray("select distinct inflectionId from ModelDescription where modelId = {$model->id} order by inflectionId");
     $ifs = array();
     foreach ($inflIds as $inflId) {
       $if = $this->generateInflectedFormWithModel($inflId, $model->id);
@@ -321,8 +319,8 @@ class Lexem extends BaseObject {
    * Arguments for long infinitives: 'F', ('107', '113').
    */
   private function _deleteDependentModels($inflId, $modelType, $modelNumbers) {
-    $ifs = db_find(new InflectedForm(), "lexemId = {$this->id} and inflectionId = {$inflId}");
-    $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$this->id}");
+    $ifs = Model::factory('InflectedForm')->where('lexemId', $this->id)->where('inflectionId', $inflId)->find_many();
+    $ldms = LexemDefinitionMap::get_all_by_lexemId($this->id);
 
     $defHash = array();
     foreach($ldms as $ldm) {
@@ -330,11 +328,11 @@ class Lexem extends BaseObject {
     }
     
     foreach ($ifs as $if) {
-      $lexems = db_find(new Lexem(), "formNoAccent = '{$if->formNoAccent}'");
+      $lexems = Lexem::get_all_by_formNoAccent($if->formNoAccent);
       foreach ($lexems as $l) {
         if ($l->modelType == 'T' || ($l->modelType == $modelType && in_array($l->modelNumber, $modelNumbers))) {
           $ownDefinitions = false;
-          $ldms = db_find(new LexemDefinitionMap(), "lexemId = {$l->id}");
+          $ldms = LexemDefinitionMap::get_all_by_lexemId($l->id);
           foreach ($ldms as $ldm) {
             if (!array_key_exists($ldm->definitionId, $defHash)) {
               $ownDefinitions = true;

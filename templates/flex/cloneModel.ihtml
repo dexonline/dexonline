@@ -14,7 +14,7 @@
     {include file="admin/recentlyVisited.ihtml"}
     {include file="common/errorMessage.ihtml"}
 
-    <form action="cloneModel.php" method="post">
+    <form action="cloneModel.php" method="post" onsubmit="this.bogusButton.disabled = true;">
       <input type="hidden" name="modelType" value="{$modelType}"/>
       <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
 
@@ -44,9 +44,8 @@
       </div>
 
       <!-- We want to disable the button on click, but still submit a value -->
-      <input type="hidden" name="cloneButton" value=""/>
-      <input type="submit" name="bogusButton" value="Clonează"
-             onclick="this.disabled=true; this.parentNode.cloneButton.value = '1';"/>
+      <input type="hidden" name="cloneButton" value="1"/>
+      <input type="submit" name="bogusButton" value="Clonează"/>
     </form>
   </body>
 </html>

@@ -9,11 +9,18 @@ $defId = util_getRequestParameter('defId');
 $status = WordOfTheDay::getStatus($defId);
 
 if (is_null($status)) {
-  $wotd = new WordOfTheDay();
-	$wotd->defId = $defId;
-	$wotd->priority = 0;
-	$wotd->save();
-	log_userLog("Added new word of the day: {$wotd->id} - the definition with the id {$wotd->defId}");
+  $wotd = Model::factory('WordOfTheDay')->create();
+  $wotd->userId = session_getUserId();
+  $wotd->priority = 0;
+  $wotd->save();
+
+  $wotdr = Model::factory('WordOfTheDayRel')->create();
+  $wotdr->refId = $defId;
+  $wotdr->refType = 'Definition';
+  $wotdr->wotdId = $wotd->id;
+  $wotdr->save();
+  
+  log_userLog("Added new word of the day: {$wotd->id} - the definition with the id {$wotdr->refId}");
 }
 
 $where_to_go = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/';

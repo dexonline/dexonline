@@ -163,7 +163,7 @@ sql;
       {$limit_from}, {$limit_to}
 sql;
 
-    $rows = db_execute($sql);
+    $rows = db_execute($sql, PDO::FETCH_ASSOC);
     $doc = new DOMDocument('1.0', 'UTF-8');
     $root = $doc->createElement('rows');
 
@@ -171,17 +171,16 @@ sql;
     $root->appendChild($this->newNode('total', ceil($count / $this->limit), $doc));
     $root->appendChild($this->newNode('records', $count, $doc));
 
-    while (!$rows->EOF){
+    foreach ($rows as $dbRow) {
       $row = $doc->createElement('row');
-      $row->setAttribute('id', $rows->fields['id']);
-      foreach ($rows->fields as $key => $cell){
+      $row->setAttribute('id', $dbRow['id']);
+      foreach ($dbRow as $key => $cell){
         if (!is_numeric($key) && $key != 'id'){
-          $row->appendChild($this->newNode('cell', $rows->fields[$key], $doc, ($key == 'htmlRep' ? true : false)));
+          $row->appendChild($this->newNode('cell', $dbRow[$key], $doc, ($key == 'htmlRep' ? true : false)));
         }
       }
 
       $root->appendChild($row);
-      $rows->MoveNext();
     }
 
     $doc->appendChild($root);

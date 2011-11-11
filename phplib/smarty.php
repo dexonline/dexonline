@@ -11,17 +11,16 @@ function smarty_init() {
   $smarty->assign('wwwRoot', util_getWwwRoot());
   $smarty->assign('cssRoot', util_getCssRoot());
   $smarty->assign('imgRoot', util_getImgRoot());
-  $smarty->assign('sources', db_find(new Source(), '1 order by isOfficial desc, displayOrder'));
+  $smarty->assign('sources', Model::factory('Source')->order_by_desc('isOfficial')->order_by_asc('displayOrder')->find_many());
   $smarty->assign('sUser', session_getUser());
   $smarty->assign('is_mirror', pref_isMirror());
   $smarty->assign('nick', session_getUserNick());
   $smarty->assign('contact_email', pref_getContactEmail());
-  $smarty->assign('debug', session_isDebug());
   $smarty->assign('hostedBy', pref_getHostedBy());
   $smarty->assign('currentYear', date("Y"));
   $smarty->assign('bannerType', pref_getServerPreference('bannerType'));
   $smarty->assign('isMobile', util_isMobile());
-  smarty_registerFunction($smarty, 'getRunningTimeInMillis', 'smarty_function_getRunningTimeInMillis');
+  smarty_registerFunction($smarty, 'getDebugInfo', 'smarty_function_getDebugInfo');
   $smarty->assign('GLOBALS', $GLOBALS);
   $GLOBALS['smarty_theSmarty'] = $smarty;
 }
@@ -127,8 +126,8 @@ function smarty_registerFunction($smarty, $smartyTagName, $functionName) {
   }
 }
 
-function smarty_function_getRunningTimeInMillis($params, &$smarty) {
-  return debug_getRunningTimeInMillis();
+function smarty_function_getDebugInfo($params, &$smarty) {
+  return DebugInfo::getDebugInfo();
 }
 
 ?>

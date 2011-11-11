@@ -199,7 +199,7 @@ class FlexStringUtil {
     }
     
     if (count($transforms) == 0) {
-      $transforms[] = new Transform('', '');
+      $transforms[] = Transform::create('', '');
       return $transforms;
     }
 
@@ -218,7 +218,7 @@ class FlexStringUtil {
         if ($posFound !== false && $posFound < $place2) {
           // Add another transform $bitFrom->$bitFrom, so that this newly found
           // occurrence does not "steal" the transform.
-          array_splice($transforms, $i + 1, 0, array(new Transform($bitFrom, $bitFrom)));
+          array_splice($transforms, $i + 1, 0, array(Transform::create($bitFrom, $bitFrom)));
           array_splice($places, $i + 1, 0, $posFound);
           // print "Adding $bitFrom -> $bitFrom to [$from][$to]\n";
         }
@@ -232,11 +232,11 @@ class FlexStringUtil {
     if (!$from && !$to) {
       return 1;
     } else if (!$from) {
-      $transforms[] = new Transform('', $to);
+      $transforms[] = Transform::create('', $to);
       $places[] = $commonLength;
       return 1;
     } else if (!$to) {
-      $transforms[] = new Transform($from, '');
+      $transforms[] = Transform::create($from, '');
       $places[] = $commonLength;
       return 1;
     }
@@ -254,7 +254,7 @@ class FlexStringUtil {
     // Try one of the predefined combinations
     foreach (self::$SUFFIX_PAIRS as $pair) {
       if (StringUtil::startsWith($from, $pair[0]) && StringUtil::startsWith($to, $pair[1])) {
-        $transforms[] = new Transform($pair[0], $pair[1]);
+        $transforms[] = Transform::create($pair[0], $pair[1]);
         $places[] = $commonLength;
         $newFrom = mb_substr($from, mb_strlen($pair[0]));
         $newTo = mb_substr($to, mb_strlen($pair[1]));
@@ -278,15 +278,15 @@ class FlexStringUtil {
 
     // We have one special case
     if ($from == 'doisprezecelea' && $to == 'douăsprezecea') {
-      $transforms[] = new Transform('i', 'uă');
-      $transforms[] = new Transform('lea', 'a');
+      $transforms[] = Transform::create('i', 'uă');
+      $transforms[] = Transform::create('lea', 'a');
       $places[] = 2;
       $places[] = 11;
       return 1;
     }
 
     if (StringUtil::startsWith($to, $from)) {
-      $t = new Transform('', mb_substr($to, mb_strlen($from)));
+      $t = Transform::create('', mb_substr($to, mb_strlen($from)));
       $transforms[] = $t;
       $places[] = mb_strlen($from);
       return 1;
@@ -306,7 +306,7 @@ class FlexStringUtil {
       $place++;
     }
 
-    $transforms[] = new Transform($from, $to);
+    $transforms[] = Transform::create($from, $to);
     $places[] = $place;
     return 1;
   }

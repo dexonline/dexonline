@@ -4,7 +4,7 @@ util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
 $defId = util_getRequestParameter('id');
-$def = Definition::get("id = {$defId}");
+$def = Definition::get_by_id($defId);
 if ($def && $def->id) {
   $def->status = ST_DELETED;
   $def->save();
@@ -12,12 +12,12 @@ if ($def && $def->id) {
 
   // TODO: This code replicates code in definitionEdit.php
   // If by deleting this definition, any associated lexems become unassociated, delete them
-  $ldms = db_find(new LexemDefinitionMap(), "definitionId = {$def->id}");
+  $ldms = LexemDefinitionMap::get_all_by_definitionId($def->id);
   db_execute("delete from LexemDefinitionMap where definitionId = {$def->id}");
 
   foreach ($ldms as $ldm) {
-    $l = Lexem::get("id = {$ldm->lexemId}");
-    $otherLdms = db_find(new LexemDefinitionMap(), "lexemId = {$l->id}");
+    $l = Lexem::get_by_id($ldm->lexemId);
+    $otherLdms = LexemDefinitionMap::get_all_by_lexemId($l->id);
     if (!$l->isLoc && !count($otherLdms)) {
       $l->delete();
     }

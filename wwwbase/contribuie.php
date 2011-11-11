@@ -27,7 +27,9 @@ if ($sendButton) {
     FlashMessage::add($errorMessage);
     smarty_assign('previewDivContent', AdminStringUtil::htmlize($def, $sourceId));
   } else {
-    $definition = new Definition();
+    $definition = Model::factory('Definition')->create();
+    $definition->displayed = 0;
+    $definition->status = ST_PENDING;
     $definition->userId = session_getUserId();
     $definition->sourceId = $sourceId;
     $definition->internalRep = $def;
@@ -49,7 +51,7 @@ if ($sendButton) {
           }
         } else {
           // Create a new lexem.
-          $lexem = new Lexem($lexemName, 'T', '1', '');
+          $lexem = Lexem::create($lexemName, 'T', '1', '');
           $lexem->save();
           $lexem->regenerateParadigm();
           LexemDefinitionMap::associate($lexem->id, $definition->id);
@@ -64,7 +66,7 @@ if ($sendButton) {
   smarty_assign('sourceId', session_getDefaultContribSourceId());
 }
 
-smarty_assign('contribSources', db_find(new Source(), 'canContribute order by displayOrder'));
+smarty_assign('contribSources', Model::factory('Source')->where('canContribute', true)->order_by_asc('displayOrder')->find_many());
 smarty_assign('page_title', 'Contribuie cu definiții');
 smarty_assign('suggestNoBanner', true);
 smarty_displayCommonPageWithSkin('contribuie.ihtml');

@@ -1,11 +1,7 @@
 <?php
 
 class WikiArticle extends BaseObject {
-  public static function get($where) {
-    $obj = new WikiArticle();
-    $obj->load($where);
-    return $obj->id ? $obj : null;
-  }
+  public static $_table = 'WikiArticle';
 
   public function extractKeywords() {
     $matches = array();
@@ -35,7 +31,7 @@ class WikiArticle extends BaseObject {
   }
 
   public static function loadAllTitles() {
-    $titles = db_getArray(db_execute("select title from WikiArticle order by title"));
+    $titles = db_getArray("select title from WikiArticle order by title");
     $result = array();
     foreach ($titles as $title) {
       $result[] = array($title, WikiArticle::wikiTitleToUrlTitle($title));
@@ -52,16 +48,14 @@ class WikiArticle extends BaseObject {
       $lexemForms[] = "'{$l->formNoAccent}'"; 
     }
     $lexemConcat = implode(', ', $lexemForms);
-    $query = "select WikiArticle.* from WikiArticle, WikiKeyword where WikiArticle.id = WikiKeyword.wikiArticleId and WikiKeyword.keyword in ($lexemConcat)";
-    $dbResult = db_execute($query);
-    return db_getObjects(new WikiArticle(), $dbResult);
+    return Model::factory('WikiArticle')
+      ->raw_query("select WikiArticle.* from WikiArticle, WikiKeyword where WikiArticle.id = WikiKeyword.wikiArticleId and WikiKeyword.keyword in ($lexemConcat)", null)
+      ->find_many();
   }
 
   public static function getRss() {
-    $dbResult = db_execute("select * from WikiArticle order by modDate desc limit 25");
-    return db_getObjects(new WikiArticle(), $dbResult);
+    return Model::factory('WikiArticle')->order_by_desc('modDate')->limit(25)->find_many();
   }
-
 
   public function delete() {
     WikiKeyword::deleteByWikiArticleId($this->id);

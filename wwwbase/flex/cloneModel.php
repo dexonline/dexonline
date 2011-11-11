@@ -3,7 +3,7 @@ require_once("../../phplib/util.php");
 ini_set('max_execution_time', '3600');
 util_assertModerator(PRIV_LOC);
 util_assertNotMirror();
-debug_off();
+DebugInfo::disable();
 
 $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
@@ -16,7 +16,7 @@ $errorMessages = array();
 
 if ($cloneButton) {
   // Disallow duplicate model numbers
-  $m = Model::loadCanonicalByTypeNumber($modelType, $newModelNumber);
+  $m = FlexModel::loadCanonicalByTypeNumber($modelType, $newModelNumber);
   if ($m) {
     $errorMessages[] = "Modelul $modelType$newModelNumber există deja.";
   }
@@ -26,14 +26,16 @@ if ($cloneButton) {
 
   if (!count($errorMessages)) {
     // Clone the model
-    $model = Model::get("modelType = '{$modelType}' and number = '{$modelNumber}'");
-    $cloneModel = new Model($modelType, $newModelNumber, "Clonat după $modelType$modelNumber", $model->exponent);
+    $model = Model::factory('FlexModel')->where('modelType', $modelType)->where('number', $modelNumber)->find_one();
+    $cloneModel = FlexModel::create($modelType, $newModelNumber, "Clonat după $modelType$modelNumber", $model->exponent);
     $cloneModel->save();
 
     // Clone the model descriptions
-    $mds = db_find(new ModelDescription(), "modelId = '{$model->id}' order by inflectionId, variant, applOrder");
+    $mds = Model::factory('ModelDescription')->where('modelId', $model->id)->order_by_asc('inflectionId')
+      ->order_by_asc('variant')->order_by_asc('applOrder')->find_many();
     foreach ($mds as $md) {
-      $newMd = new ModelDescription($md);
+      $newMd = Model::factory('ModelDescription')->create();
+      $newMd->copyFrom($md);
       $newMd->modelId = $cloneModel->id;
       $newMd->save();
     }
@@ -41,7 +43,7 @@ if ($cloneButton) {
     // Clone the participle model
     if ($modelType == 'V') {
       $pm = ParticipleModel::loadByVerbModel($modelNumber);
-      $clonePm = new ParticipleModel();
+      $clonePm = Model::factory('ParticipleModel')->create();
       $clonePm->verbModel = $newModelNumber;
       $clonePm->adjectiveModel = $pm->adjectiveModel;
       $clonePm->save();
@@ -50,7 +52,7 @@ if ($cloneButton) {
     // Migrate the selected lexems.
     if ($chooseLexems && $lexemIds) {
       foreach ($lexemIds as $lexemId) {
-        $l = Lexem::get("id = {$lexemId}");
+        $l = Lexem::get_by_id($lexemId);
         $l->modelNumber = $newModelNumber;
         $l->save();
         // It is not necessary to regenerate the paradigm for now, since

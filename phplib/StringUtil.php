@@ -29,10 +29,10 @@ class StringUtil {
                                            'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U',
                                            'y', 'Y', 'y', 'Y', 'z', 'Z'));
 
-  private static $STOPWORDS = array("adj", "al", "ale", "art", "ca", "care", "ce", "cu", "de", "despre", "din", "dinspre", "după", "este",
-                                    "etc", "expr", "face", "fi", "fig", "fr", "în", "îi", "îți", "lat", "la", "mai", "nu", "pe", "pentru",
-                                    "pl", "pop", "pr", "prez", "prin", "refl", "reg", "sau", "să", "se", "sil", "sg", "suf", "și", "te",
-                                    "tine", "tranz", "tu", "ți", "ție", "un", "unor", "unui", "var", "vb");
+  public static $STOPWORDS = array("adj", "al", "ale", "art", "ca", "care", "ce", "cu", "de", "despre", "din", "dinspre", "după", "este",
+                                   "etc", "expr", "face", "fi", "fig", "fr", "în", "îi", "îți", "lat", "la", "mai", "nu", "pe", "pentru",
+                                   "pl", "pop", "pr", "prez", "prin", "refl", "reg", "sau", "să", "se", "sil", "sg", "suf", "și", "te",
+                                   "tine", "tranz", "tu", "ți", "ție", "un", "unor", "unui", "var", "vb");
   private static $STOPWORDS_LATIN = null; // will be initialized lazily
 
   // Note: This does not handle the mixed case of old orthgraphy and no diacriticals (e.g. inminind instead of înmânând).

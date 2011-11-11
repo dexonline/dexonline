@@ -4,7 +4,6 @@ require_once("../../phplib/util.php");
 $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
 $lexems = Lexem::loadByCanonicalModel($modelType, $modelNumber);
-
 RecentLink::createOrUpdate("Model: $modelType$modelNumber");
 
 smarty_assign('lexems', $lexems);

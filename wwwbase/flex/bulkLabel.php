@@ -12,7 +12,7 @@ if ($submitButton) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
       assert($parts[0] == 'lexem');
-      $lexem = Lexem::get("id = " . $parts[1]);
+      $lexem = Lexem::get_by_id($parts[1]);
 
       if ($modelId) {
         $parts = preg_split('/_/', $modelId);
@@ -37,7 +37,7 @@ $reverseSuffix = StringUtil::reverse($suffix);
 
 RecentLink::createOrUpdate("Etichetare asistată: -$suffix");
 
-$numLabeled = db_getSingleValue("select count(*) from Lexem where modelType != 'T' and reverse like '{$reverseSuffix}%'");
+$numLabeled = Model::factory('Lexem')->where_not_equal('modelType', 'T')->where_like('reverse', "{$reverseSuffix}%")->count();
 
 // Collect all the models that appear in at least 5% of the already
 // labeled lexems. Always select at least one model, in the unlikely case
@@ -45,23 +45,22 @@ $numLabeled = db_getSingleValue("select count(*) from Lexem where modelType != '
 $models = array();
 $hasInvariableModel = false;
 $dbResult = db_execute("select modelType, modelNumber, count(*) as c from Lexem where modelType != 'T' and reverse like '{$reverseSuffix}%' " .
-                       "group by modelType, modelNumber order by c desc");
-while (!$dbResult->EOF) {
-  $modelType = $dbResult->fields['modelType'];
-  $modelNumber = $dbResult->fields['modelNumber'];
-  $count = $dbResult->fields['c'];
-  $dbResult->MoveNext();
+                       "group by modelType, modelNumber order by c desc", PDO::FETCH_ASSOC);
+foreach ($dbResult as $row) {
+  $modelType = $row['modelType'];
+  $modelNumber = $row['modelNumber'];
+  $count = $row['c'];
   if (!count($models) || ($count / $numLabeled >= 0.05)) {
     if ($modelType == 'V' || $modelType == 'VT') {
-      $m = Model::get("modelType = 'V' and number = '{$modelNumber}'");
+      $m = Model::factory('FlexModel')->where('modelType', 'V')->where('number', $modelNumber)->find_one();
       $models[] = $m;
-      $models[] = new Model('VT', $modelNumber, '', $m->exponent);
+      $models[] = FlexModel::create('VT', $modelNumber, '', $m->exponent);
     } else if ($modelType == 'A' || $modelType == 'MF') {
-      $m = Model::get("modelType = 'A' and number = '{$modelNumber}'");
+      $m = Model::factory('FlexModel')->where('modelType', 'A')->where('number', $modelNumber)->find_one();
       $models[] = $m;
-      $models[] = new Model('MF', $modelNumber, '', $m->exponent);
+      $models[] = FlexModel::create('MF', $modelNumber, '', $m->exponent);
     } else {
-      $models[] = Model::get("modelType = '{$modelType}' and number = '{$modelNumber}'");
+      $models[] = Model::factory('FlexModel')->where('modelType', $modelType)->where('number', $modelNumber)->find_one();
     }
     $hasInvariableModel = $hasInvariableModel || ($modelType == 'I');
   }
@@ -69,10 +68,11 @@ while (!$dbResult->EOF) {
 
 // Always add the Invariable model
 if (!$hasInvariableModel) {
-  $models[] = Model::get("modelType = 'I' and number = '1'");
+  $models[] = Model::factory('FlexModel')->where('modelType', 'I')->where('number', '1')->find_one();
 }
 
-$lexems = db_find(new Lexem(), "modelType = 'T' and reverse like '{$reverseSuffix}%' order by formNoAccent limit 20");
+$lexems = Model::factory('Lexem')->where('modelType', 'T')->where_like('reverse', "{$reverseSuffix}%")->order_by_asc('formNoAccent')
+  ->limit(20)->find_many();
 
 // $ifMapMatrix[$i][$j] = array of InflectedForms for lexem $i and model $j
 $ifMapMatrix = array();

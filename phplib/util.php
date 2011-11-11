@@ -1,7 +1,4 @@
 <?php
-define('ADODB_OUTP', 'debug_adodbHandler');
-define('ADODB_ASSOC_CASE', 2);
-$ADODB_ASSOC_CASE = 2;
 mb_internal_encoding("UTF-8");
 util_initEverything();
 
@@ -23,10 +20,8 @@ function util_initEverything() {
   // At this point the server preferences are loaded (when
   // util_requireOtherFiles() includes serverPreferences.php)
   util_requireOtherFiles();
-  ADOdb_Active_Record::$_changeNames = false; // Do not pluralize table names
-  debug_init();
   util_defineConstants();
-  $GLOBALS['util_db'] = db_init();
+  db_init();
   session_init();
   mc_init();
   FlashMessage::restoreFromSession();
@@ -85,11 +80,10 @@ function util_getCssRoot() {
 
 function util_requireOtherFiles() {
   $root = util_getRootPath();
+  require_once("$root/phplib/idiorm/idiorm.php");
+  require_once("$root/phplib/idiorm/paris.php");
   require_once("$root/phplib/serverPreferences.php");
-  require_once(pref_getServerPreference('adoDbClass'));
-  require_once(pref_getServerPreference('adoDbActiveRecordClass'));
   require_once("$root/phplib/db.php");
-  require_once("$root/phplib/debugInfo.php");
   require_once("$root/phplib/logging.php");
   require_once("$root/phplib/session.php");
   require_once("$root/phplib/smarty.php");
@@ -244,7 +238,7 @@ function util_assertModerator($type) {
 function util_isModerator($type) {
   // Check the actual database, not the session user
   $userId = session_getUserId();
-  $user = $userId ? User::get("id = $userId") : null;
+  $user = $userId ? User::get_by_id($userId) : null;
   return $user ? ($user->moderator & $type) : false;
 }
 
@@ -387,6 +381,12 @@ function util_fetchUrl($url) {
   $result = curl_exec($ch);
   curl_close($ch);
   return $result;
+}
+
+function util_print($var) {
+  print "<pre>\n";
+  print_r($var);
+  print "</pre>\n";
 }
 
 ?>

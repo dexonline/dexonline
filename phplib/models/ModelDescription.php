@@ -1,27 +1,21 @@
 <?php
 
 class ModelDescription extends BaseObject {
-  function __construct($other = null) {
-    parent::__construct();
-    if ($other instanceof ModelDescription) {
-      $this->modelId = $other->modelId;
-      $this->inflectionId = $other->inflectionId;
-      $this->variant = $other->variant;
-      $this->applOrder = $other->applOrder;
-      $this->transformId = $other->transformId;
-      $this->accentShift = $other->accentShift;
-      $this->vowel = $other->vowel;
-    }
-  }
+  public static $_table = 'ModelDescription';
 
-  public static function get($where) {
-    $obj = new ModelDescription();
-    $obj->load($where);
-    return $obj->id ? $obj : null;
+  function copyFrom($other) {
+    $this->modelId = $other->modelId;
+    $this->inflectionId = $other->inflectionId;
+    $this->variant = $other->variant;
+    $this->applOrder = $other->applOrder;
+    $this->transformId = $other->transformId;
+    $this->accentShift = $other->accentShift;
+    $this->vowel = $other->vowel;
   }
 
   static function getByModelIdMapByInflectionIdVariantApplOrder($modelId) {
-    $mds = db_find(new ModelDescription, "modelId = {$modelId} order by inflectionId, variant, applOrder");
+    $mds = Model::factory('ModelDescription')->where('modelId', $modelId)
+      ->order_by_asc('inflectionId')->order_by_asc('variant')->order_by_asc('applOrder')->find_many();
     $map = array();
     foreach ($mds as $md) {
       if (!array_key_exists($md->inflectionId, $map)) {

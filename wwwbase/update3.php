@@ -21,39 +21,36 @@ if ($export && util_isDesktopBrowser() && !session_getUser()) {
 }
 
 if ($export == 'sources') {
-  smarty_assign('sources', db_find(new Source(), '1'));
+  smarty_assign('sources', Model::factory('Source')->find_many());
   smarty_displayWithoutSkin('common/update3Sources.ihtml');
 } else if ($export == 'inflections') {
-  smarty_assign('inflections', db_find(new Inflection(), '1 order by id'));
+  smarty_assign('inflections', Model::factory('Inflection')->order_by_asc('id')->find_many());
   smarty_displayWithoutSkin('common/update3Inflections.ihtml');
 } else if ($export == 'abbrev') {
   smarty_assign('abbrev', AdminStringUtil::loadRawAbbreviations());
   smarty_displayWithoutSkin('common/update3Abbrev.ihtml');
 } else if ($export == 'definitions') {
   userCache_init();
-  $d = new Definition();
   $statusClause = $timestamp ? '' : ' and status = 0';
   $defDbResult = db_execute("select * from Definition where modDate >= '$timestamp' and sourceId in (select id from Source where canDistribute) " .
-                            "$statusClause order by modDate, id"); // 
+                            "$statusClause order by modDate, id", PDO::FETCH_ASSOC); // 
   $lexemDbResult = db_execute("select Definition.id, lexemId from Definition force index(modDate), LexemDefinitionMap " .
                               "where Definition.id = definitionId and Definition.modDate >= {$timestamp} " .
                               "and sourceId in (select id from Source where canDistribute) " .
-                              "{$statusClause} order by Definition.modDate, Definition.id");
-  $currentLexem = fetchNextLexemTuple();
+                              "{$statusClause} order by Definition.modDate, Definition.id", PDO::FETCH_NUM);
+  $currentLexem = $lexemDbResult->fetch();
   print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
   print "<Definitions>\n";
-  print "  <NumResults>" . $defDbResult->RowCount() . "</NumResults>\n";
+  print "  <NumResults>" . $defDbResult->rowCount() . "</NumResults>\n";
 
-  while (!$defDbResult->EOF) {
-    $def = new Definition();
-    $def->set($defDbResult->fields);
-    $defDbResult->MoveNext();
+  foreach($defDbResult as $dbRow) {
+    $def = Model::factory('Definition')->create($dbRow);
     $def->internalRep = AdminStringUtil::xmlizeRequired($def->internalRep);
 
     $lexemIds = array();
     while ($currentLexem && $currentLexem[0] == $def->id) {
       $lexemIds[] = $currentLexem[1];
-      $currentLexem = fetchNextLexemTuple();
+      $currentLexem = $lexemDbResult->fetch();
     }
     prepareDefForVersion($def);
     smarty_assign('def', $def);
@@ -67,12 +64,9 @@ if ($export == 'sources') {
   $lexemDbResult = db_execute("select * from Lexem where modDate >= '{$timestamp}' order by modDate, id");
   print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
   print "<Lexems>\n";
-  print "<NumResults>" . $lexemDbResult->RowCount() . "</NumResults>\n";
-  while (!$lexemDbResult->EOF) {
-    $lexem = new Lexem();
-    $lexem->set($lexemDbResult->fields);
-    $lexemDbResult->MoveNext();
-
+  print "<NumResults>" . $lexemDbResult->rowCount() . "</NumResults>\n";
+  foreach ($lexemDbResult as $dbRow) {
+    $lexem = Model::factory('Lexem')->create($dbRow);
     smarty_assign('ifs', InflectedForm::loadByLexemId($lexem->id));
     smarty_assign('lexem', $lexem);
     smarty_displayWithoutSkin('common/update3Lexems.ihtml');
@@ -91,20 +85,9 @@ function userCache_get($key) {
     return $GLOBALS['USER'][$key];
   }
 
-  $user = User::get("id = $key");
+  $user = User::get_by_id($key);
   $GLOBALS['USER'][$key] = $user;
   return $user;
-}
-
-function fetchNextLexemTuple() {
-  global $lexemDbResult;
-
-  if ($lexemDbResult->EOF) {
-    return null;
-  }
-  $result = array($lexemDbResult->fields[0], $lexemDbResult->fields[1]);
-  $lexemDbResult->MoveNext();
-  return $result;
 }
 
 function prepareDefForVersion(&$def) {

@@ -1,10 +1,8 @@
 <div id="Logo"></div>
 <div id="whoami">Dicționare ale limbii române</div>
 
-<div class="clearer"></div>
-
-<div id="Search">
-  {include file="zepu/search.ihtml" advancedSearch=1}
+<div id="searchHomePage">
+  {include file="zepu/search.ihtml" advancedSearch=0}
 </div>
 
 {if $skinVariables.afterSearchBoxBanner}
@@ -13,6 +11,20 @@
 
 <div class="clearer"></div>
 
+<div id="wotd" class="statusReportMini">
+  Cuvântul zilei: {include file="common/bits/wotdurl.ihtml"}
+</div>
+<div id="wotdShadow"></div>
+
+<div class="clearer"></div>
+
+{include file="common/bits/facebook.ihtml"}
+
+<div id="missionStatement">
+  DEX online transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
+  O parte din definiții pot fi descărcate liber și gratuit sub licența publică generală GNU (GPL).
+</div>
+
 <div class="statusReport">
   Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.<br/>
   Liste de cuvinte:
@@ -20,16 +32,4 @@
     <a href="{$wwwRoot}cuvinte/{$letter|escape:url}">{$letter|mb_strtoupper}</a>
   {/foreach}
 </div>
-
-<div id="wotd" class="statusReportMini">
-  Cuvântul zilei: {include file="common/bits/wotdurl.ihtml"}
-</div>
-
-<div class="clearer"></div>
-
-<div class="hptxt">
-  DEX online este transpunerea pe internet a unor dicționare de prestigiu ale limbii române. El este creat și întreținut de un colectiv de voluntari.
-  Definițiile sunt preluate textual din sursele menționate. O parte din baza de definiții a DEX online este disponibilă gratuit sub licența publică
-  generală GNU (GPL). Mulțumiri speciale <a href="{$wwwRoot}spre/siveco">firmei Siveco</a> și editurilor <a href="{$wwwRoot}spre/litera">Litera
-  Internațional</a> și <a href="{$wwwRoot}spre/saeculum">Saeculum</a>, care ne-au pus la dispoziție cinci dicționare complete.
-</div>
+<div id="statusReportShadow"></div>

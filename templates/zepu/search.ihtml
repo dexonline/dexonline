@@ -2,11 +2,19 @@
 {assign var="cuv" value=$cuv|default:''}
 {assign var="text" value=$text|default:false}
 <form action="{$wwwRoot}search.php" name="frm" onsubmit="return friendlyRedirect()" id="searchForm">
-  <input type="text" name="cuv" class="search_field" value="{$cuv|escape}"  maxlength="50" title="Caută"/>
-  <input type="submit" value=" " class="search_button"/>
-  {if !$advancedSearch}
-    <a href="#" onclick="return toggleDivVisibility('advSearch')">Căutare avansată</a>
-  {/if}
+  
+  <div id="inlineBlock1">
+    <input type="text" name="cuv" class="search_field" value="{$cuv|escape}"  maxlength="50" title="Caută"/>
+    <div id="searchShadow"></div>
+  </div>
+
+  <div id="inlineBlock2">
+    <input type="submit" value="caută" id="search_button"/>
+    {if !$advancedSearch}
+      <a href="#" onclick="return toggleDivVisibility('advSearch')" id="advancedAnchor">căutare avansată</a>
+    {/if}
+  </div>
+  
   <div id="advSearch" {if !$advancedSearch}style="display: none"{/if}>
     <input type="checkbox" name="text" value="1" id="defBody" {if $text}checked="checked"{/if}/>
     <label for="defBody">Caută în tot textul definițiilor</label>

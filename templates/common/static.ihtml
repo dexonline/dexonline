@@ -7,8 +7,6 @@
   </head>
 
   <body id="staticBody">
-    <div id="staticHeader">
-    </div>
     {include file="static/$content.ihtml"}
   </body>
 </html>

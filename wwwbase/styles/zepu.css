@@ -1,7 +1,10 @@
+/* Zepu theme redesigned by Sonia Andriu */
+
+/* GLOBAL */
 body {
   background: #fff;
   color: #000;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: Verdana, Arial, sans-serif;
   font-size: 12px;
   height: 100%;
   margin: 0px;
@@ -67,14 +70,14 @@ abbr {
   cursor: help;
 }
 
-#staticBody {
-  background: #fff;
-  margin: 0px 5px;
+img {
+  border: 0px; /* IE */
 }
 
-#staticHeader {
-  background: url("../img/zepu/bgMenuTop.png") no-repeat bottom #761818;
-  height: 20px;
+
+#staticBody {
+  background: #fff;
+  margin: 10px 5px;
 }
 
 #mobileLink {
@@ -83,33 +86,49 @@ abbr {
 }
 
 #userNick {
-  background: url("../img/sprite.png") -530px -125px no-repeat;
+  background: url("../img/icons/user_orange.png") no-repeat;
   display: block;
   float: right;
   padding-left: 18px;
   margin-bottom: 10px;
+  padding-top: 2px;
 }
 
+
+/* BANNER */
 #banner_mainPage {
   margin-left: 71px;
 }
 
 #banner_beforeResults {
-  margin-left: 15px;
+  margin-left: 73px; /* 73 is half of the white space left behind */
 }
 
+
+/* NAVIGATION MENU */
 #menu {
-  background: url("../img/sprite.png") 0px 0px no-repeat;
+  background: #eee;
+  border: 1px solid #BFBFBF;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
   height: 35px;
-  margin: auto;
+  margin: -55px auto 10px;
   padding-left: 15px;
   width: 860px;
 }
 
+#menuShadow{
+  background: url("../img/zepu/shadows/shadow875.png") no-repeat;
+  height:22px;
+  margin-top: 40px;
+  width: 875px; /* do not omit png's width */
+}
+
 #homeLink {
-  background: url("../img/sprite.png") -320px -90px no-repeat;
+  background: url("../img/zepu/dexonline_logo_mic.png") no-repeat;
   float: left;
   margin-right: 15px;
+  margin-top: 3px;
   height: 25px;
   width: 111px;
 }
@@ -117,13 +136,13 @@ abbr {
 #mainMenu {
   float: left;
   margin: 0;
-  padding: 0;
+  padding: 9px 0px;
 }
 
 #userMenu {
   float: right;
   margin: 0;
-  padding: 0px 10px;
+  padding: 9px 10px;
 }
 
 #mainMenu li, #userMenu li{
@@ -133,7 +152,7 @@ abbr {
 }
 
 #mainMenu li a, #userMenu li a {
-  color: black;
+  color: #424242;
   display: block;
   padding: 1px 15px 5px 0px;
   text-decoration: none;
@@ -141,8 +160,8 @@ abbr {
 }
 
 #mainMenu li ul, #userMenu li ul {
-  background: white;
-  border: 1px solid #761818;
+  background: #eee;
+border-top: 0px solid #761818;
   margin: 0;
   padding: 0;
   position: absolute;
@@ -165,6 +184,14 @@ abbr {
   text-decoration: underline;
 }
 
+.fb_top, .plus_top {
+  float: right;
+  margin-top: -3px;
+  padding: 10px 0px;
+}
+
+
+/* SITE IDENTITY */
 #Logo {
   background: url("../img/sprite.png") 0px -90px no-repeat;
   height: 82px;
@@ -173,63 +200,230 @@ abbr {
 }
 
 #whoami {
-  font-size: 16px;
-  margin: 0px auto;
+  color: #424242;
+  font-size: 14px;
+  letter-spacing: 1px;
+  margin: -10px auto 10px;
+  padding: 0px 0px 0px 100px;
   text-align: center;
 }
 
-#Search {
+
+/* SEARCH */
+#searchHomePage {
   margin: 25px 0px 25px 170px;
   padding: 0px;
-  width: 545px;
+  width: 555px;
 }
 
 #searchForm {
-  float: left;
+ float: left;
+ padding-left: 13px;
+ width: 600px;
 }
 
-#Search2 {
-  margin: 10px 0px 15px 15px;
-  padding: 0px;
+#searchOtherPages {
+  margin: 10px auto 15px;
+  width: 550px;
 }
 
-.search_button {
-  background: url("../img/sprite.png") -320px -120px no-repeat;
-  border: 0px;
+#search_button {
+  background: #761818;
+  border: 0px; /*important*/
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  
+  -webkit-box-shadow: 2px 2px 2px #424242; /* Safari and Chrome */
+  box-shadow: 2px 2px 2px #424242; /* FF 4 ; CSS3 */
+  -moz-box-shadow: 2px 2px 2px #424242; /* FF 3.5-3.6 */
+  
+  color: #fff;
   cursor: pointer;
-  height: 40px;
-  left: 100px;
-  margin-left: 5px;
-  vertical-align: top;
-  width: 76px;
+  font-size: 13px;
+  height: 22px;
+  letter-spacing:1px;
+  margin-top: 1px;
+  width: 56px;
+}
+
+#search_button:hover {
+  -webkit-box-shadow: 2px 2px 2px #888; /* Safari and Chrome */
+  box-shadow: 2px 2px 2px #888; /* FF 4 ; CSS3 */
+  -moz-box-shadow: 2px 2px 2px #888; /* FF 3.5-3.6 */
+}
+
+#advancedAnchor { /* the link for "căutare avansată" */
+  float: right;
+  margin-right: 20px;
+  margin-top: 5px;
+}
+
+#advSearch { /* not Sonia's! */
+  color: #761818;
+  float: left;
+  margin: 0px;
+}
+
+#inlineBlock1{
+  width: 360px;
+  display: inline;
+  float: left;
+  margin-right: 2px;
+}
+
+#inlineBlock2{
+  width: 180px;
+  display: inline; 
+  float: left;
+  margin-right: 20px;
 }
 
 .search_field {
   border: 1px solid #761818;
-  font: 18px Arial;
-  margin-left: 0px;
-  margin-top: 10px;
-  padding: 0px 0px 0px 2px;
-  width: 452px;
+  border-radius: 4px;
   -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
+  font: 18px Arial;
+  margin: 0px 5px 0px 0px;
+  padding: 0px 0px 0px 2px;
+  width: 352px;
+}
+
+.search_field:focus {
+  outline-style: none; /* Chrome */  
+}
+
+#searchShadow {
+  background: url("../img/zepu/shadows/shadow350.png") no-repeat;
+  display: inline-block; /* used to generate a block box, laid out as an inline box (no line break before or after the element) */
+  height: 16px; /* png's height is 16px */
+  margin-top: 0px;
+  padding-left: 2px;
+  width: 347px;
 }
 
 #sourceDropDown {
   width: 175px;
 }
 
+
+/* CONTAINER */
 #Container {
   width: 875px;
   height: 100%;
   margin: 8px auto;
 }
 
-.hptxt {
-  margin: 35px 0px 15px 100px;
-  width: 670px;
+#contentProper {
+  margin-top: 10px;
 }
 
+
+/* WORD OF THE DAY */
+.statusReportMini {
+  background: #eee;
+  border: 1px solid #BFBFBF;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  color: #424242;
+  font-size: 12px;
+  margin: 35px auto 0px;
+  padding: 8px;
+  width: 200px;
+  text-align: center;
+}
+
+#wotdShadow {
+  background: url("../img/zepu/shadows/shadow216.png") no-repeat;
+  height: 14px;
+  margin: 0px 0px 35px 330px;
+}
+
+
+/* FACEBOOK AND GOOGLE PLUS PLUGIN */
+.fb_bottom {
+  border-bottom: 1px solid #BFBFBF;
+  border-top: 1px solid #BFBFBF;
+  margin: 0px auto 10px;
+  padding: 5px 0px 0px 3px;
+  width: 875px;
+}
+
+.fb_top, .plus_top{
+  float: right;
+  margin-top: -3px;
+}
+
+
+/* MISSION STATEMENT */
+#missionStatement {
+  color: #424242;
+  font-size: 10px;
+  margin: 25px auto 20px;
+  padding-left: 31px;
+  text-align: center;
+  width: 550px;
+}
+
+
+/* WORDS LIST */
+.statusReport {
+  background: #eee;
+  border: 1px solid #BFBFBF;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  color: #424242;
+  font-size: 10px;
+  line-height: 150%;
+  margin: 5px 0px 0px 182px;
+  padding: 5px;
+  width: 528px;
+  text-align: center;
+}
+
+#statusReportShadow {
+  background: url("../img/zepu/shadows/shadow538.png") no-repeat;
+  height: 21px;
+  margin-left: 185px;
+  width: 538px;
+}
+
+
+/* FOOTER */
+#Footer {
+  color: #761818;
+  font-size: 10px;
+  height: 20px;
+  margin: 0px auto;
+  padding-top: 5px;
+  text-align: center;
+  width: 875px;
+}
+ 
+/* traffic and hosting icons */
+#links {
+  margin-top: 2px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#hostingElvsoft {
+  background: url("../img/sprite.png") -520px -90px no-repeat;
+  display: inline-block;
+  height: 31px;
+  vertical-align: top;
+  width: 88px;
+}
+
+#hostingSei {
+  background: url("../img/sprite.png") -435px -90px no-repeat;
+  display: inline-block;
+  height: 72px;
+  vertical-align: top;
+  width: 82px;
+}
+
+
+/* others */
 .txt {
   padding: 10px;
 }
@@ -264,36 +458,8 @@ abbr {
   -webkit-border-radius: 5px;
 }
 
-#contentProper {
-  margin-top: 10px;
-}
-
-.statusReport {
-  background: #f4f4f4;
-  border: 1px solid #761818;
-  color: #333;
-  margin: 45px 0px 10px 160px;
-  padding: 10px;
-  width: 530px;
-  text-align: center;
-  -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
-}
-
-.statusReportMini {
-  background: #f4f4f4;
-  border: 1px solid #761818;
-  color: #333;
-  margin: 45px auto 10px;
-  padding: 5px;
-  width: 200px;
-  text-align: center;
-  -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
-}
-
 div.resultBar {
-  background: #f4f4f4;
+  background: #eee;
   border: 1px solid #aaa;
   font-size: 11px;
   margin: 10px 15px 0px 15px;
@@ -325,12 +491,20 @@ div.wikiTitle {
   margin-bottom: 5px;
 }
 
+/* note about the new look of the expressions guide */
 #guideNotice {
-  background: #ffffff url("../img/icons/information.png") left center no-repeat;  
+  background: #eee url("../img/icons/information.png") 5px center no-repeat; 
+  border: 1px solid #BFBFBF;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
   font-size: 120%;
   font-weight: bold;
-  margin: 0px 0px 10px 5px;
-  padding: 5px 5px 5px 20px;
+  padding: 5px 5px 5px 25px;
+}
+
+/* GUIDE INFO */
+#guideInfo {
+  color: #424242;
 }
 
 a.inflLink {
@@ -425,23 +599,6 @@ div.notRecommendedLegend {
 .scrabbleModelName .accented {
   font-style: italic;
   font-weight: normal;
-}
-
-#Footer {
-  background: url("../img/sprite.png") 0px -35px no-repeat;
-  color: #761818;
-  font-size: 10px;
-  height: 30px;
-  margin-top: 20px;
-  margin: auto;
-  padding-top: 20px;
-  text-align: center;
-  width: 875px;
-}
-
-#links {
-  margin-top: 10px;
-  text-align: center;
 }
 
 .noBorder {
@@ -649,19 +806,9 @@ input.pagedisplay {
   color: white;
 }
 
-.fb_bottom {
-  padding-top: 10px;
-  border-top: 1px solid #761818;
-  margin: auto;
-  width: 875px;
-  margin-top: 20px;
-}
 
-.fb_top, .plus_top{
-  float: right;
-  margin-top: -3px;
-}
 
+/* WORD OF THE DAY ARCHIVE */
 .wotdArchive {
   margin-left: 10px;
   padding: 5px;
@@ -705,6 +852,7 @@ input.pagedisplay {
   font-size: 16px;
   font-weight: bold;
 }
+/* end word of the day archive */
 
 .favoriteDef {
   margin-bottom: 16px;
@@ -712,22 +860,6 @@ input.pagedisplay {
 
 .favoriteDef span {
   padding-left: 2em;
-}
-
-#hostingElvsoft {
-  background: url("../img/sprite.png") -520px -90px no-repeat;
-  display: inline-block;
-  height: 31px;
-  vertical-align: top;
-  width: 88px;
-}
-
-#hostingSei {
-  background: url("../img/sprite.png") -435px -90px no-repeat;
-  display: inline-block;
-  height: 72px;
-  vertical-align: top;
-  width: 82px;
 }
 
 .istoriaDefinitieiContainer .changeSetHeader {

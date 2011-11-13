@@ -118,7 +118,7 @@ img {
   border-radius: 4px;
   -moz-border-radius: 4px;
   height: 35px;
-  margin: -55px auto 10px;
+  margin: -59px auto 10px;
   padding-left: 15px;
   width: 860px;
 }
@@ -167,9 +167,11 @@ img {
 
 #mainMenu li ul, #userMenu li ul {
   background: #eee;
-  border-top: 0px solid #761818;
+  border: 1px solid #BFBFBF;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
   margin: 0;
-  padding: 0;
+  padding: 3px 0px;
   position: absolute;
   visibility: hidden;
   z-index: 50;

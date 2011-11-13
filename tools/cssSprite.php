@@ -2,18 +2,18 @@
 
 require_once("../phplib/util.php");
 
-$SPRITE = 'sprite.png';
-$GEOMETRY = '875x175';
+$SPRITE = 'sprite2.png';
+$GEOMETRY = '875x110';
 $IMAGES = array(
-  array('file' => '../wwwbase/img/zepu/menuBG.png', 'x' => 0, 'y' => 20),
-  array('file' => '../wwwbase/img/zepu/footerBG.png', 'x' => 0, 'y' => 35),
-  array('file' => '../wwwbase/img/zepu/logo.png', 'x' => 0, 'y' => 90, 'width' => 316, 'height' => 82),
-  array('file' => '../wwwbase/img/zepu/dexonline_logo_mic.png', 'x' => 320, 'y' => 90, 'width' => 111, 'height' => 25),
-  array('file' => '../wwwbase/img/zepu/cauta.png', 'x' => 320, 'y' => 120, 'width' => 76, 'height' => 40),
-  array('file' => '../wwwbase/img/hosting/sei.png', 'x' => 435, 'y' => 90, 'width' => 82, 'height' => 72),
-  array('file' => '../wwwbase/img/hosting/elvsoft.png', 'x' => 520, 'y' => 90, 'width' => 88, 'height' => 31),
-  array('file' => '../wwwbase/img/icons/user_orange.png', 'x' => 530, 'y' => 125, 'width' => 16, 'height' => 16),
-  array('file' => '../wwwbase/img/icons/exclamation.png', 'x' => 530, 'y' => 151, 'width' => 16, 'height' => 16),
+  array('file' => '../wwwbase/img/zepu/shadows/shadow875.png',  'x' => 0,   'y' => 0,   'width' => 875, 'height' => 22, 'bg' => null),
+  array('file' => '../wwwbase/img/zepu/shadows/shadow538.png',  'x' => 0,   'y' => 25,  'width' => 538, 'height' => 21, 'bg' => null),
+  array('file' => '../wwwbase/img/zepu/shadows/shadow350.png',  'x' => 0,   'y' => 50,  'width' => 350, 'height' => 16, 'bg' => null),
+  array('file' => '../wwwbase/img/zepu/shadows/shadow216.png',  'x' => 0,   'y' => 70,  'width' => 216, 'height' => 14, 'bg' => null),
+  array('file' => '../wwwbase/img/zepu/logo.png',               'x' => 550, 'y' => 25,  'width' => 316, 'height' => 82, 'bg' => null),
+  array('file' => '../wwwbase/img/zepu/dexonline_logo_mic.png', 'x' => 220, 'y' => 70,  'width' => 111, 'height' => 25, 'bg' => '#eeeeee'),
+  array('file' => '../wwwbase/img/hosting/elvsoft.png',         'x' => 460, 'y' => 50,  'width' => 88,  'height' => 31, 'bg' => null),
+  array('file' => '../wwwbase/img/icons/user_orange.png',       'x' => 355, 'y' => 50,  'width' => 16,  'height' => 16, 'bg' => '#eeeeee'),
+  array('file' => '../wwwbase/img/icons/exclamation.png',       'x' => 370, 'y' => 50,  'width' => 16,  'height' => 16, 'bg' => null),
 );
 
 // Expect --merge or --split
@@ -37,6 +37,10 @@ if ($merge === $split) {
 if ($merge) {
   OS::executeAndAssert("convert -size $GEOMETRY xc:white $SPRITE");
   foreach ($IMAGES as $i) {
+    if ($i['bg']) {
+      OS::executeAndAssert(sprintf("convert $SPRITE -fill '%s' -draw 'rectangle %s,%s %s,%s' $SPRITE",
+				   $i['bg'], $i['x'], $i['y'], $i['x'] + $i['width'] -1, $i['y'] + $i['height'] - 1));
+    }
     OS::executeAndAssert("convert $SPRITE {$i['file']} -geometry +{$i['x']}+{$i['y']} -compose over -composite $SPRITE");
   }
   OS::executeAndAssert("optipng $SPRITE");

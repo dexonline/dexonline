@@ -5,16 +5,16 @@
     <link href="{$wwwRoot}styles/flex.css?v=7" rel="stylesheet" type="text/css"/>
 {/if}
 {if isset($mobile)}
-    <link href="{$wwwRoot}styles/mobile.css?v=9" rel="stylesheet" type="text/css"/>
+    <link href="{$wwwRoot}styles/mobile.css?v=10" rel="stylesheet" type="text/css"/>
 {/if}
 {if isset($paradigm)}
     <link href="{$wwwRoot}styles/paradigm.css?v=1" rel="stylesheet" type="text/css"/>
 {/if}
 {if isset($polar)}
-    <link href="{$wwwRoot}styles/polar.css?v=21" rel="stylesheet" type="text/css"/>
+    <link href="{$wwwRoot}styles/polar.css?v=22" rel="stylesheet" type="text/css"/>
 {/if}
 {if isset($zepu)}
-    <link href="{$wwwRoot}styles/zepu.css?v=30" rel="stylesheet" type="text/css"/>
+    <link href="{$wwwRoot}styles/zepu.css?v=31" rel="stylesheet" type="text/css"/>
 {/if}
 {* External resources *}
 {if isset($autocomplete)}

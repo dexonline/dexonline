@@ -62,7 +62,7 @@
         </ul>
         {if !$is_mirror}
           <ul id="userMenu">
-            <li id="userNick"><a href="#" onclick="return false;">{$nick|escape}</a>
+            <li id="userNick"><div id="userPic"></div><a href="#" onclick="return false;">{$nick|escape}</a>
               <ul>
                 {if $sUser}
                   {if $sUser->moderator & $smarty.const.PRIV_EDIT}

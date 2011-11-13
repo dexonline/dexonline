@@ -86,14 +86,20 @@ img {
 }
 
 #userNick {
-  background: url("../img/icons/user_orange.png") no-repeat;
   display: block;
   float: right;
-  padding-left: 18px;
   margin-bottom: 10px;
   padding-top: 2px;
+  padding-right: 10px;
 }
 
+#userPic {
+  background: url("../img/sprite2.png") -355px -50px no-repeat;
+  float: left;
+  height: 16px;
+  margin-right: 3px;
+  width: 16px;
+}
 
 /* BANNER */
 #banner_mainPage {
@@ -161,7 +167,7 @@ img {
 
 #mainMenu li ul, #userMenu li ul {
   background: #eee;
-border-top: 0px solid #761818;
+  border-top: 0px solid #761818;
   margin: 0;
   padding: 0;
   position: absolute;
@@ -193,7 +199,7 @@ border-top: 0px solid #761818;
 
 /* SITE IDENTITY */
 #Logo {
-  background: url("../img/sprite.png") 0px -90px no-repeat;
+  background: url("../img/sprite2.png") -550px -25px no-repeat;
   height: 82px;
   margin: 30px auto 5px auto;
   width: 316px;
@@ -229,7 +235,7 @@ border-top: 0px solid #761818;
 
 #search_button {
   background: #761818;
-  border: 0px; /*important*/
+  border: 0px; /* border: 0px, otherwise it draws a gray border around button */
   border-radius: 4px;
   -moz-border-radius: 4px;
   
@@ -254,8 +260,9 @@ border-top: 0px solid #761818;
 
 #advancedAnchor { /* the link for "căutare avansată" */
   float: right;
-  margin-right: 20px;
+  margin-right: 10px;
   margin-top: 5px;
+  margin-left: 5px;
 }
 
 #advSearch { /* not Sonia's! */
@@ -407,7 +414,7 @@ border-top: 0px solid #761818;
 }
 
 #hostingElvsoft {
-  background: url("../img/sprite.png") -520px -90px no-repeat;
+  background: url("../img/sprite2.png") -460px -50px no-repeat;
   display: inline-block;
   height: 31px;
   vertical-align: top;
@@ -415,7 +422,7 @@ border-top: 0px solid #761818;
 }
 
 #hostingSei {
-  background: url("../img/sprite.png") -435px -90px no-repeat;
+  background: url("../img/hosting/sei.png") no-repeat;
   display: inline-block;
   height: 72px;
   vertical-align: top;
@@ -643,22 +650,39 @@ div.notRecommendedLegend {
 div.flashMessage {
   font-weight: bold;
   margin: 10px auto;
-  padding: 10px 10px 10px 40px;
+  padding: 10px;
   width: 40em;
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
 }
 
+div.flashMessage div.pic {
+  float: left;
+  height: 16px;
+  margin-right: 10px;
+  width: 16px;
+}
+
+div.flashMessage div.text {
+  float: left;
+}
+
 div.errorType {
-  background: url("../img/sprite.png") -520px -142px no-repeat;
   border: 2px solid #eea77e;
   color: #c00;
 }
 
+div.errorType div.pic {
+  background: url("../img/sprite2.png") -370px -50px no-repeat;
+}
+
 div.infoType {
-  background: url("../img/icons/info.png") no-repeat 10px center;
   border: 2px solid #a7ee7e;
   color: green;
+}
+
+div.infoType div.pic {
+  background: url("../img/icons/info.png") no-repeat;
 }
 
 .userEdit td {

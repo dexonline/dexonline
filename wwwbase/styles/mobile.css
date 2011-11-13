@@ -229,7 +229,7 @@ div.wikiTitle {
 }
 
 #hostingElvsoft {
-  background: url("../img/sprite.png") -520px -90px no-repeat;
+  background: url("../img/sprite2.png") -460px -50px no-repeat;
   display: inline-block;
   height: 31px;
   vertical-align: top;
@@ -237,7 +237,7 @@ div.wikiTitle {
 }
 
 #hostingSei {
-  background: url("../img/sprite.png") -435px -90px no-repeat;
+  background: url("../img/hosting/sei.png") no-repeat;
   display: inline-block;
   height: 72px;
   vertical-align: top;

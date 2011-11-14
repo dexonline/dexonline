@@ -281,10 +281,10 @@ img {
 }
 
 #inlineBlock2{
-  width: 180px;
+  width: 190px;
   display: inline; 
   float: left;
-  margin-right: 20px;
+  margin-right: 1px;
 }
 
 .search_field {

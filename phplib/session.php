@@ -120,8 +120,14 @@ function session_getSkin() {
 }
 
 function session_setSkin($skin) {
-  $_COOKIE['prefs']['skin'] = $skin;
-  setcookie('prefs[skin]', session_getSkin(), time() + 3600 * 24 * 365, "/");
+  $skins = pref_getServerPreference('skins');
+  $defaultSkin = $skins[0];
+  if ($skin == $defaultSkin) { 
+    // Clear the cookie instead of setting it to the default skin.
+    setcookie("prefs[skin]", NULL, time() - 3600, '/');
+  } else {
+    setcookie('prefs[skin]', $skin, time() + 3600 * 24 * 365, '/');
+  }
 }
 
 function session_isValidSkin($skin) {

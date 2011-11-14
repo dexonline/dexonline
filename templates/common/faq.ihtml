@@ -44,12 +44,7 @@
   online</i> dacă nu pot să stau prea mult pe Internet?</a></li>
   <li><a href="#moderator">Vreau să devin moderator al <i>DEX
   online</i></a></li>
-  <li><a href="#cod">Vreau să scriu cod pentru <i>DEX
-  online</i></a></li>
-  <li><a href="#bug">Vreau să repar un bug în <i>DEX
-  online</i></a></li>
-  <li><a href="#client">Vreau să scriu un client pentru <i>DEX
-  online</i></a></li>
+  <li><a href="#cod">Sunt programator și vreau să ajut</a></li>
   <li><a href="#scramble">Am contribuit la <i>DEX online</i>, dar
   adresa mea de e-mail e scrisă greșit!</a></li>
   <li><a href="#otrs">OTRS</a></li>
@@ -524,27 +519,9 @@
   href="contact">Scrieți-ne</a> pentru detalii.
 
 
-<h3><a name="cod"></a>Vreau să scriu cod pentru <i>DEX online</i></h3>
+<h3><a name="cod"></a>Sunt programator și vreau să ajut</h3>
 
-  Sunteți mană cerească! Puteți vedea codul-sursă al <i>DEX online</i> la <a href="http://svn.dexonline.ro">http://svn.dexonline.ro</a>. Dacă
-  doriți să obțineți o copie completă a codului și să îl modificați, citiți <a href="http://bugs.dexonline.ro/wiki/AccesLaCodulSurs%C4%83">aceste instrucțiuni</a>.
-
-
-<h3><a name="bug"></a>Vreau să repar un bug în <i>DEX online</i></h3>
-
-  Vă mulțumim anticipat! Iată <a
-  href="http://bugs.dexonline.ro/report/1">lista de bug-uri active</a>
-  din <i>DEX online</i>.
-
-
-<h3><a name="client"></a>Vreau să scriu un client pentru <i>DEX online</i></h3>
-
-  <i>DEX online</i> știe să răspundă la întrebări de tipul „vreau
-  toate definițiile și cuvintele care s-au modificat de la data
-  <i>X</i>”. Puteți deci scrie un client care se conectează periodic
-  la <i>DEX online</i> pentru a transfera ultimele noutăți. Pentru mai
-  multe informații, citiți <a href="update4.php">documentația</a>
-  protocolului de sincronizare.
+  Vă mulțumim! Citiți pagina de <a href="http://wiki.dexonline.ro/wiki/Informa%C8%9BiiPentruProgramatori">informații pentru programatori</a>.
 
 <h3><a name="scramble"></a>Am contribuit la <i>DEX online</i>, dar adresa mea de e-mail e scrisă greșit!</h3>
 

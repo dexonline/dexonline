@@ -11,8 +11,8 @@ OS::executeAndAssert("mkdir $tmpDir/dictionaries");
 OS::executeAndAssert("echo 'SET UTF-8' > $tmpDir/dictionaries/ro-dex.aff");
 OS::executeAndAssert("cp ../docs/install.rdf $tmpDir/");
 
-$mysqlFile = '/tmp/mysql_firefox.sql';
-util_deleteFile($mysqlFile);
+$mysqlFile = tempnam('/tmp', 'mysql_');
+unlink($mysqlFile);
 $query = "select distinct formNoAccent from InflectedForm where formNoAccent rlike '^[a-zăâîșț]+$' into outfile '$mysqlFile'";
 log_scriptLog("Running mysql query: [$query]");
 db_execute($query);
@@ -28,4 +28,6 @@ OS::executeAndAssert("cp -f $tmpDir/dex-ff.xpi ../wwwbase/download/");
 OS::executeAndAssert("rm -rf $tmpDir");
 log_scriptLog('rebuildFirefoxSpellChecker.php completed successfully (against all odds)');
 
+// Note -- this leaves behind the temporary MySQL file created by "... into outfile...".
+// The file is owned by mysql so we cannot delete it.
 ?>

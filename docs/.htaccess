@@ -27,6 +27,7 @@ RewriteRule ^mobil$ http://m.dexonline.ro [CO=desktopVersion:0:.dexonline.ro:-1]
 #####################################################################################################
 
 # When the user visits m.dexonline.ro/desktop, set a 10-year cookie and send them to dexonline.ro
+# Keep this cookie name in sync with the Varnish rules on the production server
 RewriteRule ^desktop$ http://dexonline.ro [CO=desktopVersion:1:.dexonline.ro:5256000]
 
 ################################################################

@@ -56,14 +56,17 @@ $command .= " >> $TMP_DIR/$FILENAME";
 OS::executeAndAssert($command);
 
 if (!$doFullDump) {
-  // Anonymize the User table
+  // Anonymize the User table. Handle the case for id = 0 separately, since
+  // "insert into _User_Copy set id = 0" doesn't work (it inserts an id of 1).
   log_scriptLog('Anonymizing the User table');
-  mysql_query("create table _User_Copy like User");
-  mysql_query("insert into _User_Copy select * from User");
-  mysql_query("update _User_Copy set password = ''");
-  mysql_query("update _User_Copy set email = concat(id, '@anonymous.com')");
+  db_execute("create table _User_Copy like User");
+  db_execute("insert into _User_Copy select * from User where id = 0");
+  db_execute("update _User_Copy set id = 0 where id = 1");
+  db_execute("insert into _User_Copy select * from User where id > 0");
+  db_execute("update _User_Copy set password = ''");
+  db_execute("update _User_Copy set email = concat(id, '@anonymous.com')");
   OS::executeAndAssert("$COMMON_COMMAND _User_Copy | sed 's/_User_Copy/User/g' >> $TMP_DIR/$FILENAME");
-  mysql_query("drop table _User_Copy");
+  db_execute("drop table _User_Copy");
 
   // Dump only the Definitions for which we have redistribution rights
   log_scriptLog('Filtering the Definition table');

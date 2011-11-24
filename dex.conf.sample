@@ -83,6 +83,9 @@ functestDatabase = mysql://root@localhost/DEXtest
 ; Comment this out in production.
 functestLockFile = /tmp/dex-functest
 
+; API key for Google search of clones 
+googleSearchApiKey = "Insert your API key here"
+
 [skin-zepu]
 ; Display banners after the search box.
 adsense_mainPage = "id=1220723485&width=728&height=90"

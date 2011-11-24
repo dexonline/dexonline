@@ -3,7 +3,7 @@
 {assign var="previewDivContent" value=$previewDivContent|default:null}
 {include file="common/bits/js.ihtml" jquery=1 autocomplete=1}
 
-<h3>Trimiteți o definiție</h3>
+<p class="paragraphTitle">Trimiteți o definiție</p>
 
 {if !$sUser}
   <div id="contribLogin">
@@ -12,13 +12,13 @@
 {/if}
 
 <form id="frmContrib" name="frmContrib" method="post" action="contribuie">
-  <table class="userEdit">
+  <table id="defUserEdit">
 
     <tr>
-      <td>Cuvântul definit:</td>
+      <td><p class="labelContribute">Cuvântul definit:</p></td>
       <td>
         <div id="lexemHolder">
-          <div id="blankDiv" style="display: none;">
+          <div id="blankDiv">
             <input type="text" class="autocompletable" name="lexemNames[]" value="" size="24"/>
             <img src="{$imgRoot}/icons/delete.png" alt="Șterge acest cuvânt" title="Șterge acest cuvânt" onclick="$(this).closest('div').remove(); return false;"/>
           </div>
@@ -40,7 +40,7 @@
     </tr>
 
     <tr>
-      <td>Sursa:</td>
+      <td><p class="labelContribute">Sursa:</p></td>
       <td>
         {include file="common/sourceDropDown.ihtml" sources=$contribSources src_selected=$sourceId skipAnySource=1}
         <a href="informatii#surse">lista de surse acceptate</a>
@@ -49,13 +49,12 @@
     </tr>
 
     <tr>
-      <td>Definiția:</td>
-      <td><textarea name="def" rows="15" cols="90" onkeypress="contribKeyPressed()">{$def|escape}</textarea></td>
+      <td><p class="labelContribute">Definiția:</p></td>
+      <td><textarea id="defTextarea" name="def" rows="15" cols="90" onkeypress="contribKeyPressed()">{$def|escape}</textarea></td>
     </tr>
 
     <tr>
-      <td></td>
-      <td>
+      <td colspan="2">
         <input type="submit" name="send" value="Trimite"/>
         <input type="reset" name="clear" value="Șterge" onclick="return confirm('Confirmați ștergerea definiției?')"/>
       </td>
@@ -63,7 +62,7 @@
   </table>
 </form>
 
-<h3>Rezultat</h3>
+<p class="paragraphTitle">Rezultat</p>
 
 <div id="previewDiv" class="contribPreview">
   {if $previewDivContent}
@@ -75,7 +74,7 @@
 
 <br/>
 
-<h3>Exemplu</h3>
+<p class="paragraphTitle">Exemplu</p>
 
 <table class="contribExample">
   <tr>

@@ -74,7 +74,6 @@ img {
   border: 0px; /* IE */
 }
 
-
 #staticBody {
   background: #fff;
   margin: 10px 5px;
@@ -100,6 +99,7 @@ img {
   margin-right: 3px;
   width: 16px;
 }
+
 
 /* BANNER */
 #banner_mainPage {
@@ -326,6 +326,13 @@ img {
   margin-top: 10px;
 }
 
+.paragraphTitle { /* paragraph titles on any page */
+  font-size: 14px; /* equivalent with h3 */
+  color: black;
+  font-weight: bold;
+  padding-left: 0px;
+}
+
 
 /* WORD OF THE DAY */
 .statusReportMini {
@@ -344,7 +351,7 @@ img {
 #wotdShadow {
   background: url("../img/zepu/shadows/shadow216.png") no-repeat;
   height: 14px;
-  margin: 0px 0px 35px 330px;
+  margin: 0px 0px 15px 330px; /* it was 0,0,35,330; I added margin-top:20px to fb_bottom, then I subtracted 20px from margin-bottom of wotdShadow */
 }
 
 
@@ -352,7 +359,7 @@ img {
 .fb_bottom {
   border-bottom: 1px solid #BFBFBF;
   border-top: 1px solid #BFBFBF;
-  margin: 0px auto 10px;
+  margin: 20px auto 10px;/*it was 0 auto 10*/
   padding: 5px 0px 0px 3px;
   width: 875px;
 }
@@ -687,13 +694,8 @@ div.infoType div.pic {
   background: url("../img/icons/info.png") no-repeat;
 }
 
-.userEdit td {
-  border: 0;
-  padding-bottom: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
 
+/* TOPUL VOLUNTARILOR page */
 .userTop {
   border-collapse: collapse;
   margin: 15px auto;
@@ -723,6 +725,64 @@ span.spaced {
   letter-spacing: 3px;
 }
 
+
+/* CONTRIBUIE page */
+#contribLogin {
+  background: #eee url("../img/icons/exclamation.png") no-repeat 2px center;
+  border: 1px solid #BFBFBF;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  padding: 5px 0px 5px 20px;
+}
+
+#frmContrib {
+  margin-top: 15px;
+}
+
+#defUserEdit {
+  background: #eee;
+  width: 100%;
+}
+
+.userEdit td {
+  border: none;
+  min-width: 90px;
+  padding: 3px;
+  vertical-align: top;
+}
+
+#defUserEdit td {
+  border: 1px solid white;
+  min-width: 90px;
+  padding: 3px;
+  vertical-align: top;
+}
+
+.labelContribute {
+  padding: 5px 0px 0px 0px;
+  float: right;
+}
+
+#lexemHolder {
+}
+
+#blankDiv {
+  display: none;
+}
+
+.autocompletable {
+}
+
+#defTextarea {
+  width: 765px;
+  margin: 5px 0px;
+}
+
+.addWord {
+  float: left;
+  margin-left: 5px;
+}
+
 .contribPreview {
   border: 1px solid #aaa;
   margin-left: 20px;
@@ -737,16 +797,12 @@ span.spaced {
 .contribExample th {
   font-weight: bold;
   text-align: center;
+  background: #eee;
 }
 
 .contribExample td, .contribExample th {
   border: 1px solid #aaa;
   padding: 3px 10px;
-}
-
-#contribLogin {
-  background: url("../img/icons/exclamation.png") no-repeat 0px center;
-  padding: 5px 20px;
 }
 
 #formattingLink {
@@ -758,6 +814,7 @@ span.spaced {
 table.static {
   margin-left: 20px;
 }
+
 
 /* jquery tablesorter stuff */
 th.header {

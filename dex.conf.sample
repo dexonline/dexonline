@@ -23,6 +23,9 @@ database = mysql://root@localhost/DEX
 ; Show some debug information when this user is logged in.
 debugUser = reggie
 
+; API key for Google search of clones 
+googleSearchApiKey = "Insert your API key here"
+
 ; Show our web host logo
 hostedBy =
 
@@ -82,9 +85,6 @@ functestDatabase = mysql://root@localhost/DEXtest
 ; DEX online will read functestDatabase instead of database if this file exists.
 ; Comment this out in production.
 functestLockFile = /tmp/dex-functest
-
-; API key for Google search of clones 
-googleSearchApiKey = "Insert your API key here"
 
 [skin-zepu]
 ; Display banners after the search box.

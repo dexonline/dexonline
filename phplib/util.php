@@ -1,17 +1,24 @@
 <?php
 mb_internal_encoding("UTF-8");
-util_initEverything();
 
-function __autoload($className) {
-  $choices = array(util_getRootPath() . "phplib/{$className}.php",
-                   util_getRootPath() . "phplib/models/{$className}.php");
-  foreach ($choices as $choice) {
-    if (file_exists($choice)) {
-      require_once($choice);
-      return;
-    }
-  }
+spl_autoload_register(); //clears the autoload stack
+
+function autoloadLibClass($className) {
+  $filename = util_getRootPath()."phplib/{$className}.php";
+  if (file_exists($filename))
+    require_once($filename);
 }
+
+function autoloadModelsClass($className) {
+  $filename = util_getRootPath()."phplib/models/{$className}.php";
+  if (file_exists($filename))
+    require_once($filename);
+}
+
+spl_autoload_register("autoloadLibClass",false,true);
+spl_autoload_register("autoloadModelsClass",false,true);
+
+util_initEverything();
 
 function util_initEverything() {
   // smarty < session_start/end : smarty caches the person's nickname.

@@ -17,12 +17,14 @@ if ($submitButton) {
   $src->canContribute = util_getRequestParameterWithDefault("canContribute", 0);
   $src->canModerate = util_getRequestParameterWithDefault("canModerate", 0);
   $src->canDistribute = util_getRequestParameterWithDefault("canDistribute", 0);
+  $src->defCount = util_getRequestIntParameter("defCount");
 
   if (validate($src)) {
     // For new sources, set displayOrder to the highest available + 1
     if (!$sourceId) {
       $src->displayOrder = Model::factory('Source')->count() + 1;
     }
+    $src->updatePercentComplete();
     $src->save();
     FlashMessage::add('Modificările au fost salvate', 'info');
     util_redirect("editare-sursa?id={$src->id}");
@@ -42,6 +44,11 @@ function validate($src) {
   if (!$src->shortName) { FlashMessage::add('Numele scurt nu poate fi vid.'); $success = false; }
   if (!$src->urlName) { FlashMessage::add('Numele URL nu poate fi vid.'); $success = false; }
   if (!$src->author) { FlashMessage::add('Autorul nu poate fi vid.'); $success = false; }
+
+  if ($src->defCount < 0 && $src->defCount != Source::$UNKNOWN_DEF_COUNT) {
+    FlashMessage::add("Numărul de definiții trebuie să fie pozitiv.");
+    $success = false;
+  }
   return $success;
 }
 

@@ -14,6 +14,9 @@
 # Import wiki articles
 50 1 * * * (cd /var/www/dexon/public_html/DEX/tools && php syncWikiArticles.php --full) >/dev/null 2>&1 || mail -s "DEX syncWikiArticles failed" cata@francu.com
 
+# Update the definition counts and percentages complete for each source
+25 5 * * 6 (cd /var/www/dexon/public_html/DEX/tools && php updateSourceCounts.php) >/dev/null 2>&1
+
 # Dump the XML database and weekly diffs
 30 5 * * 6 (cd /var/www/dexon/public_html/DEX/tools && php dumpDatabaseXml.php) >/dev/null 2>&1
 

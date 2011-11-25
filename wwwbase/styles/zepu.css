@@ -997,3 +997,33 @@ span.sourceShortName {
   font-size: 80%;
   padding-left: 10px;
 }
+
+div.sourceComplete {
+  margin: 0px auto;
+  height: 16px;
+  width: 16px;
+}
+
+div.sourceComplete0 {
+  background: url("../img/icons/page_white.png") no-repeat;
+}
+
+div.sourceComplete1 {
+  background: url("../img/icons/flag_red.png") no-repeat;
+}
+
+div.sourceComplete2 {
+  background: url("../img/icons/flag_orange.png") no-repeat;
+}
+
+div.sourceComplete3 {
+  background: url("../img/icons/flag_yellow.png") no-repeat;
+}
+
+div.sourceComplete4 {
+  background: url("../img/icons/flag_blue.png") no-repeat;
+}
+
+div.sourceComplete5 {
+  background: url("../img/icons/flag_green.png") no-repeat;
+}

@@ -18,6 +18,11 @@
   </select>
   <br/>
 
+  Număr de definiții (-1 pentru „necunoscut”): <input type="text" name="defCount" value="{$src->defCount}" size="10"/><br/>
+  din care digitizate: {$src->ourDefCount}; procent de completare: {$src->percentComplete|string_format:"%.2f"}.
+
+  <br/>
+
   <input type="checkbox" id="cb_canContribute" name="canContribute" value="1" {if $src->canContribute}checked="checked"{/if}/>
   <label for="cb_canContribute">Deschisă pentru contribuții</label><br/>
 

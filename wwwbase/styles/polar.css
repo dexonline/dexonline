@@ -270,6 +270,7 @@ span.spaced {
 
 .userTop .nick {
   text-align: left;
+  white-space: nowrap;
   width: 200px;
 }
 
@@ -512,4 +513,62 @@ div.wikiTitle {
 abbr {
   border-bottom: 1px dotted #aaa;
   cursor: help;
+}
+
+span.sourceName {
+  cursor: help;
+  position: relative;
+}
+
+span.sourceName span {
+  margin-left: -999em;
+  position: absolute;
+}
+
+span.sourceName:hover span {
+  background: white;
+  border: 1px solid black;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.3); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.3);
+  margin-left: 0;
+  padding: 10px;
+  position: absolute;
+  left: 1em;
+  top: 2em;
+  z-index: 99;
+}
+
+span.sourceShortName {
+  color: #444;
+  font-size: 80%;
+  padding-left: 10px;
+}
+
+div.sourceComplete {
+  margin: 0px auto;
+  height: 16px;
+  width: 16px;
+}
+
+div.sourceComplete0 {
+  background: url("../img/icons/page_white.png") no-repeat;
+}
+
+div.sourceComplete1 {
+  background: url("../img/icons/flag_red.png") no-repeat;
+}
+
+div.sourceComplete2 {
+  background: url("../img/icons/flag_orange.png") no-repeat;
+}
+
+div.sourceComplete3 {
+  background: url("../img/icons/flag_yellow.png") no-repeat;
+}
+
+div.sourceComplete4 {
+  background: url("../img/icons/flag_blue.png") no-repeat;
+}
+
+div.sourceComplete5 {
+  background: url("../img/icons/flag_green.png") no-repeat;
 }

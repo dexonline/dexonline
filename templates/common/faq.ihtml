@@ -252,23 +252,10 @@
 
 <h3><a name="surse"></a>Ce dicționare cuprinde <i>DEX online?</i></h3>
 
-  Inițial, DEX online și-a propus să ofere o copie pe Internet a
-  DEX. Acest proiect a fost finalizat în 2004. Ulterior, am încorporat
-  în întregime și patru dicționare de la Editura Litera (de sinonime,
-  de antonime, ortografic și Noul Dicționar Explicativ), precum și
-  MDN <i>(Marele dicționar de neologisme</i>, Editura
-  Saeculum). Într-o măsură mai mică, am folosit și definiții din multe
-  alte surse pentru a îmbogăți baza de date și a o face mai
-  utilă. Iată lista completă a dicționarelor folosite:
-
-  <ul>
-    {foreach from=$sources item=source}
-      <li>
-        [{$source->shortName|escape}] <i>{$source->name|escape},</i> {$source->author|escape},
-        {$source->publisher|escape}, {$source->year|escape}
-      </li>
-    {/foreach}
-  </ul>
+  Inițial, DEX online și-a propus să ofere o copie pe Internet a DEX. Acest proiect a fost finalizat în 2004. Ulterior, am încorporat în întregime și
+  patru dicționare de la Editura Litera (de sinonime, de antonime, ortografic și Noul Dicționar Explicativ), precum și MDN <i>(Marele dicționar de
+  neologisme</i>, Editura Saeculum). Într-o măsură mai mică, am folosit și definiții din multe alte surse pentru a îmbogăți baza de date și a o face
+  mai utilă. Puteți vizita <a href="{$wwwRoot}surse">lista completă a dicționarelor folosite</a>.
 
 
 <h3><a name="offline"></a>Pot să-mi instalez <i>DEX online</i> pe calculatorul de acasă? Dar pe dispozitive mobile?</h3>

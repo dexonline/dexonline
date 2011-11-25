@@ -1,62 +1,58 @@
+{include file="common/bits/js.ihtml" jqTableDnd=1}
+
+<ul>
+  <li>Duceți mouse-ul deasupra unui titlu pentru a vedea detalii despre acel dicționar</li>
+  {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+    <li>Pentru a reordona sursele, apucați de un rând, dar nu de o zonă cu text. La sfârșit, nu uitați să salvați.</li>
+  {/if} 
+</ul>
+
 <form method="post" action="surse">
-  <table class="sources">
+  <table id="sources" class="userTop">
     <tr>
-      <th>Ordonare</th>
-      <th>Date {include file="admin/helpLink.ihtml" anchor="sources"}</th>
-      <th>Oficial</th>
-      <th>Contribuie</th>
-      <th>Moderare</th>
-      <th>Distribuie</th>
+      <th class="nick">Nume</th>
+      {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+        <th>Acțiuni</th>
+      {/if}
     </tr>
     {foreach from=$sources item=s}
       <tr>
-        <td>
-          <a href="?moveUp={$s->displayOrder}"><img src="{$imgRoot}/icons/arrow_up.png" alt="sus" title="mută în sus" class="noBorder"/></a>
-          <a href="?moveDown={$s->displayOrder}"><img src="{$imgRoot}/icons/arrow_down.png" alt="jos" title="mută în jos" class="noBorder"/></a>
-        </td>
-        <td>
+        <td class="nick">
           <input type="hidden" name="ids[]" value="{$s->id}"/>
-          Nume: <input type="text" name="name_{$s->id}" value="{$s->name}" size="80"/><br/>
-          Nume scurt: <input type="text" name="shortName_{$s->id}" value="{$s->shortName}" size="10"/>
-          Autor: <input type="text" name="author_{$s->id}" value="{$s->author}" size="55"/><br/>
-          Nume URL: <input type="text" name="urlName_{$s->id}" value="{$s->urlName}" size="10"/>
-          Editură: <input type="text" name="publisher_{$s->id}" value="{$s->publisher}" size="35"/>
-          An: <input type="text" name="year_{$s->id}" value="{$s->year}" size="10"/><br/>
+          <span class="sourceName">
+            {$s->name}
+            <span>
+              <b>{$s->name}</b><br/>
+              Autor: {$s->author}<br/>
+              Editură: {$s->publisher}<br/>
+              Anul apariției: {$s->year}<br/>
+              Tipul:
+              {if $s->isOfficial==2}Oficial{/if}
+              {if $s->isOfficial==1}Specializat{/if}
+              {if $s->isOfficial==0}Neoficial{/if}
+              <br/>
+            </span>
+          </span>
+          <span class="sourceShortName">{$s->shortName}</span>
         </td>
-        <td>
-          <select name="isOfficial_{$s->id}">
-            <option value="2" {if $s->isOfficial==2 }selected{/if}>Oficial</option>
-            <option value="1" {if $s->isOfficial==1 }selected{/if}>Specializat</option>
-            <option value="0" {if $s->isOfficial==0 }selected{/if}>Neoficial</option>
-          </select>
-        </td>
-        <td><input type="checkbox" name="canContribute_{$s->id}" value="1" {if $s->canContribute}checked="checked"{/if}/></td>
-        <td><input type="checkbox" name="canModerate_{$s->id}" value="1" {if $s->canModerate}checked="checked"{/if}/></td>
-        <td><input type="checkbox" name="canDistribute_{$s->id}" value="1" {if $s->canDistribute}checked="checked"{/if}/></td>
+        {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+          <td><a href="editare-sursa?id={$s->id}">editează</a></td>
+        {/if}
       </tr>
     {/foreach}
-    <tr>
-      <td>Adaugă:</td>
-      <td>
-        <input type="hidden" name="ids[]" value="new"/>
-        Nume: <input type="text" name="name_new" value="" size="80"/><br/>
-        Nume scurt: <input type="text" name="shortName_new" value="" size="10"/>
-        Autor: <input type="text" name="author_new" value="" size="55"/><br/>
-        Nume URL: <input type="text" name="urlName_new" value="" size="10"/>
-        Editură: <input type="text" name="publisher_new" value="" size="35"/>
-        An: <input type="text" name="year_new" value="" size="10"/><br/>
-      </td>
-      <td>
-        <select name="isOfficial_new">
-          <option value="2">Oficial</option>
-          <option value="1">Specializat</option>
-          <option value="0">Neoficial</option>
-        </select>
-      </td>
-      <td><input type="checkbox" name="canContribute_new" value="1"/></td>
-      <td><input type="checkbox" name="canModerate_new" value="1"/></td>
-      <td><input type="checkbox" name="canDistribute_new" value="1"/></td>
-    </tr>
   </table>
-  <input type="submit" name="submitButton" value="Salvează"/>
+  {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+    <input type="submit" name="submitButton" value="Salvează"/> &nbsp;
+    <a href="editare-sursa">adaugă o sursă</a> &nbsp;
+    <a href="">renunță</a>
+  {/if}
 </form>
+
+{* Drag-and-drop reordering of rows, only for admins *}
+{if $sUser->moderator & $smarty.const.PRIV_EDIT}
+  <script type="text/javascript"> 
+    jQuery(document).ready(function() {ldelim}
+      $("#sources").tableDnD();
+    {rdelim});
+  </script> 
+{/if}

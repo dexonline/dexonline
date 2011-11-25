@@ -1,0 +1,34 @@
+<h3>Editare sursă: {$src->name}</h3>
+<a href="surse">înapoi la lista de surse</a>
+<br/><br/>
+
+<form method="post" action="editare-sursa">
+  <input type="hidden" name="id" value="{$src->id}"/>
+  Nume: {include file="admin/helpLink.ihtml" anchor="sources"}<input type="text" name="name" value="{$src->name}" size="80"/><br/>
+  Nume scurt: <input type="text" name="shortName" value="{$src->shortName}" size="10"/><br/>
+  Nume URL: <input type="text" name="urlName" value="{$src->urlName}" size="10"/><br/>
+  Autor: <input type="text" name="author" value="{$src->author}" size="55"/><br/>
+  Editură: <input type="text" name="publisher" value="{$src->publisher}" size="35"/><br/>
+  An: <input type="text" name="year" value="{$src->year}" size="10"/><br/>
+  Tip:
+  <select name="isOfficial">
+    <option value="2" {if $src->isOfficial==2 }selected{/if}>Oficial</option>
+    <option value="1" {if $src->isOfficial==1 }selected{/if}>Specializat</option>
+    <option value="0" {if $src->isOfficial==0 }selected{/if}>Neoficial</option>
+  </select>
+  <br/>
+
+  <input type="checkbox" id="cb_canContribute" name="canContribute" value="1" {if $src->canContribute}checked="checked"{/if}/>
+  <label for="cb_canContribute">Deschisă pentru contribuții</label><br/>
+
+  <input type="checkbox" id="cb_canModerate" name="canModerate" value="1" {if $src->canModerate}checked="checked"{/if}/>
+  <label for="cb_canModerate">Poate fi aleasă de moderatori</label><br/>
+
+  <input type="checkbox" id="cb_canDistribute" name="canDistribute" value="1" {if $src->canDistribute}checked="checked"{/if}/>
+  <label for="cb_canDistribute">Poate fi redistribuită</label><br/>
+
+  <br/>
+
+  <input type="submit" name="submitButton" value="Salvează"/>
+  <a href="">renunță</a>
+</form>

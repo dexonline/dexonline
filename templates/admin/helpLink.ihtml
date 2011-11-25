@@ -1,4 +1,5 @@
+{strip}
 <a href="#" onclick="adminHelpWindow('{$anchor}'); return false;">
-  <img src="{$imgRoot}/icons/help.png" alt="ajutor" title="ajutor"
-       style="border: 0px"/>
+  <img src="{$imgRoot}/icons/help.png" alt="ajutor" title="ajutor" style="border: 0px"/>
 </a>
+{/strip}

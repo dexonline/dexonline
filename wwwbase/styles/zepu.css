@@ -521,6 +521,7 @@ div.wikiTitle {
 /* GUIDE INFO */
 #guideInfo {
   color: #424242;
+  display: none;
 }
 
 a.inflLink {
@@ -967,4 +968,32 @@ div.internalRepDiff ins {
 
 div.internalRepDiff del {
   background-color: #FAA;
+}
+
+span.sourceName {
+  cursor: help;
+  position: relative;
+}
+
+span.sourceName span {
+  margin-left: -999em;
+  position: absolute;
+}
+
+span.sourceName:hover span {
+  background: white;
+  border: 1px solid black;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.3); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.3);
+  margin-left: 0;
+  padding: 10px;
+  position: absolute;
+  left: 1em;
+  top: 2em;
+  z-index: 99;
+}
+
+span.sourceShortName {
+  color: #444;
+  font-size: 80%;
+  padding-left: 10px;
 }

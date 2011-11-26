@@ -20,17 +20,18 @@
 {/if}
 
 {if $wa}
-  <div class="wikiTitle">{$wa->title}</div>
+  <p class="paragraphTitle">{$wa->title}</p>
   <div class="wikiArticle">{$wa->htmlContents}</div>
 {else}
-  <div class="wikiTitle">Articol inexistent</div>
+  <p class="paragraphTitle">Articol inexistent</p>
   <div class="wikiArticle">Articolul pe care îl căutați nu există.</div>
 {/if}
 
-<div class="wikiTitle">Alte articole lingvistice</div>
+<p class="paragraphTitle">Alte articole lingvistice</p>
 
 {foreach from=$wikiTitles item=titlePair}
   {if $titlePair[0] != $wa->title}
     <a href="{$wwwRoot}articol/{$titlePair[1]}">{$titlePair[0]}</a><br/>
   {/if}
 {/foreach}
+

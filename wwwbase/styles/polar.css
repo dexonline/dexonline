@@ -430,12 +430,6 @@ th.headerSortDown {
   color: #555;
 }
 
-.wotdArchiveTable tr.wotdHeader td{
-  text-align:center;
-  font-size: 16px;
-  font-weight: bold;
-}
-
 .nav {
   cursor: pointer;
   color: #0000CC;
@@ -471,7 +465,7 @@ th.headerSortDown {
   padding: 2px 10px;
 }
 
-div.wikiTitle {
+p.paragraphTitle {
   font-weight: bold;
   font-size: 18px;
   margin-top: 15px;

@@ -83,7 +83,7 @@
       {/if}
   
     {elseif $searchType == $smarty.const.SEARCH_WOTD}
-        Cuvântul zilei {if ($fdate)}(din {$fdate}){/if}
+        Cuvântul zilei{if ($fdate)} (din {$fdate}){/if}:
 
   
     {elseif $searchType == $smarty.const.SEARCH_MULTIWORD}

@@ -471,17 +471,17 @@ img {
   margin-top: 5px;
   padding: 5px;
   -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
+  border-radius: 5px;
 }
 
 div.resultBar {
   background: #eee;
   border: 1px solid #aaa;
   font-size: 11px;
-  margin: 10px 15px 0px 15px;
+  margin: 20px 15px 0px 15px;
   padding: 5px;
   -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
+  border-radius: 7px;
 }
 
 .stopWords {
@@ -491,7 +491,7 @@ div.resultBar {
   margin: 0px 0px 10px 5px;
   padding: 5px;
   -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
+  border-radius: 7px;
 }
 
 .wikiArticleLink {
@@ -501,11 +501,6 @@ div.resultBar {
   padding: 5px 5px 5px 20px;
 }
 
-div.wikiTitle {
-  font-size: 18px;
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
 
 /* note about the new look of the expressions guide */
 #guideNotice {
@@ -663,7 +658,7 @@ div.flashMessage {
   padding: 10px;
   width: 40em;
   -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
+  border-radius: 7px;
 }
 
 div.flashMessage div.pic {
@@ -703,6 +698,7 @@ div.infoType div.pic {
 }
 
 .userTop td, .userTop th {
+  border: 1px solid #aaa;
   text-align: center;
   padding-right: 20px;
 }
@@ -745,16 +741,15 @@ span.spaced {
   width: 100%;
 }
 
-.userEdit td {
-  border: none;
-  min-width: 90px;
+#defUserEdit td {
+  border: 1px solid white;
+  min-width: 100px;
   padding: 3px;
   vertical-align: top;
 }
 
-#defUserEdit td {
-  border: 1px solid white;
-  min-width: 90px;
+.userEdit td {
+  border: none;
   padding: 3px;
   vertical-align: top;
 }
@@ -764,18 +759,12 @@ span.spaced {
   float: right;
 }
 
-#lexemHolder {
-}
-
 #blankDiv {
   display: none;
 }
 
-.autocompletable {
-}
-
 #defTextarea {
-  width: 765px;
+  width: 755px;
   margin: 5px 0px;
 }
 
@@ -814,6 +803,10 @@ span.spaced {
 
 table.static {
   margin-left: 20px;
+}
+
+table.static th, table.static td {
+  border: 1px solid #aaa;
 }
 
 
@@ -891,45 +884,78 @@ input.pagedisplay {
 }
 
 
-
 /* WORD OF THE DAY ARCHIVE */
 .wotdArchive {
-  margin-left: 10px;
+  margin-left: 3px;
   padding: 5px;
   -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
+  border-radius: 7px;
 }
 
 .wotdArchiveTitle {
+  color: #444;
   width: 767px;
-  background: #f4f4f4;
-  border: 1px solid #aaa;
-  font-size: 11px;
-  margin: 10px 15px 0px 15px;
+  margin: 10px 15px 0px 5px;
   padding: 5px;
-  -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
 }
 
-.wotdArchiveTable td {
-  text-align:right;
-  width: 90px;
-}
-
-.wotdArchiveTable tr.wotdHeader td{
-  text-align:center;
-  font-size: 16px;
-  font-weight: bold;
+#wotdArchiveHeader {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  background: #6B6B6B;
+  height: 30px;
+  width: 775px;
+  text-align: center;
 }
 
 .nav {
+  background: white;
+  width: 25px;
+  height: 25px;
   cursor: pointer;
   color: #761818;
 }
 
-.nav:hover {
-  text-decoration: underline;
-  color: #CC0000;
+#navLeft {
+  background: url('../img/icons/control_rewind.png') 5px 3px no-repeat;
+  float: left;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+#wotdDate {
+  display: inline;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 30px; /* do not omit, otherwise the paragraph won't be centered */
+  width: 200px;
+}
+
+#navRight {
+  background: url('../img/icons/control_fastforward.png') 5px 3px no-repeat;
+  float: right;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.wotdArchiveTable td {
+  border: 1px solid white;
+}
+
+.wotdArchiveTable td.activeMonth {
+  text-align:right;
+  width: 90px;
+  background: #ddd;
+  border: 1px solid white;
+}
+
+.wotdArchiveTable tr.wotdDays td {
+  padding: 10px 0px;
+  background: white;
+  text-align: center;
+  font-weight: bold;
+  color: #6B6B6B;
 }
 
 .wotdDoM {
@@ -937,6 +963,7 @@ input.pagedisplay {
   font-weight: bold;
 }
 /* end word of the day archive */
+
 
 .favoriteDef {
   margin-bottom: 16px;
@@ -983,7 +1010,9 @@ span.sourceName span {
 span.sourceName:hover span {
   background: white;
   border: 1px solid black;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.3); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3); 
+  -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.3); 
+  -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.3);
   margin-left: 0;
   padding: 10px;
   position: absolute;

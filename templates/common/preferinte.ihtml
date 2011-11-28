@@ -1,28 +1,28 @@
 {* TODO: This replicates code from contul-meu.ihtml *}
+
 <form method="post" action="preferinte">
-<table class="userEdit">
-  <tr>
-    <td>Preferințe</td>
-    <td>
+  
+  <p class="paragraphTitle">Preferințe</p>
+  <div>
     {foreach from=$userPrefs key=value item=i}
-      <input type="checkbox" name="userPrefs[]" id="cb_{$value}" value="{$value}" {if $i.checked}checked="checked"{/if}/>
-      <label for="cb_{$value}">{$i.label}</label><br/>
-      <span class="help">{$i.comment}</span><br/>
+      <input type="checkbox" name="userPrefs[]" id="cb_{$value}" value="{$value}" class="cbOption" {if $i.checked}checked="checked"{/if}/>
+      <label for="cb_{$value}" class="labelOption">{$i.label}</label>
+      <div class="describeOption">{$i.comment}</div>
     {/foreach}
-    </td>
-  </tr>
-  <tr>
-    <td>Design</td>
-    <td>
-      <select name="skin">
-        {foreach from=$availableSkins item=i}
-          <option value="{$i}" {if $i == $skin}selected="selected"{/if}>{$i|capitalize}</option>
-        {/foreach}
-      </select>
-      <br/>
-      <span class="help">Notă: numai designul Zepu este ținut la zi cu cele mai noi funcții</span>
-    </td>
-  </tr>
-</table>
-<input type="submit" name="send" value="Salvează"/>
+  </div>
+  
+  <br/>
+  <div>
+    <p class="paragraphTitle">Design</p>
+    <select name="skin" id="skinsList">
+      {foreach from=$availableSkins item=i}
+        <option value="{$i}" {if $i == $skin}selected="selected"{/if}>{$i|capitalize}</option>
+      {/foreach}
+    </select>
+  </div>  
+
+  <div class="warning">Notă: Numai designul Zepu este ținut la zi cu cele mai noi funcții.</div>
+  <br/>
+  
+  <input type="submit" name="send" value="Salvează"/>
 </form>

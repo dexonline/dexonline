@@ -6,7 +6,7 @@
 <p class="paragraphTitle">Trimiteți o definiție</p>
 
 {if !$sUser}
-  <div id="contribLogin">
+  <div class="warning">
     Dacă doriți să primiți credit pentru definițiile trimise, vă recomandăm să vă <a href="{$wwwRoot}inregistrare">înregistrați</a>.
   </div>
 {/if}

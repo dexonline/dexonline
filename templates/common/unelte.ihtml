@@ -1,4 +1,4 @@
-<h4>Clienți off-line</h4>
+<p class="paragraphTitle">Clienți off-line</p>
 
 Aceste aplicații transferă definițiile din <i>DEX online</i> pe
 calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
@@ -102,24 +102,24 @@ calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
   </tr>
 </table>
 
-<br/>
-<b>Licență:</b> Informațiile din acest tabel poartă o dublă licență: Licența Publică Generală GNU (care se aplică întregului site) și
-licența <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0</a>. Informațiile pot fi
-folosite (copiate, modificate, adaptate, etc) de către siteul http://wikipedia.org. Datele sunt adunate de pe forumul
-dictionar@yahoogroups.com prin colaborare cu dezvoltatorii aplicațiilor.
+<div class="toolsLicense">
+  <b>Licență:</b> Informațiile din acest tabel poartă o dublă licență: Licența Publică Generală GNU (care se aplică întregului site) și
+	licența <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0</a>. Informațiile pot fi
+	folosite (copiate, modificate, adaptate, etc) de către siteul http://wikipedia.org. Datele sunt adunate de pe forumul
+	dictionar@yahoogroups.com prin colaborare cu dezvoltatorii aplicațiilor.
 
-<br/>
-<b>License:</b> The information in this table is dual-licensed under the GNU General Public License (as applicable to the entire site) and the
-<a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0</a> license. The information can be used
-(copied, modified, adapted etc.) by the website http://wikipedia.org. The data are gathered from the forum dictionar@yahoogroups.com in collaboration
-with the application developers.
+  <br/><br/>
+  <b>License:</b> The information in this table is dual-licensed under the GNU General Public License (as applicable to the entire site) and the
+	<a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0</a> license. The information can be used
+	(copied, modified, adapted etc.) by the website http://wikipedia.org. The data are gathered from the forum dictionar@yahoogroups.com in collaboration
+	with the application developers.
+</div>
 
-<h4>Integrare în browser</h4>
+<p class="paragraphTitle">Integrare în browser</p>
 
-<ul>
-  <li>Instalați un corector ortografic pentru limba română pentru
-  Firefox: <a href="download/dex-ff.xpi"
-  onclick="return installFirefoxSpellChecker(event);">clic aici</a>.
+<ul class="browserIntegration">
+  <li>Instalați un corector ortografic pentru limba română pentru Firefox: 
+    <a href="download/dex-ff.xpi" onclick="return installFirefoxSpellChecker(event);">clic aici</a>.
 
     <ul>
       <li>Pentru a folosi corectorul, deschideți meniul <i>Edit >
@@ -161,24 +161,26 @@ with the application developers.
 
 </ul>
 
-<h4><a name="scrabble"></a>Unelte pentru Federația Română de Scrabble</h4>
+<p class="paragraphTitle">
+  <a name="scrabble"></a>Unelte pentru Federația Română de Scrabble
+</p>
 
-<ul>
+	<ul class="browserIntegration">
 
-  <li><a href="scrabble-loc">Lista Oficială de Cuvinte</a> acceptată de Federația Română de Scrabble.
+		<li><a href="scrabble-loc">Lista Oficială de Cuvinte</a> acceptată de Federația Română de Scrabble.
 
-    <ul>
-      <li><a href="static.php?c=loc">Precizări</a> privind notațiile din listă</li>
-    </ul>
-  </li>
+		  <ul>
+		    <li><a href="static.php?c=loc">Precizări</a> privind notațiile din listă</li>
+		  </ul>
+		</li>
 
-  <li><a href="modele-flexiune">Lista modelelor de flexiune</a>.</li>
-  <li><a href="scrabble-flexiune">Verificare formă flexionară</a> - aflați rapid dacă o formă flexionară este în LOC.</li>
+		<li><a href="modele-flexiune">Lista modelelor de flexiune</a>.</li>
+		<li><a href="scrabble-flexiune">Verificare formă flexionară</a> - aflați rapid dacă o formă flexionară este în LOC.</li>
 
-  {if $sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
-    <li><a href="scrabble-forme">Lista formelor unice</a>
-    (fără diacritice, accente, dublete, cu lungimi între 2 și 15
-    litere).</li>
-  {/if}
+		{if $sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
+		  <li><a href="scrabble-forme">Lista formelor unice</a>
+		  (fără diacritice, accente, dublete, cu lungimi între 2 și 15
+		  litere).</li>
+		{/if}
 
-</ul>
+	</ul>

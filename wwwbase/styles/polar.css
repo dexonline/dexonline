@@ -445,7 +445,7 @@ th.headerSortDown {
   font-weight: bold;
 }
 
-#contribLogin {
+.warning {
   background: url("../img/icons/exclamation.png") no-repeat 0px center;
   padding: 5px 20px;
 }
@@ -565,4 +565,8 @@ div.sourceComplete4 {
 
 div.sourceComplete5 {
   background: url("../img/icons/flag_green.png") no-repeat;
+}
+
+#blankDiv {
+  display: none;
 }

@@ -1,25 +1,25 @@
-Pentru a vă conecta, introduceți adresa de e-mail sau numele de cont și parola. Dacă v-ați uitat parola, introduceți doar adresa
-de e-mail și apăsați butonul „Mi-am uitat parola”. Vă va fi trimis un e-mail cu instrucțiuni pentru schimbarea parolei.
-<br/><br/>
+<div class="vertSpace">
+  Pentru a vă conecta, introduceți adresa de e-mail sau numele de cont și parola. Dacă v-ați uitat parola, introduceți doar adresa
+  de e-mail și apăsați butonul „Mi-am uitat parola”. Vă va fi trimis un e-mail cu instrucțiuni pentru schimbarea parolei.
+</div>
 
-Nu aveți cont? <a href="{$wwwRoot}inregistrare">Înregistrați-vă</a>!<br/><br/>
+Nu aveți cont? <a href="{$wwwRoot}inregistrare">Înregistrați-vă</a>.<br/><br/>
 
-<form name="loginForm" method="post" action="login">
-<table class="userEdit">
-  <tr>
-    <td>Adresa de e-mail sau numele de cont:</td>
-    <td><input type="text" name="email" value="{$nickOrEmail|escape}" size=30></td>
-  </tr>
-  <tr>
-    <td>Parola:</td>
-    <td><input type="password" name="password" value="{$password|escape}" size=30></td>
-  </tr>
-  <tr>
-    <td colspan=2 align=center>
-      <input type=submit id="login" name="login" value="Conectare">
-      <input type=submit name="forget" value="Mi-am uitat parola">
-      <input type=hidden name="target" value="{$target|escape}">
-    </td>
-  </tr>
-</table>
+<form name="loginForm" method="post" action="login" id="loginForm">
+
+  <label>Adresa de e-mail sau numele de cont:</label>
+  <input type="text" name="email" value="{$nickOrEmail|escape}" size="30" class="normalSize">
+  <br/>
+   
+  <span id="moveTR">
+      <label>Parola:</label>
+      <input type="password" name="password" value="{$password|escape}" size="30" class="normalSize">
+  </span>
+
+  <span id="moveTR2">
+	  <input type=submit id="login" name="login" value="Conectare">
+    <input type=submit name="forget" value="Mi-am uitat parola">
+	  <input type=hidden name="target" value="{$target|escape}">
+	</span>
+
 </form>

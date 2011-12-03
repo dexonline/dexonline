@@ -1,4 +1,4 @@
-{* TODO: This replicates code from contul-meu.ihtml *}
+{* TODO: This replicates code from templates/common/auth/contul-meu.ihtml *}
 
 <form method="post" action="preferinte">
   

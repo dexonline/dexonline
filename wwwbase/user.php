@@ -6,8 +6,6 @@ $nick = util_getRequestParameter('n');
 $user = User::get_by_nick($nick);
 
 $userData = array();
-$userData['user'] = $user;
-
 if ($user) {
   $user->email = StringUtil::scrambleEmail($user->email);
   
@@ -38,7 +36,7 @@ if ($user) {
   smarty_assign('page_title', "Utilizator: $nick");
 } else {
   smarty_assign('missingNick', $nick);
-  smarty_assign('page_title', 'Eroare');
+  smarty_assign('page_title', 'Utilizator inexistent');
 }
 
 smarty_assign('user', $user);

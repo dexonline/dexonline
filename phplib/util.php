@@ -15,8 +15,8 @@ function autoloadModelsClass($className) {
     require_once($filename);
 }
 
-spl_autoload_register("autoloadLibClass",false,true);
-spl_autoload_register("autoloadModelsClass",false,true);
+spl_autoload_register("autoloadLibClass", false, true);
+spl_autoload_register("autoloadModelsClass", false, true);
 
 util_initEverything();
 
@@ -98,7 +98,6 @@ function util_requireOtherFiles() {
 }
 
 function util_defineConstants() {
-  define("ONE_MONTH_IN_SECONDS", 30 * 86400);
   define("DEFAULT_SOURCE", "none");
 
   // Constants for the user top.

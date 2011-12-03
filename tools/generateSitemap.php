@@ -72,9 +72,8 @@ function addOtherUrls() {
   addUrl('http://dexonline.ro/contribuie');
   addUrl('http://dexonline.ro/articol/Ghid_de_exprimare');
   addUrl('http://dexonline.ro/informatii');
-  addUrl('http://dexonline.ro/inregistrare');
   addUrl('http://dexonline.ro/licenta-gpl');
-  addUrl('http://dexonline.ro/login');
+  addUrl('http://dexonline.ro/auth/login');
   addUrl('http://dexonline.ro/unelte');
   addUrl('http://dexonline.ro/top');
   addUrl('http://dexonline.ro/update.php');

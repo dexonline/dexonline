@@ -1,0 +1,47 @@
+<p class="paragraphTitle">Autentificare cu OpenID</p>
+
+<form name="loginForm" method="post" action="{$wwwRoot}auth/login">
+  OpenID:
+  <input type="text" name="openid" value="{$openid}" size="50"/>
+  <input type=submit id="login" name="submitButton" value="Autentificare"/>  
+</form>
+<br/>
+
+Dacă aveți un cont Google sau Yahoo, îl puteți folosi ca OpenID:<br/><br/>
+
+<div id="openidProviders">
+  <a href="{$wwwRoot}auth/login?openid=google"><img src="{$imgRoot}/openid/google.png" alt="Autentificare cu un cont Google"/></a>
+  <a href="{$wwwRoot}auth/login?openid=yahoo"><img src="{$imgRoot}/openid/yahoo.png" alt="Autentificare cu un cont Yahoo"/></a>
+</div>
+
+<p class="paragraphTitle">Ce este OpenID?</p>
+
+<div id="openidHeadline">
+  <img src="{$imgRoot}/openid/openid.png" alt="Logo OpenID"/>
+
+  <span>este o modalitate mai rapidă și mai ușoară de a vă autentifica pe un site web.</span>
+</div>
+
+<ul>
+  <li>Nu este nevoie să vă creați un cont nou pentru DEX online, ceea ce vă economisește timp;</li>
+  <li>Nu este nevoie să memorați o parolă în plus;</li>
+  <li>Un cont OpenID, odată creat, poate fi refolosit pe orice site care admite OpenID, iar numărul acestora este în creștere;</li>
+  <li>Sunt șanse mari să aveți deja un OpenID, deoarece multe site-uri mari (Google, Yahoo și altele) servesc și ca furnizori de OpenID;</li>
+  <li>Dacă aveați deja un cont pe DEX online, îl veți putea revendica și asocia cu OpenID-ul dumneavoastră.</li>
+</ul>
+
+Puteți citi mai multe informații pe <a href="http://openid.net/">site-ul OpenID</a> (în limba engleză).
+
+<p class="paragraphTitle">Cum obțin un OpenID?</p>
+
+Vizitați <a href="http://openid.net/get-an-openid/">lista furnizorilor de OpenID</a>.
+
+<p class="paragraphTitle">Precizare</p>
+
+Majoritatea funcțiilor din DEX online nu necesită autentificarea, cu excepțiile:
+
+<ul>
+  <li>Dacă contribuiți cu definiții, ele se vor adăuga în contul dumneavostră;</li>
+  <li>Vă puteți crea o listă de definiții favorite pentru acces ușor.</li>
+</ul>
+

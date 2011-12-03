@@ -1,33 +1,29 @@
 {if !empty($user)}
-  <table>
-  <tr>
-    <td width=150>Utilizator:</td>
-    <td><b><font size=+1>{$user->nick|escape}</font></b></td>
-  </tr>
+  <p class="paragraphTitle">Utilizator: {$user->nick|escape}</p>
 
-  {if $user->name != ""}
-    <tr><td>Nume:</td><td><b>{$user->name|escape}</b></td></tr>
+  {if $user->detailsVisible && $user->identity}
+    Identitate OpenID: <a href="{$user->identity}">{$user->identity}</a><br/><br/>
   {/if}
 
-  {if $user->emailVisible}
-    <tr><td>E-mail:</td><td><b>{$user->email|escape}</b></td></tr>
+  {if $user->detailsVisible && $user->name}
+    Nume: {$user->name|escape}<br/><br/>
   {/if}
 
-  <tr>
-    <td>Drept de moderator:</td>
-    <td><b>{if $user->moderator}Da{else}Nu{/if}</b></td>
-  </tr>
+  {if $user->detailsVisible && $user->email}
+    Adresă de e-mail: {$user->email|escape}<br/><br/>
+  {/if}
 
-  <tr>
-    <td>Definiții trimise:</td>
-    <td><b>{$userData.num_words} (locul {$userData.rank_words})</b></td>
-  </tr>
+  Drept de moderator: {if $user->moderator}Da{else}Nu{/if}<br/><br/>
 
-  <tr>
-    <td>Lungime totală:</td>
-    <td><b>{$userData.num_chars} caractere (locul {$userData.rank_chars})</b></td>
-  </tr>
-  </table>
+  Definiții trimise: {$userData.num_words|default:0}
+  {if $userData.num_words}(locul {$userData.rank_words}){/if}
+  <br/><br/>
+
+  Lungime totală: {$userData.num_chars|default:0} caractere
+  {if $userData.numChars}(locul {$userData.rank_chars}){/if}
+  <br/><br/>
 {else}
+  <p class="paragraphTitle">Utilizator inexistent</p>
+
   Utilizatorul <b>{$missingNick|escape}</b> nu există în <i>DEX online</i>.
 {/if}

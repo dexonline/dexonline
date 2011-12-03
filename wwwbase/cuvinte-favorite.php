@@ -3,7 +3,7 @@ require_once("../phplib/util.php");
 
 $user = session_getUser();
 if (!$user) {
-  util_redirect('login');
+  util_redirect('auth/login');
 }
 
 smarty_assign('page_title', 'Cuvinte favorite');

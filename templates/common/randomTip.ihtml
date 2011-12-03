@@ -33,7 +33,7 @@
      declinarea substantivelor și adjectivelor). După ce căutați un
      cuvânt, dați clic pe "Flexiuni".
    {elseif $rnd == 7}
-     Dacă vă înregistrați, puteți alege diverse <a href="{$wwwRoot}contul-meu">opțiuni</a> pentru grafia cu î sau â, cu sedilă sau cu virgulă,
+     Din meniul utilizatorului puteți alege diverse opțiuni pentru grafia cu î sau â, cu sedilă sau cu virgulă,
      pentru căutarea cu diacritice etc.
    {/if}
 </div>

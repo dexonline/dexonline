@@ -69,12 +69,12 @@
                   {if $sUser->moderator & $smarty.const.PRIV_EDIT}
                     <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
                   {/if}
-                  <li><a href="{$wwwRoot}contul-meu">Contul meu</a></li>
+                  <li><a href="{$wwwRoot}auth/contul-meu">Contul meu</a></li>
                   <li><a href="{$wwwRoot}cuvinte-favorite">Cuvinte favorite</a></li>
-                  <li><a href="{$wwwRoot}logout">Deconectare</a></li>
+                  <li><a href="{$wwwRoot}auth/logout">Închide sesiunea</a></li>
                 {else}
                   <li><a href="{$wwwRoot}preferinte">Preferințe</a></li>
-                  <li><a href="{$wwwRoot}login">Conectare</a></li>
+                  <li><a href="{$wwwRoot}auth/login">Autentificare cu OpenID</a></li>
                 {/if}
               </ul>
             </li>

@@ -24,13 +24,13 @@ $userPreferencesSet = array(
   'EXCLUDE_UNOFFICIAL' => array(
   	'value' => 1 << 3,
 	'label' => 'Vreau să vizualizez numai definițiile „oficiale”',
-	'comment' => 'Sursele „neoficiale” nu au girul niciunei instituții acreditate de Academia Română sau a vreunei edituri de prestigiu', 
+	'comment' => 'Sursele „neoficiale” nu au girul niciunei instituții acreditate de Academia Română sau a vreunei edituri de prestigiu.', 
 	'checked' => false,
   ),
   'SHOW_PARADIGM' => array(
   	'value' => 1 << 4,
 	'label' => 'Doresc ca flexiunile să fie expandate',
-	'comment' => 'Implicit, flexiunile sunt ascunse', 
+	'comment' => 'Implicit, flexiunile sunt ascunse.', 
 	'checked' => false,
   ),
 );

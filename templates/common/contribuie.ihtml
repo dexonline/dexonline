@@ -7,7 +7,7 @@
 
 {if !$sUser}
   <div class="warning">
-    Dacă doriți să primiți credit pentru definițiile trimise, vă recomandăm să vă <a href="{$wwwRoot}inregistrare">înregistrați</a>.
+    Dacă doriți să primiți credit pentru definițiile trimise, vă recomandăm să vă <a href="{$wwwRoot}auth/login">autentificați</a>.
   </div>
 {/if}
 

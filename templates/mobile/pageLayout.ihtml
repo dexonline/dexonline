@@ -76,12 +76,11 @@
           {if !$is_mirror}
             Utilizator: <b id="user.nick">{$nick|escape}</b>
             {if $sUser}
-              | <a href="{$wwwRoot}contul-meu">Contul meu</a>
-              | <a href="{$wwwRoot}logout" id="logoutLink">Deconectare</a>
+              | <a href="{$wwwRoot}auth/contul-meu">Contul meu</a>
+              | <a href="{$wwwRoot}auth/logout">Închide sesiunea</a>
             {else}
               | <a href="{$wwwRoot}preferinte">Preferințe</a>
-              | <a href="{$wwwRoot}login" id="loginLink">Conectare</a>
-              | <a href="{$wwwRoot}inregistrare">Înregistrare</a>
+              | <a href="{$wwwRoot}auth/login">Autentificare cu OpenID</a>
             {/if}
             <br/>
           {/if}

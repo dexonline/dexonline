@@ -155,7 +155,7 @@ img {
   padding: 9px 10px;
 }
 
-#mainMenu li, #userMenu li{
+#mainMenu li, #userMenu li {
   float: left;
   font-size: 11px;
   list-style: none;
@@ -675,7 +675,7 @@ div.flashMessage {
   font-weight: bold;
   margin: 10px auto;
   padding: 10px;
-  width: 40em;
+  width: 480px;
   -moz-border-radius: 7px;
   border-radius: 7px;
 }
@@ -689,6 +689,7 @@ div.flashMessage div.pic {
 
 div.flashMessage div.text {
   float: left;
+  width: 450px;
 }
 
 div.errorType {
@@ -848,13 +849,33 @@ table.static th, table.static td {
 }
 
 
-/* CONECTARE UTILIZATOR page */
+/* AUTENTIFICARE UTILIZATOR page */
 .vertSpace {
   margin: 40px 0px 20px;
 }
 
 #loginForm {
   width: 875px;
+}
+
+#claimIdForm input[type="radio"] {
+  margin-top: 10px;
+}
+
+div.radioButtonIndent {
+  margin-left: 26px;
+}
+
+#openidProviders a {
+  margin-right: 20px;
+}
+
+#openidProviders a img {
+  vertical-align: middle;
+}
+
+#openidHeadline span {
+  vertical-align: 15px;
 }
 
 #moveTR {

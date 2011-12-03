@@ -1,8 +1,12 @@
 <?php
 
+define("ONE_MONTH_IN_SECONDS", 30 * 86400);
+define("ONE_YEAR_IN_SECONDS", 365 * 86400);
+
 function session_init() {
   if (isset($_COOKIE[session_name()])) {
     session_start();
+    session_logoutIfNoOpenId();
   }
   if (util_isWebBasedScript()) {
     if (!session_userExists()) {
@@ -12,14 +16,31 @@ function session_init() {
   // Otherwise we're being called by a local script, not a web-based one.
 }
 
-function session_login($user) {
+function session_login($user, $openidData) {
+  if (!$user) {
+    $user = Model::factory('User')->create();
+  }
+  if (!$user->identity) {
+    $user->identity = $openidData['identity'];
+  }
+  if (!$user->nick && isset($openidData['nickname'])) {
+    $user->nick = $openidData['nickname'];
+  }
+  if (isset($openidData['fullname'])) {
+    $user->name = $openidData['fullname'];
+  }
+  if (isset($openidData['email'])) {
+    $user->email = $openidData['email'];
+  }
+  $user->password = null; // no longer necessary after the first OpenID login
+  $user->save();
+
   session_setVariable('user', $user);
   $cookie = Model::factory('Cookie')->create();
   $cookie->userId = $user->id;
   $cookie->cookieString = util_randomCapitalLetterString(12);
   $cookie->save();
-  setcookie("prefs[lll]", $cookie->cookieString,
-	    time() + ONE_MONTH_IN_SECONDS);
+  setcookie("prefs[lll]", $cookie->cookieString, time() + ONE_MONTH_IN_SECONDS, '/');
   log_userLog('Logged in, IP=' . $_SERVER['REMOTE_ADDR']);
   util_redirect(util_getWwwRoot());
 }
@@ -31,25 +52,39 @@ function session_logout() {
   if ($cookie) {
     $cookie->delete();
   }
-  setcookie("prefs[lll]", NULL, time() - 3600);
+  setcookie("prefs[lll]", NULL, time() - 3600, '/');
   unset($_COOKIE['prefs']['lll']);
   session_kill();
   util_redirect(util_getWwwRoot());
 }
 
-// Try to load loing information from the long-lived cookie
+// Transitional code. Once we switch to OpenID, users who have an active session with no identity need to be logged out.
+// Safe to remove after January 1, 2012.
+function session_logoutIfNoOpenId() {
+  if (isset($_SESSION['user'])) {
+    $user = $_SESSION['user'];
+    if (!@$user->identity) {
+      session_logout();
+    }
+  }
+}
+
+// Try to load logging information from the long-lived cookie
 function session_loadUserFromCookie() {
   if (!isset($_COOKIE['prefs']) || !isset($_COOKIE['prefs']['lll'])) {
     return;
   }
   $cookie = Cookie::get_by_cookieString($_COOKIE['prefs']['lll']);
   $user = $cookie ? User::get_by_id($cookie->userId) : null;
-  if ($user) {
+  if ($user && $user->identity) {
     session_setVariable('user', $user);
   } else {
-    // There is a cookie, but it is invalid
-    setcookie("prefs[lll]", NULL, time() - 3600);
+    // The cookie is invalid or this account doesn't have an OpenID identity yet.
+    setcookie("prefs[lll]", NULL, time() - 3600, '/');
     unset($_COOKIE['prefs']['lll']);
+    if ($cookie) {
+      $cookie->delete();
+    }
   }
 }
 
@@ -100,7 +135,7 @@ function session_setAnonymousPrefs($pref) {
 }
 
 function session_sendAnonymousPrefs() {
-  setcookie('prefs[anonymousPrefs]', session_getAnonymousPrefs(), time() + 3600 * 24 * 365, "/");
+  setcookie('prefs[anonymousPrefs]', session_getAnonymousPrefs(), time() + ONE_YEAR_IN_SECONDS, '/');
 }
 
 function session_getAnonymousPrefs() {
@@ -126,7 +161,7 @@ function session_setSkin($skin) {
     // Clear the cookie instead of setting it to the default skin.
     setcookie("prefs[skin]", NULL, time() - 3600, '/');
   } else {
-    setcookie('prefs[skin]', $skin, time() + 3600 * 24 * 365, '/');
+    setcookie('prefs[skin]', $skin, time() + ONE_YEAR_IN_SECONDS, '/');
   }
 }
 
@@ -144,7 +179,7 @@ function session_getSkinPreferences($skin) {
 }
 
 function session_setSourceCookie($source) {
-  setcookie('prefs[source]', $source, time() + 3600 * 24 * 365, "/");
+  setcookie('prefs[source]', $source, time() + ONE_YEAR_IN_SECONDS, '/');
 }
 
 function session_getDefaultContribSourceId() {

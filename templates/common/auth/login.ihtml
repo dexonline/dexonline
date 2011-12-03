@@ -45,3 +45,6 @@ Majoritatea funcțiilor din DEX online nu necesită autentificarea, cu excepții
   <li>Vă puteți crea o listă de definiții favorite pentru acces ușor.</li>
 </ul>
 
+<script type="text/javascript">
+  document.loginForm.openid.focus();
+</script>

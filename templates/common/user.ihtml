@@ -20,7 +20,7 @@
   <br/><br/>
 
   Lungime totală: {$userData.num_chars|default:0} caractere
-  {if $userData.numChars}(locul {$userData.rank_chars}){/if}
+  {if $userData.num_chars}(locul {$userData.rank_chars}){/if}
   <br/><br/>
 {else}
   <p class="paragraphTitle">Utilizator inexistent</p>

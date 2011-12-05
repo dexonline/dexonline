@@ -13,14 +13,7 @@ $data = FileCache::get($randString);
 if (!$data) {
   FlashMessage::add('A apărut o eroare la autentificare. Vă rugăm încercați din nou.');
 } else {
-  $userDictatedByOpenId = isset($data['email']) ? User::get_by_email($data['email']) : null;
-
-  if ($userDictatedByOpenId &&
-      ($loginType != 0 || ($nickOrEmail != $userDictatedByOpenId->email && $nickOrEmail != $userDictatedByOpenId->nick))) {
-    FlashMessage::add("Identitatea dumneavoastră OpenID indică adresa de email {$data['email']}, " .
-                      "care este asociată și cu un cont DEX online. Vă rugăm să revendicați acel cont.");
-    $loginType = 0;
-  } else if ($loginType == 0) {
+  if ($loginType == 0) {
     $user = Model::factory('User')->where('password', md5($password))->where_raw("(email = '{$nickOrEmail}' or nick = '{$nickOrEmail}')")->find_one();
     if (!$user) {
       FlashMessage::add('Numele de utilizator sau parola sunt incorecte.');

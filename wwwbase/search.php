@@ -9,6 +9,7 @@ $defId = util_getRequestParameter('defId');
 $sourceUrlName = util_getRequestParameter('source');
 $text = util_getRequestIntParameter('text');
 $showParadigm = util_getRequestParameter('showParadigm');
+$xml = util_getRequestParameter('xml');
 
 $redirect = session_getWithDefault('redirect', false);
 $redirectFrom = session_getWithDefault('init_word', '');
@@ -19,7 +20,7 @@ if ($cuv) {
   $cuv = StringUtil::cleanupQuery($cuv);
 }
 
-util_redirectToFriendlyUrl($cuv, $sourceUrlName, $text, $showParadigm);
+util_redirectToFriendlyUrl($cuv, $sourceUrlName, $text, $showParadigm, $xml);
 
 $searchType = SEARCH_INFLECTED;
 $hasDiacritics = session_user_prefers('FORCE_DIACRITICS');
@@ -288,6 +289,12 @@ smarty_assign('showParadigm', $showParadigm);
 smarty_assign('paradigmLink', $paradigmLink);
 smarty_assign('advancedSearch', $text || $sourceId);
 
-smarty_displayCommonPageWithSkin('search.ihtml');
+if (!$xml) {
+  smarty_displayCommonPageWithSkin('search.ihtml');
 
+}
+else {
+  header('Content-type: text/xml');
+  smarty_displayWithoutSkin('common/searchXML.ihtml');
+}
 ?>

@@ -1,5 +1,6 @@
 <?php
 require_once("../../phplib/util.php"); 
+ini_set('memory_limit', '256M');
 
 $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');

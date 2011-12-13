@@ -25,7 +25,7 @@
           <div class="linkBar">
             <a href="{$wwwRoot}informatii">Informații</a> |
             <a href="{$wwwRoot}articole">Articole lingvistice</a> |
-            <a href="{$wwwRoot}articol/Ghid_de_exprimare">Ghid de exprimare</a> |
+            <a href="{$wwwRoot}articol/Ghid_de_exprimare_corect%C4%83">Ghid de exprimare</a> |
             <a href="{$wwwRoot}unelte">Unelte</a> |
             <a href="{$wwwRoot}top">Top</a> |            
             <a href="{$wwwRoot}contact">Contact</a>

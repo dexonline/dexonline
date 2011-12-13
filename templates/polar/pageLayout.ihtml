@@ -41,7 +41,7 @@
             <li><a href="#" onclick="return false;">Resurse</a>
               <ul>
                 <li><a href="{$wwwRoot}articole">Articole lingvistice</a></li>
-                <li><a href="{$wwwRoot}articol/Ghid_de_exprimare">Ghid de exprimare</a></li>
+                <li><a href="{$wwwRoot}articol/Ghid_de_exprimare_corect%C4%83">Ghid de exprimare</a></li>
                 <li><a href="{$wwwRoot}cuvantul-zilei">Cuvântul zilei</a></li>
                 <li><a href="{$wwwRoot}unelte">Unelte</a></li>
                 <li><a href="{$wwwRoot}legaturi">Legături externe</a></li>

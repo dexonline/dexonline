@@ -43,7 +43,7 @@ if ($cuv) {
 if ($isAllDigits) {
   $d = Definition::get_by_id($cuv);
   if ($d) {
-    util_redirect(util_getWwwRoot() . "definitie/{$d->lexicon}/{$d->id}");
+    util_redirect(util_getWwwRoot() . "definitie/{$d->lexicon}/{$d->id}" . ($xml ? '/xml' : ''));
   }
 }
 
@@ -292,8 +292,7 @@ smarty_assign('advancedSearch', $text || $sourceId);
 if (!$xml) {
   smarty_displayCommonPageWithSkin('search.ihtml');
 
-}
-else {
+} else {
   header('Content-type: text/xml');
   smarty_displayWithoutSkin('common/searchXML.ihtml');
 }

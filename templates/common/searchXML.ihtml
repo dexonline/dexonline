@@ -4,7 +4,7 @@
     <definitions>
         {foreach from=$results item=row key=i}
         <definition id="{$row->definition->id}">
-            <internalRep>{$row->definition->internalRep}</internalRep>
+            <internalRep>{$row->definition->internalRep|escape:html}</internalRep>
             <htmlRep>{$row->definition->htmlRep}</htmlRep>
             <userNick>{$row->user->nick}</userNick>
             <sourceName>{$row->source->shortName}</sourceName>

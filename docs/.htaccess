@@ -40,8 +40,7 @@ RewriteRule ^text(-([^/]+))?/(.*)$ search.php?cuv=$3&source=$2&text=1 [L]
 RewriteRule ^spre/(.*)$ goto.php?key=$1 [PT,L]
 RewriteRule ^utilizator/(.*)$ user.php?n=$1 [PT,L]
 
-RewriteRule ^definitie-xml(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)? search.php?cuv=$3&source=$2&defId=$5&showParadigm=$6&xml=1 [PT,L]
-RewriteRule ^definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)? search.php?cuv=$3&source=$2&defId=$5&showParadigm=$6 [PT,L]
+RewriteRule ^definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)?(/xml)? search.php?cuv=$3&source=$2&defId=$5&showParadigm=$6&xml=$7 [PT,L]
 RewriteRule ^lexem(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)? search.php?cuv=$3&source=$2&lexemId=$5&showParadigm=$6 [PT,L]
 
 RewriteRule ^flexiune/lexem/(.*)$ paradigm.php?lexemId=$1 [PT,L]

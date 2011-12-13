@@ -161,7 +161,7 @@ if ($searchType == SEARCH_INFLECTED) {
     $sourcePart = $source ? "-{$source->urlName}" : '';
     session_setVariable('redirect', true);
     session_setVariable('init_word', $cuv);
-    util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$lexems[0]->formNoAccent}");
+    util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$lexems[0]->formNoAccent}" . ($xml ? '/xml' : ''));
   }
 
   smarty_assign('lexems', $lexems);

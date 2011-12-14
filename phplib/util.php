@@ -201,6 +201,10 @@ function util_getRequestCheckboxArray($name, $separator) {
 }
 
 function util_redirect($location) {
+  // Fix an Android issue with redirects caused by diacritics
+  $location = str_replace(array('ă', 'â', 'î', 'ș', 'ț', 'Ă', 'Â', 'Î', 'Ș', 'Ț'),
+                          array('%C4%83', '%C3%A2', '%C3%AE', '%C8%99', '%C8%9B', '%C4%82', '%C3%82', '%C3%8E', '%C8%98', '%C8%9A'),
+                          $location);
   FlashMessage::saveToSession();
   header("HTTP/1.1 301 Moved Permanently");
   header("Location: $location");

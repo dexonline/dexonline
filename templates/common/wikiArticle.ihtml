@@ -1,5 +1,5 @@
 {assign var="wa" value=$wa|default:null}
-{if $wa->title == "Ghid de exprimare"}
+{if $wa->title == "Ghid de exprimare corectă"}
   <div id="guideNotice">
     Ghidul de exprimare are o structură nouă. <a href="#" onclick="return false;">detalii</a>
   </div>

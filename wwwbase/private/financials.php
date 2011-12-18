@@ -28,11 +28,11 @@ $CATEGORIES = array(
 assertCorrectCategories();
 
 $MDN_IMPORT_DATE = '2007-09-15';
-$MDN = Source::get("shortName = 'MDN'");
-$CATA = User::get("nick = 'cata'");
-$MATEI = User::get("nick = 'gall'");
-$RADU = User::get("nick = 'raduborza'");
-$TAVI = User::get("nick = 'tavi'");
+$MDN = Source::get_by_shortName('MDN');
+$CATA = User::get_by_nick('cata');
+$MATEI = User::get_by_nick('gall');
+$RADU = User::get_by_nick('raduborza');
+$TAVI = User::get_by_nick('tavi');
 $CODEX = createCodexUser(); // The company, who retains 10% of the income as savings
 $IGNORE_USERIDS = ignoreUserIds(array('siveco', 'RACAI')); // And anonymous
 
@@ -56,12 +56,11 @@ $total->values[CAT_SAVINGS] = 1.0;
 
 $fins = array(); // userId -> financial record for that user
 $dbResult = db_execute("select userId, sum(length(internalRep)) as n from Definition where status = 0 and userId not in ($IGNORE_USERIDS) " .
-                       "and createDate <= $timestampZero group by userId");
-while (!$dbResult->EOF) {
-  $fin = new Fin(User::get("id = {$dbResult->fields[0]}"));
-  $fin->values[CAT_CHARS] = $dbResult->fields[1];
+                       "and createDate <= $timestampZero group by userId", PDO::FETCH_ASSOC);
+foreach($dbResult as $row) {
+  $fin = new Fin(User::get_by_id($row['userId']));
+  $fin->values[CAT_CHARS] = $row['n'];
   $fins[$fin->user->id] = $fin;
-  $dbResult->MoveNext();
 }
 // Assign the other categories -- only Matei, Radu, Tavi and Cata participated here.
 // These will, in time, be replaced by more accurate measurements once we decide on a methodology
@@ -159,7 +158,7 @@ function shareCmp($a, $b) {
 function ignoreUserIds($nicks) {
   $userIds = array(0);
   foreach ($nicks as $nick) {
-    $user = User::get("nick = '$nick'");
+    $user = User::get_by_nick($nick);
     $userIds[] = $user->id;
   }
   return implode(',', $userIds);
@@ -179,7 +178,7 @@ function floatEquals($a, $b) {
 }
 
 function createCodexUser() {
-  $codex = new User();
+  $codex = Model::factory('User')->create();
   $codex->nick = 'Codex Publicus';
   $codex->id = 1000000;
   return $codex;

@@ -49,6 +49,7 @@ function typoWindow(definitionId) {
 function myEncodeURI(s) {
   var encoded = encodeURI(s);
   encoded = encoded.replace(/\+/g, '%2B');
+  encoded = encoded.replace(/\&/g, '%26');
   return encoded;
 }
 

@@ -161,7 +161,7 @@
         <hr/>
         {assign var=notDisplayedSpec value=false}
       {elseif $row->source->isOfficial == 0 && $notDisplayedUnofficial}
-        <h4>Definiții din dicționare neoficiale</h4><span class="h4sub">Deoarece nu sunt editate de lexicografi, aceste definiții pot conține erori, deci e preferabilă consultarea altor dicționare în parale</span><br/>
+        <h4>Definiții din dicționare neoficiale</h4><span class="h4sub">Deoarece nu sunt editate de lexicografi, aceste definiții pot conține erori, deci e preferabilă consultarea altor dicționare în paralel</span><br/>
         <hr/>
         {assign var=notDisplayedUnofficial value=false}
       {/if}

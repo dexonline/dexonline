@@ -1,5 +1,7 @@
 <p class="paragraphTitle">Articole lingvistice</p>
 
-{foreach from=$wikiTitles item=titlePair}
-  <a href="{$wwwRoot}articol/{$titlePair[1]}">{$titlePair[0]}</a><br/>
-{/foreach}
+<div id="linguisticArticles">
+  {foreach from=$wikiTitles item=titlePair}
+    <a href="{$wwwRoot}articol/{$titlePair[1]}">{$titlePair[0]}</a><br/>
+  {/foreach}
+</div>

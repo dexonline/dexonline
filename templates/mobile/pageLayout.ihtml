@@ -2,11 +2,11 @@
 {assign var="onHomePage" value=$onHomePage|default:false}
 {assign var="page_description" value=$page_description|default:''}
 {assign var="page_keywords" value=$page_keywords|default:''}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta content="initial-scale=1.0; maximum-scale=3.0; user-scalable=yes" name="viewport">
     <title>{$page_title|escape} | DEX online</title>
 {if $page_description}
     <meta name="description" content="{$page_description}"/>
@@ -19,78 +19,45 @@
   </head>
 
   <body onload="fixMobile();">
-  <table class="fullheight">
-  <tr><td>
-    <div class="header">
-          <div class="linkBar">
-            <a href="{$wwwRoot}informatii">Informații</a> |
-            <a href="{$wwwRoot}articole">Articole lingvistice</a> |
-            <a href="{$wwwRoot}articol/Ghid_de_exprimare_corect%C4%83">Ghid de exprimare</a> |
-            <a href="{$wwwRoot}unelte">Unelte</a> |
-            <a href="{$wwwRoot}top">Top</a> |            
-            <a href="{$wwwRoot}contact">Contact</a>
-          </div>
-        <div class="searchBoxContainer">
-          <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return friendlyRedirect()">
-      Introduceţi cuvântul de căutat: <br />
-            <input type="text" name="cuv" size="15" value="{$cuv|escape}" maxlength="50"/>
-            <script type="text/javascript">document.frm.cuv.select();document.frm.cuv.focus();</script>
-            <input type="submit" value="Caută"/>
-            {include file="common/sourceDropDown.ihtml" 
-            skipAnySource=false
-              urlName=1
-              }
-          </form>
-        </div>
-    </div>
-  <hr/>
+    <div class="frame">
+      
+      <div id="menu">
+        <a href="{$wwwRoot}informatii">Informații</a>
+        <a href="{$wwwRoot}articole">Articole</a>
+        <a href="{$wwwRoot}preferinte">Preferințe</a>      
+      </div>
 
-  </td></tr>
-  <tr><td height="100%" valign="top">
-    {include file=$contentTemplateName from=mobile}
-  </td></tr>
-  <tr><td>
-    <table class="footer">
       {if $onHomePage}
-      <tr>
-        <td>
-          <script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
-          <g:plusone size="medium" href="http://dexonline.ro"></g:plusone>
-          <iframe src="http://www.facebook.com/plugins/like.php?ref=mobile_home&locale=ro_RO&app_id=225575497453880&amp;href=http%3A%2F%2Ffacebook.com%2Fdexonline&&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
-        </td>
-      </tr>
+        <div id="logoHomePage">
+          <img src="{$wwwRoot}img/mobile/logo-dexonline-60.png" alt="logo dexonline.ro" />
+        </div>
+      {else}
+        <div id="logoOtherPages">
+          <a href="{$wwwRoot}"><img src="{$wwwRoot}img/mobile/logo-dexonline-30.png" alt="logo dexonline.ro" /></a>
+        </div>
       {/if}
-      {if $hostedBy}
-      <tr>
-        <td>
-            {include file="common/hosting/$hostedBy.ihtml"}
-        </td>
-      </tr>
-      {/if}
-      <tr>
-        <td>
-          <a id="desktopLink" href="{$wwwRoot}desktop">Versiunea pentru desktop</a><br/>
+      
+      <div id="searchArea">
+        <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return friendlyRedirect()">
+          <input type="text" name="cuv" size="15" value="{$cuv|escape}" maxlength="50" id="searchField"/>
+          <script type="text/javascript">document.frm.cuv.select();document.frm.cuv.focus();</script>
+          <span><input type="submit" value="caută" id="searchButton" /></span>
+        </form>
+      </div>
 
-          Starea curentă: <b>{$words_total}</b> de definiţii (<b>{$words_last_month}</b> în ultima lună)<br/>
+      {include file=$contentTemplateName from=mobile}
 
-          {if !$is_mirror}
-            Utilizator: <b id="user.nick">{$nick|escape}</b>
-            {if $sUser}
-              | <a href="{$wwwRoot}auth/contul-meu">Contul meu</a>
-              | <a href="{$wwwRoot}auth/logout">Închide sesiunea</a>
-            {else}
-              | <a href="{$wwwRoot}preferinte">Preferințe</a>
-              | <a href="{$wwwRoot}auth/login">Autentificare cu OpenID</a>
-            {/if}
-            <br/>
-          {/if}
+      <div id="footer">
+        <a id="desktopLink" href="{$wwwRoot}desktop">Versiunea pentru desktop</a>
+        <a href="{$wwwRoot}spre/elvsoft" target="_blank" rel="nofollow">Găzduit de Elvsoft</a>
+        <p>Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro)</p>
+      </div>
+  
+    </div>
 
-          Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro). 
-        </td>
-      </tr>
-    </table>
-  </td></tr>
-  </table>
+    {* Add some empty space so mobiles have room to scroll past the menu bar. *}
+    {section name=ignored loop=15}&nbsp;<br/>{/section}
+
     {include file="common/bits/debugInfo.ihtml"}
   </body>
 </html>

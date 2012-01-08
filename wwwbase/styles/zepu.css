@@ -1,5 +1,7 @@
 /* Zepu theme redesigned by Sonia Andriu */
 
+@import "mobileAndDesktop.css";
+
 /* GLOBAL */
 body {
   background: #fff;
@@ -51,18 +53,7 @@ p {
   padding: 10px;
 }
 
-table {
-  border-collapse: collapse;
-}
-
-table td, table th {
-  border: 1px solid #aaa;
-  padding: 2px 10px;
-}
-
-table th {
-  background: #eee;
-}
+/* table stuff was here */
 
 .clearer {
   clear: both;
@@ -330,12 +321,7 @@ img {
   margin-top: 10px;
 }
 
-.paragraphTitle { /* paragraph titles on any page */
-  font-size: 14px; /* equivalent with h3 */
-  color: black;
-  font-weight: bold;
-  padding-left: 0px;
-}
+/* paragraphTitle was here */
 
 
 /* WORD OF THE DAY */
@@ -830,23 +816,7 @@ table.static th, table.static td {
 }
 
 
-/* PREFERINȚE page */
-.cbOption {
-  margin-top: 10px;
-}
-
-.describeOption {
-  color: #6B6B6B;
-  margin-left: 25px;
-}
-
-.labelOption {
-  vertical-align: 2px;
-}
-
-#skinsList {
-  margin: -25px 0px 20px 60px;
-}
+/* this was PREFERINTE page */
 
 
 /* AUTENTIFICARE UTILIZATOR page */

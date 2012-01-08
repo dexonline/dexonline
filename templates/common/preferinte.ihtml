@@ -13,7 +13,7 @@
   
   <br/>
   <div>
-    <p class="paragraphTitle">Design</p>
+    <span class="paragraphTitle">Design</span>
     <select name="skin" id="skinsList">
       {foreach from=$availableSkins item=i}
         <option value="{$i}" {if $i == $skin}selected="selected"{/if}>{$i|capitalize}</option>
@@ -24,5 +24,5 @@
   <div class="warning">Notă: Numai designul Zepu este ținut la zi cu cele mai noi funcții.</div>
   <br/>
   
-  <input type="submit" name="send" value="Salvează"/>
+  <input type="submit" name="send" value="Salvează" id="saveButton" />
 </form>

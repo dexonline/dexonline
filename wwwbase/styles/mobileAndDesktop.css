@@ -1,0 +1,56 @@
+/* common styles for mobile and desktop versions; redesigned by Sonia Andriu */
+
+
+/* GLOBAL */
+.paragraphTitle { /* paragraph titles on any page */
+  font-size: 14px; /* equivalent with h3 */
+  color: black;
+  font-weight: bold;
+  padding-left: 0px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table td, table th {
+  border: 1px solid #aaa;
+  padding: 2px 10px;
+}
+
+table th {
+  background: #eee;
+}
+
+/* PREFERINȚE page */
+.cbOption {
+  margin-top: 10px;
+}
+
+.describeOption {
+  color: #6B6B6B;
+  margin-left: 25px;
+}
+
+.labelOption {
+  vertical-align: 2px;
+}
+
+#skinsList {
+  margin-bottom: 20px;
+}
+
+/* INFORMAȚII page */
+pre.code {
+  font-family: Courier;
+  color: #444;
+  white-space: pre-line;
+}
+
+#softUsed {
+  border: 1px solid #444; 
+  border-collapse: collapse;
+  width: 95%;
+  font-size: 80%;
+}
+

@@ -1,245 +1,198 @@
-@import "common.css";
+/* mobile theme redesigned by Sonia Andriu */
 
-html, body, div.pagediv{height:100%;}
+@import "common.css";
+@import "mobileAndDesktop.css";
+
+/* GLOBAL */
+html, body, div, input {
+  font-family: Verdana, Arial, sans-serif;
+  border: 0;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
 
 body {
-  background-color: white;
-  color: black;
-  margin: 0px;
-  font-family: serif;
-}
-
-div.header {
-  color: black;
-  border-collapse: collapse;
-  font-family: sans-serif;
-  padding: 0;
-  white-space: nowrap;
   width: 100%;
+  height: 100%;
 }
 
-div.title {
-  font-size: 130%;
-  font-weight: bold;
-  padding-right: 10px;
-  text-align: center;
-  white-space: nowrap;
+a, a:visited {
+  color: #761818;
 }
 
-div.searchBoxContainer {
-  text-align: center;
-}
-
-a.noBorder img {
-  border: 0;
-}
-
-form.searchForm {
+table {
+  border: 1px;
   margin: 0;
+  padding: 0;
 }
 
-span.definitionBodyCheckbox {
-  font-family: sans-serif;
-  font-size: 80%;
-  margin-left: 10px;
+/* HEADER */
+.frame {
+  min-width: 320px;
+  max-width: 100%;
+  margin: 0px auto;
 }
 
-span.formPlug {
-  color: #444444;
-  font-size: 70%;
-}
-
-div.linkBar {
-  font-size: 80%;
-  margin-bottom: 5px;
+#menu {
+  width: 100%; /*320px; */
+  height: 22px;
+  margin: 0px auto;
+  padding: 8px 0px 0px 3px;
   text-align: center;
-  background: #add8e6;
-  padding: 2px;
-  border: 1px solid;
+  background: #444;
 }
 
-div.linkBar a {
-  white-space: nowrap;
+#menu a {
+  color: #fff;
+  padding: 0px 5px;
+  text-decoration: none;
 }
 
-span.stopWords {
-  color: #777777;
+#logoHomePage {
+  width: 230px;
+  margin: 2px auto; /* auto=centered */
+  height: 60px;
 }
 
-table.footer {
-  font-family: sans-serif;
-  font-size: 80%;
-  margin-top: 10px;
-  width: 100%;
+#logoOtherPages {
+  width: 115px;
+  margin: 2px auto; /* auto=centered */
+  height: 30px;
 }
 
-table.footer tr td {
-  vertical-align: top;
-  text-align: center;
-}
-
-table.footer tr td.narrow {
-  text-align: center;
-  white-space: nowrap;
-  width: 1%;
-}
-
-span.def {
-  cursor: pointer;
-}
-
-span.defDetails {
-  color: #999999;
-  font-family: sans-serif;
-  font-size: 80%;
-}
-
-span.defDetails a {
-  color: #777777;
-}
-
-span.defDetails a:hover {
-  color: #555555;
-}
-
-div.defComment {
-  border: 1px dashed gray;
-  font-size: 90%;
-  margin-left: 2em;
-  margin-top: -8px;
-  padding-left: 4px;
-}
-
-div.resultBar {
-  font-family: sans-serif;
-  font-size: 85%;
-  font-weight: bold;
-  margin-top: 5px;
-}
-
-a.inflLink {
-  font-weight: normal;
-  margin-left: 15px;
-}
-
-a.inflLink:focus {
-  outline: none;
-}
-
-div.debugInfo {
-	font-size: 75%;
-	color: #777;
-}
-
-pre.code {
-  background: #dcf0ff;
-  border: 1px solid blue;
-  margin-left: 3em;
-  margin-right: 3em;
-  padding: 5px;
-}
-
-div.randomTip {
-  background: #dcf0ff;
-  border: 1px solid blue;
-  font-family: sans-serif;
-  font-size: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 3px 6px;
-  width: 40%;
-}
-
-div.scrabbleModelName {
-  font-weight: bold;
-}
-
-pre.exportSample {
-  background: #ddffdd;
-  border: 1px solid black;
-  padding: 5px;
-  font-weight: bold;
-}
-
-span.deemph {
-  color: #777777;
-}
-
-span.help {
-  color: #777777;
-  font-size: 85%;
-}
-
-table.userEdit td {
-  padding-bottom: 5px;
-  vertical-align: top;
-}
-
-table.fullheight {
-	height: 100%;
-	width: 100%;
-}
-
-.statusReportMini {
-  background: none repeat scroll 0 0 #DCF0FF;
-  border: 1px solid blue;
-  font-family: sans-serif;
-  font-size: small;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 5px;
-  width: 200px;
+#searchArea {
+  width: 100%; /*320px;*/
+  height: 45px;
+  margin: 5px 10px;
   text-align: center;
 }
 
-.fb_top, .plus_top {
-  float: right;
+#searchField {
+  width: 70%;
+  height: 28px;
+  border: 1px solid #761818;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  padding: 0;
+  margin-right: -5px; 
+}
+
+#searchButton {
+  background: #761818;
+  color: #fff;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border: 1px solid #444;
+  margin-right: 10px;
+  height: 30px;
+  padding: 0px 4px;
+}
+
+/* CONTENT */
+#wotdMobile {
+  width: 160px;
+  margin: 5px auto 0px; /* auto=centered */
+  padding: 5px 0px;
+  text-align: center;
+  background: #444;
+  border-radius: 4px;
+  color: #fff;
+}
+
+#wotdMobile a {
+  color: #fff;
+}
+
+#likes {
+  width: 100%; /*320px;*/
+  height: 10%; /*30px;*/
+  margin: 15px auto 5px;
+  text-align: center;
 }
 
 #desktopLink {
-  background: url("../img/icons/computer.png") no-repeat;
+  background: url("../img/icons/computer.png") 0px -2px no-repeat;
   padding-left: 20px;
 }
 
-.wikiArticleLink {
-  background: #ffffff url("../img/icons/information.png") left center no-repeat;
-  margin-left : 5px;
-  padding: 10px 0px 0px 20px;
+/* FOOTER */
+#footer {
+  text-align: center;
+  font-size: 12px;
+  width: 100%; /*320px;*/
+  height: 40px;
+  margin-bottom: 2px;
+  padding-top: 5px;
 }
 
-p.paragraphTitle {
-  font-weight: bold;
-  font-size: 18px;
-  margin-top: 10px;
+#footer a, #footer a:visited {
+  padding-right: 5px;
 }
 
-.wikiArticle table {
-  border-collapse: collapse;
-}
-
-.wikiArticle td, .wikiArticle th {
-  border: 1px solid #aaa;
-  padding: 2px 5px;
-}
-
-#guideNotice {
-  background: #ffffff url("../img/icons/information.png") left center no-repeat;  
+/* OTHERS */
+#saveButton {
+  border-radius: 4px;
+  border: 1px solid #444;
   margin: 0px 0px 10px 5px;
-  padding: 5px 5px 5px 20px;
+  padding: 3px;
 }
 
-#hostingElvsoft {
-  background: url("../img/sprite2.png") -460px -50px no-repeat;
-  display: inline-block;
-  height: 31px;
-  vertical-align: top;
-  width: 88px;
+.warning {
+  color: #761818;
 }
 
-#hostingSei {
-  background: url("../img/hosting/sei.png") no-repeat;
-  display: inline-block;
-  height: 72px;
-  vertical-align: top;
-  width: 82px;
+#faq {
+  padding-left: 3px;
 }
+
+.noBorder {
+  border: none;
+}
+
+#linguisticArticles {
+  margin-bottom: 5px;
+}
+
+.resultBar {
+    padding-bottom: 5%;
+  }
+
+/* only small resolution devices in portrait mode */
+@media only screen and (max-width: 319px) {
+
+  #faq {
+    max-width: 90%;
+    padding: 0px 3px;
+  }  
+
+  table {
+    max-width: 300px;
+  }
+
+}
+
+/* only big resolution devices in portrait mode */
+@media only screen and (max-width: 479px) {
+  
+  #wotdMobile {
+    margin: 23% auto; /*80px auto;*/
+  }
+ 
+  #logoHomePage {
+    height: 65px;
+    padding-top: 5px;
+  }
+
+  #logoOtherPages {
+    height: 35px;
+    padding-top: 5px;
+  }
+
+  #linguisticArticles {
+    margin-bottom: 30%; 
+  }
+
+}
+
+

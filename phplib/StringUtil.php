@@ -83,8 +83,54 @@ class StringUtil {
     return false;
   }
 
-  static function hasRegexp($query) {
-    return preg_match("/[*?|\[\]]/", $query);
+  static function hasRegexp($s) {
+    $len = mb_strlen($s);
+    $count = 0;
+    $state = 0;
+    for ($i = 0; $i < $len; $i++) {
+      $char = self::getCharAt($s, $i);
+      switch ($state) {
+      case 0: // no special char seen so far
+        if ($char == '[') {
+          $count++;
+          $state = 2;
+        } else if ($char == ']') {
+          return false;
+        } else if ($char == '|' || $char == '?' || $char == '*') {
+          $state = 1;
+        }
+        break;
+      case 1: // normal state, specials were seen
+        if ($char == '[') {
+          $count++;
+          $state = 2;
+        } else if ($char == ']') {
+          if ($count == 0) {
+            return false;
+          }
+          $count--;
+        }
+        break;
+      case 2: // after a [; won't count ]
+        if ($char == '[') {
+          $count++;
+        } else if ($char == '^') {
+          $state = 3;
+        } else {
+          $state = 1;
+        }
+        break;
+      case 3: // after [^; still won't count ]
+        if ($char == '[') {
+          $count++;
+          $state = 2;
+        } else {
+          $state = 1;
+        }
+        break;
+      }
+    }
+    return $count == 0 && $state > 0;
   }
 
   static function isAllDigits($s) {

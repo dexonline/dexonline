@@ -158,6 +158,16 @@ table {
   padding-bottom: 5%;
 }
 
+.defDetails {
+  color :#999;
+  display: block;
+  font-size: 12px;
+}
+
+.defDetails a {
+  text-decoration: none;
+}
+
 /* only small resolution devices in portrait mode */
 @media only screen and (max-width: 319px) {
 

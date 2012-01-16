@@ -11,10 +11,10 @@
     <link href="{$wwwRoot}styles/paradigm.css?v=1" rel="stylesheet" type="text/css"/>
 {/if}
 {if isset($polar)}
-    <link href="{$wwwRoot}styles/polar.css?v=25" rel="stylesheet" type="text/css"/>
+    <link href="{$wwwRoot}styles/polar.css?v=26" rel="stylesheet" type="text/css"/>
 {/if}
 {if isset($zepu)}
-    <link href="{$wwwRoot}styles/zepu.css?v=35" rel="stylesheet" type="text/css"/>
+    <link href="{$wwwRoot}styles/zepu.css?v=36" rel="stylesheet" type="text/css"/>
 {/if}
 {* External resources *}
 {if isset($autocomplete)}

@@ -193,7 +193,7 @@
         {/if}
  
         {if !$suggestMinimalist}
-          | <a class="typoLink" href="javascript:typoWindow({$row->definition->id})">Greșeală de tipar</a>
+          | <a class="typoLink" id="typoLink-{$row->definition->id}" href="#">Semnalează o greșeală</a>
         {/if}
 
         {if $sUser}
@@ -270,5 +270,14 @@
       <div id="wotdArchive" class="wotdArchive"></div>
       <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/','#wotdArchive')</script>
     {/if}
+  {/if}
+
+  {if !$suggestMinimalist}
+    <div id="typoDiv"></div>
+    {literal}
+    <script type="text/javascript">
+      $(".typoLink").click(showTypoForm);
+    </script>
+    {/literal}
   {/if}
 </div>

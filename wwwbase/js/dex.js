@@ -40,10 +40,24 @@ function adminHelpWindow(anchorName) {
   return false;
 }
 
-function typoWindow(definitionId) {
-  window.open(wwwRoot + 'greseala?definitionId=' + definitionId,
-              'typoWindow',
-              'menubar=no,scrollbars=yes,toolbar=no,width=500,height=400');
+function showTypoForm(evt) {
+  definitionId = evt.target.id.substr(9); // Skip typoLink- prefix
+  $.get(wwwRoot + 'ajax/typo.php?definitionId=' + definitionId, function(data) {
+    $('#typoDiv').html(data).css({
+      top: evt.pageY + 10,
+      left: evt.pageX,
+    }).toggle();
+  });
+  return false;
+}
+
+function submitTypoForm() {
+  textarea = $("#typoHtmlForm > textarea").val();
+  defId = $("#typoHtmlForm > input:hidden").val();
+    $.post(wwwRoot + 'ajax/typo.php', { definitionId: defId, text: textarea, submit: 1 }, function(data) {
+      $('#typoDiv').html(data).delay(2000).fadeOut('slow');
+  });
+  return false;
 }
 
 function myEncodeURI(s) {

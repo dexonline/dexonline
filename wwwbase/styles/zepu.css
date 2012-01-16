@@ -1,6 +1,7 @@
 /* Zepu theme redesigned by Sonia Andriu */
 
 @import "mobileAndDesktop.css";
+@import "common.css";
 
 /* GLOBAL */
 body {

@@ -75,3 +75,38 @@ table.sources td {
   color: blue;
 }
 
+#typoDiv {
+  background: #f8f8f8;
+  border: 1px solid #777;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-box-shadow: 10px 10px 10px #424242; /* Safari and Chrome */
+  box-shadow: 10px 10px 10px #424242; /* FF 4 ; CSS3 */
+  -moz-box-shadow: 10px 10px 10px #424242; /* FF 3.5-3.6 */
+  display: none;
+  margin-top: 10px;
+  padding: 8px;
+  position: absolute;
+  width: 400px;
+  z-index: 100;
+}
+
+#typoDivNote {
+  background: url("../img/icons/information.png") no-repeat;
+  height: 16px;
+  padding-left: 20px;
+}
+
+#typoDivCloseButton {
+  background: url("../img/icons/cross16.png") no-repeat;
+  cursor: pointer;
+  float: right;
+  height: 16px;
+  margin-top: -5px;
+  margin-right: -5px;
+  width: 16px;
+}
+
+#typoDivConfirmation {
+  text-align: center;   
+}

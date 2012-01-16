@@ -191,8 +191,10 @@
         {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT)} 
           | Id: {$row->definition->id}
         {/if}
-  
-        | <a href="javascript:typoWindow({$row->definition->id})">Greșeală de tipar</a>
+ 
+        {if !$suggestMinimalist}
+          | <a class="typoLink" href="javascript:typoWindow({$row->definition->id})">Greșeală de tipar</a>
+        {/if}
 
         {if $sUser}
           {if $row->bookmark}
@@ -202,7 +204,9 @@
           {/if}
         {/if}
 
-        | <a href="{$wwwRoot}definitie/{$row->definition->lexicon}/{$row->definition->id}" title="Link doar către această definiție">Permalink</a>
+        {if !$suggestMinimalist}
+          | <a href="{$wwwRoot}definitie/{$row->definition->lexicon}/{$row->definition->id}" title="Link doar către această definiție">Permalink</a>
+        {/if}
   
         {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT) && !$is_mirror}
           | <a target="edit_window" href="{$wwwRoot}admin/definitionEdit.php?definitionId={$row->definition->id}">Editează</a>

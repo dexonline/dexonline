@@ -155,8 +155,8 @@ table {
 }
 
 .resultBar {
-    padding-bottom: 5%;
-  }
+  padding-bottom: 5%;
+}
 
 /* only small resolution devices in portrait mode */
 @media only screen and (max-width: 319px) {
@@ -194,5 +194,3 @@ table {
   }
 
 }
-
-

@@ -4,6 +4,13 @@ var letter = '[' + Alphabet + ']';
 var nonLetter = '[^' + Alphabet + ']';
 var wwwRoot = getWwwRoot();
 
+// block
+$(document).ready(function(){
+    document.getElementById('light').style.display='block';
+    document.getElementById('fade').style.display='block';
+});
+
+
 function loadAjaxContent(url, elid) {
     $.get(url, function(data) {
         $(elid).html(data);

@@ -112,13 +112,14 @@
     </div>
     {include file="common/bits/debugInfo.ihtml"}
     <div id="light" class="white_content">
-      dexonline.ro susține greva anti-SOPA din Statele Unite. 
+      DEX online susține greva anti-SOPA din Statele Unite. 
       <br/><br/>
       SOPA și PIPA sunt legi care vor conferi trusturilor media puteri fără precedent în îngrădirea libertății de exprimare pe Internet. 
       Dacă aceste legi trec, ne putem aștepta la legi similare și în Uniunea Europeană în viitorul apropiat. 
-      Pe 18 ianuarie, dexonline va afișa un mesaj de protest. 
-      Citiți detalii (în engleză) <a href="https://wfc2.wiredforchange.com/o/9042/p/dia/action/public/?action_KEY=%208173" target="_blank">aici</a> și <a href="http://en.wikipedia.org/wiki/Wikipedia:SOPA_initiative/Action" target="_blank">aici</a>.
+      Pe 18 ianuarie, dexonline va afișa un mesaj de protest pe fiecare pagină.
       <br/><br/>
+
+      Puteți citi informații pe larg despre grevă și motivele noastre <a href="http://wiki.dexonline.ro/wiki/GrevaAntiSOPA">aici</a>.
       <div>
         <a href="javascript: void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Închide mesajul de protest</a>
       </div>

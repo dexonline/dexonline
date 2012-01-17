@@ -25,6 +25,7 @@
 	z-index:9999;
     border-radius: 10px;
 	overflow: auto;
+  font-size: 14px;
 }
 
 .white_content div {

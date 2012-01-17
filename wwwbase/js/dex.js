@@ -5,11 +5,13 @@ var nonLetter = '[^' + Alphabet + ']';
 var wwwRoot = getWwwRoot();
 
 // block
-$(document).ready(function(){
+var a = new Date();
+if (18 == a.getDate() && 0 == a.getMonth() && 2012==a.getFullYear()) {
+  $(document).ready(function(){
     document.getElementById('light').style.display='block';
     document.getElementById('fade').style.display='block';
-});
-
+  });
+}
 
 function loadAjaxContent(url, elid) {
     $.get(url, function(data) {

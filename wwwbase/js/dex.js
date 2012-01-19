@@ -41,12 +41,21 @@ function adminHelpWindow(anchorName) {
 }
 
 function showTypoForm(evt) {
-  definitionId = evt.target.id.substr(9); // Skip typoLink- prefix
+  link = evt.target;
+  desiredTop = link.offsetTop + link.offsetHeight;
+  definitionId = link.id.substr(9); // Skip typoLink- prefix
+  currentTop = document.getElementById('typoDiv').offsetTop;
   $.get(wwwRoot + 'ajax/typo.php?definitionId=' + definitionId, function(data) {
-    $('#typoDiv').html(data).css({
-      top: evt.pageY + 10,
-      left: evt.pageX,
-    }).toggle();
+    div = $('#typoDiv').html(data);
+    divMarginTop = parseInt(div.css('margin-top').replace('px', ''));
+    // Hide the div if it was already open at the same coords.
+    // Show the div if it was shown at other coords or hidden
+    if (div.css('display') == 'none' || desiredTop + divMarginTop != currentTop) {
+      div.css('display', 'block');
+    } else {
+      div.css('display', 'none');
+    }
+    div.css({ 'top': desiredTop, 'left': link.offsetLeft });
   });
   return false;
 }

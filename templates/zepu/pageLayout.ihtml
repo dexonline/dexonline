@@ -111,20 +111,5 @@
       {if $hostedBy}{include file="common/hosting/$hostedBy.ihtml"}{/if}
     </div>
     {include file="common/bits/debugInfo.ihtml"}
-    <div id="light" class="white_content">
-      DEX online susține greva anti-SOPA din Statele Unite. 
-      <br/><br/>
-      SOPA și PIPA sunt legi care vor conferi trusturilor media puteri fără precedent în îngrădirea libertății de exprimare pe Internet. 
-      Dacă aceste legi trec, ne putem aștepta la legi similare și în Uniunea Europeană în viitorul apropiat. 
-      Pe 18 ianuarie, DEX online va afișa un mesaj de protest pe fiecare pagină.
-      <br/><br/>
-      Puteți citi informații pe larg despre grevă și motivele noastre <a href="http://wiki.dexonline.ro/wiki/GrevaAntiSOPA">aici</a>.
-      <br/><br/>
-      <div>
-        <a href="javascript: void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Închide mesajul de protest</a>
-      </div>
-    </div>
-    <div id="fade" class="black_overlay">
-    </div>
   </body>
 </html>

@@ -81,16 +81,20 @@ span.formPlug {
 }
 
 #mainMenu li a {
+  color: #00e;
+  cursor: pointer;
+  outline: none; /* Firefox */
+  text-decoration: underline;
   white-space: nowrap;
 }
 
 #mainMenu li ul {
   background: white;
   border: 1px solid blue;
+  display: none;
   margin: 0;
   padding: 0;
   position: absolute;
-  visibility: hidden;
   z-index: 50;
 }
 

@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {include file="common/bits/css.ihtml" flex=1}
+    {include file="common/bits/js.ihtml" dex=1 flex=1}
+    <title>DEX | {$sectionTitle|escape}</title>
+  </head>
+
+  <body>
+    {include file="admin/header.ihtml" title=$sectionTitle}
+    {include file="admin/recentlyVisited.ihtml"}
+
+    Deocamdată vă sunt oferite lexemele asociate cu definiții din Dicționarul Enciclopedic, cu excepția celor care sunt deja scrisă cu literă mare
+    și au un model diferit de I1 și T1 (acelea sunt presupuse rezolvate deja).<br/></br>
+
+    <form method="get" action="">
+      Filtrează după prefix:
+      <input type="text" name="prefix" value="{$prefix}"/>
+      <input type="submit" value="Filtrează"/>
+    </form>
+
+    <h3>{$lexems|@count} rezultate</h3>
+
+    <form action="" method="post">
+      <input type="hidden" name="prefix" value="{$prefix}"/>
+
+      {foreach from=$lexems item=l key=lIter}
+        <div class="blLexem">
+          <div class="blLexemTitle">
+            <span class="name">{$lIter+1}. {$l->form|escape}</span>
+            {$l->modelType}{$l->modelNumber}{$l->restriction}
+            {strip}
+              <a class="noBorder" target="_blank" href="../admin/lexemEdit.php?lexemId={$l->id}">
+                <img src={$imgRoot}/icons/pencil.png alt="editează" title="editează lexemul"/>
+              </a>
+              <a class="noBorder" href="#" onclick="return mlUpdateDefVisibility({$l->id}, 'def_{$l->id}')">
+                <img src={$imgRoot}/icons/book_open.png alt="definiții" title="arată definițiile"/>
+              </a>
+            {/strip}
+          </div>
+          <div id="def_{$l->id}" class="blDefinitions" style="display:none"></div>
+          <div class="blLexemBody">
+            Model:
+            <input type="radio" id="leave_{$l->id}" name="model_{$l->id}" value="" checked="checked"/>
+            <label for="leave_{$l->id}">neschimbat</label>
+            <input type="radio" id="i3_{$l->id}" name="model_{$l->id}" value="i3"/>
+            <label for="i3_{$l->id}">I3 (nume propriu invariabil)</label>
+            <input type="radio" id="i4_{$l->id}" name="model_{$l->id}" value="i4"/>
+            <label for="i4_{$l->id}">I4 (cuvânt dintr-o limbă străină)</label><br/>
+
+            <input type="checkbox" id="caps_{$l->id}" name="caps_{$l->id}" value="1"/>            
+            <label for="caps_{$l->id}">Scrie-l cu majusculă</label><br/>
+
+            Comentariu: <input type="text" name="comment_{$l->id}" value="{$l->comment}" size="70"/>
+          </div>
+        </div>
+      {/foreach}
+
+      <input type="submit" name="submitButton" value="Salvează"/>
+    </form>
+
+    {include file="common/bits/debugInfo.ihtml"}
+  </body>
+
+</html>

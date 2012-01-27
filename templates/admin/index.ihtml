@@ -207,6 +207,15 @@
         într-o sursă, dar fără restricții în altă sursă.
       </div>
       <br/>
+
+      Pentru a încerca identificarea substantivelor proprii,
+      <a href="properNouns.php">clic aici</a>.
+
+      <div class="flexExplanation">
+        Veți primi grupuri de lexeme asociate cu definiții din Dicționarul Enciclopedic.
+      </div>
+      <br/>
+      
     {/if}
 
     {if $sUser->moderator & $smarty.const.PRIV_ADMIN}

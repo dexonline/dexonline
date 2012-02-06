@@ -12,3 +12,6 @@
 
 # Regenerate the Firefox spell checker extension
 55 2 * * * (cd /var/www/dexon/public_html/DEX/tools && php rebuildFirefoxSpellChecker.php) >/dev/null 2>&1 || mail -s "DEX rebuildFirefoxSpellChecker failed" cata@francu.com
+
+#Regenerate weekly the RandomWords table
+30 2 * * 0 (cd /var/www/dexon/public_html/DEX/tools && bash updateRandomWord.sh) >/dev/null 2>&1 || mail -s "DEX updateRandomWord table failed" cata@francu.com

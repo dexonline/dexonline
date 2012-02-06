@@ -70,6 +70,15 @@ function db_getArray($query) {
   return $results;
 }
 
+function db_getArrayOfRows($query) {
+  $dbResult = ORM::get_db()->query($query);
+  $results = array();
+  foreach ($dbResult as $row) {
+    $results[] = $row;
+  }
+  return $results;
+}
+
 // Normally you can do this with Idiorm's ->count() method, but that doesn't work for complicated queries
 // E.g. select count(distinct Lexem.id) from ...
 function db_getSingleValue($query) {

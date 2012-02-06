@@ -53,6 +53,10 @@ RewriteRule ^da-mi/cuvantul-zilei$ wotd.php?t=url [PT,L]
 RewriteRule ^rss/cuvantul-zilei$ wotd.php?t=rss [PT,L]
 RewriteRule ^arhiva/cuvantul-zilei/(\d+)/(\d+)/?$ wotdArchive.php?y=$1&m=$2 [PT,L]
 RewriteRule ^arhiva/cuvantul-zilei/$ wotdArchive.php [PT,L]
+RewriteRule ^cuvinte-aleatoare$ randomList.php [PT,L]
+RewriteRule ^cuvinte-aleatoare/(\d+)$ randomList.php?n=$1 [PT,L]
+RewriteRule ^lista/cuvinte-aleatoare$ randomList.php?k=1 [PT,L]
+RewriteRule ^lista/cuvinte-aleatoare/(\d+)$ randomList.php?n=$1&k=1 [PT,L]
 
 # Non-search pages
 RewriteRule ^404$ simple.php?p=404 [PT,L]

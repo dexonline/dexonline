@@ -1,13 +1,13 @@
 CREATE TABLE `RandomWord` (
     `id` int(11) NOT NULL DEFAULT '0',
-    `form` char(50) NOT NULL,
+    `cuv` char(50) NOT NULL,
     `surse` char(255) DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 INSERT INTO RandomWord
-SELECT L.id, L.formNoAccent form, GROUP_CONCAT(DISTINCT S.shortName) surse
+SELECT L.id, L.formNoAccent cuv, GROUP_CONCAT(DISTINCT S.shortName) surse
 FROM Lexem L
 JOIN LexemDefinitionMap M ON L.id=M.lexemId
 JOIN Definition D ON D.id=M.definitionId

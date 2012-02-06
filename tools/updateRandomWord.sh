@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS tmpRandomWord;
 CREATE TABLE IF NOT EXISTS tmpRandomWord LIKE RandomWord;
 
 INSERT INTO tmpRandomWord
-SELECT L.id, L.formNoAccent form, GROUP_CONCAT(DISTINCT S.shortName) surse
+SELECT L.id, L.formNoAccent cuv, GROUP_CONCAT(DISTINCT S.shortName) surse
 FROM Lexem L
 JOIN LexemDefinitionMap M ON L.id=M.lexemId
 JOIN Definition D ON D.id=M.definitionId

@@ -1,14 +1,33 @@
 /**
- * How to extend MySQL with a C function
- * gcc -fPIC -shared -I/usr/include/mysql -o sql-functions.so sql-functions.cc
+ * This file extends mysql with the dist2() function, a poor but fast distance function for approximate searches.
  *
- * Obtain root permissions and move sql-functions.so to /usr/lib.
+ * Instructions:
  * 
- * In mysql:
- * create function dist2 returns integer soname "sql-functions.so";
+ * 1. Install the mysql-devel libraries. Instructions vary based on your system. For example, under Ubuntu you would run
+ *
+ *    sudo apt-get install libmysqlclient-dev
+ *
+ * 2. Compile the file.
+ *
+ *    gcc -fPIC -shared -I/usr/include/mysql -o sql-functions.so sql-functions.cc
+ *
+ * 3. Obtain root permissions and move sql-functions.so to where your MySQL libraries reside. Under Ubuntu:
+ *
+ *    sudo mv sql-functions.so /usr/lib/mysql/plugin
+ *
+ * 4. On some distributions, you will need to turn off apparmor to prevent a MySQL permission denied error (1126):
+ *
+ *    sudo /etc/init.d/apparmor stop
+ *
+ *    You can now restart apparmor.
  * 
- * To drop it:
- * drop function levenshtein;
+ * 5. At the MySQL command line prompt:
+ *
+ *    create function dist2 returns integer soname "sql-functions.so";
+ * 
+ *    If you later wish to drop it:
+ *
+ *    drop function dist2;
  */
 #include <ctype.h>
 #include <stdlib.h>
@@ -21,74 +40,6 @@
 #include <mysql/m_ctype.h>
 
 #ifdef HAVE_DLOPEN
-
-#define WORD_SIZE 40
-
-// Levenshtein: returns the distance between two strings
-extern "C" {
-  my_bool levenshtein_init(UDF_INIT *initid, UDF_ARGS *args, char *message);
-  long long levenshtein(UDF_INIT *initid, UDF_ARGS *args, char *is_null,
-			char *error);
-  void levenshtein_deinit(UDF_INIT *initid);
-}
-
-#define min3(x, y, z) ((x)<(y) ? ((x)<(z) ? (x) : (z)) : ((y)<(z) ? (y) : (z)))
-#define COST_INSERT 1
-#define COST_DELETE 1
-#define COST_REPLACE 1
-
-my_bool levenshtein_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
-{
-  if (args->arg_count != 2 ||
-      args->arg_type[0] != STRING_RESULT ||
-      args->arg_type[1] != STRING_RESULT) {
-    strcpy(message, "LEVENSHTEIN requires 2 strings");
-    return 1;
-  }
-  
-  // Allocate two arrays of 128 int's each
-  initid->ptr = (char*) malloc(256*sizeof(int));
-  
-  initid->maybe_null=1;
-  initid->decimals=0;
-  initid->max_length=3;
-  return 0;
-}
-
-long long levenshtein(UDF_INIT *initid, UDF_ARGS *args, char *is_null,
-		      char *error)
-{
-  char *s1 = args->args[0], *s2 = args->args[1];
-  int i, j, ioffset, joffset, ilen, jlen;
-  int *a1 = (int*) initid->ptr, *a2 = a1 + 128, *temp;
-  
-  for (ioffset = 0; s1[ioffset] == ' '; ioffset++);
-  for (i = ioffset, ilen = 0; s1[i] && s1[i] != ' '; i++, ilen++);
-  for (joffset = 0; s2[joffset] == ' '; joffset++);
-  for (j = joffset, jlen = 0; s2[j] && s2[j] != ' '; j++, jlen++);
-
-  for (j = 0; j <= jlen; j++)
-    a1[j] = j;
-  
-  for (i = 1; i <= ilen; i++) {
-    a2[0] = a1[0] + 1;
-    for (j = 1; j <= jlen; j++)
-      if (toupper(s1[i + ioffset - 1]) == toupper(s2[j + joffset - 1]))
-  	a2[j] = a1[j-1];
-      else
-  	a2[j] = min3(a1[j] + COST_DELETE,
- 		     a1[j-1] + COST_REPLACE,
- 		     a2[j-1] + COST_INSERT);
-    temp = a2; a2 = a1; a1 = temp;
-  }
-  
-  return a1[jlen];
-}
-
-void levenshtein_deinit(UDF_INIT *initid) {
-  if (initid->ptr)
-    free(initid->ptr);
-}
 
 // Returns the length of the UTF8 string
 int convertToUtf8(char* s, int len, unsigned* output) {
@@ -146,7 +97,7 @@ int equalIgnoreDiacritics(int u1, int u2) {
 }
 
 // dist2: returns true if, after trimming the beginning and ending matching
-// portions of the strings, the remainder has at most two characters.
+// portions of the strings, the remainder has at most one character.
 extern "C" {
   my_bool dist2_init(UDF_INIT *initid, UDF_ARGS *args, char *message);
   long long dist2(UDF_INIT *initid, UDF_ARGS *args, char *is_null,
@@ -157,7 +108,7 @@ my_bool dist2_init(UDF_INIT *initid, UDF_ARGS *args, char *message) {
   if (args->arg_count != 2 ||
       args->arg_type[0] != STRING_RESULT ||
       args->arg_type[1] != STRING_RESULT) {
-    strcpy(message, "LEVENSHTEIN requires 2 strings");
+    strcpy(message, "DIST2 requires 2 strings");
     return 1;
   }
   

@@ -1,4 +1,4 @@
-CREATE TABLE `RandomWord` (
+CREATE TABLE IF NOT EXISTS `RandomWord` (
     `id` int(11) NOT NULL DEFAULT '0',
     `cuv` char(50) NOT NULL,
     `surse` char(255) DEFAULT NULL,

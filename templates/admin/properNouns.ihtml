@@ -11,9 +11,17 @@
   <body>
     {include file="admin/header.ihtml" title=$sectionTitle}
     {include file="admin/recentlyVisited.ihtml"}
+    {include file="common/flashMessages.ihtml"}
 
-    Deocamdată vă sunt oferite lexemele asociate cu definiții din Dicționarul Enciclopedic, cu excepția celor care sunt deja scrisă cu literă mare
-    și au un model diferit de I1 și T1 (acelea sunt presupuse rezolvate deja).<br/></br>
+    Deocamdată vă sunt oferite lexemele asociate cu definiții din Dicționarul Enciclopedic, cu un tip de model diferit de SP și care
+    nu au fost deja bifate ca verificate. Aveți opțiunile:<br/>
+
+    <ul>
+      <li>Să indicați un nou model și restricții;</li>
+      <li>Să cereți scrierea cu majusculă a lexemului;</li>
+      <li>Să adăugați un comentariu;</li>
+      <li>Să bifați lexemul ca verificat ca să dispară din listă (dacă îl faceți de tipul SP, el va dispărea oricum).</li>
+    </ul>
 
     <form method="get" action="">
       Filtrează după prefix:
@@ -42,16 +50,18 @@
           </div>
           <div id="def_{$l->id}" class="blDefinitions" style="display:none"></div>
           <div class="blLexemBody">
-            Model:
-            <input type="radio" id="leave_{$l->id}" name="model_{$l->id}" value="" checked="checked"/>
-            <label for="leave_{$l->id}">neschimbat</label>
-            <input type="radio" id="i3_{$l->id}" name="model_{$l->id}" value="i3"/>
-            <label for="i3_{$l->id}">I3 (nume propriu invariabil)</label>
-            <input type="radio" id="i4_{$l->id}" name="model_{$l->id}" value="i4"/>
-            <label for="i4_{$l->id}">I4 (cuvânt dintr-o limbă străină)</label><br/>
+            Model (tip + număr): <input type="text" name="model_{$l->id}" value="" size="6"/>
+            <input type="checkbox" id="singular_{$l->id}" name="singular_{$l->id}" value="1"/>            
+            <label for="singular_{$l->id}">Singular</label>
+            <input type="checkbox" id="plural_{$l->id}" name="plural_{$l->id}" value="1"/>            
+            <label for="plural_{$l->id}">Plural</label>
+            <br/>
 
             <input type="checkbox" id="caps_{$l->id}" name="caps_{$l->id}" value="1"/>            
             <label for="caps_{$l->id}">Scrie-l cu majusculă</label><br/>
+
+            <input type="checkbox" id="verifSp_{$l->id}" name="verifSp_{$l->id}" value="1"/>            
+            <label for="verifSp_{$l->id}">Ignoră</label><br/>
 
             Comentariu: <input type="text" name="comment_{$l->id}" value="{$l->comment}" size="70"/>
           </div>

@@ -13,9 +13,9 @@
  * executing anything.
  **/
 
-require_once('../phplib/util.php');
+require_once __DIR__ . '/../phplib/util.php';
 
-define('PATCH_DIR', '../patches/');
+define('PATCH_DIR', __DIR__ . '/../patches/');
 define('PATCH_REGEXP', '/^\d{5}\./');
 
 $dryRun = false;

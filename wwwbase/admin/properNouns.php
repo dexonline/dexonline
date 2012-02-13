@@ -8,12 +8,21 @@ $prefix = util_getRequestParameter('prefix');
 $submitButton = util_getRequestParameter('submitButton');
 
 if ($submitButton) {
+  // Collect all affected lexems beforehand
+  $lexemMap = array();
+  $errorMap = array();
   foreach ($_REQUEST as $name => $value) {
-    if ((StringUtil::startsWith($name, 'caps_') || StringUtil::startsWith($name, 'model_') || StringUtil::startsWith($name, 'comment_')) &&
-        $value) {
+    if ((StringUtil::startsWith($name, 'caps_') || StringUtil::startsWith($name, 'model_') || StringUtil::startsWith($name, 'comment_') ||
+         StringUtil::startsWith($name, 'singular_') || StringUtil::startsWith($name, 'plural_') || StringUtil::startsWith($name, 'verifSp_'))
+         && $value) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
-      $l = Lexem::get_by_id($parts[1]);
+      $lexemId = $parts[1];
+
+      if (!array_key_exists($lexemId, $lexemMap)) {
+        $lexemMap[$lexemId] = Lexem::get_by_id($lexemId);
+      }
+      $l = $lexemMap[$lexemId];
 
       switch ($parts[0]) {
       case 'caps':
@@ -24,35 +33,66 @@ if ($submitButton) {
         }
         $l->formNoAccent = str_replace("'", '', $l->form);
         $l->reverse = StringUtil::reverse($l->formNoAccent);
-        $l->regenerateParadigm();
         break;
+        
+      case 'singular':
+        $l->restriction = 'S';
+        break;
+        
+      case 'plural':
+        $l->restriction = 'P';
+        break;
+        
       case 'model':
-        if ($value == 'i3') {
-          $l->modelType = 'I';
-          $l->modelNumber = '3';
-        } else if ($value == 'i4') {
-          $l->modelType = 'I';
-          $l->modelNumber = '4';
+        if ($value) {
+          $m = Model::factory('FlexModel')->where_raw("concat(modelType, number) = '{$value}'")->find_one();
+          if ($m) {
+            $oldModelType = $l->modelType;
+            $oldModelNumber = $l->modelNumber;
+            $l->modelType = $m->modelType;
+            $l->modelNumber = $m->number;
+            $ifs = $l->generateParadigm();
+            if (!is_array($ifs)) {
+              FlashMessage::add("Lexemul '{$l->formNoAccent}' nu poate fi flexionat cu modelul '{$value}'");
+              $errorMap[$l->id] = true;
+              $l->modelType = $oldModelType;
+              $l->modelNumber = $oldModelNumber;
+            }
+          } else {
+            FlashMessage::add("Modelul '{$value}' nu există pentru lexemul '{$l->formNoAccent}'.");
+            $errorMap[$l->id] = true;
+          }
         }
-        $l->regenerateParadigm();
         break;
+        
+      case 'verifSp':
+        $l->verifSp = 1;
+        break;
+        
       case 'comment':
-        $l->comment = $value;
+        if ($l->comment) {
+          $l->comment = $value;
+        }
         break;
       }
+    }
+  }
+
+  // Now save the ones that can be saved and present errors for the others
+  foreach ($lexemMap as $id => $l) {
+    if (!array_key_exists($id, $errorMap)) {
       $l->save();
+      $l->regenerateParadigm();
     }
   }
 }
 
 $deSource = Source::get_by_shortName('DE');
-// Do not select lexems which are already capitalized AND have a model number different from I1 and T1.
-// The where_raw condition for this is complicated.
 $lexems = Model::factory('Lexem')->distinct()->select('Lexem.*')
   ->join('LexemDefinitionMap', 'Lexem.id = lexemId')->join('Definition', 'definitionId = Definition.id')
-  ->where('status', 0)->where('sourceId', $deSource->id)->where_like('formNoAccent', "$prefix%")
-  ->where_raw('((binary upper(left(formNoAccent, 1)) != left(formNoAccent, 1)) or (modelType = "I" and modelNumber = "1") or (modelType = "T" and modelNumber = "1"))')
-  ->order_by_asc('formNoAccent')->limit(1000)->find_many();
+  ->where('status', 0)->where('sourceId', $deSource->id)->where_like('formNoAccent', "$prefix%")->where('verifSp', 0)
+  ->where_not_equal('modelType', 'SP')
+  ->order_by_asc('formNoAccent')->limit(100)->find_many();
 
 RecentLink::createOrUpdate('Marcare substantive proprii');
 smarty_assign('sectionTitle', 'Marcare substantive proprii');

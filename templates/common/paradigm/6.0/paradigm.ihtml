@@ -20,6 +20,8 @@
   {include file="common/paradigm/current/paradigmN.ihtml" lexem=$lexem ifMap=$ifMap title="substantiv feminin"}
 {elseif $modelType == 'N'}
   {include file="common/paradigm/current/paradigmN.ihtml" lexem=$lexem ifMap=$ifMap title="substantiv neutru"}
+{elseif $modelType == 'SP'}
+  {include file="common/paradigm/current/paradigmN.ihtml" lexem=$lexem ifMap=$ifMap title="substantiv propriu"}
 {elseif $modelType == 'P'}
   {include file="common/paradigm/current/paradigmP.ihtml" lexem=$lexem ifMap=$ifMap}
 {elseif $modelType == 'V'}

@@ -13,6 +13,7 @@ $INFLECTIONS = array(1 => 'Substantiv masculin, Nominativ-Acuzativ, singular, ne
                      7 => 'Substantiv masculin, Nominativ-Acuzativ, plural, articulat',
                      8 => 'Substantiv masculin, Genitiv-Dativ, plural, articulat'
                      );
+/** Also, don't forget to edit templates/common/paradigm/current/paradigm.ihtml accordingly. **/
 
 $existingMT = ModelType::get_by_code(MODEL_TYPE);
 

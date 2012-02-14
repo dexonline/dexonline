@@ -1,5 +1,8 @@
 {if isset($jquery)}
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/jquery-1.7.1.min.js"></script>
+{/if}
+{if isset($jqueryui)}
+    <script type="text/javascript" src="{$wwwRoot}js/jquery-ui-1.8.17.custom.min.js"></script>
 {/if}
 {if isset($tablesorter)}
     <script type="text/javascript" src="{$wwwRoot}js/jquery.tablesorter.min.js"></script>
@@ -18,6 +21,9 @@
 {/if}
 {if isset($jqTableDnd)}
     <script type="text/javascript" src="{$wwwRoot}js/jquery.tablednd_0_5.js?v=1"></script>
+{/if}
+{if isset($elfinder)}
+    <script type="text/javascript" src="{$wwwRoot}js/elfinder.min.js"></script>
 {/if}
 
 {if isset($dex)}

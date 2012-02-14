@@ -11,12 +11,13 @@
   <body onload="initGrid()">
     {include file="admin/header.ihtml" title="DEX online - Word of the Day"}
     {include file="admin/recentlyVisited.ihtml"}
+    <a href="wotdImages.php">Imagini pentru cuvântul zilei</a>
 
     <table id="wotdGrid"></table>
     <div id="wotdPaging"></div>
 
     <div id="tmp">
-      
+
     </div>
 
     {include file="common/bits/debugInfo.ihtml"}

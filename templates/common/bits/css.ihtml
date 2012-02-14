@@ -24,3 +24,9 @@
     <link href="{$wwwRoot}styles/ui.jqgrid.css?v=1" rel="stylesheet" type="text/css"/>
     <link href="{$wwwRoot}styles/jquery-ui-1.8.5.custom.css?v=1" rel="stylesheet" type="text/css"/>
 {/if}
+{if isset($elfinder)}
+    <link href="{$wwwRoot}styles/elfinder.css" rel="stylesheet" type="text/css"/>
+{/if}
+{if isset($jquery_smoothness)}
+    <link href="{$wwwRoot}styles/smoothness/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css"/>
+{/if}

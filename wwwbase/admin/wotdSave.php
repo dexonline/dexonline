@@ -36,6 +36,13 @@ class wotdSave{
   protected $refType;
 
   /**
+   * The image file name
+   * @var string $image
+   * @access protected
+   **/
+  protected $image;
+
+  /**
    * The old definition ID (used for editing purposes)
    * This is currently unused -- cata
    * @var int $oldDefinitionId
@@ -50,16 +57,18 @@ class wotdSave{
    * @param int $priority The priority [OPTIONAL]
    * @param int $refId The reference identifier [OPTIONAL]
    * @param string $refType The reference type [OPTIONAL]
+   * @param string $image The image file [OPTIONAL]
    * @param int $oldDefinitionId The old definition identifier [OPTIONAL]
    * @access public
    * @return void
    **/
-  public function __construct($id, $displayDate = null, $priority = null, $refId = null, $refType = null, $oldDefinitionId = null){
+  public function __construct($id, $displayDate = null, $priority = null, $refId = null, $refType = null, $image = null, $oldDefinitionId = null){
     $this->id = $id;
     $this->displayDate = $displayDate;
     $this->priority = $priority;
     $this->refId = $refId;
     $this->refType = $refType;
+    $this->image = $image;
     $this->oldDefinitionId = $oldDefinitionId;
   }
 
@@ -81,10 +90,14 @@ class wotdSave{
     }
     $wotd->userId = session_getUserId();
     $wotd->priority = $this->priority;
+    $wotd->image = $this->image;
     $wotd->save();
 
-    $wotdr = Model::factory('WordOfTheDayRel')->create();
-    $wotdr->refId = $this->refId;
+    $wotdr = WordOfTheDayRel::get_by_wotdId($wotd->id);
+    if (!$wotdr) {
+      $wotdr = Model::factory('WordOfTheDayRel')->create();
+    }
+    $wotdr->refId = $this->refId ? $this->refId : $this->oldDefinitionId; // No idea what's going on here, but this fixes it -- cata
     $wotdr->refType = $this->refType ? $this->refType : 'Definition';
     $wotdr->wotdId = $wotd->id;
     $wotdr->save();
@@ -134,12 +147,13 @@ $displayDate = util_getRequestParameter('displayDate');
 $priority = util_getRequestParameter('priority');
 $definitionId = util_getRequestParameter('definitionId');
 $refType = util_getRequestParameter('refType');
+$image = util_getRequestParameter('image');
 $oldDefinitionId = util_getRequestParameter('oldDefinitionId');
 
 switch ($oper) {
-case 'edit': $app = new wotdSave($id, $displayDate, $priority, $definitionId, $refType, $oldDefinitionId); break;
+case 'edit': $app = new wotdSave($id, $displayDate, $priority, $definitionId, $refType, $image, $oldDefinitionId); break;
 case 'del': $app = new wotdSave($id); break;
-case 'add': $app = new wotdSave(null, $displayDate, $priority, $definitionId, $refType, null); break;
+case 'add': $app = new wotdSave(null, $displayDate, $priority, $definitionId, $refType, null, null); break;
 }
 $app->run($oper);
 

@@ -18,6 +18,7 @@ function beginEdit(id){
   if ($('#definitionId').length == 0){
     $('#lexicon').after('<input type="hidden" id="definitionId"/>');
   }
+  $('#image').autocomplete('wotdGetImages.php');
 }
 
 function beforeSubmit(data){
@@ -33,7 +34,7 @@ function initGrid(){
     $('#wotdGrid').jqGrid({
       url: 'wotdTableRows.php',
       datatype: 'xml',
-      colNames: ['Source name', 'Lexicon', 'Defition HTML', 'User\'s name', 'Display data', 'Priority', 'WotD type', 'Definition ID'],
+      colNames: ['Sursa', 'Lexicon', 'Definiție', 'Adăugată la WotD de', 'Data afișării', 'Prioritate', 'Tipul resursei', 'Imagine', 'ID-ul definiției'],
       colModel: [
         {name: 'source', index: 'source', width: 100},
         {name: 'lexicon', index: 'lexicon', editable: true},
@@ -41,7 +42,8 @@ function initGrid(){
         {name: 'name', index: 'u.name'},
         {name: 'displayDate', index: 'displayDate', width: 100, editable: true},
         {name: 'priority', index: 'priority', editable: true, width: 80},
-        {name: 'refType', index: 'refType', width: 100, editable: true, edittype: 'select', editoptions: {value: 'Definition:Definition'}}, 
+        {name: 'refType', index: 'refType', width: 100, editable: true, edittype: 'select', editoptions: {value: 'Definition:Definition'}, hidden: true},
+        {name: 'image', index: 'w.image', editable: true},
         {name: 'definitionId', index: 'definitionId', editable: false, hidden: true}
       ],
       rowNum: 30,
@@ -52,7 +54,7 @@ function initGrid(){
       pager: $('#wotdPaging'),
       viewRecords: true,
       sortOrder: 'desc',
-      caption: 'Word of the Day',
+      caption: 'Cuvântul zilei',
       editurl: 'wotdSave.php'
     });
     $('#wotdGrid').navGrid('#wotdPaging', {},

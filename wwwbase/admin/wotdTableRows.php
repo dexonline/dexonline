@@ -1,7 +1,7 @@
 <?php
 class wotdTableRows{
   /**
-   * The page numbe
+   * The page number
    * @var int $page
    * @access protected
    **/
@@ -54,7 +54,7 @@ class wotdTableRows{
    * @param int $page The page number
    * @param int $limit The number of records to retrieve
    * @param int $sidx The index row - i.e. user click to sort
-   * @param string $sord The sord order
+   * @param string $sord The sort order
    * @param array $search If this is a search, just set the values for an associative array with the keys: field, value, operator [OPTIONAL]
    * @access public
    * @return void
@@ -156,7 +156,7 @@ sql;
       {$this->sql_fields}
     from
       {$this->sql_base}
-    {$this->where_condition}
+      {$this->where_condition}
     order by
       {$this->sidx} {$this->sord}
     limit

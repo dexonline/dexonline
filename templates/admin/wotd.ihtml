@@ -3,13 +3,8 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" flex=1}
-    {include file="common/bits/css.ihtml" jqgrid=1}
-    {include file="common/bits/css.ihtml" autocomplete=1}
-    {include file="common/bits/js.ihtml" jquery=1}
-    {include file="common/bits/js.ihtml" dex=1}
-    {include file="common/bits/js.ihtml" jqgrid=1}
-    {include file="common/bits/js.ihtml" autocomplete=1}
+    {include file="common/bits/css.ihtml" flex=1 jqgrid=1 autocomplete=1}
+    {include file="common/bits/js.ihtml" jquery=1 dex=1 jqgrid=1 autocomplete=1}
     <title>DEX | {$sectionTitle|escape}</title>
   </head>
 

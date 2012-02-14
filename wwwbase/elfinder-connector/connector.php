@@ -28,7 +28,7 @@ class elFinderLogger implements elFinderILogger {
 
 $opts = array(
 	'root'            => __DIR__ . '/../img/wotd/',                       // path to root directory
-	'URL'             => 'http://localhost/~cata/DEX/wwwbase/img/wotd/', // root directory URL
+	'URL'             => 'http://dexonline.ro/img/wotd/', // root directory URL
 	'rootAlias'       => 'Imagini cuvântul zilei',       // display this instead of root directory name
         'debug' => true,
 	'uploadAllow'   => array('images/*'),

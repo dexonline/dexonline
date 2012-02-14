@@ -67,6 +67,10 @@ if ($mysqlDate < $today) {
   smarty_assign('nextday', date('Y/m/d', $timestamp + 86400));
 }
 
+if ($wotd->image && file_exists(util_getRootPath() . "wwwbase/img/wotd/{$wotd->image}")) {
+  smarty_assign('imageUrl', "wotd/{$wotd->image}"); // Relative to the image path
+}
+
 smarty_assign('timestamp', $timestamp);
 smarty_assign('archive', $archive);
 smarty_assign('mysqlDate', $mysqlDate);
@@ -77,6 +81,7 @@ smarty_assign('searchResult', array_pop($searchResults));
 
 if ($type == 'url') {
   smarty_assign('today', $today);
+  smarty_assign('title', $def->lexicon);
   smarty_displayWithoutSkin('common/bits/wotdurl.ihtml');
 } else {
   smarty_displayCommonPageWithSkin('wotd.ihtml');

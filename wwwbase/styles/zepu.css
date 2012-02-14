@@ -1021,6 +1021,22 @@ input.pagedisplay {
   font-size: 16px;
   font-weight: bold;
 }
+
+#wotdPrevNext {
+  padding: 0 10px 10px 10px;
+}
+
+#wotdPrevNext .prev {
+  float: left;
+}
+
+#wotdPrevNext .next {
+  float: right;
+}
+
+#wotdImage {
+  text-align: center;
+}
 /* end word of the day archive */
 
 

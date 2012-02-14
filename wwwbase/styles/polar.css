@@ -442,6 +442,23 @@ th.headerSortDown {
   font-weight: bold;
 }
 
+#wotdPrevNext {
+  padding: 0 10px 10px 10px;
+  width: 720px;
+}
+
+#wotdPrevNext .prev {
+  float: left;
+}
+
+#wotdPrevNext .next {
+  float: right;
+}
+
+#wotdImage {
+  padding-left: 210px;
+}
+
 .warning {
   background: url("../img/icons/exclamation.png") no-repeat 0px center;
   padding: 5px 20px;

@@ -1,14 +1,23 @@
 <p class="paragraphTitle">Cuvântul zilei, {$timestamp|date_format:'%e %B %Y'}</p>
 
-{*
-  {if $prevday}<a href="{$wwwRoot}cuvantul-zilei/{$prevday}">« precedentul</a>{/if}
-  {if $prevday && $nextday} | {/if}
-  {if $nextday}<a href="{$wwwRoot}cuvantul-zilei/{$nextday}">următorul »</a>{/if}
-*}
+{include file="common/bits/definition.ihtml row=$searchResult}
 
-<p>{include file="common/bits/definition.ihtml row=$searchResult}</p>
+<div id="wotdPrevNext">
+  {if $prevday}<div class="prev"><a href="{$wwwRoot}cuvantul-zilei/{$prevday}">« precedentul</a></div>{/if}
+  {if $nextday}<div class="next"><a href="{$wwwRoot}cuvantul-zilei/{$nextday}" class="next">următorul »</a></div>{/if}
+  <div style="clear: both;"></div>
+</div>
+
+{if $imageUrl}
+  <div id="wotdImage">
+    <img src="{$imgRoot}/{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
+  </div>
+{/if}
+
+<br/>
 
 <p class="paragraphTitle">Arhiva cuvintelor zilei</p>
+
 <div id="wotdArchive" class="wotdArchive"></div>
 <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$timestamp|date_format:'%Y'}/{$timestamp|date_format:'%m'}','#wotdArchive')</script>
 

@@ -958,13 +958,6 @@ input.pagedisplay {
   border-radius: 7px;
 }
 
-.wotdArchiveTitle {
-  color: #444;
-  width: 767px;
-  margin: 10px 15px 0px 5px;
-  padding: 5px;
-}
-
 #wotdArchiveHeader {
   border-radius: 4px;
   -moz-border-radius: 4px;

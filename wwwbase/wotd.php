@@ -1,12 +1,14 @@
 <?php
 
+setlocale(LC_ALL, "ro_RO.utf8");
+define('WOTD_BIG_BANG', '2011-05-01');
+
 require_once("../phplib/util.php");
 $date = util_getRequestParameter('d');
 $type = util_getRequestParameter('t');
 
-# RSS stuff - could be separated from the rest
-# TODO optimize & factorize
-# TODO create new template for WotD stuff
+// RSS stuff - could be separated from the rest
+// TODO optimize & factorize
 if ($type == 'rss') {
   $words = WordOfTheDay::getRSSWotD();
   $results = array();
@@ -33,74 +35,51 @@ if ($type == 'rss') {
   exit;
 }
 
-# get today's date
-# check if there's defined a wotd
-# if yes return it
-# if not randomly choose one
-# save it to DB (actually save the today's date)
-  # and return it
+$today = date('Y-m-d', time());
+$timestamp = $date ? strtotime($date) : time();
+$mysqlDate = date("Y-m-d", $timestamp);
 
-  if ($date) {
-    $currentDate = strtotime($date);
-    $fdate = date("Y-m-d", $currentDate);
-    $titleDate = " ({$fdate})";
-    smarty_assign('fdate', $fdate);
-    // wotd navigator
-    $pre = 'cuvantul-zilei/';
-    $prev = strtotime("yesterday", $currentDate);
-    if ($prev > strtotime("2011/05/01")) {
-      $prevday = $pre . date("Y/m/d", $prev);
-      smarty_assign('prevday', $prevday);
-    }
-    $next = strtotime("tomorrow", $currentDate);
-    if ($next < time()) {
-      $nextday = $pre . date("Y/m/d", $next);
-      smarty_assign('nextday', $nextday);
-    }
-    $wotd = WordOfTheDay::getOldWotD($fdate);
+if ($mysqlDate < WOTD_BIG_BANG || $mysqlDate > $today) {
+  util_redirect(util_getWwwRoot() . 'cuvantul-zilei');
+}
+
+$wotd = WordOfTheDay::get_by_displayDate($mysqlDate);
+if (!$wotd) {
+  // We shouldn't have missing words since the Big Bang.
+  if ($mysqlDate != $today) {
+    util_redirect(util_getWwwRoot() . 'cuvantul-zilei');
   }
-  else {
-    $titleDate = "";
-    $wotd = WordOfTheDay::getTodaysWord();
-    if (!$wotd) {
-      WordOfTheDay::updateTodaysWord();
-      $wotd = WordOfTheDay::getTodaysWord();
-    }
-    #archive
-    #    $words = WordOfTheDay::getArchiveWotD();
-    #    smarty_assign('words', $words);
-  }
+  WordOfTheDay::updateTodaysWord();
+  $wotd = WordOfTheDay::get_by_displayDate($mysqlDate);
+}
+
+$archive = WordOfTheDay::getArchiveWotD(date('Y', $timestamp), date('m', $timestamp));
 
 $defId = WordOfTheDayRel::getRefId($wotd->id);
-$def = Model::factory('Definition')->where('id', $defId)->where('status', ST_ACTIVE)->find_one();
-$cuv = ($def && $def->lexicon) ? $def->lexicon : '';
+$def = Definition::get_by_id($defId);
+$searchResults = SearchResult::mapDefinitionArray(array($def));
+$pageTitle = sprintf("Cuvântul zilei: %s (%s)", $def->lexicon, date('j F Y', $timestamp));
 
-smarty_assign('page_title', "Cuvântul zilei{$titleDate}: {$cuv}");
-smarty_assign('page_keywords', "Cuvântul zilei, {$cuv}, dexonline, DEX online, Cuvântul zilei{$titleDate}");
-smarty_assign('page_description', "Cuvântul zilei{$titleDate} de la dexonline");
+if ($mysqlDate > WOTD_BIG_BANG) {
+  smarty_assign('prevday', date('Y/m/d', $timestamp - 86400));
+}
+if ($mysqlDate < $today) {
+  smarty_assign('nextday', date('Y/m/d', $timestamp + 86400));
+}
+
+smarty_assign('timestamp', $timestamp);
+smarty_assign('archive', $archive);
+smarty_assign('mysqlDate', $mysqlDate);
+smarty_assign('page_title', $pageTitle);
+smarty_assign('page_keywords', "Cuvântul zilei, {$def->lexicon}, dexonline, DEX online, $pageTitle");
+smarty_assign('page_description', "$pageTitle de la dexonline");
+smarty_assign('searchResult', array_pop($searchResults));
 
 if ($type == 'url') {
-  smarty_assign('wwwRoot', 'http://' . $_SERVER['HTTP_HOST'] . '/');
-  smarty_assign('title', $def->lexicon);
-  smarty_assign('today', date('Y/m/d'));
+  smarty_assign('today', $today);
   smarty_displayWithoutSkin('common/bits/wotdurl.ihtml');
-}
-else {
-  smarty_assign('defId', $defId);
-  smarty_assign('searchType', SEARCH_WOTD);
-  $definitions = array();
-  if ($def) {
-    $definitions[] = $def;
-  } elseif ($date && (time() < strtotime($date))) {
-    header("Location: /cuvantul-zilei");
-  }
-  else {
-    FlashMessage::add("Eroare: momentan „Cuvîntul zilei” nu funcționează.");
-  }
-  $searchResults = SearchResult::mapDefinitionArray($definitions);
-  smarty_assign('results', $searchResults);
-  smarty_assign('wotd', 1);
-  smarty_displayCommonPageWithSkin('search.ihtml');
+} else {
+  smarty_displayCommonPageWithSkin('wotd.ihtml');
 }
 
 ?>

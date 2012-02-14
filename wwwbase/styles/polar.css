@@ -412,13 +412,6 @@ th.headerSortDown {
   margin-bottom: 10px;
 }
 
-.wotdArchiveTitle {
-  font-family: sans-serif;
-  font-size: 85%;
-  font-weight: bold;
-  margin-top: 5px;
-}
-
 .wotdArchiveTable {
   font-family: sans-serif;
   border-collapse:collapse;

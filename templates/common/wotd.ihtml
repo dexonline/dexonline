@@ -1,0 +1,37 @@
+<p class="paragraphTitle">Cuvântul zilei, {$timestamp|date_format:'%e %B %Y'}</p>
+
+{*
+  {if $prevday}<a href="{$wwwRoot}cuvantul-zilei/{$prevday}">« precedentul</a>{/if}
+  {if $prevday && $nextday} | {/if}
+  {if $nextday}<a href="{$wwwRoot}cuvantul-zilei/{$nextday}">următorul »</a>{/if}
+*}
+
+<p>{include file="common/bits/definition.ihtml row=$searchResult}</p>
+
+<p class="paragraphTitle">Arhiva cuvintelor zilei</p>
+<div id="wotdArchive" class="wotdArchive"></div>
+<script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$timestamp|date_format:'%Y'}/{$timestamp|date_format:'%m'}','#wotdArchive')</script>
+
+{* Javascript for "Add to favorites" *}
+{if $sUser}
+  {literal}
+  <script type="text/javascript">
+  $(function () {
+    $('.bookmark-add-button').click(function () {
+      addBookmark($(this));
+      return false;
+    });
+  });
+  </script>
+  {/literal}
+{/if}
+
+{* Javascript for "Report a typo" *}
+{if !$suggestMinimalist}
+  <div id="typoDiv"></div>
+  {literal}
+  <script type="text/javascript">
+    $(".typoLink").click(showTypoForm);
+  </script>
+  {/literal}
+{/if}

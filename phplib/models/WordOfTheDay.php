@@ -30,10 +30,6 @@ class WordOfTheDay extends BaseObject {
     return Model::factory('WordOfTheDay')->select('id')->where_raw('displayDate = curdate()')->find_one();
   }
 
-  public static function getOldWotD($date) {
-    return WordOfTheDay::get_by_displayDate($date);
-  }
-
   public static function updateTodaysWord() {
     db_execute('update WordOfTheDay set displayDate=curdate() where displayDate is null order by priority, rand() limit 1');
   }

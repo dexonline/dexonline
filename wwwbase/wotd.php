@@ -17,10 +17,13 @@ if ($type == 'rss') {
     $ts = strtotime($w->displayDate);
     $defId = WordOfTheDayRel::getRefId($w->id);
     $def = Model::factory('Definition')->where('id', $defId)->where('status', ST_ACTIVE)->find_one();
+    smarty_assign('def', $def);
+    smarty_assign('imageUrl', $w->getImageUrl());
+    smarty_assign('fullServerUrl', util_getFullServerUrl());
     $item['title'] = $def->lexicon;
-    $item['description'] = $def->htmlRep;
+    $item['description'] = smarty_fetch('common/bits/wotdRssItem.ihtml');
     $item['pubDate'] = date('D, d M Y H:i:s', $ts) . ' EEST';
-    $item['link'] = 'http://' . $_SERVER['HTTP_HOST'] . '/cuvantul-zilei/' . date('Y/m/d', $ts);
+    $item['link'] = util_getFullServerUrl() . 'cuvantul-zilei/' . date('Y/m/d', $ts);
 
     $results[] = $item;
   }
@@ -67,10 +70,7 @@ if ($mysqlDate < $today) {
   smarty_assign('nextday', date('Y/m/d', $timestamp + 86400));
 }
 
-if ($wotd->image && file_exists(util_getRootPath() . "wwwbase/img/wotd/{$wotd->image}")) {
-  smarty_assign('imageUrl', "wotd/{$wotd->image}"); // Relative to the image path
-}
-
+smarty_assign('imageUrl', $wotd->getImageUrl());
 smarty_assign('timestamp', $timestamp);
 smarty_assign('archive', $archive);
 smarty_assign('mysqlDate', $mysqlDate);

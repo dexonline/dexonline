@@ -1,0 +1,5 @@
+{$def->htmlRep}
+{if $imageUrl}
+  <br/>
+  <img src="{$fullServerUrl}img/{$imageUrl}" alt="{$def->lexicon}"/>
+{/if}

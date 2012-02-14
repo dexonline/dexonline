@@ -39,6 +39,13 @@ class WordOfTheDay extends BaseObject {
       ->where('R.refId', $refId)->where('refType', $refType)->find_one();
     return $result ? $result->id : NULL;
   }
+
+  public function getImageUrl() {
+    if ($this->image && file_exists(util_getRootPath() . "wwwbase/img/wotd/{$this->image}")) {
+      return "wotd/{$this->image}"; // Relative to the image path
+    }
+    return null;
+  }
 }
 
 ?>

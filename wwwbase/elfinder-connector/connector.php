@@ -5,6 +5,7 @@ if (function_exists('date_default_timezone_set')) {
 	date_default_timezone_set('Europe/Moscow');
 }
 
+include_once __DIR__ . '/../../phplib/util.php';
 include_once __DIR__ . '/elFinder.class.php';
 
 /**
@@ -28,7 +29,7 @@ class elFinderLogger implements elFinderILogger {
 
 $opts = array(
 	'root'            => __DIR__ . '/../img/wotd/',                       // path to root directory
-	'URL'             => 'http://dexonline.ro/img/wotd/', // root directory URL
+	'URL'             => util_getFullServerUrl() . '/img/wotd/', // root directory URL
 	'rootAlias'       => 'Imagini cuvântul zilei',       // display this instead of root directory name
         'debug' => true,
 	'uploadAllow'   => array('images/*'),

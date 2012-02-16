@@ -101,9 +101,9 @@ span.defDetails a:hover {
 
 div.debugInfo {
   border-top: 1px solid #777777;
-	font-size: 75%;
+  font-size: 75%;
   margin-top: 20px;
-	color: #777777;
+  color: #777777;
 }
 
 div.adminRecentlyVisited {
@@ -365,4 +365,9 @@ div.infoType {
   background: url("../img/icons/info.png") no-repeat 10px center;
   border: 2px solid #a7ee7e;
   color: green;
+}
+
+.helpLink {
+  background: url("../img/icons/help.png") no-repeat;
+  padding-left: 20px;
 }

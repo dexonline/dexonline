@@ -10,7 +10,8 @@
 
   <body>
     {include file="admin/header.ihtml" title="DEX online - Imagini pentru cuvântul zilei"}
-    <a href="wotd.php">Lista cuvintelor zilei</a>
+    <a href="wotd.php">Lista cuvintelor zilei</a> |
+    <a class="helpLink" href="http://wiki.dexonline.ro/wiki/CuvântulZilei">instrucțiuni</a>
 
     <div id="fileManager">
     </div>

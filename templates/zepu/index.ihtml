@@ -12,6 +12,7 @@
 <div class="clearer"></div>
 
 <div id="wotd" class="statusReportMini">
+  {if $thumbUrl}<img src="{$imgRoot}/{$thumbUrl}" alt="iconiță cuvântul zilei"/>{/if}
   Cuvântul zilei: {include file="common/bits/wotdurl.ihtml" title=$title}
 </div>
 <div id="wotdShadow"></div>

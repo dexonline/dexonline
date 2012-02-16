@@ -11,6 +11,7 @@
 {if $imageUrl}
   <div id="wotdImage">
     <img src="{$imgRoot}/{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
+    <div class="copyright">imagine © Vasile Alboiu</div>
   </div>
 {/if}
 

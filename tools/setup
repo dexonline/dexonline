@@ -18,6 +18,7 @@ touch log/scriptlog
 chmod 666 log/scriptlog
 chmod 777 templates_c
 chmod 777 wwwbase/img/wotd
+chmod 777 wwwbase/img/wotd/thumb
 
 if [ ! -e wwwbase/.htaccess ]
 then

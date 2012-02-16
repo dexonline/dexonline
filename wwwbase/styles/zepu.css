@@ -351,6 +351,10 @@ img {
   text-align: center;
 }
 
+.statusReportMini img {
+  vertical-align: middle;
+}
+
 #wotdShadow {
   background: url("../img/zepu/shadows/shadow216.png") no-repeat;
   height: 14px;
@@ -1037,6 +1041,15 @@ input.pagedisplay {
 #wotdImage {
   text-align: center;
 }
+
+#wotdImage .copyright {
+  color: #aaa;
+  margin: 0px auto;
+  padding-top: 2px;
+  text-align: right;
+  width: 300px;
+}
+
 /* end word of the day archive */
 
 

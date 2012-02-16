@@ -1,7 +1,14 @@
 <?php
 
+WordOfTheDay::$IMAGE_DIR = util_getRootPath() . "wwwbase/img/wotd";
+WordOfTheDay::$THUMB_DIR = util_getRootPath() . "wwwbase/img/wotd/thumb";
+WordOfTheDay::$THUMB_SIZE = 48;
+
 class WordOfTheDay extends BaseObject {
   public static $_table = 'WordOfTheDay';
+  public static $IMAGE_DIR;
+  public static $THUMB_DIR;
+  public static $THUMB_SIZE;
 
   public static function getRSSWotD() {
     return Model::factory('WordOfTheDay')->where_gt('displayDate', '2011-01-01')->where_raw('displayDate < NOW()')
@@ -27,7 +34,7 @@ class WordOfTheDay extends BaseObject {
   }
 
   public static function getTodaysWord() {
-    return Model::factory('WordOfTheDay')->select('id')->where_raw('displayDate = curdate()')->find_one();
+    return Model::factory('WordOfTheDay')->where_raw('displayDate = curdate()')->find_one();
   }
 
   public static function updateTodaysWord() {
@@ -41,10 +48,32 @@ class WordOfTheDay extends BaseObject {
   }
 
   public function getImageUrl() {
-    if ($this->image && file_exists(util_getRootPath() . "wwwbase/img/wotd/{$this->image}")) {
+    if ($this->image && file_exists(self::$IMAGE_DIR . "/{$this->image}")) {
       return "wotd/{$this->image}"; // Relative to the image path
     }
     return null;
+  }
+
+  public function getThumbUrl() {
+    if ($this->image && file_exists(self::$THUMB_DIR . "/{$this->image}")) {
+      return "wotd/thumb/{$this->image}"; // Relative to the image path
+    }
+    return null;
+  }
+
+  public function ensureThumbnail() {
+    if (!$this->image) {
+      return;
+    }
+    $fullImage = self::$IMAGE_DIR . "/{$this->image}";
+    $fullThumb = self::$THUMB_DIR . "/{$this->image}";
+    if (!file_exists($fullThumb)) {
+      $oldumask = umask(0);
+      @mkdir(dirname($fullThumb), 0777, true);
+      umask($oldumask);
+      OS::executeAndAssert(sprintf("convert -geometry %dx%d -sharpen 1x1 '%s' '%s'",
+                                   self::$THUMB_SIZE, self::$THUMB_SIZE, $fullImage, $fullThumb));
+    }
   }
 }
 

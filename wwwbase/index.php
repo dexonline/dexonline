@@ -19,8 +19,10 @@ if (!$wotd) {
   WordOfTheDay::updateTodaysWord();
   $wotd = WordOfTheDay::getTodaysWord();
 }
+$wotd->ensureThumbnail();
 $defId = WordOfTheDayRel::getRefId($wotd->id);
 $def = Model::factory('Definition')->where('id', $defId)->where('status', ST_ACTIVE)->find_one();
+smarty_assign('thumbUrl', $wotd->getThumbUrl());
 smarty_assign('title', $def->lexicon);
 smarty_assign('today', date('Y/m/d'));
 

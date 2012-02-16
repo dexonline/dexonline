@@ -2,7 +2,6 @@
 
 class OS {
   static function errorAndExit($msg) {
-    fprintf(STDERR, "ERROR: $msg\n");
     log_scriptLog("ERROR: $msg\n");
     exit(1);
   }

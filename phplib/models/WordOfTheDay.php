@@ -67,7 +67,7 @@ class WordOfTheDay extends BaseObject {
     }
     $fullImage = self::$IMAGE_DIR . "/{$this->image}";
     $fullThumb = self::$THUMB_DIR . "/{$this->image}";
-    if (!file_exists($fullThumb)) {
+    if (!file_exists($fullThumb) && file_exists($fullImage)) {
       $oldumask = umask(0);
       @mkdir(dirname($fullThumb), 0777, true);
       umask($oldumask);

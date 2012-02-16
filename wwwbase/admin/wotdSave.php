@@ -85,9 +85,7 @@ class wotdSave{
       $wotd = Model::factory('WordOfTheDay')->create();
     }
 
-    if ($this->displayDate) {
-      $wotd->displayDate = $this->displayDate;
-    }
+    $wotd->displayDate = $this->displayDate ? $this->displayDate : null;
     $wotd->userId = session_getUserId();
     $wotd->priority = $this->priority;
     $wotd->image = $this->image;

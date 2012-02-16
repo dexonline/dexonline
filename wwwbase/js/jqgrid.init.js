@@ -55,26 +55,40 @@ function initGrid(){
       viewRecords: true,
       sortOrder: 'desc',
       caption: 'Cuvântul zilei',
-      editurl: 'wotdSave.php'
+      editurl: 'wotdSave.php',
     });
     $('#wotdGrid').navGrid('#wotdPaging', {},
       {
+        // Settings for edit
         reloadAfterSubmit: true,
+        closeAfterEdit: true,
+        closeOnEscape: true,
         beforeSubmit: function(data){
           return beforeSubmit(data);
         },
         afterShowForm: function(id){
           beginEdit(id);
-        }
+        },
       },
       {
+        // Settings for add
         reloadAfterSubmit: true,
+        closeAfterAdd: true,
+        closeOnEscape: true,
         beforeSubmit: function(data){
           return beforeSubmit(data);
         },
         afterShowForm: function(id){
           beginEdit(id);
-        }
+        },
+      },
+      {
+        // Settings for delete
+      },
+      {
+        // Settings for search
+        closeOnEscape: true,
+        closeAfterReset: true,
       }
     );
   });

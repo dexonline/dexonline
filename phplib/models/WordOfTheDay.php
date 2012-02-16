@@ -71,7 +71,7 @@ class WordOfTheDay extends BaseObject {
       $oldumask = umask(0);
       @mkdir(dirname($fullThumb), 0777, true);
       umask($oldumask);
-      OS::executeAndAssert(sprintf("convert -geometry %dx%d -sharpen 1x1 '%s' '%s'",
+      OS::executeAndAssert(sprintf("convert -strip -geometry %dx%d -sharpen 1x1 '%s' '%s'",
                                    self::$THUMB_SIZE, self::$THUMB_SIZE, $fullImage, $fullThumb));
     }
   }

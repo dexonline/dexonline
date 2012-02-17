@@ -54,7 +54,6 @@
 	<b>Informații diverse</b>
 
 	<ul>
-		<li><a href="#DICT"><i>DEX online</i> implementează protocolul DICT?</a></li>
 		<li><a href="#lista_email">Aveți o listă de e-mail?</a></li>
 		<li><a href="#mirrors">Aveți un mirror (server-oglindă) mai rapid?</a></li>
 		<li><a href="#database">Cum obțin o copie a bazei de date?</a></li>
@@ -543,13 +542,6 @@
 		e-mailuri. OTRS permite răspunsuri-tip cu care putem procesa foarte
 		ușor majoritatea mesajelor primite. <a
 		href="contact">Scrieți-ne</a> dacă sunteți interesat.
-
-
-	<h3><a name="DICT"></a><i>DEX online</i> implementează protocolul DICT?</h3>
-
-		Da. Configurați aplicația folosită (de exemplu gnome-dictionary) cu
-		serverul dexonline.ro (sau oricare dintre <a
-		href="#mirrors">mirror-uri (servere-oglindă)</a>) și portul 2628.
 
 
 	<h3><a name="lista_email"></a>Aveți o listă de e-mail?</h3>

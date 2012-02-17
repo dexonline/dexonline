@@ -55,11 +55,11 @@ class wotdTableRows{
    * @param int $limit The number of records to retrieve
    * @param int $sidx The index row - i.e. user click to sort
    * @param string $sord The sort order
-   * @param array $search If this is a search, just set the values for an associative array with the keys: field, value, operator [OPTIONAL]
+   * @param array $filters: an array of (field, op, data) triplets
    * @access public
    * @return void
    **/
-  public function __construct($page, $limit, $sidx, $sord, $search = null){
+  public function __construct($page, $limit, $sidx, $sord, $filters = null){
     $this->page = $page;
     $this->limit = $limit;
     $this->sidx = $sidx;
@@ -78,40 +78,16 @@ inner join Source s on d.sourceId = s.id
 inner join User u on w.userId = u.id
 sql;
 
-    if ($search == null){
+    if (empty($filters) || empty($filters['rules'])){
       $this->where_condition = '';
-    }
-    else {
-      $value = str_replace("'", "\\'", $search['value']);
-      switch ($search['operator']){
-        case 'eq': $op = '='; $value = "'" . str_replace("'", "\\'", $value) . "'"; break;
-        case 'ne': $op = '<>'; $value = "'" . str_replace("'", "\\'", $value) . "'"; break;
-        case 'lt': $op = '<'; $value = "'" . str_replace("'", "\\'", $value) . "'"; break;
-        case 'gt': $op = '>'; $value = "'" . str_replace("'", "\\'", $value) . "'"; break;
-        case 'ge': $op = '>='; $value = "'" . str_replace("'", "\\'", $value) . "'"; break;
-        case 'bw': $op = 'like'; $value = "'" . str_replace("'", "\\'", $value) . "%'"; break;
-        case 'bn': $op = 'not like'; $value = "'" . str_replace("'", "\\'", $value) . "%'"; break;
-        case 'in': 
-        case 'ni':
-          $op = ($search['operator'] == 'in' ? 'in' : 'not in');
-          $values = explode(',', $value);
-          $v = '';
-          foreach ($values as $value){
-            $v .= ($v == '' ? '' : ', ') . "'" . str_replace("'", "\\'", trim($value)) . "'";
-          }
-          $value = "({$v})";
-        break;
-        case 'ew': $op = 'like'; $value = "'%" . str_replace("'", "\\'", $value) . "'"; break;
-        case 'en': $op = 'not like'; $value = "'%" . str_replace("'", "\\'", $value) . "'"; break;
-        case 'cn': $op = 'like'; $value = "'%" . str_replace("'", "\\'", $value) . "%'"; break;
-        case 'nc': $op = 'not like'; $value = "'%" . str_replace("'", "\\'", $value) . "%'"; break;
+    } else {
+      $filterClauses = array();
+      foreach ($filters['rules'] as $filter) {
+        // Treat all searches like substring searches
+        $filterClauses[] = sprintf('(%s like "%%%s%%")', $filter['field'], $filter['data']);
       }
-      $this->where_condition = <<<sql
-where
- `{$search['field']}` {$op} {$value}
-sql;
+      $this->where_condition = 'where ' . implode(' and ', $filterClauses);
     }
-
   }
 
   /**
@@ -149,6 +125,7 @@ sql;
     $sql = <<<sql
 select count(*) from {$this->sql_base} {$this->where_condition}
 sql;
+
     $count = db_getSingleValue($sql);
 
     $sql = <<<sql
@@ -205,9 +182,7 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_WOTD);
 util_assertNotMirror();
 $app = new wotdTableRows($_GET['page'], $_GET['rows'], $_GET['sidx'], $_GET['sord'],
-                         (array_key_exists('_search', $_GET) && $_GET['_search'] == 'true'
-                          ? array('field' => $_GET['searchField'], 'value' => $_GET['searchString'], 'operator' => $_GET['searchOper'])
-                          : null));
+                         array_key_exists('filters', $_GET) ? json_decode($_GET['filters'], true) : null);
 $app->run();
 
 ?>

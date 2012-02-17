@@ -36,7 +36,7 @@ function initGrid(){
       datatype: 'xml',
       colNames: ['Sursa', 'Lexicon', 'Definiție', 'Adăugată la WotD de', 'Data afișării', 'Prioritate', 'Tipul resursei', 'Imagine', 'ID-ul definiției'],
       colModel: [
-        {name: 'source', index: 'source', width: 100},
+        {name: 'source', index: 'shortName', width: 100},
         {name: 'lexicon', index: 'lexicon', editable: true},
         {name: 'htmlRep', index: 'htmlRep', width: 600},
         {name: 'name', index: 'u.name'},
@@ -57,7 +57,14 @@ function initGrid(){
       caption: 'Cuvântul zilei',
       editurl: 'wotdSave.php',
     });
-    $('#wotdGrid').navGrid('#wotdPaging', {},
+    $('#wotdGrid').navGrid('#wotdPaging',
+      {
+        search: false,
+        addtext: 'adaugă',
+        deltext: 'șterge',
+        edittext: 'editează',
+        refreshtext: 'reîncarcă',
+      },
       {
         // Settings for edit
         reloadAfterSubmit: true,
@@ -81,15 +88,10 @@ function initGrid(){
         afterShowForm: function(id){
           beginEdit(id);
         },
-      },
-      {
-        // Settings for delete
-      },
-      {
-        // Settings for search
-        closeOnEscape: true,
-        closeAfterReset: true,
       }
     );
+    $('#wotdGrid').filterToolbar({
+      stringResult: true,
+    });
   });
 }

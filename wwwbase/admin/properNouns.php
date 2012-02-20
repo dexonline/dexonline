@@ -11,9 +11,11 @@ if ($submitButton) {
   // Collect all affected lexems beforehand
   $lexemMap = array();
   $errorMap = array();
+  $deleteMap = array();
   foreach ($_REQUEST as $name => $value) {
     if ((StringUtil::startsWith($name, 'caps_') || StringUtil::startsWith($name, 'model_') || StringUtil::startsWith($name, 'comment_') ||
-         StringUtil::startsWith($name, 'singular_') || StringUtil::startsWith($name, 'plural_') || StringUtil::startsWith($name, 'verifSp_'))
+         StringUtil::startsWith($name, 'singular_') || StringUtil::startsWith($name, 'plural_') || StringUtil::startsWith($name, 'verifSp_') ||
+         StringUtil::startsWith($name, 'delete_') || StringUtil::startsWith($name, 'deleteConfirm_'))
          && $value) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
@@ -74,13 +76,26 @@ if ($submitButton) {
           $l->comment = $value;
         }
         break;
+
+      case 'delete':
+      case 'deleteConfirm':
+        $deleteMap[$l->id] = array_key_exists($l->id, $deleteMap) ? ($deleteMap[$l->id] + 1) : 1;
+        break;
       }
+    }
+  }
+
+  // Delete lexems
+  foreach ($deleteMap as $lId => $value) {
+    if ($value == 2) { // Checked and confirmed
+      $l = Lexem::get_by_id($lId);
+      $l->delete();
     }
   }
 
   // Now save the ones that can be saved and present errors for the others
   foreach ($lexemMap as $id => $l) {
-    if (!array_key_exists($id, $errorMap)) {
+    if (!array_key_exists($id, $errorMap) && !array_key_exists($id, $deleteMap)) {
       $l->save();
       $l->regenerateParadigm();
     }
@@ -90,9 +105,14 @@ if ($submitButton) {
 $deSource = Source::get_by_shortName('DE');
 $lexems = Model::factory('Lexem')->distinct()->select('Lexem.*')
   ->join('LexemDefinitionMap', 'Lexem.id = lexemId')->join('Definition', 'definitionId = Definition.id')
-  ->where('status', 0)->where('sourceId', $deSource->id)->where_like('formNoAccent', "$prefix%")->where('verifSp', 0)
+  ->where('status', 0)->where('sourceId', $deSource->id)->where('isLoc', 0)->where_like('formNoAccent', "$prefix%")->where('verifSp', 0)
   ->where_not_equal('modelType', 'SP')
   ->order_by_asc('formNoAccent')->limit(100)->find_many();
+
+foreach ($lexems as $l) {
+  $l->restrP = (strpos($l->restriction, 'P') !== false);
+  $l->restrS = (strpos($l->restriction, 'S') !== false);
+}
 
 RecentLink::createOrUpdate('Marcare substantive proprii');
 smarty_assign('sectionTitle', 'Marcare substantive proprii');

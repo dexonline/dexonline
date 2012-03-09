@@ -14,7 +14,7 @@
     <link href="{$wwwRoot}styles/polar.css?v=28" rel="stylesheet" type="text/css"/>
 {/if}
 {if isset($zepu)}
-    <link href="{$wwwRoot}styles/zepu.css?v=39" rel="stylesheet" type="text/css"/>
+    <link href="{$wwwRoot}styles/zepu.css?v=40" rel="stylesheet" type="text/css"/>
 {/if}
 {* External resources *}
 {if isset($autocomplete)}

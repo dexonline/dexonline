@@ -5,7 +5,7 @@
   Internațional</a> și <a href="{$wwwRoot}spre/saeculum">Saeculum</a>, care ne-au pus la dispoziție cinci dicționare complete.
 </p>
 
-<div id="wotd" class="statusReportMini">
+<div id="wotd" class="widget">
   Cuvântul zilei: {include file="common/bits/wotdurl.ihtml"}
 </div>
 <br/>

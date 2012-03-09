@@ -8,7 +8,7 @@ $scribanSrc = Source::get_by_shortName('scriban');
 foreach ($lines as $line) {
   $line = mb_strtolower(trim($line));
   if ($line) {
-    $symbol = $line[0];
+    $symbol = ($line[0] == '!') ? '!' : '*';
     $line = str_replace(array('ş', 'ţ', '*', '!'), array('ș', 'ț', '', ''), $line);
     $query = Model::factory('Definition')->where('sourceId', $scribanSrc->id)->where('status', 0);
     if (ctype_digit($line)) {

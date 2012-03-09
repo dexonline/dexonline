@@ -1,4 +1,4 @@
-<div id="wotdMobile" class="statusReportMini">
+<div id="wotdMobile" class="widget">
   Cuvântul zilei: {include file="common/bits/wotdurl.ihtml"}
 </div>
 

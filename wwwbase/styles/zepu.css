@@ -58,7 +58,6 @@ p {
 
 .clearer {
   clear: both;
-  height: 1px;
 }
 
 abbr {
@@ -336,29 +335,45 @@ img {
 
 /* paragraphTitle was here */
 
+#widgetWrapper {
+  margin: 35px auto 0px;
+  vertical-align: top;
+  width: 460px;
+}
+
+.widgetAndShadowLeft {
+  float: left;
+}
+
+.widgetAndShadowRight {
+  float: right;
+}
 
 /* WORD OF THE DAY */
-.statusReportMini {
+.widget {
   background: #eee;
   border: 1px solid #BFBFBF;
   border-radius: 4px;
   -moz-border-radius: 4px;
   color: #424242;
   font-size: 12px;
-  margin: 35px auto 0px;
+  height: 48px;
+  line-height: 44px;
   padding: 8px;
-  width: 200px;
   text-align: center;
+  width: 200px;
+  white-space: nowrap;
 }
 
-.statusReportMini img {
+.widget img {
   vertical-align: middle;
 }
 
-#wotdShadow {
+.widgetShadow {
   background: url("../img/zepu/shadows/shadow216.png") no-repeat;
   height: 14px;
-  margin: 0px 0px 15px 330px; /* it was 0,0,35,330; I added margin-top:20px to fb_bottom, then I subtracted 20px from margin-bottom of wotdShadow */
+  margin: 0px 0px 15px 0px; /* it was 0,0,35,330; I added margin-top:20px to fb_bottom, then I subtracted 20px from margin-bottom of widgetShadow */
+  width: 216px;
 }
 
 
@@ -382,9 +397,8 @@ img {
   color: #424242;
   font-size: 10px;
   margin: 25px auto 20px;
-  padding-left: 31px;
   text-align: center;
-  width: 550px;
+  width: 560px;
 }
 
 
@@ -397,7 +411,7 @@ img {
   color: #424242;
   font-size: 10px;
   line-height: 150%;
-  margin: 5px 0px 0px 182px;
+  margin: 5px 0px 0px 167px;
   padding: 5px;
   width: 528px;
   text-align: center;
@@ -406,7 +420,7 @@ img {
 #statusReportShadow {
   background: url("../img/zepu/shadows/shadow538.png") no-repeat;
   height: 21px;
-  margin-left: 185px;
+  margin-left: 168px;
   width: 538px;
 }
 

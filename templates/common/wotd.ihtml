@@ -15,52 +15,52 @@
   </div>
 {/if}
 
-<div id="wotdSocialMedia">
-  Cuvântul zilei prin:
-  <img src="{$imgRoot}/social-media/Email-32.png" alt="iconiță email"/>
-  <a href="http://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/Rss-32.png" alt="iconiță RSS"/></a>
-  <a href="http://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/Facebook-32.png" alt="iconiță Facebook"/></a>
-  <span id="toggleTitle" class="toggleClosed">detalii</span>
-</div>
-
-<div id="toggleContents">
-  <ul>
-
-    <li><b>Email:</b> <i>DEX online</i> nu oferă cuvântul zilei direct prin email. Există însă <a
-    href="http://www.google.com/search?q=rss+by+email">numeroase site-uri</a> care fac acest lucru pentru orice RSS. Vă recomandăm <a
-    href="http://www.feedmyinbox.com/">feed my inbox</a>:
-
-      <ul>
-        <li>La <i>Website or Feed URL</i> introduceți <code>http://dexonline.ro/rss/cuvantul-zilei</code></li>
-	<li>La <i>Your Email Address</i> introduceți adresa dumneavoastră de e-mail</li>
-	<li>Apăsasați <i>Submit</i>
-	<li>Veți primi un e-mail pentru confirmarea abonării</li>
-	<li>În continuare veți primi zilnic câte un email cu cuvântul zilei.</li>
-      </ul>
-    </li>
-
-    <li><b>RSS:</b> Dacă folosiți un cititor de bloguri ca Google Reader, puteți adăuga <a href="http://dexonline.ro/rss/cuvantul-zilei">feed-ul pentru cuvântul
-    zilei</a> la lista urmărită.</li>
-
-    <li><b>Facebook:</b> Cuvântul zilei este publicat automat și pe Facebook. Puteți aprecia <a href="http://www.facebook.com/dexonline">pagina DEX online</a> pentru a
-    primi cuvântul zilei cu fluxul dumneavoastră de știri.</li>
-
-  </ul>
-</div>
-
-<script type="text/javascript"> 
-  $(function() {ldelim}
-    $('#toggleTitle').click(function() {ldelim}
-      $('#toggleContents').slideToggle(200);
-      $('#toggleTitle').toggleClass('toggleOpen');
-      $('#toggleTitle').toggleClass('toggleClosed');
+{if !$suggestMinimalist}
+  <div id="wotdSocialMedia">
+    <img src="{$imgRoot}/social-media/Email-32.png" alt="iconiță email"/>
+    <a type="application/rss+xml" href="http://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/Rss-32.png" alt="iconiță RSS"/></a>
+    <a href="http://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/Facebook-32.png" alt="iconiță Facebook"/></a>
+    <span id="toggleTitle" class="toggleClosed">detalii</span>
+  </div>
+  
+  <div id="toggleContents">
+    <ul>
+  
+      <li><b>Email:</b> <i>DEX online</i> nu oferă cuvântul zilei direct prin email. Există însă <a
+      href="http://www.google.com/search?q=rss+by+email">numeroase site-uri</a> care fac acest lucru pentru orice RSS. Vă recomandăm <a
+      href="http://www.feedmyinbox.com/">feed my inbox</a>:
+  
+        <ul>
+          <li>La <i>Website or Feed URL</i> introduceți <code>http://dexonline.ro/rss/cuvantul-zilei</code></li>
+  	<li>La <i>Your Email Address</i> introduceți adresa dumneavoastră de e-mail</li>
+  	<li>Apăsasați <i>Submit</i>
+  	<li>Veți primi un e-mail pentru confirmarea abonării</li>
+  	<li>În continuare veți primi zilnic câte un email cu cuvântul zilei.</li>
+        </ul>
+      </li>
+  
+      <li><b>RSS:</b> Dacă folosiți un cititor de bloguri ca Google Reader, puteți adăuga <a href="http://dexonline.ro/rss/cuvantul-zilei">feed-ul
+      pentru cuvântul zilei</a> la lista urmărită.</li>
+  
+      <li><b>Facebook:</b> Cuvântul zilei este publicat automat și pe Facebook. Puteți aprecia <a href="http://www.facebook.com/dexonline">pagina DEX
+      online</a> pentru a primi cuvântul zilei cu fluxul dumneavoastră de știri.</li>
+  
+    </ul>
+  </div>
+  
+  <script type="text/javascript"> 
+    $(function() {ldelim}
+      $('#toggleTitle').click(function() {ldelim}
+        $('#toggleContents').slideToggle(200);
+        $('#toggleTitle').toggleClass('toggleOpen');
+        $('#toggleTitle').toggleClass('toggleClosed');
+      {rdelim});
     {rdelim});
-  {rdelim});
-</script> 
+  </script> 
 
-
-<br/>
-
+  <br/>
+{/if}
+  
 <p class="paragraphTitle">Arhiva cuvintelor zilei</p>
 
 <div id="wotdArchive" class="wotdArchive"></div>

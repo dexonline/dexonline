@@ -459,6 +459,36 @@ th.headerSortDown {
   padding-left: 210px;
 }
 
+#wotdSocialMedia {
+  margin-top: 10px;
+}
+
+#wotdSocialMedia img {
+  vertical-align: middle;
+}
+
+#toggleTitle {
+  color: blue;
+  cursor: pointer;
+  padding-left: 20px;
+  text-decoration: underline;
+}
+
+#toggleContents {
+  display: none;
+  border: 1px solid #ccc;
+  margin: 5px 10px 0;
+  padding: 5px;
+}
+
+.toggleOpen {
+  background: url("../img/icons/bullet_arrow_up.png") no-repeat;
+}
+
+.toggleClosed {
+  background: url("../img/icons/bullet_arrow_down.png") no-repeat;
+}
+
 .warning {
   background: url("../img/icons/exclamation.png") no-repeat 0px center;
   padding: 5px 20px;

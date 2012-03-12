@@ -1065,7 +1065,7 @@ input.pagedisplay {
 }
 
 #wotdSocialMedia {
-  margin-top: 10px;
+  float: right;
 }
 
 #wotdSocialMedia img {
@@ -1083,8 +1083,13 @@ input.pagedisplay {
 }
 
 #toggleContents {
+  border: 1px solid #BFBFBF;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
   display: none;
-  border: 1px solid #ccc;
+  -webkit-box-shadow: 2px 2px 5px #424242; /* Safari and Chrome */
+  box-shadow: 2px 2px 5px #424242; /* FF 4 ; CSS3 */
+  -moz-box-shadow: 2px 2px 5px #424242; /* FF 3.5-3.6 */
   margin: 5px 10px 0;
   padding: 5px;
 }

@@ -1,28 +1,17 @@
-<p class="paragraphTitle">Cuvântul zilei, {$timestamp|date_format:'%e %B %Y'}</p>
-
-{include file="common/bits/definition.ihtml row=$searchResult}
-
-<div id="wotdPrevNext">
-  {if $prevday}<div class="prev"><a href="{$wwwRoot}cuvantul-zilei/{$prevday}">« precedentul</a></div>{/if}
-  {if $nextday}<div class="next"><a href="{$wwwRoot}cuvantul-zilei/{$nextday}" class="next">următorul »</a></div>{/if}
-  <div style="clear: both;"></div>
+<div>
+  {if !$suggestMinimalist}
+    <div id="wotdSocialMedia">
+      <img src="{$imgRoot}/social-media/Email-32.png" alt="iconiță email"/>
+      <a type="application/rss+xml" href="http://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/Rss-32.png" alt="iconiță RSS"/></a>
+      <a href="http://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/Facebook-32.png" alt="iconiță Facebook"/></a>
+      <span id="toggleTitle" class="toggleClosed">detalii</span>
+    </div>
+  {/if}
+  <p class="paragraphTitle">Cuvântul zilei, {$timestamp|date_format:'%e %B %Y'}</p>
 </div>
 
-{if $imageUrl}
-  <div id="wotdImage">
-    <img src="{$imgRoot}/{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
-    <div class="copyright">imagine © Vasile Alboiu</div>
-  </div>
-{/if}
-
-{if !$suggestMinimalist}
-  <div id="wotdSocialMedia">
-    <img src="{$imgRoot}/social-media/Email-32.png" alt="iconiță email"/>
-    <a type="application/rss+xml" href="http://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/Rss-32.png" alt="iconiță RSS"/></a>
-    <a href="http://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/Facebook-32.png" alt="iconiță Facebook"/></a>
-    <span id="toggleTitle" class="toggleClosed">detalii</span>
-  </div>
   
+{if !$suggestMinimalist}
   <div id="toggleContents">
     <ul>
   
@@ -57,35 +46,46 @@
       {rdelim});
     {rdelim});
   </script> 
-
-  <br/>
 {/if}
   
-<p class="paragraphTitle">Arhiva cuvintelor zilei</p>
+{include file="common/bits/definition.ihtml row=$searchResult}
 
-<div id="wotdArchive" class="wotdArchive"></div>
-<script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$timestamp|date_format:'%Y'}/{$timestamp|date_format:'%m'}','#wotdArchive')</script>
+<div id="wotdPrevNext">
+  {if $prevday}<div class="prev"><a href="{$wwwRoot}cuvantul-zilei/{$prevday}">« precedentul</a></div>{/if}
+  {if $nextday}<div class="next"><a href="{$wwwRoot}cuvantul-zilei/{$nextday}">următorul »</a></div>{/if}
+  <div style="clear: both;"></div>
+</div>
 
-{* Javascript for "Add to favorites" *}
-{if $sUser}
-  {literal}
-  <script type="text/javascript">
-  $(function () {
-    $('.bookmark-add-button').click(function () {
-      addBookmark($(this));
-      return false;
-    });
-  });
-  </script>
-  {/literal}
+{if $imageUrl}
+  <div id="wotdImage">
+    <img src="{$imgRoot}/{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
+    <div class="copyright">imagine © Vasile Alboiu</div>
+  </div>
 {/if}
 
-{* Javascript for "Report a typo" *}
 {if !$suggestMinimalist}
+  <p class="paragraphTitle">Arhiva cuvintelor zilei</p>
+
+  <div id="wotdArchive" class="wotdArchive"></div>
+  <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$timestamp|date_format:'%Y'}/{$timestamp|date_format:'%m'}','#wotdArchive')</script>
+
+  {* Javascript for "Add to favorites" *}
+  {if $sUser}
+    {literal}
+    <script type="text/javascript">
+    $(function () {
+      $('.bookmark-add-button').click(function () {
+        addBookmark($(this));
+        return false;
+      });
+    });
+    </script>
+    {/literal}
+  {/if}
+
+  {* Javascript for "Report a typo" *}
   <div id="typoDiv"></div>
-  {literal}
   <script type="text/javascript">
     $(".typoLink").click(showTypoForm);
   </script>
-  {/literal}
 {/if}

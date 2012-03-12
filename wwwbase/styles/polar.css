@@ -460,7 +460,7 @@ th.headerSortDown {
 }
 
 #wotdSocialMedia {
-  margin-top: 10px;
+  float: right;
 }
 
 #wotdSocialMedia img {

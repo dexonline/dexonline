@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../phplib/util.php';
 
-$lines = file('/tmp/Scriban.txt');
+$lines = file('/tmp/scriban.txt');
 $scribanSrc = Source::get_by_shortName('scriban');
 
 foreach ($lines as $line) {
@@ -10,9 +10,17 @@ foreach ($lines as $line) {
   if ($line) {
     $symbol = ($line[0] == '!') ? '!' : '*';
     $line = str_replace(array('ş', 'ţ', '*', '!'), array('ș', 'ț', '', ''), $line);
+    if (ctype_digit($line[0]) && !ctype_digit($line)) {
+      $number = $line[0];
+      $line = substr($line, 1);
+    } else {
+      $number = 0;
+    }
     $query = Model::factory('Definition')->where('sourceId', $scribanSrc->id)->where('status', 0);
     if (ctype_digit($line)) {
       $query = $query->where('id', $line);
+    } else if ($number) {
+      $query = $query->where_raw("lexicon = '$line' and (internalRep like '@{$number}) %' or internalRep like '@*{$number}) %')");
     } else {
       $query = $query->where('lexicon', $line);
     }

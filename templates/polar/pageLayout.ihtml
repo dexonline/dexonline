@@ -82,7 +82,7 @@
       </tr>
     </table>
 
-    {include file="common/bits/banner.ihtml" id="top" width="728" height="90"}
+    {include file="common/bits/banner.ihtml" id="otherSkins" width="728" height="90"}
     {include file="common/flashMessages.ihtml"}
     {include file=$contentTemplateName from=polar}
 

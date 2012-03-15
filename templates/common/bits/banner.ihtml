@@ -3,6 +3,9 @@
 <div id="banner_{$id}">
   {if $adsProvider == 'diverta'}
     {include file="common/bits/openxGeneric.ihtml" zoneId="140385" params=$adsProviderParams}
+  {elseif $bannerType == 'openx-local'}
+    {assign var="key" value="openxLocal_`$id`"}
+    {include file="common/bits/openxLocal.ihtml" zoneId=$skinVariables.$key}
   {elseif $bannerType == 'openx'}
     {assign var="key" value="openx_`$id`"}
     {include file="common/bits/openxGeneric.ihtml" zoneId=$skinVariables.$key}

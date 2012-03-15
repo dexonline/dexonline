@@ -9,7 +9,7 @@
 
 ; Type of banner to be served.
 ; Banner sizes are dictated by the skin. See templates/common/bits/banner.ihtml.
-; Choices are "openx", "adsense", "fake" or "none".
+; Choices are "openx", "openx-local", "adsense", "fake" or "none".
 ; The option "fake" displays a placeholder banner and can be used in development/beta (so as not to steal real impressions from campaigns).
 bannerType = fake
 
@@ -89,11 +89,14 @@ functestLockFile = /tmp/dex-functest
 [skin-zepu]
 ; Display banners after the search box.
 adsense_mainPage = "id=1220723485&width=728&height=90"
-adsense_beforeResults = "id=2401834072&width=728&height=90"
+adsense_otherPages = "id=2401834072&width=728&height=90"
 openx_mainPage = 216368
-openx_beforeResults = 201501
+openx_otherPages = 201501
+openxLocal_mainPage = 1
+openxLocal_otherPages = 2
 
 [skin-polar]
 ; Display banners at the top of every page
-adsense_top = "id=2054526829&width=728&height=90"
-openx_top = 121346
+adsense_otherSkins = "id=2054526829&width=728&height=90"
+openx_otherSkins = 121346
+openxLocal_otherSkins = 3

@@ -19,6 +19,7 @@ function smarty_init() {
   $smarty->assign('hostedBy', pref_getHostedBy());
   $smarty->assign('currentYear', date("Y"));
   $smarty->assign('bannerType', pref_getServerPreference('bannerType'));
+  $smarty->assign('developmentMode', pref_getServerPreference('developmentMode'));
   $smarty->assign('isMobile', util_isMobile());
   smarty_registerFunction($smarty, 'getDebugInfo', 'smarty_function_getDebugInfo');
   $smarty->assign('GLOBALS', $GLOBALS);

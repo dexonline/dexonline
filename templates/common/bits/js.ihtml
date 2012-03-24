@@ -35,3 +35,7 @@
 {if isset($mobile)}
     <script type="text/javascript" src="{$wwwRoot}js/mobile.js?v=2"></script>
 {/if}
+
+{if isset($spnz)}
+	<script type="text/javascript" src="{$wwwRoot}js/spnz.js"></script>
+{/if}

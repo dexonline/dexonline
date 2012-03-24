@@ -1,0 +1,38 @@
+<script type="text/javascript">
+var word="{$cuvant}", difficulty={$difficulty}, match=word.length;
+</script>
+{include file="common/bits/js.ihtml" spnz=1}
+
+
+<div class="spnz">
+<h1>Spânzurătoarea</h1>
+
+<form name="form1" action="" method ="get">
+Numar vieti:<input name="vieti" style="width:15pt" type="text" readonly="readonly" size="1" value="6" />
+<br/>
+<img src="poze_spnz/initial.gif" name="poza" alt="poza" />
+<input name="hint" type="button" value="Hint" size="1" onClick="Hint(this.form)"/>
+<br/> <br/>
+<input name="end" style="background-color:#FFFFFF;border:0;color:red;" type="text" readonly="readonly" value="" />
+<br/>
+<p id="def" hidden="true" ><br />{$definitie}<br /></p>
+{foreach from=$iter item=i}
+	<input style="width:15pt" name="out{$i}" type="text" readonly="readonly" size="1" value="" />
+
+{/foreach}
+
+<br/><br/><br/>
+Alegeți o literă<br />
+{foreach from=$letters item=letter} 
+    <input name="in{$letter}" type="button" value="{$letter|mb_strtoupper}" onClick="letterPressed('{$letter}', this.form, this)"/>
+
+  {/foreach}
+<br><br/><br/>
+
+<input type="button" name ="level0" value="Nivel 0" onClick="newGame(this.form, 0)">
+<input type="button" name ="level1" value="Nivel 1" onClick="newGame(this.form, 1)">
+<input type="button" name ="level2" value="Nivel 2" onClick="newGame(this.form, 2)">
+<input type="button" name ="level3" value="Nivel 3" onClick="newGame(this.form, 3)">
+</form>
+</div>
+<!--</body>-->

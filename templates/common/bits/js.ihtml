@@ -17,7 +17,7 @@
     <script type="text/javascript" src="{$wwwRoot}js/grid.locale-en.js?v=1"></script>
     <script type="text/javascript" src="{$wwwRoot}js/jquery.datepicker.pack.js?v=1"></script>
     <script type="text/javascript" src="{$wwwRoot}js/jquery.jqGrid.min.js?v=1"></script>
-    <script type="text/javascript" src="{$wwwRoot}js/jqgrid.init.js?v=2"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/jqgrid.init.js?v=3"></script>
 {/if}
 {if isset($jqTableDnd)}
     <script type="text/javascript" src="{$wwwRoot}js/jquery.tablednd_0_5.js?v=1"></script>

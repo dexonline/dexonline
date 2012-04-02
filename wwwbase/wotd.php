@@ -61,7 +61,9 @@ $archive = WordOfTheDay::getArchiveWotD(date('Y', $timestamp), date('m', $timest
 $defId = WordOfTheDayRel::getRefId($wotd->id);
 $def = Definition::get_by_id($defId);
 $searchResults = SearchResult::mapDefinitionArray(array($def));
-$pageTitle = sprintf("Cuvântul zilei: %s (%s)", $def->lexicon, date('j F Y', $timestamp));
+setlocale(LC_ALL, 'ro_RO');
+$roDate = strftime("%d %B %Y", $timestamp);
+$pageTitle = sprintf("Cuvântul zilei: %s (%s)", $def->lexicon, $roDate);
 
 if ($mysqlDate > WOTD_BIG_BANG) {
   smarty_assign('prevday', date('Y/m/d', $timestamp - 86400));
@@ -69,6 +71,7 @@ if ($mysqlDate > WOTD_BIG_BANG) {
 if ($mysqlDate < $today) {
   smarty_assign('nextday', date('Y/m/d', $timestamp + 86400));
 }
+
 
 smarty_assign('imageUrl', $wotd->getImageUrl());
 smarty_assign('timestamp', $timestamp);

@@ -16,7 +16,7 @@
         {if $src_selected}
           Nu am găsit în acest dicționar definiția lui 
         {else}
-          Am găsit numai definiții „neoficiale” pentru 
+          Setările preferințelor contului dvs. nu permit vizualizarea definițiilor pentru 
         {/if}
       {elseif count($results) == 1}
         O definiție pentru

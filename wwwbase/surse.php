@@ -16,7 +16,12 @@ if ($submitButton) {
   util_redirect('surse');
 }
 
-smarty_assign('sources', Model::factory('Source')->order_by_asc('displayOrder')->find_many());
+$sources = util_isModerator(PRIV_VIEW_HIDDEN) ? 
+Model::factory('Source')->order_by_asc('displayOrder')->find_many():
+Model::factory('Source')->where_not_equal('isOfficial',SOURCE_TYPE_HIDDEN)->order_by_asc('displayOrder')->find_many();
+
+
+smarty_assign('sources', $sources);
 smarty_assign('page_title', 'Surse');
 smarty_displayCommonPageWithSkin('surse.ihtml');
 

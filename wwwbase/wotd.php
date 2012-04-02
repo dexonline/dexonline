@@ -62,7 +62,7 @@ $defId = WordOfTheDayRel::getRefId($wotd->id);
 $def = Definition::get_by_id($defId);
 $searchResults = SearchResult::mapDefinitionArray(array($def));
 setlocale(LC_ALL, 'ro_RO');
-$roDate = strftime("%d %B %Y", $timestamp);
+$roDate = strftime("%e %B %Y", $timestamp);
 $pageTitle = sprintf("Cuvântul zilei: %s (%s)", $def->lexicon, $roDate);
 
 if ($mysqlDate > WOTD_BIG_BANG) {

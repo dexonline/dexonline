@@ -1,34 +1,30 @@
 <?php
 require_once('../phplib/util.php');
 
-print "\n\nAcest script nu a fost testat după conversia AdoDB -> Idiorm.\n";
-print "El este corect d.p.d.v. sintactic, dar atât.\n";
-print "Ștergeți aceste linii și asigurați-vă că scriptul face ceea ce trebuie.\n\n\n";
-exit(1);
-
-$shortopts = "f:u:s:c:t:x:p:hvid"; 
+$shortopts = "f:u:s:c:t:x:p:hvidb"; 
 $options = getopt($shortopts);
 
 function HELP() {
   exit("
 Usage: From tools/ directory run: 
-	php bulk/importDefinitions.php options
+    php bulk/importDefinitions.php options
 
 Options:
-	-f fileName (mandatory)
-	-u userId (mandatory)
-	-s sourceId (mandatory)
-	-c check against sourceId)
-	-t status (mandatory: 0 - active, 1 - temporary, 2 - deleted)
-	-i = use inflections for multilexem entries
+    -f fileName (mandatory)
+    -u userId (mandatory)
+    -s sourceId (mandatory)
+    -c check against sourceId
+    -t status (mandatory: 0 - active, 1 - temporary, 2 - deleted, 3 - hidden)
+    -i = use inflections for multilexem entries
     -x = exclude lexems beginning with
     -p = split lexem using this char
-	-d = dry run
-	-h = help
-	-v = verbose
+    -b = verbs are defined using the particle 'a ' at the beginning
+    -d = dry run
+    -h = help
+    -v = verbose
 
 Example:
-	php importDefinition.php -f definitions.txt -u 471 -s 19 -t 0
+    php importDefinition.php -f definitions.txt -u 471 -s 19 -t 0 -d -v
 
 ");
 }
@@ -40,6 +36,14 @@ function CHECK($option, $c) {
   if (!isset($option[$c])) {
     echo "Missing mandatory option $c\n";
     HELP();
+  }
+}
+
+function remove_verbs_particle($verb) {
+  foreach(array('a se ', 'a (se) ', 'a ') as $part) {
+    if (strpos($verb, $part) === 0) { 
+      return substr($verb, strlen($part));
+    }
   }
 }
 
@@ -75,6 +79,11 @@ if (isset($options['p'])) {
   $splitChar = $options[''];
 }
 
+$verbs_part = false;
+if (isset($options['b'])) {
+  $verbs_part = true;
+}
+
 $verbose = false;
 if (isset($options['v'])) {
   $verbose = true;
@@ -100,17 +109,24 @@ $i = 0;
 while ($i < count($lines)) {
   $def = $lines[$i++];
   preg_match('/^@([^@]+)@/', $def, $matches);
-  $lname = preg_replace("/[!*'^1234567890]/", "", $matches[1]);
+  $lname = $matches[1];
+  if($verbs_part && strpos($lname, 'a ')===0) { 
+    $lname = remove_verbs_particle($lname);
+  }
+  $lname = preg_replace("/[!*'^1234567890]/", "", $lname);
+
+//  echo $lname . "\n";
+//  continue; //TODO delete me
 
   if (isset($checkSourceId)) {
     if($verbose) echo(" * Check if the definition already exists\n");
-    $def = Model::factory('Definition')->where('lexicon', $name)->where('sourceId', $sourceId)->find_many();
+    $def = Model::factory('Definition')->where('lexicon', $lname)->where('sourceId', $sourceId)->find_many();
     if ( count($def) ) {
       if($verbose) echo("\t Definition already introduced\n");
       continue;
     }
     else {
-      $def = Model::factory('Definition')->where('lexicon', $name)->where('sourceId', $checkSourceId)->find_many();
+      $def = Model::factory('Definition')->where('lexicon', $lname)->where('sourceId', $checkSourceId)->find_many();
     }
 
     if ( count($def) ) {

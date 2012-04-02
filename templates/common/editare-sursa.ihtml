@@ -12,6 +12,7 @@
   An: <input type="text" name="year" value="{$src->year}" size="10"/><br/>
   Tip:
   <select name="isOfficial">
+    <option value="3" {if $src->isOfficial==3 }selected{/if}>Ascuns</option>
     <option value="2" {if $src->isOfficial==2 }selected{/if}>Oficial</option>
     <option value="1" {if $src->isOfficial==1 }selected{/if}>Specializat</option>
     <option value="0" {if $src->isOfficial==0 }selected{/if}>Neoficial</option>

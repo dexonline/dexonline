@@ -4,6 +4,7 @@ class FileCache {
   private static $CACHE_EXPIRATION_SECONDS = 86400;
   private static $CACHE_PREFIX = '/tmp/dexcache_';
   private static $CKEY_TOP = 'top';
+  private static $CKEY_TOP_ALL = 'top_all';
   private static $CKEY_WORDS_ALL = 'words_all';
   private static $CKEY_WORDS_LAST_MONTH = 'words_last_month';
 
@@ -60,12 +61,14 @@ class FileCache {
     self::put(self::$CKEY_WORDS_LAST_MONTH, $value);
   }
 
-  static function getTop($manual) {
-    return self::get(self::$CKEY_TOP . ($manual ? '1' : '0'));
+  static function getTop($manual, $hidden = false) {
+    $var = $hidden ? self::$CKEY_TOP_ALL : self::$CKEY_TOP;
+    return self::get($var . ($manual ? '1' : '0'));
   }
 
-  static function putTop($value, $manual) {
-    self::put(self::$CKEY_TOP . ($manual ? '1' : '0'), $value);
+  static function putTop($value, $manual, $hidden = false) {
+    $var = $hidden ?  self::$CKEY_TOP_ALL : self::$CKEY_TOP;
+    self::put($var . ($manual ? '1' : '0'), $value);
   }
 
   private static function getKeyForModeratorIp($ip) {

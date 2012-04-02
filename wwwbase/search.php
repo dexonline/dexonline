@@ -63,7 +63,9 @@ if ($text) {
     // Load definitions in the given order
     $definitions = array();
     foreach ($defIds as $id) {
-      $definitions[] = Definition::get_by_id($id);
+      if ($res = Definition::get_by_id($id)) {
+        $definitions[] = $res;
+      }
     }
     if (!count($defIds)) {
       FlashMessage::add('Nicio definiție nu conține toate cuvintele căutate.');
@@ -119,7 +121,12 @@ if ($hasRegexp) {
 if ($defId) {
   smarty_assign('defId', $defId);
   $searchType = SEARCH_DEF_ID;
-  $def = Model::factory('Definition')->where('id', $defId)->where('status', ST_ACTIVE)->find_one();
+  if (util_isModerator(PRIV_VIEW_HIDDEN)) {
+      $def = Model::factory('Definition')->where('id', $defId)->where_in('status', array(ST_ACTIVE, ST_HIDDEN))->find_one();
+  }
+  else {
+      $def = Model::factory('Definition')->where('id', $defId)->where('status', ST_ACTIVE)->find_one();
+  }
   $definitions = array();
   if ($def) {
     $definitions[] = $def;

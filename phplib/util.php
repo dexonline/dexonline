@@ -110,6 +110,7 @@ function util_defineConstants() {
   define("ST_ACTIVE", 0);
   define("ST_PENDING", 1);
   define("ST_DELETED", 2);
+  define("ST_HIDDEN", 3);
 
   define("ABBREV_NOT_REVIEWED", 0);
   define("ABBREV_AMBIGUOUS", 1);
@@ -117,9 +118,11 @@ function util_defineConstants() {
 
   define("MAX_RECENT_LINKS", 20);
   
-  $GLOBALS['wordStatuses'] = array(ST_ACTIVE => "Activă",
+  $GLOBALS['wordStatuses'] = array(ST_ACTIVE  => "Activă",
                                    ST_PENDING => "Temporară",
-                                   ST_DELETED => "Ștearsă");
+                                   ST_DELETED => "Ștearsă",
+                                   ST_HIDDEN  => "Ascunsă",
+                             );
 
   define("SEARCH_REGEXP", 0);
   define("SEARCH_MULTIWORD", 1);
@@ -136,13 +139,21 @@ function util_defineConstants() {
 
   define('LOCK_FULL_TEXT_INDEX', 'full_text_index');
 
+#TODO clean up here
   define('PRIV_ADMIN', 0x01);
   define('PRIV_LOC', 0x02);
   define('PRIV_EDIT', 0x04);
   define('PRIV_GUIDE', 0x08);
   define('PRIV_WOTD', 0x10);
+  define('PRIV_VIEW_HIDDEN', PRIV_ADMIN);
   define('NUM_PRIVILEGES', 5);
   $GLOBALS['PRIV_NAMES'] = array('Administrator', 'Moderator LOC', 'Moderator', 'Editor al ghidului de exprimare', 'Editor al cuvântului zilei');
+
+  //Source 
+  define('SOURCE_TYPE_HIDDEN', 3);
+  define('SOURCE_TYPE_OFFICIAL', 2);
+  define('SOURCE_TYPE_SPECIALIZED', 1);
+  define('SOURCE_TYPE_UNOFFICIAL', 0);
 }
 
 function util_getAllStatuses() {

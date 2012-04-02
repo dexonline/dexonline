@@ -12,6 +12,7 @@ class TopEntry {
                   array(null, Source::get_by_shortName('Petro-Sedim'), null),
                   array(null, Source::get_by_shortName('GTA'), null),
                   array(null, Source::get_by_shortName('DCR2'), null),
+                  array(null, Source::get_by_shortName('DOR'), null),
                   array(User::get_by_nick('siveco'), null, null),
                   array(User::get_by_nick('RACAI'), null, null),
                   );
@@ -34,11 +35,20 @@ class TopEntry {
       $clause = "not {$clause}";
     }
 
-    return "select nick, count(*) as NumDefinitions, sum(length(internalRep)) as NumChars, max(createDate) as Timestamp from Definition, User where userId = User.id and status = 0 and $clause group by nick";
+    $statusClause = util_isModerator(PRIV_VIEW_HIDDEN) ? sprintf("status in (%d,%d)", ST_ACTIVE, ST_HIDDEN) : sprintf("status = %d", ST_ACTIVE);
+
+    $query = "select nick, count(*) as NumDefinitions, sum(length(internalRep)) as NumChars, max(createDate) as Timestamp 
+    from Definition, User 
+    where userId = User.id 
+    and $statusClause
+    and $clause group by nick";
+
+    return $query;
   }
 
   private static function loadUnsortedTopData($manual) {
     $statement = self::getSqlStatement($manual);
+    
     $dbResult = db_execute($statement);
     $topEntries = array();
     $now = time();
@@ -57,10 +67,12 @@ class TopEntry {
   }
 
   private static function getUnsortedTopData($manual) {
-    $data = FileCache::getTop($manual);
+    $allowHidden = util_isModerator(PRIV_VIEW_HIDDEN); 
+    $data = FileCache::getTop($manual, $allowHidden);
+    $data  = NULL;
     if (!$data) {
       $data = TopEntry::loadUnsortedTopData($manual);
-      FileCache::putTop($data, $manual);
+      FileCache::putTop($data, $manual, $allowHidden);
     }
     return $data;
   }
@@ -74,7 +86,7 @@ class TopEntry {
    */
   public static function getTopData($crit, $ord, $manual) {
     $topEntries = TopEntry::getUnsortedTopData($manual);
-    
+
     $nick = array();
     $numWords = array();
     $numChars = array();

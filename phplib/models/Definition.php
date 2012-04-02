@@ -3,6 +3,17 @@
 class Definition extends BaseObject {
   public static $_table = 'Definition';
 
+
+  public static function get_by_id($id) {
+      if (util_isModerator(PRIV_ADMIN)) {
+        return parent::get_by_id($id);
+        //return Model::factory('Definition')->where('id',$id)->where_not_equal('status', ST_HIDDEN)->find_one();
+      }
+      else {
+        return Model::factory('Definition')->where('id',$id)->where_not_equal('status', ST_HIDDEN)->find_one();
+      }
+  }
+
   public static function loadByLexemId($lexemId) {
     return Model::factory('Definition')->select('Definition.*')->join('LexemDefinitionMap', array('Definition.id', '=', 'definitionId'))
       ->where('lexemId', $lexemId)->where_in('status', array(ST_ACTIVE, ST_PENDING))->order_by_asc('sourceId')->find_many();
@@ -40,18 +51,21 @@ class Definition extends BaseObject {
 
     $sourceClause = $sourceId ? "and D.sourceId = $sourceId" : '';
     $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
+    $statusClause = util_isModerator(PRIV_VIEW_HIDDEN) ? sprintf("and D.status in (%d,%d)", ST_ACTIVE, ST_HIDDEN) : sprintf("and D.status = %d", ST_ACTIVE);
+    // TODO Using the number constants is not a good practice
     return ORM::for_table('Definition')
       ->raw_query("select distinct D.* from Definition D, LexemDefinitionMap L, Source S " .
-                  "where D.id = L.definitionId and L.lexemId in ($lexemIds) and D.sourceId = S.id and D.status = 0 $excludeClause $sourceClause " .
+                  "where D.id = L.definitionId and L.lexemId in ($lexemIds) and D.sourceId = S.id $statusClause $excludeClause $sourceClause " .
                   "order by S.isOfficial desc, (D.lexicon = '$preferredWord') desc, S.displayOrder, D.lexicon", null)
       ->find_many();
   }
 
   public static function searchLexemId($lexemId, $exclude_unofficial = false) {
     $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
+    $statusClause = util_isModerator(PRIV_VIEW_HIDDEN) ? sprintf("and D.status in (%d,%d)", ST_ACTIVE, ST_HIDDEN) : sprintf("and D.status = %d", ST_ACTIVE);
     return Model::factory('Definition')
       ->raw_query("select D.* from Definition D, LexemDefinitionMap L, Source S where D.id = L.definitionId " .
-                  "and D.sourceId = S.id and L.lexemId = '$lexemId' $excludeClause and D.status = 0 " .
+                  "and D.sourceId = S.id and L.lexemId = '$lexemId' $excludeClause $statusClause " .
                   "order by S.isOfficial desc, S.displayOrder, D.lexicon", null)
       ->find_many();
   }

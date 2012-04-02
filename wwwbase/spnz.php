@@ -35,13 +35,26 @@ if( is_int($difficulty)){
 else
   $difficulty = 0;
 
+$count = Model::factory('Lexem')->where_gte('frequency', $min_freq)->where_lte('frequency', $max_freq)
+  ->where_raw('length(formUtf8General) > 5')->count();
 
-$query = sprintf("SELECT id FROM Lexem WHERE frequency BETWEEN %d AND %d AND length(formUtf8General) > 5 ORDER BY rand() LIMIT 1;",$min_freq, $max_freq);
-$randLexemId =  db_getSingleValue($query);
-$query = sprintf("SELECT lexicon, htmlRep FROM  Definition WHERE  id IN (SELECT definitionId FROM LexemDefinitionMap WHERE status=0 AND lexemId  = %d ) LIMIT 1;", $randLexemId);
-$arr = db_getArrayOfRows($query);
-$cuv = $arr[0]["lexicon"];
-$definitie = $arr[0]["htmlRep"];
+do {
+  $lexem = Model::factory('Lexem')->where_gte('frequency', $min_freq)->where_lte('frequency', $max_freq)
+    ->where_raw('length(formUtf8General) > 5')->limit(1)->offset(rand(0, $count - 1))->find_one();
+
+  // Select an official definition for this lexem.
+  $def = Model::factory('Definition')
+    ->join('LexemDefinitionMap', 'Definition.id = definitionId')
+    ->join('Source', 'Source.id = sourceId')
+    ->where('lexemId', $lexem->id)
+    ->where('status', 0)
+    ->where('isOfficial', 2)
+    ->order_by_asc('displayOrder')
+    ->limit(1)
+    ->find_one();
+} while (!$def);
+
+$cuv = $lexem->formNoAccent;
 
 $nr_lit = mb_strlen($cuv);
 $litere = array_filter(preg_split('//u',$cuv));
@@ -52,7 +65,7 @@ smarty_assign('litere', $litere);
 smarty_assign('page_title', 'Spânzurătoarea by CDL');
 smarty_assign('cuvant', $cuv);
 smarty_assign('nr_lit',$nr_lit);
-smarty_assign('definitie', $definitie);
+smarty_assign('definitie', $def->htmlRep);
 smarty_assign('difficulty', $difficulty);
 smarty_displayCommonPageWithSkin("spnz.ihtml");
 ?>

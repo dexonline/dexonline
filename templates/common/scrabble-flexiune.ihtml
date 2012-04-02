@@ -31,7 +31,7 @@ vreunul din cuvintele din LOC generează acea formă.<br/><br/>
         {assign var=infl value="`$inflections[$i]`"}
         <li>
           <b>{$if->form|escape}</b> provine din
-          <b>{$l->form|escape}</b>
+          <a href="{$wwwRoot}lexem/{$l->formNoAccent|escape}/{$l->id}">{$l->form|escape}</a>
           {$l->modelType}{$l->modelNumber}{$l->restriction}
           ({$infl->description|escape})
         </li>

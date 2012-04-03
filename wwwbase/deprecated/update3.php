@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/util.php");
+require_once("../../phplib/util.php");
 set_time_limit(0);
 
 // If no GET arguments are set, print usage and return.

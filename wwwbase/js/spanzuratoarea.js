@@ -73,7 +73,7 @@ function hangman_hint() {
 }
 
 function hangman_newGame(difficulty) {
-  window.location = "spnz.php?d=" + difficulty;
+  window.location = "spanzuratoarea?d=" + difficulty;
 }
 
 $(function() {

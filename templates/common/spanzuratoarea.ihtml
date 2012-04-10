@@ -2,7 +2,7 @@
   var word = "{$cuvant}";
 </script>
 
-{include file="common/bits/js.ihtml" spnz=1 jqnotice=1}
+{include file="common/bits/js.ihtml" hangman=1 jqnotice=1}
 {include file="common/bits/css.ihtml" hangman=1}
 
 <p class="paragraphTitle">Spânzurătoarea</p>

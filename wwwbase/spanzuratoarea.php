@@ -56,5 +56,5 @@ smarty_assign('page_title', 'Spânzurătoarea');
 smarty_assign('cuvant', $cuv);
 smarty_assign('searchResults', $searchResults);
 smarty_assign('difficulty', $difficulty);
-smarty_displayCommonPageWithSkin("spnz.ihtml");
+smarty_displayCommonPageWithSkin("spanzuratoarea.ihtml");
 ?>

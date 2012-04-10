@@ -39,6 +39,6 @@
     <script type="text/javascript" src="{$wwwRoot}js/mobile.js?v=2"></script>
 {/if}
 
-{if isset($spnz)}
-	<script type="text/javascript" src="{$wwwRoot}js/spnz.js"></script>
+{if isset($hangman)}
+	<script type="text/javascript" src="{$wwwRoot}js/spanzuratoarea.js"></script>
 {/if}

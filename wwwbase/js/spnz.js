@@ -1,77 +1,83 @@
-var lives=6;
-var cale_poze="poze_spnz/image";
-function gameOver(form) {
-  if(lives == 0) {
-    form.end.value="Ne pare rău ai pierdut";
-    form.hint.disabled = 'true';
-    var i=0;
-    for(i=0;i<word.length;i++) {
-      form["out"+i].value = word.charAt(i).toUpperCase();
-    }
-    document.getElementById("def").style.display = "inline";
-  }
-  else if(match == 0) {
-    form.hint.disabled = 'true';
-    form.end.value="Felicitări, ai câștigat!!";
-    document.getElementById("def").style.display = "inline";
+var lives = 6;
+var lettersLeft = word.length;
+
+function hangman_updateLives() {
+  $('#hangmanPic').attr('src', wwwRoot + 'img/hangman/image' + lives + '.gif');
+  $("#livesLeft").fadeOut(function() {
+    $(this).text(lives).fadeIn();
+  });
+}
+
+function hangman_gameOver() {
+  if (!lives || !lettersLeft) {
+    jQuery.noticeAdd({
+      text: lives ? 'Felicitări, ai câștigat!' : 'Ne pare rău, ai pierdut.',
+      stayTime: 2000,
+    });
+    $('.letters').each(function(index) {
+      $(this).val(word.charAt(index).toUpperCase());
+    });
+    $('#hintButton').attr('disabled', 'disabled');
+    $('.letterButtons').each(function() {
+      $(this).attr('disabled', 'disabled');
+    });
+    $('#resultsWrapper').slideToggle();
   }
 }
-function letterPressed(letter,form, field) { 
-  var i=0, ok = 0;
-  if(lives == 0 || match == 0) {
-    return;
-  }
-  field.disabled = 'true';
-  for(i=0;i<word.length;i++) {
-    if(letter == word.charAt(i)) {
-      form["out"+i].value = letter.toUpperCase();
+
+/* Returns true if any letters were uncovered */
+function hangman_updateLetters(field) {
+  field.attr('disabled', 'disabled');
+  var letter = field.val().toLowerCase();
+  var ok = 0;
+  for (i = 0; i < word.length; i++) {
+    if (letter == word.charAt(i)) {
+      $('.letters')[i].value = letter.toUpperCase();
       ok = 1;
-      match--;
+      lettersLeft--;
     }
   }
-  form["in"+letter].style.fontWeight="bold";
-  if(ok == 1) {
-    form["in"+letter].style.color="blue";
+  return ok;
+}
+
+function hangman_letterPressed(field) {
+  var ok = hangman_updateLetters(field);
+  if (ok) {
+    field.addClass('buttonGuessed');
+  } else {
+    lives--;
+    hangman_updateLives();
+    field.addClass('buttonMissed');
   }
-  else {
-     lives--;
-     form.poza.src= cale_poze + lives + '.gif';
-     form["in"+letter].style.color="red";
-  }
-  form.vieti.value=lives;
-  gameOver(form);
+
+  hangman_gameOver();
 }
  
-function resetFields(form) {
-  var i=0;
-  form.vieti.value=lives;
-  for(i=0;i<word.length;i++) {
-    form["out"+i].value = "";
-  }
-  form.end.value="";
+function hangman_hint() {
+  // Grab a random letter that wasn't revealed yet
+  letters = $('.letters');
+
+  var i;
+  do {
+    i = Math.floor(Math.random() * word.length);
+  } while (letters[i].value != '');
+  var value = word.charAt(i).toUpperCase();
+
+  // Simulate a press of the corresponding button
+  var button = $('.letterButtons[value="' + value + '"]');
+  button.addClass('buttonHinted');
+  hangman_updateLetters(button);
+  lives = (lives >= 2) ? lives - 2 : 0;
+  hangman_updateLives();
+  hangman_gameOver();
 }
-function Hint(form) {
- // alert(word);
-  for(i=0;i<word.length;i++) {
-    //alert(form["in" + word.charAt(i)].disabled);
-    if(form["in" + word.charAt(i)].disabled == false) {
-     // alert("da");
-      letterPressed(word.charAt(i), form, form["in"+word.charAt(i)]);
-      form["in"+word.charAt(i)].style.color="green";
-      break;
-    }
-  }  
-  if(lives >=2 )
-    lives-=2;
-  else
-    lives=0;
-  form.poza.src= cale_poze + lives + '.gif';
-  form.vieti.value=lives; 
-  gameOver(form);
-}
-function newGame(form, a) {
-  form.hint.disabled = 'false';
-  difficulty = a;
+
+function hangman_newGame(difficulty) {
   window.location = "spnz.php?d=" + difficulty;
 }
 
+$(function() {
+  $('.letterButtons').click(function() { hangman_letterPressed($(this)); });
+  $('#hintButton').click(function() { hangman_hint($(this)); });
+  $('.newGame').click(function() { hangman_newGame($(this).attr('name').split('_', 2)[1]); });
+});

@@ -4,6 +4,9 @@
 {if isset($jqueryui)}
     <script type="text/javascript" src="{$wwwRoot}js/jquery-ui-1.8.17.custom.min.js"></script>
 {/if}
+{if isset($jqnotice)}
+	<script type="text/javascript" src="{$wwwRoot}js/jquery.notice.js"></script>
+{/if}
 {if isset($tablesorter)}
     <script type="text/javascript" src="{$wwwRoot}js/jquery.tablesorter.min.js"></script>
 {/if}

@@ -1,38 +1,45 @@
 <script type="text/javascript">
-var word="{$cuvant}", difficulty={$difficulty}, match=word.length;
+  var word = "{$cuvant}";
 </script>
-{include file="common/bits/js.ihtml" spnz=1}
 
+{include file="common/bits/js.ihtml" spnz=1 jqnotice=1}
+{include file="common/bits/css.ihtml" hangman=1}
 
-<div class="spnz">
-<h1>Spânzurătoarea</h1>
+<p class="paragraphTitle">Spânzurătoarea {$cuvant}</p>
 
-<form name="form1" action="" method ="get">
-Numar vieti:<input name="vieti" style="width:15pt" type="text" readonly="readonly" size="1" value="6" />
-<br/>
-<img src="poze_spnz/initial.gif" name="poza" alt="poza" />
-<input name="hint" type="button" value="Hint" size="1" onClick="Hint(this.form)"/>
-<br/> <br/>
-<input name="end" style="background-color:#FFFFFF;border:0;color:red;" type="text" readonly="readonly" value="" />
-<br/>
-<p id="def" hidden="true" ><br />{$definitie}<br /></p>
-{foreach from=$iter item=i}
-	<input style="width:15pt" name="out{$i}" type="text" readonly="readonly" size="1" value="" />
+<form id="hangman" action="">
 
-{/foreach}
+  <div class="graphics">
+    Vieți rămase: <span id="livesLeft">6</span><br/>
+    <img id="hangmanPic" src="{$imgRoot}/hangman/initial.gif" alt="poza" />
+  </div>
 
-<br/><br/><br/>
-Alegeți o literă<br />
-{foreach from=$letters item=letter} 
-    <input name="in{$letter}" type="button" value="{$letter|mb_strtoupper}" onClick="letterPressed('{$letter}', this.form, this)"/>
+  <div class="controls">
+    {foreach from=$letters item=letter key=i}
+      <input class="letterButtons" type="button" value="{$letter|mb_strtoupper}"/>
+      {if $i % 6 == 5}<br/>{/if}
+    {/foreach}
+    <input id="hintButton" type="button" value="Dă-mi un indiciu"/>
+  </div>
 
-  {/foreach}
-<br><br/><br/>
+  <div class="newGameControls">
+    Joc nou:<br/>
+    <input class="newGame" type="button" name="newGame_0" value="ușor"/>
+    <input class="newGame" type="button" name="newGame_1" value="mediu"/><br/>
+    <input class="newGame" type="button" name="newGame_2" value="dificil"/>
+    <input class="newGame" type="button" name="newGame_3" value="expert"/>
+  </div>
 
-<input type="button" name ="level0" value="Nivel 0" onClick="newGame(this.form, 0)">
-<input type="button" name ="level1" value="Nivel 1" onClick="newGame(this.form, 1)">
-<input type="button" name ="level2" value="Nivel 2" onClick="newGame(this.form, 2)">
-<input type="button" name ="level3" value="Nivel 3" onClick="newGame(this.form, 3)">
+  <div class="output">
+    {section name="ignored" start=0 loop=$wordLength}
+    	<input style="width:15pt" class="letters" name="out[]" type="text" readonly="readonly" size="1" value="" />
+    {/section}
+  </div>
+
+  <div id="resultsWrapper" class="txt">
+    {foreach from=$searchResults item=row}
+      {include file="common/bits/definition.ihtml row=$row}
+    {/foreach}
+  </div>
 </form>
-</div>
-<!--</body>-->
+

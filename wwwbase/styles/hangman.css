@@ -1,0 +1,90 @@
+#hangman .graphics {
+  float: left;
+  font-size: 16px;
+  text-align: center;
+}
+
+#hangman .controls {
+  float: left;
+  margin-left: 50px;
+}
+
+#hangman .newGameControls {
+  float: left;
+  font-size: 16px;
+  margin-left: 50px;
+}
+
+#hangman .output {
+  clear: both;
+  padding-top: 10px;
+}
+
+#hangman .letters {
+  text-align: center;
+}
+
+#hangman .letterButtons {
+  margin-left: 3px;
+  width: 40px;
+}
+
+#hangman .newGame {
+  width: 100px;
+}
+
+#hangman #hintButton {
+  margin-left: 3px;
+  width: 224px;
+}
+
+#hangman .buttonGuessed {
+  background: #eaffea;
+  border: 1px solid green;
+  color: green;
+  font-weight: bold;
+}
+
+#hangman .buttonHinted {
+  background: #eaeaff;
+  border: 1px solid blue;
+  color: blue;
+  font-weight: bold;
+}
+
+#hangman .buttonMissed {
+  background: #ffeaea;
+  border: 1px solid red;
+  color: red;
+  font-weight: bold;
+}
+
+#hangman #resultsWrapper {
+  display: none;
+}
+
+.notice-item {
+	background: #333;
+	border: 2px solid #999;
+  border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	color: #eee;
+  display: block;
+	font-size: 16px;
+	padding: 6px;
+  text-align: center;
+  line-height: 38px;
+
+  /* Center of the screen */
+	position: absolute;
+  left: 50%;
+  top: 300px;
+  height: 60px;
+  width: 200px;
+  margin-left: -100px;
+}
+
+.notice-item-close {
+  display: none;
+}

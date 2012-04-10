@@ -2,7 +2,7 @@ var lives = 6;
 var lettersLeft = word.length;
 
 function hangman_updateLives() {
-  $('#hangmanPic').attr('src', wwwRoot + 'img/hangman/image' + lives + '.gif');
+  $('#hangmanPic').attr('src', wwwRoot + 'img/hangman/hangman' + lives + '.png');
   $("#livesLeft").fadeOut(function() {
     $(this).text(lives).fadeIn();
   });

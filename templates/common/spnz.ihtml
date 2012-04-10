@@ -5,13 +5,13 @@
 {include file="common/bits/js.ihtml" spnz=1 jqnotice=1}
 {include file="common/bits/css.ihtml" hangman=1}
 
-<p class="paragraphTitle">Spânzurătoarea {$cuvant}</p>
+<p class="paragraphTitle">Spânzurătoarea</p>
 
 <form id="hangman" action="">
 
   <div class="graphics">
     Vieți rămase: <span id="livesLeft">6</span><br/>
-    <img id="hangmanPic" src="{$imgRoot}/hangman/initial.gif" alt="poza" />
+    <img id="hangmanPic" src="{$imgRoot}/hangman/hangman6.png" alt="poza" />
   </div>
 
   <div class="controls">

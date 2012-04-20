@@ -61,6 +61,12 @@ class WordOfTheDay extends BaseObject {
     return null;
   }
 
+  public function imageFileExists() {
+    return $this->image
+      ? file_exists(self::$IMAGE_DIR . "/{$this->image}")
+      : true; // Not the case since there is no image
+  }
+
   public function ensureThumbnail() {
     if (!$this->image) {
       return;

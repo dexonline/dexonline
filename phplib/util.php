@@ -32,10 +32,7 @@ function util_initEverything() {
   session_init();
   mc_init();
   FlashMessage::restoreFromSession();
-
-  if (util_isWebBasedScript()) {
-    smarty_init();
-  }
+  smarty_init();
 }
 
 function util_defineRootPath() {

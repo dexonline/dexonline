@@ -6,8 +6,8 @@
 require_once __DIR__ . '/../phplib/util.php';
 
 define('NUM_DAYS', 7);
-$MAIL_TO = 'cata@dexonline.ro, doru@dexonline.ro, radu@dexonline.ro';
-$MAIL_HEADERS = array('From: cata@dexonline.ro', 'Reply-To: cata@dexonline.ro');
+$MAIL_TO = 'cata@francu.com, dorelian.bellu@gmail.com, raduborza@gmail.com';
+$MAIL_HEADERS = array('From: cata@francu.com', 'Reply-To: cata@francu.com');
 
 $sendEmail = false;
 foreach ($argv as $i => $arg) {

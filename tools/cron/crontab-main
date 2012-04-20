@@ -2,6 +2,9 @@
 # WARNING: Some of the timezones may be wrong, doublecheck before installing.
 # WARNING: The path to the DEX installation may be wrong.
 
+# Send out alerts for missing WotD
+15 0 * * * (cd /var/www/dexon/public_html/DEX/tools && php checkWotd.php --send-email) >/dev/null 2>&1
+
 # Dump the full database so the mirrors can have it.
 30 2 * * * (cd /var/www/dexon/public_html/DEX/tools && php dumpDatabase.php --full) >/dev/null 2>&1 || mail -s "DEX dumpDatabase (full) failed" cata@francu.com
 

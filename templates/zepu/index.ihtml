@@ -28,6 +28,23 @@
   </div>
 </div>
 
+<div id="widgetWrapper">
+  <div class="widgetAndShadowLeft">
+    <div id="wotd" class="widget">
+      <img src="{$imgRoot}/wotd/cuvantul-lunii/2012-martie-salutar.thb.jpg" alt="iconiță cuvântul lunii"/>
+      Cuvântul lunii: <a href="{$wwwRoot}definitie-dex/salutar">salutar</a>
+    </div>
+    <div class="widgetShadow"></div>
+  </div>
+
+  <div class="widgetAndShadowRight">
+    <div class="widget">
+      Articolul lunii: <a href="{$wwwRoot}articol/Punctul">Punctul</a>
+    </div>
+    <div class="widgetShadow"></div>
+  </div>
+</div>
+
 <div class="clearer"></div>
 
 {include file="common/bits/facebook.ihtml"}

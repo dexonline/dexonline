@@ -4,6 +4,20 @@
   text-align: center;
 }
 
+#hangman .hangmanPic {
+  background: url("../img/hangman/hangman.png") -1510px -10px no-repeat;
+  margin-top: 10px;
+  width: 230px;
+  height: 275px;
+}
+
+#hangman .imageLicense {
+  color: #888;
+  font-size: 9px;
+  text-align: right;
+  width: 230px;
+}
+
 #hangman .controls {
   float: left;
   margin-left: 50px;
@@ -72,8 +86,8 @@
 	-webkit-border-radius: 6px;
 	color: #eee;
   display: block;
-	font-size: 16px;
-	padding: 6px;
+  font-size: 16px;
+  padding: 6px;
   text-align: center;
   line-height: 38px;
 
@@ -82,7 +96,7 @@
   left: 50%;
   top: 300px;
   height: 60px;
-  width: 200px;
+  width: 300px;
   margin-left: -100px;
 }
 

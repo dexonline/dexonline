@@ -10,8 +10,9 @@
 <form id="hangman" action="">
 
   <div class="graphics">
-    Vieți rămase: <span id="livesLeft">6</span><br/>
-    <img id="hangmanPic" src="{$imgRoot}/hangman/hangman6.png" alt="poza" />
+    Vieți rămase: <span id="livesLeft">6</span>
+    <div class="hangmanPic"> </div>
+    <div class="imageLicense">imagini © dexonline.ro</div>
   </div>
 
   <div class="controls">

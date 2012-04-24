@@ -29,11 +29,11 @@ default :
 }
 
 $count = Model::factory('Lexem')->where_gte('frequency', $minFreq)->where_lte('frequency', $maxFreq)
-  ->where_raw('length(formUtf8General) > 5')->count();
+  ->where_raw('char_length(formUtf8General) > 5')->count();
 
 do {
   $lexem = Model::factory('Lexem')->where_gte('frequency', $minFreq)->where_lte('frequency', $maxFreq)
-    ->where_raw('length(formUtf8General) > 5')->limit(1)->offset(rand(0, $count - 1))->find_one();
+    ->where_raw('char_length(formUtf8General) > 5')->limit(1)->offset(rand(0, $count - 1))->find_one();
 
   // Select an official definition for this lexem.
   $defs = Model::factory('Definition')

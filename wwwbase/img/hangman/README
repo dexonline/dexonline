@@ -1,3 +1,6 @@
+SPRITE
+======
+
 From the original 7 png files, each having 230x275 pixels, run
 
 mogrify -background white -flatten hangman7.png
@@ -7,3 +10,10 @@ to replace transparency with white, then
 montage hangman*.png -tile 7x1 -geometry +10+10 montage.png
 
 to obtain the CSS sprite. Don't forget about optipng at the end!
+
+THUMBNAIL
+=========
+
+convert -background white -flatten -geometry 44x44 -extent 48x48 -gravity center -bordercolor black -border 2 hangman0.png mic.png
+
+and optipng as usual.

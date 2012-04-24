@@ -99,6 +99,7 @@ img {
 /* BANNER */
 #banner_mainPage {
   margin-left: 71px;
+  margin-bottom: 20px;
 }
 
 #banner_otherPages {
@@ -336,17 +337,15 @@ img {
 /* paragraphTitle was here */
 
 #widgetWrapper {
-  margin: 35px auto 0px;
+  margin: 0px auto 5px;
+  text-align: center;
+  width: 780px;
+}
+
+.widgetAndShadow {
+  display: inline-block;
+  margin: 0px 10px;
   vertical-align: top;
-  width: 460px;
-}
-
-.widgetAndShadowLeft {
-  float: left;
-}
-
-.widgetAndShadowRight {
-  float: right;
 }
 
 /* WORD OF THE DAY */
@@ -358,21 +357,18 @@ img {
   color: #424242;
   font-size: 12px;
   height: 48px;
-  line-height: 44px;
   padding: 8px;
   text-align: center;
   width: 200px;
-  white-space: nowrap;
 }
 
 .widget img {
-  vertical-align: middle;
+  float: left;
 }
 
 .widgetShadow {
   background: url("../img/zepu/shadows/shadow216.png") no-repeat;
   height: 14px;
-  margin: 0px 0px 15px 0px; /* it was 0,0,35,330; I added margin-top:20px to fb_bottom, then I subtracted 20px from margin-bottom of widgetShadow */
   width: 216px;
 }
 

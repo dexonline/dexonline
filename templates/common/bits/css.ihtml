@@ -31,5 +31,5 @@
     <link href="{$wwwRoot}styles/smoothness/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css"/>
 {/if}
 {if isset($hangman)}
-    <link href="{$wwwRoot}styles/hangman.css?v=1" rel="stylesheet" type="text/css"/>
+    <link href="{$wwwRoot}styles/hangman.css?v=2" rel="stylesheet" type="text/css"/>
 {/if}

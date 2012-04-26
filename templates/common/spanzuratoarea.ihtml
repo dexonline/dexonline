@@ -1,5 +1,6 @@
 <script type="text/javascript">
   var word = "{$cuvant}";
+  var difficulty = "{$difficulty}";
 </script>
 
 {include file="common/bits/js.ihtml" hangman=1 jqnotice=1}

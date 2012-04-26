@@ -76,8 +76,23 @@ function hangman_newGame(difficulty) {
   window.location = "spanzuratoarea?d=" + difficulty;
 }
 
+function revealLetters(difficulty) {
+  if (difficulty > 1) {
+    return;
+  }
+  firstLetter = word.charAt(0).toUpperCase();
+  lastLetter = word.charAt(word.length - 1).toUpperCase();
+  var field = $('.letterButtons[value="' + firstLetter + '"]');
+  hangman_letterPressed(field);
+  if (lastLetter != firstLetter) {
+    field = $('.letterButtons[value="' + lastLetter + '"]');
+    hangman_letterPressed(field);
+  }
+}
+
 $(function() {
   $('.letterButtons').click(function() { hangman_letterPressed($(this)); });
   $('#hintButton').click(function() { hangman_hint($(this)); });
   $('.newGame').click(function() { hangman_newGame($(this).attr('name').split('_', 2)[1]); });
+  revealLetters(difficulty);
 });

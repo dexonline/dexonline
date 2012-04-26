@@ -40,5 +40,5 @@
 {/if}
 
 {if isset($hangman)}
-	<script type="text/javascript" src="{$wwwRoot}js/spanzuratoarea.js"></script>
+	<script type="text/javascript" src="{$wwwRoot}js/spanzuratoarea.js?v=2"></script>
 {/if}

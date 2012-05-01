@@ -5,7 +5,7 @@
 
 require_once __DIR__ . '/../phplib/util.php';
 
-define('NUM_DAYS', 7);
+define('NUM_DAYS', 3);
 $MAIL_TO = 'cata@francu.com, dorelian.bellu@gmail.com, raduborza@gmail.com';
 $MAIL_HEADERS = array('From: cata@francu.com', 'Reply-To: cata@francu.com');
 

@@ -29,9 +29,11 @@
 
 <p class="paragraphTitle">Alte articole lingvistice</p>
 
-{foreach from=$wikiTitles item=titlePair}
-  {if $titlePair[0] != $wa->title}
+{foreach from=$wikiTitles key=k item=v}
+<h3>{$k|escape:'html'}</h3>
+  {foreach from=$v item=titlePair}
+    {if $titlePair[0] != $wa->title}
     <a href="{$wwwRoot}articol/{$titlePair[1]}">{$titlePair[0]}</a><br/>
-  {/if}
+    {/if}
+  {/foreach}
 {/foreach}
-

@@ -57,7 +57,9 @@ foreach ($xml->query->pages->page as $page) {
       log_scriptLog("Cannot fetch rendered page from $pageRenderUrl");
       exit(1);
     }
+    $curPage->htmlContents = str_replace('href="http://lingv.dexonline.ro/wiki/', 'href="/articol/', $curPage->htmlContents);
     $curPage->save();
+
     WikiKeyword::deleteByWikiArticleId($curPage->id);
     $keywords = $curPage->extractKeywords();
     foreach ($keywords as $keyword) {

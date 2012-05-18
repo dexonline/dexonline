@@ -30,7 +30,7 @@ if ($type == 'rss') {
 
   header("Content-type: text/xml");
   smarty_assign('rss_title', 'Cuvântul zilei');
-  smarty_assign('rss_link', 'http://' . $_SERVER['HTTP_HOST'] . '/rss/cuvantul-zilei/');
+  smarty_assign('rss_link', 'http://' . $_SERVER['HTTP_HOST'] . '/cuvantul-zilei/');
   smarty_assign('rss_description', 'Doza zilnică de cuvinte propuse de DEXonline!');
   smarty_assign('rss_pubDate', date('D, d M Y H:i:s') . ' EEST');
   smarty_assign('results', $results);

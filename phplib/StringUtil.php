@@ -280,6 +280,14 @@ class StringUtil {
     parse_str($s, $result);
     return $result;
   }
+
+  static function shortenString($s, $maxLength) {
+    $l = mb_strlen($s);
+    if ($l >= $maxLength + 3) {
+      return mb_substr($s, 0, $maxLength - 3) . '...';
+    }
+    return $s;
+  }
 }
 
 ?>

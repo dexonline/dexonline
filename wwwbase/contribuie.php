@@ -18,6 +18,8 @@ if ($sendButton) {
     $errorMessage = 'Trebuie să introduceți un cuvânt-titlu.';
   } else if (!$def) {
     $errorMessage = 'Trebuie să introduceți o definiție.';
+  } else if (StringUtil::isSpam($def)) {
+    $errorMessage = 'Definiția dumneavoastră este spam.';    
   }
 
   if ($errorMessage) {

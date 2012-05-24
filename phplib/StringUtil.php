@@ -288,6 +288,10 @@ class StringUtil {
     }
     return $s;
   }
+
+  static function isSpam($s) {
+    return preg_match("/\\[url=/i", $s);
+  }
 }
 
 ?>

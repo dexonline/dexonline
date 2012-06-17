@@ -43,6 +43,13 @@ class wotdSave{
   protected $image;
 
   /**
+   * The descriptiom
+   * @var string $description
+   * @access protected
+   **/
+  protected $description;
+
+  /**
    * The old definition ID (used for editing purposes)
    * This is currently unused -- cata
    * @var int $oldDefinitionId
@@ -58,17 +65,19 @@ class wotdSave{
    * @param int $refId The reference identifier [OPTIONAL]
    * @param string $refType The reference type [OPTIONAL]
    * @param string $image The image file [OPTIONAL]
+   * @param string $description The description [OPTIONAL]
    * @param int $oldDefinitionId The old definition identifier [OPTIONAL]
    * @access public
    * @return void
    **/
-  public function __construct($id, $displayDate = null, $priority = null, $refId = null, $refType = null, $image = null, $oldDefinitionId = null){
+  public function __construct($id, $displayDate = null, $priority = null, $refId = null, $refType = null, $image = null, $description = null, $oldDefinitionId = null){
     $this->id = $id;
     $this->displayDate = $displayDate;
     $this->priority = $priority;
     $this->refId = $refId;
     $this->refType = $refType;
     $this->image = $image;
+    $this->description = $description;
     $this->oldDefinitionId = $oldDefinitionId;
   }
 
@@ -89,6 +98,7 @@ class wotdSave{
     $wotd->displayDate = $this->displayDate ? $this->displayDate : null;
     $wotd->priority = $this->priority;
     $wotd->image = $this->image;
+    $wotd->description = $this->description;
     $wotd->save();
 
     $wotdr = WordOfTheDayRel::get_by_wotdId($wotd->id);
@@ -146,12 +156,13 @@ $priority = util_getRequestParameter('priority');
 $definitionId = util_getRequestParameter('definitionId');
 $refType = util_getRequestParameter('refType');
 $image = util_getRequestParameter('image');
+$description = util_getRequestParameter('description');
 $oldDefinitionId = util_getRequestParameter('oldDefinitionId');
 
 switch ($oper) {
-case 'edit': $app = new wotdSave($id, $displayDate, $priority, $definitionId, $refType, $image, $oldDefinitionId); break;
+case 'edit': $app = new wotdSave($id, $displayDate, $priority, $definitionId, $refType, $image, $description, $oldDefinitionId); break;
 case 'del': $app = new wotdSave($id); break;
-case 'add': $app = new wotdSave(null, $displayDate, $priority, $definitionId, $refType, null, null); break;
+case 'add': $app = new wotdSave(null, $displayDate, $priority, $definitionId, $refType, null, $description, null); break;
 }
 $app->run($oper);
 

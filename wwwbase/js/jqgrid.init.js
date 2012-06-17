@@ -1,5 +1,7 @@
 function beginEdit(id){
   $('#displayDate').datepicker({ dateFormat: 'yy-mm-dd' });
+  $('#displayDate')[0].style.width = '200px';
+
   if($('#lexicon').val()){
       $('#lexicon').attr('readonly', true);
   }
@@ -12,12 +14,14 @@ function beginEdit(id){
         $('#lexicon').val(lexicon);
       });
   }
-  $('#priority')[0].style.width = '400px';
-  $('#displayDate')[0].style.width = '400px';
-  $('#lexicon')[0].style.width = '400px';
+  $('#lexicon')[0].style.width = '200px';
   if ($('#definitionId').length == 0){
     $('#lexicon').after('<input type="hidden" id="definitionId"/>');
   }
+
+  $('#priority')[0].style.width = '200px';
+  $('#description')[0].style.width = '200px';
+
   $('#image').autocomplete('wotdGetImages.php');
 }
 
@@ -34,22 +38,23 @@ function initGrid(){
     $('#wotdGrid').jqGrid({
       url: 'wotdTableRows.php',
       datatype: 'xml',
-      colNames: ['Lexicon', 'Sursa', 'Definiție', 'Data afișării', 'Adăugată la WotD de', 'Prioritate', 'Tipul resursei', 'Imagine', 'ID-ul definiției'],
+      colNames: ['Cuvînt', 'Sursă', 'Definiție', 'Data afișării', 'Adăugată de', 'Pr.', 'Tipul resursei', 'Imagine', 'Descriere', 'ID-ul definiției'],
       colModel: [
         {name: 'lexicon', index: 'lexicon', editable: true},
-        {name: 'source', index: 'shortName', width: 75},
-        {name: 'htmlRep', index: 'htmlRep', width: 650},
-        {name: 'displayDate', index: 'displayDate', width: 100, editable: true},
-        {name: 'name', index: 'u.name', width: 75},
-        {name: 'priority', index: 'priority', editable: true, width: 75},
+        {name: 'source', index: 'shortName', width: 60},
+        {name: 'htmlRep', index: 'htmlRep', width: 450},
+        {name: 'displayDate', index: 'displayDate', width: 90, editable: true},
+        {name: 'name', index: 'u.name', width: 90},
+        {name: 'priority', index: 'priority', editable: true, width: 40},
         {name: 'refType', index: 'refType', editable: true, edittype: 'select', editoptions: {value: 'Definition:Definition'}, hidden: true},
         {name: 'image', index: 'w.image', editable: true, width: 75},
+        {name: 'description', index: 'description', editable: true, edittype: 'textarea', hidden: false, width: 250},
         {name: 'definitionId', index: 'definitionId', editable: false, hidden: true}
       ],
-      rowNum: 25,
+      rowNum: 20,
       autoWidth: true,
       height: '100%',
-      rowList: [25, 50, 100, 200],
+      rowList: [20, 50, 100, 200],
       sortname: 'displayDate',
       pager: $('#wotdPaging'),
       viewRecords: true,

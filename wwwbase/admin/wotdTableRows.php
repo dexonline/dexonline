@@ -69,7 +69,7 @@ class wotdTableRows{
     $this->sord = $sord;
      
     $this->sql_fields = <<<sql
-w.id, d.lexicon, s.shortName, d.htmlRep, w.displayDate, u.name, w.priority, wr.refType, w.image, d.id as definitionId
+w.id, d.lexicon, s.shortName, d.htmlRep, w.displayDate, u.name, w.priority, wr.refType, w.image, w.description, d.id as definitionId
 sql;
     $this->sql_base = <<<sql
 WordOfTheDay w inner join WordOfTheDayRel wr on w.id = wr.wotdId

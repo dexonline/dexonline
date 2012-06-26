@@ -39,7 +39,7 @@
       {/if}
       
       <div id="searchArea">
-        <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return friendlyRedirect()">
+        <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return searchSubmit()">
           <input type="text" name="cuv" size="15" value="{$cuv|escape}" maxlength="50" id="searchField"/>
           <script type="text/javascript">document.frm.cuv.select();document.frm.cuv.focus();</script>
           <span><input type="submit" value="caută" id="searchButton" /></span>

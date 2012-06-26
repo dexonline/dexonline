@@ -10,7 +10,13 @@ function loadAjaxContent(url, elid) {
     });
 }
 
-function friendlyRedirect() {
+function searchSubmit() {
+  // Avoid server hit on empty query
+  if (!document.frm.cuv.value) {
+    return false;
+  }
+
+  // Friendly redirect
   action = document.frm.text.checked ? 'text' : 'definitie';
   source = document.frm.source.value;
   sourcePart = source ? '-' + source : '';

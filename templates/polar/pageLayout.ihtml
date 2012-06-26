@@ -54,7 +54,7 @@
           </ul>
           <div style="clear:both;"></div>
 
-          <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return friendlyRedirect()">
+          <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return searchSubmit()">
             <input type="text" name="cuv" value="{$cuv|escape}" size="20" maxlength="50"/>
             <script type="text/javascript">document.frm.cuv.select();document.frm.cuv.focus();</script>
             {include file="common/sourceDropDown.ihtml" urlName=1}

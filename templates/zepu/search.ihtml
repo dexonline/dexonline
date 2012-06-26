@@ -1,7 +1,7 @@
 {assign var="advancedSearch" value=$advancedSearch|default:false}
 {assign var="cuv" value=$cuv|default:''}
 {assign var="text" value=$text|default:false}
-<form action="{$wwwRoot}search.php" name="frm" onsubmit="return friendlyRedirect()" id="searchForm">
+<form action="{$wwwRoot}search.php" name="frm" onsubmit="return searchSubmit()" id="searchForm">
   
   <div id="inlineBlock1">
     <input type="text" name="cuv" class="search_field" value="{$cuv|escape}"  maxlength="50" title="Caută"/>

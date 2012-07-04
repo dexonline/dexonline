@@ -20,7 +20,7 @@ foreach ($lines as $line) {
     if (ctype_digit($line)) {
       $query = $query->where('id', $line);
     } else if ($number) {
-      $query = $query->where_raw("lexicon = '$line' and (internalRep like '@{$number}) %' or internalRep like '@*{$number}) %')");
+      $query = $query->where_raw("lexicon = '$line' and (internalRep rlike '^@{$number}) ' or internalRep rlike '^@\\*{$number}) ')");
     } else {
       $query = $query->where('lexicon', $line);
     }

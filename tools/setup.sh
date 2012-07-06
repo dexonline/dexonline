@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Configuration script to be run when a new client is first checked out
 
@@ -18,7 +18,11 @@ touch log/scriptlog
 chmod 666 log/scriptlog
 chmod 777 templates_c
 chmod 777 wwwbase/img/wotd
-chmod 777 wwwbase/img/wotd/thumb
+
+if [ -d wwwbase/img/wotd/thumb ]
+then
+  chmod 777 wwwbase/img/wotd/thumb
+fi
 
 if [ ! -e wwwbase/.htaccess ]
 then

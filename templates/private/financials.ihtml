@@ -38,6 +38,10 @@
           <td><input type="text" name="income" value="{$income}"/></td>
         </tr>
         <tr>
+          <td>Cursul valutar:</td>
+          <td><input type="text" name="exchangeRate" value="{$exchangeRate}"/></td>
+        </tr>
+        <tr>
           <td>Ziua zero:</td>
           <td>
             {include file="common/bits/numericDropDown.ihtml" name="year" start=2001 end=`$currentYear+1` selected=$year}
@@ -64,6 +68,7 @@
         {/foreach}
         <td><b>Procent total<b></td>
         <td><b>Venit (€)<b></td>
+        <td><b>Venit (lei)<b></td>
       </tr>
       {foreach from=$fins item=fin}
         {if $allUsers || $fin->share >= 0.001}
@@ -83,6 +88,7 @@
             {/foreach}
             <td class="number">{$fin->share*100|string_format:"%.2f"}%</td>
             <td class="number">{$income*$fin->share|string_format:"%.2f"}</td>
+            <td class="number">{$income*$fin->share*$exchangeRate|string_format:"%.2f"}</td>
           </tr>
         {/if}
       {/foreach}

@@ -5,6 +5,7 @@ util_assertModerator(PRIV_LOC);
 util_assertNotMirror();
 
 $income = util_getRequestParameterWithDefault('income', 10000);
+$exchangeRate = util_getRequestParameterWithDefault('exchangeRate', 4.5);
 $year = util_getRequestParameterWithDefault('year', date("Y"));
 $month = util_getRequestParameterWithDefault('month', date("n"));
 $day = util_getRequestParameterWithDefault('day', date("j"));
@@ -98,6 +99,7 @@ smarty_assign('fins', $fins);
 smarty_assign('total', $total);
 smarty_assign('categories', $CATEGORIES);
 smarty_assign('income', $income);
+smarty_assign('exchangeRate', $exchangeRate);
 smarty_assign('year', $year);
 smarty_assign('month', $month);
 smarty_assign('day', $day);

@@ -79,12 +79,12 @@
 }
 
 .notice-item {
-	background: #333;
-	border: 2px solid #999;
+  background: #333;
+  border: 2px solid #999;
   border-radius: 6px;
-	-moz-border-radius: 6px;
-	-webkit-border-radius: 6px;
-	color: #eee;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  color: #eee;
   display: block;
   font-size: 16px;
   padding: 6px;
@@ -92,7 +92,7 @@
   line-height: 38px;
 
   /* Center of the screen */
-	position: absolute;
+  position: absolute;
   left: 50%;
   top: 300px;
   height: 60px;

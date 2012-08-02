@@ -27,7 +27,6 @@ function hangman_gameOver() {
 
 /* Returns true if any letters were uncovered */
 function hangman_updateLetters(field) {
-  field.attr('disabled', 'disabled');
   var letter = field.val().toLowerCase();
   var ok = 0;
   for (i = 0; i < word.length; i++) {
@@ -41,6 +40,9 @@ function hangman_updateLetters(field) {
 }
 
 function hangman_letterPressed(field) {
+  if(field.is(':disabled')) { //because of keyboard support one can press already pressed buttons
+    return;
+  }
   var ok = hangman_updateLetters(field);
   if (ok) {
     field.addClass('buttonGuessed');
@@ -49,7 +51,7 @@ function hangman_letterPressed(field) {
     hangman_updateLives();
     field.addClass('buttonMissed');
   }
-
+  field.attr('disabled', 'disabled');
   hangman_gameOver();
 }
  
@@ -77,13 +79,14 @@ function hangman_newGame(difficulty) {
 }
 
 function revealLetters(difficulty) {
-  if (difficulty > 1) {
+  if (difficulty > 2) {
     return;
   }
   firstLetter = word.charAt(0).toUpperCase();
   lastLetter = word.charAt(word.length - 1).toUpperCase();
   var field = $('.letterButtons[value="' + firstLetter + '"]');
   hangman_letterPressed(field);
+
   if (lastLetter != firstLetter) {
     field = $('.letterButtons[value="' + lastLetter + '"]');
     hangman_letterPressed(field);
@@ -92,7 +95,18 @@ function revealLetters(difficulty) {
 
 $(function() {
   $('.letterButtons').click(function() { hangman_letterPressed($(this)); });
-  $('#hintButton').click(function() { hangman_hint($(this)); });
+  $('#hintButton').click(function() { hangman_hint(); });
   $('.newGame').click(function() { hangman_newGame($(this).attr('name').split('_', 2)[1]); });
   revealLetters(difficulty);
+  $('.letters').focus();//Make sure to take focus from the search bar, this is the best choice as putting it on a button would make the use of space for clues impossible.
+  
+  document.addEventListener('keypress', function(event) {
+    if(String.fromCharCode(event.charCode) == " ")
+      hangman_hint();
+    else if(String.fromCharCode(event.charCode) == "1" || String.fromCharCode(event.charCode) == "2" || String.fromCharCode(event.charCode) == "3" || String.fromCharCode(event.charCode) == "4")
+      hangman_newGame(String.fromCharCode(event.charCode));
+    else
+      hangman_letterPressed($('.letterButtons[value="' + String.fromCharCode(event.charCode).toUpperCase() + '"]'));
+  });
+
 });

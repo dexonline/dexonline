@@ -1,5 +1,5 @@
 <script type="text/javascript">
-  var word = "{$cuvant}";
+  var word = "{$word}";
   var difficulty = "{$difficulty}";
 </script>
 
@@ -26,15 +26,15 @@
 
   <div class="newGameControls">
     Joc nou:<br/>
-    <input class="newGame" type="button" name="newGame_0" value="ușor"/>
-    <input class="newGame" type="button" name="newGame_1" value="mediu"/><br/>
-    <input class="newGame" type="button" name="newGame_2" value="dificil"/>
-    <input class="newGame" type="button" name="newGame_3" value="expert"/>
+    <input class="newGame" type="button" name="newGame_1" value="ușor"/>
+    <input class="newGame" type="button" name="newGame_2" value="mediu"/><br/>
+    <input class="newGame" type="button" name="newGame_3" value="dificil"/>
+    <input class="newGame" type="button" name="newGame_4" value="expert"/>
   </div>
 
   <div class="output">
     {section name="ignored" start=0 loop=$wordLength}
-    	<input style="width:15pt" class="letters" name="out[]" type="text" readonly="readonly" size="1" value="" />
+      <input style="width:15pt" class="letters" name="out[]" type="text" readonly="readonly" size="1" value="" />
     {/section}
   </div>
 

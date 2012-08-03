@@ -71,8 +71,8 @@ $searchResults = SearchResult::mapDefinitionArray($defs);
 $word = $lexem->formNoAccent;
 
 smarty_assign('wordLength', mb_strlen($word));
-smarty_assign('letters', preg_split('//u', 'aĂâbcdefghiîjklmnopqrsȘtȚuvwxyz', null, PREG_SPLIT_NO_EMPTY));
-smarty_assign('page_title', 'Spânzuratoarea');
+smarty_assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțuvwxyz', null, PREG_SPLIT_NO_EMPTY));
+smarty_assign('page_title', 'Spânzurătoarea');
 smarty_assign('word', $word);
 smarty_assign('searchResults', $searchResults);
 smarty_assign('difficulty', $difficulty);

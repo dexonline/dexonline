@@ -37,7 +37,7 @@
   
     {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
       {if count($lexems)}
-        Cuvântul «{$cuv|escape}» nu a fost găsit, dar am găsit următoarele cuvinte apropiate:
+        Cuvântul «{$cuv|escape}» nu a fost găsit, dar am găsit următoarele {$lexems|@count} cuvinte apropiate:
       {/if}
   
     {elseif $searchType == $smarty.const.SEARCH_DEF_ID}

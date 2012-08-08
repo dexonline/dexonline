@@ -77,18 +77,19 @@ class Lexem extends BaseObject {
     }
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
 
-		$random = rand() % 4;
-		if ($random == 0) {
-			$maxerror = 5;
+    $random = rand() % 4;
+    if ($random == 0) {
+      var_dump("leven");
+      $maxerror = 5;
       do {
-				$result = Model::factory('Lexem')->where_raw("leven('$cuv', $field, $maxerror)")->order_by_asc('formNoAccent')->find_many();
-				$maxerror += 5;
+	$result = Model::factory('Lexem')->where_raw("leven('$cuv', $field, $maxerror)")->order_by_asc('formNoAccent')->find_many();
+	$maxerror += 5;
       }	while (count($result) == 0 && $maxerror <= 35);
-		}
-		else {
-	    $result = Model::factory('Lexem')->where_raw("dist2($field, '$cuv')")->order_by_asc('formNoAccent')->find_many();
-		}
-
+    }
+    else {
+      $result = Model::factory('Lexem')->where_raw("dist2($field, '$cuv')")->order_by_asc('formNoAccent')->find_many();
+    }
+    
     if ($useMemcache) {
       mc_set($key, $result);
     }

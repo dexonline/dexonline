@@ -79,7 +79,6 @@ class Lexem extends BaseObject {
 
     $random = rand() % 4;
     if ($random == 0) {
-      var_dump("leven");
       $maxerror = 5;
       do {
 	$result = Model::factory('Lexem')->where_raw("leven('$cuv', $field, $maxerror)")->order_by_asc('formNoAccent')->find_many();

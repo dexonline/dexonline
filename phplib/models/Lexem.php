@@ -79,6 +79,7 @@ class Lexem extends BaseObject {
 
     $random = rand() % 4;
     if ($random == 0) {
+      $method = "(leven)";
       $maxerror = 5;
       do {
 	$result = Model::factory('Lexem')->where_raw("leven('$cuv', $field, $maxerror)")->order_by_asc('formNoAccent')->find_many();
@@ -86,8 +87,15 @@ class Lexem extends BaseObject {
       }	while (count($result) == 0 && $maxerror <= 35);
     }
     else {
+      $method = "(dist2)";
       $result = Model::factory('Lexem')->where_raw("dist2($field, '$cuv')")->order_by_asc('formNoAccent')->find_many();
     }
+
+    $logArray = "";
+    foreach ($result as $word) {		
+      $logArray = $logArray . " " . $word;
+    }	
+    file_put_contents("/var/log/dex-approx.log", "$method\t$cuv:\t$logArray\n", FILE_APPEND | LOCK_EX);
     
     if ($useMemcache) {
       mc_set($key, $result);

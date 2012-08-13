@@ -395,6 +395,10 @@ function util_isMobile($userAgent = null) {
   return preg_match('/^(DoCoMo|J-PHONE|KDDI|UP.Browser|DDIPOCKET|.*iPhone.*|.*iPod.*|.*BlackBerry.*|.*Windows.CE.*|.*LG.*|.*HTC.*|.*MOT.*|.*Motorola.*|.*Nokia.*|.*Samsung.*|.*SonyEricsson.*|.*Palm.*|.*Symbian.*|.*Android.*)/i', $userAgent);
 }
 
+function util_suggestNoBanner() {
+  return preg_match('/(masturba|fute)/', $_SERVER['REQUEST_URI']);
+}
+
 function util_fetchUrl($url) {
   $ch = curl_init($url);
   curl_setopt($ch, CURLOPT_HEADER, 0);

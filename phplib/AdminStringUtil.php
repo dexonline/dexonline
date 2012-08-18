@@ -298,7 +298,7 @@ class AdminStringUtil {
    */
   static function shorthandToUnicode($s) {
     // Replace \abcd with the Unicode character 0xABCD
-    $s = preg_replace('/\\\\([\dabcdefABCDEF]{4,5})/e', "self::chr(hexdec('$1'))", $s);
+    $s = preg_replace('/\\\\([\dabcdefABCDEF]{4})/e', "self::chr(hexdec('$1'))", $s);
   
     // A bit of a hack: We should not replace \~e with \ĕ, therefore we isolate
     // the \~ compound first and restore it at the end.

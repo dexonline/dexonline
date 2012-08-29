@@ -1,0 +1,32 @@
+#mill .optionButtons {
+  font-size: 16px;
+  text-align: left;
+  width: 100%;
+  height: 50px;
+}
+
+#mill .word {
+  font-size: 40px;
+  text-align: left;
+}
+
+#mill .buttonHinted {
+  background: #eaeaff;
+  border: 1px solid blue;
+  color: blue;
+  font-weight: bold;
+}
+
+#mill .buttonMissed {
+  background: #ffeaea;
+  border: 1px solid red;
+  color: red;
+  font-weight: bold;
+}
+
+#mill .buttonGuessed {
+  background: #eaffea;
+  border: 1px solid green;
+  color: green;
+  font-weight: bold;
+}

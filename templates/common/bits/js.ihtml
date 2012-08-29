@@ -42,3 +42,7 @@
 {if isset($hangman)}
     <script type="text/javascript" src="{$wwwRoot}js/hangman.js?v=2"></script>
 {/if}
+
+{if isset($mill)}
+    <script type="text/javascript" src="{$wwwRoot}js/mill.js?v=1"></script>
+{/if}

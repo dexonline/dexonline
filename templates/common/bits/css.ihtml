@@ -33,3 +33,6 @@
 {if isset($hangman)}
     <link href="{$wwwRoot}styles/hangman.css?v=2" rel="stylesheet" type="text/css"/>
 {/if}
+{if isset($mill)}
+    <link href="{$wwwRoot}styles/mill.css?v=1" rel="stylesheet" type="text/css"/>
+{/if}

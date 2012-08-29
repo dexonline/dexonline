@@ -1,0 +1,20 @@
+<script type="text/javascript">
+  var word = "{$word}";
+  var difficulty = "{$difficulty}";
+  var answer = "{$answer}";
+</script>
+
+{include file="common/bits/js.ihtml" mill=1}
+{include file="common/bits/css.ihtml" mill=1}
+
+<p class="paragraphTitle">Moara cuvintelor</p>
+
+<form id="mill" action="">
+  <p class="word"><b>{$word}</b></p>
+  </br>
+  {foreach from=$options item=option key=i}
+    <button class="optionButtons" type="button" value="{$i}">{$i}. {$option}</button>
+    </br>
+  {/foreach}
+</form>
+

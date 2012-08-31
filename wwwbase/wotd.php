@@ -74,6 +74,7 @@ if ($mysqlDate < $today) {
 
 
 smarty_assign('imageUrl', $wotd->getImageUrl());
+smarty_assign('imageHasDescription', $wotd->hasImageDescription());
 smarty_assign('timestamp', $timestamp);
 smarty_assign('archive', $archive);
 smarty_assign('mysqlDate', $mysqlDate);

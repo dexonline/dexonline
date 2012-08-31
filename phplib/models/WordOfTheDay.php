@@ -1,12 +1,14 @@
 <?php
 
 WordOfTheDay::$IMAGE_DIR = util_getRootPath() . "wwwbase/img/wotd";
+WordOfTheDay::$IMAGE_DESCRIPTION_DIR = util_getRootPath() . "wwwbase/img/wotd/desc";
 WordOfTheDay::$THUMB_DIR = util_getRootPath() . "wwwbase/img/wotd/thumb";
 WordOfTheDay::$THUMB_SIZE = 48;
 
 class WordOfTheDay extends BaseObject {
   public static $_table = 'WordOfTheDay';
   public static $IMAGE_DIR;
+  public static $IMAGE_DESCRIPTION_DIR;
   public static $THUMB_DIR;
   public static $THUMB_SIZE;
 
@@ -52,6 +54,14 @@ class WordOfTheDay extends BaseObject {
       return "wotd/{$this->image}"; // Relative to the image path
     }
     return null;
+  }
+
+  public function hasImageDescription() {
+    if ($this->image && file_exists(self::$IMAGE_DESCRIPTION_DIR . "/{$this->image}.desc")) {
+      //return "wotd/desc/{$this->image}"; //for now it is OK to return
+      return true;
+    }
+    return false;
   }
 
   public function getThumbUrl() {

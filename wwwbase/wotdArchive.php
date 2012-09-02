@@ -38,7 +38,7 @@ function createCalendar($year, $month) {
 
     $new_words = array();
     foreach($days as $day) {
-        if ($day <= $today && array_key_exists($day, $inv)) {
+        if (($day <= $today || util_isModerator(PRIV_ADMIN)) && array_key_exists($day, $inv)) {
             $new_words[] = $words[$inv[$day]];
         }
         else {
@@ -69,6 +69,8 @@ smarty_assign('year', $year);
 
 $showPrev = (($year > 2011) || (($year == 2011) && ($month > 5))) ? 1 : 0;
 $showNext = (time() < mktime(0, 0, 0, $month + 1, 1, $year)) ? 0 : 1;
+if (util_isModerator(PRIV_ADMIN)) $showNext = 1;
+
 smarty_assign('showPrev', $showPrev);
 smarty_assign('showNext', $showNext);
 $prefix = 'arhiva/cuvantul-zilei';

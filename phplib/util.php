@@ -396,7 +396,7 @@ function util_isMobile($userAgent = null) {
 }
 
 function util_suggestNoBanner() {
-  return preg_match('/(masturba|fute)/', $_SERVER['REQUEST_URI']);
+  return isset($_SERVER['REQUEST_URI']) ? preg_match('/(masturba|fute)/', $_SERVER['REQUEST_URI']) : 0;
 }
 
 function util_fetchUrl($url) {

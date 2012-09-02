@@ -42,7 +42,7 @@ $today = date('Y-m-d', time());
 $timestamp = $date ? strtotime($date) : time();
 $mysqlDate = date("Y-m-d", $timestamp);
 
-if ($mysqlDate < WOTD_BIG_BANG || $mysqlDate > $today) {
+if ($mysqlDate < WOTD_BIG_BANG || (($mysqlDate > $today) && !util_isModerator(PRIV_ADMIN))) {
   util_redirect(util_getWwwRoot() . 'cuvantul-zilei');
 }
 
@@ -68,7 +68,7 @@ $pageTitle = sprintf("Cuvântul zilei: %s (%s)", $def->lexicon, $roDate);
 if ($mysqlDate > WOTD_BIG_BANG) {
   smarty_assign('prevday', date('Y/m/d', $timestamp - 86400));
 }
-if ($mysqlDate < $today) {
+if ($mysqlDate < $today || util_isModerator(PRIV_ADMIN)) {
   smarty_assign('nextday', date('Y/m/d', $timestamp + 86400));
 }
 

@@ -1,6 +1,7 @@
 <?php
 
 WordOfTheDay::$IMAGE_DIR = util_getRootPath() . "wwwbase/img/wotd";
+WordOfTheDay::$DEFAULT_IMAGE = "generic.jpg";
 WordOfTheDay::$IMAGE_DESCRIPTION_DIR = util_getRootPath() . "wwwbase/img/wotd/desc";
 WordOfTheDay::$THUMB_DIR = util_getRootPath() . "wwwbase/img/wotd/thumb";
 WordOfTheDay::$THUMB_SIZE = 48;
@@ -8,6 +9,7 @@ WordOfTheDay::$THUMB_SIZE = 48;
 class WordOfTheDay extends BaseObject {
   public static $_table = 'WordOfTheDay';
   public static $IMAGE_DIR;
+  public static $DEFAULT_IMAGE;
   public static $IMAGE_DESCRIPTION_DIR;
   public static $THUMB_DIR;
   public static $THUMB_SIZE;
@@ -53,6 +55,12 @@ class WordOfTheDay extends BaseObject {
     if ($this->image && file_exists(self::$IMAGE_DIR . "/{$this->image}")) {
       return "wotd/{$this->image}"; // Relative to the image path
     }
+
+    //fallback to default image
+    if (file_exists(self::$IMAGE_DIR . "/" . self::$DEFAULT_IMAGE)) {
+      return "wotd/" . self::$DEFAULT_IMAGE;
+    }
+
     return null;
   }
 

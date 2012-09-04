@@ -77,22 +77,34 @@ class Lexem extends BaseObject {
     }
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
 
-    $random = rand() % 4;
+    $random = rand() % 8;
     $maxerror = "";
+    $leng = mb_strlen($cuv);
     $time = explode(" ", microtime());
     $start = $time[1] + $time[0];
     if ($random == 0) {
       $method = "leven";
       $maxerror = 5;
       do {
-        $result = Model::factory('Lexem')->where_raw("leven('$cuv', $field, $maxerror)")->order_by_asc('formNoAccent')->find_many();
+        $result = Model::factory('Lexem')->where_raw("leven('$cuv', $field, $maxerror) <= $maxerror")->order_by_asc('formNoAccent')->find_many();
         $maxerror += 5;
       }	while (count($result) == 0 && $maxerror <= 35);
+    }
+    else if ($random == 1) {
+      $maxerror = 30;
+      $method = "leven2";
+      $result = Model::factory('Lexem')->raw_query("select * from Lexem where charLength between $leng - 2 and $leng + 2 and leven('$cuv', $field , $maxerror) <= $maxerror order by leven('$cuv', $field, $maxerror) limit 10", null)->find_many();
+    }
+    else if ($random == 2) {
+      $maxerror = 30;
+      $method = "leven3";
+      $result = Model::factory('Lexem')->raw_query("select * from Lexem where leven('$cuv', $field , $maxerror) <= $maxerror order by leven('$cuv', $field, $maxerror) limit 10", null)->find_many();
     }
     else {
       $method = "dist2";
       $result = Model::factory('Lexem')->where_raw("dist2($field, '$cuv')")->order_by_asc('formNoAccent')->find_many();
     }
+
     $time = explode(" ", microtime());
     $end = $time[1] + $time[0];
     $search_time = sprintf('%0.3f', $end - $start);
@@ -101,8 +113,9 @@ class Lexem extends BaseObject {
     $logArray = "";
     foreach ($result as $word) {		
       $logArray = $logArray . " " . $word;
-    }	
-    file_put_contents("/var/log/dex-approx.log", "($method - $search_time seconds to load)\t$cuv:\t$logArray\t$maxerror\n", FILE_APPEND | LOCK_EX);
+    }
+    $logEntry = "$method\t$search_time\t$cuv:\t$logArray\t$maxerror\t$leng\t" . count($result) . "\n";
+    file_put_contents("/var/log/dex-approx.log", $logEntry, FILE_APPEND | LOCK_EX);
     
     if ($useMemcache) {
       mc_set($key, $result);
@@ -391,6 +404,7 @@ class Lexem extends BaseObject {
 
   public function save() {
     $this->formUtf8General = $this->formNoAccent;
+    $this->charLength = mb_strlen(formNoAccent);
     parent::save();
   }  
 

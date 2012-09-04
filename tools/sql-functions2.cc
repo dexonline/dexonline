@@ -185,7 +185,7 @@ long long leven(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error) {
   int u2len = convertToUtf8(s2, len2, u2);
 
   if (abs(u1len - u2len) > LENGTHDIFF) {
-   return 0; // Strings are clearly too different
+   return INFTY; // Strings are clearly too different
   }
 
 	convertASCII_tolower(u1, u1len);
@@ -250,7 +250,7 @@ long long leven(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error) {
 
 	if (a[u1len][u2len] <= maxdif)
 		return a[u1len][u2len];
-	return 0;
+	return INFTY;
 }
 
 #endif /* HAVE_DLOPEN */

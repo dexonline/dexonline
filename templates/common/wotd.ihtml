@@ -61,7 +61,7 @@
     <img src="{$imgRoot}/{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
     <div class="copyright">
     {if $imageHasDescription}
-    imagine © <a href="http://carmennistor.com">Carmen Nistor</a>
+    imagine © <a target="_blank" href="/spre/carmen.nistor">Carmen Nistor</a>
     {else}
     imagine © Vasile Alboiu
     {/if}

@@ -1,7 +1,9 @@
 <script type="text/javascript">
-  var word = "{$word}";
-  var difficulty = "{$difficulty}";
-  var answer = "{$answer}";
+  var word = "";
+  var difficulty = "";
+  var answer = "";
+  var round = 1;
+  var answeredCorrect = 0;
 </script>
 
 {include file="common/bits/js.ihtml" mill=1}
@@ -9,12 +11,41 @@
 
 <p class="paragraphTitle">Moara cuvintelor</p>
 
-<form id="mill" action="">
-  <p class="word"><b>{$word}</b></p>
-  </br>
-  {foreach from=$options item=option key=i}
-    <button class="optionButtons" type="button" value="{$i}">{$i}. {$option}</button>
-    </br>
-  {/foreach}
-</form>
+<div id="mainPage">
+  <form id="main" action="">
+    <button class="difficultyButtons" type="button" value="1">Usor</button>
+    <button class="difficultyButtons" type="button" value="2">Mediu</button>
+    <button class="difficultyButtons" type="button" value="3">Greu</button>
+    <button class="difficultyButtons" type="button" value="4">Foarte Greu</button>
+  </form>
+  Se poate juca si cu tastatura folosind tastele: 1, 2, 3, 4.
+</div>
 
+
+<div id="questionPage">
+  <img id="statusImage1" src="../img/mill/pending.jpg" />
+  <img id="statusImage2" src="../img/mill/pending.jpg" />
+  <img id="statusImage3" src="../img/mill/pending.jpg" />
+  <img id="statusImage4" src="../img/mill/pending.jpg" />
+  <img id="statusImage5" src="../img/mill/pending.jpg" />
+  <img id="statusImage6" src="../img/mill/pending.jpg" />
+  <img id="statusImage7" src="../img/mill/pending.jpg" />
+  <img id="statusImage8" src="../img/mill/pending.jpg" />
+  <img id="statusImage9" src="../img/mill/pending.jpg" />
+  <img id="statusImage10" src="../img/mill/pending.jpg" />
+
+  <form id="mill" action="">
+    <p class="word"><b></b></p>
+    </br>
+      <button class="optionButtons" type="button" value="1">1</button>
+      <button class="optionButtons" type="button" value="2">2</button>
+      <button class="optionButtons" type="button" value="3">3</button>
+      <button class="optionButtons" type="button" value="4">4</button>
+    </br>
+  </form>
+</div>
+
+<div id="resultsPage">
+  <p>Felicitari! Ai raspuns corect la <b id="answeredCorrect">0</b> din 10</p>
+  <button id="newGameButton">Joc nou</button>
+</div>

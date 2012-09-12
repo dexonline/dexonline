@@ -1,7 +1,7 @@
 <?php
 
 require_once("../phplib/util.php");
-//setlocale(LC_ALL, "ro_RO.utf8");
+setlocale(LC_ALL, "ro_RO.utf8");
 $xml = new SimpleXMLElement('<xml/>');
 
 
@@ -46,15 +46,23 @@ $options = array(
 );
 
 $options[$answer] = $maindef->getDisplayValue();
+$used[$maindef->definitionId] = 1;
 
 for($i=1;$i<=4;$i++)
 {
   if($i!=$answer)
   {
-    $def = Model::factory('DefinitionSimple')
-      ->limit(1)
-      ->offset(getNormalRand(30, $chosenDef ,$count - 1))
-      ->find_one();
+    do {
+      if($difficulty == 1)
+        $aux = rand(0, $count - 1);
+      else
+        $aux = getNormalRand(100 - ($difficulty * 20), $chosenDef ,$count - 1);
+      $def = Model::factory('DefinitionSimple')
+        ->limit(1)
+        ->offset($aux)
+        ->find_one();
+    } while(array_key_exists($def->definitionId,$used));
+    $used[$def->definitionId] = 1;
     $options[$i] = $def->getDisplayValue();
   }
 }

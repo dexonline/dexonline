@@ -21,7 +21,7 @@ function loadXMLDoc()
       answer = $(xmlhttp.responseText).find("answer").text();
     }
   }
-  xmlhttp.open("GET","mill-ajax.php",true);
+  xmlhttp.open("GET","mill-ajax.php?d="+difficulty,true);
   xmlhttp.send();
 }
 
@@ -63,6 +63,7 @@ function dynamo_optionPressed(field) {
 
 function dynamo_setDiffculty(field) {
   difficulty = field.val();
+  loadXMLDoc();
   $("#mainPage").hide();
   $("#questionPage").show();
 }
@@ -72,10 +73,9 @@ $(function() {
   $('.difficultyButtons').click(function() { dynamo_setDiffculty($(this)); });
   $('#newGameButton').click(function() { document.location.reload(true); });
   $('.optionButtons').focus();//Make sure to take focus from the search bar, this is the best choice as putting it on a button would make the use of space for clues impossible.
-
   $("#questionPage").hide();
   $("#resultsPage").hide();
-  loadXMLDoc();
+  
   document.addEventListener('keypress', function(event) {
     if(String.fromCharCode(event.charCode) == "1" || String.fromCharCode(event.charCode) == "2" || String.fromCharCode(event.charCode) == "3" || String.fromCharCode(event.charCode) == "4")
       dynamo_optionPressed($('.optionButtons[value="' + String.fromCharCode(event.charCode) + '"]'));

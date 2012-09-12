@@ -1,6 +1,6 @@
 <script type="text/javascript">
   var word = "";
-  var difficulty = "";
+  var difficulty = 1;
   var answer = "";
   var round = 1;
   var answeredCorrect = 0;

@@ -82,20 +82,7 @@ class Lexem extends BaseObject {
     $leng = mb_strlen($cuv);
     $time = explode(" ", microtime());
     $start = $time[1] + $time[0];
-    if ($random == 0) {
-      $method = "leven";
-      $maxerror = 5;
-      do {
-        $result = Model::factory('Lexem')->where_raw("leven('$cuv', $field, $maxerror) <= $maxerror")->order_by_asc('formNoAccent')->find_many();
-        $maxerror += 5;
-      }	while (count($result) == 0 && $maxerror <= 35);
-    }
-    else if ($random == 1) {
-      $maxerror = 30;
-      $method = "leven2";
-      $result = Model::factory('Lexem')->raw_query("select * from Lexem where charLength between $leng - 2 and $leng + 2 and leven('$cuv', $field , $maxerror) <= $maxerror order by leven('$cuv', $field, $maxerror) limit 10", null)->find_many();
-    }
-    else if ($random == 2) {
+    if ($random < 4) {
       $maxerror = 30;
       $method = "leven3";
       $result = Model::factory('Lexem')->raw_query("select * from Lexem where leven('$cuv', $field , $maxerror) <= $maxerror order by leven('$cuv', $field, $maxerror) limit 10", null)->find_many();

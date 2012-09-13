@@ -1,67 +1,59 @@
-function loadXMLDoc()
-{
-  var xmlhttp;
-  if (window.XMLHttpRequest)
-  {// code for IE7+, Firefox, Chrome, Opera, Safari
-    xmlhttp=new XMLHttpRequest();
-  }
-  else
-  {// code for IE6, IE5
-    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  xmlhttp.onreadystatechange=function()
-  {
-    if (xmlhttp.readyState==4 && xmlhttp.status==200)
-    {
-      $(".word").html("<b>"+$(xmlhttp.responseText).find("word").text()+"</b>");
-      $('.optionButtons[value="1"]').html("1. "+$(xmlhttp.responseText).find("definition1").text());
-      $('.optionButtons[value="2"]').html("2. "+$(xmlhttp.responseText).find("definition2").text());
-      $('.optionButtons[value="3"]').html("3. "+$(xmlhttp.responseText).find("definition3").text());
-      $('.optionButtons[value="4"]').html("4. "+$(xmlhttp.responseText).find("definition4").text());
-      answer = $(xmlhttp.responseText).find("answer").text();
+function loadXMLDoc() {
+  $.ajax({
+    url: "ajax/mill-ajax.php?d=" + difficulty,
+    dataType: 'xml',
+    success: function(xml) {
+      $(".word").html($(xml).find("word").text());
+      $('.optionButtons[value="1"]').html("1. " + $(xml).find("definition1").text());
+      $('.optionButtons[value="2"]').html("2. " + $(xml).find("definition2").text());
+      $('.optionButtons[value="3"]').html("3. " + $(xml).find("definition3").text());
+      $('.optionButtons[value="4"]').html("4. " + $(xml).find("definition4").text());
+      answer = $(xml).find("answer").text();
+    },
+    error: function() {
+      alert('Nu pot încărca următoarea întrebare. Vă redirectez la pagina principală.');
+      window.location = wwwRoot;      
     }
-  }
-  xmlhttp.open("GET","mill-ajax.php?d="+difficulty,true);
-  xmlhttp.send();
+  });
 }
 
-function dynamo_optionPressed(field) {
-  if(answer == field.val()) {
+function mill_optionPressed(field) {
+  if (answer == field.val()) {
     field.addClass('buttonGuessed');
-    $('#statusImage'+round).attr("src","../img/mill/success.jpg");
+    $('#statusImage' + round).attr("src", wwwRoot + "img/mill/success.jpg");
     answeredCorrect = answeredCorrect + 1;
   } else {
     field.addClass('buttonMissed');
     $('.optionButtons[value="' + answer + '"]').addClass('buttonHinted');
-    $('#statusImage'+round).attr("src","../img/mill/fail.jpg");
+    $('#statusImage'+round).attr("src", wwwRoot + "img/mill/fail.jpg");
   }
   
-  for(i=1; i<=4; i++) {
-    $('.optionButtons[value="'+i+'"]').attr("disabled", true);
+  for(i = 1; i <= 4; i++) {
+    $('.optionButtons[value="' + i + '"]').attr("disabled", true);
   }
   
-  round = round + 1;
-  if(round == 11) {
+  if (round == 10) {
     setTimeout(function() {
       $("#questionPage").hide();
       $("#resultsPage").show();
       $("#answeredCorrect").html(answeredCorrect);
     },2000);
-  }
-  else {
+  } else {
+    round++;
     setTimeout(function() {
       loadXMLDoc();
-      for(i=1; i<=4; i++) {
-        $('.optionButtons[value="'+i+'"]').removeClass('buttonHinted');
-        $('.optionButtons[value="'+i+'"]').removeClass('buttonGuessed');
-        $('.optionButtons[value="'+i+'"]').removeClass('buttonMissed');
-        $('.optionButtons[value="'+i+'"]').attr("disabled", false);
+      for(i = 1; i <= 4; i++) {
+        var button = $('.optionButtons[value="' + i + '"]');
+        button.removeClass('buttonHinted');
+        button.removeClass('buttonGuessed');
+        button.removeClass('buttonMissed');
+        button.attr("disabled", false);
       }
     },2000);
   }
 }
 
-function dynamo_setDiffculty(field) {
+function mill_setDifficulty(field) {
   difficulty = field.val();
   loadXMLDoc();
   $("#mainPage").hide();
@@ -69,15 +61,15 @@ function dynamo_setDiffculty(field) {
 }
 
 $(function() {
-  $('.optionButtons').click(function() { dynamo_optionPressed($(this)); });
-  $('.difficultyButtons').click(function() { dynamo_setDiffculty($(this)); });
+  $('.optionButtons').click(function() { mill_optionPressed($(this)); });
+  $('.difficultyButtons').click(function() { mill_setDifficulty($(this)); });
   $('#newGameButton').click(function() { document.location.reload(true); });
-  $('.optionButtons').focus();//Make sure to take focus from the search bar, this is the best choice as putting it on a button would make the use of space for clues impossible.
-  $("#questionPage").hide();
-  $("#resultsPage").hide();
+  $('.optionButtons').focus(); //Make sure to take focus from the search bar, this is the best choice as putting it on a button would make the use of space for clues impossible.
   
   document.addEventListener('keypress', function(event) {
-    if(String.fromCharCode(event.charCode) == "1" || String.fromCharCode(event.charCode) == "2" || String.fromCharCode(event.charCode) == "3" || String.fromCharCode(event.charCode) == "4")
-      dynamo_optionPressed($('.optionButtons[value="' + String.fromCharCode(event.charCode) + '"]'));
+    var c = String.fromCharCode(event.charCode);
+    if (c >= "1" && c <= "4") {
+      mill_optionPressed($('.optionButtons[value="' + c + '"]'));
+    }
   });
 });

@@ -13,39 +13,30 @@
 
 <div id="mainPage">
   <form id="main" action="">
-    <button class="difficultyButtons" type="button" value="1">Usor</button>
+    <button class="difficultyButtons" type="button" value="1">Ușor</button>
     <button class="difficultyButtons" type="button" value="2">Mediu</button>
     <button class="difficultyButtons" type="button" value="3">Greu</button>
-    <button class="difficultyButtons" type="button" value="4">Foarte Greu</button>
+    <button class="difficultyButtons" type="button" value="4">Foarte greu</button>
   </form>
-  Se poate juca si cu tastatura folosind tastele: 1, 2, 3, 4.
+  Se poate juca și cu tastatura folosind tastele: 1, 2, 3, 4.
 </div>
 
 
 <div id="questionPage">
-  <img id="statusImage1" src="../img/mill/pending.jpg" />
-  <img id="statusImage2" src="../img/mill/pending.jpg" />
-  <img id="statusImage3" src="../img/mill/pending.jpg" />
-  <img id="statusImage4" src="../img/mill/pending.jpg" />
-  <img id="statusImage5" src="../img/mill/pending.jpg" />
-  <img id="statusImage6" src="../img/mill/pending.jpg" />
-  <img id="statusImage7" src="../img/mill/pending.jpg" />
-  <img id="statusImage8" src="../img/mill/pending.jpg" />
-  <img id="statusImage9" src="../img/mill/pending.jpg" />
-  <img id="statusImage10" src="../img/mill/pending.jpg" />
+  {section name=round start=1 loop=11} {* Yes, Smarty, 11 means 10 *}
+    <img id="statusImage{$smarty.section.round.index}" src="{$imgRoot}/mill/pending.jpg" alt="imagine pentru runda {$smarty.section.round.index}"/>
+  {/section}
 
   <form id="mill" action="">
-    <p class="word"><b></b></p>
-    </br>
-      <button class="optionButtons" type="button" value="1">1</button>
-      <button class="optionButtons" type="button" value="2">2</button>
-      <button class="optionButtons" type="button" value="3">3</button>
-      <button class="optionButtons" type="button" value="4">4</button>
-    </br>
+    <p class="word"></p>
+    <button class="optionButtons" type="button" value="1">1</button>
+    <button class="optionButtons" type="button" value="2">2</button>
+    <button class="optionButtons" type="button" value="3">3</button>
+    <button class="optionButtons" type="button" value="4">4</button>
   </form>
 </div>
 
 <div id="resultsPage">
-  <p>Felicitari! Ai raspuns corect la <b id="answeredCorrect">0</b> din 10</p>
+  <p>Felicitări! Ai răspuns corect la <b id="answeredCorrect">0</b> din 10.</p>
   <button id="newGameButton">Joc nou</button>
 </div>

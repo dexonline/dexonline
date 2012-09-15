@@ -77,7 +77,7 @@ class Lexem extends BaseObject {
     }
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
 
-    $random = rand() % 4;
+    $random = rand() % 2;
     $maxerror = "";
     $leng = mb_strlen($cuv);
     $time = explode(" ", microtime());
@@ -85,15 +85,10 @@ class Lexem extends BaseObject {
     if ($random == 0) {
       $method = "trigram";
       $result = NGram::searchNGram($cuv);
-    }
-    else if ($random == 1) {
+    } else {
       $maxerror = 30;
       $method = "leven3";
       $result = Model::factory('Lexem')->raw_query("select * from Lexem where leven('$cuv', $field , $maxerror) <= $maxerror order by leven('$cuv', $field, $maxerror) limit 10", null)->find_many();
-    }
-    else {
-      $method = "dist2";
-      $result = Model::factory('Lexem')->where_raw("dist2($field, '$cuv')")->order_by_asc('formNoAccent')->find_many();
     }
 
     $time = explode(" ", microtime());

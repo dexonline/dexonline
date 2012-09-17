@@ -20,23 +20,30 @@ foreach ($dbResult as $cnt => $row) {
     $values[] = array($ngram, $i, $lexem->id);
   }
   if (count($values) >= INSERT_SIZE) {
-    // Assemble low-level MySQL query. Idiorm inserts records one by one, which is many times slower.
-    $query = 'insert into NGram(ngram, pos, lexemId) values ';
-    foreach ($values as $i => $set) {
-      if ($i) {
-	$query .= ',';
-      }
-      $query .= sprintf("('%s', %d, %d)", addslashes($set[0]), $set[1], $set[2]);
-    }
-    db_execute($query);
+    dumpValues($values);
     $values = array();
   }
   if ($cnt % 1000 == 0) {
     log_scriptLog(sprintf("%d lexems processed, %0.3f lexems/second.", $cnt, $cnt / (microtime(true) - $start)));
   }
 }
+dumpValues($values);
 
 $end = microtime(true);
 log_scriptLog(sprintf("genNGram.php completed in %0.3f seconds\n", $end - $start));
+
+/*********************************************************************/
+
+function dumpValues($values) {
+  // Assemble low-level MySQL query. Idiorm inserts records one by one, which is many times slower.
+  $query = 'insert into NGram(ngram, pos, lexemId) values ';
+  foreach ($values as $i => $set) {
+    if ($i) {
+      $query .= ',';
+    }
+    $query .= sprintf("('%s', %d, %d)", addslashes($set[0]), $set[1], $set[2]);
+  }
+  db_execute($query);
+}
 
 ?>

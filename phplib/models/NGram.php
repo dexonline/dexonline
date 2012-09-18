@@ -38,18 +38,27 @@ class NGram extends BaseObject {
     arsort($hash);
     $max = current($hash);
     $lexIds = array_keys($hash,$max);
-    $finalResult = array();
+
+    $results = array();
     foreach ($lexIds as $id) {
-      $result = Model::factory('Lexem')->where('id', $id)->where_gte('charLength', $leng - self::$LENGTH_DIF)
+      $lexem = Model::factory('Lexem')->where('id', $id)->where_gte('charLength', $leng - self::$LENGTH_DIF)
         ->where_lte('charLength', $leng + self::$LENGTH_DIF)->find_one();
-      if ($result) {
-        array_push($finalResult, $result);
-        if (count($finalResult) == self::$MAX_RESULTS) {
+      if ($lexem) {
+        $results[] = $lexem;
+        if (count($results) == self::$MAX_RESULTS) {
           break;
         }
       }
     }
-    return $finalResult;
+
+    // Sort the lexems by their Levenshtein distance from $cuv
+    $distances = array();
+    foreach ($results as $lexem) {
+      $distances[] = Levenshtein::dist($cuv, $lexem->formNoAccent);
+    }
+    array_multisort($distances, $results);
+
+    return $results;
   }
 }
 

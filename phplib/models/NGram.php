@@ -6,6 +6,7 @@ class NGram extends BaseObject {
   public static $NGRAM_SIZE = 3;
   public static $MAX_MOVE = 2; // Maximum distance an n-gram is allowed to migrate
   public static $LENGTH_DIF = 2; // Maximum length difference between the searched word and the suggested one
+  public static $MAX_RESULTS = 20; //Maximum number of suggestions
 
   // Returns an array of n-grams.
   public static function split($s) {
@@ -31,7 +32,7 @@ class NGram extends BaseObject {
           $hash[$lexemId] = 1;
         } else {
           $hash[$lexemId]++;
-	}
+        }
       }
     }
     arsort($hash);
@@ -41,8 +42,10 @@ class NGram extends BaseObject {
     foreach ($lexIds as $id) {
       $result = Model::factory('Lexem')->where('id', $id)->where_gte('charLength', $leng - self::$LENGTH_DIF)
 	->where_lte('charLength', $leng + self::$LENGTH_DIF)->find_one();
-      if ($result) {
+      if ($result && count($finalResult) < self::$MAX_RESULTS) {
         array_push($finalResult, $result);
+        if (count($finalResult) == 20)
+          break;
       }
     }
     return $finalResult;

@@ -77,32 +77,20 @@ class Lexem extends BaseObject {
     }
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
 
-    $random = rand() % 2;
-    $maxerror = "";
+    $start = microtime(true);
+    $method = "trigram";
     $leng = mb_strlen($cuv);
-    $time = explode(" ", microtime());
-    $start = $time[1] + $time[0];
-    if ($random == 0) {
-      $method = "trigram";
-      $result = NGram::searchNGram($cuv);
-    } else {
-      $maxerror = 30;
-      $method = "leven3";
-      $result = Model::factory('Lexem')->raw_query("select * from Lexem where leven('$cuv', $field , $maxerror) <= $maxerror order by leven('$cuv', $field, $maxerror) limit 10", null)->find_many();
-    }
-
-    $time = explode(" ", microtime());
-    $end = $time[1] + $time[0];
+    $result = NGram::searchNGram($cuv);
+    $end = microtime(true);
     $search_time = sprintf('%0.3f', $end - $start);
-    if ($maxerror > 0)
-      $maxerror -= 5;
+/*
     $logArray = "";
     foreach ($result as $word) {		
       $logArray = $logArray . " " . $word;
     }
-    $logEntry = "$method\t$search_time\t$cuv:\t$logArray\t$maxerror\t$leng\t" . count($result) . "\n";
+    $logEntry = "$method\t$search_time\t$cuv:\t$logArray\t$leng\t" . count($result) . "\n";
     file_put_contents("/var/log/dex-approx.log", $logEntry, FILE_APPEND | LOCK_EX);
-    
+*/
     if ($useMemcache) {
       mc_set($key, $result);
     }

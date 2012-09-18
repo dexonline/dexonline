@@ -28,6 +28,3 @@ if [ ! -e wwwbase/.htaccess ]
 then
   cp docs/.htaccess wwwbase/
 fi
-
-# Compile sql-functions.cc
-g++ -fPIC -shared -I/usr/include/mysql -o tools/sql-functions.so tools/sql-functions.cc

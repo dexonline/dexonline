@@ -41,11 +41,12 @@ class NGram extends BaseObject {
     $finalResult = array();
     foreach ($lexIds as $id) {
       $result = Model::factory('Lexem')->where('id', $id)->where_gte('charLength', $leng - self::$LENGTH_DIF)
-	->where_lte('charLength', $leng + self::$LENGTH_DIF)->find_one();
-      if ($result && count($finalResult) < self::$MAX_RESULTS) {
+        ->where_lte('charLength', $leng + self::$LENGTH_DIF)->find_one();
+      if ($result) {
         array_push($finalResult, $result);
-        if (count($finalResult) == 20)
+        if (count($finalResult) == self::$MAX_RESULTS) {
           break;
+        }
       }
     }
     return $finalResult;

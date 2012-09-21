@@ -69,7 +69,7 @@
   <p class="paragraphTitle">Arhiva cuvintelor zilei</p>
 
   <div id="wotdArchive" class="wotdArchive"></div>
-  <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$timestamp|date_format:'%Y'}/{$timestamp|date_format:'%m'}','#wotdArchive')</script>
+  <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$timestamp|date_format:'%Y/%m'}','#wotdArchive')</script>
 
   {* Javascript for "Add to favorites" *}
   {if $sUser}

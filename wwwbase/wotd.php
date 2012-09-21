@@ -1,6 +1,5 @@
 <?php
 
-setlocale(LC_ALL, "ro_RO.utf8");
 define('WOTD_BIG_BANG', '2011-05-01');
 
 require_once("../phplib/util.php");
@@ -56,12 +55,9 @@ if (!$wotd) {
   $wotd = WordOfTheDay::get_by_displayDate($mysqlDate);
 }
 
-$archive = WordOfTheDay::getArchiveWotD(date('Y', $timestamp), date('m', $timestamp));
-
 $defId = WordOfTheDayRel::getRefId($wotd->id);
 $def = Definition::get_by_id($defId);
 $searchResults = SearchResult::mapDefinitionArray(array($def));
-setlocale(LC_ALL, 'ro_RO');
 $roDate = strftime("%e %B %Y", $timestamp);
 $pageTitle = sprintf("Cuvântul zilei: %s (%s)", $def->lexicon, $roDate);
 
@@ -72,11 +68,9 @@ if ($mysqlDate < $today || util_isModerator(PRIV_ADMIN)) {
   smarty_assign('nextday', date('Y/m/d', $timestamp + 86400));
 }
 
-
 smarty_assign('imageUrl', $wotd->getImageUrl());
 smarty_assign('imageCredits', $wotd->getImageCredits());
 smarty_assign('timestamp', $timestamp);
-smarty_assign('archive', $archive);
 smarty_assign('mysqlDate', $mysqlDate);
 smarty_assign('page_title', $pageTitle);
 smarty_assign('page_keywords', "Cuvântul zilei, {$def->lexicon}, dexonline, DEX online, $pageTitle");

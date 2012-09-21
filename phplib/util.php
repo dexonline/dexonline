@@ -1,5 +1,6 @@
 <?php
 mb_internal_encoding("UTF-8");
+setlocale(LC_ALL, "ro_RO.utf8");
 
 spl_autoload_register(); //clears the autoload stack
 

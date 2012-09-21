@@ -5,7 +5,7 @@
     &nbsp
   {/if}
 
-  <p id="wotdDate">{$month} {$year}</p>
+  <p id="wotdDate">{$month|capitalize} {$year}</p>
 
   {if $showNext==1}
     <span onclick="loadAjaxContent('{$wwwRoot}{$nextMonth}', '#wotdArchive');" class="nav" id="navRight"></span>
@@ -25,25 +25,34 @@
     <td>Sâmbătă</td>
     <td>Duminică</td>
   </tr>
-{foreach from=$words item=word key=row_id name=loop}
-    {if $smarty.foreach.loop.first}
-      {if $word->dayOfWeek == 2}
-      <tr>
-      {else}
-      {assign var=loopCount value=6}
-      {if $word->dayOfWeek > 1}
-      {assign var=loopCount value=$word->dayOfWeek-2}
-      {/if}
-      <tr>
-      {section name=preCal loop=$loopCount}
-      <td>&nbsp;</td>
-      {/section}
-      {/if}
-    {/if}
-    {if $word->dayOfWeek == 2}<tr>{/if}
-    <td class="activeMonth">
+  {foreach from=$words item=week}
+    <tr>
+      {foreach from=$week item=day}
+        {if $day}
+          <td class="activeMonth">
+            <div class="wotdDoM">{$day.dayOfMonth}</div>
+            <div>{if $day.visible}<a href="{$wwwRoot}cuvantul-zilei/{$day.wotd->displayDate|replace:'-':'/'}">{$day.def->lexicon}</a>{else}&nbsp;{/if}</div>
+            <div class="thumb">
+              {if $day.wotd->image}
+                <img src="{$imgRoot}/{$day.wotd->getThumbUrl()}" alt="thumbnail {$day.def->lexicon}"/>
+              {/if}
+            </div>
+          </td>
+        {else}
+          <td>&nbsp;</td>
+        {/if}
+      {/foreach}
+    </tr>
+  {/foreach}
+</table>
+{*    <td class="activeMonth">
       <div class="wotdDoM">{$word->dayOfMonth}</div>
-      <div>{if $word->lexicon}<a href="{$wwwRoot}cuvantul-zilei/{$word->linkDate}">{$word->lexicon}</a>{else}&nbsp;{/if}</div>
+      {if $word->image}
+        <div>
+          {$imgRoot}{$word->image}
+        </div>
+      {/if}
+      <div></div>
     </td>
     {if $word->dayOfWeek == 1}</tr>{/if}
     {if $smarty.foreach.loop.last}
@@ -56,5 +65,5 @@
         </tr>
       {/if}
     {/if}
-{/foreach}
+{/foreach} *}
 </table>

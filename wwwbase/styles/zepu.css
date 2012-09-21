@@ -1016,8 +1016,13 @@ input.pagedisplay {
   border: 1px solid white;
 }
 
+.wotdArchiveTable .thumb {
+  height: 48px;
+  padding: 5px 0px;
+}
+
 .wotdArchiveTable td.activeMonth {
-  text-align:right;
+  text-align: center;
   width: 90px;
   background: #ddd;
   border: 1px solid white;
@@ -1034,6 +1039,7 @@ input.pagedisplay {
 .wotdDoM {
   font-size: 16px;
   font-weight: bold;
+  text-align: right;
 }
 
 #wotdPrevNext {

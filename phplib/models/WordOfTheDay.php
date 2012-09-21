@@ -19,24 +19,6 @@ class WordOfTheDay extends BaseObject {
       ->order_by_desc('displayDate')->limit(25)->find_many();
   }
 
-  public static function getArchiveWotD($year, $month) {
-    $query = "SELECT displayDate, lexicon, replace(displayDate, '-', '/') linkDate, DAYOFWEEK(displayDate) dayOfWeek, DAYOFMONTH(displayDate) dayOfMonth 
-        FROM WordOfTheDay W
-        JOIN WordOfTheDayRel R ON W.id=R.wotdId
-        JOIN Definition D ON R.refId=D.id AND D.status=0 AND R.refType='Definition'
-        WHERE MONTH(displayDate)={$month} AND YEAR(displayDate)={$year}
-        ORDER BY displayDate"; //TODO
-    $dbRes = db_execute($query);
-    $results = array();
-    foreach ($dbRes as $row) {
-      $wotda = new WotDArchive();
-      $wotda->set($row);
-      $results[] = $wotda;
-    }
-
-    return $results;
-  }
-
   public static function getTodaysWord() {
     return Model::factory('WordOfTheDay')->where_raw('displayDate = curdate()')->find_one();
   }

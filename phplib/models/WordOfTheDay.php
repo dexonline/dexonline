@@ -79,7 +79,6 @@ class WordOfTheDay extends BaseObject {
       }
       $line = trim($line);
       if ($line) {
-        var_dump($line);
         $parts = explode('::', trim($line));
         if (preg_match("/{$parts[0]}/", $this->image)) {
           $filename = self::$IMAGE_DESCRIPTION_DIR . '/' . $parts[1];

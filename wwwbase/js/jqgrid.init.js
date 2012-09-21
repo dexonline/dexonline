@@ -8,10 +8,9 @@ function beginEdit(id){
   else {
       $('#lexicon').attr('readonly', false);
       $('#lexicon').autocomplete("wotdGetDefinitions.php").result(function(event, item){
-        var lexicon = item[0].replace(/^([^ | ^\-]*) -.*$/, '$1');
-        var definitionId = item[0].replace(/^[^\[|\[^\{]*\[\{([0-9]+)\}\]$/, '$1');
-        $('#definitionId').val(definitionId);
-        $('#lexicon').val(lexicon);
+        var matches = item[0].match(/^\[([^\]]+)\].+\[([0-9]+)\]$/);
+        $('#definitionId').val(matches[2]);
+        $('#lexicon').val(matches[1]);
       });
   }
   $('#lexicon')[0].style.width = '200px';

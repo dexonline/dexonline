@@ -6,7 +6,7 @@
 require_once __DIR__ . '/../phplib/util.php';
 
 define('NUM_DAYS', 3);
-$MAIL_TO = 'cata@francu.com, dorelian.bellu@gmail.com, raduborza@gmail.com';
+$MAIL_TO = 'cata@francu.com, dorelian.bellu@gmail.com, raduborza@gmail.com, carmennistor7@gmail.com';
 $MAIL_HEADERS = array('From: cata@francu.com', 'Reply-To: cata@francu.com');
 
 $sendEmail = false;
@@ -23,7 +23,7 @@ if (!$sendEmail) {
 }
 
 $messages = array();
-$firstProblem = 0;
+$firstErrorDate = null;
 
 for ($d = 0; $d <= NUM_DAYS; $d++) {
   $date = date("Y-m-d", strtotime("+{$d} days"));
@@ -31,53 +31,77 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
   // Check that exactly one WotD exists
   $wotds = WordOfTheDay::get_all_by_displayDate($date);
   if (count($wotds) != 1) {
-    $messages[$date] = count($wotds)
-      ? sprintf("Există %s cuvinte", count($wotds))
-      : "Nu există niciun cuvânt";
+    addError($date, count($wotds) ? sprintf("Există %s cuvinte", count($wotds)) : "Nu există niciun cuvânt");
     continue;
   }
 
   // Check that it has exactly one WotD rel
   $rels = WordOfTheDayRel::get_all_by_wotdId($wotds[0]->id);
   if (count($rels) != 1) {
-    $messages[$date] = count($rels)
-      ? sprintf("Există %s definiții asociate", count($rels))
-      : "Nu există nicio definiție asociată";
+    addError($date, count($rels) ? sprintf("Există %s definiții asociate", count($rels)) : "Nu există nicio definiție asociată");
     continue;
   }
    
   // Check that the definition exists
   $def = Definition::get_by_id($rels[0]->refId);
   if (!$def) {
-    $messages[$date] = sprintf("Definiția cu id-ul %s nu există", $rels[0]->refId);
+    addError($date, sprintf("Definiția cu id-ul %s nu există", $rels[0]->refId));
     continue;
+  }
+
+  // Check that we haven't had the same word or a similar one in the past.
+  // Currently we look for words that contain, or are contained by, the proposed word.
+  $query = sprintf("select d.lexicon, w.displayDate from WordOfTheDay w, WordOfTheDayRel r, Definition d " .
+                   "where w.id = r.wotdId and r.refId = d.id and r.refType = 'Definition' and w.displayDate < '%s' and " .
+                   "((instr('%s', lexicon) > 0) or (lexicon like '%%%s%%'))",
+                   $date, $def->lexicon, $def->lexicon);
+  $dups = db_getArrayOfRows($query);
+  if (count($dups)) {
+    $msg = "Cuvântul {$def->lexicon} seamnănă cu următoarele cuvinte deja propuse:";
+    foreach ($dups as $dup) {
+      $msg .= " {$dup[0]} ({$dup[1]})";
+    }
+    addInfo($date, $msg);
   }
 
   // Check that there is an image
   if (!$wotds[0]->image) {
-    $messages[$date] = sprintf("Definiția '%s' nu are o imagine asociată", $def->lexicon);
+    addError($date, sprintf("Definiția '%s' nu are o imagine asociată", $def->lexicon));
     continue;
   }
 
   // Check that the image file exists
   if (!$wotds[0]->imageFileExists()) {
-    $messages[$date] = sprintf("Definiția '%s' are imaginea asociată '%s', dar fișierul nu există", $def->lexicon, $wotds[0]->image);
+    addError($date, sprintf("Definiția '%s' are imaginea asociată '%s', dar fișierul nu există", $def->lexicon, $wotds[0]->image));
     continue;
   }
 
-  if ($firstProblem == $d) {
-    $firstProblem++;
+  // Generate the thumbnail if necessary
+  if (!$wotds[0]->getThumbUrl()) {
+    $wotds[0]->ensureThumbnail();
+    addInfo($date, "Am regenerat thumbnail-ul pentru imaginea {$wotds[0]->image}");
+  }
+
+  // Warn if the image has no credits
+  if (!$wotds[0]->getImageCredits()) {
+    addInfo($date, "Imaginea {$wotds[0]->image} nu are credite; verificați conținutul fișierului authors.desc");
   }
 }
 
 if ($messages) {
-  switch ($firstProblem) {
-  case 0: $subject = 'ACUM'; break;
-  case 1: $subject = 'ASTĂZI'; break;
-  case 2: $subject = 'cel târziu mâine'; break;
-  default: $subject = sprintf("în %s zile", $firstProblem - 1);
+  if ($firstErrorDate) {
+    $today = date("Y-m-d", strtotime("today"));
+    $days = daysBetween($today, $firstErrorDate);
+    switch ($days) {
+    case 0: $subject = 'ACUM'; break;
+    case 1: $subject = 'ASTĂZI'; break;
+    case 2: $subject = 'cel târziu mâine'; break;
+    default: $subject = sprintf("în %s zile", $days - 1);
+    }
+    $subject = 'Cuvântul zilei: acțiune necesară ' . $subject;
+  } else {
+    $subject = 'Cuvântul zilei: notă informativă';
   }
-  $subject = 'Cuvântul zilei: acțiune necesară ' . $subject;
 
   smarty_assign('numDays', NUM_DAYS);
   smarty_assign('messages', $messages);
@@ -87,6 +111,32 @@ if ($messages) {
   } else {
     print "Subiect: $subject\n\n$body\n";
   }
+}
+
+/*********************************************************************/
+
+function addError($date, $text) {
+  global $firstErrorDate;
+  addMessage('eroare', $date, $text);
+  if (!$firstErrorDate || $date < $firstErrorDate) {
+    $firstErrorDate = $date;
+  }
+}
+
+function addInfo($date, $text) {
+  addMessage('info', $date, $text);
+}
+
+function addMessage($type, $date, $text) {
+  global $messages;
+
+  $messages[] = array('type' => $type, 'date' => $date, 'text' => $text);
+}
+
+function daysBetween($date1, $date2) {
+  $d1 = new DateTime($date1);
+  $d2 = new DateTime($date2);
+  return $d2->diff($d1)->days;
 }
 
 ?>

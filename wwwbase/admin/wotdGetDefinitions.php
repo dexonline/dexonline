@@ -34,7 +34,7 @@ class wotdGetDefinitions{
     $result = '';
     foreach ($definitions as $definition){
       $source = Source::get_by_id($definition->sourceId);
-      $result .= ($result == '' ? '' : "\n") . $definition->lexicon . " - " . substr($definition->internalRep, 0, 80) . ' (' . $source->shortName . ') [{' . $definition->id . '}]';
+      $result .= sprintf("[%s] %s (%s) [%d]\n", $definition->lexicon, mb_substr($definition->internalRep, 0, 80), $source->shortName, $definition->id);
     }
     return $result;
   }

@@ -64,12 +64,30 @@ class WordOfTheDay extends BaseObject {
     return null;
   }
 
-  public function hasImageDescription() {
-    if ($this->image && file_exists(self::$IMAGE_DESCRIPTION_DIR . "/{$this->image}.desc")) {
-      //return "wotd/desc/{$this->image}"; //for now it is OK to return
-      return true;
+  public function getImageCredits() {
+    if (!$this->image) {
+      return null;
     }
-    return false;
+    $lines = @file(self::$IMAGE_DESCRIPTION_DIR . "/authors.desc");
+    if (!$lines) {
+      return null;
+    }
+    foreach ($lines as $line) {
+      $commentStart = strpos($line, '#');
+      if ($commentStart !== false) {
+        $line = substr($line, 0, $commentStart);
+      }
+      $line = trim($line);
+      if ($line) {
+        var_dump($line);
+        $parts = explode('::', trim($line));
+        if (preg_match("/{$parts[0]}/", $this->image)) {
+          $filename = self::$IMAGE_DESCRIPTION_DIR . '/' . $parts[1];
+          return @file_get_contents($filename); // This could be false if the file does not exist.
+        }
+      }
+    }
+    return null;
   }
 
   public function getThumbUrl() {

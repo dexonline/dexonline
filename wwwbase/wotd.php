@@ -74,7 +74,7 @@ if ($mysqlDate < $today || util_isModerator(PRIV_ADMIN)) {
 
 
 smarty_assign('imageUrl', $wotd->getImageUrl());
-smarty_assign('imageHasDescription', $wotd->hasImageDescription());
+smarty_assign('imageCredits', $wotd->getImageCredits());
 smarty_assign('timestamp', $timestamp);
 smarty_assign('archive', $archive);
 smarty_assign('mysqlDate', $mysqlDate);

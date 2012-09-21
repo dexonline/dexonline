@@ -17,12 +17,9 @@ chmod 666 log/dictlog
 touch log/scriptlog
 chmod 666 log/scriptlog
 chmod 777 templates_c
-chmod 777 wwwbase/img/wotd
 
-if [ -d wwwbase/img/wotd/thumb ]
-then
-  chmod 777 wwwbase/img/wotd/thumb
-fi
+# Make all directories under wwwbase/img/wotd/ world-writable
+find wwwbase/img/wotd/ -type d -not -regex ".*svn.*" | xargs chmod 777
 
 if [ ! -e wwwbase/.htaccess ]
 then

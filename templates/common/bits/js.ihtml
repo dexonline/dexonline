@@ -40,7 +40,7 @@
 {/if}
 
 {if isset($hangman)}
-    <script type="text/javascript" src="{$wwwRoot}js/hangman.js?v=2"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/hangman.js?v=3"></script>
 {/if}
 
 {if isset($mill)}

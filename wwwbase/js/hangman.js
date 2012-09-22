@@ -15,7 +15,7 @@ function hangman_gameOver() {
       stayTime: 2000,
     });
     $('.letters').each(function(index) {
-      $(this).val(word.charAt(index).toUpperCase());
+      $(this).val(word.charAt(index));
     });
     $('#hintButton').attr('disabled', 'disabled');
     $('.letterButtons').each(function() {
@@ -27,11 +27,11 @@ function hangman_gameOver() {
 
 /* Returns true if any letters were uncovered */
 function hangman_updateLetters(field) {
-  var letter = field.val().toLowerCase();
+  var letter = field.val();
   var ok = 0;
   for (i = 0; i < word.length; i++) {
     if (letter == word.charAt(i)) {
-      $('.letters')[i].value = letter.toUpperCase();
+      $('.letters')[i].value = letter;
       ok = 1;
       lettersLeft--;
     }
@@ -63,10 +63,9 @@ function hangman_hint() {
   do {
     i = Math.floor(Math.random() * word.length);
   } while (letters[i].value != '');
-  var value = word.charAt(i).toUpperCase();
 
   // Simulate a press of the corresponding button
-  var button = $('.letterButtons[value="' + value + '"]');
+  var button = $('.letterButtons[value="' + word.charAt(i) + '"]');
   button.addClass('buttonHinted');
   hangman_updateLetters(button);
   lives = (lives >= 2) ? lives - 2 : 0;
@@ -82,8 +81,8 @@ function revealLetters(difficulty) {
   if (difficulty > 2) {
     return;
   }
-  firstLetter = word.charAt(0).toUpperCase();
-  lastLetter = word.charAt(word.length - 1).toUpperCase();
+  firstLetter = word.charAt(0);
+  lastLetter = word.charAt(word.length - 1);
   var field = $('.letterButtons[value="' + firstLetter + '"]');
   hangman_letterPressed(field);
 

@@ -68,7 +68,7 @@ do {
 } while (!$defs);
 
 $searchResults = SearchResult::mapDefinitionArray($defs);
-$word = $lexem->formNoAccent;
+$word = mb_strtoupper($lexem->formNoAccent);
 
 smarty_assign('wordLength', mb_strlen($word));
 smarty_assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțuvwxyz', null, PREG_SPLIT_NO_EMPTY));

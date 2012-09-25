@@ -120,9 +120,6 @@ class wotdSave{
   protected function doDelete() {
     $wotd = WordOfTheDay::get_by_id($this->id);
     $wotd->delete();
-
-    $wotdr = WordOfTheDayRel::get_by_wotdId($this->id);
-    $wotdr->delete();
     return '';
   }
 

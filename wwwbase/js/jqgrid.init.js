@@ -2,34 +2,33 @@ function beginEdit(id){
   $('#displayDate').datepicker({ dateFormat: 'yy-mm-dd' });
   $('#displayDate')[0].style.width = '200px';
 
-  if($('#lexicon').val()){
-      $('#lexicon').attr('readonly', true);
-  }
-  else {
-      $('#lexicon').attr('readonly', false);
-      $('#lexicon').autocomplete("wotdGetDefinitions.php").result(function(event, item){
-        var matches = item[0].match(/^\[([^\]]+)\].+\[([0-9]+)\]$/);
-        $('#definitionId').val(matches[2]);
-        $('#lexicon').val(matches[1]);
-      });
+  if ($('#lexicon').val()) {
+    $('#lexicon').attr('readonly', true);
+  } else {
+    $('#lexicon').attr('readonly', false);
+    $('#lexicon').autocomplete("wotdGetDefinitions.php").result(function(event, item){
+      var matches = item[0].match(/^\[([^\]]+)\].+\[([0-9]+)\]$/);
+      $('#definitionId').val(matches[2]);
+      $('#lexicon').val(matches[1]);
+    });
   }
   $('#lexicon')[0].style.width = '200px';
-  if ($('#definitionId').length == 0){
-    $('#lexicon').after('<input type="hidden" id="definitionId"/>');
-  }
-
   $('#priority')[0].style.width = '200px';
   $('#description')[0].style.width = '200px';
-
   $('#image').autocomplete('wotdGetImages.php');
 }
 
-function beforeSubmit(data){
+function endEdit(data) {
   data.definitionId = $('#definitionId').val();
-  var sel_id = $("#wotdGrid").jqGrid('getGridParam','selrow');
-  var rowData = $('#wotdGrid').jqGrid('getRowData', sel_id);
-  data.oldDefinitionId = rowData.definitionId;
   return [true];
+}
+
+function checkServerResponse(response, postData) {
+  if (response.responseText) {
+    return [false, response.responseText];
+  } else {
+    return [true];
+  }
 }
 
 function initGrid(){
@@ -48,7 +47,7 @@ function initGrid(){
         {name: 'refType', index: 'refType', editable: true, edittype: 'select', editoptions: {value: 'Definition:Definition'}, hidden: true},
         {name: 'image', index: 'w.image', editable: true, width: 75},
         {name: 'description', index: 'description', editable: true, edittype: 'textarea', hidden: false, width: 250},
-        {name: 'definitionId', index: 'definitionId', editable: false, hidden: true}
+        {name: 'definitionId', index: 'definitionId', editable: true, hidden: true}
       ],
       rowNum: 20,
       autoWidth: true,
@@ -74,24 +73,22 @@ function initGrid(){
         reloadAfterSubmit: true,
         closeAfterEdit: true,
         closeOnEscape: true,
-        beforeSubmit: function(data){
-          return beforeSubmit(data);
-        },
-        afterShowForm: function(id){
-          beginEdit(id);
-        },
+        beforeSubmit: endEdit,
+        afterShowForm: beginEdit,
+        afterSubmit: checkServerResponse, 
       },
       {
         // Settings for add
         reloadAfterSubmit: true,
         closeAfterAdd: true,
         closeOnEscape: true,
-        beforeSubmit: function(data){
-          return beforeSubmit(data);
-        },
-        afterShowForm: function(id){
-          beginEdit(id);
-        },
+        beforeSubmit: endEdit,
+        afterShowForm: beginEdit,
+        afterSubmit: checkServerResponse,
+      },
+      {
+        // Setings for delete
+        afterSubmit: checkServerResponse,
       }
     );
     $('#wotdGrid').filterToolbar({

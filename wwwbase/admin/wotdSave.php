@@ -50,14 +50,6 @@ class wotdSave{
   protected $description;
 
   /**
-   * The old definition ID (used for editing purposes)
-   * This is currently unused -- cata
-   * @var int $oldDefinitionId
-   * @access protected
-   * */
-  protected $oldDefinitionId;
-
-  /**
    * Constructs the object
    * @param int $id The wotd identifier
    * @param string $displayDate The display date [OPTIONAL]
@@ -66,11 +58,10 @@ class wotdSave{
    * @param string $refType The reference type [OPTIONAL]
    * @param string $image The image file [OPTIONAL]
    * @param string $description The description [OPTIONAL]
-   * @param int $oldDefinitionId The old definition identifier [OPTIONAL]
    * @access public
    * @return void
    **/
-  public function __construct($id, $displayDate = null, $priority = null, $refId = null, $refType = null, $image = null, $description = null, $oldDefinitionId = null){
+  public function __construct($id, $displayDate = null, $priority = null, $refId = null, $refType = null, $image = null, $description = null) {
     $this->id = $id;
     $this->displayDate = $displayDate;
     $this->priority = $priority;
@@ -78,21 +69,29 @@ class wotdSave{
     $this->refType = $refType;
     $this->image = $image;
     $this->description = $description;
-    $this->oldDefinitionId = $oldDefinitionId;
   }
 
   /**
    * Saves the data
    * @access protected
-   * @return void
+   * @return error string (empty for success)
    * */
   protected function doSave() {
     if ($this->id != null){
       $wotd = WordOfTheDay::get_by_id($this->id);
-      // $wotd->oldDefinitionId = $this->oldDefinitionId;
     } else {
       $wotd = Model::factory('WordOfTheDay')->create();
       $wotd->userId = session_getUserId();
+    }
+
+    $today = date('Y-m-d', time());
+    $isPast = $wotd->displayDate && $wotd->displayDate < $today;
+
+    if ($isPast && $this->displayDate != $wotd->displayDate) {
+      return 'Nu puteți modifica data pentru un cuvânt al zilei deja afișat';
+    }
+    if (!$this->refId) {
+      return 'Trebuie să alegeți o definiție';
     }
 
     $wotd->displayDate = $this->displayDate ? $this->displayDate : null;
@@ -105,7 +104,7 @@ class wotdSave{
     if (!$wotdr) {
       $wotdr = Model::factory('WordOfTheDayRel')->create();
     }
-    $wotdr->refId = $this->refId ? $this->refId : $this->oldDefinitionId; // No idea what's going on here, but this fixes it -- cata
+    $wotdr->refId = $this->refId;
     $wotdr->refType = $this->refType ? $this->refType : 'Definition';
     $wotdr->wotdId = $wotd->id;
     $wotdr->save();
@@ -115,12 +114,16 @@ class wotdSave{
   /**
    * Deletes a row from the wotd table
    * @access protected
-   * @return string
+   * @return error string (empty for success)
    * */
   protected function doDelete() {
     $wotd = WordOfTheDay::get_by_id($this->id);
-    $wotd->delete();
-    return '';
+    if ($wotd) {
+      $wotd->delete();
+      return '';
+    } else {
+      return "Înregistrarea de șters nu a fost găsită (id={$this->id})";
+    }
   }
 
   /**
@@ -154,12 +157,11 @@ $definitionId = util_getRequestParameter('definitionId');
 $refType = util_getRequestParameter('refType');
 $image = util_getRequestParameter('image');
 $description = util_getRequestParameter('description');
-$oldDefinitionId = util_getRequestParameter('oldDefinitionId');
 
 switch ($oper) {
-case 'edit': $app = new wotdSave($id, $displayDate, $priority, $definitionId, $refType, $image, $description, $oldDefinitionId); break;
+case 'edit': $app = new wotdSave($id, $displayDate, $priority, $definitionId, $refType, $image, $description); break;
 case 'del': $app = new wotdSave($id); break;
-case 'add': $app = new wotdSave(null, $displayDate, $priority, $definitionId, $refType, null, $description, null); break;
+case 'add': $app = new wotdSave(null, $displayDate, $priority, $definitionId, $refType, null, $description); break;
 }
 $app->run($oper);
 

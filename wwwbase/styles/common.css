@@ -108,5 +108,14 @@ table.sources td {
 }
 
 #typoDivConfirmation {
-  text-align: center;   
+  text-align: center;
+}
+
+.tocnumber { 
+    display: none;
+}
+
+blockquote {
+    border: 1px solid; 
+    padding: 2px 6px;
 }

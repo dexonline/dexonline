@@ -66,8 +66,15 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
 
   // Check that there is an image
   if (!$wotds[0]->image) {
-    addError($date, sprintf("Definiția '%s' nu are o imagine asociată", $def->lexicon));
-    continue;
+    $assignedImage = assignImageByName($wotds[0], $def);
+    if ($assignedImage) {
+      $wotds[0]->image = $assignedImage;
+      $wotds[0]->save();
+      addInfo($date, "Am asociat definiția '{$def->lexicon}' cu imaginea {$assignedImage}");
+    } else {
+      addError($date, sprintf("Definiția '%s' nu are o imagine asociată", $def->lexicon));
+      continue;
+    }
   }
 
   // Check that the image file exists
@@ -93,9 +100,10 @@ if ($messages) {
     $today = date("Y-m-d", strtotime("today"));
     $days = daysBetween($today, $firstErrorDate);
     switch ($days) {
-    case 0: $subject = 'ACUM'; break;
-    case 1: $subject = 'ASTĂZI'; break;
-    case 2: $subject = 'cel târziu mâine'; break;
+    case 0: 
+    case 1: $subject = 'ACUM'; break;
+    case 2: $subject = 'ASTĂZI'; break;
+    case 3: $subject = 'cel târziu mâine'; break;
     default: $subject = sprintf("în %s zile", $days - 1);
     }
     $subject = 'Cuvântul zilei: acțiune necesară ' . $subject;
@@ -137,6 +145,31 @@ function daysBetween($date1, $date2) {
   $d1 = new DateTime($date1);
   $d2 = new DateTime($date2);
   return $d2->diff($d1)->days;
+}
+
+/**
+ * Attempts to assign an image automatically for the given date and word.
+ * Returns the image name on success, null on failure
+ **/
+function assignImageByName($wotd, $def) {
+  $yearMonth = substr($wotd->displayDate, 0, 7);
+  $absDir = WordOfTheDay::$IMAGE_DIR . '/' . $yearMonth;
+  $strippedLexicon = stripImageName($def->lexicon);
+  foreach (scandir($absDir) as $file) {
+    $strippedFile = stripImageName($file);
+    if (preg_match("/{$strippedLexicon}\\.(png|jpg)/", $strippedFile)) {
+      return $yearMonth . '/' . $file;
+    }
+  }
+  return null;
+}
+
+// Convert to Latin-1 and strip '-' and ' '
+function stripImageName($fileName) {
+  $s = StringUtil::unicodeToLatin($fileName);
+  $s = str_replace(array('-', ' ', 'ş', 'ţ', 'Ş', 'Ţ'), array('', '', 's', 't', 's', 't'), $s);
+  $s = mb_strtolower($s);
+  return $s;
 }
 
 ?>

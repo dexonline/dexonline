@@ -1,6 +1,6 @@
 <?php
 
-require_once("../phplib/util.php");
+require_once __DIR__ . '/../phplib/util.php';
 
 define('DATABASE_URL',
        'http://dexonline.ro/download/mirrorAccess/dex-database.sql.gz');

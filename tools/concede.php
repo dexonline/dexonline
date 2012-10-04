@@ -6,9 +6,16 @@
 
 require_once __DIR__ . '/../phplib/util.php';
 
-setlocale(LC_ALL, "ro_RO.utf8");
-$str = file_get_contents("/tmp/a.xml");
-//$str = html_entity_decode($str);
+$opts = getopt('f:');
+
+if (count($opts) != 1 || !array_key_exists('f', $opts)) {
+  die("Usage: php concede.php -f <filename>\n");
+}
+
+$str = file_get_contents($opts['f']);
+if ($str === false) {
+  die("File not found\n");
+}
 
 $toreplace = array (
                     "&abreve;", "&acirc;", "&icirc;", "&scedil;", "&tcedil;", "&Abreve;", 
@@ -35,15 +42,16 @@ if (!$xml) {
 }
 
 foreach ($xml->children() as $child) {
+  printf("Processing %s definitions from file %s\n", $child->count(), $opts['f']);
+  $count = 0;
   foreach ($child->children() as $childa) {
-    $count=0;
     foreach ($childa->children() as $childb) {
         
       if ($childb->getName() == "hw") {
-        echo "<b>".strtolower($childb)."</b>";
+        // echo "<b>".strtolower($childb)."</b>";
         $data = Model::factory('Definition')->where_equal('lexicon', strtolower($childb))->find_one();
         if ($data) {
-          echo ":" . $data->id . ":";
+          // echo ":" . $data->id . ":";
           $definitionId = $data->id;
         } else {
           break;
@@ -52,7 +60,7 @@ foreach ($xml->children() as $child) {
       if ($childb->getName() == "struc") {
         foreach ($childb->children() as $childc)
           if ($childc->getName() == "def") {
-            echo ":" . $childc;
+            // echo ":" . $childc;
             $toInsert = Model::factory('DefinitionSimple')->create();
             $toInsert->definitionId = $definitionId;
             $toInsert->definition = trim($childc);
@@ -62,7 +70,11 @@ foreach ($xml->children() as $child) {
           }
       }
     }
-    echo "\n";
+    // echo "\n";
+    $count++;
+    if ($count % 100 == 0) {
+      print "$count definitions processed\n";
+    }
   }
 }
 ?> 

@@ -15,7 +15,8 @@ function getNormalRand($std, $mean, $limit) {
   
   $rand = sqrt(-2 * log($x1)) * cos(2 * pi() * $x2);
   
-  return round($rand * $std + $mean);
+  // Make sure the result is between 0 and $limit inclusive
+  return min(max(round($rand * $std + $mean), 0), $limit);
 }
 
 $difficulty = util_getRequestParameterWithDefault('d', 0);
@@ -43,7 +44,7 @@ for ($i = 1; $i <= 4; $i++) {
       if ($difficulty == 1) {
         $aux = rand(0, $count - 1);
       } else {
-        $aux = getNormalRand(100 - ($difficulty * 20), $chosenDef ,$count - 1);
+        $aux = getNormalRand(100 - ($difficulty * 20), $chosenDef, $count - 1);
       }
       $def = Model::factory('DefinitionSimple')->limit(1)->offset($aux)->find_one();
     } while (array_key_exists($def->definitionId, $used));

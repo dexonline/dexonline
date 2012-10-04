@@ -10,7 +10,7 @@ $LICENSE = util_getRootPath() . '/tools/dumpDatabaseLicense.txt';
 $parts = db_splitDsn();
 $COMMON_COMMAND = sprintf("mysqldump -h %s -u %s --password='%s' %s ", $parts['host'], $parts['user'], $parts['password'], $parts['database']);
 
-$schemaOnly = array('RecentLink', 'Cookie', 'UserWordBookmark', 'history_Comment', 'history_Definition');
+$schemaOnly = array('RecentLink', 'Cookie', 'UserWordBookmark', 'DefinitionSimple', 'history_Comment', 'history_Definition');
 $currentYear = date("Y");
 
 // Full/Public dump: the public dump omits the user table, which contains emails and md5-ed passwords.

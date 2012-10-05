@@ -20,14 +20,15 @@
 
   <div class="widgetAndShadow">
     <div id="wotd" class="widget">
-      <img src="{$imgRoot}/wotd/cuvantul-lunii/2012-martie-salutar.thb.jpg" alt="iconiță cuvântul lunii"/>
-      <p>Cuvântul lunii: <a href="{$wwwRoot}definitie-dex/empatie">empatie</a></p>
+      <img src="{$imgRoot}/{$thumbUrlM}" alt="iconiță cuvântul lunii"/>
+      <p>Cuvântul lunii: {include file="common/bits/wotmurl.ihtml" title=$titleM}</p>
     </div>
     <div class="widgetShadow"></div>
   </div>
 
   <div class="widgetAndShadow">
     <div class="widget">
+      <img alt="cuvânt aleator" src="/img/wotd/_/mini/aleator.jpg"/>
       <p>Cuvânt aleator: {include file="common/bits/randomWord.ihtml"}</p>
     </div>
     <div class="widgetShadow"></div>
@@ -37,7 +38,8 @@
 <div id="widgetWrapper">
   <div class="widgetAndShadow">
     <div class="widget">
-      <p>Articolul lunii: <a href="{$wwwRoot}articol/I._e_sau_ea%3F">e sau ea?</a></p>
+      <img alt="articolul lunii" src="/img/wotd/_/mini/papirus.png"/>
+      <p>Articolul lunii: <a href="{$wwwRoot}articol/{$articol}">{$articol|replace:'_':' '}</a></p>
     </div>
     <div class="widgetShadow"></div>
   </div>

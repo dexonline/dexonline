@@ -26,5 +26,14 @@ smarty_assign('thumbUrl', $wotd->getThumbUrl());
 smarty_assign('title', $def->lexicon);
 smarty_assign('today', date('Y/m/d'));
 
+/* WotM part */
+$wotm = WordOfTheMonth::getCurrentWotM();
+$wotm->ensureThumbnail();
+$def = Model::factory('Definition')->where('id', $wotm->definitionId)->where('status', ST_ACTIVE)->find_one();
+smarty_assign('thumbUrlM', $wotm->getThumbUrl());
+smarty_assign('articol', $wotm->article);
+smarty_assign('titleM', $def->lexicon);
+smarty_assign('todayM', date('Y/m'));
+
 smarty_displayPageWithSkin('index.ihtml');
 ?>

@@ -46,7 +46,7 @@ foreach ($xml->children() as $child) {
   $count = 0;
   foreach ($child->children() as $childa) {
     foreach ($childa->children() as $childb) {
-        
+
       if ($childb->getName() == "hw") {
         // echo "<b>".strtolower($childb)."</b>";
         $data = Model::factory('Definition')->where_equal('lexicon', strtolower($childb))->find_one();
@@ -57,6 +57,9 @@ foreach ($xml->children() as $child) {
           break;
         }
       }
+      if ($childb->getName() == "pos") {
+          $pos = strtolower($childb);
+      }
       if ($childb->getName() == "struc") {
         foreach ($childb->children() as $childc)
           if ($childc->getName() == "def") {
@@ -64,6 +67,7 @@ foreach ($xml->children() as $child) {
             $toInsert = Model::factory('DefinitionSimple')->create();
             $toInsert->definitionId = $definitionId;
             $toInsert->definition = trim($childc);
+            $toInsert->pos = isset($pos) ? $pos : '';
             $toInsert->createDate = time();
             $toInsert->modDate = time();
             $toInsert->save();
@@ -77,4 +81,4 @@ foreach ($xml->children() as $child) {
     }
   }
 }
-?> 
+?>

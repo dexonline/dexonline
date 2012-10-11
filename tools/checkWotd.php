@@ -6,7 +6,8 @@
 require_once __DIR__ . '/../phplib/util.php';
 
 define('NUM_DAYS', 3);
-$MAIL_TO = 'cata@francu.com, dorelian.bellu@gmail.com, raduborza@gmail.com, carmennistor7@gmail.com';
+$MAIL_INFO = array('cata@francu.com');
+$MAIL_ERROR = array('raduborza@gmail.com', 'dorelian.bellu@gmail.com', 'carmennistor7@gmail.com');
 $MAIL_HEADERS = array('From: cata@francu.com', 'Reply-To: cata@francu.com');
 
 $sendEmail = false;
@@ -107,17 +108,20 @@ if ($messages) {
     default: $subject = sprintf("în %s zile", $days - 1);
     }
     $subject = 'Cuvântul zilei: acțiune necesară ' . $subject;
+    $mailTo = array_merge($MAIL_INFO, $MAIL_ERROR);
   } else {
     $subject = 'Cuvântul zilei: notă informativă';
+    $mailTo = $MAIL_INFO;
   }
+  $mailTo = implode(', ', $mailTo);
 
   smarty_assign('numDays', NUM_DAYS);
   smarty_assign('messages', $messages);
   $body = smarty_fetch('email/checkWotd.ihtml');
   if ($sendEmail) {
-    mail($MAIL_TO, $subject, $body, implode("\n", $MAIL_HEADERS));
+    mail($mailTo, $subject, $body, implode("\n", $MAIL_HEADERS));
   } else {
-    print "Subiect: $subject\n\n$body\n";
+    print "Către: $mailTo\nSubiect: $subject\n\n$body\n";
   }
 }
 

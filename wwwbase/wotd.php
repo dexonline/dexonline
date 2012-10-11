@@ -3,12 +3,11 @@
 define('WOTD_BIG_BANG', '2011-05-01');
 
 require_once("../phplib/util.php");
-$date = util_getRequestParameter('d');
-$type = util_getRequestParameter('t');
+$date = util_getRequestParameter('d');$type = util_getRequestParameter('t');
 
 // RSS stuff - could be separated from the rest
 // TODO optimize & factorize
-if ($type == 'rss') {
+if ($type == 'rss' || $type == 'blog') {
   $words = WordOfTheDay::getRSSWotD();
   $results = array();
   foreach ($words as $w) {
@@ -16,11 +15,22 @@ if ($type == 'rss') {
     $ts = strtotime($w->displayDate);
     $defId = WordOfTheDayRel::getRefId($w->id);
     $def = Model::factory('Definition')->where('id', $defId)->where('status', ST_ACTIVE)->find_one();
+    $source = Model::factory('Source')->where('id', $def->sourceId)->find_one();
+
     smarty_assign('def', $def);
+    smarty_assign('source', $source);
     smarty_assign('imageUrl', $w->getImageUrl());
     smarty_assign('fullServerUrl', util_getFullServerUrl());
-    $item['title'] = $def->lexicon;
-    $item['description'] = smarty_fetch('common/bits/wotdRssItem.ihtml');
+    if ($type == 'blog') {
+        $curDate = strftime("%e %B", $ts);
+        smarty_assign('curDate', $curDate);
+        $item['title'] = "Cuvântul zilei ({$curDate}) – " . $def->lexicon;
+        $item['description'] = smarty_fetch('common/bits/wotdRssBlogItem.ihtml');
+    }
+    else {
+        $item['title'] = $def->lexicon;
+        $item['description'] = smarty_fetch('common/bits/wotdRssItem.ihtml');
+    }
     $item['pubDate'] = date('D, d M Y H:i:s', $ts) . ' EEST';
     $item['link'] = util_getFullServerUrl() . 'cuvantul-zilei/' . date('Y/m/d', $ts);
 
@@ -30,7 +40,7 @@ if ($type == 'rss') {
   header("Content-type: text/xml");
   smarty_assign('rss_title', 'Cuvântul zilei');
   smarty_assign('rss_link', 'http://' . $_SERVER['HTTP_HOST'] . '/cuvantul-zilei/');
-  smarty_assign('rss_description', 'Doza zilnică de cuvinte propuse de DEXonline!');
+  smarty_assign('rss_description', 'Doza zilnică de cuvinte de la DEXonline!');
   smarty_assign('rss_pubDate', date('D, d M Y H:i:s') . ' EEST');
   smarty_assign('results', $results);
   smarty_displayWithoutSkin('common/rss.ixml');
@@ -57,6 +67,14 @@ if (!$wotd) {
 
 $defId = WordOfTheDayRel::getRefId($wotd->id);
 $def = Definition::get_by_id($defId);
+
+if ($type == 'url') {
+  smarty_assign('today', $today);
+  smarty_assign('title', $def->lexicon);
+  smarty_displayWithoutSkin('common/bits/wotdurl.ihtml');
+  exit;
+}
+
 $searchResults = SearchResult::mapDefinitionArray(array($def));
 $roDate = strftime("%e %B %Y", $timestamp);
 $pageTitle = sprintf("Cuvântul zilei: %s (%s)", $def->lexicon, $roDate);
@@ -77,12 +95,6 @@ smarty_assign('page_keywords', "Cuvântul zilei, {$def->lexicon}, dexonline, DEX
 smarty_assign('page_description', "$pageTitle de la dexonline");
 smarty_assign('searchResult', array_pop($searchResults));
 
-if ($type == 'url') {
-  smarty_assign('today', $today);
-  smarty_assign('title', $def->lexicon);
-  smarty_displayWithoutSkin('common/bits/wotdurl.ihtml');
-} else {
-  smarty_displayCommonPageWithSkin('wotd.ihtml');
-}
+smarty_displayCommonPageWithSkin('wotd.ihtml');
 
 ?>

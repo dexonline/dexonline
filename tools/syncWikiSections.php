@@ -22,7 +22,7 @@ log_scriptLog('Sections cleaned (truncate table)');
 if (DEBUG) echo "Am resetat tabela...";
 
 foreach ($xml->query->allcategories->c as $section) {
-    log_scriptLog('Diving into ' + $section);
+    log_scriptLog('Diving into ' . $section);
     if (DEBUG) echo "Citim secțiunea " . $section . "\n";
 
     $url = sprintf(SECTION_PAGES_TMPL_URL, $section);
@@ -47,6 +47,6 @@ foreach ($xml->query->allcategories->c as $section) {
 }
 
 
-log_scriptLog('syncWikiArticles.php finished');
+log_scriptLog('syncWikiSections.php finished');
 
 ?>

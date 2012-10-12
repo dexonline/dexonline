@@ -28,7 +28,7 @@
 
   <div class="widgetAndShadow">
     <div class="widget">
-      <img alt="cuvânt aleator" src="/img/wotd/_/mini/aleator.jpg"/>
+      <img alt="cuvânt aleator" src="{$imgRoot}/wotd/_/mini/aleator.jpg"/>
       <p>Cuvânt aleator: {include file="common/bits/randomWord.ihtml"}</p>
     </div>
     <div class="widgetShadow"></div>
@@ -38,7 +38,7 @@
 <div id="widgetWrapper">
   <div class="widgetAndShadow">
     <div class="widget">
-      <img alt="articolul lunii" src="/img/wotd/_/mini/papirus.png"/>
+      <img alt="articolul lunii" src="{$imgRoot}/wotd/_/mini/papirus.png"/>
       <p>Articolul lunii: <a href="{$wwwRoot}articol/{$articol}">{$articol|replace:'_':' '}</a></p>
     </div>
     <div class="widgetShadow"></div>

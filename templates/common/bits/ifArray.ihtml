@@ -7,7 +7,7 @@
     {foreach from=$ifArray item=if key=i}
         {if $i}, {/if}
         {if !$if->recommended}<span class="notRecommended" title="formă nerecomandată">{/if}
-          {$if->form|regex_replace:"/\'(a|e|i|o|u|ă|î|â)/":"<font class=\"accented\">\$1</font>"}
+          {$if->form|regex_replace:"/\'(a|e|i|o|u|ă|î|â|y)/":"<font class=\"accented\">\$1</font>"}
         {if !$if->recommended}*</span>{/if}
     {/foreach}
   {/strip}

@@ -9,3 +9,4 @@ Sursa: <a class="ref" href="{$wwwRoot}surse" title="{$source->name|escape}, {$so
 {if $source->year}
 ({$source->year|regex_replace:"/ .*$/":""})
 {/if}
+</a>

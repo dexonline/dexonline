@@ -35,21 +35,21 @@
           <g:plusone size="medium" href="http://dexonline.ro"></g:plusone>
         </div>
         <ul id="mainMenu">
-          <li><a href="#" onclick="return false;">Despre noi</a>
+          <li><a href="#" onclick="return false;">Despre noi ▼</a>
             <ul>
               <li><a href="{$wwwRoot}informatii">Informații</a></li>
               <li><a href="#" onclick="abbrevWindow(); return false;">Abrevieri folosite</a></li>
               <li><a href="{$wwwRoot}contact">Contact</a></li>
             </ul>
           </li>
-          <li><a href="#" onclick="return false;">Implică-te</a>
+          <li><a href="#" onclick="return false;">Implică-te ▼</a>
             <ul>
               <li><a href="{$wwwRoot}contribuie">Contribuie cu definiții</a></li>
               <li><a href="{$wwwRoot}top">Topul voluntarilor</a></li>
               <li><a href="http://wiki.dexonline.ro/wiki/Informa%C8%9BiiPentruProgramatori">Informații pentru programatori</a></li>
             </ul>
           </li>
-          <li><a href="#" onclick="return false;">Resurse</a>
+          <li><a href="#" onclick="return false;">Articole și resurse ▼</a>
             <ul>
               <li><a href="{$wwwRoot}articole">Articole lingvistice</a></li>
               <li><a href="{$wwwRoot}articol/Ghid_de_exprimare_corect%C4%83">Ghid de exprimare</a></li>

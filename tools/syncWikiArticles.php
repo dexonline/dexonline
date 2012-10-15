@@ -1,12 +1,15 @@
 <?
 
-require_once("../phplib/util.php");
+require_once __DIR__ . "/../phplib/util.php";
 log_scriptLog('Running syncWikiArticles.php');
 
 define('CATEGORY_LISTING_URL', 'http://lingv.dexonline.ro/api.php?action=query&list=categorymembers&cmtitle=Categorie:Sincronizare&cmlimit=max&cmsort=timestamp&cmdir=desc&format=xml');
 define('PAGE_LISTING_URL', 'http://lingv.dexonline.ro/api.php?action=query&pageids=%s&prop=info&inprop=url&format=xml');
-define('PAGE_RENDER_URL', 'http://lingv.dexonline.ro/index.php?action=render&curid=%d');
+define('PARSER_URL', 'http://lingv.dexonline.ro/api.php');
 define('PAGE_RAW_URL', 'http://lingv.dexonline.ro/index.php?action=raw&curid=%d');
+
+$options = getopt('', array('force'));
+$force = array_key_exists('force', $options);
 
 // Get the most recently edited category members
 $xml = simplexml_load_file(CATEGORY_LISTING_URL);
@@ -36,8 +39,7 @@ foreach ($xml->query->pages->page as $page) {
   $fullUrl = (string)$page->attributes()->fullurl;
 
   $curPage = WikiArticle::get_by_pageId($pageId);
-  if (!$curPage || $curPage->revId < $lastRevId) {
-    $pageRenderUrl = sprintf(PAGE_RENDER_URL, $pageId);
+  if (!$curPage || $curPage->revId < $lastRevId || $force) {
     $pageRawUrl = sprintf(PAGE_RAW_URL, $pageId);
 
     if (!$curPage) {
@@ -52,12 +54,11 @@ foreach ($xml->query->pages->page as $page) {
       log_scriptLog("Cannot fetch raw page from $pageRawUrl");
       exit(1);
     }
-    $curPage->htmlContents = file_get_contents($pageRenderUrl);
+    $curPage->htmlContents = parse($curPage->wikiContents);
     if ($curPage->htmlContents === false) {
-      log_scriptLog("Cannot fetch rendered page from $pageRenderUrl");
+      log_scriptLog("Cannot parse page");
       exit(1);
     }
-    $curPage->htmlContents = str_replace('href="http://lingv.dexonline.ro/wiki/', 'href="/articol/', $curPage->htmlContents);
     $curPage->save();
 
     WikiKeyword::deleteByWikiArticleId($curPage->id);
@@ -85,5 +86,30 @@ foreach ($ourIds as $ourId) {
 }
 
 log_scriptLog('syncWikiArticles.php finished');
+
+/*************************************************************************/
+
+function parse($text) {
+  // Preprocessing
+  $text = "__NOEDITSECTION__\n" . $text; // Otherwise the returned HTML will contain section edit links
+  $text = str_replace(array('ş', 'Ş', 'ţ', 'Ţ'), array('ș', 'Ș', 'ț', 'Ț'), $text);
+
+  // Actual parsing
+  $xmlString = util_makePostRequest(PARSER_URL, array('action' => 'parse', 'text' => $text, 'format' => 'xml', 'editsection' => false));
+  $xml = simplexml_load_string($xmlString);
+  $html = (string)$xml->parse->text;
+  if (!$html) {
+    return false;
+  }
+
+  // Postprocessing
+  // Convert links to other articles, even if they are not under [[Categorie:Sincronizare]]
+  $html = str_replace('href="/wiki/', 'href="/articol/', $html);
+
+  // Fully qualify links to index.php. Most likely, these are link to non-existant articles.
+  $html = str_replace('href="/index.php', 'href="http://lingv.dexonline.ro/index.php', $html);
+
+  return $html;
+}
 
 ?>

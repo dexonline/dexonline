@@ -409,6 +409,21 @@ function util_fetchUrl($url) {
   return $result;
 }
 
+function util_makePostRequest($url, $data, $useCookies = false) {
+  $ch = curl_init($url);
+  if ($useCookies) {
+    curl_setopt($ch, CURLOPT_COOKIEFILE, self::$curlCookieFile);
+    curl_setopt($ch, CURLOPT_COOKIEJAR, self::$curlCookieFile);
+  }
+  curl_setopt($ch, CURLOPT_POST, true);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_USERAGENT, 'dexonline.ro');
+  $result = curl_exec($ch);
+  curl_close($ch);
+  return $result;
+}
+
 function util_print($var) {
   print "<pre>\n";
   print_r($var);

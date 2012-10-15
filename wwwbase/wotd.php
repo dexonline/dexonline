@@ -24,7 +24,7 @@ if ($type == 'rss' || $type == 'blog') {
     if ($type == 'blog') {
         $curDate = strftime("%e %B", $ts);
         smarty_assign('curDate', $curDate);
-        $item['title'] = "Cuvântul zilei ({$curDate}) – " . $def->lexicon;
+        $item['title'] = "{$curDate} – " . $def->lexicon;
         $item['description'] = smarty_fetch('common/bits/wotdRssBlogItem.ihtml');
     }
     else {

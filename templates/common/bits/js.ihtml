@@ -44,5 +44,5 @@
 {/if}
 
 {if isset($mill)}
-    <script type="text/javascript" src="{$wwwRoot}js/mill.js?v=1"></script>
+    <script type="text/javascript" src="{$wwwRoot}js/mill.js?v=2"></script>
 {/if}

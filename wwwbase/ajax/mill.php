@@ -20,6 +20,19 @@ function getNormalRand($std, $mean, $limit) {
 }
 
 $difficulty = util_getRequestParameterWithDefault('d', 0);
+$logAnswerId = util_getRequestParameterWithDefault('answerId', 0);
+$logGuessed = util_getRequestParameterWithDefault('guessed', 0);
+
+if($logAnswerId!=0) {
+  $log = Model::factory('DefinitionSimple')
+      ->select('*')
+      ->where('id',$logAnswerId)
+      ->find_one();
+ 
+  $log->millShown++;
+  $log->millGuessed = $log->millGuessed + $logGuessed;
+  $log->save();
+}
 
 $count = Model::factory('DefinitionSimple')->count();
 
@@ -54,6 +67,7 @@ for ($i = 1; $i <= 4; $i++) {
 }
 
 $xml->addChild('word', $word->lexicon);
+$xml->addChild('answerId', $maindef->id);
 for ($i = 1; $i <= 4; $i++) {
   $xml->addChild('definition' . $i, $options[$i]);
 }

@@ -4,6 +4,8 @@
   var answer = "";
   var round = 1;
   var answeredCorrect = 0;
+  var answerId = 0;
+  var guessed = 0;
 </script>
 
 {include file="common/bits/js.ihtml" mill=1}

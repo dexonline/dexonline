@@ -639,5 +639,35 @@ class AdminStringUtil {
     return $s;
   }
 
+  static function getAbbreviation($sourceId, $short) {
+    $abbrevs = self::loadAbbreviations();
+    return array_key_exists($sourceId, $abbrevs) && array_key_exists($short, $abbrevs[$sourceId])
+      ? $abbrevs[$sourceId][$short]['to']
+      : null;
+  }
+
+  // Returns the numeric value of a Roman numeral or null on errors
+  static function romanToArabic($roman) {
+    $roman = strtolower($roman);
+    $len = strlen($roman);
+    $oldValue = 100000;
+    $result = 0;
+    $values = array('i' => 1, 'v' => 5, 'x' => 10, 'l' => 50, 'c' => 100, 'd' => 500, 'm' => 1000);
+
+    for ($i = 0; $i < $len; $i++) {
+      $c = substr($roman, $i, 1);
+      if (!array_key_exists($c, $values)) {
+        return null;
+      }
+      $value = $values[$c];
+      $result += $value;
+      if ($value > $oldValue) {
+        $result -= 2 * $oldValue;
+      }
+      $oldValue = $value;
+    }
+    return $result;
+  }
+
 }
 ?>

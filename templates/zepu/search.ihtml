@@ -24,5 +24,18 @@
 </form>
 <div class="clearer"></div> 
 <script type="text/javascript">
-  document.frm.cuv.select();document.frm.cuv.focus();
+  {literal}
+  document.frm.cuv.select();
+  document.frm.cuv.focus();
+  
+  function slash(evt) { // ignore / and let it be used by the browser
+    evt = evt || window.event;
+    var charCode = evt.keyCode || evt.which;
+    if (charCode == 191) {
+      this.blur();
+      return false;
+    }
+  };
+  document.frm.cuv.addEventListener("keydown", slash, false);
+  {/literal}
 </script>

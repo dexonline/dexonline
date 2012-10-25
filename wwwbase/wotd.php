@@ -3,12 +3,14 @@
 define('WOTD_BIG_BANG', '2011-05-01');
 
 require_once("../phplib/util.php");
-$date = util_getRequestParameter('d');$type = util_getRequestParameter('t');
+$date = util_getRequestParameter('d');
+$type = util_getRequestParameter('t');
+$delay = util_getRequestParameter('h', 0); //delay in minutes
 
 // RSS stuff - could be separated from the rest
 // TODO optimize & factorize
 if ($type == 'rss' || $type == 'blog') {
-  $words = WordOfTheDay::getRSSWotD();
+  $words = WordOfTheDay::getRSSWotD($delay);
   $results = array();
   foreach ($words as $w) {
     $item = array();

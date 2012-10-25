@@ -14,8 +14,9 @@ class WordOfTheDay extends BaseObject {
   public static $THUMB_DIR;
   public static $THUMB_SIZE;
 
-  public static function getRSSWotD() {
-    return Model::factory('WordOfTheDay')->where_gt('displayDate', '2011-01-01')->where_raw('displayDate < NOW()')
+  public static function getRSSWotD($delay = 0) {
+      $nowDate = ( $delay == 0 ) ? 'NOW()' : 'DATE_SUB(NOW(), INTERVAL ' . $delay. ' MINUTE)';
+    return Model::factory('WordOfTheDay')->where_gt('displayDate', '2011-01-01')->where_raw('displayDate < ' . $nowDate)
       ->order_by_desc('displayDate')->limit(25)->find_many();
   }
 

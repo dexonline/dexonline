@@ -55,8 +55,8 @@ function initGrid(){
       rowList: [20, 50, 100, 200],
       sortname: 'displayDate',
       pager: $('#wotdPaging'),
-      viewRecords: true,
-      sortOrder: 'desc',
+      viewrecords: true,
+      sortorder: 'desc',
       caption: 'Cuvântul zilei',
       editurl: 'wotdSave.php',
     });

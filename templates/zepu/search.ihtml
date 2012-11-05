@@ -31,7 +31,7 @@
   function slash(evt) { // ignore / and let it be used by the browser
     evt = evt || window.event;
     var charCode = evt.keyCode || evt.which;
-    if (charCode == 191) {
+    if (charCode == 191 && !evt.shiftKey) {
       this.blur();
       return false;
     }

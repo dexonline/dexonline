@@ -613,22 +613,27 @@
 
 	<h4>Pentru dicționarele Editurii Litera: Copyright (C) Editura Litera.</h4>
 
-	Pentru patru dintre dicționare (Dicționar de sinonime, Dicționar de antonime, Dicționar ortografic, Nodex), toate drepturile sunt
-	rezervate Editurii Litera. Copierea definițiilor din aceste dicționare este interzisă fără acordul explicit al Editurii Litera.
+  Pentru patru dintre dicționare (Dicționar de sinonime, Dicționar de antonime, Dicționar ortografic, Nodex), toate drepturile sunt
+  rezervate Editurii Litera. Copierea definițiilor din aceste dicționare este interzisă fără acordul explicit al Editurii Litera.
 
 	<h4>Pentru restul dicționarelor: Copyright (C) 2004-{$currentYear} DEX online.</h4>
 
-		<i>DEX online</i> (constituit din baza de definiții și codul sursă)
-		este liber; îl puteți redistribui și/sau modifica în conformitate cu
-		termenii Licenței Publice Generale GNU așa cum este ea publicată de
-		Free Software Foundation; fie versiunea 2 a Licenței, fie (la
-		latitudinea dumneavoastră) orice versiune ulterioară.  Acest program
-		este distribuit cu speranța că vă va fi util, dar FĂRĂ NICIO
-		GARANȚIE, chiar fără garanția implicită de vandabilitate sau
-		conformitate unui anumit scop. Citiți Licența Publică Generală GNU
-		pentru detalii.  Puteți găsi o copie a Licenței Publice Generale GNU
-		<a href="http://www.gnu.org/copyleft/gpl.html">aici</a> și o
-		traducere a ei în limba română <a href="licenta-gpl">aici</a>.
+  Baza de definiții a <i>DEX online</i> este liberă; o puteți redistribui și/sau modifica în conformitate cu termenii Licenței Publice Generale GNU
+  așa cum este ea publicată de Free Software Foundation; fie versiunea 2 a Licenței, fie (la latitudinea dumneavoastră) orice versiune ulterioară.
+  Baza de definiții este distribuită cu speranța că vă va fi utilă, dar FĂRĂ NICIO GARANȚIE, chiar fără garanția implicită de vandabilitate sau
+  conformitate unui anumit scop. Citiți Licența Publică Generală GNU pentru detalii.  Puteți găsi o copie a Licenței Publice Generale GNU <a
+  href="http://www.gnu.org/copyleft/gpl.html">aici</a> și o traducere a ei în limba română <a href="licenta-gpl">aici</a>.
+
+  <h4>Pentru codul-sursă: Copyright (C) 2004-{$currentYear} DEX online.</h4>
+
+    Acest program este software liber: îl puteți redistribui și/sau modifica sub termenii <a href="http://www.gnu.org/licenses/agpl-3.0.html">Licenței
+    Publice Generale Affero (AGPL)</a> așa cum este ea publicată de Free Software Foundation, fie versiunea 3 a licenței, fie (la latitudinea
+    dumneavoastră) orice versiune ulterioară. Acest program este distribuit cu speranța că vă va fi util, dar FĂRĂ NICIO GARANȚIE, chiar fără garanția
+    implicită de vandabilitate sau conformitate unui anumit scop. Citiți Licența Publică Generală Affero pentru detalii.
+    <br/><br/>
+
+    Pentru instrucțiuni privind descărcarea și instalarea codului-sursă, vizitați pagina <a
+    href="http://wiki.dexonline.ro/wiki/AccesLaCodulSurs%C4%83">Acces la codul-sursă</a>.
 
 	<h4>Explicație</h4>
 

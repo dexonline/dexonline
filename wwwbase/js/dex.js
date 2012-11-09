@@ -231,19 +231,6 @@ function getWotdCallback (httpRequest){
   }
 }
 
-function addToEngines() {
-  if ((typeof window.sidebar == 'object') &&
-      (typeof window.sidebar.addSearchEngine == 'function')) {
-    window.sidebar.addSearchEngine('http://dexonline.ro/download/dexonline.src',
-                                   'http://dexonline.ro/download/dexonline.png',
-                                   'dexonline',
-                                   'DEX online');
-  } else {
-    alert('Este nevoie de Netscape 6, Mozilla sau Firefox ' +
-          'pentru a instala această extensie.');
-  }
-}
-
 function addProvider(url) {
   try {
     window.external.AddSearchProvider(url);

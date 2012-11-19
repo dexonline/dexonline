@@ -1,24 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" flex=1}
-    {include file="common/bits/js.ihtml" dex=1}
-    <title>Confirmare ștergere lexem</title>
-  </head>
+Lexemul {include file="common/bits/lexemName.ihtml" lexem=$lexem} a fost șters. Puteți vizita unul dintre omonimele listate mai jos sau merge înapoi
+la <a href="../admin">pagina moderatorului</a>.
+<br/><br/>
 
-  <body>
-    Lexemul
-    {include file="common/bits/lexemName.ihtml" lexem=$lexem}
-    a fost șters. Puteți vizita unul dintre omonimele listate mai jos sau
-    merge înapoi la <a href="../admin">pagina moderatorului</a>.
-    <br/><br/>
-
-    {foreach from=$homonyms item=h key=i}
-      {if $i}|{/if}
-      <a href="lexemEdit.php?lexemId={$h->id}"
-        >{include file="common/bits/lexemName.ihtml" lexem=$h}</a>
-    {/foreach}
-  </body>
-</html>
+{foreach from=$homonyms item=h key=i}
+  {if $i}|{/if}
+  <a href="lexemEdit.php?lexemId={$h->id}"
+    >{include file="common/bits/lexemName.ihtml" lexem=$h}</a>
+{/foreach}

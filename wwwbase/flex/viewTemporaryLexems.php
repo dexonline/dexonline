@@ -1,6 +1,6 @@
 <?php
-require_once("../../phplib/util.php"); 
-ini_set("memory_limit", "256000000");
+require_once('../../phplib/util.php');
+ini_set('memory_limit', '512M');
 util_hideEmptyRequestParameters();
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
@@ -23,6 +23,7 @@ if ($sourceId) {
 
 smarty_assign('recentLinks', RecentLink::loadForUser());
 smarty_assign('lexems', $lexems);
-smarty_displayWithoutSkin('admin/lexemList.ihtml');
+smarty_assign('sectionCount', count($lexems));
+smarty_displayAdminPage('admin/lexemList.ihtml');
 
 ?>

@@ -1,40 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" flex=1 elfinder=1 jquery_smoothness=1}
-    {include file="common/bits/js.ihtml" jquery=1 jqueryui=1 elfinder=1}
-    <title>DEX | {$sectionTitle|escape}</title>
-  </head>
+<a href="wotd.php">Lista cuvintelor zilei</a> |
+<a class="helpLink" href="http://wiki.dexonline.ro/wiki/CuvântulZilei">instrucțiuni</a>
 
-  <body>
-    {include file="admin/header.ihtml" title="DEX online - Imagini pentru cuvântul zilei"}
-    <a href="wotd.php">Lista cuvintelor zilei</a> |
-    <a class="helpLink" href="http://wiki.dexonline.ro/wiki/CuvântulZilei">instrucțiuni</a>
+<div id="fileManager">
+</div>
+<br/>
 
-    <div id="fileManager">
-    </div>
-    <br/>
+<script type="text/javascript">
+  {literal}
+  $(document).ready(function() {
+    $('#fileManager').elfinder({
+      url: '../elfinder-connector/connector.php',
+      lang: 'en'
+    })
+  });
+  {/literal}
+</script>
 
-    <script type="text/javascript">
-      {literal}
-      $(document).ready(function() {
-        $('#fileManager').elfinder({
-          url: '../elfinder-connector/connector.php',
-          lang: 'en'
-        })
-      });
-      {/literal}
-    </script>
-
-    <form action="wotdCompressImages" method="post" enctype="multipart/form-data" target="_new">
-      Comprimă imagini (o arhivă zip):
-      <input type="file" name="file"/>
-      <input type="submit" name="submitButton" value="Comprimă"/>      
-    </form>
-
-    {include file="common/bits/debugInfo.ihtml"}
-  </body>
-
-</html>
+<form action="wotdCompressImages" method="post" enctype="multipart/form-data" target="_new">
+  Comprimă imagini (o arhivă zip):
+  <input type="file" name="file"/>
+  <input type="submit" name="submitButton" value="Comprimă"/>      
+</form>

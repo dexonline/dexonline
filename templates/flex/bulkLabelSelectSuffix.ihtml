@@ -1,35 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" flex=1}
-    {include file="common/bits/js.ihtml" dex=1}
-    <title>Flex | Alegere sufix pentru etichetare asistată</title>
-  </head>
+Mai întâi, alegeți sufixul de examinat. În paranteză este trecut
+numărul de lexeme care au sufixul ales.
+<br/><br/>
 
-  <body>
-    {include file="admin/header.ihtml"
-             title=$sectionTitle}
-    {include file="admin/recentlyVisited.ihtml"}
+<form action="bulkLabel.php" method="get">
+  Sufix: 
+  <select name="suffix">
+    {foreach from=$stats item=stat}
+      <option value="{$stat.0}">{$stat.0} ({$stat.1})</option>
+    {/foreach}
+  </select>
 
-    Mai întâi, alegeți sufixul de examinat. În paranteză este trecut
-    numărul de lexeme care au sufixul ales.
-    <br/><br/>
-
-    <form action="bulkLabel.php" method="get">
-      Sufix: 
-      <select name="suffix">
-        {foreach from=$stats item=stat}
-          <option value="{$stat.0}">{$stat.0} ({$stat.1})</option>
-        {/foreach}
-      </select>
-
-      <input type="submit" name="ignoredSubmit" value="Continuă"
-             onclick="return hideSubmitButton(this)"/>
-    </form>
-
-    {include file="common/bits/debugInfo.ihtml"}
-  </body>
-
-</html>
+  <input type="submit" name="ignoredSubmit" value="Continuă" onclick="return hideSubmitButton(this)"/>
+</form>

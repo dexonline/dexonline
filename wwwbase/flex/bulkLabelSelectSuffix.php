@@ -10,8 +10,8 @@ foreach ($dbResult as $row) {
 }
 
 smarty_assign('stats', $stats);
-smarty_assign('sectionTitle', 'Alegere sufix');
+smarty_assign('sectionTitle', 'Alegere sufix pentru etichetare asistată');
 smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayWithoutSkin('flex/bulkLabelSelectSuffix.ihtml');
+smarty_displayAdminPage('flex/bulkLabelSelectSuffix.ihtml');
 
 ?>

@@ -108,8 +108,9 @@ smarty_assign('models', $models);
 smarty_assign('searchResults', $searchResults);
 smarty_assign('ifMapMatrix', $ifMapMatrix);
 smarty_assign('allStatuses', util_getAllStatuses());
-smarty_assign('sectionTitle', "Sufix: $suffix");
+smarty_assign('sectionTitle', "Sufix: -$suffix");
 smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayWithoutSkin('flex/bulkLabel.ihtml');
+smarty_addCss('paradigm');
+smarty_displayAdminPage('flex/bulkLabel.ihtml');
 
 ?>

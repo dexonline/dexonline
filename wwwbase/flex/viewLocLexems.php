@@ -38,7 +38,7 @@ $query = "select l.* from Lexem l, LexemDefinitionMap ldm, Definition d where l.
 $lexemDbResult = db_execute($query);
 
 smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_assign('lexemDbResult', $lexemDbResult);
-smarty_displayWithoutSkin('admin/lexemListDbResult.ihtml');
+smarty_assign('sectionCount', $lexemDbResult->rowCount());
+smarty_displayAdminPage('admin/lexemListDbResult.ihtml');
 
 ?>

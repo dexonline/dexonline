@@ -48,8 +48,10 @@ smarty_assign('search', $search);
 smarty_assign('replace', $replace);
 smarty_assign('sourceId', $sourceId);
 smarty_assign('searchResults', $searchResults);
+smarty_assign('sectionTitle', 'Înlocuire în masă');
+smarty_assign('sectionCount', count($searchResults));
 smarty_assign('allStatuses', util_getAllStatuses());
 smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayWithoutSkin('admin/bulkReplace.ihtml');
+smarty_displayAdminPage('admin/bulkReplace.ihtml');
 
 ?>

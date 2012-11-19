@@ -1,0 +1,20 @@
+{assign var=sectionCount value=$sectionCount|default:null}
+{assign var=sectionSources value=$sectionSources|default:false}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    {include file="common/bits/cssJs.ihtml"}
+    <title>DEX | {$sectionTitle|escape}</title>
+  </head>
+
+  <body>
+    {include file="admin/header.ihtml" title=$sectionTitle count=$sectionCount showSources=$sectionSources}
+    {include file="admin/recentlyVisited.ihtml"}
+    {include file="common/flashMessages.ihtml"}
+    {include file="common/errorMessage.ihtml"}
+    {include file="$templateName"}
+    {include file="common/bits/debugInfo.ihtml"}
+  </body>
+</html>

@@ -1,28 +1,21 @@
-{assign var=dbResult value=$dbResult|default:null}
-{assign var=items value=$items|default:null}
-{assign var=noLinks value=$noLinks|default:false}
-{assign var=showSources value=$showSources|default:false}
 <div class="header">
   <div class="title">
     {$title|escape}
-    {if $items}({$items|@count}){/if}
-    {if $dbResult}({$dbResult->rowCount()}){/if}
+    {if $count}({$count}){/if}
   </div>
 
   {if $showSources}
-  <div class="title"> 
-    <form name="frm" class="searchForm">
-    {include file="common/sourceDropDown.ihtml" urlName=1 autosubmit=1}
-    </form>
-  </div>
-  {/if}
-
-  {if !$noLinks}
-    <div class="links">
-      <a href="../">DEX online</a> |
-      <a href="../admin/">Pagina moderatorului</a> |
-      <a href="#" onclick="return adminHelpWindow();">Ajutor</a>
+    <div class="title"> 
+      <form name="frm" class="searchForm" action="#">
+        {include file="common/sourceDropDown.ihtml" urlName=1 autosubmit=1}
+      </form>
     </div>
   {/if}
+
+  <div class="links">
+    <a href="../">DEX online</a> |
+    <a href="../admin/">Pagina moderatorului</a> |
+    <a href="#" onclick="return adminHelpWindow();">Ajutor</a>
+  </div>
   <div style="clear: both;"></div>
 </div>

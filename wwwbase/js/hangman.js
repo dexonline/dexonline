@@ -1,5 +1,7 @@
-var lives = 6;
-var lettersLeft = word.length;
+$(function() {
+  lives = 6;
+  lettersLeft = word.length;
+});
 
 function hangman_updateLives() {
   $('.hangmanPic').css('background-position', '-' + (lives * 250 + 10) + 'px -10px');

@@ -1,44 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" flex=1}
-    {include file="common/bits/js.ihtml" dex=1}
-    <title>DEX | Ștergere model: {$modelType}{$modelNumber}</title>
-  </head>
-  
-  <body>
-    {assign var="title" value="Ștergere model: `$modelType``$modelNumber`"}
-    {include file="admin/header.ihtml" title="$title"}
-    {include file="admin/recentlyVisited.ihtml"}
-    {include file="common/errorMessage.ihtml"}
+<form action="deleteModel.php" method="post" onsubmit="this.bogusButton.disabled = true;">
+  <input type="hidden" name="modelType" value="{$modelType}"/>
+  <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
 
-    <form action="deleteModel.php" method="post" onsubmit="this.bogusButton.disabled = true;">
-      <input type="hidden" name="modelType" value="{$modelType}"/>
-      <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
+  {if count($lexems)}
+    Există {$lexems|@count} lexem(e) etichetate cu acest model. Dacă
+    apăsați butonul "Confirmă", ele vor fi reetichetate cu modelul T1.
+  {else}
+    Nu există lexeme etichetate cu acest model. Modelul poate fi șters
+    fără probleme.
+  {/if}
+  <br/><br/>
 
-      {if count($lexems)}
-        Există {$lexems|@count} lexem(e) etichetate cu acest model. Dacă
-        apăsați butonul "Confirmă", ele vor fi reetichetate cu modelul T1.
-      {else}
-        Nu există lexeme etichetate cu acest model. Modelul poate fi șters
-        fără probleme.
-      {/if}
-      <br/><br/>
+  {foreach from=$lexems item=l}
+    {include file="common/bits/lexemName.ihtml" lexem=$l}
+    <span class="deemph">({$l->modelType}{$l->modelNumber})</span>
+    &nbsp;&nbsp;
+    <a href="../admin/lexemEdit.php?lexemId={$l->id}">editează</a>
+    <br/>
+  {/foreach}
+   <br/>
 
-      {foreach from=$lexems item=l}
-        {include file="common/bits/lexemName.ihtml" lexem=$l}
-        <span class="deemph">({$l->modelType}{$l->modelNumber})</span>
-        &nbsp;&nbsp;
-        <a href="../admin/lexemEdit.php?lexemId={$l->id}">editează</a>
-        <br/>
-      {/foreach}
-       <br/>
-
-      <!-- We want to disable the button on click, but still submit a value -->
-      <input type="hidden" name="deleteButton" value="1"/>
-      <input type="submit" name="bogusButton" value="Confirmă"/>
-    </form>
-  </body>
-</html>
+  <!-- We want to disable the button on click, but still submit a value -->
+  <input type="hidden" name="deleteButton" value="1"/>
+  <input type="submit" name="bogusButton" value="Confirmă"/>
+</form>

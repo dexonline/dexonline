@@ -1,5 +1,3 @@
-{include file="common/bits/js.ihtml jquery=1 jqTableDnd=1}
-
 <h2>Editare flexiuni</h2>
 
 <form method="post" action="flexiuni">

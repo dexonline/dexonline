@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" polar=1}
+    {include file="common/bits/cssJs.ihtml"}
     <title>DEX online - Sincronizare client</title>
   </head>
 

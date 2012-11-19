@@ -1,22 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" flex=1 jqgrid=1 autocomplete=1}
-    {include file="common/bits/js.ihtml" jquery=1 dex=1 jqgrid=1 autocomplete=1}
-    <title>DEX | {$sectionTitle|escape}</title>
-  </head>
-
-  <body onload="initGrid()">
-    {include file="admin/header.ihtml" title="DEX online - Word of the Day"}
-    {include file="admin/recentlyVisited.ihtml"}
-    <a href="wotdImages.php">Imagini pentru cuvântul zilei</a> |
-    <a class="helpLink" href="http://wiki.dexonline.ro/wiki/CuvântulZilei">instrucțiuni</a>
-    <table id="wotdGrid"></table>
-    <div id="wotdPaging"></div>
-
-    {include file="common/bits/debugInfo.ihtml"}
-  </body>
-
-</html>
+<script type="text/javascript">$(initGrid);</script>
+<a href="wotdImages.php">Imagini pentru cuvântul zilei</a> |
+<a class="helpLink" href="http://wiki.dexonline.ro/wiki/CuvântulZilei">instrucțiuni</a>
+<table id="wotdGrid"></table>
+<div id="wotdPaging"></div>

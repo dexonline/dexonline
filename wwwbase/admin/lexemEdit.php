@@ -66,7 +66,8 @@ if ($deleteLexem) {
   $lexem->delete();
   smarty_assign('lexem', $lexem);
   smarty_assign('homonyms', $homonyms);
-  smarty_displayWithoutSkin('admin/lexemDeleted.ihtml');
+  smarty_assign('sectionTitle', 'Confirmare ștergere lexem');
+  smarty_displayAdminPage('admin/lexemDeleted.ihtml');
   return;
 }
 
@@ -219,7 +220,10 @@ smarty_assign('canEditForm', $canEditForm);
 smarty_assign('allStatuses', util_getAllStatuses());
 smarty_assign('errorMessage', $errorMessage);
 smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayWithoutSkin('admin/lexemEdit.ihtml');
+smarty_addCss('autocomplete', 'paradigm');
+smarty_addJs('jquery', 'autocomplete');
+smarty_assign('sectionTitle', "Editare lexem: {$lexem->form} {$lexem->modelType}{$lexem->modelNumber}{$lexem->restriction}");
+smarty_displayAdminPage('admin/lexemEdit.ihtml');
 
 function validate($lexem) {
   if (!$lexem->form) {

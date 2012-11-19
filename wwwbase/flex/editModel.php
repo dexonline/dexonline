@@ -275,7 +275,10 @@ smarty_assign('inputValues', $inputValues);
 smarty_assign('recentLinks', RecentLink::loadForUser());
 smarty_assign('wasPreviewed', $previewButton);
 smarty_assign('errorMessage', $errorMessage);
-smarty_displayWithoutSkin('flex/editModel.ihtml');
+smarty_assign('sectionTitle', "Editare model {$modelType}{$modelNumber}");
+smarty_addCss('paradigm');
+smarty_addJs('jquery');
+smarty_displayAdminPage('flex/editModel.ihtml');
 
 
 /****************************************************************************/

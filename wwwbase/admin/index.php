@@ -11,5 +11,8 @@ smarty_assign("allStatuses", util_getAllStatuses());
 smarty_assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 smarty_assign('modelTypes', ModelType::loadCanonical());
 smarty_assign('models', $models);
-smarty_displayWithoutSkin('admin/index.ihtml');
+smarty_assign('sectionTitle', 'Pagina moderatorului');
+smarty_addCss('autocomplete');
+smarty_addJs('jquery', 'autocomplete');
+smarty_displayAdminPage('admin/index.ihtml');
 ?>

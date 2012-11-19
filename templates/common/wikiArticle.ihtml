@@ -10,7 +10,6 @@
     Intenția noastră este să împărțim acest ghid în articole pe diverse teme și, în timp, să cooptăm lingviști profesioniști pentru a îmbunătăți calitatea articolelor.
   </div>
 
-  {include file="common/bits/js.ihtml" jquery=1}
   <script type="text/javascript"> 
     jQuery(document).ready(function() {ldelim}
       jQuery("#guideInfo").hide();

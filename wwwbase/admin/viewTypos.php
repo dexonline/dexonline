@@ -19,8 +19,10 @@ $defs = Model::factory('Definition')
 
 smarty_assign('searchResults', SearchResult::mapDefinitionArray($defs));
 smarty_assign('sectionTitle', 'Definiții cu greșeli de tipar');
+smarty_assign('sectionCount', count($defs));
+smarty_assign('sectionSources', true);
 smarty_assign('allStatuses', util_getAllStatuses());
 smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayWithoutSkin('admin/definitionList.ihtml');
+smarty_displayAdminPage('admin/definitionList.ihtml');
 
 ?>

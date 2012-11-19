@@ -119,6 +119,6 @@ smarty_assign('sectionTitle', 'Marcare substantive proprii');
 smarty_assign('recentLinks', RecentLink::loadForUser());
 smarty_assign('lexems', $lexems);
 smarty_assign('prefix', $prefix);
-smarty_displayWithoutSkin('admin/properNouns.ihtml');
+smarty_displayAdminPage('admin/properNouns.ihtml');
 
 ?>

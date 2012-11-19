@@ -76,5 +76,7 @@ smarty_assign('page_title', 'Spânzurătoarea');
 smarty_assign('word', $word);
 smarty_assign('searchResults', $searchResults);
 smarty_assign('difficulty', $difficulty);
+smarty_addCss('hangman');
+smarty_addJs('hangman', 'jqnotice');
 smarty_displayCommonPageWithSkin("hangman.ihtml");
 ?>

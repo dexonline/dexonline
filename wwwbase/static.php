@@ -12,5 +12,6 @@ switch ($content) {
 smarty_assign('title', "$title | DEX online");
 smarty_assign('content', $content);
 smarty_register_outputfilters();
-$GLOBALS['smarty_theSmarty']->display('common/static.ihtml');
+smarty_addCss('zepu');
+print smarty_fetch('common/static.ihtml');
 ?>

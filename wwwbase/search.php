@@ -297,6 +297,7 @@ smarty_assign('paradigmLink', $paradigmLink);
 smarty_assign('advancedSearch', $text || $sourceId);
 
 if (!$xml) {
+  smarty_addCss('paradigm');
   smarty_displayCommonPageWithSkin('search.ihtml');
 
 } else {

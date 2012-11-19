@@ -1,45 +1,24 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" flex=1 autocomplete=1}
-    {include file="common/bits/js.ihtml" dex=1 flex=1 jquery=1 autocomplete=1}
-    <title>DEX | Înlocuire în masă</title>
-  </head>
+{foreach from=$searchResults item=row}
+  {$row->definition->htmlRep}<br/>
+  <span class="defDetails">
+    Id: {$row->definition->id} |
+    Sursa: {$row->source->shortName|escape} |
+    Trimisă de {$row->user->nick|escape}</a>,
+    {$row->definition->createDate|date_format:"%e %b %Y"} |
+    {assign var=status value=`$row->definition->status`}
+    {assign var=statusName value=`$allStatuses[$status]`}
+    Starea: {$statusName} |
 
-  <body onload="startReportCounters()">
+    <a href="definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
+  </span>
+  <br/>
+  <br/>
+{/foreach}
 
-    {include file="admin/header.ihtml" title="DEX online - Înlocuire în masă" items=$searchResults}
-    {include file="admin/recentlyVisited.ihtml"}
-    {include file="common/flashMessages.ihtml"}
-
-    {foreach from=$searchResults item=row}
-      {$row->definition->htmlRep}<br/>
-      <span class="defDetails">
-        Id: {$row->definition->id} |
-        Sursa: {$row->source->shortName|escape} |
-        Trimisă de {$row->user->nick|escape}</a>,
-        {$row->definition->createDate|date_format:"%e %b %Y"} |
-        {assign var=status value=`$row->definition->status`}
-        {assign var=statusName value=`$allStatuses[$status]`}
-        Starea: {$statusName} |
-
-        <a href="definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
-      </span>
-      <br/>
-      <br/>
-    {/foreach}
-
-    <form action="bulkReplace.php" method="get">
-      <input type="hidden" name="search" value="{$search|escape}"/>
-      <input type="hidden" name="replace" value="{$replace|escape}"/>
-      <input type="hidden" name="source" value="{$sourceId}"/>
-      <input type="hidden" name="realRun" value="1"/>
-      <input type="submit" name="submitButton" value="Confirmă" onclick="return hideSubmitButton(this)"/>
-    </form>
-
-    {include file="common/bits/debugInfo.ihtml"}
-  </body>
-
-</html>
+<form action="bulkReplace.php" method="get">
+  <input type="hidden" name="search" value="{$search|escape}"/>
+  <input type="hidden" name="replace" value="{$replace|escape}"/>
+  <input type="hidden" name="source" value="{$sourceId}"/>
+  <input type="hidden" name="realRun" value="1"/>
+  <input type="submit" name="submitButton" value="Confirmă" onclick="return hideSubmitButton(this)"/>
+</form>

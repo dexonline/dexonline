@@ -74,6 +74,7 @@ smarty_assign('newModelNumber', $newModelNumber);
 smarty_assign('lexems', $lexems);
 smarty_assign('errorMessage', $errorMessages);
 smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayWithoutSkin('flex/cloneModel.ihtml');
+smarty_assign('sectionTitle', "Clonare model: {$modelType}{$modelNumber}");
+smarty_displayAdminPage('flex/cloneModel.ihtml');
 
 ?>

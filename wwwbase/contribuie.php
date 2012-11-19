@@ -71,6 +71,7 @@ if ($sendButton) {
 smarty_assign('contribSources', Model::factory('Source')->where('canContribute', true)->order_by_asc('displayOrder')->find_many());
 smarty_assign('page_title', 'Contribuie cu definiții');
 smarty_assign('suggestNoBanner', true);
+smarty_addJs('autocomplete');
 smarty_displayCommonPageWithSkin('contribuie.ihtml');
 
 /**************************************************************************/

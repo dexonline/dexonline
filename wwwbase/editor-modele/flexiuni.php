@@ -48,6 +48,7 @@ smarty_assign('page_title', 'Editare flexiuni');
 smarty_assign('suggestHiddenSearchForm', true);
 smarty_assign('inflections', $inflections);
 smarty_assign('modelTypes', ModelType::loadCanonical());
+smarty_addJs('jqTableDnd');
 smarty_displayCommonPageWithSkin('editor-modele/flexiuni.ihtml');
 
 ?>

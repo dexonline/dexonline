@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    {include file="common/bits/css.ihtml" zepu=1}
+    {include file="common/bits/cssJs.ihtml"}
     <title>{$title|escape}</title>
   </head>
 

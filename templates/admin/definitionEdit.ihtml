@@ -1,154 +1,133 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" flex=1 autocomplete=1}
-    {include file="common/bits/js.ihtml" dex=1 jquery=1 autocomplete=1}
-    <title>DEX | Editare definiție</title>
-  </head>
+<form action="definitionEdit.php" method="post">
+  <input type="hidden" name="definitionId" value="{$def->id}"/>
+  <table class="editableFields" id="lexemTable">
+    <tr id="blankRow" style="display:none">
+      <td>Lexem:</td>
+      <td>
+        <input type="text" name="lexemName[]" value="" size="40"/>
+        <a href="#" onclick="$(this).closest('tr').remove(); return false;">disociază</a>
+      </td>
+    </tr>
 
-  <body>
-    {assign var="title" value="Editare definiție: `$def->id`"}
-    {include file="admin/header.ihtml"
-             title="$title"}
+    {foreach from=$lexems item=l}
+      {if $l->description}
+        {assign var="lexemName" value="`$l->formNoAccent` (`$l->description`)"}
+      {else}
+        {assign var="lexemName" value="`$l->formNoAccent`"}
+      {/if}
+      <tr>
+        <td>Lexem:</td>
+        <td>
+          <input type="text" name="lexemName[]" value="{$lexemName}" size="40"/>
+          <a href="#" onclick="$(this).closest('tr').remove(); return false;">disociază</a> |
+          <a href="lexemEdit.php?lexemId={$l->id}">editează</a>
+        </td>
+      </tr>
+    {/foreach}
 
-    {include file="admin/recentlyVisited.ihtml"}
-    {include file="common/flashMessages.ihtml"}
+    {foreach from=$homonyms item=h key=i}
+      <tr>
+        <td>
+          <img src="{$imgRoot}/icons/exclamation.png" alt="warning"/>
+          Omonim:
+        </td>
+        <td>
+          {include file="common/bits/lexemName.ihtml" lexem=$h}
+          <a href="lexemEdit.php?lexemId={$h->id}">editează</a> |
+          <a href="?definitionId={$def->id}&amp;associateLexemId={$h->id}">asociază</a>
+        </td>
+      </tr>
+    {/foreach}
+  </table>
 
-    <form action="definitionEdit.php" method="post">
-      <input type="hidden" name="definitionId" value="{$def->id}"/>
-      <table class="editableFields" id="lexemTable">
-        <tr id="blankRow" style="display:none">
-          <td>Lexem:</td>
-          <td>
-            <input type="text" name="lexemName[]" value="" size="40"/>
-            <a href="#" onclick="$(this).closest('tr').remove(); return false;">disociază</a>
-          </td>
-        </tr>
+  <script type="text/javascript">
+    $('#lexemTable').find('input').autocomplete('{$wwwRoot}ajax/getLexems.php');
+  </script>
 
-        {foreach from=$lexems item=l}
-          {if $l->description}
-            {assign var="lexemName" value="`$l->formNoAccent` (`$l->description`)"}
-          {else}
-            {assign var="lexemName" value="`$l->formNoAccent`"}
-          {/if}
-          <tr>
-            <td>Lexem:</td>
-            <td>
-              <input type="text" name="lexemName[]" value="{$lexemName}" size="40"/>
-              <a href="#" onclick="$(this).closest('tr').remove(); return false;">disociază</a> |
-              <a href="lexemEdit.php?lexemId={$l->id}">editează</a>
-            </td>
-          </tr>
-        {/foreach}
+  <a href="#" onclick="return addLexemRow();">Adaugă un lexem</a>
+  {include file="admin/helpLink.ihtml" anchor="definitionAddLexem"}
+  <br/><br/>
 
-        {foreach from=$homonyms item=h key=i}
-          <tr>
-            <td>
-              <img src="{$imgRoot}/icons/exclamation.png" alt="warning"/>
-              Omonim:
-            </td>
-            <td>
-              {include file="common/bits/lexemName.ihtml" lexem=$h}
-              <a href="lexemEdit.php?lexemId={$h->id}">editează</a> |
-              <a href="?definitionId={$def->id}&amp;associateLexemId={$h->id}">asociază</a>
-            </td>
-          </tr>
-        {/foreach}
-      </table>
-
-      <script type="text/javascript">
-        $('#lexemTable').find('input').autocomplete('{$wwwRoot}ajax/getLexems.php');
-      </script>
-
-      <a href="#" onclick="return addLexemRow();">Adaugă un lexem</a>
-      {include file="admin/helpLink.ihtml" anchor="definitionAddLexem"}
-      <br/><br/>
-
-      <table class="editableFields">
-        <tr>
-          <td>Sursa:</td>
-          <td>
-            {include file="common/sourceDropDown.ihtml"
-                     sources=$allModeratorSources
-                     src_selected=$def->sourceId
-                     skipAnySource=true}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Starea:
-            {include file="admin/helpLink.ihtml" anchor="definitionDelete"}
-          </td>
-          <td>
-            {include file="common/statusDropDown.ihtml"
-                     name="status"
-                     statuses=$allStatuses
-                     selectedStatus=$def->status}
-          </td>
-        </tr>
-        {if count($typos)}
-          <tr>
-            <td>Greșeli de tipar:</td>
-            <td>
-              {foreach from=$typos item=typo}
-                <span class="typo">* {$typo->problem|escape}</span><br/>
-              {/foreach}
-            </td>
-          </tr>
-        {/if}
-        <tr>
-          <td>Conținut:</td>
-          <td>
-            <textarea name="internalRep" rows="15" cols="80"
-            >{$def->internalRep|escape}</textarea>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Comentariu<br/>
-            (opțional):<br/>
-            {include file="admin/helpLink.ihtml" anchor="definitionComment"}
-          </td>
-          <td>
-            <textarea name="commentContents" rows="5" cols="80">{if $comment}{$comment->contents|escape}{/if}</textarea><br/>
-            {if $commentUser}
-              <input id="preserveCommentUser" type="checkbox" name="preserveCommentUser" value="1" checked="checked">
-              <label for="preserveCommentUser">Păstrează autorul comentariului original ({$commentUser->nick|escape})</label>
-              {include file="admin/helpLink.ihtml" anchor="commentOwner"}
-            {/if}
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" class="buttonRow">
-            <input type="submit" name="but_refresh" value="Reafișează"/>
-            {include file="admin/helpLink.ihtml" anchor="definitionRefresh"}
-            &nbsp;&nbsp;
-            <input type="submit" name="but_accept" value="Acceptă"/>
-            &nbsp;&nbsp;
-            <input type="submit" name="but_move" value="Activează"/>
-            {include file="admin/helpLink.ihtml" anchor="definitionActivate"}
-          </td>
-        </tr>
-      </table>
-    </form>
-
-    <br/>
-    {$def->htmlRep}<br/>
-    <span class="defDetails">
-      Id: {$def->id} |
-      Sursa: {$source->shortName|escape} |
-      Trimisă de {$user->nick|escape}, {$def->createDate|date_format:"%e %b %Y"} |
-      {assign var=status value="`$def->status`"}
-      {assign var=statusName value="`$allStatuses[$status]`"}
-      Starea: {$statusName}
-    </span>
-
-    <br/><br/>
-    {if $comment}
-      Comentariu: {$comment->htmlContents}
+  <table class="editableFields">
+    <tr>
+      <td>Sursa:</td>
+      <td>
+        {include file="common/sourceDropDown.ihtml"
+                 sources=$allModeratorSources
+                 src_selected=$def->sourceId
+                 skipAnySource=true}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Starea:
+        {include file="admin/helpLink.ihtml" anchor="definitionDelete"}
+      </td>
+      <td>
+        {include file="common/statusDropDown.ihtml"
+                 name="status"
+                 statuses=$allStatuses
+                 selectedStatus=$def->status}
+      </td>
+    </tr>
+    {if count($typos)}
+      <tr>
+        <td>Greșeli de tipar:</td>
+        <td>
+          {foreach from=$typos item=typo}
+            <span class="typo">* {$typo->problem|escape}</span><br/>
+          {/foreach}
+        </td>
+      </tr>
     {/if}
+    <tr>
+      <td>Conținut:</td>
+      <td>
+        <textarea name="internalRep" rows="15" cols="80"
+        >{$def->internalRep|escape}</textarea>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Comentariu<br/>
+        (opțional):<br/>
+        {include file="admin/helpLink.ihtml" anchor="definitionComment"}
+      </td>
+      <td>
+        <textarea name="commentContents" rows="5" cols="80">{if $comment}{$comment->contents|escape}{/if}</textarea><br/>
+        {if $commentUser}
+          <input id="preserveCommentUser" type="checkbox" name="preserveCommentUser" value="1" checked="checked">
+          <label for="preserveCommentUser">Păstrează autorul comentariului original ({$commentUser->nick|escape})</label>
+          {include file="admin/helpLink.ihtml" anchor="commentOwner"}
+        {/if}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" class="buttonRow">
+        <input type="submit" name="but_refresh" value="Reafișează"/>
+        {include file="admin/helpLink.ihtml" anchor="definitionRefresh"}
+        &nbsp;&nbsp;
+        <input type="submit" name="but_accept" value="Acceptă"/>
+        &nbsp;&nbsp;
+        <input type="submit" name="but_move" value="Activează"/>
+        {include file="admin/helpLink.ihtml" anchor="definitionActivate"}
+      </td>
+    </tr>
+  </table>
+</form>
 
-  </body>
-</html>
+<br/>
+{$def->htmlRep}<br/>
+<span class="defDetails">
+  Id: {$def->id} |
+  Sursa: {$source->shortName|escape} |
+  Trimisă de {$user->nick|escape}, {$def->createDate|date_format:"%e %b %Y"} |
+  {assign var=status value="`$def->status`"}
+  {assign var=statusName value="`$allStatuses[$status]`"}
+  Starea: {$statusName}
+</span>
+
+<br/><br/>
+{if $comment}
+  Comentariu: {$comment->htmlContents}
+{/if}

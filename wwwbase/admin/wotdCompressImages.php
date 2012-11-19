@@ -52,7 +52,7 @@ if (array_key_exists('file', $_FILES)) {
 }
 
 smarty_assign('sectionTitle', 'Comprimare imagini');
-smarty_displayWithoutSkin('admin/wotdCompressImages.ihtml');
+smarty_displayAdminPage('admin/wotdCompressImages.ihtml');
 
 /**************************************************************************/
 

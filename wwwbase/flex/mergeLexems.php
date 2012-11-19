@@ -99,7 +99,7 @@ smarty_assign('sectionTitle', 'Unificare lexeme');
 smarty_assign('recentLinks', RecentLink::loadForUser());
 smarty_assign('modelType', $modelType);
 smarty_assign('lexems', $lexems);
-smarty_displayWithoutSkin('flex/mergeLexems.ihtml');
+smarty_displayAdminPage('flex/mergeLexems.ihtml');
 
 
 /***************************************************/

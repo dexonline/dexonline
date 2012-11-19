@@ -4,6 +4,7 @@ set_time_limit(0);
 
 // If no GET arguments are set, print usage and return.
 if (count($_GET) == 0) {
+  smarty_addCss('polar');
   smarty_displayWithoutSkin('common/update3Instructions.ihtml');
   return;
 }

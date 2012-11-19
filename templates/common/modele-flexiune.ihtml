@@ -1,8 +1,6 @@
 {assign var="modelsToDisplay" value=$modelsToDisplay|default:null}
 <br/>
 
-{include file="common/bits/js.ihtml" flex=1}
-
 <form action="modele-flexiune" method="get">
   Versiunea LOC:
   <select name="locVersion" id="locVersionListId"

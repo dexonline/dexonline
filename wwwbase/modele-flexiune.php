@@ -55,6 +55,8 @@ smarty_assign('page_title', 'Modele de flexiune');
 smarty_assign('locVersions', $locVersions);
 smarty_assign('modelTypes', $modelTypes);
 smarty_assign('models', $models);
+smarty_addCss('paradigm');
+smarty_addJs('flex');
 smarty_displayCommonPageWithSkin('modele-flexiune.ihtml');
 
 /*************************************************************************/

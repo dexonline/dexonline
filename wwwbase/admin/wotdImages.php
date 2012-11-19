@@ -5,5 +5,7 @@ util_assertNotMirror();
 RecentLink::createOrUpdate('Word of the Day - Imagini');
 
 smarty_assign('sectionTitle', 'Imagini pentru cuvântul zilei');
-smarty_displayWithoutSkin('admin/wotdImages.ihtml');
+smarty_addCss('elfinder', 'jquery_smoothness');
+smarty_addJs('jquery', 'jqueryui', 'elfinder');
+smarty_displayAdminPage('admin/wotdImages.ihtml');
 ?>

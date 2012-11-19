@@ -1,52 +1,29 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" flex=1}
-    {include file="common/bits/js.ihtml" dex=1}
-    <title>DEX | {$sectionTitle|escape}</title>
-  </head>
+{foreach from=$searchResults item=row}
+  <div id="def{$row->definition->id}">
+    {$row->definition->htmlRep}<br/>
+    <span class="defDetails">
+      Id: {$row->definition->id} |
+      Sursa: {$row->source->shortName|escape} |
+      Trimisă de {$row->user->nick|escape},
+      {$row->definition->createDate|date_format:"%e %b %Y"} |
+      {assign var=status value=`$row->definition->status`}
+      {assign var=statusName value=`$allStatuses[$status]`}
+      Starea: {$statusName} |
 
-  <body>
-    {include file="admin/header.ihtml"
-             title="$sectionTitle"
-             items="$searchResults"
-             showSources="true"}
-
-    {include file="admin/recentlyVisited.ihtml"}
-
-    {foreach from=$searchResults item=row}
-      <div id="def{$row->definition->id}">
-        {$row->definition->htmlRep}<br/>
+      <a href="definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
+      {if $status == $smarty.const.ST_PENDING}
+        | <a href="#" title="Șterge această definiție" onclick="return deleteDefinition('def{$row->definition->id}', {$row->definition->id});">Șterge</a>
+      {/if}
+    </span>
+    <br/>
+    {foreach from=$row->typos item=typo}
+      <div id="typo{$typo->id}">
+        <span class="typo">* {$typo->problem|escape}</span>
         <span class="defDetails">
-          Id: {$row->definition->id} |
-          Sursa: {$row->source->shortName|escape} |
-          Trimisă de {$row->user->nick|escape}</a>,
-          {$row->definition->createDate|date_format:"%e %b %Y"} |
-          {assign var=status value=`$row->definition->status`}
-          {assign var=statusName value=`$allStatuses[$status]`}
-          Starea: {$statusName} |
-
-          <a href="definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
-          {if $status == $smarty.const.ST_PENDING}
-            | <a href="#" title="Șterge această definiție" onclick="return deleteDefinition('def{$row->definition->id}', {$row->definition->id});">Șterge</a>
-          {/if}
+          <a href="#" title="Ignoră această raportare" onclick="return ignoreTypo('typo{$typo->id}', {$typo->id});">Ignoră</a>
         </span>
-        <br/>
-        {foreach from=$row->typos item=typo}
-          <div id="typo{$typo->id}">
-            <span class="typo">* {$typo->problem|escape}</span>
-            <span class="defDetails">
-              <a href="#" title="Ignoră această raportare" onclick="return ignoreTypo('typo{$typo->id}', {$typo->id});">Ignoră</a>
-            </span>
-          </div>
-        {/foreach}
-        <br/>
       </div>
     {/foreach}
-
-    {include file="common/bits/debugInfo.ihtml"}
-  </body>
-
-</html>
+    <br/>
+  </div>
+{/foreach}

@@ -8,9 +8,6 @@
   var guessed = 0;
 </script>
 
-{include file="common/bits/js.ihtml" mill=1}
-{include file="common/bits/css.ihtml" mill=1}
-
 <p class="paragraphTitle">Moara cuvintelor</p>
 
 <div id="mainPage">

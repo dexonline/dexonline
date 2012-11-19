@@ -55,6 +55,6 @@ smarty_assign('chars', $chars);
 smarty_assign('searchResults', $searchResults);
 smarty_assign("allStatuses", util_getAllStatuses());
 smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayWithoutSkin('flex/placeAccents.ihtml');
+smarty_displayAdminPage('flex/placeAccents.ihtml');
 
 ?>

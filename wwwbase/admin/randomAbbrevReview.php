@@ -72,7 +72,9 @@ if ($def) {
 
 smarty_assign('def', $def);
 smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayWithoutSkin('admin/randomAbbrevReview.ihtml');
+smarty_assign('sectionTitle', 'Examinare abrevieri');
+smarty_addJs('jquery');
+smarty_displayAdminPage('admin/randomAbbrevReview.ihtml');
 
 /**
  * Sort matches from last to first

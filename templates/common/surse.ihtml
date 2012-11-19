@@ -1,5 +1,3 @@
-{include file="common/bits/js.ihtml" jqTableDnd=1}
-
 <ul>
   <li>Duceți mouse-ul deasupra unui titlu pentru a vedea detalii despre acel dicționar;</li>
   <li>Duceți mouse-ul deasupra unei iconițe pentru a vedea gradul de utilizare a acelui dicționar;</li>

@@ -1,26 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" flex=1}
-    <title>DEX | {$sectionTitle|escape}</title>
-  </head>
-
-  <body>
-    {include file="admin/header.ihtml"
-             title="$sectionTitle"
-             items="$lexems"}
-
-    {include file="admin/recentlyVisited.ihtml"}
-
-    {foreach from=$lexems item=l key=row_id}
-      <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$l->id}"
-        >{include file="common/bits/lexemName.ihtml" lexem=$l}
-        ({$l->modelType}{$l->modelNumber}{$l->restriction})</a>
-    {/foreach}    
-
-    {include file="common/bits/debugInfo.ihtml"}
-  </body>
-
-</html>
+{foreach from=$lexems item=l key=row_id}
+  {strip}
+    <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$l->id}">
+      {include file="common/bits/lexemName.ihtml" lexem=$l} ({$l->modelType}{$l->modelNumber}{$l->restriction})
+    </a>
+  {/strip}
+{/foreach}    

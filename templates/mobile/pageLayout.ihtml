@@ -9,14 +9,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta content="initial-scale=1.0; maximum-scale=3.0; user-scalable=yes" name="viewport">
     <title>{$page_title|escape} | DEX online</title>
-{if $page_description}
-    <meta name="description" content="{$page_description}"/>
-{/if}
-{if $page_keywords}
-    <meta name="keywords" content="{$page_keywords}"/>
-{/if}
-{include file="common/bits/css.ihtml" mobile=1 paradigm=1}
-{include file="common/bits/js.ihtml" dex=1 mobile=1}
+    {if $page_description}
+      <meta name="description" content="{$page_description}"/>
+    {/if}
+    {if $page_keywords}
+      <meta name="keywords" content="{$page_keywords}"/>
+    {/if}
+    {include file="common/bits/cssJs.ihtml"}
   </head>
 
   <body onload="fixMobile();">

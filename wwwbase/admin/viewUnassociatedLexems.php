@@ -9,7 +9,8 @@ $lexems = Lexem::loadUnassociated();
 
 smarty_assign('lexems', $lexems);
 smarty_assign('sectionTitle', 'Lexeme neasociate');
+smarty_assign('sectionCount', count($lexems));
 smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayWithoutSkin('admin/lexemList.ihtml');
+smarty_displayAdminPage('admin/lexemList.ihtml');
 
 ?>

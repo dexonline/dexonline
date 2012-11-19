@@ -156,7 +156,10 @@ smarty_assign('homonyms', loadSetHomonyms($lexems));
 smarty_assign("allStatuses", util_getAllStatuses());
 smarty_assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayWithoutSkin('admin/definitionEdit.ihtml');
+smarty_assign('sectionTitle', "Editare definiție: {$definition->id}");
+smarty_addCss('autocomplete');
+smarty_addJs('jquery', 'autocomplete');
+smarty_displayAdminPage('admin/definitionEdit.ihtml');
 
 /**
  * Load all lexems having the same form as one of the given lexems, but exclude the given lexems.

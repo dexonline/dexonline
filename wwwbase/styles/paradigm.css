@@ -75,13 +75,12 @@ div.paradigmHide {
   font-size: small;
 }
 
-
 div.scrabbleModelName {
   font-weight: bold;
 }
 
 div.scrabbleModelName .accented {
-  font-weight: normal;
   font-style: italic;
+  font-weight: normal;
 }
 

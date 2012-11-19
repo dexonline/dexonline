@@ -555,74 +555,6 @@ a.inflLink {
   font-weight: bold;
 }
 
-div.lexem {
-  padding-left: 0;
-}
-
-span.lexemName {
-  font-weight: bold;
-}
-
-.lexem {
-  border-collapse: collapse;
-  margin-left: 0;
-  margin-top: 10px;
-}
-
-.lexem td.inflection {
-  color: #555555;
-  font-size: small;
-  font-style: italic;
-  text-align: center;
-}
-
-.lexem td.form {
-}
-
-.lexem td.form .accented{
-  font-style: normal;
-  font-weight: bold;
-}
-
-.lexem td.spacer {
-  height: 3px;
-}
-
-.lexem tr td.person {
-  text-align: right;
-}
-
-div.noParadigm {
-  color: #555555;
-  font-style: italic;
-  padding-left: 80px;
-  white-space: nowrap;
-}
-
-span.isLoc {
-  color: green;
-  cursor: help;
-  font-weight: bold;
-}
-
-div.paradigmShow, div.paradigmHide {
-  margin: 5px 15px;
-  padding: 5px;
-  white-space: nowrap;
-}
-
-div.paradigmShow {
-  display: block;
-}
-
-div.paradigmHide {
-  display: none;
-}
-
-.paradigmLink {
-  font-size: small;
-}
-
 span.notRecommended {
   color: #1010c0;
   cursor: help;
@@ -632,17 +564,6 @@ span.notRecommended {
 div.notRecommendedLegend {
   color: #1010c0;
   font-style: italic;
-}
-
-.scrabbleModelName {
-  font-size: 110%;
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-.scrabbleModelName .accented {
-  font-style: italic;
-  font-weight: normal;
 }
 
 .noBorder {

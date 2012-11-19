@@ -18,8 +18,8 @@ abstract class AdsModule {
         $module = new $className;
         $result = $module->run(empty($lexems) ? null : $lexems, empty($definitions) ? null : $definitions);
         if ($result) {
-          smarty_assign('adsProvider', $adsModule);
-          smarty_assign('adsProviderParams', $result);
+          SmartyWrap::assign('adsProvider', $adsModule);
+          SmartyWrap::assign('adsProviderParams', $result);
           break;
         }
       }

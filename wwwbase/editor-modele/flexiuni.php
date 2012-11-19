@@ -44,11 +44,11 @@ foreach ($inflections as $infl) {
   $infl->canDelete = !in_array($infl->id, $usedInflectionIds);
 }
 
-smarty_assign('page_title', 'Editare flexiuni');
-smarty_assign('suggestHiddenSearchForm', true);
-smarty_assign('inflections', $inflections);
-smarty_assign('modelTypes', ModelType::loadCanonical());
-smarty_addJs('jqTableDnd');
-smarty_displayCommonPageWithSkin('editor-modele/flexiuni.ihtml');
+SmartyWrap::assign('page_title', 'Editare flexiuni');
+SmartyWrap::assign('suggestHiddenSearchForm', true);
+SmartyWrap::assign('inflections', $inflections);
+SmartyWrap::assign('modelTypes', ModelType::loadCanonical());
+SmartyWrap::addJs('jqTableDnd');
+SmartyWrap::displayCommonPageWithSkin('editor-modele/flexiuni.ihtml');
 
 ?>

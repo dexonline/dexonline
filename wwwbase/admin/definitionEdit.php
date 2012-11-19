@@ -145,21 +145,21 @@ if (!$refreshButton && !$acceptButton && !$moveButton) {
   RecentLink::createOrUpdate(sprintf("Definiție: %s (%s)", $definition->lexicon, $source->shortName));
 }
 
-smarty_assign('def', $definition);
-smarty_assign('source', $source);
-smarty_assign('user', User::get_by_id($definition->userId));
-smarty_assign('comment', $comment);
-smarty_assign('commentUser', $commentUser);
-smarty_assign('lexems', $lexems);
-smarty_assign('typos', Typo::get_all_by_definitionId($definition->id));
-smarty_assign('homonyms', loadSetHomonyms($lexems));
-smarty_assign("allStatuses", util_getAllStatuses());
-smarty_assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_assign('sectionTitle', "Editare definiție: {$definition->id}");
-smarty_addCss('autocomplete');
-smarty_addJs('jquery', 'autocomplete');
-smarty_displayAdminPage('admin/definitionEdit.ihtml');
+SmartyWrap::assign('def', $definition);
+SmartyWrap::assign('source', $source);
+SmartyWrap::assign('user', User::get_by_id($definition->userId));
+SmartyWrap::assign('comment', $comment);
+SmartyWrap::assign('commentUser', $commentUser);
+SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('typos', Typo::get_all_by_definitionId($definition->id));
+SmartyWrap::assign('homonyms', loadSetHomonyms($lexems));
+SmartyWrap::assign("allStatuses", util_getAllStatuses());
+SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::assign('sectionTitle', "Editare definiție: {$definition->id}");
+SmartyWrap::addCss('autocomplete');
+SmartyWrap::addJs('jquery', 'autocomplete');
+SmartyWrap::displayAdminPage('admin/definitionEdit.ihtml');
 
 /**
  * Load all lexems having the same form as one of the given lexems, but exclude the given lexems.

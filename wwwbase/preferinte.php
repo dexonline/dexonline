@@ -25,9 +25,9 @@ foreach (preg_split('/,/', $userPrefs) as $pref) {
   }
 }
 
-smarty_assign('userPrefs', $userPreferencesSet);
-smarty_assign('skin', $skin);
-smarty_assign('availableSkins', pref_getServerPreference('skins'));
-smarty_assign('page_title', 'Preferințe');
-smarty_displayCommonPageWithSkin('preferinte.ihtml');
+SmartyWrap::assign('userPrefs', $userPreferencesSet);
+SmartyWrap::assign('skin', $skin);
+SmartyWrap::assign('availableSkins', pref_getServerPreference('skins'));
+SmartyWrap::assign('page_title', 'Preferințe');
+SmartyWrap::displayCommonPageWithSkin('preferinte.ihtml');
 ?>

@@ -23,11 +23,11 @@ if ($sendButton) {
   }
 
   if ($errorMessage) {
-    smarty_assign('lexemNames', $lexemNames);
-    smarty_assign('sourceId', $sourceId);
-    smarty_assign('def', $def);
+    SmartyWrap::assign('lexemNames', $lexemNames);
+    SmartyWrap::assign('sourceId', $sourceId);
+    SmartyWrap::assign('def', $def);
     FlashMessage::add($errorMessage);
-    smarty_assign('previewDivContent', AdminStringUtil::htmlize($def, $sourceId));
+    SmartyWrap::assign('previewDivContent', AdminStringUtil::htmlize($def, $sourceId));
   } else {
     $definition = Model::factory('Definition')->create();
     $definition->displayed = 0;
@@ -65,14 +65,14 @@ if ($sendButton) {
     util_redirect('contribuie');
   }
 } else {
-  smarty_assign('sourceId', session_getDefaultContribSourceId());
+  SmartyWrap::assign('sourceId', session_getDefaultContribSourceId());
 }
 
-smarty_assign('contribSources', Model::factory('Source')->where('canContribute', true)->order_by_asc('displayOrder')->find_many());
-smarty_assign('page_title', 'Contribuie cu definiții');
-smarty_assign('suggestNoBanner', true);
-smarty_addJs('autocomplete');
-smarty_displayCommonPageWithSkin('contribuie.ihtml');
+SmartyWrap::assign('contribSources', Model::factory('Source')->where('canContribute', true)->order_by_asc('displayOrder')->find_many());
+SmartyWrap::assign('page_title', 'Contribuie cu definiții');
+SmartyWrap::assign('suggestNoBanner', true);
+SmartyWrap::addJs('autocomplete');
+SmartyWrap::displayCommonPageWithSkin('contribuie.ihtml');
 
 /**************************************************************************/
 

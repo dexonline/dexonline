@@ -39,12 +39,12 @@ $forms = db_getArrayOfRows($query);
 $cnt = count($forms);
 
 if ($noSkin) {
-    smarty_assign('forms', $forms);
-    smarty_displayWithoutSkin('common/randomWordListSimple.ihtml');
+    SmartyWrap::assign('forms', $forms);
+    SmartyWrap::displayWithoutSkin('common/randomWordListSimple.ihtml');
 }
 else {
-    smarty_assign('forms', $forms);
-    smarty_assign('page_title', "O listă de {$cnt} de cuvinte alese la întâmplare.");
-    smarty_displayCommonPageWithSkin('randomWordList.ihtml');
+    SmartyWrap::assign('forms', $forms);
+    SmartyWrap::assign('page_title', "O listă de {$cnt} de cuvinte alese la întâmplare.");
+    SmartyWrap::displayCommonPageWithSkin('randomWordList.ihtml');
 }
 ?>

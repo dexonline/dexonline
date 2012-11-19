@@ -95,11 +95,11 @@ foreach ($dbResult as $row) {
 }
 
 RecentLink::createOrUpdate('Unificare lexeme');
-smarty_assign('sectionTitle', 'Unificare lexeme');
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_assign('modelType', $modelType);
-smarty_assign('lexems', $lexems);
-smarty_displayAdminPage('flex/mergeLexems.ihtml');
+SmartyWrap::assign('sectionTitle', 'Unificare lexeme');
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::assign('modelType', $modelType);
+SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::displayAdminPage('flex/mergeLexems.ihtml');
 
 
 /***************************************************/

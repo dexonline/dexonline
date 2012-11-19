@@ -31,9 +31,9 @@ if ($submitButton) {
   }
 }
 
-smarty_assign('src', $src);
-smarty_assign('page_title', $sourceId ? "Editare sursă {$src->shortName}" : "Adăugare sursă");
-smarty_displayCommonPageWithSkin('editare-sursa.ihtml');
+SmartyWrap::assign('src', $src);
+SmartyWrap::assign('page_title', $sourceId ? "Editare sursă {$src->shortName}" : "Adăugare sursă");
+SmartyWrap::displayCommonPageWithSkin('editare-sursa.ihtml');
 
 /**
  * Returns true on success, false on errors.

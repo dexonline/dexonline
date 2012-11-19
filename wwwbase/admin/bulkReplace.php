@@ -44,14 +44,14 @@ if ($realRun) {
   util_redirect("index.php");
 }
 
-smarty_assign('search', $search);
-smarty_assign('replace', $replace);
-smarty_assign('sourceId', $sourceId);
-smarty_assign('searchResults', $searchResults);
-smarty_assign('sectionTitle', 'Înlocuire în masă');
-smarty_assign('sectionCount', count($searchResults));
-smarty_assign('allStatuses', util_getAllStatuses());
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayAdminPage('admin/bulkReplace.ihtml');
+SmartyWrap::assign('search', $search);
+SmartyWrap::assign('replace', $replace);
+SmartyWrap::assign('sourceId', $sourceId);
+SmartyWrap::assign('searchResults', $searchResults);
+SmartyWrap::assign('sectionTitle', 'Înlocuire în masă');
+SmartyWrap::assign('sectionCount', count($searchResults));
+SmartyWrap::assign('allStatuses', util_getAllStatuses());
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::displayAdminPage('admin/bulkReplace.ihtml');
 
 ?>

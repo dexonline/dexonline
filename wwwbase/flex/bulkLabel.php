@@ -102,15 +102,15 @@ foreach ($lexems as $l) {
   $searchResults[] = SearchResult::mapDefinitionArray($definitions);
 }
 
-smarty_assign('suffix', $suffix);
-smarty_assign('lexems', $lexems);
-smarty_assign('models', $models);
-smarty_assign('searchResults', $searchResults);
-smarty_assign('ifMapMatrix', $ifMapMatrix);
-smarty_assign('allStatuses', util_getAllStatuses());
-smarty_assign('sectionTitle', "Sufix: -$suffix");
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_addCss('paradigm');
-smarty_displayAdminPage('flex/bulkLabel.ihtml');
+SmartyWrap::assign('suffix', $suffix);
+SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('models', $models);
+SmartyWrap::assign('searchResults', $searchResults);
+SmartyWrap::assign('ifMapMatrix', $ifMapMatrix);
+SmartyWrap::assign('allStatuses', util_getAllStatuses());
+SmartyWrap::assign('sectionTitle', "Sufix: -$suffix");
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::addCss('paradigm');
+SmartyWrap::displayAdminPage('flex/bulkLabel.ihtml');
 
 ?>

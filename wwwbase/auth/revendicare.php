@@ -40,11 +40,11 @@ if (!$data) {
   }
 }
 
-smarty_assign('page_title', 'Autentificare cu OpenID');
-smarty_assign('suggestHiddenSearchForm', true);
-smarty_assign('data', $data);
-smarty_assign('randString', $randString);
-smarty_assign('loginType', $loginType);
-smarty_displayCommonPageWithSkin('auth/chooseIdentity.ihtml');  
+SmartyWrap::assign('page_title', 'Autentificare cu OpenID');
+SmartyWrap::assign('suggestHiddenSearchForm', true);
+SmartyWrap::assign('data', $data);
+SmartyWrap::assign('randString', $randString);
+SmartyWrap::assign('loginType', $loginType);
+SmartyWrap::displayCommonPageWithSkin('auth/chooseIdentity.ihtml');  
 
 ?>

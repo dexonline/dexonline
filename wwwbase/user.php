@@ -33,13 +33,13 @@ if ($user) {
   }
   
   $userData['rank_chars'] = $rankChars + 1;
-  smarty_assign('page_title', "Utilizator: $nick");
+  SmartyWrap::assign('page_title', "Utilizator: $nick");
 } else {
-  smarty_assign('missingNick', $nick);
-  smarty_assign('page_title', 'Utilizator inexistent');
+  SmartyWrap::assign('missingNick', $nick);
+  SmartyWrap::assign('page_title', 'Utilizator inexistent');
 }
 
-smarty_assign('user', $user);
-smarty_assign('userData', $userData);
-smarty_displayCommonPageWithSkin('user.ihtml');
+SmartyWrap::assign('user', $user);
+SmartyWrap::assign('userData', $userData);
+SmartyWrap::displayCommonPageWithSkin('user.ihtml');
 ?>

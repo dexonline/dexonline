@@ -1,9 +1,9 @@
 <?php
 require_once("../phplib/util.php");
 
-smarty_assign('manualData', TopEntry::getTopData(CRIT_CHARS, SORT_DESC, true));
-smarty_assign('bulkData', TopEntry::getTopData(CRIT_CHARS, SORT_DESC, false));
-smarty_assign('page_title', 'Topul voluntarilor');
-smarty_addJs('pager', 'tablesorter');
-smarty_displayCommonPageWithSkin('top.ihtml');
+SmartyWrap::assign('manualData', TopEntry::getTopData(CRIT_CHARS, SORT_DESC, true));
+SmartyWrap::assign('bulkData', TopEntry::getTopData(CRIT_CHARS, SORT_DESC, false));
+SmartyWrap::assign('page_title', 'Topul voluntarilor');
+SmartyWrap::addJs('pager', 'tablesorter');
+SmartyWrap::displayCommonPageWithSkin('top.ihtml');
 ?>

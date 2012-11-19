@@ -70,14 +70,14 @@ foreach($rezultate as $iter) {
 }
 
 
-smarty_assign('page_title', 'Site Clones');
-smarty_assign('definition', $definition);
+SmartyWrap::assign('page_title', 'Site Clones');
+SmartyWrap::assign('definition', $definition);
 
-smarty_assign('listAll', $listAll);
-smarty_assign('alert', $messageAlert);
+SmartyWrap::assign('listAll', $listAll);
+SmartyWrap::assign('alert', $messageAlert);
 
 # Print Blacklist items if any
-smarty_assign("blackList", $blackList);
-smarty_displayCommonPageWithSkin("siteClones.ihtml");
+SmartyWrap::assign("blackList", $blackList);
+SmartyWrap::displayCommonPageWithSkin("siteClones.ihtml");
 
 ?>

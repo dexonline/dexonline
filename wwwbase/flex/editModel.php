@@ -132,8 +132,8 @@ if ($previewButton || $confirmButton) {
       }
     }
 
-    smarty_assign('participles', $participles);
-    smarty_assign('participleParadigms', $participleParadigms);
+    SmartyWrap::assign('participles', $participles);
+    SmartyWrap::assign('participleParadigms', $participleParadigms);
   }
 
   if ($confirmButton) {
@@ -238,13 +238,13 @@ if ($previewButton || $confirmButton) {
     util_redirect('../admin/index.php');
   }
 
-  smarty_assign('lexems', $lexems);
-  smarty_assign('regenForms', $regenForms);
-  smarty_assign('regenTransforms', $regenTransforms);
+  SmartyWrap::assign('lexems', $lexems);
+  SmartyWrap::assign('regenForms', $regenForms);
+  SmartyWrap::assign('regenTransforms', $regenTransforms);
 }
 
 if ($modelType == 'V') {
-  smarty_assign('adjModels', FlexModel::loadByType('A'));
+  SmartyWrap::assign('adjModels', FlexModel::loadByType('A'));
 }
 
 $inputValues = array();
@@ -259,26 +259,26 @@ if (!$previewButton && !$confirmButton) {
   RecentLink::createOrUpdate("Editare model: {$model}");
 }
 
-smarty_assign('inflections', $inflections);
-smarty_assign('inflectionMap', Inflection::mapById($inflections));
-smarty_assign('modelType', $modelType);
-smarty_assign('modelNumber', $modelNumber);
-smarty_assign('newModelNumber', $newModelNumber);
-smarty_assign('exponent', $exponent);
-smarty_assign('newExponent', $newExponent);
-smarty_assign('description', $model->description);
-smarty_assign('newDescription', $newDescription);
-smarty_assign('participleNumber', $participleNumber);
-smarty_assign('newParticipleNumber', $newParticipleNumber);
-smarty_assign('newForms', $newForms);
-smarty_assign('inputValues', $inputValues);
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_assign('wasPreviewed', $previewButton);
-smarty_assign('errorMessage', $errorMessage);
-smarty_assign('sectionTitle', "Editare model {$modelType}{$modelNumber}");
-smarty_addCss('paradigm');
-smarty_addJs('jquery');
-smarty_displayAdminPage('flex/editModel.ihtml');
+SmartyWrap::assign('inflections', $inflections);
+SmartyWrap::assign('inflectionMap', Inflection::mapById($inflections));
+SmartyWrap::assign('modelType', $modelType);
+SmartyWrap::assign('modelNumber', $modelNumber);
+SmartyWrap::assign('newModelNumber', $newModelNumber);
+SmartyWrap::assign('exponent', $exponent);
+SmartyWrap::assign('newExponent', $newExponent);
+SmartyWrap::assign('description', $model->description);
+SmartyWrap::assign('newDescription', $newDescription);
+SmartyWrap::assign('participleNumber', $participleNumber);
+SmartyWrap::assign('newParticipleNumber', $newParticipleNumber);
+SmartyWrap::assign('newForms', $newForms);
+SmartyWrap::assign('inputValues', $inputValues);
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::assign('wasPreviewed', $previewButton);
+SmartyWrap::assign('errorMessage', $errorMessage);
+SmartyWrap::assign('sectionTitle', "Editare model {$modelType}{$modelNumber}");
+SmartyWrap::addCss('paradigm');
+SmartyWrap::addJs('jquery');
+SmartyWrap::displayAdminPage('flex/editModel.ihtml');
 
 
 /****************************************************************************/

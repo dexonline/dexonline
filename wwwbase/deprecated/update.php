@@ -6,7 +6,7 @@ set_time_limit(0);
 
 // If no GET arguments are set, print usage and return.
 if (count($_GET) == 0) {
-  smarty_displayWithoutSkin('common/updateInstructions.ihtml');
+  SmartyWrap::displayWithoutSkin('common/updateInstructions.ihtml');
   return;
 }
 
@@ -22,7 +22,7 @@ $timestamp = util_getRequestIntParameter('timestamp');
 $version = util_getRequestParameterWithDefault('version', '1.0');
 
 if ($timestamp !== null && util_isDesktopBrowser() && !session_getUser()) {
-  smarty_displayCommonPageWithSkin('updateError.ihtml');
+  SmartyWrap::displayCommonPageWithSkin('updateError.ihtml');
   exit();
 }
 
@@ -48,9 +48,9 @@ if ($version == '1.0') {
 
 foreach ($defDbResult as $row) {
   fetchNextRow($row);
-  smarty_assign('version', $version);
-  smarty_assign('includeNameWithDiacritics', hasFlag('a'));
-  smarty_displayWithoutSkin('common/update.ihtml');
+  SmartyWrap::assign('version', $version);
+  SmartyWrap::assign('includeNameWithDiacritics', hasFlag('a'));
+  SmartyWrap::displayWithoutSkin('common/update.ihtml');
 }
 
 print "</Dictionary>\n";
@@ -109,11 +109,11 @@ function fetchNextRow($row) {
     $currentLexem = $lexemDbResult->fetch();
   }
 
-  smarty_assign('def', $def);
-  smarty_assign('lexemNames', $lexemNames);
-  smarty_assign('lexemLatinNames', $lexemLatinNames);
-  smarty_assign('source', $sourceMap[$def->sourceId]);
-  smarty_assign('user', userCache_get($def->userId));
+  SmartyWrap::assign('def', $def);
+  SmartyWrap::assign('lexemNames', $lexemNames);
+  SmartyWrap::assign('lexemLatinNames', $lexemLatinNames);
+  SmartyWrap::assign('source', $sourceMap[$def->sourceId]);
+  SmartyWrap::assign('user', userCache_get($def->userId));
 }
 
 function merge_compare(&$def, &$lexem) {

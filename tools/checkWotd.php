@@ -115,9 +115,9 @@ if ($messages) {
   }
   $mailTo = implode(', ', $mailTo);
 
-  smarty_assign('numDays', NUM_DAYS);
-  smarty_assign('messages', $messages);
-  $body = smarty_fetch('email/checkWotd.ihtml');
+  SmartyWrap::assign('numDays', NUM_DAYS);
+  SmartyWrap::assign('messages', $messages);
+  $body = SmartyWrap::fetch('email/checkWotd.ihtml');
   if ($sendEmail) {
     mail($mailTo, $subject, $body, implode("\n", $MAIL_HEADERS));
   } else {

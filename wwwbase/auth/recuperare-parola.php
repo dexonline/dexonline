@@ -26,8 +26,8 @@ if (!$pt) {
     session_login($user, $data);
   }
 }
-smarty_assign('page_title', 'Recuperarea parolei');
-smarty_assign('suggestHiddenSearchForm', true);
-smarty_displayCommonPageWithSkin('auth/passwordRecoveryWrongData.ihtml');
+SmartyWrap::assign('page_title', 'Recuperarea parolei');
+SmartyWrap::assign('suggestHiddenSearchForm', true);
+SmartyWrap::displayCommonPageWithSkin('auth/passwordRecoveryWrongData.ihtml');
 
 ?>

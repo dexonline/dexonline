@@ -51,8 +51,8 @@ if (array_key_exists('file', $_FILES)) {
   }
 }
 
-smarty_assign('sectionTitle', 'Comprimare imagini');
-smarty_displayAdminPage('admin/wotdCompressImages.ihtml');
+SmartyWrap::assign('sectionTitle', 'Comprimare imagini');
+SmartyWrap::displayAdminPage('admin/wotdCompressImages.ihtml');
 
 /**************************************************************************/
 

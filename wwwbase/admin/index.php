@@ -5,14 +5,14 @@ util_assertNotMirror();
 
 $models = FlexModel::loadByType('A');
 
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_assign('canEditWotd', util_isModerator(PRIV_WOTD));
-smarty_assign("allStatuses", util_getAllStatuses());
-smarty_assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
-smarty_assign('modelTypes', ModelType::loadCanonical());
-smarty_assign('models', $models);
-smarty_assign('sectionTitle', 'Pagina moderatorului');
-smarty_addCss('autocomplete');
-smarty_addJs('jquery', 'autocomplete');
-smarty_displayAdminPage('admin/index.ihtml');
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::assign('canEditWotd', util_isModerator(PRIV_WOTD));
+SmartyWrap::assign("allStatuses", util_getAllStatuses());
+SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
+SmartyWrap::assign('modelTypes', ModelType::loadCanonical());
+SmartyWrap::assign('models', $models);
+SmartyWrap::assign('sectionTitle', 'Pagina moderatorului');
+SmartyWrap::addCss('autocomplete');
+SmartyWrap::addJs('jquery', 'autocomplete');
+SmartyWrap::displayAdminPage('admin/index.ihtml');
 ?>

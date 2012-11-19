@@ -14,15 +14,15 @@ if ($type == 'rss') {
   }
 
   header("Content-type: text/xml");
-  smarty_assign('rss_title', 'Articole lingvistice - DEX online');
-  smarty_assign('rss_link', 'http://' . $_SERVER['HTTP_HOST'] . '/rss/articole/');
-  smarty_assign('rss_description', 'Articole pe teme lingvistice de la DEX online');
-  smarty_assign('rss_pubDate', date('D, d M Y H:i:s') . ' EEST');
-  smarty_assign('results', $results);
-  smarty_displayWithoutSkin('common/rss.ixml');
+  SmartyWrap::assign('rss_title', 'Articole lingvistice - DEX online');
+  SmartyWrap::assign('rss_link', 'http://' . $_SERVER['HTTP_HOST'] . '/rss/articole/');
+  SmartyWrap::assign('rss_description', 'Articole pe teme lingvistice de la DEX online');
+  SmartyWrap::assign('rss_pubDate', date('D, d M Y H:i:s') . ' EEST');
+  SmartyWrap::assign('results', $results);
+  SmartyWrap::displayWithoutSkin('common/rss.ixml');
   exit;
 }
 
-smarty_assign('page_title', 'Articole lingvistice');
-smarty_assign('wikiTitles', WikiArticle::loadAllTitles());
-smarty_displayCommonPageWithSkin('articole.ihtml');
+SmartyWrap::assign('page_title', 'Articole lingvistice');
+SmartyWrap::assign('wikiTitles', WikiArticle::loadAllTitles());
+SmartyWrap::displayCommonPageWithSkin('articole.ihtml');

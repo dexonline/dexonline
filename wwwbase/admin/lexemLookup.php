@@ -14,10 +14,10 @@ if (count($lexems) == 1) {
   util_redirect('lexemEdit.php?lexemId=' . $lexems[0]->id);
 }
 
-smarty_assign('lexems', $lexems);
-smarty_assign('sectionTitle', "Căutare lexem: '$lexemName'");
-smarty_assign('sectionCount', count($lexems));
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayAdminPage('admin/lexemList.ihtml');
+SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('sectionTitle', "Căutare lexem: '$lexemName'");
+SmartyWrap::assign('sectionCount', count($lexems));
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::displayAdminPage('admin/lexemList.ihtml');
 
 ?>

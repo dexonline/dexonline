@@ -25,11 +25,11 @@ if ($deleteButton) {
 }
 
 RecentLink::createOrUpdate("Ștergere model: {$model}");
-smarty_assign('modelType', $modelType);
-smarty_assign('modelNumber', $modelNumber);
-smarty_assign('lexems', $lexems);
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_assign('sectionTitle', "Ștergere model {$modelType}{$modelNumber}");
-smarty_displayAdminPage('flex/deleteModel.ihtml');
+SmartyWrap::assign('modelType', $modelType);
+SmartyWrap::assign('modelNumber', $modelNumber);
+SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::assign('sectionTitle', "Ștergere model {$modelType}{$modelNumber}");
+SmartyWrap::displayAdminPage('flex/deleteModel.ihtml');
 
 ?>

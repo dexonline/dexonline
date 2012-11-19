@@ -50,7 +50,7 @@ foreach ($recordSet as $row) {
   }
 }
 
-smarty_assign('page_title', 'Istoria definiției ' . $def->lexicon);
-smarty_assign('def', $def);
-smarty_assign('changeSets', $changeSets);
-smarty_displayCommonPageWithSkin('istoria-definitiei.ihtml');
+SmartyWrap::assign('page_title', 'Istoria definiției ' . $def->lexicon);
+SmartyWrap::assign('def', $def);
+SmartyWrap::assign('changeSets', $changeSets);
+SmartyWrap::displayCommonPageWithSkin('istoria-definitiei.ihtml');

@@ -33,7 +33,7 @@ function util_initEverything() {
   session_init();
   mc_init();
   FlashMessage::restoreFromSession();
-  smarty_init();
+  SmartyWrap::init(pref_getSmartyClass());
 }
 
 function util_defineRootPath() {
@@ -91,7 +91,6 @@ function util_requireOtherFiles() {
   require_once("$root/phplib/db.php");
   require_once("$root/phplib/logging.php");
   require_once("$root/phplib/session.php");
-  require_once("$root/phplib/smarty.php");
   require_once("$root/phplib/memcache.php");
 }
 
@@ -262,7 +261,7 @@ function util_isModerator($type) {
 
 function util_assertNotMirror() {
   if (pref_isMirror()) {
-    smarty_displayWithoutSkin('common/mirror_message.ihtml');
+    SmartyWrap::displayWithoutSkin('common/mirror_message.ihtml');
     exit;
   }
 }

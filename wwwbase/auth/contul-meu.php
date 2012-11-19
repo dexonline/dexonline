@@ -34,11 +34,11 @@ foreach (preg_split('/,/', $userPrefs) as $pref) {
   }
 }
 
-smarty_assign('detailsVisible', $detailsVisible);
-smarty_assign('userPrefs', $userPreferencesSet);
-smarty_assign('skin', $skin);
-smarty_assign('availableSkins', pref_getServerPreference('skins'));
-smarty_assign('privilegeNames', $PRIV_NAMES);
-smarty_assign('page_title', 'Contul meu');
-smarty_displayCommonPageWithSkin('auth/contul-meu.ihtml');
+SmartyWrap::assign('detailsVisible', $detailsVisible);
+SmartyWrap::assign('userPrefs', $userPreferencesSet);
+SmartyWrap::assign('skin', $skin);
+SmartyWrap::assign('availableSkins', pref_getServerPreference('skins'));
+SmartyWrap::assign('privilegeNames', $PRIV_NAMES);
+SmartyWrap::assign('page_title', 'Contul meu');
+SmartyWrap::displayCommonPageWithSkin('auth/contul-meu.ihtml');
 ?>

@@ -147,9 +147,9 @@ $clients = array(
 
 $osNames = array('android' => 'Android', 'iphone' => 'iPhone', 'java' => 'Java', 'linux' => 'GNU / Linux', 'mac' => 'Mac', 'windows' => 'Windows', 'windowsce' => 'Windows CE');
 
-smarty_assign('page_title', 'Unelte');
-smarty_assign('clients', $clients);
-smarty_assign('clientOptions', $clientOptions);
-smarty_assign('osNames', $osNames);
-smarty_displayCommonPageWithSkin('unelte.ihtml');
+SmartyWrap::assign('page_title', 'Unelte');
+SmartyWrap::assign('clients', $clients);
+SmartyWrap::assign('clientOptions', $clientOptions);
+SmartyWrap::assign('osNames', $osNames);
+SmartyWrap::displayCommonPageWithSkin('unelte.ihtml');
 ?>

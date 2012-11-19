@@ -66,15 +66,15 @@ if ($def) {
     }
   }
   $text[] = trim($s);
-  smarty_assign('text', $text);
-  smarty_assign('ambiguities', $ambiguities);
+  SmartyWrap::assign('text', $text);
+  SmartyWrap::assign('ambiguities', $ambiguities);
 }
 
-smarty_assign('def', $def);
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_assign('sectionTitle', 'Examinare abrevieri');
-smarty_addJs('jquery');
-smarty_displayAdminPage('admin/randomAbbrevReview.ihtml');
+SmartyWrap::assign('def', $def);
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::assign('sectionTitle', 'Examinare abrevieri');
+SmartyWrap::addJs('jquery');
+SmartyWrap::displayAdminPage('admin/randomAbbrevReview.ihtml');
 
 /**
  * Sort matches from last to first

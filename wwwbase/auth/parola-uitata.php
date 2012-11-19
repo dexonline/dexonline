@@ -8,13 +8,13 @@ $submitButton = util_getRequestParameter('submitButton');
 $identity = util_getRequestParameter('identity');
 $email = util_getRequestParameter('email');
 
-smarty_assign('identity', $identity);
-smarty_assign('email', $email);
-smarty_assign('page_title', 'Parolă uitată');
-smarty_assign('suggestHiddenSearchForm', true);
+SmartyWrap::assign('identity', $identity);
+SmartyWrap::assign('email', $email);
+SmartyWrap::assign('page_title', 'Parolă uitată');
+SmartyWrap::assign('suggestHiddenSearchForm', true);
 
 if (!$submitButton) {
-  smarty_displayCommonPageWithSkin('auth/parola-uitata.ihtml');
+  SmartyWrap::displayCommonPageWithSkin('auth/parola-uitata.ihtml');
 } else if (!$email) {
   FlashMessage::add('Trebuie să introduceți o adresă de e-mail.');
 } else {
@@ -29,14 +29,14 @@ if (!$submitButton) {
     $pt->save();
     
     // Send email
-    smarty_assign('homePage', util_getFullServerUrl());
-    smarty_assign('token', $pt->token);
-    $body = smarty_fetch('email/resetPassword.ihtml');
+    SmartyWrap::assign('homePage', util_getFullServerUrl());
+    SmartyWrap::assign('token', $pt->token);
+    $body = SmartyWrap::fetch('email/resetPassword.ihtml');
     $ourEmail = pref_getContactEmail();
     $result = mail($email, "Schimbarea parolei pentru DEX online", $body, "From: DEX online <$ourEmail>\r\nReply-To: $ourEmail");
     
     // Display a confirmation even for incorrect addresses.
-    smarty_displayCommonPageWithSkin('auth/passwordRecoveryEmailSent.ihtml');
+    SmartyWrap::displayCommonPageWithSkin('auth/passwordRecoveryEmailSent.ihtml');
   }
 }
 

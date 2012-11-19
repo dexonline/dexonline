@@ -9,9 +9,9 @@ switch ($content) {
   default: exit;
 }
 
-smarty_assign('title', "$title | DEX online");
-smarty_assign('content', $content);
-smarty_register_outputfilters();
-smarty_addCss('zepu');
-print smarty_fetch('common/static.ihtml');
+SmartyWrap::assign('title', "$title | DEX online");
+SmartyWrap::assign('content', $content);
+SmartyWrap::registerOutputFilters();
+SmartyWrap::addCss('zepu');
+print SmartyWrap::fetch('common/static.ihtml');
 ?>

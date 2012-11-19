@@ -25,12 +25,12 @@ if ($provider == 'diverta') {
   }
   $book->impressions++;
   $book->save();
-  smarty_assign('book', $book);
-  smarty_assign('hasImage', file_exists(util_getRootPath() . "wwwbase/img/diverta/thumb/{$book->sku}.jpg"));
+  SmartyWrap::assign('book', $book);
+  SmartyWrap::assign('hasImage', file_exists(util_getRootPath() . "wwwbase/img/diverta/thumb/{$book->sku}.jpg"));
 }
 
-smarty_assign('clickurl', str_replace('__', '&', $clickurl));
-$output = smarty_fetch("ads/{$provider}.ihtml");
+SmartyWrap::assign('clickurl', str_replace('__', '&', $clickurl));
+$output = SmartyWrap::fetch("ads/{$provider}.ihtml");
 $output = addslashes(str_replace("\n", ' ', $output));
 print "document.write(\"{$output}\");";
 

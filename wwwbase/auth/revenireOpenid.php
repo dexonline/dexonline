@@ -5,9 +5,9 @@ util_assertNotLoggedIn();
 
 $data = OpenID::finishAuth();
 if (!$data) {
-  smarty_assign('page_title', 'Autentificare cu OpenID');
-  smarty_assign('suggestHiddenSearchForm', true);
-  smarty_displayCommonPageWithSkin('auth/login.ihtml');
+  SmartyWrap::assign('page_title', 'Autentificare cu OpenID');
+  SmartyWrap::assign('suggestHiddenSearchForm', true);
+  SmartyWrap::displayCommonPageWithSkin('auth/login.ihtml');
   exit();
 }
 
@@ -23,12 +23,12 @@ if ($user) {
   $randString = util_randomCapitalLetterString(20);
   FileCache::put($randString, $data);
 
-  smarty_assign('page_title', 'Autentificare cu OpenID');
-  smarty_assign('suggestHiddenSearchForm', true);
-  smarty_assign('data', $data);
-  smarty_assign('randString', $randString);
-  smarty_assign('loginType', $loginType);
-  smarty_displayCommonPageWithSkin('auth/chooseIdentity.ihtml');  
+  SmartyWrap::assign('page_title', 'Autentificare cu OpenID');
+  SmartyWrap::assign('suggestHiddenSearchForm', true);
+  SmartyWrap::assign('data', $data);
+  SmartyWrap::assign('randString', $randString);
+  SmartyWrap::assign('loginType', $loginType);
+  SmartyWrap::displayCommonPageWithSkin('auth/chooseIdentity.ihtml');  
 }
 
 ?>

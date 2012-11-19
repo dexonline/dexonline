@@ -64,10 +64,10 @@ if ($createDefinition) {
 if ($deleteLexem) {
   $homonyms = Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many();
   $lexem->delete();
-  smarty_assign('lexem', $lexem);
-  smarty_assign('homonyms', $homonyms);
-  smarty_assign('sectionTitle', 'Confirmare ștergere lexem');
-  smarty_displayAdminPage('admin/lexemDeleted.ihtml');
+  SmartyWrap::assign('lexem', $lexem);
+  SmartyWrap::assign('homonyms', $homonyms);
+  SmartyWrap::assign('sectionTitle', 'Confirmare ștergere lexem');
+  SmartyWrap::displayAdminPage('admin/lexemDeleted.ihtml');
   return;
 }
 
@@ -192,8 +192,8 @@ if (!is_array($ifs)) {
   }
 } else {
   $ifMap = InflectedForm::mapByInflectionRank($ifs);
-  smarty_assign('ifMap', $ifMap);
-  smarty_assign('searchResults', $searchResults);
+  SmartyWrap::assign('ifMap', $ifMap);
+  SmartyWrap::assign('searchResults', $searchResults);
 }
 
 $models = FlexModel::loadByType($lexem->modelType);
@@ -202,28 +202,28 @@ $sources = LexemSources::getSourceArrayChecked($lexem->source);
 $sourceNames = LexemSources::getNamesOfSources($lexem->source);
 $canEditForm = !$lexem->isLoc || util_isModerator(PRIV_LOC);
 
-smarty_assign('lexem', $lexem);
-smarty_assign('sources', $sources);
-smarty_assign('sourceNames', $sourceNames);
-smarty_assign('searchResults', $searchResults);
-smarty_assign('definitionLexem', $definitionLexem);
-smarty_assign('homonyms', Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many());
-smarty_assign('suggestedLexems', loadSuggestions($lexem, 5));
-smarty_assign('restrS', FlexStringUtil::contains($lexem->restriction, 'S'));
-smarty_assign('restrP', FlexStringUtil::contains($lexem->restriction, 'P'));
-smarty_assign('restrU', FlexStringUtil::contains($lexem->restriction, 'U'));
-smarty_assign('restrI', FlexStringUtil::contains($lexem->restriction, 'I'));
-smarty_assign('restrT', FlexStringUtil::contains($lexem->restriction, 'T'));
-smarty_assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
-smarty_assign('models', $models);
-smarty_assign('canEditForm', $canEditForm);
-smarty_assign('allStatuses', util_getAllStatuses());
-smarty_assign('errorMessage', $errorMessage);
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_addCss('autocomplete', 'paradigm');
-smarty_addJs('jquery', 'autocomplete');
-smarty_assign('sectionTitle', "Editare lexem: {$lexem->form} {$lexem->modelType}{$lexem->modelNumber}{$lexem->restriction}");
-smarty_displayAdminPage('admin/lexemEdit.ihtml');
+SmartyWrap::assign('lexem', $lexem);
+SmartyWrap::assign('sources', $sources);
+SmartyWrap::assign('sourceNames', $sourceNames);
+SmartyWrap::assign('searchResults', $searchResults);
+SmartyWrap::assign('definitionLexem', $definitionLexem);
+SmartyWrap::assign('homonyms', Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many());
+SmartyWrap::assign('suggestedLexems', loadSuggestions($lexem, 5));
+SmartyWrap::assign('restrS', FlexStringUtil::contains($lexem->restriction, 'S'));
+SmartyWrap::assign('restrP', FlexStringUtil::contains($lexem->restriction, 'P'));
+SmartyWrap::assign('restrU', FlexStringUtil::contains($lexem->restriction, 'U'));
+SmartyWrap::assign('restrI', FlexStringUtil::contains($lexem->restriction, 'I'));
+SmartyWrap::assign('restrT', FlexStringUtil::contains($lexem->restriction, 'T'));
+SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
+SmartyWrap::assign('models', $models);
+SmartyWrap::assign('canEditForm', $canEditForm);
+SmartyWrap::assign('allStatuses', util_getAllStatuses());
+SmartyWrap::assign('errorMessage', $errorMessage);
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::addCss('autocomplete', 'paradigm');
+SmartyWrap::addJs('jquery', 'autocomplete');
+SmartyWrap::assign('sectionTitle', "Editare lexem: {$lexem->form} {$lexem->modelType}{$lexem->modelNumber}{$lexem->restriction}");
+SmartyWrap::displayAdminPage('admin/lexemEdit.ihtml');
 
 function validate($lexem) {
   if (!$lexem->form) {

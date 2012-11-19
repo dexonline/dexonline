@@ -12,15 +12,15 @@ $source = Source::get_by_id($sourceId);
 switch ($loc) {
   case 0:
     $srcClause = " and not l.isLoc";
-    smarty_assign('sectionTitle', "Lexeme din {$source->shortName} neincluse în LOC");
+    SmartyWrap::assign('sectionTitle', "Lexeme din {$source->shortName} neincluse în LOC");
     break;
   case 1:
     $srcClause = " and l.isLoc";
-    smarty_assign('sectionTitle', "Lexeme din {$source->shortName} incluse în LOC");
+    SmartyWrap::assign('sectionTitle', "Lexeme din {$source->shortName} incluse în LOC");
     break;
   case 2:
     $srcClause = "";
-    smarty_assign('sectionTitle', "Lexeme din {$source->shortName}");
+    SmartyWrap::assign('sectionTitle', "Lexeme din {$source->shortName}");
     break;
   default: exit;
 }
@@ -37,8 +37,8 @@ $query = "select l.* from Lexem l, LexemDefinitionMap ldm, Definition d where l.
   "$nickClause $srcClause order by l.formNoAccent";
 $lexemDbResult = db_execute($query);
 
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_assign('sectionCount', $lexemDbResult->rowCount());
-smarty_displayAdminPage('admin/lexemListDbResult.ihtml');
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::assign('sectionCount', $lexemDbResult->rowCount());
+SmartyWrap::displayAdminPage('admin/lexemListDbResult.ihtml');
 
 ?>

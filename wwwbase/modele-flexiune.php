@@ -10,9 +10,9 @@ $modelNumber = util_getRequestParameter('modelNumber');
 $locVersions = pref_getLocVersions();
 
 if ($locVersion && $modelType && $modelNumber) {
-  smarty_assign('selectedLocVersion', $locVersion);
-  smarty_assign('selectedModelType', $modelType);
-  smarty_assign('selectedModelNumber', $modelNumber);
+  SmartyWrap::assign('selectedLocVersion', $locVersion);
+  SmartyWrap::assign('selectedModelType', $modelType);
+  SmartyWrap::assign('selectedModelNumber', $modelNumber);
 
   LocVersion::changeDatabase($locVersion);
 
@@ -40,24 +40,24 @@ if ($locVersion && $modelType && $modelNumber) {
     $paradigms[] = $paradigm;
   }
   
-  smarty_assign('modelsToDisplay', $modelsToDisplay);
-  smarty_assign('lexems', $lexems);
-  smarty_assign('paradigms', $paradigms);
+  SmartyWrap::assign('modelsToDisplay', $modelsToDisplay);
+  SmartyWrap::assign('lexems', $lexems);
+  SmartyWrap::assign('paradigms', $paradigms);
 } else {
-  smarty_assign('selectedLocVersion', $locVersions[0]->name);
+  SmartyWrap::assign('selectedLocVersion', $locVersions[0]->name);
   // LocVersion::changeDatabase($locVersion);
 }
 
 $modelTypes = ModelType::loadCanonical();
 $models = FlexModel::loadByType($modelType ? $modelType : $modelTypes[0]->code);
 
-smarty_assign('page_title', 'Modele de flexiune');
-smarty_assign('locVersions', $locVersions);
-smarty_assign('modelTypes', $modelTypes);
-smarty_assign('models', $models);
-smarty_addCss('paradigm');
-smarty_addJs('flex');
-smarty_displayCommonPageWithSkin('modele-flexiune.ihtml');
+SmartyWrap::assign('page_title', 'Modele de flexiune');
+SmartyWrap::assign('locVersions', $locVersions);
+SmartyWrap::assign('modelTypes', $modelTypes);
+SmartyWrap::assign('models', $models);
+SmartyWrap::addCss('paradigm');
+SmartyWrap::addJs('flex');
+SmartyWrap::displayCommonPageWithSkin('modele-flexiune.ihtml');
 
 /*************************************************************************/
 

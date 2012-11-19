@@ -8,10 +8,10 @@ $lexems = Model::factory('Lexem')->where_raw("form not rlike '\'' and not noAcce
 
 RecentLink::createOrUpdate('Lexeme fără accent');
 
-smarty_assign('sectionTitle', 'Lexeme fără accent');
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_assign('lexems', $lexems);
-smarty_assign('sectionCount', count($lexems));
-smarty_displayAdminPage('admin/lexemList.ihtml');
+SmartyWrap::assign('sectionTitle', 'Lexeme fără accent');
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('sectionCount', count($lexems));
+SmartyWrap::displayAdminPage('admin/lexemList.ihtml');
 
 ?>

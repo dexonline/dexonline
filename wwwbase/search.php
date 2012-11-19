@@ -33,7 +33,7 @@ $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
 $sourceId = $source ? $source->id : null;
 
 if ($cuv) {
-  smarty_assign('cuv', $cuv);
+  SmartyWrap::assign('cuv', $cuv);
   $arr = StringUtil::analyzeQuery($cuv);
   $hasDiacritics = session_user_prefers('FORCE_DIACRITICS') || $arr[0];
   $hasRegexp = $arr[1];
@@ -50,14 +50,14 @@ if ($isAllDigits) {
 if ($text) {
   $searchType = SEARCH_FULL_TEXT;
   if (Lock::exists(LOCK_FULL_TEXT_INDEX)) {
-    smarty_assign('lockExists', true);
+    SmartyWrap::assign('lockExists', true);
     $definitions = array();
   } else {
     $words = preg_split('/ +/', $cuv);
     list($properWords, $stopWords) = StringUtil::separateStopWords($words, $hasDiacritics);
-    smarty_assign('stopWords', $stopWords);
+    SmartyWrap::assign('stopWords', $stopWords);
     $defIds = Definition::searchFullText($properWords, $hasDiacritics);
-    smarty_assign('numResults', count($defIds));
+    SmartyWrap::assign('numResults', count($defIds));
     // Show at most 50 definitions;
     $defIds = array_slice($defIds, 0, 500);
     // Load definitions in the given order
@@ -78,40 +78,40 @@ if ($text) {
 if ($lexemId) {
   // We don't really use $cuv here
   $searchType = SEARCH_LEXEM_ID;
-  smarty_assign('lexemId', $lexemId);
+  SmartyWrap::assign('lexemId', $lexemId);
   if (!StringUtil::validateAlphabet($lexemId, '0123456789')) {
     $lexemId = '';
   }
   $lexem = Lexem::get_by_id($lexemId);
   $definitions = Definition::searchLexemId($lexemId, $exclude_unofficial);
   $searchResults = SearchResult::mapDefinitionArray($definitions);
-  smarty_assign('results', $searchResults);
+  SmartyWrap::assign('results', $searchResults);
   if ($lexem) {
     $lexems = array($lexem);
-    smarty_assign('cuv', $lexem->formNoAccent);
+    SmartyWrap::assign('cuv', $lexem->formNoAccent);
     if ($definitions) {
-      smarty_assign('page_title', "Lexem: {$lexem->formNoAccent}");
+      SmartyWrap::assign('page_title', "Lexem: {$lexem->formNoAccent}");
     } else {
-      smarty_assign('page_title', "Lexem neoficial: {$lexem->formNoAccent}");
-      smarty_assign('exclude_unofficial', $exclude_unofficial);
+      SmartyWrap::assign('page_title', "Lexem neoficial: {$lexem->formNoAccent}");
+      SmartyWrap::assign('exclude_unofficial', $exclude_unofficial);
     }
   } else {
     $lexems = array();
-    smarty_assign('page_title', "Eroare");
+    SmartyWrap::assign('page_title', "Eroare");
     FlashMessage::add("Nu există niciun lexem cu ID-ul căutat.");
   }
-  smarty_assign('lexems', $lexems);
+  SmartyWrap::assign('lexems', $lexems);
 }
 
-smarty_assign('src_selected', $sourceId);
+SmartyWrap::assign('src_selected', $sourceId);
 
 // Regular expressions
 if ($hasRegexp) {
   $searchType = SEARCH_REGEXP;
   $numResults = Lexem::countRegexpMatches($cuv, $hasDiacritics, $sourceId, true);
   $lexems = Lexem::searchRegexp($cuv, $hasDiacritics, $sourceId, true);
-  smarty_assign('numResults', $numResults);
-  smarty_assign('lexems', $lexems);
+  SmartyWrap::assign('numResults', $numResults);
+  SmartyWrap::assign('lexems', $lexems);
   if (!$numResults) {
     FlashMessage::add("Niciun rezultat pentru {$cuv}.");
   }
@@ -119,7 +119,7 @@ if ($hasRegexp) {
 
 // Definition.id search
 if ($defId) {
-  smarty_assign('defId', $defId);
+  SmartyWrap::assign('defId', $defId);
   $searchType = SEARCH_DEF_ID;
   if (util_isModerator(PRIV_VIEW_HIDDEN)) {
       $def = Model::factory('Definition')->where('id', $defId)->where_in('status', array(ST_ACTIVE, ST_HIDDEN))->find_one();
@@ -134,7 +134,7 @@ if ($defId) {
     FlashMessage::add("Nu există nicio definiție cu ID-ul {$defId}.");
   }
   $searchResults = SearchResult::mapDefinitionArray($definitions);
-  smarty_assign('results', $searchResults);
+  SmartyWrap::assign('results', $searchResults);
 }
 
 // Normal search
@@ -151,7 +151,7 @@ if ($searchType == SEARCH_INFLECTED) {
       $ignoredWords = array_slice($words, 5);
       $words = array_slice($words, 0, 5);
       $definitions = Definition::searchMultipleWords($words, $hasDiacritics, $sourceId, $exclude_unofficial);
-      smarty_assign('ignoredWords', $ignoredWords);
+      SmartyWrap::assign('ignoredWords', $ignoredWords);
     }
   }
   if (count($lexems) == 0 && empty($definitions)) {
@@ -171,11 +171,11 @@ if ($searchType == SEARCH_INFLECTED) {
     util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$lexems[0]->formNoAccent}" . ($xml ? '/xml' : ''));
   }
 
-  smarty_assign('lexems', $lexems);
+  SmartyWrap::assign('lexems', $lexems);
   if ($searchType == SEARCH_INFLECTED) {
     // For successful searches, load the definitions, inflections and linguistic articles
     $definitions = Definition::loadForLexems($lexems, $sourceId, $cuv, $exclude_unofficial);
-    smarty_assign('wikiArticles', WikiArticle::loadForLexems($lexems));
+    SmartyWrap::assign('wikiArticles', WikiArticle::loadForLexems($lexems));
   }
 
   if (isset($definitions)) {
@@ -186,7 +186,7 @@ if ($searchType == SEARCH_INFLECTED) {
 $conjugations = NULL;
 $declensions = NULL;
 if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $searchType == SEARCH_FULL_TEXT || $searchType == SEARCH_MULTIWORD) {
-  smarty_assign('results', $searchResults);
+  SmartyWrap::assign('results', $searchResults);
  
   // Maps lexems to arrays of inflected forms (some lexems may lack inflections)
   // Also compute the text of the link to the paradigm div,
@@ -215,19 +215,19 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
         }
       }
     }
-    smarty_assign('hasUnrecommendedForms', $hasUnrecommendedForms);
+    SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
 
     if ($showParadigm) {
-      smarty_assign('ifMaps', $ifMaps);
+      SmartyWrap::assign('ifMaps', $ifMaps);
     }
-    smarty_assign('declensionText', $declensionText);
+    SmartyWrap::assign('declensionText', $declensionText);
 
     $sourceNamesArr = array();
     foreach($lexems as $l) {
       $sourceNamesArr[] = LexemSources::getNamesOfSources($l->source);
     }
 
-    smarty_assign('sourceNamesArr', $sourceNamesArr);
+    SmartyWrap::assign('sourceNamesArr', $sourceNamesArr);
   }
 }
 
@@ -282,26 +282,26 @@ if ($cuv) {
   }
   $page_title .= $showParadigm ? ' si paradigme' : '';
 
-  smarty_assign('page_title', "{$cuv} - definitie{$page_title}");
-  smarty_assign('page_keywords', $page_keywords);
-  smarty_assign('page_description', $page_description);
+  SmartyWrap::assign('page_title', "{$cuv} - definitie{$page_title}");
+  SmartyWrap::assign('page_keywords', $page_keywords);
+  SmartyWrap::assign('page_description', $page_description);
 }
 
 // Ads
 AdsModule::runAllModules(empty($lexems) ? null : $lexems, empty($definitions) ? null : $definitions);
 
-smarty_assign('text', $text);
-smarty_assign('searchType', $searchType);
-smarty_assign('showParadigm', $showParadigm);
-smarty_assign('paradigmLink', $paradigmLink);
-smarty_assign('advancedSearch', $text || $sourceId);
+SmartyWrap::assign('text', $text);
+SmartyWrap::assign('searchType', $searchType);
+SmartyWrap::assign('showParadigm', $showParadigm);
+SmartyWrap::assign('paradigmLink', $paradigmLink);
+SmartyWrap::assign('advancedSearch', $text || $sourceId);
 
 if (!$xml) {
-  smarty_addCss('paradigm');
-  smarty_displayCommonPageWithSkin('search.ihtml');
+  SmartyWrap::addCss('paradigm');
+  SmartyWrap::displayCommonPageWithSkin('search.ihtml');
 
 } else {
   header('Content-type: text/xml');
-  smarty_displayWithoutSkin('common/searchXML.ihtml');
+  SmartyWrap::displayWithoutSkin('common/searchXML.ihtml');
 }
 ?>

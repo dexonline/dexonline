@@ -7,10 +7,10 @@ RecentLink::createOrUpdate('Lexeme neasociate');
 
 $lexems = Lexem::loadUnassociated();
 
-smarty_assign('lexems', $lexems);
-smarty_assign('sectionTitle', 'Lexeme neasociate');
-smarty_assign('sectionCount', count($lexems));
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayAdminPage('admin/lexemList.ihtml');
+SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('sectionTitle', 'Lexeme neasociate');
+SmartyWrap::assign('sectionCount', count($lexems));
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::displayAdminPage('admin/lexemList.ihtml');
 
 ?>

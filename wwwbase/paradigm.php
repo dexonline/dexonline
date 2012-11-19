@@ -16,7 +16,7 @@ $hasDiacritics = session_user_prefers('FORCE_DIACRITICS') || $arr[0];
 // LexemId search
 if ($lexemId) {
   $searchType = SEARCH_LEXEM_ID;
-  smarty_assign('lexemId', $lexemId);
+  SmartyWrap::assign('lexemId', $lexemId);
   if (!StringUtil::validateAlphabet($lexemId, '0123456789')) {
     $lexemId = '';
   }
@@ -31,10 +31,10 @@ if ($lexemId) {
 }
 
 if ($lexemId) {
-  smarty_assign('paradigmLink', util_getWwwRoot() . "lexem/$cuv/$lexemId/paradigma");
+  SmartyWrap::assign('paradigmLink', util_getWwwRoot() . "lexem/$cuv/$lexemId/paradigma");
 }
 else {
-  smarty_assign('paradigmLink', util_getWwwRoot() . "definitie/$cuv/paradigma");
+  SmartyWrap::assign('paradigmLink', util_getWwwRoot() . "definitie/$cuv/paradigma");
 }
 
 if ($cuv) {
@@ -86,15 +86,15 @@ if (!empty($lexems)) {
 
   if (empty($filtered_lexems)) {
     FlashMessage::add("Niciun rezultat pentru {$cuv}.");
-    smarty_assign('page_title', "Eroare");
+    SmartyWrap::assign('page_title', "Eroare");
   }
 
   $declensionText = $conjugations ? ($declensions ? 'Conjugare / Declinare' : 'Conjugare') : ($declensions ? 'Declinare' : '');
 
   if ($cuv && !empty($filtered_lexems)) {
-    smarty_assign('cuv', $cuv);
-    smarty_assign('page_title', "{$declensionText}: {$cuv}");
-    smarty_assign('declensionText', "{$declensionText}: {$cuv}");
+    SmartyWrap::assign('cuv', $cuv);
+    SmartyWrap::assign('page_title', "{$declensionText}: {$cuv}");
+    SmartyWrap::assign('declensionText', "{$declensionText}: {$cuv}");
   }
 
   $sourceNamesArr = array();
@@ -111,23 +111,23 @@ if (!empty($lexems)) {
       }
     }
   }
-  smarty_assign('hasUnrecommendedForms', $hasUnrecommendedForms);
+  SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
 
-  smarty_assign('sourceNamesArr', $sourceNamesArr);
-  smarty_assign('lexems', $filtered_lexems);
-  smarty_assign('ifMaps', $ifMaps);
-  smarty_assign('showParadigm', true);
-  smarty_assign('onlyParadigm', !$ajax);
+  SmartyWrap::assign('sourceNamesArr', $sourceNamesArr);
+  SmartyWrap::assign('lexems', $filtered_lexems);
+  SmartyWrap::assign('ifMaps', $ifMaps);
+  SmartyWrap::assign('showParadigm', true);
+  SmartyWrap::assign('onlyParadigm', !$ajax);
 }
 else {
   FlashMessage::add("Niciun rezultat pentru {$cuv}.");
-  smarty_assign('page_title', "Eroare");
+  SmartyWrap::assign('page_title', "Eroare");
 }
 
 if ($ajax) {
-  smarty_displayWithoutSkin('common/bits/multiParadigm.ihtml');
+  SmartyWrap::displayWithoutSkin('common/bits/multiParadigm.ihtml');
 }
 else {
-  smarty_displayCommonPageWithSkin('search.ihtml');
+  SmartyWrap::displayCommonPageWithSkin('search.ihtml');
 }
 ?>

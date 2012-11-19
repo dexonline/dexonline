@@ -42,11 +42,11 @@ class DebugInfo {
 
   public static function getDebugInfo() {
     $enabled = self::$enabled && (session_getUserNick() == pref_getDebugUser());
-    smarty_assign('debug_enabled', $enabled);
+    SmartyWrap::assign('debug_enabled', $enabled);
     if ($enabled) {
-      smarty_assign('debug_messages', self::$debugInfo);
-      smarty_assign('debug_runningTimeMillis', self::getRunningTimeInMillis());
-      smarty_assign('debug_ormQueryLog', ORM::get_query_log());
+      SmartyWrap::assign('debug_messages', self::$debugInfo);
+      SmartyWrap::assign('debug_runningTimeMillis', self::getRunningTimeInMillis());
+      SmartyWrap::assign('debug_ormQueryLog', ORM::get_query_log());
     }
   }
 }

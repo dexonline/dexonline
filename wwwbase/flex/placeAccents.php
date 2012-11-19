@@ -49,12 +49,12 @@ foreach($lexems as $l) {
 }
 
 RecentLink::createOrUpdate('Plasare accente');
-smarty_assign('sectionTitle', 'Plasare accente');
-smarty_assign('lexems', $lexems);
-smarty_assign('chars', $chars);
-smarty_assign('searchResults', $searchResults);
-smarty_assign("allStatuses", util_getAllStatuses());
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayAdminPage('flex/placeAccents.ihtml');
+SmartyWrap::assign('sectionTitle', 'Plasare accente');
+SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('chars', $chars);
+SmartyWrap::assign('searchResults', $searchResults);
+SmartyWrap::assign("allStatuses", util_getAllStatuses());
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::displayAdminPage('flex/placeAccents.ihtml');
 
 ?>

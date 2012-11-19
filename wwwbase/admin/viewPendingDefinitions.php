@@ -9,7 +9,7 @@ $sourceUrlName = util_getRequestParameter('source');
 if ( $sourceUrlName ) {
   $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
   $sourceId = $source ? $source->id : 0;
-  smarty_assign('src_selected', $sourceId);
+  SmartyWrap::assign('src_selected', $sourceId);
 }
 
 $ip = $_SERVER['REMOTE_ADDR'];
@@ -17,9 +17,10 @@ $defs = Definition::searchModerator('*', '', $sourceId, ST_PENDING, 0, 0, time()
 $searchResults = SearchResult::mapDefinitionArray($defs);
 FileCache::putModeratorQueryResults($ip, $searchResults);
 
-smarty_assign('searchResults', $searchResults);
-smarty_assign('sectionTitle', 'Definiții nemoderate');
-smarty_assign('allStatuses', util_getAllStatuses());
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayWithoutSkin('admin/definitionList.ihtml');
+SmartyWrap::assign('searchResults', $searchResults);
+SmartyWrap::assign('sectionTitle', 'Definiții nemoderate');
+SmartyWrap::assign('sectionCount', count($searchResults));
+SmartyWrap::assign('allStatuses', util_getAllStatuses());
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::displayAdminPage('admin/definitionList.ihtml');
 ?>

@@ -115,10 +115,10 @@ foreach ($lexems as $l) {
 }
 
 RecentLink::createOrUpdate('Marcare substantive proprii');
-smarty_assign('sectionTitle', 'Marcare substantive proprii');
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_assign('lexems', $lexems);
-smarty_assign('prefix', $prefix);
-smarty_displayAdminPage('admin/properNouns.ihtml');
+SmartyWrap::assign('sectionTitle', 'Marcare substantive proprii');
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('prefix', $prefix);
+SmartyWrap::displayAdminPage('admin/properNouns.ihtml');
 
 ?>

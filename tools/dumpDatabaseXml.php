@@ -1,7 +1,6 @@
 <?php
 
-require_once("../phplib/util.php");
-smarty_init();
+require_once __DIR__ . '/../phplib/util.php';
 
 $TODAY = date("Y-m-d");
 $TODAY_TIMESTAMP = strtotime("$TODAY 00:00:00");
@@ -79,15 +78,15 @@ function getLastDumpDate($folder) {
 
 function dumpSources($fileName) {
   log_scriptLog("dumping sources");
-  smarty_assign('sources', Model::factory('Source')->order_by_asc('id')->find_many());
-  $xml = smarty_fetch('xmldump/sources.ihtml');
+  SmartyWrap::assign('sources', Model::factory('Source')->order_by_asc('id')->find_many());
+  $xml = SmartyWrap::fetch('xmldump/sources.ihtml');
   file_put_contents($fileName, gzencode($xml));
 }
 
 function dumpInflections($fileName) {
   log_scriptLog("dumping inflections");
-  smarty_assign('inflections', Model::factory('Inflection')->order_by_asc('id')->find_many());
-  $xml = smarty_fetch('xmldump/inflections.ihtml');
+  SmartyWrap::assign('inflections', Model::factory('Inflection')->order_by_asc('id')->find_many());
+  $xml = SmartyWrap::fetch('xmldump/inflections.ihtml');
   file_put_contents($fileName, gzencode($xml));
 }
 
@@ -116,9 +115,9 @@ function dumpAbbrevs($fileName) {
       $sections[$name] = $section;
     }
   }
-  smarty_assign('sources', $sources);
-  smarty_assign('sections', $sections);
-  $xml = smarty_fetch('xmldump/abbrev.ihtml');
+  SmartyWrap::assign('sources', $sources);
+  SmartyWrap::assign('sections', $sections);
+  $xml = SmartyWrap::fetch('xmldump/abbrev.ihtml');
   file_put_contents($fileName, gzencode($xml));
 }
 
@@ -133,9 +132,9 @@ function dumpDefinitions($query, $fileName, $message) {
   foreach ($results as $row) {
     $def = Model::factory('Definition')->create($row);
     $def->internalRep = AdminStringUtil::xmlizeRequired($def->internalRep);
-    smarty_assign('def', $def);
-    smarty_assign('nick', $USERS[$def->userId]);
-    gzwrite($file, smarty_fetch('xmldump/definition.ihtml'));
+    SmartyWrap::assign('def', $def);
+    SmartyWrap::assign('nick', $USERS[$def->userId]);
+    gzwrite($file, SmartyWrap::fetch('xmldump/definition.ihtml'));
   }
   gzwrite($file, "</Definitions>\n");
   gzclose($file);
@@ -149,9 +148,9 @@ function dumpLexems($query, $fileName, $message) {
   gzwrite($file, "<Lexems>\n");
   foreach($results as $row) {
     $lexem = Model::factory('Lexem')->create($row);
-    smarty_assign('lexem', $lexem);
-    smarty_assign('ifs', InflectedForm::loadByLexemId($lexem->id));
-    gzwrite($file, smarty_fetch('xmldump/lexem.ihtml'));
+    SmartyWrap::assign('lexem', $lexem);
+    SmartyWrap::assign('ifs', InflectedForm::loadByLexemId($lexem->id));
+    gzwrite($file, SmartyWrap::fetch('xmldump/lexem.ihtml'));
   }
   gzwrite($file, "</Lexems>\n");
   gzclose($file);

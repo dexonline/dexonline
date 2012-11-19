@@ -6,7 +6,7 @@ if (!$user) {
   util_redirect('auth/login');
 }
 
-smarty_assign('page_title', 'Cuvinte favorite');
-smarty_assign('bookmarks', UserWordBookmarkDisplayObject::getByUser($user->id));
-smarty_displayCommonPageWithSkin('cuvinte-favorite.ihtml');
+SmartyWrap::assign('page_title', 'Cuvinte favorite');
+SmartyWrap::assign('bookmarks', UserWordBookmarkDisplayObject::getByUser($user->id));
+SmartyWrap::displayCommonPageWithSkin('cuvinte-favorite.ihtml');
 ?>

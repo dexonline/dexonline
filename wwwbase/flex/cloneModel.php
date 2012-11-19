@@ -68,13 +68,13 @@ if ($cloneButton) {
 
 $lexems = Lexem::loadByCanonicalModel($modelType, $modelNumber);
 
-smarty_assign('modelType', $modelType);
-smarty_assign('modelNumber', $modelNumber);
-smarty_assign('newModelNumber', $newModelNumber);
-smarty_assign('lexems', $lexems);
-smarty_assign('errorMessage', $errorMessages);
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_assign('sectionTitle', "Clonare model: {$modelType}{$modelNumber}");
-smarty_displayAdminPage('flex/cloneModel.ihtml');
+SmartyWrap::assign('modelType', $modelType);
+SmartyWrap::assign('modelNumber', $modelNumber);
+SmartyWrap::assign('newModelNumber', $newModelNumber);
+SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('errorMessage', $errorMessages);
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::assign('sectionTitle', "Clonare model: {$modelType}{$modelNumber}");
+SmartyWrap::displayAdminPage('flex/cloneModel.ihtml');
 
 ?>

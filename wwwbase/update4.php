@@ -10,21 +10,21 @@ if (count($_GET) == 0) {
 }
 
 $lastDump = getLastDumpDate($TODAY, $FOLDER);
-smarty_assign('lastDump', $lastDump);
-smarty_assign('url', $URL);
+SmartyWrap::assign('lastDump', $lastDump);
+SmartyWrap::assign('url', $URL);
 
 $lastClientUpdate = util_getRequestParameterWithDefault('last', '0');
 if ($lastClientUpdate == '0') {
   // Dump the freshest full dump we have
   // TODO: return an error if there is no full dump
-  smarty_assign('serveFullDump', true);
+  SmartyWrap::assign('serveFullDump', true);
   $lastClientUpdate = $lastDump;
 }
 
-smarty_assign('diffs', getDiffsBetween($lastClientUpdate, $TODAY, $FOLDER));
+SmartyWrap::assign('diffs', getDiffsBetween($lastClientUpdate, $TODAY, $FOLDER));
 
 header('Content-type: text/xml');
-print smarty_fetch('common/update4.ihtml');
+print SmartyWrap::fetch('common/update4.ihtml');
 
 /**************************************************************************/
 

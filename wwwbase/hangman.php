@@ -70,13 +70,13 @@ do {
 $searchResults = SearchResult::mapDefinitionArray($defs);
 $word = mb_strtoupper($lexem->formNoAccent);
 
-smarty_assign('wordLength', mb_strlen($word));
-smarty_assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțuvwxyz', null, PREG_SPLIT_NO_EMPTY));
-smarty_assign('page_title', 'Spânzurătoarea');
-smarty_assign('word', $word);
-smarty_assign('searchResults', $searchResults);
-smarty_assign('difficulty', $difficulty);
-smarty_addCss('hangman');
-smarty_addJs('hangman', 'jqnotice');
-smarty_displayCommonPageWithSkin("hangman.ihtml");
+SmartyWrap::assign('wordLength', mb_strlen($word));
+SmartyWrap::assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțuvwxyz', null, PREG_SPLIT_NO_EMPTY));
+SmartyWrap::assign('page_title', 'Spânzurătoarea');
+SmartyWrap::assign('word', $word);
+SmartyWrap::assign('searchResults', $searchResults);
+SmartyWrap::assign('difficulty', $difficulty);
+SmartyWrap::addCss('hangman');
+SmartyWrap::addJs('hangman', 'jqnotice');
+SmartyWrap::displayCommonPageWithSkin("hangman.ihtml");
 ?>

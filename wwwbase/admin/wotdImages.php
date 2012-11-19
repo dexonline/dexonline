@@ -4,8 +4,8 @@ util_assertModerator(PRIV_WOTD);
 util_assertNotMirror();
 RecentLink::createOrUpdate('Word of the Day - Imagini');
 
-smarty_assign('sectionTitle', 'Imagini pentru cuvântul zilei');
-smarty_addCss('elfinder', 'jquery_smoothness');
-smarty_addJs('jquery', 'jqueryui', 'elfinder');
-smarty_displayAdminPage('admin/wotdImages.ihtml');
+SmartyWrap::assign('sectionTitle', 'Imagini pentru cuvântul zilei');
+SmartyWrap::addCss('elfinder', 'jquery_smoothness');
+SmartyWrap::addJs('jquery', 'jqueryui', 'elfinder');
+SmartyWrap::displayAdminPage('admin/wotdImages.ihtml');
 ?>

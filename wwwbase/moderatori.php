@@ -30,8 +30,8 @@ if ($submitButton) {
   util_redirect("moderatori");
 }
 
-smarty_assign('page_title', 'Moderatori');
-smarty_assign('users', Model::factory('User')->where_not_equal('moderator', 0)->order_by_asc('nick')->find_many());
-smarty_displayCommonPageWithSkin('moderatori.ihtml');
+SmartyWrap::assign('page_title', 'Moderatori');
+SmartyWrap::assign('users', Model::factory('User')->where_not_equal('moderator', 0)->order_by_asc('nick')->find_many());
+SmartyWrap::displayCommonPageWithSkin('moderatori.ihtml');
 
 ?>

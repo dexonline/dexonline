@@ -46,9 +46,9 @@ if ($searchButton) {
   $searchResults = FileCache::getModeratorQueryResults($ip);
 }
 
-smarty_assign('searchResults', $searchResults);
-smarty_assign('sectionTitle', 'Căutare definiții');
-smarty_assign('allStatuses', util_getAllStatuses());
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayWithoutSkin('admin/definitionList.ihtml');
+SmartyWrap::assign('searchResults', $searchResults);
+SmartyWrap::assign('sectionTitle', 'Căutare definiții');
+SmartyWrap::assign('allStatuses', util_getAllStatuses());
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::displayAdminPage('admin/definitionList.ihtml');
 ?>

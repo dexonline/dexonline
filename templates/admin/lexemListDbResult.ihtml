@@ -11,6 +11,6 @@
   function fetchNextRow() {
     global $lexemDbResult;
     $l = Model::factory('Lexem')->create($lexemDbResult->fetch());
-    smarty_assign('l', $l);
+    SmartyWrap::assign('l', $l);
   }
 {/php}

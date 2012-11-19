@@ -9,9 +9,9 @@ foreach ($dbResult as $row) {
   $stats[] = array($row['s'], $row['c']);
 }
 
-smarty_assign('stats', $stats);
-smarty_assign('sectionTitle', 'Alegere sufix pentru etichetare asistată');
-smarty_assign('recentLinks', RecentLink::loadForUser());
-smarty_displayAdminPage('flex/bulkLabelSelectSuffix.ihtml');
+SmartyWrap::assign('stats', $stats);
+SmartyWrap::assign('sectionTitle', 'Alegere sufix pentru etichetare asistată');
+SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::displayAdminPage('flex/bulkLabelSelectSuffix.ihtml');
 
 ?>

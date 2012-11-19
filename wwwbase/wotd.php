@@ -19,19 +19,19 @@ if ($type == 'rss' || $type == 'blog') {
     $def = Model::factory('Definition')->where('id', $defId)->where('status', ST_ACTIVE)->find_one();
     $source = Model::factory('Source')->where('id', $def->sourceId)->find_one();
 
-    smarty_assign('def', $def);
-    smarty_assign('source', $source);
-    smarty_assign('imageUrl', $w->getImageUrl());
-    smarty_assign('fullServerUrl', util_getFullServerUrl());
+    SmartyWrap::assign('def', $def);
+    SmartyWrap::assign('source', $source);
+    SmartyWrap::assign('imageUrl', $w->getImageUrl());
+    SmartyWrap::assign('fullServerUrl', util_getFullServerUrl());
     if ($type == 'blog') {
         $curDate = strftime("%e %B", $ts);
-        smarty_assign('curDate', $curDate);
+        SmartyWrap::assign('curDate', $curDate);
         $item['title'] = "{$curDate} – " . $def->lexicon;
-        $item['description'] = smarty_fetch('common/bits/wotdRssBlogItem.ihtml');
+        $item['description'] = SmartyWrap::fetch('common/bits/wotdRssBlogItem.ihtml');
     }
     else {
         $item['title'] = $def->lexicon;
-        $item['description'] = smarty_fetch('common/bits/wotdRssItem.ihtml');
+        $item['description'] = SmartyWrap::fetch('common/bits/wotdRssItem.ihtml');
     }
     $item['pubDate'] = date('D, d M Y H:i:s', $ts) . ' EEST';
     $item['link'] = util_getFullServerUrl() . 'cuvantul-zilei/' . date('Y/m/d', $ts);
@@ -40,12 +40,12 @@ if ($type == 'rss' || $type == 'blog') {
   }
 
   header("Content-type: text/xml");
-  smarty_assign('rss_title', 'Cuvântul zilei');
-  smarty_assign('rss_link', 'http://' . $_SERVER['HTTP_HOST'] . '/cuvantul-zilei/');
-  smarty_assign('rss_description', 'Doza zilnică de cuvinte de la DEXonline!');
-  smarty_assign('rss_pubDate', date('D, d M Y H:i:s') . ' EEST');
-  smarty_assign('results', $results);
-  smarty_displayWithoutSkin('common/rss.ixml');
+  SmartyWrap::assign('rss_title', 'Cuvântul zilei');
+  SmartyWrap::assign('rss_link', 'http://' . $_SERVER['HTTP_HOST'] . '/cuvantul-zilei/');
+  SmartyWrap::assign('rss_description', 'Doza zilnică de cuvinte de la DEXonline!');
+  SmartyWrap::assign('rss_pubDate', date('D, d M Y H:i:s') . ' EEST');
+  SmartyWrap::assign('results', $results);
+  SmartyWrap::displayWithoutSkin('common/rss.ixml');
   exit;
 }
 
@@ -71,9 +71,9 @@ $defId = WordOfTheDayRel::getRefId($wotd->id);
 $def = Definition::get_by_id($defId);
 
 if ($type == 'url') {
-  smarty_assign('today', $today);
-  smarty_assign('title', $def->lexicon);
-  smarty_displayWithoutSkin('common/bits/wotdurl.ihtml');
+  SmartyWrap::assign('today', $today);
+  SmartyWrap::assign('title', $def->lexicon);
+  SmartyWrap::displayWithoutSkin('common/bits/wotdurl.ihtml');
   exit;
 }
 
@@ -82,21 +82,21 @@ $roDate = strftime("%e %B %Y", $timestamp);
 $pageTitle = sprintf("Cuvântul zilei: %s (%s)", $def->lexicon, $roDate);
 
 if ($mysqlDate > WOTD_BIG_BANG) {
-  smarty_assign('prevday', date('Y/m/d', $timestamp - 86400));
+  SmartyWrap::assign('prevday', date('Y/m/d', $timestamp - 86400));
 }
 if ($mysqlDate < $today || util_isModerator(PRIV_ADMIN)) {
-  smarty_assign('nextday', date('Y/m/d', $timestamp + 86400));
+  SmartyWrap::assign('nextday', date('Y/m/d', $timestamp + 86400));
 }
 
-smarty_assign('imageUrl', $wotd->getImageUrl());
-smarty_assign('imageCredits', $wotd->getImageCredits());
-smarty_assign('timestamp', $timestamp);
-smarty_assign('mysqlDate', $mysqlDate);
-smarty_assign('page_title', $pageTitle);
-smarty_assign('page_keywords', "Cuvântul zilei, {$def->lexicon}, dexonline, DEX online, $pageTitle");
-smarty_assign('page_description', "$pageTitle de la dexonline");
-smarty_assign('searchResult', array_pop($searchResults));
+SmartyWrap::assign('imageUrl', $wotd->getImageUrl());
+SmartyWrap::assign('imageCredits', $wotd->getImageCredits());
+SmartyWrap::assign('timestamp', $timestamp);
+SmartyWrap::assign('mysqlDate', $mysqlDate);
+SmartyWrap::assign('page_title', $pageTitle);
+SmartyWrap::assign('page_keywords', "Cuvântul zilei, {$def->lexicon}, dexonline, DEX online, $pageTitle");
+SmartyWrap::assign('page_description', "$pageTitle de la dexonline");
+SmartyWrap::assign('searchResult', array_pop($searchResults));
 
-smarty_displayCommonPageWithSkin('wotd.ihtml');
+SmartyWrap::displayCommonPageWithSkin('wotd.ihtml');
 
 ?>

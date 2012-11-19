@@ -8,7 +8,7 @@ $locVersions = pref_getLocVersions();
 if ($locVersion && $form) {
   LocVersion::changeDatabase($locVersion);
   $form = StringUtil::cleanupQuery($form);
-  smarty_assign('page_title', 'Verificare LOC: ' . $form);
+  SmartyWrap::assign('page_title', 'Verificare LOC: ' . $form);
 
   $ifs = loadLoc($form);
   $lexems = array();
@@ -17,19 +17,19 @@ if ($locVersion && $form) {
     $lexems[] = Lexem::get_by_id($if->lexemId);
     $inflections[] = Inflection::get_by_id($if->inflectionId);
   }
-  smarty_assign('form', $form);
-  smarty_assign('selectedLocVersion', $locVersion);
-  smarty_assign('ifs', $ifs);
-  smarty_assign('lexems', $lexems);
-  smarty_assign('inflections', $inflections);
+  SmartyWrap::assign('form', $form);
+  SmartyWrap::assign('selectedLocVersion', $locVersion);
+  SmartyWrap::assign('ifs', $ifs);
+  SmartyWrap::assign('lexems', $lexems);
+  SmartyWrap::assign('inflections', $inflections);
 } else {
-  smarty_assign('selectedLocVersion', $locVersions[1]->name);
-  smarty_assign('page_title', 'Căutare formă flexionară în LOC ' . $form);
+  SmartyWrap::assign('selectedLocVersion', $locVersions[1]->name);
+  SmartyWrap::assign('page_title', 'Căutare formă flexionară în LOC ' . $form);
 }
 
 setlocale(LC_ALL, "ro_RO.utf8");
-smarty_assign('locVersions', $locVersions);
-smarty_displayCommonPageWithSkin('scrabble-flexiune.ihtml');
+SmartyWrap::assign('locVersions', $locVersions);
+SmartyWrap::displayCommonPageWithSkin('scrabble-flexiune.ihtml');
 
 
 function loadLoc($cuv) {

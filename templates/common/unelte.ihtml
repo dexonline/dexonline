@@ -79,9 +79,11 @@ calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
     {foreach from=$clients item=client}
 	  {if $client.available}
       <td>
-        {foreach from=$client.authors item=email key=name}
-          {if $email}
-            <a href="mailto:{$email}">{$name}</a>
+        {foreach from=$client.authors item=address key=name}
+          {if $address|strstr:"http://"}
+            <a href="{$address}">{$name}</a>
+          {elseif $address}
+            <a href="mailto:{$address}">{$name}</a>
           {else}
             {$name}
           {/if}

@@ -1,7 +1,7 @@
 <div class="header">
   <div class="title">
     {$title|escape}
-    {if $count}({$count}){/if}
+    {if $count !== null}({$count}){/if}
   </div>
 
   {if $showSources}

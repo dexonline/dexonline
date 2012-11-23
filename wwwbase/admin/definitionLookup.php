@@ -48,6 +48,7 @@ if ($searchButton) {
 
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('sectionTitle', 'Căutare definiții');
+SmartyWrap::assign('sectionCount', count($searchResults));
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::displayAdminPage('admin/definitionList.ihtml');

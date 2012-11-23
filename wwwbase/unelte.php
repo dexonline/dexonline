@@ -67,7 +67,7 @@ $clients = array(
   array('name' => array('DEX pentru Windows Phone', 'http://dex-wp.adrianvintu.com/'),
         'available' => true,
         'urls' => array('App' => 'http://www.windowsphone.com/en-US/store/publishers?publisherId=Adrian+Vintu'),
-        'os' => array('windows'),
+        'os' => array('windowsPhone'),
         'space' => '1 MB',
         'requires' => array(),
         'authors' => array('Adrian Vîntu' => 'http://adrianvintu.com'),
@@ -145,7 +145,8 @@ $clients = array(
         'options' => array('vision' => 0, 'sync' => 1, 'regexp' => 0, 'suggest' => 0, 'diacritics' => 0, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 1)),
 );
 
-$osNames = array('android' => 'Android', 'iphone' => 'iPhone', 'java' => 'Java', 'linux' => 'GNU / Linux', 'mac' => 'Mac', 'windows' => 'Windows', 'windowsce' => 'Windows CE');
+$osNames = array('android' => 'Android', 'iphone' => 'iPhone', 'java' => 'Java', 'linux' => 'GNU / Linux', 'mac' => 'Mac',
+                 'windows' => 'Windows', 'windowsce' => 'Windows CE', 'windowsPhone' => 'Windows Phone');
 
 SmartyWrap::assign('page_title', 'Unelte');
 SmartyWrap::assign('clients', $clients);

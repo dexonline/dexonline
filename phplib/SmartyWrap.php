@@ -153,7 +153,7 @@ class SmartyWrap {
         break;
       case 'autocomplete':       self::$cssFiles[4] = 'jquery.autocomplete.css?v=1'; break;
       case 'elfinder':           self::$cssFiles[5] = 'elfinder.css'; break;
-      case 'zepu':               self::$cssFiles[6] = 'zepu.css?v=43'; break;
+      case 'zepu':               self::$cssFiles[6] = 'zepu.css?v=44'; break;
       case 'polar':              self::$cssFiles[7] = 'polar.css?v=29'; break;
       case 'mobile':             self::$cssFiles[8] = 'mobile.css?v=14'; break;
       case 'flex':               self::$cssFiles[9] = 'flex.css?v=7'; break;

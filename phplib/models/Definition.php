@@ -16,7 +16,7 @@ class Definition extends BaseObject {
 
   public static function loadByLexemId($lexemId) {
     return Model::factory('Definition')->select('Definition.*')->join('LexemDefinitionMap', array('Definition.id', '=', 'definitionId'))
-      ->where('lexemId', $lexemId)->where_in('status', array(ST_ACTIVE, ST_PENDING))->order_by_asc('sourceId')->find_many();
+      ->where('lexemId', $lexemId)->where_not_equal('status', ST_DELETED)->order_by_asc('sourceId')->find_many();
   }
 
   public static function countAssociated() {

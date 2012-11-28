@@ -3,3 +3,12 @@
 <a class="helpLink" href="http://wiki.dexonline.ro/wiki/CuvântulZilei">instrucțiuni</a>
 <table id="wotdGrid"></table>
 <div id="wotdPaging"></div>
+
+<br/>
+
+<form action="wotdExport.php">
+  Descarcă lista pentru luna
+  {include file="common/bits/numericDropDown.ihtml" name="month" start=1 end=13 selected=$downloadMonth}
+  {include file="common/bits/numericDropDown.ihtml" name="year" start=$downloadYear-3 end=$downloadYear+3 selected=$downloadYear}
+  <input type="submit" name="submitButton" value="Descarcă"/>
+</form>

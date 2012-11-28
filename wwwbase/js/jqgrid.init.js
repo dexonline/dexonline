@@ -33,6 +33,30 @@ function checkServerResponse(response, postData) {
 
 function initGrid(){
   jQuery().ready(function (){
+    var editOptions = {
+      reloadAfterSubmit: true,
+      closeAfterEdit: true,
+      closeOnEscape: true,
+      beforeSubmit: endEdit,
+      afterShowForm: beginEdit,
+      afterSubmit: checkServerResponse, 
+    };
+
+    var addOptions = {
+      reloadAfterSubmit: true,
+      closeAfterAdd: true,
+      closeOnEscape: true,
+      beforeSubmit: endEdit,
+      afterShowForm: beginEdit,
+      afterSubmit: checkServerResponse,
+    };
+
+    var deleteOptions = {
+      afterSubmit: checkServerResponse,
+      closeOnEscape: true,
+      reloadAfterSubmit: true,
+    };
+
     $('#wotdGrid').jqGrid({
       url: 'wotdTableRows.php',
       datatype: 'xml',
@@ -59,6 +83,7 @@ function initGrid(){
       sortorder: 'desc',
       caption: 'Cuvântul zilei',
       editurl: 'wotdSave.php',
+      ondblClickRow: function(rowid) { $(this).jqGrid('editGridRow', rowid, editOptions); }
     });
     $('#wotdGrid').navGrid('#wotdPaging',
       {
@@ -67,29 +92,7 @@ function initGrid(){
         deltext: 'șterge',
         edittext: 'editează',
         refreshtext: 'reîncarcă',
-      },
-      {
-        // Settings for edit
-        reloadAfterSubmit: true,
-        closeAfterEdit: true,
-        closeOnEscape: true,
-        beforeSubmit: endEdit,
-        afterShowForm: beginEdit,
-        afterSubmit: checkServerResponse, 
-      },
-      {
-        // Settings for add
-        reloadAfterSubmit: true,
-        closeAfterAdd: true,
-        closeOnEscape: true,
-        beforeSubmit: endEdit,
-        afterShowForm: beginEdit,
-        afterSubmit: checkServerResponse,
-      },
-      {
-        // Setings for delete
-        afterSubmit: checkServerResponse,
-      }
+      }, editOptions, addOptions, deleteOptions
     );
     $('#wotdGrid').filterToolbar({
       stringResult: true,

@@ -378,7 +378,7 @@ class Lexem extends BaseObject {
 
   public function save() {
     $this->formUtf8General = $this->formNoAccent;
-    $this->charLength = mb_strlen(formNoAccent);
+    $this->charLength = mb_strlen($this->formNoAccent);
     parent::save();
   }  
 

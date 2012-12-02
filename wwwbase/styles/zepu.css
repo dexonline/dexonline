@@ -322,6 +322,34 @@ img {
   width: 175px;
 }
 
+/* special search*/
+
+#searchFormCuv {
+ float: left;
+ padding-left: 13px;
+}
+
+#searchCuv {
+  margin: 10px auto 15px;
+}
+
+.search_field_cuv {
+  border: 1px solid #761818;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  font: 18px Arial;
+  margin: 0px 5px 0px 0px;
+  padding: 0px 0px 0px 2px;
+  width: 100px;
+}
+
+.cbgItem {
+  width: 100px;
+  display: inline-block;
+}
+
+.sourceCheckboxGroup {
+}
 
 /* CONTAINER */
 #Container {

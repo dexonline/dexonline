@@ -27,6 +27,19 @@ class Definition extends BaseObject {
     return $r->c;
   }
 
+  public static function getListOfWordsFromSources($wordStart, $wordEnd, $sources) {
+    return Model::factory('Definition')
+      ->select('Definition.*')
+      ->join('LexemDefinitionMap', array('Definition.id', '=', 'definitionId'))
+      ->where_gte('lexicon', $wordStart)
+      ->where_lte('lexicon', $wordEnd)
+      ->where_in('sourceId', $sources)
+      ->where('status', ST_ACTIVE)
+      ->order_by_asc('lexicon')
+      ->order_by_asc('sourceId')
+      ->find_many();
+  }
+
   // Counts the unassociated definitions in the active or temporary statuses.
   public static function countUnassociated() {
     $all = Model::factory('Definition')->count();

@@ -7,6 +7,7 @@
       <th>Moderator</th>
       <th>Ghid de exprimare<br/>(nefolosit)</th>
       <th>Cuvântul zilei</th>
+      <th>Acces căutare</th>
     </tr>
     {foreach from=$users item=user}
       <tr>

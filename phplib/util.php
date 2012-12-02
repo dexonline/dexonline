@@ -142,9 +142,10 @@ function util_defineConstants() {
   define('PRIV_EDIT', 0x04);
   define('PRIV_GUIDE', 0x08);
   define('PRIV_WOTD', 0x10);
+  define('PRIV_SUPER', 0x20);
   define('PRIV_VIEW_HIDDEN', PRIV_ADMIN);
-  define('NUM_PRIVILEGES', 5);
-  $GLOBALS['PRIV_NAMES'] = array('Administrator', 'Moderator LOC', 'Moderator', 'Editor al ghidului de exprimare', 'Editor al cuvântului zilei');
+  define('NUM_PRIVILEGES', 6);
+  $GLOBALS['PRIV_NAMES'] = array('Administrator', 'Moderator LOC', 'Moderator', 'Editor al ghidului de exprimare', 'Editor al cuvântului zilei', 'Utilizator privilegiat');
 
   //Source 
   define('SOURCE_TYPE_HIDDEN', 3);

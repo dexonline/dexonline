@@ -1,0 +1,18 @@
+{assign var="results" value=$results|default:null}
+{foreach from=$results item=row key=i}
+<p>
+  <span class="def" onclick="return searchClickedWord(event);" title="Clic pentru a naviga la acest cuvânt">
+    {$row->definition->htmlRep}
+  </span>
+  <br/>
+
+  <span class="defDetails">
+    Sursa: <a class="ref" href="{$wwwRoot}surse" title="{$row->source->name|escape}, {$row->source->year|escape}"
+    >{$row->source->shortName|escape}
+    {if $row->source->year}
+    ({$row->source->year|regex_replace:"/ .*$/":""})
+    {/if}
+    </a>
+  </span>
+</p>
+{/foreach}

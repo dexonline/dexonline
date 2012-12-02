@@ -87,9 +87,15 @@
       {include file="common/flashMessages.ihtml"}
 
       {if !$onHomePage && !$suggestHiddenSearchForm}
+        {if !$searchCuv}
         <div id="searchOtherPages">
           {include file="zepu/search.ihtml"}
         </div>
+        {else}
+        <div id="searchCuv">
+          {include file="zepu/searchCuv.ihtml"}
+        </div>
+        {/if}
       {/if}
 
       {if !$onHomePage && !$suggestNoBanner && $skinVariables.afterSearchBoxBanner}

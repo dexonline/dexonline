@@ -1,6 +1,7 @@
 <?php
 
-util_assertModerator(PRIV_ADMIN);
+require_once("../phplib/util.php"); 
+util_assertModerator(PRIV_SUPER);
 
 define('DEBUG', 0);
 

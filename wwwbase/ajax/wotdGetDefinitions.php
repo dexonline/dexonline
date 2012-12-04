@@ -25,16 +25,12 @@ class wotdGetDefinitions{
    * */
   protected function doSearch() {
     $q = str_replace("'", "\\'", $this->query);
-    $where = "lexicon like '{$q}%'";
-    if (strlen($q) >= 3){
-      $where = " lexicon like '%{$q}%'";
-    }
-    $where .= " order by lexicon = '{$q}', lexicon, id limit 20";
-    $definitions = Model::factory('Definition')->raw_query("select * from Definition where $where", null)->find_many();
-    $result = '';
+    $definitions = Model::factory('Definition')->where('status', ST_ACTIVE)->where_like('lexicon', "{$q}%")
+      ->order_by_expr("lexicon = '{$q}'")->order_by_asc('id')->limit(20)->find_many();
+    $result = array();
     foreach ($definitions as $definition){
       $source = Source::get_by_id($definition->sourceId);
-      $result .= sprintf("[%s] %s (%s) [%d]\n", $definition->lexicon, mb_substr($definition->internalRep, 0, 80), $source->shortName, $definition->id);
+      $result[] = sprintf("[%s] %s (%s) [%d]", $definition->lexicon, mb_substr($definition->internalRep, 0, 80), $source->shortName, $definition->id);
     }
     return $result;
   }
@@ -46,7 +42,7 @@ class wotdGetDefinitions{
    * */
   public function run() {
     header('Content-Type: text/plain; charset=UTF-8');
-    echo $this->doSearch();
+    echo json_encode($this->doSearch());
   }
 
 
@@ -56,8 +52,8 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_WOTD);
 util_assertNotMirror();
 
-if (array_key_exists('q', $_GET)){
-  $app = new wotdGetDefinitions($_GET['q']);
+if (array_key_exists('term', $_GET)){
+  $app = new wotdGetDefinitions($_GET['term']);
   $app->run();
 }
 

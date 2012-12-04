@@ -46,7 +46,7 @@ care necesită atenție și câteva mecanisme de căutare a lexemelor
       <td>
         <input id="lexemName" type="text" name="lexemName" value="" size="40"/>
         <script type="text/javascript">
-          $("#lexemName").autocomplete("{$wwwRoot}ajax/getLexems.php");
+          $("#lexemName").autocomplete({ldelim} source: wwwRoot + 'ajax/getLexems.php' {rdelim});
         </script>
       </td>
       <td>

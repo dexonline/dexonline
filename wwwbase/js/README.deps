@@ -1,0 +1,12 @@
+List of necessary jquery-ui components:
+- everything under Core
+- draggable
+- droppable
+- resizable
+- selectable
+- autocomplete
+- dialog
+- tabs
+- datepicker
+
+For jqGrid, just grab the whole thing.

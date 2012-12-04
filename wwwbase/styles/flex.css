@@ -371,3 +371,7 @@ div.infoType {
   background: url("../img/icons/help.png") no-repeat;
   padding-left: 20px;
 }
+
+.ui-autocomplete {
+  font-size: 10px;
+}

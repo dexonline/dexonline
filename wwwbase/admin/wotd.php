@@ -8,7 +8,7 @@ SmartyWrap::assign('sectionTitle', 'Word of the Day');
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('downloadYear', date("Y",strtotime("+1 month")));
 SmartyWrap::assign('downloadMonth', date("m",strtotime("+1 month")));
-SmartyWrap::addCss('jqgrid', 'autocomplete');
-SmartyWrap::addJs('jquery', 'jqgrid', 'autocomplete');
+SmartyWrap::addCss('jqgrid', 'jqueryui');
+SmartyWrap::addJs('jquery', 'jqgrid', 'jqueryui');
 SmartyWrap::displayAdminPage('admin/wotd.ihtml');
 ?>

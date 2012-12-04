@@ -146,20 +146,16 @@ class SmartyWrap {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
       switch($id) {
-      case 'jquery_smoothness':  self::$cssFiles[1] = 'jquery-ui-1.8.5.custom.css'; break;
-      case 'jqgrid':
-        self::$cssFiles[2] = 'ui.jqgrid.css?v=1';
-        self::$cssFiles[3] = 'jquery-ui-1.8.5.custom.css?v=1';
-        break;
-      case 'autocomplete':       self::$cssFiles[4] = 'jquery.autocomplete.css?v=1'; break;
-      case 'elfinder':           self::$cssFiles[5] = 'elfinder.css'; break;
-      case 'zepu':               self::$cssFiles[6] = 'zepu.css?v=44'; break;
-      case 'polar':              self::$cssFiles[7] = 'polar.css?v=29'; break;
-      case 'mobile':             self::$cssFiles[8] = 'mobile.css?v=14'; break;
-      case 'flex':               self::$cssFiles[9] = 'flex.css?v=7'; break;
-      case 'paradigm':           self::$cssFiles[10] = 'paradigm.css?v=1'; break;
-      case 'hangman':            self::$cssFiles[11] = 'hangman.css?v=2'; break;
-      case 'mill':               self::$cssFiles[12] = 'mill.css?v=1'; break;
+      case 'jqueryui':           self::$cssFiles[1] = 'smoothness-1.9.2/jquery-ui-1.9.2.custom.min.css'; break;
+      case 'jqgrid':             self::$cssFiles[2] = 'ui.jqgrid.css?v=2'; break;
+      case 'elfinder':           self::$cssFiles[3] = 'elfinder.css'; break;
+      case 'zepu':               self::$cssFiles[4] = 'zepu.css?v=44'; break;
+      case 'polar':              self::$cssFiles[5] = 'polar.css?v=29'; break;
+      case 'mobile':             self::$cssFiles[6] = 'mobile.css?v=14'; break;
+      case 'flex':               self::$cssFiles[7] = 'flex.css?v=8'; break;
+      case 'paradigm':           self::$cssFiles[8] = 'paradigm.css?v=1'; break;
+      case 'hangman':            self::$cssFiles[9] = 'hangman.css?v=2'; break;
+      case 'mill':               self::$cssFiles[10] = 'mill.css?v=1'; break;
       default:
         FlashMessage::add("Cannot load CSS file {$id}");
         util_redirect(util_getWwwRoot());
@@ -171,25 +167,23 @@ class SmartyWrap {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
       switch($id) {
-      case 'jquery':           self::$jsFiles[1] = 'jquery-1.7.1.min.js'; break; 
-      case 'jqueryui':         self::$jsFiles[2] = 'jquery-ui-1.8.17.custom.min.js'; break;
+      case 'jquery':           self::$jsFiles[1] = 'jquery-1.8.3.min.js'; break; 
+      case 'jqueryui':         self::$jsFiles[2] = 'jquery-ui-1.9.2.custom.min.js'; break;
       case 'jqgrid':
         self::$jsFiles[3] = 'grid.locale-en.js?v=1';
-        self::$jsFiles[4] = 'jquery.datepicker.pack.js?v=1';
-        self::$jsFiles[5] = 'jquery.jqGrid.min.js?v=1';
-        self::$jsFiles[6] = 'jqgrid.init.js?v=3';
+        self::$jsFiles[5] = 'jquery.jqGrid.min.js?v=2';
+        self::$jsFiles[6] = 'jqgrid.init.js?v=4';
         break;
       case 'jqnotice':         self::$jsFiles[7] = 'jquery.notice.js'; break;
       case 'jqTableDnd':       self::$jsFiles[8] = 'jquery.tablednd_0_5.js?v=1'; break;
       case 'tablesorter':      self::$jsFiles[9] = 'jquery.tablesorter.min.js'; break;
       case 'pager':            self::$jsFiles[10] = 'jquery.tablesorter.pager.js'; break;
-      case 'autocomplete':     self::$jsFiles[11] = 'jquery.autocomplete.pack.js'; break;
-      case 'elfinder':         self::$jsFiles[12] = 'elfinder.min.js'; break; 
-      case 'dex':              self::$jsFiles[13] = 'dex.js?v=21'; break;
-      case 'flex':             self::$jsFiles[14] = 'flex.js?v=2'; break;
-      case 'mobile':           self::$jsFiles[15] = 'mobile.js?v=2'; break;
-      case 'hangman':          self::$jsFiles[16] = 'hangman.js?v=3'; break;
-      case 'mill':             self::$jsFiles[17] = 'mill.js?v=2'; break;
+      case 'elfinder':         self::$jsFiles[11] = 'elfinder.min.js'; break; 
+      case 'dex':              self::$jsFiles[12] = 'dex.js?v=22'; break;
+      case 'flex':             self::$jsFiles[13] = 'flex.js?v=2'; break;
+      case 'mobile':           self::$jsFiles[14] = 'mobile.js?v=2'; break;
+      case 'hangman':          self::$jsFiles[15] = 'hangman.js?v=3'; break;
+      case 'mill':             self::$jsFiles[16] = 'mill.js?v=2'; break;
       default:
         FlashMessage::add("Cannot load JS script {$id}");
         util_redirect(util_getWwwRoot());

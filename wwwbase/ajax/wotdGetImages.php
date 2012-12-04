@@ -8,13 +8,10 @@ $WOTD_IMAGE_DIR = realpath(__DIR__ . '/../img/wotd/');
 $EXTENSIONS = array('jpg', 'jpeg', 'png', 'gif');
 $IGNORED_DIRS = array('.', '..', '.svn', '.tmb', 'thumb');
 
-$query = util_getRequestParameter('q');
+$query = util_getRequestParameter('term');
 
 $files = recursiveScan($WOTD_IMAGE_DIR, $query);
-
-foreach ($files as $file) {
-  print("$file\n");
-}
+print json_encode($files);
 
 /*************************************************************************/
 

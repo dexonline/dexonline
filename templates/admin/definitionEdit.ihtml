@@ -41,7 +41,7 @@
   </table>
 
   <script type="text/javascript">
-    $('#lexemTable').find('input').autocomplete('{$wwwRoot}ajax/getLexems.php');
+    $('#lexemTable').find('input').autocomplete({ldelim} source: wwwRoot + 'ajax/getLexems.php' {rdelim});
   </script>
 
   <a href="#" onclick="return addLexemRow();">Adaugă un lexem</a>

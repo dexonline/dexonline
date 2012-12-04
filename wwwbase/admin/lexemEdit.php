@@ -220,8 +220,8 @@ SmartyWrap::assign('canEditForm', $canEditForm);
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('errorMessage', $errorMessage);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::addCss('autocomplete', 'paradigm');
-SmartyWrap::addJs('jquery', 'autocomplete');
+SmartyWrap::addCss('jqueryui', 'paradigm');
+SmartyWrap::addJs('jquery', 'jqueryui');
 SmartyWrap::assign('sectionTitle', "Editare lexem: {$lexem->form} {$lexem->modelType}{$lexem->modelNumber}{$lexem->restriction}");
 SmartyWrap::displayAdminPage('admin/lexemEdit.ihtml');
 

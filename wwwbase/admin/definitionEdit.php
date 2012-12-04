@@ -116,7 +116,7 @@ if (($acceptButton || $moveButton) && !$hasErrors) {
 
   if ($definition->status == ST_DELETED) {
     // If by deleting this definition, any associated lexems become unassociated, delete them
-    $ldms = LexemDefinitionMap::get_all_by_definitionId($def->id);
+    $ldms = LexemDefinitionMap::get_all_by_definitionId($definition->id);
     db_execute("delete from LexemDefinitionMap where definitionId = {$definition->id}");
 
     foreach ($ldms as $ldm) {
@@ -157,8 +157,8 @@ SmartyWrap::assign("allStatuses", util_getAllStatuses());
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('sectionTitle', "Editare definiție: {$definition->id}");
-SmartyWrap::addCss('autocomplete');
-SmartyWrap::addJs('jquery', 'autocomplete');
+SmartyWrap::addCss('jqueryui');
+SmartyWrap::addJs('jquery', 'jqueryui');
 SmartyWrap::displayAdminPage('admin/definitionEdit.ihtml');
 
 /**

@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php");
 
-$query = util_getRequestParameter('q');
+$query = util_getRequestParameter('term');
 $parts = preg_split('/\(/', $query, 2);
 $name = AdminStringUtil::internalizeWordName(trim($parts[0]));
 $field = StringUtil::hasDiacritics($name) ? 'formNoAccent' : 'formUtf8General';
@@ -15,8 +15,10 @@ if (count($parts) == 2) {
   $lexems = Model::factory('Lexem')->where_like($field, "{$name}%")->order_by_asc('formNoAccent')->limit(10)->find_many();
 }
 
+$resp = array();
 foreach ($lexems as $l) {
-  print "{$l}\n";
+  $resp[] = (string)$l;
 }
+print json_encode($resp);
 
 ?>

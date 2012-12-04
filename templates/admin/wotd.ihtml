@@ -1,4 +1,3 @@
-<script type="text/javascript">$(initGrid);</script>
 <a href="wotdImages.php">Imagini pentru cuvântul zilei</a> |
 <a class="helpLink" href="http://wiki.dexonline.ro/wiki/CuvântulZilei">instrucțiuni</a>
 <table id="wotdGrid"></table>

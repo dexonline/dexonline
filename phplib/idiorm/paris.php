@@ -186,12 +186,22 @@
         }
 
         /**
-         * Static method to convert a class name in CapWords
-         * to a table name in lowercase_with_underscores.
-         * For example, CarTyre would be converted to car_tyre.
+         * Convert a namespace to the standard PEAR underscore format.
+         * 
+         * Then convert a class name in CapWords to a table name in 
+         * lowercase_with_underscores.
+         *
+         * Finally strip doubled up underscores
+         *
+         * For example, CarTyre would be converted to car_tyre. And
+         * Project\Models\CarTyre would be project_models_car_tyre.
          */
         protected static function _class_name_to_table_name($class_name) {
-            return strtolower(preg_replace('/(?<=[a-z])([A-Z])/', '_$1', $class_name));
+            return strtolower(preg_replace(
+                array('/\\\\/', '/(?<=[a-z])([A-Z])/', '/__/'),
+                array('_', '_$1', '_'),
+                $class_name
+            ));
         }
 
         /**
@@ -344,7 +354,7 @@
         /**
          * Setter method, allows $model->set('property', 'value') access to data.
          */
-        public function set($property, $value) {
+        public function set($property, $value = null) {
             $this->orm->set($property, $value);
         }
 

@@ -12,7 +12,7 @@ SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canMo
 SmartyWrap::assign('modelTypes', ModelType::loadCanonical());
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('sectionTitle', 'Pagina moderatorului');
-SmartyWrap::addCss('autocomplete');
-SmartyWrap::addJs('jquery', 'autocomplete');
+SmartyWrap::addCss('jqueryui');
+SmartyWrap::addJs('jquery', 'jqueryui');
 SmartyWrap::displayAdminPage('admin/index.ihtml');
 ?>

@@ -146,16 +146,17 @@ class SmartyWrap {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
       switch($id) {
-      case 'jqueryui':           self::$cssFiles[1] = 'smoothness-1.9.2/jquery-ui-1.9.2.custom.min.css'; break;
+      case 'jqueryui':           self::$cssFiles[1] = 'lightness-1.9.2/jquery-ui-1.9.2.custom.min.css'; break;
       case 'jqgrid':             self::$cssFiles[2] = 'ui.jqgrid.css?v=2'; break;
-      case 'elfinder':           self::$cssFiles[3] = 'elfinder.css'; break;
-      case 'zepu':               self::$cssFiles[4] = 'zepu.css?v=44'; break;
-      case 'polar':              self::$cssFiles[5] = 'polar.css?v=29'; break;
-      case 'mobile':             self::$cssFiles[6] = 'mobile.css?v=14'; break;
-      case 'flex':               self::$cssFiles[7] = 'flex.css?v=8'; break;
-      case 'paradigm':           self::$cssFiles[8] = 'paradigm.css?v=1'; break;
-      case 'hangman':            self::$cssFiles[9] = 'hangman.css?v=2'; break;
-      case 'mill':               self::$cssFiles[10] = 'mill.css?v=1'; break;
+      case 'elfinder':           self::$cssFiles[4] = 'elfinder.css'; break;
+      case 'zepu':               self::$cssFiles[5] = 'zepu.css?v=44'; break;
+      case 'polar':              self::$cssFiles[6] = 'polar.css?v=29'; break;
+      case 'mobile':             self::$cssFiles[7] = 'mobile.css?v=14'; break;
+      case 'flex':               self::$cssFiles[8] = 'flex.css?v=9'; break;
+      case 'paradigm':           self::$cssFiles[9] = 'paradigm.css?v=1'; break;
+      case 'hangman':            self::$cssFiles[10] = 'hangman.css?v=2'; break;
+      case 'mill':               self::$cssFiles[11] = 'mill.css?v=1'; break;
+      case 'structure':          self::$cssFiles[12] = 'structure.css?v=1'; break;
       default:
         FlashMessage::add("Cannot load CSS file {$id}");
         util_redirect(util_getWwwRoot());
@@ -171,19 +172,20 @@ class SmartyWrap {
       case 'jqueryui':         self::$jsFiles[2] = 'jquery-ui-1.9.2.custom.min.js'; break;
       case 'jqgrid':
         self::$jsFiles[3] = 'grid.locale-en.js?v=1';
-        self::$jsFiles[5] = 'jquery.jqGrid.min.js?v=2';
-        self::$jsFiles[6] = 'jqgrid.init.js?v=4';
+        self::$jsFiles[4] = 'jquery.jqGrid.min.js?v=2';
         break;
-      case 'jqnotice':         self::$jsFiles[7] = 'jquery.notice.js'; break;
-      case 'jqTableDnd':       self::$jsFiles[8] = 'jquery.tablednd_0_5.js?v=1'; break;
-      case 'tablesorter':      self::$jsFiles[9] = 'jquery.tablesorter.min.js'; break;
-      case 'pager':            self::$jsFiles[10] = 'jquery.tablesorter.pager.js'; break;
-      case 'elfinder':         self::$jsFiles[11] = 'elfinder.min.js'; break; 
-      case 'dex':              self::$jsFiles[12] = 'dex.js?v=22'; break;
-      case 'flex':             self::$jsFiles[13] = 'flex.js?v=2'; break;
-      case 'mobile':           self::$jsFiles[14] = 'mobile.js?v=2'; break;
-      case 'hangman':          self::$jsFiles[15] = 'hangman.js?v=3'; break;
-      case 'mill':             self::$jsFiles[16] = 'mill.js?v=2'; break;
+      case 'jqnotice':         self::$jsFiles[5] = 'jquery.notice.js'; break;
+      case 'jqTableDnd':       self::$jsFiles[6] = 'jquery.tablednd.0.7.min.js?v=1'; break;
+      case 'tablesorter':      self::$jsFiles[7] = 'jquery.tablesorter.min.js'; break;
+      case 'pager':            self::$jsFiles[8] = 'jquery.tablesorter.pager.js'; break;
+      case 'elfinder':         self::$jsFiles[9] = 'elfinder.min.js'; break; 
+      case 'dex':              self::$jsFiles[10] = 'dex.js?v=22'; break;
+      case 'flex':             self::$jsFiles[11] = 'flex.js?v=2'; break;
+      case 'mobile':           self::$jsFiles[12] = 'mobile.js?v=2'; break;
+      case 'hangman':          self::$jsFiles[13] = 'hangman.js?v=3'; break;
+      case 'mill':             self::$jsFiles[14] = 'mill.js?v=2'; break;
+      case 'wotd':             self::$jsFiles[15] = 'wotd.js?v=1';
+      case 'structure':        self::$jsFiles[16] = 'structure.js?v=1'; break;
       default:
         FlashMessage::add("Cannot load JS script {$id}");
         util_redirect(util_getWwwRoot());

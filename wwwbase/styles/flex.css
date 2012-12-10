@@ -2,6 +2,7 @@ div.header {
   background: #ddffee;
   border: 1px solid #66dd88;
   font-family: sans-serif;
+  margin-bottom: 5px;
 }
 
 div.header div.title {
@@ -372,6 +373,6 @@ div.infoType {
   padding-left: 20px;
 }
 
-.ui-autocomplete {
+.ui-widget {
   font-size: 10px;
 }

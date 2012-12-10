@@ -669,5 +669,13 @@ class AdminStringUtil {
     return $result;
   }
 
+  // Converts an arabic number between 1 and 999 to its Roman notation
+  static function arabicToRoman($arabic) {
+    $bits = array(array('', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'),
+                  array('', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'),
+                  array('', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM'));
+    return $bits[2][$arabic % 1000 / 100] . $bits[1][$arabic % 100 / 10] . $bits[0][$arabic % 10];
+  }
+
 }
 ?>

@@ -2,130 +2,103 @@
 
 /**
  * Parser for DEX '98.
- *
- * Grammar:
- * Definition -> Lexem PartOfSpeechList MeaningList - Etymology
- * Lexem -> @ Word @
- * PartOfSpeechList -> PartOfSpeech | PartOfSpeech , PartOfSpeechList
- * PartOfSpeech -> Token::Abbreviation | Token::Abbreviation PartOfSpeech
- * MeaningList
- * PreambleRoman -> Token::Abbreviation | lambda
- * DefinitionArabicList -> Token::HierarchyArabic Meaning DefinitionArabicList | Meaning
- * Meaning ->
- *
  **/
 
-require_once __DIR__ . "/../../phplib/util.php";
+class Dex98DefinitionParser extends DefinitionParser {
 
-/* $defResult = db_execute("select * from Definition where sourceId = 1 and status = 0 order by lexicon"); */
-/* foreach ($defResult as $row) { */
-/*   $def = Model::factory('Definition')->create($row); */
-/*   print "Parsing {$def->id} {$def->lexicon}...\n"; */
-/*   try { */
-/*     parseDex98($def); */
-/*   } catch (Exception $e) { */
-/*     print($e->getMessage()); */
-/*   } */
-/* } */
+  function parse($def) {
+    $tok = new Tokenizer($def->internalRep);
+    $tree = array();
 
-$def = Definition::get_by_id(4319);
-$tree = parseDex98($def);
-print_r($tree);
-
-/*************************************************************************/
-
-function parseDex98($def) {
-  $tok = new Tokenizer($def->internalRep);
-  $tree = array();
-
-  // Parse the Lexicon
-  $tok->expect(Token::MarkerBold);
-  $lexicon = array();
-  while ($t = $tok->acceptOtherThan(Token::MarkerBold)) {
-    $lexicon[] = $t;
-  }
-  $tok->expect(Token::MarkerBold);
-  $tree['lexicon'] = makeText($lexicon);
-
-  // Parse the inflected form (optional)
-  if ($tok->accept(Token::MarkerItalic)) {
-    $infl = array();
-    while ($t = $tok->acceptOtherThan(Token::MarkerItalic)) {
-      $infl[] = $t;
+    // Parse the Lexicon
+    $tok->expect(Token::MarkerBold);
+    $lexicon = array();
+    while ($t = $tok->acceptOtherThan(Token::MarkerBold)) {
+      $lexicon[] = $t;
     }
-    $tok->expect(Token::MarkerItalic);
-    $tree['inflectedForm'] = makeText($infl);
-  }
+    $tok->expect(Token::MarkerBold);
+    $tree['lexicon'] = makeText($lexicon);
 
-  // Parse the part of speech list
-  $pos = array('');
-  while ($t = $tok->accept(array(Token::Abbreviation, Token::PunctuationComma))) {
-    if ($t->getType() == Token::Abbreviation) {
-      $old = $pos[count($pos) - 1];
-      $pos[count($pos) - 1] .= ($old ? ' ' : '') . $t->getValue();
-    } else {
-      $pos[] = '';
-    }
-  }
-  $tree['pos'] = $pos;
-
-  // Parse the definitions, up to Token::PunctuationDash or Token::BracketOpen
-  $tree['meanings'] = array();
-  $meaning = array();
-  $hierarchy = null;
-  while ($t = $tok->acceptOtherThan(array(Token::PunctuationDash, Token::BracketOpen))) {
-    if (in_array($t->getType(), array(Token::HierarchyRoman, Token::HierarchyArabic, Token::DiamondWhite, Token::DiamondBlack))) {
-      if (count($meaning)) {
-        // End the previous meaning
-        $tree['meanings'][] = array('hierarchy' => $hierarchy, 'text' => makeText($meaning));
-        $meaning = array();
+    // Parse the inflected form (optional)
+    if ($tok->accept(Token::MarkerItalic)) {
+      $infl = array();
+      while ($t = $tok->acceptOtherThan(Token::MarkerItalic)) {
+        $infl[] = $t;
       }
-      $hierarchy = (string)$t;
-    } else {
-      $meaning[] = $t;
+      $tok->expect(Token::MarkerItalic);
+      $tree['inflectedForm'] = makeText($infl);
     }
-  }
-  // End the final meaning
-  if (count($meaning)) {
-    $tree['meanings'][] = array('hierarchy' => $hierarchy, 'text' => makeText($meaning));
-  }
 
-  // Parse the pronunciation and variants
-  if ($tok->accept(Token::BracketOpen)) {
-    $specials = array('pronunciation' => array(), 'variants' => array());
-    $section = null;
-    while ($t = $tok->acceptOtherThan(Token::BracketClosed)) {
-      if ($t->getType() == Token::Abbreviation && $t->getValue() == 'pronunțat') {
-        $tok->expect(Token::PunctuationOther); // Skip the colon
-        $section = 'pronunciation';
-      } else if ($t->getType() == Token::Abbreviation && $t->getValue() == 'variantă') {
-        $tok->expect(Token::PunctuationOther); // Skip the colon
-        $section = 'variants';
-      } else if ($t->getType() == Token::PunctuationDash) {
-        // Skip it
-      } else if ($section) {
-        $specials[$section][] = $t;
+    // Parse the part of speech list
+    $pos = array('');
+    while ($t = $tok->accept(array(Token::Abbreviation, Token::PunctuationComma))) {
+      if ($t->getType() == Token::Abbreviation) {
+        $old = $pos[count($pos) - 1];
+        $pos[count($pos) - 1] .= ($old ? ' ' : '') . $t->getValue();
+      } else {
+        $pos[] = '';
       }
     }
-    $tok->expect(Token::BracketClosed);
-    if (!empty($specials['pronunciation'])) {
-      $tree['pronunciation'] = makeText($specials['pronunciation']);
-    }
-    if (!empty($specials['variants'])) {
-      $tree['variants'] = makeText($specials['variants']);
-    }
-  }
+    $tree['pos'] = $pos;
 
-  // Parse the etymology all the way to the end.
-  $tok->expect(Token::PunctuationDash);
-  $etym = array();
-  while ($t = $tok->acceptOtherThan(null)) {
-    $etym[] = $t;
-  }
-  $tok->expect(null);
-  $tree['etymology'] = makeText($etym);
+    // Parse the definitions, up to Token::PunctuationDash or Token::BracketOpen
+    $tree['meanings'] = array();
+    $meaning = array();
+    $hierarchy = null;
+    while ($t = $tok->acceptOtherThan(array(Token::PunctuationDash, Token::BracketOpen))) {
+      if (in_array($t->getType(), array(Token::HierarchyRoman, Token::HierarchyArabic, Token::DiamondWhite, Token::DiamondBlack))) {
+        if (count($meaning)) {
+          // End the previous meaning
+          $tree['meanings'][] = array('hierarchy' => $hierarchy, 'text' => makeText($meaning));
+          $meaning = array();
+        }
+        $hierarchy = (string)$t;
+      } else {
+        $meaning[] = $t;
+      }
+    }
+    // End the final meaning
+    if (count($meaning)) {
+      $tree['meanings'][] = array('hierarchy' => $hierarchy, 'text' => makeText($meaning));
+    }
 
-  return $tree;
+    // Parse the pronunciation and variants
+    if ($tok->accept(Token::BracketOpen)) {
+      $specials = array('pronunciation' => array(), 'variants' => array());
+      $section = null;
+      while ($t = $tok->acceptOtherThan(Token::BracketClosed)) {
+        if ($t->getType() == Token::Abbreviation && $t->getValue() == 'pronunțat') {
+          $tok->expect(Token::PunctuationOther); // Skip the colon
+          $section = 'pronunciation';
+        } else if ($t->getType() == Token::Abbreviation && $t->getValue() == 'variantă') {
+          $tok->expect(Token::PunctuationOther); // Skip the colon
+          $section = 'variants';
+        } else if ($t->getType() == Token::PunctuationDash) {
+          // Skip it
+        } else if ($section) {
+          $specials[$section][] = $t;
+        }
+      }
+      $tok->expect(Token::BracketClosed);
+      if (!empty($specials['pronunciation'])) {
+        $tree['pronunciation'] = makeText($specials['pronunciation']);
+      }
+      if (!empty($specials['variants'])) {
+        $tree['variants'] = makeText($specials['variants']);
+      }
+    }
+
+    // Parse the etymology all the way to the end.
+    $tok->expect(Token::PunctuationDash);
+    $etym = array();
+    while ($t = $tok->acceptOtherThan(null)) {
+      $etym[] = $t;
+    }
+    $tok->expect(null);
+    $tree['etymology'] = makeText($etym);
+
+    return $tree;
+  }
 }
 
 class Token {
@@ -174,7 +147,7 @@ class Token {
                                   Token::EqualSign                => array(true, 100, true, 100),
                                   Token::Superscript              => array(false, 100, true, 10),
                                   Token::Subscript                => array(false, 100, true, 10),
-                                  );
+  );
 
   function __construct($type, $value = null) {
     $this->type = $type;
@@ -200,11 +173,11 @@ class Token {
     case Token::MarkerBold:           return "@ (bold marker)";
     case Token::MarkerItalic:         return "$ (italic marker)";
     case Token::MarkerSpaced:         return "% (spaced marker)";
-    case Token::HierarchyRoman:       return "{$this->value} (Roman hierarchy)";
-    case Token::HierarchyArabic:      return "{$this->value} (Arabic hierarchy)";
-    case Token::HierarchyLowercase:   return "{$this->value} (lowercase hierarchy)";
-    case Token::DiamondWhite:         return "* (white diamond)";
-    case Token::DiamondBlack:         return "** (black diamond)";
+    case Token::HierarchyRoman:       return AdminStringUtil::arabicToRoman($this->value);
+    case Token::HierarchyArabic:      return $this->value;
+    case Token::HierarchyLowercase:   return chr(ord('a') -1 + $this->value);
+    case Token::DiamondWhite:         return "◊";
+    case Token::DiamondBlack:         return "♦";
     case Token::ParenthesisOpen:      return "( (open parenthesis)";
     case Token::ParenthesisClosed:    return "( (closed parenthesis)";
     case Token::BracketOpen:          return "( (open bracket)";

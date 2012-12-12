@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="common/bits/css.ihtml" flex=1}
+    {include file="common/bits/cssJs.ihtml"}
     <title>DEX | Ciornă Finanțe</title>
 
     {literal}

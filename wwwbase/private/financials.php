@@ -95,16 +95,17 @@ usort($fins, "shareCmp");
 //   print "{$fin->user->id} {$fin->user->nick} {$fin->values[0]} {$fin->weights[0]} {$fin->share}<br/>\n";
 // }
 
-smarty_assign('fins', $fins);
-smarty_assign('total', $total);
-smarty_assign('categories', $CATEGORIES);
-smarty_assign('income', $income);
-smarty_assign('exchangeRate', $exchangeRate);
-smarty_assign('year', $year);
-smarty_assign('month', $month);
-smarty_assign('day', $day);
-smarty_assign('allUsers', $allUsers);
-smarty_displayWithoutSkin('private/financials.ihtml');
+SmartyWrap::assign('fins', $fins);
+SmartyWrap::assign('total', $total);
+SmartyWrap::assign('categories', $CATEGORIES);
+SmartyWrap::assign('income', $income);
+SmartyWrap::assign('exchangeRate', $exchangeRate);
+SmartyWrap::assign('year', $year);
+SmartyWrap::assign('month', $month);
+SmartyWrap::assign('day', $day);
+SmartyWrap::assign('allUsers', $allUsers);
+SmartyWrap::addCss('flex');
+SmartyWrap::displayWithoutSkin('private/financials.ihtml');
 
 /*************************************************************************/
 

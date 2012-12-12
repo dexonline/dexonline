@@ -77,7 +77,8 @@ if ($lexemNames) {
     }
   }
 } else {
-  $lexems = Model::factory('Lexem')->select('Lexem.*')->join('LexemDefinitionMap', 'Lexem.id = lexemId')->where('definitionId', $definitionId)->find_many();
+  $lexems = Model::factory('Lexem')->select('Lexem.*')->join('LexemDefinitionMap', 'Lexem.id = lexemId')
+    ->where('LexemDefinitionMap.definitionId', $definitionId)->find_many();
 }
 
 if ($commentContents) {

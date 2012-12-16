@@ -30,7 +30,7 @@ class WordOfTheDay extends BaseObject {
 
   public static function getStatus($refId, $refType = 'Definition') {
     $result = Model::factory('WordOfTheDay')->table_alias('W')->select('W.id')->join('WordOfTheDayRel', 'W.id = R.wotdId', 'R')
-      ->where('R.refId', $refId)->where('refType', $refType)->find_one();
+      ->where('R.refId', $refId)->where('R.refType', $refType)->find_one();
     return $result ? $result->id : NULL;
   }
 

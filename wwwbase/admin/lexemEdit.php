@@ -101,7 +101,7 @@ if ($lexemTags !== null) {
 }
 
 if ($lexemSources !== null) {
-  $lexem->source = join(',', $lexemSources);
+  $lexem->source = implode(',', $lexemSources);
 }	
 
 if ($lexemComment !== null) {

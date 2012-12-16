@@ -33,7 +33,7 @@ class DivertaAdsModule extends AdsModule {
     if (count($lexemIds) == 0 || count($lexemIds) >= 100) {
       return null; // No keywords or too many keywords (indicating a regexp search)
     }
-    $lexemIdString = join(',', $lexemIds);
+    $lexemIdString = implode(',', $lexemIds);
     $books = Model::factory('DivertaBook')->table_alias('b')->select('b.*')->join(DivertaIndex::$_table, 'b.id = i.bookId', 'i')
       ->where_in('i.lexemId', $lexemIds)->order_by_asc('impressions')->find_many();
 

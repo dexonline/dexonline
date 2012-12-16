@@ -104,8 +104,8 @@ if ($submitButton) {
 
 $deSource = Source::get_by_shortName('DE');
 $lexems = Model::factory('Lexem')->distinct()->select('Lexem.*')
-  ->join('LexemDefinitionMap', 'Lexem.id = lexemId')->join('Definition', 'definitionId = Definition.id')
-  ->where('status', 0)->where('sourceId', $deSource->id)->where('isLoc', 0)->where_like('formNoAccent', "$prefix%")->where('verifSp', 0)
+  ->join('LexemDefinitionMap', 'Lexem.id = lexemId', 'ldm')->join('Definition', 'definitionId = d.id', 'd')
+  ->where('d.status', ST_ACTIVE)->where('d.sourceId', $deSource->id)->where('isLoc', 0)->where_like('formNoAccent', "$prefix%")->where('verifSp', 0)
   ->where_not_equal('modelType', 'SP')
   ->order_by_asc('formNoAccent')->limit(100)->find_many();
 

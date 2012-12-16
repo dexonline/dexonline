@@ -42,10 +42,10 @@ $answer = rand(1, 4);
 $maindef = Model::factory('DefinitionSimple')->limit(1)->offset($chosenDef)->find_one();
 
 $word = Model::factory('DefinitionSimple')
-    ->select('lexicon')
-    ->join('Definition', 'Definition.id = definitionId')
-    ->where('definitionId', $maindef->definitionId)
-    ->find_one();
+  ->select('d.lexicon')
+  ->join('Definition', 'd.id = definitionId', 'd')
+  ->where('definitionId', $maindef->definitionId)
+  ->find_one();
 
 $options = array();
 $options[$answer] = $maindef->getDisplayValue();

@@ -29,7 +29,7 @@ if ( !is_int($noSkin) || $noSkin!=1 ){
 $query = sprintf('select id from Lexem order by rand() limit %d', $listLength);
 $ids = db_getArray($query);
 
-$query = sprintf(RANDOM_WORDS_QUERY, $showSource?SOURCE_PART_RANDOM_WORDS:'', join(",",$ids));
+$query = sprintf(RANDOM_WORDS_QUERY, $showSource?SOURCE_PART_RANDOM_WORDS:'', implode(",",$ids));
 $forms = db_getArrayOfRows($query);
 */
 

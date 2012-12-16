@@ -24,7 +24,7 @@ if(DEBUG) {
 }
 
 
-$s = "[" . ($sources ? join($sources, ",") : "") . "]";
+$s = "[" . ($sources ? implode($sources, ",") : "") . "]";
 
 SmartyWrap::assign('results', $searchResults);
 SmartyWrap::assign('searchCuv', true);

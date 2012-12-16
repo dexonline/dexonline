@@ -26,7 +26,7 @@ if ($locVersion && $modelType && $modelNumber) {
 
   foreach ($modelsToDisplay as $m) {
     // Load by canonical model, so if $modelType is V, look for a lexem with type V or VT.
-    $l = Model::factory('Lexem')->select('Lexem.*')->join('ModelType', 'modelType = code')->where('canonical', $modelType)
+    $l = Model::factory('Lexem')->select('Lexem.*')->join('ModelType', 'modelType = code', 'mt')->where('mt.canonical', $modelType)
       ->where('modelNumber', $m->number)->where('form', $m->exponent)->limit(1)->find_one();
 
     if ($l) {

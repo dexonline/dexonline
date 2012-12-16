@@ -37,7 +37,7 @@ class Lexem extends BaseObject {
 
   // For V1, this loads all lexems in (V1, VT1)
   public static function loadByCanonicalModel($modelType, $modelNumber) {
-    return Model::factory('Lexem')->select('Lexem.*')->join('ModelType', 'modelType = code')->where('canonical', $modelType)->where('modelNumber', $modelNumber)
+    return Model::factory('Lexem')->select('Lexem.*')->join('ModelType', 'modelType = code', 'mt')->where('mt.canonical', $modelType)->where('modelNumber', $modelNumber)
       ->order_by_asc('formNoAccent')->find_many();
   }
 
@@ -111,7 +111,7 @@ class Lexem extends BaseObject {
     if ($sourceId) {
       // Suppres warnings from idiorm's log query function, which uses vsprintf, which trips on extra % signs.
       $result = @Model::factory('Lexem')->select('Lexem.*')->distinct()->join('LexemDefinitionMap', 'Lexem.id = lexemId')
-        ->join('Definition', 'definitionId = Definition.id')->where_raw("$field $mysqlRegexp")->where('sourceId', $sourceId)
+        ->join('Definition', 'definitionId = d.id', 'd')->where_raw("$field $mysqlRegexp")->where('d.sourceId', $sourceId)
         ->order_by_asc('formNoAccent')->limit(1000)->find_many();
     } else {
       $result = @Model::factory('Lexem')->where_raw("$field $mysqlRegexp")->order_by_asc('formNoAccent')->limit(1000)->find_many();

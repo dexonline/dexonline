@@ -12,7 +12,7 @@ if (!$id) {
 
 $def = Definition::get_by_id($id);
 $source = Source::get_by_id($def->sourceId);
-$lexems = Model::factory('Lexem')->select('Lexem.*')->join('LexemDefinitionMap', 'Lexem.id = lexemId')->where('LexemDefinitionMap.definitionId', $id)->find_many();
+$lexems = Model::factory('Lexem')->select('Lexem.*')->join('LexemDefinitionMap', 'Lexem.id = lexemId', 'ldm')->where('ldm.definitionId', $id)->find_many();
 
 SmartyWrap::assign('def', $def);
 SmartyWrap::assign('lexems', $lexems);

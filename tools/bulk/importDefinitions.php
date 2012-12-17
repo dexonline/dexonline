@@ -3,6 +3,8 @@ require_once('../phplib/util.php');
 
 $shortopts = "f:u:s:c:t:x:p:hvidb"; 
 $options = getopt($shortopts);
+$vverbose = false;
+$vvverbose = false;
 
 function HELP() {
   exit("
@@ -14,6 +16,7 @@ Options:
     -u userId (mandatory)
     -s sourceId (mandatory)
     -c check against sourceId
+    -C just split the input file the new, existing and to be checked files (using sourceId)
     -t status (mandatory: 0 - active, 1 - temporary, 2 - deleted, 3 - hidden)
     -i = use inflections for multilexem entries
     -x = exclude lexems beginning with
@@ -24,7 +27,7 @@ Options:
     -v = verbose
 
 Example:
-    php importDefinition.php -f definitions.txt -u 471 -s 19 -t 0 -d -v
+    php bulk/importDefinitions.php -f definitions.txt -u 471 -s 19 -t 0 -d -v
 
 ");
 }
@@ -47,6 +50,11 @@ function remove_verbs_particle($verb) {
   }
 }
 
+function canonic_string($string) {
+  return str_replace(array(" ", "\n", "!", "*", ",", ".", "@", "$"), "", $string);
+  // str_replace(array("á","é","í","ó","ú"), array("'a","'e","'i","'o","'u"), $tstring);
+}
+
 /*** check options ***/
 
 if(isset($options['h'])) HELP();
@@ -67,6 +75,11 @@ $status = $options['t'];
 $checkSourceId = NULL;
 if (isset($options['c'])) {
   $checkSourceId = $options['c'];
+}
+
+$checkingDryrun = false;
+if (isset($options['C'])) {
+  $checkingDryrun = true;
 }
 
 $excludeChar = NULL;
@@ -105,38 +118,69 @@ if($verbose) echo("Everything OK, start processing...\n");
 $lines = file($fileName);
 if($verbose) echo("File read. Start inserting the definitions...\n");
 
+$new = fopen($fileName . "-NEW", 'w');
+$existing = fopen($fileName . "-EXISTING", 'w');
+$tobechecked = fopen($fileName . "-TOBECHECKED", 'w');
+
 $i = 0;
 while ($i < count($lines)) {
   $def = $lines[$i++];
   preg_match('/^@([^@]+)@/', $def, $matches);
+  if (!is_array($matches) || !array_key_exists(1, $matches)) {
+      if ($verbose) echo "ERROR: " + count($matches);
+      if ($verbose) print_r($matches);
+      continue;
+  }
   $lname = $matches[1];
   if($verbs_part && strpos($lname, 'a ')===0) { 
     $lname = remove_verbs_particle($lname);
   }
   $lname = preg_replace("/[!*'^1234567890]/", "", $lname);
 
-//  echo $lname . "\n";
 //  continue; //TODO delete me
 
   if (isset($checkSourceId)) {
-    if($verbose) echo(" * Check if the definition already exists\n");
-    $def = Model::factory('Definition')->where('lexicon', $lname)->where('sourceId', $sourceId)->find_many();
-    if ( count($def) ) {
-      if($verbose) echo("\t Definition already introduced\n");
-      continue;
-    }
-    else {
-      $def = Model::factory('Definition')->where('lexicon', $lname)->where('sourceId', $checkSourceId)->find_many();
-    }
+    if($verbose) echo(" * Check if the definition for '{$lname}' already exists\n");
+    $defDict = Model::factory('Definition')->where('lexicon', $lname)->where('sourceId', $sourceId)->where('status', 0)->find_many();
 
-    if ( count($def) ) {
-      if($verbose) echo("\t Definition exists in the checked dictionary\n");
-      // TODO: check the other possible differences
-      continue;
+    if ( count($defDict) ) {
+      if($verbose) echo("\t Definition for '{$lname}' exists in the checked dictionary\n");
+      if($vverbose) echo("IMPORTĂM DEF: {$def}\n");
+      $isMatch = false;
+      $tdef = canonic_string($def);
+      foreach ($defDict as $dd) {
+        if($vverbose) echo("ÎN DEXONLINE: {$dd->internalRep}\n");
+        $tdd = canonic_string($dd->internalRep);
+        if ($tdef == $tdd){
+          $isMatch = true;
+          $mdef = $tdd;
+          if ($vverbose) echo "MATCH!!!\n";
+          continue;
+        }
+        else {
+            if($vvverbose) echo("\n");
+            if($vvverbose) echo("ÎN DEXONLINE: {$tdd}\n");
+            if($vvverbose) echo("DEF IMPORTAT: {$tdef}\n");
+            if($vvverbose) echo("\n");
+        }
+      }
+      if ($isMatch) {
+        if ($checkingDryrun) fwrite($existing, $def);
+        continue;
+      }
+      else {
+        if($verbose) echo("\t A definition for the '{$lname}' was found, but it is different – we'll import the new one!\n");
+        if ($checkingDryrun) fwrite($tobechecked, $def);
+      }
     }
     else {
       if($verbose) echo("\t Definition not exist – it will be added!\n");
+      if ($checkingDryrun) fwrite($new, $def);
     }
+  }
+
+  if (isset($checkSourceId) && $checkingDryrun) {
+      continue;
   }
 
   if($verbose) echo(" * Inserting definition for '$lname'...\n");
@@ -199,5 +243,9 @@ while ($i < count($lines)) {
     }
   }
 }
+
+fclose($new);
+fclose($existing);
+fclose($tobechecked);
 
 ?>

@@ -106,7 +106,7 @@ class Definition extends BaseObject {
         : util_intersectArrays($intersection, $defIds);
       DebugInfo::stopClock("Intersected with lexems for $word");
     }
-    if ($intersection === null) { // This can happen when the query is all stopwords
+    if (empty($intersection)) { // This can happen when the query is all stopwords or the source selection produces no results
       return array();
     }
 

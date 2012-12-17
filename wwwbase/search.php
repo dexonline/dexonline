@@ -56,9 +56,9 @@ if ($text) {
     $words = preg_split('/ +/', $cuv);
     list($properWords, $stopWords) = StringUtil::separateStopWords($words, $hasDiacritics);
     SmartyWrap::assign('stopWords', $stopWords);
-    $defIds = Definition::searchFullText($properWords, $hasDiacritics);
+    $defIds = Definition::searchFullText($properWords, $hasDiacritics, $sourceId);
     SmartyWrap::assign('numResults', count($defIds));
-    // Show at most 50 definitions;
+    // Show at most 500 definitions;
     $defIds = array_slice($defIds, 0, 500);
     // Load definitions in the given order
     $definitions = array();

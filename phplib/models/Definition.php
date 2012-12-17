@@ -83,7 +83,7 @@ class Definition extends BaseObject {
       ->find_many();
   }
 
-  public static function searchFullText($words, $hasDiacritics) {
+  public static function searchFullText($words, $hasDiacritics, $sourceId) {
     $intersection = null;
 
     $matchingLexems = array();
@@ -99,7 +99,7 @@ class Definition extends BaseObject {
     foreach ($words as $i => $word) {
       // Load all the definitions for any possible lexem for this word.
       $lexemIds = $matchingLexems[$i];
-      $defIds = FullTextIndex::loadDefinitionIdsForLexems($lexemIds);
+      $defIds = FullTextIndex::loadDefinitionIdsForLexems($lexemIds, $sourceId);
       DebugInfo::resetClock();
       $intersection = ($intersection === null)
         ? $defIds
@@ -107,7 +107,13 @@ class Definition extends BaseObject {
       DebugInfo::stopClock("Intersected with lexems for $word");
     }
     if ($intersection === null) { // This can happen when the query is all stopwords
-      $intersection = array();
+      return array();
+    }
+
+    if (count($words) == 1) {
+      // For single-word queries, sort the result set by lexicon.
+      $objects = Model::factory('Definition')->select('id')->where('status', ST_ACTIVE)->where_in('id', $intersection)->order_by_asc('lexicon')->find_many();
+      return array_map(function($def) { return $def->id; }, $objects);
     }
 
     $shortestInvervals = array();

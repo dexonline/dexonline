@@ -3,11 +3,14 @@
 class FullTextIndex extends BaseObject {
   public static $_table = 'FullTextIndex';
 
-  public static function loadDefinitionIdsForLexems($lexemIds) {
+  public static function loadDefinitionIdsForLexems($lexemIds, $sourceId) {
     if (empty($lexemIds)) {
       return array();
     }
-    $query = 'select distinct definitionId from FullTextIndex where lexemId in (' . implode(',', $lexemIds) . ') order by definitionId';
+    $lexemString = implode(',', $lexemIds);
+    $sourceClause = $sourceId ? "and D.sourceId = $sourceId" : '';  
+    $query = "select distinct definitionId from FullTextIndex F join Definition D on D.id = F.definitionId " .
+      "where lexemId in ($lexemString) $sourceClause order by definitionId";
     return db_getArray($query);
   }
 

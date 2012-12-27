@@ -9,15 +9,17 @@
     <title>{$page_title|escape} | DEX online</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     {if $page_description}
-      <meta name="description" content="{$page_description}"/>
+    <meta name="description" content="{$page_description}"/>
     {/if}
     {if $page_keywords}
-      <meta name="keywords" content="{$page_keywords}"/>
+    <meta name="keywords" content="{$page_keywords}"/>
     {/if}
+    {if !$not_generic_img}
     <meta property="og:image" content="http://dexonline.ro/img/logo-dexonline-2.png" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="DEX online" />
     <link rel="image_src" href="http://dexonline.ro/img/logo-dexonline-2.png" />
+    {/if}
     {include file="common/bits/cssJs.ihtml"}
     <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
     <link href="https://plus.google.com/100407552237543221945" rel="publisher" />

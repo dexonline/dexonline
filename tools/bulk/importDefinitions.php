@@ -1,10 +1,10 @@
 <?php
 require_once('../phplib/util.php');
 
-$shortopts = "f:u:s:c:t:x:p:hvidb"; 
+$shortopts = "f:u:s:t:x:p:hvidbcC"; 
 $options = getopt($shortopts);
-$vverbose = false;
-$vvverbose = false;
+$vverbose = true;
+$vvverbose = true;
 
 function HELP() {
   exit("
@@ -72,9 +72,9 @@ if (!file_exists($fileName)) exit("Error: file $fileName doesn't exist!\n");
 CHECK($options, 't');
 $status = $options['t'];
 
-$checkSourceId = NULL;
+$checkSourceId = false;
 if (isset($options['c'])) {
-  $checkSourceId = $options['c'];
+  $checkSourceId = true;
 }
 
 $checkingDryrun = false;
@@ -137,9 +137,7 @@ while ($i < count($lines)) {
   }
   $lname = preg_replace("/[!*'^1234567890]/", "", $lname);
 
-//  continue; //TODO delete me
-
-  if (isset($checkSourceId)) {
+  if ($checkSourceId) {
     if($verbose) echo(" * Check if the definition for '{$lname}' already exists\n");
     $defDict = Model::factory('Definition')->where('lexicon', $lname)->where('sourceId', $sourceId)->where('status', 0)->find_many();
 
@@ -179,7 +177,7 @@ while ($i < count($lines)) {
     }
   }
 
-  if (isset($checkSourceId) && $checkingDryrun) {
+  if ($checkSourceId && $checkingDryrun) {
       continue;
   }
 

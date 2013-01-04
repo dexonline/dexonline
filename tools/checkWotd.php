@@ -4,6 +4,7 @@
  **/
 
 require_once __DIR__ . '/../phplib/util.php';
+log_scriptLog("checkWotd: starting");
 
 define('NUM_DAYS', 3);
 $MAIL_INFO = array('cata@francu.com');
@@ -96,7 +97,8 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
   }
 }
 
-if ($messages) {
+log_scriptLog("checkWotd: collected " . count($messages) . " messages");
+if (count($messages)) {
   if ($firstErrorDate) {
     $today = date("Y-m-d", strtotime("today"));
     $days = daysBetween($today, $firstErrorDate);
@@ -119,10 +121,13 @@ if ($messages) {
   SmartyWrap::assign('messages', $messages);
   $body = SmartyWrap::fetch('email/checkWotd.ihtml');
   if ($sendEmail) {
+    log_scriptLog("checkWotd: sending email");
     mail($mailTo, $subject, $body, implode("\n", $MAIL_HEADERS));
   } else {
+    log_scriptLog("checkWotd: printing dry run message");
     print "Către: $mailTo\nSubiect: $subject\n\n$body\n";
   }
+  log_scriptLog("checkWotd: ending");  
 }
 
 /*********************************************************************/
@@ -143,6 +148,7 @@ function addMessage($type, $date, $text) {
   global $messages;
 
   $messages[] = array('type' => $type, 'date' => $date, 'text' => $text);
+  log_scriptLog("checkWotd: adding message [$type] [$date] [$text]");
 }
 
 function daysBetween($date1, $date2) {

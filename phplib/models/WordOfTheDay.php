@@ -92,9 +92,8 @@ class WordOfTheDay extends BaseObject {
     $fullImage = self::$IMAGE_DIR . "/{$this->image}";
     $fullThumb = self::$THUMB_DIR . "/{$this->image}";
     if (!file_exists($fullThumb) && file_exists($fullImage)) {
-      $oldumask = umask(0);
       @mkdir(dirname($fullThumb), 0777, true);
-      umask($oldumask);
+      @chmod(dirname($fullThumb), 0777); // Kill it twice -- mkdir may give it different permissions because of umask
       OS::executeAndAssert(sprintf("convert -strip -geometry %dx%d -sharpen 1x1 '%s' '%s'",
                                    self::$THUMB_SIZE, self::$THUMB_SIZE, $fullImage, $fullThumb));
     }

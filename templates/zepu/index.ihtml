@@ -9,61 +9,48 @@
   {include file="common/bits/banner.ihtml" id="mainPage" width="728" height="90"}
 {/if}
 
-<div class="relocateWidgets">
-	<ul class="wordLinks">		
-		<li>
-			{if $thumbUrl}<img src="{$imgRoot}/{$thumbUrl}" alt="iconiță cuvântul zilei" class="lightBorder" />{/if}
-			<span>
-				<label>Cuvântul zilei</label><br />
-				{include file="common/bits/wotdurl.ihtml" title=$title}
-			</span>
-		</li>
-		
-		<li>
-			<img src="{$imgRoot}/{$thumbUrlM}" alt="iconiță cuvântul lunii" class="lightBorder" />
-			<span>
-				<label>Cuvântul lunii</label><br />
-				{include file="common/bits/wotmurl.ihtml" title=$titleM}
-			</span>
-		</li>
-		
-		<li>
-			<img alt="cuvânt aleator" src="{$imgRoot}/wotd/_/mini/aleator.jpg" class="lightBorder" />
-			<span>
-				<label>Cuvânt aleator</label><br />
-				{include file="common/bits/randomWord.ihtml"}
-			</span>
-		</li>
-		
-		<li>
-			<img alt="articolul lunii" src="{$imgRoot}/wotd/_/mini/papirus.png" class="lightBorder" />
-			<span>
-				<label>Articolul lunii</label><br />
-				<a href="{$wwwRoot}articol/{$articol}">{$articol|replace:'_':' '}</a>
-			</span>
-		</li>
-		
-		<li>
-			<img src="{$imgRoot}/hangman/thumb2.png" alt="iconiță spânzurătoarea" class="gameIcon lightBorder" />
-			<span>
-				<label>Jocuri</label><br />
-				<a href="{$wwwRoot}spanzuratoarea">spânzurătoarea</a>
-			</span>
-		</li>
-		
-		<li class="socialNetworks">
-			<label>Urmărește-ne pe:</label>
-			<a href="https://plus.google.com/100407552237543221945/posts"><img src="./img/gplus-32.png" alt="iconiță Google Plus" /></a>
-			<a href="https://www.facebook.com/dexonline"><img src="./img/facebook_32.png" alt="iconiță Facebook"/></a>
-		</li>
-		
-    <!--UNCOMMENT if you have implemented widget preferences options
-		<li class="widgetsPreferences">
-			<a href="http://dexonline.ro/preferinte" title="Preferințe widget"><img src="./img/cog.png" alt="iconiță preferințe" /></a>
-		</li> -->
-		
-	</ul>
-	<div class="widgetShadow"></div>
+<div id="widgetWrapper">
+  <div class="widgetAndShadow">
+    <div id="wotd" class="widget">
+      {if $thumbUrl}<img src="{$imgRoot}/{$thumbUrl}" alt="iconiță cuvântul zilei"/>{/if}
+      <p>Cuvântul zilei: {include file="common/bits/wotdurl.ihtml" title=$title}</p>
+    </div>
+    <div class="widgetShadow"></div>
+  </div>
+
+  <div class="widgetAndShadow">
+    <div id="wotd" class="widget">
+      <img src="{$imgRoot}/{$thumbUrlM}" alt="iconiță cuvântul lunii"/>
+      <p>Cuvântul lunii: {include file="common/bits/wotmurl.ihtml" title=$titleM}</p>
+    </div>
+    <div class="widgetShadow"></div>
+  </div>
+
+  <div class="widgetAndShadow">
+    <div class="widget">
+      <img alt="cuvânt aleator" src="{$imgRoot}/wotd/_/mini/aleator.jpg"/>
+      <p>Cuvânt aleator: {include file="common/bits/randomWord.ihtml"}</p>
+    </div>
+    <div class="widgetShadow"></div>
+  </div>
+</div>
+
+<div id="widgetWrapper">
+  <div class="widgetAndShadow">
+    <div class="widget">
+      <img alt="articolul lunii" src="{$imgRoot}/wotd/_/mini/papirus.png"/>
+      <p>Articolul lunii: <a href="{$wwwRoot}articol/{$articol}">{$articol|replace:'_':' '}</a></p>
+    </div>
+    <div class="widgetShadow"></div>
+  </div>
+
+  <div class="widgetAndShadow">
+    <div class="widget">
+      <a href="{$wwwRoot}spanzuratoarea"><img src="{$imgRoot}/hangman/thumb.png" alt="iconiță spânzurătoarea"/></a>
+      <p><a href="{$wwwRoot}spanzuratoarea">spânzurătoarea</a></p>
+    </div>
+    <div class="widgetShadow"></div>
+  </div>
 </div>
 
 <div class="clearer"></div>

@@ -113,13 +113,9 @@
       </div>
     </div>
 
-    {if !$onHomePage}
-      {include file="common/bits/facebook.ihtml"}
-    {/if}
     <div id="Footer">
       Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro) 
       &#x2022; <a href="{$wwwRoot}informatii#licenta">Informații despre licență</a>
-      &#x2022; <a href="https://plus.google.com/100407552237543221945" rel="publisher">Găseşte-ne în Google+</a>
     </div>
     <div id="links">
       {include file="common/trafic_ro.ihtml"}

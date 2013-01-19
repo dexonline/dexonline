@@ -54,8 +54,6 @@ p {
   padding: 10px;
 }
 
-/* table stuff was here */
-
 .clearer {
   clear: both;
 }
@@ -153,12 +151,14 @@ img {
   list-style: none;
 }
 
-#mainMenu > li > a:hover, #userMenu > li > a:hover {
+#mainMenu > li > a:hover, 
+#userMenu > li > a:hover {
   color: #761818;
   text-decoration: underline;
 }
 
-#mainMenu li a, #userMenu li a {
+#mainMenu li a, 
+#userMenu li a {
   color: #424242;
   cursor: pointer;
   display: block;
@@ -168,7 +168,8 @@ img {
   white-space: nowrap;
 }
 
-#mainMenu li ul, #userMenu li ul {
+#mainMenu li ul, 
+#userMenu li ul {
   background: #eee;
   border: 1px solid #BFBFBF;
   border-radius: 4px;
@@ -185,22 +186,26 @@ img {
   z-index: 50;
 }
 
-#mainMenu li ul li, #userMenu li ul li {
+#mainMenu li ul li, 
+#userMenu li ul li {
   display: inline;
   float: none;
 }
 
-#mainMenu li ul li a, #userMenu li ul li a {
+#mainMenu li ul li a, 
+#userMenu li ul li a {
   color: #761818;
   padding: 3px 5px;
   width: auto;
 }
 
-#mainMenu li ul li a:hover, #userMenu li ul li a:hover {
+#mainMenu li ul li a:hover, 
+#userMenu li ul li a:hover {
   text-decoration: underline;
 }
 
-.fb_top, .plus_top {
+.fb_top, 
+.plus_top {
   float: right;
   margin-top: -3px;
   padding: 10px 0px;
@@ -311,7 +316,7 @@ img {
 
 #searchShadow {
   background: url("../img/zepu/shadows/shadow350.png") no-repeat;
-  display: inline-block; /* used to generate a block box, laid out as an inline box (no line break before or after the element) */
+  display: inline-block; 
   height: 16px; /* png's height is 16px */
   margin-top: 0px;
   padding-left: 2px;
@@ -362,55 +367,10 @@ img {
   margin-top: 10px;
 }
 
-/* paragraphTitle was here */
-
-#widgetWrapper {
-  margin: 0px auto 5px;
-  text-align: center;
-  width: 780px;
-}
-
-.widgetAndShadow {
-  display: inline-block;
-  margin: 0px 10px;
-  vertical-align: top;
-}
-
-/* WORD OF THE DAY */
-.widget {
-  background: #eee;
-  border: 1px solid #BFBFBF;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  color: #424242;
-  font-size: 12px;
-  height: 48px;
-  padding: 8px;
-  text-align: center;
-  width: 200px;
-}
-
-.widget img {
-  float: left;
-}
-
-.widgetShadow {
-  background: url("../img/zepu/shadows/shadow216.png") no-repeat;
-  height: 14px;
-  width: 216px;
-}
-
 
 /* FACEBOOK AND GOOGLE PLUS PLUGIN */
-.fb_bottom {
-  border-bottom: 1px solid #BFBFBF;
-  border-top: 1px solid #BFBFBF;
-  margin: 20px auto 10px;/*it was 0 auto 10*/
-  padding: 5px 0px 5px 3px;
-  width: 875px;
-}
-
-.fb_top, .plus_top{
+.fb_top, 
+.plus_top{
   float: right;
   margin-top: -3px;
 }
@@ -792,9 +752,6 @@ table.static th, table.static td {
 }
 
 
-/* this was PREFERINTE page */
-
-
 /* AUTENTIFICARE UTILIZATOR page */
 .vertSpace {
   margin: 40px 0px 20px;
@@ -1097,3 +1054,114 @@ div.sourceComplete4 {
 div.sourceComplete5 {
   background: url("../img/icons/flag_green.png") no-repeat;
 }
+
+
+/* REDESIGN WIDGETS January 2013 */
+.widgetBox {
+	position: absolute;
+	top: 100px;
+	right: 0px;
+	width: 200px;
+	font-size: 11px;
+}
+
+/* align banner to the left only on small resolutions */
+@media screen and (max-width: 1093px) { 
+	#banner_mainPage {
+		margin-left: 0px;
+	}
+}
+
+.widgetList {
+	background: #E4EFF7;
+	background-image: -webkit-linear-gradient(left, #F2F9FD, #C5D3DD);
+	background-image: -moz-linear-gradient(left, #F2F9FD, #C5D3DD);
+	background-image: -o-linear-gradient(left, #F2F9FD, #C5D3DD);
+	border: 1px solid #CCC;
+	padding: 20px 10px 5px 15px;
+	border-bottom-left-radius: 25px;
+	border-top-left-radius: 25px;
+}
+
+.widgetList li {
+	list-style-type: none;
+	display: inline-block;
+	margin-bottom: 20px;
+}
+
+.widgetList span {
+	float: right;
+	max-width: 115px;
+}
+
+.lightBorder {
+	float: left;
+	margin-right: 7px;
+	border: 1px solid #777;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	box-shadow: 1px 1px 2px #979899;
+	-webkit-box-shadow: 1px 1px 2px #979899;
+}
+
+.widgetList label {
+	color: #64778A;
+	font-weight: bold;
+}
+
+.widgetBox .widgetShadow {
+	margin-top: -11px;
+	background-position: 19px 0px;
+	width: 200px;
+}
+
+/*  override from zepu.css line 420 */
+#missionStatement {
+	width: 540px;
+}
+
+.socialNetworks {
+	margin-left: 25px;
+	margin-top: 10px;
+}
+
+body .socialNetworks label {
+	display: block;
+	margin-bottom: 5px;
+	color: #3B4753;
+}
+
+.socialNetworks img {
+	box-shadow: 2px 2px 2px #999;
+	-webkit-box-shadow: 2px 2px 2px #999;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+}
+
+.socialNetworks img:hover {
+	box-shadow: 2px 2px 2px #777;
+	-webkit-box-shadow: 2px 2px 2px #777;
+}
+
+.socialNetworks a {
+	display: inline-block;
+	padding-left: 11px;
+}
+
+li.widgetsPreferences {
+	margin: -10px 0px 0px 152px;
+}
+
+.widgetsPreferences a {
+	color: #777;
+	font-size: 10px;
+}
+
+.widgetsPreferences a:hover {
+	color: #999;
+}
+
+.gameIcon {
+	width: 48px;
+}
+

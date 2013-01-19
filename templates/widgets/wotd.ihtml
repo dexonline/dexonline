@@ -1,0 +1,5 @@
+{if $thumbUrl}<img src="{$imgRoot}/{$thumbUrl}" alt="iconiță cuvântul zilei" class="lightBorder" />{/if}
+<span>
+  <label>Cuvântul zilei</label><br />
+  {include file="common/bits/wotdurl.ihtml" title=$title}
+</span>

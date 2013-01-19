@@ -12,6 +12,7 @@ SmartyWrap::assign('onHomePage', '1');
 SmartyWrap::assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțuvwxyz'));
 SmartyWrap::assign('words_total', util_formatNumber(Definition::getWordCount(), 0));
 SmartyWrap::assign('words_last_month', util_formatNumber(Definition::getWordCountLastMonth(), 0));
+SmartyWrap::assign('widgets', Widget::getWidgets(0xffff, 6));
 
 /* WotD part */
 $wotd = WordOfTheDay::getTodaysWord();

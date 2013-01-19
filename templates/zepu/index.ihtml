@@ -10,52 +10,10 @@
 {/if}
 
 <div class="widgetBox">
-	<ul class="widgetList">		
-		<li>
-			{if $thumbUrl}<img src="{$imgRoot}/{$thumbUrl}" alt="iconiță cuvântul zilei" class="lightBorder" />{/if}
-			<span>
-				<label>Cuvântul zilei</label><br />
-				{include file="common/bits/wotdurl.ihtml" title=$title}
-			</span>
-		</li>
-		
-		<li>
-			<img src="{$imgRoot}/{$thumbUrlM}" alt="iconiță cuvântul lunii" class="lightBorder" />
-			<span>
-				<label>Cuvântul lunii</label><br />
-				{include file="common/bits/wotmurl.ihtml" title=$titleM}
-			</span>
-		</li>
-		
-		<li>
-			<img alt="cuvânt aleator" src="{$imgRoot}/wotd/_/mini/aleator.jpg" class="lightBorder" />
-			<span>
-				<label>Cuvânt aleator</label><br />
-				{include file="common/bits/randomWord.ihtml"}
-			</span>
-		</li>
-		
-		<li>
-			<img alt="articolul lunii" src="{$imgRoot}/wotd/_/mini/papirus.png" class="lightBorder" />
-			<span>
-				<label>Articolul lunii</label><br />
-				<a href="{$wwwRoot}articol/{$articol}">{$articol|replace:'_':' '}</a>
-			</span>
-		</li>
-		
-		<li>
-			<img src="{$imgRoot}/hangman/thumb.png" alt="iconiță spânzurătoarea" class="gameIcon lightBorder" />
-			<span>
-				<label>Jocuri</label><br />
-				<a href="{$wwwRoot}spanzuratoarea">spânzurătoarea</a>
-			</span>
-		</li>
-		
-		<li class="socialNetworks">
-			<label>Urmărește-ne pe:</label>
-			<a href="https://plus.google.com/100407552237543221945/posts"><img src="./img/gplus-32.png" alt="iconiță Google Plus" /></a>
-			<a href="https://www.facebook.com/dexonline"><img src="./img/facebook_32.png" alt="iconiță Facebook"/></a>
-		</li>
+	<ul class="widgetList">
+    {foreach from=$widgets item=template}
+      <li>{include file="widgets/$template"}</li>
+    {/foreach}
 		
     <!--UNCOMMENT if you have implemented widget preferences options
 		<li class="widgetsPreferences">

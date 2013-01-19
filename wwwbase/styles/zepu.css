@@ -1083,6 +1083,17 @@ div.sourceComplete5 {
 	border-top-left-radius: 25px;
 }
 
+/* hide widget box for very small resolutions */
+@media screen and (max-width: 983px) {
+	.widgetBox {
+		display: none;
+	}
+
+	#banner_mainPage {
+		margin-left: 71px;
+	}
+}
+
 .widgetList li {
 	list-style-type: none;
 	display: inline-block;

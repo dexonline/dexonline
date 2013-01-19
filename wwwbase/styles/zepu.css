@@ -1160,7 +1160,11 @@ body .socialNetworks label {
 }
 
 li.widgetsPreferences {
-	margin: -10px 0px 0px 152px;
+  background: url("../img/icons/cog.png") no-repeat 0px 0px;
+  height: 16px;
+	margin: 0px 0px 0px 35px;
+  padding-top: 2px;
+  padding-left: 20px;
 }
 
 .widgetsPreferences a {

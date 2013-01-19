@@ -112,15 +112,15 @@ class SmartyWrap {
   }
 
   static function registerOutputFilters() {
-    if (session_user_prefers('CEDILLA_BELOW')) {
-      self::registerOutputFilter('self::filter_display_st_cedilla_below');
+    if (session_user_prefers(Preferences::CEDILLA_BELOW)) {
+      self::registerOutputFilter('SmartyWrap::filter_display_st_cedilla_below');
     }
-    if (session_user_prefers('OLD_ORTHOGRAPHY')) {
-      self::registerOutputFilter('self::filter_display_old_orthography');
+    if (session_user_prefers(Preferences::OLD_ORTHOGRAPHY)) {
+      self::registerOutputFilter('SmartyWrap::filter_display_old_orthography');
     }
   }
 
-  static function registerOutputFilter($smarty, $functionName) {
+  static function registerOutputFilter($functionName) {
     if (method_exists(self::$theSmarty, 'registerFilter')) {
       // Smarty v3 syntax
       self::$theSmarty->registerFilter('output', $functionName);

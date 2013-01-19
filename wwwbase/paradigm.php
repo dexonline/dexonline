@@ -11,7 +11,7 @@ $type = util_getRequestParameter('type');
 
 $searchType = SEARCH_INFLECTED;
 $arr = StringUtil::analyzeQuery($cuv);
-$hasDiacritics = session_user_prefers('FORCE_DIACRITICS') || $arr[0];
+$hasDiacritics = session_user_prefers(Preferences::FORCE_DIACRITICS) || $arr[0];
 
 // LexemId search
 if ($lexemId) {

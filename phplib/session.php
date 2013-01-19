@@ -131,11 +131,7 @@ function session_user_prefers($pref) {
 
 function session_setAnonymousPrefs($pref) {
   $_COOKIE['prefs']['anonymousPrefs'] = $pref;
-  session_sendAnonymousPrefs();
-}
-
-function session_sendAnonymousPrefs() {
-  setcookie('prefs[anonymousPrefs]', session_getAnonymousPrefs(), time() + ONE_YEAR_IN_SECONDS, '/');
+  setcookie('prefs[anonymousPrefs]', $pref, time() + ONE_YEAR_IN_SECONDS, '/');
 }
 
 function session_getAnonymousPrefs() {

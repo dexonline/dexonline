@@ -1,28 +1,42 @@
-{* TODO: This replicates code from templates/common/auth/contul-meu.ihtml *}
+<form method="post" action="preferinte" name="accountForm">
 
-<form method="post" action="preferinte">
-  
+  {if $sUser}
+    <p class="paragraphTitle">Date personale</p>
+    <input type="checkbox" id="detailsVisible" name="detailsVisible" value="1" {if $detailsVisible}checked="checked"{/if}/>
+    <label for="detailsVisible">Datele mele sunt vizibile public</label>
+    <div class="describeOption">
+      Identitatea OpenID, numele și adresa de email furnizate de OpenID vor fi publicate în <a href="{$wwwRoot}utilizator/{$sUser->nick}">pagina utilizatorului</a>.
+    </div>
+  {/if}
+
   <p class="paragraphTitle">Preferințe</p>
-  <div>
-    {foreach from=$userPrefs key=value item=i}
-      <input type="checkbox" name="userPrefs[]" id="cb_{$value}" value="{$value}" class="cbOption" {if $i.checked}checked="checked"{/if}/>
-      <label for="cb_{$value}" class="labelOption">{$i.label}</label>
-      <div class="describeOption">{$i.comment}</div>
-    {/foreach}
-  </div>
-  
-  <br/>
-  <div>
-    <span class="paragraphTitle">Design</span>
-    <select name="skin" id="skinsList">
-      {foreach from=$availableSkins item=i}
-        <option value="{$i}" {if $i == $skin}selected="selected"{/if}>{$i|capitalize}</option>
-      {/foreach}
-    </select>
-  </div>  
+  {foreach from=$userPrefs key=value item=i}
+    <input type="checkbox" name="userPrefs[]" id="cb_{$value}" value="{$value}" class="cbOption" {if $i.checked}checked="checked"{/if}/>
+    <label for="cb_{$value}" class="labelOption">{$i.label}</label>
+    <div class="describeOption">{$i.comment}</div>
+  {/foreach}
 
+  <p class="paragraphTitle">Design</p>
+  <select name="skin" id="skinsList">
+    {foreach from=$availableSkins item=i}
+      <option value="{$i}" {if $i == $skin}selected="selected"{/if}>{$i|capitalize}</option>
+    {/foreach}
+  </select>
   <div class="warning">Notă: Numai designul Zepu este ținut la zi cu cele mai noi funcții.</div>
+
+  {if $sUser->moderator > 0}
+    <p class="paragraphTitle">Privilegii</p>
+
+    <ul>
+      {section name="bit" loop=$smarty.const.NUM_PRIVILEGES}
+        {math equation="1 << x" x=$smarty.section.bit.index assign="mask"}
+        {if $sUser->moderator & $mask}
+          <li>{$privilegeNames[$smarty.section.bit.index]}</li>
+        {/if}
+      {/section}
+    </ul>
+  {/if}
+
   <br/>
-  
   <input type="submit" name="send" value="Salvează" id="saveButton" />
 </form>

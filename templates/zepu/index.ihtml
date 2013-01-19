@@ -14,12 +14,11 @@
     {foreach from=$widgets item=template}
       <li>{include file="widgets/$template"}</li>
     {/foreach}
-		
-    <!--UNCOMMENT if you have implemented widget preferences options
-		<li class="widgetsPreferences">
-			<a href="http://dexonline.ro/preferinte" title="Preferințe widget"><img src="./img/cog.png" alt="iconiță preferințe" /></a>
-		</li> -->
-		
+
+    <!--UNCOMMENT if you have implemented widget preferences options		
+    <li class="widgetsPreferences">
+      <a href="preferinte">personalizare elemente</a>
+    </li> -->
 	</ul>
 	<div class="widgetShadow"></div>
 </div>

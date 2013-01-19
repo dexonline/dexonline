@@ -114,7 +114,7 @@ def log_in(br, email, password):
 #   print forms[1].controls
 # This prints a bunch of text/password controls, but only ONE CheckboxControl
 def edit_account(br, nick, password, new_password, new_password2, name, email, design, pref_st):
-    br.open(URL_BASE + '/contul-meu').read()
+    br.open(URL_BASE + '/preferinte').read()
     br.select_form(name='accountForm')
     if nick: br['nick'] = nick
     if password: br['curPass'] = password

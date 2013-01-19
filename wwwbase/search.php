@@ -23,11 +23,11 @@ if ($cuv) {
 util_redirectToFriendlyUrl($cuv, $sourceUrlName, $text, $showParadigm, $xml);
 
 $searchType = SEARCH_INFLECTED;
-$hasDiacritics = session_user_prefers('FORCE_DIACRITICS');
-$exclude_unofficial = session_user_prefers('EXCLUDE_UNOFFICIAL');
+$hasDiacritics = session_user_prefers(Preferences::FORCE_DIACRITICS);
+$exclude_unofficial = session_user_prefers(Preferences::EXCLUDE_UNOFFICIAL);
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
-$showParadigm = $showParadigm || session_user_prefers('SHOW_PARADIGM');
+$showParadigm = $showParadigm || session_user_prefers(Preferences::SHOW_PARADIGM);
 $paradigmLink = $_SERVER['REQUEST_URI'] . ($showParadigm ? '' : '/paradigma');
 $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
 $sourceId = $source ? $source->id : null;
@@ -35,7 +35,7 @@ $sourceId = $source ? $source->id : null;
 if ($cuv) {
   SmartyWrap::assign('cuv', $cuv);
   $arr = StringUtil::analyzeQuery($cuv);
-  $hasDiacritics = session_user_prefers('FORCE_DIACRITICS') || $arr[0];
+  $hasDiacritics = session_user_prefers(Preferences::FORCE_DIACRITICS) || $arr[0];
   $hasRegexp = $arr[1];
   $isAllDigits = $arr[2];
 }

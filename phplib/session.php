@@ -139,6 +139,24 @@ function session_getAnonymousPrefs() {
   return $cookiePrefs ? $cookiePrefs : '';
 }
 
+function session_getWidgetMask() {
+  return session_getCookieSetting('widgetMask');
+}
+
+function session_setWidgetMask($widgetMask) {
+  $_COOKIE['prefs']['widgetMask'] = $widgetMask;
+  setcookie('prefs[widgetMask]', $widgetMask, time() + ONE_YEAR_IN_SECONDS, '/');
+}
+
+function session_getWidgetCount() {
+  return session_getCookieSetting('widgetCount');
+}
+
+function session_setWidgetCount($widgetCount) {
+  $_COOKIE['prefs']['widgetCount'] = $widgetCount;
+  setcookie('prefs[widgetCount]', $widgetCount, time() + ONE_YEAR_IN_SECONDS, '/');
+}
+
 function session_getSkin() {
   $user = session_getUser();
   $skin = ($user && $user->skin) ? $user->skin : session_getCookieSetting('skin');

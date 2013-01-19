@@ -9,30 +9,49 @@ class Widget {
   const WIDGET_SOCIAL = 0x20;
   const WIDGET_COUNT = 6;
 
-  public static $WIDGET_NAMES = array(self::WIDGET_WOTD => 'Cuvântul zilei',
-                                      self::WIDGET_WOTM => 'Cuvântul lunii',
-                                      self::WIDGET_RANDOM_WORD => 'Cuvânt aleator',
-                                      self::WIDGET_AOTM => 'Articolul lunii',
-                                      self::WIDGET_GAMES => 'Jocuri',
-                                      self::WIDGET_SOCIAL => 'Rețele sociale'
-                                      );
+  // 'enabled' means "enabled by default". All widgets can later be enabled or disabled based on user prefs.
+  public static $DATA = array(self::WIDGET_WOTD        => array('name' => 'Cuvântul zilei',
+                                                                'template' => 'wotd.ihtml',
+                                                                'enabled' => true),
+                              self::WIDGET_WOTM        => array('name' => 'Cuvântul lunii',
+                                                                'template' => 'wotm.ihtml',
+                                                                'enabled' => true),
+                              self::WIDGET_RANDOM_WORD => array('name' => 'Cuvânt aleator',
+                                                                'template' => 'randomWord.ihtml',
+                                                                'enabled' => true),
+                              self::WIDGET_AOTM        => array('name' => 'Articolul lunii',
+                                                                'template' => 'articleOfTheMonth.ihtml',
+                                                                'enabled' => true),
+                              self::WIDGET_GAMES       => array('name' => 'Jocuri',
+                                                                'template' => 'games.ihtml',
+                                                                'enabled' => true),
+                              self::WIDGET_SOCIAL      => array('name' => 'Rețele sociale',
+                                                                'template' => 'social.ihtml',
+                                                                'enabled' => true),
+                              );
 
-  public static $WIDGET_TEMPLATES = array(self::WIDGET_WOTD => 'wotd.ihtml',
-                                          self::WIDGET_WOTM => 'wotm.ihtml',
-                                          self::WIDGET_RANDOM_WORD => 'randomWord.ihtml',
-                                          self::WIDGET_AOTM => 'articleOfTheMonth.ihtml',
-                                          self::WIDGET_GAMES => 'games.ihtml',
-                                          self::WIDGET_SOCIAL => 'social.ihtml'
-                                          );
-
-  static function getWidgets($mask, $widgetCount) {
-    $result = array();
-    foreach (self::$WIDGET_TEMPLATES as $widgetMask => $template) {
-      if ($mask & $widgetMask) {
-        $result[$widgetMask] = $template;
-      }
+  /**
+   * Returns a copy of DATA with the 'enabled' field modified where necessary.
+   * widgetCount stores the number of widgets when the user last saved the widgetMask.
+   * For new widgets between $widgetCount + 1 and WIDGET_COUNT - 1, which have been added since the last save,
+   * we use the widget's default state.
+   **/
+  static function getWidgets($widgetMask, $widgetCount) {
+    $result = self::$DATA;
+    for ($mask = 1; $mask < 1 << $widgetCount; $mask <<= 1) {
+      $result[$mask]['enabled'] = ($widgetMask & $mask) ? true : false;
     }
     return $result;
+  }
+
+  static function getDefaultWidgetMask() {
+    $result = 0;
+    foreach (self::$DATA as $mask => $params) {
+      if ($params['enabled']) {
+        $result += $mask;
+      }
+    }
+    return $result;    
   }
 }
 

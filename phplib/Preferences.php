@@ -32,36 +32,59 @@ class Preferences {
     ),
   );
 
-  static function get($user) {
-    $detailsVisible = $user ? $user->detailsVisible : false;
-    $userPrefs = $user ? $user->preferences : session_getAnonymousPrefs();
-    $prefCopy = self::$allPrefs;
+  static function getDetailsVisible($user) {
+    return $user ? $user->detailsVisible : false;
+  }
 
+  /* Returns a copy of self::$allPrefs with an extra field 'checked' set to true or false. */
+  static function getUserPrefs($user) {
+    $userPrefs = $user ? $user->preferences : session_getAnonymousPrefs();
+    $copy = self::$allPrefs;
     // Set the checked field to false / true according to user preferences
-    foreach ($prefCopy as $key => $value) {
-      $prefCopy[$key]['checked'] = false;
+    foreach ($copy as $key => $value) {
+      $copy[$key]['checked'] = false;
     }
     if ($userPrefs) {
       foreach (preg_split('/,/', $userPrefs) as $pref) {
-        $prefCopy[$pref]['checked'] = true;
+        $copy[$pref]['checked'] = true;
       }
     }
-    return array($detailsVisible, $prefCopy, session_getSkin());
+    return $copy;
   }
 
-  static function set($user, $detailsVisible, $userPrefs, $skin) {
+  static function getSkin($user) {
+    return session_getSkin();
+  }
+
+  static function getWidgets($user) {
+    return $user
+      ? Widget::getWidgets($user->widgetMask, $user->widgetCount)
+      : Widget::getWidgets(session_getWidgetMask(), session_getWidgetCount());
+  }
+
+  static function set($user, $detailsVisible, $userPrefs, $skin, $widgetMask) {
     if ($user) {
       $user->detailsVisible = $detailsVisible;
       $user->preferences = $userPrefs;
       if (session_isValidSkin($skin)) {
         $user->skin = $skin;
       }
+      $user->widgetMask = $widgetMask;
+      $user->widgetCount = Widget::WIDGET_COUNT;
       $user->save();
       session_setVariable('user', $user);
     } else {
       session_setAnonymousPrefs($userPrefs);
       if (session_isValidSkin($skin)) {
         session_setSkin($skin);
+      }
+      // Set the widgetMask / widgetCount cookies. This is a bit complex because we want to delete the cookie when the settings are all default.
+      if ($widgetMask == Widget::getDefaultWidgetMask()) {
+        session_setWidgetMask(null);
+        session_setWidgetCount(null);
+      } else {
+        session_setWidgetMask($widgetMask);
+        session_setWidgetCount(Widget::WIDGET_COUNT);
       }
     }
   }

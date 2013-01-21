@@ -149,8 +149,8 @@ class SmartyWrap {
       case 'jqueryui':           self::$cssFiles[1] = 'lightness-1.9.2/jquery-ui-1.9.2.custom.min.css'; break;
       case 'jqgrid':             self::$cssFiles[2] = 'ui.jqgrid.css?v=2'; break;
       case 'elfinder':           self::$cssFiles[4] = 'elfinder.css'; break;
-      case 'zepu':               self::$cssFiles[5] = 'zepu.css?v=45'; break;
-      case 'polar':              self::$cssFiles[6] = 'polar.css?v=29'; break;
+      case 'zepu':               self::$cssFiles[5] = 'zepu.css?v=46'; break;
+      case 'polar':              self::$cssFiles[6] = 'polar.css?v=30'; break;
       case 'mobile':             self::$cssFiles[7] = 'mobile.css?v=14'; break;
       case 'flex':               self::$cssFiles[8] = 'flex.css?v=9'; break;
       case 'paradigm':           self::$cssFiles[9] = 'paradigm.css?v=1'; break;

@@ -9,6 +9,12 @@
   padding-left: 0px;
 }
 
+.sectionEdit {
+  font-size: 10px;
+  font-weight: normal;
+  padding-left: 10px;
+}
+
 table {
   border-collapse: collapse;
 }

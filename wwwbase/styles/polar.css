@@ -466,6 +466,12 @@ p.paragraphTitle {
   margin-bottom: 10px;
 }
 
+.sectionEdit {
+  font-size: 80%;
+  font-weight: normal;
+  padding-left: 10px;
+}
+
 #guideNotice {
   background: #ffffff url("../img/icons/information.png") left center no-repeat;  
   font-size: 120%;
@@ -563,4 +569,17 @@ div.sourceComplete5 {
 
 #blankDiv {
   display: none;
+}
+
+/****************** Medal stuff *******************/
+
+#medalEditDiv {
+ display: none;
+ margin-bottom: 10px;
+}
+
+.medalCheckboxes {
+  columns: 300px 2;
+  -webkit-columns: 300px 2;
+  margin: 5px 0px;
 }

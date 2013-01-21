@@ -1,29 +1,51 @@
-{if !empty($user)}
-  <p class="paragraphTitle">Utilizator: {$user->nick|escape}</p>
+<p class="paragraphTitle">Utilizator: {$user->nick|escape}</p>
 
-  {if $user->detailsVisible && $user->identity}
-    Identitate OpenID: <a href="{$user->identity}">{$user->identity}</a><br/><br/>
+{if $user->detailsVisible && $user->identity}
+  Identitate OpenID: <a href="{$user->identity}">{$user->identity}</a><br/><br/>
+{/if}
+
+{if $user->detailsVisible && $user->name}
+  Nume: {$user->name|escape}<br/><br/>
+{/if}
+
+{if $user->detailsVisible && $user->email}
+  Adresă de e-mail: {$user->email|escape}<br/><br/>
+{/if}
+
+Drept de moderator: {if $user->moderator}Da{else}Nu{/if}<br/><br/>
+
+Definiții trimise: {$userData.num_words|default:0}
+{if $userData.num_words}(locul {$userData.rank_words}){/if}
+<br/><br/>
+
+Lungime totală: {$userData.num_chars|default:0} caractere
+{if $userData.num_chars}(locul {$userData.rank_chars}){/if}
+<br/><br/>
+
+<p class="paragraphTitle">
+  Medalii
+  {if $sUser->moderator & $smarty.const.ADMIN}
+    <span class="sectionEdit"><a id="medalEditLink" onclick="$('#medalEditDiv').slideToggle(); return false;" href="#">editează</a></span>
   {/if}
+</p>
 
-  {if $user->detailsVisible && $user->name}
-    Nume: {$user->name|escape}<br/><br/>
-  {/if}
+{if $sUser->moderator & $smarty.const.ADMIN}
+  <form id="medalEditDiv" method="post">
+    <div class="medalCheckboxes">
+      <input type="hidden" name="userId" value="{$user->id}"/>
+      {foreach from=$allMedals key=mask item=params}
+        <input type="checkbox" name="medalsGranted[]" id="cb_{$mask}" value="{$mask}" {if $medals[$mask]}checked="checked"{/if} />
+        <label for="cb_{$mask}">{$params.name} {$params.description}</label><br/>
+      {/foreach}
+    </div>
+    <input type="submit" name="medalSaveButton" value="Salvează"/>
+  </form>
+{/if}
 
-  {if $user->detailsVisible && $user->email}
-    Adresă de e-mail: {$user->email|escape}<br/><br/>
-  {/if}
-
-  Drept de moderator: {if $user->moderator}Da{else}Nu{/if}<br/><br/>
-
-  Definiții trimise: {$userData.num_words|default:0}
-  {if $userData.num_words}(locul {$userData.rank_words}){/if}
-  <br/><br/>
-
-  Lungime totală: {$userData.num_chars|default:0} caractere
-  {if $userData.num_chars}(locul {$userData.rank_chars}){/if}
-  <br/><br/>
+{if $medals}
+  {foreach from=$medals item=params}
+    <img src="{$imgRoot}/medals/{$params.pic}" alt="{$params.name}" title="{$params.name} {$params.description}"/>
+  {/foreach}
 {else}
-  <p class="paragraphTitle">Utilizator inexistent</p>
-
-  Utilizatorul <b>{$missingNick|escape}</b> nu există în <i>DEX online</i>.
+  Utilizatorul {$user->nick|escape} nu are medalii.
 {/if}

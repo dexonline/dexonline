@@ -1180,3 +1180,15 @@ li.widgetsPreferences {
 	width: 48px;
 }
 
+/****************** Medal stuff *******************/
+
+#medalEditDiv {
+ display: none;
+ margin-bottom: 10px;
+}
+
+.medalCheckboxes {
+  columns: 350px 2;
+  -webkit-columns: 350px 2;
+  margin: 5px 0px;
+}

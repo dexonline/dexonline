@@ -17,7 +17,6 @@ chdir(util_getRootPath());
 // Make sure this client is unmodified
 $output = OS::executeAndReturnOutput('svn st| grep -v "?"');
 if (!empty($output)) {
-  var_dump($output);
   die("svnAnnotate can only be run on an unmodified client.\n");
 }
 

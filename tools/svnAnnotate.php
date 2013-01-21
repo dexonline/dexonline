@@ -14,12 +14,6 @@ require_once __DIR__ . '/../phplib/util.php';
 
 chdir(util_getRootPath());
 
-// Make sure this client is unmodified
-$output = OS::executeAndReturnOutput('svn st| grep -v "?"');
-if (!empty($output)) {
-  die("svnAnnotate can only be run on an unmodified client.\n");
-}
-
 $opts = getopt('c:');
 
 if (array_key_exists('c', $opts)) {
@@ -50,11 +44,10 @@ for ($rev = $lastRev + 1; $rev <= $currentRev; $rev++) {
 /****************************************************************/
 
 function loadCheckpointFile($fileName) {
-  $lines = file($fileName);
-  if (!$lines) {
+  $ini = parse_ini_file($fileName, true);
+  if (!$ini) {
     die("Cannot load checkpoint file $fileName.\n");
   }
-  $ini = parse_ini_file($fileName, true);
   if (!$ini || !array_key_exists('revision', $ini) || !array_key_exists('revision', $ini['revision']) || !array_key_exists('authors', $ini)) {
     die("$fileName does not contain a valid INI file.\n");
   }
@@ -63,7 +56,7 @@ function loadCheckpointFile($fileName) {
 
 function writeCheckpointFile($rev, $authors) {
   print "------------------------------------------------\n";
-  print "# Code authors up to and including revision $rev\n";
+  print "; Code authors up to and including revision $rev\n";
   print "\n";
   print "[revision]\n";
   print "revision = $rev\n";
@@ -102,13 +95,13 @@ function parseRevision($rev) {
     $line = rtrim($line);
     if (StringUtil::startsWith($line, 'Index: ')) {
       if (!ignoreFile($curFile)) {
-	$totalLines += $linesForFile;
+        $totalLines += $linesForFile;
       }
       $linesForFile = 0;
       $curFile = substr($line, 7);
     } else if (StringUtil::startsWith($line, '+') && !StringUtil::startsWith($line, '+++')) {
       if (!$curFile) {
-	die("Cannot attribute line\n");
+        die("Cannot attribute line\n");
       }
       $linesForFile++;
     }

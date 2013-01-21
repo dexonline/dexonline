@@ -69,7 +69,6 @@ class TopEntry {
   private static function getUnsortedTopData($manual) {
     $allowHidden = util_isModerator(PRIV_VIEW_HIDDEN); 
     $data = FileCache::getTop($manual, $allowHidden);
-    $data  = NULL;
     if (!$data) {
       $data = TopEntry::loadUnsortedTopData($manual);
       FileCache::putTop($data, $manual, $allowHidden);

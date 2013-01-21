@@ -4,6 +4,9 @@ body {
   background-color: white;
   color: black;
   font-family: serif;
+  width: 875px;
+  height: 100%;
+  margin: 8px auto;
 }
 
 .theader {
@@ -583,3 +586,4 @@ div.sourceComplete5 {
   -webkit-columns: 300px 2;
   margin: 5px 0px;
 }
+

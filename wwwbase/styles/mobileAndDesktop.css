@@ -28,6 +28,14 @@ table th {
   background: #eee;
 }
 
+.noborder td, .noborder th {
+  border: none;
+}
+
+.optional {
+  display: none;
+}
+
 /* PREFERINȚE page */
 .cbOption {
   margin-top: 10px;
@@ -58,4 +66,10 @@ pre.code {
   border-collapse: collapse;
   width: 95%;
   font-size: 80%;
+}
+
+.info {
+  font-size: 9px;
+  color: #444;
+  padding-left: 10px;
 }

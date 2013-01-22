@@ -1,0 +1,33 @@
+Dacă ați ajuns pe pagina asta, probabil că știți deja ce este <i>dexonline</i> (dacă nu, puteți afla de <a href="/informatii#ce_este">aici</a>).<br/>
+Puteți ajuta la dezvoltarea proiectului dexonline și prin donarea unei sume de bani. Mai multe detalii, <a href="#explicatii">mai jos în pagină</a>.
+
+<table class="noborder">
+  <tr>
+    <td width="430">
+<h3>Donează online</h3>
+<br/>
+{include file="common/doneaza-online.ihtml}
+<br/><br/>
+<h3>Donează folosind PayPal</h3>
+<br/>
+{include file="common/doneaza-paypal.ihtml}
+    </td>
+    <td width="430" valign="top">
+<h3>Donează prin transfer bancar</h3>
+<br/>
+{include file="common/doneaza-banca.ihtml}
+    </td>
+  </tr>
+</table>
+
+<br/><br/>
+<a name="explicatii"> </a><h3>La ce folosim contribuțiile</h3><br/>
+Asociația <i>dexonline</i> va folosi contribuțiile dvs. pentru: <ul>
+<li> achiziționarea de noi dicționare în format electronic;</li>
+<li> importarea unor dicționare vechi, de referință, în format electronic;</li>
+<li> finanțarea unor noi proiecte dexonline (adăugare de noi funcționalități, crearea de jocuri bazate pe dicționare șamd);</li>
+<li> stabilirea unor colaborări plătite cu lexicografi și/sau lingviști;</li>
+<li> motivarea comunității de voluntari pentru implicare;</li>
+<li> organizarea de concursuri și oferirea unor premii;</i>
+<li> mentenanța sistemului.</li>
+</ul>

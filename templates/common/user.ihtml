@@ -1,6 +1,11 @@
 <div class="userProfileHeader">
-  <img class="avatar"/>
-  <h3>Utilizator: {$user->nick|escape}</h3>
+  {include file="common/bits/avatar.ihtml user=$user}
+  <h3>
+    Utilizator: {$user->nick|escape}
+    {if $user->id == $sUser->id}
+      <a class="profileEditLink" href="{$wwwRoot}preferinte">editează profilul</a>
+    {/if}
+  </h3>
 </div>
 
 {if $user->detailsVisible}
@@ -42,7 +47,7 @@
 <fieldset class="userProfileSection">
   <legend>Medalii</legend>
   {if $sUser->moderator & $smarty.const.ADMIN}
-    <span class="sectionEdit"><a id="medalEditLink" onclick="$('#medalEditDiv').slideToggle(); return false;" href="#">editează</a></span>
+    <span class="sectionEdit"><a onclick="$('#medalEditDiv').slideToggle(); return false;" href="#">editează</a></span>
   {/if}
 
   {if $sUser->moderator & $smarty.const.ADMIN}

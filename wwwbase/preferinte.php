@@ -26,6 +26,7 @@ SmartyWrap::assign('skin', $skin);
 SmartyWrap::assign('availableSkins', pref_getServerPreference('skins'));
 SmartyWrap::assign('privilegeNames', $PRIV_NAMES);
 SmartyWrap::assign('widgets', $widgets);
+SmartyWrap::assign('userHasAvatar', util_userHasAvatar());
 SmartyWrap::assign('page_title', 'Preferințe');
 SmartyWrap::displayCommonPageWithSkin('preferinte.ihtml');
 

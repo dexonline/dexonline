@@ -208,6 +208,10 @@ function util_getRequestCheckboxArray($name, $separator) {
   return $arr ? implode($arr, $separator) : '';
 }
 
+function util_getUploadedFile($name) {
+  return array_key_exists($name, $_FILES) ? $_FILES[$name] : null;
+}
+
 function util_redirect($location) {
   // Fix an Android issue with redirects caused by diacritics
   $location = str_replace(array('ă', 'â', 'î', 'ș', 'ț', 'Ă', 'Â', 'Î', 'Ș', 'Ț'),
@@ -258,6 +262,16 @@ function util_isModerator($type) {
   $userId = session_getUserId();
   $user = $userId ? User::get_by_id($userId) : null;
   return $user ? ($user->moderator & $type) : false;
+}
+
+/*
+ * Returns true if the user has an avatar image in wwwbase/img/user. If the $user argument is null, queries the currently logged in user.
+ */
+function util_userHasAvatar($user = null) {
+  if (!$user) {
+    $user = session_getUser();
+  }
+  return $user && file_exists(util_getRootPath() . "wwwbase/img/user/{$user->id}.jpg");
 }
 
 function util_assertNotMirror() {

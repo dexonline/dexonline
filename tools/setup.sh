@@ -21,6 +21,9 @@ chmod 777 templates_c
 # Make all directories under wwwbase/img/wotd/ world-writable
 find wwwbase/img/wotd/ -type d -not -regex ".*svn.*" | xargs chmod 777
 
+# Allow user avatar uploads under wwwbase/img/user
+chmod 777 wwwbase/img/user
+
 if [ ! -e wwwbase/.htaccess ]
 then
   cp docs/.htaccess wwwbase/

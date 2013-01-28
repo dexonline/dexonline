@@ -569,7 +569,7 @@ function bookmarkResponseError(targetEl, msg) {
 }
 
 function handleAjaxResponse(data, targetEl, successCallback, errorCallback) {
-  if(data.status == 'success') {
+  if (data.status == 'success') {
     successCallback(targetEl);
   } else if (data.status == 'redirect') {
     window.location.replace(wwwRoot + data.url);

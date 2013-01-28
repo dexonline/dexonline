@@ -1,11 +1,28 @@
-<form method="post" action="preferinte" name="accountForm">
+{if $sUser}
+  <form action="editare-avatar" method="post" enctype="multipart/form-data">
+    <p class="paragraphTitle">Imagine</p>
+    {include file="common/bits/avatar.ihtml user=$sUser}
+    <label for="avatarFileName">Fișier:</label>
+    <input id="avatarFileName" type="file" name="avatarFileName">
+    <input id="avatarSubmit" type="submit" name="submit" value="Editează" disabled="disabled">
+    {if $userHasAvatar}
+      <a href="salvare-avatar?delete=1" onclick="return confirm('Confirmați ștergerea imaginii?');">șterge imaginea</a>
+    {/if}
 
+    <div class="describeOption">
+      Imaginea profilului dumneavoastră are rezoluția de 48x48 pixeli. Pe ecranul următor puteți edita poza încărcată.
+    </div>
+  </form>
+{/if}
+
+<form method="post" action="preferinte" name="accountForm">
   {if $sUser}
     <p class="paragraphTitle">Date personale</p>
     <input type="checkbox" id="detailsVisible" name="detailsVisible" value="1" {if $detailsVisible}checked="checked"{/if}/>
     <label for="detailsVisible">Datele mele sunt vizibile public</label>
     <div class="describeOption">
-      Identitatea OpenID, numele și adresa de email furnizate de OpenID vor apărea în <a href="{$wwwRoot}utilizator/{$sUser->nick}">profilul dumneavoastră</a>.
+      Identitatea OpenID, numele și adresa de email furnizate de OpenID vor apărea în <a href="{$wwwRoot}utilizator/{$sUser->nick}">profilul dumneavoastră</a>.<br/>
+      <i>DEX online</i> nu permite editarea directă a acestor date. Ele sunt preluate din identitatea OpenID.
     </div>
   {/if}
 
@@ -45,5 +62,28 @@
   {/if}
 
   <br/>
-  <input type="submit" name="send" value="Salvează" id="saveButton" />
+  <input type="submit" name="send" value="Salvează" id="saveButton"/>
+  <a href="{$wwwRoot}utilizator/{$sUser->nick|escape}">renunță</a>
 </form>
+
+<script type="text/javascript">
+{literal}
+  $('#avatarFileName').change(function() {
+    var error = '';
+    var allowedTypes = ['image/gif', 'image/jpeg', 'image/png'];
+    if (this.files[0].size > (1 << 21)) {
+      error = 'Dimensiunea maximă admisă este 2 MB.';
+    } else if (allowedTypes.indexOf(this.files[0].type) == -1) {
+      error = 'Sunt permise doar imagini jpeg, png sau gif.';
+    }
+    if (error) {
+      $('#avatarFileName').val('');
+      $('#avatarSubmit').attr('disabled', 'disabled');
+      alert(error);
+    } else {
+      $('#avatarSubmit').removeAttr('disabled');
+    }
+    return false;
+  });
+{/literal}
+</script>

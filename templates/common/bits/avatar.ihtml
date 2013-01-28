@@ -1,0 +1,5 @@
+{if $userHasAvatar}
+  <img class="avatar" src="{$imgRoot}/user/{$user->id}.jpg" alt="imagine de profil: {$user->nick|escape}"/>
+{else}
+  <img class="avatar" src="{$imgRoot}/avatar_user.png" alt="imagine generică pentru utilizatorii fără avatar"/>
+{/if}

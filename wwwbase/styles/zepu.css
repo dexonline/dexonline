@@ -1058,126 +1058,126 @@ div.sourceComplete5 {
 
 /* REDESIGN WIDGETS January 2013 */
 .widgetBox {
-	position: absolute;
-	top: 100px;
-	right: 0px;
-	width: 200px;
-	font-size: 11px;
+  position: absolute;
+  top: 100px;
+  right: 0px;
+  width: 200px;
+  font-size: 11px;
 }
 
 /* align banner to the left only on small resolutions */
 @media screen and (max-width: 1093px) { 
-	#banner_mainPage {
-		margin-left: 0px;
-	}
+  #banner_mainPage {
+    margin-left: 0px;
+  }
 }
 
 .widgetList {
-	background: #E4EFF7;
-	background-image: -webkit-linear-gradient(left, #F2F9FD, #C5D3DD);
-	background-image: -moz-linear-gradient(left, #F2F9FD, #C5D3DD);
-	background-image: -o-linear-gradient(left, #F2F9FD, #C5D3DD);
-	border: 1px solid #CCC;
-	padding: 20px 10px 5px 15px;
-	border-bottom-left-radius: 25px;
-	border-top-left-radius: 25px;
+  background: #E4EFF7;
+  background-image: -webkit-linear-gradient(left, #F2F9FD, #C5D3DD);
+  background-image: -moz-linear-gradient(left, #F2F9FD, #C5D3DD);
+  background-image: -o-linear-gradient(left, #F2F9FD, #C5D3DD);
+  border: 1px solid #CCC;
+  padding: 20px 10px 5px 15px;
+  border-bottom-left-radius: 25px;
+  border-top-left-radius: 25px;
 }
 
 /* hide widget box for very small resolutions */
 @media screen and (max-width: 983px) {
-	.widgetBox {
-		display: none;
-	}
+  .widgetBox {
+    display: none;
+  }
 
-	#banner_mainPage {
-		margin-left: 71px;
-	}
+  #banner_mainPage {
+    margin-left: 71px;
+  }
 }
 
 .widgetList li {
-	list-style-type: none;
-	display: inline-block;
-	margin-bottom: 20px;
+  list-style-type: none;
+  display: inline-block;
+  margin-bottom: 20px;
 }
 
 .widgetList span {
-	float: right;
-	max-width: 115px;
+  float: right;
+  max-width: 115px;
 }
 
 .lightBorder {
-	float: left;
-	margin-right: 7px;
-	border: 1px solid #777;
-	border-radius: 4px;
-	-webkit-border-radius: 4px;
-	box-shadow: 1px 1px 2px #979899;
-	-webkit-box-shadow: 1px 1px 2px #979899;
+  float: left;
+  margin-right: 7px;
+  border: 1px solid #777;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: 1px 1px 2px #979899;
+  -webkit-box-shadow: 1px 1px 2px #979899;
 }
 
 .widgetList label {
-	color: #64778A;
-	font-weight: bold;
+  color: #64778A;
+  font-weight: bold;
 }
 
 .widgetBox .widgetShadow {
-	margin-top: -11px;
-	background-position: 19px 0px;
-	width: 200px;
+  margin-top: -11px;
+  background-position: 19px 0px;
+  width: 200px;
 }
 
 /*  override from zepu.css line 420 */
 #missionStatement {
-	width: 540px;
+  width: 540px;
 }
 
 .socialNetworks {
-	margin-left: 25px;
-	margin-top: 10px;
+  margin-left: 25px;
+  margin-top: 10px;
 }
 
 body .socialNetworks label {
-	display: block;
-	margin-bottom: 5px;
-	color: #3B4753;
+  display: block;
+  margin-bottom: 5px;
+  color: #3B4753;
 }
 
 .socialNetworks img {
-	box-shadow: 2px 2px 2px #999;
-	-webkit-box-shadow: 2px 2px 2px #999;
-	border-radius: 6px;
-	-webkit-border-radius: 6px;
+  box-shadow: 2px 2px 2px #999;
+  -webkit-box-shadow: 2px 2px 2px #999;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
 }
 
 .socialNetworks img:hover {
-	box-shadow: 2px 2px 2px #777;
-	-webkit-box-shadow: 2px 2px 2px #777;
+  box-shadow: 2px 2px 2px #777;
+  -webkit-box-shadow: 2px 2px 2px #777;
 }
 
 .socialNetworks a {
-	display: inline-block;
-	padding-left: 11px;
+  display: inline-block;
+  padding-left: 11px;
 }
 
 li.widgetsPreferences {
   background: url("../img/icons/cog.png") no-repeat 0px 0px;
   height: 16px;
-	margin: 0px 0px 0px 35px;
+  margin: 0px 0px 0px 35px;
   padding-top: 2px;
   padding-left: 20px;
 }
 
 .widgetsPreferences a {
-	color: #777;
-	font-size: 10px;
+  color: #777;
+  font-size: 10px;
 }
 
 .widgetsPreferences a:hover {
-	color: #999;
+  color: #999;
 }
 
 .gameIcon {
-	width: 48px;
+  width: 48px;
 }
 
 /****************** Medal stuff *******************/
@@ -1210,25 +1210,25 @@ li.widgetsPreferences {
 }
 
 .avatar {
-  background: url("../img/avatar_user.png") no-repeat 0px 0px;
-  width: 48px;
-  height: 48px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
   float: left;
-	border-radius: 4px;
-	-webkit-border-radius: 4px;
+  height: 48px;
+  margin-right: 10px;
+  width: 48px;
 }
 
 .userProfileSection {
   margin-top: 10px;
-	border: 0px;
-	padding: 10px 10px 10px 0px;
-	margin-bottom: 10px;
+  border: 0px;
+  padding: 10px 10px 10px 0px;
+  margin-bottom: 10px;
 }
 
 .userProfileSection legend {
-	color: #525151;
-	display: block;
-	font-weight: bold;
+  color: #525151;
+  display: block;
+  font-weight: bold;
 }
 
 .userFields {
@@ -1249,3 +1249,24 @@ li.widgetsPreferences {
   margin: -23px 0px 15px 55px;
 }
 
+.profileEditLink {
+  font-size: 10px;
+  font-weight: normal;
+  padding-left: 10px;
+}
+
+#rawAvatarContainer {
+  margin-top: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 870px;
+}
+
+#avatarPreviewContainer {
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  height: 48px;
+  margin: 10px 0px;
+  overflow: hidden;
+  width: 48px;
+}

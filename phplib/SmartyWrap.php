@@ -149,14 +149,15 @@ class SmartyWrap {
       case 'jqueryui':           self::$cssFiles[1] = 'lightness-1.9.2/jquery-ui-1.9.2.custom.min.css'; break;
       case 'jqgrid':             self::$cssFiles[2] = 'ui.jqgrid.css?v=2'; break;
       case 'elfinder':           self::$cssFiles[4] = 'elfinder.css'; break;
-      case 'zepu':               self::$cssFiles[5] = 'zepu.css?v=46'; break;
-      case 'polar':              self::$cssFiles[6] = 'polar.css?v=30'; break;
+      case 'zepu':               self::$cssFiles[5] = 'zepu.css?v=47'; break;
+      case 'polar':              self::$cssFiles[6] = 'polar.css?v=31'; break;
       case 'mobile':             self::$cssFiles[7] = 'mobile.css?v=14'; break;
       case 'flex':               self::$cssFiles[8] = 'flex.css?v=9'; break;
       case 'paradigm':           self::$cssFiles[9] = 'paradigm.css?v=1'; break;
       case 'hangman':            self::$cssFiles[10] = 'hangman.css?v=2'; break;
       case 'mill':               self::$cssFiles[11] = 'mill.css?v=1'; break;
       case 'structure':          self::$cssFiles[12] = 'structure.css?v=1'; break;
+      case 'jcrop':              self::$cssFiles[13] = 'jquery.Jcrop.min.css?v=1'; break;
       default:
         FlashMessage::add("Cannot load CSS file {$id}");
         util_redirect(util_getWwwRoot());
@@ -186,6 +187,7 @@ class SmartyWrap {
       case 'mill':             self::$jsFiles[14] = 'mill.js?v=2'; break;
       case 'wotd':             self::$jsFiles[15] = 'wotd.js?v=1';
       case 'structure':        self::$jsFiles[16] = 'structure.js?v=1'; break;
+      case 'jcrop':            self::$jsFiles[17] = 'jquery.Jcrop.min.js?v=1'; break;
       default:
         FlashMessage::add("Cannot load JS script {$id}");
         util_redirect(util_getWwwRoot());

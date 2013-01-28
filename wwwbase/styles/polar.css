@@ -576,6 +576,25 @@ div.sourceComplete5 {
 
 /****************** Medal stuff *******************/
 
+.userProfileHeader {
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.userProfileHeader h3 {
+  margin: 30px 0px 10px 55px;
+  color: #333030;
+}
+
+.avatar {
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  float: left;
+  height: 48px;
+  margin-right: 10px;
+  width: 48px;
+}
+
 #medalEditDiv {
  display: none;
  margin-bottom: 10px;
@@ -587,3 +606,24 @@ div.sourceComplete5 {
   margin: 5px 0px;
 }
 
+.profileEditLink {
+  font-size: 12px;
+  font-weight: normal;
+  padding-left: 10px;
+}
+
+#rawAvatarContainer {
+  margin-top: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 870px;
+}
+
+#avatarPreviewContainer {
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  height: 48px;
+  margin: 10px 0px;
+  overflow: hidden;
+  width: 48px;
+}

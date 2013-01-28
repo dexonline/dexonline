@@ -197,7 +197,7 @@ class StringUtil {
   }
 
   static function scrambleEmail($email) {
-    return str_replace(array("@", "."), array("AT", "DOT"), $email);
+    return str_replace(array("@", "."), array(" [AT] ", " [DOT] "), $email);
   }
 
   static function reverse($s) {

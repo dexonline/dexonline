@@ -5,7 +5,7 @@
     <input type="checkbox" id="detailsVisible" name="detailsVisible" value="1" {if $detailsVisible}checked="checked"{/if}/>
     <label for="detailsVisible">Datele mele sunt vizibile public</label>
     <div class="describeOption">
-      Identitatea OpenID, numele și adresa de email furnizate de OpenID vor fi publicate în <a href="{$wwwRoot}utilizator/{$sUser->nick}">pagina utilizatorului</a>.
+      Identitatea OpenID, numele și adresa de email furnizate de OpenID vor apărea în <a href="{$wwwRoot}utilizator/{$sUser->nick}">profilul dumneavoastră</a>.
     </div>
   {/if}
 

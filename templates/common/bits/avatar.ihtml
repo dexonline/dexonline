@@ -1,5 +1,5 @@
 {if $userHasAvatar}
-  <img class="avatar" src="{$imgRoot}/user/{$user->id}.jpg" alt="imagine de profil: {$user->nick|escape}"/>
+  <img class="avatar" src="{$imgRoot}/user/{$user->id}.jpg?cb={1000000000|rand:9999999999}" alt="imagine de profil: {$user->nick|escape}"/>
 {else}
   <img class="avatar" src="{$imgRoot}/avatar_user.png" alt="imagine generică pentru utilizatorii fără avatar"/>
 {/if}

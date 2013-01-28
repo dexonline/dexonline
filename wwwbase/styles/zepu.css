@@ -1270,3 +1270,95 @@ li.widgetsPreferences {
   overflow: hidden;
   width: 48px;
 }
+
+
+/* DONATE PAGE */
+.donateContent {
+  border: 1px dashed #9DD6EC;
+  padding: 0px 15px;
+  color: #555;
+  line-height: 17px;
+  padding-top: 10px;
+}
+	  
+.paymentSection {
+  display: inline-block;
+  background: #D4EFFA;
+  width: 300px;
+  height: 175px;
+  margin: 15px 7px 0px 0px;
+  vertical-align: top;
+  padding-bottom: 15px;
+  border: 1px solid #BDE5F5;
+  box-shadow: 1px 1px 7px #B6B5B5;
+  -webkit-box-shadow: 1px 1px 7px #B6B5B5;
+}
+		
+.paymentSection h3 {
+  background: #9DD6EC;
+  margin: 0px 0px 10px 0px;
+  padding: 8px 10px 8px 20px;
+  color: #1A5774;
+}
+		
+.paypal {
+  width: 200px;
+}
+		
+.paymentSection label {
+  display: inline-block;
+  width: 70px;
+  padding-left: 15px;
+  margin-top: 10px;
+}
+		
+.donateContent ul li {
+  list-style-type: square;
+}
+		
+.paymentSection label.tipText {
+  width: 260px;
+  color: #757E75;
+  font-size: 10px;
+  margin-top: 10px;
+  padding-left: 35px;
+}
+		
+.onlineDonationButton {
+  margin-top: 20px;
+  margin-left: 25px;
+  padding: 0;
+  background: #D4EFFA url("../img/donate.png") 0px 0px no-repeat;
+  border: 0px;
+  border-radius: 12px;
+  box-shadow: 1px 1px 2px #777;
+  cursor: pointer;
+  width: 252px;
+  height: 34px;
+}
+		
+.onlineDonationButton:hover {
+  box-shadow: 2px 2px 2px #999;
+}
+		
+.payPalButton {
+  margin-top: 35px;
+  margin-left: 20px;
+  border: 0px;
+}
+		
+.bankTransfer ul {
+  padding-left: 15px;
+}
+		
+.bankTransfer ul li {
+	list-style-type: none;
+	margin-top: 7px;
+	color: #888;
+}
+		
+.bankAccount {
+  font-weight: bold;
+  color: #555;
+  font-size: 11px;
+}

@@ -1192,3 +1192,60 @@ li.widgetsPreferences {
   -webkit-columns: 350px 2;
   margin: 5px 0px;
 }
+
+
+/* RICH USER PROFILE */
+.userProfileHeader {
+  overflow: hidden;
+}
+
+.userProfileHeader,
+.userProfileSection {
+  margin-left: 15px;
+}
+
+.userProfileHeader h3 {
+  margin: 30px 0px 10px 55px;
+  color: #333030;
+}
+
+.avatar {
+  background: url("../img/avatar_user.png") no-repeat 0px 0px;
+  width: 48px;
+  height: 48px;
+  float: left;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+.userProfileSection {
+  margin-top: 10px;
+	border: 0px;
+	padding: 10px 10px 10px 0px;
+	margin-bottom: 10px;
+}
+
+.userProfileSection legend {
+	color: #525151;
+	display: block;
+	font-weight: bold;
+}
+
+.userFields {
+  color: #888;
+  display: inline-block;
+  width: 150px;
+  margin: 0px 10px 5px 5px;
+}
+
+.userNoMedals {
+  color: #888;
+  display: inline-block;
+  margin: 0px 10px 5px 5px;
+}
+
+.sectionEdit {
+  display: block;
+  margin: -23px 0px 15px 55px;
+}
+

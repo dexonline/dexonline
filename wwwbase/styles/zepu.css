@@ -204,6 +204,14 @@ img {
   text-decoration: underline;
 }
 
+.fb_bottom { 
+  border-bottom: 1px solid #BFBFBF; 
+  border-top: 1px solid #BFBFBF; 
+  margin: 20px auto 10px;/*it was 0 auto 10*/ 
+  padding: 5px 0px 5px 3px; 
+  width: 875px; 
+} 
+
 .fb_top, 
 .plus_top {
   float: right;

@@ -73,6 +73,12 @@ skins[] = polar
 ; This can be an absolute file name or relative to one of the paths in include_path
 smartyClass = smarty/Smarty.class.php
 
+[euplatesc]
+; Key for euplatesc.ro or 0 to disable the donation box.
+euPlatescKey = 0
+; Merchant ID for euplatesc.ro or 0 to disable the donation box.
+euPlatescMid = 0
+
 [functest]
 ; URL that the functional test engine will exercise
 ; This is the URL you normally go to in development

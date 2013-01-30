@@ -1,24 +1,49 @@
+<script>
+{literal}
+<!--
+function formCheck(formobj) {
+  var email = formobj.elements['email'].value;
+  if (email) {
+    return true;
+  } else {
+    alert('Vă rugăm să completați adresa de email.');
+    return false;
+  }
+}
+// -->
+{/literal}
+</script>
+
 <div class="donateContent">
   Dacă ați ajuns pe această pagină, probabil că știți deja ce este <i>dexonline</i> (dacă nu, puteți afla de <a href="http://dexonline.ro/informatii#ce_este">aici</a>).<br />
   Puteți contribui la dezvoltarea proiectului <i>dexonline</i> și prin donarea unei sume de bani. Mai multe detalii la finalul acestei pagini.
 
-  <div class="paymentSection">
-    <h3>Donează online</h3>
-    <form name="EuPlatesc" action="pay.php" method="post" enctype="multipart/form-data"  onsubmit="return formCheck(this);">
-      <label>Suma</label>
-      <select name="amount">
-        <option value="20">20 lei</option>
-        <option value="50">50 lei</option>
-        <option value="100">100 lei</option>
-        <option value="150">150 lei</option>
-        <option value="200">200 lei</option>
-      </select><br />
-      <label title="e-mailul este necesar pentru trimiterea confirmării plății">E-mail *</label>
-      <input name="email" type="text" size="25" /> <br />
-      <input type="submit" name="Doneaza" value="" class="onlineDonationButton" />
-      <label class="tipText">* necesar pentru trimiterea confirmării plății</label>
-    </form>
-  </div>
+  {if $haveEuPlatescCredentials}
+    <div class="paymentSection">
+      <h3>Donează online</h3>
+      <form action="doneaza-euplatesc.php" method="post" enctype="multipart/form-data"  onsubmit="return formCheck(this);">
+        <label>Suma</label>
+        <select name="amount">
+          <option value="20">20 lei</option>
+          <option value="50">50 lei</option>
+          <option value="100">100 lei</option>
+          <option value="150">150 lei</option>
+          <option value="200">200 lei</option>
+        </select><br/>
+        <label title="e-mailul este necesar pentru trimiterea confirmării plății">E-mail *</label>
+        <input id="donateOnlineEmail" type="text" name="email" value="{$defaultEmail}" size="25"/> <br/>
+        <input type="submit" name="Doneaza" value="" class="onlineDonationButton"/>
+        <label class="tipText">* necesar pentru trimiterea confirmării plății</label>
+      </form>
+    </div>
+    <script type="text/javascript">
+    {literal}
+      $(function() {
+        $('#donateOnlineEmail').focus();
+      });
+    {/literal}
+    </script>
+  {/if}
     
   <div class="paymentSection paypal">
     <h3>Donează prin PayPal</h3>
@@ -56,4 +81,3 @@
     <li> mentenanța sistemului.</li>
   </ul>     
 </div>
-

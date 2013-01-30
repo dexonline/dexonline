@@ -1282,9 +1282,7 @@ li.widgetsPreferences {
 
 /* DONATE PAGE */
 .donateContent {
-  border: 1px dashed #9DD6EC;
   padding: 0px 15px;
-  color: #555;
   line-height: 17px;
   padding-top: 10px;
 }

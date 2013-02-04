@@ -1,6 +1,6 @@
 <?php
 
-define('WOTM_BIG_BANG', '2012-03-01');
+define('WOTM_BIG_BANG', '2012-04-01');
 
 require_once("../phplib/util.php");
 

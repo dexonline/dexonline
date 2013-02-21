@@ -8,25 +8,34 @@ class TopEntry {
   public $days; // since last submission
 
   private static function getSqlStatement($manual) {
-    $bulk = array(array(null, Source::get_by_shortName('MDN'), '2007-09-15'),
-                  array(null, Source::get_by_shortName('Petro-Sedim'), null),
-                  array(null, Source::get_by_shortName('GTA'), null),
-                  array(null, Source::get_by_shortName('DCR2'), null),
-                  array(null, Source::get_by_shortName('DOR'), null),
-                  array(User::get_by_nick('siveco'), null, null),
-                  array(User::get_by_nick('RACAI'), null, null),
+/*
+ *                      nick            source (short)     createDate              1:ratio (3-> 33%, 4 -> 25%)
+ */
+    $bulk = array(array(null,           'MDN',             " = '2007-09-15'",      null),
+                  array(null,           'Petro-Sedim',     null,                   null),
+                  array(null,           'GTA',             null,                   null),
+                  array(null,           'DCR2',            null,                   null),
+                  array(null,           'DOR',             null,                   null),
+                  array('raduborza',    'DOOM 2',          " > '2013-01-01'",         4),
+                  array('siveco',       null,              null,                   null),
+                  array('RACAI',        null,              null,                   null),
                   );
     $conditions = array();
     foreach ($bulk as $tuple) {
       $parts = array();
       if ($tuple[0]) {
-        $parts[] = "(userId = {$tuple[0]->id})";
+        $user = User::get_by_nick($tuple[0]);
+        $parts[] = "(userId = {$user->id})";
       }
       if ($tuple[1]) {
-        $parts[] = "(sourceId = {$tuple[1]->id})";
+        $src = Source::get_by_shortName($tuple[1]);
+        $parts[] = "(sourceId = {$src->id})";
       }
       if ($tuple[2]) {
-        $parts[] = "(left(from_unixtime(createDate), 10) = '{$tuple[2]}')";
+        $parts[] = "(left(from_unixtime(createDate), 10)" . $tuple[2] . ")";
+      }
+      if ($tuple[3]) {
+        $parts[] = "(Definition.id%{$tuple[3]}!=0)";
       }
       $conditions[] = '(' . implode(' and ', $parts) . ')';
     }
@@ -64,6 +73,11 @@ class TopEntry {
     }
 
     return $topEntries;
+  }
+
+    //for debugging purposes only
+  private static function __getUnsortedTopData($manual) {
+      return TopEntry::loadUnsortedTopData($manual);
   }
 
   private static function getUnsortedTopData($manual) {

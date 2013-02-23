@@ -6,6 +6,7 @@ Allow from all
 </IfModule>
 
 RewriteEngine on
+Options -MultiViews
 # Uncomment the next line when running DEX online from within a user directory
 # RewriteBase /~cata/DEX/wwwbase/
 

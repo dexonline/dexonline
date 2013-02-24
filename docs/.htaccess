@@ -88,6 +88,6 @@ RewriteRule ^scrabbleLoc.php$ /scrabble-loc [R=301,L]
 RewriteRule ^tools.php$ /unelte [R=301,L]
 
 # Append .php when a file by that name exists
-RewriteCond %{REQUEST_URI} /[-a-z]+$
+RewriteCond %{REQUEST_URI} /[-a-zA-Z]+$
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule (.*)$ $1.php [L]

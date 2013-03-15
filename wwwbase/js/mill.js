@@ -10,10 +10,10 @@ function loadXMLDoc() {
     }
   }).done( function(xml) {
       $(".word").html($(xml).find("word").text());
-      $('.optionButtons[value="1"]').html("1. " + $(xml).find("definition1").text());
-      $('.optionButtons[value="2"]').html("2. " + $(xml).find("definition2").text());
-      $('.optionButtons[value="3"]').html("3. " + $(xml).find("definition3").text());
-      $('.optionButtons[value="4"]').html("4. " + $(xml).find("definition4").text());
+      $('.optionButtons[value="1"]').html("a&#41; " + $(xml).find("definition1").text());
+      $('.optionButtons[value="2"]').html("b&#41; " + $(xml).find("definition2").text());
+      $('.optionButtons[value="3"]').html("c&#41; " + $(xml).find("definition3").text());
+      $('.optionButtons[value="4"]').html("d&#41; " + $(xml).find("definition4").text());
       answer = $(xml).find("answer").text();
       answerId = $(xml).find("answerId").text();
     }
@@ -23,13 +23,13 @@ function loadXMLDoc() {
 function mill_optionPressed(field) {
   if (answer == field.val()) {
     field.addClass('buttonGuessed');
-    $('#statusImage' + round).attr("src", wwwRoot + "img/mill/success.jpg");
+    $('#statusImage' + round).attr("src", wwwRoot + "img/mill/success.png");
     answeredCorrect = answeredCorrect + 1;
     guessed = 1;
   } else {
     field.addClass('buttonMissed');
     $('.optionButtons[value="' + answer + '"]').addClass('buttonHinted');
-    $('#statusImage'+round).attr("src", wwwRoot + "img/mill/fail.jpg");
+    $('#statusImage'+round).attr("src", wwwRoot + "img/mill/fail.png");
     guessed = 0;
   }
   
@@ -42,7 +42,7 @@ function mill_optionPressed(field) {
       $("#questionPage").hide();
       $("#resultsPage").show();
       $("#answeredCorrect").html(answeredCorrect);
-    },2000);
+    },3000);
   } else {
     round++;
     setTimeout(function() {

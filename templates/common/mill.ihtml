@@ -8,34 +8,39 @@
   var guessed = 0;
 </script>
 
-<p class="paragraphTitle">Moara cuvintelor</p>
+<div class="millArea">
+  <p class="paragraphTitle">Moara cuvintelor</p>
 
-<div id="mainPage">
-  <form id="main" action="">
-    <button class="difficultyButtons" type="button" value="1">Ușor</button>
-    <button class="difficultyButtons" type="button" value="2">Mediu</button>
-    <button class="difficultyButtons" type="button" value="3">Greu</button>
-    <button class="difficultyButtons" type="button" value="4">Foarte greu</button>
-  </form>
-  Se poate juca și cu tastatura folosind tastele: 1, 2, 3, 4.
-</div>
+  <div id="mainPage">
+    <form id="main" action="">Nivel:
+      <button class="difficultyButtons btn" type="button" value="1">Ușor</button>
+      <button class="difficultyButtons btn" type="button" value="2">Mediu</button>
+      <button class="difficultyButtons btn" type="button" value="3">Greu</button>
+      <button class="difficultyButtons btn" type="button" value="4">Foarte greu</button>
+    </form>
+    Se poate juca și cu tastatura folosind tastele: 1, 2, 3, 4.
+  </div>
 
 
-<div id="questionPage">
-  {section name=round start=1 loop=11} {* Yes, Smarty, 11 means 10 *}
-    <img id="statusImage{$smarty.section.round.index}" src="{$imgRoot}/mill/pending.jpg" alt="imagine pentru runda {$smarty.section.round.index}"/>
-  {/section}
+  <div id="questionPage">
+    {section name=round start=1 loop=11} {* Yes, Smarty, 11 means 10 *}
+        <span class="questionImage">
+          <img id="statusImage{$smarty.section.round.index}" src="{$imgRoot}/mill/pending.png" alt="imagine pentru runda {$smarty.section.round.index}"/>
+          <span class="questionNumber">{$smarty.section.round.index}</span>
+        </span>
+    {/section}
 
-  <form id="mill" action="">
-    <p class="word"></p>
-    <button class="optionButtons" type="button" value="1">1</button>
-    <button class="optionButtons" type="button" value="2">2</button>
-    <button class="optionButtons" type="button" value="3">3</button>
-    <button class="optionButtons" type="button" value="4">4</button>
-  </form>
-</div>
+    <form id="mill" action="">
+      <label>Definiția corectă pentru <span class="word"></span>:</label>
+      <button class="optionButtons btn" type="button" value="1">a&#41;</button>
+      <button class="optionButtons btn" type="button" value="2">b&#41;</button>
+      <button class="optionButtons btn" type="button" value="3">c&#41;</button>
+      <button class="optionButtons btn" type="button" value="4">d&#41;</button>
+    </form>
+  </div>
 
-<div id="resultsPage">
-  <p>Felicitări! Ai răspuns corect la <b id="answeredCorrect">0</b> din 10.</p>
-  <button id="newGameButton">Joc nou</button>
+  <div id="resultsPage">
+    <p>Felicitări! Ai răspuns corect la <b id="answeredCorrect">0</b> definiții din 10.</p>
+    <button id="newGameButton" class="btn">Joc nou</button>
+  </div>
 </div>

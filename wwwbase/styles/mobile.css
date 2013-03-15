@@ -212,3 +212,22 @@ table {
   }
 
 }
+
+
+/* mobile improvements for Mill game */
+body .millArea {
+  border: 0px;
+}
+
+body .millArea .btn {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px; /* mobile buttons must be bigger */
+  width: 92%;
+}
+
+body .questionImage {
+  width: 60px;
+  margin-bottom: 5px;
+}
+

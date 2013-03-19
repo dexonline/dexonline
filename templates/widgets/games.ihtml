@@ -1,5 +1,6 @@
 <img src="{$imgRoot}/hangman/thumb.png" alt="iconiță spânzurătoarea" class="gameIcon lightBorder" />
 <span>
   <label>Jocuri</label><br />
-  <a href="{$wwwRoot}spanzuratoarea">spânzurătoarea</a>
+  <a href="{$wwwRoot}spanzuratoarea">spânzurătoarea</a><br/>
+  <a href="{$wwwRoot}moara">moara cuvintelor</a>
 </span>

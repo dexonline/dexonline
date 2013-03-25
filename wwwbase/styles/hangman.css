@@ -1,7 +1,87 @@
+.hangmanArea {
+  border: 2px dotted rgb(151, 212, 230);
+  padding: 10px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.hangmanArea .paragraphTitle {
+  font-family: "Segoe Print", "Lucida Sans Unicode", Baskerville, Georgia;
+  color: rgb(16, 158, 27);
+  font-size: 18px;
+}
+
+#hangman {
+  overflow: hidden;
+}
+
+#hangman .btn {
+	color: #555;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-repeat: repeat-x;
+	padding: 4px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	line-height: 20px;
+	cursor: pointer;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	border: 1px solid rgb(204, 204, 204);
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+#hangman .btn:hover {
+	background: rgb(230, 230, 230);
+}
+
+#hangman .graphics label,
+#hangman .newGameControls label {
+	display: block;
+	text-align: left;
+	padding-left: 5px;
+	font-size: 13px;
+}
+
+#hangman .newGame {
+  width: 100px;
+  margin-top: 4px;
+	color: #fff;
+	background-color: rgb(73, 175, 205);
+	background-image: -moz-linear-gradient(top, rgb(91, 192, 222), rgb(47, 150, 180));
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(91, 192, 222)), to(rgb(47, 150, 180)));
+	background-image: -webkit-linear-gradient(top, rgb(91, 192, 222), rgb(47, 150, 180));
+	background-image: -o-linear-gradient(top, rgb(91, 192, 222), rgb(47, 150, 180));
+	background-image: linear-gradient(to bottom, rgb(91, 192, 222), rgb(47, 150, 180));
+}
+
+#hangman .newGame:hover {
+	background: rgb(47, 150, 180);
+	background-position: 0px -15px;
+}
+
+#hangman #hintButton {
+	background-color: rgb(250, 167, 50);
+	background-image: -moz-linear-gradient(top, rgb(251, 180, 80), rgb(248, 148, 6));
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(251, 180, 80)), to(rgb(248, 148, 6)));
+	background-image: -webkit-linear-gradient(top, rgb(251, 180, 80), rgb(248, 148, 6));
+	background-image: -o-linear-gradient(top, rgb(251, 180, 80), rgb(248, 148, 6));
+	background-image: linear-gradient(to bottom, rgb(251, 180, 80), rgb(248, 148, 6));
+	text-shadow: none;
+}
+
+#hangman #hintButton:hover {
+	background: rgb(248, 148, 6);
+	background-position: 0px -15px;
+}
+
 #hangman .graphics {
   float: left;
-  font-size: 16px;
-  text-align: center;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 #hangman .hangmanPic {
@@ -20,62 +100,69 @@
 
 #hangman .controls {
   float: left;
-  margin-left: 50px;
+  margin-left: 30px;
+  margin-top: 30px;
+  width: 300px;
 }
 
 #hangman .newGameControls {
   float: left;
-  font-size: 16px;
-  margin-left: 50px;
-  text-align: center;
+  margin-left: 30px;
+  margin-top: 30px;
 }
 
 #hangman .output {
   clear: both;
   padding-top: 10px;
+  padding-left: 10px;
 }
 
 #hangman .letters {
   text-align: center;
+  border: 1px solid #777;
+  padding: 4px 2px 2px 2px;
 }
 
 #hangman .letterButtons {
-  margin-left: 3px;
+  margin: 2px;
   width: 40px;
-}
-
-#hangman .newGame {
-  width: 100px;
 }
 
 #hangman #hintButton {
   margin-left: 3px;
-  width: 224px;
+  width: 230px;
 }
 
-#hangman .buttonGuessed {
-  background: #eaffea;
+#hangman .buttonGuessed,
+#hangman .buttonGuessed:hover {
+  font-weight: bold;
+  background: green;
+  color: white;
+}
+
+#hangman .buttonHinted,
+#hangman .buttonHinted:hover {
+  background: #B2D9B2;
   border: 1px solid green;
   color: green;
   font-weight: bold;
 }
 
-#hangman .buttonHinted {
-  background: #eaeaff;
-  border: 1px solid blue;
-  color: blue;
+#hangman .buttonMissed,
+#hangman .buttonMissed:hover {
   font-weight: bold;
-}
-
-#hangman .buttonMissed {
-  background: #ffeaea;
-  border: 1px solid red;
-  color: red;
-  font-weight: bold;
+  background-color: rgb(218, 79, 73);
+  background-image: -moz-linear-gradient(top, rgb(238, 95, 91), rgb(189, 54, 47));
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(238, 95, 91)), to(rgb(189, 54, 47)));
+  background-image: -webkit-linear-gradient(top, rgb(238, 95, 91), rgb(189, 54, 47));
+  background-image: -o-linear-gradient(top, rgb(238, 95, 91), rgb(189, 54, 47));
+  background-image: linear-gradient(to bottom, rgb(238, 95, 91), rgb(189, 54, 47)); /*#ffeaea;*/
+  color: white;
 }
 
 #hangman #resultsWrapper {
   display: none;
+  clear: both;
 }
 
 .notice-item {

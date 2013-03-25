@@ -13,7 +13,7 @@ html, body, div, input {
 }
 
 body {
-  width: 100%;
+  /*width: 99%;*/
   height: 100%;
 }
 
@@ -64,7 +64,7 @@ table {
 #searchArea {
   width: 100%; /*320px;*/
   height: 45px;
-  margin: 5px 10px;
+  margin: 5px 0px;
   text-align: center;
 }
 
@@ -177,7 +177,7 @@ table {
 }
 
 /* only small resolution devices in portrait mode */
-@media only screen and (max-width: 319px) {
+@media only screen and (max-width: 320px) {
 
   #faq {
     max-width: 90%;
@@ -187,11 +187,15 @@ table {
   table {
     max-width: 300px;
   }
+  
+  body #hangman #hintButton {
+    width: 204px;
+  }
 
 }
 
 /* only big resolution devices in portrait mode */
-@media only screen and (max-width: 479px) {
+@media only screen and (max-width: 480px) {
   
   #wotdMobile {
     margin: 23% auto; /*80px auto;*/
@@ -229,5 +233,25 @@ body .millArea .btn {
 body .questionImage {
   width: 60px;
   margin-bottom: 5px;
+}
+
+
+/* mobile improvements for Hangman game */
+body .hangmanArea {
+	border: 0px;
+}
+
+body #hangman .controls,
+body #hangman .newGameControls {
+	float: none;
+	clear: both;
+	margin-left: 0px;
+	padding-top: 10px;
+	width: 100%;
+}
+
+body #hangman .btn {
+	min-height: 40px;
+	margin: 5px;
 }
 

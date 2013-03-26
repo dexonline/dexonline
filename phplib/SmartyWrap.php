@@ -151,10 +151,10 @@ class SmartyWrap {
       case 'elfinder':           self::$cssFiles[4] = 'elfinder.css'; break;
       case 'zepu':               self::$cssFiles[5] = 'zepu.css?v=48'; break;
       case 'polar':              self::$cssFiles[6] = 'polar.css?v=31'; break;
-      case 'mobile':             self::$cssFiles[7] = 'mobile.css?v=14'; break;
+      case 'mobile':             self::$cssFiles[7] = 'mobile.css?v=15'; break;
       case 'flex':               self::$cssFiles[8] = 'flex.css?v=9'; break;
       case 'paradigm':           self::$cssFiles[9] = 'paradigm.css?v=1'; break;
-      case 'hangman':            self::$cssFiles[10] = 'hangman.css?v=2'; break;
+      case 'hangman':            self::$cssFiles[10] = 'hangman.css?v=3'; break;
       case 'mill':               self::$cssFiles[11] = 'mill.css?v=1'; break;
       case 'structure':          self::$cssFiles[12] = 'structure.css?v=1'; break;
       case 'jcrop':              self::$cssFiles[13] = 'jquery.Jcrop.min.css?v=1'; break;

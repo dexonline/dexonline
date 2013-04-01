@@ -1,0 +1,124 @@
+<div id="meaningEditor" class="box">
+  <div class="boxTitle">Editorul de sensuri</div>
+  <div class="boxContents">
+    Sensul:<br/>
+    <textarea id="editorInternalRep" rows="10" cols="10" disabled="disabled"></textarea><br/>
+    Comentariu:<br/>
+    <textarea id="editorInternalComment" rows="3" cols="10" disabled="disabled"></textarea><br/>
+    Surse:<br/>
+    <select id="editorSources" multiple="multiple">
+      {foreach from=$sources item=s}
+        <option value="{$s->id}">{$s->shortName}</option>
+      {/foreach}
+    </select>
+    <br/><br/>
+    <input id="editMeaningAcceptButton" type="button" disabled="disabled" value="acceptă"/>
+    <input id="editMeaningCancelButton" type="button" disabled="disabled" value="renunță"/>
+  </div>
+</div>
+
+<span id="stemNode">
+  <span class="id"></span>
+  <span class="internalRep"></span>
+  <span class="htmlRep"></span>
+  <span class="sources"></span>
+  <span class="sourceIds"></span>
+  <span class="internalComment"></span>
+  <span class="htmlComment"></span>
+</span>
+
+<div id="meaningTreeContainer" class="box">
+  <div class="boxTitle">Arborele de sensuri</div>
+  <div class="boxContents">
+    <ul id="meaningTree">
+      <li>
+        <span>
+          <span class="id"></span>
+          <span class="internalRep">Sensul 1 @definiției@ este aici</span>
+          <span class="htmlRep">Sensul 1 <b>definiției</b> este aici</span>
+          <span class="sources">DEX '98, DN, DER</span>
+          <span class="sourceIds">1,5,17,20</span>
+          <span class="internalComment">Comentariu aici</span>
+          <span class="htmlComment">Comentariu aici</span>
+        </span>
+        <ul>
+          <li>
+            <span>
+              <span class="id"></span>
+              <span class="internalRep">Sensul 2 definiției este aici</span>
+              <span class="htmlRep">Sensul 2 definiției este aici</span>
+              <span class="sources">DEX '98, DN, DER</span>
+              <span class="sourceIds">3,5,17,20</span>
+              <span class="internalComment">Comentariu aici</span>
+              <span class="htmlComment">Comentariu aici</span>
+            </span>
+          </li>
+          <li>
+            <span>
+              <span class="id"></span>
+              <span class="internalRep">Sensul 3 definiției este aici</span>
+              <span class="htmlRep">Sensul 3 definiției este aici</span>
+              <span class="sources">DEX '98, DN, DER</span>
+              <span class="sourceIds">2,5,17,20,22</span>
+              <span class="internalComment">Comentariu aici</span>
+              <span class="htmlComment">Comentariu aici</span>
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span>
+          <span class="id"></span>
+          <span class="internalRep">Sensul 4 definiției este aici</span>
+          <span class="htmlRep">Sensul 4 definiției este aici</span>
+          <span class="sources">DEX '98, DN, DER</span>
+          <span class="sourceIds">1,5,17,20</span>
+          <span class="internalComment">Comentariu aici</span>
+          <span class="htmlComment">Comentariu aici</span>
+        </span>
+      </li>
+    </ul>
+  
+    <div id="meaningMenu">
+      <input type="button" id="addMeaningButton" value="adaugă sens"/>
+      <input type="button" id="addSubmeaningButton" value="adaugă subsens"/>
+    </div>
+  </div>
+</div>
+
+<div style="clear: both"></div>
+
+<form id="meaningForm" action="dexEdit.php" method="post">
+  <input type="hidden" name="jsonMeanings" value=""/>
+  <input type="hidden" name="lexemId" value="{$lexem->id}"/>
+  <input id="dexEditSaveButton" type="button" value="salvează"/>
+</form>
+
+<div class="box">
+  <div class="boxTitle">Definiții</div>
+  <div class="boxContents">
+    {foreach from=$searchResults item=row}
+      <div>
+        <div class="defInternalRep">
+          {$row->definition->internalRep|escape}
+        </div>
+        <span class="defDetails">
+          Sursa: {$row->source->shortName|escape}
+          | Id: {$row->definition->id}
+          | <a href="definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
+        </span>
+        {if $row->comment}
+          <div class="commentInternalRep">
+            Comentariu: {$row->comment->contents} -
+            <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}"
+            >{$row->commentAuthor->nick|escape}</a>
+          </div>
+        {/if}
+      </div>
+    {/foreach}
+  </div>
+</div>
+
+<script type="text/javascript">
+  meaningEditorInit();
+</script>

@@ -201,3 +201,134 @@ function pushAbbrevButton(id, state) {
     }
   }
 }
+
+/********************* Meaning editor code **************************/
+
+me_anyChanges = false;
+
+function meaningEditorInit() {
+  $('#meaningTree').tree({
+    animate: true,
+    dnd: true,
+    lines: true,
+    onBeforeSelect: meaningEditorChanged,
+    onSelect: beginMeaningEdit,
+  });
+  $('#addMeaningButton').click(addMeaning);
+  $('#addSubmeaningButton').click(addSubmeaning);
+  $('#editorSources').multiselect({
+    header: false,
+    minWidth: 380,
+    noneSelectedText: 'alegeți una sau mai multe surse',
+    selectedList: 1000,
+  });
+  $('#editorSources').multiselect('disable');
+  $('#editorInternalRep, #editorInternalComment, #editorSources').bind('change keyup input paste', function() {
+    me_anyChanges = true;
+  });
+  $('#editMeaningAcceptButton').click(acceptMeaningEdit);
+  $('#editMeaningCancelButton').click(endMeaningEdit);
+  $('#dexEditSaveButton').click(dexEditSaveEverything);
+}
+
+function addMeaning() {
+  var node = $('#meaningTree').tree('getSelected');
+  var parent;
+  if (node) {
+    var parentNode = $('#meaningTree').tree('getParent', node.target);
+    parent = parentNode ? parentNode.target : null;
+  } else {
+    parent = null;
+  }
+  $('#meaningTree').tree('append', {
+    parent: parent,
+    data: [{ 'text': $('#stemNode').html() }]
+  });
+}
+
+function addSubmeaning() {
+  var node = $('#meaningTree').tree('getSelected');
+  if (node) {
+    $('#meaningTree').tree('append', {
+      parent: node.target,
+      data: [{ 'text': $('#stemNode').html() }]
+    });
+  }
+}
+
+function meaningEditorChanged(node) {
+  return !me_anyChanges || confirm('Aveți deja un sens în curs de modificare. Confirmați renunțarea la modificări?');
+}
+
+function beginMeaningEdit() {
+  me_anyChanges = false;
+  var domNode = $('#meaningTree').tree('getSelected').target;
+  var node = $(domNode);
+  $('#editorInternalRep, #editorInternalComment, #editMeaningAcceptButton, #editMeaningCancelButton').removeAttr('disabled');
+  $('#editorInternalRep').val(node.find('span.internalRep').text());
+  $('#editorInternalComment').val(node.find('span.internalComment').text());
+  $('#editorSources').val(node.find('span.sourceIds').text().split(','));
+  $('#editorSources').multiselect('refresh');
+  $('#editorSources').multiselect('enable');
+}
+
+function acceptMeaningEdit() {
+  me_anyChanges = false;
+  var domNode = $('#meaningTree').tree('getSelected').target;
+  var node = $(domNode);
+  var internalRep = $('#editorInternalRep').val();
+  var internalComment = $('#editorInternalComment').val();
+  var sourceIds = $('#editorSources').val();
+  $.post(wwwRoot + 'ajax/htmlize.php',
+         { internalRep: internalRep, sourceId: 0 },
+         function(data) { node.find('span.htmlRep').html(data); },
+        'text');
+  $.post(wwwRoot + 'ajax/htmlize.php',
+         { internalRep: internalComment, sourceId: 0 },
+         function(data) { node.find('span.htmlComment').html(data); },
+        'text');
+  node.find('span.internalRep').text(internalRep);
+  node.find('span.internalComment').text(internalComment);
+  node.find('span.sourceIds').text(sourceIds ? sourceIds.join(',') : '');
+  node.find('span.sources').text('');
+  $('#editorSources option:selected').each(function(index, value) {
+    node.find('span.sources').append($(value).text() + ' ');
+  });
+}
+
+function endMeaningEdit() {
+  me_anyChanges = false;
+  $('#editorInternalRep, #editorInternalComment, #editMeaningAcceptButton, #editMeaningCancelButton').attr('disabled', 'disabled');
+  $('#editorInternalRep').val('');
+  $('#editorInternalComment').val('');
+  $('#editorSources').val([]);
+  $('#editorSources').multiselect('refresh');
+  $('#editorSources').multiselect('disable');
+}
+
+// Iterate a meaning tree node recursively and collect meaning-related fields
+function dexEditTreeWalk(node, results, level) {
+  var jqNode = $(node.target);
+  results.push({ 'id': jqNode.find('span.id').text(),
+                 'internalRep': jqNode.find('span.internalRep').text(),
+                 'sourceIds': jqNode.find('span.sourceIds').text(),
+                 'internalComment': jqNode.find('span.internalComment').text(),
+                 'level' : level,
+               });
+  var children = $('#meaningTree').tree('getChildren', node.target);
+  for (var i = 0; i < children.length; i++) {
+    dexEditTreeWalk(children[i], results, level + 1);
+  }
+}
+
+function dexEditSaveEverything() {
+  if (meaningEditorChanged()) {
+    var results = new Array();
+    var roots = $('#meaningTree').tree('getRoots');
+    for (var i = 0; i < roots.length; i++) {
+      dexEditTreeWalk(roots[i], results, 0);
+    }
+  }
+  $('input[name=jsonMeanings]').val(JSON.stringify(results));
+  $('#meaningForm').submit();
+}

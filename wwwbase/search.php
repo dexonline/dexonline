@@ -59,7 +59,7 @@ if ($text) {
     $defIds = Definition::searchFullText($properWords, $hasDiacritics, $sourceId);
     SmartyWrap::assign('numResults', count($defIds));
     // Show at most 500 definitions;
-    $defIds = array_slice($defIds, 0, 500);
+    $defIds = array_slice($defIds, 0, LIMIT_FULLTEXT_DISPLAY);
     // Load definitions in the given order
     $definitions = array();
     foreach ($defIds as $id) {

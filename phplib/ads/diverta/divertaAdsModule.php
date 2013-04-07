@@ -58,7 +58,7 @@ class DivertaAdsModule extends AdsModule {
   }
 }
 
-class DivertaBook extends BaseObject {
+class DivertaBook extends BaseObject implements DatedObject {
   public static $_table = 'diverta_Book';
 }
 

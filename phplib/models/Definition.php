@@ -1,6 +1,6 @@
 <?php
 
-class Definition extends BaseObject {
+class Definition extends BaseObject implements DatedObject {
   public static $_table = 'Definition';
 
 

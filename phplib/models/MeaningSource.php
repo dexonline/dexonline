@@ -1,6 +1,6 @@
 <?php
 
-class MeaningSource extends BaseObject {
+class MeaningSource extends BaseObject implements DatedObject {
   public static $_table = 'MeaningSource';
 
   static function updateMeaningSources($meaningId, $sourceIds) {

@@ -15,6 +15,17 @@ class BaseObject extends Model {
     }
     die("BaseObject::__callStatic() cannot handle method '$name'");
   }
+
+  function save() {
+    /* Auto-save the createDate and modDate fields if the model has them */
+    if ($this instanceof DatedObject) {
+      $this->modDate = time();
+      if (!$this->createDate) {
+        $this->createDate = $this->modDate;
+      }
+    }
+    return parent::save();
+  }
 }
 
 ?>

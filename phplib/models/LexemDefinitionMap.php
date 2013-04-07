@@ -1,6 +1,6 @@
 <?php
 
-class LexemDefinitionMap extends BaseObject {
+class LexemDefinitionMap extends BaseObject implements DatedObject {
   public static $_table = 'LexemDefinitionMap';
 
   public static function create($lexemId = null, $definitionId = null) {

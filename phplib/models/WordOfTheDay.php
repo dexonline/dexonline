@@ -1,11 +1,5 @@
 <?php
 
-WordOfTheDay::$IMAGE_DIR = util_getRootPath() . "wwwbase/img/wotd";
-WordOfTheDay::$DEFAULT_IMAGE = "generic.jpg";
-WordOfTheDay::$IMAGE_DESCRIPTION_DIR = util_getRootPath() . "wwwbase/img/wotd/desc";
-WordOfTheDay::$THUMB_DIR = util_getRootPath() . "wwwbase/img/wotd/thumb";
-WordOfTheDay::$THUMB_SIZE = 48;
-
 class WordOfTheDay extends BaseObject {
   public static $_table = 'WordOfTheDay';
   public static $IMAGE_DIR;
@@ -13,6 +7,14 @@ class WordOfTheDay extends BaseObject {
   public static $IMAGE_DESCRIPTION_DIR;
   public static $THUMB_DIR;
   public static $THUMB_SIZE;
+
+  public static function init() {
+    self::$IMAGE_DIR = util_getRootPath() . "wwwbase/img/wotd";
+    self::$DEFAULT_IMAGE = "generic.jpg";
+    self::$IMAGE_DESCRIPTION_DIR = util_getRootPath() . "wwwbase/img/wotd/desc";
+    self::$THUMB_DIR = util_getRootPath() . "wwwbase/img/wotd/thumb";
+    self::$THUMB_SIZE = 48;
+  }
 
   public static function getRSSWotD($delay = 0) {
       $nowDate = ( $delay == 0 ) ? 'NOW()' : 'DATE_SUB(NOW(), INTERVAL ' . $delay. ' MINUTE)';
@@ -99,5 +101,7 @@ class WordOfTheDay extends BaseObject {
     }
   }
 }
+
+WordOfTheDay::init();
 
 ?>

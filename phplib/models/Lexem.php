@@ -1,6 +1,6 @@
 <?php
 
-class Lexem extends BaseObject {
+class Lexem extends BaseObject implements DatedObject {
   public static $_table = 'Lexem';
 
   public static function create($form = null, $modelType = null, $modelNumber = null, $restriction = '') {

@@ -1,6 +1,6 @@
 <?php
 
-class WikiArticle extends BaseObject {
+class WikiArticle extends BaseObject implements DatedObject {
   public static $_table = 'WikiArticle';
 
   public function extractKeywords() {

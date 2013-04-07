@@ -1,0 +1,27 @@
+{* Recursively displays a meaning tree (or forest). The id, if not empty, is only set for the root <ul>. *}
+{if $meanings}
+  <ul {if $id}id="{$id}"{/if}>
+    {foreach from=$meanings item=t}
+      <li>
+        <span>
+          <span class="id">{$t.meaning->id}</span>
+          <span class="internalRep">{$t.meaning->internalRep}</span>
+          <span class="htmlRep">{$t.meaning->htmlRep}</span>
+          <span class="sources">{strip}
+            {foreach from=$t.sources item=s name=sourceLoop}
+              {$s->shortName}{if !$smarty.foreach.sourceLoop.last}, {/if}
+            {/foreach}
+          {/strip}</span>
+          <span class="sourceIds">{strip}
+            {foreach from=$t.sources item=s name=sourceLoop}
+              {$s->id}{if !$smarty.foreach.sourceLoop.last},{/if}
+            {/foreach}
+          {/strip}</span>
+          <span class="internalComment">{$t.meaning->internalComment}</span>
+          <span class="htmlComment">{$t.meaning->htmlComment}</span>
+        </span>
+        {include file="common/bits/meaningTree.ihtml" meanings=$t.children id=""}
+      </li>
+    {/foreach}
+  </ul>
+{/if}

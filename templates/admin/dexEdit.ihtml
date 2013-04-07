@@ -30,55 +30,8 @@
 <div id="meaningTreeContainer" class="box">
   <div class="boxTitle">Arborele de sensuri</div>
   <div class="boxContents">
-    <ul id="meaningTree">
-      <li>
-        <span>
-          <span class="id"></span>
-          <span class="internalRep">Sensul 1 @definiției@ este aici</span>
-          <span class="htmlRep">Sensul 1 <b>definiției</b> este aici</span>
-          <span class="sources">DEX '98, DN, DER</span>
-          <span class="sourceIds">1,5,17,20</span>
-          <span class="internalComment">Comentariu aici</span>
-          <span class="htmlComment">Comentariu aici</span>
-        </span>
-        <ul>
-          <li>
-            <span>
-              <span class="id"></span>
-              <span class="internalRep">Sensul 2 definiției este aici</span>
-              <span class="htmlRep">Sensul 2 definiției este aici</span>
-              <span class="sources">DEX '98, DN, DER</span>
-              <span class="sourceIds">3,5,17,20</span>
-              <span class="internalComment">Comentariu aici</span>
-              <span class="htmlComment">Comentariu aici</span>
-            </span>
-          </li>
-          <li>
-            <span>
-              <span class="id"></span>
-              <span class="internalRep">Sensul 3 definiției este aici</span>
-              <span class="htmlRep">Sensul 3 definiției este aici</span>
-              <span class="sources">DEX '98, DN, DER</span>
-              <span class="sourceIds">2,5,17,20,22</span>
-              <span class="internalComment">Comentariu aici</span>
-              <span class="htmlComment">Comentariu aici</span>
-            </span>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <span>
-          <span class="id"></span>
-          <span class="internalRep">Sensul 4 definiției este aici</span>
-          <span class="htmlRep">Sensul 4 definiției este aici</span>
-          <span class="sources">DEX '98, DN, DER</span>
-          <span class="sourceIds">1,5,17,20</span>
-          <span class="internalComment">Comentariu aici</span>
-          <span class="htmlComment">Comentariu aici</span>
-        </span>
-      </li>
-    </ul>
-  
+    {include file="common/bits/meaningTree.ihtml" meanings=$meanings id="meaningTree"}
+
     <div id="meaningMenu">
       <input type="button" id="addMeaningButton" value="adaugă sens"/>
       <input type="button" id="addSubmeaningButton" value="adaugă subsens"/>

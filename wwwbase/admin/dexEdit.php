@@ -16,9 +16,11 @@ if ($meanings) {
 
   // Keep track of the previous meaning ID at each level. This allows us to populate the parentId field
   $meaningStack = array();
+  $displayOrder = 1;
   foreach ($meanings as $tuple) {
     $m = $tuple->id ? Meaning::get_by_id($tuple->id) : Model::factory('Meaning')->create();
     $m->parentId = $tuple->level ? $meaningStack[$tuple->level - 1] : 0;
+    $m->displayOrder = $displayOrder++;
     $m->userId = session_getUserId();
     $m->lexemId = $lexem->id;
     $m->internalRep = $tuple->internalRep;
@@ -32,9 +34,12 @@ if ($meanings) {
     $sourceIds = explode(',', $tuple->sourceIds);
     MeaningSource::updateMeaningSources($m->id, $sourceIds);
   }
+
+  util_redirect("dexEdit.php?lexemId={$lexem->id}");
 }
 
 SmartyWrap::assign('lexem', $lexem);
+SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('sectionTitle', "Editare lexem: {$lexem->formNoAccent}");
 SmartyWrap::addCss('jqueryui', 'easyui', 'multiselect');

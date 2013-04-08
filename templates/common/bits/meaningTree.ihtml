@@ -1,5 +1,5 @@
 {* Recursively displays a meaning tree (or forest). The id, if not empty, is only set for the root <ul>. *}
-{if $meanings}
+{if $meanings || $id}
   <ul {if $id}id="{$id}"{/if}>
     {foreach from=$meanings item=t}
       <li>

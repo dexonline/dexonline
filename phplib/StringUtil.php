@@ -295,6 +295,11 @@ class StringUtil {
   static function isSpam($s) {
     return preg_match("/\\[url=/i", $s);
   }
+
+  /** Like the standard explode(), but filters out zero-length components **/
+  static function explode($delimiter, $s) {
+    return array_values(array_filter(explode($delimiter, $s), 'strlen'));
+  }
 }
 
 ?>

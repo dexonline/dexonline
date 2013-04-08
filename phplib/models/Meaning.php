@@ -46,6 +46,22 @@ class Meaning extends BaseObject implements DatedObject {
     }
     return $results;
   }
+
+  /* Deletes all the meanings associated $lexemId that aren't in the $meaningIds set */
+  public static function deleteNotInSet($meaningIds, $lexemId) {
+    $meanings = Meaning::get_all_by_lexemId($lexemId);
+    foreach ($meanings as $m) {
+      if (!in_array($m->id, $meaningIds)) {
+        $m->delete();
+      }
+    }
+  }
+
+  public function delete() {
+    MeaningSource::deleteByMeaningId($this->id);
+    parent::delete();
+  }
+
 }
 
 ?>

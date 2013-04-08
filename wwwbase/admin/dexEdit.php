@@ -6,13 +6,11 @@ util_assertNotMirror();
 $lexemId = util_getRequestIntParameter('lexemId');
 $jsonMeanings = util_getRequestParameter('jsonMeanings');
 
-$meanings = json_decode($jsonMeanings);
 $lexem = Lexem::get_by_id($lexemId);
-$defs = Definition::loadByLexemId($lexem->id);
-$searchResults = SearchResult::mapDefinitionArray($defs);
 
-if ($meanings) {
-  // This is a save operation
+if ($jsonMeanings) {
+  $meanings = json_decode($jsonMeanings);
+  $seenMeaningIds = array();
 
   // Keep track of the previous meaning ID at each level. This allows us to populate the parentId field
   $meaningStack = array();
@@ -27,16 +25,20 @@ if ($meanings) {
     $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
     $m->internalComment = $tuple->internalComment;
     $m->htmlComment = AdminStringUtil::htmlize($m->internalComment, 0);
-    $m->status = ST_ACTIVE;
     $m->save();
     $meaningStack[$tuple->level] = $m->id;
 
-    $sourceIds = explode(',', $tuple->sourceIds);
+    $sourceIds = StringUtil::explode(',', $tuple->sourceIds);
     MeaningSource::updateMeaningSources($m->id, $sourceIds);
+    $seenMeaningIds[] = $m->id;
   }
+  Meaning::deleteNotInSet($seenMeaningIds, $lexem->id);
 
   util_redirect("dexEdit.php?lexemId={$lexem->id}");
 }
+
+$defs = Definition::loadByLexemId($lexem->id);
+$searchResults = SearchResult::mapDefinitionArray($defs);
 
 SmartyWrap::assign('lexem', $lexem);
 SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));

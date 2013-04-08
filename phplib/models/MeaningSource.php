@@ -23,6 +23,13 @@ class MeaningSource extends BaseObject implements DatedObject {
       $mss[$i]->save();
     }
   }
+
+  public static function deleteByMeaningId($meaningId) {
+    $mss = self::get_all_by_meaningId($meaningId);
+    foreach ($mss as $ms) {
+      $ms->delete();
+    }
+  }
 }
 
 ?>

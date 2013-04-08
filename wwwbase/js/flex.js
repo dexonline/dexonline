@@ -211,11 +211,12 @@ function meaningEditorInit() {
     animate: true,
     dnd: true,
     lines: true,
-    onBeforeSelect: meaningEditorChanged,
+    onBeforeSelect: meaningEditorUnchanged,
     onSelect: beginMeaningEdit,
   });
   $('#addMeaningButton').click(addMeaning);
   $('#addSubmeaningButton').click(addSubmeaning);
+  $('#deleteMeaningButton').click(deleteMeaning);
   $('#editorSources').multiselect({
     header: false,
     minWidth: 380,
@@ -232,6 +233,9 @@ function meaningEditorInit() {
 }
 
 function addMeaning() {
+  if (!meaningEditorUnchanged()) {
+    return false;
+  }
   var node = $('#meaningTree').tree('getSelected');
   var parent;
   if (node) {
@@ -247,6 +251,9 @@ function addMeaning() {
 }
 
 function addSubmeaning() {
+  if (!meaningEditorUnchanged()) {
+    return false;
+  }
   var node = $('#meaningTree').tree('getSelected');
   if (node) {
     $('#meaningTree').tree('append', {
@@ -256,7 +263,20 @@ function addSubmeaning() {
   }
 }
 
-function meaningEditorChanged(node) {
+function deleteMeaning() {
+  if (!meaningEditorUnchanged()) {
+    return false;
+  }
+  var node = $('#meaningTree').tree('getSelected');
+  if (node) {
+    var numChildren = $('#meaningTree').tree('getChildren', node.target).length;
+    if (!numChildren || confirm('Confirmați ștergerea sensului și a tuturor subsensurilor?')) {
+      $('#meaningTree').tree('remove', node.target);
+    }
+  }
+}
+
+function meaningEditorUnchanged(node) {
   return !me_anyChanges || confirm('Aveți deja un sens în curs de modificare. Confirmați renunțarea la modificări?');
 }
 
@@ -322,12 +342,13 @@ function dexEditTreeWalk(node, results, level) {
 }
 
 function dexEditSaveEverything() {
-  if (meaningEditorChanged()) {
-    var results = new Array();
-    var roots = $('#meaningTree').tree('getRoots');
-    for (var i = 0; i < roots.length; i++) {
-      dexEditTreeWalk(roots[i], results, 0);
-    }
+  if (!meaningEditorUnchanged()) {
+    return false;
+  }
+  var results = new Array();
+  var roots = $('#meaningTree').tree('getRoots');
+  for (var i = 0; i < roots.length; i++) {
+    dexEditTreeWalk(roots[i], results, 0);
   }
   $('input[name=jsonMeanings]').val(JSON.stringify(results));
   $('#meaningForm').submit();

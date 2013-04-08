@@ -207,5 +207,6 @@ care necesită atenție și câteva mecanisme de căutare a lexemelor
 {if $sUser->moderator & $smarty.const.PRIV_ADMIN}
   <a href="{$wwwRoot}private/financials.php">Ciornă financiară</a> (în lucru!)<br/>
   <a href="{$wwwRoot}moderatori">Vizualizare / editare moderatori</a><br/>
-  <a href="{$wwwRoot}surse">Vizualizare / editare surse</a>
+  <a href="{$wwwRoot}surse">Vizualizare / editare surse</a><br/>
+  <a href="{$wwwRoot}etichete-sensuri">Vizualizare / editare etichete pentru sensuri</a>
 {/if}

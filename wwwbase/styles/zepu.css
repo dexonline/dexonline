@@ -1064,6 +1064,36 @@ div.sourceComplete5 {
   background: url("../img/icons/flag_green.png") no-repeat;
 }
 
+.meaningTag {
+  background: #ddd;
+  border: 1px solid #888;
+  border-radius: 4px;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.meaningTag .value {
+  border-right: 1px solid #888;
+  float: left;
+  padding: 5px;
+}
+
+.meaningTag .link {
+  float: left;
+  padding: 5px 3px;
+}
+
+.meaningTag .link:hover {
+  background: #e77;
+}
+
+.meaningTag a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 
 /* REDESIGN WIDGETS January 2013 */
 .widgetBox {

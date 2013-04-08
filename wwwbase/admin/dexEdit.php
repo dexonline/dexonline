@@ -30,6 +30,8 @@ if ($jsonMeanings) {
 
     $sourceIds = StringUtil::explode(',', $tuple->sourceIds);
     MeaningSource::updateMeaningSources($m->id, $sourceIds);
+    $tags = StringUtil::explode(', ', $tuple->tags);
+    MeaningTagMap::updateMeaningTags($m->id, $tags);
     $seenMeaningIds[] = $m->id;
   }
   Meaning::deleteNotInSet($seenMeaningIds, $lexem->id);
@@ -39,9 +41,11 @@ if ($jsonMeanings) {
 
 $defs = Definition::loadByLexemId($lexem->id);
 $searchResults = SearchResult::mapDefinitionArray($defs);
+$meaningTags = Model::factory('MeaningTag')->order_by_asc('value')->find_many();
 
 SmartyWrap::assign('lexem', $lexem);
 SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
+SmartyWrap::assign('meaningTags', $meaningTags);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('sectionTitle', "Editare lexem: {$lexem->formNoAccent}");
 SmartyWrap::addCss('jqueryui', 'easyui', 'multiselect');

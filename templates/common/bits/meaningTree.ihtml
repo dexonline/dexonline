@@ -17,6 +17,11 @@
               {$s->id}{if !$smarty.foreach.sourceLoop.last},{/if}
             {/foreach}
           {/strip}</span>
+          <span class="tags">{strip}
+            {foreach from=$t.tags item=tag name=tagLoop}
+              {$tag->value}{if !$smarty.foreach.tagLoop.last}, {/if}
+            {/foreach}
+          {/strip}</span>
           <span class="internalComment">{$t.meaning->internalComment}</span>
           <span class="htmlComment">{$t.meaning->htmlComment}</span>
         </span>

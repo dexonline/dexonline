@@ -219,12 +219,19 @@ function meaningEditorInit() {
   $('#deleteMeaningButton').click(deleteMeaning);
   $('#editorSources').multiselect({
     header: false,
-    minWidth: 380,
-    noneSelectedText: 'alegeți una sau mai multe surse',
-    selectedList: 1000,
+    minWidth: 330,
+    noneSelectedText: 'alegeți zero sau mai multe surse',
+    selectedList: 5,
   });
   $('#editorSources').multiselect('disable');
-  $('#editorInternalRep, #editorInternalComment, #editorSources').bind('change keyup input paste', function() {
+  $('#editorTags').multiselect({
+    header: false,
+    minWidth: 330,
+    noneSelectedText: 'alegeți zero sau mai multe etichete',
+    selectedList: 5,
+  });
+  $('#editorTags').multiselect('disable');
+  $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags').bind('change keyup input paste', function() {
     me_anyChanges = true;
   });
   $('#editMeaningAcceptButton').click(acceptMeaningEdit);
@@ -290,6 +297,9 @@ function beginMeaningEdit() {
   $('#editorSources').val(node.find('span.sourceIds').text().split(','));
   $('#editorSources').multiselect('refresh');
   $('#editorSources').multiselect('enable');
+  $('#editorTags').val(node.find('span.tags').text().split(', '));
+  $('#editorTags').multiselect('refresh');
+  $('#editorTags').multiselect('enable');
 }
 
 function acceptMeaningEdit() {
@@ -299,6 +309,7 @@ function acceptMeaningEdit() {
   var internalRep = $('#editorInternalRep').val();
   var internalComment = $('#editorInternalComment').val();
   var sourceIds = $('#editorSources').val();
+  var tags = $('#editorTags').val();
   $.post(wwwRoot + 'ajax/htmlize.php',
          { internalRep: internalRep, sourceId: 0 },
          function(data) { node.find('span.htmlRep').html(data); },
@@ -314,6 +325,7 @@ function acceptMeaningEdit() {
   $('#editorSources option:selected').each(function(index, value) {
     node.find('span.sources').append($(value).text() + ' ');
   });
+  node.find('span.tags').text(tags ? tags.join(', ') : '');
 }
 
 function endMeaningEdit() {
@@ -324,6 +336,9 @@ function endMeaningEdit() {
   $('#editorSources').val([]);
   $('#editorSources').multiselect('refresh');
   $('#editorSources').multiselect('disable');
+  $('#editorTags').val([]);
+  $('#editorTags').multiselect('refresh');
+  $('#editorTags').multiselect('disable');
 }
 
 // Iterate a meaning tree node recursively and collect meaning-related fields
@@ -332,6 +347,7 @@ function dexEditTreeWalk(node, results, level) {
   results.push({ 'id': jqNode.find('span.id').text(),
                  'internalRep': jqNode.find('span.internalRep').text(),
                  'sourceIds': jqNode.find('span.sourceIds').text(),
+                 'tags': jqNode.find('span.tags').text(),
                  'internalComment': jqNode.find('span.internalComment').text(),
                  'level' : level,
                });

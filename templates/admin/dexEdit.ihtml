@@ -1,17 +1,26 @@
 <div id="meaningEditor" class="box">
   <div class="boxTitle">Editorul de sensuri</div>
   <div class="boxContents">
-    Sensul:<br/>
-    <textarea id="editorInternalRep" rows="10" cols="10" disabled="disabled"></textarea><br/>
-    Comentariu:<br/>
-    <textarea id="editorInternalComment" rows="3" cols="10" disabled="disabled"></textarea><br/>
-    Surse:<br/>
-    <select id="editorSources" multiple="multiple">
-      {foreach from=$sources item=s}
-        <option value="{$s->id}">{$s->shortName}</option>
-      {/foreach}
-    </select>
-    <br/><br/>
+    <textarea id="editorInternalRep" rows="10" cols="10" disabled="disabled" placeholder="...sensul definiției..."></textarea><br/>
+    <textarea id="editorInternalComment" rows="3" cols="10" disabled="disabled" placeholder="...comentariu..."></textarea><br/>
+    <div class="editorLabel">surse:</div>
+    <div class="editorFieldContainer">
+      <select id="editorSources" multiple="multiple">
+        {foreach from=$sources item=s}
+          <option value="{$s->id}">{$s->shortName}</option>
+        {/foreach}
+      </select>
+    </div>
+    <div style="clear: both"></div>
+    <div class="editorLabel">etichete:</div>
+    <div class="editorFieldContainer">
+      <select id="editorTags" multiple="multiple">
+        {foreach from=$meaningTags item=mt}
+          <option value="{$mt->value}">{$mt->value}</option>
+        {/foreach}
+      </select>
+    </div>
+    <div style="clear: both"></div>
     <input id="editMeaningAcceptButton" type="button" disabled="disabled" value="acceptă"/>
     <input id="editMeaningCancelButton" type="button" disabled="disabled" value="renunță"/>
   </div>
@@ -23,6 +32,7 @@
   <span class="htmlRep"></span>
   <span class="sources"></span>
   <span class="sourceIds"></span>
+  <span class="tags"></span>
   <span class="internalComment"></span>
   <span class="htmlComment"></span>
 </span>

@@ -400,13 +400,13 @@ div.infoType {
 }
 
 #meaningTreeContainer {
-  height: 400px;
+  height: 355px;
   margin-right: 420px;
 }
 
 #meaningEditor {
   float: right;
-  height: 400px;
+  height: 355px;
   width: 400px;
 }
 
@@ -427,12 +427,27 @@ div.infoType {
   margin-left: 10px;
 }
 
+#meaningTree .tags {
+  color: #c33;
+  margin-left: 10px;
+}
+
 #editorInternalRep {
   width: 382px;
 }
 
 #editorInternalComment {
   width: 382px;
+}
+
+.editorLabel {
+  float: left;
+  margin: 4px 0px;
+}
+
+.editorFieldContainer {
+  float: right;
+  margin: 4px 0px;
 }
 
 div.defInternalRep {

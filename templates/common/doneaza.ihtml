@@ -180,7 +180,7 @@ function formCheck(formobj) {
   <h3>Mentenanța sistemului <a class="donateDetailLink" href="#">detalii</a></h3>
 
   <div class="donateProjectDetails">
-    <p><b>Cheltuieli estimate:</b> 30 - 50 € / lună.</p>
+    <p><b>Cheltuieli estimate:</b> 100 - 200 € / lună.</p>
 
     <p><b>Motiv:</b> Spre deosebire de alte site-uri cu un trafic comparabil cu al nostru, <i>DEX online</i> nu deține o fermă de servere. Tot proiectul rulează pe
     un singur calculator, din care stoarcem tot ce putem pentru a face față traficului. Chiar și așa, în permanență sunt necesare mici lucrări pentru

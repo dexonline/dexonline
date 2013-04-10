@@ -399,19 +399,36 @@ div.infoType {
   padding: 5px;
 }
 
-#meaningTreeContainer {
-  height: 355px;
-  margin-right: 420px;
+#dexEditLeftColumn {
+  float: left;
+}
+
+#dexEditRightColumn {
+  margin-left: 412px;
 }
 
 #meaningEditor {
-  float: right;
-  height: 355px;
   width: 400px;
 }
 
-#stemNode {
+#meaningForm {
+  margin-left: 100px;
+  margin-top: 50px;
+}
+
+#dexEditSaveButton {
+  font-size: 20px;
+  font-weight: bold;
+  height: 40px;
+  width: 200px;
+}
+
+#stemNode, #stemSynonym {
   display: none;
+}
+
+#meaningTreeContainer {
+  overflow: auto;
 }
 
 #meaningTree .id, #meaningTree .internalRep, #meaningTree .internalComment, #meaningTree .sourceIds {
@@ -440,6 +457,10 @@ div.infoType {
   width: 382px;
 }
 
+#editorSynonym {
+  width: 315px;
+}
+
 .editorLabel {
   float: left;
   margin: 4px 0px;
@@ -460,4 +481,38 @@ div.defInternalRep {
   margin-left:15px;
   margin-top: 5px;
   padding: 5px;
+}
+
+.synonymTag {
+  background: #ddd;
+  border: 1px solid #888;
+  border-radius: 4px;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.synonymTag .id {
+  display: none;
+}
+
+.synonymTag .name {
+  border-right: 1px solid #888;
+  float: left;
+  padding: 5px;
+}
+
+.synonymTag .link {
+  float: left;
+  padding: 5px 3px;
+}
+
+.synonymTag .link:hover {
+  background: #e77;
+}
+
+.synonymTag a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
 }

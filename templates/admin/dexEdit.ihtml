@@ -1,31 +1,3 @@
-<div id="meaningEditor" class="box">
-  <div class="boxTitle">Editorul de sensuri</div>
-  <div class="boxContents">
-    <textarea id="editorInternalRep" rows="10" cols="10" disabled="disabled" placeholder="...sensul definiției..."></textarea><br/>
-    <textarea id="editorInternalComment" rows="3" cols="10" disabled="disabled" placeholder="...comentariu..."></textarea><br/>
-    <div class="editorLabel">surse:</div>
-    <div class="editorFieldContainer">
-      <select id="editorSources" multiple="multiple">
-        {foreach from=$sources item=s}
-          <option value="{$s->id}">{$s->shortName}</option>
-        {/foreach}
-      </select>
-    </div>
-    <div style="clear: both"></div>
-    <div class="editorLabel">etichete:</div>
-    <div class="editorFieldContainer">
-      <select id="editorTags" multiple="multiple">
-        {foreach from=$meaningTags item=mt}
-          <option value="{$mt->value}">{$mt->value}</option>
-        {/foreach}
-      </select>
-    </div>
-    <div style="clear: both"></div>
-    <input id="editMeaningAcceptButton" type="button" disabled="disabled" value="acceptă"/>
-    <input id="editMeaningCancelButton" type="button" disabled="disabled" value="renunță"/>
-  </div>
-</div>
-
 <span id="stemNode">
   <span class="id"></span>
   <span class="internalRep"></span>
@@ -37,9 +9,17 @@
   <span class="htmlComment"></span>
 </span>
 
-<div id="meaningTreeContainer" class="box">
+<div id="stemSynonym" class="synonymTag">
+  <div class="id"></div>
+  <div class="name"></div>
+  <div class="link">
+    <a href="#" title="șterge sinonimul">x</a>
+  </div>
+</div>
+
+<div class="box">
   <div class="boxTitle">Arborele de sensuri</div>
-  <div class="boxContents">
+  <div id="meaningTreeContainer" class="boxContents">
     {include file="common/bits/meaningTree.ihtml" meanings=$meanings id="meaningTree"}
 
     <div id="meaningMenu">
@@ -50,15 +30,50 @@
   </div>
 </div>
 
-<div style="clear: both"></div>
+<div id="dexEditLeftColumn">
+  <div id="meaningEditor" class="box">
+    <div class="boxTitle">Editorul de sensuri</div>
+    <div class="boxContents">
+      <textarea id="editorInternalRep" rows="10" cols="10" disabled="disabled" placeholder="...sensul definiției..."></textarea><br/>
+      <textarea id="editorInternalComment" rows="3" cols="10" disabled="disabled" placeholder="...comentariu..."></textarea><br/>
+      <div class="editorLabel">surse:</div>
+      <div class="editorFieldContainer">
+        <select id="editorSources" multiple="multiple">
+          {foreach from=$sources item=s}
+            <option value="{$s->id}">{$s->shortName}</option>
+          {/foreach}
+        </select>
+      </div>
+      <div style="clear: both"></div>
+      <div class="editorLabel">etichete:</div>
+      <div class="editorFieldContainer">
+        <select id="editorTags" multiple="multiple">
+          {foreach from=$meaningTags item=mt}
+            <option value="{$mt->value}">{$mt->value}</option>
+          {/foreach}
+        </select>
+      </div>
+      <div style="clear: both"></div>
+      <div class="editorLabel">sinonime:</div>
+      <div class="editorFieldContainer">
+        <input id="editorSynonym" type="text" placeholder="adăugați un sinonim"/>
+      </div>
+      <div style="clear: both"></div>
+      <div id="editorSynonymList"></div>
+      <div style="clear: both"></div>
+      <input id="editMeaningAcceptButton" type="button" disabled="disabled" value="acceptă"/>
+      <input id="editMeaningCancelButton" type="button" disabled="disabled" value="renunță"/>
+    </div>
+  </div>
 
-<form id="meaningForm" action="dexEdit.php" method="post">
-  <input type="hidden" name="jsonMeanings" value=""/>
-  <input type="hidden" name="lexemId" value="{$lexem->id}"/>
-  <input id="dexEditSaveButton" type="button" value="salvează totul"/>
-</form>
+  <form id="meaningForm" action="dexEdit.php" method="post">
+    <input type="hidden" name="jsonMeanings" value=""/>
+    <input type="hidden" name="lexemId" value="{$lexem->id}"/>
+    <input id="dexEditSaveButton" type="button" value="salvează totul"/>
+  </form>
+</div>
 
-<div class="box">
+<div id="dexEditRightColumn" class="box">
   <div class="boxTitle">Definiții</div>
   <div class="boxContents">
     {foreach from=$searchResults item=row}
@@ -84,5 +99,5 @@
 </div>
 
 <script type="text/javascript">
-  meaningEditorInit();
+  $(meaningEditorInit);
 </script>

@@ -219,20 +219,32 @@ function meaningEditorInit() {
   $('#deleteMeaningButton').click(deleteMeaning);
   $('#editorSources').multiselect({
     header: false,
-    minWidth: 330,
+    minWidth: 312,
     noneSelectedText: 'alegeți zero sau mai multe surse',
     selectedList: 5,
   });
   $('#editorSources').multiselect('disable');
   $('#editorTags').multiselect({
     header: false,
-    minWidth: 330,
+    minWidth: 312,
     noneSelectedText: 'alegeți zero sau mai multe etichete',
     selectedList: 5,
   });
   $('#editorTags').multiselect('disable');
-  $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags').bind('change keyup input paste', function() {
+  $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags, #editorSynonym').bind('change keyup input paste', function() {
     me_anyChanges = true;
+  });
+  $('#editorSynonym').combobox({
+    url: wwwRoot + 'ajax/getLexems.php?easyui=1',
+    valueField: 'id',
+    textField: 'text',
+    mode: 'remote',
+    hasDownArrow: false,
+    onLoadSuccess: editorSynonymOnLoad,
+    onSelect: editorSynonymSelect,
+    keyHandler: $.extend({}, $.fn.combobox.defaults.keyHandler, {
+      enter: editorSynonymEnter,
+    }),
   });
   $('#editMeaningAcceptButton').click(acceptMeaningEdit);
   $('#editMeaningCancelButton').click(endMeaningEdit);
@@ -283,6 +295,33 @@ function deleteMeaning() {
   }
 }
 
+function editorSynonymOnLoad() {
+  var data = $('#editorSynonym').combobox('getData');
+  var text = $('#editorSynonym').combobox('getText');
+  if (data && data[0] && text && (data[0].text == text)) {
+    $('#editorSynonym').combobox('setValue', data[0].id);
+  }
+}
+
+function editorSynonymSelect(record) {
+  $('#editorSynonym').combobox('textbox').focus();
+}
+
+function editorSynonymEnter() {
+  value = $('#editorSynonym').combobox('getValue');
+  text = $('#editorSynonym').combobox('getText');
+  if (value && !isNaN(value)) {
+    editorAddSynonymTag(value, text);
+  }
+}
+
+function editorAddSynonymTag(id, text) {
+  var div = $('#stemSynonym').clone().removeAttr('id');
+  div.children('.id').text(id);
+  div.children('.name').text(text);
+  div.appendTo('#editorSynonymList');
+}
+
 function meaningEditorUnchanged(node) {
   return !me_anyChanges || confirm('Aveți deja un sens în curs de modificare. Confirmați renunțarea la modificări?');
 }
@@ -310,6 +349,7 @@ function acceptMeaningEdit() {
   var internalComment = $('#editorInternalComment').val();
   var sourceIds = $('#editorSources').val();
   var tags = $('#editorTags').val();
+  var synonymLexemIds = $('#editorSynonymList').find('.id').map(function() { return $(this).text(); }).get().join(',');
   $.post(wwwRoot + 'ajax/htmlize.php',
          { internalRep: internalRep, sourceId: 0 },
          function(data) { node.find('span.htmlRep').html(data); },

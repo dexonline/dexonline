@@ -246,6 +246,8 @@ function meaningEditorInit() {
       enter: editorSynonymEnter,
     }),
   });
+  $('#editorSynonym').combobox('disable');
+  $('#editorSynonymList').on('click', '.link', deleteSynonymClick);
   $('#editMeaningAcceptButton').click(acceptMeaningEdit);
   $('#editMeaningCancelButton').click(endMeaningEdit);
   $('#dexEditSaveButton').click(dexEditSaveEverything);
@@ -308,10 +310,13 @@ function editorSynonymSelect(record) {
 }
 
 function editorSynonymEnter() {
-  value = $('#editorSynonym').combobox('getValue');
-  text = $('#editorSynonym').combobox('getText');
-  if (value && !isNaN(value)) {
+  var value = $('#editorSynonym').combobox('getValue');
+  var text = $('#editorSynonym').combobox('getText');
+  var exists = $('#editorSynonymList').find(".id:contains('" + value + "')").length;
+  if (value && !isNaN(value) && !exists) {
     editorAddSynonymTag(value, text);
+    $('#editorSynonym').combobox('hidePanel');
+    $('#editorSynonym').combobox('clear');
   }
 }
 
@@ -320,6 +325,10 @@ function editorAddSynonymTag(id, text) {
   div.children('.id').text(id);
   div.children('.name').text(text);
   div.appendTo('#editorSynonymList');
+}
+
+function deleteSynonymClick() {
+  $(this).closest('.synonymTag').remove();
 }
 
 function meaningEditorUnchanged(node) {
@@ -336,36 +345,63 @@ function beginMeaningEdit() {
   $('#editorSources').val(node.find('span.sourceIds').text().split(','));
   $('#editorSources').multiselect('refresh');
   $('#editorSources').multiselect('enable');
-  $('#editorTags').val(node.find('span.tags').text().split(', '));
+  $('#editorTags').val(node.find('span.meaningTagIds').text().split(','));
   $('#editorTags').multiselect('refresh');
   $('#editorTags').multiselect('enable');
+  $('#editorSynonym').combobox('enable');
+  $('#editorSynonymList').text('');
+  var synonymIds = node.find('span.synonymIds').text().split(',');
+  node.find('span.synonyms .tag').each(function(index, value) {
+    editorAddSynonymTag(synonymIds[index], $(this).text());
+  });
 }
 
 function acceptMeaningEdit() {
   me_anyChanges = false;
   var domNode = $('#meaningTree').tree('getSelected').target;
   var node = $(domNode);
+
+  // Update internal and HTML definition
   var internalRep = $('#editorInternalRep').val();
-  var internalComment = $('#editorInternalComment').val();
-  var sourceIds = $('#editorSources').val();
-  var tags = $('#editorTags').val();
-  var synonymLexemIds = $('#editorSynonymList').find('.id').map(function() { return $(this).text(); }).get().join(',');
+  node.find('span.internalRep').text(internalRep);
   $.post(wwwRoot + 'ajax/htmlize.php',
          { internalRep: internalRep, sourceId: 0 },
          function(data) { node.find('span.htmlRep').html(data); },
         'text');
+
+  // Update internal and HTML comment
+  var internalComment = $('#editorInternalComment').val();
+  node.find('span.internalComment').text(internalComment);
   $.post(wwwRoot + 'ajax/htmlize.php',
          { internalRep: internalComment, sourceId: 0 },
          function(data) { node.find('span.htmlComment').html(data); },
         'text');
-  node.find('span.internalRep').text(internalRep);
-  node.find('span.internalComment').text(internalComment);
+
+  // Update sources and sourceIds
+  var sourceIds = $('#editorSources').val();
   node.find('span.sourceIds').text(sourceIds ? sourceIds.join(',') : '');
   node.find('span.sources').text('');
-  $('#editorSources option:selected').each(function(index, value) {
-    node.find('span.sources').append($(value).text() + ' ');
+  $('#editorSources option:selected').each(function() {
+    node.find('span.sources').append('<span class="tag">' + $(this).text() + '</span>');
   });
-  node.find('span.tags').text(tags ? tags.join(', ') : '');
+
+  // Update meaning tags and meaningIds
+  var meaningTagIds = $('#editorTags').val();
+  node.find('span.meaningTagIds').text(meaningTagIds ? meaningTagIds.join(',') : '');
+  node.find('span.meaningTags').text('');
+  $('#editorTags option:selected').each(function() {
+    node.find('span.meaningTags').append('<span class="tag">' + $(this).text() + '</span>');
+  });
+
+  // Update synonym tags and synonymIds
+  var synonymIds = $('#editorSynonymList').find('.id').map(function() { return $(this).text(); }).get().join(',');
+  node.find('span.synonymIds').text(synonymIds);
+  node.find('span.synonyms').text('');
+  $('#editorSynonymList').find('.name').each(function() {
+    node.find('span.synonyms').append('<span class="tag">' + $(this).text() + '</span>');
+  });
+  $('#editorSynonym').combobox('setText', '');
+  $('#editorSynonym').combobox('setValue', '');
 }
 
 function endMeaningEdit() {
@@ -379,17 +415,22 @@ function endMeaningEdit() {
   $('#editorTags').val([]);
   $('#editorTags').multiselect('refresh');
   $('#editorTags').multiselect('disable');
+  $('#editorSynonymList').text('');
+  $('#editorSynonym').combobox('setText', '');
+  $('#editorSynonym').combobox('setValue', '');
+  $('#editorSynonym').combobox('disable');
 }
 
 // Iterate a meaning tree node recursively and collect meaning-related fields
 function dexEditTreeWalk(node, results, level) {
   var jqNode = $(node.target);
   results.push({ 'id': jqNode.find('span.id').text(),
-                 'internalRep': jqNode.find('span.internalRep').text(),
-                 'sourceIds': jqNode.find('span.sourceIds').text(),
-                 'tags': jqNode.find('span.tags').text(),
-                 'internalComment': jqNode.find('span.internalComment').text(),
                  'level' : level,
+                 'internalRep': jqNode.find('span.internalRep').text(),
+                 'internalComment': jqNode.find('span.internalComment').text(),
+                 'sourceIds': jqNode.find('span.sourceIds').text(),
+                 'meaningTagIds': jqNode.find('span.meaningTagIds').text(),
+                 'synonymIds': jqNode.find('span.synonymIds').text(),
                });
   var children = $('#meaningTree').tree('getChildren', node.target);
   for (var i = 0; i < children.length; i++) {

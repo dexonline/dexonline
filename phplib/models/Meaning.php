@@ -41,6 +41,7 @@ class Meaning extends BaseObject implements DatedObject {
     $results = array('meaning' => $map[$meaningId],
                      'sources' => MeaningSource::loadSourcesByMeaningId($meaningId),
                      'tags' => MeaningTag::loadByMeaningId($meaningId),
+                     'synonyms' => Synonym::loadByMeaningId($meaningId),
                      'children' => array());
     foreach ($children[$meaningId] as $childId) {
       $results['children'][] = self::buildTree($map, $childId, $children);
@@ -61,6 +62,7 @@ class Meaning extends BaseObject implements DatedObject {
   public function delete() {
     MeaningSource::deleteByMeaningId($this->id);
     MeaningTagMap::deleteByMeaningId($this->id);
+    Synonym::deleteByMeaningId($this->id);
     parent::delete();
   }
 

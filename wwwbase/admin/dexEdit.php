@@ -30,8 +30,10 @@ if ($jsonMeanings) {
 
     $sourceIds = StringUtil::explode(',', $tuple->sourceIds);
     MeaningSource::updateMeaningSources($m->id, $sourceIds);
-    $tags = StringUtil::explode(', ', $tuple->tags);
-    MeaningTagMap::updateMeaningTags($m->id, $tags);
+    $meaningTagIds = StringUtil::explode(',', $tuple->meaningTagIds);
+    MeaningTagMap::updateMeaningTags($m->id, $meaningTagIds);
+    $synonymIds = StringUtil::explode(',', $tuple->synonymIds);
+    Synonym::updateSynonyms($m->id, $synonymIds);
     $seenMeaningIds[] = $m->id;
   }
   Meaning::deleteNotInSet($seenMeaningIds, $lexem->id);

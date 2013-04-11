@@ -12,9 +12,7 @@
 <div id="stemSynonym" class="synonymTag">
   <div class="id"></div>
   <div class="name"></div>
-  <div class="link">
-    <a href="#" title="șterge sinonimul">x</a>
-  </div>
+  <div class="link">×</div>
 </div>
 
 <div class="box">
@@ -49,7 +47,7 @@
       <div class="editorFieldContainer">
         <select id="editorTags" multiple="multiple">
           {foreach from=$meaningTags item=mt}
-            <option value="{$mt->value}">{$mt->value}</option>
+            <option value="{$mt->id}">{$mt->value}</option>
           {/foreach}
         </select>
       </div>
@@ -97,6 +95,8 @@
     {/foreach}
   </div>
 </div>
+
+<div style="clear: both"></div>
 
 <script type="text/javascript">
   $(meaningEditorInit);

@@ -8,8 +8,8 @@
           <span class="internalRep">{$t.meaning->internalRep}</span>
           <span class="htmlRep">{$t.meaning->htmlRep}</span>
           <span class="sources">{strip}
-            {foreach from=$t.sources item=s name=sourceLoop}
-              {$s->shortName}{if !$smarty.foreach.sourceLoop.last}, {/if}
+            {foreach from=$t.sources item=s}
+              <span class="tag">{$s->shortName}</span>
             {/foreach}
           {/strip}</span>
           <span class="sourceIds">{strip}
@@ -17,9 +17,24 @@
               {$s->id}{if !$smarty.foreach.sourceLoop.last},{/if}
             {/foreach}
           {/strip}</span>
-          <span class="tags">{strip}
+          <span class="meaningTags">{strip}
+            {foreach from=$t.tags item=tag}
+              <span class="tag">{$tag->value}</span>
+            {/foreach}
+          {/strip}</span>
+          <span class="meaningTagIds">{strip}
             {foreach from=$t.tags item=tag name=tagLoop}
-              {$tag->value}{if !$smarty.foreach.tagLoop.last}, {/if}
+              {$tag->id}{if !$smarty.foreach.tagLoop.last},{/if}
+            {/foreach}
+          {/strip}</span>
+          <span class="synonyms">{strip}
+            {foreach from=$t.synonyms item=s}
+              <span class="tag">{include file="common/bits/lexemName.ihtml lexem=$s}</span>
+            {/foreach}
+          {/strip}</span>
+          <span class="synonymIds">{strip}
+            {foreach from=$t.synonyms item=s name=synonymLoop}
+              {$s->id}{if !$smarty.foreach.synonymLoop.last},{/if}
             {/foreach}
           {/strip}</span>
           <span class="internalComment">{$t.meaning->internalComment}</span>

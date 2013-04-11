@@ -3,19 +3,18 @@
 class MeaningTagMap extends BaseObject implements DatedObject {
   public static $_table = 'MeaningTagMap';
 
-  static function updateMeaningTags($meaningId, $tagValues) {
+  static function updateMeaningTags($meaningId, $tagIds) {
     $mtms = self::get_all_by_meaningId($meaningId);
-    while (count($mtms) < count($tagValues)) {
+    while (count($mtms) < count($tagIds)) {
       $mtms[] = Model::factory('MeaningTagMap')->create();
     }
-    while (count($mtms) > count($tagValues)) {
+    while (count($mtms) > count($tagIds)) {
       $deadMtm = array_pop($mtms);
-      $deadMtms->delete();
+      $deadMtm->delete();
     }
-    foreach ($tagValues as $i => $value) {
-      $mt = MeaningTag::get_by_value($value);
+    foreach ($tagIds as $i => $tagId) {
       $mtms[$i]->meaningId = $meaningId;
-      $mtms[$i]->meaningTagId = $mt->id;
+      $mtms[$i]->meaningTagId = $tagId;
       $mtms[$i]->save();
     }
   }

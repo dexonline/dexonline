@@ -431,7 +431,7 @@ div.infoType {
   overflow: auto;
 }
 
-#meaningTree .id, #meaningTree .internalRep, #meaningTree .internalComment, #meaningTree .sourceIds {
+#meaningTree .id, #meaningTree .internalRep, #meaningTree .internalComment, #meaningTree .sourceIds, #meaningTree .meaningTagIds, #meaningTree .synonymIds {
   display: none;
 }
 
@@ -439,14 +439,28 @@ div.infoType {
   font-size: 14px;
 }
 
-#meaningTree .sources {
-  color: #777;
-  margin-left: 10px;
+#meaningTree .tag {
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  font-size: 10px;
+  margin-left: 5px;
+  padding: 1px 4px;
 }
 
-#meaningTree .tags {
-  color: #c33;
-  margin-left: 10px;
+#meaningTree .sources span {
+  background: #f7eada;
+  border-color: #e0c29d;
+}
+
+#meaningTree .meaningTags span {
+  background: #dbf7da;
+  border-color: #9fe09d;
+}
+
+#meaningTree .synonyms span {
+  background: #daebf7;
+  border-color: #9dc5e0;
 }
 
 #editorInternalRep {
@@ -484,12 +498,13 @@ div.defInternalRep {
 }
 
 .synonymTag {
-  background: #ddd;
-  border: 1px solid #888;
+  background: #daebf7;
+  border: 1px solid #9dc5e0;
   border-radius: 4px;
   float: left;
-  margin-right: 10px;
-  margin-bottom: 10px;
+  font-size: 12px;
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 .synonymTag .id {
@@ -497,22 +512,18 @@ div.defInternalRep {
 }
 
 .synonymTag .name {
-  border-right: 1px solid #888;
+  border-right: 1px solid #9dc5e0;
   float: left;
-  padding: 5px;
+  padding: 1px 4px;
 }
 
 .synonymTag .link {
+  cursor: pointer;
   float: left;
-  padding: 5px 3px;
+  font-weight: bold;
+  padding: 1px 4px;
 }
 
 .synonymTag .link:hover {
   background: #e77;
-}
-
-.synonymTag a {
-  color: black;
-  font-weight: bold;
-  text-decoration: none;
 }

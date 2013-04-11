@@ -1,12 +1,15 @@
 <span id="stemNode">
   <span class="id"></span>
+  <span class="meaningTags"></span>
+  <span class="meaningTagIds"></span>
   <span class="internalRep"></span>
   <span class="htmlRep"></span>
-  <span class="sources"></span>
-  <span class="sourceIds"></span>
-  <span class="tags"></span>
   <span class="internalComment"></span>
   <span class="htmlComment"></span>
+  <span class="sources"></span>
+  <span class="sourceIds"></span>
+  <span class="synonyms"></span>
+  <span class="synonymIds"></span>
 </span>
 
 <div id="stemSynonym" class="synonymTag">

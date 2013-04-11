@@ -4,6 +4,7 @@
     {foreach from=$meanings item=t}
       <li>
         <span>
+          <span class="id">{$t.meaning->id}</span>
           <span class="meaningTags">{strip}
             {foreach from=$t.tags item=tag}
               <span class="tag">{$tag->value}</span>
@@ -14,9 +15,10 @@
               {$tag->id}{if !$smarty.foreach.tagLoop.last},{/if}
             {/foreach}
           {/strip}</span>
-          <span class="id">{$t.meaning->id}</span>
           <span class="internalRep">{$t.meaning->internalRep}</span>
           <span class="htmlRep">{$t.meaning->htmlRep}</span>
+          <span class="internalComment">{$t.meaning->internalComment}</span>
+          <span class="htmlComment">{$t.meaning->htmlComment}</span>
           <span class="sources">{strip}
             {foreach from=$t.sources item=s}
               <span class="tag">{$s->shortName}</span>
@@ -37,8 +39,6 @@
               {$s->id}{if !$smarty.foreach.synonymLoop.last},{/if}
             {/foreach}
           {/strip}</span>
-          <span class="internalComment">{$t.meaning->internalComment}</span>
-          <span class="htmlComment">{$t.meaning->htmlComment}</span>
         </span>
         {include file="common/bits/meaningTree.ihtml" meanings=$t.children id=""}
       </li>

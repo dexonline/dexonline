@@ -402,6 +402,9 @@ function acceptMeaningEdit() {
   });
   $('#editorSynonym').combobox('setText', '');
   $('#editorSynonym').combobox('setValue', '');
+
+  // Now update the tree node
+  $('#meaningTree').tree('update', { target: domNode, text: node.find('.tree-title').html() });
 }
 
 function endMeaningEdit() {

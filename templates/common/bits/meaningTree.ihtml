@@ -4,6 +4,16 @@
     {foreach from=$meanings item=t}
       <li>
         <span>
+          <span class="meaningTags">{strip}
+            {foreach from=$t.tags item=tag}
+              <span class="tag">{$tag->value}</span>
+            {/foreach}
+          {/strip}</span>
+          <span class="meaningTagIds">{strip}
+            {foreach from=$t.tags item=tag name=tagLoop}
+              {$tag->id}{if !$smarty.foreach.tagLoop.last},{/if}
+            {/foreach}
+          {/strip}</span>
           <span class="id">{$t.meaning->id}</span>
           <span class="internalRep">{$t.meaning->internalRep}</span>
           <span class="htmlRep">{$t.meaning->htmlRep}</span>
@@ -15,16 +25,6 @@
           <span class="sourceIds">{strip}
             {foreach from=$t.sources item=s name=sourceLoop}
               {$s->id}{if !$smarty.foreach.sourceLoop.last},{/if}
-            {/foreach}
-          {/strip}</span>
-          <span class="meaningTags">{strip}
-            {foreach from=$t.tags item=tag}
-              <span class="tag">{$tag->value}</span>
-            {/foreach}
-          {/strip}</span>
-          <span class="meaningTagIds">{strip}
-            {foreach from=$t.tags item=tag name=tagLoop}
-              {$tag->id}{if !$smarty.foreach.tagLoop.last},{/if}
             {/foreach}
           {/strip}</span>
           <span class="synonyms">{strip}

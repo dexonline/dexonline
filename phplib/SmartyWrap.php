@@ -188,7 +188,7 @@ class SmartyWrap {
       case 'dex':              self::$jsFiles[10] = 'dex.js?v=23'; break;
       case 'flex':             self::$jsFiles[11] = 'flex.js?v=2'; break;
       case 'mobile':           self::$jsFiles[12] = 'mobile.js?v=2'; break;
-      case 'hangman':          self::$jsFiles[13] = 'hangman.js?v=4'; break;
+      case 'hangman':          self::$jsFiles[13] = 'hangman.js?v=5'; break;
       case 'mill':             self::$jsFiles[14] = 'mill.js?v=2'; break;
       case 'wotd':             self::$jsFiles[15] = 'wotd.js?v=1';
       case 'structure':        self::$jsFiles[16] = 'structure.js?v=1'; break;

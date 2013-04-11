@@ -108,7 +108,7 @@ $(function() {
     else if(String.fromCharCode(event.charCode) == "1" || String.fromCharCode(event.charCode) == "2" || String.fromCharCode(event.charCode) == "3" || String.fromCharCode(event.charCode) == "4")
       hangman_newGame(String.fromCharCode(event.charCode));
    else {
-      //creating button and matching key only with Hangman relevant chars
+      //creting letterButton & matching key only with Hangman relevant chars
       var field = $('.letterButtons[value="' + String.fromCharCode(event.charCode).toUpperCase() + '"]');
       if (!field.val().match(new RegExp(/[A-ZĂÎȘȚÂ]/g))) {
         return;

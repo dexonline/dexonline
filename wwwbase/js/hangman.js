@@ -28,8 +28,7 @@ function hangman_gameOver() {
 }
 
 /* Returns true if any letters were uncovered */
-function hangman_updateLetters(field) {
-  var letter = field.val();
+function hangman_updateLetters(letter) {
   var ok = 0;
   for (i = 0; i < word.length; i++) {
     if (letter == word.charAt(i)) {
@@ -45,7 +44,7 @@ function hangman_letterPressed(field) {
   if(field.is(':disabled')) { //because of keyboard support one can press already pressed buttons
     return;
   }
-  var ok = hangman_updateLetters(field);
+  var ok = hangman_updateLetters(field.val());
   if (ok) {
     field.addClass('buttonGuessed');
   } else {
@@ -69,7 +68,7 @@ function hangman_hint() {
   // Simulate a press of the corresponding button
   var button = $('.letterButtons[value="' + word.charAt(i) + '"]');
   button.addClass('buttonHinted');
-  hangman_updateLetters(button);
+  hangman_updateLetters(word.charAt(i));
   lives = (lives >= 2) ? lives - 2 : 0;
   hangman_updateLives();
   hangman_gameOver();
@@ -80,6 +79,8 @@ function hangman_newGame(difficulty) {
 }
 
 function revealLetters(difficulty) {
+  //showing the '-' character
+  hangman_updateLetters('-');
   if (difficulty > 2) {
     return;
   }
@@ -106,8 +107,14 @@ $(function() {
       hangman_hint();
     else if(String.fromCharCode(event.charCode) == "1" || String.fromCharCode(event.charCode) == "2" || String.fromCharCode(event.charCode) == "3" || String.fromCharCode(event.charCode) == "4")
       hangman_newGame(String.fromCharCode(event.charCode));
-    else
-      hangman_letterPressed($('.letterButtons[value="' + String.fromCharCode(event.charCode).toUpperCase() + '"]'));
+   else {
+      //matching key only with Hangman relevant chars
+      var field = $('.letterButtons[value="' + String.fromCharCode(event.charCode).toUpperCase() + '"]');
+      if (!field.val().match(new RegExp(/[A-ZĂÎȘȚÂ]/g))) {
+        return;
+      }
+      hangman_letterPressed(field);
+    }
   });
 
 });

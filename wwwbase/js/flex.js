@@ -262,6 +262,8 @@ function meaningEditorInit() {
   $('#editMeaningCancelButton').click(endMeaningEdit);
   $('#dexEditSaveButton').click(dexEditSaveEverything);
   $('.toggleInternalHtmlLink').click(toggleInternalHtmlClick);
+
+  $(window).resize(adjustDefinitionDivHeight);
   adjustDefinitionDivHeight();
 }
 
@@ -285,11 +287,7 @@ function addMeaning() {
   } else {
     parent = null;
   }
-  $('#meaningTree').tree('append', {
-    parent: parent,
-    data: [{ 'text': $('#stemNode').html() }]
-  });
-  adjustDefinitionDivHeight();
+  appendAndSelectNode(parent);
 }
 
 function addSubmeaning() {
@@ -298,11 +296,21 @@ function addSubmeaning() {
   }
   var node = $('#meaningTree').tree('getSelected');
   if (node) {
-    $('#meaningTree').tree('append', {
-      parent: node.target,
-      data: [{ 'text': $('#stemNode').html() }]
-    });
+    appendAndSelectNode(node.target);
   }
+}
+
+function appendAndSelectNode(target) {
+  var randomId = Math.floor(Math.random() * 1000000000) + 1;
+  $('#meaningTree').tree('append', {
+    parent: target,
+    data: [{ 'id' : randomId, 'text': $('#stemNode').html() }]
+  });
+
+  // Now find and select it
+  var node = $('#meaningTree').tree('find', randomId);
+  $('#meaningTree').tree('select', node.target);
+
   adjustDefinitionDivHeight();
 }
 
@@ -442,8 +450,8 @@ function dexEditTreeWalk(node, results, level) {
 }
 
 function dexEditSaveEverything() {
-  if (!meaningEditorUnchanged()) {
-    return false;
+  if (me_anyChanges) {
+    acceptMeaningEdit();
   }
   var results = new Array();
   var roots = $('#meaningTree').tree('getRoots');

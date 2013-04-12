@@ -103,16 +103,14 @@ $(function() {
   $('.letters').focus();//Make sure to take focus from the search bar, this is the best choice as putting it on a button would make the use of space for clues impossible.
   
   document.addEventListener('keypress', function(event) {
-    if(String.fromCharCode(event.charCode) == " ")
+    var char = String.fromCharCode(event.charCode).toUpperCase();
+    if(char == ' ') {
       hangman_hint();
-    else if(String.fromCharCode(event.charCode) == "1" || String.fromCharCode(event.charCode) == "2" || String.fromCharCode(event.charCode) == "3" || String.fromCharCode(event.charCode) == "4")
-      hangman_newGame(String.fromCharCode(event.charCode));
-   else {
-      //creting letterButton & matching key only with Hangman relevant chars
-      var field = $('.letterButtons[value="' + String.fromCharCode(event.charCode).toUpperCase() + '"]');
-      if (!field.val().match(new RegExp(/[A-ZĂÎȘȚÂ]/g))) {
-        return;
-      }
+    } else if (char >= '1' && char <= '4') {
+      hangman_newGame(char);
+    } else if (char.match(/[A-ZĂÎȘȚÂ]/g)) {
+      //creating letterButton & matching key only with Hangman relevant chars
+      var field = $('.letterButtons[value="' + char + '"]');
       hangman_letterPressed(field);
     }
   });

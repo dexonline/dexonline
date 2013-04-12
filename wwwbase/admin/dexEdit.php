@@ -50,8 +50,8 @@ SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
 SmartyWrap::assign('meaningTags', $meaningTags);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('sectionTitle', "Editare lexem: {$lexem->formNoAccent}");
-SmartyWrap::addCss('jqueryui', 'easyui', 'multiselect');
-SmartyWrap::addJs('jquery', 'easyui', 'jqueryui', 'multiselect');
+SmartyWrap::addCss('jqueryui', 'easyui', 'select2');
+SmartyWrap::addJs('jquery', 'easyui', 'jqueryui', 'select2');
 SmartyWrap::displayAdminPage('admin/dexEdit.ihtml');
 
 ?>

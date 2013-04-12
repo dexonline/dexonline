@@ -528,3 +528,7 @@ div.defInternalRep {
 .synonymTag .link:hover {
   background: #e77;
 }
+
+.select2-container-multi, .select2-result {
+  font-size: 12px;
+}

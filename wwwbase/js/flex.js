@@ -217,20 +217,19 @@ function meaningEditorInit() {
   $('#addMeaningButton').click(addMeaning);
   $('#addSubmeaningButton').click(addSubmeaning);
   $('#deleteMeaningButton').click(deleteMeaning);
-  $('#editorSources').multiselect({
-    header: false,
-    minWidth: 312,
-    noneSelectedText: 'alegeți zero sau mai multe surse',
-    selectedList: 5,
+
+  $('#editorSources').select2({
+    placeholder: 'alegeți zero sau mai multe surse',
+    width: '315px',
   });
-  $('#editorSources').multiselect('disable');
-  $('#editorTags').multiselect({
-    header: false,
-    minWidth: 312,
-    noneSelectedText: 'alegeți zero sau mai multe etichete',
-    selectedList: 5,
+  $('#editorSources').select2('disable');
+
+  $('#editorTags').select2({
+    placeholder: 'alegeți zero sau mai multe etichete',
+    width: '315px',
   });
-  $('#editorTags').multiselect('disable');
+  $('#editorTags').select2('disable');
+
   $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags, #editorSynonym').bind('change keyup input paste', function() {
     me_anyChanges = true;
   });
@@ -342,13 +341,10 @@ function beginMeaningEdit() {
   $('#editorInternalRep, #editorInternalComment, #editMeaningAcceptButton, #editMeaningCancelButton').removeAttr('disabled');
   $('#editorInternalRep').val(node.find('span.internalRep').text());
   $('#editorInternalComment').val(node.find('span.internalComment').text());
-  $('#editorSources').val(node.find('span.sourceIds').text().split(','));
-  $('#editorSources').multiselect('refresh');
-  $('#editorSources').multiselect('enable');
-  $('#editorTags').val(node.find('span.meaningTagIds').text().split(','));
-  $('#editorTags').multiselect('refresh');
-  $('#editorTags').multiselect('enable');
-  $('#editorSynonym').combobox('enable');
+  $('#editorSources').select2('val', node.find('span.sourceIds').text().split(','));
+  $('#editorSources').select2('enable');
+  $('#editorTags').select2('val', node.find('span.meaningTagIds').text().split(','));
+  $('#editorTags').select2('enable');
   $('#editorSynonymList').text('');
   var synonymIds = node.find('span.synonymIds').text().split(',');
   node.find('span.synonyms .tag').each(function(index, value) {
@@ -412,12 +408,10 @@ function endMeaningEdit() {
   $('#editorInternalRep, #editorInternalComment, #editMeaningAcceptButton, #editMeaningCancelButton').attr('disabled', 'disabled');
   $('#editorInternalRep').val('');
   $('#editorInternalComment').val('');
-  $('#editorSources').val([]);
-  $('#editorSources').multiselect('refresh');
-  $('#editorSources').multiselect('disable');
-  $('#editorTags').val([]);
-  $('#editorTags').multiselect('refresh');
-  $('#editorTags').multiselect('disable');
+  $('#editorSources').select2('val', []);
+  $('#editorSources').select2('disable');
+  $('#editorTags').select2('val', []);
+  $('#editorTags').select2('disable');
   $('#editorSynonymList').text('');
   $('#editorSynonym').combobox('setText', '');
   $('#editorSynonym').combobox('setValue', '');

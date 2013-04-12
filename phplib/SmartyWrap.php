@@ -162,7 +162,7 @@ class SmartyWrap {
         self::$cssFiles[14] = 'easyui/default/easyui.css?v=1';
         self::$cssFiles[15] = 'easyui/icon.css?v=1';
         break;
-      case 'multiselect':        self::$cssFiles[16] = 'jquery.multiselect.css?v=1'; break;
+      case 'select2':            self::$cssFiles[16] = 'select2/select2.css?v=1'; break;
       default:
         FlashMessage::add("Cannot load CSS file {$id}");
         util_redirect(util_getWwwRoot());
@@ -194,7 +194,7 @@ class SmartyWrap {
       case 'structure':        self::$jsFiles[16] = 'structure.js?v=1'; break;
       case 'jcrop':            self::$jsFiles[17] = 'jquery.Jcrop.min.js?v=1'; break;
       case 'easyui':           self::$jsFiles[18] = 'jquery.easyui.min.js?v=1'; break;
-      case 'multiselect':      self::$jsFiles[19] = 'jquery.multiselect.min.js?v=1'; break;
+      case 'select2':          self::$jsFiles[19] = 'select2.min.js?v=1'; break;
       default:
         FlashMessage::add("Cannot load JS script {$id}");
         util_redirect(util_getWwwRoot());

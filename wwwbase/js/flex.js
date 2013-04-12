@@ -370,7 +370,7 @@ function acceptMeaningEdit() {
 
   // Update sources and sourceIds
   var sourceIds = $('#editorSources').val();
-  node.find('span.sourceIds').text(sourceIds.join(','));
+  node.find('span.sourceIds').text(sourceIds ? sourceIds.join(',') : '');
   node.find('span.sources').text('');
   $('#editorSources option:selected').each(function() {
     node.find('span.sources').append('<span class="tag">' + $(this).text() + '</span>');
@@ -378,7 +378,7 @@ function acceptMeaningEdit() {
 
   // Update meaning tags and meaningIds
   var meaningTagIds = $('#editorTags').val();
-  node.find('span.meaningTagIds').text(meaningTagIds.join(','));
+  node.find('span.meaningTagIds').text(meaningTagIds ? meaningTagIds.join(',') : '');
   node.find('span.meaningTags').text('');
   $('#editorTags option:selected').each(function() {
     node.find('span.meaningTags').append('<span class="tag">' + $(this).text() + '</span>');

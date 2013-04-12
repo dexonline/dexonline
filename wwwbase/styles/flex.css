@@ -493,6 +493,11 @@ div.defInternalRep {
   margin-top: 10px;
 }
 
+div.defHtmlRep {
+  display: none;
+  margin-top: 10px;
+}
+
 .commentInternalRep {
   color: #333;
   margin-left:15px;

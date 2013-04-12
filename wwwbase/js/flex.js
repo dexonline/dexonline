@@ -261,6 +261,7 @@ function meaningEditorInit() {
   $('#editMeaningAcceptButton').click(acceptMeaningEdit);
   $('#editMeaningCancelButton').click(endMeaningEdit);
   $('#dexEditSaveButton').click(dexEditSaveEverything);
+  $('.toggleInternalHtmlLink').click(toggleInternalHtmlClick);
 }
 
 function select2InitSelection(element, callback) {
@@ -447,4 +448,12 @@ function dexEditSaveEverything() {
   }
   $('input[name=jsonMeanings]').val(JSON.stringify(results));
   $('#meaningForm').submit();
+}
+
+function toggleInternalHtmlClick() {
+  var text = $(this).text();
+  $(this).text((text == 'arată html') ? 'arată text' : 'arată html');
+  $(this).closest('.defDetails').prevAll('.defInternalRep:last').slideToggle();
+  $(this).closest('.defDetails').prevAll('.defHtmlRep:last').slideToggle();
+  return false;
 }

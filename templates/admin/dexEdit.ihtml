@@ -86,10 +86,14 @@
         <div class="defInternalRep">
           {$row->definition->internalRep|escape}
         </div>
+        <div class="defHtmlRep">
+          {$row->definition->htmlRep}
+        </div>
         <span class="defDetails">
-          Sursa: {$row->source->shortName|escape}
-          | Id: {$row->definition->id}
-          | <a href="definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
+          sursa: {$row->source->shortName|escape}
+          | id: {$row->definition->id}
+          | <a href="definitionEdit.php?definitionId={$row->definition->id}" target="_blank">editează</a>
+          | <a href="#" class="toggleInternalHtmlLink">arată html</a>
         </span>
         {if $row->comment}
           <div class="commentInternalRep">

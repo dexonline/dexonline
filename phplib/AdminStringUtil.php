@@ -639,6 +639,28 @@ class AdminStringUtil {
     return $s;
   }
 
+  public static function expandAbbreviations($s, $sourceId) {
+    $abbrevs = self::loadAbbreviations();
+    if (!array_key_exists($sourceId, $abbrevs)) {
+      return $s;
+    }
+
+    $matches = array();
+    preg_match_all("/#([^#]*)#/", $s, $matches, PREG_OFFSET_CAPTURE);
+    if (count($matches[1])) {
+      foreach (array_reverse($matches[1]) as $match) {
+        $from = $match[0];
+        $matchingKey = self::bestAbbrevMatch($from, $abbrevs[$sourceId]);
+        $position = $match[1];
+        if ($matchingKey) {
+          $to =  $abbrevs[$sourceId][$matchingKey]['to'];
+          $s = substr_replace($s, $to, $position - 1, 2 + strlen($from));
+        }
+      }
+    }
+    return $s;
+  }
+
   static function getAbbreviation($sourceId, $short) {
     $abbrevs = self::loadAbbreviations();
     return array_key_exists($sourceId, $abbrevs) && array_key_exists($short, $abbrevs[$sourceId])

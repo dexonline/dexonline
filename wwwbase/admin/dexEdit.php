@@ -44,6 +44,9 @@ if ($jsonMeanings) {
 }
 
 $defs = Definition::loadByLexemId($lexem->id);
+foreach ($defs as $def) {
+  $def->internalRep = AdminStringUtil::expandAbbreviations($def->internalRep, $def->sourceId);
+}
 $searchResults = SearchResult::mapDefinitionArray($defs);
 $meaningTags = Model::factory('MeaningTag')->order_by_asc('value')->find_many();
 

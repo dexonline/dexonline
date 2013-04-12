@@ -230,33 +230,45 @@ function meaningEditorInit() {
   });
   $('#editorTags').select2('disable');
 
+  var lexemAjax = {
+    data: function(term, page) { return { term: term, select2: 1}; },
+    dataType: 'json',
+    results: function(data, page) { return data; }, 
+    url: wwwRoot + 'ajax/getLexems.php',
+  };
+
   $('#editorSynonyms').select2({
-    ajax: {
-      data: function (term, page) { return { term: term, select2: 1}; },
-      results: function (data, page) { return data; }, 
-      dataType: 'json',
-      url: wwwRoot + 'ajax/getLexems.php',
-    },
-    initSelection : function (element, callback) {
-      var data = [];
-      $(element.val().split(",")).each(function () {
-        data.push({id: this, text: this});
-      });
-      callback(data);
-    },
+    ajax: lexemAjax,
+    initSelection: select2InitSelection,
     multiple: true,
     placeholder: 'adaugă un sinonim...',
     width: '315px',
   });
   $('#editorSynonyms').select2('disable');
 
-  $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags, #editorSynonyms').bind('change keyup input paste', function() {
-    me_anyChanges = true;
+  $('#editorAntonyms').select2({
+    ajax: lexemAjax,
+    initSelection: select2InitSelection,
+    multiple: true,
+    placeholder: 'adaugă un antonim...',
+    width: '315px',
   });
+  $('#editorAntonyms').select2('disable');
+
+  $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags, #editorSynonyms, #editorAntonyms').bind(
+    'change keyup input paste', function() { me_anyChanges = true; });
 
   $('#editMeaningAcceptButton').click(acceptMeaningEdit);
   $('#editMeaningCancelButton').click(endMeaningEdit);
   $('#dexEditSaveButton').click(dexEditSaveEverything);
+}
+
+function select2InitSelection(element, callback) {
+  var data = [];
+  $(element.val().split(',')).each(function () {
+    data.push({ id: this, text: this });
+  });
+  callback(data);
 }
 
 function addMeaning() {
@@ -318,12 +330,20 @@ function beginMeaningEdit() {
   $('#editorSources').select2('enable');
   $('#editorTags').select2('val', node.find('span.meaningTagIds').text().split(','));
   $('#editorTags').select2('enable');
+
   var synonymIds = node.find('span.synonymIds').text().split(',');
   var synonyms = node.find('.synonyms .tag');
   $('#editorSynonyms').select2('data', synonyms.map(function(index) {
     return { id: synonymIds[index], text: $(this).text() };
   }));
   $('#editorSynonyms').select2('enable');
+
+  var antonymIds = node.find('span.antonymIds').text().split(',');
+  var antonyms = node.find('.antonyms .tag');
+  $('#editorAntonyms').select2('data', antonyms.map(function(index) {
+    return { id: antonymIds[index], text: $(this).text() };
+  }));
+  $('#editorAntonyms').select2('enable');
 }
 
 function acceptMeaningEdit() {
@@ -371,6 +391,14 @@ function acceptMeaningEdit() {
     node.find('span.synonyms').append('<span class="tag">' + rec.text + '</span>');
   });
 
+  // Update antonym tags and antonymIds
+  var antonymData = $('#editorAntonyms').select2('data');
+  node.find('span.antonymIds').text($.map(antonymData, function(rec, i) { return rec.id; }));
+  node.find('span.antonyms').text('');
+  $.map(antonymData, function(rec, i) {
+    node.find('span.antonyms').append('<span class="tag">' + rec.text + '</span>');
+  });
+
   // Now update the tree node
   $('#meaningTree').tree('update', { target: domNode, text: node.find('.tree-title').html() });
 }
@@ -386,6 +414,8 @@ function endMeaningEdit() {
   $('#editorTags').select2('disable');
   $('#editorSynonyms').select2('data', []);
   $('#editorSynonyms').select2('disable');
+  $('#editorAntonyms').select2('data', []);
+  $('#editorAntonyms').select2('disable');
 }
 
 // Iterate a meaning tree node recursively and collect meaning-related fields
@@ -398,6 +428,7 @@ function dexEditTreeWalk(node, results, level) {
                  'sourceIds': jqNode.find('span.sourceIds').text(),
                  'meaningTagIds': jqNode.find('span.meaningTagIds').text(),
                  'synonymIds': jqNode.find('span.synonymIds').text(),
+                 'antonymIds': jqNode.find('span.antonymIds').text(),
                });
   var children = $('#meaningTree').tree('getChildren', node.target);
   for (var i = 0; i < children.length; i++) {

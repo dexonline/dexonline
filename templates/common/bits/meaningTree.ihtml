@@ -39,6 +39,16 @@
               {$s->id}{if !$smarty.foreach.synonymLoop.last},{/if}
             {/foreach}
           {/strip}</span>
+          <span class="antonyms">{strip}
+            {foreach from=$t.antonyms item=s}
+              <span class="tag">{include file="common/bits/lexemName.ihtml lexem=$s}</span>
+            {/foreach}
+          {/strip}</span>
+          <span class="antonymIds">{strip}
+            {foreach from=$t.antonyms item=s name=antonymLoop}
+              {$s->id}{if !$smarty.foreach.antonymLoop.last},{/if}
+            {/foreach}
+          {/strip}</span>
         </span>
         {include file="common/bits/meaningTree.ihtml" meanings=$t.children id=""}
       </li>

@@ -33,7 +33,9 @@ if ($jsonMeanings) {
     $meaningTagIds = StringUtil::explode(',', $tuple->meaningTagIds);
     MeaningTagMap::updateMeaningTags($m->id, $meaningTagIds);
     $synonymIds = StringUtil::explode(',', $tuple->synonymIds);
-    Synonym::updateSynonyms($m->id, $synonymIds);
+    Synonym::updateList($m->id, $synonymIds, Synonym::TYPE_SYNONYM);
+    $antonymIds = StringUtil::explode(',', $tuple->antonymIds);
+    Synonym::updateList($m->id, $antonymIds, Synonym::TYPE_ANTONYM);
     $seenMeaningIds[] = $m->id;
   }
   Meaning::deleteNotInSet($seenMeaningIds, $lexem->id);

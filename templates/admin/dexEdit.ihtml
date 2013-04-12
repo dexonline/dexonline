@@ -10,6 +10,8 @@
   <span class="sourceIds"></span>
   <span class="synonyms"></span>
   <span class="synonymIds"></span>
+  <span class="antonyms"></span>
+  <span class="antinymIds"></span>
 </span>
 
 <div class="box">
@@ -31,6 +33,7 @@
     <div class="boxContents">
       <textarea id="editorInternalRep" rows="10" cols="10" disabled="disabled" placeholder="...sensul definiției..."></textarea><br/>
       <textarea id="editorInternalComment" rows="3" cols="10" disabled="disabled" placeholder="...comentariu..."></textarea><br/>
+
       <div class="editorLabel">surse:</div>
       <div class="editorFieldContainer">
         <select id="editorSources" multiple="multiple">
@@ -40,6 +43,7 @@
         </select>
       </div>
       <div style="clear: both"></div>
+
       <div class="editorLabel">etichete:</div>
       <div class="editorFieldContainer">
         <select id="editorTags" multiple="multiple">
@@ -49,11 +53,19 @@
         </select>
       </div>
       <div style="clear: both"></div>
+
       <div class="editorLabel">sinonime:</div>
       <div class="editorFieldContainer">
         <input id="editorSynonyms" type="hidden"/>
       </div>
       <div style="clear: both"></div>
+
+      <div class="editorLabel">antonime:</div>
+      <div class="editorFieldContainer">
+        <input id="editorAntonyms" type="hidden"/>
+      </div>
+      <div style="clear: both"></div>
+
       <input id="editMeaningAcceptButton" type="button" disabled="disabled" value="acceptă"/>
       <input id="editMeaningCancelButton" type="button" disabled="disabled" value="renunță"/>
     </div>

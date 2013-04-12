@@ -219,34 +219,41 @@ function meaningEditorInit() {
   $('#deleteMeaningButton').click(deleteMeaning);
 
   $('#editorSources').select2({
-    placeholder: 'alegeți zero sau mai multe surse',
+    placeholder: 'adaugă o sursă...',
     width: '315px',
   });
   $('#editorSources').select2('disable');
 
   $('#editorTags').select2({
-    placeholder: 'alegeți zero sau mai multe etichete',
+    placeholder: 'adaugă o etichetă...',
     width: '315px',
   });
   $('#editorTags').select2('disable');
 
-  $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags, #editorSynonym').bind('change keyup input paste', function() {
+  $('#editorSynonyms').select2({
+    ajax: {
+      data: function (term, page) { return { term: term, select2: 1}; },
+      results: function (data, page) { return data; }, 
+      dataType: 'json',
+      url: wwwRoot + 'ajax/getLexems.php',
+    },
+    initSelection : function (element, callback) {
+      var data = [];
+      $(element.val().split(",")).each(function () {
+        data.push({id: this, text: this});
+      });
+      callback(data);
+    },
+    multiple: true,
+    placeholder: 'adaugă un sinonim...',
+    width: '315px',
+  });
+  $('#editorSynonyms').select2('disable');
+
+  $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags, #editorSynonyms').bind('change keyup input paste', function() {
     me_anyChanges = true;
   });
-  $('#editorSynonym').combobox({
-    url: wwwRoot + 'ajax/getLexems.php?easyui=1',
-    valueField: 'id',
-    textField: 'text',
-    mode: 'remote',
-    hasDownArrow: false,
-    onLoadSuccess: editorSynonymOnLoad,
-    onSelect: editorSynonymSelect,
-    keyHandler: $.extend({}, $.fn.combobox.defaults.keyHandler, {
-      enter: editorSynonymEnter,
-    }),
-  });
-  $('#editorSynonym').combobox('disable');
-  $('#editorSynonymList').on('click', '.link', deleteSynonymClick);
+
   $('#editMeaningAcceptButton').click(acceptMeaningEdit);
   $('#editMeaningCancelButton').click(endMeaningEdit);
   $('#dexEditSaveButton').click(dexEditSaveEverything);
@@ -296,40 +303,6 @@ function deleteMeaning() {
   }
 }
 
-function editorSynonymOnLoad() {
-  var data = $('#editorSynonym').combobox('getData');
-  var text = $('#editorSynonym').combobox('getText');
-  if (data && data[0] && text && (data[0].text == text)) {
-    $('#editorSynonym').combobox('setValue', data[0].id);
-  }
-}
-
-function editorSynonymSelect(record) {
-  $('#editorSynonym').combobox('textbox').focus();
-}
-
-function editorSynonymEnter() {
-  var value = $('#editorSynonym').combobox('getValue');
-  var text = $('#editorSynonym').combobox('getText');
-  var exists = $('#editorSynonymList').find(".id:contains('" + value + "')").length;
-  if (value && !isNaN(value) && !exists) {
-    editorAddSynonymTag(value, text);
-    $('#editorSynonym').combobox('hidePanel');
-    $('#editorSynonym').combobox('clear');
-  }
-}
-
-function editorAddSynonymTag(id, text) {
-  var div = $('#stemSynonym').clone().removeAttr('id');
-  div.children('.id').text(id);
-  div.children('.name').text(text);
-  div.appendTo('#editorSynonymList');
-}
-
-function deleteSynonymClick() {
-  $(this).closest('.synonymTag').remove();
-}
-
 function meaningEditorUnchanged(node) {
   return !me_anyChanges || confirm('Aveți deja un sens în curs de modificare. Confirmați renunțarea la modificări?');
 }
@@ -345,11 +318,12 @@ function beginMeaningEdit() {
   $('#editorSources').select2('enable');
   $('#editorTags').select2('val', node.find('span.meaningTagIds').text().split(','));
   $('#editorTags').select2('enable');
-  $('#editorSynonymList').text('');
   var synonymIds = node.find('span.synonymIds').text().split(',');
-  node.find('span.synonyms .tag').each(function(index, value) {
-    editorAddSynonymTag(synonymIds[index], $(this).text());
-  });
+  var synonyms = node.find('.synonyms .tag');
+  $('#editorSynonyms').select2('data', synonyms.map(function(index) {
+    return { id: synonymIds[index], text: $(this).text() };
+  }));
+  $('#editorSynonyms').select2('enable');
 }
 
 function acceptMeaningEdit() {
@@ -375,7 +349,7 @@ function acceptMeaningEdit() {
 
   // Update sources and sourceIds
   var sourceIds = $('#editorSources').val();
-  node.find('span.sourceIds').text(sourceIds ? sourceIds.join(',') : '');
+  node.find('span.sourceIds').text(sourceIds.join(','));
   node.find('span.sources').text('');
   $('#editorSources option:selected').each(function() {
     node.find('span.sources').append('<span class="tag">' + $(this).text() + '</span>');
@@ -383,21 +357,19 @@ function acceptMeaningEdit() {
 
   // Update meaning tags and meaningIds
   var meaningTagIds = $('#editorTags').val();
-  node.find('span.meaningTagIds').text(meaningTagIds ? meaningTagIds.join(',') : '');
+  node.find('span.meaningTagIds').text(meaningTagIds.join(','));
   node.find('span.meaningTags').text('');
   $('#editorTags option:selected').each(function() {
     node.find('span.meaningTags').append('<span class="tag">' + $(this).text() + '</span>');
   });
 
   // Update synonym tags and synonymIds
-  var synonymIds = $('#editorSynonymList').find('.id').map(function() { return $(this).text(); }).get().join(',');
-  node.find('span.synonymIds').text(synonymIds);
+  var synonymData = $('#editorSynonyms').select2('data');
+  node.find('span.synonymIds').text($.map(synonymData, function(rec, i) { return rec.id; }));
   node.find('span.synonyms').text('');
-  $('#editorSynonymList').find('.name').each(function() {
-    node.find('span.synonyms').append('<span class="tag">' + $(this).text() + '</span>');
+  $.map(synonymData, function(rec, i) {
+    node.find('span.synonyms').append('<span class="tag">' + rec.text + '</span>');
   });
-  $('#editorSynonym').combobox('setText', '');
-  $('#editorSynonym').combobox('setValue', '');
 
   // Now update the tree node
   $('#meaningTree').tree('update', { target: domNode, text: node.find('.tree-title').html() });
@@ -412,10 +384,8 @@ function endMeaningEdit() {
   $('#editorSources').select2('disable');
   $('#editorTags').select2('val', []);
   $('#editorTags').select2('disable');
-  $('#editorSynonymList').text('');
-  $('#editorSynonym').combobox('setText', '');
-  $('#editorSynonym').combobox('setValue', '');
-  $('#editorSynonym').combobox('disable');
+  $('#editorSynonyms').select2('data', []);
+  $('#editorSynonyms').select2('disable');
 }
 
 // Iterate a meaning tree node recursively and collect meaning-related fields

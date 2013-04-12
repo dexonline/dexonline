@@ -1,10 +1,8 @@
 <?php
 require_once("../../phplib/util.php");
 
-error_log(var_export($_REQUEST, true));
-
-$easyui = util_getRequestParameter('easyui');
-$query = util_getRequestParameter($easyui? 'q' : 'term');
+$select2 = util_getRequestParameter('select2');
+$query = util_getRequestParameter('term');
 $parts = preg_split('/\(/', $query, 2);
 $name = AdminStringUtil::internalizeWordName(trim($parts[0]));
 $field = StringUtil::hasDiacritics($name) ? 'formNoAccent' : 'formUtf8General';
@@ -20,8 +18,8 @@ if (count($parts) == 2) {
 
 $resp = array();
 foreach ($lexems as $l) {
-  if ($easyui) {
-    $resp[] = array('id' => $l->id, 'text' => (string)$l);
+  if ($select2) {
+    $resp['results'][] = array('id' => $l->id, 'text' => (string)$l);
   } else {
     $resp[] = (string)$l;
   }

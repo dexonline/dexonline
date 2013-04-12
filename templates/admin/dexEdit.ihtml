@@ -12,12 +12,6 @@
   <span class="synonymIds"></span>
 </span>
 
-<div id="stemSynonym" class="synonymTag">
-  <div class="id"></div>
-  <div class="name"></div>
-  <div class="link">×</div>
-</div>
-
 <div class="box">
   <div class="boxTitle">Arborele de sensuri</div>
   <div id="meaningTreeContainer" class="boxContents">
@@ -57,10 +51,8 @@
       <div style="clear: both"></div>
       <div class="editorLabel">sinonime:</div>
       <div class="editorFieldContainer">
-        <input id="editorSynonym" type="text" placeholder="adăugați un sinonim"/>
+        <input id="editorSynonyms" type="hidden"/>
       </div>
-      <div style="clear: both"></div>
-      <div id="editorSynonymList"></div>
       <div style="clear: both"></div>
       <input id="editMeaningAcceptButton" type="button" disabled="disabled" value="acceptă"/>
       <input id="editMeaningCancelButton" type="button" disabled="disabled" value="renunță"/>

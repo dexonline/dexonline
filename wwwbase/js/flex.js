@@ -262,6 +262,7 @@ function meaningEditorInit() {
   $('#editMeaningCancelButton').click(endMeaningEdit);
   $('#dexEditSaveButton').click(dexEditSaveEverything);
   $('.toggleInternalHtmlLink').click(toggleInternalHtmlClick);
+  adjustDefinitionDivHeight();
 }
 
 function select2InitSelection(element, callback) {
@@ -288,6 +289,7 @@ function addMeaning() {
     parent: parent,
     data: [{ 'text': $('#stemNode').html() }]
   });
+  adjustDefinitionDivHeight();
 }
 
 function addSubmeaning() {
@@ -301,6 +303,7 @@ function addSubmeaning() {
       data: [{ 'text': $('#stemNode').html() }]
     });
   }
+  adjustDefinitionDivHeight();
 }
 
 function deleteMeaning() {
@@ -314,6 +317,7 @@ function deleteMeaning() {
       $('#meaningTree').tree('remove', node.target);
     }
   }
+  adjustDefinitionDivHeight();
 }
 
 function meaningEditorUnchanged(node) {
@@ -456,4 +460,10 @@ function toggleInternalHtmlClick() {
   $(this).closest('.defDetails').prevAll('.defInternalRep:last').slideToggle();
   $(this).closest('.defDetails').prevAll('.defHtmlRep:last').slideToggle();
   return false;
+}
+
+function adjustDefinitionDivHeight() {
+  var windowHeight = $(window).height();
+  var divTop = $('#dexEditRightColumn').position().top;
+  $('#dexEditRightColumn').height(windowHeight - divTop - 10);
 }

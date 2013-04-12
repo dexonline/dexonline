@@ -405,6 +405,7 @@ div.infoType {
 
 #dexEditRightColumn {
   margin-left: 412px;
+  overflow: auto;
 }
 
 #meaningEditor {

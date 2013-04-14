@@ -65,6 +65,11 @@
   </div>
 {/if}
 
+<div id="wotdTv">
+  Cuvântul zilei este elaborat de <i>DEX online</i> și prezentat de <a href="{$wwwRoot}spre/tvr">Albertina Ionescu</a> în cadrul
+  Telejurnalului Matinal, la TVR 1.
+</div>
+
 {if !$suggestMinimalist}
   <p class="paragraphTitle">Arhiva cuvintelor zilei</p>
 

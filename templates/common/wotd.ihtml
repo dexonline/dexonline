@@ -48,7 +48,7 @@
   </script> 
 {/if}
   
-{include file="common/bits/definition.ihtml row=$searchResult}
+{include file="common/bits/definition.ihtml" row=$searchResult}
 
 <div id="wotdPrevNext">
   {if $prevday}<div class="prev"><a href="{$wwwRoot}cuvantul-zilei/{$prevday}">« precedentul</a></div>{/if}

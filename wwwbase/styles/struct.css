@@ -8,14 +8,25 @@
 }
 
 .boxTitle {
-  background: #444;
+  background: #444 url("../img/icons/cog.png") no-repeat 5px 6px;
   color: white;
+  cursor: pointer;
   font-weight: bold;
-  padding: 5px;
+  padding: 5px 5px 5px 25px;
 }
 
 .boxContents {
   padding: 5px;
+}
+
+#parameters .boxContents {
+  display: none;
+}
+
+#parameters label {
+  display: inline-block;
+  margin-top: 4px;
+  width: 70px;
 }
 
 #dexEditLeftColumn {
@@ -31,7 +42,7 @@
   width: 400px;
 }
 
-#meaningForm {
+#dexEditSaveButton {
   margin-left: 100px;
   margin-top: 50px;
 }
@@ -108,6 +119,11 @@
   margin: 4px 0px;
 }
 
+abbr {
+  border-bottom: 1px dotted #aaa;
+  cursor: help;
+}
+
 div.defInternalRep {
   font-family: courier;
   margin-top: 10px;
@@ -139,6 +155,16 @@ span.defDetails a:hover {
   color: #555555;
 }
 
+span.tooltip {
+  background: url("../img/icons/information.png") no-repeat;
+  display: inline-block;
+  width: 16px;
+}
+
 .select2-container-multi, .select2-result {
+  font-size: 12px;
+}
+
+.ui-tooltip {
   font-size: 12px;
 }

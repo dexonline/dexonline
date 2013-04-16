@@ -52,10 +52,19 @@ function meaningEditorInit() {
   $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags, #editorSynonyms, #editorAntonyms').bind(
     'change keyup input paste', function() { me_anyChanges = true; });
 
+  $('#variants').select2({
+    ajax: lexemAjax,
+    initSelection: select2InitSelection,
+    multiple: true,
+    width: '217px',
+  });
+
   $('#editMeaningAcceptButton').click(acceptMeaningEdit);
   $('#editMeaningCancelButton').click(endMeaningEdit);
   $('#dexEditSaveButton').click(dexEditSaveEverything);
   $('.toggleInternalHtmlLink').click(toggleInternalHtmlClick);
+  $('.boxTitle').click(boxTitleClick);
+  $(document).tooltip();
 
   $(window).resize(adjustDefinitionDivHeight);
   adjustDefinitionDivHeight();
@@ -264,8 +273,12 @@ function toggleInternalHtmlClick() {
   return false;
 }
 
+function boxTitleClick() {
+  $(this).next('.boxContents').slideToggle();
+}
+
 function adjustDefinitionDivHeight() {
   var windowHeight = $(window).height();
-  var divTop = $('#dexEditRightColumn').position().top;
-  $('#dexEditRightColumn').height(windowHeight - divTop - 10);
+  var boxTop = $('#dexEditRightColumn .boxContents').position().top;
+  $('#dexEditRightColumn .boxContents').height(windowHeight - boxTop - 25);
 }

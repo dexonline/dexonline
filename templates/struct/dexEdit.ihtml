@@ -7,115 +7,140 @@
   </head>
 
   <body>
-    <span id="stemNode">
-      <span class="id"></span>
-      <span class="meaningTags"></span>
-      <span class="meaningTagIds"></span>
-      <span class="internalRep"></span>
-      <span class="htmlRep"></span>
-      <span class="internalComment"></span>
-      <span class="htmlComment"></span>
-      <span class="sources"></span>
-      <span class="sourceIds"></span>
-      <span class="synonyms"></span>
-      <span class="synonymIds"></span>
-      <span class="antonyms"></span>
-      <span class="antinymIds"></span>
-    </span>
-    
-    <div class="box">
-      <div class="boxTitle">Arborele de sensuri</div>
-      <div id="meaningTreeContainer" class="boxContents">
-        {include file="common/bits/meaningTree.ihtml" meanings=$meanings id="meaningTree"}
-    
-        <div id="meaningMenu">
-          <input type="button" id="addMeaningButton" value="adaugă sens"/>
-          <input type="button" id="addSubmeaningButton" value="adaugă subsens"/>
-          <input type="button" id="deleteMeaningButton" value="șterge sens"/>
-        </div>
-      </div>
-    </div>
-    
-    <div id="dexEditLeftColumn">
-      <div id="meaningEditor" class="box">
-        <div class="boxTitle">Editorul de sensuri</div>
+    <form id="meaningForm" action="dexEdit.php" method="post">
+      <input type="hidden" name="jsonMeanings" value=""/>
+      <input type="hidden" name="lexemId" value="{$lexem->id}"/>
+
+      <span id="stemNode">
+        <span class="id"></span>
+        <span class="meaningTags"></span>
+        <span class="meaningTagIds"></span>
+        <span class="internalRep"></span>
+        <span class="htmlRep"></span>
+        <span class="internalComment"></span>
+        <span class="htmlComment"></span>
+        <span class="sources"></span>
+        <span class="sourceIds"></span>
+        <span class="synonyms"></span>
+        <span class="synonymIds"></span>
+        <span class="antonyms"></span>
+        <span class="antinymIds"></span>
+      </span>
+      
+      <div id="parameters" class="box">
+        <div class="boxTitle">Parametri pentru {include file="common/bits/lexemName.ihtml"}</div>
         <div class="boxContents">
-          <textarea id="editorInternalRep" rows="10" cols="10" disabled="disabled" placeholder="...sensul definiției..."></textarea><br/>
-          <textarea id="editorInternalComment" rows="3" cols="10" disabled="disabled" placeholder="...comentariu..."></textarea><br/>
-    
-          <div class="editorLabel">surse:</div>
-          <div class="editorFieldContainer">
-            <select id="editorSources" multiple="multiple">
-              {foreach from=$sources item=s}
-                <option value="{$s->id}">{$s->shortName}</option>
-              {/foreach}
-            </select>
-          </div>
-          <div style="clear: both"></div>
-    
-          <div class="editorLabel">etichete:</div>
-          <div class="editorFieldContainer">
-            <select id="editorTags" multiple="multiple">
-              {foreach from=$meaningTags item=mt}
-                <option value="{$mt->id}">{$mt->value}</option>
-              {/foreach}
-            </select>
-          </div>
-          <div style="clear: both"></div>
-    
-          <div class="editorLabel">sinonime:</div>
-          <div class="editorFieldContainer">
-            <input id="editorSynonyms" type="hidden"/>
-          </div>
-          <div style="clear: both"></div>
-    
-          <div class="editorLabel">antonime:</div>
-          <div class="editorFieldContainer">
-            <input id="editorAntonyms" type="hidden"/>
-          </div>
-          <div style="clear: both"></div>
-    
-          <input id="editMeaningAcceptButton" type="button" disabled="disabled" value="acceptă"/>
-          <input id="editMeaningCancelButton" type="button" disabled="disabled" value="renunță"/>
+          <label for="hyphenations">silabisiri:</label>
+          <input id="hyphenations" type="input" size="25"/>
+          <span class="tooltip"
+                title="una sau mai multe silabisiri, despărțite prin virgule">&nbsp;</span>
+          <br/>
+          
+
+          <label for="pronounciations">pronunții:</label>
+          <input id="pronounciations" type="input" size="25"/>
+          <span class="tooltip"
+                title="una sau mai multe pronunții, despărțite prin virgule">&nbsp;</span>
+          <br/>
+
+          <label for="variants">variante:</label>
+          <input id="variants" type="hidden"/>
+          <span class="tooltip"
+                title="Variantele nu pot avea sensuri, exemple sau etimologii proprii. Ele pot avea pronunții și silabisiri proprii.">&nbsp;</span>
+          <br/>
         </div>
       </div>
-    
-      <form id="meaningForm" action="dexEdit.php" method="post">
-        <input type="hidden" name="jsonMeanings" value=""/>
-        <input type="hidden" name="lexemId" value="{$lexem->id}"/>
-        <input id="dexEditSaveButton" type="button" value="salvează totul"/>
-      </form>
-    </div>
-    
-    <div id="dexEditRightColumn" class="box">
-      <div class="boxTitle">Definiții</div>
-      <div class="boxContents">
-        {foreach from=$searchResults item=row}
-          <div>
-            <div class="defInternalRep">
-              {$row->definition->internalRep|escape}
-            </div>
-            <div class="defHtmlRep">
-              {$row->definition->htmlRep}
-            </div>
-            <span class="defDetails">
-              sursa: {$row->source->shortName|escape}
-              | id: {$row->definition->id}
-              | <a href="definitionEdit.php?definitionId={$row->definition->id}" target="_blank">editează</a>
-              | <a href="#" class="toggleInternalHtmlLink">arată html</a>
-            </span>
-            {if $row->comment}
-              <div class="commentInternalRep">
-                Comentariu: {$row->comment->contents} -
-                <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}"
-                >{$row->commentAuthor->nick|escape}</a>
-              </div>
-            {/if}
+      
+      <div class="box">
+        <div class="boxTitle">Sensuri pentru {include file="common/bits/lexemName.ihtml"}</div>
+        <div id="meaningTreeContainer" class="boxContents">
+          {include file="common/bits/meaningTree.ihtml" meanings=$meanings id="meaningTree"}
+      
+          <div id="meaningMenu">
+            <input type="button" id="addMeaningButton" value="adaugă sens"/>
+            <input type="button" id="addSubmeaningButton" value="adaugă subsens"/>
+            <input type="button" id="deleteMeaningButton" value="șterge sens"/>
           </div>
-        {/foreach}
+        </div>
       </div>
-    </div>
-    
+
+      <div id="dexEditLeftColumn">
+        <div id="meaningEditor" class="box">
+          <div class="boxTitle">Editorul de sensuri</div>
+          <div class="boxContents">
+            <textarea id="editorInternalRep" rows="10" cols="10" disabled="disabled" placeholder="sensul definiției..."></textarea><br/>
+            <textarea id="editorInternalComment" rows="3" cols="10" disabled="disabled" placeholder="comentariu..."></textarea><br/>
+      
+            <div class="editorLabel">surse:</div>
+            <div class="editorFieldContainer">
+              <select id="editorSources" multiple="multiple">
+                {foreach from=$sources item=s}
+                  <option value="{$s->id}">{$s->shortName}</option>
+                {/foreach}
+              </select>
+            </div>
+            <div style="clear: both"></div>
+      
+            <div class="editorLabel">etichete:</div>
+            <div class="editorFieldContainer">
+              <select id="editorTags" multiple="multiple">
+                {foreach from=$meaningTags item=mt}
+                  <option value="{$mt->id}">{$mt->value}</option>
+                {/foreach}
+              </select>
+            </div>
+            <div style="clear: both"></div>
+      
+            <div class="editorLabel">sinonime:</div>
+            <div class="editorFieldContainer">
+              <input id="editorSynonyms" type="hidden"/>
+            </div>
+            <div style="clear: both"></div>
+      
+            <div class="editorLabel">antonime:</div>
+            <div class="editorFieldContainer">
+              <input id="editorAntonyms" type="hidden"/>
+            </div>
+            <div style="clear: both"></div>
+      
+            <input id="editMeaningAcceptButton" type="button" disabled="disabled" value="acceptă"/>
+            <input id="editMeaningCancelButton" type="button" disabled="disabled" value="renunță"/>
+          </div>
+        </div>
+      
+        <input id="dexEditSaveButton" type="button" value="salvează totul"/>
+      </div>
+      
+      <div id="dexEditRightColumn" class="box">
+        <div class="boxTitle">Definiții pentru {include file="common/bits/lexemName.ihtml"}</div>
+        <div class="boxContents">
+          {foreach from=$searchResults item=row}
+            <div>
+              <div class="defInternalRep">
+                {$row->definition->internalRep|escape}
+              </div>
+              <div class="defHtmlRep">
+                {$row->definition->htmlRep}
+              </div>
+              <span class="defDetails">
+                sursa: {$row->source->shortName|escape}
+                | id: {$row->definition->id}
+                | <a href="definitionEdit.php?definitionId={$row->definition->id}" target="_blank">editează</a>
+                | <a href="#" class="toggleInternalHtmlLink">arată html</a>
+              </span>
+              {if $row->comment}
+                <div class="commentInternalRep">
+                  Comentariu: {$row->comment->contents} -
+                  <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}"
+                  >{$row->commentAuthor->nick|escape}</a>
+                </div>
+              {/if}
+            </div>
+          {/foreach}
+        </div>
+      </div>
+    </form>
+      
     <div style="clear: both"></div>
     
     <script type="text/javascript">

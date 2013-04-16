@@ -60,6 +60,13 @@ class Meaning extends BaseObject implements DatedObject {
     }
   }
 
+  public static function deleteByLexemId($lexemId) {
+    $meanings = self::get_all_by_lexemId($lexemId);
+    foreach ($meanings as $m) {
+      $m->delete();
+    }
+  }
+
   public function delete() {
     MeaningSource::deleteByMeaningId($this->id);
     MeaningTagMap::deleteByMeaningId($this->id);

@@ -372,6 +372,7 @@ class Lexem extends BaseObject implements DatedObject {
       }
       LexemDefinitionMap::deleteByLexemId($this->id);
       InflectedForm::deleteByLexemId($this->id);
+      Meaning::deleteByLexemId($this->id);
     }
     parent::delete();
   }

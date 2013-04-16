@@ -146,7 +146,7 @@ class SmartyWrap {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
       switch($id) {
-      case 'jqueryui':           self::$cssFiles[1] = 'lightness-1.9.2/jquery-ui-1.9.2.custom.min.css'; break;
+      case 'jqueryui':           self::$cssFiles[1] = 'lightness-1.9.2/jquery-ui-1.9.2.custom.min.css?v=2'; break;
       case 'jqgrid':             self::$cssFiles[2] = 'ui.jqgrid.css?v=2'; break;
       case 'elfinder':           self::$cssFiles[4] = 'elfinder.css'; break;
       case 'zepu':               self::$cssFiles[5] = 'zepu.css?v=52'; break;
@@ -175,7 +175,7 @@ class SmartyWrap {
     foreach (func_get_args() as $id) {
       switch($id) {
       case 'jquery':           self::$jsFiles[1] = 'jquery-1.8.3.min.js'; break; 
-      case 'jqueryui':         self::$jsFiles[2] = 'jquery-ui-1.9.2.custom.min.js'; break;
+      case 'jqueryui':         self::$jsFiles[2] = 'jquery-ui-1.9.2.custom.min.js?v=2'; break;
       case 'jqgrid':
         self::$jsFiles[3] = 'grid.locale-en.js?v=1';
         self::$jsFiles[4] = 'jquery.jqGrid.min.js?v=2';

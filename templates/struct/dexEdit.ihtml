@@ -31,20 +31,20 @@
         <div class="boxTitle">Parametri pentru {include file="common/bits/lexemName.ihtml"}</div>
         <div class="boxContents">
           <label for="hyphenations">silabisiri:</label>
-          <input id="hyphenations" type="input" size="25"/>
+          <input id="hyphenations" type="text" size="25"/>
           <span class="tooltip"
                 title="una sau mai multe silabisiri, despărțite prin virgule">&nbsp;</span>
           <br/>
           
 
           <label for="pronounciations">pronunții:</label>
-          <input id="pronounciations" type="input" size="25"/>
+          <input id="pronounciations" type="text" size="25"/>
           <span class="tooltip"
                 title="una sau mai multe pronunții, despărțite prin virgule">&nbsp;</span>
           <br/>
 
           <label for="variants">variante:</label>
-          <input id="variants" type="hidden"/>
+          <input id="variants" type="text"/>
           <span class="tooltip"
                 title="Variantele nu pot avea sensuri, exemple sau etimologii proprii. Ele pot avea pronunții și silabisiri proprii.">&nbsp;</span>
           <br/>

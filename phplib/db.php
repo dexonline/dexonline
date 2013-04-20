@@ -13,7 +13,8 @@ function db_init() {
   ORM::configure('password', $parts['password']);
   // If you enable query logging, you can then run var_dump(ORM::get_query_log());
   // ORM::configure('logging', true);
-  ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+  ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+                                         PDO::MYSQL_ATTR_LOCAL_INFILE => true));
 }
 
 // Returns a DB result set that you can iterate with foreach($result as $row)
@@ -22,6 +23,22 @@ function db_execute($query, $fetchStyle = PDO::FETCH_BOTH) {
   $result = ORM::get_db()->query($query, $fetchStyle);
   DebugInfo::stopClock("Low-level query: $query");
   return $result;
+}
+
+/**
+ * There is a bug with running "load data local infile" from PDO:
+ * http://www.yiiframework.com/forum/index.php/topic/33612-load-data-local-infile-forbidden/
+ * We can still run that statement from the command line.
+ * This function allows us to do that until we upgrade to PHP 5.4.
+ **/
+function db_executeFromOS($query) {
+  $dsn = pref_getServerPreference('database');
+  $parts = db_splitDsn($dsn);
+  $command = sprintf("mysql -u %s %s %s -e \"{$query}\"",
+                     $parts['user'],
+                     $parts['password'] ? ("-p " . $parts['password']) : '',
+                     $parts['database']);
+  OS::executeAndAssert($command);
 }
 
 function db_changeDatabase($dbName) {

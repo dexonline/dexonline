@@ -11,7 +11,7 @@ if (!Lock::acquire(LOCK_FULL_TEXT_INDEX)) {
 }
 
 log_scriptLog("Clearing table FullTextIndex.");
-db_execute('delete from FullTextIndex');
+db_execute('truncate table FullTextIndex');
 
 $ifMap = array();
 $dbResult = db_execute('select id, internalRep from Definition where status = 0');
@@ -60,9 +60,7 @@ log_scriptLog("Index size: $indexSize entries.");
 
 OS::executeAndAssert("chmod 666 $fileName");
 log_scriptLog("Importing file $fileName into table FullTextIndex");
-if (!db_execute("load data local infile '$fileName' into table FullTextIndex")) {
-  OS::errorAndExit("MySQL error");
-}
+db_executeFromOS("load data local infile '$fileName' into table FullTextIndex");
 util_deleteFile($fileName);
 
 if (!Lock::release(LOCK_FULL_TEXT_INDEX)) {

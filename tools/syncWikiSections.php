@@ -3,7 +3,7 @@
 define('DEBUG', 0);
 if (DEBUG) echo "START\n";
 
-require_once("../phplib/util.php");
+require_once __DIR__ . '/../phplib/util.php';
 log_scriptLog('Running syncWikiSections.php');
 
 define('ARTICLE_SECTONS_URL', 'http://lingv.dexonline.ro/api.php?action=query&list=allcategories&acprefix=Articole&format=xml');

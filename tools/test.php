@@ -1,6 +1,6 @@
 <?php
 
-include_once "../phplib/util.php";
+require_once __DIR__ . '/../phplib/util.php';
 assert_options(ASSERT_BAIL, 1);
 
 function assertEquals($expected, $actual) {

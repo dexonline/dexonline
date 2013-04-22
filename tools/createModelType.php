@@ -1,6 +1,6 @@
 <?php
 
-require_once("../phplib/util.php");
+require_once __DIR__ . '/../phplib/util.php';
 
 define('MODEL_TYPE', 'SP');
 define('MODEL_TYPE_DESCRIPTION', 'Substantiv propriu');

@@ -1,6 +1,6 @@
 <?php
 
-require_once("../phplib/util.php");
+require_once __DIR__ . '/../phplib/util.php';
 
 $TMP_DIR = '/tmp';
 $FILENAME = 'dex-database.sql';

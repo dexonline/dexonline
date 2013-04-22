@@ -4,12 +4,13 @@ require_once __DIR__ . '/../phplib/util.php';
 log_scriptLog('Running rebuildFirefoxSpellChecker.php.');
 $tmpDir = tempnam('/tmp', 'xpi_');
 log_scriptLog('Setting up directories');
+chdir(util_getRootPath());
 OS::executeAndAssert("rm $tmpDir");
 OS::executeAndAssert("mkdir $tmpDir");
 OS::executeAndAssert("mkdir $tmpDir/chrome");
 OS::executeAndAssert("mkdir $tmpDir/dictionaries");
 OS::executeAndAssert("echo 'SET UTF-8' > $tmpDir/dictionaries/ro-dex.aff");
-OS::executeAndAssert("cp ../docs/install.rdf $tmpDir/");
+OS::executeAndAssert("cp docs/install.rdf $tmpDir/");
 
 $mysqlFile = tempnam('/tmp', 'mysql_');
 unlink($mysqlFile);
@@ -23,7 +24,7 @@ OS::executeAndAssert("cat $mysqlFile >> $tmpDir/dictionaries/ro-dex.dic");
 
 log_scriptLog("Zipping");
 OS::executeAndAssert("cd $tmpDir && zip -r dex-ff.xpi *");
-OS::executeAndAssert("cp -f $tmpDir/dex-ff.xpi ../wwwbase/download/");
+OS::executeAndAssert("cp -f $tmpDir/dex-ff.xpi wwwbase/download/");
 
 OS::executeAndAssert("rm -rf $tmpDir");
 log_scriptLog('rebuildFirefoxSpellChecker.php completed successfully (against all odds)');

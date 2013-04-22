@@ -14,6 +14,7 @@ $g_curFileUrl = 0;
 
 log_scriptLog('Running generateSitemap.php');
 
+chdir(util_getRootPath());
 openNewFile();
 addOtherUrls();
 
@@ -87,7 +88,7 @@ function closeCurrentFile() {
 
   fprintf($g_curFile, "</urlset>\n");
   fclose($g_curFile);
-  OS::executeAndAssert("gzip - < {$g_curFileName} > ../wwwbase/sitemap{$g_numFiles}.xml.gz");
+  OS::executeAndAssert("gzip - < {$g_curFileName} > wwwbase/sitemap{$g_numFiles}.xml.gz");
   util_deleteFile($g_curFileName);
 }
 
@@ -113,7 +114,7 @@ function generateIndexFile() {
   global $g_numFiles;
 
   log_scriptLog("Writing sitemap index sitemap.xml");
-  $f = fopen('../wwwbase/sitemap.xml', 'w');
+  $f = fopen('wwwbase/sitemap.xml', 'w');
   fprintf($f, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   fprintf($f, "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n");
 

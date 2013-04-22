@@ -12,16 +12,15 @@ $MAIL_ERROR = array('raduborza@gmail.com', 'dorelian.bellu@gmail.com', 'carmenni
 $MAIL_HEADERS = array('From: cata@francu.com', 'Reply-To: cata@francu.com');
 
 $sendEmail = false;
+$quiet = false;
 foreach ($argv as $i => $arg) {
   if ($i) {
     switch ($arg) {
     case '--send-email': $sendEmail = true; break;
-    default: print "Unknown flag $arg -- ignored\n"; exit;
+    case '--quiet': $quiet = true; break;
+    default: print "Unknown flag $arg -- aborting\n"; exit;
     }
   }
-}
-if (!$sendEmail) {
-  print "---- DRY RUN ----\n";
 }
 
 $messages = array();
@@ -123,8 +122,8 @@ if (count($messages)) {
   if ($sendEmail) {
     log_scriptLog("checkWotd: sending email");
     mail($mailTo, $subject, $body, implode("\n", $MAIL_HEADERS));
-  } else {
-    log_scriptLog("checkWotd: printing dry run message");
+  } else if (!$quiet) {
+    print "---- DRY RUN ----\n";
     print "Către: $mailTo\nSubiect: $subject\n\n$body\n";
   }
   log_scriptLog("checkWotd: ending");  

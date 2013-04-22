@@ -13,7 +13,7 @@ log_scriptLog("generating dump for $TODAY; previous dump is " . ($LAST_DUMP ? $L
 
 if ($LAST_DUMP == $TODAY) {
   log_scriptLog("a dump already exists for $TODAY; aborting");
-  exit(1);
+  die("a dump already exists for $TODAY; aborting\n");
 }
 
 dumpSources("$FOLDER/$TODAY-sources.xml.gz");

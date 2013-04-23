@@ -1,0 +1,73 @@
+MAILTO=your_email_here
+DEXONLINE_PATH=/path/to/DEX
+
+###########################################################################
+#                               Daily tasks                               #
+###########################################################################
+
+# Run on: main site
+# Import wiki articles and sections
+20 1 * * * php $DEXONLINE_PATH/tools/syncWikiSections.php
+50 1 * * * php $DEXONLINE_PATH/tools/syncWikiArticles.php
+
+# Run on: main site
+# Remove old login cookies and password reminders
+10 2 * * * php $DEXONLINE_PATH/tools/purgeOldData.php
+
+# Run on: main site
+# Dump the full database so the mirrors can have it.
+30 2 * * * php $DEXONLINE_PATH/tools/dumpDatabase.php --full
+
+# Run on: mirror sites
+# Sync the code and fetch the latest version of the database.
+# Requires read access to the full database dump.
+# 30 3 * * * php $DEXONLINE_PATH/tools/updateMirror.php
+
+# Run on: main site, mirror sites
+# Dump the public database. This should be done after we run updateMirror,
+# so this copy is as fresh as possible.
+30 4 * * * php $DEXONLINE_PATH/tools/dumpDatabase.php
+
+# Run on: main site
+# Send out alerts for missing WotD
+30 23 * * * php $DEXONLINE_PATH/tools/checkWotd.php --send-email
+
+# Run on: main site
+# And run once more in silent mode (no email)
+58 23 * * * php $DEXONLINE_PATH/tools/checkWotd.php --quiet
+
+# Run on: main site
+# Email sar report
+58 23 * * * sar -q -r -S | mail -s "$HOSTNAME Daily_Sar_Report" $MAILTO
+
+###########################################################################
+#                               Weekly tasks                              #
+###########################################################################
+
+# Run on: main site, mirror sites
+# Regenerate the Firefox spell checker extension
+55 2 * * 6 php $DEXONLINE_PATH/tools/rebuildFirefoxSpellChecker.php
+
+# Run on: main site
+# Regenerate the full-text index
+0 4 * * 6 php $DEXONLINE_PATH/tools/rebuildFullTextIndex.php
+
+# Run on: main site, mirror sites
+# Regenerate the sitemap
+0 5 * * 6 php $DEXONLINE_PATH/tools/generateSitemap.php
+
+# Run on: main site
+# Update the definition counts and percentages complete for each source
+25 5 * * 6 php $DEXONLINE_PATH/tools/updateSourceCounts.php
+
+# Run on: main site, mirror sites
+# Dump the XML database and weekly diffs
+30 5 * * 6 php $DEXONLINE_PATH/tools/dumpDatabaseXml.php
+
+# Run on: main site
+# Regenerate the N-gram table for approximate searches
+0 6 * * 6 php $DEXONLINE_PATH/tools/genNGram.php
+
+# Run on: main site, mirror sites
+# Rebuild the Scrabble forms lists
+0 6 * * 6 php $DEXONLINE_PATH/tools/rebuildScrabbleForms.php

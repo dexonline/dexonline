@@ -20,7 +20,7 @@ if ($cuv) {
   $cuv = StringUtil::cleanupQuery($cuv);
 }
 
-util_redirectToFriendlyUrl($cuv, $sourceUrlName, $text, $showParadigm, $xml);
+util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm, $xml);
 
 $searchType = SEARCH_INFLECTED;
 $hasDiacritics = session_user_prefers(Preferences::FORCE_DIACRITICS);

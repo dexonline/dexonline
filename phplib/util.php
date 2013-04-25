@@ -366,7 +366,7 @@ function util_deleteFile($fileName) {
  * 3) http://dexonline.ro/text[-<sursa>]/<text>
  * Links of the old form (search.php?...) can only come via the search form and should not contain lexemId / definitionId.
  */
-function util_redirectToFriendlyUrl($cuv, $sourceUrlName, $text, $showParadigm, $xml) {
+function util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm, $xml) {
   if (strpos($_SERVER['REQUEST_URI'], '/search.php?') === false) {
     return;    // The url is already friendly.
   }
@@ -383,6 +383,12 @@ function util_redirectToFriendlyUrl($cuv, $sourceUrlName, $text, $showParadigm, 
 
   if ($text) {
     $url = "text{$sourcePart}/{$cuv}";
+  } else if ($lexemId) {
+    $l = Lexem::get_by_id($lexemId);
+    if (!$l) {
+      util_redirect(util_getWwwRoot());
+    }
+    $url = "lexem{$sourcePart}/{$l->formNoAccent}/{$l->id}/{$paradigmPart}";
   } else {
     $url = "definitie{$sourcePart}/{$cuv}{$paradigmPart}";
   }

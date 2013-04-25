@@ -44,6 +44,10 @@ RewriteRule ^utilizator/(.*)$ user.php?n=$1 [PT,L]
 RewriteRule ^definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)?(/xml)? search.php?cuv=$3&source=$2&defId=$5&showParadigm=$6&xml=$7 [PT,L]
 RewriteRule ^lexem(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)? search.php?cuv=$3&source=$2&lexemId=$5&showParadigm=$6 [PT,L]
 
+# Rewrites for old syntax used by dex-online.ro
+RewriteRule ^([^/]+)/cauta/?$ /definitie/$1 [R=301,L]
+RewriteRule ^cauta.php /search.php [R=301,L]
+
 RewriteRule ^flexiune/lexem/(.*)$ paradigm.php?lexemId=$1 [PT,L]
 RewriteRule ^(declinare|conjugare)/lexem/(.*)$ paradigm.php?lexemId=$2&type=$1 [PT,L]
 RewriteRule ^flexiune/(.*)$ paradigm.php?cuv=$1 [PT,L]

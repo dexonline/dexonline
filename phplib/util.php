@@ -135,7 +135,6 @@ function util_defineConstants() {
   define('NO_ACCENT_SHIFT', 101);
 
   define('LOCK_FULL_TEXT_INDEX', 'full_text_index');
-  define('LIMIT_FULLTEXT_DISPLAY', 500);
 
 #TODO clean up here
   define('PRIV_ADMIN', 0x01);
@@ -153,6 +152,10 @@ function util_defineConstants() {
   define('SOURCE_TYPE_OFFICIAL', 2);
   define('SOURCE_TYPE_SPECIALIZED', 1);
   define('SOURCE_TYPE_UNOFFICIAL', 0);
+
+  //Limits
+  define('DEFAULT_LIMIT_FULLTEXT', 500);
+  define('LIMIT_FULLTEXT_DISPLAY', pref_getSectionPreference('limits', 'limitFulltextSearch', DEFAULT_LIMIT_FULLTEXT));
 }
 
 function util_getAllStatuses() {

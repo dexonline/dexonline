@@ -34,9 +34,12 @@ function pref_getServerPreference($name) {
   }
 }
 
-function pref_getSectionPreference($section, $name) {
+function pref_getSectionPreference($section, $name, $defaultValue = NULL) {
   if (array_key_exists($section, $GLOBALS['serverPreferences']) && array_key_exists($name, $GLOBALS['serverPreferences'][$section])) {
     return $GLOBALS['serverPreferences'][$section][$name];
+  }
+  else if (!is_null($defaultValue)) {
+    return $defaultValue;
   } else {
     return false;
   }

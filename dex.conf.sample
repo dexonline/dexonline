@@ -109,3 +109,6 @@ openxLocal_otherPages = 2
 adsense_otherSkins = "id=2054526829&width=728&height=90"
 openx_otherSkins = 121346
 openxLocal_otherSkins = 3
+
+[limits]
+limitFulltextSearch = 1000;

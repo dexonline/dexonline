@@ -6,9 +6,25 @@ define('MAX_LIST_LENGTH', 2500);
 define('DEFAULT_LIST_LENGTH', 100);
 define('DEFAULT_SHOW_LIST', 0);
 
+define('MIN_WOTD_LIST_LENGTH', 5);
+define('MAX_WOTD_LIST_LENGTH', 50);
+define('DEFAULT_WOTD_LIST_LENGTH', 15);
+
 //define('RANDOM_WORDS_QUERY', 'select cuv %s from RandomWord where id in (%s)');
 define('RANDOM_WORDS_QUERY', 'select cuv %s from RandomWord order by rand() limit %d');
+define('RANDOM_WOTD_QUERY', "select lexicon cuv from WordOfTheDayRel W join Definition D on W.refId=D.id and W.refType='Definition' order by rand() limit %d");
 define('SOURCE_PART_RANDOM_WORDS', ', surse');
+
+$wListLength = (int) util_getRequestParameter('w');
+if (is_int($wListLength) && $wListLength) {
+    if ($wListLength<=MIN_WOTD_LIST_LENGTH || $wListLength>MAX_WOTD_LIST_LENGTH) {
+        $wListLength = DEFAULT_WOTD_LIST_LENGTH;
+    }
+}
+else {
+    $wListLength = NULL;
+}
+
 
 $listLength = (int) util_getRequestParameter('n');
 if (!is_int($listLength) || $listLength<=MIN_LIST_LENGTH || $listLength>MAX_LIST_LENGTH) {
@@ -33,7 +49,14 @@ $query = sprintf(RANDOM_WORDS_QUERY, $showSource?SOURCE_PART_RANDOM_WORDS:'', im
 $forms = db_getArrayOfRows($query);
 */
 
-$query = sprintf(RANDOM_WORDS_QUERY, $showSource?SOURCE_PART_RANDOM_WORDS:'', $listLength);
+$wotd = '';
+if (is_null($wListLength)) {
+    $query = sprintf(RANDOM_WORDS_QUERY, $showSource?SOURCE_PART_RANDOM_WORDS:'', $listLength);
+}
+else {
+    $query = sprintf(RANDOM_WOTD_QUERY, $wListLength);
+    $wotd = ' ale zilei';
+}
 $forms = db_getArrayOfRows($query);
 
 $cnt = count($forms);
@@ -44,7 +67,7 @@ if ($noSkin) {
 }
 else {
     SmartyWrap::assign('forms', $forms);
-    SmartyWrap::assign('page_title', "O listă de {$cnt} de cuvinte alese la întâmplare.");
+    SmartyWrap::assign('page_title', "O listă de {$cnt} de cuvinte{$wotd} alese la întâmplare.");
     SmartyWrap::displayCommonPageWithSkin('randomWordList.ihtml');
 }
 ?>

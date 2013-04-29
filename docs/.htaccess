@@ -66,6 +66,8 @@ RewriteRule ^cuvinte-aleatoare$ randomList.php [PT,L]
 RewriteRule ^cuvinte-aleatoare/(\d+)$ randomList.php?n=$1 [PT,L]
 RewriteRule ^lista/cuvinte-aleatoare$ randomList.php?k=1 [PT,L]
 RewriteRule ^lista/cuvinte-aleatoare/(\d+)$ randomList.php?n=$1&k=1 [PT,L]
+RewriteRule ^lista/cuvintele-zilei-aleatoare$ randomList.php?w=15 [PT,L]
+RewriteRule ^lista/cuvintele-zilei-aleatoare/(\d+)$ randomList.php?w=$1 [PT,L]
 
 # Non-search pages
 RewriteRule ^404$ simple.php?p=404 [PT,L]

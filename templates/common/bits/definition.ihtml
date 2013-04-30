@@ -55,7 +55,7 @@
     {if $sUser && ($sUser->moderator & $smarty.const.PRIV_WOTD) && !$is_mirror}
       {if $row->definition->status == 0}
         {if $row->wotd}
-        | În lista de WotD
+        | În lista de WotD {if $row->wotd!==true}({$row->wotd}){/if}
         {else}
         | <a href="{$wwwRoot}wotdAdd.php?defId={$row->definition->id}">Adaugă WotD</a>
         {/if}

@@ -53,11 +53,11 @@ class SearchResult {
       // This actually requires a stronger condition: that the user has PRIV_WOTD privileges; but that check would require a DB hit.
       // So we check that the user is logged in, which is cheap. The admin permission is checked in the template.
       $wotdStatuses = ORM::for_table('WordOfTheDay')
-        ->raw_query("select R.refId from WordOfTheDay W join WordOfTheDayRel R on W.id = R.wotdId " .
+        ->raw_query("select R.refId, W.displayDate from WordOfTheDay W join WordOfTheDayRel R on W.id = R.wotdId " .
                     "where R.refId in ($defIdString) and refType = 'Definition'", null)
         ->find_many();
       foreach ($wotdStatuses as $w) {
-        $results[$w->refId]->wotd = true;
+        $results[$w->refId]->wotd = $w->displayDate ? $w->displayDate : true;
       }
 
       $bookmarks = Model::factory('UserWordBookmark')->where('userId', $suid)->where_in('definitionId', $defIds)->find_many();

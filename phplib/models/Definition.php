@@ -194,7 +194,7 @@ class Definition extends BaseObject implements DatedObject {
     $search_time = sprintf('%0.3f', $end - $start);
     $logEntry = "".$method.":".$cuv.":".$wordsToHighlight.":".count($defIds).":".$search_time.""."\n";
 
-    file_put_contents("/var/log/dex-highlight.log", $logEntry, FILE_APPEND | LOCK_EX);
+    // file_put_contents("/var/log/dex-highlight.log", $logEntry, FILE_APPEND | LOCK_EX);
   }
 
   public static function searchModerator($cuv, $hasDiacritics, $sourceId, $status, $userId, $beginTime, $endTime) {

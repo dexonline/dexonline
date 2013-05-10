@@ -70,8 +70,8 @@ if ($text) {
     if (!count($defIds)) {
       FlashMessage::add('Nicio definiție nu conține toate cuvintele căutate.');
     }
+    Definition::highlight($cuv, $properWords, $definitions, $defIds);
   }
-  Definition::highlight($cuv, $properWords, $definitions, $defIds);
   $searchResults = SearchResult::mapDefinitionArray($definitions);
 }
 

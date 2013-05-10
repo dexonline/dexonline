@@ -138,6 +138,65 @@ class Definition extends BaseObject implements DatedObject {
     return $intersection;
   }
 
+  public static function highlight($cuv, $properWords, &$definitions, $defIds) {
+    $start = microtime(true);
+    $method = "highlight";
+
+    $res = array();
+    $wordsToHighlight = 0;
+    $keys = $properWords;
+    $res = array_fill_keys($keys, array());
+
+    foreach ($res as $key => &$words) {
+      $var = sprintf("select distinct i2.formNoAccent  
+        from InflectedForm i1, Lexem l, InflectedForm i2
+        where i1.lexemId = l.id and
+        l.id = i2.lexemId and
+        i1.formUtf8General = '%s'", $key);
+
+    $query = db_getArray($var);
+
+    foreach ($query as $q) {
+      array_push($words, $q);
+      $wordsToHighlight++;
+    }
+
+    $words = array_unique($words);
+
+    if(count($words) == 1 and $words[0] == "")
+      unset ($res[$key]);
+    }
+
+    $colors = array('#FF0000', '#FF3300', '#FF6600', '#CC6600', '#990000');
+
+    foreach ($definitions as $def) {
+      $colorIndex = 0;
+      foreach ($res as $key => &$words) {
+        $style_start = '<SPAN style="BACKGROUND-COLOR: '.$colors[$colorIndex].';
+                          COLOR: #FFFFFF;
+                          border-width:1.5px;
+                          border-style:outset; ">';
+        $style_end = '</SPAN>';
+        $wordsString = implode("|", $words);
+
+        preg_match_all('/[^a-zăâîșț<\/]('.$wordsString.')[^a-zăâîșț>]/i', $def->htmlRep, $match, PREG_OFFSET_CAPTURE);
+        $revMatch = array_reverse($match[1]);
+
+        foreach ($revMatch as $m) {
+          $def->htmlRep = substr_replace($def->htmlRep, $style_start, $m[1], 0);
+          $def->htmlRep = substr_replace($def->htmlRep, $style_end, $m[1] + strlen($style_start) + strlen($m[0]), 0);
+        }
+      $colorIndex = ($colorIndex + 1) % count($colors);
+      }
+    }
+
+    $end = microtime(true);
+    $search_time = sprintf('%0.3f', $end - $start);
+    $logEntry = "".$method.":".$cuv.":".$wordsToHighlight.":".count($defIds).":".$search_time.""."\n";
+
+    file_put_contents("/var/log/dex-highlight.log", $logEntry, FILE_APPEND | LOCK_EX);
+  }
+
   public static function searchModerator($cuv, $hasDiacritics, $sourceId, $status, $userId, $beginTime, $endTime) {
     $regexp = StringUtil::dexRegexpToMysqlRegexp($cuv);
     $sourceClause = $sourceId ? "and Definition.sourceId = $sourceId" : '';

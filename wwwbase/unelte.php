@@ -14,7 +14,7 @@ $clientOptions = array(
 );
 
 $clients = array(
-  array('name' => array('Maestro DEX', 'http://www.tranzactiibursiere.ro/maestro/'),
+  array('name' => array('Maestro DEX', 'http://maestrodex.ro/'),
         'available' => true,
         'urls' => array(),
         'os' => array('linux', 'windows'),

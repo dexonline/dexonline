@@ -166,7 +166,7 @@ function assignImageByName($wotd, $def) {
   $strippedLexicon = stripImageName($def->lexicon);
   foreach (scandir($absDir) as $file) {
     $strippedFile = stripImageName($file);
-    if (preg_match("/{$strippedLexicon}\\.(png|jpg)/", $strippedFile)) {
+    if (preg_match("/{$strippedLexicon}\\.(png|jpg|jpeg)/", $strippedFile)) {
       return $yearMonth . '/' . $file;
     }
   }

@@ -14,7 +14,7 @@
     {if $page_keywords}
     <meta name="keywords" content="{$page_keywords}"/>
     {/if}
-    {if !$not_generic_img}
+    {if !isset($not_generic_img)}
     <meta property="og:image" content="http://dexonline.ro/img/logo-dexonline-2.png" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="DEX online" />
@@ -74,7 +74,7 @@
           <ul id="userMenu">
             <li id="userNick"><div id="userPic"></div><a href="#" onclick="return false;">{$nick|escape}</a>
               <ul>
-                {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+                {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT)}
                   <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
                 {/if}
                 <li><a href="{$wwwRoot}preferinte">Preferințe</a></li>

@@ -17,7 +17,7 @@ if ($medalSaveButton) {
 
 $user = User::get_by_nick($nick);
 if (!$user) {
-  FlashMessage::add("Utilizatorul <b>{$nick}</b> nu există.");
+  FlashMessage::add('Utilizatorul ' . htmlspecialchars($nick) . ' nu există.');
   util_redirect(util_getWwwRoot());
 }
 

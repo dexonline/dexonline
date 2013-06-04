@@ -149,7 +149,7 @@ class SmartyWrap {
       case 'jqueryui':           self::$cssFiles[1] = 'lightness-1.9.2/jquery-ui-1.9.2.custom.min.css?v=2'; break;
       case 'jqgrid':             self::$cssFiles[2] = 'ui.jqgrid.css?v=2'; break;
       case 'elfinder':           self::$cssFiles[4] = 'elfinder.css'; break;
-      case 'zepu':               self::$cssFiles[5] = 'zepu.css?v=52'; break;
+      case 'zepu':               self::$cssFiles[5] = 'zepu.css?v=53'; break;
       case 'polar':              self::$cssFiles[6] = 'polar.css?v=31'; break;
       case 'mobile':             self::$cssFiles[7] = 'mobile.css?v=15'; break;
       case 'flex':               self::$cssFiles[8] = 'flex.css?v=9'; break;
@@ -185,7 +185,7 @@ class SmartyWrap {
       case 'tablesorter':      self::$jsFiles[7] = 'jquery.tablesorter.min.js'; break;
       case 'pager':            self::$jsFiles[8] = 'jquery.tablesorter.pager.js'; break;
       case 'elfinder':         self::$jsFiles[9] = 'elfinder.min.js'; break; 
-      case 'dex':              self::$jsFiles[10] = 'dex.js?v=23'; break;
+      case 'dex':              self::$jsFiles[10] = 'dex.js?v=24'; break;
       case 'flex':             self::$jsFiles[11] = 'flex.js?v=2'; break;
       case 'mobile':           self::$jsFiles[12] = 'mobile.js?v=2'; break;
       case 'hangman':          self::$jsFiles[13] = 'hangman.js?v=5'; break;

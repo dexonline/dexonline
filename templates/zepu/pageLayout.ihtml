@@ -127,19 +127,5 @@
       {if $hostedBy}{include file="common/hosting/$hostedBy.ihtml"}{/if}
     </div>
     {include file="common/bits/debugInfo.ihtml"}
-    <div id="light" class="white_content">
-        Anunț important
-        <br/><br/>
-        DEX online anunță cu mândrie că, începând cu 15 aprilie, vom pune la dispoziția publicului larg binecunoscutul DISOO (Dicționar Ilustrat de Sexualitate Orientală Orientată).
-        Autorii acestuia, Vysapha Kootopa Kaleala și Sanookredetz Chespoon au fost de acord să ne pună la dispoziție acest dicționar, inclusiv imaginile.
-        Suntem în special mulțumiți de traducerea acestuia în limba română, la care am muncit asiduu în ultimele șase luni, fiind nevoie inclusiv de cursuri de specializare. 
-        Având în vedere că cei mai mulți utilizatori sunt obișnuiți cu formatul fără poze, acesta va rămâne formatul implicit. Dacă doriți să activați pozele, vă rugăm setați acest lucru de la <a href="/preferinte">Preferințele contului</a>.
-        <br/><br/>
-        <div>
-        <a href="javascript: void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Închide</a> 
-        </div>
-    </div>
-    <div id="fade" class="black_overlay">
-    </div>
   </body>
 </html>

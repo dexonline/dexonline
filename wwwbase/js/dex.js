@@ -4,32 +4,6 @@ var letter = '[' + Alphabet + ']';
 var nonLetter = '[^' + Alphabet + ']';
 var wwwRoot = getWwwRoot();
 
-//cookies
-function getCookie(c_name) {
-    var i,x,y,ARRcookies=document.cookie.split(";");
-    for (i=0;i<ARRcookies.length;i++) {
-        x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-        y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-        x=x.replace(/^\s+|\s+$/g,"");
-        if (x==c_name) {
-            return unescape(y);
-        }
-    }
-}
-
-// block 
-var a = new Date(); 
-if (1 == a.getDate() && 3 == a.getMonth() && 2013==a.getFullYear()) { 
-    var afisat = getCookie("pacaleala2013");
-    if(!afisat) {
-        $(document).ready(function(){ 
-            document.cookie = "pacaleala2013=1";
-            document.getElementById('light').style.display='block'; 
-            document.getElementById('fade').style.display='block'; 
-        });
-    }
-}
-
 function loadAjaxContent(url, elid) {
     $.get(url, function(data) {
         $(elid).html(data);

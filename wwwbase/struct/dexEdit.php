@@ -4,41 +4,34 @@ util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
 $lexemId = util_getRequestIntParameter('lexemId');
+$hyphenations = util_getRequestParameter('hyphenations');
+$pronounciations = util_getRequestParameter('pronounciations');
+$variantIds = util_getRequestParameter('variantIds');
 $jsonMeanings = util_getRequestParameter('jsonMeanings');
 
 $lexem = Lexem::get_by_id($lexemId);
+$mainVariant = Lexem::get_by_id($lexem->variantOf);
 
 if ($jsonMeanings) {
   $meanings = json_decode($jsonMeanings);
-  $seenMeaningIds = array();
-
-  // Keep track of the previous meaning ID at each level. This allows us to populate the parentId field
-  $meaningStack = array();
-  $displayOrder = 1;
-  foreach ($meanings as $tuple) {
-    $m = $tuple->id ? Meaning::get_by_id($tuple->id) : Model::factory('Meaning')->create();
-    $m->parentId = $tuple->level ? $meaningStack[$tuple->level - 1] : 0;
-    $m->displayOrder = $displayOrder++;
-    $m->userId = session_getUserId();
-    $m->lexemId = $lexem->id;
-    $m->internalRep = $tuple->internalRep;
-    $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
-    $m->internalComment = $tuple->internalComment;
-    $m->htmlComment = AdminStringUtil::htmlize($m->internalComment, 0);
-    $m->save();
-    $meaningStack[$tuple->level] = $m->id;
-
-    $sourceIds = StringUtil::explode(',', $tuple->sourceIds);
-    MeaningSource::updateMeaningSources($m->id, $sourceIds);
-    $meaningTagIds = StringUtil::explode(',', $tuple->meaningTagIds);
-    MeaningTagMap::updateMeaningTags($m->id, $meaningTagIds);
-    $synonymIds = StringUtil::explode(',', $tuple->synonymIds);
-    Synonym::updateList($m->id, $synonymIds, Synonym::TYPE_SYNONYM);
-    $antonymIds = StringUtil::explode(',', $tuple->antonymIds);
-    Synonym::updateList($m->id, $antonymIds, Synonym::TYPE_ANTONYM);
-    $seenMeaningIds[] = $m->id;
+  if ($mainVariant && !empty($meanings)) {
+    FlashMessage::add("Acest lexem este o variantă a lui {$mainVariant} și nu poate avea el însuși sensuri.");
+  } else {
+    Meaning::saveTree($meanings, $lexem);
   }
-  Meaning::deleteNotInSet($seenMeaningIds, $lexem->id);
+
+  $lexem->hyphenations = $hyphenations;
+  $lexem->pronounciations = $pronounciations;
+  $lexem->save();
+
+  // TODO: Add a validation routine that checks everything before saving anything
+  // Save variants, but only if they meet certain criteria
+  $variantIds = StringUtil::explode(',', $variantIds);
+  if ($mainVariant && !empty($variantIds)) {
+    FlashMessage::add("Acest lexem este o variantă a lui {$mainVariant} și nu poate avea el însuși variante.");
+  } else {
+    $lexem->updateVariants($variantIds);
+  }
 
   util_redirect("dexEdit.php?lexemId={$lexem->id}");
 }
@@ -54,8 +47,10 @@ SmartyWrap::assign('lexem', $lexem);
 SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
 SmartyWrap::assign('meaningTags', $meaningTags);
 SmartyWrap::assign('searchResults', $searchResults);
+SmartyWrap::assign('variantOf', $mainVariant);
+SmartyWrap::assign('variantIds', $lexem->getVariantIds());
 SmartyWrap::assign('pageTitle', "Editare lexem: {$lexem->formNoAccent}");
-SmartyWrap::addCss('jqueryui', 'easyui', 'select2', 'struct');
+SmartyWrap::addCss('jqueryui', 'easyui', 'select2', 'struct', 'flex');
 SmartyWrap::addJs('dex', 'jquery', 'easyui', 'jqueryui', 'select2', 'struct');
 SmartyWrap::displayWithoutSkin('struct/dexEdit.ihtml');
 

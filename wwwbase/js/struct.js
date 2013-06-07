@@ -25,7 +25,7 @@ function meaningEditorInit() {
   $('#editorTags').select2('disable');
 
   var lexemAjax = {
-    data: function(term, page) { return { term: term, select2: 1}; },
+    data: function(term, page) { return { term: term, select2: 1 }; },
     dataType: 'json',
     results: function(data, page) { return data; }, 
     url: wwwRoot + 'ajax/getLexems.php',
@@ -34,6 +34,7 @@ function meaningEditorInit() {
   $('#editorSynonyms').select2({
     ajax: lexemAjax,
     initSelection: select2InitSelection,
+    minimumInputLength: 1,
     multiple: true,
     placeholder: 'adaugă un sinonim...',
     width: '315px',
@@ -43,6 +44,7 @@ function meaningEditorInit() {
   $('#editorAntonyms').select2({
     ajax: lexemAjax,
     initSelection: select2InitSelection,
+    minimumInputLength: 1,
     multiple: true,
     placeholder: 'adaugă un antonim...',
     width: '315px',
@@ -52,9 +54,10 @@ function meaningEditorInit() {
   $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags, #editorSynonyms, #editorAntonyms').bind(
     'change keyup input paste', function() { me_anyChanges = true; });
 
-  $('#variants').select2({
+  $('#variantIds').select2({
     ajax: lexemAjax,
-    initSelection: select2InitSelection,
+    initSelection: select2InitSelectionAjax,
+    minimumInputLength: 1,
     multiple: true,
     width: '217px',
   });
@@ -74,6 +77,22 @@ function select2InitSelection(element, callback) {
   var data = [];
   $(element.val().split(',')).each(function () {
     data.push({ id: this, text: this });
+  });
+  callback(data);
+}
+
+function select2InitSelectionAjax(element, callback) {
+  var data = [];
+
+  $(element.val().split(',')).each(function (index, lexemId) {
+    $.ajax({
+      url: wwwRoot + 'ajax/getLexemById.php?id=' + this,
+      dataType: 'json',
+      success: function(displayValue) {
+        data.push({ id: lexemId, text: displayValue });
+      },
+      async: false,
+    });
   });
   callback(data);
 }
@@ -279,6 +298,6 @@ function boxTitleClick() {
 
 function adjustDefinitionDivHeight() {
   var windowHeight = $(window).height();
-  var boxTop = $('#dexEditRightColumn .boxContents').position().top;
-  $('#dexEditRightColumn .boxContents').height(windowHeight - boxTop - 25);
+  var boxTop = $('#definitionBox .boxContents').position().top;
+  $('#definitionBox .boxContents').height(windowHeight - boxTop - 25);
 }

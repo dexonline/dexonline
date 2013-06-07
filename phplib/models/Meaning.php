@@ -50,9 +50,42 @@ class Meaning extends BaseObject implements DatedObject {
     return $results;
   }
 
+  /* Save a tree produced by the tree editor in dexEdit.php */
+  static function saveTree($meanings, $lexem) {
+    $seenMeaningIds = array();
+
+    // Keep track of the previous meaning ID at each level. This allows us to populate the parentId field
+    $meaningStack = array();
+    $displayOrder = 1;
+    foreach ($meanings as $tuple) {
+      $m = $tuple->id ? self::get_by_id($tuple->id) : Model::factory('Meaning')->create();
+      $m->parentId = $tuple->level ? $meaningStack[$tuple->level - 1] : 0;
+      $m->displayOrder = $displayOrder++;
+      $m->userId = session_getUserId();
+      $m->lexemId = $lexem->id;
+      $m->internalRep = $tuple->internalRep;
+      $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
+      $m->internalComment = $tuple->internalComment;
+      $m->htmlComment = AdminStringUtil::htmlize($m->internalComment, 0);
+      $m->save();
+      $meaningStack[$tuple->level] = $m->id;
+
+      $sourceIds = StringUtil::explode(',', $tuple->sourceIds);
+      MeaningSource::updateMeaningSources($m->id, $sourceIds);
+      $meaningTagIds = StringUtil::explode(',', $tuple->meaningTagIds);
+      MeaningTagMap::updateMeaningTags($m->id, $meaningTagIds);
+      $synonymIds = StringUtil::explode(',', $tuple->synonymIds);
+      Synonym::updateList($m->id, $synonymIds, Synonym::TYPE_SYNONYM);
+      $antonymIds = StringUtil::explode(',', $tuple->antonymIds);
+      Synonym::updateList($m->id, $antonymIds, Synonym::TYPE_ANTONYM);
+      $seenMeaningIds[] = $m->id;
+    }
+    self::deleteNotInSet($seenMeaningIds, $lexem->id);
+  }
+
   /* Deletes all the meanings associated $lexemId that aren't in the $meaningIds set */
   public static function deleteNotInSet($meaningIds, $lexemId) {
-    $meanings = Meaning::get_all_by_lexemId($lexemId);
+    $meanings = self::get_all_by_lexemId($lexemId);
     foreach ($meanings as $m) {
       if (!in_array($m->id, $meaningIds)) {
         $m->delete();

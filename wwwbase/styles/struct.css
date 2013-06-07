@@ -19,14 +19,14 @@
   padding: 5px;
 }
 
-#parameters .boxContents {
-  display: none;
+#parameters {
+  margin-right: 250px;
 }
 
 #parameters label {
   display: inline-block;
   margin-top: 4px;
-  width: 70px;
+  width: 100px;
 }
 
 #dexEditLeftColumn {
@@ -35,6 +35,9 @@
 
 #dexEditRightColumn {
   margin-left: 412px;
+}
+
+#definitionBox {
   overflow: auto;
 }
 
@@ -42,9 +45,10 @@
   width: 400px;
 }
 
-#dexEditSaveButton {
-  margin-left: 100px;
-  margin-top: 50px;
+#saveButtonContainer {
+  float: right;
+  padding-bottom: 5px;
+  padding-right: 10px;
 }
 
 #dexEditSaveButton {

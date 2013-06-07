@@ -147,6 +147,15 @@ class Lexem extends BaseObject implements DatedObject {
       ->raw_query('select * from Lexem where id not in (select lexemId from LexemDefinitionMap) order by formNoAccent', null)->find_many();
   }
 
+  public function getVariantIds() {
+    $variants = Model::factory('Lexem')->select('id')->where('variantOf', $this->id)->find_many();
+    $ids = array();
+    foreach ($variants as $variant) {
+      $ids[] = $variant->id;
+    }
+    return $ids;
+  }
+
   public function regenerateParadigm() {
     $ifs = $this->generateParadigm();
     assert(is_array($ifs));
@@ -309,6 +318,53 @@ class Lexem extends BaseObject implements DatedObject {
     return $ifs;
   }
 
+  /* Saves a lexem's variants as produced by dexEdit.php */
+  public function updateVariants($variantIds) {
+    foreach ($variantIds as $variantId) {
+      $variant = Lexem::get_by_id($variantId);
+      $errorCount = 0;
+      // (1) they are not variants of themselves (this lexem)
+      if ($variant->id == $this->id) {
+        FlashMessage::add('Un lexem nu poate fi variantă a lui însuși.');
+        $errorCount++;
+      }
+      // (2) they are not already variants of another lexem
+      if ($variant->variantOf && $variant->variantOf != $this->id) {
+        $other = Lexem::get_by_id($variant->variantOf);
+        FlashMessage::add("\"{$variant}\" este deja marcat ca variantă a lui \"{$other}\".");
+        $errorCount++;
+      }
+      // (3) they do not have their own variants and
+      $variantVariantCount = Model::factory('Lexem')->where('variantOf', $variant->id)->count();
+      if ($variantVariantCount) {
+        FlashMessage::add("\"{$variant}\" are deja propriile lui variante.");
+        $errorCount++;
+      }
+      // (4) they do not have meanings
+      $variantMeaningCount = Model::factory('Meaning')->where('lexemId', $variant->id)->count();
+      if ($variantMeaningCount) {
+        FlashMessage::add("\"{$variant}\" are deja propriile lui sensuri.");
+        $errorCount++;
+      }
+    
+      if (!$errorCount) {
+        $variant->variantOf = $this->id;
+        $variant->save();
+      }
+    }
+
+    // Delete variants no longer in the list
+    if ($variantIds) {
+      $lexemsToClear = Model::factory('Lexem')->where('variantOf', $this->id)->where_not_in('id', $variantIds)->find_many();
+    } else {
+      $lexemsToClear = Lexem::get_all_by_variantOf($this->id);
+    }
+    foreach($lexemsToClear as $l) {
+      $l->variantOf = null;
+      $l->save();
+    }
+  }
+
   /**
    * Called when the model type of a lexem changes from VT to something else.
    * Only deletes participles that do not have their own definitions.
@@ -373,6 +429,12 @@ class Lexem extends BaseObject implements DatedObject {
       LexemDefinitionMap::deleteByLexemId($this->id);
       InflectedForm::deleteByLexemId($this->id);
       Meaning::deleteByLexemId($this->id);
+    }
+    // Clear the variantOf field for lexems having $this as main.
+    $lexemsToClear = Lexem::get_all_by_variantOf($this->id);
+    foreach ($lexemsToClear as $l) {
+      $l->variantOf = null;
+      $l->save();
     }
     parent::delete();
   }

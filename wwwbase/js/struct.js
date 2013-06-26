@@ -1,4 +1,11 @@
-me_anyChanges = false;
+struct_anyChanges = false;
+
+struct_lexemAjax = {
+  data: function(term, page) { return { term: term, select2: 1 }; },
+  dataType: 'json',
+  results: function(data, page) { return data; }, 
+  url: wwwRoot + 'ajax/getLexems.php',
+};
 
 function meaningEditorInit() {
   $('#meaningTree').tree({
@@ -24,15 +31,8 @@ function meaningEditorInit() {
   });
   $('#editorTags').select2('disable');
 
-  var lexemAjax = {
-    data: function(term, page) { return { term: term, select2: 1 }; },
-    dataType: 'json',
-    results: function(data, page) { return data; }, 
-    url: wwwRoot + 'ajax/getLexems.php',
-  };
-
   $('#editorSynonyms').select2({
-    ajax: lexemAjax,
+    ajax: struct_lexemAjax,
     initSelection: select2InitSelection,
     minimumInputLength: 1,
     multiple: true,
@@ -42,7 +42,7 @@ function meaningEditorInit() {
   $('#editorSynonyms').select2('disable');
 
   $('#editorAntonyms').select2({
-    ajax: lexemAjax,
+    ajax: struct_lexemAjax,
     initSelection: select2InitSelection,
     minimumInputLength: 1,
     multiple: true,
@@ -52,10 +52,10 @@ function meaningEditorInit() {
   $('#editorAntonyms').select2('disable');
 
   $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags, #editorSynonyms, #editorAntonyms').bind(
-    'change keyup input paste', function() { me_anyChanges = true; });
+    'change keyup input paste', function() { struct_anyChanges = true; });
 
   $('#variantIds').select2({
-    ajax: lexemAjax,
+    ajax: struct_lexemAjax,
     initSelection: select2InitSelectionAjax,
     minimumInputLength: 1,
     multiple: true,
@@ -71,6 +71,14 @@ function meaningEditorInit() {
 
   $(window).resize(adjustDefinitionDivHeight);
   adjustDefinitionDivHeight();
+}
+
+function structIndexInit() {
+  $('#structLexemFinder').select2({
+    ajax: struct_lexemAjax,
+    minimumInputLength: 1,
+    placeholder: 'caută un lexem...',
+  });
 }
 
 function select2InitSelection(element, callback) {
@@ -151,11 +159,11 @@ function deleteMeaning() {
 }
 
 function meaningEditorUnchanged(node) {
-  return !me_anyChanges || confirm('Aveți deja un sens în curs de modificare. Confirmați renunțarea la modificări?');
+  return !struct_anyChanges || confirm('Aveți deja un sens în curs de modificare. Confirmați renunțarea la modificări?');
 }
 
 function beginMeaningEdit() {
-  me_anyChanges = false;
+  struct_anyChanges = false;
   var domNode = $('#meaningTree').tree('getSelected').target;
   var node = $(domNode);
   $('#editorInternalRep, #editorInternalComment, #editMeaningAcceptButton, #editMeaningCancelButton').removeAttr('disabled');
@@ -182,7 +190,7 @@ function beginMeaningEdit() {
 }
 
 function acceptMeaningEdit() {
-  me_anyChanges = false;
+  struct_anyChanges = false;
   var domNode = $('#meaningTree').tree('getSelected').target;
   var node = $(domNode);
 
@@ -239,7 +247,7 @@ function acceptMeaningEdit() {
 }
 
 function endMeaningEdit() {
-  me_anyChanges = false;
+  struct_anyChanges = false;
   $('#editorInternalRep, #editorInternalComment, #editMeaningAcceptButton, #editMeaningCancelButton').attr('disabled', 'disabled');
   $('#editorInternalRep').val('');
   $('#editorInternalComment').val('');
@@ -272,7 +280,7 @@ function dexEditTreeWalk(node, results, level) {
 }
 
 function dexEditSaveEverything() {
-  if (me_anyChanges) {
+  if (struct_anyChanges) {
     acceptMeaningEdit();
   }
   var results = new Array();

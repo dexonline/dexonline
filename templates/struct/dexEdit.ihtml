@@ -30,6 +30,7 @@
       
       <div id="saveButtonContainer">
         <input id="dexEditSaveButton" type="button" value="salvează totul"/>
+        <div><a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexem->id}">editează lexemul</a></div>
       </div>
 
       <div id="parameters" class="box">
@@ -139,7 +140,7 @@
               <span class="defDetails">
                 sursa: {$row->source->shortName|escape}
                 | id: {$row->definition->id}
-                | <a href="definitionEdit.php?definitionId={$row->definition->id}" target="_blank">editează</a>
+                | <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$row->definition->id}" target="_blank">editează</a>
                 | <a href="#" class="toggleInternalHtmlLink">arată html</a>
               </span>
               {if $row->comment}

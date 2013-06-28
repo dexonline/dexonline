@@ -158,7 +158,7 @@
       
     <div style="clear: both"></div>
     
-    <script type="text/javascript">
+    <script>
       $(meaningEditorInit);
     </script>
   </body>

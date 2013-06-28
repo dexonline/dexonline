@@ -4,7 +4,7 @@ util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
 $definitionId = util_getRequestIntParameter('definitionId');
-$lexemNames = util_getRequestParameter('lexemName');
+$lexemIds = util_getRequestParameter('lexemIds');
 $associateLexemId = util_getRequestParameter('associateLexemId');
 $sourceId = util_getRequestIntParameter('source');
 $internalRep = util_getRequestParameter('internalRep');
@@ -52,33 +52,19 @@ if ($sourceId) {
 if ($internalRep || $sourceId) {
   $definition->lexicon = AdminStringUtil::extractLexicon($definition);
 }
-if ($lexemNames) {
+if ($lexemIds) {
+  $lexemIds = explode(',', $lexemIds);
   $lexems = array();
-  $lexemIds = array();
   $ldms = array();
-  foreach ($lexemNames as $lexemName) {
-    $lexemName = trim($lexemName);
-    if ($lexemName) {
-      $matches = Lexem::loadByExtendedName($lexemName);
-      if (count($matches) >= 1) {
-        foreach ($matches as $match) {
-          if (!in_array($match->id, $lexemIds)) {
-            $lexemIds[] = $match->id;
-            $lexems[] = $match;
-            $ldms[] = LexemDefinitionMap::create($match->id, $definitionId);
-          }
-        }
-      } else {
-        $hasErrors = true;
-        FlashMessage::add("Lexemul <i>".htmlentities($lexemName)."</i> nu există. Folosiți lista de sugestii pentru a-l corecta.");
-        $lexems[] = Lexem::create($lexemName, 0, '', '');
-        // We won't be needing $ldms since there is an error.
-      }
-    }
+  foreach ($lexemIds as $lexemId) {
+    $l = Lexem::get_by_id($lexemId);
+    $lexems[] = $l;
+    $ldms[] = LexemDefinitionMap::create($lexemId, $definitionId);
   }
 } else {
   $lexems = Model::factory('Lexem')->select('Lexem.*')->join('LexemDefinitionMap', 'Lexem.id = lexemId', 'ldm')
     ->where('ldm.definitionId', $definitionId)->find_many();
+  $lexemIds = util_objectProperty($lexems, 'id');
 }
 
 if ($commentContents) {
@@ -151,15 +137,15 @@ SmartyWrap::assign('source', $source);
 SmartyWrap::assign('user', User::get_by_id($definition->userId));
 SmartyWrap::assign('comment', $comment);
 SmartyWrap::assign('commentUser', $commentUser);
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemIds', $lexemIds);
 SmartyWrap::assign('typos', Typo::get_all_by_definitionId($definition->id));
 SmartyWrap::assign('homonyms', loadSetHomonyms($lexems));
 SmartyWrap::assign("allStatuses", util_getAllStatuses());
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('sectionTitle', "Editare definiție: {$definition->id}");
-SmartyWrap::addCss('jqueryui');
-SmartyWrap::addJs('jquery', 'jqueryui');
+SmartyWrap::addCss('jqueryui', 'select2');
+SmartyWrap::addJs('jquery', 'jqueryui', 'struct', 'select2');
 SmartyWrap::displayAdminPage('admin/definitionEdit.ihtml');
 
 /**
@@ -169,12 +155,8 @@ function loadSetHomonyms($lexems) {
   if (count($lexems) == 0) {
     return array();
   }
-  $names = array();
-  $ids = array();
-  foreach ($lexems as $l) {
-    $names[] = $l->formNoAccent;
-    $ids[] = $l->id;
-  }
+  $names = util_objectProperty($lexems, 'formNoAccent');
+  $ids = util_objectProperty($lexems, 'id');
   return Model::factory('Lexem')->where_in('formNoAccent', $names)->where_not_in('id', $ids)->find_many();
 }
 

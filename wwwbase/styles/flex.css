@@ -381,3 +381,9 @@ span.tooltip {
 .ui-tooltip {
   font-size: 12px;
 }
+
+.select2Edit {
+  background: url("../img/icons/pencil.png") no-repeat;
+  padding-left: 16px;
+  text-decoration: none;
+}

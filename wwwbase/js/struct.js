@@ -80,6 +80,22 @@ function structIndexInit() {
   });
 }
 
+function definitionEditInit() {
+  $('#lexemIds').select2({
+    ajax: struct_lexemAjax,
+    escapeMarkup: function(m) { return m; },
+    initSelection: select2InitSelectionAjax,
+    formatSelection: formatLexemWithEditLink,
+    minimumInputLength: 1,
+    multiple: true,
+    width: '600px',
+  });
+}
+
+function formatLexemWithEditLink(lexem) {
+  return lexem.text + ' <a class="select2Edit" href="lexemEdit.php?lexemId=' + lexem.id + '">&nbsp;</a>';
+}
+
 function select2InitSelection(element, callback) {
   var data = [];
   $(element.val().split(',')).each(function () {

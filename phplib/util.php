@@ -454,4 +454,13 @@ function util_print($var) {
   print "</pre>\n";
 }
 
+/** Returns $obj->$prop for every $obj in $a **/
+function util_objectProperty($a, $prop) {
+  $results = array();
+  foreach ($a as $obj) {
+    $results[] = $obj->$prop;
+  }
+  return $results;
+}
+
 ?>

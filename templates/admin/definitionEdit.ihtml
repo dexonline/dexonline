@@ -1,30 +1,6 @@
 <form action="definitionEdit.php" method="post">
   <input type="hidden" name="definitionId" value="{$def->id}"/>
-  <table class="editableFields" id="lexemTable">
-    <tr id="blankRow" style="display:none">
-      <td>Lexem:</td>
-      <td>
-        <input type="text" name="lexemName[]" value="" size="40"/>
-        <a href="#" onclick="$(this).closest('tr').remove(); return false;">disociază</a>
-      </td>
-    </tr>
-
-    {foreach from=$lexems item=l}
-      {if $l->description}
-        {assign var="lexemName" value="`$l->formNoAccent` (`$l->description`)"}
-      {else}
-        {assign var="lexemName" value="`$l->formNoAccent`"}
-      {/if}
-      <tr>
-        <td>Lexem:</td>
-        <td>
-          <input type="text" name="lexemName[]" value="{$lexemName}" size="40"/>
-          <a href="#" onclick="$(this).closest('tr').remove(); return false;">disociază</a> |
-          <a href="lexemEdit.php?lexemId={$l->id}">editează</a>
-        </td>
-      </tr>
-    {/foreach}
-
+  <table class="editableFields">
     {foreach from=$homonyms item=h key=i}
       <tr>
         <td>
@@ -40,16 +16,17 @@
     {/foreach}
   </table>
 
-  <script type="text/javascript">
-    $('#lexemTable').find('input').autocomplete({ldelim} source: wwwRoot + 'ajax/getLexems.php' {rdelim});
-  </script>
-
-  <a href="#" onclick="return addLexemRow();">Adaugă un lexem</a>
-
-  <span class="tooltip" title="Este bine să asociați fiecare definiție cu toate lexemele relevante. Lexemele nu vor fi salvate până nu apăsați unul din
-  butoanele Acceptă sau Activează.">&nbsp;</span>
-
   <table class="editableFields">
+    <tr>
+      <td>Lexeme:</td>
+      <td>
+        <input id="lexemIds" name="lexemIds" value="{','|implode:$lexemIds}" type="text"/>
+
+        <span class="tooltip" title="Este bine să asociați fiecare definiție cu toate lexemele relevante. Lexemele nu vor fi salvate până nu apăsați
+        unul din butoanele Acceptă sau Activează.">&nbsp;</span>
+
+      </td>
+    </tr>
     <tr>
       <td>Sursa:</td>
       <td>
@@ -137,3 +114,7 @@
 {if $comment}
   Comentariu: {$comment->htmlContents}
 {/if}
+
+<script>
+  $(definitionEditInit);
+</script>

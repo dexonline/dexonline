@@ -6,7 +6,7 @@ class RecentLink extends BaseObject {
   public static function createOrUpdate($text) {
     $userId = session_getUserId();
     $url = $_SERVER['REQUEST_URI'];
-    $rl = Model::factory('RecentLink')->where('userId', $userId)->where('url', addslashes($url))->where('text', addslashes($text))->find_one();
+    $rl = Model::factory('RecentLink')->where('userId', $userId)->where('url', $url)->where('text', $text)->find_one();
 
     if (!$rl) {
       $rl = Model::factory('RecentLink')->create();

@@ -478,13 +478,6 @@ function startReportCountersCallback(httpRequest, spanId) {
   }
 }
 
-function addLexemRow() {
-  var tr = $('#blankRow').clone().appendTo('#lexemTable tbody').removeAttr('id').css('display', 'table-row');
-  tr.find("input").autocomplete({ source: wwwRoot + 'ajax/getLexems.php' });
-  tr.find("input").focus();
-  return false;
-}
-
 function contribAddLexemRow() {
   var div = $('#blankDiv').clone().appendTo('#lexemHolder').removeAttr('id').css('display', 'block');
   div.find("input").autocomplete({ source: wwwRoot + 'ajax/getLexems.php' });

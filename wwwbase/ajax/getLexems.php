@@ -17,6 +17,9 @@ if (count($parts) == 2) {
 }
 
 $resp = array();
+if ($select2) {
+  $resp['results'] = array();
+}
 foreach ($lexems as $l) {
   if ($select2) {
     $resp['results'][] = array('id' => $l->id, 'text' => (string)$l);

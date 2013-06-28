@@ -92,9 +92,30 @@ function definitionEditInit() {
   });
 }
 
+function contribInit() {
+  $('#lexemIds').select2({
+    ajax: struct_lexemAjax,
+    createSearchChoice: allowNewLexems,
+    formatInputTooShort: function () { return ''; },
+    formatSearching: function () { return "Căutare..."; },
+    initSelection: select2InitSelectionAjax,
+    minimumInputLength: 1,
+    multiple: true,
+    tokenSeparators: [',', '\\', '@'],
+    width: '600px',
+  });
+  $('#lexemIds').select2('open');
+}
+
 function formatLexemWithEditLink(lexem) {
   return lexem.text + ' <a class="select2Edit" href="lexemEdit.php?lexemId=' + lexem.id + '">&nbsp;</a>';
 }
+
+function allowNewLexems(term, data) {
+  if (!data.length) {
+    return { id: '@' + term, text: term + " (cuvânt nou)"};
+  }
+};
 
 function select2InitSelection(element, callback) {
   var data = [];
@@ -112,7 +133,11 @@ function select2InitSelectionAjax(element, callback) {
       url: wwwRoot + 'ajax/getLexemById.php?id=' + this,
       dataType: 'json',
       success: function(displayValue) {
-        data.push({ id: lexemId, text: displayValue });
+        if (displayValue) {
+          data.push({ id: lexemId, text: displayValue });
+        } else {
+          data.push({ id: lexemId, text: lexemId.substr(1) + " (cuvânt nou)" });
+        }
       },
       async: false,
     });

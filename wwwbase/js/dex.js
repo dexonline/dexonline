@@ -89,9 +89,7 @@ function myEncodeURI(s) {
 }
 
 function contribBodyLoad() {
-  document.frmContrib['lexemNames[]'][1].focus();
   contribUpdatePreviewDiv();
-  $('#frmContrib').find('.autocompletable').autocomplete({ source: wwwRoot + 'ajax/getLexems.php' });
 }
 
 function contribKeyPressed() {
@@ -476,13 +474,6 @@ function startReportCountersCallback(httpRequest, spanId) {
         span.innerHTML = 'eroare la încărcare';
     }
   }
-}
-
-function contribAddLexemRow() {
-  var div = $('#blankDiv').clone().appendTo('#lexemHolder').removeAttr('id').css('display', 'block');
-  div.find("input").autocomplete({ source: wwwRoot + 'ajax/getLexems.php' });
-  div.find("input").focus();
-  return false;
 }
 
 function editModelAppendBox(inflId) {

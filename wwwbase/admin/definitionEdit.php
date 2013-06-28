@@ -4,7 +4,7 @@ util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
 $definitionId = util_getRequestIntParameter('definitionId');
-$lexemIds = util_getRequestParameter('lexemIds');
+$lexemIds = util_getRequestCsv('lexemIds');
 $associateLexemId = util_getRequestParameter('associateLexemId');
 $sourceId = util_getRequestIntParameter('source');
 $internalRep = util_getRequestParameter('internalRep');
@@ -52,8 +52,7 @@ if ($sourceId) {
 if ($internalRep || $sourceId) {
   $definition->lexicon = AdminStringUtil::extractLexicon($definition);
 }
-if ($lexemIds) {
-  $lexemIds = explode(',', $lexemIds);
+if (count($lexemIds)) {
   $lexems = array();
   $ldms = array();
   foreach ($lexemIds as $lexemId) {

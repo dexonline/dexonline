@@ -212,6 +212,12 @@ function util_getRequestCheckboxArray($name, $separator) {
   return $arr ? implode($arr, $separator) : '';
 }
 
+/** Returns an array of values from a parameter in CSV format **/
+function util_getRequestCsv($name) {
+  $s = util_getRequestParameter($name);
+  return $s ? explode(',', $s) : array();
+}
+
 function util_getUploadedFile($name) {
   return array_key_exists($name, $_FILES) ? $_FILES[$name] : null;
 }

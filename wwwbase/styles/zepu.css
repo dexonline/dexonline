@@ -709,10 +709,6 @@ span.spaced {
   float: right;
 }
 
-#blankDiv {
-  display: none;
-}
-
 #defTextarea {
   width: 755px;
   margin: 5px 0px;

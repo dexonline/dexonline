@@ -1,5 +1,4 @@
 {assign var="def" value=$def|default:null}
-{assign var="lexemNames" value=$lexemNames|default:null}
 {assign var="previewDivContent" value=$previewDivContent|default:null}
 
 <p class="paragraphTitle">Trimiteți o definiție</p>
@@ -16,25 +15,7 @@
     <tr>
       <td><p class="labelContribute">Cuvântul definit:</p></td>
       <td>
-        <div id="lexemHolder">
-          <div id="blankDiv">
-            <input type="text" class="autocompletable" name="lexemNames[]" value="" size="24"/>
-            <img src="{$imgRoot}/icons/delete.png" alt="Șterge acest cuvânt" title="Șterge acest cuvânt" onclick="$(this).closest('div').remove(); return false;"/>
-          </div>
-          {foreach from=$lexemNames item=lexemName}
-            <div>
-              <input type="text" class="autocompletable" name="lexemNames[]" value="{$lexemName|escape}" size="24"/>
-              <img src="{$imgRoot}/icons/delete.png" alt="Șterge acest cuvânt" title="Șterge acest cuvânt" onclick="$(this).closest('div').remove(); return false;"/>
-            </div>
-          {/foreach}
-          {* Always display at least one field for lexemNames *}
-          {if !count($lexemNames)}
-            <div>
-              <input type="text" class="autocompletable" name="lexemNames[]" value="{$lexemName|escape}" size="24"/>
-            </div>
-          {/if}
-        </div>
-        <img src="{$imgRoot}/icons/add.png" alt="Adaugă un cuvânt" title="Adaugă un cuvânt" onclick="return contribAddLexemRow();"/>
+        <input id="lexemIds" name="lexemIds" value="{','|implode:$lexemIds}" type="text"/>        
       </td>
     </tr>
 
@@ -98,3 +79,4 @@
 </table>
 
 <script type="text/javascript">$(contribBodyLoad);</script>
+<script type="text/javascript">$(contribInit);</script>

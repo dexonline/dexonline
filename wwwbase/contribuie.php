@@ -2,7 +2,7 @@
 require_once("../phplib/util.php");
 util_assertNotMirror();
 
-$lexemNames = util_getRequestParameter('lexemNames');
+$lexemIds = util_getRequestCsv('lexemIds');
 $sourceId = util_getRequestParameter('source');
 $def = util_getRequestParameter('def');
 $sendButton = util_getRequestParameter('send');
@@ -11,10 +11,9 @@ if ($sendButton) {
   session_setSourceCookie($sourceId);
   $ambiguousMatches = array();
   $def = AdminStringUtil::internalizeDefinition($def, $sourceId, $ambiguousMatches);
-  $lexemNames = deleteEmptyElements($lexemNames);
 
   $errorMessage = '';
-  if (!count($lexemNames)) {
+  if (!count($lexemIds)) {
     $errorMessage = 'Trebuie să introduceți un cuvânt-titlu.';
   } else if (!$def) {
     $errorMessage = 'Trebuie să introduceți o definiție.';
@@ -23,7 +22,6 @@ if ($sendButton) {
   }
 
   if ($errorMessage) {
-    SmartyWrap::assign('lexemNames', $lexemNames);
     SmartyWrap::assign('sourceId', $sourceId);
     SmartyWrap::assign('def', $def);
     FlashMessage::add($errorMessage);
@@ -41,24 +39,19 @@ if ($sendButton) {
     $definition->save();
     log_userLog("Added definition {$definition->id} ({$definition->lexicon})");
 
-    $ldms = array();
-    foreach ($lexemNames as $lexemName) {
-      $lexemName = addslashes(AdminStringUtil::formatLexem($lexemName));
-      if ($lexemName) {
-        $matches = Lexem::loadByExtendedName($lexemName);
-        if (count($matches) >= 1) {
-          foreach ($matches as $match) {
-            LexemDefinitionMap::associate($match->id, $definition->id);
-            log_userLog("Associating with lexem {$match->id} ({$match->form})");
-          }
-        } else {
-          // Create a new lexem.
-          $lexem = Lexem::create($lexemName, 'T', '1', '');
-          $lexem->save();
-          $lexem->regenerateParadigm();
-          LexemDefinitionMap::associate($lexem->id, $definition->id);
-          log_userLog("Created lexem {$lexem->id} ({$lexem->form})");
-        }
+    foreach ($lexemIds as $lexemId) {
+      $lexemId = addslashes(AdminStringUtil::formatLexem($lexemId));
+      if (StringUtil::startsWith($lexemId, '@')) {
+        // create a new lexem
+        $lexem = Lexem::create(substr($lexemId, 1), 'T', '1', '');
+        $lexem->save();
+        $lexem->regenerateParadigm();
+        LexemDefinitionMap::associate($lexem->id, $definition->id);
+        log_userLog("Created lexem {$lexem->id} ({$lexem->form})");
+      } else {
+        $lexem = Lexem::get_by_id($lexemId);
+        LexemDefinitionMap::associate($lexem->id, $definition->id);
+        log_userLog("Associating with lexem {$lexem->id} ({$lexem->form})");
       }
     }
     FlashMessage::add('Definiția a fost trimisă. Un moderator o va examina în scurt timp. Vă mulțumim!', 'info');
@@ -68,23 +61,14 @@ if ($sendButton) {
   SmartyWrap::assign('sourceId', session_getDefaultContribSourceId());
 }
 
+SmartyWrap::assign('lexemIds', $lexemIds);
 SmartyWrap::assign('contribSources', Model::factory('Source')->where('canContribute', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('page_title', 'Contribuie cu definiții');
 SmartyWrap::assign('suggestNoBanner', true);
-SmartyWrap::addCss('jqueryui');
-SmartyWrap::addJs('jqueryui');
+SmartyWrap::addCss('jqueryui', 'select2');
+SmartyWrap::addJs('jqueryui', 'struct', 'select2');
 SmartyWrap::displayCommonPageWithSkin('contribuie.ihtml');
 
 /**************************************************************************/
-
-function deleteEmptyElements(&$v) {
-  $result = array();
-  foreach ($v as $elem) {
-    if (!empty($elem)) {
-      $result[] = $elem;
-    }
-  }
-  return $result;
-}
 
 ?>

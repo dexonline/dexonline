@@ -159,16 +159,6 @@ span.defDetails a:hover {
   color: #555555;
 }
 
-span.tooltip {
-  background: url("../img/icons/information.png") no-repeat;
-  display: inline-block;
-  width: 16px;
-}
-
 .select2-container-multi, .select2-result {
-  font-size: 12px;
-}
-
-.ui-tooltip {
   font-size: 12px;
 }

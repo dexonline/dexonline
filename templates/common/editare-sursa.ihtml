@@ -4,7 +4,14 @@
 
 <form method="post" action="editare-sursa">
   <input type="hidden" name="id" value="{$src->id}"/>
-  Nume: {include file="admin/helpLink.ihtml" anchor="sources"}<input type="text" name="name" value="{$src->name}" size="80"/><br/>
+  Nume:
+
+  <span class="tooltip" title="<b>Nume scurt</b> se referă la numele sursei prezentat după fiecare definiție. <b>Nume URL</b> se referă la numele care
+  apare în URL la căutarea într-o anumită sursă, cum ar fi http://dexonline.ro/definitie-<b>der</b>/copil. Pe ultima linie puteți adăuga o sursă
+  nouă. Ordonarea surselor este funcțională, dar este greoaie deocamdată. Sursele neoficiale sunt întotdeauna listate după cele oficiale, indiferent
+  de ordonarea manuală.">&nbsp;</span>
+
+  <input type="text" name="name" value="{$src->name}" size="80"/><br/>
   Nume scurt: <input type="text" name="shortName" value="{$src->shortName}" size="10"/><br/>
   Nume URL: <input type="text" name="urlName" value="{$src->urlName}" size="10"/><br/>
   Autor: <input type="text" name="author" value="{$src->author}" size="55"/><br/>

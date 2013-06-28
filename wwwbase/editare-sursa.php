@@ -33,6 +33,8 @@ if ($submitButton) {
 
 SmartyWrap::assign('src', $src);
 SmartyWrap::assign('page_title', $sourceId ? "Editare sursă {$src->shortName}" : "Adăugare sursă");
+SmartyWrap::addCss('jqueryui', 'flex'); // Flex needed for tooltips
+SmartyWrap::addJs('jqueryui');
 SmartyWrap::displayCommonPageWithSkin('editare-sursa.ihtml');
 
 /**

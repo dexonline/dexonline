@@ -368,11 +368,16 @@ div.infoType {
   color: green;
 }
 
-.helpLink {
-  background: url("../img/icons/help.png") no-repeat;
-  padding-left: 20px;
-}
-
 .ui-widget {
   font-size: 10px;
+}
+
+span.tooltip {
+  background: url("../img/icons/information.png") no-repeat;
+  display: inline-block;
+  width: 16px;
+}
+
+.ui-tooltip {
+  font-size: 12px;
 }

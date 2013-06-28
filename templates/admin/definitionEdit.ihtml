@@ -45,29 +45,26 @@
   </script>
 
   <a href="#" onclick="return addLexemRow();">Adaugă un lexem</a>
-  {include file="admin/helpLink.ihtml" anchor="definitionAddLexem"}
-  <br/><br/>
+
+  <span class="tooltip" title="Este bine să asociați fiecare definiție cu toate lexemele relevante. Lexemele nu vor fi salvate până nu apăsați unul din
+  butoanele Acceptă sau Activează.">&nbsp;</span>
 
   <table class="editableFields">
     <tr>
       <td>Sursa:</td>
       <td>
-        {include file="common/sourceDropDown.ihtml"
-                 sources=$allModeratorSources
-                 src_selected=$def->sourceId
-                 skipAnySource=true}
+        {include file="common/sourceDropDown.ihtml" sources=$allModeratorSources src_selected=$def->sourceId skipAnySource=true}
       </td>
     </tr>
     <tr>
+      <td>Starea:</td>
       <td>
-        Starea:
-        {include file="admin/helpLink.ihtml" anchor="definitionDelete"}
-      </td>
-      <td>
-        {include file="common/statusDropDown.ihtml"
-                 name="status"
-                 statuses=$allStatuses
-                 selectedStatus=$def->status}
+        {include file="common/statusDropDown.ihtml" name="status" statuses=$allStatuses selectedStatus=$def->status}
+
+        <span class="tooltip" title="Dacă treceți o definiție în starea ștearsă, ea va fi automat disociată de orice lexem. <b>Notă:</b> Definiția va
+        fi imposibil de găsit la o căutare ulterioară, tocmai din cauza disocierii (căutarea se face după lexem). Definiția este încă disponibilă în
+        panoul de pagini recent vizitate.">&nbsp;</span>
+
       </td>
     </tr>
     {if count($typos)}
@@ -89,28 +86,37 @@
     </tr>
     <tr>
       <td>
-        Comentariu<br/>
-        (opțional):<br/>
-        {include file="admin/helpLink.ihtml" anchor="definitionComment"}
+        Comentariu<br/>(opțional):
+
+        <span class="tooltip" title="Comentariul va fi vizibil public într-un subalineat al definiției. Folosiți acest câmp pentru a face adnotări pe
+        marginea unei definiții fără a altera forma originală a definiției.">&nbsp;</span>
+
       </td>
       <td>
         <textarea name="commentContents" rows="5" cols="80">{if $comment}{$comment->contents|escape}{/if}</textarea><br/>
         {if $commentUser}
           <input id="preserveCommentUser" type="checkbox" name="preserveCommentUser" value="1" checked="checked">
           <label for="preserveCommentUser">Păstrează autorul comentariului original ({$commentUser->nick|escape})</label>
-          {include file="admin/helpLink.ihtml" anchor="commentOwner"}
+
+          <span class="tooltip" title="Dacă modificați un comentariu existent, puteți alege să vă treceți drept autor al comentariului sau să păstrați
+          autorul versiunii anterioare. Sistemul nu ia automat această decizie. Nu fiți modești; dacă considerați că ați îmbunătățit semnificativ
+          comentariul, însușiți-vi-l!">&nbsp;</span>
+
         {/if}
       </td>
     </tr>
     <tr>
       <td colspan="3" class="buttonRow">
         <input type="submit" name="but_refresh" value="Reafișează"/>
-        {include file="admin/helpLink.ihtml" anchor="definitionRefresh"}
+        <span class="tooltip" title="Tipărește definiția și comentariul cu modificările făcute. Modificările nu sunt încă salvate.">&nbsp;</span>
         &nbsp;&nbsp;
         <input type="submit" name="but_accept" value="Acceptă"/>
         &nbsp;&nbsp;
         <input type="submit" name="but_move" value="Activează"/>
-        {include file="admin/helpLink.ihtml" anchor="definitionActivate"}
+
+        <span class="tooltip" title="Acceptă modificările făcute și, în plus, trece definiția în starea activă. Butonul este echivalent cu trecerea
+        manuală a definiției în starea activă și este oferit ca o scurtătură.">&nbsp;</span>
+
       </td>
     </tr>
   </table>

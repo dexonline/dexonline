@@ -67,7 +67,6 @@ function meaningEditorInit() {
   $('#dexEditSaveButton').click(dexEditSaveEverything);
   $('.toggleInternalHtmlLink').click(toggleInternalHtmlClick);
   $('.boxTitle').click(boxTitleClick);
-  $(document).tooltip();
 
   $(window).resize(adjustDefinitionDivHeight);
   adjustDefinitionDivHeight();

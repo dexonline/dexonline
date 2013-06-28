@@ -7,10 +7,7 @@
   <input type="hidden" name="lexemId" value="{$lexem->id}"/>
   <table class="editableFields">
     <tr>
-      <td>
-        Nume:
-        {include file="admin/helpLink.ihtml" anchor="lexemName"}
-      </td>
+      <td>Nume:</td>
       <td>
         {if $canEditForm}  
           <input type="text" name="lexemForm" value="{$lexem->form|escape}" size="40"/>
@@ -18,13 +15,16 @@
           <input type="hidden" name="lexemForm" value="{$lexem->form|escape}"/>
           {$lexem->form|escape}
         {/if}
+
+        <span class="tooltip" title="Cuvântul-titlu. Accentul trebuie indicat chiar și pentru lexemele monosilabice, altfel paradigma nu va conține
+        deloc accente. Indicați accentul prin apostrof ('a), nu îl includeți în caracter (á). Valoarea acestui câmp este folosită la căutări și este
+        vizibilă public la afișarea flexiunilor unui cuvânt. Odată ce un lexem a fost inclus în LOC, numele și descrierea lexemului mai pot fi
+        modificate numai de către moderatorii LOC.">&nbsp;</span>
+
       </td>
     </tr>
     <tr>
-      <td>
-        Descriere:
-        {include file="admin/helpLink.ihtml" anchor="lexemDescription"}
-      </td>
+      <td>Descriere:</td>
       <td>
         {if $canEditForm}  
           <input type="text" name="lexemDescription" value="{$lexem->description|escape}" size="40"/>
@@ -32,29 +32,29 @@
           <input type="hidden" name="lexemDescription" value="{$lexem->description|escape}"/>
           {$lexem->description|escape}
         {/if}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Etichete:
-        {include file="admin/helpLink.ihtml"
-                 anchor="lexemTags"}
-      </td>
-      <td>
-	{foreach from=$sources key=k item=v}
-  	<input type="checkbox" name="lexemSources[]" value="{$k}" {if isset($v.checked)}checked="checked"{/if}>{$v.name}</input>
-	{/foreach}
 
-	<br/>
-        <input type="text" name="lexemTags"
-               value="{$lexem->tags|escape}" size="40"/>
+        <span class="tooltip" title="O scurtă explicație, vizibilă public, care diferențiază lexemele omonime. Pentru cuvintele fără omonime, ea poate
+        fi vidă.">&nbsp;</span>
+
       </td>
     </tr>
     <tr>
+      <td>Etichete:</td>
       <td>
-        Inclus în LOC
-        {include file="admin/helpLink.ihtml" anchor="lexemIsLoc"}
+        {foreach from=$sources key=k item=v}
+          <input type="checkbox" name="lexemSources[]" value="{$k}" {if isset($v.checked)}checked="checked"{/if}>{$v.name}</input>
+        {/foreach}
+        <br/>
+        <input type="text" name="lexemTags" value="{$lexem->tags|escape}" size="40"/>
+
+        <span class="tooltip" title="O scurtă clasificare, vizibilă public, care marchează sursa flexiunii. Pentru cuvintele cu flexiuni în DOOM-ul
+        curent (DOOM2 în acest moment), ea poate fi vidă. Sursele pot reprezenta dicționare, autori cunoscuți, inclusiv părerea moderatorului, dar
+        trebuie documentate clar aceste situații.">&nbsp;</span>
+
       </td>
+    </tr>
+    <tr>
+      <td>Inclus în LOC</td>
       <td>
         {if $sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
           <input type="radio" name="lexemIsLoc" value="1"
@@ -69,13 +69,15 @@
         {else}
           {if $lexem->isLoc}Da{else}Nu{/if}
         {/if}
+
+        <span class="tooltip" title="DEX online menține informații despre lexemele acceptate în Lista Oficială de Cuvinte a Federației Române de
+        Scrabble. Acest câmp este vizibil pentru toți moderatorii, dar poate fi modificat numai de către un set restrâns de moderatori care au drept
+        de gestiune a LOC.">&nbsp;</span>
+
       </td>
     </tr>
     <tr>
-      <td>
-        Necesită accent
-        {include file="admin/helpLink.ihtml" anchor="lexemNoAccent"}
-      </td>
+      <td>Necesită accent</td>
       <td>
         <input type="radio" name="lexemNoAccent" value=""
                id="lexemYesAccent"
@@ -86,6 +88,10 @@
                id="lexemNoAccent"
                {if $lexem->noAccent}checked="checked"{/if}/>
         <label for="lexemNoAccent">Nu</label>
+
+        <span class="tooltip" title="Majoritatea lexemelor necesită accent. Excepție fac cuvintele compuse, denumirile științifice de animale și
+        plante, elementele de compunere etc.">&nbsp;</span>
+
       </td>
     </tr>
     {if $homonyms}
@@ -197,7 +203,10 @@
 
 <div class="lexemSection">
   Comentarii despre paradigmă:
-  {include file="admin/helpLink.ihtml" anchor="lexemComment"}
+
+  <span class="tooltip" title="Dacă observați greșeli în paradigmă, notați-le în acest câmp și ele vor fi semnalate unui moderator cu drept de
+  gestiune a LOC.">&nbsp;</span>
+
   <br/>
   <textarea name="lexemComment" rows="4" cols="60" class="commentTextArea"
     >{$lexem->comment|escape}</textarea>
@@ -211,18 +220,33 @@
   <input type="submit" name="updateLexem" value="Salvează"/>
   &nbsp;&nbsp;
   <input type="submit" name="cloneLexem" value="Clonează"/>
-  {include file="admin/helpLink.ihtml" anchor="lexemClone"}
+
+  <span class="tooltip" title="Clonarea creează un lexem aproape identic cu cel în curs de editare. El va avea același nume și aceleași definiții
+  asociate. Descrierea noului lexem va fi prefixată cu cuvântul <b>CLONĂ.</b> Clona va fi creată fără flexiuni (modelul de flexionare temporar T1),
+  chiar dacă lexemul original avea flexiuni. Folosiți clonarea pentru a sparge un lexem nediferențiat în două lexeme omonime. De exemplu, dacă inițial
+  toate definițiile pentru <i>episcop</i> sunt reunite într-un singur lexem, puteți să clonați acest lexem și să adăugați descrierile "prelat" și
+  "aparat". Apoi trebuie să asociați definițiile în mod corect cu cele două lexeme.">&nbsp;</span>
+
   &nbsp;&nbsp;
   <input type="submit" name="deleteLexem" value="Șterge"
        {if $lexem->isLoc}disabled="disabled"{/if}
        onclick="return confirm('Confirmați ștergerea acestui lexem?');"/>
-  {include file="admin/helpLink.ihtml" anchor="lexemDelete"}
+
+  <span class="tooltip" title="Acest buton șterge lexemul și formele sale flexionare și disociază definițiile asociate cu acest lexem. Definițiile în
+  sine nu vor fi șterse, dar, dacă nu sunt asociate cu niciun alt lexem, ele vor deveni neasociate, ceea ce înseamnă că nu vor fi niciodată afișate
+  ca rezultat al unei căutări. Probabil trebuie să vă asigurați că definițiile respective sunt asociate cu un alt lexem înainte de a-l șterge pe
+  acesta. <b>Notă:</b> Lexemele care sunt parte din LOC nu pot fi șterse, pentru a preveni modificarea accidentală a LOC. Dacă sunteți moderator cu
+  drept de gestiune a LOC, scoateți întâi lexemul din LOC, după care îl puteți șterge.">&nbsp;</span>
+
   <br/>
 
   Asociază definiția cu ID-ul:
   <input type="text" name="associateDefinitionId"/>
   <input type="submit" name="associateDefinition" value="Asociază"/>
-  {include file="admin/helpLink.ihtml" anchor="lexemAssociateNew"}
+
+  <span class="tooltip" title="Tastați ID-ul definiției pentru a o asocia cu acest lexem. Puteți, mai comod, să vizitați pagina definiției pe care
+  doriți să o asociați și să adăugați acest lexem la lista ei de lexeme (deoarece în acel caz puteți căuta lexemul după nume).">&nbsp;</span>
+
 </div>
 </form>
 

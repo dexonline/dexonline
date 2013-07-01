@@ -14,8 +14,7 @@
 
   <div class="links">
     <a href="../">DEX online</a> |
-    <a href="../admin/">Pagina moderatorului</a> |
-    <a href="#" onclick="return adminHelpWindow();">Ajutor</a>
+    <a href="../admin/">Pagina moderatorului</a>
   </div>
   <div style="clear: both;"></div>
 </div>

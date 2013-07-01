@@ -7,19 +7,15 @@ function fixMobile() {
 }
 
 function toggleInflVisibility(value, lexem) {
-  var div = document.getElementById('paradigmDiv');
-  var arrow = document.getElementById('inflArrow');
-  if (div.innerHTML == '') {
+  var div = $('#paradigmDiv');
+  if (trim(div.html()) == '') {
 	  param = (lexem ? 'lexemId' : 'cuv') + '=' + value;
-	  makeGetRequest(wwwRoot + 'paradigm.php?ajax=1&' + param, getParadigmCallback, null);
+    $.get(wwwRoot + 'paradigm.php?ajax=1&' + param)
+      .done(function(data) { div.html(data).slideToggle(); }); // Slide only after content is added
+  } else {
+    div.slideToggle();
   }
-  if (div.className == 'paradigmHide') {
-	div.className = 'paradigmShow';
-    arrow.innerHTML = 'Ascunde ';
-  }
-  else {
-	div.className = 'paradigmHide';
-    arrow.innerHTML = 'Arată ';
-  }
+  var arrow = $('#inflArrow');
+  arrow.html((arrow.html() == 'Ascunde ') ? 'Arată ' : 'Ascunde ');
   return false;
 }

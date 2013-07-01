@@ -4,16 +4,16 @@ var letter = '[' + Alphabet + ']';
 var nonLetter = '[^' + Alphabet + ']';
 var wwwRoot = getWwwRoot();
 
-if (jQuery.ui) {
+if (typeof jQuery != 'undefined' && typeof jQuery.ui != 'undefined') {
   $(function() {
     $(document).tooltip();
   });
 }
 
 function loadAjaxContent(url, elid) {
-    $.get(url, function(data) {
-        $(elid).html(data);
-    });
+  $.get(url, function(data) {
+    $(elid).html(data);
+  });
 }
 
 function searchSubmit() {
@@ -43,15 +43,6 @@ function abbrevWindow() {
   window.open(wwwRoot + 'static.php?c=abrev', 'mywindow', 'menubar=no,scrollbars=yes,toolbar=no,width=400,height=400');
 }
 
-function adminHelpWindow(anchorName) {
-  var url = wwwRoot + 'static.php?c=adminHelp';
-  if (anchorName) {
-    url += '#' + anchorName;
-  }
-  window.open(url, 'adminHelpWindow', 'menubar=no,scrollbars=yes,toolbar=no,width=400,height=400');
-  return false;
-}
-
 function showTypoForm(evt) {
   link = evt.target;
   desiredTop = link.offsetTop + link.offsetHeight;
@@ -75,17 +66,10 @@ function showTypoForm(evt) {
 function submitTypoForm() {
   textarea = $("#typoHtmlForm > textarea").val();
   defId = $("#typoHtmlForm > input:hidden").val();
-    $.post(wwwRoot + 'ajax/typo.php', { definitionId: defId, text: textarea, submit: 1 }, function(data) {
-      $('#typoDiv').html(data).delay(2000).fadeOut('slow');
+  $.post(wwwRoot + 'ajax/typo.php', { definitionId: defId, text: textarea, submit: 1 }, function(data) {
+    $('#typoDiv').html(data).delay(2000).fadeOut('slow');
   });
   return false;
-}
-
-function myEncodeURI(s) {
-  var encoded = encodeURI(s);
-  encoded = encoded.replace(/\+/g, '%2B');
-  encoded = encoded.replace(/\&/g, '%26');
-  return encoded;
 }
 
 function contribBodyLoad() {
@@ -101,82 +85,17 @@ function contribUpdatePreviewDiv() {
   var previewDiv = document.getElementById('previewDiv');
   if (previewDiv.keyWasPressed) {
     var internalRep = document.frmContrib.def.value;
-    makePostRequest(wwwRoot + 'ajax/htmlize.php',
-                    'internalRep=' + myEncodeURI(internalRep) + '&sourceId=' + document.frmContrib.source.value,
-                    contribPostRequestCallback, null);
+    $.post(wwwRoot + 'ajax/htmlize.php', { internalRep: internalRep, sourceId: document.frmContrib.source.value })
+      .done(function(data) { $('#previewDiv').html(data); })
+      .fail(contribPreviewFail);
     previewDiv.keyWasPressed = false;
   }
   setTimeout('contribUpdatePreviewDiv()', 5000);
 }
 
-// Kudos http://www.captain.at/howto-ajax-form-post-get.php
-// and http://www.captain.at/howto-ajax-form-post-request.php
-function instantiateRequest() {
-  var request = false;
-  if (window.XMLHttpRequest) { // Mozilla, Safari,...
-    request = new XMLHttpRequest();
-    if (request.overrideMimeType) {
-      request.overrideMimeType('text/html');
-    }
-  } else if (window.ActiveXObject) { // IE
-    try {
-      request = new ActiveXObject("Msxml2.XMLHTTP");
-    } catch (e) {
-      try {
-        request = new ActiveXObject("Microsoft.XMLHTTP");
-      } catch (e) {}
-    }
-  }
-
-  if (!request) {
-    alert('Nu am putut crea obiectul de tip XMLHttp/ActiveX');
-  }
-  return request;
-}
-
-function makePostRequest(url, parameters, callback, argument) {
-  var httpRequest = instantiateRequest();
-  if (!httpRequest) {
-    return false;
-  }
-  
-  httpRequest.onreadystatechange = function() {
-    callback(httpRequest, argument);
-  };
-  httpRequest.open('POST', url, true);
-  httpRequest.setRequestHeader("Content-type",
-                                "application/x-www-form-urlencoded");
-  httpRequest.setRequestHeader("Content-length", parameters.length);
-  httpRequest.setRequestHeader("Connection", "close");
-  httpRequest.send(parameters);
-  return false;
-}
-
-function makeGetRequest(url, callback, argument) {
-  var httpRequest = instantiateRequest();
-  if (!httpRequest) {
-    return false;
-  }
-  
-  httpRequest.onreadystatechange = function() {
-    callback(httpRequest, argument);
-  }
-  httpRequest.open('GET', url, true);
-  httpRequest.send(null);
-  return false;
-}
-
-function contribPostRequestCallback(httpRequest, argument /* ignored */) {
-  if (httpRequest.readyState == 4) {
-    if (httpRequest.status == 200) {
-      result = httpRequest.responseText;
-    } else {
-      result = 'Este o problemă la comunicarea cu serverul. ' +
-        'Nu pot afișa rezultatul, dar voi reîncerca în 5 secunde.';
-      contribKeyPressed();   // Force another attempt in 5 seconds.
-    }
-    document.getElementById('previewDiv').innerHTML = result;
-  }
+function contribPreviewFail() {
+  $('#previewDiv').html('Este o problemă la comunicarea cu serverul. Voi reîncerca în 5 secunde.');
+  contribKeyPressed();   // Force another attempt in 5 seconds.
 }
 
 function toggleDivVisibility(divId) {
@@ -190,32 +109,17 @@ function toggleDivVisibility(divId) {
 }
 
 function toggleInflVisibility(value, lexem) {
-  var div = document.getElementById('paradigmDiv');
-  if (trim(div.innerHTML) == '') {
+  var div = $('#paradigmDiv');
+  if (trim(div.html()) == '') {
 	  param = (lexem ? 'lexemId' : 'cuv') + '=' + value;
-	  makeGetRequest(wwwRoot + 'paradigm.php?ajax=1&' + param, getParadigmCallback, null);
+    $.get(wwwRoot + 'paradigm.php?ajax=1&' + param)
+      .done(function(data) { div.html(data).slideToggle(); }); // Slide only after content is added
+  } else {
+    div.slideToggle();
   }
-  var arrow = document.getElementById('inflArrow');
-  if (div.className == 'paradigmHide') {
-	div.className = 'paradigmShow';
-    arrow.innerHTML = '&#x25bd;';
-  }
-  else {
-	div.className = 'paradigmHide';
-    arrow.innerHTML = '&#x25b7;';
-  }
+  var arrow = $('#inflArrow');
+  arrow.html((arrow.html() == '\u25bd') ? '&#x25b7;' : '&#x25bd;');
   return false;
-}
-
-function getParadigmCallback(httpRequest) {
-  if (httpRequest.readyState == 4) {
-    if (httpRequest.status == 200) {
-      var paradigmDiv = document.getElementById("paradigmDiv");
-      paradigmDiv.innerHTML = httpRequest.responseText;
-    } else {
-      alert('A apărut o problemă la comunicarea cu serverul. Nu pot afișa paradigma.');
-    }
-  }
 }
 
 function addProvider(url) {
@@ -424,42 +328,30 @@ function installFirefoxSpellChecker(evt) {
 }
 
 function ignoreTypo(typoDivId, typoId) {
-  makePostRequest(wwwRoot + 'ajax/ignoreTypo.php', 'id=' + typoId, ignoreTypoCallback, typoDivId);
+  $.get(wwwRoot + 'ajax/ignoreTypo.php', { id: typoId })
+    .done(function() { $('#' + typoDivId).css('display', 'none'); })
+    .fail(function() { alert('A apărut o problemă la comunicarea cu serverul. Greșeala de tipar nu a fost încă ștearsă.'); });
   return false;
-}
-
-function ignoreTypoCallback(httpRequest, typoDivId) {
-  if (httpRequest.readyState == 4) {
-    if (httpRequest.status == 200) {
-      var typoDiv = document.getElementById(typoDivId);
-      typoDiv.style.display = 'none';
-    } else {
-      alert('A apărut o problemă la comunicarea cu serverul. Greșeala de tipar nu a fost încă ștearsă.');
-    }
-  }
 }
 
 function deleteDefinition(defDivId, defId) {
-  makePostRequest(wwwRoot + 'ajax/deleteDefinition.php', 'id=' + defId, deleteDefinitionCallback, defDivId);
+  $.get(wwwRoot + 'ajax/deleteDefinition.php', { id: defId })
+    .done(function() { $('#' + defDivId).css('display', 'none'); })
+    .fail(function() { alert('A apărut o problemă la comunicarea cu serverul. Definiția nu a fost încă ștearsă.'); });
   return false;
-}
-
-function deleteDefinitionCallback(httpRequest, defDivId) {
-  if (httpRequest.readyState == 4) {
-    if (httpRequest.status == 200) {
-      var defDiv = document.getElementById(defDivId);
-      defDiv.style.display = 'none';
-    } else {
-      alert('A apărut o problemă la comunicarea cu serverul. Definiția nu a fost încă ștearsă.');
-    }
-  }
 }
 
 function startReportCounters() {
   reports = ['unassociatedLexems', 'unassociatedDefinitions', 'definitionsWithTypos', 'temporaryDefinitions', 'temporaryLexems', 'lexemsWithComments',
              'lexemsWithoutAccents', 'definitionsWithAmbiguousAbbrev', 'wotd'];
   for (var i = 0; i < reports.length; i++) {
-    makePostRequest(wwwRoot + 'ajax/reportCounter.php', 'report=' + reports[i], startReportCountersCallback, 'span_' + reports[i]);
+    $.ajax({
+      url: wwwRoot + 'ajax/reportCounter.php',
+      data: { report: reports[i] },
+      span: $('#span_' + reports[i])
+    }).done(function(data) {
+      this.span.text(data);
+    });
   }
 }
 

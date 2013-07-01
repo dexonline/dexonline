@@ -85,7 +85,7 @@ class SmartyWrap {
   static function displayAdminPage($templateName) {
     self::assign('templateName', $templateName);
     self::addCss('flex');
-    self::addJs('dex', 'flex');
+    self::addJs('dex', 'flex', 'jquery');
     print self::fetch('admin/pageLayout.ihtml');
   }
 

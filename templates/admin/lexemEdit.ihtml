@@ -155,8 +155,7 @@
 
     <b>3. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b>
     se flexionează conform modelului
-    <select name="modelType"
-            onchange="return updateModelList(this, 'modelListId')">
+    <select name="modelType" id="modelTypeListId" onchange="return updateModelList(false)">
       {foreach from=$modelTypes item=mt}
         <option value="{$mt->code|escape}"
           {if $mt->code == $lexem->modelType}selected="selected"{/if}

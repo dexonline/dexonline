@@ -10,8 +10,10 @@ if ($locVersion) {
 
 $models = FlexModel::loadByType($modelType);
 
+$resp = array();
 foreach ($models as $m) {
-  print "{$m->id}\n{$m->number}\n{$m->exponent}\n";
+  $resp[] = array('id' => $m->id, 'number' => $m->number, 'exponent' => $m->exponent);
 }
+print json_encode($resp);
 
 ?>

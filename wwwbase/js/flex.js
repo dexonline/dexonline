@@ -1,82 +1,46 @@
-function updateModelTypeList(locVersionSelect, modelTypeListId) {
-  var value = locVersionSelect.options[locVersionSelect.selectedIndex].value;
-  url = wwwRoot + 'ajax/getModelTypesForLocVersion.php?locVersion=' + value;
-  if (window.location.toString().indexOf('/admin/') != -1) {
-    url = '../' + url;
-  }
-  makeGetRequest(url, populateModelTypeList, modelTypeListId);
+function updateModelTypeList() {
+  var locVersion = $('#locVersionListId').val();
+  var url = wwwRoot + 'ajax/getModelTypesForLocVersion.php?locVersion=' + locVersion;
+  $.get(url, null, null, 'json')
+    .done(populateModelTypeList)
+    .fail('Nu pot descărca lista de tipuri de modele.');
   return false;
 }
 
-function updateModelListWithLocVersion(mtSelect, modelListId) {
-  var lvSelect = document.getElementById('locVersionListId');
-  var lv = lvSelect.options[lvSelect.selectedIndex].value;
-  var mt = mtSelect.options[mtSelect.selectedIndex].value;
-  url = wwwRoot + 'ajax/getModelsForLocVersionModelType.php' +
-    '?locVersion=' + lv +
-    '&modelType=' + mt;
-  makeGetRequest(url, populateModelList, [true, modelListId]);
+/** listAllOption -- whether to prepend an option for "list all" **/
+function updateModelList(listAllOption) {
+  $.get(wwwRoot + 'ajax/getModelsForLocVersionModelType.php',
+        { locVersion: $('#locVersionListId').val(), modelType: $('#modelTypeListId').val() },
+        null, 'json')
+    .done(function(data) { populateModelList(data, listAllOption); })
+    .fail('Nu pot descărca lista de modele.');
   return false;
 }
 
-function updateModelList(modelTypeSelect, modelListId) {
-  var value = modelTypeSelect.options[modelTypeSelect.selectedIndex].value;
-  makeGetRequest(wwwRoot + 'ajax/getModelsForLocVersionModelType.php?modelType=' +
-                 value, populateModelList, [false, modelListId]);
-  return false;
+function populateModelTypeList(data) {
+  var select = $('#modelTypeListId');
+  select.empty();
+
+  $.each(data, function(index, dict) {
+    var display = dict.code + ' (' + dict.description + ')';
+    select.append($("<option></option>").attr("value", dict.code).text(display));
+  });
+
+  // Now update the model list since the model type list has changed.
+  updateModelList(true);
 }
 
-function populateModelTypeList(httpRequest, modelTypeListId) {
-  if (httpRequest.readyState == 4) {
-    if (httpRequest.status == 200) {
-      var select = document.getElementById(modelTypeListId);
-      select.options.length = 0;
+function populateModelList(data, listAllOption) {
+  var select = $('#modelListId');
+  select.empty();
 
-      result = httpRequest.responseText;
-      var lines = result.split('\n');
-
-      for (var i = 0; i < lines.length && lines[i]; i += 2) {
-        var val = lines[i];
-        var descr = lines[i + 1];
-        var display = val + ' (' + descr + ')';
-        select.options[select.options.length] = new Option(display, val);
-      }
-
-      // Now update the model list since the model type list has changed.
-      var mtSelect = document.getElementById('modelTypeListId');
-      updateModelListWithLocVersion(mtSelect, 'modelListId');
-    } else {
-      alert('Nu pot descărca lista de tipuri de modele!');
-    }
+  if (listAllOption) {
+    select.append($('<option value="-1">Toate</option>'));
   }
-}
-
-function populateModelList(httpRequest, argArray) {
-  var createExtraOption = argArray[0];
-  var modelListId = argArray[1];
-  if (httpRequest.readyState == 4) {
-    if (httpRequest.status == 200) {
-      var select = document.getElementById(modelListId);
-      select.options.length = 0;
-
-      if (createExtraOption) {
-        select.options[0] = new Option("Toate", -1);
-      }
-
-      result = httpRequest.responseText;
-      var lines = result.split('\n');
-
-      for (var i = 0; i < lines.length && lines[i]; i += 3) {
-        var id = lines[i];
-        var number = encodeURIComponent(lines[i + 1]);
-        var exponent = lines[i + 2];
-        var display = lines[i + 1] + (id == '0' ? '*' : '') + ' (' + exponent + ')';
-        select.options[select.options.length] = new Option(display, number);
-      }
-    } else {
-      alert('Nu pot descărca lista de exponenți pentru modele!');
-    }
-  }
+  $.each(data, function(index, dict) {
+    var display = dict.number + ' (' + dict.exponent + ')';
+    select.append($("<option></option>").attr("value", dict.number).text(display));
+  });
 }
 
 function blUpdateParadigmVisibility(radioButton) {
@@ -122,41 +86,16 @@ function hideDiv(divId) {
 }
 
 function mlUpdateDefVisibility(lexemId, divId) {
-  var div = document.getElementById(divId);
+  var div = $('#' + divId);
   // If the definitions are already loaded, then just toggle the div's visibility.
-  if (!div.defsLoaded) {
-    var url = wwwRoot + 'ajax/getDefinitionsForLexem.php?lexemId=' + lexemId;
-    makeGetRequest(url, populateDefinitionList, divId);
-  } else if (div.style.display == 'none') {
-    div.style.display = 'block';
+  if (trim(div.html()) == '') {
+    $.get(wwwRoot + 'ajax/getDefinitionsForLexem.php?lexemId=' + lexemId)
+      .done(function(data) { div.html(data).slideToggle(); })
+      .fail('Nu pot descărca lista de definiții.');
   } else {
-    div.style.display = 'none';
+    div.slideToggle();
   }
   return false;
-}
-
-function populateDefinitionList(httpRequest, divId) {
-  if (httpRequest.readyState == 4) {
-    if (httpRequest.status == 200) {
-      result = httpRequest.responseText;
-      var lines = result.split('\n');
-      var div = document.getElementById(divId);
-
-      for (var i = 0; i < lines.length && lines[i]; i += 4) {
-        var defId = lines[i];
-        var source = lines[i + 1];
-        var status = lines[i + 2];
-        var defText = lines[i + 3];
-        div.innerHTML += defText + "<br/>";
-        div.innerHTML += '<span class="defDetails">Id: ' + defId + ' | Sursa: ' + source + ' | Starea: ' + status + '</span><br/>';
-      }
-
-      div.style.display = "block";
-      div.defsLoaded = true;
-    } else {
-      alert('Nu pot descărca definițiile!');
-    }
-  }
 }
 
 function apSelectLetter(lexemId, cIndex) {

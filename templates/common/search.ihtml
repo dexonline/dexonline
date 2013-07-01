@@ -112,7 +112,7 @@
 {/if}
 
 <div id="resultsWrapper" class="txt">
-  <div class="{if $showParadigm}paradigmShow{else}paradigmHide{/if}" id="paradigmDiv">{include file="common/bits/multiParadigm.ihtml"}</div>
+  <div id="paradigmDiv" {if !$showParadigm}style="display: none"{/if}>{include file="common/bits/multiParadigm.ihtml"}</div>
  
   {if $stopWords}
     <span class="stopWords">

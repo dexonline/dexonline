@@ -56,19 +56,10 @@ span.isLoc {
   font-weight: bold;
 }
 
-div.paradigmShow, div.paradigmHide {
+#paradigmDiv {
   margin: 5px 50px;
   padding: 5px;
   white-space: nowrap;
-}
-
-div.paradigmShow {
-  display: block;
-
-}
-
-div.paradigmHide {
-  display: none;
 }
 
 .paradigmLink {

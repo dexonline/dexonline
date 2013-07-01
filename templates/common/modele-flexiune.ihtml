@@ -3,8 +3,7 @@
 
 <form action="modele-flexiune" method="get">
   Versiunea LOC:
-  <select name="locVersion" id="locVersionListId"
-          onchange="return updateModelTypeList(this, 'modelTypeListId');">
+  <select name="locVersion" id="locVersionListId" onchange="return updateModelTypeList()">
     {foreach from=$locVersions item=lv}
       <option value="{$lv->name|escape}"
               {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
@@ -14,8 +13,7 @@
   </select>
 
   &nbsp;&nbsp; Model:
-  <select name="modelType" id="modelTypeListId"
-          onchange="return updateModelListWithLocVersion(this, 'modelListId')">
+  <select name="modelType" id="modelTypeListId" onchange="return updateModelList(true)">
     {foreach from=$modelTypes item=mt}
       <option value="{$mt->code|escape}"
               {if $mt->code == $selectedModelType}selected="selected"{/if}>

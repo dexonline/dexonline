@@ -63,8 +63,7 @@ care necesită atenție și câteva mecanisme de căutare a lexemelor
 {if $sUser->moderator & $smarty.const.PRIV_LOC}
   <form action="../flex/dispatchModelAction.php" method="get">
     Modelul:
-    <select name="modelType"
-            onchange="return updateModelList(this, 'modelListId')">
+    <select name="modelType" id="modelTypeListId" onchange="return updateModelList(false)">
       {foreach from=$modelTypes item=mt}
         <option value="{$mt->code|escape}">{$mt->code|escape}</option>
       {/foreach}

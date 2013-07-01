@@ -96,15 +96,14 @@ function contribInit() {
   $('#lexemIds').select2({
     ajax: struct_lexemAjax,
     createSearchChoice: allowNewLexems,
-    formatInputTooShort: function () { return ''; },
-    formatSearching: function () { return "Căutare..."; },
+    formatInputTooShort: function () { return 'Vă rugăm să introduceți minim un caracter'; },
+    formatSearching: function () { return 'Căutare...'; },
     initSelection: select2InitSelectionAjax,
     minimumInputLength: 1,
     multiple: true,
     tokenSeparators: [',', '\\', '@'],
     width: '600px',
   });
-  $('#lexemIds').select2('open');
 }
 
 function formatLexemWithEditLink(lexem) {
@@ -113,7 +112,7 @@ function formatLexemWithEditLink(lexem) {
 
 function allowNewLexems(term, data) {
   if (!data.length) {
-    return { id: '@' + term, text: term + " (cuvânt nou)"};
+    return { id: '@' + term, text: term + ' (cuvânt nou)'};
   }
 };
 
@@ -136,7 +135,7 @@ function select2InitSelectionAjax(element, callback) {
         if (displayValue) {
           data.push({ id: lexemId, text: displayValue });
         } else {
-          data.push({ id: lexemId, text: lexemId.substr(1) + " (cuvânt nou)" });
+          data.push({ id: lexemId, text: lexemId.substr(1) + ' (cuvânt nou)' });
         }
       },
       async: false,

@@ -111,4 +111,4 @@ openx_otherSkins = 121346
 openxLocal_otherSkins = 3
 
 [limits]
-limitFulltextSearch = 1000;
+limitFulltextSearch = 1000

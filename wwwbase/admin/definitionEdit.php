@@ -5,7 +5,6 @@ util_assertNotMirror();
 
 $definitionId = util_getRequestIntParameter('definitionId');
 $lexemIds = util_getRequestCsv('lexemIds');
-$associateLexemId = util_getRequestParameter('associateLexemId');
 $sourceId = util_getRequestIntParameter('source');
 $internalRep = util_getRequestParameter('internalRep');
 $status = util_getRequestIntParameterWithDefault('status', null);
@@ -26,11 +25,6 @@ if (!($definition = Definition::get_by_id($definitionId))) {
 $comment = Model::factory('Comment')->where('definitionId', $definitionId)->where('status', ST_ACTIVE)->find_one();
 $commentUser = $comment ? User::get_by_id($comment->userId) : null;
 $oldInternalRep = $definition->internalRep;
-
-if ($associateLexemId) {
-  LexemDefinitionMap::associate($associateLexemId, $definitionId);
-  util_redirect("definitionEdit.php?definitionId={$definitionId}");
-}
 
 if ($internalRep) {
   $errors = array();

@@ -9,8 +9,7 @@
         </td>
         <td>
           {include file="common/bits/lexemName.ihtml" lexem=$h}
-          <a href="lexemEdit.php?lexemId={$h->id}">editează</a> |
-          <a href="?definitionId={$def->id}&amp;associateLexemId={$h->id}">asociază</a>
+          <a href="lexemEdit.php?lexemId={$h->id}">editează</a>
         </td>
       </tr>
     {/foreach}

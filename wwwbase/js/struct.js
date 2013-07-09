@@ -111,7 +111,7 @@ function formatLexemWithEditLink(lexem) {
 }
 
 function allowNewLexems(term, data) {
-  if (!data.length) {
+  if (!data.length || data[0].text != term) {
     return { id: '@' + term, text: term + ' (cuvânt nou)'};
   }
 };

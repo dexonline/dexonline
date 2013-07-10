@@ -71,60 +71,11 @@ function formCheck(formobj) {
 
   <br /><br />
 
-  <h2 id="doilasuta">Redirecționează 2% din impozitul pe venit</h2>
-
-  <div>Codul Fiscal pune la dispoziția contribuabililor mecanismul de redirecționare a 2% din impozitul pe venit datorat pentru anul 2012. 
-  Astfel, poți ajuta <i>Asociația dexonline</i> fără să te coste nimic! Procedura este simplă, trebuie doar să te încadrezi în termenul limită: 25 mai 2013!<br />
-
-  Formularul poate fi completat de orice persoană fizică care obține venituri din salarii și asimilate acestora. <br /><br />
-  <b>Pasul 1</b>: Descarcă și printează formularul. <ul>
-      <li>Dacă ai venituri numai din salariu, folosiți <a href="http://doilasuta.ro/content/documente/formulare/formular230.pdf">declaraţia 230</a></li>
-      <li>Dacă ai venituri (și) din alte surse: folosiți <a href="http://doilasuta.ro/content/documente/formulare/formular200.pdf">declaraţia 200</a></li>
-  </ul>
-
-  <b>Pasul 2</b>: Completează formularul folosind datele de identificare ale <i>Asociației dexonline</i>:<ul>
-      <li>Cod de Identificare Fiscală (CIF):<span class="bankAccount"> 30855345</span></li>
-      <li>Adresa sediului social:<span class="bankAccount"> strada Remetea nr. 20, București, sector 2</span></li>
-      <li>Cont deschis la<span class="bankAccount"> Banca Transilvania, sucursala Obor</span>, IBAN:<span class="bankAccount"> RO96 BTRL 0440 1205 M306 19XX</span></li>
-  </ul>
-  Nu e nicio problemă dacă nu știi exact suma care trebuie virată: las-o necompletată și organul fiscal o va calcula și o va vira, conform legii.<br />
-  Formularul trebuie completat în două exemplare: unul trebuie trimis către Administrația Financiară (vezi pasul următor), celălalt rămâne la tine.<br /><br />
-  
-  <b>Pasul 3</b>: Depune formularul completat și semnat la sediul Administrației Financiare de care aparține domiciliul tău. Alternativ, puteți depunde formularul direct la sediul Administrației Financiare respective.
-  </div>
-
-  Mai multe informații puteți găsi <a href="http://doilasuta.ro">aici</a>.
-
-  <br /><br />
-
-  <h2>Sponsorizarea Asociației dexonline</h2>
-
-  <div>Dacă ai o firmă, ai profit și plătești impozit, ne poți sponsoriza. Suma donată se scade din impozitul pe profit dacă se îndeplinesc cumulati condițiile:<ul>
-  <li>suma nu depășește 0,3% din cifra de afaceri;</li>
-  <li>suma nu depășește 20% din impozitul pe profit datorat.</li>
-  </ul>
-  Cheltuielile ce depășesc aceste limite pot fi înregistrate în contabilitate drept cheltuieli nedeductibile. 
-  Sponsorizările se pot face în orice perioadă a anului, sumele urmând să figureze în documentele contabile la următoarea dată a raportării impozitului pe profit.<br /><br />
-
-  <b>Detalii</b>:
-    <ul>
-      <li>Beneficiar<span class="bankAccount"> Asociația dexonline</span></li>
-      <li>CIF<span class="bankAccount"> 30855345</span></li>
-      <li>Adresa<span class="bankAccount"> strada Remetea nr. 20, București, sector 2</span></li>
-      <li>Cont<span class="bankAccount"> Banca Transilvania, sucursala Obor</span></li>
-      <li>RON<span class="bankAccount"> RO96 BTRL 0440 1205 M306 19XX</span></li>
-    </ul>
-  </div>
-
-  <br />
-
   <h2>La ce folosim sumele donate</h2>
 
-  <p>Avem multe idei pentru a dezvolta site-ul și prea puțin timp să ne ocupăm voluntar de ele. Echipa noastră constă din doi programatori, doi
-  moderatori ai bazei de date, doi voluntari care introduc definiții și un activist pe rețele sociale. Cu toții suntem voluntari, ceea ce înseamnă că
-  lucrăm cu mare plăcere, dar trecem <i>DEX online</i> pe planul doi oricând apar nevoi mai urgente în viețile noastre.</p>
-
-  <p>Donațiile voastre vor ajuta <i>Asociația dexonline</i> să dezvolte proiectul mai repede. Iată câteva exemple.</p>
+  <p>Avem multe idei pentru a dezvolta site-ul și prea puțin timp să ne ocupăm voluntar de ele. Echipa noastră constă din șapte oameni și toți suntem
+  voluntari. Aceasta înseamnă că lucrăm cu mare plăcere, dar trecem <i>DEX online</i> pe planul doi oricând apar nevoi mai urgente în viețile
+  noastre. Donațiile voastre vor ajuta <i>Asociația dexonline</i> să dezvolte proiectul mai repede. De exemplu:</p>
 
   <h3>Finanțarea unor noi proiecte software <a class="donateDetailLink" href="#">detalii</a></h3>
 
@@ -245,6 +196,53 @@ function formCheck(formobj) {
 
     <p>Toate adunate pot ține un inginer de sistem ocupat câteva ore pe săptămână.</p>
   </div>
+
+  <h2 id="doilasuta">Redirecționează 2% din impozitul pe venit</h2>
+
+  <div>Codul Fiscal pune la dispoziția contribuabililor mecanismul de redirecționare a 2% din impozitul pe venit datorat pentru anul 2012. 
+  Astfel, poți ajuta <i>Asociația dexonline</i> fără să te coste nimic! Procedura este simplă, trebuie doar să te încadrezi în termenul limită: 25 mai 2013!<br />
+
+  Formularul poate fi completat de orice persoană fizică care obține venituri din salarii și asimilate acestora. <br /><br />
+  <b>Pasul 1</b>: Descarcă și printează formularul. <ul>
+      <li>Dacă ai venituri numai din salariu, folosiți <a href="http://doilasuta.ro/content/documente/formulare/formular230.pdf">declaraţia 230</a></li>
+      <li>Dacă ai venituri (și) din alte surse: folosiți <a href="http://doilasuta.ro/content/documente/formulare/formular200.pdf">declaraţia 200</a></li>
+  </ul>
+
+  <b>Pasul 2</b>: Completează formularul folosind datele de identificare ale <i>Asociației dexonline</i>:<ul>
+      <li>Cod de Identificare Fiscală (CIF):<span class="bankAccount"> 30855345</span></li>
+      <li>Adresa sediului social:<span class="bankAccount"> strada Remetea nr. 20, București, sector 2</span></li>
+      <li>Cont deschis la<span class="bankAccount"> Banca Transilvania, sucursala Obor</span>, IBAN:<span class="bankAccount"> RO96 BTRL 0440 1205 M306 19XX</span></li>
+  </ul>
+  Nu e nicio problemă dacă nu știi exact suma care trebuie virată: las-o necompletată și organul fiscal o va calcula și o va vira, conform legii.<br />
+  Formularul trebuie completat în două exemplare: unul trebuie trimis către Administrația Financiară (vezi pasul următor), celălalt rămâne la tine.<br /><br />
+  
+  <b>Pasul 3</b>: Depune formularul completat și semnat la sediul Administrației Financiare de care aparține domiciliul tău. Alternativ, puteți depunde formularul direct la sediul Administrației Financiare respective.
+  </div>
+
+  Mai multe informații puteți găsi <a href="http://doilasuta.ro">aici</a>.
+
+  <br /><br />
+
+  <h2>Sponsorizarea Asociației dexonline</h2>
+
+  <div>Dacă ai o firmă, ai profit și plătești impozit, ne poți sponsoriza. Suma donată se scade din impozitul pe profit dacă se îndeplinesc cumulati condițiile:<ul>
+  <li>suma nu depășește 0,3% din cifra de afaceri;</li>
+  <li>suma nu depășește 20% din impozitul pe profit datorat.</li>
+  </ul>
+  Cheltuielile ce depășesc aceste limite pot fi înregistrate în contabilitate drept cheltuieli nedeductibile. 
+  Sponsorizările se pot face în orice perioadă a anului, sumele urmând să figureze în documentele contabile la următoarea dată a raportării impozitului pe profit.<br /><br />
+
+  <b>Detalii</b>:
+    <ul>
+      <li>Beneficiar<span class="bankAccount"> Asociația dexonline</span></li>
+      <li>CIF<span class="bankAccount"> 30855345</span></li>
+      <li>Adresa<span class="bankAccount"> strada Remetea nr. 20, București, sector 2</span></li>
+      <li>Cont<span class="bankAccount"> Banca Transilvania, sucursala Obor</span></li>
+      <li>RON<span class="bankAccount"> RO96 BTRL 0440 1205 M306 19XX</span></li>
+    </ul>
+  </div>
+
+  <br />
 
 </div>
 

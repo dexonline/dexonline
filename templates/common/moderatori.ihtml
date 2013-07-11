@@ -13,7 +13,7 @@
       <tr>
         <td>
           <a href="{$wwwRoot}utilizator/{$user->nick}">{$user->nick}</a>
-	  {* Ensure this user is processed even if all the boxes are unchecked *}
+          {* Ensure this user is processed even if all the boxes are unchecked *}
           <input type="hidden" name="userIds[]" value="{$user->id}"/>
         </td>
         {section name="bit" loop=$smarty.const.NUM_PRIVILEGES}

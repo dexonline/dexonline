@@ -84,7 +84,7 @@ class SmartyWrap {
 
   static function displayAdminPage($templateName) {
     self::assign('templateName', $templateName);
-    self::addCss('flex');
+	self::addCss('flex');
     self::addJs('dex', 'flex', 'jquery');
     print self::fetch('admin/pageLayout.ihtml');
   }
@@ -146,9 +146,9 @@ class SmartyWrap {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
       switch($id) {
-      case 'jqueryui':           self::$cssFiles[1] = 'lightness-1.9.2/jquery-ui-1.9.2.custom.min.css?v=2'; break;
-      case 'jqgrid':             self::$cssFiles[2] = 'ui.jqgrid.css?v=2'; break;
-      case 'elfinder':           self::$cssFiles[4] = 'elfinder.css'; break;
+      case 'jqueryui':           self::$cssFiles[1] = 'lightness-1.10.3/jquery-ui-1.10.3.custom.min.css'; break;
+      case 'jqgrid':             self::$cssFiles[2] = 'ui.jqgrid.css?v=3'; break;
+      case 'elfinder':           self::$cssFiles[4] = 'elfinder.min.css?v=1'; break;
       case 'zepu':               self::$cssFiles[5] = 'zepu.css?v=54'; break;
       case 'polar':              self::$cssFiles[6] = 'polar.css?v=31'; break;
       case 'mobile':             self::$cssFiles[7] = 'mobile.css?v=15'; break;
@@ -174,17 +174,17 @@ class SmartyWrap {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
       switch($id) {
-      case 'jquery':           self::$jsFiles[1] = 'jquery-1.8.3.min.js'; break; 
-      case 'jqueryui':         self::$jsFiles[2] = 'jquery-ui-1.9.2.custom.min.js?v=2'; break;
+      case 'jquery':           self::$jsFiles[1] = 'jquery-1.10.2.min.js'; break; 
+      case 'jqueryui':         self::$jsFiles[2] = 'jquery-ui-1.10.3.custom.min.js'; break;
       case 'jqgrid':
-        self::$jsFiles[3] = 'grid.locale-en.js?v=1';
-        self::$jsFiles[4] = 'jquery.jqGrid.min.js?v=2';
+        self::$jsFiles[3] = 'grid.locale-en.js?v=2';
+        self::$jsFiles[4] = 'jquery.jqGrid.min.js?v=3';
         break;
       case 'jqnotice':         self::$jsFiles[5] = 'jquery.notice.js'; break;
       case 'jqTableDnd':       self::$jsFiles[6] = 'jquery.tablednd.0.7.min.js?v=1'; break;
       case 'tablesorter':      self::$jsFiles[7] = 'jquery.tablesorter.min.js'; break;
       case 'pager':            self::$jsFiles[8] = 'jquery.tablesorter.pager.js'; break;
-      case 'elfinder':         self::$jsFiles[9] = 'elfinder.min.js'; break; 
+      case 'elfinder':         self::$jsFiles[9] = 'elfinder.min.js?v=1'; break; 
       case 'dex':              self::$jsFiles[10] = 'dex.js?v=24'; break;
       case 'flex':             self::$jsFiles[11] = 'flex.js?v=2'; break;
       case 'mobile':           self::$jsFiles[12] = 'mobile.js?v=2'; break;

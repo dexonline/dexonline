@@ -1,7 +1,17 @@
 <?php
-error_reporting(0); // Set E_ALL for debuging
 
-if (function_exists('date_default_timezone_set')) {
+error_reporting(E_ALL); // Set E_ALL for debuging
+
+include_once __DIR__ . '/elFinderConnector.class.php';
+include_once __DIR__ . '/elFinder.class.php';
+include_once __DIR__ . '/elFinderVolumeDriver.class.php';
+include_once __DIR__ . '/elFinderVolumeLocalFileSystem.class.php';
+// Required for MySQL storage connector
+// include_once __DIR__ . '/elFinderVolumeMySQL.class.php';
+// Required for FTP connector support
+// include_once __DIR__ . '/elFinderVolumeFTP.class.php';
+
+if(function_exists('date_default_timezone_set')) {
 	date_default_timezone_set('Europe/Moscow');
 }
 
@@ -9,82 +19,131 @@ include_once __DIR__ . '/../../phplib/util.php';
 include_once __DIR__ . '/elFinder.class.php';
 
 /**
- * Simple example how to use logger with elFinder
+ * Simple function to demonstrate how to control file access using "accessControl" callback.
+ * This method will disable accessing files/folders starting from '.' (dot)
+ *
+ * @param  string  $attr  attribute name (read|write|locked|hidden)
+ * @param  string  $path  file path relative to volume root directory started with directory separator
+ * @return bool|null
  **/
-class elFinderLogger implements elFinderILogger {
-	
-	public function log($cmd, $ok, $context, $err='', $errorData = array()) {
-		if (false != ($fp = fopen('./log.txt', 'a'))) {
-			if ($ok) {
-				$str = "cmd: $cmd; OK; context: ".str_replace("\n", '', var_export($context, true))."; \n";
-			} else {
-				$str = "cmd: $cmd; FAILED; context: ".str_replace("\n", '', var_export($context, true))."; error: $err; errorData: ".str_replace("\n", '', var_export($errorData, true))."\n";
-			}
-			fwrite($fp, $str);
-			fclose($fp);
-		}
-	}
-	
+
+function access($attr, $path, $data, $volume) {
+	return (strpos(basename($path), '.')) === 0       // if file/folder begins with '.' (dot)
+		? !($attr == 'read' || $attr == 'write')    // set read+write to false, other (locked+hidden) set to true
+		:  null;                                    // else elFinder decide it itself
 }
 
+/**
+ * Simple logger function.
+ * Demonstrate how to work with elFinder event api.
+ *
+ * @package elFinder
+ * @author Dmitry (dio) Levashov
+ **/
+class elFinderSimpleLogger {
+    
+    /**
+     * Log file path
+     *
+     * @var string
+     **/
+    protected $file = '';
+    
+    /**
+     * constructor
+     *
+     * @return void
+     * @author Dmitry (dio) Levashov
+     **/
+    public function __construct($path) {
+        $this->file = $path;
+        $dir = dirname($path);
+        if (!is_dir($dir)) {
+            mkdir($dir);
+        }
+    }
+    
+    /**
+     * Create log record
+     *
+     * @param  string   $cmd       command name
+     * @param  array    $result    command result
+     * @param  array    $args      command arguments from client
+     * @param  elFinder $elfinder  elFinder instance
+     * @return void|true
+     * @author Dmitry (dio) Levashov
+     **/
+    public function log($cmd, $result, $args, $elfinder) {
+        $log = $cmd.' ['.date('d.m H:s')."]\n";
+        
+        if (!empty($result['error'])) {
+            $log .= "\tERROR: ".implode(' ', $result['error'])."\n";
+        }
+        
+        if (!empty($result['warning'])) {
+            $log .= "\tWARNING: ".implode(' ', $result['warning'])."\n";
+        }
+        
+        if (!empty($result['removed'])) {
+            foreach ($result['removed'] as $file) {
+                // removed file contain additional field "realpath"
+                $log .= "\tREMOVED: ".$file['realpath']."\n";
+            }
+        }
+        
+        if (!empty($result['added'])) {
+            foreach ($result['added'] as $file) {
+                $log .= "\tADDED: ".$elfinder->realpath($file['hash'])."\n";
+            }
+        }
+        
+        if (!empty($result['changed'])) {
+            foreach ($result['changed'] as $file) {
+                $log .= "\tCHANGED: ".$elfinder->realpath($file['hash'])."\n";
+            }
+        }
+        
+        $this->write($log);
+    }
+    
+    /**
+     * Write log into file
+     *
+     * @param  string  $log  log record
+     * @return void
+     * @author Dmitry (dio) Levashov
+     **/
+    protected function write($log) {
+        if (($fp = @fopen($this->file, 'a'))) {
+            fwrite($fp, $log."\n");
+            fclose($fp);
+        }
+    }
+}
+
+$myLogger = new elFinderSimpleLogger('../img/wotd/_log.txt');
+
+// https://github.com/Studio-42/elFinder/wiki/Connector-configuration-options
 $opts = array(
-	'root'            => __DIR__ . '/../img/wotd/',                       // path to root directory
-	'URL'             => util_getFullServerUrl() . '/img/wotd/', // root directory URL
-	'rootAlias'       => 'Imagini cuvântul zilei',       // display this instead of root directory name
-        'debug' => true,
-	'uploadAllow'   => array('images/*'),
-	//'uploadDeny'    => array('all'),
-	//'uploadOrder'   => 'deny,allow'
-	'disabled'     => array('mkfile', 'resize'),      // list of not allowed commands
-	// 'dotFiles'     => false,        // display dot files
-	// 'dirSize'      => true,         // count total directories sizes
-	// 'fileMode'     => 0666,         // new files mode
-	// 'dirMode'      => 0777,         // new folders mode
-	// 'mimeDetect'   => 'internal',       // files mimetypes detection method (finfo, mime_content_type, linux (file -ib), bsd (file -Ib), internal (by extensions))
-	// 'uploadAllow'  => array(),      // mimetypes which allowed to upload
-	// 'uploadDeny'   => array(),      // mimetypes which not allowed to upload
-	// 'uploadOrder'  => 'deny,allow', // order to proccess uploadAllow and uploadAllow options
-	'imgLib'       => 'gd',       // image manipulation library (imagick, mogrify, gd)
-	'tmbDir'       => '.tmb',       // directory name for image thumbnails. Set to "" to avoid thumbnails generation
-	'tmbCleanProb' => 100,            // how frequiently clean thumbnails dir (0 - never, 100 - every init request)
-	// 'tmbAtOnce'    => 5,            // number of thumbnails to generate per request
-	// 'tmbSize'      => 48,           // images thumbnails size (px)
-	// 'fileURL'      => true,         // display file URL in "get info"
-	// 'dateFormat'   => 'j M Y H:i',  // file modification date format
-	// 'logger'       => null,         // object logger
-	// 'defaults'     => array(        // default permisions
-	// 	'read'   => true,
-	// 	'write'  => true,
-	// 	'rm'     => true
-	// 	),
-	// 'perms'        => array(),      // individual folders/files permisions    
-        'debug'        => true,         // send debug to client
-	// 'archiveMimes' => array(),      // allowed archive's mimetypes to create. Leave empty for all available types.
-	// 'archivers'    => array()       // info about archivers to use. See example below. Leave empty for auto detect
-	// 'archivers' => array(
-	// 	'create' => array(
-	// 		'application/x-gzip' => array(
-	// 			'cmd' => 'tar',
-	// 			'argc' => '-czf',
-	// 			'ext'  => 'tar.gz'
-	// 			)
-	// 		),
-	// 	'extract' => array(
-	// 		'application/x-gzip' => array(
-	// 			'cmd'  => 'tar',
-	// 			'argc' => '-xzf',
-	// 			'ext'  => 'tar.gz'
-	// 			),
-	// 		'application/x-bzip2' => array(
-	// 			'cmd'  => 'tar',
-	// 			'argc' => '-xjf',
-	// 			'ext'  => 'tar.bz'
-	// 			)
-	// 		)
-	// 	)
+	'debug' => true,
+	'bind'	=> array(
+			'mkdir mkfile rename duplicate upload rm paste' => array($myLogger, 'log')),
+	'roots' => array(
+		array(
+			'driver'        => 'LocalFileSystem', // driver for accessing file system (REQUIRED)
+			'path'          => '../img/wotd/', // path to files (REQUIRED)
+			'URL'			=> util_getFullServerUrl() . '/img/wotd/', // URL to files (REQUIRED)
+			'accessControl' => 'access', // disable and hide dot starting files (OPTIONAL)
+			'alias'			=> 'Imagini cuvântul zilei', // display this instead of root directory name
+			'uploadAllow'	=> array('image'), // mimetypes allowed to upload
+			'disabled'		=> array('resize'), // list of not allowed commands
+			'imgLib'		=> 'gd', // image manipulation library (imagick, mogrify, gd)
+			'tmbPath'		=> '.tmb' // directory name for image thumbnails. Set to "" to avoid thumbnails generation
+		)
+	)
 );
 
-$fm = new elFinder($opts); 
-$fm->run();
+// run elFinder
+$connector = new elFinderConnector(new elFinder($opts));
+$connector->run();
 
-?>

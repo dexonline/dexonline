@@ -7,11 +7,11 @@
 
 <script type="text/javascript">
   {literal}
-  $(document).ready(function() {
+  $().ready(function() {
     $('#fileManager').elfinder({
       url: '../elfinder-connector/connector.php',
       lang: 'en'
-    })
+    }).elfinder('instance');
   });
   {/literal}
 </script>

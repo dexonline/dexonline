@@ -1,1995 +1,1219 @@
 <?php
 
-// set locale to UTF8 to correct multibyte characters 
-setlocale(LC_ALL, 'en_US.UTF8');
-
-interface elFinderILogger {
-	public function log($cmd, $ok, $context, $err='', $errorData = array());
-}
-
+/**
+ * elFinder - file manager for web.
+ * Core class.
+ *
+ * @package elfinder
+ * @author Dmitry (dio) Levashov
+ * @author Troex Nevelin
+ * @author Alexey Sukhotin
+ **/
 class elFinder {
 	
 	/**
-	 * object options
-	 *
-	 * @var array
-	 **/
-	protected $_options = array(
-		'root'         => '',           // path to root directory
-		'URL'          => '',           // root directory URL
-		'rootAlias'    => 'Home',       // display this instead of root directory name
-		'disabled'     => array(),      // list of not allowed commands
-		'dotFiles'     => false,        // display dot files
-		'dirSize'      => true,         // count total directories sizes
-		'fileMode'     => 0666,         // new files mode
-		'dirMode'      => 0777,         // new folders mode
-		'mimeDetect'   => 'auto',       // files mimetypes detection method (finfo, mime_content_type, linux (file -ib), bsd (file -Ib), internal (by extensions))
-		'uploadAllow'  => array(),      // mimetypes which allowed to upload
-		'uploadDeny'   => array(),      // mimetypes which not allowed to upload
-		'uploadOrder'  => 'deny,allow', // order to proccess uploadAllow and uploadAllow options
-		'imgLib'       => 'auto',       // image manipulation library (imagick, mogrify, gd)
-		'tmbDir'       => '.tmb',       // directory name for image thumbnails. Set to "" to avoid thumbnails generation
-		'tmbCleanProb' => 1,            // how frequiently clean thumbnails dir (0 - never, 200 - every init request)
-		'tmbAtOnce'    => 5,            // number of thumbnails to generate per request
-		'tmbSize'      => 48,           // images thumbnails size (px)
-		'tmbCrop'      => true,         // crop thumbnails (true - crop, false - scale image to fit thumbnail size)
-		'tmbBgColor'   => '#ffffff',    // thumbnail background color
-		'fileURL'      => true,         // display file URL in "get info"
-		'dateFormat'   => 'j M Y H:i',  // file modification date format
-		'logger'       => null,         // object logger
-		'aclObj'       => null,         // acl object (not implemented yet)
-		'aclRole'      => 'user',       // role for acl
-		'defaults'     => array(        // default permisions
-			'read'   => true,
-			'write'  => true,
-			'rm'     => true
-			),
-		'perms'        => array(),      // individual folders/files permisions     
-		'debug'        => false,        // send debug to client
-		'archiveMimes' => array(),      // allowed archive's mimetypes to create. Leave empty for all available types.
-		'archivers'    => array()       // info about archivers to use. See example below. Leave empty for auto detect
-		// 'archivers' => array(
-		// 	'create' => array(
-		// 		'application/x-gzip' => array(
-		// 			'cmd' => 'tar',
-		// 			'argc' => '-czf',
-		// 			'ext'  => 'tar.gz'
-		// 			)
-		// 		),
-		// 	'extract' => array(
-		// 		'application/x-gzip' => array(
-		// 			'cmd'  => 'tar',
-		// 			'argc' => '-xzf',
-		// 			'ext'  => 'tar.gz'
-		// 			),
-		// 		'application/x-bzip2' => array(
-		// 			'cmd'  => 'tar',
-		// 			'argc' => '-xjf',
-		// 			'ext'  => 'tar.bz'
-		// 			)
-		// 		)
-		// 	)
-		);
-	
-	/**
-	 * mapping $_GET['cmd]/$_POST['cmd] to class methods
-	 *
-	 * @var array
-	 **/
-	protected $_commands = array(
-		'open'      => '_open',
-		'reload'    => '_reload',
-		'mkdir'     => '_mkdir',
-		'mkfile'    => '_mkfile',
-		'rename'    => '_rename',
-		'upload'    => '_upload',
-		'paste'     => '_paste',
-		'rm'        => '_rm',
-		'duplicate' => '_duplicate',
-		'read'      => '_fread',
-		'edit'      => '_edit',
-		'archive'   => '_archive',
-		'extract'   => '_extract',
-		'resize'    => '_resize',
-		'tmb'       => '_thumbnails',
-		'ping'      => '_ping'
-		);
-		
-	/**
-	 * List of commands to log
+	 * API version number
 	 *
 	 * @var string
 	 **/
-	public $_loggedCommands = array('mkdir', 'mkfile', 'rename', 'upload', 'paste', 'rm', 'duplicate', 'edit', 'resize');
+	protected $version = '2.0';
 	
 	/**
-	 * Context to log command
-	 *
-	 * @var string
-	 **/
-	protected $_logContext = array();
-		
-	/**
-	 * extensions/mimetypes for _mimetypeDetect = 'internal' 
+	 * Storages (root dirs)
 	 *
 	 * @var array
 	 **/
-	protected $_mimeTypes = array(
-		//applications
-		'ai'    => 'application/postscript',
-		'eps'   => 'application/postscript',
-		'exe'   => 'application/octet-stream',
-		'doc'   => 'application/vnd.ms-word',
-		'xls'   => 'application/vnd.ms-excel',
-		'ppt'   => 'application/vnd.ms-powerpoint',
-		'pps'   => 'application/vnd.ms-powerpoint',
-		'pdf'   => 'application/pdf',
-		'xml'   => 'application/xml',
-		'odt'   => 'application/vnd.oasis.opendocument.text',
-		'swf'   => 'application/x-shockwave-flash',
-		// archives
-		'gz'    => 'application/x-gzip',
-		'tgz'   => 'application/x-gzip',
-		'bz'    => 'application/x-bzip2',
-		'bz2'   => 'application/x-bzip2',
-		'tbz'   => 'application/x-bzip2',
-		'zip'   => 'application/zip',
-		'rar'   => 'application/x-rar',
-		'tar'   => 'application/x-tar',
-		'7z'    => 'application/x-7z-compressed',
-		// texts
-		'txt'   => 'text/plain',
-		'php'   => 'text/x-php',
-		'html'  => 'text/html',
-		'htm'   => 'text/html',
-		'js'    => 'text/javascript',
-		'css'   => 'text/css',
-		'rtf'   => 'text/rtf',
-		'rtfd'  => 'text/rtfd',
-		'py'    => 'text/x-python',
-		'java'  => 'text/x-java-source',
-		'rb'    => 'text/x-ruby',
-		'sh'    => 'text/x-shellscript',
-		'pl'    => 'text/x-perl',
-		'sql'   => 'text/x-sql',
-		// images
-		'bmp'   => 'image/x-ms-bmp',
-		'jpg'   => 'image/jpeg',
-		'jpeg'  => 'image/jpeg',
-		'gif'   => 'image/gif',
-		'png'   => 'image/png',
-		'tif'   => 'image/tiff',
-		'tiff'  => 'image/tiff',
-		'tga'   => 'image/x-targa',
-		'psd'   => 'image/vnd.adobe.photoshop',
-		//audio
-		'mp3'   => 'audio/mpeg',
-		'mid'   => 'audio/midi',
-		'ogg'   => 'audio/ogg',
-		'mp4a'  => 'audio/mp4',
-		'wav'   => 'audio/wav',
-		'wma'   => 'audio/x-ms-wma',
-		// video
-		'avi'   => 'video/x-msvideo',
-		'dv'    => 'video/x-dv',
-		'mp4'   => 'video/mp4',
-		'mpeg'  => 'video/mpeg',
-		'mpg'   => 'video/mpeg',
-		'mov'   => 'video/quicktime',
-		'wm'    => 'video/x-ms-wmv',
-		'flv'   => 'video/x-flv',
-		'mkv'   => 'video/x-matroska'
-		);
+	protected $volumes = array();
+	
+	public static $netDrivers = array();
+
+	/**
+	 * Mounted volumes count
+	 * Required to create unique volume id
+	 *
+	 * @var int
+	 **/
+	public static $volumesCnt = 1;
+	
+	/**
+	 * Default root (storage)
+	 *
+	 * @var elFinderStorageDriver
+	 **/
+	protected $default = null;
+	
+	/**
+	 * Commands and required arguments list
+	 *
+	 * @var array
+	 **/
+	protected $commands = array(
+		'open'      => array('target' => false, 'tree' => false, 'init' => false, 'mimes' => false),
+		'ls'        => array('target' => true, 'mimes' => false),
+		'tree'      => array('target' => true),
+		'parents'   => array('target' => true),
+		'tmb'       => array('targets' => true),
+		'file'      => array('target' => true, 'download' => false),
+		'size'      => array('targets' => true),
+		'mkdir'     => array('target' => true, 'name' => true),
+		'mkfile'    => array('target' => true, 'name' => true, 'mimes' => false),
+		'rm'        => array('targets' => true),
+		'rename'    => array('target' => true, 'name' => true, 'mimes' => false),
+		'duplicate' => array('targets' => true, 'suffix' => false),
+		'paste'     => array('dst' => true, 'targets' => true, 'cut' => false, 'mimes' => false),
+		'upload'    => array('target' => true, 'FILES' => true, 'mimes' => false, 'html' => false),
+		'get'       => array('target' => true),
+		'put'       => array('target' => true, 'content' => '', 'mimes' => false),
+		'archive'   => array('targets' => true, 'type' => true, 'mimes' => false),
+		'extract'   => array('target' => true, 'mimes' => false),
+		'search'    => array('q' => true, 'mimes' => false),
+		'info'      => array('targets' => true),
+		'dim'       => array('target' => true),
+		'resize'    => array('target' => true, 'width' => true, 'height' => true, 'mode' => false, 'x' => false, 'y' => false, 'degree' => false),
+		'netmount'  => array('protocol' => true, 'host' => true, 'path' => false, 'port' => false, 'user' => true, 'pass' => true, 'alias' => false, 'options' => false)
+	);
+	
+	/**
+	 * Commands listeners
+	 *
+	 * @var array
+	 **/
+	protected $listeners = array();
+	
+	/**
+	 * script work time for debug
+	 *
+	 * @var string
+	 **/
+	protected $time = 0;
+	/**
+	 * Is elFinder init correctly?
+	 *
+	 * @var bool
+	 **/
+	protected $loaded = false;
+	/**
+	 * Send debug to client?
+	 *
+	 * @var string
+	 **/
+	protected $debug = false;
+
+	/**
+	 * session expires timeout
+	 *
+	 * @var int
+	 **/
+	protected $timeout = 0;
 	
 	/**
 	 * undocumented class variable
 	 *
 	 * @var string
 	 **/
-	protected $_time = 0;
-				
-	/**
-	 * Additional data about error
-	 *
-	 * @var array
-	 **/
-	protected $_errorData = array();
-		
-	/**
-	 * undocumented class variable
-	 *
-	 * @var string
-	 **/
-	protected $_fakeRoot = '';
+	protected $uploadDebug = '';
 	
 	/**
-	 * Command result to send to client
+	 * Errors from not mounted volumes
 	 *
 	 * @var array
 	 **/
-	protected $_result = array();
-		
+	public $mountErrors = array();
+	
+	// Errors messages
+	const ERROR_UNKNOWN           = 'errUnknown';
+	const ERROR_UNKNOWN_CMD       = 'errUnknownCmd';
+	const ERROR_CONF              = 'errConf';
+	const ERROR_CONF_NO_JSON      = 'errJSON';
+	const ERROR_CONF_NO_VOL       = 'errNoVolumes';
+	const ERROR_INV_PARAMS        = 'errCmdParams';
+	const ERROR_OPEN              = 'errOpen';
+	const ERROR_DIR_NOT_FOUND     = 'errFolderNotFound';
+	const ERROR_FILE_NOT_FOUND    = 'errFileNotFound';     // 'File not found.'
+	const ERROR_TRGDIR_NOT_FOUND  = 'errTrgFolderNotFound'; // 'Target folder "$1" not found.'
+	const ERROR_NOT_DIR           = 'errNotFolder';
+	const ERROR_NOT_FILE          = 'errNotFile';
+	const ERROR_PERM_DENIED       = 'errPerm';
+	const ERROR_LOCKED            = 'errLocked';        // '"$1" is locked and can not be renamed, moved or removed.'
+	const ERROR_EXISTS            = 'errExists';        // 'File named "$1" already exists.'
+	const ERROR_INVALID_NAME      = 'errInvName';       // 'Invalid file name.'
+	const ERROR_MKDIR             = 'errMkdir';
+	const ERROR_MKFILE            = 'errMkfile';
+	const ERROR_RENAME            = 'errRename';
+	const ERROR_COPY              = 'errCopy';
+	const ERROR_MOVE              = 'errMove';
+	const ERROR_COPY_FROM         = 'errCopyFrom';
+	const ERROR_COPY_TO           = 'errCopyTo';
+	const ERROR_COPY_ITSELF       = 'errCopyInItself';
+	const ERROR_REPLACE           = 'errReplace';          // 'Unable to replace "$1".'
+	const ERROR_RM                = 'errRm';               // 'Unable to remove "$1".'
+	const ERROR_RM_SRC            = 'errRmSrc';            // 'Unable remove source file(s)'
+	const ERROR_UPLOAD            = 'errUpload';           // 'Upload error.'
+	const ERROR_UPLOAD_FILE       = 'errUploadFile';       // 'Unable to upload "$1".'
+	const ERROR_UPLOAD_NO_FILES   = 'errUploadNoFiles';    // 'No files found for upload.'
+	const ERROR_UPLOAD_TOTAL_SIZE = 'errUploadTotalSize';  // 'Data exceeds the maximum allowed size.'
+	const ERROR_UPLOAD_FILE_SIZE  = 'errUploadFileSize';   // 'File exceeds maximum allowed size.'
+	const ERROR_UPLOAD_FILE_MIME  = 'errUploadMime';       // 'File type not allowed.'
+	const ERROR_UPLOAD_TRANSFER   = 'errUploadTransfer';   // '"$1" transfer error.'
+	// const ERROR_ACCESS_DENIED     = 'errAccess';
+	const ERROR_NOT_REPLACE       = 'errNotReplace';       // Object "$1" already exists at this location and can not be replaced with object of another type.
+	const ERROR_SAVE              = 'errSave';
+	const ERROR_EXTRACT           = 'errExtract';
+	const ERROR_ARCHIVE           = 'errArchive';
+	const ERROR_NOT_ARCHIVE       = 'errNoArchive';
+	const ERROR_ARCHIVE_TYPE      = 'errArcType';
+	const ERROR_ARC_SYMLINKS      = 'errArcSymlinks';
+	const ERROR_ARC_MAXSIZE       = 'errArcMaxSize';
+	const ERROR_RESIZE            = 'errResize';
+	const ERROR_UNSUPPORT_TYPE    = 'errUsupportType';
+	const ERROR_NOT_UTF8_CONTENT  = 'errNotUTF8Content';
+	const ERROR_NETMOUNT          = 'errNetMount';
+	const ERROR_NETMOUNT_NO_DRIVER = 'errNetMountNoDriver';
+	const ERROR_NETMOUNT_FAILED       = 'errNetMountFailed';
+
+	const ERROR_SESSION_EXPIRES 	= 'errSessionExpires';
+
+	const ERROR_CREATING_TEMP_DIR 	= 'errCreatingTempDir';
+	const ERROR_FTP_DOWNLOAD_FILE 	= 'errFtpDownloadFile';
+	const ERROR_FTP_UPLOAD_FILE 	= 'errFtpUploadFile';
+	const ERROR_FTP_MKDIR 		= 'errFtpMkdir';
+	const ERROR_ARCHIVE_EXEC 	= 'errArchiveExec';
+	const ERROR_EXTRACT_EXEC 	= 'errExtractExec';
+
 	/**
-	 * undocumented class variable
+	 * Constructor
 	 *
-	 * @var string
-	 **/
-	protected $_today = 0;
-			
-	/**
-	 * undocumented class variable
-	 *
-	 * @var string
-	 **/
-	protected $_yesterday = 0;
-			
-	/**
-	 * constructor
-	 *
-	 * @param  array object options
+	 * @param  array  elFinder and roots configurations
 	 * @return void
+	 * @author Dmitry (dio) Levashov
 	 **/
-	public function __construct($options=array()) {
-		foreach ($this->_options as $k=>$v) {
-			if (isset($options[$k])) {
-				$this->_options[$k] = is_array($this->_options[$k]) 
-					? array_merge($this->_options[$k], $options[$k]) 
-					: $options[$k];
-			}
+	public function __construct($opts) {
+		if (session_id() == '') {
+			session_start();
 		}
 
-		if (substr($this->_options['root'], -1) == DIRECTORY_SEPARATOR) {
-			$this->_options['root'] = substr($this->_options['root'], 0, -1);
-		}
-
-		$this->_time = $this->_options['debug'] ? $this->_utime() : 0;
-
-		$this->_fakeRoot = !$this->_options['rootAlias'] 
-			? $this->_options['root'] 
-			: dirname($this->_options['root']).DIRECTORY_SEPARATOR.$this->_options['rootAlias'];
-			
-		if (!empty($this->_options['disabled'])) {
-			$no = array('open', 'reload', 'tmb', 'ping');
-			foreach ($this->_options['disabled'] as $k => $c) {
-				if (!isset($this->_commands[$c]) || in_array($c, $no)) {
-					unset($this->_options['disabled'][$k]);
-				} else {
-					unset($this->_commands[$c]);
-				}
-			}
-		}
-				
-		if ($this->_options['tmbDir']) {
-			$tmbDir = $this->_options['root'].DIRECTORY_SEPARATOR.$this->_options['tmbDir'];
-			$this->_options['tmbDir'] = is_dir($tmbDir) || @mkdir($tmbDir, $this->_options['dirMode']) ? $tmbDir : '';
-		}
-		if ($this->_options['tmbDir']) {
-			if (!in_array($this->_options['imgLib'], array('imagick', 'mogrify', 'gd'))) {
-				$this->_options['imgLib'] = $this->_getImgLib();
-			}
-		}
-		$this->_today = mktime(0,0,0, date('m'), date('d'), date('Y'));
-		$this->_yesterday = $this->_today-86400;
-	}
-
-	/**
-	 * Proccess client request and output json
-	 *
-	 * @return void
-	 **/
-	public function run() {
-		if (!function_exists('json_encode')) {
-			exit('{"error":"PHP JSON module not installed"}');
-		}
-		if (empty($this->_options['root']) || !is_dir($this->_options['root'])) {
-			exit(json_encode(array('error' => 'Invalid backend configuration')));
-		}
-		if (!$this->_isAllowed($this->_options['root'], 'read')) {
-			exit(json_encode(array('error' => 'Access denied')));
-		}
+		$this->time  = $this->utime();
+		$this->debug = (isset($opts['debug']) && $opts['debug'] ? true : false);
+		$this->timeout = (isset($opts['timeout']) ? $opts['timeout'] : 0);
 		
-		$cmd = '';
-		if (!empty($_POST['cmd'])) {
-			$cmd = trim($_POST['cmd']);
-		} elseif (!empty($_GET['cmd'])) {
-			$cmd = trim($_GET['cmd']);
-		}
-		if (!$cmd && $_SERVER["REQUEST_METHOD"] == 'POST') {
-			header("Content-Type: text/html");
-			$this->_result['error'] = 'Data exceeds the maximum allowed size';
-			exit(json_encode($this->_result));
-		}
-		
-		if ($cmd && (empty($this->_commands[$cmd]) || !method_exists($this, $this->_commands[$cmd]))) {
-			exit(json_encode(array('error' => 'Unknown command')));
-		}
-		
-		if (isset($_GET['init'])) {
-			
-			$ts = $this->_utime();
-			$this->_result['disabled'] = array_values($this->_options['disabled']);
-			
-			$this->_result['params'] = array(
-				'dotFiles'   => $this->_options['dotFiles'],
-				'uplMaxSize' => ini_get('upload_max_filesize'),
-				'archives'   => array(),
-				'extract'    => array(),
-				'url'        => $this->_options['fileURL'] ? $this->_options['URL'] : ''
-				);
-			if (isset($this->_commands['archive']) || isset($this->_commands['extract'])) {
-				$this->_checkArchivers();
-				if (isset($this->_commands['archive'])) {
-					$this->_result['params']['archives'] = $this->_options['archiveMimes'];
-				}
-				if (isset($this->_commands['extract'])) {
-					$this->_result['params']['extract'] = array_keys($this->_options['archivers']['extract']);
-				}
-			}
-			// clean thumbnails dir
-			if ($this->_options['tmbDir']) {
-				srand((double) microtime() * 1000000);
-				if (rand(1, 200) <= $this->_options['tmbCleanProb']) {
-					$ts2 = $this->_utime();
-					$ls = scandir($this->_options['tmbDir']);
-					for ($i=0, $s = count($ls); $i < $s; $i++) { 
-						if ('.' != $ls[$i] && '..' != $ls[$i]) {
-							@unlink($this->_options['tmbDir'].DIRECTORY_SEPARATOR.$ls[$i]);
-						}
-					}
-				}
-			}
-			
-		}
-		
-		if ($this->_options['debug']) {
-			$this->_result['debug'] = array(
-				'time'       => $this->_utime() - $this->_time,
-				'mimeDetect' => $this->_options['mimeDetect'],
-				'imgLib'     => $this->_options['imgLib']
-				);
-			if ($this->_options['dirSize']) {
-				$this->_result['debug']['dirSize'] = true;
-				$this->_result['debug']['du'] = @$this->_options['du'];
+		setlocale(LC_ALL, !empty($opts['locale']) ? $opts['locale'] : 'en_US.UTF-8');
+
+		// bind events listeners
+		if (!empty($opts['bind']) && is_array($opts['bind'])) {
+			foreach ($opts['bind'] as $cmd => $handler) {
+				$this->bind($cmd, $handler);
 			}
 		}
 
-		if ($cmd) {
-			$this->{$this->_commands[$cmd]}();
-		} else {
-			$this->_open();
+		if (!isset($opts['roots']) || !is_array($opts['roots'])) {
+			$opts['roots'] = array();
 		}
 
-		header("Content-Type: ".($cmd == 'upload' ? 'text/html' : 'application/json'));
-		header("Connection: close");
-		echo json_encode($this->_result);
-		
-		if (!empty($this->_options['logger']) && in_array($cmd, $this->_loggedCommands)) {
-			$this->_options['logger']->log($cmd, empty($this->_result['error']), $this->_logContext, !empty($this->_result['error']) ? $this->_result['error'] : '', !empty($this->_result['errorData']) ? $this->_result['errorData'] : array()); 
+		// check for net volumes stored in session
+		foreach ($this->getNetVolumes() as $root) {
+			$opts['roots'][] = $root;
 		}
-		exit();
-	}
 
-	
-	/************************************************************/
-	/**                   elFinder commands                    **/
-	/************************************************************/
-	
-	/**
-	 * Return current dir content to client or output file content to browser
-	 *
-	 * @return void
-	 **/
-	protected function _open()
-	{
-		if (isset($_GET['current'])) { // read file
-			if (empty($_GET['current']) 
-			||  empty($_GET['target'])
-			||  false == ($dir = $this->_findDir(trim($_GET['current'])))
-			||  false == ($file = $this->_find(trim($_GET['target']), $dir))
-			||  is_dir($file)
-			) {
-				header('HTTP/1.x 404 Not Found'); 
-				exit('File not found');
-			}
-			if (!$this->_isAllowed($dir, 'read') || !$this->_isAllowed($file, 'read')) {
-				header('HTTP/1.x 403 Access Denied'); 
-				exit('Access denied');
-			}
-			
-			if (filetype($file) == 'link') {
-				$file = $this->_readlink($file);
-				if (!$file || is_dir($file)) {
-					header('HTTP/1.x 404 Not Found'); 
-					exit('File not found');
-				}
-				if (!$this->_isAllowed(dirname($file), 'read') || !$this->_isAllowed($file, 'read')) {
-					header('HTTP/1.x 403 Access Denied'); 
-					exit('Access denied');
-				}
-			}
-			
-			$mime  = $this->_mimetype($file);
-			$parts = explode('/', $mime);
-			$disp  = $parts[0] == 'image' || $parts[0] == 'text' ? 'inline' : 'attachments';
-			
-			header("Content-Type: ".$mime);
-			header("Content-Disposition: ".$disp."; filename=".basename($file));
-			header("Content-Location: ".str_replace($this->_options['root'], '', $file));
-			header('Content-Transfer-Encoding: binary');
-			header("Content-Length: ".filesize($file));
-			header("Connection: close");
-			readfile($file);
-			exit();
-			
-		} else { // enter directory
-			$path = $this->_options['root'];
-			if (!empty($_GET['target'])) {
-				if (false == ($p = $this->_findDir(trim($_GET['target'])))) {
-					if (!isset($_GET['init'])) {
-						$this->_result['error'] = 'Invalid parameters';
-					}
-				} elseif (!$this->_isAllowed($p, 'read')) {
-					if (!isset($_GET['init'])) {
-						$this->_result['error'] = 'Access denied';
+		// "mount" volumes
+		foreach ($opts['roots'] as $i => $o) {
+			$class = 'elFinderVolume'.(isset($o['driver']) ? $o['driver'] : '');
+
+			if (class_exists($class)) {
+				$volume = new $class();
+
+				if ($volume->mount($o)) {
+					// unique volume id (ends on "_") - used as prefix to files hash
+					$id = $volume->id();
+					
+					$this->volumes[$id] = $volume;
+					if (!$this->default && $volume->isReadable()) {
+						$this->default = $this->volumes[$id]; 
 					}
 				} else {
-					$path = $p;
+					$this->mountErrors[] = 'Driver "'.$class.'" : '.implode(' ', $volume->error());
 				}
-			}
-			$this->_content($path, isset($_GET['tree']));
-		}
-	}
-
-
-	/**
-	 * Rename file/folder
-	 *
-	 * @return void
-	 **/
-	protected function _rename()
-	{
-		if (empty($_GET['current']) 
-		||  empty($_GET['target'])
-		||  false == ($dir = $this->_findDir(trim($_GET['current'])))
-		||  false == ($target = $this->_find(trim($_GET['target']), $dir))
-		) {
-			$this->_result['error'] = 'File not found';
-		} elseif (false == ($name = $this->_checkName($_GET['name'])) ) {
-			$this->_result['error'] = 'Invalid name';
-		} elseif (!$this->_isAllowed($dir, 'write')) {
-			$this->_result['error'] = 'Access denied';
-		} elseif (file_exists($dir.DIRECTORY_SEPARATOR.$name)) {
-			$this->_result['error'] = 'File or folder with the same name already exists';
-		} elseif (!rename($target, $dir.DIRECTORY_SEPARATOR.$name)) {
-			$this->_result['error'] = 'Unable to rename file';
-		} else {
-			$this->_rmTmb($target);
-			$this->_logContext['from'] = $target;
-			$this->_logContext['to']   = $dir.DIRECTORY_SEPARATOR.$name;
-			$this->_result['select']   = array($this->_hash($dir.DIRECTORY_SEPARATOR.$name));
-			$this->_content($dir, is_dir($dir.DIRECTORY_SEPARATOR.$name));
-		}
-	}
-	
-	
-	/**
-	 * Create new folder
-	 *
-	 * @return void
-	 **/
-	protected function _mkdir()
-	{
-		if (empty($_GET['current']) ||  false == ($dir = $this->_findDir(trim($_GET['current'])))) {
-			return $this->_result['error'] = 'Invalid parameters';
-		} 
-		$this->_logContext['dir'] = $dir.DIRECTORY_SEPARATOR.$_GET['name'];
-		if (!$this->_isAllowed($dir, 'write')) {
-			$this->_result['error'] = 'Access denied';
-		} elseif (false == ($name = $this->_checkName($_GET['name'])) ) {
-			$this->_result['error'] = 'Invalid name';
-		} elseif (file_exists($dir.DIRECTORY_SEPARATOR.$name)) {
-			$this->_result['error'] = 'File or folder with the same name already exists';
-		} elseif (!@mkdir($dir.DIRECTORY_SEPARATOR.$name, $this->_options['dirMode'])) {
-			$this->_result['error'] = 'Unable to create folder';
-		} else {
-			$this->_logContext['dir'] = $dir.DIRECTORY_SEPARATOR.$name;
-			$this->_result['select']  = array($this->_hash($dir.DIRECTORY_SEPARATOR.$name));
-			$this->_content($dir, true);
-		}
-	}
-	
-	/**
-	 * Create new empty file
-	 *
-	 * @return void
-	 **/
-	protected function _mkfile()
-	{
-		if (empty($_GET['current']) 
-		||  false == ($dir = $this->_findDir(trim($_GET['current'])))) {
-			return $this->_result['error'] = 'Invalid parameters';
-		} 
-		$this->_logContext['file'] = $dir.DIRECTORY_SEPARATOR.$_GET['name'];
-		if (!$this->_isAllowed($dir, 'write')) {
-			$this->_result['error'] = 'Access denied';
-		} elseif (false == ($name = $this->_checkName($_GET['name'])) ) {
-			$this->_result['error'] = 'Invalid name';
-		} elseif (file_exists($dir.DIRECTORY_SEPARATOR.$name)) {
-			$this->_result['error'] = 'File or folder with the same name already exists';
-		} else {
-			$f = $dir.DIRECTORY_SEPARATOR.$name;
-			$this->_logContext['file'] = $f;
-			if (false != ($fp = @fopen($f, 'wb'))) {
-				fwrite($fp, "");
-				fclose($fp);
-				$this->_result['select'] = array($this->_hash($dir.DIRECTORY_SEPARATOR.$name));
-				$this->_content($dir);
 			} else {
-				$this->_result['error'] = 'Unable to create file';
+				$this->mountErrors[] = 'Driver "'.$class.'" does not exists';
 			}
-		} 
+		}
+
+		// if at least one redable volume - ii desu >_<
+		$this->loaded = !empty($this->default);
 	}
 	
 	/**
-	 * Remove files/folders
+	 * Return true if fm init correctly
 	 *
-	 * @return void
+	 * @return bool
+	 * @author Dmitry (dio) Levashov
 	 **/
-	protected function _rm()
-	{
-		if (empty($_GET['current']) 
-		||  false == ($dir = $this->_findDir(trim($_GET['current']))) 
-		|| (empty($_GET['targets']) || !is_array($_GET['targets']))) {
-			return $this->_result['error'] = 'Invalid parameters';
-		} 
-
-		$this->_logContext['targets'] = array();
-		foreach ($_GET['targets'] as $hash) {
-			if (false != ($f = $this->_find($hash, $dir))) {
-				$this->_remove($f);
-				$this->_logContext['targets'][] = $f;
-			}
-		}
-		if (!empty($this->_result['errorData'])) {
-			$this->_result['error'] = 'Unable to remove file';
-		}
-		$this->_content($dir, true);
+	public function loaded() {
+		return $this->loaded;
 	}
 	
 	/**
-	 * Upload files
+	 * Return version (api) number
 	 *
-	 * @return void
+	 * @return string
+	 * @author Dmitry (dio) Levashov
 	 **/
-	protected function _upload()
-	{
+	public function version() {
+		return $this->version;
+	}
+	
+	/**
+	 * Add handler to elFinder command
+	 *
+	 * @param  string  command name
+	 * @param  string|array  callback name or array(object, method)
+	 * @return elFinder
+	 * @author Dmitry (dio) Levashov
+	 **/
+	public function bind($cmd, $handler) {
+		$cmds = $cmd == '*'
+			? array_keys($this->commands)
+			: array_map('trim', explode(' ', $cmd));
+		
+		foreach ($cmds as $cmd) {
+			if ($cmd) {
+				if (!isset($this->listeners[$cmd])) {
+					$this->listeners[$cmd] = array();
+				}
 
-		if (empty($_POST['current']) 
-		|| false == ($dir = $this->_findDir(trim($_POST['current'])))) {
-			return $this->_result['error'] = 'Invalid parameters';
-		} 
-		if (!$this->_isAllowed($dir, 'write')) {
-			return $this->_result['error'] = 'Access denied';
+				if (is_callable($handler)) {
+					$this->listeners[$cmd][] = $handler;
+				}
+			}
 		}
-		if (empty($_FILES['upload']))
-		{
-			return $this->_result['error'] = 'No file to upload';
+
+		return $this;
+	}
+	
+	/**
+	 * Remove event (command exec) handler
+	 *
+	 * @param  string  command name
+	 * @param  string|array  callback name or array(object, method)
+	 * @return elFinder
+	 * @author Dmitry (dio) Levashov
+	 **/
+	public function unbind($cmd, $handler) {
+		if (!empty($this->listeners[$cmd])) {
+			foreach ($this->listeners[$cmd] as $i => $h) {
+				if ($h === $handler) {
+					unset($this->listeners[$cmd][$i]);
+					return $this;
+				}
+			}
+		}
+		return $this;
+	}
+	
+	/**
+	 * Return true if command exists
+	 *
+	 * @param  string  command name
+	 * @return bool
+	 * @author Dmitry (dio) Levashov
+	 **/
+	public function commandExists($cmd) {
+		return $this->loaded && isset($this->commands[$cmd]) && method_exists($this, $cmd);
+	}
+	
+	/**
+	 * Return command required arguments info
+	 *
+	 * @param  string  command name
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	public function commandArgsList($cmd) {
+		return $this->commandExists($cmd) ? $this->commands[$cmd] : array();
+	}
+
+	private function session_expires() {
+		
+		if (!isset($_SESSION['LAST_ACTIVITY'])) {
+			$_SESSION['LAST_ACTIVITY'] = time();
+			return false;
+		}
+
+		if ( ($this->timeout > 0) && (time() - $_SESSION['LAST_ACTIVITY'] > $this->timeout) ) {
+			return true;
+		}
+
+		$_SESSION['LAST_ACTIVITY'] = time();
+		return false;	
+	}
+	
+	/**
+	 * Exec command and return result
+	 *
+	 * @param  string  $cmd  command name
+	 * @param  array   $args command arguments
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	public function exec($cmd, $args) {
+		
+		if (!$this->loaded) {
+			return array('error' => $this->error(self::ERROR_CONF, self::ERROR_CONF_NO_VOL));
+		}
+
+		if ($this->session_expires()) {
+			return array('error' => $this->error(self::ERROR_SESSION_EXPIRES));
 		}
 		
-		$this->_logContext['upload'] = array();
-		$this->_result['select'] = array();
-		$total = 0;
-		for ($i=0, $s = count($_FILES['upload']['name']); $i < $s; $i++) { 
-			if (!empty($_FILES['upload']['name'][$i])) {
-				$total++;
-				$this->_logContext['upload'][] = $_FILES['upload']['name'][$i];
-				if ($_FILES['upload']['error'][$i] > 0) {
-					$error = 'Unable to upload file';
-					switch ($_FILES['upload']['error'][$i]) {
-						case UPLOAD_ERR_INI_SIZE:
-						case UPLOAD_ERR_FORM_SIZE:
-							$error = 'File exceeds the maximum allowed filesize';
-							break;
-						case UPLOAD_ERR_EXTENSION:
-							$error = 'Not allowed file type';
-							break;
-					}
-					$this->_errorData($_FILES['upload']['name'][$i], $error);
-				} elseif (false == ($name = $this->_checkName($_FILES['upload']['name'][$i]))) {
-					$this->_errorData($_FILES['upload']['name'][$i], 'Invalid name');
-				} elseif (!$this->_isUploadAllow($_FILES['upload']['name'][$i], $_FILES['upload']['tmp_name'][$i])) {
-					$this->_errorData($_FILES['upload']['name'][$i], 'Not allowed file type');					
-				} else {
-					$name = $this->_checkName($_FILES['upload']['name'][$i]);
-					$file = $dir.DIRECTORY_SEPARATOR.$name;
-					if (!@move_uploaded_file($_FILES['upload']['tmp_name'][$i], $file)) {
-						$this->_errorData($_FILES['upload']['name'][$i], 'Unable to save uploaded file');	
-					} else {
-						@chmod($file, $this->_options['fileMode']);
-						$this->_result['select'][] = $this->_hash($file);
-					}
+		if (!$this->commandExists($cmd)) {
+			return array('error' => $this->error(self::ERROR_UNKNOWN_CMD));
+		}
+		
+		if (!empty($args['mimes']) && is_array($args['mimes'])) {
+			foreach ($this->volumes as $id => $v) {
+				$this->volumes[$id]->setMimesFilter($args['mimes']);
+			}
+		}
+		
+		$result = $this->$cmd($args);
+		
+		if (isset($result['removed'])) {
+			foreach ($this->volumes as $volume) {
+				$result['removed'] = array_merge($result['removed'], $volume->removed());
+				$volume->resetRemoved();
+			}
+		}
+		
+		// call handlers for this command
+		if (!empty($this->listeners[$cmd])) {
+			foreach ($this->listeners[$cmd] as $handler) {
+				if (call_user_func($handler,$cmd,$result,$args,$this)) {
+					// handler return true to force sync client after command completed
+					$result['sync'] = true;
 				}
 			}
 		}
 		
-		$errCnt = !empty($this->_result['errorData']) ? count($this->_result['errorData']) : 0;
+		// replace removed files info with removed files hashes
+		if (!empty($result['removed'])) {
+			$removed = array();
+			foreach ($result['removed'] as $file) {
+				$removed[] = $file['hash'];
+			}
+			$result['removed'] = array_unique($removed);
+		}
+		// remove hidden files and filter files by mimetypes
+		if (!empty($result['added'])) {
+			$result['added'] = $this->filter($result['added']);
+		}
+		// remove hidden files and filter files by mimetypes
+		if (!empty($result['changed'])) {
+			$result['changed'] = $this->filter($result['changed']);
+		}
 		
-		if ($errCnt == $total) {
-			$this->_result['error'] = 'Unable to upload files';
+		if ($this->debug || !empty($args['debug'])) {
+			$result['debug'] = array(
+				'connector' => 'php', 
+				'phpver'    => PHP_VERSION,
+				'time'      => $this->utime() - $this->time,
+				'memory'    => (function_exists('memory_get_peak_usage') ? ceil(memory_get_peak_usage()/1024).'Kb / ' : '').ceil(memory_get_usage()/1024).'Kb / '.ini_get('memory_limit'),
+				'upload'    => $this->uploadDebug,
+				'volumes'   => array(),
+				'mountErrors' => $this->mountErrors
+				);
+			
+			foreach ($this->volumes as $id => $volume) {
+				$result['debug']['volumes'][] = $volume->debug();
+			}
+		}
+		
+		foreach ($this->volumes as $volume) {
+			$volume->umount();
+		}
+		
+		return $result;
+	}
+	
+	/**
+	 * Return file real path
+	 *
+	 * @param  string  $hash  file hash
+	 * @return string
+	 * @author Dmitry (dio) Levashov
+	 **/
+	public function realpath($hash)	{
+		if (($volume = $this->volume($hash)) == false) {
+			return false;
+		}
+		return $volume->realpath($hash);
+	}
+	
+	/**
+	 * Return network volumes config.
+	 *
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 */
+	protected function getNetVolumes() {
+		return isset($_SESSION['elFinderNetVolumes']) && is_array($_SESSION['elFinderNetVolumes']) ? $_SESSION['elFinderNetVolumes'] : array();
+	}
+
+	/**
+	 * Save network volumes config.
+	 *
+	 * @param  array  $volumes  volumes config
+	 * @return void
+	 * @author Dmitry (dio) Levashov
+	 */
+	protected function saveNetVolumes($volumes) {
+		$_SESSION['elFinderNetVolumes'] = $volumes;
+	}
+
+	/***************************************************************************/
+	/*                                 commands                                */
+	/***************************************************************************/
+	
+	/**
+	 * Normalize error messages
+	 *
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	public function error() {
+		$errors = array();
+
+		foreach (func_get_args() as $msg) {
+			if (is_array($msg)) {
+				$errors = array_merge($errors, $msg);
+			} else {
+				$errors[] = $msg;
+			}
+		}
+		
+		return count($errors) ? $errors : array(self::ERROR_UNKNOWN);
+	}
+	
+	protected function netmount($args) {
+		$options  = array();
+		$protocol = $args['protocol'];
+		$driver   = isset(self::$netDrivers[$protocol]) ? $protocol : '';
+		$class    = 'elfindervolume'.$protocol;
+
+		if (!$driver) {
+			return array('error' => $this->error(self::ERROR_NETMOUNT, $args['host'], self::ERROR_NETMOUNT_NO_DRIVER));
+		}
+
+		if (!$args['path']) {
+			$args['path'] = '/';
+		}
+
+		foreach ($args as $k => $v) {
+			if ($k != 'options' && $k != 'protocol' && $v) {
+				$options[$k] = $v;
+			}
+		}
+
+		if (is_array($args['options'])) {
+			foreach ($args['options'] as $key => $value) {
+				$options[$key] = $value;
+			}
+		}
+
+		$volume = new $class();
+
+		if ($volume->mount($options)) {
+			$netVolumes        = $this->getNetVolumes();
+			$options['driver'] = $driver;
+			$netVolumes[]      = $options;
+			$netVolumes        = array_unique($netVolumes);
+			$this->saveNetVolumes($netVolumes);
+			return array('sync' => true);
 		} else {
-			if ($errCnt>0) {
-				$this->_result['error'] = 'Some files was not uploaded';	
-			}
-			$this->_content($dir);
-		}
-		
-	}
-	
-	/**
-	 * Copy/move files/folders
-	 *
-	 * @return void
-	 **/
-	protected function _paste()
-	{
-		if (empty($_GET['current']) 
-		|| false == ($current = $this->_findDir(trim($_GET['current'])))
-		|| empty($_GET['src'])
-		|| false == ($src = $this->_findDir(trim($_GET['src'])))
-		|| empty($_GET['dst'])
-		|| false == ($dst = $this->_findDir(trim($_GET['dst'])))
-		|| empty($_GET['targets']) || !is_array($_GET['targets'])
-		) {
-			return $this->_result['error'] = 'Invalid parameters';
-		}
-		$cut = !empty($_GET['cut']);
-		$this->_logContext['src']  = array();
-		$this->_logContext['dest'] = $dst;
-		$this->_logContext['cut']  = $cut;
-		
-		
-		if (!$this->_isAllowed($dst, 'write') || !$this->_isAllowed($src, 'read')) {
-			return $this->_result['error'] = 'Access denied';
+			return array('error' => $this->error(self::ERROR_NETMOUNT, $args['host'], implode(' ', $volume->error())));
 		}
 
-		foreach ($_GET['targets'] as $hash) {
-			if (false == ($f = $this->_find($hash, $src))) {
-				return $this->_result['error'] = 'File not found' && $this->_content($current, true);
-			}
-			$this->_logContext['src'][] = $f;
-			$_dst = $dst.DIRECTORY_SEPARATOR.basename($f);
+	}
 
-			if (0 === strpos($dst, $f)) {
-				return $this->_result['error'] = 'Unable to copy into itself' && $this->_content($current, true);
-			} elseif (file_exists($_dst)) {
-				return $this->_result['error'] = 'File or folder with the same name already exists' && $this->_content($current, true);
-			} elseif ($cut && !$this->_isAllowed($f, 'rm')) {
-				return $this->_result['error'] = 'Access denied' && $this->_content($current, true);
-			}
+	/**
+	 * "Open" directory
+	 * Return array with following elements
+	 *  - cwd          - opened dir info
+	 *  - files        - opened dir content [and dirs tree if $args[tree]]
+	 *  - api          - api version (if $args[init])
+	 *  - uplMaxSize   - if $args[init]
+	 *  - error        - on failed
+	 *
+	 * @param  array  command arguments
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function open($args) {
+		$target = $args['target'];
+		$init   = !empty($args['init']);
+		$tree   = !empty($args['tree']);
+		$volume = $this->volume($target);
+		$cwd    = $volume ? $volume->dir($target, true) : false;
+		$hash   = $init ? 'default folder' : '#'.$target;
 
-			if ($cut) {
-				if (!@rename($f, $_dst)) {
-					return $this->_result['error'] = 'Unable to move files' && $this->_content($current, true);
-				} elseif (!is_dir($f)) {
-					$this->_rmTmb($f);
-				}
-			} elseif (!$this->_copy($f, $_dst)) {
-				return $this->_result['error'] = 'Unable to copy files' && $this->_content($current, true);
-			}
-		}
-		$this->_content($current, true);
-	}
-	
-	/**
-	 * Create file/folder copy with suffix - "copy"
-	 *
-	 * @return void
-	 **/
-	protected function _duplicate()
-	{
-		if (empty($_GET['current']) 
-		|| false == ($current = $this->_findDir(trim($_GET['current'])))
-		|| empty($_GET['target'])
-		|| false == ($target = $this->_find(trim($_GET['target']), $current))
-		) {
-			return $this->_result['error'] = 'Invalid parameters';
-		}
-		$this->_logContext['target'] = $target;
-		if (!$this->_isAllowed($current, 'write') || !$this->_isAllowed($target, 'read')) {
-			return $this->_result['error'] = 'Access denied';
-		}
-		$dup = $this->_uniqueName($target);
-		if (!$this->_copy($target, $dup)) {
-			return $this->_result['error'] = 'Unable to create file copy';
-		}
-		$this->_result['select'] = array($this->_hash($dup));
-		$this->_content($current, is_dir($target));
-	}
-	
-	/**
-	 * Resize image
-	 *
-	 * @return void
-	 **/
-	protected function _resize()
-	{
-		if (empty($_GET['current']) 
-		|| false == ($current = $this->_findDir(trim($_GET['current'])))
-		|| empty($_GET['target'])
-		|| false == ($target = $this->_find(trim($_GET['target']), $current))
-		|| empty($_GET['width'])  || 0 >= ($width  = intval($_GET['width']))
-		|| empty($_GET['height']) || 0 >= ($height = intval($_GET['height']))
-		) {
-			return $this->_result['error'] = 'Invalid parameters';
-		}
-		$this->_logContext = array(
-			'target' => $target,
-			'width'  => $width,
-			'height' => $height
-			);
-		if (!$this->_isAllowed($target, 'write')) {
-			return $this->_result['error'] = 'Access denied';
-		} 
-		if (0 !== strpos($this->_mimetype($target), 'image')) {
-			return $this->_result['error'] = 'File is not an image';
-		}
-		if (!$this->_resizeImg($target, $width, $height)) {
-			return $this->_result['error'] = 'Unable to resize image';
-		} 
-		$this->_result['select'] = array($this->_hash($target));
-		$this->_content($current);
-	}
-		
-	/**
-	 * Create images thumbnails 
-	 *
-	 * @return void
-	 **/
-	protected function _thumbnails()
-	{
-		if (!empty($this->_options['tmbDir']) && !empty($_GET['current']) && false != ($current = $this->_findDir(trim($_GET['current'])))) {
-			$this->_result['current'] = $this->_hash($current);
-			$this->_result['images'] = array();
-			$ls = scandir($current);
-			$cnt = 0;
-			$max = $this->_options['tmbAtOnce'] > 0 ? intval($this->_options['tmbAtOnce']) : 5;
-			for ($i=0; $i < count($ls); $i++) { 
-				if ($this->_isAccepted($ls[$i])) {
-					$path = $current.DIRECTORY_SEPARATOR.$ls[$i];
-					if (is_readable($path) && $this->_canCreateTmb($this->_mimetype($path))) {
-						$tmb = $this->_tmbPath($path);
-						if (!file_exists($tmb)) {
-							if ($cnt>=$max) {
-								return $this->_result['tmb'] = true; 
-							} elseif ($this->_tmb($path, $tmb)) {
-								$this->_result['images'][$this->_hash($path)] = $this->_path2url($tmb);
-								$cnt++;
-							}
-						}
-					}
-				}
-			}
-		} 
-	}
-	
-	/**
-	 * Return file content to client
-	 *
-	 * @return void
-	 **/
-	protected function _fread()
-	{
-		if (empty($_GET['current']) 
-		|| false == ($current = $this->_findDir(trim($_GET['current'])))
-		|| empty($_GET['target'])
-		|| false == ($target = $this->_find(trim($_GET['target']), $current))
-		) {
-			return $this->_result['error'] = 'Invalid parameters';
-		}
-		if (!$this->_isAllowed($target, 'read')) {
-			return $this->_result['error'] = 'Access denied';
-		}
-		$this->_result['content'] = @file_get_contents($target);
-	}
-	
-	/**
-	 * Save data into text file. 
-	 *
-	 * @return void
-	 **/
-	protected function _edit()
-	{
-		if (empty($_POST['current']) 
-		|| false == ($current = $this->_findDir(trim($_POST['current'])))
-		|| empty($_POST['target'])
-		|| false == ($target = $this->_find(trim($_POST['target']), $current))
-		|| !isset($_POST['content'])
-		) {
-			return $this->_result['error'] = 'Invalid parameters';
-		}
-		$this->_logContext['target'] = $target;
-		if (!$this->_isAllowed($target, 'write')) {
-			return $this->_result['error'] = 'Access denied';
-		}
-		if (false === file_put_contents($target, trim($_POST['content']))) {
-			return $this->_result['error'] = 'Unable to write to file';
-		}
-		$this->_result['target'] = $this->_info($target);
-		// $this->_result['select'] = array($this->_hash($target));
-	}
-	
-	/**
-	 * Create archive of selected type
-	 *
-	 * @return void
-	 **/
-	protected function _archive()
-	{
-		$this->_checkArchivers();
-		if (empty($this->_options['archivers']['create']) 
-		|| empty($_GET['type']) 
-		|| empty($this->_options['archivers']['create'][$_GET['type']])
-		|| !in_array($_GET['type'], $this->_options['archiveMimes'])) {
-			return $this->_result['error'] = 'Invalid parameters';
+		// on init request we can get invalid dir hash -
+		// dir which can not be opened now, but remembered by client,
+		// so open default dir
+		if ((!$cwd || !$cwd['read']) && $init) {
+			$volume = $this->default;
+			$cwd    = $volume->dir($volume->defaultPath(), true);
 		}
 		
-		if (empty($_GET['current']) 
-		||  empty($_GET['targets'])
-		|| !is_array($_GET['targets'])
-		||  false == ($dir = $this->_findDir(trim($_GET['current'])))
-		|| !$this->_isAllowed($dir, 'write')
-		) {
-			return $this->_result['error'] = 'Invalid parameters';
+		if (!$cwd) {
+			return array('error' => $this->error(self::ERROR_OPEN, $hash, self::ERROR_DIR_NOT_FOUND));
 		}
-		
+		if (!$cwd['read']) {
+			return array('error' => $this->error(self::ERROR_OPEN, $hash, self::ERROR_PERM_DENIED));
+		}
+
 		$files = array();
-		$argc  = '';
-		foreach ($_GET['targets'] as $hash) {
-			if (false == ($f = $this->_find($hash, $dir))) {
-				return $this->_result['error'] = 'File not found';
+
+		// get folders trees
+		if ($args['tree']) {
+			foreach ($this->volumes as $id => $v) {
+				if (($tree = $v->tree('', 0, $cwd['hash'])) != false) {
+					$files = array_merge($files, $tree);
+				}
 			}
-			$files[] = $f;
-			$argc .= escapeshellarg(basename($f)).' ';
 		}
-		$arc  = $this->_options['archivers']['create'][$_GET['type']];
-		$name = count($files) == 1 ? basename($files[0]) : $_GET['name'];
-		$name = basename($this->_uniqueName($name.'.'.$arc['ext'], ''));
+
+		// get current working directory files list and add to $files if not exists in it
+		if (($ls = $volume->scandir($cwd['hash'])) === false) {
+			return array('error' => $this->error(self::ERROR_OPEN, $cwd['name'], $volume->error()));
+		}
 		
-		$cwd = getcwd();
-		chdir($dir);
-		$cmd = $arc['cmd'].' '.$arc['argc'].' '.escapeshellarg($name).' '.$argc;
-		exec($cmd, $o, $c);
-		chdir($cwd);
-		if (file_exists($dir.DIRECTORY_SEPARATOR.$name)) {
-			$this->_content($dir);
-			$this->_result['select'] = array($this->_hash($dir.DIRECTORY_SEPARATOR.$name));
-		} else {
-			$this->_result['error'] = 'Unable to create archive';
+		foreach ($ls as $file) {
+			if (!in_array($file, $files)) {
+				$files[] = $file;
+			}
 		}
+		
+		$result = array(
+			'cwd'     => $cwd,
+			'options' => $volume->options($cwd['hash']),
+			'files'   => $files
+		);
+
+		if (!empty($args['init'])) {
+			$result['api'] = $this->version;
+			$result['uplMaxSize'] = ini_get('upload_max_filesize');
+			$result['netDrivers'] = array_keys(self::$netDrivers);
+		}
+		
+		return $result;
 	}
 	
+	/**
+	 * Return dir files names list
+	 *
+	 * @param  array  command arguments
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function ls($args) {
+		$target = $args['target'];
+		
+		if (($volume = $this->volume($target)) == false
+		|| ($list = $volume->ls($target)) === false) {
+			return array('error' => $this->error(self::ERROR_OPEN, '#'.$target));
+		}
+		return array('list' => $list);
+	}
+	
+	/**
+	 * Return subdirs for required directory
+	 *
+	 * @param  array  command arguments
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function tree($args) {
+		$target = $args['target'];
+		
+		if (($volume = $this->volume($target)) == false
+		|| ($tree = $volume->tree($target)) == false) {
+			return array('error' => $this->error(self::ERROR_OPEN, '#'.$target));
+		}
+
+		return array('tree' => $tree);
+	}
+	
+	/**
+	 * Return parents dir for required directory
+	 *
+	 * @param  array  command arguments
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function parents($args) {
+		$target = $args['target'];
+		
+		if (($volume = $this->volume($target)) == false
+		|| ($tree = $volume->parents($target)) == false) {
+			return array('error' => $this->error(self::ERROR_OPEN, '#'.$target));
+		}
+
+		return array('tree' => $tree);
+	}
+	
+	/**
+	 * Return new created thumbnails list
+	 *
+	 * @param  array  command arguments
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function tmb($args) {
+		
+		$result  = array('images' => array());
+		$targets = $args['targets'];
+		
+		foreach ($targets as $target) {
+			if (($volume = $this->volume($target)) != false
+			&& (($tmb = $volume->tmb($target)) != false)) {
+				$result['images'][$target] = $tmb;
+			}
+		}
+		return $result;
+	}
+	
+	/**
+	 * Required to output file in browser when volume URL is not set 
+	 * Return array contains opened file pointer, root itself and required headers
+	 *
+	 * @param  array  command arguments
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function file($args) {
+		$target   = $args['target'];
+		$download = !empty($args['download']);
+		$h403     = 'HTTP/1.x 403 Access Denied';
+		$h404     = 'HTTP/1.x 404 Not Found';
+
+		if (($volume = $this->volume($target)) == false) { 
+			return array('error' => 'File not found', 'header' => $h404, 'raw' => true);
+		}
+		
+		if (($file = $volume->file($target)) == false) {
+			return array('error' => 'File not found', 'header' => $h404, 'raw' => true);
+		}
+		
+		if (!$file['read']) {
+			return array('error' => 'Access denied', 'header' => $h403, 'raw' => true);
+		}
+		
+		if (($fp = $volume->open($target)) == false) {
+			return array('error' => 'File not found', 'header' => $h404, 'raw' => true);
+		}
+
+		if ($download) {
+			$disp = 'attachment';
+			$mime = 'application/octet-stream';
+		} else {
+			$disp  = preg_match('/^(image|text)/i', $file['mime']) || $file['mime'] == 'application/x-shockwave-flash' 
+					? 'inline' 
+					: 'attachment';
+			$mime = $file['mime'];
+		}
+		
+		$filenameEncoded = rawurlencode($file['name']);
+		if (strpos($filenameEncoded, '%') === false) { // ASCII only
+			$filename = 'filename="'.$file['name'].'"';
+		} else {
+			$ua = $_SERVER["HTTP_USER_AGENT"];
+			if (preg_match('/MSIE [4-8]/', $ua)) { // IE < 9 do not support RFC 6266 (RFC 2231/RFC 5987)
+				$filename = 'filename="'.$filenameEncoded.'"';
+			} elseif (strpos($ua, 'Chrome') === false && strpos($ua, 'Safari') !== false) { // Safari
+				$filename = 'filename="'.str_replace('"', '', $file['name']).'"';
+			} else { // RFC 6266 (RFC 2231/RFC 5987)
+				$filename = 'filename*=UTF-8\'\''.$filenameEncoded;
+			}
+		}
+		
+		$result = array(
+			'volume'  => $volume,
+			'pointer' => $fp,
+			'info'    => $file,
+			'header'  => array(
+				'Content-Type: '.$mime, 
+				'Content-Disposition: '.$disp.'; '.$filename,
+				'Content-Location: '.$file['name'],
+				'Content-Transfer-Encoding: binary',
+				'Content-Length: '.$file['size'],
+				'Connection: close'
+			)
+		);
+		return $result;
+	}
+	
+	/**
+	 * Count total files size
+	 *
+	 * @param  array  command arguments
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function size($args) {
+		$size = 0;
+		
+		foreach ($args['targets'] as $target) {
+			if (($volume = $this->volume($target)) == false
+			|| ($file = $volume->file($target)) == false
+			|| !$file['read']) {
+				return array('error' => $this->error(self::ERROR_OPEN, '#'.$target));
+			}
+			
+			$size += $volume->size($target);
+		}
+		return array('size' => $size);
+	}
+	
+	/**
+	 * Create directory
+	 *
+	 * @param  array  command arguments
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function mkdir($args) {
+		$target = $args['target'];
+		$name   = $args['name'];
+		
+		if (($volume = $this->volume($target)) == false) {
+			return array('error' => $this->error(self::ERROR_MKDIR, $name, self::ERROR_TRGDIR_NOT_FOUND, '#'.$target));
+		}
+
+		return ($dir = $volume->mkdir($target, $name)) == false
+			? array('error' => $this->error(self::ERROR_MKDIR, $name, $volume->error()))
+			: array('added' => array($dir));
+	}
+	
+	/**
+	 * Create empty file
+	 *
+	 * @param  array  command arguments
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function mkfile($args) {
+		$target = $args['target'];
+		$name   = $args['name'];
+		
+		if (($volume = $this->volume($target)) == false) {
+			return array('error' => $this->error(self::ERROR_MKFILE, $name, self::ERROR_TRGDIR_NOT_FOUND, '#'.$target));
+		}
+
+		return ($file = $volume->mkfile($target, $args['name'])) == false
+			? array('error' => $this->error(self::ERROR_MKFILE, $name, $volume->error()))
+			: array('added' => array($file));
+	}
+	
+	/**
+	 * Rename file
+	 *
+	 * @param  array  $args
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function rename($args) {
+		$target = $args['target'];
+		$name   = $args['name'];
+		
+		if (($volume = $this->volume($target)) == false
+		||  ($rm  = $volume->file($target)) == false) {
+			return array('error' => $this->error(self::ERROR_RENAME, '#'.$target, self::ERROR_FILE_NOT_FOUND));
+		}
+		$rm['realpath'] = $volume->realpath($target);
+		
+		return ($file = $volume->rename($target, $name)) == false
+			? array('error' => $this->error(self::ERROR_RENAME, $rm['name'], $volume->error()))
+			: array('added' => array($file), 'removed' => array($rm));
+	}
+	
+	/**
+	 * Duplicate file - create copy with "copy %d" suffix
+	 *
+	 * @param array  $args  command arguments
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function duplicate($args) {
+		$targets = is_array($args['targets']) ? $args['targets'] : array();
+		$result  = array('added' => array());
+		$suffix  = empty($args['suffix']) ? 'copy' : $args['suffix'];
+		
+		foreach ($targets as $target) {
+			if (($volume = $this->volume($target)) == false
+			|| ($src = $volume->file($target)) == false) {
+				$result['warning'] = $this->error(self::ERROR_COPY, '#'.$target, self::ERROR_FILE_NOT_FOUND);
+				break;
+			}
+			
+			if (($file = $volume->duplicate($target, $suffix)) == false) {
+				$result['warning'] = $this->error($volume->error());
+				break;
+			}
+			
+			$result['added'][] = $file;
+		}
+		
+		return $result;
+	}
+		
+	/**
+	 * Remove dirs/files
+	 *
+	 * @param array  command arguments
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function rm($args) {
+		$targets = is_array($args['targets']) ? $args['targets'] : array();
+		$result  = array('removed' => array());
+		
+		foreach ($targets as $target) {
+			if (($volume = $this->volume($target)) == false) {
+				$result['warning'] = $this->error(self::ERROR_RM, '#'.$target, self::ERROR_FILE_NOT_FOUND);
+				return $result;
+			}
+			if (!$volume->rm($target)) {
+				$result['warning'] = $this->error($volume->error());
+				return $result;
+			}
+		}
+
+		return $result;
+	}
+	
+	/**
+	 * Save uploaded files
+	 *
+	 * @param  array
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function upload($args) {
+		$target = $args['target'];
+		$volume = $this->volume($target);
+		$files  = isset($args['FILES']['upload']) && is_array($args['FILES']['upload']) ? $args['FILES']['upload'] : array();
+		$result = array('added' => array(), 'header' => empty($args['html']) ? false : 'Content-Type: text/html; charset=utf-8');
+		
+		if (empty($files)) {
+			return array('error' => $this->error(self::ERROR_UPLOAD, self::ERROR_UPLOAD_NO_FILES), 'header' => $header);
+		}
+		
+		if (!$volume) {
+			return array('error' => $this->error(self::ERROR_UPLOAD, self::ERROR_TRGDIR_NOT_FOUND, '#'.$target), 'header' => $header);
+		}
+		
+		foreach ($files['name'] as $i => $name) {
+			if (($error = $files['error'][$i]) > 0) {				
+				$result['warning'] = $this->error(self::ERROR_UPLOAD_FILE, $name, $error == UPLOAD_ERR_INI_SIZE || $error == UPLOAD_ERR_FORM_SIZE ? self::ERROR_UPLOAD_FILE_SIZE : self::ERROR_UPLOAD_TRANSFER);
+				$this->uploadDebug = 'Upload error code: '.$error;
+				break;
+			}
+			
+			$tmpname = $files['tmp_name'][$i];
+			
+			if (($fp = fopen($tmpname, 'rb')) == false) {
+				$result['warning'] = $this->error(self::ERROR_UPLOAD_FILE, $name, self::ERROR_UPLOAD_TRANSFER);
+				$this->uploadDebug = 'Upload error: unable open tmp file';
+				break;
+			}
+			
+			if (($file = $volume->upload($fp, $target, $name, $tmpname)) === false) {
+				$result['warning'] = $this->error(self::ERROR_UPLOAD_FILE, $name, $volume->error());
+				fclose($fp);
+				break;
+			}
+			
+			fclose($fp);
+			$result['added'][] = $file;
+		}
+		
+		return $result;
+	}
+		
+	/**
+	 * Copy/move files into new destination
+	 *
+	 * @param  array  command arguments
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function paste($args) {
+		$dst     = $args['dst'];
+		$targets = is_array($args['targets']) ? $args['targets'] : array();
+		$cut     = !empty($args['cut']);
+		$error   = $cut ? self::ERROR_MOVE : self::ERROR_COPY;
+		$result  = array('added' => array(), 'removed' => array());
+		
+		if (($dstVolume = $this->volume($dst)) == false) {
+			return array('error' => $this->error($error, '#'.$targets[0], self::ERROR_TRGDIR_NOT_FOUND, '#'.$dst));
+		}
+		
+		foreach ($targets as $target) {
+			if (($srcVolume = $this->volume($target)) == false) {
+				$result['warning'] = $this->error($error, '#'.$target, self::ERROR_FILE_NOT_FOUND);
+				break;
+			}
+			
+			if (($file = $dstVolume->paste($srcVolume, $target, $dst, $cut)) == false) {
+				$result['warning'] = $this->error($dstVolume->error());
+				break;
+			}
+			
+			$result['added'][] = $file;
+		}
+		return $result;
+	}
+	
+	/**
+	 * Return file content
+	 *
+	 * @param  array  $args  command arguments
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function get($args) {
+		$target = $args['target'];
+		$volume = $this->volume($target);
+		
+		if (!$volume || ($file = $volume->file($target)) == false) {
+			return array('error' => $this->error(self::ERROR_OPEN, '#'.$target, self::ERROR_FILE_NOT_FOUND));
+		}
+		
+		if (($content = $volume->getContents($target)) === false) {
+			return array('error' => $this->error(self::ERROR_OPEN, $volume->path($target), $volume->error()));
+		}
+		
+		$json = json_encode($content);
+
+		if ($json == 'null' && strlen($json) < strlen($content)) {
+			return array('error' => $this->error(self::ERROR_NOT_UTF8_CONTENT, $volume->path($target)));
+		}
+		
+		return array('content' => $content);
+	}
+	
+	/**
+	 * Save content into text file
+	 *
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function put($args) {
+		$target = $args['target'];
+		
+		if (($volume = $this->volume($target)) == false
+		|| ($file = $volume->file($target)) == false) {
+			return array('error' => $this->error(self::ERROR_SAVE, '#'.$target, self::ERROR_FILE_NOT_FOUND));
+		}
+		
+		if (($file = $volume->putContents($target, $args['content'])) == false) {
+			return array('error' => $this->error(self::ERROR_SAVE, $volume->path($target), $volume->error()));
+		}
+		
+		return array('changed' => array($file));
+	}
+
 	/**
 	 * Extract files from archive
 	 *
-	 * @return void
-	 **/
-	protected function _extract()
-	{
-		if (empty($_GET['current']) 
-		|| false == ($current = $this->_findDir(trim($_GET['current'])))
-		|| empty($_GET['target'])
-		|| false == ($file = $this->_find(trim($_GET['target']), $current))
-		|| !$this->_isAllowed($current, 'write')
-		) {
-			return $this->_result['error'] = 'Invalid parameters';
-		}
-		$this->_checkArchivers();
-		$mime = $this->_mimetype($file);
-		if (empty($this->_options['archivers']['extract'][$mime])) {
-			return $this->_result['error'] = 'Invalid parameters';
-		}
-		$cwd = getcwd();
-		$arc = $this->_options['archivers']['extract'][$mime];
-		$cmd = $arc['cmd'].' '.$arc['argc'].' '.escapeshellarg(basename($file));
-		chdir(dirname($file));
-		exec($cmd, $o, $c);
-		chdir($cwd);
-		if ($c == 0) {
-			$this->_content($current, true);
-		} else {
-			$this->_result['error'] = 'Unable to extract files from archive';
-		}
-	}
-	
-	
-	/**
-	 * Send header Connection: close. Required by safari to fix bug http://www.webmasterworld.com/macintosh_webmaster/3300569.htm
-	 *
-	 * @return void
-	 **/
-	protected function _ping()
-	{
-		exit(header("Connection: close"));
-	}
-	/************************************************************/
-	/**                    "content" methods                   **/
-	/************************************************************/
-	/**
-	 * Set current dir info, content and [dirs tree]
-	 *
-	 * @param  string  $path  current dir path
-	 * @param  bool    $tree  set dirs tree?
-	 * @return void
-	 **/
-	protected function _content($path, $tree=false)
-	{
-		$this->_cwd($path);
-		$this->_cdc($path);
-		if ($tree) {
-			$this->_result['tree'] = $this->_tree($this->_options['root']);
-		}
-	}
-
-	/**
-	 * Set current dir info
-	 *
-	 * @param  string  $path  current dir path
-	 * @return void
-	 **/
-	protected function _cwd($path)
-	{
-		$rel  = $this->_options['rootAlias'] ? $this->_options['rootAlias'] : basename($this->_options['root']);
-		if ($path == $this->_options['root']) {
-			$name = $rel;
-		} else {
-			$name = basename($path);
-			$rel .= DIRECTORY_SEPARATOR.substr($path, strlen($this->_options['root'])+1);
-		}
-		$this->_result['cwd'] = array(
-			'hash'       => $this->_hash($path),
-			'name'       => $name,
-			'mime'       => 'directory',
-			'rel'        => $rel,
-			'size'       => 0,
-			'date'       => date($this->_options['dateFormat'], filemtime($path)),
-			'read'       => true,
-			'write'      => $this->_isAllowed($path, 'write'),
-			'rm'         => $path == $this->_options['root'] ? false : $this->_isAllowed($path, 'rm')
-			);
-	}
-
-	
-	/**
-	 * Set current dir content
-	 *
-	 * @param  string  $path  current dir path
-	 * @return void
-	 **/
-	protected function _cdc($path)
-	{
-		$dirs = $files = array();
-		$ls = scandir($path);
-		for ($i=0; $i < count($ls); $i++) { 
-			if ($this->_isAccepted($ls[$i])) {
-				$info = $this->_info($path.DIRECTORY_SEPARATOR.$ls[$i]);
-				if ($info['mime'] == 'directory') {
-					$dirs[] = $info;
-				} else {
-					$files[] = $info;
-				}
-			}
-		}
-		$this->_result['cdc'] = array_merge($dirs, $files);
-	}
-	
-	/**
-	 * Return file/folder info
-	 *
-	 * @param  string  $path  file path
+	 * @param  array  $args  command arguments
 	 * @return array
+	 * @author Dmitry (dio) Levashov, 
+	 * @author Alexey Sukhotin
 	 **/
-	protected function _info($path)
-	{
-		$type = filetype($path);
-		$stat =  $type == 'link' ? lstat($path) : stat($path);
+	protected function extract($args) {
+		$target = $args['target'];
+		$mimes  = !empty($args['mimes']) && is_array($args['mimes']) ? $args['mimes'] : array();
+		$error  = array(self::ERROR_EXTRACT, '#'.$target);
 
-		if ($stat['mtime'] > $this->_today) {
-			$d = 'Today '.date('H:i', $stat['mtime']);
-		} elseif ($stat['mtime'] > $this->_yesterday) {
-			$d = 'Yesterday '.date('H:i', $stat['mtime']);
-		} else {
-			$d = date($this->_options['dateFormat'], $stat['mtime']);
-		}
+		if (($volume = $this->volume($target)) == false
+		|| ($file = $volume->file($target)) == false) {
+			return array('error' => $this->error(self::ERROR_EXTRACT, '#'.$target, self::ERROR_FILE_NOT_FOUND));
+		}  
 
-		$info = array(
-			'name'  => htmlspecialchars(basename($path)),
-			'hash'  => $this->_hash($path),
-			'mime'  => $type == 'dir' ? 'directory' : $this->_mimetype($path),
-			'date'  => $d, 
-			'size'  => $type == 'dir' ? $this->_dirSize($path) : $stat['size'],
-			'read'  => $this->_isAllowed($path, 'read'),
-			'write' => $this->_isAllowed($path, 'write'),
-			'rm'    => $this->_isAllowed($path, 'rm'),
-			);
-
-		if ($type == 'link') {
-			if (false == ($lpath = $this->_readlink($path))) {
-				$info['mime'] = 'symlink-broken';
-				return $info;
-			}
-			if (is_dir($lpath)) {
-				$info['mime']  = 'directory';
-			} else {
-				$info['parent'] = $this->_hash(dirname($lpath));
-				$info['mime']   = $this->_mimetype($lpath);
-			}
-			$info['link']   = $this->_hash($lpath);
-			$info['linkTo'] = ($this->_options['rootAlias'] ? $this->_options['rootAlias'] : basename($this->_options['root'])).substr($lpath, strlen($this->_options['root']));
-			$info['read']   = $this->_isAllowed($lpath, 'read');
-			$info['write']  = $this->_isAllowed($lpath, 'write');
-			$info['rm']     = $this->_isAllowed($lpath, 'rm');
-		} else {
-			$lpath = '';
-		}
-		
-		if ($info['mime'] != 'directory') {
-			if ($this->_options['fileURL'] && $info['read']) {
-				$info['url'] = $this->_path2url($lpath ? $lpath : $path);
-			}
-			
-			if (0 === ($p = strpos($info['mime'], 'image'))) {
-				if (false != ($s = getimagesize($path))) {
-					$info['dim'] = $s[0].'x'.$s[1];
-				}
-				if ($info['read']) {
-					$info['resize'] = isset($info['dim']) && $this->_canCreateTmb($info['mime']);
-					$tmb = $this->_tmbPath($path);
-
-					if (file_exists($tmb)) {
-						$info['tmb']  = $this->_path2url($tmb);
-					} elseif ($info['resize']) {
-						$this->_result['tmb'] = true;
-					}
-					
-				}
-			}
-		}
-		return $info;
+		return ($file = $volume->extract($target))
+			? array('added' => array($file))
+			: array('error' => $this->error(self::ERROR_EXTRACT, $volume->path($target), $volume->error()));
 	}
 	
 	/**
-	 * Return directory tree (multidimensional array)
+	 * Create archive
 	 *
-	 * @param  string  $path  directory path
+	 * @param  array  $args  command arguments
 	 * @return array
+	 * @author Dmitry (dio) Levashov, 
+	 * @author Alexey Sukhotin
 	 **/
-	protected function _tree($path)
-	{
-		$dir = array(
-			'hash'  => $this->_hash($path),
-			'name'  => $path == $this->_options['root'] && $this->_options['rootAlias'] ? $this->_options['rootAlias'] : basename($path),
-			'read'  => $this->_isAllowed($path, 'read'),
-			'write' => $this->_isAllowed($path, 'write'),
-			'dirs'  => array()
-			);
-
-		if ($dir['read'] && (false != ($ls = scandir($path)))) {
-			for ($i=0; $i < count($ls); $i++) {
-				$p = $path.DIRECTORY_SEPARATOR.$ls[$i]; 
-				if ($this->_isAccepted($ls[$i]) && is_dir($p) && !is_link($p)) {
-					$dir['dirs'][] = $this->_tree($p);
-				}
-			}
-		}
-		return $dir;
-	}
+	protected function archive($args) {
+		$type    = $args['type'];
+		$targets = isset($args['targets']) && is_array($args['targets']) ? $args['targets'] : array();
 	
-	/************************************************************/
-	/**                      fs methods                        **/
-	/************************************************************/
-
-	/**
-	 * Return name for duplicated file/folder or new archive
-	 *
-	 * @param  string  $f       file/folder name
-	 * @param  string  $suffix  file name suffix
-	 * @return string
-	 **/
-	protected function _uniqueName($f, $suffix=' copy')
-	{
-		$dir  = dirname($f);
-		$name = basename($f);
-		$ext = '';
-
-		if (!is_dir($f)) {
-			if (preg_match('/\.(tar\.gz|tar\.bz|tar\.bz2|[a-z0-9]{1,4})$/i', $name, $m)) {
-				$ext = '.'.$m[1];
-				$name = substr($name, 0,  strlen($name)-strlen($m[0]));
-			}
+		if (($volume = $this->volume($targets[0])) == false) {
+			return $this->error(self::ERROR_ARCHIVE, self::ERROR_TRGDIR_NOT_FOUND);
 		}
-		
-		if (preg_match('/('.$suffix.')(\d*)$/i', $name, $m)) {
-			$i = (int)$m[2];
-			$name = substr($name, 0, strlen($name)-strlen($m[2]));
-		} else {
-			$name .= $suffix;
-			$i = 0;
-			$n = $dir.DIRECTORY_SEPARATOR.$name.$ext;
-			if (!file_exists($n)) {
-				return $n;
-			}
-		}
-		
-		while ($i++ <= 10000) {
-			$n = $dir.DIRECTORY_SEPARATOR.$name.$i.$ext;
-			if (!file_exists($n)) {
-				return $n;
-			}
-		}
-		return $dir.DIRECTORY_SEPARATOR.$name.md5($f).$ext;
-	}
-
-	/**
-	 * Remove file or folder (recursively)
-	 *
-	 * @param  string  $path  fole/folder path
-	 * @return void
-	 **/
-	protected function _remove($path)
-	{
-		if (!$this->_isAllowed($path, 'rm')) {
-			return $this->_errorData($path, 'Access denied');
-		}
-		if (!is_dir($path)) {
-			if (!@unlink($path)) {
-				$this->_errorData($path, 'Unable to remove file');
-			} else {
-				$this->_rmTmb($path);
-			}
-		} else {
-			$ls = scandir($path);
-			for ($i=0; $i < count($ls); $i++) { 
-				if ('.' != $ls[$i] && '..' != $ls[$i]) {
-					$this->_remove($path.DIRECTORY_SEPARATOR.$ls[$i]);
-				}
-			}
-			if (!@rmdir($path)) {
-				return $this->_errorData($path, 'Unable to remove file');
-			}
-		}
-		return true;
+	
+		return ($file = $volume->archive($targets, $args['type']))
+			? array('added' => array($file))
+			: array('error' => $this->error(self::ERROR_ARCHIVE, $volume->error()));
 	}
 	
 	/**
-	 * Copy file/folder (recursively)
+	 * Search files
 	 *
-	 * @param  string  $src  file/folder to copy
-	 * @param  string  $trg  destination name
-	 * @return bool
-	 **/
-	protected function _copy($src, $trg)
-	{
-		if (!$this->_isAllowed($src, 'read')) {
-			return $this->_errorData($src, 'Access denied');
-		}
-		
-		$dir = dirname($trg);
-		
-		if (!$this->_isAllowed($dir, 'write')) {
-			return $this->_errorData($dir, 'Access denied');
-		}
-		if (file_exists($trg)) {
-			return $this->_errorData($src, 'File or folder with the same name already exists');
-		}
-		
-		if (!is_dir($src)) {
-			if (!@copy($src, $trg)) {
-				return $this->_errorData($src, 'Unable to copy files');
-			} 
-			@chmod($trg, $this->_options['fileMode']);
-		} else {
-			
-			if (!@mkdir($trg, $this->_options['dirMode'])) {
-				return $this->_errorData($src, 'Unable to copy files');
-			}
-			
-			$ls = scandir($src);
-			for ($i=0; $i < count($ls); $i++) { 
-				if ('.' != $ls[$i] && '..' != $ls[$i]) {
-					$_src = $src.DIRECTORY_SEPARATOR.$ls[$i];
-					$_trg = $trg.DIRECTORY_SEPARATOR.$ls[$i];
-					if (is_dir($_src)) {
-						if (!$this->_copy($_src, $_trg)) {
-							return $this->_errorData($_src, 'Unable to copy files');
-						}
-					} else {
-						if (!@copy($_src, $_trg)) {
-							return $this->_errorData($_src, 'Unable to copy files');
-						}
-						@chmod($_trg, $this->_options['fileMode']);
-					}
-				}
-			}
-		}
-		return true;
-	}
-	
-	/**
-	 * Check new file name for invalid simbols. Return name if valid
-	 *
-	 * @return string  $n  file name
-	 * @return string
-	 **/
-	protected function _checkName($n)
-	{
-		$n = strip_tags(trim($n));
-		if (!$this->_options['dotFiles'] && '.' == substr($n, 0, 1)) {
-			return false;
-		}
-		return preg_match('|^[^\\/\<\>:]+$|', $n) ? $n : false;
-	}
-	
-	/**
-	 * Find folder by hash in required folder and subfolders
-	 *
-	 * @param  string  $hash  folder hash
-	 * @param  string  $path  folder path to search in
-	 * @return string
-	 **/
-	protected function _findDir($hash, $path='')
-	{
-		if (!$path) {
-			$path = $this->_options['root'];
-			if ($this->_hash($path) == $hash) {
-				return $path;
-			}
-		}
-		
-		if (false != ($ls = scandir($path))) {
-			for ($i=0; $i < count($ls); $i++) { 
-				$p = $path.DIRECTORY_SEPARATOR.$ls[$i];
-				if (is_link($p))
-				{
-					$link = $this->_readlink($p);
-					//$this->_result['debug']['findDir_'.$p] = 'link to '.$link;
-				}
-				if ($this->_isAccepted($ls[$i]) && is_dir($p) && (!is_link($p))) {
-					if ($this->_hash($p) == $hash || false != ($p = $this->_findDir($hash, $p))) {
-						return $p;
-					}
-				}
-			}
-		}
-	}
-	
-	/**
-	 * Find file/folder by hash in required folder
-	 *
-	 * @param  string  $hash  file/folder hash
-	 * @param  string  $path  folder path to search in
-	 **/
-	protected function _find($hash, $path)
-	{
-		if (false != ($ls = scandir($path))) {
-			for ($i=0; $i < count($ls); $i++) { 
-				if ($this->_isAccepted($ls[$i])) {
-					$p = $path.DIRECTORY_SEPARATOR.$ls[$i];
-					if ($this->_hash($p) == $hash) {
-						return $p;
-					}
-				}
-			}
-		}
-	}
-	
-	
-	/**
-	 * Return path of file on which link point to, if exists in root directory
-	 *
-	 * @param  string  $path  symlink path
-	 * @return string
-	 **/
-	protected function _readlink($path)
-	{
-		$target = readlink($path);
-		if ('/' != substr($target, 0, 1)) {
-			$target = dirname($path).DIRECTORY_SEPARATOR.$target;
-		}
-		$target = $this->_normpath($target);
-		$root   = $this->_normpath($this->_options['root']);
-		return $target && file_exists($target) && 0 === strpos($target, $root) ? $target : false;
-	}
-
-	/**
-	 * Count total directory size if this allowed in options
-	 *
-	 * @param  string  $path  directory path
-	 * @return int
-	 **/
-	protected function _dirSize($path)
-	{
-		$size = 0;
-		if (!$this->_options['dirSize'] || !$this->_isAllowed($path, 'read')) {
-			return filesize($path);
-		} 
-		if (!isset($this->_options['du'])) {
-			$this->_options['du'] = function_exists('exec')
-				? exec('du -h '.escapeshellarg(__FILE__), $o, $s) > 0 && $s == 0
-				: false;
-		}
-		if ($this->_options['du']) {
-			$size = intval(exec('du -k '.escapeshellarg($path)))*1024;
-		} else {
-			$ls = scandir($path);
-			for ($i=0; $i < count($ls); $i++) { 
-				if ($this->_isAccepted($ls[$i])) {
-					$p = $path.DIRECTORY_SEPARATOR.$ls[$i];
-					$size += filetype($p) == 'dir' && $this->_isAllowed($p, 'read') ? $this->_dirSize($p) : filesize($p);
-				}
-			}
-		}
-		return $size;
-	}
-	
-	/**
-	 * Return file mimetype
-	 *
-	 * @param  string  $path  file path
-	 * @return string
-	 **/
-	protected function _mimetype($path)
-	{
-		if (empty($this->_options['mimeDetect']) || $this->_options['mimeDetect'] == 'auto') {
-			$this->_options['mimeDetect'] = $this->_getMimeDetect();
-		}
-		
-		switch ($this->_options['mimeDetect']) {
-			case 'finfo':
-				if (empty($this->_finfo)) {
-					$this->_finfo = finfo_open(FILEINFO_MIME);
-				}
-				$type = @finfo_file($this->_finfo, $path);
-				break;
-			case 'php':   
-			 	$type = mime_content_type($path);
-				break;
-			case 'linux':  
-				$type = exec('file -ib '.escapeshellarg($path));
-				break;
-			case 'bsd':   
-				$type = exec('file -Ib '.escapeshellarg($path));
-				break;
-			default:
-				$pinfo = pathinfo($path); 
-				$ext = isset($pinfo['extension']) ? strtolower($pinfo['extension']) : '';
-				$type = isset($this->_mimeTypes[$ext]) ? $this->_mimeTypes[$ext] : 'unknown;';
-		}
-		$type = explode(';', $type); 
-		
-		if ($this->_options['mimeDetect'] != 'internal' && $type[0] == 'application/octet-stream') {
-			$pinfo = pathinfo($path); 
-			$ext = isset($pinfo['extension']) ? strtolower($pinfo['extension']) : '';
-			if (!empty($ext) && !empty($this->_mimeTypes[$ext])) {
-				$type[0] = $this->_mimeTypes[$ext];
-			}
-		}
-		
-		return $type[0];
-	}
-	
-	/************************************************************/
-	/**                   image manipulation                   **/
-	/************************************************************/
-
-	/**
-	 * Create image thumbnail
-	 *
-	 * @param  string  $img  image file
-	 * @param  string  $tmb  thumbnail name
-	 * @return bool
-	 **/
-	protected function _tmb($img, $tmb)
-	{
-		if (false == ($s = getimagesize($img))) {
-			return false;
-		}
-		$tmbSize = $this->_options['tmbSize'];
-
-		if ($this->_options['tmbCrop'] == false) {
-
-			/* Calculating image scale width and height */
-			$xscale = $s[0] / $tmbSize;
-			$yscale = $s[1] / $tmbSize;
-
-			if ($yscale > $xscale) {
-				$newwidth = round($s[0] * (1 / $yscale));
-				$newheight = round($s[1] * (1 / $yscale));
-			} else {
-				$newwidth = round($s[0] * (1 / $xscale));
-				$newheight = round($s[1] * (1 / $xscale));
-			}
-
-			/* Keeping original dimensions if image fitting into thumbnail without scale */
-			if ($s[0] <= $tmbSize && $s[1] <= $tmbSize) {
-				$newwidth = $s[0];
-				$newheight = $s[1];
-			}
-
-			/* Calculating coordinates for aligning thumbnail */
-			$align_y = ceil(($tmbSize - $newheight) / 2); 
-			$align_x = ceil(($tmbSize - $newwidth) / 2);
-		}
-    
-    
-    
-		switch ($this->_options['imgLib']) {
-			case 'imagick':
-				try {
-					$_img = new imagick($img);
-				} catch (Exception $e) {
-					return false;
-				}
-
-				$_img->contrastImage(1);
-
-				if ($this->_options['tmbCrop'] == false) {
-					$img1 = new Imagick();
-					$img1->newImage($tmbSize, $tmbSize, new ImagickPixel($this->_options['tmbBgColor']));
-					$img1->setImageFormat('png');
-					$_img->resizeImage($newwidth, $newheight, NULL, true);
-					$img1->compositeImage( $_img, imagick::COMPOSITE_OVER, $align_x, $align_y );
-					return $img1->writeImage($tmb);
-				} else {
-					return $_img->cropThumbnailImage($tmbSize, $tmbSize) && $_img->writeImage($tmb);
-				}
-				break;
-
-			case 'mogrify':
-				if (@copy($img, $tmb)) {
-					list($x, $y, $size) = $this->_cropPos($s[0], $s[1]);
-					// exec('mogrify -crop '.$size.'x'.$size.'+'.$x.'+'.$y.' -scale '.$tmbSize.'x'.$tmbSize.'! '.escapeshellarg($tmb), $o, $c);
-
-					$mogrifyArgs = 'mogrify -resize ' . $tmbSize . 'x' . $tmbSize;
-
-					if ($this->_options['tmbCrop'] == false) {
-						$mogrifyArgs .= ' -gravity center -background "' . $this->_options['tmbBgColor'] . '" -extent ' . $tmbSize . 'x' . $tmbSize;
-					}
-
-					if ($this->_options['tmbCrop'] == false) {
-						$mogrifyArgs .= ' ' . escapeshellarg($tmb);
-					}
-
-					exec($mogrifyArgs, $o, $c);
-
-					if (file_exists($tmb)) {
-						return true;
-					} elseif ($c == 0) {
-						// find tmb for psd and animated gif
-						$mime = $this->_mimetype($img);
-						if ($mime == 'image/vnd.adobe.photoshop' || $mime = 'image/gif') {
-							$pinfo = pathinfo($tmb);
-							$test = $pinfo['dirname'].DIRECTORY_SEPARATOR.$pinfo['filename'].'-0.'.$pinfo['extension'];
-							if (file_exists($test)) {
-								return rename($test, $tmb);
-							}
-						}
-					}
-				}
-				break;
-			
-			case 'gd':
-				if ($s['mime'] == 'image/jpeg') {
-					$_img = imagecreatefromjpeg($img);
-				} elseif ($s['mime'] == 'image/png') {
-					$_img = imagecreatefrompng($img);
-				} elseif ($s['mime'] == 'image/gif') {
-					$_img = imagecreatefromgif($img);
-				} 
-				if (!$_img || false == ($_tmb = imagecreatetruecolor($tmbSize, $tmbSize))) {
-					return false;
-				}
-
-				if ($this->_options['tmbCrop'] == false) {
-
-					list($r,$g,$b) = sscanf($this->_options['tmbBgColor'], "#%02x%02x%02x");
-
-					imagefill($_tmb, 0, 0, imagecolorallocate($_tmb, $r, $g, $b));
-
-					if (!imagecopyresampled($_tmb, $_img, $align_x, $align_y, 0, 0, $newwidth, $newheight, $s[0], $s[1])) {
-						return false;
-					}
-        
-				} else {
-					list($x, $y, $size) = $this->_cropPos($s[0], $s[1]);
-					if (!imagecopyresampled($_tmb, $_img, 0, 0, $x, $y, $tmbSize, $tmbSize, $size, $size)) {
-						return false;
-					}
-				}
-
-				$r = imagepng($_tmb, $tmb, 7);
-				imagedestroy($_img);
-				imagedestroy($_tmb);
-				return $r;
-				break;
-		}
-	}
-	
-	/**
-	 * Remove image thumbnail
-	 *
-	 * @param  string  $img  image file
-	 * @return void
-	 **/
-	protected function _rmTmb($img)
-	{
-		if ($this->_options['tmbDir'] && false != ($tmb = $this->_tmbPath($img)) && file_exists($tmb)) {
-			@unlink($tmb);
-		}
-	}
-	
-	/**
-	 * Return x/y coord for crop image thumbnail
-	 *
-	 * @param  int  $w  image width
-	 * @param  int  $h  image height	
+	 * @param  array  $args  command arguments
 	 * @return array
+	 * @author Dmitry Levashov
 	 **/
-	protected function _cropPos($w, $h)
-	{
-		$x = $y = 0;
-		$size = min($w, $h);
-		if ($w > $h) {
-			$x = ceil(($w - $h)/2);
-		} else {
-			$y = ceil(($h - $w)/2);
+	protected function search($args) {
+		$q      = trim($args['q']);
+		$mimes  = !empty($args['mimes']) && is_array($args['mimes']) ? $args['mimes'] : array();
+		$result = array();
+
+		foreach ($this->volumes as $volume) {
+			$result = array_merge($result, $volume->search($q, $mimes));
 		}
-		return array($x, $y, $size);
+		
+		return array('files' => $result);
+	}
+	
+	/**
+	 * Return file info (used by client "places" ui)
+	 *
+	 * @param  array  $args  command arguments
+	 * @return array
+	 * @author Dmitry Levashov
+	 **/
+	protected function info($args) {
+		$files = array();
+		
+		foreach ($args['targets'] as $hash) {
+			if (($volume = $this->volume($hash)) != false
+			&& ($info = $volume->file($hash)) != false) {
+				$files[] = $info;
+			}
+		}
+		
+		return array('files' => $files);
+	}
+	
+	/**
+	 * Return image dimmensions
+	 *
+	 * @param  array  $args  command arguments
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function dim($args) {
+		$target = $args['target'];
+		
+		if (($volume = $this->volume($target)) != false) {
+			$dim = $volume->dimensions($target);
+			return $dim ? array('dim' => $dim) : array();
+		}
+		return array();
 	}
 	
 	/**
 	 * Resize image
 	 *
-	 * @param  string  $img  image path
-	 * @param  int     $w    image width
-	 * @param  int     $h    image height
-	 * @return bool
-	 **/
-	protected function _resizeImg($img, $w, $h)
-	{
-		if (false == ($s = getimagesize($img))) {
-			return false;
-		}
-		
-		switch ($this->_options['imgLib']) {
-			case 'imagick':
-				if (false != ($_img = new imagick($img))) {
-					return $_img->cropThumbnailImage($w, $h) && $_img->writeImage($img);
-				}
-				break;
-			case 'mogrify':
-				exec('mogrify -scale '.$w.'x'.$h.'! '.escapeshellarg($img), $o, $c);
-				return 0 == $c;
-				break;
-			case 'gd':
-				if ($s['mime'] == 'image/jpeg') {
-					$_img = imagecreatefromjpeg($img);
-				} elseif ($s['mime'] = 'image/png') {
-					$_img = imagecreatefrompng($img);
-				} elseif ($s['mime'] = 'image/gif') {
-					$_img = imagecreatefromgif($img);
-				} 
-				if (!$_img || false == ($_out = imagecreatetruecolor($w, $h))) {
-					return false;
-				}
-				if (!imagecopyresampled($_out, $_img, 0, 0, 0, 0, $w, $h, $s[0], $s[1])) {
-					return false;
-				}
-				if ($s['mime'] == 'image/jpeg') {
-					$r = imagejpeg($_out, $img, 100);
-				} else if ($s['mime'] = 'image/png') {
-					$r = imagepng($_out, $img, 7);
-				} else {
-					$r = imagegif($_out, $img, 7);
-				}
-				imagedestroy($_img);
-				imagedestroy($_out);
-				return $r;
-				break;
-		}
-				
-		
-	}
-	
-	/**
-	 * Return true if we can create thumbnail for file with this mimetype
-	 *
-	 * @param  string  $mime  file mimetype
-	 * @return bool
-	 **/
-	protected function _canCreateTmb($mime)
-	{
-		if ($this->_options['tmbDir'] && $this->_options['imgLib'] && 0 === strpos($mime, 'image')) {
-			if ('gd' == $this->_options['imgLib']) {
-				return $mime == 'image/jpeg' || $mime == 'image/png' || $mime == 'image/gif';
-			}
-			return true;
-		}
-	}
-	
-	/**
-	 * Return image thumbnail path. For thumbnail return itself 
-	 *
-	 * @param  string  $path  image path
-	 * @return string
-	 **/
-	protected function _tmbPath($path)
-	{
-		$tmb = '';
-		if ($this->_options['tmbDir']) {
-			$tmb = dirname($path) != $this->_options['tmbDir']
-				? $this->_options['tmbDir'].DIRECTORY_SEPARATOR.$this->_hash($path).'.png'
-				: $path;
-		}
-		return $tmb;
-	}
-	
-	/************************************************************/
-	/**                       access control                   **/
-	/************************************************************/
-	
-	/**
-	 * Return true if file's mimetype is allowed for upload
-	 *
-	 * @param  string  $name    file name
-	 * @param  string  $tmpName uploaded file tmp name
-	 * @return bool
-	 **/
-	protected function _isUploadAllow($name, $tmpName)
-	{
-		$allow = false;
-		$deny  = false;
-		$mime  = $this->_mimetype($this->_options['mimeDetect'] != 'internal' ? $tmpName : $name);
-
-		if (in_array('all', $this->_options['uploadAllow'])) {
-			$allow = true;
-		} else {
-			foreach ($this->_options['uploadAllow'] as $type) {
-				if (0 === strpos($mime, $type)) {
-					$allow = true;
-				}
-			}
-		}
-
-		if (in_array('all', $this->_options['uploadDeny'])) {
-			$deny = true;
-		} else {
-			foreach ($this->_options['uploadDeny'] as $type) {
-				if (0 === strpos($mime, $type)) {
-					$deny = true;
-				}
-			}
-		}
-
-		$this->_result['debug']['_isUploadAllow'][$name] = $mime;
-
-		if (0 === strpos($this->_options['uploadOrder'], 'allow')) { // ,deny
-			if ($deny == true) {
-				return false;
-			} elseif ($allow == true) {
-				return true;
-			} else {
-				return false;
-			}
-		} else { // deny,allow
-			if ($allow == true) {
-				return true;
-			} elseif ($deny == true) {
-				return false;
-			} else {
-				return true;
-			}
-		}
-	}
-
-	/**
-	 * Return true if file name is not . or ..
-	 * If file name begins with . return value according to $this->_options['dotFiles']
-	 *
-	 * @param  string  $file  file name
-	 * @return bool
-	 **/
-	protected function _isAccepted($file)
-	{
-		if ('.' == $file || '..' == $file) {
-			return false;
-		}
-		if (!$this->_options['dotFiles'] && '.' == substr($file, 0, 1)) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * Return true if requeired action allowed to file/folder
-	 *
-	 * @param  string  $path    file/folder path
-	 * @param  string  $action  action name (read/write/rm)
-	 * @return void
-	 **/
-	protected function _isAllowed($path, $action) {
-		
-		switch ($action) {
-			case 'read':
-				if (!is_readable($path)) {
-					return false;
-				}
-				break;
-			case 'write':
-				if (!is_writable($path)) {
-					return false;
-				}
-				break;
-			case 'rm':
-				if (!is_writable(dirname($path))) {
-					return false;
-				}
-				break;
-		}
-		
-		// if ($this->_options['aclObj']) {
-		// 	
-		// }
-		$path = substr($path, strlen($this->_options['root'])+1);
-		// echo "$path\n";
-		foreach ($this->_options['perms'] as $regex => $rules) {
-			
-			if (preg_match($regex, $path)) {
-				if (isset($rules[$action])) {
-					return $rules[$action];
-				}
-			}
-		}
-		return isset($this->_options['defaults'][$action]) ? $this->_options['defaults'][$action] : false;
-	}
-	
-	/************************************************************/
-	/**                          utilites                      **/
-	/************************************************************/
-	
-	/**
-	 * Return image manipalation library name
-	 *
-	 * @return string
-	 **/
-	protected function _getImgLib()
-	{
-		if (extension_loaded('imagick')) {
-			return 'imagick';
-		} elseif (function_exists('exec')) {
-			exec('mogrify --version', $o, $c);
-			if ($c == 0) {
-				return 'mogrify';
-			}
-		}
-		return function_exists('gd_info') ? 'gd' : '';
-	}
-	
-	/**
-	 * Return list of available archivers
-	 *
+	 * @param  array  command arguments
 	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 * @author Alexey Sukhotin
 	 **/
-	protected function _checkArchivers()
-	{
-		if (!function_exists('exec')) {
-			$this->_options['archivers'] = $this->_options['archive'] = array();
-			return;
-		}
-		$arcs = array(
-			'create'  => array(),
-			'extract' => array()
-			);
+	protected function resize($args) {
+		$target = $args['target'];
+		$width  = $args['width'];
+		$height = $args['height'];
+		$x      = (int)$args['x'];
+		$y      = (int)$args['y'];
+		$mode   = $args['mode'];
+		$bg     = null;
+		$degree = (int)$args['degree'];
 		
-		exec('tar --version', $o, $ctar);
-		if ($ctar == 0) {
-			$arcs['create']['application/x-tar']  = array('cmd' => 'tar', 'argc' => '-cf', 'ext' => 'tar');
-			$arcs['extract']['application/x-tar'] = array('cmd' => 'tar', 'argc' => '-xf', 'ext' => 'tar');
-			$test = exec('gzip --version', $o, $c);
-			if ($c == 0) {
-				$arcs['create']['application/x-gzip']  = array('cmd' => 'tar', 'argc' => '-czf', 'ext' => 'tgz');
-				$arcs['extract']['application/x-gzip'] = array('cmd' => 'tar', 'argc' => '-xzf', 'ext' => 'tgz');
-			}
-			$test = exec('bzip2 --version', $o, $c);
-			if ($c == 0) {
-				$arcs['create']['application/x-bzip2']  = array('cmd' => 'tar', 'argc' => '-cjf', 'ext' => 'tbz');
-				$arcs['extract']['application/x-bzip2'] = array('cmd' => 'tar', 'argc' => '-xjf', 'ext' => 'tbz');
-			}
+		if (($volume = $this->volume($target)) == false
+		|| ($file = $volume->file($target)) == false) {
+			return array('error' => $this->error(self::ERROR_RESIZE, '#'.$target, self::ERROR_FILE_NOT_FOUND));
 		}
-		
-		exec('zip --version', $o, $c);
-		if ($c == 0) {
-			$arcs['create']['application/zip']  = array('cmd' => 'zip', 'argc' => '-r9', 'ext' => 'zip');
-		}
-		
-		exec('unzip --help', $o, $c);
-		if ($c == 0) {
-			$arcs['extract']['application/zip'] = array('cmd' => 'unzip', 'argc' => '',  'ext' => 'zip');
-		} 
-		
-		exec('rar --version', $o, $c);
-		if ($c == 0 || $c == 7) {
-			$arcs['create']['application/x-rar']  = array('cmd' => 'rar', 'argc' => 'a -inul', 'ext' => 'rar');
-			$arcs['extract']['application/x-rar'] = array('cmd' => 'rar', 'argc' => 'x -y',    'ext' => 'rar');
-		} else {
-			$test = exec('unrar', $o, $c);
-			if ($c==0 || $c == 7) {
-				$arcs['extract']['application/x-rar'] = array('cmd' => 'unrar', 'argc' => 'x -y', 'ext' => 'rar');
-			}
-		}
-		
-		exec('7za --help', $o, $c);
-		if ($c == 0) {
-			$arcs['create']['application/x-7z-compressed']  = array('cmd' => '7za', 'argc' => 'a', 'ext' => '7z');
-			$arcs['extract']['application/x-7z-compressed'] = array('cmd' => '7za', 'argc' => 'e -y', 'ext' => '7z');
-			
-			if (empty($arcs['create']['application/x-gzip'])) {
-				$arcs['create']['application/x-gzip'] = array('cmd' => '7za', 'argc' => 'a -tgzip', 'ext' => 'tar.gz');
-			}
-			if (empty($arcs['extract']['application/x-gzip'])) {
-				$arcs['extract']['application/x-gzip'] = array('cmd' => '7za', 'argc' => 'e -tgzip -y', 'ext' => 'tar.gz');
-			}
-			if (empty($arcs['create']['application/x-bzip2'])) {
-				$arcs['create']['application/x-bzip2'] = array('cmd' => '7za', 'argc' => 'a -tbzip2', 'ext' => 'tar.bz');
-			}
-			if (empty($arcs['extract']['application/x-bzip2'])) {
-				$arcs['extract']['application/x-bzip2'] = array('cmd' => '7za', 'argc' => 'a -tbzip2 -y', 'ext' => 'tar.bz');
-			}
-			if (empty($arcs['create']['application/zip'])) {
-				$arcs['create']['application/zip'] = array('cmd' => '7za', 'argc' => 'a -tzip -l', 'ext' => 'zip');
-			}
-			if (empty($arcs['extract']['application/zip'])) {
-				$arcs['extract']['application/zip'] = array('cmd' => '7za', 'argc' => 'e -tzip -y', 'ext' => 'zip');
-			}
-			if (empty($arcs['create']['application/x-tar'])) {
-				$arcs['create']['application/x-tar'] = array('cmd' => '7za', 'argc' => 'a -ttar -l', 'ext' => 'tar');
-			}
-			if (empty($arcs['extract']['application/x-tar'])) {
-				$arcs['extract']['application/x-tar'] = array('cmd' => '7za', 'argc' => 'e -ttar -y', 'ext' => 'tar');
-			}
-		}
-		
-		$this->_options['archivers'] = $arcs;
-		foreach ($this->_options['archiveMimes'] as $k=>$mime) {
-			if (!isset($this->_options['archivers']['create'][$mime])) {
-				unset($this->_options['archiveMimes'][$k]);
-			}
-		}
-		if (empty($this->_options['archiveMimes'])) {
-			$this->_options['archiveMimes'] = array_keys($this->_options['archivers']['create']);
-		}
-	}
-	
-	
-	/**
-	 * Return mimetype detect method name
-	 *
-	 * @return string
-	 **/
-	protected function _getMimeDetect()
-	{
-		if (class_exists('finfo')) {
-			return 'finfo';
-		} elseif (function_exists('mime_content_type') && (mime_content_type(__FILE__) == 'text/x-php' || mime_content_type(__FILE__) == 'text/x-c++')) {
-			return 'mime_content_type';
-		} elseif (function_exists('exec')) {
-			$type = exec('file -ib '.escapeshellarg(__FILE__));
-			if (0 === strpos($type, 'text/x-php') || 0 === strpos($type, 'text/x-c++'))
-			{
-				return 'linux';
-			}
-			$type = exec('file -Ib '.escapeshellarg(__FILE__));
-			if (0 === strpos($type, 'text/x-php') || 0 === strpos($type, 'text/x-c++'))
-			{
-				return 'bsd';
-			}
-		}
-		return 'internal';
-	}
-	
-	
-	/**
-	 * Return file path hash
-	 *
-	 * @param  string  $path 
-	 * @return string
-	 **/
-	protected function _hash($path)
-	{
-		return md5($path);
-	}
-	
-	/**
-	 * Return file URL
-	 *
-	 * @param  string  $path 
-	 * @return string
-	 **/
-	protected function _path2url($path)
-	{
-		$dir  = substr(dirname($path), strlen($this->_options['root'])+1);
-		$file = rawurlencode(basename($path));
-		return $this->_options['URL'].($dir ? str_replace(DIRECTORY_SEPARATOR, '/', $dir).'/' : '').$file;
-	}
 
-	/**
-	 * Return normalized path, this works the same as os.path.normpath() in Python
-	 *
-	 * @param  string  $path  path
-	 * @return string
-	 **/
-	protected function _normpath($path)
-	{
-		if (empty($path))
-			return '.';
-
-		if (strpos($path, '/') === 0)
-			$initial_slashes = true;
-		else
-			$initial_slashes = false;
-		if (
-			($initial_slashes) &&
-			(strpos($path, '//') === 0) &&
-			(strpos($path, '///') === false)
-		)
-			$initial_slashes = 2;
-		$initial_slashes = (int) $initial_slashes;
-
-		$comps = explode('/', $path);
-		$new_comps = array();
-		foreach ($comps as $comp)
-		{
-			if (in_array($comp, array('', '.')))
-				continue;
-			if (
-				($comp != '..') ||
-				(!$initial_slashes && !$new_comps) ||
-				($new_comps && (end($new_comps) == '..'))
-			)
-				array_push($new_comps, $comp);
-			elseif ($new_comps)
-				array_pop($new_comps);
-		}
-		$comps = $new_comps;
-		$path = implode('/', $comps);
-		if ($initial_slashes)
-			$path = str_repeat('/', $initial_slashes) . $path;
-		if ($path)
-			return $path;
-		else
-			return '.';
+		return ($file = $volume->resize($target, $width, $height, $x, $y, $mode, $bg, $degree))
+			? array('changed' => array($file))
+			: array('error' => $this->error(self::ERROR_RESIZE, $volume->path($target), $volume->error()));
 	}
-
+	
+	/***************************************************************************/
+	/*                                   utils                                 */
+	/***************************************************************************/
+	
 	/**
-	 * Pack error message in $this->_result['errorData']
+	 * Return root - file's owner
 	 *
-	 * @param string  $path  path to file
-	 * @param string  $msg   error message
-	 * @return bool always false
+	 * @param  string  file hash
+	 * @return elFinderStorageDriver
+	 * @author Dmitry (dio) Levashov
 	 **/
-	protected function _errorData($path, $msg)
-	{
-		$path = preg_replace('|^'.preg_quote($this->_options['root']).'|', $this->_fakeRoot, $path);
-		if (!isset($this->_result['errorData'])) {
-			$this->_result['errorData'] = array();
+	protected function volume($hash) {
+		foreach ($this->volumes as $id => $v) {
+			if (strpos(''.$hash, $id) === 0) {
+				return $this->volumes[$id];
+			} 
 		}
-		$this->_result['errorData'][$path] = $msg;
 		return false;
-	}	
+	}
 	
-	protected function _utime()
-	{
+	/**
+	 * Return files info array 
+	 *
+	 * @param  array  $data  one file info or files info
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function toArray($data) {
+		return isset($data['hash']) || !is_array($data) ? array($data) : $data;
+	}
+	
+	/**
+	 * Return fils hashes list
+	 *
+	 * @param  array  $files  files info
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function hashes($files) {
+		$ret = array();
+		foreach ($files as $file) {
+			$ret[] = $file['hash'];
+		}
+		return $ret;
+	}
+	
+	/**
+	 * Remove from files list hidden files and files with required mime types
+	 *
+	 * @param  array  $files  files info
+	 * @return array
+	 * @author Dmitry (dio) Levashov
+	 **/
+	protected function filter($files) {
+		foreach ($files as $i => $file) {
+			if (!empty($file['hidden']) || !$this->default->mimeAccepted($file['mime'])) {
+				unset($files[$i]);
+			}
+		}
+		return array_merge($files, array());
+	}
+	
+	protected function utime() {
 		$time = explode(" ", microtime());
 		return (double)$time[1] + (double)$time[0];
-	}	
+	}
 	
-}
+} // END class

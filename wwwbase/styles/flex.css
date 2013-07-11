@@ -387,3 +387,10 @@ span.tooltip {
   padding-left: 16px;
   text-decoration: none;
 }
+
+/* Selectarea setului de iconite inchise la culoare pentru a aparea 
+x-ul si lupa in bara de cautare de la elFinder */
+.ui-widget-header
+.ui-icon {
+	background-image: url("lightness-1.10.3/images/ui-icons_222222_256x240.png")
+}

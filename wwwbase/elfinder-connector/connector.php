@@ -138,7 +138,7 @@ $opts = array(
 			'uploadAllow'	=> array('image'), // mimetypes allowed to upload
 			'disabled'		=> array('resize'), // list of not allowed commands
 			'imgLib'		=> 'gd', // image manipulation library (imagick, mogrify, gd)
-			'tmbPath'		=> '.tmb' // directory name for image thumbnails. Set to "" to avoid thumbnails generation
+			'tmbPath'		=> '.tmb', // directory name for image thumbnails. Set to "" to avoid thumbnails generation
 		)
 	)
 );

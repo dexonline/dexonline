@@ -92,6 +92,14 @@ function definitionEditInit() {
   });
 }
 
+function lexemEditInit() {
+  $('#similarLexemId').select2({
+    ajax: struct_lexemAjax,
+    minimumInputLength: 1,
+    width: '300px',
+  });
+}
+
 function contribInit() {
   $('#lexemIds').select2({
     ajax: struct_lexemAjax,

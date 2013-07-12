@@ -145,12 +145,8 @@
     {/foreach}
     <br/><br/>
 
-    <b>2. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b>
-    se flexionează ca
-    <input id="similarLexem" type="text" name="similarLexemName" value="" size="40"/>
-    <script type="text/javascript">
-      $("#similarLexem").autocomplete({ldelim} source: wwwRoot + 'ajax/getLexems.php' {rdelim});
-    </script>
+    <b>2. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b> se flexionează ca
+    <input id="similarLexemId" type="text" name="similarLexemId"/>
     <br/><br/>
 
     <b>3. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b>
@@ -290,3 +286,7 @@
     </form>
   {/if}
 </div>
+
+<script>
+  $(lexemEditInit);
+</script>

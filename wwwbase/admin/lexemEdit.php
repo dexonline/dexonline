@@ -18,7 +18,7 @@ $lexemNoAccent = util_getRequestParameter('lexemNoAccent');
 $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
 $similarModel = util_getRequestParameter('similarModel');
-$similarLexemName = util_getRequestParameter('similarLexemName');
+$similarLexemId = util_getRequestParameter('similarLexemId');
 $restriction = util_getRequestCheckboxArray('restr', '');
 $miniDefTarget = util_getRequestParameter('miniDefTarget');
 
@@ -77,7 +77,7 @@ if ($cloneLexem) {
   util_redirect("lexemEdit.php?lexemId={$newLexem->id}");
 }
 
-if (!$similarModel && !$similarLexemName && !$refreshLexem && !$updateLexem) {
+if (!$similarModel && !$similarLexemId && !$refreshLexem && !$updateLexem) {
   RecentLink::createOrUpdate("Lexem: {$lexem}");
 }
 
@@ -127,7 +127,7 @@ if ($lexemNoAccent !== null) {
 }
 
 // The new model type, number and restrictions can come from three sources:
-// $similarModel, $similarLexemName or ($modelType, $modelNumber,
+// $similarModel, $similarLexemId or ($modelType, $modelNumber,
 // $restriction) directly
 $errorMessage = '';
 if ($similarModel !== null) {
@@ -135,18 +135,11 @@ if ($similarModel !== null) {
   $lexem->modelType = $parts[0];
   $lexem->modelNumber = $parts[1];
   $lexem->restriction = $parts[2];
-} else if ($similarLexemName) {
-  $matches = Lexem::loadByExtendedName($similarLexemName);
-  if (count($matches) == 1) {
-    $similarLexem = $matches[0];
-    $lexem->modelType = $similarLexem->modelType;
-    $lexem->modelNumber = $similarLexem->modelNumber;
-    $lexem->restriction = $similarLexem->restriction;
-  } else {
-    $errorMessage = (count($matches) == 0)
-      ? "Lexemul <i>".htmlentities($similarLexemName)."</i> nu există."
-      : "Lexemul <i>".htmlentities($similarLexemName)."</i> este ambiguu.";
-  }
+} else if ($similarLexemId) {
+  $similarLexem = Lexem::get_by_id($similarLexemId);
+  $lexem->modelType = $similarLexem->modelType;
+  $lexem->modelNumber = $similarLexem->modelNumber;
+  $lexem->restriction = $similarLexem->restriction;
 } else if ($modelType !== null) {
   $lexem->modelType = $modelType;
   $lexem->modelNumber = $modelNumber;
@@ -220,8 +213,8 @@ SmartyWrap::assign('canEditForm', $canEditForm);
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('errorMessage', $errorMessage);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::addCss('jqueryui', 'paradigm');
-SmartyWrap::addJs('jquery', 'jqueryui');
+SmartyWrap::addCss('jqueryui', 'paradigm', 'select2');
+SmartyWrap::addJs('jquery', 'jqueryui', 'struct', 'select2');
 SmartyWrap::assign('sectionTitle', "Editare lexem: {$lexem->form} {$lexem->modelType}{$lexem->modelNumber}{$lexem->restriction}");
 SmartyWrap::displayAdminPage('admin/lexemEdit.ihtml');
 

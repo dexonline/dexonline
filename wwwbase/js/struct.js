@@ -1,7 +1,7 @@
 struct_anyChanges = false;
 
 struct_lexemAjax = {
-  data: function(term, page) { return { term: term, select2: 1 }; },
+  data: function(term, page) { return { term: term }; },
   dataType: 'json',
   results: function(data, page) { return data; }, 
   url: wwwRoot + 'ajax/getLexems.php',
@@ -97,6 +97,16 @@ function lexemEditInit() {
     ajax: struct_lexemAjax,
     minimumInputLength: 1,
     width: '300px',
+  });
+}
+
+function adminIndexInit() {
+  $('#lexemId').select2({
+    ajax: struct_lexemAjax,
+    minimumInputLength: 1,
+    width: '300px',
+  }).on('change', function(e) {
+    $(this).parents('form').submit();
   });
 }
 

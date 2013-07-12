@@ -1,7 +1,6 @@
 <?php
 require_once("../../phplib/util.php");
 
-$select2 = util_getRequestParameter('select2');
 $query = util_getRequestParameter('term');
 $parts = preg_split('/\(/', $query, 2);
 $name = AdminStringUtil::internalizeWordName(trim($parts[0]));
@@ -16,16 +15,9 @@ if (count($parts) == 2) {
   $lexems = Model::factory('Lexem')->where_like($field, "{$name}%")->order_by_asc('formNoAccent')->limit(10)->find_many();
 }
 
-$resp = array();
-if ($select2) {
-  $resp['results'] = array();
-}
+$resp = array('results' => array());
 foreach ($lexems as $l) {
-  if ($select2) {
-    $resp['results'][] = array('id' => $l->id, 'text' => (string)$l);
-  } else {
-    $resp[] = (string)$l;
-  }
+  $resp['results'][] = array('id' => $l->id, 'text' => (string)$l);
 }
 print json_encode($resp);
 

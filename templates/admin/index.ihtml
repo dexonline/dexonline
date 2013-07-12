@@ -1,5 +1,3 @@
-<script type="text/javascript">$(startReportCounters);</script>
-
 Aici găsiți, deocamdată, un sumar al problemelor din baza de date
 care necesită atenție și câteva mecanisme de căutare a lexemelor
 și definițiilor.<br/><br/>
@@ -39,25 +37,10 @@ care necesită atenție și câteva mecanisme de căutare a lexemelor
   <span id="span_wotd"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 {/if}
 <br/>
-<form action="lexemLookup.php" method="get" name="lexemForm">
-  <table>
-    <tr>
-      <td>Caută lexem:</td>
-      <td>
-        <input id="lexemName" type="text" name="lexemName" value="" size="40"/>
-        <script type="text/javascript">
-          $("#lexemName").autocomplete({ldelim} source: wwwRoot + 'ajax/getLexems.php' {rdelim});
-        </script>
-      </td>
-      <td>
-        <input type="submit" name="searchLexem" value="Caută"/>
-      </td>
-    </tr>
-  </table>
+
+<form action="lexemEdit.php" method="get">
+  Editează un lexem: <input id="lexemId" type="text" name="lexemId"/>
 </form>
-<script type="text/javascript">
-  document.lexemForm.lexemName.select();document.lexemForm.lexemName.focus();
-</script>
 <br/>
 
 {if $sUser->moderator & $smarty.const.PRIV_LOC}
@@ -218,3 +201,8 @@ care necesită atenție și câteva mecanisme de căutare a lexemelor
   <a href="{$wwwRoot}surse">Vizualizare / editare surse</a><br/>
   <a href="{$wwwRoot}etichete-sensuri">Vizualizare / editare etichete pentru sensuri</a>
 {/if}
+
+<script type="text/javascript">
+  $(startReportCounters);
+  $(adminIndexInit);
+</script>

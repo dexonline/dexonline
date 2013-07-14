@@ -16,6 +16,8 @@ touch log/dictlog
 chmod 666 log/dictlog
 touch log/scriptlog
 chmod 666 log/scriptlog
+touch log/wotdrlflog
+chmod 666 log/wotdelflog
 chmod 777 templates_c
 
 # Make all directories under wwwbase/img/wotd/ world-writable

@@ -13,7 +13,7 @@ if ($type == 'rss') {
                        'link' => sprintf("http://%s/articol/%s", $_SERVER['HTTP_HOST'], $a->getUrlTitle()));
   }
 
-  header("Content-type: text/xml");
+  header("Content-type: application/rss+xml");
   SmartyWrap::assign('rss_title', 'Articole lingvistice - DEX online');
   SmartyWrap::assign('rss_link', 'http://' . $_SERVER['HTTP_HOST'] . '/rss/articole/');
   SmartyWrap::assign('rss_description', 'Articole pe teme lingvistice de la DEX online');

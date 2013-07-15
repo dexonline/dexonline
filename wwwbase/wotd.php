@@ -39,7 +39,7 @@ if ($type == 'rss' || $type == 'blog') {
     $results[] = $item;
   }
 
-  header("Content-type: text/xml");
+  header("Content-type: application/rss+xml");
   SmartyWrap::assign('rss_title', 'Cuvântul zilei');
   SmartyWrap::assign('rss_link', 'http://' . $_SERVER['HTTP_HOST'] . '/cuvantul-zilei/');
   SmartyWrap::assign('rss_description', 'Doza zilnică de cuvinte de la DEXonline!');

@@ -3,20 +3,63 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$definitionId = util_getRequestIntParameter('definitionId');
-$lexemIds = util_getRequestCsv('lexemIds');
-$sourceId = util_getRequestIntParameter('source');
-$internalRep = util_getRequestParameter('internalRep');
-$status = util_getRequestIntParameterWithDefault('status', null);
-$commentContents = util_getRequestParameter('commentContents');
-$preserveCommentUser = util_getRequestParameter('preserveCommentUser');
+$addType = util_getRequestIntParameter('type');
+$next_ocr_but = util_getRequestParameter('but_next_ocr');
+if(!$next_ocr_but) {
+    $definitionId = util_getRequestIntParameter('definitionId');
+    $lexemIds = util_getRequestCsv('lexemIds');
+    $sourceId = util_getRequestIntParameter('source');
+    $internalRep = util_getRequestParameter('internalRep');
+    $status = util_getRequestIntParameterWithDefault('status', null);
+    $commentContents = util_getRequestParameter('commentContents');
+    $preserveCommentUser = util_getRequestParameter('preserveCommentUser');
+}
+else {
+    $definitionId = null;
+    $lexemIds = null;
+    $sourceId = null;
+    $internalRep = null;
+    $status = null;
+    $commentContents = null;
+    $preserveCommentUser = null;
+}
 $refreshButton = util_getRequestParameter('but_refresh');
 $acceptButton = util_getRequestParameter('but_accept');
 $moveButton = util_getRequestParameter('but_move');
 $hasErrors = false;
 
+$isOCR = ($addType == 'ocr');
+
 if (!$definitionId) {
-  return;
+  if ($isOCR) {
+    $ocr = Model::factory('OCR')->where('status', 'raw')->order_by_asc('dateModified')->find_one();
+    if (!$ocr || !$ocr->id) {
+      echo("Lista cu definiții OCR este goală.");
+      return;
+    }
+    $ambiguousMatches = array();
+    $sourceId = $ocr->sourceId;
+    $def = AdminStringUtil::internalizeDefinition($ocr->ocrText, $sourceId, $ambiguousMatches);
+
+    $definition = Model::factory('Definition')->create();
+    $definition->displayed = 0;
+    $definition->status = ST_PENDING;
+    $definition->userId = session_getUserId();
+    $definition->sourceId = $sourceId;
+    $definition->internalRep = $def;
+    $definition->htmlRep = AdminStringUtil::htmlize($def, $sourceId);
+    $definition->lexicon = AdminStringUtil::extractLexicon($definition);
+    $definition->abbrevReview = count($ambiguousMatches) ? ABBREV_AMBIGUOUS : ABBREV_REVIEW_COMPLETE;
+    $definition->save();
+    $definitionId = $definition->id;
+    $ocr->definitionId = $definitionId;
+    $ocr->editorId = session_getUserId();
+    $ocr->status = 'published';
+    $ocr->save();
+  } 
+  else {
+    return;
+  }
 }
 
 if (!($definition = Definition::get_by_id($definitionId))) {
@@ -125,6 +168,7 @@ if (!$refreshButton && !$acceptButton && !$moveButton) {
   RecentLink::createOrUpdate(sprintf("Definiție: %s (%s)", $definition->lexicon, $source->shortName));
 }
 
+SmartyWrap::assign('isOCR', $isOCR);
 SmartyWrap::assign('def', $definition);
 SmartyWrap::assign('source', $source);
 SmartyWrap::assign('user', User::get_by_id($definition->userId));
@@ -136,7 +180,7 @@ SmartyWrap::assign('homonyms', loadSetHomonyms($lexems));
 SmartyWrap::assign("allStatuses", util_getAllStatuses());
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::assign('sectionTitle', "Editare definiție: {$definition->id}");
+SmartyWrap::assign('sectionTitle', $isOCR ? "Adăugare definiție (OCR)" : "Editare definiție: {$definition->id}");
 SmartyWrap::addCss('jqueryui', 'select2');
 SmartyWrap::addJs('jquery', 'jqueryui', 'struct', 'select2');
 SmartyWrap::displayAdminPage('admin/definitionEdit.ihtml');

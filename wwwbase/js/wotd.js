@@ -2,24 +2,45 @@ function beginEdit(id) {
   $('#displayDate').datepicker({ dateFormat: 'yy-mm-dd' });
   $('#displayDate')[0].style.width = '400px';
 
-  if ($('#lexicon').val()) {
-    $('#lexicon').attr('readonly', true);
-  } else {
-    $('#lexicon').attr('readonly', false);
-    $('#lexicon').autocomplete({
-      source: wwwRoot + 'ajax/wotdGetDefinitions.php',
-      select: function(event, ui) {
-        var matches = ui.item.value.match(/^\[([^\]]+)\].+\[([0-9]+)\]$/);
-        $('#definitionId').val(matches[2]);
-        $('#lexicon').val(matches[1]);
-        return false;
-      },
-    });
-  }
-  $('#lexicon')[0].style.width = '400px';
+  $('#lexicon').select2({
+    ajax: {
+      data: function(term, page) { return { term: term }; },
+      results: function(data, page) { return data; },
+      url: wwwRoot + 'ajax/wotdGetDefinitions.php',
+    },
+    formatResult: function(item) {
+      return item.text + ' (' + item.source + ') [' + item.id + ']';
+    },
+    initSelection: copyInitSelection,
+    minimumInputLength: 1,
+    placeholder: 'caută un cuvânt...',
+    width: '410px',
+  }).on('change', function(e) {
+    var data = $('#lexicon').select2('data');
+    $('#definitionId').val(data.id);
+    $('#lexicon').val(data.lexicon);
+  });
+  $('#lexicon').select2('readonly', $('#lexicon').val() != '');
+
   $('#priority')[0].style.width = '400px';
   $('#description')[0].style.width = '400px';
-  $('#image').autocomplete({ source: wwwRoot + 'ajax/wotdGetImages.php' });
+  $('#image').select2({
+    ajax: {
+      data: function(term, page) { return { term: term }; },
+      results: function(data, page) { return data; }, 
+      url: wwwRoot + 'ajax/wotdGetImages.php',
+    },
+    allowClear: true,
+    initSelection: copyInitSelection,
+    minimumInputLength: 1,
+    placeholder: 'caută o imagine...',
+    width: '410px',
+  });
+}
+
+function copyInitSelection(element, callback) {
+  var data = {id: element.val(), text: element.val()};
+  callback(data);
 }
 
 function endEdit(data) {
@@ -79,6 +100,7 @@ jQuery().ready(function (){
       {name: 'definitionId', index: 'definitionId', editable: true, hidden: true}
     ],
     rowNum: 20,
+    recreateForm: true,
     autoWidth: true,
     height: '100%',
     rowList: [20, 50, 100, 200],

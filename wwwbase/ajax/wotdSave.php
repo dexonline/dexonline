@@ -161,7 +161,7 @@ $description = util_getRequestParameter('description');
 switch ($oper) {
 case 'edit': $app = new wotdSave($id, $displayDate, $priority, $definitionId, $refType, $image, $description); break;
 case 'del': $app = new wotdSave($id); break;
-case 'add': $app = new wotdSave(null, $displayDate, $priority, $definitionId, $refType, null, $description); break;
+case 'add': $app = new wotdSave(null, $displayDate, $priority, $definitionId, $refType, $image, $description); break;
 }
 $app->run($oper);
 

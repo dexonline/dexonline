@@ -5,7 +5,6 @@ List of necessary jquery-ui components:
 - resizable
 - selectable
 - sortable
-- autocomplete
 - dialog
 - tabs
 - tooltip

@@ -182,7 +182,7 @@ class SmartyWrap {
         break;
       case 'jqnotice':         self::$jsFiles[5] = 'jquery.notice.js'; break;
       case 'jqTableDnd':       self::$jsFiles[6] = 'jquery.tablednd.0.7.min.js?v=1'; break;
-      case 'tablesorter':      self::$jsFiles[7] = 'jquery.tablesorter.min.js'; break;
+      case 'tablesorter':      self::$jsFiles[7] = 'jquery.tablesorter.min.js?v=2'; break;
       case 'pager':            self::$jsFiles[8] = 'jquery.tablesorter.pager.js'; break;
       case 'elfinder':         self::$jsFiles[9] = 'elfinder.min.js?v=1'; break; 
       case 'dex':              self::$jsFiles[10] = 'dex.js?v=24'; break;

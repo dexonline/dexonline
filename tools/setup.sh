@@ -16,7 +16,7 @@ touch log/dictlog
 chmod 666 log/dictlog
 touch log/scriptlog
 chmod 666 log/scriptlog
-touch log/wotdrlflog
+touch log/wotdelflog
 chmod 666 log/wotdelflog
 chmod 777 templates_c
 

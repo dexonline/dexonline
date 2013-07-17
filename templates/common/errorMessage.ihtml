@@ -1,4 +1,4 @@
-{if $errorMessage}
+{if isset($errorMessage)}
   <table class="errorMessage">
     {if is_array($errorMessage)}
       {foreach from=$errorMessage item=em}

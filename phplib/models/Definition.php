@@ -40,10 +40,11 @@ class Definition extends BaseObject implements DatedObject {
       ->find_many();
   }
 
-  // Counts the unassociated definitions in the active or temporary statuses.
   public static function countUnassociated() {
-    $all = Model::factory('Definition')->count();
-    return $all - self::countAssociated() - self::countByStatus(ST_DELETED);
+    // Deleted definitions are always unassociated, so we don't report those
+    $query = sprintf("select * from Definition where status != %s and id not in (select distinct definitionId from LexemDefinitionMap)",
+                     ST_DELETED);
+    return count(ORM::for_table('Definition')->raw_query($query, null)->find_many());
   }
 
   public static function countByStatus($status) {
@@ -209,11 +210,11 @@ class Definition extends BaseObject implements DatedObject {
         ->raw_query("select * from Definition where lexicon $collate $regexp and status = " . ST_DELETED . " and createDate between $beginTime and $endTime " .
                     "$sourceClause $userClause order by lexicon, sourceId limit 500", null)->find_many();
     } else {
-      return Model::factory('Definition')
-        ->raw_query("select distinct Definition.* from Lexem join LexemDefinitionMap on Lexem.id = LexemDefinitionMap.lexemId " .
-                    "join Definition on LexemDefinitionMap.definitionId = Definition.id where formNoAccent $regexp " .
-                    "and Definition.status = $status and Definition.createDate >= $beginTime and Definition.createDate <= $endTime " .
-                    "$sourceClause $userClause order by lexicon, sourceId limit 500", null)->find_many();
+      $query = "select distinct Definition.* from Lexem join LexemDefinitionMap on Lexem.id = LexemDefinitionMap.lexemId " .
+        "join Definition on LexemDefinitionMap.definitionId = Definition.id where formNoAccent $regexp " .
+        "and Definition.status = $status and Definition.createDate >= $beginTime and Definition.createDate <= $endTime " .
+        "$sourceClause $userClause order by lexicon, sourceId limit 500";
+      return Model::factory('Definition')->raw_query($query, null)->find_many();
     }
   }
 

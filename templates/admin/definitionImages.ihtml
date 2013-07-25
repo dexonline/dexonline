@@ -1,0 +1,13 @@
+<div id="fileManager"></div>
+<br/>
+
+<script type="text/javascript">
+	{literal}
+	$().ready(function() {
+		$('#fileManager').elfinder({
+			url: '../elfinder-connector/visual_connector.php',
+			lang: 'en'
+		}).elfinder('instance');
+	});
+	{/literal}
+</script>

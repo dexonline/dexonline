@@ -18,10 +18,13 @@ touch log/scriptlog
 chmod 666 log/scriptlog
 touch log/wotdelflog
 chmod 666 log/wotdelflog
+touch log/visuallog
+chmod 666 log/visuallog
 chmod 777 templates_c
 
 # Make all directories under wwwbase/img/wotd/ world-writable
 find wwwbase/img/wotd/ -type d -not -regex ".*svn.*" | xargs chmod 777
+find wwwbase/img/visual/ -type d -not -regex ".*svn.*" | xargs chmod 777
 
 # Allow user avatar uploads under wwwbase/img/user
 chmod 777 wwwbase/img/user

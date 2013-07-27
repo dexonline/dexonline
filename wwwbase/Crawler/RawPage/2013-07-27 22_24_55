@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  
+
+  
+
+
+  <head>
+    <title>
+      Available Reports – DEX online wiki and bugs
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="google-site-verification" content="vOnCZ8EgBld8SENaIUCnJnGllrsnByr6SLOTiqKJfCo" /><meta name="google-site-verification" content="IClwqyMHUm8azguoxpH6mVJ1W868TXERnnx9RHn4x1w" />
+    <!--[if IE]><script type="text/javascript">window.location.hash = window.location.hash;</script><![endif]-->
+        <link rel="search" href="/search" />
+        <link rel="help" href="/wiki/TracGuide" />
+        <link rel="alternate" href="/report?asc=1&amp;format=rss" type="application/rss+xml" class="rss" title="RSS Feed" /><link rel="alternate" href="/report?asc=1&amp;format=csv" type="text/plain" title="Comma-delimited Text" /><link rel="alternate" href="/report?asc=1&amp;format=tab" type="text/plain" title="Tab-delimited Text" />
+        <link rel="start" href="/wiki" />
+        <link rel="stylesheet" href="/chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="/chrome/common/css/report.css" type="text/css" />
+        <link rel="shortcut icon" href="/chrome/common/trac.ico" type="image/x-icon" />
+        <link rel="icon" href="/chrome/common/trac.ico" type="image/x-icon" />
+      <link type="application/opensearchdescription+xml" rel="search" href="/search/opensearch" title="Search DEX online wiki and bugs" />
+    <script type="text/javascript" src="/chrome/common/js/jquery.js"></script><script type="text/javascript" src="/chrome/common/js/babel.js"></script><script type="text/javascript" src="/chrome/common/js/messages/en_US.js"></script><script type="text/javascript" src="/chrome/common/js/trac.js"></script><script type="text/javascript" src="/chrome/common/js/search.js"></script>
+    <!--[if lt IE 7]>
+    <script type="text/javascript" src="/chrome/common/js/ie_pre7_hacks.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="banner">
+      <div id="header">
+        <a id="logo" href="http://wiki.dexonline.ro/"><img src="http://wiki.dexonline.ro/raw-attachment/wiki/WikiStart/logo-wiki.png" alt="(please configure the [header_logo] section in trac.ini)" /></a>
+      </div>
+      <form id="search" action="/search" method="get">
+        <div>
+          <label for="proj-search">Search:</label>
+          <input type="text" id="proj-search" name="q" size="18" value="" />
+          <input type="submit" value="Search" />
+        </div>
+      </form>
+      <div id="metanav" class="nav">
+    <ul>
+      <li class="first"><a href="/openidlogin">OpenID Login</a></li><li><a href="/login">Login</a></li><li><a href="/prefs">Preferences</a></li><li class="last"><a href="/wiki/TracGuide">Help/Guide</a></li>
+    </ul>
+  </div>
+    </div>
+    <div id="mainnav" class="nav">
+    <ul>
+      <li class="first"><a href="/wiki">Wiki</a></li><li><a href="/timeline">Timeline</a></li><li><a href="/roadmap">Roadmap</a></li><li><a href="/browser">Browse Source</a></li><li class="active"><a href="/report">View Tickets</a></li><li class="last"><a href="/search">Search</a></li>
+    </ul>
+  </div>
+    <div id="main">
+      <div id="ctxtnav" class="nav">
+        <h2>Context Navigation</h2>
+          <ul>
+              <li class="first">Available Reports</li><li class="last"><a href="/query">Custom Query</a></li>
+          </ul>
+        <hr />
+      </div>
+    <div id="content" class="report">
+      <h1>Available Reports</h1>
+      <div id="description"></div>
+      <table class="listing reports">
+        <thead><tr>
+          <th><a href="/report?sort=report&amp;asc=0">Report</a></th>
+          <th><a href="/report?sort=title&amp;asc=1">Title</a></th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td class="report"><a title="View report" href="/report/1">{1}</a></td>
+            <td class="title"><a title="View report" href="/report/1">Active Tickets with estimated work hours</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/2">{2}</a></td>
+            <td class="title"><a title="View report" href="/report/2">Active Tickets</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/3">{3}</a></td>
+            <td class="title"><a title="View report" href="/report/3">Fixed bugs awaiting testing</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/4">{4}</a></td>
+            <td class="title"><a title="View report" href="/report/4">My Tickets</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/5">{5}</a></td>
+            <td class="title"><a title="View report" href="/report/5">Active Tickets, Mine first</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/6">{6}</a></td>
+            <td class="title"><a title="View report" href="/report/6">Active Tickets by Version</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/7">{7}</a></td>
+            <td class="title"><a title="View report" href="/report/7">Active Tickets by Milestone</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/8">{8}</a></td>
+            <td class="title"><a title="View report" href="/report/8">Accepted, Active Tickets by Owner</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/9">{9}</a></td>
+            <td class="title"><a title="View report" href="/report/9">Accepted, Active Tickets by Owner (Full Description)</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/10">{10}</a></td>
+            <td class="title"><a title="View report" href="/report/10">All Tickets By Milestone  (Including closed)</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/11">{11}</a></td>
+            <td class="title"><a title="View report" href="/report/11">Ticket Work Summary</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/12">{12}</a></td>
+            <td class="title"><a title="View report" href="/report/12">Milestone Work Summary</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/13">{13}</a></td>
+            <td class="title"><a title="View report" href="/report/13">Developer Work Summary</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/14">{14}</a></td>
+            <td class="title"><a title="View report" href="/report/14">Ticket Hours</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/15">{15}</a></td>
+            <td class="title"><a title="View report" href="/report/15">Ticket Hours with Description</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/16">{16}</a></td>
+            <td class="title"><a title="View report" href="/report/16">Ticket Hours Grouped By Component</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/17">{17}</a></td>
+            <td class="title"><a title="View report" href="/report/17">Ticket Hours Grouped By Component with Description</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/18">{18}</a></td>
+            <td class="title"><a title="View report" href="/report/18">Ticket Hours Grouped By Milestone</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/19">{19}</a></td>
+            <td class="title"><a title="View report" href="/report/19">Ticket Hours Grouped By MileStone with Description</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/20">{20}</a></td>
+            <td class="title"><a title="View report" href="/report/20">Newbie tickets</a></td>
+          </tr><tr>
+            <td class="report"><a title="View report" href="/report/21">{21}</a></td>
+            <td class="title"><a title="View report" href="/report/21">Tichete cu componentă grafică</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <div id="help"><strong>Note:</strong>
+        See <a href="/wiki/TracReports">TracReports</a> for help on using and creating reports.</div>
+    </div>
+    <div id="altlinks">
+      <h3>Download in other formats:</h3>
+      <ul>
+        <li class="first">
+          <a rel="nofollow" href="/report?asc=1&amp;format=rss" class="rss">RSS Feed</a>
+        </li><li>
+          <a rel="nofollow" href="/report?asc=1&amp;format=csv">Comma-delimited Text</a>
+        </li><li class="last">
+          <a rel="nofollow" href="/report?asc=1&amp;format=tab">Tab-delimited Text</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+    <div id="footer" lang="en" xml:lang="en"><hr />
+      <a id="tracpowered" href="http://trac.edgewall.org/"><img src="/chrome/common/trac_logo_mini.png" height="30" width="107" alt="Trac Powered" /></a>
+      <p class="left">Powered by <a href="/about"><strong>Trac 0.12.3</strong></a><br />
+        By <a href="http://www.edgewall.org/">Edgewall Software</a>.</p>
+      <p class="right">Visit the Trac open source project at<br /><a href="http://trac.edgewall.org/">http://trac.edgewall.org/</a></p>
+    </div>
+  </body>
+</html>

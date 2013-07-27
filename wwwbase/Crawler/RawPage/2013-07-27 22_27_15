@@ -1,0 +1,446 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  
+
+  
+
+
+  <head>
+    <title>
+      WikiStart (history) – DEX online wiki and bugs
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="google-site-verification" content="vOnCZ8EgBld8SENaIUCnJnGllrsnByr6SLOTiqKJfCo" /><meta name="google-site-verification" content="IClwqyMHUm8azguoxpH6mVJ1W868TXERnnx9RHn4x1w" />
+    <!--[if IE]><script type="text/javascript">window.location.hash = window.location.hash;</script><![endif]-->
+        <link rel="search" href="/search" />
+        <link rel="help" href="/wiki/TracGuide" />
+        <link rel="start" href="/wiki" />
+        <link rel="stylesheet" href="/chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="/chrome/common/css/wiki.css" type="text/css" />
+        <link rel="shortcut icon" href="/chrome/common/trac.ico" type="image/x-icon" />
+        <link rel="icon" href="/chrome/common/trac.ico" type="image/x-icon" />
+      <link type="application/opensearchdescription+xml" rel="search" href="/search/opensearch" title="Search DEX online wiki and bugs" />
+    <script type="text/javascript" src="/chrome/common/js/jquery.js"></script><script type="text/javascript" src="/chrome/common/js/babel.js"></script><script type="text/javascript" src="/chrome/common/js/messages/en_US.js"></script><script type="text/javascript" src="/chrome/common/js/trac.js"></script><script type="text/javascript" src="/chrome/common/js/search.js"></script>
+    <!--[if lt IE 7]>
+    <script type="text/javascript" src="/chrome/common/js/ie_pre7_hacks.js"></script>
+    <![endif]-->
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+  </head>
+  <body>
+    <div id="banner">
+      <div id="header">
+        <a id="logo" href="http://wiki.dexonline.ro/"><img src="http://wiki.dexonline.ro/raw-attachment/wiki/WikiStart/logo-wiki.png" alt="(please configure the [header_logo] section in trac.ini)" /></a>
+      </div>
+      <form id="search" action="/search" method="get">
+        <div>
+          <label for="proj-search">Search:</label>
+          <input type="text" id="proj-search" name="q" size="18" value="" />
+          <input type="submit" value="Search" />
+        </div>
+      </form>
+      <div id="metanav" class="nav">
+    <ul>
+      <li class="first"><a href="/openidlogin">OpenID Login</a></li><li><a href="/login">Login</a></li><li><a href="/prefs">Preferences</a></li><li class="last"><a href="/wiki/TracGuide">Help/Guide</a></li>
+    </ul>
+  </div>
+    </div>
+    <div id="mainnav" class="nav">
+    <ul>
+      <li class="first active"><a href="/wiki">Wiki</a></li><li><a href="/timeline">Timeline</a></li><li><a href="/roadmap">Roadmap</a></li><li><a href="/browser">Browse Source</a></li><li><a href="/report">View Tickets</a></li><li class="last"><a href="/search">Search</a></li>
+    </ul>
+  </div>
+    <div id="main">
+      <div id="ctxtnav" class="nav">
+        <h2>Context Navigation</h2>
+          <ul>
+              <li class="last first"><a href="/wiki/WikiStart">Back to WikiStart</a></li>
+          </ul>
+        <hr />
+      </div>
+    <div id="content" class="ticket">
+      <h1>Change History for <a href="/wiki/WikiStart">WikiStart</a></h1>
+      <form class="printableform" method="get" action="">
+        <div class="buttons">
+          <input type="hidden" name="action" value="diff" />
+          <input type="submit" value="View changes" />
+        </div>
+        <table id="fieldhist" class="listing" summary="Change history">
+          <thead>
+            <tr>
+              <th class="diff"></th>
+              <th class="version">Version</th>
+              <th class="date">Date</th>
+              <th class="author">Author</th>
+              <th class="comment">Comment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="32" />
+                <input type="radio" name="version" value="32" checked="checked" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=32" title="View this version">32</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2013-05-10T16%3A43%3A53%2B03%3A00&amp;precision=second" title="2013-05-10T16:43:53+03:00 in Timeline">3 months</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="31" checked="checked" />
+                <input type="radio" name="version" value="31" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=31" title="View this version">31</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2012-11-05T14%3A33%3A50%2B02%3A00&amp;precision=second" title="2012-11-05T14:33:50+02:00 in Timeline">9 months</a></td>
+              <td class="author">radu</td>
+              <td class="comment"></td>
+            </tr><tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="30" />
+                <input type="radio" name="version" value="30" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=30" title="View this version">30</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2012-11-02T16%3A35%3A21%2B02%3A00&amp;precision=second" title="2012-11-02T16:35:21+02:00 in Timeline">9 months</a></td>
+              <td class="author">radu</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="29" />
+                <input type="radio" name="version" value="29" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=29" title="View this version">29</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2012-11-02T16%3A32%3A46%2B02%3A00&amp;precision=second" title="2012-11-02T16:32:46+02:00 in Timeline">9 months</a></td>
+              <td class="author">radu</td>
+              <td class="comment"></td>
+            </tr><tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="28" />
+                <input type="radio" name="version" value="28" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=28" title="View this version">28</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2012-08-07T18%3A47%3A52%2B03%3A00&amp;precision=second" title="2012-08-07T18:47:52+03:00 in Timeline">12 months</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="27" />
+                <input type="radio" name="version" value="27" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=27" title="View this version">27</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2012-05-18T02%3A00%3A15%2B03%3A00&amp;precision=second" title="2012-05-18T02:00:15+03:00 in Timeline">15 months</a></td>
+              <td class="author">radu</td>
+              <td class="comment"></td>
+            </tr><tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="26" />
+                <input type="radio" name="version" value="26" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=26" title="View this version">26</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2011-11-15T00%3A46%3A07%2B02%3A00&amp;precision=second" title="2011-11-15T00:46:07+02:00 in Timeline">21 months</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="25" />
+                <input type="radio" name="version" value="25" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=25" title="View this version">25</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2011-09-22T10%3A53%3A18%2B03%3A00&amp;precision=second" title="2011-09-22T10:53:18+03:00 in Timeline">22 months</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="24" />
+                <input type="radio" name="version" value="24" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=24" title="View this version">24</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2011-07-20T16%3A24%3A37%2B03%3A00&amp;precision=second" title="2011-07-20T16:24:37+03:00 in Timeline">2 years</a></td>
+              <td class="author">radu</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="23" />
+                <input type="radio" name="version" value="23" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=23" title="View this version">23</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2011-04-15T16%3A58%3A10%2B03%3A00&amp;precision=second" title="2011-04-15T16:58:10+03:00 in Timeline">2 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="22" />
+                <input type="radio" name="version" value="22" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=22" title="View this version">22</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-10-12T16%3A08%3A15%2B03%3A00&amp;precision=second" title="2010-10-12T16:08:15+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="21" />
+                <input type="radio" name="version" value="21" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=21" title="View this version">21</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-10-12T16%3A02%3A13%2B03%3A00&amp;precision=second" title="2010-10-12T16:02:13+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="20" />
+                <input type="radio" name="version" value="20" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=20" title="View this version">20</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-20T17%3A27%3A52%2B03%3A00&amp;precision=second" title="2010-09-20T17:27:52+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="19" />
+                <input type="radio" name="version" value="19" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=19" title="View this version">19</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-17T17%3A54%3A55%2B03%3A00&amp;precision=second" title="2010-09-17T17:54:55+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="18" />
+                <input type="radio" name="version" value="18" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=18" title="View this version">18</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-17T10%3A00%3A31%2B03%3A00&amp;precision=second" title="2010-09-17T10:00:31+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="17" />
+                <input type="radio" name="version" value="17" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=17" title="View this version">17</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-17T10%3A00%3A23%2B03%3A00&amp;precision=second" title="2010-09-17T10:00:23+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="16" />
+                <input type="radio" name="version" value="16" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=16" title="View this version">16</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-16T18%3A23%3A40%2B03%3A00&amp;precision=second" title="2010-09-16T18:23:40+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="15" />
+                <input type="radio" name="version" value="15" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=15" title="View this version">15</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-16T17%3A42%3A29%2B03%3A00&amp;precision=second" title="2010-09-16T17:42:29+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="14" />
+                <input type="radio" name="version" value="14" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=14" title="View this version">14</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-16T17%3A26%3A12%2B03%3A00&amp;precision=second" title="2010-09-16T17:26:12+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="13" />
+                <input type="radio" name="version" value="13" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=13" title="View this version">13</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-16T17%3A19%3A59%2B03%3A00&amp;precision=second" title="2010-09-16T17:19:59+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="12" />
+                <input type="radio" name="version" value="12" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=12" title="View this version">12</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-16T16%3A46%3A41%2B03%3A00&amp;precision=second" title="2010-09-16T16:46:41+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="11" />
+                <input type="radio" name="version" value="11" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=11" title="View this version">11</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-16T16%3A46%3A19%2B03%3A00&amp;precision=second" title="2010-09-16T16:46:19+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="10" />
+                <input type="radio" name="version" value="10" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=10" title="View this version">10</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-16T16%3A46%3A07%2B03%3A00&amp;precision=second" title="2010-09-16T16:46:07+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="9" />
+                <input type="radio" name="version" value="9" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=9" title="View this version">9</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-16T16%3A39%3A59%2B03%3A00&amp;precision=second" title="2010-09-16T16:39:59+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="8" />
+                <input type="radio" name="version" value="8" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=8" title="View this version">8</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-16T15%3A44%3A26%2B03%3A00&amp;precision=second" title="2010-09-16T15:44:26+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="7" />
+                <input type="radio" name="version" value="7" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=7" title="View this version">7</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-16T15%3A16%3A20%2B03%3A00&amp;precision=second" title="2010-09-16T15:16:20+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="6" />
+                <input type="radio" name="version" value="6" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=6" title="View this version">6</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-16T00%3A21%3A28%2B03%3A00&amp;precision=second" title="2010-09-16T00:21:28+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="5" />
+                <input type="radio" name="version" value="5" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=5" title="View this version">5</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-16T00%3A18%3A24%2B03%3A00&amp;precision=second" title="2010-09-16T00:18:24+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="4" />
+                <input type="radio" name="version" value="4" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=4" title="View this version">4</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-16T00%3A17%3A25%2B03%3A00&amp;precision=second" title="2010-09-16T00:17:25+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="3" />
+                <input type="radio" name="version" value="3" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=3" title="View this version">3</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-16T00%3A13%3A45%2B03%3A00&amp;precision=second" title="2010-09-16T00:13:45+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="even">
+              <td class="diff">
+                <input type="radio" name="old_version" value="2" />
+                <input type="radio" name="version" value="2" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=2" title="View this version">2</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-09-15T19%3A43%3A37%2B03%3A00&amp;precision=second" title="2010-09-15T19:43:37+03:00 in Timeline">3 years</a></td>
+              <td class="author">cata</td>
+              <td class="comment"></td>
+            </tr><tr class="odd">
+              <td class="diff">
+                <input type="radio" name="old_version" value="1" />
+                <input type="radio" name="version" value="1" />
+              </td>
+              <td class="version">
+                <a href="/wiki/WikiStart?version=1" title="View this version">1</a>
+              </td>
+              <td class="date"><a class="timeline" href="/timeline?from=2010-01-28T19%3A26%3A54%2B02%3A00&amp;precision=second" title="2010-01-28T19:26:54+02:00 in Timeline">3 years</a></td>
+              <td class="author">trac</td>
+              <td class="comment"></td>
+            </tr>
+          </tbody>
+        </table>
+          <div class="buttons">
+            <input type="submit" value="View changes" />
+          </div>
+      </form>
+    </div>
+    </div>
+    <div id="footer" lang="en" xml:lang="en"><hr />
+      <a id="tracpowered" href="http://trac.edgewall.org/"><img src="/chrome/common/trac_logo_mini.png" height="30" width="107" alt="Trac Powered" /></a>
+      <p class="left">Powered by <a href="/about"><strong>Trac 0.12.3</strong></a><br />
+        By <a href="http://www.edgewall.org/">Edgewall Software</a>.</p>
+      <p class="right">Visit the Trac open source project at<br /><a href="http://trac.edgewall.org/">http://trac.edgewall.org/</a></p>
+    </div>
+  </body>
+</html>

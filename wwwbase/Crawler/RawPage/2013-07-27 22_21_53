@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  
+  
+
+  
+
+
+
+  <head>
+    <title>
+      Preferences: General – DEX online wiki and bugs
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="google-site-verification" content="vOnCZ8EgBld8SENaIUCnJnGllrsnByr6SLOTiqKJfCo" /><meta name="google-site-verification" content="IClwqyMHUm8azguoxpH6mVJ1W868TXERnnx9RHn4x1w" />
+    <!--[if IE]><script type="text/javascript">window.location.hash = window.location.hash;</script><![endif]-->
+        <link rel="search" href="/search" />
+        <link rel="help" href="/wiki/TracGuide" />
+        <link rel="start" href="/wiki" />
+        <link rel="stylesheet" href="/chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="/chrome/common/css/prefs.css" type="text/css" />
+        <link rel="shortcut icon" href="/chrome/common/trac.ico" type="image/x-icon" />
+        <link rel="icon" href="/chrome/common/trac.ico" type="image/x-icon" />
+      <link type="application/opensearchdescription+xml" rel="search" href="/search/opensearch" title="Search DEX online wiki and bugs" />
+    <script type="text/javascript" src="/chrome/common/js/jquery.js"></script><script type="text/javascript" src="/chrome/common/js/babel.js"></script><script type="text/javascript" src="/chrome/common/js/messages/en_US.js"></script><script type="text/javascript" src="/chrome/common/js/trac.js"></script><script type="text/javascript" src="/chrome/common/js/search.js"></script>
+    <!--[if lt IE 7]>
+    <script type="text/javascript" src="/chrome/common/js/ie_pre7_hacks.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="banner">
+      <div id="header">
+        <a id="logo" href="http://wiki.dexonline.ro/"><img src="http://wiki.dexonline.ro/raw-attachment/wiki/WikiStart/logo-wiki.png" alt="(please configure the [header_logo] section in trac.ini)" /></a>
+      </div>
+      <form id="search" action="/search" method="get">
+        <div>
+          <label for="proj-search">Search:</label>
+          <input type="text" id="proj-search" name="q" size="18" value="" />
+          <input type="submit" value="Search" />
+        </div>
+      </form>
+      <div id="metanav" class="nav">
+    <ul>
+      <li class="first"><a href="/openidlogin">OpenID Login</a></li><li><a href="/login">Login</a></li><li class="active"><a href="/prefs">Preferences</a></li><li class="last"><a href="/wiki/TracGuide">Help/Guide</a></li>
+    </ul>
+  </div>
+    </div>
+    <div id="mainnav" class="nav">
+    <ul>
+      <li class="first"><a href="/wiki">Wiki</a></li><li><a href="/timeline">Timeline</a></li><li><a href="/roadmap">Roadmap</a></li><li><a href="/browser">Browse Source</a></li><li><a href="/report">View Tickets</a></li><li class="last"><a href="/search">Search</a></li>
+    </ul>
+  </div>
+    <div id="main">
+      <div id="ctxtnav" class="nav">
+        <h2>Context Navigation</h2>
+        <hr />
+      </div>
+    <div id="content" class="prefs">
+      <h1>Preferences</h1>
+      <p>This page lets you customize your personal settings for this site.
+      These settings are stored on the server and are identified by a session
+      key stored in a browser cookie. That cookie allows your settings to be
+      restored on subsequent visits.</p>
+      <ul id="tabs">
+        <li class="active">
+          General
+        </li><li id="tab_advanced">
+          <a href="/prefs/advanced">Advanced</a>
+        </li><li id="tab_datetime">
+          <a href="/prefs/datetime">Date &amp; Time</a>
+        </li><li id="tab_keybindings">
+          <a href="/prefs/keybindings">Keyboard Shortcuts</a>
+        </li><li id="tab_language">
+          <a href="/prefs/language">Language</a>
+        </li>
+      </ul>
+      <div id="tabcontent">
+        <form id="userprefs" action="" method="post"><div><input type="hidden" name="__FORM_TOKEN" value="6065b402d7fbcccac840e03d" /></div>
+    <table>
+      <tr class="field">
+        <th><label for="name">Full name:</label></th>
+        <td><input type="text" id="name" name="name" size="30" /></td>
+      </tr>
+      <tr class="field">
+        <th><label for="email">Email address:</label></th>
+        <td><input type="text" id="email" name="email" size="30" /></td>
+      </tr>
+    </table>
+    <p class="hint">
+        This information is used to automatically populate some forms
+        on this site with your contact details.
+    </p>
+          <div class="buttons">
+            <input type="hidden" name="action" value="save" />
+            <input type="submit" value="Save changes" />
+          </div>
+        </form>
+      </div>
+    </div>
+    </div>
+    <div id="footer" lang="en" xml:lang="en"><hr />
+      <a id="tracpowered" href="http://trac.edgewall.org/"><img src="/chrome/common/trac_logo_mini.png" height="30" width="107" alt="Trac Powered" /></a>
+      <p class="left">Powered by <a href="/about"><strong>Trac 0.12.3</strong></a><br />
+        By <a href="http://www.edgewall.org/">Edgewall Software</a>.</p>
+      <p class="right">Visit the Trac open source project at<br /><a href="http://trac.edgewall.org/">http://trac.edgewall.org/</a></p>
+    </div>
+  </body>
+</html>

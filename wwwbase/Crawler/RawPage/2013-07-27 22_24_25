@@ -1,0 +1,397 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  
+
+  
+
+
+  <head>
+    <title>
+      /
+     – DEX online wiki and bugs
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="google-site-verification" content="vOnCZ8EgBld8SENaIUCnJnGllrsnByr6SLOTiqKJfCo" /><meta name="google-site-verification" content="IClwqyMHUm8azguoxpH6mVJ1W868TXERnnx9RHn4x1w" />
+    <!--[if IE]><script type="text/javascript">window.location.hash = window.location.hash;</script><![endif]-->
+        <link rel="search" href="/search" />
+        <link rel="help" href="/wiki/TracGuide" />
+        <link rel="start" href="/wiki" />
+        <link rel="stylesheet" href="/chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="/chrome/common/css/browser.css" type="text/css" />
+        <link rel="shortcut icon" href="/chrome/common/trac.ico" type="image/x-icon" />
+        <link rel="icon" href="/chrome/common/trac.ico" type="image/x-icon" />
+      <link type="application/opensearchdescription+xml" rel="search" href="/search/opensearch" title="Search DEX online wiki and bugs" />
+    <script type="text/javascript" src="/chrome/common/js/jquery.js"></script><script type="text/javascript" src="/chrome/common/js/babel.js"></script><script type="text/javascript" src="/chrome/common/js/messages/en_US.js"></script><script type="text/javascript" src="/chrome/common/js/trac.js"></script><script type="text/javascript" src="/chrome/common/js/search.js"></script><script type="text/javascript" src="/chrome/common/js/expand_dir.js"></script><script type="text/javascript" src="/chrome/common/js/keyboard_nav.js"></script>
+    <!--[if lt IE 7]>
+    <script type="text/javascript" src="/chrome/common/js/ie_pre7_hacks.js"></script>
+    <![endif]-->
+    <meta name="ROBOTS" content="NOINDEX" />
+    <script type="text/javascript" src="/chrome/common/js/folding.js"></script>
+    <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        $(".trac-toggledeleted").show().click(function() {
+                  $(this).siblings().find(".trac-deleted").toggle();
+                  return false;
+        }).click();
+        $("#jumploc input").hide();
+        $("#jumploc select").change(function () {
+          this.parentNode.parentNode.submit();
+        });
+          /* browsers using old WebKits have issues with expandDir... */
+          var webkit_rev = /AppleWebKit\/(\d+)/.exec(navigator.userAgent);
+          if ( !webkit_rev || (521 - webkit_rev[1]).toString()[0] == "-" )
+            enableExpandDir(null, $("table.dirlist tr"), {
+                action: 'inplace',
+                range_min_secs: '63360301969',
+                range_max_secs: '63510549880'
+            });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="banner">
+      <div id="header">
+        <a id="logo" href="http://wiki.dexonline.ro/"><img src="http://wiki.dexonline.ro/raw-attachment/wiki/WikiStart/logo-wiki.png" alt="(please configure the [header_logo] section in trac.ini)" /></a>
+      </div>
+      <form id="search" action="/search" method="get">
+        <div>
+          <label for="proj-search">Search:</label>
+          <input type="text" id="proj-search" name="q" size="18" value="" />
+          <input type="submit" value="Search" />
+        </div>
+      </form>
+      <div id="metanav" class="nav">
+    <ul>
+      <li class="first"><a href="/openidlogin">OpenID Login</a></li><li><a href="/login">Login</a></li><li><a href="/prefs">Preferences</a></li><li class="last"><a href="/wiki/TracGuide">Help/Guide</a></li>
+    </ul>
+  </div>
+    </div>
+    <div id="mainnav" class="nav">
+    <ul>
+      <li class="first"><a href="/wiki">Wiki</a></li><li><a href="/timeline">Timeline</a></li><li><a href="/roadmap">Roadmap</a></li><li class="active"><a href="/browser">Browse Source</a></li><li><a href="/report">View Tickets</a></li><li class="last"><a href="/search">Search</a></li>
+    </ul>
+  </div>
+    <div id="main">
+      <div id="ctxtnav" class="nav">
+        <h2>Context Navigation</h2>
+          <ul>
+              <li class="first"><a href="/changeset/913/">Last Change</a></li><li class="last"><a href="/log/">Revision Log</a></li>
+          </ul>
+        <hr />
+      </div>
+    <div id="content" class="browser">
+          <h1>
+<a class="pathentry first" href="/browser?order=name" title="Go to repository root">source:</a>
+<span class="pathentry sep">@</span>
+  <a class="pathentry" href="/changeset/913" title="View changeset 913">913</a>
+<br style="clear: both" />
+</h1>
+        <div id="jumprev">
+          <form action="" method="get">
+            <div>
+              <label for="rev">
+                View revision:</label>
+              <input type="text" id="rev" name="rev" size="6" />
+            </div>
+          </form>
+        </div>
+        <table class="listing dirlist" id="dirlist">
+          
+  <thead>
+    <tr>
+      
+  <th class="name asc">
+    <a title="Sort by name (descending)" href="/browser/?desc=1">Name</a>
+  </th>
+
+      
+  <th class="size">
+    <a title="Sort by size (ascending)" href="/browser/?order=size">Size</a>
+  </th>
+
+      <th class="rev">Rev</th>
+      
+  <th class="date">
+    <a title="Sort by date (ascending)" href="/browser/?order=date">Age</a>
+  </th>
+
+      
+  <th class="author">
+    <a title="Sort by author (ascending)" href="/browser/?order=author">Author</a>
+  </th>
+
+      <th class="change">Last Change</th>
+    </tr>
+  </thead>
+
+          <tbody>
+            
+      <tr class="odd">
+        <td class="name">
+          <a class="dir" title="View Directory" href="/browser/docs">docs</a>
+        </td>
+        <td class="size">
+          <span title="None bytes"></span>
+        </td>
+        <td class="rev">
+          <a title="View Revision Log" href="/log/docs?rev=913">907</a>
+          <a title="View Changeset" class="chgset" href="/changeset/907"> </a>
+        </td>
+        <td class="age" style="border-color: rgb(254,136,136)">
+          <a class="timeline" href="/timeline?from=2013-07-15T12%3A22%3A44%2B03%3A00&amp;precision=second" title="2013-07-15T12:22:44+03:00 in Timeline">12 days</a>
+        </td>
+        <td class="author">cata</td>
+        <td class="change">
+            * add RSS autodiscovery link
+* change RSS types from text/xml to …
+        </td>
+      </tr>
+      <tr class="even">
+        <td class="name">
+          <a class="dir" title="View Directory" href="/browser/log">log</a>
+        </td>
+        <td class="size">
+          <span title="None bytes"></span>
+        </td>
+        <td class="rev">
+          <a title="View Revision Log" href="/log/log?rev=913">913</a>
+          <a title="View Changeset" class="chgset" href="/changeset/913"> </a>
+        </td>
+        <td class="age" style="border-color: rgb(254,136,136)">
+          <a class="timeline" href="/timeline?from=2013-07-25T17%3A05%3A21%2B03%3A00&amp;precision=second" title="2013-07-25T17:05:21+03:00 in Timeline">2 days</a>
+        </td>
+        <td class="author">grigoroiualex</td>
+        <td class="change">
+            Renamed definitionImages to visual as to evoid inconsistency
+        </td>
+      </tr>
+      <tr class="odd">
+        <td class="name">
+          <a class="dir" title="View Directory" href="/browser/patches">patches</a>
+        </td>
+        <td class="size">
+          <span title="None bytes"></span>
+        </td>
+        <td class="rev">
+          <a title="View Revision Log" href="/log/patches?rev=913">912</a>
+          <a title="View Changeset" class="chgset" href="/changeset/912"> </a>
+        </td>
+        <td class="age" style="border-color: rgb(254,136,136)">
+          <a class="timeline" href="/timeline?from=2013-07-25T14%3A47%3A04%2B03%3A00&amp;precision=second" title="2013-07-25T14:47:04+03:00 in Timeline">2 days</a>
+        </td>
+        <td class="author">grigoroiualex</td>
+        <td class="change">
+            Fully functional elFinder file manager for Visual Dictionary. TODO: add …
+        </td>
+      </tr>
+      <tr class="even">
+        <td class="name">
+          <a class="dir" title="View Directory" href="/browser/phplib">phplib</a>
+        </td>
+        <td class="size">
+          <span title="None bytes"></span>
+        </td>
+        <td class="rev">
+          <a title="View Revision Log" href="/log/phplib?rev=913">912</a>
+          <a title="View Changeset" class="chgset" href="/changeset/912"> </a>
+        </td>
+        <td class="age" style="border-color: rgb(254,136,136)">
+          <a class="timeline" href="/timeline?from=2013-07-25T14%3A47%3A04%2B03%3A00&amp;precision=second" title="2013-07-25T14:47:04+03:00 in Timeline">2 days</a>
+        </td>
+        <td class="author">grigoroiualex</td>
+        <td class="change">
+            Fully functional elFinder file manager for Visual Dictionary. TODO: add …
+        </td>
+      </tr>
+      <tr class="odd">
+        <td class="name">
+          <a class="dir" title="View Directory" href="/browser/templates">templates</a>
+        </td>
+        <td class="size">
+          <span title="None bytes"></span>
+        </td>
+        <td class="rev">
+          <a title="View Revision Log" href="/log/templates?rev=913">913</a>
+          <a title="View Changeset" class="chgset" href="/changeset/913"> </a>
+        </td>
+        <td class="age" style="border-color: rgb(254,136,136)">
+          <a class="timeline" href="/timeline?from=2013-07-25T17%3A05%3A21%2B03%3A00&amp;precision=second" title="2013-07-25T17:05:21+03:00 in Timeline">2 days</a>
+        </td>
+        <td class="author">grigoroiualex</td>
+        <td class="change">
+            Renamed definitionImages to visual as to evoid inconsistency
+        </td>
+      </tr>
+      <tr class="even">
+        <td class="name">
+          <a class="dir" title="View Directory" href="/browser/templates_c">templates_c</a>
+        </td>
+        <td class="size">
+          <span title="None bytes"></span>
+        </td>
+        <td class="rev">
+          <a title="View Revision Log" href="/log/templates_c?rev=913">509</a>
+          <a title="View Changeset" class="chgset" href="/changeset/509"> </a>
+        </td>
+        <td class="age" style="border-color: rgb(208,136,182)">
+          <a class="timeline" href="/timeline?from=2011-09-24T16%3A57%3A57%2B03%3A00&amp;precision=second" title="2011-09-24T16:57:57+03:00 in Timeline">22 months</a>
+        </td>
+        <td class="author">alexm</td>
+        <td class="change">
+            .gitignore files
+        </td>
+      </tr>
+      <tr class="odd">
+        <td class="name">
+          <a class="dir" title="View Directory" href="/browser/tools">tools</a>
+        </td>
+        <td class="size">
+          <span title="None bytes"></span>
+        </td>
+        <td class="rev">
+          <a title="View Revision Log" href="/log/tools?rev=913">912</a>
+          <a title="View Changeset" class="chgset" href="/changeset/912"> </a>
+        </td>
+        <td class="age" style="border-color: rgb(254,136,136)">
+          <a class="timeline" href="/timeline?from=2013-07-25T14%3A47%3A04%2B03%3A00&amp;precision=second" title="2013-07-25T14:47:04+03:00 in Timeline">2 days</a>
+        </td>
+        <td class="author">grigoroiualex</td>
+        <td class="change">
+            Fully functional elFinder file manager for Visual Dictionary. TODO: add …
+        </td>
+      </tr>
+      <tr class="even">
+        <td class="name">
+          <a class="dir" title="View Directory" href="/browser/wwwbase">wwwbase</a>
+        </td>
+        <td class="size">
+          <span title="None bytes"></span>
+        </td>
+        <td class="rev">
+          <a title="View Revision Log" href="/log/wwwbase?rev=913">913</a>
+          <a title="View Changeset" class="chgset" href="/changeset/913"> </a>
+        </td>
+        <td class="age" style="border-color: rgb(254,136,136)">
+          <a class="timeline" href="/timeline?from=2013-07-25T17%3A05%3A21%2B03%3A00&amp;precision=second" title="2013-07-25T17:05:21+03:00 in Timeline">2 days</a>
+        </td>
+        <td class="author">grigoroiualex</td>
+        <td class="change">
+            Renamed definitionImages to visual as to evoid inconsistency
+        </td>
+      </tr>
+      <tr class="odd">
+        <td class="name">
+          <a class="file" title="View File" href="/browser/.gitignore">.gitignore</a>
+        </td>
+        <td class="size">
+          <span title="61 bytes">61 bytes</span>
+        </td>
+        <td class="rev">
+          <a title="View Revision Log" href="/log/.gitignore?rev=913">568</a>
+          <a title="View Changeset" class="chgset" href="/changeset/568"> </a>
+        </td>
+        <td class="age" style="border-color: rgb(211,136,179)">
+          <a class="timeline" href="/timeline?from=2011-10-29T18%3A57%3A29%2B03%3A00&amp;precision=second" title="2011-10-29T18:57:29+03:00 in Timeline">21 months</a>
+        </td>
+        <td class="author">alexm</td>
+        <td class="change">
+            Functional tests with fake browser (python!)
+        </td>
+      </tr>
+      <tr class="even">
+        <td class="name">
+          <a class="file" title="View File" href="/browser/.htaccess">.htaccess</a>
+        </td>
+        <td class="size">
+          <span title="31 bytes">31 bytes</span>
+        </td>
+        <td class="rev">
+          <a title="View Revision Log" href="/log/.htaccess?rev=913">1</a>
+          <a title="View Changeset" class="chgset" href="/changeset/1"> </a>
+        </td>
+        <td class="age" style="border-color: rgb(136,136,255)">
+          <a class="timeline" href="/timeline?from=2008-10-22T22%3A52%3A49%2B03%3A00&amp;precision=second" title="2008-10-22T22:52:49+03:00 in Timeline">5 years</a>
+        </td>
+        <td class="author">root</td>
+        <td class="change">
+            migrate DEX from CVS to SVN
+        </td>
+      </tr>
+      <tr class="odd">
+        <td class="name">
+          <a class="file" title="View File" href="/browser/dex.conf.sample">dex.conf.sample</a>
+        </td>
+        <td class="size">
+          <span title="3587 bytes">3.5 KB</span>
+        </td>
+        <td class="rev">
+          <a title="View Revision Log" href="/log/dex.conf.sample?rev=913">895</a>
+          <a title="View Changeset" class="chgset" href="/changeset/895"> </a>
+        </td>
+        <td class="age" style="border-color: rgb(253,136,137)">
+          <a class="timeline" href="/timeline?from=2013-07-06T12%3A36%3A56%2B03%3A00&amp;precision=second" title="2013-07-06T12:36:56+03:00 in Timeline">3 weeks</a>
+        </td>
+        <td class="author">cata</td>
+        <td class="change">
+            remove extra semicolon
+        </td>
+      </tr>
+      <tr class="even">
+        <td class="name">
+          <a class="file" title="View File" href="/browser/LICENSE">LICENSE</a>
+        </td>
+        <td class="size">
+          <span title="746 bytes">746 bytes</span>
+        </td>
+        <td class="rev">
+          <a title="View Revision Log" href="/log/LICENSE?rev=913">778</a>
+          <a title="View Changeset" class="chgset" href="/changeset/778"> </a>
+        </td>
+        <td class="age" style="border-color: rgb(237,136,153)">
+          <a class="timeline" href="/timeline?from=2012-11-09T18%3A45%3A02%2B02%3A00&amp;precision=second" title="2012-11-09T18:45:02+02:00 in Timeline">9 months</a>
+        </td>
+        <td class="author">cata</td>
+        <td class="change">
+            Change license from GPL to AGPL.
+        </td>
+      </tr>
+
+          </tbody>
+        </table>
+      <table id="info" summary="Revision info">
+        <tr>
+          <td colspan="2">
+            <ul class="props">
+              <li>
+                  Property <strong>svn:ignore</strong> set to
+                  <br />dex.conf<br />
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+      <div class="description">
+      </div>
+      <div id="help"><strong>Note:</strong> See <a href="/wiki/TracBrowser">TracBrowser</a>
+        for help on using the repository browser.</div>
+      <div id="anydiff">
+        <form action="/diff" method="get">
+          <div class="buttons">
+            <input type="hidden" name="new_path" value="/" />
+            <input type="hidden" name="old_path" value="/" />
+            <input type="hidden" name="new_rev" />
+            <input type="hidden" name="old_rev" />
+            <input type="submit" value="View changes..." title="Select paths and revs for Diff" />
+          </div>
+        </form>
+      </div>
+    </div>
+    </div>
+    <div id="footer" lang="en" xml:lang="en"><hr />
+      <a id="tracpowered" href="http://trac.edgewall.org/"><img src="/chrome/common/trac_logo_mini.png" height="30" width="107" alt="Trac Powered" /></a>
+      <p class="left">Powered by <a href="/about"><strong>Trac 0.12.3</strong></a><br />
+        By <a href="http://www.edgewall.org/">Edgewall Software</a>.</p>
+      <p class="right">Visit the Trac open source project at<br /><a href="http://trac.edgewall.org/">http://trac.edgewall.org/</a></p>
+    </div>
+  </body>
+</html>

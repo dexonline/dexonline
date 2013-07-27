@@ -1,0 +1,394 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  
+
+  
+
+
+  <head>
+    <title>
+      Despărțirea_în_silabe – DEX online wiki and bugs
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="google-site-verification" content="vOnCZ8EgBld8SENaIUCnJnGllrsnByr6SLOTiqKJfCo" /><meta name="google-site-verification" content="IClwqyMHUm8azguoxpH6mVJ1W868TXERnnx9RHn4x1w" />
+    <!--[if IE]><script type="text/javascript">window.location.hash = window.location.hash;</script><![endif]-->
+        <link rel="search" href="/search" />
+        <link rel="help" href="/wiki/TracGuide" />
+        <link rel="alternate" href="/wiki/Desp%C4%83r%C8%9Birea_%C3%AEn_silabe?format=txt" type="text/x-trac-wiki" title="Plain Text" />
+        <link rel="start" href="/wiki" />
+        <link rel="stylesheet" href="/chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="/chrome/common/css/wiki.css" type="text/css" />
+        <link rel="shortcut icon" href="/chrome/common/trac.ico" type="image/x-icon" />
+        <link rel="icon" href="/chrome/common/trac.ico" type="image/x-icon" />
+      <link type="application/opensearchdescription+xml" rel="search" href="/search/opensearch" title="Search DEX online wiki and bugs" />
+    <script type="text/javascript" src="/chrome/common/js/jquery.js"></script><script type="text/javascript" src="/chrome/common/js/babel.js"></script><script type="text/javascript" src="/chrome/common/js/messages/en_US.js"></script><script type="text/javascript" src="/chrome/common/js/trac.js"></script><script type="text/javascript" src="/chrome/common/js/search.js"></script><script type="text/javascript" src="/chrome/common/js/folding.js"></script>
+    <!--[if lt IE 7]>
+    <script type="text/javascript" src="/chrome/common/js/ie_pre7_hacks.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        $("#content").find("h1,h2,h3,h4,h5,h6").addAnchor(_("Link to this section"));
+        $("#content").find(".wikianchor").each(function() {
+          $(this).addAnchor(babel.format(_("Link to #%(id)s"), {id: $(this).attr('id')}));
+        });
+        $(".foldable").enableFolding(true, true);
+      });
+    </script>
+  </head>
+  <body>
+    <div id="banner">
+      <div id="header">
+        <a id="logo" href="http://wiki.dexonline.ro/"><img src="http://wiki.dexonline.ro/raw-attachment/wiki/WikiStart/logo-wiki.png" alt="(please configure the [header_logo] section in trac.ini)" /></a>
+      </div>
+      <form id="search" action="/search" method="get">
+        <div>
+          <label for="proj-search">Search:</label>
+          <input type="text" id="proj-search" name="q" size="18" value="" />
+          <input type="submit" value="Search" />
+        </div>
+      </form>
+      <div id="metanav" class="nav">
+    <ul>
+      <li class="first"><a href="/openidlogin">OpenID Login</a></li><li><a href="/login">Login</a></li><li><a href="/prefs">Preferences</a></li><li class="last"><a href="/wiki/TracGuide">Help/Guide</a></li>
+    </ul>
+  </div>
+    </div>
+    <div id="mainnav" class="nav">
+    <ul>
+      <li class="first active"><a href="/wiki">Wiki</a></li><li><a href="/timeline">Timeline</a></li><li><a href="/roadmap">Roadmap</a></li><li><a href="/browser">Browse Source</a></li><li><a href="/report">View Tickets</a></li><li class="last"><a href="/search">Search</a></li>
+    </ul>
+  </div>
+    <div id="main">
+      <div id="pagepath" class="noprint">
+  <a class="pathentry first" title="View WikiStart" href="/wiki">wiki:</a><a class="pathentry" href="/wiki/Desp%C4%83r%C8%9Birea_%C3%AEn_silabe" title="View Despărțirea_în_silabe">Despărțirea_în_silabe</a>
+</div>
+      <div id="ctxtnav" class="nav">
+        <h2>Context Navigation</h2>
+          <ul>
+              <li class="first"><a href="/wiki/WikiStart">Start Page</a></li><li><a href="/wiki/TitleIndex">Index</a></li><li class="last"><a href="/wiki/Desp%C4%83r%C8%9Birea_%C3%AEn_silabe?action=history">History</a></li>
+          </ul>
+        <hr />
+      </div>
+    <div id="content" class="wiki">
+      <div class="wikipage searchable">
+        
+          
+          <div class="trac-modifiedby">
+            <span><a href="/wiki/Desp%C4%83r%C8%9Birea_%C3%AEn_silabe?action=diff&amp;version=5" title="Version 5 by matei-gall.myopenid.com">Last modified</a> <a class="timeline" href="/timeline?from=2010-09-27T18%3A47%3A19%2B03%3A00&amp;precision=second" title="2010-09-27T18:47:19+03:00 in Timeline">3 years</a> ago</span>
+            <span class="trac-print">Last modified on 09/27/10 18:47:19</span>
+          </div>
+          <div id="wikipage"><h1 id="Despărțireaînsilabe">Despărțirea în silabe</h1>
+<p>
+Despărțirea în silabe a unor cuvinte se face, în scris, cu ajutorul cratimei (-) și poate avea unul din următoarele scopuri:
+</p>
+<ul><li>să indice rostirea sacadată: <em>Mă-ga-ru-le! </em>;
+</li><li>să indice, în cazul poeziei, metrica versului;
+</li><li>să ajute despărțirea la capăt de rând.
+</li></ul><h2 id="a1.Despărțirealacapătderând">1. Despărțirea la capăt de rând</h2>
+<p>
+ 
+Scopul principal al despărțirii la capăt de rând este de a face economie de spațiu.
+Nu se aplică despărțirea la capăt de rând dacă este neeconomică, și dacă duce la dificultăți de înțelegere sau este neelegantă.
+Despărțirea în scris a cuvintelor la capăt de rând se marchează prin cratimă, care se scrie numai după secvența de la sfârșitul primului rând.
+Sunt posibile două modalități de despărțire a cuvintelor la capăt de rând:
+</p>
+<ul><li>după pronunțare: <em>bi-no-clu</em>;
+</li><li>după structură (la limita elementelor de compunere ale unui cuvânt): <em>bin-o-clu</em>.
+</li></ul><p>
+Normele actuale prevăd despărțirea după <strong>pronunțare</strong>, dar este acceptată și despărțirea după <strong>structură</strong>.
+</p>
+<p>
+<strong>Regulă generală</strong> (valabilă pentru ambele modalități): <em>Nu se lasă la sfârșit sau la început de rând o secvență care nu este silabă.</em>
+</p>
+<p>
+<strong>Excepție</strong>: grupurile ortografice scrise cu cratimă (<em>dintr-|un, într-|însa</em>), la care se recomandă însă, pe cât posibil, evitarea despărțirii.
+</p>
+<p>
+Nu se despart la capăt de rând: 
+</p>
+<ul><li>cuvintele monosilabice (cele care conțin fie o singură vocală, fie un singur diftong sau triftong).
+</li><li>secvențele inițiale și finale constituite dintr-un singur sunet, redat prin:
+<ul><li>o consoană + <strong>-i</strong> „șoptit” (nu: <em>lu-pi</em>);
+</li><li>o vocală (nu: <em>a-er, u-riaș, caca-o, vu-i</em>)
+</li><li>grupurile ortografice scrise cu cratimă (nu: <em>s-|a, i-|o, las-|o, mi-|i</em>).
+</li></ul></li></ul><h2 id="a2.Despărțireadupăpronunțare">2. Despărțirea după pronunțare</h2>
+<p>
+În conformitate cu DOOM<sup>2</sup><sup class="footnote"><a href="#FootNote1" id="FootNoteRef1" title="Dicționarul ortografic, ortoepic și de ...">1</a></sup>, acest mod de a despărți cuvintele este cel recomandat. 
+</p>
+<p>
+Regulile despărțirii în scris după pronunțare se referă la litere, dar privesc pronunțarea cuvintelor în tempo lent și au drept criterii valorile literelor în scrierea limbii române și poziția lor în diverse succesiuni. 
+</p>
+<p>
+Despărțirea după pronunțare nu duce totdeauna la silabe propriu-zise, „fonetice”, și se face după reguli dintre care unele sunt mai mult sau mai puțin convenționale. 
+</p>
+<p>
+În limba română se face distincție, pe de o parte, între litere-vocale și litere-consoane – prin care înțelegem semnele grafice care notează, cu precădere, sunete-vocale, respectiv sunete-consoane – și, pe de altă parte, între vocale propriu-zise și semivocale -care sunt sunete cu un comportament diferit, notate cu ajutorul unor litere-vocale (și, în unele împrumuturi, chiar cu litere-consoane: <strong>w</strong>) – , precum și de situațiile în care anumite litere nu notează niciun sunet, ci servesc numai ca semne grafice. 
+</p>
+<h2 id="a3.Despărțireadupăstructură">3. Despărțirea după structură</h2>
+<p>
+În conformitate cu DOOM<sup>2</sup><sup class="footnote"><a href="#FootNote2" id="FootNoteRef2" title="Dicționarul ortografic, ortoepic și de ...">2</a></sup>, despărțirea după structură este acceptată, însă numai cu anumite modificări față de DOOM<sup>1</sup><sup class="footnote"><a href="#FootNote3" id="FootNoteRef3" title="Dicționarul ortografic, ortoepic și de ...">3</a></sup>.
+</p>
+<p>
+Despărțirea  după structură este acceptată atunci când capătul rândului coincide cu limita dintre componentele cuvintelor „formate”. Ea coincide, în multe cazuri, cu despărțirea  după pronunțare. Elementelor componente ale cuvintelor formate li se poate aplica, dacă este necesar, despărțirea  după pronunțare.
+</p>
+<p>
+Despărțirea  după structură <strong>nu se folosește</strong> pentru a indica rostirea silabisită.
+</p>
+<p>
+Se pot despărți și după structură cuvintele (semi)analizabile (formate în limba română sau împrumutate):
+</p>
+<ul><li>compuse: <em>arterios-cleroză/arterio|scleroză, al-tundeva/alt|undeva, des-pre/ de|spre, drep-tunghi/drept|unghi, por-tavion/port|avion, Pronos-port/prono|sport, Romar-ta/Rom|arta</em>; Compusele care păstrează grafii străine sunt supuse numai despărțirii după structură din limba de origine: <em>back-hand</em>.
+</li><li>derivate cu prefixe: <em>anor-ganic/an|organic, de-zechilibru/dez|echilibru, ine-gal/ in|egal, nes-prijinit/ne|sprijinit, nes-tabil/ne|stabil, nes-trămutat/ne|strămutat pros-cenium/pro|scenium, su-blinia/su|linia</em>; Nu se despart prefixele care s-au redus la o singură consoană: <em>ra-lia, spul-bera</em>.
+</li><li>dintre derivatele cu sufixe, numai cele formate cu sufixe care încep cu o consoană de la teme terminate în grupuri de consoane: <em>sa-vant-lâc, stâlp-nic, vârst-nic, za-vist-nic</em>.
+</li></ul><p>
+La unele dintre aceste cuvinte, despărțirea  după structură coincide cu despărțirea  după pronunțare, facilitând-o.
+</p>
+<p>
+Normele actuale nu mai admit despărțirile după structură care ar conduce la secvențe care nu sunt silabe (ca în <em>într|ajutorare, nevr|algic</em>) sau ar contraveni pronunțării, ca în <em>apendic|ectomie</em> [apendičectomie], <em>laring|ectomie</em> [larinğectomie].
+</p>
+<p>
+În compuse și în derivatele cu prefixe în care ultimul sunet al primului element și primul sunet al elementului următor se confundă într-o singură literă, în despărțirea  după structură se acordă prioritate ultimului element sau rădăcinii: <em>om|organic, top|onomastică</em>.
+</p>
+<p>
+Pentru cuvintele a căror structură nu mai este clară, deoarece elementele componente sunt neînțelese sau neproductive în limba română, normele actuale recomandă exclusiv despărțirea  după pronunțare (<em>ab-stract, su-biect</em>) sau evitarea despărțirii, dacă aceasta ar contraveni regulilor: <em>a-broga, o-biect</em>.
+</p>
+<h2 id="a4.Regulidedespărțirevocale">4. Reguli de despărțire – vocale</h2>
+<p>
+La despărțirea la capăt de rând care implică litere-vocale trebuie să se aibă în vedere că:  
+</p>
+<ul><li>literele <strong>e, i, o, u, w</strong> și <strong>y</strong> notează atât sunete-vocale propriu-zise, cât și semivocale, despărțirea depinzând de valoarea lor;
+</li><li>literele <strong>e</strong> și <strong>i</strong> pot servi și ca simple semne grafice, fără a nota sunete, și anume după c, g, ch și gh, și în aceste cazuri nu contează ca vocale: cea-ră [čară], gea-muri,  chea-mă, ghea-ră,  nu ce-ară etc. (dar lice-an, ci-anură,  ge-ologie, chi-asm, ghi-oc etc.);
+</li><li>litera <strong>i</strong> la finală de cuvânt sau în interiorul unor compuse, când notează un <strong>i</strong> „șoptit”, nu contează din punctul de vedere al despărțirii la capăt de rând: <em>flori, pomi, minți, urși, az-vârli</em> ind. prez., <em>miști, lincși, sfincși; ori-când</em> (dar <em>înflo-ri, azvâr-li</em> inf., perf.s. etc.).
+</li></ul><p>
+În principiu, în cazul literelor-vocale:
+</p>
+<ul><li>doua litere-vocale alăturate care notează vocale propriu-zise se despart;
+</li><li>când literele <strong>e, i, o, u, w</strong> sau <strong>y</strong> notează o semivocală, despărțirea se face înaintea lor.
+</li></ul><p>
+Literele-vocale care notează diftongi și triftongi nu se despart între ele.
+</p>
+<h3 id="a4.1.SuccesiunileV-V">4.1. Succesiunile V-V</h3>
+<p>
+<strong>(V-V(S), V-VC(C)) („Două vocale alăturate se despart”)</strong>
+</p>
+<p>
+Două litere-vocale alăturate care notează vocale propriu-zise se despart – cu alte cuvinte, vocalele în hiat se despart.
+</p>
+<p>
+Cele două vocale pot fi:
+</p>
+<ul><li>identice: <em>a-alenian; ale-e; fi-ință; alco-ol; ambigu-ul</em>;
+</li><li>diferite: <em>antia-erian, bacala-ureat; hobby-uri</em>.
+</li></ul><p>
+Se despart și două vocale alăturate dintre care a doua face parte dintr-un diftong descendent: <em>cre-ai, famili-ei, feme-ii, gre-oi</em>.
+</p>
+<p>
+Regula este valabilă indiferent dacă a doua vocală formează singură o silabă sau împreună cu una sau mai multe consoane: <em>ști-ință, bănu-ind</em>.  
+</p>
+<p>
+Combinațiile de două vocale care, în unele împrumuturi sau nume proprii scrise cu grafii străine, au valoarea unui singur sunet, ca în limba de origine, nu se despart: <strong>ee</strong> [i] (<em>splee-nul</em>), <strong>eu</strong> [ö] (<em>cozeu-rul</em>), <strong>ie</strong> [i] (<em>lie-duri</em>), <strong>ou</strong> [u] (<em>cou-lomb</em>). 
+</p>
+<h3 id="a4.2.SuccesiunileV-S">4.2. Succesiunile V-S</h3>
+<p>
+<strong>((S)V-SV, (S)V-SVS, V-SSV) („Un diftong și un triftong se despart de vocala sau de diftongul precedente”)</strong>
+</p>
+<p>
+În succesiunile de litere-vocale în care <strong>e, i, o, u</strong> sau <strong>y</strong> notează o semivocală aceasta trece la secvența următoare când se află:
+</p>
+<ul><li>după o vocală propriu-zisă, iar <strong>e, i, o, u</strong> sau <strong>y</strong> fac parte dintr-un
+<ul><li>diftong ascendent: <em>agre-ează, accentu-ează</em>; ace-ea [ačeia], <em>mama-ia, tă-ia, tămâ-ia, su-ia; tămâ-ie, pro-iect, su-ie; du-ios; ro-iul; gă-oace, dubi-oasă; ro-ua no-uă; a-yatolah</em>;
+</li><li>triftong: <em>tă-iai, vo-iau, le-oaică; cre-ioane; înșe-uează</em>;
+</li></ul></li><li>după un diftong ascendent (deci tot după o vocală), iar <strong>e, i, o, u</strong> sau <strong>y</strong> fac parte dintr-un diftong (<em>ploa-ie, stea-ua</em>) sau dintr-un triftong (chiar dacă acesta nu este scris ca atare: <em>dumnea-ei</em> [dumněa-ĭeĭ]).
+</li></ul><p>
+Altfel spus, diftongii alăturați se despart sau diftongii și triftongii se despart de vocala sau de diftongul care le precedă.
+</p>
+<h2 id="a5.Regulidedespărțireconsoane">5. Reguli de despărțire – consoane</h2>
+<p>
+Această despărțire se referă la consoanele aflate între vocale.
+</p>
+<p>
+La despărțire trebuie să se aibă în vedere faptul că din punctul de vedere al despărțirii la capăt de rând se comportă ca o singură consoană:
+</p>
+<ul><li>litera <strong>x</strong>;
+</li><li><strong>ch</strong> și <strong>gh</strong> înainte de <em>e, i</em>; <strong>h</strong> nu are valoarea unui sunet nici în împrumuturi și nume proprii străine în care precedă o consoană: <em>foeh-nul</em> [fönul].
+</li><li>consoanele urmate de <strong>i</strong> „șoptit”;
+</li><li><strong>q + u</strong> când are valoarea [kv].
+</li></ul><p>
+Regulile generale privind despărțirea literelor-consoane sunt:
+</p>
+<ul><li>o consoană între litere-vocale trece la secvența următoare;
+</li><li>în succesiunile de două-patru consoane, despărțirea se face, de regulă, după prima consoană;
+</li><li>în succesiunile (foarte rare) de cinci consoane, despărțirea se face după a doua consoană.
+</li></ul><h3 id="a5.1.Oconsoană">5.1. O consoană</h3>
+<p>
+<strong>(V-CV, VS-CV, SVS-CV, V-CSV) („O consoană între vocale trece la secvența următoare”)</strong>
+</p>
+<p>
+O consoană între litere-vocale trece la secvența următoare: <em>ba-bii, fa-că, po-diș, rea-fișa, le-ge, ha-haleră, nea-jutorat, ira-kian, mă-lin, tea-mă, lu-nă, ma-pă, soa-re, ie-se, ma-șină, ia-tă, ta-tă, ta-vă, kilo-watt, ta-xi; ree-xamina, ra-ză, flo-rile, fu-gi</em> (ind.perf.s.), <em>o-chi (verb), po-mii</em>.
+</p>
+<p>
+La fel se comportă și 
+</p>
+<ul><li><strong>ch, gh</strong> (+ <em>e, i</em>) în cuvinte românești: <em>ure-che, nea-chitat, le-ghe, li-ghioană</em>;
+</li><li><strong>qu</strong> [kv]: <em>se-quoia</em>.
+</li></ul><p>
+Regula este valabilă și când litera-vocală dinaintea consoanei notează o semivocală – element al unui diftong descendent (<em>au-gust, bojdeu-că, doi-nă, mai-că, pâi-ne, hai-ku</em>) sau al unui triftong cu structura SVS (<em>lupoai-că</em>) ori când consoana este urmată de un diftong: <em>re-seamănă</em>. 
+</p>
+<p>
+O consoană urmată de <strong>i</strong> „șoptit” nu se desparte de vocala precedentă: <em>ari, buni, cobori, flori, fugi</em> (ind. prez.), <em>ochi</em> (substantiv), <em>pomi, auzi</em> (ind. prez.).  
+</p>
+<p>
+Se comportă ca o singură consoană combinațiile de două sau trei litere-consoane din cuvinte și nume proprii cu grafii străine care notează, conform normelor ortografice ale diferitelor limbi, un singur sunet: <strong>ck</strong> [k] (<em>ro-cker</em>), <strong>dg</strong> [ğ] (<em>Me-dgidia</em>) <strong>dj</strong> [ğ] (<em>azerbai-djan</em>), <strong>gn</strong> [ñ] (<em>Sali-gny</em>), <strong>sh</strong> [ș] (<em>banglade-shian</em>), <strong>th</strong> [t] (<em>ca-tharsis</em>), <strong>ts</strong> [ț] (<em>jiu-ji-tsu</em>), <strong>tch</strong> [č] (<em>ke-tchup</em>).
+</p>
+<h3 id="a5.2.SuccesiuneaC-C">5.2. Succesiunea C-C</h3>
+<p>
+<strong>(VC-CV, VSC-CV, V -CSV) („Două consoane între vocale se despart”)</strong>
+</p>
+<p>
+Doua litere-consoane între litere-vocale se despart, a doua consoană trecând la secvența următoare.
+</p>
+<p>
+Cele două consoane pot fi:
+</p>
+<ul><li>identice, notând același sunet ca și consoana simplă (<em>kib-butz, mil-lefiori, în-nora, inter-regn, bour-rée, fortis-simo, wat-tul</em>) sau, în cazul lui <strong>cc + e, i</strong>, sunete diferite ([kč]): <em>ac-cent</em>; <strong>h</strong> nu are valoarea unui sunet nici în împrumuturi și nume proprii străine în care precedă o consoană dublă: <em>ohm-metru</em> [ommetru].
+</li><li>diferite: <em>ic-ni, tic-sit, ac-tiv, frec-vență, caf-tan, vaj-nic, cal-cula, mul-te, toam-na, în-ger, lun-git, mun-te, cap-să, aștep-ta; azvâr-li</em> (inf., perf.s.), <em>cer-ne; ur-șii; as-cet, os-cior, as-tăzi, muș-ca, ex-cursie, imix-tiune</em>;
+</li></ul><p>
+Regula este valabilă și când litera-vocală dinaintea consoanei notează o semivocală, element al unui diftong descendent (<em>trais-tă</em>) sau când după consoană urmează o semivocală, element al unui diftong: <em>dor-mea</em>.
+</p>
+<p>
+Sunt tratate la fel succesiunile de două sunete consoane dintre care prima este notată prin două litere: <em>business-man, watt-metru</em>.
+</p>
+<p>
+În schimb, <strong>c, g</strong> urmate de <strong>h</strong> (+ <em>e, i</em>) care notează două sunete în împrumuturi se despart: <em>bog-head</em> [bog-hed].
+</p>
+<p>
+Consoanele urmate de <strong>i</strong> „șoptit” se comportă ca o consoană: <em>albi</em> (adj.), <em>az-vârli</em> (ind. prez.), <em>cerbi, dormi</em> (ind. prez.), <em>ori-ce</em> – dar <em>al-bi</em> (vb.), <em>az-vârli</em> (inf., perf. s.), <em>dormi</em> (inf., perf. s.).
+</p>
+<p>
+<strong>EXCEPȚII</strong>
+</p>
+<ol><li>Trec împreună la secvența următoare succesiunile de consoane care au ca al doilea element <strong>l</strong> sau <strong>r</strong> și ca prim element <strong>b, c, d, f, g, h, p, t</strong> și <strong>v</strong>, adică grupurile <strong>bl</strong>: <em>ca-blu</em>, <strong>br</strong>: <em>neo-brăzat</em>, <strong>cl</strong>: <em>pro-clama</em>, <strong>cr</strong>: <em>nea-crit</em>, <strong>dl</strong>: <em>Co-dlea</em>, <strong>dr</strong>: <em>co-dru</em>, <strong>fl</strong>: <em>nea-flat</em>, <strong>fr</strong>: <em>pana-frican</em>, <strong>gl</strong>: <em>nea-glutinat</em>, <strong>gr</strong>: <em>nea-gricol</em>, <strong>hl</strong>: <em>pe-hlivan</em>, <strong>hr</strong>: <em>ne-hrănit</em>, <strong>pl</strong>: <em>su-plu</em>, <strong>pr</strong>: <em>cu-pru</em>, <strong>tl</strong>: <em>ti-tlu</em>, <strong>tr</strong>: <em>li-tru</em>, <strong>vl</strong>: <em>nee-vlavios</em>, <strong>vr</strong>: <em>de-vreme</em>. Pentru combinațiile de două consoane din cuvinte și nume proprii cu grafii străine care notează, conform normelor ortografice ale diferitor limbi, un singur sunet a se vedea regula pentru C (consoane).
+</li><li>Nu se despart literele-consoane duble din cuvinte și nume proprii cu grafii străine, care notează sunete distincte de cele notate prin consoana simpla corespunzătoare din limba romana: <strong>ll</strong> [l’] (<em>caudi-llo</em>), <strong>zz</strong> [ț]: (<em>pi-zzicato</em>).
+</li></ol><h3 id="a5.3.SuccesiuneaC-CC">5.3. Succesiunea C-CC</h3>
+<p>
+<strong>(„Trei consoane între vocale se despart după prima consoană”)</strong>
+</p>
+<p>
+În succesiunile de trei consoane, despărțirea se face după prima consoană: <em>ob-ște, fil-tru, circum-spect, delin-cvent, lin-gvist, cin-ste, con-tra, vâr-stă, as-clepiad, cus-cru, es-planadă, as-pru, as-tru, dez-gropa</em>.
+</p>
+<p>
+Regula este valabilă și când litera-vocală dinaintea consoanei notează o semivocală – element al unui diftong descendent: <em>mais-tru</em>.
+</p>
+<p>
+La fel se despart și consoanele urmate de <strong>ch, gh</strong> (+ <em>e, i</em>): <em>în-chega, în-chide, în-gheța, în-ghiți</em>.
+</p>
+<p>
+Sunt tratate la fel succesiunile de trei litere-consoane din împrumuturi și cuvinte străine în care combinațiile <strong>ch, gh</strong> notează un singur sunet (<em>tech-nețiu, af-ghan</em>) sau în care prima consoană este urmată de <strong>i</strong> „șoptit”: <em>câteși-trei</em>.
+</p>
+<p>
+Unele succesiuni de trei litere-consoane din cuvinte și nume proprii cu grafii străine se comportă ca o singură consoană: <strong>tch</strong> [č] în <em>ke-tchup</em>.
+</p>
+<p>
+<strong>EXCEPȚIE</strong>
+</p>
+<p>
+În următoarele succesiuni de trei consoane, despărțirea se face după primele două consoane: <strong>lp-t</strong>: <em>sculp-ta</em>, <strong>mp-t</strong>: <em>somp-tuos</em>, <strong>mp-ț</strong>: <em>redemp-țiune</em>, <strong>nc-ș</strong>: <em>linc-șii</em>, <strong>nc-t</strong>: <em>punc-ta</em>, <strong>nc-ț</strong>: <em>punc-ție</em>, <strong>nd-v</strong>: <em>sand-vici</em>, <strong>rc-t</strong>: <em>arc-tic</em>, <strong>rt-f</strong>: <em>jert-fă</em>, <strong>st-m</strong>: <em>ast-mul</em>.
+</p>
+<p>
+Alte succesiuni de trei consoane care se despart după a doua consoană (<strong>ltč, ldm, lpn; ndb, ndc, nsb, nsc</strong> (și <strong>nsč</strong>), <strong>nsd, nsf, nsh, nsl, nsm, nsn, nsp, nss, nsv; ntl; rgș, rtb, rtc, rth, rtj, rtm, rtp, rts, rtt, rtț, rtv; stb, stc, std, stf, stg, stl, stn, stp, str, sts, stt, stv</strong>) nu trebuie memorate, deoarece se întâlnesc în cuvinte „formate” (semi)analizabile, cărora li se poate aplica despărțirea după structură, care este destul de transparenta și conduce la același rezultat. Este vorba de:
+</p>
+<ul><li>compuse: <em>alt|ceva, ast|fel, feld|mareșal, fiind|că, hand|bal</em>;
+</li><li>formații cu elemente de compunere, ca <strong>port-</strong>: <em>port|bagaj, port|cuțit, port|hart, port|jartier, port|moneu, port|perie, port|sabie, port|tabac, port|țigaret, port|vizit</em>;
+</li><li>derivate cu prefixe:
+<ul><li><strong>post-</strong>: <em>post|belic, post|comunism, post|decembrist, post|față, post|garanție, post|liceal, post|natal, post|pașoptist, post|revoluționar, post|sincron, post|tota1itar, post|verbal</em>;
+</li><li><strong>trans-</strong>: <em>trans|borda, trans|carpatic, trans|cendental, trans|danubian, trans|făgărășean, trans|humanță, trans|lucid, trans|misibil, trans|național, trans|portabil, trans|saharian, trans|vaza</em>;
+</li></ul></li><li>derivate de la baze terminate în grupuri de consoane cu sufixe ca <strong>-lâc</strong> (<em>savant|lâc</em>), <strong>-nic</strong> (<em>pust|nic, stâlp|nic, zavist|nic</em>), <strong>-șor</strong> (<em>târg|șor</em>).
+</li></ul><h3 id="a5.4.SuccesiuneaC-CCC">5.4. Succesiunea C-CCC</h3>
+<p>
+(„Patru consoane între vocale se despart după prima consoană”)
+</p>
+<p>
+În succesiunile de patru consoane între vocale, despărțirea se face după prima consoană: <em>ab-stract, con-structor, în-zdrăveni</em>.
+</p>
+<p>
+<strong>EXCEPȚII</strong>
+</p>
+<h4 id="a1.DespărțireaCC-CC">1. Despărțirea CC-CC</h4>
+<p>
+În unele succesiuni de patru consoane, ca <strong>rstv, rstn</strong>, în care nicio segmentare fonetică nu se susține, despărțirea se face după a doua consoană: <em>feld-spat, gang-ster, tung-sten, horn-blendă</em>.
+</p>
+<p>
+Alte succesiuni de patru consoane care se despart după a doua consoană (<strong>nsfr, nsgr, nspl, rtch, rtdr, rtsc, rtst, stpr, stsc, stșc</strong>) nu trebuie memorate, deoarece se întâlnesc în cuvinte "formate" (semi)analizabile, cărora li se poate aplica despărțirea după structură, care este destul de transparentă și conduce la același rezultat. Este vorba de:
+</p>
+<ul><li>formații cu elementul de compunere <strong>port-</strong>: <em>port|drapel, port|sculă,  port|stindard</em>;
+</li><li>derivate cu prefixe:
+<ul><li><strong>post-</strong>: <em>post | prândial, post|scenium, post|școlar</em>;
+</li><li><strong>trans-</strong>: <em>trans|frontalier, trans|gresa, trans|planta</em>.
+</li></ul></li></ul><p>
+Sunt tratate la fel succesiunile în care primele două consoane sunt urmate de <strong>ch, gh</strong> (+ <em>e, i</em>): <em>port-chei</em>.
+</p>
+<h4 id="a2.DespărțireaCCC-C">2. Despărțirea CCC-C</h4>
+<p>
+În unele succesiuni de patru consoane în care nicio segmentare fonetică nu se susține, despărțirea se face, convențional, după a treia consoană: <em>dejurst-vă, vârst-nic<strong> (în ultimul caz, cu același rezultat ca al despărțirii după structură).
+</strong></em></p>
+<h3 id="a5.5.SuccesiuneaCC-CCC">5.5. Succesiunea CC-CCC</h3>
+<p>
+<strong>(„Cinci consoane intre vocale se despart după a doua consoană”)</strong>
+</p>
+<p>
+În succesiunile de cinci consoane (foarte rare), despărțirea se face după a doua consoană: ang|strom; opt|sprezece.
+</p>
+<p>
+Sunt tratate la fel succesiunile care cuprind combinațiile <strong>ch, gh</strong> (+ <em>e, i</em>): <em>port-schi</em>
+</p>
+<h3 id="a6.Despărțireacuvintelorscrisecuanumitesemneortografice">6. Despărțirea cuvintelor scrise cu anumite semne ortografice</h3>
+<ol><li>La cuvintele scrise (obligatoriu sau facultativ) cu cratimă sau cu linie de pauză se admite – atunci când spațiul nu permite evitarea ei – și despărțirea la locul cratimei/liniei de pauză. 
+</li></ol><p>
+Despărțirea la locul cratimei nu se face însă când la sfârșitul primului rând sau/și la începutul rândului următor ar rezulta o singură literă (<em>dându-|l, i-|a, s-|a</em>), o consoană + semivocală (<em>mi-|a</em>) sau o consoană + <strong>-i</strong> , „șoptit”: <em>dă-|mi</em>.
+</p>
+<p>
+La grupurile ortografice mai scurte, despărțirea bazată pe pronunțare (<em>din|tr-un, fi|r-ar, în|tr-însul/într-în|sul</em>) trebuie evitată, deoarece mărește numărul cratimelor, contravenind principiului estetic în ortografie; la cele mai lungi sau când este absolut necesar, despărțirea se poate face și în alt loc decât acela al cratimei, în funcție de poziția ocupată față de sfârșitul rândului: <em>du|cându-se</em>.
+</p>
+<ol start="2"><li>La cuvintele scrise cu apostrof, pentru păstrarea unității lor, despărțirea la capăt de rând trebuie evitată când locul despărțirii ar coincide cu locul apostrofului.
+</li></ol><h2 id="a7.Entitățidebază">7. Entități de bază</h2>
+<p>
+<strong>TBD</strong>
+</p>
+<h2 id="a8.Excepțiișicazuriparticulare">8. Excepții și cazuri particulare</h2>
+<p>
+<strong>TBD</strong>
+</p>
+<p>
+Deși scrierea în limba română este fonetică, există mai multe convenții de scriere care o îndepărtează de acest model ideal.
+</p>
+<p>
+</p><div class="footnotes"><hr /><ol><li id="FootNote1"><a class="sigil" href="#FootNoteRef1">1.</a> Dicționarul ortografic, ortoepic și de punctuație, ediția a II-a, Editura Univers Enciclopedic, București, 2005, p. LXXX: <em>„Normele actuale prevăd despărțirea după pronunțare.”</em></li><li id="FootNote2"><a class="sigil" href="#FootNoteRef2">2.</a> Dicționarul ortografic, ortoepic și de punctuație, ediția a II-a, Editura Univers Enciclopedic, București, 2005</li><li id="FootNote3"><a class="sigil" href="#FootNoteRef3">3.</a> Dicționarul ortografic, ortoepic și de punctuație, ediția I, Editura Academiei, București, 1988</li></ol></div><p>
+</p>
+</div>
+        
+        
+      </div>
+      
+
+    </div>
+    <script type="text/javascript">
+        jQuery.loadStyleSheet("/chrome/footnote/footnote.css", "text/css");
+    </script>
+    <script type="text/javascript" src="/chrome/footnote/footnote.js"></script>
+    <div id="altlinks">
+      <h3>Download in other formats:</h3>
+      <ul>
+        <li class="last first">
+          <a rel="nofollow" href="/wiki/Desp%C4%83r%C8%9Birea_%C3%AEn_silabe?format=txt">Plain Text</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+    <div id="footer" lang="en" xml:lang="en"><hr />
+      <a id="tracpowered" href="http://trac.edgewall.org/"><img src="/chrome/common/trac_logo_mini.png" height="30" width="107" alt="Trac Powered" /></a>
+      <p class="left">Powered by <a href="/about"><strong>Trac 0.12.3</strong></a><br />
+        By <a href="http://www.edgewall.org/">Edgewall Software</a>.</p>
+      <p class="right">Visit the Trac open source project at<br /><a href="http://trac.edgewall.org/">http://trac.edgewall.org/</a></p>
+    </div>
+  </body>
+</html>

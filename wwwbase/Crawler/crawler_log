@@ -1,0 +1,200 @@
+2013-07-27 21:43:35::::Started
+2013-07-27 21:43:35::::wiki.dexonline.ro
+2013-07-27 21:43:35::::current URL: http://wiki.dexonline.ro
+2013-07-27 21:43:36::::HTTP CODE 200
+2013-07-27 21:43:36::::PAGE TYPE=text/html
+2013-07-27 21:43:36::::extracting text
+2013-07-27 21:43:36::::MEM USAGE BEFORE GC - 1105580
+2013-07-27 21:43:36::::0 garbage cycles cleaned
+2013-07-27 21:43:36::::MEM USAGE After GC - 1105744
+2013-07-27 21:44:06::::current URL: 
+2013-07-27 21:45:09::::Started
+2013-07-27 21:45:09::::wiki.dexonline.ro
+2013-07-27 21:45:09::::current URL: http://wiki.dexonline.ro
+2013-07-27 21:45:09::::HTTP CODE 200
+2013-07-27 21:45:09::::PAGE TYPE=text/html
+2013-07-27 21:45:09::::extracting text
+2013-07-27 21:45:09::::MEM USAGE BEFORE GC - 1105676
+2013-07-27 21:45:09::::0 garbage cycles cleaned
+2013-07-27 21:45:09::::MEM USAGE After GC - 1105840
+2013-07-27 21:45:39::::current URL: http://wiki.dexonline.ro/openidlogin
+2013-07-27 21:45:39::::HTTP CODE 200
+2013-07-27 21:45:39::::PAGE TYPE=text/html
+2013-07-27 21:45:39::::extracting text
+2013-07-27 21:45:39::::MEM USAGE BEFORE GC - 1321048
+2013-07-27 21:45:39::::3698 garbage cycles cleaned
+2013-07-27 21:45:39::::MEM USAGE After GC - 965016
+2013-07-27 21:46:32::::Started
+2013-07-27 21:46:32::::wiki.dexonline.ro
+2013-07-27 21:46:32::::current URL: http://wiki.dexonline.ro
+2013-07-27 21:46:32::::HTTP CODE 200
+2013-07-27 21:46:32::::PAGE TYPE=text/html
+2013-07-27 21:46:32::::extracting text
+2013-07-27 21:46:32::::MEM USAGE BEFORE GC - 1105884
+2013-07-27 21:46:32::::0 garbage cycles cleaned
+2013-07-27 21:46:32::::MEM USAGE After GC - 1106048
+2013-07-27 21:47:02::::current URL: http://wiki.dexonline.ro/login
+2013-07-27 21:47:02::::HTTP CODE 401
+2013-07-27 21:47:02::::HTTP Error, URL Skipped
+2013-07-27 21:47:02::::current URL: http://wiki.dexonline.ro/prefs
+2013-07-27 21:47:03::::HTTP CODE 200
+2013-07-27 21:47:03::::PAGE TYPE=text/html
+2013-07-27 21:47:03::::extracting text
+2013-07-27 21:47:29::::Started
+2013-07-27 21:47:29::::wiki.dexonline.ro
+2013-07-27 21:47:29::::current URL: http://wiki.dexonline.ro
+2013-07-27 21:47:29::::HTTP CODE 200
+2013-07-27 21:47:29::::PAGE TYPE=text/html
+2013-07-27 21:47:29::::extracting text
+2013-07-27 21:47:29::::MEM USAGE BEFORE GC - 1105676
+2013-07-27 21:47:29::::0 garbage cycles cleaned
+2013-07-27 21:47:29::::MEM USAGE After GC - 1105840
+2013-07-27 21:47:59::::current URL: http://wiki.dexonline.ro/wiki/TracGuide
+2013-07-27 21:47:59::::HTTP CODE 200
+2013-07-27 21:47:59::::PAGE TYPE=text/html
+2013-07-27 21:47:59::::extracting text
+2013-07-27 21:48:00::::MEM USAGE BEFORE GC - 1653340
+2013-07-27 21:48:00::::3698 garbage cycles cleaned
+2013-07-27 21:48:00::::MEM USAGE After GC - 1297308
+2013-07-27 22:20:40::::Started
+2013-07-27 22:20:40::::wiki.dexonline.ro
+2013-07-27 22:20:40::::current URL: http://wiki.dexonline.ro
+2013-07-27 22:20:40::::HTTP CODE 200
+2013-07-27 22:20:40::::PAGE TYPE=text/html
+2013-07-27 22:20:40::::extracting text
+2013-07-27 22:20:40::::MEM USAGE BEFORE GC - 1104540
+2013-07-27 22:20:40::::0 garbage cycles cleaned
+2013-07-27 22:20:40::::MEM USAGE After GC - 1104704
+2013-07-27 22:20:52::::Started
+2013-07-27 22:20:52::::wiki.dexonline.ro
+2013-07-27 22:20:52::::current URL: http://wiki.dexonline.ro
+2013-07-27 22:20:52::::HTTP CODE 200
+2013-07-27 22:20:52::::PAGE TYPE=text/html
+2013-07-27 22:20:53::::extracting text
+2013-07-27 22:20:53::::MEM USAGE BEFORE GC - 1104540
+2013-07-27 22:20:53::::0 garbage cycles cleaned
+2013-07-27 22:20:53::::MEM USAGE After GC - 1104704
+2013-07-27 22:21:23::::current URL: http://wiki.dexonline.ro/openidlogin
+2013-07-27 22:21:23::::HTTP CODE 200
+2013-07-27 22:21:23::::PAGE TYPE=text/html
+2013-07-27 22:21:23::::extracting text
+2013-07-27 22:21:23::::MEM USAGE BEFORE GC - 1319904
+2013-07-27 22:21:23::::3698 garbage cycles cleaned
+2013-07-27 22:21:23::::MEM USAGE After GC - 963880
+2013-07-27 22:21:53::::current URL: http://wiki.dexonline.ro/login
+2013-07-27 22:21:53::::HTTP CODE 401
+2013-07-27 22:21:53::::HTTP Error, URL Skipped
+2013-07-27 22:21:53::::current URL: http://wiki.dexonline.ro/prefs
+2013-07-27 22:21:53::::HTTP CODE 200
+2013-07-27 22:21:53::::PAGE TYPE=text/html
+2013-07-27 22:21:53::::extracting text
+2013-07-27 22:21:53::::MEM USAGE BEFORE GC - 1226468
+2013-07-27 22:21:53::::2301 garbage cycles cleaned
+2013-07-27 22:21:53::::MEM USAGE After GC - 1006240
+2013-07-27 22:22:23::::current URL: http://wiki.dexonline.ro/wiki/TracGuide
+2013-07-27 22:22:23::::HTTP CODE 200
+2013-07-27 22:22:24::::PAGE TYPE=text/html
+2013-07-27 22:22:24::::extracting text
+2013-07-27 22:22:24::::MEM USAGE BEFORE GC - 1557576
+2013-07-27 22:22:24::::2725 garbage cycles cleaned
+2013-07-27 22:22:24::::MEM USAGE After GC - 1296628
+2013-07-27 22:22:54::::current URL: http://wiki.dexonline.ro/wiki
+2013-07-27 22:22:54::::HTTP CODE 200
+2013-07-27 22:22:54::::PAGE TYPE=text/html
+2013-07-27 22:22:54::::extracting text
+2013-07-27 22:22:54::::MEM USAGE BEFORE GC - 1647592
+2013-07-27 22:22:54::::5629 garbage cycles cleaned
+2013-07-27 22:22:54::::MEM USAGE After GC - 1106008
+2013-07-27 22:23:24::::current URL: http://wiki.dexonline.ro/timeline
+2013-07-27 22:23:24::::HTTP CODE 200
+2013-07-27 22:23:24::::PAGE TYPE=text/html
+2013-07-27 22:23:24::::extracting text
+2013-07-27 22:23:24::::MEM USAGE BEFORE GC - 2310424
+2013-07-27 22:23:24::::3698 garbage cycles cleaned
+2013-07-27 22:23:24::::MEM USAGE After GC - 1953212
+2013-07-27 22:23:54::::current URL: http://wiki.dexonline.ro/roadmap
+2013-07-27 22:23:55::::HTTP CODE 200
+2013-07-27 22:23:55::::PAGE TYPE=text/html
+2013-07-27 22:23:55::::extracting text
+2013-07-27 22:23:55::::MEM USAGE BEFORE GC - 2152608
+2013-07-27 22:23:55::::11782 garbage cycles cleaned
+2013-07-27 22:23:55::::MEM USAGE After GC - 1016316
+2013-07-27 22:24:25::::current URL: http://wiki.dexonline.ro/browser
+2013-07-27 22:24:25::::HTTP CODE 200
+2013-07-27 22:24:25::::PAGE TYPE=text/html
+2013-07-27 22:24:25::::extracting text
+2013-07-27 22:24:25::::MEM USAGE BEFORE GC - 1835496
+2013-07-27 22:24:25::::2496 garbage cycles cleaned
+2013-07-27 22:24:25::::MEM USAGE After GC - 1595920
+2013-07-27 22:24:55::::current URL: http://wiki.dexonline.ro/report
+2013-07-27 22:24:55::::HTTP CODE 200
+2013-07-27 22:24:55::::PAGE TYPE=text/html
+2013-07-27 22:24:55::::extracting text
+2013-07-27 22:24:55::::MEM USAGE BEFORE GC - 2102256
+2013-07-27 22:24:55::::8215 garbage cycles cleaned
+2013-07-27 22:24:55::::MEM USAGE After GC - 1302696
+2013-07-27 22:25:25::::current URL: http://wiki.dexonline.ro/search
+2013-07-27 22:25:26::::HTTP CODE 200
+2013-07-27 22:25:26::::PAGE TYPE=text/html
+2013-07-27 22:25:26::::extracting text
+2013-07-27 22:25:26::::MEM USAGE BEFORE GC - 1535908
+2013-07-27 22:25:26::::5367 garbage cycles cleaned
+2013-07-27 22:25:26::::MEM USAGE After GC - 1017860
+2013-07-27 22:25:56::::current URL: http://wiki.dexonline.ro/wiki/WikiStart
+2013-07-27 22:25:56::::HTTP CODE 200
+2013-07-27 22:25:56::::PAGE TYPE=text/html
+2013-07-27 22:25:56::::extracting text
+2013-07-27 22:25:56::::MEM USAGE BEFORE GC - 1381032
+2013-07-27 22:25:56::::2515 garbage cycles cleaned
+2013-07-27 22:25:56::::MEM USAGE After GC - 1139772
+2013-07-27 22:26:14::::Started
+2013-07-27 22:26:14::::wiki.dexonline.ro
+2013-07-27 22:26:14::::current URL: http://wiki.dexonline.ro
+2013-07-27 22:26:14::::HTTP CODE 200
+2013-07-27 22:26:14::::PAGE TYPE=text/html
+2013-07-27 22:26:14::::extracting text
+2013-07-27 22:26:14::::MEM USAGE BEFORE GC - 1103176
+2013-07-27 22:26:14::::0 garbage cycles cleaned
+2013-07-27 22:26:14::::MEM USAGE After GC - 1103340
+2013-07-27 22:26:44::::current URL: http://wiki.dexonline.ro/wiki/TitleIndex
+2013-07-27 22:26:44::::HTTP CODE 200
+2013-07-27 22:26:44::::PAGE TYPE=text/html
+2013-07-27 22:26:44::::extracting text
+2013-07-27 22:26:45::::MEM USAGE BEFORE GC - 1735652
+2013-07-27 22:26:45::::3698 garbage cycles cleaned
+2013-07-27 22:26:45::::MEM USAGE After GC - 1379624
+2013-07-27 22:27:15::::current URL: http://wiki.dexonline.ro/wiki/WikiStart?action=history
+2013-07-27 22:27:15::::HTTP CODE 200
+2013-07-27 22:27:15::::PAGE TYPE=text/html
+2013-07-27 22:27:15::::extracting text
+2013-07-27 22:27:15::::MEM USAGE BEFORE GC - 2620160
+2013-07-27 22:27:15::::6555 garbage cycles cleaned
+2013-07-27 22:27:15::::MEM USAGE After GC - 1993480
+2013-07-27 22:27:45::::current URL: http://wiki.dexonline.ro/wiki/WikiStart?action=diff&amp;version=32
+2013-07-27 22:27:46::::HTTP CODE 200
+2013-07-27 22:27:46::::PAGE TYPE=text/html
+2013-07-27 22:27:46::::extracting text
+2013-07-27 22:27:46::::MEM USAGE BEFORE GC - 2432032
+2013-07-27 22:27:46::::12220 garbage cycles cleaned
+2013-07-27 22:27:46::::MEM USAGE After GC - 1245904
+2013-07-27 22:28:16::::current URL: http://wiki.dexonline.ro/timeline?from=2013-05-10T16%3A43%3A53%2B03%3A00&amp;precision=second
+2013-07-27 22:28:16::::HTTP CODE 200
+2013-07-27 22:28:16::::PAGE TYPE=text/html
+2013-07-27 22:28:16::::extracting text
+2013-07-27 22:28:17::::MEM USAGE BEFORE GC - 2547576
+2013-07-27 22:28:17::::4874 garbage cycles cleaned
+2013-07-27 22:28:17::::MEM USAGE After GC - 2084288
+2013-07-27 22:28:47::::current URL: http://wiki.dexonline.ro/wiki/Ghid_de_exprimare
+2013-07-27 22:28:47::::HTTP CODE 200
+2013-07-27 22:28:47::::PAGE TYPE=text/html
+2013-07-27 22:28:47::::extracting text
+2013-07-27 22:28:47::::MEM USAGE BEFORE GC - 2405508
+2013-07-27 22:28:47::::13081 garbage cycles cleaned
+2013-07-27 22:28:47::::MEM USAGE After GC - 1143748
+2013-07-27 22:29:17::::current URL: http://wiki.dexonline.ro/wiki/Desp%C4%83r%C8%9Birea_%C3%AEn_silabe
+2013-07-27 22:29:17::::HTTP CODE 200
+2013-07-27 22:29:17::::PAGE TYPE=text/html
+2013-07-27 22:29:17::::extracting text
+2013-07-27 22:29:17::::MEM USAGE BEFORE GC - 2225772
+2013-07-27 22:29:17::::3750 garbage cycles cleaned
+2013-07-27 22:29:17::::MEM USAGE After GC - 1866568

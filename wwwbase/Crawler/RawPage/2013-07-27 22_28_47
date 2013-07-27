@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  
+
+  
+
+
+  <head>
+    <title>
+      Ghid_de_exprimare – DEX online wiki and bugs
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="google-site-verification" content="vOnCZ8EgBld8SENaIUCnJnGllrsnByr6SLOTiqKJfCo" /><meta name="google-site-verification" content="IClwqyMHUm8azguoxpH6mVJ1W868TXERnnx9RHn4x1w" />
+    <!--[if IE]><script type="text/javascript">window.location.hash = window.location.hash;</script><![endif]-->
+        <link rel="search" href="/search" />
+        <link rel="help" href="/wiki/TracGuide" />
+        <link rel="alternate" href="/wiki/Ghid_de_exprimare?format=txt" type="text/x-trac-wiki" title="Plain Text" />
+        <link rel="start" href="/wiki" />
+        <link rel="stylesheet" href="/chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="/chrome/common/css/wiki.css" type="text/css" />
+        <link rel="shortcut icon" href="/chrome/common/trac.ico" type="image/x-icon" />
+        <link rel="icon" href="/chrome/common/trac.ico" type="image/x-icon" />
+      <link type="application/opensearchdescription+xml" rel="search" href="/search/opensearch" title="Search DEX online wiki and bugs" />
+    <script type="text/javascript" src="/chrome/common/js/jquery.js"></script><script type="text/javascript" src="/chrome/common/js/babel.js"></script><script type="text/javascript" src="/chrome/common/js/messages/en_US.js"></script><script type="text/javascript" src="/chrome/common/js/trac.js"></script><script type="text/javascript" src="/chrome/common/js/search.js"></script><script type="text/javascript" src="/chrome/common/js/folding.js"></script>
+    <!--[if lt IE 7]>
+    <script type="text/javascript" src="/chrome/common/js/ie_pre7_hacks.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        $("#content").find("h1,h2,h3,h4,h5,h6").addAnchor(_("Link to this section"));
+        $("#content").find(".wikianchor").each(function() {
+          $(this).addAnchor(babel.format(_("Link to #%(id)s"), {id: $(this).attr('id')}));
+        });
+        $(".foldable").enableFolding(true, true);
+      });
+    </script>
+  </head>
+  <body>
+    <div id="banner">
+      <div id="header">
+        <a id="logo" href="http://wiki.dexonline.ro/"><img src="http://wiki.dexonline.ro/raw-attachment/wiki/WikiStart/logo-wiki.png" alt="(please configure the [header_logo] section in trac.ini)" /></a>
+      </div>
+      <form id="search" action="/search" method="get">
+        <div>
+          <label for="proj-search">Search:</label>
+          <input type="text" id="proj-search" name="q" size="18" value="" />
+          <input type="submit" value="Search" />
+        </div>
+      </form>
+      <div id="metanav" class="nav">
+    <ul>
+      <li class="first"><a href="/openidlogin">OpenID Login</a></li><li><a href="/login">Login</a></li><li><a href="/prefs">Preferences</a></li><li class="last"><a href="/wiki/TracGuide">Help/Guide</a></li>
+    </ul>
+  </div>
+    </div>
+    <div id="mainnav" class="nav">
+    <ul>
+      <li class="first active"><a href="/wiki">Wiki</a></li><li><a href="/timeline">Timeline</a></li><li><a href="/roadmap">Roadmap</a></li><li><a href="/browser">Browse Source</a></li><li><a href="/report">View Tickets</a></li><li class="last"><a href="/search">Search</a></li>
+    </ul>
+  </div>
+    <div id="main">
+      <div id="pagepath" class="noprint">
+  <a class="pathentry first" title="View WikiStart" href="/wiki">wiki:</a><a class="pathentry" href="/wiki/Ghid_de_exprimare" title="View Ghid_de_exprimare">Ghid_de_exprimare</a>
+</div>
+      <div id="ctxtnav" class="nav">
+        <h2>Context Navigation</h2>
+          <ul>
+              <li class="first"><a href="/wiki/WikiStart">Start Page</a></li><li><a href="/wiki/TitleIndex">Index</a></li><li class="last"><a href="/wiki/Ghid_de_exprimare?action=history">History</a></li>
+          </ul>
+        <hr />
+      </div>
+    <div id="content" class="wiki">
+      <div class="wikipage searchable">
+        
+          
+          <div class="trac-modifiedby">
+            <span><a href="/wiki/Ghid_de_exprimare?action=diff&amp;version=5" title="Version 5 by cata">Last modified</a> <a class="timeline" href="/timeline?from=2011-09-02T12%3A29%3A33%2B03%3A00&amp;precision=second" title="2011-09-02T12:29:33+03:00 in Timeline">2 years</a> ago</span>
+            <span class="trac-print">Last modified on 09/02/11 12:29:33</span>
+          </div>
+          <div id="wikipage"><p>
+Această pagină va fi folosită pentru crearea noii structuri a Ghidului de exprimare.
+De asemenea, rog voluntarii să adauge intrări care nu există în actualul ghid.
+</p>
+<p>
+În acest moment văd cel puțin trei secțiuni, dar dacă există și alte idei (evident, susținute de argumente), putem crește numărul acestora.
+</p>
+<p>
+A se vedea și <a class="closed ticket" href="/ticket/205" title="task: Migrate the guide to a collaborative system (wiki / blog) (closed: fixed)">#205</a>, tichetul aferent implementării.
+</p>
+<h1 id="Cuvintefolositecuformegreșite">Cuvinte folosite cu forme greșite</h1>
+<p>
+Aici va fi o simplă listă de cuvinte care au o largă utilizare în forma greșită.
+Practic nu e necesară decît forma/formele greșite cu trimitere la forma corectă.
+Păstrînd datele în DB, putem refolosi maparea în căutările  făcute pe dexonline.
+</p>
+<p>
+<strong>Exemple</strong> 
+</p>
+<ul><li>Repercusiune --&gt; Repercursiune 
+</li><li>Oprobriu     --&gt; Oprobiu 
+</li><li>Complet      --&gt; Complect
+</li></ul><p>
+Eventual se pot adăuga și declinările greșite:
+</p>
+<ul><li>creiez (a crea)  --&gt; creez
+</li><li>crează (a crea)  --&gt; creează
+</li></ul><h1 id="Folosireacorectăacuvintelor">Folosirea corectă a cuvintelor</h1>
+<p>
+Aici vom avea mici discuții despre uzul corect al cuvintelor
+</p>
+<p>
+<strong>Exemple</strong>
+</p>
+<ul><li>decît/numai
+</li><li>din cauza/datorită
+</li></ul><p>
+Se poate adăuga inclusiv o listă de pleonasme.
+</p>
+<p>
+Se poate adăuga o listă cu „false friends” (în special din limba engleză)
+</p>
+<h1 id="Paronime">Paronime</h1>
+<p>
+O altă categorie mare de greșeli o reprezintă folosirea unui paronim în locul cuvîntului corect.
+Există inclusiv dicționare de paronime pe care le putem importa aici
+</p>
+<p>
+<strong>Exemple</strong>
+</p>
+<ul><li>dependențe/dependințe
+</li><li>complement/compliment
+</li><li>prenume/pronume
+</li></ul><h1 id="Altesecțiunipropuse">Alte secțiuni propuse</h1>
+<p>
+Pînă ajungem la consens, aici adăugăm idei pentru a fi discutate.
+</p>
+<p>
+<strong>Gen blog</strong>
+</p>
+<ul><li>Istoria unor cuvinte (romanțată eventual, nu trebuie să fie ceva prea supărat. exemplu: <a class="ext-link" href="http://www.zf.ro/ziarul-de-duminica/misterele-cuvintelor-copiator-sau-xerox-aceasta-e-dilema-6113287/"><span class="icon">​</span>http://www.zf.ro/ziarul-de-duminica/misterele-cuvintelor-copiator-sau-xerox-aceasta-e-dilema-6113287/</a>);
+</li><li>linkuri externe către resurse interesante (un exemplu este rubrica Rodicăi Zafiu din România Literară, dar pot fi și altele – putem face un sistem pe bază de voturi);
+</li></ul><p>
+<strong>Gen gramatică</strong>
+</p>
+<ul><li>articole de gramatică (mai ales din lucrările normative muhahaha);
+</li></ul><h2 id="Istoriaunorcuvinte">Istoria unor cuvinte</h2>
+<h2 id="DiscuțiipăreripersonalecontrarenormelorAcademiei">Discuții/păreri personale contrare normelor Academiei</h2>
+<h2 id="Discuțiidespregreșeliînmedia">Discuții despre greșeli în media</h2>
+<h2 id="Discuțiiliberedespreanumiteproblemelingvistice">Discuții libere despre anumite probleme lingvistice</h2>
+<h2 id="Articolepetemelingvistice">Articole pe teme lingvistice</h2>
+<h1 id="Noifuncționalități">Noi funcționalități</h1>
+<p>
+Sînt necesare noi funcționalități care să ajute .
+</p>
+<p>
+Minimal avem:
+</p>
+<ul><li>posibilitatea căutării în ghid;
+</li><li>integrarea cu definițiile (de exemplu la „decît” să apară și un link către intrarea „decît/numai”);
+</li></ul></div>
+        
+        
+      </div>
+      
+
+    </div>
+    <div id="altlinks">
+      <h3>Download in other formats:</h3>
+      <ul>
+        <li class="last first">
+          <a rel="nofollow" href="/wiki/Ghid_de_exprimare?format=txt">Plain Text</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+    <div id="footer" lang="en" xml:lang="en"><hr />
+      <a id="tracpowered" href="http://trac.edgewall.org/"><img src="/chrome/common/trac_logo_mini.png" height="30" width="107" alt="Trac Powered" /></a>
+      <p class="left">Powered by <a href="/about"><strong>Trac 0.12.3</strong></a><br />
+        By <a href="http://www.edgewall.org/">Edgewall Software</a>.</p>
+      <p class="right">Visit the Trac open source project at<br /><a href="http://trac.edgewall.org/">http://trac.edgewall.org/</a></p>
+    </div>
+  </body>
+</html>

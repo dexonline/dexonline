@@ -12,11 +12,6 @@ class Visual extends BaseObject implements DatedObject {
     return $matches[0];
   }
   
-  /** Adds an extra backslash before each slash in the string.
-    * Useful when replacing with regex. */
-  public static function escapeSlashes($string) {
-    return preg_replace('/\//', '\/', $string);
-  }
 }
 
 ?>

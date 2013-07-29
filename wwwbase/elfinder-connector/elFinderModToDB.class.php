@@ -31,7 +31,7 @@ public function action($cmd, $result, $args, $elfinder) {
       foreach($result['removed'] as $file) {
         $path = Visual::getPath($file['realpath']);
 
-        $line = Model::factory('Visual')->where_like('path', "{$path}")->find_one();
+        $line = Visual::get_by_path($path);
         /** rm command stores its info in $result['removed'] even for folders,
           * thus, it first checks if there were entries in the table that
           * matched the value in $file. */
@@ -52,16 +52,15 @@ public function action($cmd, $result, $args, $elfinder) {
         $entries = Model::factory('Visual')->where_like('path', "{$oldPath}/%")->find_many();
 
         if(!empty($entries)) {
-          $escOldPath = Visual::escapeSlashes($oldPath);
-
+          /** Directory was renamed **/
           foreach($entries as $entry) {
-            $entry->path = preg_replace("/{$escOldPath}/", "{$newPath}", $entry->path);
+            $entry->path = str_replace($oldPath, $newPath, $entry->path);
             $entry->save();
           }
 
         } else {
           /** Otherwise it changes the file path within the table */
-          $line = Model::factory('Visual')->where_like('path', "{$oldPath}")->find_one();
+          $line = Visual::get_by_path($oldPath);
 
           if(!empty($line)) {
             $line->path = $newPath;
@@ -77,7 +76,7 @@ public function action($cmd, $result, $args, $elfinder) {
         foreach($result['removed'] as $i => $file) {
           $oldPath = Visual::getPath($file['realpath']);
           $newPath = Visual::getPath($elfinder->realpath($result['added'][$i]['hash']));
-          $line = Model::factory('Visual')->where_like('path', "{$oldPath}")->find_one();
+          $line = Visual::get_by_path($oldPath);
 
           if(!empty($line)) {
             $line->path = $newPath;

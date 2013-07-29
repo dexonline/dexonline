@@ -42,7 +42,7 @@ $opts = array(
   'debug' => true,
   'bind'	=> array(
     'mkdir mkfile rename duplicate upload rm paste' => array($myLogger, 'log'),
-    'upload rm rename paste' => array($myModder, 'action')
+    'upload rm rename paste duplicate' => array($myModder, 'action')
     ),
   'roots' => array(
     array(

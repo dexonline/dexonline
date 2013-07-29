@@ -13,7 +13,8 @@ class elFinderModToDB extends Visual {
 public function action($cmd, $result, $args, $elfinder) {
 
   switch($cmd){
-    case 'upload':
+    case 'duplicate':
+    case 'upload': 
     if(!empty($result['added'])) {
       foreach($result['added'] as $file) {
         $path = Visual::getPath($elfinder->realpath($file['hash']));
@@ -95,6 +96,14 @@ public function action($cmd, $result, $args, $elfinder) {
         }
       }
       break;
+
+      /*case 'duplicate':
+      if(!empty($result['added'])) {
+        $txt = fopen('/tmp/duplicate.txt', 'w');
+        fwrite($txt, $elfinder->realpath($result['added'][0]['hash']));
+        fclose($txt);
+      }
+      break;*/
     }
   }
 }

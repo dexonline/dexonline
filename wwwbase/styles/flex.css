@@ -389,3 +389,8 @@ span.tooltip {
 .ui-widget-header .ui-icon {
 	background-image: url("lightness-1.10.3/images/ui-icons_222222_256x240.png");
 }
+
+/* VisualTag */
+.floatMe {
+  float: left;
+}

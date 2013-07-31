@@ -42,7 +42,7 @@ $opts = array(
   'debug' => true,
   'bind'	=> array(
     'mkdir mkfile rename duplicate upload rm paste' => array($myLogger, 'log'),
-    'upload rm rename paste duplicate' => array($myModder, 'action')
+    'upload rm rename paste' => array($myModder, 'action')
     ),
   'roots' => array(
     array(
@@ -52,7 +52,7 @@ $opts = array(
       'accessControl' => 'access', // disable and hide dot starting files (OPTIONAL)
       'alias'         => 'Imagini cuvântul zilei', // display this instead of root directory name
       'uploadAllow'   => array('image'), // mimetypes allowed to upload
-      'disabled'      => array('resize, mkfile'), // list of not allowed commands
+      'disabled'      => array('resize, mkfile, duplicate'), // list of not allowed commands
       'imgLib'        => 'gd', // image manipulation library (imagick, mogrify, gd)
       'tmbPath'       => '.tmb', // directory name for image thumbnails. Set to "" to avoid thumbnails generation
     )

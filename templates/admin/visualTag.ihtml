@@ -1,0 +1,55 @@
+<br/>
+<div class="floatMe">
+  {if count($msg) == 0}
+  <img src="{$imagePath}" id="jcrop"/> 
+  <label>Coordonatele centrului selecției:
+    <input id="x" type="text" size="4" name="x"/>
+    <input id="y" type="text" size="4" name="y"/>
+  </label>
+  <button type="button" id="clrSel">Șterge selecția</button>
+  <form action="visualTag.php" method="post">
+    <input type="hidden" value="{$imageId}" name="imageId"/>
+    <button type="submit" name="action" value="finishedTagging">
+      Etichetarea este completă
+    </button>
+  </form>
+</div>
+
+<div>
+  <form action="visualTag.php" method="post">
+    <label>Id imagine:
+      <input type="text" size="4" value="{$imageId}" name="imageId"/>
+    </label><br/>
+      <label>Cuvânt:
+      <input type="text" size="15" name="lexem"/>
+    </label><br/>
+    <label>Coordonatele centrului etichetei:
+      <input id="xTag" type="text" size="4" name="xTag"/>
+      <input id="yTag" type="text" size="4" name="yTag"/>
+      <button id="setCoordTag" type="button">Setează coordonatele</button>
+    </label><br/>
+    <label>Coordonatele centrului zonei indicate:
+      <input id="xImg" type="text" size="4" name="xImg"/>
+      <input id="yImg" type="text" size="4" name="yImg"/>
+      <button id="setCoordImg" type="button">Setează coordonatele</button>
+    </label><br/>
+    <label>Tag principal?
+      <input type="radio" name="isMain" value="1"/>Da
+      <input type="radio" name="isMain" value="0"/>Nu
+    </label><br/>
+    <button id="saveSel" type="submit" name="action" value="save">Salvează eticheta</button>
+  </form>
+
+  <h3>Etichete salvate</h3>
+  <form action="visualTag.php" method="post">
+    {foreach from=$savedTags item=tag}
+      <label>{$tag->label}
+        <input type="hidden" name="savedTagId" value="{$tag->id}"/>
+        <button type="submit" name="action" value="delete">Șterge eticheta</button>
+      </label><br/>
+    {/foreach}
+  </form>
+  {else}
+  <p>{$msg}</p>
+  {/if}
+</div>

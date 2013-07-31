@@ -11,7 +11,11 @@ class Visual extends BaseObject implements DatedObject {
     
     return $matches[0];
   }
-  
-}
 
+  function delete() {
+    VisualTag::deleteByImageId($this->id);    
+    
+    parent::delete();
+  }
+}
 ?>

@@ -38,7 +38,7 @@ foreach ($lines as $i => $line) {
 SmartyWrap::assign('data', $data);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('sectionTitle', 'Corectare erori raportate');
-SmartyWrap::assign('sectionCount', count($lines));
+SmartyWrap::assign('sectionCount', count($data));
 SmartyWrap::addJs('jquery');
 SmartyWrap::displayAdminPage('admin/fixDexErrors.ihtml');
 

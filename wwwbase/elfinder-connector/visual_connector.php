@@ -50,9 +50,9 @@ $opts = array(
       'path'          => '../img/visual/', // path to files (REQUIRED)
       'URL'           => util_getFullServerUrl() . '/img/visual/', // URL to files (REQUIRED)
       'accessControl' => 'access', // disable and hide dot starting files (OPTIONAL)
-      'alias'         => 'Imagini cuvântul zilei', // display this instead of root directory name
+      'alias'         => 'Imagini pentru definiții', // display this instead of root directory name
       'uploadAllow'   => array('image'), // mimetypes allowed to upload
-      'disabled'      => array('resize, mkfile, duplicate'), // list of not allowed commands
+      'disabled'      => array('resize', 'mkfile', 'duplicate'), // list of not allowed commands
       'imgLib'        => 'gd', // image manipulation library (imagick, mogrify, gd)
       'tmbPath'       => '.tmb', // directory name for image thumbnails. Set to "" to avoid thumbnails generation
     )

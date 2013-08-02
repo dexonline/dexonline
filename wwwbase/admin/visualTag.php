@@ -45,6 +45,7 @@ if(util_getRequestParameter('action') == 'save') {
 
 //$line = Model::factory('Visual')->where('revised', 0)->find_one();
 $line = Visual::get_by_revised(0);
+SmartyWrap::assign('anyUntaggedImages', !empty($line));
 if(!empty($line)) {
   $imagePath = $rootPath . $line->path;
   $imageId = $line->id;
@@ -54,13 +55,9 @@ if(!empty($line)) {
   SmartyWrap::assign('savedTags', $tags);
   SmartyWrap::assign('imagePath', $imagePath);
   SmartyWrap::assign('imageId', $imageId);
-
-} else {
-  $msg = 'Toate imaginile au fost revizuite. Mulțumim!';
-  SmartyWrap::assign('msg', $msg);
 }
 
-SmartyWrap::assign('sectionTitle', 'Tăguire imagini pentru definiții');
+SmartyWrap::assign('sectionTitle', 'Etichetare imagini pentru definiții');
 SmartyWrap::addCss('jcrop');
 SmartyWrap::addJs('jquery', 'jcrop', 'visualTag');
 SmartyWrap::displayAdminPage('admin/visualTag.ihtml'); 

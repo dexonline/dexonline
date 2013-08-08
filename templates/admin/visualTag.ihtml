@@ -13,22 +13,39 @@
         Etichetarea este completă
       </button>
     </form>
+    <button type="button" id="toggleHelp">Click pentru Ajutor</button>
+    <div>
+      <p id="helpText">
+      Pasul 1: Selectează textul ținând apăsat click stânga și modificând selecția. 
+      Apoi, apasă primul buton „Setează coordonatele”.<br/>
+      Pasul 2: Click pe imagine în locul în care indică săgeata.
+      Apoi, apasă cel de-al doilea buton „Setează coordonatele”.<br/>
+      Pasul 3: Selectează „Da”, dacă lexemul etichetei reprezintă imaginea pe
+      de-a-ntregul, altfel selectează „Nu” (lexemul reprezintă un subansamblu
+      al imaginii). Dacă lași neselectat, valoarea implicită va fi „Da”.<br/>
+      Pasul 4: Click pe butonul „Salvează eticheta” pentru a salva adăugirile 
+      în baza de date. Dacă ai uitat vreun câmp necompletat, vei fi anunțat.<br/>
+      Pasul 5: După ce ai terminat de adăugat toate etichetele, click pe
+      butonul „Etichetarea este completă” și se va încărca următoare imagine
+      neetichetată din baza de date, dacă aceasta există.
+      </p>
+    </div>
   </div>
   
   <div>
-    <form action="visualTag.php" method="post">
+    <form action="visualTag.php" method="post" onsubmit="return validateTag()">
       <label>Id imagine:
         <input type="text" size="4" value="{$imageId}" name="imageId"/>
       </label><br/>
         <label>Cuvânt:
-        <input type="text" size="15" name="lexem"/>
+        <input id="lexem" type="text" size="15" name="lexem"/>
       </label><br/>
       <label>Coordonatele centrului etichetei:
         <input id="xTag" type="text" size="4" name="xTag"/>
         <input id="yTag" type="text" size="4" name="yTag"/>
         <button id="setCoordTag" type="button">Setează coordonatele</button>
       </label><br/>
-      <label>Coordonatele centrului zonei indicate:
+      <label>Coordonatele zonei etichetate:
         <input id="xImg" type="text" size="4" name="xImg"/>
         <input id="yImg" type="text" size="4" name="yImg"/>
         <button id="setCoordImg" type="button">Setează coordonatele</button>
@@ -41,14 +58,14 @@
     </form>
   
     <h3>Etichete salvate</h3>
-    <form action="visualTag.php" method="post">
-      {foreach from=$savedTags item=tag}
+    {foreach from=$savedTags item=tag}
+      <form action="visualTag.php" method="post">
         <label>{$tag->label}
           <input type="hidden" name="savedTagId" value="{$tag->id}"/>
           <button type="submit" name="action" value="delete">Șterge eticheta</button>
-        </label><br/>
-      {/foreach}
-    </form>
+        </label>
+      </form>
+    {/foreach}
   </div>
 {else}
   <p>Toate imaginile au fost revizuite. Mulțumim!</p>

@@ -3,7 +3,7 @@ require_once '../../phplib/util.php' ;
 require_once '../../phplib/models/Visual.php' ;
 //util_assertModerator(PRIV_VISUAL);
 util_assertNotMirror();
-RecentLink::createOrUpdate('Tăguire Imagini Definiții');
+RecentLink::createOrUpdate('Etichetare Imagini Definiții');
 
 $rootPath = util_getImgRoot() . '/';
 $savedTags = '';
@@ -19,13 +19,17 @@ if(util_getRequestParameter('action') == 'save') {
 
   $line = Model::factory('VisualTag')->create();
   $line->imageId = $imageId;
-  $line->isMain = $isMain;
+  if(!empty($isMain)) {
+    $line->isMain = $isMain;
+  }
   $line->label = $lexem;
   $line->textXCoord = $xTag;
   $line->textYCoord = $yTag;
   $line->imgXCoord = $xImg;
   $line->imgYCoord = $yImg;
   $line->save();
+
+  util_redirect(util_getWwwRoot() . 'admin/visualTag.php');
 
 } else if(util_getRequestParameter('action') == 'delete') {
   $tagId = util_getRequestParameter('savedTagId');
@@ -35,15 +39,18 @@ if(util_getRequestParameter('action') == 'save') {
     $line->delete();
   }
 
+  util_redirect(util_getWwwRoot() . 'admin/visualTag.php');
+
 } else if(util_getRequestParameter('action') == 'finishedTagging') {
   $imageId = util_getRequestParameter('imageId');
 
   $line = Visual::get_by_id($imageId);
   $line->revised = 1;
   $line->save();
+
+  util_redirect(util_getWwwRoot() . 'admin/visualTag.php');
 }
 
-//$line = Model::factory('Visual')->where('revised', 0)->find_one();
 $line = Visual::get_by_revised(0);
 SmartyWrap::assign('anyUntaggedImages', !empty($line));
 if(!empty($line)) {

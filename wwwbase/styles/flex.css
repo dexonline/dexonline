@@ -393,4 +393,9 @@ span.tooltip {
 /* VisualTag */
 .visualTagCanvas {
   float: left;
+  width: 500px;
+}
+
+#helpText {
+  display: none;
 }

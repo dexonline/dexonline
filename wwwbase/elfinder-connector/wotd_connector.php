@@ -13,10 +13,6 @@ include_once __DIR__ . '/elFinderLogger.class.php';
 // Required for FTP connector support
 // include_once __DIR__ . '/elFinderVolumeFTP.class.php';
 
-if(function_exists('date_default_timezone_set')) {
-	date_default_timezone_set('Europe/Moscow');
-}
-
 include_once __DIR__ . '/../../phplib/util.php';
 
 /**

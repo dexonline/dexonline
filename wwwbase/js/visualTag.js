@@ -11,8 +11,7 @@ jQuery(document).ready(function() {
       boxHeight: 500,
       boxWidth: 500,
       onSelect: showCoords,
-      onChange: showCoords,
-      onRelease: resetCoords
+      onChange: showCoords
     }, function() {
       jcrop_api = this;
     });
@@ -30,10 +29,6 @@ jQuery(document).ready(function() {
     var q = new Array();
     q = calculateCentre(c);
 
-    coords.x = c.x;
-    coords.y = c.y;
-    coords.w = c.w;
-    coords.h = c.h;
     coords.cx = q[0];
     coords.cy = q[1];
   };
@@ -55,10 +50,6 @@ jQuery(document).ready(function() {
   });
 
   function resetCoords() {
-    coords.x = 0;
-    coords.y = 0;
-    coords.w = 0;
-    coords.h = 0;
     coords.cx = 0;
     coords.cy = 0;
 
@@ -75,4 +66,30 @@ jQuery(document).ready(function() {
     $('#xImg').val(coords.cx);
     $('#yImg').val(coords.cy);
   });
+
+  $('#toggleHelp').click(function() {
+    $('#helpText').toggle();
+  });
+
 });
+
+  function validateTag() {
+    var lexem = document.getElementById('lexem').value;
+    var xImg = document.getElementById('xImg').value;
+    var yImg = document.getElementById('yImg').value;
+    var xTag = document.getElementById('xTag').value;
+    var yTag = document.getElementById('yTag').value;
+
+    if(!lexem) {
+      alert('Ai uitat să completezi câmpul Cuvânt');
+      return false;
+
+    } else if(!xImg || !yImg) {
+      alert('Ai uitat să completezi câmpurile Coordonatele centrului etichetei');
+      return false;
+
+    } else if(!xTag || !yTag) {
+      alert('Ai uitat să completezi câmpurile Coordonatele zonei etichetate');
+      return false;
+    }
+  };

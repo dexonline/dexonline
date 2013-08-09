@@ -11,7 +11,7 @@ $logFile = pref_getSectionPreference('crawler', 'crawler_log');
 /*
  * Logheaza activitatea crawlerului, afiseaza exceptiile
  * $level poate fi de forma :  __FILE__.' - '.__CLASS__.'::'.__FUNCTION__.' line '.__LINE__
- * sau mai simpla
+ * sau mai simplu
  */
 function crawlerLog($message, $level = '') {
 

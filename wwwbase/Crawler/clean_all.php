@@ -8,23 +8,23 @@ require_once '../../phplib/serverPreferences.php';
 require_once '../../phplib/db.php';
 require_once '../../phplib/idiorm/idiorm.php';
 
+
+function removeFiles($regexPath) {
+
+	exec("rm -rf $regexPath");
+}
+$user_ag =  pref_getSectionPreference('crawler', 'user_agent_location').pref_getSectionPreference('crawler', 'new_line');
+echo file_get_contents($user_ag);
+
+/*
 try {
 
 	//sterge toate fisierele salvate
-	$files = glob('ParsedText/*'); // get all file names
-	foreach($files as $file) { // iterate files
-	  if(is_file($file))
-	    unlink($file); // delete file
-	}
+	removeFiles('ParsedText/*');
+	removeFiles('RawPage/*');
 
-	$files = glob('RawPage/*'); // get all file names
-	foreach($files as $file) { // iterate files
-	  if(is_file($file))
-	    unlink($file); // delete file
-	}
 
 	echo 'files deleted'.pref_getSectionPreference('crawler', 'new_line');
-
 
 	db_init();
 
@@ -43,5 +43,5 @@ catch(Exception $ex) {
 
 	echo 'The cleaning process encountered a problem '.pref_getSectionPreference('crawler', 'new_line').$ex->getMessage();
 }
-
+/**/
 ?>

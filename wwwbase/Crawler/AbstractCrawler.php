@@ -31,11 +31,23 @@ abstract class AbstractCrawler {
 	protected $currentLocation;
 
 	protected $urlResource;
+	protected $directoryIndexFile;
+	protected $IndexFileExt;
 
 	private $justStarted;
 
+
+	function __construct() {
+
+		$this->plainText = '';
+		$this->pageContent = '';
+		$this->directoryIndexFile = pref_getSectionPreference('crawler', 'dir_index_file');
+		$this->IndexFileExt = explode(',', pref_getSectionPreference('crawler', 'index_file_ext'));
+	}
+
+
 	//descarca pagina de la $url
-	function getPage( $url) {
+	function getPage($url) {
 
 		$this->ch = curl_init();
 
@@ -60,15 +72,170 @@ abstract class AbstractCrawler {
 		}
 
 		curl_close( $this->ch);
+
 		return $this->pageContent;
 	}
 
+
+    //returneaza tipul continutului paginii
+    function getUrlMimeType($buffer) {
+
+	    $finfo = new finfo(FILEINFO_MIME_TYPE);
+	    return $finfo->buffer($buffer);
+	}
+	//verifica daca continutul paginii e html, nu alt fisier
+	function isHtml($buffer) {
+
+		crawlerLog("PAGE TYPE=".$this->getUrlMimeType($buffer));
+
+		return strstr($this->getUrlMimeType($buffer), 'html');
+	}
+
+	//elibereaza memoria ale carei referinte s-au pierdut
+	function manageMemory() {
+
+			crawlerLog('MEM USAGE BEFORE GC - ' . memory_get_usage());
+			gc_enable(); // Enable Garbage Collector
+			crawlerLog(gc_collect_cycles() . " garbage cycles cleaned"); // # of elements cleaned up
+			gc_disable(); // Disable Garbage Collector
+			crawlerLog('MEM USAGE After GC - ' . memory_get_usage());
+	}
+	//seteaza locatia unde vor fi salvate fisierele html raw si clean text
+	function setStorePageParams() {
+
+		$this->currentTimestamp = date("Y-m-d H:i:s");
+		$this->rawPagePath = pref_getSectionPreference('crawler', 'raw_page_path')
+			.$this->urlResource['host'] .'/'. $this->currentTimestamp;
+		$this->parsedTextPath = pref_getSectionPreference('crawler', 'parsed_text_path')
+			.$this->urlResource['host'] .'/'. $this->currentTimestamp;
+	}
+
+	//verifica daca pagina poate fi descarcata si daca e HTML
+	function pageOk() {
+
+		crawlerLog("HTTP CODE " .$this->httpResponse());
+		//verifica codul HTTP
+		if ($this->httpResponse() >= 400) {
+				crawlerLog("HTTP Error, URL Skipped");
+				return false;
+		}
+		//verifica daca pagina e HTML
+		if (!$this->isHtml($this->pageContent)) {
+
+				crawlerLog("Page not HTML, URL Skipped");
+				return false;
+		}
+
+		return true;
+	}
+	
+	/*
+	 * Salveaza pagina in format raw si clean text in fisiere 
+	 */
+	function saveCurrentPage() {
+
+
+		try {
+			if (!file_exists(pref_getSectionPreference('crawler','raw_page_path').$this->urlResource['host'])) {
+				mkdir(pref_getSectionPreference('crawler','raw_page_path').$this->urlResource['host'], 0777, true);
+			}
+			if (!file_exists(pref_getSectionPreference('crawler','parsed_text_path').$this->urlResource['host'])) {
+				mkdir(pref_getSectionPreference('crawler','parsed_text_path').$this->urlResource['host'], 0777, true);
+			}
+			//salveaza pagina raw pe disk
+			file_put_contents($this->rawPagePath, $this->pageContent);
+			//converteste simbolurile HTML in format text si elimina din spatii.
+			$this->plainText = preg_replace("/  /", "", html_entity_decode($this->plainText));
+			//salveaza textul extras pe disk
+			file_put_contents($this->parsedTextPath, $this->plainText);
+		}
+		catch(Exception $ex) {
+
+			logException($ex);
+		}
+	}
+
+
+
+	//sterge directory index file si elimina slash-urile in plus
+	function urlPadding($url) {
+
+		return $this->delDuplicateSlashes($this->delDirIndexFile($url));
+	}
+
+
+	//delestes index.php/html/pl/py/jsp  etc
+	function delDirIndexFile($url) {
+
+		//crawlerLog('delDirIndexFile  '.$url);
+
+		foreach($this->IndexFileExt as $ext) {
+
+			$target = $this->directoryIndexFile .'.'. $ext;
+
+			if (strstr($url, $target))
+				return str_replace($target, "", $url);
+		}
+
+		return $url;
+	}
+
+	//deletes slashes when not needed
+	function delDuplicateSlashes($url) {
+
+		if (strlen($url) < 5) {
+
+			crawlerLog("whatup with delDuplicateSlashes: $url");
+			return $this->currentUrl;
+		}
+		
+
+		$parsedUrl = parse_url($url);
+		
+		/*if (substr($parsedUrl['host'], 0, 4) != 'www.') {
+		
+			$parsedUrl['host'] = 'www.'.$parsedUrl['host'];
+		}*/
+		if (substr_count($parsedUrl['host'], '.') < 2) {
+
+			$parsedUrl['host'] = 'www.'.$parsedUrl['host'];
+		}
+
+		$retUrl = $parsedUrl['scheme'].'://'.$parsedUrl['host'];
+		$consecutiveSlash = false;
+
+		$url = substr($url, strlen($retUrl));
+
+		for ($i = 0; $i < strlen($url); ++$i) {
+			$nextCh = substr($url, $i, 1);
+
+			if ($nextCh == '/' && !$consecutiveSlash) {
+
+				$retUrl .= $nextCh;
+				$consecutiveSlash = true;
+			}
+			else if ($nextCh == '/') {}
+			else {
+				$retUrl .= $nextCh;
+				$consecutiveSlash = false;
+			}
+		}
+
+		//eliminarea slash-ului final
+		//$retUrl = substr($retUrl, 0, -1);
+		if (substr($retUrl, -1) == "/") $retUrl = substr($retUrl, 0, -1);
+
+		//crawlerLog("DelDuplicateSlashes ". $retUrl);
+
+		return $retUrl;
+	}
+
+
 	//gaseste toate linkurile
 	//le transforma in absolute daca sunt relative
-	function processLink($link) {
+	function processLink($url) {
 
-		
-		$url = $link->href;
+		crawlerLog('Processing link: '.$url);
 		$canonicalUrl = null;
 		if ($this->isRelativeLink($url)) {
 
@@ -78,9 +245,10 @@ abstract class AbstractCrawler {
 		//exemplu wiki.dexonline.ro nu wiki.dexonline.ro/
 		if (substr($url, -1) == "/") $url = substr($url, 0, -1);
 
-		$canonicalUrl = ''.$url;
+		//sterge slash-uri in plus si directory index file
+		$canonicalUrl = $this->urlPadding($url);
 		
-		$this->urlResouce = parse_url($url);
+		//$this->urlResource = parse_url($url);
 
 
 
@@ -145,9 +313,25 @@ abstract class AbstractCrawler {
 	}
 
 
+	function getDeepestDir($url) {
+
+		try {
+			$retVal = substr($url, 0, strrpos($url,'/'));
+			//crawlerLog("GetDeepestDir: " . $retVal);
+			if (strstr($retVal, $this->currentLocation))
+				return $retVal;
+			else return $url;
+		}
+		catch(Exception $ex) {
+
+			exceptionLog($ex);
+		}
+		return $url;
+	}
+
 	function makeAbsoluteLink($url) {
 
-		return $this->currentUrl . $url;
+		return $this->getDeepestDir($this->currentUrl) .'/'. $url;
 	}
 
 
@@ -163,7 +347,7 @@ abstract class AbstractCrawler {
 
 	function getDomain($url) {
 
-		return $this->urlResouce['host'];
+		return $this->urlResource['host'];
 	}
 
 	//returneaza codul HTTP
@@ -182,94 +366,28 @@ abstract class AbstractCrawler {
     	}
 
 
-    	$nextLink = null;
-    	try{
+    	//$nextLink = null;
+    	try {
 	    	//$nextLink = (string)ORM::for_table('Link')->raw_query("Select concat(domain,canonicalUrl) as concat_link from Link where concat(domain,canonicalUrl) not in (Select url from CrawledPage);")->find_one()->concat_link;
-	    	$nextLink = (string)ORM::for_table('Link')->raw_query("Select canonicalUrl from Link where canonicalUrl not in (Select url from CrawledPage);")->find_one()->canonicalUrl;
+	    	$nextLink = ORM::for_table('Link')->raw_query("Select canonicalUrl from Link where canonicalUrl not in (Select url from CrawledPage);")->find_one();
 	    	
-	    	return $nextLink;
+	    	if ($nextLink != null) {
+	    	
+	    		return $nextLink->canonicalUrl;
+	    	}
 	    }
 	    catch(Exception $ex) {
 
 	    	logException($ex);
 	    }
 
-	    return $nextLink;
+	    return null;
     }
-    //returneaza tipul continutului paginii
-    function getUrlMimeType($buffer) {
-
-	    $finfo = new finfo(FILEINFO_MIME_TYPE);
-	    return $finfo->buffer($buffer);
-	}
-	//verifica daca continutul paginii e html, nu alt fisier
-	function isHtml($buffer) {
-
-		crawlerLog("PAGE TYPE=".$this->getUrlMimeType($buffer));
-
-		return strstr($this->getUrlMimeType($buffer), 'html');
-	}
-
-	//elibereaza memoria ale carei referinte s-au pierdut
-	function manageMemory() {
-
-			crawlerLog('MEM USAGE BEFORE GC - ' . memory_get_usage());
-			gc_enable(); // Enable Garbage Collector
-			crawlerLog(gc_collect_cycles() . " garbage cycles cleaned"); // # of elements cleaned up
-			gc_disable(); // Disable Garbage Collector
-			crawlerLog('MEM USAGE After GC - ' . memory_get_usage());
-	}
-	//seteaza locatia unde vor fi salvate fisierele html raw si clean text
-	function setStorePageParams() {
-
-		$this->currentTimestamp = date("Y-m-d H:i:s");
-		$this->rawPagePath = pref_getSectionPreference('crawler', 'raw_page_path') . $this->currentTimestamp;
-		$this->parsedTextPath = pref_getSectionPreference('crawler', 'parsed_page_path') . $this->currentTimestamp;
-	}
-
-	//verifica daca pagina poate fi descarcata si daca e HTML
-	function pageOk() {
-
-		crawlerLog("HTTP CODE " .$this->httpResponse());
-		//verifica codul HTTP
-		if ($this->httpResponse() >= 400) {
-				crawlerLog("HTTP Error, URL Skipped");
-				return false;
-		}
-		//verifica daca pagina e HTML
-		if (!$this->isHtml($this->pageContent)) {
-
-				crawlerLog("Page not HTML, URL Skipped");
-				return false;
-		}
-
-		return true;
-	}
-	
-	/*
-	 * Salveaza pagina in format raw si clean text in fisiere 
-	 */
-	function saveCurrentPage() {
-
-
-		try {
-			//salveaza pagina raw pe disk
-			file_put_contents($this->rawPagePath, $this->pageContent);
-			//converteste simbolurile HTML in format text si elimina din spatii.
-			$this->plainText = preg_replace("/  /", "", html_entity_decode($this->plainText));
-			//salveaza textul extras pe disk
-			file_put_contents($this->parsedTextPath, $this->plainText);
-		}
-		catch(Exception $ex) {
-
-			logException($ex);
-		}
-	}
 
 	//Clasele care deriva aceasta clasa vor trebui
 	//sa implementeze metodele de mai jos
 
-	abstract function extractText($domNode, $i);
+	abstract function extractText($domNode);
 
 	abstract function startCrawling($startUrl);
 }

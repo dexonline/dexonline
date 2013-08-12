@@ -60,6 +60,29 @@ function validate($lexem, $variantOf, $variantIds, $meanings) {
   if ($variantOf && !empty($variantIds)) {
     FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși variante.");
   }
+  if ($variantOf && ($variantOf->id == $lexem->id)) {
+    FlashMessage::add("Lexemul nu poate fi variantă a sa însăși.");
+  }
+
+  foreach ($variantIds as $variantId) {
+    $variant = Lexem::get_by_id($variantId);
+    if ($variant->id == $lexem->id) {
+      FlashMessage::add('Un lexem nu poate fi variantă a lui însuși.');
+    }
+    if ($variant->variantOfId && $variant->variantOfId != $lexem->id) {
+      $other = Lexem::get_by_id($variant->variantOfId);
+      FlashMessage::add("\"{$variant}\" este deja marcat ca variantă a lui \"{$other}\".");
+    }
+    $variantVariantCount = Model::factory('Lexem')->where('variantOfId', $variant->id)->count();
+    if ($variantVariantCount) {
+      FlashMessage::add("\"{$variant}\" are deja propriile lui variante.");
+    }
+    $variantMeaningCount = Model::factory('Meaning')->where('lexemId', $variant->id)->count();
+    if ($variantMeaningCount) {
+      FlashMessage::add("\"{$variant}\" are deja propriile lui sensuri.");
+    }
+  }
+
   return FlashMessage::getMessage() == null;
 }
 

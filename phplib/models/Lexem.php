@@ -322,35 +322,8 @@ class Lexem extends BaseObject implements DatedObject {
   public function updateVariants($variantIds) {
     foreach ($variantIds as $variantId) {
       $variant = Lexem::get_by_id($variantId);
-      $errorCount = 0;
-      // (1) they are not variants of themselves (this lexem)
-      if ($variant->id == $this->id) {
-        FlashMessage::add('Un lexem nu poate fi variantă a lui însuși.');
-        $errorCount++;
-      }
-      // (2) they are not already variants of another lexem
-      if ($variant->variantOfId && $variant->variantOfId != $this->id) {
-        $other = Lexem::get_by_id($variant->variantOfId);
-        FlashMessage::add("\"{$variant}\" este deja marcat ca variantă a lui \"{$other}\".");
-        $errorCount++;
-      }
-      // (3) they do not have their own variants and
-      $variantVariantCount = Model::factory('Lexem')->where('variantOfId', $variant->id)->count();
-      if ($variantVariantCount) {
-        FlashMessage::add("\"{$variant}\" are deja propriile lui variante.");
-        $errorCount++;
-      }
-      // (4) they do not have meanings
-      $variantMeaningCount = Model::factory('Meaning')->where('lexemId', $variant->id)->count();
-      if ($variantMeaningCount) {
-        FlashMessage::add("\"{$variant}\" are deja propriile lui sensuri.");
-        $errorCount++;
-      }
-    
-      if (!$errorCount) {
-        $variant->variantOfId = $this->id;
-        $variant->save();
-      }
+      $variant->variantOfId = $this->id;
+      $variant->save();
     }
 
     // Delete variants no longer in the list

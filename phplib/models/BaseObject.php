@@ -16,6 +16,15 @@ class BaseObject extends Model {
     die("BaseObject::__callStatic() cannot handle method '$name'");
   }
 
+  /* Loads a collection of objects with the given ids, preserving the order. */
+  static function loadByIds($ids) {
+    $results = array();
+    foreach ($ids as $id) {
+      $results[] = Model::factory(get_called_class())->where('id', $id)->find_one();
+    }
+    return $results;
+  }
+
   function save() {
     /* Auto-save the createDate and modDate fields if the model has them */
     if ($this instanceof DatedObject) {

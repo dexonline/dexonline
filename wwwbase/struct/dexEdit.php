@@ -1,39 +1,39 @@
-<?php
+<?Php
 require_once("../../phplib/util.php"); 
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
 $lexemId = util_getRequestIntParameter('lexemId');
 $hyphenations = util_getRequestParameter('hyphenations');
-$pronounciations = util_getRequestParameter('pronounciations');
-$variantIds = util_getRequestParameter('variantIds');
+$pronunciations = util_getRequestParameter('pronunciations');
+$variantIds = util_getRequestCsv('variantIds');
+$variantOfId = util_getRequestParameter('variantOfId');
 $jsonMeanings = util_getRequestParameter('jsonMeanings');
 
 $lexem = Lexem::get_by_id($lexemId);
-$mainVariant = Lexem::get_by_id($lexem->variantOf);
 
 if ($jsonMeanings) {
-  $meanings = json_decode($jsonMeanings);
-  if ($mainVariant && !empty($meanings)) {
-    FlashMessage::add("Acest lexem este o variantă a lui {$mainVariant} și nu poate avea el însuși sensuri.");
-  } else {
-    Meaning::saveTree($meanings, $lexem);
-  }
-
   $lexem->hyphenations = $hyphenations;
-  $lexem->pronounciations = $pronounciations;
-  $lexem->save();
+  $lexem->pronunciations = $pronunciations;
+  $lexem->variantOfId = $variantOfId ? $variantOfId : null;
+  $variantOf = Lexem::get_by_id($lexem->variantOfId);
+  $meanings = json_decode($jsonMeanings);
 
-  // TODO: Add a validation routine that checks everything before saving anything
-  // Save variants, but only if they meet certain criteria
-  $variantIds = StringUtil::explode(',', $variantIds);
-  if ($mainVariant && !empty($variantIds)) {
-    FlashMessage::add("Acest lexem este o variantă a lui {$mainVariant} și nu poate avea el însuși variante.");
-  } else {
+  if (validate($lexem, $variantOf, $variantIds, $meanings)) {
+    // Case 1: Validation passed
+    Meaning::saveTree($meanings, $lexem);
+    $lexem->save();
     $lexem->updateVariants($variantIds);
+    util_redirect("dexEdit.php?lexemId={$lexem->id}");
+  } else {
+    // Case 2: Validation failed
+    SmartyWrap::assign('variantIds', $variantIds);
+    SmartyWrap::assign('meanings', Meaning::convertTree($meanings));
   }
-
-  util_redirect("dexEdit.php?lexemId={$lexem->id}");
+} else {
+  // Case 3: First time loading this page
+  SmartyWrap::assign('variantIds', $lexem->getVariantIds());
+  SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
 }
 
 $defs = Definition::loadByLexemId($lexem->id);
@@ -44,14 +44,23 @@ $searchResults = SearchResult::mapDefinitionArray($defs);
 $meaningTags = Model::factory('MeaningTag')->order_by_asc('value')->find_many();
 
 SmartyWrap::assign('lexem', $lexem);
-SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
 SmartyWrap::assign('meaningTags', $meaningTags);
 SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('variantOf', $mainVariant);
-SmartyWrap::assign('variantIds', $lexem->getVariantIds());
 SmartyWrap::assign('pageTitle', "Editare lexem: {$lexem->formNoAccent}");
 SmartyWrap::addCss('jqueryui', 'easyui', 'select2', 'struct', 'flex');
 SmartyWrap::addJs('dex', 'jquery', 'easyui', 'jqueryui', 'select2', 'struct');
 SmartyWrap::displayWithoutSkin('struct/dexEdit.ihtml');
+
+/**************************************************************************/
+
+function validate($lexem, $variantOf, $variantIds, $meanings) {
+  if ($variantOf && !empty($meanings)) {
+    FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși sensuri.");
+  }
+  if ($variantOf && !empty($variantIds)) {
+    FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși variante.");
+  }
+  return FlashMessage::getMessage() == null;
+}
 
 ?>

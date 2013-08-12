@@ -148,7 +148,7 @@ class Lexem extends BaseObject implements DatedObject {
   }
 
   public function getVariantIds() {
-    $variants = Model::factory('Lexem')->select('id')->where('variantOf', $this->id)->find_many();
+    $variants = Model::factory('Lexem')->select('id')->where('variantOfId', $this->id)->find_many();
     $ids = array();
     foreach ($variants as $variant) {
       $ids[] = $variant->id;
@@ -329,13 +329,13 @@ class Lexem extends BaseObject implements DatedObject {
         $errorCount++;
       }
       // (2) they are not already variants of another lexem
-      if ($variant->variantOf && $variant->variantOf != $this->id) {
-        $other = Lexem::get_by_id($variant->variantOf);
+      if ($variant->variantOfId && $variant->variantOfId != $this->id) {
+        $other = Lexem::get_by_id($variant->variantOfId);
         FlashMessage::add("\"{$variant}\" este deja marcat ca variantă a lui \"{$other}\".");
         $errorCount++;
       }
       // (3) they do not have their own variants and
-      $variantVariantCount = Model::factory('Lexem')->where('variantOf', $variant->id)->count();
+      $variantVariantCount = Model::factory('Lexem')->where('variantOfId', $variant->id)->count();
       if ($variantVariantCount) {
         FlashMessage::add("\"{$variant}\" are deja propriile lui variante.");
         $errorCount++;
@@ -348,19 +348,19 @@ class Lexem extends BaseObject implements DatedObject {
       }
     
       if (!$errorCount) {
-        $variant->variantOf = $this->id;
+        $variant->variantOfId = $this->id;
         $variant->save();
       }
     }
 
     // Delete variants no longer in the list
     if ($variantIds) {
-      $lexemsToClear = Model::factory('Lexem')->where('variantOf', $this->id)->where_not_in('id', $variantIds)->find_many();
+      $lexemsToClear = Model::factory('Lexem')->where('variantOfId', $this->id)->where_not_in('id', $variantIds)->find_many();
     } else {
-      $lexemsToClear = Lexem::get_all_by_variantOf($this->id);
+      $lexemsToClear = Lexem::get_all_by_variantOfId($this->id);
     }
     foreach($lexemsToClear as $l) {
-      $l->variantOf = null;
+      $l->variantOfId = null;
       $l->save();
     }
   }
@@ -430,10 +430,10 @@ class Lexem extends BaseObject implements DatedObject {
       InflectedForm::deleteByLexemId($this->id);
       Meaning::deleteByLexemId($this->id);
     }
-    // Clear the variantOf field for lexems having $this as main.
-    $lexemsToClear = Lexem::get_all_by_variantOf($this->id);
+    // Clear the variantOfId field for lexems having $this as main.
+    $lexemsToClear = Lexem::get_all_by_variantOfId($this->id);
     foreach ($lexemsToClear as $l) {
-      $l->variantOf = null;
+      $l->variantOfId = null;
       $l->save();
     }
     parent::delete();

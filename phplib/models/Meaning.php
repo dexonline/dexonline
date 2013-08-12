@@ -33,9 +33,11 @@ class Meaning extends BaseObject implements DatedObject {
     return $results;
   }
 
-  /** Returns a dictionary containing:
+  /**
+   * Returns a dictionary containing:
    * 'meaning': a Meaning object
-   * 'children': a recusrive dictionary containing this meaning's children
+   * 'sources', 'tags', 'synonyms', 'antonyms': collections of objects related to the meaning
+   * 'children': a recursive dictionary containing this meaning's children
    **/
   private static function buildTree(&$map, $meaningId, &$children) {
     $results = array('meaning' => $map[$meaningId],
@@ -46,6 +48,39 @@ class Meaning extends BaseObject implements DatedObject {
                      'children' => array());
     foreach ($children[$meaningId] as $childId) {
       $results['children'][] = self::buildTree($map, $childId, $children);
+    }
+    return $results;
+  }
+
+  /**
+   * Convert a tree produced by the tree editor to the format used by loadTree.
+   * We need this in case validation fails and we cannot save the tree, so we need to display it again.
+   **/
+  static function convertTree($meanings) {
+    $meaningStack = array();
+    $results = array();
+    foreach ($meanings as $tuple) {
+      $row = array();
+      $m = $tuple->id ? self::get_by_id($tuple->id) : Model::factory('Meaning')->create();
+      $m->internalRep = $tuple->internalRep;
+      $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
+      $m->internalComment = $tuple->internalComment;
+      $m->htmlComment = AdminStringUtil::htmlize($m->internalComment, 0);
+      $row['meaning'] = $m;
+
+      $row['sources'] = Source::loadByIds(StringUtil::explode(',', $tuple->sourceIds));
+      $row['tags'] = MeaningTag::loadByIds(StringUtil::explode(',', $tuple->meaningTagIds));
+      $row['synonyms'] = Lexem::loadByIds(StringUtil::explode(',', $tuple->synonymIds));
+      $row['antonyms'] = Lexem::loadByIds(StringUtil::explode(',', $tuple->antonymIds));
+      $row['children'] = array();
+
+      if ($tuple->level) {
+        $meaningStack[$tuple->level - 1]['children'][] = &$row;
+      } else {
+        $results[] = &$row;
+      }
+      $meaningStack[$tuple->level] = &$row;
+      unset($row);
     }
     return $results;
   }

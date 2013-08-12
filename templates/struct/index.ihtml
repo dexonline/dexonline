@@ -1,6 +1,6 @@
 <h3>Alege un cuvânt pentru structurare</h3>
 
-<form id="meaningForm" action="dexEdit.php" method="post">
+<form id="meaningForm" action="dexEdit.php" method="get">
 
   <ul>
     <li>
@@ -12,7 +12,7 @@
     <li>
       la alegere:
       <input id="structLexemFinder" type="text" name="lexemId"/>
-      <input type="submit" name="submitButton" value="Caută"/>
+      <button type="button" onclick="$('#meaningForm').submit();">Caută</button>
     </li>
   </ul>
 

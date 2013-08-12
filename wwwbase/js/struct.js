@@ -23,13 +23,13 @@ function meaningEditorInit() {
     placeholder: 'adaugă o sursă...',
     width: '315px',
   });
-  $('#editorSources').select2('disable');
+  $('#editorSources').select2('enable', false);
 
   $('#editorTags').select2({
     placeholder: 'adaugă o etichetă...',
     width: '315px',
   });
-  $('#editorTags').select2('disable');
+  $('#editorTags').select2('enable', false);
 
   $('#editorSynonyms').select2({
     ajax: struct_lexemAjax,
@@ -39,7 +39,7 @@ function meaningEditorInit() {
     placeholder: 'adaugă un sinonim...',
     width: '315px',
   });
-  $('#editorSynonyms').select2('disable');
+  $('#editorSynonyms').select2('enable', false);
 
   $('#editorAntonyms').select2({
     ajax: struct_lexemAjax,
@@ -49,7 +49,7 @@ function meaningEditorInit() {
     placeholder: 'adaugă un antonim...',
     width: '315px',
   });
-  $('#editorAntonyms').select2('disable');
+  $('#editorAntonyms').select2('enable', false);
 
   $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags, #editorSynonyms, #editorAntonyms').bind(
     'change keyup input paste', function() { struct_anyChanges = true; });
@@ -59,6 +59,15 @@ function meaningEditorInit() {
     initSelection: select2InitSelectionAjax,
     minimumInputLength: 1,
     multiple: true,
+    width: '217px',
+  });
+
+  $('#variantOfId').select2({
+    ajax: struct_lexemAjax,
+    allowClear: true,
+    initSelection: select2InitSelectionAjaxSingle,
+    minimumInputLength: 1,
+    placeholder: 'alegeți un lexem (opțional)',
     width: '217px',
   });
 
@@ -77,6 +86,7 @@ function structIndexInit() {
     ajax: struct_lexemAjax,
     minimumInputLength: 1,
     placeholder: 'caută un lexem...',
+    width: '300px',
   });
 }
 
@@ -140,6 +150,16 @@ function select2InitSelection(element, callback) {
     data.push({ id: this, text: this });
   });
   callback(data);
+}
+
+function select2InitSelectionAjaxSingle(element, callback) {
+  var id = $(element).val();
+  if (id) {
+    $.ajax(wwwRoot + 'ajax/getLexemById.php?id=' + id, {dataType: 'json'})
+      .done(function(data) {
+        callback({ id: id, text: data });
+      });
+  }
 }
 
 function select2InitSelectionAjax(element, callback) {
@@ -309,13 +329,13 @@ function endMeaningEdit() {
   $('#editorInternalRep').val('');
   $('#editorInternalComment').val('');
   $('#editorSources').select2('val', []);
-  $('#editorSources').select2('disable');
+  $('#editorSources').select2('enable', false);
   $('#editorTags').select2('val', []);
-  $('#editorTags').select2('disable');
+  $('#editorTags').select2('enable', false);
   $('#editorSynonyms').select2('data', []);
-  $('#editorSynonyms').select2('disable');
+  $('#editorSynonyms').select2('enable', false);
   $('#editorAntonyms').select2('data', []);
-  $('#editorAntonyms').select2('disable');
+  $('#editorAntonyms').select2('enable', false);
 }
 
 // Iterate a meaning tree node recursively and collect meaning-related fields

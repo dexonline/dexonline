@@ -15,23 +15,6 @@ class Synonym extends BaseObject implements DatedObject {
       ->find_many();
   }
 
-  static function updateList($meaningId, $synonymIds, $type) {
-    $synonyms = Model::factory('Synonym')->where('meaningId', $meaningId)->where('type', $type)->find_many();
-    while (count($synonyms) < count($synonymIds)) {
-      $synonyms[] = Model::factory('Synonym')->create();
-    }
-    while (count($synonyms) > count($synonymIds)) {
-      $deadSynonym = array_pop($synonyms);
-      $deadSynonym->delete();
-    }
-    foreach ($synonymIds as $i => $lexemId) {
-      $synonyms[$i]->meaningId = $meaningId;
-      $synonyms[$i]->lexemId = $lexemId;
-      $synonyms[$i]->type = $type;
-      $synonyms[$i]->save();
-    }
-  }
-
   public static function deleteByMeaningId($meaningId) {
     $synonyms = self::get_all_by_meaningId($meaningId);
     foreach ($synonyms as $s) {

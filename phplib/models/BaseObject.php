@@ -35,6 +35,43 @@ class BaseObject extends Model {
     }
     return parent::save();
   }
+
+  /**
+   * Saves a list of objects sharing a common foreign key. Reuses existing table rows:
+   *   - deletes extra rows if the list is shrinking
+   *   - creates extra rows if the list if growing
+   * Example: if a user edits a Lexem and adds/removes LexemSources, then we can save the new list of LexemSources with
+   *   LexemSource::updateList(array('lexemId' => $lexem->id), 'sourceId', $sourceIds);
+   **/
+  static function updateList($filters, $field, $newValues) {
+    // Select the existing rows
+    $query = Model::factory(get_called_class());
+    foreach ($filters as $k => $v) {
+      $query = $query->where($k, $v);
+    };
+    $old = $query->find_many();
+
+    // Create new rows as needed
+    while (count($old) < count($newValues)) {
+      $old[] = Model::factory(get_called_class())->create();
+    }
+
+    // Delete rows we no longer need
+    while (count($old) > count($newValues)) {
+      $dead = array_pop($old);
+      $dead->delete();
+    }
+
+    // Populate data in the remaining rows
+    foreach ($newValues as $i => $newValue) {
+      $old[$i]->$field = $newValue;
+      foreach ($filters as $k => $v) {
+        $old[$i]->$k = $v;
+      }
+      $old[$i]->save();
+    }
+    
+  }
 }
 
 ?>

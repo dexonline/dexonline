@@ -129,7 +129,7 @@ if ($refreshLexem || $saveLexem) {
         $lexem->deleteLongInfinitive();
       }
       $lexem->save();
-      LexemSource::update($lexem->id, $lexemSourceIds);
+      LexemSource::updateList(array('lexemId' => $lexem->id), 'sourceId', $lexemSourceIds);
       $lexem->regenerateParadigm(); // This generates AND saves the paradigm
 
       log_userLog("Edited lexem {$lexem->id} ({$lexem->form})");

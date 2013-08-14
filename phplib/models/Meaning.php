@@ -106,13 +106,13 @@ class Meaning extends BaseObject implements DatedObject {
       $meaningStack[$tuple->level] = $m->id;
 
       $sourceIds = StringUtil::explode(',', $tuple->sourceIds);
-      MeaningSource::updateMeaningSources($m->id, $sourceIds);
+      MeaningSource::updateList(array('meaningId' => $m->id), 'sourceId', $sourceIds);
       $meaningTagIds = StringUtil::explode(',', $tuple->meaningTagIds);
-      MeaningTagMap::updateMeaningTags($m->id, $meaningTagIds);
+      MeaningTagMap::updateList(array('meaningId' => $m->id), 'meaningTagId', $meaningTagIds);
       $synonymIds = StringUtil::explode(',', $tuple->synonymIds);
-      Synonym::updateList($m->id, $synonymIds, Synonym::TYPE_SYNONYM);
+      Synonym::updateList(array('meaningId' => $m->id, 'type' => Synonym::TYPE_SYNONYM), 'lexemId', $synonymIds);
       $antonymIds = StringUtil::explode(',', $tuple->antonymIds);
-      Synonym::updateList($m->id, $antonymIds, Synonym::TYPE_ANTONYM);
+      Synonym::updateList(array('meaningId' => $m->id, 'type' => Synonym::TYPE_ANTONYM), 'lexemId', $antonymIds);
       $seenMeaningIds[] = $m->id;
     }
     self::deleteNotInSet($seenMeaningIds, $lexem->id);

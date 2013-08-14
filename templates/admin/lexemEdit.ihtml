@@ -41,9 +41,11 @@
     <tr>
       <td>Etichete:</td>
       <td>
-        {foreach from=$sources key=k item=v}
-          <input type="checkbox" name="lexemSources[]" value="{$k}" {if isset($v.checked)}checked="checked"{/if}>{$v.name}</input>
-        {/foreach}
+        <select id="lexemSourceIds" name="lexemSourceIds[]" multiple="multiple">
+          {foreach from=$sources item=s}
+            <option value="{$s->id}" {if array_key_exists($s->id, $lexemSourceIdMap)}selected="selected"{/if}>{$s->shortName}</option>
+          {/foreach}
+        </select>
         <br/>
         <input type="text" name="lexemTags" value="{$lexem->tags|escape}" size="40"/>
 
@@ -57,16 +59,9 @@
       <td>Inclus în LOC</td>
       <td>
         {if $sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
-          <input type="radio" name="lexemIsLoc" value="1"
-                 id="lexemIsLocYes"
-                 {if $lexem->isLoc}checked="checked"{/if}/>
-          <label for="lexemIsLocYes">Da</label>
-
-          <input type="radio" name="lexemIsLoc" value=""
-                 id="lexemIsLocNo"
-                 {if !$lexem->isLoc}checked="checked"{/if}/>
-          <label for="lexemIsLocNo">Nu</label>
+          <input type="checkbox" name="lexemIsLoc" value="1" {if $lexem->isLoc}checked="checked"{/if}/>
         {else}
+          <input type="hidden" name="lexemIsLoc" value="{if $lexem->isLoc}1{/if}"/>
           {if $lexem->isLoc}Da{else}Nu{/if}
         {/if}
 
@@ -79,15 +74,7 @@
     <tr>
       <td>Necesită accent</td>
       <td>
-        <input type="radio" name="lexemNoAccent" value=""
-               id="lexemYesAccent"
-               {if !$lexem->noAccent}checked="checked"{/if}/>
-        <label for="lexemYesAccent">Da</label>
-
-        <input type="radio" name="lexemNoAccent" value="1"
-               id="lexemNoAccent"
-               {if $lexem->noAccent}checked="checked"{/if}/>
-        <label for="lexemNoAccent">Nu</label>
+        <input type="checkbox" name="needsAccent" value="1" {if !$lexem->noAccent}checked="checked"{/if}/>
 
         <span class="tooltip" title="Majoritatea lexemelor necesită accent. Excepție fac cuvintele compuse, denumirile științifice de animale și
         plante, elementele de compunere etc.">&nbsp;</span>
@@ -129,15 +116,14 @@
 
 <div class="lexemSectionHeader">Paradigmă</div>
 
-{if $sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
-  <div class="lexemSection">
+<div class="lexemSection">
+  {if $sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
     Puteți face etichetarea în trei moduri: (1) alegeți una dintre
     sugestii; (2) indicați un cuvânt care se flexionează la fel; sau
     (3) indicați tipul și numărul modelului.
     <br/><br/>
 
-    <b>1. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b>
-    se flexionează ca...
+    <b>1. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b> se flexionează ca...
     {foreach from=$suggestedLexems item=l key=i}
       {if $i}|{/if}
       {include file="common/bits/lexemName.ihtml" lexem=$l accent=1}
@@ -149,8 +135,7 @@
     <input id="similarLexemId" type="text" name="similarLexemId"/>
     <br/><br/>
 
-    <b>3. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b>
-    se flexionează conform modelului
+    <b>3. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b> se flexionează conform modelului
     <select name="modelType" id="modelTypeListId" onchange="return updateModelList(false)">
       {foreach from=$modelTypes item=mt}
         <option value="{$mt->code|escape}"
@@ -189,8 +174,11 @@
     <input type="checkbox" id="restrT" name="restr[]" value="T"
       {if $restrT}checked="checked"{/if}/>
     <label for="restrT">Trecut</label>
-  </div>
-{/if}
+  {else}
+    <b>{include file="common/bits/lexemName.ihtml" lexem=$lexem}</b> se flexionează conform modelului
+    {$lexem->modelType}{$lexem->modelNumber}{$lexem->restriction}.
+  {/if}
+</div>
 
 {if $ifMap && !$errorMessage}
   {include file="common/paradigm/current/paradigm.ihtml" lexem=$lexem ifMap=$ifMap}
@@ -212,7 +200,7 @@
 <div class="lexemSection">
   <input type="submit" name="refreshLexem" value="Reafișează"/>
   &nbsp;&nbsp;
-  <input type="submit" name="updateLexem" value="Salvează"/>
+  <input type="submit" name="saveLexem" value="Salvează"/>
   &nbsp;&nbsp;
   <input type="submit" name="cloneLexem" value="Clonează"/>
 

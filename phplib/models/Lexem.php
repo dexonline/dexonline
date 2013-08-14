@@ -13,7 +13,6 @@ class Lexem extends BaseObject implements DatedObject {
     }
     $l->description = '';
     $l->tags = '';
-    $l->source = '';
     $l->modelType = $modelType;
     $l->modelNumber = $modelNumber;
     $l->restriction = $restriction;
@@ -402,6 +401,7 @@ class Lexem extends BaseObject implements DatedObject {
       LexemDefinitionMap::deleteByLexemId($this->id);
       InflectedForm::deleteByLexemId($this->id);
       Meaning::deleteByLexemId($this->id);
+      LexemSource::deleteByLexemId($this->id);
     }
     // Clear the variantOfId field for lexems having $this as main.
     $lexemsToClear = Lexem::get_all_by_variantOfId($this->id);
@@ -414,6 +414,7 @@ class Lexem extends BaseObject implements DatedObject {
 
   public function save() {
     $this->formUtf8General = $this->formNoAccent;
+    $this->reverse = StringUtil::reverse($this->formNoAccent);
     $this->charLength = mb_strlen($this->formNoAccent);
     parent::save();
   }  

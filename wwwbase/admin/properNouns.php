@@ -34,7 +34,6 @@ if ($submitButton) {
           $l->form = AdminStringUtil::capitalize($l->form);
         }
         $l->formNoAccent = str_replace("'", '', $l->form);
-        $l->reverse = StringUtil::reverse($l->formNoAccent);
         break;
         
       case 'singular':

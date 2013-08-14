@@ -10,11 +10,11 @@ $dissociateDefinitionId = util_getRequestParameter('dissociateDefinitionId');
 $associateDefinitionId = util_getRequestParameter('associateDefinitionId');
 $lexemForm = util_getRequestParameter('lexemForm');
 $lexemDescription = util_getRequestParameter('lexemDescription');
-$lexemSources = util_getRequestParameter('lexemSources');
+$lexemSourceIds = util_getRequestParameter('lexemSourceIds');
 $lexemTags = util_getRequestParameter('lexemTags');
 $lexemComment = util_getRequestParameter('lexemComment');
-$lexemIsLoc = util_getRequestParameter('lexemIsLoc');
-$lexemNoAccent = util_getRequestParameter('lexemNoAccent');
+$lexemIsLoc = util_getBoolean('lexemIsLoc');
+$needsAccent = util_getBoolean('needsAccent');
 $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
 $similarModel = util_getRequestParameter('similarModel');
@@ -23,14 +23,15 @@ $restriction = util_getRequestCheckboxArray('restr', '');
 $miniDefTarget = util_getRequestParameter('miniDefTarget');
 
 $refreshLexem = util_getRequestParameter('refreshLexem');
-$updateLexem = util_getRequestParameter('updateLexem');
+$saveLexem = util_getRequestParameter('saveLexem');
 $cloneLexem = util_getRequestParameter('cloneLexem');
 $deleteLexem = util_getRequestParameter('deleteLexem');
 $createDefinition = util_getRequestParameter('createDefinition');
 
 $lexem = Lexem::get_by_id($lexemId);
-$oldModelType = $lexem->modelType;
-$oldModelNumber = $lexem->modelNumber;
+$original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether certain fields have changed
+
+/*************************** various actions other than the save/refresh buttons ***************************/
 
 if ($associateDefinitionId) {
   LexemDefinitionMap::associate($lexem->id, $associateDefinitionId);
@@ -77,127 +78,80 @@ if ($cloneLexem) {
   util_redirect("lexemEdit.php?lexemId={$newLexem->id}");
 }
 
-if (!$similarModel && !$similarLexemId && !$refreshLexem && !$updateLexem) {
+if (!$similarModel && !$similarLexemId && !$refreshLexem && !$saveLexem) {
   RecentLink::createOrUpdate("Lexem: {$lexem}");
 }
 
-if ($lexemForm !== null) {
-  $oldUnaccented = $lexem->formNoAccent;
+if ($refreshLexem || $saveLexem) {
+  // Populate lexem fields from request parameters.
   $lexem->form = AdminStringUtil::formatLexem($lexemForm);
   $lexem->formNoAccent = str_replace("'", '', $lexem->form);
-  $lexem->reverse = StringUtil::reverse($lexem->formNoAccent);
-  if ($lexem->formNoAccent != $oldUnaccented) {
-    $lexem->modelType = 'T';
-    $lexem->modelNumber = 1;
-  }
-}
-
-if ($lexemDescription !== null) {
   $lexem->description = AdminStringUtil::internalize($lexemDescription, false);
-}
-
-if ($lexemTags !== null) {
   $lexem->tags = AdminStringUtil::internalize($lexemTags, false);
-}
-
-if ($lexemSources !== null) {
-  $lexem->source = implode(',', $lexemSources);
-}	
-
-if ($lexemComment !== null) {
-  $newComment = trim(AdminStringUtil::internalize($lexemComment, false));
-  $oldComment = trim($lexem->comment);
-  if (StringUtil::startsWith($newComment, $oldComment) &&
-      $newComment != $oldComment &&
-      !StringUtil::endsWith($newComment, ']]')) {
-    $newComment .= " [[" . session_getUser() . ", " .
-      strftime("%d %b %Y %H:%M") . "]]\n";
-  } else if ($newComment) {
-    $newComment .= "\n";
+  $lexem->comment = trim(AdminStringUtil::internalize($lexemComment, false));
+  // Sign appended comments
+  if (StringUtil::startsWith($lexem->comment, $original->comment) &&
+      $lexem->comment != $original->comment &&
+      !StringUtil::endsWith($lexem->comment, ']]')) {
+    $lexem->comment .= " [[" . session_getUser() . ", " . strftime("%d %b %Y %H:%M") . "]]";
   }
-  $lexem->comment = $newComment;
-}
+  $lexem->isLoc = $lexemIsLoc;
+  $lexem->noAccent = !$needsAccent;
 
-if ($lexemIsLoc !== null) {
-  $lexem->isLoc = ($lexemIsLoc != '');
-}
-
-if ($lexemNoAccent !== null) {
-  $lexem->noAccent = ($lexemNoAccent != '');
-}
-
-// The new model type, number and restrictions can come from three sources:
-// $similarModel, $similarLexemId or ($modelType, $modelNumber,
-// $restriction) directly
-$errorMessage = '';
-if ($similarModel !== null) {
-  $parts = FlexModel::splitName($similarModel);
-  $lexem->modelType = $parts[0];
-  $lexem->modelNumber = $parts[1];
-  $lexem->restriction = $parts[2];
-} else if ($similarLexemId) {
-  $similarLexem = Lexem::get_by_id($similarLexemId);
-  $lexem->modelType = $similarLexem->modelType;
-  $lexem->modelNumber = $similarLexem->modelNumber;
-  $lexem->restriction = $similarLexem->restriction;
-} else if ($modelType !== null) {
-  $lexem->modelType = $modelType;
-  $lexem->modelNumber = $modelNumber;
-  $lexem->restriction = $restriction;
-}
-
-if (!$errorMessage) {
-  $errorMessage = validate($lexem);
-}
-
-if (!$errorMessage) {
-  $errorMessage = validateRestriction($lexem->modelType, $lexem->restriction);
-}
-
-if ($updateLexem && !$errorMessage) {
-  if ($oldModelType == 'VT' && $lexem->modelType != 'VT') {
-    $lexem->deleteParticiple($oldModelNumber);
+  // The new model type, number and restrictions can come from three sources:
+  // $similarModel, $similarLexemId or ($modelType, $modelNumber,
+  // $restriction) directly
+  if ($similarModel !== null) {
+    $parts = FlexModel::splitName($similarModel);
+    $lexem->modelType = $parts[0];
+    $lexem->modelNumber = $parts[1];
+    $lexem->restriction = $parts[2];
+  } else if ($similarLexemId) {
+    $similarLexem = Lexem::get_by_id($similarLexemId);
+    $lexem->modelType = $similarLexem->modelType;
+    $lexem->modelNumber = $similarLexem->modelNumber;
+    $lexem->restriction = $similarLexem->restriction;
+  } else if ($modelType !== null) {
+    $lexem->modelType = $modelType;
+    $lexem->modelNumber = $modelNumber;
+    $lexem->restriction = $restriction;
   }
-  if (($oldModelType == 'VT' || $oldModelType == 'V') &&
-      ($lexem->modelType != 'VT' && $lexem->modelType != 'V')) {
-    $lexem->deleteLongInfinitive();
-  }
-  $lexem->save();
-  // There are two reasons to regenerate the paradigm: the model has changed
-  // or the form has changed. It's easier to do it every time.
-  $lexem->regenerateParadigm();
 
-  log_userLog("Edited lexem {$lexem->id} ({$lexem->form})");
-  util_redirect("lexemEdit.php?lexemId={$lexem->id}");
+  $ifs = $lexem->generateParadigm();
+
+  if (validate($lexem, $ifs)) {
+    if ($saveLexem) {
+      if ($original->modelType == 'VT' && $lexem->modelType != 'VT') {
+        $lexem->deleteParticiple($original->modelNumber);
+      }
+      if (($original->modelType == 'VT' || $original->modelType == 'V') &&
+          ($lexem->modelType != 'VT' && $lexem->modelType != 'V')) {
+        $lexem->deleteLongInfinitive();
+      }
+      $lexem->save();
+      LexemSource::update($lexem->id, $lexemSourceIds);
+      $lexem->regenerateParadigm(); // This generates AND saves the paradigm
+
+      log_userLog("Edited lexem {$lexem->id} ({$lexem->form})");
+      util_redirect("lexemEdit.php?lexemId={$lexem->id}");
+    }
+  }
+} else {
+  $ifs = $lexem->generateParadigm();
+  $lexemSourceIds = LexemSource::getForLexem($lexem);
 }
 
 $definitions = Definition::loadByLexemId($lexem->id);
 $searchResults = SearchResult::mapDefinitionArray($definitions);
 $definitionLexem = mb_strtoupper(AdminStringUtil::internalize($lexem->form, false));
 
-// Generate new inflected forms, but do not overwrite the old ones.
-$ifs = $lexem->generateParadigm();
-if (!is_array($ifs)) {
-  $infl = Inflection::get_by_id($ifs);
-  if (!$errorMessage) {
-    $errorMessage = "Nu pot genera flexiunea '".htmlentities($infl->description)."' " .
-      "conform modelului {$lexem->modelType}{$lexem->modelNumber}.";
-  }
-} else {
+if (is_array($ifs)) {
   $ifMap = InflectedForm::mapByInflectionRank($ifs);
   SmartyWrap::assign('ifMap', $ifMap);
-  SmartyWrap::assign('searchResults', $searchResults);
 }
 
-$models = FlexModel::loadByType($lexem->modelType);
-
-$sources = LexemSources::getSourceArrayChecked($lexem->source);
-$sourceNames = LexemSources::getNamesOfSources($lexem->source);
-$canEditForm = !$lexem->isLoc || util_isModerator(PRIV_LOC);
-
 SmartyWrap::assign('lexem', $lexem);
-SmartyWrap::assign('sources', $sources);
-SmartyWrap::assign('sourceNames', $sourceNames);
+SmartyWrap::assign('lexemSourceIdMap', util_makeSet($lexemSourceIds));
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('definitionLexem', $definitionLexem);
 SmartyWrap::assign('homonyms', Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many());
@@ -208,58 +162,63 @@ SmartyWrap::assign('restrU', FlexStringUtil::contains($lexem->restriction, 'U'))
 SmartyWrap::assign('restrI', FlexStringUtil::contains($lexem->restriction, 'I'));
 SmartyWrap::assign('restrT', FlexStringUtil::contains($lexem->restriction, 'T'));
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
-SmartyWrap::assign('models', $models);
-SmartyWrap::assign('canEditForm', $canEditForm);
+SmartyWrap::assign('models', FlexModel::loadByType($lexem->modelType));
+SmartyWrap::assign('canEditForm', !$lexem->isLoc || util_isModerator(PRIV_LOC));
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
-SmartyWrap::assign('errorMessage', $errorMessage);
-SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::addCss('jqueryui', 'paradigm', 'select2');
 SmartyWrap::addJs('jquery', 'jqueryui', 'struct', 'select2');
 SmartyWrap::assign('sectionTitle', "Editare lexem: {$lexem->form} {$lexem->modelType}{$lexem->modelNumber}{$lexem->restriction}");
 SmartyWrap::displayAdminPage('admin/lexemEdit.ihtml');
 
-function validate($lexem) {
+/**************************************************************************/
+
+function validate($lexem, $ifs) {
   if (!$lexem->form) {
-    return 'Forma nu poate fi vidă.';
+    FlashMessage::add('Forma nu poate fi vidă.');
   }
+
   $numAccents = mb_substr_count($lexem->form, "'");
   // Note: we allow multiple accents for lexems like hárcea-párcea
   if ($numAccents && $lexem->noAccent) {
-    return 'Ați indicat că lexemul nu necesită accent, dar forma conține un accent.';
+    FlashMessage::add('Ați indicat că lexemul nu necesită accent, dar forma conține un accent.');
   } else if (!$numAccents && !$lexem->noAccent) {
-    return 'Adăugați un accent sau bifați câmpul "Nu necesită accent".';
+    FlashMessage::add('Adăugați un accent sau debifați câmpul "Necesită accent".');
   }
-  return null;
-}
 
-function validateRestriction($modelType, $restriction) {
   $hasS = false;
   $hasP = false;
-  for ($i = 0; $i < mb_strlen($restriction); $i++) {
-    $char = StringUtil::getCharAt($restriction, $i);
+  for ($i = 0; $i < mb_strlen($lexem->restriction); $i++) {
+    $char = StringUtil::getCharAt($lexem->restriction, $i);
     if ($char == 'T' || $char == 'U' || $char == 'I') {
-      if ($modelType != 'V' && $modelType != 'VT') {
-        return "Restricția <b>$char</b> se aplică numai verbelor";
+      if ($lexem->modelType != 'V' && $lexem->modelType != 'VT') {
+        FlashMessage::add("Restricția <b>$char</b> se aplică numai verbelor");
       }
     } else if ($char == 'S') {
-      if ($modelType == 'I' || $modelType == 'T') {
-        return "Restricția S nu se aplică modelului $modelType";
+      if ($lexem->modelType == 'I' || $lexem->modelType == 'T') {
+        FlashMessage::add("Restricția <b>S</b> nu se aplică modelului $lexem->modelType");
       }
       $hasS = true;
     } else if ($char == 'P') {
-      if ($modelType == 'I' || $modelType == 'T') {
-        return "Restricția P nu se aplică modelului $modelType";
+      if ($lexem->modelType == 'I' || $lexem->modelType == 'T') {
+        FlashMessage::add("Restricția <b>P</b> nu se aplică modelului $lexem->modelType");
       }
       $hasP = true;
     } else {
-      return "Restricția <b>$char</b> este incorectă.";
+      FlashMessage::add("Restricția <b>$char</b> este incorectă.");
     }
   }
   
   if ($hasS && $hasP) {
-    return "Restricțiile <b>S</b> și <b>P</b> nu pot coexista.";
+    FlashMessage::add("Restricțiile <b>S</b> și <b>P</b> nu pot coexista.");
   }
-  return null;
+
+  if (!is_array($ifs)) {
+    $infl = Inflection::get_by_id($ifs);
+    FlashMessage::add(sprintf("Nu pot genera flexiunea '%s' conform modelului %s%s",
+                              htmlentities($infl->description), $lexem->modelType, $lexem->modelNumber));
+  }
+
+  return FlashMessage::getMessage() == null;
 }
 
 function loadSuggestions($lexem, $limit) {

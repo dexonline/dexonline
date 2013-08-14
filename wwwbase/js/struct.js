@@ -103,6 +103,9 @@ function definitionEditInit() {
 }
 
 function lexemEditInit() {
+  $('#lexemSourceIds').select2({
+    width: '333px',
+  });
   $('#similarLexemId').select2({
     ajax: struct_lexemAjax,
     minimumInputLength: 1,

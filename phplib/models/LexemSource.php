@@ -5,12 +5,8 @@ class LexemSource extends BaseObject implements DatedObject {
 
   /* Returns a list of sourceId's. */
   public static function getForLexem($lexem) {
-    $results = array();
     $lexemSources = LexemSource::get_all_by_lexemId($lexem->id);
-    foreach($lexemSources as $ls) {
-      $results[] = $ls->sourceId;
-    }
-    return $results;
+    return util_objectProperty($lexemSources, 'sourceId');
   }
 
   public static function deleteByLexemId($lexemId) {

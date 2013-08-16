@@ -3,10 +3,10 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$addType = util_getRequestIntParameter('type');
+$isOCR = util_getRequestIntParameter('ocr');
 $next_ocr_but = util_getRequestParameter('but_next_ocr');
-if(!$next_ocr_but) {
-    $definitionId = util_getRequestIntParameter('definitionId');
+$definitionId = util_getRequestIntParameter('definitionId');
+if($definitionId && !$next_ocr_but) {
     $lexemIds = util_getRequestCsv('lexemIds');
     $sourceId = util_getRequestIntParameter('source');
     $internalRep = util_getRequestParameter('internalRep');
@@ -22,13 +22,12 @@ else {
     $status = null;
     $commentContents = null;
     $preserveCommentUser = null;
+    $isOCR = 1;
 }
 $refreshButton = util_getRequestParameter('but_refresh');
 $acceptButton = util_getRequestParameter('but_accept');
 $moveButton = util_getRequestParameter('but_move');
 $hasErrors = false;
-
-$isOCR = ($addType == 'ocr');
 
 if (!$definitionId) {
   if ($isOCR) {

@@ -62,7 +62,7 @@ class Crawler extends AbstractCrawler {
 			$this->setStorePageParams();
 
 			//salveaza o intrare despre pagina curenta in baza de date
-			$this->savePage2DB($this->currentUrl, $this->httpResponse(), $this->rawPagePath, $this->parsedTextPath);
+			$this->currentPageId = CrawledPage::savePage2DB($this->currentUrl, $this->httpResponse(), $this->rawPagePath, $this->parsedTextPath, $this->currentTimestamp);
 			
 			//daca pagina nu e in format html (e imagine sau alt fisier)
 			//sau daca am primit un cod HTTP de eroare, sarim peste pagina acesta
@@ -102,7 +102,7 @@ class Crawler extends AbstractCrawler {
 if (strstr( $_SERVER['SCRIPT_NAME'], 'Crawler.php')) {
 
 	$obj = new Crawler();
-	$obj->startCrawling("http://wiki.dexonline.ro/");
-	//$obj->startCrawling("http://www.romlit.ro");
+	//$obj->startCrawling("http://wiki.dexonline.ro/");
+	$obj->startCrawling("http://www.romlit.ro");
 }
 ?>

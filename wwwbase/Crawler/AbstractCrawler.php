@@ -7,7 +7,7 @@ require_once '../../phplib/util.php';
 require_once '../../phplib/serverPreferences.php';
 require_once '../../phplib/db.php';
 require_once '../../phplib/idiorm/idiorm.php';
-
+require_once '../../phplib/idiorm/paris.php';
 
 require_once 'AppLog.php';
 
@@ -259,53 +259,8 @@ abstract class AbstractCrawler {
 
 		$domain = $this->getDomain($url);
 
-		$this->saveLink2DB($canonicalUrl, $domain, $urlHash, $this->currentPageId);
+		Link::saveLink2DB($canonicalUrl, $domain, $urlHash, $this->currentPageId);
 	}
-
-	//adauga o intrare nou in tabelul Link
-	function saveLink2DB($canonicalUrl, $domain, $urlHash, $crawledPageId) {
-
-		//nu inseram acelasi link de 2 ori
-		if (ORM::for_table('Link')->where('canonicalUrl', $canonicalUrl)->find_one()) {
-			return;
-		}
-
-		try {
-			$tableObj = ORM::for_table("Link");
-			$tableObj->create();
-			$tableObj->canonicalUrl = $canonicalUrl;
-			$tableObj->domain = $domain;
-			$tableObj->urlHash = $urlHash;
-			$tableObj->crawledPageId = $crawledPageId;
-			$tableObj->save();
-		}
-		catch(Exception $ex) {
-
-			logException($ex);
-		}
-	}
-	//salveaza informatiile despre pagina curent crawl-ata in tabelul CrawledPage
-	function savePage2DB($url, $httpStatus, $rawPagePath, $parsedTextPath) {
-
-		try {
-			$tableObj = ORM::for_table("CrawledPage");
-			$tableObj->create();
-			$tableObj->timestamp = $this->currentTimestamp;
-			$tableObj->url = $url;
-			$tableObj->httpStatus = ''.$this->info["http_code"];
-			$tableObj->rawPagePath = $rawPagePath;
-			$tableObj->parsedTextPath = $parsedTextPath;
-			$tableObj->save();
-
-			$this->currentPageId = ORM::for_table('CrawledPage')->order_by_desc('id')->find_one()->id;
-
-		}
-		catch(Exception $ex) {
-
-			logException($ex);
-		}
-	}
-
 
 	function isRelativeLink($url) {
 

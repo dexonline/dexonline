@@ -13,10 +13,7 @@ function removeFiles($regexPath) {
 
 	exec("rm -rf $regexPath");
 }
-$user_ag =  pref_getSectionPreference('crawler', 'user_agent_location').pref_getSectionPreference('crawler', 'new_line');
-echo file_get_contents($user_ag);
 
-/*
 try {
 
 	//sterge toate fisierele salvate

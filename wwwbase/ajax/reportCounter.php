@@ -21,6 +21,7 @@ case 'ambiguousLexems': // This one is expensive
     ->find_one();
   print $r->c;
   break;
+case 'visualTag': echo Model::factory('Visual')->where('revised', 0)->count(); break;
 default: echo 'Necunoscut';
 }
 

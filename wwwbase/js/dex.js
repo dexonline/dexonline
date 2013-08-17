@@ -343,7 +343,7 @@ function deleteDefinition(defDivId, defId) {
 
 function startReportCounters() {
   reports = ['unassociatedLexems', 'unassociatedDefinitions', 'definitionsWithTypos', 'temporaryDefinitions', 'temporaryLexems', 'lexemsWithComments',
-             'lexemsWithoutAccents', 'definitionsWithAmbiguousAbbrev', 'wotd'];
+             'lexemsWithoutAccents', 'definitionsWithAmbiguousAbbrev', 'wotd', 'visualTag'];
   for (var i = 0; i < reports.length; i++) {
     $.ajax({
       url: wwwRoot + 'ajax/reportCounter.php',

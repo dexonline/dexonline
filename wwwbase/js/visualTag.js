@@ -46,6 +46,8 @@ jQuery(document).ready(function() {
   $('#clrSel').click(function(e) {
     jcrop_api.release();
 
+    alert($('#lexem').select2('data').text);
+
     resetCoords();
   });
 
@@ -71,25 +73,55 @@ jQuery(document).ready(function() {
     $('#helpText').toggle();
   });
 
+  $('#selectLexeme').select2({
+    initSelection: function(element, callback) {
+      var data = {id: element.val(), text: element.val()};
+      callback(data);
+    },
+    placeholder: "Scrie lexemul",
+    allowclear: true,
+    minimumInputLength: 1,
+    context: this,
+    ajax: {
+      url: wwwRoot + 'ajax/visualTag.php',
+      dataType: 'json',
+      data: function(term, page) { return {term: term}; }, 
+      results: function(data, page) { return { results: data.results }; },
+    },
+    formatResult: function(data) {
+      return data.text;
+    },
+    formatSelection: function(data) {
+      return data.text;
+    },
+    width: '200px',
+
+  }).on('change', function(e) {
+    var id = $(this).select2('data').id;
+    var text = $(this).select2('data').text;
+
+    $('#lexemeId').val(id);
+    $('#lexeme').val(text);
+  });
 });
 
-  function validateTag() {
-    var lexem = document.getElementById('lexem').value;
-    var xImg = document.getElementById('xImg').value;
-    var yImg = document.getElementById('yImg').value;
-    var xTag = document.getElementById('xTag').value;
-    var yTag = document.getElementById('yTag').value;
+function validateTag() {
+  var lexem = document.getElementById('lexem').value;
+  var xImg = document.getElementById('xImg').value;
+  var yImg = document.getElementById('yImg').value;
+  var xTag = document.getElementById('xTag').value;
+  var yTag = document.getElementById('yTag').value;
 
-    if(!lexem) {
-      alert('Ai uitat să completezi câmpul Cuvânt');
-      return false;
+  if(!lexem) {
+    alert('Ai uitat să completezi câmpul Cuvânt');
+    return false;
 
-    } else if(!xImg || !yImg) {
-      alert('Ai uitat să completezi câmpurile Coordonatele centrului etichetei');
-      return false;
+  } else if(!xImg || !yImg) {
+    alert('Ai uitat să completezi câmpurile Coordonatele centrului etichetei');
+    return false;
 
-    } else if(!xTag || !yTag) {
-      alert('Ai uitat să completezi câmpurile Coordonatele zonei etichetate');
-      return false;
-    }
-  };
+  } else if(!xTag || !yTag) {
+    alert('Ai uitat să completezi câmpurile Coordonatele zonei etichetate');
+    return false;
+  }
+};

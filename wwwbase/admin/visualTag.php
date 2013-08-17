@@ -10,7 +10,8 @@ $savedTags = '';
 
 if(util_getRequestParameter('action') == 'save') {
   $imageId = util_getRequestParameter('imageId');
-  $lexem = util_getRequestParameter('lexem');
+  $lexemeId = util_getrequestParameter('lexemeId');
+  $lexeme = util_getRequestParameter('lexeme');
   $xTag = util_getRequestParameter('xTag');
   $yTag = util_getRequestParameter('yTag');
   $xImg = util_getRequestParameter('xImg');
@@ -19,10 +20,8 @@ if(util_getRequestParameter('action') == 'save') {
 
   $line = Model::factory('VisualTag')->create();
   $line->imageId = $imageId;
-  if(!empty($isMain)) {
-    $line->isMain = $isMain;
-  }
-  $line->label = $lexem;
+  $line->lexemeId = $lexemeId;
+  $line->label = $lexeme;
   $line->textXCoord = $xTag;
   $line->textYCoord = $yTag;
   $line->imgXCoord = $xImg;
@@ -65,6 +64,6 @@ if(!empty($line)) {
 }
 
 SmartyWrap::assign('sectionTitle', 'Etichetare imagini pentru definiții');
-SmartyWrap::addCss('jcrop');
-SmartyWrap::addJs('jquery', 'jcrop', 'visualTag');
+SmartyWrap::addCss('jcrop', 'select2');
+SmartyWrap::addJs('jquery', 'jcrop', 'visualTag', 'select2');
 SmartyWrap::displayAdminPage('admin/visualTag.ihtml'); 

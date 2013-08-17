@@ -37,23 +37,31 @@
       <label>Id imagine:
         <input type="text" size="4" value="{$imageId}" name="imageId"/>
       </label><br/>
-        <label>Cuvânt:
-        <input id="lexem" type="text" size="15" name="lexem"/>
+
+      <label>Cuvânt:
+        <input id="selectLexeme" type="hidden"/>
       </label><br/>
+
+      <label>Id lexem
+        <input id="lexemeId" type="text" size="10" name="lexemeId"/>
+      </label><br/>
+
+      <label>Lexem
+        <input id="lexeme" type="text" size="15" name="lexeme"/>
+      </label><br/>
+
       <label>Coordonatele centrului etichetei:
         <input id="xTag" type="text" size="4" name="xTag"/>
         <input id="yTag" type="text" size="4" name="yTag"/>
         <button id="setCoordTag" type="button">Setează coordonatele</button>
       </label><br/>
+
       <label>Coordonatele zonei etichetate:
         <input id="xImg" type="text" size="4" name="xImg"/>
         <input id="yImg" type="text" size="4" name="yImg"/>
         <button id="setCoordImg" type="button">Setează coordonatele</button>
       </label><br/>
-      <label>Etichetă principală?
-        <input type="radio" name="isMain" value="1"/>Da
-        <input type="radio" name="isMain" value="0"/>Nu
-      </label><br/>
+
       <button id="saveSel" type="submit" name="action" value="save">Salvează eticheta</button>
     </form>
   

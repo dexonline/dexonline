@@ -2,7 +2,6 @@
 require_once('../../phplib/util.php');
 
 $query = util_getRequestParameter('term');
-$f = fopen('/tmp/select.txt', 'a');
 
 $field = StringUtil::hasDiacritics($query) ? 'formNoAccent' : 'formUtf8General';
 

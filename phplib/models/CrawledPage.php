@@ -32,7 +32,9 @@ class CrawledPage  extends BaseObject implements DatedObject {
 	//intoarce o lista cu domeniile parsate
 	public static function getListOfDomains() {
 
-		return Model::factory(self::$_table)->raw_query("select id, substr(substring_index(url, '/', 3),8) as domain from CrawledPage group by domain order by id asc;")->find_many();
+		//return Model::factory(self::$_table)->raw_query("select id, substr(substring_index(url, '/', 3),8) as domain from CrawledPage group by domain order by id asc;")->find_many();
+		return Model::factory(self::$_table)->raw_query("select id, domain from
+			 (select id, substr(substring_index(url, '/', 3),8) as domain from CrawledPage order by id desc) alias1 group by domain order by id asc;")->find_many();
 	}
 	
 

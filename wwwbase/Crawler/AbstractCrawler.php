@@ -18,8 +18,6 @@ abstract class AbstractCrawler {
 
 	protected $ch;
 	protected $pageContent;
-	protected $dom;
-	protected $body;
 	protected $plainText;
 	protected $info;
 	protected $currentUrl;
@@ -338,6 +336,43 @@ abstract class AbstractCrawler {
 
 	    return null;
     }
+
+
+    function fixHtml($html) {
+
+    	foreach($html->find('head') as $script) {
+
+			$script->outertext = '';
+		}
+
+
+    	foreach($html->find('script') as $script) {
+
+			$script->outertext = '';
+		}
+
+		foreach($html->find('style') as $style) {
+
+			$style->outertext = '';
+		}
+
+		$html->load($html->save());
+		
+		//transforma pagina raw in simple_html_dom_node
+		//$this->dom = str_get_html($pageContent);
+		
+		$buffer = '<html><body>';
+		$nodes = $html->childNodes();
+		foreach($nodes as $node) {
+
+			$buffer .= $node->innertext();
+		}
+
+		$buffer .= '</body></html>';
+
+		return str_get_html($buffer);
+    }
+
 
 	//Clasele care deriva aceasta clasa vor trebui
 	//sa implementeze metodele de mai jos

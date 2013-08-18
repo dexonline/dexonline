@@ -10,8 +10,9 @@ class Crawler extends AbstractCrawler {
 
 	//extrage textul fara cod html
 	function getText($domNode) {
-		//dump_html_tree($domNode);
-		$this->plainText = $domNode->text();
+		
+		$this->plainText = strip_tags($domNode->text());
+		//$this->plainText = str_replace(array('\t','\n',' ', '&nbsp;'), array('','.','',''),strip_tags($domNode->text()));
 	}
 	//extrage textul cu cod html din nodul respectiv
 	function extractText($domNode) {
@@ -71,16 +72,23 @@ class Crawler extends AbstractCrawler {
 			}
 			
 			try {
-				//transforma pagina raw in simple_html_dom_node
-				$this->dom = str_get_html($pageContent);
-				//extrage continutul dintre tagurile <BODY> si </BODY>
-				$this->body = $this->dom->find('body', 0, true);
-				//extrage recursiv linkurile si textul din body
-				$this->extractText($this->body);
-				//salveaza pagina in 2 formate: raw html si clean text
-				$this->saveCurrentPage();
 
+
+				$html = str_get_html($pageContent);
+
+				//reparam html stricat
+				if (!$html->find('body', 0, true)) {
+
+					$html = $this->fixHtml($html);
+				}
+
+
+
+				$this->extractText($html->find('body', 0, true));
+				$this->saveCurrentPage();
+				
 				//cata memorie consuma
+				//si eliberare referinte pierdute
 				$this->manageMemory();
 				//niceness
 				sleep(pref_getSectionPreference('crawler', 't_wait'));
@@ -89,7 +97,6 @@ class Crawler extends AbstractCrawler {
 
 				logException($ex);
 			}
-
 		}
 
 		crawlerLog('Finished');
@@ -105,4 +112,5 @@ if (strstr( $_SERVER['SCRIPT_NAME'], 'Crawler.php')) {
 	//$obj->startCrawling("http://wiki.dexonline.ro/");
 	$obj->startCrawling("http://www.romlit.ro");
 }
+
 ?>

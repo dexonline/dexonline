@@ -1,279 +1,350 @@
 {assign var="ifMap" value=$ifMap|default:null}
 {assign var="serchResults" value=$searchResults|default:null}
-<div class="lexemSectionHeader">Proprietăți</div>
 
+{* Stem meaning editor that we clone whenever we append a new meaning *}
+<span id="stemNode">
+  <span class="id"></span>
+  <span class="meaningTags"></span>
+  <span class="meaningTagIds"></span>
+  <span class="internalRep"></span>
+  <span class="htmlRep"></span>
+  <span class="internalComment"></span>
+  <span class="htmlComment"></span>
+  <span class="sources"></span>
+  <span class="sourceIds"></span>
+  <span class="synonyms"></span>
+  <span class="synonymIds"></span>
+  <span class="antonyms"></span>
+  <span class="antonymIds"></span>
+</span>
+      
 <form action="lexemEdit.php" method="post">
-<div class="lexemSection">
   <input type="hidden" name="lexemId" value="{$lexem->id}"/>
-  <table class="editableFields">
-    <tr>
-      <td>Nume:</td>
-      <td>
-        {if $canEditForm}  
-          <input type="text" name="lexemForm" value="{$lexem->form|escape}" size="40"/>
-        {else}
-          <input type="hidden" name="lexemForm" value="{$lexem->form|escape}"/>
-          {$lexem->form|escape}
-        {/if}
+  <input type="hidden" name="jsonMeanings" value=""/>
+  <input type="hidden" name="mergeLexemId" value=""/>
 
-        <span class="tooltip" title="Cuvântul-titlu. Accentul trebuie indicat chiar și pentru lexemele monosilabice, altfel paradigma nu va conține
-        deloc accente. Indicați accentul prin apostrof ('a), nu îl includeți în caracter (á). Valoarea acestui câmp este folosită la căutări și este
-        vizibilă public la afișarea flexiunilor unui cuvânt. Odată ce un lexem a fost inclus în LOC, numele și descrierea lexemului mai pot fi
-        modificate numai de către moderatorii LOC.">&nbsp;</span>
+  {include file="admin/lexemEditActions.ihtml"}
 
-      </td>
-    </tr>
-    <tr>
-      <td>Descriere:</td>
-      <td>
-        {if $canEditForm}  
-          <input type="text" name="lexemDescription" value="{$lexem->description|escape}" size="40"/>
-        {else}
-          <input type="hidden" name="lexemDescription" value="{$lexem->description|escape}"/>
-          {$lexem->description|escape}
-        {/if}
-
-        <span class="tooltip" title="O scurtă explicație, vizibilă public, care diferențiază lexemele omonime. Pentru cuvintele fără omonime, ea poate
-        fi vidă.">&nbsp;</span>
-
-      </td>
-    </tr>
-    <tr>
-      <td>Etichete:</td>
-      <td>
-        <select id="lexemSourceIds" name="lexemSourceIds[]" multiple="multiple">
-          {foreach from=$sources item=s}
-            <option value="{$s->id}" {if array_key_exists($s->id, $lexemSourceIdMap)}selected="selected"{/if}>{$s->shortName}</option>
-          {/foreach}
-        </select>
-        <br/>
-        <input type="text" name="lexemTags" value="{$lexem->tags|escape}" size="40"/>
-
-        <span class="tooltip" title="O scurtă clasificare, vizibilă public, care marchează sursa flexiunii. Pentru cuvintele cu flexiuni în DOOM-ul
-        curent (DOOM2 în acest moment), ea poate fi vidă. Sursele pot reprezenta dicționare, autori cunoscuți, inclusiv părerea moderatorului, dar
-        trebuie documentate clar aceste situații.">&nbsp;</span>
-
-      </td>
-    </tr>
-    <tr>
-      <td>Inclus în LOC</td>
-      <td>
-        {if $sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
-          <input type="checkbox" name="lexemIsLoc" value="1" {if $lexem->isLoc}checked="checked"{/if}/>
-        {else}
-          <input type="hidden" name="lexemIsLoc" value="{if $lexem->isLoc}1{/if}"/>
-          {if $lexem->isLoc}Da{else}Nu{/if}
-        {/if}
-
-        <span class="tooltip" title="DEX online menține informații despre lexemele acceptate în Lista Oficială de Cuvinte a Federației Române de
-        Scrabble. Acest câmp este vizibil pentru toți moderatorii, dar poate fi modificat numai de către un set restrâns de moderatori care au drept
-        de gestiune a LOC.">&nbsp;</span>
-
-      </td>
-    </tr>
-    <tr>
-      <td>Necesită accent</td>
-      <td>
-        <input type="checkbox" name="needsAccent" value="1" {if !$lexem->noAccent}checked="checked"{/if}/>
-
-        <span class="tooltip" title="Majoritatea lexemelor necesită accent. Excepție fac cuvintele compuse, denumirile științifice de animale și
-        plante, elementele de compunere etc.">&nbsp;</span>
-
-      </td>
-    </tr>
-    {if $homonyms}
+<div class="box">
+  <div class="boxTitle">Proprietăți</div>
+  <div class="boxContents">
+    <table>
       <tr>
-        <td>Lexeme omonime:</td>
+        <td><label for="lexemForm">nume:</label></td>
         <td>
-          {foreach from=$homonyms item=h key=i}
-            {if $i}|{/if}
-            <a href="lexemEdit.php?lexemId={$h->id}"
-              >{include file="common/bits/lexemName.ihtml"
-                        lexem=$h}</a>
-            [{$h->modelType}{$h->modelNumber}{$h->restriction}]
-          {/foreach}
+          {if $canEdit.form}  
+            <input type="text" id="lexemForm" name="lexemForm" value="{$lexem->form|escape}" size="40"/>
+          {else}
+            <input type="hidden" name="lexemForm" value="{$lexem->form|escape}"/>
+            {$lexem->form|escape}
+          {/if}
+          <span class="tooltip" title="Cuvântul-titlu. Accentul trebuie indicat chiar și pentru lexemele monosilabice, altfel paradigma nu va
+          conține deloc accente. Valoarea acestui câmp este folosită la căutări și este vizibilă public la afișarea flexiunilor unui cuvânt. Odată
+          ce un lexem a fost inclus în LOC, numele și descrierea lexemului mai pot fi modificate numai de către moderatorii LOC.">&nbsp;</span>
+        </td>
+
+        <td class="rightColumn"><label for="lexemSourceIds">surse:</label></td>
+        <td>
+          {if $canEdit.sources}
+            <select id="lexemSourceIds" name="lexemSourceIds[]" multiple="multiple">
+              {foreach from=$sources item=s}
+                <option value="{$s->id}" {if array_key_exists($s->id, $lexemSourceIdMap)}selected="selected"{/if}>{$s->shortName}</option>
+              {/foreach}
+            </select>
+          {else}
+            {foreach from=$lexemSourceIdMap key=sourceId item=ignored}
+              <input type="hidden" name="lexemSourceIds[]" value="{$sourceId}"/>
+              {$sources[$sourceId]->shortName},
+            {/foreach}
+          {/if}
         </td>
       </tr>
-    {/if}
-  </table>
+
+      <tr>
+        <td><label for="lexemDescription">descriere:</label></td>
+        <td>
+          {if $canEdit.description}
+            <input type="text" id="lexemDescription" name="lexemDescription" value="{$lexem->description|escape}" size="40"
+                   placeholder="opțională, pentru diferențierea omonimelor"/>
+          {else}
+            <input type="hidden" name="lexemDescription" value="{$lexem->description|escape}"/>
+            {$lexem->description|escape}
+          {/if}
+        </td>
+
+        <td class="rightColumn"><label for="lexemTags">etichete:</label></td>
+        <td>
+          {if $canEdit.tags}
+            <input type="text" id="lexemTags" name="lexemTags" value="{$lexem->tags|escape}" size="40"
+                   placeholder="explicații despre sursa flexiunii"/>
+          {else}
+            <input type="hidden" name="lexemTags" value="{$lexem->tags|escape}"/>
+            {$lexem->tags|escape}
+          {/if}
+          <span class="tooltip" title="O scurtă clasificare, vizibilă public, care marchează sursa flexiunii. Pentru cuvintele cu flexiuni în DOOM-ul
+          curent (DOOM2 în acest moment), ea poate fi vidă. Sursele pot reprezenta dicționare, autori cunoscuți, inclusiv părerea moderatorului, dar
+          trebuie documentate clar aceste situații.">&nbsp;</span>
+        </td>
+      </tr>
+
+      <tr>
+        <td><label for="variantOfId">variantă a lui:</label></td>
+        <td>
+          <input id="variantOfId" name="variantOfId" value="{$lexem->variantOfId}" type="text"/>
+          <span class="tooltip"
+                title="Variantele nu pot avea sensuri, exemple, variante sau etimologii proprii. Ele pot avea pronunții și silabisiri proprii.">&nbsp;</span>
+        </td>
+
+        <td class="rightColumn"><label for="variantIds">variante:</label></td>
+        <td>
+          <input id="variantIds" name="variantIds" value="{','|implode:$variantIds}" type="text"/>
+          <span class="tooltip"
+                title="Variantele nu pot avea sensuri, exemple, variante sau etimologii proprii. Ele pot avea pronunții și silabisiri proprii.">&nbsp;</span>
+        </td>
+      </tr>
+
+      <tr>
+        <td><label for="hyphenations">silabisiri:</label></td>
+        <td>
+          <input id="hyphenations" name="hyphenations" type="text" value="{$lexem->hyphenations}" size="40"
+                 placeholder="opționale, despărțite prin virgule">
+        </td>
+
+        <td class="rightColumn"><label for="lexemIsLoc">inclus în LOC:</label></td>
+        <td>
+          {if $canEdit.isLoc}
+            <input type="checkbox" id="lexemIsLoc" name="lexemIsLoc" value="1" {if $lexem->isLoc}checked="checked"{/if}/>
+          {else}
+            <input type="hidden" name="lexemIsLoc" value="{if $lexem->isLoc}1{/if}"/>
+            {if $lexem->isLoc}Da{else}Nu{/if}
+          {/if}
+          <span class="tooltip" title="DEX online menține Lista Oficială de Cuvinte a Federației Române de Scrabble. Acest câmp poate fi modificat
+          numai de către un set restrâns de administratori ai LOC.">&nbsp;</span>
+        </td>
+      </tr>
+
+      <tr>
+        <td><label for="pronunciations">pronunții:</label></td>
+        <td>
+          <input id="pronunciations" name="pronunciations" type="text" value="{$lexem->pronunciations}" size="40"
+                 placeholder="opționale, despărțite prin virgule">
+        </td>
+
+        <td class="rightColumn"><label for="needsAccent">necesită accent:</label></td>
+        <td>        
+          <input type="checkbox" id="needsAccent" name="needsAccent" value="1" {if !$lexem->noAccent}checked="checked"{/if}/>
+          <span class="tooltip" title="Majoritatea lexemelor necesită accent. Excepție fac cuvintele compuse, denumirile științifice de animale și
+          plante, elementele de compunere etc.">&nbsp;</span>
+        </td>
+      </tr>
+
+      {if $homonyms}
+        <tr>
+          <td>omonime:</td>
+          <td>
+            {foreach from=$homonyms item=h key=i}
+              {if $i}|{/if}
+              <a href="lexemEdit.php?lexemId={$h->id}">{include file="common/bits/lexemName.ihtml" lexem=$h}</a>
+              [{$h->modelType}{$h->modelNumber}{$h->restriction}]
+            {/foreach}
+          </td>
+          <td class="rightColumn"></td><td></td>
+        </tr>
+      {/if}
+    </table>
+  </div>
 </div>
 
-{if $lexem->modelType == 'T' && !$lexem->isLoc && $homonyms}
-  <div class="lexemSectionHeader">Sugestii pentru dezambiguizare</div>
+<div class="box">
+  <div class="boxTitle">Paradigmă</div>
+  <div class="boxContents">
 
-  <div class="lexemSection">
-    <ul>
-      {foreach from=$homonyms item=h}
-        <li>
-          <a href="lexemMerge.php?id1={$lexem->id}&amp;id2={$h->id}">
-            Unifică cu {$h->form} [{$h->modelType}{$h->modelNumber}{$h->restriction}]
-          </a>
-        </li>
+    {if $canEdit.paradigm}
+      model:   
+      <select name="modelType" id="modelTypeListId" onchange="return updateModelList(false)">
+        {foreach from=$modelTypes item=mt}
+          <option value="{$mt->code|escape}"
+            {if $mt->code == $lexem->modelType}selected="selected"{/if}
+            >{$mt->code|escape}
+          </option>
+        {/foreach}
+      </select>
+      <select name="modelNumber" id="modelListId">
+        {foreach from=$models item=m}
+          <option value="{$m->number}"
+            {if $m->number == $lexem->modelNumber}selected="selected"{/if}
+            >{$m->number}{if !$m->id}*{/if} ({$m->exponent})
+          </option>
+        {/foreach}
+      </select>
+
+      restricții:
+      <input type="checkbox" id="restrS" name="restr[]" value="S" {if $restrS}checked="checked"{/if}/><label for="restrS">Singular</label>
+      &nbsp;
+      <input type="checkbox" id="restrP" name="restr[]" value="P" {if $restrP}checked="checked"{/if}/><label for="restrP">Plural</label>
+      &nbsp;
+      <input type="checkbox" id="restrU" name="restr[]" value="U" {if $restrU}checked="checked"{/if}/><label for="restrU">Unipersonal</label>
+      &nbsp;
+      <input type="checkbox" id="restrI" name="restr[]" value="I" {if $restrI}checked="checked"{/if}/><label for="restrI">Impersonal</label>
+      &nbsp;
+      <input type="checkbox" id="restrT" name="restr[]" value="T" {if $restrT}checked="checked"{/if}/><label for="restrT">Trecut</label>
+      <br/>
+
+      sugestii:
+      {foreach from=$suggestedLexems item=l}
+        {include file="common/bits/lexemName.ihtml" lexem=$l accent=1}
+        {include file="common/bits/similarModel.ihtml" similar=$l} |
       {/foreach}
-    </ul>
-  </div>
-{/if}
+      <input id="similarLexemId" type="text" name="similarLexemId"/>
+    {else}
+      <input type="hidden" name="modelType" value="{$lexem->modelType}"/>
+      <input type="hidden" name="modelNumber" value="{$lexem->modelNumber}"/>
+      {if $restrS}<input type="hidden" name="restr[]" value="S"/>{/if}
+      {if $restrP}<input type="hidden" name="restr[]" value="P"/>{/if}
+      {if $restrU}<input type="hidden" name="restr[]" value="U"/>{/if}
+      {if $restrI}<input type="hidden" name="restr[]" value="I"/>{/if}
+      {if $restrT}<input type="hidden" name="restr[]" value="T"/>{/if}
+      <b>{include file="common/bits/lexemName.ihtml" lexem=$lexem}</b> se flexionează conform modelului
+      {$lexem->modelType}{$lexem->modelNumber}{$lexem->restriction}.
+    {/if}
 
-<div class="lexemSectionHeader">Paradigmă</div>
-
-<div class="lexemSection">
-  {if $sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
-    Puteți face etichetarea în trei moduri: (1) alegeți una dintre
-    sugestii; (2) indicați un cuvânt care se flexionează la fel; sau
-    (3) indicați tipul și numărul modelului.
-    <br/><br/>
-
-    <b>1. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b> se flexionează ca...
-    {foreach from=$suggestedLexems item=l key=i}
-      {if $i}|{/if}
-      {include file="common/bits/lexemName.ihtml" lexem=$l accent=1}
-      {include file="common/bits/similarModel.ihtml" lexem=$lexem similar=$l}
-    {/foreach}
-    <br/><br/>
-
-    <b>2. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b> se flexionează ca
-    <input id="similarLexemId" type="text" name="similarLexemId"/>
-    <br/><br/>
-
-    <b>3. {include file="common/bits/lexemName.ihtml" lexem=$lexem}</b> se flexionează conform modelului
-    <select name="modelType" id="modelTypeListId" onchange="return updateModelList(false)">
-      {foreach from=$modelTypes item=mt}
-        <option value="{$mt->code|escape}"
-          {if $mt->code == $lexem->modelType}selected="selected"{/if}
-          >{$mt->code|escape}
-        </option>
-      {/foreach}
-    </select>
-    <select name="modelNumber" id="modelListId">
-      {foreach from=$models item=m}
-        <option value="{$m->number}"
-          {if $m->number == $lexem->modelNumber}selected="selected"{/if}
-          >{$m->number}{if !$m->id}*{/if} ({$m->exponent})
-        </option>
-      {/foreach}
-    </select>
+    {if $ifMap}
+      {include file="common/paradigm/current/paradigm.ihtml" lexem=$lexem ifMap=$ifMap}
+    {/if}
     <br/>
 
-    cu restricțiile
-    <input type="checkbox" id="restrS" name="restr[]" value="S"
-      {if $restrS}checked="checked"{/if}/>
-    <label for="restrS">Singular</label>
-    &nbsp;&nbsp;
-    <input type="checkbox" id="restrP" name="restr[]" value="P"
-      {if $restrP}checked="checked"{/if}/>
-    <label for="restrP">Plural</label>
-    &nbsp;&nbsp;
-    <input type="checkbox" id="restrU" name="restr[]" value="U"
-      {if $restrU}checked="checked"{/if}/>
-    <label for="restrU">Unipersonal</label>
-    &nbsp;&nbsp;
-    <input type="checkbox" id="restrI" name="restr[]" value="I"
-      {if $restrI}checked="checked"{/if}/>
-    <label for="restrI">Impersonal</label>
-    &nbsp;&nbsp;
-    <input type="checkbox" id="restrT" name="restr[]" value="T"
-      {if $restrT}checked="checked"{/if}/>
-    <label for="restrT">Trecut</label>
-  {else}
-    <b>{include file="common/bits/lexemName.ihtml" lexem=$lexem}</b> se flexionează conform modelului
-    {$lexem->modelType}{$lexem->modelNumber}{$lexem->restriction}.
-  {/if}
+    Comentarii despre paradigmă:
+    <br/>
+
+    <textarea name="lexemComment" rows="3" cols="60" class="commentTextArea"
+              placeholder="Dacă observați greșeli în paradigmă, notați-le în acest câmp și ele vor fi semnalate unui moderator cu drept de gestiune a LOC."
+              >{$lexem->comment|escape}</textarea>
+  </div>
 </div>
 
-{if $ifMap && !$errorMessage}
-  {include file="common/paradigm/current/paradigm.ihtml" lexem=$lexem ifMap=$ifMap}
-{/if}
+<div class="box">
+  <div class="boxTitle">Sensuri</div>
+  <div id="meaningTreeContainer" class="boxContents">
+    {include file="common/bits/meaningTree.ihtml" meanings=$meanings id="meaningTree"}
 
-<div class="lexemSection">
-  Comentarii despre paradigmă:
-
-  <span class="tooltip" title="Dacă observați greșeli în paradigmă, notați-le în acest câmp și ele vor fi semnalate unui moderator cu drept de
-  gestiune a LOC.">&nbsp;</span>
-
-  <br/>
-  <textarea name="lexemComment" rows="4" cols="60" class="commentTextArea"
-    >{$lexem->comment|escape}</textarea>
+    <div id="meaningMenu">
+      <input type="button" id="addMeaningButton" value="adaugă sens"/>
+      <input type="button" id="addSubmeaningButton" value="adaugă subsens"/>
+      <input type="button" id="deleteMeaningButton" value="șterge sens"/>
+    </div>
+  </div>
 </div>
 
-<div class="lexemSectionHeader">Acțiuni</div>
+<div class="box">
+  <div class="boxTitle">Editorul de sensuri</div>
+  <div class="boxContents">
+    <table class="meaningEditor">
+      <tr>
+        <td class="leftColumn" rowspan="5">
+          <textarea id="editorInternalRep" rows="10" cols="10" disabled="disabled" placeholder="sensul definiției..."></textarea>
+        </td>
 
-<div class="lexemSection">
-  <input type="submit" name="refreshLexem" value="Reafișează"/>
-  &nbsp;&nbsp;
-  <input type="submit" name="saveLexem" value="Salvează"/>
-  &nbsp;&nbsp;
-  <input type="submit" name="cloneLexem" value="Clonează"/>
+        <td>
+          <textarea id="editorInternalComment" rows="3" cols="10" disabled="disabled" placeholder="comentariu..."></textarea>
+        </td>
+      </tr>
 
-  <span class="tooltip" title="Clonarea creează un lexem aproape identic cu cel în curs de editare. El va avea același nume și aceleași definiții
-  asociate. Descrierea noului lexem va fi prefixată cu cuvântul <b>CLONĂ.</b> Clona va fi creată fără flexiuni (modelul de flexionare temporar T1),
-  chiar dacă lexemul original avea flexiuni. Folosiți clonarea pentru a sparge un lexem nediferențiat în două lexeme omonime. De exemplu, dacă inițial
-  toate definițiile pentru <i>episcop</i> sunt reunite într-un singur lexem, puteți să clonați acest lexem și să adăugați descrierile "prelat" și
-  "aparat". Apoi trebuie să asociați definițiile în mod corect cu cele două lexeme.">&nbsp;</span>
+      <tr>
+        <td>
+          <label for="editorSources">surse:</label>
+          <select id="editorSources" multiple="multiple">
+            {foreach from=$sources item=s}
+              <option value="{$s->id}">{$s->shortName}</option>
+            {/foreach}
+          </select>
+        </td>
+      </tr>
 
-  &nbsp;&nbsp;
-  <input type="submit" name="deleteLexem" value="Șterge"
-       {if $lexem->isLoc}disabled="disabled"{/if}
-       onclick="return confirm('Confirmați ștergerea acestui lexem?');"/>
+      <tr>
+        <td>
+          <label for="editorTags">etichete:</label>
+          <select id="editorTags" multiple="multiple">
+            {foreach from=$meaningTags item=mt}
+              <option value="{$mt->id}">{$mt->value}</option>
+            {/foreach}
+          </select>
+        </td>
+      </tr>
 
-  <span class="tooltip" title="Acest buton șterge lexemul și formele sale flexionare și disociază definițiile asociate cu acest lexem. Definițiile în
-  sine nu vor fi șterse, dar, dacă nu sunt asociate cu niciun alt lexem, ele vor deveni neasociate, ceea ce înseamnă că nu vor fi niciodată afișate
-  ca rezultat al unei căutări. Probabil trebuie să vă asigurați că definițiile respective sunt asociate cu un alt lexem înainte de a-l șterge pe
-  acesta. <b>Notă:</b> Lexemele care sunt parte din LOC nu pot fi șterse, pentru a preveni modificarea accidentală a LOC. Dacă sunteți moderator cu
-  drept de gestiune a LOC, scoateți întâi lexemul din LOC, după care îl puteți șterge.">&nbsp;</span>
+      <tr>
+        <td>
+          <label for="editorSynonyms">sinonime:</label>
+          <input id="editorSynonyms" type="hidden"/>
+        </td>
+      </tr>
 
-  <br/>
+      <tr>
+        <td>
+          <label for="editorAntonyms">antonime:</label>
+          <input id="editorAntonyms" type="hidden"/>
+        </td>
+      </tr>
 
-  Asociază definiția cu ID-ul:
-  <input type="text" name="associateDefinitionId"/>
-  <input type="submit" name="associateDefinition" value="Asociază"/>
-
-  <span class="tooltip" title="Tastați ID-ul definiției pentru a o asocia cu acest lexem. Puteți, mai comod, să vizitați pagina definiției pe care
-  doriți să o asociați și să adăugați acest lexem la lista ei de lexeme (deoarece în acel caz puteți căuta lexemul după nume).">&nbsp;</span>
-
+      <tr>
+        <td colspan="2">
+          <input id="editMeaningAcceptButton" type="button" disabled="disabled" value="acceptă"/>
+          <input id="editMeaningCancelButton" type="button" disabled="disabled" value="renunță"/>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
+
+<div class="box">
+  <div class="boxTitle">Definiții asociate ({$searchResults|@count})</div>
+  <div class="boxContents">
+    {foreach from=$searchResults item=row}
+      <div>
+        <div class="defInternalRep">{$row->definition->internalRep|escape}</div>
+        <div class="defHtmlRep">{$row->definition->htmlRep}</div>
+        <span class="defDetails">
+          id: {$row->definition->id}
+          | sursa: {$row->source->shortName|escape}
+          {assign var=status value="`$row->definition->status`"}
+          {assign var=statusName value="`$allStatuses[$status]`"}
+          | starea: {$statusName}
+          {if $canEdit.general}
+            | <a href="definitionEdit.php?definitionId={$row->definition->id}" target="_blank">editează</a>
+            | <a href="lexemEdit.php?lexemId={$lexem->id}&amp;dissociateDefinitionId={$row->definition->id}"
+                 onclick="return confirmDissociateDefinition({$row->definition->id})">disociază</a>
+          {/if}
+          | <a href="#" class="toggleInternalHtmlLink">arată html</a>
+        </span>
+        {if $row->comment}
+          <div class="commentInternalRep">
+            Comentariu: {$row->comment->contents} -
+            <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}">{$row->commentAuthor->nick|escape}</a>
+          </div>
+        {/if}
+      </div>
+    {/foreach}
+
+    {if $canEdit.general}
+      <div class="addDefinition">
+        <input type="text" id="associateDefinitionId" name="associateDefinitionId"/>
+        <input type="submit" name="associateDefinition" value="Asociază"/>
+      </div>
+    {/if}
+
+    {if !count($searchResults) && $canEdit.general}
+      <div class="addDefinition">
+        Puteți crea o mini-definiție. Introduceți termenul-destinație, fără alte formatări (bold, italic etc.):<br/>
+    
+        <b>{$definitionLexem|escape}</b> v. <input type="text" name="miniDefTarget" size="20" class="miniDefTarget"/>.
+        &nbsp;&nbsp;
+        <input type="submit" name="createDefinition" value="Creează"/>
+      </div>
+    {/if}
+  </div>
+</div>
+
+{include file="admin/lexemEditActions.ihtml"}
 </form>
-
-<div class="lexemSectionHeader">
-  Definiții asociate ({$searchResults|@count}):
-</div>
-
-<div class="lexemSection">
-  {foreach from=$searchResults item=row}
-    {$row->definition->htmlRep}<br/>
-    <span class="defDetails">
-      Id: {$row->definition->id} |
-      Sursa: {$row->source->shortName|escape} |
-      Trimisă de {$row->user->nick|escape},
-      {$row->definition->createDate|date_format:"%e %b %Y"} |
-      {assign var=status value="`$row->definition->status`"}
-      {assign var=statusName value="`$allStatuses[$status]`"}
-      Starea: {$statusName} |
-
-      <a href="definitionEdit.php?definitionId={$row->definition->id}"
-        >Editează</a> |
-
-      <a href="lexemEdit.php?lexemId={$lexem->id}&amp;dissociateDefinitionId={$row->definition->id}"
-         onclick="return confirmDissociateDefinition({$row->definition->id})"
-        >Disociază</a>
-    </span>
-    <br/><br/>
-  {/foreach}
-
-  {if !count($searchResults)}
-    Nu există nicio definiție. Puteți crea o
-    mini-definiție. Introduceți termenul-destinație, fără alte
-    formatări (bold, italic etc.):<br/>
-
-    <form action="lexemEdit.php" method="post">
-      <input type="hidden" name="lexemId" value="{$lexem->id}"/>
-      <b>{$definitionLexem|escape}</b> v.
-      <input type="text" name="miniDefTarget" size="20"
-             class="miniDefTarget"/>.
-      &nbsp;&nbsp;
-      <input type="submit" name="createDefinition" value="Creează"/>
-    </form>
-  {/if}
-</div>
 
 <script>
   $(lexemEditInit);

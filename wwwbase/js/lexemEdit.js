@@ -1,13 +1,6 @@
 struct_anyChanges = false;
 
-struct_lexemAjax = {
-  data: function(term, page) { return { term: term }; },
-  dataType: 'json',
-  results: function(data, page) { return data; }, 
-  url: wwwRoot + 'ajax/getLexems.php',
-};
-
-function meaningEditorInit() {
+function lexemEditInit() {
   $('#meaningTree').tree({
     animate: true,
     dnd: true,
@@ -59,7 +52,7 @@ function meaningEditorInit() {
     initSelection: select2InitSelectionAjax,
     minimumInputLength: 1,
     multiple: true,
-    width: '217px',
+    width: '333px',
   });
 
   $('#variantOfId').select2({
@@ -68,121 +61,38 @@ function meaningEditorInit() {
     initSelection: select2InitSelectionAjaxSingle,
     minimumInputLength: 1,
     placeholder: 'alegeți un lexem (opțional)',
-    width: '217px',
+    width: '333px',
+  });
+
+  $('#associateDefinitionId').select2({
+    ajax: struct_definitionAjax,
+    formatResult: function(item) {
+      return item.text + ' (' + item.source + ') [' + item.id + ']';
+    },
+    minimumInputLength: 1,
+    placeholder: 'asociază o definiție',
+    width: '400px',
   });
 
   $('#editMeaningAcceptButton').click(acceptMeaningEdit);
   $('#editMeaningCancelButton').click(endMeaningEdit);
-  $('#dexEditSaveButton').click(dexEditSaveEverything);
+  $('.lexemEditSaveButton').click(saveEverything);
   $('.toggleInternalHtmlLink').click(toggleInternalHtmlClick);
   $('.boxTitle').click(boxTitleClick);
 
-  $(window).resize(adjustDefinitionDivHeight);
-  adjustDefinitionDivHeight();
-}
-
-function structIndexInit() {
-  $('#structLexemFinder').select2({
-    ajax: struct_lexemAjax,
-    minimumInputLength: 1,
-    placeholder: 'caută un lexem...',
-    width: '300px',
-  });
-}
-
-function definitionEditInit() {
-  $('#lexemIds').select2({
-    ajax: struct_lexemAjax,
-    escapeMarkup: function(m) { return m; },
-    initSelection: select2InitSelectionAjax,
-    formatSelection: formatLexemWithEditLink,
-    minimumInputLength: 1,
-    multiple: true,
-    width: '600px',
-  });
-}
-
-function lexemEditInit() {
   $('#lexemSourceIds').select2({
+    placeholder: 'surse care atestă flexiunea',
     width: '333px',
   });
   $('#similarLexemId').select2({
     ajax: struct_lexemAjax,
     minimumInputLength: 1,
+    placeholder: 'sau indicați un lexem similar',
     width: '300px',
-  });
-}
+  }).on('change', similarLexemChange);
 
-function adminIndexInit() {
-  $('#lexemId').select2({
-    ajax: struct_lexemAjax,
-    minimumInputLength: 1,
-    width: '300px',
-  }).on('change', function(e) {
-    $(this).parents('form').submit();
-  });
-}
-
-function contribInit() {
-  $('#lexemIds').select2({
-    ajax: struct_lexemAjax,
-    createSearchChoice: allowNewLexems,
-    formatInputTooShort: function () { return 'Vă rugăm să introduceți minim un caracter'; },
-    formatSearching: function () { return 'Căutare...'; },
-    initSelection: select2InitSelectionAjax,
-    minimumInputLength: 1,
-    multiple: true,
-    tokenSeparators: [',', '\\', '@'],
-    width: '600px',
-  });
-}
-
-function formatLexemWithEditLink(lexem) {
-  return lexem.text + ' <a class="select2Edit" href="lexemEdit.php?lexemId=' + lexem.id + '">&nbsp;</a>';
-}
-
-function allowNewLexems(term, data) {
-  if (!data.length || data[0].text != term) {
-    return { id: '@' + term, text: term + ' (cuvânt nou)'};
-  }
-};
-
-function select2InitSelection(element, callback) {
-  var data = [];
-  $(element.val().split(',')).each(function () {
-    data.push({ id: this, text: this });
-  });
-  callback(data);
-}
-
-function select2InitSelectionAjaxSingle(element, callback) {
-  var id = $(element).val();
-  if (id) {
-    $.ajax(wwwRoot + 'ajax/getLexemById.php?id=' + id, {dataType: 'json'})
-      .done(function(data) {
-        callback({ id: id, text: data });
-      });
-  }
-}
-
-function select2InitSelectionAjax(element, callback) {
-  var data = [];
-
-  $(element.val().split(',')).each(function (index, lexemId) {
-    $.ajax({
-      url: wwwRoot + 'ajax/getLexemById.php?id=' + this,
-      dataType: 'json',
-      success: function(displayValue) {
-        if (displayValue) {
-          data.push({ id: lexemId, text: displayValue });
-        } else {
-          data.push({ id: lexemId, text: lexemId.substr(1) + ' (cuvânt nou)' });
-        }
-      },
-      async: false,
-    });
-  });
-  callback(data);
+  $('.mergeLexem').click(mergeLexemButtonClick);
+  $('.similarLink').click(similarLinkClick);
 }
 
 function addMeaning() {
@@ -220,8 +130,6 @@ function appendAndSelectNode(target) {
   // Now find and select it
   var node = $('#meaningTree').tree('find', randomId);
   $('#meaningTree').tree('select', node.target);
-
-  adjustDefinitionDivHeight();
 }
 
 function deleteMeaning() {
@@ -235,7 +143,6 @@ function deleteMeaning() {
       $('#meaningTree').tree('remove', node.target);
     }
   }
-  adjustDefinitionDivHeight();
 }
 
 function meaningEditorUnchanged(node) {
@@ -342,7 +249,7 @@ function endMeaningEdit() {
 }
 
 // Iterate a meaning tree node recursively and collect meaning-related fields
-function dexEditTreeWalk(node, results, level) {
+function meaningTreeWalk(node, results, level) {
   var jqNode = $(node.target);
   results.push({ 'id': jqNode.find('span.id').text(),
                  'level' : level,
@@ -355,18 +262,18 @@ function dexEditTreeWalk(node, results, level) {
                });
   var children = $('#meaningTree').tree('getChildren', node.target);
   for (var i = 0; i < children.length; i++) {
-    dexEditTreeWalk(children[i], results, level + 1);
+    meaningTreeWalk(children[i], results, level + 1);
   }
 }
 
-function dexEditSaveEverything() {
+function saveEverything() {
   if (struct_anyChanges) {
     acceptMeaningEdit();
   }
   var results = new Array();
   var roots = $('#meaningTree').tree('getRoots');
   for (var i = 0; i < roots.length; i++) {
-    dexEditTreeWalk(roots[i], results, 0);
+    meaningTreeWalk(roots[i], results, 0);
   }
   $('input[name=jsonMeanings]').val(JSON.stringify(results));
   $('#meaningForm').submit();
@@ -384,8 +291,30 @@ function boxTitleClick() {
   $(this).next('.boxContents').slideToggle();
 }
 
-function adjustDefinitionDivHeight() {
-  var windowHeight = $(window).height();
-  var boxTop = $('#definitionBox .boxContents').position().top;
-  $('#definitionBox .boxContents').height(windowHeight - boxTop - 25);
+function mergeLexemButtonClick() {
+  var id = $(this).attr('id').split('_')[1];
+  $('input[name=mergeLexemId]').val(id);
+}
+
+/* Set the model type, model number and restriction values */
+function similarLinkClick() {
+  var parts = $(this).attr('id').split('_');
+  updateParadigm(parts[1], parts[2], parts[3]);
+  return false;
+}
+
+function similarLexemChange(e) {
+  var url = wwwRoot + 'ajax/getModelByLexemId.php?id=' + e.val;
+  $.get(url, null, null, 'json')
+    .done(function(data) {
+      updateParadigm(data.modelType, data.modelNumber, data.restriction);
+    });
+}
+
+function updateParadigm(modelType, modelNumber, restriction) {
+  $('#modelTypeListId').val(modelType); // Does not trigger the onchange event
+  updateModelList(false, modelNumber);
+  $('input[name=restr\\[\\]]').each(function() {
+    $(this).prop('checked', restriction.indexOf($(this).val()) != -1);
+  });
 }

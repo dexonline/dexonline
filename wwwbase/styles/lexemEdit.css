@@ -1,3 +1,7 @@
+.lexemEditActions {
+  margin: 5px 0px;
+}
+
 .box {
   border: 1px solid #444;
   -webkit-box-shadow: 2px 2px 5px #424242;
@@ -17,45 +21,6 @@
 
 .boxContents {
   padding: 5px;
-}
-
-#parameters {
-  margin-right: 250px;
-}
-
-#parameters label {
-  display: inline-block;
-  margin-top: 4px;
-  width: 100px;
-}
-
-#dexEditLeftColumn {
-  float: left;
-}
-
-#dexEditRightColumn {
-  margin-left: 412px;
-}
-
-#definitionBox {
-  overflow: auto;
-}
-
-#meaningEditor {
-  width: 400px;
-}
-
-#saveButtonContainer {
-  float: right;
-  padding-bottom: 5px;
-  padding-right: 10px;
-}
-
-#dexEditSaveButton {
-  font-size: 20px;
-  font-weight: bold;
-  height: 40px;
-  width: 200px;
 }
 
 #stemNode {
@@ -105,22 +70,26 @@
   border-color: #e0a19d;
 }
 
+.meaningEditor label {
+  display: inline-block;
+  width: 77px;
+}
+
+.meaningEditor td {
+  vertical-align: top;
+}
+
+.leftColumn {
+  padding-right: 10px;
+}
+
 #editorInternalRep {
-  width: 382px;
+  height: 190px;
+  width: 510px;
 }
 
 #editorInternalComment {
-  width: 382px;
-}
-
-.editorLabel {
-  float: left;
-  margin: 4px 0px;
-}
-
-.editorFieldContainer {
-  float: right;
-  margin: 4px 0px;
+  width: 390px;
 }
 
 abbr {
@@ -157,6 +126,44 @@ span.defDetails a {
 
 span.defDetails a:hover {
   color: #555555;
+}
+
+div.addDefinition {
+  margin-top: 10px;
+}
+
+td.rightColumn {
+  padding-left: 30px;
+}
+
+input.miniDefTarget {
+  font-family: serif;
+  font-weight: bold;
+}
+
+input[name=cloneLexem] {
+  background: #e5e5e5 url("../img/icons/page_white_copy.png") 2px 0px no-repeat;
+  padding-left: 20px;
+}
+
+input[name=deleteLexem] {
+  background: #e5e5e5 url("../img/icons/cross16.png") 2px 0px no-repeat;
+  padding-left: 20px;
+}
+
+input[name=mergeLexem] {
+  background: #e5e5e5 url("../img/icons/add.png") 2px 0px no-repeat;
+  padding-left: 20px;
+}
+
+input[name=refreshLexem] {
+  background: #e5e5e5 url("../img/icons/arrow_refresh.png") 2px 0px no-repeat;
+  padding-left: 20px;
+}
+
+input[name=saveLexem] {
+  background: #e5e5e5 url("../img/icons/disk.png") 2px 0px no-repeat;
+  padding-left: 20px;
 }
 
 .select2-container-multi, .select2-result {

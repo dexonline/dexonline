@@ -13,6 +13,6 @@ SmartyWrap::assign('modelTypes', ModelType::loadCanonical());
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('sectionTitle', 'Pagina moderatorului');
 SmartyWrap::addCss('jqueryui', 'select2');
-SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'struct');
+SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev');
 SmartyWrap::displayAdminPage('admin/index.ihtml');
 ?>

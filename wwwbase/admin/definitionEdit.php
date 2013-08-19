@@ -181,7 +181,7 @@ SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canMo
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('sectionTitle', $isOCR ? "Adăugare definiție (OCR)" : "Editare definiție: {$definition->id}");
 SmartyWrap::addCss('jqueryui', 'select2');
-SmartyWrap::addJs('jquery', 'jqueryui', 'struct', 'select2');
+SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev');
 SmartyWrap::displayAdminPage('admin/definitionEdit.ihtml');
 
 /**

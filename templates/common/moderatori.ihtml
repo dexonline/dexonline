@@ -8,6 +8,7 @@
       <th>Ghid de exprimare<br/>(nefolosit)</th>
       <th>Cuvântul zilei</th>
       <th>Acces căutare</th>
+      <th>«Structurist» al definițiilor</th>
     </tr>
     {foreach from=$users item=user}
       <tr>

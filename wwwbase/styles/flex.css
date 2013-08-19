@@ -130,16 +130,6 @@ span.typo {
   margin-left: 30px;
 }
 
-div.lexemSectionHeader {
-  font-size: 110%;
-  font-weight: bold;
-}
-
-div.lexemSection {
-  margin-left: 20px;
-  margin-bottom: 10px;
-}
-
 div.verifyModel {
   border: 1px solid black;
   margin-top: 10px;
@@ -323,11 +313,6 @@ span.ap_letter:hover {
 a.ap_discreetLink {
   color: #777777;
   margin-left: 50px;
-}
-
-input.miniDefTarget {
-  font-family: serif;
-  font-weight: bold;
 }
 
 div.bulkLabelComment {

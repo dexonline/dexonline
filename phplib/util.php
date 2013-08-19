@@ -143,9 +143,11 @@ function util_defineConstants() {
   define('PRIV_GUIDE', 0x08);
   define('PRIV_WOTD', 0x10);
   define('PRIV_SUPER', 0x20);
+  define('PRIV_STRUCT', 0x40);
   define('PRIV_VIEW_HIDDEN', PRIV_ADMIN);
-  define('NUM_PRIVILEGES', 6);
-  $GLOBALS['PRIV_NAMES'] = array('Administrator', 'Moderator LOC', 'Moderator', 'Editor al ghidului de exprimare', 'Editor al cuvântului zilei', 'Utilizator privilegiat');
+  define('NUM_PRIVILEGES', 7);
+  $GLOBALS['PRIV_NAMES'] = array('Administrator', 'Moderator LOC', 'Moderator', 'Editor al ghidului de exprimare', 'Editor al cuvântului zilei',
+                                 'Utilizator privilegiat', '«Structurist» al definițiilor');
 
   //Source 
   define('SOURCE_TYPE_HIDDEN', 3);
@@ -215,7 +217,7 @@ function util_getBoolean($name) {
 
 function util_getRequestCheckboxArray($name, $separator) {
   $arr = util_getRequestParameter($name);
-  return $arr ? implode($arr, $separator) : '';
+  return $arr ? implode($separator, $arr) : '';
 }
 
 /** Returns an array of values from a parameter in CSV format **/

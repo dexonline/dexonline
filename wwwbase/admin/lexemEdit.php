@@ -1,13 +1,11 @@
 <?php
 require_once("../../phplib/util.php"); 
-
-util_assertModerator(PRIV_EDIT);
+util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 util_assertNotMirror();
-setlocale(LC_ALL, "ro_RO.utf8");
+
+handleLexemActions();
 
 $lexemId = util_getRequestParameter('lexemId');
-$dissociateDefinitionId = util_getRequestParameter('dissociateDefinitionId');
-$associateDefinitionId = util_getRequestParameter('associateDefinitionId');
 $lexemForm = util_getRequestParameter('lexemForm');
 $lexemDescription = util_getRequestParameter('lexemDescription');
 $lexemSourceIds = util_getRequestParameter('lexemSourceIds');
@@ -17,70 +15,18 @@ $lexemIsLoc = util_getBoolean('lexemIsLoc');
 $needsAccent = util_getBoolean('needsAccent');
 $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
-$similarModel = util_getRequestParameter('similarModel');
-$similarLexemId = util_getRequestParameter('similarLexemId');
 $restriction = util_getRequestCheckboxArray('restr', '');
-$miniDefTarget = util_getRequestParameter('miniDefTarget');
+$hyphenations = util_getRequestParameter('hyphenations');
+$pronunciations = util_getRequestParameter('pronunciations');
+$variantIds = util_getRequestCsv('variantIds');
+$variantOfId = util_getRequestParameter('variantOfId');
+$jsonMeanings = util_getRequestParameter('jsonMeanings');
 
 $refreshLexem = util_getRequestParameter('refreshLexem');
 $saveLexem = util_getRequestParameter('saveLexem');
-$cloneLexem = util_getRequestParameter('cloneLexem');
-$deleteLexem = util_getRequestParameter('deleteLexem');
-$createDefinition = util_getRequestParameter('createDefinition');
 
 $lexem = Lexem::get_by_id($lexemId);
 $original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether certain fields have changed
-
-/*************************** various actions other than the save/refresh buttons ***************************/
-
-if ($associateDefinitionId) {
-  LexemDefinitionMap::associate($lexem->id, $associateDefinitionId);
-  util_redirect("lexemEdit.php?lexemId={$lexem->id}");
-}
-
-if ($dissociateDefinitionId) {
-  LexemDefinitionMap::dissociate($lexem->id, $dissociateDefinitionId);
-  util_redirect("lexemEdit.php?lexemId={$lexem->id}");
-}
-
-if ($createDefinition) {
-  $def = Model::factory('Definition')->create();
-  $def->displayed = 0;
-  $def->userId = session_getUserId();
-  $def->sourceId = Source::get_by_shortName('Neoficial')->id;
-  $def->lexicon = $lexem->formNoAccent;
-  $def->internalRep =
-    '@' . mb_strtoupper(AdminStringUtil::internalize($lexem->form, false)) .
-    '@ v. @' . $miniDefTarget . '.@';
-  $def->htmlRep = AdminStringUtil::htmlize($def->internalRep, $def->sourceId);
-  $def->status = ST_ACTIVE;
-  $def->save();
-
-  LexemDefinitionMap::associate($lexem->id, $def->id);
-
-  util_redirect("lexemEdit.php?lexemId={$lexem->id}");
-  exit;
-}
-
-if ($deleteLexem) {
-  $homonyms = Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many();
-  $lexem->delete();
-  SmartyWrap::assign('lexem', $lexem);
-  SmartyWrap::assign('homonyms', $homonyms);
-  SmartyWrap::assign('sectionTitle', 'Confirmare ștergere lexem');
-  SmartyWrap::displayAdminPage('admin/lexemDeleted.ihtml');
-  return;
-}
-
-if ($cloneLexem) {
-  $newLexem = _cloneLexem($lexem);
-  log_userLog("Cloned lexem {$lexem->id} ({$lexem->form}), new id is {$newLexem->id}");
-  util_redirect("lexemEdit.php?lexemId={$newLexem->id}");
-}
-
-if (!$similarModel && !$similarLexemId && !$refreshLexem && !$saveLexem) {
-  RecentLink::createOrUpdate("Lexem: {$lexem}");
-}
 
 if ($refreshLexem || $saveLexem) {
   // Populate lexem fields from request parameters.
@@ -97,29 +43,18 @@ if ($refreshLexem || $saveLexem) {
   }
   $lexem->isLoc = $lexemIsLoc;
   $lexem->noAccent = !$needsAccent;
-
-  // The new model type, number and restrictions can come from three sources:
-  // $similarModel, $similarLexemId or ($modelType, $modelNumber,
-  // $restriction) directly
-  if ($similarModel !== null) {
-    $parts = FlexModel::splitName($similarModel);
-    $lexem->modelType = $parts[0];
-    $lexem->modelNumber = $parts[1];
-    $lexem->restriction = $parts[2];
-  } else if ($similarLexemId) {
-    $similarLexem = Lexem::get_by_id($similarLexemId);
-    $lexem->modelType = $similarLexem->modelType;
-    $lexem->modelNumber = $similarLexem->modelNumber;
-    $lexem->restriction = $similarLexem->restriction;
-  } else if ($modelType !== null) {
-    $lexem->modelType = $modelType;
-    $lexem->modelNumber = $modelNumber;
-    $lexem->restriction = $restriction;
-  }
-
+  $lexem->modelType = $modelType;
+  $lexem->modelNumber = $modelNumber;
+  $lexem->restriction = $restriction;
+  $lexem->hyphenations = $hyphenations;
+  $lexem->pronunciations = $pronunciations;
+  $lexem->variantOfId = $variantOfId ? $variantOfId : null;
+  $variantOf = Lexem::get_by_id($lexem->variantOfId);
+  $meanings = json_decode($jsonMeanings);
   $ifs = $lexem->generateParadigm();
 
-  if (validate($lexem, $ifs)) {
+  if (validate($lexem, $ifs, $variantOf, $variantIds, $meanings)) {
+    // Case 1: Validation passed
     if ($saveLexem) {
       if ($original->modelType == 'VT' && $lexem->modelType != 'VT') {
         $lexem->deleteParticiple($original->modelNumber);
@@ -129,26 +64,50 @@ if ($refreshLexem || $saveLexem) {
         $lexem->deleteLongInfinitive();
       }
       $lexem->save();
+      Meaning::saveTree($meanings, $lexem);
       LexemSource::updateList(array('lexemId' => $lexem->id), 'sourceId', $lexemSourceIds);
+      $lexem->updateVariants($variantIds);
       $lexem->regenerateParadigm(); // This generates AND saves the paradigm
 
       log_userLog("Edited lexem {$lexem->id} ({$lexem->form})");
       util_redirect("lexemEdit.php?lexemId={$lexem->id}");
     }
+  } else {
+    // Case 2: Validation failed
   }
+  // Case 1-2: Page was submitted
+    SmartyWrap::assign('variantIds', $variantIds);
+    SmartyWrap::assign('meanings', Meaning::convertTree($meanings));
 } else {
+  // Case 3: First time loading this page
   $ifs = $lexem->generateParadigm();
   $lexemSourceIds = LexemSource::getForLexem($lexem);
+  SmartyWrap::assign('variantIds', $lexem->getVariantIds());
+  SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
 }
 
 $definitions = Definition::loadByLexemId($lexem->id);
+foreach ($definitions as $def) {
+  // $def->internalRep = AdminStringUtil::expandAbbreviations($def->internalRep, $def->sourceId);
+}
 $searchResults = SearchResult::mapDefinitionArray($definitions);
 $definitionLexem = mb_strtoupper(AdminStringUtil::internalize($lexem->form, false));
+$meaningTags = Model::factory('MeaningTag')->order_by_asc('value')->find_many();
 
 if (is_array($ifs)) {
   $ifMap = InflectedForm::mapByInflectionRank($ifs);
   SmartyWrap::assign('ifMap', $ifMap);
 }
+
+$canEdit = array(
+  'general' => util_isModerator(PRIV_EDIT),
+  'description' => !$lexem->isLoc || util_isModerator(PRIV_LOC),
+  'form' => !$lexem->isLoc || util_isModerator(PRIV_LOC),
+  'isLoc' => util_isModerator(PRIV_LOC),
+  'paradigm' => util_isModerator(PRIV_LOC),
+  'sources' => util_isModerator(PRIV_LOC | PRIV_EDIT),
+  'tags' => util_isModerator(PRIV_LOC | PRIV_EDIT),
+);
 
 SmartyWrap::assign('lexem', $lexem);
 SmartyWrap::assign('lexemSourceIdMap', util_makeSet($lexemSourceIds));
@@ -161,18 +120,19 @@ SmartyWrap::assign('restrP', FlexStringUtil::contains($lexem->restriction, 'P'))
 SmartyWrap::assign('restrU', FlexStringUtil::contains($lexem->restriction, 'U'));
 SmartyWrap::assign('restrI', FlexStringUtil::contains($lexem->restriction, 'I'));
 SmartyWrap::assign('restrT', FlexStringUtil::contains($lexem->restriction, 'T'));
+SmartyWrap::assign('meaningTags', $meaningTags);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
 SmartyWrap::assign('models', FlexModel::loadByType($lexem->modelType));
-SmartyWrap::assign('canEditForm', !$lexem->isLoc || util_isModerator(PRIV_LOC));
+SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
-SmartyWrap::addCss('jqueryui', 'paradigm', 'select2');
-SmartyWrap::addJs('jquery', 'jqueryui', 'struct', 'select2');
+SmartyWrap::addCss('easyui', 'jqueryui', 'paradigm', 'select2', 'lexemEdit');
+SmartyWrap::addJs('easyui', 'jqueryui', 'select2', 'select2Dev', 'lexemEdit');
 SmartyWrap::assign('sectionTitle', "Editare lexem: {$lexem->form} {$lexem->modelType}{$lexem->modelNumber}{$lexem->restriction}");
 SmartyWrap::displayAdminPage('admin/lexemEdit.ihtml');
 
 /**************************************************************************/
 
-function validate($lexem, $ifs) {
+function validate($lexem, $ifs, $variantOf, $variantIds, $meanings) {
   if (!$lexem->form) {
     FlashMessage::add('Forma nu poate fi vidă.');
   }
@@ -218,6 +178,35 @@ function validate($lexem, $ifs) {
                               htmlentities($infl->description), $lexem->modelType, $lexem->modelNumber));
   }
 
+  if ($variantOf && !empty($meanings)) {
+    FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși sensuri.");
+  }
+  if ($variantOf && !empty($variantIds)) {
+    FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși variante.");
+  }
+  if ($variantOf && ($variantOf->id == $lexem->id)) {
+    FlashMessage::add("Lexemul nu poate fi variantă a lui însuși.");
+  }
+
+  foreach ($variantIds as $variantId) {
+    $variant = Lexem::get_by_id($variantId);
+    if ($variant->id == $lexem->id) {
+      FlashMessage::add('Lexemul nu poate fi variantă a lui însuși.');
+    }
+    if ($variant->variantOfId && $variant->variantOfId != $lexem->id) {
+      $other = Lexem::get_by_id($variant->variantOfId);
+      FlashMessage::add("\"{$variant}\" este deja marcat ca variantă a lui \"{$other}\".");
+    }
+    $variantVariantCount = Model::factory('Lexem')->where('variantOfId', $variant->id)->count();
+    if ($variantVariantCount) {
+      FlashMessage::add("\"{$variant}\" are deja propriile lui variante.");
+    }
+    $variantMeaningCount = Model::factory('Meaning')->where('lexemId', $variant->id)->count();
+    if ($variantMeaningCount) {
+      FlashMessage::add("\"{$variant}\" are deja propriile lui sensuri.");
+    }
+  }
+
   return FlashMessage::getMessage() == null;
 }
 
@@ -258,6 +247,75 @@ function _cloneLexem($lexem) {
 
   $clone->regenerateParadigm();
   return $clone;
+}
+
+/* This page handles a lot of actions. Move the minor ones here so they don't clutter the preview/save actions,
+   which are hairy enough by themselves. */
+function handleLexemActions() {
+  $lexemId = util_getRequestParameter('lexemId');
+  $lexem = Lexem::get_by_id($lexemId);
+
+  $associateDefinitionId = util_getRequestParameter('associateDefinitionId');
+  if ($associateDefinitionId) {
+    LexemDefinitionMap::associate($lexem->id, $associateDefinitionId);
+    util_redirect("lexemEdit.php?lexemId={$lexem->id}");
+  }
+
+  $dissociateDefinitionId = util_getRequestParameter('dissociateDefinitionId');
+  if ($dissociateDefinitionId) {
+    LexemDefinitionMap::dissociate($lexem->id, $dissociateDefinitionId);
+    util_redirect("lexemEdit.php?lexemId={$lexem->id}");
+  }
+
+  $createDefinition = util_getRequestParameter('createDefinition');
+  $miniDefTarget = util_getRequestParameter('miniDefTarget');
+  if ($createDefinition) {
+    $def = Model::factory('Definition')->create();
+    $def->displayed = 0;
+    $def->userId = session_getUserId();
+    $def->sourceId = Source::get_by_shortName('Neoficial')->id;
+    $def->lexicon = $lexem->formNoAccent;
+    $def->internalRep =
+      '@' . mb_strtoupper(AdminStringUtil::internalize($lexem->form, false)) .
+      '@ v. @' . $miniDefTarget . '.@';
+    $def->htmlRep = AdminStringUtil::htmlize($def->internalRep, $def->sourceId);
+    $def->status = ST_ACTIVE;
+    $def->save();
+
+    LexemDefinitionMap::associate($lexem->id, $def->id);
+
+    util_redirect("lexemEdit.php?lexemId={$lexem->id}");
+  }
+
+  $deleteLexem = util_getRequestParameter('deleteLexem');
+  if ($deleteLexem) {
+    $homonyms = Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many();
+    $lexem->delete();
+    SmartyWrap::assign('lexem', $lexem);
+    SmartyWrap::assign('homonyms', $homonyms);
+    SmartyWrap::assign('sectionTitle', 'Confirmare ștergere lexem');
+    SmartyWrap::displayAdminPage('admin/lexemDeleted.ihtml');
+    exit;
+  }
+
+  $cloneLexem = util_getRequestParameter('cloneLexem');
+  if ($cloneLexem) {
+    $newLexem = _cloneLexem($lexem);
+    log_userLog("Cloned lexem {$lexem->id} ({$lexem->form}), new id is {$newLexem->id}");
+    util_redirect("lexemEdit.php?lexemId={$newLexem->id}");
+  }
+
+  $mergeLexem = util_getRequestParameter('mergeLexem');
+  $mergeLexemId = util_getRequestParameter('mergeLexemId');
+  if ($mergeLexem) {
+    $other = Lexem::get_by_id($mergeLexemId);
+    $defs = Definition::loadByLexemId($lexem->id);
+    foreach ($defs as $def) {
+      LexemDefinitionMap::associate($other->id, $def->id);
+    }
+    $lexem->delete();
+    util_redirect("lexemEdit.php?lexemId={$other->id}");
+  }
 }
 
 ?>

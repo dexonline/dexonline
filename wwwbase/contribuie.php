@@ -66,7 +66,7 @@ SmartyWrap::assign('contribSources', Model::factory('Source')->where('canContrib
 SmartyWrap::assign('page_title', 'Contribuie cu definiții');
 SmartyWrap::assign('suggestNoBanner', true);
 SmartyWrap::addCss('jqueryui', 'select2');
-SmartyWrap::addJs('jqueryui', 'struct', 'select2');
+SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev');
 SmartyWrap::displayCommonPageWithSkin('contribuie.ihtml');
 
 /**************************************************************************/

@@ -39,7 +39,7 @@
 {if $modelsToDisplay}
   {foreach from=$modelsToDisplay item=m key=i}
     <div class="scrabbleModelName">
-      {$m->number}. {$m->exponent|regex_replace:"/\'(a|e|i|o|u|ă|î|â)/":"<font class=\"accented\">\$1</font>"}
+      {$m->number}. {$m->exponent|regex_replace:"/\'(a|e|i|o|u|ă|î|â)/":"<span class=\"accented\">\$1</span>"}
     </div>
     {include file="common/paradigm/$selectedLocVersion/paradigm.ihtml"
              lexem=$lexems[$i]

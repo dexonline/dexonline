@@ -224,8 +224,8 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
     SmartyWrap::assign('declensionText', $declensionText);
 
     $sourceNamesArr = array();
-    foreach($lexems as $l) {
-      $sourceNamesArr[] = LexemSources::getNamesOfSources($l->source);
+    foreach ($lexems as $l) {
+      $sourceNamesArr[] = LexemSource::getSourceNamesForLexem($l);
     }
 
     SmartyWrap::assign('sourceNamesArr', $sourceNamesArr);

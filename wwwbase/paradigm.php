@@ -98,11 +98,11 @@ if (!empty($lexems)) {
   }
 
   $sourceNamesArr = array();
-  foreach($lexems as $l) {
-    $sourceNamesArr[] = LexemSources::getNamesOfSources($l->source);
+  foreach ($lexems as $l) {
+    $sourceNamesArr[] = LexemSource::getSourceNamesForLexem($l);
   }
 
-  // This paragraph replicates code from paradigm.php
+  // This paragraph replicates code from search.php
   $hasUnrecommendedForms = false;
   foreach ($ifMaps as $ifMap) {
     foreach ($ifMap as $rank => $ifs) {

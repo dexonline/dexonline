@@ -4,7 +4,6 @@ function lexemEditInit() {
   $('#meaningTree').tree({
     animate: true,
     dnd: true,
-    lines: true,
     onBeforeSelect: meaningEditorUnchanged,
     onSelect: beginMeaningEdit,
   });

@@ -161,7 +161,7 @@ class SmartyWrap {
       case 'paradigm':           self::$cssFiles[9] = 'paradigm.css?v=1'; break;
       case 'hangman':            self::$cssFiles[10] = 'hangman.css?v=3'; break;
       case 'mill':               self::$cssFiles[11] = 'mill.css?v=1'; break;
-      case 'lexemEdit':          self::$cssFiles[12] = 'lexemEdit.css?v=1'; break;
+      case 'lexemEdit':          self::$cssFiles[12] = 'lexemEdit.css?v=2'; break;
       case 'jcrop':              self::$cssFiles[13] = 'jquery.Jcrop.min.css?v=2'; break;
       case 'easyui':
         self::$cssFiles[14] = 'easyui/default/easyui.css?v=1';

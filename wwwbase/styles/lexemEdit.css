@@ -28,7 +28,7 @@
 }
 
 #meaningTreeContainer {
-  overflow: auto;
+  padding-right: 100px;
 }
 
 #meaningTree .id, #meaningTree .internalRep, #meaningTree .internalComment, #meaningTree .sourceIds,
@@ -48,6 +48,7 @@
   font-size: 10px;
   margin-right: 5px;
   padding: 1px 4px;
+  white-space: nowrap;
 }
 
 #meaningTree .sources span {
@@ -68,6 +69,16 @@
 #meaningTree .antonyms span {
   background: #f7dcda;
   border-color: #e0a19d;
+}
+
+#meaningTree .tree-node {
+  height: auto;
+}
+
+#meaningTree .tree-title {
+  display: inline-block;
+  height: auto;
+  white-space: normal;
 }
 
 .meaningEditor label {

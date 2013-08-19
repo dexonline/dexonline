@@ -32,12 +32,8 @@
       <tr>
         <td><label for="lexemForm">nume:</label></td>
         <td>
-          {if $canEdit.form}  
-            <input type="text" id="lexemForm" name="lexemForm" value="{$lexem->form|escape}" size="40"/>
-          {else}
-            <input type="hidden" name="lexemForm" value="{$lexem->form|escape}"/>
-            {$lexem->form|escape}
-          {/if}
+          <input type="text" id="lexemForm" name="lexemForm" value="{$lexem->form|escape}" size="40" {if !$canEdit.form}readonly{/if}/>
+
           <span class="tooltip" title="Cuvântul-titlu. Accentul trebuie indicat chiar și pentru lexemele monosilabice, altfel paradigma nu va
           conține deloc accente. Valoarea acestui câmp este folosită la căutări și este vizibilă public la afișarea flexiunilor unui cuvânt. Odată
           ce un lexem a fost inclus în LOC, numele și descrierea lexemului mai pot fi modificate numai de către moderatorii LOC.">&nbsp;</span>
@@ -45,42 +41,25 @@
 
         <td class="rightColumn"><label for="lexemSourceIds">surse:</label></td>
         <td>
-          {if $canEdit.sources}
-            <select id="lexemSourceIds" name="lexemSourceIds[]" multiple="multiple">
-              {foreach from=$sources item=s}
-                <option value="{$s->id}" {if array_key_exists($s->id, $lexemSourceIdMap)}selected="selected"{/if}>{$s->shortName}</option>
-              {/foreach}
-            </select>
-          {else}
-            {foreach from=$lexemSourceIdMap key=sourceId item=ignored}
-              <input type="hidden" name="lexemSourceIds[]" value="{$sourceId}"/>
-              {$sources[$sourceId]->shortName},
+          <select id="lexemSourceIds" name="lexemSourceIds[]" multiple="multiple" {if !$canEdit.sources}readonly{/if}>
+            {foreach from=$sources item=s}
+              <option value="{$s->id}" {if array_key_exists($s->id, $lexemSourceIdMap)}selected{/if}>{$s->shortName}</option>
             {/foreach}
-          {/if}
+          </select>
         </td>
       </tr>
 
       <tr>
         <td><label for="lexemDescription">descriere:</label></td>
         <td>
-          {if $canEdit.description}
-            <input type="text" id="lexemDescription" name="lexemDescription" value="{$lexem->description|escape}" size="40"
-                   placeholder="opțională, pentru diferențierea omonimelor"/>
-          {else}
-            <input type="hidden" name="lexemDescription" value="{$lexem->description|escape}"/>
-            {$lexem->description|escape}
-          {/if}
+          <input type="text" id="lexemDescription" name="lexemDescription" value="{$lexem->description|escape}" size="40"
+                 placeholder="opțională, pentru diferențierea omonimelor" {if !$canEdit.description}readonly{/if}/>
         </td>
 
         <td class="rightColumn"><label for="lexemTags">etichete:</label></td>
         <td>
-          {if $canEdit.tags}
-            <input type="text" id="lexemTags" name="lexemTags" value="{$lexem->tags|escape}" size="40"
-                   placeholder="explicații despre sursa flexiunii"/>
-          {else}
-            <input type="hidden" name="lexemTags" value="{$lexem->tags|escape}"/>
-            {$lexem->tags|escape}
-          {/if}
+          <input type="text" id="lexemTags" name="lexemTags" value="{$lexem->tags|escape}" size="40"
+                 placeholder="explicații despre sursa flexiunii" {if !$canEdit.tags}readonly{/if}/>
           <span class="tooltip" title="O scurtă clasificare, vizibilă public, care marchează sursa flexiunii. Pentru cuvintele cu flexiuni în DOOM-ul
           curent (DOOM2 în acest moment), ea poate fi vidă. Sursele pot reprezenta dicționare, autori cunoscuți, inclusiv părerea moderatorului, dar
           trebuie documentate clar aceste situații.">&nbsp;</span>
@@ -90,14 +69,14 @@
       <tr>
         <td><label for="variantOfId">variantă a lui:</label></td>
         <td>
-          <input id="variantOfId" name="variantOfId" value="{$lexem->variantOfId}" type="text"/>
+          <input id="variantOfId" name="variantOfId" value="{$lexem->variantOfId}" type="text" {if !$canEdit.variants}readonly{/if}/>
           <span class="tooltip"
                 title="Variantele nu pot avea sensuri, exemple, variante sau etimologii proprii. Ele pot avea pronunții și silabisiri proprii.">&nbsp;</span>
         </td>
 
         <td class="rightColumn"><label for="variantIds">variante:</label></td>
         <td>
-          <input id="variantIds" name="variantIds" value="{','|implode:$variantIds}" type="text"/>
+          <input id="variantIds" name="variantIds" value="{','|implode:$variantIds}" type="text" {if !$canEdit.variants}readonly{/if}/>
           <span class="tooltip"
                 title="Variantele nu pot avea sensuri, exemple, variante sau etimologii proprii. Ele pot avea pronunții și silabisiri proprii.">&nbsp;</span>
         </td>
@@ -107,7 +86,7 @@
         <td><label for="hyphenations">silabisiri:</label></td>
         <td>
           <input id="hyphenations" name="hyphenations" type="text" value="{$lexem->hyphenations}" size="40"
-                 placeholder="opționale, despărțite prin virgule">
+                 placeholder="opționale, despărțite prin virgule" {if !$canEdit.hyphenations}readonly{/if}>
         </td>
 
         <td class="rightColumn"><label for="lexemIsLoc">inclus în LOC:</label></td>
@@ -127,12 +106,12 @@
         <td><label for="pronunciations">pronunții:</label></td>
         <td>
           <input id="pronunciations" name="pronunciations" type="text" value="{$lexem->pronunciations}" size="40"
-                 placeholder="opționale, despărțite prin virgule">
+                 placeholder="opționale, despărțite prin virgule" {if !$canEdit.pronunciations}readonly{/if}>
         </td>
 
         <td class="rightColumn"><label for="needsAccent">necesită accent:</label></td>
         <td>        
-          <input type="checkbox" id="needsAccent" name="needsAccent" value="1" {if !$lexem->noAccent}checked="checked"{/if}/>
+          <input type="checkbox" id="needsAccent" name="needsAccent" value="1" {if !$lexem->noAccent}checked{/if}/>
           <span class="tooltip" title="Majoritatea lexemelor necesită accent. Excepție fac cuvintele compuse, denumirile științifice de animale și
           plante, elementele de compunere etc.">&nbsp;</span>
         </td>
@@ -164,7 +143,7 @@
       <select name="modelType" id="modelTypeListId" onchange="return updateModelList(false)">
         {foreach from=$modelTypes item=mt}
           <option value="{$mt->code|escape}"
-            {if $mt->code == $lexem->modelType}selected="selected"{/if}
+            {if $mt->code == $lexem->modelType}selected{/if}
             >{$mt->code|escape}
           </option>
         {/foreach}
@@ -172,22 +151,22 @@
       <select name="modelNumber" id="modelListId">
         {foreach from=$models item=m}
           <option value="{$m->number}"
-            {if $m->number == $lexem->modelNumber}selected="selected"{/if}
+            {if $m->number == $lexem->modelNumber}selected{/if}
             >{$m->number}{if !$m->id}*{/if} ({$m->exponent})
           </option>
         {/foreach}
       </select>
 
       restricții:
-      <input type="checkbox" id="restrS" name="restr[]" value="S" {if $restrS}checked="checked"{/if}/><label for="restrS">Singular</label>
+      <input type="checkbox" id="restrS" name="restr[]" value="S" {if $restrS}checked{/if}/><label for="restrS">Singular</label>
       &nbsp;
-      <input type="checkbox" id="restrP" name="restr[]" value="P" {if $restrP}checked="checked"{/if}/><label for="restrP">Plural</label>
+      <input type="checkbox" id="restrP" name="restr[]" value="P" {if $restrP}checked{/if}/><label for="restrP">Plural</label>
       &nbsp;
-      <input type="checkbox" id="restrU" name="restr[]" value="U" {if $restrU}checked="checked"{/if}/><label for="restrU">Unipersonal</label>
+      <input type="checkbox" id="restrU" name="restr[]" value="U" {if $restrU}checked{/if}/><label for="restrU">Unipersonal</label>
       &nbsp;
-      <input type="checkbox" id="restrI" name="restr[]" value="I" {if $restrI}checked="checked"{/if}/><label for="restrI">Impersonal</label>
+      <input type="checkbox" id="restrI" name="restr[]" value="I" {if $restrI}checked{/if}/><label for="restrI">Impersonal</label>
       &nbsp;
-      <input type="checkbox" id="restrT" name="restr[]" value="T" {if $restrT}checked="checked"{/if}/><label for="restrT">Trecut</label>
+      <input type="checkbox" id="restrT" name="restr[]" value="T" {if $restrT}checked{/if}/><label for="restrT">Trecut</label>
       <br/>
 
       sugestii:
@@ -228,72 +207,85 @@
     {include file="common/bits/meaningTree.ihtml" meanings=$meanings id="meaningTree"}
 
     <div id="meaningMenu">
-      <input type="button" id="addMeaningButton" value="adaugă sens"/>
-      <input type="button" id="addSubmeaningButton" value="adaugă subsens"/>
-      <input type="button" id="deleteMeaningButton" value="șterge sens"/>
+      {if $canEdit.meanings}
+        <input type="button" id="addMeaningButton" value="adaugă sens"/>
+        <input type="button" id="addSubmeaningButton" value="adaugă subsens"/>
+        <input type="button" id="deleteMeaningButton" value="șterge sens"/>
+      {else}
+        <span class="tooltip" title="Acest lexem a fost avizat de un moderator. Sensurile, variantele, pronunțiile și silabisirile sale nu mai pot fi modificate">&nbsp;</span>
+      {/if}
+    </div>
+    {if $canEdit.seal}
+      <input type="checkbox" id="structSealed" name="structSealed" value="1" {if $lexem->structSealed}checked{/if}/>
+      <label for="structSealed">avizează acest arbore de sensuri</label>
+      <span class="tooltip" title="După avizare, doar moderatorii mai pot edita sensurile, variantele, silabisirile și pronunțiile.">&nbsp;</span>
+    {else}
+      <input type="hidden" name="structSealed" value="{$lexem->structSealed}"/>
+    {/if}
+  </div>
+</div>
+
+{if $canEdit.meanings}
+  <div class="box">
+    <div class="boxTitle">Editorul de sensuri</div>
+    <div class="boxContents">
+      <table class="meaningEditor">
+        <tr>
+          <td class="leftColumn" rowspan="5">
+            <textarea id="editorInternalRep" rows="10" cols="10" disabled="disabled" placeholder="sensul definiției..."></textarea>
+          </td>
+  
+          <td>
+            <textarea id="editorInternalComment" rows="3" cols="10" disabled="disabled" placeholder="comentariu..."></textarea>
+          </td>
+        </tr>
+  
+        <tr>
+          <td>
+            <label for="editorSources">surse:</label>
+            <select id="editorSources" multiple="multiple">
+              {foreach from=$sources item=s}
+                <option value="{$s->id}">{$s->shortName}</option>
+              {/foreach}
+            </select>
+          </td>
+        </tr>
+  
+        <tr>
+          <td>
+            <label for="editorTags">etichete:</label>
+            <select id="editorTags" multiple="multiple">
+              {foreach from=$meaningTags item=mt}
+                <option value="{$mt->id}">{$mt->value}</option>
+              {/foreach}
+            </select>
+          </td>
+        </tr>
+  
+        <tr>
+          <td>
+            <label for="editorSynonyms">sinonime:</label>
+            <input id="editorSynonyms" type="hidden"/>
+          </td>
+        </tr>
+  
+        <tr>
+          <td>
+            <label for="editorAntonyms">antonime:</label>
+            <input id="editorAntonyms" type="hidden"/>
+          </td>
+        </tr>
+  
+        <tr>
+          <td colspan="2">
+            <input id="editMeaningAcceptButton" type="button" disabled="disabled" value="acceptă"/>
+            <input id="editMeaningCancelButton" type="button" disabled="disabled" value="renunță"/>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
-</div>
-
-<div class="box">
-  <div class="boxTitle">Editorul de sensuri</div>
-  <div class="boxContents">
-    <table class="meaningEditor">
-      <tr>
-        <td class="leftColumn" rowspan="5">
-          <textarea id="editorInternalRep" rows="10" cols="10" disabled="disabled" placeholder="sensul definiției..."></textarea>
-        </td>
-
-        <td>
-          <textarea id="editorInternalComment" rows="3" cols="10" disabled="disabled" placeholder="comentariu..."></textarea>
-        </td>
-      </tr>
-
-      <tr>
-        <td>
-          <label for="editorSources">surse:</label>
-          <select id="editorSources" multiple="multiple">
-            {foreach from=$sources item=s}
-              <option value="{$s->id}">{$s->shortName}</option>
-            {/foreach}
-          </select>
-        </td>
-      </tr>
-
-      <tr>
-        <td>
-          <label for="editorTags">etichete:</label>
-          <select id="editorTags" multiple="multiple">
-            {foreach from=$meaningTags item=mt}
-              <option value="{$mt->id}">{$mt->value}</option>
-            {/foreach}
-          </select>
-        </td>
-      </tr>
-
-      <tr>
-        <td>
-          <label for="editorSynonyms">sinonime:</label>
-          <input id="editorSynonyms" type="hidden"/>
-        </td>
-      </tr>
-
-      <tr>
-        <td>
-          <label for="editorAntonyms">antonime:</label>
-          <input id="editorAntonyms" type="hidden"/>
-        </td>
-      </tr>
-
-      <tr>
-        <td colspan="2">
-          <input id="editMeaningAcceptButton" type="button" disabled="disabled" value="acceptă"/>
-          <input id="editMeaningCancelButton" type="button" disabled="disabled" value="renunță"/>
-        </td>
-      </tr>
-    </table>
-  </div>
-</div>
+{/if}
 
 <div class="box">
   <div class="boxTitle">Definiții asociate ({$searchResults|@count})</div>

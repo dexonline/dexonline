@@ -84,6 +84,8 @@ function lexemEditInit() {
     placeholder: 'surse care atestă flexiunea',
     width: '333px',
   });
+  // Disable the select2 when the HTML select is disabled. This doesn't happen by itself.
+  $('#lexemSourceIds').select2('readonly', $('#lexemSourceIds').is('[readonly]'));
   $('#similarLexemId').select2({
     ajax: struct_lexemAjax,
     minimumInputLength: 1,

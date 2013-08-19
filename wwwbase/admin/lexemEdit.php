@@ -20,6 +20,7 @@ $hyphenations = util_getRequestParameter('hyphenations');
 $pronunciations = util_getRequestParameter('pronunciations');
 $variantIds = util_getRequestCsv('variantIds');
 $variantOfId = util_getRequestParameter('variantOfId');
+$structSealed = util_getRequestIntParameter('structSealed');
 $jsonMeanings = util_getRequestParameter('jsonMeanings');
 
 $refreshLexem = util_getRequestParameter('refreshLexem');
@@ -50,6 +51,7 @@ if ($refreshLexem || $saveLexem) {
   $lexem->pronunciations = $pronunciations;
   $lexem->variantOfId = $variantOfId ? $variantOfId : null;
   $variantOf = Lexem::get_by_id($lexem->variantOfId);
+  $lexem->structSealed = $structSealed;
   $meanings = json_decode($jsonMeanings);
   $ifs = $lexem->generateParadigm();
 
@@ -103,10 +105,15 @@ $canEdit = array(
   'general' => util_isModerator(PRIV_EDIT),
   'description' => !$lexem->isLoc || util_isModerator(PRIV_LOC),
   'form' => !$lexem->isLoc || util_isModerator(PRIV_LOC),
+  'hyphenations' => !$lexem->structSealed || util_isModerator(PRIV_EDIT),
   'isLoc' => util_isModerator(PRIV_LOC),
+  'meanings' => !$lexem->structSealed || util_isModerator(PRIV_EDIT),
   'paradigm' => util_isModerator(PRIV_LOC),
+  'pronunciations' => !$lexem->structSealed || util_isModerator(PRIV_EDIT),
+  'seal' => util_isModerator(PRIV_EDIT),
   'sources' => util_isModerator(PRIV_LOC | PRIV_EDIT),
   'tags' => util_isModerator(PRIV_LOC | PRIV_EDIT),
+  'variants' => !$lexem->structSealed || util_isModerator(PRIV_EDIT),
 );
 
 SmartyWrap::assign('lexem', $lexem);

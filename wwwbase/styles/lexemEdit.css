@@ -166,6 +166,10 @@ input[name=saveLexem] {
   padding-left: 20px;
 }
 
+input[readonly] {
+  background-color: #f4f4f4;
+}
+
 .select2-container-multi, .select2-result {
   font-size: 12px;
 }

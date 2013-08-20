@@ -310,9 +310,10 @@
             | <a href="lexemEdit.php?lexemId={$lexem->id}&amp;dissociateDefinitionId={$row->definition->id}"
                  onclick="return confirmDissociateDefinition({$row->definition->id})">disociază</a>
           {/if}
-          | <a href="#" class="toggleInternalHtmlLink">arată html</a>
+          | <a href="#" class="toggleInternalHtmlLink" title="comută între notația internă și HTML">arată html</a>
           {if $canEdit.defStructured}
-            | <a href="#" class="toggleStructuredLink">{if $row->definition->structured}structurată{else}nestructurată{/if}</a>
+            | <a href="#" class="toggleStructuredLink" title="comută definiția între structurată și nestructurată"
+                 >{if $row->definition->structured}structurată{else}nestructurată{/if}</a>
           {/if}
         </span>
         {if $row->comment}

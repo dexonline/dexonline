@@ -69,10 +69,6 @@ mysql_loc_prefix = LOC_
 skins[] = zepu
 skins[] = polar
 
-; Location of the smarty class file.
-; This can be an absolute file name or relative to one of the paths in include_path
-smartyClass = smarty/Smarty.class.php
-
 [euplatesc]
 ; Key for euplatesc.ro or 0 to disable the donation box.
 euPlatescKey = 0

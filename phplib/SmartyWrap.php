@@ -5,8 +5,7 @@ class SmartyWrap {
   private static $cssFiles = array();
   private static $jsFiles = array();
 
-  static function init($smartyClass) {
-    require_once(pref_getSmartyClass());
+  static function init() {
     self::$theSmarty = new Smarty();
     self::$theSmarty->template_dir = util_getRootPath() . 'templates';
     self::$theSmarty->compile_dir = util_getRootPath() . 'templates_c';

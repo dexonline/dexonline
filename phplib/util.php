@@ -33,7 +33,7 @@ function util_initEverything() {
   session_init();
   mc_init();
   FlashMessage::restoreFromSession();
-  SmartyWrap::init(pref_getSmartyClass());
+  SmartyWrap::init();
 }
 
 function util_defineRootPath() {
@@ -85,6 +85,7 @@ function util_getCssRoot() {
 
 function util_requireOtherFiles() {
   $root = util_getRootPath();
+  require_once("$root/phplib/smarty/Smarty.class.php");
   require_once("$root/phplib/idiorm/idiorm.php");
   require_once("$root/phplib/idiorm/paris.php");
   require_once("$root/phplib/serverPreferences.php");

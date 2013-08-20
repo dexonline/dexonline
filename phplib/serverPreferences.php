@@ -69,10 +69,6 @@ function pref_getHostedBy() {
   return pref_getServerPreference('hostedBy');
 }
 
-function pref_getSmartyClass() {
-  return pref_getServerPreference('smartyClass');
-}
-
 function pref_getLocVersions() {
   if (!array_key_exists('locVersions', $GLOBALS)) {
     $result = array();

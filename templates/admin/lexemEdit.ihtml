@@ -288,10 +288,15 @@
 {/if}
 
 <div class="box">
-  <div class="boxTitle">Definiții asociate ({$searchResults|@count})</div>
+  <div class="boxTitle">
+    Definiții asociate ({$searchResults|@count})
+    <a href="#" class="defFilterLink">toate</a>
+    <a href="#" class="defFilterLink structured">structurate</a>
+    <a href="#" class="defFilterLink unstructured">nestructurate</a>
+  </div>
   <div class="boxContents">
     {foreach from=$searchResults item=row}
-      <div>
+      <div class="defWrapper {if $row->definition->structured}structured{else}unstructured{/if}" id="def_{$row->definition->id}">
         <div class="defInternalRep">{$row->definition->internalRep|escape}</div>
         <div class="defHtmlRep">{$row->definition->htmlRep}</div>
         <span class="defDetails">
@@ -306,6 +311,9 @@
                  onclick="return confirmDissociateDefinition({$row->definition->id})">disociază</a>
           {/if}
           | <a href="#" class="toggleInternalHtmlLink">arată html</a>
+          {if $canEdit.defStructured}
+            | <a href="#" class="toggleStructuredLink">{if $row->definition->structured}structurată{else}nestructurată{/if}</a>
+          {/if}
         </span>
         {if $row->comment}
           <div class="commentInternalRep">

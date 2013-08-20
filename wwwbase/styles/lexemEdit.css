@@ -19,6 +19,12 @@
   padding: 5px 5px 5px 25px;
 }
 
+.boxTitle a {
+  color: white;
+  margin-left: 20px;
+  font-weight: normal;
+}
+
 .boxContents {
   padding: 5px;
 }
@@ -137,6 +143,16 @@ span.defDetails a {
 
 span.defDetails a:hover {
   color: #555555;
+}
+
+div.structured a.toggleStructuredLink {
+  background: url("../img/icons/bullet_green.png") 0px 1px no-repeat;
+  padding-left: 14px;
+}
+
+div.unstructured a.toggleStructuredLink {
+  background: url("../img/icons/bullet_red.png") 0px 1px no-repeat;
+  padding-left: 14px;
 }
 
 div.addDefinition {

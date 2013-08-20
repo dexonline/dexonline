@@ -77,6 +77,8 @@ function lexemEditInit() {
   $('#editMeaningCancelButton').click(endMeaningEdit);
   $('.lexemEditSaveButton').click(saveEverything);
   $('.toggleInternalHtmlLink').click(toggleInternalHtmlClick);
+  $('.toggleStructuredLink').click(toggleStructuredClick);
+  $('.defFilterLink').click(defFilterClick);
   $('.boxTitle').click(boxTitleClick);
 
   $('#lexemSourceIds').select2({
@@ -285,6 +287,38 @@ function toggleInternalHtmlClick() {
   $(this).text((text == 'arată html') ? 'arată text' : 'arată html');
   $(this).closest('.defDetails').prevAll('.defInternalRep:last').slideToggle();
   $(this).closest('.defDetails').prevAll('.defHtmlRep:last').slideToggle();
+  return false;
+}
+
+function toggleStructuredClick() {
+  var parent = $(this).closest('.defWrapper');
+  var id = parent.attr('id').split('_')[1];
+  if (parent.hasClass('structured')) {
+    $(this).text('nestructurată');
+    parent.removeClass('structured');
+    parent.addClass('unstructured');
+    var value = 0;
+  } else {
+    $(this).text('structurată');
+    parent.removeClass('unstructured');
+    parent.addClass('structured');
+    var value = 1;
+  }
+  $.get(wwwRoot + 'ajax/setDefinitionStructured.php?id=' + id + '&value=' + value);
+  return false;
+}
+
+function defFilterClick() {
+  if ($(this).hasClass('structured')) {
+    $('.defWrapper.unstructured').hide('slow');
+  } else {
+    $('.defWrapper.unstructured').show('slow');
+  }
+  if ($(this).hasClass('unstructured')) {
+    $('.defWrapper.structured').hide('slow');
+  } else {
+    $('.defWrapper.structured').show('slow');
+  }
   return false;
 }
 

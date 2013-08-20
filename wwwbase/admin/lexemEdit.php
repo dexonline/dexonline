@@ -103,6 +103,7 @@ if (is_array($ifs)) {
 
 $canEdit = array(
   'general' => util_isModerator(PRIV_EDIT),
+  'defStructured' => util_isModerator(PRIV_EDIT),
   'description' => !$lexem->isLoc || util_isModerator(PRIV_LOC),
   'form' => !$lexem->isLoc || util_isModerator(PRIV_LOC),
   'hyphenations' => !$lexem->structSealed || util_isModerator(PRIV_EDIT),

@@ -9,7 +9,7 @@ $lexems = Model::factory('Lexem')->where_like($field, "{$query}%")->order_by_asc
 
 $resp = array('more' => 'false', 'results' => array());
 foreach($lexems as $lexem) {
-  $resp['results'][] = array('id' => $lexem->id, 'text' => (string)$lexem->formUtf8General);
+  $resp['results'][] = array('id' => $lexem->id, 'text' => (string)$lexem->formUtf8General, 'description' => (string)$lexem->description);
 }
 
 echo json_encode($resp);

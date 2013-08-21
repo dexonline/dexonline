@@ -1,6 +1,6 @@
 <?php
 
-error_reporting(0); // Set E_ALL for debuging
+error_reporting(E_ALL); // Set E_ALL for debuging
 
 include_once __DIR__ . '/elFinderConnector.class.php';
 include_once __DIR__ . '/elFinder.class.php';
@@ -50,7 +50,7 @@ $opts = array(
       'uploadAllow'   => array('image'), // mimetypes allowed to upload
       'disabled'      => array('resize', 'mkfile', 'duplicate'), // list of not allowed commands
       'imgLib'        => 'gd', // image manipulation library (imagick, mogrify, gd)
-      'tmbPath'       => '.tmb', // directory name for image thumbnails. Set to "" to avoid thumbnails generation
+      'tmbPath'       => '.elfTmb', // directory name for image thumbnails. Set to "" to avoid thumbnails generation
     )
   )
 );

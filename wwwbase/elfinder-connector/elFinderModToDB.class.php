@@ -1,6 +1,8 @@
 <?php
 
-include_once '../../phplib/models/Visual.php';
+autoloadModelsClass('Visual');
+autoloadModelsClass('BaseObject');
+autoloadModelsClass('DatedObject');
 
 class elFinderModToDB extends Visual {
 
@@ -17,6 +19,7 @@ public function action($cmd, $result, $args, $elfinder) {
     if(!empty($result['added'])) {
       foreach($result['added'] as $file) {
         $path = Visual::getPath($elfinder->realpath($file['hash']));
+        Visual::$cmd = $cmd;
 
         $line = Model::factory('Visual')->create();
         $line->path = $path;
@@ -50,6 +53,7 @@ public function action($cmd, $result, $args, $elfinder) {
         $oldPath = Visual::getPath($result['removed'][0]['realpath']);
         $newPath = Visual::getPath($elfinder->realpath($result['added'][0]['hash']));
         $entries = Model::factory('Visual')->where_like('path', "{$oldPath}/%")->find_many();
+        Visual::$cmd = $cmd;
 
         if(!empty($entries)) {
           /** Directory was renamed **/
@@ -63,7 +67,6 @@ public function action($cmd, $result, $args, $elfinder) {
           $line = Visual::get_by_path($oldPath);
 
           if(!empty($line)) {
-            $line->path = $newPath;
             $line->save();
           }
         }

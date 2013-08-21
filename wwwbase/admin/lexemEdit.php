@@ -90,7 +90,8 @@ if ($refreshLexem || $saveLexem) {
 
 $definitions = Definition::loadByLexemId($lexem->id);
 foreach ($definitions as $def) {
-  // $def->internalRep = AdminStringUtil::expandAbbreviations($def->internalRep, $def->sourceId);
+  $def->internalRepAbbrev = AdminStringUtil::expandAbbreviations($def->internalRep, $def->sourceId);
+  $def->htmlRepAbbrev = AdminStringUtil::htmlize($def->internalRepAbbrev, $def->sourceId);
 }
 $searchResults = SearchResult::mapDefinitionArray($definitions);
 $definitionLexem = mb_strtoupper(AdminStringUtil::internalize($lexem->form, false));

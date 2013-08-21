@@ -114,14 +114,16 @@ abbr {
   cursor: help;
 }
 
-div.defInternalRep {
-  font-family: courier;
+.defWrapper .rep {
   margin-top: 10px;
 }
 
-div.defHtmlRep {
+.defWrapper .internal {
+  font-family: courier;
+}
+
+.defWrapper .hidden {
   display: none;
-  margin-top: 10px;
 }
 
 .commentInternalRep {

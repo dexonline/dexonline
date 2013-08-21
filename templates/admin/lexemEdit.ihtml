@@ -297,8 +297,10 @@
   <div class="boxContents">
     {foreach from=$searchResults item=row}
       <div class="defWrapper {if $row->definition->structured}structured{else}unstructured{/if}" id="def_{$row->definition->id}">
-        <div class="defInternalRep">{$row->definition->internalRep|escape}</div>
-        <div class="defHtmlRep">{$row->definition->htmlRep}</div>
+        <div data-code="0" data-active class="rep internal">{$row->definition->internalRepAbbrev|escape}</div>
+        <div data-code="1" class="rep hidden">{$row->definition->htmlRepAbbrev}</div>
+        <div data-code="2" class="rep internal hidden">{$row->definition->internalRep|escape}</div>
+        <div data-code="3" class="rep hidden">{$row->definition->htmlRep}</div>
         <span class="defDetails">
           id: {$row->definition->id}
           | sursa: {$row->source->shortName|escape}
@@ -308,9 +310,12 @@
           {if $canEdit.general}
             | <a href="definitionEdit.php?definitionId={$row->definition->id}" target="_blank">editează</a>
             | <a href="lexemEdit.php?lexemId={$lexem->id}&amp;dissociateDefinitionId={$row->definition->id}"
-                 onclick="return confirmDissociateDefinition({$row->definition->id})">disociază</a>
+                 title="disociază definiția de lexem" onclick="return confirmDissociateDefinition({$row->definition->id})">disociază</a>
           {/if}
-          | <a href="#" class="toggleInternalHtmlLink" title="comută între notația internă și HTML">arată html</a>
+          | <a href="#" class="toggleRepLink" title="comută între notația internă și HTML"
+               data-value="0" data-order="1" data-other-text="text">html</a>
+          | <a href="#" class="toggleRepLink" title="contractează sau expandează abrevierile"
+               data-value="0" data-order="2" data-other-text="expandat">abreviat</a>
           {if $canEdit.defStructured}
             | <a href="#" class="toggleStructuredLink" title="comută definiția între structurată și nestructurată"
                  >{if $row->definition->structured}structurată{else}nestructurată{/if}</a>

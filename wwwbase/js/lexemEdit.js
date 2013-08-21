@@ -12,6 +12,7 @@ function lexemEditInit() {
   $('#deleteMeaningButton').click(deleteMeaning);
 
   $('#editorSources').select2({
+    matcher: sourceMatcher,
     placeholder: 'adaugă o sursă...',
     width: '315px',
   });
@@ -76,12 +77,13 @@ function lexemEditInit() {
   $('#editMeaningAcceptButton').click(acceptMeaningEdit);
   $('#editMeaningCancelButton').click(endMeaningEdit);
   $('.lexemEditSaveButton').click(saveEverything);
-  $('.toggleInternalHtmlLink').click(toggleInternalHtmlClick);
+  $('.toggleRepLink').click(toggleRepClick);
   $('.toggleStructuredLink').click(toggleStructuredClick);
   $('.defFilterLink').click(defFilterClick);
   $('.boxTitle').click(boxTitleClick);
 
   $('#lexemSourceIds').select2({
+    matcher: sourceMatcher,
     placeholder: 'surse care atestă flexiunea',
     width: '333px',
   });
@@ -96,6 +98,11 @@ function lexemEditInit() {
 
   $('.mergeLexem').click(mergeLexemButtonClick);
   $('.similarLink').click(similarLinkClick);
+}
+
+function sourceMatcher(term, text) {
+  term = term.replace('ş', 'ș').replace('Ş', 'Ș').replace('ţ', 't').replace('Ţ', 'Ț');
+  return text.toUpperCase().indexOf(term.toUpperCase()) != -1;
 }
 
 function addMeaning() {
@@ -282,11 +289,23 @@ function saveEverything() {
   $('#meaningForm').submit();
 }
 
-function toggleInternalHtmlClick() {
-  var text = $(this).text();
-  $(this).text((text == 'arată html') ? 'arată text' : 'arată html');
-  $(this).closest('.defDetails').prevAll('.defInternalRep:last').slideToggle();
-  $(this).closest('.defDetails').prevAll('.defHtmlRep:last').slideToggle();
+/* Definitions can be shown as internal or HTML notation, with abbreviations expanded or collapsed. This gives rise to four combinations, coded on
+ * two bits each. Clicking on the "show / hide HTML" and show / hide abbreviations" fiddles some bits and sets the "visible" class on the
+ * appropriate div. */
+function toggleRepClick() {
+  // Hide the old definition
+  var oldActive = $(this).closest('.defDetails').prevAll('[data-active]');
+  oldActive.slideToggle().removeAttr('data-active');
+
+  // Recalculate the code and show the new definition
+  var code = oldActive.attr('data-code') ^ $(this).attr('data-order');
+  var newActive = $(this).closest('.defDetails').prevAll('[data-code=' + code + ']');
+  newActive.slideToggle().attr('data-active', '');
+
+  // Toggle the link text
+  var tmp = $(this).text();
+  $(this).text($(this).attr('data-other-text'));
+  $(this).attr('data-other-text', tmp);
   return false;
 }
 

@@ -4,7 +4,8 @@ class Visual extends BaseObject implements DatedObject {
   public static $_table = 'Visual';
   public static $parentDir = 'visual';
   public static $thumbDir = '.thumb';
-  public static $cmd, $altPath;
+  public static $thumbSize = 200;
+  public static $cmd, $oldThumbPath;
 
   /** Retrieves the path relative to the visual folder */
   public static function getPath($givenPath) {
@@ -15,7 +16,7 @@ class Visual extends BaseObject implements DatedObject {
   }
 
   /** Creates the absolute path of the thumb directory based on the $path parameter */
-  static function thumbDirPath($path) {
+  static function getThumbDirPath($path) {
     preg_match('/[^\/]+$/', $path, $name);
     $path = str_replace($name[0], '', $path);
     
@@ -23,7 +24,7 @@ class Visual extends BaseObject implements DatedObject {
   }
 
   /** Creates the absolute path of the thumbnail file based on the $path parameter */
-  static function thumbPath($path) {
+  static function getThumbPath($path) {
     preg_match('/[^\/]+$/', $path, $name);
     $path = str_replace($name[0], '', $path);
 
@@ -44,8 +45,8 @@ class Visual extends BaseObject implements DatedObject {
   function delete() {
     VisualTag::deleteByImageId($this->id);    
 
-    $thumbPath = self::thumbPath($this->path);
-    $thumbDirPath = self::thumbDirPath($this->path);
+    $thumbPath = self::getThumbPath($this->path);
+    $thumbDirPath = self::getThumbDirPath($this->path);
 
     if(file_exists($thumbPath)) {
       unlink($thumbPath);
@@ -60,16 +61,30 @@ class Visual extends BaseObject implements DatedObject {
 
   /** Extended by creating uploaded image thumbnail */
   function save() {
-    $thumbDirPath = self::thumbDirPath($this->path);
+    switch(self::$cmd) {
+    case 'upload':
+    case 'copy-paste':
+      $thumbDirPath = self::getThumbDirPath($this->path);
 
-    if(!file_exists($thumbDirPath)) {
-      mkdir($thumbDirPath);
+      if(!file_exists($thumbDirPath)) {
+        mkdir($thumbDirPath, 0777);
+      }
+
+      $thumbPath = self::getThumbPath($this->path); 
+      $thumb = new Imagick(util_getRootPath() . 'wwwbase/img/' . $this->path);
+      $thumb->thumbnailImage(self::$thumbSize, self::$thumbSize, true);
+      $thumb->writeImage( $thumbPath);
+    break;
+
+    case 'rename':
+    case 'cut-paste':
+      $newThumbPath = self::getThumbPath($this->path);
+
+      if(file_exists(self::$oldThumbPath)) {
+        rename(self::$oldThumbPath, $newThumbPath);
+      }
+    break;
     }
-
-    $thumbPath = self::thumbPath($this->path); 
-    $thumb = new Imagick(util_getRootPath() . 'wwwbase/img/' . $this->path);
-    $thumb->thumbnailImage(200, 200, true);
-    $thumb->writeImage( $thumbPath);
 
     parent::save();
   }

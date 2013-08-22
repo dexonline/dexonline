@@ -1,6 +1,6 @@
 <?php
 
-error_reporting(E_ALL); // Set E_ALL for debuging
+error_reporting(0); // Set E_ALL for debuging
 
 include_once __DIR__ . '/elFinderConnector.class.php';
 include_once __DIR__ . '/elFinder.class.php';

@@ -52,14 +52,14 @@ public function action($cmd, $result, $args, $elfinder) {
         * paths of the files within it are modified accordingly. */
         $oldPath = Visual::getPath($result['removed'][0]['realpath']);
         $newPath = Visual::getPath($elfinder->realpath($result['added'][0]['hash']));
-        $entries = Model::factory('Visual')->where_like('path', "{$oldPath}/%")->find_many();
+        $lines = Model::factory('Visual')->where_like('path', "{$oldPath}/%")->find_many();
         Visual::$cmd = $cmd;
 
-        if(!empty($entries)) {
+        if(!empty($lines)) {
           /** Directory was renamed **/
-          foreach($entries as $entry) {
-            $entry->path = str_replace($oldPath, $newPath, $entry->path);
-            $entry->save();
+          foreach($lines as $line) {
+            $line->path = str_replace($oldPath, $newPath, $line->path);
+            $line->save();
           }
 
         } else {
@@ -67,6 +67,8 @@ public function action($cmd, $result, $args, $elfinder) {
           $line = Visual::get_by_path($oldPath);
 
           if(!empty($line)) {
+            Visual::$oldThumbPath = Visual::getThumbPath($oldPath);
+            $line->path = $newPath;
             $line->save();
           }
         }
@@ -76,12 +78,15 @@ public function action($cmd, $result, $args, $elfinder) {
       case 'paste':
       /** Cut - Paste */
       if(!empty($result['removed'])) {
+        Visual::$cmd = 'cut-paste';
+
         foreach($result['removed'] as $i => $file) {
           $oldPath = Visual::getPath($file['realpath']);
           $newPath = Visual::getPath($elfinder->realpath($result['added'][$i]['hash']));
           $line = Visual::get_by_path($oldPath);
 
           if(!empty($line)) {
+            Visual::$oldThumbPath = Visual::getThumbPath($oldPath);
             $line->path = $newPath;
             $line->save();
           }
@@ -89,6 +94,8 @@ public function action($cmd, $result, $args, $elfinder) {
 
       /** Copy - Paste */
       } else if(!empty($result['added'])) {
+        Visual::$cmd = 'copy-paste';
+
         foreach($result['added'] as $file) {
           $path = Visual::getPath($elfinder->realpath($file['hash']));
 

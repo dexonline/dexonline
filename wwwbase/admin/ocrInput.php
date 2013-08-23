@@ -1,6 +1,6 @@
 <?php
 require_once("../../phplib/util.php"); 
-util_assertModerator(PRIV_EDIT);
+util_assertModerator(PRIV_ADMIN);
 util_assertNotMirror();
 
 $sourceId = util_getRequestIntParameter('source');

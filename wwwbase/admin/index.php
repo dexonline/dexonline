@@ -6,7 +6,6 @@ util_assertNotMirror();
 $models = FlexModel::loadByType('A');
 
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::assign('canEditWotd', util_isModerator(PRIV_WOTD));
 SmartyWrap::assign("allStatuses", util_getAllStatuses());
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('modelTypes', ModelType::loadCanonical());

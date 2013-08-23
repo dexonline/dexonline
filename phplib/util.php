@@ -150,6 +150,7 @@ function util_defineConstants() {
   $GLOBALS['PRIV_NAMES'] = array('Administrator', 'Moderator LOC', 'Moderator', 'Editor al ghidului de exprimare', 'Editor al cuvântului zilei',
                                  'Utilizator privilegiat', '«Structurist» al definițiilor');
 
+# TODO rethink this part
   //Source 
   define('SOURCE_TYPE_HIDDEN', 3);
   define('SOURCE_TYPE_OFFICIAL', 2);

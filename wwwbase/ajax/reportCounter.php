@@ -22,6 +22,7 @@ case 'ambiguousLexems': // This one is expensive
   print $r->c;
   break;
 case 'visualTag': echo Model::factory('Visual')->where('revised', 0)->count(); break;
+case 'ocrDefs': echo Model::factory('OCR')->where('status', 'raw')->count(); break;
 default: echo 'Necunoscut';
 }
 

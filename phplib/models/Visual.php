@@ -5,7 +5,6 @@ class Visual extends BaseObject implements DatedObject {
   public static $parentDir = 'visual';
   public static $thumbDir = '.thumb';
   public static $thumbSize = 200;
-  public static $cmd, $oldThumbPath;
 
   /** Retrieves the path relative to the visual folder */
   public static function getPath($givenPath) {
@@ -15,78 +14,60 @@ class Visual extends BaseObject implements DatedObject {
     return $matches[0];
   }
 
-  /** Creates the absolute path of the thumb directory based on the $path parameter */
-  static function getThumbDirPath($path) {
-    preg_match('/[^\/]+$/', $path, $name);
-    $path = str_replace($name[0], '', $path);
-    
-    return util_getRootPath() . 'wwwbase/img/' . $path . self::$thumbDir;
+  /** Returns the absolute path of the thumb directory */
+  function getThumbDir() {
+    return util_getRootPath() . 'wwwbase/img/' . dirname($this->path) . '/' . self::$thumbDir;
   }
 
-  /** Creates the absolute path of the thumbnail file based on the $path parameter */
-  static function getThumbPath($path) {
-    preg_match('/[^\/]+$/', $path, $name);
-    $path = str_replace($name[0], '', $path);
-
-    return util_getRootPath() . 'wwwbase/img/' . $path . self::$thumbDir . '/' . $name[0];
-  }
-
-  /** Checks if the directory specified in $path is empty */
-  static function isDirEmpty($path) {
-    $files = scandir($path);
-    if(count($files) == 2) {
-      return true;
-    } else {
-      return false;
-    }
+  /** Returns the absolute path of the thumbnail file */
+  function getThumbPath() {
+    return $this->getThumbDir() . '/' . basename($this->path);
   }
 
   /** Extended by deleting removed image thumbnails */
   function delete() {
     VisualTag::deleteByImageId($this->id);    
 
-    $thumbPath = self::getThumbPath($this->path);
-    $thumbDirPath = self::getThumbDirPath($this->path);
+    $thumbPath = $this->getThumbPath();
+    $thumbDirPath = $this->getThumbDir();
 
     if(file_exists($thumbPath)) {
       unlink($thumbPath);
     }
 
-    if(file_exists($thumbDirPath) && self::isDirEmpty($thumbDirPath)) {
+    if(file_exists($thumbDirPath) && OS::isDirEmpty($thumbDirPath)) {
       rmdir($thumbDirPath);
     }
     
-    parent::delete();
+    return parent::delete();
   }
 
   /** Extended by creating uploaded image thumbnail */
   function save() {
-    switch(self::$cmd) {
-    case 'upload':
-    case 'copy-paste':
-      $thumbDirPath = self::getThumbDirPath($this->path);
+    // Make a directory into which to generate or copy the thumbnail
+    @mkdir($this->getThumbDir(), 0777);
 
-      if(!file_exists($thumbDirPath)) {
-        mkdir($thumbDirPath, 0777);
-      }
+    // Load the original Visual to determine if this is a move/rename or a copy/upload. It slows things down a little, but it's stateless.
+    $original = ($this->id) ? self::get_by_id($this->id) : null;
 
-      $thumbPath = self::getThumbPath($this->path); 
+    // Generate thumbnails for uploads or copy-pastes
+    if (!$original) {
       $thumb = new Imagick(util_getRootPath() . 'wwwbase/img/' . $this->path);
       $thumb->thumbnailImage(self::$thumbSize, self::$thumbSize, true);
-      $thumb->writeImage( $thumbPath);
-    break;
-
-    case 'rename':
-    case 'cut-paste':
-      $newThumbPath = self::getThumbPath($this->path);
-
-      if(file_exists(self::$oldThumbPath)) {
-        rename(self::$oldThumbPath, $newThumbPath);
-      }
-    break;
+      $thumb->sharpenImage(1, 1);
+      $thumb->writeImage($this->getThumbPath());
     }
 
-    parent::save();
+    // Move thumbnails for renames and cut-pastes
+    if ($original && ($original->path != $this->path)) {
+      $oldThumbPath = $original->getThumbPath();
+      $newThumbPath = $this->getThumbPath();
+      if (file_exists($oldThumbPath)) {
+        rename($oldThumbPath, $newThumbPath);
+      }
+    }
+
+    return parent::save();
   }
 }
 ?>

@@ -34,6 +34,12 @@ class OS {
     }
     return $output;
   }
+
+  /** Checks if the directory specified in $path is empty */
+  static function isDirEmpty($path) {
+    $files = scandir($path);
+    return count($files) == 2;
+  }
 }
 
 ?>

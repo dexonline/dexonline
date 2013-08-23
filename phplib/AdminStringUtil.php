@@ -291,6 +291,10 @@ class AdminStringUtil {
     return $word;
   }
 
+  private static function _unicodeReplace($matches) {
+    return self::chr(hexdec($matches[0]));
+  }
+
   /**
    * Replace shorthand notations like ~a with Unicode symbols like ă.
    * These are convenience symbols the user might type in, but we don't
@@ -298,7 +302,7 @@ class AdminStringUtil {
    */
   static function shorthandToUnicode($s) {
     // Replace \abcd with the Unicode character 0xABCD
-    $s = preg_replace('/\\\\([\dabcdefABCDEF]{4})/e', "self::chr(hexdec('$1'))", $s);
+    $s = preg_replace_callback('/\\\\([\dabcdefABCDEF]{4,5})/', 'self::_unicodeReplace', $s);
   
     // A bit of a hack: We should not replace \~e with \ĕ, therefore we isolate
     // the \~ compound first and restore it at the end.
@@ -403,13 +407,15 @@ class AdminStringUtil {
     return self::minimalInternalToHtml($s);
   }
 
+  private static function _ordReplace($matches) {
+    return '&#x' . dechex(self::ord($matches[0])) . ';';
+  }
+
   static function xmlizeRequired($s) {
     // Escape <, > and &
     $s = htmlspecialchars($s, ENT_NOQUOTES);
     // Replace backslashed characters with their XML escape code
-    $s = preg_replace('/\\\\(.)/e',
-                      "'&#x' . dechex(self::ord('$1')) . ';'",
-                      $s);
+    $s = preg_replace_callback('/\\\\(.)/', 'self::_ordReplace', $s);
     return $s;
   }
 

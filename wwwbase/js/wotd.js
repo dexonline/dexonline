@@ -83,20 +83,30 @@ jQuery().ready(function (){
     reloadAfterSubmit: true,
   };
 
+  var screenWidth = $(".header").width();
+  var lexWidth    = 120;
+  var sourceWidth =  60;
+  var htmlWidth   = 450;
+  var dateWidth   =  90;
+  var userWidth   =  90;
+  var priorWidth  =  50;
+  var imageWidth  =  70;
+  var descWidth   = screenWidth - (lexWidth + sourceWidth + htmlWidth + dateWidth + userWidth + priorWidth + imageWidth) - 40;
+
   $('#wotdGrid').jqGrid({
     url: wwwRoot + 'ajax/wotdTableRows.php',
     datatype: 'xml',
     colNames: ['Cuvînt', 'Sursă', 'Definiție', 'Data afișării', 'Adăugată de', 'Pr.', 'Tipul resursei', 'Imagine', 'Descriere', 'ID-ul definiției'],
     colModel: [
-      {name: 'lexicon', index: 'lexicon', editable: true},
-      {name: 'source', index: 'shortName', width: 60},
-      {name: 'htmlRep', index: 'htmlRep', width: 450},
-      {name: 'displayDate', index: 'displayDate', width: 90, editable: true},
-      {name: 'name', index: 'u.name', width: 90},
-      {name: 'priority', index: 'priority', editable: true, width: 40},
+      {name: 'lexicon', index: 'lexicon', editable: true, width: lexWidth},
+      {name: 'source', index: 'shortName', width: sourceWidth},
+      {name: 'htmlRep', index: 'htmlRep', width: htmlWidth},
+      {name: 'displayDate', index: 'displayDate', width: dateWidth, editable: true},
+      {name: 'name', index: 'u.name', width: userWidth},
+      {name: 'priority', index: 'priority', editable: true, width: priorWidth},
       {name: 'refType', index: 'refType', editable: true, edittype: 'select', editoptions: {value: 'Definition:Definition'}, hidden: true},
-      {name: 'image', index: 'w.image', editable: true, width: 75},
-      {name: 'description', index: 'description', editable: true, edittype: 'textarea', hidden: false, width: 250},
+      {name: 'image', index: 'w.image', editable: true, width: imageWidth},
+      {name: 'description', index: 'description', editable: true, edittype: 'textarea', hidden: false, width: descWidth},
       {name: 'definitionId', index: 'definitionId', editable: true, hidden: true}
     ],
     rowNum: 20,

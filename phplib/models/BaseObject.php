@@ -72,6 +72,20 @@ class BaseObject extends Model {
     }
     
   }
+
+  /**
+   * Copies the values of all fields except id. Works better than PHP's clone operator.
+   **/
+  function parisClone() {
+    $clone = Model::factory(get_called_class())->create();
+    $fields = $this->as_array();
+    foreach ($fields as $key => $value) {
+      if ($key != 'id') {
+        $clone->$key = $value;
+      }
+    }
+    return $clone;
+  }
 }
 
 ?>

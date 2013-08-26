@@ -241,23 +241,6 @@ function loadSuggestions($lexem, $limit) {
   return $result;
 }
 
-function _cloneLexem($lexem) {
-  $clone = Lexem::create($lexem->form, 'T', 1, '');
-  $clone->comment = $lexem->comment;
-  $clone->description = ($lexem->description) ? "CLONĂ {$lexem->description}" : "CLONĂ";
-  $clone->noAccent = $lexem->noAccent;
-  $clone->save();
-    
-  // Clone the definition list
-  $ldms = LexemDefinitionMap::get_all_by_lexemId($lexem->id);
-  foreach ($ldms as $ldm) {
-    LexemDefinitionMap::associate($clone->id, $ldm->definitionId);
-  }
-
-  $clone->regenerateParadigm();
-  return $clone;
-}
-
 /* This page handles a lot of actions. Move the minor ones here so they don't clutter the preview/save actions,
    which are hairy enough by themselves. */
 function handleLexemActions() {
@@ -309,7 +292,7 @@ function handleLexemActions() {
 
   $cloneLexem = util_getRequestParameter('cloneLexem');
   if ($cloneLexem) {
-    $newLexem = _cloneLexem($lexem);
+    $newLexem = $lexem->cloneLexem();
     log_userLog("Cloned lexem {$lexem->id} ({$lexem->form}), new id is {$newLexem->id}");
     util_redirect("lexemEdit.php?lexemId={$newLexem->id}");
   }

@@ -422,6 +422,42 @@ class Lexem extends BaseObject implements DatedObject {
   public function __toString() {
     return $this->description ? "{$this->formNoAccent} ({$this->description})" : $this->formNoAccent;
   }
+
+  public function cloneLexem() {
+    $clone = $this->parisClone();
+    $clone->description = ($this->description) ? "CLONĂ {$this->description}" : "CLONĂ";
+    $clone->modelType = 'T';
+    $clone->modelNumber = 1;
+    $clone->restriction = '';
+    $clone->isLoc = false;
+    $clone->verifSp = false;
+    $clone->structSealed = false;
+    $clone->save();
+    
+    // Clone the definition list
+    $ldms = LexemDefinitionMap::get_all_by_lexemId($this->id);
+    foreach ($ldms as $ldm) {
+      LexemDefinitionMap::associate($clone->id, $ldm->definitionId);
+    }
+
+    // Clone the root meanings
+    $meanings = Model::factory('Meaning')->where('lexemId', $this->id)->where('parentId', 0)->find_many();
+    foreach ($meanings as $m) {
+      $m->cloneMeaning($clone->id, 0);
+    }
+
+    // Clone the sources
+    $lss = LexemSource::get_all_by_lexemId($this->id);
+    foreach ($lss as $ls) {
+      $lsClone = $ls->parisClone();
+      $lsClone->lexemId = $clone->id;
+      $lsClone->save();
+    }
+
+    $clone->regenerateParadigm();
+    return $clone;
+  }
+  
 }
 
 ?>

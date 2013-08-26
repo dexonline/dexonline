@@ -120,14 +120,13 @@
       {if $homonyms}
         <tr>
           <td>omonime:</td>
-          <td>
+          <td colspan="3">
             {foreach from=$homonyms item=h key=i}
               {if $i}|{/if}
               <a href="lexemEdit.php?lexemId={$h->id}">{include file="common/bits/lexemName.ihtml" lexem=$h}</a>
               [{$h->modelType}{$h->modelNumber}{$h->restriction}]
             {/foreach}
           </td>
-          <td class="rightColumn"></td><td></td>
         </tr>
       {/if}
     </table>

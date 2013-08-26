@@ -142,6 +142,46 @@ class Meaning extends BaseObject implements DatedObject {
     parent::delete();
   }
 
+  /**
+   * Different from __clone(). We save the object to the database to assign it an ID. We also clone its descendants,
+   * synonyms/antonyms, sources and tags.
+   **/
+  public function cloneMeaning($newLexemId, $newParentId) {
+    $clone = $this->parisClone();
+    $clone->lexemId = $newLexemId;
+    $clone->parentId = $newParentId;
+    $clone->save();
+
+    // Clone its tags
+    $mtms = MeaningTagMap::get_all_by_meaningId($this->id);
+    foreach ($mtms as $mtm) {
+      $mtmClone = $mtm->parisClone();
+      $mtmClone->meaningId = $clone->id;
+      $mtmClone->save();
+    }
+
+    // Clone its sources
+    $mss = MeaningSource::get_all_by_meaningId($this->id);
+    foreach ($mss as $ms) {
+      $msClone = $ms->parisClone();
+      $msClone->meaningId = $clone->id;
+      $msClone->save();
+    }
+
+    // Clone its synonyms / antonyms
+    $synonyms = Synonym::get_all_by_meaningId($this->id);
+    foreach ($synonyms as $synonym) {
+      $synonymClone = $synonym->parisClone();
+      $synonymClone->meaningId = $clone->id;
+      $synonymClone->save();
+    }
+
+    // Clone its children
+    $children = Meaning::get_all_by_parentId($this->id);
+    foreach ($children as $child) {
+      $child->cloneMeaning($newLexemId, $clone->id);
+    }
+  }
 }
 
 ?>

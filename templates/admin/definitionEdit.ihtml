@@ -115,7 +115,6 @@
     {else}
     <tr>
       <td colspan="3" class="buttonRow">
-      OCR: {$isOCR}
       </td>
     </tr>
     {/if}

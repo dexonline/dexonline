@@ -21,6 +21,13 @@ class Synonym extends BaseObject implements DatedObject {
       $s->delete();
     }
   }
+
+  public static function deleteByLexemId($lexemId) {
+    $synonyms = self::get_all_by_lexemId($lexemId);
+    foreach ($synonyms as $s) {
+      $s->delete();
+    }
+  }
 }
 
 ?>

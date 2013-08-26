@@ -305,6 +305,16 @@ function handleLexemActions() {
     foreach ($defs as $def) {
       LexemDefinitionMap::associate($other->id, $def->id);
     }
+
+    // Add meanings from $lexem to $other and renumber their displayOrder
+    $counter = Model::factory('Meaning')->where('lexemId', $other->id)->count();
+    $meanings = Model::factory('Meaning')->where('lexemId', $lexem->id)->order_by_asc('displayOrder')->find_many();
+    foreach ($meanings as $m) {
+      $m->lexemId = $other->id;
+      $m->displayOrder = ++$counter;
+      $m->save();
+    }
+
     $lexem->delete();
     util_redirect("lexemEdit.php?lexemId={$other->id}");
   }

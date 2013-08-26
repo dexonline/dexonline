@@ -402,6 +402,7 @@ class Lexem extends BaseObject implements DatedObject {
       InflectedForm::deleteByLexemId($this->id);
       Meaning::deleteByLexemId($this->id);
       LexemSource::deleteByLexemId($this->id);
+      Synonym::deleteByLexemId($this->id);
     }
     // Clear the variantOfId field for lexems having $this as main.
     $lexemsToClear = Lexem::get_all_by_variantOfId($this->id);

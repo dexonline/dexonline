@@ -15,10 +15,10 @@
     <meta name="keywords" content="{$page_keywords}"/>
     {/if}
     {if !isset($not_generic_img)}
-    <meta property="og:image" content="http://dexonline.ro/img/logo-dexonline-2.png" />
+    <meta property="og:image" content="{$imgRoot}/anniversary/meta.png" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="DEX online" />
-    <link rel="image_src" href="http://dexonline.ro/img/logo-dexonline-2.png" />
+    <link rel="image_src" href="{$imgRoot}/anniversary/meta.png" />
     {/if}
     {include file="common/bits/cssJs.ihtml"}
     <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>

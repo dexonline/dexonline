@@ -8,13 +8,8 @@ class ModelType extends BaseObject {
   }
 
   public static function canonicalize($code) {
-    if ($code == 'VT') {
-      return 'V';
-    } else if ($code == 'MF') {
-      return 'A';
-    } else {
-      return $code;
-    }
+    $mt = ModelType::get_by_code($code);
+    return $mt->canonical;
   }
 }
 

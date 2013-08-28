@@ -8,6 +8,7 @@ $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
 
 $locVersions = pref_getLocVersions();
+$modelType = ModelType::get_by_code($modelType); // Use the ModelType object from this point on
 
 if ($locVersion && $modelType && $modelNumber) {
   SmartyWrap::assign('selectedLocVersion', $locVersion);
@@ -17,22 +18,22 @@ if ($locVersion && $modelType && $modelNumber) {
   LocVersion::changeDatabase($locVersion);
 
   if ($modelNumber == -1) {
-    $modelsToDisplay = FlexModel::loadByType($modelType);
+    $modelsToDisplay = FlexModel::loadByType($modelType->code);
   } else {
-    $modelsToDisplay = array(Model::factory('FlexModel')->where('modelType', $modelType)->where('number', $modelNumber)->find_one());
+    $modelsToDisplay = array(Model::factory('FlexModel')->where('modelType', $modelType->code)->where('number', $modelNumber)->find_one());
   }
   $lexems = array();
   $paradigms = array();
 
   foreach ($modelsToDisplay as $m) {
     // Load by canonical model, so if $modelType is V, look for a lexem with type V or VT.
-    $l = Model::factory('Lexem')->select('Lexem.*')->join('ModelType', 'modelType = code', 'mt')->where('mt.canonical', $modelType)
+    $l = Model::factory('Lexem')->select('Lexem.*')->join('ModelType', 'modelType = code', 'mt')->where('mt.canonical', $modelType->code)
       ->where('modelNumber', $m->number)->where('form', $m->exponent)->limit(1)->find_one();
 
     if ($l) {
       $paradigm = getExistingForms($l->id, $locVersion);
     } else {
-      $l = Lexem::create($m->exponent, $modelType, $m->number, '');
+      $l = Lexem::create($m->exponent, $modelType->code, $m->number, '');
       $l->isLoc = true;
       $paradigm = getNewForms($l, $locVersion);
     }
@@ -49,7 +50,7 @@ if ($locVersion && $modelType && $modelNumber) {
 }
 
 $modelTypes = ModelType::loadCanonical();
-$models = FlexModel::loadByType($modelType ? $modelType : $modelTypes[0]->code);
+$models = FlexModel::loadByType($modelType ? $modelType->code : $modelTypes[0]->code);
 
 SmartyWrap::assign('page_title', 'Modele de flexiune');
 SmartyWrap::assign('locVersions', $locVersions);

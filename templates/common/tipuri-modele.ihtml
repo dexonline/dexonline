@@ -1,13 +1,14 @@
 {if $showAddForm}
   <h3>Adaugă un tip de model nou</h3>
 
+  Notă: prin această interfață nu se pot crea tipuri de model canonice, ci doar redirectări la alte tipuri.<br/><br/>
+
   <form method="post" action="tipuri-modele.php">
     <input type="hidden" name="id" value="0"/>
     cod: <input type="text" name="code" value="{$addModelType->code}" size="10" maxlength="10"/><br/>
 
     cod canonic:
     <select name="canonical">
-      <option value="">modelul este canonic</option>
       {foreach from=$canonicalModelTypes item=mt}
         <option value="{$mt->code}">{$mt->code}</option>
       {/foreach}

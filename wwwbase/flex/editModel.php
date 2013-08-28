@@ -12,12 +12,13 @@ $previewButton = util_getRequestParameter('previewButton');
 $confirmButton = util_getRequestParameter('confirmButton');
 
 $modelType = ModelType::canonicalize($modelType);
+$modelType = ModelType::get_by_code($modelType); // Work with the ModelType object from now on
 
-$inflections = Model::factory('Inflection')->where('modelType', $modelType)->order_by_asc('rank')->find_many();
+$inflections = Model::factory('Inflection')->where('modelType', $modelType->code)->order_by_asc('rank')->find_many();
 // Load the original data
-$model = Model::factory('FlexModel')->where('modelType', $modelType)->where('number', $modelNumber)->find_one();
+$model = Model::factory('FlexModel')->where('modelType', $modelType->code)->where('number', $modelNumber)->find_one();
 $exponent = $model->exponent;
-$lexem = Lexem::create($exponent, $modelType, $modelNumber, '');
+$lexem = Lexem::create($exponent, $modelType->code, $modelNumber, '');
 $ifs = $lexem->generateParadigm();
 $mdMap = ModelDescription::getByModelIdMapByInflectionIdVariantApplOrder($model->id);
 $forms = array();
@@ -30,7 +31,7 @@ foreach ($ifs as $if) {
                                       'recommended' => $mdMap[$if->inflectionId][$if->variant][0]->recommended);
 }
 
-$participleNumber = ($modelType == 'V') ? ParticipleModel::loadByVerbModel($modelNumber)->adjectiveModel : '';
+$participleNumber = ($modelType->code == 'V') ? ParticipleModel::loadByVerbModel($modelNumber)->adjectiveModel : '';
 
 if ($previewButton || $confirmButton) {
   // Load the new forms and exponent;
@@ -58,15 +59,15 @@ $exponentChanged = ($exponent != $newExponent && !$exponentAccentAdded);
 $errorMessage = array();
 if ($newModelNumber != $modelNumber) {
   // Disallow duplicate model numbers
-  $m = FlexModel::loadCanonicalByTypeNumber($modelType, $newModelNumber);
+  $m = FlexModel::loadCanonicalByTypeNumber($modelType->code, $newModelNumber);
   if ($m) {
-    $errorMessage[] = "Modelul $modelType$newModelNumber există deja.";
+    $errorMessage[] = "Modelul {$modelType->code}{$newModelNumber} există deja.";
   }
 }
 
 if ($previewButton || $confirmButton) {
   // Compare the old and new lists. Extract the transforms where needed.
-  $isPronoun = ($modelType == 'P');
+  $isPronoun = ($modelType->code == 'P');
   $regenTransforms = array();
   // Recalculate transforms when
   // (1) the form list has changed OR
@@ -92,7 +93,7 @@ if ($previewButton || $confirmButton) {
   
   // Now load the affected lexems. For each lexem, inflection and transform
   // list, generate a new form.
-  $lexems = Lexem::loadByCanonicalModel($modelType, $modelNumber);
+  $lexems = Lexem::loadByCanonicalModel($modelType->code, $modelNumber);
   $regenForms = array();
   foreach ($lexems as $l) {
     $regenRow = array();
@@ -201,11 +202,11 @@ if ($previewButton || $confirmButton) {
     }
 
     if ($modelNumber != $newModelNumber) {
-      if ($modelType == 'V') {
+      if ($modelType->code == 'V') {
         $oldPm = ParticipleModel::loadByVerbModel($modelNumber);
         $oldPm->verbModel = $newModelNumber;
         $oldPm->save();
-      } else if ($modelType == 'A') {
+      } else if ($modelType->code == 'A') {
         // Update all participle models that use this adjective model
         db_execute("update ParticipleModel set adjectivModel = '%s' where adjectivModel = '%s'", addslashes($newModelNumber), addslashes($modelNumber));
       }
@@ -243,7 +244,7 @@ if ($previewButton || $confirmButton) {
   SmartyWrap::assign('regenTransforms', $regenTransforms);
 }
 
-if ($modelType == 'V') {
+if ($modelType->code == 'V') {
   SmartyWrap::assign('adjModels', FlexModel::loadByType('A'));
 }
 
@@ -262,6 +263,7 @@ if (!$previewButton && !$confirmButton) {
 SmartyWrap::assign('inflections', $inflections);
 SmartyWrap::assign('inflectionMap', Inflection::mapById($inflections));
 SmartyWrap::assign('modelType', $modelType);
+SmartyWrap::assign('adjModelType', ModelType::get_by_code('A'));
 SmartyWrap::assign('modelNumber', $modelNumber);
 SmartyWrap::assign('newModelNumber', $newModelNumber);
 SmartyWrap::assign('exponent', $exponent);
@@ -275,7 +277,7 @@ SmartyWrap::assign('inputValues', $inputValues);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('wasPreviewed', $previewButton);
 SmartyWrap::assign('errorMessage', $errorMessage);
-SmartyWrap::assign('sectionTitle', "Editare model {$modelType}{$modelNumber}");
+SmartyWrap::assign('sectionTitle', "Editare model {$modelType->code}{$modelNumber}");
 SmartyWrap::addCss('paradigm', 'jqueryui');
 SmartyWrap::addJs('jquery', 'jqueryui');
 SmartyWrap::displayAdminPage('flex/editModel.ihtml');

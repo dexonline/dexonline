@@ -119,6 +119,7 @@ $canEdit = array(
 );
 
 SmartyWrap::assign('lexem', $lexem);
+SmartyWrap::assign('modelType', ModelType::get_by_code($lexem->modelType));
 SmartyWrap::assign('lexemSourceIdMap', util_makeSet($lexemSourceIds));
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('definitionLexem', $definitionLexem);

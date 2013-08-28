@@ -4,7 +4,7 @@
       <span class="lexemName"
         >{include file="common/bits/lexemName.ihtml" lexem=$lexem
       }</span>
-      &nbsp; articol / numeral / adjectiv pronominal / pronume
+      &nbsp; {$modelType->description|escape}
       {include file="common/bits/locInfo.ihtml" lexem=$lexem}
       {include file="common/bits/lexemTags.ihtml" lexem=$lexem}
     </td>

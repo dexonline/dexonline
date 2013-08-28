@@ -194,11 +194,13 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
   // which can be 'conjugări', 'declinări' or both
   if (!empty($lexems)) {
     $ifMaps = array();
+    $modelTypes = array();
     $conjugations = false;
     $declensions = false;
     foreach ($lexems as $l) {
       if ($showParadigm) {
         $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
+        $modelTypes[] = ModelType::get_by_code($l->modelType);
       }
       if ($l->modelType == 'V' || $l->modelType == 'VT') {
         $conjugations = true;
@@ -220,6 +222,7 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
 
     if ($showParadigm) {
       SmartyWrap::assign('ifMaps', $ifMaps);
+      SmartyWrap::assign('modelTypes', $modelTypes);
     }
     SmartyWrap::assign('declensionText', $declensionText);
 

@@ -9,7 +9,7 @@
 {/if}
 
 <form action="editModel.php" method="post">
-  <input type="hidden" name="modelType" value="{$modelType}"/>
+  <input type="hidden" name="modelType" value="{$modelType->code}"/>
   <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
 
   <table class="editModel">
@@ -182,7 +182,7 @@
         {include file="common/paradigm/current/paradigm.ihtml"
                  lexem=$p
                  ifMap=$participleParadigms[$i]
-                 modelType="A"}
+                 modelType=$adjModelType}
       {/if}
     {/foreach}
   {/if}

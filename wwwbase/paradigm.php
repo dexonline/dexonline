@@ -23,10 +23,10 @@ if ($lexemId) {
   $lexem = Lexem::get_by_id($lexemId);
   if ($lexem) {
     $lexems = array($lexem);
-	$cuv = $lexem->formNoAccent;
+    $cuv = $lexem->formNoAccent;
   } else {
     $lexems = array();
-	$cuv = NULL;
+    $cuv = NULL;
   }
 }
 
@@ -55,6 +55,7 @@ if ($searchType == SEARCH_INFLECTED) {
 // which can be 'conjugări', 'declinări' or both
 if (!empty($lexems)) {
   $ifMaps = array();
+  $modelTypes = array();
   $conjugations = false;
   $declensions = false;
   $filtered_lexems = array();
@@ -64,6 +65,7 @@ if (!empty($lexems)) {
         $filtered_lexems[] = $l;
         $conjugations = true;
         $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
+        $modelTypes[] = ModelType::get_by_code($l->modelType);
       }
     }
     elseif (TYPE_SHOW_NO_VERBS == $type) {
@@ -71,11 +73,13 @@ if (!empty($lexems)) {
         $filtered_lexems[] = $l;
         $declensions = true;
         $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
+        $modelTypes[] = ModelType::get_by_code($l->modelType);
       }
     }
     else {
       $filtered_lexems[] = $l;
       $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
+      $modelTypes[] = ModelType::get_by_code($l->modelType);
       if ($l->modelType == 'V' || $l->modelType == 'VT') {
         $conjugations = true;
       } else {
@@ -116,6 +120,7 @@ if (!empty($lexems)) {
   SmartyWrap::assign('sourceNamesArr', $sourceNamesArr);
   SmartyWrap::assign('lexems', $filtered_lexems);
   SmartyWrap::assign('ifMaps', $ifMaps);
+  SmartyWrap::assign('modelTypes', $modelTypes);
   SmartyWrap::assign('showParadigm', true);
   SmartyWrap::assign('onlyParadigm', !$ajax);
 }

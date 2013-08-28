@@ -3,7 +3,7 @@
 {assign var="version" value=$version|default:"current"}
 {if $ifMaps}
   {foreach from=$ifMaps item=ifMap key=i}
-    {include file="common/paradigm/$version/paradigm.ihtml" lexem=$lexems[$i] ifMap=$ifMap sourceNames=$sourceNamesArr[$i]}
+    {include file="common/paradigm/$version/paradigm.ihtml" lexem=$lexems[$i] ifMap=$ifMap sourceNames=$sourceNamesArr[$i] modelType=$modelTypes[$i]}
     {if $sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
       Editează:
       <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexems[$i]->id}">lexemul</a> |

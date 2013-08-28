@@ -15,8 +15,7 @@
   &nbsp;&nbsp; Model:
   <select name="modelType" id="modelTypeListId" onchange="return updateModelList(true)">
     {foreach from=$modelTypes item=mt}
-      <option value="{$mt->code|escape}"
-              {if $mt->code == $selectedModelType}selected="selected"{/if}>
+      <option value="{$mt->code|escape}" {if $mt->code == $selectedModelType->code}selected="selected"{/if}>
         {$mt->code|escape} ({$mt->description|escape})
       </option>
     {/foreach}
@@ -43,6 +42,7 @@
     </div>
     {include file="common/paradigm/$selectedLocVersion/paradigm.ihtml"
              lexem=$lexems[$i]
-             ifMap=$paradigms[$i]}
+             ifMap=$paradigms[$i]
+             modelType=$selectedModelType}
   {/foreach}
 {/if}

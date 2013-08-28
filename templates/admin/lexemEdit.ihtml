@@ -187,7 +187,7 @@
     {/if}
 
     {if $ifMap}
-      {include file="common/paradigm/current/paradigm.ihtml" lexem=$lexem ifMap=$ifMap}
+      {include file="common/paradigm/current/paradigm.ihtml" lexem=$lexem ifMap=$ifMap modelType=$modelType}
     {/if}
     <br/>
 

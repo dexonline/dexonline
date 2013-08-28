@@ -32,14 +32,24 @@ care necesită atenție și câteva mecanisme de căutare a lexemelor
 <a href="../flex/viewAmbiguousLexems.php">Lexeme ambigue:</a>
 <span id="span_ambiguousLexems">(numărătoare dezactivată)</span><br/>
 
-{if $canEditWotd}
+{if $sUser->moderator & $smarty.const.PRIV_WOTD}
   <a href="wotd.php">Word of the Day:</a>
   <span id="span_wotd"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 {/if}
 
 <a href="visualTag.php">Imagini (Visual Dict) nerevizuite:</a>
 <span id="span_visualTag"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
+
+<a href="/admin/definitionEdit.php">Definiții OCR neverificate:</a>
+<span id="span_ocrDefs"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
+
+{if $sUser->moderator & $smarty.const.PRIV_ADMIN}
+Adaugă noi definiții OCR (una pe linie): <a href="/admin/ocrInput.php">click aici</a>.
+{/if}
 <br/>
+<br/>
+
+{* End link section *}
 
 <form action="lexemEdit.php" method="get">
   Editează un lexem: <input id="lexemId" type="text" name="lexemId"/>
@@ -77,8 +87,7 @@ care necesită atenție și câteva mecanisme de căutare a lexemelor
   </form>
   <br/>
 
-  Editare flexiuni: <a href="../editor-modele/flexiuni">click
-  aici</a>
+  Editare flexiuni: <a href="../editor-modele/flexiuni">click aici</a>
   <br/><br/>
 {/if}
 

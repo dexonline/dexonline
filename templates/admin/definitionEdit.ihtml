@@ -109,7 +109,7 @@
     {if $isOCR}
     <tr>
       <td colspan="3" class="buttonRow">
-        <input type="submit" name="but_next_ocr" value="Preia următoarea definiție OCR"/>
+        <input type="submit" name="but_next_ocr" value="Salvează și preia următoarea definiție OCR"/>
       </td>
     </tr>
     {else}

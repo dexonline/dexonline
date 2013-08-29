@@ -88,7 +88,7 @@ class SmartyWrap {
 
   static function displayAdminPage($templateName) {
     self::assign('templateName', $templateName);
-	self::addCss('flex');
+  	self::addCss('flex');
     self::addJs('dex', 'flex', 'jquery');
     print self::fetch('admin/pageLayout.ihtml');
   }
@@ -156,7 +156,7 @@ class SmartyWrap {
       case 'zepu':               self::$cssFiles[5] = 'zepu.css?v=55'; break;
       case 'polar':              self::$cssFiles[6] = 'polar.css?v=31'; break;
       case 'mobile':             self::$cssFiles[7] = 'mobile.css?v=15'; break;
-      case 'flex':               self::$cssFiles[8] = 'flex.css?v=9'; break;
+      case 'flex':               self::$cssFiles[8] = 'flex.css?v=10'; break;
       case 'paradigm':           self::$cssFiles[9] = 'paradigm.css?v=1'; break;
       case 'hangman':            self::$cssFiles[10] = 'hangman.css?v=3'; break;
       case 'mill':               self::$cssFiles[11] = 'mill.css?v=1'; break;
@@ -167,6 +167,7 @@ class SmartyWrap {
         self::$cssFiles[15] = 'easyui/icon.css?v=1';
         break;
       case 'select2':            self::$cssFiles[16] = 'select2/select2.css?v=2'; break;
+      case 'gallery':            self::$cssFiles[17] = 'lightbox.css'; break;
       default:
         FlashMessage::add("Cannot load CSS file {$id}");
         util_redirect(util_getWwwRoot());
@@ -201,6 +202,7 @@ class SmartyWrap {
       case 'select2':          self::$jsFiles[19] = 'select2.min.js?v=2'; break;
       case 'select2Dev':       self::$jsFiles[20] = 'select2Dev.js?v=1'; break;
       case 'visualTag':        self::$jsFiles[21] = 'visualTag.js'; break;
+      case 'gallery':         self::$jsFiles[22] = 'lightbox-2.6.min.js'; break;
       default:
         FlashMessage::add("Cannot load JS script {$id}");
         util_redirect(util_getWwwRoot());

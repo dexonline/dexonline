@@ -1,5 +1,4 @@
 <?php
-
 class Visual extends BaseObject implements DatedObject {
   public static $_table = 'Visual';
   public static $parentDir = 'visual';
@@ -12,6 +11,14 @@ class Visual extends BaseObject implements DatedObject {
     preg_match($regex, $givenPath, $matches);
     
     return $matches[0];
+  }
+
+  public static function getImageWww($givenPath) {
+    return util_getImgRoot() . '/' . $givenPath;
+  }
+
+  public static function getThumbWww($givenPath) {
+    return util_getImgRoot() . '/' . dirname($givenPath) . '/' . self::$thumbDir . '/' . basename($givenPath);
   }
 
   /** Returns the absolute path of the thumb directory */
@@ -53,7 +60,7 @@ class Visual extends BaseObject implements DatedObject {
     // Generate thumbnails for uploads or copy-pastes
     if (!$original) {
       $thumb = new Imagick(util_getRootPath() . 'wwwbase/img/' . $this->path);
-      $thumb->thumbnailImage(self::$thumbSize, self::$thumbSize, true);
+      $thumb->thumbnailImage(0, self::$thumbSize);
       $thumb->sharpenImage(1, 1);
       $thumb->writeImage($this->getThumbPath());
     }

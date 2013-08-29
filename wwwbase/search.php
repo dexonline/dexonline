@@ -300,6 +300,26 @@ SmartyWrap::assign('showParadigm', $showParadigm);
 SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('advancedSearch', $text || $sourceId);
 
+/* Test */
+if(!empty($lexems)){
+  $images = array();
+  foreach($lexems as $lexem) {
+    $lines = Visual::get_all_by_lexemeId($lexem->id);
+    foreach($lines as $line) {
+      if(!empty($line)) {
+        $image = Visual::getImageWww($line->path);
+        $thumb = Visual::getThumbWww($line->path);
+
+        $images[] = array('img' => $image, 'tmb' => $thumb, 'name' => $lexem->formUtf8General);
+      }
+    }
+  }
+SmartyWrap::assign('images', $images);
+SmartyWrap::addCss('gallery');
+SmartyWrap::addJs('gallery');
+}
+/* Test */
+
 if (!$xml) {
   SmartyWrap::addCss('paradigm');
   SmartyWrap::displayCommonPageWithSkin('search.ihtml');

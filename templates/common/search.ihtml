@@ -113,6 +113,9 @@
 
 <div id="resultsWrapper" class="txt">
   <div id="paradigmDiv" {if !$showParadigm}style="display: none"{/if}>{include file="common/bits/multiParadigm.ihtml"}</div>
+  <div id="gallery" {if !isset($images)}style="display: none"{/if}>
+    {if count($images)}{include file="common/bits/gallery.ihtml" images=$images}{/if}
+  </div>
  
   {if $stopWords}
     <span class="stopWords">

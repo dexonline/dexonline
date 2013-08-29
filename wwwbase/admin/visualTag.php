@@ -7,8 +7,10 @@ RecentLink::createOrUpdate('Etichetare Imagini Definiții');
 
 $rootPath = util_getImgRoot() . '/';
 $savedTags = '';
+$action = util_getRequestParameter('action');
 
-if(util_getRequestParameter('action') == 'save') {
+
+if($action == 'save') {
   $imageId = util_getRequestParameter('imageId');
   $lexemeId = util_getrequestParameter('lexemeId');
   $lexeme = util_getRequestParameter('lexeme');
@@ -30,7 +32,7 @@ if(util_getRequestParameter('action') == 'save') {
 
   util_redirect(util_getWwwRoot() . 'admin/visualTag.php');
 
-} else if(util_getRequestParameter('action') == 'delete') {
+} else if($action == 'delete') {
   $tagId = util_getRequestParameter('savedTagId');
 
   $line = VisualTag::get_by_id($tagId);
@@ -40,12 +42,40 @@ if(util_getRequestParameter('action') == 'save') {
 
   util_redirect(util_getWwwRoot() . 'admin/visualTag.php');
 
-} else if(util_getRequestParameter('action') == 'finishedTagging') {
+} else if($action == 'finishedTagging') {
   $imageId = util_getRequestParameter('imageId');
 
   $line = Visual::get_by_id($imageId);
-  $line->revised = 1;
-  $line->save();
+  
+  if(!empty($line)) {
+    $line->revised = 1;
+    $line->save();
+  }
+
+  util_redirect(util_getWwwRoot() . 'admin/visualTag.php');
+
+} else if($action == 'setImgLexemeId') {
+  $imgLexemeId = util_getRequestParameter('imgLexemeId');
+  $imageId = util_getRequestParameter('imageId');
+
+  $line = Visual::get_by_id($imageId);
+  
+  if(!empty($line)){
+    $line->lexemeId = $imgLexemeId;
+    $line->save();
+  }
+
+  util_redirect(util_getWwwRoot() . 'admin/visualTag.php');
+
+} else if($action == 'resetImgLexemeId') {
+  $imageId = util_getRequestParameter('imageId');
+
+  $line = Visual::get_by_id($imageId);
+
+  if(!empty($line)) {
+    $line->lexemeId = '';
+    $line->save();
+  }
 
   util_redirect(util_getWwwRoot() . 'admin/visualTag.php');
 }
@@ -55,12 +85,19 @@ SmartyWrap::assign('anyUntaggedImages', !empty($line));
 if(!empty($line)) {
   $imagePath = $rootPath . $line->path;
   $imageId = $line->id;
+  $imgLexemeId = $line->lexemeId;
+  if($imgLexemeId) {
+    $lexemeName = Lexem::get_by_id($imgLexemeId);
+    $lexemeName = $lexemeName->formUtf8General;
+    SmartyWrap::assign('lexemeName', $lexemeName);
+  }
 
   $tags = VisualTag::get_all_by_imageId($imageId);
 
   SmartyWrap::assign('savedTags', $tags);
   SmartyWrap::assign('imagePath', $imagePath);
   SmartyWrap::assign('imageId', $imageId);
+  SmartyWrap::assign('imgLexemeId', $imgLexemeId);
 }
 
 SmartyWrap::assign('sectionTitle', 'Etichetare imagini pentru definiții');

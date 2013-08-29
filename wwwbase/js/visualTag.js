@@ -76,7 +76,7 @@ jQuery(document).ready(function() {
       var data = {id: element.val(), text: element.val()};
       callback(data);
     },
-    placeholder: "Scrie lexemul",
+    placeholder: 'Scrie lexemul',
     allowclear: true,
     minimumInputLength: 1,
     context: this,
@@ -87,13 +87,7 @@ jQuery(document).ready(function() {
       results: function(data, page) { return { results: data.results }; },
     },
     formatResult: select2Format,
-    /*function(data) {
-      return data.text;
-    },*/
-    formatSelection: select2Format,
-    /*function(data) {
-      return data.text;
-    },*/
+    formatSelection: function(data) { return data.text; },
     width: '200px',
 
   }).on('change', function(e) {
@@ -102,6 +96,31 @@ jQuery(document).ready(function() {
 
     $('#lexemeId').val(id);
     $('#lexeme').val(text);
+  });
+
+  $('#selectImgLexeme').select2({
+    initSelection: function(element, callback) {
+      var data = {id: element.val(), text: element.val()};
+      callback(data);
+    },
+    placeholder: 'Scrie lexemul',
+    allowclear: true,
+    minimumInputLength: 1,
+    context: this,
+    ajax: {
+      url: wwwRoot + 'ajax/visualTag.php',
+      dataType: 'json',
+      data: function(term, page) { return {term: term}; },
+      results: function(data, page) { return { results: data.results }; },
+    },
+    formatResult: select2Format,
+    formatSelection: function(data) { return data.text; },
+    width: '200px',
+
+  }).on('change', function(e) {
+    var id = $(this).select2('data').id;
+
+    $('#imgLexemeId').val(id);
   });
 });
 
@@ -126,6 +145,15 @@ function validateTag() {
   }
 };
 
+function validateLexeme() {
+  var lexeme = $('#imgLexemeId').val();
+
+  if(!lexeme) {
+    alert('Ai uitat să completezi ce lexem descrie cel mai bine imaginea');
+    return false;
+  }
+};
+
 function select2Format(lex) {
-  return lex.text + '  ' + lex.description;
-}
+  return lex.text + '<br/><i>' + lex.description + '</i>';
+};

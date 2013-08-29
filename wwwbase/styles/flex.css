@@ -379,6 +379,12 @@ span.tooltip {
 .visualTagCanvas {
   float: left;
   width: 500px;
+  height: 500px;
+}
+
+.visualTagCanvas img {
+  max-width: 500px;
+  max-height: 500px;
 }
 
 #helpText {

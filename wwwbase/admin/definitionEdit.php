@@ -4,9 +4,9 @@ util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
 $isOCR = util_getRequestIntParameter('ocr');
-$next_ocr_but = util_getRequestParameter('but_next_ocr');
+$nextOcrBut = util_getRequestParameter('but_next_ocr');
 $definitionId = util_getRequestIntParameter('definitionId');
-if($definitionId && !$next_ocr_but) {
+if($definitionId && !$nextOcrBut) {
     $lexemIds = util_getRequestCsv('lexemIds');
     $sourceId = util_getRequestIntParameter('source');
     $internalRep = util_getRequestParameter('internalRep');
@@ -157,6 +157,12 @@ if (($acceptButton || $moveButton) && !$hasErrors) {
     
   log_userLog("Edited definition {$definition->id} ({$definition->lexicon})");
   util_redirect('definitionEdit.php?definitionId=' . $definitionId);
+}
+else if ($nextOcrBut && !$hasErrors) {
+  //TODO: check if definition has lexems
+  $definition->save();
+  log_userLog("Edited OCR definition {$definition->id} ({$definition->lexicon}), ocr ({$ocr->id})");
+  util_redirect('definitionEdit.php?definitionId=' . $definitionId . "&ocr=1");
 }
 
 $source = Source::get_by_id($definition->sourceId);

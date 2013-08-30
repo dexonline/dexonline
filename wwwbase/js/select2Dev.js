@@ -50,6 +50,7 @@ function structIndexInit() {
 function definitionEditInit() {
   $('#lexemIds').select2({
     ajax: struct_lexemAjax,
+    createSearchChoice: allowNewLexems,
     escapeMarkup: function(m) { return m; },
     initSelection: select2InitSelectionAjax,
     formatSelection: formatLexemWithEditLink,
@@ -60,7 +61,12 @@ function definitionEditInit() {
 }
 
 function formatLexemWithEditLink(lexem) {
-  return lexem.text + ' <a class="select2Edit" href="lexemEdit.php?lexemId=' + lexem.id + '">&nbsp;</a>';
+  if (startsWith(lexem.id, '@')) {
+    // don't show an edit link for soon-to-be created lexems
+    return lexem.text;
+  } else {
+    return lexem.text + ' <a class="select2Edit" href="lexemEdit.php?lexemId=' + lexem.id + '">&nbsp;</a>';
+  }
 }
 
 function allowNewLexems(term, data) {

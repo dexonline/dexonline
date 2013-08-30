@@ -92,9 +92,16 @@ if (count($lexemIds)) {
   $lexems = array();
   $ldms = array();
   foreach ($lexemIds as $lexemId) {
-    $l = Lexem::get_by_id($lexemId);
+    if (StringUtil::startsWith($lexemId, '@')) {
+      // create a new lexem
+      $l = Lexem::create(substr($lexemId, 1), 'T', '1', '');
+      $l->save();
+      $l->regenerateParadigm();
+    } else {
+      $l = Lexem::get_by_id($lexemId);
+    }
     $lexems[] = $l;
-    $ldms[] = LexemDefinitionMap::create($lexemId, $definitionId);
+    $ldms[] = LexemDefinitionMap::create($l->id, $definitionId);
   }
 } else {
   $lexems = Model::factory('Lexem')->select('Lexem.*')->join('LexemDefinitionMap', 'Lexem.id = lexemId', 'ldm')

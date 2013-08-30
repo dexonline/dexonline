@@ -29,7 +29,7 @@
 
       {if $onHomePage}
         <div id="logoHomePage">
-          <img src="{$wwwRoot}img/anniversary/mobile.png" alt="logo dexonline.ro" />
+          <img src="{$wwwRoot}img/mobile/logo-dexonline-60.png" alt="logo dexonline.ro" />
         </div>
       {else}
         <div id="logoOtherPages">

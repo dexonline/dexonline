@@ -222,7 +222,7 @@ img {
 
 /* SITE IDENTITY */
 #Logo {
-  background: url("../img/anniversary/homepage.png") 0 0 no-repeat;
+  background: url("../img/sprite2.png") -550px -25px no-repeat; 
   height: 82px;
   margin: 30px auto 5px auto;
   width: 316px;

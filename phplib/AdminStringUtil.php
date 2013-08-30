@@ -237,10 +237,11 @@ class AdminStringUtil {
     $result = '';
     $text = '';
     $ref = '';
+    $prevChar = '';
     $mode = 0; // 0 = not between bars; 1 = text; 2 = reference
     for ($i = 0; $i < strlen($s); $i++) {
       $char = $s[$i];
-      if ($char == '|') {
+      if ($char == '|' && $prevChar != "\\") {
         if ($mode == 2) {
           $newRef = self::internalizeReference($text, $ref);
           $result .= "|$text|$newRef|";
@@ -249,12 +250,20 @@ class AdminStringUtil {
         }
         $mode = ($mode + 1) % 3;
       } else {
-        switch($mode) {
+        switch ($mode) {
         case 0: $result .= $char; break;
         case 1: $text .= $char; break;
         case 2: $ref .= $char;
         }
       }
+      $prevChar = $char;
+    }
+
+    // If the number of pipes is not a multiple of three, escape the remaining pipes.
+    switch ($mode) {
+    case 0: break; // all good
+    case 1: $result .= "\\|" . $text; break;
+    case 2: $result .= "\\|" . $text . "\\|" . $ref; break;
     }
     return $result;
   }
@@ -334,7 +343,8 @@ class AdminStringUtil {
   }
   
   static function convertReferencesToHtml($s) {
-    return preg_replace('/\|([^|]*)\|([^|]*)\|/', '<a class="ref" href="/definitie/$2">$1</a>', $s);
+    // Require that the first pipe character is not escaped (preceded by a backslash)
+    return preg_replace('/([^\\\\])\|([^|]*)\|([^|]*)\|/', '$1<a class="ref" href="/definitie/$3">$2</a>', $s);
   }
 
   /**

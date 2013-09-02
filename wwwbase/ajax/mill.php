@@ -4,7 +4,6 @@ require_once("../../phplib/util.php");
 setlocale(LC_ALL, "ro_RO.utf8");
 $xml = new SimpleXMLElement('<xml/>');
 
-
 function getNormalRand($std, $mean, $limit) {
   //$std Standard Deviation
   //$mean The mean
@@ -17,6 +16,16 @@ function getNormalRand($std, $mean, $limit) {
   
   // Make sure the result is between 0 and $limit inclusive
   return min(max(round($rand * $std + $mean), 0), $limit);
+}
+
+function getWordForDefitionId($defId)
+{
+    $word = Model::factory('DefinitionSimple')
+        ->select('d.lexicon')
+        ->join('Definition', 'd.id = definitionId', 'd')
+        ->where('definitionId', $defId)
+        ->find_one();
+    return $word->lexicon;
 }
 
 $difficulty = util_getRequestParameterWithDefault('d', 0);
@@ -41,14 +50,12 @@ $answer = rand(1, 4);
   
 $maindef = Model::factory('DefinitionSimple')->limit(1)->offset($chosenDef)->find_one();
 
-$word = Model::factory('DefinitionSimple')
-  ->select('d.lexicon')
-  ->join('Definition', 'd.id = definitionId', 'd')
-  ->where('definitionId', $maindef->definitionId)
-  ->find_one();
+$word = getWordForDefitionId($maindef->definitionId);
 
 $options = array();
-$options[$answer] = $maindef->getDisplayValue();
+$options[$answer] = array();
+$options[$answer]['term'] = getWordForDefitionId($maindef->definitionId);
+$options[$answer]['text'] = $maindef->getDisplayValue();
 $used[$maindef->definitionId] = 1;
 
 for ($i = 1; $i <= 4; $i++) {
@@ -62,14 +69,18 @@ for ($i = 1; $i <= 4; $i++) {
       $def = Model::factory('DefinitionSimple')->limit(1)->offset($aux)->find_one();
     } while (array_key_exists($def->definitionId, $used));
     $used[$def->definitionId] = 1;
-    $options[$i] = $def->getDisplayValue();
+    $options[$i]=array();
+    $options[$i]['term'] = getWordForDefitionId($def->definitionId);
+    $options[$i]['text'] = $def->getDisplayValue();
   }
 }
 
-$xml->addChild('word', $word->lexicon);
+$xml->addChild('word', $word);
 $xml->addChild('answerId', $maindef->id);
 for ($i = 1; $i <= 4; $i++) {
-  $xml->addChild('definition' . $i, $options[$i]);
+  $def = $xml->addChild('definition' . $i);
+  $def->addChild('term', $options[$i]['term']);
+  $def->addChild('text', $options[$i]['text']);
 }
 $xml->addChild('answer', $answer);
 

@@ -6,6 +6,7 @@
   var answeredCorrect = 0;
   var answerId = 0;
   var guessed = 0;
+  var definitions = [];
 </script>
 
 <div class="millArea">
@@ -41,6 +42,13 @@
 
   <div id="resultsPage">
     <p>Felicitări! Ai răspuns corect la <b id="answeredCorrect">0</b> definiții din 10.</p>
+    
     <button id="newGameButton" class="btn">Joc nou</button>
+    <button id="definitionsButton" class="btn">Vezi toate definițiile</button>
+    
   </div>
+
+    <div id="definitionsSection">
+    </div>
+
 </div>

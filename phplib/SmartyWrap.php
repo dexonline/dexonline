@@ -31,7 +31,6 @@ class SmartyWrap {
   }
 
   static function smartyDisplay($skin) {
-    
     self::$theSmarty->display($skin);
   }
 
@@ -159,7 +158,7 @@ class SmartyWrap {
       case 'flex':               self::$cssFiles[8] = 'flex.css?v=10'; break;
       case 'paradigm':           self::$cssFiles[9] = 'paradigm.css?v=1'; break;
       case 'hangman':            self::$cssFiles[10] = 'hangman.css?v=3'; break;
-      case 'mill':               self::$cssFiles[11] = 'mill.css?v=1'; break;
+      case 'mill':               self::$cssFiles[11] = 'mill.css?v=2'; break;
       case 'lexemEdit':          self::$cssFiles[12] = 'lexemEdit.css?v=4'; break;
       case 'jcrop':              self::$cssFiles[13] = 'jquery.Jcrop.min.css?v=2'; break;
       case 'easyui':
@@ -194,7 +193,7 @@ class SmartyWrap {
       case 'flex':             self::$jsFiles[11] = 'flex.js?v=2'; break;
       case 'mobile':           self::$jsFiles[12] = 'mobile.js?v=2'; break;
       case 'hangman':          self::$jsFiles[13] = 'hangman.js?v=5'; break;
-      case 'mill':             self::$jsFiles[14] = 'mill.js?v=2'; break;
+      case 'mill':             self::$jsFiles[14] = 'mill.js?v=3'; break;
       case 'wotd':             self::$jsFiles[15] = 'wotd.js?v=1';
       case 'lexemEdit':        self::$jsFiles[16] = 'lexemEdit.js?v=5'; break;
       case 'jcrop':            self::$jsFiles[17] = 'jquery.Jcrop.min.js?v=2'; break;

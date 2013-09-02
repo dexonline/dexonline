@@ -82,7 +82,8 @@
 }
 
 #questionPage,
-#resultsPage {
+#resultsPage,
+#definitionsSection {
   display: none;
 }
 
@@ -105,7 +106,8 @@
 }
 
 .difficultyButtons,
-#newGameButton { 
+#newGameButton,
+#definitionsButton { 
   background-color: rgb(73, 175, 205);
   background-image: -moz-linear-gradient(top, rgb(91, 192, 222), rgb(47, 150, 180));
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(91, 192, 222)), to(rgb(47, 150, 180)));

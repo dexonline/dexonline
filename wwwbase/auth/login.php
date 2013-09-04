@@ -12,9 +12,12 @@ case 'yahoo': $openid = "http://yahoo.com/"; break;
 }
 
 if ($openid) {
-  OpenID::beginAuth($openid, null);
-  SmartyWrap::displayWithoutSkin('common/auth/beginAuth.ihtml');
-  exit;
+  $authResult = OpenID::beginAuth($openid, null);
+  if ($authResult != null)
+  {
+    SmartyWrap::displayWithoutSkin('common/auth/beginAuth.ihtml');
+    exit;
+  }
 }
 
 SmartyWrap::assign('openid', $openid);

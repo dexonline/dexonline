@@ -102,9 +102,10 @@
           {assign var="ifMapArray" value="`$ifMapMatrix[$lIter]`"}
           {foreach from=$ifMapArray item=ifMap key=pIter}
             {assign var="m" value="`$models[$pIter]`"}
+            {assign var="mt" value="`$modelTypes[$pIter]`"}
             <div class="blParadigm" style="display: none" id="paradigm_{$l->id}_{$m->modelType}_{$m->number}">
               {include file="common/paradigm/current/paradigm.ihtml"
-                       modelType=$m->modelType
+                       modelType=$mt
                        lexem=$l
                        ifMap=$ifMap}
             </div>

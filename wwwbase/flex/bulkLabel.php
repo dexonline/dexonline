@@ -71,6 +71,11 @@ if (!$hasInvariableModel) {
   $models[] = Model::factory('FlexModel')->where('modelType', 'I')->where('number', '1')->find_one();
 }
 
+$modelTypes = array();
+foreach ($models as $m) {
+  $modelTypes[] = ModelType::get_by_code($m->modelType);
+}
+
 $lexems = Model::factory('Lexem')->where('modelType', 'T')->where_like('reverse', "{$reverseSuffix}%")->order_by_asc('formNoAccent')
   ->limit(20)->find_many();
 
@@ -105,6 +110,7 @@ foreach ($lexems as $l) {
 SmartyWrap::assign('suffix', $suffix);
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('models', $models);
+SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('ifMapMatrix', $ifMapMatrix);
 SmartyWrap::assign('allStatuses', util_getAllStatuses());

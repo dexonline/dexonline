@@ -70,59 +70,19 @@ jQuery(document).ready(function() {
   $('#toggleHelp').click(function() {
     $('#helpText').toggle();
   });
+});
 
-  $('#selectLexeme').select2({
-    initSelection: function(element, callback) {
-      var data = {id: element.val(), text: element.val()};
-      callback(data);
-    },
-    placeholder: 'Scrie lexemul',
-    allowclear: true,
-    minimumInputLength: 1,
-    context: this,
-    ajax: {
-      url: wwwRoot + 'ajax/visualTag.php',
-      dataType: 'json',
-      data: function(term, page) { return {term: term}; }, 
-      results: function(data, page) { return { results: data.results }; },
-    },
-    formatResult: select2Format,
-    formatSelection: function(data) { return data.text; },
-    width: '200px',
-
-  }).on('change', function(e) {
+/** Replaces the submit event that triggers on change, set in select2Dev.js */
+function replaceSubmitEvent() {
+  $('#lexemId').off();
+  $('#lexemId').on('change', function(e){
     var id = $(this).select2('data').id;
     var text = $(this).select2('data').text;
 
     $('#lexemeId').val(id);
     $('#lexeme').val(text);
   });
-
-  $('#selectImgLexeme').select2({
-    initSelection: function(element, callback) {
-      var data = {id: element.val(), text: element.val()};
-      callback(data);
-    },
-    placeholder: 'Scrie lexemul',
-    allowclear: true,
-    minimumInputLength: 1,
-    context: this,
-    ajax: {
-      url: wwwRoot + 'ajax/visualTag.php',
-      dataType: 'json',
-      data: function(term, page) { return {term: term}; },
-      results: function(data, page) { return { results: data.results }; },
-    },
-    formatResult: select2Format,
-    formatSelection: function(data) { return data.text; },
-    width: '200px',
-
-  }).on('change', function(e) {
-    var id = $(this).select2('data').id;
-
-    $('#imgLexemeId').val(id);
-  });
-});
+}
 
 function validateTag() {
   var lexeme = $('#lexeme').val();
@@ -152,8 +112,4 @@ function validateLexeme() {
     alert('Ai uitat să completezi ce lexem descrie cel mai bine imaginea');
     return false;
   }
-};
-
-function select2Format(lex) {
-  return lex.text + '<br/><i>' + lex.description + '</i>';
 };

@@ -165,7 +165,7 @@ class SmartyWrap {
         self::$cssFiles[14] = 'easyui/default/easyui.css?v=1';
         self::$cssFiles[15] = 'easyui/icon.css?v=1';
         break;
-      case 'select2':            self::$cssFiles[16] = 'select2/select2.css?v=2'; break;
+      case 'select2':            self::$cssFiles[16] = 'select2/select2.css?v=3'; break;
       case 'gallery':            self::$cssFiles[17] = 'lightbox.css'; break;
       default:
         FlashMessage::add("Cannot load CSS file {$id}");
@@ -198,7 +198,7 @@ class SmartyWrap {
       case 'lexemEdit':        self::$jsFiles[16] = 'lexemEdit.js?v=5'; break;
       case 'jcrop':            self::$jsFiles[17] = 'jquery.Jcrop.min.js?v=2'; break;
       case 'easyui':           self::$jsFiles[18] = 'jquery.easyui.min.js?v=1'; break;
-      case 'select2':          self::$jsFiles[19] = 'select2.min.js?v=2'; break;
+      case 'select2':          self::$jsFiles[19] = 'select2.min.js?v=3'; break;
       case 'select2Dev':       self::$jsFiles[20] = 'select2Dev.js?v=2'; break;
       case 'visualTag':        self::$jsFiles[21] = 'visualTag.js'; break;
       case 'gallery':         self::$jsFiles[22] = 'lightbox-2.6.min.js'; break;

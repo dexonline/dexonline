@@ -5,15 +5,17 @@
       <img src="{$imagePath}"/>
     </div> 
     <div>
-      <form action="visualTag.php" method="post" onsubmit="return validateLexeme()">
+      <form action="visualTag.php" method="post">
         <label>Cuvântul care descrie cel mai bine imaginea:<br/>
-          <input type="hidden" value="{$imageId}" name="imageId"/>
-          <input id="selectImgLexeme" type="hidden"/>
-          <input id="imgLexemeId" type="text" size="4" name="imgLexemeId"/>
+          <input type="hidden" name="imageId" value="{$imageId}"/>
+          <input id="lexemId" type="hidden" name="imgLexemeId"/>
+          <input type="hidden" name="action" value="setImgLexemeId"/>
         </label>
-        <button type="submit" name="action" value="setImgLexemeId">Salvează</button>
       </form>
     </div>
+    <script type="text/javascript">
+      $(adminIndexInit);
+    </script>
 
   {else}
     <div class="visualTagCanvas">
@@ -32,18 +34,14 @@
       <button type="button" id="toggleHelp">Click pentru Ajutor</button>
       <div id="helpText">
         <p>
-        Pasul 1: Selectează textul ținând apăsat click stânga și modificând selecția. 
-        Apoi, apasă primul buton „Setează coordonatele”.<br/>
-        Pasul 2: Click pe imagine în locul în care indică săgeata.
-        Apoi, apasă cel de-al doilea buton „Setează coordonatele”.<br/>
-        Pasul 3: Selectează „Da”, dacă lexemul etichetei reprezintă imaginea pe
-        de-a-ntregul, altfel selectează „Nu” (lexemul reprezintă un subansamblu
-        al imaginii). Dacă lași neselectat, valoarea implicită va fi „Da”.<br/>
-        Pasul 4: Click pe butonul „Salvează eticheta” pentru a salva adăugirile 
-        în baza de date. Dacă ai uitat vreun câmp necompletat, vei fi anunțat.<br/>
-        Pasul 5: După ce ai terminat de adăugat toate etichetele, click pe
-        butonul „Etichetarea este completă” și se va încărca următoare imagine
-        neetichetată din baza de date, dacă aceasta există.
+        Pasul 1: În căsuța „Cuvânt”, scrie cuvântul din interiorul etichetei.<br/>
+        Pasul 2: Pe imagine selectează cuvântul de etichetat și apoi apasă primul buton
+        „Setează coordonatele”.<br/>
+        Pasul 3: Click pe locul din imagine unde cuvântul tocmai selectat indică și
+        apasă pe cel de-al doilea buton „Setează coordonatele”.<br/>
+        Pasul 4: Click pe butonul „Salvează eticheta”.<br/>
+        Pasul 5: După ce toate etichetele au fost introduse, 
+        click pe butonul „Etichetarea este completă”.
         </p>
       </div>
     </div>
@@ -63,7 +61,7 @@
         <p>Informații etichetă</p>
 
         <label>Cuvânt:
-          <input id="selectLexeme" type="hidden"/>
+          <input id="lexemId" type="hidden"/>
         </label><br/>
 
         <label>Id lexem:
@@ -99,6 +97,11 @@
         </form>
       {/foreach}
     </div>
+
+    <script type="text/javascript">
+      $(adminIndexInit);
+      $(replaceSubmitEvent);
+    </script>
   {/if}
 
 {else}

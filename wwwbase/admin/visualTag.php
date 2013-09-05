@@ -102,5 +102,5 @@ if(!empty($line)) {
 
 SmartyWrap::assign('sectionTitle', 'Etichetare imagini pentru definiții');
 SmartyWrap::addCss('jcrop', 'select2');
-SmartyWrap::addJs('jquery', 'jcrop', 'visualTag', 'select2');
+SmartyWrap::addJs('jquery', 'jcrop', 'visualTag', 'select2', 'select2Dev');
 SmartyWrap::displayAdminPage('admin/visualTag.ihtml'); 

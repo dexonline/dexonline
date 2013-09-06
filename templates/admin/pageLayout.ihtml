@@ -9,7 +9,9 @@
   </head>
 
   <body>
-    {include file="admin/header.ihtml" title=$sectionTitle count=$sectionCount showSources=$sectionSources}
+    {if !$noAdminHeader}
+      {include file="admin/header.ihtml" title=$sectionTitle count=$sectionCount showSources=$sectionSources}
+    {/if}
     {include file="admin/recentlyVisited.ihtml"}
     {include file="common/flashMessages.ihtml"}
     {include file="common/errorMessage.ihtml"}

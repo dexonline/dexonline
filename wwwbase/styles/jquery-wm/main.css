@@ -1,0 +1,177 @@
+.window {
+  position: fixed;
+  border: 1px outset #036;
+  width: 400px;
+  height: 300px;
+  border-radius: 6px;
+  border-color: #1d4266;
+  background-color: #1d4266;
+}
+
+.window.maximized {
+  border-width: 0;
+}
+
+#resizerproxy,#moverproxy {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999999999;
+  display: none;
+}
+#resizerproxy > div,#moverproxy > div {
+  position: absolute;
+  border: 2px solid #666666;
+  border-radius: 6px;
+}
+
+.windowtitlebar {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  right: 1px;
+  height: 24px;
+  overflow: hidden;
+  background-color: #AAB;
+  cursor: default;
+  border-bottom: 1px solid #002c57;
+}
+
+.window.focused .windowtitlebar {
+  background-color: #036;
+}
+
+.windowtitlebar > .horizbuts {
+  position: absolute;
+  top: 0;
+  width: 59px;
+  right: 0;
+  bottom: 0;
+}
+
+.horizbuts > * {
+  float: left;
+  width: 16px;
+  height: 16px;
+  border: 1px outset #9B9DC9;
+  margin: 3px 1px 0 0;
+  background: #ccc url(jquery.wm.default.icons.png) no-repeat scroll;
+  border-color: #bbb;
+  border-radius: 2px;  
+}
+.horizbuts > *:hover {
+  background-color: #ddd;
+}
+
+.horizbuts > .minimizebut {
+  background-position: -3px 0;
+}
+.horizbuts > .maximizebut {
+  background-position: -32px -1px;
+}
+.horizbuts > .closebut {
+  background-position: -47px -1px;
+}
+.horizbuts > .restorebut {
+  display: none;
+  background-position: -18px -1px;
+}
+.window.maximized .horizbuts > .maximizebut { display: none; }
+.window.maximized .horizbuts > .restorebut { display: block; }
+.window.minimized .horizbuts > .minimizebut { display: none; }
+.window.minimized .horizbuts > .restorebut { display: block; }
+
+
+.windowcontent {
+  border: 1px inset #9B9DC9;
+  border-bottom: 0;
+  position: absolute;
+  top: 25px;
+  right: 1px;
+  left: 1px;
+  bottom: 2px;
+  overflow: auto;
+  background-color: white;
+}
+
+.autohide .windowtitlebar {
+  opacity: 0;
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
+  z-index: 99999999;
+}
+
+.autohide .windowtitlebar:hover,
+.autohide.minimized .windowtitlebar {
+  opacity: 1;
+}
+
+.autohide .windowcontent {
+  top: 1px;
+}
+
+.window.minimized .windowcontent {
+  display: none;
+}
+
+.windowcontent > iframe {
+  border: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+.windowcontent > .iframecover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 3;
+}
+.window.focused > .windowcontent > .iframecover {
+  z-index: 1;
+}
+.window.moving > .windowcontent > .iframecover {
+  z-index: 3 !important;
+}
+.resizer-tl { position: absolute; left: -2px; top: -2px; width: 6px; height: 6px; cursor: nw-resize; }
+.resizer-t  { position: absolute; left: 6px; right: 6px; top: -2px; height: 6px; cursor: n-resize;}
+.resizer-tr { position: absolute; right: -2px; top: -2px; width: 6px; height: 6px; cursor: ne-resize;}
+.resizer-r  { position: absolute; top: 6px; bottom: 6px; right: -2px; width: 6px; cursor: e-resize; }
+.resizer-br { position: absolute; right: -2px; bottom: -2px; width: 6px; height: 6px; cursor: se-resize;}
+.resizer-b  { position: absolute; left: 6px; right: 6px; bottom: -2px; height: 6px; cursor: s-resize; }
+.resizer-bl { position: absolute; left: -2px; bottom: -2px; width: 6px; height: 6px; cursor: sw-resize;}
+.resizer-l  { position: absolute; top: 6px; bottom: 6px; left: -2px; width: 6px; cursor: w-resize;}
+
+.titlebaricon {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+}
+
+.titlebartext {
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  left: 24px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+/* IE needs to think there is an image in some divs otherwise it optimizes them away */
+.IE #resizerproxy,.IE #moverproxy,
+.IE .resizer-tl, .IE .resizer-t, .IE .resizer-tr, .IE .resizer-r,
+.IE .resizer-br, .IE .resizer-b, .IE .resizer-bl, .IE .resizer-l {
+  background: url(clear.gif);
+}

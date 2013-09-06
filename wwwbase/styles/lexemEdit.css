@@ -1,39 +1,20 @@
-.lexemEditActions {
-  margin: 5px 0px;
+body {
+  margin: 2px;
 }
 
 .box {
-  border: 1px solid #444;
-  -webkit-box-shadow: 2px 2px 5px #424242;
-  box-shadow: 2px 2px 5px #424242;
-  -moz-box-shadow: 2px 2px 5px #424242;
-  margin-bottom: 10px;
-  margin-right: 10px;
-}
-
-.boxTitle {
-  background: #444 url("../img/icons/cog.png") no-repeat 5px 6px;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-  padding: 5px 5px 5px 25px;
-}
-
-.boxTitle a {
-  color: white;
-  margin-left: 20px;
-  font-weight: normal;
-}
-
-.boxContents {
-  padding: 5px;
+  display: none;
 }
 
 #stemNode {
   display: none;
 }
 
-#meaningTreeContainer {
+#wmCanvas {
+  margin: 2px;
+}
+
+#meaningTree {
   padding-right: 100px;
 }
 
@@ -201,4 +182,34 @@ input[readonly] {
 
 .select2-container-multi, .select2-result {
   font-size: 12px;
+}
+
+.lexemEditActions {
+  margin: 0px 0px;
+}
+
+/* Window manager settings */
+.titlebaricon {
+  display: none;
+}
+
+.titlebartext {
+  left: 10px;
+  top: 3px
+}
+
+.closebut {
+  display: none;
+}
+
+.windowtitlebar > .horizbuts {
+  width: 39px;
+}
+
+.windowcontent {
+  padding: 3px;
+}
+
+.select2-drop {
+  z-index: 200000 !important; /* Make it work with the window manager */
 }

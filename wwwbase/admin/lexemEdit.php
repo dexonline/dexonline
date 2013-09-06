@@ -135,9 +135,10 @@ SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code
 SmartyWrap::assign('models', FlexModel::loadByType($lexem->modelType));
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
-SmartyWrap::addCss('easyui', 'jqueryui', 'paradigm', 'select2', 'lexemEdit');
-SmartyWrap::addJs('easyui', 'jqueryui', 'select2', 'select2Dev', 'lexemEdit');
+SmartyWrap::addCss('easyui', 'jqueryui', 'paradigm', 'select2', 'lexemEdit', 'windowEngine');
+SmartyWrap::addJs('easyui', 'jqueryui', 'select2', 'select2Dev', 'lexemEdit', 'windowEngine', 'cookie');
 SmartyWrap::assign('sectionTitle', "Editare lexem: {$lexem->form} {$lexem->modelType}{$lexem->modelNumber}{$lexem->restriction}");
+SmartyWrap::assign('noAdminHeader', true);
 SmartyWrap::displayAdminPage('admin/lexemEdit.ihtml');
 
 /**************************************************************************/

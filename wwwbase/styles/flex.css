@@ -361,6 +361,7 @@ span.tooltip {
 
 .ui-tooltip {
   font-size: 12px;
+  z-index: 200000; /* Make it work with the window manager */
 }
 
 .select2Edit {

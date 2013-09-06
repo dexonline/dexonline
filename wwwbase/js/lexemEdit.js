@@ -1,4 +1,5 @@
 struct_anyChanges = false;
+$.cookie.json = true;
 
 function lexemEditInit() {
   $('#meaningTree').tree({
@@ -52,7 +53,7 @@ function lexemEditInit() {
     initSelection: select2InitSelectionAjax,
     minimumInputLength: 1,
     multiple: true,
-    width: '333px',
+    width: '173px',
   });
 
   $('#variantOfId').select2({
@@ -60,8 +61,8 @@ function lexemEditInit() {
     allowClear: true,
     initSelection: select2InitSelectionAjaxSingle,
     minimumInputLength: 1,
-    placeholder: 'alegeți un lexem (opțional)',
-    width: '333px',
+    placeholder: '(opțional)',
+    width: '173px',
   });
 
   $('#associateDefinitionId').select2({
@@ -80,12 +81,11 @@ function lexemEditInit() {
   $('.toggleRepLink').click(toggleRepClick);
   $('.toggleStructuredLink').click(toggleStructuredClick);
   $('.defFilterLink').click(defFilterClick);
-  $('.boxTitle').click(boxTitleClick);
 
   $('#lexemSourceIds').select2({
     matcher: sourceMatcher,
     placeholder: 'surse care atestă flexiunea',
-    width: '333px',
+    width: '173px',
   });
   // Disable the select2 when the HTML select is disabled. This doesn't happen by itself.
   $('#lexemSourceIds').select2('readonly', $('#lexemSourceIds').is('[readonly]'));
@@ -98,6 +98,32 @@ function lexemEditInit() {
 
   $('.mergeLexem').click(mergeLexemButtonClick);
   $('.similarLink').click(similarLinkClick);
+
+  var props = ['left', 'top', 'width', 'height'];
+
+  $('.box').each(function() {
+    var $w = $().WM('open');
+    $w.find('.titlebartext').text($(this).attr('data-title'));
+    $w.attr('data-id', $(this).attr('data-id'));
+    for (var i = 0; i < props.length; i++) {
+      if (typeof($(this).attr('data-' + props[i])) != 'undefined') {
+        var value = parseInt($(this).attr('data-' + props[i]));
+        if (props[i] == 'left') {
+          value += parseInt($('#wmCanvas').offset().left);
+        } else if (props[i] == 'top') {
+          value += parseInt($('#wmCanvas').offset().top);
+        }
+        $w.css(props[i], value + 'px');
+      }
+    }
+    if ($(this).attr('data-minimized')) {
+      $w.WM('minimize');
+    }
+    $w.find('.windowcontent').append($(this).children());
+    $('#wmCanvas').append($w);
+  });
+  $('.window.minimized').each(function() { $(this).WM('raise'); });
+  $('#resizerproxy').mouseup(resizerSetCookie);
 }
 
 function sourceMatcher(term, text) {
@@ -341,10 +367,6 @@ function defFilterClick() {
   return false;
 }
 
-function boxTitleClick() {
-  $(this).next('.boxContents').slideToggle();
-}
-
 function mergeLexemButtonClick() {
   var id = $(this).attr('id').split('_')[1];
   $('input[name=mergeLexemId]').val(id);
@@ -371,4 +393,26 @@ function updateParadigm(modelType, modelNumber, restriction) {
   $('input[name=restr\\[\\]]').each(function() {
     $(this).prop('checked', restriction.indexOf($(this).val()) != -1);
   });
+}
+
+function resizerSetCookie() {
+  var data = {};
+  alert(data);
+  $('.window').each(function() {
+    var params = { minimized: $(this).hasClass('minimized') };
+    if (params.minimized) {
+      var p = $(this).data('oldPos');
+      params.left = p.left;
+      params.top = p.top;
+      params.width = p.width;
+      params.height = p.height;
+    } else {
+      params.left = $(this).offset().left;
+      params.top = $(this).offset().top;
+      params.width = $(this).width();
+      params.height = $(this).height();
+    }
+    data[$(this).attr('data-id')] = params;
+  });
+  $.cookie('lexemEdit', data, { expires: 365 });
 }

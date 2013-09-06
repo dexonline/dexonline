@@ -105,16 +105,16 @@ calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
 </table>
 
 <div class="toolsLicense">
-  <b>Licență:</b> Informațiile din acest tabel poartă o dublă licență: Licența Publică Generală GNU (care se aplică întregului site) și
-	licența <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0</a>. Informațiile pot fi
-	folosite (copiate, modificate, adaptate, etc) de către siteul http://wikipedia.org. Datele sunt adunate de pe forumul
-	dictionar@yahoogroups.com prin colaborare cu dezvoltatorii aplicațiilor.
-
+  <b>Licență:</b> Informațiile din acest tabel poartă o dublă licență: Licența Publică Generală GNU (care se aplică întregului site) și licența <a
+	href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0</a>. Informațiile pot fi folosite (copiate,
+	modificate, adaptate, etc) de către siteul http://wikipedia.org. Datele sunt adunate de pe lista discutii@dexonline.ro (fostă
+	dictionar@yahoogroups.com) prin colaborare cu dezvoltatorii aplicațiilor.
   <br/><br/>
-  <b>License:</b> The information in this table is dual-licensed under the GNU General Public License (as applicable to the entire site) and the
-	<a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0</a> license. The information can be used
-	(copied, modified, adapted etc.) by the website http://wikipedia.org. The data are gathered from the forum dictionar@yahoogroups.com in collaboration
-	with the application developers.
+
+  <b>License:</b> The information in this table is dual-licensed under the GNU General Public License (as applicable to the entire site) and the <a
+	href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0</a> license. The information can be used (copied,
+	modified, adapted etc.) by the website http://wikipedia.org. The data are gathered from the mailing list discutii@dexonline.ro (formerly
+	dictionar@yahoogroups.com) in collaboration with the application developers.
 </div>
 
 <p class="paragraphTitle">Integrare în browser</p>

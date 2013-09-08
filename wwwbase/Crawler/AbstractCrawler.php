@@ -10,6 +10,7 @@ require_once '../../phplib/idiorm/idiorm.php';
 require_once '../../phplib/idiorm/paris.php';
 
 require_once 'AppLog.php';
+require_once 'MemoryManagement.php';
 
 
 db_init();
@@ -32,7 +33,7 @@ abstract class AbstractCrawler {
 	protected $directoryIndexFile;
 	protected $IndexFileExt;
 
-	private $justStarted;
+	protected $domainsList;
 
 
 	function __construct() {
@@ -51,7 +52,7 @@ abstract class AbstractCrawler {
 
 		curl_setopt ($this->ch, CURLOPT_URL, $url);
 		curl_setopt ($this->ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-		curl_setopt ($this->ch, CURLOPT_USERAGENT, "Mozilla/5.0 (compatible; MSIE 10.6; Windows NT 6.1; Trident/5.0; InfoPath.2; SLCC1; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 2.0.50727) 3gpp-gba UNTRUSTED/1.0");
+		curl_setopt ($this->ch, CURLOPT_USERAGENT, file_get_contents(pref_getSectionPreference('crawler', 'user_agent_location')));
 		curl_setopt ($this->ch, CURLOPT_TIMEOUT, 60);
 		curl_setopt ($this->ch, CURLOPT_FOLLOWLOCATION, TRUE);
 		curl_setopt ($this->ch, CURLOPT_RETURNTRANSFER, TRUE);
@@ -89,15 +90,7 @@ abstract class AbstractCrawler {
 		return strstr($this->getUrlMimeType($buffer), 'html');
 	}
 
-	//elibereaza memoria ale carei referinte s-au pierdut
-	function manageMemory() {
-
-			crawlerLog('MEM USAGE BEFORE GC - ' . memory_get_usage());
-			gc_enable(); // Enable Garbage Collector
-			crawlerLog(gc_collect_cycles() . " garbage cycles cleaned"); // # of elements cleaned up
-			gc_disable(); // Disable Garbage Collector
-			crawlerLog('MEM USAGE After GC - ' . memory_get_usage());
-	}
+	
 	//seteaza locatia unde vor fi salvate fisierele html raw si clean text
 	function setStorePageParams() {
 
@@ -153,9 +146,96 @@ abstract class AbstractCrawler {
 		}
 	}
 
+	//returneaza codul HTTP
+	function httpResponse() {
+
+		return $this->info['http_code'];
+	}
+
+	//returneaza urmatorul URL ne crawl-at din baza de date sau null daca nu exista
+    function getNextLink() {
 
 
+    	//$nextLink = null;
+    	try {
+	    	//$nextLink = (string)ORM::for_table('Link')->raw_query("Select concat(domain,canonicalUrl) as concat_link from Link where concat(domain,canonicalUrl) not in (Select url from CrawledPage);")->find_one()->concat_link;
+	    	$nextLink = ORM::for_table('Link')->raw_query("Select canonicalUrl from Link where canonicalUrl LIKE '$this->currentLocation%' and canonicalUrl not in (Select url from CrawledPage);")->find_one();
+	    	
+	    	if ($nextLink != null) {
+	    	
+	    		return $nextLink->canonicalUrl;
+	    	}
+	    }
+	    catch(Exception $ex) {
+
+	    	logException($ex);
+	    }
+
+	    return null;
+    }
+
+    //repara HTML-ul stricat intr-un mod minimal astfel incat
+    //sa poata fi interpretat de biblioteca simple_html_dom
+    function fixHtml($html) {
+
+    	foreach($html->find('head') as $script) {
+
+			$script->outertext = '';
+		}
+
+    	foreach($html->find('script') as $script) {
+
+			$script->outertext = '';
+		}
+
+		foreach($html->find('style') as $style) {
+
+			$style->outertext = '';
+		}
+
+		$html->load($html->save());
+		
+		//transforma pagina raw in simple_html_dom_node
+		//$this->dom = str_get_html($pageContent);
+		
+		$buffer = '<html><body>';
+		$nodes = $html->childNodes();
+		foreach($nodes as $node) {
+
+			$buffer .= $node->innertext();
+		}
+
+		$buffer .= '</body></html>';
+
+		return str_get_html($buffer);
+    }
+
+
+    //metode pentru prelucrarea linkurilor
 	//sterge directory index file si elimina slash-urile in plus
+	//gaseste toate linkurile
+	//le transforma in absolute daca sunt relative
+	function processLink($url) {
+
+		crawlerLog('Processing link: '.$url);
+		$canonicalUrl = null;
+		if ($this->isRelativeLink($url)) {
+
+			$url = $this->makeAbsoluteLink($url);
+		}
+		//daca ultimul caracter este '/', il eliminam
+		//exemplu wiki.dexonline.ro nu wiki.dexonline.ro/
+		if (substr($url, -1) == "/") $url = substr($url, 0, -1);
+
+		//sterge slash-uri in plus si directory index file
+		$canonicalUrl = $this->urlPadding($url);
+		
+		if (!strstr($url, $this->currentLocation)) return;		
+
+		Link::saveLink2DB($canonicalUrl, $this->getDomain($url), $this->currentPageId);
+	}
+
+
 	function urlPadding($url) {
 
 		return $this->delDuplicateSlashes($this->delDirIndexFile($url));
@@ -190,10 +270,7 @@ abstract class AbstractCrawler {
 
 		$parsedUrl = parse_url($url);
 		
-		/*if (substr($parsedUrl['host'], 0, 4) != 'www.') {
-		
-			$parsedUrl['host'] = 'www.'.$parsedUrl['host'];
-		}*/
+
 		if (substr_count($parsedUrl['host'], '.') < 2) {
 
 			$parsedUrl['host'] = 'www.'.$parsedUrl['host'];
@@ -220,57 +297,25 @@ abstract class AbstractCrawler {
 		}
 
 		//eliminarea slash-ului final
-		//$retUrl = substr($retUrl, 0, -1);
+	
 		if (substr($retUrl, -1) == "/") $retUrl = substr($retUrl, 0, -1);
-
-		//crawlerLog("DelDuplicateSlashes ". $retUrl);
 
 		return $retUrl;
 	}
 
-
-	//gaseste toate linkurile
-	//le transforma in absolute daca sunt relative
-	function processLink($url) {
-
-		crawlerLog('Processing link: '.$url);
-		$canonicalUrl = null;
-		if ($this->isRelativeLink($url)) {
-
-			$url = $this->makeAbsoluteLink($url);
-		}
-		//daca ultimul caracter este '/', il eliminam
-		//exemplu wiki.dexonline.ro nu wiki.dexonline.ro/
-		if (substr($url, -1) == "/") $url = substr($url, 0, -1);
-
-		//sterge slash-uri in plus si directory index file
-		$canonicalUrl = $this->urlPadding($url);
-		
-		//$this->urlResource = parse_url($url);
-
-
-
-		if (!strstr($url, $this->currentLocation)) return;
-
-
-		$urlHash = $this->getLinkHash($url);
-
-		$domain = $this->getDomain($url);
-
-		Link::saveLink2DB($canonicalUrl, $domain, $urlHash, $this->currentPageId);
-	}
 
 	function isRelativeLink($url) {
 
 		return !strstr($url, "http");
 	}
 
-
+	//cauta directorul link-ului curent si returneaza
+	//url-ul spre acel director
 	function getDeepestDir($url) {
 
 		try {
 			$retVal = substr($url, 0, strrpos($url,'/'));
-			//crawlerLog("GetDeepestDir: " . $retVal);
+
 			if (strstr($retVal, $this->currentLocation))
 				return $retVal;
 			else return $url;
@@ -287,100 +332,19 @@ abstract class AbstractCrawler {
 		return $this->getDeepestDir($this->currentUrl) .'/'. $url;
 	}
 
-
-	function getLinkHash($url) {
-
-		$liteURL = substr($url, strpos($url, "//") + 2);
-		if (strstr($liteURL, "index.php") || strstr($liteURL, "index.asp") ||
-			strstr($liteURL, "index.htm"))
-			$liteURL = substr($liteURL, 0, strrpos($liteURL, "//"));
-		return md5($liteURL);
-	}
-
-
 	function getDomain($url) {
 
 		return $this->urlResource['host'];
 	}
 
-	//returneaza codul HTTP
-	function httpResponse() {
-
-		return $this->info['http_code'];
-	}
-
-	//returneaza urmatorul URL ne crawl-at din baza de date sau null daca nu exista
-    function getNextLink() {
-
-
-    	if (!isset($this->justStarted)) {
-    		$this->justStarted = true;
-    		return $this->currentUrl;
-    	}
-
-
-    	//$nextLink = null;
-    	try {
-	    	//$nextLink = (string)ORM::for_table('Link')->raw_query("Select concat(domain,canonicalUrl) as concat_link from Link where concat(domain,canonicalUrl) not in (Select url from CrawledPage);")->find_one()->concat_link;
-	    	$nextLink = ORM::for_table('Link')->raw_query("Select canonicalUrl from Link where canonicalUrl not in (Select url from CrawledPage);")->find_one();
-	    	
-	    	if ($nextLink != null) {
-	    	
-	    		return $nextLink->canonicalUrl;
-	    	}
-	    }
-	    catch(Exception $ex) {
-
-	    	logException($ex);
-	    }
-
-	    return null;
-    }
-
-
-    function fixHtml($html) {
-
-    	foreach($html->find('head') as $script) {
-
-			$script->outertext = '';
-		}
-
-
-    	foreach($html->find('script') as $script) {
-
-			$script->outertext = '';
-		}
-
-		foreach($html->find('style') as $style) {
-
-			$style->outertext = '';
-		}
-
-		$html->load($html->save());
-		
-		//transforma pagina raw in simple_html_dom_node
-		//$this->dom = str_get_html($pageContent);
-		
-		$buffer = '<html><body>';
-		$nodes = $html->childNodes();
-		foreach($nodes as $node) {
-
-			$buffer .= $node->innertext();
-		}
-
-		$buffer .= '</body></html>';
-
-		return str_get_html($buffer);
-    }
-
 
 	//Clasele care deriva aceasta clasa vor trebui
 	//sa implementeze metodele de mai jos
-
 	abstract function extractText($domNode);
 
-	abstract function startCrawling($startUrl);
-}
+	abstract function crawlDomain();
 
+	abstract function start();
+}
 
 ?>

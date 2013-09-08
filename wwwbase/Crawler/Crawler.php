@@ -11,7 +11,7 @@ class Crawler extends AbstractCrawler {
 	//extrage textul fara cod html
 	function getText($domNode) {
 		
-		$this->plainText = strip_tags($domNode->text());
+		$this->plainText = html_entity_decode(strip_tags($domNode->text()));
 		//$this->plainText = str_replace(array('\t','\n',' ', '&nbsp;'), array('','.','',''),strip_tags($domNode->text()));
 	}
 	//extrage textul cu cod html din nodul respectiv
@@ -26,26 +26,44 @@ class Crawler extends AbstractCrawler {
 		}
 	}
 
+	function processPage($pageContent) {
 
-	function startCrawling($startUrl) {
-	
-		crawlerLog("Started");
+		try {
+			
+			$html = str_get_html($pageContent);
 
+			//reparam html stricat
+			if (!$html->find('body', 0, true)) {
 
-		$this->currentUrl = $this->urlPadding($startUrl);
+				$html = $this->fixHtml($html);
+			}
+			
 
-		crawlerLog('FIRST START URL: '.$this->currentUrl);
+			$this->extractText($html->find('body', 0, true));
+			$this->saveCurrentPage();
+			
+			//cata memorie consuma
+			//si eliberare referinte pierdute
+			
+			$html->clear();
 
-		$this->urlResource = parse_url($this->currentUrl);
+			MemoryManagement::showUsage('before cleaning', true, 'KB');
+			
+			MemoryManagement::clean(true);
 
-		//locatia curenta, va fi folosita pentru a nu depasi sfera
-		//de exemplu vrem sa crawlam doar o anumita zona a site-ului
-		$this->currentLocation = substr($startUrl, strpos($startUrl, ':') + 3);
-		crawlerLog('domain start location: '.$this->currentLocation);
+			MemoryManagement::showUsage('after cleaning', true, 'KB');
+			//niceness
+			sleep(pref_getSectionPreference('crawler', 't_wait'));
+		}
+		catch (Exception $ex) {
 
-		$url = $startUrl;
+			logException($ex);
+		}
+	}
 
-		$justStarted = true;
+	function crawlDomain() {
+
+		crawlerLog("Crawling: " . $this->getDomain($this->currentUrl) . " started");
 
 		while(1) {
 
@@ -71,36 +89,61 @@ class Crawler extends AbstractCrawler {
 				continue;
 			}
 			
-			try {
-
-
-				$html = str_get_html($pageContent);
-
-				//reparam html stricat
-				if (!$html->find('body', 0, true)) {
-
-					$html = $this->fixHtml($html);
-				}
-
-
-
-				$this->extractText($html->find('body', 0, true));
-				$this->saveCurrentPage();
-				
-				//cata memorie consuma
-				//si eliberare referinte pierdute
-				$this->manageMemory();
-				//niceness
-				sleep(pref_getSectionPreference('crawler', 't_wait'));
-			}
-			catch (Exception $ex) {
-
-				logException($ex);
-			}
+			$this->processPage($pageContent);
 		}
 
-		crawlerLog('Finished');
+		crawlerLog("Crawling: " . $this->getDomain($this->currentUrl) . " finished");
 	}
+
+
+	function start() {
+	
+		crawlerLog("Crawler started");
+
+		$this->domainsList = explode(PHP_EOL, file_get_contents("WhiteList.txt"));
+
+		//start processing 
+		$this->processWhiteList();
+
+		crawlerLog('Crawler finished');
+	}
+
+
+	function processWhiteList() {
+
+		$multipleLinesComment = false;
+
+		foreach($this->domainsList as $startUrl) {
+			//comentarii pe mai multe linii
+			if (substr($startUrl, 0, 3) == '###')
+				$multipleLinesComment ^= $multipleLinesComment;
+
+			if ($multipleLinesComment)
+				continue;
+			//comentarii pe o singura linie
+			if (substr($startUrl,0,1) == '#')
+				continue;
+
+			//curatam url-ul
+			$this->currentUrl = $this->urlPadding($startUrl);
+			//impartim url-ul pe componente
+			$this->urlResource = parse_url($this->currentUrl);
+
+			//salvam startUrl in tabelul Link pentru a incepe extragerea,
+			//startUrl nu va avea o pagina din care este descoperit
+			//asa ca pagina crawledPageId va avea valoarea 0.
+			Link::saveLink2DB($this->currentUrl, $this->getDomain($this->currentUrl), '0');
+
+			//locatia curenta, va fi folosita pentru a nu depasi sfera
+			//de exemplu vrem sa crawlam doar o anumita zona a site-ului
+			$this->currentLocation = substr($this->currentUrl, 0);
+			crawlerLog('domain start location: '.$this->currentLocation);
+
+			$this->crawlDomain();
+		}
+		
+	}
+
 }
 
 /*
@@ -109,8 +152,8 @@ class Crawler extends AbstractCrawler {
 if (strstr( $_SERVER['SCRIPT_NAME'], 'Crawler.php')) {
 
 	$obj = new Crawler();
-	//$obj->startCrawling("http://wiki.dexonline.ro/");
-	$obj->startCrawling("http://www.romlit.ro");
+
+	$obj->start();
 }
 
 ?>

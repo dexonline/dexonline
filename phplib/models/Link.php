@@ -7,7 +7,7 @@ class Link extends BaseObject {
 	public static $_table = 'Link';
 
 	//adauga o intrare nou in tabelul Link
-	public static function saveLink2DB($canonicalUrl, $domain, $urlHash, $crawledPageId) {
+	public static function saveLink2DB($canonicalUrl, $domain, $crawledPageId) {
 
 		//nu inseram acelasi link de 2 ori
 		if (Model::factory(self::$_table)->where('canonicalUrl', $canonicalUrl)->find_one()) {
@@ -20,7 +20,6 @@ class Link extends BaseObject {
 			$tableObj->create();
 			$tableObj->canonicalUrl = $canonicalUrl;
 			$tableObj->domain = $domain;
-			$tableObj->urlHash = $urlHash;
 			$tableObj->crawledPageId = $crawledPageId;
 			$tableObj->save();
 
@@ -33,8 +32,6 @@ class Link extends BaseObject {
 
 		return null;
 	}
-	
-
 }
 
 ?>

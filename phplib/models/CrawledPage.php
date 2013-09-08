@@ -2,7 +2,6 @@
 
 
 class CrawledPage  extends BaseObject implements DatedObject {
-	//implements DatedObject {
 	
 	public static $_table = 'CrawledPage';
 
@@ -36,6 +35,11 @@ class CrawledPage  extends BaseObject implements DatedObject {
 		return Model::factory(self::$_table)->raw_query("select id, domain from
 			 (select id, substr(substring_index(url, '/', 3),8) as domain from CrawledPage order by id desc) alias1 group by domain order by id asc;")->find_many();
 	}
+
+	 function getNextDiacriticsFile() {
+
+	 	return Model::factory(self::$_table)->raw_query("select id, parsedTextPath from CrawledPage where id not in (select fileId from FilesUsedInDiacritics);");
+	 }
 	
 
 }

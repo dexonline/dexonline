@@ -9,6 +9,8 @@ require_once '../../phplib/db.php';
 require_once '../../phplib/idiorm/idiorm.php';
 
 
+
+
 function removeFiles($regexPath) {
 
 	exec("rm -rf $regexPath");

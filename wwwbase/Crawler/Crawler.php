@@ -114,15 +114,23 @@ class Crawler extends AbstractCrawler {
 		$multipleLinesComment = false;
 
 		foreach($this->domainsList as $startUrl) {
-			//comentarii pe mai multe linii
-			if (substr($startUrl, 0, 3) == '###')
-				$multipleLinesComment ^= $multipleLinesComment;
+			
+			$startUrl = trim($startUrl);
 
-			if ($multipleLinesComment)
+			//comentarii pe mai multe linii
+
+			if (substr($startUrl, 0, 3) == '###') {
+				//flip bit
+				$multipleLinesComment ^= 1;
+			}
+			
+			//comentarii sau linii goale
+			if ($multipleLinesComment || substr($startUrl,0,1) == '#'
+				|| !$startUrl)
 				continue;
-			//comentarii pe o singura linie
-			if (substr($startUrl,0,1) == '#')
-				continue;
+
+
+			
 
 			//curatam url-ul
 			$this->currentUrl = $this->urlPadding($startUrl);

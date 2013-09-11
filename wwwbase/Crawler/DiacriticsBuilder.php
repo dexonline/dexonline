@@ -73,11 +73,24 @@ class DiacriticsBuilder {
 		while($this->currOffset <= $this->fileEndOffset) {
 			//daca urmatorul offset e a,i,s,t sau ă,â,î,ș,ț
 			$ch = substr($this->file, $this->currOffset, 1);
-			if (strstr(self::$nonDiacritics, $ch) ||
-				strstr(self::$diacritics, $ch)) {
+			if (strstr(self::$nonDiacritics, $ch)) {
 				
-				return $this->currOffset++;
+				return $this->currOffset ++;
 			}
+			else {
+
+				$ch = substr($this->file, $this->currOffset, 2);
+
+				if (strstr(self::$diacritics, $ch)) {
+				
+					$this->currOffset += 2;
+
+					return $this->currOffset - 2;
+				}
+			}
+
+
+
 			//trecem la urmatorul caracter
 			$this->currOffset ++;
 		}
@@ -99,19 +112,93 @@ class DiacriticsBuilder {
 			$middle = substr($this->file, $offset, 2);
 		else
 			$middle = substr($this->file, $offset, 1);
-		$after = '';
 
-		$inferiorSeparator = false;
-		$superiorSeparator = false;
+		$after = 'test';
+
+		$infPadding = false;
+		$supPadding = false;
 
 
 		//echo "OFFSET ".$offset. '  char '.substr($this->file, $offset, 1).PHP_EOL; 
 
 
+		$infOffset = $offset - 2;
+
+		$supOffset = $offset + strlen($middle);
+
+		$firstLetter = false;
+
 		for ($i = 0; $i < self::$paddingNumber; $i++) {
 
-			$inferiorOffset = $offset - 1 - $i;
-			$superiorOffset = $offset + 1 + $i;
+			if ($infOffset < 0) {
+
+				if ($infOffset + 1 == 0) {
+
+					$firstLetter = true;
+				}
+				else {
+
+					$infPadding = true;
+				}
+			}
+
+
+
+			if ($infPadding) {
+
+				$before = '*' . $before;
+			}
+			else {
+
+				if ($firstLetter) {
+
+					$infCh = substr($this->file, $infOffset, 1);
+
+					if ($this->isSeparator($infCh)) {
+
+						$infPadding = true;
+						$before = '*' . $before;
+					}
+					else {
+
+						$before = $infCh . $before;
+					}
+
+				}
+
+				else {
+
+					$infCh = substr($this->file, $infOffset, 2);
+
+					if (!strstr(self::$diacritics, $infCh)) {
+						$infOffset ++;
+						$infCh = substr($this->file, $infOffset, 1);
+					}
+
+					if ($this->isSeparator($infCh)) {
+
+						$infPadding = true;
+						$before = '*' . $before;
+					}
+					else {
+						$before = $infCh . $before;
+
+						$infOffset -= 2;
+					}
+				}
+			}
+		}
+/*
+			$supCh = substr($this->file, $superiorOffset, 2);
+
+			if (!strstr(self::$diacritics, $supCh)) {
+
+				$supCh = substr($this->file, $superiorOffset, 1);
+			}
+
+			
+
+
 
 			if ($inferiorOffset < 0) {
 				
@@ -149,7 +236,7 @@ class DiacriticsBuilder {
 		}
 
 		//echo "RESULT   $before|$middle|$after".PHP_EOL;
-
+*/
 
 		Diacritics::save2Db($before, $middle, $after);
 

@@ -113,7 +113,7 @@ class DiacriticsBuilder {
 		else
 			$middle = substr($this->file, $offset, 1);
 
-		$after = 'test';
+		$after = '';
 
 		$infPadding = false;
 		$supPadding = false;
@@ -127,11 +127,14 @@ class DiacriticsBuilder {
 		$supOffset = $offset + strlen($middle);
 
 		$firstLetter = false;
+		$lastLetter = false;
 
 		for ($i = 0; $i < self::$paddingNumber; $i++) {
 
-			if ($infOffset < 0) {
+			//before
 
+			if ($infOffset < 0) {
+				//daca e primul caracter
 				if ($infOffset + 1 == 0) {
 
 					$firstLetter = true;
@@ -181,12 +184,76 @@ class DiacriticsBuilder {
 						$before = '*' . $before;
 					}
 					else {
+
 						$before = $infCh . $before;
 
 						$infOffset -= 2;
 					}
 				}
 			}
+
+			//after
+
+			if ($supOffset > $this->fileEndOffset) {
+				//daca e ultimul caracter
+				if ($supOffset - 1 == $this->fileEndOffset) {
+
+					$lastLetter = true;
+				}
+				else {
+
+					$supPadding = true;
+				}
+			}
+
+
+
+			if ($supPadding) {
+
+				$after .= '*';
+			}
+			else {
+
+				if ($lastLetter) {
+
+					$supCh = substr($this->file, $supOffset, 1);
+
+					if ($this->isSeparator($infCh)) {
+
+						$supPadding = true;
+						$after = '*' . $after;
+					}
+					else {
+
+						$after .= $supCh;
+					}
+
+				}
+
+				else {
+
+					$supCh = substr($this->file, $supOffset, 2);
+
+					if (!strstr(self::$diacritics, $supCh)) {
+						
+						$supCh = substr($this->file, $supOffset, 1);
+					}
+
+					if ($this->isSeparator($supCh)) {
+
+						$supPadding = true;
+						$after .= '*';
+					}
+					else {
+
+						$after .= $supCh;
+
+						$supOffset += strlen($supCh);
+					}
+				}
+			}
+
+
 		}
 /*
 			$supCh = substr($this->file, $superiorOffset, 2);

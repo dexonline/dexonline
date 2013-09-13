@@ -29,6 +29,10 @@ class DiacriticsBuilder {
 	private static $diacritics;
 	private static $nonDiacritics;
 	private static $paddingNumber;
+	private static $paddingChar;
+	private $globalCount;
+	private $localCount;
+	private $currentDir;
 	/*
 	 * initialises instance variables
 	 */
@@ -38,6 +42,9 @@ class DiacriticsBuilder {
 		self::$diacritics = pref_getSectionPreference("crawler", "diacritics");
 		self::$nonDiacritics = pref_getSectionPreference("crawler", "non_diacritics");
 		self::$paddingNumber = pref_getSectionPreference('crawler', 'diacritics_padding_length');
+		self::$paddingChar = pref_getSectionPreference('crawler', 'padding_char');
+
+		$this->globalCount = 0;
  	}
 
 	/* 
@@ -149,7 +156,7 @@ class DiacriticsBuilder {
 
 			if ($infPadding) {
 
-				$before = '*' . $before;
+				$before = self::$paddingChar . $before;
 			}
 			else {
 
@@ -160,7 +167,7 @@ class DiacriticsBuilder {
 					if ($this->isSeparator($infCh)) {
 
 						$infPadding = true;
-						$before = '*' . $before;
+						$before = self::$paddingChar . $before;
 					}
 					else {
 
@@ -181,7 +188,7 @@ class DiacriticsBuilder {
 					if ($this->isSeparator($infCh)) {
 
 						$infPadding = true;
-						$before = '*' . $before;
+						$before = self::$paddingChar . $before;
 					}
 					else {
 
@@ -210,7 +217,7 @@ class DiacriticsBuilder {
 
 			if ($supPadding) {
 
-				$after .= '*';
+				$after .= self::$paddingChar;
 			}
 			else {
 
@@ -221,7 +228,7 @@ class DiacriticsBuilder {
 					if ($this->isSeparator($infCh)) {
 
 						$supPadding = true;
-						$after = '*' . $after;
+						$after = self::$paddingChar . $after;
 					}
 					else {
 
@@ -242,7 +249,7 @@ class DiacriticsBuilder {
 					if ($this->isSeparator($supCh)) {
 
 						$supPadding = true;
-						$after .= '*';
+						$after .= self::$paddingChar;
 					}
 					else {
 
@@ -269,7 +276,7 @@ class DiacriticsBuilder {
 
 			if ($inferiorOffset < 0) {
 				
-				$before = '*' . $before;
+				$before = self::$paddingChar . $before;
 			}
 			else {
 				
@@ -280,12 +287,12 @@ class DiacriticsBuilder {
 					$inferiorSeparator = $this->isSeparator($ch);
 				}
 
-				$before = ($inferiorSeparator ? '*' : $ch) . $before;
+				$before = ($inferiorSeparator ? self::$paddingChar : $ch) . $before;
 			}
 
 			if ($superiorOffset > $this->fileEndOffset) {
 				
-				$after .= '*';
+				$after .= self::$paddingChar;
 			}
 			else {
 
@@ -297,7 +304,7 @@ class DiacriticsBuilder {
 					$superiorSeparator = $this->isSeparator($ch);
 				}
 
-				$after .= ($superiorSeparator ? '*' : $ch);
+				$after .= ($superiorSeparator ? self::$paddingChar : $ch);
 			}
 
 		}

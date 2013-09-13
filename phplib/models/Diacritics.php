@@ -36,23 +36,42 @@ class Diacritics  extends BaseObject implements DatedObject {
 	//inlocuieste diactriticele
 	private static function stripDiacritics($str) {
 
-		return $str;
-
-		
 		$strippedStr = '';
-		$strArray = str_split($str, 1);
 		
-		foreach($strArray as $ch) {
+		$currOffset = 0;
+		$finalOffset = strlen($str) - 1;
+		
+		while($currOffset <= $finalOffset) {
+
+			$ch = '';
+			if ($currOffset == $finalOffset) {
+
+				$ch = substr($str, $currOffset, 1);
+				$currOffset ++;
+			}
+			else {
+
+				$ch = substr($str, $currOffset, 2);
+				if (strstr('ăâîșț', $ch)) {
+
+					$currOffset += 2;
+				}
+				else {
+
+					$ch = substr($str, $currOffset, 1);
+					$currOffset ++;
+				}
+			}
 
 			$strippedStr .= self::replaceDiacritic($ch);
 		}
-
 
 		return $strippedStr;
 	}
 
 
-	public static function save2Db($before, $middle, $after) {
+
+	public function insertRow($before, $middle, $after, $diacritic) {
 
 		try {
 			
@@ -60,9 +79,9 @@ class Diacritics  extends BaseObject implements DatedObject {
 			$tableObj->create();
 
 
-			$tableObj->before = self::stripDiacritics($before);
-			$tableObj->middle = self::stripDiacritics($middle);
-			$tableObj->after = self::stripDiacritics($after);
+			$tableObj->before = $before;
+			$tableObj->middle = $middle;
+			$tableObj->after = $after;
 			
 			
 			$tableObj->defaultForm = '0';
@@ -88,6 +107,49 @@ class Diacritics  extends BaseObject implements DatedObject {
 		catch(Exception $ex) {
 
 			logException($ex);
+		}
+	}
+
+	
+
+
+	public static function updateRow($before, $middle, $after) {
+
+		return false;
+	}
+
+
+	public static function entryExists($before, $middle, $after) {
+		
+		return false;
+		$foundEntry = Model::factory(self::$_table)->raw_query("Select id from self::$_table where
+				 before = '$before' and middle = '$middle' and after = '$after';")->find_one();
+		if ($foundEntry) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+
+	public static function save2Db($before, $middle, $after) {
+
+		$diacritic = substr($middle, 0);
+
+		$before = self::stripDiacritics($before);
+		$middle = self::stripDiacritics($middle);
+		$after = self::stripDiacritics($after);
+			
+
+			
+		if (self::entryExists($before, $middle, $after)) {
+
+			self::updateRow($before, $middle, $after, $diacritic);
+		}
+		else {
+
+			self::insertRow($before, $middle, $after, $diacritic);
 		}
 	}
 }

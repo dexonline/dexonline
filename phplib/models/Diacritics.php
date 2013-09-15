@@ -5,103 +5,60 @@ class Diacritics  extends BaseObject implements DatedObject {
 	
 	public static $_table = 'Diacritics';
 
-	
-	private static function replaceDiacritic($ch) {
-
-		switch($ch) {
-
-			case 'ă':
-			case 'â':
-				
-				return 'a';
-			
-			case 'î':
-
-				return 'i';
-
-			case 'ș':
-
-				return 's';
-
-			case 'ț':
-
-				return 't';
-
-			default:
-
-				return $ch;
-		}
-	}
-
 	//inlocuieste diactriticele
 	private static function stripDiacritics($str) {
 
-		$strippedStr = '';
-		
-		$currOffset = 0;
-		$finalOffset = strlen($str) - 1;
-		
-		while($currOffset <= $finalOffset) {
+		return str_replace(array('ă','â','î','ș','ț'), array('a','a','i','s','t'), $str);
+	}
 
-			$ch = '';
-			if ($currOffset == $finalOffset) {
+	/*
+	 * Am definit propria forma de diacritice
+	 * â,î		- circumflex
+	 * ă,ș,ț	- curbat (caciulita si virgulita) 
+	 * a,i,s 	- default
+	 */
 
-				$ch = substr($str, $currOffset, 1);
-				$currOffset ++;
-			}
-			else {
+	private static function getDiacriticForm($diacritic, $update = array()) {
 
-				$ch = substr($str, $currOffset, 2);
-				if (strstr('ăâîșț', $ch)) {
+		$defaultForm	= '0';
+		$curvedForm 	= '0';
+		$circumflexForm	= '0';
 
-					$currOffset += 2;
-				}
-				else {
-
-					$ch = substr($str, $currOffset, 1);
-					$currOffset ++;
-				}
-			}
-
-			$strippedStr .= self::replaceDiacritic($ch);
+		if (!empty($update)) {
+			list($defaultForm, $curvedForm, $circumflexForm) = $update;
 		}
 
-		return $strippedStr;
+		if (strstr("âî", $diacritic)) {
+
+			$circumflexForm = intval($circumflexForm) + 1;
+		}
+		else if (strstr("ășț", $diacritic)) {
+
+			$curvedForm = intval($curvedForm) + 1;
+		}
+		else { // daca strstr("aist", $diacritic)
+
+			$defaultForm = intval($defaultForm) + 1;
+		}
+		return array($defaultForm, $curvedForm, $circumflexForm);
+
 	}
 
 
-
-	public function insertRow($before, $middle, $after, $diacritic) {
+	public static function insertRow($before, $middle, $after, $diacritic) {
 
 		try {
 			
 			$tableObj = Model::factory(self::$_table);
 			$tableObj->create();
-
-
-			$tableObj->before = $before;
-			$tableObj->middle = $middle;
-			$tableObj->after = $after;
 			
+			$tableObj->before	= $before;
+			$tableObj->middle	= $middle;
+			$tableObj->after	= $after;
+
+			list($tableObj->defaultForm, $tableObj->curvedForm,
+				$tableObj->circumflexForm) = self::getDiacriticForm($diacritic);
 			
-			$tableObj->defaultForm = '0';
-			$tableObj->curvedForm = '0';
-			$tableObj->circumflexForm = '0';
-
-			if (strstr("âî", $middle)) {
-
-				$tableObj->circumflexForm = '1';
-			}
-			else if (strstr("ășț", $middle)) {
-
-				$tableObj->curvedForm = '1';
-			}
-			else { // if (strstr("aist", $middle))
-
-				$tableObj->defaultForm = '1';
-			}
-
-
 			$tableObj->save();
 		}
 		catch(Exception $ex) {
@@ -110,44 +67,43 @@ class Diacritics  extends BaseObject implements DatedObject {
 		}
 	}
 
+
 	
-
-
-	public static function updateRow($before, $middle, $after) {
-
-		return false;
-	}
-
-
-	public static function entryExists($before, $middle, $after) {
-		
-		return false;
-		$foundEntry = Model::factory(self::$_table)->raw_query("Select id from self::$_table where
-				 before = '$before' and middle = '$middle' and after = '$after';")->find_one();
-		if ($foundEntry) {
-
+	public static function updateRow($before, $middle, $after, $diacritic) {
+	
+		try {	
+			$tableObj = Model::factory(self::$_table)->raw_query("Select * from Diacritics where
+				 `before` = '$before' and `middle` = '$middle' and `after` = '$after';")->find_one();
+			if (!$tableObj) {
+				return false;
+			}
+			else {
+				list($tableObj->defaultForm, $tableObj->curvedForm,
+					$tableObj->circumflexForm) = self::getDiacriticForm($diacritic,
+					array($tableObj->defaultForm, $tableObj->curvedForm,
+						$tableObj->circumflexForm));
+				$tableObj->save();
+			}
 			return true;
 		}
+		catch(Exception $e) {
 
+			echo $e;
+		}
+		
 		return false;
 	}
 
 
 	public static function save2Db($before, $middle, $after) {
 
-		$diacritic = substr($middle, 0);
+		$diacritic = mb_substr($middle, 0, 1);
 
 		$before = self::stripDiacritics($before);
 		$middle = self::stripDiacritics($middle);
 		$after = self::stripDiacritics($after);
 			
-
-			
-		if (self::entryExists($before, $middle, $after)) {
-
-			self::updateRow($before, $middle, $after, $diacritic);
-		}
-		else {
+		if (!self::updateRow($before, $middle, $after, $diacritic)) {
 
 			self::insertRow($before, $middle, $after, $diacritic);
 		}

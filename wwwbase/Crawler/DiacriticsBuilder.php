@@ -32,7 +32,8 @@ class DiacriticsBuilder {
 	private static $paddingChar;
 	private $globalCount;
 	private $localCount;
-	private $currentDir;
+	private $currentFolder;
+	private $folderCount;
 	/*
 	 * initialises instance variables
 	 */
@@ -47,273 +48,129 @@ class DiacriticsBuilder {
 		$this->globalCount = 0;
  	}
 
+
+ 	function showProcessingFileStatus($crawledPage) {
+ 		$start  = strpos($crawledPage->parsedTextPath, '/') + 1;
+ 		$length = strrpos($crawledPage->parsedTextPath, '/') - $start; 
+ 		$folder = substr($crawledPage->parsedTextPath, $start, $length);
+	
+		if ($folder != $this->currentFolder) {
+
+			$this->currentFolder = $folder;
+			$this->localCount = 0;
+			$this->folderCount = iterator_count(new DirectoryIterator(substr($crawledPage->parsedTextPath,0,strrpos($crawledPage->parsedTextPath, '/'))));
+		}
+
+		$this->localCount ++;		
+		$this->globalCount ++;
+
+ 		crawlerLog("Total(this run)::$this->globalCount, now processing $folder $this->localCount/".$this->folderCount);
+ 	}
+
 	/* 
 	 * gets the next unprocessed file for diacritics
 	 */
 	function getNextFile() {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
 
-		$crawledPage = CrawledPage::getNextDiacriticsFile();
-		
-		if ($crawledPage == null) {
+		while(1) {
 
-			return null;
-		}
-		FilesUsedInDiacritics::save2Db($crawledPage->id);
+			$crawledPage = CrawledPage::getNextDiacriticsFile();
+			
+			$this->showProcessingFileStatus($crawledPage);
+			
+			if ($crawledPage == null) {
 
-		return $this->toLower(file_get_contents($crawledPage->parsedTextPath));
-	}
-
-
-	function toLower($content) {
-
-		$content = str_replace(array('Ă','Â','Î','Ș','Ț'), array('ă', 'â', 'î', 'ș', 'ț'), $content);
-
-		return strtolower($content);
-	}
-
-
-	function getNextOffset() {
-		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
-		
-
-		while($this->currOffset <= $this->fileEndOffset) {
-			//daca urmatorul offset e a,i,s,t sau ă,â,î,ș,ț
-			$ch = substr($this->file, $this->currOffset, 1);
-			if (strstr(self::$nonDiacritics, $ch)) {
-				
-				return $this->currOffset ++;
+				return null;
 			}
-			else {
+			FilesUsedInDiacritics::save2Db($crawledPage->id);
 
-				$ch = substr($this->file, $this->currOffset, 2);
-
-				if (strstr(self::$diacritics, $ch)) {
-				
-					$this->currOffset += 2;
-
-					return $this->currOffset - 2;
-				}
+			if (is_file($crawledPage->parsedTextPath)) {
+				return $this->toLower(file_get_contents($crawledPage->parsedTextPath));
 			}
-
-
-
-			//trecem la urmatorul caracter
-			$this->currOffset ++;
 		}
 
 		return null;
 	}
 
-	function isSeparator($ch) {
+
+	function toLower($content) {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
-		
-		return !(ctype_lower($ch) || strstr(self::$diacritics, $ch) || $ch == '-');
+		return mb_strtolower($content);
+	}
+	/* verifica daca $ch este un caracter din lista
+	 * [a,i,s,t,ă,â,î,ș,ț]
+	 */
+	static function isPossibleDiacritic($ch) {
+
+		return strstr(self::$diacritics, $ch) || strstr(self::$nonDiacritics, $ch);
+	}
+	/* returneaza urmatorul index in fisier care contine
+	 * un caracter din lista [a,i,s,t,ă,â,î,ș,ț]
+	 */
+	function getNextOffset() {
+		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
+		while($this->currOffset <= $this->fileEndOffset) {
+			//daca urmatorul offset e a,i,s,t sau ă,â,î,ș,ț
+			if (self::isPossibleDiacritic(StringUtil::getCharAt($this->file, $this->currOffset))) {
+				return $this->currOffset ++;
+			}
+			$this->currOffset ++;
+		}
+		return null;
 	}
 
-	function pointOfInterestPadding($offset) {
+	static function isSeparator($ch) {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
-		
+		return !(ctype_lower($ch) || strstr(self::$diacritics, $ch) || $ch == '-');
+	}
+	/*
+	 * in the word arhivare, the 'i' padding is *arh  i  vare
+	 */
+	function leftAndRightPadding($offset) {
+		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
 		$before = '';
-		if (strstr(self::$diacritics, substr($this->file, $offset, 2)))
-			$middle = substr($this->file, $offset, 2);
-		else
-			$middle = substr($this->file, $offset, 1);
-
+		$middle = StringUtil::getCharAt($this->file, $offset);
 		$after = '';
-
+		$infOffset = $offset - 1;
+		$supOffset = $offset + 1;
 		$infPadding = false;
 		$supPadding = false;
-
-
-		//echo "OFFSET ".$offset. '  char '.substr($this->file, $offset, 1).PHP_EOL; 
-
-
-		$infOffset = $offset - 2;
-
-		$supOffset = $offset + strlen($middle);
-
-		$firstLetter = false;
-		$lastLetter = false;
+		
 
 		for ($i = 0; $i < self::$paddingNumber; $i++) {
-
-			//before
-
+			
 			if ($infOffset < 0) {
-				//daca e primul caracter
-				if ($infOffset + 1 == 0) {
-
-					$firstLetter = true;
-				}
-				else {
-
-					$infPadding = true;
-				}
+				$infPadding = true;
 			}
-
-
+			$infCh = StringUtil::getCharAt($this->file, $infOffset);
+			$infPadding = self::isSeparator($infCh);
 
 			if ($infPadding) {
-
 				$before = self::$paddingChar . $before;
 			}
 			else {
-
-				if ($firstLetter) {
-
-					$infCh = substr($this->file, $infOffset, 1);
-
-					if ($this->isSeparator($infCh)) {
-
-						$infPadding = true;
-						$before = self::$paddingChar . $before;
-					}
-					else {
-
-						$before = $infCh . $before;
-					}
-
-				}
-
-				else {
-
-					$infCh = substr($this->file, $infOffset, 2);
-
-					if (!strstr(self::$diacritics, $infCh)) {
-						$infOffset ++;
-						$infCh = substr($this->file, $infOffset, 1);
-					}
-
-					if ($this->isSeparator($infCh)) {
-
-						$infPadding = true;
-						$before = self::$paddingChar . $before;
-					}
-					else {
-
-						$before = $infCh . $before;
-
-						$infOffset -= 2;
-					}
-				}
+				$before = $infCh . $before;
+				$infOffset --;
 			}
-
-			//after
 
 			if ($supOffset > $this->fileEndOffset) {
-				//daca e ultimul caracter
-				if ($supOffset - 1 == $this->fileEndOffset) {
-
-					$lastLetter = true;
-				}
-				else {
-
-					$supPadding = true;
-				}
+				$supPadding = true;
 			}
 
-
+			$supCh = StringUtil::getCharAt($this->file, $supOffset);
+			$supPadding = self::isSeparator($supCh);
 
 			if ($supPadding) {
-
-				$after .= self::$paddingChar;
+				$after = $after . self::$paddingChar;
 			}
 			else {
-
-				if ($lastLetter) {
-
-					$supCh = substr($this->file, $supOffset, 1);
-
-					if ($this->isSeparator($infCh)) {
-
-						$supPadding = true;
-						$after = self::$paddingChar . $after;
-					}
-					else {
-
-						$after .= $supCh;
-					}
-
-				}
-
-				else {
-
-					$supCh = substr($this->file, $supOffset, 2);
-
-					if (!strstr(self::$diacritics, $supCh)) {
-						
-						$supCh = substr($this->file, $supOffset, 1);
-					}
-
-					if ($this->isSeparator($supCh)) {
-
-						$supPadding = true;
-						$after .= self::$paddingChar;
-					}
-					else {
-
-						$after .= $supCh;
-
-						$supOffset += strlen($supCh);
-					}
-				}
+				$after = $after . $supCh;
+				$supOffset ++;
 			}
-
-
 		}
-/*
-			$supCh = substr($this->file, $superiorOffset, 2);
-
-			if (!strstr(self::$diacritics, $supCh)) {
-
-				$supCh = substr($this->file, $superiorOffset, 1);
-			}
-
-			
-
-
-
-			if ($inferiorOffset < 0) {
-				
-				$before = self::$paddingChar . $before;
-			}
-			else {
-				
-				$ch = substr($this->file, $inferiorOffset, 1);
-			
-				if (!$inferiorSeparator) {
-					
-					$inferiorSeparator = $this->isSeparator($ch);
-				}
-
-				$before = ($inferiorSeparator ? self::$paddingChar : $ch) . $before;
-			}
-
-			if ($superiorOffset > $this->fileEndOffset) {
-				
-				$after .= self::$paddingChar;
-			}
-			else {
-
-			
-				$ch = substr($this->file, $superiorOffset, 1);
-			
-				if (!$superiorSeparator) {
-					
-					$superiorSeparator = $this->isSeparator($ch);
-				}
-
-				$after .= ($superiorSeparator ? self::$paddingChar : $ch);
-			}
-
-		}
-
-		//echo "RESULT   $before|$middle|$after".PHP_EOL;
-*/
 
 		Diacritics::save2Db($before, $middle, $after);
-
 	}
 
 
@@ -322,20 +179,17 @@ class DiacriticsBuilder {
 
 		$this->file = $file;
 		$this->currOffset = 0;
-		$this->fileEndOffset = strlen($file) - 1;
+		$this->fileEndOffset = mb_strlen($file) - 1;
 
-		while(($offset = $this->getNextOffset()) != null) {
+		while(($offset = $this->getNextOffset()) != '') {
 
-			$this->pointOfInterestPadding($offset);
+			$this->leftAndRightPadding($offset);
 		}
 	}
 
 	function start() {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
-
 		while(($file = $this->getNextFile()) != null) {
-
-
 			$this->processFile($file);
 			MemoryManagement::clean();
 		}

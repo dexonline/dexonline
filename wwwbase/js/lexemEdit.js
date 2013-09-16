@@ -1,4 +1,5 @@
-struct_anyChanges = false;
+var struct_anyChanges = false;
+var COOKIE_NAME = 'lexemEdit';
 $.cookie.json = true;
 
 function lexemEditInit() {
@@ -99,31 +100,7 @@ function lexemEditInit() {
   $('.mergeLexem').click(mergeLexemButtonClick);
   $('.similarLink').click(similarLinkClick);
 
-  var props = ['left', 'top', 'width', 'height'];
-
-  $('.box').each(function() {
-    var $w = $().WM('open');
-    $w.find('.titlebartext').text($(this).attr('data-title'));
-    $w.attr('data-id', $(this).attr('data-id'));
-    for (var i = 0; i < props.length; i++) {
-      if (typeof($(this).attr('data-' + props[i])) != 'undefined') {
-        var value = parseInt($(this).attr('data-' + props[i]));
-        if (props[i] == 'left') {
-          value += parseInt($('#wmCanvas').offset().left);
-        } else if (props[i] == 'top') {
-          value += parseInt($('#wmCanvas').offset().top);
-        }
-        $w.css(props[i], value + 'px');
-      }
-    }
-    if ($(this).attr('data-minimized')) {
-      $w.WM('minimize');
-    }
-    $w.find('.windowcontent').append($(this).children());
-    $('#wmCanvas').append($w);
-  });
-  $('.window.minimized').each(function() { $(this).WM('raise'); });
-  $('#resizerproxy').mouseup(resizerSetCookie);
+  wmInit();
 }
 
 function sourceMatcher(term, text) {
@@ -395,9 +372,67 @@ function updateParadigm(modelType, modelNumber, restriction) {
   });
 }
 
-function resizerSetCookie() {
+// Initializes the window manager
+function wmInit() {
+  $('.box').each(function() {
+    // Convert each box to a window
+    var $w = $().WM('open');
+    $w.find('.titlebartext').text($(this).attr('data-title'));
+    $w.attr('data-id', $(this).attr('data-id'));
+    $w.find('.windowcontent').append($(this).children());
+    $('#wmCanvas').append($w);
+  });
+  wmSetCoordinates();
+
+  // Set some handlers for moving, resizing, and resetting the interface
+  $('#resizerproxy').mouseup(wmSetCookie);
+  $('#moverproxy').mouseup(wmSetCookie);
+  $('#interfaceResetLink').click(wmInterfaceReset);
+}
+
+// Sets the coordinates for each window based on the cookie (if available) or on HTML5 attributes of the original box
+function wmSetCoordinates() {
+  var props = ['left', 'top', 'width', 'height'];
+  var cookie = $.cookie(COOKIE_NAME);
+
+  $('.window').each(function() {
+    var id = $(this).attr('data-id');
+    if (cookie) {
+      for (var i = 0; i < props.length; i++) {
+        $(this).css(props[i], cookie[id][props[i]] + 'px');
+      }
+      if (cookie[id].minimized) {
+        $(this).WM('minimize');
+      }
+    } else {
+      // No cookie - load the corresponding box
+      var box = $('.box[data-id="' + id + '"]'); 
+      for (var i = 0; i < props.length; i++) {
+        if (typeof(box.attr('data-' + props[i])) != 'undefined') {
+          var value = parseInt(box.attr('data-' + props[i]));
+          if (props[i] == 'left') {
+            value += parseInt($('#wmCanvas').offset().left);
+          } else if (props[i] == 'top') {
+            value += parseInt($('#wmCanvas').offset().top);
+          }
+          $(this).css(props[i], value + 'px');
+        }
+      }
+      if (box.attr('data-minimized')) {
+        $(this).WM('minimize');
+      }
+    }
+  });
+  if (cookie) {
+    $('.window[data-id="' + cookie.focused + '"]').WM('raise');
+  } else {
+    // Raise minimized windows for clean interfaces, so that the users know they're there
+    $('.window.minimized').each(function() { $(this).WM('raise'); });
+  }
+}
+
+function wmSetCookie() {
   var data = {};
-  alert(data);
   $('.window').each(function() {
     var params = { minimized: $(this).hasClass('minimized') };
     if (params.minimized) {
@@ -414,5 +449,12 @@ function resizerSetCookie() {
     }
     data[$(this).attr('data-id')] = params;
   });
-  $.cookie('lexemEdit', data, { expires: 365 });
+  data['focused'] = $('.window.focused').attr('data-id');
+  $.cookie(COOKIE_NAME, data, { expires: 365 });
+}
+
+function wmInterfaceReset() {
+  $.removeCookie(COOKIE_NAME);
+  wmSetCoordinates();
+  return false;
 }

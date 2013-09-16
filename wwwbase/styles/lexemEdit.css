@@ -188,6 +188,11 @@ input[readonly] {
   margin: 0px 0px;
 }
 
+.interfaceReset {
+  float: right;
+  padding: 3px 10px;
+}
+
 /* Window manager settings */
 .titlebaricon {
   display: none;

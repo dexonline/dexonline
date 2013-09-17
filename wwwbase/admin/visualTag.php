@@ -18,7 +18,6 @@ if($action == 'save') {
   $yTag = util_getRequestParameter('yTag');
   $xImg = util_getRequestParameter('xImg');
   $yImg = util_getRequestParameter('yImg');
-  $isMain = util_getRequestParameter('isMain');
 
   $line = Model::factory('VisualTag')->create();
   $line->imageId = $imageId;

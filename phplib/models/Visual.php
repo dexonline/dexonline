@@ -51,6 +51,15 @@ class Visual extends BaseObject implements DatedObject {
 
   /** Extended by creating uploaded image thumbnail */
   function save() {
+    $path = util_getRootPath() . 'wwwbase/img/' . $this->path;
+    
+    // Saves the image size for further use when scale is needed
+    if(!$this->width || !$this->height) {
+      $dim = getimagesize($path);
+      $this->width = $dim[0];
+      $this->height = $dim[1];
+    }
+
     // Make a directory into which to generate or copy the thumbnail
     @mkdir($this->getThumbDir(), 0777);
 
@@ -59,7 +68,7 @@ class Visual extends BaseObject implements DatedObject {
 
     // Generate thumbnails for uploads or copy-pastes
     if (!$original) {
-      $thumb = new Imagick(util_getRootPath() . 'wwwbase/img/' . $this->path);
+      $thumb = new Imagick($path);
       $thumb->thumbnailImage(0, self::$thumbSize);
       $thumb->sharpenImage(1, 1);
       $thumb->writeImage($this->getThumbPath());

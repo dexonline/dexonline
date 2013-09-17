@@ -17,7 +17,7 @@ jQuery(document).ready(function() {
     });
   };
 
-  //Shows centre of the selection coordinates
+  /** Shows centre of the selection coordinates */
   function showCoords(c) {
     setCoords(c);
 
@@ -42,7 +42,7 @@ jQuery(document).ready(function() {
     return centre;
   };
 
-  //Clears the actual selection
+  /** Clears the actual selection */
   $('#clrSel').click(function(e) {
     jcrop_api.release();
 
@@ -78,6 +78,9 @@ function replaceSubmitEvent() {
   $('#lexemId').on('change', function(e){
     var id = $(this).select2('data').id;
     var text = $(this).select2('data').text;
+
+    // Matches only the lexeme, without the description in brackets 
+    text = text.match(/^[^ \(]+/);
 
     $('#lexemeId').val(id);
     $('#lexeme').val(text);

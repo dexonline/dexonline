@@ -212,7 +212,8 @@ Adaugă noi definiții OCR (una pe linie): <a href="/admin/ocrInput.php">click a
   <a href="{$wwwRoot}moderatori">Vizualizare / editare moderatori</a><br/>
   <a href="{$wwwRoot}surse">Vizualizare / editare surse</a><br/>
   <a href="{$wwwRoot}etichete-sensuri">Vizualizare / editare etichete pentru sensuri</a><br/>
-  <a href="{$wwwRoot}tipuri-modele">Vizualizare / editare tipuri de modele</a>
+  <a href="{$wwwRoot}tipuri-modele">Vizualizare / editare tipuri de modele</a><br/>
+  <a href="{$wwwRoot}admin/visual.php">Adăugare imagini pentru definiții</a>
 {/if}
 
 <script type="text/javascript">

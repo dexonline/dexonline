@@ -1,3 +1,5 @@
-{foreach from=$images item=image}
-  <a href="{$image.img}" data-lightbox="{$image.name}"><img src="{$image.tmb}"/></a>
-{/foreach}
+<div id="gallery">
+  {foreach from=$images item=image}
+    <a class="colorbox" href="{$image.img}" title="{$image.name}"><img src="{$image.tmb}"/></a>
+  {/foreach}
+</div>

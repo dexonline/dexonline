@@ -113,9 +113,10 @@
 
 <div id="resultsWrapper" class="txt">
   <div id="paradigmDiv" {if !$showParadigm}style="display: none"{/if}>{include file="common/bits/multiParadigm.ihtml"}</div>
-  <div id="gallery" {if !isset($images)}style="display: none"{/if}>
-    {if count($images)}{include file="common/bits/gallery.ihtml" images=$images}{/if}
-  </div>
+
+  {if count($images)}
+    {include file="common/bits/gallery.ihtml" images=$images}
+  {/if}
  
   {if $stopWords}
     <span class="stopWords">
@@ -192,5 +193,9 @@
       $(".typoLink").click(showTypoForm);
     </script>
     {/literal}
+  {/if}
+
+  {if count($tags)}
+    {include file="common/bits/tagsInfo.ihtml" tags=$tags size=$size}
   {/if}
 </div>

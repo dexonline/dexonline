@@ -1,7 +1,7 @@
 <br/>
 {if $anyUntaggedImages}
   {if !$imgLexemeId}
-    <div class="visualTagCanvas">
+    <div class="visualTagImg">
       <img src="{$imagePath}"/>
     </div> 
     <div>

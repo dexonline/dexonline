@@ -242,3 +242,37 @@ verbModel - The number (not ID!) of the verb model. An entry in
 adjectiveModel - The number (not ID!) of the adjective model. An
   entry in Model is guaranteed to exist with type A and number
   adjectiveModel.
+
+The Visual table
+------------------
+
+Contains information about definition images. Images are stored in 
+wwwbase/img/visual folder and every image has a corresponding thumbnail
+that is created in a .thumb folder (e.g. wwwbase/img/visual/flower.jpg
+-> image => wwwbase/img/visual/.thumb/flower.jpg -> thumbnail).
+
+id - Unique numeric ID.
+path - Image path relative to visual folder.
+width - Image width.
+height - Image height.
+lexemeId - The lexeme ID to which the image corresponds.
+userId - The ID of the user that has uploaded the image.
+revised - A boolean value to show whether the image has been tagged.
+          If true, then it is ready for display on the corresponding
+          lexeme definition page.
+
+
+The VisualTag table
+---------------------
+
+Contains information needed to draw a tag on the canvas element.
+This information is automatically stored from the tagging page.
+
+id - Unique numeric ID.
+imageId - The image on which the tags will be drawn.
+lexemeId - The ID of the lexeme that corresponds to this tag.
+label - The name of the tag (the one that will be displayed).
+textXCoord - The X coordinate for the centre of the tag text.
+textYCoord - The Y coordinate for the centre of the tag text.
+imgXCoord - The X coordinate for the spot where the tag indicates.
+imgYCoord - The Y coordinate for the spot where the tag indicates.

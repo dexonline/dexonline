@@ -11,3 +11,5 @@ class VisualTag extends BaseObject implements DatedObject {
     }
   }
 }
+
+?>

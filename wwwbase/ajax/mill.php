@@ -28,6 +28,22 @@ function getWordForDefitionId($defId)
     return $word->lexicon;
 }
 
+function getSimpleDefinitionsForLexemIds($lexemIds)
+{
+    $defIds = Model::factory('LexemDefinitionMap')
+            ->select('DefinitionId')
+            ->distinct()
+            ->where_in('LexemId', $lexemIds)
+            ->find_many();
+    $defIds = array_map(function ($def){return $def->DefinitionId;}, $defIds);
+    
+    $defs = Model::factory('DefinitionSimple')
+            ->where_in('DefinitionId',$defIds)
+            ->find_many();
+    
+    return $defs;
+}
+
 $difficulty = util_getRequestParameterWithDefault('d', 0);
 $logAnswerId = util_getRequestParameterWithDefault('answerId', 0);
 $logGuessed = util_getRequestParameterWithDefault('guessed', 0);
@@ -58,22 +74,58 @@ $options[$answer]['term'] = getWordForDefitionId($maindef->definitionId);
 $options[$answer]['text'] = $maindef->getDisplayValue();
 $used[$maindef->definitionId] = 1;
 
+$closestLexemsDefinitionsCount = null;
+$closestLexemsDefinitions = null;
+if ($difficulty > 1)
+{
+  $nearLexemIds = NGram::searchLexemIds($word);
+  arsort($nearLexemIds);
+  $lexemPoolSize = 48/$difficulty;
+  $closestLexemIds = array_slice($nearLexemIds, 0, $lexemPoolSize, true);
+  $closestLexemIds = array_keys($closestLexemIds);
+  
+  $closestLexemsDefinitions = getSimpleDefinitionsForLexemIds($closestLexemIds);
+  $closestLexemsDefinitionsCount = count($closestLexemsDefinitions);
+  
+  //if there are no close lexem definitions to choose from 
+  //then use easier difficulty
+  if ($closestLexemsDefinitionsCount == 0)
+      $difficulty = 1;
+}
+
 for ($i = 1; $i <= 4; $i++) {
+  $def = null;  
   if ($i != $answer) {
-    do {
+    do
+    {
       if ($difficulty == 1) {
         $aux = rand(0, $count - 1);
+        $def = Model::factory('DefinitionSimple')->limit(1)->offset($aux)->find_one();
       } else {
-        $aux = getNormalRand(100 - ($difficulty * 20), $chosenDef, $count - 1);
+        $aux = rand(0, $closestLexemsDefinitionsCount - 1);
+        $def = $closestLexemsDefinitions[$aux];
+        
+        unset($closestLexemsDefinitions[$aux]);
+        $closestLexemsDefinitions = array_values($closestLexemsDefinitions);
+        $closestLexemsDefinitionsCount--;
+        
+        //if we run out of close lexem definitions to use 
+        //then use easier difficulty
+        if ($closestLexemsDefinitionsCount == 0)
+        {
+            $difficulty = 1;
+        }
       }
-      $def = Model::factory('DefinitionSimple')->limit(1)->offset($aux)->find_one();
     } while (array_key_exists($def->definitionId, $used));
+  
+    
     $used[$def->definitionId] = 1;
     $options[$i]=array();
     $options[$i]['term'] = getWordForDefitionId($def->definitionId);
     $options[$i]['text'] = $def->getDisplayValue();
   }
 }
+
 
 $xml->addChild('word', $word);
 $xml->addChild('answerId', $maindef->id);

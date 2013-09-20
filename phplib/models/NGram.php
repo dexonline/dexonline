@@ -21,20 +21,8 @@ class NGram extends BaseObject {
 
   public static function searchNGram($cuv) {
     $leng = mb_strlen($cuv);
-    $ngramList = self::split($cuv);
-    $hash = array();
-    foreach($ngramList as $i => $ngram) {
-      $lexemIdList = db_getArray(sprintf("select lexemId from NGram where ngram = '%s' and pos between %d and %d",
-                                         $ngram, $i - self::$MAX_MOVE, $i + self::$MAX_MOVE));
-      $lexemIdList = array_unique($lexemIdList);
-      foreach($lexemIdList as $lexemId) {
-        if (!isset($hash[$lexemId])) {
-          $hash[$lexemId] = 1;
-        } else {
-          $hash[$lexemId]++;
-        }
-      }
-    }
+    
+    $hash = NGram::searchLexemIds($cuv);
     arsort($hash);
     $max = current($hash);
     $lexIds = array_keys($hash,$max);
@@ -59,6 +47,26 @@ class NGram extends BaseObject {
     array_multisort($distances, $results);
 
     return $results;
+  }
+  
+  public static function searchLexemIds($cuv)
+  {
+    $ngramList = self::split($cuv);
+    $hash = array();
+    foreach($ngramList as $i => $ngram) {
+      $lexemIdList = db_getArray(sprintf("select lexemId from NGram where ngram = '%s' and pos between %d and %d",
+                                         $ngram, $i - self::$MAX_MOVE, $i + self::$MAX_MOVE));
+      $lexemIdList = array_unique($lexemIdList);
+      foreach($lexemIdList as $lexemId) {
+        if (!isset($hash[$lexemId])) {
+          $hash[$lexemId] = 1;
+        } else {
+          $hash[$lexemId]++;
+        }
+      }
+    }
+    
+    return $hash;
   }
 }
 

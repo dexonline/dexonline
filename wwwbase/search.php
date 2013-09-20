@@ -302,21 +302,51 @@ SmartyWrap::assign('advancedSearch', $text || $sourceId);
 
 /* Test */
 if(!empty($lexems)){
-  $images = array();
-  foreach($lexems as $lexem) {
-    $lines = Visual::get_all_by_lexemeId($lexem->id);
-    foreach($lines as $line) {
-      if(!empty($line)) {
-        $image = Visual::getImageWww($line->path);
-        $thumb = Visual::getThumbWww($line->path);
+  $images = array(); $allTags = array(); $size = array();
 
-        $images[] = array('img' => $image, 'tmb' => $thumb, 'name' => $lexem->formUtf8General);
+  foreach($lexems as $lexeme) {
+    $line = Visual::get_by_lexemeId($lexeme->id);
+
+    if(!empty($line)) {
+      $imgTags = array();
+
+      // For every lexeme, it fetches the image and thumb paths from the database
+      $image = Visual::getImageWww($line->path);
+      $thumb = Visual::getThumbWww($line->path);
+
+      // and stores them in the $images array.
+      $images[] = array('img' => $image, 'tmb' => $thumb, 'name' => $lexeme->formUtf8General);
+
+      if($line->revised) {
+        // Also stores the size for every image, useful for scaling.
+        $size[] = array('width' => $line->width, 'height' => $line->height);
+
+        // Checks if each image, respectively, has tags.
+        $rows = VisualTag::get_all_by_imageId($line->id);
+
+        if(!empty($rows)) {
+          foreach($rows as $row) {
+            // If so, each tag information is stored as an entry in the $tagInfo array
+            $tagInfo = array('label' => $row->label, 'textX' => $row->textXCoord,
+                             'textY' => $row->textYCoord, 'imgX' => $row->imgXCoord,
+                             'imgY' => $row->imgYCoord);
+            // and every tag represents an entry in the $imgTags array.
+            $imgTags[] = $tagInfo;
+          }
+        }
+
+        // Finally, all the tags for one image are stored as an entry in the $allTags array
+        $allTags[] = array('tags' => $imgTags, 'width' => $line->width, 'height' => $line->height,
+                         'lexeme' => $lexeme->formUtf8General);
       }
     }
   }
-SmartyWrap::assign('images', $images);
-SmartyWrap::addCss('gallery');
-SmartyWrap::addJs('gallery');
+
+  SmartyWrap::assign('images', $images);
+  SmartyWrap::assign('tags', $allTags);
+  SmartyWrap::assign('size', $size);
+  SmartyWrap::addCss('gallery');
+  SmartyWrap::addJs('gallery');
 }
 /* Test */
 

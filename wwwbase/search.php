@@ -300,7 +300,7 @@ SmartyWrap::assign('showParadigm', $showParadigm);
 SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('advancedSearch', $text || $sourceId);
 
-/* Test */
+/* Gallery */
 if(!empty($lexems)){
   $images = array(); $allTags = array(); $size = array();
 
@@ -327,9 +327,11 @@ if(!empty($lexems)){
         if(!empty($rows)) {
           foreach($rows as $row) {
             // If so, each tag information is stored as an entry in the $tagInfo array
+            $word = Lexem::get_by_id($row->lexemeId);
             $tagInfo = array('label' => $row->label, 'textX' => $row->textXCoord,
                              'textY' => $row->textYCoord, 'imgX' => $row->imgXCoord,
-                             'imgY' => $row->imgYCoord);
+                             'imgY' => $row->imgYCoord, 
+                             'lexeme' => !empty($word) ? $word->formUtf8General : '');
             // and every tag represents an entry in the $imgTags array.
             $imgTags[] = $tagInfo;
           }
@@ -348,7 +350,7 @@ if(!empty($lexems)){
   SmartyWrap::addCss('gallery');
   SmartyWrap::addJs('gallery');
 }
-/* Test */
+/* Gallery */
 
 if (!$xml) {
   SmartyWrap::addCss('paradigm');

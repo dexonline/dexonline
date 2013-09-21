@@ -64,12 +64,10 @@
           <input id="lexemId" type="hidden"/>
         </label><br/>
 
-        <label>Id lexem:
-          <input id="lexemeId" type="text" size="10" name="lexemeId"/>
-        </label><br/>
+          <input id="lexemeId" type="hidden" size="10" name="lexemeId"/>
 
-        <label>Lexem:
-          <input id="lexeme" type="text" size="15" name="lexeme"/>
+        <label>Text de afișat
+          <input id="label" type="text" size="20" name="label"/>
         </label><br/>
 
         <label>Coordonatele centrului etichetei:

@@ -83,18 +83,18 @@ function replaceSubmitEvent() {
     text = text.match(/^[^ \(]+/);
 
     $('#lexemeId').val(id);
-    $('#lexeme').val(text);
+    $('#label').val(text);
   });
 }
 
 function validateTag() {
-  var lexeme = $('#lexeme').val();
+  var label = $('#label').val();
   var xImg = $('#xImg').val();
   var yImg = $('#yImg').val();
   var xTag = $('#xTag').val();
   var yTag = $('#yTag').val();
 
-  if(!lexeme) {
+  if(!label) {
     alert('Ai uitat să completezi câmpul Cuvânt');
     return false;
 

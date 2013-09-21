@@ -13,7 +13,7 @@ $action = util_getRequestParameter('action');
 if($action == 'save') {
   $imageId = util_getRequestParameter('imageId');
   $lexemeId = util_getrequestParameter('lexemeId');
-  $lexeme = util_getRequestParameter('lexeme');
+  $label = util_getRequestParameter('label');
   $xTag = util_getRequestParameter('xTag');
   $yTag = util_getRequestParameter('yTag');
   $xImg = util_getRequestParameter('xImg');
@@ -22,7 +22,7 @@ if($action == 'save') {
   $line = Model::factory('VisualTag')->create();
   $line->imageId = $imageId;
   $line->lexemeId = $lexemeId;
-  $line->label = $lexeme;
+  $line->label = $label;
   $line->textXCoord = $xTag;
   $line->textYCoord = $yTag;
   $line->imgXCoord = $xImg;

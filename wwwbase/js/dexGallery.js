@@ -51,7 +51,7 @@ function drawOnCanvas() {
     }
 
     // Removes only the dummy text layer, used only for getting dimensions
-    canvas.removeLayerGroup('Pre');
+    canvas.removeLayerGroup('DummyText');
   }
 }
 
@@ -62,8 +62,8 @@ function drawTag(canvas, tagNo, tagData) {
   // Draws a dummy text to get its dimensions
   canvas.drawText({
     layer: true,
-    name: 'pre' + tagNo,
-    groups: ['Pre'],
+    name: 'dummyText' + tagNo,
+    groups: ['DummyText'],
     fromCenter: true,
     strokeStyle: '#fff',
     strokeWidth: 2,
@@ -93,15 +93,15 @@ function drawTag(canvas, tagNo, tagData) {
     fromCenter: true,
     fillStyle: '#fff',
     x: tagData[0], y: tagData[1],
-    width: canvas.measureText('pre' + tagNo).width + tagNamePadding,
-    height: canvas.measureText('pre' + tagNo).height + tagNamePadding
+    width: canvas.measureText('dummyText' + tagNo).width + tagNamePadding,
+    height: canvas.measureText('dummyText' + tagNo).height + tagNamePadding
   })
 
   // Rewrites the text over the recatngle
   .drawText({
     layer: true,
     name: 'tagName' + tagNo,
-    groups: ['TagNames'],
+    groups: ['TagsName'],
     fromCenter: true,
     fillStyle: '#000',
     strokeWidth: 2,
@@ -114,7 +114,7 @@ function drawTag(canvas, tagNo, tagData) {
       mouseover: 'pointer'
     },
     click: function() {
-      window.open('http://www.dexonline.ro/definitie/' + tagData[4], '_self');
+      window.open('http://www.dexonline.ro/definitie/' + tagData[5], '_self');
     }
   });
 }

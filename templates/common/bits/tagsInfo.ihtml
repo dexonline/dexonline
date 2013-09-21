@@ -3,7 +3,7 @@
   <div id="{$img.lexeme}">
     <p>{$img.width}, {$img.height}</p>
     {foreach from=$img.tags item=tag}
-      <p>{$tag.textX}, {$tag.textY}, {$tag.imgX}, {$tag.imgY}, "{$tag.label}"</p>
+      <p>{$tag.textX}, {$tag.textY}, {$tag.imgX}, {$tag.imgY}, "{$tag.label}", "{$tag.lexeme}"</p>
     {/foreach}
   </div>
 {/foreach}

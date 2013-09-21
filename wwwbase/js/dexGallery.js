@@ -13,8 +13,7 @@ function addCanvas() {
 
   document.getElementById('cboxLoadedContent').appendChild(canvasElement);
 
-  $('canvas').css('position', 'absolute').css('top', '5px').css('left', '5px')
-    .attr('width', img.css('width')).attr('height', img.css('height'));
+  $('canvas').attr('width', img.css('width')).attr('height', img.css('height'));
 }
 
 /* Șterge conținutul desenat pe canvas și apoi șterge elementul */
@@ -62,7 +61,7 @@ function drawTag(canvas, tagNo, tagData) {
     strokeStyle: '#fff',
     strokeWidth: 2,
     fontSize: 12,
-    fontFamily: 'Calibri',
+    fontFamily: 'Arial',
     text: tagData[4],
     maxWidth: tagNameMaxWidth,
     x: tagData[0], y: tagData[1],
@@ -91,7 +90,7 @@ function drawTag(canvas, tagNo, tagData) {
     height: canvas.measureText('pre' + tagNo).height + tagNamePadding
   })
 
-  /* Rescrie textul în pătrat */
+  /* Rescrie textul în dreptunghi */
   .drawText({
     layer: true,
     name: 'tagName' + tagNo,
@@ -100,7 +99,7 @@ function drawTag(canvas, tagNo, tagData) {
     fillStyle: '#000',
     strokeWidth: 2,
     fontSize: 12,
-    fontFamily: 'Calibri',
+    fontFamily: 'Arial',
     text: tagData[4],
     maxWidth: tagNameMaxWidth,
     x: tagData[0], y: tagData[1],

@@ -1,7 +1,7 @@
 <?php
 require_once '../../phplib/util.php' ;
 require_once '../../phplib/models/Visual.php' ;
-//util_assertModerator(PRIV_VISUAL);
+util_assertModerator(PRIV_VISUAL);
 util_assertNotMirror();
 RecentLink::createOrUpdate('Etichetare Imagini Definiții');
 

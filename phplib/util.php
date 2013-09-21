@@ -145,10 +145,11 @@ function util_defineConstants() {
   define('PRIV_WOTD', 0x10);
   define('PRIV_SUPER', 0x20);
   define('PRIV_STRUCT', 0x40);
+  define('PRIV_VISUAL', 0x80);
   define('PRIV_VIEW_HIDDEN', PRIV_ADMIN);
-  define('NUM_PRIVILEGES', 7);
+  define('NUM_PRIVILEGES', 8);
   $GLOBALS['PRIV_NAMES'] = array('Administrator', 'Moderator LOC', 'Moderator', 'Editor al ghidului de exprimare', 'Editor al cuvântului zilei',
-                                 'Utilizator privilegiat', '«Structurist» al definițiilor');
+                                 'Utilizator privilegiat', '«Structurist» al definițiilor', 'Mderator Imagini Definiții');
 
 # TODO rethink this part
   //Source 

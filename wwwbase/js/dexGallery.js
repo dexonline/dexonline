@@ -4,9 +4,16 @@ $(document).ready(function() {
     onComplete: function() {addCanvas(); drawOnCanvas();},
     onCleanup: function() {removeCanvas();}
   });
+
+  // Adds tags visibility toggle
+  var tagsToggle = document.createElement('button');
+  tagsToggle.innerHTML = 'Ascunde/Afișează etichetele';
+  document.getElementById('cboxContent').appendChild(tagsToggle);
+  $(tagsToggle).attr('id', 'tagsToggle')
+               .on('click', function() {$('canvas').toggle();});
 });
 
-/* Adaugă elementul canvas odată ce s-a încărcat pluginul */
+/* Once the plugin is loaded, adds the canvas element */
 function addCanvas() {
   var img = $('.cboxPhoto');
   var canvasElement = document.createElement('canvas');
@@ -16,7 +23,7 @@ function addCanvas() {
   $('canvas').attr('width', img.css('width')).attr('height', img.css('height'));
 }
 
-/* Șterge conținutul desenat pe canvas și apoi șterge elementul */
+/* Clears the canvas and the deletes the canvas element itself */
 function removeCanvas() {
   var canvasElement = document.getElementsByTagName('canvas')[0];
 
@@ -43,7 +50,7 @@ function drawOnCanvas() {
       drawTag(canvas, i, data);
     }
 
-    /* Șterge primul text, care are doar caracter orientativ */
+    // Removes only the dummy text layer, used only for getting dimensions
     canvas.removeLayerGroup('Pre');
   }
 }
@@ -52,7 +59,7 @@ function drawTag(canvas, tagNo, tagData) {
   var tagNamePadding = 10;
   var tagNameMaxWidth = 100;
 
-  /* Scrie textul pentru a stabili dimensiunea lui */ 
+  // Draws a dummy text to get its dimensions
   canvas.drawText({
     layer: true,
     name: 'pre' + tagNo,
@@ -67,7 +74,7 @@ function drawTag(canvas, tagNo, tagData) {
     x: tagData[0], y: tagData[1],
   })
 
-  /* Trage linia între cele două puncte */
+  // Draws the line between the two points
   .drawLine({
     layer: true,
     name: 'tag' + tagNo,
@@ -78,7 +85,7 @@ function drawTag(canvas, tagNo, tagData) {
     x2: tagData[2], y2: tagData[3]
   })
 
-  /* Desenează un dreptungi de dimensiunea textului + un delta */ 
+  // Draws a rectangle that has the dimensions of the dummy text + tagNamePadding
   .drawRect({
     layer: true,
     name: 'tagBackground' + tagNo,
@@ -90,7 +97,7 @@ function drawTag(canvas, tagNo, tagData) {
     height: canvas.measureText('pre' + tagNo).height + tagNamePadding
   })
 
-  /* Rescrie textul în dreptunghi */
+  // Rewrites the text over the recatngle
   .drawText({
     layer: true,
     name: 'tagName' + tagNo,

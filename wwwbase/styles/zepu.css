@@ -1430,3 +1430,11 @@ canvas {
   top: 5px;
   left: 5px;
 }
+
+#tagsToggle {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}

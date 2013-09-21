@@ -96,7 +96,7 @@ class DiacriticsFixer {
 		return $this->resultText;
 	}
 
-	function toLower($content) {
+	static function toLower($content) {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
 		return mb_strtolower($content);
 	}
@@ -124,10 +124,12 @@ class DiacriticsFixer {
 			if ($infOffset < 0) {
 				$infPadding = true;
 			}
-
-			$infCh = StringUtil::getCharAt($this->text, $infOffset);
-			$infPadding = self::isSeparator($infCh);
-
+			else {
+				
+				$infCh = StringUtil::getCharAt($this->text, $infOffset);
+				$infPadding = self::isSeparator($infCh);
+			}
+			
 			if ($infPadding) {
 				$before = self::$paddingChar . $before;
 			}
@@ -139,10 +141,10 @@ class DiacriticsFixer {
 			if ($supOffset > $this->textEndOffset) {
 				$supPadding = true;
 			}
-
-			$supCh = StringUtil::getCharAt($this->text, $supOffset);
-			$supPadding = self::isSeparator($supCh);
-
+			else {
+				$supCh = StringUtil::getCharAt($this->text, $supOffset);
+				$supPadding = self::isSeparator($supCh);
+			}
 			if ($supPadding) {
 				$after = $after . self::$paddingChar;
 			}
@@ -152,12 +154,13 @@ class DiacriticsFixer {
 			}
 		}
 
-		crawlerLog("FOUND " . $before . '|' . $middle . '|' . $after);
+		crawlerLog("IN TEXT " . $before .'|' . $middle . '|' . $after);
 
-		$tableObj = Diacritics::entryExists($before, $middle, $after);
+		$tableObj = Diacritics::entryExists(self::toLower($before),
+					self::toLower($middle), self::toLower($after));
 		if ($tableObj != null) {
 			crawlerLog("Entry Exists");
-			$ch = $this->getMostProbableChar($tableObj);
+			$ch = $this->getAllCharForms($tableObj, $middle);
 
 			$this->resultText .= mb_substr($this->text, $this->lastOffset, $offset - $this->lastOffset);
 
@@ -171,22 +174,61 @@ class DiacriticsFixer {
 		$this->lastOffset = $this->currOffset;
 	}
 
-	public function getMostProbableChar($tableObj) {
+	public function getAllCharForms($tableObj, $middle) {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
 		$ch = $tableObj->middle;
 		//$ch = self::$a['circumflexForm'];
 
-		$sortedSet = self::getCharProbabilityArray($tableObj);
+		$sortedSet = self::getCharOccurenceArray($tableObj);
 
 		$charArray = $this->getCharArray($ch);
 
 		crawlerLog("ARRAY ". print_r($sortedSet, true));
 
-		$key = key($sortedSet);//array_search($charArray[0], $charArray);
-		crawlerLog("WTF " . $key);
-		$ch = $charArray[$key];
+		//$key = key($sortedSet);//array_search($charArray[0], $charArray);
+		//crawlerLog("WTF " . $key);
+		//$ch = $charArray[$key];
+
+		$ch = $this->dropDownSelect($sortedSet, $charArray, $middle);
 
 		return $ch;
+	}
+
+	private function dropDownSelect($forms, $charArray, $middle) {
+
+		$buffer = '<select>';
+
+		$i = 0;
+
+		foreach($forms as $form => $value) {
+
+			if ($value > 0) {
+
+				$buffer .= "<option value=\"".$charArray[$form]."\">".self::getToUpperOrToLower($charArray[$form], $middle)."</option>";
+			}
+			else {
+				$i ++;
+			}
+		}
+
+		$buffer .= '</select>';
+
+		if ($i > 1) {
+			return self::getToUpperOrToLower($charArray[key($forms)], $middle);
+		}
+		else {
+			return $buffer;
+		}
+	}
+
+	static function getToUpperOrToLower($val, $middle) {
+
+		if ($middle == mb_strtolower($middle)) {
+			return $val;
+		}
+		else {
+			return mb_strtoupper($val);
+		}
 	}
 
 	private function getCharArray($ch) {
@@ -194,7 +236,7 @@ class DiacriticsFixer {
 		return self::$$ch;
 	}
 
-	private static function getCharProbabilityArray($tableObj) {
+	private static function getCharOccurenceArray($tableObj) {
 
 		$array = array(
 			'defaultForm' => $tableObj->defaultForm,
@@ -220,11 +262,12 @@ if (strstr( $_SERVER['SCRIPT_NAME'], 'diacritice.php')) {
 	if (isset($_POST['text']) && $_POST['text'] != '') {
 
 		$obj = new DiacriticsFixer();
-		SmartyWrap::assign('result', $obj->fix($_POST['text']));
+
+		SmartyWrap::assign('textarea', '<div id="text_input">'.$obj->fix($_POST['text']).'</div>');
 	}
 	else {
 
-		SmartyWrap::assign('result', '');
+		SmartyWrap::assign('textarea', '<textarea name="text" id="text_input" placeholder="introduceți textul aici"></textarea>');
 	}
 
 

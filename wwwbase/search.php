@@ -311,7 +311,7 @@ if(!empty($lexems)){
       if(!empty($line)) {
         $imgTags = array();
 
-        // For every lexeme, it fetches the image and thumb paths from the database
+        // For every lexeme, it fetches images and thumbs paths from the database
         $image = Visual::getImageWww($line->path);
         $thumb = Visual::getThumbWww($line->path);
 

@@ -381,6 +381,9 @@ span.tooltip {
   float: left;
   width: 500px;
   height: 500px;
+}
+
+.jcrop-holder {
   border: 1px solid black;
 }
 

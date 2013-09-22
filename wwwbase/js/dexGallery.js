@@ -12,7 +12,9 @@ $(document).ready(function() {
   });
 });
 
-/* Once the plugin is loaded, it clones the canvas element and prepares it for display */
+/* Once the plugin is loaded, it clones the canvas element and prepares it for display.
+   The canvas element is overlayed on the element with .cboxPhoto class, and thus it
+   has to have its dimensions. It also adds a button to toggle the tags visibility. */
 function addCanvas() {
   var canvas = $('#prototypeCanvas'), parent = $('#cboxLoadedContent'),
       img = $('.cboxPhoto'), tagsToggle = $('#prototypeTagsToggleButton');
@@ -34,17 +36,32 @@ function removeCanvas() {
 
 function drawOnCanvas() {
   var canvas = $('#activeCanvas');
+  // The colorbox plugin title is made up of two parts, separated by a space character:
+  // 1. the unique id of the image from the Visual table
+  // 2. the name of the lexeme corresponding to the image
   var title = $('#cboxTitle').html();
+  // In the tagsInfo div, all the tags corresponding to one image are nested
+  // in a div element whose id is the the unique id of that image in the Visual table.
+  // Thus the title is parsed, the id extracted and the div element with that specific id selected.
   var tags = $('#' + parseInt(title)).children();
-
+  // As we want the title to show the lexeme, the id is removed.
   $('#cboxTitle').html(title.match(/[^\d]+$/));
 
   if(tags.length){
     var data = new Array();
+    // Image information is parsed
     var dim = JSON.parse('[' + tags[0].innerHTML + ']');
+    // and the scales are calculated.
     var widthScale = parseInt(canvas.attr('width')) / dim[0];
     var heightScale = parseInt(canvas.attr('height')) / dim[1];
 
+    // Tags are parsed one by one. One tag information is:
+    // data[0] is x coordinate for tag label and line start (int)
+    // data[1] is y coordinate for tag label and line start (int)
+    // data[2] is x coordinate for line end (int)
+    // data[3] is y coordinate for line end (int)
+    // data[4] is tag label text (string)
+    // data[5] is the lexeme to which to redirect on click (string)
     for(var i = 1; i < tags.length; i++){
       var data = JSON.parse('[' + tags[i].innerHTML + ']');
 

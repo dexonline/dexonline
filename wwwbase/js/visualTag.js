@@ -10,36 +10,23 @@ jQuery(document).ready(function() {
     $('#jcrop').Jcrop({
       boxHeight: 500,
       boxWidth: 500,
-      onSelect: showCoords,
-      onChange: showCoords
+      onSelect: setCoords,
+      onChange: setCoords
     }, function() {
       jcrop_api = this;
     });
   };
 
-  /** Shows centre of the selection coordinates */
-  function showCoords(c) {
-    setCoords(c);
+  function setCoords(c) {
+    calculateCentre(c);
 
     $('#x').val(coords.cx);
     $('#y').val(coords.cy);
   };
 
-  function setCoords(c) {
-    var q = new Array();
-    q = calculateCentre(c);
-
-    coords.cx = q[0];
-    coords.cy = q[1];
-  };
-
   function calculateCentre(c) {
-    var centre = new Array();
-
-    centre[0] = Math.round((2 * c.x + c.w) / 2);
-    centre[1] = Math.round((2 * c.y + c.h) / 2);
-
-    return centre;
+    coords.cx = Math.round((2 * c.x + c.w) / 2);
+    coords.cy = Math.round((2 * c.y + c.h) / 2);
   };
 
   /** Clears the actual selection */

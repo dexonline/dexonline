@@ -25,6 +25,8 @@ class DiacriticsFixer {
 
 	private $resultText;
 	private $lastOffset;
+	private $hiddenText;
+	private $selectCount;
 
 
 	protected $currOffset;
@@ -32,7 +34,8 @@ class DiacriticsFixer {
 	protected $fileEndOffset;
 
 	protected static $diacritics;
-	protected static $nonDiacritics;
+	protected static $nonLowerDiacritics;
+	protected static $nonUpperDiacritics;
 	protected static $paddingNumber;
 	protected static $paddingChar;
 	/*
@@ -42,9 +45,11 @@ class DiacriticsFixer {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
 
 		self::$diacritics = pref_getSectionPreference("crawler", "diacritics");
-		self::$nonDiacritics = pref_getSectionPreference("crawler", "non_diacritics");
+		self::$nonLowerDiacritics = pref_getSectionPreference("crawler", "non_lower_diacritics");
+		self::$nonUpperDiacritics = pref_getSectionPreference("crawler", "non_upper_diacritics");
 		self::$paddingNumber = pref_getSectionPreference('crawler', 'diacritics_padding_length');
 		self::$paddingChar = pref_getSectionPreference('crawler', 'padding_char');
+		$this->selectCount = 0;
  	}
 
 	/* returneaza urmatorul index in fisier care contine
@@ -64,7 +69,7 @@ class DiacriticsFixer {
 
 	static function isSeparator($ch) {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
-		return !(ctype_lower($ch) || $ch == '-');
+		return !(ctype_alpha($ch) || $ch == '-');
 	}
 
 
@@ -76,6 +81,7 @@ class DiacriticsFixer {
 		$this->lastOffset = 0;
 
 		$this->resultText = '';
+		$this->hiddenText = '';
 		$this->text = $text;
 
 		$this->textEndOffset = mb_strlen($text) - 1;
@@ -86,6 +92,7 @@ class DiacriticsFixer {
 		}
 		//copiem de la ultimul posibil diacritic pana la final
 		$this->resultText .= mb_substr($this->text, $this->lastOffset, $this->textEndOffset - $this->lastOffset + 1);
+		$this->hiddenText .= mb_substr($this->text, $this->lastOffset, $this->textEndOffset - $this->lastOffset + 1);
 	}
 
 
@@ -104,7 +111,8 @@ class DiacriticsFixer {
 
 	static function isPossibleDiacritic($ch) {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
-		return strstr(self::$nonDiacritics, $ch);
+		return strstr(self::$nonLowerDiacritics, $ch) ||
+			strstr(self::$nonUpperDiacritics, $ch);
 	}
 
 
@@ -156,19 +164,31 @@ class DiacriticsFixer {
 
 		crawlerLog("IN TEXT " . $before .'|' . $middle . '|' . $after);
 
-		$tableObj = Diacritics::entryExists(self::toLower($before),
-					self::toLower($middle), self::toLower($after));
+		$tableObj = Diacritics::entryExists($before, $middle, $after);
 		if ($tableObj != null) {
 			crawlerLog("Entry Exists");
 			$ch = $this->getAllCharForms($tableObj, $middle);
 
 			$this->resultText .= mb_substr($this->text, $this->lastOffset, $offset - $this->lastOffset);
 
+			$this->hiddenText .= mb_substr($this->text, $this->lastOffset, $offset - $this->lastOffset);
+
 			$this->resultText .= $ch;
+
+			if (mb_strlen($ch) == 1) {
+				$this->hiddenText .= $ch;
+			}
+			else {
+				$this->hiddenText .= "@@".($this->selectCount - 1)."@@";
+			}
+
+
 		}
 		else {
 
-			$this->resultText .= mb_substr($this->text, $this->lastOffset, $offset - $this->lastOffset + 1);			
+			$this->resultText .= mb_substr($this->text, $this->lastOffset, $offset - $this->lastOffset + 1);
+
+			$this->hiddenText .= mb_substr($this->text, $this->lastOffset, $offset - $this->lastOffset + 1);			
 		}
 
 		$this->lastOffset = $this->currOffset;
@@ -189,14 +209,32 @@ class DiacriticsFixer {
 		//crawlerLog("WTF " . $key);
 		//$ch = $charArray[$key];
 
-		$ch = $this->dropDownSelect($sortedSet, $charArray, $middle);
-
+		if (self::hasMoreVariants($sortedSet)) {
+			$ch = $this->dropDownSelect($sortedSet, $charArray, $middle);
+		}
+		else {
+			$ch  = self::getToUpperOrToLower($charArray[key($sortedSet)], $middle);
+		}
 		return $ch;
 	}
 
 	private function dropDownSelect($forms, $charArray, $middle) {
 
-		$buffer = '<select>';
+		$buffer = '<select name="'.$this->selectCount++.'">';
+
+		foreach($forms as $form => $value) {
+
+			if ($value > 0) {
+				$ch = self::getToUpperOrToLower($charArray[$form], $middle);
+				$buffer .= "<option value=\"".$ch."\">".$ch."</option>";
+			}
+		}
+
+		$buffer .= '</select>';
+		return $buffer;
+	}
+
+	static function hasMoreVariants($forms) {
 
 		$i = 0;
 
@@ -204,21 +242,11 @@ class DiacriticsFixer {
 
 			if ($value > 0) {
 
-				$buffer .= "<option value=\"".$charArray[$form]."\">".self::getToUpperOrToLower($charArray[$form], $middle)."</option>";
-			}
-			else {
-				$i ++;
+				$i++;
 			}
 		}
 
-		$buffer .= '</select>';
-
-		if ($i > 1) {
-			return self::getToUpperOrToLower($charArray[key($forms)], $middle);
-		}
-		else {
-			return $buffer;
-		}
+		return ($i > 1);
 	}
 
 	static function getToUpperOrToLower($val, $middle) {
@@ -248,6 +276,35 @@ class DiacriticsFixer {
 		return $array;
 	}
 
+	function getHiddenText() {
+
+		return $this->hiddenText;
+	}
+
+	function replaceDiacritics() {
+
+		if (isset($_POST['hiddenText'])) {
+			if ($_POST['hiddenText'] == '')
+			return '';
+			else {
+				$search = array();
+				$replace = array();
+
+				$buffer = $_POST['hiddenText'];
+				foreach($_POST as $key => $value) {
+
+					if (is_numeric($key)) {
+						$search[] = '/@@'.$key.'@@/i';
+						$replace[] = $value;
+					}
+				}
+				return preg_replace($search, $replace, $buffer);
+			}
+		}
+		else {
+			return '';
+		}
+	}
 
 }
 
@@ -258,16 +315,17 @@ if (strstr( $_SERVER['SCRIPT_NAME'], 'diacritice.php')) {
 
 	SmartyWrap::assign('page_title', 'Corector diacritice');
 
+	$obj = new DiacriticsFixer();
 
 	if (isset($_POST['text']) && $_POST['text'] != '') {
 
-		$obj = new DiacriticsFixer();
-
 		SmartyWrap::assign('textarea', '<div id="text_input">'.$obj->fix($_POST['text']).'</div>');
+		SmartyWrap::assign('hiddenText', '<input type="hidden" name="hiddenText" value="'.$obj->getHiddenText().'">');
 	}
 	else {
 
-		SmartyWrap::assign('textarea', '<textarea name="text" id="text_input" placeholder="introduceți textul aici"></textarea>');
+		SmartyWrap::assign('textarea', '<textarea name="text" id="text_input" placeholder="introduceți textul aici">'.$obj->replaceDiacritics().'</textarea>');
+		SmartyWrap::assign('hiddenText', '<input type="hidden" name="hiddenText" value="">');
 	}
 
 

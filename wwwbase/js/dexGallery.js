@@ -1,40 +1,43 @@
 $(document).ready(function() {
   $('.colorbox').colorbox({
     maxWidth: '84%', maxHeight: '84%',
-    onComplete: function() {addCanvas(); drawOnCanvas();},
-    onCleanup: function() {removeCanvas();}
+    rel: 'gallery',
+    onComplete: function() {
+      addCanvas();
+      drawOnCanvas();
+    },
+    onCleanup: function() {
+      removeCanvas();
+    }
   });
-
-  // Adds tags visibility toggle
-  var tagsToggle = document.createElement('button');
-  tagsToggle.innerHTML = 'Ascunde/Afișează etichetele';
-  document.getElementById('cboxContent').appendChild(tagsToggle);
-  $(tagsToggle).attr('id', 'tagsToggle')
-               .on('click', function() {$('canvas').toggle();});
 });
 
-/* Once the plugin is loaded, adds the canvas element */
+/* Once the plugin is loaded, it clones the canvas element and prepares it for display */
 function addCanvas() {
-  var img = $('.cboxPhoto');
-  var canvasElement = document.createElement('canvas');
+  var canvas = $('#prototypeCanvas'), parent = $('#cboxLoadedContent'),
+      img = $('.cboxPhoto'), tagsToggle = $('#prototypeTagsToggleButton');
 
-  document.getElementById('cboxLoadedContent').appendChild(canvasElement);
+  canvas.clone().css('display', 'block').attr('id', 'activeCanvas')
+        .attr('width', img.css('width')).attr('height', img.css('height'))
+        .appendTo(parent);
 
-  $('canvas').attr('width', img.css('width')).attr('height', img.css('height'));
+  tagsToggle.clone().css('display', 'block').attr('id', 'tagsToggle')
+            .on('click', function() {
+              $('#activeCanvas').toggle();
+             }).appendTo(parent);
 }
 
-/* Clears the canvas and the deletes the canvas element itself */
+/* Clears the canvas before it being deleted by colorbox plugin */
 function removeCanvas() {
-  var canvasElement = document.getElementsByTagName('canvas')[0];
-
-  $(canvasElement).clearCanvas();
-  canvasElement.parentNode.removeChild(canvasElement);
+  $('#activeCanvas').clearCanvas();
 }
 
 function drawOnCanvas() {
-  var canvas = $('canvas');
+  var canvas = $('#activeCanvas');
   var title = $('#cboxTitle').html();
-  var tags = $('#' + title).children();
+  var tags = $('#' + parseInt(title)).children();
+
+  $('#cboxTitle').html(title.match(/[^\d]+$/));
 
   if(tags.length){
     var data = new Array();

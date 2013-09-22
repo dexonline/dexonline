@@ -1,5 +1,7 @@
+<canvas id="prototypeCanvas"></canvas>
+<button id="prototypeTagsToggleButton">Ascunde/Afișează etichetele</button>
 <div id="gallery">
   {foreach from=$images item=image}
-    <a class="colorbox" href="{$image.img}" title="{$image.name}"><img src="{$image.tmb}"/></a>
+    <a class="colorbox" href="{$image.img}" title="{$image.id}{$image.name}"><img src="{$image.tmb}"/></a>
   {/foreach}
 </div>

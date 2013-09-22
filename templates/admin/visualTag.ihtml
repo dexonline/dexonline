@@ -18,35 +18,37 @@
     </script>
 
   {else}
-    <div class="visualTagCanvas">
-      <img src="{$imagePath}" id="jcrop"/> 
-      <label>Coordonatele centrului selecției:
-        <input id="x" type="text" size="4" name="x"/>
-        <input id="y" type="text" size="4" name="y"/>
-      </label>
-      <button type="button" id="clrSel">Șterge selecția</button>
-      <form action="visualTag.php" method="post">
-        <input type="hidden" value="{$imageId}" name="imageId"/>
-        <button type="submit" name="action" value="finishedTagging">
-          Etichetarea este completă
-        </button>
-      </form>
-      <button type="button" id="toggleHelp">Click pentru Ajutor</button>
-      <div id="helpText">
-        <p>
-        Pasul 1: În căsuța „Cuvânt”, scrie cuvântul din interiorul etichetei.<br/>
-        Pasul 2: Pe imagine selectează cuvântul de etichetat și apoi apasă primul buton
-        „Setează coordonatele”.<br/>
-        Pasul 3: Click pe locul din imagine unde cuvântul tocmai selectat indică și
-        apasă pe cel de-al doilea buton „Setează coordonatele”.<br/>
-        Pasul 4: Click pe butonul „Salvează eticheta”.<br/>
-        Pasul 5: După ce toate etichetele au fost introduse, 
-        click pe butonul „Etichetarea este completă”.
-        </p>
+    <div id="visualTagCanvas">
+      <img src="{$imagePath}" id="jcrop"/>
+      <div id="selectionOptions">
+        <label>Coordonatele centrului selecției:
+          <input id="x" type="text" size="4" name="x"/>
+          <input id="y" type="text" size="4" name="y"/>
+        </label>
+        <button type="button" id="clrSel">Șterge selecția</button>
+        <form action="visualTag.php" method="post">
+          <input type="hidden" value="{$imageId}" name="imageId"/>
+          <button type="submit" name="action" value="finishedTagging">
+            Etichetarea este completă
+          </button>
+        </form>
+        <button type="button" id="toggleHelp">Click pentru Ajutor</button>
+        <div id="helpText">
+          <p>
+          Pasul 1: În căsuța „Cuvânt”, scrie cuvântul din interiorul etichetei.<br/>
+          Pasul 2: Pe imagine selectează cuvântul de etichetat și apoi apasă primul buton
+          „Setează coordonatele”.<br/>
+          Pasul 3: Click pe locul din imagine unde cuvântul tocmai selectat indică și
+          apasă pe cel de-al doilea buton „Setează coordonatele”.<br/>
+          Pasul 4: Click pe butonul „Salvează eticheta”.<br/>
+          Pasul 5: După ce toate etichetele au fost introduse, 
+          click pe butonul „Etichetarea este completă”.
+          </p>
+        </div>
       </div>
     </div>
 
-    <div>
+    <div id="tagOptions">
       <form action="visualTag.php" method="post">
         <input type="hidden" value="{$imageId}" name="imageId"/>
         <p>
@@ -84,7 +86,9 @@
 
         <button id="saveSel" type="submit" name="action" value="save">Salvează eticheta</button>
       </form>
-  
+    </div>
+
+    <div id="savedTags">
       <h3>Etichete salvate</h3>
       {foreach from=$savedTags item=tag}
         <form action="visualTag.php" method="post">

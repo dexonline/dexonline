@@ -377,13 +377,15 @@ span.tooltip {
 }
 
 /* VisualTag */
-.visualTagCanvas {
+#visualTagCanvas {
   float: left;
   width: 500px;
   height: 500px;
+  border: 1px solid black;
 }
 
-.visualTagImg {
+.visualTagImg img {
+  float: left;
   max-width: 500px;
   max-height: 500px;
 }

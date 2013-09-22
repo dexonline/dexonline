@@ -1425,7 +1425,12 @@ li.widgetsPreferences {
   display: block;
 }
 
-canvas {
+#prototypeCanvas, 
+#prototypeTagsToggleButton {
+  display: none;
+}
+
+#activeCanvas {
   position: absolute;
   top: 5px;
   left: 5px;

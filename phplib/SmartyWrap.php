@@ -151,7 +151,7 @@ class SmartyWrap {
       switch($id) {
       case 'jqueryui':           self::$cssFiles[1] = 'lightness-1.10.3/jquery-ui-1.10.3.custom.min.css'; break;
       case 'jqgrid':             self::$cssFiles[2] = 'ui.jqgrid.css?v=3'; break;
-      case 'elfinder':           self::$cssFiles[4] = 'elfinder.min.css?v=1'; break;
+      case 'elfinder':           self::$cssFiles[4] = 'elfinder/css/elfinder.min.css?v=2'; break;
       case 'windowEngine':       self::$cssFiles[5] = 'jquery-wm/main.css'; break;
       case 'zepu':               self::$cssFiles[6] = 'zepu.css?v=56'; break;
       case 'polar':              self::$cssFiles[7] = 'polar.css?v=31'; break;
@@ -167,7 +167,7 @@ class SmartyWrap {
         self::$cssFiles[16] = 'easyui/icon.css?v=1';
         break;
       case 'select2':            self::$cssFiles[17] = 'select2/select2.css?v=3'; break;
-      case 'gallery':            self::$cssFiles[18] = 'colorbox.css'; break;
+      case 'gallery':            self::$cssFiles[18] = 'colorbox/colorbox.css?v=1'; break;
       default:
         FlashMessage::add("Cannot load CSS file {$id}");
         util_redirect(util_getWwwRoot());
@@ -205,9 +205,10 @@ class SmartyWrap {
       case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=2'; break;
       case 'visualTag':        self::$jsFiles[23] = 'visualTag.js'; break;
       case 'gallery':          
-        self::$jsFiles[22] = 'jquery.colorbox-min.js'; 
-        self::$jsFiles[23] = 'dexGallery.js';
-        self::$jsFiles[24] = 'jcanvas.min.js';
+        self::$jsFiles[22] = 'colorbox/jquery.colorbox-min.js';
+        self::$jsFiles[23] = 'colorbox/jquery.colorbox-ro.js';
+        self::$jsFiles[24] = 'dexGallery.js?v=2';
+        self::$jsFiles[25] = 'jcanvas.min.js';
         break;
       default:
         FlashMessage::add("Cannot load JS script {$id}");

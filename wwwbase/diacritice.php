@@ -46,7 +46,7 @@ class DiacriticsFixer {
 
 		self::$diacritics = pref_getSectionPreference("crawler", "diacritics");
 		self::$nonLowerDiacritics = pref_getSectionPreference("crawler", "non_lower_diacritics");
-		self::$nonUpperDiacritics = pref_getSectionPreference("crawler", "non_upper_diacritics");
+		self::$nonUpperDiacritics = mb_strtoupper(self::$nonLowerDiacritics);
 		self::$paddingNumber = pref_getSectionPreference('crawler', 'diacritics_padding_length');
 		self::$paddingChar = pref_getSectionPreference('crawler', 'padding_char');
 		$this->selectCount = 0;
@@ -72,7 +72,7 @@ class DiacriticsFixer {
 
 	static function isSeparator($ch) {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
-		return !(ctype_alpha($ch) || $ch == '-');
+		return !(ctype_alpha(StringUtil::unicodeToLatin($ch)) || $ch == '-');
 	}
 
 
@@ -180,10 +180,10 @@ class DiacriticsFixer {
 		if ($tableObj != null) {
 			crawlerLog("Entry Exists");
 			$ch = $this->getAllCharForms($tableObj, $middle);
+			$textSubstr = mb_substr($this->text, $this->lastOffset, $offset - $this->lastOffset);
+			$this->resultText .= $textSubstr;
 
-			$this->resultText .= mb_substr($this->text, $this->lastOffset, $offset - $this->lastOffset);
-
-			$this->hiddenText .= mb_substr($this->text, $this->lastOffset, $offset - $this->lastOffset);
+			$this->hiddenText .= $textSubstr;
 
 			$this->resultText .= $ch;
 
@@ -197,10 +197,10 @@ class DiacriticsFixer {
 
 		}
 		else {
+			$textSubstr = mb_substr($this->text, $this->lastOffset, $offset - $this->lastOffset + 1);
+			$this->resultText .= $textSubstr;
 
-			$this->resultText .= mb_substr($this->text, $this->lastOffset, $offset - $this->lastOffset + 1);
-
-			$this->hiddenText .= mb_substr($this->text, $this->lastOffset, $offset - $this->lastOffset + 1);			
+			$this->hiddenText .= $textSubstr;
 		}
 
 		$this->lastOffset = $this->currOffset;

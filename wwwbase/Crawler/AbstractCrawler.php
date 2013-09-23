@@ -31,7 +31,7 @@ abstract class AbstractCrawler {
 
 	protected $urlResource;
 	protected $directoryIndexFile;
-	protected $IndexFileExt;
+	protected $indexFileExt;
 
 	protected $domainsList;
 
@@ -41,7 +41,8 @@ abstract class AbstractCrawler {
 		$this->plainText = '';
 		$this->pageContent = '';
 		$this->directoryIndexFile = pref_getSectionPreference('crawler', 'dir_index_file');
-		$this->IndexFileExt = explode(',', pref_getSectionPreference('crawler', 'index_file_ext'));
+		$this->indexFileExt = explode(',', pref_getSectionPreference('crawler', 'index_file_ext'));
+		$this->fileExt = explode(',', pref_getSectionPreference('crawler', 'index_file_ext').',txt');
 	}
 
 
@@ -49,11 +50,11 @@ abstract class AbstractCrawler {
 	function getPage($url) {
 
 		$this->ch = curl_init();
-
+		crawlerLog(file_get_contents(pref_getSectionPreference('crawler', 'user_agent_location')));
 		curl_setopt ($this->ch, CURLOPT_URL, $url);
 		curl_setopt ($this->ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt ($this->ch, CURLOPT_USERAGENT, file_get_contents(pref_getSectionPreference('crawler', 'user_agent_location')));
-		curl_setopt ($this->ch, CURLOPT_TIMEOUT, 60);
+		curl_setopt ($this->ch, CURLOPT_TIMEOUT, 30);
 		curl_setopt ($this->ch, CURLOPT_FOLLOWLOCATION, TRUE);
 		curl_setopt ($this->ch, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($this->ch, CURLOPT_COOKIEFILE, 'cookie_jar');
@@ -210,12 +211,36 @@ abstract class AbstractCrawler {
 		return str_get_html($buffer);
     }
 
+    function eligeableUrl($url) {
+
+    	$resource = parse_url($url);
+    	$pathInfo = pathinfo($resource['path']);
+
+    	if (isset($pathInfo['extension'])) {
+
+    		$ext = $pathInfo['extension'];
+
+
+    		if (array_search($ext, $this->fileExt) === false) {
+
+    			return false;
+    		}
+    	}
+
+    	return true;
+    }
 
     //metode pentru prelucrarea linkurilor
 	//sterge directory index file si elimina slash-urile in plus
 	//gaseste toate linkurile
 	//le transforma in absolute daca sunt relative
 	function processLink($url) {
+
+
+		if (!$this->eligeableUrl($url)) {
+
+			return;
+		}
 
 		crawlerLog('Processing link: '.$url);
 		$canonicalUrl = null;
@@ -247,7 +272,7 @@ abstract class AbstractCrawler {
 
 		//crawlerLog('delDirIndexFile  '.$url);
 
-		foreach($this->IndexFileExt as $ext) {
+		foreach($this->indexFileExt as $ext) {
 
 			$target = $this->directoryIndexFile .'.'. $ext;
 
@@ -347,4 +372,4 @@ abstract class AbstractCrawler {
 	abstract function start();
 }
 
-?>
+?>1

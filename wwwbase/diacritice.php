@@ -57,8 +57,11 @@ class DiacriticsFixer {
 	 */
 	function getNextOffset() {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
+		
 		while($this->currOffset <= $this->textEndOffset) {
 			//daca urmatorul offset e a,i,s,t sau ă,â,î,ș,ț
+			crawlerLog(StringUtil::getCharAt($this->text, $this->currOffset) . ' - offset ' .$this->currOffset);
+
 			if (self::isPossibleDiacritic(StringUtil::getCharAt($this->text, $this->currOffset))) {
 				return $this->currOffset ++;
 			}
@@ -86,21 +89,26 @@ class DiacriticsFixer {
 
 		$this->textEndOffset = mb_strlen($text) - 1;
 		$offset = 0;
-		while(($offset = $this->getNextOffset()) != null) {
-
+		while(($offset = $this->getNextOffset()) !== null ) {
+			
 			$this->leftAndRightPadding($offset);
 		}
+
 		//copiem de la ultimul posibil diacritic pana la final
-		$this->resultText .= mb_substr($this->text, $this->lastOffset, $this->textEndOffset - $this->lastOffset + 1);
-		$this->hiddenText .= mb_substr($this->text, $this->lastOffset, $this->textEndOffset - $this->lastOffset + 1);
+		$lastChunk = mb_substr($this->text, $this->lastOffset, $this->textEndOffset - $this->lastOffset + 1);
+		$this->resultText .= $lastChunk;
+		$this->hiddenText .= $lastChunk;
 	}
 
 
 	public function fix($text) {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
-
+		if (mb_strlen($text) > pref_getSectionPreference('crawler', 'diacritics_buffer_limit')) {
+			return "Dimensiune text prea mare, limita este de " .
+			pref_getSectionPreference('crawler', 'diacritics_buffer_limit') . ' de caractere';
+		}
 		$this->processText($text);
-		return $this->resultText;
+		return $this->text2Html($this->resultText);
 	}
 
 	static function toLower($content) {
@@ -130,35 +138,39 @@ class DiacriticsFixer {
 		for ($i = 0; $i < self::$paddingNumber; $i++) {
 			
 			if ($infOffset < 0) {
-				$infPadding = true;
-			}
-			else {
-				
-				$infCh = StringUtil::getCharAt($this->text, $infOffset);
-				$infPadding = self::isSeparator($infCh);
-			}
-			
-			if ($infPadding) {
 				$before = self::$paddingChar . $before;
 			}
 			else {
-				$before = $infCh . $before;
-				$infOffset --;
+				if (!$infPadding) {
+					$infCh = StringUtil::getCharAt($this->text, $infOffset);
+					$infPadding = self::isSeparator($infCh);
+				}
+				if ($infPadding) {
+					$before = self::$paddingChar . $before;
+				}
+				else {
+					$before = $infCh . $before;
+					$infOffset --;
+				}
 			}
+			
+			
 
 			if ($supOffset > $this->textEndOffset) {
-				$supPadding = true;
-			}
-			else {
-				$supCh = StringUtil::getCharAt($this->text, $supOffset);
-				$supPadding = self::isSeparator($supCh);
-			}
-			if ($supPadding) {
 				$after = $after . self::$paddingChar;
 			}
 			else {
-				$after = $after . $supCh;
-				$supOffset ++;
+				if (!$supPadding) {
+					$supCh = StringUtil::getCharAt($this->text, $supOffset);
+					$supPadding = self::isSeparator($supCh);
+				}
+				if ($supPadding) {
+					$after = $after . self::$paddingChar;
+				}
+				else {
+					$after = $after . $supCh;
+					$supOffset ++;
+				}
 			}
 		}
 
@@ -279,6 +291,12 @@ class DiacriticsFixer {
 	function getHiddenText() {
 
 		return $this->hiddenText;
+	}
+
+	function text2Html($content) {
+
+		//new line to <br> si tab to space(&nbsp;)
+		return preg_replace('/[\t]/', '&nbsp;&nbsp;&nbsp;&nbsp;', nl2br($content));
 	}
 
 	function replaceDiacritics() {

@@ -1,8 +1,4 @@
 <?php
-require_once '../../phplib/util.php';
-require_once '../../phplib/serverPreferences.php';
-
-require_once 'AppLog.php';
 
 class MemoryManagement {
 

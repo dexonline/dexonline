@@ -35,3 +35,21 @@ textarea {
 	border:1px solid gray;
 	background-color:#EEEEF6;
 }
+
+#text_input {
+
+	position: relative;
+	text-align:left;
+
+	overflow-y: scroll;
+
+	width: 580px;
+	height: 250px;
+
+	resize: none;
+
+	margin: 10px;
+
+	border:1px solid gray;
+	background-color:#EEEEF6;
+}

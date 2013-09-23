@@ -3,8 +3,6 @@
  * Alin Ungureanu, 2013
  * alyn.cti@gmail.com
  */
-require_once '../../phplib/util.php';
-require_once '../../phplib/serverPreferences.php';
 
 $exceptionExit = pref_getSectionPreference('crawler', 'exception_exit');
 $logFile = pref_getSectionPreference('crawler', 'crawler_log');
@@ -13,9 +11,29 @@ $logFile = pref_getSectionPreference('crawler', 'crawler_log');
  * $level poate fi de forma :  __FILE__.' - '.__CLASS__.'::'.__FUNCTION__.' line '.__LINE__
  * sau mai simplu
  */
+function getCorrespondentNewLine() {
+
+	//daca este terminal
+	if (PHP_SAPI == 'cli') {
+		return PHP_EOL;
+	}
+	//altfel este browser
+	else return '<br>';
+}
+
 function crawlerLog($message, $level = '') {
 
 	global $logFile;
+
+	//afisaza sau nu in log "INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - '
+	// . 'line '.__LINE__ acolo unde exista
+	if (!pref_getSectionPreference('crawler', 'function_trace')) {
+
+		if (substr($message, 0, 6) == 'INSIDE')
+			return;
+	}
+
+
 	//log in fisier
 	if (pref_getSectionPreference('crawler', 'log2file'))
 	try{
@@ -30,7 +48,7 @@ function crawlerLog($message, $level = '') {
 	//log in stdout
 	if(pref_getSectionPreference('crawler', 'log2screen')) {
 
-		echo date("Y-m-d H:i:s") . '::' . $level . '::' . $message.pref_getSectionPreference('crawler', 'new_line');
+		echo date("Y-m-d H:i:s") . '::' . $level . '::' . $message.getCorrespondentNewLine();
 		flush();
 	}
 

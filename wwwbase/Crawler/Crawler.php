@@ -130,8 +130,6 @@ class Crawler extends AbstractCrawler {
 				continue;
 
 
-			
-
 			//curatam url-ul
 			$this->currentUrl = $this->urlPadding($startUrl);
 			//impartim url-ul pe componente

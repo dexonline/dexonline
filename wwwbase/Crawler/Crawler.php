@@ -133,7 +133,7 @@ class Crawler extends AbstractCrawler {
 			//curatam url-ul
 			$this->currentUrl = $this->urlPadding($startUrl);
 			//impartim url-ul pe componente
-			$this->urlResource = parse_url($this->currentUrl);
+			$this->urlResource = parse_utf8_url($this->currentUrl);
 
 			//salvam startUrl in tabelul Link pentru a incepe extragerea,
 			//startUrl nu va avea o pagina din care este descoperit

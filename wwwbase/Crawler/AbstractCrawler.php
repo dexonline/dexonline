@@ -213,7 +213,7 @@ abstract class AbstractCrawler {
 
     function eligeableUrl($url) {
 
-    	$resource = parse_url($url);
+    	$resource = parse_utf8_url($url);
     	$pathInfo = pathinfo($resource['path']);
 
     	if (isset($pathInfo['extension'])) {
@@ -293,7 +293,7 @@ abstract class AbstractCrawler {
 		}
 		
 
-		$parsedUrl = parse_url($url);
+		$parsedUrl = parse_utf8_url($url);
 		
 
 		if (substr_count($parsedUrl['host'], '.') < 2) {

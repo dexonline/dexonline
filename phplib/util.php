@@ -491,4 +491,18 @@ function util_makeSet($a) {
   return $result;
 }
 
+function parse_utf8_url($url)
+{
+    static $keys = array('scheme'=>0,'user'=>0,'pass'=>0,'host'=>0,'port'=>0,'path'=>0,'query'=>0,'fragment'=>0);
+    if (is_string($url) && preg_match(
+            '~^((?P<scheme>[^:/?#]+):(//))?((\\3|//)?(?:(?P<user>[^:]+):(?P<pass>[^@]+)@)?(?P<host>[^/?:#]*))(:(?P<port>\\d+))?' .
+            '(?P<path>[^?#]*)(\\?(?P<query>[^#]*))?(#(?P<fragment>.*))?~u', $url, $matches)) {
+        foreach ($matches as $key => $value)
+            if (!isset($keys[$key]) || empty($value))
+                unset($matches[$key]);
+        return $matches;
+    }
+    return false;
+}
+
 ?>

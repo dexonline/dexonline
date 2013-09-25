@@ -44,8 +44,8 @@
           <li><a href="#" onclick="return false;">Despre noi ▼</a>
             <ul>
               <li><a href="{$wwwRoot}informatii">Informații</a></li>
-              <li><a href="#" onclick="abbrevWindow(); return false;">Abrevieri folosite</a></li>
               <li><a href="{$wwwRoot}contact">Contact</a></li>
+              <li><a href="http://dexonline.blogspot.ro">Blogul nostru</a></li>
             </ul>
           </li>
           <li><a href="#" onclick="return false;">Implică-te ▼</a>
@@ -57,6 +57,7 @@
           </li>
           <li><a href="#" onclick="return false;">Articole și resurse ▼</a>
             <ul>
+              <li><a href="#" onclick="abbrevWindow(); return false;">Abrevieri folosite</a></li>
               <li><a href="{$wwwRoot}articole">Articole lingvistice</a></li>
               <li><a href="{$wwwRoot}articol/Ghid_de_exprimare_corect%C4%83">Ghid de exprimare</a></li>
               <li><a href="{$wwwRoot}cuvantul-zilei">Cuvântul zilei</a></li>

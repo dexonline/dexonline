@@ -211,7 +211,7 @@ abstract class AbstractCrawler {
 		return str_get_html($buffer);
     }
 
-    function eligeableUrl($url) {
+    function eligibleUrl($url) {
 
     	$resource = parse_utf8_url($url);
     	$pathInfo = pathinfo($resource['path']);
@@ -237,7 +237,7 @@ abstract class AbstractCrawler {
 	function processLink($url) {
 
 
-		if (!$this->eligeableUrl($url)) {
+		if (!$this->eligibleUrl($url)) {
 
 			return;
 		}

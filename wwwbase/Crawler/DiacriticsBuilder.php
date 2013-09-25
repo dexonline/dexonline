@@ -58,13 +58,12 @@ class DiacriticsBuilder {
 
 			$this->currentFolder = $folder;
 			$this->localCount = 0;
-			$this->folderCount = iterator_count(new DirectoryIterator(substr($crawledPage->parsedTextPath,0,strrpos($crawledPage->parsedTextPath, '/'))));
 		}
 
 		$this->localCount ++;		
 		$this->globalCount ++;
 
- 		crawlerLog("Total(this run)::$this->globalCount, now processing $folder $this->localCount/".$this->folderCount);
+		crawlerLog("Total(this run)::$this->globalCount, now processing $folder");
  	}
 
 	/* 
@@ -77,6 +76,7 @@ class DiacriticsBuilder {
 
 			$crawledPage = CrawledPage::getNextDiacriticsFile();
 			
+
 			if ($crawledPage == null) {
 
 				return null;
@@ -142,28 +142,31 @@ class DiacriticsBuilder {
 		for ($i = 0; $i < self::$paddingNumber; $i++) {
 			
 			if ($infOffset < 0) {
-				$before = self::$paddingChar . $before;
+				//$before = self::$paddingChar . $before;
+				$before = $before . self::$paddingChar;
 			}
 			else {
 				if (!$infPadding) {
-					$infCh = StringUtil::getCharAt($this->text, $infOffset);
+					$infCh = StringUtil::getCharAt($this->file, $infOffset);
 					$infPadding = self::isSeparator($infCh);
 				}
 				if ($infPadding) {
-					$before = self::$paddingChar . $before;
+					//$before = self::$paddingChar . $before;
+					$before = $before . self::$paddingChar;
 				}
 				else {
-					$before = $infCh . $before;
+					//$before = $infCh . $before;
+					$before = $before . $infCh;
 					$infOffset --;
 				}
-			}
-			
-			if ($supOffset > $this->textEndOffset) {
+			}	
+
+			if ($supOffset > $this->fileEndOffset) {
 				$after = $after . self::$paddingChar;
 			}
 			else {
 				if (!$supPadding) {
-					$supCh = StringUtil::getCharAt($this->text, $supOffset);
+					$supCh = StringUtil::getCharAt($this->file, $supOffset);
 					$supPadding = self::isSeparator($supCh);
 				}
 				if ($supPadding) {
@@ -188,7 +191,7 @@ class DiacriticsBuilder {
 		$this->fileEndOffset = mb_strlen($file) - 1;
 
 		while(($offset = $this->getNextOffset()) !== null) {
-			
+
 			$this->leftAndRightPadding($offset);
 		}
 	}

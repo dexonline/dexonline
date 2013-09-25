@@ -138,7 +138,8 @@ class DiacriticsFixer {
 		for ($i = 0; $i < self::$paddingNumber; $i++) {
 			
 			if ($infOffset < 0) {
-				$before = self::$paddingChar . $before;
+				//$before = self::$paddingChar . $before;
+				$before = $before . self::$paddingChar;
 			}
 			else {
 				if (!$infPadding) {
@@ -146,15 +147,15 @@ class DiacriticsFixer {
 					$infPadding = self::isSeparator($infCh);
 				}
 				if ($infPadding) {
-					$before = self::$paddingChar . $before;
+					//$before = self::$paddingChar . $before;
+					$before = $before . self::$paddingChar;
 				}
 				else {
-					$before = $infCh . $before;
+					//$before = $infCh . $before;
+					$before = $before . $infCh;
 					$infOffset --;
 				}
-			}
-			
-			
+			}	
 
 			if ($supOffset > $this->textEndOffset) {
 				$after = $after . self::$paddingChar;
@@ -173,6 +174,7 @@ class DiacriticsFixer {
 				}
 			}
 		}
+
 
 		crawlerLog("IN TEXT " . $before .'|' . $middle . '|' . $after);
 

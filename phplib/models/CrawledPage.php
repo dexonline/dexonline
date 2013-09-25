@@ -38,7 +38,7 @@ class CrawledPage  extends BaseObject implements DatedObject {
 
 	 function getNextDiacriticsFile() {
 
-	 	return Model::factory(self::$_table)->raw_query("select id, parsedTextPath from CrawledPage where id not in (select fileId from FilesUsedInDiacritics);");
+	 	return Model::factory(self::$_table)->raw_query("select id, parsedTextPath from CrawledPage where id not in (select fileId from FilesUsedInDiacritics);")->find_one();
 	 }
 	
 

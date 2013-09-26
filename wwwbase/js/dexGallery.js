@@ -43,7 +43,7 @@ function drawOnCanvas() {
   // In the tagsInfo div, all the tags corresponding to one image are nested
   // in a div element whose id is the the unique id of that image in the Visual table.
   // Thus the title is parsed, the id extracted and the div element with that specific id selected.
-  var tags = $('#' + parseInt(title)).children();
+  var tags = $('#tagsInfo_' + parseInt(title)).children();
   // As we want the title to show the lexeme, the id is removed.
   $('#cboxTitle').html(title.match(/[^\d]+$/));
 

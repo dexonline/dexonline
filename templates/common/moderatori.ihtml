@@ -9,6 +9,7 @@
       <th>Cuvântul zilei</th>
       <th>Acces căutare</th>
       <th>«Structurist» al definițiilor</th>
+      <th>Dicționarul vizual</th>
     </tr>
     {foreach from=$users item=user}
       <tr>

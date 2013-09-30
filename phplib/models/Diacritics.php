@@ -63,11 +63,19 @@ class Diacritics  extends BaseObject implements DatedObject {
 		}
 		catch(Exception $ex) {
 
-			logException($ex);
+			AppLog::exceptionLog($ex);
 		}
 	}
 
+	public static function entryExists($before, $middle, $after) {
+		
+		$before = strtolower(self::stripDiacritics($before));
+		$middle = strtolower(self::stripDiacritics($middle));
+		$after = strtolower(self::stripDiacritics($after));
 
+		return Model::factory(self::$_table)->raw_query("Select * from Diacritics where
+				 `before` = '$before' and `middle` = '$middle' and `after` = '$after';")->find_one();
+	}
 	
 	public static function updateRow($before, $middle, $after, $diacritic) {
 	

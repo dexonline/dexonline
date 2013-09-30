@@ -1,30 +1,12 @@
-<html>
-	<head>
+<link rel="StyleSheet" type="text/css" href="/DEX/wwwbase/styles/diacritics_fix.css"/>
 
-		<title>{$page_title}</title>
-
-		
-		<link rel="StyleSheet" type="text/css" href="/DEX/wwwbase/styles/diacritics_fix.css"/>
-
-
-
-
-	</head>
-	<body>
-		
-		<div id="textarea_subtitle">
-			<center><span>Corector diacritice</span></center>
-		</div>
-
-		<form id="textarea_form" action="" method="POST">
-			<div id="textarea_div" align="center">
-				{$textarea}
-				{$hiddenText}
-				<input type="submit" name="ok" value="ok">
-
-			</div>
-
-		</form>
-		
-	</body>
-</html>
+<div id="textarea_subtitle">
+	<center><span>Corector diacritice</span></center>
+</div>
+<form id="textarea_form" action="" method="POST">
+	<div id="textarea_div" align="center">
+		{$textarea}
+		{$hiddenText}
+		<input type="submit" name="ok" value="{$buttonDisplayText}">
+	</div>
+</form>

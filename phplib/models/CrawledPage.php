@@ -22,9 +22,8 @@ class CrawledPage  extends BaseObject implements DatedObject {
 		}
 		catch(Exception $ex) {
 
-			logException($ex);
+			AppLog::exceptionLog($ex);
 		}
-
 		return null;
 	}
 

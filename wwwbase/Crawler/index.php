@@ -1,11 +1,8 @@
 <?php
 
 require_once '../../phplib/util.php';
-require_once '../../phplib/serverPreferences.php';
-require_once '../../phplib/db.php';
-require_once '../../phplib/idiorm/idiorm.php';
-require_once '../../phplib/idiorm/paris.php';
 
+//util_assertModerator(PRIV_ADMIN);
 
 $rows = CrawledPage::getListOfDomains();
 
@@ -28,6 +25,8 @@ SmartyWrap::assign('page_title', 'Romanian Crawler Log');
 SmartyWrap::assign('values', $values);
 SmartyWrap::assign('options', $options);
 
-SmartyWrap::smartyDisplay('crawler/crawler.ihtml');
+//SmartyWrap::smartyDisplay('crawler/crawler.ihtml');
+SmartyWrap::assign('jqueryLibPath', '../js/jquery-1.8.3.min.js');
+SmartyWrap::displayWithoutSkin('crawler/crawler.ihtml');
 
 ?>

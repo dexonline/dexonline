@@ -46,6 +46,9 @@ function util_defineRootPath() {
   if ($pos === FALSE) {
     $pos = strrpos($fileName, '/phplib/');
   }
+  if ($pos === FALSE) {
+    $pos = strrpos($fileName, '/app/');
+  }
   $GLOBALS['util_rootPath'] = substr($fileName, 0, $pos + 1);
 }
 

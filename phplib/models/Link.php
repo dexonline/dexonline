@@ -27,7 +27,7 @@ class Link extends BaseObject {
 		}
 		catch(Exception $ex) {
 
-			logException($ex);
+			AppLog::exceptionLog($ex);
 		}
 
 		return null;

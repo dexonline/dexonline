@@ -26,6 +26,10 @@ class SmartyWrap {
     self::registerFunction('getDebugInfo', 'SmartyWrap::function_getDebugInfo');
   }
 
+  static function display() {
+    print self::fetchSkin();
+  }
+
   static function fetchSkin() {
     $skin = session_getSkin();
     self::addCss($skin);

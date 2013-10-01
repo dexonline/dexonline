@@ -318,31 +318,6 @@ if(!empty($lexems)){
         // and stores them in the $images array.
         $images[] = array('img' => $image, 'tmb' => $thumb, 'name' => $lexeme->formUtf8General,
                           'id' => $line->id);
-
-        if($line->revised) {
-          // Also stores the size for every image, useful for scaling.
-          $size[] = array('width' => $line->width, 'height' => $line->height);
-
-          // Checks if each image, respectively, has tags.
-          $rows = VisualTag::get_all_by_imageId($line->id);
-
-          if(!empty($rows)) {
-            foreach($rows as $row) {
-              // If so, each tag information is stored as an entry in the $tagInfo array
-              $word = Lexem::get_by_id($row->lexemeId);
-              $tagInfo = array('label' => $row->label, 'textX' => $row->textXCoord,
-                               'textY' => $row->textYCoord, 'imgX' => $row->imgXCoord,
-                               'imgY' => $row->imgYCoord, 
-                               'lexeme' => !empty($word) ? $word->formUtf8General : '');
-              // and every tag represents an entry in the $imgTags array.
-              $imgTags[] = $tagInfo;
-            }
-          }
-
-          // Finally, all the tags for one image are stored as an entry in the $allTags array
-          $allTags[] = array('tags' => $imgTags, 'width' => $line->width, 'height' => $line->height,
-                             'id' => $line->id);
-        }
       }
     }
   }

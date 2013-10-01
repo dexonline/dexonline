@@ -36,43 +36,34 @@ function removeCanvas() {
 
 function drawOnCanvas() {
   var canvas = $('#activeCanvas');
-  // The colorbox plugin title is made up of two parts, separated by a space character:
+  // The colorbox plugin title is made up of two parts:
   // 1. the unique id of the image from the Visual table
   // 2. the name of the lexeme corresponding to the image
   var title = $('#cboxTitle').html();
-  // In the tagsInfo div, all the tags corresponding to one image are nested
-  // in a div element whose id is the the unique id of that image in the Visual table.
-  // Thus the title is parsed, the id extracted and the div element with that specific id selected.
-  var tags = $('#tagsInfo_' + parseInt(title)).children();
-  // As we want the title to show the lexeme, the id is removed.
   $('#cboxTitle').html(title.match(/[^\d]+$/));
+  var imageId = parseInt(title);
 
-  if(tags.length){
-    var data = new Array();
-    // Image information is parsed
-    var dim = JSON.parse('[' + tags[0].innerHTML + ']');
-    // and the scales are calculated.
-    var widthScale = parseInt(canvas.attr('width')) / dim[0];
-    var heightScale = parseInt(canvas.attr('height')) / dim[1];
+  $.ajax({
+    type: 'POST',
+    url: wwwRoot + 'ajax/getImageTags.php',
+    data: {imageId: imageId}
+  }).done(function(data) {
+    data = JSON.parse(data);
+    var widthScale = parseInt(canvas.attr('width')) / data.dims.width,
+        heightScale = parseInt(canvas.attr('height')) / data.dims.height;
 
-    // Tags are parsed one by one. One tag information is:
-    // data[0] is x coordinate for tag label and line start (int)
-    // data[1] is y coordinate for tag label and line start (int)
-    // data[2] is x coordinate for line end (int)
-    // data[3] is y coordinate for line end (int)
-    // data[4] is tag label text (string)
-    // data[5] is the lexeme to which to redirect on click (string)
-    for(var i = 1; i < tags.length; i++){
-      var data = JSON.parse('[' + tags[i].innerHTML + ']');
+    for(var i = 0; i < data.tags.length; i++) {
+      data.tags[i].textX *= widthScale;
+      data.tags[i].imgX *= widthScale;
+      data.tags[i].textY *= heightScale;
+      data.tags[i].imgY *= heightScale;
 
-      data[0] *= widthScale; data[2] *= widthScale;
-      data[1] *= heightScale; data[3] *= heightScale;
-      drawTag(canvas, i, data);
+      drawTag(canvas, i, data.tags[i]);
     }
+  });
 
     // Removes only the dummy text layer, used only for getting dimensions
     canvas.removeLayerGroup('DummyText');
-  }
 }
 
 function drawTag(canvas, tagNo, tagData) {
@@ -89,9 +80,9 @@ function drawTag(canvas, tagNo, tagData) {
     strokeWidth: 2,
     fontSize: 12,
     fontFamily: 'Arial',
-    text: tagData[4],
+    text: tagData.label,
     maxWidth: tagNameMaxWidth,
-    x: tagData[0], y: tagData[1],
+    x: tagData.textX, y: tagData.textY
   })
 
   // Draws the line between the two points
@@ -101,8 +92,8 @@ function drawTag(canvas, tagNo, tagData) {
     groups: ['Tags'],
     strokeStyle: '#000',
     strokeWidth: 1,
-    x1: tagData[0], y1: tagData[1],
-    x2: tagData[2], y2: tagData[3]
+    x1: tagData.textX, y1: tagData.textY,
+    x2: tagData.imgX, y2: tagData.imgY
   })
 
   // Draws a rectangle that has the dimensions of the dummy text + tagNamePadding
@@ -112,7 +103,7 @@ function drawTag(canvas, tagNo, tagData) {
     groups: ['TagsBackground'],
     fromCenter: true,
     fillStyle: '#fff',
-    x: tagData[0], y: tagData[1],
+    x: tagData.textX, y: tagData.textY,
     width: canvas.measureText('dummyText' + tagNo).width + tagNamePadding,
     height: canvas.measureText('dummyText' + tagNo).height + tagNamePadding
   })
@@ -127,14 +118,14 @@ function drawTag(canvas, tagNo, tagData) {
     strokeWidth: 2,
     fontSize: 12,
     fontFamily: 'Arial',
-    text: tagData[4],
+    text: tagData.label,
     maxWidth: tagNameMaxWidth,
-    x: tagData[0], y: tagData[1],
+    x: tagData.textX, y: tagData.textY,
     cursors: {
       mouseover: 'pointer'
     },
     click: function() {
-      window.open('http://www.dexonline.ro/definitie/' + tagData[5], '_self');
+      window.open('http://www.dexonline.ro/definitie/' + tagData.lexeme, '_self');
     }
   });
 }

@@ -194,8 +194,4 @@
     </script>
     {/literal}
   {/if}
-
-  {if count($tags)}
-    {include file="common/bits/tagsInfo.ihtml" tags=$tags size=$size}
-  {/if}
 </div>

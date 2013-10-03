@@ -308,17 +308,15 @@ if(!empty($lexems)){
     $lines = Visual::get_all_by_lexemeId($lexeme->id);
 
     foreach ($lines as $line) {
-      if(!empty($line)) {
-        $imgTags = array();
+      $imgTags = array();
 
-        // For every lexeme, it fetches images and thumbs paths from the database
-        $image = Visual::getImageWww($line->path);
-        $thumb = Visual::getThumbWww($line->path);
+      // For every lexeme, it fetches images and thumbs paths from the database
+      $image = Visual::getImageWww($line->path);
+      $thumb = Visual::getThumbWww($line->path);
 
-        // and stores them in the $images array.
-        $images[] = array('img' => $image, 'tmb' => $thumb, 'name' => $lexeme->formUtf8General,
-                          'id' => $line->id);
-      }
+      // and stores them in the $images array.
+      $images[] = array('img' => $image, 'tmb' => $thumb, 'name' => $lexeme->formUtf8General,
+                        'id' => $line->id);
     }
   }
 

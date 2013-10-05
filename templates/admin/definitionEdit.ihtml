@@ -1,4 +1,4 @@
-<form action="definitionEdit.php" method="post">
+<form action="definitionEdit.php" method="post" name="frmDef">
   <input type="hidden" name="definitionId" value="{$def->id}"/>
   {if $isOCR}
   <input type="hidden" name="ocr" value="1"/>
@@ -94,7 +94,8 @@
     </tr>
     <tr>
       <td colspan="3" class="buttonRow">
-        <input type="submit" name="but_refresh" value="Reafișează"/>
+        <!-- input type="submit" name="but_refresh" value="Reafișează"/ -->
+        <input type="button" name="but_refresh" value="Reafișează" onclick="defRefresh()"/>
         <span class="tooltip" title="Tipărește definiția și comentariul cu modificările făcute. Modificările nu sunt încă salvate.">&nbsp;</span>
         &nbsp;&nbsp;
         <input type="submit" name="but_accept" value="Acceptă"/>
@@ -122,6 +123,7 @@
 </form>
 
 <br/>
+<div id="defPreview">
 {$def->htmlRep}<br/>
 <span class="defDetails">
   Id: {$def->id} |
@@ -131,6 +133,7 @@
   {assign var=statusName value="`$allStatuses[$status]`"}
   Starea: {$statusName}
 </span>
+</div>
 
 <br/><br/>
 {if $comment}

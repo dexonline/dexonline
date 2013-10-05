@@ -98,6 +98,12 @@ function contribPreviewFail() {
   contribKeyPressed();   // Force another attempt in 5 seconds.
 }
 
+function defRefresh() {
+  var frm = document.forms[0];
+  $.post(wwwRoot + 'ajax/htmlize.php', { internalRep: frm.internalRep.value, sourceId: frm.source.value })
+    .done(function(data) { $('#defPreview').html(data); });
+}
+
 function toggleDivVisibility(divId) {
   var div = document.getElementById(divId);
   if (div.style.display == 'block') {

@@ -50,7 +50,7 @@
 
     <div id="tagOptions">
       <form action="visualTag.php" method="post">
-        <input type="hidden" value="{$imageId}" name="imageId"/>
+        <input id="imageId" type="hidden" value="{$imageId}" name="imageId"/>
         <p>
           Informații imagine<br/><br/>
           Imaginea este atribuită cuvântului: {$lexemeName}.
@@ -89,15 +89,8 @@
     </div>
 
     <div id="savedTags">
-      <h3>Etichete salvate</h3>
-      {foreach from=$savedTags item=tag}
-        <form action="visualTag.php" method="post">
-          <label>{$tag->label}
-            <input type="hidden" name="savedTagId" value="{$tag->id}"/>
-            <button type="submit" name="action" value="delete">Șterge eticheta</button>
-          </label>
-        </form>
-      {/foreach}
+      <table id="tagsGrid"></table>
+      <div id="tagsPaging"></div>
     </div>
 
     <script type="text/javascript">

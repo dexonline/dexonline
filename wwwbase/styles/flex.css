@@ -396,3 +396,14 @@ span.tooltip {
 #helpText {
   display: none;
 }
+
+#tagOptions {
+  float: left;
+  width: 320px;
+  margin: 0 0 15px 13px;
+}
+
+#savedTags {
+  float: left;
+  width: 430px;
+}

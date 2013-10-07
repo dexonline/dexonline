@@ -57,6 +57,46 @@ jQuery(document).ready(function() {
   $('#toggleHelp').click(function() {
     $('#helpText').toggle();
   });
+
+  $('#tagsGrid').jqGrid({
+    url: wwwRoot + 'ajax/getSavedTags.php',
+    postData: {imageId: $('#imageId').val()},
+    datatype: 'json',
+    colNames: ['Id', 'Lexem', 'Text afișat', 'X Etichetă', 'Y Etichetă', 'X Imagine', 'Y Imagine'],
+    colModel: [
+      {name: 'id', index: 'id', hidden: true},
+      {name: 'lexeme', index: 'lexeme', width: 80, align: 'center'},
+      {name: 'label', index: 'label', width: 100, align: 'center'},
+      {name: 'xTag', index: 'xTag', width: 55, align: 'center'},
+      {name: 'yTag', index: 'yTag', width: 55, align: 'center'},
+      {name: 'xImg', index: 'yImg', width: 55, align: 'center'},
+      {name: 'yImg', index: 'yImg', width: 55, align: 'center'}
+    ],
+    rowNum: 20,
+    recreateForm: true,
+    width: '430px',
+    height: '100%',
+    rowList: [20, 50, 100, 200],
+    sortname: 'id',
+    pager: $('#tagsPaging'),
+    viewrecords: true,
+    sortorder: 'desc',
+    caption: 'Etichete salvate',
+    editurl: wwwRoot + 'ajax/visualTagsEdit.php'
+  })
+  .navGrid('#tagsPaging',
+  {
+    add: false,
+    edit: false,
+    search: false,
+    deltitle: 'Șterge',
+    refreshtitle: 'Actualizează'
+  }, 
+  {}, {},
+  {
+    afterSubmit: checkServerResponse
+  }
+  );
 });
 
 /** Replaces the submit event that triggers on change, set in select2Dev.js */
@@ -103,3 +143,11 @@ function validateLexeme() {
     return false;
   }
 };
+
+function checkServerResponse(response, postData) {
+  if (response.responseText) {
+    return [false, response.responseText];
+  } else {
+    return [true];
+  }
+}

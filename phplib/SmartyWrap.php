@@ -163,7 +163,10 @@ class SmartyWrap {
         self::$cssFiles[16] = 'easyui/icon.css?v=1';
         break;
       case 'select2':            self::$cssFiles[17] = 'select2/select2.css?v=3'; break;
-      case 'gallery':            self::$cssFiles[18] = 'colorbox/colorbox.css?v=1'; break;
+      case 'gallery':            
+        self::$cssFiles[18] = 'colorbox/colorbox.css?v=1'; 
+        self::$cssFiles[19] = 'visualDict.css';
+        break;
       default:
         FlashMessage::add("Cannot load CSS file {$id}");
         util_redirect(util_getWwwRoot());
@@ -201,10 +204,10 @@ class SmartyWrap {
       case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=2'; break;
       case 'visualTag':        self::$jsFiles[23] = 'visualTag.js'; break;
       case 'gallery':          
-        self::$jsFiles[22] = 'colorbox/jquery.colorbox-min.js';
-        self::$jsFiles[23] = 'colorbox/jquery.colorbox-ro.js';
-        self::$jsFiles[24] = 'dexGallery.js?v=2';
-        self::$jsFiles[25] = 'jcanvas.min.js';
+        self::$jsFiles[24] = 'colorbox/jquery.colorbox-min.js';
+        self::$jsFiles[25] = 'colorbox/jquery.colorbox-ro.js';
+        self::$jsFiles[26] = 'dexGallery.js?v=2';
+        self::$jsFiles[27] = 'jcanvas.min.js';
         break;
       default:
         FlashMessage::add("Cannot load JS script {$id}");

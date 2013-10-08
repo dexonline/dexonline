@@ -2,6 +2,20 @@ jQuery(document).ready(function() {
   
   var jcrop_api;
   var coords = new Object();
+  var gridOptions = {
+    add: false,
+    edit: false,
+    search: false,
+    deltitle: 'Șterge',
+    refreshtitle: 'Actualizează'
+  };
+  var editOptions = {};
+  var addOptions = {};
+  var delOptions = {
+    afterSubmit: checkServerResponse,
+    closeOnEscape: true,
+    reloadAfterSubmit: true
+  };
   
   initJcrop();
   resetCoords();
@@ -58,6 +72,22 @@ jQuery(document).ready(function() {
     $('#helpText').toggle();
   });
 
+  $('#previewTags').click(function() {
+    img = $('#jcrop');
+    $.colorbox({
+      href: img.attr('src'),
+      title: img.attr('title'),
+      maxWidth: '84%', maxHeight: '84%',
+      onComplete: function() {
+        addCanvas();
+        drawOnCanvas();
+      },
+      onCleanup: function() {
+        removeCanvas();
+      }
+    });
+  });
+
   $('#tagsGrid').jqGrid({
     url: wwwRoot + 'ajax/getSavedTags.php',
     postData: {imageId: $('#imageId').val()},
@@ -84,19 +114,7 @@ jQuery(document).ready(function() {
     caption: 'Etichete salvate',
     editurl: wwwRoot + 'ajax/visualTagsEdit.php'
   })
-  .navGrid('#tagsPaging',
-  {
-    add: false,
-    edit: false,
-    search: false,
-    deltitle: 'Șterge',
-    refreshtitle: 'Actualizează'
-  }, 
-  {}, {},
-  {
-    afterSubmit: checkServerResponse
-  }
-  );
+  .navGrid('#tagsPaging', gridOptions, editOptions, addOptions, delOptions);
 });
 
 /** Replaces the submit event that triggers on change, set in select2Dev.js */

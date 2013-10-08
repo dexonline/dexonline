@@ -91,15 +91,12 @@ if(!empty($line)) {
     SmartyWrap::assign('lexemeName', $lexemeName);
   }
 
-  $tags = VisualTag::get_all_by_imageId($imageId);
-
-  SmartyWrap::assign('savedTags', $tags);
   SmartyWrap::assign('imagePath', $imagePath);
   SmartyWrap::assign('imageId', $imageId);
   SmartyWrap::assign('imgLexemeId', $imgLexemeId);
 }
 
 SmartyWrap::assign('sectionTitle', 'Etichetare imagini pentru definiții');
-SmartyWrap::addCss('jcrop', 'select2', 'jqgrid', 'jqueryui');
-SmartyWrap::addJs('jquery', 'jcrop', 'visualTag', 'select2', 'select2Dev', 'jqgrid');
+SmartyWrap::addCss('jcrop', 'select2', 'jqgrid', 'jqueryui', 'gallery');
+SmartyWrap::addJs('jquery', 'jcrop', 'visualTag', 'select2', 'select2Dev', 'jqgrid', 'gallery'); 
 SmartyWrap::displayAdminPage('admin/visualTag.ihtml'); 

@@ -18,8 +18,9 @@
     </script>
 
   {else}
+    {include file="common/bits/prototypes.ihtml"}
     <div id="visualTagCanvas">
-      <img src="{$imagePath}" id="jcrop"/>
+      <img src="{$imagePath}" id="jcrop" title="{$imageId}"/>
       <div id="selectionOptions">
         <label>Coordonatele centrului selecției:
           <input id="x" type="text" size="4" name="x"/>
@@ -31,6 +32,7 @@
           <button type="submit" name="action" value="finishedTagging">
             Etichetarea este completă
           </button>
+          <button id="previewTags" type="button">Previzualizare etichete</button>
         </form>
         <button type="button" id="toggleHelp">Click pentru Ajutor</button>
         <div id="helpText">

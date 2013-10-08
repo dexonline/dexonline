@@ -1,0 +1,62 @@
+#visualTagCanvas {
+  float: left;
+  width: 500px;
+  height: 500px;
+}
+
+.jcrop-holder {
+  border: 1px solid black;
+}
+
+.visualTagImg img {
+  float: left;
+  max-width: 500px;
+  max-height: 500px;
+}
+
+#helpText {
+  display: none;
+}
+
+#tagOptions {
+  float: left;
+  width: 320px;
+  margin: 0 0 15px 13px;
+}
+
+#savedTags {
+  float: left;
+  width: 430px;
+}
+
+
+#tagsInfo {
+  display: none;
+}
+
+#gallery {
+  float: right;
+}
+
+#gallery img{
+  display: block;
+}
+
+#prototypeCanvas, 
+#prototypeTagsToggleButton {
+  display: none;
+}
+
+#activeCanvas {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+#tagsToggle {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}

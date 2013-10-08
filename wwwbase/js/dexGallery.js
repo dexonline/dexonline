@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('.colorbox').colorbox({
+  $('.gallery').colorbox({
     maxWidth: '84%', maxHeight: '84%',
     rel: 'gallery',
     onComplete: function() {

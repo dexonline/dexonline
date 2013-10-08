@@ -302,27 +302,38 @@ SmartyWrap::assign('advancedSearch', $text || $sourceId);
 
 /* Gallery */
 if(!empty($lexems)){
-  $images = array(); $allTags = array(); $size = array();
+  $images = array();
 
   foreach($lexems as $lexeme) {
-    $lines = Visual::get_all_by_lexemeId($lexeme->id);
+    // Searches for images that are associated with the lexeme.
+    $imgs = Visual::get_all_by_lexemeId($lexeme->id);
 
-    foreach ($lines as $line) {
-      $imgTags = array();
-
-      // For every lexeme, it fetches images and thumbs paths from the database
-      $image = Visual::getImageWww($line->path);
-      $thumb = Visual::getThumbWww($line->path);
+    foreach ($imgs as $img) {
+      // For every image found, it fetches its path and its thumb path from the database
+      $image = Visual::getImageWww($img->path);
+      $thumb = Visual::getThumbWww($img->path);
 
       // and stores them in the $images array.
       $images[] = array('img' => $image, 'tmb' => $thumb, 'name' => $lexeme->formUtf8General,
-                        'id' => $line->id);
+                        'id' => $img->id);
+    }
+
+    // Searches for tags that are associated with the lexeme.
+    $tags = VisualTag::get_all_by_lexemeId($lexeme->id);
+
+    foreach ($tags as $tag) {
+      // For every tag found, it fetches (associated) image path and its thumbnail path from database
+      $row = Visual::get_by_id($tag->imageId);
+      $image = Visual::getImageWww($row->path);
+      $thumb = Visual::getThumbWww($row->path);
+
+      // and stores them in the $images array.
+      $images[] = array('img' => $image, 'tmb' => $thumb, 'name' => $lexeme->formUtf8General,
+                        'id' => $row->id);
     }
   }
 
   SmartyWrap::assign('images', $images);
-  SmartyWrap::assign('tags', $allTags);
-  SmartyWrap::assign('size', $size);
   SmartyWrap::addCss('gallery');
   SmartyWrap::addJs('gallery');
 }

@@ -4,12 +4,17 @@ jQuery(document).ready(function() {
   var coords = new Object();
   var gridOptions = {
     add: false,
-    edit: false,
     search: false,
-    deltitle: 'Șterge',
-    refreshtitle: 'Actualizează'
+    edittitle: 'editează',
+    deltitle: 'șterge',
+    refreshtitle: 'reîncarcă'
   };
-  var editOptions = {};
+  var editOptions = {
+    reloadAfterSubmit: true,
+    closeAfterEdit: true,
+    closeOnEscape: true,
+    afterSubmit: checkServerResponse
+  };
   var addOptions = {};
   var delOptions = {
     afterSubmit: checkServerResponse,
@@ -29,19 +34,19 @@ jQuery(document).ready(function() {
     }, function() {
       jcrop_api = this;
     });
-  };
+  }
 
   function setCoords(c) {
     calculateCentre(c);
 
     $('#x').val(coords.cx);
     $('#y').val(coords.cy);
-  };
+  }
 
   function calculateCentre(c) {
     coords.cx = Math.round((2 * c.x + c.w) / 2);
     coords.cy = Math.round((2 * c.y + c.h) / 2);
-  };
+  }
 
   /** Clears the actual selection */
   $('#clrSel').click(function(e) {
@@ -56,7 +61,7 @@ jQuery(document).ready(function() {
 
     $('#x').val('');
     $('#y').val('');
-  };
+  }
 
   $('#setCoordTag').click(function() {
     $('#xTag').val(coords.cx);
@@ -92,27 +97,27 @@ jQuery(document).ready(function() {
     url: wwwRoot + 'ajax/getSavedTags.php',
     postData: {imageId: $('#imageId').val()},
     datatype: 'json',
+    cmTemplate: {sortable: false},
     colNames: ['Id', 'Lexem', 'Text afișat', 'X Etichetă', 'Y Etichetă', 'X Imagine', 'Y Imagine'],
     colModel: [
       {name: 'id', index: 'id', hidden: true},
       {name: 'lexeme', index: 'lexeme', width: 80, align: 'center'},
-      {name: 'label', index: 'label', width: 100, align: 'center'},
-      {name: 'xTag', index: 'xTag', width: 55, align: 'center'},
-      {name: 'yTag', index: 'yTag', width: 55, align: 'center'},
-      {name: 'xImg', index: 'yImg', width: 55, align: 'center'},
-      {name: 'yImg', index: 'yImg', width: 55, align: 'center'}
+      {name: 'label', index: 'label', width: 120, align: 'center', editable: true},
+      {name: 'xTag', index: 'xTag', width: 55, align: 'center', editable: true},
+      {name: 'yTag', index: 'yTag', width: 55, align: 'center', editable: true},
+      {name: 'xImg', index: 'yImg', width: 55, align: 'center', editable: true},
+      {name: 'yImg', index: 'yImg', width: 55, align: 'center', editable: true}
     ],
     rowNum: 20,
     recreateForm: true,
-    width: '430px',
+    width: '450px',
     height: '100%',
     rowList: [20, 50, 100, 200],
-    sortname: 'id',
     pager: $('#tagsPaging'),
     viewrecords: true,
-    sortorder: 'desc',
     caption: 'Etichete salvate',
-    editurl: wwwRoot + 'ajax/visualTagsEdit.php'
+    editurl: wwwRoot + 'ajax/visualTagsEdit.php',
+    ondblClickRow: function(rowid) { $(this).jqGrid('editGridRow', rowid, editOptions); }
   })
   .navGrid('#tagsPaging', gridOptions, editOptions, addOptions, delOptions);
 });
@@ -151,7 +156,7 @@ function validateTag() {
     alert('Ai uitat să completezi câmpurile Coordonatele zonei etichetate');
     return false;
   }
-};
+}
 
 function validateLexeme() {
   var lexeme = $('#imgLexemeId').val();
@@ -160,7 +165,7 @@ function validateLexeme() {
     alert('Ai uitat să completezi ce lexem descrie cel mai bine imaginea');
     return false;
   }
-};
+}
 
 function checkServerResponse(response, postData) {
   if (response.responseText) {

@@ -1,106 +1,14 @@
 <br/>
-{if $anyUntaggedImages}
-  {if !$imgLexemeId}
-    <div class="visualTagImg">
-      <img src="{$imagePath}"/>
-    </div> 
-    <div>
-      <form action="visualTag.php" method="post">
-        <label>Cuvântul care descrie cel mai bine imaginea:<br/>
-          <input type="hidden" name="imageId" value="{$imageId}"/>
-          <input id="lexemId" type="hidden" name="imgLexemeId"/>
-          <input type="hidden" name="action" value="setImgLexemeId"/>
-        </label>
-      </form>
-    </div>
-    <script type="text/javascript">
-      $(adminIndexInit);
-    </script>
+<div id="revised">
+  <table id="revisedTable"></table>
+  <div id="revisedPaging"></div>
+</div>
+<div id="unrevised">
+  <table id="unrevisedTable"></table>
+  <div id="unrevisedPaging"></div>
+</div>
 
-  {else}
-    {include file="common/bits/prototypes.ihtml"}
-    <div id="visualTagCanvas">
-      <img src="{$imagePath}" id="jcrop" title="{$imageId}"/>
-      <div id="selectionOptions">
-        <label>Coordonatele centrului selecției:
-          <input id="x" type="text" size="4" name="x"/>
-          <input id="y" type="text" size="4" name="y"/>
-        </label>
-        <button type="button" id="clrSel">Șterge selecția</button>
-        <form action="visualTag.php" method="post">
-          <input type="hidden" value="{$imageId}" name="imageId"/>
-          <button type="submit" name="action" value="finishedTagging">
-            Etichetarea este completă
-          </button>
-          <button id="previewTags" type="button">Previzualizare etichete</button>
-        </form>
-        <button type="button" id="toggleHelp">Click pentru Ajutor</button>
-        <div id="helpText">
-          <p>
-          Pasul 1: În căsuța „Cuvânt”, scrie cuvântul din interiorul etichetei.<br/>
-          Pasul 2: Pe imagine selectează cuvântul de etichetat și apoi apasă primul buton
-          „Setează coordonatele”.<br/>
-          Pasul 3: Click pe locul din imagine unde cuvântul tocmai selectat indică și
-          apasă pe cel de-al doilea buton „Setează coordonatele”.<br/>
-          Pasul 4: Click pe butonul „Salvează eticheta”.<br/>
-          Pasul 5: După ce toate etichetele au fost introduse, 
-          click pe butonul „Etichetarea este completă”.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div id="tagOptions">
-      <form action="visualTag.php" method="post">
-        <input id="imageId" type="hidden" value="{$imageId}" name="imageId"/>
-        <p>
-          Informații imagine<br/><br/>
-          Imaginea este atribuită cuvântului: {$lexemeName}.
-        </p>
-        <button type="submit" name="action" value="resetImgLexemeId">Modifică</button>
-      </form>
-      <form action="visualTag.php" method="post" onsubmit="return validateTag()">
-        <input type="hidden" value="{$imageId}" name="imageId"/>
-
-        <p>Informații etichetă</p>
-
-        <label>Cuvânt:
-          <input id="lexemId" type="hidden"/>
-        </label><br/>
-
-          <input id="lexemeId" type="hidden" size="10" name="lexemeId"/>
-
-        <label>Text de afișat
-          <input id="label" type="text" size="20" name="label"/>
-        </label><br/>
-
-        <label>Coordonatele centrului etichetei:
-          <input id="xTag" type="text" size="4" name="xTag"/>
-          <input id="yTag" type="text" size="4" name="yTag"/>
-          <button id="setCoordTag" type="button">Setează coordonatele</button>
-        </label><br/>
-
-        <label>Coordonatele zonei etichetate:
-          <input id="xImg" type="text" size="4" name="xImg"/>
-          <input id="yImg" type="text" size="4" name="yImg"/>
-          <button id="setCoordImg" type="button">Setează coordonatele</button>
-        </label><br/>
-
-        <button id="saveSel" type="submit" name="action" value="save">Salvează eticheta</button>
-      </form>
-    </div>
-
-    <div id="savedTags">
-      <table id="tagsGrid"></table>
-      <div id="tagsPaging"></div>
-    </div>
-
-    <script type="text/javascript">
-      $(adminIndexInit);
-      $(replaceSubmitEvent);
-    </script>
-  {/if}
-
-{else}
-  <p>Toate imaginile au fost revizuite. Mulțumim!</p>
-{/if}
+<form diplay="none" method="post">
+  <input id="imgToTag" type="hidden" name="imgToTag"/>
+  <input type="hidden" name="tagging" value="1"/>
+</form>

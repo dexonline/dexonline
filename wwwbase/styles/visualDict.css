@@ -60,3 +60,15 @@
   background-color: #fff;
   cursor: pointer;
 }
+
+#revised {
+  float: left;
+}
+
+#unrevised {
+  float: right;
+}
+
+.mainLexeme {
+  font-weight: bold;
+}

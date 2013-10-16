@@ -5,6 +5,19 @@ $oper = util_getRequestParameter('oper');
 $id = util_getRequestParameter('id');
 
 switch ($oper) {
+  case 'add':
+    $line = VisualTag::factory('VisualTag')->create();
+    
+    $line->imageId = util_getRequestParameter('imageId');
+    $line->lexemeId = util_getRequestParameter('lexemeId');
+    $line->label = util_getRequestParameter('label');
+    $line->textXCoord = util_getRequestParameter('xTag');
+    $line->textYCoord = util_getRequestParameter('yTag');;
+    $line->imgXCoord = util_getRequestParameter('xImg');
+    $line->imgYCoord = util_getRequestParameter('yImg');
+    $line->save();
+    break;
+
   case 'del':
     $line = VisualTag::get_by_id($id);
     
@@ -14,20 +27,14 @@ switch ($oper) {
     break;
   
   case 'edit':
-    $xTag = util_getRequestParameter('xTag');
-    $yTag = util_getRequestParameter('yTag');
-    $xImg = util_getRequestParameter('xImg');
-    $yImg = util_getRequestParameter('yImg');
-    $label = util_getRequestParameter('label');
-
     $line = VisualTag::get_by_id($id);
   	
     if(!empty($line)){
-      $line->textXCoord = $xTag;
-      $line->textYCoord = $yTag;
-      $line->imgXCoord = $xImg;
-      $line->imgYCoord = $yImg;
-      $line->label = $label;
+      $line->textXCoord = util_getRequestParameter('xTag');
+      $line->textYCoord = util_getRequestParameter('yTag');;
+      $line->imgXCoord = util_getRequestParameter('xImg');
+      $line->imgYCoord = util_getRequestParameter('yImg');
+      $line->label = util_getRequestParameter('label');
       $line->save();
   	}
     break;

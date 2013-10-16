@@ -21,9 +21,40 @@ jQuery(document).ready(function() {
     closeOnEscape: true,
     reloadAfterSubmit: true
   };
+  var imagesTable = function(revised, elementId, pagerId, message) {
+    $('#' + elementId).jqGrid({
+      url: wwwRoot + 'ajax/visualGetImages.php',
+      postData: {revised: revised},
+      datatype: 'json',
+      cmTemplate: {sortable: false},
+      colNames: ['Link Imagine', 'Id imagine', 'Lexeme asociat imaginii','Id User', 'User', 'Lățime', 'Înălțime', 'Ultima Modificare'],
+      colModel: [
+        {name: 'link', index: 'link', width: 100},
+        {name: 'imageId', index: 'imageId', hidden: true},
+        {name: 'lexeme', index: 'lexeme', width: 160, align: 'center'},
+        {name: 'userId', index: 'userId', hidden: true},
+        {name: 'user', index: 'user', width: 100, align: 'center'},
+        {name: 'width', index: 'width', width: 70, align: 'center'},
+        {name: 'height', index: 'height', width: 70, align: 'center'},
+        {name: 'latestMod', index: 'latestMod', width: 100, align: 'center'}
+      ],
+      rowNum: 20,
+      recreateForm: true,
+      width: '700px',
+      height: '100%',
+      rowList: [20, 50, 100, 200],
+      pager: $('#' + pagerId),
+      viewrecords: true,
+      caption: 'Imagini a căror etichetare este ' + message,
+      ondblClickRow: function(rowid) {
+        $('#imgToTag').val($(this).jqGrid('getCell', rowid, 'imageId'));
+        $('form').submit();
+      }
+    });
+  }
   
   initJcrop();
-  resetCoords();
+  resetAllFields();
 
   function initJcrop() {
     $('#jcrop').Jcrop({
@@ -37,31 +68,24 @@ jQuery(document).ready(function() {
   }
 
   function setCoords(c) {
-    calculateCentre(c);
+    // Calculates the centre of the selection
+    coords.cx = Math.round((2 * c.x + c.w) / 2);
+    coords.cy = Math.round((2 * c.y + c.h) / 2);
 
     $('#x').val(coords.cx);
     $('#y').val(coords.cy);
-  }
-
-  function calculateCentre(c) {
-    coords.cx = Math.round((2 * c.x + c.w) / 2);
-    coords.cy = Math.round((2 * c.y + c.h) / 2);
   }
 
   /** Clears the actual selection */
   $('#clrSel').click(function(e) {
     jcrop_api.release();
 
-    resetCoords();
-  });
-
-  function resetCoords() {
     coords.cx = 0;
     coords.cy = 0;
 
     $('#x').val('');
     $('#y').val('');
-  }
+  });
 
   $('#setCoordTag').click(function() {
     $('#xTag').val(coords.cx);
@@ -93,9 +117,25 @@ jQuery(document).ready(function() {
     });
   });
 
+  $('#saveSel').click(function() {
+    var data = validateTag();
+
+    if(data) {
+      data.oper = "add";
+      $.ajax({
+        type: 'POST',
+        url: wwwRoot + 'ajax/visualTagsEdit.php',
+        data: data
+      }).done(function() {
+        $('#tagsGrid').trigger('reloadGrid');
+        resetAllFields();
+      });
+    }
+  });
+
   $('#tagsGrid').jqGrid({
-    url: wwwRoot + 'ajax/getSavedTags.php',
-    postData: {imageId: $('#imageId').val()},
+    url: wwwRoot + 'ajax/visualGetImageTags.php',
+    postData: {imageId: $('#imageId').val(), usage: 'table'},
     datatype: 'json',
     cmTemplate: {sortable: false},
     colNames: ['Id', 'Lexem', 'Text afișat', 'X Etichetă', 'Y Etichetă', 'X Imagine', 'Y Imagine'],
@@ -103,10 +143,10 @@ jQuery(document).ready(function() {
       {name: 'id', index: 'id', hidden: true},
       {name: 'lexeme', index: 'lexeme', width: 80, align: 'center'},
       {name: 'label', index: 'label', width: 120, align: 'center', editable: true},
-      {name: 'xTag', index: 'xTag', width: 55, align: 'center', editable: true},
-      {name: 'yTag', index: 'yTag', width: 55, align: 'center', editable: true},
-      {name: 'xImg', index: 'yImg', width: 55, align: 'center', editable: true},
-      {name: 'yImg', index: 'yImg', width: 55, align: 'center', editable: true}
+      {name: 'textX', index: 'textX', width: 55, align: 'center', editable: true},
+      {name: 'textY', index: 'textY', width: 55, align: 'center', editable: true},
+      {name: 'imgX', index: 'imgX', width: 55, align: 'center', editable: true},
+      {name: 'imgY', index: 'imgY', width: 55, align: 'center', editable: true}
     ],
     rowNum: 20,
     recreateForm: true,
@@ -120,6 +160,9 @@ jQuery(document).ready(function() {
     ondblClickRow: function(rowid) { $(this).jqGrid('editGridRow', rowid, editOptions); }
   })
   .navGrid('#tagsPaging', gridOptions, editOptions, addOptions, delOptions);
+
+  imagesTable(1, 'revisedTable', 'revisedPaging', 'completă');
+  imagesTable(0, 'unrevisedTable', 'unrevisedPaging', 'incompletă');
 });
 
 /** Replaces the submit event that triggers on change, set in select2Dev.js */
@@ -132,36 +175,40 @@ function replaceSubmitEvent() {
     // Matches only the lexeme, without the description in brackets 
     text = text.match(/^[^ \(]+/);
 
-    $('#lexemeId').val(id);
     $('#label').val(text);
   });
 }
 
 function validateTag() {
-  var label = $('#label').val();
-  var xImg = $('#xImg').val();
-  var yImg = $('#yImg').val();
-  var xTag = $('#xTag').val();
-  var yTag = $('#yTag').val();
+  var data = {
+    id: '',
+    lexemeId: $('#lexemId').attr('value'),
+    imageId: $('#imageId').val(),
+    label: $('#label').val(),
+    xTag: $('#xTag').val(),
+    yTag: $('#yTag').val(),
+    xImg: $('#xImg').val(),
+    yImg: $('#yImg').val()
+  };
 
-  if(!label) {
+  if(!data.label) {
     alert('Ai uitat să completezi câmpul Cuvânt');
     return false;
 
-  } else if(!xTag || !yTag) {
+  } else if(!data.xTag || !data.yTag) {
     alert('Ai uitat să completezi câmpurile Coordonatele centrului etichetei');
     return false;
 
-  } else if(!xImg || !yImg) {
+  } else if(!data.xImg || !data.yImg) {
     alert('Ai uitat să completezi câmpurile Coordonatele zonei etichetate');
     return false;
   }
+
+  return data;
 }
 
 function validateLexeme() {
-  var lexeme = $('#imgLexemeId').val();
-
-  if(!lexeme) {
+  if(!($('#imgLexemeId').val())) {
     alert('Ai uitat să completezi ce lexem descrie cel mai bine imaginea');
     return false;
   }
@@ -173,4 +220,13 @@ function checkServerResponse(response, postData) {
   } else {
     return [true];
   }
+}
+
+function resetAllFields() {
+  $('#label').val('');
+  $('#xTag').val('');
+  $('#yTag').val('');
+  $('#xImg').val('');
+  $('#yImg').val('');
+  $('#lexemId').select2('data', {id: '', text: ''});
 }

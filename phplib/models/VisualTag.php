@@ -10,11 +10,6 @@ class VisualTag extends BaseObject implements DatedObject {
       $tag->delete();
     }
   }
-
-  /** Paris filter functionality to access the limit query */
-  public static function limit($orm, $from, $quantity) {
-  	return $orm->limit($quantity)->offset($from);
-  }
 }
 
 ?>

@@ -45,8 +45,8 @@ function drawOnCanvas() {
 
   $.ajax({
     type: 'POST',
-    url: wwwRoot + 'ajax/getImageTags.php',
-    data: {imageId: imageId}
+    url: wwwRoot + 'ajax/visualGetImageTags.php',
+    data: {imageId: imageId, usage: 'gallery'}
   }).done(function(data) {
     data = JSON.parse(data);
     var widthScale = parseInt(canvas.attr('width')) / data.dims.width,

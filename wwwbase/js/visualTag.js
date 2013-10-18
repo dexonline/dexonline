@@ -55,6 +55,7 @@ jQuery(document).ready(function() {
   
   initJcrop();
   resetAllFields();
+  addLinkToHeader();
 
   function initJcrop() {
     $('#jcrop').Jcrop({
@@ -229,4 +230,8 @@ function resetAllFields() {
   $('#xImg').val('');
   $('#yImg').val('');
   $('#lexemId').select2('data', {id: '', text: ''});
+}
+
+function addLinkToHeader() {
+  $('.links').append(' | <a href="visual.php">Pagina de încărcare</a>');
 }

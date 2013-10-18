@@ -8,6 +8,8 @@
 			url: '../elfinder-connector/visual_connector.php',
 			lang: 'en'
 		}).elfinder('instance');
+
+		$('.links').append(' | <a href="visualTag.php">Pagina de etichetare</a>');
 	});
 	{/literal}
 </script>

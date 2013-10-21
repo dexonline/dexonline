@@ -300,6 +300,44 @@ class StringUtil {
   static function explode($delimiter, $s) {
     return array_values(array_filter(explode($delimiter, $s), 'strlen'));
   }
+
+	/**
+   * Cleans up a URL in various ways:
+   * - trims any known index files and extensions (passed as arguments)
+   * - replaces consecutive slashes with a single slash;
+   * - trims any final slashes
+   * Assumes the URL includes a protocol.
+   * @param $indexFile Index file name (without extension)
+   * @param $indexExt Array of index file extensions
+   **/
+	static function urlCleanup($url, $indexFile, $indexExt) {
+    // Scroll through the extension list until we find one that matches
+    $i = 0;
+    $found = false;
+    do {
+      $target = $indexFile . '.' . $indexExt[$i];
+			if (self::endsWith($url, $target)) {
+        $url = substr($url, 0, -strlen($target));
+        $found = true;
+      }
+      $i++;
+    } while (($i < count($indexExt)) && !$found);
+
+    // Save the protocol first
+    $parts = explode('//', $url, 2);
+
+    // Replace //+ by /
+    $parts[1] = preg_replace('#//+#', '/', $parts[1]);
+
+    // Delete any trailing slashes
+    $parts[1] = rtrim($parts[1], '/');
+
+    // Reassemble and return the URL
+		return implode('//', $parts);
+	}
+
+
+
 }
 
 ?>

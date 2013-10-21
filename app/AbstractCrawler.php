@@ -5,368 +5,265 @@
  */
 require_once __DIR__ . '/../phplib/util.php';
 require_once util_getRootPath() . 'phplib/simple_html_dom.php';
-
 require_once util_getRootPath() . 'phplib/AppLog.php';
 require_once util_getRootPath() . 'phplib/MemoryManagement.php';
 
-
-db_init();
-
 abstract class AbstractCrawler {
+  protected $ch;
+  protected $pageContent;
+  protected $plainText;
+  protected $info;
+  protected $currentUrl;
+  protected $currentTimestamp;
+  protected $currentPageId;
+  protected $rawPagePath;
+  protected $parsedTextPath;
 
-	protected $ch;
-	protected $pageContent;
-	protected $plainText;
-	protected $info;
-	protected $currentUrl;
-	protected $currentTimestamp;
-	protected $currentPageId;
-	protected $rawPagePath;
-	protected $parsedTextPath;
+  protected $currentLocation;
 
-	protected $currentLocation;
+  protected $urlResource;
+  protected $directoryIndexFile;
+  protected $indexFileExt;
 
-	protected $urlResource;
-	protected $directoryIndexFile;
-	protected $indexFileExt;
-
-	protected $domainsList;
-
-
-	function __construct() {
-
-		$this->plainText = '';
-		$this->pageContent = '';
-		$this->directoryIndexFile = Config::get('crawler.dir_index_file');
-		$this->indexFileExt = explode(',', Config::get('crawler.index_file_ext'));
-		$this->fileExt = explode(',', Config::get('crawler.index_file_ext').',txt');
-	}
+  protected $domainsList;
 
 
-	//descarca pagina de la $url
-	function getPage($url) {
-
-		$this->ch = curl_init();
-		Applog::log("User agent is: " . Config::get('crawler.user_agent'));
-		curl_setopt ($this->ch, CURLOPT_URL, $url);
-		curl_setopt ($this->ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-		curl_setopt ($this->ch, CURLOPT_USERAGENT, Config::get('crawler.user_agent'));
-		curl_setopt ($this->ch, CURLOPT_TIMEOUT, 20);
-		curl_setopt ($this->ch, CURLOPT_FOLLOWLOCATION, TRUE);
-		curl_setopt ($this->ch, CURLOPT_RETURNTRANSFER, TRUE);
-		curl_setopt($this->ch, CURLOPT_COOKIEFILE, 'cookie_jar');
-		curl_setopt ($this->ch, CURLOPT_REFERER, $url);
-		$this->pageContent = curl_exec($this->ch);
-		$this->info = curl_getinfo($this->ch);
-
-		if(!curl_errno($this->ch)) {
- 			
- 			$this->info = curl_getinfo($this->ch);
-		}
-		else{
-
-			$this->info = array('http_code' => 404);
-		}
-
-		curl_close( $this->ch);
-
-		return $this->pageContent;
-	}
+  function __construct() {
+    $this->plainText = '';
+    $this->pageContent = '';
+    $this->directoryIndexFile = Config::get('crawler.dir_index_file');
+    $this->indexFileExt = explode(',', Config::get('crawler.index_file_ext'));
+    $this->fileExt = explode(',', Config::get('crawler.index_file_ext').',txt');
+  }
 
 
-    //returneaza tipul continutului paginii
-    function getUrlMimeType($buffer) {
+  //descarca pagina de la $url
+  function getPage($url) {
 
-	    $finfo = new finfo(FILEINFO_MIME_TYPE);
-	    return $finfo->buffer($buffer);
-	}
-	//verifica daca continutul paginii e html, nu alt fisier
-	function isHtml($buffer) {
+    $this->ch = curl_init();
+    Applog::log("User agent is: " . Config::get('crawler.user_agent'));
+    curl_setopt ($this->ch, CURLOPT_URL, $url);
+    curl_setopt ($this->ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt ($this->ch, CURLOPT_USERAGENT, Config::get('crawler.user_agent'));
+    curl_setopt ($this->ch, CURLOPT_TIMEOUT, 20);
+    curl_setopt ($this->ch, CURLOPT_FOLLOWLOCATION, TRUE);
+    curl_setopt ($this->ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($this->ch, CURLOPT_COOKIEFILE, 'cookie_jar');
+    curl_setopt ($this->ch, CURLOPT_REFERER, $url);
+    $this->pageContent = curl_exec($this->ch);
+    $this->info = curl_getinfo($this->ch);
 
-		Applog::log("PAGE TYPE=".$this->getUrlMimeType($buffer));
+    if(!curl_errno($this->ch)) {
+       
+      $this->info = curl_getinfo($this->ch);
+    }
+    else{
 
-		return strstr($this->getUrlMimeType($buffer), 'html');
-	}
-
-	
-	//seteaza locatia unde vor fi salvate fisierele html raw si clean text
-	function setStorePageParams() {
-
-		$this->currentTimestamp = date("Y-m-d H:i:s");
-		$this->rawPagePath = Config::get('crawler.raw_page_path')
-			.$this->urlResource['host'] .'/'. $this->currentTimestamp;
-		$this->parsedTextPath = Config::get('crawler.parsed_text_path')
-			.$this->urlResource['host'] .'/'. $this->currentTimestamp;
-	}
-
-	//verifica daca pagina poate fi descarcata si daca e HTML
-	function pageOk() {
-
-		Applog::log("HTTP CODE " .$this->httpResponse());
-		//verifica codul HTTP
-		if ($this->httpResponse() >= 400) {
-				Applog::log("HTTP Error, URL Skipped");
-				return false;
-		}
-		//verifica daca pagina e HTML
-		if (!$this->isHtml($this->pageContent)) {
-
-				Applog::log("Page not HTML, URL Skipped");
-				return false;
-		}
-
-		return true;
-	}
-	
-	/*
-	 * Salveaza pagina in format raw si clean text in fisiere 
-	 */
-	function saveCurrentPage() {
-
-
-		try {
-			if (!file_exists(Config::get('crawler.raw_page_path').$this->urlResource['host'])) {
-				mkdir(Config::get('crawler.raw_page_path').$this->urlResource['host'], 0777, true);
-			}
-			if (!file_exists(Config::get('crawler.parsed_text_path').$this->urlResource['host'])) {
-				mkdir(Config::get('crawler.parsed_text_path').$this->urlResource['host'], 0777, true);
-			}
-			//salveaza pagina raw pe disk
-			file_put_contents($this->rawPagePath, $this->pageContent);
-			//converteste simbolurile HTML in format text si elimina din spatii.
-			$this->plainText = preg_replace("/  /", "", html_entity_decode($this->plainText));
-			//salveaza textul extras pe disk
-			file_put_contents($this->parsedTextPath, $this->plainText);
-		}
-		catch(Exception $ex) {
-
-			Applog::exceptionLog($ex);
-		}
-	}
-
-	//returneaza codul HTTP
-	function httpResponse() {
-
-		return $this->info['http_code'];
-	}
-
-	//returneaza urmatorul URL ne crawl-at din baza de date sau null daca nu exista
-    function getNextLink() {
-
-
-    	//$nextLink = null;
-    	try {
-	    	//$nextLink = (string)ORM::for_table('Link')->raw_query("Select concat(domain,canonicalUrl) as concat_link from Link where concat(domain,canonicalUrl) not in (Select url from CrawledPage);")->find_one()->concat_link;
-	    	$nextLink = ORM::for_table('Link')->raw_query("Select canonicalUrl from Link where canonicalUrl LIKE '$this->currentLocation%' and canonicalUrl not in (Select url from CrawledPage);")->find_one();
-	    	
-	    	if ($nextLink != null) {
-	    	
-	    		return $nextLink->canonicalUrl;
-	    	}
-	    }
-	    catch(Exception $ex) {
-
-	    	Applog::exceptionLog($ex);
-	    }
-
-	    return null;
+      $this->info = array('http_code' => 404);
     }
 
-    //repara HTML-ul stricat intr-un mod minimal astfel incat
-    //sa poata fi interpretat de biblioteca simple_html_dom
-    function fixHtml($html) {
+    curl_close( $this->ch);
 
-    	foreach($html->find('head') as $script) {
+    return $this->pageContent;
+  }
 
-			$script->outertext = '';
-		}
 
-    	foreach($html->find('script') as $script) {
+  //returneaza tipul continutului paginii
+  function getUrlMimeType($buffer) {
 
-			$script->outertext = '';
-		}
+    $finfo = new finfo(FILEINFO_MIME_TYPE);
+    return $finfo->buffer($buffer);
+  }
+  //verifica daca continutul paginii e html, nu alt fisier
+  function isHtml($buffer) {
 
-		foreach($html->find('style') as $style) {
+    Applog::log("PAGE TYPE=".$this->getUrlMimeType($buffer));
 
-			$style->outertext = '';
-		}
+    return strstr($this->getUrlMimeType($buffer), 'html');
+  }
 
-		$html->load($html->save());
-		
-		//transforma pagina raw in simple_html_dom_node
-		//$this->dom = str_get_html($pageContent);
-		
-		$buffer = '<html><body>';
-		$nodes = $html->childNodes();
-		foreach($nodes as $node) {
+  
+  //seteaza locatia unde vor fi salvate fisierele html raw si clean text
+  function setStorePageParams() {
 
-			$buffer .= $node->innertext();
-		}
+    $this->currentTimestamp = date("Y-m-d H:i:s");
+    $this->rawPagePath = Config::get('crawler.raw_page_path')
+      .$this->urlResource['host'] .'/'. $this->currentTimestamp;
+    $this->parsedTextPath = Config::get('crawler.parsed_text_path')
+      .$this->urlResource['host'] .'/'. $this->currentTimestamp;
+  }
 
-		$buffer .= '</body></html>';
+  //verifica daca pagina poate fi descarcata si daca e HTML
+  function pageOk() {
 
-		return str_get_html($buffer);
+    Applog::log("HTTP CODE " .$this->httpResponse());
+    //verifica codul HTTP
+    if ($this->httpResponse() >= 400) {
+      Applog::log("HTTP Error, URL Skipped");
+      return false;
+    }
+    //verifica daca pagina e HTML
+    if (!$this->isHtml($this->pageContent)) {
+
+      Applog::log("Page not HTML, URL Skipped");
+      return false;
     }
 
-    function eligibleUrl($url) {
+    return true;
+  }
+  
+  //returneaza codul HTTP
+  function httpResponse() {
 
-    	$resource = parse_utf8_url($url);
-    	$pathInfo = pathinfo($resource['path']);
+    return $this->info['http_code'];
+  }
 
-    	if (isset($pathInfo['extension'])) {
+  //returneaza urmatorul URL ne crawl-at din baza de date sau null daca nu exista
+  function getNextLink() {
 
-    		$ext = $pathInfo['extension'];
 
+    //$nextLink = null;
+    try {
+      //$nextLink = (string)ORM::for_table('Link')->raw_query("Select concat(domain,canonicalUrl) as concat_link from Link where concat(domain,canonicalUrl) not in (Select url from CrawledPage);")->find_one()->concat_link;
+      $nextLink = ORM::for_table('Link')->raw_query("Select canonicalUrl from Link where canonicalUrl LIKE '$this->currentLocation%' and canonicalUrl not in (Select url from CrawledPage);")->find_one();
+        
+      if ($nextLink != null) {
+        
+        return $nextLink->canonicalUrl;
+      }
+    }
+    catch(Exception $ex) {
 
-    		if (array_search($ext, $this->fileExt) === false) {
-
-    			return false;
-    		}
-    	}
-
-    	return true;
+      Applog::exceptionLog($ex);
     }
 
-    //metode pentru prelucrarea linkurilor
-	//sterge directory index file si elimina slash-urile in plus
-	//gaseste toate linkurile
-	//le transforma in absolute daca sunt relative
-	function processLink($url) {
+    return null;
+  }
+
+  //repara HTML-ul stricat intr-un mod minimal astfel incat
+  //sa poata fi interpretat de biblioteca simple_html_dom
+  function fixHtml($html) {
+
+    foreach($html->find('head') as $script) {
+
+      $script->outertext = '';
+    }
+
+    foreach($html->find('script') as $script) {
+
+      $script->outertext = '';
+    }
+
+    foreach($html->find('style') as $style) {
+
+      $style->outertext = '';
+    }
+
+    $html->load($html->save());
+    
+    //transforma pagina raw in simple_html_dom_node
+    //$this->dom = str_get_html($pageContent);
+    
+    $buffer = '<html><body>';
+    $nodes = $html->childNodes();
+    foreach($nodes as $node) {
+
+      $buffer .= $node->innertext();
+    }
+
+    $buffer .= '</body></html>';
+
+    return str_get_html($buffer);
+  }
+
+  function eligibleUrl($url) {
+
+    $resource = util_parseUtf8Url($url);
+    $pathInfo = pathinfo($resource['path']);
+
+    if (isset($pathInfo['extension'])) {
+
+      $ext = $pathInfo['extension'];
 
 
-		if (!$this->eligibleUrl($url)) {
+      if (array_search($ext, $this->fileExt) === false) {
 
-			return;
-		}
+        return false;
+      }
+    }
 
-		Applog::log('Processing link: '.$url);
-		$canonicalUrl = null;
-		if ($this->isRelativeLink($url)) {
+    return true;
+  }
 
-			$url = $this->makeAbsoluteLink($url);
-		}
-		//daca ultimul caracter este '/', il eliminam
-		//exemplu wiki.dexonline.ro nu wiki.dexonline.ro/
-		if (substr($url, -1) == "/") $url = substr($url, 0, -1);
-
-		//sterge slash-uri in plus si directory index file
-		$canonicalUrl = $this->urlPadding($url);
-		
-		if (!strstr($url, $this->currentLocation)) return;		
-
-		Link::saveLink2DB($canonicalUrl, $this->getDomain($url), $this->currentPageId);
-	}
+  //metode pentru prelucrarea linkurilor
+  //sterge directory index file si elimina slash-urile in plus
+  //gaseste toate linkurile
+  //le transforma in absolute daca sunt relative
+  function processLink($url) {
 
 
-	function urlPadding($url) {
+    if (!$this->eligibleUrl($url)) {
 
-		return $this->delDuplicateSlashes($this->delDirIndexFile($url));
-	}
+      return;
+    }
 
+    Applog::log('Processing link: '.$url);
+    $canonicalUrl = null;
+    if ($this->isRelativeLink($url)) {
 
-	//delestes index.php/html/pl/py/jsp  etc
-	function delDirIndexFile($url) {
+      $url = $this->makeAbsoluteLink($url);
+    }
+    //daca ultimul caracter este '/', il eliminam
+    //exemplu wiki.dexonline.ro nu wiki.dexonline.ro/
+    if (substr($url, -1) == "/") $url = substr($url, 0, -1);
 
-		//Applog::log('delDirIndexFile  '.$url);
+    //sterge slash-uri in plus si directory index file
+    $canonicalUrl = StringUtil::urlCleanup($url, $this->directoryIndexFile, $this->indexFileExt);
+    
+    if (!strstr($url, $this->currentLocation)) return;    
 
-		foreach($this->indexFileExt as $ext) {
+    Link::saveLink2DB($canonicalUrl, $this->getDomain($url), $this->currentPageId);
+  }
 
-			$target = $this->directoryIndexFile .'.'. $ext;
+  function isRelativeLink($url) {
+    return !strstr($url, "http");
+  }
 
-			if (strstr($url, $target))
-				return str_replace($target, "", $url);
-		}
+  //cauta directorul link-ului curent si returneaza
+  //url-ul spre acel director
+  function getDeepestDir($url) {
 
-		return $url;
-	}
+    try {
+      $retVal = substr($url, 0, strrpos($url,'/'));
 
-	//deletes slashes when not needed
-	function delDuplicateSlashes($url) {
+      if (strstr($retVal, $this->currentLocation))
+        return $retVal;
+      else return $url;
+    }
+    catch(Exception $ex) {
 
-		if (strlen($url) < 5) {
+      exceptionLog($ex);
+    }
+    return $url;
+  }
 
-			Applog::log("whatup with delDuplicateSlashes: $url");
-			return $this->currentUrl;
-		}
-		
+  function makeAbsoluteLink($url) {
 
-		$parsedUrl = parse_utf8_url($url);
-		
+    return $this->getDeepestDir($this->currentUrl) .'/'. $url;
+  }
 
-		if (substr_count($parsedUrl['host'], '.') < 2) {
+  function getDomain($url) {
 
-			$parsedUrl['host'] = 'www.'.$parsedUrl['host'];
-		}
-
-		$retUrl = $parsedUrl['scheme'].'://'.$parsedUrl['host'];
-		$consecutiveSlash = false;
-
-		$url = substr($url, strlen($retUrl));
-
-		for ($i = 0; $i < strlen($url); ++$i) {
-			$nextCh = substr($url, $i, 1);
-
-			if ($nextCh == '/' && !$consecutiveSlash) {
-
-				$retUrl .= $nextCh;
-				$consecutiveSlash = true;
-			}
-			else if ($nextCh == '/') {}
-			else {
-				$retUrl .= $nextCh;
-				$consecutiveSlash = false;
-			}
-		}
-
-		//eliminarea slash-ului final
-	
-		if (substr($retUrl, -1) == "/") $retUrl = substr($retUrl, 0, -1);
-
-		return $retUrl;
-	}
+    return $this->urlResource['host'];
+  }
 
 
-	function isRelativeLink($url) {
+  // Clasele care deriva aceasta clasa vor trebui sa implementeze metodele de mai jos
+  abstract function extractText($domNode);
 
-		return !strstr($url, "http");
-	}
+  abstract function crawlDomain();
 
-	//cauta directorul link-ului curent si returneaza
-	//url-ul spre acel director
-	function getDeepestDir($url) {
-
-		try {
-			$retVal = substr($url, 0, strrpos($url,'/'));
-
-			if (strstr($retVal, $this->currentLocation))
-				return $retVal;
-			else return $url;
-		}
-		catch(Exception $ex) {
-
-			exceptionLog($ex);
-		}
-		return $url;
-	}
-
-	function makeAbsoluteLink($url) {
-
-		return $this->getDeepestDir($this->currentUrl) .'/'. $url;
-	}
-
-	function getDomain($url) {
-
-		return $this->urlResource['host'];
-	}
-
-
-	//Clasele care deriva aceasta clasa vor trebui
-	//sa implementeze metodele de mai jos
-	abstract function extractText($domNode);
-
-	abstract function crawlDomain();
-
-	abstract function start();
+  abstract function start();
 }
 
-?>1
+?>

@@ -5,8 +5,8 @@
  **/
 
 require_once("../phplib/util.php");
-$mid = pref_getSectionPreference('euplatesc', 'euPlatescMid');
-$key = pref_getSectionPreference('euplatesc', 'euPlatescKey');
+$mid = Config::get('euplatesc.euPlatescMid');
+$key = Config::get('euplatesc.euPlatescKey');
 require_once("../phplib/euplatesc.php");
 
 ?>

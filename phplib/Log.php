@@ -16,7 +16,7 @@ class Log {
    * @return void
    **/
   public function __construct($query, $queryBeforeRedirect, $searchType, $redirect = false, &$results = null) {
-    if (!pref_getServerPreference('logSearch') || lcg_value() > pref_getServerPreference('logSampling')) {
+    if (!Config::get('global.logSearch') || lcg_value() > Config::get('global.logSampling')) {
       $this->query = null;
       return false;
     }
@@ -37,7 +37,7 @@ class Log {
     $this->resultList = '';
     
     if ($results != null) {
-      $numResultsToLog = min(count($results), pref_getServerPreference('logResults'));
+      $numResultsToLog = min(count($results), Config::get('global.logResults'));
       $this->resultList = '';
       for ($i = 0; $i < $numResultsToLog; $i++) {
         $this->resultList .= ($this->resultList ? ',' : '') . $results[$i]->id;
@@ -56,11 +56,11 @@ class Log {
       return false;
     }
     try {
-      $f = fopen(pref_getServerPreference('logPath'), 'at');
+      $f = fopen(Config::get('global.logPath'), 'at');
     }
     catch (Exception $e) {
       try {
-        $f = fopen(pref_getServerPreference('logPath'), 'wt');
+        $f = fopen(Config::get('global.logPath'), 'wt');
       }
       catch (Exception $e) {
         throw new Exception('Error trying to access the log file', -1, $e);

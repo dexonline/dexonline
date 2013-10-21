@@ -10,7 +10,7 @@ abstract class AdsModule {
   abstract public function run($lexems, $definitions);
 
   public static function runAllModules($lexems, $definitions) {
-    $adsModules = pref_getServerPreference('adsModulesH');
+    $adsModules = Config::get('global.adsModulesH');
     if ($adsModules) {
       foreach ($adsModules as $adsModule) {
         require_once util_getRootPath() . "phplib/ads/{$adsModule}/{$adsModule}AdsModule.php";

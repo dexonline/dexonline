@@ -23,7 +23,7 @@ $widgets = Preferences::getWidgets($user);
 SmartyWrap::assign('detailsVisible', $detailsVisible);
 SmartyWrap::assign('userPrefs', $userPrefs);
 SmartyWrap::assign('skin', $skin);
-SmartyWrap::assign('availableSkins', pref_getServerPreference('skins'));
+SmartyWrap::assign('availableSkins', Config::get('global.skins'));
 SmartyWrap::assign('privilegeNames', $PRIV_NAMES);
 SmartyWrap::assign('widgets', $widgets);
 SmartyWrap::assign('userHasAvatar', util_userHasAvatar());

@@ -10,7 +10,7 @@ require_once util_getRootPath() . 'phplib/MemoryManagement.php';
 
 db_init();
 
-$logFile = pref_getSectionPreference('app_log', 'diacritics_log');
+$logFile = Config::get('app_log.diacritics_log');
 
 /*
  * Builds examples and improves statistics for the diacritics mechanism
@@ -36,10 +36,10 @@ class DiacriticsBuilder {
 	function __construct() {
 		Applog::log("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__, 4);
 
-		self::$diacritics = pref_getSectionPreference("diacritics", "diacritics");
-		self::$nonDiacritics = pref_getSectionPreference("diacritics", "non_lower_diacritics");
-		self::$paddingNumber = pref_getSectionPreference('diacritics', 'diacritics_padding_length');
-		self::$paddingChar = pref_getSectionPreference('diacritics', 'padding_char');
+		self::$diacritics = Config::get('diacritics.diacritics');
+		self::$nonDiacritics = Config::get('diacritics.non_lower_diacritics');
+		self::$paddingNumber = Config::get('diacritics.diacritics_padding_length');
+		self::$paddingChar = Config::get('diacritics.padding_char');
 
 		$this->globalCount = 0;
  	}

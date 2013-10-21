@@ -13,13 +13,13 @@ class SmartyWrap {
     self::assign('imgRoot', util_getImgRoot());
     self::assign('sources', Model::factory('Source')->order_by_desc('isOfficial')->order_by_asc('displayOrder')->find_many());
     self::assign('sUser', session_getUser());
-    self::assign('is_mirror', pref_isMirror());
+    self::assign('is_mirror', Config::get('global.mirror'));
     self::assign('nick', session_getUserNick());
-    self::assign('contact_email', pref_getContactEmail());
-    self::assign('hostedBy', pref_getHostedBy());
+    self::assign('contact_email', Config::get('global.contact'));
+    self::assign('hostedBy', Config::get('global.hostedBy'));
     self::assign('currentYear', date("Y"));
-    self::assign('bannerType', pref_getServerPreference('bannerType'));
-    self::assign('developmentMode', pref_getServerPreference('developmentMode'));
+    self::assign('bannerType', Config::get('global.bannerType'));
+    self::assign('developmentMode', Config::get('global.developmentMode'));
     self::assign('isMobile', util_isMobile());
     self::assign('suggestNoBanner', util_suggestNoBanner());
     self::assign('GLOBALS', $GLOBALS);
@@ -37,7 +37,7 @@ class SmartyWrap {
 
     // Set some skin variables based on the skin preferences in the config file.
     // Also assign some skin-specific variables so we don't compute them unless we need them
-    $skinVariables = session_getSkinPreferences($skin);
+    $skinVariables = Config::getSection("skin-{$skin}");
     switch ($skin) {
     case 'zepu':
       $skinVariables['afterSearchBoxBanner'] = true;

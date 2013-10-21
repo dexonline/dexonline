@@ -41,7 +41,7 @@ class DebugInfo {
   }
 
   public static function getDebugInfo() {
-    $enabled = self::$enabled && (session_getUserNick() == pref_getDebugUser());
+    $enabled = self::$enabled && (session_getUserNick() == Config::get('global.debugUser'));
     SmartyWrap::assign('debug_enabled', $enabled);
     if ($enabled) {
       SmartyWrap::assign('debug_messages', self::$debugInfo);

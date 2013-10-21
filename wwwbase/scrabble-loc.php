@@ -39,7 +39,7 @@ if ($locVersion) {
 }
 
 setlocale(LC_ALL, "ro_RO.utf8");
-SmartyWrap::assign('locVersions', pref_getLocVersions());
+SmartyWrap::assign('locVersions', Config::getLocVersions());
 SmartyWrap::displayCommonPageWithSkin('scrabble-loc.ihtml');
 
 function writeLexems($locVersion, $fileName) {

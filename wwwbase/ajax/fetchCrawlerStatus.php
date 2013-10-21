@@ -4,14 +4,8 @@
  * alyn.cti@gmail.com
  */
 require_once '../../phplib/util.php';
-require_once '../../phplib/serverPreferences.php';
-require_once '../../phplib/db.php';
-require_once '../../phplib/idiorm/idiorm.php';
-require_once '../../phplib/idiorm/paris.php';
-
 
 class FetchCrawlerStatus {
-
 	
 	function getStatusPerHttpCode($domain = null) {
 

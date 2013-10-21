@@ -17,14 +17,14 @@ class LocVersion {
   }
 
   public static function changeDatabase($versionName) {
-    $lvs = pref_getLocVersions();
+    $lvs = Config::getLocVersions();
     if ($versionName == $lvs[0]->name || !$versionName) {
       $dbInfo = db_splitDsn();
       $dbName = $dbInfo['database'];
     } else {
       $lv = new LocVersion();
       $lv->name = $versionName;
-      $dbName = pref_getLocPrefix() . $lv->getDbName();
+      $dbName = Config::get('global.mysql_loc_prefix') . $lv->getDbName();
     }
     db_changeDatabase($dbName);
   }

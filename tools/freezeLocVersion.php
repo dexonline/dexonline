@@ -1,14 +1,14 @@
 <?php
 require_once __DIR__ . '/../phplib/util.php';
 
-$lvs = array_reverse(pref_getLocVersions());
+$lvs = array_reverse(Config::getLocVersions());
 if (count($lvs) < 2) {
   die("ERROR: You need at least two LOC versions in dex.conf: " .
       "one that indicates the version to be frozen and " .
       "one to indicate the next current version.\n");
 }
 
-$locDbPrefix = pref_getLocPrefix();
+$locDbPrefix = Config::get('global.mysql_loc_prefix');
 if (!$locDbPrefix) {
   die("ERROR: You forgot to define mysql_loc_prefix in dex.conf.\n");
 }

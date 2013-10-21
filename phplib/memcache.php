@@ -17,7 +17,7 @@ function mc_init() {
  * We don't want it for moderators because they are the ones who can alter the results and we want them to see the changes right away.
  */
 function mc_shouldUse() {
-  return pref_getServerPreference('memcache') && !util_isModerator(PRIV_EDIT);
+  return Config::get('global.memcache') && !util_isModerator(PRIV_EDIT);
 }
 
 function mc_get($key) {

@@ -235,7 +235,7 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
   }
 }
 
-if (pref_getServerPreference('logSearch')) {
+if (Config::get('global.logSearch')) {
   $logDefinitions = isset($definitions) ? $definitions : array();
   $log = new Log($cuv, $redirectFrom, $searchType, $redirect, $logDefinitions);
   $log->logData();

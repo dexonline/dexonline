@@ -11,8 +11,8 @@
  * $logFile = fisierul de log al aplicatiei, poate fi schimbat dupa
  * includerea AppLog.php
  */
-$exceptionExit = pref_getSectionPreference('app_log', 'exception_exit');
-$logFile = pref_getSectionPreference('app_log', 'crawler_log');
+$exceptionExit = Config::get('app_log.exception_exit');
+$logFile = Config::get('app_log.crawler_log');
 /*
  * Logheaza activitatea crawlerului, afiseaza exceptiile
  * $level poate fi de forma :  __FILE__.' - '.__CLASS__.'::'.__FUNCTION__.' line '.__LINE__
@@ -42,12 +42,12 @@ class AppLog {
 
 		global $logFile;
 		//filtreaza mesajele
-		switch(pref_getSectionPreference('app_log', 'log_detail_level')) {
+		switch(Config::get('app_log.log_detail_level')) {
 			case 0: 
 				return;
 			case 1: case 4:
 				//minimal sau doar function debug
-				if ($detailLevel != pref_getSectionPreference('app_log', 'log_detail_level')) {
+				if ($detailLevel != Config::get('app_log.log_detail_level')) {
 					return;
 				}
 				break;
@@ -64,17 +64,17 @@ class AppLog {
 				break;
 		}		
 		//log in fisier
-		if (pref_getSectionPreference('app_log', 'log2file'))
+		if (Config::get('app_log.log2file'))
 		try {
 			$fd = fopen($logFile, "a+");
 			fprintf($fd, "%s\n", date("Y-m-d H:i:s") . '::' . $message);
 			fclose( $fd);
 		}
-		catch(Exception $ex) {
-			echo "LOG FILE PROBLEM" .pref_getSectionPreference('app_log', 'new_line');
+		catch (Exception $ex) {
+			echo "LOG FILE PROBLEM" . Config::get('app_log.new_line');
 		}
 		//log in stdout
-		if(pref_getSectionPreference('app_log', 'log2screen')) {
+		if (Config::get('app_log.log2screen')) {
 
 			echo date("Y-m-d H:i:s") . '::' . $message. self::getCorrespondentNewLine();
 			flush();

@@ -52,7 +52,7 @@ class Crawler extends AbstractCrawler {
 
 			MemoryManagement::showUsage('after cleaning', true, 'KB');
 			//niceness
-			sleep(pref_getSectionPreference('crawler', 't_wait'));
+			sleep(Config::get('crawler.t_wait'));
 		}
 		catch (Exception $ex) {
 

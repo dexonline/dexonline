@@ -25,8 +25,6 @@ function util_initEverything() {
   // smarty < session_start/end : smarty caches the person's nickname.
   util_defineRootPath();
   util_defineWwwRoot();
-  // At this point the server preferences are loaded (when
-  // util_requireOtherFiles() includes serverPreferences.php)
   util_requireOtherFiles();
   util_defineConstants();
   db_init();
@@ -91,7 +89,6 @@ function util_requireOtherFiles() {
   require_once("$root/phplib/smarty/Smarty.class.php");
   require_once("$root/phplib/idiorm/idiorm.php");
   require_once("$root/phplib/idiorm/paris.php");
-  require_once("$root/phplib/serverPreferences.php");
   require_once("$root/phplib/db.php");
   require_once("$root/phplib/logging.php");
   require_once("$root/phplib/session.php");
@@ -163,7 +160,7 @@ function util_defineConstants() {
 
   //Limits
   define('DEFAULT_LIMIT_FULLTEXT', 500);
-  define('LIMIT_FULLTEXT_DISPLAY', pref_getSectionPreference('limits', 'limitFulltextSearch', DEFAULT_LIMIT_FULLTEXT));
+  define('LIMIT_FULLTEXT_DISPLAY', Config::get('limits.limitFulltextSearch', DEFAULT_LIMIT_FULLTEXT));
 }
 
 function util_getAllStatuses() {
@@ -299,7 +296,7 @@ function util_userHasAvatar($user = null) {
 }
 
 function util_assertNotMirror() {
-  if (pref_isMirror()) {
+  if (Config::get('global.mirror')) {
     SmartyWrap::displayWithoutSkin('common/mirror_message.ihtml');
     exit;
   }

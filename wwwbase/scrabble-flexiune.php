@@ -3,7 +3,7 @@ require_once("../phplib/util.php");
 $form = util_getRequestParameter('form');
 $locVersion = util_getRequestParameter('locVersion');
 
-$locVersions = pref_getLocVersions();
+$locVersions = Config::getLocVersions();
 
 if ($locVersion && $form) {
   LocVersion::changeDatabase($locVersion);

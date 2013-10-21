@@ -2,7 +2,7 @@
 require_once("../phplib/util.php");
 
 $user = session_getUser();
-$haveEuPlatescCredentials = pref_getSectionPreference('euplatesc', 'euPlatescMid') && pref_getSectionPreference('euplatesc', 'euPlatescKey');
+$haveEuPlatescCredentials = Config::get('euplatesc.euPlatescMid') && Config::get('euplatesc.euPlatescKey');
 
 SmartyWrap::assign('page_title', 'Sprijină dexonline!');
 SmartyWrap::assign('suggestHiddenSearchForm', true);

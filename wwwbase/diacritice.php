@@ -1,18 +1,13 @@
 <?php
 
 require_once '../phplib/util.php';
-require_once '../phplib/serverPreferences.php';
-require_once '../phplib/db.php';
-require_once '../phplib/idiorm/idiorm.php';
-require_once '../phplib/idiorm/paris.php';
-
 require_once 'Crawler/AppLog.php';
 require_once 'Crawler/MemoryManagement.php';
 
 
 db_init();
 
-$logFile = pref_getSectionPreference('crawler', 'diacritics_log');
+$logFile = Config::get('crawler.diacritics_log');
 
 
 class DiacriticsFixer {
@@ -44,11 +39,11 @@ class DiacriticsFixer {
 	function __construct() {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
 
-		self::$diacritics = pref_getSectionPreference("crawler", "diacritics");
-		self::$nonLowerDiacritics = pref_getSectionPreference("crawler", "non_lower_diacritics");
+		self::$diacritics = Config::get("crawler.diacritics");
+		self::$nonLowerDiacritics = Config::get("crawler.non_lower_diacritics");
 		self::$nonUpperDiacritics = mb_strtoupper(self::$nonLowerDiacritics);
-		self::$paddingNumber = pref_getSectionPreference('crawler', 'diacritics_padding_length');
-		self::$paddingChar = pref_getSectionPreference('crawler', 'padding_char');
+		self::$paddingNumber = Config::get('crawler.diacritics_padding_length');
+		self::$paddingChar = Config::get('crawler.padding_char');
 		$this->selectCount = 0;
  	}
 
@@ -103,9 +98,9 @@ class DiacriticsFixer {
 
 	public function fix($text) {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
-		if (mb_strlen($text) > pref_getSectionPreference('crawler', 'diacritics_buffer_limit')) {
+		if (mb_strlen($text) > Config::get('crawler.diacritics_buffer_limit')) {
 			return "Dimensiune text prea mare, limita este de " .
-			pref_getSectionPreference('crawler', 'diacritics_buffer_limit') . ' de caractere';
+			Config::get('crawler.diacritics_buffer_limit') . ' de caractere';
 		}
 		$this->processText($text);
 		return $this->text2Html($this->resultText);

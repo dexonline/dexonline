@@ -1,11 +1,11 @@
 <?php
 
 function db_init() {
-  $functestFile = pref_getSectionPreference('functest', 'functestLockFile');
+  $functestFile = Config::get('functest.functestLockFile');
   if ($functestFile && file_exists($functestFile)) {
-    $dsn = pref_getSectionPreference('functest', 'functestDatabase');
+    $dsn = Config::get('functest.functestDatabase');
   } else {
-    $dsn = pref_getServerPreference('database');
+    $dsn = Config::get('global.database');
   }
   $parts = db_splitDsn($dsn);
   ORM::configure(sprintf("mysql:host=%s;dbname=%s", $parts['host'], $parts['database']));
@@ -32,7 +32,7 @@ function db_execute($query, $fetchStyle = PDO::FETCH_BOTH) {
  * This function allows us to do that until we upgrade to PHP 5.4.
  **/
 function db_executeFromOS($query) {
-  $dsn = pref_getServerPreference('database');
+  $dsn = Config::get('global.database');
   $parts = db_splitDsn($dsn);
   $command = sprintf("mysql -u %s %s %s -e \"{$query}\"",
                      $parts['user'],
@@ -53,7 +53,7 @@ function db_changeDatabase($dbName) {
 function db_splitDsn($dsn = null) {
   $result = array();
   if (!$dsn) {
-    $dsn = pref_getServerPreference('database');
+    $dsn = Config::get('global.database');
   }
   $prefix = 'mysql://';
   assert(StringUtil::startsWith($dsn, $prefix));

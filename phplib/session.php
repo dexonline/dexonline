@@ -163,13 +163,13 @@ function session_getSkin() {
   if ($skin && session_isValidSkin($skin)) {
     return $skin;
   } else {
-    $skins = pref_getServerPreference('skins');
+    $skins = Config::get('global.skins');
     return $skins[0];
   }
 }
 
 function session_setSkin($skin) {
-  $skins = pref_getServerPreference('skins');
+  $skins = Config::get('global.skins');
   $defaultSkin = $skins[0];
   if ($skin == $defaultSkin) { 
     // Clear the cookie instead of setting it to the default skin.
@@ -180,16 +180,7 @@ function session_setSkin($skin) {
 }
 
 function session_isValidSkin($skin) {
-  return in_array($skin, pref_getServerPreference('skins'));
-}
-
-/**
- * Returns an array of the skin-specific preferences defined in the section skin-{$skin}.
- * Returns an empty array if the section is not defined. Never returns false/null.
- **/
-function session_getSkinPreferences($skin) {
-  $prefs = pref_getServerPreference("skin-{$skin}");
-  return $prefs ? $prefs : array();
+  return in_array($skin, Config::get('global.skins'));
 }
 
 function session_setSourceCookie($source) {

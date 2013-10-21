@@ -12,7 +12,7 @@ log_scriptLog('rebuildScrabbleForms: starting');
 $opts = getopt('a');
 $allVersions = array_key_exists('a', $opts);
 
-foreach (pref_getLocVersions() as $version) {
+foreach (Config::getLocVersions() as $version) {
   if (!$version->freezeTimestamp || $allVersions) {
     log_scriptLog("dumping version {$version->name}");
     LocVersion::changeDatabase($version->name);

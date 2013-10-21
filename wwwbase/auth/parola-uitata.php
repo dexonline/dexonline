@@ -32,7 +32,7 @@ if (!$submitButton) {
     SmartyWrap::assign('homePage', util_getFullServerUrl());
     SmartyWrap::assign('token', $pt->token);
     $body = SmartyWrap::fetch('email/resetPassword.ihtml');
-    $ourEmail = pref_getContactEmail();
+    $ourEmail = Config::get('global.contact');
     $result = mail($email, "Schimbarea parolei pentru DEX online", $body, "From: DEX online <$ourEmail>\r\nReply-To: $ourEmail");
     
     // Display a confirmation even for incorrect addresses.

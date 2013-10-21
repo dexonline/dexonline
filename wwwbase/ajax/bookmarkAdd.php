@@ -15,7 +15,7 @@ if (!$userId) {
 }
 
 $bookmarks = UserWordBookmarkDisplayObject::getByUser($userId);
-if (count($bookmarks) < pref_getMaxBookmarks()) {
+if (count($bookmarks) < Config::get('global.maxBookmarks')) {
   $existing = Model::factory('UserWordBookmark')->where('userId', $userId)->where('definitionId', $definitionId)->find_one();
   
   if (!$existing) {
@@ -29,7 +29,7 @@ if (count($bookmarks) < pref_getMaxBookmarks()) {
   $response['status'] = 'success';
 } else {
   $response['status'] = 'error';
-  $response['msg'] = 'Ați depășit limita de cuvinte favorite. Limita este ' . pref_getMaxBookmarks() . ' cuvinte favorite.';
+  $response['msg'] = 'Ați depășit limita de cuvinte favorite. Limita este ' . Config::get('global.maxBookmarks') . ' cuvinte favorite.';
 }
 
 echo json_encode($response);

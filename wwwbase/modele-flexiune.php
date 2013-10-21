@@ -7,7 +7,7 @@ $locVersion = util_getRequestParameter('locVersion');
 $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
 
-$locVersions = pref_getLocVersions();
+$locVersions = Config::getLocVersions();
 $modelType = ModelType::get_by_code($modelType); // Use the ModelType object from this point on
 
 if ($locVersion && $modelType && $modelNumber) {

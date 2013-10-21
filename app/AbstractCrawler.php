@@ -3,7 +3,7 @@
  * Alin Ungureanu, 2013
  * alyn.cti@gmail.com
  */
-require_once '../phplib/util.php';
+require_once __DIR__ . '/../phplib/util.php';
 require_once util_getRootPath() . 'phplib/simple_html_dom.php';
 
 require_once util_getRootPath() . 'phplib/AppLog.php';
@@ -37,9 +37,9 @@ abstract class AbstractCrawler {
 
 		$this->plainText = '';
 		$this->pageContent = '';
-		$this->directoryIndexFile = pref_getSectionPreference('crawler', 'dir_index_file');
-		$this->indexFileExt = explode(',', pref_getSectionPreference('crawler', 'index_file_ext'));
-		$this->fileExt = explode(',', pref_getSectionPreference('crawler', 'index_file_ext').',txt');
+		$this->directoryIndexFile = Config::get('crawler.dir_index_file');
+		$this->indexFileExt = explode(',', Config::get('crawler.index_file_ext'));
+		$this->fileExt = explode(',', Config::get('crawler.index_file_ext').',txt');
 	}
 
 
@@ -47,10 +47,10 @@ abstract class AbstractCrawler {
 	function getPage($url) {
 
 		$this->ch = curl_init();
-		Applog::log(file_get_contents(pref_getSectionPreference('crawler', 'user_agent_location')));
+		Applog::log(file_get_contents(Config::get('crawler.user_agent_location')));
 		curl_setopt ($this->ch, CURLOPT_URL, $url);
 		curl_setopt ($this->ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-		curl_setopt ($this->ch, CURLOPT_USERAGENT, file_get_contents(pref_getSectionPreference('crawler', 'user_agent_location')));
+		curl_setopt ($this->ch, CURLOPT_USERAGENT, file_get_contents(Config::get('crawler.user_agent_location')));
 		curl_setopt ($this->ch, CURLOPT_TIMEOUT, 20);
 		curl_setopt ($this->ch, CURLOPT_FOLLOWLOCATION, TRUE);
 		curl_setopt ($this->ch, CURLOPT_RETURNTRANSFER, TRUE);
@@ -93,9 +93,9 @@ abstract class AbstractCrawler {
 	function setStorePageParams() {
 
 		$this->currentTimestamp = date("Y-m-d H:i:s");
-		$this->rawPagePath = pref_getSectionPreference('crawler', 'raw_page_path')
+		$this->rawPagePath = Config::get('crawler.raw_page_path')
 			.$this->urlResource['host'] .'/'. $this->currentTimestamp;
-		$this->parsedTextPath = pref_getSectionPreference('crawler', 'parsed_text_path')
+		$this->parsedTextPath = Config::get('crawler.parsed_text_path')
 			.$this->urlResource['host'] .'/'. $this->currentTimestamp;
 	}
 
@@ -125,11 +125,11 @@ abstract class AbstractCrawler {
 
 
 		try {
-			if (!file_exists(pref_getSectionPreference('crawler','raw_page_path').$this->urlResource['host'])) {
-				mkdir(pref_getSectionPreference('crawler','raw_page_path').$this->urlResource['host'], 0777, true);
+			if (!file_exists(Config::get('crawler.raw_page_path').$this->urlResource['host'])) {
+				mkdir(Config::get('crawler.raw_page_path').$this->urlResource['host'], 0777, true);
 			}
-			if (!file_exists(pref_getSectionPreference('crawler','parsed_text_path').$this->urlResource['host'])) {
-				mkdir(pref_getSectionPreference('crawler','parsed_text_path').$this->urlResource['host'], 0777, true);
+			if (!file_exists(Config::get('crawler.parsed_text_path').$this->urlResource['host'])) {
+				mkdir(Config::get('crawler.parsed_text_path').$this->urlResource['host'], 0777, true);
 			}
 			//salveaza pagina raw pe disk
 			file_put_contents($this->rawPagePath, $this->pageContent);

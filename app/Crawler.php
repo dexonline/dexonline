@@ -3,7 +3,7 @@
  * Alin Ungureanu, 2013
  * alyn.cti@gmail.com
  */
-require_once dirname(__FILE__) . '/AbstractCrawler.php';
+require_once __DIR__ . '/AbstractCrawler.php';
 
 class Crawler extends AbstractCrawler {
 
@@ -99,7 +99,7 @@ class Crawler extends AbstractCrawler {
 	
 		Applog::log("Crawler started");
 
-		$this->domainsList = explode(PHP_EOL, file_get_contents("WhiteList.txt"));
+		$this->domainsList = Config::get('crawler.whiteList');
 
 		//start processing 
 		$this->processWhiteList();
@@ -109,25 +109,8 @@ class Crawler extends AbstractCrawler {
 
 
 	function processWhiteList() {
-
-		$multipleLinesComment = false;
-
 		foreach($this->domainsList as $startUrl) {
-			
 			$startUrl = trim($startUrl);
-
-			//comentarii pe mai multe linii
-
-			if (substr($startUrl, 0, 3) == '###') {
-				//flip bit
-				$multipleLinesComment ^= 1;
-			}
-			
-			//comentarii sau linii goale
-			if ($multipleLinesComment || substr($startUrl,0,1) == '#'
-				|| !$startUrl)
-				continue;
-
 
 			//curatam url-ul
 			$this->currentUrl = $this->urlPadding($startUrl);

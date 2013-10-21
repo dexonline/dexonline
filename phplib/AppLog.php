@@ -71,7 +71,7 @@ class AppLog {
 			fclose( $fd);
 		}
 		catch (Exception $ex) {
-			echo "LOG FILE PROBLEM" . Config::get('app_log.new_line');
+			echo "LOG FILE PROBLEM\n";
 		}
 		//log in stdout
 		if (Config::get('app_log.log2screen')) {

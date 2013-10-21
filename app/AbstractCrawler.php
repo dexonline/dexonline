@@ -47,10 +47,10 @@ abstract class AbstractCrawler {
 	function getPage($url) {
 
 		$this->ch = curl_init();
-		Applog::log(file_get_contents(Config::get('crawler.user_agent_location')));
+		Applog::log("User agent is: " . Config::get('crawler.user_agent'));
 		curl_setopt ($this->ch, CURLOPT_URL, $url);
 		curl_setopt ($this->ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-		curl_setopt ($this->ch, CURLOPT_USERAGENT, file_get_contents(Config::get('crawler.user_agent_location')));
+		curl_setopt ($this->ch, CURLOPT_USERAGENT, Config::get('crawler.user_agent'));
 		curl_setopt ($this->ch, CURLOPT_TIMEOUT, 20);
 		curl_setopt ($this->ch, CURLOPT_FOLLOWLOCATION, TRUE);
 		curl_setopt ($this->ch, CURLOPT_RETURNTRANSFER, TRUE);

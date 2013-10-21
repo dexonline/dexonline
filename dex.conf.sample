@@ -1,4 +1,5 @@
 ; Configuration file for a DEX online installation
+; Some entire sections are optional. Please refer to each section's comments.
 
 [global]
 ; Modules that are allowed to run and possibly serve a banner instead of the bannerType choice below.
@@ -69,12 +70,14 @@ mysql_loc_prefix = LOC_
 skins[] = zepu
 skins[] = polar
 
+; This section handles donations through a third party.
 [euplatesc]
 ; Key for euplatesc.ro or 0 to disable the donation box.
 euPlatescKey = 0
 ; Merchant ID for euplatesc.ro or 0 to disable the donation box.
 euPlatescMid = 0
 
+; Functional testing. We don't do much of it as of 2013.
 [functest]
 ; URL that the functional test engine will exercise
 ; This is the URL you normally go to in development
@@ -91,6 +94,7 @@ functestDatabase = mysql://root@localhost/DEXtest
 ; Comment this out in production.
 functestLockFile = /tmp/dex-functest
 
+; Skin-specific variables. Necessary if you plan to display banners.
 [skin-zepu]
 ; Display banners after the search box.
 adsense_mainPage = "id=1220723485&width=728&height=90"
@@ -108,3 +112,66 @@ openxLocal_otherSkins = 3
 
 [limits]
 limitFulltextSearch = 1000
+
+; Configuration for the Romanian literature crawler
+[crawler]
+
+; The as downloaded html page location
+raw_page_path = RawPage/
+
+; The pure text page associated with the html one location
+parsed_text_path = ParsedText/
+
+; Waiting time between getting pages (per-domain limit)
+t_wait = 15
+
+; If true, then the application will exit if an exception occurs
+exception_exit = true
+
+; The most probable directory index file
+dir_index_file = index
+
+; The most probable index extensions
+index_file_ext = html,php,aspx,asp,pl,py,jsp
+
+; Crawler signature
+user_agent = "DEX online crawler v1.0"
+
+; Pages to crawl
+; whiteList[] = http://example.com/
+; whiteList[] = http://example.com/
+
+; Configuration for the app that adds Romanian diacritics to a text that doesn't have them
+[diacritics]
+
+diacritics_buffer_limit = 2048
+
+; Diacritics list
+diacritics = ăâîșț
+
+; Padding char beyond the end of text
+padding_char = *
+
+; Non-diacritics list
+non_lower_diacritics = aist
+non_upper_diacritics = AIST
+
+; Left and right length; e.g. for cireșarii cire-s-arii the padding_length is 5
+diacritics_padding_length = 5
+
+; Logging settings for the crawler and any apps built on top of it
+[app_log]
+
+log_detail_level = 2
+
+; Crawler log file path, relative to the root installation directory
+crawler_log = log/crawler_log
+
+; Diacritics log file path, relative to the root installation directory
+diacritics_log = log/diacritics_log
+
+; When set, outputs messages to the screen
+log2screen = true
+
+; when set, outputs messages to the file specified by crawler_log
+log2file = true

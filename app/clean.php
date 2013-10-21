@@ -3,10 +3,10 @@
  * Alin Ungureanu, 2013
  * alyn.cti@gmail.com
  */
-require_once '../../phplib/util.php';
+require_once __DIR__ . '/../phplib/util.php';
 
 function printUsage() {
-	echo "::Usage::".PHP_EOL."php clean_all.php [ -c | --crawler] [ -d | --diacritics]".PHP_EOL;
+	echo "::Usage::" . PHP_EOL . "php clean.php [ -c | --crawler] [ -d | --diacritics]" . PHP_EOL;
 	flush();
 	exit();
 }
@@ -30,25 +30,25 @@ if ($argv[1] == '--crawler' || $argv[1] == '-c') {
 
 	try {
 
-		//sterge toate fisierele salvate
+		// șterge toate fișierele salvate
 		removeFiles('ParsedText/*');
 		removeFiles('RawPage/*');
 
 
-		echo 'files deleted' . Config::get('crawler.new_line');
+		echo "files deleted\n";
 
-	    $db->exec('TRUNCATE Table CrawledPage;');
-	    $db->exec('TRUNCATE Table Link;');
-	    $db->commit();
+    $db->exec('TRUNCATE Table CrawledPage;');
+    $db->exec('TRUNCATE Table Link;');
+    $db->commit();
 
-		echo "tables 'Link' and 'CrawledPage' truncated" . Config::get('crawler.new_line');
+    echo "tables 'Link' and 'CrawledPage' truncated\n";
 
-		echo 'The cleaning process was successful' . Config::get('crawler.new_line');
+		echo "The cleaning process was successful\n";
 	}
 
 	catch(Exception $ex) {
 
-		echo 'The cleaning process encountered a problem ' . Config::get('crawler.new_line').$ex->getMessage();
+		echo "The cleaning process encountered a problem: " . $ex->getMessage() . "\n";
 	}
 }
 else if ($argv[1] == '--diacritics' || $argv[1] == '-d') {
@@ -56,13 +56,13 @@ else if ($argv[1] == '--diacritics' || $argv[1] == '-d') {
 	try{
 		$db->exec('TRUNCATE Table Diacritics;');
 		$db->exec('TRUNCATE Table FilesUsedInDiacritics;');
-	    $db->commit();
-		echo "tables 'Diacritics' and 'FilesUsedInDiacritics' truncated" . Config::get('crawler.new_line');
-		echo 'The cleaning process was successful' . Config::get('crawler.new_line');
+    $db->commit();
+    echo "tables 'Diacritics' and 'FilesUsedInDiacritics' truncated\n";
+		echo "The cleaning process was successful\n";
 	}
-	catch(Exception $e) {
+	catch(Exception $ex) {
 
-		echo 'The cleaning process encountered a problem ' . Config::get('crawler.new_line').$ex->getMessage();
+		echo "The cleaning process encountered a problem: " . $ex->getMessage() . "\n";
 	}
 
 }

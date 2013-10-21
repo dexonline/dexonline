@@ -50,7 +50,7 @@ class Crawler extends AbstractCrawler {
     }
   }
 
-  function crawlDomain() {
+  function crawlLoop() {
 
     Applog::log("Crawling: " . $this->getDomain($this->currentUrl) . " started");
 
@@ -66,6 +66,7 @@ class Crawler extends AbstractCrawler {
       $pageContent = $this->getPage($url);
       //setam url-ul curent pentru store in Database
       $this->currentUrl = $url;
+      $this->urlResource = util_parseUtf8Url($url);
       $links = $this->processPage($pageContent);
 
       $this->setStorePageParams();
@@ -92,40 +93,17 @@ class Crawler extends AbstractCrawler {
 
 
   function start() {
-  
     Applog::log("Crawler started");
 
-    $this->domainsList = Config::get('crawler.whiteList');
-
-    //start processing 
-    $this->processWhiteList();
-
-    Applog::log('Crawler finished');
-  }
-
-
-  function processWhiteList() {
-    foreach($this->domainsList as $startUrl) {
-      $startUrl = trim($startUrl);
-
-      //curatam url-ul
-      $this->currentUrl = StringUtil::urlCleanup($startUrl, $this->directoryIndexFile, $this->indexFileExt);
-      //impartim url-ul pe componente
-      $this->urlResource = util_parseUtf8Url($this->currentUrl);
-
-      //salvam startUrl in tabelul Link pentru a incepe extragerea,
-      //startUrl nu va avea o pagina din care este descoperit
-      //asa ca pagina crawledPageId va avea valoarea 0.
-      Link::saveLink2DB($this->currentUrl, $this->getDomain($this->currentUrl), '0');
-
-      //locatia curenta, va fi folosita pentru a nu depasi sfera
-      //de exemplu vrem sa crawlam doar o anumita zona a site-ului
-      $this->currentLocation = substr($this->currentUrl, 0);
-      Applog::log('domain start location: '.$this->currentLocation);
-
-      $this->crawlDomain();
+    // Salvam întregul whiteList in tabelul Link pentru a incepe extragerea.
+    // Aceste URL-uri nu vor avea o pagina din care sunt descoperite, deci crawledPageId va avea valoarea 0.
+    foreach (Config::get('crawler.whiteList') as $startUrl) {
+      $startUrl = StringUtil::urlCleanup($startUrl, $this->directoryIndexFile, $this->indexFileExt);
+      $rec = util_parseUtf8Url($startUrl);
+      Link::saveLink2DB($startUrl, $rec['host'], 0);
     }
-    
+
+    $this->crawlLoop();
   }
 
 }

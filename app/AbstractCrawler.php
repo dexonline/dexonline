@@ -19,14 +19,9 @@ abstract class AbstractCrawler {
   protected $rawPagePath;
   protected $parsedTextPath;
 
-  protected $currentLocation;
-
   protected $urlResource;
   protected $directoryIndexFile;
   protected $indexFileExt;
-
-  protected $domainsList;
-
 
   function __construct() {
     $this->plainText = '';
@@ -125,7 +120,7 @@ abstract class AbstractCrawler {
     //$nextLink = null;
     try {
       //$nextLink = (string)ORM::for_table('Link')->raw_query("Select concat(domain,canonicalUrl) as concat_link from Link where concat(domain,canonicalUrl) not in (Select url from CrawledPage);")->find_one()->concat_link;
-      $nextLink = ORM::for_table('Link')->raw_query("Select canonicalUrl from Link where canonicalUrl LIKE '$this->currentLocation%' and canonicalUrl not in (Select url from CrawledPage);")->find_one();
+      $nextLink = ORM::for_table('Link')->raw_query("Select canonicalUrl from Link where canonicalUrl not in (Select url from CrawledPage);")->find_one();
         
       if ($nextLink != null) {
         
@@ -219,37 +214,30 @@ abstract class AbstractCrawler {
 
     //sterge slash-uri in plus si directory index file
     $canonicalUrl = StringUtil::urlCleanup($url, $this->directoryIndexFile, $this->indexFileExt);
-    
-    if (!strstr($url, $this->currentLocation)) return;    
 
-    Link::saveLink2DB($canonicalUrl, $this->getDomain($url), $this->currentPageId);
+    $rec = util_parseUtf8Url($canonicalUrl);
+    if ($rec['host'] == $this->getDomain($url)) {
+      Link::saveLink2DB($canonicalUrl, $this->getDomain($url), $this->currentPageId);
+    }
   }
 
   function isRelativeLink($url) {
     return !strstr($url, "http");
   }
 
-  //cauta directorul link-ului curent si returneaza
-  //url-ul spre acel director
+  // Cauta directorul link-ului curent si returneaza url-ul spre acel director
+  // Returnează întregul URL dacă nu există un director.
   function getDeepestDir($url) {
-
-    try {
-      $retVal = substr($url, 0, strrpos($url,'/'));
-
-      if (strstr($retVal, $this->currentLocation))
-        return $retVal;
-      else return $url;
+    $parts = explode('//', $url, 2); // Salvează protocolul
+    $pos = strrpos($parts[1], '/');
+    if ($pos !== false) {
+      $parts[1] = substr($parts[1], 0, $pos);
     }
-    catch(Exception $ex) {
-
-      exceptionLog($ex);
-    }
-    return $url;
+		return implode('//', $parts);    
   }
 
   function makeAbsoluteLink($url) {
-
-    return $this->getDeepestDir($this->currentUrl) .'/'. $url;
+    return $this->getDeepestDir($this->currentUrl) . '/' . $url;
   }
 
   function getDomain($url) {
@@ -260,9 +248,6 @@ abstract class AbstractCrawler {
 
   // Clasele care deriva aceasta clasa vor trebui sa implementeze metodele de mai jos
   abstract function extractText($domNode);
-
-  abstract function crawlDomain();
-
   abstract function start();
 }
 

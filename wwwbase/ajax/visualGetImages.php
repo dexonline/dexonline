@@ -26,15 +26,15 @@ foreach ($lines as $line) {
 
   foreach ($tagsLexemes as $tagLexeme) {
   	$row = Lexem::get_by_id($tagLexeme->lexemeId);
-  	$lexemes .= $row->formUtf8General . ', ';
+  	$lexemes .= $row->formUtf8General . ' ';
   }
 
   $lexemes .= '</div>';
 
   $user = User::get_by_id($line->userId);
   $link = '<a title="Click pentru a vedea imaginea" href="' . Visual::getImageWww($line->path) . '">' . basename($line->path) . '</a>';
-  $images[] = array('lexeme' => $lexemes, 'user' => $user->nick, 'width' => $line->width, 
-  									'height' => $line->height, 'userId' => $line->userId, 'imageId' => $line->id,
+  $images[] = array('id' => $line->id, 'lexeme' => $lexemes, 'user' => $user->nick,
+                    'width' => $line->width, 'height' => $line->height, 'userId' => $line->userId,
                     'latestMod' => date('d.m.Y', $line->modDate), 'link' => $link);
 }
 

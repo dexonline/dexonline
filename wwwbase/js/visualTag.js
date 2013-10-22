@@ -21,16 +21,16 @@ jQuery(document).ready(function() {
     closeOnEscape: true,
     reloadAfterSubmit: true
   };
-  var imagesTable = function(revised, elementId, pagerId, message) {
-    $('#' + elementId).jqGrid({
+  var imagesTable = function(revised) {
+    $('#' + revised + 'Table').jqGrid({
       url: wwwRoot + 'ajax/visualGetImages.php',
-      postData: {revised: revised},
+      postData: {revised: revised == 'revised' ? 1 : 0},
       datatype: 'json',
       cmTemplate: {sortable: false},
-      colNames: ['Link Imagine', 'Id imagine', 'Lexeme asociat imaginii','Id User', 'User', 'Lățime', 'Înălțime', 'Ultima Modificare'],
+      colNames: ['Id', 'Link Imagine', 'Lexeme asociat imaginii','Id User', 'User', 'Lățime', 'Înălțime', 'Ultima Modificare'],
       colModel: [
+        {name: 'id', index: 'id', hidden: true},
         {name: 'link', index: 'link', width: 100},
-        {name: 'imageId', index: 'imageId', hidden: true},
         {name: 'lexeme', index: 'lexeme', width: 160, align: 'center'},
         {name: 'userId', index: 'userId', hidden: true},
         {name: 'user', index: 'user', width: 100, align: 'center'},
@@ -43,28 +43,40 @@ jQuery(document).ready(function() {
       width: '700px',
       height: '100%',
       rowList: [20, 50, 100, 200],
-      pager: $('#' + pagerId),
+      pager: $('#' + revised + 'Paging'),
       viewrecords: true,
-      caption: 'Imagini a căror etichetare este ' + message,
+      caption: 'Imagini a căror etichetare este ' + (
+        revised == 'revised' ? 'completă' : 'incompletă'),
+      editurl: wwwRoot + 'ajax/visualImagesEdit.php',
       ondblClickRow: function(rowid) {
-        $('#imgToTag').val($(this).jqGrid('getCell', rowid, 'imageId'));
+        $('#imgToTag').val($(this).jqGrid('getCell', rowid, 'id'));
         $('form').submit();
       }
-    });
+    })
+    .navGrid('#' + revised + 'Paging', {
+      add: false,
+      search: false,
+      edit: false,
+      deltitle: 'șterge',
+      refreshtitle: 'reîncarcă'
+    }, {}, {}, delOptions);
   }
   
   initJcrop();
   resetAllFields();
-  addLinkToHeader();
+  imageLoadError();
+  addLinksToAdminHeader();
 
   function initJcrop() {
-    $('#jcrop').Jcrop({
-      boxHeight: 500,
-      boxWidth: 500,
-      onSelect: setCoords,
-      onChange: setCoords
-    }, function() {
-      jcrop_api = this;
+    $('#jcrop').load(function() {
+      $(this).Jcrop({
+        boxHeight: 500,
+        boxWidth: 500,
+        onSelect: setCoords,
+        onChange: setCoords
+      }, function() {
+        jcrop_api = this;
+      });
     });
   }
 
@@ -77,7 +89,7 @@ jQuery(document).ready(function() {
     $('#y').val(coords.cy);
   }
 
-  /** Clears the actual selection */
+  /** Clears the actual jcrop selection */
   $('#clrSel').click(function(e) {
     jcrop_api.release();
 
@@ -162,8 +174,8 @@ jQuery(document).ready(function() {
   })
   .navGrid('#tagsPaging', gridOptions, editOptions, addOptions, delOptions);
 
-  imagesTable(1, 'revisedTable', 'revisedPaging', 'completă');
-  imagesTable(0, 'unrevisedTable', 'unrevisedPaging', 'incompletă');
+  imagesTable('revised');
+  imagesTable('unrevised');
 });
 
 /** Replaces the submit event that triggers on change, set in select2Dev.js */
@@ -180,6 +192,7 @@ function replaceSubmitEvent() {
   });
 }
 
+/* Checks if the needed tag information has been entered */
 function validateTag() {
   var data = {
     id: '',
@@ -208,6 +221,7 @@ function validateTag() {
   return data;
 }
 
+/* Checks if the lexeme has been entered */
 function validateLexeme() {
   if(!($('#imgLexemeId').val())) {
     alert('Ai uitat să completezi ce lexem descrie cel mai bine imaginea');
@@ -223,6 +237,7 @@ function checkServerResponse(response, postData) {
   }
 }
 
+/* Resets all tag info fields values */
 function resetAllFields() {
   $('#label').val('');
   $('#xTag').val('');
@@ -232,6 +247,16 @@ function resetAllFields() {
   $('#lexemId').select2('data', {id: '', text: ''});
 }
 
-function addLinkToHeader() {
-  $('.links').append(' | <a href="visual.php">Pagina de încărcare</a>');
+/* Adds links to admin header so that it is easier to navigate between
+   Visual Dict components */
+function addLinksToAdminHeader() {
+  $('.links').append($('.extraAdminHeaderLinks').html());
+}
+
+/* Prints an error message instead of the image, in case it is 
+   missing from the database */
+function imageLoadError() {
+  $('.visualTagImg').error(function() {
+    $('#visualTagCanvas').html($('.missingImageError').css('display', 'block'));
+  });
 }

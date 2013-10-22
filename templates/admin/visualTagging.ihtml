@@ -1,7 +1,7 @@
 <br/>
 {if !$imgLexemeId}
-  <div class="visualTagImg">
-    <img src="{$imagePath}"/>
+  <div id="visualTagCanvas">
+    <img class="visualTagImg" src="{$imagePath}"/>
   </div> 
   <div>
     <form action="visualTag.php" method="post">
@@ -19,7 +19,7 @@
 {else}
   {include file="common/bits/prototypes.ihtml"}
   <div id="visualTagCanvas">
-    <img src="{$imagePath}" id="jcrop" title="{$imageId}"/>
+    <img  id="jcrop" class="visualTagImg" src="{$imagePath}" title="{$imageId}"/>
     <div id="selectionOptions">
       <label>Coordonatele centrului selecției:
         <input id="x" type="text" size="4" name="x"/>
@@ -66,23 +66,23 @@
         <input id="lexemId" type="hidden"/>
       </label><br/>
 
-      <input id="lexemeId" type="hidden"/>
+      <input id="lexemeId" type="hidden"/><br/>
 
       <label>Text de afișat
         <input id="label" type="text" size="20"/>
       </label><br/>
 
-      <label>Coordonatele centrului etichetei:
+      <label>Coordonatele centrului etichetei:<br/>
         <input id="xTag" type="text" size="4"/>
         <input id="yTag" type="text" size="4"/>
         <button id="setCoordTag" type="button">Setează coordonatele</button>
       </label><br/>
 
-      <label>Coordonatele zonei etichetate:
+      <label>Coordonatele zonei etichetate:<br/>
         <input id="xImg" type="text" size="4"/>
         <input id="yImg" type="text" size="4"/>
         <button id="setCoordImg" type="button">Setează coordonatele</button>
-      </label><br/>
+      </label><br/><br/>
 
       <button id="saveSel" type="button">Salvează eticheta</button>
     </div>
@@ -98,3 +98,16 @@
     $(replaceSubmitEvent);
   </script>
 {/if}
+
+<p class="missingImageError">
+  Hopa! Au apărut probleme la încărcarea imaginii.<br/>
+  Dacă imaginea nu apare după un refresh, înseamnă că ea lipsește din
+  din sistemul de fișiere. Pentru a te asigura că aceasta este 
+  situația, mergi la pagina cu tabelele centralizatoare și verifică 
+  dacă ea se găsește la linkul specificat.
+</p>
+
+<div class="extraAdminHeaderLinks"> 
+  | <a href="visual.php">Pagina de încărcare</a>
+  | <a href="">Tabelele centralizatoare</a>
+</div>

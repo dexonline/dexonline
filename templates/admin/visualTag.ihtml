@@ -1,14 +1,21 @@
 <br/>
-<div id="revised">
-  <table id="revisedTable"></table>
-  <div id="revisedPaging"></div>
-</div>
-<div id="unrevised">
-  <table id="unrevisedTable"></table>
-  <div id="unrevisedPaging"></div>
+<div class="tablesWrapper">
+  <div id="revised">
+    <table id="revisedTable"></table>
+    <div id="revisedPaging"></div>
+  </div>
+  <div id="unrevised">
+    <table id="unrevisedTable"></table>
+    <div id="unrevisedPaging"></div>
+  </div>
 </div>
 
 <form diplay="none" method="post">
   <input id="imgToTag" type="hidden" name="imgToTag"/>
   <input type="hidden" name="tagging" value="1"/>
 </form>
+
+<div class="extraAdminHeaderLinks"> 
+  | <a href="visual.php">Pagina de încărcare</a>
+  | <a href="">Tabelele centralizatoare</a>
+</div>

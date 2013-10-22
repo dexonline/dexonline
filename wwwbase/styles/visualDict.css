@@ -8,14 +8,10 @@
   border: 1px solid black;
 }
 
-.visualTagImg img {
+#visualTagCanvas img {
   float: left;
   max-width: 500px;
   max-height: 500px;
-}
-
-#helpText {
-  display: none;
 }
 
 #tagOptions {
@@ -27,11 +23,6 @@
 #savedTags {
   float: left;
   width: 430px;
-}
-
-
-#tagsInfo {
-  display: none;
 }
 
 #gallery {
@@ -71,4 +62,15 @@
 
 .mainLexeme {
   font-weight: bold;
+}
+
+.allLexemes {
+  white-space: pre-line;
+}
+
+.missingImageError,
+.extraAdminHeaderLinks,
+#helpText,
+#tagsInfo {
+  display: none;
 }

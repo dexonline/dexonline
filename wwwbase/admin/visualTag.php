@@ -1,6 +1,5 @@
 <?php
-require_once '../../phplib/util.php' ;
-require_once '../../phplib/models/Visual.php' ;
+require_once('../../phplib/util.php');
 util_assertModerator(PRIV_VISUAL);
 util_assertNotMirror();
 RecentLink::createOrUpdate('Etichetare Imagini Definiții');
@@ -10,6 +9,7 @@ $savedTags = '';
 $action = util_getRequestParameter('action');
 $tagging = util_getRequestParameter('tagging');
 
+// Marks the image as completely revised 
 if($action == 'finishedTagging') {
   $imageId = util_getRequestParameter('imageId');
 
@@ -23,6 +23,7 @@ if($action == 'finishedTagging') {
   FlashMessage::add('Modificările au fost salvate. Mulțumim!');
   util_redirect(util_getWwwRoot() . 'admin/visualTag.php');
 
+// Sets the lexeme associated with the image 
 } else if($action == 'setImgLexemeId') {
   $imgLexemeId = util_getRequestParameter('imgLexemeId');
   $imageId = util_getRequestParameter('imageId');
@@ -37,6 +38,7 @@ if($action == 'finishedTagging') {
   $tagging = true;
   $imgToTag = $line->id;
 
+// Resets the lexeme associated with the image 
 } else if($action == 'resetImgLexemeId') {
   $imageId = util_getRequestParameter('imageId');
 
@@ -55,6 +57,9 @@ SmartyWrap::assign('sectionTitle', 'Etichetare imagini pentru definiții');
 SmartyWrap::addCss('jcrop', 'select2', 'jqgrid', 'jqueryui', 'gallery');
 SmartyWrap::addJs('jquery', 'jcrop', 'visualTag', 'select2', 'select2Dev', 'jqgrid', 'gallery'); 
 
+// Checks which of the visualTag page needs to be loaded
+// visualTag.ihtml is for the tables with the revised/unrevised images
+// visualTagging.ihtml is for the tagging process
 if($tagging) {
   $imgToTag = isset($imgToTag) ? $imgToTag : util_getRequestParameter('imgToTag');
   $line = Visual::get_by_id($imgToTag);

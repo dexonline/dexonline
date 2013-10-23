@@ -1,6 +1,6 @@
 <br/>
 {if !$imgLexemeId}
-  <div id="visualTagCanvas">
+  <div id="fixedCanvas" class="imageHolder">
     <img class="visualTagImg" src="{$imagePath}"/>
   </div> 
   <div>
@@ -18,8 +18,8 @@
 
 {else}
   {include file="common/bits/prototypes.ihtml"}
-  <div id="visualTagCanvas">
-    <img  id="jcrop" class="visualTagImg" src="{$imagePath}" title="{$imageId}"/>
+  <div id="jCropCanvas" class="imageHolder">
+    <img id="jcrop" class="visualTagImg" src="{$imagePath}" title="{$imageId}"/>
     <div id="selectionOptions">
       <label>Coordonatele centrului selecției:
         <input id="x" type="text" size="4" name="x"/>
@@ -104,7 +104,8 @@
   Dacă imaginea nu apare după un refresh, înseamnă că ea lipsește din
   din sistemul de fișiere. Pentru a te asigura că aceasta este 
   situația, mergi la pagina cu tabelele centralizatoare și verifică 
-  dacă ea se găsește la linkul specificat.
+  dacă ea se găsește la linkul specificat. Dacă într-adevăr lipsește,
+  te rog șterge-o din tabelul centralizator în care se află.
 </p>
 
 <div class="extraAdminHeaderLinks"> 

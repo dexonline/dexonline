@@ -1,14 +1,9 @@
-#visualTagCanvas {
-  float: left;
-  width: 500px;
-  height: 500px;
-}
-
 .jcrop-holder {
   border: 1px solid black;
 }
 
-#visualTagCanvas img {
+#jCropCanvas,
+#fixedCanvas img {
   float: left;
   max-width: 500px;
   max-height: 500px;

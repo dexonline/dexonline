@@ -6,7 +6,7 @@ $imageId = util_getRequestParameter('imageId');
 $page = util_getRequestParameter('page');
 $limit = util_getRequestParameter('rows');
 $usage = util_getRequestParameter('usage');
-$resp = array();
+$resp = array(); $tags = array();
 
 if($usage == 'table') {
   $total = Model::factory('VisualTag')->where('imageId', $imageId)->count();

@@ -30,10 +30,10 @@ switch ($oper) {
     $line = VisualTag::get_by_id($id);
   	
     if(!empty($line)){
-      $line->textXCoord = util_getRequestParameter('xTag');
-      $line->textYCoord = util_getRequestParameter('yTag');;
-      $line->imgXCoord = util_getRequestParameter('xImg');
-      $line->imgYCoord = util_getRequestParameter('yImg');
+      $line->textXCoord = util_getRequestParameter('textX');
+      $line->textYCoord = util_getRequestParameter('textY');;
+      $line->imgXCoord = util_getRequestParameter('imgX');
+      $line->imgYCoord = util_getRequestParameter('imgY');
       $line->label = util_getRequestParameter('label');
       $line->save();
   	}

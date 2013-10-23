@@ -12,6 +12,8 @@ switch($oper) {
       $line->delete();
     }
     break;
-}
 
+  default:
+    break;
+}
 ?>

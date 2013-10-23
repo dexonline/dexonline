@@ -257,6 +257,6 @@ function addLinksToAdminHeader() {
    missing from the database */
 function imageLoadError() {
   $('.visualTagImg').error(function() {
-    $('#visualTagCanvas').html($('.missingImageError').css('display', 'block'));
+    $('.imageHolder').html($('.missingImageError').css('display', 'block'));
   });
 }

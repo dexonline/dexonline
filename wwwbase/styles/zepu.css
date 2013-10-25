@@ -1311,6 +1311,12 @@ li.widgetsPreferences {
 
 
 /* DONATE PAGE */
+span.tooltip {
+  background: url("../img/icons/information.png") no-repeat;
+  display: inline-block;
+  width: 16px;
+}
+
 .donateContent {
   padding: 0px 15px;
   line-height: 17px;
@@ -1320,7 +1326,7 @@ li.widgetsPreferences {
 .paymentSection {
   display: inline-block;
   background: #D4EFFA;
-  width: 300px;
+  width: 290px;
   height: 175px;
   margin: 15px 7px 0px 0px;
   vertical-align: top;
@@ -1338,16 +1344,19 @@ li.widgetsPreferences {
 }
 		
 .paypal {
-  width: 200px;
+  width: 220px;
 }
 		
 .paymentSection label {
   display: inline-block;
-  width: 70px;
+  width: 50px;
   padding-left: 15px;
   margin-top: 10px;
 }
 		
+#donateOnlineEmail {
+  width: 190px;
+}
 .donateContent ul li {
   list-style-type: square;
 }
@@ -1362,7 +1371,7 @@ li.widgetsPreferences {
 		
 .onlineDonationButton {
   margin-top: 20px;
-  margin-left: 25px;
+  margin-left: 15px;
   padding: 0;
   background: #D4EFFA url("../img/donate.png") 0px 0px no-repeat;
   border: 0px;
@@ -1379,7 +1388,7 @@ li.widgetsPreferences {
 		
 .payPalButton {
   margin-top: 35px;
-  margin-left: 20px;
+  margin-left: 30px;
   border: 0px;
 }
 		

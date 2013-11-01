@@ -55,40 +55,39 @@ class Crawler extends AbstractCrawler {
     Applog::log("Crawling: " . $this->getDomain($this->currentUrl) . " started");
 
     while (1) {
-
       //extrage urmatorul link neprelucrat din baza de date
-      $url = $this->getNextLink();
-      Applog::log('current URL: ' . $url);
-      //daca s-a terminat crawling-ul
-      if ($url == null || $url == '') break;
+      $link = $this->getNextLink();
+      if ($link) {
+        Applog::log('current URL: ' . $link->canonicalUrl);
 
-      //download pagina
-      $pageContent = $this->getPage($url);
-      //setam url-ul curent pentru store in Database
-      $this->currentUrl = $url;
-      $this->urlResource = util_parseUtf8Url($url);
-      $links = $this->processPage($pageContent);
+        //download pagina
+        $pageContent = $this->getPage($link->canonicalUrl);
+        //setam url-ul curent pentru store in Database
+        $this->currentUrl = $link->canonicalUrl;
+        $this->urlResource = StringUtil::parseUtf8Url($link->canonicalUrl);
+        $links = $this->processPage($pageContent);
 
-      $this->setStorePageParams();
+        $this->setStorePageParams();
 
-      //salveaza o intrare despre pagina curenta in baza de date
-      $this->currentPageId = CrawledPage::savePage2DB($this->currentUrl, $this->httpResponse(), $this->pageContent, $this->plainText, $this->rawPagePath, $this->parsedTextPath, $this->currentTimestamp);
+        //salveaza o intrare despre pagina curenta in baza de date
+        $this->currentPageId = CrawledPage::savePage2DB($this->currentUrl, $this->httpResponse(), $this->pageContent, $this->plainText, $this->rawPagePath, $this->parsedTextPath, $this->currentTimestamp);
 
-      //daca pagina nu e in format html (e imagine sau alt fisier)
-      //sau daca am primit un cod HTTP de eroare, sarim peste pagina acesta
-      if (!$this->pageOk()) {
-        continue;
-      }
+        //daca pagina nu e in format html (e imagine sau alt fisier)
+        //sau daca am primit un cod HTTP de eroare, sarim peste pagina acesta
+        if (!$this->pageOk()) {
+          continue;
+        }
       
-      foreach($links as $link) {
-        $this->processLink($link);
+        foreach($links as $link) {
+          $this->processLink($link);
+        }
       }
 
-      //niceness
-      sleep(Config::get('crawler.t_wait'));
+      // Sleep until we're guaranteed to have something to crawl, but no less than 1 second.
+      $sleepTime = 1 + max(0, min($this->accessTimes) + Config::get('crawler.t_wait') - time());
+      Applog::log("Sleeping for $sleepTime seconds");
+      sleep($sleepTime);
     }
-
-    Applog::log("Crawling: " . $this->getDomain($this->currentUrl) . " finished");
   }
 
 
@@ -99,7 +98,7 @@ class Crawler extends AbstractCrawler {
     // Aceste URL-uri nu vor avea o pagina din care sunt descoperite, deci crawledPageId va avea valoarea 0.
     foreach (Config::get('crawler.whiteList') as $startUrl) {
       $startUrl = StringUtil::urlCleanup($startUrl, $this->directoryIndexFile, $this->indexFileExt);
-      $rec = util_parseUtf8Url($startUrl);
+      $rec = StringUtil::parseUtf8Url($startUrl);
       Link::saveLink2DB($startUrl, $rec['host'], 0);
     }
 

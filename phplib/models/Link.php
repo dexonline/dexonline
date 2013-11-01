@@ -1,7 +1,6 @@
 <?php
 
-
-class Link extends BaseObject {
+class Link extends BaseObject implements DatedObject {
 	//implements DatedObject {
 
 	public static $_table = 'Link';
@@ -16,8 +15,7 @@ class Link extends BaseObject {
 
 		try {
 
-			$tableObj = Model::factory(self::$_table);
-			$tableObj->create();
+			$tableObj = Model::factory(self::$_table)->create();
 			$tableObj->canonicalUrl = $canonicalUrl;
 			$tableObj->domain = $domain;
 			$tableObj->crawledPageId = $crawledPageId;

@@ -18,10 +18,10 @@ abstract class AbstractCrawler {
   protected $currentPageId;
   protected $rawPagePath;
   protected $parsedTextPath;
-
   protected $urlResource;
   protected $directoryIndexFile;
   protected $indexFileExt;
+  protected $accessTimes;
 
   function __construct() {
     $this->plainText = '';
@@ -29,6 +29,12 @@ abstract class AbstractCrawler {
     $this->directoryIndexFile = Config::get('crawler.dir_index_file');
     $this->indexFileExt = explode(',', Config::get('crawler.index_file_ext'));
     $this->fileExt = explode(',', Config::get('crawler.index_file_ext').',txt');
+    
+    $this->accessTimes = array();
+    foreach (Config::get('crawler.whiteList') as $startUrl) {
+      $rec = StringUtil::parseUtf8Url($startUrl);
+      $this->accessTimes[$rec['host']] = 0;
+    }
   }
 
 
@@ -49,15 +55,16 @@ abstract class AbstractCrawler {
     $this->info = curl_getinfo($this->ch);
 
     if(!curl_errno($this->ch)) {
-       
       $this->info = curl_getinfo($this->ch);
-    }
-    else{
-
+    } else{
       $this->info = array('http_code' => 404);
     }
 
-    curl_close( $this->ch);
+    curl_close($this->ch);
+
+    // Update access time for this page's host
+    $rec = StringUtil::parseUtf8Url($url);
+    $this->accessTimes[$rec['host']] = time();
 
     return $this->pageContent;
   }
@@ -80,12 +87,10 @@ abstract class AbstractCrawler {
   
   //seteaza locatia unde vor fi salvate fisierele html raw si clean text
   function setStorePageParams() {
-
-    $this->currentTimestamp = date("Y-m-d H:i:s");
-    $this->rawPagePath = Config::get('crawler.raw_page_path')
-      .$this->urlResource['host'] .'/'. $this->currentTimestamp;
-    $this->parsedTextPath = Config::get('crawler.parsed_text_path')
-      .$this->urlResource['host'] .'/'. $this->currentTimestamp;
+    $date = date("Y-m-d H:i:s");
+    $this->currentTimestamp = time();
+    $this->rawPagePath = Config::get('crawler.raw_page_path') . $this->urlResource['host'] . '/' . $date;
+    $this->parsedTextPath = Config::get('crawler.parsed_text_path') . $this->urlResource['host'] . '/' . $date;
   }
 
   //verifica daca pagina poate fi descarcata si daca e HTML
@@ -113,25 +118,20 @@ abstract class AbstractCrawler {
     return $this->info['http_code'];
   }
 
-  //returneaza urmatorul URL ne crawl-at din baza de date sau null daca nu exista
+  // Returneaza urmatorul URL ne crawl-at din baza de date.
+  // Returneaza null dacă niciun URL nu poate fi crawlat încă.
   function getNextLink() {
-
-
-    //$nextLink = null;
-    try {
-      //$nextLink = (string)ORM::for_table('Link')->raw_query("Select concat(domain,canonicalUrl) as concat_link from Link where concat(domain,canonicalUrl) not in (Select url from CrawledPage);")->find_one()->concat_link;
-      $nextLink = ORM::for_table('Link')->raw_query("Select canonicalUrl from Link where canonicalUrl not in (Select url from CrawledPage);")->find_one();
-        
-      if ($nextLink != null) {
-        
-        return $nextLink->canonicalUrl;
+    $delay = Config::get('crawler.t_wait');
+    foreach (Config::get('crawler.whiteList') as $startUrl) {
+      $rec = StringUtil::parseUtf8Url($startUrl);
+      if ($this->accessTimes[$rec['host']] < time() - $delay) {
+        $query = sprintf("select canonicalUrl from Link where domain = '%s' and canonicalUrl not in (select url from CrawledPage)", $rec['host']);
+        $link = Model::factory('Link')->raw_query($query)->find_one();
+        if ($link) {
+          return $link;
+        }
       }
     }
-    catch(Exception $ex) {
-
-      Applog::exceptionLog($ex);
-    }
-
     return null;
   }
 
@@ -172,17 +172,12 @@ abstract class AbstractCrawler {
   }
 
   function eligibleUrl($url) {
-
-    $resource = util_parseUtf8Url($url);
+    $resource = StringUtil::parseUtf8Url($url);
     $pathInfo = pathinfo($resource['path']);
 
     if (isset($pathInfo['extension'])) {
-
       $ext = $pathInfo['extension'];
-
-
       if (array_search($ext, $this->fileExt) === false) {
-
         return false;
       }
     }
@@ -195,27 +190,20 @@ abstract class AbstractCrawler {
   //gaseste toate linkurile
   //le transforma in absolute daca sunt relative
   function processLink($url) {
-
-
-    if (!$this->eligibleUrl($url)) {
-
-      return;
-    }
-
     Applog::log('Processing link: '.$url);
     $canonicalUrl = null;
     if ($this->isRelativeLink($url)) {
-
       $url = $this->makeAbsoluteLink($url);
     }
-    //daca ultimul caracter este '/', il eliminam
-    //exemplu wiki.dexonline.ro nu wiki.dexonline.ro/
-    if (substr($url, -1) == "/") $url = substr($url, 0, -1);
 
     //sterge slash-uri in plus si directory index file
     $canonicalUrl = StringUtil::urlCleanup($url, $this->directoryIndexFile, $this->indexFileExt);
 
-    $rec = util_parseUtf8Url($canonicalUrl);
+    if (!$this->eligibleUrl($url)) {
+      return;
+    }
+
+    $rec = StringUtil::parseUtf8Url($canonicalUrl);
     if ($rec['host'] == $this->getDomain($url)) {
       Link::saveLink2DB($canonicalUrl, $this->getDomain($url), $this->currentPageId);
     }

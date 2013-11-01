@@ -301,6 +301,17 @@ class StringUtil {
     return array_values(array_filter(explode($delimiter, $s), 'strlen'));
   }
 
+
+  /** Kudos http://www.php.net/manual/pt_BR/function.parse-url.php#107291 **/
+  static function parseUtf8Url($url) {
+    static $keys = array('scheme'=>0,'user'=>0,'pass'=>0,'host'=>0,'port'=>0,'path'=>0,'query'=>0,'fragment'=>0);
+    if (is_string($url) && preg_match('~^((?P<scheme>[^:/?#]+):(//))?((\\3|//)?(?:(?P<user>[^:]+):(?P<pass>[^@]+)@)?(?P<host>[^/?:#]*))(:(?P<port>\\d+))?' .
+                                      '(?P<path>[^?#]*)(\\?(?P<query>[^#]*))?(#(?P<fragment>.*))?~u', $url, $matches)) {
+      return $matches;
+    }
+    return false;
+  }
+
 	/**
    * Cleans up a URL in various ways:
    * - trims any known index files and extensions (passed as arguments)
@@ -311,6 +322,12 @@ class StringUtil {
    * @param $indexExt Array of index file extensions
    **/
 	static function urlCleanup($url, $indexFile, $indexExt) {
+    // Delete any fragment
+    $pos = strrpos($url, '#');
+    if ($pos !== false) {
+      $url = substr($url, 0, $pos);
+    }
+
     // Scroll through the extension list until we find one that matches
     $i = 0;
     $found = false;

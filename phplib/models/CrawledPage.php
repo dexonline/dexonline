@@ -1,6 +1,5 @@
 <?php
 
-
 class CrawledPage  extends BaseObject implements DatedObject {
   
   public static $_table = 'CrawledPage';
@@ -13,8 +12,7 @@ class CrawledPage  extends BaseObject implements DatedObject {
     file_put_contents($parsedTextPath, $parsedText);
 
     try {
-      $tableObj = Model::factory(self::$_table);
-      $tableObj->create();
+      $tableObj = Model::factory(self::$_table)->create();
       $tableObj->timestamp = $timestamp;
       $tableObj->url = $url;
       $tableObj->httpStatus = $httpStatus;

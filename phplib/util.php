@@ -438,7 +438,13 @@ function util_isMobile($userAgent = null) {
 }
 
 function util_suggestNoBanner() {
-  return isset($_SERVER['REQUEST_URI']) ? preg_match('/(masturba|fute)/', $_SERVER['REQUEST_URI']) : 0;
+  if (isset($_SERVER['REQUEST_URI']) && preg_match('/(masturba|fute)/', $_SERVER['REQUEST_URI'])) {
+    return true; // No banners on certain obscene pages
+  }
+  if (session_getUser() && session_getUser()->noAdsUntil > time()) {
+    return true; // User is an active donor
+  }
+  return false;
 }
 
 function util_fetchUrl($url) {

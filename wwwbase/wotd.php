@@ -1,6 +1,9 @@
 <?php
 
+define('ONE_DAY_IN_SECS',86400);
 define('WOTD_BIG_BANG', '2011-05-01');
+define('WOTD_REASON_BIG_BANG', '2013-09-01');
+define('WOTD_REASON_DISPLAY_DELAY', 3);
 
 require_once("../phplib/util.php");
 $date = util_getRequestParameter('d');
@@ -67,6 +70,17 @@ if (!$wotd) {
   $wotd = WordOfTheDay::get_by_displayDate($mysqlDate);
 }
 
+$reason = '';
+if ($wotd) {
+  $reason = $wotd->description;
+  if (
+    util_isModerator(PRIV_ADMIN) || 
+    ($mysqlDate > WOTD_REASON_BIG_BANG && $date && strtotime($date) < time() - WOTD_REASON_DISPLAY_DELAY * ONE_DAY_IN_SECS) 
+    ) {
+    SmartyWrap::assign('reason', $reason);
+  }
+}
+
 $defId = WordOfTheDayRel::getRefId($wotd->id);
 $def = Definition::get_by_id($defId);
 
@@ -83,10 +97,10 @@ $pageTitle = sprintf("Cuvântul zilei (%s): %s", $roDate, $def->lexicon);
 $pageDesc = sprintf("Cuvântul zilei de la dexonline. Azi, %s: %s", $roDate, $def->lexicon);
 
 if ($mysqlDate > WOTD_BIG_BANG) {
-  SmartyWrap::assign('prevday', date('Y/m/d', $timestamp - 86400));
+  SmartyWrap::assign('prevday', date('Y/m/d', $timestamp - ONE_DAY_IN_SECS));
 }
 if ($mysqlDate < $today || util_isModerator(PRIV_ADMIN)) {
-  SmartyWrap::assign('nextday', date('Y/m/d', $timestamp + 86400));
+  SmartyWrap::assign('nextday', date('Y/m/d', $timestamp + ONE_DAY_IN_SECS));
 }
 
 SmartyWrap::assign('imageUrl', $wotd->getImageUrl());

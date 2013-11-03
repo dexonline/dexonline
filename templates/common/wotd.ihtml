@@ -50,6 +50,12 @@
   
 {include file="common/bits/definition.ihtml" row=$searchResult}
 
+{if $reason}
+<div class="wotdReason">
+<b>Cheia alegerii:</b> {$reason|escape:'html'}
+</div>
+{/if}
+
 <div id="wotdPrevNext">
   {if $prevday}<div class="prev"><a href="{$wwwRoot}cuvantul-zilei/{$prevday}">« precedentul</a></div>{/if}
   {if $nextday}<div class="next"><a href="{$wwwRoot}cuvantul-zilei/{$nextday}">următorul »</a></div>{/if}

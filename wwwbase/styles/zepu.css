@@ -1421,3 +1421,7 @@ span.tooltip {
   border-radius: 4px;
   -moz-border-radius: 4px;
 }
+
+.wotdReason {
+  padding: 10px;
+}

@@ -94,7 +94,7 @@ $clients = array(
         'license' => 'Freeware',
         'options' => array('vision' => 0, 'sync' => 0, 'regexp' => 0, 'suggest' => 1, 'diacritics' => 1, 'full' => 0, 'flex' => 0, 'click' => 1, 'history' => 0)),
 
-  array('name' => array('iDEX', 'http://www.mobiletouch.ro/aplicatii-iphone/2/idex-dictionare-ale-limbii-romane'),
+  array('name' => array('iDEX', 'https://itunes.apple.com/md/app/idex/id333262100'),
         'available' => true,
         'urls' => array(),
         'os' => array('iphone'),

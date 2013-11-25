@@ -406,7 +406,7 @@ function wmSetCoordinates() {
       }
     } else {
       // No cookie - load the corresponding box
-      var box = $('.box[data-id="' + id + '"]'); 
+      var box = $('.box[data-id="' + id + '"]');
       for (var i = 0; i < props.length; i++) {
         if (typeof(box.attr('data-' + props[i])) != 'undefined') {
           var value = parseInt(box.attr('data-' + props[i]));
@@ -420,6 +420,8 @@ function wmSetCoordinates() {
       }
       if (box.attr('data-minimized')) {
         $(this).WM('minimize');
+      } else if ($(this).hasClass('minimized')) {
+        $(this).WM('restore');
       }
     }
   });

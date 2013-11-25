@@ -9,7 +9,7 @@ log_scriptLog("checkWotd: starting");
 define('NUM_DAYS', 3);
 $MAIL_INFO = array('cata@francu.com');
 $MAIL_ERROR = array('raduborza@gmail.com', 'dorelian.bellu@gmail.com', 'carmennistor7@gmail.com');
-$MAIL_HEADERS = array('From: cata@francu.com', 'Reply-To: cata@francu.com');
+$MAIL_HEADERS = array('From: cata@francu.com', 'Reply-To: cata@francu.com', 'Content-Type: text/plain; charset=UTF-8');
 
 $sendEmail = false;
 $quiet = false;
@@ -121,7 +121,7 @@ if (count($messages)) {
   $body = SmartyWrap::fetch('email/checkWotd.ihtml');
   if ($sendEmail) {
     log_scriptLog("checkWotd: sending email");
-    mail($mailTo, $subject, $body, implode("\n", $MAIL_HEADERS));
+    mail($mailTo, $subject, $body, implode("\r\n", $MAIL_HEADERS));
   } else if (!$quiet) {
     print "---- DRY RUN ----\n";
     print "Către: $mailTo\nSubiect: $subject\n\n$body\n";

@@ -35,13 +35,9 @@ if ($submitButton) {
       $ourEmail = Config::get('global.contact');
       $headers = array("From: DEX online <$ourEmail>", "Reply-To: $ourEmail", 'Content-Type: text/plain; charset=UTF-8');
       $result = mail($email, "Schimbarea parolei pentru DEX online", $body, implode("\r\n", $headers));
-
-      // Display a confirmation even for incorrect addresses.
-      SmartyWrap::displayCommonPageWithSkin('auth/passwordRecoveryEmailSent.ihtml');
-    } else {
-      FlashMessage::add('Nu există niciun utilizator cu e-mailul introdus.');
-      SmartyWrap::displayCommonPageWithSkin('auth/parola-uitata.ihtml');
     }
+    // Display a confirmation even for incorrect addresses.
+    SmartyWrap::displayCommonPageWithSkin('auth/passwordRecoveryEmailSent.ihtml');
   }
 } else {
   SmartyWrap::displayCommonPageWithSkin('auth/parola-uitata.ihtml');

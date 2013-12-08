@@ -92,9 +92,14 @@
         {/if}
       </td>
     </tr>
+    <tr id='similarSourceRow' {if $similarSource->shortName}{else}style="display:none"{/if}>
+      <td>Similarități</td>
+      <td>
+        <input type="checkbox" id="similarSource" name="similarSource" value="1" {if $def->similarSource}checked="checked"{/if}/> Definiție similară cu cea din {$similarSource->shortName}
+      </td>
+    </tr>
     <tr>
       <td colspan="3" class="buttonRow">
-        <!-- input type="submit" name="but_refresh" value="Reafișează"/ -->
         <input type="button" name="but_refresh" value="Reafișează" onclick="defRefresh()"/>
         <span class="tooltip" title="Tipărește definiția și comentariul cu modificările făcute. Modificările nu sunt încă salvate.">&nbsp;</span>
         &nbsp;&nbsp;
@@ -142,4 +147,5 @@
 
 <script>
   $(definitionEditInit);
+  $(similarSourceHideonChange);
 </script>

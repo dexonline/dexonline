@@ -349,7 +349,7 @@ function deleteDefinition(defDivId, defId) {
 
 function startReportCounters() {
   reports = ['unassociatedLexems', 'unassociatedDefinitions', 'definitionsWithTypos', 'temporaryDefinitions', 'temporaryLexems', 'lexemsWithComments',
-             'lexemsWithoutAccents', 'definitionsWithAmbiguousAbbrev', 'wotd', 'visualTag', 'ocrDefs'];
+             'lexemsWithoutAccents', 'definitionsWithAmbiguousAbbrev', 'wotd', 'visualTag', 'ocrDefs', 'ocrAvailDefs'];
   for (var i = 0; i < reports.length; i++) {
     $.ajax({
       url: wwwRoot + 'ajax/reportCounter.php',
@@ -487,4 +487,8 @@ if (typeof jQuery != 'undefined') {
       $(this).children('ul').toggle();
     });
   });
+}
+
+function similarSourceHideonChange() {
+  $('#sourceDropDown').change(function(){$('#similarSourceRow').hide()});
 }

@@ -9,6 +9,7 @@ $definitionId = util_getRequestIntParameter('definitionId');
 if($definitionId && !$nextOcrBut) {
     $lexemIds = util_getRequestCsv('lexemIds');
     $sourceId = util_getRequestIntParameter('source');
+    $similarSource = util_getRequestParameter('similarSource');
     $internalRep = util_getRequestParameter('internalRep');
     $status = util_getRequestIntParameterWithDefault('status', null);
     $commentContents = util_getRequestParameter('commentContents');
@@ -18,6 +19,7 @@ else {
     $definitionId = null;
     $lexemIds = null;
     $sourceId = null;
+    $similarSource = 0;
     $internalRep = null;
     $status = null;
     $commentContents = null;
@@ -31,7 +33,12 @@ $hasErrors = false;
 
 if (!$definitionId) {
   if ($isOCR) {
-    $ocr = Model::factory('OCR')->where('status', 'raw')->order_by_asc('dateModified')->find_one();
+    //find definitions assigned to user
+    $ocr = Model::factory('OCR')->where('status', 'raw')->where('editorId', session_getUserId())->order_by_asc('dateModified')->find_one();
+    // find definitions assigned to noone
+    if (!$ocr || !$ocr->id) {
+      $ocr = Model::factory('OCR')->where('status', 'raw')->where_null('editorId')->order_by_asc('dateModified')->find_one();
+    }
     if (!$ocr || !$ocr->id) {
       echo("Lista cu definiții OCR este goală.");
       return;
@@ -45,6 +52,7 @@ if (!$definitionId) {
     $definition->status = ST_PENDING;
     $definition->userId = session_getUserId();
     $definition->sourceId = $sourceId;
+    $definition->similarSource = $similarSource;
     $definition->internalRep = $def;
     $definition->htmlRep = AdminStringUtil::htmlize($def, $sourceId);
     $definition->lexicon = AdminStringUtil::extractLexicon($definition);
@@ -64,6 +72,7 @@ if (!$definitionId) {
 if (!($definition = Definition::get_by_id($definitionId))) {
   return;
 }
+
 $comment = Model::factory('Comment')->where('definitionId', $definitionId)->where('status', ST_ACTIVE)->find_one();
 $commentUser = $comment ? User::get_by_id($comment->userId) : null;
 $oldInternalRep = $definition->internalRep;
@@ -85,6 +94,13 @@ if (isset($status)) {
 if ($sourceId) {
   $definition->sourceId = (int)$sourceId;
 }
+if ($similarSource) {
+  $definition->similarSource = 1;
+}
+else {
+  $definition->similarSource = 0;
+}
+
 if ($internalRep || $sourceId) {
   $definition->lexicon = AdminStringUtil::extractLexicon($definition);
 }
@@ -163,13 +179,13 @@ if (($acceptButton || $moveButton) && !$hasErrors) {
   }
     
   log_userLog("Edited definition {$definition->id} ({$definition->lexicon})");
-  util_redirect('definitionEdit.php?definitionId=' . $definitionId);
+  //util_redirect('definitionEdit.php?definitionId=' . $definitionId);
 }
 else if ($nextOcrBut && !$hasErrors) {
   //TODO: check if definition has lexems
   $definition->save();
   log_userLog("Edited OCR definition {$definition->id} ({$definition->lexicon}), ocr ({$ocr->id})");
-  util_redirect('definitionEdit.php?definitionId=' . $definitionId . "&ocr=1");
+  //util_redirect('definitionEdit.php?definitionId=' . $definitionId . "&ocr=1");
 }
 
 $source = Source::get_by_id($definition->sourceId);
@@ -180,9 +196,16 @@ if (!$refreshButton && !$acceptButton && !$moveButton) {
   RecentLink::createOrUpdate(sprintf("Definiție: %s (%s)", $definition->lexicon, $source->shortName));
 }
 
+$similarSourceName = null;
+if ($definition->sourceId) {
+  $similarSourceId = SimilarSource::getSimilarSource($definition->sourceId);
+  $similarSourceObj = Source::get_by_id($similarSourceId);
+}
+
 SmartyWrap::assign('isOCR', $isOCR);
 SmartyWrap::assign('def', $definition);
 SmartyWrap::assign('source', $source);
+SmartyWrap::assign('similarSource', $similarSourceObj);
 SmartyWrap::assign('user', User::get_by_id($definition->userId));
 SmartyWrap::assign('comment', $comment);
 SmartyWrap::assign('commentUser', $commentUser);

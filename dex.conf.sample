@@ -175,3 +175,12 @@ log2screen = true
 
 ; when set, outputs messages to the file specified by crawler_log
 log2file = true
+
+; settings for WotD error email notifications
+[WotD]
+sender = sending-user@example.com
+reply-to =reply-to-user@example.com
+rcpt-info[] = info-user-1@example.com
+rcpt-info[] = info-user-2@example.com
+rcpt-error[] = error-user-1@example.com
+rcpt-error[] = error-user-2@example.com

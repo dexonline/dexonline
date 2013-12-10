@@ -7,9 +7,12 @@ require_once __DIR__ . '/../phplib/util.php';
 log_scriptLog("checkWotd: starting");
 
 define('NUM_DAYS', 3);
-$MAIL_INFO = array('cata@francu.com');
-$MAIL_ERROR = array('raduborza@gmail.com', 'dorelian.bellu@gmail.com', 'carmennistor7@gmail.com');
-$MAIL_HEADERS = array('From: cata@francu.com', 'Reply-To: cata@francu.com', 'Content-Type: text/plain; charset=UTF-8');
+
+$MAIL_INFO = Config::get('WotD.rcpt-info',array());
+$MAIL_ERROR = Config::get('WotD.rcpt-error',array());
+$sender = Config::get('WotD.sender', '');
+$replyto = Config::get('WotD.reply-to', '');
+$MAIL_HEADERS = array("From: $sender", "Reply-To: $replyto", 'Content-Type: text/plain; charset=UTF-8');
 
 $sendEmail = false;
 $quiet = false;

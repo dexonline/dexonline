@@ -76,7 +76,7 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
       $wotds[0]->save();
       addInfo($date, "Am asociat definiția '{$def->lexicon}' cu imaginea {$assignedImage}");
     } else {
-      addError($date, sprintf("Definiția '%s' nu are o imagine asociată", $def->lexicon));
+      addError($date, sprintf("Definiția '%s' nu are o imagine asociată (motivul alegerii: %s)", $def->lexicon, $wotds[0]->description));
       continue;
     }
   }

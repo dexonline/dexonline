@@ -16,13 +16,16 @@ if ($submitButton) {
   util_redirect('surse');
 }
 
-$sources = util_isModerator(PRIV_VIEW_HIDDEN) ? 
-  Model::factory('Source')->order_by_asc('displayOrder')->find_many():
-  Model::factory('Source')->where_not_equal('isOfficial', SOURCE_TYPE_HIDDEN)->order_by_asc('displayOrder')->find_many();
+if (util_isModerator(PRIV_VIEW_HIDDEN)) {
+  $sources = Model::factory('Source')->order_by_asc('displayOrder')->find_many();
+} else {
+  $sources = Model::factory('Source')->where_not_equal('isOfficial', SOURCE_TYPE_HIDDEN)->order_by_asc('displayOrder')->find_many();
+}
 
 SmartyWrap::assign('sources', $sources);
 SmartyWrap::assign('page_title', 'Surse');
-SmartyWrap::addJs('jqTableDnd');
+SmartyWrap::addCss('jqueryui');
+SmartyWrap::addJs('jqueryui', 'jqTableDnd');
 SmartyWrap::displayCommonPageWithSkin('surse.ihtml');
 
 ?>

@@ -24,7 +24,7 @@ function formCheck(formobj) {
     <div class="paymentSection">
       <h3>
         Donează online
-        <span title="Comision fix de 3,5%" class="tooltip">&nbsp;</span>
+        <span title="Comision fix de 3,5%" class="tooltip2">&nbsp;</span>
       </h3>
       <form action="doneaza-euplatesc.php" method="post" enctype="multipart/form-data"  onsubmit="return formCheck(this);">
         <label>Suma</label>
@@ -53,7 +53,7 @@ function formCheck(formobj) {
   <div class="paymentSection paypal">
     <h3>
       Donează prin PayPal
-      <span title="Comision mediu 6,5% (10% la donații de 5€, 4% la 25€)" class="tooltip">&nbsp;</span>
+      <span title="Comision mediu 6,5% (10% la donații de 5€, 4% la 25€)" class="tooltip2">&nbsp;</span>
     </h3>
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
       <input type="hidden" name="cmd" value="_s-xclick">
@@ -67,7 +67,7 @@ function formCheck(formobj) {
   <div class="paymentSection bankTransfer">
     <h3>
       Donează prin transfer bancar
-      <span title="Comisionul este oprit la trimitere" class="tooltip">&nbsp;</span>
+      <span title="Comisionul este oprit la trimitere" class="tooltip2">&nbsp;</span>
     </h3>
     <ul>
       <li>Beneficiar<span class="bankAccount"> Asociația dexonline</span></li>

@@ -34,7 +34,7 @@
         <td>
           <input type="text" id="lexemForm" name="lexemForm" value="{$lexem->form|escape}" size="20" {if !$canEdit.form}readonly{/if}/>
   
-          <span class="tooltip" title="Cuvântul-titlu. Accentul trebuie indicat chiar și pentru lexemele monosilabice, altfel paradigma nu va
+          <span class="tooltip2" title="Cuvântul-titlu. Accentul trebuie indicat chiar și pentru lexemele monosilabice, altfel paradigma nu va
           conține deloc accente. Valoarea acestui câmp este folosită la căutări și este vizibilă public la afișarea flexiunilor unui cuvânt. Odată
           ce un lexem a fost inclus în LOC, numele și descrierea lexemului mai pot fi modificate numai de către moderatorii LOC.">&nbsp;</span>
         </td>
@@ -64,7 +64,7 @@
         <td>
           <input type="text" id="lexemTags" name="lexemTags" value="{$lexem->tags|escape}" size="20"
                  placeholder="explicații despre sursa flexiunii" {if !$canEdit.tags}readonly{/if}/>
-          <span class="tooltip" title="O scurtă clasificare, vizibilă public, care marchează sursa flexiunii. Pentru cuvintele cu flexiuni în DOOM-ul
+          <span class="tooltip2" title="O scurtă clasificare, vizibilă public, care marchează sursa flexiunii. Pentru cuvintele cu flexiuni în DOOM-ul
           curent (DOOM2 în acest moment), ea poate fi vidă. Sursele pot reprezenta dicționare, autori cunoscuți, inclusiv părerea moderatorului, dar
           trebuie documentate clar aceste situații.">&nbsp;</span>
         </td>
@@ -95,7 +95,7 @@
             <input type="hidden" name="lexemIsLoc" value="{if $lexem->isLoc}1{/if}"/>
             {if $lexem->isLoc}Da{else}Nu{/if}
           {/if}
-          <span class="tooltip" title="DEX online menține Lista Oficială de Cuvinte a Federației Române de Scrabble. Acest câmp poate fi modificat
+          <span class="tooltip2" title="DEX online menține Lista Oficială de Cuvinte a Federației Române de Scrabble. Acest câmp poate fi modificat
           numai de către un set restrâns de administratori ai LOC.">&nbsp;</span>
         </td>
       </tr>
@@ -104,7 +104,7 @@
         <td><label for="needsAccent">necesită accent:</label></td>
         <td>        
           <input type="checkbox" id="needsAccent" name="needsAccent" value="1" {if !$lexem->noAccent}checked{/if}/>
-          <span class="tooltip" title="Majoritatea lexemelor necesită accent. Excepție fac cuvintele compuse, denumirile științifice de animale și
+          <span class="tooltip2" title="Majoritatea lexemelor necesită accent. Excepție fac cuvintele compuse, denumirile științifice de animale și
           plante, elementele de compunere etc.">&nbsp;</span>
         </td>
       </tr>
@@ -113,7 +113,7 @@
         <td><label for="variantOfId">variantă a lui:</label></td>
         <td>
           <input id="variantOfId" name="variantOfId" value="{$lexem->variantOfId}" type="text" {if !$canEdit.variants}readonly{/if}/>
-          <span class="tooltip"
+          <span class="tooltip2"
                 title="Variantele nu pot avea sensuri, exemple, variante sau etimologii proprii. Ele pot avea pronunții și silabisiri proprii.">&nbsp;</span>
         </td>
       </tr>
@@ -122,7 +122,7 @@
         <td><label for="variantIds">variante:</label></td>
         <td>
           <input id="variantIds" name="variantIds" value="{','|implode:$variantIds}" type="text" {if !$canEdit.variants}readonly{/if}/>
-          <span class="tooltip"
+          <span class="tooltip2"
                 title="Variantele nu pot avea sensuri, exemple, variante sau etimologii proprii. Ele pot avea pronunții și silabisiri proprii.">&nbsp;</span>
         </td>
       </tr>
@@ -215,13 +215,13 @@
         <input type="button" id="addSubmeaningButton" value="adaugă subsens"/>
         <input type="button" id="deleteMeaningButton" value="șterge sens"/>
       {else}
-        <span class="tooltip" title="Acest lexem a fost avizat de un moderator. Sensurile, variantele, pronunțiile și silabisirile sale nu mai pot fi modificate">&nbsp;</span>
+        <span class="tooltip2" title="Acest lexem a fost avizat de un moderator. Sensurile, variantele, pronunțiile și silabisirile sale nu mai pot fi modificate">&nbsp;</span>
       {/if}
     </div>
     {if $canEdit.seal}
       <input type="checkbox" id="structSealed" name="structSealed" value="1" {if $lexem->structSealed}checked{/if}/>
       <label for="structSealed">avizează acest arbore de sensuri</label>
-      <span class="tooltip" title="După avizare, doar moderatorii mai pot edita sensurile, variantele, silabisirile și pronunțiile.">&nbsp;</span>
+      <span class="tooltip2" title="După avizare, doar moderatorii mai pot edita sensurile, variantele, silabisirile și pronunțiile.">&nbsp;</span>
     {else}
       <input type="hidden" name="structSealed" value="{$lexem->structSealed}"/>
     {/if}

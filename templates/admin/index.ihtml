@@ -75,14 +75,14 @@ Adaugă noi definiții OCR (una pe linie): <a href="/admin/ocrInput.php">click a
     <input type="submit" name="editModel" value="Editează"/>
     <input type="submit" name="cloneModel" value="Clonează"/>
 
-    <span class="tooltip" title="În loc să permitem crearea de la zero a unui model nou, care probabil nu ar fi prea utilă, permitem clonarea unui
+    <span class="tooltip2" title="În loc să permitem crearea de la zero a unui model nou, care probabil nu ar fi prea utilă, permitem clonarea unui
     model deja existent. Noul model va avea aceleași flexiuni, același exponent și (în cazul verbelor) același tip de participiu cu modelul
     original. Trebuie să indicați doar un nou număr de model. Opțional, puteți alege lexemele etichetate cu modelul original pe care doriți să le
     migrați la modelul-clonă.">&nbsp;</span>
 
     <input type="submit" name="deleteModel" value="Șterge"/>
 
-    <span class="tooltip" title="Când ștergeți un model, toate lexemele etichetate cu acel model vor fi reetichetate cu modelul T1. (Vă va fi
+    <span class="tooltip2" title="Când ștergeți un model, toate lexemele etichetate cu acel model vor fi reetichetate cu modelul T1. (Vă va fi
     prezentat un ecran de confirmare cu lista acestor lexeme). Probabil este de dorit să reetichetați din timp aceste lexeme cu modelele
     corespunzătoare, astfel ca în momentul ștergerii modelul să nu mai aibă niciun lexem.">&nbsp;</span>
 

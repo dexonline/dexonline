@@ -3,11 +3,14 @@ var COOKIE_NAME = 'lexemEdit';
 $.cookie.json = true;
 
 function lexemEditInit() {
-  $('#meaningTree').tree({
-    animate: true,
-    dnd: true,
-    onBeforeSelect: meaningEditorUnchanged,
-    onSelect: beginMeaningEdit,
+  easyloader.css = false;
+  using('tree', function() {
+    $('#meaningTree').tree({
+      animate: true,
+      dnd: true,
+      onBeforeSelect: meaningEditorUnchanged,
+      onSelect: beginMeaningEdit,
+    });
   });
   $('#addMeaningButton').click(addMeaning);
   $('#addSubmeaningButton').click(addSubmeaning);

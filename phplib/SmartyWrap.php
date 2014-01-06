@@ -149,18 +149,18 @@ class SmartyWrap {
       case 'jqgrid':             self::$cssFiles[2] = 'ui.jqgrid.css?v=3'; break;
       case 'elfinder':           self::$cssFiles[4] = 'elfinder/css/elfinder.min.css?v=2'; break;
       case 'windowEngine':       self::$cssFiles[5] = 'jquery-wm/main.css'; break;
-      case 'zepu':               self::$cssFiles[6] = 'zepu.css?v=56'; break;
+      case 'zepu':               self::$cssFiles[6] = 'zepu.css?v=57'; break;
       case 'polar':              self::$cssFiles[7] = 'polar.css?v=31'; break;
       case 'mobile':             self::$cssFiles[8] = 'mobile.css?v=15'; break;
-      case 'flex':               self::$cssFiles[9] = 'flex.css?v=10'; break;
+      case 'flex':               self::$cssFiles[9] = 'flex.css?v=11'; break;
       case 'paradigm':           self::$cssFiles[10] = 'paradigm.css?v=1'; break;
       case 'hangman':            self::$cssFiles[11] = 'hangman.css?v=3'; break;
       case 'mill':               self::$cssFiles[12] = 'mill.css?v=2'; break;
       case 'lexemEdit':          self::$cssFiles[13] = 'lexemEdit.css?v=5'; break;
       case 'jcrop':              self::$cssFiles[14] = 'jcrop/jquery.Jcrop.min.css?v=3'; break;
       case 'easyui':
-        self::$cssFiles[15] = 'easyui/default/easyui.css?v=2';
-        self::$cssFiles[16] = 'easyui/icon.css?v=2';
+        self::$cssFiles[15] = 'easyui-1.3.5/default/easyui.css?v=1';
+        self::$cssFiles[16] = 'easyui-1.3.5/icon.css?v=1';
         break;
       case 'select2':            self::$cssFiles[17] = 'select2/select2.css?v=3'; break;
       case 'gallery':            
@@ -191,15 +191,15 @@ class SmartyWrap {
       case 'elfinder':         self::$jsFiles[9] = 'elfinder.min.js?v=1'; break; 
       case 'windowEngine':     self::$jsFiles[10] = 'jquery-wm.js'; break;
       case 'cookie':           self::$jsFiles[11] = 'jquery.cookie.js?v=1'; break;
-      case 'dex':              self::$jsFiles[12] = 'dex.js?v=24'; break;
+      case 'dex':              self::$jsFiles[12] = 'dex.js?v=25'; break;
       case 'flex':             self::$jsFiles[13] = 'flex.js?v=2'; break;
       case 'mobile':           self::$jsFiles[14] = 'mobile.js?v=2'; break;
       case 'hangman':          self::$jsFiles[15] = 'hangman.js?v=5'; break;
       case 'mill':             self::$jsFiles[16] = 'mill.js?v=3'; break;
       case 'wotd':             self::$jsFiles[17] = 'wotd.js?v=1';
-      case 'lexemEdit':        self::$jsFiles[18] = 'lexemEdit.js?v=6'; break;
+      case 'lexemEdit':        self::$jsFiles[18] = 'lexemEdit.js?v=7'; break;
       case 'jcrop':            self::$jsFiles[19] = 'jquery.Jcrop.min.js?v=2'; break;
-      case 'easyui':           self::$jsFiles[20] = 'jquery.easyui.min.js?v=2'; break;
+      case 'easyui':           self::$jsFiles[20] = 'easyui-1.3.5/easyloader.js?v=1'; break;
       case 'select2':          self::$jsFiles[21] = 'select2.min.js?v=3'; break;
       case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=2'; break;
       case 'visualTag':        self::$jsFiles[23] = 'visualTag.js'; break;

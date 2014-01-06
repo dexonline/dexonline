@@ -24,7 +24,7 @@
       <td>
         <input id="lexemIds" name="lexemIds" value="{','|implode:$lexemIds}" type="text"/>
 
-        <span class="tooltip" title="Este bine să asociați fiecare definiție cu toate lexemele relevante. Lexemele nu vor fi salvate până nu apăsați
+        <span class="tooltip2" title="Este bine să asociați fiecare definiție cu toate lexemele relevante. Lexemele nu vor fi salvate până nu apăsați
         unul din butoanele Acceptă sau Activează.">&nbsp;</span>
 
       </td>
@@ -38,7 +38,7 @@
           <input type="hidden" name="source" value="{$def->sourceId}"/>
           {$source->shortName}
 
-          <span class="tooltip" title="Sursa nu este deschisă pentru moderare și nu poate fi modificată.">&nbsp;</span>
+          <span class="tooltip2" title="Sursa nu este deschisă pentru moderare și nu poate fi modificată.">&nbsp;</span>
 
         {/if}
       </td>
@@ -48,7 +48,7 @@
       <td>
         {include file="common/statusDropDown.ihtml" name="status" statuses=$allStatuses selectedStatus=$def->status}
 
-        <span class="tooltip" title="Dacă treceți o definiție în starea ștearsă, ea va fi automat disociată de orice lexem. Notă: Definiția va
+        <span class="tooltip2" title="Dacă treceți o definiție în starea ștearsă, ea va fi automat disociată de orice lexem. Notă: Definiția va
         fi imposibil de găsit la o căutare ulterioară, tocmai din cauza disocierii (căutarea se face după lexem). Definiția este încă disponibilă în
         panoul de pagini recent vizitate.">&nbsp;</span>
 
@@ -75,7 +75,7 @@
       <td>
         Comentariu<br/>(opțional):
 
-        <span class="tooltip" title="Comentariul va fi vizibil public într-un subalineat al definiției. Folosiți acest câmp pentru a face adnotări pe
+        <span class="tooltip2" title="Comentariul va fi vizibil public într-un subalineat al definiției. Folosiți acest câmp pentru a face adnotări pe
         marginea unei definiții fără a altera forma originală a definiției.">&nbsp;</span>
 
       </td>
@@ -85,7 +85,7 @@
           <input id="preserveCommentUser" type="checkbox" name="preserveCommentUser" value="1" checked="checked">
           <label for="preserveCommentUser">Păstrează autorul comentariului original ({$commentUser->nick|escape})</label>
 
-          <span class="tooltip" title="Dacă modificați un comentariu existent, puteți alege să vă treceți drept autor al comentariului sau să păstrați
+          <span class="tooltip2" title="Dacă modificați un comentariu existent, puteți alege să vă treceți drept autor al comentariului sau să păstrați
           autorul versiunii anterioare. Sistemul nu ia automat această decizie. Nu fiți modești; dacă considerați că ați îmbunătățit semnificativ
           comentariul, însușiți-vi-l!">&nbsp;</span>
 
@@ -101,13 +101,13 @@
     <tr>
       <td colspan="3" class="buttonRow">
         <input type="button" name="but_refresh" value="Reafișează" onclick="defRefresh()"/>
-        <span class="tooltip" title="Tipărește definiția și comentariul cu modificările făcute. Modificările nu sunt încă salvate.">&nbsp;</span>
+        <span class="tooltip2" title="Tipărește definiția și comentariul cu modificările făcute. Modificările nu sunt încă salvate.">&nbsp;</span>
         &nbsp;&nbsp;
         <input type="submit" name="but_accept" value="Acceptă"/>
         &nbsp;&nbsp;
         <input type="submit" name="but_move" value="Activează"/>
 
-        <span class="tooltip" title="Acceptă modificările făcute și, în plus, trece definiția în starea activă. Butonul este echivalent cu trecerea
+        <span class="tooltip2" title="Acceptă modificările făcute și, în plus, trece definiția în starea activă. Butonul este echivalent cu trecerea
         manuală a definiției în starea activă și este oferit ca o scurtătură.">&nbsp;</span>
 
       </td>

@@ -6,7 +6,11 @@ var wwwRoot = getWwwRoot();
 
 if (typeof jQuery != 'undefined' && typeof jQuery.ui != 'undefined') {
   $(function() {
-    $(document).tooltip();
+    $(document).tooltip({
+      content: function () {
+        return $(this).prop('title');
+      }
+    });
   });
 }
 

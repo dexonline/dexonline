@@ -23,7 +23,7 @@
         <input type="text" name="newModelNumber"
                value="{$newModelNumber|escape}"/>
 
-        <span class="tooltip" title="Aici puteți edita exponentul ales pentru un model și formele pentru diversele flexiuni. Folosiți accente unde
+        <span class="tooltip2" title="Aici puteți edita exponentul ales pentru un model și formele pentru diversele flexiuni. Folosiți accente unde
         doriți. Dacă o flexiune nu are forme, lăsați câmpul vid. Dacă o flexiune are mai multe forme, apăsați semnul + pentru a obține câte câmpuri
         doriți. Pentru a șterge o formă, ștergeți conținutul câmpului respectiv. Dacă bifați/debifați o formă pentru LOC, rezultatul se va aplica
         tuturor formelor corespunzătoare ale lexemelor din acest model, dar nu și la alte modele. Tipul modelului nu este editabil, dar numărul

@@ -390,6 +390,8 @@ function wmInit() {
   // Set some handlers for moving, resizing, and resetting the interface
   $('#resizerproxy').mouseup(wmSetCookie);
   $('#moverproxy').mouseup(wmSetCookie);
+  $('.minimizebut, .maximizebut, .restorebut').click(wmSetCookie);
+  $('.windowtitlebar').dblclick(wmSetCookie);
   $('#interfaceResetLink').click(wmInterfaceReset);
 }
 

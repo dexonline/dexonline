@@ -35,7 +35,8 @@
   &nbsp;&nbsp;
   <a href="?lexemId={$lexem->id}">renunță</a>
 
-  <div class="interfaceReset">
+  <div class="links">
+    <a href="./">pagina moderatorului</a>
     <a id="interfaceResetLink" href="#" title="resetează poziția ferestrelor">resetează interfața</a>
   </div>
 </div>

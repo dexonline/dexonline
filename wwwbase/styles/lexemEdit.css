@@ -188,9 +188,13 @@ input[readonly] {
   margin: 0px 0px;
 }
 
-.interfaceReset {
+.lexemEditActions .links {
   float: right;
   padding: 3px 10px;
+}
+
+.lexemEditActions .links a {
+  padding-left: 10px;
 }
 
 /* Window manager settings */

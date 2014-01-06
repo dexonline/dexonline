@@ -6,7 +6,7 @@ CREATE TABLE `SimilarSource` (
   `similarSource` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `sourceId` (`sourceId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 insert into SimilarSource(sourceId, similarSource) values (1,2), (2,3), (3,4), (8,18), (19,18), (27,1), (40,27), (21,17);
 

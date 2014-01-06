@@ -111,6 +111,15 @@ function sourceMatcher(term, text) {
   return text.toUpperCase().indexOf(term.toUpperCase()) != -1;
 }
 
+// For some reason .tree('getChildren') fails on leaves.
+function meaningTreeGetChildren(node) {
+  if (node.children) {
+    return $('#meaningTree').tree('getChildren', node.target);
+  } else {
+    return new Array();
+  }
+}
+
 function addMeaning() {
   if (!meaningEditorUnchanged()) {
     return false;
@@ -154,7 +163,7 @@ function deleteMeaning() {
   }
   var node = $('#meaningTree').tree('getSelected');
   if (node) {
-    var numChildren = $('#meaningTree').tree('getChildren', node.target).length;
+    var numChildren = meaningTreeGetChildren(node).length;
     if (!numChildren || confirm('Confirmați ștergerea sensului și a tuturor subsensurilor?')) {
       $('#meaningTree').tree('remove', node.target);
     }
@@ -276,7 +285,7 @@ function meaningTreeWalk(node, results, level) {
                  'synonymIds': jqNode.find('span.synonymIds').text(),
                  'antonymIds': jqNode.find('span.antonymIds').text(),
                });
-  var children = $('#meaningTree').tree('getChildren', node.target);
+  var children = meaningTreeGetChildren(node);
   for (var i = 0; i < children.length; i++) {
     meaningTreeWalk(children[i], results, level + 1);
   }

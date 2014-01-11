@@ -95,7 +95,7 @@
     <tr id='similarSourceRow' {if $similarSource->shortName}{else}style="display:none"{/if}>
       <td>Similarități</td>
       <td>
-        <input type="checkbox" id="similarSource" name="similarSource" value="1" {if $def->similarSource}checked="checked"{/if}/> Definiție similară cu cea din {$similarSource->shortName}
+        <input type="checkbox" id="similarSource" name="similarSource" value="1" {if $def->similarSource}checked="checked"{/if}/> Definiție identică cu cea din {$similarSource->shortName}
       </td>
     </tr>
     <tr>
@@ -143,6 +143,16 @@
 <br/><br/>
 {if $comment}
   Comentariu: {$comment->htmlContents}
+{/if}
+
+{if $similarSource->shortName}
+<input type="hidden" id="similarSourceId" value="{$similarSource->id}"/>
+<div style="display:hidden">
+  <font color="red">Definiția din {$similarSource->shortName} corespunzătoare lexemului:</font>
+</div>
+<div id="similarPreview">
+{$similarDef->htmlRep|default:'<font color="#888">Nu există nicio definiție similară sau nu e niciun lexem definit</font>'}
+</div>
 {/if}
 
 <script>

@@ -58,6 +58,16 @@ function definitionEditInit() {
     multiple: true,
     width: '600px',
   });
+
+
+  $('#lexemIds')
+    .on("change", function(e){
+      $.ajax(wwwRoot + 'ajax/getSimilarDefinition.php?s=' + $('#similarSourceId').val() + '&l=' + e.val)
+        .done(function(data) {
+          if (!data) data = '<font color="#888">Nu există nicio definiție similară sau nu e niciun lexem definit</font>';
+          $('#similarPreview').html(data);
+        })
+    })
 }
 
 function formatLexemWithEditLink(lexem) {

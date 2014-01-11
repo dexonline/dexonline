@@ -27,6 +27,18 @@ class Definition extends BaseObject implements DatedObject {
     return $r->c;
   }
 
+  public static function loadBySourceAndLexemId($sourceId, $lexemId) {
+    return Model::factory('Definition')
+      ->select('Definition.*')
+      ->join('LexemDefinitionMap', array('Definition.id', '=', 'definitionId'))
+      ->where('LexemDefinitionMap.lexemId', $lexemId)
+      ->where('Definition.sourceId', $sourceId)
+      ->where_not_equal('status', ST_DELETED)
+      ->order_by_asc('sourceId')
+      ->find_one();
+      //->find_many();
+  }
+
   public static function getListOfWordsFromSources($wordStart, $wordEnd, $sources) {
     return Model::factory('Definition')
       ->select('Definition.*')

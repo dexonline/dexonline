@@ -197,15 +197,21 @@ if (!$refreshButton && !$acceptButton && !$moveButton) {
 }
 
 $similarSourceName = null;
+$similarDefObj = null;
 if ($definition->sourceId) {
   $similarSourceId = SimilarSource::getSimilarSource($definition->sourceId);
   $similarSourceObj = Source::get_by_id($similarSourceId);
+  if ($similarSourceObj && $lexemIds) {
+    //TODO add suport for multiple lexems
+    $similarDefObj = Definition::loadBySourceAndLexemId($similarSourceId, $lexemIds[0]);
+  }
 }
 
 SmartyWrap::assign('isOCR', $isOCR);
 SmartyWrap::assign('def', $definition);
 SmartyWrap::assign('source', $source);
 SmartyWrap::assign('similarSource', $similarSourceObj);
+SmartyWrap::assign('similarDef', $similarDefObj);
 SmartyWrap::assign('user', User::get_by_id($definition->userId));
 SmartyWrap::assign('comment', $comment);
 SmartyWrap::assign('commentUser', $commentUser);

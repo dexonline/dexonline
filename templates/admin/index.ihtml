@@ -58,6 +58,16 @@ Adaugă noi definiții OCR (una pe linie): <a href="/admin/ocrInput.php">click a
 </form>
 <br/>
 
+<form action="lexemSearch.php" method="get">
+  Caută lexeme:
+  <input type="text" name="form" size="10" value="*">
+  &nbsp; &nbsp;
+  <input type="checkbox" id="structured" name="structured" value="1">
+  <label for="structured">structurate</label>
+  <input type="submit" name="searchButton" value="Caută">
+</form>
+<br/>
+
 {if $sUser->moderator & $smarty.const.PRIV_LOC}
   <form action="../flex/dispatchModelAction.php" method="get">
     Modelul:

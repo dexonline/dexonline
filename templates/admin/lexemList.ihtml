@@ -1,7 +1,4 @@
 {foreach from=$lexems item=l key=row_id}
-  {strip}
-    <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$l->id}">
-      {include file="common/bits/lexemName.ihtml" lexem=$l} ({$l->modelType}{$l->modelNumber}{$l->restriction})
-    </a>
-  {/strip}
+  <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$l->id}">{include file="common/bits/lexemName.ihtml" lexem=$l}</a>
+  ({$l->modelType}{$l->modelNumber}{$l->restriction}) |
 {/foreach}    

@@ -3,10 +3,10 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$isOCR = util_getRequestIntParameter('ocr');
+$isOCR = null;
 $nextOcrBut = util_getRequestParameter('but_next_ocr');
 $definitionId = util_getRequestIntParameter('definitionId');
-if($definitionId && !$nextOcrBut) {
+if($definitionId) {
     $lexemIds = util_getRequestCsv('lexemIds');
     $sourceId = util_getRequestIntParameter('source');
     $similarSource = util_getRequestParameter('similarSource');
@@ -94,11 +94,15 @@ if (isset($status)) {
 if ($sourceId) {
   $definition->sourceId = (int)$sourceId;
 }
-if ($similarSource) {
-  $definition->similarSource = 1;
-}
-else {
-  $definition->similarSource = 0;
+
+//ugly workaround - TBD a better solution
+if ($_POST) {
+  if ($similarSource) {
+    $definition->similarSource = 1;
+  }
+  else {
+    $definition->similarSource = 0;
+  }
 }
 
 if ($internalRep || $sourceId) {
@@ -172,6 +176,7 @@ if (($acceptButton || $moveButton) && !$hasErrors) {
       }
     }
   } else {
+    $ldms = LexemDefinitionMap::get_all_by_definitionId($definitionId);
     db_execute("delete from LexemDefinitionMap where definitionId = {$definitionId}");
     foreach ($ldms as $ldm) {
       $ldm->save();
@@ -185,7 +190,7 @@ else if ($nextOcrBut && !$hasErrors) {
   //TODO: check if definition has lexems
   $definition->save();
   log_userLog("Edited OCR definition {$definition->id} ({$definition->lexicon}), ocr ({$ocr->id})");
-  //util_redirect('definitionEdit.php?definitionId=' . $definitionId . "&ocr=1");
+  util_redirect('definitionEdit.php');
 }
 
 $source = Source::get_by_id($definition->sourceId);
@@ -208,9 +213,12 @@ if ($definition->sourceId) {
 }
 
 SmartyWrap::assign('isOCR', $isOCR);
+if ($definitionId) {
+  SmartyWrap::assign('definitionId', $definitionId);
+}
 SmartyWrap::assign('def', $definition);
 SmartyWrap::assign('source', $source);
-SmartyWrap::assign('similarSource', $similarSourceObj);
+SmartyWrap::assign('simSource', $similarSourceObj);
 SmartyWrap::assign('similarDef', $similarDefObj);
 SmartyWrap::assign('user', User::get_by_id($definition->userId));
 SmartyWrap::assign('comment', $comment);

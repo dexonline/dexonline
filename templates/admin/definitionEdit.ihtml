@@ -1,4 +1,4 @@
-<form action="definitionEdit.php" method="post" name="frmDef">
+<form action="definitionEdit.php{if $definitionId}?definitionId={$definitionId}{/if}" method="post" name="frmDef">
   <input type="hidden" name="definitionId" value="{$def->id}"/>
   {if $isOCR}
   <input type="hidden" name="ocr" value="1"/>
@@ -92,10 +92,10 @@
         {/if}
       </td>
     </tr>
-    <tr id='similarSourceRow' {if $similarSource->shortName}{else}style="display:none"{/if}>
+    <tr id='similarSourceRow' {if $simSource->shortName}{else}style="display:none"{/if}>
       <td>Similarități</td>
       <td>
-        <input type="checkbox" id="similarSource" name="similarSource" value="1" {if $def->similarSource}checked="checked"{/if}/> Definiție identică cu cea din {$similarSource->shortName}
+        <input type="checkbox" id="similarSource" name="similarSource" value="1" {if $def->similarSource}checked="checked"{/if}/> Definiție identică cu cea din {$simSource->shortName}
       </td>
     </tr>
     <tr>
@@ -145,10 +145,10 @@
   Comentariu: {$comment->htmlContents}
 {/if}
 
-{if $similarSource->shortName}
-<input type="hidden" id="similarSourceId" value="{$similarSource->id}"/>
+{if $simSource->shortName}
+<input type="hidden" id="similarSourceId" value="{$simSource->id}"/>
 <div style="display:hidden">
-  <font color="red">Definiția din {$similarSource->shortName} corespunzătoare lexemului:</font>
+  <font color="red">Definiția din {$simSource->shortName} corespunzătoare lexemului:</font>
 </div>
 <div id="similarPreview">
 {$similarDef->htmlRep|default:'<font color="#888">Nu există nicio definiție similară sau nu e niciun lexem definit</font>'}

@@ -108,6 +108,7 @@ if ($_POST) {
 if ($internalRep || $sourceId) {
   $definition->lexicon = AdminStringUtil::extractLexicon($definition);
 }
+
 if (count($lexemIds)) {
   $lexems = array();
   $ldms = array();
@@ -176,7 +177,7 @@ if (($acceptButton || $moveButton) && !$hasErrors) {
       }
     }
   } else {
-    // $ldms = LexemDefinitionMap::get_all_by_definitionId($definitionId);
+    //$ldms = LexemDefinitionMap::get_all_by_definitionId($definitionId); // FIXME 
     db_execute("delete from LexemDefinitionMap where definitionId = {$definitionId}");
     foreach ($ldms as $ldm) {
       $ldm->save();
@@ -188,8 +189,13 @@ if (($acceptButton || $moveButton) && !$hasErrors) {
 }
 else if ($nextOcrBut && !$hasErrors) {
   //TODO: check if definition has lexems
+  if ($ldms) {
+    foreach ($ldms as $ldm) {
+      $ldm->save();
+    }
+  }
   $definition->save();
-  log_userLog("Edited OCR definition {$definition->id} ({$definition->lexicon}), ocr ({$ocr->id})");
+  log_userLog("Edited OCR definition {$definition->id} ({$definition->lexicon})");
   util_redirect('definitionEdit.php');
 }
 

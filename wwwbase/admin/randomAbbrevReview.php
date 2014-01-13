@@ -36,11 +36,12 @@ if ($submitButton) {
 }
 
 $MARKER = 'DEADBEEF'; // any string that won't occur naturally in a definition
+$def = null;
+$ids = db_getArray(sprintf('select id from Definition where status != %d and abbrevReview = %d', ST_DELETED, ABBREV_AMBIGUOUS));
+if (count($ids)) {
+  $defId = $ids[array_rand($ids, 1)];
+  $def = Definition::get_by_id($defId);
 
-$def = Model::factory('Definition')->raw_query('select * from Definition where status != ' . ST_DELETED .
-                                               ' and abbrevReview = ' . ABBREV_AMBIGUOUS . ' order by rand() limit 1', null)->find_one();
-
-if ($def) {
   // Collect the positions of ambiguous abbreviations
   $matches = array();
   AdminStringUtil::markAbbreviations($def->internalRep, $def->sourceId, $matches);

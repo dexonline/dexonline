@@ -176,7 +176,7 @@ if (($acceptButton || $moveButton) && !$hasErrors) {
       }
     }
   } else {
-    $ldms = LexemDefinitionMap::get_all_by_definitionId($definitionId);
+    // $ldms = LexemDefinitionMap::get_all_by_definitionId($definitionId);
     db_execute("delete from LexemDefinitionMap where definitionId = {$definitionId}");
     foreach ($ldms as $ldm) {
       $ldm->save();

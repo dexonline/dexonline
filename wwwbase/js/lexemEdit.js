@@ -273,22 +273,25 @@ function endMeaningEdit() {
   $('#editorAntonyms').select2('enable', false);
 }
 
-// Iterate a meaning tree node recursively and collect meaning-related fields
+// Iterate a meaning tree node (<ul> element) recursively and collect meaning-related fields
+// We do this at jquery level, because the easyui tree methods appear buggy.
+// For example, moving meanings sometimes leaves behind "ghost" copies.
 function meaningTreeWalk(node, results, level) {
-  var jqNode = $(node.target);
-  results.push({ 'id': jqNode.find('span.id').text(),
-                 'level' : level,
-                 'internalRep': jqNode.find('span.internalRep').text(),
-                 'internalComment': jqNode.find('span.internalComment').text(),
-                 'sourceIds': jqNode.find('span.sourceIds').text(),
-                 'meaningTagIds': jqNode.find('span.meaningTagIds').text(),
-                 'synonymIds': jqNode.find('span.synonymIds').text(),
-                 'antonymIds': jqNode.find('span.antonymIds').text(),
-               });
-  var children = meaningTreeGetChildren(node);
-  for (var i = 0; i < children.length; i++) {
-    meaningTreeWalk(children[i], results, level + 1);
-  }
+  node.children('li').each(function() {
+    var data = $(this).children('div.tree-node').children('span.tree-title');
+    results.push({ 'id': data.find('span.id').text(),
+                   'level': level,
+                   'internalRep': data.find('span.internalRep').text(),
+                   'internalComment': data.find('span.internalComment').text(),
+                   'sourceIds': data.find('span.sourceIds').text(),
+                   'meaningTagIds': data.find('span.meaningTagIds').text(),
+                   'synonymIds': data.find('span.synonymIds').text(),
+                   'antonymIds': data.find('span.antonymIds').text(),
+                 });
+    $(this).children('ul').each(function() {
+      meaningTreeWalk($(this), results, level + 1);
+    });
+  });
 }
 
 function saveEverything() {
@@ -296,10 +299,7 @@ function saveEverything() {
     acceptMeaningEdit();
   }
   var results = new Array();
-  var roots = $('#meaningTree').tree('getRoots');
-  for (var i = 0; i < roots.length; i++) {
-    meaningTreeWalk(roots[i], results, 0);
-  }
+  meaningTreeWalk($('#meaningTree'), results, 0);
   $('input[name=jsonMeanings]').val(JSON.stringify(results));
   $('#meaningForm').submit();
 }

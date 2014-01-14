@@ -3,6 +3,15 @@
 class Lexem extends BaseObject implements DatedObject {
   public static $_table = 'Lexem';
 
+  const STRUCT_STATUS_NEW = 1;
+  const STRUCT_STATUS_IN_PROGRESS = 2;
+  const STRUCT_STATUS_UNDER_REVIEW = 3;
+  const STRUCT_STATUS_DONE = 4;
+  public static $STRUCT_STATUS_NAMES = array(self::STRUCT_STATUS_NEW => 'neîncepută',
+                                             self::STRUCT_STATUS_IN_PROGRESS => 'în lucru',
+                                             self::STRUCT_STATUS_UNDER_REVIEW => 'așteaptă moderarea',
+                                             self::STRUCT_STATUS_DONE => 'terminată');
+
   public static function create($form = null, $modelType = null, $modelNumber = null, $restriction = '') {
     $l = Model::factory('Lexem')->create();
     if ($form) {
@@ -432,7 +441,7 @@ class Lexem extends BaseObject implements DatedObject {
     $clone->restriction = '';
     $clone->isLoc = false;
     $clone->verifSp = false;
-    $clone->structSealed = false;
+    $clone->structStatus = self::STRUCT_STATUS_NEW;
     $clone->save();
     
     // Clone the definition list

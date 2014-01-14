@@ -45,9 +45,20 @@
         <td>
           <input type="text" id="lexemDescription" name="lexemDescription" value="{$lexem->description|escape}" size="20"
                  placeholder="opțională, pentru diferențierea omonimelor" {if !$canEdit.description}readonly{/if}/>
+          <span class="tooltip2" title="O scurtă descriere, vizibilă public, pentru diferențierea omonimelor.">&nbsp;</span>
         </td>
       </tr>
   
+      <tr>  
+        <td><label for="structStatus">structurare:</label></td>
+        <td>
+          {include file="common/bits/structStatus.ihtml" selected=$lexem->structStatus canEdit=$canEdit.structStatus}
+
+          <span class="tooltip2" title="Cât timp structurarea este „în lucru”, persoanele autorizate pot modifica sensurile, variantele, silabisirile
+          și pronunțiile. După trecerea în starea „așteaptă moderarea”, doar moderatorii mai pot schimba aceste valori.">&nbsp;</span>
+        </td>
+      </tr>
+ 
       <tr>
         <td><label for="lexemSourceIds">surse:</label></td>
         <td>
@@ -126,7 +137,7 @@
                 title="Variantele nu pot avea sensuri, exemple, variante sau etimologii proprii. Ele pot avea pronunții și silabisiri proprii.">&nbsp;</span>
         </td>
       </tr>
-  
+ 
       {if $homonyms}
         <tr>
           <td>omonime:</td>
@@ -215,16 +226,9 @@
         <input type="button" id="addSubmeaningButton" value="adaugă subsens"/>
         <input type="button" id="deleteMeaningButton" value="șterge sens"/>
       {else}
-        <span class="tooltip2" title="Acest lexem a fost avizat de un moderator. Sensurile, variantele, pronunțiile și silabisirile sale nu mai pot fi modificate">&nbsp;</span>
+        <span class="tooltip2" title="Sensurile, variantele, pronunțiile și silabisirile pot fi modificate doar cât timp structurarea este „în lucru”.">&nbsp;</span>
       {/if}
     </div>
-    {if $canEdit.seal}
-      <input type="checkbox" id="structSealed" name="structSealed" value="1" {if $lexem->structSealed}checked{/if}/>
-      <label for="structSealed">avizează acest arbore de sensuri</label>
-      <span class="tooltip2" title="După avizare, doar moderatorii mai pot edita sensurile, variantele, silabisirile și pronunțiile.">&nbsp;</span>
-    {else}
-      <input type="hidden" name="structSealed" value="{$lexem->structSealed}"/>
-    {/if}
   </div>
 
   {if $canEdit.meanings}

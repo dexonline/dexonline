@@ -20,7 +20,7 @@ $hyphenations = util_getRequestParameter('hyphenations');
 $pronunciations = util_getRequestParameter('pronunciations');
 $variantIds = util_getRequestCsv('variantIds');
 $variantOfId = util_getRequestParameter('variantOfId');
-$structSealed = util_getRequestIntParameter('structSealed');
+$structStatus = util_getRequestIntParameter('structStatus');
 $jsonMeanings = util_getRequestParameter('jsonMeanings');
 
 $refreshLexem = util_getRequestParameter('refreshLexem');
@@ -51,11 +51,11 @@ if ($refreshLexem || $saveLexem) {
   $lexem->pronunciations = $pronunciations;
   $lexem->variantOfId = $variantOfId ? $variantOfId : null;
   $variantOf = Lexem::get_by_id($lexem->variantOfId);
-  $lexem->structSealed = $structSealed;
+  $lexem->structStatus = $structStatus;
   $meanings = json_decode($jsonMeanings);
   $ifs = $lexem->generateParadigm();
 
-  if (validate($lexem, $ifs, $variantOf, $variantIds, $meanings)) {
+  if (validate($lexem, $original, $ifs, $variantOf, $variantIds, $meanings)) {
     // Case 1: Validation passed
     if ($saveLexem) {
       if ($original->modelType == 'VT' && $lexem->modelType != 'VT') {
@@ -102,20 +102,22 @@ if (is_array($ifs)) {
   SmartyWrap::assign('ifMap', $ifMap);
 }
 
+$ss = $lexem->structStatus;
+$oss = $original->structStatus; // syntactic sugar
 $canEdit = array(
   'general' => util_isModerator(PRIV_EDIT),
   'defStructured' => util_isModerator(PRIV_EDIT),
   'description' => !$lexem->isLoc || util_isModerator(PRIV_LOC),
   'form' => !$lexem->isLoc || util_isModerator(PRIV_LOC),
-  'hyphenations' => !$lexem->structSealed || util_isModerator(PRIV_EDIT),
+  'hyphenations' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
   'isLoc' => util_isModerator(PRIV_LOC),
-  'meanings' => !$lexem->structSealed || util_isModerator(PRIV_EDIT),
+  'meanings' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
   'paradigm' => util_isModerator(PRIV_LOC),
-  'pronunciations' => !$lexem->structSealed || util_isModerator(PRIV_EDIT),
-  'seal' => util_isModerator(PRIV_EDIT),
+  'pronunciations' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
   'sources' => util_isModerator(PRIV_LOC | PRIV_EDIT),
+  'structStatus' => ($oss == Lexem::STRUCT_STATUS_NEW) || ($oss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
   'tags' => util_isModerator(PRIV_LOC | PRIV_EDIT),
-  'variants' => !$lexem->structSealed || util_isModerator(PRIV_EDIT),
+  'variants' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
 );
 
 SmartyWrap::assign('lexem', $lexem);
@@ -135,6 +137,7 @@ SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code
 SmartyWrap::assign('models', FlexModel::loadByType($lexem->modelType));
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
+SmartyWrap::assign('structStatusNames', Lexem::$STRUCT_STATUS_NAMES);
 SmartyWrap::addCss('easyui', 'jqueryui', 'paradigm', 'select2', 'lexemEdit', 'windowEngine');
 SmartyWrap::addJs('easyui', 'jqueryui', 'select2', 'select2Dev', 'lexemEdit', 'windowEngine', 'cookie');
 SmartyWrap::assign('sectionTitle', "Editare lexem: {$lexem->form} {$lexem->modelType}{$lexem->modelNumber}{$lexem->restriction}");
@@ -143,7 +146,7 @@ SmartyWrap::displayAdminPage('admin/lexemEdit.ihtml');
 
 /**************************************************************************/
 
-function validate($lexem, $ifs, $variantOf, $variantIds, $meanings) {
+function validate($lexem, $original, $ifs, $variantOf, $variantIds, $meanings) {
   if (!$lexem->form) {
     FlashMessage::add('Forma nu poate fi vidă.');
   }
@@ -216,6 +219,12 @@ function validate($lexem, $ifs, $variantOf, $variantIds, $meanings) {
     if ($variantMeaningCount) {
       FlashMessage::add("\"{$variant}\" are deja propriile lui sensuri.");
     }
+  }
+
+  if (($lexem->structStatus == Lexem::STRUCT_STATUS_DONE) &&
+      ($original->structStatus != Lexem::STRUCT_STATUS_DONE) &&
+      !util_isModerator(PRIV_EDIT)) {
+    FlashMessage::add("Doar moderatorii pot marca structurarea drept terminată. Vă rugăm să folosiți valoarea „așteaptă moderarea”.");
   }
 
   return FlashMessage::getMessage() == null;

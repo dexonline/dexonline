@@ -151,6 +151,10 @@ input.miniDefTarget {
   font-weight: bold;
 }
 
+#structStatus {
+  width: 172px;
+}
+
 input[name=cloneLexem] {
   background: #e5e5e5 url("../img/icons/page_white_copy.png") 2px 0px no-repeat;
   padding-left: 20px;

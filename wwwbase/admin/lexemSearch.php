@@ -4,7 +4,7 @@ util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
 $form = util_getRequestParameter('form');
-$structured = util_getBoolean('structured');
+$structStatus = util_getRequestParameter('structStatus');
 $searchButton = util_getRequestParameter('searchButton');
 
 if (!$searchButton) {
@@ -17,9 +17,9 @@ $hasDiacritics = $arr[0];
 $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
 $regexp = StringUtil::dexRegexpToMysqlRegexp($form);
 
-$query = "select * from Lexem where $field $regexp ";
-if ($structured) {
-  $query .= 'and id in (select distinct lexemId from Meaning)';
+$query = "select * from Lexem where $field $regexp";
+if ($structStatus) {
+  $query .= " and structStatus = {$structStatus}";
 }
 $query .= ' order by formNoAccent limit 500';
 $lexems = Model::factory('Lexem')->raw_query($query, null)->find_many();

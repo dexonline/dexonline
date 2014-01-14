@@ -4,10 +4,13 @@
 {if $ifMaps}
   {foreach from=$ifMaps item=ifMap key=i}
     {include file="common/paradigm/$version/paradigm.ihtml" lexem=$lexems[$i] ifMap=$ifMap sourceNames=$sourceNamesArr[$i] modelType=$modelTypes[$i]}
-    {if $sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
-      Editează:
-      <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexems[$i]->id}">lexemul</a> |
-      <a href="{$wwwRoot}flex/editModel.php?modelType={$lexems[$i]->modelType}&amp;modelNumber={$lexems[$i]->modelNumber}">modelul {$lexems[$i]->modelType}{$lexems[$i]->modelNumber}</a>
+    {if $sUser && ($sUser->moderator & ($smarty.const.PRIV_LOC | $smarty.const.PRIV_STRUCT))}
+      <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexems[$i]->id}">editează lexemul</a>
+      {if $sUser->moderator & $smarty.const.PRIV_LOC}
+        | <a href="{$wwwRoot}flex/editModel.php?modelType={$lexems[$i]->modelType}&amp;modelNumber={$lexems[$i]->modelNumber}">
+          editează modelul {$lexems[$i]->modelType}{$lexems[$i]->modelNumber}
+        </a>
+      {/if}
     {/if}
   {/foreach}
   {if $hasUnrecommendedForms}

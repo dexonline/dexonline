@@ -5,7 +5,7 @@
  * modified by cata -- do not replace without diffing
  */
 (function($){
-  var $win,lastMouseX,lastMouseY,zIndex=100000,minH,minW=160,newWinOffset=50;
+  var $win,lastMouseX,lastMouseY,zIndex=10,minH,minW=160,newWinOffset=50;
 
   var isIE = navigator.userAgent.match(/MSIE/);
 

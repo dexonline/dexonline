@@ -13,7 +13,7 @@
       {include file="admin/header.ihtml" title=$sectionTitle count=$sectionCount showSources=$sectionSources}
     {/if}
     {include file="admin/recentlyVisited.ihtml"}
-    {include file="common/flashMessages.ihtml"}
+    {include file="admin/flashMessages.ihtml"}
     {include file="common/errorMessage.ihtml"}
     {include file="$templateName"}
     {include file="common/bits/debugInfo.ihtml"}

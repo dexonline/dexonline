@@ -1,3 +1,17 @@
+// If there are error messages, show them in a dialog
+$(function() {
+  $('#flashMessage').dialog({
+    buttons: {
+      Ok: function() {
+        $(this).dialog('close');
+      }
+    },
+    modal: true,
+    title: 'Eroare',
+    width: 500,
+  });
+});
+
 function updateModelTypeList() {
   var locVersion = $('#locVersionListId').val();
   var url = wwwRoot + 'ajax/getModelTypesForLocVersion.php?locVersion=' + locVersion;

@@ -57,15 +57,28 @@ function util_getRootPath() {
   return $GLOBALS['util_rootPath'];
 }
 
+/**
+ * Returns the home page URL path.
+ * Algorithm: compare the current URL with the absolute file name.
+ * Travel up both paths until we encounter /wwwbase/ in the file name.
+ **/
 function util_defineWwwRoot() {
-  $fileName = $_SERVER['SCRIPT_NAME'];
+  $scriptName = $_SERVER['SCRIPT_NAME'];
+  $fileName = realpath($_SERVER['SCRIPT_FILENAME']);
   $pos = strrpos($fileName, '/wwwbase/');
   
-  if ($pos == FALSE) {
-    $GLOBALS['util_wwwRoot'] = '/';
+  if ($pos === false) {
+    $result = '/';     // This shouldn't be the case
   } else {
-    $GLOBALS['util_wwwRoot'] = substr($fileName, 0, $pos) . '/wwwbase/';
+    $tail = substr($fileName, $pos + strlen('/wwwbase/'));
+    $lenTail = strlen($tail);
+    if ($tail == substr($scriptName, -$lenTail)) {
+      $result = substr($scriptName, 0, -$lenTail);
+    } else {
+      $result = '/';
+    }
   }
+  $GLOBALS['util_wwwRoot'] = $result;
 }
 
 /**

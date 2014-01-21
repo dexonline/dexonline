@@ -147,6 +147,7 @@ class SmartyWrap {
       switch($id) {
       case 'jqueryui':           self::$cssFiles[1] = 'lightness-1.10.3/jquery-ui-1.10.3.custom.min.css'; break;
       case 'jqgrid':             self::$cssFiles[2] = 'ui.jqgrid.css?v=3'; break;
+      case 'tablesorter':        self::$cssFiles[3] = 'tablesorter-blue/style.css'; break;
       case 'elfinder':           self::$cssFiles[4] = 'elfinder/css/elfinder.min.css?v=2'; break;
       case 'windowEngine':       self::$cssFiles[5] = 'jquery-wm/main.css'; break;
       case 'zepu':               self::$cssFiles[6] = 'zepu.css?v=57'; break;
@@ -186,7 +187,7 @@ class SmartyWrap {
         break;
       case 'jqnotice':         self::$jsFiles[5] = 'jquery.notice.js'; break;
       case 'jqTableDnd':       self::$jsFiles[6] = 'jquery.tablednd.0.7.min.js?v=1'; break;
-      case 'tablesorter':      self::$jsFiles[7] = 'jquery.tablesorter.min.js?v=2'; break;
+      case 'tablesorter':      self::$jsFiles[7] = 'jquery.tablesorter.min.js?v=3'; break;
       case 'pager':            self::$jsFiles[8] = 'jquery.tablesorter.pager.js'; break;
       case 'elfinder':         self::$jsFiles[9] = 'elfinder.min.js?v=1'; break; 
       case 'windowEngine':     self::$jsFiles[10] = 'jquery-wm.js'; break;

@@ -13,4 +13,6 @@ if ($wa) {
 }
 
 SmartyWrap::assign('wikiTitles', WikiArticle::loadAllTitles());
+SmartyWrap::addCss('tablesorter');
+SmartyWrap::addJs('tablesorter');
 SmartyWrap::displayCommonPageWithSkin('wikiArticle.ihtml');

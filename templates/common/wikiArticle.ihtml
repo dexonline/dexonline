@@ -37,17 +37,6 @@
   {/foreach}
 {/foreach}
 
-{* Some tables have the "sortable" class. Make them sortable. *}
 <script>
-{literal}
-  $(function() {
-    // Add the <thead> element. Mediawiki does not give us that.
-    $('table.sortable').prepend(
-      $('<thead></thead>').append($('table.sortable tr:first').remove())
-    );
-    $("table.sortable").tablesorter({
-      sortList: [[0,0]],
-    });
-  });
-{/literal}
+  $(tablesorterMediaWikiInit);
 </script>

@@ -4,13 +4,20 @@ var order = 'aăâbcdefghiîjklmnopqrsștțuvwxyz';
 
 /* Sortable tables imported from MediaWiki have the "sortable" class. Make them sortable here too. */
 function tablesorterMediaWikiInit() {
+  // The CSS theme expects to see this class
+  $('table.sortable').addClass('tablesorter-blue');
+
   // Add the <thead> element. Mediawiki does not give us that.
   $('table.sortable').prepend(
     $('<thead></thead>').append($('table.sortable tr:first').remove())
   );
-  $("table.sortable").tablesorter({
+
+  $('table.sortable').bind('tablesorter-initialized', tablesorterEnd);
+  $('table.sortable').tablesorter({
     textExtraction: extractAscii,
   });
+  $('table.sortable').bind('sortStart', tablesorterStart);
+  $('table.sortable').bind('sortEnd', tablesorterEnd);
 }
 
 // Renumber the 31 Romanian letters with ASCII codes 60-90. Discard other characters.
@@ -25,4 +32,15 @@ function extractAscii(node) {
     }
   }
   return result;
+}
+
+// Remove the extra header rows
+function tablesorterStart(e, table) {
+  $('table.sortable th').parent().not(':first').remove();
+}
+
+// Replace the extra header rows
+function tablesorterEnd(e, table) {
+  var html = $('table.sortable tr:first').html();
+  $('table.sortable tr:nth-child(20n)').after('<tr>' + html + '</tr>');
 }

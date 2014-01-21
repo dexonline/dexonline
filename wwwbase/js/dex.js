@@ -4,7 +4,11 @@ var letter = '[' + Alphabet + ']';
 var nonLetter = '[^' + Alphabet + ']';
 var wwwRoot = getWwwRoot();
 
-if (typeof jQuery != 'undefined' && typeof jQuery.ui != 'undefined') {
+$(function() {
+  $('span.def').click(searchClickedWord);
+});
+
+if (typeof jQuery.ui != 'undefined') {
   $(function() {
     $(document).tooltip({
       content: function () {
@@ -145,6 +149,10 @@ function startsWith(str, sub) {
   return str.substr(0, sub.length) == sub;
 }
 
+function endsWith(str, sub) {
+  return str.substr(str.length - sub.length) == sub;
+}
+
 function debug(obj) {
   var s = '';
   for (prop in obj) {
@@ -159,172 +167,47 @@ function confirmDissociateDefinition(id) {
   return confirm('Doriți să disociați definiția ' + id + ' de acest lexem?');
 }
 
-/**
- * getWordFromEvent() and expandRangeToWord()
- * Copyright (C) Martin Honnen
- * See http://www.faqts.com/knowledge_base/view.phtml/aid/33674/fid/145
- **/
-function getWordFromEvent(evt) {
-  var range = null;
-  if (document.body && document.body.createTextRange) {
-    /* IE */
-    range = document.body.createTextRange();
-    range.moveToPoint(evt.clientX, evt.clientY);
-    range.expand('word');
-    return range.text;
-  } else if (evt.rangeParent && document.createRange) {
-    /* Mozilla */
-    range = document.createRange();
-    range.setStart(evt.rangeParent, evt.rangeOffset);
-    range.setEnd(evt.rangeParent, evt.rangeOffset);
-    expandRangeToWord(range);
-    var word = range.toString();
-    range.detach();
-    return word;    
-  } else {
-    /* Opera, Safari or any other W3DOM compatible browser */
-    if (evt.target.nodeType == dom.ELEMENT_NODE) {
-      markWords(evt.target);
-      return wordUnderMouse(evt.target, evt);
+/* adapted from http://stackoverflow.com/questions/7563169/detect-which-word-has-been-clicked-on-within-a-text */
+function searchClickedWord() {
+  // Gets clicked on word (or selected text if text is selected)
+  var word = '';
+  if (window.getSelection && (sel = window.getSelection()).modify) {
+    // Webkit, Gecko
+    var s = window.getSelection();
+    if (s.isCollapsed) { // Do not redirect when the user is trying to select text
+      s.modify('move', 'forward', 'character');
+      s.modify('move', 'backward', 'word');
+      s.modify('extend', 'forward', 'word');
+      word = s.toString();
+      s.modify('move', 'forward', 'character'); // clear selection
     }
-    return null;
-  }
-}
-
-/* Recursively mark words in custom <span> tags */
-function markWords(elem) {
-  var wordRe = new RegExp('([^'+Alphabet+']*)(['+Alphabet+']*)', 'gim');
-
-  for (var i = 0; i < elem.childNodes.length; ++i) {
-    var child = elem.childNodes.item(i);
-    if (child.nodeType == dom.ELEMENT_NODE) {
-      markWords(child);
-    } else if (child.nodeType == dom.TEXT_NODE) {
-      var newChild = document.createElement('span');
-
-      for (wordRe.lastIndex = 0; wordRe.lastIndex < child.data.length; ) {
-        var match = wordRe.exec(child.data);
-        /* there's always a match, wordRe accepts empty string */
-        if (match[1]) {
-          /* Wrap the non-word string in a TextNode object since it
-           * it may contain invalid or harmful XHTML characters. */
-          newChild.appendChild(document.createTextNode(match[1]));
-        }
-        if (match[2]) {
-          /* Wrap the word string a <span class="_mw"> tag */
-          var wordSpan = document.createElement('span');
-          wordSpan.setAttribute('class', '_mw');
-          wordSpan.className = '_mw';
-          wordSpan.appendChild(document.createTextNode(match[2]));
-          newChild.appendChild(wordSpan);
-        }
+  } else if ((sel = document.selection) && sel.type != "Control") {
+    // IE 4+
+    var textRange = sel.createRange();
+    if (!textRange.text) {
+      textRange.expand("word");
+      while (/\s$/.test(textRange.text)) {
+        textRange.moveEnd("character", -1);
       }
-
-      elem.replaceChild(newChild, child);
+      word = textRange.text;
     }
   }
-}
 
-/* Recursively search for a <span> element under the mouse pointer */
-function wordUnderMouse(elem, evt) {
-  for (var i = 0; i < elem.childNodes.length; ++i) {
-    var child = elem.childNodes.item(i);
-    if (child.nodeType != dom.ELEMENT_NODE) {
-      continue;
-    }
-    if ('_mw' == child.className) {
-      if (evt.clientX >= child.offsetLeft && evt.clientY >= child.offsetTop
-          && evt.clientX < child.offsetLeft + child.offsetWidth
-          && evt.clientY < child.offsetTop + child.offsetHeight) {
-        return child.textContent;
-      }
-    } else {
-      var childWord = wordUnderMouse(child, evt);
-      if (null != childWord) return childWord;
-    }
+  // Trim trailing dots
+  var regex = /[.,;:?!()]$/;
+  while (word && regex.test(word)) {
+    word = word.substr(0, word.length - 1);
   }
-  return null;
-}
 
-function expandRangeToWord(range) {
-  var startOfWord = new RegExp('^' + nonLetter + letter + '+$', 'i');
-  var endOfWord = new RegExp('^' + letter + '+' + nonLetter + '$', 'i');
-  var whitespace = new RegExp('^' + nonLetter + '+$', 'i');
-  // if offset is inside whitespace
-  range.setStart(range.startContainer, range.startOffset - 1);
-
-  if (whitespace.test(range.toString())) {
-    return null;
+  if (word) {
+    window.location = wwwRoot + 'definitie/' + encodeURIComponent(word);
   }
-  while (!startOfWord.test(range.toString()) && range.startOffset > 0) {
-    range.setStart(range.startContainer, range.startOffset - 1);
-  }
-  if (startOfWord.test(range.toString())) {
-    range.setStart(range.startContainer, range.startOffset + 1);
-  }
-  var maxOffset = 1000;
-  if (range.endContainer.nodeType == 3) { // text
-    maxOffset = range.endContainer.nodeValue.length;
-  }
-  while (!endOfWord.test(range.toString()) &&
-         range.endOffset < maxOffset) {
-    range.setEnd(range.endContainer, range.endOffset + 1);
-  }
-  if (endOfWord.test(range.toString())) {
-    range.setEnd(range.endContainer, range.endOffset - 1);
-  }
-  return range.toString();
-}
-
-function isValidWord(word) {
-	var reWord = new RegExp('^' + letter + '+$', 'i');
-	if ((word != null) && reWord.test(word)) {
-		return true;
-	}
-	return false;
-}
-
-function searchClickedWord(evt) {
-  var st = getSelectedText();
-  if (st && st != '') {
-    // Allow text selection without redirecting.
-    return false;
-  }
-  var word = getWordFromEvent(evt);
-  if ( isValidWord(word) ) {
-    source = document.frm.source.value;
-    sourcePart = source ? '-' + source : '';
-    loc = wwwRoot + 'definitie' + sourcePart + '/' + encodeURIComponent(word);
-    window.location = loc;
-  }
-  else {
-	  return false;
-  }
-  return true;
 }
 
 function hideSubmitButton(button) {
   button.disabled = true;
   button.form.submit();
   return false;
-}
-
-/**
- * getSelectedText() Copyright (C) Quirksmode
- * See http://www.quirksmode.org/dom/range_intro.html
- */
-function getSelectedText() {
-  var st = null;
-  if (window.getSelection) {
-    st = window.getSelection();
-  } else if (document.selection) { // should come last; Opera!
-    st = document.selection.createRange();
-  }
-
-  if (st != null && st.text != null) {
-    st = st.text;
-  }
-  return st;
 }
 
 function installFirefoxSpellChecker(evt) {

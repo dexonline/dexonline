@@ -1,7 +1,7 @@
 {assign var="results" value=$results|default:null}
 {foreach from=$results item=row key=i}
 <p>
-  <span class="def" onclick="return searchClickedWord(event);" title="Clic pentru a naviga la acest cuvânt">
+  <span class="def" title="Clic pentru a naviga la acest cuvânt">
     {$row->definition->htmlRep}
   </span>
   <br/>

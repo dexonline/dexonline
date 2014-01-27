@@ -1,6 +1,7 @@
 /* Functions on top of the jQuery tablesorter plugin */
 
 var order = 'aăâbcdefghiîjklmnopqrsștțuvwxyz';
+var equiv = [ 'åàáäçêèéìíïôòóöûùúü', 'aaaaceeeiiioooouuuu' ];
 
 /* Sortable tables imported from MediaWiki have the "sortable" class. Make them sortable here too. */
 function tablesorterMediaWikiInit() {
@@ -26,7 +27,15 @@ function extractAscii(node) {
   var result = '';
   for (var i = 0; i < s.length; i++) {
     var c = s.charAt(i);
-    var pos = order.indexOf(c);
+
+    // Canonicalize some characters: 'é' is the same as 'e' etc.
+    var pos = equiv[0].indexOf(c);
+    if (pos != -1) {
+      c = equiv[1].charAt(pos);
+    }
+
+    // Now look it up: 'ă' is NOT the same as 'a' etc.
+    pos = order.indexOf(c);
     if (pos != -1) {
       result += String.fromCharCode(pos + 60);
     }

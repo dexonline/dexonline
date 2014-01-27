@@ -189,7 +189,7 @@ class SmartyWrap {
       case 'jqTableDnd':       self::$jsFiles[6] = 'jquery.tablednd.0.7.min.js?v=1'; break;
       case 'tablesorter':
         self::$jsFiles[7] = 'jquery.tablesorter.min.js?v=4';
-        self::$jsFiles[8] = 'tablesorter.dev.js?v=2';
+        self::$jsFiles[8] = 'tablesorter.dev.js?v=3';
         break;
       case 'pager':            self::$jsFiles[9] = 'jquery.tablesorter.pager.js'; break;
       case 'elfinder':         self::$jsFiles[10] = 'elfinder.min.js?v=1'; break; 

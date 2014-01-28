@@ -13,7 +13,7 @@ if ( $sourceUrlName ) {
 }
 
 $ip = $_SERVER['REMOTE_ADDR'];
-$defs = Definition::searchModerator('*', '', $sourceId, ST_PENDING, 0, 0, time());
+$defs = Definition::searchModerator('*', '', $sourceId, ST_PENDING, 0, 0, time(), 1, 500);
 $searchResults = SearchResult::mapDefinitionArray($defs);
 FileCache::putModeratorQueryResults($ip, $searchResults);
 

@@ -114,7 +114,7 @@ Adaugă noi definiții OCR (una pe linie): <a href="/admin/ocrInput.php">click a
   &nbsp; &nbsp; trimise de:
   <input type="text" name="nick" size="10" value=""/>
   &nbsp; &nbsp; sursa:
-  {include file="common/sourceDropDown.ihtml" sources=$allModeratorSources}
+  {include file="common/sourceDropDown.ihtml" name="sourceId" sources=$allModeratorSources}
   <br/>
   &nbsp; &nbsp; &nbsp; &nbsp; între
   {assign var="nextYear" value=$currentYear+1}

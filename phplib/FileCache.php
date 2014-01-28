@@ -80,9 +80,9 @@ class FileCache {
     return self::get($key);
   }
 
-  static function putModeratorQueryResults($ip, $defIds) {
+  static function putModeratorQueryResults($ip, $queryData) {
     $key = self::getKeyForModeratorIp($ip);
-    self::put($key, $defIds);
+    self::put($key, $queryData);
   }
 }
 

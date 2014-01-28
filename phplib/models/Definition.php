@@ -210,22 +210,23 @@ class Definition extends BaseObject implements DatedObject {
     // file_put_contents("/var/log/dex-highlight.log", $logEntry, FILE_APPEND | LOCK_EX);
   }
 
-  public static function searchModerator($cuv, $hasDiacritics, $sourceId, $status, $userId, $beginTime, $endTime) {
+  public static function searchModerator($cuv, $hasDiacritics, $sourceId, $status, $userId, $beginTime, $endTime, $page, $resultsPerPage) {
     $regexp = StringUtil::dexRegexpToMysqlRegexp($cuv);
     $sourceClause = $sourceId ? "and Definition.sourceId = $sourceId" : '';
     $userClause = $userId ? "and Definition.userId = $userId" : '';
+    $offset = ($page - 1) * $resultsPerPage;
 
     if ($status == ST_DELETED) {
       // Deleted definitions are not associated with any lexem
       $collate = $hasDiacritics ? '' : 'collate utf8_general_ci';
       return Model::factory('Definition')
         ->raw_query("select * from Definition where lexicon $collate $regexp and status = " . ST_DELETED . " and createDate between $beginTime and $endTime " .
-                    "$sourceClause $userClause order by lexicon, sourceId limit 500", null)->find_many();
+                    "$sourceClause $userClause order by lexicon, sourceId limit $offset, $resultsPerPage", null)->find_many();
     } else {
       $query = "select distinct Definition.* from Lexem join LexemDefinitionMap on Lexem.id = LexemDefinitionMap.lexemId " .
         "join Definition on LexemDefinitionMap.definitionId = Definition.id where formNoAccent $regexp " .
         "and Definition.status = $status and Definition.createDate >= $beginTime and Definition.createDate <= $endTime " .
-        "$sourceClause $userClause order by lexicon, sourceId limit 500";
+        "$sourceClause $userClause order by lexicon, sourceId limit $offset, $resultsPerPage";
       return Model::factory('Definition')->raw_query($query, null)->find_many();
     }
   }

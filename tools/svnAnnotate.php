@@ -30,7 +30,7 @@ for ($rev = $lastRev + 1; $rev <= $currentRev; $rev++) {
   $author = getRealAuthor(getRevisionAuthor($rev));
   if ($author) {
     $lines = parseRevision($rev);
-    print "Revision $rev, author $author, lines $lines\n";
+    printf("Revision %4d, author %20s, lines %5d\n", $rev, $author, $lines);
     if (array_key_exists($author, $authors)) {
       $authors[$author] += $lines;
     } else {
@@ -115,19 +115,38 @@ function parseRevision($rev) {
 
 function ignoreFile($fileName) {
   return (!$fileName ||
-	  StringUtil::startsWith($fileName, 'phplib/idiorm') ||
-	  StringUtil::startsWith($fileName, 'log/') ||
-	  StringUtil::startsWith($fileName, 'phplib/Auth/') ||
-	  StringUtil::startsWith($fileName, 'tools/old-patches/') ||
-	  StringUtil::startsWith($fileName, 'wwwbase/img/') ||
-	  StringUtil::startsWith($fileName, 'wwwbase/js/jq') ||
-	  StringUtil::startsWith($fileName, 'wwwbase/js/elfinder') ||
-	  StringUtil::startsWith($fileName, 'wwwbase/stat/') ||
-	  StringUtil::startsWith($fileName, 'wwwbase/styles/smoothness/') ||
-	  StringUtil::startsWith($fileName, 'wwwbase/styles/elfinder') ||
-	  StringUtil::startsWith($fileName, 'wwwbase/styles/jq') ||
-	  StringUtil::startsWith($fileName, 'wwwbase/styles/ui.jq')
-	  );
+          StringUtil::startsWith($fileName, 'app/crawler_log') ||
+          StringUtil::startsWith($fileName, 'app/ParsedText') ||
+          StringUtil::startsWith($fileName, 'app/RawPage') ||
+          StringUtil::startsWith($fileName, 'log/') ||
+          StringUtil::startsWith($fileName, 'phplib/Auth/') ||
+          StringUtil::startsWith($fileName, 'phplib/idiorm') ||
+          StringUtil::startsWith($fileName, 'phplib/smarty/') ||
+          StringUtil::startsWith($fileName, 'tools/old-patches/') ||
+          StringUtil::startsWith($fileName, 'wwwbase/Crawler/crawler_log') ||
+          StringUtil::startsWith($fileName, 'wwwbase/Crawler/ParsedText') ||
+          StringUtil::startsWith($fileName, 'wwwbase/Crawler/RawPage') ||
+          StringUtil::startsWith($fileName, 'wwwbase/elfinder-connector/elFinder.class.php') ||
+          StringUtil::startsWith($fileName, 'wwwbase/elfinder-connector/elFinderConnector.class.php') ||
+          StringUtil::startsWith($fileName, 'wwwbase/elfinder-connector/elFinderLogger.class.php') ||
+          StringUtil::startsWith($fileName, 'wwwbase/elfinder-connector/elFinderVolume') ||
+          StringUtil::startsWith($fileName, 'wwwbase/elfinder-connector/mime') ||
+          StringUtil::startsWith($fileName, 'wwwbase/elfinder-connector/MySQL') ||
+          StringUtil::startsWith($fileName, 'wwwbase/img/') ||
+          StringUtil::startsWith($fileName, 'wwwbase/js/jq') ||
+          StringUtil::startsWith($fileName, 'wwwbase/js/easyui') ||
+          StringUtil::startsWith($fileName, 'wwwbase/js/elfinder') ||
+          StringUtil::startsWith($fileName, 'wwwbase/js/select2.min.js') ||
+          StringUtil::startsWith($fileName, 'wwwbase/stat/') ||
+          StringUtil::startsWith($fileName, 'wwwbase/styles/easyui') ||
+          StringUtil::startsWith($fileName, 'wwwbase/styles/elfinder') ||
+          StringUtil::startsWith($fileName, 'wwwbase/styles/jq') ||
+          StringUtil::startsWith($fileName, 'wwwbase/styles/lightness') ||
+          StringUtil::startsWith($fileName, 'wwwbase/styles/select2/') ||
+          StringUtil::startsWith($fileName, 'wwwbase/styles/smoothness/') ||
+          StringUtil::startsWith($fileName, 'wwwbase/styles/ui.jq') ||
+          StringUtil::endsWith($fileName, 'simple_html_dom.php')
+  );
 }
 
 ?>

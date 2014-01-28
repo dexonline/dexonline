@@ -7,7 +7,9 @@ require_once __DIR__ . '/../phplib/util.php';
 define('CODE_AUTHORS_FILE', __DIR__ . '/../docs/codeAuthors.conf');
 
 /* Map of SVN usernames to User.id */
-$SVN_MAP = array('cata' => 1,
+$SVN_MAP = array('alex.grigoras' => 38493,
+                 'cata' => 1,
+                 'grigoroiualex' => 38357,
                  'mihai17' => 38028,
                  'radu' => 471,
                  'sonia' => 38239,

@@ -14,7 +14,7 @@ class AdminStringUtil {
                                                         'e', 'E', 'i', 'I', 'î', 'Î',
                                                         'o', 'O', 'u', 'U', 'y', 'Y'));
 
-  private static $ILLEGAL_NAME_CHARS = '!@#$%^&*()-_+=\\|[]{},.<>/?;:\'"`~0123456789';
+  private static $ILLEGAL_NAME_CHARS = '!@#$%^&*()_+=\\|[]{},.<>/?;:\'"`~0123456789';
 
   private static $ABBREVS = null; // Will be loaded lazily
 

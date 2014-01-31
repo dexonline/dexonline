@@ -27,7 +27,7 @@ class AdminStringUtil {
 
   static function internalizeWordName($name) {
     return self::process($name, array('self::shorthandToUnicode', 'self::removeAccents', 'strip_tags', 'mb_strtolower',
-                                      'StringUtil::stripHtmlEscapeCodes', 'self::stripWhiteSpace', 'self::stripIllegalCharacters'));
+                                      'StringUtil::stripHtmlEscapeCodes', 'self::stripIllegalCharacters'));
   }
 
   /**
@@ -491,10 +491,6 @@ class AdminStringUtil {
 
   private static function explicitAccents($s) {
     return str_replace(self::$ACCENTS['accented'], self::$ACCENTS['explicitAccent'], $s);
-  }
-
-  private static function stripWhiteSpace($s) {
-    return str_replace(' ', '', $s);
   }
 
   private static function stripIllegalCharacters($s) {

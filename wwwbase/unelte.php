@@ -74,16 +74,6 @@ $clients = array(
         'license' => 'Freeware',
         'options' => array('vision' => 0, 'sync' => 0, 'regexp' => 1, 'suggest' => 0, 'diacritics' => 0, 'full' => 0, 'flex' => 1, 'click' => 0, 'history' => 1)),
 
-  array('name' => array('DEX.ro', 'http://dex-ro.blogspot.com/'),
-        'available' => true,
-        'urls' => array(),
-        'os' => array('windows'),
-        'space' => '75 MB',
-        'requires' => array(),
-        'authors' => array('Ion Silvestru' => 'silvestru@yahoo.com'),
-        'license' => 'Freeware',
-        'options' => array('vision' => 0, 'sync' => 1, 'regexp' => 1, 'suggest' => 1, 'diacritics' => 0, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 1)),
-
   array('name' => array('DEX Offline', 'http://www.macuser.ro/dexoffline/'),
         'available' => true,
         'urls' => array(),

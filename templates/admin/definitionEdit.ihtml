@@ -95,7 +95,8 @@
     <tr id='similarSourceRow' {if $simSource->shortName}{else}style="display:none"{/if}>
       <td>Similarități</td>
       <td>
-        <input type="checkbox" id="similarSource" name="similarSource" value="1" {if $def->similarSource}checked="checked"{/if}/> Definiție identică cu cea din {$simSource->shortName}
+        <input type="checkbox" id="similarSource" name="similarSource" value="1" {if $def->similarSource}checked="checked"{/if}/>
+        <label for="similarSource">Definiție identică cu cea din {$simSource->shortName}</label>
       </td>
     </tr>
     <tr>

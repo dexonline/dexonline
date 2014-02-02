@@ -199,8 +199,13 @@ function searchClickedWord() {
     word = word.substr(0, word.length - 1);
   }
 
+  var source = $('#sourceDropDown').val();
+  if (source) {
+    source = '-' + source;
+  }
+
   if (word) {
-    window.location = wwwRoot + 'definitie/' + encodeURIComponent(word);
+    window.location = wwwRoot + 'definitie' + source + '/' + encodeURIComponent(word);
   }
 }
 

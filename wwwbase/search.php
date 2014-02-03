@@ -158,6 +158,10 @@ if ($searchType == SEARCH_INFLECTED) {
   if (count($lexems) == 0 && empty($definitions)) {
     $searchType = SEARCH_APPROXIMATE;
     $lexems = Lexem::searchApproximate($cuv, $hasDiacritics, true);
+    if(!isset($_SERVER['HTTP_REFERER']) || ( parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) !== $_SERVER['HTTP_HOST'] )) {
+      header("HTTP/1.0 404 Not Found");
+      exit;
+    }
     if (count($lexems) == 1) {
       FlashMessage::add("Ați fost redirecționat automat la forma „{$lexems[0]->formNoAccent}”.");
     } else if (!count($lexems)) {

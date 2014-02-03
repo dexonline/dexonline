@@ -6,7 +6,7 @@ $FOLDER = util_getRootPath() . '/wwwbase/download/xmldump';
 $URL = 'http://dexonline.ro/download/xmldump';
 
 if (count($_GET) == 0) {
-  util_redirect("http://wiki.dexonline.ro/wiki/Update4Instructions");
+  util_redirect("http://wiki.dexonline.ro/wiki/Protocol_de_exportare_a_datelor");
 }
 
 $lastDump = getLastDumpDate($TODAY, $FOLDER);

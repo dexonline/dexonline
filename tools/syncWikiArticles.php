@@ -3,10 +3,10 @@
 require_once __DIR__ . "/../phplib/util.php";
 log_scriptLog('Running syncWikiArticles.php');
 
-define('CATEGORY_LISTING_URL', 'http://lingv.dexonline.ro/api.php?action=query&list=categorymembers&cmtitle=Categorie:Sincronizare&cmlimit=max&cmsort=timestamp&cmdir=desc&format=xml');
-define('PAGE_LISTING_URL', 'http://lingv.dexonline.ro/api.php?action=query&pageids=%s&prop=info&inprop=url&format=xml');
-define('PARSER_URL', 'http://lingv.dexonline.ro/api.php');
-define('PAGE_RAW_URL', 'http://lingv.dexonline.ro/index.php?action=raw&curid=%d');
+define('CATEGORY_LISTING_URL', 'http://wiki.dexonline.ro/api.php?action=query&list=categorymembers&cmtitle=Categorie:Sincronizare&cmlimit=max&cmsort=timestamp&cmdir=desc&format=xml');
+define('PAGE_LISTING_URL', 'http://wiki.dexonline.ro/api.php?action=query&pageids=%s&prop=info&inprop=url&format=xml');
+define('PARSER_URL', 'http://wiki.dexonline.ro/api.php');
+define('PAGE_RAW_URL', 'http://wiki.dexonline.ro/index.php?action=raw&curid=%d');
 
 $options = getopt('', array('force'));
 $force = array_key_exists('force', $options);
@@ -107,7 +107,7 @@ function parse($text) {
   $html = str_replace('href="/wiki/', 'href="/articol/', $html);
 
   // Fully qualify links to index.php. Most likely, these are link to non-existant articles.
-  $html = str_replace('href="/index.php', 'href="http://lingv.dexonline.ro/index.php', $html);
+  $html = str_replace('href="/index.php', 'href="http://wiki.dexonline.ro/index.php', $html);
 
   return $html;
 }

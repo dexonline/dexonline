@@ -49,3 +49,6 @@ Notes:
 - /lexem is not reachable from user input. The search form only submits to /definitie or /text
 - As such, links to /lexem are internally generated and are somewhat trusted
 - The only form in use is /lexem/<formNoAccent>/<id>
+
+ErrorDocument 404
+=================

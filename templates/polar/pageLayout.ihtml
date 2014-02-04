@@ -34,7 +34,7 @@
               <ul>
                 <li><a href="{$wwwRoot}contribuie">Contribuie cu definiții</a></li>
                 <li><a href="{$wwwRoot}top">Topul voluntarilor</a></li>
-                <li><a href="http://wiki.dexonline.ro/wiki/Informa%C8%9BiiPentruProgramatori">Informații pentru programatori</a></li>
+                <li><a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii_pentru_programatori">Informații pentru programatori</a></li>
               </ul>
             </li>
             <li><a href="#" onclick="return false;">Resurse</a>

@@ -31,5 +31,5 @@ chmod 777 wwwbase/img/user
 
 if [ ! -e wwwbase/.htaccess ]
 then
-  cp docs/.htaccess wwwbase/
+  cp wwwbase/.htaccess.sample wwwbase/.htaccess
 fi

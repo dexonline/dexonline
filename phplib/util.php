@@ -439,7 +439,7 @@ function util_isDesktopBrowser() {
     (strpos($u, 'Opera') !== false) || (strpos($u, 'Safari') !== false);
 }
 
-/** Keep this in sync with docs/.htaccess and wwwbase/.htaccess and with the Varnish configuration **/
+/** Keep this in sync with wwwbase/.htaccess.sample and wwwbase/.htaccess and with the Varnish configuration **/
 function util_isMobile($userAgent = null) {
   if (!util_isWebBasedScript()) {
     return false;

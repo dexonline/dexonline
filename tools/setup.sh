@@ -56,3 +56,10 @@ if [ ! -e .git/hooks/pre-commit ]; then
 else
   echo "* .git/hooks/pre-commit already exists, skipping"
 fi
+
+if [ ! -e .git/hooks/post-merge ]; then
+  echo "* symlinking tools/git-hooks/post-merge.sh as .git/hooks/post-merge"
+  ln -s $ROOT_DIR/tools/git-hooks/post-merge.sh .git/hooks/post-merge
+else
+  echo "* .git/hooks/post-merge already exists, skipping"
+fi

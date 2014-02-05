@@ -49,3 +49,10 @@ find wwwbase/img/visual/ -type d | xargs chmod 777
 # Allow user avatar uploads under wwwbase/img/user
 chmod 777 wwwbase/img/user
 
+# Symlink hooks unless they already exist
+if [ ! -e .git/hooks/pre-commit ]; then
+  echo "* symlinking tools/git-hooks/pre-commit.php as .git/hooks/pre-commit"
+  ln -s $ROOT_DIR/tools/git-hooks/pre-commit.php .git/hooks/pre-commit
+else
+  echo "* .git/hooks/pre-commit already exists, skipping"
+fi

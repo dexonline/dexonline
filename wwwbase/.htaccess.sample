@@ -10,8 +10,8 @@ Options -MultiViews
 # Uncomment the next line when running DEX online from within a user directory
 # RewriteBase /~cata/DEX/wwwbase/
 
-#TBD why is not working
-#ErrorDocument 404 /simple.php?p=404
+#it seems the varnish is to blame
+ErrorDocument 404 /simple.php?p=404
 
 #####################################################################################
 # This section is desktop-specific and it should be commented out on m.dexonline.ro #

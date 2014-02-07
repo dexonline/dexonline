@@ -30,7 +30,7 @@ care necesită atenție și câteva mecanisme de căutare a lexemelor
 <br/>
 
 <a href="../flex/viewAmbiguousLexems.php">Lexeme ambigue:</a>
-<span id="span_ambiguousLexems">(numărătoare dezactivată)</span><br/>
+<span id="span_ambiguousLexems"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 
 {if $sUser->moderator & $smarty.const.PRIV_WOTD}
   <a href="wotd.php">Word of the Day:</a>

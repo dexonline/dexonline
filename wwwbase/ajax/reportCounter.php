@@ -15,12 +15,7 @@ case 'lexemsWithoutAccents': echo Model::factory('Lexem')->where_raw("form not r
 case 'wotd': echo Model::factory('WordOfTheDay')->count(); break;
 case 'definitionsWithAmbiguousAbbrev':
   echo Model::factory('Definition')->where_not_equal('status', ST_DELETED)->where('abbrevReview', ABBREV_AMBIGUOUS)->count(); break;
-case 'ambiguousLexems': // This one is expensive
-  $r = Model::factory('Lexem')
-    ->raw_query("select count(*) as c from (select id from Lexem where description = '' group by form having count(*) > 1) as t1", null)
-    ->find_one();
-  print $r->c;
-  break;
+case 'ambiguousLexems': echo count(Lexem::loadAmbiguous()); break;  // about 0.6s
 case 'visualTag': echo Model::factory('Visual')->where('revised', 0)->count(); break;
 case 'ocrDefs': echo Model::factory('OCR')->where('status', 'raw')->count(); break;
 case 'ocrAvailDefs':

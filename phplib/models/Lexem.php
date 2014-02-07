@@ -155,6 +155,19 @@ class Lexem extends BaseObject implements DatedObject {
       ->raw_query('select * from Lexem where id not in (select lexemId from LexemDefinitionMap) order by formNoAccent', null)->find_many();
   }
 
+  /**
+   * For every set of lexems having the same form and no description, load one of them at random.
+   */
+  public static function loadAmbiguous() {
+    // The key here is to create a subquery of all the forms appearing at least twice
+    $query = 'select * from Lexem ' .
+      'join (select form as f from Lexem group by form having count(*) > 1) dup ' .
+      'on form = f ' .
+      'group by form ' .
+      'having max(description) = ""';
+    return Model::factory('Lexem')->raw_query($query, null)->find_many();
+  }
+
   public function getVariantIds() {
     $variants = Model::factory('Lexem')->select('id')->where('variantOfId', $this->id)->find_many();
     $ids = array();

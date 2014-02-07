@@ -1,41 +1,14 @@
 Aici găsiți, deocamdată, un sumar al problemelor din baza de date
 care necesită atenție și câteva mecanisme de căutare a lexemelor
-și definițiilor.<br/><br/>
+și definițiilor.<br/>
 
-<a href="viewUnassociatedLexems.php">Lexeme neasociate cu nicio definiție:</a>
-{$counters.unassociatedLexems}<br/>
-
-<a href="viewUnassociatedDefinitions.php">Definiții neasociate cu niciun lexem:</a>
-{$counters.unassociatedDefinitions}<br/>
-
-<a href="viewTypos.php">Definiții cu greșeli de tipar:</a>
-{$counters.definitionsWithTypos}<br/>
-
-<a href="viewPendingDefinitions.php">Definiții nemoderate:</a>
-{$counters.pendingDefinitions}<br/>
-
-{if $sUser->moderator & $smarty.const.PRIV_LOC}
-  <a href="../flex/viewTemporaryLexems.php">Lexeme fără paradigme:</a>
-  {$counters.temporaryLexems}<br/>
-
-  <a href="../flex/viewLexemsWithComments.php">Lexeme cu comentarii:</a>
-  {$counters.lexemsWithComments}<br/>
-{/if}
-
-<a href="../flex/viewLexemsWithoutAccents.php">Lexeme fără accent:</a>
-{$counters.lexemsWithoutAccents}<br/>
-
-<a href="../admin/randomAbbrevReview.php">Definiții cu abrevieri ambigue:</a>
-{$counters.ambiguousAbbrevs}<br/>
-
-<a href="../flex/viewAmbiguousLexems.php">Lexeme ambigue:</a>
-(numărătoare dezactivată)<br/>
-
-<a href="visualTag.php">Imagini (Visual Dict) nerevizuite:</a>
-{$counters.unreviewedImages}<br/>
-
-<a href="{$wwwRoot}admin/definitionEdit.php">Definiții OCR neverificate:</a>
-{$counters.ocrDefs} (disponibile: {$counters.ocrAvailDefs})<br/>
+<ul>
+  {foreach from=$reports item=r}
+    {if ($r.count != '-1') && ($sUser->moderator & $r.privilege)}
+      <li>{$r.text}: <a href="{$wwwRoot}/{$r.url}">{$r.count}</a></li>
+    {/if}
+  {/foreach}
+</ul>
 
 {if $sUser->moderator & $smarty.const.PRIV_ADMIN}
 Adaugă noi definiții OCR (una pe linie): <a href="{$wwwRoot}admin/ocrInput.php">click aici</a>.

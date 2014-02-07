@@ -17,6 +17,9 @@ $counters = array(
   // this takes about 300 ms
   'unassociatedDefinitions' => Definition::countUnassociated(),
 
+  // this takes about 500 ms (even though the query is very similar to the one for unassociatedDefinitions)
+  'unassociatedLexems' => Lexem::countUnassociated(),
+
   'unreviewedImages' => Model::factory('Visual')->where('revised', 0)->count(),
 );
 

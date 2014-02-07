@@ -150,6 +150,13 @@ class Lexem extends BaseObject implements DatedObject {
     return $result;
   }
 
+  public static function countUnassociated() {
+    // We compute this as (all lexems) - (lexems showing up in LexemDefinitionMap)
+    $all = Model::factory('Lexem')->count();
+    $associated = db_getSingleValue('select count(distinct lexemId) from LexemDefinitionMap');
+    return $all - $associated;
+  }
+
   public static function loadUnassociated() {
     return Model::factory('Lexem')
       ->raw_query('select * from Lexem where id not in (select lexemId from LexemDefinitionMap) order by formNoAccent', null)->find_many();

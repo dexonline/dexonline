@@ -167,11 +167,13 @@ class Lexem extends BaseObject implements DatedObject {
    */
   public static function loadAmbiguous() {
     // The key here is to create a subquery of all the forms appearing at least twice
+    // This takes about 0.6s
     $query = 'select * from Lexem ' .
       'join (select form as f from Lexem group by form having count(*) > 1) dup ' .
       'on form = f ' .
+      'where description = "" ' .
       'group by form ' .
-      'having max(description) = ""';
+      'having count(*) > 1';
     return Model::factory('Lexem')->raw_query($query, null)->find_many();
   }
 

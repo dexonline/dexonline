@@ -8,6 +8,7 @@ $models = FlexModel::loadByType('A');
 $counters = array(
   'ambiguousAbbrevs' => Definition::countAmbiguousAbbrevs(),
   'definitionsWithTypos' => Model::factory('Typo')->select('definitionId')->distinct()->count(),
+  'lexemsWithComments' => Model::factory('Lexem')->where_not_null('comment')->count(),
   'lexemsWithoutAccents' => Model::factory('Lexem')->where('consistentAccent', 0)->count(),
   'ocrAvailDefs' => OCR::countAvailable(session_getUserId()),
   'ocrDefs'=> Model::factory('OCR')->where('status', 'raw')->count(),

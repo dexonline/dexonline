@@ -19,7 +19,7 @@ care necesită atenție și câteva mecanisme de căutare a lexemelor
   {$counters.temporaryLexems}<br/>
 
   <a href="../flex/viewLexemsWithComments.php">Lexeme cu comentarii:</a>
-  <span id="span_lexemsWithComments"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
+  {$counters.lexemsWithComments}<br/>
 {/if}
 
 <a href="../flex/viewLexemsWithoutAccents.php">Lexeme fără accent:</a>
@@ -223,6 +223,5 @@ Adaugă noi definiții OCR (una pe linie): <a href="{$wwwRoot}admin/ocrInput.php
 {/if}
 
 <script type="text/javascript">
-  $(startReportCounters);
   $(adminIndexInit);
 </script>

@@ -4,7 +4,7 @@ util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
 RecentLink::createOrUpdate('Lexeme cu comentarii');
-$lexems = Model::factory('Lexem')->where_not_equal('comment', '')->order_by_asc('formNoAccent')->find_many();
+$lexems = Model::factory('Lexem')->where_not_null('comment')->order_by_asc('formNoAccent')->find_many();
 
 SmartyWrap::assign('sectionTitle', 'Lexeme cu comentarii');
 SmartyWrap::assign('sectionCount', count($lexems));

@@ -23,7 +23,12 @@ case 'ambiguousLexems': // This one is expensive
   break;
 case 'visualTag': echo Model::factory('Visual')->where('revised', 0)->count(); break;
 case 'ocrDefs': echo Model::factory('OCR')->where('status', 'raw')->count(); break;
-case 'ocrAvailDefs': echo Model::factory('OCR')->where('status', 'raw')->where_not_null('editorId')->where_not_equal('editorId', session_getUserId())->count(); break;
+case 'ocrAvailDefs':
+  echo Model::factory('OCR')
+    ->where('status', 'raw')
+    ->where_raw(sprintf('(editorId is null or editorId = %d)', session_getUserId()))
+    ->count();
+  break;
 default: echo 'Necunoscut';
 }
 

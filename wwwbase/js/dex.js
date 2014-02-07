@@ -240,7 +240,7 @@ function deleteDefinition(defDivId, defId) {
 }
 
 function startReportCounters() {
-  reports = ['unassociatedLexems', 'unassociatedDefinitions', 'lexemsWithComments', 'ambiguousLexems'];
+  reports = ['unassociatedLexems', 'lexemsWithComments', 'ambiguousLexems'];
   for (var i = 0; i < reports.length; i++) {
     $.ajax({
       url: wwwRoot + 'ajax/reportCounter.php',

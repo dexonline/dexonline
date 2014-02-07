@@ -6,13 +6,17 @@ util_assertNotMirror();
 $models = FlexModel::loadByType('A');
 
 $counters = array(
-  'ambiguousAbbrevs' => Model::factory('Definition')->where_not_equal('status', ST_DELETED)->where('abbrevReview', ABBREV_AMBIGUOUS)->count(),
+  'ambiguousAbbrevs' => Definition::countAmbiguousAbbrevs(),
   'definitionsWithTypos' => Model::factory('Typo')->select('definitionId')->distinct()->count(),
   'lexemsWithoutAccents' => Model::factory('Lexem')->where('consistentAccent', 0)->count(),
-  'ocrAvailDefs' => Model::factory('OCR')->where('status', 'raw')->where_raw(sprintf('(editorId is null or editorId = %d)', session_getUserId()))->count(),
-  'ocrDefs' => Model::factory('OCR')->where('status', 'raw')->count(),
+  'ocrAvailDefs' => OCR::countAvailable(session_getUserId()),
+  'ocrDefs'=> Model::factory('OCR')->where('status', 'raw')->count(),
   'pendingDefinitions' => Model::factory('Definition')->where('status', ST_PENDING)->count(),
   'temporaryLexems' => Model::factory('Lexem')->where('modelType', 'T')->count(),
+
+  // this takes about 300 ms
+  'unassociatedDefinitions' => Definition::countUnassociated(),
+
   'unreviewedImages' => Model::factory('Visual')->where('revised', 0)->count(),
 );
 

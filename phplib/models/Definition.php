@@ -59,10 +59,6 @@ class Definition extends BaseObject implements DatedObject {
     return count(ORM::for_table('Definition')->raw_query($query, null)->find_many());
   }
 
-  public static function countByStatus($status) {
-    return Model::factory('Definition')->where('status', $status)->count();
-  }
-
   public static function loadForLexems(&$lexems, $sourceId, $preferredWord, $exclude_unofficial = false) {
     if (!count($lexems)) {
       return array();
@@ -261,7 +257,7 @@ class Definition extends BaseObject implements DatedObject {
     if ($cachedWordCount) {
       return $cachedWordCount;
     }
-    $result = self::countByStatus(ST_ACTIVE);
+    $result = Model::factory('Definition')->where('status', ST_ACTIVE)->count();
     FileCache::putWordCount($result);
     return $result;
   }

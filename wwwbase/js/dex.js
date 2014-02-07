@@ -240,8 +240,7 @@ function deleteDefinition(defDivId, defId) {
 }
 
 function startReportCounters() {
-  reports = ['unassociatedLexems', 'unassociatedDefinitions', 'definitionsWithTypos', 'temporaryDefinitions', 'temporaryLexems', 'lexemsWithComments',
-             'lexemsWithoutAccents', 'definitionsWithAmbiguousAbbrev', 'ambiguousLexems', 'wotd', 'visualTag', 'ocrDefs', 'ocrAvailDefs'];
+  reports = ['unassociatedLexems', 'unassociatedDefinitions', 'lexemsWithComments', 'ambiguousLexems'];
   for (var i = 0; i < reports.length; i++) {
     $.ajax({
       url: wwwRoot + 'ajax/reportCounter.php',

@@ -9,41 +9,33 @@ care necesită atenție și câteva mecanisme de căutare a lexemelor
 <span id="span_unassociatedDefinitions"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 
 <a href="viewTypos.php">Definiții cu greșeli de tipar:</a>
-<span id="span_definitionsWithTypos"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
+{$counters.definitionsWithTypos}<br/>
 
 <a href="viewPendingDefinitions.php">Definiții nemoderate:</a>
-<span id="span_temporaryDefinitions"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
+{$counters.pendingDefinitions}<br/>
 
 {if $sUser->moderator & $smarty.const.PRIV_LOC}
   <a href="../flex/viewTemporaryLexems.php">Lexeme fără paradigme:</a>
-  <span id="span_temporaryLexems"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
+  {$counters.temporaryLexems}<br/>
 
   <a href="../flex/viewLexemsWithComments.php">Lexeme cu comentarii:</a>
   <span id="span_lexemsWithComments"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 {/if}
 
 <a href="../flex/viewLexemsWithoutAccents.php">Lexeme fără accent:</a>
-<span id="span_lexemsWithoutAccents"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
+{$counters.lexemsWithoutAccents}<br/>
 
 <a href="../admin/randomAbbrevReview.php">Definiții cu abrevieri ambigue:</a>
-<span id="span_definitionsWithAmbiguousAbbrev"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span>
-<br/>
+{$counters.ambiguousAbbrevs}<br/>
 
 <a href="../flex/viewAmbiguousLexems.php">Lexeme ambigue:</a>
 <span id="span_ambiguousLexems"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
 
-{if $sUser->moderator & $smarty.const.PRIV_WOTD}
-  <a href="wotd.php">Word of the Day:</a>
-  <span id="span_wotd"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
-{/if}
-
 <a href="visualTag.php">Imagini (Visual Dict) nerevizuite:</a>
-<span id="span_visualTag"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
+{$counters.unreviewedImages}<br/>
 
 <a href="{$wwwRoot}admin/definitionEdit.php">Definiții OCR neverificate:</a>
-<span id="span_ocrDefs"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span> 
-(disponibile: <span id="span_ocrAvailDefs"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span>)
-<br/>
+{$counters.ocrDefs} (disponibile: {$counters.ocrAvailDefs})<br/>
 
 {if $sUser->moderator & $smarty.const.PRIV_ADMIN}
 Adaugă noi definiții OCR (una pe linie): <a href="{$wwwRoot}admin/ocrInput.php">click aici</a>.
@@ -220,12 +212,14 @@ Adaugă noi definiții OCR (una pe linie): <a href="{$wwwRoot}admin/ocrInput.php
 {/if}
 
 {if $sUser->moderator & $smarty.const.PRIV_ADMIN}
-  <a href="{$wwwRoot}private/financials.php">Ciornă financiară</a> (în lucru!)<br/>
   <a href="{$wwwRoot}moderatori">Vizualizare / editare moderatori</a><br/>
   <a href="{$wwwRoot}surse">Vizualizare / editare surse</a><br/>
   <a href="{$wwwRoot}etichete-sensuri">Vizualizare / editare etichete pentru sensuri</a><br/>
   <a href="{$wwwRoot}tipuri-modele">Vizualizare / editare tipuri de modele</a><br/>
-  <a href="{$wwwRoot}admin/visual.php">Adăugare imagini pentru definiții</a>
+  <a href="{$wwwRoot}admin/visual.php">Adăugare imagini pentru definiții</a><br/>
+{/if}
+{if $sUser->moderator & $smarty.const.PRIV_WOTD}
+  Cuvântul zilei: <a href="wotd.php">cuvinte</a> | <a href="wotdImages.php">imagini</a><br/>
 {/if}
 
 <script type="text/javascript">

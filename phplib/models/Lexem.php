@@ -439,6 +439,7 @@ class Lexem extends BaseObject implements DatedObject {
     $this->formUtf8General = $this->formNoAccent;
     $this->reverse = StringUtil::reverse($this->formNoAccent);
     $this->charLength = mb_strlen($this->formNoAccent);
+    $this->consistentAccent = (strpos($this->form, "'") !== false) ^ $this->noAccent;
     parent::save();
   }  
 

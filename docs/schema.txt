@@ -69,6 +69,11 @@ isLoc - You can probably ignore this. Indicates whether the
 noAccent - If true, indicates that this lexem does not need an
   accent. Otherwise, a report on the admin page shows all the lexems
   for which Lexem.form does not include an accent.
+consistentAccent - True if the combination of (form, noAccent) is consistent:
+  either the form contains an accent and noAccent is false OR
+  the form does not contain an accent and noAccent is true.
+  This setting is automatically set by the system and is outside the user's
+  control.
 
 
 The LexemDefinitionMap table

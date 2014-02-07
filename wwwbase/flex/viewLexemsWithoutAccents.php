@@ -4,7 +4,7 @@ ini_set('memory_limit', '512M');
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$lexems = Model::factory('Lexem')->where_raw("form not rlike '\'' and not noAccent")->find_many();
+$lexems = Model::factory('Lexem')->where('consistentAccent', 0)->order_by_asc('formNoAccent')->find_many();
 
 RecentLink::createOrUpdate('Lexeme fără accent');
 

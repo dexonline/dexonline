@@ -10,10 +10,18 @@
 
 <h3>Căutări</h3>
 
-<form action="lexemEdit.php" method="get">
-  Navigare rapidă: <input id="lexemId" type="text" name="lexemId"/>
+Navigare rapidă:
+
+<form class="inline" action="lexemEdit.php" method="get">
+  <input id="lexemId" type="text" name="lexemId"/>
 </form>
-<br/>
+
+sau
+
+<form class="inline" action="definitionEdit.php" method="get">
+  <input id="definitionId" type="text" name="definitionId"/>
+</form>
+<br/><br/>
 
 <form action="definitionLookup.php" method="post">
   Definiții:

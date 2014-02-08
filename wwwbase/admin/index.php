@@ -69,7 +69,6 @@ $reports = array(
 
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign("allStatuses", util_getAllStatuses());
-SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('modelTypes', ModelType::loadCanonical());
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('structStatusNames', Lexem::$STRUCT_STATUS_NAMES);

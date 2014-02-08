@@ -3,7 +3,7 @@
 <ul>
   {foreach from=$reports item=r}
     {if ($r.count != '0') && ($sUser->moderator & $r.privilege)}
-      <li>{$r.text}: <a href="{$wwwRoot}/{$r.url}">{$r.count}</a></li>
+      <li>{$r.text}: <a href="{$wwwRoot}{$r.url}">{$r.count}</a></li>
     {/if}
   {/foreach}
 </ul>

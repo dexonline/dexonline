@@ -32,6 +32,7 @@ function adminIndexInit() {
   $('#lexemId').select2({
     ajax: struct_lexemAjax,
     minimumInputLength: 1,
+    placeholder: 'caută un lexem...',
     width: '300px',
   }).on('change', function(e) {
     $(this).parents('form').submit();

@@ -184,3 +184,10 @@ rcpt-info[] = info-user-1@example.com
 rcpt-info[] = info-user-2@example.com
 rcpt-error[] = error-user-1@example.com
 rcpt-error[] = error-user-2@example.com
+
+imageEmailHost = imap.example.com
+imageEmailPort = 993
+imageEmailSSL = true
+imageEmailUsername = email.account@example.com
+imageEmailPassword = emailpassword
+newWotdImageFolder = /path/to/folder/where/images/are/saved

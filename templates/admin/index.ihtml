@@ -1,69 +1,80 @@
-Aici găsiți, deocamdată, un sumar al problemelor din baza de date
-care necesită atenție și câteva mecanisme de căutare a lexemelor
-și definițiilor.<br/><br/>
+<h3>Rapoarte</h3>
 
-<a href="viewUnassociatedLexems.php">Lexeme neasociate cu nicio definiție:</a>
-<span id="span_unassociatedLexems"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
+<ul>
+  {foreach from=$reports item=r}
+    {if ($r.count != '0') && ($sUser->moderator & $r.privilege)}
+      <li>{$r.text}: <a href="{$wwwRoot}{$r.url}">{$r.count}</a></li>
+    {/if}
+  {/foreach}
+</ul>
 
-<a href="viewUnassociatedDefinitions.php">Definiții neasociate cu niciun lexem:</a>
-<span id="span_unassociatedDefinitions"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
+<h3>Căutări</h3>
 
-<a href="viewTypos.php">Definiții cu greșeli de tipar:</a>
-<span id="span_definitionsWithTypos"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
+Navigare rapidă:
 
-<a href="viewPendingDefinitions.php">Definiții nemoderate:</a>
-<span id="span_temporaryDefinitions"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
+<form class="inline" action="lexemEdit.php" method="get">
+  <input id="lexemId" type="text" name="lexemId"/>
+</form>
 
-{if $sUser->moderator & $smarty.const.PRIV_LOC}
-  <a href="../flex/viewTemporaryLexems.php">Lexeme fără paradigme:</a>
-  <span id="span_temporaryLexems"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
+sau
 
-  <a href="../flex/viewLexemsWithComments.php">Lexeme cu comentarii:</a>
-  <span id="span_lexemsWithComments"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
-{/if}
+<form class="inline" action="definitionEdit.php" method="get">
+  <input id="definitionId" type="text" name="definitionId"/>
+</form>
+<br/><br/>
 
-<a href="../flex/viewLexemsWithoutAccents.php">Lexeme fără accent:</a>
-<span id="span_lexemsWithoutAccents"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
-
-<a href="../admin/randomAbbrevReview.php">Definiții cu abrevieri ambigue:</a>
-<span id="span_definitionsWithAmbiguousAbbrev"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span>
-<br/>
-
-<a href="../flex/viewAmbiguousLexems.php">Lexeme ambigue:</a>
-<span id="span_ambiguousLexems">(numărătoare dezactivată)</span><br/>
-
-{if $sUser->moderator & $smarty.const.PRIV_WOTD}
-  <a href="wotd.php">Word of the Day:</a>
-  <span id="span_wotd"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
-{/if}
-
-<a href="visualTag.php">Imagini (Visual Dict) nerevizuite:</a>
-<span id="span_visualTag"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span><br/>
-
-<a href="/admin/definitionEdit.php">Definiții OCR neverificate:</a>
-<span id="span_ocrDefs"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span> 
-(indisponibile: <span id="span_ocrAvailDefs"><img src="{$imgRoot}/icons/hourglass.png" alt="hourglass"/></span>)
-<br/>
-
-{if $sUser->moderator & $smarty.const.PRIV_ADMIN}
-Adaugă noi definiții OCR (una pe linie): <a href="/admin/ocrInput.php">click aici</a>.
-{/if}
-<br/>
-<br/>
-
-{* End link section *}
-
-<form action="lexemEdit.php" method="get">
-  Editează un lexem: <input id="lexemId" type="text" name="lexemId"/>
+<form action="definitionLookup.php" method="post">
+  Definiții:
+  <input type="text" name="name" size="10" value="*"/>
+  &nbsp; &nbsp; starea:
+  {include file="common/statusDropDown.ihtml"
+           name="status"
+           statuses=$allStatuses
+           selectedStatus=1}
+  &nbsp; &nbsp; trimise de:
+  <input type="text" name="nick" size="10" value=""/>
+  &nbsp; &nbsp; sursa:
+  {include file="common/sourceDropDown.ihtml" name="sourceId"}
+  <br/>
+  &nbsp; &nbsp; &nbsp; &nbsp; între
+  {assign var="nextYear" value=$currentYear+1}
+  {include file="common/bits/numericDropDown.ihtml"
+           name="yr1" start=2001 end=$nextYear}
+  {include file="common/bits/numericDropDown.ihtml"
+           name="mo1" start=1 end=13}
+  {include file="common/bits/numericDropDown.ihtml"
+           name="da1" start=1 end=32}
+  &nbsp; &nbsp; și
+  {include file="common/bits/numericDropDown.ihtml"
+           name="yr2" start=2001 end=$nextYear selected=$currentYear}
+  {include file="common/bits/numericDropDown.ihtml"
+           name="mo2" start=1 end=13 selected=12}
+  {include file="common/bits/numericDropDown.ihtml"
+           name="da2" start=1 end=32 selected=31}
+  &nbsp; &nbsp; 
+  <input type="submit" name="searchButton" value="Caută"/>
 </form>
 <br/>
 
 <form action="lexemSearch.php" method="get">
   Caută lexeme:
   <input type="text" name="form" size="10" value="*">
-  &nbsp; &nbsp;
-  structurare:
-  {include file="common/bits/structStatus.ihtml" canEdit=true anyOption=true}
+  sursa: {include file="common/sourceDropDown.ihtml"}
+  <select name="loc">
+    <option value="2">indiferent de LOC</option>
+    <option value="1">incluse în LOC</option>
+    <option value="0">neincluse în LOC</option>
+  </select>
+  <select name="paradigm">
+    <option value="2">indiferent de paradigmă</option>
+    <option value="1">cu paradigmă</option>
+    <option value="0">fără paradigmă</option>
+  </select>
+  <br/>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  structurare: {include file="common/bits/structStatus.ihtml" canEdit=true anyOption=true}
+  &nbsp;
+  trimise de: <input type="text" name="nick" size="10" value=""/>
   <input type="submit" name="searchButton" value="Caută">
 </form>
 <br/>
@@ -97,73 +108,15 @@ Adaugă noi definiții OCR (una pe linie): <a href="/admin/ocrInput.php">click a
     corespunzătoare, astfel ca în momentul ștergerii modelul să nu mai aibă niciun lexem.">&nbsp;</span>
 
   </form>
-  <br/>
-
-  Editare flexiuni: <a href="../editor-modele/flexiuni">click aici</a>
-  <br/><br/>
 {/if}
 
-<form action="definitionLookup.php" method="post">
-  Caută definiții:
-  <input type="text" name="name" size="10" value="*"/>
-  &nbsp; &nbsp; starea:
-  {include file="common/statusDropDown.ihtml"
-           name="status"
-           statuses=$allStatuses
-           selectedStatus=1}
-  &nbsp; &nbsp; trimise de:
-  <input type="text" name="nick" size="10" value=""/>
-  &nbsp; &nbsp; sursa:
-  {include file="common/sourceDropDown.ihtml" name="sourceId" sources=$allModeratorSources}
-  <br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; între
-  {assign var="nextYear" value=$currentYear+1}
-  {include file="common/bits/numericDropDown.ihtml"
-           name="yr1" start=2001 end=$nextYear}
-  {include file="common/bits/numericDropDown.ihtml"
-           name="mo1" start=1 end=13}
-  {include file="common/bits/numericDropDown.ihtml"
-           name="da1" start=1 end=32}
-  &nbsp; &nbsp; și
-  {include file="common/bits/numericDropDown.ihtml"
-           name="yr2" start=2001 end=$nextYear selected=$currentYear}
-  {include file="common/bits/numericDropDown.ihtml"
-           name="mo2" start=1 end=13 selected=12}
-  {include file="common/bits/numericDropDown.ihtml"
-           name="da2" start=1 end=32 selected=31}
-  &nbsp; &nbsp; 
-  <input type="submit" name="searchButton" value="Caută"/>
-</form>
-<br/>
-
-<form action="../flex/viewTemporaryLexems.php" method="get">
-  Listează lexemele fără paradigme din sursa:
-  {include file="common/sourceDropDown.ihtml" sources=$allModeratorSources skipAnySource=1}
-  <input type="submit" value="Listează"/>
-</form>
-<br/>
-
-{if $sUser->moderator & $smarty.const.PRIV_LOC}
-  <form action="../flex/viewLocLexems.php" method="get">
-    Listează lexemele din sursa:
-    {include file="common/sourceDropDown.ihtml" sources=$allModeratorSources skipAnySource=1}
-    <select name="loc">
-      <option value="2">indiferent de LOC</option>
-      <option value="1">incluse în LOC</option>
-      <option value="0">neincluse în LOC</option>
-    </select>
-    trimise de <span class="deemph">(opțional)</span>
-    <input type="text" name="nick" size="10" value=""/>
-    <input type="submit" value="Listează"/>
-  </form>
-  <br/>
-{/if}
+<h3>Unelte</h3>
 
 {if $sUser->moderator & $smarty.const.PRIV_ADMIN}
   <form action="bulkReplace.php" method="get">
-    Înlocuiește în definiții: <input type="text" name="search" size="30"/>
-    cu <input type="text" name="replace" size="30"/>
-    în sursa: {include file="common/sourceDropDown.ihtml" sources=$allModeratorSources}
+    Înlocuiește în definiții: <input type="text" name="search" size="25"/>
+    cu <input type="text" name="replace" size="25"/>
+    în sursa: {include file="common/sourceDropDown.ihtml"}
     <input type="submit" name="previewButton" value="Previzualizează" onclick="return hideSubmitButton(this)"/>
   </form>
   <div class="flexExplanation">
@@ -215,20 +168,28 @@ Adaugă noi definiții OCR (una pe linie): <a href="/admin/ocrInput.php">click a
   <div class="flexExplanation">
     Veți primi grupuri de lexeme asociate cu definiții din Dicționarul Enciclopedic.
   </div>
-  <br/>
-  
 {/if}
 
+<h3>Legături</h3>
+
 {if $sUser->moderator & $smarty.const.PRIV_ADMIN}
-  <a href="{$wwwRoot}private/financials.php">Ciornă financiară</a> (în lucru!)<br/>
-  <a href="{$wwwRoot}moderatori">Vizualizare / editare moderatori</a><br/>
-  <a href="{$wwwRoot}surse">Vizualizare / editare surse</a><br/>
-  <a href="{$wwwRoot}etichete-sensuri">Vizualizare / editare etichete pentru sensuri</a><br/>
-  <a href="{$wwwRoot}tipuri-modele">Vizualizare / editare tipuri de modele</a><br/>
-  <a href="{$wwwRoot}admin/visual.php">Adăugare imagini pentru definiții</a>
+  <a href="{$wwwRoot}moderatori">moderatori</a> |
+  <a href="{$wwwRoot}surse">surse</a> |
+  <a href="{$wwwRoot}etichete-sensuri">etichete pentru sensuri</a> |
+  <a href="{$wwwRoot}tipuri-modele">tipuri de modele</a> |
+  <a href="{$wwwRoot}editor-modele/flexiuni">flexiuni</a> |
+{/if}
+{if $sUser->moderator & $smarty.const.PRIV_VISUAL}
+  <a href="{$wwwRoot}admin/visual.php">dicționarul vizual</a> |
+{/if}
+{if $sUser->moderator & $smarty.const.PRIV_WOTD}
+  <a href="wotd.php">cuvântul zilei</a> |
+  <a href="wotdImages.php">imaginea zilei</a> |
+{/if}
+{if $sUser->moderator & $smarty.const.PRIV_SUPER}
+  <a href="{$wwwRoot}admin/ocrInput.php">adaugă definiții OCR</a>
 {/if}
 
 <script type="text/javascript">
-  $(startReportCounters);
   $(adminIndexInit);
 </script>

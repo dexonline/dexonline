@@ -239,33 +239,6 @@ function deleteDefinition(defDivId, defId) {
   return false;
 }
 
-function startReportCounters() {
-  reports = ['unassociatedLexems', 'unassociatedDefinitions', 'definitionsWithTypos', 'temporaryDefinitions', 'temporaryLexems', 'lexemsWithComments',
-             'lexemsWithoutAccents', 'definitionsWithAmbiguousAbbrev', 'wotd', 'visualTag', 'ocrDefs', 'ocrAvailDefs'];
-  for (var i = 0; i < reports.length; i++) {
-    $.ajax({
-      url: wwwRoot + 'ajax/reportCounter.php',
-      data: { report: reports[i] },
-      span: $('#span_' + reports[i])
-    }).done(function(data) {
-      this.span.text(data);
-    });
-  }
-}
-
-function startReportCountersCallback(httpRequest, spanId) {
-  if (httpRequest.readyState == 4) {
-    if (httpRequest.status == 200) {
-      var span = document.getElementById(spanId);
-      if (span) {
-        span.innerHTML = httpRequest.responseText;
-      }
-    } else {
-        span.innerHTML = 'eroare la încărcare';
-    }
-  }
-}
-
 function editModelAppendBox(inflId) {
   var obj = $('#td_' + inflId);
   var count = $('#td_' + inflId + '> p').length;

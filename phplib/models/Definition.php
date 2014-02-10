@@ -53,14 +53,22 @@ class Definition extends BaseObject implements DatedObject {
   }
 
   public static function countUnassociated() {
-    // Deleted definitions are always unassociated, so we don't report those
-    $query = sprintf("select * from Definition where status != %s and id not in (select distinct definitionId from LexemDefinitionMap)",
-                     ST_DELETED);
-    return count(ORM::for_table('Definition')->raw_query($query, null)->find_many());
+    // There are three disjoint types of definitions:
+    // (1) deleted -- these are never associated with lexems
+    // (2) not deleted, associated
+    // (3) not deleted, not associated
+    // We compute (3) as (all definitions) - (1) - (2).
+    $all = Model::factory('Definition')->count();
+    $deleted = Model::factory('Definition')->where('status', ST_DELETED)->count();
+    $associated = db_getSingleValue('select count(distinct definitionId) from LexemDefinitionMap');
+    return $all - $deleted - $associated;
   }
 
-  public static function countByStatus($status) {
-    return Model::factory('Definition')->where('status', $status)->count();
+  public static function countAmbiguousAbbrevs() {
+    return Model::factory('Definition')
+      ->where_not_equal('status', ST_DELETED)
+      ->where('abbrevReview', ABBREV_AMBIGUOUS)
+      ->count();
   }
 
   public static function loadForLexems(&$lexems, $sourceId, $preferredWord, $exclude_unofficial = false) {
@@ -261,7 +269,7 @@ class Definition extends BaseObject implements DatedObject {
     if ($cachedWordCount) {
       return $cachedWordCount;
     }
-    $result = self::countByStatus(ST_ACTIVE);
+    $result = Model::factory('Definition')->where('status', ST_ACTIVE)->count();
     FileCache::putWordCount($result);
     return $result;
   }

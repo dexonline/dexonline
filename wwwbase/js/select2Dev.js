@@ -32,7 +32,20 @@ function adminIndexInit() {
   $('#lexemId').select2({
     ajax: struct_lexemAjax,
     minimumInputLength: 1,
+    placeholder: 'caută un lexem',
     width: '300px',
+  }).on('change', function(e) {
+    $(this).parents('form').submit();
+  });
+
+  $('#definitionId').select2({
+    ajax: struct_definitionAjax,
+    formatResult: function(item) {
+      return item.text + ' (' + item.source + ') [' + item.id + ']';
+    },
+    minimumInputLength: 1,
+    placeholder: 'caută o definiție',
+    width: '400px',
   }).on('change', function(e) {
     $(this).parents('form').submit();
   });

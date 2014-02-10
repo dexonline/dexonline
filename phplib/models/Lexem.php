@@ -25,7 +25,7 @@ class Lexem extends BaseObject implements DatedObject {
     $l->modelType = $modelType;
     $l->modelNumber = $modelNumber;
     $l->restriction = $restriction;
-    $l->comment = '';
+    $l->comment = null;
     $l->isLoc = false;
     $l->noAccent = false;
     return $l;
@@ -150,9 +150,31 @@ class Lexem extends BaseObject implements DatedObject {
     return $result;
   }
 
+  public static function countUnassociated() {
+    // We compute this as (all lexems) - (lexems showing up in LexemDefinitionMap)
+    $all = Model::factory('Lexem')->count();
+    $associated = db_getSingleValue('select count(distinct lexemId) from LexemDefinitionMap');
+    return $all - $associated;
+  }
+
   public static function loadUnassociated() {
     return Model::factory('Lexem')
       ->raw_query('select * from Lexem where id not in (select lexemId from LexemDefinitionMap) order by formNoAccent', null)->find_many();
+  }
+
+  /**
+   * For every set of lexems having the same form and no description, load one of them at random.
+   */
+  public static function loadAmbiguous() {
+    // The key here is to create a subquery of all the forms appearing at least twice
+    // This takes about 0.6s
+    $query = 'select * from Lexem ' .
+      'join (select form as f from Lexem group by form having count(*) > 1) dup ' .
+      'on form = f ' .
+      'where description = "" ' .
+      'group by form ' .
+      'having count(*) > 1';
+    return Model::factory('Lexem')->raw_query($query, null)->find_many();
   }
 
   public function getVariantIds() {
@@ -426,6 +448,12 @@ class Lexem extends BaseObject implements DatedObject {
     $this->formUtf8General = $this->formNoAccent;
     $this->reverse = StringUtil::reverse($this->formNoAccent);
     $this->charLength = mb_strlen($this->formNoAccent);
+    $this->consistentAccent = (strpos($this->form, "'") !== false) ^ $this->noAccent;
+    // It is important for empty comments to be null, not "".
+    // This allows the admin report for lexems *with* comments to run faster.
+    if ($this->comment == '') {
+      $this->comment = null;
+    }
     parent::save();
   }  
 

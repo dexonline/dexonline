@@ -100,6 +100,7 @@ if ($lexemId) {
     $lexems = array();
     SmartyWrap::assign('page_title', "Eroare");
     FlashMessage::add("Nu există niciun lexem cu ID-ul căutat.");
+    header("HTTP/1.0 404 Not Found");
   }
   SmartyWrap::assign('lexems', $lexems);
 }
@@ -115,6 +116,7 @@ if ($hasRegexp) {
   SmartyWrap::assign('lexems', $lexems);
   if (!$numResults) {
     FlashMessage::add("Niciun rezultat pentru {$cuv}.");
+    header("HTTP/1.0 404 Not Found");
   }
 }
 
@@ -158,14 +160,11 @@ if ($searchType == SEARCH_INFLECTED) {
   if (count($lexems) == 0 && empty($definitions)) {
     $searchType = SEARCH_APPROXIMATE;
     $lexems = Lexem::searchApproximate($cuv, $hasDiacritics, true);
-    if(!isset($_SERVER['HTTP_REFERER']) || ( parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) !== $_SERVER['HTTP_HOST'] )) {
-      header("HTTP/1.0 404 Not Found");
-      exit;
-    }
     if (count($lexems) == 1) {
       FlashMessage::add("Ați fost redirecționat automat la forma „{$lexems[0]->formNoAccent}”.");
     } else if (!count($lexems)) {
       FlashMessage::add("Niciun rezultat relevant pentru „{$cuv}”.");
+      header("HTTP/1.0 404 Not Found");
     }
   }
   if (count($lexems) == 1 && $cuv != $lexems[0]->formNoAccent) {

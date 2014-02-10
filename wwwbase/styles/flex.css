@@ -332,6 +332,10 @@ span.spaced {
   letter-spacing: 3px;
 }
 
+form.inline {
+  display: inline;
+}
+
 div.errorType {
   background: url("../img/icons/exclamation.png") no-repeat 10px center;
   border: 2px solid #eea77e;

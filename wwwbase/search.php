@@ -338,8 +338,10 @@ if(!empty($lexems)){
   }
 
   SmartyWrap::assign('images', $images);
-  SmartyWrap::addCss('gallery');
-  SmartyWrap::addJs('gallery');
+  if (count($images)) {
+    SmartyWrap::addCss('gallery');
+    SmartyWrap::addJs('gallery');
+  }
 }
 /* Gallery */
 

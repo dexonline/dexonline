@@ -1,5 +1,5 @@
 <script type='text/javascript'><!--//<![CDATA[
-   var m3_u = (location.protocol=='https:'?'https://openx.dexonline.ro/www/delivery/ajs.php':'http://openx.dexonline.ro/www/delivery/ajs.php');
+   var m3_u = (location.protocol=='https:'?'https://openx.dexonline.ro:8080/www/delivery/ajs.php':'http://openx.dexonline.ro:8080/www/delivery/ajs.php');
    var m3_r = Math.floor(Math.random()*99999999999);
    if (!document.MAX_used) document.MAX_used = ',';
    document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);

@@ -7,6 +7,10 @@ function lexemEditInit() {
   $('#addMeaningButton').click(addMeaning);
   $('#addSubmeaningButton').click(addSubmeaning);
   $('#deleteMeaningButton').click(deleteMeaning);
+  $('#meaningUpButton').click(meaningUp);
+  $('#meaningDownButton').click(meaningDown);
+  $('#meaningLeftButton').click(meaningLeft);
+  $('#meaningRightButton').click(meaningRight);
 
   $('#editorSources').select2({
     matcher: sourceMatcher,
@@ -127,18 +131,12 @@ function addMeaning() {
 }
 
 function addSubmeaning() {
-  if (!meaningEditorUnchanged()) {
-    return false;
+  if (meaningEditorUnchanged()) {
+    var newNode = $('#stemNode li').clone(true);
+    var ul = ensureUl($('#meaningTree li.selected'));
+    newNode.appendTo(ul);
+    newNode.click();
   }
-  var newNode = $('#stemNode li').clone(true);
-  var node = $('#meaningTree li.selected');
-  var ul = node.children('ul');
-  if (!ul.length) {
-    node.append('<ul></ul>');
-    ul = node.children('ul');
-  }
-  newNode.appendTo(ul);
-  newNode.click();
 }
 
 function deleteMeaning() {
@@ -154,9 +152,50 @@ function deleteMeaning() {
     } else {
       node.remove();
     }
-    $('#addSubmeaningButton').prop('disabled', true);
-    $('#deleteMeaningButton').prop('disabled', true);
+    enableMeaningActions(false);
   }
+}
+
+// The selected node becomes his father's next sibling.
+// If the selected node is a root node, nothing happens.
+function meaningLeft() {
+  var node = $('#meaningTree li.selected');
+  var parentLi = node.parent().parent('li');
+  if (parentLi.length) {
+    node.insertAfter(parentLi);
+  }
+}
+
+// The selected node becomes the last child of its previous sibling.
+// If the selected node has no previous sibling, nothing happens.
+function meaningRight() {
+  var node = $('#meaningTree li.selected');
+  if (node.prev().length) {
+    var ul = ensureUl(node.prev());
+    node.appendTo(ul);
+  }
+}
+
+// The selected node swaps places with its previous sibling.
+// If the selected node has no previous sibling, nothing happens.
+function meaningUp() {
+  var node = $('#meaningTree li.selected');
+  node.insertBefore(node.prev());
+}
+
+// The selected node swaps places with its next sibling.
+// If the selected node has no next sibling, nothing happens.
+function meaningDown() {
+  var node = $('#meaningTree li.selected');
+  node.insertAfter(node.next());
+}
+
+/* Ensures the node has a <ul> child, creates it if it doesn't, and returns the <ul> child. */
+function ensureUl(node) {
+  if (!node.children('ul').length) {
+    node.append('<ul></ul>');
+  }
+  return node.children('ul');
 }
 
 function meaningClick(event) {
@@ -164,10 +203,14 @@ function meaningClick(event) {
   if (meaningEditorUnchanged()) {
     $('#meaningTree li.selected').removeClass('selected');
     $(this).addClass('selected');
-    $('#addSubmeaningButton').prop('disabled', false);
-    $('#deleteMeaningButton').prop('disabled', false);
+    enableMeaningActions(true);
     beginMeaningEdit();
   }
+}
+
+function enableMeaningActions(enabled) {
+  $('#addSubmeaningButton, #deleteMeaningButton, #meaningUpButton, #meaningDownButton, #meaningLeftButton, #meaningRightButton')
+    .prop('disabled', !enabled);
 }
 
 function meaningEditorUnchanged(node) {
@@ -178,7 +221,7 @@ function beginMeaningEdit() {
   struct_anyChanges = false;
   var c = $('#meaningTree li.selected > .meaningContainer');
 
-  $('#editorInternalRep, #editorInternalComment, #editMeaningAcceptButton, #editMeaningCancelButton').removeAttr('disabled');
+  $('#editorInternalRep, #editorInternalComment, #editMeaningAcceptButton, #editMeaningCancelButton').removeProp('disabled');
   $('#editorInternalRep').val(c.find('.internalRep').text());
   $('#editorInternalComment').val(c.find('.internalComment').text());
   $('#editorSources').select2('val', c.find('.sourceIds').text().split(','));
@@ -256,7 +299,7 @@ function acceptMeaningEdit() {
 
 function endMeaningEdit() {
   struct_anyChanges = false;
-  $('#editorInternalRep, #editorInternalComment, #editMeaningAcceptButton, #editMeaningCancelButton').attr('disabled', 'disabled');
+  $('#editorInternalRep, #editorInternalComment, #editMeaningAcceptButton, #editMeaningCancelButton').prop('disabled', 'disabled');
   $('#editorInternalRep').val('');
   $('#editorInternalComment').val('');
   $('#editorSources').select2('val', []);

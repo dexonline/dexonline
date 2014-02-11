@@ -86,6 +86,11 @@ body {
   border-color: #e0a19d;
 }
 
+#meaningMenu .arrowButton {
+  float: right;
+  padding: 0em 1em;
+}
+
 .meaningEditor label {
   display: inline-block;
   width: 77px;

@@ -107,15 +107,6 @@ function sourceMatcher(term, text) {
   return text.toUpperCase().indexOf(term.toUpperCase()) != -1;
 }
 
-// For some reason .tree('getChildren') fails on leaves.
-function meaningTreeGetChildren(node) {
-  if (node.children) {
-    return $('#meaningTree').tree('getChildren', node.target);
-  } else {
-    return new Array();
-  }
-}
-
 function addMeaning() {
   if (!meaningEditorUnchanged()) {
     return false;
@@ -146,12 +137,7 @@ function deleteMeaning() {
   var node = $('#meaningTree li.selected');
   var numChildren = node.children('ul').children().length;
   if (!numChildren || confirm('Confirmați ștergerea sensului și a tuturor subsensurilor?')) {
-    // When deleting the last <li> child of a <ul>, delete the <ul> too
-    if (node.parent().children().length == 1) {
-      node.parent().remove();
-    } else {
-      node.remove();
-    }
+    node.remove();
     enableMeaningActions(false);
   }
 }
@@ -317,15 +303,15 @@ function endMeaningEdit() {
 // For example, moving meanings sometimes leaves behind "ghost" copies.
 function meaningTreeWalk(node, results, level) {
   node.children('li').each(function() {
-    var data = $(this).children('div.tree-node').children('span.tree-title');
-    results.push({ 'id': data.find('span.id').text(),
+    var c = $(this).children('.meaningContainer');
+    results.push({ 'id': c.find('.id').text(),
                    'level': level,
-                   'internalRep': data.find('span.internalRep').text(),
-                   'internalComment': data.find('span.internalComment').text(),
-                   'sourceIds': data.find('span.sourceIds').text(),
-                   'meaningTagIds': data.find('span.meaningTagIds').text(),
-                   'synonymIds': data.find('span.synonymIds').text(),
-                   'antonymIds': data.find('span.antonymIds').text(),
+                   'internalRep': c.find('.internalRep').text(),
+                   'internalComment': c.find('.internalComment').text(),
+                   'sourceIds': c.find('.sourceIds').text(),
+                   'meaningTagIds': c.find('.meaningTagIds').text(),
+                   'synonymIds': c.find('.synonymIds').text(),
+                   'antonymIds': c.find('.antonymIds').text(),
                  });
     $(this).children('ul').each(function() {
       meaningTreeWalk($(this), results, level + 1);

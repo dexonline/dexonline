@@ -233,13 +233,13 @@
         <input type="button" id="deleteMeaningButton" value="șterge sens" disabled
                title="Șterge sensul selectat"/>
         <input type="button" id="meaningRightButton" class="arrowButton" value="⇨" disabled
-               title="Nodul devine fiu al fratelui său anterior.">
+               title="Sensul devine fiu al fratelui său anterior.">
         <input type="button" id="meaningLeftButton" class="arrowButton" value="⇦" disabled
-               title="Nodul devine frate următor al tatălui său.">
+               title="Sensul devine fratele următor al tatălui său.">
         <input type="button" id="meaningDownButton" class="arrowButton" value="⇩" disabled
-               title="Nodul schimbă locurile cu fratele său următor.">
+               title="Sensul schimbă locurile cu fratele său următor.">
         <input type="button" id="meaningUpButton" class="arrowButton" value="⇧" disabled
-               title="Nodul schimbă locurile cu fratele său anterior.">
+               title="Sensul schimbă locurile cu fratele său anterior.">
       {else}
         <span class="tooltip2" title="Sensurile, variantele, pronunțiile și silabisirile pot fi modificate doar cât timp structurarea este „în lucru”.">&nbsp;</span>
       {/if}

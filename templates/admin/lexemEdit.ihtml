@@ -2,21 +2,25 @@
 {assign var="serchResults" value=$searchResults|default:null}
 
 {* Stem meaning editor that we clone whenever we append a new meaning *}
-<span id="stemNode">
-  <span class="id"></span>
-  <span class="meaningTags"></span>
-  <span class="meaningTagIds"></span>
-  <span class="internalRep"></span>
-  <span class="htmlRep"></span>
-  <span class="internalComment"></span>
-  <span class="htmlComment"></span>
-  <span class="sources"></span>
-  <span class="sourceIds"></span>
-  <span class="synonyms"></span>
-  <span class="synonymIds"></span>
-  <span class="antonyms"></span>
-  <span class="antonymIds"></span>
-</span>
+<ul id="stemNode">
+  <li>
+    <div class="meaningContainer">
+      <span class="id"></span>
+      <span class="meaningTags"></span>
+      <span class="meaningTagIds"></span>
+      <span class="internalRep"></span>
+      <span class="htmlRep"></span>
+      <span class="internalComment"></span>
+      <span class="htmlComment"></span>
+      <span class="sources"></span>
+      <span class="sourceIds"></span>
+      <span class="synonyms"></span>
+      <span class="synonymIds"></span>
+      <span class="antonyms"></span>
+      <span class="antonymIds"></span>
+    </div>
+  </li>
+</ul>
       
 <form action="lexemEdit.php" method="post">
   <input type="hidden" name="lexemId" value="{$lexem->id}"/>
@@ -222,9 +226,12 @@
 
     <div id="meaningMenu">
       {if $canEdit.meanings}
-        <input type="button" id="addMeaningButton" value="adaugă sens"/>
-        <input type="button" id="addSubmeaningButton" value="adaugă subsens"/>
-        <input type="button" id="deleteMeaningButton" value="șterge sens"/>
+        <input type="button" id="addMeaningButton" value="adaugă sens"
+               title="Adaugă un sens ca frate al sensului selectat. Dacă nici un sens nu este selectat, adaugă un sens la sfârșitul listei."/>
+        <input type="button" id="addSubmeaningButton" value="adaugă subsens" disabled
+               title="Adaugă un sens ca ultimul fiu al sensului selectat"/>
+        <input type="button" id="deleteMeaningButton" value="șterge sens" disabled
+               title="Șterge sensul selectat"/>
       {else}
         <span class="tooltip2" title="Sensurile, variantele, pronunțiile și silabisirile pot fi modificate doar cât timp structurarea este „în lucru”.">&nbsp;</span>
       {/if}
@@ -236,11 +243,11 @@
       <table class="meaningEditor">
         <tr>
           <td class="leftColumn" rowspan="5">
-            <textarea id="editorInternalRep" rows="10" cols="10" disabled="disabled" placeholder="sensul definiției..."></textarea>
+            <textarea id="editorInternalRep" rows="10" cols="10" disabled placeholder="sensul definiției..."></textarea>
           </td>
   
           <td>
-            <textarea id="editorInternalComment" rows="3" cols="10" disabled="disabled" placeholder="comentariu..."></textarea>
+            <textarea id="editorInternalComment" rows="3" cols="10" disabled placeholder="comentariu..."></textarea>
           </td>
         </tr>
   
@@ -282,8 +289,8 @@
   
         <tr>
           <td colspan="2">
-            <input id="editMeaningAcceptButton" type="button" disabled="disabled" value="acceptă"/>
-            <input id="editMeaningCancelButton" type="button" disabled="disabled" value="renunță"/>
+            <input id="editMeaningAcceptButton" type="button" disabled value="acceptă"/>
+            <input id="editMeaningCancelButton" type="button" disabled value="renunță"/>
           </td>
         </tr>
       </table>

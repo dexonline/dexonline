@@ -3,7 +3,7 @@ var COOKIE_NAME = 'lexemEdit';
 $.cookie.json = true;
 
 function lexemEditInit() {
-  $('#meaningTree li').click(meaningClick);
+  $('#meaningTree li, #stemNode li').click(meaningClick);
   $('#addMeaningButton').click(addMeaning);
   $('#addSubmeaningButton').click(addSubmeaning);
   $('#deleteMeaningButton').click(deleteMeaning);
@@ -116,49 +116,46 @@ function addMeaning() {
   if (!meaningEditorUnchanged()) {
     return false;
   }
-  var node = $('#meaningTree').tree('getSelected');
-  var parent;
-  if (node) {
-    var parentNode = $('#meaningTree').tree('getParent', node.target);
-    parent = parentNode ? parentNode.target : null;
+  var newNode = $('#stemNode li').clone(true);
+  var node = $('#meaningTree li.selected');
+  if (node.length) {
+    newNode.insertAfter(node);
   } else {
-    parent = null;
+    newNode.appendTo($('#meaningTree'));
   }
-  appendAndSelectNode(parent);
+  newNode.click();
 }
 
 function addSubmeaning() {
   if (!meaningEditorUnchanged()) {
     return false;
   }
-  var node = $('#meaningTree').tree('getSelected');
-  if (node) {
-    appendAndSelectNode(node.target);
+  var newNode = $('#stemNode li').clone(true);
+  var node = $('#meaningTree li.selected');
+  var ul = node.children('ul');
+  if (!ul.length) {
+    node.append('<ul></ul>');
+    ul = node.children('ul');
   }
-}
-
-function appendAndSelectNode(target) {
-  var randomId = Math.floor(Math.random() * 1000000000) + 1;
-  $('#meaningTree').tree('append', {
-    parent: target,
-    data: [{ 'id' : randomId, 'text': $('#stemNode').html() }]
-  });
-
-  // Now find and select it
-  var node = $('#meaningTree').tree('find', randomId);
-  $('#meaningTree').tree('select', node.target);
+  newNode.appendTo(ul);
+  newNode.click();
 }
 
 function deleteMeaning() {
   if (!meaningEditorUnchanged()) {
     return false;
   }
-  var node = $('#meaningTree').tree('getSelected');
-  if (node) {
-    var numChildren = meaningTreeGetChildren(node).length;
-    if (!numChildren || confirm('Confirmați ștergerea sensului și a tuturor subsensurilor?')) {
-      $('#meaningTree').tree('remove', node.target);
+  var node = $('#meaningTree li.selected');
+  var numChildren = node.children('ul').children().length;
+  if (!numChildren || confirm('Confirmați ștergerea sensului și a tuturor subsensurilor?')) {
+    // When deleting the last <li> child of a <ul>, delete the <ul> too
+    if (node.parent().children().length == 1) {
+      node.parent().remove();
+    } else {
+      node.remove();
     }
+    $('#addSubmeaningButton').prop('disabled', true);
+    $('#deleteMeaningButton').prop('disabled', true);
   }
 }
 
@@ -167,6 +164,8 @@ function meaningClick(event) {
   if (meaningEditorUnchanged()) {
     $('#meaningTree li.selected').removeClass('selected');
     $(this).addClass('selected');
+    $('#addSubmeaningButton').prop('disabled', false);
+    $('#deleteMeaningButton').prop('disabled', false);
     beginMeaningEdit();
   }
 }

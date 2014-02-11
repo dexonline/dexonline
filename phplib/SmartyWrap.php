@@ -145,32 +145,28 @@ class SmartyWrap {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
       switch($id) {
-      case 'jqueryui':           self::$cssFiles[1] = 'lightness-1.10.3/jquery-ui-1.10.3.custom.min.css'; break;
-      case 'jqgrid':             self::$cssFiles[2] = 'ui.jqgrid.css?v=3'; break;
-      case 'tablesorter':        self::$cssFiles[3] = 'tablesorter/theme.blue.css'; break;
-      case 'elfinder':           self::$cssFiles[4] = 'elfinder/css/elfinder.min.css?v=2'; break;
-      case 'windowEngine':       self::$cssFiles[5] = 'jquery-wm/main.css'; break;
-      case 'zepu':               self::$cssFiles[6] = 'zepu.css?v=57'; break;
-      case 'polar':              self::$cssFiles[7] = 'polar.css?v=31'; break;
-      case 'mobile':             self::$cssFiles[8] = 'mobile.css?v=15'; break;
-      case 'flex':               self::$cssFiles[9] = 'flex.css?v=12'; break;
-      case 'paradigm':           self::$cssFiles[10] = 'paradigm.css?v=1'; break;
-      case 'hangman':            self::$cssFiles[11] = 'hangman.css?v=3'; break;
-      case 'mill':               self::$cssFiles[12] = 'mill.css?v=2'; break;
-      case 'lexemEdit':          self::$cssFiles[13] = 'lexemEdit.css?v=6'; break;
-      case 'jcrop':              self::$cssFiles[14] = 'jcrop/jquery.Jcrop.min.css?v=3'; break;
-      case 'easyui':
-        self::$cssFiles[15] = 'easyui-1.3.5/default/easyui.css?v=1';
-        self::$cssFiles[16] = 'easyui-1.3.5/icon.css?v=1';
-        break;
-      case 'select2':            self::$cssFiles[17] = 'select2/select2.css?v=3'; break;
-      case 'gallery':            
-        self::$cssFiles[18] = 'colorbox/colorbox.css?v=1'; 
-        self::$cssFiles[19] = 'visualDict.css';
-        break;
-      default:
-        FlashMessage::add("Cannot load CSS file {$id}");
-        util_redirect(util_getWwwRoot());
+        case 'jqueryui':           self::$cssFiles[1] = 'lightness-1.10.3/jquery-ui-1.10.3.custom.min.css'; break;
+        case 'jqgrid':             self::$cssFiles[2] = 'ui.jqgrid.css?v=3'; break;
+        case 'tablesorter':        self::$cssFiles[3] = 'tablesorter/theme.blue.css'; break;
+        case 'elfinder':           self::$cssFiles[4] = 'elfinder/css/elfinder.min.css?v=2'; break;
+        case 'windowEngine':       self::$cssFiles[5] = 'jquery-wm/main.css'; break;
+        case 'zepu':               self::$cssFiles[6] = 'zepu.css?v=57'; break;
+        case 'polar':              self::$cssFiles[7] = 'polar.css?v=31'; break;
+        case 'mobile':             self::$cssFiles[8] = 'mobile.css?v=15'; break;
+        case 'flex':               self::$cssFiles[9] = 'flex.css?v=12'; break;
+        case 'paradigm':           self::$cssFiles[10] = 'paradigm.css?v=1'; break;
+        case 'hangman':            self::$cssFiles[11] = 'hangman.css?v=3'; break;
+        case 'mill':               self::$cssFiles[12] = 'mill.css?v=2'; break;
+        case 'lexemEdit':          self::$cssFiles[13] = 'lexemEdit.css?v=6'; break;
+        case 'jcrop':              self::$cssFiles[14] = 'jcrop/jquery.Jcrop.min.css?v=3'; break;
+        case 'select2':            self::$cssFiles[15] = 'select2/select2.css?v=3'; break;
+        case 'gallery':            
+          self::$cssFiles[16] = 'colorbox/colorbox.css?v=1'; 
+          self::$cssFiles[17] = 'visualDict.css';
+          break;
+        default:
+          FlashMessage::add("Cannot load CSS file {$id}");
+          util_redirect(util_getWwwRoot());
       }
     }
   }
@@ -179,43 +175,42 @@ class SmartyWrap {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
       switch($id) {
-      case 'jquery':           self::$jsFiles[1] = 'jquery-1.10.2.min.js'; break; 
-      case 'jqueryui':         self::$jsFiles[2] = 'jquery-ui-1.10.3.custom.min.js'; break;
-      case 'jqgrid':
-        self::$jsFiles[3] = 'grid.locale-en.js?v=2';
-        self::$jsFiles[4] = 'jquery.jqGrid.min.js?v=3';
-        break;
-      case 'jqnotice':         self::$jsFiles[5] = 'jquery.notice.js'; break;
-      case 'jqTableDnd':       self::$jsFiles[6] = 'jquery.tablednd.0.7.min.js?v=1'; break;
-      case 'tablesorter':
-        self::$jsFiles[7] = 'jquery.tablesorter.min.js?v=4';
-        self::$jsFiles[8] = 'tablesorter.dev.js?v=3';
-        break;
-      case 'pager':            self::$jsFiles[9] = 'jquery.tablesorter.pager.js'; break;
-      case 'elfinder':         self::$jsFiles[10] = 'elfinder.min.js?v=1'; break; 
-      case 'windowEngine':     self::$jsFiles[11] = 'jquery-wm.js'; break;
-      case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js?v=1'; break;
-      case 'dex':              self::$jsFiles[13] = 'dex.js?v=27'; break;
-      case 'flex':             self::$jsFiles[14] = 'flex.js?v=2'; break;
-      case 'mobile':           self::$jsFiles[15] = 'mobile.js?v=2'; break;
-      case 'hangman':          self::$jsFiles[16] = 'hangman.js?v=5'; break;
-      case 'mill':             self::$jsFiles[17] = 'mill.js?v=3'; break;
-      case 'wotd':             self::$jsFiles[18] = 'wotd.js?v=1';
-      case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=10'; break;
-      case 'jcrop':            self::$jsFiles[20] = 'jquery.Jcrop.min.js?v=2'; break;
-      case 'easyui':           self::$jsFiles[21] = 'easyui-1.3.5/easyloader.js?v=1'; break;
-      case 'select2':          self::$jsFiles[22] = 'select2.min.js?v=3'; break;
-      case 'select2Dev':       self::$jsFiles[23] = 'select2Dev.js?v=3'; break;
-      case 'visualTag':        self::$jsFiles[24] = 'visualTag.js'; break;
-      case 'gallery':          
-        self::$jsFiles[25] = 'colorbox/jquery.colorbox-min.js';
-        self::$jsFiles[26] = 'colorbox/jquery.colorbox-ro.js';
-        self::$jsFiles[27] = 'dexGallery.js?v=2';
-        self::$jsFiles[28] = 'jcanvas.min.js';
-        break;
-      default:
-        FlashMessage::add("Cannot load JS script {$id}");
-        util_redirect(util_getWwwRoot());
+        case 'jquery':           self::$jsFiles[1] = 'jquery-1.10.2.min.js'; break; 
+        case 'jqueryui':         self::$jsFiles[2] = 'jquery-ui-1.10.3.custom.min.js'; break;
+        case 'jqgrid':
+          self::$jsFiles[3] = 'grid.locale-en.js?v=2';
+          self::$jsFiles[4] = 'jquery.jqGrid.min.js?v=3';
+          break;
+        case 'jqnotice':         self::$jsFiles[5] = 'jquery.notice.js'; break;
+        case 'jqTableDnd':       self::$jsFiles[6] = 'jquery.tablednd.0.7.min.js?v=1'; break;
+        case 'tablesorter':
+          self::$jsFiles[7] = 'jquery.tablesorter.min.js?v=4';
+          self::$jsFiles[8] = 'tablesorter.dev.js?v=3';
+          break;
+        case 'pager':            self::$jsFiles[9] = 'jquery.tablesorter.pager.js'; break;
+        case 'elfinder':         self::$jsFiles[10] = 'elfinder.min.js?v=1'; break; 
+        case 'windowEngine':     self::$jsFiles[11] = 'jquery-wm.js'; break;
+        case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js?v=1'; break;
+        case 'dex':              self::$jsFiles[13] = 'dex.js?v=27'; break;
+        case 'flex':             self::$jsFiles[14] = 'flex.js?v=2'; break;
+        case 'mobile':           self::$jsFiles[15] = 'mobile.js?v=2'; break;
+        case 'hangman':          self::$jsFiles[16] = 'hangman.js?v=5'; break;
+        case 'mill':             self::$jsFiles[17] = 'mill.js?v=3'; break;
+        case 'wotd':             self::$jsFiles[18] = 'wotd.js?v=1';
+        case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=10'; break;
+        case 'jcrop':            self::$jsFiles[20] = 'jquery.Jcrop.min.js?v=2'; break;
+        case 'select2':          self::$jsFiles[21] = 'select2.min.js?v=3'; break;
+        case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=3'; break;
+        case 'visualTag':        self::$jsFiles[23] = 'visualTag.js'; break;
+        case 'gallery':          
+          self::$jsFiles[24] = 'colorbox/jquery.colorbox-min.js';
+          self::$jsFiles[25] = 'colorbox/jquery.colorbox-ro.js';
+          self::$jsFiles[26] = 'dexGallery.js?v=2';
+          self::$jsFiles[27] = 'jcanvas.min.js';
+          break;
+        default:
+          FlashMessage::add("Cannot load JS script {$id}");
+          util_redirect(util_getWwwRoot());
       }
     }
   }

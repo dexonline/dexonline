@@ -134,11 +134,9 @@ function ignoreFile($fileName) {
           StringUtil::startsWith($fileName, 'wwwbase/elfinder-connector/MySQL') ||
           StringUtil::startsWith($fileName, 'wwwbase/img/') ||
           StringUtil::startsWith($fileName, 'wwwbase/js/jq') ||
-          StringUtil::startsWith($fileName, 'wwwbase/js/easyui') ||
           StringUtil::startsWith($fileName, 'wwwbase/js/elfinder') ||
           StringUtil::startsWith($fileName, 'wwwbase/js/select2.min.js') ||
           StringUtil::startsWith($fileName, 'wwwbase/stat/') ||
-          StringUtil::startsWith($fileName, 'wwwbase/styles/easyui') ||
           StringUtil::startsWith($fileName, 'wwwbase/styles/elfinder') ||
           StringUtil::startsWith($fileName, 'wwwbase/styles/jq') ||
           StringUtil::startsWith($fileName, 'wwwbase/styles/lightness') ||

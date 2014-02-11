@@ -15,7 +15,31 @@ body {
 }
 
 #meaningTree {
-  padding-right: 100px;
+  margin-bottom: 10px;
+  margin-top: 0px;
+  padding-left: 0px;
+}
+
+#meaningTree ul {
+  padding-left: 10px;
+}
+
+#meaningTree li {
+  background: url("../img/icons/page_white_text.png") 0px 3px no-repeat;
+  list-style: none;
+  padding-left: 16px;
+}
+
+#meaningTree .meaningContainer {
+  padding: 2px 5px;
+}
+
+#meaningTree li.selected > .meaningContainer {
+  background: #90c9e8;
+}
+
+#meaningTree li.selected ul {
+  background: #e3f2fa;
 }
 
 #meaningTree .id, #meaningTree .internalRep, #meaningTree .internalComment, #meaningTree .sourceIds,
@@ -26,6 +50,10 @@ body {
 #meaningTree .htmlRep {
   font-size: 14px;
   margin-right: 10px;
+}
+
+#meaningTree .htmlComment {
+  font-size: 11px;
 }
 
 #meaningTree .tag {
@@ -56,16 +84,6 @@ body {
 #meaningTree .antonyms span {
   background: #f7dcda;
   border-color: #e0a19d;
-}
-
-#meaningTree .tree-node {
-  height: auto;
-}
-
-#meaningTree .tree-title {
-  display: inline-block;
-  height: auto;
-  white-space: normal;
 }
 
 .meaningEditor label {

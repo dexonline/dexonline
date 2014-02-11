@@ -2,56 +2,56 @@
 {if $meanings || $id}
   <ul {if $id}id="{$id}"{/if}>
     {foreach from=$meanings item=t}
-      <li>
-        <span>
+      <li>{strip}
+        <div class="meaningContainer">
           <span class="id">{$t.meaning->id}</span>
-          <span class="meaningTags">{strip}
+          <span class="meaningTags">
             {foreach from=$t.tags item=tag}
               <span class="tag">{$tag->value}</span>
             {/foreach}
-          {/strip}</span>
-          <span class="meaningTagIds">{strip}
+          </span>
+          <span class="meaningTagIds">
             {foreach from=$t.tags item=tag name=tagLoop}
               {$tag->id}{if !$smarty.foreach.tagLoop.last},{/if}
             {/foreach}
-          {/strip}</span>
+          </span>
           <span class="internalRep">{$t.meaning->internalRep}</span>
           <span class="htmlRep">{$t.meaning->htmlRep}</span>
           <span class="internalComment">{$t.meaning->internalComment}</span>
           <span class="htmlComment">{$t.meaning->htmlComment}</span>
-          <span class="sources">{strip}
+          <span class="sources">
             {foreach from=$t.sources item=s}
               <span class="tag">{$s->shortName}</span>
             {/foreach}
-          {/strip}</span>
-          <span class="sourceIds">{strip}
+          </span>
+          <span class="sourceIds">
             {foreach from=$t.sources item=s name=sourceLoop}
               {$s->id}{if !$smarty.foreach.sourceLoop.last},{/if}
             {/foreach}
-          {/strip}</span>
-          <span class="synonyms">{strip}
+          </span>
+          <span class="synonyms">
             {foreach from=$t.synonyms item=s}
               <span class="tag">{include file="common/bits/lexemName.ihtml lexem=$s}</span>
             {/foreach}
-          {/strip}</span>
-          <span class="synonymIds">{strip}
+          </span>
+          <span class="synonymIds">
             {foreach from=$t.synonyms item=s name=synonymLoop}
               {$s->id}{if !$smarty.foreach.synonymLoop.last},{/if}
             {/foreach}
-          {/strip}</span>
-          <span class="antonyms">{strip}
+          </span>
+          <span class="antonyms">
             {foreach from=$t.antonyms item=s}
               <span class="tag">{include file="common/bits/lexemName.ihtml lexem=$s}</span>
             {/foreach}
-          {/strip}</span>
-          <span class="antonymIds">{strip}
+          </span>
+          <span class="antonymIds">
             {foreach from=$t.antonyms item=s name=antonymLoop}
               {$s->id}{if !$smarty.foreach.antonymLoop.last},{/if}
             {/foreach}
-          {/strip}</span>
-        </span>
+          </span>
+        </div>
         {include file="common/bits/meaningTree.ihtml" meanings=$t.children id=""}
-      </li>
+      {/strip}</li>
     {/foreach}
   </ul>
 {/if}

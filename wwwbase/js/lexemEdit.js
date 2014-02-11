@@ -11,6 +11,7 @@ function lexemEditInit() {
   $('#meaningDownButton').click(meaningDown);
   $('#meaningLeftButton').click(meaningLeft);
   $('#meaningRightButton').click(meaningRight);
+  meaningTreeRenumber();
 
   $('#editorSources').select2({
     matcher: sourceMatcher,
@@ -119,15 +120,18 @@ function addMeaning() {
     newNode.appendTo($('#meaningTree'));
   }
   newNode.click();
+  meaningTreeRenumber();
 }
 
 function addSubmeaning() {
-  if (meaningEditorUnchanged()) {
-    var newNode = $('#stemNode li').clone(true);
-    var ul = ensureUl($('#meaningTree li.selected'));
-    newNode.appendTo(ul);
-    newNode.click();
+  if (!meaningEditorUnchanged()) {
+    return false;
   }
+  var newNode = $('#stemNode li').clone(true);
+  var ul = ensureUl($('#meaningTree li.selected'));
+  newNode.appendTo(ul);
+  newNode.click();
+  meaningTreeRenumber();
 }
 
 function deleteMeaning() {
@@ -139,6 +143,7 @@ function deleteMeaning() {
   if (!numChildren || confirm('Confirmați ștergerea sensului și a tuturor subsensurilor?')) {
     node.remove();
     enableMeaningActions(false);
+    meaningTreeRenumber();
   }
 }
 
@@ -149,6 +154,7 @@ function meaningLeft() {
   var parentLi = node.parent().parent('li');
   if (parentLi.length) {
     node.insertAfter(parentLi);
+    meaningTreeRenumber();
   }
 }
 
@@ -159,6 +165,7 @@ function meaningRight() {
   if (node.prev().length) {
     var ul = ensureUl(node.prev());
     node.appendTo(ul);
+    meaningTreeRenumber();
   }
 }
 
@@ -167,6 +174,7 @@ function meaningRight() {
 function meaningUp() {
   var node = $('#meaningTree li.selected');
   node.insertBefore(node.prev());
+  meaningTreeRenumber();
 }
 
 // The selected node swaps places with its next sibling.
@@ -174,6 +182,7 @@ function meaningUp() {
 function meaningDown() {
   var node = $('#meaningTree li.selected');
   node.insertAfter(node.next());
+  meaningTreeRenumber();
 }
 
 /* Ensures the node has a <ul> child, creates it if it doesn't, and returns the <ul> child. */
@@ -201,6 +210,21 @@ function enableMeaningActions(enabled) {
 
 function meaningEditorUnchanged(node) {
   return !struct_anyChanges || confirm('Aveți deja un sens în curs de modificare. Confirmați renunțarea la modificări?');
+}
+
+function meaningTreeRenumberHelper(node, prefix) {
+  node.children('li').each(function(i) {
+    var c = $(this).children('.meaningContainer');
+    var s = prefix + (i + 1) + '.';
+    c.find('.number').text(s);
+    $(this).children('ul').each(function() {
+      meaningTreeRenumberHelper($(this), s);
+    });
+  });
+}
+
+function meaningTreeRenumber() {
+  meaningTreeRenumberHelper($('#meaningTree'), '');
 }
 
 function beginMeaningEdit() {

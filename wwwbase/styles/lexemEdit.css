@@ -47,6 +47,11 @@ body {
   display: none;
 }
 
+#meaningTree .number {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
 #meaningTree .htmlRep {
   font-size: 14px;
   margin-right: 10px;

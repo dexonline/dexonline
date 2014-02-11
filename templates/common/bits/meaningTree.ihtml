@@ -5,6 +5,7 @@
       <li>{strip}
         <div class="meaningContainer">
           <span class="id">{$t.meaning->id}</span>
+          <span class="number"></span>
           <span class="meaningTags">
             {foreach from=$t.tags item=tag}
               <span class="tag">{$tag->value}</span>

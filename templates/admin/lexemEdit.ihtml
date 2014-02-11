@@ -6,6 +6,7 @@
   <li>
     <div class="meaningContainer">
       <span class="id"></span>
+      <span class="number"></span>
       <span class="meaningTags"></span>
       <span class="meaningTagIds"></span>
       <span class="internalRep"></span>

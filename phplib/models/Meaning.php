@@ -85,7 +85,7 @@ class Meaning extends BaseObject implements DatedObject {
     return $results;
   }
 
-  /* Save a tree produced by the tree editor in dexEdit.php */
+  /* Save a tree produced by the tree editor in admin/lexemEdit.php */
   static function saveTree($meanings, $lexem) {
     $seenMeaningIds = array();
 
@@ -96,6 +96,7 @@ class Meaning extends BaseObject implements DatedObject {
       $m = $tuple->id ? self::get_by_id($tuple->id) : Model::factory('Meaning')->create();
       $m->parentId = $tuple->level ? $meaningStack[$tuple->level - 1] : 0;
       $m->displayOrder = $displayOrder++;
+      $m->breadcrumb = $tuple->breadcrumb;
       $m->userId = session_getUserId();
       $m->lexemId = $lexem->id;
       $m->internalRep = $tuple->internalRep;

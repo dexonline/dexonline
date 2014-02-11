@@ -47,9 +47,13 @@ body {
   display: none;
 }
 
-#meaningTree .number {
+#meaningTree .breadcrumb {
   font-weight: bold;
   margin-right: 5px;
+}
+
+#meaningTree .breadcrumb:after {
+  content: ".";
 }
 
 #meaningTree .htmlRep {

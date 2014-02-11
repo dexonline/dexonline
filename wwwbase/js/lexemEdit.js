@@ -215,8 +215,8 @@ function meaningEditorUnchanged(node) {
 function meaningTreeRenumberHelper(node, prefix) {
   node.children('li').each(function(i) {
     var c = $(this).children('.meaningContainer');
-    var s = prefix + (i + 1) + '.';
-    c.find('.number').text(s);
+    var s = prefix + (prefix ? '.' : '') + (i + 1);
+    c.find('.breadcrumb').text(s);
     $(this).children('ul').each(function() {
       meaningTreeRenumberHelper($(this), s);
     });
@@ -330,6 +330,7 @@ function meaningTreeWalk(node, results, level) {
     var c = $(this).children('.meaningContainer');
     results.push({ 'id': c.find('.id').text(),
                    'level': level,
+                   'breadcrumb': c.find('.breadcrumb').text(),
                    'internalRep': c.find('.internalRep').text(),
                    'internalComment': c.find('.internalComment').text(),
                    'sourceIds': c.find('.sourceIds').text(),

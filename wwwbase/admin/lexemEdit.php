@@ -78,8 +78,8 @@ if ($refreshLexem || $saveLexem) {
     // Case 2: Validation failed
   }
   // Case 1-2: Page was submitted
-    SmartyWrap::assign('variantIds', $variantIds);
-    SmartyWrap::assign('meanings', Meaning::convertTree($meanings));
+  SmartyWrap::assign('variantIds', $variantIds);
+  SmartyWrap::assign('meanings', Meaning::convertTree($meanings));
 } else {
   // Case 3: First time loading this page
   $ifs = $lexem->generateParadigm();
@@ -317,12 +317,18 @@ function handleLexemActions() {
       LexemDefinitionMap::associate($other->id, $def->id);
     }
 
-    // Add meanings from $lexem to $other and renumber their displayOrder
+    // Add meanings from $lexem to $other and renumber their displayOrder and breadcrumb
+    // displayOrders are generated sequentially regardless of level.
+    // Breadcrumbs follow levels so only their first part changes.
     $counter = Model::factory('Meaning')->where('lexemId', $other->id)->count();
+    $numRoots = Model::factory('Meaning')->where('lexemId', $other->id)->where('parentId', 0)->count();
     $meanings = Model::factory('Meaning')->where('lexemId', $lexem->id)->order_by_asc('displayOrder')->find_many();
     foreach ($meanings as $m) {
       $m->lexemId = $other->id;
       $m->displayOrder = ++$counter;
+      $parts = explode('.', $m->breadcrumb, 2);
+      $parts[0] += $numRoots;
+      $m->breadcrumb = implode('.', $parts);
       $m->save();
     }
 

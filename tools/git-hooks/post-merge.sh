@@ -15,6 +15,7 @@ messages=()
 check_run dex.conf.sample "Please reconcile your dex.conf with dex.conf.sample"
 check_run wwwbase/.htaccess.sample "Please reconcile your wwwbase/.htaccess with wwwbase/.htaccess.sample"
 check_run tools/setup.sh "Please rerun tools/setup.sh on your client"
+check_run patches/ 'The database schema has changed. Please run "php tools/migration.php"'
 
 if [ ${#messages[@]} -gt 0 ]; then
   echo "**********************************************************************"

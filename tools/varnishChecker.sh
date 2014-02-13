@@ -7,15 +7,19 @@
 
 check_file=/tmp/varnishChecker.tmp
 
-if [ -f "$check_file" ]
+pid=$(ps -ewwo args | grep [v]arnishd)
+if [ -z "$pid" ]
 then
-    echo "Încerc să repornesc Varnish."
-    service varnish start && rm -f "$check_file"
-else
-    pid=$(ps -ewwo args | grep [v]arnishd)
-    if [ -z "$pid" ]
+    # Varnish is dead
+    if [ -f "$check_file" ]
     then
+        echo "Încerc să repornesc Varnish."
+        service varnish start && rm -f "$check_file"
+    else
         echo "Varnish este mort! Creez fișierul."
         touch "$check_file"
     fi
+else
+    # Varnish is alive
+    rm -f "$check_file"
 fi

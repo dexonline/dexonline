@@ -13,3 +13,6 @@ Disallow: /download/dex-database.sql.gz
 Disallow: /scrabble-forme
 Disallow: /desktop
 Disallow: /mobil
+# Do not crawl queries with square brackets. There are about 30.000 of these per day from GoogleBot.
+Disallow: /definitie/*%5B*
+Disallow: /definitie/*[*

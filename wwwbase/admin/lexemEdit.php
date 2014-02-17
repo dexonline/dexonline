@@ -7,6 +7,7 @@ handleLexemActions();
 
 $lexemId = util_getRequestParameter('lexemId');
 $lexemForm = util_getRequestParameter('lexemForm');
+$lexemNumber = util_getRequestParameter('lexemNumber');
 $lexemDescription = util_getRequestParameter('lexemDescription');
 $lexemSourceIds = util_getRequestParameter('lexemSourceIds');
 $lexemTags = util_getRequestParameter('lexemTags');
@@ -33,6 +34,7 @@ if ($refreshLexem || $saveLexem) {
   // Populate lexem fields from request parameters.
   $lexem->form = AdminStringUtil::formatLexem($lexemForm);
   $lexem->formNoAccent = str_replace("'", '', $lexem->form);
+  $lexem->number = $lexemNumber;
   $lexem->description = AdminStringUtil::internalize($lexemDescription, false);
   $lexem->tags = AdminStringUtil::internalize($lexemTags, false);
   $lexem->comment = trim(AdminStringUtil::internalize($lexemComment, false));

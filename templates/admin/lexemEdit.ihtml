@@ -44,6 +44,16 @@
           ce un lexem a fost inclus în LOC, numele și descrierea lexemului mai pot fi modificate numai de către moderatorii LOC.">&nbsp;</span>
         </td>
       </tr>
+
+      <tr>
+        <td><label for="lexemNumber">număr:</label></td>
+        <td>
+          <input type="number" id="lexemNumber" name="lexemNumber" value="{$lexem->number}"
+                 min="1" max="99" maxlength="2" size="2" {if !$canEdit.general}readonly{/if}/>
+  
+          <span class="tooltip2" title="Opțional, pentru numerotarea omonimelor.">&nbsp;</span>
+        </td>
+      </tr>
   
       <tr>
         <td><label for="lexemDescription">descriere:</label></td>

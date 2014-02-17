@@ -449,10 +449,13 @@ class Lexem extends BaseObject implements DatedObject {
     $this->reverse = StringUtil::reverse($this->formNoAccent);
     $this->charLength = mb_strlen($this->formNoAccent);
     $this->consistentAccent = (strpos($this->form, "'") !== false) ^ $this->noAccent;
-    // It is important for empty comments to be null, not "".
+    // It is important for empty fields to be null, not "".
     // This allows the admin report for lexems *with* comments to run faster.
     if ($this->comment == '') {
       $this->comment = null;
+    }
+    if (!$this->number) {
+      $this->number = null;
     }
     parent::save();
   }  

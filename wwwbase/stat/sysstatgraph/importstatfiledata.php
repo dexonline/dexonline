@@ -26,9 +26,9 @@ class importstatfiledata {
 	private $datalinepartslookuplist = array(
 		self::filesection_taskspersecond => 3,
 		self::filesection_cpuutilisation => 11,
-		self::filesection_memoryusage => 8,
+		self::filesection_memoryusage => 10,
 		self::filesection_swapusage => 6,
-		self::filesection_load => 6,
+		self::filesection_load => 7,
 		self::filesection_network => 9
 	);
 

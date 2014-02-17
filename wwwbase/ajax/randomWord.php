@@ -1,9 +1,10 @@
 <?php
 require_once("../../phplib/util.php");
 
+// The seq field is guaranteed to be incremental from 1 to <number of rows>
 $count = Model::factory('RandomWord')->count();
-$choice = rand(0, $count - 1);
-$rw = Model::factory('RandomWord')->limit(1)->offset($choice)->find_one();
+$choice = rand(1, $count);
+$rw = RandomWord::get_by_seq($choice);
 echo $rw->cuv;
 
 ?>

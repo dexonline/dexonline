@@ -8,7 +8,7 @@ define('MAX_RESULTS', 10);
 
 $WOTD_IMAGE_DIR = realpath(__DIR__ . '/../img/wotd/');
 $EXTENSIONS = array('jpg', 'jpeg', 'png', 'gif');
-$IGNORED_DIRS = array('.', '..', '.svn', '.tmb', 'thumb');
+$IGNORED_DIRS = array('.', '..', '.tmb', 'thumb');
 
 $query = util_getRequestParameter('term');
 

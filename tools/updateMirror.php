@@ -34,7 +34,7 @@ if ($doDatabaseCopy) {
 }
 
 if ($doCodeUpdate) {
-  OS::executeAndAssert('cd ' . util_getRootPath() . '; /usr/bin/svn up');  
+  OS::executeAndAssert('cd ' . util_getRootPath() . '; /usr/bin/git pull --quiet');  
 }
 
 log_scriptLog('updateMirror.php completed successfully (against all odds)');

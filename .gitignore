@@ -6,8 +6,10 @@ wwwbase/.htaccess
 wwwbase/download/dex-database.sql.gz
 wwwbase/download/dex-ff.xpi
 wwwbase/download/forme-*.zip
+wwwbase/download/mirrorAccess/dex-database.sql.gz
 wwwbase/sitemap.xml
 wwwbase/sitemap*.xml.gz
+wwwbase/stat/sysstatgraph/data.json
 
 # Other
 log/

@@ -1,10 +1,10 @@
 {assign var="hasUnrecommendedForms" value=$hasUnrecommendedForms|default:false}
-{assign var="ifMaps" value=$ifMaps|default:null}
 {assign var="version" value=$version|default:"current"}
 {if $lexems}
-  {foreach from=$lexems item=lexem key=i}
+  {foreach from=$lexems item=lexem}
     {assign var=modelType value=$lexem->getModelType()}
-    {include file="common/paradigm/$version/paradigm.ihtml" lexem=$lexem ifMap=$ifMaps[$i] modelType=$modelType}
+    {assign var=ifMap value=$lexem->getInflectedFormsMappedByRank()}
+    {include file="common/paradigm/$version/paradigm.ihtml" lexem=$lexem ifMap=$ifMap modelType=$modelType}
     {if $sUser && ($sUser->moderator & ($smarty.const.PRIV_LOC | $smarty.const.PRIV_STRUCT))}
       <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexem->id}">editează lexemul</a>
       {if $sUser->moderator & $smarty.const.PRIV_LOC}

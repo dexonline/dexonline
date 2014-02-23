@@ -23,21 +23,6 @@ class InflectedForm extends BaseObject {
     return self::mapByInflectionId(self::loadByLexemId($lexemId));
   }
 
-  public static function loadByLexemIdMapByInflectionRank($lexemId) {
-    $result = array();
-    // These inflected forms have an extra field (rank) from the join
-    $ifs = Model::factory('InflectedForm')->select('InflectedForm.*')->select('rank')->join('Inflection', 'inflectionId = Inflection.id')
-      ->where('lexemId', $lexemId)->order_by_asc('rank')->order_by_asc('variant')->find_many();
-    foreach ($ifs as $if) {
-      $rank = $if->rank;
-      if (!array_key_exists($rank, $result)) {
-        $result[$rank] = array();
-      }
-      $result[$rank][] = $if;
-    }
-    return $result;
-  }
-
   public static function mapByInflectionRank($ifs) {
     $result = array();
     foreach ($ifs as $if) {

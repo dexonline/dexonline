@@ -54,33 +54,18 @@ if ($searchType == SEARCH_INFLECTED) {
 // Also compute the text of the link to the paradigm div,
 // which can be 'conjugări', 'declinări' or both
 if (!empty($lexems)) {
-  $ifMaps = array();
   $conjugations = false;
   $declensions = false;
   $filtered_lexems = array();
   foreach ($lexems as $l) {
-    if (TYPE_SHOW_ONLY_VERBS == $type) {
-      if ($l->modelType == 'V' || $l->modelType == 'VT') {
-        $filtered_lexems[] = $l;
-        $conjugations = true;
-        $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
-      }
-    }
-    elseif (TYPE_SHOW_NO_VERBS == $type) {
-      if ($l->modelType != 'V' && $l->modelType != 'VT') {
-        $filtered_lexems[] = $l;
-        $declensions = true;
-        $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
-      }
-    }
-    else {
+    $isVerb = ($l->modelType == 'V') || ($l->modelType == 'VT');
+    if (((TYPE_SHOW_ONLY_VERBS == $type) && $isVerb) ||
+        ((TYPE_SHOW_NO_VERBS == $type) && !$isVerb) ||
+        !$type) {
+
       $filtered_lexems[] = $l;
-      $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
-      if ($l->modelType == 'V' || $l->modelType == 'VT') {
-        $conjugations = true;
-      } else {
-        $declensions = true;
-      }
+      $conjugations |= $isVerb;
+      $declensions |= !$isVerb;
     }
   }
 
@@ -97,15 +82,17 @@ if (!empty($lexems)) {
     SmartyWrap::assign('declensionText', "{$declensionText}: {$cuv}");
   }
 
+  // Exercise the fields we'll need later so that the view doesn't need to do it.
   foreach ($filtered_lexems as $l) {
     $l->getModelType();
     $l->getSourceNames();
+    $l->getInflectedFormsMappedByRank();
   }
 
   // This paragraph replicates code from search.php
   $hasUnrecommendedForms = false;
-  foreach ($ifMaps as $ifMap) {
-    foreach ($ifMap as $rank => $ifs) {
+  foreach ($filtered_lexems as $l) {
+    foreach ($l->getInflectedFormsMappedByRank() as $ifs) {
       foreach ($ifs as $if) {
         $hasUnrecommendedForms |= !$if->recommended;
       }
@@ -114,7 +101,6 @@ if (!empty($lexems)) {
   SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
 
   SmartyWrap::assign('lexems', $filtered_lexems);
-  SmartyWrap::assign('ifMaps', $ifMaps);
   SmartyWrap::assign('showParadigm', true);
   SmartyWrap::assign('onlyParadigm', !$ajax);
 }

@@ -55,7 +55,6 @@ if ($searchType == SEARCH_INFLECTED) {
 // which can be 'conjugări', 'declinări' or both
 if (!empty($lexems)) {
   $ifMaps = array();
-  $modelTypes = array();
   $conjugations = false;
   $declensions = false;
   $filtered_lexems = array();
@@ -65,7 +64,6 @@ if (!empty($lexems)) {
         $filtered_lexems[] = $l;
         $conjugations = true;
         $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
-        $modelTypes[] = ModelType::get_by_code($l->modelType);
       }
     }
     elseif (TYPE_SHOW_NO_VERBS == $type) {
@@ -73,13 +71,11 @@ if (!empty($lexems)) {
         $filtered_lexems[] = $l;
         $declensions = true;
         $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
-        $modelTypes[] = ModelType::get_by_code($l->modelType);
       }
     }
     else {
       $filtered_lexems[] = $l;
       $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
-      $modelTypes[] = ModelType::get_by_code($l->modelType);
       if ($l->modelType == 'V' || $l->modelType == 'VT') {
         $conjugations = true;
       } else {
@@ -101,9 +97,9 @@ if (!empty($lexems)) {
     SmartyWrap::assign('declensionText', "{$declensionText}: {$cuv}");
   }
 
-  $sourceNamesArr = array();
-  foreach ($lexems as $l) {
-    $sourceNamesArr[] = LexemSource::getSourceNamesForLexem($l);
+  foreach ($filtered_lexems as $l) {
+    $l->getModelType();
+    $l->getSourceNames();
   }
 
   // This paragraph replicates code from search.php
@@ -117,10 +113,8 @@ if (!empty($lexems)) {
   }
   SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
 
-  SmartyWrap::assign('sourceNamesArr', $sourceNamesArr);
   SmartyWrap::assign('lexems', $filtered_lexems);
   SmartyWrap::assign('ifMaps', $ifMaps);
-  SmartyWrap::assign('modelTypes', $modelTypes);
   SmartyWrap::assign('showParadigm', true);
   SmartyWrap::assign('onlyParadigm', !$ajax);
 }

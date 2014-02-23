@@ -196,45 +196,33 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
   // Also compute the text of the link to the paradigm div,
   // which can be 'conjugări', 'declinări' or both
   if (!empty($lexems)) {
-    $ifMaps = array();
-    $modelTypes = array();
     $conjugations = false;
     $declensions = false;
     foreach ($lexems as $l) {
-      if ($showParadigm) {
-        $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
-        $modelTypes[] = ModelType::get_by_code($l->modelType);
-      }
-      if ($l->modelType == 'V' || $l->modelType == 'VT') {
-        $conjugations = true;
-      } else {
-        $declensions = true;
-      }
+      $isVerb = ($l->modelType == 'V') || ($l->modelType == 'VT');
+      $conjugations |= $isVerb;
+      $declensions |= !$isVerb;
     }
     $declensionText = $conjugations ? ($declensions ? 'conjugări / declinări' : 'conjugări') : 'declinări';
 
-    $hasUnrecommendedForms = false;
-    foreach ($ifMaps as $ifMap) {
-      foreach ($ifMap as $rank => $ifs) {
-        foreach ($ifs as $if) {
-          $hasUnrecommendedForms |= !$if->recommended;
+    if ($showParadigm) {
+      foreach ($lexems as $l) {
+        $l->getModelType();
+        $l->getSourceNames();
+        $l->getInflectedFormsMappedByRank();
+      }
+
+      $hasUnrecommendedForms = false;
+      foreach ($lexems as $l) {
+        foreach ($l->getInflectedFormsMappedByRank() as $ifs) {
+          foreach ($ifs as $if) {
+            $hasUnrecommendedForms |= !$if->recommended;
+          }
         }
       }
-    }
-    SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
-
-    if ($showParadigm) {
-      SmartyWrap::assign('ifMaps', $ifMaps);
-      SmartyWrap::assign('modelTypes', $modelTypes);
+      SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
     }
     SmartyWrap::assign('declensionText', $declensionText);
-
-    $sourceNamesArr = array();
-    foreach ($lexems as $l) {
-      $sourceNamesArr[] = LexemSource::getSourceNamesForLexem($l);
-    }
-
-    SmartyWrap::assign('sourceNamesArr', $sourceNamesArr);
   }
 }
 

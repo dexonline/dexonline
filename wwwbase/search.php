@@ -227,7 +227,6 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
           }
         }
       }
-
       SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
     }
     SmartyWrap::assign('declensionText', $declensionText);

@@ -3,9 +3,10 @@
 class Lexem extends BaseObject implements DatedObject {
   public static $_table = 'Lexem';
 
-  public $mt = null; // ModelType object, but we call it $mt because there is already a DB field called 'modelType'
-  public $sources = null;
-  public $sourceNames = null; // Comma-separated list of source names
+  private $mt = null;                // ModelType object, but we call it $mt because there is already a DB field called 'modelType'
+  private $sources = null;
+  private $sourceNames = null;       // Comma-separated list of source names
+  private $inflectedFormMap = null;  // Mapped by various criteria depending on the caller
 
   const STRUCT_STATUS_NEW = 1;
   const STRUCT_STATUS_IN_PROGRESS = 2;
@@ -63,6 +64,31 @@ class Lexem extends BaseObject implements DatedObject {
       $this->sourceNames = implode(', ', $results);
     }
     return $this->sourceNames;
+  }
+
+  function getInflectedFormsMappedByRank() {
+    if ($this->inflectedFormMap === null) {
+      // These inflected forms have an extra field (rank) from the join
+      $ifs = Model::factory('InflectedForm')
+        ->select('InflectedForm.*')
+        ->select('rank')
+        ->join('Inflection', 'inflectionId = Inflection.id')
+        ->where('lexemId', $this->id)
+        ->order_by_asc('rank')
+        ->order_by_asc('variant')
+        ->find_many();
+
+      $map = array();
+      foreach ($ifs as $if) {
+        if (!array_key_exists($if->rank, $map)) {
+          $map[$if->rank] = array();
+        }
+        $map[$if->rank][] = $if;
+      }
+
+      $this->inflectedFormMap = $map;
+    }
+    return $this->inflectedFormMap;
   }
 
   public static function loadByExtendedName($extName) {

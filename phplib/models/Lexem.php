@@ -3,6 +3,10 @@
 class Lexem extends BaseObject implements DatedObject {
   public static $_table = 'Lexem';
 
+  public $mt = null; // ModelType object, but we call it $mt because there is already a DB field called 'modelType'
+  public $sources = null;
+  public $sourceNames = null; // Comma-separated list of source names
+
   const STRUCT_STATUS_NEW = 1;
   const STRUCT_STATUS_IN_PROGRESS = 2;
   const STRUCT_STATUS_UNDER_REVIEW = 3;
@@ -29,6 +33,36 @@ class Lexem extends BaseObject implements DatedObject {
     $l->isLoc = false;
     $l->noAccent = false;
     return $l;
+  }
+
+  function getModelType() {
+    if ($this->mt === null) {
+      $this->mt = ModelType::get_by_code($this->modelType);
+    }
+    return $this->mt;
+  }
+
+  function getSources() {
+    if ($this->sources === null) {
+      $this->sources = Model::factory('Source')
+        ->select('Source.*')
+        ->join('LexemSource', 'Source.id = sourceId')
+        ->where('LexemSource.lexemId', $this->id)
+        ->find_many();
+    }
+    return $this->sources;
+  }
+
+  function getSourceNames() {
+    if ($this->sourceNames === null) {
+      $sources = $this->getSources();
+      $results = array();
+      foreach($sources as $s) {
+        $results[] = $s->shortName;
+      }
+      $this->sourceNames = implode(', ', $results);
+    }
+    return $this->sourceNames;
   }
 
   public static function loadByExtendedName($extName) {

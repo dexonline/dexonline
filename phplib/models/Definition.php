@@ -175,17 +175,17 @@ class Definition extends BaseObject implements DatedObject {
         l.id = i2.lexemId and
         i1.formUtf8General = '%s'", $key);
 
-    $query = db_getArray($var);
+      $query = db_getArray($var);
 
-    foreach ($query as $q) {
-      array_push($words, $q);
-      $wordsToHighlight++;
-    }
+      foreach ($query as $q) {
+        array_push($words, $q);
+        $wordsToHighlight++;
+      }
 
-    $words = array_unique($words);
+      $words = array_unique($words);
 
-    if(count($words) == 1 and $words[0] == "")
-      unset ($res[$key]);
+      if(count($words) == 1 and $words[0] == "")
+        unset ($res[$key]);
     }
 
     $colors = array('#FF0000', '#FF3300', '#FF6600', '#CC6600', '#990000');
@@ -207,7 +207,7 @@ class Definition extends BaseObject implements DatedObject {
           $def->htmlRep = substr_replace($def->htmlRep, $style_start, $m[1], 0);
           $def->htmlRep = substr_replace($def->htmlRep, $style_end, $m[1] + strlen($style_start) + strlen($m[0]), 0);
         }
-      $colorIndex = ($colorIndex + 1) % count($colors);
+        $colorIndex = ($colorIndex + 1) % count($colors);
       }
     }
 

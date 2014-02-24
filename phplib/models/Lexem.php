@@ -3,11 +3,7 @@
 class Lexem extends BaseObject implements DatedObject {
   public static $_table = 'Lexem';
 
-  private $mt = null;                // ModelType object, but we call it $mt because there is already a DB field called 'modelType'
-  private $sources = null;
-  private $sourceNames = null;       // Comma-separated list of source names
-  private $inflectedForms = null;
-  private $inflectedFormMap = null;  // Mapped by various criteria depending on the caller
+  private $lexemModels = null;
 
   const STRUCT_STATUS_NEW = 1;
   const STRUCT_STATUS_IN_PROGRESS = 2;
@@ -37,77 +33,14 @@ class Lexem extends BaseObject implements DatedObject {
     return $l;
   }
 
-  function getModelType() {
-    if ($this->mt === null) {
-      $this->mt = ModelType::get_by_code($this->modelType);
-    }
-    return $this->mt;
-  }
-
-  function getSources() {
-    if ($this->sources === null) {
-      $this->sources = Model::factory('Source')
-        ->select('Source.*')
-        ->join('LexemSource', 'Source.id = sourceId')
-        ->where('LexemSource.lexemId', $this->id)
-        ->find_many();
-    }
-    return $this->sources;
-  }
-
-  function getSourceNames() {
-    if ($this->sourceNames === null) {
-      $sources = $this->getSources();
-      $results = array();
-      foreach($sources as $s) {
-        $results[] = $s->shortName;
-      }
-      $this->sourceNames = implode(', ', $results);
-    }
-    return $this->sourceNames;
-  }
-
-  function getInflectedForms() {
-    if ($this->inflectedForms === null) {
-      $this->inflectedForms = Model::factory('InflectedForm')
+  function getLexemModels() {
+    if ($this->lexemModels === null) {
+      $this->lexemModels = Model::factory('LexemModel')
         ->where('lexemId', $this->id)
-        ->order_by_asc('inflectionId')
-        ->order_by_asc('variant')
+        ->order_by_asc('displayOrder')
         ->find_many();
     }
-    return ($this->inflectedForms);
-  }
-
-  function getInflectedFormsMappedByRank() {
-    if ($this->inflectedFormMap === null) {
-      // These inflected forms have an extra field (rank) from the join
-      $ifs = Model::factory('InflectedForm')
-        ->select('InflectedForm.*')
-        ->select('rank')
-        ->join('Inflection', 'inflectionId = Inflection.id')
-        ->where('lexemId', $this->id)
-        ->order_by_asc('rank')
-        ->order_by_asc('variant')
-        ->find_many();
-
-      $map = array();
-      foreach ($ifs as $if) {
-        if (!array_key_exists($if->rank, $map)) {
-          $map[$if->rank] = array();
-        }
-        $map[$if->rank][] = $if;
-      }
-
-      $this->inflectedFormMap = $map;
-    }
-    return $this->inflectedFormMap;
-  }
-
-  function getInflectedFormsMappedByInflectionId() {
-    if ($this->inflectedFormMap === null) {
-      $this->inflectedFormMap = InflectedForm::mapByInflectionId($this->getInflectedForms());
-    }
-    return $this->inflectedFormMap;
+    return $this->lexemModels;
   }
 
   public static function loadByExtendedName($extName) {
@@ -146,8 +79,15 @@ class Lexem extends BaseObject implements DatedObject {
       }
     }
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-    $result = Model::factory('Lexem')->select('Lexem.*')->distinct()->join('InflectedForm', 'Lexem.id = InflectedForm.lexemId')
-      ->where("InflectedForm.$field", $cuv)->order_by_asc('Lexem.formNoAccent')->find_many();
+    $result = Model::factory('Lexem')
+      ->table_alias('l')
+      ->select('l.*')
+      ->distinct()
+      ->join('LexemModel', 'l.id = lm.lexemId', 'lm')
+      ->join('InflectedForm', 'lm.id = f.lexemModelId', 'f')
+      ->where("f.$field", $cuv)
+      ->order_by_asc('l.formNoAccent')
+      ->find_many();
     if ($useMemcache) {
       mc_set($key, $result);
     }
@@ -511,7 +451,7 @@ class Lexem extends BaseObject implements DatedObject {
       LexemDefinitionMap::deleteByLexemId($this->id);
       InflectedForm::deleteByLexemId($this->id);
       Meaning::deleteByLexemId($this->id);
-      LexemSource::deleteByLexemId($this->id);
+      LexemSource::delete_all_by_lexemId($this->id);
       Synonym::deleteByLexemId($this->id);
     }
     // Clear the variantOfId field for lexems having $this as main.

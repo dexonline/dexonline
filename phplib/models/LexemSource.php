@@ -8,13 +8,6 @@ class LexemSource extends BaseObject implements DatedObject {
     $lexemSources = LexemSource::get_all_by_lexemId($lexem->id);
     return util_objectProperty($lexemSources, 'sourceId');
   }
-
-  public static function deleteByLexemId($lexemId) {
-    $meanings = self::get_all_by_lexemId($lexemId);
-    foreach ($meanings as $m) {
-      $m->delete();
-    }
-  }
 }
 
 ?>

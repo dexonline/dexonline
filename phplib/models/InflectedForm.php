@@ -15,14 +15,6 @@ class InflectedForm extends BaseObject {
     return $if;
   }
 
-  public static function loadByLexemId($lexemId) {
-    return Model::factory('InflectedForm')->where('lexemId', $lexemId)->order_by_asc('inflectionId')->order_by_asc('variant')->find_many();
-  }
-
-  public static function loadByLexemIdMapByInflectionId($lexemId) {
-    return self::mapByInflectionId(self::loadByLexemId($lexemId));
-  }
-
   public static function mapByInflectionRank($ifs) {
     $result = array();
     foreach ($ifs as $if) {

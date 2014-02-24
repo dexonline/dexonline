@@ -149,7 +149,6 @@ function dumpLexems($query, $fileName, $message) {
   foreach($results as $row) {
     $lexem = Model::factory('Lexem')->create($row);
     SmartyWrap::assign('lexem', $lexem);
-    SmartyWrap::assign('ifs', InflectedForm::loadByLexemId($lexem->id));
     gzwrite($file, SmartyWrap::fetch('xmldump/lexem.ihtml'));
   }
   gzwrite($file, "</Lexems>\n");

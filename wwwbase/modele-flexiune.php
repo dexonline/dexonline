@@ -31,7 +31,7 @@ if ($locVersion && $modelType && $modelNumber) {
       ->where('modelNumber', $m->number)->where('form', $m->exponent)->limit(1)->find_one();
 
     if ($l) {
-      $paradigm = getExistingForms($l->id, $locVersion);
+      $paradigm = getExistingForms($l, $locVersion);
     } else {
       $l = Lexem::create($m->exponent, $modelType->code, $m->number, '');
       $l->isLoc = true;
@@ -65,11 +65,11 @@ SmartyWrap::displayCommonPageWithSkin('modele-flexiune.ihtml');
 /**
  * Load the forms to display for a model when a lexem already exists. This code is specific to each LOC version.
  */
-function getExistingForms($lexemId, $locVersion) {
+function getExistingForms($lexem, $locVersion) {
   if ($locVersion >= '5.0') {
-    return InflectedForm::loadByLexemIdMapByInflectionRank($lexemId);
+    return $lexem->getInflectedFormsMappedByRank();
   } else {
-    return InflectedForm::loadByLexemIdMapByInflectionId($lexemId);
+    return $lexem->getInflectedFormsMappedByInflectionId();
   }
 }
 

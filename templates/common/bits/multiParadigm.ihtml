@@ -2,23 +2,26 @@
 {assign var="version" value=$version|default:"current"}
 {if $lexems}
   {foreach from=$lexems item=lexem}
-    {assign var=modelType value=$lexem->getModelType()}
-    {assign var=ifMap value=$lexem->getInflectedFormsMappedByRank()}
-    {include file="common/paradigm/$version/paradigm.ihtml" lexem=$lexem ifMap=$ifMap modelType=$modelType}
-    {if $sUser && ($sUser->moderator & ($smarty.const.PRIV_LOC | $smarty.const.PRIV_STRUCT))}
-      <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexem->id}">editează lexemul</a>
-      {if $sUser->moderator & $smarty.const.PRIV_LOC}
-        | <a href="{$wwwRoot}flex/editModel.php?modelType={$lexem->modelType}&amp;modelNumber={$lexem->modelNumber}">
-          editează modelul {$lexem->modelType}{$lexem->modelNumber}
-        </a>
-      {/if}
-    {/if}
+    <div class="paraLexem">
+      <div class="lexemData">
+        <span class="lexemName">{include file="common/bits/lexemName.ihtml" lexem=$lexem}</span>
+        {include file="common/bits/locInfo.ihtml" isLoc=$lexem->isLoc}
+        <span class="lexemTags">{$lexem->tags|escape}</span>
+        {if $sUser && ($sUser->moderator & ($smarty.const.PRIV_LOC | $smarty.const.PRIV_STRUCT))}
+          <a class="paraEdit" href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexem->id}" title="editează lexemul"></a>
+        {/if}
+      </div>
+
+      {foreach from=$lexem->getLexemModels() item=lm}
+        {include file="common/paradigm/$version/paradigm.ihtml" lexemModel=$lm}
+      {/foreach}
+    </div>
   {/foreach}
+
   {if $hasUnrecommendedForms}
     <div class="notRecommendedLegend">* Formă nerecomandată</div>
   {/if}
-  {if $onlyParadigm}
-  {else}
+  {if !$onlyParadigm}
     <div><a class="paradigmLink" title="Link către această pagină, dar cu flexiunile expandate!" href="{$paradigmLink}">Link către această paradigmă</a></div>
   {/if}
 {/if}

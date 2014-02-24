@@ -1,0 +1,11 @@
+{* Argument: $lexemModel *}
+{assign var=modelType value=$lexemModel->getModelType()}
+{$modelType->description} ({$modelType->code}{$lexemModel->modelNumber})
+{if $sUser->moderator & $smarty.const.PRIV_LOC}
+  <a class="paraEdit"
+     href="{$wwwRoot}flex/editModel.php?modelType={$lm->modelType}&amp;modelNumber={$lm->modelNumber}"
+     title="editează modelul">&nbsp;
+  </a>
+{/if}
+{include file="common/bits/locInfo.ihtml" isLoc=$lexemModel->isLoc}
+{include file="common/bits/lexemSources.ihtml" lexemModel=$lexemModel}

@@ -1,12 +1,9 @@
-<table class="lexem">
+{* Argument: $lexemModel *}
+{assign var=ifMap value=$lexemModel->getInflectedFormsMappedByRank()}
+<table class="lexemModel">
   <tr>
     <td colspan="2" rowspan="3">
-      <span class="lexemName"
-        >{include file="common/bits/lexemName.ihtml" lexem=$lexem
-      }</span>
-      &nbsp; {$modelType->description|escape}
-      {include file="common/bits/locInfo.ihtml" lexem=$lexem}
-      {include file="common/bits/lexemTags.ihtml" lexem=$lexem}
+      {include file="common/bits/lexemModel.ihtml" lexemModel=$lexemModel}
     </td>
     <td class="inflection">infinitiv</td>
     <td class="inflection">infinitiv lung</td>

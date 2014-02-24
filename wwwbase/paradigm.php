@@ -82,24 +82,22 @@ if (!empty($lexems)) {
     SmartyWrap::assign('declensionText', "{$declensionText}: {$cuv}");
   }
 
-  // Exercise the fields we'll need later so that the view doesn't need to do it.
-  foreach ($filtered_lexems as $l) {
-    $l->getModelType();
-    $l->getSourceNames();
-    $l->getInflectedFormsMappedByRank();
-  }
-
-  // This paragraph replicates code from search.php
+  // Exercise the fields we'll need later in the view.
+  // TODO: this code replicates code from search.php
   $hasUnrecommendedForms = false;
   foreach ($filtered_lexems as $l) {
-    foreach ($l->getInflectedFormsMappedByRank() as $ifs) {
-      foreach ($ifs as $if) {
-        $hasUnrecommendedForms |= !$if->recommended;
+    foreach($l->getLexemModels() as $lm) {
+      $lm->getModelType();
+      $lm->getSourceNames();
+      foreach ($lm->getInflectedFormsMappedByRank() as $ifs) {
+        foreach ($ifs as $if) {
+          $hasUnrecommendedForms |= !$if->recommended;
+        }
       }
     }
   }
-  SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
 
+  SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
   SmartyWrap::assign('lexems', $filtered_lexems);
   SmartyWrap::assign('showParadigm', true);
   SmartyWrap::assign('onlyParadigm', !$ajax);
@@ -113,6 +111,7 @@ if ($ajax) {
   SmartyWrap::displayWithoutSkin('common/bits/multiParadigm.ihtml');
 }
 else {
+  SmartyWrap::addCss('paradigm');
   SmartyWrap::displayCommonPageWithSkin('search.ihtml');
 }
 ?>

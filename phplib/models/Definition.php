@@ -213,7 +213,7 @@ class Definition extends BaseObject implements DatedObject {
           $def->htmlRep = substr_replace($def->htmlRep, $style_start, $m[1], 0);
           $def->htmlRep = substr_replace($def->htmlRep, $style_end, $m[1] + strlen($style_start) + strlen($m[0]), 0);
         }
-      $colorIndex = ($colorIndex + 1) % count($colors);
+        $colorIndex = ($colorIndex + 1) % count($colors);
       }
     }
   }

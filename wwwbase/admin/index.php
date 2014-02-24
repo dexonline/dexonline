@@ -57,7 +57,7 @@ $reports = array(
   ),
   array('text' => 'Lexeme fără paradigme',
         'url' => 'flex/viewTemporaryLexems',
-        'count' => Model::factory('Lexem')->where('modelType', 'T')->count(),
+        'count' => Model::factory('LexemModel')->where('modelType', 'T')->count(),
         'privilege' => PRIV_LOC
   ),
   array('text' => 'Imagini de revizuit (din dicționarul vizual)',

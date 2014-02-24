@@ -16,7 +16,7 @@ if (!$searchButton) {
 }
 
 $where = array();
-$joinNeeded = false;
+$joins = array();
 
 // Process the $form argument
 $form = StringUtil::cleanupQuery($form);
@@ -31,20 +31,26 @@ $where[] = "{$field} {$fieldValue}";
 
 // Process the $sourceId argument
 if ($sourceId) {
-  $joinNeeded = true;
+  $joins['definition'] = true;
   $where[] = "sourceId = {$sourceId}";
 }
 
 // Process the $loc argument
 switch ($loc) {
-  case 0: $where[] = "not isLoc"; break;
-  case 1: $where[] = "isLoc"; break;
+  case 0: $where[] = "not l.isLoc"; break;
+  case 1: $where[] = "l.isLoc"; break;
 }
 
 // Process the $paradigm argument
 switch ($paradigm) {
-  case 0: $where[] = "modelType = 'T'"; break;
-  case 1: $where[] = "modelType != 'T'"; break;
+  case 0:
+    $joins['lexemModel'] = true;
+    $where[] = "modelType = 'T'";
+    break;
+  case 1:
+    $joins['lexemModel'] = true;
+    $where[] = "modelType != 'T'";
+    break;
 }
 
 // Process the $structStatus argument
@@ -56,18 +62,37 @@ if ($structStatus) {
 if ($nick) {
   $user = User::get_by_nick($nick);
   if ($user) {
-    $joinNeeded = true;
+    $joins['definition'] = true;
     $where[] = "userId = {$user->id}";
   }
 }
 
-$tables = $joinNeeded
-  ? "Lexem l join LexemDefinitionMap ldm on l.id = ldm.lexemId join Definition d on ldm.definitionId = d.id"
-  : "Lexem l";
+// Assemble the query
+$query = Model::factory('Lexem')
+  ->table_alias('l')
+  ->select('l.*')
+  ->distinct()
+  ->order_by_asc('formNoAccent')
+  ->limit(10000);
 
-$query = sprintf("select l.* from %s where %s order by formNoAccent limit 10000",
-                 $tables, implode(' and ', $where));
-$lexems = Model::factory('Lexem')->raw_query($query, null)->find_many();
+// ... and joins
+foreach ($joins as $join => $ignored) {
+  switch ($join) {
+    case 'definition':
+      $query = $query->join('LexemDefinitionMap', 'l.id = ldm.lexemId', 'ldm')
+        ->join('Definition', 'ldm.definitionId = d.id', 'd');
+      break;
+    case 'lexemModel':
+      $query = $query->join('LexemModel', 'l.id = lm.lexemId', 'lm');
+  }
+}
+
+// ... and where clauses
+foreach ($where as $clause) {
+  $query = $query->where_raw("({$clause})");
+}
+
+$lexems = $query->find_many();
 
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('sectionTitle', 'Căutare lexeme');

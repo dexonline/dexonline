@@ -1,8 +1,2 @@
-<div class="lexem">
-  <span class="lexemName"
-     >{include file="common/bits/lexemName.ihtml" lexem=$lexem
-  }</span>
-  &nbsp; {$modelType->description|escape}
-  {include file="common/bits/locInfo.ihtml" lexem=$lexem}
-  {include file="common/bits/lexemTags.ihtml" lexem=$lexem}
-</div>
+{* Argument: $lexemModel *}
+{include file="common/bits/lexemModel.ihtml" lexemModel=$lexemModel}

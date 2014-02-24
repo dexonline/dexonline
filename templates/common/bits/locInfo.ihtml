@@ -1,3 +1,4 @@
-{if $lexem->isLoc && $sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
+{* Argument: $isLoc *}
+{if $isLoc && $sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
   <span class="isLoc" title="Inclus în lista oficială de cuvinte a jocului de scrabble">[LOC]</span>
 {/if}      

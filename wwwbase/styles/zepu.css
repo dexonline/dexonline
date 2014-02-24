@@ -552,17 +552,6 @@ a.inflLink {
   font-weight: bold;
 }
 
-span.notRecommended {
-  color: #1010c0;
-  cursor: help;
-  font-style: italic;
-}
-
-div.notRecommendedLegend {
-  color: #1010c0;
-  font-style: italic;
-}
-
 .noBorder {
   border: 0px;
 }

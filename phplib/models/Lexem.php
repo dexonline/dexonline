@@ -43,6 +43,17 @@ class Lexem extends BaseObject implements DatedObject {
     return $this->lexemModels;
   }
 
+  function getInflectedForms() {
+    if ($this->inflectedForms === null) {
+      $this->inflectedForms = Model::factory('InflectedForm')
+        ->where('lexemId', $this->id)
+        ->order_by_asc('inflectionId')
+        ->order_by_asc('variant')
+        ->find_many();
+    }
+    return ($this->inflectedForms);
+  }
+
   function getInflectedFormsMappedByRank() {
     if ($this->inflectedFormMap === null) {
       // These inflected forms have an extra field (rank) from the join
@@ -64,6 +75,13 @@ class Lexem extends BaseObject implements DatedObject {
       }
 
       $this->inflectedFormMap = $map;
+    }
+    return $this->inflectedFormMap;
+  }
+
+  function getInflectedFormsMappedByInflectionId() {
+    if ($this->inflectedFormMap === null) {
+      $this->inflectedFormMap = InflectedForm::mapByInflectionId($this->getInflectedForms());
     }
     return $this->inflectedFormMap;
   }

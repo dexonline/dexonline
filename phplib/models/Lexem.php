@@ -47,43 +47,10 @@ class Lexem extends BaseObject implements DatedObject {
     if ($this->inflectedForms === null) {
       $this->inflectedForms = Model::factory('InflectedForm')
         ->where('lexemId', $this->id)
-        ->order_by_asc('inflectionId')
-        ->order_by_asc('variant')
+        ->order_by_asc('displayOrder')
         ->find_many();
     }
-    return ($this->inflectedForms);
-  }
-
-  function getInflectedFormsMappedByRank() {
-    if ($this->inflectedFormMap === null) {
-      // These inflected forms have an extra field (rank) from the join
-      $ifs = Model::factory('InflectedForm')
-        ->select('InflectedForm.*')
-        ->select('rank')
-        ->join('Inflection', 'inflectionId = Inflection.id')
-        ->where('lexemId', $this->id)
-        ->order_by_asc('rank')
-        ->order_by_asc('variant')
-        ->find_many();
-
-      $map = array();
-      foreach ($ifs as $if) {
-        if (!array_key_exists($if->rank, $map)) {
-          $map[$if->rank] = array();
-        }
-        $map[$if->rank][] = $if;
-      }
-
-      $this->inflectedFormMap = $map;
-    }
-    return $this->inflectedFormMap;
-  }
-
-  function getInflectedFormsMappedByInflectionId() {
-    if ($this->inflectedFormMap === null) {
-      $this->inflectedFormMap = InflectedForm::mapByInflectionId($this->getInflectedForms());
-    }
-    return $this->inflectedFormMap;
+    return $this->lexemModels;
   }
 
   public static function loadByExtendedName($extName) {

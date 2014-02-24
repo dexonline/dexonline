@@ -1,3 +1,4 @@
+{assign var="ifs" value=$lexem->getInflectedForms()}
     <Lexem>
       <Id>{$lexem->id}</Id>
       <Timestamp>{$lexem->modDate}</Timestamp>

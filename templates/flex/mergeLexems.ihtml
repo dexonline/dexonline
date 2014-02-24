@@ -30,9 +30,12 @@ reîncărcarea paginii. Pentru moment, nu există o modalitate de a
         <span class="name">{$lIter+1}. {$l->form|escape}</span>
         {$l->modelType}{$l->modelNumber}{$l->restriction}
         <span class="{if $l->isLoc}isLoc{else}isNotLoc{/if}">LOC</span>
-        {* foreach from=$l->ifs item=if}
+        {*
+        {assign var="ifs" value=$l->getInflectedForms()}
+        {foreach from=$ifs item=if}
           {$if->form}
-        {/foreach *}
+        {/foreach}
+        *}
         {strip}
           <a class="noBorder" target="_blank" href="../admin/lexemEdit.php?lexemId={$l->id}">
             <img src={$imgRoot}/icons/pencil.png alt="editează" title="editează lexemul"/>

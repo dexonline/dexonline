@@ -68,7 +68,6 @@ if ($export == 'sources') {
   print "<NumResults>" . $lexemDbResult->rowCount() . "</NumResults>\n";
   foreach ($lexemDbResult as $dbRow) {
     $lexem = Model::factory('Lexem')->create($dbRow);
-    SmartyWrap::assign('ifs', InflectedForm::loadByLexemId($lexem->id));
     SmartyWrap::assign('lexem', $lexem);
     SmartyWrap::displayWithoutSkin('common/update3Lexems.ihtml');
   }

@@ -6,6 +6,7 @@ class Lexem extends BaseObject implements DatedObject {
   private $mt = null;                // ModelType object, but we call it $mt because there is already a DB field called 'modelType'
   private $sources = null;
   private $sourceNames = null;       // Comma-separated list of source names
+  private $inflectedForms = null;
   private $inflectedFormMap = null;  // Mapped by various criteria depending on the caller
 
   const STRUCT_STATUS_NEW = 1;
@@ -66,6 +67,17 @@ class Lexem extends BaseObject implements DatedObject {
     return $this->sourceNames;
   }
 
+  function getInflectedForms() {
+    if ($this->inflectedForms === null) {
+      $this->inflectedForms = Model::factory('InflectedForm')
+        ->where('lexemId', $this->id)
+        ->order_by_asc('inflectionId')
+        ->order_by_asc('variant')
+        ->find_many();
+    }
+    return ($this->inflectedForms);
+  }
+
   function getInflectedFormsMappedByRank() {
     if ($this->inflectedFormMap === null) {
       // These inflected forms have an extra field (rank) from the join
@@ -87,6 +99,13 @@ class Lexem extends BaseObject implements DatedObject {
       }
 
       $this->inflectedFormMap = $map;
+    }
+    return $this->inflectedFormMap;
+  }
+
+  function getInflectedFormsMappedByInflectionId() {
+    if ($this->inflectedFormMap === null) {
+      $this->inflectedFormMap = InflectedForm::mapByInflectionId($this->getInflectedForms());
     }
     return $this->inflectedFormMap;
   }

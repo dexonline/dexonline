@@ -199,7 +199,7 @@ function searchClickedWord() {
     word = word.substr(0, word.length - 1);
   }
 
-  var source = $('#sourceDropDown').val();
+  var source = $('#sourceDropDown').length ? $('#sourceDropDown').val() : '';
   if (source) {
     source = '-' + source;
   }

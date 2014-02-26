@@ -5,6 +5,7 @@ Disallow:
 
 User-agent: *
 # We don't want THAT in Google's quick links, do we?
+Crawl-delay: 1
 Disallow: /search.php?cuv=muie
 Disallow: /definitie/felație
 Disallow: /definitie/muie

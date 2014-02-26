@@ -100,7 +100,7 @@
     {if !count($results) && count($lexems)}
       {if $src_selected}
         <br/>
-        Repetați căutarea <a href="/definitie/{$cuv|escape}">în toate dicționarele</a>
+        Repetați căutarea <a href="{$wwwRoot}definitie/{$cuv|escape}">în toate dicționarele</a>
       {/if}
     {/if}
   </div>

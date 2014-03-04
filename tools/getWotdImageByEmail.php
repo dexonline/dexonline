@@ -28,6 +28,7 @@ if (!stristr($sender, $validSenderAddress))
 if (!stristr($subject, "WOTD"))
 {
     log_scriptLog("Ignoring message '$subject' due to invalid subject");
+    exit(0);
 }
 $wotd = GetWotdFromSubject($subject);
 

@@ -24,7 +24,7 @@ function loadAjaxContent(url, elid) {
   });
 }
 
-function searchSubmit() {
+function searchSubmit(preview) {
   // Avoid server hit on empty query
   if (!document.frm.cuv.value) {
     return false;
@@ -34,7 +34,8 @@ function searchSubmit() {
   action = document.frm.text.checked ? 'text' : 'definitie';
   source = document.frm.source.value;
   sourcePart = source ? '-' + source : '';
-  window.location = wwwRoot + action + sourcePart + '/' + encodeURIComponent(document.frm.cuv.value);
+  preview = preview ? '' : '/preview';
+  window.location = wwwRoot + action + sourcePart + '/' + encodeURIComponent(document.frm.cuv.value) + preview;
   return false;
 }
 

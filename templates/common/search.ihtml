@@ -9,6 +9,9 @@
 {assign var="showParadigm" value=$showParadigm|default:false}
 {assign var="stopWords" value=$stopWords|default:null}
 {assign var="wikiArticles" value=$wikiArticles|default:null}
+{assign var="preview" value=$preview|default:null}
+{assign var="allDefinitionsCount" value=$allDefinitionsCount|default:null}
+
 {if count($lexems) || count($results) }
   <div class="resultBar">
     {if $searchType == $smarty.const.SEARCH_INFLECTED}
@@ -21,7 +24,11 @@
       {elseif count($results) == 1}
         O definiție pentru
       {else}
-        {$results|@count} definiții pentru
+        {$results|@count} definiții 
+          {if $preview == 1}
+            din {$allDefinitionsCount} afișate
+          {/if} 
+          pentru
       {/if}
   
       {if count($lexems) == 1}
@@ -103,6 +110,9 @@
         Repetați căutarea <a href="{$wwwRoot}definitie/{$cuv|escape}">în toate dicționarele</a>
       {/if}
     {/if}
+    {if $preview}
+      <a onclick="searchSubmit(true)">Afișează toate definițiile</a>
+    {/if}
   </div>
 {/if}
 
@@ -151,6 +161,7 @@
 
   {assign var=notDisplayedUnofficial value=true}
   {assign var=notDisplayedSpec value=true}
+  {* The wanted foreach *}
   {foreach from=$results item=row key=i}
     {if $searchType != $smarty.const.SEARCH_FULL_TEXT }
       {if $row->source->isOfficial == 1 && $notDisplayedSpec}

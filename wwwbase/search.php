@@ -10,20 +10,17 @@ $sourceUrlName = util_getRequestParameter('source');
 $text = util_getRequestIntParameter('text');
 $showParadigm = util_getRequestParameter('showParadigm');
 $xml = util_getRequestParameter('xml');
-$all = util_getRequestParameter('all');
 
 $redirect = session_getWithDefault('redirect', false);
 $redirectFrom = session_getWithDefault('init_word', '');
 session_unsetVariable('redirect');
 session_unsetVariable('init_word');
 
-$preview = $all ? 1 : 0;
-
 if ($cuv) {
   $cuv = StringUtil::cleanupQuery($cuv);
 }
 
-util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm, $xml, $preview);
+util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm, $xml);
 
 $searchType = SEARCH_INFLECTED;
 $hasDiacritics = session_user_prefers(Preferences::FORCE_DIACRITICS);
@@ -146,7 +143,6 @@ if ($defId) {
 // Normal search
 if ($searchType == SEARCH_INFLECTED) {
   $lexems = Lexem::searchInflectedForms($cuv, $hasDiacritics, true);
-
   if (count($lexems) == 0) {
     $cuv_old = StringUtil::tryOldOrthography($cuv);
     $lexems = Lexem::searchInflectedForms($cuv_old, $hasDiacritics, true);
@@ -176,7 +172,7 @@ if ($searchType == SEARCH_INFLECTED) {
     $sourcePart = $source ? "-{$source->urlName}" : '';
     session_setVariable('redirect', true);
     session_setVariable('init_word', $cuv);
-    util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$lexems[0]->formNoAccent}" . ($xml ? '/xml' : '') . $preview ? '/preview' : '');
+    util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$lexems[0]->formNoAccent}" . ($xml ? '/xml' : ''));
   }
 
   SmartyWrap::assign('lexems', $lexems);
@@ -187,12 +183,6 @@ if ($searchType == SEARCH_INFLECTED) {
   }
 
   if (isset($definitions)) {
-    if ($preview && count($definitions) > PREVIEW_DEFINITIONS) {
-      $allDefinitionsCount = count($definitions);
-      SmartyWrap::assign('allDefinitionsCount', $allDefinitionsCount);
-
-      $definitions = array_slice($definitions, 0, PREVIEW_DEFINITIONS);
-    }
     $searchResults = SearchResult::mapDefinitionArray($definitions);
   }
 }
@@ -353,8 +343,6 @@ if(!empty($lexems)){
   }
 }
 /* Gallery */
-
-SmartyWrap::assign('preview', $preview);
 
 if (!$xml) {
   SmartyWrap::addCss('paradigm');

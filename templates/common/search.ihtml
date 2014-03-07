@@ -23,7 +23,7 @@
       {elseif count($results) == 1}
         O definiție pentru
       {else}
-        {if $allDefinitions == 0}
+        {if $allDefinitions == 0 && $totalDefinitionsCount}
           Din totalul de {$totalDefinitionsCount} sunt afișate  
         {/if}
         {$results|@count} definiții pentru

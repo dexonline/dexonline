@@ -10,11 +10,7 @@ $sourceUrlName = util_getRequestParameter('source');
 $text = util_getRequestIntParameter('text');
 $showParadigm = util_getRequestParameter('showParadigm');
 $xml = util_getRequestParameter('xml');
-/* $all = util_getRequestParameter('all');
-  for testing purposes, $all will be 0 by default */
-$all = 0;
-SmartyWrap::assign('allDefinitions', $all);
-
+$all = util_getRequestParameter('all');
 
 
 $redirect = session_getWithDefault('redirect', false);
@@ -26,6 +22,8 @@ if ($cuv) {
   $cuv = StringUtil::cleanupQuery($cuv);
 }
 
+$all = $all ? 1 : 0;
+
 util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm, $xml, $all);
 
 $searchType = SEARCH_INFLECTED;
@@ -34,6 +32,9 @@ $exclude_unofficial = session_user_prefers(Preferences::EXCLUDE_UNOFFICIAL);
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
 $showParadigm = $showParadigm || session_user_prefers(Preferences::SHOW_PARADIGM);
+$all = $all || $showParadigm;
+SmartyWrap::assign('allDefinitions', $all);
+
 $paradigmLink = $_SERVER['REQUEST_URI'] . ($showParadigm ? '' : '/paradigma');
 $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
 $sourceId = $source ? $source->id : null;
@@ -190,7 +191,7 @@ if ($searchType == SEARCH_INFLECTED) {
 
   if (isset($definitions)) {
     $totalDefinitionsCount = count($definitions);
-    if(!$all && $totalDefinitionsCount > PREVIEW_LIMIT) {
+    if(!$all && ($totalDefinitionsCount > PREVIEW_LIMIT)) {
       $definitions = array_slice($definitions, 0, PREVIEW_LIMIT);
       SmartyWrap::assign('totalDefinitionsCount', $totalDefinitionsCount);
     }

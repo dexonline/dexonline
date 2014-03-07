@@ -174,6 +174,7 @@ function util_defineConstants() {
   //Limits
   define('DEFAULT_LIMIT_FULLTEXT', 500);
   define('LIMIT_FULLTEXT_DISPLAY', Config::get('limits.limitFulltextSearch', DEFAULT_LIMIT_FULLTEXT));
+  define('PREVIEW_LIMIT', 20);
 }
 
 function util_getAllStatuses() {

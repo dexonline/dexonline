@@ -10,6 +10,12 @@ $sourceUrlName = util_getRequestParameter('source');
 $text = util_getRequestIntParameter('text');
 $showParadigm = util_getRequestParameter('showParadigm');
 $xml = util_getRequestParameter('xml');
+/* $all = util_getRequestParameter('all');
+  for testing purposes, $all will be 0 by default */
+$all = 0;
+SmartyWrap::assign('allDefinitions', $all);
+
+
 
 $redirect = session_getWithDefault('redirect', false);
 $redirectFrom = session_getWithDefault('init_word', '');
@@ -20,7 +26,7 @@ if ($cuv) {
   $cuv = StringUtil::cleanupQuery($cuv);
 }
 
-util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm, $xml);
+util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm, $xml, $all);
 
 $searchType = SEARCH_INFLECTED;
 $hasDiacritics = session_user_prefers(Preferences::FORCE_DIACRITICS);
@@ -183,6 +189,11 @@ if ($searchType == SEARCH_INFLECTED) {
   }
 
   if (isset($definitions)) {
+    $totalDefinitionsCount = count($definitions);
+    if(!$all && $totalDefinitionsCount > PREVIEW_LIMIT) {
+      $definitions = array_slice($definitions, 0, PREVIEW_LIMIT);
+      SmartyWrap::assign('totalDefinitionsCount', $totalDefinitionsCount);
+    }
     $searchResults = SearchResult::mapDefinitionArray($definitions);
   }
 }

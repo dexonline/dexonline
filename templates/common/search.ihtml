@@ -24,7 +24,7 @@
         O definiție pentru
       {else}
         {if $allDefinitions == 0 && $totalDefinitionsCount}
-          Din totalul de {$totalDefinitionsCount} sunt afișate  
+          Din <a href="#" onclick="showAllDefinitions()" title="arată toate definițiile">totalul de {$totalDefinitionsCount}</a> sunt afișate  
         {/if}
         {$results|@count} definiții pentru
       {/if}
@@ -107,9 +107,6 @@
         <br/>
         Repetați căutarea <a href="{$wwwRoot}definitie/{$cuv|escape}">în toate dicționarele</a>
       {/if}
-    {/if}
-    {if $allDefinitions == 0 && $totalDefinitionsCount}
-      <a onclick="showAllDefinitions()">Afișează toate definițiile.</a>
     {/if}
   </div>
 {/if}

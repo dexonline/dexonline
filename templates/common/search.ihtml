@@ -9,6 +9,8 @@
 {assign var="showParadigm" value=$showParadigm|default:false}
 {assign var="stopWords" value=$stopWords|default:null}
 {assign var="wikiArticles" value=$wikiArticles|default:null}
+{assign var="totalDefinitionsCount" value=$totalDefinitionsCount|default:null}
+{assign var="allDefinitions" value=$allDefinitions|default:null}
 {if count($lexems) || count($results) }
   <div class="resultBar">
     {if $searchType == $smarty.const.SEARCH_INFLECTED}
@@ -21,6 +23,9 @@
       {elseif count($results) == 1}
         O definiție pentru
       {else}
+        {if $allDefinitions == 0 && $totalDefinitionsCount}
+          Din totalul de {$totalDefinitionsCount} sunt afișate  
+        {/if}
         {$results|@count} definiții pentru
       {/if}
   
@@ -102,6 +107,9 @@
         <br/>
         Repetați căutarea <a href="{$wwwRoot}definitie/{$cuv|escape}">în toate dicționarele</a>
       {/if}
+    {/if}
+    {if $allDefinitions == 0 && $totalDefinitionsCount}
+      <a onclick="showAllDefinitions()">Afișează toate definițiile.</a>
     {/if}
   </div>
 {/if}

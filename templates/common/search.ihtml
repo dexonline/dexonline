@@ -108,7 +108,7 @@
         Repetați căutarea <a href="{$wwwRoot}definitie/{$cuv|escape}">în toate dicționarele</a>
       {/if}
     {/if}
-    {if $allDefinitions == 0}
+    {if $allDefinitions == 0 && $totalDefinitionsCount}
       <a onclick="showAllDefinitions()">Afișează toate definițiile.</a>
     {/if}
   </div>

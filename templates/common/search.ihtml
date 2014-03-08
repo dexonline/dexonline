@@ -109,7 +109,7 @@
       {/if}
     {/if}
     {if $allDefinitions == 0}
-      <a>Afișează toate definițiile.</a>
+      <a onclick="showAllDefinitions()">Afișează toate definițiile.</a>
     {/if}
   </div>
 {/if}

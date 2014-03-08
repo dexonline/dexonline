@@ -357,3 +357,7 @@ if (typeof jQuery != 'undefined') {
 function similarSourceHideonChange() {
   $('#sourceDropDown').change(function(){$('#similarSourceRow').hide()});
 }
+
+function showAllDefinitions() {
+  window.location = window.location + '/expandat';
+}

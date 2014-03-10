@@ -82,6 +82,7 @@ try {
     chmod($dir, 0777);
   }
   file_put_contents($wotdImagePath, $image);
+  chmod($wotdImagePath, 0666);
   $wotd->save();
   $wotd->ensureThumbnail();
     

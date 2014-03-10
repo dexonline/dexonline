@@ -19,21 +19,21 @@ $subject = $Parser->getHeader("subject");
 
 $parsedSender = mailparse_rfc822_parse_addresses($sender);
 if ((count($parsedSender) != 1) || ($parsedSender[0]['address'] !== $validSenderAddress)) {
-  OS::errorAndExit("Ignoring message '$subject' due to invalid sender '$sender'");
+  OS::errorAndExit("Ignoring message '$subject' due to invalid sender '$sender'", 0);
 }
 
 $word = GetWotdFromSubject($subject);
 
 $attachments = $Parser->getAttachments();
 if (empty($attachments)) {
-  OS::errorAndExit("Ignoring message '$subject' because it has no attachments");
+  OS::errorAndExit("Ignoring message '$subject' because it has no attachments", 0);
 } elseif (count($attachments) > 1) {
-  OS::errorAndExit("Ignoring message '$subject' because it has more than 1 attachment");
+  OS::errorAndExit("Ignoring message '$subject' because it has more than 1 attachment", 0);
 }
 
 $contentType = $attachments[0]->content_type;
 if (!StringUtil::startsWith($contentType, "image/")) {
-  OS::errorAndExit("Ignoring message '$subject' because its attachment is not an image");
+  OS::errorAndExit("Ignoring message '$subject' because its attachment is not an image", 0);
 }
 
 $image = $attachments[0]->content;
@@ -107,10 +107,10 @@ function ReplyToEmail($senderAddress, $subject, $message) {
 function GetWotdFromSubject($subject) {
   $parts = preg_split("/\\s+/", trim($subject));
   if (count($parts) != 2) {
-    OS::errorAndExit("Ignoring message '$subject' due to invalid subject");
+    OS::errorAndExit("Ignoring message '$subject' due to invalid subject", 0);
   }
   if ($parts[0] != Config::get('WotD.password')) {
-    OS::errorAndExit("Ignoring message '$subject' due to invalid password in the subject");
+    OS::errorAndExit("Ignoring message '$subject' due to invalid password in the subject", 0);
   }
   return $parts[1];
 }

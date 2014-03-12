@@ -85,6 +85,7 @@ RewriteRule ^articol/(.*)$ wikiArticle.php?title=$1 [PT,L]
 RewriteRule ^rss/articole$ articole.php?t=rss [PT,L]
 RewriteRule ^spanzuratoarea$ hangman.php [PT,L]
 RewriteRule ^moara$ mill.php [PT,L]
+RewriteRule ^omleta$ scramble.php [PT,L]
 
 # Redirect old php pages to new ones (only where we care about the link / pagerank)
 RewriteRule ^faq.php$ /informatii [R=301,L]

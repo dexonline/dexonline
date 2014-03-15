@@ -8,6 +8,8 @@
       <button class="testButton btn" type="button" value="3">Lung</button>
       <button class="testButton btn" type="button" value="4">Foarte lung</button>
     </form>
+    <div id="resultSearch">Rezultatul este: 
+    </div>
   </div>
 </div>
 

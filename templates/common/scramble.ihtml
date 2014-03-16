@@ -8,6 +8,11 @@
       <button class="testButton btn" type="button" value="3">Lung</button>
       <button class="testButton btn" type="button" value="4">Foarte lung</button>
     </form>
+<<<<<<< HEAD
+=======
+    <div id="resultSearch">Rezultatul este: 
+    </div>
+>>>>>>> d846d1f19234ab2ce2e7d86f37a0c82415654260
   </div>
 </div>
 

@@ -9,6 +9,9 @@
       <button class="testButton btn" type="button" value="4">Foarte lung</button>
     </form>
     <div id="resultSearch">Rezultatul este: 
+        <p id="result">
+
+        </p>
     </div>
   </div>
 </div>

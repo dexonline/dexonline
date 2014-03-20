@@ -15,7 +15,7 @@ $Parser = new MimeMailParser();
 $Parser->setText($email);
 
 $sender = $Parser->getHeader("from");
-$subject = $Parser->getHeader("subject");
+$subject = imap_utf8($Parser->getHeader("subject"));
 
 $parsedSender = mailparse_rfc822_parse_addresses($sender);
 if ((count($parsedSender) != 1) || ($parsedSender[0]['address'] !== $validSenderAddress)) {
@@ -81,7 +81,7 @@ try {
     mkdir($dir);
     chmod($dir, 0777);
   }
-  file_put_contents($wotdImagePath, $image);
+  rename($tmpFilePath, $wotdImagePath);
   chmod($wotdImagePath, 0666);
   $wotd->save();
   $wotd->ensureThumbnail();
@@ -89,6 +89,7 @@ try {
   ReplyToEmail($sender, $subject, "Am adăugat imaginea pentru '{$word}'.");
 
 } catch (Exception $e) {
+  unlink($tmpFilePath);
   log_scriptLog($e->getMessage());
   ReplyToEmail($sender, $subject, $e->getMessage());
 }
@@ -108,7 +109,7 @@ function ReplyToEmail($senderAddress, $subject, $message) {
 function GetWotdFromSubject($subject) {
   $parts = preg_split("/\\s+/", trim($subject));
   if (count($parts) != 2) {
-    OS::errorAndExit("Ignoring message '$subject' due to invalid subject", 0);
+     OS::errorAndExit("Ignoring message '$subject' due to invalid subject", 0);
   }
   if ($parts[0] != Config::get('WotD.password')) {
     OS::errorAndExit("Ignoring message '$subject' due to invalid password in the subject", 0);

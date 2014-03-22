@@ -1,19 +1,18 @@
-var button = document.getElementsByClassName("testButton");
-
 $(document).ready(function() {
-	button.addEventListener("click", function() {
-		var obj;
-		obj.difficulty = $("button.btn").attr("value");
+	$('.difficultyButton').on("click", function() {
+		// this e pentru a prelua valoarea butonului tocmai apasat, si nu a unuia oarecare
+		var difficulty = $(this).attr("value");
 		$.ajax({
 			type: "POST",
-			url: "../ajax/scramble.php",
-			data: { difficulty : obj.difficulty },
-			}).done(function(response) {
-				alert("Merge!");
+			url: wwwRoot + "ajax/scramble.php",
+			data: { difficulty : difficulty },
+		})
+		.done(function(response) {
 				var word = $.parseJSON(response);
-				// etc...
-			}).fail(function() {
-				alert("Nu merge!");
+				$('#result').html(word.randomWord);
+		})
+		.fail(function() {
+				console.log("Nu merge");
 		});
 	});
 });

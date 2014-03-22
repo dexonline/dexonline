@@ -160,11 +160,11 @@ class SmartyWrap {
         case 'lexemEdit':          self::$cssFiles[13] = 'lexemEdit.css?v=7'; break;
         case 'jcrop':              self::$cssFiles[14] = 'jcrop/jquery.Jcrop.min.css?v=3'; break;
         case 'select2':            self::$cssFiles[15] = 'select2/select2.css?v=3'; break;
-        case 'scramble':           self::$cssFiles[16] = 'scramble.css'; break;
         case 'gallery':            
           self::$cssFiles[16] = 'colorbox/colorbox.css?v=1'; 
           self::$cssFiles[17] = 'visualDict.css';
           break;
+        case 'scramble':           self::$cssFiles[18] = 'scramble.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -203,13 +203,13 @@ class SmartyWrap {
         case 'select2':          self::$jsFiles[21] = 'select2.min.js?v=3'; break;
         case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=3'; break;
         case 'visualTag':        self::$jsFiles[23] = 'visualTag.js'; break;
-        case 'scramble':         self::$jsFiles[24] = 'scramble.js'; break;
         case 'gallery':          
           self::$jsFiles[24] = 'colorbox/jquery.colorbox-min.js';
           self::$jsFiles[25] = 'colorbox/jquery.colorbox-ro.js';
           self::$jsFiles[26] = 'dexGallery.js?v=2';
           self::$jsFiles[27] = 'jcanvas.min.js';
           break;
+        case 'scramble':         self::$jsFiles[28] = 'scramble.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

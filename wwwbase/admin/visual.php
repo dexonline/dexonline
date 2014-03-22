@@ -8,3 +8,4 @@ SmartyWrap::assign('sectionTitle', 'Imagini pentru definiții');
 SmartyWrap::addCss('elfinder', 'jqueryui');
 SmartyWrap::addJs('jquery', 'jqueryui', 'elfinder');
 SmartyWrap::displayAdminPage('admin/visual.ihtml');
+?>

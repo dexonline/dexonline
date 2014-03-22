@@ -1,114 +1,118 @@
 <?php
 
 require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/mime-mail-parser/MimeMailParser.class.php';
+
 log_scriptLog("getWotdImageByEmail: starting");
 
-define('FOLDER', 'INBOX');
+$validSenderAddress = Config::get("WotD.imageEmailSender") or die("No image email sender in config file\r\n");
+$validHeight = Config::get("WotD.wotdImageHeight") or die("No image height in config file\r\n");
+$validWidth = Config::get("WotD.wotdImageWidth") or die("No image width in config file\r\n");
+$daysInterval = Config::get("WotD.interval")or die("No days interval in config file\r\n");
 
-$username = Config::get('WotD.imageEmailUsername');
-$password = Config::get('WotD.imageEmailPassword');
-$ssl = (bool)Config::get('WotD.imageEmailSSL');
-$host = Config::get('WotD.imageEmailHost');
-$port = Config::get('WotD.imageEmailPort');
-$wotdImgFolder = Config::get('WotD.newWotdImageFolder','.');
+$email = file_get_contents("php://stdin");
+$Parser = new MimeMailParser();
+$Parser->setText($email);
 
-//open connection to IMAP mail server
-$sslString = $ssl? '':'/novalidate-cert';
-$mailBox = '{'."$host:$port/ssl$sslString".'}'."INBOX";
-$connection = imap_open($mailBox, $username, $password);
+$sender = $Parser->getHeader("from");
+$subject = imap_utf8($Parser->getHeader("subject"));
 
-$criteria = 'UNSEEN SUBJECT "WOTD"';
-$unreadWotDMessageNumbers = imap_search($connection, $criteria);
-
-if (!$unreadWotDMessageNumbers)
-{
-    log_scriptLog("no new wotd emails found");
-    exit;
+$parsedSender = mailparse_rfc822_parse_addresses($sender);
+if ((count($parsedSender) != 1) || ($parsedSender[0]['address'] !== $validSenderAddress)) {
+  OS::errorAndExit("Ignoring message '$subject' due to invalid sender '$sender'", 0);
 }
 
-foreach($unreadWotDMessageNumbers as $messageNumber)
-{
-    $header = imap_headerinfo($connection, $messageNumber);
-    log_scriptLog("Found unread message. Subject: $header->subject");
-    
-    $wotd = GetWotdFromSubject($header->subject);
-    $image = GetImageFromAttachment($connection, $messageNumber);
-    
-    try
-    {
-        if (!$image)
-        {
-            throw new Exception("Could not extract image from email attachment.");
-        }
-       
-        $definitionForWotd = Model::factory('Definition')->where('lexicon', $wotd)->find_one();
+$word = GetWotdFromSubject($subject);
 
-        if (!$definitionForWotd)
-        {
-            throw new Exception("No word matching $wotd found in definition database.");
-        }
-        
-        if (!file_exists($wotdImgFolder))
-        {
-            mkdir ($wotdImgFolder);
-        }
-        file_put_contents("$wotdImgFolder/$wotd.jpg", $image);
-        
-        //send reply
-        ReplyToEmail($header, "Word of the day image submitted successfully. This is an automated reply.");
-        
-    }
-    catch (Exception $e)
-    {
-        log_scriptLog($e->getMessage());
-        ReplyToEmail($header, $e->getMessage());
-    }
-    
-    //mark message as read
-    imap_setflag_full($connection, $messageNumber, "\Seen");
-    
-    log_scriptLog("finished collecting wotd images from email");
+$attachments = $Parser->getAttachments();
+if (empty($attachments)) {
+  OS::errorAndExit("Ignoring message '$subject' because it has no attachments", 0);
+} elseif (count($attachments) > 1) {
+  OS::errorAndExit("Ignoring message '$subject' because it has more than 1 attachment", 0);
 }
 
-function ReplyToEmail($header, $message)
-{
-    $sender = Config::get('WotD.sender', '');
-    $replyto = Config::get('WotD.reply-to', '');
-    $headers = array("From: $sender", "Reply-To: $replyto", 'Content-Type: text/plain; charset=UTF-8');
-    $receiver = $header->senderaddress;
+$contentType = $attachments[0]->content_type;
+if (!StringUtil::startsWith($contentType, "image/")) {
+  OS::errorAndExit("Ignoring message '$subject' because its attachment is not an image", 0);
+}
+
+$image = $attachments[0]->content;
+$imageExtension = $attachments[0]->getFileExtension();
+$tmpFilePath = tempnam(null, 'wotd_');
+file_put_contents($tmpFilePath, $image);
+
+list($height, $width) = getimagesize($tmpFilePath);
+
+try {
+  if ($height != $validHeight || $width != $validWidth) {
+    throw new Exception("Imaginea trebuie să aibă dimensiuni {$validWidth} x {$validHeight}.");
+  }
+
+  $dateMin = date('Y-m-d', strtotime("-{$daysInterval} day"));
+  $dateMax = date('Y-m-d', strtotime("+{$daysInterval} day"));
+  $wotds = Model::factory('WordOfTheDay')
+    ->table_alias('wotd')
+    ->select('wotd.*')
+    ->join('WordOfTheDayRel', 'wotd.id = rel.wotdId', 'rel')
+    ->join('LexemDefinitionMap', 'rel.refId = ldm.definitionId', 'ldm')
+    ->join('Lexem', 'ldm.lexemId = l.id', 'l')
+    ->where('l.formUtf8General', $word)
+    ->where_gte('wotd.displayDate', $dateMin)
+    ->where_lte('wotd.displayDate', $dateMax)
+    ->find_many();
+
+  if (!count($wotds)) {
+    throw new Exception(sprintf( "Cuvântul '%s' nu apare în intervalul %s - %s.", $word, $dateMin, $dateMax));
+  } else if (count($wotds) > 1) {
+    throw new Exception(sprintf( "Cuvântul '%s' apare de %d ori în intervalul %s - %s.", $word, count($wotds), $dateMin, $dateMax));
+  }
+  $wotd = $wotds[0];
+
+  $today = date('Y-m-d');
+  if ($wotd->image && ($wotd->displayDate < $today)) {
+    throw new Exception("Cuvântul zilei '$word' are deja o imagine ataşată. Nu puteți modifica imaginile cuvintelor din trecut.");
+  }
+
+  $wotdDisplayDate = new DateTime($wotd->displayDate);
+  $wotd->image = sprintf("%s/%s.%s", $wotdDisplayDate->format('Y-m'), $word, $imageExtension);
+  $wotdImagePath = WordOfTheDay::$IMAGE_DIR . '/' . $wotd->image;
+  $dir = dirname($wotdImagePath);
+  if (!file_exists($dir)) {
+    mkdir($dir);
+    chmod($dir, 0777);
+  }
+  rename($tmpFilePath, $wotdImagePath);
+  chmod($wotdImagePath, 0666);
+  $wotd->save();
+  $wotd->ensureThumbnail();
     
-    mail($receiver, $header->subject, $message, implode("\r\n",$headers));
+  ReplyToEmail($sender, $subject, "Am adăugat imaginea pentru '{$word}'.");
+
+} catch (Exception $e) {
+  unlink($tmpFilePath);
+  log_scriptLog($e->getMessage());
+  ReplyToEmail($sender, $subject, $e->getMessage());
 }
 
-function GetWotdFromSubject($subject)
-{
-    $subject = strtolower($subject);
-    $subject = str_replace("wotd", "", $subject);
-    $subject = trim($subject, " \t:,");
-    
-    return $subject;
+log_scriptLog("getWotdImageByEmail: done");
+
+/***************************************************************************/
+
+function ReplyToEmail($senderAddress, $subject, $message) {
+  $sender = Config::get('WotD.sender');
+  $replyto = Config::get('WotD.reply-to');
+  $headers = array("From: $sender", "Reply-To: $replyto", 'Content-Type: text/plain; charset=UTF-8');
+
+  mail($senderAddress, "Re: $subject", $message, implode("\r\n", $headers));
 }
 
-function GetImageFromAttachment($connection, $messageNumber)
-{
-    $bodyparts = imap_fetchstructure($connection,$messageNumber)->parts;
-    if (is_null($bodyparts) || empty($bodyparts)) return null;
-    
-    foreach($bodyparts as $partNo => $part)
-    {
-        if (strcmp(strtolower($part->disposition), "attachment" ) == 0)
-        {
-            return Decode($connection, $messageNumber, $partNo+1);
-        }
-        
-    }
-    return null;
+function GetWotdFromSubject($subject) {
+  $parts = preg_split("/\\s+/", trim($subject));
+  if (count($parts) != 2) {
+     OS::errorAndExit("Ignoring message '$subject' due to invalid subject", 0);
+  }
+  if ($parts[0] != Config::get('WotD.password')) {
+    OS::errorAndExit("Ignoring message '$subject' due to invalid password in the subject", 0);
+  }
+  return $parts[1];
 }
-
-function Decode($connection, $messageNumber, $partNo)
-{
-    $data = \imap_fetchbody($connection, $messageNumber, $partNo);
-    return base64_decode($data);
-}
-
-

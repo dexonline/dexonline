@@ -174,6 +174,7 @@ function util_defineConstants() {
   //Limits
   define('DEFAULT_LIMIT_FULLTEXT', 500);
   define('LIMIT_FULLTEXT_DISPLAY', Config::get('limits.limitFulltextSearch', DEFAULT_LIMIT_FULLTEXT));
+  define('PREVIEW_LIMIT', 20);
 }
 
 function util_getAllStatuses() {
@@ -399,7 +400,7 @@ function util_deleteFile($fileName) {
  * 3) http://dexonline.ro/text[-<sursa>]/<text>
  * Links of the old form (search.php?...) can only come via the search form and should not contain lexemId / definitionId.
  */
-function util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm, $xml) {
+function util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm, $xml, $all) {
   if (strpos($_SERVER['REQUEST_URI'], '/search.php?') === false) {
     return;    // The url is already friendly.
   }
@@ -413,6 +414,7 @@ function util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $show
 
   $sourcePart = $sourceUrlName ? "-{$sourceUrlName}" : '';
   $paradigmPart = $showParadigm ? '/paradigma' : '';
+  $allPart = ($all && !$showParadigm) ? '/expandat' : '';
 
   if ($text) {
     $url = "text{$sourcePart}/{$cuv}";
@@ -426,7 +428,7 @@ function util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $show
     $url = "definitie{$sourcePart}/{$cuv}{$paradigmPart}";
   }
 
-  util_redirect(util_getWwwRoot() . $url);
+  util_redirect(util_getWwwRoot() . $url . $allPart);
 }
 
 /** Relaxed browser check. Currently checks for a few major browser. Can have false negatives, but (hopefully) no false positives. **/

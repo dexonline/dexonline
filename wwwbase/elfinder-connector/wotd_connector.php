@@ -25,31 +25,33 @@ include_once __DIR__ . '/../../phplib/util.php';
  **/
 
 function access($attr, $path, $data, $volume) {
-	return (strpos(basename($path), '.')) === 0       // if file/folder begins with '.' (dot)
-		? !($attr == 'read' || $attr == 'write')    // set read+write to false, other (locked+hidden) set to true
-		:  null;                                    // else elFinder decide it itself
+  return (strpos(basename($path), '.')) === 0       // if file/folder begins with '.' (dot)
+    ? !($attr == 'read' || $attr == 'write')    // set read+write to false, other (locked+hidden) set to true
+    :  null;                                    // else elFinder decide it itself
 }
 
 $myLogger = new elFinderSimpleLogger('../../log/wotdelflog');
 
 // https://github.com/Studio-42/elFinder/wiki/Connector-configuration-options
 $opts = array(
-	'debug' => true,
-	'bind'	=> array(
-			'mkdir mkfile rename duplicate upload rm paste' => array($myLogger, 'log')),
-	'roots' => array(
-		array(
-			'driver'        => 'LocalFileSystem', // driver for accessing file system (REQUIRED)
-			'path'          => '../img/wotd/', // path to files (REQUIRED)
-			'URL'			=> util_getFullServerUrl() . '/img/wotd/', // URL to files (REQUIRED)
-			'accessControl' => 'access', // disable and hide dot starting files (OPTIONAL)
-			'alias'			=> 'Imagini cuvântul zilei', // display this instead of root directory name
-			'uploadAllow'	=> array('image'), // mimetypes allowed to upload
-			'disabled'		=> array('resize'), // list of not allowed commands
-			'imgLib'		=> 'gd', // image manipulation library (imagick, mogrify, gd)
-			'tmbPath'		=> '.tmb', // directory name for image thumbnails. Set to "" to avoid thumbnails generation
-		)
-	)
+  'debug' => true,
+  'bind'  => array(
+    'mkdir mkfile rename duplicate upload rm paste' => array($myLogger, 'log')),
+  'roots' => array(
+    array(
+      'driver'        => 'LocalFileSystem', // driver for accessing file system (REQUIRED)
+      'path'          => '../img/wotd/', // path to files (REQUIRED)
+      'URL'      => util_getFullServerUrl() . '/img/wotd/', // URL to files (REQUIRED)
+      'accessControl' => 'access', // disable and hide dot starting files (OPTIONAL)
+      'alias'      => 'Imagini cuvântul zilei', // display this instead of root directory name
+      'uploadAllow'  => array('image'), // mimetypes allowed to upload
+      'disabled'    => array('resize'), // list of not allowed commands
+      'imgLib'    => 'gd', // image manipulation library (imagick, mogrify, gd)
+      'tmbPath'    => '.tmb', // directory name for image thumbnails. Set to "" to avoid thumbnails generation
+      'dirMode'   => 0777,
+      'fileMode'  => 0666,
+    )
+  )
 );
 
 // run elFinder

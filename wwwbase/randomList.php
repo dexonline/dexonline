@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("../phplib/util.php");
 
 define('MIN_LIST_LENGTH', 10);

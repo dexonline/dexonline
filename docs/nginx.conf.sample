@@ -1,6 +1,6 @@
 server {
   listen 80;
-  server_name my.domain.com;
+  server_name localhost;
   root /var/www/DEX/wwwbase;
   index index.php index.html;
   # rewrite_log on;

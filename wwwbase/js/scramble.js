@@ -37,18 +37,21 @@ $(document).ready(function() {
 	});
 	
 function drawLetters(array){
-	$('canvas').removeLayers();
+	$('canvas').removeLayers().delay(800);
 	for (var i=0; i<=array.length; i++) {
 		$('canvas').drawText({
   			draggable: true,
   			fillStyle: '#9cf',
   			strokeStyle: '#25a',
   			strokeWidth: 2,
-  			x: 100+(i*35), y: 390,
+  			x: 50, y: 50,
   			fontSize: 25,
   			fontFamily: 'Verdana, sans-serif',
   			text: array[i]
-		});
+		})
+	.animateLayer(i, {			
+  			x: 100+(i*30), y: 390,
+});	
   	}
   }
 });

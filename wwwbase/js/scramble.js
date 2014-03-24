@@ -44,7 +44,7 @@ function drawLetters(array){
   			fillStyle: '#9cf',
   			strokeStyle: '#25a',
   			strokeWidth: 2,
-  			x: 50, y: 50,
+  			x: 320, y: -30,
   			fontSize: 25,
   			fontFamily: 'Verdana, sans-serif',
   			text: array[i]

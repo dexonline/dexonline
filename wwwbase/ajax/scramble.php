@@ -2,7 +2,7 @@
 require_once("../../phplib/util.php");
 setlocale(LC_ALL, "ro_RO.utf8");
 
-<<<<<<< HEAD
+
 define('short', 5);
 define('medium', 8);
 define('long', 15);
@@ -10,7 +10,6 @@ define('verylong', 30);
 
 switch ($option) {
 case 4:
-=======
 $option = util_getRequestParameter('option');
 
 define('short', 6);
@@ -21,12 +20,11 @@ define('verylong', 20);
 switch ($option) {
 case 4:
   $minLength = long;
->>>>>>> d846d1f19234ab2ce2e7d86f37a0c82415654260
   $maxLength = verylong;
   break;
 case 3:
   $maxLength = long;
-<<<<<<< HEAD
+
   break;
 case 2:
   $maxLength = medium;
@@ -49,7 +47,6 @@ default :
     ->offset(rand(0, $indexWords - 1))
     ->find_one();
 }
-=======
   $minLength = medium;
   break;
 case 2:
@@ -81,5 +78,5 @@ echo $indexWords;
 $result = array('noWords' => $indexWords, 'randomWord' => $lexem);
 echo json_encode($lexem);
 
->>>>>>> d846d1f19234ab2ce2e7d86f37a0c82415654260
+
 ?>

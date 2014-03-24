@@ -3,6 +3,7 @@ require_once("../../phplib/util.php");
 setlocale(LC_ALL, "ro_RO.utf8");
 
 
+
 define('short', 5);
 define('medium', 8);
 define('long', 15);
@@ -11,6 +12,9 @@ define('verylong', 30);
 switch ($option) {
 case 4:
 $option = util_getRequestParameter('option');
+=======
+$option = util_getRequestParameter('difficulty');
+>>>>>>> 0ba8c32a2dca864c7409ccf0d34ef308edafaba1
 
 define('short', 6);
 define('medium', 8);
@@ -73,10 +77,10 @@ default :
     ->offset(rand(0, $indexWords - 1))
     ->find_one();
 
-echo $lexem->formUtf8General;
-echo $indexWords;
-$result = array('noWords' => $indexWords, 'randomWord' => $lexem);
-echo json_encode($lexem);
+// echo $lexem->formUtf8General;
+// echo $indexWords;
+$result = array('noWords' => $indexWords, 'randomWord' => $lexem->formUtf8General);
+echo json_encode($result);
 
 
 ?>

@@ -8,11 +8,16 @@
       <button class="difficultyButton btn" type="button" value="4">Foarte lung</button>
     </form>
     <div id="resultSearch">Rezultatul este: 
-        <p id="result">
-
-        </p>
+      <p><span id="result"></span>  <span id="noWords"></span></p>
+     Introduce-ti cuvantul:
+      <input class="searchWord"></input><span> <button class="Search" type="text">Cauta </button></span> <span id="ifFound">Rezultat: </span>
+    </div>
+    <div class="drawArea">
+      <canvas class="canvasArea" width='640' height='480' ></canvas>
+      <script src='jcanvas.min.js'></script>
     </div>
   </div>
+ </div>
 </div>
 
 

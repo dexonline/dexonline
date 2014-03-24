@@ -12,5 +12,16 @@
 .scrambleArea .paragraphTitle {
   font-family: "Segoe Print", "Lucida Sans Unicode", Baskerville, Georgia; /* fonts available in "Windows 7, Windows XP, Mac OS, other", in this order */
   color: rgb(16, 158, 27);
-  font-size: 18px;
+  font-size: 40px;
+  text-align: center;
+  text-decoration: underline;
 }
+.drawArea {
+	text-align: center;
+}
+
+ .canvasArea{
+	border: 4px; 
+	border-style:groove;
+}
+

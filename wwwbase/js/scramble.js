@@ -11,43 +11,46 @@ $(document).ready(function() {
 				var word = $.parseJSON(response);
 				$('#result').html(word.randomWord);
 				$('#noWords').html(word.noWords);
+				var letterArray = new Array();
+			    letterArray = word.charArray;
+			   	drawLetters(letterArray);
 		})
 		.fail(function() {
 				console.log("Nu merge");
 		});
 	});
-
-	$('.Search').on('click', function() {
-		var searchWord = $(.searchWord).val();
+// test pentru cuvinte returnate prin json
+	$('.searchWord').keyup(function() {
+		var searchWord = $(this).val();
 		$.ajax({
 			type:"POST",
-			url: wwwRoot + "ajax/scramble.php"
-			data: { searchWord : searchWord }
+			url: wwwRoot + "ajax/scramble.php",
+			data: { searchWord : searchWord },
 		})
-		.done(function(response)){
+		.done(function(response){
 			var result = $.parseJSON(response);
-			$('.ifFound').html(result.Found);
-		}
+			$('#ifFound').html(result.Found);
+		})
 		.fail(function() {
 			console.log("Nu merge");
-		})
+		});
 	});
-
-	$('canvas')
-		.drawArc({
-  		layer: true,
-  		draggable: true,
-  		fillStyle: '#36c',
-  		x: 150, y: 150,
-  		radius: 50
-	})
-	.drawRect({
-  		layer: true,
-  		draggable: true,
-  		fillStyle: '#6c1',
-  		x: 100, y: 100,
-  		width: 100, height: 100
-	});	
+	
+function drawLetters(array){
+	$('canvas').removeLayers();
+	for (var i=0; i<=array.length; i++) {
+		$('canvas').drawText({
+  			draggable: true,
+  			fillStyle: '#9cf',
+  			strokeStyle: '#25a',
+  			strokeWidth: 2,
+  			x: 100+(i*35), y: 390,
+  			fontSize: 25,
+  			fontFamily: 'Verdana, sans-serif',
+  			text: array[i]
+		});
+  	}
+  }
 });
 
 

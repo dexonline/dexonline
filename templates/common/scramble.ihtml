@@ -6,11 +6,12 @@
       <button class="difficultyButton btn" type="button" value="2">Mediu</button>
       <button class="difficultyButton btn" type="button" value="3">Lung</button>
       <button class="difficultyButton btn" type="button" value="4">Foarte lung</button>
+      <button class="difficultyButton btn" type="button" value="5">Fa-mi o surpriza</button>
     </form>
     <div id="resultSearch">Rezultatul este: 
       <p><span id="result"></span>  <span id="noWords"></span></p>
      Introduce-ti cuvantul:
-      <input class="searchWord"></input><span> <button class="Search" type="text">Cauta </button></span> <span id="ifFound">Rezultat: </span>
+      <input class="searchWord"></input><span> <span id="ifFound">Rezultat: </span>
     </div>
     <div class="drawArea">
       <canvas class="canvasArea" width='640' height='480' ></canvas>

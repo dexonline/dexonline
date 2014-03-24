@@ -5,31 +5,34 @@ setlocale(LC_ALL, "ro_RO.utf8");
 $option = util_getRequestParameter('difficulty');
 $searchWord = util_getRequestParameter('searchWord');
 
-define('short', 6);
-define('medium', 8);
-define('long', 10);
-define('verylong', 20);
+define('SHORT', 6);
+define('MEDIUM', 8);
+define('LONG', 10);
+define('VERYLONG', 20);
 
 switch ($option) {
+case 5:
+  $minLength = MEDIUM;
+  $maxLength = VERYLONG;
 case 4:
-  $minLength = long;
-  $maxLength = verylong;
+  $minLength = LONG;
+  $maxLength = VERYLONG;
   break;
 case 3:
-  $maxLength = long;
-  $minLength = medium;
+  $maxLength = LONG;
+  $minLength = MEDIUM;
   break;
 case 2:
-  $maxLength = medium;
-  $minLength = short;
+  $maxLength = MEDIUM;
+  $minLength = SHORT;
   break;
 case 1:
-  $maxLength = short;
-  $minLength = short;
+  $maxLength = SHORT;
+  $minLength = SHORT;
   break;
 default :
-   $maxLength = short;
-   $minLength = short;
+   $maxLength = SHORT;
+   $minLength = SHORT;
 }
 
 	$indexWords = Model::factory('Lexem')
@@ -43,17 +46,27 @@ default :
     ->offset(rand(0, $indexWords - 1))
     ->find_one();
   $Found = Model::factory('Lexem')
-    ->where('formNoAccent',$searchWord)
+    ->where('formUtf8General',$searchWord)
     ->find_one();
-
+//Conditional cases:
   if($Found != null) {
     $Found = 'Cuvantul exista';
   } else {
     $Found = 'Cuvantul nu exista';
+  } 
+//Hardcore mode
+  if($option == "5") {
+    $lexem_array = str_split($lexem->formUtf8General);
+    $lexem = str_shuffle($lexem->formUtf8General);
+    $result = array('noWords' => $indexWords, 'randomWord' => $lexem, 'Found' => $Found, 'charArray' => $lexem_array);
+echo json_encode($result);
   }
-
+  else {
+  $lexem_array = str_split($lexem->formUtf8General);
+$result = array('noWords' => $indexWords, 'randomWord' => $lexem->formUtf8General, 'Found' => $Found, 'charArray' => $lexem_array);
+echo json_encode($result);
+  }
 // echo $lexem->formUtf8General;
 // echo $indexWords;
-$result = array('noWords' => $indexWords, 'randomWord' => $lexem->formUtf8General, 'Found' => $Found);
-echo json_encode($result);
+
 ?>

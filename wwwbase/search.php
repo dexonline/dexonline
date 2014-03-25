@@ -10,6 +10,8 @@ $sourceUrlName = util_getRequestParameter('source');
 $text = util_getRequestIntParameter('text');
 $showParadigm = util_getRequestParameter('showParadigm');
 $xml = util_getRequestParameter('xml');
+$all = util_getRequestIntParameter('all');
+
 
 $redirect = session_getWithDefault('redirect', false);
 $redirectFrom = session_getWithDefault('init_word', '');
@@ -20,7 +22,7 @@ if ($cuv) {
   $cuv = StringUtil::cleanupQuery($cuv);
 }
 
-util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm, $xml);
+util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm, $xml, $all);
 
 $searchType = SEARCH_INFLECTED;
 $hasDiacritics = session_user_prefers(Preferences::FORCE_DIACRITICS);
@@ -28,6 +30,9 @@ $exclude_unofficial = session_user_prefers(Preferences::EXCLUDE_UNOFFICIAL);
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
 $showParadigm = $showParadigm || session_user_prefers(Preferences::SHOW_PARADIGM);
+$all = $all || $showParadigm;
+SmartyWrap::assign('allDefinitions', $all);
+
 $paradigmLink = $_SERVER['REQUEST_URI'] . ($showParadigm ? '' : '/paradigma');
 $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
 $sourceId = $source ? $source->id : null;
@@ -183,6 +188,11 @@ if ($searchType == SEARCH_INFLECTED) {
   }
 
   if (isset($definitions)) {
+    $totalDefinitionsCount = count($definitions);
+    if(!$all && ($totalDefinitionsCount > PREVIEW_LIMIT)) {
+      $definitions = array_slice($definitions, 0, PREVIEW_LIMIT);
+      SmartyWrap::assign('totalDefinitionsCount', $totalDefinitionsCount);
+    }
     $searchResults = SearchResult::mapDefinitionArray($definitions);
   }
 }

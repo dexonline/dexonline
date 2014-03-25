@@ -86,3 +86,5 @@ if($tagging) {
 } else {
   SmartyWrap::displayAdminPage('admin/visualTag.ihtml');
 }
+
+?>

@@ -1,9 +1,9 @@
 <?php
 
 class OS {
-  static function errorAndExit($msg) {
-    log_scriptLog("ERROR: $msg\n");
-    exit(1);
+  static function errorAndExit($msg, $exitCode = 1) {
+    log_scriptLog("ERROR: $msg");
+    exit($exitCode);
   }
 
   static function executeAndAssert($command) {

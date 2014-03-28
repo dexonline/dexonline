@@ -39,9 +39,9 @@ $(document).ready(function() {
 // printeaza literele cuvantului random din baza de date
 function drawLetters(array){
 	$('canvas').removeLayers();
-	for (var i=0; i<array.length; i++) {
+	for (var i = 0; i < array.length; i++) {
 
-		var posX = 100+(i*40);
+		var posX = 100 + ( i * 40);
 
 		$('canvas').drawRect({
 			draggable: true,
@@ -72,21 +72,20 @@ function drawLetters(array){
 		});
   	}
   	var layers = $('canvas').getLayers();
+ // 	console.log(layers);
   	keylisten(layers);
 }
 //asculta tot documentul pentru apasarea unei taste, daca tasta corespunde numelui layer-ului atunci se se muta pozitia pozitia acelui layer pe Y = 150.
 function keylisten(layers){
-	$('animate').on('click', function(e){
-		var test = String.fromCharCode(e);
-		console.log(test);
-		for(var i = 0; i<layers.length;i++) {	
-		if(test == layers[i]) {
-		$('canvas').animateLayerGroup(i,{
-		   x:100+(i*40), y: 150
+	$('animate').on('click', function(){
+		console.log($('animate').attr("value"));
+		console.log(layers);
+		for(var i = 0; i < layers.length; i++) {	
+		  $('canvas').animateLayerGroup(i, {
+		     y: 150
 		  });
 		}
-	  }
-   });
+    });
 }
 
 

@@ -16,7 +16,7 @@
     <div class="drawArea">
       <canvas class="canvasArea" width='640' height='480' ></canvas>
       <script src='jcanvas.min.js'></script>
-      <button class"animate" type="button" value"1">Animeaza</button>
+      <button class"animate" type="button" value="1">Animeaza</button>
     </div>
   </div>
  </div>

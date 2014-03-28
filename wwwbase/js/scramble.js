@@ -9,12 +9,12 @@ $(document).ready(function() {
 			data: { difficulty : difficulty },
 		})
 		.done(function(response) {
-				var word = $.parseJSON(response);
-				$('#result').html(word.randomWord);
-				$('#noWords').html(word.noWords);
-				var letterArray = new Array();
-			    letterArray = word.charArray
-			   	drawLetters(letterArray);
+		    var word = $.parseJSON(response);
+		    $('#result').html(word.randomWord);
+			$('#noWords').html(word.noWords);
+			drawLetters(word.randomWord);
+			console.log(word.randomWord);
+
 		})
 		.fail(function() {
 				console.log("Nu merge");
@@ -24,7 +24,7 @@ $(document).ready(function() {
 	$('.searchWord').keyup(function() {
 		var searchWord = $(this).val();
 		$.ajax({
-			type:"POST",
+		    type:"POST",
 			url: wwwRoot + "ajax/scramble.php",
 			data: { searchWord : searchWord },
 		})
@@ -38,14 +38,26 @@ $(document).ready(function() {
 	});
 // printeaza literele cuvantului random din baza de date
 function drawLetters(array){
-	var layers;
 	$('canvas').removeLayers();
-	for (var i=0; i<=array.length; i++) {
+	for (var i=0; i<array.length; i++) {
 
-		var posX = 100+(i*30);
+		var posX = 100+(i*40);
 
-		$('canvas').drawText({
+		$('canvas').drawRect({
+			draggable: true,
+            fillStyle: 'black',
+            groups: [i],
+          //  dragGroups: [i],
+            x: 320, y: -30,
+            width: 35,
+            height: 45,
+            cornerRadius: 4
+		})
+
+	.drawText({
   			draggable: true,
+  			groups:[i],
+  			dragGroups: [i],
   			fillStyle: '#9cf',
   			strokeStyle: '#25a',
   			strokeWidth: 2,
@@ -55,27 +67,26 @@ function drawLetters(array){
   			text: array[i].toUpperCase(),
   			name: array[i]
 		})
-	.animateLayer(i, {			
+	.animateLayerGroup(i, {			
   			x: posX, y: 390
-		})	
+		});
   	}
-  	layers = $('canvas').getLayers();
-  	console.log(layers);
-  	keylisten(layers,posX);
+  	var layers = $('canvas').getLayers();
+  	keylisten(layers);
 }
 //asculta tot documentul pentru apasarea unei taste, daca tasta corespunde numelui layer-ului atunci se se muta pozitia pozitia acelui layer pe Y = 150.
-function keylisten(layers,posX){
-	$(document).keypress(function(e){
+function keylisten(layers){
+	$('animate').on('click', function(e){
 		var test = String.fromCharCode(e);
 		console.log(test);
-	})
-	for(var i = 0; i<=layers.length;i++) {	
+		for(var i = 0; i<layers.length;i++) {	
 		if(test == layers[i]) {
-		$('canvas').animateLayer(i,{
-		x:posX, y: 150
-		});
+		$('canvas').animateLayerGroup(i,{
+		   x:100+(i*40), y: 150
+		  });
 		}
-	}
+	  }
+   });
 }
 
 

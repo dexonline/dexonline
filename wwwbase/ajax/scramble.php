@@ -31,8 +31,8 @@ case 1:
   $minLength = SHORT;
   break;
 default :
-   $maxLength = SHORT;
-   $minLength = SHORT;
+  $maxLength = SHORT;
+  $minLength = SHORT;
 }
 
 	$indexWords = Model::factory('Lexem')
@@ -53,19 +53,10 @@ default :
     $Found = 'Cuvantul exista';
   } else {
     $Found = 'Cuvantul nu exista';
-  } 
-//Hardcore mode
-  if($option == "5") {
-    $lexem_array = str_split($lexem->formUtf8General);
-    $lexem = str_shuffle($lexem->formUtf8General);
-    $result = array('noWords' => $indexWords, 'randomWord' => $lexem, 'Found' => $Found, 'charArray' => $lexem_array);
-echo json_encode($result);
   }
-  else {
-  $lexem_array = str_split($lexem->formUtf8General);
-$result = array('noWords' => $indexWords, 'randomWord' => $lexem->formUtf8General, 'Found' => $Found, 'charArray' => $lexem_array);
+
+$result = array('noWords' => $indexWords, 'randomWord' => $lexem->formUtf8General, 'Found' => $Found);
 echo json_encode($result);
-  }
 // echo $lexem->formUtf8General;
 // echo $indexWords;
 

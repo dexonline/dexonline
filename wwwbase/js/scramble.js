@@ -47,7 +47,7 @@ function drawLetters(array){
 			draggable: true,
             fillStyle: 'black',
             groups: [i],
-          //  dragGroups: [i],
+            dragGroups: [i],
             x: 320, y: -30,
             width: 35,
             height: 45,

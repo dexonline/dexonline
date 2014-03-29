@@ -10,7 +10,7 @@
     </form>
     <div id="resultSearch">Rezultatul este: 
       <p><span id="result"></span>  <span id="noWords"></span></p>
-     Introduce-ti cuvantul:
+     Introduceti cuvantul:
       <input class="searchWord"></input><span> <span id="ifFound">Rezultat: </span>
     </div>
     <div class="drawArea">

@@ -14,9 +14,10 @@
       <input class="searchWord"></input><span> <span id="ifFound">Rezultat: </span>
     </div>
     <div class="drawArea">
-      <canvas class="canvasArea" width='640' height='480' ></canvas>
+      <canvas class="canvasArea" width='840' height='480' ></canvas>
       <script src='jcanvas.min.js'></script>
-      <button class"animate" type="button" value="1">Animeaza</button>
+      <br />
+      <button class="animate" type="button" value="1">Animeaza</button>
     </div>
   </div>
  </div>

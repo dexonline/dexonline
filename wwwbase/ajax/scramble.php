@@ -35,12 +35,12 @@ default :
   $minLength = SHORT;
 }
 
-	$indexWords = Model::factory('Lexem')
-			->where_gte('charLength', $minLength)
+  $indexWords = Model::factory('Lexem')
+      ->where_gte('charLength', $minLength)
       ->where_lte('charLength', $maxLength)
-			->count();
-			
-	$lexem = Model::factory('Lexem')
+      ->count();
+
+  $lexem = Model::factory('Lexem')
     ->where_gte('charLength', $minLength)
     ->where_lte('charLength', $maxLength)
     ->offset(rand(0, $indexWords - 1))

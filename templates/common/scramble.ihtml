@@ -9,15 +9,20 @@
       <button class="difficultyButton btn" type="button" value="5">Fa-mi o surpriza</button>
     </form>
     <div id="resultSearch">Rezultatul este: 
-      <p><span id="result"></span>  <span id="noWords"></span></p>
+      <p>
+        <span id="result"></span>  
+        <span id="noWords"></span>
+      </p>
      Introduceti cuvantul:
-      <input class="searchWord"></input><span> <span id="ifFound">Rezultat: </span>
+      <input class="searchWord"></input>
+      <span id="ifFound">Rezultat: </span>
     </div>
     <div class="drawArea">
       <canvas class="canvasArea" width='840' height='480' ></canvas>
       <script src='jcanvas.min.js'></script>
       <br />
       <button class="animate" type="button" value="1">Animeaza</button>
+      <p class="test">Litera apasata este: </p>
     </div>
   </div>
  </div>

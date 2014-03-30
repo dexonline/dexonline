@@ -77,6 +77,7 @@ function drawLetters(array){
 }
 //asculta tot documentul pentru apasarea unei taste, daca tasta corespunde numelui layer-ului atunci se se muta pozitia pozitia acelui layer pe Y = 150.
 function keylisten(layers){
+	console.log("am intrat in functie");
 	$('animate').on('click', function(){
 		console.log($('animate').attr("value"));
 		console.log(layers);

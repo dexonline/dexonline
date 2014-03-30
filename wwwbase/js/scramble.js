@@ -45,6 +45,7 @@ $(document).ready(function() {
 
       $("canvas").drawRect({
         draggable: true,
+        name: array[i],
         fillStyle: "black",
         groups: [i],
         dragGroups: [i],
@@ -55,7 +56,8 @@ $(document).ready(function() {
       })
       .drawText({
         draggable: true,
-        groups:[i],
+        name: array[i],
+        groups: [i],
         dragGroups: [i],
         fillStyle: "#9cf",
         strokeStyle: "#25a",
@@ -64,57 +66,26 @@ $(document).ready(function() {
         fontSize: 32.5,
         fontFamily: "Verdana, sans-serif",
         text: array[i].toUpperCase(),
-        name: array[i]
       })
-      .animateLayerGroup(i, {			
+      .animateLayerGroup(i, {     
         x: posX, y: 50
       });
     }
 
     var layers = $("canvas").getLayers();
-   //   console.log(layers);
+     console.log(layers);
     keyListen(layers);
   }
 
 // asculta tot documentul pentru apasarea unei taste, daca tasta corespunde numelui layer-ului 
 // atunci se muta pozitia acelui layer pe Y = 150.
-	.drawText({
-  			draggable: true,
-  			groups:[i],
-  			dragGroups: [i],
-  			fillStyle: '#9cf',
-  			strokeStyle: '#25a',
-  			strokeWidth: 2,
-  			x: 320, y: -30,
-  			fontSize: 32.5,
-  			fontFamily: 'Verdana, sans-serif',
-  			text: array[i].toUpperCase(),
-  			name: array[i]
-		})
-	.animateLayerGroup(i, {			
-  			x: posX, y: 390
-		});
-  	}
-  	var layers = $('canvas').getLayers();
- // 	console.log(layers);
-  	keylisten(layers);
-}
-//asculta tot documentul pentru apasarea unei taste, daca tasta corespunde numelui layer-ului atunci se se muta pozitia pozitia acelui layer pe Y = 150.
-function keylisten(layers){
-	console.log("am intrat in functie");
-	$('animate').on('click', function(){
-		console.log($('animate').attr("value"));
-		console.log(layers);
-		for(var i = 0; i < layers.length; i++) {	
-		  $('canvas').animateLayerGroup(i, {
-		     y: 150
-		  });
-		}
+
+
  /* function keylisten(layers){
     $(".animate").on("click", function(){
       console.log($(".animate").attr("value"));
       console.log(layers);
-      for(var i = 0; i < layers.length; i++) {	
+      for(var i = 0; i < layers.length; i++) {  
         $("canvas").animateLayerGroup(i, {
         y: 200
         });
@@ -127,12 +98,12 @@ function keylisten(layers){
     $(".searchWord").keyup(function(letter){
       var key;
       key = letter.keyCode;
-      for(var i = 0; i < layers.length; i++) {
-        //if( String.fromCharCode(key) == layers[i].toUpperCase() || String.fromCharCode(key) == layers[i].toLowerCase() ) {	
+      for(i = 0; i < layers.length; i++) {
+        if( String.fromCharCode(key) == (layers[i].name).toUpperCase() || String.fromCharCode(key) == (layers[i].name).toLowerCase() ) {  
           $("canvas").animateLayerGroup(i, {
             y: 200
           });
-        //}
+        }
         
       }
     });

@@ -19,7 +19,6 @@
     </div>
     <div class="drawArea">
       <canvas class="canvasArea" width='840' height='480' ></canvas>
-      <script src='jcanvas.min.js'></script>
       <br />
       <button class="animate" type="button" value="1">Animeaza</button>
       <p class="test">Litera apasata este: </p>

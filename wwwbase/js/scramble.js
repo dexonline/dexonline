@@ -42,6 +42,23 @@ $(document).ready(function() {
     layers = $("canvas").getLayers();
     var key;
     key = letter.keyCode;
+    for(i = 0; i< layers.length; i += 2) {
+      console.log(layers[i].data.letter);
+      if(layers[i].data.letter == "\u00e2" || layers[i].data.letter == "\u0103") {
+        layers[i].data.letter = "a";
+      }
+      if(layers[i].data.letter == "\u00ee" || layers[i].data.letter == "\00ce") {
+        layers[i].data.letter = "i";
+      }
+      if(layers[i].data.letter == "\u0219" || layers[i].data.letter == "\u0218") {
+        layers[i].data.letter = "s";
+      }
+      if(layers[i].data.letter == "\u021b" || layers[i].data.letter == "\u021a") {
+        layers[i].data.letter = "t";
+      }
+      console.log(layers[i].data.letter);
+    }
+
     for(i = 0; i < layers.length; i += 2) {
      /* if(String.fromCharCode(key) == layers[i].data.letter && layers[i].data.selected) {
         $("canvas").animateLayerGroup("boggle" + i / 2, {
@@ -51,7 +68,6 @@ $(document).ready(function() {
 
         return;
       } */
-
       if(String.fromCharCode(key) == layers[i].data.letter && !layers[i].data.selected) {
         $("canvas").animateLayerGroup("boggle" + i / 2, {
           y: 200
@@ -78,11 +94,13 @@ $(document).ready(function() {
     $("canvas").removeLayers();
     for (var i = 0; i < array.length; i++) {
 
-      var posX = 50 + ( i * 50 );
+      var posX = 50 + ( i * 55 );
 
       $("canvas").drawRect({
         layer: true,
         // draggable: true,
+        strokeStyle: "black",
+        strokeWidth: 4,
         name: "rect" + i,
         fillStyle: function(layer) {
           var value = Math.round(layer.x / this.width * 360);

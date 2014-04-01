@@ -44,17 +44,17 @@ $(document).ready(function() {
     key = letter.keyCode;
     for(i = 0; i< layers.length; i += 2) {
       console.log(layers[i].data.letter);
-      if(layers[i].data.letter == "\u00e2" || layers[i].data.letter == "\u0103") {
-        layers[i].data.letter = "a";
+      if(layers[i].data.letter == "\u00c2" || layers[i].data.letter == "\u0102") {
+        layers[i].data.letter = "A";
       }
       if(layers[i].data.letter == "\u00ee" || layers[i].data.letter == "\00ce") {
-        layers[i].data.letter = "i";
+        layers[i].data.letter = "I";
       }
       if(layers[i].data.letter == "\u0219" || layers[i].data.letter == "\u0218") {
-        layers[i].data.letter = "s";
+        layers[i].data.letter = "S";
       }
       if(layers[i].data.letter == "\u021b" || layers[i].data.letter == "\u021a") {
-        layers[i].data.letter = "t";
+        layers[i].data.letter = "T";
       }
       console.log(layers[i].data.letter);
     }
@@ -84,7 +84,7 @@ $(document).ready(function() {
         });
         layers[i].data.selected = false;
 
-        return;
+     //   return;
       }
     }
   });

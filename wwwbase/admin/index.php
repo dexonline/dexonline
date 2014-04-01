@@ -45,7 +45,7 @@ $reports = array(
         'count' => Model::factory('Lexem')->where_not_null('comment')->count(),
         'privilege' => PRIV_LOC
   ),
-  array('text' => 'Lexeme cu accente incorecte',
+  array('text' => 'Lexeme fără accent',
         'url' => 'flex/viewLexemsWithoutAccents',
         'count' => Model::factory('Lexem')->where('consistentAccent', 0)->count(),
         'privilege' => PRIV_EDIT

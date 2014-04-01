@@ -43,11 +43,30 @@ $(document).ready(function() {
     var key;
     key = letter.keyCode;
     for(i = 0; i < layers.length; i += 2) {
+     /* if(String.fromCharCode(key) == layers[i].data.letter && layers[i].data.selected) {
+        $("canvas").animateLayerGroup("boggle" + i / 2, {
+          y: 50
+        });
+        layers[i].data.selected = false;
+
+        return;
+      } */
+
       if(String.fromCharCode(key) == layers[i].data.letter && !layers[i].data.selected) {
         $("canvas").animateLayerGroup("boggle" + i / 2, {
           y: 200
         });
         layers[i].data.selected = true;
+
+        return;
+      }
+    }
+    for(i = layers.length - 1; i >= 0; i--) {
+      if(String.fromCharCode(key) == layers[i].data.letter && layers[i].data.selected) {
+        $("canvas").animateLayerGroup("boggle" + i / 2, {
+          y: 50
+        });
+        layers[i].data.selected = false;
 
         return;
       }
@@ -59,18 +78,22 @@ $(document).ready(function() {
     $("canvas").removeLayers();
     for (var i = 0; i < array.length; i++) {
 
-      var posX = 50 + ( i * 40 );
+      var posX = 50 + ( i * 50 );
 
       $("canvas").drawRect({
         layer: true,
         // draggable: true,
         name: "rect" + i,
-        fillStyle: "black",
+        fillStyle: function(layer) {
+          var value = Math.round(layer.x / this.width * 360);
+          value = Math.min(value, 360);
+          return 'hsl(' + value + ', 50%, 50%)';
+        },
         groups: ["boggle" + i],
         // dragGroups: ["boggle" + i],
         x: 320, y: -30,
-        width: 35,
-        height: 45,
+        width: 45,
+        height: 70,
         cornerRadius: 4,
         data: {
           letter: array[i].toUpperCase(),
@@ -83,11 +106,11 @@ $(document).ready(function() {
         name: "letter" + i,
         groups: ["boggle" + i],
         // dragGroups: ["boggle" + i],
-        fillStyle: "#9cf",
-        strokeStyle: "#25a",
-        strokeWidth: 2,
+        fillStyle: "white",
+        strokeStyle: "gray",
+        strokeWidth: 1,
         x: 320, y: -30,
-        fontSize: 32.5,
+        fontSize: 50,
         fontFamily: "Verdana, sans-serif",
         text: array[i].toUpperCase(),
       })

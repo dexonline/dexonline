@@ -50,9 +50,9 @@ default :
     ->find_one();
 //Conditional cases:
   if($Found != null) {
-    $Found = 'Cuvantul exista';
+    $Found = 1;
   } else {
-    $Found = 'Cuvantul nu exista';
+    $Found = 0;
   }
 
 $result = array('noWords' => $indexWords, 'randomWord' => $lexem->formUtf8General, 'Found' => $Found);

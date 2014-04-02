@@ -24,6 +24,7 @@ $(document).ready(function() {
   // test pentru cuvinte returnate prin json
   $(".searchWord").keyup(function(letter) {
     var searchWord = $(this).val();
+    var score = 0;
     $.ajax({
       type:"POST",
       url: wwwRoot + "ajax/scramble.php",
@@ -31,6 +32,10 @@ $(document).ready(function() {
     })
     .done(function(response){
       var result = $.parseJSON(response);
+      if(result.Found == 1) {
+        score += 10;
+      }
+      $("#score").html(score);
       $("#ifFound").html(result.Found);
     })
     .fail(function() {
@@ -41,13 +46,15 @@ $(document).ready(function() {
     // atunci se muta pozitia acelui layer pe Y = 150.
     layers = $("canvas").getLayers();
     var key;
+    var keyString;
     key = letter.keyCode;
-    for(i = 0; i< layers.length; i += 2) {
-      console.log(layers[i].data.letter);
+    keyString = String.fromCharCode(key);
+
+    for(var i = 0; i< layers.length; i += 2) {
       if(layers[i].data.letter == "\u00c2" || layers[i].data.letter == "\u0102") {
         layers[i].data.letter = "A";
       }
-      if(layers[i].data.letter == "\u00ee" || layers[i].data.letter == "\00ce") {
+      if(layers[i].data.letter == "\u00ee" || layers[i].data.letter == "\u00ce") {
         layers[i].data.letter = "I";
       }
       if(layers[i].data.letter == "\u0219" || layers[i].data.letter == "\u0218") {
@@ -56,10 +63,9 @@ $(document).ready(function() {
       if(layers[i].data.letter == "\u021b" || layers[i].data.letter == "\u021a") {
         layers[i].data.letter = "T";
       }
-      console.log(layers[i].data.letter);
     }
-
-    for(i = 0; i < layers.length; i += 2) {
+    
+    for(var i = 0; i < layers.length; i += 2) {
      /* if(String.fromCharCode(key) == layers[i].data.letter && layers[i].data.selected) {
         $("canvas").animateLayerGroup("boggle" + i / 2, {
           y: 50
@@ -68,7 +74,8 @@ $(document).ready(function() {
 
         return;
       } */
-      if(String.fromCharCode(key) == layers[i].data.letter && !layers[i].data.selected) {
+
+      if(keyString == layers[i].data.letter && !layers[i].data.selected) {
         $("canvas").animateLayerGroup("boggle" + i / 2, {
           y: 200
         });
@@ -77,18 +84,51 @@ $(document).ready(function() {
         return;
       }
     }
-    for(i = layers.length - 1; i >= 0; i--) {
-      if(String.fromCharCode(key) == layers[i].data.letter && layers[i].data.selected) {
+    for(var i = layers.length - 2; i > 0; i-= 2) {
+      if(keyString == layers[i].data.letter && layers[i].data.selected) {
         $("canvas").animateLayerGroup("boggle" + i / 2, {
           y: 50
         });
         layers[i].data.selected = false;
-
-     //   return;
+       // return;
       }
     }
   });
-  
+
+
+
+var count = 30; // time limit to find words, expresed in seconds
+var counter = setInterval(timeLeft, 1000); //1000 will  run it every 1 second
+
+function timeLeft() {
+  count = count - 1;
+  if (count <= 0) {
+     clearInterval(counter);
+     counter = setInterval(timeLeft, 1000); // auto reload values
+     count = 30;
+       var randDifficulty = Math.floor((Math.random()*5)+1);
+    $.ajax({
+      type: "POST",
+      url: wwwRoot + "ajax/scramble.php",
+      data: { difficulty : randDifficulty },
+    })
+    .done(function(response) {
+      var autoWord = $.parseJSON(response);
+      $("#result").html(autoWord.randomWord);
+      $("#noWords").html(autoWord.noWords);
+      drawLetters(autoWord.randomWord);
+      console.log(autoWord.randomWord);
+      $(".searchWord").val("");
+    })
+    .fail(function() {
+      console.log("Nu merge");
+    });
+     return;
+  }
+  $("#timer").html(count + " secs");
+}
+
+
   // printeaza literele cuvantului random din baza de date
   function drawLetters(array) {
     $("canvas").removeLayers();

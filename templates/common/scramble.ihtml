@@ -16,6 +16,10 @@
      Introduceti cuvantul:
       <input class="searchWord"></input>
       <span id="ifFound">Rezultat: </span>
+      <span>Timp ramas: </span>
+      <span id="timer"></span>
+      <span>Scor: </span>
+      <span id="score"></span>
     </div>
     <div class="drawArea">
       <canvas class="canvasArea" width='840' height='480' ></canvas>

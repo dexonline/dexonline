@@ -19,7 +19,7 @@ contact = contact@dexonline.ro
 
 ; Database connection
 ; database = 'mysql://root:pwd@localhost/mydb'
-database = mysql://root@localhost/DEX
+database = mysql://root:lululove@localhost/DEX
 
 ; Show some debug information when this user is logged in.
 debugUser = reggie
@@ -173,30 +173,20 @@ diacritics_log = log/diacritics_log
 ; When set, outputs messages to the screen
 log2screen = true
 
-; When set, outputs messages to the file specified by crawler_log
+; when set, outputs messages to the file specified by crawler_log
 log2file = true
 
 ; WotD email settings
 [WotD]
-; Sender of WotD reminders (and receiver of WotD by email)
 sender = sending-user@example.com
-reply-to = reply-to-user@example.com
-
-; Recipients of WotD reminders
+reply-to =reply-to-user@example.com
 rcpt-info[] = info-user-1@example.com
 rcpt-info[] = info-user-2@example.com
 rcpt-error[] = error-user-1@example.com
 rcpt-error[] = error-user-2@example.com
 
-; Author of WotD images
 imageEmailSender = user@example.com
-
-; Password to be sent with each image
-password = foobar
-
-; Image size
 wotdImageHeight = 660
 wotdImageWidth = 454
-
-; We only accept WotD images for days within $interval days of today.
-interval = 5
+interval = 3
+imgRoot=/path/to/img/root

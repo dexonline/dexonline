@@ -14,7 +14,8 @@ $(document).ready(function() {
       $("#noWords").html(word.noWords);
       drawLetters(word.randomWord);
       console.log(word.randomWord);
-      $(".searchWord").val("");
+
+      $(".searchWord").val(""); // clears input
     })
     .fail(function() {
       console.log("Nu merge");
@@ -22,21 +23,31 @@ $(document).ready(function() {
   });
 
   // test pentru cuvinte returnate prin json
+  var cnt = 0;
+
   $(".searchWord").keyup(function(letter) {
+
     var searchWord = $(this).val();
     var score = 0;
+
     $.ajax({
       type:"POST",
       url: wwwRoot + "ajax/scramble.php",
       data: { searchWord : searchWord },
     })
     .done(function(response){
-      var result = $.parseJSON(response);
-      if(result.Found == 1) {
-        score += 10;
+      // problema: a 2a oara nu mai ia scorul
+      var enter;
+      enter = letter.keyCode;
+      if( enter == 13 ) {
+      	var result = $.parseJSON(response);
+        if(result.Found == 1) {
+          score += 10;
+        }
+        $("#score").html(score);
+        $("#ifFound").html(result.Found);
       }
-      $("#score").html(score);
-      $("#ifFound").html(result.Found);
+      
     })
     .fail(function() {
       console.log("Nu merge");
@@ -64,7 +75,7 @@ $(document).ready(function() {
         layers[i].data.letter = "T";
       }
     }
-    
+
     for(var i = 0; i < layers.length; i += 2) {
      /* if(String.fromCharCode(key) == layers[i].data.letter && layers[i].data.selected) {
         $("canvas").animateLayerGroup("boggle" + i / 2, {
@@ -74,31 +85,37 @@ $(document).ready(function() {
 
         return;
       } */
-
+      
       if(keyString == layers[i].data.letter && !layers[i].data.selected) {
-        $("canvas").animateLayerGroup("boggle" + i / 2, {
+
+      	$("canvas").animateLayerGroup("boggle" + i / 2, {
+          x: 50 + (cnt * 55),
           y: 200
         });
         layers[i].data.selected = true;
 
+        cnt++; // modifica pozitia literei, literele se coboara relativ la ultima litera tastata
+
         return;
       }
     }
+
     for(var i = layers.length - 2; i > 0; i-= 2) {
       if(keyString == layers[i].data.letter && layers[i].data.selected) {
         $("canvas").animateLayerGroup("boggle" + i / 2, {
-          y: 50
+          x: 50 + (i/2 * 55),
+          y: 50,
         });
         layers[i].data.selected = false;
-       // return;
+        cnt--;
+        return;
       }
     }
+
   });
 
-
-
 var count = 30; // time limit to find words, expresed in seconds
-var counter = setInterval(timeLeft, 1000); //1000 will  run it every 1 second
+var counter = setInterval(timeLeft, 1000); //1000 will run it every 1 second
 
 function timeLeft() {
   count = count - 1;
@@ -150,6 +167,17 @@ function timeLeft() {
         groups: ["boggle" + i],
         // dragGroups: ["boggle" + i],
         x: 320, y: -30,
+
+        /*width: function(layer) {
+          if ( array.length > 6 ) {
+          	this.width = 30;
+          	return;
+          } else {
+          	this.width = 45;
+          	return;
+          }
+        }, */
+
         width: 45,
         height: 70,
         cornerRadius: 4,

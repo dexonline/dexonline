@@ -14,7 +14,6 @@ $(document).ready(function() {
       $("#noWords").html(word.noWords);
       drawLetters(word.randomWord);
       console.log(word.randomWord);
-
       $(".searchWord").val(""); // clears input
     })
     .fail(function() {
@@ -26,7 +25,7 @@ $(document).ready(function() {
   var cnt = 0;
   var score = 0;
   layers = $("canvas").getLayers();
-  var lettersPressed = new Array();
+  var lettersPressed = new Array(); // in acest array se retin pozitiile literelor tastate
 
   $(".searchWord").keyup(function(letter) {
 
@@ -41,10 +40,18 @@ $(document).ready(function() {
     .done(function(response){
       var enter;
       enter = letter.keyCode;
-      if( enter == 13 ) {
+      if(enter == 13) {
       	var result = $.parseJSON(response);
         if(result.Found == 1) {
-          score += 10;
+          if(searchWord.length < 5) {
+          	score += 5;
+          } else if(searchWord.length < 8) {
+          	score +=10;
+          } else if(searchWord.length < 11) {
+          	score+=15;
+          } else if (searchWord.length < 20) {
+          	score+=20;
+          }
         }
         $("#score").html(score);
         $("#ifFound").html(result.Found);
@@ -82,17 +89,13 @@ $(document).ready(function() {
      
       if(keyString == layers[i].data.letter && !layers[i].data.selected) {
 
-      	$("canvas").animateLayerGroup("boggle" + i / 2, {
+        $("canvas").animateLayerGroup("boggle" + i / 2, {
           x: 50 + (cnt * 55),
           y: 200
         });
         layers[i].data.selected = true;
 
         lettersPressed[cnt] = i; // retine pozitiile literelor apasate
-
-        console.log( i );
-        console.log( cnt );
-        console.log( lettersPressed[cnt] );
 
         cnt++; // modifica pozitia literei, literele se coboara relativ la ultima litera tastata
 
@@ -111,19 +114,14 @@ $(document).ready(function() {
         });
         layers[i].data.selected = false;
         cnt--;
-        return;
+        // return;
       }
     }
 
     // urca ultima litera atunci cand se apasa tasta "backspace"
-    if( key == 8 ) {
-    	var position = lettersPressed[cnt-1];
-
-        console.log(position);
-    	console.log(lettersPressed[cnt-1]);
-    	console.log( cnt );
-
-    	$("canvas").animateLayerGroup("boggle" + position / 2, {
+    if(key == 8) {
+        var position = lettersPressed[cnt-1];
+        $("canvas").animateLayerGroup("boggle" + position / 2, {
           x: 50 + (position/2 * 55),
           y: 50,
         });

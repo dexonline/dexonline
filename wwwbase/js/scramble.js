@@ -24,11 +24,12 @@ $(document).ready(function() {
 
   // test pentru cuvinte returnate prin json
   var cnt = 0;
+  var score = 0;
 
   $(".searchWord").keyup(function(letter) {
 
     var searchWord = $(this).val();
-    var score = 0;
+    // var score = 0;
 
     $.ajax({
       type:"POST",
@@ -56,6 +57,7 @@ $(document).ready(function() {
     // asculta tot documentul pentru apasarea unei taste, daca tasta corespunde numelui layer-ului 
     // atunci se muta pozitia acelui layer pe Y = 150.
     layers = $("canvas").getLayers();
+    var lettersPressed = new Array();
     var key;
     var keyString;
     key = letter.keyCode;
@@ -76,6 +78,7 @@ $(document).ready(function() {
       }
     }
 
+    // coboara o litera
     for(var i = 0; i < layers.length; i += 2) {
      /* if(String.fromCharCode(key) == layers[i].data.letter && layers[i].data.selected) {
         $("canvas").animateLayerGroup("boggle" + i / 2, {
@@ -94,13 +97,30 @@ $(document).ready(function() {
         });
         layers[i].data.selected = true;
 
+        lettersPressed[cnt] = i; // retine pozitiile literelor apasate
+
         cnt++; // modifica pozitia literei, literele se coboara relativ la ultima litera tastata
 
         return;
       }
-    }
 
+    }
+    
+    // urca o litera, daca aceasta este ultima litera introdusa
     for(var i = layers.length - 2; i > 0; i-= 2) {
+
+      /*
+      // varianta 2:  
+      if( key == 8 && layers[i].data.selected == true ) {
+        $("canvas").animateLayerGroup("boggle" + i / 2, {
+          x: 50 + (i/2 * 55),
+          y: 50,
+        });
+        layers[i].data.selected = false;
+        cnt--;
+        return;
+      }*/
+
       if(keyString == layers[i].data.letter && layers[i].data.selected) {
         $("canvas").animateLayerGroup("boggle" + i / 2, {
           x: 50 + (i/2 * 55),
@@ -112,12 +132,24 @@ $(document).ready(function() {
       }
     }
 
+    // varianta 1: 
+    if( key == 8 ) {
+    	var position = lettersPressed[cnt - 1];
+    	$("canvas").animateLayerGroup("boggle" + position / 2, {
+          x: 50 + (position/2 * 55),
+          y: 50,
+        });
+        layers[position].data.selected = false; // console says: layers[position] is undefined
+        cnt--;
+        return;
+    }
+
   });
 
 var count = 30; // time limit to find words, expresed in seconds
 var counter = setInterval(timeLeft, 1000); //1000 will run it every 1 second
 
-function timeLeft() {
+/*function timeLeft() {
   count = count - 1;
   if (count <= 0) {
      clearInterval(counter);
@@ -136,6 +168,7 @@ function timeLeft() {
       drawLetters(autoWord.randomWord);
       console.log(autoWord.randomWord);
       $(".searchWord").val("");
+      cnt = 0;
     })
     .fail(function() {
       console.log("Nu merge");
@@ -144,7 +177,7 @@ function timeLeft() {
   }
   $("#timer").html(count + " secs");
 }
-
+*/
 
   // printeaza literele cuvantului random din baza de date
   function drawLetters(array) {

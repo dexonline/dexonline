@@ -37,7 +37,6 @@ $(document).ready(function() {
       data: { searchWord : searchWord },
     })
     .done(function(response){
-      // problema: a 2a oara nu mai ia scorul
       var enter;
       enter = letter.keyCode;
       if( enter == 13 ) {

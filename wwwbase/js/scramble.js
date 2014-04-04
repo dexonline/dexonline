@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+  var timerDifficulty;
   $(".difficultyButton").on("click", function() {
     // this e pentru a prelua valoarea butonului tocmai apasat, si nu a unuia oarecare
     var difficulty = $(this).attr("value");
@@ -9,10 +9,11 @@ $(document).ready(function() {
       data: { difficulty : difficulty },
     })
     .done(function(response) {
-      var word = $.parseJSON(response);
+     var word = $.parseJSON(response);
       $("#result").html(word.randomWord);
       $("#noWords").html(word.noWords);
       drawLetters(word.randomWord);
+      timerDifficulty = difficulty;
       console.log(word.randomWord);
       $(".searchWord").val(""); // clears input
     })
@@ -26,12 +27,10 @@ $(document).ready(function() {
   var score = 0;
   layers = $("canvas").getLayers();
   var lettersPressed = new Array(); // in acest array se retin pozitiile literelor tastate
-
   $(".searchWord").keyup(function(letter) {
-
     var searchWord = $(this).val();
+    var letterCheck; // checks if the inputed letters correspond to the random word
     // var score = 0;
-
     $.ajax({
       type:"POST",
       url: wwwRoot + "ajax/scramble.php",
@@ -41,34 +40,30 @@ $(document).ready(function() {
       var enter;
       enter = letter.keyCode;
       if(enter == 13) {
-      	var result = $.parseJSON(response);
-        if(result.Found == 1) {
-          if(searchWord.length < 5) {
-          	score += 5;
-          } else if(searchWord.length < 8) {
-          	score +=10;
-          } else if(searchWord.length < 11) {
-          	score+=15;
-          } else if (searchWord.length < 20) {
-          	score+=20;
-          }
+       /* for(var i = 0; i < searchWord.length; i++) {
+      for(var j = 0; j < word.length; j++) {
+        if(word.randomWord[i] == searchWord[j]) {
+          letterCheck++;
+          console.log(letterCheck);
         }
+      }
+    }
+  if(letterCheck == searchWord.length) { */
+      	var result = $.parseJSON(response);
+        scoreSystem(result.Found,searchWord,searchWord.length);        
         $("#score").html(score);
         $("#ifFound").html(result.Found);
       }
-      
+ //   }
     })
     .fail(function() {
       console.log("Nu merge");
     });
 
-    // asculta tot documentul pentru apasarea unei taste, daca tasta corespunde numelui layer-ului 
-    // atunci se muta pozitia acelui layer pe Y = 150.
     var key;
     var keyString;
     key = letter.keyCode;
     keyString = String.fromCharCode(key);
-
     for(var i = 0; i< layers.length; i += 2) {
       if(layers[i].data.letter == "\u00c2" || layers[i].data.letter == "\u0102") {
         layers[i].data.letter = "A";
@@ -83,27 +78,19 @@ $(document).ready(function() {
         layers[i].data.letter = "T";
       }
     }
-
     // coboara o litera
-    for(var i = 0; i < layers.length; i += 2) {
-     
+    for(var i = 0; i < layers.length; i += 2) {   
       if(keyString == layers[i].data.letter && !layers[i].data.selected) {
-
         $("canvas").animateLayerGroup("boggle" + i / 2, {
           x: 50 + (cnt * 55),
           y: 200
         });
         layers[i].data.selected = true;
-
         lettersPressed[cnt] = i; // retine pozitiile literelor apasate
-
         cnt++; // modifica pozitia literei, literele se coboara relativ la ultima litera tastata
-
         return;
       }
-
-    }
-    
+    }   
     // urca o litera, daca aceasta este ultima litera introdusa
     for(var i = layers.length - 2; i > 0; i-= 2) {
 
@@ -117,7 +104,6 @@ $(document).ready(function() {
         // return;
       }
     }
-
     // urca ultima litera atunci cand se apasa tasta "backspace"
     if(key == 8) {
         var position = lettersPressed[cnt-1];
@@ -131,17 +117,70 @@ $(document).ready(function() {
     }
 
   });
+var wordsFound = new Array();   // store words we have already found
+function scoreSystem(foundWord,newWord,wordLength)
+{
+  var wPresent = 0 // signals if the word has already been found and scored
+  if(foundWord == 1) {
+    for(var i = -1; i < wordsFound.length; i++) {
+      if(wordsFound[i] == newWord) {
+        wPresent = 1;
+      } 
+    }
+    if(wPresent === 0) {
+        wordsFound[wordsFound.length] = newWord;
+  }
+}
+  console.log(wordsFound.length,wPresent,wordsFound);
+  if(foundWord == 1 && wPresent === 0) {
+          if(wordLength < 4) {
+            score += 5;
+          } else if(wordLength < 5) {
+            score +=10;
+          } else if(wordLength < 6) {
+            score+=15;
+          } else if (wordLength < 10) {
+            score+=20;
+          }
+        }
+        return;
+}
 
-var count = 30; // time limit to find words, expresed in seconds
+var count // time limit to find words, expresed in seconds
+switch(timerDifficulty) {
+      case 1:
+        count = 120;
+        countReload = 120;
+        break;
+      case 2:
+        count = 90;
+        countReload =90;
+        break;
+      case 3:
+        count = 60;
+        countReload = 60;
+        break;
+      case 4:
+        count = 30;
+        countReload = 30;
+        break;
+      case 5:
+        count = 15;
+        countReload = 15;
+        break;
+      default:
+        count = 45;
+        countReload = 45;
+        break;
+     }
 var counter = setInterval(timeLeft, 1000); //1000 will run it every 1 second
-
 function timeLeft() {
   count = count - 1;
   if (count <= 0) {
      clearInterval(counter);
      counter = setInterval(timeLeft, 1000); // auto reload values
-     count = 30;
-       var randDifficulty = Math.floor((Math.random()*5)+1);
+     count = countReload;
+      var randDifficulty = Math.floor((Math.random()*5)+1);
     $.ajax({
       type: "POST",
       url: wwwRoot + "ajax/scramble.php",
@@ -163,11 +202,22 @@ function timeLeft() {
   }
   $("#timer").html(count + " secs");
 }
-
-
   // printeaza literele cuvantului random din baza de date
   function drawLetters(array) {
     $("canvas").removeLayers();
+     //dynamic font and rectangle size
+     var d_width;
+     var d_height;
+     var d_fontsize;
+     if ( array.length > 8 ) {
+            d_width = 35;
+            d_height = 55;
+            d_fontsize = 40; 
+          } else {
+            d_width = 45;
+            d_height = 70;
+            d_fontsize = 50;
+          }
     for (var i = 0; i < array.length; i++) {
 
       var posX = 50 + ( i * 55 );
@@ -186,19 +236,8 @@ function timeLeft() {
         groups: ["boggle" + i],
         // dragGroups: ["boggle" + i],
         x: 320, y: -30,
-
-        /*width: function(layer) {
-          if ( array.length > 6 ) {
-          	this.width = 30;
-          	return;
-          } else {
-          	this.width = 45;
-          	return;
-          }
-        }, */
-
-        width: 45,
-        height: 70,
+        width: d_width,
+        height: d_height,
         cornerRadius: 4,
         data: {
           letter: array[i].toUpperCase(),
@@ -215,7 +254,7 @@ function timeLeft() {
         strokeStyle: "gray",
         strokeWidth: 1,
         x: 320, y: -30,
-        fontSize: 50,
+        fontSize: d_fontsize,
         fontFamily: "Verdana, sans-serif",
         text: array[i].toUpperCase(),
       })

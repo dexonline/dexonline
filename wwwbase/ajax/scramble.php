@@ -14,6 +14,7 @@ switch ($option) {
 case 5:
   $minLength = MEDIUM;
   $maxLength = VERYLONG;
+  break;
 case 4:
   $minLength = LONG;
   $maxLength = VERYLONG;
@@ -33,6 +34,7 @@ case 1:
 default :
   $maxLength = SHORT;
   $minLength = SHORT;
+  break;
 }
 
   $indexWords = Model::factory('Lexem')
@@ -45,10 +47,12 @@ default :
     ->where_lte('charLength', $maxLength)
     ->offset(rand(0, $indexWords - 1))
     ->find_one();
+
   $Found = Model::factory('Lexem')
     ->where('formUtf8General',$searchWord)
     ->find_one();
-//Conditional cases:
+
+//Conditional cases: 
   if($Found != null) {
     $Found = 1;
   } else {

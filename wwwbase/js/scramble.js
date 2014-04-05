@@ -1,5 +1,9 @@
 $(document).ready(function() {
-  var timerDifficulty;
+  selectDifficulty();
+  inputListen();
+});
+
+function selectDifficulty() {
   $(".difficultyButton").on("click", function() {
     // this e pentru a prelua valoarea butonului tocmai apasat, si nu a unuia oarecare
     var difficulty = $(this).attr("value");
@@ -13,7 +17,7 @@ $(document).ready(function() {
       $("#result").html(word.randomWord);
       $("#noWords").html(word.noWords);
       drawLetters(word.randomWord);
-      timerDifficulty = difficulty;
+      startTimer(difficulty);
       console.log(word.randomWord);
       $(".searchWord").val(""); // clears input
     })
@@ -21,10 +25,12 @@ $(document).ready(function() {
       console.log("Nu merge");
     });
   });
+}
 
   // test pentru cuvinte returnate prin json
-  var cnt = 0;
   var score = 0;
+  var cnt = 0;
+function inputListen() {
   layers = $("canvas").getLayers();
   var lettersPressed = new Array(); // in acest array se retin pozitiile literelor tastate
   $(".searchWord").keyup(function(letter) {
@@ -53,6 +59,9 @@ $(document).ready(function() {
         scoreSystem(result.Found,searchWord,searchWord.length);        
         $("#score").html(score);
         $("#ifFound").html(result.Found);
+        $(window).load(function() {
+        $(".searchWord").val("");
+        }); 
       }
  //   }
     })
@@ -93,10 +102,9 @@ $(document).ready(function() {
     }   
     // urca o litera, daca aceasta este ultima litera introdusa
     for(var i = layers.length - 2; i > 0; i-= 2) {
-
       if(keyString == layers[i].data.letter && layers[i].data.selected) {
         $("canvas").animateLayerGroup("boggle" + i / 2, {
-          x: 50 + (i/2 * 55),
+          x: 50 + (i / 2 * 55),
           y: 50,
         });
         layers[i].data.selected = false;
@@ -105,7 +113,7 @@ $(document).ready(function() {
       }
     }
     // urca ultima litera atunci cand se apasa tasta "backspace"
-    if(key == 8) {
+    if(key == 8 && cnt > 0) {
         var position = lettersPressed[cnt-1];
         $("canvas").animateLayerGroup("boggle" + position / 2, {
           x: 50 + (position/2 * 55),
@@ -117,6 +125,9 @@ $(document).ready(function() {
     }
 
   });
+}
+
+
 var wordsFound = new Array();   // store words we have already found
 function scoreSystem(foundWord,newWord,wordLength)
 {
@@ -130,6 +141,15 @@ function scoreSystem(foundWord,newWord,wordLength)
     if(wPresent === 0) {
         wordsFound[wordsFound.length] = newWord;
   }
+  for(var i = 0; i < layers.length; i+= 2) {
+    if(layers[i].y == 200 ) {
+      $("canvas").animateLayerGroup("boggle" + i / 2,{
+        x: 50 + (i / 2 * 55),
+        y: 50
+      });
+    }
+  }
+  cnt = 0;
 }
   console.log(wordsFound.length,wPresent,wordsFound);
   if(foundWord == 1 && wPresent === 0) {
@@ -143,37 +163,16 @@ function scoreSystem(foundWord,newWord,wordLength)
             score+=20;
           }
         }
-        return;
+        return score;
 }
 
-var count // time limit to find words, expresed in seconds
-switch(timerDifficulty) {
-      case 1:
-        count = 120;
-        countReload = 120;
-        break;
-      case 2:
-        count = 90;
-        countReload =90;
-        break;
-      case 3:
-        count = 60;
-        countReload = 60;
-        break;
-      case 4:
-        count = 30;
-        countReload = 30;
-        break;
-      case 5:
-        count = 15;
-        countReload = 15;
-        break;
-      default:
-        count = 45;
-        countReload = 45;
-        break;
-     }
-var counter = setInterval(timeLeft, 1000); //1000 will run it every 1 second
+function startTimer(timeMode) {
+  console.log(timeMode);
+  var count = 120 / timeMode; // time limit to find words, expresed in seconds
+  var countReload = 120 / timeMode;
+  var counter;
+clearInterval(counter);
+counter = setInterval(timeLeft, 1000); //1000 will run it every 1 second
 function timeLeft() {
   count = count - 1;
   if (count <= 0) {
@@ -198,9 +197,10 @@ function timeLeft() {
     .fail(function() {
       console.log("Nu merge");
     });
-     return;
+       return;
+    }
+    $("#timer").html(count + " secs");
   }
-  $("#timer").html(count + " secs");
 }
   // printeaza literele cuvantului random din baza de date
   function drawLetters(array) {
@@ -262,14 +262,8 @@ function timeLeft() {
         x: posX, y: 50
       });
     }
-
-    /*var layers = $("canvas").getLayers();
-    console.log(layers);
-    keyListen(layers);*/
   }
-
   // goleste continutul input-ului dupa ce pagina este reincarcata
   $(window).load(function() {
     $(".searchWord").val("");
   }); 
-});

@@ -462,13 +462,15 @@ function util_suggestNoBanner() {
   return false;
 }
 
+// Returns a pair of ($data, $httpCode)
 function util_fetchUrl($url) {
   $ch = curl_init($url);
   curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  $result = curl_exec($ch);
+  $data = curl_exec($ch);
+  $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   curl_close($ch);
-  return $result;
+  return array($data, $httpCode);
 }
 
 function util_makePostRequest($url, $data, $useCookies = false) {

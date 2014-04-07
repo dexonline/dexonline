@@ -75,16 +75,10 @@ try {
 
   $wotdDisplayDate = new DateTime($wotd->displayDate);
   $wotd->image = sprintf("%s/%s.%s", $wotdDisplayDate->format('Y-m'), $word, $imageExtension);
-  $wotdImagePath = WordOfTheDay::$IMAGE_DIR . '/' . $wotd->image;
-  $dir = dirname($wotdImagePath);
-  if (!file_exists($dir)) {
-    mkdir($dir);
-    chmod($dir, 0777);
-  }
-  rename($tmpFilePath, $wotdImagePath);
-  chmod($wotdImagePath, 0666);
   $wotd->save();
-  $wotd->ensureThumbnail();
+  $wotdImagePath = Config::get('static.path') . 'img/wotd/' . $wotd->image;
+  FtpUtil::staticServerPut($tmpFilePath, $wotdImagePath);
+  unlink($tmpFilePath);
     
   ReplyToEmail($sender, $subject, "Am adăugat imaginea pentru '{$word}'.");
 

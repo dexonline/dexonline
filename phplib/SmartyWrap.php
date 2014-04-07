@@ -11,6 +11,7 @@ class SmartyWrap {
     self::$theSmarty->compile_dir = util_getRootPath() . 'templates_c';
     self::assign('wwwRoot', util_getWwwRoot());
     self::assign('imgRoot', util_getImgRoot());
+    self::assign('staticServer', Config::get('static.url'));
     self::assign('sources', Model::factory('Source')->order_by_desc('isOfficial')->order_by_asc('displayOrder')->find_many());
     self::assign('sUser', session_getUser());
     self::assign('is_mirror', Config::get('global.mirror'));
@@ -196,7 +197,7 @@ class SmartyWrap {
         case 'mobile':           self::$jsFiles[15] = 'mobile.js?v=2'; break;
         case 'hangman':          self::$jsFiles[16] = 'hangman.js?v=5'; break;
         case 'mill':             self::$jsFiles[17] = 'mill.js?v=3'; break;
-        case 'wotd':             self::$jsFiles[18] = 'wotd.js?v=1';
+        case 'wotd':             self::$jsFiles[18] = 'wotd.js?v=1'; break;
         case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=11'; break;
         case 'jcrop':            self::$jsFiles[20] = 'jquery.Jcrop.min.js?v=2'; break;
         case 'select2':          self::$jsFiles[21] = 'select2.min.js?v=3'; break;

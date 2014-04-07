@@ -26,6 +26,7 @@ foreach ($argv as $i => $arg) {
   }
 }
 
+$staticFiles = file(Config::get('static.url') . 'fileList.txt');
 $messages = array();
 $firstErrorDate = null;
 
@@ -82,15 +83,9 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
   }
 
   // Check that the image file exists
-  if (!$wotds[0]->imageFileExists()) {
+  if (!$wotds[0]->imageExists()) {
     addError($date, sprintf("Definiția '%s' are imaginea asociată '%s', dar fișierul nu există", $def->lexicon, $wotds[0]->image));
     continue;
-  }
-
-  // Generate the thumbnail if necessary
-  if (!$wotds[0]->getThumbUrl()) {
-    $wotds[0]->ensureThumbnail();
-    addInfo($date, "Am regenerat thumbnail-ul pentru imaginea {$wotds[0]->image}");
   }
 
   // Warn if the image has no credits
@@ -164,13 +159,17 @@ function daysBetween($date1, $date2) {
  * Returns the image name on success, null on failure
  **/
 function assignImageByName($wotd, $def) {
+  global $staticFiles;
+
   $yearMonth = substr($wotd->displayDate, 0, 7);
-  $absDir = WordOfTheDay::$IMAGE_DIR . '/' . $yearMonth;
   $strippedLexicon = stripImageName($def->lexicon);
-  foreach (scandir($absDir) as $file) {
-    $strippedFile = stripImageName($file);
-    if (preg_match("/{$strippedLexicon}\\.(png|jpg|jpeg)/", $strippedFile)) {
-      return $yearMonth . '/' . $file;
+  foreach ($staticFiles as $file) {
+    if (StringUtil::startsWith($file, "img/wotd/$yearMonth/")) {
+      $file = basename(trim($file));
+      $strippedFile = stripImageName($file);
+      if (preg_match("/{$strippedLexicon}\\.(png|jpg|jpeg)/", $strippedFile)) {
+        return "$yearMonth/$file";
+      }
     }
   }
   return null;

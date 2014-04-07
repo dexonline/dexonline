@@ -2,18 +2,12 @@
 
 class WordOfTheDay extends BaseObject {
   public static $_table = 'WordOfTheDay';
-  public static $IMAGE_DIR;
   public static $DEFAULT_IMAGE;
   public static $IMAGE_DESCRIPTION_DIR;
-  public static $THUMB_DIR;
-  public static $THUMB_SIZE;
 
   public static function init() {
-    self::$IMAGE_DIR = util_getRootPath() . "wwwbase/img/wotd";
     self::$DEFAULT_IMAGE = "generic.jpg";
-    self::$IMAGE_DESCRIPTION_DIR = util_getRootPath() . "wwwbase/img/wotd/desc";
-    self::$THUMB_DIR = util_getRootPath() . "wwwbase/img/wotd/thumb";
-    self::$THUMB_SIZE = 48;
+    self::$IMAGE_DESCRIPTION_DIR = util_getRootPath() . 'docs/imageCredits';
   }
 
   public static function getRSSWotD($delay = 0) {
@@ -37,23 +31,20 @@ class WordOfTheDay extends BaseObject {
   }
 
   public function getImageUrl() {
-    if ($this->image && file_exists(self::$IMAGE_DIR . "/{$this->image}")) {
-      return "wotd/{$this->image}"; // Relative to the image path
-    }
+    $pic = $this->image ? $this->image : self::$DEFAULT_IMAGE;
+    return Config::get('static.url') . 'img/wotd/' . $pic;
+  }
 
-    //fallback to default image
-    if (file_exists(self::$IMAGE_DIR . "/" . self::$DEFAULT_IMAGE)) {
-      return "wotd/" . self::$DEFAULT_IMAGE;
-    }
-
-    return null;
+  public function getThumbUrl() {
+    $pic = $this->image ? $this->image : self::$DEFAULT_IMAGE;
+    return Config::get('static.url') . 'img/wotd/thumb/' . $pic;
   }
 
   public function getImageCredits() {
     if (!$this->image) {
       return null;
     }
-    $lines = @file(self::$IMAGE_DESCRIPTION_DIR . "/authors.desc");
+    $lines = @file(self::$IMAGE_DESCRIPTION_DIR . "/wotd.desc");
     if (!$lines) {
       return null;
     }
@@ -74,31 +65,13 @@ class WordOfTheDay extends BaseObject {
     return null;
   }
 
-  public function getThumbUrl() {
-    if ($this->image && file_exists(self::$THUMB_DIR . "/{$this->image}")) {
-      return "wotd/thumb/{$this->image}"; // Relative to the image path
-    }
-    return null;
-  }
-
-  public function imageFileExists() {
-    return $this->image
-      ? file_exists(self::$IMAGE_DIR . "/{$this->image}")
-      : true; // Not the case since there is no image
-  }
-
-  public function ensureThumbnail() {
+  // Expensive -- this fetches the URL from the static server
+  public function imageExists() {
     if (!$this->image) {
-      return;
+      return true; // Not the case since there is no image
     }
-    $fullImage = self::$IMAGE_DIR . "/{$this->image}";
-    $fullThumb = self::$THUMB_DIR . "/{$this->image}";
-    if (!file_exists($fullThumb) && file_exists($fullImage)) {
-      @mkdir(dirname($fullThumb), 0777, true);
-      @chmod(dirname($fullThumb), 0777); // Kill it twice -- mkdir may give it different permissions because of umask
-      OS::executeAndAssert(sprintf("convert -strip -geometry %dx%d -sharpen 1x1 '%s' '%s'",
-                                   self::$THUMB_SIZE, self::$THUMB_SIZE, $fullImage, $fullThumb));
-    }
+    list($ignored, $httpCode) = util_fetchUrl($this->getImageUrl());
+    return $httpCode == 200;
   }
 }
 

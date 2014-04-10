@@ -18,14 +18,8 @@ DEXONLINE_PATH=/path/to/DEX
 # Dump the full database so the mirrors can have it.
 30 2 * * * php $DEXONLINE_PATH/tools/dumpDatabase.php --full
 
-# Run on: mirror sites
-# Sync the code and fetch the latest version of the database.
-# Requires read access to the full database dump.
-# 30 3 * * * php $DEXONLINE_PATH/tools/updateMirror.php
-
-# Run on: main site, mirror sites
-# Dump the public database. This should be done after we run updateMirror,
-# so this copy is as fresh as possible.
+# Run on: main site
+# Dump the public database.
 30 4 * * * php $DEXONLINE_PATH/tools/dumpDatabase.php
 
 # Run on: main site
@@ -40,11 +34,16 @@ DEXONLINE_PATH=/path/to/DEX
 # Email sar report
 58 23 * * * sar -q -r -S | mail -s "$HOSTNAME Daily_Sar_Report" $MAILTO
 
+# Run on: mirror sites
+# Sync the code and fetch the latest version of the database.
+# Requires read access to the full database dump.
+# 30 3 * * * php $DEXONLINE_PATH/tools/updateMirror.php
+
 ###########################################################################
 #                               Weekly tasks                              #
 ###########################################################################
 
-# Run on: main site, mirror sites
+# Run on: main site
 # Regenerate the Firefox spell checker extension
 55 2 * * 6 php $DEXONLINE_PATH/tools/rebuildFirefoxSpellChecker.php
 
@@ -60,7 +59,7 @@ DEXONLINE_PATH=/path/to/DEX
 # Update the definition counts and percentages complete for each source
 25 5 * * 6 php $DEXONLINE_PATH/tools/updateSourceCounts.php
 
-# Run on: main site, mirror sites
+# Run on: main site
 # Dump the XML database and weekly diffs
 30 5 * * 6 php $DEXONLINE_PATH/tools/dumpDatabaseXml.php
 
@@ -68,6 +67,6 @@ DEXONLINE_PATH=/path/to/DEX
 # Regenerate the N-gram table for approximate searches
 0 6 * * 6 php $DEXONLINE_PATH/tools/genNGram.php
 
-# Run on: main site, mirror sites
+# Run on: main site
 # Rebuild the Scrabble forms lists
 0 6 * * 6 php $DEXONLINE_PATH/tools/rebuildScrabbleForms.php

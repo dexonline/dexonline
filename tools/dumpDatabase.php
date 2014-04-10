@@ -2,9 +2,8 @@
 
 require_once __DIR__ . '/../phplib/util.php';
 
-$TMP_DIR = '/tmp';
-$FILENAME = 'dex-database.sql';
-$GZ_FILENAME = 'dex-database.sql.gz';
+$SQL_FILE = '/tmp/dex-database.sql';
+$GZ_FILE = '/tmp/dex-database.sql.gz';
 $LICENSE = util_getRootPath() . '/tools/dumpDatabaseLicense.txt';
 
 $parts = db_splitDsn();
@@ -35,16 +34,16 @@ foreach ($schemaOnly as $table) {
   $tablesToIgnore .= "--ignore-table=$dbName.$table ";
 }
 if ($doFullDump) {
-  $targetDir = util_getRootPath() . '/wwwbase/download/mirrorAccess/';
+  $remoteFile = '/download/mirrorAccess/dex-database.sql.gz';
 } else {
-  $targetDir = util_getRootPath() . '/wwwbase/download/';
+  $remoteFile = '/download/dex-database.sql.gz';
   $tablesToIgnore .= "--ignore-table=$dbName.User --ignore-table=$dbName.Definition --ignore-table=$dbName.diverta_Book --ignore-table=$dbName.divertaIndex ";
 }
 
-OS::executeAndAssert("rm -f $TMP_DIR/$FILENAME");
-OS::executeAndAssert("echo \"-- Copyright (C) 2004-$currentYear DEX online (http://dexonline.ro)\" > $TMP_DIR/$FILENAME");
-OS::executeAndAssert("cat $LICENSE >> $TMP_DIR/$FILENAME");
-$mysql = "$COMMON_COMMAND $tablesToIgnore >> $TMP_DIR/$FILENAME";
+OS::executeAndAssert("rm -f $SQL_FILE");
+OS::executeAndAssert("echo \"-- Copyright (C) 2004-$currentYear DEX online (http://dexonline.ro)\" > $SQL_FILE");
+OS::executeAndAssert("cat $LICENSE >> $SQL_FILE");
+$mysql = "$COMMON_COMMAND $tablesToIgnore >> $SQL_FILE";
 OS::executeAndAssert($mysql);
 
 // Dump only the schema for some tables
@@ -52,7 +51,7 @@ $command = "$COMMON_COMMAND --no-data";
 foreach ($schemaOnly as $table) {
   $command .= " $table";
 }
-$command .= " >> $TMP_DIR/$FILENAME";
+$command .= " >> $SQL_FILE";
 OS::executeAndAssert($command);
 
 if (!$doFullDump) {
@@ -64,19 +63,18 @@ if (!$doFullDump) {
   db_execute("update _User_Copy set id = 0 where id = 1");
   db_execute("insert into _User_Copy select * from User where id > 0");
   db_execute("update _User_Copy set password = md5('1234'), email = concat(id, '@anonymous.com'), identity = null");
-  OS::executeAndAssert("$COMMON_COMMAND _User_Copy | sed 's/_User_Copy/User/g' >> $TMP_DIR/$FILENAME");
+  OS::executeAndAssert("$COMMON_COMMAND _User_Copy | sed 's/_User_Copy/User/g' >> $SQL_FILE");
   db_execute("drop table _User_Copy");
 
   // Dump only the Definitions for which we have redistribution rights
   log_scriptLog('Filtering the Definition table');
   OS::executeAndAssert("$COMMON_COMMAND Definition --lock-all-tables --where='Definition.sourceId in (select id from Source where canDistribute)' " .
-                      ">> $TMP_DIR/$FILENAME");
+                      ">> $SQL_FILE");
 }
 
-OS::executeAndAssert("gzip -f $TMP_DIR/$FILENAME");
-OS::executeAndAssert("rm -f $targetDir/$GZ_FILENAME");
-OS::executeAndAssert("mv $TMP_DIR/$GZ_FILENAME $targetDir");
-OS::executeAndAssert("chmod 644 $targetDir/$GZ_FILENAME");
+OS::executeAndAssert("gzip -f $SQL_FILE");
+FtpUtil::staticServerPut($GZ_FILE, $remoteFile);
+unlink($GZ_FILE);
 
 log_scriptLog('dumpDatabase.php completed successfully (against all odds)');
 

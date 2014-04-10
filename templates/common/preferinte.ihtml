@@ -5,9 +5,8 @@
     <label for="avatarFileName">Fișier:</label>
     <input id="avatarFileName" type="file" name="avatarFileName">
     <input id="avatarSubmit" type="submit" name="submit" value="Editează" disabled="disabled">
-    {if $userHasAvatar}
-      <a href="salvare-avatar?delete=1" onclick="return confirm('Confirmați ștergerea imaginii?');">șterge imaginea</a>
-    {/if}
+    {* TODO: Hide this when the user does not have an avatar *}
+    <a href="salvare-avatar?delete=1" onclick="return confirm('Confirmați ștergerea imaginii?');">șterge imaginea</a>
 
     <div class="describeOption">
       Imaginea profilului dumneavoastră are rezoluția de 48x48 pixeli. Pe ecranul următor puteți edita poza încărcată.

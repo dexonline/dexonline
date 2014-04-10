@@ -299,16 +299,6 @@ function util_isModerator($type) {
   return $user ? ($user->moderator & $type) : false;
 }
 
-/*
- * Returns true if the user has an avatar image in wwwbase/img/user. If the $user argument is null, queries the currently logged in user.
- */
-function util_userHasAvatar($user = null) {
-  if (!$user) {
-    $user = session_getUser();
-  }
-  return $user && file_exists(util_getRootPath() . "wwwbase/img/user/{$user->id}.jpg");
-}
-
 function util_assertNotMirror() {
   if (Config::get('global.mirror')) {
     SmartyWrap::displayWithoutSkin('common/mirror_message.ihtml');

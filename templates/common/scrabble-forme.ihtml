@@ -8,7 +8,7 @@ href="scrabble-flexiune">căutare a formelor flexionare</a>.
 <ul>
 {foreach from=$locVersions item=lv}
   <li>
-    <a href="{$wwwRoot}download/forme-{$lv->name}.zip">versiunea {$lv->name|escape}</a>
+    <a href="{$staticServer}download/forme-{$lv->name}.zip">versiunea {$lv->name|escape}</a>
     ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
   </li>
 {/foreach}

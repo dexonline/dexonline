@@ -76,7 +76,7 @@ try {
   $wotdDisplayDate = new DateTime($wotd->displayDate);
   $wotd->image = sprintf("%s/%s.%s", $wotdDisplayDate->format('Y-m'), $word, $imageExtension);
   $wotd->save();
-  $wotdImagePath = Config::get('static.path') . 'img/wotd/' . $wotd->image;
+  $wotdImagePath = '/img/wotd/' . $wotd->image;
   FtpUtil::staticServerPut($tmpFilePath, $wotdImagePath);
   unlink($tmpFilePath);
     

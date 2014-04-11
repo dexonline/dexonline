@@ -11,6 +11,13 @@ class FtpUtil {
     ftp_close($conn);
   }
 
+  static function staticServerPutContents(&$contents, $remoteFile) {
+    $tmpFile = tempnam('/tmp', 'ftp_');
+    file_put_contents($tmpFile, $contents);
+    self::staticServerPut($tmpFile, $remoteFile);
+    unlink($tmpFile);
+  }
+
   static function staticServerDelete($remoteFile) {
     $conn = ftp_connect(Config::get('static.host'));
     ftp_login($conn, Config::get('static.user'), Config::get('static.password'));

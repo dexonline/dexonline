@@ -4,8 +4,9 @@ require_once __DIR__ . '/../phplib/util.php';
 
 $TODAY = date("Y-m-d");
 $TODAY_TIMESTAMP = strtotime("$TODAY 00:00:00");
-$FOLDER = util_getRootPath() . '/wwwbase/download/xmldump';
-$LAST_DUMP = getLastDumpDate($FOLDER);
+$REMOTE_FOLDER = 'download/xmldump';
+$STATIC_FILES = file(Config::get('static.url') . 'fileList.txt');
+$LAST_DUMP = getLastDumpDate($REMOTE_FOLDER);
 $LAST_DUMP_TIMESTAMP = $LAST_DUMP ? strtotime("$LAST_DUMP 00:00:00") : null;
 $USERS = getActiveUsers();
 
@@ -16,35 +17,35 @@ if ($LAST_DUMP == $TODAY) {
   die("a dump already exists for $TODAY; aborting\n");
 }
 
-dumpSources("$FOLDER/$TODAY-sources.xml.gz");
-dumpInflections("$FOLDER/$TODAY-inflections.xml.gz");
-dumpAbbrevs("$FOLDER/$TODAY-abbrevs.xml.gz");
+dumpSources("$REMOTE_FOLDER/$TODAY-sources.xml.gz");
+dumpInflections("$REMOTE_FOLDER/$TODAY-inflections.xml.gz");
+dumpAbbrevs("$REMOTE_FOLDER/$TODAY-abbrevs.xml.gz");
 dumpDefinitions("SELECT * FROM Definition WHERE sourceId IN (SELECT id FROM Source WHERE canDistribute) AND status = 0 AND modDate < $TODAY_TIMESTAMP",
-                "$FOLDER/$TODAY-definitions.xml.gz",
+                "$REMOTE_FOLDER/$TODAY-definitions.xml.gz",
                 'dumping definitions');
 dumpLexems("SELECT * FROM Lexem where modDate < $TODAY_TIMESTAMP",
-           "$FOLDER/$TODAY-lexems.xml.gz",
+           "$REMOTE_FOLDER/$TODAY-lexems.xml.gz",
            'dumping lexems and inflected forms');
 dumpLdm("SELECT M.lexemId, M.definitionId FROM LexemDefinitionMap M, Definition D " .
         "WHERE D.id = M.definitionId AND D.sourceId in (SELECT id FROM Source WHERE canDistribute) " .
         "AND D.status = 0 AND M.modDate < $TODAY_TIMESTAMP ORDER BY M.lexemId, M.definitionId",
-        "$FOLDER/$TODAY-ldm.xml.gz",
+        "$REMOTE_FOLDER/$TODAY-ldm.xml.gz",
         'dumping lexem-definition map');
 
 if ($LAST_DUMP) {
   dumpDefinitions("SELECT * FROM Definition WHERE sourceId IN (SELECT id FROM Source WHERE canDistribute) " .
                   "AND modDate >= $LAST_DUMP_TIMESTAMP AND modDate < $TODAY_TIMESTAMP",
-                  "$FOLDER/$TODAY-definitions-diff.xml.gz",
+                  "$REMOTE_FOLDER/$TODAY-definitions-diff.xml.gz",
                   'dumping definitions diff');
 
   dumpLexems("SELECT * FROM Lexem where modDate >= $LAST_DUMP_TIMESTAMP AND modDate < $TODAY_TIMESTAMP",
-             "$FOLDER/$TODAY-lexems-diff.xml.gz",
+             "$REMOTE_FOLDER/$TODAY-lexems-diff.xml.gz",
              'dumping lexems and inflected forms diff');
 
-  dumpLdmDiff("$FOLDER/$LAST_DUMP-ldm.xml.gz", "$FOLDER/$TODAY-ldm.xml.gz", "$FOLDER/$TODAY-ldm-diff.xml.gz");
+  dumpLdmDiff("$REMOTE_FOLDER/$LAST_DUMP-ldm.xml.gz", "$REMOTE_FOLDER/$TODAY-ldm.xml.gz", "$REMOTE_FOLDER/$TODAY-ldm-diff.xml.gz");
 }
 
-removeOldDumps($FOLDER, $TODAY, $LAST_DUMP);
+removeOldDumps($REMOTE_FOLDER, $TODAY, $LAST_DUMP);
 
 /**************************************************************************/
 
@@ -58,39 +59,46 @@ function getActiveUsers() {
 }
 
 function getLastDumpDate($folder) {
-  $files = scandir($folder, 1); // descending
-  foreach ($files as $file) {
+  global $STATIC_FILES;
+
+  // Group existing files by date, excluding the diff files
+  $map = array();
+  foreach ($STATIC_FILES as $file) {
     $matches = array();
-    if (preg_match('/^(\\d\\d\\d\\d-\\d\\d-\\d\\d)-abbrevs.xml.gz$/', $file, $matches)) {
-      $candidate = $matches[1];
-      if (file_exists("$folder/$candidate-abbrevs.xml.gz") &&
-          file_exists("$folder/$candidate-definitions.xml.gz") &&
-          file_exists("$folder/$candidate-inflections.xml.gz") &&
-          file_exists("$folder/$candidate-ldm.xml.gz") &&
-          file_exists("$folder/$candidate-lexems.xml.gz") &&
-          file_exists("$folder/$candidate-sources.xml.gz")) {
-        return $candidate;
+    if (preg_match(":^{$folder}/(\\d\\d\\d\\d-\\d\\d-\\d\\d)-[a-z]+.xml.gz:", $file, $matches)) {
+      if (array_key_exists($matches[1], $map)) {
+        $map[$matches[1]]++;
+      } else {
+        $map[$matches[1]] = 1;
       }
     }
   }
-  return null;
+
+  // Now check if the most recent date has 6 dump files
+  if (count($map)) {
+    krsort($map);
+    $date = key($map); // First key
+    return ($map[$date] == 6) ? $date : null;
+  } else {  
+    return null;
+  }
 }
 
-function dumpSources($fileName) {
+function dumpSources($remoteFile) {
   log_scriptLog("dumping sources");
   SmartyWrap::assign('sources', Model::factory('Source')->order_by_asc('id')->find_many());
   $xml = SmartyWrap::fetch('xmldump/sources.ihtml');
-  file_put_contents($fileName, gzencode($xml));
+  FtpUtil::staticServerPutContents(gzencode($xml), $remoteFile);
 }
 
-function dumpInflections($fileName) {
+function dumpInflections($remoteFile) {
   log_scriptLog("dumping inflections");
   SmartyWrap::assign('inflections', Model::factory('Inflection')->order_by_asc('id')->find_many());
   $xml = SmartyWrap::fetch('xmldump/inflections.ihtml');
-  file_put_contents($fileName, gzencode($xml));
+  FtpUtil::staticServerPutContents(gzencode($xml), $remoteFile);
 }
 
-function dumpAbbrevs($fileName) {
+function dumpAbbrevs($remoteFile) {
   log_scriptLog("dumping abbreviations");
   $raw_abbrevs = AdminStringUtil::loadRawAbbreviations();
   $sources = array();
@@ -118,15 +126,16 @@ function dumpAbbrevs($fileName) {
   SmartyWrap::assign('sources', $sources);
   SmartyWrap::assign('sections', $sections);
   $xml = SmartyWrap::fetch('xmldump/abbrev.ihtml');
-  file_put_contents($fileName, gzencode($xml));
+  FtpUtil::staticServerPutContents(gzencode($xml), $remoteFile);
 }
 
-function dumpDefinitions($query, $fileName, $message) {
+function dumpDefinitions($query, $remoteFile, $message) {
   global $USERS;
 
   log_scriptLog($message);
   $results = db_execute($query);
-  $file = gzopen($fileName, 'wb9');
+  $tmpFile = tempnam('/tmp', 'xmldump_');
+  $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<Definitions>\n");
   foreach ($results as $row) {
@@ -138,12 +147,15 @@ function dumpDefinitions($query, $fileName, $message) {
   }
   gzwrite($file, "</Definitions>\n");
   gzclose($file);
+  FtpUtil::staticServerPut($tmpFile, $remoteFile);
+  unlink($tmpFile);
 }
 
-function dumpLexems($query, $fileName, $message) {
+function dumpLexems($query, $remoteFile, $message) {
   log_scriptLog($message);
   $results = db_execute($query);
-  $file = gzopen($fileName, 'wb9');
+  $tmpFile = tempnam('/tmp', 'xmldump_');
+  $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<Lexems>\n");
   foreach($results as $row) {
@@ -154,12 +166,15 @@ function dumpLexems($query, $fileName, $message) {
   }
   gzwrite($file, "</Lexems>\n");
   gzclose($file);
+  FtpUtil::staticServerPut($tmpFile, $remoteFile);
+  unlink($tmpFile);
 }
 
-function dumpLdm($query, $fileName, $message) {
+function dumpLdm($query, $remoteFile, $message) {
   log_scriptLog($message);
   $results = db_execute($query);
-  $file = gzopen($fileName, 'wb9');
+  $tmpFile = tempnam('/tmp', 'xmldump_');
+  $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<LexemDefinitionMap>\n");
   foreach ($results as $row) {
@@ -167,17 +182,20 @@ function dumpLdm($query, $fileName, $message) {
   }
   gzwrite($file, "</LexemDefinitionMap>\n");
   gzclose($file);
+  FtpUtil::staticServerPut($tmpFile, $remoteFile);
+  unlink($tmpFile);
 }
 
-function dumpLdmDiff($oldFileName, $newFileName, $diffFileName) {
+function dumpLdmDiff($oldRemoteFile, $newRemoteFile, $diffRemoteFile) {
   log_scriptLog('dumping lexem-definition map diff');
-  $tmpFile1 = tempnam('/tmp', 'ldm');
-  $tmpFile2 = tempnam('/tmp', 'ldm');
-  OS::executeAndAssert("gunzip -c $oldFileName > $tmpFile1");
-  OS::executeAndAssert("gunzip -c $newFileName > $tmpFile2");
+
+  // Transfer the files locally
+  $oldXml = wgetAndGunzip(Config::get('static.url') . '/' . $oldRemoteFile);
+  $newXml = wgetAndGunzip(Config::get('static.url') . '/' . $newRemoteFile);
   $output = null;
-  exec("diff $tmpFile1 $tmpFile2", $output, $exit_code);
-  $file = gzopen($diffFileName, 'wb9');
+  exec("diff $oldXml $newXml", $output, $ignored);
+  $tmpFile = tempnam('/tmp', 'xmldump_');  
+  $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<LexemDefinitionMap>\n");
   foreach ($output as $line) {
@@ -189,19 +207,33 @@ function dumpLdmDiff($oldFileName, $newFileName, $diffFileName) {
   }
   gzwrite($file, "</LexemDefinitionMap>\n");
   gzclose($file);
-  unlink($tmpFile1);
-  unlink($tmpFile2);
+  FtpUtil::staticServerPut($tmpFile, $diffRemoteFile);
+  unlink($tmpFile);
+  unlink($oldXml);
+  unlink($newXml);
+}
+
+// Returns a file name in /tmp pointing to the unzipped file
+function wgetAndGunzip($url) {
+  $tmpFile = tempnam('/tmp', 'xmldump_');
+  OS::executeAndAssert("wget -q -O $tmpFile.gz $url");
+  OS::executeAndAssert("gunzip -f $tmpFile.gz");
+  return $tmpFile;
 }
 
 // Delete all dumps other than current one and previous one. Keep the diffs
 function removeOldDumps($folder, $today, $lastDump) {
+  global $STATIC_FILES;
+
   log_scriptLog('removing old dumps');
-  foreach (scandir($folder) as $file) {
-    if (preg_match('/^(\\d\\d\\d\\d-\\d\\d-\\d\\d)-(abbrevs|definitions|inflections|ldm|lexems|sources).xml.gz$/', $file, $matches)) {
+  foreach ($STATIC_FILES as $file) {
+    $matches = array();
+    $file = trim($file);
+    if (preg_match(":^{$folder}/(\\d\\d\\d\\d-\\d\\d-\\d\\d)-(abbrevs|definitions|inflections|ldm|lexems|sources).xml.gz$:", $file, $matches)) {
       $date = $matches[1];
       if ($date != $today && $date != $lastDump) {
         log_scriptLog("  deleting $file");
-        unlink("$folder/$file");
+        FtpUtil::staticServerDelete($file);
       }
     }
   }

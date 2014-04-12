@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../phplib/util.php';
 
-define('DATABASE_URL', 'http://dexonline.ro/download/mirrorAccess/dex-database.sql.gz');
+define('DATABASE_URL', 'http://static.dexonline.ro/download/mirrorAccess/dex-database.sql.gz');
 define('DATABASE_TMPFILE', '/tmp/dex-database.sql');
 define('DATABASE_TMPFILE_GZIP', DATABASE_TMPFILE . '.gz');
 

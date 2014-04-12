@@ -24,7 +24,7 @@ OS::executeAndAssert("cat $mysqlFile >> $tmpDir/dictionaries/ro-dex.dic");
 
 log_scriptLog("Zipping");
 OS::executeAndAssert("cd $tmpDir && zip -r dex-ff.xpi *");
-OS::executeAndAssert("cp -f $tmpDir/dex-ff.xpi wwwbase/download/");
+FtpUtil::staticServerPut("$tmpDir/dex-ff.xpi", '/download/dex-ff.xpi');
 
 OS::executeAndAssert("rm -rf $tmpDir");
 log_scriptLog('rebuildFirefoxSpellChecker.php completed successfully (against all odds)');

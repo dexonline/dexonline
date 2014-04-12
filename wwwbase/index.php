@@ -24,7 +24,6 @@ if (!$wotd) {
   WordOfTheDay::updateTodaysWord();
   $wotd = WordOfTheDay::getTodaysWord();
 }
-$wotd->ensureThumbnail();
 $defId = WordOfTheDayRel::getRefId($wotd->id);
 $def = Model::factory('Definition')->where('id', $defId)->where('status', ST_ACTIVE)->find_one();
 SmartyWrap::assign('thumbUrl', $wotd->getThumbUrl());
@@ -33,7 +32,6 @@ SmartyWrap::assign('today', date('Y/m/d'));
 
 /* WotM part */
 $wotm = WordOfTheMonth::getCurrentWotM();
-$wotm->ensureThumbnail();
 $def = Model::factory('Definition')->where('id', $wotm->definitionId)->where('status', ST_ACTIVE)->find_one();
 SmartyWrap::assign('thumbUrlM', $wotm->getThumbUrl());
 SmartyWrap::assign('articol', $wotm->article);

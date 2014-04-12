@@ -12,7 +12,7 @@
 
 {if $imageUrl}
   <div id="wotdImage">
-    <img src="{$imgRoot}/{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
+    <img src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
     <div class="copyright">
       {if $imageCredits}{$imageCredits}{/if}
     </div>

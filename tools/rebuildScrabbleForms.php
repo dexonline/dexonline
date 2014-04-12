@@ -36,19 +36,20 @@ foreach (Config::getLocVersions() as $version) {
     $s = file_get_contents($fileName);
     $s = StringUtil::unicodeToLatin($s);
     $s = strtoupper($s);
-    $file = fopen($fileName, 'w');
-    fwrite($file, $s);
-    fclose($file);
+    file_put_contents($fileName, $s);
 
     log_scriptLog('* removing duplicates and sorting');
     $fileName2 = "/tmp/forme-{$version->name}.txt";
     OS::executeAndAssert("sort -u {$fileName} -o {$fileName2}");
 
     log_scriptLog('* zipping');
-    $destFileName = util_getRootPath() . "wwwbase/download/forme-{$version->name}.zip";
-    @unlink($destFileName);
-    OS::executeAndAssert("zip -j {$destFileName} {$fileName2}");
+    $zipFileName = "/tmp/forme-{$version->name}.zip";
+    OS::executeAndAssert("zip -j {$zipFileName} {$fileName2}");
 
+    log_scriptLog('* copying over FTP');
+    FtpUtil::staticServerPut($zipFileName, "/download/forme-{$version->name}.zip");
+
+    unlink($zipFileName);
     unlink($fileName);
     unlink($fileName2);
   }

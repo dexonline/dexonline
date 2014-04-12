@@ -46,7 +46,7 @@ echo "* making some directories under wwwbase/img/ world-writable"
 find wwwbase/img/wotd/ -type d | xargs chmod 777
 find wwwbase/img/visual/ -type d | xargs chmod 777
 
-# Allow user avatar uploads under wwwbase/img/user
+# Allow users to upload temporary images for avatar cropping
 chmod 777 wwwbase/img/user
 
 # Symlink hooks unless they already exist

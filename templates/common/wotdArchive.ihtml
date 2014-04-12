@@ -36,7 +36,7 @@
               {if $day.wotd->image && $day.visible}
                 {strip}
                   <a href="{$wwwRoot}cuvantul-zilei/{$day.wotd->displayDate|replace:'-':'/'}">
-                    <img src="{$imgRoot}/{$day.wotd->getThumbUrl()}" alt="thumbnail {$day.def->lexicon}"/>
+                    <img src="{$day.wotd->getThumbUrl()}" alt="thumbnail {$day.def->lexicon}"/>
                   </a>
                 {/strip}
               {/if}
@@ -48,26 +48,4 @@
       {/foreach}
     </tr>
   {/foreach}
-</table>
-{*    <td class="activeMonth">
-      <div class="wotdDoM">{$word->dayOfMonth}</div>
-      {if $word->image}
-        <div>
-          {$imgRoot}{$word->image}
-        </div>
-      {/if}
-      <div></div>
-    </td>
-    {if $word->dayOfWeek == 1}</tr>{/if}
-    {if $smarty.foreach.loop.last}
-      {if $word->dayOfWeek == 1}
-      </tr>
-      {else}
-        {section name=preCal start=$word->dayOfWeek-2 loop=6}
-        <td>&nbsp;</td>
-        {/section}
-        </tr>
-      {/if}
-    {/if}
-{/foreach} *}
 </table>

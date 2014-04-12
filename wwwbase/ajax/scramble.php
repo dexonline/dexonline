@@ -53,12 +53,51 @@ default :
     ->find_one();
 
 //Conditional cases: 
-  if($Found != null) {
+  if($Found) {
     $Found = 1;
   } else {
     $Found = 0;
   }
+$lexemSplit = $lexem;
+$lexemArray = str_split_unicode($lexemSplit);
 
+function str_split_unicode($str, $l = 0) {
+    if ($l > 0) {
+        $ret = array();
+        $len = mb_strlen($str, "UTF-8");
+        for ($i = 0; $i < $len; $i += $l) {
+            $ret[] = mb_substr($str, $i, $l, "UTF-8");
+        }
+        return $ret;
+    }
+    return preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY);
+}
+
+$wordList = pc_permute($lexemArray);
+
+function pc_permute($items, $perms = array( )) {
+    if (empty($items)) {
+        $return = array($perms);
+    }  else {
+        $return = array();
+        for ($i = count($items) - 1; $i >= 0; --$i) {
+            $newitems = $items;
+            $newperms = $perms;
+            list($foo) = array_splice($newitems, $i, 1);
+            array_unshift($newperms, $foo);
+            $wordFound = Model::factory('Lexem')
+              ->where('formUtf8General',implode($items))
+              ->find_one();
+            if($wordFound) {
+              $return = array_merge($return, pc_permute($newitems, $newperms));
+            } else {
+            pc_permute($newitems, $newperms);
+            }              
+         }
+    }
+    return $return;
+}
+echo '<pre>'; print_r($wordList); echo '</pre>';
 $result = array('noWords' => $indexWords, 'randomWord' => $lexem->formUtf8General, 'Found' => $Found);
 echo json_encode($result);
 // echo $lexem->formUtf8General;

@@ -38,19 +38,47 @@ default :
 }
 
   $indexWords = Model::factory('Lexem')
-      ->where_gte('charLength', $minLength)
-      ->where_lte('charLength', $maxLength)
+      ->where_gte('charLength', 5)
+      ->where_lte('charLength', 5)
       ->count();
 
   $lexem = Model::factory('Lexem')
-    ->where_gte('charLength', $minLength)
-    ->where_lte('charLength', $maxLength)
+    ->where_gte('charLength', 5)
+    ->where_lte('charLength', 5)
     ->offset(rand(0, $indexWords - 1))
     ->find_one();
-
   $Found = Model::factory('Lexem')
-    ->where('formUtf8General',$searchWord)
+    ->where_like('formUtf8General',$searchWord)
     ->find_one();
+ //$maxStep = strlen($lexem);
+  //$lexemArray = str_split($lexem);
+  //print_r($lexemArray)
+ // $wordArray = array();
+//  print strlen($lexem);
+//  for($i = 0 ;$i < $maxStep; $i++) {
+//    for($j = 0;$j < $maxStep; $j++) {
+//      $search = Model::factory('Lexem')
+//        ->where('formUtf8General',)
+//    }
+//  }
+
+/* function permute($items, $perms = array( )) {
+    if (empty($items)) {
+        $return = array($perms);
+    }  else {
+        $return = array();
+        for ($i = count($items) - 1; $i >= 0; --$i) {
+             $newitems = $items;
+             $newperms = $perms;
+         list($foo) = array_splice($newitems, $i, 1);
+             array_unshift($newperms, $foo);
+             $return = array_merge($return, pc_permute($newitems, $newperms));
+
+         }
+    }
+    return $return;
+}
+print_r(permute($lexemArray)); */
 
 //Conditional cases: 
   if($Found != null) {

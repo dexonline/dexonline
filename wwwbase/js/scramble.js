@@ -196,6 +196,8 @@ function timeLeft() {
     })
     .done(function(response) {
       var autoWord = $.parseJSON(response);
+      totalWords = autoWord.everyWord;
+      $("#maxWords").html(autoWord.everyWord.length);
       $("#result").html(autoWord.randomWord);
       $("#noWords").html(autoWord.noWords);
       drawLetters(autoWord.randomWord);

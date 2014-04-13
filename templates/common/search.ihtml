@@ -24,7 +24,7 @@
         O definiție pentru
       {else}
         {if $allDefinitions == 0 && $totalDefinitionsCount}
-          Din <a href="#" onclick="showAllDefinitions()" title="arată toate definițiile">totalul de {$totalDefinitionsCount}</a> sunt afișate  
+          Din <a href="{$smarty.server.REQUEST_URI}/expandat" title="arată toate definițiile">totalul de {$totalDefinitionsCount}</a> sunt afișate  
         {/if}
         {$results|@count} definiții pentru
       {/if}

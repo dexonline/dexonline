@@ -10,7 +10,7 @@ $sourceUrlName = util_getRequestParameter('source');
 $text = util_getRequestIntParameter('text');
 $showParadigm = util_getRequestParameter('showParadigm');
 $xml = util_getRequestParameter('xml');
-$all = util_getRequestIntParameter('all');
+$all = util_getRequestParameter('all');
 
 
 $redirect = session_getWithDefault('redirect', false);

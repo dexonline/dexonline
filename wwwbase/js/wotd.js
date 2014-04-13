@@ -25,13 +25,8 @@ function beginEdit(id) {
   $('#priority')[0].style.width = '400px';
   $('#description')[0].style.width = '400px';
   $('#image').select2({
-    ajax: {
-      data: function(term, page) { return { term: term }; },
-      results: function(data, page) { return data; }, 
-      url: wwwRoot + 'ajax/wotdGetImages.php',
-    },
     allowClear: true,
-    initSelection: copyInitSelection,
+    data: staticServerImageList,
     minimumInputLength: 1,
     placeholder: 'caută o imagine...',
     width: '410px',
@@ -54,6 +49,25 @@ function checkServerResponse(response, postData) {
   } else {
     return [true];
   }
+}
+
+function getStaticServerImageList() {
+  var data = [];
+
+  $.get("http://static.dexonline.ro/fileList.txt", function(contents) {
+    var lines = contents.split('\n');
+    for (var i = 0; i < lines.length; i++) {
+      var s = lines[i];
+      if (startsWith(s, 'img/wotd/') &&
+          (endsWith(s, '.jpeg') || endsWith(s, '.jpg') || endsWith(s, '.png') || endsWith(s, '.gif')) &&
+          s.indexOf('thumb') == -1) {
+        var option = s.substr(9); // Skip the 'img/wotd/' characters
+        data.push({id: option, text: option});
+      }
+    }
+  });
+
+  return data;
 }
 
 jQuery().ready(function (){
@@ -92,6 +106,7 @@ jQuery().ready(function (){
   var priorWidth  =  50;
   var imageWidth  =  70;
   var descWidth   = screenWidth - (lexWidth + sourceWidth + htmlWidth + dateWidth + userWidth + priorWidth + imageWidth) - 40;
+  staticServerImageList = getStaticServerImageList();
 
   $('#wotdGrid').jqGrid({
     url: wwwRoot + 'ajax/wotdTableRows.php',

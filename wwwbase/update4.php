@@ -2,14 +2,15 @@
 require_once("../phplib/util.php");
 
 $TODAY = date("Y-m-d");
-$FOLDER = util_getRootPath() . '/wwwbase/download/xmldump';
-$URL = 'http://dexonline.ro/download/xmldump';
+$REMOTE_FOLDER = 'download/xmldump';
+$STATIC_FILES = file(Config::get('static.url') . 'fileList.txt');
+$URL = 'http://static.dexonline.ro/download/xmldump';
 
 if (count($_GET) == 0) {
   util_redirect("http://wiki.dexonline.ro/wiki/Protocol_de_exportare_a_datelor");
 }
 
-$lastDump = getLastDumpDate($TODAY, $FOLDER);
+$lastDump = getLastDumpDate($TODAY, $REMOTE_FOLDER);
 SmartyWrap::assign('lastDump', $lastDump);
 SmartyWrap::assign('url', $URL);
 
@@ -21,7 +22,7 @@ if ($lastClientUpdate == '0') {
   $lastClientUpdate = $lastDump;
 }
 
-SmartyWrap::assign('diffs', getDiffsBetween($lastClientUpdate, $TODAY, $FOLDER));
+SmartyWrap::assign('diffs', getDiffsBetween($lastClientUpdate, $TODAY, $REMOTE_FOLDER));
 
 header('Content-type: text/xml');
 print SmartyWrap::fetch('common/update4.ihtml');
@@ -30,40 +31,61 @@ print SmartyWrap::fetch('common/update4.ihtml');
 
 // Do not return a dump for today, in case it is still being built
 function getLastDumpDate($today, $folder) {
-  $files = scandir($folder, 1); // descending
-  foreach ($files as $file) {
+  global $STATIC_FILES;
+
+  // Group existing files by date, excluding the diff files
+  $map = array();
+  foreach ($STATIC_FILES as $file) {
     $matches = array();
-    if (preg_match('/^(\\d\\d\\d\\d-\\d\\d-\\d\\d)-abbrevs.xml.gz$/', $file, $matches)) {
-      $candidate = $matches[1];
-      if ($candidate < $today &&
-          file_exists("$folder/$candidate-abbrevs.xml.gz") &&
-          file_exists("$folder/$candidate-definitions.xml.gz") &&
-          file_exists("$folder/$candidate-inflections.xml.gz") &&
-          file_exists("$folder/$candidate-ldm.xml.gz") &&
-          file_exists("$folder/$candidate-lexems.xml.gz") &&
-          file_exists("$folder/$candidate-sources.xml.gz")) {
-        return $candidate;
+    if (preg_match(":^{$folder}/(\\d\\d\\d\\d-\\d\\d-\\d\\d)-[a-z]+.xml.gz:", $file, $matches)) {
+      $date = $matches[1];
+      if ($date < $today) {
+        if (array_key_exists($date, $map)) {
+          $map[$date]++;
+        } else {
+          $map[$date] = 1;
+        }
       }
     }
   }
-  return null;
+
+  // Now check if the most recent date has 6 dump files
+  if (count($map)) {
+    krsort($map);
+    $date = key($map); // First key
+    return ($map[$date] == 6) ? $date : null;
+  } else {  
+    return null;
+  }
 }
 
 // Return diffs between the given date and today, exclusively.
 // Do not return diffs for today, in case they are still being built.
 function getDiffsBetween($date, $today, $folder) {
-  $files = scandir($folder, 0);
-  $results = array();
-  foreach ($files as $file) {
+  global $STATIC_FILES;
+
+  // Group existing diff files by date
+  $map = array();
+  foreach ($STATIC_FILES as $file) {
     $matches = array();
-    if (preg_match('/^(\\d\\d\\d\\d-\\d\\d-\\d\\d)-definitions-diff.xml.gz$/', $file, $matches)) {
-      $candidate = $matches[1];
-      if ($candidate > $date && $candidate < $today &&
-          file_exists("$folder/$candidate-definitions-diff.xml.gz") &&
-          file_exists("$folder/$candidate-ldm-diff.xml.gz") &&
-          file_exists("$folder/$candidate-lexems-diff.xml.gz")) {
-        $results[] = $candidate;
+    if (preg_match(":^{$folder}/(\\d\\d\\d\\d-\\d\\d-\\d\\d)-[a-z]+-diff.xml.gz:", $file, $matches)) {
+      $diffDate = $matches[1];
+      if ($diffDate > $date && $diffDate < $today) {
+        if (array_key_exists($matches[1], $map)) {
+          $map[$matches[1]]++;
+        } else {
+          $map[$matches[1]] = 1;
+        }
       }
+    }
+  }
+  ksort($map);
+
+  // Now returns those having all 3 diff files
+  $results = array();
+  foreach ($map as $date => $numFiles) {
+    if ($numFiles == 3) {
+      $results[] = $date;
     }
   }
   return $results;

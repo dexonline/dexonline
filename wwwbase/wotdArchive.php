@@ -38,9 +38,6 @@ function createCalendar($year, $month) {
   // Create a record per day
   foreach ($days as $i => $date) {
     $wotd = WordOfTheDay::get_by_displayDate($date);
-    if ($wotd) {
-      $wotd->ensureThumbnail();
-    }
     $wotdr = $wotd ? WordOfTheDayRel::get_by_wotdId($wotd->id) : null;
     $def = $wotdr ? Definition::get_by_id($wotdr->refId) : null;
     $visible = $def && (($date <= $today) || util_isModerator(PRIV_WOTD));

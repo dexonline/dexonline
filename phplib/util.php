@@ -299,16 +299,6 @@ function util_isModerator($type) {
   return $user ? ($user->moderator & $type) : false;
 }
 
-/*
- * Returns true if the user has an avatar image in wwwbase/img/user. If the $user argument is null, queries the currently logged in user.
- */
-function util_userHasAvatar($user = null) {
-  if (!$user) {
-    $user = session_getUser();
-  }
-  return $user && file_exists(util_getRootPath() . "wwwbase/img/user/{$user->id}.jpg");
-}
-
 function util_assertNotMirror() {
   if (Config::get('global.mirror')) {
     SmartyWrap::displayWithoutSkin('common/mirror_message.ihtml');
@@ -462,13 +452,15 @@ function util_suggestNoBanner() {
   return false;
 }
 
+// Returns a pair of ($data, $httpCode)
 function util_fetchUrl($url) {
   $ch = curl_init($url);
   curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  $result = curl_exec($ch);
+  $data = curl_exec($ch);
+  $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   curl_close($ch);
-  return $result;
+  return array($data, $httpCode);
 }
 
 function util_makePostRequest($url, $data, $useCookies = false) {

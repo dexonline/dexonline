@@ -9,7 +9,7 @@ if (!$user) {
 
 define('AVATAR_RESOLUTION', 48);
 define('AVATAR_QUALITY', 100);
-$AVATAR_FILE = util_getRootPath() . "wwwbase/img/user/{$user->id}.jpg";
+$AVATAR_REMOTE_FILE = "/img/user/{$user->id}.jpg";
 $AVATAR_RAW_GLOB = util_getRootPath() . "wwwbase/img/user/{$user->id}_raw.*";
 
 $x0 = util_getRequestParameter('x0');
@@ -18,7 +18,7 @@ $side = util_getRequestParameter('side');
 $delete = util_getRequestParameter('delete');
 
 if ($delete) {
-  unlink($AVATAR_FILE);
+  FtpUtil::staticServerDelete($AVATAR_REMOTE_FILE);
   FlashMessage::add('Imaginea a fost ștearsă.', 'info');
   util_redirect('preferinte');
 }
@@ -34,8 +34,11 @@ $canvas = imagecreatetruecolor(AVATAR_RESOLUTION, AVATAR_RESOLUTION);
 $image = loadImage($rawFileName);
 imagecopyresampled($canvas, $image, 0, 0, $x0, $y0, AVATAR_RESOLUTION, AVATAR_RESOLUTION, $side, $side);
 sharpenImage($canvas);
-imagejpeg($canvas, $AVATAR_FILE, AVATAR_QUALITY);
+$tmpFileName = tempnam('/tmp/', 'dex_avatar_');
+imagejpeg($canvas, $tmpFileName, AVATAR_QUALITY);
+FtpUtil::staticServerPut($tmpFileName, $AVATAR_REMOTE_FILE);
 unlink($rawFileName);
+unlink($tmpFileName);
 
 FlashMessage::add('Imaginea a fost salvată.', 'info');
 util_redirect('preferinte');

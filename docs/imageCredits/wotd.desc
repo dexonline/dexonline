@@ -1,0 +1,8 @@
+# Liniile goale și comentariile sunt ignorate.
+# Un comentariu începe de la # și se termină la sfârșitul liniei.
+# Liniile au formatul <regexp>::<fișier>.
+# Liniile sunt procesate de sus în jos până când un regex se potrivește. Este afișat conținutul fișierului respectiv.
+
+^201[3-4]-::cn.desc
+^2012-(09|10|11|12)::cn.desc
+^2012-0[2-8]::va.desc

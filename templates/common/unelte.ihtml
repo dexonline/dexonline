@@ -121,7 +121,7 @@ calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
 
 <ul class="browserIntegration">
   <li>Instalați un corector ortografic pentru limba română pentru Firefox: 
-    <a href="download/dex-ff.xpi" onclick="return installFirefoxSpellChecker(event);">clic aici</a>.
+    <a href="{$staticServer}download/dex-ff.xpi" onclick="return installFirefoxSpellChecker(event);">clic aici</a>.
 
     <ul>
       <li>Pentru a folosi corectorul, deschideți meniul <i>Edit >

@@ -1,7 +1,7 @@
 {if !$thumbUrl}
   {assign var="thumbUrl" value="wotd/thumb/generic.jpg"}
 {/if}
-<img src="{$imgRoot}/{$thumbUrl}" alt="iconiță cuvântul zilei" class="lightBorder" />
+<img src="{$thumbUrl}" alt="iconiță cuvântul zilei" class="lightBorder" />
 <span>
   <label>Cuvântul zilei</label><br />
   {include file="common/bits/wotdurl.ihtml" title=$title}

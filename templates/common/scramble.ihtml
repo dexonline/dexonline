@@ -20,12 +20,14 @@
       <span id="timer"></span>
       <span>Scor: </span>
       <span id="score"></span>
+      <span>Nr cuvinte:</span>
+      <span id="maxWords"></span>
     </div>
     <div class="drawArea">
-      <canvas class="canvasArea" width='840' height='480' ></canvas>
-      <br />
-      <button class="animate" type="button" value="1">Animeaza</button>
-      <p class="test">Litera apasata este: </p>
+          <canvas class="canvasArea" width='480' height='280' ></canvas>
+          <br />
+           <button class="wordBtn" type="button">Da-mi cuvintele</button>
+          <pre class="wordArea">Cuvintele posibile sunt: </pre>
     </div>
   </div>
  </div>

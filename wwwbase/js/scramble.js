@@ -1,8 +1,10 @@
 $(document).ready(function() {
   selectDifficulty();
   inputListen();
+  testing();
 });
 
+var totalWords = new Array(); // the possible words that can be made from the randomWord.
 function selectDifficulty() {
   $(".difficultyButton").on("click", function() {
     // this e pentru a prelua valoarea butonului tocmai apasat, si nu a unuia oarecare
@@ -13,9 +15,11 @@ function selectDifficulty() {
       data: { difficulty : difficulty },
     })
     .done(function(response) {
-     var word = $.parseJSON(response);
+      var word = $.parseJSON(response);
+      totalWords = word.everyWord;
       $("#result").html(word.randomWord);
       $("#noWords").html(word.noWords);
+      $("#maxWords").html(word.everyWord.length);
       drawLetters(word.randomWord);
       startTimer(difficulty);
       console.log(word.randomWord);
@@ -24,6 +28,13 @@ function selectDifficulty() {
     .fail(function() {
       console.log("Nu merge");
     });
+  });
+}
+
+function testing() {
+$(".wordBtn").on("click", function() {
+  console.log("pushed");
+    $(".wordArea").html(totalWords + " ");
   });
 }
 
@@ -68,7 +79,6 @@ function inputListen() {
     .fail(function() {
       console.log("Nu merge");
     });
-
     var key;
     var keyString;
     key = letter.keyCode;
@@ -165,12 +175,11 @@ function scoreSystem(foundWord,newWord,wordLength)
         }
         return score;
 }
-
+ var counter;
 function startTimer(timeMode) {
   console.log(timeMode);
   var count = 120 / timeMode; // time limit to find words, expresed in seconds
   var countReload = 120 / timeMode;
-  var counter;
 clearInterval(counter);
 counter = setInterval(timeLeft, 1000); //1000 will run it every 1 second
 function timeLeft() {

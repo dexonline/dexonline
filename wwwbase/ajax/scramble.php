@@ -1,53 +1,22 @@
 <?php
 require_once("../../phplib/util.php");
 setlocale(LC_ALL, "ro_RO.utf8");
-ini_set('memory_limit','128M');
+ini_set('memory_limit','1M');
 
 $option = util_getRequestParameter('difficulty');
 $searchWord = util_getRequestParameter('searchWord');
-
-define('SHORT', 6);
-define('MEDIUM', 8);
-define('LONG', 10);
-define('VERYLONG', 20);
-
-switch ($option) {
-case 5:
-  $minLength = MEDIUM;
-  $maxLength = VERYLONG;
-  break;
-case 4:
-  $minLength = LONG;
-  $maxLength = VERYLONG;
-  break;
-case 3:
-  $maxLength = LONG;
-  $minLength = MEDIUM;
-  break;
-case 2:
-  $maxLength = MEDIUM;
-  $minLength = SHORT;
-  break;
-case 1:
-  $maxLength = SHORT;
-  $minLength = SHORT;
-  break;
-default :
-  $maxLength = SHORT;
-  $minLength = SHORT;
-  break;
-}
 
   $indexWords = Model::factory('Lexem')
       ->where_gte('charLength', 5)
       ->where_lte('charLength', 5)
       ->count();
 
-  $lexem = Model::factory('Lexem')
+  $dbSearch = Model::factory('Lexem')
     ->where_gte('charLength', 5)
     ->where_lte('charLength', 5)
     ->offset(rand(0, $indexWords - 1))
     ->find_one();
+  $lexem = $dbSearch->formUtf8General;
   $Found = Model::factory('Lexem')
     ->where('formUtf8General',$searchWord)
     ->find_one();
@@ -67,6 +36,7 @@ for($i = 0; $i < 3; $i++) {
   $temp = letterPermute($lexemArray);
   $wordList = array_merge($wordList, $temp);
 }
+//echo '<pre>'; print_r($wordList); echo '</pre>';
 for($i = 0; $i < 2; $i++) {
   $subWord = mb_substr($lexem, $i, 4);
   $lexemArray = str_split_unicode($subWord);
@@ -139,7 +109,7 @@ for($i = 0 ;$i < count($wordList); $i++) {
   $search = Model::factory('Lexem')
           ->where("formUtf8General", $wordList1[$i])
           ->find_one();
-  if($search) {
+  if($search && $search == $wordList1[$i]) {
     for($k = 0; $k < count($wordsFound); $k++) {
       if($wordsFound[$k] == $search->formUtf8General) { //check if the word already exists in array, its possible due to the number or permutations.
         $inArray = 1;
@@ -155,10 +125,11 @@ for($i = 0 ;$i < count($wordList); $i++) {
     }
   }
 }
+//echo '<pre>'; print_r($wordList1); echo '</pre>';
 unset($wordList1);
 unset($wordList);
 //echo '<pre>'; print_r($wordsFound); echo '</pre>';
-$result = array('noWords' => $indexWords, 'randomWord' => $lexem->formUtf8General, 'Found' => $Found, 'everyWord' => $wordsFound);
+$result = array('noWords' => $indexWords, 'randomWord' => $lexem, 'Found' => $Found, 'everyWord' => $wordsFound);
 echo json_encode($result);
 // echo $lexem->formUtf8General;
 // echo $indexWords;

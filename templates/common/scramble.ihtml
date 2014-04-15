@@ -1,12 +1,12 @@
 <div class="scrambleArea">
 <p class="paragraphTitle"> Omleta Cuvintelor </p>
 	<div id="mainPage">
-    <form id="main" action="">Da-mi un cuvant:
-      <button class="difficultyButton btn" type="button" value="1">Scurt</button>
-      <button class="difficultyButton btn" type="button" value="2">Mediu</button>
-      <button class="difficultyButton btn" type="button" value="3">Lung</button>
-      <button class="difficultyButton btn" type="button" value="4">Foarte lung</button>
-      <button class="difficultyButton btn" type="button" value="5">Fa-mi o surpriza</button>
+    <form id="main" action="">Nivel dificultate:
+      <button class="difficultyButton btn" type="button" value="1">Foarte usor</button>
+      <button class="difficultyButton btn" type="button" value="2">Usor</button>
+      <button class="difficultyButton btn" type="button" value="3">Normal</button>
+      <button class="difficultyButton btn" type="button" value="4">Greu</button>
+      <button class="difficultyButton btn" type="button" value="5">"Sunt dictionar"</button>
     </form>
     <div id="resultSearch">Rezultatul este: 
       <p>

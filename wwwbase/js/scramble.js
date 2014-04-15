@@ -1,6 +1,7 @@
 $(document).ready(function() {
   selectDifficulty();
   inputListen();
+  checkWord();
   testing();
 });
 
@@ -24,6 +25,7 @@ function selectDifficulty() {
       startTimer(difficulty);
       console.log(totalWords);
       console.log(word.randomWord);
+      cnt = 0;
       $(".searchWord").val(""); // clears input
     })
     .fail(function() {
@@ -42,14 +44,26 @@ $(".wordBtn").on("click", function() {
   // test pentru cuvinte returnate prin json
   var score = 0;
   var cnt = 0;
+  var searchWord;
+  var lettersPressed = new Array(); // in acest array se retin literele tastate
+  var valuesPressed = new Array(); // aici se retin pozitiile (i) ale literelor tastate
+
+  for(var i=0; i<7; i++) {
+    lettersPressed[i] = 0;
+    valuesPressed[i] = -1;
+  }
+
 function inputListen() {
   layers = $("canvas").getLayers();
-  var lettersPressed = new Array(); // in acest array se retin pozitiile literelor tastate
+
   $(".searchWord").keyup(function(letter) {
-    var searchWord = $(this).val();
-    var letterCheck; // checks if the inputed letters correspond to the random word
-    // var score = 0;
-    $.ajax({
+    //var searchWord = $(this).val();
+    var key;
+    key = letter.keyCode;
+    var keyString;
+    keyString = String.fromCharCode(key);
+
+    /*$.ajax({
       type:"POST",
       url: wwwRoot + "ajax/scramble.php",
       data: { searchWord : searchWord },
@@ -58,12 +72,12 @@ function inputListen() {
       var enter;
       enter = letter.keyCode;
       if(enter == 13) {
-      	var result = $.parseJSON(response);
+        var result = $.parseJSON(response);
         scoreSystem(result.Found,searchWord,searchWord.length);        
         $("#score").html(score);
         $("#ifFound").html(result.Found);
         $(window).load(function() {
-        $(".searchWord").val("");
+          $(".searchWord").val("");
         }); 
       }
  //   }
@@ -71,10 +85,9 @@ function inputListen() {
     .fail(function() {
       console.log("Nu merge");
     });
-    var key;
-    var keyString;
-    key = letter.keyCode;
-    keyString = String.fromCharCode(key);
+    */
+
+
     for(var i = 0; i< layers.length; i += 2) {
       if(layers[i].data.letter == "\u00c2" || layers[i].data.letter == "\u0102") {
         layers[i].data.letter = "A";
@@ -89,6 +102,7 @@ function inputListen() {
         layers[i].data.letter = "T";
       }
     }
+
     // coboara o litera
     for(var i = 0; i < layers.length; i += 2) {   
       if(keyString == layers[i].data.letter && !layers[i].data.selected) {
@@ -97,50 +111,91 @@ function inputListen() {
           y: 200
         });
         layers[i].data.selected = true;
-        lettersPressed[cnt] = i; // retine pozitiile literelor apasate
-        cnt++; // modifica pozitia literei, literele se coboara relativ la ultima litera tastata
+        lettersPressed[cnt] = layers[i].data.letter; // retine pozitiile literelor apasate
+        valuesPressed[cnt] = i;
+        cnt++; 
+        console.log("cnt la coborare= " + cnt);
         return;
       }
     }   
+
+    for(var i = cnt; i >= 0; i--) {
+      var index = valuesPressed[i];
+      if(keyString == lettersPressed[i] && layers[index].data.selected) {
+        $("canvas").animateLayerGroup("boggle" + index / 2, {
+          x: 110 + (index / 2 * 65),
+          y: 50,
+        });
+        layers[index].data.selected = false;
+        lettersPressed[i] = 0;
+        valuesPressed[i] = -1;
+        cnt--;
+        return;
+      }
+    }
+
+    //checkWord = checkWord + lettersPressed[cnt];
+    //console.log("checkWord este " + checkWord);
+
     // urca o litera, daca aceasta este ultima litera introdusa
-    for(var i = layers.length - 2; i >= 0; i-= 2) {
+    /*for(var i = layers.length - 2; i >= 0; i-= 2) {
       if(keyString == layers[i].data.letter && layers[i].data.selected) {
         $("canvas").animateLayerGroup("boggle" + i / 2, {
           x: 110 + (i / 2 * 65),
           y: 50,
         });
         layers[i].data.selected = false;
+
+        lettersPressed[cnt] = 0;
+
         cnt--;
-        // return;
-      }
-    }
-    // urca ultima litera atunci cand se apasa tasta "backspace"
-    if(key == 8 && cnt > 0) {
-        var position = lettersPressed[cnt-1];
-        $("canvas").animateLayerGroup("boggle" + position / 2, {
-          x: 110 + (position/2 * 65),
-          y: 50,
-        });
-        layers[position].data.selected = false; 
-        cnt--;
+
+        console.log("ultima litera este: " + lettersPressed[cnt]);
+
+        console.log("cnt la urcare= " + cnt);
         return;
+      }
+    } */
+
+  }); 
+}
+
+function checkWord() {
+  var i = 0;
+  var checkWord = new String();
+  while( lettersPressed[i] ) {
+    checkword = checkword + lettersPressed[i];
+  }
+
+  document.addEventListener("keypress", function(enter) {
+    var key;
+    key = enter.keyCode;
+
+    if(key == 13) {
+      console.log("checkWord este " + checkWord);
+      scoreSystem(checkWord, checkWord.length);        
+      $("#score").html(score);
+      cnt = 0;
+      $(window).load(function() {
+        $(".searchWord").val("");
+      }); 
     }
   });
 }
 
 var wordsFound = new Array();   // store words we have already found
-function scoreSystem(foundWord,newWord,wordLength)
-{
+function scoreSystem(newWord, wordLength) {
   var wPresent = 0 // signals if the word has already been found and scored
-  if(foundWord == 1) {
-    for(var i = -1; i < wordsFound.length; i++) {
-      if(wordsFound[i] == newWord) {
-        wPresent = 1;
-      } 
-    }
-    if(wPresent === 0) {
-        wordsFound[wordsFound.length] = newWord;
+  for(var i = -1; i < wordsFound.length; i++) {
+    if(wordsFound[i] == newWord) {
+      wPresent = 1;
+    } 
   }
+
+  if(wPresent === 0) {
+    wordsFound[wordsFound.length] = newWord;
+  }
+
   for(var i = 0; i < layers.length; i+= 2) {
     if(layers[i].y == 200 ) {
       $("canvas").animateLayerGroup("boggle" + i / 2,{
@@ -151,9 +206,9 @@ function scoreSystem(foundWord,newWord,wordLength)
     }
   }
   cnt = 0;
-}
-  console.log(wordsFound.length,wPresent,wordsFound);
-  if(foundWord == 1 && wPresent === 0) {
+
+  console.log(wordsFound.length, wPresent, wordsFound);
+  if(wPresent === 0) {
           if(wordLength < 3) {
             score += 5;
           } else if(wordLength < 4) {
@@ -164,10 +219,11 @@ function scoreSystem(foundWord,newWord,wordLength)
             score+=20;
           }
         }
-        return score;
+  return score;
 }
+
  var counter;
-function startTimer(timeMode) {
+/*function startTimer(timeMode) {
   console.log(timeMode);
   var count = 120 / timeMode; // time limit to find words, expresed in seconds
   var countReload = 120 / timeMode;
@@ -204,7 +260,7 @@ function timeLeft() {
     }
     $("#timer").html(count + " secs");
   }
-}
+}*/
   // printeaza literele cuvantului random din baza de date
   function drawLetters(array) {
     $("canvas").removeLayers();

@@ -54,7 +54,7 @@ function checkServerResponse(response, postData) {
 function getStaticServerImageList() {
   var data = [];
 
-  $.get("http://static.dexonline.ro/fileList.txt", function(contents) {
+  $.get("http://static.dexonline.ro:8080/fileList.txt", function(contents) {
     var lines = contents.split('\n');
     for (var i = 0; i < lines.length; i++) {
       var s = lines[i];

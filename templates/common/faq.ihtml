@@ -595,8 +595,7 @@
 	<h3><a name="database"></a>Cum obțin o copie a bazei de date?</h3>
 
 		Baza de date a <i>DEX online</i> este disponibilă în format SQL la
-		<a
-		href="http://static.dexonline.ro/download/dex-database.sql.gz">http://static.dexonline.ro/download/dex-database.sql.gz</a>. Citiți
+		<a href="{$staticServer}download/dex-database.sql.gz">{$staticServer}download/dex-database.sql.gz</a>. Citiți
 		mai jos informațiile despre <a href="#licenta">licență</a>. Baza de
 		date conține cuvintele-titlu, definițiile, comentariile, greșelile
 		de tipar, ghidul de exprimare corectă și formele flexionare ale

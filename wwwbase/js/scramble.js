@@ -45,18 +45,18 @@ $(".wordBtn").on("click", function() {
   var score = 0;
   var cnt = 0;
   var searchWord;
-  var lettersPressed = new Array(); // in acest array se retin literele tastate
-  var valuesPressed = new Array(); // aici se retin pozitiile (i) ale literelor tastate
+  var lettersPressed = new String(); // in acest array se retin literele tastate
+//  var valuesPressed = new Array(); // aici se retin pozitiile (i) ale literelor tastate
 
-  for(var i=0; i<7; i++) {
-    lettersPressed[i] = 0;
-    valuesPressed[i] = -1;
-  }
+//  for(var i=0; i<7; i++) {
+//    lettersPressed[i] = 0;
+//    valuesPressed[i] = -1;
+//  }
 
 function inputListen() {
   layers = $("canvas").getLayers();
 
-  $(".searchWord").keyup(function(letter) {
+  $(document).keyup(function(letter) {
     //var searchWord = $(this).val();
     var key;
     key = letter.keyCode;
@@ -111,69 +111,62 @@ function inputListen() {
           y: 200
         });
         layers[i].data.selected = true;
-        lettersPressed[cnt] = layers[i].data.letter; // retine pozitiile literelor apasate
-        valuesPressed[cnt] = i;
+        lettersPressed += layers[i].data.letter.toLowerCase(); // retine pozitiile literelor apasate
+        console.log(lettersPressed);
+      //  valuesPressed[cnt] = i;
         cnt++; 
         console.log("cnt la coborare= " + cnt);
         return;
       }
     }   
-
-    for(var i = cnt; i >= 0; i--) {
-      var index = valuesPressed[i];
-      if(keyString == lettersPressed[i] && layers[index].data.selected) {
-        $("canvas").animateLayerGroup("boggle" + index / 2, {
-          x: 110 + (index / 2 * 65),
-          y: 50,
-        });
-        layers[index].data.selected = false;
-        lettersPressed[i] = 0;
-        valuesPressed[i] = -1;
-        cnt--;
-        return;
-      }
-    }
-
-    //checkWord = checkWord + lettersPressed[cnt];
-    //console.log("checkWord este " + checkWord);
-
-    // urca o litera, daca aceasta este ultima litera introdusa
-    /*for(var i = layers.length - 2; i >= 0; i-= 2) {
+    //urca o litera
+    for(var i = layers.length - 2; i >= 0; i-= 2) {
       if(keyString == layers[i].data.letter && layers[i].data.selected) {
         $("canvas").animateLayerGroup("boggle" + i / 2, {
           x: 110 + (i / 2 * 65),
           y: 50,
         });
         layers[i].data.selected = false;
-
-        lettersPressed[cnt] = 0;
-
+        lettersPressed = lettersPressed.replace(layers[i].data.letter.toLowerCase(), '');
+        console.log(lettersPressed);
         cnt--;
-
-        console.log("ultima litera este: " + lettersPressed[cnt]);
-
-        console.log("cnt la urcare= " + cnt);
-        return;
+        console.log(cnt);
+        // return;
       }
-    } */
-
+    }
+    var rePoz = 0;
+    for(var i = 0; i <layers.length;i+= 2){
+      if(layers[i].data.selected) {
+        $("canvas").animateLayerGroup("boggle" + i / 2, {
+          x: 110 + (rePoz / 2 * 65),
+          y: 200,
+        });
+        rePoz+=2;
+      }
+    }
   }); 
 }
 
 function checkWord() {
   var i = 0;
-  var checkWord = new String();
-  while( lettersPressed[i] ) {
-    checkword = checkword + lettersPressed[i];
-  }
-
+ // var checkWord = new String();
+  var found = 0;
   document.addEventListener("keypress", function(enter) {
     var key;
     key = enter.keyCode;
 
     if(key == 13) {
-      console.log("checkWord este " + checkWord);
-      scoreSystem(checkWord, checkWord.length);        
+      console.log("checkWord este " + lettersPressed);
+      for(var i = 0; i < totalWords.length; i++) {
+        if(totalWords[i] == lettersPressed) {
+          found = 1;
+          break;
+        }
+      }
+      if(found){
+        scoreSystem(lettersPressed, lettersPressed.length);        
+      }
+      checkWord = [];
       $("#score").html(score);
       cnt = 0;
       $(window).load(function() {
@@ -206,6 +199,7 @@ function scoreSystem(newWord, wordLength) {
     }
   }
   cnt = 0;
+  lettersPressed = [];
 
   console.log(wordsFound.length, wPresent, wordsFound);
   if(wPresent === 0) {

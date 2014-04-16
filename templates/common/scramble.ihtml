@@ -13,8 +13,6 @@
         <span id="result"></span>  
         <span id="noWords"></span>
       </p>
-     Introduceti cuvantul:
-      <input class="searchWord"></input>
       <span id="ifFound">Rezultat: </span>
       <span>Timp ramas: </span>
       <span id="timer"></span>

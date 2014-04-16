@@ -5,6 +5,11 @@ $(document).ready(function() {
   testing();
 });
 
+
+var score = 0;
+var cnt = 0;
+var searchWord;
+var lettersPressed = new String(); // in acest array se retin literele tastate
 var totalWords = new Array(); // the possible words that can be made from the randomWord.
 function selectDifficulty() {
   $(".difficultyButton").on("click", function() {
@@ -17,6 +22,8 @@ function selectDifficulty() {
     })
     .done(function(response) {
       var word = $.parseJSON(response);
+      cnt = 0;
+      lettersPressed = [];
       totalWords = word.everyWord;
       $("#result").html(word.randomWord);
       $("#noWords").html(word.noWords);
@@ -25,7 +32,7 @@ function selectDifficulty() {
       startTimer(difficulty);
       console.log(totalWords);
       console.log(word.randomWord);
-      cnt = 0;
+      
       $(".searchWord").val(""); // clears input
     })
     .fail(function() {
@@ -42,10 +49,7 @@ $(".wordBtn").on("click", function() {
 }
 
   // test pentru cuvinte returnate prin json
-  var score = 0;
-  var cnt = 0;
-  var searchWord;
-  var lettersPressed = new String(); // in acest array se retin literele tastate
+  
 //  var valuesPressed = new Array(); // aici se retin pozitiile (i) ale literelor tastate
 
 //  for(var i=0; i<7; i++) {
@@ -169,9 +173,6 @@ function checkWord() {
       checkWord = [];
       $("#score").html(score);
       cnt = 0;
-      $(window).load(function() {
-        $(".searchWord").val("");
-      }); 
     }
   });
 }
@@ -185,22 +186,21 @@ function scoreSystem(newWord, wordLength) {
     } 
   }
 
-  if(wPresent === 0) {
+  if(wPresent === 0 && newWord != '') {
     wordsFound[wordsFound.length] = newWord;
-  }
-
-  for(var i = 0; i < layers.length; i+= 2) {
-    if(layers[i].y == 200 ) {
-      $("canvas").animateLayerGroup("boggle" + i / 2,{
-        x: 110 + (i / 2 * 65),
-        y: 50
-      });
-      layers[i].data.selected = false;
+    for(var i = 0; i < layers.length; i+= 2) {
+      if(layers[i].y == 200 ) {
+        $("canvas").animateLayerGroup("boggle" + i / 2,{
+          x: 110 + (i / 2 * 65),
+          y: 50
+        });
+        layers[i].data.selected = false;
+      }
     }
-  }
   cnt = 0;
   lettersPressed = [];
-
+  }
+  
   console.log(wordsFound.length, wPresent, wordsFound);
   if(wPresent === 0) {
           if(wordLength < 3) {
@@ -307,7 +307,3 @@ function timeLeft() {
       });
     }
   }
-  // goleste continutul input-ului dupa ce pagina este reincarcata
-  $(window).load(function() {
-    $(".searchWord").val("");
-  }); 

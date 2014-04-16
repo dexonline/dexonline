@@ -6,6 +6,12 @@ ini_set('memory_limit','1M');
 $option = util_getRequestParameter('difficulty');
 $searchWord = util_getRequestParameter('searchWord');
 
+$indexWords;
+$dbSearch;
+global $lexem;
+
+function getRandomWord() {
+
   $indexWords = Model::factory('Lexem')
       ->where_gte('charLength', 5)
       ->where_lte('charLength', 5)
@@ -16,18 +22,14 @@ $searchWord = util_getRequestParameter('searchWord');
     ->where_lte('charLength', 5)
     ->offset(rand(0, $indexWords - 1))
     ->find_one();
+  global $lexem ;//= $dbSearch;//->formUtf8General;
   $lexem = $dbSearch->formUtf8General;
-  $Found = Model::factory('Lexem')
-    ->where('formUtf8General',$searchWord)
-    ->find_one();
+}
 
-//Conditional cases: 
-  if($Found) {
-    $Found = 1;
-  } else {
-    $Found = 0;
-  }
+getRandomWord();
+startSearch();
 
+function startSearch(){
 //for spliting into substrings a word of 5 letters
 $wordList = array();
 for($i = 0; $i < 3; $i++) {
@@ -37,41 +39,43 @@ for($i = 0; $i < 3; $i++) {
   $wordList = array_merge($wordList, $temp);
 }
 //echo '<pre>'; print_r($wordList); echo '</pre>';
-for($i = 0; $i < 2; $i++) {
-  $subWord = mb_substr($lexem, $i, 4);
+  for($i = 0; $i < 2; $i++) {
+    $subWord = mb_substr($lexem, $i, 4);
+    $lexemArray = str_split_unicode($subWord);
+    $temp = letterPermute($lexemArray);
+    $wordList = array_merge($wordList, $temp);
+  }
+//first char + last 2 chars
+  $subWord = mb_substr($lexem, 0, 1); 
+  $subWord .= mb_substr($lexem, 3, 2);
   $lexemArray = str_split_unicode($subWord);
   $temp = letterPermute($lexemArray);
   $wordList = array_merge($wordList, $temp);
-}
-//first char + last 2 chars
-$subWord = mb_substr($lexem, 0, 1); 
-$subWord .= mb_substr($lexem, 3, 2);
-$lexemArray = str_split_unicode($subWord);
-$temp = letterPermute($lexemArray);
-$wordList = array_merge($wordList, $temp);
 //second char + last 2 chars
-$subWord = mb_substr($lexem, 1, 1);
-$subWord .= mb_substr($lexem, 3, 2);
-$lexemArray = str_split_unicode($subWord);
-$temp = letterPermute($lexemArray);
-$wordList = array_merge($wordList, $temp);
+  $subWord = mb_substr($lexem, 1, 1);
+  $subWord .= mb_substr($lexem, 3, 2);
+  $lexemArray = str_split_unicode($subWord);
+  $temp = letterPermute($lexemArray);
+  $wordList = array_merge($wordList, $temp);
 //first char + last 3 chars
-$subWord = mb_substr($lexem, 0, 1);
-$subWord .= mb_substr($lexem, 2, 3);
-$lexemArray = str_split_unicode($subWord);
-$temp = letterPermute($lexemArray);
-$wordList = array_merge($wordList, $temp);
+  $subWord = mb_substr($lexem, 0, 1);
+  $subWord .= mb_substr($lexem, 2, 3);
+  $lexemArray = str_split_unicode($subWord);
+  $temp = letterPermute($lexemArray);
+  $wordList = array_merge($wordList, $temp);
 //first 3 chars + last char
-$subWord = mb_substr($lexem, 0, 3);
-$subWord .= mb_substr($lexem, 4, 1);
-$lexemArray = str_split_unicode($subWord);
-$temp = letterPermute($lexemArray);
-$wordList = array_merge($wordList, $temp);
+  $subWord = mb_substr($lexem, 0, 3);
+  $subWord .= mb_substr($lexem, 4, 1);
+  $lexemArray = str_split_unicode($subWord);
+  $temp = letterPermute($lexemArray);
+  $wordList = array_merge($wordList, $temp);
 //permute the whole word.
-$lexemSplit = $lexem;
-$lexemArray = str_split_unicode($lexemSplit);
-$wordList = array_merge($wordList, letterPermute($lexemArray));
+  $lexemSplit = $lexem;
+  $lexemArray = str_split_unicode($lexemSplit);
+  $wordList = array_merge($wordList, letterPermute($lexemArray));
 //echo '<pre>'; print_r($wordList); echo '</pre>';
+}
+
 function str_split_unicode($str, $l = 0) {
     if ($l > 0) {
         $ret = array();
@@ -129,7 +133,7 @@ for($i = 0 ;$i < count($wordList); $i++) {
 unset($wordList1);
 unset($wordList);
 //echo '<pre>'; print_r($wordsFound); echo '</pre>';
-$result = array('noWords' => $indexWords, 'randomWord' => $lexem, 'Found' => $Found, 'everyWord' => $wordsFound);
+$result = array('noWords' => $indexWords, 'randomWord' => $lexem, 'everyWord' => $wordsFound);
 echo json_encode($result);
 // echo $lexem->formUtf8General;
 // echo $indexWords;

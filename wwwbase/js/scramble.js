@@ -217,7 +217,7 @@ function scoreSystem(newWord, wordLength) {
 }
 
  var counter;
-/*function startTimer(timeMode) {
+function startTimer(timeMode) {
   console.log(timeMode);
   var count = 120 / timeMode; // time limit to find words, expresed in seconds
   var countReload = 120 / timeMode;
@@ -254,7 +254,7 @@ function timeLeft() {
     }
     $("#timer").html(count + " secs");
   }
-}*/
+}
   // printeaza literele cuvantului random din baza de date
   function drawLetters(array) {
     $("canvas").removeLayers();

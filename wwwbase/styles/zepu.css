@@ -7,8 +7,9 @@
 body {
   background: #fff;
   color: #000;
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 12px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  line-height: 18px;
   height: 100%;
   margin: 0px;
   padding: 0px;
@@ -147,7 +148,7 @@ img {
 
 #mainMenu > li, #userMenu > li {
   float: left;
-  font-size: 11px;
+  font-size: 13px;
   list-style: none;
 }
 
@@ -387,7 +388,7 @@ img {
 /* MISSION STATEMENT */
 #missionStatement {
   color: #424242;
-  font-size: 10px;
+  font-size: 13px;
   margin: 25px auto 20px;
   text-align: center;
   width: 560px;
@@ -401,7 +402,7 @@ img {
   border-radius: 4px;
   -moz-border-radius: 4px;
   color: #424242;
-  font-size: 10px;
+  font-size: 13px;
   line-height: 150%;
   margin: 5px 0px 0px 167px;
   padding: 5px;
@@ -420,7 +421,7 @@ img {
 /* FOOTER */
 #Footer {
   color: #761818;
-  font-size: 10px;
+  font-size: 12px;
   height: 20px;
   margin: 0px auto;
   padding-top: 5px;
@@ -479,7 +480,7 @@ img {
 .defDetails {
   color :#999;
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   padding-top: 2px;
 }
 
@@ -505,9 +506,9 @@ img {
 div.resultBar {
   background: #eee;
   border: 1px solid #aaa;
-  font-size: 11px;
+  font-size: 13px;
   margin: 20px 15px 0px 15px;
-  padding: 5px;
+  padding: 5px 5px 5px 10px;
   -moz-border-radius: 7px;
   border-radius: 7px;
 }
@@ -1095,15 +1096,8 @@ div.sourceComplete5 {
   position: absolute;
   top: 100px;
   right: 0px;
-  width: 200px;
-  font-size: 11px;
-}
-
-/* align banner to the left only on small resolutions */
-@media screen and (max-width: 1093px) { 
-  #banner_mainPage {
-    margin-left: 0px;
-  }
+  width: 240px;
+  font-size: 13px;
 }
 
 .widgetList {
@@ -1117,17 +1111,6 @@ div.sourceComplete5 {
   border-top-left-radius: 25px;
 }
 
-/* hide widget box for very small resolutions */
-@media screen and (max-width: 983px) {
-  .widgetBox {
-    display: none;
-  }
-
-  #banner_mainPage {
-    margin-left: 71px;
-  }
-}
-
 .widgetList li {
   list-style-type: none;
   display: inline-block;
@@ -1136,7 +1119,7 @@ div.sourceComplete5 {
 
 .widgetList span {
   float: right;
-  max-width: 115px;
+  max-width: 150px;
 }
 
 .lightBorder {
@@ -1196,14 +1179,14 @@ body .socialNetworks label {
 li.widgetsPreferences {
   background: url("../img/icons/cog.png") no-repeat 0px 0px;
   height: 16px;
-  margin: 0px 0px 0px 35px;
+  margin: 0px 0px 10px 12px;
   padding-top: 2px;
   padding-left: 20px;
 }
 
 .widgetsPreferences a {
   color: #777;
-  font-size: 10px;
+  font-size: 13px;
 }
 
 .widgetsPreferences a:hover {
@@ -1213,6 +1196,43 @@ li.widgetsPreferences {
 .gameIcon {
   width: 48px;
 }
+
+/* align banner to the left only on small resolutions;
+   adjust widget box size from homepage, on small resolutions */
+@media screen and (max-width: 1093px) {
+  #banner_mainPage {
+    margin-left: 0px;
+  }
+
+  .widgetBox {
+    width: 200px;
+  }
+
+  .widgetList span {
+    float: left;
+    max-width: 113px;
+  }
+
+  .widgetList li img {
+    clear: both;
+  }
+
+  li.widgetsPreferences {
+    margin: 0px 0px 20px 10px;
+  }
+}
+
+/* hide widget box for very small resolutions */
+@media screen and (max-width: 983px) {
+  .widgetBox {
+    display: none;
+  }
+
+  #banner_mainPage {
+    margin-left: 71px;
+  }
+}
+
 
 /****************** Medal stuff *******************/
 
@@ -1360,7 +1380,7 @@ span.tooltip2 {
 .paymentSection label.tipText {
   width: 260px;
   color: #757E75;
-  font-size: 10px;
+  font-size: 12px;
   margin-top: 10px;
   padding-left: 35px;
 }
@@ -1401,7 +1421,7 @@ span.tooltip2 {
 .bankAccount {
   font-weight: bold;
   color: #555;
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .donateDetailLink {

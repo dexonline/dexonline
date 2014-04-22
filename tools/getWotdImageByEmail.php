@@ -53,6 +53,7 @@ try {
   $wotds = Model::factory('WordOfTheDay')
     ->table_alias('wotd')
     ->select('wotd.*')
+    ->distinct()
     ->join('WordOfTheDayRel', 'wotd.id = rel.wotdId', 'rel')
     ->join('LexemDefinitionMap', 'rel.refId = ldm.definitionId', 'ldm')
     ->join('Lexem', 'ldm.lexemId = l.id', 'l')

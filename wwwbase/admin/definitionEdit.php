@@ -34,10 +34,10 @@ $hasErrors = false;
 if (!$definitionId) {
   if ($isOCR) {
     //find definitions assigned to user
-    $ocr = Model::factory('OCR')->where('status', 'raw')->where('editorId', session_getUserId())->order_by_asc('dateModified')->find_one();
+    $ocr = Model::factory('OCR')->where('status', 'raw')->where('editorId', session_getUserId())->order_by_asc('dateModified')->order_by_asc('id')->find_one();
     // find definitions assigned to noone
     if (!$ocr || !$ocr->id) {
-      $ocr = Model::factory('OCR')->where('status', 'raw')->where_null('editorId')->order_by_asc('dateModified')->find_one();
+      $ocr = Model::factory('OCR')->where('status', 'raw')->where_null('editorId')->order_by_asc('dateModified')->order_by_asc('id')->find_one();
     }
     if (!$ocr || !$ocr->id) {
       echo("Lista cu definiții OCR este goală.");

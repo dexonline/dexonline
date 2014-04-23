@@ -11,7 +11,6 @@
     <div id="resultSearch">Rezultatul este: 
       <p>
         <span id="result"></span>  
-        <span id="noWords"></span>
       </p>
       <span id="ifFound">Rezultat: </span>
       <span>Timp ramas: </span>

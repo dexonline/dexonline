@@ -1,10 +1,27 @@
 $(document).ready(function() {
+  callAjax(); // init AJAX
   selectDifficulty();
   inputListen();
   checkWord();
   testing();
 });
 
+function callAjax()
+{
+  result;
+   $.ajax({
+      type: "POST",
+      url: wwwRoot + "ajax/scramble.php",
+    })
+    .done(function(response) {
+      result = $.parseJSON(response);
+    })
+    .fail(function() {
+      console.log("Nu merge");
+    });
+  console.log(result);
+  return result;
+}
 
 var score = 0;
 var cnt = 0;
@@ -15,29 +32,17 @@ function selectDifficulty() {
   $(".difficultyButton").on("click", function() {
     // this e pentru a prelua valoarea butonului tocmai apasat, si nu a unuia oarecare
     var difficulty = $(this).attr("value");
-    $.ajax({
-      type: "POST",
-      url: wwwRoot + "ajax/scramble.php",
-      data: { difficulty : difficulty },
-    })
-    .done(function(response) {
-      var word = $.parseJSON(response);
+      
+      var word = callAjax();
       cnt = 0;
       lettersPressed = [];
       totalWords = word.everyWord;
       $("#result").html(word.randomWord);
-      $("#noWords").html(word.noWords);
       $("#maxWords").html(word.everyWord.length);
       drawLetters(word.randomWord);
       startTimer(difficulty);
       console.log(totalWords);
       console.log(word.randomWord);
-      
-      $(".searchWord").val(""); // clears input
-    })
-    .fail(function() {
-      console.log("Nu merge");
-    });
   });
 }
 
@@ -48,15 +53,6 @@ $(".wordBtn").on("click", function() {
   });
 }
 
-  // test pentru cuvinte returnate prin json
-  
-//  var valuesPressed = new Array(); // aici se retin pozitiile (i) ale literelor tastate
-
-//  for(var i=0; i<7; i++) {
-//    lettersPressed[i] = 0;
-//    valuesPressed[i] = -1;
-//  }
-
 function inputListen() {
   layers = $("canvas").getLayers();
 
@@ -66,31 +62,6 @@ function inputListen() {
     key = letter.keyCode;
     var keyString;
     keyString = String.fromCharCode(key);
-
-    /*$.ajax({
-      type:"POST",
-      url: wwwRoot + "ajax/scramble.php",
-      data: { searchWord : searchWord },
-    })
-    .done(function(response){
-      var enter;
-      enter = letter.keyCode;
-      if(enter == 13) {
-        var result = $.parseJSON(response);
-        scoreSystem(result.Found,searchWord,searchWord.length);        
-        $("#score").html(score);
-        $("#ifFound").html(result.Found);
-        $(window).load(function() {
-          $(".searchWord").val("");
-        }); 
-      }
- //   }
-    })
-    .fail(function() {
-      console.log("Nu merge");
-    });
-    */
-
 
     for(var i = 0; i< layers.length; i += 2) {
       if(layers[i].data.letter == "\u00c2" || layers[i].data.letter == "\u0102") {
@@ -133,7 +104,9 @@ function inputListen() {
         layers[i].data.selected = false;
         lettersPressed = lettersPressed.replace(layers[i].data.letter.toLowerCase(), '');
         console.log(lettersPressed);
-        cnt--;
+        if(cnt >= 0) {
+          cnt--;
+        }
         console.log(cnt);
         // return;
       }
@@ -159,7 +132,7 @@ function checkWord() {
     var key;
     key = enter.keyCode;
 
-    if(key == 13) {
+    if(key == 13 && lettersPressed.length) {
       console.log("checkWord este " + lettersPressed);
       for(var i = 0; i < totalWords.length; i++) {
         if(totalWords[i] == lettersPressed) {
@@ -170,7 +143,6 @@ function checkWord() {
       if(found){
         scoreSystem(lettersPressed, lettersPressed.length);        
       }
-      checkWord = [];
       $("#score").html(score);
       cnt = 0;
     }
@@ -186,7 +158,7 @@ function scoreSystem(newWord, wordLength) {
     } 
   }
 
-  if(wPresent === 0 && newWord != '') {
+  if(wPresent === 0) {
     wordsFound[wordsFound.length] = newWord;
     for(var i = 0; i < layers.length; i+= 2) {
       if(layers[i].y == 200 ) {
@@ -230,27 +202,16 @@ function timeLeft() {
     clearInterval(counter);
     counter = setInterval(timeLeft, 1000); // auto reload values
     count = countReload;
-    var randDifficulty = Math.floor((Math.random()*5)+1);
-    $.ajax({
-      type: "POST",
-      url: wwwRoot + "ajax/scramble.php",
-      data: { difficulty : randDifficulty },
-    })
-    .done(function(response) {
-      var autoWord = $.parseJSON(response);
-      totalWords = autoWord.everyWord;
-      $("#maxWords").html(autoWord.everyWord.length);
-      $("#result").html(autoWord.randomWord);
-      $("#noWords").html(autoWord.noWords);
-      drawLetters(autoWord.randomWord);
-      console.log(autoWord.randomWord);
-      $(".searchWord").val("");
-      cnt = 0;
-    })
-    .fail(function() {
-      console.log("Nu merge");
-    });
-       return;
+
+    var autoWord = callAjax();
+    totalWords = autoWord.everyWord;
+    $("#maxWords").html(autoWord.everyWord.length);
+    $("#result").html(autoWord.randomWord);
+    drawLetters(autoWord.randomWord);
+    console.log(autoWord.randomWord);
+    cnt = 0;
+
+    return;
     }
     $("#timer").html(count + " secs");
   }

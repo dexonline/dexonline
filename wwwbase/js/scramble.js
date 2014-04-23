@@ -34,6 +34,9 @@ function selectDifficulty() {
     var difficulty = $(this).attr("value");
       
       var word = callAjax();
+      if(result.everyWord.length < 4) {
+      word = callAjax();
+      }
       cnt = 0;
       lettersPressed = [];
       totalWords = word.everyWord;
@@ -158,7 +161,7 @@ function scoreSystem(newWord, wordLength) {
     } 
   }
 
-  if(wPresent === 0) {
+  if(wPresent === 0 && newWord != '') {
     wordsFound[wordsFound.length] = newWord;
     for(var i = 0; i < layers.length; i+= 2) {
       if(layers[i].y == 200 ) {

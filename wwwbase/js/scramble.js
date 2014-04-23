@@ -161,7 +161,7 @@ function scoreSystem(newWord, wordLength) {
     } 
   }
 
-  if(wPresent === 0 && newWord != '') {
+  if(wPresent === 0) {
     wordsFound[wordsFound.length] = newWord;
     for(var i = 0; i < layers.length; i+= 2) {
       if(layers[i].y == 200 ) {

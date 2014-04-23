@@ -1,4 +1,4 @@
-<?
+<?php
 
 define('DEBUG', 0);
 if (DEBUG) echo "START\n";

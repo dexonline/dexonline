@@ -1,5 +1,5 @@
 {if $imageUrl}
-  <img src="{$fullServerUrl}img/{$imageUrl}" alt="{$def->lexicon}"/>
+  <img src="{$imageUrl}" alt="{$def->lexicon}"/>
   <br/><br/>
 {/if}
 {$def->htmlRep}

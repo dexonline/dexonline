@@ -25,7 +25,6 @@ if ($type == 'rss' || $type == 'blog') {
     SmartyWrap::assign('def', $def);
     SmartyWrap::assign('source', $source);
     SmartyWrap::assign('imageUrl', $w->getImageUrl());
-    SmartyWrap::assign('fullServerUrl', util_getFullServerUrl());
     if ($type == 'blog') {
         $curDate = strftime("%e %B", $ts);
         SmartyWrap::assign('curDate', $curDate);

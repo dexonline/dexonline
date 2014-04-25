@@ -1,4 +1,3 @@
-var dom = { ELEMENT_NODE: 1, TEXT_NODE: 3 };
 var Alphabet = 'a-záàäåăâçèéëìíïîòóöșțşţùúüŭ';
 var letter = '[' + Alphabet + ']';
 var nonLetter = '[^' + Alphabet + ']';

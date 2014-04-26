@@ -49,10 +49,17 @@ function selectDifficulty() {
   });
 }
 
+hide = 0;
 function testing() {
 $(".wordBtn").on("click", function() {
   console.log("pushed");
-    $(".wordArea").html(totalWords + " ");
+  	if ( !hide ) {
+      $(".wordArea").html(totalWords + " ");
+      hide = 1;
+	} else {
+      $(".wordArea").html("");
+      hide = 0;
+	}
   });
 }
 

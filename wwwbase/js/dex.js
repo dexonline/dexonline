@@ -1,4 +1,4 @@
-var Alphabet = 'a-záàäåăâçèéëìíïîòóöșțşţùúüŭ';
+var Alphabet = 'a-záàäåăâçèéëìíïĭîòóöșțşţùúüŭ';
 var letter = '[' + Alphabet + ']';
 var nonLetter = '[^' + Alphabet + ']';
 var wwwRoot = getWwwRoot();
@@ -193,7 +193,7 @@ function searchClickedWord() {
   }
 
   // Trim trailing dots
-  var regex = /[.,;:?!()]$/;
+  var regex = new RegExp(nonLetter + "$");
   while (word && regex.test(word)) {
     word = word.substr(0, word.length - 1);
   }

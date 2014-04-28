@@ -32,12 +32,6 @@ class StringUtil {
                                            'y', 'Y', 'y', 'Y', 'z', 'Z',
 					   '-'));
 
-  public static $STOPWORDS = array("adj", "al", "ale", "art", "ca", "care", "ce", "cu", "de", "despre", "din", "dinspre", "după", "este",
-                                   "etc", "expr", "face", "fi", "fig", "fr", "în", "îi", "îți", "lat", "la", "mai", "nu", "pe", "pentru",
-                                   "pl", "pop", "pr", "prez", "prin", "refl", "reg", "sau", "să", "se", "sil", "sg", "suf", "și", "te",
-                                   "tine", "tranz", "tu", "ți", "ție", "un", "unor", "unui", "var", "vb");
-  private static $STOPWORDS_LATIN = null; // will be initialized lazily
-
   // Note: This does not handle the mixed case of old orthgraphy and no diacriticals (e.g. inminind instead of înmânând).
   // That case is inherently ambiguous. For example, if the query is 'gindind', the correct substitution is 'gândind',
   // where the second 'i' is left unchanged.
@@ -221,33 +215,6 @@ class StringUtil {
       }
     }
     return true;
-  }
-
-  static function isStopWord($word, $hasDiacritics) {
-    if (!self::$STOPWORDS_LATIN) {
-      self::$STOPWORDS_LATIN = self::unicodeToLatin(self::$STOPWORDS);
-    }
-    if (mb_strlen($word) == 1) {
-      return true;
-    }
-    return $hasDiacritics
-      ? in_array($word, self::$STOPWORDS)
-      : in_array($word, self::$STOPWORDS_LATIN);
-  }
-  
-  static function separateStopWords($words, $hasDiacritics) {
-    $properWords = array();
-    $stopWords = array();
-    
-    foreach ($words as $word) {
-      if (self::isStopWord($word, $hasDiacritics)) {
-        $stopWords[] = $word;
-      } else {
-        $properWords[] = $word;
-      }
-    }
-
-    return array($properWords, $stopWords);
   }
 
   static function stripHtmlEscapeCodes($s) {

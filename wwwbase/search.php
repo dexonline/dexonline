@@ -59,10 +59,9 @@ if ($text) {
     $definitions = array();
   } else {
     $words = preg_split('/ +/', $cuv);
-    list($properWords, $stopWords) = StringUtil::separateStopWords($words, $hasDiacritics);
-    SmartyWrap::assign('stopWords', $stopWords);
-    $defIds = Definition::searchFullText($properWords, $hasDiacritics, $sourceId);
+    list($defIds, $stopWords) = Definition::searchFullText($words, $hasDiacritics, $sourceId);
     SmartyWrap::assign('numResults', count($defIds));
+    SmartyWrap::assign('stopWords', $stopWords);
     // Show at most 500 definitions;
     $defIds = array_slice($defIds, 0, LIMIT_FULLTEXT_DISPLAY);
     // Load definitions in the given order
@@ -75,7 +74,7 @@ if ($text) {
     if (!count($defIds)) {
       FlashMessage::add('Nicio definiție nu conține toate cuvintele căutate.');
     }
-    Definition::highlight($cuv, $properWords, $definitions, $defIds);
+    Definition::highlight($words, $definitions);
   }
   $searchResults = SearchResult::mapDefinitionArray($definitions);
 }

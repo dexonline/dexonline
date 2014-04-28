@@ -11,7 +11,7 @@ function db_init() {
   ORM::configure(sprintf("mysql:host=%s;dbname=%s", $parts['host'], $parts['database']));
   ORM::configure('username', $parts['user']);
   ORM::configure('password', $parts['password']);
-  // If you enable query logging, you can then run var_dump(ORM::get_query_log());
+  // This allows var_dump(ORM::get_query_log()) or var_dump(ORM::get_last_query())
   // ORM::configure('logging', true);
   ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
                                          PDO::MYSQL_ATTR_LOCAL_INFILE => true));

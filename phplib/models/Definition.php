@@ -106,35 +106,44 @@ class Definition extends BaseObject implements DatedObject {
 
   public static function searchFullText($words, $hasDiacritics, $sourceId) {
     $intersection = null;
+    $stopWords = array();
 
+    // For every word, get all lexems that aren't stopwords and that generate that form.
+    // For 'om' we would take the lexem 'om', but not 'a vrea' (auxiliary verb).
     $matchingLexems = array();
     foreach ($words as $word) {
       $lexems = Lexem::searchInflectedForms($word, $hasDiacritics);
       $lexemIds = array();
       foreach ($lexems as $lexem) {
-        $lexemIds[] = $lexem->id;
+        if (!$lexem->stopWord) {
+          $lexemIds[] = $lexem->id;
+        }
       }
       $matchingLexems[] = $lexemIds;
+      if (empty($lexemIds)) {
+        $stopWords[] = $word;
+      }
     }
 
     foreach ($words as $i => $word) {
-      // Load all the definitions for any possible lexem for this word.
-      $lexemIds = $matchingLexems[$i];
-      $defIds = FullTextIndex::loadDefinitionIdsForLexems($lexemIds, $sourceId);
-      DebugInfo::resetClock();
-      $intersection = ($intersection === null)
-        ? $defIds
-        : util_intersectArrays($intersection, $defIds);
-      DebugInfo::stopClock("Intersected with lexems for $word");
+      if (count($matchingLexems[$i])) {
+        // Load all the definitions for any possible lexem for this word.
+        $lexemIds = $matchingLexems[$i];
+        $defIds = FullTextIndex::loadDefinitionIdsForLexems($lexemIds, $sourceId);
+        DebugInfo::resetClock();
+        $intersection = ($intersection === null)
+          ? $defIds
+          : util_intersectArrays($intersection, $defIds);
+        DebugInfo::stopClock("Intersected with lexems for $word");
+      }
     }
     if (empty($intersection)) { // This can happen when the query is all stopwords or the source selection produces no results
-      return array();
+      return array(array(), $stopWords);
     }
-
     if (count($words) == 1) {
-      // For single-word queries, sort the result set by lexicon.
-      $objects = Model::factory('Definition')->select('id')->where('status', ST_ACTIVE)->where_in('id', $intersection)->order_by_asc('lexicon')->find_many();
-      return array_map(function($def) { return $def->id; }, $objects);
+      // For single-word queries, skip the ordering part.
+      // We could sort the definitions by lexicon, but it is very expensive.
+      return array($intersection, $stopWords);
     }
 
     $shortestInvervals = array();
@@ -146,7 +155,9 @@ class Definition extends BaseObject implements DatedObject {
       // positions)
       $p = array();
       foreach ($matchingLexems as $lexemIds) {
-        $p[] = FullTextIndex::loadPositionsByLexemIdsDefinitionId($lexemIds, $defId);
+        if (!empty($lexemIds)) {
+          $p[] = FullTextIndex::loadPositionsByLexemIdsDefinitionId($lexemIds, $defId);
+        }
       }
       $shortestIntervals[] = util_findSnippet($p);
     }
@@ -156,39 +167,34 @@ class Definition extends BaseObject implements DatedObject {
     }
     DebugInfo::stopClock("Computed score for every definition");
 
-    return $intersection;
+    return array($intersection, $stopWords);
   }
 
-  public static function highlight($cuv, $properWords, &$definitions, $defIds) {
-    $start = microtime(true);
-    $method = "highlight";
-
-    $res = array();
-    $wordsToHighlight = 0;
-    $keys = $properWords;
-    $res = array_fill_keys($keys, array());
+  public static function highlight($words, &$definitions) {
+    $res = array_fill_keys($words, array());
 
     foreach ($res as $key => &$words) {
       $var = sprintf("select distinct i2.formNoAccent  
         from InflectedForm i1, Lexem l, InflectedForm i2
         where i1.lexemId = l.id and
         l.id = i2.lexemId and
+        not l.stopWord and
         i1.formUtf8General = '%s'", $key);
 
-    $query = db_getArray($var);
+      $query = db_getArray($var);
 
-    foreach ($query as $q) {
-      array_push($words, $q);
-      $wordsToHighlight++;
+      foreach ($query as $q) {
+        array_push($words, $q);
+      }
+
+      $words = array_unique($words);
+
+      if (empty($words)) {
+        unset($res[$key]);
+      }
     }
 
-    $words = array_unique($words);
-
-    if(count($words) == 1 and $words[0] == "")
-      unset ($res[$key]);
-    }
-
-    $colors = array('#FF0000', '#FF3300', '#FF6600', '#CC6600', '#990000');
+    $colors = array('#CC0000', '#CC6600', '#008800', '#000088', '#880088');
 
     foreach ($definitions as $def) {
       $colorIndex = 0;
@@ -210,12 +216,6 @@ class Definition extends BaseObject implements DatedObject {
       $colorIndex = ($colorIndex + 1) % count($colors);
       }
     }
-
-    $end = microtime(true);
-    $search_time = sprintf('%0.3f', $end - $start);
-    $logEntry = "".$method.":".$cuv.":".$wordsToHighlight.":".count($defIds).":".$search_time.""."\n";
-
-    // file_put_contents("/var/log/dex-highlight.log", $logEntry, FILE_APPEND | LOCK_EX);
   }
 
   public static function searchModerator($cuv, $hasDiacritics, $sourceId, $status, $userId, $beginTime, $endTime, $page, $resultsPerPage) {

@@ -11,12 +11,10 @@ assert_options(ASSERT_BAIL, 1);
 log_scriptLog('Running rebuildLexemFrequencies.php.');
 
 log_scriptLog('Setting frequency to 1.00 for manual stop words');
-foreach (StringUtil::$STOPWORDS as $sw) {
-  $lexems = Lexem::get_all_by_formNoAccent($sw);
-  foreach ($lexems as $l) {
-    $l->frequency = 1.00;
-    $l->save();
-  }
+$lexems = Lexem::get_all_by_stopWord(1);
+foreach ($lexems as $l) {
+  $l->frequency = 1.00;
+  $l->save();
 }
 
 log_scriptLog("Scanning full text index");

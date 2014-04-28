@@ -27,21 +27,17 @@ foreach ($dbResult as $dbRow) {
   $words = extractWords($dbRow[1]);
 
   foreach ($words as $position => $word) {
-    if (StringUtil::isStopWord($word, true)) {
-      // Nothing, this word is ignored.
+    if (!array_key_exists($word, $ifMap)) {
+      cacheWordForm($word);
+    }
+    if (array_key_exists($word, $ifMap)) {
+      $lexemList = preg_split('/,/', $ifMap[$word]);
+      for ($i = 0; $i < count($lexemList); $i += 2) {
+        fwrite($handle, $lexemList[$i] . "\t" . $lexemList[$i + 1] . "\t" . $dbRow[0] . "\t" . $position . "\n");
+        $indexSize++;
+      }
     } else {
-      if (!array_key_exists($word, $ifMap)) {
-        cacheWordForm($word);
-      }
-      if (array_key_exists($word, $ifMap)) {
-        $lexemList = preg_split('/,/', $ifMap[$word]);
-        for ($i = 0; $i < count($lexemList); $i += 2) {
-          fwrite($handle, $lexemList[$i] . "\t" . $lexemList[$i + 1] . "\t" . $dbRow[0] . "\t" . $position . "\n");
-          $indexSize++;
-        }
-      } else {
-        // print "Not found: $word\n";
-      }
+      // print "Not found: $word\n";
     }
   }
 
@@ -100,7 +96,8 @@ function extractWords($text) {
 
 function cacheWordForm($word) {
   global $ifMap;
-  $dbResult = db_execute("select lexemId, inflectionId from InflectedForm where formNoAccent = '$word'");
+  $dbResult = db_execute("select lexemId, inflectionId from InflectedForm join Lexem on lexemId = Lexem.id " .
+                         "where InflectedForm.formNoAccent = '{$word}' and not Lexem.stopWord");
   $value = '';
   foreach ($dbResult as $dbRow) {
     $value .= ',' . $dbRow['lexemId'] . ',' . $dbRow['inflectionId'];

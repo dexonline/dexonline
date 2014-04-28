@@ -5,3 +5,4 @@ update Lexem set stopWord = 1 where formNoAccent in ("ei");
 update Lexem set stopWord = 1 where formNoAccent in ("a");
 update Lexem set stopWord = 1 where formNoAccent in ("ăl");
 update Lexem set stopWord = 1 where char_length(formNoAccent) = 1;
+update Lexem set stopWord = 1 where formNoAccent in ("că");

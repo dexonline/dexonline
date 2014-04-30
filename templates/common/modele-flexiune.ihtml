@@ -41,7 +41,7 @@
       {$m->number}. {$m->exponent|regex_replace:"/\'(a|e|i|o|u|ă|î|â)/":"<span class=\"accented\">\$1</span>"}
     </div>
     {include file="common/paradigm/$selectedLocVersion/paradigm.ihtml"
-             lexem=$lexems[$i]
+             lexemModel=$lexemModels[$i]
              ifMap=$paradigms[$i]
              modelType=$selectedModelType}
   {/foreach}

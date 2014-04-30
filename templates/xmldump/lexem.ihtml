@@ -1,15 +1,20 @@
-{assign var="ifs" value=$lexem->getInflectedForms()}
+{assign var="lexemModels" value=$lexem->getLexemModels()}
   <Lexem id="{$lexem->id}">
     <Timestamp>{$lexem->modDate}</Timestamp>
     <Form>{$lexem->form|escape}</Form>
     {if $lexem->description}
       <Description>{$lexem->description|escape}</Description>
     {/if}
-    {foreach from=$ifs item=if}
-      <InflectedForm>
-        <InflectionId>{$if->inflectionId}</InflectionId>
-        <Form>{$if->form|escape}</Form>
-      </InflectedForm>
+    {foreach from=$lexemModels item=lm}
+      <Model type="{$lm->modelType}{$lm->modelNumber}{$lm->restriction}">
+        {assign var="ifs" value=$lm->getInflectedForms()}
+        {foreach from=$ifs item=if}
+          <InflectedForm>
+            <InflectionId>{$if->inflectionId}</InflectionId>
+            <Form>{$if->form|escape}</Form>
+          </InflectedForm>
+        {/foreach}
+      </Model>
     {/foreach}
   </Lexem>
 

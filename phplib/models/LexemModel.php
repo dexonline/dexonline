@@ -9,6 +9,15 @@ class LexemModel extends BaseObject implements DatedObject {
   private $inflectedForms = null;
   private $inflectedFormMap = null;  // Mapped by various criteria depending on the caller
 
+  public static function create($modelType, $modelNumber) {
+    $lm = Model::factory('LexemModel')->create();
+    $lm->modelType = $modelType;
+    $lm->modelNumber = $modelNumber;
+    $lm->restriction = '';
+    $lm->isLoc = false;
+    return $lm;
+  }
+
   function getModelType() {
     if ($this->mt === null) {
       $this->mt = ModelType::get_by_code($this->modelType);

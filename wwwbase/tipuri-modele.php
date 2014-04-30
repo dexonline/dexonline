@@ -59,7 +59,7 @@ $modelCounts = array();
 $lexemCounts = array();
 $canDelete = array();
 foreach ($modelTypes as $mt) {
-  $numLexems = Model::factory('Lexem')->where('modelType', $mt->code)->count();
+  $numLexems = Model::factory('LexemModel')->where('modelType', $mt->code)->count();
   $numDependants = Model::factory('ModelType')->where('canonical', $mt->code)->count();
   $modelCounts[] = Model::factory('FlexModel')->where('modelType', $mt->code)->count();
   $lexemCounts[] = $numLexems;
@@ -98,7 +98,7 @@ function validateEdit($mt) {
 }
 
 function validateDelete($mt) {
-  $numLexems = Model::factory('Lexem')->where('modelType', $mt->code)->count();
+  $numLexems = Model::factory('LexemModel')->where('modelType', $mt->code)->count();
   if ($numLexems) {
     FlashMessage::add("Nu pot șterge tipul '{$mt->code}', deoarece este folosit de {$numLexems} lexeme.");
   }

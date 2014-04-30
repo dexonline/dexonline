@@ -7,5 +7,9 @@
      title="editează modelul">&nbsp;
   </a>
 {/if}
+{if $lexemModel->tags}
+  <br>
+  <span class="lexemTags">{$lexemModel->tags|escape}</span>
+{/if}
 {include file="common/bits/locInfo.ihtml" isLoc=$lexemModel->isLoc}
 {include file="common/bits/lexemSources.ihtml" lexemModel=$lexemModel}

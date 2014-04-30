@@ -208,7 +208,8 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
     $conjugations = false;
     $declensions = false;
     foreach ($lexems as $l) {
-      $isVerb = ($l->modelType == 'V') || ($l->modelType == 'VT');
+      $lm = $l->getLexemModels()[0]; // One LexemModel suffices -- they all better have the same modelType.
+      $isVerb = ($lm->modelType == 'V') || ($lm->modelType == 'VT');
       $conjugations |= $isVerb;
       $declensions |= !$isVerb;
     }
@@ -217,7 +218,7 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
     if ($showParadigm) {
       $hasUnrecommendedForms = false;
       foreach ($lexems as $l) {
-        foreach($l->getLexemModels() as $lm) {
+        foreach ($l->getLexemModels() as $lm) {
           $lm->getModelType();
           $lm->getSourceNames();
           foreach ($lm->getInflectedFormsMappedByRank() as $ifs) {

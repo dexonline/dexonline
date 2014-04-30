@@ -6,7 +6,6 @@ define("ONE_YEAR_IN_SECONDS", 365 * 86400);
 function session_init() {
   if (isset($_COOKIE[session_name()])) {
     session_start();
-    session_logoutIfNoOpenId();
   }
   if (util_isWebBasedScript()) {
     if (!session_userExists()) {
@@ -56,17 +55,6 @@ function session_logout() {
   unset($_COOKIE['prefs']['lll']);
   session_kill();
   util_redirect(util_getWwwRoot());
-}
-
-// Transitional code. Once we switch to OpenID, users who have an active session with no identity need to be logged out.
-// Safe to remove after January 1, 2012.
-function session_logoutIfNoOpenId() {
-  if (isset($_SESSION['user'])) {
-    $user = $_SESSION['user'];
-    if (!@$user->identity) {
-      session_logout();
-    }
-  }
 }
 
 // Try to load logging information from the long-lived cookie

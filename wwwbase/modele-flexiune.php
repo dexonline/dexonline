@@ -41,7 +41,7 @@ if ($locVersion && $modelType && $modelNumber) {
     if ($lm) {
       $paradigm = getExistingForms($lm, $locVersion);
     } else {
-      /****************** Generate a lexem with a single lexemModel ********************/
+      /****************** FIXME: Generate a lexem with a single lexemModel ********************/
       /* $lm = LexemModel::create($modelType->code, $m->number); */
       /* $lm->isLoc = true; */
       /* $paradigm = getNewForms($lm, $locVersion); */

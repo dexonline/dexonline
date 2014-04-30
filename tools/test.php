@@ -109,12 +109,12 @@ assertEquals(AdminStringUtil::internalizeAllReferences('|vax albina|-|'),
 assertEquals(AdminStringUtil::internalizeAllReferences('text 1 |foo|| text 2 |dealul|-| text 3'),
 	     'text 1 |foo|foo| text 2 |dealul|deal| text 3');
 
-assertEquals('<a class="ref" href="/definitie/y">x</a>', AdminStringUtil::convertReferencesToHtml('|x|y|'));
-assertEquals('<a class="ref" href="/definitie/î">ă</a>', AdminStringUtil::convertReferencesToHtml('|ă|î|'));
-assertEquals('<a class="ref" href="/definitie/ab cd ef">ab cd ef</a>', AdminStringUtil::convertReferencesToHtml('|ab cd ef|ab cd ef|'));
-assertEquals('<a class="ref" href="/definitie/ab cd ef (@1@)">ab cd ef (@1@)</a>', AdminStringUtil::convertReferencesToHtml('|ab cd ef (@1@)|ab cd ef (@1@)|'));
-assertEquals('<a class="ref" href="/definitie/ab cd õÕ (@1@)">ab cd õÕ (@1@)</a>', AdminStringUtil::convertReferencesToHtml('|ab cd õÕ (@1@)|ab cd õÕ (@1@)|'));
-assertEquals('<a class="ref" href="/definitie/y">x</a> foobar <a class="ref" href="/definitie/t">z</a>', AdminStringUtil::convertReferencesToHtml('|x|y| foobar |z|t|'));
+assertEquals('zzz <a class="ref" href="/definitie/y">x</a>', AdminStringUtil::convertReferencesToHtml('zzz |x|y|'));
+assertEquals('zzz <a class="ref" href="/definitie/î">ă</a>', AdminStringUtil::convertReferencesToHtml('zzz |ă|î|'));
+assertEquals('zzz <a class="ref" href="/definitie/ab cd ef">ab cd ef</a>', AdminStringUtil::convertReferencesToHtml('zzz |ab cd ef|ab cd ef|'));
+assertEquals('zzz <a class="ref" href="/definitie/ab cd ef (@1@)">ab cd ef (@1@)</a>', AdminStringUtil::convertReferencesToHtml('zzz |ab cd ef (@1@)|ab cd ef (@1@)|'));
+assertEquals('zzz <a class="ref" href="/definitie/ab cd õÕ (@1@)">ab cd õÕ (@1@)</a>', AdminStringUtil::convertReferencesToHtml('zzz |ab cd õÕ (@1@)|ab cd õÕ (@1@)|'));
+assertEquals('zzz <a class="ref" href="/definitie/y">x</a> foobar <a class="ref" href="/definitie/t">z</a>', AdminStringUtil::convertReferencesToHtml('zzz |x|y| foobar |z|t|'));
 
 assertEquals(AdminStringUtil::insertSuperscripts("copil^{+123}. copil_{-123}----"),
 	     "copil<sup>+123</sup>. copil<sub>-123</sub>----");
@@ -243,14 +243,14 @@ assertEquals("rlike '^(cop[â-z]l.*)$'", StringUtil::dexRegexpToMysqlRegexp('cop
 assertEqualArrays(array(0, 0, 0), StringUtil::analyzeQuery('mama'));
 assertEqualArrays(array(1, 0, 0), StringUtil::analyzeQuery('mamă'));
 assertEqualArrays(array(0, 1, 0), StringUtil::analyzeQuery('cop?l'));
-assertEqualArrays(array(0, 1, 0), StringUtil::analyzeQuery('cop[c-g]l'));
-assertEqualArrays(array(1, 1, 0), StringUtil::analyzeQuery('căț[c-g]l'));
+assertEqualArrays(array(0, 1, 0), StringUtil::analyzeQuery('cop[cg]l'));
+assertEqualArrays(array(1, 1, 0), StringUtil::analyzeQuery('căț[cg]l'));
 assertEqualArrays(array(0, 0, 1), StringUtil::analyzeQuery('1234567'));
 
-assertEquals('&#x25;&#x7e;&#x24;&#x40;&#x27;',
-             AdminStringUtil::xmlizeRequired('\\%\\~\\$\\@\\\''));
-assertEquals('&lt;&gt;&amp;',
-             AdminStringUtil::xmlizeRequired('<>&'));
+/* assertEquals('&#x25;&#x7e;&#x24;&#x40;&#x27;', */
+/*              AdminStringUtil::xmlizeRequired('\\%\\~\\$\\@\\\'')); */
+/* assertEquals('&lt;&gt;&amp;', */
+/*              AdminStringUtil::xmlizeRequired('<>&')); */
 
 $t = FlexStringUtil::extractTransforms('arde', 'arzând', 0);
 assertEquals(4, count($t));

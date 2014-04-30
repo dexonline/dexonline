@@ -18,9 +18,18 @@ foreach (Config::getLocVersions() as $version) {
     LocVersion::changeDatabase($version->name);
 
     log_scriptLog('* running ginormous query');
-    $query = 'select I.formNoAccent from InflectedForm I, Lexem L, Model M, ModelDescription MD, ModelType MT ' .
-      'where I.lexemId = L.id and L.modelType = MT.code and MT.canonical = M.modelType and L.modelNumber = M.number and M.id = MD.modelId ' .
-      'and MD.inflectionId = I.inflectionId and MD.variant = I.variant and MD.applOrder = 0 and L.isLoc and MD.isLoc ' .
+    $query = 'select I.formNoAccent ' .
+      'from InflectedForm I, LexemModel LM, Lexem L, Model M, ModelDescription MD, ModelType MT ' .
+      'where I.lexemModelId = LM.id ' .
+      'and LM.lexemId = L.id ' .
+      'and LM.modelType = MT.code ' .
+      'and MT.canonical = M.modelType ' .
+      'and LM.modelNumber = M.number ' .
+      'and M.id = MD.modelId ' .
+      'and MD.inflectionId = I.inflectionId ' .
+      'and MD.variant = I.variant ' .
+      'and MD.applOrder = 0 ' .
+      'and L.isLoc and MD.isLoc ' .
       'and char_length(I.formNoAccent) between 2 and 15';
     $dbResult = db_execute($query);
 

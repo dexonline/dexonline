@@ -22,27 +22,38 @@ if ($locVersion && $modelType && $modelNumber) {
   } else {
     $modelsToDisplay = array(Model::factory('FlexModel')->where('modelType', $modelType->code)->where('number', $modelNumber)->find_one());
   }
-  $lexems = array();
+  $lexemModels = array();
   $paradigms = array();
 
   foreach ($modelsToDisplay as $m) {
     // Load by canonical model, so if $modelType is V, look for a lexem with type V or VT.
-    $l = Model::factory('Lexem')->select('Lexem.*')->join('ModelType', 'modelType = code', 'mt')->where('mt.canonical', $modelType->code)
-      ->where('modelNumber', $m->number)->where('form', $m->exponent)->limit(1)->find_one();
+    $lm = Model::factory('LexemModel')
+      ->select('lm.*')
+      ->table_alias('lm')
+      ->join('Lexem', 'l.id = lm.lexemId', 'l')
+      ->join('ModelType', 'modelType = code', 'mt')
+      ->where('mt.canonical', $modelType->code)
+      ->where('lm.modelNumber', $m->number)
+      ->where('l.form', $m->exponent)
+      ->limit(1)
+      ->find_one();
 
-    if ($l) {
-      $paradigm = getExistingForms($l, $locVersion);
+    if ($lm) {
+      $paradigm = getExistingForms($lm, $locVersion);
     } else {
-      $l = Lexem::create($m->exponent, $modelType->code, $m->number, '');
-      $l->isLoc = true;
-      $paradigm = getNewForms($l, $locVersion);
+      /****************** Generate a lexem with a single lexemModel ********************/
+      /* $lm = LexemModel::create($modelType->code, $m->number); */
+      /* $lm->isLoc = true; */
+      /* $paradigm = getNewForms($lm, $locVersion); */
+      $lm = null;
+      $paradigm = null;
     }
-    $lexems[] = $l;
+    $lexemModels[] = $lm;
     $paradigms[] = $paradigm;
   }
   
   SmartyWrap::assign('modelsToDisplay', $modelsToDisplay);
-  SmartyWrap::assign('lexems', $lexems);
+  SmartyWrap::assign('lexemModels', $lexemModels);
   SmartyWrap::assign('paradigms', $paradigms);
 } else {
   SmartyWrap::assign('selectedLocVersion', $locVersions[0]->name);
@@ -65,11 +76,11 @@ SmartyWrap::displayCommonPageWithSkin('modele-flexiune.ihtml');
 /**
  * Load the forms to display for a model when a lexem already exists. This code is specific to each LOC version.
  */
-function getExistingForms($lexem, $locVersion) {
+function getExistingForms($lexemModel, $locVersion) {
   if ($locVersion >= '5.0') {
-    return $lexem->getInflectedFormsMappedByRank();
+    return $lexemModel->getInflectedFormsMappedByRank();
   } else {
-    return $lexem->getInflectedFormsMappedByInflectionId();
+    return $lexemModel->getInflectedFormsMappedByInflectionId();
   }
 }
 

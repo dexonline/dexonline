@@ -1,3 +1,4 @@
+drop table if exists LexemModel;
 create table LexemModel (
   id int not null auto_increment,
   lexemId int not null,
@@ -5,6 +6,7 @@ create table LexemModel (
   modelType varchar(10) not null,
   modelNumber char(8) not null,
   restriction char(4) not null,
+  tags varchar(255) not null,
   isLoc char(4) not null,
   createDate int not null,
   modDate int not null,
@@ -16,10 +18,10 @@ create table LexemModel (
 );
 
 insert into LexemModel
-  (lexemId, displayOrder, modelType, modelNumber, restriction, isLoc, createDate, modDate)
-  select id, 1, modelType, modelNumber, restriction, isLoc, unix_timestamp(), unix_timestamp() from Lexem;
+  (lexemId, displayOrder, modelType, modelNumber, restriction, tags, isLoc, createDate, modDate)
+  select id, 1, modelType, modelNumber, restriction, tags, isLoc, unix_timestamp(), unix_timestamp() from Lexem;
 
-alter table Lexem drop modelType, drop modelNumber, drop restriction;
+alter table Lexem drop modelType, drop modelNumber, drop restriction, drop tags;
 
 alter table LexemSource change lexemId lexemModelId int;
 update LexemSource set lexemModelId = (select LexemModel.id from LexemModel where LexemModel.lexemId = LexemSource.lexemModelId);

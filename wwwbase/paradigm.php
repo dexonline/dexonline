@@ -58,7 +58,8 @@ if (!empty($lexems)) {
   $declensions = false;
   $filtered_lexems = array();
   foreach ($lexems as $l) {
-    $isVerb = ($l->modelType == 'V') || ($l->modelType == 'VT');
+    $lm = $l->getLexemModels()[0]; // One LexemModel suffices -- they all better have the same modelType.
+    $isVerb = ($lm->modelType == 'V') || ($lm->modelType == 'VT');
     if (((TYPE_SHOW_ONLY_VERBS == $type) && $isVerb) ||
         ((TYPE_SHOW_NO_VERBS == $type) && !$isVerb) ||
         !$type) {

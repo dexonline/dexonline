@@ -84,8 +84,9 @@ if ($refreshLexem || $saveLexem) {
   SmartyWrap::assign('meanings', Meaning::convertTree($meanings));
 } else {
   // Case 3: First time loading this page
-  $ifs = $lexem->generateParadigm();
-  $lexemSourceIds = LexemSource::getForLexem($lexem);
+  /* $ifs = $lexem->generateParadigm(); */
+  /* $lexemSourceIds = LexemSource::getForLexem($lexem); */
+  $ifs = null;
   SmartyWrap::assign('variantIds', $lexem->getVariantIds());
   SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
 }
@@ -122,13 +123,17 @@ $canEdit = array(
   'variants' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
 );
 
+// Prepare a list of models for each LexemModel, to be used in the paradigm drop-down.
+$models = array();
+foreach ($lexem->getLexemModels() as $lm) {
+  $models[] = FlexModel::loadByType($lm->modelType);
+}
+
 SmartyWrap::assign('lexem', $lexem);
-SmartyWrap::assign('modelType', ModelType::get_by_code($lexem->modelType));
-SmartyWrap::assign('lexemSourceIdMap', util_makeSet($lexemSourceIds));
+SmartyWrap::assign('lexemModels', $lexem->getLexemModels());
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('definitionLexem', $definitionLexem);
 SmartyWrap::assign('homonyms', Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many());
-SmartyWrap::assign('suggestedLexems', loadSuggestions($lexem, 5));
 SmartyWrap::assign('restrS', FlexStringUtil::contains($lexem->restriction, 'S'));
 SmartyWrap::assign('restrP', FlexStringUtil::contains($lexem->restriction, 'P'));
 SmartyWrap::assign('restrU', FlexStringUtil::contains($lexem->restriction, 'U'));
@@ -136,7 +141,7 @@ SmartyWrap::assign('restrI', FlexStringUtil::contains($lexem->restriction, 'I'))
 SmartyWrap::assign('restrT', FlexStringUtil::contains($lexem->restriction, 'T'));
 SmartyWrap::assign('meaningTags', $meaningTags);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
-SmartyWrap::assign('models', FlexModel::loadByType($lexem->modelType));
+SmartyWrap::assign('models', $models);
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('structStatusNames', Lexem::$STRUCT_STATUS_NAMES);
@@ -230,28 +235,6 @@ function validate($lexem, $original, $ifs, $variantOf, $variantIds, $meanings) {
   }
 
   return FlashMessage::getMessage() == null;
-}
-
-function loadSuggestions($lexem, $limit) {
-  $query = $lexem->reverse;
-  $lo = 0;
-  $hi = mb_strlen($query);
-  $result = array();
-
-  while ($lo <= $hi) {
-    $mid = (int)(($lo + $hi) / 2);
-    $partial = mb_substr($query, 0, $mid);
-    $lexems = Model::factory('Lexem')->where_like('reverse', "{$partial}%")->where_not_equal('modelType', 'T')->where_not_equal('id', $lexem->id)
-      ->group_by('modelType')->group_by('modelNumber')->limit($limit)->find_many();
-    
-    if (count($lexems)) {
-      $result = $lexems;
-      $lo = $mid + 1;
-    } else {
-      $hi = $mid - 1;
-    }
-  }
-  return $result;
 }
 
 /* This page handles a lot of actions. Move the minor ones here so they don't clutter the preview/save actions,

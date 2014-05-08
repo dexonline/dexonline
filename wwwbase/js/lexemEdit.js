@@ -98,7 +98,8 @@ function lexemEditInit() {
   }).on('change', similarLexemChange);
 
   $('.mergeLexem').click(mergeLexemButtonClick);
-  $('.similarLink').click(similarLinkClick);
+
+  $('#paradigmTabs').tabs();
 
   wmInit();
 }
@@ -409,13 +410,6 @@ function defFilterClick() {
 function mergeLexemButtonClick() {
   var id = $(this).attr('id').split('_')[1];
   $('input[name=mergeLexemId]').val(id);
-}
-
-/* Set the model type, model number and restriction values */
-function similarLinkClick() {
-  var parts = $(this).attr('id').split('_');
-  updateParadigm(parts[1], parts[2], parts[3]);
-  return false;
 }
 
 function similarLexemChange(e) {

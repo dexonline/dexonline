@@ -168,50 +168,30 @@
   </div>
 
   <div class="box" data-id="paradigm" data-title="Paradigmă" data-left="345" data-top="0" data-width="650" data-height="320">
+    {include file="common/bits/lexemEditModel.ihtml"
+             id="lmTab_stem"
+             lm=$stemLexemModel
+             models=$modelsT
+             }
+
     <div>
       {if $canEdit.paradigm}
         <div id="paradigmTabs">
           <ul>
             {foreach from=$lexemModels key=i item=lm}
-              <li><a href="#lmTab{$i}">{$lm->modelType}{$lm->modelNumber}</a></li>
+              <li><a href="#lmTab_{$i}">{$lm->modelType}{$lm->modelNumber}</a></li>
             {/foreach}
           </ul>
+
+          {foreach from=$lexemModels key=i item=lm}
+            {include file="common/bits/lexemEditModel.ihtml"
+                     id="lmTab_$i"
+                     lm=$lm
+                     models=$models[$i]}
+          {/foreach}
+
         </div>
-        {foreach from=$lexemModels key=i item=lm}
-          <div id="lmTab{$i}">
-            model:
-            <select name="modelType" id="modelTypeListId" onchange="return updateModelList(false)">
-              {foreach from=$modelTypes item=mt}
-                <option value="{$mt->code|escape}"
-                  {if $mt->code == $lexemModels[0]->modelType}selected{/if}
-                  >{$mt->code|escape}
-                </option>
-              {/foreach}
-            </select>
-            <select name="modelNumber" id="modelListId">
-              {foreach from=$models[0] item=m}
-                <option value="{$m->number}"
-                  {if $m->number == $lexem->modelNumber}selected{/if}
-                  >{$m->number}{if !$m->id}*{/if} ({$m->exponent})
-                </option>
-              {/foreach}
-            </select>
-            <input id="similarLexemId" type="text" name="similarLexemId"/>
-            <br/>
-      
-            restricții:
-            <input type="checkbox" id="restrS" name="restr[]" value="S" {if $restrS}checked{/if}/><label for="restrS">Singular</label>
-            &nbsp;
-            <input type="checkbox" id="restrP" name="restr[]" value="P" {if $restrP}checked{/if}/><label for="restrP">Plural</label>
-            &nbsp;
-            <input type="checkbox" id="restrU" name="restr[]" value="U" {if $restrU}checked{/if}/><label for="restrU">Unipersonal</label>
-            &nbsp;
-            <input type="checkbox" id="restrI" name="restr[]" value="I" {if $restrI}checked{/if}/><label for="restrI">Impersonal</label>
-            &nbsp;
-            <input type="checkbox" id="restrT" name="restr[]" value="T" {if $restrT}checked{/if}/><label for="restrT">Trecut</label>
-          </div>
-        {/foreach}
-  
+
       {else}
         <input type="hidden" name="modelType" value="{$lexem->modelType}"/>
         <input type="hidden" name="modelNumber" value="{$lexem->modelNumber}"/>
@@ -228,6 +208,9 @@
         {include file="common/paradigm/current/paradigm.ihtml" lexem=$lexem ifMap=$ifMap modelType=$modelType}
       {/if}
       <br/>
+
+      <button id="addLexemModel">adaugă un model</button>
+
   
       Comentarii despre paradigmă:
       <br/>

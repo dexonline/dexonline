@@ -1,0 +1,29 @@
+<div id="{$id}">
+  model:
+  <select name="modelType[]" onchange="return updateModelList(false)">
+    {foreach from=$modelTypes item=mt}
+      <option value="{$mt->code|escape}"
+        {if $mt->code == $lm->modelType}selected{/if}
+        >{$mt->code|escape}
+      </option>
+    {/foreach}
+  </select>
+  <select name="modelNumber[]">
+    {foreach from=$models item=m}
+      <option value="{$m->number}"
+        {if $m->number == $lm->modelNumber}selected{/if}
+        >{$m->number}{if !$m->id}*{/if} ({$m->exponent})
+      </option>
+    {/foreach}
+  </select>
+  <input class="similarLexem" type="text"/>
+  <br/>
+
+  restricții:
+  {assign var=restrictions value=LexemModel::$RESTRICTIONS}
+  {foreach from=$restrictions key=letter item=text}
+    {assign var="checked" value=$lm->hasRestriction('$letter')}
+    <input type="checkbox" id="restr{$letter}_{$i}" name="restr[{$letter}][]" value="{$letter}" {if $checked}checked{/if}/>
+    <label for="restr{$letter}_{$i}">{$text}</label>
+  {/foreach}
+</div>

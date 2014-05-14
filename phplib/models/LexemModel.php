@@ -2,6 +2,11 @@
 
 class LexemModel extends BaseObject implements DatedObject {
   public static $_table = 'LexemModel';
+  public static $RESTRICTIONS = array('S' => 'singular',
+                                      'P' => 'plural',
+                                      'U' => 'unipersonal',
+                                      'I' => 'impersonal',
+                                      'T' => 'trecut');
   
   private $mt = null;                // ModelType object, but we call it $mt because there is already a DB field called 'modelType'
   private $sources = null;
@@ -9,13 +14,17 @@ class LexemModel extends BaseObject implements DatedObject {
   private $inflectedForms = null;
   private $inflectedFormMap = null;  // Mapped by various criteria depending on the caller
 
-  public static function create($modelType, $modelNumber) {
+  static function create($modelType, $modelNumber) {
     $lm = Model::factory('LexemModel')->create();
     $lm->modelType = $modelType;
     $lm->modelNumber = $modelNumber;
     $lm->restriction = '';
     $lm->isLoc = false;
     return $lm;
+  }
+
+  function hasRestriction($letter) {
+    return FlexStringUtil::contains($this->restriction, $letter);
   }
 
   function getModelType() {

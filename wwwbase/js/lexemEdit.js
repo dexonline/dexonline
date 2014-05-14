@@ -90,7 +90,7 @@ function lexemEditInit() {
   });
   // Disable the select2 when the HTML select is disabled. This doesn't happen by itself.
   $('#lexemSourceIds').select2('readonly', $('#lexemSourceIds').is('[readonly]'));
-  $('#similarLexemId').select2({
+  $('.similarLexem').select2({
     ajax: struct_lexemAjax,
     minimumInputLength: 1,
     placeholder: 'sau indicați un lexem similar',
@@ -100,6 +100,7 @@ function lexemEditInit() {
   $('.mergeLexem').click(mergeLexemButtonClick);
 
   $('#paradigmTabs').tabs();
+  $('#addLexemModel').click(addLexemModelTab);
 
   wmInit();
 }
@@ -426,6 +427,19 @@ function updateParadigm(modelType, modelNumber, restriction) {
   $('input[name=restr\\[\\]]').each(function() {
     $(this).prop('checked', restriction.indexOf($(this).val()) != -1);
   });
+}
+
+function addLexemModelTab() {
+  var tabId = 'lmTab_' + $('#paradigmTabs ul li').length;
+  var tabContents = $('#lmTab_0').clone(true);
+  tabContents.attr('id', tabId);
+  // tabContents.find('.similarLexem').select2().select2('val', '');
+  tabContents.find('select[name^=modelType]').val('T');
+
+  $('#paradigmTabs ul').append('<li><a href="#' + tabId + '">T1</a></li>');
+  $('#paradigmTabs').append(tabContents);
+  $('#paradigmTabs').tabs('refresh');
+  return false;
 }
 
 // Initializes the window manager

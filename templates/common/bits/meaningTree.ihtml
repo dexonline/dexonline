@@ -32,7 +32,7 @@
           </span>
           <span class="synonyms">
             {foreach from=$t.synonyms item=s}
-              <span class="tag">{include file="common/bits/lexemName.ihtml lexem=$s}</span>
+              <span class="tag">{include file="common/bits/lexemName.ihtml" lexem=$s}</span>
             {/foreach}
           </span>
           <span class="synonymIds">
@@ -42,7 +42,7 @@
           </span>
           <span class="antonyms">
             {foreach from=$t.antonyms item=s}
-              <span class="tag">{include file="common/bits/lexemName.ihtml lexem=$s}</span>
+              <span class="tag">{include file="common/bits/lexemName.ihtml" lexem=$s}</span>
             {/foreach}
           </span>
           <span class="antonymIds">

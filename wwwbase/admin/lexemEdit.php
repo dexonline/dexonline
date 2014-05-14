@@ -5,18 +5,14 @@ util_assertNotMirror();
 
 handleLexemActions();
 
+// Lexem parameters
 $lexemId = util_getRequestParameter('lexemId');
 $lexemForm = util_getRequestParameter('lexemForm');
 $lexemNumber = util_getRequestParameter('lexemNumber');
 $lexemDescription = util_getRequestParameter('lexemDescription');
-$lexemSourceIds = util_getRequestParameter('lexemSourceIds');
-$lexemTags = util_getRequestParameter('lexemTags');
 $lexemComment = util_getRequestParameter('lexemComment');
 $lexemIsLoc = util_getBoolean('lexemIsLoc');
 $needsAccent = util_getBoolean('needsAccent');
-$modelType = util_getRequestParameter('modelType');
-$modelNumber = util_getRequestParameter('modelNumber');
-$restriction = util_getRequestCheckboxArray('restr', '');
 $hyphenations = util_getRequestParameter('hyphenations');
 $pronunciations = util_getRequestParameter('pronunciations');
 $variantIds = util_getRequestCsv('variantIds');
@@ -24,6 +20,15 @@ $variantOfId = util_getRequestParameter('variantOfId');
 $structStatus = util_getRequestIntParameter('structStatus');
 $jsonMeanings = util_getRequestParameter('jsonMeanings');
 
+// LexemModel parameters (arrays)
+$sourceIds = util_getRequestParameter('sourceIds');
+$lmTags = util_getRequestParameter('lmTags');
+$lmIsLoc = util_getRequestParameter('lmIsLoc');
+$modelType = util_getRequestParameter('modelType');
+$modelNumber = util_getRequestParameter('modelNumber');
+$restriction = util_getRequestCheckboxArray('restr', '');
+
+// Button parameters
 $refreshLexem = util_getRequestParameter('refreshLexem');
 $saveLexem = util_getRequestParameter('saveLexem');
 
@@ -36,7 +41,6 @@ if ($refreshLexem || $saveLexem) {
   $lexem->formNoAccent = str_replace("'", '', $lexem->form);
   $lexem->number = $lexemNumber;
   $lexem->description = AdminStringUtil::internalize($lexemDescription, false);
-  $lexem->tags = AdminStringUtil::internalize($lexemTags, false);
   $lexem->comment = trim(AdminStringUtil::internalize($lexemComment, false));
   // Sign appended comments
   if (StringUtil::startsWith($lexem->comment, $original->comment) &&
@@ -46,15 +50,22 @@ if ($refreshLexem || $saveLexem) {
   }
   $lexem->isLoc = $lexemIsLoc;
   $lexem->noAccent = !$needsAccent;
-  $lexem->modelType = $modelType;
-  $lexem->modelNumber = $modelNumber;
-  $lexem->restriction = $restriction;
   $lexem->hyphenations = $hyphenations;
   $lexem->pronunciations = $pronunciations;
   $lexem->variantOfId = $variantOfId ? $variantOfId : null;
   $variantOf = Lexem::get_by_id($lexem->variantOfId);
   $lexem->structStatus = $structStatus;
   $meanings = json_decode($jsonMeanings);
+
+  // Create LexemModels
+  $lexem->isLoc = $lexemIsLoc;
+  $lexem->tags = AdminStringUtil::internalize($lexemTags, false);
+  $lexem->modelType = $modelType;
+  $lexem->modelNumber = $modelNumber;
+  $lexem->restriction = $restriction;
+
+
+
   $ifs = $lexem->generateParadigm();
 
   if (validate($lexem, $original, $ifs, $variantOf, $variantIds, $meanings)) {
@@ -129,8 +140,12 @@ foreach ($lexem->getLexemModels() as $lm) {
   $models[] = FlexModel::loadByType($lm->modelType);
 }
 
+$stemLexemModel = LexemModel::create('T', 1);
+$stemLexemModel->restriction = 'SPT';
+
 SmartyWrap::assign('lexem', $lexem);
 SmartyWrap::assign('lexemModels', $lexem->getLexemModels());
+SmartyWrap::assign('stemLexemModel', $stemLexemModel);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('definitionLexem', $definitionLexem);
 SmartyWrap::assign('homonyms', Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many());
@@ -142,6 +157,7 @@ SmartyWrap::assign('restrT', FlexStringUtil::contains($lexem->restriction, 'T'))
 SmartyWrap::assign('meaningTags', $meaningTags);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
 SmartyWrap::assign('models', $models);
+SmartyWrap::assign('modelsT', FlexModel::loadByType('T'));
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('structStatusNames', Lexem::$STRUCT_STATUS_NAMES);

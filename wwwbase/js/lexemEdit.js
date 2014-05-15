@@ -90,12 +90,15 @@ function lexemEditInit() {
   });
   // Disable the select2 when the HTML select is disabled. This doesn't happen by itself.
   $('#lexemSourceIds').select2('readonly', $('#lexemSourceIds').is('[readonly]'));
-  $('.similarLexem').select2({
+
+  $('select[name="modelType[]"]').change(modelTypeChange);
+  struct_similarLexem = {
     ajax: struct_lexemAjax,
     minimumInputLength: 1,
     placeholder: 'sau indicați un lexem similar',
     width: '300px',
-  }).on('change', similarLexemChange);
+  };
+  $('#paradigmTabs .similarLexem').select2(struct_similarLexem).on('change', similarLexemChange);
 
   $('.mergeLexem').click(mergeLexemButtonClick);
 
@@ -413,32 +416,37 @@ function mergeLexemButtonClick() {
   $('input[name=mergeLexemId]').val(id);
 }
 
+function modelTypeChange(e) {
+  var select = $(this).nextAll('select[name="modelNumber[]"]');
+  updateModelList(select, $(this).val());
+}
+
 function similarLexemChange(e) {
+  var mtSelect = $(this).siblings('select[name="modelType[]"]');
+  var mnSelect = $(this).prevAll('select[name="modelNumber[]"]');
+  var restr = $(this).siblings('input[name*="restr"]');
   var url = wwwRoot + 'ajax/getModelByLexemId.php?id=' + e.val;
   $.get(url, null, null, 'json')
     .done(function(data) {
-      updateParadigm(data.modelType, data.modelNumber, data.restriction);
+      mtSelect.val(data.modelType); // Does not trigger the change event
+      updateModelList(mnSelect, data.modelType, data.modelNumber);
+      mnSelect.val(data.modelNumber);
+      restr.each(function() {
+        $(this).prop('checked', data.restriction.indexOf($(this).val()) != -1);
+      });
     });
 }
 
-function updateParadigm(modelType, modelNumber, restriction) {
-  $('#modelTypeListId').val(modelType); // Does not trigger the onchange event
-  updateModelList(false, modelNumber);
-  $('input[name=restr\\[\\]]').each(function() {
-    $(this).prop('checked', restriction.indexOf($(this).val()) != -1);
-  });
-}
-
 function addLexemModelTab() {
-  var tabId = 'lmTab_' + $('#paradigmTabs ul li').length;
-  var tabContents = $('#lmTab_0').clone(true);
+  var tabIndex = $('#paradigmTabs > ul li').length;
+  var tabId = 'lmTab_' + tabIndex;
+  var tabContents = $('#lmTab_stem').clone(true);
   tabContents.attr('id', tabId);
-  // tabContents.find('.similarLexem').select2().select2('val', '');
-  tabContents.find('select[name^=modelType]').val('T');
-
-  $('#paradigmTabs ul').append('<li><a href="#' + tabId + '">T1</a></li>');
+  $('#paradigmTabs ul').append('<li><a href="#' + tabId + '">nou</a></li>');
   $('#paradigmTabs').append(tabContents);
   $('#paradigmTabs').tabs('refresh');
+  $('#paradigmTabs').tabs('option', 'active', tabIndex);
+  $('#' + tabId).find('.similarLexem').select2(struct_similarLexem).on('change', similarLexemChange);
   return false;
 }
 

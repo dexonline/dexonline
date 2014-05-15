@@ -141,7 +141,6 @@ foreach ($lexem->getLexemModels() as $lm) {
 }
 
 $stemLexemModel = LexemModel::create('T', 1);
-$stemLexemModel->restriction = 'SPT';
 
 SmartyWrap::assign('lexem', $lexem);
 SmartyWrap::assign('lexemModels', $lexem->getLexemModels());

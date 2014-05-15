@@ -24,14 +24,29 @@ function updateModelTypeList() {
 }
 
 /**
+ * dropdown -- (jQuery) element to fill
+ * modelType -- model type for which models are to be loaded
+ * modelNumber -- value to select once loading is complete (optional)
  * listAllOption -- whether to prepend an option for "list all"
- * selectedOption -- value to select once loading is complete (optional)
+ * locVersion -- LOC version to use, or null to use the current one
 **/
-function updateModelList(listAllOption, selectedOption) {
+function updateModelList(dropdown, modelType, modelNumber, listAllOption, locVersion) {
   $.get(wwwRoot + 'ajax/getModelsForLocVersionModelType.php',
-        { locVersion: $('#locVersionListId').val(), modelType: $('#modelTypeListId').val() },
+        { locVersion: locVersion, modelType: modelType },
         null, 'json')
-    .done(function(data) { populateModelList(data, listAllOption, selectedOption); })
+    .done(function(data) {
+      dropdown.empty();
+      if (listAllOption) {
+        dropdown.append($('<option></option>').attr('value', -1).text('Toate'));
+      }
+      $.each(data, function(index, dict) {
+        var display = dict.number + ' (' + dict.exponent + ')';
+        dropdown.append($('<option></option>').attr('value', dict.number).text(display));
+      });
+      if (modelNumber) {
+        dropdown.val(modelNumber);
+      }
+    })
     .fail('Nu pot descărca lista de modele.');
   return false;
 }
@@ -47,22 +62,6 @@ function populateModelTypeList(data) {
 
   // Now update the model list since the model type list has changed.
   updateModelList(true);
-}
-
-function populateModelList(data, listAllOption, selectedOption) {
-  var select = $('#modelListId');
-  select.empty();
-
-  if (listAllOption) {
-    select.append($('<option value="-1">Toate</option>'));
-  }
-  $.each(data, function(index, dict) {
-    var display = dict.number + ' (' + dict.exponent + ')';
-    select.append($("<option></option>").attr("value", dict.number).text(display));
-  });
-  if (selectedOption) {
-    select.val(selectedOption);
-  }
 }
 
 function blUpdateParadigmVisibility(radioButton) {

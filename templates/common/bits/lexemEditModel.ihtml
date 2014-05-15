@@ -1,6 +1,6 @@
-<div id="{$id}">
+<div class="lexemModelTab" id="lmTab_{$id}">
   model:
-  <select name="modelType[]" onchange="return updateModelList(false)">
+  <select name="modelType[]">
     {foreach from=$modelTypes item=mt}
       <option value="{$mt->code|escape}"
         {if $mt->code == $lm->modelType}selected{/if}
@@ -20,10 +20,9 @@
   <br/>
 
   restricții:
-  {assign var=restrictions value=LexemModel::$RESTRICTIONS}
-  {foreach from=$restrictions key=letter item=text}
-    {assign var="checked" value=$lm->hasRestriction('$letter')}
-    <input type="checkbox" id="restr{$letter}_{$i}" name="restr[{$letter}][]" value="{$letter}" {if $checked}checked{/if}/>
-    <label for="restr{$letter}_{$i}">{$text}</label>
+  {foreach from=LexemModel::$RESTRICTIONS key=c item=text}
+    {assign var="checked" value=$lm->hasRestriction($c)}
+    <input type="checkbox" id="restr{$c}_{$id}" name="restr[{$c}][]" value="{$c}" {if $checked}checked{/if}/>
+    <label for="restr{$c}_{$id}">{$text}</label>
   {/foreach}
 </div>

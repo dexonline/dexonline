@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    {if !$noAdminHeader}
+    {if empty($noAdminHeader)}
       {include file="admin/header.ihtml" title=$sectionTitle count=$sectionCount showSources=$sectionSources}
     {/if}
     {include file="admin/recentlyVisited.ihtml"}

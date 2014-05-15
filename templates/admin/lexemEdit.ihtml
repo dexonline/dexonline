@@ -169,10 +169,9 @@
 
   <div class="box" data-id="paradigm" data-title="Paradigmă" data-left="345" data-top="0" data-width="650" data-height="320">
     {include file="common/bits/lexemEditModel.ihtml"
-             id="lmTab_stem"
+             id="stem"
              lm=$stemLexemModel
-             models=$modelsT
-             }
+             models=$modelsT}
 
     <div>
       {if $canEdit.paradigm}
@@ -185,7 +184,7 @@
 
           {foreach from=$lexemModels key=i item=lm}
             {include file="common/bits/lexemEditModel.ihtml"
-                     id="lmTab_$i"
+                     id=$i
                      lm=$lm
                      models=$models[$i]}
           {/foreach}

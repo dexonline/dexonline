@@ -6,7 +6,7 @@
       <div class="lexemData">
         <span class="lexemName">{include file="common/bits/lexemName.ihtml" lexem=$lexem}</span>
         {include file="common/bits/locInfo.ihtml" isLoc=$lexem->isLoc}
-        {if $sUser && ($sUser->moderator & ($smarty.const.PRIV_LOC | $smarty.const.PRIV_STRUCT))}
+        {if $sUser && ($sUser->moderator & ($smarty.const.PRIV_LOC + $smarty.const.PRIV_STRUCT))}
           <a class="paraEdit" href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexem->id}" title="editează lexemul"></a>
         {/if}
       </div>

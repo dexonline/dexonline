@@ -168,7 +168,7 @@
         {assign var=notDisplayedUnofficial value=false}
       {/if}
     {/if}
-    {include file="common/bits/definition.ihtml row=$row}
+    {include file="common/bits/definition.ihtml" row=$row}
   {/foreach}
 
   {if $sUser}

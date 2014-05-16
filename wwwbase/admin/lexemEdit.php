@@ -26,7 +26,7 @@ $lmTags = util_getRequestParameter('lmTags');
 $lmIsLoc = util_getRequestParameter('lmIsLoc');
 $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
-$restriction = util_getRequestCheckboxArray('restr', '');
+$restriction = util_getRequestParameter('restriction');
 
 // Button parameters
 $refreshLexem = util_getRequestParameter('refreshLexem');
@@ -160,7 +160,7 @@ SmartyWrap::assign('modelsT', FlexModel::loadByType('T'));
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('structStatusNames', Lexem::$STRUCT_STATUS_NAMES);
-SmartyWrap::addCss('jqueryui', 'paradigm', 'select2', 'lexemEdit', 'windowEngine');
+SmartyWrap::addCss('jqueryui-smoothness', 'paradigm', 'select2', 'lexemEdit', 'windowEngine');
 SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev', 'lexemEdit', 'windowEngine', 'cookie');
 SmartyWrap::assign('sectionTitle', "Editare lexem: {$lexem->form} {$lexem->modelType}{$lexem->modelNumber}{$lexem->restriction}");
 SmartyWrap::assign('noAdminHeader', true);

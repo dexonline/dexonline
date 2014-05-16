@@ -102,8 +102,15 @@ function lexemEditInit() {
 
   $('.mergeLexem').click(mergeLexemButtonClick);
 
-  $('#paradigmTabs').tabs();
+  $('#paradigmTabs').tabs({
+    tabTemplate: '<li><a href="#{href}">#{label}</a><span class="ui-icon ui-icon-close">Remove Tab</span></li>',
+  });
+  $('#paradigmTabs').find('.ui-tabs-nav').sortable({
+    axis: "x",
+    stop: reorderLexemModelTabs
+  });
   $('#addLexemModel').click(addLexemModelTab);
+  $('#paradigmTabs').on('click', '.ui-icon-close', closeLexemModelTab);
 
   wmInit();
 }
@@ -424,16 +431,14 @@ function modelTypeChange(e) {
 function similarLexemChange(e) {
   var mtSelect = $(this).siblings('select[name="modelType[]"]');
   var mnSelect = $(this).prevAll('select[name="modelNumber[]"]');
-  var restr = $(this).siblings('input[name*="restr"]');
+  var restriction = $(this).siblings('input[name="restriction[]"]');
   var url = wwwRoot + 'ajax/getModelByLexemId.php?id=' + e.val;
   $.get(url, null, null, 'json')
     .done(function(data) {
       mtSelect.val(data.modelType); // Does not trigger the change event
       updateModelList(mnSelect, data.modelType, data.modelNumber);
       mnSelect.val(data.modelNumber);
-      restr.each(function() {
-        $(this).prop('checked', data.restriction.indexOf($(this).val()) != -1);
-      });
+      restriction.val(data.restriction);
     });
 }
 
@@ -442,12 +447,35 @@ function addLexemModelTab() {
   var tabId = 'lmTab_' + tabIndex;
   var tabContents = $('#lmTab_stem').clone(true);
   tabContents.attr('id', tabId);
-  $('#paradigmTabs ul').append('<li><a href="#' + tabId + '">nou</a></li>');
+  $('#paradigmTabs ul').append('<li><a href="#' + tabId + '">nou</a><span class="ui-icon ui-icon-close"></span></li>');
   $('#paradigmTabs').append(tabContents);
   $('#paradigmTabs').tabs('refresh');
   $('#paradigmTabs').tabs('option', 'active', tabIndex);
   $('#' + tabId).find('.similarLexem').select2(struct_similarLexem).on('change', similarLexemChange);
   return false;
+}
+
+function closeLexemModelTab() {
+  if ($('#paradigmTabs > ul li').length > 1) {
+    var tabId = $(this).prev('a').attr('href');
+    $(this).closest('li').remove();
+    $(tabId).remove();
+    $('#paradigmTabs').tabs('refresh');
+  } else {
+    alert('Nu puteți șterge unicul model.');
+  }
+}
+
+// Order the tab panels in accordance with the <li> order. This doesn't sem to happen automatically
+function reorderLexemModelTabs() {
+  var current = $('#paradigmTabs > ul');
+  $('#paradigmTabs > ul li a').each(function() {
+    var tabId = $(this).attr('href');
+    var tab = $(tabId);
+    tab.insertAfter(current);
+    current = tab;
+  });
+  $('#paradigmTabs').tabs("refresh");
 }
 
 // Initializes the window manager

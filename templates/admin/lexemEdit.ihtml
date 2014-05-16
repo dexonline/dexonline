@@ -180,6 +180,7 @@
           <ul>
             {foreach from=$lexemModels key=i item=lm}
               <li>
+                <span class="ui-icon ui-icon-arrow-4"></span>
                 <a href="#lmTab_{$i}">{$lm->modelType}{$lm->modelNumber}</a>
                 <span class="ui-icon ui-icon-close"></span>
               </li>

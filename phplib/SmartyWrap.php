@@ -146,24 +146,25 @@ class SmartyWrap {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
       switch($id) {
-        case 'jqueryui':           self::$cssFiles[1] = 'lightness-1.10.3/jquery-ui-1.10.3.custom.min.css'; break;
-        case 'jqgrid':             self::$cssFiles[2] = 'ui.jqgrid.css?v=3'; break;
-        case 'tablesorter':        self::$cssFiles[3] = 'tablesorter/theme.blue.css'; break;
-        case 'elfinder':           self::$cssFiles[4] = 'elfinder/css/elfinder.min.css?v=2'; break;
-        case 'windowEngine':       self::$cssFiles[5] = 'jquery-wm/main.css'; break;
-        case 'zepu':               self::$cssFiles[6] = 'zepu.css?v=57'; break;
-        case 'polar':              self::$cssFiles[7] = 'polar.css?v=31'; break;
-        case 'mobile':             self::$cssFiles[8] = 'mobile.css?v=15'; break;
-        case 'flex':               self::$cssFiles[9] = 'flex.css?v=12'; break;
-        case 'paradigm':           self::$cssFiles[10] = 'paradigm.css?v=1'; break;
-        case 'hangman':            self::$cssFiles[11] = 'hangman.css?v=3'; break;
-        case 'mill':               self::$cssFiles[12] = 'mill.css?v=2'; break;
-        case 'lexemEdit':          self::$cssFiles[13] = 'lexemEdit.css?v=7'; break;
-        case 'jcrop':              self::$cssFiles[14] = 'jcrop/jquery.Jcrop.min.css?v=3'; break;
-        case 'select2':            self::$cssFiles[15] = 'select2/select2.css?v=3'; break;
+        case 'jqueryui':            self::$cssFiles[1] = 'lightness-1.10.3/jquery-ui-1.10.3.custom.min.css'; break;
+        case 'jqueryui-smoothness': self::$cssFiles[2] = 'smoothness-1.10.4/jquery-ui-1.10.4.custom.min.css'; break;
+        case 'jqgrid':              self::$cssFiles[3] = 'ui.jqgrid.css?v=3'; break;
+        case 'tablesorter':         self::$cssFiles[4] = 'tablesorter/theme.blue.css'; break;
+        case 'elfinder':            self::$cssFiles[5] = 'elfinder/css/elfinder.min.css?v=2'; break;
+        case 'windowEngine':        self::$cssFiles[6] = 'jquery-wm/main.css'; break;
+        case 'zepu':                self::$cssFiles[7] = 'zepu.css?v=57'; break;
+        case 'polar':               self::$cssFiles[8] = 'polar.css?v=31'; break;
+        case 'mobile':              self::$cssFiles[9] = 'mobile.css?v=15'; break;
+        case 'flex':                self::$cssFiles[10] = 'flex.css?v=12'; break;
+        case 'paradigm':            self::$cssFiles[11] = 'paradigm.css?v=1'; break;
+        case 'hangman':             self::$cssFiles[12] = 'hangman.css?v=3'; break;
+        case 'mill':                self::$cssFiles[13] = 'mill.css?v=2'; break;
+        case 'lexemEdit':           self::$cssFiles[14] = 'lexemEdit.css?v=7'; break;
+        case 'jcrop':               self::$cssFiles[15] = 'jcrop/jquery.Jcrop.min.css?v=3'; break;
+        case 'select2':             self::$cssFiles[16] = 'select2/select2.css?v=3'; break;
         case 'gallery':            
-          self::$cssFiles[16] = 'colorbox/colorbox.css?v=1'; 
-          self::$cssFiles[17] = 'visualDict.css';
+          self::$cssFiles[17] = 'colorbox/colorbox.css?v=1'; 
+          self::$cssFiles[18] = 'visualDict.css';
           break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");

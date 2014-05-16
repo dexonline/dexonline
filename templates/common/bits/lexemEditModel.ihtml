@@ -8,6 +8,7 @@
       </option>
     {/foreach}
   </select>
+
   <select name="modelNumber[]">
     {foreach from=$models item=m}
       <option value="{$m->number}"
@@ -16,13 +17,11 @@
       </option>
     {/foreach}
   </select>
-  <input class="similarLexem" type="text"/>
-  <br/>
+
+  <input class="similarLexem" type="text">
+  <br>
 
   restricții:
-  {foreach from=LexemModel::$RESTRICTIONS key=c item=text}
-    {assign var="checked" value=$lm->hasRestriction($c)}
-    <input type="checkbox" id="restr{$c}_{$id}" name="restr[{$c}][]" value="{$c}" {if $checked}checked{/if}/>
-    <label for="restr{$c}_{$id}">{$text}</label>
-  {/foreach}
+  <span class="tooltip2" title="litere din setul <b>S</b>ingular, <b>P</b>lural, <b>U</b>nipersonal, <b>I</b>mpersonal, <b>T</b>recut">&nbsp;</span>
+  <input type="text" name="restriction[]" value="{$lm->restriction}" size="5">
 </div>

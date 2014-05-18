@@ -86,17 +86,6 @@
       </tr>
   
       <tr>
-        <td><label for="lexemTags">etichete:</label></td>
-        <td>
-          <input type="text" id="lexemTags" name="lexemTags" value="{$lexem->tags|escape}" size="20"
-                 placeholder="explicații despre sursa flexiunii" {if !$canEdit.tags}readonly{/if}>
-          <span class="tooltip2" title="O scurtă clasificare, vizibilă public, care marchează sursa flexiunii. Pentru cuvintele cu flexiuni în DOOM-ul
-          curent (DOOM2 în acest moment), ea poate fi vidă. Sursele pot reprezenta dicționare, autori cunoscuți, inclusiv părerea moderatorului, dar
-          trebuie documentate clar aceste situații.">&nbsp;</span>
-        </td>
-      </tr>
-  
-      <tr>
         <td><label for="hyphenations">silabisiri:</label></td>
         <td>
           <input id="hyphenations" name="hyphenations" type="text" value="{$lexem->hyphenations}" size="20"
@@ -109,20 +98,6 @@
         <td>
           <input id="pronunciations" name="pronunciations" type="text" value="{$lexem->pronunciations}" size="20"
                  placeholder="opționale, despărțite prin virgule" {if !$canEdit.pronunciations}readonly{/if}>
-        </td>
-      </tr>
-  
-      <tr>
-        <td><label for="lexemIsLoc">inclus în LOC:</label></td>
-        <td>
-          {if $canEdit.isLoc}
-            <input type="checkbox" id="lexemIsLoc" name="lexemIsLoc" value="1" {if $lexem->isLoc}checked="checked"{/if}>
-          {else}
-            <input type="hidden" name="lexemIsLoc" value="{if $lexem->isLoc}1{/if}">
-            {if $lexem->isLoc}Da{else}Nu{/if}
-          {/if}
-          <span class="tooltip2" title="DEX online menține Lista Oficială de Cuvinte a Federației Române de Scrabble. Acest câmp poate fi modificat
-          numai de către un set restrâns de administratori ai LOC.">&nbsp;</span>
         </td>
       </tr>
   
@@ -171,46 +146,39 @@
     {include file="common/bits/lexemEditModel.ihtml"
              id="stem"
              lm=$stemLexemModel
-             models=$modelsT}
+             models=$modelsT
+             readonly=!$canEdit.paradigm}
 
     <div>
-      {if $canEdit.paradigm}
-        <div id="paradigmTabs">
+      <div id="paradigmTabs">
+        {if $canEdit.paradigm}
           <a href="#" id="addLexemModel">adaugă un model</a>
-          <ul>
-            {foreach from=$lexemModels key=i item=lm}
-              <li>
-                <span class="ui-icon ui-icon-arrow-4"></span>
-                <a href="#lmTab_{$i}">{$lm->modelType}{$lm->modelNumber}</a>
-                <span class="ui-icon ui-icon-close"></span>
-              </li>
-            {/foreach}
-          </ul>
-
+        {/if}
+        <ul>
           {foreach from=$lexemModels key=i item=lm}
-            {include file="common/bits/lexemEditModel.ihtml"
-                     id=$i
-                     lm=$lm
-                     models=$models[$i]}
+            <li>
+              <span class="ui-icon ui-icon-arrow-4"></span>
+              <a href="#lmTab_{$i}">{$lm->modelType}{$lm->modelNumber}</a>
+              <span class="ui-icon ui-icon-close"></span>
+            </li>
           {/foreach}
+        </ul>
 
-        </div>
+        {foreach from=$lexemModels key=i item=lm}
+          {include file="common/bits/lexemEditModel.ihtml"
+                   id=$i
+                   lm=$lm
+                   models=$models[$i]
+                   readonly=!$canEdit.paradigm}
+        {/foreach}
+      </div>
 
-      {else}
-        <input type="hidden" name="modelType" value="{$lexem->modelType}">
-        <input type="hidden" name="modelNumber" value="{$lexem->modelNumber}">
-        <input type="hidden" name="restriction" value="{$lexem->restriction}">
-        <b>{include file="common/bits/lexemName.ihtml" lexem=$lexem}</b> se flexionează conform modelului
-        {$lexem->modelType}{$lexem->modelNumber}{$lexem->restriction}.
-      {/if}
-  
       {if $ifMap}
         {include file="common/paradigm/current/paradigm.ihtml" lexem=$lexem ifMap=$ifMap modelType=$modelType}
       {/if}
 
-      <br><br>
+      <br>
 
-  
       Comentarii despre paradigmă:
       <br>
   

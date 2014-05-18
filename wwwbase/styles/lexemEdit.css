@@ -234,6 +234,11 @@ input[readonly] {
 }
 
 /* Paradigm tabs settings */
+
+.paradigmFields tr td {
+  vertical-align: text-top;
+}
+
 #lmTab_stem {
   display: none;
 }

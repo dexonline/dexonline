@@ -1,27 +1,66 @@
 <div class="lexemModelTab" id="lmTab_{$id}">
-  model:
-  <select name="modelType[]">
-    {foreach from=$modelTypes item=mt}
-      <option value="{$mt->code|escape}"
-        {if $mt->code == $lm->modelType}selected{/if}
-        >{$mt->code|escape}
-      </option>
-    {/foreach}
-  </select>
+  <table class="paradigmFields">
+    <tr>
+      <td>model:</td>
+      <td>
+        <select name="modelType[]" {if $readonly}disabled{/if}>
+          {foreach from=$modelTypes item=mt}
+            <option value="{$mt->code|escape}" {if $mt->code == $lm->modelType}selected{/if}>
+              {$mt->code|escape}
+            </option>
+          {/foreach}
+        </select>
 
-  <select name="modelNumber[]">
-    {foreach from=$models item=m}
-      <option value="{$m->number}"
-        {if $m->number == $lm->modelNumber}selected{/if}
-        >{$m->number}{if !$m->id}*{/if} ({$m->exponent})
-      </option>
-    {/foreach}
-  </select>
+        <select name="modelNumber[]" {if $readonly}disabled{/if}>
+          {foreach from=$models item=m}
+            <option value="{$m->number}" {if $m->number == $lm->modelNumber}selected{/if}>
+              {$m->number}{if !$m->id}*{/if} ({$m->exponent})
+            </option>
+          {/foreach}
+        </select>
+      
+        {if $readonly}
+          {* select elements cannot be readonly, only disabled, so they won't be submitted *}
+          <input type="hidden" name="modelType[]" value="{$lm->modelType}">
+          <input type="hidden" name="modelNumber[]" value="{$lm->modelNumber}">
+        {else}
+          <br>
+          <input class="similarLexem" type="text">
+        {/if}
+      </td>
+    </tr>
 
-  <input class="similarLexem" type="text">
-  <br>
+    <tr>
+      <td>etichete:</td>
+      <td>
+        <input type="text" name="tags[]" value="{$lm->tags|escape}" size="20"
+               placeholder="explicații despre sursa flexiunii" {if !$canEdit.tags}readonly{/if}>
+        <span class="tooltip2" title="O scurtă clasificare, vizibilă public, care marchează sursa flexiunii. Pentru cuvintele cu flexiuni în DOOM-ul
+        curent (DOOM2 în acest moment), ea poate fi vidă. Sursele pot reprezenta dicționare, autori cunoscuți, inclusiv părerea moderatorului, dar
+        trebuie documentate clar aceste situații.">&nbsp;</span>
+      </td>
+    </tr>
+  
+    <tr>
+      <td>restricții:</td>
+      <td>
+        <input type="text" name="restriction[]" value="{$lm->restriction}" size="5" {if $readonly}readonly{/if}>
+        <span class="tooltip2" title="litere din setul <b>S</b>ingular, <b>P</b>lural, <b>U</b>nipersonal, <b>I</b>mpersonal, <b>T</b>recut">&nbsp;</span>
+      </td>
+    </tr>
 
-  restricții:
-  <span class="tooltip2" title="litere din setul <b>S</b>ingular, <b>P</b>lural, <b>U</b>nipersonal, <b>I</b>mpersonal, <b>T</b>recut">&nbsp;</span>
-  <input type="text" name="restriction[]" value="{$lm->restriction}" size="5">
+    <tr>
+      <td>inclus în LOC:</td>
+      <td>
+        {if $readonly}
+          <input type="hidden" name="isLoc[]" value="{if $lm->isLoc}1{/if}">
+          {if $lm->isLoc}da{else}nu{/if}
+        {else}
+          <input type="checkbox" name="isLoc[]" value="1" {if $lm->isLoc}checked{/if}>
+        {/if}
+        <span class="tooltip2" title="DEX online menține Lista Oficială de Cuvinte a Federației Române de Scrabble. Acest câmp poate fi modificat
+        numai de către un set restrâns de administratori ai LOC.">&nbsp;</span>
+      </td>
+    </tr>
+  </table>
 </div>

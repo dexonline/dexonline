@@ -102,15 +102,14 @@ function lexemEditInit() {
 
   $('.mergeLexem').click(mergeLexemButtonClick);
 
-  $('#paradigmTabs').tabs({
-    tabTemplate: '<li><a href="#{href}">#{label}</a><span class="ui-icon ui-icon-close">Remove Tab</span></li>',
-  });
-  $('#paradigmTabs').find('.ui-tabs-nav').sortable({
+  var t = $('#paradigmTabs');
+  t.tabs();
+  t.find('.ui-tabs-nav').sortable({
     axis: "x",
     stop: reorderLexemModelTabs
   });
   $('#addLexemModel').click(addLexemModelTab);
-  $('#paradigmTabs').on('click', '.ui-icon-close', closeLexemModelTab);
+  t.on('click', '.ui-icon-close', closeLexemModelTab);
 
   wmInit();
 }
@@ -444,10 +443,11 @@ function similarLexemChange(e) {
 
 function addLexemModelTab() {
   var tabIndex = $('#paradigmTabs > ul li').length;
-  var tabId = 'lmTab_' + tabIndex;
-  var tabContents = $('#lmTab_stem').clone(true);
-  tabContents.attr('id', tabId);
-  $('#paradigmTabs ul').append('<li><a href="#' + tabId + '">nou</a><span class="ui-icon ui-icon-close"></span></li>');
+  var tabId = 'lmTab_' + randomDigits(9);
+  var tabContents = $('#lmTab_stem').clone(true).attr('id', tabId);
+  var li = $('#paradigmTabs > ul li').clone().first();
+  li.find('a').text('nou').attr('href', '#' + tabId);
+  $('#paradigmTabs ul').append(li);
   $('#paradigmTabs').append(tabContents);
   $('#paradigmTabs').tabs('refresh');
   $('#paradigmTabs').tabs('option', 'active', tabIndex);

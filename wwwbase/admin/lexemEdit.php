@@ -36,6 +36,8 @@ $lexem = Lexem::get_by_id($lexemId);
 $original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether certain fields have changed
 
 if ($refreshLexem || $saveLexem) {
+  var_dump($_REQUEST);
+  exit;
   // Populate lexem fields from request parameters.
   $lexem->form = AdminStringUtil::formatLexem($lexemForm);
   $lexem->formNoAccent = str_replace("'", '', $lexem->form);
@@ -124,7 +126,6 @@ $canEdit = array(
   'description' => !$lexem->isLoc || util_isModerator(PRIV_LOC),
   'form' => !$lexem->isLoc || util_isModerator(PRIV_LOC),
   'hyphenations' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
-  'isLoc' => util_isModerator(PRIV_LOC),
   'meanings' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
   'paradigm' => util_isModerator(PRIV_LOC),
   'pronunciations' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),

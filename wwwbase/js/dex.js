@@ -46,6 +46,14 @@ function getWwwRoot() {
   }
 }
 
+function randomDigits(count) {
+  var s = '';
+  while (count--) {
+    s += Math.floor(Math.random() * 10);
+  }
+  return s;
+}
+
 function abbrevWindow() {
   window.open(wwwRoot + 'static.php?c=abrev', 'mywindow', 'menubar=no,scrollbars=yes,toolbar=no,width=400,height=400');
 }

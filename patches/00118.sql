@@ -7,7 +7,7 @@ create table LexemModel (
   modelNumber char(8) not null,
   restriction char(4) not null,
   tags varchar(255) not null,
-  isLoc char(4) not null,
+  isLoc int not null,
   createDate int not null,
   modDate int not null,
 
@@ -21,7 +21,7 @@ insert into LexemModel
   (lexemId, displayOrder, modelType, modelNumber, restriction, tags, isLoc, createDate, modDate)
   select id, 1, modelType, modelNumber, restriction, tags, isLoc, unix_timestamp(), unix_timestamp() from Lexem;
 
-alter table Lexem drop modelType, drop modelNumber, drop restriction, drop tags;
+alter table Lexem drop modelType, drop modelNumber, drop restriction, drop tags, drop isLoc;
 
 alter table LexemSource change lexemId lexemModelId int;
 update LexemSource set lexemModelId = (select LexemModel.id from LexemModel where LexemModel.lexemId = LexemSource.lexemModelId);

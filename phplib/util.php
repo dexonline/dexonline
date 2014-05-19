@@ -436,7 +436,7 @@ function util_isMobile($userAgent = null) {
   if (!util_isWebBasedScript()) {
     return false;
   }
-  if (!$userAgent) {
+  if (!$userAgent && array_key_exists('HTTP_USER_AGENT', $_SERVER)) {
     $userAgent = $_SERVER['HTTP_USER_AGENT'];
   }
   return preg_match('/^(DoCoMo|J-PHONE|KDDI|UP.Browser|DDIPOCKET|.*iPhone.*|.*iPod.*|.*BlackBerry.*|.*Windows.CE.*|.*LG.*|.*HTC.*|.*MOT.*|.*Motorola.*|.*Nokia.*|.*Samsung.*|.*SonyEricsson.*|.*Palm.*|.*Symbian.*|.*Android.*)/i', $userAgent);

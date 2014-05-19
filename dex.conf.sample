@@ -204,7 +204,7 @@ interval = 5
 ; settings for the static server
 [static]
 
-url = http://static.dexonline.ro/
+url = http://static.dexonline.ro:8080/
 
 ; the remaining settings are only necessary for FTP upload
 host = static.dexonline.ro

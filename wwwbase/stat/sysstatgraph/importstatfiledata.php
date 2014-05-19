@@ -25,11 +25,11 @@ class importstatfiledata {
 	// $datalinepartslookuplist stores the number of data fields we expect per each row type
 	private $datalinepartslookuplist = array(
 		self::filesection_taskspersecond => 3,
-		self::filesection_cpuutilisation => 11,
-		self::filesection_memoryusage => 10,
+		self::filesection_cpuutilisation => 12,
+		self::filesection_memoryusage => 11,
 		self::filesection_swapusage => 6,
 		self::filesection_load => 7,
-		self::filesection_network => 9
+		self::filesection_network => 10
 	);
 
 	private $networkinterfacelist = array();

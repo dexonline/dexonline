@@ -4,7 +4,7 @@ require_once("../phplib/util.php");
 $TODAY = date("Y-m-d");
 $REMOTE_FOLDER = 'download/xmldump';
 $STATIC_FILES = file(Config::get('static.url') . 'fileList.txt');
-$URL = 'http://static.dexonline.ro/download/xmldump';
+$URL = Config::get('static.url') . 'download/xmldump';
 
 if (count($_GET) == 0) {
   util_redirect("http://wiki.dexonline.ro/wiki/Protocol_de_exportare_a_datelor");

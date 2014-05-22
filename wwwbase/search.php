@@ -247,12 +247,6 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
   }
 }
 
-if (Config::get('global.logSearch')) {
-  $logDefinitions = isset($definitions) ? $definitions : array();
-  $log = new Log($cuv, $redirectFrom, $searchType, $redirect, $logDefinitions);
-  $log->logData();
-}
-
 $sourceList = array();
 if (isset($searchResults)) {
   foreach ($searchResults as $row) {
@@ -313,7 +307,7 @@ SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('advancedSearch', $text || $sourceId);
 
 /* Gallery */
-if(!empty($lexems)){
+if (!empty($lexems)) {
   $images = array();
 
   foreach($lexems as $lexeme) {
@@ -361,4 +355,11 @@ if (!$xml) {
   header('Content-type: text/xml');
   SmartyWrap::displayWithoutSkin('common/searchXML.ihtml');
 }
+
+if (Config::get('global.logSearch')) {
+  $logDefinitions = isset($definitions) ? $definitions : array();
+  $log = new Log($cuv, $redirectFrom, $searchType, $redirect, $logDefinitions);
+  $log->logData();
+}
+
 ?>

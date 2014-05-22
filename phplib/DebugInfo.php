@@ -1,7 +1,5 @@
 <?php
 
-DebugInfo::init();
-
 class DebugInfo {
   private static $startTimestamp;
   private static $lastClockReset;

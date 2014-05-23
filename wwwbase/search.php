@@ -18,7 +18,7 @@ $redirectFrom = session_getWithDefault('init_word', '');
 session_unsetVariable('redirect');
 session_unsetVariable('init_word');
 
-if ($cuv) {
+if ($cuv && !$redirect) {
   $cuv = StringUtil::cleanupQuery($cuv);
 }
 

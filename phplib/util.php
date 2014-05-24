@@ -32,6 +32,7 @@ function util_initEverything() {
   mc_init();
   FlashMessage::restoreFromSession();
   SmartyWrap::init();
+  DebugInfo::init();
 }
 
 function util_defineRootPath() {

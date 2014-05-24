@@ -22,7 +22,7 @@
     <link rel="image_src" href="{$imgRoot}/logo-dexonline-2.png" />
     {/if}
     {include file="common/bits/cssJs.ihtml"}
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,300italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
     <link href="https://plus.google.com/100407552237543221945" rel="publisher" />
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="http://dexonline.ro/rss/cuvantul-zilei">

@@ -52,11 +52,11 @@
     <tr>
       <td>inclus în LOC:</td>
       <td>
+        <input type="hidden" name="isLoc[]" value="{if $lm->isLoc}1{/if}">
         {if $readonly}
-          <input type="hidden" name="isLoc[]" value="{if $lm->isLoc}1{/if}">
           {if $lm->isLoc}da{else}nu{/if}
         {else}
-          <input type="checkbox" name="isLoc[]" value="1" {if $lm->isLoc}checked{/if}>
+          <input type="checkbox" class="fakeCheckbox" value="1" {if $lm->isLoc}checked{/if}>
         {/if}
         <span class="tooltip2" title="DEX online menține Lista Oficială de Cuvinte a Federației Române de Scrabble. Acest câmp poate fi modificat
         numai de către un set restrâns de administratori ai LOC.">&nbsp;</span>

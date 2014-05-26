@@ -13,6 +13,12 @@ if (!Lock::acquire(LOCK_FULL_TEXT_INDEX)) {
 log_scriptLog("Clearing table FullTextIndex.");
 db_execute('truncate table FullTextIndex');
 
+$stopWordForms = array_flip(db_getArray(
+  'select distinct i.formNoAccent ' .
+  'from Lexem l, InflectedForm i ' .
+  'where l.id = i.lexemId ' .
+  'and l.stopWord'));
+
 $ifMap = array();
 $dbResult = db_execute('select id, internalRep from Definition where status = 0');
 $numDefs = $dbResult->rowCount();
@@ -27,17 +33,19 @@ foreach ($dbResult as $dbRow) {
   $words = extractWords($dbRow[1]);
 
   foreach ($words as $position => $word) {
-    if (!array_key_exists($word, $ifMap)) {
-      cacheWordForm($word);
-    }
-    if (array_key_exists($word, $ifMap)) {
-      $lexemList = preg_split('/,/', $ifMap[$word]);
-      for ($i = 0; $i < count($lexemList); $i += 2) {
-        fwrite($handle, $lexemList[$i] . "\t" . $lexemList[$i + 1] . "\t" . $dbRow[0] . "\t" . $position . "\n");
-        $indexSize++;
+    if (!isset($stopWordForms[$word])) {
+      if (!array_key_exists($word, $ifMap)) {
+        cacheWordForm($word);
       }
-    } else {
-      // print "Not found: $word\n";
+      if (array_key_exists($word, $ifMap)) {
+        $lexemList = preg_split('/,/', $ifMap[$word]);
+        for ($i = 0; $i < count($lexemList); $i += 2) {
+          fwrite($handle, $lexemList[$i] . "\t" . $lexemList[$i + 1] . "\t" . $dbRow[0] . "\t" . $position . "\n");
+          $indexSize++;
+        }
+      } else {
+        // print "Not found: $word\n";
+      }
     }
   }
 
@@ -94,6 +102,7 @@ function extractWords($text) {
   return $result;
 }
 
+// Look up all lexems that generate this word form and that are not stop words
 function cacheWordForm($word) {
   global $ifMap;
   $dbResult = db_execute("select lexemId, inflectionId from InflectedForm join Lexem on lexemId = Lexem.id " .

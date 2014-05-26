@@ -110,6 +110,7 @@ function lexemEditInit() {
   });
   $('#addLexemModel').click(addLexemModelTab);
   t.on('click', '.ui-icon-close', closeLexemModelTab);
+  t.on('click', '.fakeCheckbox', toggleIsLoc);
 
   wmInit();
 }
@@ -476,6 +477,11 @@ function reorderLexemModelTabs() {
     current = tab;
   });
   $('#paradigmTabs').tabs("refresh");
+}
+
+function toggleIsLoc() {
+  var hidden = $(this).prev();
+  hidden.val(1 - hidden.val());
 }
 
 // Initializes the window manager

@@ -1,6 +1,10 @@
 {assign var="ifMap" value=$ifMap|default:null}
 {assign var="serchResults" value=$searchResults|default:null}
 
+<script>
+  sourceMap = JSON.parse('{$jsonSources}');
+</script>
+
 {* Stem meaning editor that we clone whenever we append a new meaning *}
 <ul id="stemNode">
   <li>
@@ -74,17 +78,6 @@
         </td>
       </tr>
  
-      <tr>
-        <td><label for="lexemSourceIds">surse:</label></td>
-        <td>
-          <select id="lexemSourceIds" name="lexemSourceIds[]" multiple="multiple" {if !$canEdit.sources}readonly{/if}>
-            {foreach from=$sources item=s}
-              <option value="{$s->id}" {if array_key_exists($s->id, $lexemSourceIdMap)}selected{/if}>{$s->shortName}</option>
-            {/foreach}
-          </select>
-        </td>
-      </tr>
-  
       <tr>
         <td><label for="hyphenations">silabisiri:</label></td>
         <td>

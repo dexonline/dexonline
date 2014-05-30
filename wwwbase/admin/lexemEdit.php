@@ -98,7 +98,6 @@ if ($refreshLexem || $saveLexem) {
 } else {
   // Case 3: First time loading this page
   /* $ifs = $lexem->generateParadigm(); */
-  /* $lexemSourceIds = LexemSource::getForLexem($lexem); */
   $ifs = null;
   SmartyWrap::assign('variantIds', $lexem->getVariantIds());
   SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
@@ -157,6 +156,7 @@ SmartyWrap::assign('restrT', FlexStringUtil::contains($lexem->restriction, 'T'))
 SmartyWrap::assign('meaningTags', $meaningTags);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
 SmartyWrap::assign('models', $models);
+SmartyWrap::assign('jsonSources', Source::getJson());
 SmartyWrap::assign('modelsT', FlexModel::loadByType('T'));
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('allStatuses', util_getAllStatuses());

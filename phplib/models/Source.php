@@ -20,6 +20,15 @@ class Source extends BaseObject {
   public function isUnknownPercentComplete() {
     return $this->percentComplete == self::$UNKNOWN_PERCENT;
   }
+
+  public static function getJson() {
+    $sources = Model::factory('Source')->order_by_asc('shortName')->find_many();
+    $result = array();
+    foreach ($sources as $s) {
+      $result[] = array('id' => $s->id, 'text' => $s->shortName);
+    }
+    return addslashes(json_encode($result));
+  }
 }
 
 ?>

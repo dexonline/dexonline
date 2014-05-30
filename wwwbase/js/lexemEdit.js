@@ -83,20 +83,24 @@ function lexemEditInit() {
   $('.toggleStructuredLink').click(toggleStructuredClick);
   $('.defFilterLink').click(defFilterClick);
 
-  $('#lexemSourceIds').select2({
+  struct_lexemSourceIds = {
+    data: sourceMap,
     matcher: sourceMatcher,
+    multiple: true,
     placeholder: 'surse care atestă flexiunea',
-    width: '173px',
-  });
+    width: '250px',
+  };
   // Disable the select2 when the HTML select is disabled. This doesn't happen by itself.
-  $('#lexemSourceIds').select2('readonly', $('#lexemSourceIds').is('[readonly]'));
+  $('#paradigmTabs .lexemSourceIds')
+    .select2(struct_lexemSourceIds);
+//    .select2('readonly', $('.lexemSourceIds').is('[readonly]'));
 
   $('select[name="modelType[]"]').change(modelTypeChange);
   struct_similarLexem = {
     ajax: struct_lexemAjax,
     minimumInputLength: 1,
     placeholder: 'sau indicați un lexem similar',
-    width: '300px',
+    width: '250px',
   };
   $('#paradigmTabs .similarLexem').select2(struct_similarLexem).on('change', similarLexemChange);
 
@@ -448,11 +452,14 @@ function addLexemModelTab() {
   var tabContents = $('#lmTab_stem').clone(true).attr('id', tabId);
   var li = $('#paradigmTabs > ul li').clone().first();
   li.find('a').text('nou').attr('href', '#' + tabId);
-  $('#paradigmTabs ul').append(li);
+  $('#paradigmTabs > ul').append(li);
   $('#paradigmTabs').append(tabContents);
   $('#paradigmTabs').tabs('refresh');
   $('#paradigmTabs').tabs('option', 'active', tabIndex);
   $('#' + tabId).find('.similarLexem').select2(struct_similarLexem).on('change', similarLexemChange);
+  $('#' + tabId).find('.lexemSourceIds')
+    .select2(struct_lexemSourceIds)
+    .select2('readonly', $('.lexemSourceIds').is('[readonly]'));
   return false;
 }
 

@@ -24,30 +24,11 @@
           <input type="hidden" name="modelType[]" value="{$lm->modelType}">
           <input type="hidden" name="modelNumber[]" value="{$lm->modelNumber}">
         {else}
-          <br>
           <input class="similarLexem" type="text">
         {/if}
       </td>
     </tr>
 
-    <tr>
-      <td>surse:</td>
-      <td>
-        <input type="text" class="lexemSourceIds" name="lexemSourceIds[]" value="foobar" {if !$canEdit.sources}readonly{/if}>
-      </td>
-    </tr>
-
-    <tr>
-      <td>etichete:</td>
-      <td>
-        <input type="text" name="tags[]" value="{$lm->tags|escape}" size="28"
-               placeholder="explicații despre sursa flexiunii" {if !$canEdit.tags}readonly{/if}>
-        <span class="tooltip2" title="O scurtă clasificare, vizibilă public, care marchează sursa flexiunii. Pentru cuvintele cu flexiuni în DOOM-ul
-        curent (DOOM2 în acest moment), ea poate fi vidă. Sursele pot reprezenta dicționare, autori cunoscuți, inclusiv părerea moderatorului, dar
-        trebuie documentate clar aceste situații.">&nbsp;</span>
-      </td>
-    </tr>
-  
     <tr>
       <td>restricții:</td>
       <td>
@@ -56,6 +37,24 @@
       </td>
     </tr>
 
+    <tr>
+      <td>surse:</td>
+      <td>
+        <input type="text" class="lexemSourceIds" name="lexemSourceIds[]" value="{","|implode:$lm->getSourceIds()}" {if !$canEdit.sources}readonly{/if}>
+      </td>
+    </tr>
+
+    <tr>
+      <td>etichete:</td>
+      <td>
+        <input type="text" name="tags[]" value="{$lm->tags|escape}" size="26"
+               placeholder="explicații despre sursa flexiunii" {if !$canEdit.tags}readonly{/if}>
+        <span class="tooltip2" title="O scurtă clasificare, vizibilă public, care marchează sursa flexiunii. Pentru cuvintele cu flexiuni în DOOM-ul
+        curent (DOOM2 în acest moment), ea poate fi vidă. Sursele pot reprezenta dicționare, autori cunoscuți, inclusiv părerea moderatorului, dar
+        trebuie documentate clar aceste situații.">&nbsp;</span>
+      </td>
+    </tr>
+  
     <tr>
       <td>inclus în LOC:</td>
       <td>
@@ -70,4 +69,6 @@
       </td>
     </tr>
   </table>
+
+  {include file="common/paradigm/current/paradigm.ihtml" lexemModel=$lm}
 </div>

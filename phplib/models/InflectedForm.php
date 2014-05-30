@@ -40,13 +40,6 @@ class InflectedForm extends BaseObject {
     return $result;
   }
 
-  public static function deleteByLexemId($lexemId) {
-    $ifs = InflectedForm::get_all_by_lexemId($lexemId);
-    foreach ($ifs as $if) {
-      $if->delete();
-    }
-  }
-
   public function save() {
     $this->formUtf8General = $this->formNoAccent;
     parent::save();

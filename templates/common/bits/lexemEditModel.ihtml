@@ -31,9 +31,16 @@
     </tr>
 
     <tr>
+      <td>surse:</td>
+      <td>
+        <input type="text" class="lexemSourceIds" name="lexemSourceIds[]" value="foobar" {if !$canEdit.sources}readonly{/if}>
+      </td>
+    </tr>
+
+    <tr>
       <td>etichete:</td>
       <td>
-        <input type="text" name="tags[]" value="{$lm->tags|escape}" size="20"
+        <input type="text" name="tags[]" value="{$lm->tags|escape}" size="28"
                placeholder="explicații despre sursa flexiunii" {if !$canEdit.tags}readonly{/if}>
         <span class="tooltip2" title="O scurtă clasificare, vizibilă public, care marchează sursa flexiunii. Pentru cuvintele cu flexiuni în DOOM-ul
         curent (DOOM2 în acest moment), ea poate fi vidă. Sursele pot reprezenta dicționare, autori cunoscuți, inclusiv părerea moderatorului, dar

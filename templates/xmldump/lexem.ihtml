@@ -7,7 +7,7 @@
     {/if}
     {foreach from=$lexemModels item=lm}
       <Model type="{$lm->modelType}{$lm->modelNumber}{$lm->restriction}">
-        {assign var="ifs" value=$lm->getInflectedForms()}
+        {assign var="ifs" value=$lm->loadInflectedForms()}
         {foreach from=$ifs item=if}
           <InflectedForm>
             <InflectionId>{$if->inflectionId}</InflectionId>

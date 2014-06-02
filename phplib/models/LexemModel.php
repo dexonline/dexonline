@@ -2,12 +2,13 @@
 
 class LexemModel extends BaseObject implements DatedObject {
   public static $_table = 'LexemModel';
-  public static $RESTRICTIONS = array('S' => 'singular',
-                                      'P' => 'plural',
-                                      'U' => 'unipersonal',
-                                      'I' => 'impersonal',
-                                      'T' => 'trecut');
-  
+
+  const METHOD_GENERATE = 1;
+  const METHOD_LOAD = 2;
+  const MAP_INFLECTION_ID = 1;
+  const MAP_INFLECTION_RANK = 2;
+
+  private $lexem = null;
   private $mt = null;                // ModelType object, but we call it $mt because there is already a DB field called 'modelType'
   private $sources = null;
   private $sourceNames = null;       // Comma-separated list of source names
@@ -21,6 +22,17 @@ class LexemModel extends BaseObject implements DatedObject {
     $lm->restriction = '';
     $lm->isLoc = false;
     return $lm;
+  }
+
+  function getLexem() {
+    if ($this->lexem === null) {
+      $this->lexem = Lexem::get_by_id($this->lexemId);
+    }
+    return $this->lexem;
+  }
+
+  function setLexem($lexem) {
+    $this->lexem = $lexem;
   }
 
   function hasRestriction($letter) {
@@ -65,7 +77,21 @@ class LexemModel extends BaseObject implements DatedObject {
     return $results;
   }
 
-  function getInflectedForms() {
+  function setSources($sources) {
+    $this->sources = $sources;
+  }
+
+  /**
+   * Returns an array of InflectedForms. These can be loaded from the disk ($method = METHOD_LOAD)
+   * or generated on the fly ($method = METHOD_GENERATE);
+   **/
+  function getInflectedForms($method) {
+    return ($method == self::METHOD_LOAD)
+      ? $this->loadInflectedForms()
+      : $this->generateInflectedForms();
+  }
+
+  function loadInflectedForms() {
     if ($this->inflectedForms === null) {
       $this->inflectedForms = Model::factory('InflectedForm')
         ->where('lexemModelId', $this->id)
@@ -76,67 +102,52 @@ class LexemModel extends BaseObject implements DatedObject {
     return ($this->inflectedForms);
   }
 
-  function getInflectedFormsMappedByRank() {
-    if ($this->inflectedFormMap === null) {
-      // These inflected forms have an extra field (rank) from the join
-      $ifs = Model::factory('InflectedForm')
-        ->select('InflectedForm.*')
-        ->select('rank')
-        ->join('Inflection', 'inflectionId = Inflection.id')
-        ->where('lexemModelId', $this->id)
-        ->order_by_asc('rank')
-        ->order_by_asc('variant')
-        ->find_many();
-
-      $map = array();
-      foreach ($ifs as $if) {
-        if (!array_key_exists($if->rank, $map)) {
-          $map[$if->rank] = array();
-        }
-        $map[$if->rank][] = $if;
-      }
-
-      $this->inflectedFormMap = $map;
-    }
-    return $this->inflectedFormMap;
-  }
-
-  function getInflectedFormsMappedByInflectionId() {
-    if ($this->inflectedFormMap === null) {
-      $this->inflectedFormMap = InflectedForm::mapByInflectionId($this->getInflectedForms());
-    }
-    return $this->inflectedFormMap;
-  }
-
-  public function generateParadigmMappedByRank() {
-    if ($this->inflectedFormMap === null) {
-      $this->generateParadigm();
-      if (is_array($this->inflectedFormMap)) {
-        $this->inflectedFormMap = InflectedForm::mapByInflectionRank($this->inflectedForms);
-      }
-    }
-    return $this->inflectedFormMap;
-  }
-
-  public function generateParadigm() {
+  function generateInflectedForms() {
     if ($this->inflectedForms === null) {
-      $this->inflectedForms = array();
-      $lexem = Lexem::get_by_id($this->lexemId);
+      $lexem = $this->getLexem();
       $model = FlexModel::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
       $inflIds = db_getArray("select distinct inflectionId from ModelDescription where modelId = {$model->id} order by inflectionId");
 
-      foreach ($inflIds as $inflId) {
-        $if = $this->generateInflectedFormWithModel($lexem->form, $inflId, $model->id);
-        if ($if === null) {
-          // Make a note of the inflection we cannot generate
-          $this->inflectedForms = $inflId;
-          return;
+      try {
+        $this->inflectedForms = array();
+        foreach ($inflIds as $inflId) {
+          $if = $this->generateInflectedFormWithModel($lexem->form, $inflId, $model->id);
+          $this->inflectedForms = array_merge($this->inflectedForms, $if);
         }
-        $this->inflectedForms = array_merge($this->inflectedForms, $if);
+      } catch (Exception $ignored) {
+        // Make a note of the inflection we cannot generate
+        $this->inflectedForms = $inflId;
       }
-    }
+    }        
+    return ($this->inflectedForms);
   }
 
+  function getInflectedFormMap($method, $map) {
+    if ($this->inflectedFormMap === null) {
+      $ifs = $this->getInflectedForms($method);
+      if (is_array($ifs)) {
+        switch ($map) {
+          case self::MAP_INFLECTION_ID: $this->inflectedFormMap = InflectedForm::mapByInflectionId($ifs);
+          case self::MAP_INFLECTION_RANK: $this->inflectedFormMap = InflectedForm::mapByInflectionRank($ifs);
+        }
+      }
+    }
+    return $this->inflectedFormMap;
+  }
+
+  function loadInflectedFormsMappedByRank() {
+    return $this->getInflectedFormMap(self::METHOD_LOAD, self::MAP_INFLECTION_RANK);
+  }
+
+  function loadInflectedFormsMappedByInflectionId() {
+    return $this->getInflectedFormMap(self::METHOD_LOAD, self::MAP_INFLECTION_ID);
+  }
+
+  function generateInflectedFormsMappedByRank() {
+    return $this->getInflectedFormMap(self::METHOD_GENERATE, self::MAP_INFLECTION_RANK);
+  }
+
+  // Throws an exception if the given inflection cannot be generated
   public function generateInflectedFormWithModel($form, $inflId, $modelId) {
     if (!ConstraintMap::validInflection($inflId, $this->restriction)) {
       return array();
@@ -169,7 +180,7 @@ class LexemModel extends BaseObject implements DatedObject {
       
       $result = FlexStringUtil::applyTransforms($form, $transforms, $accentShift, $vowel);
       if (!$result) {
-        return null;
+        throw new Exception();
       }
       $ifs[] = InflectedForm::create($result, $this->id, $inflId, $variant, $recommended);
       $start = $end;

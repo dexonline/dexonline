@@ -78,9 +78,9 @@ SmartyWrap::displayCommonPageWithSkin('modele-flexiune.ihtml');
  */
 function getExistingForms($lexemModel, $locVersion) {
   if ($locVersion >= '5.0') {
-    return $lexemModel->getInflectedFormsMappedByRank();
+    return $lexemModel->loadInflectedFormsMappedByRank();
   } else {
-    return $lexemModel->getInflectedFormsMappedByInflectionId();
+    return $lexemModel->loadInflectedFormsMappedByInflectionId();
   }
 }
 

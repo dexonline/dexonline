@@ -14,20 +14,6 @@ class Synonym extends BaseObject implements DatedObject {
       ->order_by_asc('formNoAccent')
       ->find_many();
   }
-
-  public static function deleteByMeaningId($meaningId) {
-    $synonyms = self::get_all_by_meaningId($meaningId);
-    foreach ($synonyms as $s) {
-      $s->delete();
-    }
-  }
-
-  public static function deleteByLexemId($lexemId) {
-    $synonyms = self::get_all_by_lexemId($lexemId);
-    foreach ($synonyms as $s) {
-      $s->delete();
-    }
-  }
 }
 
 ?>

@@ -65,7 +65,7 @@ foreach ($dbResult as $row) {
   $lexem->matches = $matches;
 
   if (count($lexem->matches)) {
-    // $lexem->getInflectedForms();
+    // $lexem->loadInflectedForms();
     // When a plural LOC lexem is merged into a non-LOC singular, we end up losing some word forms from LOC.
     // Therefore, we have to add the singular lexem to LOC as well. Matei says it is ok to expand LOC this way.
     $srcIfs = loadIfArray($lexem);
@@ -106,7 +106,7 @@ SmartyWrap::displayAdminPage('flex/mergeLexems.ihtml');
 
 /** Returns an array containing only the accented forms, not the entire InflectedForm objects **/
 function loadIfArray($lexem) {
-  $ifs = $lexem->getInflectedForms();
+  $ifs = $lexem->loadInflectedForms();
   $result = array();
   foreach ($ifs as $if) {
     $result[] = $if->form;

@@ -119,7 +119,7 @@
 <div id="resultsWrapper" class="txt">
   <div id="paradigmDiv" {if !$showParadigm}style="display: none"{/if}>{include file="common/bits/multiParadigm.ihtml"}</div>
 
-  {if count($images)}
+  {if !empty($images)}
     {include file="common/bits/gallery.ihtml" images=$images}
   {/if}
  

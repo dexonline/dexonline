@@ -31,6 +31,7 @@ class Lexem extends BaseObject implements DatedObject {
     $lm->restriction = $restriction;
     $lm->tags = '';
     $lm->isLoc = $isLoc;
+    $lm->setLexem($l);
 
     $l->setLexemModels(array($lm));
     return $l;
@@ -249,10 +250,6 @@ class Lexem extends BaseObject implements DatedObject {
     return $ids;
   }
 
-  public function regenerateParadigm() {
-    /* TODO */
-  }
-
   public function regenerateDependentLexems() {
     if ($this->hasModelType('VT')) {
       $this->regeneratePastParticiple();
@@ -268,28 +265,29 @@ class Lexem extends BaseObject implements DatedObject {
     // Iterate through all the participle forms of this Lexem
     foreach ($this->getLexemModels() as $lm) {
       $pm = ParticipleModel::get_by_verbModel($lm->modelNumber);
-      $ifs = InflectedForm::get_all_by_lexemModelId_inflectionId($lm->id, $inflId);
+      $ifs = InflectedForm::get_all_by_lexemModelId_inflectionId($lm->id, $infl->id);
       foreach ($ifs as $if) {
         $lexem = Model::factory('Lexem')
-          ->select('l.*')
           ->table_alias('l')
+          ->select('l.*')
           ->distinct()
-          ->join('LexemModel', 'lm', 'l.id = lm.lexemId')
+          ->join('LexemModel', 'l.id = lm.lexemId', 'lm')
           ->where('l.formNoAccent', $if->formNoAccent)
-          ->where_raw('(lm.modelType = "T" or (lm.modelType = "A" and lm.modelNumber = "?"))', array($pm->adjectiveModel))
+          ->where_raw("(lm.modelType = 'T' or (lm.modelType = 'A' and lm.modelNumber = '{$pm->adjectiveModel}'))")
           ->find_one();
 
         if ($lexem) {
-          $lexem->modelType = 'A';
-          $lexem->modelNumber = $pm->adjectiveModel;
-          $lexem->restriction = '';
-          if ($this->isLoc() && !$lexem->isLoc()) {
-            $partLm = $lexem->getLexemModels()[0];
-            $partLm->isLoc = true;
-            $partLm->save();
-            FlashMessage::add("Lexemul {$lexem->formNoAccent}, care nu era în LOC, a fost inclus automat în LOC.", 'info');
+          $partLm = $lexem->getLexemModels()[0];
+          if ($partLm->modelType != 'A' || $partLm->modelNumber != $pm->adjectiveModel || $partLm->restriction != '') {
+            $partLm->modelType = 'A';
+            $partLm->modelNumber = $pm->adjectiveModel;
+            $partLm->restriction = '';
+            if ($this->isLoc() && !$infLm->isLoc) {
+              $partLm->isLoc = true;
+              FlashMessage::add("Lexemul {$lexem->formNoAccent}, care nu era în LOC, a fost inclus automat în LOC.", 'info');
+            }
+            $lexem->deepSave();
           }
-          $lexem->save();
         } else {
           $lexem = Lexem::deepCreate($if->form, 'A', $pm->adjectiveModel, '', $this->isLoc());
           $lexem->deepSave();
@@ -301,7 +299,6 @@ class Lexem extends BaseObject implements DatedObject {
           }
           FlashMessage::add("Am creat automat lexemul {$lexem->formNoAccent} (A{$pm->adjectiveModel}) și l-am asociat cu toate definițiile verbului.", 'info');
         }
-        $lexem->regenerateParadigm();
       }
     }
   }
@@ -313,7 +310,7 @@ class Lexem extends BaseObject implements DatedObject {
 
     // Iterate through all the participle forms of this Lexem
     foreach ($this->getLexemModels() as $lm) {
-      $ifs = InflectedForm::get_all_by_lexemModelId_inflectionId($lm->id, $inflId);
+      $ifs = InflectedForm::get_all_by_lexemModelId_inflectionId($lm->id, $infl->id);
       foreach ($ifs as $if) {
         $model = StringUtil::endsWith($if->formNoAccent, 'are') ? $f113 : $f107;
 
@@ -321,22 +318,23 @@ class Lexem extends BaseObject implements DatedObject {
           ->select('l.*')
           ->table_alias('l')
           ->distinct()
-          ->join('LexemModel', 'lm', 'l.id = lm.lexemId')
+          ->join('LexemModel', 'l.id = lm.lexemId', 'lm')
           ->where('l.formNoAccent', $if->formNoAccent)
-          ->where_raw('(lm.modelType = "T" or (lm.modelType = "F" and lm.modelNumber = "?"))', array($model->number))
+          ->where_raw("(lm.modelType = 'T' or (lm.modelType = 'F' and lm.modelNumber = '$model->number'))")
           ->find_one();
 
         if ($lexem) {
-          $lexem->modelType = 'F';
-          $lexem->modelNumber = $model->number;
-          $lexem->restriction = '';
-          if ($this->isLoc() && !$lexem->isLoc()) {
-            $infLm = $lexem->getLexemModels()[0];
-            $infLm->isLoc = true;
-            $infLm->save();
-            FlashMessage::add("Lexemul {$lexem->formNoAccent}, care nu era în LOC, a fost inclus automat în LOC.", 'info');
+          $infLm = $lexem->getLexemModels()[0];
+          if ($infLm->modelType != 'F' || $infLm->modelNumber != $model->number || $inf->restriction != '') {
+            $infLm->modelType = 'F';
+            $infLm->modelNumber = $model->number;
+            $infLm->restriction = '';
+            if ($this->isLoc() && !$infLm->isLoc) {
+              $infLm->isLoc = true;
+              FlashMessage::add("Lexemul {$lexem->formNoAccent}, care nu era în LOC, a fost inclus automat în LOC.", 'info');
+            }
+            $lexem->deepSave();
           }
-          $lexem->save();
         } else {
           $lexem = Lexem::deepCreate($if->form, 'F', $model->number, '', $this->isLoc());
           $lexem->deepSave();
@@ -346,9 +344,8 @@ class Lexem extends BaseObject implements DatedObject {
           foreach ($ldms as $ldm) {
             LexemDefinitionMap::associate($lexem->id, $ldm->definitionId);
           }
-          FlashMessage::add("Am creat automat lexemul {$lexem->formNoAccent} (F{$lexem->modelNumber}) și l-am asociat cu toate definițiile verbului.", 'info');
+          FlashMessage::add("Am creat automat lexemul {$lexem->formNoAccent} (F{$model->number}) și l-am asociat cu toate definițiile verbului.", 'info');
         }
-        $lexem->regenerateParadigm();
       }
     }
   }
@@ -437,6 +434,7 @@ class Lexem extends BaseObject implements DatedObject {
             }
 
             if (!$ownDefinitions) {
+              FlashMessage::add("Am șters automat lexemul {$l->formNoAccent}.", 'info');
               $l->delete();
             }
           }
@@ -454,8 +452,8 @@ class Lexem extends BaseObject implements DatedObject {
         $this->deleteLongInfinitive();
       }
       LexemDefinitionMap::deleteByLexemId($this->id);
-      Meaning::deleteByLexemId($this->id);
-      Synonym::deleteByLexemId($this->id);
+      Meaning::delete_all_by_lexemId($this->id);
+      Synonym::delete_all_by_lexemId($this->id);
       LexemModel::delete_all_by_lexemId($this->id);
     }
     // Clear the variantOfId field for lexems having $this as main.
@@ -487,10 +485,11 @@ class Lexem extends BaseObject implements DatedObject {
    * Saves a lexem and its dependants. Only call after having deleted the lexem's old dependants.
    **/
   function deepSave() {
-    $lexem->save();
-    foreach ($lexem->getLexemModels() as $lm) {
+    $this->save();
+    foreach ($this->getLexemModels() as $lm) {
+      $lm->lexemId = $this->id;
       $lm->save();
-      foreach ($lm->getInflectedForms() as $if) {
+      foreach ($lm->generateInflectedForms() as $if) {
         $if->lexemModelId = $lm->id;
         $if->save();
       }
@@ -508,13 +507,20 @@ class Lexem extends BaseObject implements DatedObject {
   public function cloneLexem() {
     $clone = $this->parisClone();
     $clone->description = ($this->description) ? "CLONĂ {$this->description}" : "CLONĂ";
-    $clone->modelType = 'T';
-    $clone->modelNumber = 1;
-    $clone->restriction = '';
-    $clone->isLoc = false;
     $clone->verifSp = false;
     $clone->structStatus = self::STRUCT_STATUS_NEW;
-    $clone->save();
+
+    $lm = Model::factory('LexemModel')->create();
+    $lm->displayOrder = 1;
+    $lm->modelType = 'T';
+    $lm->modelNumber = '1';
+    $lm->restriction = '';
+    $lm->tags = '';
+    $lm->isLoc = false;
+    $lm->setLexem($clone);
+
+    $clone->setLexemModels(array($lm));
+    $clone->deepSave();
     
     // Clone the definition list
     $ldms = LexemDefinitionMap::get_all_by_lexemId($this->id);
@@ -528,15 +534,6 @@ class Lexem extends BaseObject implements DatedObject {
       $m->cloneMeaning($clone->id, 0);
     }
 
-    // Clone the sources
-    $lss = LexemSource::get_all_by_lexemId($this->id);
-    foreach ($lss as $ls) {
-      $lsClone = $ls->parisClone();
-      $lsClone->lexemId = $clone->id;
-      $lsClone->save();
-    }
-
-    $clone->regenerateParadigm();
     return $clone;
   }
 

@@ -108,10 +108,12 @@ function lexemEditInit() {
 
   var t = $('#paradigmTabs');
   t.tabs();
-  t.find('.ui-tabs-nav').sortable({
-    axis: "x",
-    stop: reorderLexemModelTabs
-  });
+  if (canEdit.paradigm) {
+    t.find('.ui-tabs-nav').sortable({
+      axis: "x",
+      stop: reorderLexemModelTabs
+    });
+  }
   $('#addLexemModel').click(addLexemModelTab);
   t.on('click', '.ui-icon-close', closeLexemModelTab);
   t.on('click', '.fakeCheckbox', toggleIsLoc);

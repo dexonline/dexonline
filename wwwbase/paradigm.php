@@ -90,7 +90,7 @@ if (!empty($lexems)) {
     foreach($l->getLexemModels() as $lm) {
       $lm->getModelType();
       $lm->getSourceNames();
-      foreach ($lm->getInflectedFormsMappedByRank() as $ifs) {
+      foreach ($lm->loadInflectedFormsMappedByRank() as $ifs) {
         foreach ($ifs as $if) {
           $hasUnrecommendedForms |= !$if->recommended;
         }

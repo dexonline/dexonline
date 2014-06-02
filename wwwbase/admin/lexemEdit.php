@@ -23,9 +23,9 @@ $jsonMeanings = util_getRequestParameter('jsonMeanings');
 $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
 $restriction = util_getRequestParameter('restriction');
-$sourceIds = util_getRequestParameter('sourceIds');
+$sourceIds = util_getRequestParameter('lexemSourceIds');
 $lmTags = util_getRequestParameter('lmTags');
-$lmIsLoc = util_getRequestParameter('lmIsLoc');
+$isLoc = util_getRequestParameter('isLoc');
 
 // Button parameters
 $refreshLexem = util_getRequestParameter('refreshLexem');
@@ -35,43 +35,11 @@ $lexem = Lexem::get_by_id($lexemId);
 $original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether certain fields have changed
 
 if ($refreshLexem || $saveLexem) {
-  // Populate lexem fields from request parameters.
-  $lexem->form = AdminStringUtil::formatLexem($lexemForm);
-  $lexem->formNoAccent = str_replace("'", '', $lexem->form);
-  $lexem->number = $lexemNumber;
-  $lexem->description = AdminStringUtil::internalize($lexemDescription, false);
-  $lexem->comment = trim(AdminStringUtil::internalize($lexemComment, false));
-  // Sign appended comments
-  if (StringUtil::startsWith($lexem->comment, $original->comment) &&
-      $lexem->comment != $original->comment &&
-      !StringUtil::endsWith($lexem->comment, ']]')) {
-    $lexem->comment .= " [[" . session_getUser() . ", " . strftime("%d %b %Y %H:%M") . "]]";
-  }
-  $lexem->noAccent = !$needsAccent;
-  $lexem->hyphenations = $hyphenations;
-  $lexem->pronunciations = $pronunciations;
-  $lexem->variantOfId = $variantOfId ? $variantOfId : null;
-  $variantOf = Lexem::get_by_id($lexem->variantOfId);
-  $lexem->structStatus = $structStatus;
+  populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment, $needsAccent, $hyphenations,
+           $pronunciations, $variantOfId, $structStatus, $modelType, $modelNumber, $restriction, $lmTags, $isLoc, $sourceIds);
   $meanings = json_decode($jsonMeanings);
 
-  // Create LexemModels
-  $lexemModels = array();
-  for ($i = 1; $i < count($modelType); $i++) {
-    $lm = Model::factory('LexemModel')->create();
-    $lm->lexemId = $lexem->id;
-    $lm->displayOrder = $i;
-    $lm->modelType = $modelType[$i];
-    $lm->modelNumber = $modelNumber[$i];
-    $lm->restriction = $restriction[$i];
-    $lm->tags = $lmTags[$i];
-    $lm->isLoc = $lmIsLoc[$i];
-    $lm->generateParadigmMappedByRank();
-    $lexemModels[] = $lm;
-  }
-  $lexem->setLexemModels($lexemModels);
-
-  if (validate($lexem, $original, $variantOf, $variantIds, $meanings)) {
+  if (validate($lexem, $original, $variantIds, $meanings)) {
     // Case 1: Validation passed
     if ($saveLexem) {
       if ($original->hasModelType('VT') && !$lexem->hasModelType('VT')) {
@@ -81,12 +49,13 @@ if ($refreshLexem || $saveLexem) {
           (!$lexem->hasModelType('VT') && !$lexem->hasModelType('V'))) {
         $original->deleteLongInfinitive();
       }
-      foreach ($original->getLexemModels()) {
+      foreach ($original->getLexemModels() as $lm) {
         $lm->delete(); // This will also delete LexemSources and InflectedForms
       }
       $lexem->deepSave();
       Meaning::saveTree($meanings, $lexem);
       $lexem->updateVariants($variantIds);
+      $lexem->regenerateDependentLexems();
 
       log_userLog("Edited lexem {$lexem->id} ({$lexem->form})");
       util_redirect("lexemEdit.php?lexemId={$lexem->id}");
@@ -100,8 +69,7 @@ if ($refreshLexem || $saveLexem) {
 } else {
   // Case 3: First time loading this page
   foreach ($lexem->getLexemModels() as $lm) {
-    // $lm->generateParadigmMappedByRank();
-    $lm->getInflectedFormsMappedByRank();
+    $lm->loadInflectedFormsMappedByRank();
   }
   SmartyWrap::assign('variantIds', $lexem->getVariantIds());
   SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
@@ -147,11 +115,6 @@ SmartyWrap::assign('stemLexemModel', $stemLexemModel);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('definitionLexem', $definitionLexem);
 SmartyWrap::assign('homonyms', Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many());
-SmartyWrap::assign('restrS', FlexStringUtil::contains($lexem->restriction, 'S'));
-SmartyWrap::assign('restrP', FlexStringUtil::contains($lexem->restriction, 'P'));
-SmartyWrap::assign('restrU', FlexStringUtil::contains($lexem->restriction, 'U'));
-SmartyWrap::assign('restrI', FlexStringUtil::contains($lexem->restriction, 'I'));
-SmartyWrap::assign('restrT', FlexStringUtil::contains($lexem->restriction, 'T'));
 SmartyWrap::assign('meaningTags', $meaningTags);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
 SmartyWrap::assign('models', $models);
@@ -168,7 +131,53 @@ SmartyWrap::displayAdminPage('admin/lexemEdit.ihtml');
 
 /**************************************************************************/
 
-function validate($lexem, $original, $variantOf, $variantIds, $meanings) {
+// Populate lexem fields from request parameters.
+function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment, $needsAccent, $hyphenations,
+                  $pronunciations, $variantOfId, $structStatus, $modelType, $modelNumber, $restriction, $lmTags, $isLoc, $sourceIds) {
+  $lexem->form = AdminStringUtil::formatLexem($lexemForm);
+  $lexem->formNoAccent = str_replace("'", '', $lexem->form);
+  $lexem->number = $lexemNumber;
+  $lexem->description = AdminStringUtil::internalize($lexemDescription, false);
+  $lexem->comment = trim(AdminStringUtil::internalize($lexemComment, false));
+  // Sign appended comments
+  if (StringUtil::startsWith($lexem->comment, $original->comment) &&
+      $lexem->comment != $original->comment &&
+      !StringUtil::endsWith($lexem->comment, ']]')) {
+    $lexem->comment .= " [[" . session_getUser() . ", " . strftime("%d %b %Y %H:%M") . "]]";
+  }
+  $lexem->noAccent = !$needsAccent;
+  $lexem->hyphenations = $hyphenations;
+  $lexem->pronunciations = $pronunciations;
+  $lexem->variantOfId = $variantOfId ? $variantOfId : null;
+  $lexem->structStatus = $structStatus;
+
+  // Create LexemModels and LexemSources
+  $lexemModels = array();
+  for ($i = 1; $i < count($modelType); $i++) {
+    $lm = Model::factory('LexemModel')->create();
+    $lm->lexemId = $lexem->id;
+    $lm->displayOrder = $i;
+    $lm->modelType = $modelType[$i];
+    $lm->modelNumber = $modelNumber[$i];
+    $lm->restriction = $restriction[$i];
+    $lm->tags = $lmTags[$i];
+    $lm->isLoc = $isLoc[$i];
+    $lm->generateInflectedFormsMappedByRank();
+
+    $lexemSources = array();
+    foreach (explode(',', $sourceIds[$i]) as $sourceId) {
+      $ls = Model::factory('LexemSource')->create();
+      $ls->sourceId = $sourceId;
+      $lexemSources[] = $ls;
+    }
+    $lm->setSources($lexemSources);
+
+    $lexemModels[] = $lm;
+  }
+  $lexem->setLexemModels($lexemModels);
+}
+
+function validate($lexem, $original, $variantIds, $meanings) {
   if (!$lexem->form) {
     FlashMessage::add('Forma nu poate fi vidă.');
   }
@@ -209,7 +218,7 @@ function validate($lexem, $original, $variantOf, $variantIds, $meanings) {
       FlashMessage::add("Restricțiile <b>S</b> și <b>P</b> nu pot coexista.");
     }
 
-    $ifs = $lm->getInflectedForms();
+    $ifs = $lm->generateInflectedForms();
     if (!is_array($ifs)) {
       $infl = Inflection::get_by_id($ifs);
       FlashMessage::add(sprintf("Nu pot genera flexiunea '%s' conform modelului %s%s",
@@ -217,6 +226,7 @@ function validate($lexem, $original, $variantOf, $variantIds, $meanings) {
     }
   }
 
+  $variantOf = Lexem::get_by_id($lexem->variantOfId);
   if ($variantOf && !empty($meanings)) {
     FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși sensuri.");
   }

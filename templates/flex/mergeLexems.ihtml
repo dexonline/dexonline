@@ -31,7 +31,7 @@ reîncărcarea paginii. Pentru moment, nu există o modalitate de a
         {$l->modelType}{$l->modelNumber}{$l->restriction}
         <span class="{if $l->isLoc}isLoc{else}isNotLoc{/if}">LOC</span>
         {*
-        {assign var="ifs" value=$l->getInflectedForms()}
+        {assign var="ifs" value=$l->loadInflectedForms()}
         {foreach from=$ifs item=if}
           {$if->form}
         {/foreach}

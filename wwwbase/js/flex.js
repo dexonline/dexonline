@@ -8,7 +8,7 @@ $(function() {
         }
       },
       modal: true,
-      title: 'Eroare',
+      title: 'Mesaje',
       width: 500,
     });
   }

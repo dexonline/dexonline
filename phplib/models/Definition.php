@@ -3,15 +3,12 @@
 class Definition extends BaseObject implements DatedObject {
   public static $_table = 'Definition';
 
-
   public static function get_by_id($id) {
-      if (util_isModerator(PRIV_ADMIN)) {
-        return parent::get_by_id($id);
-        //return Model::factory('Definition')->where('id',$id)->where_not_equal('status', ST_HIDDEN)->find_one();
-      }
-      else {
-        return Model::factory('Definition')->where('id',$id)->where_not_equal('status', ST_HIDDEN)->find_one();
-      }
+    if (util_isModerator(PRIV_ADMIN)) {
+      return parent::get_by_id($id);
+    } else {
+      return Model::factory('Definition')->where('id',$id)->where_not_equal('status', ST_HIDDEN)->find_one();
+    }
   }
 
   public static function loadByLexemId($lexemId) {
@@ -105,8 +102,40 @@ class Definition extends BaseObject implements DatedObject {
   }
 
   public static function searchFullText($words, $hasDiacritics, $sourceId) {
+    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     $intersection = null;
     $stopWords = array();
+
+    foreach ($words as $word) {
+      // Get all LexemModels generating this form
+      $lms = Model::factory('LexemModel')
+        ->table_alias('L')
+        ->select('L.id')
+        ->distinct()
+        ->join('InflectedForm', 'I.lexemModelId = L.id', 'I')
+        ->where("I.{$field}", $word)
+        ->find_many();
+      $lmIds = util_objectProperty($lms, 'id');
+
+      // Get the FullTextIndex records for each LexemModels. Note that the FTI excludes stop words.
+      var_dump($lmIds);
+      $defIds = FullTextIndex::loadDefinitionIdsForLexemModels($lmIds, $sourceId);
+      var_dump($defIds);
+
+      // If there are no definitions, then determine whether the word is a stop word.
+      if (empty($defIds)) {
+        $isStopWord = Model::factory('InflectedForm')
+          ->table_alias('I')
+          ->join('LexemModel', 'I.lexemModelId = LM.id', 'LM')
+          ->join('Lexem', 'LM.lexemId = L.id', 'L')
+          ->where("I.{$field}", $word)
+          ->where('L.stopWord', 1)
+          ->count();
+        var_dump($isStopWord); var_dump($word);
+      }
+    }
+    exit();
+
 
     // For every word, get all lexems that aren't stopwords and that generate that form.
     // For 'om' we would take the lexem 'om', but not 'a vrea' (auxiliary verb).
@@ -175,9 +204,11 @@ class Definition extends BaseObject implements DatedObject {
 
     foreach ($res as $key => &$words) {
       $var = sprintf("select distinct i2.formNoAccent  
-        from InflectedForm i1, Lexem l, InflectedForm i2
-        where i1.lexemId = l.id and
-        l.id = i2.lexemId and
+        from InflectedForm i1, LexemModel lm1, Lexem l, LexemModel lm2, InflectedForm i2
+        where i1.lexemModelId = lm1.id and
+        lm1.lexemId = l.id and
+        l.id = lm2.lexemId and
+        lm2.id = i2.lexemModelId and
         not l.stopWord and
         i1.formUtf8General = '%s'", $key);
 

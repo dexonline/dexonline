@@ -47,16 +47,6 @@ class Lexem extends BaseObject implements DatedObject {
     return $this->lexemModels;
   }
 
-  function getInflectedForms() {
-    if ($this->inflectedForms === null) {
-      $this->inflectedForms = Model::factory('InflectedForm')
-        ->where('lexemId', $this->id)
-        ->order_by_asc('displayOrder')
-        ->find_many();
-    }
-    return $this->lexemModels;
-  }
-
   function setLexemModels($lexemModels) {
     $this->lexemModels = $lexemModels;
   }

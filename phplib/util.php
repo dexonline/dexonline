@@ -345,7 +345,6 @@ function util_findSnippet($p) {
   $done = false;
 
   while (!$done) {
-    $minArray = -1;
     $min = INFINITY;
     $max = -1;
     for ($i = 0; $i < $n; $i++) {

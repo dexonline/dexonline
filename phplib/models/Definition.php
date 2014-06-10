@@ -105,6 +105,7 @@ class Definition extends BaseObject implements DatedObject {
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     $intersection = null;
     $stopWords = array();
+    $lmMap = array();
 
     foreach ($words as $word) {
       // Get all LexemModels generating this form
@@ -116,13 +117,12 @@ class Definition extends BaseObject implements DatedObject {
         ->where("I.{$field}", $word)
         ->find_many();
       $lmIds = util_objectProperty($lms, 'id');
+      $lmMap[] = $lmIds;
 
       // Get the FullTextIndex records for each LexemModels. Note that the FTI excludes stop words.
-      var_dump($lmIds);
       $defIds = FullTextIndex::loadDefinitionIdsForLexemModels($lmIds, $sourceId);
-      var_dump($defIds);
 
-      // If there are no definitions, then determine whether the word is a stop word.
+      // Determine whether the word is a stop word.
       if (empty($defIds)) {
         $isStopWord = Model::factory('InflectedForm')
           ->table_alias('I')
@@ -131,41 +131,19 @@ class Definition extends BaseObject implements DatedObject {
           ->where("I.{$field}", $word)
           ->where('L.stopWord', 1)
           ->count();
-        var_dump($isStopWord); var_dump($word);
+      } else {
+        $isStopWord = false;
       }
-    }
-    exit();
 
-
-    // For every word, get all lexems that aren't stopwords and that generate that form.
-    // For 'om' we would take the lexem 'om', but not 'a vrea' (auxiliary verb).
-    $matchingLexems = array();
-    foreach ($words as $word) {
-      $lexems = Lexem::searchInflectedForms($word, $hasDiacritics);
-      $lexemIds = array();
-      foreach ($lexems as $lexem) {
-        if (!$lexem->stopWord) {
-          $lexemIds[] = $lexem->id;
-        }
-      }
-      $matchingLexems[] = $lexemIds;
-      if (empty($lexemIds)) {
+      if ($isStopWord) {
         $stopWords[] = $word;
-      }
-    }
-
-    foreach ($words as $i => $word) {
-      if (count($matchingLexems[$i])) {
-        // Load all the definitions for any possible lexem for this word.
-        $lexemIds = $matchingLexems[$i];
-        $defIds = FullTextIndex::loadDefinitionIdsForLexems($lexemIds, $sourceId);
-        DebugInfo::resetClock();
+      } else {
         $intersection = ($intersection === null)
           ? $defIds
           : util_intersectArrays($intersection, $defIds);
-        DebugInfo::stopClock("Intersected with lexems for $word");
       }
     }
+
     if (empty($intersection)) { // This can happen when the query is all stopwords or the source selection produces no results
       return array(array(), $stopWords);
     }
@@ -183,9 +161,12 @@ class Definition extends BaseObject implements DatedObject {
       // Compute the position matrix (for every word, load all the matching
       // positions)
       $p = array();
-      foreach ($matchingLexems as $lexemIds) {
-        if (!empty($lexemIds)) {
-          $p[] = FullTextIndex::loadPositionsByLexemIdsDefinitionId($lexemIds, $defId);
+      foreach ($lmMap as $lmIds) {
+        if (!empty($lmIds)) {
+          $positions = FullTextIndex::loadPositionsByLexemIdsDefinitionId($lmIds, $defId);
+          if (!empty($positions)) {
+            $p[] = $positions;
+          }
         }
       }
       $shortestIntervals[] = util_findSnippet($p);

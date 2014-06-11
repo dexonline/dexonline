@@ -20,20 +20,18 @@ vreunul din cuvintele din LOC generează acea formă.<br/><br/>
   <input type="submit" name="submitButton" value="Verifică"/>
 </form>
 
-{if isset($lexems)}
+{if isset($data)}
   <ul>
-    {if count($lexems) == 0}
+    {if !count($data)}
       <li>Niciun cuvânt din LOC {$selectedLocVersion|escape} nu generează forma
         <b>{$form|escape}.</b></li>
     {else}
-      {foreach from=$ifs item=if key=i}
-        {assign var=l value="`$lexems[$i]`"}
-        {assign var=infl value="`$inflections[$i]`"}
+      {foreach from=$data item=r}
         <li>
-          <b>{$if->form|escape}</b> provine din
-          <a href="{$wwwRoot}lexem/{$l->formNoAccent|escape}/{$l->id}">{$l->form|escape}</a>
-          {$l->modelType}{$l->modelNumber}{$l->restriction}
-          ({$infl->description|escape})
+          <b>{$r.inflectedForm|escape}</b> provine din
+          <a href="{$wwwRoot}lexem/{$r.lexemFormNoAccent|escape}/{$r.lexemId}">{$r.lexemForm|escape}</a>
+          {$r.modelType}{$r.modelNumber}{$r.restriction}
+          ({$r.inflection|escape})
         </li>
       {/foreach}
     {/if}

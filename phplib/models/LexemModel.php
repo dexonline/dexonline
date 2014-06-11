@@ -127,8 +127,8 @@ class LexemModel extends BaseObject implements DatedObject {
       $ifs = $this->getInflectedForms($method);
       if (is_array($ifs)) {
         switch ($map) {
-          case self::MAP_INFLECTION_ID: $this->inflectedFormMap = InflectedForm::mapByInflectionId($ifs);
-          case self::MAP_INFLECTION_RANK: $this->inflectedFormMap = InflectedForm::mapByInflectionRank($ifs);
+          case self::MAP_INFLECTION_ID: $this->inflectedFormMap = InflectedForm::mapByInflectionId($ifs); break;
+          case self::MAP_INFLECTION_RANK: $this->inflectedFormMap = InflectedForm::mapByInflectionRank($ifs); break;
         }
       }
     }
@@ -145,6 +145,10 @@ class LexemModel extends BaseObject implements DatedObject {
 
   function generateInflectedFormsMappedByRank() {
     return $this->getInflectedFormMap(self::METHOD_GENERATE, self::MAP_INFLECTION_RANK);
+  }
+
+  function generateInflectedFormsMappedByInflectionId() {
+    return $this->getInflectedFormMap(self::METHOD_GENERATE, self::MAP_INFLECTION_ID);
   }
 
   // Throws an exception if the given inflection cannot be generated

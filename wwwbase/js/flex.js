@@ -14,56 +14,6 @@ $(function() {
   }
 });
 
-function updateModelTypeList() {
-  var locVersion = $('#locVersionListId').val();
-  var url = wwwRoot + 'ajax/getModelTypesForLocVersion.php?locVersion=' + locVersion;
-  $.get(url, null, null, 'json')
-    .done(populateModelTypeList)
-    .fail('Nu pot descărca lista de tipuri de modele.');
-  return false;
-}
-
-/**
- * dropdown -- (jQuery) element to fill
- * modelType -- model type for which models are to be loaded
- * modelNumber -- value to select once loading is complete (optional)
- * listAllOption -- whether to prepend an option for "list all"
- * locVersion -- LOC version to use, or null to use the current one
-**/
-function updateModelList(dropdown, modelType, modelNumber, listAllOption, locVersion) {
-  $.get(wwwRoot + 'ajax/getModelsForLocVersionModelType.php',
-        { locVersion: locVersion, modelType: modelType },
-        null, 'json')
-    .done(function(data) {
-      dropdown.empty();
-      if (listAllOption) {
-        dropdown.append($('<option></option>').attr('value', -1).text('Toate'));
-      }
-      $.each(data, function(index, dict) {
-        var display = dict.number + ' (' + dict.exponent + ')';
-        dropdown.append($('<option></option>').attr('value', dict.number).text(display));
-      });
-      if (modelNumber) {
-        dropdown.val(modelNumber);
-      }
-    })
-    .fail('Nu pot descărca lista de modele.');
-  return false;
-}
-
-function populateModelTypeList(data) {
-  var select = $('#modelTypeListId');
-  select.empty();
-
-  $.each(data, function(index, dict) {
-    var display = dict.code + ' (' + dict.description + ')';
-    select.append($("<option></option>").attr("value", dict.code).text(display));
-  });
-
-  // Now update the model list since the model type list has changed.
-  updateModelList(true);
-}
-
 function blUpdateParadigmVisibility(radioButton) {
   // Locate the div containing one sub-div for each paradigm
   var components = radioButton.name.split('_', 2);

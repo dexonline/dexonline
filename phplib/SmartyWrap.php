@@ -210,6 +210,7 @@ class SmartyWrap {
           self::$jsFiles[26] = 'dexGallery.js?v=2';
           self::$jsFiles[27] = 'jcanvas.min.js';
           break;
+        case 'modelDropdown':    self::$jsFiles[28] = 'modelDropdown.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

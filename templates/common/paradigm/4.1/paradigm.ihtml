@@ -4,4 +4,14 @@
    $ifMap: HashMap($inflectionId -> Array(InflectedForm))
 *}
 
-{include file="common/paradigm/4.1/paradigm`$modelType->canonical`.ihtml" lexem=$lexem ifMap=$ifMap modelType=$modelType}
+{* The corresponding templates are all synlinked so we need to declare a type-specific constant here. *}
+{assign var="mt" value=$modelType->canonical}
+{if $mt == 'M'}
+  {assign var="baseInflId" value=1}
+{else if $mt == 'F'}
+  {assign var="baseInflId" value=9}
+{else if $mt == 'N'}
+  {assign var="baseInflId" value=17}
+{/if}
+
+{include file="common/paradigm/4.1/paradigm`$mt`.ihtml" lexem=$lexem ifMap=$ifMap modelType=$modelType}

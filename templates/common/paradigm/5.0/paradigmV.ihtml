@@ -5,8 +5,7 @@
         >{include file="common/bits/lexemName.ihtml" lexem=$lexem
       }</span>
       &nbsp; {$modelType->description|escape}
-      {include file="common/bits/locInfo.ihtml" lexem=$lexem}
-      {include file="common/bits/lexemTags.ihtml" lexem=$lexem}
+      {include file="common/paradigm/5.0/lexemInfo.ihtml" lexem=$lexem}
     </td>
     <td class="inflection">infinitiv</td>
     <td class="inflection">infinitiv lung</td>

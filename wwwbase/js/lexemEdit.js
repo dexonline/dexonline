@@ -95,7 +95,6 @@ function lexemEditInit() {
     .select2(struct_lexemSourceIds);
 //    .select2('readonly', $('.lexemSourceIds').is('[readonly]'));
 
-  $('select[name="modelType[]"]').change(modelTypeChange);
   struct_similarLexem = {
     ajax: struct_lexemAjax,
     minimumInputLength: 1,
@@ -429,21 +428,18 @@ function mergeLexemButtonClick() {
   $('input[name=mergeLexemId]').val(id);
 }
 
-function modelTypeChange(e) {
-  var select = $(this).nextAll('select[name="modelNumber[]"]');
-  updateModelList(select, $(this).val());
-}
-
 function similarLexemChange(e) {
   var mtSelect = $(this).siblings('select[name="modelType[]"]');
   var mnSelect = $(this).prevAll('select[name="modelNumber[]"]');
   var restriction = $(this).siblings('input[name="restriction[]"]');
+  var span = $(this).closest('*[data-model-dropdown]');
+
   var url = wwwRoot + 'ajax/getModelByLexemId.php?id=' + e.val;
   $.get(url, null, null, 'json')
     .done(function(data) {
-      mtSelect.val(data.modelType); // Does not trigger the change event
-      updateModelList(mnSelect, data.modelType, data.modelNumber);
-      mnSelect.val(data.modelNumber);
+      mtSelect.data('selected', data.modelType);
+      mnSelect.data('selected', data.modelNumber);
+      updateModelTypeList(span);
       restriction.val(data.restriction);
     });
 }

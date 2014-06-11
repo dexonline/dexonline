@@ -3,29 +3,21 @@
     <tr>
       <td>model:</td>
       <td>
-        <select name="modelType[]" {if $readonly}disabled{/if}>
-          {foreach from=$modelTypes item=mt}
-            <option value="{$mt->code|escape}" {if $mt->code == $lm->modelType}selected{/if}>
-              {$mt->code|escape}
-            </option>
-          {/foreach}
-        </select>
-
-        <select name="modelNumber[]" {if $readonly}disabled{/if}>
-          {foreach from=$models item=m}
-            <option value="{$m->number}" {if $m->number == $lm->modelNumber}selected{/if}>
-              {$m->number}{if !$m->id}*{/if} ({$m->exponent})
-            </option>
-          {/foreach}
-        </select>
+        <span data-model-dropdown>
+          <input type="hidden" name="locVersion" value="6.0" data-loc-version>
+          <select name="modelType[]" {if $readonly}disabled{/if} data-model-type data-selected="{$lm->modelType}">
+          </select>
+          <select name="modelNumber[]" {if $readonly}disabled{/if} data-model-number data-selected="{$lm->modelNumber}">
+          </select>
       
-        {if $readonly}
-          {* select elements cannot be readonly, only disabled, so they won't be submitted *}
-          <input type="hidden" name="modelType[]" value="{$lm->modelType}">
-          <input type="hidden" name="modelNumber[]" value="{$lm->modelNumber}">
-        {else}
-          <input class="similarLexem" type="text">
-        {/if}
+          {if $readonly}
+            {* select elements cannot be readonly, only disabled, so they won't be submitted *}
+            <input type="hidden" name="modelType[]" value="{$lm->modelType}">
+            <input type="hidden" name="modelNumber[]" value="{$lm->modelNumber}">
+          {else}
+            <input class="similarLexem" type="text">
+          {/if}
+        </span>
       </td>
     </tr>
 

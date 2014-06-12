@@ -118,13 +118,6 @@ img {
   width: 860px;
 }
 
-#menuShadow{
-  background: url("../img/zepu/shadows/shadow875.png") no-repeat;
-  height:22px;
-  margin-top: 40px;
-  width: 875px; /* do not omit png's width */
-}
-
 #homeLink {
   background: url("../img/zepu/dexonline_logo_mic.png") no-repeat;
   float: left;
@@ -323,15 +316,6 @@ img {
   outline-style: none; /* Chrome */  
 }
 
-#searchShadow {
-  background: url("../img/zepu/shadows/shadow350.png") no-repeat;
-  display: inline-block; 
-  height: 16px; /* png's height is 16px */
-  margin-top: 0px;
-  padding-left: 2px;
-  width: 347px;
-}
-
 #sourceDropDown {
   width: 175px;
 }
@@ -408,13 +392,6 @@ img {
   padding: 5px;
   width: 528px;
   text-align: center;
-}
-
-#statusReportShadow {
-  background: url("../img/zepu/shadows/shadow538.png") no-repeat;
-  height: 21px;
-  margin-left: 168px;
-  width: 538px;
 }
 
 
@@ -1135,12 +1112,6 @@ div.sourceComplete5 {
 .widgetList label {
   color: #64778A;
   font-weight: bold;
-}
-
-.widgetBox .widgetShadow {
-  margin-top: -11px;
-  background-position: 19px 0px;
-  width: 200px;
 }
 
 /*  override from zepu.css line 420 */

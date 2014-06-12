@@ -1189,6 +1189,18 @@ li.widgetsPreferences {
   }
 }
 
+@media screen and (max-width: 1024px) {
+  #searchHomePage,
+  #missionStatement,
+  .statusReport {
+    width: 570px;
+  }
+
+  #banner_mainPage {
+    margin-left: 40px;
+  }
+}
+
 /* hide widget box for very small resolutions */
 @media screen and (max-width: 983px) {
   .widgetBox {

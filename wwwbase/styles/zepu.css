@@ -113,7 +113,7 @@ img {
   border-radius: 4px;
   -moz-border-radius: 4px;
   height: 35px;
-  margin: -59px auto 10px;
+  margin: -2px auto 10px;
   padding-left: 15px;
   width: 860px;
 }
@@ -292,7 +292,7 @@ img {
 #advSearch { /* not Sonia's! */
   color: #761818;
   float: left;
-  margin: 0px;
+  margin: 10px 0px 0px;
 }
 
 #inlineBlock1{
@@ -1107,8 +1107,8 @@ div.sourceComplete5 {
   background-image: -o-linear-gradient(left, #F2F9FD, #C5D3DD);
   border: 1px solid #CCC;
   padding: 20px 10px 5px 15px;
-  border-bottom-left-radius: 25px;
-  border-top-left-radius: 25px;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
 }
 
 .widgetList li {
@@ -1441,3 +1441,61 @@ span.tooltip2 {
 .wotdReason {
   padding: 10px;
 }
+
+
+/* CSS shadow */
+.bend-shadow {
+  position: relative;
+}
+
+.bend-shadow:before,
+.bend-shadow:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  bottom: 6px;
+  width: 200px;
+  height: 20px;
+
+  -webkit-box-shadow: 0 9px 3px #BBB;
+  -moz-box-shadow: 0 9px 3px #bbb;
+  box-shadow: 0 9px 3px #BBB;
+  -webkit-box-shadow: 0 8px 3px #AAA;
+}
+
+.bend-shadow:before {
+  -webkit-transform: rotate(356deg);
+  -moz-transform: rotate(356deg);
+  -o-transform: rotate(356deg);
+  transform: rotate(356deg);
+  left: 6px;
+}
+
+.bend-shadow:after {
+  -webkit-transform: rotate(4deg);
+  -moz-transform: rotate(4deg);
+  -o-transform: rotate(4deg);
+  transform: rotate(4deg);
+  right: 6px;
+}
+
+.tiny-shadow:before,
+.tiny-shadow:after {
+  width: 100px;
+  bottom: 6px;
+}
+
+.widgetBox.bend-shadow {
+  position: absolute;
+}
+
+.widgetBox.bend-shadow:before {
+  bottom: 20px;
+  width: 170px;
+}
+
+.widgetBox.bend-shadow:after {
+  display: none;
+}
+
+

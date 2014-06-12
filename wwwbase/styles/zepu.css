@@ -204,7 +204,7 @@ img {
   border-top: 1px solid #BFBFBF; 
   margin: 20px auto 10px;/*it was 0 auto 10*/ 
   padding: 5px 0px 5px 3px; 
-  width: 875px; 
+  width: 960px;
 } 
 
 .fb_top, 
@@ -404,7 +404,7 @@ img {
   margin: 0px auto;
   padding-top: 5px;
   text-align: center;
-  width: 875px;
+  width: 960px;
 }
  
 /* traffic and hosting icons */

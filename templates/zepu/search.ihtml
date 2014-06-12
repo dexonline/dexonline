@@ -3,9 +3,8 @@
 {assign var="text" value=$text|default:false}
 <form action="{$wwwRoot}search.php" name="frm" onsubmit="return searchSubmit()" id="searchForm">
   
-  <div id="inlineBlock1">
+  <div id="inlineBlock1" class="bend-shadow tiny-shadow">
     <input type="text" name="cuv" class="search_field" value="{$cuv|escape}"  maxlength="50" title="Caută"/>
-    <div id="searchShadow"></div>
   </div>
 
   <div id="inlineBlock2">

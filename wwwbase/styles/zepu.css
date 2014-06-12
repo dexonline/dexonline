@@ -395,6 +395,11 @@ img {
   text-align: center;
 }
 
+.statusReport a {
+  display: inline-block;
+  padding: 0 2px;
+}
+
 
 /* FOOTER */
 #Footer {

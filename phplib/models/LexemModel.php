@@ -119,7 +119,7 @@ class LexemModel extends BaseObject implements DatedObject {
         $this->inflectedForms = $inflId;
       }
     }        
-    return ($this->inflectedForms);
+    return $this->inflectedForms;
   }
 
   function getInflectedFormMap($method, $map) {
@@ -193,10 +193,24 @@ class LexemModel extends BaseObject implements DatedObject {
     return $ifs;
   }
 
+  // For V1, this loads all lexem models in (V1, VT1)
+  public static function loadByCanonicalModel($modelType, $modelNumber) {
+    return Model::factory('LexemModel')
+      ->table_alias('lm')
+      ->select('lm.*')
+      ->join('Lexem', 'lm.lexemId = l.id', 'l')
+      ->join('ModelType', 'lm.modelType = mt.code', 'mt')
+      ->where('mt.canonical', $modelType)
+      ->where('lm.modelNumber', $modelNumber)
+      ->order_by_asc('l.formNoAccent')
+      ->find_many();
+  }
+
   function delete() {
     InflectedForm::delete_all_by_lexemModelId($this->id);
     LexemSource::delete_all_by_lexemModelId($this->id);
-    FullTextIndex::delete_all_by_lexemModelId($this->id);
+    // delete_all_by_lexemModelId doesn't work for FullTextIndex because it doesn't have an ID column
+    Model::factory('FullTextIndex')->where('lexemModelId', $this->id)->delete_many();
     parent::delete();
   }
 

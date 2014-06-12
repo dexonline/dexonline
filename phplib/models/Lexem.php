@@ -92,8 +92,16 @@ class Lexem extends BaseObject implements DatedObject {
 
   // For V1, this loads all lexems in (V1, VT1)
   public static function loadByCanonicalModel($modelType, $modelNumber) {
-    return Model::factory('Lexem')->select('Lexem.*')->join('ModelType', 'modelType = code', 'mt')->where('mt.canonical', $modelType)->where('modelNumber', $modelNumber)
-      ->order_by_asc('formNoAccent')->find_many();
+    return Model::factory('Lexem')
+      ->table_alias('l')
+      ->select('l.*')
+      ->distinct()
+      ->join('LexemModel', 'l.id = lm.lexemId', 'lm')
+      ->join('ModelType', 'lm.modelType = mt.code', 'mt')
+      ->where('mt.canonical', $modelType)
+      ->where('lm.modelNumber', $modelNumber)
+      ->order_by_asc('formNoAccent')
+      ->find_many();
   }
 
   /**

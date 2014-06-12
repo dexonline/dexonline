@@ -1,3 +1,19 @@
+/**
+ * Arguments for the LOC version select:
+ * data-loc-version: mandatory
+ *
+ * Arguments for the model type select:
+ * data-model-type: mandatory
+ * data-canonical="1": optional; show only canonical model types
+ * data-selected="...": optional; model type to select initially
+ * data-verbose="1": optional; show the full model type name
+ *
+ * Arguments for the model number select:
+ * data-model-number: mandatory
+ * data-all-option="1": optional; show the "All" option
+ * data-selected="...": optional; model number to select initially
+ **/
+
 $(function() {
   $('select[data-model-type]').change(modelTypeChange);
   $('*[data-loc-version]').change(locVersionChange).change();
@@ -24,7 +40,9 @@ function updateModelTypeList(span) {
       select.empty();
 
       $.each(data, function(index, dict) {
-        var display = dict.code + ' (' + dict.description + ')';
+        var display = select.data('verbose')
+          ? dict.code + ' (' + dict.description + ')'
+          : dict.code;
         select.append($("<option></option>").attr("value", dict.code).text(display));
       });
 

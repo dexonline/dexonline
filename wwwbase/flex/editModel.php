@@ -12,14 +12,13 @@ $previewButton = util_getRequestParameter('previewButton');
 $confirmButton = util_getRequestParameter('confirmButton');
 
 $modelType = ModelType::canonicalize($modelType);
-$modelType = ModelType::get_by_code($modelType); // Work with the ModelType object from now on
 
-$inflections = Model::factory('Inflection')->where('modelType', $modelType->code)->order_by_asc('rank')->find_many();
+$inflections = Model::factory('Inflection')->where('modelType', $modelType)->order_by_asc('rank')->find_many();
 // Load the original data
-$model = Model::factory('FlexModel')->where('modelType', $modelType->code)->where('number', $modelNumber)->find_one();
+$model = FlexModel::get_by_modelType_number($modelType, $modelNumber);
 $exponent = $model->exponent;
-$lexem = Lexem::create($exponent, $modelType->code, $modelNumber, '');
-$ifs = $lexem->generateParadigm();
+$lexem = Lexem::deepCreate($exponent, $modelType, $modelNumber);
+$ifs = $lexem->getLexemModels()[0]->generateInflectedForms();
 $mdMap = ModelDescription::getByModelIdMapByInflectionIdVariantApplOrder($model->id);
 $forms = array();
 foreach ($inflections as $infl) {
@@ -31,7 +30,7 @@ foreach ($ifs as $if) {
                                       'recommended' => $mdMap[$if->inflectionId][$if->variant][0]->recommended);
 }
 
-$participleNumber = ($modelType->code == 'V') ? ParticipleModel::loadByVerbModel($modelNumber)->adjectiveModel : '';
+$participleNumber = ($modelType == 'V') ? ParticipleModel::loadByVerbModel($modelNumber)->adjectiveModel : '';
 
 if ($previewButton || $confirmButton) {
   // Load the new forms and exponent;
@@ -59,15 +58,15 @@ $exponentChanged = ($exponent != $newExponent && !$exponentAccentAdded);
 $errorMessage = array();
 if ($newModelNumber != $modelNumber) {
   // Disallow duplicate model numbers
-  $m = FlexModel::loadCanonicalByTypeNumber($modelType->code, $newModelNumber);
+  $m = FlexModel::loadCanonicalByTypeNumber($modelType, $newModelNumber);
   if ($m) {
-    $errorMessage[] = "Modelul {$modelType->code}{$newModelNumber} există deja.";
+    $errorMessage[] = "Modelul {$modelType}{$newModelNumber} există deja.";
   }
 }
 
 if ($previewButton || $confirmButton) {
   // Compare the old and new lists. Extract the transforms where needed.
-  $isPronoun = ($modelType->code == 'P');
+  $isPronoun = ($modelType == 'P');
   $regenTransforms = array();
   // Recalculate transforms when
   // (1) the form list has changed OR
@@ -93,9 +92,10 @@ if ($previewButton || $confirmButton) {
   
   // Now load the affected lexems. For each lexem, inflection and transform
   // list, generate a new form.
-  $lexems = Lexem::loadByCanonicalModel($modelType->code, $modelNumber);
+  $lexemModels = LexemModel::loadByCanonicalModel($modelType, $modelNumber);
   $regenForms = array();
-  foreach ($lexems as $l) {
+  foreach ($lexemModels as $lm) {
+    $l = $lm->getLexem();
     $regenRow = array();
     foreach ($regenTransforms as $inflId => $variants) {
       $regenRow[$inflId] = array();
@@ -119,22 +119,17 @@ if ($previewButton || $confirmButton) {
 
   // Now load the affected adjectives if the participle model changed
   if ($participleNumber != $newParticipleNumber) {
-    $participleParadigms = array();
     $participles = loadParticiplesForVerbModel($modelNumber, $participleNumber);
     foreach ($participles as $p) {
       $p->modelNumber = $newParticipleNumber;
-      $ifs = $p->generateParadigm();
-      if (is_array($ifs)) {
-        $participleParadigms[] = InflectedForm::mapByInflectionRank($ifs);
-      } else {
+      $ifs = $p->generateInflectedFormsMappedByRank();
+      if (!is_array($ifs)) {
         $errorMessage[] = "Nu pot declina participiul \"".htmlentities($p->form)."\" " .
           "conform modelului A$newParticipleNumber.";
-        $participleParadigms[] = null;
       }
     }
 
     SmartyWrap::assign('participles', $participles);
-    SmartyWrap::assign('participleParadigms', $participleParadigms);
   }
 
   if ($confirmButton) {
@@ -187,34 +182,35 @@ if ($previewButton || $confirmButton) {
     foreach ($newForms as $inflId => $tupleArray) {
       foreach ($tupleArray as $variant => $tuple) {
         $recommended = intval($tuple['recommended']);
-        db_execute("update InflectedForm i, Lexem l, Model m, ModelType mt set i.recommended = {$recommended} where i.lexemId = l.id and l.modelType = mt.code " .
-                   "and mt.canonical = m.modelType and l.modelNumber = m.number and m.id = {$model->id} and i.inflectionId = {$inflId} and variant = {$variant}");
+        db_execute("update InflectedForm i, LexemModel lm, Lexem l, Model m, ModelType mt " .
+                   "set i.recommended = {$recommended} where i.lexemModelId = lm.id and lm.lexemId = l.id and lm.modelType = mt.code " .
+                   "and mt.canonical = m.modelType and lm.modelNumber = m.number and m.id = {$model->id} and i.inflectionId = {$inflId} and variant = {$variant}");
       }
     }
 
     // Regenerate the affected inflections for every lexem
     if (count($regenTransforms)) {
-      foreach ($lexems as $l) {
+      foreach ($lexemModels as $lm) {
+        $l = $lm->getLexem();
         $l->modDate = time();
-        $l->save();
-        $l->regenerateParadigm();
+        $l->deepSave();
       }
     }
 
     if ($modelNumber != $newModelNumber) {
-      if ($modelType->code == 'V') {
+      if ($modelType == 'V') {
         $oldPm = ParticipleModel::loadByVerbModel($modelNumber);
         $oldPm->verbModel = $newModelNumber;
         $oldPm->save();
-      } else if ($modelType->code == 'A') {
+      } else if ($modelType == 'A') {
         // Update all participle models that use this adjective model
         db_execute("update ParticipleModel set adjectivModel = '%s' where adjectivModel = '%s'", addslashes($newModelNumber), addslashes($modelNumber));
       }
 
-      foreach ($lexems as $l) {
-        if ($l->modelNumber == $modelNumber) {
-          $l->modelNumber = $newModelNumber;
-          $l->save();
+      foreach ($lexemModels as $lm) {
+        if ($lm->modelNumber == $modelNumber) {
+          $lm->modelNumber = $newModelNumber;
+          $lm->save();
         }
       }
     }
@@ -239,12 +235,12 @@ if ($previewButton || $confirmButton) {
     util_redirect('../admin/index.php');
   }
 
-  SmartyWrap::assign('lexems', $lexems);
+  SmartyWrap::assign('lexemModels', $lexemModels);
   SmartyWrap::assign('regenForms', $regenForms);
   SmartyWrap::assign('regenTransforms', $regenTransforms);
 }
 
-if ($modelType->code == 'V') {
+if ($modelType == 'V') {
   SmartyWrap::assign('adjModels', FlexModel::loadByType('A'));
 }
 
@@ -277,7 +273,7 @@ SmartyWrap::assign('inputValues', $inputValues);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('wasPreviewed', $previewButton);
 SmartyWrap::assign('errorMessage', $errorMessage);
-SmartyWrap::assign('sectionTitle', "Editare model {$modelType->code}{$modelNumber}");
+SmartyWrap::assign('sectionTitle', "Editare model {$modelType}{$modelNumber}");
 SmartyWrap::addCss('paradigm', 'jqueryui');
 SmartyWrap::addJs('jquery', 'jqueryui');
 SmartyWrap::displayAdminPage('flex/editModel.ihtml');
@@ -314,12 +310,23 @@ function anyAccents($v) {
   return false;
 }
 
+// Returns all LexemModels of model A$participleNumber that belong to lexems having the same form
+// as participle InflectedForms of verbs of model VT$modelNumber.
 // Assumes that $participleNumber is the correct participle (adjective) model for $modelNumber.
 function loadParticiplesForVerbModel($modelNumber, $participleNumber) {
   $infl = Inflection::loadParticiple();
-  return Model::factory('Lexem')->table_alias('part')->join('InflectedForm', 'part.formNoAccent = i.formNoAccent', 'i')
-    ->join('Lexem', 'i.lexemId = infin.id', 'infin')->select('part.*')->where('infin.modelType', 'VT')->where('infin.modelNumber', $modelNumber)
-    ->where('i.inflectionId', $infl->id)->where('part.modelType', 'A')->where('part.modelNumber', $participleNumber)->order_by_asc('part.formNoAccent')
+  return Model::factory('LexemModel')
+    ->table_alias('lmpart')
+    ->join('Lexem', 'lmpart.lexemId = part.id', 'part')
+    ->join('InflectedForm', 'part.formNoAccent = i.formNoAccent', 'i')
+    ->join('LexemModel', 'i.lexemModelId = lminfin.id', 'lminfin')
+    ->select('lmpart.*')
+    ->where('lminfin.modelType', 'VT')
+    ->where('lminfin.modelNumber', $modelNumber)
+    ->where('i.inflectionId', $infl->id)
+    ->where('lmpart.modelType', 'A')
+    ->where('lmpart.modelNumber', $participleNumber)
+    ->order_by_asc('part.formNoAccent')
     ->find_many();
 }
 

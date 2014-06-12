@@ -81,17 +81,12 @@ sau
 
 {if $sUser->moderator & $smarty.const.PRIV_LOC}
   <form action="../flex/dispatchModelAction.php" method="get">
-    Modelul:
-    <select name="modelType" id="modelTypeListId" onchange="return updateModelList(false)">
-      {foreach from=$modelTypes item=mt}
-        <option value="{$mt->code|escape}">{$mt->code|escape}</option>
-      {/foreach}
-    </select>
-    <select name="modelNumber" id="modelListId">
-      {foreach from=$models item=m}
-        <option value="{$m->number|escape:url}">{$m->number}{if !$m->id}*{/if} ({$m->exponent})</option>
-      {/foreach}
-    </select>
+    <span data-model-dropdown>
+      Modelul:
+      <input type="hidden" name="locVersion" value="6.0" data-loc-version>
+      <select name="modelType" data-model-type data-canonical="1"></select>
+      <select name="modelNumber" data-model-number></select>
+    </span>
     <input type="submit" name="showLexems" value="Arată toate lexemele"/>
     <input type="submit" name="editModel" value="Editează"/>
     <input type="submit" name="cloneModel" value="Clonează"/>

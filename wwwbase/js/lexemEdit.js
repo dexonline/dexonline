@@ -93,7 +93,6 @@ function lexemEditInit() {
   // Disable the select2 when the HTML select is disabled. This doesn't happen by itself.
   $('#paradigmTabs .lexemSourceIds')
     .select2(struct_lexemSourceIds);
-//    .select2('readonly', $('.lexemSourceIds').is('[readonly]'));
 
   struct_similarLexem = {
     ajax: struct_lexemAjax,
@@ -454,6 +453,7 @@ function addLexemModelTab() {
   $('#paradigmTabs').append(tabContents);
   $('#paradigmTabs').tabs('refresh');
   $('#paradigmTabs').tabs('option', 'active', tabIndex);
+  $('#' + tabId).find('select[data-model-type]').val('T'); // clone() doesn't copy selectedness
   $('#' + tabId).find('.similarLexem').select2(struct_similarLexem).on('change', similarLexemChange);
   $('#' + tabId).find('.lexemSourceIds')
     .select2(struct_lexemSourceIds)

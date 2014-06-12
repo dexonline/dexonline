@@ -4,7 +4,7 @@
 <form action="modele-flexiune" method="get">
   <span data-model-dropdown>
     Versiunea LOC:
-    <select name="locVersion" id="locVersionListId" data-loc-version>
+    <select name="locVersion" data-loc-version>
       {foreach from=$locVersions item=lv}
         <option value="{$lv->name|escape}" {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
           {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
@@ -13,11 +13,9 @@
     </select>
 
     &nbsp;&nbsp; Model:
-    <select name="modelType" id="modelTypeListId" data-model-type data-canonical="1" data-selected="{$selectedModelType}">
+    <select name="modelType" data-model-type data-canonical="1" data-verbose="1" data-selected="{$selectedModelType}">
     </select>
-
-    &nbsp;&nbsp; Număr:
-    <select name="modelNumber" id="modelListId" data-model-number data-all-option="true" data-selected="{$selectedModelNumber}">
+    <select name="modelNumber" data-model-number data-all-option="1" data-selected="{$selectedModelNumber}">
     </select>
   </span>
   <input type="submit" name="submitButton" value="Arată"

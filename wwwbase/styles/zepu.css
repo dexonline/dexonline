@@ -97,12 +97,13 @@ img {
 
 /* BANNER */
 #banner_mainPage {
-  margin-left: 71px;
-  margin-bottom: 20px;
+  margin: 25px auto;
+  width: 730px;
 }
 
 #banner_otherPages {
-  margin-left: 73px; /* 73 is half of the white space left behind */
+  margin: 0px auto;
+  width: 730px;
 }
 
 
@@ -115,7 +116,7 @@ img {
   height: 35px;
   margin: -2px auto 10px;
   padding-left: 15px;
-  width: 860px;
+  width: 944px;
 }
 
 #homeLink {
@@ -234,9 +235,9 @@ img {
 
 /* SEARCH */
 #searchHomePage {
-  margin: 25px 0px 25px 170px;
+  margin: 25px auto;
   padding: 0px;
-  width: 555px;
+  width: 640px;
 }
 
 #searchForm {
@@ -351,7 +352,7 @@ img {
 
 /* CONTAINER */
 #Container {
-  width: 875px;
+  width: 960px;
   height: 100%;
   margin: 8px auto;
 }
@@ -375,7 +376,7 @@ img {
   font-size: 13px;
   margin: 25px auto 20px;
   text-align: center;
-  width: 560px;
+  width: 640px;
 }
 
 
@@ -388,9 +389,9 @@ img {
   color: #424242;
   font-size: 13px;
   line-height: 150%;
-  margin: 5px 0px 0px 167px;
+  margin: 5px auto;
   padding: 5px;
-  width: 528px;
+  width: 628px;
   text-align: center;
 }
 
@@ -1112,11 +1113,6 @@ div.sourceComplete5 {
 .widgetList label {
   color: #64778A;
   font-weight: bold;
-}
-
-/*  override from zepu.css line 420 */
-#missionStatement {
-  width: 540px;
 }
 
 .socialNetworks {

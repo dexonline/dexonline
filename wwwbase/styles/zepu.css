@@ -112,7 +112,6 @@ img {
   background: #eee;
   border: 1px solid #BFBFBF;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   height: 35px;
   margin: -2px auto 10px;
   padding-left: 15px;
@@ -168,11 +167,10 @@ img {
   background: #eee;
   border: 1px solid #BFBFBF;
   border-radius: 4px;
-  -moz-border-radius: 4px;
 
   -webkit-box-shadow: 2px 2px 5px #424242; /* Safari and Chrome */
-  box-shadow: 2px 2px 5px #424242; /* FF 4 ; CSS3 */
   -moz-box-shadow: 2px 2px 5px #424242; /* FF 3.5-3.6 */
+  box-shadow: 2px 2px 5px #424242; /* FF 4 ; CSS3 */
 
   display: none;
   margin: 0;
@@ -255,11 +253,10 @@ img {
   background: #761818;
   border: 0px; /* border: 0px, otherwise it draws a gray border around button */
   border-radius: 4px;
-  -moz-border-radius: 4px;
   
   -webkit-box-shadow: 2px 2px 2px #424242; /* Safari and Chrome */
-  box-shadow: 2px 2px 2px #424242; /* FF 4 ; CSS3 */
   -moz-box-shadow: 2px 2px 2px #424242; /* FF 3.5-3.6 */
+  box-shadow: 2px 2px 2px #424242; /* FF 4 ; CSS3 */
   
   color: #fff;
   cursor: pointer;
@@ -272,8 +269,8 @@ img {
 
 #search_button:hover {
   -webkit-box-shadow: 2px 2px 2px #888; /* Safari and Chrome */
-  box-shadow: 2px 2px 2px #888; /* FF 4 ; CSS3 */
   -moz-box-shadow: 2px 2px 2px #888; /* FF 3.5-3.6 */
+  box-shadow: 2px 2px 2px #888; /* FF 4 ; CSS3 */
 }
 
 #advancedAnchor { /* the link for "căutare avansată" */
@@ -306,7 +303,6 @@ img {
 .search_field {
   border: 1px solid #761818;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   font: 18px Arial;
   margin: 0px 5px 0px 0px;
   padding: 0px 0px 0px 2px;
@@ -335,7 +331,6 @@ img {
 .search_field_cuv {
   border: 1px solid #761818;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   font: 18px Arial;
   margin: 0px 5px 0px 0px;
   padding: 0px 0px 0px 2px;
@@ -385,7 +380,6 @@ img {
   background: #eee;
   border: 1px solid #BFBFBF;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   color: #424242;
   font-size: 13px;
   line-height: 150%;
@@ -443,7 +437,6 @@ img {
   margin: 10px 0px;
   border: 1px solid #BFBFBF;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   padding: 5px 25px;
   text-align: justify;
 }
@@ -482,7 +475,6 @@ img {
   margin-left:15px;
   margin-top: 5px;
   padding: 5px;
-  -moz-border-radius: 5px;
   border-radius: 5px;
 }
 
@@ -492,7 +484,6 @@ div.resultBar {
   font-size: 13px;
   margin: 20px 15px 0px 15px;
   padding: 5px 5px 5px 10px;
-  -moz-border-radius: 7px;
   border-radius: 7px;
 }
 
@@ -502,7 +493,6 @@ div.resultBar {
   font-size: 11px;
   margin: 0px 0px 10px 5px;
   padding: 5px;
-  -moz-border-radius: 7px;
   border-radius: 7px;
 }
 
@@ -519,7 +509,6 @@ div.resultBar {
   background: #eee url("../img/icons/information.png") 5px center no-repeat; 
   border: 1px solid #BFBFBF;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   /*font-size: 120%;
   font-weight: bold;*/
   padding: 5px 5px 5px 25px;
@@ -590,7 +579,6 @@ div.flashMessage {
   margin: 10px auto;
   padding: 10px;
   width: 480px;
-  -moz-border-radius: 7px;
   border-radius: 7px;
 }
 
@@ -662,7 +650,6 @@ span.spaced {
   background: #eee url("../img/icons/exclamation.png") no-repeat 2px center;
   border: 1px solid #BFBFBF;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   padding: 5px 0px 5px 20px;
 }
 
@@ -812,13 +799,11 @@ input.pagedisplay {
 .wotdArchive {
   margin-left: 3px;
   padding: 5px;
-  -moz-border-radius: 7px;
   border-radius: 7px;
 }
 
 #wotdArchiveHeader {
   border-radius: 4px;
-  -moz-border-radius: 4px;
   background: #6B6B6B;
   height: 30px;
   width: 775px;
@@ -931,11 +916,10 @@ input.pagedisplay {
 #toggleContents {
   border: 1px solid #BFBFBF;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   display: none;
   -webkit-box-shadow: 2px 2px 5px #424242; /* Safari and Chrome */
-  box-shadow: 2px 2px 5px #424242; /* FF 4 ; CSS3 */
   -moz-box-shadow: 2px 2px 5px #424242; /* FF 3.5-3.6 */
+  box-shadow: 2px 2px 5px #424242; /* FF 4 ; CSS3 */
   margin: 5px 10px 0;
   padding: 5px;
 }
@@ -996,9 +980,9 @@ span.sourceName span {
 span.sourceName:hover span {
   background: white;
   border: 1px solid black;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3); 
-  -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.3); 
+  -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
   margin-left: 0;
   padding: 10px;
   position: absolute;
@@ -1110,9 +1094,9 @@ div.sourceComplete5 {
   margin-right: 7px;
   border: 1px solid #777;
   border-radius: 4px;
-  -webkit-border-radius: 4px;
-  box-shadow: 1px 1px 2px #979899;
   -webkit-box-shadow: 1px 1px 2px #979899;
+  -moz-box-shadow: 1px 1px 2px #979899;
+  box-shadow: 1px 1px 2px #979899;
 }
 
 .widgetList label {
@@ -1132,15 +1116,16 @@ body .socialNetworks label {
 }
 
 .socialNetworks img {
-  box-shadow: 2px 2px 2px #999;
   -webkit-box-shadow: 2px 2px 2px #999;
+  -moz-box-shadow: 2px 2px 2px #999;
+  box-shadow: 2px 2px 2px #999;
   border-radius: 6px;
-  -webkit-border-radius: 6px;
 }
 
 .socialNetworks img:hover {
-  box-shadow: 2px 2px 2px #777;
   -webkit-box-shadow: 2px 2px 2px #777;
+  -moz-box-shadow: 2px 2px 2px #777;
+  box-shadow: 2px 2px 2px #777;
 }
 
 .socialNetworks a {
@@ -1249,7 +1234,6 @@ li.widgetsPreferences {
 
 .avatar {
   border-radius: 4px;
-  -webkit-border-radius: 4px;
   float: left;
   height: 48px;
   margin-right: 10px;
@@ -1302,7 +1286,6 @@ li.widgetsPreferences {
 
 #avatarPreviewContainer {
   border-radius: 4px;
-  -webkit-border-radius: 4px;
   height: 48px;
   margin: 10px 0px;
   overflow: hidden;
@@ -1326,14 +1309,15 @@ span.tooltip2 {
 .paymentSection {
   display: inline-block;
   background: #D4EFFA;
-  width: 290px;
+  width: 300px;
   height: 175px;
   margin: 15px 7px 0px 0px;
   vertical-align: top;
   padding-bottom: 15px;
   border: 1px solid #BDE5F5;
-  box-shadow: 1px 1px 7px #B6B5B5;
   -webkit-box-shadow: 1px 1px 7px #B6B5B5;
+  -moz-box-shadow: 1px 1px 7px #B6B5B5;
+  box-shadow: 1px 1px 7px #B6B5B5;
 }
 		
 .paymentSection h3 {
@@ -1349,9 +1333,10 @@ span.tooltip2 {
 		
 .paymentSection label {
   display: inline-block;
-  width: 50px;
+  width: 60px;
   padding-left: 15px;
   margin-top: 10px;
+  text-align: right;
 }
 		
 #donateOnlineEmail {
@@ -1366,7 +1351,7 @@ span.tooltip2 {
   color: #757E75;
   font-size: 12px;
   margin-top: 10px;
-  padding-left: 35px;
+  padding-left: 5px;
 }
 		
 .onlineDonationButton {
@@ -1376,6 +1361,8 @@ span.tooltip2 {
   background: #D4EFFA url("../img/donate.png") 0px 0px no-repeat;
   border: 0px;
   border-radius: 12px;
+  -webkit-box-shadow: 1px 1px 2px #777;
+  -moz-box-shadow: 1px 1px 2px #777;
   box-shadow: 1px 1px 2px #777;
   cursor: pointer;
   width: 252px;
@@ -1383,6 +1370,8 @@ span.tooltip2 {
 }
 		
 .onlineDonationButton:hover {
+  -webkit-box-shadow: 2px 2px 2px #999;
+  -moz-box-shadow: 2px 2px 2px #999;
   box-shadow: 2px 2px 2px #999;
 }
 		
@@ -1419,11 +1408,15 @@ span.tooltip2 {
   background: #f7f7f7;
   border: 1px solid #ccc;
   border-radius: 4px;
-  -moz-border-radius: 4px;
 }
 
 .wotdReason {
   padding: 10px;
+}
+
+.donateContent h2 {
+  color: #24A7DA;
+  font-weight: bold;
 }
 
 
@@ -1441,10 +1434,9 @@ span.tooltip2 {
   width: 200px;
   height: 20px;
 
-  -webkit-box-shadow: 0 9px 3px #BBB;
-  -moz-box-shadow: 0 9px 3px #bbb;
-  box-shadow: 0 9px 3px #BBB;
   -webkit-box-shadow: 0 8px 3px #AAA;
+  -moz-box-shadow: 0 8px 3px #AAA;
+  box-shadow: 0 8px 3px #AAA;
 }
 
 .bend-shadow:before {

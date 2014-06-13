@@ -112,7 +112,6 @@ img {
   background: #eee;
   border: 1px solid #BFBFBF;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   height: 35px;
   margin: -2px auto 10px;
   padding-left: 15px;
@@ -168,7 +167,6 @@ img {
   background: #eee;
   border: 1px solid #BFBFBF;
   border-radius: 4px;
-  -moz-border-radius: 4px;
 
   -webkit-box-shadow: 2px 2px 5px #424242; /* Safari and Chrome */
   box-shadow: 2px 2px 5px #424242; /* FF 4 ; CSS3 */
@@ -255,7 +253,6 @@ img {
   background: #761818;
   border: 0px; /* border: 0px, otherwise it draws a gray border around button */
   border-radius: 4px;
-  -moz-border-radius: 4px;
   
   -webkit-box-shadow: 2px 2px 2px #424242; /* Safari and Chrome */
   box-shadow: 2px 2px 2px #424242; /* FF 4 ; CSS3 */
@@ -306,7 +303,6 @@ img {
 .search_field {
   border: 1px solid #761818;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   font: 18px Arial;
   margin: 0px 5px 0px 0px;
   padding: 0px 0px 0px 2px;
@@ -335,7 +331,6 @@ img {
 .search_field_cuv {
   border: 1px solid #761818;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   font: 18px Arial;
   margin: 0px 5px 0px 0px;
   padding: 0px 0px 0px 2px;
@@ -385,7 +380,6 @@ img {
   background: #eee;
   border: 1px solid #BFBFBF;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   color: #424242;
   font-size: 13px;
   line-height: 150%;
@@ -443,7 +437,6 @@ img {
   margin: 10px 0px;
   border: 1px solid #BFBFBF;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   padding: 5px 25px;
   text-align: justify;
 }
@@ -482,7 +475,6 @@ img {
   margin-left:15px;
   margin-top: 5px;
   padding: 5px;
-  -moz-border-radius: 5px;
   border-radius: 5px;
 }
 
@@ -492,7 +484,6 @@ div.resultBar {
   font-size: 13px;
   margin: 20px 15px 0px 15px;
   padding: 5px 5px 5px 10px;
-  -moz-border-radius: 7px;
   border-radius: 7px;
 }
 
@@ -502,7 +493,6 @@ div.resultBar {
   font-size: 11px;
   margin: 0px 0px 10px 5px;
   padding: 5px;
-  -moz-border-radius: 7px;
   border-radius: 7px;
 }
 
@@ -519,7 +509,6 @@ div.resultBar {
   background: #eee url("../img/icons/information.png") 5px center no-repeat; 
   border: 1px solid #BFBFBF;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   /*font-size: 120%;
   font-weight: bold;*/
   padding: 5px 5px 5px 25px;
@@ -590,7 +579,6 @@ div.flashMessage {
   margin: 10px auto;
   padding: 10px;
   width: 480px;
-  -moz-border-radius: 7px;
   border-radius: 7px;
 }
 
@@ -662,7 +650,6 @@ span.spaced {
   background: #eee url("../img/icons/exclamation.png") no-repeat 2px center;
   border: 1px solid #BFBFBF;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   padding: 5px 0px 5px 20px;
 }
 
@@ -812,13 +799,11 @@ input.pagedisplay {
 .wotdArchive {
   margin-left: 3px;
   padding: 5px;
-  -moz-border-radius: 7px;
   border-radius: 7px;
 }
 
 #wotdArchiveHeader {
   border-radius: 4px;
-  -moz-border-radius: 4px;
   background: #6B6B6B;
   height: 30px;
   width: 775px;
@@ -931,7 +916,6 @@ input.pagedisplay {
 #toggleContents {
   border: 1px solid #BFBFBF;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   display: none;
   -webkit-box-shadow: 2px 2px 5px #424242; /* Safari and Chrome */
   box-shadow: 2px 2px 5px #424242; /* FF 4 ; CSS3 */
@@ -1420,7 +1404,6 @@ span.tooltip2 {
   background: #f7f7f7;
   border: 1px solid #ccc;
   border-radius: 4px;
-  -moz-border-radius: 4px;
 }
 
 .wotdReason {

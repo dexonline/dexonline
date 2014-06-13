@@ -63,7 +63,7 @@ table.sources {
 }
 
 table.sources th, table.sources td {
-  -moz-border-radius: 6px;
+  border-radius: 6px;
   border-style: solid;
   border-width: 1px;
   text-align: center;
@@ -79,7 +79,6 @@ table.sources td {
   background: #f8f8f8;
   border: 1px solid #777;
   border-radius: 4px;
-  -moz-border-radius: 4px;
   -webkit-box-shadow: 10px 10px 10px #424242; /* Safari and Chrome */
   box-shadow: 10px 10px 10px #424242; /* FF 4 ; CSS3 */
   -moz-box-shadow: 10px 10px 10px #424242; /* FF 3.5-3.6 */

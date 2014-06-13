@@ -169,8 +169,8 @@ img {
   border-radius: 4px;
 
   -webkit-box-shadow: 2px 2px 5px #424242; /* Safari and Chrome */
-  box-shadow: 2px 2px 5px #424242; /* FF 4 ; CSS3 */
   -moz-box-shadow: 2px 2px 5px #424242; /* FF 3.5-3.6 */
+  box-shadow: 2px 2px 5px #424242; /* FF 4 ; CSS3 */
 
   display: none;
   margin: 0;
@@ -255,8 +255,8 @@ img {
   border-radius: 4px;
   
   -webkit-box-shadow: 2px 2px 2px #424242; /* Safari and Chrome */
-  box-shadow: 2px 2px 2px #424242; /* FF 4 ; CSS3 */
   -moz-box-shadow: 2px 2px 2px #424242; /* FF 3.5-3.6 */
+  box-shadow: 2px 2px 2px #424242; /* FF 4 ; CSS3 */
   
   color: #fff;
   cursor: pointer;
@@ -269,8 +269,8 @@ img {
 
 #search_button:hover {
   -webkit-box-shadow: 2px 2px 2px #888; /* Safari and Chrome */
-  box-shadow: 2px 2px 2px #888; /* FF 4 ; CSS3 */
   -moz-box-shadow: 2px 2px 2px #888; /* FF 3.5-3.6 */
+  box-shadow: 2px 2px 2px #888; /* FF 4 ; CSS3 */
 }
 
 #advancedAnchor { /* the link for "căutare avansată" */
@@ -918,8 +918,8 @@ input.pagedisplay {
   border-radius: 4px;
   display: none;
   -webkit-box-shadow: 2px 2px 5px #424242; /* Safari and Chrome */
-  box-shadow: 2px 2px 5px #424242; /* FF 4 ; CSS3 */
   -moz-box-shadow: 2px 2px 5px #424242; /* FF 3.5-3.6 */
+  box-shadow: 2px 2px 5px #424242; /* FF 4 ; CSS3 */
   margin: 5px 10px 0;
   padding: 5px;
 }
@@ -980,9 +980,9 @@ span.sourceName span {
 span.sourceName:hover span {
   background: white;
   border: 1px solid black;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3); 
-  -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.3); 
+  -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
   margin-left: 0;
   padding: 10px;
   position: absolute;
@@ -1094,8 +1094,9 @@ div.sourceComplete5 {
   margin-right: 7px;
   border: 1px solid #777;
   border-radius: 4px;
-  box-shadow: 1px 1px 2px #979899;
   -webkit-box-shadow: 1px 1px 2px #979899;
+  -moz-box-shadow: 1px 1px 2px #979899;
+  box-shadow: 1px 1px 2px #979899;
 }
 
 .widgetList label {
@@ -1115,14 +1116,16 @@ body .socialNetworks label {
 }
 
 .socialNetworks img {
-  box-shadow: 2px 2px 2px #999;
   -webkit-box-shadow: 2px 2px 2px #999;
+  -moz-box-shadow: 2px 2px 2px #999;
+  box-shadow: 2px 2px 2px #999;
   border-radius: 6px;
 }
 
 .socialNetworks img:hover {
-  box-shadow: 2px 2px 2px #777;
   -webkit-box-shadow: 2px 2px 2px #777;
+  -moz-box-shadow: 2px 2px 2px #777;
+  box-shadow: 2px 2px 2px #777;
 }
 
 .socialNetworks a {
@@ -1312,8 +1315,9 @@ span.tooltip2 {
   vertical-align: top;
   padding-bottom: 15px;
   border: 1px solid #BDE5F5;
-  box-shadow: 1px 1px 7px #B6B5B5;
   -webkit-box-shadow: 1px 1px 7px #B6B5B5;
+  -moz-box-shadow: 1px 1px 7px #B6B5B5;
+  box-shadow: 1px 1px 7px #B6B5B5;
 }
 		
 .paymentSection h3 {
@@ -1357,6 +1361,8 @@ span.tooltip2 {
   background: #D4EFFA url("../img/donate.png") 0px 0px no-repeat;
   border: 0px;
   border-radius: 12px;
+  -webkit-box-shadow: 1px 1px 2px #777;
+  -moz-box-shadow: 1px 1px 2px #777;
   box-shadow: 1px 1px 2px #777;
   cursor: pointer;
   width: 252px;
@@ -1364,6 +1370,8 @@ span.tooltip2 {
 }
 		
 .onlineDonationButton:hover {
+  -webkit-box-shadow: 2px 2px 2px #999;
+  -moz-box-shadow: 2px 2px 2px #999;
   box-shadow: 2px 2px 2px #999;
 }
 		

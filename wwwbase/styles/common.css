@@ -80,8 +80,8 @@ table.sources td {
   border: 1px solid #777;
   border-radius: 4px;
   -webkit-box-shadow: 10px 10px 10px #424242; /* Safari and Chrome */
-  box-shadow: 10px 10px 10px #424242; /* FF 4 ; CSS3 */
   -moz-box-shadow: 10px 10px 10px #424242; /* FF 3.5-3.6 */
+  box-shadow: 10px 10px 10px #424242; /* FF 4 ; CSS3 */
   display: none;
   margin-top: 10px;
   padding: 8px;

@@ -18,7 +18,7 @@ class FlexModel extends BaseObject {
     $type = ModelType::canonicalize($type);
     // Need a raw query here because order_by_asc() expects a field, nothing more
     return Model::factory('FlexModel')
-      ->raw_query("select * from Model where modelType = '{$type}' order by cast(number as unsigned)", null)->find_many();
+      ->raw_query("select * from Model where modelType = '{$type}' order by cast(number as unsigned), number", null)->find_many();
   }
 
   public static function loadCanonicalByTypeNumber($type, $number) {

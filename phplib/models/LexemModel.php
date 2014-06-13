@@ -206,6 +206,19 @@ class LexemModel extends BaseObject implements DatedObject {
       ->find_many();
   }
 
+  /**
+   * Deletes the lexemModel's old inflected forms, if they exist, then saves the new ones.
+   **/
+  function regenerateParadigm() {
+    if ($this->id) {
+      InflectedForm::delete_all_by_lexemModelId($this->id);
+    }
+    foreach ($this->generateInflectedForms() as $if) {
+      $if->lexemModelId = $this->id;
+      $if->save();
+    }
+  }
+
   function delete() {
     InflectedForm::delete_all_by_lexemModelId($this->id);
     LexemSource::delete_all_by_lexemModelId($this->id);

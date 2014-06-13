@@ -16,14 +16,13 @@
     Bifați lexemele pe care doriți să le migrați la noul model:
     <br/>
 
-    {foreach from=$lexems item=l}
-      <input type="checkbox" id="lexem_{$l->id}" name="lexemId[]"
-             value="{$l->id}"/>
-      <label for="lexem_{$l->id}">
-        {include file="common/bits/lexemName.ihtml" lexem=$l}
-        <span class="deemph">({$l->modelType}{$l->modelNumber})</span>
+    {foreach from=$lexemModels item=lm}
+      <input type="checkbox" id="lm_{$lm->id}" name="lexemModelId[]" value="{$lm->id}">
+      <label for="lm_{$l->id}">
+        {include file="common/bits/lexemName.ihtml" lexem=$lm->getLexem()}
+        <span class="deemph">({$lm->modelType}{$lm->modelNumber})</span>
       </label>
-      <br/>
+      <br>
     {/foreach}
   </div>
 

@@ -10,15 +10,15 @@ $modelNumber = util_getRequestParameter('modelNumber');
 $deleteButton = util_getRequestParameter('deleteButton');
 
 $model = Model::factory('FlexModel')->where('modelType', $modelType)->where('number', $modelNumber)->find_one();
-$lexems = Lexem::loadByCanonicalModel($modelType, $modelNumber);
+$lexemModels = LexemModel::loadByCanonicalModel($modelType, $modelNumber);
 
 if ($deleteButton) {
-  foreach ($lexems as $lexem) {
-    $lexem->modelType = 'T';
-    $lexem->modelNumber = '1';
-    $lexem->restriction = '';
-    $lexem->save();
-    $lexem->regenerateParadigm();
+  foreach ($lexemModels as $lm) {
+    $lm->modelType = 'T';
+    $lm->modelNumber = '1';
+    $lm->restriction = '';
+    $lm->save();
+    $lm->regenerateParadigm();
   }
   $model->delete();
   util_redirect('../admin/index.php');
@@ -27,7 +27,7 @@ if ($deleteButton) {
 RecentLink::createOrUpdate("Ștergere model: {$model}");
 SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::assign('modelNumber', $modelNumber);
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemModels', $lexemModels);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('sectionTitle', "Ștergere model {$modelType}{$modelNumber}");
 SmartyWrap::displayAdminPage('flex/deleteModel.ihtml');

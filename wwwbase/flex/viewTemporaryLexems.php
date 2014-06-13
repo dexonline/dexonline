@@ -12,13 +12,29 @@ if ($sourceId) {
   RecentLink::createOrUpdate("Lexeme neetichetate {$source->shortName}");
   SmartyWrap::assign('sectionTitle', "Lexeme neetichetate {$source->shortName}");
   $lexems = Model::factory('Lexem')
-    ->raw_query("select distinct L.* from Lexem L, LexemDefinitionMap, Definition D where L.id = lexemId and definitionId = D.id " .
-                "and status = 0 and sourceId = {$sourceId} and modelType = 'T' order by formNoAccent", null)
+    ->table_alias('l')
+    ->select('l.*')
+    ->distinct()
+    ->join('LexemModel', 'lm.lexemId = l.id', 'lm')
+    ->join('LexemDefinitionMap', 'ldm.lexemId = l.id', 'ldm')
+    ->join('Definition', 'd.id = ldm.definitionId', 'd')
+    ->where('d.status', ST_ACTIVE)
+    ->where('d.sourceId', $sourceId)
+    ->where('lm.modelType', 'T')
+    ->order_by_asc('formNoAccent')
+    ->limit(1000)
     ->find_many();
 } else {
   RecentLink::createOrUpdate('Lexeme neetichetate');
   SmartyWrap::assign('sectionTitle', 'Lexeme neetichetate');
-  $lexems = Model::factory('Lexem')->where('modelType', 'T')->order_by_asc('formNoAccent')->find_many();
+  $lexems = Model::factory('Lexem')
+    ->table_alias('l')
+    ->select('l.*')
+    ->join('LexemModel', 'lm.lexemId = l.id', 'lm')
+    ->where('lm.modelType', 'T')
+    ->order_by_asc('formNoAccent')
+    ->limit(1000)
+    ->find_many();
 }
 
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());

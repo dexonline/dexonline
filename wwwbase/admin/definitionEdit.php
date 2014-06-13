@@ -172,7 +172,7 @@ if (($acceptButton || $moveButton) && !$hasErrors) {
     foreach ($ldms as $ldm) {
       $l = Lexem::get_by_id($ldm->lexemId);
       $otherLdms = LexemDefinitionMap::get_all_by_lexemId($l->id);
-      if (!$l->isLoc && !count($otherLdms)) {
+      if (!$l->isLoc() && !count($otherLdms)) {
         $l->delete();
       }
     }

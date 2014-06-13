@@ -124,8 +124,8 @@ if ($previewButton || $confirmButton) {
       $p->modelNumber = $newParticipleNumber;
       $ifs = $p->generateInflectedFormsMappedByRank();
       if (!is_array($ifs)) {
-        $errorMessage[] = "Nu pot declina participiul \"".htmlentities($p->form)."\" " .
-          "conform modelului A$newParticipleNumber.";
+        $errorMessage[] = sprintf('Nu pot declina participiul "%s" conform modelului A%s.',
+                                  htmlentities($p->getLexem()->form), $newParticipleNumber);
       }
     }
 
@@ -191,9 +191,7 @@ if ($previewButton || $confirmButton) {
     // Regenerate the affected inflections for every lexem
     if (count($regenTransforms)) {
       foreach ($lexemModels as $lm) {
-        $l = $lm->getLexem();
-        $l->modDate = time();
-        $l->deepSave();
+        $lm->regenerateParadigm();
       }
     }
 

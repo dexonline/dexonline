@@ -1094,7 +1094,6 @@ div.sourceComplete5 {
   margin-right: 7px;
   border: 1px solid #777;
   border-radius: 4px;
-  -webkit-border-radius: 4px;
   box-shadow: 1px 1px 2px #979899;
   -webkit-box-shadow: 1px 1px 2px #979899;
 }
@@ -1119,7 +1118,6 @@ body .socialNetworks label {
   box-shadow: 2px 2px 2px #999;
   -webkit-box-shadow: 2px 2px 2px #999;
   border-radius: 6px;
-  -webkit-border-radius: 6px;
 }
 
 .socialNetworks img:hover {
@@ -1233,7 +1231,6 @@ li.widgetsPreferences {
 
 .avatar {
   border-radius: 4px;
-  -webkit-border-radius: 4px;
   float: left;
   height: 48px;
   margin-right: 10px;
@@ -1286,7 +1283,6 @@ li.widgetsPreferences {
 
 #avatarPreviewContainer {
   border-radius: 4px;
-  -webkit-border-radius: 4px;
   height: 48px;
   margin: 10px 0px;
   overflow: hidden;

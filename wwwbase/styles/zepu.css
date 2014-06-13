@@ -1447,10 +1447,9 @@ span.tooltip2 {
   width: 200px;
   height: 20px;
 
-  -webkit-box-shadow: 0 9px 3px #BBB;
-  -moz-box-shadow: 0 9px 3px #bbb;
-  box-shadow: 0 9px 3px #BBB;
   -webkit-box-shadow: 0 8px 3px #AAA;
+  -moz-box-shadow: 0 8px 3px #AAA;
+  box-shadow: 0 8px 3px #AAA;
 }
 
 .bend-shadow:before {

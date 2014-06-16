@@ -8,11 +8,9 @@ $lexems = Model::factory('Lexem')
   ->select('id')
   ->select('formNoAccent')
   ->select('description')
-  ->select('modelType')
-  ->select('modelNumber')
-  ->select('restriction')
   ->where('consistentAccent', 0)
   ->order_by_asc('formNoAccent')
+  ->limit(1000)
   ->find_many();
 
 RecentLink::createOrUpdate('Lexeme fără accent');

@@ -1,5 +1,5 @@
 <?php
-require_once('../phplib/util.php');
+require_once(__DIR__ . '/../../phplib/util.php');
 
 $shortopts = "f:u:s:t:x:p:hvidbcC"; 
 $options = getopt($shortopts);
@@ -210,8 +210,13 @@ while ($i < count($lines)) {
 
     if ($allowInflected) {
       if (!count($lexems)) {
-        $lexems = Model::factory('Lexem')->table_alias('l')->select('l.*')->join('InflectedForm', 'l.id = i.lexemId', 'i')
-          ->where('i.formNoAccent', $name)->find_many();
+        $lexems = Model::factory('Lexem')
+          ->table_alias('l')
+          ->select('l.*')
+          ->join('LexemModel', 'l.id = lm.lexemId', 'lm')
+          ->join('InflectedForm', 'l.id = i.lexemModelId', 'i')
+          ->where('i.formNoAccent', $name)
+          ->find_many();
         if ( count($lexems) ) {
           if($verbose) echo("\t\tFound inflected form {$name} for lexem {$lexems[0]->id} ({$lexems[0]->form})\n");
         }
@@ -227,9 +232,8 @@ while ($i < count($lines)) {
       if($verbose) echo("\t\tCreating a new lexem for name {$name}\n");
       if (!$dryrun) {
         // Create a new lexem.
-        $lexem = Lexem::create($name, 'T', '1', '');
-        $lexem->save();
-        $lexem->regenerateParadigm();
+        $lexem = Lexem::deepCreate($name, 'T', '1');
+        $lexem->deepSave();
         if($verbose) echo("\t\tCreated lexem {$lexem->id} ({$lexem->form})\n");
       }
     }

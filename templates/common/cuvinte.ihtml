@@ -1,3 +1,7 @@
+<div id="searchCuv">
+  {include file="zepu/searchCuv.ihtml"}
+</div>
+
 {assign var="results" value=$results|default:null}
 {foreach from=$results item=row key=i}
 <p>

@@ -54,37 +54,19 @@ if ($searchType == SEARCH_INFLECTED) {
 // Also compute the text of the link to the paradigm div,
 // which can be 'conjugări', 'declinări' or both
 if (!empty($lexems)) {
-  $ifMaps = array();
-  $modelTypes = array();
   $conjugations = false;
   $declensions = false;
   $filtered_lexems = array();
   foreach ($lexems as $l) {
-    if (TYPE_SHOW_ONLY_VERBS == $type) {
-      if ($l->modelType == 'V' || $l->modelType == 'VT') {
-        $filtered_lexems[] = $l;
-        $conjugations = true;
-        $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
-        $modelTypes[] = ModelType::get_by_code($l->modelType);
-      }
-    }
-    elseif (TYPE_SHOW_NO_VERBS == $type) {
-      if ($l->modelType != 'V' && $l->modelType != 'VT') {
-        $filtered_lexems[] = $l;
-        $declensions = true;
-        $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
-        $modelTypes[] = ModelType::get_by_code($l->modelType);
-      }
-    }
-    else {
+    $lm = $l->getLexemModels()[0]; // One LexemModel suffices -- they all better have the same modelType.
+    $isVerb = ($lm->modelType == 'V') || ($lm->modelType == 'VT');
+    if (((TYPE_SHOW_ONLY_VERBS == $type) && $isVerb) ||
+        ((TYPE_SHOW_NO_VERBS == $type) && !$isVerb) ||
+        !$type) {
+
       $filtered_lexems[] = $l;
-      $ifMaps[] = InflectedForm::loadByLexemIdMapByInflectionRank($l->id);
-      $modelTypes[] = ModelType::get_by_code($l->modelType);
-      if ($l->modelType == 'V' || $l->modelType == 'VT') {
-        $conjugations = true;
-      } else {
-        $declensions = true;
-      }
+      $conjugations |= $isVerb;
+      $declensions |= !$isVerb;
     }
   }
 
@@ -101,26 +83,23 @@ if (!empty($lexems)) {
     SmartyWrap::assign('declensionText', "{$declensionText}: {$cuv}");
   }
 
-  $sourceNamesArr = array();
-  foreach ($lexems as $l) {
-    $sourceNamesArr[] = LexemSource::getSourceNamesForLexem($l);
-  }
-
-  // This paragraph replicates code from search.php
+  // Exercise the fields we'll need later in the view.
+  // TODO: this code replicates code from search.php
   $hasUnrecommendedForms = false;
-  foreach ($ifMaps as $ifMap) {
-    foreach ($ifMap as $rank => $ifs) {
-      foreach ($ifs as $if) {
-        $hasUnrecommendedForms |= !$if->recommended;
+  foreach ($filtered_lexems as $l) {
+    foreach($l->getLexemModels() as $lm) {
+      $lm->getModelType();
+      $lm->getSourceNames();
+      foreach ($lm->loadInflectedFormsMappedByRank() as $ifs) {
+        foreach ($ifs as $if) {
+          $hasUnrecommendedForms |= !$if->recommended;
+        }
       }
     }
   }
-  SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
 
-  SmartyWrap::assign('sourceNamesArr', $sourceNamesArr);
+  SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
   SmartyWrap::assign('lexems', $filtered_lexems);
-  SmartyWrap::assign('ifMaps', $ifMaps);
-  SmartyWrap::assign('modelTypes', $modelTypes);
   SmartyWrap::assign('showParadigm', true);
   SmartyWrap::assign('onlyParadigm', !$ajax);
 }
@@ -133,6 +112,7 @@ if ($ajax) {
   SmartyWrap::displayWithoutSkin('common/bits/multiParadigm.ihtml');
 }
 else {
+  SmartyWrap::addCss('paradigm');
   SmartyWrap::displayCommonPageWithSkin('search.ihtml');
 }
 ?>

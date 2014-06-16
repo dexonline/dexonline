@@ -1,6 +1,10 @@
 <?php
 require_once __DIR__ . '/../phplib/util.php';
 
+print "Acest script nu a fost adus la zi după introducerea tabelei LexemModel.\n";
+print "Aduceți-l la zi înainte de a-l rula.\n";
+exit;
+
 $lvs = array_reverse(Config::getLocVersions());
 if (count($lvs) < 2) {
   die("ERROR: You need at least two LOC versions in dex.conf: " .

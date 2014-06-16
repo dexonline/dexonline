@@ -3,6 +3,7 @@
 {assign var="page_keywords" value=$page_keywords|default:''}
 {assign var="suggestHiddenSearchForm" value=$suggestHiddenSearchForm|default:false}
 {assign var="suggestNoBanner" value=$suggestNoBanner|default:false}
+{assign var="suggestMinimalist" value=0}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -97,15 +98,9 @@
       {include file="common/flashMessages.ihtml"}
 
       {if !$onHomePage && !$suggestHiddenSearchForm}
-        {if !$searchCuv}
         <div id="searchOtherPages">
           {include file="zepu/search.ihtml"}
         </div>
-        {else}
-        <div id="searchCuv">
-          {include file="zepu/searchCuv.ihtml"}
-        </div>
-        {/if}
       {/if}
 
       {if !$onHomePage && !$suggestNoBanner && $skinVariables.afterSearchBoxBanner}

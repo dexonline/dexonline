@@ -5,7 +5,7 @@ util_assertNotMirror();
 util_hideEmptyRequestParameters();
 DebugInfo::disable();
 
-$modelType = util_getRequestParameter('modelType');
+$modelType = util_getRequestParameterWithDefault('modelType', 'M');
 $submitButton = util_getRequestParameter('submitButton');
 
 if ($submitButton) {
@@ -25,9 +25,10 @@ if ($submitButton) {
       }
 
       // Add $dest to LOC if $src is in LOC
-      if ($src->isLoc && !$dest->isLoc) {
-        $dest->isLoc = true;
-        $dest->save();
+      if ($src->isLoc() && !$dest->isLoc()) {
+        $lm = $dest->getLexemModels()[0];
+        $lm->isLoc = true;
+        $lm->save();
       }
 
       // Delay the deletion because we might have to merge $src with other lexems.
@@ -49,28 +50,36 @@ if ($modelType == 'T') {
 } else {
   $whereClause = '(modelType = "T") or (modelType in ("M", "F", "N") and restriction like "%P%")';
 }
-$dbResult = db_execute("select * from Lexem where {$whereClause} order by formNoAccent", PDO::FETCH_ASSOC);
+$dbResult = db_execute("select distinct l.* " .
+                       "from Lexem l " .
+                       "join LexemModel lm on lm.lexemId = l.id " .
+                       "where {$whereClause} " .
+                       "order by formNoAccent",
+                       PDO::FETCH_ASSOC);
 
 $lexems = array();
 foreach ($dbResult as $row) {
   $lexem = Model::factory('Lexem')->create($row);
   $matches = array();
-  $ifs = InflectedForm::get_all_by_formNoAccent($lexem->formNoAccent);
 
-  foreach ($ifs as $if) {
-    if (in_array($if->inflectionId, $PLURAL_INFLECTIONS) && $if->lexemId != $lexem->id) {
-      $matches[] = Lexem::get_by_id($if->lexemId);
-    }
-  }
-  $lexem->matches = $matches;
+  $lexem->matches = Model::factory('Lexem')
+    ->table_alias('l')
+    ->select('l.*')
+    ->distinct()
+    ->join('LexemModel', 'lm.lexemId = l.id', 'lm')
+    ->join('InflectedForm', 'i.lexemModelId = lm.id', 'i')
+    ->where('i.formNoAccent', $lexem->formNoAccent)
+    ->where_in('i.inflectionId', $PLURAL_INFLECTIONS)
+    ->where_not_equal('l.id', $lexem->id)
+    ->find_many();
 
   if (count($lexem->matches)) {
-    $lexem->ifs = InflectedForm::loadByLexemId($lexem->id);
+    // $lexem->loadInflectedForms();
     // When a plural LOC lexem is merged into a non-LOC singular, we end up losing some word forms from LOC.
     // Therefore, we have to add the singular lexem to LOC as well. Matei says it is ok to expand LOC this way.
-    $srcIfs = loadIfArrayByLexemId($lexem->id);
+    $srcIfs = loadIfArray($lexem);
     foreach ($lexem->matches as $match) {
-      $destIfs = loadIfArrayByLexemId($match->id);
+      $destIfs = loadIfArray($match);
       $addedForms = array();
       $lostForms = array();
       if ($lexem->isLoc && !$match->isLoc) {
@@ -105,8 +114,9 @@ SmartyWrap::displayAdminPage('flex/mergeLexems.ihtml');
 /***************************************************/
 
 /** Returns an array containing only the accented forms, not the entire InflectedForm objects **/
-function loadIfArrayByLexemId($lexemId) {
-  $ifs = InflectedForm::loadByLexemId($lexemId);
+function loadIfArray($lexem) {
+  $lm = $lexem->getLexemModels()[0];
+  $ifs = $lm->loadInflectedForms();
   $result = array();
   foreach ($ifs as $if) {
     $result[] = $if->form;

@@ -1,23 +1,26 @@
 {assign var="hasUnrecommendedForms" value=$hasUnrecommendedForms|default:false}
-{assign var="ifMaps" value=$ifMaps|default:null}
 {assign var="version" value=$version|default:"current"}
-{if $ifMaps}
-  {foreach from=$ifMaps item=ifMap key=i}
-    {include file="common/paradigm/$version/paradigm.ihtml" lexem=$lexems[$i] ifMap=$ifMap sourceNames=$sourceNamesArr[$i] modelType=$modelTypes[$i]}
-    {if $sUser && ($sUser->moderator & ($smarty.const.PRIV_LOC | $smarty.const.PRIV_STRUCT))}
-      <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexems[$i]->id}">editează lexemul</a>
-      {if $sUser->moderator & $smarty.const.PRIV_LOC}
-        | <a href="{$wwwRoot}flex/editModel.php?modelType={$lexems[$i]->modelType}&amp;modelNumber={$lexems[$i]->modelNumber}">
-          editează modelul {$lexems[$i]->modelType}{$lexems[$i]->modelNumber}
-        </a>
-      {/if}
-    {/if}
+{if $lexems}
+  {foreach from=$lexems item=lexem}
+    <div class="paraLexem">
+      <div class="lexemData">
+        <span class="lexemName">{include file="common/bits/lexemName.ihtml" lexem=$lexem}</span>
+        {include file="common/bits/locInfo.ihtml" isLoc=$lexem->isLoc}
+        {if $sUser && ($sUser->moderator & ($smarty.const.PRIV_LOC + $smarty.const.PRIV_STRUCT))}
+          <a class="paraEdit" href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexem->id}" title="editează lexemul"></a>
+        {/if}
+      </div>
+
+      {foreach from=$lexem->getLexemModels() item=lm}
+        {include file="common/paradigm/$version/paradigm.ihtml" lexemModel=$lm}
+      {/foreach}
+    </div>
   {/foreach}
+
   {if $hasUnrecommendedForms}
     <div class="notRecommendedLegend">* Formă nerecomandată</div>
   {/if}
-  {if $onlyParadigm}
-  {else}
+  {if !$onlyParadigm}
     <div><a class="paradigmLink" title="Link către această pagină, dar cu flexiunile expandate!" href="{$paradigmLink}">Link către această paradigmă</a></div>
   {/if}
 {/if}

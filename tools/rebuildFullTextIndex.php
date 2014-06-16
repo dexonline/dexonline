@@ -15,8 +15,9 @@ db_execute('truncate table FullTextIndex');
 
 $stopWordForms = array_flip(db_getArray(
   'select distinct i.formNoAccent ' .
-  'from Lexem l, InflectedForm i ' .
-  'where l.id = i.lexemId ' .
+  'from Lexem l, LexemModel lm, InflectedForm i ' .
+  'where l.id = lm.lexemId ' .
+  'and lm.id = i.lexemModelId ' .
   'and l.stopWord'));
 
 $ifMap = array();
@@ -105,11 +106,10 @@ function extractWords($text) {
 // Look up all lexems that generate this word form and that are not stop words
 function cacheWordForm($word) {
   global $ifMap;
-  $dbResult = db_execute("select lexemId, inflectionId from InflectedForm join Lexem on lexemId = Lexem.id " .
-                         "where InflectedForm.formNoAccent = '{$word}' and not Lexem.stopWord");
+  $dbResult = db_execute("select lexemModelId, inflectionId from InflectedForm where formNoAccent = '{$word}'");
   $value = '';
   foreach ($dbResult as $dbRow) {
-    $value .= ',' . $dbRow['lexemId'] . ',' . $dbRow['inflectionId'];
+    $value .= ',' . $dbRow['lexemModelId'] . ',' . $dbRow['inflectionId'];
   }
   if ($value) {
     $ifMap[$word] = substr($value, 1);

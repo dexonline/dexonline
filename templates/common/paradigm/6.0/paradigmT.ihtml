@@ -1,9 +1,3 @@
-<div class="lexem">
-  <span class="lexemName"
-     >{include file="common/bits/lexemName.ihtml" lexem=$lexem
-  }</span>
-</div>
-
 <div class="noParadigm">
   Nu există informații despre flexiunea acestui cuvânt.
 </div>

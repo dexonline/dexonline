@@ -3,6 +3,8 @@
 class Lexem extends BaseObject implements DatedObject {
   public static $_table = 'Lexem';
 
+  private $lexemModels = null;
+
   const STRUCT_STATUS_NEW = 1;
   const STRUCT_STATUS_IN_PROGRESS = 2;
   const STRUCT_STATUS_UNDER_REVIEW = 3;
@@ -12,23 +14,68 @@ class Lexem extends BaseObject implements DatedObject {
                                              self::STRUCT_STATUS_UNDER_REVIEW => 'așteaptă moderarea',
                                              self::STRUCT_STATUS_DONE => 'terminată');
 
-  public static function create($form = null, $modelType = null, $modelNumber = null, $restriction = '') {
+  public static function deepCreate($form, $modelType, $modelNumber, $restriction = '', $isLoc = false) {
     $l = Model::factory('Lexem')->create();
-    if ($form) {
-      $l->form = $form;
-      $l->formNoAccent = str_replace("'", '', $form);
-      $l->formUtf8General = $l->formNoAccent;
-      $l->reverse = StringUtil::reverse($l->formNoAccent);
-    }
+    $l->form = $form;
+    $l->formNoAccent = str_replace("'", '', $form);
+    $l->formUtf8General = $l->formNoAccent;
+    $l->reverse = StringUtil::reverse($l->formNoAccent);
     $l->description = '';
-    $l->tags = '';
-    $l->modelType = $modelType;
-    $l->modelNumber = $modelNumber;
-    $l->restriction = $restriction;
     $l->comment = null;
-    $l->isLoc = false;
     $l->noAccent = false;
+
+    $lm = Model::factory('LexemModel')->create();
+    $lm->displayOrder = 1;
+    $lm->modelType = $modelType;
+    $lm->modelNumber = $modelNumber;
+    $lm->restriction = $restriction;
+    $lm->tags = '';
+    $lm->isLoc = $isLoc;
+    $lm->setLexem($l);
+
+    $l->setLexemModels(array($lm));
     return $l;
+  }
+
+  function getLexemModels() {
+    if ($this->lexemModels === null) {
+      $this->lexemModels = Model::factory('LexemModel')
+        ->where('lexemId', $this->id)
+        ->order_by_asc('displayOrder')
+        ->find_many();
+    }
+    return $this->lexemModels;
+  }
+
+  function setLexemModels($lexemModels) {
+    $this->lexemModels = $lexemModels;
+  }
+
+  function hasModelType($mt) {
+    foreach ($this->getLexemModels() as $lm) {
+      if ($lm->modelType == $mt) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function hasModel($modelType, $modelNumber) {
+    foreach ($this->getLexemModels() as $lm) {
+      if ($lm->modelType == $modelType && $lm->modelNumber == $modelNumber) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function isLoc() {
+    foreach ($this->getLexemModels() as $lm) {
+      if ($lm->isLoc) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public static function loadByExtendedName($extName) {
@@ -45,8 +92,16 @@ class Lexem extends BaseObject implements DatedObject {
 
   // For V1, this loads all lexems in (V1, VT1)
   public static function loadByCanonicalModel($modelType, $modelNumber) {
-    return Model::factory('Lexem')->select('Lexem.*')->join('ModelType', 'modelType = code', 'mt')->where('mt.canonical', $modelType)->where('modelNumber', $modelNumber)
-      ->order_by_asc('formNoAccent')->find_many();
+    return Model::factory('Lexem')
+      ->table_alias('l')
+      ->select('l.*')
+      ->distinct()
+      ->join('LexemModel', 'l.id = lm.lexemId', 'lm')
+      ->join('ModelType', 'lm.modelType = mt.code', 'mt')
+      ->where('mt.canonical', $modelType)
+      ->where('lm.modelNumber', $modelNumber)
+      ->order_by_asc('formNoAccent')
+      ->find_many();
   }
 
   /**
@@ -67,8 +122,15 @@ class Lexem extends BaseObject implements DatedObject {
       }
     }
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-    $result = Model::factory('Lexem')->select('Lexem.*')->distinct()->join('InflectedForm', 'Lexem.id = InflectedForm.lexemId')
-      ->where("InflectedForm.$field", $cuv)->order_by_asc('Lexem.formNoAccent')->find_many();
+    $result = Model::factory('Lexem')
+      ->table_alias('l')
+      ->select('l.*')
+      ->distinct()
+      ->join('LexemModel', 'l.id = lm.lexemId', 'lm')
+      ->join('InflectedForm', 'lm.id = f.lexemModelId', 'f')
+      ->where("f.$field", $cuv)
+      ->order_by_asc('l.formNoAccent')
+      ->find_many();
     if ($useMemcache) {
       mc_set($key, $result);
     }
@@ -186,166 +248,104 @@ class Lexem extends BaseObject implements DatedObject {
     return $ids;
   }
 
-  public function regenerateParadigm() {
-    $ifs = $this->generateParadigm();
-    assert(is_array($ifs));
-
-    InflectedForm::deleteByLexemId($this->id);
-    foreach($ifs as $if) {
-      $if->save();
+  public function regenerateDependentLexems() {
+    if ($this->hasModelType('VT')) {
+      $this->regeneratePastParticiple();
     }
-
-    if ($this->modelType == 'VT') {
-      $model = FlexModel::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
-      $pm = ParticipleModel::loadByVerbModel($model->number);
-      $this->regeneratePastParticiple($pm->adjectiveModel);
-    }
-    if ($this->modelType == 'V' || $this->modelType == 'VT') {
+    if ($this->hasModelType('V') || $this->hasModelType('VT')) {
       $this->regenerateLongInfinitive();
     }
   }
 
-  public function regeneratePastParticiple($adjectiveModel) {
+  public function regeneratePastParticiple() {
     $infl = Inflection::loadParticiple();
-    $ifs = Model::factory('InflectedForm')->where('lexemId', $this->id)->where('inflectionId', $infl->id)->find_many();
-    $model = Model::factory('FlexModel')->where('modelType', 'A')->where('number', $adjectiveModel)->find_one();
 
-    foreach ($ifs as $if) {
-      // Load an existing lexem only if it has the same model as $model or T1. Otherwise create a new lexem.
-      $lexems = Lexem::get_all_by_formNoAccent($if->formNoAccent);
-      $lexem = null;
-      foreach ($lexems as $l) {
-        if ($l->modelType == 'T' || ($l->modelType == 'A' && $l->modelNumber = $model->number)) {
-          $lexem = $l;
-        } else if ($this->isLoc && !$l->isLoc) {
-          FlashMessage::add("Lexemul {$l->formNoAccent} ({$l->modelType}{$l->modelNumber}), care nu este în LOC, nu a fost modificat.", 'info');
+    // Iterate through all the participle forms of this Lexem
+    foreach ($this->getLexemModels() as $lm) {
+      $pm = ParticipleModel::get_by_verbModel($lm->modelNumber);
+      $ifs = InflectedForm::get_all_by_lexemModelId_inflectionId($lm->id, $infl->id);
+      foreach ($ifs as $if) {
+        $lexem = Model::factory('Lexem')
+          ->table_alias('l')
+          ->select('l.*')
+          ->distinct()
+          ->join('LexemModel', 'l.id = lm.lexemId', 'lm')
+          ->where('l.formNoAccent', $if->formNoAccent)
+          ->where_raw("(lm.modelType = 'T' or (lm.modelType = 'A' and lm.modelNumber = '{$pm->adjectiveModel}'))")
+          ->find_one();
+
+        if ($lexem) {
+          $partLm = $lexem->getLexemModels()[0];
+          if ($partLm->modelType != 'A' || $partLm->modelNumber != $pm->adjectiveModel || $partLm->restriction != '') {
+            $partLm->modelType = 'A';
+            $partLm->modelNumber = $pm->adjectiveModel;
+            $partLm->restriction = '';
+            if ($this->isLoc() && !$infLm->isLoc) {
+              $partLm->isLoc = true;
+              FlashMessage::add("Lexemul {$lexem->formNoAccent}, care nu era în LOC, a fost inclus automat în LOC.", 'info');
+            }
+            $lexem->deepSave();
+          }
+        } else {
+          $lexem = Lexem::deepCreate($if->form, 'A', $pm->adjectiveModel, '', $this->isLoc());
+          $lexem->deepSave();
+          
+          // Also associate the new lexem with the same definitions as $this.
+          $ldms = LexemDefinitionMap::get_all_by_lexemId($this->id);
+          foreach ($ldms as $ldm) {
+            LexemDefinitionMap::associate($lexem->id, $ldm->definitionId);
+          }
+          FlashMessage::add("Am creat automat lexemul {$lexem->formNoAccent} (A{$pm->adjectiveModel}) și l-am asociat cu toate definițiile verbului.", 'info');
         }
       }
-      if ($lexem) {
-        $lexem->modelType = 'A';
-        $lexem->modelNumber = $model->number;
-        $lexem->restriction = '';
-        if ($this->isLoc && !$lexem->isLoc) {
-          $lexem->isLoc = $this->isLoc;
-          FlashMessage::add("Lexemul {$lexem->formNoAccent}, care nu era în LOC, a fost inclus automat în LOC.", 'info');
-        }
-        $lexem->noAccent = false;
-        $lexem->save();
-      } else {
-        $lexem = Lexem::create($if->form, 'A', $model->number, '');
-        $lexem->isLoc = $this->isLoc;
-        $lexem->save();
-
-        // Also associate the new lexem with the same definitions as $this.
-        $ldms = LexemDefinitionMap::get_all_by_lexemId($this->id);
-        foreach ($ldms as $ldm) {
-          LexemDefinitionMap::associate($lexem->id, $ldm->definitionId);
-        }
-        FlashMessage::add("Am creat automat lexemul {$lexem->formNoAccent} (A{$lexem->modelNumber}) și l-am asociat cu toate definițiile verbului.", 'info');
-      }
-      $lexem->regenerateParadigm();
     }
   }
 
   public function regenerateLongInfinitive() {
     $infl = Inflection::loadLongInfinitive();
-    $ifs = Model::factory('InflectedForm')->where('lexemId', $this->id)->where('inflectionId', $infl->id)->find_many();
-    $f107 = Model::factory('FlexModel')->where('modelType', 'F')->where('number', '107')->find_one();
-    $f113 = Model::factory('FlexModel')->where('modelType', 'F')->where('number', '113')->find_one();
-    
-    foreach ($ifs as $if) {
-      $model = StringUtil::endsWith($if->formNoAccent, 'are') ? $f113 : $f107;
-      
-      // Load an existing lexem only if it has one of the models F113, F107 or T1. Otherwise create a new lexem.
-      $lexems = Lexem::get_all_by_formNoAccent($if->formNoAccent);
-      $lexem = null;
-      foreach ($lexems as $l) {
-        if ($l->modelType == 'T' || ($l->modelType == 'F' && $l->modelNumber == $model->number)) {
-          $lexem = $l;
-        } else if ($this->isLoc && !$l->isLoc) {
-          FlashMessage::add("Lexemul {$l->formNoAccent} ({$l->modelType}{$l->modelNumber}), care nu este în LOC, nu a fost modificat.", 'info');
+    $f107 = FlexModel::get_by_modelType_number('F', '107');
+    $f113 = FlexModel::get_by_modelType_number('F', '113');
+
+    // Iterate through all the participle forms of this Lexem
+    foreach ($this->getLexemModels() as $lm) {
+      $ifs = InflectedForm::get_all_by_lexemModelId_inflectionId($lm->id, $infl->id);
+      foreach ($ifs as $if) {
+        $model = StringUtil::endsWith($if->formNoAccent, 'are') ? $f113 : $f107;
+
+        $lexem = Model::factory('Lexem')
+          ->select('l.*')
+          ->table_alias('l')
+          ->distinct()
+          ->join('LexemModel', 'l.id = lm.lexemId', 'lm')
+          ->where('l.formNoAccent', $if->formNoAccent)
+          ->where_raw("(lm.modelType = 'T' or (lm.modelType = 'F' and lm.modelNumber = '$model->number'))")
+          ->find_one();
+
+        if ($lexem) {
+          $infLm = $lexem->getLexemModels()[0];
+          if ($infLm->modelType != 'F' || $infLm->modelNumber != $model->number || $inf->restriction != '') {
+            $infLm->modelType = 'F';
+            $infLm->modelNumber = $model->number;
+            $infLm->restriction = '';
+            if ($this->isLoc() && !$infLm->isLoc) {
+              $infLm->isLoc = true;
+              FlashMessage::add("Lexemul {$lexem->formNoAccent}, care nu era în LOC, a fost inclus automat în LOC.", 'info');
+            }
+            $lexem->deepSave();
+          }
+        } else {
+          $lexem = Lexem::deepCreate($if->form, 'F', $model->number, '', $this->isLoc());
+          $lexem->deepSave();
+
+          // Also associate the new lexem with the same definitions as $this.
+          $ldms = LexemDefinitionMap::get_all_by_lexemId($this->id);
+          foreach ($ldms as $ldm) {
+            LexemDefinitionMap::associate($lexem->id, $ldm->definitionId);
+          }
+          FlashMessage::add("Am creat automat lexemul {$lexem->formNoAccent} (F{$model->number}) și l-am asociat cu toate definițiile verbului.", 'info');
         }
       }
-      if ($lexem) {
-        $lexem->modelType = 'F';
-        $lexem->modelNumber = $model->number;
-        $lexem->restriction = '';
-        if ($this->isLoc && !$lexem->isLoc) {
-          $lexem->isLoc = $this->isLoc;
-          FlashMessage::add("Lexemul {$lexem->formNoAccent}, care nu era în LOC, a fost inclus automat în LOC.", 'info');
-        }
-        $lexem->noAccent = false;
-        $lexem->save();
-      } else {
-        $lexem = Lexem::create($if->form, 'F', $model->number, '');
-        $lexem->isLoc = $this->isLoc;
-        $lexem->save();
-
-        // Also associate the new lexem with the same definitions as $this.
-        $ldms = LexemDefinitionMap::get_all_by_lexemId($this->id);
-        foreach ($ldms as $ldm) {
-          LexemDefinitionMap::associate($lexem->id, $ldm->definitionId);
-        }
-        FlashMessage::add("Am creat automat lexemul {$lexem->formNoAccent} (F{$lexem->modelNumber}) și l-am asociat cu toate definițiile verbului.", 'info');
-      }
-      $lexem->regenerateParadigm();
     }
-  }
-
-  public function generateInflectedFormWithModel($inflId, $modelId) {
-    if (!ConstraintMap::validInflection($inflId, $this->restriction)) {
-      return array();
-    }
-    $ifs = array();
-    $mds = Model::factory('ModelDescription')->where('modelId', $modelId)->where('inflectionId', $inflId)
-      ->order_by_asc('variant')->order_by_asc('applOrder')->find_many();
- 
-    $start = 0;
-    while ($start < count($mds)) {
-      // Identify all the md's that differ only by the applOrder
-      $end = $start + 1;
-      while ($end < count($mds) && $mds[$end]->applOrder != 0) {
-        $end++;
-      }
-
-      $inflId = $mds[$start]->inflectionId;
-      $accentShift = $mds[$start]->accentShift;
-      $vowel = $mds[$start]->vowel;
-      
-      // Apply all the transforms from $start to $end - 1.
-      $variant = $mds[$start]->variant;
-      $recommended = $mds[$start]->recommended;
-      
-      // Load the transforms
-      $transforms = array();
-      for ($i = $end - 1; $i >= $start; $i--) {
-        $transforms[] = Transform::get_by_id($mds[$i]->transformId);
-      }
-      
-      $result = FlexStringUtil::applyTransforms($this->form, $transforms, $accentShift, $vowel);
-      if (!$result) {
-        return null;
-      }
-      $ifs[] = InflectedForm::create($result, $this->id, $inflId, $variant, $recommended);
-      $start = $end;
-    }
-    
-    return $ifs;
-  }
-  
-  public function generateParadigm() {
-    $model = FlexModel::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
-    // Select inflection IDs for this model
-    $inflIds = db_getArray("select distinct inflectionId from ModelDescription where modelId = {$model->id} order by inflectionId");
-    $ifs = array();
-    foreach ($inflIds as $inflId) {
-      $if = $this->generateInflectedFormWithModel($inflId, $model->id);
-      if ($if === null) {
-        return $inflId;
-      }
-      $ifs = array_merge($ifs, $if);
-    }
-    return $ifs;
   }
 
   /* Saves a lexem's variants as produced by dexEdit.php */
@@ -372,10 +372,16 @@ class Lexem extends BaseObject implements DatedObject {
    * Called when the model type of a lexem changes from VT to something else.
    * Only deletes participles that do not have their own definitions.
    */
-  public function deleteParticiple($oldModelNumber) {
+  public function deleteParticiple() {
     $infl = Inflection::loadParticiple();
-    $pm = ParticipleModel::loadByVerbModel($oldModelNumber);
-    $this->_deleteDependentModels($infl->id, 'A', array($pm->adjectiveModel));
+    $adjModels = array();
+    foreach ($this->getLexemModels() as $lm) {
+      if ($lm->modelType == 'V' || $lm->modelType == 'VT') {
+        $pm = ParticipleModel::get_by_verbModel($lm->modelNumber);
+        $adjModels[] = $pm->adjectiveModel;
+      }
+    }
+    $this->_deleteDependentModels($infl->id, 'A', $adjModels);
   }
 
   /**
@@ -393,28 +399,42 @@ class Lexem extends BaseObject implements DatedObject {
    * Arguments for long infinitives: 'F', ('107', '113').
    */
   private function _deleteDependentModels($inflId, $modelType, $modelNumbers) {
-    $ifs = Model::factory('InflectedForm')->where('lexemId', $this->id)->where('inflectionId', $inflId)->find_many();
+    // Load and hash all the definitionIds
     $ldms = LexemDefinitionMap::get_all_by_lexemId($this->id);
-
     $defHash = array();
     foreach($ldms as $ldm) {
       $defHash[$ldm->definitionId] = true;
     }
-    
-    foreach ($ifs as $if) {
-      $lexems = Lexem::get_all_by_formNoAccent($if->formNoAccent);
-      foreach ($lexems as $l) {
-        if ($l->modelType == 'T' || ($l->modelType == $modelType && in_array($l->modelNumber, $modelNumbers))) {
-          $ownDefinitions = false;
-          $ldms = LexemDefinitionMap::get_all_by_lexemId($l->id);
-          foreach ($ldms as $ldm) {
-            if (!array_key_exists($ldm->definitionId, $defHash)) {
-              $ownDefinitions = true;
+
+    // Iterate through all the forms of the desired inflection (participle / long infinitive)
+    foreach ($this->getLexemModels() as $lm) {
+      $ifs = InflectedForm::get_all_by_lexemModelId_inflectionId($lm->id, $inflId);
+      foreach ($ifs as $if) {
+        // Examine all lexems having one of the above forms
+        $lexems = Lexem::get_all_by_formNoAccent($if->formNoAccent);
+        foreach ($lexems as $l) {
+          // Keep only the ones that have acceptable model types/numbers
+          $acceptable = false;
+          foreach ($l->getLexemModels() as $o) {
+            if ($o->modelType == 'T' || ($o->modelType == $modelType && in_array($o->modelNumber, $modelNumbers))) {
+              $acceptable = true;
             }
           }
 
-          if (!$ownDefinitions) {
-            $l->delete();
+          // If $l has the right model, delete it unless it has its own definitions
+          if ($acceptable) {
+            $ownDefinitions = false;
+            $ldms = LexemDefinitionMap::get_all_by_lexemId($l->id);
+            foreach ($ldms as $ldm) {
+              if (!array_key_exists($ldm->definitionId, $defHash)) {
+                $ownDefinitions = true;
+              }
+            }
+
+            if (!$ownDefinitions) {
+              FlashMessage::add("Am șters automat lexemul {$l->formNoAccent}.", 'info');
+              $l->delete();
+            }
           }
         }
       }
@@ -430,10 +450,9 @@ class Lexem extends BaseObject implements DatedObject {
         $this->deleteLongInfinitive();
       }
       LexemDefinitionMap::deleteByLexemId($this->id);
-      InflectedForm::deleteByLexemId($this->id);
-      Meaning::deleteByLexemId($this->id);
-      LexemSource::deleteByLexemId($this->id);
-      Synonym::deleteByLexemId($this->id);
+      Meaning::delete_all_by_lexemId($this->id);
+      Synonym::delete_all_by_lexemId($this->id);
+      LexemModel::delete_all_by_lexemId($this->id);
     }
     // Clear the variantOfId field for lexems having $this as main.
     $lexemsToClear = Lexem::get_all_by_variantOfId($this->id);
@@ -458,7 +477,26 @@ class Lexem extends BaseObject implements DatedObject {
       $this->number = null;
     }
     parent::save();
-  }  
+  }
+
+  /**
+   * Saves a lexem and its dependants. Only call after having deleted the lexem's old dependants.
+   **/
+  function deepSave() {
+    $this->save();
+    foreach ($this->getLexemModels() as $lm) {
+      $lm->lexemId = $this->id;
+      $lm->save();
+      foreach ($lm->generateInflectedForms() as $if) {
+        $if->lexemModelId = $lm->id;
+        $if->save();
+      }
+      foreach ($lm->getSources() as $ls) {
+        $ls->lexemModelId = $lm->id;
+        $ls->save();
+      }
+    }
+  }
 
   public function __toString() {
     return $this->description ? "{$this->formNoAccent} ({$this->description})" : $this->formNoAccent;
@@ -467,13 +505,20 @@ class Lexem extends BaseObject implements DatedObject {
   public function cloneLexem() {
     $clone = $this->parisClone();
     $clone->description = ($this->description) ? "CLONĂ {$this->description}" : "CLONĂ";
-    $clone->modelType = 'T';
-    $clone->modelNumber = 1;
-    $clone->restriction = '';
-    $clone->isLoc = false;
     $clone->verifSp = false;
     $clone->structStatus = self::STRUCT_STATUS_NEW;
-    $clone->save();
+
+    $lm = Model::factory('LexemModel')->create();
+    $lm->displayOrder = 1;
+    $lm->modelType = 'T';
+    $lm->modelNumber = '1';
+    $lm->restriction = '';
+    $lm->tags = '';
+    $lm->isLoc = false;
+    $lm->setLexem($clone);
+
+    $clone->setLexemModels(array($lm));
+    $clone->deepSave();
     
     // Clone the definition list
     $ldms = LexemDefinitionMap::get_all_by_lexemId($this->id);
@@ -487,18 +532,9 @@ class Lexem extends BaseObject implements DatedObject {
       $m->cloneMeaning($clone->id, 0);
     }
 
-    // Clone the sources
-    $lss = LexemSource::get_all_by_lexemId($this->id);
-    foreach ($lss as $ls) {
-      $lsClone = $ls->parisClone();
-      $lsClone->lexemId = $clone->id;
-      $lsClone->save();
-    }
-
-    $clone->regenerateParadigm();
     return $clone;
   }
-  
+
 }
 
 ?>

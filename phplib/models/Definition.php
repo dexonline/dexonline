@@ -3,15 +3,12 @@
 class Definition extends BaseObject implements DatedObject {
   public static $_table = 'Definition';
 
-
   public static function get_by_id($id) {
-      if (util_isModerator(PRIV_ADMIN)) {
-        return parent::get_by_id($id);
-        //return Model::factory('Definition')->where('id',$id)->where_not_equal('status', ST_HIDDEN)->find_one();
-      }
-      else {
-        return Model::factory('Definition')->where('id',$id)->where_not_equal('status', ST_HIDDEN)->find_one();
-      }
+    if (util_isModerator(PRIV_ADMIN)) {
+      return parent::get_by_id($id);
+    } else {
+      return Model::factory('Definition')->where('id',$id)->where_not_equal('status', ST_HIDDEN)->find_one();
+    }
   }
 
   public static function loadByLexemId($lexemId) {
@@ -105,38 +102,48 @@ class Definition extends BaseObject implements DatedObject {
   }
 
   public static function searchFullText($words, $hasDiacritics, $sourceId) {
+    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     $intersection = null;
     $stopWords = array();
+    $lmMap = array();
 
-    // For every word, get all lexems that aren't stopwords and that generate that form.
-    // For 'om' we would take the lexem 'om', but not 'a vrea' (auxiliary verb).
-    $matchingLexems = array();
     foreach ($words as $word) {
-      $lexems = Lexem::searchInflectedForms($word, $hasDiacritics);
-      $lexemIds = array();
-      foreach ($lexems as $lexem) {
-        if (!$lexem->stopWord) {
-          $lexemIds[] = $lexem->id;
-        }
-      }
-      $matchingLexems[] = $lexemIds;
-      if (empty($lexemIds)) {
-        $stopWords[] = $word;
-      }
-    }
+      // Get all LexemModels generating this form
+      $lms = Model::factory('LexemModel')
+        ->table_alias('L')
+        ->select('L.id')
+        ->distinct()
+        ->join('InflectedForm', 'I.lexemModelId = L.id', 'I')
+        ->where("I.{$field}", $word)
+        ->find_many();
+      $lmIds = util_objectProperty($lms, 'id');
+      $lmMap[] = $lmIds;
 
-    foreach ($words as $i => $word) {
-      if (count($matchingLexems[$i])) {
-        // Load all the definitions for any possible lexem for this word.
-        $lexemIds = $matchingLexems[$i];
-        $defIds = FullTextIndex::loadDefinitionIdsForLexems($lexemIds, $sourceId);
-        DebugInfo::resetClock();
+      // Get the FullTextIndex records for each LexemModels. Note that the FTI excludes stop words.
+      $defIds = FullTextIndex::loadDefinitionIdsForLexemModels($lmIds, $sourceId);
+
+      // Determine whether the word is a stop word.
+      if (empty($defIds)) {
+        $isStopWord = Model::factory('InflectedForm')
+          ->table_alias('I')
+          ->join('LexemModel', 'I.lexemModelId = LM.id', 'LM')
+          ->join('Lexem', 'LM.lexemId = L.id', 'L')
+          ->where("I.{$field}", $word)
+          ->where('L.stopWord', 1)
+          ->count();
+      } else {
+        $isStopWord = false;
+      }
+
+      if ($isStopWord) {
+        $stopWords[] = $word;
+      } else {
         $intersection = ($intersection === null)
           ? $defIds
           : util_intersectArrays($intersection, $defIds);
-        DebugInfo::stopClock("Intersected with lexems for $word");
       }
     }
+
     if (empty($intersection)) { // This can happen when the query is all stopwords or the source selection produces no results
       return array(array(), $stopWords);
     }
@@ -154,9 +161,12 @@ class Definition extends BaseObject implements DatedObject {
       // Compute the position matrix (for every word, load all the matching
       // positions)
       $p = array();
-      foreach ($matchingLexems as $lexemIds) {
-        if (!empty($lexemIds)) {
-          $p[] = FullTextIndex::loadPositionsByLexemIdsDefinitionId($lexemIds, $defId);
+      foreach ($lmMap as $lmIds) {
+        if (!empty($lmIds)) {
+          $positions = FullTextIndex::loadPositionsByLexemIdsDefinitionId($lmIds, $defId);
+          if (!empty($positions)) {
+            $p[] = $positions;
+          }
         }
       }
       $shortestIntervals[] = util_findSnippet($p);
@@ -175,9 +185,11 @@ class Definition extends BaseObject implements DatedObject {
 
     foreach ($res as $key => &$words) {
       $var = sprintf("select distinct i2.formNoAccent  
-        from InflectedForm i1, Lexem l, InflectedForm i2
-        where i1.lexemId = l.id and
-        l.id = i2.lexemId and
+        from InflectedForm i1, LexemModel lm1, Lexem l, LexemModel lm2, InflectedForm i2
+        where i1.lexemModelId = lm1.id and
+        lm1.lexemId = l.id and
+        l.id = lm2.lexemId and
+        lm2.id = i2.lexemModelId and
         not l.stopWord and
         i1.formUtf8General = '%s'", $key);
 
@@ -213,7 +225,7 @@ class Definition extends BaseObject implements DatedObject {
           $def->htmlRep = substr_replace($def->htmlRep, $style_start, $m[1], 0);
           $def->htmlRep = substr_replace($def->htmlRep, $style_end, $m[1] + strlen($style_start) + strlen($m[0]), 0);
         }
-      $colorIndex = ($colorIndex + 1) % count($colors);
+        $colorIndex = ($colorIndex + 1) % count($colors);
       }
     }
   }

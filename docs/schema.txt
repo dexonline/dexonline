@@ -52,20 +52,9 @@ formNoAccent, formUtf8General - These two have equal values,
 reverse - the reverse of formNoAccent. Only used in certain
   admin tools where we need suffix matching.
 description - Generally used to distinguish among homonyms.
-modelType, modelNumber - The declension model for this lexem
-restriction - A subset of the letters S (singular), P (plural),
-  U (unipersonal), I (impersonal), T (past tenses only). Indicates
-  that this lexem only generates a subset of the allowed word forms
-  for the lexem's model. To see which restrictions allow which forms,
-  use the ConstraintMap table. For example, the verb "a ploua" ("to
-  rain") only allows third person singular form, hence the restriction I.
 comment - Admins can add comments. All lexems with non-empty
   comments are reported on the admin page and should be reviewed and
   fixed.
-isLoc - You can probably ignore this. Indicates whether the
-  lexem is included in LOC, the Official Word List accepted by the
-  Romanian Scrabble Federation for all its competitions. A few
-  moderators can modify this list.
 noAccent - If true, indicates that this lexem does not need an
   accent. Otherwise, a report on the admin page shows all the lexems
   for which Lexem.form does not include an accent.
@@ -75,6 +64,29 @@ consistentAccent - True if the combination of (form, noAccent) is consistent:
   This setting is automatically set by the system and is outside the user's
   control.
 
+
+The LexemModel table
+--------------------
+
+A LexemModel stores information about a Lexem's declension model. Generally,
+a lexem has exactly one declension model. It will never have zero, but may
+occasionally have two or more. For instance, "monedă" (coin) has the plurals
+"monede" or "monezi".
+
+modelType, modelNumber - The declension model for this lexem
+restriction - A subset of the letters S (singular), P (plural),
+  U (unipersonal), I (impersonal), T (past tenses only). Indicates
+  that this lexem only generates a subset of the allowed word forms
+  for the lexem's model. To see which restrictions allow which forms,
+  use the ConstraintMap table. For example, the verb "a ploua" ("to
+  rain") only allows third person singular form, hence the restriction I.
+displayOrder - order of preference for these models. Does not imply "right"
+  or "wrong" in the linguistic sense. It is simply used so that a lexem's
+  models can be displayed consistently in the same order every time.
+isLoc - You can probably ignore this. Indicates whether the
+  lexem is included in LOC, the Official Word List accepted by the
+  Romanian Scrabble Federation for all its competitions. A few
+  moderators can modify this list.
 
 The LexemDefinitionMap table
 ----------------------------

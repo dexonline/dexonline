@@ -9,7 +9,7 @@
 {/if}
 
 <form action="editModel.php" method="post">
-  <input type="hidden" name="modelType" value="{$modelType->code}"/>
+  <input type="hidden" name="modelType" value="{$modelType}"/>
   <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
 
   <table class="editModel">
@@ -126,7 +126,7 @@
         {/foreach}
       </ol>
 
-      <h3>Lexemele afectate ({$lexems|@count}) și noile lor forme:</h3>
+      <h3>Lexemele afectate ({$lexemModels|@count}) și noile lor forme:</h3>
 
       <table class="changedForms">
         <tr class="header">
@@ -140,7 +140,7 @@
           <td class="lexem">{$newExponent}</td>
           <td class="model">exponent</td>
           {foreach from=$regenTransforms item=ignored key=inflId}
-            {assign var="variantArray" value="`$newForms[$inflId]`"}
+            {assign var="variantArray" value=$newForms[$inflId]}
             <td class="forms">
               {strip}
                 {foreach from=$variantArray item=tuple key=i}
@@ -152,11 +152,11 @@
             </td>
           {/foreach}
         </tr>
-        {foreach from=$lexems item=l key=lIndex}
+        {foreach from=$lexemModels item=lm key=lIndex}
+          {assign var="inflArray" value=$regenForms[$lIndex]}
           <tr>
-            <td class="lexem">{$l->form|escape}</td>
-            <td class="model">{$l->modelType}{$l->modelNumber}</td>
-            {assign var="inflArray" value="`$regenForms[$lIndex]`"}
+            <td class="lexem">{$lm->getLexem()->form|escape}</td>
+            <td class="model">{$lm->modelType}{$lm->modelNumber}</td>
             {foreach from=$inflArray item=variantArray key=inflId}
               <td class="forms">
                 {strip}
@@ -178,12 +178,7 @@
     <h3>Participii regenerate conform modelului A{$newParticipleNumber}:</h3>
 
     {foreach from=$participles item=p key=i}
-      {if $participleParadigms[$i]}
-        {include file="common/paradigm/current/paradigm.ihtml"
-                 lexem=$p
-                 ifMap=$participleParadigms[$i]
-                 modelType=$adjModelType}
-      {/if}
+      {include file="common/paradigm/current/paradigm.ihtml" lexemModel=$p}
     {/foreach}
   {/if}
 

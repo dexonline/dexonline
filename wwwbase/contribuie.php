@@ -43,9 +43,8 @@ if ($sendButton) {
       $lexemId = addslashes(AdminStringUtil::formatLexem($lexemId));
       if (StringUtil::startsWith($lexemId, '@')) {
         // create a new lexem
-        $lexem = Lexem::create(substr($lexemId, 1), 'T', '1', '');
-        $lexem->save();
-        $lexem->regenerateParadigm();
+        $lexem = Lexem::deepCreate(substr($lexemId, 1), 'T', '1');
+        $lexem->deepSave();
         LexemDefinitionMap::associate($lexem->id, $definition->id);
         log_userLog("Created lexem {$lexem->id} ({$lexem->form})");
       } else {

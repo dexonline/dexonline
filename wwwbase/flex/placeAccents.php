@@ -15,15 +15,14 @@ if ($submitButton) {
       $noAccent = util_getRequestParameter('noAccent_' . $lexem->id);
 
       if ($noAccent) {
-        //print "No accent on [{$lexem->form}]<br/>\n";
         $lexem->noAccent = 1;
         $lexem->save();
       } else if ($position != -1) {
-        $lexem->form = mb_substr($lexem->form, 0, $position) . "'" .
-          mb_substr($lexem->form, $position);
-        //print "[{$lexem->form}]<br/>\n";
+        $lexem->form = mb_substr($lexem->form, 0, $position) . "'" . mb_substr($lexem->form, $position);
         $lexem->save();
-        $lexem->regenerateParadigm();
+        foreach ($lexem->getLexemModels() as $lm) {
+          $lm->regenerateParadigm();
+        }
       }
     }
   }

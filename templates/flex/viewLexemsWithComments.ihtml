@@ -1,8 +1,9 @@
 {foreach from=$lexems item=l key=row_id}
-  <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$l->id}"
-    >{include file="common/bits/lexemName.ihtml" lexem=$l}
-    ({$l->modelType}{$l->modelNumber
-  })</a>
+  {strip}
+    <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$l->id}">
+      {include file="common/bits/lexemName.ihtml" lexem=$l}
+    </a>
+  {/strip}
   {$l->comment|escape}
-  <br/>
+  <br>
 {/foreach}    

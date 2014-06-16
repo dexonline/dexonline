@@ -115,9 +115,8 @@ if (count($lexemIds)) {
   foreach ($lexemIds as $lexemId) {
     if (StringUtil::startsWith($lexemId, '@')) {
       // create a new lexem
-      $l = Lexem::create(substr($lexemId, 1), 'T', '1', '');
-      $l->save();
-      $l->regenerateParadigm();
+      $l = Lexem::deepCreate(substr($lexemId, 1), 'T', '1');
+      $l->deepSave();
     } else {
       $l = Lexem::get_by_id($lexemId);
     }
@@ -172,7 +171,7 @@ if (($acceptButton || $moveButton) && !$hasErrors) {
     foreach ($ldms as $ldm) {
       $l = Lexem::get_by_id($ldm->lexemId);
       $otherLdms = LexemDefinitionMap::get_all_by_lexemId($l->id);
-      if (!$l->isLoc && !count($otherLdms)) {
+      if (!$l->isLoc() && !count($otherLdms)) {
         $l->delete();
       }
     }

@@ -83,22 +83,38 @@ function lexemEditInit() {
   $('.toggleStructuredLink').click(toggleStructuredClick);
   $('.defFilterLink').click(defFilterClick);
 
-  $('#lexemSourceIds').select2({
+  struct_lexemSourceIds = {
+    data: sourceMap,
     matcher: sourceMatcher,
+    multiple: true,
     placeholder: 'surse care atestă flexiunea',
-    width: '173px',
-  });
+    width: '250px',
+  };
   // Disable the select2 when the HTML select is disabled. This doesn't happen by itself.
-  $('#lexemSourceIds').select2('readonly', $('#lexemSourceIds').is('[readonly]'));
-  $('#similarLexemId').select2({
+  $('#paradigmTabs .lexemSourceIds')
+    .select2(struct_lexemSourceIds);
+
+  struct_similarLexem = {
     ajax: struct_lexemAjax,
     minimumInputLength: 1,
     placeholder: 'sau indicați un lexem similar',
-    width: '300px',
-  }).on('change', similarLexemChange);
+    width: '250px',
+  };
+  $('#paradigmTabs .similarLexem').select2(struct_similarLexem).on('change', similarLexemChange);
 
   $('.mergeLexem').click(mergeLexemButtonClick);
-  $('.similarLink').click(similarLinkClick);
+
+  var t = $('#paradigmTabs');
+  t.tabs();
+  if (canEdit.paradigm) {
+    t.find('.ui-tabs-nav').sortable({
+      axis: "x",
+      stop: reorderLexemModelTabs
+    });
+  }
+  $('#addLexemModel').click(addLexemModelTab);
+  t.on('click', '.ui-icon-close', closeLexemModelTab);
+  t.on('click', '.fakeCheckbox', toggleIsLoc);
 
   wmInit();
 }
@@ -411,27 +427,66 @@ function mergeLexemButtonClick() {
   $('input[name=mergeLexemId]').val(id);
 }
 
-/* Set the model type, model number and restriction values */
-function similarLinkClick() {
-  var parts = $(this).attr('id').split('_');
-  updateParadigm(parts[1], parts[2], parts[3]);
-  return false;
-}
-
 function similarLexemChange(e) {
+  var mtSelect = $(this).siblings('select[name="modelType[]"]');
+  var mnSelect = $(this).prevAll('select[name="modelNumber[]"]');
+  var restriction = $(this).siblings('input[name="restriction[]"]');
+  var span = $(this).closest('*[data-model-dropdown]');
+
   var url = wwwRoot + 'ajax/getModelByLexemId.php?id=' + e.val;
   $.get(url, null, null, 'json')
     .done(function(data) {
-      updateParadigm(data.modelType, data.modelNumber, data.restriction);
+      mtSelect.data('selected', data.modelType);
+      mnSelect.data('selected', data.modelNumber);
+      updateModelTypeList(span);
+      restriction.val(data.restriction);
     });
 }
 
-function updateParadigm(modelType, modelNumber, restriction) {
-  $('#modelTypeListId').val(modelType); // Does not trigger the onchange event
-  updateModelList(false, modelNumber);
-  $('input[name=restr\\[\\]]').each(function() {
-    $(this).prop('checked', restriction.indexOf($(this).val()) != -1);
+function addLexemModelTab() {
+  var tabIndex = $('#paradigmTabs > ul li').length;
+  var tabId = 'lmTab_' + randomDigits(9);
+  var tabContents = $('#lmTab_stem').clone(true).attr('id', tabId);
+  var li = $('#paradigmTabs > ul li').clone().first();
+  li.find('a').text('nou').attr('href', '#' + tabId);
+  $('#paradigmTabs > ul').append(li);
+  $('#paradigmTabs').append(tabContents);
+  $('#paradigmTabs').tabs('refresh');
+  $('#paradigmTabs').tabs('option', 'active', tabIndex);
+  $('#' + tabId).find('select[data-model-type]').val('T'); // clone() doesn't copy selectedness
+  $('#' + tabId).find('.similarLexem').select2(struct_similarLexem).on('change', similarLexemChange);
+  $('#' + tabId).find('.lexemSourceIds')
+    .select2(struct_lexemSourceIds)
+    .select2('readonly', $('.lexemSourceIds').is('[readonly]'));
+  return false;
+}
+
+function closeLexemModelTab() {
+  if ($('#paradigmTabs > ul li').length > 1) {
+    var tabId = $(this).prev('a').attr('href');
+    $(this).closest('li').remove();
+    $(tabId).remove();
+    $('#paradigmTabs').tabs('refresh');
+  } else {
+    alert('Nu puteți șterge unicul model.');
+  }
+}
+
+// Order the tab panels in accordance with the <li> order. This doesn't sem to happen automatically
+function reorderLexemModelTabs() {
+  var current = $('#paradigmTabs > ul');
+  $('#paradigmTabs > ul li a').each(function() {
+    var tabId = $(this).attr('href');
+    var tab = $(tabId);
+    tab.insertAfter(current);
+    current = tab;
   });
+  $('#paradigmTabs').tabs("refresh");
+}
+
+function toggleIsLoc() {
+  var hidden = $(this).prev();
+  hidden.val(1 - hidden.val());
 }
 
 // Initializes the window manager

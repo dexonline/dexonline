@@ -6,9 +6,9 @@
   {strip}
     {foreach from=$ifArray item=if key=i}
         {if $i}, {/if}
-        {if !$if->recommended}<span class="notRecommended" title="formă nerecomandată">{/if}
+        {if $if->recommended === '0'}<span class="notRecommended" title="formă nerecomandată">{/if}
           {$if->form|regex_replace:"/\'(a|e|i|o|u|ă|î|â|y)/":"<span class=\"accented\">\$1</span>"}
-        {if !$if->recommended}*</span>{/if}
+        {if $if->recommended === '0'}*</span>{/if}
     {/foreach}
   {/strip}
 {/if}

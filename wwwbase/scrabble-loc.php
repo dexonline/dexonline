@@ -1,7 +1,6 @@
 <?php
 require_once("../phplib/util.php");
 ini_set('max_execution_time', '3600');
-define('DB_QUERY', 'select * from Lexem where isLoc order by formNoAccent');
 $locVersion = util_getRequestParameter('locVersion');
 $newLocVersion = util_getRequestParameter('newLocVersion');
 
@@ -44,14 +43,25 @@ SmartyWrap::displayCommonPageWithSkin('scrabble-loc.ihtml');
 
 function writeLexems($locVersion, $fileName) {
   LocVersion::changeDatabase($locVersion);
-  $dbResult = db_execute(DB_QUERY, PDO::FETCH_ASSOC);
+
+  if ($locVersion >= '6.0') {
+    $query = 'select L.form, LM.modelType, LM.modelNumber, LM.restriction '.
+      'from Lexem L join LexemModel LM on L.id = LM.lexemId ' .
+      'where LM.isLoc ' .
+      'order by L.formNoAccent asc';
+  } else {
+    $query = 'select form, modelType, modelNumber, restriction '.
+      'from Lexem ' .
+      'where isLoc ' .
+      'order by formNoAccent asc';
+  }
+  $dbResult = db_execute($query, PDO::FETCH_ASSOC);
   $handle = fopen($fileName, 'w');
-  foreach ($dbResult as $row) {
-    $l = Model::factory('Lexem')->create($row);
-    fprintf($handle, AdminStringUtil::padRight(mb_strtoupper($l->form), 20));
-    fprintf($handle, AdminStringUtil::padRight($l->modelType, 4));
-    fprintf($handle, AdminStringUtil::padRight($l->modelNumber, 8));
-    fprintf($handle, $l->restriction . "\n");
+  foreach ($dbResult as $r) {
+    fprintf($handle, AdminStringUtil::padRight(mb_strtoupper($r['form']), 20));
+    fprintf($handle, AdminStringUtil::padRight($r['modelType'], 4));
+    fprintf($handle, AdminStringUtil::padRight($r['modelNumber'], 8));
+    fprintf($handle, $r['restriction'] . "\n");
   }
   fclose($handle);
 }

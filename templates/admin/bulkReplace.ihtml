@@ -5,9 +5,7 @@
     Sursa: {$row->source->shortName|escape} |
     Trimisă de {$row->user->nick|escape}</a>,
     {$row->definition->createDate|date_format:"%e %b %Y"} |
-    {assign var=status value=`$row->definition->status`}
-    {assign var=statusName value=`$allStatuses[$status]`}
-    Starea: {$statusName} |
+    Starea: {$allStatuses[$row->definition->status]} |
 
     <a href="definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
   </span>

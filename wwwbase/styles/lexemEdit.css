@@ -233,6 +233,43 @@ input[readonly] {
   padding-left: 10px;
 }
 
+/* Paradigm tabs settings */
+
+.paradigmFields tr td {
+  vertical-align: text-top;
+}
+
+#lmTab_stem {
+  display: none;
+}
+
+.ui-tabs {
+  font-family: serif;
+  font-size: 16px;
+}
+
+.ui-tabs .ui-tabs-panel {
+  padding: 5px;
+}
+
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+  display: inline-block;
+  float: none;
+  padding: 0px 5px;
+}
+
+.ui-icon-close, .ui-icon-arrow-4 {
+  cursor: pointer;
+  margin: 5px 3px 0;
+  display: inline-block;
+}
+
+#addLexemModel {
+  position: absolute;
+  right: 20px;
+  top: 8px;
+}
+
 /* Window manager settings */
 .titlebaricon {
   display: none;

@@ -1,4 +1,0 @@
-{strip}
-  {if $sourceNames}<br/><span class="lexemTags">Surse flexiune: {$sourceNames}</span>{/if}
-  {if $lexem->tags}<br/><span class="lexemTags">{$lexem->tags|escape}</span>{/if}
-{/strip}

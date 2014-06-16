@@ -1,4 +1,4 @@
-{if count($recentLinks)}
+{if isset($recentLinks)}
   <div class="adminRecentlyVisited">
     <div class="title">Pagini recent vizitate</div>
   

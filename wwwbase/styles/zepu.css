@@ -87,7 +87,7 @@ img {
 }
 
 #userPic {
-  background: url("../img/sprite2.png") -355px -50px no-repeat;
+  background: url("../img/sprite3.png") -199px -82px no-repeat;
   float: left;
   height: 16px;
   margin-right: 3px;
@@ -119,7 +119,7 @@ img {
 }
 
 #homeLink {
-  background: url("../img/zepu/dexonline_logo_mic.png") no-repeat;
+  background: url("../img/sprite3.png") -88px -82px no-repeat;
   float: left;
   margin-right: 15px;
   margin-top: 3px;
@@ -211,7 +211,7 @@ img {
 
 /* SITE IDENTITY */
 #Logo {
-  background: url("../img/sprite2.png") -550px -25px no-repeat; 
+  background: url("../img/sprite3.png") no-repeat; 
   height: 82px;
   margin: 30px auto 5px auto;
   width: 316px;
@@ -404,7 +404,7 @@ img {
 }
 
 #hostingElvsoft {
-  background: url("../img/sprite2.png") -460px -50px no-repeat;
+  background: url("../img/sprite3.png") 0px -82px no-repeat;
   display: inline-block;
   height: 31px;
   vertical-align: top;
@@ -514,17 +514,6 @@ a.inflLink {
   font-weight: bold;
 }
 
-span.notRecommended {
-  color: #1010c0;
-  cursor: help;
-  font-style: italic;
-}
-
-div.notRecommendedLegend {
-  color: #1010c0;
-  font-style: italic;
-}
-
 .noBorder {
   border: 0px;
 }
@@ -590,7 +579,7 @@ div.errorType {
 }
 
 div.errorType div.pic {
-  background: url("../img/sprite2.png") -370px -50px no-repeat;
+  background: url("../img/sprite3.png") -215px -82px no-repeat;
 }
 
 div.infoType {

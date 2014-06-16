@@ -2,47 +2,40 @@
 <br/>
 
 <form action="modele-flexiune" method="get">
-  Versiunea LOC:
-  <select name="locVersion" id="locVersionListId" onchange="return updateModelTypeList()">
-    {foreach from=$locVersions item=lv}
-      <option value="{$lv->name|escape}"
-              {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
-        {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
-      </option>
-    {/foreach}
-  </select>
+  <span data-model-dropdown>
+    Versiunea LOC:
+    <select name="locVersion" data-loc-version>
+      {foreach from=$locVersions item=lv}
+        <option value="{$lv->name|escape}" {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
+          {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
+        </option>
+      {/foreach}
+    </select>
 
-  &nbsp;&nbsp; Model:
-  <select name="modelType" id="modelTypeListId" onchange="return updateModelList(true)">
-    {foreach from=$modelTypes item=mt}
-      <option value="{$mt->code|escape}" {if $mt->code == $selectedModelType->code}selected="selected"{/if}>
-        {$mt->code|escape} ({$mt->description|escape})
-      </option>
-    {/foreach}
-  </select>
-
-  &nbsp;&nbsp; Număr:
-  <select name="modelNumber" id="modelListId">
-    <option value="-1">Toate</option>
-    {foreach from=$models item=m}
-      <option value="{$m->number|escape}"
-        {if $m->number == $selectedModelNumber}selected="selected"{/if}
-        >{$m->number}{if !$m->id}*{/if} ({$m->exponent})
-      </option>
-    {/foreach}
-  </select>
+    &nbsp;&nbsp; Model:
+    <select name="modelType" data-model-type data-canonical="1" data-verbose="1" data-selected="{$selectedModelType}">
+    </select>
+    <select name="modelNumber" data-model-number data-all-option="1" data-selected="{$selectedModelNumber}">
+    </select>
+  </span>
   <input type="submit" name="submitButton" value="Arată"
          onclick="return hideSubmitButton(this)"/>
 </form>
 
 {if $modelsToDisplay}
   {foreach from=$modelsToDisplay item=m key=i}
+    {assign var="ld" value=$lexemData[$i]}
     <div class="scrabbleModelName">
       {$m->number}. {$m->exponent|regex_replace:"/\'(a|e|i|o|u|ă|î|â)/":"<span class=\"accented\">\$1</span>"}
     </div>
-    {include file="common/paradigm/$selectedLocVersion/paradigm.ihtml"
-             lexem=$lexems[$i]
-             ifMap=$paradigms[$i]
-             modelType=$selectedModelType}
+    {if $selectedLocVersion >= '6.0'}
+      {include file="common/paradigm/$selectedLocVersion/paradigm.ihtml"
+               lexemModel=$ld}
+    {else}
+      {include file="common/paradigm/$selectedLocVersion/paradigm.ihtml"
+               lexem=$ld.lexem
+               ifMap=$ld.ifMap
+               modelType=$ld.modelType}
+    {/if}
   {/foreach}
 {/if}

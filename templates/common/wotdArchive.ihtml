@@ -33,7 +33,7 @@
             <div class="wotdDoM">{$day.dayOfMonth}</div>
             <div>{if $day.visible}<a href="{$wwwRoot}cuvantul-zilei/{$day.wotd->displayDate|replace:'-':'/'}">{$day.def->lexicon}</a>{else}&nbsp;{/if}</div>
             <div class="thumb">
-              {if $day.wotd->image && $day.visible}
+              {if $day.wotd && $day.wotd->image && $day.visible}
                 {strip}
                   <a href="{$wwwRoot}cuvantul-zilei/{$day.wotd->displayDate|replace:'-':'/'}">
                     <img src="{$day.wotd->getThumbUrl()}" alt="thumbnail {$day.def->lexicon}"/>

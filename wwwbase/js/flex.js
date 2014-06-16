@@ -8,62 +8,11 @@ $(function() {
         }
       },
       modal: true,
-      title: 'Eroare',
+      title: 'Mesaje',
       width: 500,
     });
   }
 });
-
-function updateModelTypeList() {
-  var locVersion = $('#locVersionListId').val();
-  var url = wwwRoot + 'ajax/getModelTypesForLocVersion.php?locVersion=' + locVersion;
-  $.get(url, null, null, 'json')
-    .done(populateModelTypeList)
-    .fail('Nu pot descărca lista de tipuri de modele.');
-  return false;
-}
-
-/**
- * listAllOption -- whether to prepend an option for "list all"
- * selectedOption -- value to select once loading is complete (optional)
-**/
-function updateModelList(listAllOption, selectedOption) {
-  $.get(wwwRoot + 'ajax/getModelsForLocVersionModelType.php',
-        { locVersion: $('#locVersionListId').val(), modelType: $('#modelTypeListId').val() },
-        null, 'json')
-    .done(function(data) { populateModelList(data, listAllOption, selectedOption); })
-    .fail('Nu pot descărca lista de modele.');
-  return false;
-}
-
-function populateModelTypeList(data) {
-  var select = $('#modelTypeListId');
-  select.empty();
-
-  $.each(data, function(index, dict) {
-    var display = dict.code + ' (' + dict.description + ')';
-    select.append($("<option></option>").attr("value", dict.code).text(display));
-  });
-
-  // Now update the model list since the model type list has changed.
-  updateModelList(true);
-}
-
-function populateModelList(data, listAllOption, selectedOption) {
-  var select = $('#modelListId');
-  select.empty();
-
-  if (listAllOption) {
-    select.append($('<option value="-1">Toate</option>'));
-  }
-  $.each(data, function(index, dict) {
-    var display = dict.number + ' (' + dict.exponent + ')';
-    select.append($("<option></option>").attr("value", dict.number).text(display));
-  });
-  if (selectedOption) {
-    select.val(selectedOption);
-  }
-}
 
 function blUpdateParadigmVisibility(radioButton) {
   // Locate the div containing one sub-div for each paradigm

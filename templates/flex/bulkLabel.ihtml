@@ -4,7 +4,7 @@
   <li>Sunt prezentate maxim 20 de lexeme pe pagină.</li>
   <li>
     Restricțiile nu sunt luate în considerare în timp real (toate
-    formele vor fi afișate chiar dacă bifați unele restricții),
+    formele vor fi afișate chiar dacă indicați unele restricții),
     dar vor fi procesate corect când trimiteți formularul.
   </li>
   <li>
@@ -54,26 +54,7 @@
 
         <!-- Restriction checkboxes, if applicable -->
         Restricții:
-        <input type="checkbox" id="restr_{$l->id}_S"
-               name="restr_{$l->id}[]" value="S"
-        /><label for="restr_{$l->id}_S">Singular</label>
-        &nbsp;&nbsp;
-        <input type="checkbox" id="restr_{$l->id}_P"
-               name="restr_{$l->id}[]" value="P"
-        /><label for="restr_{$l->id}_P">Plural</label>
-        &nbsp;&nbsp;
-        <input type="checkbox" id="restr_{$l->id}_U"
-               name="restr_{$l->id}[]" value="U"
-        /><label for="restr_{$l->id}_U">Unipersonal</label>
-        &nbsp;&nbsp;
-        <input type="checkbox" id="restr_{$l->id}_I"
-               name="restr_{$l->id}[]" value="I"
-        /><label for="restr_{$l->id}_I">Impersonal</label>
-        &nbsp;&nbsp;
-        <input type="checkbox" id="restr_{$l->id}_T"
-               name="restr_{$l->id}[]" value="T"
-        /><label for="restr_{$l->id}_T">Trecut</label>
-        &nbsp;&nbsp;
+        <input type="text" name="restr_{$l->id}" size="5">
         <br/>
 
         <!-- Hide/show definitions -->
@@ -83,13 +64,13 @@
 
         <!-- Definitions -->
         <div class="blDefinitions" id="definitions_{$l->id}">
-          {assign var="srArray" value="`$searchResults[$lIter]`"}
+          {assign var="srArray" value=$searchResults[$lIter]}
           {foreach from=$srArray item=row}
             {$row->definition->htmlRep}<br/>
             <span class="defDetails">
               Sursa: {$row->source->shortName|escape} |
-              {assign var=status value=`$row->definition->status`}
-              {assign var=statusName value=`$allStatuses[$status]`}
+              {assign var=status value=$row->definition->status}
+              {assign var=statusName value=$allStatuses[$status]}
               Starea: {$statusName}
             </span>
             <br/>
@@ -99,15 +80,12 @@
         <!-- Div containing all the paradigms. Only one of them will -->
         <!-- be visible at any time. -->
         <div id="paradigms_{$l->id}">
-          {assign var="ifMapArray" value="`$ifMapMatrix[$lIter]`"}
-          {foreach from=$ifMapArray item=ifMap key=pIter}
-            {assign var="m" value="`$models[$pIter]`"}
-            {assign var="mt" value="`$modelTypes[$pIter]`"}
+          {assign var="lmArray" value=$lmMatrix[$lIter]}
+          {foreach from=$lmArray item=lm key=pIter}
+            {assign var="m" value=$models[$pIter]}
+            {assign var="mt" value=$modelTypes[$pIter]}
             <div class="blParadigm" style="display: none" id="paradigm_{$l->id}_{$m->modelType}_{$m->number}">
-              {include file="common/paradigm/current/paradigm.ihtml"
-                       modelType=$mt
-                       lexem=$l
-                       ifMap=$ifMap}
+              {include file="common/paradigm/current/paradigm.ihtml" lexemModel=$lm}
             </div>
           {/foreach}
         </div>

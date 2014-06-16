@@ -37,15 +37,6 @@ class WikiArticle extends BaseObject implements DatedObject {
     return urlencode(str_replace(' ', '_', $wikiTitle));
   }
 
-  public static function loadAllTitlesOld() {
-    $titles = db_getArray("select title from WikiArticle order by title");
-    $result = array();
-    foreach ($titles as $title) {
-      $result[] = array($title, WikiArticle::wikiTitleToUrlTitle($title));
-    }
-    return $result;
-  }
-
   public static function loadAllTitles() {
     $rows = db_getArrayOfRows("select section, title from WikiArticle left join WikiSection using (pageId) order by section, title");
     $result = array();

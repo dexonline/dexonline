@@ -1,12 +1,9 @@
-<table class="lexem">
+{* Argument: $lexemModel *}
+{assign var=ifMap value=$lexemModel->loadInflectedFormsMappedByRank()}
+<table class="lexemModel">
   <tr>
     <td colspan="2" rowspan="2">
-      <span class="lexemName"
-        >{include file="common/bits/lexemName.ihtml" lexem=$lexem
-      }</span>
-      &nbsp; {$modelType->description|escape}
-      {include file="common/bits/locInfo.ihtml" lexem=$lexem}
-      {include file="common/bits/lexemTags.ihtml" lexem=$lexem}
+      {include file="common/bits/lexemModel.ihtml" lexemModel=$lexemModel}
     </td>
     <td colspan="2" class="inflection">masculin</td>
     <td colspan="2" class="inflection">feminin</td>

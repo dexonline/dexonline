@@ -6,9 +6,9 @@ faceți cu un lexem, săriți-l (nu bifați nimic).
 
 <form action="placeAccents.php" method="post">
   {foreach from=$lexems item=l}
-    {assign var=lexemId value=`$l->id`}
-    {assign var=charArray value=`$chars[$lexemId]`}
-    {assign var=srArray value=`$searchResults[$lexemId]`}
+    {assign var=lexemId value=$l->id}
+    {assign var=charArray value=$chars[$lexemId]}
+    {assign var=srArray value=$searchResults[$lexemId]}
     <table class="ap_lexemRow">
       <tr>
         <td class="ap_lexemForm">
@@ -39,8 +39,8 @@ faceți cu un lexem, săriți-l (nu bifați nimic).
         {$row->definition->htmlRep}<br/>
         <span class="defDetails">
           Sursa: {$row->source->shortName|escape} |
-          {assign var=status value=`$row->definition->status`}
-          {assign var=statusName value=`$allStatuses[$status]`}
+          {assign var=status value=$row->definition->status}
+          {assign var=statusName value=$allStatuses[$status]}
           Starea: {$statusName}
         </span>
         <br/>

@@ -17,13 +17,12 @@ if ($submitButton) {
       if ($modelId) {
         $parts = preg_split('/_/', $modelId);
         assert(count($parts) == 2);
-        $lexem->modelType = $parts[0];
-        $lexem->modelNumber = $parts[1];
-        $restrArray = util_getRequestParameter('restr_' . $lexem->id);
-        $restriction = $restrArray ? implode($restrArray, '') : '';
-        $lexem->restriction = $restriction;
-        $lexem->save();
-        $lexem->regenerateParadigm();
+        $lm = $lexem->getLexemModels()[0];
+        $lm->modelType = $parts[0];
+        $lm->modelNumber = $parts[1];
+        $lm->restriction = util_getRequestParameter('restr_' . $lexem->id);
+        $lm->save();
+        $lm->regenerateParadigm();
       } else {
         $lexem->comment = util_getRequestParameter('comment_' . $lexem->id);
         $lexem->save();
@@ -37,17 +36,29 @@ $reverseSuffix = StringUtil::reverse($suffix);
 
 RecentLink::createOrUpdate("Etichetare asistată: -$suffix");
 
-$numLabeled = Model::factory('Lexem')->where_not_equal('modelType', 'T')->where_like('reverse', "{$reverseSuffix}%")->count();
+$numLabeled = Model::factory('Lexem')
+  ->table_alias('l')
+  ->join('LexemModel', 'lm.lexemId = l.id', 'lm')
+  ->where_not_equal('lm.modelType', 'T')
+  ->where_like('l.reverse', "{$reverseSuffix}%")
+  ->count();
 
 // Collect all the models that appear in at least 5% of the already
 // labeled lexems. Always select at least one model, in the unlikely case
 // that no model has over 5%.
 $models = array();
 $hasInvariableModel = false;
-$dbResult = db_execute("select modelType, modelNumber, count(*) as c from Lexem where modelType != 'T' and reverse like '{$reverseSuffix}%' " .
-                       "group by modelType, modelNumber order by c desc", PDO::FETCH_ASSOC);
+$dbResult = db_execute("select canonical, modelNumber, count(*) as c " .
+                       "from Lexem " .
+                       "join LexemModel on lexemId = Lexem.id " .
+                       "join ModelType on modelType = code " .
+                       "where modelType != 'T' " .
+                       "and reverse like '{$reverseSuffix}%' " .
+                       "group by canonical, modelNumber " .
+                       "order by c desc",
+                       PDO::FETCH_ASSOC);
 foreach ($dbResult as $row) {
-  $modelType = $row['modelType'];
+  $modelType = $row['canonical'];
   $modelNumber = $row['modelNumber'];
   $count = $row['c'];
   if (!count($models) || ($count / $numLabeled >= 0.05)) {
@@ -76,28 +87,30 @@ foreach ($models as $m) {
   $modelTypes[] = ModelType::get_by_code($m->modelType);
 }
 
-$lexems = Model::factory('Lexem')->where('modelType', 'T')->where_like('reverse', "{$reverseSuffix}%")->order_by_asc('formNoAccent')
-  ->limit(20)->find_many();
+$lexems = Model::factory('Lexem')
+  ->table_alias('l')
+  ->select('l.*')
+  ->join('LexemModel', 'lm.lexemId = l.id', 'lm')
+  ->where('lm.modelType', 'T')
+  ->where_like('l.reverse', "{$reverseSuffix}%")
+  ->order_by_asc('l.formNoAccent')
+  ->limit(20)
+  ->find_many();
 
-// $ifMapMatrix[$i][$j] = array of InflectedForms for lexem $i and model $j
-$ifMapMatrix = array();
+// $lmMatrix[$i][$j] = lexem model (with inflected forms) for lexem $i and model $j
+$lmMatrix = array();
 foreach ($lexems as $l) {
-  $origModelType = $l->modelType;
-  $origModelNumber = $l->modelNumber;
-  $ifMapArray = array();
+  $lm = $l->getLexemModels()[0];
+  $lmArray = array();
   foreach ($models as $m) {
-    $l->modelType = $m->modelType;
-    $l->modelNumber = $m->number;
-    $if = $l->generateParadigm();
-    if (is_array($if)) {
-      $ifMapArray[] = InflectedForm::mapByInflectionRank($if);
-    } else {
-      $ifMapArray[] = null;
-    }
+    // Force a reload
+    $lm = LexemModel::get_by_id($lm->id);
+    $lm->modelType = $m->modelType;
+    $lm->modelNumber = $m->number;
+    $lm->generateInflectedFormsMappedByRank();
+    $lmArray[] = $lm;
   }
-  $l->modelType = $origModelType;
-  $l->modelNumber = $origModelNumber;
-  $ifMapMatrix[] = $ifMapArray;
+  $lmMatrix[] = $lmArray;
 }
 
 // Load the definitions for each lexem
@@ -112,7 +125,7 @@ SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('ifMapMatrix', $ifMapMatrix);
+SmartyWrap::assign('lmMatrix', $lmMatrix);
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('sectionTitle', "Sufix: -$suffix");
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());

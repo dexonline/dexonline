@@ -1,7 +1,7 @@
 {assign var="id" value=$id|default:"structStatus"}
 {assign var="name" value=$name|default:"structStatus"}
 {assign var="structStatusNames" value=$structStatusNames}
-{assign var="selected" value=$selected}
+{assign var="selected" value=$selected|default:false}
 {assign var="canEdit" value=$canEdit|default:false}
 {assign var="anyOption" value=$anyOption|default:false}
 

@@ -442,6 +442,7 @@ class AdminStringUtil {
   }
 
   private static function ord($s) {
+    // TODO: this looks broken, test.php fails
     $arr = unpack('N', mb_convert_encoding($s, 'UCS-4BE', 'UTF-8'));
     return $arr[1];
   }

@@ -3,8 +3,6 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$models = FlexModel::loadByType('A');
-
 $reports = array(
   array('text' => 'Definiții nemoderate',
         'url' => 'admin/viewPendingDefinitions',
@@ -57,7 +55,7 @@ $reports = array(
   ),
   array('text' => 'Lexeme fără paradigme',
         'url' => 'flex/viewTemporaryLexems',
-        'count' => Model::factory('Lexem')->where('modelType', 'T')->count(),
+        'count' => Model::factory('LexemModel')->where('modelType', 'T')->count(),
         'privilege' => PRIV_LOC
   ),
   array('text' => 'Imagini de revizuit (din dicționarul vizual)',
@@ -69,12 +67,10 @@ $reports = array(
 
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign("allStatuses", util_getAllStatuses());
-SmartyWrap::assign('modelTypes', ModelType::loadCanonical());
-SmartyWrap::assign('models', $models);
 SmartyWrap::assign('structStatusNames', Lexem::$STRUCT_STATUS_NAMES);
 SmartyWrap::assign('reports', $reports);
 SmartyWrap::assign('sectionTitle', 'Pagina moderatorului');
 SmartyWrap::addCss('jqueryui', 'select2');
-SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev');
+SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev', 'modelDropdown');
 SmartyWrap::displayAdminPage('admin/index.ihtml');
 ?>

@@ -2,18 +2,14 @@
 
 require_once __DIR__ . '/../phplib/util.php';
 
-$SPRITE = 'sprite2.png';
-$GEOMETRY = '875x110';
+$SPRITE = 'sprite3.png';
+$GEOMETRY = '316x113';
 $IMAGES = array(
-  array('file' => 'wwwbase/img/zepu/shadows/shadow875.png',  'x' => 0,   'y' => 0,   'width' => 875, 'height' => 22, 'bg' => null),
-  array('file' => 'wwwbase/img/zepu/shadows/shadow538.png',  'x' => 0,   'y' => 25,  'width' => 538, 'height' => 21, 'bg' => null),
-  array('file' => 'wwwbase/img/zepu/shadows/shadow350.png',  'x' => 0,   'y' => 50,  'width' => 350, 'height' => 16, 'bg' => null),
-  array('file' => 'wwwbase/img/zepu/shadows/shadow216.png',  'x' => 0,   'y' => 70,  'width' => 216, 'height' => 14, 'bg' => null),
-  array('file' => 'wwwbase/img/zepu/logo.png',               'x' => 550, 'y' => 25,  'width' => 316, 'height' => 82, 'bg' => null),
-  array('file' => 'wwwbase/img/zepu/dexonline_logo_mic.png', 'x' => 220, 'y' => 70,  'width' => 111, 'height' => 25, 'bg' => '#eeeeee'),
-  array('file' => 'wwwbase/img/hosting/elvsoft.png',         'x' => 460, 'y' => 50,  'width' => 88,  'height' => 31, 'bg' => null),
-  array('file' => 'wwwbase/img/icons/user_orange.png',       'x' => 355, 'y' => 50,  'width' => 16,  'height' => 16, 'bg' => '#eeeeee'),
-  array('file' => 'wwwbase/img/icons/exclamation.png',       'x' => 370, 'y' => 50,  'width' => 16,  'height' => 16, 'bg' => null),
+  array('file' => 'wwwbase/img/zepu/logo.png',               'x' => 0, 'y' => 0,  'width' => 316, 'height' => 82, 'bg' => null),
+  array('file' => 'wwwbase/img/hosting/elvsoft.png',         'x' => 0, 'y' => 82,  'width' => 88,  'height' => 31, 'bg' => null),
+  array('file' => 'wwwbase/img/zepu/dexonline_logo_mic.png', 'x' => 88, 'y' => 82,  'width' => 111, 'height' => 25, 'bg' => '#eeeeee'),
+  array('file' => 'wwwbase/img/icons/user_orange.png',       'x' => 199, 'y' => 82,  'width' => 16,  'height' => 16, 'bg' => '#eeeeee'),
+  array('file' => 'wwwbase/img/icons/exclamation.png',       'x' => 215, 'y' => 82,  'width' => 16,  'height' => 16, 'bg' => null),
 );
 
 chdir(util_getRootPath());

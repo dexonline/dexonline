@@ -30,8 +30,7 @@
 
   <body>
     <div id="Container">
-      <div id="menuShadow"></div>
-      <div id="menu">
+      <div id="menu" class="bend-shadow">
         {if !$onHomePage}
           <a href="{$wwwRoot}" id="homeLink" title="Pagina principală DEX online"></a>
         {/if}

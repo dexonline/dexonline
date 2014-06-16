@@ -10,7 +10,7 @@
 {/if}
 
 {if $numEnabledWidgets}
-  <div class="widgetBox">
+  <div class="widgetBox bend-shadow">
   	<ul class="widgetList">
       {foreach from=$widgets item=params}
         {if $params.enabled}
@@ -22,7 +22,6 @@
         <a href="preferinte">personalizare elemente</a>
       </li>
   	</ul>
-  	<div class="widgetShadow"></div>
   </div>
 {/if}
 
@@ -33,11 +32,10 @@
   O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.
 </div>
 
-<div class="statusReport">
+<div class="statusReport bend-shadow">
   Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.<br/>
   Liste de cuvinte:
   {foreach from=$letters item=letter}
     <a href="{$wwwRoot}lista-cuvinte/{$letter|escape:url}">{$letter|mb_strtoupper}</a>
   {/foreach}
 </div>
-<div id="statusReportShadow"></div>

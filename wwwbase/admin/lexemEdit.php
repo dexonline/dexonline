@@ -156,6 +156,7 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   for ($i = 1; $i < count($modelType); $i++) {
     $lm = Model::factory('LexemModel')->create();
     $lm->lexemId = $lexem->id;
+    $lm->setLexem($lexem); // Otherwise it will reload the original
     $lm->displayOrder = $i;
     $lm->modelType = $modelType[$i];
     $lm->modelNumber = $modelNumber[$i];

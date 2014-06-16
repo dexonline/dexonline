@@ -37,8 +37,14 @@ if ($sourceId) {
 
 // Process the $loc argument
 switch ($loc) {
-  case 0: $where[] = "not l.isLoc"; break;
-  case 1: $where[] = "l.isLoc"; break;
+  case 0:
+    $joins['lexemModel'] = true;
+    $where[] = "not lm.isLoc";
+    break;
+  case 1:
+    $joins['lexemModel'] = true;
+    $where[] = "lm.isLoc";
+    break;
 }
 
 // Process the $paradigm argument

@@ -232,9 +232,8 @@ while ($i < count($lines)) {
       if($verbose) echo("\t\tCreating a new lexem for name {$name}\n");
       if (!$dryrun) {
         // Create a new lexem.
-        $lexem = Lexem::create($name, 'T', '1', '');
-        $lexem->save();
-        $lexem->regenerateParadigm();
+        $lexem = Lexem::deepCreate($name, 'T', '1');
+        $lexem->deepSave();
         if($verbose) echo("\t\tCreated lexem {$lexem->id} ({$lexem->form})\n");
       }
     }

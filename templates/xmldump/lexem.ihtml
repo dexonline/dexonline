@@ -6,15 +6,13 @@
       <Description>{$lexem->description|escape}</Description>
     {/if}
     {foreach from=$lexemModels item=lm}
-      <Model type="{$lm->modelType}{$lm->modelNumber}{$lm->restriction}">
-        {assign var="ifs" value=$lm->loadInflectedForms()}
-        {foreach from=$ifs item=if}
-          <InflectedForm>
-            <InflectionId>{$if->inflectionId}</InflectionId>
-            <Form>{$if->form|escape}</Form>
-          </InflectedForm>
-        {/foreach}
-      </Model>
+      {assign var="ifs" value=$lm->loadInflectedForms()}
+      {foreach from=$ifs item=if}
+        <InflectedForm>
+          <InflectionId>{$if->inflectionId}</InflectionId>
+          <Form>{$if->form|escape}</Form>
+        </InflectedForm>
+      {/foreach}
     {/foreach}
   </Lexem>
 

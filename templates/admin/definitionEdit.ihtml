@@ -92,7 +92,7 @@
         {/if}
       </td>
     </tr>
-    <tr id='similarSourceRow' {if $simSource->shortName}{else}style="display:none"{/if}>
+    <tr id='similarSourceRow' {if $simSource && $simSource->shortName}{else}style="display:none"{/if}>
       <td>Similarități</td>
       <td>
         <input type="checkbox" id="similarSource" name="similarSource" value="1" {if $def->similarSource}checked="checked"{/if}/>
@@ -146,14 +146,14 @@
   Comentariu: {$comment->htmlContents}
 {/if}
 
-{if $simSource->shortName}
-<input type="hidden" id="similarSourceId" value="{$simSource->id}"/>
-<div style="display:hidden">
-  <font color="red">Definiția din {$simSource->shortName} corespunzătoare lexemului:</font>
-</div>
-<div id="similarPreview">
-{$similarDef->htmlRep|default:'<font color="#888">Nu există nicio definiție similară sau nu e niciun lexem definit</font>'}
-</div>
+{if $simSource && $simSource->shortName}
+  <input type="hidden" id="similarSourceId" value="{$simSource->id}"/>
+  <div style="display:hidden">
+    <font color="red">Definiția din {$simSource->shortName} corespunzătoare lexemului:</font>
+  </div>
+  <div id="similarPreview">
+  {$similarDef->htmlRep|default:'<font color="#888">Nu există nicio definiție similară sau nu e niciun lexem definit</font>'}
+  </div>
 {/if}
 
 <script>

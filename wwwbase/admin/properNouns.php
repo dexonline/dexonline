@@ -25,6 +25,7 @@ if ($submitButton) {
         $lexemMap[$lexemId] = Lexem::get_by_id($lexemId);
       }
       $l = $lexemMap[$lexemId];
+      $lm = $l->getLexemModels()[0];
 
       switch ($parts[0]) {
       case 'caps':
@@ -37,27 +38,27 @@ if ($submitButton) {
         break;
         
       case 'singular':
-        $l->restriction = 'S';
+        $lm->restriction = 'S';
         break;
         
       case 'plural':
-        $l->restriction = 'P';
+        $lm->restriction = 'P';
         break;
         
       case 'model':
         if ($value) {
           $m = Model::factory('FlexModel')->where_raw("concat(modelType, number) = '{$value}'")->find_one();
           if ($m) {
-            $oldModelType = $l->modelType;
-            $oldModelNumber = $l->modelNumber;
-            $l->modelType = $m->modelType;
-            $l->modelNumber = $m->number;
-            $ifs = $l->generateParadigm();
+            $oldModelType = $lm->modelType;
+            $oldModelNumber = $lm->modelNumber;
+            $lm->modelType = $m->modelType;
+            $lm->modelNumber = $m->number;
+            $ifs = $lm->generateInflectedForms();
             if (!is_array($ifs)) {
               FlashMessage::add("Lexemul '{$l->formNoAccent}' nu poate fi flexionat cu modelul '{$value}'");
               $errorMap[$l->id] = true;
-              $l->modelType = $oldModelType;
-              $l->modelNumber = $oldModelNumber;
+              $lm->modelType = $oldModelType;
+              $lm->modelNumber = $oldModelNumber;
             }
           } else {
             FlashMessage::add("Modelul '{$value}' nu există pentru lexemul '{$l->formNoAccent}'.");
@@ -96,17 +97,30 @@ if ($submitButton) {
   foreach ($lexemMap as $id => $l) {
     if (!array_key_exists($id, $errorMap) && !array_key_exists($id, $deleteMap)) {
       $l->save();
-      $l->regenerateParadigm();
+      $lm = $l->getLexemModels()[0];
+      $lm->save();
+      $lm->regenerateParadigm();
     }
   }
 }
 
 $deSource = Source::get_by_shortName('DE');
-$lexems = Model::factory('Lexem')->distinct()->select('Lexem.*')
-  ->join('LexemDefinitionMap', 'Lexem.id = lexemId', 'ldm')->join('Definition', 'definitionId = d.id', 'd')
-  ->where('d.status', ST_ACTIVE)->where('d.sourceId', $deSource->id)->where('isLoc', 0)->where_like('formNoAccent', "$prefix%")->where('verifSp', 0)
-  ->where_not_equal('modelType', 'SP')
-  ->order_by_asc('formNoAccent')->limit(100)->find_many();
+$lexems = Model::factory('Lexem')
+  ->table_alias('l')
+  ->select('l.*')
+  ->distinct()
+  ->join('LexemModel', 'l.id = lm.lexemId', 'lm')
+  ->join('LexemDefinitionMap', 'l.id = ldm.lexemId', 'ldm')
+  ->join('Definition', 'ldm.definitionId = d.id', 'd')
+  ->where('d.status', ST_ACTIVE)
+  ->where('d.sourceId', $deSource->id)
+  ->where('lm.isLoc', 0)
+  ->where_like('l.formNoAccent', "$prefix%")
+  ->where('l.verifSp', 0)
+  ->where_not_equal('lm.modelType', 'SP')
+  ->order_by_asc('l.formNoAccent')
+  ->limit(100)
+  ->find_many();
 
 foreach ($lexems as $l) {
   $l->restrP = (strpos($l->restriction, 'P') !== false);

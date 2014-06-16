@@ -115,9 +115,8 @@ if (count($lexemIds)) {
   foreach ($lexemIds as $lexemId) {
     if (StringUtil::startsWith($lexemId, '@')) {
       // create a new lexem
-      $l = Lexem::create(substr($lexemId, 1), 'T', '1', '');
-      $l->save();
-      $l->regenerateParadigm();
+      $l = Lexem::deepCreate(substr($lexemId, 1), 'T', '1');
+      $l->deepSave();
     } else {
       $l = Lexem::get_by_id($lexemId);
     }

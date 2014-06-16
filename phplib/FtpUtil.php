@@ -3,12 +3,16 @@
 class FtpUtil {
 
   static function staticServerPut($localFile, $remoteFile) {
-    $conn = ftp_connect(Config::get('static.host'));
-    ftp_login($conn, Config::get('static.user'), Config::get('static.password'));
-    ftp_pasv($conn, true);
-    @ftp_mkdir($conn, dirname($remoteFile));
-    ftp_put($conn, Config::get('static.path') . $remoteFile, $localFile, FTP_BINARY);
-    ftp_close($conn);
+    $user = Config::get('static.user');
+    $pass = Config::get('static.password');
+    if ($user && $pass) {
+      $conn = ftp_connect(Config::get('static.host'));
+      ftp_login($conn, $user, $pass);
+      ftp_pasv($conn, true);
+      @ftp_mkdir($conn, dirname($remoteFile));
+      ftp_put($conn, Config::get('static.path') . $remoteFile, $localFile, FTP_BINARY);
+      ftp_close($conn);
+    }
   }
 
   static function staticServerPutContents(&$contents, $remoteFile) {

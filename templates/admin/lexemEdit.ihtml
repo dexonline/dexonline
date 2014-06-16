@@ -1,4 +1,3 @@
-{assign var="ifMap" value=$ifMap|default:null}
 {assign var="serchResults" value=$searchResults|default:null}
 
 <script>
@@ -170,11 +169,6 @@
                    readonly=!$canEdit.paradigm}
         {/foreach}
       </div>
-
-      {if $ifMap}
-        {include file="common/paradigm/current/paradigm.ihtml" lexem=$lexem ifMap=$ifMap modelType=$modelType}
-      {/if}
-
       <br>
 
       Comentarii despre paradigmă:

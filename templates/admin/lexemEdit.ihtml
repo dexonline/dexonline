@@ -286,9 +286,7 @@
         <span class="defDetails">
           id: {$row->definition->id}
           | sursa: {$row->source->shortName|escape}
-          {assign var=status value="`$row->definition->status`"}
-          {assign var=statusName value="`$allStatuses[$status]`"}
-          | starea: {$statusName}
+          | starea: {$allStatuses[$row->definition->status]}
           {if $canEdit.general}
             | <a href="definitionEdit.php?definitionId={$row->definition->id}" target="_blank">editează</a>
             | <a href="lexemEdit.php?lexemId={$lexem->id}&amp;dissociateDefinitionId={$row->definition->id}"

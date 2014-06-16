@@ -4,16 +4,15 @@
 {if $def}
   <form action="" method="post">
     <input type="hidden" name="definitionId" value="{$def->id}"/>
-    {foreach from=$text item=chunk key=i}
-      {assign var="amb" value="`$ambiguities[$i]`"}
+    {foreach from=$text item=chunk key=i name=iter}
       {$chunk}
-      {if $amb}
+      {if !$smarty.foreach.iter.last}
         <br/>
         <input type="radio" id="radio_{$i}_a" name="radio_{$i}" value="abbrev" style="display: none"/>
         <label for="radio_{$i}_a" onclick="pushAbbrevButton({$i}, 0);">
           <img src="{$imgRoot}/icons/zoom_out.png" alt="abreviere" title="abreviere"/>
         </label>
-        <span id="abrevText_{$i}">{$amb}</span>
+        <span id="abrevText_{$i}">{$ambiguities[$i]}</span>
         <input type="radio" id="radio_{$i}_w" name="radio_{$i}" value="word" style="display: none"/>
         <label for="radio_{$i}_w" onclick="pushAbbrevButton({$i}, 1);">
           <img src="{$imgRoot}/icons/zoom_in.png" alt="cuvânt" title="cuvânt"/>

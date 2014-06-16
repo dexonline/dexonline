@@ -135,9 +135,7 @@
   Id: {$def->id} |
   Sursa: {$source->shortName|escape} |
   Trimisă de {$user->nick|escape}, {$def->createDate|date_format:"%e %b %Y"} |
-  {assign var=status value="`$def->status`"}
-  {assign var=statusName value="`$allStatuses[$status]`"}
-  Starea: {$statusName}
+  Starea: {$allStatuses[$def->status]}
 </span>
 </div>
 

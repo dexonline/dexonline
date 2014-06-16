@@ -3,7 +3,7 @@
     <div id="wotdSocialMedia">
       <img src="{$imgRoot}/social-media/Email-32.png" alt="iconiță email"/>
       <a type="application/rss+xml" href="http://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/Rss-32.png" alt="iconiță RSS"/></a>
-      <a href="http://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/Facebook-32.png" alt="iconiță Facebook"/></a>
+      <a href="http://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/Facebook-29.png" alt="iconiță Facebook"/></a>
       <span id="toggleTitle" class="toggleClosed">detalii</span>
     </div>
   {/if}

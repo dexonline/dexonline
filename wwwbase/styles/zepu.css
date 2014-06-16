@@ -1065,8 +1065,6 @@ div.sourceComplete5 {
 .widgetList img {
   float: left;
   margin-right: 7px;
-  border: 1px solid #777;
-  border-radius: 4px;
 }
 
 .widgetList label {
@@ -1083,10 +1081,6 @@ body .socialNetworks label {
   display: block;
   margin-bottom: 5px;
   color: #3B4753;
-}
-
-.socialNetworks img {
-  border-radius: 6px;
 }
 
 .socialNetworks a {

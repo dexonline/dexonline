@@ -23,18 +23,17 @@ if ($locVersion && $modelType && $modelNumber) {
     $modelsToDisplay = array(Model::factory('FlexModel')->where('modelType', $modelType->code)->where('number', $modelNumber)->find_one());
   }
 
-  $lexemData = array();
+  $lexemModels = array();
   foreach ($modelsToDisplay as $m) {
-    $lexemData[] = getLexemData($m->exponent, $modelType->code, $m->number, $locVersion);
+    $lexemModels[] = getLexemModel($m->exponent, $modelType->code, $m->number);
   }
   
   SmartyWrap::assign('modelsToDisplay', $modelsToDisplay);
-  SmartyWrap::assign('lexemData', $lexemData);
+  SmartyWrap::assign('lexemModels', $lexemModels);
 } else {
   SmartyWrap::assign('selectedLocVersion', $locVersions[0]->name);
   SmartyWrap::assign('selectedModelType', '');
   SmartyWrap::assign('selectedModelNumber', '');
-  // LocVersion::changeDatabase($locVersion);
 }
 
 SmartyWrap::assign('page_title', 'Modele de flexiune');
@@ -46,80 +45,28 @@ SmartyWrap::displayCommonPageWithSkin('modele-flexiune.ihtml');
 /*************************************************************************/
 
 /**
- * Returns a structure (dictionary / class) with data about a word. We cannot simply use the LexemModel class
- * because it didn't exist before LOC 6.0.
+ * Returns a LexemModel for a given word and model. Creates one if one doesn't exist.
  **/
-function getLexemData($form, $modelType, $modelNumber, $locVersion) {
+function getLexemModel($form, $modelType, $modelNumber) {
   // Load by canonical model, so if $modelType is V, look for a lexem with type V or VT.
-  if ($locVersion >= '6.0') {
-    $lm = Model::factory('LexemModel')
-      ->table_alias('lm')
-      ->select('lm.*')
-      ->join('Lexem', 'l.id = lm.lexemId', 'l')
-      ->join('ModelType', 'modelType = code', 'mt')
-      ->where('mt.canonical', $modelType)
-      ->where('lm.modelNumber', $modelNumber)
-      ->where('l.form', $form)
-      ->limit(1)
-      ->find_one();
-    if ($lm) {
-      $lm->loadInflectedFormsMappedByRank();
-    } else {
-      $l = Lexem::deepCreate($form, $modelType, $modelNumber);
-      $lm = $l->getLexemModels()[0];
-      $lm->generateInflectedFormsMappedByRank();
-    }
-    return $lm;
+  $lm = Model::factory('LexemModel')
+    ->table_alias('lm')
+    ->select('lm.*')
+    ->join('Lexem', 'l.id = lm.lexemId', 'l')
+    ->join('ModelType', 'modelType = code', 'mt')
+    ->where('mt.canonical', $modelType)
+    ->where('lm.modelNumber', $modelNumber)
+    ->where('l.form', $form)
+    ->limit(1)
+    ->find_one();
+  if ($lm) {
+    $lm->loadInflectedFormMap();
   } else {
-    $l = Model::factory('Lexem')
-      ->table_alias('l')
-      ->select('l.*')
-      ->join('ModelType', 'modelType = code', 'mt')
-      ->where('mt.canonical', $modelType)
-      ->where('l.modelNumber', $modelNumber)
-      ->where('l.form', $form)
-      ->limit(1)
-      ->find_one();
-    if ($l) {
-      $ifs = InflectedForm::get_all_by_lexemId($l->id);
-      if ($locVersion >= '5.0') {
-        $ifMap = InflectedForm::mapByInflectionRank($ifs);
-      } else {
-        $ifMap = InflectedForm::mapByInflectionId($ifs);
-      }
-    } else {
-      $l = Lexem::deepCreate($form, $modelType, $modelNumber);
-      $lm = $l->getLexemModels()[0];
-      if ($locVersion >= '5.0') {
-        $ifMap = $lm->generateInflectedFormsMappedByRank();
-      } else {
-        $ifMap = $lm->generateInflectedFormsMappedByInflectionId();
-      }
-    }
-    return array('lexem' => $l,
-                 'ifMap' => $ifMap,
-                 'modelType' => ModelType::get_by_canonical($modelType));
+    $l = Lexem::deepCreate($form, $modelType, $modelNumber);
+    $lm = $l->getLexemModels()[0];
+    $lm->generateInflectedFormMap();
   }
+  return $lm;
 }
 
-/**
- * Load the forms to display for a model when a lexem already exists. This code is specific to each LOC version.
- */
-function getExistingForms($lexemModel, $locVersion) {
-  if ($locVersion >= '5.0') {
-    return $lexemModel->loadInflectedFormsMappedByRank();
-  } else {
-    return $lexemModel->loadInflectedFormsMappedByInflectionId();
-  }
-}
-
-function getNewForms($lexem, $locVersion) {
-  $ifArray = $lexem->generateParadigm();
-  if ($locVersion >= '5.0') {
-    return InflectedForm::mapByInflectionRank($ifArray);
-  } else {
-    return InflectedForm::mapByInflectionId($ifArray);
-  }
-}
-  
 ?>

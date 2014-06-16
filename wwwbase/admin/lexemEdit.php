@@ -69,7 +69,7 @@ if ($refreshLexem || $saveLexem) {
 } else {
   // Case 3: First time loading this page
   foreach ($lexem->getLexemModels() as $lm) {
-    $lm->loadInflectedFormsMappedByRank();
+    $lm->loadInflectedFormMap();
   }
   SmartyWrap::assign('variantIds', $lexem->getVariantIds());
   SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
@@ -163,7 +163,7 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
     $lm->restriction = $restriction[$i];
     $lm->tags = $lmTags[$i];
     $lm->isLoc = $isLoc[$i];
-    $lm->generateInflectedFormsMappedByRank();
+    $lm->generateInflectedFormMap();
 
     $lexemSources = array();
     foreach (explode(',', $sourceIds[$i]) as $sourceId) {

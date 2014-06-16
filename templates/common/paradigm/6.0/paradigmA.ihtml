@@ -1,5 +1,5 @@
 {* Argument: $lexemModel *}
-{assign var=ifMap value=$lexemModel->loadInflectedFormsMappedByRank()}
+{assign var=ifMap value=$lexemModel->loadInflectedFormMap()}
 <table class="lexemModel">
   <tr>
     <td colspan="2" rowspan="2">

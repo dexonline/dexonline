@@ -79,9 +79,6 @@ table.sources td {
   background: #f8f8f8;
   border: 1px solid #777;
   border-radius: 4px;
-  -webkit-box-shadow: 10px 10px 10px #424242; /* Safari and Chrome */
-  -moz-box-shadow: 10px 10px 10px #424242; /* FF 3.5-3.6 */
-  box-shadow: 10px 10px 10px #424242; /* FF 4 ; CSS3 */
   display: none;
   margin-top: 10px;
   padding: 8px;
@@ -118,3 +115,27 @@ blockquote {
     border: 1px solid; 
     padding: 2px 6px;
 }
+
+.btn,
+.common-shadow {
+  -webkit-box-shadow: 1px 1px 2px #999;
+  -moz-box-shadow: 1px 1px 2px #999;
+  box-shadow: 1px 1px 2px #999;
+}
+
+.btn:hover,
+.common-shadow:hover,
+#mainMenu li ul,
+#userMenu li ul {
+  -webkit-box-shadow: 1px 1px 2px #555;
+  -moz-box-shadow: 1px 1px 2px #555;
+  box-shadow: 1px 1px 2px #555;
+}
+
+.pop-up-shadow,
+#typoDiv {
+  -webkit-box-shadow: 5px 5px 10px #555;
+  -moz-box-shadow: 5px 5px 10px #555;
+  box-shadow: 5px 5px 10px #555;
+}
+

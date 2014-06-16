@@ -1,4 +1,4 @@
-<img alt="articolul lunii" src="{$staticServer}img/wotd/thumb/misc/papirus.png" class="lightBorder" />
+<img alt="articolul lunii" src="{$staticServer}img/wotd/thumb/misc/papirus.png" class="common-shadow" />
 <span>
   <label>Articolul lunii</label><br />
   <a href="{$wwwRoot}articol/{$articol}">{$articol|replace:'_':' '}</a>

@@ -21,7 +21,7 @@ function formCheck(formobj) {
   <h2>Donează</h2>
 
   {if $haveEuPlatescCredentials}
-    <div class="paymentSection">
+    <div class="paymentSection common-shadow">
       <h3>
         Donează online
         <span title="Comision fix de 3,5%" class="tooltip2">&nbsp;</span>
@@ -37,7 +37,7 @@ function formCheck(formobj) {
         </select><br/>
         <label title="e-mailul este necesar pentru trimiterea confirmării plății">E-mail *</label>
         <input id="donateOnlineEmail" type="text" name="email" value="{$defaultEmail}"/> <br/>
-        <input type="submit" name="Doneaza" value="" class="onlineDonationButton"/>
+        <input type="submit" name="Doneaza" value="" class="onlineDonationButton btn"/>
         <label class="tipText">* necesar pentru trimiterea confirmării plății</label>
       </form>
     </div>
@@ -50,7 +50,7 @@ function formCheck(formobj) {
     </script>
   {/if}
 
-  <div class="paymentSection paypal">
+  <div class="paymentSection common-shadow paypal">
     <h3>
       Donează prin PayPal
       <span title="Comision mediu 6,5% (10% la donații de 5€, 4% la 25€)" class="tooltip2">&nbsp;</span>
@@ -64,7 +64,7 @@ function formCheck(formobj) {
     </form>
   </div>
 
-  <div class="paymentSection bankTransfer">
+  <div class="paymentSection common-shadow bankTransfer">
     <h3>
       Donează prin transfer bancar
       <span title="Comisionul este oprit la trimitere" class="tooltip2">&nbsp;</span>

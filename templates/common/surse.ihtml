@@ -21,7 +21,7 @@
           <input type="hidden" name="ids[]" value="{$s->id}"/>
           <span class="sourceName">
             {$s->name}
-            <span>
+            <span class="pop-up-shadow">
               <b>{$s->name}</b><br/>
               Autor: {$s->author}<br/>
               Editură: {$s->publisher}<br/>

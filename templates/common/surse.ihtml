@@ -1,7 +1,7 @@
 <ul>
   <li>Duceți mouse-ul deasupra unui titlu pentru a vedea detalii despre acel dicționar;</li>
   <li>Duceți mouse-ul deasupra unei iconițe pentru a vedea gradul de utilizare a acelui dicționar;</li>
-  {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+  {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
     <li>Pentru a reordona sursele, apucați de un rând, dar nu de o zonă cu text. La sfârșit, nu uitați să salvați.</li>
   {/if} 
 </ul>
@@ -11,7 +11,7 @@
     <tr>
       <th class="nick">Nume</th>
       <th>Utilizare</th>
-      {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+      {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
         <th>Acțiuni</th>
       {/if}
     </tr>
@@ -36,14 +36,14 @@
           </span>
           <span class="sourceShortName">{$s->shortName}</span>
         </td>
-        <td>{include file="common/bits/sourcePercentComplete.ihtml s=$s}</td>
-        {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+        <td>{include file="common/bits/sourcePercentComplete.ihtml" s=$s}</td>
+        {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
           <td><a href="editare-sursa?id={$s->id}">editează</a></td>
         {/if}
       </tr>
     {/foreach}
   </table>
-  {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+  {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
     <input type="submit" name="submitButton" value="Salvează"/> &nbsp;
     <a href="editare-sursa">adaugă o sursă</a> &nbsp;
     <a href="">renunță</a>
@@ -51,7 +51,7 @@
 </form>
 
 {* Drag-and-drop reordering of rows, only for admins *}
-{if $sUser->moderator & $smarty.const.PRIV_EDIT}
+{if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
   <script type="text/javascript"> 
     jQuery(document).ready(function() {ldelim}
       $("#sources").tableDnD();

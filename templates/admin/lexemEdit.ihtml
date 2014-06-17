@@ -126,8 +126,9 @@
           <td>omonime:</td>
           <td>
             {foreach from=$homonyms item=h}
+              {assign var=lms value=$h->getLexemModels()}
               <a href="lexemEdit.php?lexemId={$h->id}">{include file="common/bits/lexemName.ihtml" lexem=$h}</a>
-              {$h->modelType}{$h->modelNumber}{$h->restriction}<br>
+              {$lms[0]->modelType}{$lms[0]->modelNumber}{$lms[0]->restriction}<br>
             {/foreach}
           </td>
         </tr>

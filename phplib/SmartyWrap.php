@@ -199,7 +199,7 @@ class SmartyWrap {
         case 'hangman':          self::$jsFiles[16] = 'hangman.js?v=5'; break;
         case 'mill':             self::$jsFiles[17] = 'mill.js?v=3'; break;
         case 'wotd':             self::$jsFiles[18] = 'wotd.js?v=1'; break;
-        case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=11'; break;
+        case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=12'; break;
         case 'jcrop':            self::$jsFiles[20] = 'jquery.Jcrop.min.js?v=2'; break;
         case 'select2':          self::$jsFiles[21] = 'select2.min.js?v=3'; break;
         case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=3'; break;

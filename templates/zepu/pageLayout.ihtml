@@ -123,6 +123,6 @@
       {include file="common/trafic_ro.ihtml"}
       {if $hostedBy}{include file="common/hosting/$hostedBy.ihtml"}{/if}
     </div>
-    {include file="common/bits/debugInfo.ihtml"}
+    {getDebugInfo}
   </body>
 </html>

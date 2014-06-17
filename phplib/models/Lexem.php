@@ -443,10 +443,10 @@ class Lexem extends BaseObject implements DatedObject {
 
   public function delete() {
     if ($this->id) {
-      if ($this->modelType == 'VT') {
-        $this->deleteParticiple($this->modelNumber);
+      if ($this->hasModelType('VT')) {
+        $this->deleteParticiple();
       }
-      if ($this->modelType == 'VT' || $this->modelType == 'V') {
+      if ($this->hasModelType('VT') || $this->hasModelType('V')) {
         $this->deleteLongInfinitive();
       }
       LexemDefinitionMap::deleteByLexemId($this->id);

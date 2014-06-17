@@ -158,7 +158,7 @@ class StringUtil {
   }
 
   static function cleanupQuery($query) {
-    $query = mb_substr($query, 0, 30);   // put a hard limit on query length
+    $query = mb_substr($query, 0, 40);   // put a hard limit on query length
     $query = str_replace(array('"', "'"), array("", ""), $query);
     if (self::startsWith($query, 'a se ')) {
       $query = substr($query, 5);

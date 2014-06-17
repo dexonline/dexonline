@@ -87,8 +87,8 @@ function db_getArray($query) {
   return $results;
 }
 
-function db_getArrayOfRows($query) {
-  $dbResult = ORM::get_db()->query($query);
+function db_getArrayOfRows($query, $fetchStyle = PDO::FETCH_BOTH) {
+  $dbResult = ORM::get_db()->query($query, $fetchStyle);
   $results = array();
   foreach ($dbResult as $row) {
     $results[] = $row;

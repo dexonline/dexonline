@@ -27,19 +27,6 @@ class InflectedForm extends BaseObject {
     return $result;
   }
 
-  public static function mapByInflectionId($ifs) {
-    $result = array();
-    foreach ($ifs as $if) {
-      if (array_key_exists($if->inflectionId, $result)) {
-        // The inflected forms are already sorted by variant
-        $result[$if->inflectionId][] = $if;
-      } else {
-        $result[$if->inflectionId] = array($if);
-      }
-    }
-    return $result;
-  }
-
   public function save() {
     $this->formUtf8General = $this->formNoAccent;
     parent::save();

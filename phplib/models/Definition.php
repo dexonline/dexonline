@@ -24,16 +24,42 @@ class Definition extends BaseObject implements DatedObject {
     return $r->c;
   }
 
-  public static function loadBySourceAndLexemId($sourceId, $lexemId) {
-    return Model::factory('Definition')
-      ->select('Definition.*')
-      ->join('LexemDefinitionMap', array('Definition.id', '=', 'definitionId'))
-      ->where('LexemDefinitionMap.lexemId', $lexemId)
-      ->where('Definition.sourceId', $sourceId)
-      ->where_not_equal('status', ST_DELETED)
-      ->order_by_asc('sourceId')
-      ->find_one();
-      //->find_many();
+  // Looks for a similar definition. Optionally sets $diffSize to the number of differences it finds.
+  function loadSimilar($lexemIds, &$diffSize = null) {
+    $result = null;
+
+    // First see if there is a similar source
+    $similarSource = SimilarSource::getSimilarSource($this->sourceId);
+    if ($similarSource && count($lexemIds)) {
+      // Load all definitions from $similarSource mapped to any of $lexemIds
+      $candidates = Model::factory('Definition')
+        ->table_alias('d')
+        ->select('d.*')
+        ->distinct()
+        ->join('LexemDefinitionMap', 'ldm.definitionId = d.id', 'ldm')
+        ->where_not_equal('d.status', ST_DELETED)
+        ->where('d.sourceId', $similarSource->id)
+        ->where_in('ldm.lexemId', $lexemIds)
+        ->find_many();
+
+      // Find the definition with the minimum diff from the original
+      $minDiff = 0;
+      foreach ($candidates as $d) {
+        $diff = SimpleDiff::textDiff($this->internalRep, $d->internalRep);
+        $diffSize = 0;
+        foreach ($diff as $item) {
+          if (is_array($item)) {
+            $diffSize += count($item['d']) + count($item['i']);
+          }
+        }
+        if (!$result || ($diffSize < $minDiff)) {
+          $result = $d;
+          $minDiff = $diffSize;
+        }
+      }
+    }
+
+    return $result;
   }
 
   public static function getListOfWordsFromSources($wordStart, $wordEnd, $sources) {
@@ -153,23 +179,12 @@ class Definition extends BaseObject implements DatedObject {
       return array($intersection, $stopWords);
     }
 
-    $shortestInvervals = array();
-
-    DebugInfo::resetClock();
     // Now compute a score for every definition
+    DebugInfo::resetClock();
+    $positionMap = FullTextIndex::loadPositionsByLexemIdsDefinitionIds($lmMap, $intersection);
+    $shortestIntervals = array();
     foreach ($intersection as $defId) {
-      // Compute the position matrix (for every word, load all the matching
-      // positions)
-      $p = array();
-      foreach ($lmMap as $lmIds) {
-        if (!empty($lmIds)) {
-          $positions = FullTextIndex::loadPositionsByLexemIdsDefinitionId($lmIds, $defId);
-          if (!empty($positions)) {
-            $p[] = $positions;
-          }
-        }
-      }
-      $shortestIntervals[] = util_findSnippet($p);
+      $shortestIntervals[] = util_findSnippet($positionMap[$defId]);
     }
 
     if ($intersection) {
@@ -206,26 +221,20 @@ class Definition extends BaseObject implements DatedObject {
       }
     }
 
-    $colors = array('#CC0000', '#CC6600', '#008800', '#000088', '#880088');
-
     foreach ($definitions as $def) {
-      $colorIndex = 0;
-      foreach ($res as $key => &$words) {
-        $style_start = '<SPAN style="BACKGROUND-COLOR: '.$colors[$colorIndex].';
-                          COLOR: #FFFFFF;
-                          border-width:1.5px;
-                          border-style:outset; ">';
-        $style_end = '</SPAN>';
+      $classIndex = 0;
+      foreach ($res as &$words) {
         $wordsString = implode("|", $words);
 
-        preg_match_all('/[^a-zăâîșț<\/]('.$wordsString.')[^a-zăâîșț>]/i', $def->htmlRep, $match, PREG_OFFSET_CAPTURE);
+        preg_match_all('/[^a-zăâîșț<\/]('. $wordsString .')[^a-zăâîșț>]/iS', $def->htmlRep, $match, PREG_OFFSET_CAPTURE);
         $revMatch = array_reverse($match[1]);
 
         foreach ($revMatch as $m) {
-          $def->htmlRep = substr_replace($def->htmlRep, $style_start, $m[1], 0);
-          $def->htmlRep = substr_replace($def->htmlRep, $style_end, $m[1] + strlen($style_start) + strlen($m[0]), 0);
+          $def->htmlRep = substr_replace($def->htmlRep,
+                                         "<span class=\"fth fth{$classIndex}\">{$m[0]}</span>",
+                                         $m[1], strlen($m[0]));
         }
-        $colorIndex = ($colorIndex + 1) % count($colors);
+        $classIndex = ($classIndex + 1) % 5; // keep the number of colors in sync with common.css
       }
     }
   }

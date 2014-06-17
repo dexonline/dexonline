@@ -1,12 +1,12 @@
 {* Argument: $lexemModel *}
-{assign var=ifMap value=$lexemModel->loadInflectedFormsMappedByRank()}
+{assign var=ifMap value=$lexemModel->loadInflectedFormMap()}
 <table class="lexemModel">
   <tr>
     <td colspan="2">
       {include file="common/bits/lexemModel.ihtml" lexemModel=$lexemModel}
     </td>
-    <td class="inflection">nearticulat</td>
-    <td class="inflection">articulat</td>
+    <td class="inflection">masculin</td>
+    <td class="inflection">feminin</td>
   </tr>
   <tr>
     <td rowspan="2" class="inflection">nominativ-acuzativ</td>
@@ -44,19 +44,6 @@
     </td>
     <td class="form">
       {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[8]|default:null}
-    </td>
-  </tr>
-  <tr>
-    <td rowspan="2" class="inflection">vocativ</td>
-    <td class="inflection">singular</td>
-    <td colspan="2" class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[9]|default:null}
-    </td>
-  </tr>
-  <tr>
-    <td class="inflection">plural</td>
-    <td colspan="2" class="form">
-      {include file="common/bits/ifArray.ihtml" ifArray=$ifMap[10]|default:null}
     </td>
   </tr>
 </table>

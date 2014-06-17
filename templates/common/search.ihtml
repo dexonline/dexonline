@@ -18,7 +18,7 @@
         {if $src_selected}
           Nu am găsit în acest dicționar definiția lui 
         {else}
-          Setările preferințelor contului dvs. nu permit vizualizarea definițiilor pentru 
+          Din motive de copyright, doar administratorii site-ului pot vedea definițiile pentru
         {/if}
       {elseif count($results) == 1}
         O definiție pentru
@@ -117,7 +117,9 @@
 {/if}
 
 <div id="resultsWrapper" class="txt">
-  <div id="paradigmDiv" {if !$showParadigm}style="display: none"{/if}>{include file="common/bits/multiParadigm.ihtml"}</div>
+  {if $searchType != $smarty.const.SEARCH_REGEXP}
+    <div id="paradigmDiv" {if !$showParadigm}style="display: none"{/if}>{include file="common/bits/multiParadigm.ihtml"}</div>
+  {/if}
 
   {if !empty($images)}
     {include file="common/bits/gallery.ihtml" images=$images}

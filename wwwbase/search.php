@@ -67,9 +67,7 @@ if ($text) {
     // Load definitions in the given order
     $definitions = array();
     foreach ($defIds as $id) {
-      if ($res = Definition::get_by_id($id)) {
-        $definitions[] = $res;
-      }
+      $definitions[] = Definition::get_by_id($id);
     }
     if (!count($defIds)) {
       FlashMessage::add('Nicio definiție nu conține toate cuvintele căutate.');
@@ -221,7 +219,7 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
         foreach ($l->getLexemModels() as $lm) {
           $lm->getModelType();
           $lm->getSourceNames();
-          foreach ($lm->loadInflectedFormsMappedByRank() as $ifs) {
+          foreach ($lm->loadInflectedFormMap() as $ifs) {
             foreach ($ifs as $if) {
               $hasUnrecommendedForms |= !$if->recommended;
             }
@@ -295,7 +293,7 @@ SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('advancedSearch', $text || $sourceId);
 
 /* Gallery */
-if (!empty($lexems)) {
+if (false && !empty($lexems)) {
   $images = array();
 
   foreach($lexems as $lexeme) {

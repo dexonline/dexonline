@@ -23,9 +23,12 @@ class NGram extends BaseObject {
     $leng = mb_strlen($cuv);
     
     $hash = NGram::searchLexemIds($cuv);
+    if (empty($hash)) {
+      return array();
+    }
     arsort($hash);
     $max = current($hash);
-    $lexIds = array_keys($hash,$max);
+    $lexIds = array_keys($hash, $max);
 
     $results = array();
     foreach ($lexIds as $id) {
@@ -49,11 +52,11 @@ class NGram extends BaseObject {
     return $results;
   }
   
-  public static function searchLexemIds($cuv)
-  {
+  /* Find lexems with at least 50% matching n-grams */
+  public static function searchLexemIds($cuv) {
     $ngramList = self::split($cuv);
     $hash = array();
-    foreach($ngramList as $i => $ngram) {
+    foreach ($ngramList as $i => $ngram) {
       $lexemIdList = db_getArray(sprintf("select lexemId from NGram where ngram = '%s' and pos between %d and %d",
                                          $ngram, $i - self::$MAX_MOVE, $i + self::$MAX_MOVE));
       $lexemIdList = array_unique($lexemIdList);
@@ -65,7 +68,11 @@ class NGram extends BaseObject {
         }
       }
     }
-    
+
+    $minLength = mb_strlen($cuv) / 2;
+    $hash = array_filter($hash, function($val) use($minLength) {
+        return ($val >= $minLength);
+      });
     return $hash;
   }
 }

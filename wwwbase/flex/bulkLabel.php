@@ -107,7 +107,7 @@ foreach ($lexems as $l) {
     $lm = LexemModel::get_by_id($lm->id);
     $lm->modelType = $m->modelType;
     $lm->modelNumber = $m->number;
-    $lm->generateInflectedFormsMappedByRank();
+    $lm->generateInflectedFormMap();
     $lmArray[] = $lm;
   }
   $lmMatrix[] = $lmArray;

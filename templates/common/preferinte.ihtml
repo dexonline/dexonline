@@ -1,7 +1,7 @@
 {if $sUser}
   <form action="editare-avatar" method="post" enctype="multipart/form-data">
     <p class="paragraphTitle">Imagine</p>
-    {include file="common/bits/avatar.ihtml user=$sUser}
+    {include file="common/bits/avatar.ihtml" user=$sUser}
     <label for="avatarFileName">Fișier:</label>
     <input id="avatarFileName" type="file" name="avatarFileName">
     <input id="avatarSubmit" type="submit" name="submit" value="Editează" disabled="disabled">
@@ -47,7 +47,7 @@
     <label for="widget_{$value}">{$w.name}</label><br/>
   {/foreach}
 
-  {if $sUser->moderator > 0}
+  {if $sUser && $sUser->moderator > 0}
     <p class="paragraphTitle">Privilegii</p>
 
     <ul>
@@ -62,7 +62,9 @@
 
   <br/>
   <input type="submit" name="send" value="Salvează" id="saveButton"/>
-  <a href="{$wwwRoot}utilizator/{$sUser->nick|escape}">renunță</a>
+  {if $sUser}
+    <a href="{$wwwRoot}utilizator/{$sUser->nick|escape}">renunță</a>
+  {/if}
 </form>
 
 <script type="text/javascript">

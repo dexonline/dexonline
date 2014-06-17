@@ -49,6 +49,21 @@ function lexemEditInit() {
   $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags, #editorSynonyms, #editorAntonyms').bind(
     'change keyup input paste', function() { struct_anyChanges = true; });
 
+  $('#editorInternalRep').textcomplete([
+    {
+      match: /(([a-zăâîșț]+)\[[0-9.]*)$/i,
+      search: meaningMention,
+      template: function(obj) {
+        return '<b>' + obj.lexem + ' ' + obj.breadcrumb + ':</b> ' + obj.meaning;
+      },
+      replace: function(value) {
+        return '$2[' + value.meaningId + ']';
+      },
+      index: 1,
+      maxCount: 5
+    }
+  ]);
+
   $('#variantIds').select2({
     ajax: struct_lexemAjax,
     initSelection: select2InitSelectionAjax,
@@ -462,13 +477,17 @@ function addLexemModelTab() {
 }
 
 function closeLexemModelTab() {
-  if ($('#paradigmTabs > ul li').length > 1) {
-    var tabId = $(this).prev('a').attr('href');
+  var tabId = $(this).prev('a').attr('href');
+  var isLoc = $(tabId).find('input[name="isLoc\\[\\]"]').val();
+
+  if ($('#paradigmTabs > ul li').length == 1) {
+    alert('Nu puteți șterge unicul model.');
+  } else if (isLoc != '0') {
+    alert('Această flexiune este inclusă în LOC. Pentru confirmare, debifați câmpul „inclus în LOC” înainte de a șterge flexiunea.');
+  } else {
     $(this).closest('li').remove();
     $(tabId).remove();
     $('#paradigmTabs').tabs('refresh');
-  } else {
-    alert('Nu puteți șterge unicul model.');
   }
 }
 
@@ -487,6 +506,17 @@ function reorderLexemModelTabs() {
 function toggleIsLoc() {
   var hidden = $(this).prev();
   hidden.val(1 - hidden.val());
+}
+
+function meaningMention(term, callback) {
+  parts = term.split('[');
+  $.getJSON(wwwRoot + 'ajax/meaningMention', { form: parts[0], qualifier: parts[1] })
+    .done(function(resp) {
+      callback(resp); // `resp` must be an Array
+    })
+    .fail(function () {
+      callback([]); // Callback must be invoked even if something went wrong.
+    });
 }
 
 // Initializes the window manager

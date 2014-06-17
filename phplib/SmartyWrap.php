@@ -24,7 +24,7 @@ class SmartyWrap {
     self::assign('isMobile', util_isMobile());
     self::assign('suggestNoBanner', util_suggestNoBanner());
     self::assign('GLOBALS', $GLOBALS);
-    self::registerFunction('getDebugInfo', 'SmartyWrap::function_getDebugInfo');
+    self::$theSmarty->registerPlugin('function', 'getDebugInfo', array('SmartyWrap', 'getDebugInfo'));
   }
 
   static function display() {
@@ -101,45 +101,24 @@ class SmartyWrap {
     self::$theSmarty->assign($variable, $value);
   }
 
-  static function filter_display_st_cedilla_below($tpl_output, &$smarty) {
-    $tpl_output = StringUtil::replace_st($tpl_output);
-    return $tpl_output;
-  }
-
-  static function filter_display_old_orthography($tpl_output, &$smarty) {
-    $tpl_output = StringUtil::replace_ai($tpl_output);
-    return $tpl_output;
-  }
-
   static function registerOutputFilters() {
     if (session_user_prefers(Preferences::CEDILLA_BELOW)) {
-      self::registerOutputFilter('SmartyWrap::filter_display_st_cedilla_below');
+      self::$theSmarty->registerFilter('output', array('StringUtil', 'replace_st'));
     }
     if (session_user_prefers(Preferences::OLD_ORTHOGRAPHY)) {
-      self::registerOutputFilter('SmartyWrap::filter_display_old_orthography');
+      self::$theSmarty->registerFilter('output', array('StringUtil', 'replace_ai'));
     }
   }
 
-  static function registerOutputFilter($functionName) {
-    if (method_exists(self::$theSmarty, 'registerFilter')) {
-      // Smarty v3 syntax
-      self::$theSmarty->registerFilter('output', $functionName);
-    } else {
-      self::$theSmarty->register_outputfilter($functionName);
+  static function getDebugInfo() {
+    $data = DebugInfo::getDebugInfo();
+    if (!$data['enabled']) {
+      return '';
     }
-  }
-
-  static function registerFunction($smartyTagName, $functionName) {
-    if (method_exists(self::$theSmarty, 'registerPlugin')) {
-      // Smarty v3 syntax
-      self::$theSmarty->registerPlugin('function', $smartyTagName, $functionName);
-    } else {
-      self::$theSmarty->register_function($smartyTagName, $functionName);
-    }
-  }
-
-  static function function_getDebugInfo($params, &$smarty) {
-    return DebugInfo::getDebugInfo();
+    SmartyWrap::assign('debug_messages', $data['messages']);
+    SmartyWrap::assign('debug_runningTimeMillis', $data['runningTimeMillis']);
+    SmartyWrap::assign('debug_ormQueryLog', $data['ormQueryLog']);
+    return SmartyWrap::fetch('common/bits/debugInfo.ihtml');
   }
 
   static function addCss(/* Variable-length argument list */) {
@@ -152,7 +131,7 @@ class SmartyWrap {
         case 'tablesorter':         self::$cssFiles[4] = 'tablesorter/theme.blue.css'; break;
         case 'elfinder':            self::$cssFiles[5] = 'elfinder/css/elfinder.min.css?v=2'; break;
         case 'windowEngine':        self::$cssFiles[6] = 'jquery-wm/main.css'; break;
-        case 'zepu':                self::$cssFiles[7] = 'zepu.css?v=61'; break;
+        case 'zepu':                self::$cssFiles[7] = 'zepu.css?v=62'; break;
         case 'polar':               self::$cssFiles[8] = 'polar.css?v=31'; break;
         case 'mobile':              self::$cssFiles[9] = 'mobile.css?v=15'; break;
         case 'flex':                self::$cssFiles[10] = 'flex.css?v=12'; break;
@@ -166,6 +145,7 @@ class SmartyWrap {
           self::$cssFiles[17] = 'colorbox/colorbox.css?v=1'; 
           self::$cssFiles[18] = 'visualDict.css';
           break;
+        case 'textComplete':        self::$cssFiles[19] = 'jquery.textcomplete.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -193,16 +173,16 @@ class SmartyWrap {
         case 'elfinder':         self::$jsFiles[10] = 'elfinder.min.js?v=1'; break; 
         case 'windowEngine':     self::$jsFiles[11] = 'jquery-wm.js'; break;
         case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js?v=1'; break;
-        case 'dex':              self::$jsFiles[13] = 'dex.js?v=28'; break;
+        case 'dex':              self::$jsFiles[13] = 'dex.js?v=29'; break;
         case 'flex':             self::$jsFiles[14] = 'flex.js?v=2'; break;
         case 'mobile':           self::$jsFiles[15] = 'mobile.js?v=2'; break;
         case 'hangman':          self::$jsFiles[16] = 'hangman.js?v=5'; break;
         case 'mill':             self::$jsFiles[17] = 'mill.js?v=3'; break;
         case 'wotd':             self::$jsFiles[18] = 'wotd.js?v=1'; break;
-        case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=11'; break;
+        case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=13'; break;
         case 'jcrop':            self::$jsFiles[20] = 'jquery.Jcrop.min.js?v=2'; break;
         case 'select2':          self::$jsFiles[21] = 'select2.min.js?v=3'; break;
-        case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=3'; break;
+        case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=5'; break;
         case 'visualTag':        self::$jsFiles[23] = 'visualTag.js'; break;
         case 'gallery':          
           self::$jsFiles[24] = 'colorbox/jquery.colorbox-min.js';
@@ -211,6 +191,7 @@ class SmartyWrap {
           self::$jsFiles[27] = 'jcanvas.min.js';
           break;
         case 'modelDropdown':    self::$jsFiles[28] = 'modelDropdown.js'; break;
+        case 'textComplete':     self::$jsFiles[29] = 'jquery.textcomplete.min.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

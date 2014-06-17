@@ -3,11 +3,14 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$sourceId = util_getRequestParameter('s');
-$lexemId = util_getRequestParameter('l');
+$definitionId = util_getRequestParameter('definitionId');
+$sourceId = util_getRequestParameter('sourceId');
+$lexemIds = util_getRequestCsv('lexemIds');
 
-$definition = Definition::loadBySourceAndLexemId($sourceId, $lexemId);
+$d = Definition::get_by_id($definitionId);
+$d->sourceId = $sourceId;
+$similar = $d->loadSimilar($lexemIds);
 
-print $definition ? $definition->htmlRep : '';
+print $similar ? $similar->htmlRep : '';
 
 ?>

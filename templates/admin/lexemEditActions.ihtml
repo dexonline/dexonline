@@ -23,11 +23,12 @@
     pentru a preveni modificarea accidentală a LOC. Dacă sunteți moderator cu drept de gestiune a LOC, scoateți întâi lexemul din LOC, după care îl
     puteți șterge.">&nbsp;</span>
     
-    {if $lexem->modelType == 'T' && !$lexem->isLoc && $homonyms}
+    {if $homonyms}
       {foreach from=$homonyms item=h}
+        {assign var=lms value=$h->getLexemModels()}
         &nbsp;&nbsp;
         <input type="submit" class="mergeLexem" id="mergeLexem_{$h->id}" name="mergeLexem"
-               value="Unifică cu {$h->form} {$h->modelType}{$h->modelNumber}{$h->restriction}"/>
+               value="Unifică cu {$h->form} {$lms[0]->modelType}{$lms[0]->modelNumber}{$lms[0]->restriction}"/>
       {/foreach}
     {/if}
   {/if}

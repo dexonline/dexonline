@@ -40,12 +40,10 @@ class DebugInfo {
 
   public static function getDebugInfo() {
     $enabled = self::$enabled && (session_getUserNick() == Config::get('global.debugUser'));
-    SmartyWrap::assign('debug_enabled', $enabled);
-    if ($enabled) {
-      SmartyWrap::assign('debug_messages', self::$debugInfo);
-      SmartyWrap::assign('debug_runningTimeMillis', self::getRunningTimeInMillis());
-      SmartyWrap::assign('debug_ormQueryLog', ORM::get_query_log());
-    }
+    return array('enabled' => $enabled,
+                 'messages' => self::$debugInfo,
+                 'runningTimeMillis' => self::getRunningTimeInMillis(),
+                 'ormQueryLog' => ORM::get_query_log());
   }
 }
 

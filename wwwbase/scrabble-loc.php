@@ -44,17 +44,10 @@ SmartyWrap::displayCommonPageWithSkin('scrabble-loc.ihtml');
 function writeLexems($locVersion, $fileName) {
   LocVersion::changeDatabase($locVersion);
 
-  if ($locVersion >= '6.0') {
-    $query = 'select L.form, LM.modelType, LM.modelNumber, LM.restriction '.
-      'from Lexem L join LexemModel LM on L.id = LM.lexemId ' .
-      'where LM.isLoc ' .
-      'order by L.formNoAccent asc';
-  } else {
-    $query = 'select form, modelType, modelNumber, restriction '.
-      'from Lexem ' .
-      'where isLoc ' .
-      'order by formNoAccent asc';
-  }
+  $query = 'select L.form, LM.modelType, LM.modelNumber, LM.restriction '.
+    'from Lexem L join LexemModel LM on L.id = LM.lexemId ' .
+    'where LM.isLoc ' .
+    'order by L.formNoAccent asc';
   $dbResult = db_execute($query, PDO::FETCH_ASSOC);
   $handle = fopen($fileName, 'w');
   foreach ($dbResult as $r) {

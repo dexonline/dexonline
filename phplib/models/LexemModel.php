@@ -5,8 +5,6 @@ class LexemModel extends BaseObject implements DatedObject {
 
   const METHOD_GENERATE = 1;
   const METHOD_LOAD = 2;
-  const MAP_INFLECTION_ID = 1;
-  const MAP_INFLECTION_RANK = 2;
 
   private $lexem = null;
   private $mt = null;                // ModelType object, but we call it $mt because there is already a DB field called 'modelType'
@@ -122,33 +120,22 @@ class LexemModel extends BaseObject implements DatedObject {
     return $this->inflectedForms;
   }
 
-  function getInflectedFormMap($method, $map) {
+  function getInflectedFormMap($method) {
     if ($this->inflectedFormMap === null) {
       $ifs = $this->getInflectedForms($method);
       if (is_array($ifs)) {
-        switch ($map) {
-          case self::MAP_INFLECTION_ID: $this->inflectedFormMap = InflectedForm::mapByInflectionId($ifs); break;
-          case self::MAP_INFLECTION_RANK: $this->inflectedFormMap = InflectedForm::mapByInflectionRank($ifs); break;
-        }
+        $this->inflectedFormMap = InflectedForm::mapByInflectionRank($ifs);
       }
     }
     return $this->inflectedFormMap;
   }
 
-  function loadInflectedFormsMappedByRank() {
-    return $this->getInflectedFormMap(self::METHOD_LOAD, self::MAP_INFLECTION_RANK);
+  function loadInflectedFormMap() {
+    return $this->getInflectedFormMap(self::METHOD_LOAD);
   }
 
-  function loadInflectedFormsMappedByInflectionId() {
-    return $this->getInflectedFormMap(self::METHOD_LOAD, self::MAP_INFLECTION_ID);
-  }
-
-  function generateInflectedFormsMappedByRank() {
-    return $this->getInflectedFormMap(self::METHOD_GENERATE, self::MAP_INFLECTION_RANK);
-  }
-
-  function generateInflectedFormsMappedByInflectionId() {
-    return $this->getInflectedFormMap(self::METHOD_GENERATE, self::MAP_INFLECTION_ID);
+  function generateInflectedFormMap() {
+    return $this->getInflectedFormMap(self::METHOD_GENERATE);
   }
 
   // Throws an exception if the given inflection cannot be generated

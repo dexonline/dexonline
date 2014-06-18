@@ -288,7 +288,6 @@ function handleLexemActions() {
   $miniDefTarget = util_getRequestParameter('miniDefTarget');
   if ($createDefinition) {
     $def = Model::factory('Definition')->create();
-    $def->displayed = 0;
     $def->userId = session_getUserId();
     $def->sourceId = Source::get_by_shortName('Neoficial')->id;
     $def->lexicon = $lexem->formNoAccent;

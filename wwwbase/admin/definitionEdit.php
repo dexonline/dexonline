@@ -48,7 +48,6 @@ if (!$definitionId) {
     $def = AdminStringUtil::internalizeDefinition($ocr->ocrText, $sourceId, $ambiguousMatches);
 
     $definition = Model::factory('Definition')->create();
-    $definition->displayed = 0;
     $definition->status = ST_PENDING;
     $definition->userId = session_getUserId();
     $definition->sourceId = $sourceId;

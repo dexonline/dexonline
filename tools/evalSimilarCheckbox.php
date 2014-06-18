@@ -1,0 +1,77 @@
+<?php
+
+require_once __DIR__ . '/../phplib/util.php';
+
+$opts = getopt('', array('user:', 'source:', 'date:'));
+
+if (count($opts) != 3) {
+  usage();
+}
+
+$user = User::get_by_nick($opts['user']);
+$source = Source::get_by_urlName($opts['source']);
+$timestamp = strtotime($opts['date']);
+
+if (!$user || !$source || !$timestamp) {
+  usage();
+}
+
+$similarSource = SimilarSource::getSimilarSource($source->id);
+
+if (!$similarSource) {
+  usage();
+}
+
+$defs = Model::factory('Definition')
+  ->where('userId', $user->id)
+  ->where('sourceId', $source->id)
+  ->where_gt('createDate', $timestamp)
+  ->where('status', ST_ACTIVE)
+  ->order_by_asc('createDate')
+  ->find_many();
+
+$truePositives = $falsePositives = $trueNegatives = $falseNegatives = 0;
+
+foreach ($defs as $def) {
+  $lexemIds = db_getArray("select distinct lexemId from LexemDefinitionMap where definitionId = {$def->id}");
+  $similar = $def->loadSimilar($lexemIds, $diffSize);
+  if ($similar) {
+    $correct = ($def->similarSource == 1) == ($diffSize == 0);
+    if ($correct) {
+      if ($def->similarSource) {
+        $truePositives++;
+      } else {
+        $trueNegatives++;
+      }
+    } else {
+      if ($def->similarSource) {
+        $falsePositives++;
+      } else {
+        $falseNegatives++;
+      }
+    }
+    printf("Definiție [%20s] bifă [%s] diferență %4d     %s\n",
+           $def->lexicon,
+           ($def->similarSource ? 'X' : ' '),
+           $diffSize,
+           $correct ? '' : 'EROARE');
+  }
+}
+
+printf("True positives: %0.2lf%%\n", $truePositives / count($defs) * 100);
+printf("True negatives: %0.2lf%%\n", $trueNegatives / count($defs) * 100);
+printf("False positives: %0.2lf%%\n", $falsePositives / count($defs) * 100);
+printf("False negatives: %0.2lf%%\n", $falseNegatives / count($defs) * 100);
+printf("Rată de eroare: %0.2lf%%\n", ($falsePositives + $falseNegatives) / count($defs) * 100);
+
+
+/*************************************************************************/
+
+function usage() {
+  print "Folosire: evalSimilarCheckbox --user <nick> --source <urlName> --date <YYYY-MM-DD>\n";
+  print "Exemplu: evalSimilarCheckbox --user john --source dex09 --date 2014-01-01\n";
+  print "Sursa trebuie să aibă o sursă similară aferentă.\n";
+  exit(1);
+}
+
+?>

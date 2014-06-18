@@ -24,7 +24,8 @@ class Definition extends BaseObject implements DatedObject {
     return $r->c;
   }
 
-  function loadSimilar($lexemIds) {
+  // Looks for a similar definition. Optionally sets $diffSize to the number of differences it finds.
+  function loadSimilar($lexemIds, &$diffSize = null) {
     $result = null;
 
     // First see if there is a similar source

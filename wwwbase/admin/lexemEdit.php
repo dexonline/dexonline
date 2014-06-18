@@ -331,6 +331,18 @@ function handleLexemActions() {
       LexemDefinitionMap::associate($other->id, $def->id);
     }
 
+    // Add lexem models from $lexem to $other if the form is the same. Exclude T-type models.
+    $displayOrder = count($other->getLexemModels());
+    if ($lexem->form == $other->form) {
+      foreach ($lexem->getLexemModels() as $lm) {
+        if ($lm->modelType != 'T' && !$other->hasModel($lm->modelType, $lm->modelNumber)) {
+          $lm->lexemId = $other->id;
+          $lm->displayOrder = ++$displayOrder;
+          $lm->save();
+        }
+      }
+    }
+
     // Add meanings from $lexem to $other and renumber their displayOrder and breadcrumb
     // displayOrders are generated sequentially regardless of level.
     // Breadcrumbs follow levels so only their first part changes.

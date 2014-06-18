@@ -73,9 +73,14 @@ function definitionEditInit() {
   });
 
 
-  $('#lexemIds')
-    .on("change", function(e){
-      $.ajax(wwwRoot + 'ajax/getSimilarDefinition.php?s=' + $('#similarSourceId').val() + '&l=' + e.val)
+  $('#lexemIds, #sourceDropDown')
+    .on("change", function() {
+      $.get(wwwRoot + 'ajax/getSimilarDefinition.php',
+            {
+              definitionId: $('input[name="definitionId"').val(),
+              sourceId: $('#sourceDropDown').val(),
+              lexemIds: $('#lexemIds').val(),
+            })
         .done(function(data) {
           if (!data) data = '<font color="#888">Nu există nicio definiție similară sau nu e niciun lexem definit</font>';
           $('#similarPreview').html(data);

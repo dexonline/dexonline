@@ -77,7 +77,7 @@ function definitionEditInit() {
     .on("change", function() {
       $.get(wwwRoot + 'ajax/getSimilarDefinition.php',
             {
-              definitionId: $('input[name="definitionId"').val(),
+              definitionId: $('input[name="definitionId"]').val(),
               sourceId: $('#sourceDropDown').val(),
               lexemIds: $('#lexemIds').val(),
             })

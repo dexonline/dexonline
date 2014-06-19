@@ -202,7 +202,7 @@ class SmartyWrap {
         case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=12'; break;
         case 'jcrop':            self::$jsFiles[20] = 'jquery.Jcrop.min.js?v=2'; break;
         case 'select2':          self::$jsFiles[21] = 'select2.min.js?v=3'; break;
-        case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=4'; break;
+        case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=5'; break;
         case 'visualTag':        self::$jsFiles[23] = 'visualTag.js'; break;
         case 'gallery':          
           self::$jsFiles[24] = 'colorbox/jquery.colorbox-min.js';

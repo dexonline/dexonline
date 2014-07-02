@@ -1,7 +1,0 @@
-{* Arguments:
-   $lexem: Lexem;
-   $modelType: ModelType;
-   $ifMap: HashMap($rank -> Array(InflectedForm))
-*}
-
-{include file="common/paradigm/5.0/paradigm`$modelType->canonical`.ihtml" lexem=$lexem ifMap=$ifMap modelType=$modelType}

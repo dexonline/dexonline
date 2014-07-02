@@ -1,4 +1,4 @@
-<img src="{$thumbUrlM}" alt="iconiță cuvântul lunii" class="lightBorder" />
+<img src="{$thumbUrlM}" alt="iconiță cuvântul lunii" class="common-shadow" />
 <span>
   <label>Cuvântul lunii</label><br />
   {include file="common/bits/wotmurl.ihtml" title=$titleM}

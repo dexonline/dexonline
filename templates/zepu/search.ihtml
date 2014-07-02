@@ -8,7 +8,7 @@
   </div>
 
   <div id="inlineBlock2">
-    <input type="submit" value="caută" id="search_button"/>
+    <input type="submit" value="caută" id="search_button" class="btn"/>
     {if !$advancedSearch}
       <a href="#" onclick="return toggleDivVisibility('advSearch')" id="advancedAnchor">căutare avansată</a>
     {/if}

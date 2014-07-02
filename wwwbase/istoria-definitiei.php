@@ -1,6 +1,5 @@
 <?php
 require_once("../phplib/util.php");
-require_once("../phplib/simplediff.php");
 
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
@@ -41,7 +40,7 @@ foreach ($recordSet as $row) {
   }
 
   if($row['OldInternalRep'] !== $row['NewInternalRep']) {
-    $changeSet['diff'] = htmlDiff($row['OldInternalRep'], $row['NewInternalRep']);
+    $changeSet['diff'] = SimpleDiff::htmlDiff($row['OldInternalRep'], $row['NewInternalRep']);
     $changeSet['changesCount']++;
   }
 

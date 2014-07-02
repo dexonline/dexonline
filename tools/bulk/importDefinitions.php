@@ -183,7 +183,6 @@ while ($i < count($lines)) {
 
   if($verbose) echo(" * Inserting definition for '$lname'...\n");
   $definition = Model::factory('Definition')->create();
-  $definition->displayed = 0;
   $definition->userId = $userId;
   $definition->sourceId = $sourceId;
   $definition->status = $status;

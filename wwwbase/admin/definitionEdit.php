@@ -48,7 +48,6 @@ if (!$definitionId) {
     $def = AdminStringUtil::internalizeDefinition($ocr->ocrText, $sourceId, $ambiguousMatches);
 
     $definition = Model::factory('Definition')->create();
-    $definition->displayed = 0;
     $definition->status = ST_PENDING;
     $definition->userId = session_getUserId();
     $definition->sourceId = $sourceId;
@@ -206,16 +205,8 @@ if (!$refreshButton && !$acceptButton && !$moveButton) {
   RecentLink::createOrUpdate(sprintf("Definiție: %s (%s)", $definition->lexicon, $source->shortName));
 }
 
-$similarSourceName = null;
-$similarDefObj = null;
-if ($definition->sourceId) {
-  $similarSourceId = SimilarSource::getSimilarSource($definition->sourceId);
-  $similarSourceObj = Source::get_by_id($similarSourceId);
-  if ($similarSourceObj && $lexemIds) {
-    //TODO add suport for multiple lexems
-    $similarDefObj = Definition::loadBySourceAndLexemId($similarSourceId, $lexemIds[0]);
-  }
-}
+$similarSourceObj = SimilarSource::getSimilarSource($definition->sourceId);
+$similarDefObj = $definition->loadSimilar($lexemIds);
 
 SmartyWrap::assign('isOCR', $isOCR);
 if ($definitionId) {

@@ -69,7 +69,7 @@ if ($refreshLexem || $saveLexem) {
 } else {
   // Case 3: First time loading this page
   foreach ($lexem->getLexemModels() as $lm) {
-    $lm->loadInflectedFormsMappedByRank();
+    $lm->loadInflectedFormMap();
   }
   SmartyWrap::assign('variantIds', $lexem->getVariantIds());
   SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
@@ -163,7 +163,7 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
     $lm->restriction = $restriction[$i];
     $lm->tags = $lmTags[$i];
     $lm->isLoc = $isLoc[$i];
-    $lm->generateInflectedFormsMappedByRank();
+    $lm->generateInflectedFormMap();
 
     $lexemSources = array();
     foreach (explode(',', $sourceIds[$i]) as $sourceId) {
@@ -288,7 +288,6 @@ function handleLexemActions() {
   $miniDefTarget = util_getRequestParameter('miniDefTarget');
   if ($createDefinition) {
     $def = Model::factory('Definition')->create();
-    $def->displayed = 0;
     $def->userId = session_getUserId();
     $def->sourceId = Source::get_by_shortName('Neoficial')->id;
     $def->lexicon = $lexem->formNoAccent;
@@ -329,6 +328,18 @@ function handleLexemActions() {
     $defs = Definition::loadByLexemId($lexem->id);
     foreach ($defs as $def) {
       LexemDefinitionMap::associate($other->id, $def->id);
+    }
+
+    // Add lexem models from $lexem to $other if the form is the same. Exclude T-type models.
+    $displayOrder = count($other->getLexemModels());
+    if ($lexem->form == $other->form) {
+      foreach ($lexem->getLexemModels() as $lm) {
+        if ($lm->modelType != 'T' && !$other->hasModel($lm->modelType, $lm->modelNumber)) {
+          $lm->lexemId = $other->id;
+          $lm->displayOrder = ++$displayOrder;
+          $lm->save();
+        }
+      }
     }
 
     // Add meanings from $lexem to $other and renumber their displayOrder and breadcrumb

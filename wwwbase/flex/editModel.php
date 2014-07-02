@@ -122,7 +122,7 @@ if ($previewButton || $confirmButton) {
     $participles = loadParticiplesForVerbModel($modelNumber, $participleNumber);
     foreach ($participles as $p) {
       $p->modelNumber = $newParticipleNumber;
-      $ifs = $p->generateInflectedFormsMappedByRank();
+      $ifs = $p->generateInflectedFormMap();
       if (!is_array($ifs)) {
         $errorMessage[] = sprintf('Nu pot declina participiul "%s" conform modelului A%s.',
                                   htmlentities($p->getLexem()->form), $newParticipleNumber);

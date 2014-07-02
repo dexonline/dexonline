@@ -29,7 +29,6 @@ lexicon - A bit of text extracted from the beginnning of the
   definition. This is usually, though not always, equal to the term
   being defined. It is not used for searching, but only for sorting
   definitions.
-displayed - Number of times the definition was displayed.
 internalRep - The actual text.
 htmlRep - HTML-formatted text, ready for printing in a browser.
 status - 0 = active, 1 = temporary (not yet reviewed), 2 = deleted

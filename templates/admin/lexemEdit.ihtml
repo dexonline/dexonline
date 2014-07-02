@@ -1,4 +1,3 @@
-{assign var="ifMap" value=$ifMap|default:null}
 {assign var="serchResults" value=$searchResults|default:null}
 
 <script>
@@ -127,8 +126,9 @@
           <td>omonime:</td>
           <td>
             {foreach from=$homonyms item=h}
+              {assign var=lms value=$h->getLexemModels()}
               <a href="lexemEdit.php?lexemId={$h->id}">{include file="common/bits/lexemName.ihtml" lexem=$h}</a>
-              {$h->modelType}{$h->modelNumber}{$h->restriction}<br>
+              {$lms[0]->modelType}{$lms[0]->modelNumber}{$lms[0]->restriction}<br>
             {/foreach}
           </td>
         </tr>
@@ -170,11 +170,6 @@
                    readonly=!$canEdit.paradigm}
         {/foreach}
       </div>
-
-      {if $ifMap}
-        {include file="common/paradigm/current/paradigm.ihtml" lexem=$lexem ifMap=$ifMap modelType=$modelType}
-      {/if}
-
       <br>
 
       Comentarii despre paradigmă:
@@ -286,9 +281,7 @@
         <span class="defDetails">
           id: {$row->definition->id}
           | sursa: {$row->source->shortName|escape}
-          {assign var=status value="`$row->definition->status`"}
-          {assign var=statusName value="`$allStatuses[$status]`"}
-          | starea: {$statusName}
+          | starea: {$allStatuses[$row->definition->status]}
           {if $canEdit.general}
             | <a href="definitionEdit.php?definitionId={$row->definition->id}" target="_blank">editează</a>
             | <a href="lexemEdit.php?lexemId={$lexem->id}&amp;dissociateDefinitionId={$row->definition->id}"

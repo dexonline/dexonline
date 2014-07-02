@@ -152,13 +152,13 @@ class SmartyWrap {
         case 'tablesorter':         self::$cssFiles[4] = 'tablesorter/theme.blue.css'; break;
         case 'elfinder':            self::$cssFiles[5] = 'elfinder/css/elfinder.min.css?v=2'; break;
         case 'windowEngine':        self::$cssFiles[6] = 'jquery-wm/main.css'; break;
-        case 'zepu':                self::$cssFiles[7] = 'zepu.css?v=59'; break;
+        case 'zepu':                self::$cssFiles[7] = 'zepu.css?v=61'; break;
         case 'polar':               self::$cssFiles[8] = 'polar.css?v=31'; break;
         case 'mobile':              self::$cssFiles[9] = 'mobile.css?v=15'; break;
         case 'flex':                self::$cssFiles[10] = 'flex.css?v=12'; break;
         case 'paradigm':            self::$cssFiles[11] = 'paradigm.css?v=1'; break;
-        case 'hangman':             self::$cssFiles[12] = 'hangman.css?v=3'; break;
-        case 'mill':                self::$cssFiles[13] = 'mill.css?v=2'; break;
+        case 'hangman':             self::$cssFiles[12] = 'hangman.css?v=4'; break;
+        case 'mill':                self::$cssFiles[13] = 'mill.css?v=3'; break;
         case 'lexemEdit':           self::$cssFiles[14] = 'lexemEdit.css?v=7'; break;
         case 'jcrop':               self::$cssFiles[15] = 'jcrop/jquery.Jcrop.min.css?v=3'; break;
         case 'select2':             self::$cssFiles[16] = 'select2/select2.css?v=3'; break;
@@ -199,10 +199,10 @@ class SmartyWrap {
         case 'hangman':          self::$jsFiles[16] = 'hangman.js?v=5'; break;
         case 'mill':             self::$jsFiles[17] = 'mill.js?v=3'; break;
         case 'wotd':             self::$jsFiles[18] = 'wotd.js?v=1'; break;
-        case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=11'; break;
+        case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=12'; break;
         case 'jcrop':            self::$jsFiles[20] = 'jquery.Jcrop.min.js?v=2'; break;
         case 'select2':          self::$jsFiles[21] = 'select2.min.js?v=3'; break;
-        case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=3'; break;
+        case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=5'; break;
         case 'visualTag':        self::$jsFiles[23] = 'visualTag.js'; break;
         case 'gallery':          
           self::$jsFiles[24] = 'colorbox/jquery.colorbox-min.js';

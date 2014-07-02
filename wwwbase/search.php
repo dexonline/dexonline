@@ -221,7 +221,7 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
         foreach ($l->getLexemModels() as $lm) {
           $lm->getModelType();
           $lm->getSourceNames();
-          foreach ($lm->loadInflectedFormsMappedByRank() as $ifs) {
+          foreach ($lm->loadInflectedFormMap() as $ifs) {
             foreach ($ifs as $if) {
               $hasUnrecommendedForms |= !$if->recommended;
             }

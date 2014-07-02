@@ -8,7 +8,6 @@
 define('FILE_NAME', __DIR__ . '/../../corectii DEXOnline.txt');
 
 require_once __DIR__ . '/../../phplib/util.php';
-require_once __DIR__ . '/../../phplib/simplediff.php';
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
@@ -31,7 +30,7 @@ foreach ($lines as $i => $line) {
 
   if ($def->internalRep != $right) {
     $data[] = array('def' => $def,
-                    'diff' => htmlDiff($def->internalRep, $right));
+                    'diff' => SimpleDiff::htmlDiff($def->internalRep, $right));
   }  
 }
 

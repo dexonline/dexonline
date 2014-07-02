@@ -24,16 +24,42 @@ class Definition extends BaseObject implements DatedObject {
     return $r->c;
   }
 
-  public static function loadBySourceAndLexemId($sourceId, $lexemId) {
-    return Model::factory('Definition')
-      ->select('Definition.*')
-      ->join('LexemDefinitionMap', array('Definition.id', '=', 'definitionId'))
-      ->where('LexemDefinitionMap.lexemId', $lexemId)
-      ->where('Definition.sourceId', $sourceId)
-      ->where_not_equal('status', ST_DELETED)
-      ->order_by_asc('sourceId')
-      ->find_one();
-      //->find_many();
+  // Looks for a similar definition. Optionally sets $diffSize to the number of differences it finds.
+  function loadSimilar($lexemIds, &$diffSize = null) {
+    $result = null;
+
+    // First see if there is a similar source
+    $similarSource = SimilarSource::getSimilarSource($this->sourceId);
+    if ($similarSource && count($lexemIds)) {
+      // Load all definitions from $similarSource mapped to any of $lexemIds
+      $candidates = Model::factory('Definition')
+        ->table_alias('d')
+        ->select('d.*')
+        ->distinct()
+        ->join('LexemDefinitionMap', 'ldm.definitionId = d.id', 'ldm')
+        ->where_not_equal('d.status', ST_DELETED)
+        ->where('d.sourceId', $similarSource->id)
+        ->where_in('ldm.lexemId', $lexemIds)
+        ->find_many();
+
+      // Find the definition with the minimum diff from the original
+      $minDiff = 0;
+      foreach ($candidates as $d) {
+        $diff = SimpleDiff::textDiff($this->internalRep, $d->internalRep);
+        $diffSize = 0;
+        foreach ($diff as $item) {
+          if (is_array($item)) {
+            $diffSize += count($item['d']) + count($item['i']);
+          }
+        }
+        if (!$result || ($diffSize < $minDiff)) {
+          $result = $d;
+          $minDiff = $diffSize;
+        }
+      }
+    }
+
+    return $result;
   }
 
   public static function getListOfWordsFromSources($wordStart, $wordEnd, $sources) {

@@ -179,23 +179,12 @@ class Definition extends BaseObject implements DatedObject {
       return array($intersection, $stopWords);
     }
 
-    $shortestInvervals = array();
-
-    DebugInfo::resetClock();
     // Now compute a score for every definition
+    DebugInfo::resetClock();
+    $positionMap = FullTextIndex::loadPositionsByLexemIdsDefinitionIds($lmMap, $intersection);
+    $shortestIntervals = array();
     foreach ($intersection as $defId) {
-      // Compute the position matrix (for every word, load all the matching
-      // positions)
-      $p = array();
-      foreach ($lmMap as $lmIds) {
-        if (!empty($lmIds)) {
-          $positions = FullTextIndex::loadPositionsByLexemIdsDefinitionId($lmIds, $defId);
-          if (!empty($positions)) {
-            $p[] = $positions;
-          }
-        }
-      }
-      $shortestIntervals[] = util_findSnippet($p);
+      $shortestIntervals[] = util_findSnippet($positionMap[$defId]);
     }
 
     if ($intersection) {

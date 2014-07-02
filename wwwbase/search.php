@@ -67,9 +67,7 @@ if ($text) {
     // Load definitions in the given order
     $definitions = array();
     foreach ($defIds as $id) {
-      if ($res = Definition::get_by_id($id)) {
-        $definitions[] = $res;
-      }
+      $definitions[] = Definition::get_by_id($id);
     }
     if (!count($defIds)) {
       FlashMessage::add('Nicio definiție nu conține toate cuvintele căutate.');

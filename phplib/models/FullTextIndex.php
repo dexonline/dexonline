@@ -10,8 +10,8 @@ class FullTextIndex extends BaseObject {
     $lexemString = implode(',', $lexemModelIds);
     $sourceClause = $sourceId ? "and D.sourceId = $sourceId" : '';  
     $query = "select distinct definitionId " .
-      "from FullTextIndex F " .
-      "where F.lexemModelId in ($lexemString) $sourceClause order by F.definitionId";
+      "from FullTextIndex " .
+      "where lexemModelId in ($lexemString) $sourceClause order by definitionId";
     return db_getArray($query);
   }
 

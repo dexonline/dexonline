@@ -30,7 +30,7 @@ Toți utilizatorii necesită un nume de cont; puteți alege una din opțiunile d
 
   <input type="radio" name="loginType" value="3" id="chooseNickname" {if $loginType == 3}checked="checked"{/if}/>
   <label for="chooseNickname">Un nume la alegere:</label>
-  <input type="text" name="nick" value="{$chosenNick}" size="20"
+  <input type="text" name="nick" value="{$chosenNick|default:''}" size="20"
     onclick="document.getElementById('chooseNickname').checked = true"/><br/>
 
   <input type="hidden" name="randString" value="{$randString}"/>

@@ -91,7 +91,7 @@ class OpenID {
       FlashMessage::add('Verificarea a eșuat: ' . $response->message);
       return null;
     } else if ($response->status == Auth_OpenID_SUCCESS) {
-      $result = array();
+      $result = array('email' => '', 'nickname' => '', 'fullname' => '');
       $result['identity'] = htmlentities($response->getDisplayIdentifier());
 
       if ($response->endpoint->canonicalID) {

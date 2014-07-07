@@ -10,7 +10,7 @@ Toți utilizatorii necesită un nume de cont; puteți alege una din opțiunile d
     <input type="text" name="nickOrEmail" value="{$data.email}" size="20"
       onclick="document.getElementById('claimAccount').checked = true"/>
     Parola:
-    <input type="password" name="password" value="{$password}" size="20"
+    <input type="password" name="password" value="{$password|default:''}" size="20"
       onclick="document.getElementById('claimAccount').checked = true"/>
     <br/>
 

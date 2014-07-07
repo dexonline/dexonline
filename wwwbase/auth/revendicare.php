@@ -44,6 +44,7 @@ SmartyWrap::assign('page_title', 'Autentificare cu OpenID');
 SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::assign('data', $data);
 SmartyWrap::assign('chosenNick', $nick);
+SmartyWrap::assign('password', $password);
 SmartyWrap::assign('randString', $randString);
 SmartyWrap::assign('loginType', $loginType);
 SmartyWrap::displayCommonPageWithSkin('auth/chooseIdentity.ihtml');  

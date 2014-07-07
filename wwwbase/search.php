@@ -293,7 +293,7 @@ SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('advancedSearch', $text || $sourceId);
 
 /* Gallery */
-if (!empty($lexems)) {
+if (false && !empty($lexems)) {
   $images = array();
 
   foreach($lexems as $lexeme) {

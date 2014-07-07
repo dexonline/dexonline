@@ -148,6 +148,6 @@
       </tr>
     </table>
 
-    {include file="common/bits/debugInfo.ihtml"}
+    {getDebugInfo}
   </body>
 </html>

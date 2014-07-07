@@ -58,6 +58,6 @@
     {* Add some empty space so mobiles have room to scroll past the menu bar. *}
     {section name=ignored loop=15}&nbsp;<br/>{/section}
 
-    {include file="common/bits/debugInfo.ihtml"}
+    {getDebugInfo}
   </body>
 </html>

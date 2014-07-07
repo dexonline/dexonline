@@ -16,6 +16,6 @@
     {include file="admin/flashMessages.ihtml"}
     {include file="common/errorMessage.ihtml"}
     {include file="$templateName"}
-    {include file="common/bits/debugInfo.ihtml"}
+    {getDebugInfo}
   </body>
 </html>

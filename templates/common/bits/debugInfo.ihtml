@@ -1,12 +1,9 @@
-{getDebugInfo}
-{if isset($debug_enabled) && $debug_enabled}
-  <div class="debugInfo">
-    Pagină generată în {$debug_runningTimeMillis} ms.<br/>
-    {foreach from=$debug_messages item=line}
-      {$line|escape}<br/>
-    {/foreach}
-    {foreach from=$debug_ormQueryLog item=query}
-      Idiorm query: {$query}<br/>
-    {/foreach}
-  </div>
-{/if}
+<div class="debugInfo">
+  Pagină generată în {$debug_runningTimeMillis} ms.<br/>
+  {foreach from=$debug_messages item=line}
+    {$line|escape}<br/>
+  {/foreach}
+  {foreach from=$debug_ormQueryLog item=query}
+    Idiorm query: {$query}<br/>
+  {/foreach}
+</div>

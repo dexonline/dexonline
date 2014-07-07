@@ -24,7 +24,7 @@ class SmartyWrap {
     self::assign('isMobile', util_isMobile());
     self::assign('suggestNoBanner', util_suggestNoBanner());
     self::assign('GLOBALS', $GLOBALS);
-    self::registerFunction('getDebugInfo', 'SmartyWrap::function_getDebugInfo');
+    self::$theSmarty->registerPlugin('function', 'getDebugInfo', array('SmartyWrap', 'getDebugInfo'));
   }
 
   static function display() {
@@ -101,45 +101,24 @@ class SmartyWrap {
     self::$theSmarty->assign($variable, $value);
   }
 
-  static function filter_display_st_cedilla_below($tpl_output, &$smarty) {
-    $tpl_output = StringUtil::replace_st($tpl_output);
-    return $tpl_output;
-  }
-
-  static function filter_display_old_orthography($tpl_output, &$smarty) {
-    $tpl_output = StringUtil::replace_ai($tpl_output);
-    return $tpl_output;
-  }
-
   static function registerOutputFilters() {
     if (session_user_prefers(Preferences::CEDILLA_BELOW)) {
-      self::registerOutputFilter('SmartyWrap::filter_display_st_cedilla_below');
+      self::$theSmarty->registerFilter('output', array('StringUtil', 'replace_st'));
     }
     if (session_user_prefers(Preferences::OLD_ORTHOGRAPHY)) {
-      self::registerOutputFilter('SmartyWrap::filter_display_old_orthography');
+      self::$theSmarty->registerFilter('output', array('StringUtil', 'replace_ai'));
     }
   }
 
-  static function registerOutputFilter($functionName) {
-    if (method_exists(self::$theSmarty, 'registerFilter')) {
-      // Smarty v3 syntax
-      self::$theSmarty->registerFilter('output', $functionName);
-    } else {
-      self::$theSmarty->register_outputfilter($functionName);
+  static function getDebugInfo() {
+    $data = DebugInfo::getDebugInfo();
+    if (!$data['enabled']) {
+      return '';
     }
-  }
-
-  static function registerFunction($smartyTagName, $functionName) {
-    if (method_exists(self::$theSmarty, 'registerPlugin')) {
-      // Smarty v3 syntax
-      self::$theSmarty->registerPlugin('function', $smartyTagName, $functionName);
-    } else {
-      self::$theSmarty->register_function($smartyTagName, $functionName);
-    }
-  }
-
-  static function function_getDebugInfo($params, &$smarty) {
-    return DebugInfo::getDebugInfo();
+    SmartyWrap::assign('debug_messages', $data['messages']);
+    SmartyWrap::assign('debug_runningTimeMillis', $data['runningTimeMillis']);
+    SmartyWrap::assign('debug_ormQueryLog', $data['ormQueryLog']);
+    return SmartyWrap::fetch('common/bits/debugInfo.ihtml');
   }
 
   static function addCss(/* Variable-length argument list */) {

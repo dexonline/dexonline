@@ -1,14 +1,13 @@
 {assign var="adsProvider" value=$adsProvider|default:null}
+{assign var="adsProviderParams" value=$adsProviderParams|default:null}
 {** Arguments: id, width and height. Expects corresponding values in the [skin-*] section of dex.conf. **}
 <div id="banner_{$id}">
   {if $adsProvider == 'diverta'}
-    {include file="common/bits/openxGeneric.ihtml" zoneId="140385" params=$adsProviderParams}
+    {* TODO: edit openxLocal.ihtml to make this work *}
+    {include file="common/bits/openxLocal.ihtml" zoneId="140385" params=$adsProviderParams}
   {elseif $bannerType == 'openx-local'}
     {assign var="key" value="openxLocal_`$id`"}
     {include file="common/bits/openxLocal.ihtml" zoneId=$skinVariables.$key}
-  {elseif $bannerType == 'openx'}
-    {assign var="key" value="openx_`$id`"}
-    {include file="common/bits/openxGeneric.ihtml" zoneId=$skinVariables.$key}
   {elseif $bannerType == 'adsense'}
     {assign var="key" value="adsense_`$id`"}
     <script type="text/javascript"><!--

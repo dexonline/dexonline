@@ -349,7 +349,7 @@ class AdminStringUtil {
   }
 
   static function convertMeaningMentionsToHtml($s) {
-    return preg_replace('/\b([a-zăâîșț]+)\[([0-9]+)\]/i', '<a class="mention" title="$2" href="#">$1</a>', $s);
+    return preg_replace('/\b([a-zăâîșț]+)\[([0-9]+)\]/i', '<span class="mention" title="$2">$1</span>', $s);
   }
 
   /**

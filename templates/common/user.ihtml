@@ -46,16 +46,13 @@
 
 <fieldset class="userProfileSection">
   <legend>Medalii</legend>
-  {if $sUser && $sUser->moderator & $smarty.const.ADMIN}
+  {if $sUser && $sUser->moderator & $smarty.const.PRIV_ADMIN}
     <span class="sectionEdit"><a onclick="$('#medalEditDiv').slideToggle(); return false;" href="#">editează</a></span>
-  {/if}
-
-  {if $sUser && $sUser->moderator & $smarty.const.ADMIN}
     <form id="medalEditDiv" method="post">
       <div class="medalCheckboxes">
         <input type="hidden" name="userId" value="{$user->id}"/>
         {foreach from=$allMedals key=mask item=params}
-          <input type="checkbox" name="medalsGranted[]" id="cb_{$mask}" value="{$mask}" {if $medals[$mask]}checked="checked"{/if}/>
+          <input type="checkbox" name="medalsGranted[]" id="cb_{$mask}" value="{$mask}" {if array_key_exists($mask, $medals)}checked="checked"{/if}/>
           <label for="cb_{$mask}">{$params.name} {$params.description}</label><br/>
         {/foreach}
       </div>

@@ -61,6 +61,12 @@ body {
   margin-right: 10px;
 }
 
+#meaningTree .mention {
+  border-bottom: 1px dotted #444;
+  color: black;
+  text-decoration: none;
+}
+
 #meaningTree .htmlComment {
   font-size: 11px;
 }

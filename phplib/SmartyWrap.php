@@ -145,6 +145,7 @@ class SmartyWrap {
           self::$cssFiles[17] = 'colorbox/colorbox.css?v=1'; 
           self::$cssFiles[18] = 'visualDict.css';
           break;
+        case 'textComplete':        self::$cssFiles[19] = 'jquery.textcomplete.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -172,13 +173,13 @@ class SmartyWrap {
         case 'elfinder':         self::$jsFiles[10] = 'elfinder.min.js?v=1'; break; 
         case 'windowEngine':     self::$jsFiles[11] = 'jquery-wm.js'; break;
         case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js?v=1'; break;
-        case 'dex':              self::$jsFiles[13] = 'dex.js?v=28'; break;
+        case 'dex':              self::$jsFiles[13] = 'dex.js?v=29'; break;
         case 'flex':             self::$jsFiles[14] = 'flex.js?v=2'; break;
         case 'mobile':           self::$jsFiles[15] = 'mobile.js?v=2'; break;
         case 'hangman':          self::$jsFiles[16] = 'hangman.js?v=5'; break;
         case 'mill':             self::$jsFiles[17] = 'mill.js?v=3'; break;
         case 'wotd':             self::$jsFiles[18] = 'wotd.js?v=1'; break;
-        case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=12'; break;
+        case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=13'; break;
         case 'jcrop':            self::$jsFiles[20] = 'jquery.Jcrop.min.js?v=2'; break;
         case 'select2':          self::$jsFiles[21] = 'select2.min.js?v=3'; break;
         case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=5'; break;
@@ -190,6 +191,7 @@ class SmartyWrap {
           self::$jsFiles[27] = 'jcanvas.min.js';
           break;
         case 'modelDropdown':    self::$jsFiles[28] = 'modelDropdown.js'; break;
+        case 'textComplete':     self::$jsFiles[29] = 'jquery.textcomplete.min.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

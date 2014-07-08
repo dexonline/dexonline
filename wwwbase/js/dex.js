@@ -14,6 +14,19 @@ if (typeof jQuery.ui != 'undefined') {
         return $(this).prop('title');
       }
     });
+
+    $('.mention').tooltip({
+      content: function(callback) {
+        var meaningId = $(this).prop('title');
+        $.getJSON(wwwRoot + 'ajax/getMeaningById', { id: meaningId })
+          .done(function(resp) {
+            callback('<b>' + resp.lexem + ' (' + resp.breadcrumb + '):</b> ' + resp.htmlRep);
+          })
+          .fail(function() {
+            callback('');
+          });
+      }
+    });
   });
 }
 

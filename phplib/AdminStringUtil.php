@@ -326,6 +326,7 @@ class AdminStringUtil {
   static function htmlize($s, $sourceId, &$errors = null, $obeyNewlines = false) {
     $s = htmlspecialchars($s, ENT_NOQUOTES);
     $s = self::convertReferencesToHtml($s);
+    $s = self::convertMeaningMentionsToHtml($s);
     $s = self::insertSuperscripts($s);
     $s = self::internalToHtml($s, $obeyNewlines);
     $s = self::htmlizeAbbreviations($s, $sourceId, $errors);
@@ -345,6 +346,10 @@ class AdminStringUtil {
   static function convertReferencesToHtml($s) {
     // Require that the first pipe character is not escaped (preceded by a backslash)
     return preg_replace('/([^\\\\])\|([^|]*)\|([^|]*)\|/', '$1<a class="ref" href="/definitie/$3">$2</a>', $s);
+  }
+
+  static function convertMeaningMentionsToHtml($s) {
+    return preg_replace('/\b([a-zăâîșț]+)\[([0-9]+)\]/i', '<a class="mention" title="$2" href="#">$1</a>', $s);
   }
 
   /**

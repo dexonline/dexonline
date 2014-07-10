@@ -226,7 +226,7 @@ class Lexem extends BaseObject implements DatedObject {
 
   public static function loadUnassociated() {
     return Model::factory('Lexem')
-      ->raw_query('select * from Lexem where id not in (select lexemId from LexemDefinitionMap) order by formNoAccent', null)->find_many();
+      ->raw_query('select * from Lexem where id not in (select lexemId from LexemDefinitionMap) order by formNoAccent')->find_many();
   }
 
   /**
@@ -365,7 +365,7 @@ class Lexem extends BaseObject implements DatedObject {
     if ($variantIds) {
       $lexemsToClear = Model::factory('Lexem')->where('variantOfId', $this->id)->where_not_in('id', $variantIds)->find_many();
     } else {
-      $lexemsToClear = Lexem::get_all_by_variantOfId($this->id);
+      $lexemsToClear = self::get_all_by_variantOfId($this->id);
     }
     foreach($lexemsToClear as $l) {
       $l->variantOfId = null;

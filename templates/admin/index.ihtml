@@ -123,6 +123,14 @@ sau
 {/if}
 
 {if $sUser->moderator & $smarty.const.PRIV_LOC}
+  Pentru a găsi cuvinte ușor de structurat, <a href="structChooseLexem">click aici</a>.
+  <div class="flexExplanation">
+    Veți primi 100 de cuvinte din DEX cu definiții cât mai scurte.
+  </div>
+  <br/>
+{/if}
+
+{if $sUser->moderator & $smarty.const.PRIV_LOC}
   Pentru a încerca etichetarea asistată a cuvintelor,
   <a href="../flex/bulkLabelSelectSuffix.php">clic aici</a>.
 

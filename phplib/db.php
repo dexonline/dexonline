@@ -105,7 +105,7 @@ function db_getSingleValue($query) {
 }
 
 function db_tableExists($tableName) {
-  $r = ORM::for_table($tableName)->raw_query("show tables like '$tableName'", null)->find_one();
+  $r = ORM::for_table($tableName)->raw_query("show tables like '$tableName'")->find_one();
   return ($r !== false);
 }
 

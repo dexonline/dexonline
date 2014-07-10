@@ -72,7 +72,7 @@ print "Success!\n";
 /****************************************************************************/
 
 function databaseExists($dbName) {
-  $r = ORM::for_table('Definition')->raw_query("show databases like '$dbName'", null)->find_one();
+  $r = ORM::for_table('Definition')->raw_query("show databases like '$dbName'")->find_one();
   return ($r !== false);
 }
 

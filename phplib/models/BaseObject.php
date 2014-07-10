@@ -8,7 +8,15 @@ class BaseObject extends Model {
   /**
    * Accept calls like User::get_by_email($email) and User::get_all_by_email($email)
    **/
+  function __call($name, $arguments) {
+    return self::callHandler($name, $arguments);
+  }
+
   static function __callStatic($name, $arguments) {
+    return self::callHandler($name, $arguments);
+  }
+
+  static function callHandler($name, $arguments) {
     if (substr($name, 0, 7) == 'get_by_') {
       return self::action(substr($name, 7), $arguments, self::ACTION_SELECT);
     } else if (substr($name, 0, 11) == 'get_all_by_') {

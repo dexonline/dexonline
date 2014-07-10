@@ -206,7 +206,7 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
     $conjugations = false;
     $declensions = false;
     foreach ($lexems as $l) {
-      $lm = $l->getLexemModels()[0]; // One LexemModel suffices -- they all better have the same modelType.
+      $lm = $l->getFirstLexemModel(); // One LexemModel suffices -- they all better have the same modelType.
       $isVerb = ($lm->modelType == 'V') || ($lm->modelType == 'VT');
       $conjugations |= $isVerb;
       $declensions |= !$isVerb;

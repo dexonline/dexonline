@@ -26,7 +26,7 @@ if ($submitButton) {
 
       // Add $dest to LOC if $src is in LOC
       if ($src->isLoc() && !$dest->isLoc()) {
-        $lm = $dest->getLexemModels()[0];
+        $lm = $dest->getFirstLexemModel();
         $lm->isLoc = true;
         $lm->save();
       }
@@ -115,7 +115,7 @@ SmartyWrap::displayAdminPage('flex/mergeLexems.ihtml');
 
 /** Returns an array containing only the accented forms, not the entire InflectedForm objects **/
 function loadIfArray($lexem) {
-  $lm = $lexem->getLexemModels()[0];
+  $lm = $lexem->getFirstLexemModel();
   $ifs = $lm->loadInflectedForms();
   $result = array();
   foreach ($ifs as $if) {

@@ -47,6 +47,11 @@ class Lexem extends BaseObject implements DatedObject {
     return $this->lexemModels;
   }
 
+  function getFirstLexemModel() {
+    $lms = $this->getLexemModels();
+    return count($lms) ? $lms[0] : null;
+  }
+
   function setLexemModels($lexemModels) {
     $this->lexemModels = $lexemModels;
   }
@@ -275,7 +280,7 @@ class Lexem extends BaseObject implements DatedObject {
           ->find_one();
 
         if ($lexem) {
-          $partLm = $lexem->getLexemModels()[0];
+          $partLm = $lexem->getFirstLexemModel();
           if ($partLm->modelType != 'A' || $partLm->modelNumber != $pm->adjectiveModel || $partLm->restriction != '') {
             $partLm->modelType = 'A';
             $partLm->modelNumber = $pm->adjectiveModel;
@@ -322,7 +327,7 @@ class Lexem extends BaseObject implements DatedObject {
           ->find_one();
 
         if ($lexem) {
-          $infLm = $lexem->getLexemModels()[0];
+          $infLm = $lexem->getFirstLexemModel();
           if ($infLm->modelType != 'F' || $infLm->modelNumber != $model->number || $inf->restriction != '') {
             $infLm->modelType = 'F';
             $infLm->modelNumber = $model->number;

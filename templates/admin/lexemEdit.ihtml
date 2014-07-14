@@ -267,9 +267,19 @@
 
   <div class="box" data-id="definitions" data-title="Definiții asociate ({$searchResults|@count})" data-left="0" data-top="335" data-width="995" data-height="300">
     <div>
-      <a href="#" class="defFilterLink">toate</a>
-      <a href="#" class="defFilterLink structured">structurate</a>
-      <a href="#" class="defFilterLink unstructured">nestructurate</a>
+      <select id="defFilterSelect">
+        <option value="">toate</option>
+        <option value="structured">structurate</option>
+        <option value="unstructured">nestructurate</option>
+      </select>
+      <select class="toggleRepSelect" data-order="1">
+        <option value="0">text</option>
+        <option value="1">html</option>
+      </select>
+      <select class="toggleRepSelect" data-order="2">
+        <option value="0">expandat</option>
+        <option value="1">abreviat</option>
+      </select>
     </div>
 
     {foreach from=$searchResults item=row}

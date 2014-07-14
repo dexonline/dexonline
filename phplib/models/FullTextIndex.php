@@ -8,10 +8,19 @@ class FullTextIndex extends BaseObject {
       return array();
     }
     $lexemString = implode(',', $lexemModelIds);
-    $sourceClause = $sourceId ? "and D.sourceId = $sourceId" : '';  
-    $query = "select distinct definitionId " .
-      "from FullTextIndex " .
-      "where lexemModelId in ($lexemString) $sourceClause order by definitionId";
+    if ($sourceId) {
+      $query = "select distinct definitionId " .
+        "from FullTextIndex F " .
+        "join Definition D on D.id = F.definitionId " .
+        "where lexemModelId in ($lexemString) " .
+        "and D.sourceId = $sourceId " .
+        "order by definitionId";
+    } else {
+      $query = "select distinct definitionId " .
+        "from FullTextIndex " .
+        "where lexemModelId in ($lexemString) " .
+        "order by definitionId";
+    }
     return db_getArray($query);
   }
 

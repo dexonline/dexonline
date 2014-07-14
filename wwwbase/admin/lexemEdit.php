@@ -228,8 +228,9 @@ function validate($lexem, $original, $variantIds, $meanings) {
   }
 
   $variantOf = Lexem::get_by_id($lexem->variantOfId);
-  if ($variantOf && !empty($meanings)) {
-    FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși sensuri.");
+  if ($variantOf && !goodForVariants($meanings)) {
+    FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși sensuri. " .
+                      "Este permis doar un sens, fără conținut, pentru indicarea surselor.");
   }
   if ($variantOf && !empty($variantIds)) {
     FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși variante.");
@@ -264,6 +265,23 @@ function validate($lexem, $original, $variantIds, $meanings) {
   }
 
   return FlashMessage::getMessage() == null;
+}
+
+/* Variants can only have one empty meaning, used to list the variant's sources. */
+function goodForVariants($meanings) {
+  if (empty($meanings)) {
+    return true;
+  }
+  if (count($meanings) > 1) {
+    return false;
+  }
+  $m = $meanings[0];
+  return $m->sourceIds &&
+    !$m->internalRep &&
+    !$m->internalComment &&
+    !$m->meaningTagIds &&
+    !$m->synonymIds &&
+    !$m->antonymIds;
 }
 
 /* This page handles a lot of actions. Move the minor ones here so they don't clutter the preview/save actions,

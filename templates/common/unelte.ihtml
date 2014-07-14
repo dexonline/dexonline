@@ -10,7 +10,14 @@ calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
     {foreach from=$clients item=client}
 	  {if $client.available}
       <td class="columnHeader">
-        <span class="clientName"><a href="{$client.name[1]}">{$client.name[0]}</a></span><br/>
+        <span class="clientName">
+          {if $client.name[1]}
+            <a href="{$client.name[1]}">{$client.name[0]}</a>
+          {else}
+            {$client.name[0]}
+          {/if}
+        </span>
+        <br/>
         {foreach from=$client.urls item=url key=text}
           (<a href="{$url}">{$text}</a>)
         {/foreach}

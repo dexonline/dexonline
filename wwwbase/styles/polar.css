@@ -9,14 +9,13 @@ body {
   margin: 8px auto;
 }
 
-.theader {
+#menu {
   background: #dcf0ff;
   color: black;
   border: 1px solid blue;
-  border-collapse: collapse;
   font-family: sans-serif;
+  min-height: 87px;
   padding: 0;
-  white-space: nowrap;
   width: 100%;
 }
 
@@ -73,8 +72,8 @@ span.formPlug {
 
 #mainMenu {
   font-size: 80%;
-  margin: -10px 0 10px 0;
-  padding: 0 0 10px 0;
+  margin: 0px 0 10px 0;
+  padding: 3px 0 10px 6px;
 }
 
 #mainMenu li {
@@ -612,3 +611,36 @@ div.sourceComplete5 {
   overflow: hidden;
   width: 48px;
 }
+
+
+/* convert Polar HTML skin to CSS skin */
+#userMenu {
+  bottom: 0px;
+  position: absolute;
+}
+
+#searchHomePage {
+  position: absolute;
+  top: 30px;
+}
+
+#whoami {
+  position: relative;
+  top: -130px;
+  left: 525px;
+}
+
+#Logo {
+  position: relative;
+  top: -80px;
+  left: 750px;
+}
+
+.fb_top,
+.plus_top {
+  position: absolute;
+  bottom: 0;
+  left: 100px;
+}
+
+

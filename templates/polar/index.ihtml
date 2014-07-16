@@ -1,4 +1,8 @@
-<div id="Logo"></div>
+<div id="Logo">
+  <a href="{$wwwRoot}" class="noBorder">
+    <img src="{$imgRoot}/polar/dexonline.png" alt="DEX online logo"/>
+  </a>
+</div>
 <div id="whoami">Dicționare ale limbii române</div>
 
 <div id="searchHomePage">

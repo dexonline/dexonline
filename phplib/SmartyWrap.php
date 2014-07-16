@@ -46,6 +46,7 @@ class SmartyWrap {
     case 'polar':
       $wordCount = Definition::getWordCount();
       $wordCountRough = $wordCount - ($wordCount % 10000);
+      $skinVariables['afterSearchBoxBanner'] = true;
       self::assign('words_total', util_formatNumber($wordCount, 0));
       self::assign('words_rough', util_formatNumber($wordCountRough, 0));
       self::assign('words_last_month', util_formatNumber(Definition::getWordCountLastMonth(), 0));

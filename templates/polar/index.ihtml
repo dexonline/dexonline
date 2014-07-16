@@ -1,13 +1,41 @@
-<p>
-  DEX online este transpunerea pe internet a unor dicționare de prestigiu ale limbii române. El este creat și întreținut de un colectiv de voluntari.
-  Definițiile sunt preluate textual din sursele menționate. O parte din baza de definiții a DEX online este disponibilă gratuit sub licența publică
-  generală GNU (GPL). Mulțumiri speciale <a href="{$wwwRoot}spre/siveco">firmei Siveco</a> și editurilor <a href="{$wwwRoot}spre/litera">Litera
-  Internațional</a> și <a href="{$wwwRoot}spre/saeculum">Saeculum</a>, care ne-au pus la dispoziție cinci dicționare complete.
-</p>
+<div id="Logo"></div>
+<div id="whoami">Dicționare ale limbii române</div>
 
-<div id="wotd" class="widget">
-  Cuvântul zilei: {include file="common/bits/wotdurl.ihtml"}
+<div id="searchHomePage">
+  {include file="zepu/search.ihtml" advancedSearch=0}
 </div>
-<br/>
 
-{include file="common/randomTip.ihtml"}
+{if !$suggestNoBanner && $skinVariables.afterSearchBoxBanner}
+  {include file="common/bits/banner.ihtml" id="mainPage" width="728" height="90"}
+{/if}
+
+{if $numEnabledWidgets}
+  <div class="widgetBox bend-shadow">
+    <ul class="widgetList">
+      {foreach from=$widgets item=params}
+        {if $params.enabled}
+          <li>{include file="widgets/`$params.template`"}</li>
+        {/if}
+      {/foreach}
+
+      <li class="widgetsPreferences">
+        <a href="preferinte">personalizare elemente</a>
+      </li>
+    </ul>
+  </div>
+{/if}
+
+<div class="clearer"></div>
+
+<div id="missionStatement">
+  DEX online transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
+  O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.
+</div>
+
+<div class="statusReport bend-shadow">
+  Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.<br/>
+  Liste de cuvinte:
+  {foreach from=$letters item=letter}
+    <a href="{$wwwRoot}lista-cuvinte/{$letter|escape:url}">{$letter|mb_strtoupper}</a>
+  {/foreach}
+</div>

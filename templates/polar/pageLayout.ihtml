@@ -1,153 +1,128 @@
-{assign var="cuv" value=$cuv|default:''}
+{assign var="onHomePage" value=$onHomePage|default:false}
 {assign var="page_description" value=$page_description|default:''}
 {assign var="page_keywords" value=$page_keywords|default:''}
-{assign var="text" value=$text|default:false}
+{assign var="suggestHiddenSearchForm" value=$suggestHiddenSearchForm|default:false}
+{assign var="suggestNoBanner" value=$suggestNoBanner|default:false}
 {assign var="suggestMinimalist" value=0}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>{$page_title|escape} | DEX online</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     {if $page_description}
-      <meta name="description" content="{$page_description}"/>
+    <meta name="description" content="{$page_description}"/>
     {/if}
     {if $page_keywords}
-      <meta name="keywords" content="{$page_keywords}"/>
+    <meta name="keywords" content="{$page_keywords}"/>
+    {/if}
+    {if !isset($not_generic_img)}
+    <meta property="og:image" content="{$imgRoot}/logo-dexonline-2.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="DEX online" />
+    <link rel="image_src" href="{$imgRoot}/logo-dexonline-2.png" />
     {/if}
     {include file="common/bits/cssJs.ihtml"}
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
+    <link href="https://plus.google.com/100407552237543221945" rel="publisher" />
+    <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="http://dexonline.ro/rss/cuvantul-zilei">
   </head>
 
   <body>
-    <table class="theader">
-      <tr>
-        <td class="searchBoxContainer">
-          <ul id="mainMenu">
-            <li><a href="#" onclick="return false;">Despre noi</a> |
-              <ul>
-                <li><a href="{$wwwRoot}informatii">Informații</a></li>
-                <li><a href="{$wwwRoot}contact">Contact</a></li>
-              <li><a href="http://dexonline.blogspot.ro">Blogul nostru</a></li>
-              </ul>
-            </li>
-            <li><a href="#" onclick="return false;">Implică-te</a> |
-              <ul>
-                <li><a href="{$wwwRoot}contribuie">Contribuie cu definiții</a></li>
-                <li><a href="{$wwwRoot}top">Topul voluntarilor</a></li>
-                <li><a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii_pentru_programatori">Informații pentru programatori</a></li>
-              </ul>
-            </li>
-            <li><a href="#" onclick="return false;">Resurse</a>
-              <ul>
-                <li><a href="#" onclick="abbrevWindow(); return false;">Abrevieri folosite</a></li>
-                <li><a href="{$wwwRoot}articole">Articole lingvistice</a></li>
-                <li><a href="{$wwwRoot}articol/Ghid_de_exprimare_corect%C4%83">Ghid de exprimare</a></li>
-                <li><a href="{$wwwRoot}cuvantul-zilei">Cuvântul zilei</a></li>
-                <li><a href="{$wwwRoot}cuvantul-lunii">Cuvântul lunii</a></li>
-                <li><a href="{$wwwRoot}cuvinte-aleatoare">Cuvinte aleatoare</a></li>
-                <li><a href="{$wwwRoot}unelte">Unelte</a></li>
-                <li><a href="{$wwwRoot}legaturi">Legături externe</a></li>
-              </ul>
-            </li>
-            <li><a href="{$wwwRoot}doneaza">Donează</a></li>
-            {if $isMobile}
-              <li>| <a id="mobileLink" href="{$wwwRoot}mobil">Versiunea pentru mobil</a></li>
-            {/if}
-          </ul>
-          <div style="clear:both;"></div>
-
-          <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return searchSubmit()">
-            <input type="text" name="cuv" value="{$cuv|escape}" size="20" maxlength="50"/>
-            <script type="text/javascript">
-              {literal}
-              document.frm.cuv.select();
-              document.frm.cuv.focus();
-            	function slash(evt) { // ignore / and let it be used by the browser
-            		evt = evt || window.event;
-            		var charCode = evt.keyCode || evt.which;
-            		if (charCode == 191 && !evt.shiftKey) { this.blur(); return false; }
-            	};
-            	document.frm.cuv.addEventListener("keydown", slash, false);
-              {/literal}
-            </script>
-            {include file="common/sourceDropDown.ihtml" urlName=1}
-            <input type="submit" value="Caută"/>
-            <br/>
-            <span class="definitionBodyCheckbox">
-              <input type="checkbox" id="defBody"
-                     name="text" value="1"
-                     {if $text}checked="checked"{/if}
-              /><label for="defBody">Caută în tot textul definițiilor</label>
-              (<a href="{$wwwRoot}informatii#fulltext">explicație</a>)
-            </span>
-          </form>
-        </td>
-        <td class="title">
-          <span class="pageTitle">DEX online</span><br/>
-          Dicționare ale limbii române<br/>
-          <span class="formPlug">Peste {$words_rough} de definiții</span>
-        </td>
-        <td class="logo">
-          <a href="{$wwwRoot}" class="noBorder">
-            <img src="{$imgRoot}/polar/dexonline.png" alt="DEX online logo"
-                 class="logo"/></a>
-        </td>
-      </tr>
-    </table>
-
-    {include file="common/bits/banner.ihtml" id="otherSkins" width="728" height="90"}
-    {include file="common/flashMessages.ihtml"}
-    {include file=$contentTemplateName from=polar}
-
-
-    <div class="bottomline"></div>
-    <div class="plus_bottom">
-      <script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
-      <g:plusone href="http://dexonline.ro"></g:plusone>
-    </div>
-    <div class="fb_bottom">
-      <div id="fb-root"></div>
-      <script src="http://connect.facebook.net/ro_RO/all.js#appId=173110666079819&amp;xfbml=1"></script>
-      <fb:like href="http://facebook.com/dexonline" send="true" width="800" ref="polar_bottom" show_faces="false"></fb:like>
-    </div>
-
-    <table class="footer">
-      <tr>
-        <td>
-          Starea curentă: <b>{$words_total}</b> de definiții, din care
-          <b>{$words_last_month}</b> învățate în ultima lună.<br/>
-
-          {if !$is_mirror}
-            Utilizator: <b id="user.nick">{$nick|escape}</b>
-            {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT)}
-              | <a href="{$wwwRoot}admin">Pagina moderatorului</a>
-            {/if}
-            | <a href="{$wwwRoot}preferinte">Preferințe</a>
-            {if $sUser}
-              | <a href="{$wwwRoot}utilizator/{$sUser->nick}">Profilul meu</a>
-              | <a href="{$wwwRoot}cuvinte-favorite">Cuvinte favorite</a>
-              | <a href="{$wwwRoot}auth/logout">Închide sesiunea</a>
-            {else}
-              | <a href="{$wwwRoot}auth/login">Autentificare cu OpenID</a>
-            {/if}
-            <br/>
-          {/if}
-
-          Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro) &#x2022; <a href="{$wwwRoot}informatii#licenta">Informații despre licență</a>
-
-        </td>
-        <td class="narrow">
-          {include file="common/trafic_ro.ihtml"}
-        </td>
-        {if $hostedBy}
-          <td class="narrow">
-            {include file="common/hosting/$hostedBy.ihtml"}
-          </td>
+    <div id="Container">
+      <div id="menu" class="bend-shadow">
+        {if !$onHomePage}
+          <a href="{$wwwRoot}" id="homeLink" title="Pagina principală DEX online"></a>
         {/if}
-      </tr>
-    </table>
+        <div class="fb_top">
+          <iframe src="http://www.facebook.com/plugins/like.php?ref=zepu_home&locale=en_US&app_id=225575497453880&amp;href=http%3A%2F%2Ffacebook.com%2Fdexonline&&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
+          </div>
+          <div class="plus_top">
+          <script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
+          <g:plusone size="medium" href="http://dexonline.ro"></g:plusone>
+        </div>
+        <ul id="mainMenu">
+          <li><a href="#" onclick="return false;">Despre noi ▼</a>
+            <ul>
+              <li><a href="{$wwwRoot}informatii">Informații</a></li>
+              <li><a href="{$wwwRoot}contact">Contact</a></li>
+              <li><a href="http://dexonline.blogspot.ro">Blogul nostru</a></li>
+            </ul>
+          </li>
+          <li><a href="#" onclick="return false;">Implică-te ▼</a>
+            <ul>
+              <li><a href="{$wwwRoot}contribuie">Contribuie cu definiții</a></li>
+              <li><a href="{$wwwRoot}top">Topul voluntarilor</a></li>
+              <li><a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii_pentru_programatori">Informații pentru programatori</a></li>
+            </ul>
+          </li>
+          <li><a href="#" onclick="return false;">Articole și resurse ▼</a>
+            <ul>
+              <li><a href="#" onclick="abbrevWindow(); return false;">Abrevieri folosite</a></li>
+              <li><a href="{$wwwRoot}articole">Articole lingvistice</a></li>
+              <li><a href="{$wwwRoot}articol/Ghid_de_exprimare_corect%C4%83">Ghid de exprimare</a></li>
+              <li><a href="{$wwwRoot}cuvantul-zilei">Cuvântul zilei</a></li>
+              <li><a href="{$wwwRoot}cuvantul-lunii">Cuvântul lunii</a></li>
+              <li><a href="{$wwwRoot}cuvinte-aleatoare">Cuvinte aleatoare</a></li>
+              <li><a href="{$wwwRoot}unelte">Unelte</a></li>
+              <li><a href="{$wwwRoot}legaturi">Legături externe</a></li>
+            </ul>
+          </li>
+          <li><a href="{$wwwRoot}doneaza">Donează</a></li>
+          {if $isMobile}
+            <li id="mobileLink"><a href="{$wwwRoot}mobil">Versiunea pentru mobil</a></li>
+          {/if}
+        </ul>
+        {if !$is_mirror}
+          <ul id="userMenu">
+            <li id="userNick"><div id="userPic"></div><a href="#" onclick="return false;">{$nick|escape}</a>
+              <ul>
+                {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT)}
+                  <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
+                {/if}
+                <li><a href="{$wwwRoot}preferinte">Preferințe</a></li>
+                {if $sUser}
+                  <li><a href="{$wwwRoot}utilizator/{$sUser->nick}">Profilul meu</a></li>
+                  <li><a href="{$wwwRoot}cuvinte-favorite">Cuvinte favorite</a></li>
+                  <li><a href="{$wwwRoot}auth/logout">Închide sesiunea</a></li>
+                {else}
+                  <li><a href="{$wwwRoot}auth/login">Autentificare cu OpenID</a></li>
+                {/if}
+              </ul>
+            </li>
+          </ul>
+        {/if}
+        </ul>
+      </div>
 
+      {include file="common/flashMessages.ihtml"}
+
+      {if !$onHomePage && !$suggestHiddenSearchForm}
+        <div id="searchOtherPages">
+          {include file="zepu/search.ihtml"}
+        </div>
+      {/if}
+
+      {if !$onHomePage && !$suggestNoBanner && $skinVariables.afterSearchBoxBanner}
+        {include file="common/bits/banner.ihtml" id="otherPages" width="728" height="90"}
+      {/if}
+
+      <div id="contentProper">
+        {include file=$contentTemplateName from=zepu}
+      </div>
+    </div>
+
+    {if !$onHomePage}
+      {include file="common/bits/facebook.ihtml"}
+    {/if}
+    <div id="Footer">
+      Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro)
+      &#x2022; <a href="{$wwwRoot}informatii#licenta">Informații despre licență</a>
+    </div>
+    <div id="links">
+      {include file="common/trafic_ro.ihtml"}
+      {if $hostedBy}{include file="common/hosting/$hostedBy.ihtml"}{/if}
+    </div>
     {getDebugInfo}
   </body>
 </html>

@@ -25,7 +25,7 @@ if ($submitButton) {
         $lexemMap[$lexemId] = Lexem::get_by_id($lexemId);
       }
       $l = $lexemMap[$lexemId];
-      $lm = $l->getLexemModels()[0];
+      $lm = $l->getFirstLexemModel();
 
       switch ($parts[0]) {
       case 'caps':
@@ -97,7 +97,7 @@ if ($submitButton) {
   foreach ($lexemMap as $id => $l) {
     if (!array_key_exists($id, $errorMap) && !array_key_exists($id, $deleteMap)) {
       $l->save();
-      $lm = $l->getLexemModels()[0];
+      $lm = $l->getFirstLexemModel();
       $lm->save();
       $lm->regenerateParadigm();
     }

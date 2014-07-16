@@ -63,7 +63,7 @@ function getLexemModel($form, $modelType, $modelNumber) {
     $lm->loadInflectedFormMap();
   } else {
     $l = Lexem::deepCreate($form, $modelType, $modelNumber);
-    $lm = $l->getLexemModels()[0];
+    $lm = $l->getFirstLexemModel();
     $lm->generateInflectedFormMap();
   }
   return $lm;

@@ -95,8 +95,9 @@ function lexemEditInit() {
   $('#editMeaningCancelButton').click(endMeaningEdit);
   $('.lexemEditSaveButton').click(saveEverything);
   $('.toggleRepLink').click(toggleRepClick);
+  $('.toggleRepSelect').click(toggleRepChange);
   $('.toggleStructuredLink').click(toggleStructuredClick);
-  $('.defFilterLink').click(defFilterClick);
+  $('#defFilterSelect').click(defFilterChange);
 
   struct_lexemSourceIds = {
     data: sourceMap,
@@ -398,11 +399,19 @@ function toggleRepClick() {
   var newActive = $(this).closest('.defDetails').prevAll('[data-code=' + code + ']');
   newActive.slideToggle().attr('data-active', '');
 
-  // Toggle the link text
+  // Toggle the link text and data-value attribute
   var tmp = $(this).text();
   $(this).text($(this).attr('data-other-text'));
   $(this).attr('data-other-text', tmp);
+  $(this).attr('data-value', 1 - $(this).attr('data-value'));
   return false;
+}
+
+/* User has selected a value from the text/html select. Toggle all definitions that aren't in that state already. */
+function toggleRepChange() {
+  var order = $(this).attr('data-order');
+  var value = 1 - $(this).val(); // Links that have this BAD value need to be clicked.
+  $('.toggleRepLink[data-order=' + order + '][data-value=' + value + ']').click();
 }
 
 function toggleStructuredClick() {
@@ -423,18 +432,17 @@ function toggleStructuredClick() {
   return false;
 }
 
-function defFilterClick() {
-  if ($(this).hasClass('structured')) {
+function defFilterChange() {
+  if ($(this).val() == 'structured') {
     $('.defWrapper.unstructured').hide('slow');
   } else {
     $('.defWrapper.unstructured').show('slow');
   }
-  if ($(this).hasClass('unstructured')) {
+  if ($(this).val() == 'unstructured') {
     $('.defWrapper.structured').hide('slow');
   } else {
     $('.defWrapper.structured').show('slow');
   }
-  return false;
 }
 
 function mergeLexemButtonClick() {

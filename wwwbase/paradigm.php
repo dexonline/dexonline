@@ -58,7 +58,7 @@ if (!empty($lexems)) {
   $declensions = false;
   $filtered_lexems = array();
   foreach ($lexems as $l) {
-    $lm = $l->getLexemModels()[0]; // One LexemModel suffices -- they all better have the same modelType.
+    $lm = $l->getFirstLexemModel(); // One LexemModel suffices -- they all better have the same modelType.
     $isVerb = ($lm->modelType == 'V') || ($lm->modelType == 'VT');
     if (((TYPE_SHOW_ONLY_VERBS == $type) && $isVerb) ||
         ((TYPE_SHOW_NO_VERBS == $type) && !$isVerb) ||
@@ -90,7 +90,9 @@ if (!empty($lexems)) {
     foreach($l->getLexemModels() as $lm) {
       $lm->getModelType();
       $lm->getSourceNames();
-      foreach ($lm->loadInflectedFormMap() as $ifs) {
+      $map = $lm->loadInflectedFormMap();
+      $lm->addLocInfo();
+      foreach ($map as $ifs) {
         foreach ($ifs as $if) {
           $hasUnrecommendedForms |= !$if->recommended;
         }
@@ -101,6 +103,7 @@ if (!empty($lexems)) {
   SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
   SmartyWrap::assign('lexems', $filtered_lexems);
   SmartyWrap::assign('showParadigm', true);
+  SmartyWrap::assign('locParadigm', session_user_prefers(Preferences::LOC_PARADIGM));
   SmartyWrap::assign('onlyParadigm', !$ajax);
 }
 else {

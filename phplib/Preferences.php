@@ -7,6 +7,7 @@ class Preferences {
   const OLD_ORTHOGRAPHY = 'OLD_ORTHOGRAPHY';
   const EXCLUDE_UNOFFICIAL = 'EXCLUDE_UNOFFICIAL';
   const SHOW_PARADIGM = 'SHOW_PARADIGM';
+  const LOC_PARADIGM = 'LOC_PARADIGM';
 
   // Set of all customizable user preferences
   public static $allPrefs = array(
@@ -29,6 +30,10 @@ class Preferences {
     self::SHOW_PARADIGM => array(
       'label' => 'Doresc ca flexiunile să fie expandate',
       'comment' => 'Implicit, flexiunile sunt ascunse.', 
+    ),
+    self::LOC_PARADIGM => array(
+      'label' => 'Doresc să văd formele ilegale la jocul de scrabble',
+      'comment' => 'La afișarea paradigmei, aceste forme flexionare vor apărea cu roșu.', 
     ),
   );
 

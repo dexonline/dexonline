@@ -18,7 +18,7 @@ $inflections = Model::factory('Inflection')->where('modelType', $modelType)->ord
 $model = FlexModel::get_by_modelType_number($modelType, $modelNumber);
 $exponent = $model->exponent;
 $lexem = Lexem::deepCreate($exponent, $modelType, $modelNumber);
-$ifs = $lexem->getLexemModels()[0]->generateInflectedForms();
+$ifs = $lexem->getFirstLexemModel()->generateInflectedForms();
 $mdMap = ModelDescription::getByModelIdMapByInflectionIdVariantApplOrder($model->id);
 $forms = array();
 foreach ($inflections as $infl) {

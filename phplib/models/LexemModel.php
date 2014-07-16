@@ -7,11 +7,12 @@ class LexemModel extends BaseObject implements DatedObject {
   const METHOD_LOAD = 2;
 
   private $lexem = null;
-  private $mt = null;                // ModelType object, but we call it $mt because there is already a DB field called 'modelType'
+  private $mt = null;                  // ModelType object, but we call it $mt because there is already a DB field called 'modelType'
   private $sources = null;
-  private $sourceNames = null;       // Comma-separated list of source names
+  private $sourceNames = null;         // Comma-separated list of source names
   private $inflectedForms = null;
-  private $inflectedFormMap = null;  // Mapped by various criteria depending on the caller
+  private $inflectedFormMap = null;    // Mapped by various criteria depending on the caller
+  private $nonLocInflectionIds = null; // List of ids of inflected forms that are not in LOC
 
   static function create($modelType, $modelNumber) {
     $lm = Model::factory('LexemModel')->create();
@@ -116,7 +117,7 @@ class LexemModel extends BaseObject implements DatedObject {
         // Make a note of the inflection we cannot generate
         $this->inflectedForms = $inflId;
       }
-    }        
+    }
     return $this->inflectedForms;
   }
 
@@ -203,6 +204,35 @@ class LexemModel extends BaseObject implements DatedObject {
     foreach ($this->generateInflectedForms() as $if) {
       $if->lexemModelId = $this->id;
       $if->save();
+    }
+  }
+
+  /**
+   * Adds an isLoc field to every inflected form in the map. Assumes the map already exists.
+   **/
+  function addLocInfo() {
+    // Build a map of inflection IDs not in LOC
+    $ids = Model::factory('InflectedForm')
+      ->table_alias('i')
+      ->select('i.id')
+      ->join('LexemModel', 'i.lexemModelId = lm.id', 'lm')
+      ->join('ModelType', 'lm.modelType = mt.code', 'mt')
+      ->join('Model', 'mt.canonical = m.modelType and lm.modelNumber = m.number', 'm')
+      ->join('ModelDescription', 'm.id = md.modelId and i.variant = md.variant and i.inflectionId = md.inflectionId', 'md')
+      ->where('md.applOrder', 0)
+      ->where('md.isLoc', 0)
+      ->where('lm.id', $this->id)
+      ->find_array();
+    $map = array();
+    foreach ($ids as $rec) {
+      $map[$rec['id']] = 1;
+    }
+
+    // Set the bit accordingly on every inflection in the map
+    foreach ($this->inflectedFormMap as $ifs) {
+      foreach ($ifs as $if) {
+        $if->isLoc = !array_key_exists($if->id, $map);
+      }
     }
   }
 

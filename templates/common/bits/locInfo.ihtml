@@ -1,4 +1,6 @@
 {* Argument: $isLoc *}
-{if $isLoc && $sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
+{assign var="locParadigm" value=$locParadigm|default:false}
+{assign var="admin" value=$sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
+{if $isLoc && ($admin || $locParadigm)}
   <span class="isLoc" title="Inclus în lista oficială de cuvinte a jocului de scrabble">[LOC]</span>
 {/if}      

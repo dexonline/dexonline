@@ -228,8 +228,9 @@ function validate($lexem, $original, $variantIds, $meanings) {
   }
 
   $variantOf = Lexem::get_by_id($lexem->variantOfId);
-  if ($variantOf && !empty($meanings)) {
-    FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși sensuri.");
+  if ($variantOf && !goodForVariantJson($meanings)) {
+    FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși sensuri. " .
+                      "Este permis doar un sens, fără conținut, pentru indicarea surselor.");
   }
   if ($variantOf && !empty($variantIds)) {
     FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși variante.");
@@ -251,8 +252,8 @@ function validate($lexem, $original, $variantIds, $meanings) {
     if ($variantVariantCount) {
       FlashMessage::add("\"{$variant}\" are deja propriile lui variante.");
     }
-    $variantMeaningCount = Model::factory('Meaning')->where('lexemId', $variant->id)->count();
-    if ($variantMeaningCount) {
+    $variantMeanings = Model::factory('Meaning')->where('lexemId', $variant->id)->find_many();
+    if (!goodForVariant($variantMeanings)) {
       FlashMessage::add("\"{$variant}\" are deja propriile lui sensuri.");
     }
   }
@@ -264,6 +265,42 @@ function validate($lexem, $original, $variantIds, $meanings) {
   }
 
   return FlashMessage::getMessage() == null;
+}
+
+/* Variants can only have one empty meaning, used to list the variant's sources. */
+function goodForVariant($meanings) {
+  if (empty($meanings)) {
+    return true;
+  }
+  if (count($meanings) > 1) {
+    return false;
+  }
+  $m = $meanings[0];
+  $mss = MeaningSource::get_all_by_meaningId($m->id);
+  $mtms = MeaningTagMap::get_all_by_meaningId($m->id);
+  $synonyms = Synonym::get_all_by_meaningId($m->id);
+  return count($mss) &&
+    !$m->internalRep &&
+    !$m->internalComment &&
+    empty($mtms) &&
+    empty($synonyms);
+}
+
+/* Same, but for a JSON object. */
+function goodForVariantJson($meanings) {
+  if (empty($meanings)) {
+    return true;
+  }
+  if (count($meanings) > 1) {
+    return false;
+  }
+  $m = $meanings[0];
+  return $m->sourceIds &&
+    !$m->internalRep &&
+    !$m->internalComment &&
+    !$m->meaningTagIds &&
+    !$m->synonymIds &&
+    !$m->antonymIds;
 }
 
 /* This page handles a lot of actions. Move the minor ones here so they don't clutter the preview/save actions,

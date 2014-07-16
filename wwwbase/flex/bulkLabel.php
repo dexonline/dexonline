@@ -17,7 +17,7 @@ if ($submitButton) {
       if ($modelId) {
         $parts = preg_split('/_/', $modelId);
         assert(count($parts) == 2);
-        $lm = $lexem->getLexemModels()[0];
+        $lm = $lexem->getFirstLexemModel();
         $lm->modelType = $parts[0];
         $lm->modelNumber = $parts[1];
         $lm->restriction = util_getRequestParameter('restr_' . $lexem->id);
@@ -100,7 +100,7 @@ $lexems = Model::factory('Lexem')
 // $lmMatrix[$i][$j] = lexem model (with inflected forms) for lexem $i and model $j
 $lmMatrix = array();
 foreach ($lexems as $l) {
-  $lm = $l->getLexemModels()[0];
+  $lm = $l->getFirstLexemModel();
   $lmArray = array();
   foreach ($models as $m) {
     // Force a reload

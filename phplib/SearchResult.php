@@ -16,14 +16,14 @@ class SearchResult {
     $defIds = array();
     $sourceIds = array();
     $userIds = array();
-    foreach($definitionArray as $definition) {
+    foreach ($definitionArray as $definition) {
       $defIds[] = $definition->id;
       $sourceIds[] = $definition->sourceId;
       $userIds[] = $definition->userId;
     }
     $userMap = self::mapById(Model::factory('User')->where_in('id', array_unique($userIds))->find_many());
     $sourceMap = self::mapById(Model::factory('Source')->where_in('id', array_unique($sourceIds))->find_many());
-    foreach($definitionArray as $definition) {
+    foreach ($definitionArray as $definition) {
       $result = new SearchResult();
       $result->definition = $definition;
       $result->user = $userMap[$definition->userId];
@@ -54,14 +54,14 @@ class SearchResult {
       // So we check that the user is logged in, which is cheap. The admin permission is checked in the template.
       $wotdStatuses = ORM::for_table('WordOfTheDay')
         ->raw_query("select R.refId, W.displayDate from WordOfTheDay W join WordOfTheDayRel R on W.id = R.wotdId " .
-                    "where R.refId in ($defIdString) and refType = 'Definition'", null)
+                    "where R.refId in ($defIdString) and refType = 'Definition'")
         ->find_many();
       foreach ($wotdStatuses as $w) {
         $results[$w->refId]->wotd = $w->displayDate ? $w->displayDate : true;
       }
 
       $bookmarks = Model::factory('UserWordBookmark')->where('userId', $suid)->where_in('definitionId', $defIds)->find_many();
-      foreach($bookmarks as $b) {
+      foreach ($bookmarks as $b) {
         $results[$b->definitionId]->bookmark = true;
       }
     }

@@ -47,6 +47,11 @@ class Lexem extends BaseObject implements DatedObject {
     return $this->lexemModels;
   }
 
+  function getFirstLexemModel() {
+    $lms = $this->getLexemModels();
+    return count($lms) ? $lms[0] : null;
+  }
+
   function setLexemModels($lexemModels) {
     $this->lexemModels = $lexemModels;
   }
@@ -221,7 +226,7 @@ class Lexem extends BaseObject implements DatedObject {
 
   public static function loadUnassociated() {
     return Model::factory('Lexem')
-      ->raw_query('select * from Lexem where id not in (select lexemId from LexemDefinitionMap) order by formNoAccent', null)->find_many();
+      ->raw_query('select * from Lexem where id not in (select lexemId from LexemDefinitionMap) order by formNoAccent')->find_many();
   }
 
   /**
@@ -275,7 +280,7 @@ class Lexem extends BaseObject implements DatedObject {
           ->find_one();
 
         if ($lexem) {
-          $partLm = $lexem->getLexemModels()[0];
+          $partLm = $lexem->getFirstLexemModel();
           if ($partLm->modelType != 'A' || $partLm->modelNumber != $pm->adjectiveModel || $partLm->restriction != '') {
             $partLm->modelType = 'A';
             $partLm->modelNumber = $pm->adjectiveModel;
@@ -322,7 +327,7 @@ class Lexem extends BaseObject implements DatedObject {
           ->find_one();
 
         if ($lexem) {
-          $infLm = $lexem->getLexemModels()[0];
+          $infLm = $lexem->getFirstLexemModel();
           if ($infLm->modelType != 'F' || $infLm->modelNumber != $model->number || $inf->restriction != '') {
             $infLm->modelType = 'F';
             $infLm->modelNumber = $model->number;
@@ -360,7 +365,7 @@ class Lexem extends BaseObject implements DatedObject {
     if ($variantIds) {
       $lexemsToClear = Model::factory('Lexem')->where('variantOfId', $this->id)->where_not_in('id', $variantIds)->find_many();
     } else {
-      $lexemsToClear = Lexem::get_all_by_variantOfId($this->id);
+      $lexemsToClear = self::get_all_by_variantOfId($this->id);
     }
     foreach($lexemsToClear as $l) {
       $l->variantOfId = null;

@@ -19,7 +19,7 @@ class Definition extends BaseObject implements DatedObject {
   public static function countAssociated() {
     // same as select count(distinct definitionId) from LexemDefinitionMap, only faster.
     $r =  Model::factory('Definition')
-      ->raw_query('select count(*) as c from (select count(*) from LexemDefinitionMap group by definitionId) as someLabel', null)
+      ->raw_query('select count(*) as c from (select count(*) from LexemDefinitionMap group by definitionId) as someLabel')
       ->find_one();
     return $r->c;
   }
@@ -113,7 +113,7 @@ class Definition extends BaseObject implements DatedObject {
     return ORM::for_table('Definition')
       ->raw_query("select distinct D.* from Definition D, LexemDefinitionMap L, Source S " .
                   "where D.id = L.definitionId and L.lexemId in ($lexemIds) and D.sourceId = S.id $statusClause $excludeClause $sourceClause " .
-                  "order by S.isOfficial desc, (D.lexicon = '$preferredWord') desc, S.displayOrder, D.lexicon", null)
+                  "order by S.isOfficial desc, (D.lexicon = '$preferredWord') desc, S.displayOrder, D.lexicon")
       ->find_many();
   }
 
@@ -123,7 +123,7 @@ class Definition extends BaseObject implements DatedObject {
     return Model::factory('Definition')
       ->raw_query("select D.* from Definition D, LexemDefinitionMap L, Source S where D.id = L.definitionId " .
                   "and D.sourceId = S.id and L.lexemId = '$lexemId' $excludeClause $statusClause " .
-                  "order by S.isOfficial desc, S.displayOrder, D.lexicon", null)
+                  "order by S.isOfficial desc, S.displayOrder, D.lexicon")
       ->find_many();
   }
 
@@ -250,13 +250,13 @@ class Definition extends BaseObject implements DatedObject {
       $collate = $hasDiacritics ? '' : 'collate utf8_general_ci';
       return Model::factory('Definition')
         ->raw_query("select * from Definition where lexicon $collate $regexp and status = " . ST_DELETED . " and createDate between $beginTime and $endTime " .
-                    "$sourceClause $userClause order by lexicon, sourceId limit $offset, $resultsPerPage", null)->find_many();
+                    "$sourceClause $userClause order by lexicon, sourceId limit $offset, $resultsPerPage")->find_many();
     } else {
       $query = "select distinct Definition.* from Lexem join LexemDefinitionMap on Lexem.id = LexemDefinitionMap.lexemId " .
         "join Definition on LexemDefinitionMap.definitionId = Definition.id where formNoAccent $regexp " .
         "and Definition.status = $status and Definition.createDate >= $beginTime and Definition.createDate <= $endTime " .
         "$sourceClause $userClause order by lexicon, sourceId limit $offset, $resultsPerPage";
-      return Model::factory('Definition')->raw_query($query, null)->find_many();
+      return Model::factory('Definition')->raw_query($query)->find_many();
     }
   }
 

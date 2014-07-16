@@ -56,7 +56,7 @@ class WikiArticle extends BaseObject implements DatedObject {
     }
     $lexemConcat = implode(', ', $lexemForms);
     return Model::factory('WikiArticle')
-      ->raw_query("select WikiArticle.* from WikiArticle, WikiKeyword where WikiArticle.id = WikiKeyword.wikiArticleId and WikiKeyword.keyword in ($lexemConcat)", null)
+      ->raw_query("select WikiArticle.* from WikiArticle, WikiKeyword where WikiArticle.id = WikiKeyword.wikiArticleId and WikiKeyword.keyword in ($lexemConcat)")
       ->find_many();
   }
 

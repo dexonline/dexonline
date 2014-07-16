@@ -206,7 +206,7 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
     $conjugations = false;
     $declensions = false;
     foreach ($lexems as $l) {
-      $lm = $l->getLexemModels()[0]; // One LexemModel suffices -- they all better have the same modelType.
+      $lm = $l->getFirstLexemModel(); // One LexemModel suffices -- they all better have the same modelType.
       $isVerb = ($lm->modelType == 'V') || ($lm->modelType == 'VT');
       $conjugations |= $isVerb;
       $declensions |= !$isVerb;
@@ -219,7 +219,9 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
         foreach ($l->getLexemModels() as $lm) {
           $lm->getModelType();
           $lm->getSourceNames();
-          foreach ($lm->loadInflectedFormMap() as $ifs) {
+          $map = $lm->loadInflectedFormMap();
+          $lm->addLocInfo();
+          foreach ($map as $ifs) {
             foreach ($ifs as $if) {
               $hasUnrecommendedForms |= !$if->recommended;
             }
@@ -289,6 +291,7 @@ AdsModule::runAllModules(empty($lexems) ? null : $lexems, empty($definitions) ? 
 SmartyWrap::assign('text', $text);
 SmartyWrap::assign('searchType', $searchType);
 SmartyWrap::assign('showParadigm', $showParadigm);
+SmartyWrap::assign('locParadigm', session_user_prefers(Preferences::LOC_PARADIGM));
 SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('advancedSearch', $text || $sourceId);
 

@@ -29,7 +29,7 @@ vreunul din cuvintele din LOC generează acea formă.<br/><br/>
       {foreach from=$data item=r}
         <li>
           <b>{$r.inflectedForm|escape}</b> provine din
-          <a href="{$wwwRoot}lexem/{$r.lexemFormNoAccent|escape}/{$r.lexemId}">{$r.lexemForm|escape}</a>
+          <a href="{$wwwRoot}definitie/{$r.lexemFormNoAccent|escape}">{$r.lexemForm|escape}</a>
           {$r.modelType}{$r.modelNumber}{$r.restriction}
           ({$r.inflection|escape})
         </li>

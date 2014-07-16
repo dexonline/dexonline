@@ -736,26 +736,26 @@ div.sourceComplete5 {
 .statusReport {
   font-size: 14px;
   float: left;
-  position: absolute;
-  bottom: 60px;
+  position: relative;
+  bottom: -40px;
 }
 
 #Footer {
   font-size: 14px;
   float: left;
-  padding-top: 5px;
+  padding-top: 40px;
   position: relative;
   width: 875px;
   border-top: 1px solid #DDD;
 }
 
 #links {
-  /*text-align: right;
-  margin-top: 20px;*/
-  position: relative;
+  float: right;
   margin-right: 10px;
-  width: 875px;
+  margin-top: -50px;
+  position: relative;
   text-align: right;
+  width: 230px;
 }
 
 #banner_otherPages {

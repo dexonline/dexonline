@@ -17,27 +17,15 @@
   {include file="common/bits/banner.ihtml" id="mainPage" width="728" height="90"}
 {/if}
 
-{if $numEnabledWidgets}
-  <div class="widgetBox bend-shadow">
-    <ul class="widgetList">
-      {foreach from=$widgets item=params}
-        {if $params.enabled}
-          <li>{include file="widgets/`$params.template`"}</li>
-        {/if}
-      {/foreach}
-
-      <li class="widgetsPreferences">
-        <a href="preferinte">personalizare elemente</a>
-      </li>
-    </ul>
-  </div>
-{/if}
-
 <div class="clearer"></div>
 
 <div id="missionStatement">
   DEX online transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
   O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.
+</div>
+
+<div class="widget wotd">
+  {include file="widgets/wotd.ihtml"}
 </div>
 
 <div class="statusReport bend-shadow">

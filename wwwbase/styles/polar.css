@@ -333,7 +333,7 @@ th.headerSortDown {
 }
 
 .fb_bottom {
-  display: inline-block;
+  display: none; /* there are 2 Facebook plugins, we'll keep the smaller one */
 }
 
 .plus_bottom {
@@ -614,7 +614,8 @@ div.sourceComplete5 {
 
 
 /* CONVERT Polar HTML skin to CSS skin */
-#searchHomePage {
+#searchHomePage,
+#searchOtherPages {
   position: absolute;
   top: 30px;
 }
@@ -756,4 +757,7 @@ div.sourceComplete5 {
   text-align: right;
 }
 
+#banner_otherPages {
+  margin-top: 4px;
+}
 

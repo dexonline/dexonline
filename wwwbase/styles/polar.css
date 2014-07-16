@@ -743,15 +743,16 @@ div.sourceComplete5 {
 #Footer {
   font-size: 14px;
   float: left;
-  position: absolute;
-  bottom: 42px;
+  padding-top: 5px;
+  position: relative;
+  width: 875px;
+  border-top: 1px solid #DDD;
 }
 
 #links {
   /*text-align: right;
   margin-top: 20px;*/
-  position: absolute;
-  bottom: 60px;
+  position: relative;
   margin-right: 10px;
   width: 875px;
   text-align: right;

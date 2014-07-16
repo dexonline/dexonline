@@ -28,6 +28,9 @@
   {include file="widgets/wotd.ihtml"}
 </div>
 
+<div class="topline social"></div>
+<div class="bottomline social"></div>
+
 <div class="statusReport bend-shadow">
   Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.<br/>
   Liste de cuvinte:

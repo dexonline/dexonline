@@ -614,11 +614,6 @@ div.sourceComplete5 {
 
 
 /* CONVERT Polar HTML skin to CSS skin */
-#userMenu {
-  bottom: 0px;
-  position: absolute;
-}
-
 #searchHomePage {
   position: absolute;
   top: 30px;
@@ -636,11 +631,21 @@ div.sourceComplete5 {
   left: 750px;
 }
 
+#userMenu {
+  position: relative;
+  top: -28px;
+  left: 336px;
+}
+
+#userMenu li ul {
+  display: none;
+}
+
 .fb_top,
 .plus_top {
-  position: absolute;
-  bottom: 0;
-  left: 100px;
+  position: relative;
+  top: 369px;
+  left: -655px;
 }
 
 #advSearch {
@@ -686,6 +691,21 @@ div.sourceComplete5 {
 .widget.wotd {
   position: relative;
   top: -100px;
+}
+
+.topline.social {
+  margin-top: -70px;
+  border-top: 1px solid #CCC;
+}
+
+.bottomline.social {
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+#links {
+  text-align: right;
+  margin-top: -55px;
 }
 
 

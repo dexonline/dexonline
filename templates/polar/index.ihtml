@@ -3,7 +3,11 @@
     <img src="{$imgRoot}/polar/dexonline.png" alt="DEX online logo"/>
   </a>
 </div>
-<div id="whoami">Dicționare ale limbii române</div>
+<div id="whoami">
+  <span class="pageTitle">DEX online</span><br/>
+  Dicționare ale limbii române<br/>
+  <span class="formPlug">Peste {$words_rough} de definiții</span>
+</div>
 
 <div id="searchHomePage">
   {include file="zepu/search.ihtml" advancedSearch=0}

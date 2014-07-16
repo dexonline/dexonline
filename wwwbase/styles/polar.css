@@ -613,7 +613,7 @@ div.sourceComplete5 {
 }
 
 
-/* convert Polar HTML skin to CSS skin */
+/* CONVERT Polar HTML skin to CSS skin */
 #userMenu {
   bottom: 0px;
   position: absolute;
@@ -626,7 +626,7 @@ div.sourceComplete5 {
 
 #whoami {
   position: relative;
-  top: -130px;
+  top: -145px;
   left: 525px;
 }
 
@@ -641,6 +641,35 @@ div.sourceComplete5 {
   position: absolute;
   bottom: 0;
   left: 100px;
+}
+
+#advSearch {
+  display: block !important;
+  position: relative;
+  top: -24px;
+  margin-left: 3px;
+}
+
+#sourceDropDown {
+  position: relative;
+  top: -27px;
+  left: -110px;
+}
+
+#search_button {
+  position: relative;
+  top: -26px;
+  left: 330px;
+  box-shadow: none;
+}
+
+#inlineBlock1 {
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+#advancedAnchor {
+  display: none;
 }
 
 

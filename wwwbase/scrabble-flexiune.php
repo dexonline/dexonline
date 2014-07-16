@@ -12,7 +12,6 @@ if ($locVersion && $form) {
   $data = Model::factory('InflectedForm')
     ->table_alias('I')
     ->select('I.form', 'inflectedForm')
-    ->select('L.id', 'lexemId')
     ->select('L.formNoAccent', 'lexemFormNoAccent')
     ->select('L.form', 'lexemForm')
     ->select('LM.modelType', 'modelType')

@@ -9,9 +9,9 @@
         {assign var="form" value=$if->form|regex_replace:"/\'(a|e|i|o|u|ă|î|â|y)/":"<span class=\"accented\">\$1</span>"}
         {if $i}, {/if}
         {if !$if->recommended}
-          <span class="notRecommended" title="formă nerecomandată">{$form}</span>
+          <span class="notRecommended" title="formă nerecomandată">{$form}*</span>
         {elseif !$if->isLoc && $locParadigm}
-          <span class="notInLoc" title="formă neacceptată la scrabble">{$form}</span>
+          <span class="notInLoc" title="formă neacceptată la scrabble">{$form}*</span>
         {else}
           {$form}
         {/if}

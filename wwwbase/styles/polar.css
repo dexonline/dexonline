@@ -633,8 +633,10 @@ div.sourceComplete5 {
 
 #userMenu {
   position: relative;
-  top: -28px;
-  left: 336px;
+  top: -23px;
+  left: 320px;
+  list-style-type: none;
+  font-size: 13px;
 }
 
 #userMenu li ul {
@@ -701,6 +703,11 @@ div.sourceComplete5 {
 .bottomline.social {
   margin-top: 40px;
   margin-bottom: 10px;
+}
+
+.statusReport,
+#Footer {
+  font-size: 14px;
 }
 
 #links {

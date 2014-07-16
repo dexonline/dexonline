@@ -650,9 +650,15 @@ div.sourceComplete5 {
 
 .fb_top,
 .plus_top {
-  position: relative;
+  /*position: relative;
   top: 351px;
-  left: -655px;
+  left: -655px;*/
+  position: absolute;
+  bottom: 110px;
+}
+
+.plus_top {
+  margin-left: 100px;
 }
 
 #advSearch {
@@ -710,24 +716,44 @@ div.sourceComplete5 {
 }
 
 .topline.social {
-  margin-top: -70px;
+  /*margin-top: -70px;
+  border-top: 1px solid #CCC;*/
   border-top: 1px solid #CCC;
+  position: absolute;
+  width: 875px;
+  bottom: 135px;
 }
 
 .bottomline.social {
-  margin-top: 40px;
-  margin-bottom: 10px;
+  /*margin-top: 40px;
+  margin-bottom: 10px;*/
+  position: absolute;
+  bottom: 105px;
+  width: 875px;
 }
 
-.statusReport,
+.statusReport {
+  font-size: 14px;
+  float: left;
+  position: absolute;
+  bottom: 60px;
+}
+
 #Footer {
   font-size: 14px;
   float: left;
+  position: absolute;
+  bottom: 42px;
 }
 
 #links {
+  /*text-align: right;
+  margin-top: 20px;*/
+  position: absolute;
+  bottom: 60px;
+  margin-right: 10px;
+  width: 875px;
   text-align: right;
-  margin-top: 20px;
 }
 
 

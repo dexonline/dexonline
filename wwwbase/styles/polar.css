@@ -668,8 +668,19 @@ div.sourceComplete5 {
   margin-top: 5px;
 }
 
-#advancedAnchor {
+#advancedAnchor,
+.widgetBox {
   display: none;
+}
+
+#banner_mainPage {
+  position: relative;
+  top: -125px;
+}
+
+#missionStatement {
+  position: relative;
+  top: -110px;
 }
 
 

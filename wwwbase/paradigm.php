@@ -90,7 +90,9 @@ if (!empty($lexems)) {
     foreach($l->getLexemModels() as $lm) {
       $lm->getModelType();
       $lm->getSourceNames();
-      foreach ($lm->loadInflectedFormMap() as $ifs) {
+      $map = $lm->loadInflectedFormMap();
+      $lm->addLocInfo();
+      foreach ($map as $ifs) {
         foreach ($ifs as $if) {
           $hasUnrecommendedForms |= !$if->recommended;
         }
@@ -101,6 +103,7 @@ if (!empty($lexems)) {
   SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
   SmartyWrap::assign('lexems', $filtered_lexems);
   SmartyWrap::assign('showParadigm', true);
+  SmartyWrap::assign('locParadigm', session_user_prefers(Preferences::LOC_PARADIGM));
   SmartyWrap::assign('onlyParadigm', !$ajax);
 }
 else {

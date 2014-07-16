@@ -87,6 +87,12 @@ div.scrabbleModelName .accented {
   font-weight: normal;
 }
 
+span.notInLoc {
+  color: #c01010;
+  cursor: help;
+  font-style: italic;
+}
+
 span.notRecommended {
   color: #1010c0;
   cursor: help;

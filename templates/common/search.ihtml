@@ -118,7 +118,9 @@
 
 <div id="resultsWrapper" class="txt">
   {if $searchType != $smarty.const.SEARCH_REGEXP}
-    <div id="paradigmDiv" {if !$showParadigm}style="display: none"{/if}>{include file="common/bits/multiParadigm.ihtml"}</div>
+    <div id="paradigmDiv" {if !$showParadigm}style="display: none"{/if}>
+      {if $showParadigm}{include file="common/bits/multiParadigm.ihtml"}{/if}
+    </div>
   {/if}
 
   {if !empty($images)}

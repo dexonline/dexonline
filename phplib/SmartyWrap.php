@@ -135,7 +135,7 @@ class SmartyWrap {
         case 'polar':               self::$cssFiles[8] = 'polar.css?v=31'; break;
         case 'mobile':              self::$cssFiles[9] = 'mobile.css?v=15'; break;
         case 'flex':                self::$cssFiles[10] = 'flex.css?v=12'; break;
-        case 'paradigm':            self::$cssFiles[11] = 'paradigm.css?v=1'; break;
+        case 'paradigm':            self::$cssFiles[11] = 'paradigm.css?v=2'; break;
         case 'hangman':             self::$cssFiles[12] = 'hangman.css?v=4'; break;
         case 'mill':                self::$cssFiles[13] = 'mill.css?v=3'; break;
         case 'lexemEdit':           self::$cssFiles[14] = 'lexemEdit.css?v=7'; break;

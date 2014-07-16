@@ -340,10 +340,6 @@ th.headerSortDown {
   display: inline;
 }
 
-.fb_top, .plus_top {
-  float: right;
-}
-
 #mobileLink {
   background: url("../img/icons/phone.png") no-repeat;
   padding-left: 16px;
@@ -649,17 +645,21 @@ div.sourceComplete5 {
   display: none;
 }
 
-.fb_top,
-.plus_top {
-  /*position: relative;
-  top: 351px;
-  left: -655px;*/
-  position: absolute;
+.socialPlugins {
   bottom: 110px;
+  border-top: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
+  padding: 5px 5px 0px;
+  position: absolute;
+  width: 875px;
+}
+
+.fb_top {
+  display: inline-block;
 }
 
 .plus_top {
-  margin-left: 100px;
+  display: inline-block;
 }
 
 #advSearch {

@@ -651,7 +651,7 @@ div.sourceComplete5 {
 .fb_top,
 .plus_top {
   position: relative;
-  top: 369px;
+  top: 351px;
   left: -655px;
 }
 
@@ -696,8 +696,17 @@ div.sourceComplete5 {
 }
 
 .widget.wotd {
+  min-height: 50px;
   position: relative;
   top: -100px;
+}
+
+.widget.wotd img {
+  float: left;
+}
+
+.widget.wotd label {
+  vertical-align: top;
 }
 
 .topline.social {
@@ -713,11 +722,12 @@ div.sourceComplete5 {
 .statusReport,
 #Footer {
   font-size: 14px;
+  float: left;
 }
 
 #links {
   text-align: right;
-  margin-top: -55px;
+  margin-top: 20px;
 }
 
 

@@ -4,6 +4,11 @@
 {assign var="suggestHiddenSearchForm" value=$suggestHiddenSearchForm|default:false}
 {assign var="suggestNoBanner" value=$suggestNoBanner|default:false}
 {assign var="suggestMinimalist" value=0}
+{if $onHomePage}
+  {assign var="bodyClass" value="homepage"}
+{else}
+  {assign var="bodyClass" value="secondary"}
+{/if}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -28,7 +33,7 @@
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="http://dexonline.ro/rss/cuvantul-zilei">
   </head>
 
-  <body>
+  <body class="{$bodyClass}">
     <div id="Container">
       <div id="menu" class="bend-shadow">
         {if !$onHomePage}

@@ -743,19 +743,28 @@ div.sourceComplete5 {
 #Footer {
   font-size: 14px;
   float: left;
-  padding-top: 40px;
+  margin-bottom: 20px;
+  padding-top: 10px;
   position: relative;
   width: 875px;
   border-top: 1px solid #DDD;
 }
 
+.homepage #Footer {
+  padding-top: 40px;
+}
+
 #links {
   float: right;
   margin-right: 10px;
-  margin-top: -50px;
+  margin-top: -40px;
   position: relative;
   text-align: right;
   width: 230px;
+}
+
+.homepage #links {
+  margin-top: -70px;
 }
 
 #banner_otherPages {

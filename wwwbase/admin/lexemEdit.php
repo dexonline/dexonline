@@ -299,8 +299,7 @@ function goodForVariantJson($meanings) {
     !$m->internalRep &&
     !$m->internalComment &&
     !$m->meaningTagIds &&
-    !$m->synonymIds &&
-    !$m->antonymIds;
+    !$m->relationIds;
 }
 
 /* This page handles a lot of actions. Move the minor ones here so they don't clutter the preview/save actions,

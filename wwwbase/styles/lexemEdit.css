@@ -43,7 +43,7 @@ body {
 }
 
 #meaningTree .id, #meaningTree .internalRep, #meaningTree .internalComment, #meaningTree .sourceIds,
-#meaningTree .meaningTagIds, #meaningTree .synonymIds, #meaningTree .antonymIds {
+#meaningTree .meaningTagIds, #meaningTree .relationIds {
   display: none;
 }
 
@@ -91,24 +91,29 @@ body {
   border-color: #9fe09d;
 }
 
-#meaningTree .synonyms span {
+#meaningTree .relation[data-type="1"] span {
   background: #daebf7;
   border-color: #9dc5e0;
 }
 
-#meaningTree .antonyms span {
+#meaningTree .relation[data-type="2"] span {
   background: #f7dcda;
   border-color: #e0a19d;
+}
+
+#meaningTree .relation[data-type="3"] span {
+  background: #ffebff;
+  border-color: #e6b8e6;
+}
+
+#meaningTree .relation[data-type="4"] span {
+  background: #ffccff;
+  border-color: #cca3cc;
 }
 
 #meaningMenu .arrowButton {
   float: right;
   padding: 0em 1em;
-}
-
-.meaningEditor label {
-  display: inline-block;
-  width: 77px;
 }
 
 .meaningEditor td {

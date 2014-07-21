@@ -4,15 +4,38 @@ class Synonym extends BaseObject implements DatedObject {
   public static $_table = 'Synonym';
   const TYPE_SYNONYM = 1;
   const TYPE_ANTONYM = 2;
+  const TYPE_DIMINUTIVE = 3;
+  const TYPE_AUGMENTATIVE = 4;
+  const NUM_TYPES = 4;
 
-  static function loadByMeaningId($meaningId, $type) {
-    return Model::factory('Lexem')
+  // Returns a meaning's related lexems, mapped by type
+  static function loadByMeaningId($meaningId) {
+    $lexems = Model::factory('Lexem')
       ->select('Lexem.*')
+      ->select('Synonym.type')
       ->join('Synonym', array('Lexem.id', '=', 'lexemId'))
       ->where('Synonym.meaningId', $meaningId)
-      ->where('Synonym.type', $type)
       ->order_by_asc('formNoAccent')
       ->find_many();
+    $results = array();
+    for ($i = 1; $i < self::NUM_TYPES; $i++) {
+      $results[$i] = array();
+    }
+    foreach ($lexems as $l) {
+      $results[$l->type][] = $l;
+    }
+    return $results;
+  }
+
+  // Returns a meaning's related lexems, given a map of relation type to lexem ID array
+  static function loadRelatedLexems($map) {
+    $results = array();
+    foreach ($map as $type => $lexemIds) {
+      if ($type) {
+        $results[$type] = Lexem::loadByIds(StringUtil::explode(',', $lexemIds));
+      }
+    }
+    return $results;
   }
 }
 

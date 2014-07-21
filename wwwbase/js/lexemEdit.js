@@ -26,27 +26,17 @@ function lexemEditInit() {
   });
   $('#editorTags').select2('enable', false);
 
-  $('#editorSynonyms').select2({
+  $('.editorRelation').select2({
     ajax: struct_lexemAjax,
     initSelection: select2InitSelection,
     minimumInputLength: 1,
     multiple: true,
-    placeholder: 'adaugă un sinonim...',
-    width: '315px',
+    width: '275px',
   });
-  $('#editorSynonyms').select2('enable', false);
+  $('.editorRelation').select2('enable', false);
 
-  $('#editorAntonyms').select2({
-    ajax: struct_lexemAjax,
-    initSelection: select2InitSelection,
-    minimumInputLength: 1,
-    multiple: true,
-    placeholder: 'adaugă un antonim...',
-    width: '315px',
-  });
-  $('#editorAntonyms').select2('enable', false);
-
-  $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags, #editorSynonyms, #editorAntonyms').bind(
+  $('#relationType').change(selectRelationType).change();
+  $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags, .editorRelation').bind(
     'change keyup input paste', function() { struct_anyChanges = true; });
 
   $('#editorInternalRep').textcomplete([
@@ -263,7 +253,7 @@ function beginMeaningEdit() {
   struct_anyChanges = false;
   var c = $('#meaningTree li.selected > .meaningContainer');
 
-  $('#editorInternalRep, #editorInternalComment, #editMeaningAcceptButton, #editMeaningCancelButton').removeProp('disabled');
+  $('#editorInternalRep, #editorInternalComment, #relationType, #editMeaningAcceptButton, #editMeaningCancelButton').removeProp('disabled');
   $('#editorInternalRep').val(c.find('.internalRep').text());
   $('#editorInternalComment').val(c.find('.internalComment').text());
   $('#editorSources').select2('val', c.find('.sourceIds').text().split(','));
@@ -271,19 +261,14 @@ function beginMeaningEdit() {
   $('#editorTags').select2('val', c.find('.meaningTagIds').text().split(','));
   $('#editorTags').select2('enable');
 
-  var synonymIds = c.find('.synonymIds').text().split(',');
-  var synonyms = c.find('.synonyms .tag');
-  $('#editorSynonyms').select2('data', synonyms.map(function(index) {
-    return { id: synonymIds[index], text: $(this).text() };
-  }));
-  $('#editorSynonyms').select2('enable');
-
-  var antonymIds = c.find('.antonymIds').text().split(',');
-  var antonyms = c.find('.antonyms .tag');
-  $('#editorAntonyms').select2('data', antonyms.map(function(index) {
-    return { id: antonymIds[index], text: $(this).text() };
-  }));
-  $('#editorAntonyms').select2('enable');
+  c.find('.relationIds').each(function() {
+    var type = $(this).attr('data-type');
+    var relationIds = $(this).text().split(',');
+    var relations = c.find('.relation[data-type="' + type + '"] .tag');
+    $('.relationWrapper[data-type="' + type + '"] .editorRelation').select2('data', relations.map(function(index) {
+      return { id: relationIds[index], text: $(this).text() };
+    })).select2('enable');
+  });
 }
 
 function acceptMeaningEdit() {
@@ -322,44 +307,47 @@ function acceptMeaningEdit() {
     c.find('.meaningTags').append('<span class="tag">' + $(this).text() + '</span>');
   });
 
-  // Update synonym tags and synonymIds
-  var synonymData = $('#editorSynonyms').select2('data');
-  c.find('.synonymIds').text($.map(synonymData, function(rec, i) { return rec.id; }));
-  c.find('.synonyms').text('');
-  $.map(synonymData, function(rec, i) {
-    c.find('.synonyms').append('<span class="tag">' + rec.text + '</span>');
-  });
-
-  // Update antonym tags and antonymIds
-  var antonymData = $('#editorAntonyms').select2('data');
-  c.find('.antonymIds').text($.map(antonymData, function(rec, i) { return rec.id; }));
-  c.find('.antonyms').text('');
-  $.map(antonymData, function(rec, i) {
-    c.find('.antonyms').append('<span class="tag">' + rec.text + '</span>');
+  // Update relation tags and relationIds
+  c.find('.relationIds').each(function() {
+    var type = $(this).attr('data-type');
+    var relationData = $('.relationWrapper[data-type="' + type + '"] .editorRelation').select2('data');
+    $(this).text($.map(relationData, function(rec, i) { return rec.id; }));
+    var relations = c.find('.relation[data-type="' + type + '"]');
+    relations.text('');
+    $.map(relationData, function(rec, i) {
+      relations.append('<span class="tag">' + rec.text + '</span>');
+    });
   });
 }
 
 function endMeaningEdit() {
   struct_anyChanges = false;
   $('#editorInternalRep, #editorInternalComment, #editMeaningAcceptButton, #editMeaningCancelButton').prop('disabled', 'disabled');
+  $('#relationType').attr('disabled', 'disabled');
   $('#editorInternalRep').val('');
   $('#editorInternalComment').val('');
   $('#editorSources').select2('val', []);
   $('#editorSources').select2('enable', false);
   $('#editorTags').select2('val', []);
   $('#editorTags').select2('enable', false);
-  $('#editorSynonyms').select2('data', []);
-  $('#editorSynonyms').select2('enable', false);
-  $('#editorAntonyms').select2('data', []);
-  $('#editorAntonyms').select2('enable', false);
+  $('.editorRelation').select2('data', []);
+  $('.editorRelation').select2('enable', false);
+}
+
+function selectRelationType() {
+  $('.relationWrapper').hide();
+  $('.relationWrapper[data-type="' + $(this).val() + '"]').show();
 }
 
 // Iterate a meaning tree node (<ul> element) recursively and collect meaning-related fields
-// We do this at jquery level, because the easyui tree methods appear buggy.
-// For example, moving meanings sometimes leaves behind "ghost" copies.
 function meaningTreeWalk(node, results, level) {
   node.children('li').each(function() {
     var c = $(this).children('.meaningContainer');
+    // Collect the relationIds
+    var relationIds = [];
+    c.find('.relationIds').each(function() {
+      relationIds[$(this).attr('data-type')] = $(this).text();
+    });
     results.push({ 'id': c.find('.id').text(),
                    'level': level,
                    'breadcrumb': c.find('.breadcrumb').text(),
@@ -367,8 +355,7 @@ function meaningTreeWalk(node, results, level) {
                    'internalComment': c.find('.internalComment').text(),
                    'sourceIds': c.find('.sourceIds').text(),
                    'meaningTagIds': c.find('.meaningTagIds').text(),
-                   'synonymIds': c.find('.synonymIds').text(),
-                   'antonymIds': c.find('.antonymIds').text(),
+                   'relationIds': relationIds,
                  });
     $(this).children('ul').each(function() {
       meaningTreeWalk($(this), results, level + 1);

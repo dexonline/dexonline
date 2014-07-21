@@ -30,26 +30,18 @@
               {$s->id}{if !$smarty.foreach.sourceLoop.last},{/if}
             {/foreach}
           </span>
-          <span class="synonyms">
-            {foreach from=$t.synonyms item=s}
-              <span class="tag">{include file="common/bits/lexemName.ihtml" lexem=$s}</span>
-            {/foreach}
-          </span>
-          <span class="synonymIds">
-            {foreach from=$t.synonyms item=s name=synonymLoop}
-              {$s->id}{if !$smarty.foreach.synonymLoop.last},{/if}
-            {/foreach}
-          </span>
-          <span class="antonyms">
-            {foreach from=$t.antonyms item=s}
-              <span class="tag">{include file="common/bits/lexemName.ihtml" lexem=$s}</span>
-            {/foreach}
-          </span>
-          <span class="antonymIds">
-            {foreach from=$t.antonyms item=s name=antonymLoop}
-              {$s->id}{if !$smarty.foreach.antonymLoop.last},{/if}
-            {/foreach}
-          </span>
+          {foreach from=$t.relations key=type item=lexemList}
+            <span class="relation" data-type="{$type}">
+              {foreach from=$lexemList item=l}
+                <span class="tag">{include file="common/bits/lexemName.ihtml" lexem=$l}</span>
+              {/foreach}
+            </span>
+            <span class="relationIds" data-type="{$type}">
+              {foreach from=$lexemList item=l name=lexemLoop}
+                {$l->id}{if !$smarty.foreach.lexemLoop.last},{/if}
+              {/foreach}
+            </span>
+          {/foreach}
         </div>
         {include file="common/bits/meaningTree.ihtml" meanings=$t.children id=""}
       {/strip}</li>

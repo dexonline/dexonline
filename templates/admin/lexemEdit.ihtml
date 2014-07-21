@@ -19,10 +19,10 @@
       <span class="htmlComment"></span>
       <span class="sources"></span>
       <span class="sourceIds"></span>
-      <span class="synonyms"></span>
-      <span class="synonymIds"></span>
-      <span class="antonyms"></span>
-      <span class="antonymIds"></span>
+      {for $type=1 to Synonym::NUM_TYPES}
+        <span class="relation" data-type="{$type}"></span>
+        <span class="relationIds" data-type="{$type}"></span>
+      {/for}
     </div>
   </li>
 </ul>
@@ -214,14 +214,14 @@
             <textarea id="editorInternalRep" rows="10" cols="10" disabled placeholder="sensul definiției..."></textarea>
           </td>
   
-          <td>
+          <td colspan="2">
             <textarea id="editorInternalComment" rows="3" cols="10" disabled placeholder="comentariu..."></textarea>
           </td>
         </tr>
   
         <tr>
+          <td><label for="editorSources">surse:</label></td>
           <td>
-            <label for="editorSources">surse:</label>
             <select id="editorSources" multiple="multiple">
               {foreach from=$sources item=s}
                 <option value="{$s->id}">{$s->shortName}</option>
@@ -231,8 +231,8 @@
         </tr>
   
         <tr>
+          <td><label for="editorTags">etichete:</label></td>
           <td>
-            <label for="editorTags">etichete:</label>
             <select id="editorTags" multiple="multiple">
               {foreach from=$meaningTags item=mt}
                 <option value="{$mt->id}">{$mt->value}</option>
@@ -242,16 +242,26 @@
         </tr>
   
         <tr>
+          <td>relații:</td>
           <td>
-            <label for="editorSynonyms">sinonime:</label>
-            <input id="editorSynonyms" type="hidden">
-          </td>
-        </tr>
-  
-        <tr>
-          <td>
-            <label for="editorAntonyms">antonime:</label>
-            <input id="editorAntonyms" type="hidden">
+            <select id="relationType" disabled>
+              <option value="1" title="sinonime">=</option>
+              <option value="2" title="antonime">≠</option>
+              <option value="3" title="diminutive">&lt;</option>
+              <option value="4" title="augmentative">&gt;</option>
+            </select>
+            <span class="relationWrapper" data-type="1">
+              <input class="editorRelation" data-placeholder="adaugă sinonime..." type="hidden">
+            </span>
+            <span class="relationWrapper" data-type="2">
+              <input class="editorRelation" data-placeholder="adaugă antonime..." type="hidden">
+            </span>
+            <span class="relationWrapper" data-type="3">
+              <input class="editorRelation" data-placeholder="adaugă diminutive..." type="hidden">
+            </span>
+            <span class="relationWrapper" data-type="4">
+              <input class="editorRelation" data-placeholder="adaugă augmentative..." type="hidden">
+            </span>
           </td>
         </tr>
   

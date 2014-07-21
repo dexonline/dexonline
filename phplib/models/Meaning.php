@@ -36,15 +36,14 @@ class Meaning extends BaseObject implements DatedObject {
   /**
    * Returns a dictionary containing:
    * 'meaning': a Meaning object
-   * 'sources', 'tags', 'synonyms', 'antonyms': collections of objects related to the meaning
+   * 'sources', 'tags', 'relations': collections of objects related to the meaning
    * 'children': a recursive dictionary containing this meaning's children
    **/
   private static function buildTree(&$map, $meaningId, &$children) {
     $results = array('meaning' => $map[$meaningId],
                      'sources' => MeaningSource::loadSourcesByMeaningId($meaningId),
                      'tags' => MeaningTag::loadByMeaningId($meaningId),
-                     'synonyms' => Synonym::loadByMeaningId($meaningId, Synonym::TYPE_SYNONYM),
-                     'antonyms' => Synonym::loadByMeaningId($meaningId, Synonym::TYPE_ANTONYM),
+                     'relations' => Synonym::loadByMeaningId($meaningId),
                      'children' => array());
     foreach ($children[$meaningId] as $childId) {
       $results['children'][] = self::buildTree($map, $childId, $children);
@@ -70,8 +69,7 @@ class Meaning extends BaseObject implements DatedObject {
 
       $row['sources'] = Source::loadByIds(StringUtil::explode(',', $tuple->sourceIds));
       $row['tags'] = MeaningTag::loadByIds(StringUtil::explode(',', $tuple->meaningTagIds));
-      $row['synonyms'] = Lexem::loadByIds(StringUtil::explode(',', $tuple->synonymIds));
-      $row['antonyms'] = Lexem::loadByIds(StringUtil::explode(',', $tuple->antonymIds));
+      $row['relations'] = Synonym::loadRelatedLexems($tuple->relationIds);
       $row['children'] = array();
 
       if ($tuple->level) {
@@ -110,10 +108,12 @@ class Meaning extends BaseObject implements DatedObject {
       MeaningSource::updateList(array('meaningId' => $m->id), 'sourceId', $sourceIds);
       $meaningTagIds = StringUtil::explode(',', $tuple->meaningTagIds);
       MeaningTagMap::updateList(array('meaningId' => $m->id), 'meaningTagId', $meaningTagIds);
-      $synonymIds = StringUtil::explode(',', $tuple->synonymIds);
-      Synonym::updateList(array('meaningId' => $m->id, 'type' => Synonym::TYPE_SYNONYM), 'lexemId', $synonymIds);
-      $antonymIds = StringUtil::explode(',', $tuple->antonymIds);
-      Synonym::updateList(array('meaningId' => $m->id, 'type' => Synonym::TYPE_ANTONYM), 'lexemId', $antonymIds);
+      foreach ($tuple->relationIds as $type => $lexemIdString) {
+        if ($type) {
+          $lexemIds = StringUtil::explode(',', $lexemIdString);
+          Synonym::updateList(array('meaningId' => $m->id, 'type' => $type), 'lexemId', $lexemIds);
+        }
+      }
       $seenMeaningIds[] = $m->id;
     }
     self::deleteNotInSet($seenMeaningIds, $lexem->id);
@@ -138,7 +138,7 @@ class Meaning extends BaseObject implements DatedObject {
 
   /**
    * Different from __clone(). We save the object to the database to assign it an ID. We also clone its descendants,
-   * synonyms/antonyms, sources and tags.
+   * relations, sources and tags.
    **/
   public function cloneMeaning($newLexemId, $newParentId) {
     $clone = $this->parisClone();
@@ -162,12 +162,12 @@ class Meaning extends BaseObject implements DatedObject {
       $msClone->save();
     }
 
-    // Clone its synonyms / antonyms
-    $synonyms = Synonym::get_all_by_meaningId($this->id);
-    foreach ($synonyms as $synonym) {
-      $synonymClone = $synonym->parisClone();
-      $synonymClone->meaningId = $clone->id;
-      $synonymClone->save();
+    // Clone its relations
+    $relations = Synonym::get_all_by_meaningId($this->id);
+    foreach ($relations as $r) {
+      $rc = $r->parisClone();
+      $rc->meaningId = $clone->id;
+      $rc->save();
     }
 
     // Clone its children

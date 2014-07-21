@@ -43,7 +43,7 @@ class Meaning extends BaseObject implements DatedObject {
     $results = array('meaning' => $map[$meaningId],
                      'sources' => MeaningSource::loadSourcesByMeaningId($meaningId),
                      'tags' => MeaningTag::loadByMeaningId($meaningId),
-                     'relations' => Synonym::loadByMeaningId($meaningId),
+                     'relations' => Relation::loadByMeaningId($meaningId),
                      'children' => array());
     foreach ($children[$meaningId] as $childId) {
       $results['children'][] = self::buildTree($map, $childId, $children);
@@ -69,7 +69,7 @@ class Meaning extends BaseObject implements DatedObject {
 
       $row['sources'] = Source::loadByIds(StringUtil::explode(',', $tuple->sourceIds));
       $row['tags'] = MeaningTag::loadByIds(StringUtil::explode(',', $tuple->meaningTagIds));
-      $row['relations'] = Synonym::loadRelatedLexems($tuple->relationIds);
+      $row['relations'] = Relation::loadRelatedLexems($tuple->relationIds);
       $row['children'] = array();
 
       if ($tuple->level) {
@@ -111,7 +111,7 @@ class Meaning extends BaseObject implements DatedObject {
       foreach ($tuple->relationIds as $type => $lexemIdString) {
         if ($type) {
           $lexemIds = StringUtil::explode(',', $lexemIdString);
-          Synonym::updateList(array('meaningId' => $m->id, 'type' => $type), 'lexemId', $lexemIds);
+          Relation::updateList(array('meaningId' => $m->id, 'type' => $type), 'lexemId', $lexemIds);
         }
       }
       $seenMeaningIds[] = $m->id;
@@ -132,7 +132,7 @@ class Meaning extends BaseObject implements DatedObject {
   public function delete() {
     MeaningSource::deleteByMeaningId($this->id);
     MeaningTagMap::deleteByMeaningId($this->id);
-    Synonym::delete_all_by_meaningId($this->id);
+    Relation::delete_all_by_meaningId($this->id);
     parent::delete();
   }
 
@@ -163,7 +163,7 @@ class Meaning extends BaseObject implements DatedObject {
     }
 
     // Clone its relations
-    $relations = Synonym::get_all_by_meaningId($this->id);
+    $relations = Relation::get_all_by_meaningId($this->id);
     foreach ($relations as $r) {
       $rc = $r->parisClone();
       $rc->meaningId = $clone->id;

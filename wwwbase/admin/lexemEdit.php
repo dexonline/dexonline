@@ -278,12 +278,12 @@ function goodForVariant($meanings) {
   $m = $meanings[0];
   $mss = MeaningSource::get_all_by_meaningId($m->id);
   $mtms = MeaningTagMap::get_all_by_meaningId($m->id);
-  $synonyms = Synonym::get_all_by_meaningId($m->id);
+  $relations = Relation::get_all_by_meaningId($m->id);
   return count($mss) &&
     !$m->internalRep &&
     !$m->internalComment &&
     empty($mtms) &&
-    empty($synonyms);
+    empty($relations);
 }
 
 /* Same, but for a JSON object. */

@@ -138,7 +138,7 @@ class SmartyWrap {
         case 'paradigm':            self::$cssFiles[11] = 'paradigm.css?v=2'; break;
         case 'hangman':             self::$cssFiles[12] = 'hangman.css?v=4'; break;
         case 'mill':                self::$cssFiles[13] = 'mill.css?v=3'; break;
-        case 'lexemEdit':           self::$cssFiles[14] = 'lexemEdit.css?v=7'; break;
+        case 'lexemEdit':           self::$cssFiles[14] = 'lexemEdit.css?v=8'; break;
         case 'jcrop':               self::$cssFiles[15] = 'jcrop/jquery.Jcrop.min.css?v=3'; break;
         case 'select2':             self::$cssFiles[16] = 'select2/select2.css?v=3'; break;
         case 'gallery':            
@@ -179,7 +179,7 @@ class SmartyWrap {
         case 'hangman':          self::$jsFiles[16] = 'hangman.js?v=5'; break;
         case 'mill':             self::$jsFiles[17] = 'mill.js?v=3'; break;
         case 'wotd':             self::$jsFiles[18] = 'wotd.js?v=1'; break;
-        case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=13'; break;
+        case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=14'; break;
         case 'jcrop':            self::$jsFiles[20] = 'jquery.Jcrop.min.js?v=2'; break;
         case 'select2':          self::$jsFiles[21] = 'select2.min.js?v=3'; break;
         case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=5'; break;

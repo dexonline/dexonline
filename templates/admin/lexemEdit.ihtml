@@ -19,7 +19,7 @@
       <span class="htmlComment"></span>
       <span class="sources"></span>
       <span class="sourceIds"></span>
-      {for $type=1 to Synonym::NUM_TYPES}
+      {for $type=1 to Relation::NUM_TYPES}
         <span class="relation" data-type="{$type}"></span>
         <span class="relationIds" data-type="{$type}"></span>
       {/for}

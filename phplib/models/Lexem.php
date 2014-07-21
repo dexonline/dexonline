@@ -456,7 +456,7 @@ class Lexem extends BaseObject implements DatedObject {
       }
       LexemDefinitionMap::deleteByLexemId($this->id);
       Meaning::delete_all_by_lexemId($this->id);
-      Synonym::delete_all_by_lexemId($this->id);
+      Relation::delete_all_by_lexemId($this->id);
       LexemModel::delete_all_by_lexemId($this->id);
     }
     // Clear the variantOfId field for lexems having $this as main.

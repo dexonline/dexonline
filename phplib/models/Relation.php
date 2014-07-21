@@ -1,7 +1,7 @@
 <?php
 
-class Synonym extends BaseObject implements DatedObject {
-  public static $_table = 'Synonym';
+class Relation extends BaseObject implements DatedObject {
+  public static $_table = 'Relation';
   const TYPE_SYNONYM = 1;
   const TYPE_ANTONYM = 2;
   const TYPE_DIMINUTIVE = 3;
@@ -12,9 +12,9 @@ class Synonym extends BaseObject implements DatedObject {
   static function loadByMeaningId($meaningId) {
     $lexems = Model::factory('Lexem')
       ->select('Lexem.*')
-      ->select('Synonym.type')
-      ->join('Synonym', array('Lexem.id', '=', 'lexemId'))
-      ->where('Synonym.meaningId', $meaningId)
+      ->select('Relation.type')
+      ->join('Relation', array('Lexem.id', '=', 'lexemId'))
+      ->where('Relation.meaningId', $meaningId)
       ->order_by_asc('formNoAccent')
       ->find_many();
     $results = array();

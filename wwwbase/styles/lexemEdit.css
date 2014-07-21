@@ -75,6 +75,7 @@ body {
   border-radius: 4px;
   border-style: solid;
   border-width: 1px;
+  display: inline-block;
   font-size: 10px;
   margin-right: 5px;
   padding: 1px 4px;

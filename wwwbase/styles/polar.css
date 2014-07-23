@@ -90,7 +90,8 @@ span.formPlug {
   white-space: nowrap;
 }
 
-#mainMenu li ul {
+#mainMenu li ul,
+#userMenu li ul {
   background: white;
   border: 1px solid blue;
   display: none;
@@ -100,12 +101,14 @@ span.formPlug {
   z-index: 50;
 }
 
-#mainMenu li ul li {
+#mainMenu li ul li,
+#userMenu li ul li {
   display: inline;
   float: none;
 }
 
-#mainMenu li ul li a {
+#mainMenu li ul li a,
+#userMenu li ul li a {
   display: block;
   padding: 3px 5px;
   width: auto;

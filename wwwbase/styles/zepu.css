@@ -16,6 +16,10 @@ body {
   text-align: left;
   width: 100%;
 }
+
+#staticBody {
+  width: 98%;
+}
   
 a {
   color: #761818;

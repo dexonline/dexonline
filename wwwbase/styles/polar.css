@@ -733,10 +733,13 @@ div.sourceComplete5 {
 }
 
 .statusReport {
+  border-top: 1px solid #DDD;
   font-size: 14px;
   float: left;
+  padding-top: 5px;
   position: relative;
   bottom: -40px;
+  width: 875px;
 }
 
 #Footer {
@@ -751,8 +754,9 @@ div.sourceComplete5 {
 }
 
 .homepage #Footer {
-  padding-top: 40px;
-  margin-top: 0;
+  border-top: 0;
+  margin-top: 40px;
+  padding-top: 0;
 }
 
 #links {

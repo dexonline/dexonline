@@ -774,12 +774,11 @@ div.sourceComplete5 {
 
 #homeLink {
   background: url("../img/polar/dexonline.png") 0px 0px no-repeat;
-  display: block;
+  display: inline-block;
   height: 70px;
   position: relative;
   left: 750px;
   top: 10px;
-  left: 750px;
   width: 105px;
 }
 
@@ -795,6 +794,12 @@ div.sourceComplete5 {
 .secondary #userMenu {
   position: relative;
   top: -80px;
+}
+
+pre.code {
+font-family: Courier;
+color: #444;
+white-space: pre-line;
 }
 
 

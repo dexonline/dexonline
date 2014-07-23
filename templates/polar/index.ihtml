@@ -1,6 +1,6 @@
 <div id="Logo">
   <a href="{$wwwRoot}" class="noBorder">
-    <img src="{$imgRoot}/polar/dexonline.png" alt="DEX online logo"/>
+    <img src="{$imgRoot}/polar/logo-dexonline.png" alt="DEX online logo"/>
   </a>
 </div>
 <div id="whoami">

@@ -623,23 +623,24 @@ div.sourceComplete5 {
 
 #whoami {
   position: relative;
-  top: -145px;
-  left: 525px;
+  left: 560px;
+  top: -154px;
+  text-align: right;
   width: 216px;
 }
 
 #Logo {
   display: inline-block;
   position: relative;
-  top: -80px;
-  left: 750px;
-  width: 105px;
+  top: -86px;
+  left: 786px;
+  width: 81px;
 }
 
 #userMenu {
   display: inline-block;
   font-size: 13px;
-  left: 320px;
+  left: 314px;
   list-style-type: none;
   position: relative;
   top: -33px;
@@ -778,13 +779,26 @@ div.sourceComplete5 {
 }
 
 #homeLink {
-  background: url("../img/polar/dexonline.png") 0px 0px no-repeat;
+  background: url("../img/polar/logo-dexonline.png") 0px 0px no-repeat;
   display: inline-block;
-  height: 70px;
+  height: 81px;
   position: relative;
-  left: 750px;
-  top: 10px;
-  width: 105px;
+  left: 785px;
+  top: -5px;
+  text-decoration: none;
+  width: 205px;
+}
+
+#homeLink:before {
+  content: "DEX online";
+  color: #000;
+  font-family: serif;
+  font-size: 21px;
+  font-weight: bold;
+  position: relative;
+  top: 15px;
+  text-decoration: none;
+  right: 114px;
 }
 
 .secondary #menu {
@@ -798,8 +812,8 @@ div.sourceComplete5 {
 
 .secondary #userMenu {
   position: relative;
-  top: -54px;
-  left: 210px;
+  top: -10px;
+  left: 105px;
 }
 
 pre.code {

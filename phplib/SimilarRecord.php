@@ -1,6 +1,6 @@
 <?php
 
-/* A record of data related to similar definitions from older dictionaries */
+/* A set of data about similar definitions from older dictionaries */
 class SimilarRecord {
   public $source;      // null if there is no similar source
   public $definition;  // null if $source is null or if the definition doesn't have a similar definition in $source

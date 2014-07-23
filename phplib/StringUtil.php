@@ -324,7 +324,7 @@ class StringUtil {
 	}
 
   // Same as str_pad, but multibyte-safe
-  static function pad ($input, $padLength, $padString = ' ', $padType = STR_PAD_RIGHT) { 
+  static function pad($input, $padLength, $padString = ' ', $padType = STR_PAD_RIGHT) { 
     return str_pad($input, $padLength + strlen($input) - mb_strlen($input), $padString, $padType); 
   }
 

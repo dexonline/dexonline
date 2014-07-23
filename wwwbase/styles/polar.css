@@ -509,7 +509,9 @@ span.sourceName span {
 span.sourceName:hover span {
   background: white;
   border: 1px solid black;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.3); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
   margin-left: 0;
   padding: 10px;
   position: absolute;
@@ -554,8 +556,8 @@ div.sourceComplete5 {
   background: url("../img/icons/flag_green.png") no-repeat;
 }
 
-/****************** Medal stuff *******************/
 
+/****************** Medal stuff *******************/
 .userProfileHeader {
   margin-top: 10px;
   overflow: hidden;
@@ -655,10 +657,7 @@ div.sourceComplete5 {
   display: none;
 }
 
-/*.fb_top {
-  display: inline-block;
-}
-
+/*.fb_top,
 .plus_top {
   display: inline-block;
 }*/
@@ -718,8 +717,6 @@ div.sourceComplete5 {
 }
 
 .topline.social {
-  /*margin-top: -70px;
-  border-top: 1px solid #CCC;*/
   border-top: 1px solid #CCC;
   position: absolute;
   width: 875px;
@@ -727,8 +724,6 @@ div.sourceComplete5 {
 }
 
 .bottomline.social {
-  /*margin-top: 40px;
-  margin-bottom: 10px;*/
   position: absolute;
   bottom: 105px;
   width: 875px;
@@ -801,9 +796,9 @@ div.sourceComplete5 {
 }
 
 pre.code {
-font-family: Courier;
-color: #444;
-white-space: pre-line;
+  font-family: Courier;
+  color: #444;
+  white-space: pre-line;
 }
 
 

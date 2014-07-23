@@ -771,3 +771,30 @@ div.sourceComplete5 {
   margin-top: 4px;
 }
 
+#homeLink {
+  background: url("../img/polar/dexonline.png") 0px 0px no-repeat;
+  display: block;
+  height: 70px;
+  position: relative;
+  left: 750px;
+  top: 10px;
+  left: 750px;
+  width: 105px;
+}
+
+.secondary #menu {
+  height: 87px;
+}
+
+.secondary #mainMenu {
+  position: absolute;
+  top: 9px;
+}
+
+.secondary #userMenu {
+  position: relative;
+  top: -80px;
+}
+
+
+

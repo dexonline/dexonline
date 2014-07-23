@@ -646,21 +646,22 @@ div.sourceComplete5 {
 }
 
 .socialPlugins {
-  bottom: 110px;
+  /*bottom: 110px;
   border-top: 1px solid #DDD;
   border-bottom: 1px solid #DDD;
   padding: 5px 5px 0px;
   position: absolute;
-  width: 875px;
+  width: 875px;*/
+  display: none;
 }
 
-.fb_top {
+/*.fb_top {
   display: inline-block;
 }
 
 .plus_top {
   display: inline-block;
-}
+}*/
 
 #advSearch {
   display: block !important;

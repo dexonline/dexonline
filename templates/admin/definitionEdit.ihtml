@@ -92,16 +92,16 @@
         {/if}
       </td>
     </tr>
-    <tr id='similarSourceRow' {if $simSource && $simSource->shortName}{else}style="display:none"{/if}>
+    <tr id='similarSourceRow' {if !$sim->source}style="display:none"{/if}>
       <td>Similarități</td>
       <td>
         <input type="checkbox" id="similarSource" name="similarSource" value="1" {if $def->similarSource}checked="checked"{/if}/>
-        <label for="similarSource">Definiție identică cu cea din {$simSource->shortName}</label>
+        <label for="similarSource">Definiție identică cu cea din <span class="similarSourceName"></span></label>
       </td>
     </tr>
     <tr>
       <td colspan="3" class="buttonRow">
-        <input type="button" name="but_refresh" value="Reafișează" onclick="defRefresh()"/>
+        <input type="button" id="refreshButton" value="Reafișează"/>
         <span class="tooltip2" title="Tipărește definiția și comentariul cu modificările făcute. Modificările nu sunt încă salvate.">&nbsp;</span>
         &nbsp;&nbsp;
         <input type="submit" name="but_accept" value="Acceptă"/>
@@ -128,33 +128,36 @@
   </table>
 </form>
 
-<br/>
-<div id="defPreview">
-{$def->htmlRep}<br/>
+<div id="defPreview">{$def->htmlRep}</div>
 <span class="defDetails">
   Id: {$def->id} |
   Sursa: {$source->shortName|escape} |
   Trimisă de {$user->nick|escape}, {$def->createDate|date_format:"%e %b %Y"} |
   Starea: {$allStatuses[$def->status]}
 </span>
+
+<div id="commentPreview">{$comment->htmlContents|default:''}</div>
+
+<pre id="similarRecord"><!--{$sim->getJson()}--></pre>
+
+<div id="similarSourceMessageYes">
+  Definiția corespunzătoare din <span class="similarSourceName"></span>:
+  <a id="similarDefinitionEdit" href="?definitionId={$sim->definition->id|default:''}" target="_blank">
+    <img src="{$imgRoot}/icons/pencil.png" alt="editează" title="editează"/>
+  </a>
+</div>
+<div id="similarSourceMessageNoSource">
+  Nu există o sursă anterioară.
+</div>
+<div id="similarSourceMessageNoDefinition">
+  Nu există o definiție similară în <span class="similarSourceName"></span>.
 </div>
 
-<br/><br/>
-{if $comment}
-  Comentariu: {$comment->htmlContents}
-{/if}
-
-{if $simSource && $simSource->shortName}
-  <input type="hidden" id="similarSourceId" value="{$simSource->id}"/>
-  <div style="display:hidden">
-    <font color="red">Definiția din {$simSource->shortName} corespunzătoare lexemului:</font>
-  </div>
-  <div id="similarPreview">
-  {$similarDef->htmlRep|default:'<font color="#888">Nu există nicio definiție similară sau nu e niciun lexem definit</font>'}
-  </div>
-{/if}
+<div id="similarRep"></div>
+<div id="similarNotIdentical"><img src="{$imgRoot}/icons/cross.png"> Diferențe față de definiția din <span class="similarSourceName"></span>:</div>
+<div id="similarIdentical"><img src="{$imgRoot}/icons/check.png"> Definiția este identică cu cea din <span class="similarSourceName"></span>.</div>
+<div id="similarDiff"></div>
 
 <script>
   $(definitionEditInit);
-  $(similarSourceHideonChange);
 </script>

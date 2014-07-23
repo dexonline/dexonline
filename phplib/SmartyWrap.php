@@ -134,7 +134,7 @@ class SmartyWrap {
         case 'zepu':                self::$cssFiles[7] = 'zepu.css?v=62'; break;
         case 'polar':               self::$cssFiles[8] = 'polar.css?v=31'; break;
         case 'mobile':              self::$cssFiles[9] = 'mobile.css?v=15'; break;
-        case 'flex':                self::$cssFiles[10] = 'flex.css?v=12'; break;
+        case 'flex':                self::$cssFiles[10] = 'flex.css?v=13'; break;
         case 'paradigm':            self::$cssFiles[11] = 'paradigm.css?v=2'; break;
         case 'hangman':             self::$cssFiles[12] = 'hangman.css?v=4'; break;
         case 'mill':                self::$cssFiles[13] = 'mill.css?v=3'; break;
@@ -182,7 +182,7 @@ class SmartyWrap {
         case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=14'; break;
         case 'jcrop':            self::$jsFiles[20] = 'jquery.Jcrop.min.js?v=2'; break;
         case 'select2':          self::$jsFiles[21] = 'select2.min.js?v=3'; break;
-        case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=5'; break;
+        case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=6'; break;
         case 'visualTag':        self::$jsFiles[23] = 'visualTag.js'; break;
         case 'gallery':          
           self::$jsFiles[24] = 'colorbox/jquery.colorbox-min.js';

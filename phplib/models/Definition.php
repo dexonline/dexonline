@@ -43,18 +43,18 @@ class Definition extends BaseObject implements DatedObject {
         ->find_many();
 
       // Find the definition with the minimum diff from the original
-      $minDiff = 0;
+      $diffSize = 0;
       foreach ($candidates as $d) {
         $diff = SimpleDiff::textDiff($this->internalRep, $d->internalRep);
-        $diffSize = 0;
+        $size = 0;
         foreach ($diff as $item) {
           if (is_array($item)) {
-            $diffSize += count($item['d']) + count($item['i']);
+            $size += count($item['d']) + count($item['i']);
           }
         }
-        if (!$result || ($diffSize < $minDiff)) {
+        if (!$result || ($size < $diffSize)) {
           $result = $d;
-          $minDiff = $diffSize;
+          $diffSize = $size;
         }
       }
     }

@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/../phplib/util.php';
 
+define('SERVER_URL', 'http://localhost/~cata/DEX/wwwbase');
+
 $opts = getopt('', array('user:', 'source:', 'date:'));
 
 if (count($opts) != 3) {
@@ -50,11 +52,13 @@ foreach ($defs as $def) {
         $falseNegatives++;
       }
     }
-    printf("Definiție [%20s] bifă [%s] diferență %4d     %s\n",
-           $def->lexicon,
+    printf("Definiție [%s] bifă [%s] diferență %4d     %s URL %s/admin/definitionEdit?definitionId=%d\n",
+           StringUtil::pad($def->lexicon, 20),
            ($def->similarSource ? 'X' : ' '),
            $diffSize,
-           $correct ? '' : 'EROARE');
+           $correct ? '      ' : 'EROARE',
+           SERVER_URL,
+           $def->id);
   }
 }
 

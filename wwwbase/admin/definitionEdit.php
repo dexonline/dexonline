@@ -26,7 +26,6 @@ else {
     $preserveCommentUser = null;
     $isOCR = 1;
 }
-$refreshButton = util_getRequestParameter('but_refresh');
 $acceptButton = util_getRequestParameter('but_accept');
 $moveButton = util_getRequestParameter('but_move');
 $hasErrors = false;
@@ -130,8 +129,8 @@ if (count($lexemIds)) {
 
 if ($commentContents) {
   if (!$comment) {
-    $comment = Model::factory('comment')->create();
-    $commend->status = ST_ACTIVE;
+    $comment = Model::factory('Comment')->create();
+    $comment->status = ST_ACTIVE;
     $comment->definitionId = $definitionId;
   }
   $newContents = AdminStringUtil::internalizeDefinition($commentContents, $sourceId);
@@ -183,7 +182,7 @@ if (($acceptButton || $moveButton) && !$hasErrors) {
   }
     
   log_userLog("Edited definition {$definition->id} ({$definition->lexicon})");
-  //util_redirect('definitionEdit.php?definitionId=' . $definitionId);
+  util_redirect('definitionEdit.php?definitionId=' . $definitionId);
 }
 else if ($nextOcrBut && !$hasErrors) {
   //TODO: check if definition has lexems
@@ -199,14 +198,11 @@ else if ($nextOcrBut && !$hasErrors) {
 
 $source = Source::get_by_id($definition->sourceId);
 
-if (!$refreshButton && !$acceptButton && !$moveButton) {
+if (!$acceptButton && !$moveButton) {
   // If a button was pressed, then this is a POST request and the URL
   // does not contain the definition ID.
   RecentLink::createOrUpdate(sprintf("Definiție: %s (%s)", $definition->lexicon, $source->shortName));
 }
-
-$similarSourceObj = SimilarSource::getSimilarSource($definition->sourceId);
-$similarDefObj = $definition->loadSimilar($lexemIds);
 
 SmartyWrap::assign('isOCR', $isOCR);
 if ($definitionId) {
@@ -214,8 +210,7 @@ if ($definitionId) {
 }
 SmartyWrap::assign('def', $definition);
 SmartyWrap::assign('source', $source);
-SmartyWrap::assign('simSource', $similarSourceObj);
-SmartyWrap::assign('similarDef', $similarDefObj);
+SmartyWrap::assign('sim', SimilarRecord::create($definition, $lexemIds));
 SmartyWrap::assign('user', User::get_by_id($definition->userId));
 SmartyWrap::assign('comment', $comment);
 SmartyWrap::assign('commentUser', $commentUser);

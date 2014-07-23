@@ -640,11 +640,12 @@ div.sourceComplete5 {
 #userMenu {
   display: inline-block;
   font-size: 13px;
-  left: 314px;
+  left: 353px;
   list-style-type: none;
   position: relative;
   top: -33px;
-  width: 100px;
+  width: 70px;
+  padding-left: 0;
 }
 
 #userMenu li ul {
@@ -786,12 +787,13 @@ div.sourceComplete5 {
   left: 785px;
   top: -5px;
   text-decoration: none;
-  width: 205px;
+  width: 82px;
 }
 
 #homeLink:before {
   content: "DEX online";
   color: #000;
+  display: inline-block;
   font-family: serif;
   font-size: 21px;
   font-weight: bold;
@@ -799,6 +801,7 @@ div.sourceComplete5 {
   top: 15px;
   text-decoration: none;
   right: 114px;
+  width: 120px;
 }
 
 .secondary #menu {
@@ -813,7 +816,7 @@ div.sourceComplete5 {
 .secondary #userMenu {
   position: relative;
   top: -10px;
-  left: 105px;
+  left: 265px;
 }
 
 pre.code {

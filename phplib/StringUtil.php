@@ -10,7 +10,7 @@ class StringUtil {
                                                '~s', '~S', ',s', ',S', ',t', ',T', 'ş', 'Ş', 'ţ', 'Ţ',
                                                "'u", "'U", '`u', '`U', '^u', '^U', ':u', ':U', '~u', '~U',
                                                "'y", "'Y", ':y', ':Y', '~z', '~Z',
-					       '‑'),
+                                               '‑', '—', ' ◊ ', ' ♦ ', '„', '”'),
                           'unicode' => array('ấ', 'Ấ', 'ấ', 'Ấ', 'ắ', 'Ắ', 'ắ', 'Ắ', 'ắ', 'Ắ',
                                              'ă', 'Ă', 'â', 'Â', 'á', 'Á', 'à', 'À', 'ä', 'Ä', 'å', 'Å',
                                              'ç', 'Ç', 'ć', 'Ć', 'č', 'Č', 'é', 'É', 'è', 'È', 'ê', 'Ê',
@@ -20,7 +20,7 @@ class StringUtil {
                                              'š', 'Š', 'ș', 'Ș', 'ț', 'Ț', 'ș', 'Ș', 'ț', 'Ț',
                                              'ú', 'Ú', 'ù', 'Ù', 'û', 'Û', 'ü', 'Ü', 'ŭ', 'Ŭ',
                                              'ý', 'Ý', 'ÿ', 'Ÿ', 'ž', 'Ž',
-					     '-'),
+                                             '-', '-', ' * ', ' ** ', '"', '"'),
                           'latin' => array('a', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'a',
                                            'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A', 'a', 'A',
                                            'c', 'C', 'c', 'C', 'c', 'C', 'e', 'E', 'e', 'E', 'e', 'E',
@@ -30,7 +30,7 @@ class StringUtil {
                                            's', 'S', 's', 'S', 't', 'T', 's', 'S', 't', 'T',
                                            'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U',
                                            'y', 'Y', 'y', 'Y', 'z', 'Z',
-					   '-'));
+                                           '-', '-', ' * ', ' ** ', '"', '"'));
 
   // Note: This does not handle the mixed case of old orthgraphy and no diacriticals (e.g. inminind instead of înmânând).
   // That case is inherently ambiguous. For example, if the query is 'gindind', the correct substitution is 'gândind',

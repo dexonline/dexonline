@@ -16,9 +16,13 @@ class SimilarRecord {
     // Ignore abbreviations indicated by hash signs when computing the difference.
     // Hash signs are our addition and mean different things in different dictionaries.
     // See for example "#Din lat.#" (DEX '09) vs. "Din #lat.#" (DEX '98).
-    $noHashes1 = str_replace('#', '', $sr->definition->internalRep);
-    $noHashes2 = str_replace('#', '', $definition->internalRep);
-    $sr->htmlDiff = $sr->definition ? SimpleDiff::htmlDiff($noHashes1, $noHashes2) : null;
+    if ($sr->definition) {
+      $noHashes1 = str_replace('#', '', $sr->definition->internalRep);
+      $noHashes2 = str_replace('#', '', $definition->internalRep);
+      $sr->htmlDiff = SimpleDiff::htmlDiff($noHashes1, $noHashes2);
+    } else {
+      $sr->htmlDiff = null;
+    }
     $sr->identical = $sr->definition && ($diffSize == 0);
     return $sr;
   }

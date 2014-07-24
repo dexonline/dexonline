@@ -45,7 +45,8 @@ class Definition extends BaseObject implements DatedObject {
       // Find the definition with the minimum diff from the original
       $diffSize = 0;
       foreach ($candidates as $d) {
-        $diff = SimpleDiff::textDiff($this->internalRep, $d->internalRep);
+        $diff = SimpleDiff::textDiff(str_replace('#', '', $this->internalRep),
+                                     str_replace('#', '', $d->internalRep));
         $size = 0;
         foreach ($diff as $item) {
           if (is_array($item)) {

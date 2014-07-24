@@ -114,6 +114,10 @@ span.formPlug {
   width: auto;
 }
 
+#userMenu li ul li a {
+  min-width: 140px;
+}
+
 div.flashMessage {
   border: 2px solid red;
   padding: 0.5em;

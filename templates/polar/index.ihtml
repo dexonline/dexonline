@@ -1,13 +1,37 @@
-<p>
-  DEX online este transpunerea pe internet a unor dicționare de prestigiu ale limbii române. El este creat și întreținut de un colectiv de voluntari.
-  Definițiile sunt preluate textual din sursele menționate. O parte din baza de definiții a DEX online este disponibilă gratuit sub licența publică
-  generală GNU (GPL). Mulțumiri speciale <a href="{$wwwRoot}spre/siveco">firmei Siveco</a> și editurilor <a href="{$wwwRoot}spre/litera">Litera
-  Internațional</a> și <a href="{$wwwRoot}spre/saeculum">Saeculum</a>, care ne-au pus la dispoziție cinci dicționare complete.
-</p>
-
-<div id="wotd" class="widget">
-  Cuvântul zilei: {include file="common/bits/wotdurl.ihtml"}
+<div id="Logo">
+  <a href="{$wwwRoot}" class="noBorder">
+    <img src="{$imgRoot}/polar/logo-dexonline.png" alt="DEX online logo"/>
+  </a>
 </div>
-<br/>
+<div id="whoami">
+  <span class="pageTitle">DEX online</span><br/>
+  Dicționare ale limbii române<br/>
+  <span class="formPlug">Peste {$words_rough} de definiții</span>
+</div>
 
-{include file="common/randomTip.ihtml"}
+<div id="searchHomePage">
+  {include file="zepu/search.ihtml" advancedSearch=0}
+</div>
+
+{if !$suggestNoBanner && $skinVariables.afterSearchBoxBanner}
+  {include file="common/bits/banner.ihtml" id="mainPage" width="728" height="90"}
+{/if}
+
+<div class="clearer"></div>
+
+<div id="missionStatement">
+  DEX online transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
+  O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.
+</div>
+
+<div class="widget wotd">
+  {include file="widgets/wotd.ihtml"}
+</div>
+
+<div class="statusReport bend-shadow">
+  Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.<br/>
+  Liste de cuvinte:
+  {foreach from=$letters item=letter}
+    <a href="{$wwwRoot}lista-cuvinte/{$letter|escape:url}">{$letter|mb_strtoupper}</a>
+  {/foreach}
+</div>

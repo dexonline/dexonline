@@ -1,3 +1,8 @@
+abbr {
+  border-bottom: 1px dotted #aaa;
+  cursor: help;
+}
+
 div.header {
   background: #ddffee;
   border: 1px solid #66dd88;

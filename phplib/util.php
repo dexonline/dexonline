@@ -150,6 +150,7 @@ function util_defineConstants() {
   define('NO_ACCENT_SHIFT', 101);
 
   define('LOCK_FULL_TEXT_INDEX', 'full_text_index');
+  define('CURL_COOKIE_FILE', '/tmp/dexonline_cookie.txt');
 
 #TODO clean up here
   define('PRIV_ADMIN', 0x01);
@@ -466,8 +467,8 @@ function util_fetchUrl($url) {
 function util_makePostRequest($url, $data, $useCookies = false) {
   $ch = curl_init($url);
   if ($useCookies) {
-    curl_setopt($ch, CURLOPT_COOKIEFILE, self::$curlCookieFile);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, self::$curlCookieFile);
+    curl_setopt($ch, CURLOPT_COOKIEFILE, CURL_COOKIE_FILE);
+    curl_setopt($ch, CURLOPT_COOKIEJAR, CURL_COOKIE_FILE);
   }
   curl_setopt($ch, CURLOPT_POST, true);
   curl_setopt($ch, CURLOPT_POSTFIELDS, $data);

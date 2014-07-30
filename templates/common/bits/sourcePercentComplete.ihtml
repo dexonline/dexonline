@@ -1,22 +1,22 @@
 {strip}
   {if $s->isUnknownPercentComplete()}
     {assign var="class" value="sourceComplete0"}
-    {assign var="tooltip" value="Grad de utilizare necunoscut. Nu avem o estimare a numărului de definiții din acest dicționar."}
+    {assign var="tooltip" value="necunoscut"}
   {elseif $s->percentComplete < 5}
     {assign var="class" value="sourceComplete1"}
-    {assign var="tooltip" value="Utilizăm sub 5% din acest dicționar."}
+    {assign var="tooltip" value="< 5%"}
   {elseif $s->percentComplete < 35}
     {assign var="class" value="sourceComplete2"}
-    {assign var="tooltip" value="Utilizăm între 5% și 35% din acest dicționar."}
+    {assign var="tooltip" value="5-35%"}
   {elseif $s->percentComplete < 65}
     {assign var="class" value="sourceComplete3"}
-    {assign var="tooltip" value="Utilizăm între 35% și 65% din acest dicționar."}
+    {assign var="tooltip" value="35-65%"}
   {elseif $s->percentComplete < 95}
     {assign var="class" value="sourceComplete4"}
-    {assign var="tooltip" value="Utilizăm între 65% și 95% din acest dicționar."}
+    {assign var="tooltip" value="65-95%"}
   {else}
     {assign var="class" value="sourceComplete5"}
-    {assign var="tooltip" value="Utilizăm peste 95% din acest dicționar."}
+    {assign var="tooltip" value="> 95%"}
   {/if}
-  <div class="sourceComplete {$class}" title="{$tooltip}"></div>
+  <div class="sourceComplete {$class}">{$tooltip}</div>
 {/strip}

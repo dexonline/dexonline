@@ -11,7 +11,7 @@
     <tr>
       <th class="abbreviation">Nume scurt</th>
       <th class="nick">Nume</th>
-      <th>Utilizare</th>
+      <th>% utilizat</th>
       {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
         <th>Acțiuni</th>
       {/if}

@@ -10,7 +10,7 @@ calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
     <th>Platforme</th>
     {foreach from=$clientOptions item=option key=id}
       <th>
-        {$option.0}
+        {$option.0}<br/>
         <span class="tooltip2" title="{$option.1}">&nbsp;</span>
       </th>
     {/foreach}
@@ -47,11 +47,7 @@ calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
           </td>
         {/foreach}
 
-        <td>
-          {foreach from=$c.requires item=req}
-            {$req}<br/>
-          {/foreach}
-        </td>
+        <td>{$c.requires}</td>
 
         <td>{$c.space}</td>
 

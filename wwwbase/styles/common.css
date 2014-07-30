@@ -110,16 +110,33 @@ blockquote {
 /* Unelte table */
 .tools-table {
   font-size: 12px;
-  margin-top: 20px;
+  margin: 20px 0;
+  border: 0;
+  text-align: center;
 }
 
-.tools-table tr:nth-child(even) {
-  background-color: #EEE;
+.tools-table tr,
+.tools-table td {
+  border: 0;
+}
+
+.tools-table tr {
+  border-bottom: 1px solid #DDD;
+}
+
+.tools-table td:nth-child(even) {
+  background: #F2F2F2;
+}
+
+.tools-table td:first-of-type {
+  text-align: left;
 }
 
 .tools-table th {
   font-weight: normal;
-  vertical-align: top;
+  vertical-align: bottom;
   background: #FFF;
+  border: 0;
+  border-bottom: 2px solid #BFBFBF;
 }
 

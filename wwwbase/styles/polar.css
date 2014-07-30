@@ -532,34 +532,40 @@ span.sourceShortName {
   padding-left: 10px;
 }
 
+#sources td {
+  text-align: left;
+}
+
 div.sourceComplete {
   margin: 0px auto;
-  height: 16px;
-  width: 16px;
 }
 
 div.sourceComplete0 {
-  background: url("../img/icons/page_white.png") no-repeat;
+  color: black;
 }
 
 div.sourceComplete1 {
-  background: url("../img/icons/flag_red.png") no-repeat;
+  color: #EB0000;
 }
 
 div.sourceComplete2 {
-  background: url("../img/icons/flag_orange.png") no-repeat;
+  color: orange;
 }
 
 div.sourceComplete3 {
-  background: url("../img/icons/flag_yellow.png") no-repeat;
+  color: #DAC003;
 }
 
 div.sourceComplete4 {
-  background: url("../img/icons/flag_blue.png") no-repeat;
+  color: blue;
 }
 
 div.sourceComplete5 {
-  background: url("../img/icons/flag_green.png") no-repeat;
+  color: green;
+}
+
+.dict-source-tips {
+  margin-left: 10px;
 }
 
 

@@ -1,6 +1,5 @@
-<ul>
-  <li>Duceți mouse-ul deasupra unui titlu pentru a vedea detalii despre acel dicționar;</li>
-  <li>Duceți mouse-ul deasupra unei iconițe pentru a vedea gradul de utilizare a acelui dicționar;</li>
+<ul class ="dict-source-tips">
+  <li>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii</li>
   {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
     <li>Pentru a reordona sursele, apucați de un rând, dar nu de o zonă cu text. La sfârșit, nu uitați să salvați.</li>
   {/if} 
@@ -9,14 +8,18 @@
 <form method="post" action="surse">
   <table id="sources" class="userTop">
     <tr>
+      <th class="abbreviation">Nume scurt</th>
       <th class="nick">Nume</th>
-      <th>Utilizare</th>
+      <th>% utilizat</th>
       {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
         <th>Acțiuni</th>
       {/if}
     </tr>
     {foreach from=$sources item=s}
       <tr>
+        <td class="abbreviation">
+          <span class="sourceShortName">{$s->shortName}</span>
+        </td>
         <td class="nick">
           <input type="hidden" name="ids[]" value="{$s->id}"/>
           <span class="sourceName">
@@ -34,7 +37,6 @@
               <br/>
             </span>
           </span>
-          <span class="sourceShortName">{$s->shortName}</span>
         </td>
         <td>{include file="common/bits/sourcePercentComplete.ihtml" s=$s}</td>
         {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}

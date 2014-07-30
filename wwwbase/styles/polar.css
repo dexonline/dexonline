@@ -529,6 +529,10 @@ span.sourceShortName {
   padding-left: 10px;
 }
 
+#sources td {
+  text-align: left;
+}
+
 div.sourceComplete {
   margin: 0px auto;
 }
@@ -538,7 +542,7 @@ div.sourceComplete0 {
 }
 
 div.sourceComplete1 {
-  color: red;
+  color: #EB0000;
 }
 
 div.sourceComplete2 {
@@ -555,6 +559,10 @@ div.sourceComplete4 {
 
 div.sourceComplete5 {
   color: green;
+}
+
+.dict-source-tips {
+  margin-left: 10px;
 }
 
 /****************** Medal stuff *******************/

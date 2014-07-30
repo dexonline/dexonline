@@ -1,4 +1,4 @@
-<ul>
+<ul class ="dict-source-tips">
   <li>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii</li>
   {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
     <li>Pentru a reordona sursele, apucați de un rând, dar nu de o zonă cu text. La sfârșit, nu uitați să salvați.</li>

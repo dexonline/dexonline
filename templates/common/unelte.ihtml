@@ -4,111 +4,75 @@ Aceste aplicații transferă definițiile din <i>DEX online</i> pe
 calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
 în absența unei conexiuni la internet. 
 
-<table id="offlineClients">
+<table>
   <tr class="color1">
-    <td class="empty"></td>
-    {foreach from=$clients item=client}
-	  {if $client.available}
-      <td class="columnHeader">
-        <span class="clientName">
-          {if $client.name[1]}
-            <a href="{$client.name[1]}">{$client.name[0]}</a>
-          {else}
-            {$client.name[0]}
-          {/if}
-        </span>
-        <br/>
-        {foreach from=$client.urls item=url key=text}
-          (<a href="{$url}">{$text}</a>)
-        {/foreach}
-      </td>
-	  {/if}
-    {/foreach}
-  </tr>
-
-  <tr class="color2">
-    <td class="clientHeader">Platforme</td>
-    {foreach from=$clients item=client}
-	  {if $client.available}
-      <td class="osList">
-        {foreach from=$client.os item=os}
-          <img src="{$imgRoot}/icons/{$os}.png" alt="{$os}" title="{$osNames[$os]}" />
-        {/foreach}
-      </td>
-	  {/if}
-    {/foreach}
-  </tr>
-
-  {foreach from=$clientOptions item=option key=id}
-    <tr class="{cycle values="color1,color2"}">
-      <td class="clientHeader">
+    <td>Client</td>
+    <td>Platforme</td>    
+    {foreach from=$clientOptions item=option key=id}
+      <td>
         {$option.0}
-        <div class="optionDesc">{$option.1}</div>
+        <span class="tooltip2" title="{$option.1}">&nbsp;</span>
       </td>
-      {foreach from=$clients item=client}
-		{if $client.available}
-        <td class="option">
-          {if $client.options[$id]}
-            <img src="{$imgRoot}/icons/check.png" alt="da" title="da"/>
+    {/foreach}
+    <td>Cerințe</td>
+    <td>Spațiu necesar</td>
+    <td>Autori</td>
+    <td>Licență</td>
+  </tr>
+
+  {foreach from=$clients item=c}
+    {if $c.available}
+      <tr>
+        <td>
+          {if $c.name[1]}
+            <a href="{$c.name[1]}">{$c.name[0]}</a>
           {else}
-            <img src="{$imgRoot}/icons/cross.png" alt="nu" title="nu"/>
+            {$c.name[0]}
           {/if}
         </td>
-	    {/if}
-      {/foreach}
-    </tr>
+
+        <td>
+          {foreach from=$c.os item=os}
+            <img src="{$imgRoot}/icons/{$os}.png" alt="{$os}" title="{$osNames[$os]}" />
+          {/foreach}
+        </td>
+
+        {foreach from=$clientOptions item=ignored key=id}
+          <td>
+            {if $c.options[$id]}
+              <img src="{$imgRoot}/icons/check.png" alt="da" title="da"/>
+            {else}
+              <img src="{$imgRoot}/icons/cross.png" alt="nu" title="nu"/>
+            {/if}
+          </td>
+        {/foreach}
+
+        <td>
+          {foreach from=$c.requires item=req}
+            {$req}<br/>
+          {/foreach}
+        </td>
+
+        <td>{$c.space}</td>
+
+        <td>
+          {foreach from=$c.authors item=address key=name}
+            {if $address|strstr:"http://"}
+              <a href="{$address}">{$name}</a>
+            {elseif $address}
+              <a href="mailto:{$address}">{$name}</a>
+            {else}
+              {$name}
+            {/if}
+            <br/>
+          {/foreach}
+        </td>
+
+        <td>{$c.license}</td>
+
+      </tr>
+    {/if}
   {/foreach}
-
-  <tr class="color2">
-    <td class="clientHeader">Cerințe</td>
-    {foreach from=$clients item=client}
-	  {if $client.available}
-      <td>
-        {foreach from=$client.requires item=req}
-          {$req}<br/>
-        {/foreach}
-      </td>
-	  {/if}
-    {/foreach}
-  </tr>
-
-  <tr class="color1">
-    <td class="clientHeader">Spațiu necesar</td>
-    {foreach from=$clients item=client}
-	  {if $client.available}
-      <td>{$client.space}</td>
-	  {/if}
-    {/foreach}
-  </tr>
-
-  <tr class="color2">
-    <td class="clientHeader">Autori</td>
-    {foreach from=$clients item=client}
-	  {if $client.available}
-      <td>
-        {foreach from=$client.authors item=address key=name}
-          {if $address|strstr:"http://"}
-            <a href="{$address}">{$name}</a>
-          {elseif $address}
-            <a href="mailto:{$address}">{$name}</a>
-          {else}
-            {$name}
-          {/if}
-          <br/>
-        {/foreach}
-      </td>
-	  {/if}
-    {/foreach}
-  </tr>
-
-  <tr class="color1">
-    <td class="clientHeader">Licență</td>
-    {foreach from=$clients item=client}
-	  {if $client.available}
-      <td>{$client.license}</td>
-	  {/if}
-    {/foreach}
-  </tr>
 </table>
 
 <div class="toolsLicense">

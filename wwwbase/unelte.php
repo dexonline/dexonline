@@ -152,5 +152,7 @@ SmartyWrap::assign('page_title', 'Unelte');
 SmartyWrap::assign('clients', $clients);
 SmartyWrap::assign('clientOptions', $clientOptions);
 SmartyWrap::assign('osNames', $osNames);
+SmartyWrap::addCss('jqueryui');
+SmartyWrap::addJs('jqueryui');
 SmartyWrap::displayCommonPageWithSkin('unelte.ihtml');
 ?>

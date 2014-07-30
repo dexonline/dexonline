@@ -551,41 +551,6 @@ a.inflLink {
   border: 0px;
 }
 
-#offlineClients {
-  border-collapse: collapse;
-  font-size: 90%;
-  margin-top: 20px;
-  text-align: center;
-  vertical-align: middle;
-}
-
-#offlineClients td {
-  padding: 2px 5px;
-  white-space: nowrap;
-}
-
-#offlineClients td.clientHeader {
-  font-weight: bold;
-  text-align: left;
-  vertical-align: middle;
-}
-
-#offlineClients td.empty {
-  border-left: 0px;
-  border-top: 0px;
-}
-
-#offlineClients .clientName {
-  font-weight: bold;
-}
-
-#offlineClients .optionDesc {
-  font-size: 85%;
-  font-weight: normal;
-  padding-left: 15px;
-  white-space: normal;
-}
-
 div.flashMessage {
   font-weight: bold;
   margin: 10px auto;

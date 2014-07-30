@@ -114,6 +114,30 @@ span.formPlug {
   width: auto;
 }
 
+#mainMenu .donate-link {
+  background: #DCF0FF;
+  border: 1px solid #00F;
+  padding: 10px;
+  position: fixed;
+  top: 8%;
+  right: 0%;
+}
+
+#mainMenu li.donate-link a {
+  background: url("../img/icons/coins.png") 67px 0px no-repeat;
+  color: #00E;
+  font-size: 14px;
+  font-weight: bold;
+  padding-right: 26px;
+  padding-bottom: 4px;
+}
+
+@media (max-width: 1024px) {
+  #mainMenu .donate-link {
+    top: 18%;
+  }
+}
+
 #userMenu li ul li a {
   min-width: 140px;
 }
@@ -649,7 +673,7 @@ div.sourceComplete5 {
 #userMenu {
   display: inline-block;
   font-size: 13px;
-  left: 353px;
+  left: 297px;
   list-style-type: none;
   position: relative;
   top: -33px;
@@ -709,6 +733,7 @@ div.sourceComplete5 {
 #banner_mainPage {
   position: relative;
   top: -125px;
+  width: 728px;
 }
 
 #missionStatement {
@@ -825,7 +850,7 @@ div.sourceComplete5 {
 .secondary #userMenu {
   position: relative;
   top: -10px;
-  left: 265px;
+  left: 210px;
 }
 
 pre.code {

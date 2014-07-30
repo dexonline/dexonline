@@ -4,20 +4,20 @@ Aceste aplicații transferă definițiile din <i>DEX online</i> pe
 calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
 în absența unei conexiuni la internet. 
 
-<table>
-  <tr class="color1">
-    <td>Client</td>
-    <td>Platforme</td>    
+<table class="tools-table">
+  <tr>
+    <th>Client</th>
+    <th>Platforme</th>
     {foreach from=$clientOptions item=option key=id}
-      <td>
+      <th>
         {$option.0}
         <span class="tooltip2" title="{$option.1}">&nbsp;</span>
-      </td>
+      </th>
     {/foreach}
-    <td>Cerințe</td>
-    <td>Spațiu necesar</td>
-    <td>Autori</td>
-    <td>Licență</td>
+    <th>Cerințe</th>
+    <th>Spațiu necesar</th>
+    <th>Autori</th>
+    <th>Licență</th>
   </tr>
 
   {foreach from=$clients item=c}

@@ -106,3 +106,20 @@ blockquote {
   box-shadow: 5px 5px 10px #555;
 }
 
+
+/* Unelte table */
+.tools-table {
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+.tools-table tr:nth-child(even) {
+  background-color: #EEE;
+}
+
+.tools-table th {
+  font-weight: normal;
+  vertical-align: top;
+  background: #FFF;
+}
+

@@ -9,6 +9,7 @@
 <form method="post" action="surse">
   <table id="sources" class="userTop">
     <tr>
+      <th class="abbreviation">Nume scurt</th>
       <th class="nick">Nume</th>
       <th>Utilizare</th>
       {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
@@ -17,6 +18,9 @@
     </tr>
     {foreach from=$sources item=s}
       <tr>
+        <td class="abbreviation">
+          <span class="sourceShortName">{$s->shortName}</span>
+        </td>
         <td class="nick">
           <input type="hidden" name="ids[]" value="{$s->id}"/>
           <span class="sourceName">
@@ -34,7 +38,6 @@
               <br/>
             </span>
           </span>
-          <span class="sourceShortName">{$s->shortName}</span>
         </td>
         <td>{include file="common/bits/sourcePercentComplete.ihtml" s=$s}</td>
         {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}

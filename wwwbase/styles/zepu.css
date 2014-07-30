@@ -602,9 +602,9 @@ div.infoType div.pic {
   margin: 15px auto;
 }
 
-.userTop td, .userTop th {
+.userTop td,
+.userTop th {
   border: 1px solid #aaa;
-  text-align: center;
   padding-right: 20px;
 }
 

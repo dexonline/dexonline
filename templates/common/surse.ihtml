@@ -1,6 +1,5 @@
 <ul>
-  <li>Duceți mouse-ul deasupra unui titlu pentru a vedea detalii despre acel dicționar;</li>
-  <li>Duceți mouse-ul deasupra unei iconițe pentru a vedea gradul de utilizare a acelui dicționar;</li>
+  <li>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii</li>
   {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
     <li>Pentru a reordona sursele, apucați de un rând, dar nu de o zonă cu text. La sfârșit, nu uitați să salvați.</li>
   {/if} 

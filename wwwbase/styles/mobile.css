@@ -13,7 +13,7 @@ html, body, div, input {
 }
 
 body {
-  /*width: 99%;*/
+  width: 99%;
   height: 100%;
 }
 
@@ -27,13 +27,8 @@ table {
   padding: 0;
 }
 
-/* HEADER */
-.frame {
-  min-width: 320px;
-  max-width: 100%;
-  margin: 0px auto;
-}
 
+/* HEADER */
 #menu {
   width: 100%; /*320px; */
   height: 22px;
@@ -90,6 +85,10 @@ table {
 }
 
 /* CONTENT */
+#contentProper {
+  padding: 0px 5px;
+}
+
 #wotdMobile {
   width: 160px;
   margin: 5px auto 0px; /* auto=centered */
@@ -119,14 +118,13 @@ table {
   text-align: center;
 }
 
-#desktopLink {
-  background: url("../img/icons/computer.png") 0px -2px no-repeat;
-  padding-left: 20px;
+body #paradigmDiv {
+  margin: 0;
 }
 
+
 /* FOOTER */
-#footer {
-  text-align: center;
+#Footer {
   font-size: 12px;
   width: 100%; /*320px;*/
   height: 40px;
@@ -134,9 +132,35 @@ table {
   padding-top: 5px;
 }
 
-#footer a, #footer a:visited {
+#Footer ul {
+  list-style-type: none;
+  padding-left: 5px;
+}
+
+#Footer ul li {
+  margin: 5px 0;
+}
+
+#Footer a,
+#Footer a:visited {
   padding-right: 5px;
 }
+
+#Footer ul li.desktopLink {
+  background: url("../img/icons/computer.png") 0px -2px no-repeat;
+  padding-left: 20px;
+  margin-bottom: 12px;
+}
+
+.licenceLink,
+.hostingLink {
+  display: inline-block;
+}
+
+.licenceLink:after {
+  content: '•';
+}
+
 
 /* OTHERS */
 #saveButton {

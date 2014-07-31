@@ -99,6 +99,14 @@ img {
 }
 
 
+/* CONTENT */
+#contentProper {
+  height: 100%;
+  margin: 8px auto;
+  width: 960px;
+}
+
+
 /* BANNER */
 #banner_mainPage {
   margin: 25px auto;
@@ -117,7 +125,7 @@ img {
   border: 1px solid #BFBFBF;
   border-radius: 4px;
   height: 35px;
-  margin: -2px auto 10px;
+  margin: 5px auto 10px;
   padding-left: 15px;
   width: 944px;
 }
@@ -376,17 +384,6 @@ img {
 }
 
 .sourceCheckboxGroup {
-}
-
-/* CONTAINER */
-#Container {
-  width: 960px;
-  height: 100%;
-  margin: 8px auto;
-}
-
-#contentProper {
-  margin-top: 10px;
 }
 
 

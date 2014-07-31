@@ -144,18 +144,20 @@
     {if !$onHomePage && $skinVariables.fbLarge}
       {include file="bits/facebook.ihtml"}
     {/if}
-    <div id="Footer">
-      <ul>
-        {if $skinVariables.desktopLink}
-          <li class="desktopLink"><a href="{$wwwRoot}desktop">Versiunea pentru desktop</a></li>
-        {/if}
-        <li>Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro)</li>
-        <li class="licenceLink"><a href="{$wwwRoot}licenta">Licență</a></li>
-        {if $hostedBy}
-          <li class="hostingLink">{include file="hosting/$hostedBy.ihtml"}</li>
-        {/if}
-      </ul>
-    </div>
+    <footer>
+      <div class="footer-container">
+        <ul>
+          {if $skinVariables.desktopLink}
+            <li class="desktopLink"><a href="{$wwwRoot}desktop">Versiunea pentru desktop</a></li>
+          {/if}
+          <li>Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro)</li>
+          <li class="licenceLink"><a href="{$wwwRoot}licenta">Licență</a></li>
+          {if $hostedBy}
+            <li class="hostingLink">{include file="hosting/$hostedBy.ihtml"}</li>
+          {/if}
+        </ul>
+      </div>
+    </footer>
     {include file="bits/analytics.ihtml"}
     {getDebugInfo}
   </body>

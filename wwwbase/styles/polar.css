@@ -172,24 +172,6 @@ span.stopWords {
   color: #777777;
 }
 
-.footer {
-  border-top: 1px solid #cccccc;
-  font-family: sans-serif;
-  font-size: 80%;
-  margin-top: 10px;
-  width: 100%;
-}
-
-.footer td {
-  vertical-align: top;
-}
-
-.footer td.narrow {
-  text-align: center;
-  white-space: nowrap;
-  width: 1%;
-}
-
 span.def {
   cursor: pointer;
 }
@@ -757,7 +739,7 @@ div.sourceComplete5 {
   width: 875px;
 }
 
-#Footer {
+footer {
   font-size: 14px;
   float: left;
   margin-top: 10px;
@@ -768,22 +750,22 @@ div.sourceComplete5 {
   border-top: 1px solid #DDD;
 }
 
-#Footer ul {
+footer ul {
   list-style-type: none;
   margin: 0px;
   padding: 0px;
 }
 
-#Footer ul li {
+footer ul li {
   display: inline-block;
 }
 
-#Footer li:after {
+footer li:after {
   content: "•";
   margin: 0px 3px;
 }
 
-#Footer li:last-child:after {
+footer li:last-child:after {
   content: "";
   margin: 0px;
 }

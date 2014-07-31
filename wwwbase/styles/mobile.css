@@ -124,7 +124,7 @@ body #paradigmDiv {
 
 
 /* FOOTER */
-#Footer {
+footer {
   font-size: 12px;
   width: 100%; /*320px;*/
   height: 40px;
@@ -132,21 +132,21 @@ body #paradigmDiv {
   padding-top: 5px;
 }
 
-#Footer ul {
+footer ul {
   list-style-type: none;
   padding-left: 5px;
 }
 
-#Footer ul li {
+footer ul li {
   margin: 5px 0;
 }
 
-#Footer a,
-#Footer a:visited {
+footer a,
+footer a:visited {
   padding-right: 5px;
 }
 
-#Footer ul li.desktopLink {
+footer ul li.desktopLink {
   background: url("../img/icons/computer.png") 0px -2px no-repeat;
   padding-left: 20px;
   margin-bottom: 12px;

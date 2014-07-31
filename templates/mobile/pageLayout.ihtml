@@ -9,8 +9,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>{$page_title|escape} | DEX online</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta content="initial-scale=1.0; maximum-scale=3.0; user-scalable=yes" name="viewport">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="initial-scale=1.0; maximum-scale=3.0; user-scalable=yes" name="viewport" />
     {if $page_description}
       <meta name="description" content="{$page_description}"/>
     {/if}
@@ -24,10 +24,10 @@
       <link rel="image_src" href="{$imgRoot}/logo-dexonline-2.png" />
     {/if}
     {include file="common/bits/cssJs.ihtml"}
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
     <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
     <link href="https://plus.google.com/100407552237543221945" rel="publisher" />
-    <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="http://dexonline.ro/rss/cuvantul-zilei">
+    <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="http://dexonline.ro/rss/cuvantul-zilei" />
   </head>
 
   <body>

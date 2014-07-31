@@ -32,7 +32,7 @@
   <body {if !$onHomePage}class="secondary"{/if}>
     <div id="Container">
       {if $skinVariables.fullMenu}
-        <div id="menu" class="bend-shadow">
+        <header id="menu" class="bend-shadow">
           {if !$onHomePage}
             <a href="{$wwwRoot}" id="homeLink" title="Pagina principală DEX online"></a>
           {/if}
@@ -99,13 +99,13 @@
             </ul>
           {/if}
           </ul>
-        </div>
+        </header>
       {else}
-        <div id="menu">
+        <header id="menu">
           <a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii" target="_blank">Informații</a>
           <a href="{$wwwRoot}articole">Articole</a>
           <a href="{$wwwRoot}preferinte">Preferințe</a>
-        </div>
+        </header>
         {if $onHomePage}
           <div id="logoHomePage">
             <img src="{$wwwRoot}img/mobile/logo-dexonline-60.png" alt="logo dexonline.ro" />

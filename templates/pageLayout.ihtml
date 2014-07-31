@@ -99,49 +99,52 @@
         {/if}
         </ul>
       </header>
-    {else}
-      <header id="menu">
-        <a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii" target="_blank">Informații</a>
-        <a href="{$wwwRoot}articole">Articole</a>
-        <a href="{$wwwRoot}preferinte">Preferințe</a>
-      </header>
-      {if $onHomePage}
-        <div id="logoHomePage">
-          <img src="{$wwwRoot}img/mobile/logo-dexonline-60.png" alt="logo dexonline.ro" />
-        </div>
+      <div id="contentProper">
+        {include file="flashMessages.ihtml"}
+
+        {if !$onHomePage && !$suggestHiddenSearchForm && $skinVariables.searchForm}
+          <div id="searchOtherPages">
+            {include file="bits/searchForm.ihtml"}
+          </div>
+        {/if}
+
+        {if !$onHomePage && !$suggestNoBanner && $skinVariables.banner}
+          {include file="bits/banner.ihtml" id="otherPages" width="728" height="90"}
+        {/if}
+
+        {include file=$contentTemplateName}
+
+        {if !$onHomePage && $skinVariables.fbLarge}
+          {include file="bits/facebook.ihtml"}
+        {/if}
+      </div>
       {else}
-        <div id="logoOtherPages">
-          <a href="{$wwwRoot}"><img src="{$wwwRoot}img/mobile/logo-dexonline-30.png" alt="logo dexonline.ro" /></a>
+        <header id="menu">
+          <a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii" target="_blank">Informații</a>
+          <a href="{$wwwRoot}articole">Articole</a>
+          <a href="{$wwwRoot}preferinte">Preferințe</a>
+        </header>
+        <div id="contentProper">
+          {if $onHomePage}
+            <div id="logoHomePage">
+              <img src="{$wwwRoot}img/mobile/logo-dexonline-60.png" alt="logo dexonline.ro" />
+            </div>
+          {else}
+            <div id="logoOtherPages">
+              <a href="{$wwwRoot}"><img src="{$wwwRoot}img/mobile/logo-dexonline-30.png" alt="logo dexonline.ro" /></a>
+            </div>
+          {/if}
+          <div id="searchArea">
+            <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return searchSubmit()">
+              <input type="text" name="cuv" size="15" value="{$cuv|escape}" maxlength="50" id="searchField"/>
+              <script type="text/javascript">document.frm.cuv.select();document.frm.cuv.focus();</script>
+              <span><input type="submit" value="caută" id="searchButton" /></span>
+            </form>
+          </div>
+          {include file=$contentTemplateName}
         </div>
       {/if}
-      <div id="searchArea">
-        <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return searchSubmit()">
-          <input type="text" name="cuv" size="15" value="{$cuv|escape}" maxlength="50" id="searchField"/>
-          <script type="text/javascript">document.frm.cuv.select();document.frm.cuv.focus();</script>
-          <span><input type="submit" value="caută" id="searchButton" /></span>
-        </form>
-      </div>
-    {/if}
 
-    {include file="flashMessages.ihtml"}
-
-    {if !$onHomePage && !$suggestHiddenSearchForm && $skinVariables.searchForm}
-      <div id="searchOtherPages">
-        {include file="bits/searchForm.ihtml"}
-      </div>
-    {/if}
-
-    {if !$onHomePage && !$suggestNoBanner && $skinVariables.banner}
-      {include file="bits/banner.ihtml" id="otherPages" width="728" height="90"}
-    {/if}
-
-    <div id="contentProper">
-      {include file=$contentTemplateName from=zepu}
-    </div>
-
-    {if !$onHomePage && $skinVariables.fbLarge}
-      {include file="bits/facebook.ihtml"}
-    {/if}
     <footer>
       <ul>
         {if $skinVariables.desktopLink}

@@ -1,4 +1,15 @@
 /* Fixes for IE8 */
+/* header */
+.header-container {
+  background: #eee;
+  border: 1px solid #BFBFBF;
+  border-radius: 4px;
+  height: 35px;
+  margin: -2px auto 10px;
+  padding-left: 15px;
+  width: 944px;
+}
+
 /* footer */
 .footer-container {
   font-size: 12px;

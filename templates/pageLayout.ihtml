@@ -33,72 +33,74 @@
     <div id="Container">
       {if $skinVariables.fullMenu}
         <header id="menu" class="bend-shadow">
-          {if !$onHomePage}
-            <a href="{$wwwRoot}" id="homeLink" title="Pagina principală DEX online"></a>
-          {/if}
-          <div class="socialPlugins">
-            <div class="fb_top">
-              <iframe src="http://www.facebook.com/plugins/like.php?ref=zepu_home&locale=en_US&app_id=225575497453880&amp;href=http%3A%2F%2Ffacebook.com%2Fdexonline&&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
-            </div>
-            <div class="plus_top">
-              <script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
-              <g:plusone size="medium" href="http://dexonline.ro"></g:plusone>
-            </div>
-          </div>
-          <ul id="mainMenu">
-            <li><a href="#" onclick="return false;">Despre noi</a>
-              <ul>
-                <li><a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii" target="_blank">Informații</a></li>
-                <li><a href="{$wwwRoot}contact">Contact</a></li>
-                <li><a href="http://dexonline.blogspot.ro">Blogul nostru</a></li>
-              </ul>
-            </li>
-            <li><a href="#" onclick="return false;">Implică-te</a>
-              <ul>
-                <li><a href="{$wwwRoot}contribuie">Contribuie cu definiții</a></li>
-                <li><a href="{$wwwRoot}top">Topul voluntarilor</a></li>
-                <li><a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii_pentru_programatori">Informații pentru programatori</a></li>
-              </ul>
-            </li>
-            <li><a href="#" onclick="return false;">Articole și resurse</a>
-              <ul>
-                <li><a href="http://wiki.dexonline.ro/wiki/Abrevieri" target="_blank">Abrevieri folosite</a></li>
-                <li><a href="{$wwwRoot}articole">Articole lingvistice</a></li>
-                <li><a href="{$wwwRoot}articol/Ghid_de_exprimare_corect%C4%83">Ghid de exprimare</a></li>
-                <li><a href="{$wwwRoot}cuvantul-zilei">Cuvântul zilei</a></li>
-                <li><a href="{$wwwRoot}cuvantul-lunii">Cuvântul lunii</a></li>
-                <li><a href="{$wwwRoot}cuvinte-aleatoare">Cuvinte aleatoare</a></li>
-                <li><a href="{$wwwRoot}unelte">Unelte</a></li>
-                <li><a href="{$wwwRoot}legaturi">Legături externe</a></li>
-              </ul>
-            </li>
-            {if !$suggestNoBanner && !$suggestHiddenSearchForm}
-              <li class="donate-link"><a href="{$wwwRoot}doneaza">Donează</a></li>
+          <div class="header-container">
+            {if !$onHomePage}
+              <a href="{$wwwRoot}" id="homeLink" title="Pagina principală DEX online"></a>
             {/if}
-            {if $isMobile}
-              <li id="mobileLink"><a href="{$wwwRoot}mobil">Versiunea pentru mobil</a></li>
-            {/if}
-          </ul>
-          {if !$is_mirror}
-            <ul id="userMenu">
-              <li id="userNick"><div id="userPic"></div><a href="#" onclick="return false;">{$nick|escape}</a>
+            <div class="socialPlugins">
+              <div class="fb_top">
+                <iframe src="http://www.facebook.com/plugins/like.php?ref=zepu_home&locale=en_US&app_id=225575497453880&amp;href=http%3A%2F%2Ffacebook.com%2Fdexonline&&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
+              </div>
+              <div class="plus_top">
+                <script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
+                <g:plusone size="medium" href="http://dexonline.ro"></g:plusone>
+              </div>
+            </div>
+            <ul id="mainMenu">
+              <li><a href="#" onclick="return false;">Despre noi</a>
                 <ul>
-                  {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT)}
-                    <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
-                  {/if}
-                  <li><a href="{$wwwRoot}preferinte">Preferințe</a></li>
-                  {if $sUser}
-                    <li><a href="{$wwwRoot}utilizator/{$sUser->nick}">Profilul meu</a></li>
-                    <li><a href="{$wwwRoot}cuvinte-favorite">Cuvinte favorite</a></li>
-                    <li><a href="{$wwwRoot}auth/logout">Închide sesiunea</a></li>
-                  {else}
-                    <li><a href="{$wwwRoot}auth/login">Autentificare cu OpenID</a></li>
-                  {/if}
+                  <li><a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii" target="_blank">Informații</a></li>
+                  <li><a href="{$wwwRoot}contact">Contact</a></li>
+                  <li><a href="http://dexonline.blogspot.ro">Blogul nostru</a></li>
                 </ul>
               </li>
+              <li><a href="#" onclick="return false;">Implică-te</a>
+                <ul>
+                  <li><a href="{$wwwRoot}contribuie">Contribuie cu definiții</a></li>
+                  <li><a href="{$wwwRoot}top">Topul voluntarilor</a></li>
+                  <li><a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii_pentru_programatori">Informații pentru programatori</a></li>
+                </ul>
+              </li>
+              <li><a href="#" onclick="return false;">Articole și resurse</a>
+                <ul>
+                  <li><a href="http://wiki.dexonline.ro/wiki/Abrevieri" target="_blank">Abrevieri folosite</a></li>
+                  <li><a href="{$wwwRoot}articole">Articole lingvistice</a></li>
+                  <li><a href="{$wwwRoot}articol/Ghid_de_exprimare_corect%C4%83">Ghid de exprimare</a></li>
+                  <li><a href="{$wwwRoot}cuvantul-zilei">Cuvântul zilei</a></li>
+                  <li><a href="{$wwwRoot}cuvantul-lunii">Cuvântul lunii</a></li>
+                  <li><a href="{$wwwRoot}cuvinte-aleatoare">Cuvinte aleatoare</a></li>
+                  <li><a href="{$wwwRoot}unelte">Unelte</a></li>
+                  <li><a href="{$wwwRoot}legaturi">Legături externe</a></li>
+                </ul>
+              </li>
+              {if !$suggestNoBanner && !$suggestHiddenSearchForm}
+                <li class="donate-link"><a href="{$wwwRoot}doneaza">Donează</a></li>
+              {/if}
+              {if $isMobile}
+                <li id="mobileLink"><a href="{$wwwRoot}mobil">Versiunea pentru mobil</a></li>
+              {/if}
             </ul>
-          {/if}
-          </ul>
+            {if !$is_mirror}
+              <ul id="userMenu">
+                <li id="userNick"><div id="userPic"></div><a href="#" onclick="return false;">{$nick|escape}</a>
+                  <ul>
+                    {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT)}
+                      <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
+                    {/if}
+                    <li><a href="{$wwwRoot}preferinte">Preferințe</a></li>
+                    {if $sUser}
+                      <li><a href="{$wwwRoot}utilizator/{$sUser->nick}">Profilul meu</a></li>
+                      <li><a href="{$wwwRoot}cuvinte-favorite">Cuvinte favorite</a></li>
+                      <li><a href="{$wwwRoot}auth/logout">Închide sesiunea</a></li>
+                    {else}
+                      <li><a href="{$wwwRoot}auth/login">Autentificare cu OpenID</a></li>
+                    {/if}
+                  </ul>
+                </li>
+              </ul>
+            {/if}
+            </ul>
+          </div>
         </header>
       {else}
         <header id="menu">

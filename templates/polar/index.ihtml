@@ -1,9 +1,9 @@
-<div id="Logo">
+<div class="site-logo">
   <a href="{$wwwRoot}" class="noBorder">
     <img src="{$imgRoot}/polar/logo-dexonline.png" alt="DEX online logo"/>
   </a>
 </div>
-<div id="whoami">
+<div class="tagline">
   <span class="pageTitle">DEX online</span><br/>
   Dicționare ale limbii române<br/>
   <span class="formPlug">Peste {$words_rough} de definiții</span>

@@ -625,7 +625,7 @@ div.sourceComplete5 {
   top: 30px;
 }
 
-#whoami {
+.tagline {
   position: relative;
   left: 560px;
   top: -154px;
@@ -633,7 +633,7 @@ div.sourceComplete5 {
   width: 216px;
 }
 
-#Logo {
+.site-logo {
   display: inline-block;
   position: relative;
   top: -86px;

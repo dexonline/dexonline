@@ -253,14 +253,14 @@ img {
 
 
 /* SITE IDENTITY */
-#Logo {
+.site-logo {
   background: url("../img/sprite3.png") no-repeat; 
   height: 82px;
   margin: 30px auto 5px auto;
   width: 316px;
 }
 
-#whoami {
+.tagline {
   color: #424242;
   font-size: 14px;
   letter-spacing: 1px;

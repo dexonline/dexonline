@@ -1,5 +1,7 @@
-<div id="Logo"></div>
-<div id="whoami">Dicționare ale limbii române</div>
+<section class="site-identity">
+  <div class="site-logo"></div>
+  <div class="tagline">Dicționare ale limbii române</div>
+</section>
 
 <div id="searchHomePage">
   {include file="bits/searchForm.ihtml" advancedSearch=0}

@@ -1,41 +1,43 @@
-<p class="paragraphTitle">Topul contribuțiilor manuale</p>
+<section class="top-contributors">
+  <p class="paragraphTitle">Topul contribuțiilor manuale</p>
 
-Pentru fiecare utilizator sunt indicate numărul de definiții trimise și numărul total de caractere din acele definiții.
-Comparativ, Biblia are circa 3.500.000 de caractere.
+  Pentru fiecare utilizator sunt indicate numărul de definiții trimise și numărul total de caractere din acele definiții.
+  Comparativ, Biblia are circa 3.500.000 de caractere.
 
-{include file="bits/top.ihtml" data=$manualData tableId="manualTop" pager=1}
+  {include file="bits/top.ihtml" data=$manualData tableId="manualTop" pager=1}
 
-<p class="paragraphTitle">Topul contribuțiilor automate</p>
+  <p class="paragraphTitle">Topul contribuțiilor automate</p>
 
-În această categorie intră definiții introduse automat și dicționare puse la dispoziție în format digital.
+  În această categorie intră definiții introduse automat și dicționare puse la dispoziție în format digital.
 
-{include file="bits/top.ihtml" data=$bulkData tableId="bulkTop" pager=0}
+  {include file="bits/top.ihtml" data=$bulkData tableId="bulkTop" pager=0}
 
-<script type="text/javascript">
-  {literal}
-    $.tablesorter.addParser({
-        id: 'stripDots',
-        is: function(s) {
+  <script type="text/javascript">
+    {literal}
+      $.tablesorter.addParser({
+          id: 'stripDots',
+          is: function(s) {
+              return false;
+          },
+          format: function(s) {
+              return s.replace(/\./g,'');
+          },
+          type: 'numeric'
+      });
+
+      $.tablesorter.addParser({
+          id: 'ddmmyyyy',
+          is: function(s) {
             return false;
-        },
-        format: function(s) {
-            return s.replace(/\./g,'');
-        },
-        type: 'numeric'
-    });
+          },
+          format: function(s) {
+            var parts = s.replace(/\s/g,'').split(".", 3);
+            var n = parts[2] + parts[1] + parts[0];
+            return n;
+          },
+          type: 'text'
+      });
 
-    $.tablesorter.addParser({
-        id: 'ddmmyyyy',
-        is: function(s) {
-          return false;
-        },
-        format: function(s) {
-          var parts = s.replace(/\s/g,'').split(".", 3);
-          var n = parts[2] + parts[1] + parts[0]; 
-          return n;
-        },
-        type: 'text'
-    });
-
-  {/literal}
-</script>
+    {/literal}
+  </script>
+</section>

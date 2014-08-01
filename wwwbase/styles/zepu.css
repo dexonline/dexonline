@@ -359,7 +359,6 @@ img {
 }
 
 /* special search*/
-
 #searchFormCuv {
  float: left;
  padding-left: 13px;
@@ -1167,8 +1166,7 @@ li.widgetsPreferences {
 }
 
 
-/****************** Medal stuff *******************/
-
+/* Medal stuff */
 #medalEditDiv {
  display: none;
  margin-bottom: 10px;
@@ -1425,6 +1423,12 @@ span.tooltip2 {
 
 .widgetBox.bend-shadow:after {
   display: none;
+}
+
+
+/* custom styles for various sections */
+.linguistic-links h3 {
+  margin-left: 10px;
 }
 
 

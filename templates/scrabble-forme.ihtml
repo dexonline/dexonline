@@ -1,15 +1,17 @@
-<p class="paragraphTitle">Lista de forme acceptate la jocul de scrabble</p>
+<section class="accepted-forms-for-scrabble">
+  <p class="paragraphTitle">Lista de forme acceptate la jocul de scrabble</p>
 
-Fișierele de mai jos conțin formele acceptate la jocul de Scrabble, în conformitate cu Lista Oficială de Cuvinte a Federației Române de Scrabble. Ele
-includ forme unice, fără diacritice, cu lungimi între 2 și 15 caractere, ordonate alfabetic. Listele sunt de interes mai mult pentru
-programatori. Pentru a afla rapid dacă o formă este sau nu acceptată, precum și din ce cuvânt provine, vizitați pagina de <a
-href="scrabble-flexiune">căutare a formelor flexionare</a>.
+  Fișierele de mai jos conțin formele acceptate la jocul de Scrabble, în conformitate cu Lista Oficială de Cuvinte a Federației Române de Scrabble. Ele
+  includ forme unice, fără diacritice, cu lungimi între 2 și 15 caractere, ordonate alfabetic. Listele sunt de interes mai mult pentru
+  programatori. Pentru a afla rapid dacă o formă este sau nu acceptată, precum și din ce cuvânt provine, vizitați pagina de <a
+  href="scrabble-flexiune">căutare a formelor flexionare</a>.
 
-<ul>
-{foreach from=$locVersions item=lv}
-  <li>
-    <a href="{$staticServer}download/forme-{$lv->name}.zip">versiunea {$lv->name|escape}</a>
-    ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
-  </li>
-{/foreach}
-</ul>
+  <ul>
+  {foreach from=$locVersions item=lv}
+    <li>
+      <a href="{$staticServer}download/forme-{$lv->name}.zip">versiunea {$lv->name|escape}</a>
+      ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
+    </li>
+  {/foreach}
+  </ul>
+</section>

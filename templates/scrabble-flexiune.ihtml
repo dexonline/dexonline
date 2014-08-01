@@ -1,41 +1,39 @@
 {assign var="form" value=$form|default:""}
 {assign var="selectedLocVersion" value=$selectedLocVersion|default:null}
-<section class="scrabble-flexions">
-  <br/>
+<br/>
 
-  Tastați o formă flexionară și alegeți versiunea LOC pentru a afla dacă
-  vreunul din cuvintele din LOC generează acea formă.<br/><br/>
+Tastați o formă flexionară și alegeți versiunea LOC pentru a afla dacă
+vreunul din cuvintele din LOC generează acea formă.<br/><br/>
 
-  <form action="scrabble-flexiune" method="get">
-    Forma:
-    <input type="text" name="form" value="{$form|escape}"/>
-    &nbsp;&nbsp;
-    Versiunea LOC:
-    <select name="locVersion">
-      {foreach from=$locVersions item=lv}
-        <option value="{$lv->name|escape}" {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
-          {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
-        </option>
+<form action="scrabble-flexiune" method="get">
+  Forma:
+  <input type="text" name="form" value="{$form|escape}"/>
+  &nbsp;&nbsp;
+  Versiunea LOC:
+  <select name="locVersion">
+    {foreach from=$locVersions item=lv}
+      <option value="{$lv->name|escape}" {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
+        {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
+      </option>
+    {/foreach}
+  </select>
+  <input type="submit" name="submitButton" value="Verifică"/>
+</form>
+
+{if isset($data)}
+  <ul>
+    {if !count($data)}
+      <li>Niciun cuvânt din LOC {$selectedLocVersion|escape} nu generează forma
+        <b>{$form|escape}.</b></li>
+    {else}
+      {foreach from=$data item=r}
+        <li>
+          <b>{$r.inflectedForm|escape}</b> provine din
+          <a href="{$wwwRoot}definitie/{$r.lexemFormNoAccent|escape}">{$r.lexemForm|escape}</a>
+          {$r.modelType}{$r.modelNumber}{$r.restriction}
+          ({$r.inflection|escape})
+        </li>
       {/foreach}
-    </select>
-    <input type="submit" name="submitButton" value="Verifică"/>
-  </form>
-
-  {if isset($data)}
-    <ul>
-      {if !count($data)}
-        <li>Niciun cuvânt din LOC {$selectedLocVersion|escape} nu generează forma
-          <b>{$form|escape}.</b></li>
-      {else}
-        {foreach from=$data item=r}
-          <li>
-            <b>{$r.inflectedForm|escape}</b> provine din
-            <a href="{$wwwRoot}definitie/{$r.lexemFormNoAccent|escape}">{$r.lexemForm|escape}</a>
-            {$r.modelType}{$r.modelNumber}{$r.restriction}
-            ({$r.inflection|escape})
-          </li>
-        {/foreach}
-      {/if}
-    </ul>
-  {/if}
-</section>
+    {/if}
+  </ul>
+{/if}

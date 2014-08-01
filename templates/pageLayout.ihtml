@@ -112,7 +112,9 @@
           {include file="bits/banner.ihtml" id="otherPages" width="728" height="90"}
         {/if}
 
-        {include file=$contentTemplateName}
+        <section>
+          {include file=$contentTemplateName}
+        </section>
 
         {if !$onHomePage && $skinVariables.fbLarge}
           {include file="bits/facebook.ihtml"}

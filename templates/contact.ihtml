@@ -1,4 +1,4 @@
-<section class="contact">Înainte de a ne trimite un e-mail, vă rugăm citiți pagina de <a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii">informații</a>
+Înainte de a ne trimite un e-mail, vă rugăm citiți pagina de <a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii">informații</a>
 pentru a vă asigura că întrebarea dumneavoastră nu este deja tratată acolo. În special:
 
 <ul>
@@ -26,4 +26,3 @@ pentru a vă asigura că întrebarea dumneavoastră nu este deja tratată acolo.
 
 Adresa noastră de e-mail este <a
 href="mailto:{$contact_email|escape}">{$contact_email|escape}</a>. Vă așteptăm!
-</section>

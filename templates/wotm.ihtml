@@ -1,32 +1,30 @@
-<section class="word-of-the-month">
-  <div>
-    <p class="paragraphTitle">Cuvântul lunii {$timestamp|date_format:'%B %Y'}</p>
-  </div>
+<div>
+  <p class="paragraphTitle">Cuvântul lunii {$timestamp|date_format:'%B %Y'}</p>
+</div>
 
-  {include file="bits/definition.ihtml" row=$searchResult}
+{include file="bits/definition.ihtml" row=$searchResult}
 
-  <div id="wotdPrevNext">
-    {if $prevmon}<div class="prev"><a href="{$wwwRoot}cuvantul-lunii/{$prevmon}">« precedentul</a></div>{/if}
-    {if $nextmon}<div class="next"><a href="{$wwwRoot}cuvantul-lunii/{$nextmon}">următorul »</a></div>{/if}
-    <div style="clear: both;"></div>
-  </div>
+<div id="wotdPrevNext">
+  {if $prevmon}<div class="prev"><a href="{$wwwRoot}cuvantul-lunii/{$prevmon}">« precedentul</a></div>{/if}
+  {if $nextmon}<div class="next"><a href="{$wwwRoot}cuvantul-lunii/{$nextmon}">următorul »</a></div>{/if}
+  <div style="clear: both;"></div>
+</div>
 
-  {if $imageUrl}
-    <div id="wotdImage">
-      <img src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
-      <div class="copyright">
-        {if $imageCredits}{$imageCredits}{/if}
-      </div>
+{if $imageUrl}
+  <div id="wotdImage">
+    <img src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
+    <div class="copyright">
+      {if $imageCredits}{$imageCredits}{/if}
     </div>
-  {/if}
+  </div>
+{/if}
 
-  {*
-  {if $skinVariables.wotdArchive}
-    <p class="paragraphTitle">Arhiva cuvintelor lunii</p>
+{*
+{if $skinVariables.wotdArchive}
+  <p class="paragraphTitle">Arhiva cuvintelor lunii</p>
 
-    <div id="wotmArchive" class="wotmArchive"></div>
-    <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-lunii/{$timestamp|date_format:'%Y'}','#wotmArchive')</script>
+  <div id="wotmArchive" class="wotmArchive"></div>
+  <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-lunii/{$timestamp|date_format:'%Y'}','#wotmArchive')</script>
 
-  {/if}
-  *}
-</section>
+{/if}
+*}

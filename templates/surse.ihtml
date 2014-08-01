@@ -1,64 +1,62 @@
-<section class="list-of-dictionaries">
-  <ul class ="dict-source-tips">
-    <li>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii</li>
-    {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
-      <li>Pentru a reordona sursele, apucați de un rând, dar nu de o zonă cu text. La sfârșit, nu uitați să salvați.</li>
-    {/if}
-  </ul>
+<ul class ="dict-source-tips">
+  <li>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii</li>
+  {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
+    <li>Pentru a reordona sursele, apucați de un rând, dar nu de o zonă cu text. La sfârșit, nu uitați să salvați.</li>
+  {/if}
+</ul>
 
-  <form method="post" action="surse">
-    <table id="sources" class="userTop">
+<form method="post" action="surse">
+  <table id="sources" class="userTop">
+    <tr>
+      <th class="abbreviation">Nume scurt</th>
+      <th class="nick">Nume</th>
+      <th>% utilizat</th>
+      {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
+        <th>Acțiuni</th>
+      {/if}
+    </tr>
+    {foreach from=$sources item=s}
       <tr>
-        <th class="abbreviation">Nume scurt</th>
-        <th class="nick">Nume</th>
-        <th>% utilizat</th>
+        <td class="abbreviation">
+          <span class="sourceShortName">{$s->shortName}</span>
+        </td>
+        <td class="nick">
+          <input type="hidden" name="ids[]" value="{$s->id}"/>
+          <span class="sourceName">
+            {$s->name}
+            <span class="pop-up-shadow">
+              <b>{$s->name}</b><br/>
+              Autor: {$s->author}<br/>
+              Editură: {$s->publisher}<br/>
+              Anul apariției: {$s->year}<br/>
+              Tipul:
+              {if $s->isOfficial==3}Ascuns{/if}
+              {if $s->isOfficial==2}Oficial{/if}
+              {if $s->isOfficial==1}Specializat{/if}
+              {if $s->isOfficial==0}Neoficial{/if}
+              <br/>
+            </span>
+          </span>
+        </td>
+        <td>{include file="bits/sourcePercentComplete.ihtml" s=$s}</td>
         {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
-          <th>Acțiuni</th>
+          <td><a href="editare-sursa?id={$s->id}">editează</a></td>
         {/if}
       </tr>
-      {foreach from=$sources item=s}
-        <tr>
-          <td class="abbreviation">
-            <span class="sourceShortName">{$s->shortName}</span>
-          </td>
-          <td class="nick">
-            <input type="hidden" name="ids[]" value="{$s->id}"/>
-            <span class="sourceName">
-              {$s->name}
-              <span class="pop-up-shadow">
-                <b>{$s->name}</b><br/>
-                Autor: {$s->author}<br/>
-                Editură: {$s->publisher}<br/>
-                Anul apariției: {$s->year}<br/>
-                Tipul:
-                {if $s->isOfficial==3}Ascuns{/if}
-                {if $s->isOfficial==2}Oficial{/if}
-                {if $s->isOfficial==1}Specializat{/if}
-                {if $s->isOfficial==0}Neoficial{/if}
-                <br/>
-              </span>
-            </span>
-          </td>
-          <td>{include file="bits/sourcePercentComplete.ihtml" s=$s}</td>
-          {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
-            <td><a href="editare-sursa?id={$s->id}">editează</a></td>
-          {/if}
-        </tr>
-      {/foreach}
-    </table>
-    {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
-      <input type="submit" name="submitButton" value="Salvează"/> &nbsp;
-      <a href="editare-sursa">adaugă o sursă</a> &nbsp;
-      <a href="">renunță</a>
-    {/if}
-  </form>
-
-  {* Drag-and-drop reordering of rows, only for admins *}
+    {/foreach}
+  </table>
   {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
-    <script type="text/javascript">
-      jQuery(document).ready(function() {ldelim}
-        $("#sources").tableDnD();
-      {rdelim});
-    </script>
+    <input type="submit" name="submitButton" value="Salvează"/> &nbsp;
+    <a href="editare-sursa">adaugă o sursă</a> &nbsp;
+    <a href="">renunță</a>
   {/if}
-</section>
+</form>
+
+{* Drag-and-drop reordering of rows, only for admins *}
+{if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
+  <script type="text/javascript">
+    jQuery(document).ready(function() {ldelim}
+      $("#sources").tableDnD();
+    {rdelim});
+  </script>
+{/if}

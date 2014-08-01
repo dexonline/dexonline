@@ -534,6 +534,10 @@ div.resultBar {
   display: none;
 }
 
+.guide-info {
+  margin-top: 10px;
+}
+
 a.inflLink {
   font-weight: bold;
 }
@@ -1414,5 +1418,14 @@ span.tooltip2 {
 .widgetBox.bend-shadow:after {
   display: none;
 }
+
+
+/* temporary fix */
+.article-content,
+.other-linguistic-articles {
+  width: 960px;
+  margin: 0 auto;
+}
+
 
 

@@ -1,41 +1,49 @@
 {assign var="wa" value=$wa|default:null}
 {if $wa->title == "Ghid de exprimare corectă"}
-  <div id="guideNotice">
-    Ghidul de exprimare are o structură nouă. <a href="#" onclick="return false;">detalii</a>
-  </div>
-  <p id="guideInfo">
-    Pentru a trata mai bine unele probleme de exprimare corectă, am înlocuit ghidul de exprimare cu o secțiune de <a href="../articole">articole pe teme
-    lingvistice</a>. Meniul <i>Resurse</i> conține o legătură către lista articolelor. La căutarea în <i>DEX online</i> pot apărea legături către
-    articolele relevante, acolo unde avem articole mai ample pe marginea cuvântului căutat.
-    Intenția noastră este să împărțim acest ghid în articole pe diverse teme și, în timp, să cooptăm lingviști profesioniști pentru a îmbunătăți calitatea articolelor.
-  </div>
+  <section class="guide-info">
+    <div id="guideNotice">
+      Ghidul de exprimare are o structură nouă. <a href="#" onclick="return false;">detalii</a>
+    </div>
+    <p id="guideInfo">
+      Pentru a trata mai bine unele probleme de exprimare corectă, am înlocuit ghidul de exprimare cu o secțiune de <a href="../articole">articole pe teme
+      lingvistice</a>. Meniul <i>Resurse</i> conține o legătură către lista articolelor. La căutarea în <i>DEX online</i> pot apărea legături către
+      articolele relevante, acolo unde avem articole mai ample pe marginea cuvântului căutat.
+      Intenția noastră este să împărțim acest ghid în articole pe diverse teme și, în timp, să cooptăm lingviști profesioniști pentru a îmbunătăți calitatea articolelor.
+    </div>
 
-  <script type="text/javascript"> 
-    jQuery(document).ready(function() {ldelim}
-      jQuery("#guideInfo").hide();
-      jQuery("#guideNotice").click(function() {ldelim} jQuery(this).next("#guideInfo").slideToggle(200); {rdelim});
-    {rdelim});
-  </script> 
+    <script type="text/javascript">
+      jQuery(document).ready(function() {ldelim}
+        jQuery("#guideInfo").hide();
+        jQuery("#guideNotice").click(function() {ldelim} jQuery(this).next("#guideInfo").slideToggle(200); {rdelim});
+      {rdelim});
+    </script>
+  </section>
 {/if}
 
 {if $wa}
-  <p class="paragraphTitle">{$wa->title}</p>
-  <div class="wikiArticle">{$wa->htmlContents}</div>
+  <section class="article-content">
+    <p class="paragraphTitle">{$wa->title}</p>
+    <div class="wikiArticle">{$wa->htmlContents}</div>
+  </section>
 {else}
-  <p class="paragraphTitle">Articol inexistent</p>
-  <div class="wikiArticle">Articolul pe care îl căutați nu există.</div>
+  <section class="non-existent-article">
+    <p class="paragraphTitle">Articol inexistent</p>
+    <div class="wikiArticle">Articolul pe care îl căutați nu există.</div>
+  </section>
 {/if}
 
-<p class="paragraphTitle">Alte articole lingvistice</p>
+<section class="other-linguistic-articles">
+  <p class="paragraphTitle">Alte articole lingvistice</p>
 
-{foreach from=$wikiTitles key=k item=v}
-<h3>{$k|escape:'html'}</h3>
-  {foreach from=$v item=titlePair}
-    {if $titlePair[0] != $wa->title}
-    <a href="{$wwwRoot}articol/{$titlePair[1]}">{$titlePair[0]}</a><br/>
-    {/if}
+  {foreach from=$wikiTitles key=k item=v}
+  <h3>{$k|escape:'html'}</h3>
+    {foreach from=$v item=titlePair}
+      {if $titlePair[0] != $wa->title}
+      <a href="{$wwwRoot}articol/{$titlePair[1]}">{$titlePair[0]}</a><br/>
+      {/if}
+    {/foreach}
   {/foreach}
-{/foreach}
+</section>
 
 <script>
   $(tablesorterMediaWikiInit);

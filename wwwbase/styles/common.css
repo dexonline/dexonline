@@ -1,58 +1,3 @@
-#offlineClients {
-  border-collapse: collapse;
-  margin: 20px auto 0px auto;
-  font-size: small;
-}
-
-#offlineClients tr.color1 {
-  background-color: #f8f8f8;
-}
-
-#offlineClients tr.color2 {
-  background-color: #eeeeee;
-}
-
-#offlineClients td {
-  border: 1px solid #aaaaaa;
-  padding: 5px;
-  vertical-align: middle;
-  text-align: center;
-  white-space: nowrap;
-}
-
-#offlineClients td.clientHeader {
-  font-weight: bold;
-  text-align: left;
-  vertical-align: middle;
-}
-
-#offlineClients td.empty {
-  background-color: white;
-  border-left: 0px;
-  border-top: 0px;
-  width: 100px;
-}
-
-#offlineClients .clientName {
-  font-weight: bold;
-}
-
-#offlineClients td.columnHeader {
-  text-align: center;
-}
-
-#offlineClients td.option {
-  text-align: center;
-  vertical-align: middle;
-}
-
-#offlineClients .optionDesc {
-  font-size: 75%;
-  font-weight: normal;
-  padding-left: 20px;
-  white-space: normal;
-}
-
 /* Full text highlight. Keep the number of colors in sync with Definition::highlight(). */
 .fth {
   color: white;
@@ -159,5 +104,39 @@ blockquote {
   -webkit-box-shadow: 5px 5px 10px #555;
   -moz-box-shadow: 5px 5px 10px #555;
   box-shadow: 5px 5px 10px #555;
+}
+
+
+/* Unelte table */
+.tools-table {
+  font-size: 12px;
+  margin: 20px 0;
+  border: 0;
+  text-align: center;
+}
+
+.tools-table tr,
+.tools-table td {
+  border: 0;
+}
+
+.tools-table tr {
+  border-bottom: 1px solid #DDD;
+}
+
+.tools-table td:nth-child(even) {
+  background: #F2F2F2;
+}
+
+.tools-table td:first-of-type {
+  text-align: left;
+}
+
+.tools-table th {
+  font-weight: normal;
+  vertical-align: bottom;
+  background: #FFF;
+  border: 0;
+  border-bottom: 2px solid #BFBFBF;
 }
 

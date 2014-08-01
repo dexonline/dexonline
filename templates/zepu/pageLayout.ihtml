@@ -68,7 +68,7 @@
               <li><a href="{$wwwRoot}legaturi">Legături externe</a></li>
             </ul>
           </li>
-          <li><a href="{$wwwRoot}doneaza">Donează</a></li>
+          <li class="donate-link"><a href="{$wwwRoot}doneaza">Donează</a></li>
           {if $isMobile}
             <li id="mobileLink"><a href="{$wwwRoot}mobil">Versiunea pentru mobil</a></li>
           {/if}

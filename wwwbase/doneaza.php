@@ -13,6 +13,4 @@ SmartyWrap::addCss('jqueryui');
 SmartyWrap::addJs('jqueryui');
 SmartyWrap::displayCommonPageWithSkin('doneaza.ihtml');
 
-/**************************************************************************/
-
 ?>

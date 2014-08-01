@@ -779,7 +779,7 @@ input.pagedisplay {
   border-radius: 4px;
   background: #6B6B6B;
   height: 30px;
-  width: 775px;
+  width: 100%;
   text-align: center;
 }
 
@@ -812,6 +812,10 @@ input.pagedisplay {
   float: right;
   margin-right: 10px;
   margin-top: 5px;
+}
+
+.wotdArchiveTable {
+  width: 100%;
 }
 
 .wotdArchiveTable td {
@@ -902,6 +906,9 @@ input.pagedisplay {
   background: url("../img/icons/bullet_arrow_down.png") no-repeat;
 }
 
+.word-of-the-day {
+  margin-top: 10px;
+}
 /* end word of the day archive */
 
 
@@ -1296,6 +1303,7 @@ span.tooltip2 {
 #donateOnlineEmail {
   width: 190px;
 }
+
 .donateContent ul li {
   list-style-type: square;
 }
@@ -1426,6 +1434,4 @@ span.tooltip2 {
   width: 960px;
   margin: 0 auto;
 }
-
-
 

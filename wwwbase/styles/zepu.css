@@ -1431,6 +1431,11 @@ span.tooltip2 {
   margin-left: 10px;
 }
 
+.hangman-game,
+.mill-game {
+  margin-top: 10px;
+}
+
 
 /* temporary fix */
 .article-content,

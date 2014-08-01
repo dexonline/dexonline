@@ -103,9 +103,9 @@
         {include file="flashMessages.ihtml"}
 
         {if !$onHomePage && !$suggestHiddenSearchForm && $skinVariables.searchForm}
-          <div id="searchOtherPages">
+          <section id="searchOtherPages">
             {include file="bits/searchForm.ihtml"}
-          </div>
+          </section>
         {/if}
 
         {if !$onHomePage && !$suggestNoBanner && $skinVariables.banner}

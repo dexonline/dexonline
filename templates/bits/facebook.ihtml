@@ -1,5 +1,5 @@
-<div class="fb_bottom" id="fbbottom">
-</div>
+<section class="fb_bottom" id="fbbottom">
+</section>
 {literal}
 <script>
 $(document).ready(function(){

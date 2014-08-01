@@ -114,7 +114,7 @@ img {
 }
 
 #banner_otherPages {
-  margin: 0px auto;
+  margin: 0px auto 10px;
   width: 730px;
 }
 
@@ -531,10 +531,6 @@ div.resultBar {
 #guideInfo {
   color: #424242;
   display: none;
-}
-
-.guide-info {
-  margin-top: 10px;
 }
 
 a.inflLink {
@@ -1255,7 +1251,7 @@ li.widgetsPreferences {
 }
 
 
-/* DONATE PAGE */
+/* Donează page */
 span.tooltip2 {
   background: url("../img/icons/information.png") no-repeat;
   display: inline-block;
@@ -1423,25 +1419,5 @@ span.tooltip2 {
 
 .widgetBox.bend-shadow:after {
   display: none;
-}
-
-
-/* custom styles for various sections */
-.linguistic-links h3 {
-  margin-left: 10px;
-}
-
-.hangman-game,
-.mill-game,
-.contact {
-  margin-top: 10px;
-}
-
-
-/* temporary fix */
-.article-content,
-.other-linguistic-articles {
-  width: 960px;
-  margin: 0 auto;
 }
 

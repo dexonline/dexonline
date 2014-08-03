@@ -24,7 +24,7 @@ database = mysql://root@localhost/DEX
 ; Show some debug information when this user is logged in.
 debugUser = reggie
 
-; True on development installations. Mainly used to hide the trafic.ro / Google analytics code
+; True on development installations. Mainly used to hide the Google analytics code
 developmentMode = 0
 
 ; API key for Google search of clones 

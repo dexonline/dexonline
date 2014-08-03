@@ -29,13 +29,6 @@
 
 <div id="missionStatement">
   DEX online transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
-  O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.
-</div>
-
-<div class="statusReport bend-shadow">
-  Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.<br/>
-  Liste de cuvinte:
-  {foreach from=$letters item=letter}
-    <a href="{$wwwRoot}lista-cuvinte/{$letter|escape:url}">{$letter|mb_strtoupper}</a>
-  {/foreach}
+  O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.<br>
+  Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.
 </div>

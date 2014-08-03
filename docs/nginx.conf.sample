@@ -89,7 +89,6 @@ server {
     rewrite ^/legaturi$ /simple.php?p=links last;
     rewrite ^/licenta-gpl$ /simple.php?p=license last;
     rewrite ^/publicitate$ /simple.php?p=ads last;
-    rewrite ^/lista-cuvinte/(.*)$ /wordList.php?letter=$1 last;
     rewrite ^/articol/(.*)$ /wikiArticle.php?title=$1 last;
     rewrite ^/rss/articole$ /articole.php?t=rss last;
     rewrite ^/spanzuratoarea$ /hangman.php last;

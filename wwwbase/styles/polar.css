@@ -505,14 +505,6 @@ p.paragraphTitle {
   padding-left: 2em;
 }
 
-#hostingElvsoft {
-  background: url("../img/sprite3.png") 0px -82px no-repeat;
-  display: inline-block;
-  height: 31px;
-  vertical-align: top;
-  width: 88px;
-}
-
 #hostingSei {
   background: url("../img/hosting/sei.png") no-repeat;
   display: inline-block;
@@ -768,16 +760,6 @@ div.sourceComplete5 {
   width: 875px;
 }
 
-.statusReport {
-  border-top: 1px solid #DDD;
-  font-size: 14px;
-  float: left;
-  padding-top: 5px;
-  position: relative;
-  bottom: -40px;
-  width: 875px;
-}
-
 #Footer {
   font-size: 14px;
   float: left;
@@ -787,25 +769,6 @@ div.sourceComplete5 {
   position: relative;
   width: 875px;
   border-top: 1px solid #DDD;
-}
-
-.homepage #Footer {
-  border-top: 0;
-  margin-top: 40px;
-  padding-top: 0;
-}
-
-#links {
-  float: right;
-  margin-right: 10px;
-  margin-top: -40px;
-  position: relative;
-  text-align: right;
-  width: 230px;
-}
-
-.homepage #links {
-  margin-top: -70px;
 }
 
 #banner_otherPages {

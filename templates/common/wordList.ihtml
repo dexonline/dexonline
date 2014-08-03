@@ -1,5 +1,0 @@
-<p class="paragraphTitle">Cuvinte care încep cu {$letter|capitalize} ({$forms|@count})</p>
-{foreach from=$forms item=form key=row_id}
-  {if $row_id}|{/if}
-  <a href="{$wwwRoot}definitie/{$form}">{$form}</a>
-{/foreach}

@@ -31,7 +31,7 @@
   
       {if count($lexems) == 1}
         {* If there is exactly one lexem, do not link to the lexem page, because it would print an almost exact duplicate of this page. *}
-        «{include file="common/bits/lexemName.ihtml" lexem=$lexems.0}»
+        „{include file="common/bits/lexemName.ihtml" lexem=$lexems.0}”
       {else}
         {foreach from=$lexems item=lexem key=row_id}
           <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{$lexem->formNoAccent}</a
@@ -42,7 +42,7 @@
   
     {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
       {if count($lexems)}
-        Cuvântul «{$cuv|escape}» nu a fost găsit, dar am găsit următoarele {$lexems|@count} cuvinte apropiate:
+        Cuvântul „{$cuv|escape}” nu a fost găsit, dar am găsit următoarele {$lexems|@count} cuvinte apropiate:
       {/if}
   
     {elseif $searchType == $smarty.const.SEARCH_DEF_ID}
@@ -53,9 +53,9 @@
     {elseif $searchType == $smarty.const.SEARCH_REGEXP}
       {if $numResults}
         {if $numResults > count($lexems)}
-          {$numResults} rezultate pentru «{$cuv|escape}» (maxim {$lexems|@count} afișate):
+          {$numResults} rezultate pentru „{$cuv|escape}” (maxim {$lexems|@count} afișate):
         {else}
-          {$numResults} rezultate pentru «{$cuv|escape}»:
+          {$numResults} rezultate pentru „{$cuv|escape}”:
         {/if}
       {/if}
   
@@ -69,7 +69,7 @@
           {else}
             {$results|@count} definiții pentru
           {/if}
-          «{include file="common/bits/lexemName.ihtml" lexem=$lexems.0}»
+          „{include file="common/bits/lexemName.ihtml" lexem=$lexems.0}”
         {/if}
       {/if}
   

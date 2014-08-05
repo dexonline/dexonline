@@ -1,3 +1,4 @@
+{assign var="cuv" value=$cuv|default:''}
 {assign var="onHomePage" value=$onHomePage|default:false}
 {assign var="page_description" value=$page_description|default:''}
 {assign var="page_keywords" value=$page_keywords|default:''}
@@ -9,17 +10,18 @@
   <head>
     <title>{$page_title|escape} | DEX online</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="initial-scale=1.0; maximum-scale=3.0; user-scalable=yes" name="viewport">
     {if $page_description}
-    <meta name="description" content="{$page_description}"/>
+      <meta name="description" content="{$page_description}"/>
     {/if}
     {if $page_keywords}
-    <meta name="keywords" content="{$page_keywords}"/>
+      <meta name="keywords" content="{$page_keywords}"/>
     {/if}
     {if !isset($not_generic_img)}
-    <meta property="og:image" content="{$imgRoot}/logo-dexonline-2.png" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="DEX online" />
-    <link rel="image_src" href="{$imgRoot}/logo-dexonline-2.png" />
+      <meta property="og:image" content="{$imgRoot}/logo-dexonline-2.png" />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="DEX online" />
+      <link rel="image_src" href="{$imgRoot}/logo-dexonline-2.png" />
     {/if}
     {include file="common/bits/cssJs.ihtml"}
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>

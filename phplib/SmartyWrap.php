@@ -42,11 +42,13 @@ class SmartyWrap {
     switch ($skin) {
     case 'zepu':
       $skinVariables['afterSearchBoxBanner'] = true;
+      $skinVariables['minimalist'] = false;
       break;
     case 'polar':
       $wordCount = Definition::getWordCount();
       $wordCountRough = $wordCount - ($wordCount % 10000);
       $skinVariables['afterSearchBoxBanner'] = true;
+      $skinVariables['minimalist'] = false;
       self::assign('words_total', util_formatNumber($wordCount, 0));
       self::assign('words_rough', util_formatNumber($wordCountRough, 0));
       self::assign('words_last_month', util_formatNumber(Definition::getWordCountLastMonth(), 0));
@@ -54,6 +56,7 @@ class SmartyWrap {
     case 'mobile':
       self::assign('words_total', util_formatNumber(Definition::getWordCount(), 0));
       self::assign('words_last_month', util_formatNumber(Definition::getWordCountLastMonth(), 0));
+      $skinVariables['minimalist'] = true;
       self::addJs('mobile');
       break;
     }

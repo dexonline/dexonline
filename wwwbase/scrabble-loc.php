@@ -39,6 +39,7 @@ if ($locVersion) {
 
 setlocale(LC_ALL, "ro_RO.utf8");
 SmartyWrap::assign('locVersions', Config::getLocVersions());
+SmartyWrap::assign('page_title', 'Lista Oficială de Cuvinte');
 SmartyWrap::displayCommonPageWithSkin('scrabble-loc.ihtml');
 
 function writeLexems($locVersion, $fileName) {

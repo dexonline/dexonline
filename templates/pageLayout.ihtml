@@ -63,7 +63,7 @@
             </li>
             <li><a href="#" onclick="return false;">Articole și resurse ▼</a>
               <ul>
-                <li><a href="#" onclick="abbrevWindow(); return false;">Abrevieri folosite</a></li>
+                <li><a href="http://wiki.dexonline.ro/wiki/Abrevieri" target="_blank">Abrevieri folosite</a></li>
                 <li><a href="{$wwwRoot}articole">Articole lingvistice</a></li>
                 <li><a href="{$wwwRoot}articol/Ghid_de_exprimare_corect%C4%83">Ghid de exprimare</a></li>
                 <li><a href="{$wwwRoot}cuvantul-zilei">Cuvântul zilei</a></li>

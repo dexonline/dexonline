@@ -67,10 +67,6 @@ function randomDigits(count) {
   return s;
 }
 
-function abbrevWindow() {
-  window.open(wwwRoot + 'static.php?c=abrev', 'mywindow', 'menubar=no,scrollbars=yes,toolbar=no,width=400,height=400');
-}
-
 function showTypoForm(evt) {
   link = evt.target;
   desiredTop = link.offsetTop + link.offsetHeight;

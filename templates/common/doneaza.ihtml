@@ -80,8 +80,8 @@ function formCheck(formobj) {
 
   <br /><br />
 
-  {include file="common/bits/doneaza-doi-la-suta.ihtml"}
   {include file="common/bits/doneaza-la-ce-folosim.ihtml"}
+  {include file="common/bits/doneaza-doi-la-suta.ihtml"}
   {include file="common/bits/doneaza-firme.ihtml"}
   {include file="common/bits/doneaza-rasplata.ihtml"}
 </div>

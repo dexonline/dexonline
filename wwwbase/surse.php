@@ -26,6 +26,6 @@ SmartyWrap::assign('sources', $sources);
 SmartyWrap::assign('page_title', 'Surse');
 SmartyWrap::addCss('jqueryui');
 SmartyWrap::addJs('jqueryui', 'jqTableDnd');
-SmartyWrap::displayCommonPageWithSkin('surse.ihtml');
+SmartyWrap::display('surse.ihtml');
 
 ?>

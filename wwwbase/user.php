@@ -56,5 +56,5 @@ if (util_isModerator(PRIV_ADMIN)) {
 }
 SmartyWrap::assign('user', $user);
 SmartyWrap::assign('userData', $userData);
-SmartyWrap::displayCommonPageWithSkin('user.ihtml');
+SmartyWrap::display('user.ihtml');
 ?>

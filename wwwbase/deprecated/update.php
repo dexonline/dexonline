@@ -22,7 +22,7 @@ $timestamp = util_getRequestIntParameter('timestamp');
 $version = util_getRequestParameterWithDefault('version', '1.0');
 
 if ($timestamp !== null && util_isDesktopBrowser() && !session_getUser()) {
-  SmartyWrap::displayCommonPageWithSkin('updateError.ihtml');
+  SmartyWrap::display('updateError.ihtml');
   exit();
 }
 

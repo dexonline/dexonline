@@ -28,6 +28,6 @@ if (!$pt) {
 }
 SmartyWrap::assign('page_title', 'Recuperarea parolei');
 SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::displayCommonPageWithSkin('auth/passwordRecoveryWrongData.ihtml');
+SmartyWrap::display('auth/passwordRecoveryWrongData.ihtml');
 
 ?>

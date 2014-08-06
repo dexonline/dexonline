@@ -33,6 +33,6 @@ SmartyWrap::assign('s', $s);
 SmartyWrap::assign('i', $word_start);
 SmartyWrap::assign('e', $word_end);
 
-SmartyWrap::displayCommonPageWithSkin('cuvinte.ihtml');
+SmartyWrap::display('cuvinte.ihtml');
 
 ?>

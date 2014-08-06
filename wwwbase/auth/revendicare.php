@@ -47,6 +47,6 @@ SmartyWrap::assign('chosenNick', $nick);
 SmartyWrap::assign('password', $password);
 SmartyWrap::assign('randString', $randString);
 SmartyWrap::assign('loginType', $loginType);
-SmartyWrap::displayCommonPageWithSkin('auth/chooseIdentity.ihtml');  
+SmartyWrap::display('auth/chooseIdentity.ihtml');  
 
 ?>

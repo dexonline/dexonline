@@ -40,7 +40,7 @@ SmartyWrap::assign('page_title', 'Modele de flexiune');
 SmartyWrap::assign('locVersions', $locVersions);
 SmartyWrap::addCss('paradigm');
 SmartyWrap::addJs('modelDropdown');
-SmartyWrap::displayCommonPageWithSkin('modele-flexiune.ihtml');
+SmartyWrap::display('modele-flexiune.ihtml');
 
 /*************************************************************************/
 

@@ -116,6 +116,6 @@ if ($ajax) {
 }
 else {
   SmartyWrap::addCss('paradigm');
-  SmartyWrap::displayCommonPageWithSkin('search.ihtml');
+  SmartyWrap::display('search.ihtml');
 }
 ?>

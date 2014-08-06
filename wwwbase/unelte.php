@@ -154,5 +154,5 @@ SmartyWrap::assign('clientOptions', $clientOptions);
 SmartyWrap::assign('osNames', $osNames);
 SmartyWrap::addCss('jqueryui');
 SmartyWrap::addJs('jqueryui');
-SmartyWrap::displayCommonPageWithSkin('unelte.ihtml');
+SmartyWrap::display('unelte.ihtml');
 ?>

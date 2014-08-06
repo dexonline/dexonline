@@ -112,6 +112,6 @@ SmartyWrap::assign('page_keywords', "Cuvântul zilei, {$def->lexicon}, dexonline
 SmartyWrap::assign('page_description', $pageDesc);
 SmartyWrap::assign('searchResult', array_pop($searchResults));
 
-SmartyWrap::displayCommonPageWithSkin('wotd.ihtml');
+SmartyWrap::display('wotd.ihtml');
 
 ?>

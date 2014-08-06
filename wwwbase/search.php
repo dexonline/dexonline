@@ -338,7 +338,7 @@ if (false && !empty($lexems)) {
 
 if (!$xml) {
   SmartyWrap::addCss('paradigm');
-  SmartyWrap::displayCommonPageWithSkin('search.ihtml');
+  SmartyWrap::display('search.ihtml');
 
 } else {
   header('Content-type: text/xml');

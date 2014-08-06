@@ -51,6 +51,6 @@ SmartyWrap::assign('page_keywords', "Cuvântul lunii, {$def->lexicon}, dexonline
 SmartyWrap::assign('page_description', "$pageTitle de la dexonline");
 SmartyWrap::assign('searchResult', array_pop($searchResults));
 
-SmartyWrap::displayCommonPageWithSkin('wotm.ihtml');
+SmartyWrap::display('wotm.ihtml');
 
 ?>

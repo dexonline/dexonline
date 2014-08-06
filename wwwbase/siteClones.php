@@ -78,6 +78,6 @@ SmartyWrap::assign('alert', $messageAlert);
 
 # Print Blacklist items if any
 SmartyWrap::assign("blackList", $blackList);
-SmartyWrap::displayCommonPageWithSkin("siteClones.ihtml");
+SmartyWrap::display("siteClones.ihtml");
 
 ?>

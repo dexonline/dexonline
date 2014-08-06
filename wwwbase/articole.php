@@ -25,4 +25,4 @@ if ($type == 'rss') {
 
 SmartyWrap::assign('page_title', 'Articole lingvistice');
 SmartyWrap::assign('wikiTitles', WikiArticle::loadAllTitles());
-SmartyWrap::displayCommonPageWithSkin('articole.ihtml');
+SmartyWrap::display('articole.ihtml');

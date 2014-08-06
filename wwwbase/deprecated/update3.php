@@ -17,7 +17,7 @@ $timestamp = util_getRequestIntParameter('timestamp');
 $version = util_getRequestParameterWithDefault('version', '3.0');
 
 if ($export && util_isDesktopBrowser() && !session_getUser()) {
-  SmartyWrap::displayCommonPageWithSkin('updateError.ihtml');
+  SmartyWrap::display('updateError.ihtml');
   exit();
 }
 

@@ -12,5 +12,5 @@ switch($p) {
   default: exit;
 }
 
-SmartyWrap::displayCommonPageWithSkin("$p.ihtml");
+SmartyWrap::display("$p.ihtml");
 ?>

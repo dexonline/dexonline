@@ -78,5 +78,5 @@ SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('difficulty', $difficulty);
 SmartyWrap::addCss('hangman');
 SmartyWrap::addJs('hangman', 'jqnotice');
-SmartyWrap::displayCommonPageWithSkin("hangman.ihtml");
+SmartyWrap::display("hangman.ihtml");
 ?>

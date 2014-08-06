@@ -27,10 +27,6 @@ class SmartyWrap {
     self::$theSmarty->registerPlugin('function', 'getDebugInfo', array('SmartyWrap', 'getDebugInfo'));
   }
 
-  static function display() {
-    print self::fetchSkin();
-  }
-
   static function fetchSkin() {
     $skin = session_getSkin();
     self::addCss($skin);
@@ -67,7 +63,8 @@ class SmartyWrap {
     return self::fetch("pageLayout.ihtml");
   }
 
-  static function displayCommonPageWithSkin($templateName) {
+  /* Common case: render the $templateName inside pageLayout.ihtml and with the user-preferred skin */
+  static function display($templateName) {
     print self::fetchCommonPageWithSkin($templateName);
   }
 
@@ -79,7 +76,7 @@ class SmartyWrap {
   static function displayPageWithSkin($templateName) {
     $skin = session_getSkin();
     self::assign('contentTemplateName', "$skin/$templateName");
-    self::display();
+    print self::fetchSkin();
   }
 
   static function displayWithoutSkin($templateName) {

@@ -42,6 +42,6 @@ if ($locVersion && $form) {
 
 setlocale(LC_ALL, "ro_RO.utf8");
 SmartyWrap::assign('locVersions', $locVersions);
-SmartyWrap::displayCommonPageWithSkin('scrabble-flexiune.ihtml');
+SmartyWrap::display('scrabble-flexiune.ihtml');
 
 ?>

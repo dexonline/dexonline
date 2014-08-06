@@ -9,6 +9,6 @@ $restrictedSources = Model::factory('Source')
 
 SmartyWrap::assign('page_title', 'Licență');
 SmartyWrap::assign('restrictedSources', $restrictedSources);
-SmartyWrap::displayCommonPageWithSkin('licenta.ihtml');
+SmartyWrap::display('licenta.ihtml');
 
 ?>

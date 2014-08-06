@@ -23,6 +23,6 @@ if ($openid) {
 SmartyWrap::assign('openid', $openid);
 SmartyWrap::assign('page_title', 'Autentificare cu OpenID');
 SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::displayCommonPageWithSkin('auth/login.ihtml');
+SmartyWrap::display('auth/login.ihtml');
 
 ?>

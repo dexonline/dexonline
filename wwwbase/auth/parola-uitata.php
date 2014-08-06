@@ -16,7 +16,7 @@ SmartyWrap::assign('suggestHiddenSearchForm', true);
 if ($submitButton) {
   if (!$email) {
     FlashMessage::add('Trebuie să introduceți o adresă de e-mail.');
-    SmartyWrap::displayCommonPageWithSkin('auth/parola-uitata.ihtml');
+    SmartyWrap::display('auth/parola-uitata.ihtml');
   } else {
     $user = User::get_by_email($email);
     if ($user) {
@@ -37,10 +37,10 @@ if ($submitButton) {
       $result = mail($email, "Schimbarea parolei pentru DEX online", $body, implode("\r\n", $headers));
     }
     // Display a confirmation even for incorrect addresses.
-    SmartyWrap::displayCommonPageWithSkin('auth/passwordRecoveryEmailSent.ihtml');
+    SmartyWrap::display('auth/passwordRecoveryEmailSent.ihtml');
   }
 } else {
-  SmartyWrap::displayCommonPageWithSkin('auth/parola-uitata.ihtml');
+  SmartyWrap::display('auth/parola-uitata.ihtml');
 }
 
 

@@ -57,6 +57,7 @@ class SmartyWrap {
       self::assign('words_total', util_formatNumber(Definition::getWordCount(), 0));
       self::assign('words_last_month', util_formatNumber(Definition::getWordCountLastMonth(), 0));
       $skinVariables['minimalist'] = true;
+      $skinVariables['afterSearchBoxBanner'] = false;
       self::addJs('mobile');
       break;
     }

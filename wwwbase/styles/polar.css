@@ -138,6 +138,10 @@ span.formPlug {
   }
 }
 
+#userNick a:after {
+  content: " ▼";
+}
+
 #userMenu li ul li a {
   min-width: 140px;
 }
@@ -769,6 +773,26 @@ div.sourceComplete5 {
   position: relative;
   width: 875px;
   border-top: 1px solid #DDD;
+}
+
+#Footer ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+#Footer ul li {
+  display: inline-block;
+}
+
+#Footer li:after {
+  content: "•";
+  margin: 0px 3px;
+}
+
+#Footer li:last-child:after {
+  content: "";
+  margin: 0px;
 }
 
 #banner_otherPages {

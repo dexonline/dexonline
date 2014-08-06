@@ -1,3 +1,4 @@
+{assign var="cuv" value=$cuv|default:''}
 {assign var="onHomePage" value=$onHomePage|default:false}
 {assign var="page_description" value=$page_description|default:''}
 {assign var="page_keywords" value=$page_keywords|default:''}
@@ -9,6 +10,7 @@
   <head>
     <title>{$page_title|escape} | DEX online</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="initial-scale=1.0; maximum-scale=3.0; user-scalable=yes" name="viewport">
     {if $page_description}
     <meta name="description" content="{$page_description}"/>
     {/if}
@@ -28,8 +30,9 @@
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="http://dexonline.ro/rss/cuvantul-zilei">
   </head>
 
-  <body class="{($onHomePage)?"homepage":"secondary"}">
+  <body {if !$onHomePage}class="secondary"{/if}>
     <div id="Container">
+      {if !$skinVariables.minimalist}
       <div id="menu" class="bend-shadow">
         {if !$onHomePage}
           <a href="{$wwwRoot}" id="homeLink" title="Pagina principală DEX online"></a>
@@ -70,14 +73,16 @@
               <li><a href="{$wwwRoot}legaturi">Legături externe</a></li>
             </ul>
           </li>
-          <li class="donate-link"><a href="{$wwwRoot}doneaza">Donează</a></li>
+          {if !$suggestNoBanner && !$suggestHiddenSearchForm}
+            <li class="donate-link"><a href="{$wwwRoot}doneaza">Donează</a></li>
+          {/if}
           {if $isMobile}
             <li id="mobileLink"><a href="{$wwwRoot}mobil">Versiunea pentru mobil</a></li>
           {/if}
         </ul>
         {if !$is_mirror}
           <ul id="userMenu">
-            <li id="userNick"><div id="userPic"></div><a href="#" onclick="return false;">{$nick|escape} ▼</a>
+            <li id="userNick"><div id="userPic"></div><a href="#" onclick="return false;">{$nick|escape}</a>
               <ul>
                 {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT)}
                   <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
@@ -96,16 +101,39 @@
         {/if}
         </ul>
       </div>
+      {else}
+        <div id="menu">
+          <a href="{$wwwRoot}informatii">Informații</a>
+          <a href="{$wwwRoot}articole">Articole</a>
+          <a href="{$wwwRoot}preferinte">Preferințe</a>
+        </div>
+        {if $onHomePage}
+          <div id="logoHomePage">
+            <img src="{$wwwRoot}img/mobile/logo-dexonline-60.png" alt="logo dexonline.ro" />
+          </div>
+        {else}
+          <div id="logoOtherPages">
+            <a href="{$wwwRoot}"><img src="{$wwwRoot}img/mobile/logo-dexonline-30.png" alt="logo dexonline.ro" /></a>
+          </div>
+        {/if}
+        <div id="searchArea">
+          <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return searchSubmit()">
+            <input type="text" name="cuv" size="15" value="{$cuv|escape}" maxlength="50" id="searchField"/>
+            <script type="text/javascript">document.frm.cuv.select();document.frm.cuv.focus();</script>
+            <span><input type="submit" value="caută" id="searchButton" /></span>
+          </form>
+        </div>
+      {/if}
 
       {include file="common/flashMessages.ihtml"}
 
-      {if !$onHomePage && !$suggestHiddenSearchForm}
+      {if !$onHomePage && !$suggestHiddenSearchForm && !$skinVariables.minimalist}
         <div id="searchOtherPages">
           {include file="zepu/search.ihtml"}
         </div>
       {/if}
 
-      {if !$onHomePage && !$suggestNoBanner && $skinVariables.afterSearchBoxBanner}
+      {if !$onHomePage && !$suggestNoBanner && $skinVariables.afterSearchBoxBanner && !$skinVariables.minimalist}
         {include file="common/bits/banner.ihtml" id="otherPages" width="728" height="90"}
       {/if}
 
@@ -114,13 +142,20 @@
       </div>
     </div>
 
-    {if !$onHomePage}
+    {if !$onHomePage && !$skinVariables.minimalist}
       {include file="common/bits/facebook.ihtml"}
     {/if}
     <div id="Footer">
-      Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro)
-      &#x2022; <a href="{$wwwRoot}licenta">Licență</a>
-      &#x2022; {if $hostedBy}{include file="common/hosting/$hostedBy.ihtml"}{/if}
+      <ul>
+        {if $skinVariables.minimalist}
+          <li class="desktopLink"><a href="{$wwwRoot}desktop">Versiunea pentru desktop</a></li>
+        {/if}
+        <li>Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro)</li>
+        <li class="licenceLink"><a href="{$wwwRoot}licenta">Licență</a></li>
+        {if $hostedBy}
+          <li class="hostingLink">{include file="common/hosting/$hostedBy.ihtml"}</li>
+        {/if}
+      </ul>
     </div>
     {include file="common/bits/analytics.ihtml"}
     {getDebugInfo}

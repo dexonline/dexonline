@@ -9,8 +9,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>{$page_title|escape} | DEX online</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta content="initial-scale=1.0; maximum-scale=3.0; user-scalable=yes" name="viewport" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="initial-scale=1.0; maximum-scale=3.0; user-scalable=yes" name="viewport">
     {if $page_description}
       <meta name="description" content="{$page_description}"/>
     {/if}
@@ -24,25 +24,27 @@
       <link rel="image_src" href="{$imgRoot}/logo-dexonline-2.png" />
     {/if}
     {include file="common/bits/cssJs.ihtml"}
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
     <link href="https://plus.google.com/100407552237543221945" rel="publisher" />
-    <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="http://dexonline.ro/rss/cuvantul-zilei" />
+    <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="http://dexonline.ro/rss/cuvantul-zilei">
   </head>
 
-  <body>
+  <body {if !$onHomePage}class="secondary"{/if}>
     <div id="Container">
       {if !$skinVariables.minimalist}
         <div id="menu" class="bend-shadow">
           {if !$onHomePage}
             <a href="{$wwwRoot}" id="homeLink" title="Pagina principală DEX online"></a>
           {/if}
-          <div class="fb_top">
-            <iframe src="http://www.facebook.com/plugins/like.php?ref=zepu_home&locale=en_US&app_id=225575497453880&amp;href=http%3A%2F%2Ffacebook.com%2Fdexonline&&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
+          <div class="socialPlugins">
+            <div class="fb_top">
+              <iframe src="http://www.facebook.com/plugins/like.php?ref=zepu_home&locale=en_US&app_id=225575497453880&amp;href=http%3A%2F%2Ffacebook.com%2Fdexonline&&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
+              </div>
+              <div class="plus_top">
+              <script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
+              <g:plusone size="medium" href="http://dexonline.ro"></g:plusone>
             </div>
-            <div class="plus_top">
-            <script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
-            <g:plusone size="medium" href="http://dexonline.ro"></g:plusone>
           </div>
           <ul id="mainMenu">
             <li><a href="#" onclick="return false;">Despre noi ▼</a>
@@ -131,7 +133,7 @@
         </div>
       {/if}
 
-      {if !$onHomePage && !$suggestNoBanner && !$skinVariables.minimalist}
+      {if !$onHomePage && !$suggestNoBanner && $skinVariables.afterSearchBoxBanner && !$skinVariables.minimalist}
         {include file="common/bits/banner.ihtml" id="otherPages" width="728" height="90"}
       {/if}
 

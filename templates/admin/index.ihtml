@@ -80,7 +80,7 @@ sau
 <br/>
 
 {if $sUser->moderator & $smarty.const.PRIV_LOC}
-  <form action="../flex/dispatchModelAction.php" method="get">
+  <form action="../admin/dispatchModelAction.php" method="get">
     <span data-model-dropdown>
       Modelul:
       <input type="hidden" name="locVersion" value="6.0" data-loc-version>
@@ -132,7 +132,7 @@ sau
 
 {if $sUser->moderator & $smarty.const.PRIV_LOC}
   Pentru a încerca etichetarea asistată a cuvintelor,
-  <a href="../flex/bulkLabelSelectSuffix.php">clic aici</a>.
+  <a href="../admin/bulkLabelSelectSuffix.php">clic aici</a>.
 
   <div class="flexExplanation">
     Rostul acestei pagini este de a facilita etichetarea în masă a
@@ -147,7 +147,7 @@ sau
   <br/>
 
   Pentru a încerca plasarea asistată a accentelor,
-  <a href="../flex/placeAccents.php">clic aici</a>.
+  <a href="../admin/placeAccents.php">clic aici</a>.
 
   <div class="flexExplanation">
     Veți primi o pagină cu 10 lexeme alese la întâmplare (deocamdată
@@ -156,7 +156,7 @@ sau
   <br/>
 
   Pentru a încerca unificarea lexemelor la plural cu cele la
-  singular, <a href="../flex/mergeLexems.php">clic aici</a>.
+  singular, <a href="../admin/mergeLexems.php">clic aici</a>.
 
   <div class="flexExplanation">
     Această unificare se pretează în special la familiile de plante

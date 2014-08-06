@@ -130,6 +130,6 @@ SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('sectionTitle', "Sufix: -$suffix");
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::addCss('paradigm');
-SmartyWrap::displayAdminPage('flex/bulkLabel.ihtml');
+SmartyWrap::displayAdminPage('admin/bulkLabel.ihtml');
 
 ?>

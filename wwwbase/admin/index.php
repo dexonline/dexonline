@@ -39,22 +39,22 @@ $reports = array(
         'privilege' => PRIV_EDIT
   ),
   array('text' => 'Lexeme cu comentarii',
-        'url' => 'flex/viewLexemsWithComments',
+        'url' => 'admin/viewLexemsWithComments',
         'count' => Model::factory('Lexem')->where_not_null('comment')->count(),
         'privilege' => PRIV_LOC
   ),
   array('text' => 'Lexeme fără accent',
-        'url' => 'flex/viewLexemsWithoutAccents',
+        'url' => 'admin/viewLexemsWithoutAccents',
         'count' => Model::factory('Lexem')->where('consistentAccent', 0)->count(),
         'privilege' => PRIV_EDIT
   ),
   array('text' => 'Lexeme ambigue',
-        'url' => 'flex/viewAmbiguousLexems',
+        'url' => 'admin/viewAmbiguousLexems',
         'count' => 'numărătoare dezactivată',
         'privilege' => PRIV_EDIT
   ),
   array('text' => 'Lexeme fără paradigme',
-        'url' => 'flex/viewTemporaryLexems',
+        'url' => 'admin/viewTemporaryLexems',
         'count' => Model::factory('LexemModel')->where('modelType', 'T')->count(),
         'privilege' => PRIV_LOC
   ),

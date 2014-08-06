@@ -10,6 +10,6 @@ SmartyWrap::assign('sectionTitle', 'Lexeme cu comentarii');
 SmartyWrap::assign('sectionCount', count($lexems));
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('lexems', $lexems);
-SmartyWrap::displayAdminPage('flex/viewLexemsWithComments.ihtml');
+SmartyWrap::displayAdminPage('admin/viewLexemsWithComments.ihtml');
 
 ?>

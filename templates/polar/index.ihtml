@@ -10,7 +10,7 @@
 </div>
 
 <div id="searchHomePage">
-  {include file="zepu/search.ihtml" advancedSearch=0}
+  {include file="common/bits/searchForm.ihtml" advancedSearch=0}
 </div>
 
 {if !$suggestNoBanner && $skinVariables.afterSearchBoxBanner}

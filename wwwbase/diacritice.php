@@ -1,8 +1,8 @@
 <?php
 
 require_once '../phplib/util.php';
-require_once 'Crawler/AppLog.php';
-require_once 'Crawler/MemoryManagement.php';
+require_once '../phplib/AppLog.php';
+require_once '../phplib/MemoryManagement.php';
 
 
 db_init();

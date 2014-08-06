@@ -64,7 +64,7 @@ class SmartyWrap {
     self::assign('skinVariables', $skinVariables);
 
     self::registerOutputFilters();
-    return self::fetch("$skin/pageLayout.ihtml");
+    return self::fetch("pageLayout.ihtml");
   }
 
   static function displayCommonPageWithSkin($templateName) {

@@ -48,7 +48,7 @@
   </script> 
 {/if}
   
-{include file="common/bits/definition.ihtml" row=$searchResult}
+{include file="bits/definition.ihtml" row=$searchResult}
 
 {if $reason}
 <div class="wotdReason">

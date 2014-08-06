@@ -2,11 +2,11 @@
 <div id="whoami">Dicționare ale limbii române</div>
 
 <div id="searchHomePage">
-  {include file="common/bits/searchForm.ihtml" advancedSearch=0}
+  {include file="bits/searchForm.ihtml" advancedSearch=0}
 </div>
 
 {if !$suggestNoBanner && $skinVariables.afterSearchBoxBanner}
-  {include file="common/bits/banner.ihtml" id="mainPage" width="728" height="90"}
+  {include file="bits/banner.ihtml" id="mainPage" width="728" height="90"}
 {/if}
 
 {if $numEnabledWidgets}

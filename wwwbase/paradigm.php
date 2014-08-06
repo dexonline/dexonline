@@ -112,7 +112,7 @@ else {
 }
 
 if ($ajax) {
-  SmartyWrap::displayWithoutSkin('common/bits/multiParadigm.ihtml');
+  SmartyWrap::displayWithoutSkin('bits/multiParadigm.ihtml');
 }
 else {
   SmartyWrap::addCss('paradigm');

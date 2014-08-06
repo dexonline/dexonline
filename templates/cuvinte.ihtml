@@ -19,7 +19,7 @@
     </div>
   
     <div class="sourceCheckboxGroup">
-      {include file="common/sourceCheckboxGroup.ihtml"}
+      {include file="sourceCheckboxGroup.ihtml"}
     </div>
   
     <div>

@@ -33,7 +33,7 @@
           {foreach from=$t.relations key=type item=lexemList}
             <span class="relation" data-type="{$type}">
               {foreach from=$lexemList item=l}
-                <span class="tag">{include file="common/bits/lexemName.ihtml" lexem=$l}</span>
+                <span class="tag">{include file="bits/lexemName.ihtml" lexem=$l}</span>
               {/foreach}
             </span>
             <span class="relationIds" data-type="{$type}">
@@ -43,7 +43,7 @@
             </span>
           {/foreach}
         </div>
-        {include file="common/bits/meaningTree.ihtml" meanings=$t.children id=""}
+        {include file="bits/meaningTree.ihtml" meanings=$t.children id=""}
       {/strip}</li>
     {/foreach}
   </ul>

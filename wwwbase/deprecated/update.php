@@ -6,7 +6,7 @@ set_time_limit(0);
 
 // If no GET arguments are set, print usage and return.
 if (count($_GET) == 0) {
-  SmartyWrap::displayWithoutSkin('common/updateInstructions.ihtml');
+  SmartyWrap::displayWithoutSkin('updateInstructions.ihtml');
   return;
 }
 
@@ -50,7 +50,7 @@ foreach ($defDbResult as $row) {
   fetchNextRow($row);
   SmartyWrap::assign('version', $version);
   SmartyWrap::assign('includeNameWithDiacritics', hasFlag('a'));
-  SmartyWrap::displayWithoutSkin('common/update.ihtml');
+  SmartyWrap::displayWithoutSkin('update.ihtml');
 }
 
 print "</Dictionary>\n";

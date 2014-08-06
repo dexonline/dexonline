@@ -9,7 +9,7 @@
 ; adsModulesH[] = someOtherModule
 
 ; Type of banner to be served.
-; Banner sizes are dictated by the skin. See templates/common/bits/banner.ihtml.
+; Banner sizes are dictated by the skin. See templates/bits/banner.ihtml.
 ; Choices are "openx-local", "adsense", "fake" or "none".
 ; The option "fake" displays a placeholder banner and can be used in development/beta (so as not to steal real impressions from campaigns).
 bannerType = fake

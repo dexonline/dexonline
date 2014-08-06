@@ -1,2 +1,0 @@
-{* Argument: $lexemModel *}
-{include file="common/bits/lexemModel.ihtml" lexemModel=$lexemModel}

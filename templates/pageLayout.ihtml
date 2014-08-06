@@ -23,7 +23,7 @@
       <meta property="og:title" content="DEX online" />
       <link rel="image_src" href="{$imgRoot}/logo-dexonline-2.png" />
     {/if}
-    {include file="common/bits/cssJs.ihtml"}
+    {include file="bits/cssJs.ihtml"}
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
     <link href="https://plus.google.com/100407552237543221945" rel="publisher" />
@@ -125,16 +125,16 @@
         </div>
       {/if}
 
-      {include file="common/flashMessages.ihtml"}
+      {include file="flashMessages.ihtml"}
 
       {if !$onHomePage && !$suggestHiddenSearchForm && !$skinVariables.minimalist}
         <div id="searchOtherPages">
-          {include file="common/bits/searchForm.ihtml"}
+          {include file="bits/searchForm.ihtml"}
         </div>
       {/if}
 
       {if !$onHomePage && !$suggestNoBanner && $skinVariables.afterSearchBoxBanner && !$skinVariables.minimalist}
-        {include file="common/bits/banner.ihtml" id="otherPages" width="728" height="90"}
+        {include file="bits/banner.ihtml" id="otherPages" width="728" height="90"}
       {/if}
 
       <div id="contentProper">
@@ -143,7 +143,7 @@
     </div>
 
     {if !$onHomePage && !$skinVariables.minimalist}
-      {include file="common/bits/facebook.ihtml"}
+      {include file="bits/facebook.ihtml"}
     {/if}
     <div id="Footer">
       <ul>
@@ -153,11 +153,11 @@
         <li>Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro)</li>
         <li class="licenceLink"><a href="{$wwwRoot}licenta">Licență</a></li>
         {if $hostedBy}
-          <li class="hostingLink">{include file="common/hosting/$hostedBy.ihtml"}</li>
+          <li class="hostingLink">{include file="hosting/$hostedBy.ihtml"}</li>
         {/if}
       </ul>
     </div>
-    {include file="common/bits/analytics.ihtml"}
+    {include file="bits/analytics.ihtml"}
     {getDebugInfo}
   </body>
 </html>

@@ -21,7 +21,7 @@ $def = Definition::get_by_id($wotm->definitionId);
 if ($type == 'url') {
   SmartyWrap::assign('today', $today);
   SmartyWrap::assign('title', $def->lexicon);
-  SmartyWrap::displayWithoutSkin('common/bits/wotmurl.ihtml');
+  SmartyWrap::displayWithoutSkin('bits/wotmurl.ihtml');
   exit;
 }
 

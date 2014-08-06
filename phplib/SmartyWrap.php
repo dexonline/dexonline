@@ -72,7 +72,7 @@ class SmartyWrap {
   }
 
   static function fetchCommonPageWithSkin($templateName) {
-    self::assign('contentTemplateName', "common/$templateName");  
+    self::assign('contentTemplateName', "$templateName");  
     return self::fetchSkin();
   }
 
@@ -123,7 +123,7 @@ class SmartyWrap {
     SmartyWrap::assign('debug_messages', $data['messages']);
     SmartyWrap::assign('debug_runningTimeMillis', $data['runningTimeMillis']);
     SmartyWrap::assign('debug_ormQueryLog', $data['ormQueryLog']);
-    return SmartyWrap::fetch('common/bits/debugInfo.ihtml');
+    return SmartyWrap::fetch('bits/debugInfo.ihtml');
   }
 
   static function addCss(/* Variable-length argument list */) {

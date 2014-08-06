@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8"/>
-    {include file="common/bits/cssJs.ihtml"}
+    {include file="bits/cssJs.ihtml"}
     <title>DEX | {$sectionTitle|escape}</title>
   </head>
 
@@ -14,7 +14,7 @@
     {/if}
     {include file="admin/recentlyVisited.ihtml"}
     {include file="admin/flashMessages.ihtml"}
-    {include file="common/errorMessage.ihtml"}
+    {include file="errorMessage.ihtml"}
     {include file="$templateName"}
     {getDebugInfo}
   </body>

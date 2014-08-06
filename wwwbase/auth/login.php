@@ -15,7 +15,7 @@ if ($openid) {
   $authResult = OpenID::beginAuth($openid, null);
   if ($authResult != null)
   {
-    SmartyWrap::displayWithoutSkin('common/auth/beginAuth.ihtml');
+    SmartyWrap::displayWithoutSkin('auth/beginAuth.ihtml');
     exit;
   }
 }

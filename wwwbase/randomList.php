@@ -63,7 +63,7 @@ $cnt = count($forms);
 
 if ($noSkin) {
     SmartyWrap::assign('forms', $forms);
-    SmartyWrap::displayWithoutSkin('common/randomWordListSimple.ihtml');
+    SmartyWrap::displayWithoutSkin('randomWordListSimple.ihtml');
 }
 else {
     SmartyWrap::assign('forms', $forms);

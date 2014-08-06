@@ -12,7 +12,7 @@
   <br/><br/>
 
   {foreach from=$lexemModels item=lm}
-    {include file="common/bits/lexemName.ihtml" lexem=$lm->getLexem()}
+    {include file="bits/lexemName.ihtml" lexem=$lm->getLexem()}
     <span class="deemph">({$lm->modelType}{$lm->modelNumber})</span>
     &nbsp;&nbsp;
     <a href="../admin/lexemEdit.php?lexemId={$lm->getLexem()->id}">editează</a>

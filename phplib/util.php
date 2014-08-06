@@ -303,7 +303,7 @@ function util_isModerator($type) {
 
 function util_assertNotMirror() {
   if (Config::get('global.mirror')) {
-    SmartyWrap::displayWithoutSkin('common/mirror_message.ihtml');
+    SmartyWrap::displayWithoutSkin('mirror_message.ihtml');
     exit;
   }
 }

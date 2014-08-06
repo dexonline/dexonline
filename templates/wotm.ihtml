@@ -2,7 +2,7 @@
   <p class="paragraphTitle">Cuvântul lunii {$timestamp|date_format:'%B %Y'}</p>
 </div>
 
-{include file="common/bits/definition.ihtml" row=$searchResult}
+{include file="bits/definition.ihtml" row=$searchResult}
 
 <div id="wotdPrevNext">
   {if $prevmon}<div class="prev"><a href="{$wwwRoot}cuvantul-lunii/{$prevmon}">« precedentul</a></div>{/if}

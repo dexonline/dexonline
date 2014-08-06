@@ -29,11 +29,11 @@ if ($type == 'rss' || $type == 'blog') {
         $curDate = strftime("%e %B", $ts);
         SmartyWrap::assign('curDate', $curDate);
         $item['title'] = "{$curDate} – " . $def->lexicon;
-        $item['description'] = SmartyWrap::fetch('common/bits/wotdRssBlogItem.ihtml');
+        $item['description'] = SmartyWrap::fetch('bits/wotdRssBlogItem.ihtml');
     }
     else {
         $item['title'] = $def->lexicon;
-        $item['description'] = SmartyWrap::fetch('common/bits/wotdRssItem.ihtml');
+        $item['description'] = SmartyWrap::fetch('bits/wotdRssItem.ihtml');
     }
     $item['pubDate'] = date('D, d M Y H:i:s', $ts) . ' EEST';
     $item['link'] = util_getFullServerUrl() . 'cuvantul-zilei/' . date('Y/m/d', $ts);
@@ -47,7 +47,7 @@ if ($type == 'rss' || $type == 'blog') {
   SmartyWrap::assign('rss_description', 'Doza zilnică de cuvinte de la DEXonline!');
   SmartyWrap::assign('rss_pubDate', date('D, d M Y H:i:s') . ' EEST');
   SmartyWrap::assign('results', $results);
-  SmartyWrap::displayWithoutSkin('common/rss.ixml');
+  SmartyWrap::displayWithoutSkin('rss.ixml');
   exit;
 }
 
@@ -86,7 +86,7 @@ $def = Definition::get_by_id($defId);
 if ($type == 'url') {
   SmartyWrap::assign('today', $today);
   SmartyWrap::assign('title', $def->lexicon);
-  SmartyWrap::displayWithoutSkin('common/bits/wotdurl.ihtml');
+  SmartyWrap::displayWithoutSkin('bits/wotdurl.ihtml');
   exit;
 }
 

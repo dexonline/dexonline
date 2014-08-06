@@ -5,7 +5,7 @@ set_time_limit(0);
 // If no GET arguments are set, print usage and return.
 if (count($_GET) == 0) {
   SmartyWrap::addCss('polar');
-  SmartyWrap::displayWithoutSkin('common/update3Instructions.ihtml');
+  SmartyWrap::displayWithoutSkin('update3Instructions.ihtml');
   return;
 }
 
@@ -23,13 +23,13 @@ if ($export && util_isDesktopBrowser() && !session_getUser()) {
 
 if ($export == 'sources') {
   SmartyWrap::assign('sources', Model::factory('Source')->find_many());
-  SmartyWrap::displayWithoutSkin('common/update3Sources.ihtml');
+  SmartyWrap::displayWithoutSkin('update3Sources.ihtml');
 } else if ($export == 'inflections') {
   SmartyWrap::assign('inflections', Model::factory('Inflection')->order_by_asc('id')->find_many());
-  SmartyWrap::displayWithoutSkin('common/update3Inflections.ihtml');
+  SmartyWrap::displayWithoutSkin('update3Inflections.ihtml');
 } else if ($export == 'abbrev') {
   SmartyWrap::assign('abbrev', AdminStringUtil::loadRawAbbreviations());
-  SmartyWrap::displayWithoutSkin('common/update3Abbrev.ihtml');
+  SmartyWrap::displayWithoutSkin('update3Abbrev.ihtml');
 } else if ($export == 'definitions') {
   userCache_init();
   $statusClause = $timestamp ? '' : ' and status = 0';
@@ -57,7 +57,7 @@ if ($export == 'sources') {
     SmartyWrap::assign('def', $def);
     SmartyWrap::assign('lexemIds', $lexemIds);
     SmartyWrap::assign('user', userCache_get($def->userId));
-    SmartyWrap::displayWithoutSkin('common/update3Definitions.ihtml');
+    SmartyWrap::displayWithoutSkin('update3Definitions.ihtml');
   }
 
   print "</Definitions>\n";
@@ -69,7 +69,7 @@ if ($export == 'sources') {
   foreach ($lexemDbResult as $dbRow) {
     $lexem = Model::factory('Lexem')->create($dbRow);
     SmartyWrap::assign('lexem', $lexem);
-    SmartyWrap::displayWithoutSkin('common/update3Lexems.ihtml');
+    SmartyWrap::displayWithoutSkin('update3Lexems.ihtml');
   }
   print "</Lexems>\n";
 }

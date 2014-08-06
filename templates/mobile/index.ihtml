@@ -1,5 +1,5 @@
 <div id="wotdMobile" class="widget">
-  Cuvântul zilei: {include file="common/bits/wotdurl.ihtml"}
+  Cuvântul zilei: {include file="bits/wotdurl.ihtml"}
 </div>
 
 <div id="likes">

@@ -4,5 +4,5 @@
 <img src="{$thumbUrl}" alt="iconiță cuvântul zilei" class="common-shadow" />
 <span>
   <label>Cuvântul zilei</label><br />
-  {include file="common/bits/wotdurl.ihtml" title=$title}
+  {include file="bits/wotdurl.ihtml" title=$title}
 </span>

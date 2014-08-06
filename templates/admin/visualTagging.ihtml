@@ -17,7 +17,7 @@
   </script>
 
 {else}
-  {include file="common/bits/prototypes.ihtml"}
+  {include file="bits/prototypes.ihtml"}
   <div id="jCropCanvas" class="imageHolder">
     <img id="jcrop" class="visualTagImg" src="{$imagePath}" title="{$imageId}"/>
     <div id="selectionOptions">

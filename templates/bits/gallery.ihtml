@@ -1,4 +1,4 @@
-{include file="common/bits/prototypes.ihtml"}
+{include file="bits/prototypes.ihtml"}
 <div id="gallery">
   {foreach from=$images item=image}
     <a class="gallery" href="{$image.img}" title="{$image.id}{$image.name}"><img src="{$image.tmb}"/></a>

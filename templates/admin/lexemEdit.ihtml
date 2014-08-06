@@ -71,7 +71,7 @@
       <tr>  
         <td><label for="structStatus">structurare:</label></td>
         <td>
-          {include file="common/bits/structStatus.ihtml" selected=$lexem->structStatus canEdit=$canEdit.structStatus}
+          {include file="bits/structStatus.ihtml" selected=$lexem->structStatus canEdit=$canEdit.structStatus}
 
           <span class="tooltip2" title="Cât timp structurarea este „în lucru”, persoanele autorizate pot modifica sensurile, variantele, silabisirile
           și pronunțiile. După trecerea în starea „așteaptă moderarea”, doar moderatorii mai pot schimba aceste valori.">&nbsp;</span>
@@ -127,7 +127,7 @@
           <td>
             {foreach from=$homonyms item=h}
               {assign var=lms value=$h->getLexemModels()}
-              <a href="lexemEdit.php?lexemId={$h->id}">{include file="common/bits/lexemName.ihtml" lexem=$h}</a>
+              <a href="lexemEdit.php?lexemId={$h->id}">{include file="bits/lexemName.ihtml" lexem=$h}</a>
               {$lms[0]->modelType}{$lms[0]->modelNumber}{$lms[0]->restriction}<br>
             {/foreach}
           </td>
@@ -137,7 +137,7 @@
   </div>
 
   <div class="box" data-id="paradigm" data-title="Paradigmă" data-left="345" data-top="0" data-width="650" data-height="320">
-    {include file="common/bits/lexemEditModel.ihtml"
+    {include file="bits/lexemEditModel.ihtml"
              id="stem"
              lm=$stemLexemModel
              models=$modelsT
@@ -163,7 +163,7 @@
         </ul>
 
         {foreach from=$lexemModels key=i item=lm}
-          {include file="common/bits/lexemEditModel.ihtml"
+          {include file="bits/lexemEditModel.ihtml"
                    id=$i
                    lm=$lm
                    models=$models[$i]
@@ -182,7 +182,7 @@
   </div>
 
   <div class="box meaningTreeContainer" data-id="meaningTree" data-title="Sensuri" data-left="10" data-top="330" data-width="960" data-height="280" data-minimized="1">
-    {include file="common/bits/meaningTree.ihtml" meanings=$meanings id="meaningTree"}
+    {include file="bits/meaningTree.ihtml" meanings=$meanings id="meaningTree"}
 
     <div id="meaningMenu">
       {if $canEdit.meanings}

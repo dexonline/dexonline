@@ -342,7 +342,7 @@ if (!$xml) {
 
 } else {
   header('Content-type: text/xml');
-  SmartyWrap::displayWithoutSkin('common/searchXML.ihtml');
+  SmartyWrap::displayWithoutSkin('searchXML.ihtml');
 }
 
 if (Config::get('global.logSearch')) {

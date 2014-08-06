@@ -14,10 +14,10 @@ if ($submit) {
     $typo->problem = $text;
     $typo->save();
   }
-  SmartyWrap::displayWithoutSkin('common/bits/typoConfirmation.ihtml');
+  SmartyWrap::displayWithoutSkin('bits/typoConfirmation.ihtml');
 } else {
   SmartyWrap::assign('definitionId', $definitionId);
-  SmartyWrap::displayWithoutSkin('common/bits/typoForm.ihtml');
+  SmartyWrap::displayWithoutSkin('bits/typoForm.ihtml');
 }
 
 ?>

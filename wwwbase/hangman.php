@@ -76,6 +76,7 @@ SmartyWrap::assign('page_title', 'Spânzurătoarea');
 SmartyWrap::assign('word', $word);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('difficulty', $difficulty);
+SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::addCss('hangman');
 SmartyWrap::addJs('hangman', 'jqnotice');
 SmartyWrap::display("hangman.ihtml");

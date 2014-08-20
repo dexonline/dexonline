@@ -3,23 +3,18 @@
 {** Arguments: id, width and height. Expects corresponding values in the [skin-*] section of dex.conf. **}
 <div id="banner_{$id}">
   {if $adsProvider == 'diverta'}
-    {* TODO: edit openxLocal.ihtml to make this work *}
-    {include file="bits/openxLocal.ihtml" zoneId="140385" params=$adsProviderParams}
-  {elseif $bannerType == 'openx-local'}
-    {assign var="key" value="openxLocal_`$id`"}
-    {include file="bits/openxLocal.ihtml" zoneId=$skinVariables.$key}
+    {* TODO: edit openx.ihtml to make this work *}
+    {include file="bits/openx.ihtml" zoneId="" params=$adsProviderParams}
+  {elseif $bannerType == 'openx'}
+    {assign var="key" value="openx_`$id`"}
+    {if $skinVariables.$key}
+      {include file="bits/openx.ihtml" zoneId=$skinVariables.$key}
+    {/if}
   {elseif $bannerType == 'adsense'}
     {assign var="key" value="adsense_`$id`"}
-    <script type="text/javascript"><!--
-    google_ad_client = "ca-pub-2697300012216849";
-    google_ad_slot = "{$skinVariables.$key.id}";
-    google_ad_width = {$skinVariables.$key.width};
-    google_ad_height = {$skinVariables.$key.height};
-    //-->
-    </script>
-    <script type="text/javascript"
-    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-    </script>
+    {if $skinVariables.$key}
+      {include file="bits/adsense.ihtml" adUnitId=$skinVariables.$key}
+    {/if}
   {elseif $bannerType == 'fake'}
     <div style="background: #761818; color: white; font-size: 20px; height: {$height}px; width: {$width}px;">
       Banner fals

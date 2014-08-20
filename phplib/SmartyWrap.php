@@ -19,7 +19,7 @@ class SmartyWrap {
     self::assign('contact_email', Config::get('global.contact'));
     self::assign('hostedBy', Config::get('global.hostedBy'));
     self::assign('currentYear', date("Y"));
-    self::assign('bannerType', Config::get('global.bannerType'));
+    self::assign('bannerType', Config::get('banner.type'));
     self::assign('developmentMode', Config::get('global.developmentMode'));
     self::assign('isMobile', util_isMobile());
     self::assign('suggestNoBanner', util_suggestNoBanner());

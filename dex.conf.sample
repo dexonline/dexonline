@@ -8,12 +8,6 @@
 ; adsModulesH[] = diverta
 ; adsModulesH[] = someOtherModule
 
-; Type of banner to be served.
-; Banner sizes are dictated by the skin. See templates/bits/banner.ihtml.
-; Choices are "openx-local", "adsense", "fake" or "none".
-; The option "fake" displays a placeholder banner and can be used in development/beta (so as not to steal real impressions from campaigns).
-bannerType = fake
-
 ; Contact email, sprinkled throughout the site
 contact = contact@dexonline.ro
 
@@ -94,21 +88,27 @@ functestDatabase = mysql://root@localhost/DEXtest
 ; Comment this out in production.
 functestLockFile = /tmp/dex-functest
 
-; Skin-specific variables. Necessary if you plan to display banners.
+; Banner settings
+[banner]
+; Type of banner to be served. Choices are "openx", "adsense", "fake" or "none".
+; The option "fake" displays a placeholder banner and can be used in development/beta (so as not to steal real impressions from campaigns).
+type = fake
+
+; Skin-specific variables. Fill in the blanks with AdSense ad unit IDs or OpenX zone IDs.
 [skin-zepu]
-; Display banners after the search box.
-adsense_mainPage = "id=1220723485&width=728&height=90"
-adsense_otherPages = "id=2401834072&width=728&height=90"
-openx_mainPage = 216368
-openx_otherPages = 201501
-openxLocal_mainPage = 1
-openxLocal_otherPages = 2
+adsense_mainPage = ""
+adsense_otherPages = ""
+openx_mainPage = ""
+openx_otherPages = ""
 
 [skin-polar]
-; Display banners at the top of every page
-adsense_otherSkins = "id=2054526829&width=728&height=90"
-openx_otherSkins = 121346
-openxLocal_otherSkins = 3
+adsense_mainPage = ""
+adsense_otherPages = ""
+openx_mainPage = ""
+openx_otherPages = ""
+
+[skin-mobile]
+; No banner here
 
 [limits]
 limitFulltextSearch = 1000

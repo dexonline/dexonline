@@ -16,7 +16,7 @@ contact = contact@dexonline.ro
 database = mysql://root@localhost/DEX
 
 ; Show some debug information when this user is logged in.
-debugUser = reggie
+debugUser = ""
 
 ; True on development installations. Mainly used to hide the Google analytics code
 developmentMode = 0
@@ -131,7 +131,7 @@ wotdArchive = false
 wotdSubscribe = false
 
 [limits]
-limitFulltextSearch = 1000
+limitFulltextSearch = 200
 
 ; Configuration for the Romanian literature crawler
 [crawler]
@@ -215,8 +215,8 @@ imageEmailSender = user@example.com
 password = foobar
 
 ; Image size
-wotdImageHeight = 660
-wotdImageWidth = 454
+wotdImageHeight = 300
+wotdImageWidth = 300
 
 ; We only accept WotD images for days within $interval days of today.
 interval = 5

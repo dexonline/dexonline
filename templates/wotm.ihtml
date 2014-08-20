@@ -20,7 +20,7 @@
 {/if}
 
 {*
-{if !$suggestMinimalist}
+{if $skinVariables.wotdArchive}
   <p class="paragraphTitle">Arhiva cuvintelor lunii</p>
 
   <div id="wotmArchive" class="wotmArchive"></div>

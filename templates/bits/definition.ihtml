@@ -28,7 +28,7 @@
       | Id: {$row->definition->id}
     {/if}
 
-    {if !$suggestMinimalist}
+    {if $skinVariables.typo}
       | <a class="typoLink" id="typoLink-{$row->definition->id}" href="#">Semnalează o greșeală</a>
     {/if}
 
@@ -40,7 +40,7 @@
       {/if}
     {/if}
 
-    {if !$suggestMinimalist}
+    {if $skinVariables.permalink}
       | <a href="{$wwwRoot}definitie/{$row->definition->lexicon}/{$row->definition->id}" title="Link doar către această definiție">Permalink</a>
     {/if}
 

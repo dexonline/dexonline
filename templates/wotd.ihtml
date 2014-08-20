@@ -1,5 +1,8 @@
+{assign var="nextday" value=$cuv|default:false}
+{assign var="prevday" value=$cuv|default:false}
+{assign var="reason" value=$cuv|default:''}
 <div>
-  {if !$suggestMinimalist}
+  {if $skinVariables.wotdSubscribe}
     <div id="wotdSocialMedia">
       <img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"/>
       <a type="application/rss+xml" href="http://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"/></a>
@@ -11,7 +14,7 @@
 </div>
 
   
-{if !$suggestMinimalist}
+{if $skinVariables.wotdSubscribe}
   <div id="toggleContents" class="common-shadow">
     <ul>
   
@@ -51,9 +54,9 @@
 {include file="bits/definition.ihtml" row=$searchResult}
 
 {if $reason}
-<div class="wotdReason">
-<b>Cheia alegerii:</b> {$reason|escape:'html'}
-</div>
+  <div class="wotdReason">
+    <b>Cheia alegerii:</b> {$reason|escape:'html'}
+  </div>
 {/if}
 
 <div id="wotdPrevNext">
@@ -71,7 +74,7 @@
   </div>
 {/if}
 
-{if !$suggestMinimalist}
+{if $skinVariables.wotdArchive}
   <p class="paragraphTitle">Arhiva cuvintelor zilei</p>
 
   <div id="wotdArchive" class="wotdArchive"></div>

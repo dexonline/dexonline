@@ -195,7 +195,7 @@
     {/foreach}
   {/if}
 
-  {if !$suggestMinimalist}
+  {if $skinVariables.typo}
     <div id="typoDiv"></div>
     {literal}
     <script type="text/javascript">

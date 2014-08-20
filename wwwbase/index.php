@@ -9,11 +9,14 @@ if (rand(0, 99) < 50) {
 
 $widgets = Preferences::getWidgets(session_getUser());
 $numEnabledWidgets = array_reduce($widgets, function($result, $w) { return $result + $w['enabled']; });
+$wordCount = Definition::getWordCount();
+$wordCountRough = $wordCount - ($wordCount % 10000);
 
 SmartyWrap::assign('page_title', 'Dicționar explicativ al limbii române');
 SmartyWrap::assign('onHomePage', '1');
 SmartyWrap::assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțuvwxyz'));
-SmartyWrap::assign('words_total', util_formatNumber(Definition::getWordCount(), 0));
+SmartyWrap::assign('words_total', util_formatNumber($wordCount, 0));
+SmartyWrap::assign('words_rough', util_formatNumber($wordCountRough, 0));
 SmartyWrap::assign('words_last_month', util_formatNumber(Definition::getWordCountLastMonth(), 0));
 SmartyWrap::assign('widgets', $widgets);
 SmartyWrap::assign('numEnabledWidgets', $numEnabledWidgets);

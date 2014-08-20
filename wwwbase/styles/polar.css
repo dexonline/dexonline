@@ -79,7 +79,7 @@ span.formPlug {
 #mainMenu li {
   float: left;
   list-style: none;
-  margin-right: 5px;
+  margin-right: 8px;
 }
 
 #mainMenu li a {
@@ -138,12 +138,16 @@ span.formPlug {
   }
 }
 
-#userNick a:after {
-  content: " ▼";
-}
-
 #userMenu li ul li a {
   min-width: 140px;
+}
+
+#userPic {
+  background: url("../img/sprite3.png") -199px -82px no-repeat;
+  float: left;
+  height: 16px;
+  margin-right: 3px;
+  width: 16px;
 }
 
 div.flashMessage {

@@ -149,6 +149,16 @@ img {
   list-style: none;
 }
 
+#mainMenu > li > a:after {
+  content: "▼";
+  margin-left: 3px;
+}
+
+#mainMenu > li.donate-link > a:after {
+  content: "";
+  margin-left: 0px;
+}
+
 #mainMenu > li > a:hover, 
 #userMenu > li > a:hover {
   color: #761818;

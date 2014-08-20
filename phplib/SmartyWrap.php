@@ -31,34 +31,9 @@ class SmartyWrap {
     $skin = session_getSkin();
     self::addCss($skin);
     self::addJs('jquery', 'dex');
-
-    // Set some skin variables based on the skin preferences in the config file.
-    // Also assign some skin-specific variables so we don't compute them unless we need them
-    $skinVariables = Config::getSection("skin-{$skin}");
-    switch ($skin) {
-    case 'zepu':
-      $skinVariables['afterSearchBoxBanner'] = true;
-      $skinVariables['minimalist'] = false;
-      break;
-    case 'polar':
-      $wordCount = Definition::getWordCount();
-      $wordCountRough = $wordCount - ($wordCount % 10000);
-      $skinVariables['afterSearchBoxBanner'] = true;
-      $skinVariables['minimalist'] = false;
-      self::assign('words_total', util_formatNumber($wordCount, 0));
-      self::assign('words_rough', util_formatNumber($wordCountRough, 0));
-      self::assign('words_last_month', util_formatNumber(Definition::getWordCountLastMonth(), 0));
-      break;
-    case 'mobile':
-      self::assign('words_total', util_formatNumber(Definition::getWordCount(), 0));
-      self::assign('words_last_month', util_formatNumber(Definition::getWordCountLastMonth(), 0));
-      $skinVariables['minimalist'] = true;
-      $skinVariables['afterSearchBoxBanner'] = false;
-      self::addJs('mobile');
-      break;
-    }
+    $skinVariables = array_merge(Config::getSection("skin-default"),
+                                 Config::getSection("skin-{$skin}"));
     self::assign('skinVariables', $skinVariables);
-
     self::registerOutputFilters();
     return self::fetch("pageLayout.ihtml");
   }
@@ -133,8 +108,8 @@ class SmartyWrap {
         case 'tablesorter':         self::$cssFiles[4] = 'tablesorter/theme.blue.css'; break;
         case 'elfinder':            self::$cssFiles[5] = 'elfinder/css/elfinder.min.css?v=2'; break;
         case 'windowEngine':        self::$cssFiles[6] = 'jquery-wm/main.css'; break;
-        case 'zepu':                self::$cssFiles[7] = 'zepu.css?v=63'; break;
-        case 'polar':               self::$cssFiles[8] = 'polar.css?v=32'; break;
+        case 'zepu':                self::$cssFiles[7] = 'zepu.css?v=64'; break;
+        case 'polar':               self::$cssFiles[8] = 'polar.css?v=33'; break;
         case 'mobile':              self::$cssFiles[9] = 'mobile.css?v=15'; break;
         case 'flex':                self::$cssFiles[10] = 'flex.css?v=13'; break;
         case 'paradigm':            self::$cssFiles[11] = 'paradigm.css?v=2'; break;
@@ -177,23 +152,22 @@ class SmartyWrap {
         case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js?v=1'; break;
         case 'dex':              self::$jsFiles[13] = 'dex.js?v=29'; break;
         case 'flex':             self::$jsFiles[14] = 'flex.js?v=2'; break;
-        case 'mobile':           self::$jsFiles[15] = 'mobile.js?v=2'; break;
-        case 'hangman':          self::$jsFiles[16] = 'hangman.js?v=5'; break;
-        case 'mill':             self::$jsFiles[17] = 'mill.js?v=3'; break;
-        case 'wotd':             self::$jsFiles[18] = 'wotd.js?v=1'; break;
-        case 'lexemEdit':        self::$jsFiles[19] = 'lexemEdit.js?v=14'; break;
-        case 'jcrop':            self::$jsFiles[20] = 'jquery.Jcrop.min.js?v=2'; break;
-        case 'select2':          self::$jsFiles[21] = 'select2.min.js?v=3'; break;
-        case 'select2Dev':       self::$jsFiles[22] = 'select2Dev.js?v=6'; break;
-        case 'visualTag':        self::$jsFiles[23] = 'visualTag.js'; break;
+        case 'hangman':          self::$jsFiles[15] = 'hangman.js?v=5'; break;
+        case 'mill':             self::$jsFiles[16] = 'mill.js?v=3'; break;
+        case 'wotd':             self::$jsFiles[17] = 'wotd.js?v=1'; break;
+        case 'lexemEdit':        self::$jsFiles[18] = 'lexemEdit.js?v=14'; break;
+        case 'jcrop':            self::$jsFiles[19] = 'jquery.Jcrop.min.js?v=2'; break;
+        case 'select2':          self::$jsFiles[20] = 'select2.min.js?v=3'; break;
+        case 'select2Dev':       self::$jsFiles[21] = 'select2Dev.js?v=6'; break;
+        case 'visualTag':        self::$jsFiles[22] = 'visualTag.js'; break;
         case 'gallery':          
-          self::$jsFiles[24] = 'colorbox/jquery.colorbox-min.js';
-          self::$jsFiles[25] = 'colorbox/jquery.colorbox-ro.js';
-          self::$jsFiles[26] = 'dexGallery.js?v=2';
-          self::$jsFiles[27] = 'jcanvas.min.js';
+          self::$jsFiles[23] = 'colorbox/jquery.colorbox-min.js';
+          self::$jsFiles[24] = 'colorbox/jquery.colorbox-ro.js';
+          self::$jsFiles[25] = 'dexGallery.js?v=2';
+          self::$jsFiles[26] = 'jcanvas.min.js';
           break;
-        case 'modelDropdown':    self::$jsFiles[28] = 'modelDropdown.js'; break;
-        case 'textComplete':     self::$jsFiles[29] = 'jquery.textcomplete.min.js'; break;
+        case 'modelDropdown':    self::$jsFiles[27] = 'modelDropdown.js'; break;
+        case 'textComplete':     self::$jsFiles[28] = 'jquery.textcomplete.min.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

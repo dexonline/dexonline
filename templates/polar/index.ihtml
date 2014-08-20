@@ -13,7 +13,7 @@
   {include file="bits/searchForm.ihtml" advancedSearch=0}
 </div>
 
-{if !$suggestNoBanner && $skinVariables.afterSearchBoxBanner}
+{if !$suggestNoBanner}
   {include file="bits/banner.ihtml" id="mainPage" width="728" height="90"}
 {/if}
 

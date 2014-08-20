@@ -94,6 +94,18 @@ functestLockFile = /tmp/dex-functest
 ; The option "fake" displays a placeholder banner and can be used in development/beta (so as not to steal real impressions from campaigns).
 type = fake
 
+; Default variables for all skins
+[skin-default]
+banner = true
+desktopLink = false
+fbLarge = true
+fullMenu = true
+permalink = true
+searchForm = true
+typo = true
+wotdArchive = true
+wotdSubscribe = true
+
 ; Skin-specific variables. Fill in the blanks with AdSense ad unit IDs or OpenX zone IDs.
 [skin-zepu]
 adsense_mainPage = ""
@@ -108,7 +120,15 @@ openx_mainPage = ""
 openx_otherPages = ""
 
 [skin-mobile]
-; No banner here
+banner = false
+desktopLink = true
+fbLarge = false
+fullMenu = false
+permalink = false
+searchForm = false
+typo = false
+wotdArchive = false
+wotdSubscribe = false
 
 [limits]
 limitFulltextSearch = 1000

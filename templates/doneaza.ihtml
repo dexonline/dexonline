@@ -15,7 +15,9 @@ function formCheck(formobj) {
 </script>
 
 <div class="donateContent">
-  Dacă ați ajuns pe această pagină, probabil că știți deja ce este <i>dexonline</i> (dacă nu, puteți afla de <a href="http://dexonline.ro/informatii#ce_este">aici</a>).<br />
+  Dacă ați ajuns pe această pagină, probabil că știți deja ce este <i>dexonline</i> (dacă nu, puteți afla din
+  <a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii" target="_blank">pagina de informații</a>).<br />
+
   Puteți contribui la dezvoltarea proiectului <i>dexonline</i> și prin donarea unei sume de bani.
 
   <h2>Donează</h2>

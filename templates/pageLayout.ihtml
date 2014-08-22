@@ -48,7 +48,7 @@
           <ul id="mainMenu">
             <li><a href="#" onclick="return false;">Despre noi</a>
               <ul>
-                <li><a href="{$wwwRoot}informatii">Informații</a></li>
+                <li><a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii" target="_blank">Informații</a></li>
                 <li><a href="{$wwwRoot}contact">Contact</a></li>
                 <li><a href="http://dexonline.blogspot.ro">Blogul nostru</a></li>
               </ul>
@@ -102,7 +102,7 @@
         </div>
       {else}
         <div id="menu">
-          <a href="{$wwwRoot}informatii">Informații</a>
+          <a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii" target="_blank">Informații</a>
           <a href="{$wwwRoot}articole">Articole</a>
           <a href="{$wwwRoot}preferinte">Preferințe</a>
         </div>

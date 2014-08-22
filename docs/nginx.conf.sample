@@ -85,7 +85,7 @@ server {
     # Non-search pages
     rewrite ^/404$ /simple.php?p=404 last;
     rewrite ^/contact$ /simple.php?p=contact last;
-    rewrite ^/informatii$ /simple.php?p=faq last;
+    rewrite ^/informatii$ http://wiki.dexonline.ro/wiki/Informații last;
     rewrite ^/legaturi$ /simple.php?p=links last;
     rewrite ^/licenta-gpl$ /simple.php?p=license last;
     rewrite ^/publicitate$ /simple.php?p=ads last;
@@ -109,7 +109,7 @@ server {
     include fastcgi_params;
 
     # Redirect old php pages to new ones (only where we care about the link / pagerank)
-    rewrite ^/faq.php$ /informatii permanent;
+    rewrite ^/faq.php$ http://wiki.dexonline.ro/wiki/Informații permanent;
     rewrite ^/contact.php$ /contact permanent;
     rewrite ^/contrib.php$ /contribuie permanent;
     rewrite ^/corect.php$ /articol/Ghid_de_exprimare_corectă permanent;

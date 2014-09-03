@@ -112,7 +112,8 @@ blockquote {
 
 
 /* Unelte table, Surse table, Licențe table */
-.minimalist-table {
+.minimalist-table,
+.wikiArticle table {
   border-collapse: collapse;
   border: 0;
   margin: 0;
@@ -120,23 +121,29 @@ blockquote {
 }
 
 .minimalist-table tr,
-.minimalist-table td {
+.minimalist-table td,
+.wikiArticle tr,
+.wikiArticle td {
   border: 0;
 }
 
-.minimalist-table td {
+.minimalist-table td,
+.wikiArticle td {
   padding: 2px 10px;
 }
 
-.minimalist-table td:nth-child(even) {
+.minimalist-table td:nth-child(even),
+.wikiArticle td:nth-child(even) {
   background: #F2F2F2;
 }
 
-.minimalist-table td:first-of-type {
+.minimalist-table td:first-of-type,
+.wikiArticle td:first-of-type {
   text-align: left;
 }
 
-.minimalist-table th {
+.minimalist-table th,
+.wikiArticle th {
   background: #FFF;
   border: 0;
   border-bottom: 2px solid #BFBFBF;
@@ -157,7 +164,8 @@ blockquote {
   text-align: center;
 }
 
-.licences td {
+.licences td,
+.wikiArticle td {
   padding: 6px 10px;
 }
 
@@ -205,7 +213,8 @@ span.tooltip2 {
 
 .tools-table.minimalist-table tr,
 .licences.minimalist-table tr,
-#sources.minimalist-table tr {
+#sources.minimalist-table tr,
+.wikiArticle tr {
   border-bottom: 1px solid #DDD;
 }
 

@@ -113,8 +113,9 @@ blockquote {
 
 /* Unelte table, Surse table, Licențe table */
 .minimalist-table {
-  margin: 20px 0;
+  margin: 0;
   border: 0;
+  width: 100%;
 }
 
 .minimalist-table tr,
@@ -145,13 +146,25 @@ blockquote {
 .tools-table {
   font-size: 12px;
   text-align: center;
+  margin: 20px 0;
 }
 
-#sources {
-  width: 100%;
+.licences td {
+  padding-top: 4px;
+  padding-bottom: 6px;
 }
 
-#sources td {
-  text-align: left;
+.licences .sourceShortName {
+  color: #444;
+  background: #DCDCDC;
+  border-radius: 2px;
+  font-size: 80%;
+  margin-left: 10px;
+  padding: 3px 5px;
+}
+
+.licences .author,
+.licences .dictionary-name {
+  max-width: 300px;
 }
 

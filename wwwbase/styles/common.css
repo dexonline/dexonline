@@ -156,7 +156,8 @@ blockquote {
   margin: 20px 0;
 }
 
-.tools-table th {
+.tools-table th,
+#manualTopPager td {
   text-align: center;
 }
 
@@ -185,5 +186,24 @@ span.tooltip2 {
   background: url("../img/icons/information.png") no-repeat;
   display: inline-block;
   width: 16px;
+}
+
+#manualTop,
+#bulkTop {
+  width: 694px;
+  margin: 15px auto;
+}
+
+#manualTopPager img,
+#manualTopPager input {
+  margin-top: 6px;
+}
+
+#manualTopPager select {
+  margin-left: 15px;
+}
+
+.numerical {
+  text-align: right;
 }
 

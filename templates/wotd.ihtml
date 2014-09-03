@@ -13,34 +13,32 @@
   <p class="paragraphTitle">Cuvântul zilei, {$timestamp|date_format:'%e %B %Y'}</p>
 </div>
 
-  
 {if $skinVariables.wotdSubscribe}
   <div id="toggleContents" class="common-shadow">
     <ul>
-  
       <li><b>Email:</b> <i>DEX online</i> nu oferă cuvântul zilei direct prin email. Există însă <a
       href="http://www.google.com/search?q=rss+by+email">numeroase site-uri</a> care fac acest lucru pentru orice RSS. Vă recomandăm <a
       href="http://www.feedmyinbox.com/">feed my inbox</a>:
-  
+
         <ul>
           <li>La <i>Website or Feed URL</i> introduceți <code>http://dexonline.ro/rss/cuvantul-zilei</code></li>
-  	<li>La <i>Your Email Address</i> introduceți adresa dumneavoastră de e-mail</li>
-  	<li>Apăsați <i>Submit</i>
-  	<li>Veți primi un e-mail pentru confirmarea abonării</li>
-  	<li>În continuare veți primi zilnic câte un email cu cuvântul zilei.</li>
+          <li>La <i>Your Email Address</i> introduceți adresa dumneavoastră de e-mail</li>
+          <li>Apăsați <i>Submit</i>
+          <li>Veți primi un e-mail pentru confirmarea abonării</li>
+          <li>În continuare veți primi zilnic câte un email cu cuvântul zilei.</li>
         </ul>
       </li>
-  
+
       <li><b>RSS:</b> Dacă folosiți un cititor de bloguri, puteți adăuga <a href="http://dexonline.ro/rss/cuvantul-zilei">feed-ul pentru cuvântul
       zilei</a> la lista urmărită.</li>
-  
+
       <li><b>Facebook:</b> Cuvântul zilei este publicat automat și pe Facebook. Puteți aprecia <a href="http://www.facebook.com/dexonline">pagina DEX
       online</a> pentru a primi cuvântul zilei cu fluxul dumneavoastră de știri.</li>
-  
+
     </ul>
   </div>
-  
-  <script type="text/javascript"> 
+
+  <script type="text/javascript">
     $(function() {ldelim}
       $('#toggleTitle').click(function() {ldelim}
         $('#toggleContents').slideToggle(200);
@@ -48,9 +46,9 @@
         $('#toggleTitle').toggleClass('toggleClosed');
       {rdelim});
     {rdelim});
-  </script> 
+  </script>
 {/if}
-  
+
 {include file="bits/definition.ihtml" row=$searchResult}
 
 {if $reason}

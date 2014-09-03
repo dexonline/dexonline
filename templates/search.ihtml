@@ -11,6 +11,7 @@
 {assign var="wikiArticles" value=$wikiArticles|default:null}
 {assign var="totalDefinitionsCount" value=$totalDefinitionsCount|default:null}
 {assign var="allDefinitions" value=$allDefinitions|default:null}
+
 {if count($lexems) || count($results) }
   <div class="resultBar">
     {if $searchType == $smarty.const.SEARCH_INFLECTED}
@@ -24,7 +25,7 @@
         O definiție pentru
       {else}
         {if $allDefinitions == 0 && $totalDefinitionsCount}
-          Din <a href="{$smarty.server.REQUEST_URI}/expandat" title="arată toate definițiile">totalul de {$totalDefinitionsCount}</a> sunt afișate  
+          Din <a href="{$smarty.server.REQUEST_URI}/expandat" title="arată toate definițiile">totalul de {$totalDefinitionsCount}</a> sunt afișate 
         {/if}
         {$results|@count} definiții pentru
       {/if}
@@ -39,17 +40,17 @@
           }{if $row_id < count($lexems) - 1},{/if}
         {/foreach}
       {/if}
-  
+
     {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
       {if count($lexems)}
         Cuvântul „{$cuv|escape}” nu a fost găsit, dar am găsit următoarele {$lexems|@count} cuvinte apropiate:
       {/if}
-  
+
     {elseif $searchType == $smarty.const.SEARCH_DEF_ID}
       {if count($results)}
         Definiția cu ID-ul {$defId|escape}:
       {/if}
-  
+
     {elseif $searchType == $smarty.const.SEARCH_REGEXP}
       {if $numResults}
         {if $numResults > count($lexems)}
@@ -58,7 +59,7 @@
           {$numResults} rezultate pentru „{$cuv|escape}”:
         {/if}
       {/if}
-  
+
     {elseif $searchType == $smarty.const.SEARCH_LEXEM_ID}
       {if count($lexems) > 0}
         {if $exclude_unofficial}
@@ -72,7 +73,7 @@
           „{include file="bits/lexemName.ihtml" lexem=$lexems.0}”
         {/if}
       {/if}
-  
+
     {elseif $searchType == $smarty.const.SEARCH_FULL_TEXT}
       {if $numResults == 1}
         O definiție cuprinde toate cuvintele căutate
@@ -83,15 +84,15 @@
       {if $numResults > count($results)}
         (maxim {$results|@count} afișate)
       {/if}
-  
+
     {elseif $searchType == $smarty.const.SEARCH_MULTIWORD}
       {$results|@count} definiții se potrivesc cu cel puțin doi dintre termenii căutați. Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat
       sau puteți căuta <a href="{$wwwRoot}text/{$cuv|escape:url}">în tot corpul definițiilor</a>.
-  
+
     {/if}
-  
+
     &nbsp;
-  
+
     {if $declensionText}
       {if $onlyParadigm}
         {$declensionText}
@@ -126,7 +127,7 @@
   {if !empty($images)}
     {include file="bits/gallery.ihtml" images=$images}
   {/if}
- 
+
   {if $stopWords}
     <span class="stopWords">
       Următoarele cuvinte au fost ignorate deoarece sunt prea comune:
@@ -137,7 +138,7 @@
       </b>
     </span>
   {/if}
-  
+
   {if $ignoredWords}
     <span class="stopWords">
       Sunt permise maxim 5 cuvinte. Următoarele cuvinte au fost ignorate:
@@ -187,7 +188,7 @@
     </script>
     {/literal}
   {/if}
-  
+
   {if $searchType == $smarty.const.SEARCH_APPROXIMATE || $searchType == $smarty.const.SEARCH_REGEXP}
     {foreach from=$lexems item=lexem key=row_id}
       {if $row_id}|{/if}

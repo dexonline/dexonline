@@ -8,14 +8,14 @@
     lingvistice</a>. Meniul <i>Resurse</i> conține o legătură către lista articolelor. La căutarea în <i>DEX online</i> pot apărea legături către
     articolele relevante, acolo unde avem articole mai ample pe marginea cuvântului căutat.
     Intenția noastră este să împărțim acest ghid în articole pe diverse teme și, în timp, să cooptăm lingviști profesioniști pentru a îmbunătăți calitatea articolelor.
-  </div>
+  </p>
 
-  <script type="text/javascript"> 
+  <script type="text/javascript">
     jQuery(document).ready(function() {ldelim}
       jQuery("#guideInfo").hide();
       jQuery("#guideNotice").click(function() {ldelim} jQuery(this).next("#guideInfo").slideToggle(200); {rdelim});
     {rdelim});
-  </script> 
+  </script>
 {/if}
 
 {if $wa}

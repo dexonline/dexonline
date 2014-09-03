@@ -1,30 +1,30 @@
-<div id="Logo">
-  <a href="{$wwwRoot}" class="noBorder">
-    <img src="{$imgRoot}/polar/logo-dexonline.png" alt="DEX online logo"/>
-  </a>
-</div>
-<div id="whoami">
-  <span class="pageTitle">DEX online</span><br/>
-  Dicționare ale limbii române<br/>
-  <span class="formPlug">Peste {$words_rough} de definiții</span>
-</div>
+<section class="site-identity">
+  <div class="site-logo">
+    <a href="{$wwwRoot}" class="noBorder">
+      <img src="{$imgRoot}/polar/logo-dexonline.png" alt="DEX online logo"/>
+    </a>
+  </div>
+  <div class="tagline">
+    <span class="pageTitle">DEX online</span><br/>
+    Dicționare ale limbii române<br/>
+    <span class="formPlug">Peste {$words_rough} de definiții</span>
+  </div>
+</section>
 
-<div id="searchHomePage">
+<section id="searchHomePage">
   {include file="bits/searchForm.ihtml" advancedSearch=0}
-</div>
+</section>
 
 {if !$suggestNoBanner}
   {include file="bits/banner.ihtml" id="mainPage" width="728" height="90"}
 {/if}
 
-<div class="clearer"></div>
-
-<div id="missionStatement">
+<section id="missionStatement">
   DEX online transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
   O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.
   Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.
-</div>
+</section>
 
-<div class="widget wotd">
+<section class="widget wotd">
   {include file="widgets/wotd.ihtml"}
-</div>
+</section>

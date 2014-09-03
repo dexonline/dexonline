@@ -99,6 +99,14 @@ img {
 }
 
 
+/* CONTENT */
+#contentProper {
+  height: 100%;
+  margin: 8px auto;
+  width: 960px;
+}
+
+
 /* BANNER */
 #banner_mainPage {
   margin: 25px auto;
@@ -106,7 +114,7 @@ img {
 }
 
 #banner_otherPages {
-  margin: 0px auto;
+  margin: 0px auto 10px;
   width: 730px;
 }
 
@@ -117,7 +125,7 @@ img {
   border: 1px solid #BFBFBF;
   border-radius: 4px;
   height: 35px;
-  margin: -2px auto 10px;
+  margin: 5px auto 10px;
   padding-left: 15px;
   width: 944px;
 }
@@ -253,14 +261,14 @@ img {
 
 
 /* SITE IDENTITY */
-#Logo {
+.site-logo {
   background: url("../img/sprite3.png") no-repeat; 
   height: 82px;
   margin: 30px auto 5px auto;
   width: 316px;
 }
 
-#whoami {
+.tagline {
   color: #424242;
   font-size: 14px;
   letter-spacing: 1px;
@@ -351,7 +359,6 @@ img {
 }
 
 /* special search*/
-
 #searchFormCuv {
  float: left;
  padding-left: 13px;
@@ -378,17 +385,6 @@ img {
 .sourceCheckboxGroup {
 }
 
-/* CONTAINER */
-#Container {
-  width: 960px;
-  height: 100%;
-  margin: 8px auto;
-}
-
-#contentProper {
-  margin-top: 10px;
-}
-
 
 /* FACEBOOK AND GOOGLE PLUS PLUGIN */
 .fb_top, 
@@ -404,12 +400,12 @@ img {
   font-size: 13px;
   margin: 25px auto 20px;
   text-align: center;
-  width: 640px;
+  width: 650px;
 }
 
 
 /* FOOTER */
-#Footer {
+footer {
   font-size: 12px;
   height: 20px;
   margin: 0px auto;
@@ -418,22 +414,22 @@ img {
   width: 960px;
 }
 
-#Footer ul {
+footer ul {
   list-style-type: none;
   margin: 0px;
   padding: 0px;
 }
 
-#Footer ul li {
+footer ul li {
   display: inline-block;
 }
 
-#Footer li:after {
+footer li:after {
   content: "•";
   margin: 0px 3px;
 }
 
-#Footer li:last-child:after {
+footer li:last-child:after {
   content: "";
   margin: 0px;
 }
@@ -778,7 +774,7 @@ input.pagedisplay {
   border-radius: 4px;
   background: #6B6B6B;
   height: 30px;
-  width: 775px;
+  width: 100%;
   text-align: center;
 }
 
@@ -811,6 +807,10 @@ input.pagedisplay {
   float: right;
   margin-right: 10px;
   margin-top: 5px;
+}
+
+.wotdArchiveTable {
+  width: 100%;
 }
 
 .wotdArchiveTable td {
@@ -901,6 +901,9 @@ input.pagedisplay {
   background: url("../img/icons/bullet_arrow_down.png") no-repeat;
 }
 
+.word-of-the-day {
+  margin-top: 10px;
+}
 /* end word of the day archive */
 
 
@@ -1159,8 +1162,7 @@ li.widgetsPreferences {
 }
 
 
-/****************** Medal stuff *******************/
-
+/* Medal stuff */
 #medalEditDiv {
  display: none;
  margin-bottom: 10px;
@@ -1249,7 +1251,7 @@ li.widgetsPreferences {
 }
 
 
-/* DONATE PAGE */
+/* Donează page */
 span.tooltip2 {
   background: url("../img/icons/information.png") no-repeat;
   display: inline-block;
@@ -1295,6 +1297,7 @@ span.tooltip2 {
 #donateOnlineEmail {
   width: 190px;
 }
+
 .donateContent ul li {
   list-style-type: square;
 }
@@ -1417,5 +1420,4 @@ span.tooltip2 {
 .widgetBox.bend-shadow:after {
   display: none;
 }
-
 

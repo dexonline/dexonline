@@ -2,7 +2,7 @@
   <li>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii</li>
   {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
     <li>Pentru a reordona sursele, apucați de un rând, dar nu de o zonă cu text. La sfârșit, nu uitați să salvați.</li>
-  {/if} 
+  {/if}
 </ul>
 
 <form method="post" action="surse">
@@ -54,9 +54,9 @@
 
 {* Drag-and-drop reordering of rows, only for admins *}
 {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
-  <script type="text/javascript"> 
+  <script type="text/javascript">
     jQuery(document).ready(function() {ldelim}
       $("#sources").tableDnD();
     {rdelim});
-  </script> 
+  </script>
 {/if}

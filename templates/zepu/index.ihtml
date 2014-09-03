@@ -1,16 +1,18 @@
-<div id="Logo"></div>
-<div id="whoami">Dicționare ale limbii române</div>
+<section class="site-identity">
+  <div class="site-logo"></div>
+  <div class="tagline">Dicționare ale limbii române</div>
+</section>
 
-<div id="searchHomePage">
+<section id="searchHomePage">
   {include file="bits/searchForm.ihtml" advancedSearch=0}
-</div>
+</section>
 
 {if !$suggestNoBanner}
   {include file="bits/banner.ihtml" id="mainPage" width="728" height="90"}
 {/if}
 
 {if $numEnabledWidgets}
-  <div class="widgetBox bend-shadow">
+  <section class="widgetBox bend-shadow">
   	<ul class="widgetList">
       {foreach from=$widgets item=params}
         {if $params.enabled}
@@ -22,13 +24,11 @@
         <a href="preferinte">personalizare elemente</a>
       </li>
   	</ul>
-  </div>
+  </section>
 {/if}
 
-<div class="clearer"></div>
-
-<div id="missionStatement">
+<section id="missionStatement">
   DEX online transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
   O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.<br>
   Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.
-</div>
+</section>

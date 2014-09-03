@@ -12,7 +12,7 @@
       <label>Vieți rămase: <span id="livesLeft">6</span></label>
       <div class="hangmanPic"> </div>
       <div class="imageLicense">imagini © dexonline.ro</div>
-      
+
       <div class="output">
         {section name="ignored" start=0 loop=$wordLength}
           <input style="width:15pt" class="letters" name="out[]" type="text" readonly="readonly" size="1" value="" />

@@ -1,5 +1,4 @@
 <br/>
-
 <form action="scrabble-loc" method="get">
   Versiunea LOC:
   <select name="locVersion">

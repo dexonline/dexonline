@@ -22,7 +22,6 @@
     Se poate juca și cu tastatura folosind tastele: 1, 2, 3, 4.
   </div>
 
-
   <div id="questionPage">
     {section name=round start=1 loop=11} {* Yes, Smarty, 11 means 10 *}
         <span class="questionImage">
@@ -42,13 +41,11 @@
 
   <div id="resultsPage">
     <p>Felicitări! Ai răspuns corect la <b id="answeredCorrect">0</b> definiții din 10.</p>
-    
     <button id="newGameButton" class="btn">Joc nou</button>
     <button id="definitionsButton" class="btn">Vezi toate definițiile</button>
-    
   </div>
 
-    <div id="definitionsSection">
-    </div>
+  <div id="definitionsSection">
+  </div>
 
 </div>

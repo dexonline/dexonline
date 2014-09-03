@@ -15,7 +15,7 @@
     <tr>
       <td><p class="labelContribute">Cuvântul definit:</p></td>
       <td>
-        <input id="lexemIds" name="lexemIds" value="{','|implode:$lexemIds}" type="text"/>        
+        <input id="lexemIds" name="lexemIds" value="{','|implode:$lexemIds}" type="text"/>
       </td>
     </tr>
 

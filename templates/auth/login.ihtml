@@ -3,7 +3,7 @@
 <form name="loginForm" method="post" action="{$wwwRoot}auth/login">
   OpenID:
   <input type="text" name="openid" value="{$openid}" size="50"/>
-  <input type=submit id="login" name="submitButton" value="Autentificare"/>  
+  <input type=submit id="login" name="submitButton" value="Autentificare"/>
 </form>
 <br/>
 

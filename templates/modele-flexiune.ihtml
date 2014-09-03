@@ -1,6 +1,5 @@
 {assign var="modelsToDisplay" value=$modelsToDisplay|default:null}
 <br/>
-
 <form action="modele-flexiune" method="get">
   <span data-model-dropdown>
     Versiunea LOC:

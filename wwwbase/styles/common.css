@@ -128,10 +128,6 @@ blockquote {
   padding: 2px 10px;
 }
 
-.minimalist-table tr {
-  border-bottom: 1px solid #DDD;
-}
-
 .minimalist-table td:nth-child(even) {
   background: #F2F2F2;
 }
@@ -205,5 +201,16 @@ span.tooltip2 {
 
 .numerical {
   text-align: right;
+}
+
+.tools-table.minimalist-table tr,
+.licences.minimalist-table tr,
+#sources.minimalist-table tr {
+  border-bottom: 1px solid #DDD;
+}
+
+#manualTop.minimalist-table tr:nth-child(3n),
+#bulkTop.minimalist-table tr:nth-child(3n) {
+  border-bottom: 1px solid #DDD;
 }
 

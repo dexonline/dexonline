@@ -137,11 +137,13 @@ blockquote {
 }
 
 .minimalist-table th {
-  font-weight: normal;
-  vertical-align: bottom;
   background: #FFF;
   border: 0;
   border-bottom: 2px solid #BFBFBF;
+  font-weight: normal;
+  padding: 2px 10px;
+  text-align: left;
+  vertical-align: bottom;
 }
 
 .tools-table {
@@ -150,9 +152,12 @@ blockquote {
   margin: 20px 0;
 }
 
+.tools-table th {
+  text-align: center;
+}
+
 .licences td {
-  padding-top: 4px;
-  padding-bottom: 6px;
+  padding: 4px 10px 6px;
 }
 
 .licences .sourceShortName {

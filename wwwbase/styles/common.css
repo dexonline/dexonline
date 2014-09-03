@@ -106,37 +106,52 @@ blockquote {
   box-shadow: 5px 5px 10px #555;
 }
 
+.pop-up-shadow {
+  min-width: 500px;
+}
 
-/* Unelte table */
-.tools-table {
-  font-size: 12px;
+
+/* Unelte table, Surse table, Licențe table */
+.minimalist-table {
   margin: 20px 0;
   border: 0;
-  text-align: center;
 }
 
-.tools-table tr,
-.tools-table td {
+.minimalist-table tr,
+.minimalist-table td {
   border: 0;
 }
 
-.tools-table tr {
+.minimalist-table tr {
   border-bottom: 1px solid #DDD;
 }
 
-.tools-table td:nth-child(even) {
+.minimalist-table td:nth-child(even) {
   background: #F2F2F2;
 }
 
-.tools-table td:first-of-type {
+.minimalist-table td:first-of-type {
   text-align: left;
 }
 
-.tools-table th {
+.minimalist-table th {
   font-weight: normal;
   vertical-align: bottom;
   background: #FFF;
   border: 0;
   border-bottom: 2px solid #BFBFBF;
+}
+
+.tools-table {
+  font-size: 12px;
+  text-align: center;
+}
+
+#sources {
+  width: 100%;
+}
+
+#sources td {
+  text-align: left;
 }
 

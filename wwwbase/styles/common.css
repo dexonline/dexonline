@@ -113,8 +113,9 @@ blockquote {
 
 /* Unelte table, Surse table, Licențe table */
 .minimalist-table {
-  margin: 0;
+  border-collapse: collapse;
   border: 0;
+  margin: 0;
   width: 100%;
 }
 
@@ -166,5 +167,11 @@ blockquote {
 .licences .author,
 .licences .dictionary-name {
   max-width: 300px;
+}
+
+span.tooltip2 {
+  background: url("../img/icons/information.png") no-repeat;
+  display: inline-block;
+  width: 16px;
 }
 

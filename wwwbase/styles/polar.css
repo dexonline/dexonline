@@ -521,12 +521,6 @@ span.sourceName:hover span {
   z-index: 99;
 }
 
-span.sourceShortName {
-  color: #444;
-  font-size: 80%;
-  padding-left: 10px;
-}
-
 #sources td {
   text-align: left;
 }

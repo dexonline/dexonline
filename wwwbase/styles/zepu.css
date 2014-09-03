@@ -960,10 +960,6 @@ span.sourceName:hover span {
   z-index: 99;
 }
 
-span.sourceShortName {
-  color: #444;
-}
-
 div.sourceComplete {
   margin: 0px auto;
 }

@@ -124,6 +124,10 @@ blockquote {
   border: 0;
 }
 
+.minimalist-table td {
+  padding: 2px 10px;
+}
+
 .minimalist-table tr {
   border-bottom: 1px solid #DDD;
 }
@@ -157,11 +161,14 @@ blockquote {
 }
 
 .licences td {
-  padding: 4px 10px 6px;
+  padding: 6px 10px;
+}
+
+.sourceShortName {
+  color: #444;
 }
 
 .licences .sourceShortName {
-  color: #444;
   background: #DCDCDC;
   border-radius: 2px;
   font-size: 80%;

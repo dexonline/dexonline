@@ -141,7 +141,7 @@ class SmartyWrap {
           self::$jsFiles[4] = 'jquery.jqGrid.min.js?v=3';
           break;
         case 'jqnotice':         self::$jsFiles[5] = 'jquery.notice.js'; break;
-        case 'jqTableDnd':       self::$jsFiles[6] = 'jquery.tablednd.0.7.min.js?v=1'; break;
+        case 'jqTableDnd':       self::$jsFiles[6] = 'jquery.tablednd.0.8.min.js?v=1'; break;
         case 'tablesorter':
           self::$jsFiles[7] = 'jquery.tablesorter.min.js?v=4';
           self::$jsFiles[8] = 'tablesorter.dev.js?v=3';

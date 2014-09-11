@@ -1,6 +1,6 @@
-{assign var="nextday" value=$cuv|default:false}
-{assign var="prevday" value=$cuv|default:false}
-{assign var="reason" value=$cuv|default:''}
+{assign var="nextday" value=$nextday|default:false}
+{assign var="prevday" value=$prevday|default:false}
+{assign var="reason" value=$reason|default:''}
 <div>
   {if $skinVariables.wotdSubscribe}
     <div id="wotdSocialMedia">

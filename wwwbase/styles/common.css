@@ -106,37 +106,120 @@ blockquote {
   box-shadow: 5px 5px 10px #555;
 }
 
+.pop-up-shadow {
+  min-width: 500px;
+}
 
-/* Unelte table */
-.tools-table {
-  font-size: 12px;
-  margin: 20px 0;
+
+/* Unelte table, Surse table, Licențe table */
+.minimalist-table,
+.wikiArticle table {
+  border-collapse: collapse;
   border: 0;
-  text-align: center;
+  margin: 0;
+  width: 100%;
 }
 
-.tools-table tr,
-.tools-table td {
+.minimalist-table tr,
+.minimalist-table td,
+.wikiArticle tr,
+.wikiArticle td {
   border: 0;
 }
 
-.tools-table tr {
-  border-bottom: 1px solid #DDD;
+.minimalist-table td,
+.wikiArticle td {
+  padding: 2px 10px;
 }
 
-.tools-table td:nth-child(even) {
+.minimalist-table td:nth-child(even),
+.wikiArticle td:nth-child(even) {
   background: #F2F2F2;
 }
 
-.tools-table td:first-of-type {
+.minimalist-table td:first-of-type,
+.wikiArticle td:first-of-type {
   text-align: left;
 }
 
-.tools-table th {
-  font-weight: normal;
-  vertical-align: bottom;
+.minimalist-table th,
+.wikiArticle th {
   background: #FFF;
   border: 0;
   border-bottom: 2px solid #BFBFBF;
+  font-weight: normal;
+  padding: 2px 10px;
+  text-align: left;
+  vertical-align: bottom;
+}
+
+.tools-table {
+  font-size: 12px;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.tools-table th,
+#manualTopPager td {
+  text-align: center;
+}
+
+.licences td,
+.wikiArticle td {
+  padding: 6px 10px;
+}
+
+.sourceShortName {
+  color: #444;
+}
+
+.licences .sourceShortName {
+  background: #DCDCDC;
+  border-radius: 2px;
+  font-size: 80%;
+  margin-left: 10px;
+  padding: 3px 5px;
+}
+
+.licences .author,
+.licences .dictionary-name {
+  max-width: 300px;
+}
+
+span.tooltip2 {
+  background: url("../img/icons/information.png") no-repeat;
+  display: inline-block;
+  width: 16px;
+}
+
+#manualTop,
+#bulkTop {
+  width: 694px;
+  margin: 15px auto;
+}
+
+#manualTopPager img,
+#manualTopPager input {
+  margin-top: 6px;
+}
+
+#manualTopPager select {
+  margin-left: 15px;
+}
+
+.numerical {
+  text-align: right;
+}
+
+.tools-table.minimalist-table tr,
+.licences.minimalist-table tr,
+#sources.minimalist-table tr,
+.wikiArticle tr {
+  border-bottom: 1px solid #DDD;
+}
+
+#manualTop.minimalist-table tr:nth-child(3n),
+#bulkTop.minimalist-table tr:nth-child(3n) {
+  border-bottom: 1px solid #DDD;
 }
 

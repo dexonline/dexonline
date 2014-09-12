@@ -960,16 +960,6 @@ span.sourceName:hover span {
   z-index: 99;
 }
 
-span.sourceShortName {
-  color: #444;
-  font-size: 80%;
-  padding-left: 10px;
-}
-
-#sources td {
-  text-align: left;
-}
-
 div.sourceComplete {
   margin: 0px auto;
 }
@@ -1252,12 +1242,6 @@ li.widgetsPreferences {
 
 
 /* Donează page */
-span.tooltip2 {
-  background: url("../img/icons/information.png") no-repeat;
-  display: inline-block;
-  width: 16px;
-}
-
 .donateContent {
   padding: 0px 15px;
   line-height: 17px;

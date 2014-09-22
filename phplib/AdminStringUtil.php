@@ -16,7 +16,8 @@ class AdminStringUtil {
 
   private static $ILLEGAL_NAME_CHARS = '!@#$%^&*()_+=\\|[]{},.<>/?;:\'"`~0123456789';
 
-  private static $ABBREVS = null; // Will be loaded lazily
+  private static $ABBREV_INDEX = null; // These will be loaded lazily
+  private static $ABBREVS = array();
 
   private static function process($s, $ops) {
     foreach ($ops as $op) {
@@ -511,28 +512,39 @@ class AdminStringUtil {
     return $result;
   }
 
-  static function loadRawAbbreviations() {
-    return parse_ini_file(util_getRootPath() . "docs/abbrev.conf", true);
+  /**
+   * Creates a map of $sourceId => array of sections to use.
+   * Each section resides in a file named docs/abbrev/<section>.conf (these are loaded lazily).
+   */
+  static function loadAbbreviationsIndex() {
+    if (!self::$ABBREV_INDEX) {
+      self::$ABBREV_INDEX = array();
+      $raw = parse_ini_file(util_getRootPath() . "docs/abbrev/abbrev.conf", true);
+      foreach ($raw['sources'] as $sourceId => $sectionList) {
+        self::$ABBREV_INDEX[$sourceId] = preg_split('/, */', $sectionList);
+      }
+    }
   }
 
   /**
-   * Creates a map($sourceId => map($from, pair($to, $ambiguous))).
+   * Creates and caches a map($from, pair($to, $ambiguous)) for this sourceId.
    * That is, for each sourceId and abbreviated text, we store the expanded text and whether the abbreviation is ambiguous.
    * An ambigious abbreviation such as "top" or "gen" also has a meaning as an inflected form.
    * Ambiguous abbreviations should be expanded carefully, or with human approval.
    */
-  private static function loadAbbreviations() {
-    if (!self::$ABBREVS) {
-      $raw = self::loadRawAbbreviations();
+  private static function loadAbbreviations($sourceId) {
+    if (!array_key_exists($sourceId, self::$ABBREVS)) {
+      self::loadAbbreviationsIndex();
       $result = array();
-      foreach ($raw['sources'] as $sourceId => $sectionList) {
-        $sections = preg_split('/, */', $sectionList);
+
+      if (array_key_exists($sourceId, self::$ABBREV_INDEX)) {
         $list = array();
-        foreach ($sections as $section) {
+        foreach (self::$ABBREV_INDEX[$sourceId] as $section) {
+          $raw = parse_ini_file(util_getRootPath() . "docs/abbrev/{$section}.conf", true);
           // If an abbreviation is defined in several sections, use the one that's defined later
           $list = array_merge($list, $raw[$section]);
         }
-        $result[$sourceId] = array();
+
         foreach ($list as $from => $to) {
           $ambiguous = ($from[0] == '*');
           if ($ambiguous) {
@@ -542,14 +554,15 @@ class AdminStringUtil {
           $regexp = str_replace(array('.', ' '), array("\\.", ' *'), $from);
           $pattern = "[^-a-zăâîșțáéíóúA-ZĂÂÎȘȚÁÉÍÓÚ.]({$regexp})([^-a-zăâîșțáéíóúA-ZĂÂÎȘȚÁÉÍÓÚ.]|$)";
           $hasCaps = ($from !== mb_strtolower($from));
-          $result[$sourceId][$from] = array('to' => $to, 'ambiguous' => $ambiguous, 'regexp' => $pattern, 'numWords' => $numWords, 'hasCaps' => $hasCaps);
+          $result[$from] = array('to' => $to, 'ambiguous' => $ambiguous, 'regexp' => $pattern, 'numWords' => $numWords, 'hasCaps' => $hasCaps);
         }
+
         // Sort the list by number of words, then by ambiguous
-        uasort($result[$sourceId], 'self::abbrevCmp');
+        uasort($result, 'self::abbrevCmp');
       }
-      self::$ABBREVS = $result;
+      self::$ABBREVS[$sourceId] = $result;
     }
-    return self::$ABBREVS;
+    return self::$ABBREVS[$sourceId];
   }
 
   private static function abbrevCmp($a, $b) {
@@ -563,14 +576,11 @@ class AdminStringUtil {
   }
 
   static function markAbbreviations($s, $sourceId, &$ambiguousMatches = null) {
-    $abbrevs = self::loadAbbreviations();
+    $abbrevs = self::loadAbbreviations($sourceId);
     $hashMap = self::constructHashMap($s);
-    if (!array_key_exists($sourceId, $abbrevs)) {
-      return $s;
-    }
     // Do not report two ambiguities at the same position, for example M. and m.
     $positionsUsed = array();
-    foreach ($abbrevs[$sourceId] as $from => $tuple) {
+    foreach ($abbrevs as $from => $tuple) {
       $matches = array();
       // Perform a case-sensitive match if the pattern contains any uppercase, case-insensitive otherwise
       $modifier = $tuple['hasCaps'] ? "" : "i";
@@ -631,20 +641,16 @@ class AdminStringUtil {
   }
 
   private static function htmlizeAbbreviations($s, $sourceId, &$errors = null) {
-    $abbrevs = self::loadAbbreviations();
-    if (!array_key_exists($sourceId, $abbrevs)) {
-      return $s;
-    }
-
+    $abbrevs = self::loadAbbreviations($sourceId);
     $matches = array();
     preg_match_all("/#([^#]*)#/", $s, $matches, PREG_OFFSET_CAPTURE);
     if (count($matches[1])) {
       foreach (array_reverse($matches[1]) as $match) {
         $from = $match[0];
-        $matchingKey = self::bestAbbrevMatch($from, $abbrevs[$sourceId]);
+        $matchingKey = self::bestAbbrevMatch($from, $abbrevs);
         $position = $match[1];
         if ($matchingKey) {
-          $hint =  $abbrevs[$sourceId][$matchingKey]['to'];
+          $hint =  $abbrevs[$matchingKey]['to'];
         } else {
           $hint =  'abreviere necunoscută';
           if ($errors !== null) {
@@ -658,20 +664,16 @@ class AdminStringUtil {
   }
 
   public static function expandAbbreviations($s, $sourceId) {
-    $abbrevs = self::loadAbbreviations();
-    if (!array_key_exists($sourceId, $abbrevs)) {
-      return $s;
-    }
-
+    $abbrevs = self::loadAbbreviations($sourceId);
     $matches = array();
     preg_match_all("/#([^#]*)#/", $s, $matches, PREG_OFFSET_CAPTURE);
     if (count($matches[1])) {
       foreach (array_reverse($matches[1]) as $match) {
         $from = $match[0];
-        $matchingKey = self::bestAbbrevMatch($from, $abbrevs[$sourceId]);
+        $matchingKey = self::bestAbbrevMatch($from, $abbrevs);
         $position = $match[1];
         if ($matchingKey) {
-          $to =  $abbrevs[$sourceId][$matchingKey]['to'];
+          $to =  $abbrevs[$matchingKey]['to'];
           $s = substr_replace($s, $to, $position - 1, 2 + strlen($from));
         }
       }
@@ -680,10 +682,8 @@ class AdminStringUtil {
   }
 
   static function getAbbreviation($sourceId, $short) {
-    $abbrevs = self::loadAbbreviations();
-    return array_key_exists($sourceId, $abbrevs) && array_key_exists($short, $abbrevs[$sourceId])
-      ? $abbrevs[$sourceId][$short]['to']
-      : null;
+    $abbrevs = self::loadAbbreviations($sourceId);
+    return array_key_exists($short, $abbrevs) ? $abbrevs[$short]['to'] : null;
   }
 
   // Returns the numeric value of a Roman numeral or null on errors

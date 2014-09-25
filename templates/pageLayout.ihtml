@@ -31,15 +31,15 @@
 
   <body {if !$onHomePage}class="secondary"{/if}>
     {if $skinVariables.fullMenu}
-      <header id="menu" class="bend-shadow">
+      <header id="menu" class="bendShadow">
         {if !$onHomePage}
           <a href="{$wwwRoot}" id="homeLink" title="Pagina principală DEX online"></a>
         {/if}
         <div class="socialPlugins">
-          <div class="fb_top">
+          <div class="fbTop">
             <iframe src="http://www.facebook.com/plugins/like.php?ref=zepu_home&locale=en_US&app_id=225575497453880&amp;href=http%3A%2F%2Ffacebook.com%2Fdexonline&&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
           </div>
-          <div class="plus_top">
+          <div class="plusTop">
             <script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
             <g:plusone size="medium" href="http://dexonline.ro"></g:plusone>
           </div>
@@ -72,7 +72,7 @@
             </ul>
           </li>
           {if !$suggestNoBanner && !$suggestHiddenSearchForm}
-            <li class="donate-link"><a href="{$wwwRoot}doneaza">Donează</a></li>
+            <li class="donateLink"><a href="{$wwwRoot}doneaza">Donează</a></li>
           {/if}
           {if $isMobile}
             <li id="mobileLink"><a href="{$wwwRoot}mobil">Versiunea pentru mobil</a></li>

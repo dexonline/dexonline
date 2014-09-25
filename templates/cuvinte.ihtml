@@ -23,7 +23,7 @@
     </div>
   
     <div>
-      <input type="submit" value="caută" id="search_button"/>
+      <input type="submit" value="caută" id="searchButton"/>
     </div>
     
   </form>

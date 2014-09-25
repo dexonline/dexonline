@@ -1,5 +1,5 @@
-<section class="site-identity">
-  <div class="site-logo"></div>
+<section class="siteIdentity">
+  <div class="siteLogo"></div>
   <div class="tagline">Dicționare ale limbii române</div>
 </section>
 
@@ -8,11 +8,11 @@
 </section>
 
 {if !$suggestNoBanner}
-  {include file="bits/banner.ihtml" id="mainPage" width="728" height="90"}
+  {include file="bits/banner.ihtml" id="MainPage" width="728" height="90"}
 {/if}
 
 {if $numEnabledWidgets}
-  <section class="widgetBox bend-shadow">
+  <section class="widgetBox bendShadow">
   	<ul class="widgetList">
       {foreach from=$widgets item=params}
         {if $params.enabled}

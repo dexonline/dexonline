@@ -114,7 +114,7 @@ span.formPlug {
   width: auto;
 }
 
-#mainMenu .donate-link {
+#mainMenu .donateLink {
   background: #DCF0FF;
   border: 1px solid #00F;
   padding: 10px;
@@ -123,7 +123,7 @@ span.formPlug {
   right: 0%;
 }
 
-#mainMenu li.donate-link a {
+#mainMenu .donateLink a {
   background: url("../img/icons/coins.png") 67px 0px no-repeat;
   color: #00E;
   font-size: 14px;
@@ -133,7 +133,7 @@ span.formPlug {
 }
 
 @media (max-width: 1024px) {
-  #mainMenu .donate-link {
+  #mainMenu .donateLink {
     top: 18%;
   }
 }
@@ -627,7 +627,7 @@ div.sourceComplete5 {
   width: 216px;
 }
 
-.site-logo {
+.siteLogo {
   display: inline-block;
   position: relative;
   top: -86px;
@@ -678,14 +678,14 @@ div.sourceComplete5 {
   left: -110px;
 }
 
-#search_button {
+#searchButton {
   position: relative;
   top: -26px;
   left: 330px;
   box-shadow: none;
 }
 
-#inlineBlock1 {
+.searchField {
   margin-left: 5px;
   margin-top: 5px;
 }
@@ -695,7 +695,7 @@ div.sourceComplete5 {
   display: none;
 }
 
-#banner_mainPage {
+#bannerMainPage {
   position: relative;
   top: -125px;
   width: 728px;

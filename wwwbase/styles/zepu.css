@@ -108,7 +108,7 @@ img {
 
 
 /* BANNER */
-#banner_mainPage {
+#bannerMainPage {
   margin: 25px auto;
   width: 730px;
 }
@@ -162,7 +162,7 @@ img {
   margin-left: 3px;
 }
 
-#mainMenu > li.donate-link > a:after {
+#mainMenu > .donateLink > a:after {
   content: "";
   margin-left: 0px;
 }
@@ -215,7 +215,7 @@ img {
   text-decoration: underline;
 }
 
-#mainMenu .donate-link {
+#mainMenu .donateLink {
   background: #E4EFF7;
   background-image: -webkit-linear-gradient(left, #C5D3DD, #F2F9FD);
   background-image: -moz-linear-gradient(left, #C5D3DD,#F2F9FD);
@@ -230,7 +230,7 @@ img {
   left: 0%;
 }
 
-#mainMenu li.donate-link a {
+#mainMenu .donateLink a {
   background: url("../img/icons/coins.png") 63px 3px no-repeat;
   color: #761818;
   font-size: 14px;
@@ -239,7 +239,7 @@ img {
 }
 
 @media (max-width: 1024px) {
-  #mainMenu .donate-link {
+  #mainMenu .donateLink {
     top: 18%;
   }
 }
@@ -252,8 +252,8 @@ img {
   width: 960px;
 } 
 
-.fb_top, 
-.plus_top {
+.fbTop,
+.plusTop {
   float: right;
   margin-top: -3px;
   padding: 10px 0px;
@@ -261,7 +261,7 @@ img {
 
 
 /* SITE IDENTITY */
-.site-logo {
+.siteLogo {
   background: url("../img/sprite3.png") no-repeat; 
   height: 82px;
   margin: 30px auto 5px auto;
@@ -296,7 +296,7 @@ img {
   width: 550px;
 }
 
-#search_button {
+#searchButton {
   background: #761818;
   border: 0px; /* border: 0px, otherwise it draws a gray border around button */
   border-radius: 4px;
@@ -310,7 +310,7 @@ img {
   width: 56px;
 }
 
-#search_button:hover {
+#searchButton:hover {
   background: #5A0707;
 }
 
@@ -327,21 +327,21 @@ img {
   margin: 10px 0px 0px;
 }
 
-#inlineBlock1{
+.searchTextField {
   width: 360px;
   display: inline;
   float: left;
   margin-right: 2px;
 }
 
-#inlineBlock2{
+.searchButtons {
   width: 190px;
   display: inline; 
   float: left;
   margin-right: 1px;
 }
 
-.search_field {
+.searchField {
   border: 1px solid #761818;
   border-radius: 4px;
   font: 18px Arial;
@@ -350,7 +350,7 @@ img {
   width: 352px;
 }
 
-.search_field:focus {
+.searchField:focus {
   outline-style: none; /* Chrome */  
 }
 
@@ -1104,7 +1104,7 @@ li.widgetsPreferences {
 /* align banner to the left only on small resolutions;
    adjust widget box size from homepage, on small resolutions */
 @media screen and (max-width: 1093px) {
-  #banner_mainPage {
+  #bannerMainPage {
     margin-left: 0px;
   }
 
@@ -1135,7 +1135,7 @@ li.widgetsPreferences {
     width: 470px;
   }
 
-  #banner_mainPage {
+  #bannerMainPage {
     margin-left: 40px;
   }
 }
@@ -1146,7 +1146,7 @@ li.widgetsPreferences {
     display: none;
   }
 
-  #banner_mainPage {
+  #bannerMainPage {
     margin-left: 71px;
   }
 }
@@ -1352,12 +1352,12 @@ li.widgetsPreferences {
 
 
 /* CSS shadow */
-.bend-shadow {
+.bendShadow {
   position: relative;
 }
 
-.bend-shadow:before,
-.bend-shadow:after {
+.bendShadow:before,
+.bendShadow:after {
   content: "";
   position: absolute;
   z-index: -1;
@@ -1370,7 +1370,7 @@ li.widgetsPreferences {
   box-shadow: 0 8px 3px #AAA;
 }
 
-.bend-shadow:before {
+.bendShadow:before {
   -webkit-transform: rotate(356deg);
   -moz-transform: rotate(356deg);
   -o-transform: rotate(356deg);
@@ -1378,7 +1378,7 @@ li.widgetsPreferences {
   left: 6px;
 }
 
-.bend-shadow:after {
+.bendShadow:after {
   -webkit-transform: rotate(4deg);
   -moz-transform: rotate(4deg);
   -o-transform: rotate(4deg);
@@ -1386,22 +1386,22 @@ li.widgetsPreferences {
   right: 6px;
 }
 
-.tiny-shadow:before,
-.tiny-shadow:after {
+.tinyShadow:before,
+.tinyShadow:after {
   width: 100px;
   bottom: 6px;
 }
 
-.widgetBox.bend-shadow {
+.widgetBox.bendShadow {
   position: absolute;
 }
 
-.widgetBox.bend-shadow:before {
+.widgetBox.bendShadow:before {
   bottom: 20px;
   width: 170px;
 }
 
-.widgetBox.bend-shadow:after {
+.widgetBox.bendShadow:after {
   display: none;
 }
 

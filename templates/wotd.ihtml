@@ -14,7 +14,7 @@
 </div>
 
 {if $skinVariables.wotdSubscribe}
-  <div id="toggleContents" class="common-shadow">
+  <div id="toggleContents" class="commonShadow">
     <ul>
       <li><b>Email:</b> <i>DEX online</i> nu oferă cuvântul zilei direct prin email. Există însă <a
       href="http://www.google.com/search?q=rss+by+email">numeroase site-uri</a> care fac acest lucru pentru orice RSS. Vă recomandăm <a

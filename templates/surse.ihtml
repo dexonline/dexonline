@@ -6,7 +6,7 @@
 </ul>
 
 <form method="post" action="surse">
-  <table id="sources" class="minimalist-table">
+  <table id="sources" class="minimalistTable">
     <tr>
       <th class="abbreviation">Nume scurt</th>
       <th class="nick">Nume</th>

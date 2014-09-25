@@ -112,7 +112,7 @@ blockquote {
 
 
 /* Unelte table, Surse table, Licențe table */
-.minimalist-table,
+.minimalistTable,
 .wikiArticle table {
   border-collapse: collapse;
   border: 0;
@@ -120,29 +120,29 @@ blockquote {
   width: 100%;
 }
 
-.minimalist-table tr,
-.minimalist-table td,
+.minimalistTable tr,
+.minimalistTable td,
 .wikiArticle tr,
 .wikiArticle td {
   border: 0;
 }
 
-.minimalist-table td,
+.minimalistTable td,
 .wikiArticle td {
   padding: 2px 10px;
 }
 
-.minimalist-table td:nth-child(even),
+.minimalistTable td:nth-child(even),
 .wikiArticle td:nth-child(even) {
   background: #F2F2F2;
 }
 
-.minimalist-table td:first-of-type,
+.minimalistTable td:first-of-type,
 .wikiArticle td:first-of-type {
   text-align: left;
 }
 
-.minimalist-table th,
+.minimalistTable th,
 .wikiArticle th {
   background: #FFF;
   border: 0;
@@ -153,13 +153,13 @@ blockquote {
   vertical-align: bottom;
 }
 
-.tools-table {
+.toolsTable {
   font-size: 12px;
   text-align: center;
   margin: 20px 0;
 }
 
-.tools-table th,
+.toolsTable th,
 #manualTopPager td {
   text-align: center;
 }
@@ -211,15 +211,15 @@ span.tooltip2 {
   text-align: right;
 }
 
-.tools-table.minimalist-table tr,
-.licences.minimalist-table tr,
-#sources.minimalist-table tr,
+.toolsTable.minimalistTable tr,
+.licences.minimalistTable tr,
+#sources.minimalistTable tr,
 .wikiArticle tr {
   border-bottom: 1px solid #DDD;
 }
 
-#manualTop.minimalist-table tr:nth-child(3n),
-#bulkTop.minimalist-table tr:nth-child(3n) {
+#manualTop.minimalistTable tr:nth-child(3n),
+#bulkTop.minimalistTable tr:nth-child(3n) {
   border-bottom: 1px solid #DDD;
 }
 

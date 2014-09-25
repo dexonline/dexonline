@@ -337,15 +337,16 @@ th.headerSortDown {
   border-top: 1px solid #CCCCCC;
 }
 
-.fb_bottom, .plus_bottom {
+.fbBottom,
+.plusBottom {
   padding-top: 15px;
 }
 
-.fb_bottom {
+.fbBottom {
   display: none; /* there are 2 Facebook plugins, we'll keep the smaller one */
 }
 
-.plus_bottom {
+.plusBottom {
   display: inline;
 }
 
@@ -651,19 +652,8 @@ div.sourceComplete5 {
 }
 
 .socialPlugins {
-  /*bottom: 110px;
-  border-top: 1px solid #DDD;
-  border-bottom: 1px solid #DDD;
-  padding: 5px 5px 0px;
-  position: absolute;
-  width: 875px;*/
   display: none;
 }
-
-/*.fb_top,
-.plus_top {
-  display: inline-block;
-}*/
 
 #advSearch {
   display: block !important;

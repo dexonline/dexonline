@@ -113,7 +113,7 @@ img {
   width: 730px;
 }
 
-#banner_otherPages {
+#bannerOtherPages {
   margin: 0px auto 10px;
   width: 730px;
 }
@@ -244,13 +244,13 @@ img {
   }
 }
 
-.fb_bottom { 
+.fbBottom {
   border-bottom: 1px solid #BFBFBF; 
   border-top: 1px solid #BFBFBF; 
   margin: 20px auto 10px;/*it was 0 auto 10*/ 
   padding: 5px 0px 5px 3px; 
   width: 960px;
-} 
+}
 
 .fbTop,
 .plusTop {
@@ -387,8 +387,8 @@ img {
 
 
 /* FACEBOOK AND GOOGLE PLUS PLUGIN */
-.fb_top, 
-.plus_top{
+.fbTop,
+.plusTop {
   float: right;
   margin-top: -3px;
 }

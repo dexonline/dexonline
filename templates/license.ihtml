@@ -11,7 +11,7 @@ enciclopedia liberă</a>.
 </pre>
 <p>Este permisă copierea acestui document, dar este interzisă modificarea lui.</p>
 <p><a name="Prefa.C5.A3.C4.83" id="Prefa.C5.A3.C4.83"></a></p>
-<h3><span class="mw-headline">Prefață</span></h3>
+<h3><span class="mwHeadline">Prefață</span></h3>
 <p>Licențele majorității programelor sunt concepute pentru a vă priva
 de libertatea de a modifica și distribui programele respective. În
 contrast, intenția Licenței Publice Generale GNU este de a vă garanta
@@ -62,9 +62,9 @@ oricine, fie deloc.</p>
 <p>Termenii și condițiile exacte de copiere, distribuire și modificare sunt specificate în următoarele paragrafe.</p>
 <p><br/></p>
 <p><a name="LICEN.C5.A2A_PUBLIC.C4.82_GENERAL.C4.82_GNU" id="LICEN.C5.A2A_PUBLIC.C4.82_GENERAL.C4.82_GNU"></a></p>
-<h3><span class="mw-headline">LICENȚA PUBLICĂ GENERALĂ GNU</span></h3>
+<h3><span class="mwHeadline">LICENȚA PUBLICĂ GENERALĂ GNU</span></h3>
 <p><a name="TERMENI_.C5.9EI_CONDI.C5.A2II_PENTRU_COPIERE.2C_DISTRIBUIRE_.C5.9EI_MODIFICARE" id="TERMENI_.C5.9EI_CONDI.C5.A2II_PENTRU_COPIERE.2C_DISTRIBUIRE_.C5.9EI_MODIFICARE"></a></p>
-<h4><span class="mw-headline">TERMENI ȘI CONDIȚII PENTRU COPIERE, DISTRIBUIRE ȘI MODIFICARE</span></h4>
+<h4><span class="mwHeadline">TERMENI ȘI CONDIȚII PENTRU COPIERE, DISTRIBUIRE ȘI MODIFICARE</span></h4>
 <p>0. Această Licență se aplică oricărui program sau proiect ce conține
 o mențiune a deținătorului drepturilor de autor spunând că poate fi
 distribuit în termenii acestei Licențe Publice Generale. Prin "Program"
@@ -258,7 +258,7 @@ noastră va fi ghidată de cele două scopuri de a prezerva statutul liber
 al tuturor proiectelor derivate din programele noastre libere și de a
 promova distribuirea și refolosirea programelor în general.</p>
 <p><a name="NICI_O_GARAN.C5.A2IE" id="NICI_O_GARAN.C5.A2IE"></a></p>
-<h4><span class="mw-headline">NICIO GARANȚIE</span></h4>
+<h4><span class="mwHeadline">NICIO GARANȚIE</span></h4>
 <p>11. DEOARECE PROGRAMUL ESTE OFERIT SUB O LICENȚĂ CE NU IMPLICĂ NICI
 UN COST, NU EXISTĂ NICIO GARANȚIE PENTRU PROGRAM, ÎN MĂSURA PERMISĂ DE
 LEGILE CE SE APLICĂ. EXCEPTÂND SITUAȚIILE UNDE ESTE SPECIFICAT ALTFEL

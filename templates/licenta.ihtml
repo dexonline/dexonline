@@ -14,7 +14,7 @@ dicționare este interzisă fără acordul explicit al deținătorilor de dreptu
   </tr>
   {foreach from=$restrictedSources item=rs}
     <tr>
-      <td class="dictionary-name">{$rs->name}<span class="sourceShortName">{$rs->shortName}</span></td>
+      <td class="dictionaryName">{$rs->name}<span class="sourceShortName">{$rs->shortName}</span></td>
       <td class="author">{$rs->author}</td>
       <td>{$rs->publisher}</td>
     </tr>

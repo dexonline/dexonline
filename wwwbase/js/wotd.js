@@ -59,7 +59,8 @@ function getStaticServerImageList() {
     for (var i = 0; i < lines.length; i++) {
       var s = lines[i];
       if (startsWith(s, 'img/wotd/') &&
-          (endsWith(s, '.jpeg') || endsWith(s, '.jpg') || endsWith(s, '.png') || endsWith(s, '.gif')) &&
+          (endsWith(s, '.jpeg') || endsWith(s, '.jpg') || endsWith(s, '.png') || endsWith(s, '.gif') ||
+           endsWith(s, '.JPEG') || endsWith(s, '.JPG') || endsWith(s, '.PNG') || endsWith(s, '.GIF')) &&
           s.indexOf('thumb') == -1) {
         var option = s.substr(9); // Skip the 'img/wotd/' characters
         data.push({id: option, text: option});

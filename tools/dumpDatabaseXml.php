@@ -100,28 +100,22 @@ function dumpInflections($remoteFile) {
 
 function dumpAbbrevs($remoteFile) {
   log_scriptLog("dumping abbreviations");
-  $raw_abbrevs = AdminStringUtil::loadRawAbbreviations();
-  $sources = array();
+  $sources = AdminStringUtil::loadAbbreviationsIndex();
+  $sectionNames = AdminStringUtil::getAbbrevSectionNames();
   $sections = array();
-  foreach ($raw_abbrevs as $name => $raw_section) {
-    if ($name == "sources") {
-      // the index of sources
-      foreach ($raw_section as $id => $source) {
-        $sources[$id] = preg_split('/, */', $source);
+
+  foreach ($sectionNames as $name) {
+    $raw_section = parse_ini_file(util_getRootPath() . "docs/abbrev/{$name}.conf", true);
+    $section = array();
+    foreach ($raw_section[$name] as $short => $long) {
+      $abbrev_info = array('short' => $short, 'long' => $long, 'ambiguous' => false);
+      if (substr($short, 0, 1) == "*") {
+        $abbrev_info['short'] = substr($short, 1);
+        $abbrev_info['ambiguous'] = true;
       }
-    } else {
-      // a single source
-      $section = array();
-      foreach ($raw_section as $short => $long) {
-        $abbrev_info = array('short' => $short, 'long' => $long, 'ambiguous' => false);
-        if (substr($short, 0, 1) == "*") {
-          $abbrev_info['short'] = substr($short, 1);
-          $abbrev_info['ambiguous'] = true;
-        }
-        $section[] = $abbrev_info;
-      }
-      $sections[$name] = $section;
+      $section[] = $abbrev_info;
     }
+    $sections[$name] = $section;
   }
   SmartyWrap::assign('sources', $sources);
   SmartyWrap::assign('sections', $sections);

@@ -181,19 +181,13 @@
 		Multiple pages (draw only)
 	-->
 
-	<template match="draw:page">
-		<value-of select="concat('&#10;&lt;!-- Page ', @draw:name, '--&gt;&#10;')"/>
-		<apply-templates/>
-		<value-of select="'&#10;----&#10;&#10;'"/>
-	</template>
-
 
 	<!-- 
 		== Lists == 
 	-->
 
-	<template match="text:list">
 		<!-- 
+	<template match="text:list">
 			Check, whether this list is used to implement the outline numbering 
 			for headings. Such list must not be exported, because within the wiki, 
 			automatic outline numbering is performed. An outline list has a single 
@@ -203,7 +197,6 @@
 			documents with OpenOffice.org 2.2, but the document containing the 
 			OpenDocument specification version 1.1 uses such numbering through nested 
 			lists.
-			-->
 		<choose>
 			<when test="boolean(./descendant::node()[not(./self::text:list) and not(./self::text:list-item) and not(./ancestor-or-self::text:h)])">
 				<apply-templates/>
@@ -214,6 +207,7 @@
 			</otherwise>
 		</choose>
 	</template>
+			-->
 
 <!--	
 	<template match="text:list-item">

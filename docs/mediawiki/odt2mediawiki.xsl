@@ -214,7 +214,8 @@
 			</otherwise>
 		</choose>
 	</template>
-	
+
+<!--	
 	<template match="text:list-item">
 		<if test="position() &gt; 1 or boolean(ancestor::text:list-item)">
 			<value-of select="$NL"/>
@@ -228,11 +229,12 @@
 		<text> </text>
 		<apply-templates/>
 		<if test="position() = last() and not(boolean(ancestor::text:list-item))">
-			<!-- End of (potentially nested) list is marked with a double newline. -->
+			<! - - End of (potentially nested) list is marked with a double newline. - - >
 			<value-of select="$NL"/>
 			<value-of select="$NL"/>
 		</if>
 	</template>
+-->
 	
 	<template name="mk-list-token">
 		<param name="list-style"/>
@@ -564,7 +566,8 @@
 			select="($style mod (2 * $CENTER_BIT)) - ($style mod ($CENTER_BIT)) != 0"/>
 		<variable name="right" 
 			select="($style mod (2 * $RIGHT_BIT)) - ($style mod ($RIGHT_BIT)) != 0"/>
-		
+
+<!--		
 		<choose>
 			<when test="$center">
 				<text>&lt;center&gt;</text>
@@ -576,9 +579,11 @@
 				<value-of select="' '"/>
 			</when>
 		</choose>
+-->
 	
 		<apply-templates/>
 
+<!--
 		<choose>
 			<when test="$center">
 				<text>&lt;/center&gt;</text>
@@ -587,6 +592,7 @@
 				<text>&lt;/div&gt;</text>
 			</when>
 		</choose>
+-->
 
 		<variable name="paragraph-right" 
  			select="./following-sibling::*[1]/self::text:p"/>
@@ -1019,19 +1025,19 @@
 				 -->
 
 				<if test="$superscript and not($superscript-left)">
-					<text>&lt;sup&gt;</text>
+					<text>^{</text>
 				</if>
 				<if test="$subscript and not($subscript-left)">
-					<text>&lt;sub&gt;</text>
+					<text>_{</text>
 				</if>
 				<if test="not($code) and $typewriter and not($typewriter-left)">
 					<text>&lt;tt&gt;</text>
 				</if>
 				<if test="$bold and not($bold-left)">
-					<text>'''</text>
+					<text>@</text>
 				</if>
 				<if test="$italic and not($italic-left)">
-					<text>''</text>
+					<text>$</text>
 				</if>
 
 				<call-template name="render-quoted-text">
@@ -1039,19 +1045,19 @@
 				</call-template>
 
 				<if test="$italic and not($italic-right)">
-					<text>''</text>
+					<text>$</text>
 				</if>
 				<if test="$bold and not($bold-right)">
-					<text>'''</text>
+					<text>@</text>
 				</if>
 				<if test="not($code) and $typewriter and not($typewriter-right)">
 					<text>&lt;/tt&gt;</text>
 				</if>
 				<if test="$subscript and not($subscript-right)">
-					<text>&lt;/sub&gt;</text>
+					<text>}</text>
 				</if>
 				<if test="$superscript and not($superscript-right)">
-					<text>&lt;/sup&gt;</text>
+					<text>}</text>
 				</if>
 
 				<!-- Debugging: Add style details to the output. -->

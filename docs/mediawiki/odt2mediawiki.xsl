@@ -234,7 +234,6 @@
 			<value-of select="$NL"/>
 		</if>
 	</template>
--->
 	
 	<template name="mk-list-token">
 		<param name="list-style"/>
@@ -266,6 +265,7 @@
 		</choose>
 	</template>
 
+-->
 
 	<!-- 
 		== Headings ==

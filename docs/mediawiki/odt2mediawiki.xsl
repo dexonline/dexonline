@@ -147,11 +147,6 @@
 		encoding="UTF-8"
 	/>
 
-
-	<!-- 
-		== Reference resolution == 
-	-->
-
 	<key
 		name="style-ref"
 		match="//style:style"
@@ -159,23 +154,11 @@
 	/>
 
 	<key
-		name="list-style-ref"
-		match="//text:list-style"
-		use="@style:name"
-	/>
-	
-	<key
 		name="font-face-ref"
 		match="//style:font-face"
 		use="@style:name"
 	/>
 	
-	<key
-		name="reference-resolution"
-		match="//text:reference-mark | //text:reference-mark-start"
-		use="@text:name"
-	/>
-
 
 	<template name="mk-token">
 		<param name="level"/>

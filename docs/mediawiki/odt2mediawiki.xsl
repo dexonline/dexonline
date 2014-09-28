@@ -335,7 +335,6 @@
 	
 	<!-- 
 		== Tables ==
-	 -->
 
 	<template match="table:table">
 		<text>&#10;</text>
@@ -349,7 +348,6 @@
 			</when>
 			
 			<otherwise>
-				<!-- Default setting to translate detailed office table cell styles correctly. -->
 				<text> style="border-spacing:0;"</text>
 			</otherwise>
 		</choose>
@@ -469,6 +467,7 @@
 		</if>
 	</template>
 
+	 -->
 	<!-- 
 		== WikiMath == 
 	 -->

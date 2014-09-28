@@ -269,7 +269,6 @@
 
 	<!-- 
 		== Headings ==
-	-->
 
 	<template match="text:h">
 		<if test="string-length(.) &gt; 0">
@@ -293,13 +292,13 @@
 		<text> ==</text>
 		<value-of select="$NL"/>
 	</template>
+	-->
 
 	<!-- 
 		Function generating a wiki heading prefix.
 		
 		@param level
 			The heading level. The value must be between 1 and 6.
-	-->
 	<template name="mk-heading-prefix">
 		<param name="level"/>
 		<choose>
@@ -316,6 +315,7 @@
 			</when>
 		</choose>
 	</template>
+	-->
 
 	<!-- 
 		Funktion generating a token consisting of the given character 

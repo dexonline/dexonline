@@ -171,82 +171,17 @@
 		<variable name="right" 
 			select="($style mod (2 * $RIGHT_BIT)) - ($style mod ($RIGHT_BIT)) != 0"/>
 
-<!--		
-		<choose>
-			<when test="$center">
-				<text>&lt;center&gt;</text>
-			</when>
-			<when test="$right">
-				<text>&lt;div align="right"&gt;</text>
-			</when>
-			<when test="$code">
-				<value-of select="' '"/>
-			</when>
-		</choose>
--->
-	
 		<apply-templates/>
-
-<!--
-		<choose>
-			<when test="$center">
-				<text>&lt;/center&gt;</text>
-			</when>
-			<when test="$right">
-				<text>&lt;/div&gt;</text>
-			</when>
-		</choose>
--->
 
 		<variable name="paragraph-right" 
  			select="./following-sibling::*[1]/self::text:p"/>
 
  		<choose>
  		<when test="boolean($paragraph-right)">
-			<!-- 
-				Insert end of line only if not within a list. Within wiki lists, 
-				a line break leaves the current list item. 
-			-->
-			<choose>
-				<when test="boolean(ancestor::text:list-item)">
-					<text>&lt;br/&gt; </text>
-				</when>
-				<when test="$code">
-					<variable name="style-right">
-						<call-template name="mk-style-set">
-							<with-param name="node" select="$paragraph-right"/>
-						</call-template>
-					</variable>
-			
-					<variable name="code-right" 
-						select="($style-right mod (2 * $CODE_BIT)) - ($style-right mod ($CODE_BIT)) != 0"/>
-				
-					<choose>
-						<when test="$code-right">
-							<choose>
-								<when test="$CODE_JOIN_PARAGRAPHS">
-									<value-of select="$NL"/>
-								</when>
-								
-								<otherwise>
-									<value-of select="$NL"/>
-									<value-of select="' '"/>
-									<value-of select="$NL"/>
-								</otherwise>
-							</choose>
-						</when>
-						<otherwise>
-							<value-of select="$NL"/>
-							<value-of select="$NL"/>
-						</otherwise>
-					</choose>
-				</when>
-				<otherwise>
-					<value-of select="$NL"/>
-					<value-of select="$NL"/>
-				</otherwise>
-			</choose>
+ 			<value-of select="$NL"/>
+ 			<value-of select="$NL"/>
  		</when>
+
  		<when test="boolean(./following-sibling::*[1]/self::text:h) or boolean(./following-sibling::*[1]/self::table:table) or boolean(./following-sibling::*[1]/self::text:bibliography)">
  			<!-- Newline before following heading or table. -->
  			<value-of select="$NL"/>

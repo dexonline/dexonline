@@ -90,23 +90,6 @@
 		</choose>
 	</param>
 
-		<variable name="table-class"
-			select="/office:document/office:meta/meta:user-defined[@meta:name='TABLE_CLASS']"/>
-
-	<param name="TABLE_CLASS">
-		<choose>
-			<when test="boolean($table-class)">
-				<value-of select="$table-class"/>
-			</when>
-			
-			<otherwise>
-				<value-of select="''"/>
-			</otherwise>
-		</choose>
-	</param>
-	
-	<variable name="USE_DEFAULT_TABLE_CLASS" select="string-length($TABLE_CLASS) &gt; 0"/>
-
 
 	<!-- 
 		== Wiki style constants == 

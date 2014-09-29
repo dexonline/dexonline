@@ -122,8 +122,6 @@
 	<!-- Constant defining the empty style. -->
 	<variable name="NO_STYLE" select="0"/>
 
-
-
 	<output 
 		method="text" 
 		media-type="text/plain" 
@@ -154,50 +152,6 @@
 			</call-template>
 		</if>
 	</template>
-	
-	<!-- 
-		== Native links == 
-	 -->
-
-	<template match="text:a">
-		<variable name="link-ref" select="@xlink:href"/>
-		<choose>
-			<when test="string-length($link-ref) &gt; 0">
-				<variable name="link-label" select="string(.)"/>
-				<text>[</text>
-				<value-of select="$link-ref"/>
-				<text> </text>
-				<value-of select="$link-label"/>
-				<text>]</text>
-			</when>
-			
-			<otherwise>
-				<apply-templates/>
-			</otherwise>
-		</choose>
-	</template>
-
-
-	<!-- 
-		== WikiLink == 
-	 -->
-
-	<template match="text:span[@text:style-name='WikiLink']">
-		<value-of select="'[['"/>
-		<variable name="link-def" select="string(.)"/>
-		<variable name="link-label" select="normalize-space(substring-before($link-def, '['))"/>
-		<variable name="link-ref" select="normalize-space(substring-before(substring-after($link-def, '['), ']'))"/>
-		<choose>
-			<when test="boolean($link-ref)">
-			<value-of select="concat($link-ref, '|', $link-label)"/>
-		</when>
-		<otherwise>
-			<value-of select="$link-def"/>
-		</otherwise>
-		</choose>
-		<value-of select="']]'"/>
-	</template>
-	
 	
 	<!-- 
 		== Paragraphs == 

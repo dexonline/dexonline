@@ -31,14 +31,14 @@
 
   <br/>
 
-  <input type="checkbox" id="cb_canContribute" name="canContribute" value="1" {if $src->canContribute}checked="checked"{/if}/>
-  <label for="cb_canContribute">Deschisă pentru contribuții</label><br/>
+  <input type="checkbox" id="cbCanContribute" name="canContribute" value="1" {if $src->canContribute}checked="checked"{/if}/>
+  <label for="cbCanContribute">Deschisă pentru contribuții</label><br/>
 
-  <input type="checkbox" id="cb_canModerate" name="canModerate" value="1" {if $src->canModerate}checked="checked"{/if}/>
-  <label for="cb_canModerate">Poate fi aleasă de moderatori</label><br/>
+  <input type="checkbox" id="cbCanModerate" name="canModerate" value="1" {if $src->canModerate}checked="checked"{/if}/>
+  <label for="cbCanModerate">Poate fi aleasă de moderatori</label><br/>
 
-  <input type="checkbox" id="cb_canDistribute" name="canDistribute" value="1" {if $src->canDistribute}checked="checked"{/if}/>
-  <label for="cb_canDistribute">Poate fi redistribuită</label><br/>
+  <input type="checkbox" id="cbCanDistribute" name="canDistribute" value="1" {if $src->canDistribute}checked="checked"{/if}/>
+  <label for="cbCanDistribute">Poate fi redistribuită</label><br/>
 
   <br/>
 

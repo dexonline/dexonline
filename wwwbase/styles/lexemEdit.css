@@ -42,8 +42,12 @@ body {
   background: #e3f2fa;
 }
 
-#meaningTree .id, #meaningTree .internalRep, #meaningTree .internalComment, #meaningTree .sourceIds,
-#meaningTree .meaningTagIds, #meaningTree .relationIds {
+#meaningTree .id,
+#meaningTree .internalRep,
+#meaningTree .internalComment,
+#meaningTree .sourceIds,
+#meaningTree .meaningTagIds,
+#meaningTree .relationIds {
   display: none;
 }
 
@@ -228,7 +232,8 @@ input[readonly] {
   background-color: #f4f4f4;
 }
 
-.select2-container-multi, .select2-result {
+.select2-container-multi,
+.select2-result {
   font-size: 12px;
 }
 

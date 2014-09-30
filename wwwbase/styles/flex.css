@@ -44,12 +44,14 @@ table.common {
   border-collapse: collapse;
 }
 
-table.common tr td, table.common tr th {
+table.common tr td,
+table.common tr th {
   border-left: 1px solid #cccccc;
   padding: 2px 10px;
 }
 
-table.common tr td.noLeftBorder, table.common tr th.noLeftBorder {
+table.common tr td.noLeftBorder,
+table.common tr th.noLeftBorder {
   border-left: 1px solid white;
 }
 
@@ -275,7 +277,8 @@ table.changedForms {
   border-collapse: collapse;
 }
 
-table.changedForms tr.header, table.changedForms tr.exponent {
+table.changedForms tr.header,
+table.changedForms tr.exponent {
   font-weight: bold;
 }
 
@@ -372,7 +375,8 @@ span.tooltip2 {
   display: none;
 }
 
-#commentPreview, #similarDiff {
+#commentPreview,
+#similarDiff {
   background: #f4f4f4;
   border: 1px dotted #777;
   margin-left:15px;
@@ -381,12 +385,17 @@ span.tooltip2 {
   border-radius: 5px;
 }
 
-#similarSourceMessageYes, #similarSourceMessageNoSource, #similarSourceMessageNoDefinition,
-#similarRep, #similarIdentical, #similarNotIdentical {
+#similarSourceMessageYes,
+#similarSourceMessageNoSource,
+#similarSourceMessageNoDefinition,
+#similarRep,
+#similarIdentical,
+#similarNotIdentical {
   margin-top: 5px;
 }
 
-#similarIdentical img, #similarNotIdentical img {
+#similarIdentical img,
+#similarNotIdentical img {
   vertical-align: middle;
 }
 

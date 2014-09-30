@@ -524,6 +524,18 @@ class AdminStringUtil {
         self::$ABBREV_INDEX[$sourceId] = preg_split('/, */', $sectionList);
       }
     }
+    return self::$ABBREV_INDEX;
+  }
+
+  static function getAbbrevSectionNames() {
+    self::loadAbbreviationsIndex();
+    $sections = array();
+    foreach (self::$ABBREV_INDEX as $sectionList) {
+      foreach ($sectionList as $s) {
+        $sections[$s] = true;
+      }
+    }
+    return array_keys($sections);
   }
 
   /**

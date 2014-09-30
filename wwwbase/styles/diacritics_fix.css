@@ -1,10 +1,10 @@
-#textarea_subtitle {
+#textareaSubtitle {
 
 	position: relative;
 	width: 100%;
 }
 
-#textarea_subtitle span {
+#textareaSubtitle span {
 
 	color: blue;
 	font-size: 20px;

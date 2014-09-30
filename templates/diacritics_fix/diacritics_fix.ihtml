@@ -1,6 +1,6 @@
 <link rel="StyleSheet" type="text/css" href="/DEX/wwwbase/styles/diacritics_fix.css"/>
 
-<div id="textarea_subtitle">
+<div id="textareaSubtitle">
 	<center><span>Corector diacritice</span></center>
 </div>
 <form id="textarea_form" action="" method="POST">

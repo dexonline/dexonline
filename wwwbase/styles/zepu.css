@@ -36,7 +36,7 @@ h2 {
   margin: 15px 0px;
 }
 
-h3, h4{
+h3, h4 {
   font-size: 14px;
   font-weight: bold;
   line-height: 110%;
@@ -48,7 +48,7 @@ h4 {
   color: #761818;
 }
 
-span.h4Sub {
+.h4Sub {
   font-style: italic;
   color: #AAA;
 }
@@ -151,7 +151,8 @@ img {
   padding: 8px 10px;
 }
 
-#mainMenu > li, #userMenu > li {
+#mainMenu > li,
+#userMenu > li {
   float: left;
   font-size: 13px;
   list-style: none;
@@ -167,13 +168,13 @@ img {
   margin-left: 0px;
 }
 
-#mainMenu > li > a:hover, 
+#mainMenu > li > a:hover,
 #userMenu > li > a:hover {
   color: #761818;
   text-decoration: underline;
 }
 
-#mainMenu li a, 
+#mainMenu li a,
 #userMenu li a {
   color: #424242;
   cursor: pointer;
@@ -184,12 +185,11 @@ img {
   white-space: nowrap;
 }
 
-#mainMenu li ul, 
+#mainMenu li ul,
 #userMenu li ul {
   background: #eee;
   border: 1px solid #BFBFBF;
   border-radius: 4px;
-
   display: none;
   margin: 0;
   padding: 3px 0px;
@@ -197,20 +197,20 @@ img {
   z-index: 50;
 }
 
-#mainMenu li ul li, 
+#mainMenu li ul li,
 #userMenu li ul li {
   display: inline;
   float: none;
 }
 
-#mainMenu li ul li a, 
+#mainMenu li ul li a,
 #userMenu li ul li a {
   color: #761818;
   padding: 3px 5px;
   width: auto;
 }
 
-#mainMenu li ul li a:hover, 
+#mainMenu li ul li a:hover,
 #userMenu li ul li a:hover {
   text-decoration: underline;
 }
@@ -300,7 +300,6 @@ img {
   background: #761818;
   border: 0px; /* border: 0px, otherwise it draws a gray border around button */
   border-radius: 4px;
-  
   color: #fff;
   cursor: pointer;
   font-size: 13px;
@@ -380,9 +379,6 @@ img {
 .cbgItem {
   width: 100px;
   display: inline-block;
-}
-
-.sourceCheckboxGroup {
 }
 
 
@@ -491,7 +487,7 @@ footer li:last-child:after {
   border-radius: 5px;
 }
 
-div.resultBar {
+.resultBar {
   background: #eee;
   border: 1px solid #aaa;
   font-size: 13px;
@@ -533,7 +529,7 @@ div.resultBar {
   display: none;
 }
 
-a.inflLink {
+.inflLink {
   font-weight: bold;
 }
 
@@ -541,7 +537,7 @@ a.inflLink {
   border: 0px;
 }
 
-div.flashMessage {
+.flashMessage {
   font-weight: bold;
   margin: 10px auto;
   padding: 10px;
@@ -549,33 +545,33 @@ div.flashMessage {
   border-radius: 7px;
 }
 
-div.flashMessage div.pic {
+.flashMessage .pic {
   float: left;
   height: 16px;
   margin-right: 10px;
   width: 16px;
 }
 
-div.flashMessage div.text {
+.flashMessage .text {
   float: left;
   width: 450px;
 }
 
-div.errorType {
+.errorType {
   border: 2px solid #eea77e;
   color: #c00;
 }
 
-div.errorType div.pic {
+.errorType .pic {
   background: url("../img/sprite3.png") -215px -82px no-repeat;
 }
 
-div.infoType {
+.infoType {
   border: 2px solid #a7ee7e;
   color: green;
 }
 
-div.infoType div.pic {
+.infoType .pic {
   background: url("../img/icons/info.png") no-repeat;
 }
 
@@ -608,7 +604,7 @@ div.infoType div.pic {
   font-size: 80%;
 }
 
-span.spaced {
+.spaced {
   letter-spacing: 3px;
 }
 
@@ -675,7 +671,8 @@ span.spaced {
   background: #eee;
 }
 
-.contribExample td, .contribExample th {
+.contribExample td,
+.contribExample th {
   border: 1px solid #aaa;
   padding: 3px 10px;
 }
@@ -686,11 +683,12 @@ span.spaced {
   padding: 5px 0 0 20px;
 }
 
-table.static {
+.static {
   margin-left: 20px;
 }
 
-table.static th, table.static td {
+.static th,
+.static td {
   border: 1px solid #aaa;
 }
 
@@ -708,7 +706,7 @@ table.static th, table.static td {
   margin-top: 10px;
 }
 
-div.radioButtonIndent {
+.radioButtonIndent {
   margin-left: 26px;
 }
 
@@ -822,14 +820,14 @@ input.pagedisplay {
   padding: 5px 0px;
 }
 
-.wotdArchiveTable td.activeMonth {
+.wotdArchiveTable .activeMonth {
   text-align: center;
   width: 90px;
   background: #ddd;
   border: 1px solid white;
 }
 
-.wotdArchiveTable tr.wotdDays td {
+.wotdArchiveTable .wotdDays td {
   padding: 10px 0px;
   background: white;
   text-align: center;
@@ -925,31 +923,31 @@ input.pagedisplay {
   margin-left: 2em;
 }
 
-div.internalRepDiff {
+.internalRepDiff {
   border-left: 5px solid #eee;
   padding-left: 15px;
 }
 
-div.internalRepDiff ins {
+.internalRepDiff ins {
   background-color: #AFA;
   text-decoration: none;
 }
 
-div.internalRepDiff del {
+.internalRepDiff del {
   background-color: #FAA;
 }
 
-span.sourceName {
+.sourceName {
   cursor: help;
   position: relative;
 }
 
-span.sourceName span {
+.sourceName span {
   margin-left: -999em;
   position: absolute;
 }
 
-span.sourceName:hover span {
+.sourceName:hover span {
   background: white;
   border: 1px solid black;
   margin-left: 0;
@@ -960,31 +958,31 @@ span.sourceName:hover span {
   z-index: 99;
 }
 
-div.sourceComplete {
+.sourceComplete {
   margin: 0px auto;
 }
 
-div.sourceComplete0 {
+.sourceComplete0 {
   color: black;
 }
 
-div.sourceComplete1 {
+.sourceComplete1 {
   color: #EB0000;
 }
 
-div.sourceComplete2 {
+.sourceComplete2 {
   color: orange;
 }
 
-div.sourceComplete3 {
+.sourceComplete3 {
   color: #DAC003;
 }
 
-div.sourceComplete4 {
+.sourceComplete4 {
   color: blue;
 }
 
-div.sourceComplete5 {
+.sourceComplete5 {
   color: green;
 }
 
@@ -1080,7 +1078,7 @@ body .socialNetworks label {
   padding-left: 11px;
 }
 
-li.widgetsPreferences {
+.widgetsPreferences {
   background: url("../img/icons/cog.png") no-repeat 0px 0px;
   height: 16px;
   margin: 0px 0px 10px 12px;
@@ -1286,7 +1284,7 @@ li.widgetsPreferences {
   list-style-type: square;
 }
 		
-.paymentSection label.tipText {
+.paymentSection .tipText {
   width: 260px;
   color: #757E75;
   font-size: 12px;
@@ -1364,7 +1362,6 @@ li.widgetsPreferences {
   bottom: 6px;
   width: 200px;
   height: 20px;
-
   -webkit-box-shadow: 0 8px 3px #AAA;
   -moz-box-shadow: 0 8px 3px #AAA;
   box-shadow: 0 8px 3px #AAA;
@@ -1404,4 +1401,3 @@ li.widgetsPreferences {
 .widgetBox.bendShadow:after {
   display: none;
 }
-

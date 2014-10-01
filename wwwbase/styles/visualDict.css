@@ -1,4 +1,4 @@
-.jcrop-holder {
+.jcrop-holder { /* jQuery custom selector */
   border: 1px solid black;
 }
 
@@ -24,7 +24,7 @@
   float: right;
 }
 
-#gallery img{
+#gallery img {
   display: block;
 }
 

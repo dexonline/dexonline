@@ -3,20 +3,20 @@ abbr {
   cursor: help;
 }
 
-div.header {
+.header {
   background: #ddffee;
   border: 1px solid #66dd88;
   font-family: sans-serif;
   margin-bottom: 5px;
 }
 
-div.header div.title {
+.header .title {
   float: left;
   font-weight: bold;
   padding: 2px 5px;
 }
 
-div.header div.links {
+.header .links {
   float: right;
   font-size: 70%;
   margin-top: 3px;
@@ -27,44 +27,44 @@ table {
   white-space: nowrap;
 }
 
-table.errorMessage {
+.errorMessage {
   border: 2px solid #cc0000;
   border-collapse: collapse;
   margin: 10px auto;
 }
 
-table.errorMessage tr td {
+.errorMessage tr td {
   font-weight: bold;
   padding: 0px 5px;
   text-align: left;
   white-space: nowrap;
 }
 
-table.common {
+.common {
   border-collapse: collapse;
 }
 
-table.common tr td,
-table.common tr th {
+.common tr td,
+.common tr th {
   border-left: 1px solid #cccccc;
   padding: 2px 10px;
 }
 
-table.common tr td.noLeftBorder,
-table.common tr th.noLeftBorder {
+.common tr .noLeftBorder,
+.common tr .noLeftBorder {
   border-left: 1px solid white;
 }
 
-table.editableFields tr td {
+.editableFields tr td {
   padding-right: 10px;
   vertical-align: top;
 }
 
-table.editableFields tr td.buttonRow {
+.editableFields tr .buttonRow {
   text-align: center;
 }
 
-a.discreet {
+.discreet {
   text-decoration: none;
   color: blue;
 }
@@ -75,46 +75,46 @@ hr {
 	height: 1px;
 }
 
-span.small {
+.small {
   font-size: 80%;
 }
 
-span.deemph {
+.deemph {
   color: #777777;
 }
 
-body.flexHeader {
+.flexHeader {
   font-family: sans-serif;
   font-size: 70%;
   margin: 0px 5px;
 }
 
-body.flexFrame {
+.flexFrame {
   margin: 0px;
 }
 
-span.defDetails {
+.defDetails {
   color: #999999;
   font-family: sans-serif;
   font-size: 80%;
 }
 
-span.defDetails a {
+.defDetails a {
   color: #777777;
 }
 
-span.defDetails a:hover {
+.defDetails a:hover {
   color: #555555;
 }
 
-div.debugInfo {
+.debugInfo {
   border-top: 1px solid #777777;
   font-size: 75%;
   margin-top: 20px;
   color: #777777;
 }
 
-div.adminRecentlyVisited {
+.adminRecentlyVisited {
   background: #f8f8ff;
   border: 1px solid black;
   float: right;
@@ -128,31 +128,31 @@ div.adminRecentlyVisited {
   white-space: nowrap;
 }
 
-div.adminRecentlyVisited div.title {
+.adminRecentlyVisited .title {
   font-weight: bold;
 }
 
-span.typo {
+.typo {
   color: red;
   margin-left: 30px;
 }
 
-div.verifyModel {
+.verifyModel {
   border: 1px solid black;
   margin-top: 10px;
   padding-left: 5px;
 }
 
-div.verifyModel span.modelName {
+.verifyModel .modelName {
   font-weight: bold;
   font-size: 130%;
 }
 
-div.verifyModel div.paradigm {
+.verifyModel .paradigm {
   margin-left: 40px;
 }
 
-div.verifyModel div.buttons {
+.verifyModel .buttons {
   margin-top: 10px;
 }
 
@@ -168,81 +168,81 @@ div.verifyModel div.buttons {
   color: gray;
 }
 
-div.flexExplanation {
+.flexExplanation {
   font-size: 90%;
   margin-left: 50px;
 }
 
-div.blLexem {
+.blLexem {
   border: 1px solid black;
   margin-top: 10px;
 }
 
-div.blLexemTitle {
+.blLexemTitle {
   background: #dddddd;
   border-bottom: 1px solid black;
   padding-left: 10px;
 }
 
-div.blLexemTitle span.name {
+.blLexemTitle .name {
   font-weight: bold;
   font-size: 120%;    
 }
 
-span.isLoc {
+.isLoc {
   color: green;
   font-weight: bold;
 }
 
-span.isNotLoc {
+.isNotLoc {
   color: red;
   text-decoration: line-through;
 }
 
-div.blLexemTitle a {
+.blLexemTitle a {
   margin-left: 5px;
   vertical-align: 10%;
 }
 
-div.blLexemBody {
+.blLexemBody {
   padding-left: 10px;
 }
 
-div.blParadigm {
+.blParadigm {
   margin-bottom: 5px;
 }
 
-span.blInflection {
+.blInflection {
   color: #777777;
   margin-left: 40px;
 }
 
-div.blDefinitions {
+.blDefinitions {
   border: 1px solid #777777;
   margin: 10px 40px;
   padding: 5px;
 }
 
-div.blDefinitions a {
+.blDefinitions a {
   color: black;
   text-decoration: none;
 }
 
-table.editModel {
+.editModel {
   border-collapse: collapse;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-table.editModel tr th {
+.editModel tr th {
   text-align: left;
 }
 
-table.editModel tr th.input {
+.editModel tr .input {
   padding-left: 10px;
 }
 
-table.editModel tr td.input {
+.editModel tr .input {
   padding-left: 10px;
 }
 
@@ -256,107 +256,107 @@ table.editModel tr td.input {
   width: 60px;
 }
 
-table.editModel tr td.addSign {
+.editModel tr .addSign {
   vertical-align: bottom;
 }
 
-table.editModel tr.exponent td {
+.editModel .exponent td {
   border-bottom: 1px solid #aaaaaa;
 }
 
-table.editModel tr.even {
+.editModel .even {
   background: #ddd;
 }
 
-table.editModel p {
+.editModel p {
   margin: 0;
   padding: 0;
 }
 
-table.changedForms {
+.changedForms {
   border-collapse: collapse;
 }
 
-table.changedForms tr.header,
-table.changedForms tr.exponent {
+.changedForms .header,
+.changedForms .exponent {
   font-weight: bold;
 }
 
-table.changedForms tr td.model {
+.changedForms tr .model {
   color: #777777;
   padding: 0px 10px;
 }
 
-table.changedForms tr td {
+.changedForms tr td {
   border: 1px solid #cccccc;
   padding: 0px 10px;
 }
 
-div.cm_lexemDiv {
+.cm_lexemDiv {
   margin-left: 50px;
 }
 
-textarea.commentTextArea {
+.commentTextArea {
   font-family: serif;
   font-size: 100%;
 }
 
-table.ap_lexemRow {
+.ap_lexemRow {
   border-collapse: collapse;
   border-bottom: 1px solid #cccccc;
 }
 
-table.ap_lexemRow tr td.ap_lexemForm {
+.ap_lexemRow tr .ap_lexemForm {
   float: left;
   font-weight: bold;
   font-size: 120%;
   width: 30em;
 }
 
-span.ap_letter:hover {
+.ap_letter:hover {
   color: #00ff00;
   cursor: pointer;
 }
 
-a.ap_discreetLink {
+.ap_discreetLink {
   color: #777777;
   margin-left: 50px;
 }
 
-div.bulkLabelComment {
+.bulkLabelComment {
   font-size: 90%;
   margin-left: 30px;
 }
 
-a.noBorder img {
+.noBorder img {
   border: 0;
 }
 
-ul.mlNotes {
+.mlNotes {
   margin: 5px 0px;
 }
 
-span.spaced {
+.spaced {
   letter-spacing: 3px;
 }
 
-form.inline {
+.inline {
   display: inline;
 }
 
-div.errorType {
+.errorType {
   background: url("../img/icons/exclamation.png") no-repeat 10px center;
   border: 2px solid #eea77e;
   color: #c00;
 }
 
-div.infoType {
+.infoType {
   background: url("../img/icons/info.png") no-repeat 10px center;
   border: 2px solid #a7ee7e;
   color: green;
 }
 
-span.tooltip2 {
+.tooltip2 {
   background: url("../img/icons/information.png") no-repeat;
   display: inline-block;
   width: 16px;

@@ -10,7 +10,7 @@
 	font-weight: 900;
 }
 
-#textarea_div {
+#textareaDiv {
 	position: relative;
 	width: 600px;
 	margin: 0 auto;
@@ -26,7 +26,7 @@ textarea {
 	background-color:#EEEEF6;
 }
 
-#text_input {
+#textInput {
 	position: relative;
 	text-align:left;
 	overflow-y: scroll;

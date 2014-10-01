@@ -3,8 +3,8 @@
 <div id="textareaSubtitle">
 	<center><span>Corector diacritice</span></center>
 </div>
-<form id="textarea_form" action="" method="POST">
-	<div id="textarea_div" align="center">
+<form id="textareaForm" action="" method="POST">
+	<div id="textareaDiv" align="center">
 		{$textarea}
 		{$hiddenText}
 		<input type="submit" name="ok" value="{$buttonDisplayText}">

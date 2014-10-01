@@ -233,7 +233,7 @@ input[readonly] {
 }
 
 .select2-container-multi,
-.select2-result {
+.select2-result { /* select2 custom selectors */
   font-size: 12px;
 }
 
@@ -256,26 +256,27 @@ input[readonly] {
   vertical-align: text-top;
 }
 
-#lmTab_stem {
+#lmTabStem {
   display: none;
 }
 
-.ui-tabs {
+.ui-tabs { /* jQuery custom selector */
   font-family: serif;
   font-size: 16px;
 }
 
-.ui-tabs .ui-tabs-panel {
+.ui-tabs .ui-tabs-panel { /* jQuery custom selector */
   padding: 5px;
 }
 
-.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor { /* jQuery custom selector */
   display: inline-block;
   float: none;
   padding: 0px 5px;
 }
 
-.ui-icon-close, .ui-icon-arrow-4 {
+.ui-icon-close,
+.ui-icon-arrow-4 { /* jQuery custom selector */
   cursor: pointer;
   margin: 5px 3px 0;
   display: inline-block;
@@ -287,7 +288,8 @@ input[readonly] {
   top: 8px;
 }
 
-/* Window manager settings */
+/* Window manager settings
+  (with jQuery custom selectors) */
 .titlebaricon {
   display: none;
 }

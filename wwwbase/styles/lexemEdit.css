@@ -34,11 +34,11 @@ body {
   padding: 2px 5px;
 }
 
-#meaningTree li.selected > .meaningContainer {
+#meaningTree .selected > .meaningContainer {
   background: #90c9e8;
 }
 
-#meaningTree li.selected ul {
+#meaningTree .selected ul {
   background: #e3f2fa;
 }
 
@@ -162,39 +162,39 @@ abbr {
   padding: 5px;
 }
 
-span.defDetails {
+.defDetails {
   color: #999999;
   font-family: sans-serif;
   font-size: 80%;
 }
 
-span.defDetails a {
+.defDetails a {
   color: #777777;
 }
 
-span.defDetails a:hover {
+.defDetails a:hover {
   color: #555555;
 }
 
-div.structured a.toggleStructuredLink {
+.structured a.toggleStructuredLink {
   background: url("../img/icons/bullet_green.png") 0px 1px no-repeat;
   padding-left: 14px;
 }
 
-div.unstructured a.toggleStructuredLink {
+.unstructured a.toggleStructuredLink {
   background: url("../img/icons/bullet_red.png") 0px 1px no-repeat;
   padding-left: 14px;
 }
 
-div.addDefinition {
+.addDefinition {
   margin-top: 10px;
 }
 
-td.rightColumn {
+.rightColumn {
   padding-left: 30px;
 }
 
-input.miniDefTarget {
+.miniDefTarget {
   font-family: serif;
   font-weight: bold;
 }

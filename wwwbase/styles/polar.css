@@ -24,12 +24,12 @@ body {
   padding-top: 8px;
 }
 
-.theader td.logo {
+.theader .logo {
   padding-right: 8px;
   width: 1%;
 }
 
-img.logo {
+.logo {
   width: 105px;
   height: 70px;
 }
@@ -50,22 +50,22 @@ img.logo {
   border: 0;
 }
 
-span.pageTitle {
+.pageTitle {
   font-size: 130%;
   font-weight: bold;
 }
 
-form.searchForm {
+.searchForm {
   margin: 0;
 }
 
-span.definitionBodyCheckbox {
+.definitionBodyCheckbox {
   font-family: sans-serif;
   font-size: 80%;
   margin-left: 10px;
 }
 
-span.formPlug {
+.formPlug {
   color: #444444;
   font-size: 70%;
 }
@@ -150,7 +150,7 @@ span.formPlug {
   width: 16px;
 }
 
-div.flashMessage {
+.flashMessage {
   border: 2px solid red;
   padding: 0.5em;
   margin: 10px auto;
@@ -158,21 +158,21 @@ div.flashMessage {
   width: 40em;
 }
 
-div.errorType {
+.errorType {
   background: url("../img/icons/exclamation.png") no-repeat 10px center;
   border: 2px solid red;
 }
 
-div.infoType {
+.infoType {
   background: url("../img/icons/info.png") no-repeat 10px center;
   border: 2px solid green;
 }
 
-span.stopWords {
+.stopWords {
   color: #777777;
 }
 
-span.def {
+.def {
   cursor: pointer;
 }
 
@@ -183,7 +183,7 @@ h4 {
   color: #666;
 }
 
-span.h4Sub {
+.h4Sub {
   font-size: 85%;
   font-style: italic;
   color: #AAA;
@@ -203,7 +203,7 @@ span.h4Sub {
   color: #555555;
 }
 
-span.defComment {
+.defComment {
   border: 1px dashed gray;
   font-size: 90%;
   margin-left: 2em;
@@ -213,24 +213,24 @@ span.defComment {
   display: block;
 }
 
-div.resultBar {
+.resultBar {
   font-family: sans-serif;
   font-size: 85%;
   font-weight: bold;
   margin-top: 5px;
 }
 
-a.inflLink {
+.inflLink {
   color: black;
   font-weight: normal;
   text-decoration: none;
 }
 
-a.inflLink:focus {
+.inflLink:focus {
   outline: none;
 }
 
-div.debugInfo {
+.debugInfo {
 	font-size: 75%;
 	color: #777;
 }
@@ -250,11 +250,11 @@ pre.exportSample {
   font-weight: bold;
 }
 
-span.deemph {
+.deemph {
   color: #777777;
 }
 
-span.help {
+.help {
   color: #777777;
   font-size: 85%;
 }
@@ -264,7 +264,7 @@ span.help {
   vertical-align: top;
 }
 
-span.spaced {
+.spaced {
   letter-spacing: 3px;
 }
 
@@ -277,7 +277,8 @@ span.spaced {
   background: #d0d0d0;
 }
 
-.userTop td, .userTop th {
+.userTop td,
+.userTop th {
   padding-right: 20px;
   border: 2px solid white;
   text-align: center;
@@ -333,7 +334,7 @@ th.headerSortDown {
   text-align: center;
 }
 
-.bottomline {
+.bottomLine {
   border-top: 1px solid #CCCCCC;
 }
 
@@ -451,12 +452,13 @@ th.headerSortDown {
   border-collapse: collapse;
 }
 
-.wikiArticle td, .wikiArticle th {
+.wikiArticle td,
+.wikiArticle th {
   border: 1px solid #aaa;
   padding: 2px 10px;
 }
 
-p.paragraphTitle {
+.paragraphTitle {
   font-weight: bold;
   font-size: 18px;
   margin-top: 15px;
@@ -498,17 +500,17 @@ abbr {
   cursor: help;
 }
 
-span.sourceName {
+.sourceName {
   cursor: help;
   position: relative;
 }
 
-span.sourceName span {
+.sourceName span {
   margin-left: -999em;
   position: absolute;
 }
 
-span.sourceName:hover span {
+.sourceName:hover span {
   background: white;
   border: 1px solid black;
   -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.3);
@@ -526,31 +528,31 @@ span.sourceName:hover span {
   text-align: left;
 }
 
-div.sourceComplete {
+.sourceComplete {
   margin: 0px auto;
 }
 
-div.sourceComplete0 {
+.sourceComplete0 {
   color: black;
 }
 
-div.sourceComplete1 {
+.sourceComplete1 {
   color: #EB0000;
 }
 
-div.sourceComplete2 {
+.sourceComplete2 {
   color: orange;
 }
 
-div.sourceComplete3 {
+.sourceComplete3 {
   color: #DAC003;
 }
 
-div.sourceComplete4 {
+.sourceComplete4 {
   color: blue;
 }
 
-div.sourceComplete5 {
+.sourceComplete5 {
   color: green;
 }
 
@@ -754,7 +756,7 @@ footer li:last-child:after {
   margin: 0px;
 }
 
-#banner_otherPages {
+#bannerOtherPages {
   margin-top: 4px;
   margin-bottom: 5px;
 }

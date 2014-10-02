@@ -16,7 +16,7 @@
 .total,
 .perHttpCode {
 	font-weight: 600;
-	font-size: 24;
+	font-size: 24px;
 	font-family: serif;
 	color: #3399FF;
 }
@@ -33,7 +33,7 @@
 	color: #FF3300;
 	font-family: "Times New Roman";
 	font-weight: 900;
-	font-size: 26;
+	font-size: 26px;
 }
 
 .infoTitle,
@@ -42,7 +42,7 @@
 	text-align: center;
 	font-weight: 700;
 	font-family: arial;
-	font-size: 24;
+	font-size: 24px;
 	padding-top: 20px;
 	color: #8F0000;
 }
@@ -52,10 +52,10 @@
 }
 
 .selectDomain {
-	text-allign: left;
+	text-align: left;
 	font-weight: 900;
 	font-family: serif;
-	font-size: 21;
+	font-size: 21px;
 	color: #8F0000;
 }
 

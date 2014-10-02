@@ -67,7 +67,7 @@ body {
 
 #meaningTree .mention {
   border-bottom: 1px dotted #444;
-  color: black;
+  color: #000;
   text-decoration: none;
 }
 

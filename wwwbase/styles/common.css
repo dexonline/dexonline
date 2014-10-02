@@ -1,6 +1,6 @@
 /* Full text highlight. Keep the number of colors in sync with Definition::highlight(). */
 .fth {
-  color: white;
+  color: #FFF;
   border-width: 1.5px;
   border-style: outset;
 }

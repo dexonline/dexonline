@@ -627,7 +627,7 @@ footer li:last-child:after {
 }
 
 #defUserEdit td {
-  border: 1px solid white;
+  border: 1px solid #FFF;
   min-width: 100px;
   padding: 3px;
   vertical-align: top;
@@ -777,7 +777,7 @@ input.pagedisplay {
 }
 
 .nav {
-  background: white;
+  background: #FFF;
   width: 25px;
   height: 25px;
   cursor: pointer;
@@ -793,7 +793,7 @@ input.pagedisplay {
 
 #wotdDate {
   display: inline;
-  color: white;
+  color: #FFF;
   font-weight: bold;
   font-size: 14px;
   line-height: 30px; /* do not omit, otherwise the paragraph won't be centered */
@@ -812,7 +812,7 @@ input.pagedisplay {
 }
 
 .wotdArchiveTable td {
-  border: 1px solid white;
+  border: 1px solid #FFF;
 }
 
 .wotdArchiveTable .thumb {
@@ -824,12 +824,12 @@ input.pagedisplay {
   text-align: center;
   width: 90px;
   background: #ddd;
-  border: 1px solid white;
+  border: 1px solid #FFF;
 }
 
 .wotdArchiveTable .wotdDays td {
   padding: 10px 0px;
-  background: white;
+  background: #FFF;
   text-align: center;
   font-weight: bold;
   color: #777;
@@ -948,8 +948,8 @@ input.pagedisplay {
 }
 
 .sourceName:hover span {
-  background: white;
-  border: 1px solid black;
+  background: #FFF;
+  border: 1px solid #000;
   margin-left: 0;
   padding: 10px;
   position: absolute;
@@ -963,11 +963,11 @@ input.pagedisplay {
 }
 
 .sourceComplete0 {
-  color: black;
+  color: #000;
 }
 
 .sourceComplete1 {
-  color: #EB0000;
+  color: #CC0000;
 }
 
 .sourceComplete2 {
@@ -1015,7 +1015,7 @@ input.pagedisplay {
 }
 
 .meaningTag a {
-  color: black;
+  color: #000;
   font-weight: bold;
   text-decoration: none;
 }

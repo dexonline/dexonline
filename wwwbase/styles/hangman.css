@@ -131,7 +131,7 @@
 #hangman .buttonGuessed:hover {
   font-weight: bold;
   background: green;
-  color: white;
+  color: #FFF;
 }
 
 #hangman .buttonHinted,
@@ -151,7 +151,7 @@
   background-image: -webkit-linear-gradient(top, rgb(238, 95, 91), rgb(189, 54, 47));
   background-image: -o-linear-gradient(top, rgb(238, 95, 91), rgb(189, 54, 47));
   background-image: linear-gradient(to bottom, rgb(238, 95, 91), rgb(189, 54, 47)); /*#ffeaea;*/
-  color: white;
+  color: #FFF;
 }
 
 #hangman #resultsWrapper {

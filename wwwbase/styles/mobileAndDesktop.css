@@ -4,7 +4,7 @@
 /* GLOBAL */
 .paragraphTitle { /* paragraph titles on any page */
   font-size: 14px; /* equivalent with h3 */
-  color: black;
+  color: #000;
   font-weight: bold;
   padding-left: 0px;
 }

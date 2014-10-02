@@ -50,7 +50,7 @@ h4 {
 
 .h4Sub {
   font-style: italic;
-  color: #AAA;
+  color: #BFBFBF;
 }
 
 p {
@@ -64,7 +64,7 @@ p {
 }
 
 abbr {
-  border-bottom: 1px dotted #aaa;
+  border-bottom: 1px dotted #BFBFBF;
   cursor: help;
 }
 
@@ -176,7 +176,7 @@ img {
 
 #mainMenu li a,
 #userMenu li a {
-  color: #424242;
+  color: #444;
   cursor: pointer;
   display: block;
   outline: none; /* Firefox */
@@ -269,7 +269,7 @@ img {
 }
 
 .tagline {
-  color: #424242;
+  color: #444;
   font-size: 14px;
   letter-spacing: 1px;
   margin: -10px auto 10px;
@@ -392,7 +392,7 @@ img {
 
 /* MISSION STATEMENT */
 #missionStatement {
-  color: #424242;
+  color: #444;
   font-size: 13px;
   margin: 25px auto 20px;
   text-align: center;
@@ -489,7 +489,7 @@ footer li:last-child:after {
 
 .resultBar {
   background: #eee;
-  border: 1px solid #aaa;
+  border: 1px solid #BFBFBF;
   font-size: 13px;
   margin: 20px 15px 0px 15px;
   padding: 5px 5px 5px 10px;
@@ -498,7 +498,7 @@ footer li:last-child:after {
 
 .stopWords {
   background: #f4f4f4;
-  border: 1px solid #aaa;
+  border: 1px solid #BFBFBF;
   font-size: 11px;
   margin: 0px 0px 10px 5px;
   padding: 5px;
@@ -525,7 +525,7 @@ footer li:last-child:after {
 
 /* GUIDE INFO */
 #guideInfo {
-  color: #424242;
+  color: #444;
   display: none;
 }
 
@@ -584,7 +584,7 @@ footer li:last-child:after {
 
 .userTop td,
 .userTop th {
-  border: 1px solid #aaa;
+  border: 1px solid #BFBFBF;
   text-align: center;
   padding-right: 20px;
 }
@@ -655,7 +655,7 @@ footer li:last-child:after {
 }
 
 .contribPreview {
-  border: 1px solid #aaa;
+  border: 1px solid #BFBFBF;
   margin-left: 20px;
   padding: 10px;
 }
@@ -673,7 +673,7 @@ footer li:last-child:after {
 
 .contribExample td,
 .contribExample th {
-  border: 1px solid #aaa;
+  border: 1px solid #BFBFBF;
   padding: 3px 10px;
 }
 
@@ -689,7 +689,7 @@ footer li:last-child:after {
 
 .static th,
 .static td {
-  border: 1px solid #aaa;
+  border: 1px solid #BFBFBF;
 }
 
 
@@ -770,7 +770,7 @@ input.pagedisplay {
 
 #wotdArchiveHeader {
   border-radius: 4px;
-  background: #6B6B6B;
+  background: #777;
   height: 30px;
   width: 100%;
   text-align: center;
@@ -832,7 +832,7 @@ input.pagedisplay {
   background: white;
   text-align: center;
   font-weight: bold;
-  color: #6B6B6B;
+  color: #777;
 }
 
 .wotdDoM {
@@ -858,7 +858,7 @@ input.pagedisplay {
 }
 
 #wotdImage .copyright {
-  color: #aaa;
+  color: #BFBFBF;
   margin: 0px auto;
   padding-top: 2px;
   text-align: right;
@@ -992,7 +992,7 @@ input.pagedisplay {
 
 .meaningTag {
   background: #ddd;
-  border: 1px solid #888;
+  border: 1px solid #777;
   border-radius: 4px;
   float: left;
   margin-right: 10px;
@@ -1000,7 +1000,7 @@ input.pagedisplay {
 }
 
 .meaningTag .value {
-  border-right: 1px solid #888;
+  border-right: 1px solid #777;
   float: left;
   padding: 5px;
 }
@@ -1058,7 +1058,7 @@ input.pagedisplay {
 }
 
 .widgetList label {
-  color: #64778A;
+  color: #777;
   font-weight: bold;
 }
 
@@ -1070,7 +1070,7 @@ input.pagedisplay {
 body .socialNetworks label {
   display: block;
   margin-bottom: 5px;
-  color: #3B4753;
+  color: #333;
 }
 
 .socialNetworks a {
@@ -1175,7 +1175,7 @@ body .socialNetworks label {
 
 .userProfileHeader h3 {
   margin: 30px 0px 10px 55px;
-  color: #333030;
+  color: #333;
 }
 
 .avatar {
@@ -1194,20 +1194,20 @@ body .socialNetworks label {
 }
 
 .userProfileSection legend {
-  color: #525151;
+  color: #555;
   display: block;
   font-weight: bold;
 }
 
 .userFields {
-  color: #888;
+  color: #777;
   display: inline-block;
   width: 150px;
   margin: 0px 10px 5px 5px;
 }
 
 .userNoMedals {
-  color: #888;
+  color: #777;
   display: inline-block;
   margin: 0px 10px 5px 5px;
 }
@@ -1286,7 +1286,7 @@ body .socialNetworks label {
 		
 .paymentSection .tipText {
   width: 260px;
-  color: #757E75;
+  color: #777;
   font-size: 12px;
   margin-top: 10px;
   padding-left: 5px;
@@ -1317,7 +1317,7 @@ body .socialNetworks label {
 .bankTransfer ul li {
 	list-style-type: none;
 	margin-top: 7px;
-	color: #888;
+	color: #777;
 }
 		
 .bankAccount {
@@ -1362,9 +1362,9 @@ body .socialNetworks label {
   bottom: 6px;
   width: 200px;
   height: 20px;
-  -webkit-box-shadow: 0 8px 3px #AAA;
-  -moz-box-shadow: 0 8px 3px #AAA;
-  box-shadow: 0 8px 3px #AAA;
+  -webkit-box-shadow: 0 8px 3px #BFBFBF;
+  -moz-box-shadow: 0 8px 3px #BFBFBF;
+  box-shadow: 0 8px 3px #BFBFBF;
 }
 
 .bendShadow:before {

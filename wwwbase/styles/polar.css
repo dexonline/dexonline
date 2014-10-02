@@ -186,7 +186,7 @@ h4 {
 .h4Sub {
   font-size: 85%;
   font-style: italic;
-  color: #AAA;
+  color: #BFBFBF;
 }
 
 .defDetails {
@@ -569,7 +569,7 @@ abbr {
 
 .userProfileHeader h3 {
   margin: 30px 0px 10px 55px;
-  color: #333030;
+  color: #333;
 }
 
 .avatar {

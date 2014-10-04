@@ -34,16 +34,20 @@ body {
   padding: 2px 5px;
 }
 
-#meaningTree li.selected > .meaningContainer {
+#meaningTree .selected > .meaningContainer {
   background: #90c9e8;
 }
 
-#meaningTree li.selected ul {
+#meaningTree .selected ul {
   background: #e3f2fa;
 }
 
-#meaningTree .id, #meaningTree .internalRep, #meaningTree .internalComment, #meaningTree .sourceIds,
-#meaningTree .meaningTagIds, #meaningTree .relationIds {
+#meaningTree .id,
+#meaningTree .internalRep,
+#meaningTree .internalComment,
+#meaningTree .sourceIds,
+#meaningTree .meaningTagIds,
+#meaningTree .relationIds {
   display: none;
 }
 
@@ -158,39 +162,39 @@ abbr {
   padding: 5px;
 }
 
-span.defDetails {
+.defDetails {
   color: #999999;
   font-family: sans-serif;
   font-size: 80%;
 }
 
-span.defDetails a {
+.defDetails a {
   color: #777777;
 }
 
-span.defDetails a:hover {
+.defDetails a:hover {
   color: #555555;
 }
 
-div.structured a.toggleStructuredLink {
+.structured a.toggleStructuredLink {
   background: url("../img/icons/bullet_green.png") 0px 1px no-repeat;
   padding-left: 14px;
 }
 
-div.unstructured a.toggleStructuredLink {
+.unstructured a.toggleStructuredLink {
   background: url("../img/icons/bullet_red.png") 0px 1px no-repeat;
   padding-left: 14px;
 }
 
-div.addDefinition {
+.addDefinition {
   margin-top: 10px;
 }
 
-td.rightColumn {
+.rightColumn {
   padding-left: 30px;
 }
 
-input.miniDefTarget {
+.miniDefTarget {
   font-family: serif;
   font-weight: bold;
 }
@@ -228,7 +232,8 @@ input[readonly] {
   background-color: #f4f4f4;
 }
 
-.select2-container-multi, .select2-result {
+.select2-container-multi,
+.select2-result { /* select2 custom selectors */
   font-size: 12px;
 }
 
@@ -251,26 +256,27 @@ input[readonly] {
   vertical-align: text-top;
 }
 
-#lmTab_stem {
+#lmTabStem {
   display: none;
 }
 
-.ui-tabs {
+.ui-tabs { /* jQuery custom selector */
   font-family: serif;
   font-size: 16px;
 }
 
-.ui-tabs .ui-tabs-panel {
+.ui-tabs .ui-tabs-panel { /* jQuery custom selector */
   padding: 5px;
 }
 
-.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor { /* jQuery custom selector */
   display: inline-block;
   float: none;
   padding: 0px 5px;
 }
 
-.ui-icon-close, .ui-icon-arrow-4 {
+.ui-icon-close,
+.ui-icon-arrow-4 { /* jQuery custom selector */
   cursor: pointer;
   margin: 5px 3px 0;
   display: inline-block;
@@ -282,7 +288,8 @@ input[readonly] {
   top: 8px;
 }
 
-/* Window manager settings */
+/* Window manager settings
+  (with jQuery custom selectors) */
 .titlebaricon {
   display: none;
 }

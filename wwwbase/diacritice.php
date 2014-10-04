@@ -334,12 +334,12 @@ if (strstr( $_SERVER['SCRIPT_NAME'], 'diacritice.php')) {
 
 	if (isset($_POST['text']) && $_POST['text'] != '') {
 
-		SmartyWrap::assign('textarea', '<div id="text_input">'.$obj->fix($_POST['text']).'</div>');
+		SmartyWrap::assign('textarea', '<div id="textInput">'.$obj->fix($_POST['text']).'</div>');
 		SmartyWrap::assign('hiddenText', '<input type="hidden" name="hiddenText" value="'.$obj->getHiddenText().'">');
 	}
 	else {
 
-		SmartyWrap::assign('textarea', '<textarea name="text" id="text_input" placeholder="introduceți textul aici">'.$obj->replaceDiacritics().'</textarea>');
+		SmartyWrap::assign('textarea', '<textarea name="text" id="textInput" placeholder="introduceți textul aici">'.$obj->replaceDiacritics().'</textarea>');
 		SmartyWrap::assign('hiddenText', '<input type="hidden" name="hiddenText" value="">');
 	}
 

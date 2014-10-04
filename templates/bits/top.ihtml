@@ -1,4 +1,4 @@
-<table id="{$tableId}" class="minimalist-table">
+<table id="{$tableId}" class="minimalistTable">
   <thead>
     <tr>
       <th>Loc</th>

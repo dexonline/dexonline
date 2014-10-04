@@ -456,7 +456,7 @@ function similarLexemChange(e) {
 function addLexemModelTab() {
   var tabIndex = $('#paradigmTabs > ul li').length;
   var tabId = 'lmTab_' + randomDigits(9);
-  var tabContents = $('#lmTab_stem').clone(true).attr('id', tabId);
+  var tabContents = $('#lmTabStem').clone(true).attr('id', tabId);
   var li = $('#paradigmTabs > ul li').clone().first();
   li.find('a').text('nou').attr('href', '#' + tabId);
   $('#paradigmTabs > ul').append(li);

@@ -14,8 +14,8 @@
   <form action="{$wwwRoot}cuvinte.php" method="POST" name="frm" onsubmit="return searchSubmit()" id="searchFormCuv">
     
     <div>
-      <label for="i">De la: </label><input type="text" name="i" id="i" class="search_field_cuv" value="{$i|escape}"  maxlength="10" title="De la"/>
-      <label for="e"> la: </label><input type="text" name="e" id="e" class="search_field_cuv" value="{$e|escape}"  maxlength="10" title="la"/>
+      <label for="i">De la: </label><input type="text" name="i" id="i" class="searchFieldCuv" value="{$i|escape}"  maxlength="10" title="De la"/>
+      <label for="e"> la: </label><input type="text" name="e" id="e" class="searchFieldCuv" value="{$e|escape}"  maxlength="10" title="la"/>
     </div>
   
     <div class="sourceCheckboxGroup">
@@ -23,7 +23,7 @@
     </div>
   
     <div>
-      <input type="submit" value="caută" id="search_button"/>
+      <input type="submit" value="caută" id="searchButton"/>
     </div>
     
   </form>

@@ -3,12 +3,12 @@
 {assign var="text" value=$text|default:false}
 <form action="{$wwwRoot}search.php" name="frm" onsubmit="return searchSubmit()" id="searchForm">
   
-  <div id="inlineBlock1" class="bend-shadow tiny-shadow">
-    <input type="text" name="cuv" class="search_field" value="{$cuv|escape}"  maxlength="50" title="Caută"/>
+  <div class="searchTextField bendShadow tinyShadow">
+    <input type="text" name="cuv" class="searchField" value="{$cuv|escape}"  maxlength="50" title="Caută"/>
   </div>
 
-  <div id="inlineBlock2">
-    <input type="submit" value="caută" id="search_button" class="btn"/>
+  <div class="searchButtons">
+    <input type="submit" value="caută" id="searchButton" class="btn"/>
     {if !$advancedSearch}
       <a href="#" onclick="return toggleDivVisibility('advSearch')" id="advancedAnchor">căutare avansată</a>
     {/if}

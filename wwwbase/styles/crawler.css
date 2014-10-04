@@ -1,5 +1,4 @@
 #info {
-
 	overflow: hidden;
 }
 
@@ -13,89 +12,77 @@
 	margin-left: 30px;
 	padding: 10px;
 }
-.total, .perHttpCode {
 
+.total,
+.perHttpCode {
 	font-weight: 600;
-	font-size: 24;
+	font-size: 24px;
 	font-family: serif;
 	color: #3399FF;
 }
 
 .infoPanel {
-
 	position: relative;
 	display: inline-block;
 	margin-left: 10px;
 }			
 
-.totalProcessed, .totalLinks, .httpStatusResult {
-
+.totalProcessed,
+.totalLinks,
+.httpStatusResult {
 	color: #FF3300;
 	font-family: "Times New Roman";
 	font-weight: 900;
-	font-size: 26;
+	font-size: 26px;
 }
 
-.infoTitle, .domain {
-
+.infoTitle,
+.domain {
 	position: relative;
-	text-allign: center;
+	text-align: center;
 	font-weight: 700;
 	font-family: arial;
-	font-size: 24;
+	font-size: 24px;
 	padding-top: 20px;
 	color: #8F0000;
 }
 
 .inSelection {
-
 	color: #6B4724;
 }
 
-
 .selectDomain {
-
-	text-allign: left;
+	text-align: left;
 	font-weight: 900;
 	font-family: serif;
-	font-size: 21;
+	font-size: 21px;
 	color: #8F0000;
 }
 
 #selectDomain {
-
 	margin-left: 30px;
 }
 
 #selectDomain select {
-
 	width: 192px;
 }
 
 #logo {
-
 	position: relative;
 	display: inline-block;
 	margin-top: 60px;
 	margin-left: 40px;
 }
 
-
 @media (max-device-width: 640px) {
-
-
 	#crawlerTitle img {
-
 		width: 330px !important;
 		height: 50px !important;
 		margin: 0 auto !important;
 	}
 
 	#selectDomain, #info, #logo {
-
 		margin: 0 auto !important;
 		margin-top: 20px !important;
 	}
 }
-
-

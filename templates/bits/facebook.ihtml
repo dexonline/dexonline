@@ -1,10 +1,10 @@
-<section class="fb_bottom" id="fbbottom">
+<section class="fbBottom" id="fbBottom">
 </section>
 {literal}
 <script>
 $(document).ready(function(){
-  $('#fbbottom').append('<div id="fb-root"></div>');
-  $('#fbbottom').append('<fb:like href="http://facebook.com/dexonline" send="true" width="875" ref="zepu_bottom" show_faces="true"></fb:like>');
+  $('#fbBottom').append('<div id="fb-root"></div>');
+  $('#fbBottom').append('<fb:like href="http://facebook.com/dexonline" send="true" width="875" ref="zepu_bottom" show_faces="true"></fb:like>');
   jQuery.getScript("http://connect.facebook.net/ro_RO/all.js#appId=173110666079819&amp;xfbml=1", function() {
     FB.init({status: true, cookie: true, xfbml: true}); 
   });

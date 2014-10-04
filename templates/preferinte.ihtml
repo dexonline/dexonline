@@ -43,8 +43,8 @@
   <p class="paragraphTitle">Elemente în pagina principală</p>
 
   {foreach from=$widgets item=w key=value}
-    <input type="checkbox" name="widgets[]" id="widget_{$value}" value="{$value}" {if $w.enabled}checked="checked"{/if}/>
-    <label for="widget_{$value}">{$w.name}</label><br/>
+    <input type="checkbox" name="widgets[]" id="widget{$value}" value="{$value}" {if $w.enabled}checked="checked"{/if}/>
+    <label for="widget{$value}">{$w.name}</label><br/>
   {/foreach}
 
   {if $sUser && $sUser->moderator > 0}

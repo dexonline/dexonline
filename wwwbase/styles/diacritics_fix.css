@@ -1,55 +1,39 @@
-#textarea_subtitle {
-
+#textareaSubtitle {
 	position: relative;
 	width: 100%;
 }
 
-#textarea_subtitle span {
-
+#textareaSubtitle span {
 	color: blue;
 	font-size: 20px;
 	font-family: serif;
 	font-weight: 900;
 }
 
-
-#textarea_div {
-
+#textareaDiv {
 	position: relative;
 	width: 600px;
 	margin: 0 auto;
 }
 
-
 textarea {
-
 	position: relative;
-
 	width: 580px;
 	height: 250px;
-
 	resize: none;
-
 	margin: 10px;
-
 	border:1px solid gray;
 	background-color:#EEEEF6;
 }
 
-#text_input {
-
+#textInput {
 	position: relative;
 	text-align:left;
-
 	overflow-y: scroll;
-
 	width: 580px;
 	height: 250px;
-
 	resize: none;
-
 	margin: 10px;
-
 	border:1px solid gray;
 	background-color:#EEEEF6;
 }

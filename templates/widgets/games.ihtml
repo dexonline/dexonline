@@ -1,4 +1,4 @@
-<img src="{$imgRoot}/hangman/thumb.png" alt="iconiță spânzurătoarea" class="gameIcon common-shadow" />
+<img src="{$imgRoot}/hangman/thumb.png" alt="iconiță spânzurătoarea" class="gameIcon commonShadow" />
 <span>
   <label>Jocuri</label><br />
   <a href="{$wwwRoot}spanzuratoarea">spânzurătoarea</a><br/>

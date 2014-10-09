@@ -1,7 +1,7 @@
 {assign var="adsProvider" value=$adsProvider|default:null}
 {assign var="adsProviderParams" value=$adsProviderParams|default:null}
 {** Arguments: id, width and height. Expects corresponding values in the [skin-*] section of dex.conf. **}
-<section id="banner_{$id}">
+<section id="banner{$id}">
   {if $adsProvider == 'diverta'}
     {* TODO: edit openx.ihtml to make this work *}
     {include file="bits/openx.ihtml" zoneId="" params=$adsProviderParams}

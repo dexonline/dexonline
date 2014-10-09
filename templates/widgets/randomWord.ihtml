@@ -1,4 +1,4 @@
-<img alt="cuvânt aleator" src="{$staticServer}img/wotd/thumb/misc/aleator.jpg" class="common-shadow" />
+<img alt="cuvânt aleator" src="{$staticServer}img/wotd/thumb/misc/aleator.jpg" class="commonShadow" />
 <span>
   <label>Cuvânt aleator</label><br />
   {include file="bits/randomWord.ihtml"}

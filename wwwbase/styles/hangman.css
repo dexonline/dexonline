@@ -159,7 +159,7 @@
   clear: both;
 }
 
-.notice-item {
+.notice-item {  /* jQuery custom selector */
   background: #333;
   border: 2px solid #999;
   border-radius: 6px;
@@ -179,6 +179,6 @@
   margin-left: -100px;
 }
 
-.notice-item-close {
+.notice-item-close { /* jQuery custom selector */
   display: none;
 }

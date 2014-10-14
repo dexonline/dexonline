@@ -8,7 +8,7 @@
 </section>
 
 {if !$suggestNoBanner}
-  {include file="bits/banner.ihtml" id="MainPage" width="728" height="90"}
+  {include file="bits/banner.ihtml" id="mainPage" width="728" height="90"}
 {/if}
 
 {if $numEnabledWidgets}

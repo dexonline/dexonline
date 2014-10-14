@@ -109,7 +109,7 @@
         {/if}
 
         {if !$onHomePage && !$suggestNoBanner && $skinVariables.banner}
-          {include file="bits/banner.ihtml" id="OtherPages" width="728" height="90"}
+          {include file="bits/banner.ihtml" id="otherPages" width="728" height="90"}
         {/if}
 
         <section>

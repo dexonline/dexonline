@@ -687,7 +687,7 @@ abbr {
   display: none;
 }
 
-#bannerMainPage {
+#banner_mainPage {
   position: relative;
   top: -125px;
   width: 728px;
@@ -756,7 +756,7 @@ footer li:last-child:after {
   margin: 0px;
 }
 
-#bannerOtherPages {
+#banner_otherPages {
   margin-top: 4px;
   margin-bottom: 5px;
 }

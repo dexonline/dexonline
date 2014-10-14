@@ -108,12 +108,12 @@ img {
 
 
 /* BANNER */
-#bannerMainPage {
+#banner_mainPage {
   margin: 25px auto;
   width: 730px;
 }
 
-#bannerOtherPages {
+#banner_otherPages {
   margin: 0px auto 10px;
   width: 730px;
 }
@@ -1102,7 +1102,7 @@ body .socialNetworks label {
 /* align banner to the left only on small resolutions;
    adjust widget box size from homepage, on small resolutions */
 @media screen and (max-width: 1093px) {
-  #bannerMainPage {
+  #banner_mainPage {
     margin-left: 0px;
   }
 
@@ -1133,7 +1133,7 @@ body .socialNetworks label {
     width: 470px;
   }
 
-  #bannerMainPage {
+  #banner_mainPage {
     margin-left: 40px;
   }
 }
@@ -1144,7 +1144,7 @@ body .socialNetworks label {
     display: none;
   }
 
-  #bannerMainPage {
+  #banner_mainPage {
     margin-left: 71px;
   }
 }

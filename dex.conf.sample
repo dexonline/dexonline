@@ -49,7 +49,7 @@ logResults = 0
 logSampling = 0.10
 
 ; Max number of bookmarks/user
-maxBookmarks = 100
+maxBookmarks = 500
 
 ; Whether to use the memcached server
 memcache = 0

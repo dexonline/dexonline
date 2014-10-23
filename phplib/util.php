@@ -5,15 +5,17 @@ setlocale(LC_ALL, "ro_RO.utf8");
 spl_autoload_register(); //clears the autoload stack
 
 function autoloadLibClass($className) {
-  $filename = util_getRootPath()."phplib/{$className}.php";
-  if (file_exists($filename))
+  $filename = util_getRootPath() . 'phplib' . DIRECTORY_SEPARATOR . $className . '.php';
+  if (file_exists($filename)) {
     require_once($filename);
+  }
 }
 
 function autoloadModelsClass($className) {
-  $filename = util_getRootPath()."phplib/models/{$className}.php";
-  if (file_exists($filename))
+  $filename = util_getRootPath() . 'phplib' . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . $className . '.php';
+  if (file_exists($filename)) {
     require_once($filename);
+  }
 }
 
 spl_autoload_register("autoloadLibClass", false, true);
@@ -36,17 +38,18 @@ function util_initEverything() {
 }
 
 function util_defineRootPath() {
+  $ds = DIRECTORY_SEPARATOR;
   $fileName = realpath($_SERVER['SCRIPT_FILENAME']);
-  $pos = strrpos($fileName, '/wwwbase/');
+  $pos = strrpos($fileName, "{$ds}wwwbase{$ds}");
   // Some offline scripts, such as dict-server.php, run from the tools or phplib directories.
   if ($pos === FALSE) {
-    $pos = strrpos($fileName, '/tools/');
+    $pos = strrpos($fileName, "{$ds}tools{$ds}");
   }
   if ($pos === FALSE) {
-    $pos = strrpos($fileName, '/phplib/');
+    $pos = strrpos($fileName, "{$ds}phplib{$ds}");
   }
   if ($pos === FALSE) {
-    $pos = strrpos($fileName, '/app/');
+    $pos = strrpos($fileName, "{$ds}app{$ds}");
   }
   $GLOBALS['util_rootPath'] = substr($fileName, 0, $pos + 1);
 }
@@ -100,13 +103,13 @@ function util_getCssRoot() {
 
 function util_requireOtherFiles() {
   $root = util_getRootPath();
-  require_once("$root/phplib/smarty/Smarty.class.php");
-  require_once("$root/phplib/idiorm/idiorm.php");
-  require_once("$root/phplib/idiorm/paris.php");
-  require_once("$root/phplib/db.php");
-  require_once("$root/phplib/logging.php");
-  require_once("$root/phplib/session.php");
-  require_once("$root/phplib/memcache.php");
+  require_once(StringUtil::portable("$root/phplib/smarty/Smarty.class.php"));
+  require_once(StringUtil::portable("$root/phplib/idiorm/idiorm.php"));
+  require_once(StringUtil::portable("$root/phplib/idiorm/paris.php"));
+  require_once(StringUtil::portable("$root/phplib/db.php"));
+  require_once(StringUtil::portable("$root/phplib/logging.php"));
+  require_once(StringUtil::portable("$root/phplib/session.php"));
+  require_once(StringUtil::portable("$root/phplib/memcache.php"));
 }
 
 function util_defineConstants() {

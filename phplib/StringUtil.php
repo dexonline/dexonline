@@ -328,6 +328,10 @@ class StringUtil {
     return str_pad($input, $padLength + strlen($input) - mb_strlen($input), $padString, $padType); 
   }
 
+  /* Make a string portable across OS's by replacing '/' with DIRECTORY_SEPARATOR */
+  static function portable($s) {
+    return str_replace('/', DIRECTORY_SEPARATOR, $s);
+  }
 }
 
 ?>

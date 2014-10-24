@@ -41,6 +41,16 @@ function db_executeFromOS($query) {
   OS::executeAndAssert($command);
 }
 
+function db_executeSqlFileFromOS($filename) {
+  $dsn = Config::get('global.database');
+  $parts = db_splitDsn($dsn);
+  $command = sprintf("cat {$filename} | mysql -u %s %s %s",
+                     $parts['user'],
+                     $parts['database'],
+                     $parts['password'] ? ("-p" . $parts['password']) : '');
+  OS::executeAndAssert($command);
+}
+
 function db_changeDatabase($dbName) {
   $dbName = addslashes($dbName);
   db_init();

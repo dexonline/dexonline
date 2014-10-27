@@ -21,7 +21,7 @@ foreach (Config::getLocVersions() as $version) {
     $dbResult = getRawForms();
 
     log_scriptLog('* creating raw file');
-    $fileName = "/tmp/forme-{$version->name}-raw.txt";
+    $fileName = Config::get('global.tempDir') . "/forme-{$version->name}-raw.txt";
     $file = fopen($fileName, 'w');
     foreach ($dbResult as $dbRow) {
       fwrite($file, "{$dbRow[0]}\r\n");
@@ -35,11 +35,11 @@ foreach (Config::getLocVersions() as $version) {
     file_put_contents($fileName, $s);
 
     log_scriptLog('* removing duplicates and sorting');
-    $fileName2 = "/tmp/forme-{$version->name}.txt";
+    $fileName2 = Config::get('global.tempDir') . "/forme-{$version->name}.txt";
     OS::executeAndAssert("sort -u {$fileName} -o {$fileName2}");
 
     log_scriptLog('* zipping');
-    $zipFileName = "/tmp/forme-{$version->name}.zip";
+    $zipFileName = Config::get('global.tempDir') . "/forme-{$version->name}.zip";
     OS::executeAndAssert("zip -j {$zipFileName} {$fileName2}");
 
     log_scriptLog('* copying over FTP');

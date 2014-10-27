@@ -10,8 +10,8 @@ if ($newLocVersion) {
     util_redirect('scrabble-loc');
   }
 
-  $file1 = tempnam('/tmp', 'loc_diff_');
-  $file2 = tempnam('/tmp', 'loc_diff_');
+  $file1 = tempnam(Config::get('global.tempDir'), 'loc_diff_');
+  $file2 = tempnam(Config::get('global.tempDir'), 'loc_diff_');
   writeLexems($locVersion, $file1);
   writeLexems($newLocVersion, $file2);
   $diff = OS::executeAndReturnOutput("diff $file1 $file2 || true");

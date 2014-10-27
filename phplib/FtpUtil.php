@@ -16,7 +16,7 @@ class FtpUtil {
   }
 
   static function staticServerPutContents(&$contents, $remoteFile) {
-    $tmpFile = tempnam('/tmp', 'ftp_');
+    $tmpFile = tempnam(Config::get('global.tempDir'), 'ftp_');
     file_put_contents($tmpFile, $contents);
     self::staticServerPut($tmpFile, $remoteFile);
     unlink($tmpFile);

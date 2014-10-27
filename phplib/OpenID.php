@@ -13,7 +13,7 @@ if (!isset($_SESSION)) {
 class OpenID {
 
   private static function getStore() {
-    $store_path = '/tmp/dex_openidStorePath';
+    $store_path = Config::get('global.tempDir') . '/dex_openidStorePath';
     if (!file_exists($store_path) && !mkdir($store_path)) {
       print "Could not create the FileStore directory '$store_path'";
       exit(0);

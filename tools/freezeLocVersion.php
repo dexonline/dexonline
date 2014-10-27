@@ -58,7 +58,7 @@ if ($currentLv->freezeTimestamp) {
 $dbName = $locDbPrefix . $lvToFreeze->getDbName();
 print "Creating database $dbName\n";
 db_execute("create database $dbName");
-$fileName = tempnam('/tmp', 'freeze_');
+$fileName = tempnam(Config::get('global.tempDir'), 'freeze_');
 print "Dumping tables to $fileName\n";
 $tablesToDump = "ConstraintMap Inflection Lexem ModelDescription ModelType Model ParticipleModel Transform InflectedForm";
 $parts = db_splitDsn();

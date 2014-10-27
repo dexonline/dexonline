@@ -25,7 +25,7 @@ $dbResult = db_execute('select id, internalRep from Definition where status = 0'
 $numDefs = $dbResult->rowCount();
 $defsSeen = 0;
 $indexSize = 0;
-$fileName = tempnam('/tmp', 'index_');
+$fileName = tempnam(Config::get('global.tempDir'), 'index_');
 $handle = fopen($fileName, 'w');
 log_scriptLog("Writing index to file $fileName.");
 DebugInfo::disable();

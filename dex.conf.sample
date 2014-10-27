@@ -41,7 +41,7 @@ logSearch = 0
 logPath = /var/log/dex-query.log
 
 ; Folder for temporal data
-tempDir = /var/tmp
+tempDir = /tmp
 
 ; For each query, log at most this many results
 ; If set to zero, then log only query information, but not the results

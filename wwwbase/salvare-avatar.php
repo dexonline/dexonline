@@ -34,7 +34,7 @@ $canvas = imagecreatetruecolor(AVATAR_RESOLUTION, AVATAR_RESOLUTION);
 $image = loadImage($rawFileName);
 imagecopyresampled($canvas, $image, 0, 0, $x0, $y0, AVATAR_RESOLUTION, AVATAR_RESOLUTION, $side, $side);
 sharpenImage($canvas);
-$tmpFileName = tempnam('/tmp/', 'dex_avatar_');
+$tmpFileName = tempnam(Config::get('global.tempDir'), 'dex_avatar_');
 imagejpeg($canvas, $tmpFileName, AVATAR_QUALITY);
 FtpUtil::staticServerPut($tmpFileName, $AVATAR_REMOTE_FILE);
 unlink($rawFileName);

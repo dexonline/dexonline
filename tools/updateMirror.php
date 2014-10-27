@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../phplib/util.php';
 
 define('DATABASE_URL', Config::get('static.url') . 'download/mirrorAccess/dex-database.sql.gz');
-define('DATABASE_TMPFILE', '/tmp/dex-database.sql');
+define('DATABASE_TMPFILE', Config::get('global.tempDir') . '/dex-database.sql');
 define('DATABASE_TMPFILE_GZIP', DATABASE_TMPFILE . '.gz');
 
 $doDatabaseCopy = true;

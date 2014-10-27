@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../phplib/util.php';
 
 log_scriptLog('Running rebuildFirefoxSpellChecker.php.');
-$tmpDir = tempnam('/tmp', 'xpi_');
+$tmpDir = tempnam(Config::get('global.tempDir'), 'xpi_');
 log_scriptLog('Setting up directories');
 chdir(util_getRootPath());
 OS::executeAndAssert("rm $tmpDir");
@@ -12,7 +12,7 @@ OS::executeAndAssert("mkdir $tmpDir/dictionaries");
 OS::executeAndAssert("echo 'SET UTF-8' > $tmpDir/dictionaries/ro-dex.aff");
 OS::executeAndAssert("cp docs/install.rdf $tmpDir/");
 
-$mysqlFile = tempnam('/tmp', 'mysql_');
+$mysqlFile = tempnam(Config::get('global.tempDir'), 'mysql_');
 unlink($mysqlFile);
 $query = "select distinct formNoAccent from InflectedForm where formNoAccent rlike '^[a-zăâîșț]+$' into outfile '$mysqlFile'";
 log_scriptLog("Running mysql query: [$query]");

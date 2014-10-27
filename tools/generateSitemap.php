@@ -99,7 +99,7 @@ function openNewFile() {
   global $g_curFileUrl;
 
   $g_numFiles++;
-  $g_curFileName = tempnam('/tmp', 'sitemap_');
+  $g_curFileName = tempnam(Config::get('global.tempDir'), 'sitemap_');
   $g_curFile = fopen($g_curFileName, 'w');
   $g_curFileSize = 0;
   $g_curFileUrl = 0;

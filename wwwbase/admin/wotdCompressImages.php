@@ -16,7 +16,7 @@ if (array_key_exists('file', $_FILES)) {
     FlashMessage::add('Sunt permise numai fișiere .zip.');
   } else {
     // Create a working dir
-    $workDir = tempnam('/tmp', 'compress_');
+    $workDir = tempnam(Config::get('global.tempDir'), 'compress_');
     @unlink($workDir);
     mkdir($workDir);
     chdir($workDir);
@@ -39,7 +39,7 @@ if (array_key_exists('file', $_FILES)) {
     OS::executeAndAssert("zip -r0 compressed.zip *");
 
     // Move the resulting file to another temp location so it lives a little longer
-    $outputFile = tempnam('/tmp', 'compress_');
+    $outputFile = tempnam(Config::get('global.tempDir'), 'compress_');
     @unlink($outputFile);
     rename("{$workDir}/compressed.zip", $outputFile);
     OS::executeAndAssert("rm -rf {$workDir}");
@@ -72,32 +72,32 @@ function recursiveScan($path, $logFile) {
       $extension = pathinfo(strtolower($full), PATHINFO_EXTENSION);
       $fullNoExt = substr($full, 0, strlen($full) - strlen($extension) - 1); // Strip the dot as well
       if (in_array($extension, $EXTENSIONS)) {
-        OS::executeAndAssert("convert -strip '{$full}' '/tmp/fileNoExif.{$extension}'");
-        OS::executeAndAssert("convert '/tmp/fileNoExif.{$extension}' '/tmp/fileNoExifPng.png'");
-        OS::executeAndAssert("optipng '/tmp/fileNoExifPng.png'");
+        OS::executeAndAssert("convert -strip '{$full}' '" . Config::get('global.tempDir') . "/fileNoExif.{$extension}'");
+        OS::executeAndAssert("convert '" . Config::get('global.tempDir') . "/fileNoExif.{$extension}' '/fileNoExifPng.png'");
+        OS::executeAndAssert("optipng '" . Config::get('global.tempDir') . "/fileNoExifPng.png'");
         $fs1 = filesize($full);
-        $fs2 = filesize("/tmp/fileNoExif.{$extension}");
-        $fs3 = filesize('/tmp/fileNoExifPng.png');
+        $fs2 = filesize(Config::get('global.tempDir') . "/fileNoExif.{$extension}");
+        $fs3 = filesize(Config::get('global.tempDir') . '/fileNoExifPng.png');
         $beforeBytes += $fs1;
         if ($fs3 < $fs1 && $fs3 < $fs2) {
           $compression = 100.0 * (1 - $fs3/$fs1);
           $afterBytes += $fs3;
           fprintf($logFile, "%s -- Strip EXIF, convert to PNG and optimize: %d/%d bytes, %.2f%% saved\n", $full, $fs3, $fs1, $compression);
           unlink($full);
-          unlink("/tmp/fileNoExif.{$extension}");
-          rename('/tmp/fileNoExifPng.png', "$fullNoExt.png");
+          unlink(Config::get('global.tempDir') . "/fileNoExif.{$extension}");
+          rename(Config::get('global.tempDir') . '/fileNoExifPng.png', "$fullNoExt.png");
         } else if ($fs2 < $fs1) {
           $compression = 100.0 * (1 - $fs2/$fs1);
           $afterBytes += $fs2;
           fprintf($logFile, "%s -- Strip EXIF: %d/%d bytes, %.2f%% saved\n", $full, $fs2, $fs1, $compression);
           unlink($full);
-          rename("/tmp/fileNoExif.{$extension}", $full);
-          unlink('/tmp/fileNoExifPng.png');
+          rename(Config::get('global.tempDir') . "/fileNoExif.{$extension}", $full);
+          unlink(Config::get('global.tempDir') . '/fileNoExifPng.png');
         } else {
           $afterBytes += $fs1;
           fprintf($logFile, "{$full} -- leave unchanged\n");
-          unlink("/tmp/fileNoExif.{$extension}");
-          unlink('/tmp/fileNoExifPng.png');
+          unlink(Config::get('global.tempDir') . "/fileNoExif.{$extension}");
+          unlink(Config::get('global.tempDir') . '/fileNoExifPng.png');
         }
       }
     }

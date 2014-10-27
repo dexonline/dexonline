@@ -2,7 +2,7 @@
 
 class FileCache {
   private static $CACHE_EXPIRATION_SECONDS = 86400;
-  private static $CACHE_PREFIX = '/tmp/dexcache_';
+  private static $CACHE_PREFIX = '/dexcache_';
   private static $CKEY_TOP = 'top';
   private static $CKEY_TOP_ALL = 'top_all';
   private static $CKEY_WORDS_ALL = 'words_all';
@@ -28,7 +28,7 @@ class FileCache {
   }
 
   static function get($key) {
-    $fileName = self::$CACHE_PREFIX . $key;
+    $fileName = Config::get('global.tempDir') . self::$CACHE_PREFIX . $key;
     $f = self::openFileForRead($fileName);
     if (!$f) {
       return NULL;
@@ -40,7 +40,7 @@ class FileCache {
   }
 
   static function put($key, $value) {
-    $f = fopen(self::$CACHE_PREFIX . $key, 'wb');
+    $f = fopen(Config::get('global.tempDir') . self::$CACHE_PREFIX . $key, 'wb');
     fwrite($f, serialize($value));
     fclose($f);
   }

@@ -128,7 +128,7 @@ function dumpDefinitions($query, $remoteFile, $message) {
 
   log_scriptLog($message);
   $results = db_execute($query);
-  $tmpFile = tempnam('/tmp', 'xmldump_');
+  $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<Definitions>\n");
@@ -148,7 +148,7 @@ function dumpDefinitions($query, $remoteFile, $message) {
 function dumpLexems($query, $remoteFile, $message) {
   log_scriptLog($message);
   $results = db_execute($query);
-  $tmpFile = tempnam('/tmp', 'xmldump_');
+  $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<Lexems>\n");
@@ -166,7 +166,7 @@ function dumpLexems($query, $remoteFile, $message) {
 function dumpLdm($query, $remoteFile, $message) {
   log_scriptLog($message);
   $results = db_execute($query);
-  $tmpFile = tempnam('/tmp', 'xmldump_');
+  $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<LexemDefinitionMap>\n");
@@ -187,7 +187,7 @@ function dumpLdmDiff($oldRemoteFile, $newRemoteFile, $diffRemoteFile) {
   $newXml = wgetAndGunzip(Config::get('static.url') . '/' . $newRemoteFile);
   $output = null;
   exec("diff $oldXml $newXml", $output, $ignored);
-  $tmpFile = tempnam('/tmp', 'xmldump_');  
+  $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');  
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<LexemDefinitionMap>\n");
@@ -206,9 +206,9 @@ function dumpLdmDiff($oldRemoteFile, $newRemoteFile, $diffRemoteFile) {
   unlink($newXml);
 }
 
-// Returns a file name in /tmp pointing to the unzipped file
+// Returns a file name in tempDir pointing to the unzipped file
 function wgetAndGunzip($url) {
-  $tmpFile = tempnam('/tmp', 'xmldump_');
+  $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
   OS::executeAndAssert("wget -q -O $tmpFile.gz $url");
   OS::executeAndAssert("gunzip -f $tmpFile.gz");
   return $tmpFile;

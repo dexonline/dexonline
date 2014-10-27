@@ -1,10 +1,10 @@
 <?php
 
 class Lock {
-  private static $LOCK_PREFIX = '/tmp/lock_';
+  private static $LOCK_PREFIX = '/lock_';
 
   static function exists($name) {
-    return file_exists(self::$LOCK_PREFIX . $name);
+    return file_exists(Config::get('global.tempDir') . self::$LOCK_PREFIX . $name);
   }
 
   // returns false if the lock already exists
@@ -12,7 +12,7 @@ class Lock {
     if (self::exists($name)) {
       return false;
     }
-    touch(self::$LOCK_PREFIX . $name);
+    touch(Config::get('global.tempDir') . self::$LOCK_PREFIX . $name);
     return true;
   }
 
@@ -21,7 +21,7 @@ class Lock {
     if (!self::exists($name)) {
       return false;
     }
-    unlink(self::$LOCK_PREFIX . $name);
+    unlink(Config::get('global.tempDir') . self::$LOCK_PREFIX . $name);
     return true;
   }
 }

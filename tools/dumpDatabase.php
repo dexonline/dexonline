@@ -2,8 +2,8 @@
 
 require_once __DIR__ . '/../phplib/util.php';
 
-$SQL_FILE = '/tmp/dex-database.sql';
-$GZ_FILE = '/tmp/dex-database.sql.gz';
+$SQL_FILE = Config::get('global.tempDir') . '/dex-database.sql';
+$GZ_FILE = Config::get('global.tempDir') . '/dex-database.sql.gz';
 $LICENSE = util_getRootPath() . '/tools/dumpDatabaseLicense.txt';
 
 $parts = db_splitDsn();

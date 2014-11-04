@@ -44,7 +44,7 @@
 }
 
 #typoDiv {
-  background: #f8f8f8;
+  background: #EEE;
   border: 1px solid #777;
   border-radius: 4px;
   display: none;
@@ -135,7 +135,7 @@ blockquote {
 
 .minimalistTable td:nth-child(even),
 .wikiArticle td:nth-child(even) {
-  background: #F2F2F2;
+  background: #EEE;
 }
 
 .minimalistTable td:first-of-type,
@@ -175,7 +175,7 @@ blockquote {
 }
 
 .licences .sourceShortName {
-  background: #DCDCDC;
+  background: #DDD;
   border-radius: 2px;
   font-size: 80%;
   margin-left: 10px;
@@ -323,7 +323,7 @@ blockquote {
 
 .donateProjectDetails {
   display: none;
-  background: #f7f7f7;
+  background: #EEE;
   border: 1px solid #BFBFBF;
   border-radius: 4px;
 }

@@ -52,7 +52,7 @@ table {
 
 .common tr .noLeftBorder,
 .common tr .noLeftBorder {
-  border-left: 1px solid white;
+  border-left: 1px solid #FFF;
 }
 
 .editableFields tr td {
@@ -116,7 +116,7 @@ hr {
 
 .adminRecentlyVisited {
   background: #f8f8ff;
-  border: 1px solid black;
+  border: 1px solid #000;
   float: right;
   font-family: sans-serif;
   font-size: 80%;
@@ -138,7 +138,7 @@ hr {
 }
 
 .verifyModel {
-  border: 1px solid black;
+  border: 1px solid #000;
   margin-top: 10px;
   padding-left: 5px;
 }
@@ -174,13 +174,13 @@ hr {
 }
 
 .blLexem {
-  border: 1px solid black;
+  border: 1px solid #000;
   margin-top: 10px;
 }
 
 .blLexemTitle {
   background: #dddddd;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #000;
   padding-left: 10px;
 }
 
@@ -224,7 +224,7 @@ hr {
 }
 
 .blDefinitions a {
-  color: black;
+  color: #000;
   text-decoration: none;
 }
 

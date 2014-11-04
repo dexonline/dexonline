@@ -1,6 +1,6 @@
 /* Full text highlight. Keep the number of colors in sync with Definition::highlight(). */
 .fth {
-  color: white;
+  color: #FFF;
   border-width: 1.5px;
   border-style: outset;
 }
@@ -44,7 +44,7 @@
 }
 
 #typoDiv {
-  background: #f8f8f8;
+  background: #EEE;
   border: 1px solid #777;
   border-radius: 4px;
   display: none;
@@ -135,7 +135,7 @@ blockquote {
 
 .minimalistTable td:nth-child(even),
 .wikiArticle td:nth-child(even) {
-  background: #F2F2F2;
+  background: #EEE;
 }
 
 .minimalistTable td:first-of-type,
@@ -175,7 +175,7 @@ blockquote {
 }
 
 .licences .sourceShortName {
-  background: #DCDCDC;
+  background: #DDD;
   border-radius: 2px;
   font-size: 80%;
   margin-left: 10px;
@@ -224,3 +224,115 @@ blockquote {
   border-bottom: 1px solid #DDD;
 }
 
+
+/* Donează page */
+.donateContent {
+  padding: 0px 15px;
+  line-height: 17px;
+  padding-top: 10px;
+}
+
+.paymentSection {
+  display: inline-block;
+  background: #FFF;
+  width: 305px;
+  height: 175px;
+  margin: 15px 7px 0px 0px;
+  vertical-align: top;
+  padding-bottom: 15px;
+  border: 1px solid #BFBFBF;
+}
+
+.paymentSection h3 {
+  background: #3D65B0;
+  border: 1px solid #3D65B0;
+  border-bottom: 0;
+  margin: 0px 0px 10px 0px;
+  padding: 8px 10px 8px 20px;
+  color: #FFF;
+  font-size: 14px;
+}
+
+.paypal {
+  width: 220px;
+}
+
+.paymentSection label {
+  display: inline-block;
+  width: 60px;
+  padding-left: 15px;
+  margin-top: 10px;
+  text-align: right;
+}
+
+#donateOnlineEmail {
+  width: 190px;
+}
+
+.donateContent ul li {
+  list-style-type: square;
+}
+
+.paymentSection .tipText {
+  width: 260px;
+  color: #777;
+  font-size: 12px;
+  margin-top: 10px;
+  padding-left: 5px;
+}
+
+.onlineDonationButton {
+  margin-top: 20px;
+  margin-left: 15px;
+  padding: 0;
+  background: #D4EFFA url("../img/donate.png") 0px 0px no-repeat;
+  border: 0px;
+  border-radius: 12px;
+  cursor: pointer;
+  width: 252px;
+  height: 34px;
+}
+
+.payPalButton {
+  margin-top: 35px;
+  margin-left: 30px;
+  border: 0px;
+}
+
+.bankTransfer ul {
+  padding-left: 15px;
+}
+
+.bankTransfer ul li {
+	list-style-type: none;
+	margin-top: 7px;
+	color: #777;
+}
+
+.bankAccount {
+  font-weight: bold;
+  color: #555;
+  font-size: 13px;
+}
+
+.donateDetailLink {
+  font-size: 12px;
+  font-weight: normal;
+  margin-left: 10px;
+}
+
+.donateProjectDetails {
+  display: none;
+  background: #EEE;
+  border: 1px solid #BFBFBF;
+  border-radius: 4px;
+}
+
+.wotdReason {
+  padding: 10px;
+}
+
+.donateContent h2 {
+  color: #3D65B0;
+  font-weight: bold;
+}

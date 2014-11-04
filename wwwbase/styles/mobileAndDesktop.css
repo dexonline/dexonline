@@ -4,7 +4,7 @@
 /* GLOBAL */
 .paragraphTitle { /* paragraph titles on any page */
   font-size: 14px; /* equivalent with h3 */
-  color: black;
+  color: #000;
   font-weight: bold;
   padding-left: 0px;
 }
@@ -21,7 +21,7 @@ table {
 
 table td,
 table th {
-  border: 1px solid #aaa;
+  border: 1px solid #DDD;
   padding: 2px 10px;
 }
 
@@ -45,7 +45,7 @@ table th {
 }
 
 .describeOption {
-  color: #6B6B6B;
+  color: #777;
   margin-left: 25px;
 }
 

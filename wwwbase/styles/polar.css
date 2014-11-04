@@ -1,8 +1,8 @@
 @import "common.css";
 
 body {
-  background-color: white;
-  color: black;
+  background-color: #FFF;
+  color: #000;
   font-family: serif;
   width: 875px;
   height: 100%;
@@ -11,7 +11,7 @@ body {
 
 #menu {
   background: #dcf0ff;
-  color: black;
+  color: #000;
   border: 1px solid blue;
   font-family: sans-serif;
   min-height: 87px;
@@ -92,7 +92,7 @@ body {
 
 #mainMenu li ul,
 #userMenu li ul {
-  background: white;
+  background: #FFF;
   border: 1px solid blue;
   display: none;
   margin: 0;
@@ -186,7 +186,7 @@ h4 {
 .h4Sub {
   font-size: 85%;
   font-style: italic;
-  color: #AAA;
+  color: #BFBFBF;
 }
 
 .defDetails {
@@ -221,7 +221,7 @@ h4 {
 }
 
 .inflLink {
-  color: black;
+  color: #000;
   font-weight: normal;
   text-decoration: none;
 }
@@ -245,7 +245,7 @@ pre.code {
 
 pre.exportSample {
   background: #ddffdd;
-  border: 1px solid black;
+  border: 1px solid #000;
   padding: 5px;
   font-weight: bold;
 }
@@ -280,7 +280,7 @@ pre.exportSample {
 .userTop td,
 .userTop th {
   padding-right: 20px;
-  border: 2px solid white;
+  border: 2px solid #FFF;
   text-align: center;
 }
 
@@ -511,8 +511,8 @@ abbr {
 }
 
 .sourceName:hover span {
-  background: white;
-  border: 1px solid black;
+  background: #FFF;
+  border: 1px solid #000;
   -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.3);
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
@@ -533,11 +533,11 @@ abbr {
 }
 
 .sourceComplete0 {
-  color: black;
+  color: #000;
 }
 
 .sourceComplete1 {
-  color: #EB0000;
+  color: #CC0000;
 }
 
 .sourceComplete2 {
@@ -569,7 +569,7 @@ abbr {
 
 .userProfileHeader h3 {
   margin: 30px 0px 10px 55px;
-  color: #333030;
+  color: #333;
 }
 
 .avatar {

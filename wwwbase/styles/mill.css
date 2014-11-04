@@ -13,7 +13,7 @@
 }
 
 .millArea .btn {
-  color: white;
+  color: #FFF;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-repeat: repeat-x;
   padding: 4px 12px;
@@ -66,13 +66,13 @@
   background-image: -webkit-linear-gradient(top, rgb(238, 95, 91), rgb(189, 54, 47));
   background-image: -o-linear-gradient(top, rgb(238, 95, 91), rgb(189, 54, 47));
   background-image: linear-gradient(to bottom, rgb(238, 95, 91), rgb(189, 54, 47)); /*#ffeaea;*/
-  color: white;
+  color: #FFF;
 }
 
 .millArea .buttonGuessed,
 .millArea .buttonGuessed:hover {
   background: green;
-  color: white;
+  color: #FFF;
 }
 
 #questionPage,

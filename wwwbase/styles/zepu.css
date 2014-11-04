@@ -50,7 +50,7 @@ h4 {
 
 .h4Sub {
   font-style: italic;
-  color: #AAA;
+  color: #BFBFBF;
 }
 
 p {
@@ -64,7 +64,7 @@ p {
 }
 
 abbr {
-  border-bottom: 1px dotted #aaa;
+  border-bottom: 1px dotted #BFBFBF;
   cursor: help;
 }
 
@@ -176,7 +176,7 @@ img {
 
 #mainMenu li a,
 #userMenu li a {
-  color: #424242;
+  color: #444;
   cursor: pointer;
   display: block;
   outline: none; /* Firefox */
@@ -216,11 +216,11 @@ img {
 }
 
 #mainMenu .donateLink {
-  background: #E4EFF7;
-  background-image: -webkit-linear-gradient(left, #C5D3DD, #F2F9FD);
-  background-image: -moz-linear-gradient(left, #C5D3DD,#F2F9FD);
-  background-image: -o-linear-gradient(left, #C5D3DD,#F2F9FD);
-  background-image: linear-gradient(to right, #C5D3DD,#F2F9FD);
+  background: #DDD;
+  background-image: -webkit-linear-gradient(right, #FFF, #DDD);
+  background-image: -moz-linear-gradient(right, #FFF, #DDD);
+  background-image: -o-linear-gradient(right, #FFF, #DDD);
+  background-image: linear-gradient(to left, #FFF, #DDD);
   border: 1px solid #CCC;
   border-bottom-right-radius: 4px;
   border-top-right-radius: 4px;
@@ -269,7 +269,7 @@ img {
 }
 
 .tagline {
-  color: #424242;
+  color: #444;
   font-size: 14px;
   letter-spacing: 1px;
   margin: -10px auto 10px;
@@ -392,7 +392,7 @@ img {
 
 /* MISSION STATEMENT */
 #missionStatement {
-  color: #424242;
+  color: #444;
   font-size: 13px;
   margin: 25px auto 20px;
   text-align: center;
@@ -489,7 +489,7 @@ footer li:last-child:after {
 
 .resultBar {
   background: #eee;
-  border: 1px solid #aaa;
+  border: 1px solid #BFBFBF;
   font-size: 13px;
   margin: 20px 15px 0px 15px;
   padding: 5px 5px 5px 10px;
@@ -498,7 +498,7 @@ footer li:last-child:after {
 
 .stopWords {
   background: #f4f4f4;
-  border: 1px solid #aaa;
+  border: 1px solid #BFBFBF;
   font-size: 11px;
   margin: 0px 0px 10px 5px;
   padding: 5px;
@@ -525,7 +525,7 @@ footer li:last-child:after {
 
 /* GUIDE INFO */
 #guideInfo {
-  color: #424242;
+  color: #444;
   display: none;
 }
 
@@ -584,7 +584,7 @@ footer li:last-child:after {
 
 .userTop td,
 .userTop th {
-  border: 1px solid #aaa;
+  border: 1px solid #BFBFBF;
   text-align: center;
   padding-right: 20px;
 }
@@ -627,7 +627,7 @@ footer li:last-child:after {
 }
 
 #defUserEdit td {
-  border: 1px solid white;
+  border: 1px solid #FFF;
   min-width: 100px;
   padding: 3px;
   vertical-align: top;
@@ -655,7 +655,7 @@ footer li:last-child:after {
 }
 
 .contribPreview {
-  border: 1px solid #aaa;
+  border: 1px solid #BFBFBF;
   margin-left: 20px;
   padding: 10px;
 }
@@ -673,7 +673,7 @@ footer li:last-child:after {
 
 .contribExample td,
 .contribExample th {
-  border: 1px solid #aaa;
+  border: 1px solid #BFBFBF;
   padding: 3px 10px;
 }
 
@@ -689,7 +689,7 @@ footer li:last-child:after {
 
 .static th,
 .static td {
-  border: 1px solid #aaa;
+  border: 1px solid #BFBFBF;
 }
 
 
@@ -770,14 +770,14 @@ input.pagedisplay {
 
 #wotdArchiveHeader {
   border-radius: 4px;
-  background: #6B6B6B;
+  background: #777;
   height: 30px;
   width: 100%;
   text-align: center;
 }
 
 .nav {
-  background: white;
+  background: #FFF;
   width: 25px;
   height: 25px;
   cursor: pointer;
@@ -793,7 +793,7 @@ input.pagedisplay {
 
 #wotdDate {
   display: inline;
-  color: white;
+  color: #FFF;
   font-weight: bold;
   font-size: 14px;
   line-height: 30px; /* do not omit, otherwise the paragraph won't be centered */
@@ -812,7 +812,7 @@ input.pagedisplay {
 }
 
 .wotdArchiveTable td {
-  border: 1px solid white;
+  border: 1px solid #FFF;
 }
 
 .wotdArchiveTable .thumb {
@@ -824,15 +824,15 @@ input.pagedisplay {
   text-align: center;
   width: 90px;
   background: #ddd;
-  border: 1px solid white;
+  border: 1px solid #FFF;
 }
 
 .wotdArchiveTable .wotdDays td {
   padding: 10px 0px;
-  background: white;
+  background: #FFF;
   text-align: center;
   font-weight: bold;
-  color: #6B6B6B;
+  color: #777;
 }
 
 .wotdDoM {
@@ -858,7 +858,7 @@ input.pagedisplay {
 }
 
 #wotdImage .copyright {
-  color: #aaa;
+  color: #BFBFBF;
   margin: 0px auto;
   padding-top: 2px;
   text-align: right;
@@ -948,8 +948,8 @@ input.pagedisplay {
 }
 
 .sourceName:hover span {
-  background: white;
-  border: 1px solid black;
+  background: #FFF;
+  border: 1px solid #000;
   margin-left: 0;
   padding: 10px;
   position: absolute;
@@ -963,11 +963,11 @@ input.pagedisplay {
 }
 
 .sourceComplete0 {
-  color: black;
+  color: #000;
 }
 
 .sourceComplete1 {
-  color: #EB0000;
+  color: #CC0000;
 }
 
 .sourceComplete2 {
@@ -992,7 +992,7 @@ input.pagedisplay {
 
 .meaningTag {
   background: #ddd;
-  border: 1px solid #888;
+  border: 1px solid #777;
   border-radius: 4px;
   float: left;
   margin-right: 10px;
@@ -1000,7 +1000,7 @@ input.pagedisplay {
 }
 
 .meaningTag .value {
-  border-right: 1px solid #888;
+  border-right: 1px solid #777;
   float: left;
   padding: 5px;
 }
@@ -1015,7 +1015,7 @@ input.pagedisplay {
 }
 
 .meaningTag a {
-  color: black;
+  color: #000;
   font-weight: bold;
   text-decoration: none;
 }
@@ -1031,10 +1031,11 @@ input.pagedisplay {
 }
 
 .widgetList {
-  background: #E4EFF7;
-  background-image: -webkit-linear-gradient(left, #F2F9FD, #C5D3DD);
-  background-image: -moz-linear-gradient(left, #F2F9FD, #C5D3DD);
-  background-image: -o-linear-gradient(left, #F2F9FD, #C5D3DD);
+  background: #DDD;
+  background-image: -webkit-linear-gradient(left, #FFF, #DDD);
+  background-image: -moz-linear-gradient(left, #FFF, #DDD);
+  background-image: -o-linear-gradient(left, #FFF, #DDD);
+  background-image: linear-gradient(to right, #FFF, #DDD);
   border: 1px solid #CCC;
   padding: 20px 10px 5px 15px;
   border-bottom-left-radius: 4px;
@@ -1058,7 +1059,7 @@ input.pagedisplay {
 }
 
 .widgetList label {
-  color: #64778A;
+  color: #555;
   font-weight: bold;
 }
 
@@ -1070,7 +1071,7 @@ input.pagedisplay {
 body .socialNetworks label {
   display: block;
   margin-bottom: 5px;
-  color: #3B4753;
+  color: #333;
 }
 
 .socialNetworks a {
@@ -1175,7 +1176,7 @@ body .socialNetworks label {
 
 .userProfileHeader h3 {
   margin: 30px 0px 10px 55px;
-  color: #333030;
+  color: #333;
 }
 
 .avatar {
@@ -1194,20 +1195,20 @@ body .socialNetworks label {
 }
 
 .userProfileSection legend {
-  color: #525151;
+  color: #555;
   display: block;
   font-weight: bold;
 }
 
 .userFields {
-  color: #888;
+  color: #777;
   display: inline-block;
   width: 150px;
   margin: 0px 10px 5px 5px;
 }
 
 .userNoMedals {
-  color: #888;
+  color: #777;
   display: inline-block;
   margin: 0px 10px 5px 5px;
 }
@@ -1239,116 +1240,6 @@ body .socialNetworks label {
 }
 
 
-/* Donează page */
-.donateContent {
-  padding: 0px 15px;
-  line-height: 17px;
-  padding-top: 10px;
-}
-	  
-.paymentSection {
-  display: inline-block;
-  background: #D4EFFA;
-  width: 300px;
-  height: 175px;
-  margin: 15px 7px 0px 0px;
-  vertical-align: top;
-  padding-bottom: 15px;
-  border: 1px solid #BDE5F5;
-}
-		
-.paymentSection h3 {
-  background: #9DD6EC;
-  margin: 0px 0px 10px 0px;
-  padding: 8px 10px 8px 20px;
-  color: #1A5774;
-}
-		
-.paypal {
-  width: 220px;
-}
-		
-.paymentSection label {
-  display: inline-block;
-  width: 60px;
-  padding-left: 15px;
-  margin-top: 10px;
-  text-align: right;
-}
-		
-#donateOnlineEmail {
-  width: 190px;
-}
-
-.donateContent ul li {
-  list-style-type: square;
-}
-		
-.paymentSection .tipText {
-  width: 260px;
-  color: #757E75;
-  font-size: 12px;
-  margin-top: 10px;
-  padding-left: 5px;
-}
-		
-.onlineDonationButton {
-  margin-top: 20px;
-  margin-left: 15px;
-  padding: 0;
-  background: #D4EFFA url("../img/donate.png") 0px 0px no-repeat;
-  border: 0px;
-  border-radius: 12px;
-  cursor: pointer;
-  width: 252px;
-  height: 34px;
-}
-		
-.payPalButton {
-  margin-top: 35px;
-  margin-left: 30px;
-  border: 0px;
-}
-		
-.bankTransfer ul {
-  padding-left: 15px;
-}
-		
-.bankTransfer ul li {
-	list-style-type: none;
-	margin-top: 7px;
-	color: #888;
-}
-		
-.bankAccount {
-  font-weight: bold;
-  color: #555;
-  font-size: 13px;
-}
-
-.donateDetailLink {
-  font-size: 12px;
-  font-weight: normal;
-  margin-left: 10px;
-}
-
-.donateProjectDetails {
-  display: none;
-  background: #f7f7f7;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.wotdReason {
-  padding: 10px;
-}
-
-.donateContent h2 {
-  color: #24A7DA;
-  font-weight: bold;
-}
-
-
 /* CSS shadow */
 .bendShadow {
   position: relative;
@@ -1362,9 +1253,9 @@ body .socialNetworks label {
   bottom: 6px;
   width: 200px;
   height: 20px;
-  -webkit-box-shadow: 0 8px 3px #AAA;
-  -moz-box-shadow: 0 8px 3px #AAA;
-  box-shadow: 0 8px 3px #AAA;
+  -webkit-box-shadow: 0 8px 3px #BFBFBF;
+  -moz-box-shadow: 0 8px 3px #BFBFBF;
+  box-shadow: 0 8px 3px #BFBFBF;
 }
 
 .bendShadow:before {

@@ -281,7 +281,7 @@ body #hangman .btn {
 
 
 /* banner prezindențiale 2014 */
-#bannerPrezidentiale {
+#prezidentiale {
   display: inline-block;
   background: #308C30;
   width: 100%;
@@ -290,7 +290,7 @@ body #hangman .btn {
   border-bottom: 2px solid #0C6F0A;
 }
 
-#bannerPrezidentiale .container {
+#prezidentiale .container {
   width: 100%;
   margin: 0 auto;
 }
@@ -304,26 +304,26 @@ body #hangman .btn {
 }
 
 .closeBanner:hover,
-#bannerPrezidentiale h4 a:hover {
+#prezidentiale h4 a:hover {
   color: #333;
 }
 
-#bannerPrezidentiale h1 {
+#prezidentiale h1 {
   margin-bottom: 0;
   margin-top: 28px;
 }
 
-#bannerPrezidentiale h4 {
+#prezidentiale h4 {
   width: 100%;
   margin-top: 10px;
 }
 
-#bannerPrezidentiale h4 a {
+#prezidentiale h4 a {
   color: #FFF;
 }
 
 @media (max-width: 800px) and (orientation:landscape) {
-  #bannerPrezidentiale {
+  #prezidentiale {
     height: 112px;
   }
 }

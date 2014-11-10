@@ -1295,7 +1295,7 @@ body .socialNetworks label {
 
 
 /* banner prezindențiale 2014 */
-#bannerPrezidentiale {
+#prezidentiale {
   display: inline-block;
   background: #308C30;
   width: 100%;
@@ -1304,7 +1304,7 @@ body .socialNetworks label {
   border-bottom: 2px solid #0C6F0A;
 }
 
-#bannerPrezidentiale .container {
+#prezidentiale .container {
   width: 700px;
   margin: 0 auto;
 }
@@ -1318,22 +1318,22 @@ body .socialNetworks label {
 }
 
 .closeBanner:hover,
-#bannerPrezidentiale h4 a:hover {
+#prezidentiale h4 a:hover {
   color: #333;
 }
 
-#bannerPrezidentiale h1 {
+#prezidentiale h1 {
   margin-bottom: 0;
   margin-top: 28px;
 }
 
-#bannerPrezidentiale h4 {
+#prezidentiale h4 {
   width: 256px;
   float: right;
   margin-right: 86px;
 }
 
-#bannerPrezidentiale h4 a {
+#prezidentiale h4 a {
   color: #FFF;
 }
 

@@ -29,13 +29,13 @@
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="http://dexonline.ro/rss/cuvantul-zilei">
     <script type="text/javascript">
       function closeBanner() {
-        document.getElementById("bannerPrezidentiale").setAttribute("style","display:none;");
+        document.getElementById("prezidentiale").setAttribute("style","display:none;");
       }
     </script>
   </head>
 
   <body {if !$onHomePage}class="secondary"{/if}>
-    <div id="bannerPrezidentiale">
+    <div id="prezidentiale">
       <div class="container">
         <h1>Votați Iohannis pe 16 noiembrie 2014!</h1>
         <h4><a href="http://dexonline.blogspot.ro/">Vezi argumentele echipei Dexonline</a></h4>

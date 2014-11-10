@@ -108,9 +108,9 @@ class SmartyWrap {
         case 'tablesorter':         self::$cssFiles[4] = 'tablesorter/theme.blue.css'; break;
         case 'elfinder':            self::$cssFiles[5] = 'elfinder/css/elfinder.min.css?v=2'; break;
         case 'windowEngine':        self::$cssFiles[6] = 'jquery-wm/main.css'; break;
-        case 'zepu':                self::$cssFiles[7] = 'zepu.css?v=65'; break;
+        case 'zepu':                self::$cssFiles[7] = 'zepu.css?v=66'; break;
         case 'polar':               self::$cssFiles[8] = 'polar.css?v=34'; break;
-        case 'mobile':              self::$cssFiles[9] = 'mobile.css?v=15'; break;
+        case 'mobile':              self::$cssFiles[9] = 'mobile.css?v=16'; break;
         case 'flex':                self::$cssFiles[10] = 'flex.css?v=14'; break;
         case 'paradigm':            self::$cssFiles[11] = 'paradigm.css?v=3'; break;
         case 'hangman':             self::$cssFiles[12] = 'hangman.css?v=5'; break;

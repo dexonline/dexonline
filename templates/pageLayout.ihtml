@@ -27,21 +27,9 @@
     <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
     <link href="https://plus.google.com/100407552237543221945" rel="publisher" />
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="http://dexonline.ro/rss/cuvantul-zilei">
-    <script type="text/javascript">
-      function closeBanner() {
-        document.getElementById("prezidentiale").setAttribute("style","display:none;");
-      }
-    </script>
   </head>
 
   <body {if !$onHomePage}class="secondary"{/if}>
-    <div id="prezidentiale">
-      <div class="container">
-        <h1>Votați Iohannis pe 16 noiembrie 2014!</h1>
-        <h4><a href="http://dexonline.blogspot.ro/2014/11/votati-iohannis-pe-16-noiembrie-2014.html">Vezi argumentele echipei Dexonline</a></h4>
-      </div>
-      <a class="closeBanner" onclick="closeBanner()">Închide [X]</a>
-    </div>
     {if $skinVariables.fullMenu}
       <header id="menu" class="bendShadow">
         {if !$onHomePage}

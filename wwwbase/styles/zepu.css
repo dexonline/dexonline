@@ -1292,3 +1292,54 @@ body .socialNetworks label {
 .widgetBox.bendShadow:after {
   display: none;
 }
+
+
+
+/* banner prezindențiale 2014 */
+#prezidentiale {
+  background: #308C30;
+  border-bottom: 2px solid #0C6F0A;
+  display: inline-block;
+  height: 128px;
+  text-align: center;
+  width: 100%;
+}
+
+#prezidentiale .container {
+  margin-top: 20px;
+}
+
+#prezidentiale p {
+  font-size: 16px;
+  color: white;
+  width: 700px;
+  margin: 0 auto;
+  padding: 0px;
+}
+
+#prezidentiale p.action {
+  font-size: 26px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.closeBanner {
+  position: absolute;
+  top: 46px;
+  right: 2%;
+  color: #DDD;
+  cursor: pointer;
+}
+
+.closeBanner:hover,
+#prezidentiale p a {
+  color: #FFF;
+}
+
+.widgetBox {
+  top: 170px;
+}
+
+#mainMenu .donateLink {
+  top: 30%;
+}

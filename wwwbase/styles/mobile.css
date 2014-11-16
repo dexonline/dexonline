@@ -278,3 +278,57 @@ body #hangman .btn {
 	min-height: 40px;
 	margin: 5px;
 }
+
+/* banner prezindențiale 2014 */
+#prezidentiale {
+  background: #308C30;
+  border-bottom: 2px solid #0C6F0A;
+  display: inline-block;
+  height: 128px;
+  text-align: center;
+  width: 100%;
+}
+
+#prezidentiale .container {
+  margin-top: 20px;
+}
+
+/* banner prezindențiale 2014 */
+#prezidentiale {
+  color: white;
+  display: inline-block;
+  background: #308C30;
+  width: 100%;
+  height: 140px;
+  text-align: center;
+  border-bottom: 2px solid #0C6F0A;
+  padding-bottom: 10px;
+}
+ 
+#prezidentiale .container {
+  width: 100%;
+  margin: 0 auto;
+}
+ 
+.closeBanner {
+  position: absolute;
+  top: 4px;
+  right: 2%;
+  color: #DDD;
+  cursor: pointer;
+}
+ 
+#prezidentiale p a {
+  color: #FFF;
+}
+ 
+#prezidentiale p.action {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+@media (max-width: 800px) and (orientation:landscape) {
+  #prezidentiale {
+    height: 112px;
+  }
+}

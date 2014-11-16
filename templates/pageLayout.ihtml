@@ -27,9 +27,29 @@
     <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
     <link href="https://plus.google.com/100407552237543221945" rel="publisher" />
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="http://dexonline.ro/rss/cuvantul-zilei">
+    <script type="text/javascript">
+      function closeBanner() {
+        document.getElementById("prezidentiale").setAttribute("style","display:none;");
+      }
+    </script>
   </head>
 
   <body {if !$onHomePage}class="secondary"{/if}>
+    <div id="prezidentiale">
+      <div class="container">
+        <p>Mii de oameni au ales să stea cu orele la coadă pentru a vota în</p>
+        <p>
+          <a href="http://www.hotnews.ro/stiri-politic-18572257-video-imagini-impresionante-mii-romani-coada-paris-inca-ora-7-30.htm">Paris</a> •
+          <a href="http://www.hotnews.ro/stiri-politic-18572752-foto-romanii-din-germania-facut-coada-vot-munchen.htm">München</a> •
+          <a href="http://www.hotnews.ro/stiri-politic-18572664-video-coada-vot-londra-scandeaza-cei-aproximativ-500-romani-care-asteapta-fata-sectiei-cine-nu-voteaza-tara-tradeaza.htm">Londra</a> •
+          <a href="http://www.hotnews.ro/stiri-esential-18572588-video-cozi-uriase-fata-sectiilor-vot-torino-peste-1500-persoane-venit-inca-primele-ore-ale-diminetii-voteze.htm">Torino</a> •
+          <a href="http://www.hotnews.ro/stiri-politic-18569505-votul-italia-primaria-din-roma-face-exceptie-restrictiile-dure-trafic-pentru-romanii-poata-vota-duminica.htm">Roma</a> •
+          <a href="http://www.hotnews.ro/stiri-politic-18572777-fotogalerie-cozi-mari-vot-toata-republica-moldova-bogdan-aurescu-stat-ora-jumatate-rand-pentru-vota-atmosfera-sarbatoare-foarte-pozitiva.htm">Chișinău</a>
+        </p>
+        <p class="action">Mergi și votează!</p>
+      </div>
+      <a class="closeBanner" onclick="closeBanner()">Închide [X]</a>
+    </div>
     {if $skinVariables.fullMenu}
       <header id="menu" class="bendShadow">
         {if !$onHomePage}

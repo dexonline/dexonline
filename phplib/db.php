@@ -41,7 +41,7 @@ function db_executeFromOS($query) {
   OS::executeAndAssert($command);
 }
 
-function db_executeSqlFileFromOS($filename) {
+function db_executeSqlFile($filename) {
   $dsn = Config::get('global.database');
   $parts = db_splitDsn($dsn);
   $command = sprintf("cat {$filename} | mysql -u %s %s %s",
@@ -117,17 +117,6 @@ function db_getSingleValue($query) {
 function db_tableExists($tableName) {
   $r = ORM::for_table($tableName)->raw_query("show tables like '$tableName'")->find_one();
   return ($r !== false);
-}
-
-function db_executeSqlFile($fileName) {
-  $statements = file_get_contents($fileName);
-  $statements = explode(";\n", $statements);
-  foreach ($statements as $statement) {
-    $statement = trim($statement);
-    if ($statement != '') {
-      db_execute($statement);
-    }
-  }
 }
 
 ?>

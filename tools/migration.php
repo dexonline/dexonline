@@ -67,14 +67,9 @@ function getPatches($dir, $after) {
 function runPatch($fileName, $dryRun) {
   $extension = strrchr($fileName, '.');
   if ($extension == '.sql') {
-    print "$fileName -- executing with MySQL\n";
-    if (!$dryRun) {
-      db_executeSqlFile($fileName);
-    }
-  } else if ($extension == '.sqlx') {
     print "$fileName -- executing with MySQL via OS\n";
     if (!$dryRun) {
-      db_executeSqlFileFromOS($fileName);
+      db_executeSqlFile($fileName);
     }
   } else if ($extension == '.php') {
     print "$fileName -- executing with PHP\n";

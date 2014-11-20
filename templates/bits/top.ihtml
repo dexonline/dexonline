@@ -1,4 +1,4 @@
-<table id="{$tableId}" class="minimalistTable">
+<table id="{$tableId}" class="minimalistTable tablesorter-blue">
   <thead>
     <tr>
       <th>Loc</th>
@@ -41,32 +41,27 @@
       <tr class="{cycle values="color1,color2"}">
         <td>{$place+1}</td>
         <td class="nick"><a href="utilizator/{$row->userNick|escape:"url"}">{$row->userNick|escape}</a></td>
-        <td class="numerical">{$row->numChars|number_format:0:',':'.'}</td>
-        <td class="numerical">{$row->numDefinitions|number_format:0:',':'.'}</td>
+        <td class="numerical" data-text="{$row->numChars}">{$row->numChars|number_format:0:',':'.'}</td>
+        <td class="numerical" data-text="{$row->numDefinitions}">{$row->numDefinitions|number_format:0:',':'.'}</td>
  
         {math equation="max(255 - days, 0)" days=$row->days assign=color}
-        <td style="color: {$color|string_format:"#%02x0000"}">{$row->timestamp|date_format:"%d.%m.%Y"}</td>
+        <td style="color: {$color|string_format:"#%02x0000"}" data-text="{$row->timestamp}">{$row->timestamp|date_format:"%d.%m.%Y"}</td>
       </tr>
     {/foreach}
   </tbody>
 </table>
 
 <script type="text/javascript">
-  $(document).ready(function() {ldelim}
-    $("#{$tableId}").tablesorter({ldelim}
-      headers: {ldelim}
-        2: {ldelim} sorter: 'stripDots' {rdelim},
-        3: {ldelim} sorter: 'stripDots' {rdelim},
-        4: {ldelim} sorter: 'ddmmyyyy' {rdelim},
-      {rdelim},
-      sortList: [[2,1]],
+  $(document).ready(function() {
+    $("#{$tableId}").tablesorter({
       sortInitialOrder: "desc"
-    {rdelim})
-    {if $pager}.tablesorterPager({ldelim}container: $("#{$tableId}Pager"), size: 15, positionFixed: false{rdelim}){/if}
+    })
+    {if $pager}.tablesorterPager({
+      container: $("#{$tableId}Pager"),
+      output: '{ldelim}page{rdelim}/{ldelim}totalPages{rdelim}',
+      size: 15,
+    })
+    {/if}
     ;
-  
-    $("#{$tableId} .header").click(function() {ldelim}
-      $("#{$tableId} tfoot .first").click();
-    {rdelim});
-  {rdelim});
+  });
 </script>

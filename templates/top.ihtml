@@ -10,32 +10,3 @@ Comparativ, Biblia are circa 3.500.000 de caractere.
 În această categorie intră definiții introduse automat și dicționare puse la dispoziție în format digital.
 
 {include file="bits/top.ihtml" data=$bulkData tableId="bulkTop" pager=0}
-
-<script type="text/javascript">
-  {literal}
-    $.tablesorter.addParser({
-        id: 'stripDots',
-        is: function(s) {
-            return false;
-        },
-        format: function(s) {
-            return s.replace(/\./g,'');
-        },
-        type: 'numeric'
-    });
-
-    $.tablesorter.addParser({
-        id: 'ddmmyyyy',
-        is: function(s) {
-          return false;
-        },
-        format: function(s) {
-          var parts = s.replace(/\s/g,'').split(".", 3);
-          var n = parts[2] + parts[1] + parts[0];
-          return n;
-        },
-        type: 'text'
-    });
-
-  {/literal}
-</script>

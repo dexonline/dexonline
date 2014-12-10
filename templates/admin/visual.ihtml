@@ -1,15 +1,6 @@
 <div id="fileManager"></div>
 <br/>
 
-<script type="text/javascript">
-  $().ready(function() {
-    $('#fileManager').elfinder({
-      url: '../elfinder-connector/visual_connector.php',
-      lang: 'en'
-    }).elfinder('instance');
-  });
-</script>
-
 <h3>Fișiere încă neîncepute</h3>
 
 <p>Selectați un fișier pentru a-i începe etichetarea.</p>

@@ -58,7 +58,7 @@
 
   <form action="visualTag.php" method="post">
     <input type="hidden" value="{$visual->id}" name="id"/>
-    <button id="previewTags" type="button">Previzualizare etichete</button>
+    <button id="previewTags" type="button">previzualizează etichetele</button>
   </form>
 </div>
 

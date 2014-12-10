@@ -159,15 +159,16 @@ class SmartyWrap {
         case 'jcrop':            self::$jsFiles[19] = 'jquery.Jcrop.min.js?v=2'; break;
         case 'select2':          self::$jsFiles[20] = 'select2.min.js?v=3'; break;
         case 'select2Dev':       self::$jsFiles[21] = 'select2Dev.js?v=6'; break;
-        case 'visualTag':        self::$jsFiles[22] = 'visualTag.js'; break;
+        case 'visual':           self::$jsFiles[22] = 'visual.js'; break;
+        case 'visualTag':        self::$jsFiles[23] = 'visualTag.js'; break;
         case 'gallery':          
-          self::$jsFiles[23] = 'colorbox/jquery.colorbox-min.js';
-          self::$jsFiles[24] = 'colorbox/jquery.colorbox-ro.js';
-          self::$jsFiles[25] = 'dexGallery.js?v=2';
-          self::$jsFiles[26] = 'jcanvas.min.js';
+          self::$jsFiles[24] = 'colorbox/jquery.colorbox-min.js';
+          self::$jsFiles[25] = 'colorbox/jquery.colorbox-ro.js';
+          self::$jsFiles[26] = 'dexGallery.js?v=2';
+          self::$jsFiles[27] = 'jcanvas.min.js';
           break;
-        case 'modelDropdown':    self::$jsFiles[27] = 'modelDropdown.js'; break;
-        case 'textComplete':     self::$jsFiles[28] = 'jquery.textcomplete.min.js'; break;
+        case 'modelDropdown':    self::$jsFiles[28] = 'modelDropdown.js'; break;
+        case 'textComplete':     self::$jsFiles[29] = 'jquery.textcomplete.min.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

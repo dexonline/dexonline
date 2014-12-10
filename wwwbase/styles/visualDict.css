@@ -4,6 +4,7 @@
 
 #jCropCanvas {
   float: left;
+  height: 500px;
 }
 
 #fixedCanvas img {
@@ -19,6 +20,7 @@
 
 #savedTags {
   clear: both;
+  margin-top: 10px;
 }
 
 #gallery {

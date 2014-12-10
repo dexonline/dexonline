@@ -32,7 +32,7 @@ foreach ($lines as $line) {
   $lexemes .= '</div>';
 
   $user = User::get_by_id($line->userId);
-  $link = '<a title="Click pentru a vedea imaginea" href="' . Visual::getImageWww($line->path) . '">' . basename($line->path) . '</a>';
+  $link = '<a title="Click pentru a vedea imaginea" href="' . $line->getImageUrl() . '">' . basename($line->path) . '</a>';
   $images[] = array('id' => $line->id, 'lexeme' => $lexemes, 'user' => $user->nick,
                     'width' => $line->width, 'height' => $line->height, 'userId' => $line->userId,
                     'latestMod' => date('d.m.Y', $line->modDate), 'link' => $link);

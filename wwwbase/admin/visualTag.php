@@ -4,87 +4,56 @@ util_assertModerator(PRIV_VISUAL);
 util_assertNotMirror();
 RecentLink::createOrUpdate('Etichetare Imagini Definiții');
 
-$rootPath = util_getImgRoot() . '/';
-$savedTags = '';
-$action = util_getRequestParameter('action');
-$tagging = util_getRequestParameter('tagging');
+$fileName = util_getRequestParameter('fileName');
+$id = util_getRequestParameter('id');
+$lexemId = util_getRequestParameter('lexemId');
+$revised = util_getBoolean('revised');
+$saveButton = util_getRequestParameter('saveButton');
+$tagLexemId = util_getRequestParameter('tagLexemId');
+$tagLabel = util_getRequestParameter('tagLabel');
+$textXCoord = util_getRequestParameter('textXCoord');
+$textYCoord = util_getRequestParameter('textYCoord');
+$imgXCoord = util_getRequestParameter('imgXCoord');
+$imgYCoord = util_getRequestParameter('imgYCoord');
+$addTagButton = util_getRequestParameter('addTagButton');
 
-// Marks the image as completely revised 
-if($action == 'finishedTagging') {
-  $imageId = util_getRequestParameter('imageId');
-
-  $line = Visual::get_by_id($imageId);
-  
-  if(!empty($line)) {
-    $line->revised = 1;
-    $line->save();
+// Tag the image specified by $fileName. Create a Visual object if one doesn't exist, then redirect to it.
+if ($fileName) {
+  $v = Visual::get_by_path($fileName);
+  if (!$v) {
+    $v = Visual::createFromFile($fileName);
   }
-
-  FlashMessage::add('Modificările au fost salvate. Mulțumim!');
-  util_redirect(util_getWwwRoot() . 'admin/visualTag.php');
-
-// Sets the lexeme associated with the image 
-} else if($action == 'setImgLexemeId') {
-  $imgLexemeId = util_getRequestParameter('imgLexemeId');
-  $imageId = util_getRequestParameter('imageId');
-
-  $line = Visual::get_by_id($imageId);
-  
-  if(!empty($line)){
-    $line->lexemeId = $imgLexemeId;
-    $line->save();
-  }
-
-  $tagging = true;
-  $imgToTag = $line->id;
-
-// Resets the lexeme associated with the image 
-} else if($action == 'resetImgLexemeId') {
-  $imageId = util_getRequestParameter('imageId');
-
-  $line = Visual::get_by_id($imageId);
-
-  if(!empty($line)) {
-    $line->lexemeId = '';
-    $line->save();
-  }
-
-  $tagging = true;
-  $imgToTag = $line->id;
+  util_redirect("?id={$v->id}");
 }
+
+$v = Visual::get_by_id($id);
+
+if ($saveButton) {
+  $v->lexemeId = $lexemId;
+  $v->revised = $revised;
+  $v->save();
+  util_redirect("?id={$v->id}");
+}
+
+if ($addTagButton) {
+  $vt = Model::factory('VisualTag')->create();
+  $vt->imageId = $v->id;
+  $vt->lexemeId = $tagLexemId;
+  $vt->label = $tagLabel;
+  $vt->textXCoord = $textXCoord;
+  $vt->textYCoord = $textYCoord;
+  $vt->imgXCoord = $imgXCoord;
+  $vt->imgYCoord = $imgYCoord;
+  $vt->save();
+  util_redirect("?id={$v->id}");
+}
+
+SmartyWrap::assign('visual', $v);
+SmartyWrap::assign('lexem', Lexem::get_by_id($v->lexemeId));
 
 SmartyWrap::assign('sectionTitle', 'Etichetare imagini pentru definiții');
-SmartyWrap::addCss('jcrop', 'select2', 'jqgrid', 'jqueryui', 'gallery');
-SmartyWrap::addJs('jquery', 'jcrop', 'visualTag', 'select2', 'select2Dev', 'jqgrid', 'gallery'); 
-
-// Checks which of the visualTag page needs to be loaded
-// visualTag.ihtml is for the tables with the revised/unrevised images
-// visualTagging.ihtml is for the tagging process
-if($tagging) {
-  $imgToTag = isset($imgToTag) ? $imgToTag : util_getRequestParameter('imgToTag');
-  $line = Visual::get_by_id($imgToTag);
-  if($line->revised) {
-    $line->revised = 0;
-    $line->save();
-  }
-
-  $imagePath = $rootPath . $line->path;
-  $imageId = $line->id;
-  $imgLexemeId = $line->lexemeId;
-  if($imgLexemeId) {
-    $lexemeName = Lexem::get_by_id($imgLexemeId);
-    $lexemeName = $lexemeName->formUtf8General;
-    SmartyWrap::assign('lexemeName', $lexemeName);
-  }
-
-  SmartyWrap::assign('imagePath', $imagePath);
-  SmartyWrap::assign('imageId', $imageId);
-  SmartyWrap::assign('imgLexemeId', $imgLexemeId);
-
-  SmartyWrap::displayAdminPage('admin/visualTagging.ihtml');
-
-} else {
-  SmartyWrap::displayAdminPage('admin/visualTag.ihtml');
-}
+SmartyWrap::addCss('jqueryui-smoothness', 'jcrop', 'select2', 'jqgrid', 'jqueryui', 'gallery');
+SmartyWrap::addJs('jquery', 'jqueryui', 'jcrop', 'visualTag', 'select2', 'select2Dev', 'jqgrid', 'gallery'); 
+SmartyWrap::displayAdminPage('admin/visualTag.ihtml');
 
 ?>

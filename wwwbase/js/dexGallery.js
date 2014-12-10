@@ -39,9 +39,7 @@ function drawOnCanvas() {
   // The colorbox plugin title is made up of two parts:
   // 1. the unique id of the image from the Visual table
   // 2. the name of the lexeme corresponding to the image
-  var title = $('#cboxTitle').html();
-  $('#cboxTitle').html(title.match(/[^\d]+$/));
-  var imageId = parseInt(title);
+  var imageId = $('#visualId').val();
 
   $.ajax({
     type: 'POST',
@@ -78,7 +76,7 @@ function drawTag(canvas, tagNo, tagData) {
     fromCenter: true,
     strokeStyle: '#fff',
     strokeWidth: 2,
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: 'Arial',
     text: tagData.label,
     maxWidth: tagNameMaxWidth,
@@ -91,7 +89,7 @@ function drawTag(canvas, tagNo, tagData) {
     name: 'tag' + tagNo,
     groups: ['Tags'],
     strokeStyle: '#000',
-    strokeWidth: 1,
+    strokeWidth: 2,
     x1: tagData.textX, y1: tagData.textY,
     x2: tagData.imgX, y2: tagData.imgY
   })
@@ -116,7 +114,7 @@ function drawTag(canvas, tagNo, tagData) {
     fromCenter: true,
     fillStyle: '#000',
     strokeWidth: 2,
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: 'Arial',
     text: tagData.label,
     maxWidth: tagNameMaxWidth,

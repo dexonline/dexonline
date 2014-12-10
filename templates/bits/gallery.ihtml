@@ -1,6 +1,6 @@
 {include file="bits/prototypes.ihtml"}
 <div id="gallery">
-  {foreach from=$images item=image}
-    <a class="gallery" href="{$image.img}" title="{$image.id}{$image.name}"><img src="{$image.tmb}"/></a>
+  {foreach from=$images item=i}
+    <a class="gallery" href="{$i.img->getImageUrl()}" title="{$i.img->id}{$i.name}"><img src="{$i.img->getThumbUrl()}"/></a>
   {/foreach}
 </div>

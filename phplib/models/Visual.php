@@ -1,24 +1,40 @@
 <?php
+
 class Visual extends BaseObject implements DatedObject {
+  const STATIC_DIR = 'img/visual/';
+  const STATIC_THUMB_DIR = 'img/visual/thumb/';
   public static $_table = 'Visual';
   public static $parentDir = 'visual';
   public static $thumbDir = '.thumb';
   public static $thumbSize = 200;
 
+  static function createFromFile($fileName) {
+    $v = Model::factory('Visual')->create();
+    $v->path = $fileName;
+    $v->userId = session_getUserId();
+
+    $dim = getimagesize(Config::get('static.url') . self::STATIC_DIR . $fileName);
+    $v->width = $dim[0];
+    $v->height = $dim[1];
+
+    $v->save();
+    return $v;
+  }
+
   /** Retrieves the path relative to the visual folder */
-  public static function getPath($givenPath) {
+  static function getPath($givenPath) {
     $regex = '/' . self::$parentDir . '\/.+$/';
     preg_match($regex, $givenPath, $matches);
     
     return $matches[0];
   }
 
-  public static function getImageWww($givenPath) {
-    return util_getImgRoot() . '/' . $givenPath;
+  function getImageUrl() {
+    return Config::get('static.url') . self::STATIC_DIR . $this->path;
   }
 
-  public static function getThumbWww($givenPath) {
-    return util_getImgRoot() . '/' . dirname($givenPath) . '/' . self::$thumbDir . '/' . basename($givenPath);
+  function getThumbUrl() {
+    return Config::get('static.url') . self::STATIC_THUMB_DIR . $this->path;
   }
 
   /** Returns the absolute path of the thumb directory */
@@ -49,41 +65,33 @@ class Visual extends BaseObject implements DatedObject {
     return parent::delete();
   }
 
-  /** Extended by creating uploaded image thumbnail */
-  function save() {
-    $path = util_getRootPath() . 'wwwbase/img/' . $this->path;
-    
-    // Saves the image size for further use when scale is needed
-    if(!$this->width || !$this->height) {
-      $dim = getimagesize($path);
-      $this->width = $dim[0];
-      $this->height = $dim[1];
-    }
+  static function loadUntrackedFiles() {
+    $imageExtensions = array('png', 'PNG', 'jpg', 'JPG', 'jpeg', 'JPEG', 'gif', 'GIF');
 
-    // Make a directory into which to generate or copy the thumbnail
-    @mkdir($this->getThumbDir(), 0777);
-
-    // Load the original Visual to determine if this is a move/rename or a copy/upload. It slows things down a little, but it's stateless.
-    $original = ($this->id) ? self::get_by_id($this->id) : null;
-
-    // Generate thumbnails for uploads or copy-pastes
-    if (!$original) {
-      $thumb = new Imagick($path);
-      $thumb->thumbnailImage(0, self::$thumbSize);
-      $thumb->sharpenImage(1, 1);
-      $thumb->writeImage($this->getThumbPath());
-    }
-
-    // Move thumbnails for renames and cut-pastes
-    if ($original && ($original->path != $this->path)) {
-      $oldThumbPath = $original->getThumbPath();
-      $newThumbPath = $this->getThumbPath();
-      if (file_exists($oldThumbPath)) {
-        rename($oldThumbPath, $newThumbPath);
+    // Create a map of all the files on the static server
+    $staticFiles = file(Config::get('static.url') . 'fileList.txt');
+    $map = array();
+    $len = strlen(self::STATIC_DIR);
+    foreach ($staticFiles as $f) {
+      $f = trim($f);
+      if (StringUtil::startsWith($f, self::STATIC_DIR) &&
+          !StringUtil::startsWith($f, self::STATIC_THUMB_DIR) &&
+          in_array(pathinfo($f, PATHINFO_EXTENSION), $imageExtensions)) {
+        $fileName = substr($f, $len);
+        $map[$fileName] = true;
       }
     }
 
-    return parent::save();
+    // Delete those we are already tracking
+    $vs = Model::factory('Visual')->find_many();
+    foreach ($vs as $v) {
+      if (array_key_exists($v->path, $map)) {
+        unset($map[$v->path]);
+      }
+    }
+    return array_keys($map);
   }
+
 }
+
 ?>

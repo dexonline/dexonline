@@ -2,7 +2,10 @@
   border: 1px solid #000;
 }
 
-#jCropCanvas,
+#jCropCanvas {
+  float: left;
+}
+
 #fixedCanvas img {
   float: left;
   max-width: 500px;
@@ -11,13 +14,11 @@
 
 #tagOptions {
   float: left;
-  width: 320px;
   margin: 0 0 15px 13px;
 }
 
 #savedTags {
-  float: left;
-  width: 430px;
+  clear: both;
 }
 
 #gallery {
@@ -45,14 +46,6 @@
   right: 5px;
   background-color: #fff;
   cursor: pointer;
-}
-
-#revised {
-  float: left;
-}
-
-#unrevised {
-  float: right;
 }
 
 .mainLexeme {

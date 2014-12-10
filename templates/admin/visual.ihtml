@@ -2,14 +2,20 @@
 <br/>
 
 <script type="text/javascript">
-	{literal}
-	$().ready(function() {
-		$('#fileManager').elfinder({
-			url: '../elfinder-connector/visual_connector.php',
-			lang: 'en'
-		}).elfinder('instance');
-
-		$('.links').append(' | <a href="visualTag.php">Pagina de etichetare</a>');
-	});
-	{/literal}
+  $().ready(function() {
+    $('#fileManager').elfinder({
+      url: '../elfinder-connector/visual_connector.php',
+      lang: 'en'
+    }).elfinder('instance');
+  });
 </script>
+
+<h3>Fișiere încă neîncepute</h3>
+
+<p>Selectați un fișier pentru a-i începe etichetarea.</p>
+
+<div>
+  {foreach from=$untrackedFiles item=f}
+    <a href="visualTag?fileName={$f|escape:url}">{$f}</a> |
+  {/foreach}
+</div>

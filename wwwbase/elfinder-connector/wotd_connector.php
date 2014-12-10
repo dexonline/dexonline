@@ -15,8 +15,8 @@ $myLogger = new elFinderSimpleLogger('../../log/wotdelflog');
 // https://github.com/Studio-42/elFinder/wiki/Connector-configuration-options
 $opts = array(
   'debug' => true,
-  'bind'  => array(
-    'mkdir mkfile rename duplicate upload rm paste' => array($myLogger, 'log')),
+  'bind'  => array('mkdir mkfile rename duplicate upload rm paste' => array($myLogger, 'log'),
+                   ),
   'roots' => array(
     array(
       'driver'        => 'FTP',
@@ -40,3 +40,5 @@ $opts = array(
 // run elFinder
 $connector = new elFinderConnector(new elFinder($opts));
 $connector->run();
+
+?>

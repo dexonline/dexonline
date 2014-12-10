@@ -51,6 +51,28 @@ function adminIndexInit() {
   });
 }
 
+function visualTagInit() {
+  $('#lexemId').select2({
+    ajax: struct_lexemAjax,
+    initSelection: select2InitSelectionAjaxSingle,
+    minimumInputLength: 1,
+    placeholder: 'caută un lexem',
+    width: '300px',
+  });
+  $('#tagLexemId').select2({
+    ajax: struct_lexemAjax,
+    initSelection: select2InitSelectionAjaxSingle,
+    minimumInputLength: 1,
+    placeholder: 'caută un lexem',
+    width: '300px',
+  }).on('change', function(e) {
+    if (!$('#tagLabel').val()) {
+      var displayValue = $(this).select2('data').text;
+      $('#tagLabel').val(displayValue);
+    }
+  });
+}
+
 function structIndexInit() {
   $('#structLexemFinder').select2({
     ajax: struct_lexemAjax,

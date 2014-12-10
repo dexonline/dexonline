@@ -305,12 +305,9 @@ if (false && !empty($lexems)) {
 
     foreach ($imgs as $img) {
       // For every image found, it fetches its path and its thumb path from the database
-      $image = Visual::getImageWww($img->path);
-      $thumb = Visual::getThumbWww($img->path);
-
       // and stores them in the $images array.
-      $images[] = array('img' => $image, 'tmb' => $thumb, 'name' => $lexeme->formUtf8General,
-                        'id' => $img->id);
+      $images[] = array('img' => $img,
+                        'name' => $lexeme->formUtf8General);
     }
 
     // Searches for tags that are associated with the lexeme.
@@ -318,13 +315,10 @@ if (false && !empty($lexems)) {
 
     foreach ($tags as $tag) {
       // For every tag found, it fetches (associated) image path and its thumbnail path from database
-      $row = Visual::get_by_id($tag->imageId);
-      $image = Visual::getImageWww($row->path);
-      $thumb = Visual::getThumbWww($row->path);
-
       // and stores them in the $images array.
-      $images[] = array('img' => $image, 'tmb' => $thumb, 'name' => $lexeme->formUtf8General,
-                        'id' => $row->id);
+      $row = Visual::get_by_id($tag->imageId);
+      $images[] = array('img' => $row,
+                        'name' => $lexeme->formUtf8General);
     }
   }
 

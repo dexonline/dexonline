@@ -1,19 +1,16 @@
 <a href="wotd.php">Lista cuvintelor zilei</a> |
 <a href="http://wiki.dexonline.ro/wiki/Imagini_pentru_cuv%C3%A2ntul_zilei">instrucțiuni</a>
 
-<div id="fileManager">
-</div>
+<div id="fileManager"></div>
 <br/>
 
 <script type="text/javascript">
-  {literal}
   $().ready(function() {
     $('#fileManager').elfinder({
       url: '../elfinder-connector/wotd_connector.php',
       lang: 'en'
     }).elfinder('instance');
   });
-  {/literal}
 </script>
 
 <form action="wotdCompressImages" method="post" enctype="multipart/form-data" target="_new">

@@ -7,8 +7,11 @@ include_once __DIR__ . '/elFinder.class.php';
 include_once __DIR__ . '/elFinderVolumeDriver.class.php';
 include_once __DIR__ . '/elFinderVolumeFTP.class.php';
 include_once __DIR__ . '/elFinderLogger.class.php';
+include_once __DIR__ . '/VisualElFinder.php';
 
 include_once __DIR__ . '/../../phplib/util.php';
+
+error_log(var_export($_REQUEST, true));
 
 $myLogger = new elFinderSimpleLogger('../../log/visuallog');
 
@@ -16,6 +19,7 @@ $myLogger = new elFinderSimpleLogger('../../log/visuallog');
 $opts = array(
   'debug' => true,
   'bind'  => array('mkdir mkfile rename duplicate upload rm paste' => array($myLogger, 'log'),
+                   'tagimage' => 'tagImageRedirect',
                    ),
   'roots' => array(
     array(
@@ -39,7 +43,13 @@ $opts = array(
 );
 
 // run elFinder
-$connector = new elFinderConnector(new elFinder($opts));
+$connector = new elFinderConnector(new VisualElFinder($opts));
 $connector->run();
+
+/**************************************************************************/
+
+function tagImageRedirect($cmd, $result, $args, $elfinder) {
+  echo "cucu";
+}
 
 ?>

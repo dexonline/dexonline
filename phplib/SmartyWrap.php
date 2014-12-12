@@ -106,23 +106,26 @@ class SmartyWrap {
         case 'jqueryui-smoothness': self::$cssFiles[2] = 'smoothness-1.10.4/jquery-ui-1.10.4.custom.min.css'; break;
         case 'jqgrid':              self::$cssFiles[3] = 'ui.jqgrid.css?v=3'; break;
         case 'tablesorter':         self::$cssFiles[4] = 'tablesorter/theme.blue.css'; break;
-        case 'elfinder':            self::$cssFiles[5] = 'elfinder/css/elfinder.min.css?v=2'; break;
-        case 'windowEngine':        self::$cssFiles[6] = 'jquery-wm/main.css'; break;
-        case 'zepu':                self::$cssFiles[7] = 'zepu.css?v=70'; break;
-        case 'polar':               self::$cssFiles[8] = 'polar.css?v=34'; break;
-        case 'mobile':              self::$cssFiles[9] = 'mobile.css?v=20'; break;
-        case 'flex':                self::$cssFiles[10] = 'flex.css?v=14'; break;
-        case 'paradigm':            self::$cssFiles[11] = 'paradigm.css?v=3'; break;
-        case 'hangman':             self::$cssFiles[12] = 'hangman.css?v=5'; break;
-        case 'mill':                self::$cssFiles[13] = 'mill.css?v=3'; break;
-        case 'lexemEdit':           self::$cssFiles[14] = 'lexemEdit.css?v=10'; break;
-        case 'jcrop':               self::$cssFiles[15] = 'jcrop/jquery.Jcrop.min.css?v=3'; break;
-        case 'select2':             self::$cssFiles[16] = 'select2/select2.css?v=3'; break;
-        case 'gallery':            
-          self::$cssFiles[17] = 'colorbox/colorbox.css?v=1'; 
-          self::$cssFiles[18] = 'visualDict.css?v=2';
+        case 'elfinder':
+          self::$cssFiles[5] = 'elfinder/css/elfinder.min.css?v=2';
+          self::$cssFiles[6] = 'elfinderDev.css';
           break;
-        case 'textComplete':        self::$cssFiles[19] = 'jquery.textcomplete.css'; break;
+        case 'windowEngine':        self::$cssFiles[7] = 'jquery-wm/main.css'; break;
+        case 'zepu':                self::$cssFiles[8] = 'zepu.css?v=70'; break;
+        case 'polar':               self::$cssFiles[9] = 'polar.css?v=34'; break;
+        case 'mobile':              self::$cssFiles[10] = 'mobile.css?v=20'; break;
+        case 'flex':                self::$cssFiles[11] = 'flex.css?v=14'; break;
+        case 'paradigm':            self::$cssFiles[12] = 'paradigm.css?v=3'; break;
+        case 'hangman':             self::$cssFiles[13] = 'hangman.css?v=5'; break;
+        case 'mill':                self::$cssFiles[14] = 'mill.css?v=3'; break;
+        case 'lexemEdit':           self::$cssFiles[15] = 'lexemEdit.css?v=10'; break;
+        case 'jcrop':               self::$cssFiles[16] = 'jcrop/jquery.Jcrop.min.css?v=3'; break;
+        case 'select2':             self::$cssFiles[17] = 'select2/select2.css?v=3'; break;
+        case 'gallery':            
+          self::$cssFiles[18] = 'colorbox/colorbox.css?v=1'; 
+          self::$cssFiles[19] = 'visualDict.css?v=2';
+          break;
+        case 'textComplete':        self::$cssFiles[20] = 'jquery.textcomplete.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());

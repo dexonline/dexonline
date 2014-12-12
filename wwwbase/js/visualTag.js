@@ -66,8 +66,9 @@ jQuery(document).ready(function() {
       title: img.attr('title'),
       maxWidth: '84%', maxHeight: '84%',
       onComplete: function() {
+        var visualId = $('#visualId').val();
         addCanvas();
-        drawOnCanvas();
+        drawOnCanvas(visualId);
       },
       onCleanup: function() {
         removeCanvas();
@@ -95,7 +96,7 @@ jQuery(document).ready(function() {
 
   $('#tagsGrid').jqGrid({
     url: wwwRoot + 'ajax/visualGetImageTags.php',
-    postData: {imageId: $('#visualId').val(), usage: 'table'},
+    postData: { visualId: $('#visualId').val(), usage: 'table' },
     datatype: 'json',
     cmTemplate: {sortable: false},
     colNames: ['Id', 'Lexem', 'Text afișat', 'X Etichetă', 'Y Etichetă', 'X Imagine', 'Y Imagine'],

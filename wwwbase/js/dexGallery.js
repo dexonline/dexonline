@@ -2,9 +2,10 @@ $(document).ready(function() {
   $('.gallery').colorbox({
     maxWidth: '84%', maxHeight: '84%',
     rel: 'gallery',
-    onComplete: function() {
+    onComplete: function(a) {
+      var visualId = $.colorbox.element().data('visualId');
       addCanvas();
-      drawOnCanvas();
+      drawOnCanvas(visualId);
     },
     onCleanup: function() {
       removeCanvas();
@@ -34,17 +35,15 @@ function removeCanvas() {
   $('#activeCanvas').clearCanvas();
 }
 
-function drawOnCanvas() {
+function drawOnCanvas(visualId) {
   var canvas = $('#activeCanvas');
   // The colorbox plugin title is made up of two parts:
   // 1. the unique id of the image from the Visual table
   // 2. the name of the lexeme corresponding to the image
-  var imageId = $('#visualId').val();
-
   $.ajax({
     type: 'POST',
     url: wwwRoot + 'ajax/visualGetImageTags.php',
-    data: {imageId: imageId, usage: 'gallery'}
+    data: { visualId: visualId, usage: 'gallery' }
   }).done(function(data) {
     data = JSON.parse(data);
     var widthScale = parseInt(canvas.attr('width')) / data.dims.width,

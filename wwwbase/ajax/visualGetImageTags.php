@@ -2,21 +2,21 @@
 
 require_once('../../phplib/util.php');
 
-$imageId = util_getRequestParameter('imageId');
+$visualId = util_getRequestParameter('visualId');
 $page = util_getRequestParameter('page');
 $limit = util_getRequestParameter('rows');
 $usage = util_getRequestParameter('usage');
 $resp = array(); $tags = array();
 
-if($usage == 'table') {
-  $total = Model::factory('VisualTag')->where('imageId', $imageId)->count();
-  $lines = Model::factory('VisualTag')->where('imageId', $imageId)
+if ($usage == 'table') {
+  $total = Model::factory('VisualTag')->where('imageId', $visualId)->count();
+  $lines = Model::factory('VisualTag')->where('imageId', $visualId)
                                       ->limit($limit)->offset(($page - 1) * $limit)->find_many();
 
-} else if($usage == 'gallery') {
-  $image = Visual::get_by_id($imageId);
+} else if ($usage == 'gallery') {
+  $image = Visual::get_by_id($visualId);
   $dims = array('width' => $image->width, 'height' => $image->height);
-  $lines = VisualTag::get_all_by_imageId($imageId);
+  $lines = VisualTag::get_all_by_imageId($visualId);
 }
 
 foreach($lines as $line) {

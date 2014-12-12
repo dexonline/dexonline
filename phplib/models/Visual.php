@@ -5,7 +5,9 @@ class Visual extends BaseObject implements DatedObject {
 
   const STATIC_DIR = 'img/visual/';
   const STATIC_THUMB_DIR = 'img/visual/thumb/';
-  const THUMB_SIZE = 200;
+  const THUMB_SIZE = 150;
+
+  private $lexem = null;
 
   static function createFromFile($fileName) {
     $v = Model::factory('Visual')->create();
@@ -21,6 +23,13 @@ class Visual extends BaseObject implements DatedObject {
     $v->createThumb();
 
     return $v;
+  }
+
+  function getTitle() {
+    if ($this->lexem === null) {
+      $this->lexem = Lexem::get_by_id($this->lexemeId);
+    }
+    return $this->lexem ? $this->lexem->formNoAccent : '';
   }
 
   function getImageUrl() {
@@ -48,6 +57,36 @@ class Visual extends BaseObject implements DatedObject {
     FtpUtil::staticServerPut($localThumbFile, self::STATIC_THUMB_DIR . $this->path);
     unlink($localFile);
     unlink($localThumbFile);
+  }
+
+  function ensureThumb() {
+    if (!$this->thumbExists()) {
+      $this->createThumb();
+    }
+  }
+
+  // Loads all Visuals that are associated with one of the lexems, either directly or through a VisualTag.
+  static function loadAllForLexems($lexems) {
+    $map = array();
+
+    foreach ($lexems as $l) {
+      $vs = Visual::get_all_by_lexemeId($l->id);
+      foreach ($vs as $v) {
+        $map[$v->id] = $v;
+      }
+
+      $vts = VisualTag::get_all_by_lexemeId($l->id);
+      foreach ($vts as $vt) {
+        $v = Visual::get_by_id($vt->imageId);
+        $map[$v->id] = $v;
+      }
+    }
+
+    foreach ($map as $v) {
+      $v->ensureThumb();
+    }
+
+    return array_values($map);
   }
 
   function delete() {

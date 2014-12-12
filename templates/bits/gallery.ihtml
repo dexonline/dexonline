@@ -1,6 +1,9 @@
 {include file="bits/prototypes.ihtml"}
 <div id="gallery">
   {foreach from=$images item=i}
-    <a class="gallery" href="{$i.img->getImageUrl()}" title="{$i.img->id}{$i.name}"><img src="{$i.img->getThumbUrl()}"/></a>
+    <a class="gallery" href="{$i->getImageUrl()}" data-visual-id="{$i->id}" title="Imagine: {$i->getTitle()}">
+      <img src="{$i->getThumbUrl()}" alt="imagine pentru acest cuvânt"/>
+    </a>
   {/foreach}
 </div>
+<input id="visualId" type="hidden" name="visualId" value="1">

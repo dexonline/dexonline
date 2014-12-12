@@ -296,39 +296,12 @@ SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('advancedSearch', $text || $sourceId);
 
 /* Gallery */
-if (false && !empty($lexems)) {
-  $images = array();
-
-  foreach($lexems as $lexeme) {
-    // Searches for images that are associated with the lexeme.
-    $imgs = Visual::get_all_by_lexemeId($lexeme->id);
-
-    foreach ($imgs as $img) {
-      // For every image found, it fetches its path and its thumb path from the database
-      // and stores them in the $images array.
-      $images[] = array('img' => $img,
-                        'name' => $lexeme->formUtf8General);
-    }
-
-    // Searches for tags that are associated with the lexeme.
-    $tags = VisualTag::get_all_by_lexemeId($lexeme->id);
-
-    foreach ($tags as $tag) {
-      // For every tag found, it fetches (associated) image path and its thumbnail path from database
-      // and stores them in the $images array.
-      $row = Visual::get_by_id($tag->imageId);
-      $images[] = array('img' => $row,
-                        'name' => $lexeme->formUtf8General);
-    }
-  }
-
-  SmartyWrap::assign('images', $images);
-  if (count($images)) {
-    SmartyWrap::addCss('gallery');
-    SmartyWrap::addJs('gallery');
-  }
+$images = Visual::loadAllForLexems($lexems);
+SmartyWrap::assign('images', $images);
+if (count($images)) {
+  SmartyWrap::addCss('gallery');
+  SmartyWrap::addJs('gallery');
 }
-/* Gallery */
 
 if (!$xml) {
   SmartyWrap::addCss('paradigm');

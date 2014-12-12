@@ -9,7 +9,15 @@ class FtpUtil {
       $conn = ftp_connect(Config::get('static.host'));
       ftp_login($conn, $user, $pass);
       ftp_pasv($conn, true);
-      @ftp_mkdir($conn, dirname($remoteFile));
+
+      // Create the directory recursively
+      $parts = explode('/', dirname($remoteFile));
+      $partial = '';
+      foreach ($parts as $part) {
+        $partial .= '/' . $part;
+        @ftp_mkdir($conn, $partial);
+      }
+
       ftp_put($conn, Config::get('static.path') . $remoteFile, $localFile, FTP_BINARY);
       ftp_close($conn);
     }

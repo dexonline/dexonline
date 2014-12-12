@@ -6,4 +6,3 @@
     </a>
   {/foreach}
 </div>
-<input id="visualId" type="hidden" name="visualId" value="1">

@@ -30,6 +30,15 @@ class FtpUtil {
     ftp_close($conn);
   }
 
+  static function staticServerFileExists($remoteFile) {
+    $conn = ftp_connect(Config::get('static.host'));
+    ftp_login($conn, Config::get('static.user'), Config::get('static.password'));
+    ftp_pasv($conn, true);
+    $listing = @ftp_nlist($conn, Config::get('static.path') . $remoteFile);
+    ftp_close($conn);
+    return !empty($listing);
+  }
+
 }
 
 ?>

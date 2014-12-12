@@ -9,7 +9,7 @@ $().ready(function() {
       var hash = this.files()[0].hash;
       var url = this.fm.options.url + '?' + 'cmd=tagimage&target=' + hash;
       $.get(url, function(data) {
-        console.log(data);
+        window.location = wwwRoot + 'admin/visualTag?fileName=' + data.path;
       });
     }
     this.getstate = function() {
@@ -25,7 +25,6 @@ $().ready(function() {
     uiOptions: {
       toolbar: [
         ['mkdir', 'upload'],
-        ['quicklook'],
         ['copy', 'cut', 'paste'],
         ['download', 'rename', 'rm'],
         ['view', 'sort'],

@@ -11,15 +11,12 @@ include_once __DIR__ . '/VisualElFinder.php';
 
 include_once __DIR__ . '/../../phplib/util.php';
 
-error_log(var_export($_REQUEST, true));
-
 $myLogger = new elFinderSimpleLogger('../../log/visuallog');
 
 // https://github.com/Studio-42/elFinder/wiki/Connector-configuration-options
 $opts = array(
   'debug' => true,
   'bind'  => array('mkdir mkfile rename duplicate upload rm paste' => array($myLogger, 'log'),
-                   'tagimage' => 'tagImageRedirect',
                    ),
   'roots' => array(
     array(
@@ -45,11 +42,5 @@ $opts = array(
 // run elFinder
 $connector = new elFinderConnector(new VisualElFinder($opts));
 $connector->run();
-
-/**************************************************************************/
-
-function tagImageRedirect($cmd, $result, $args, $elfinder) {
-  echo "cucu";
-}
 
 ?>

@@ -1,12 +1,2 @@
 <div id="fileManager"></div>
 <br/>
-
-<h3>Fișiere încă neîncepute</h3>
-
-<p>Selectați un fișier pentru a-i începe etichetarea.</p>
-
-<div>
-  {foreach from=$untrackedFiles item=f}
-    <a href="visualTag?fileName={$f|escape:url}">{$f}</a> |
-  {/foreach}
-</div>

@@ -13,6 +13,8 @@ if ($submitButton) {
   $src->author = util_getRequestParameter("author");
   $src->publisher = util_getRequestParameter("publisher");
   $src->year = util_getRequestParameter("year");
+  $src->link = util_getRequestParameter("link");
+  $src->isActive = util_getRequestParameterWithDefault("isActive", 0);
   $src->isOfficial = util_getRequestParameterWithDefault("isOfficial", 0);
   $src->canContribute = util_getRequestParameterWithDefault("canContribute", 0);
   $src->canModerate = util_getRequestParameterWithDefault("canModerate", 0);

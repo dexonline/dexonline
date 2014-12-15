@@ -17,6 +17,7 @@
   Autor: <input type="text" name="author" value="{$src->author}" size="55"/><br/>
   Editură: <input type="text" name="publisher" value="{$src->publisher}" size="35"/><br/>
   An: <input type="text" name="year" value="{$src->year}" size="10"/><br/>
+  Legătura către formatul scanat: <input type="text" name="link" value="{$src->link}" size="35"/><br/>
   Tip:
   <select name="isOfficial">
     <option value="3" {if $src->isOfficial==3 }selected{/if}>Ascuns</option>
@@ -30,6 +31,9 @@
   din care digitizate: {$src->ourDefCount}; procent de completare: {$src->percentComplete|string_format:"%.2f"}.
 
   <br/>
+
+  <input type="checkbox" id="cbIsActive" name="isActive" value="1" {if $src->isActive}checked="checked"{/if}/>
+  <label for="cbIsActive">Sursa este activă (și vizibilă tuturor utilizatorilor)</label><br/>
 
   <input type="checkbox" id="cbCanContribute" name="canContribute" value="1" {if $src->canContribute}checked="checked"{/if}/>
   <label for="cbCanContribute">Deschisă pentru contribuții</label><br/>

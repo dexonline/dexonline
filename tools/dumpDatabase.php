@@ -37,7 +37,7 @@ if ($doFullDump) {
   $remoteFile = '/download/mirrorAccess/dex-database.sql.gz';
 } else {
   $remoteFile = '/download/dex-database.sql.gz';
-  $tablesToIgnore .= "--ignore-table=$dbName.User --ignore-table=$dbName.Definition --ignore-table=$dbName.diverta_Book --ignore-table=$dbName.divertaIndex ";
+  $tablesToIgnore .= "--ignore-table=$dbName.User --ignore-table=$dbName.Definition --ignore-table=$dbName.Source --ignore-table=$dbName.diverta_Book --ignore-table=$dbName.divertaIndex ";
 }
 
 OS::executeAndAssert("rm -f $SQL_FILE");
@@ -65,6 +65,13 @@ if (!$doFullDump) {
   db_execute("update _User_Copy set password = md5('1234'), email = concat(id, '@anonymous.com'), identity = null");
   OS::executeAndAssert("$COMMON_COMMAND _User_Copy | sed 's/_User_Copy/User/g' >> $SQL_FILE");
   db_execute("drop table _User_Copy");
+
+  log_scriptLog('Anonymizing the Source table');
+  db_execute("create table _Source_Copy like User");
+  db_execute("insert into _Source_Copy select * from Source");
+  db_execute("update _Source_Copy set link = null");
+  OS::executeAndAssert("$COMMON_COMMAND _Source_Copy | sed 's/_Source_Copy/Source/g' >> $SQL_FILE");
+  db_execute("drop table _Source_Copy");
 
   // Dump only the Definitions for which we have redistribution rights
   log_scriptLog('Filtering the Definition table');

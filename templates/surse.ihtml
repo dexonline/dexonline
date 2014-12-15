@@ -19,9 +19,14 @@
     </thead>
     <tbody>
       {foreach from=$sources item=s}
+        {if $s->isActive || ($sUser && $sUser->moderator & $smarty.const.PRIV_EDIT)}
         <tr>
           <td class="abbreviation">
+            {if $s->link && $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
+            <a href="{$s->link}" target="_blank"><span class="sourceShortName">{$s->shortName}</span></a>
+            {else}
             <span class="sourceShortName">{$s->shortName}</span>
+            {/if}
           </td>
           <td class="nick">
             <input type="hidden" name="ids[]" value="{$s->id}"/>
@@ -46,6 +51,7 @@
             <td><a href="editare-sursa?id={$s->id}">editează</a></td>
           {/if}
         </tr>
+        {/if}
       {/foreach}
     </tbody>
   </table>

@@ -67,7 +67,7 @@ if (!$doFullDump) {
   db_execute("drop table _User_Copy");
 
   log_scriptLog('Anonymizing the Source table');
-  db_execute("create table _Source_Copy like User");
+  db_execute("create table _Source_Copy like Source");
   db_execute("insert into _Source_Copy select * from Source");
   db_execute("update _Source_Copy set link = null");
   OS::executeAndAssert("$COMMON_COMMAND _Source_Copy | sed 's/_Source_Copy/Source/g' >> $SQL_FILE");

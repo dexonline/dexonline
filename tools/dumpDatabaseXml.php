@@ -9,6 +9,7 @@ $STATIC_FILES = file(Config::get('static.url') . 'fileList.txt');
 $LAST_DUMP = getLastDumpDate($REMOTE_FOLDER);
 $LAST_DUMP_TIMESTAMP = $LAST_DUMP ? strtotime("$LAST_DUMP 00:00:00") : null;
 $USERS = getActiveUsers();
+$FTP = new FtpUtil();
 
 log_scriptLog("generating dump for $TODAY; previous dump is " . ($LAST_DUMP ? $LAST_DUMP : '-never-'));
 
@@ -85,20 +86,26 @@ function getLastDumpDate($folder) {
 }
 
 function dumpSources($remoteFile) {
+  global $FTP;
+
   log_scriptLog("dumping sources");
   SmartyWrap::assign('sources', Model::factory('Source')->order_by_asc('id')->find_many());
   $xml = SmartyWrap::fetch('xmldump/sources.ihtml');
-  FtpUtil::staticServerPutContents(gzencode($xml), $remoteFile);
+  $FTP->staticServerPutContents(gzencode($xml), $remoteFile);
 }
 
 function dumpInflections($remoteFile) {
+  global $FTP;
+
   log_scriptLog("dumping inflections");
   SmartyWrap::assign('inflections', Model::factory('Inflection')->order_by_asc('id')->find_many());
   $xml = SmartyWrap::fetch('xmldump/inflections.ihtml');
-  FtpUtil::staticServerPutContents(gzencode($xml), $remoteFile);
+  $FTP->staticServerPutContents(gzencode($xml), $remoteFile);
 }
 
 function dumpAbbrevs($remoteFile) {
+  global $FTP;
+
   log_scriptLog("dumping abbreviations");
   $sources = AdminStringUtil::loadAbbreviationsIndex();
   $sectionNames = AdminStringUtil::getAbbrevSectionNames();
@@ -120,11 +127,11 @@ function dumpAbbrevs($remoteFile) {
   SmartyWrap::assign('sources', $sources);
   SmartyWrap::assign('sections', $sections);
   $xml = SmartyWrap::fetch('xmldump/abbrev.ihtml');
-  FtpUtil::staticServerPutContents(gzencode($xml), $remoteFile);
+  $FTP->staticServerPutContents(gzencode($xml), $remoteFile);
 }
 
 function dumpDefinitions($query, $remoteFile, $message) {
-  global $USERS;
+  global $FTP, $USERS;
 
   log_scriptLog($message);
   $results = db_execute($query);
@@ -141,11 +148,13 @@ function dumpDefinitions($query, $remoteFile, $message) {
   }
   gzwrite($file, "</Definitions>\n");
   gzclose($file);
-  FtpUtil::staticServerPut($tmpFile, $remoteFile);
+  $FTP->staticServerPut($tmpFile, $remoteFile);
   unlink($tmpFile);
 }
 
 function dumpLexems($query, $remoteFile, $message) {
+  global $FTP;
+
   log_scriptLog($message);
   $results = db_execute($query);
   $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
@@ -159,11 +168,13 @@ function dumpLexems($query, $remoteFile, $message) {
   }
   gzwrite($file, "</Lexems>\n");
   gzclose($file);
-  FtpUtil::staticServerPut($tmpFile, $remoteFile);
+  $FTP->staticServerPut($tmpFile, $remoteFile);
   unlink($tmpFile);
 }
 
 function dumpLdm($query, $remoteFile, $message) {
+  global $FTP;
+
   log_scriptLog($message);
   $results = db_execute($query);
   $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
@@ -175,11 +186,13 @@ function dumpLdm($query, $remoteFile, $message) {
   }
   gzwrite($file, "</LexemDefinitionMap>\n");
   gzclose($file);
-  FtpUtil::staticServerPut($tmpFile, $remoteFile);
+  $FTP->staticServerPut($tmpFile, $remoteFile);
   unlink($tmpFile);
 }
 
 function dumpLdmDiff($oldRemoteFile, $newRemoteFile, $diffRemoteFile) {
+  global $FTP;
+
   log_scriptLog('dumping lexem-definition map diff');
 
   // Transfer the files locally
@@ -200,7 +213,7 @@ function dumpLdmDiff($oldRemoteFile, $newRemoteFile, $diffRemoteFile) {
   }
   gzwrite($file, "</LexemDefinitionMap>\n");
   gzclose($file);
-  FtpUtil::staticServerPut($tmpFile, $diffRemoteFile);
+  $FTP->staticServerPut($tmpFile, $diffRemoteFile);
   unlink($tmpFile);
   unlink($oldXml);
   unlink($newXml);
@@ -216,7 +229,7 @@ function wgetAndGunzip($url) {
 
 // Delete all dumps other than current one and previous one. Keep the diffs
 function removeOldDumps($folder, $today, $lastDump) {
-  global $STATIC_FILES;
+  global $FTP, $STATIC_FILES;
 
   log_scriptLog('removing old dumps');
   foreach ($STATIC_FILES as $file) {
@@ -226,7 +239,7 @@ function removeOldDumps($folder, $today, $lastDump) {
       $date = $matches[1];
       if ($date != $today && $date != $lastDump) {
         log_scriptLog("  deleting $file");
-        FtpUtil::staticServerDelete($file);
+        $FTP->staticServerDelete($file);
       }
     }
   }

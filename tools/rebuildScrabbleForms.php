@@ -43,7 +43,8 @@ foreach (Config::getLocVersions() as $version) {
     OS::executeAndAssert("zip -j {$zipFileName} {$fileName2}");
 
     log_scriptLog('* copying over FTP');
-    FtpUtil::staticServerPut($zipFileName, "/download/forme-{$version->name}.zip");
+    $f = new FtpUtil();
+    $f->staticServerPut($zipFileName, "/download/forme-{$version->name}.zip");
 
     unlink($zipFileName);
     unlink($fileName);

@@ -80,7 +80,8 @@ if (!$doFullDump) {
 }
 
 OS::executeAndAssert("gzip -f $SQL_FILE");
-FtpUtil::staticServerPut($GZ_FILE, $remoteFile);
+$f = new FtpUtil();
+$f->staticServerPut($GZ_FILE, $remoteFile);
 unlink($GZ_FILE);
 
 log_scriptLog('dumpDatabase.php completed successfully (against all odds)');

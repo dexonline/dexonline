@@ -18,7 +18,8 @@ $side = util_getRequestParameter('side');
 $delete = util_getRequestParameter('delete');
 
 if ($delete) {
-  FtpUtil::staticServerDelete($AVATAR_REMOTE_FILE);
+  $f = new FtpUtil();
+  $f->staticServerDelete($AVATAR_REMOTE_FILE);
   FlashMessage::add('Imaginea a fost ștearsă.', 'info');
   util_redirect('preferinte');
 }
@@ -36,7 +37,8 @@ imagecopyresampled($canvas, $image, 0, 0, $x0, $y0, AVATAR_RESOLUTION, AVATAR_RE
 sharpenImage($canvas);
 $tmpFileName = tempnam(Config::get('global.tempDir'), 'dex_avatar_');
 imagejpeg($canvas, $tmpFileName, AVATAR_QUALITY);
-FtpUtil::staticServerPut($tmpFileName, $AVATAR_REMOTE_FILE);
+$f = new FtpUtil();
+$f->staticServerPut($tmpFileName, $AVATAR_REMOTE_FILE);
 unlink($rawFileName);
 unlink($tmpFileName);
 

@@ -78,7 +78,8 @@ try {
   $wotd->image = sprintf("%s/%s.%s", $wotdDisplayDate->format('Y-m'), $word, $imageExtension);
   $wotd->save();
   $wotdImagePath = '/img/wotd/' . $wotd->image;
-  FtpUtil::staticServerPut($tmpFilePath, $wotdImagePath);
+  $f = new FtpUtil();
+  $f->staticServerPut($tmpFilePath, $wotdImagePath);
   unlink($tmpFilePath);
     
   ReplyToEmail($sender, $subject, "Am adăugat imaginea pentru '{$word}'.");

@@ -1,49 +1,47 @@
 <?php
 
 class FtpUtil {
-
-  static function staticServerPut($localFile, $remoteFile) {
+  private $conn;
+  
+  function __construct() {
     $user = Config::get('static.user');
     $pass = Config::get('static.password');
     if ($user && $pass) {
-      $conn = ftp_connect(Config::get('static.host'));
-      ftp_login($conn, $user, $pass);
-      ftp_pasv($conn, true);
-
-      // Create the directory recursively
-      $parts = explode('/', dirname($remoteFile));
-      $partial = '';
-      foreach ($parts as $part) {
-        $partial .= '/' . $part;
-        @ftp_mkdir($conn, $partial);
-      }
-
-      ftp_put($conn, Config::get('static.path') . $remoteFile, $localFile, FTP_BINARY);
-      ftp_close($conn);
+      $this->conn = ftp_connect(Config::get('static.host'));
+      ftp_login($this->conn, $user, $pass);
+      ftp_pasv($this->conn, true);
     }
   }
 
-  static function staticServerPutContents(&$contents, $remoteFile) {
+  function __destruct() {
+    ftp_close($this->conn);
+  }
+
+  function staticServerPut($localFile, $remoteFile) {
+    // Create the directory recursively
+    $parts = explode('/', dirname($remoteFile));
+    $partial = '';
+    foreach ($parts as $part) {
+      $partial .= '/' . $part;
+      @ftp_mkdir($this->conn, $partial);
+    }
+
+    ftp_put($this->conn, Config::get('static.path') . $remoteFile, $localFile, FTP_BINARY);
+  }
+
+  function staticServerPutContents(&$contents, $remoteFile) {
     $tmpFile = tempnam(Config::get('global.tempDir'), 'ftp_');
     file_put_contents($tmpFile, $contents);
-    self::staticServerPut($tmpFile, $remoteFile);
+    $this->staticServerPut($tmpFile, $remoteFile);
     unlink($tmpFile);
   }
 
-  static function staticServerDelete($remoteFile) {
-    $conn = ftp_connect(Config::get('static.host'));
-    ftp_login($conn, Config::get('static.user'), Config::get('static.password'));
-    ftp_pasv($conn, true);
-    @ftp_delete($conn, Config::get('static.path') . $remoteFile);
-    ftp_close($conn);
+  function staticServerDelete($remoteFile) {
+    @ftp_delete($this->conn, Config::get('static.path') . $remoteFile);
   }
 
-  static function staticServerFileExists($remoteFile) {
-    $conn = ftp_connect(Config::get('static.host'));
-    ftp_login($conn, Config::get('static.user'), Config::get('static.password'));
-    ftp_pasv($conn, true);
-    $listing = @ftp_nlist($conn, Config::get('static.path') . $remoteFile);
-    ftp_close($conn);
+  function staticServerFileExists($remoteFile) {
+    $listing = @ftp_nlist($this->conn, Config::get('static.path') . $remoteFile);
     return !empty($listing);
   }
 

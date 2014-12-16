@@ -41,7 +41,8 @@ class Visual extends BaseObject implements DatedObject {
   }
 
   function thumbExists() {
-    return FtpUtil::staticServerFileExists(self::STATIC_THUMB_DIR . $this->path);
+    $f = new FtpUtil();
+    return $f->staticServerFileExists(self::STATIC_THUMB_DIR . $this->path);
   }
 
   function createThumb() {
@@ -54,7 +55,8 @@ class Visual extends BaseObject implements DatedObject {
     $command = sprintf("convert -strip -geometry %sx%s -sharpen 1x1 '%s' '%s'",
                        self::THUMB_SIZE, self::THUMB_SIZE, $localFile, $localThumbFile);
     OS::executeAndAssert($command);
-    FtpUtil::staticServerPut($localThumbFile, self::STATIC_THUMB_DIR . $this->path);
+    $f = new FtpUtil();
+    $f->staticServerPut($localThumbFile, self::STATIC_THUMB_DIR . $this->path);
     unlink($localFile);
     unlink($localThumbFile);
   }

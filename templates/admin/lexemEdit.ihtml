@@ -2,7 +2,7 @@
 
 <script>
   sourceMap = JSON.parse('{$jsonSources}');
-  canEdit = { 'paradigm': {$canEdit.paradigm} };
+  canEdit = { 'paradigm': {$canEdit.paradigm}, 'loc': {$canEdit.loc} };
 </script>
 
 {* Stem meaning editor that we clone whenever we append a new meaning *}
@@ -155,7 +155,7 @@
                 <span class="ui-icon ui-icon-arrow-4"></span>
               {/if}
               <a href="#lmTab_{$i}">{$lm->modelType}{$lm->modelNumber}</a>
-              {if $canEdit.paradigm}
+              {if $canEdit.loc || !$lm->isLoc}
                 <span class="ui-icon ui-icon-close"></span>
               {/if}
             </li>

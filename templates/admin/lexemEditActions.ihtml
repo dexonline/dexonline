@@ -13,15 +13,16 @@
     toate definițiile pentru 'episcop' sunt reunite într-un singur lexem, puteți să clonați acest lexem și să adăugați descrierile 'prelat' și
     'aparat'. Apoi trebuie să asociați definițiile în mod corect cu cele două lexeme.">&nbsp;</span>
     &nbsp;&nbsp;
-  
-    <input type="submit" name="deleteLexem" value="Șterge" {if $lexem->isLoc}disabled="disabled"{/if}
+  {/if}
+
+  {if $canEdit.loc || !$lexem->isLoc()}
+    <input type="submit" name="deleteLexem" value="Șterge" {if $lexem->isLoc()}disabled="disabled"{/if}
            onclick="return confirm('Confirmați ștergerea acestui lexem?');"/>
     
     <span class="tooltip2" title="Șterge lexemul. Definițiile cu care el era asociat nu vor fi șterse, dar, dacă nu sunt asociate cu niciun alt lexem,
     ele vor deveni neasociate, ceea ce înseamnă că nu vor fi niciodată afișate ca rezultat al unei căutări. Probabil trebuie să vă asigurați că
     definițiile respective sunt asociate cu un alt lexem înainte de a-l șterge pe acesta. Notă: Lexemele care sunt parte din LOC nu pot fi șterse,
-    pentru a preveni modificarea accidentală a LOC. Dacă sunteți moderator cu drept de gestiune a LOC, scoateți întâi lexemul din LOC, după care îl
-    puteți șterge.">&nbsp;</span>
+    pentru a preveni modificarea accidentală a LOC. Scoateți întâi lexemul din LOC, după care îl puteți șterge.">&nbsp;</span>
     
     {if $homonyms}
       {foreach from=$homonyms item=h}

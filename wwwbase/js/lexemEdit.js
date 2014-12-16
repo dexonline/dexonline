@@ -473,12 +473,9 @@ function addLexemModelTab() {
 
 function closeLexemModelTab() {
   var tabId = $(this).prev('a').attr('href');
-  var isLoc = $(tabId).find('input[name="isLoc\\[\\]"]').val();
 
   if ($('#paradigmTabs > ul li').length == 1) {
     alert('Nu puteți șterge unicul model.');
-  } else if (isLoc != '0') {
-    alert('Această flexiune este inclusă în LOC. Pentru confirmare, debifați câmpul „inclus în LOC” înainte de a șterge flexiunea.');
   } else {
     $(this).closest('li').remove();
     $(tabId).remove();

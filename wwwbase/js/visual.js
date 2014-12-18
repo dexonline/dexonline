@@ -37,4 +37,9 @@ $().ready(function() {
       files: ['quicklook', 'download', '|', 'copy', 'cut', '|', 'rename', 'rm', '|', 'tagimage'],
     },
   }).elfinder('instance');
+
+  // No icon tooltips.
+  $(document).on('mouseenter', '.elfinder-cwd-file', function() {
+    $(this).removeAttr('title');
+  });
 });

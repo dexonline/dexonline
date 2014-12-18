@@ -362,6 +362,10 @@ function handleLexemActions() {
   $mergeLexemId = util_getRequestParameter('mergeLexemId');
   if ($mergeLexem) {
     $other = Lexem::get_by_id($mergeLexemId);
+    if ($lexem->form != $other->form) {
+      FlashMessage::add('Nu pot unifica lexemele deoarece accentele diferă. Rezolvați diferența și încercați din nou.');
+      util_redirect("lexemEdit.php?lexemId={$lexem->id}");
+    }
     $defs = Definition::loadByLexemId($lexem->id);
     foreach ($defs as $def) {
       LexemDefinitionMap::associate($other->id, $def->id);
@@ -369,13 +373,11 @@ function handleLexemActions() {
 
     // Add lexem models from $lexem to $other if the form is the same. Exclude T-type models.
     $displayOrder = count($other->getLexemModels());
-    if ($lexem->form == $other->form) {
-      foreach ($lexem->getLexemModels() as $lm) {
-        if ($lm->modelType != 'T' && !$other->hasModel($lm->modelType, $lm->modelNumber)) {
-          $lm->lexemId = $other->id;
-          $lm->displayOrder = ++$displayOrder;
-          $lm->save();
-        }
+    foreach ($lexem->getLexemModels() as $lm) {
+      if ($lm->modelType != 'T' && !$other->hasModel($lm->modelType, $lm->modelNumber)) {
+        $lm->lexemId = $other->id;
+        $lm->displayOrder = ++$displayOrder;
+        $lm->save();
       }
     }
 

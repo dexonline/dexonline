@@ -4,8 +4,6 @@ $().ready(function() {
   elFinder.prototype._options.commands.push('tagimage');
   elFinder.prototype.commands.tagimage = function() {
     this.exec = function(hashes) {
-      //  window.location = wwwRoot + 'definitie' + source + '/' + encodeURIComponent(word);
-      //window.location = 'visualTag.php?fileName=';
       var hash = this.files()[0].hash;
       var url = this.fm.options.url + '?' + 'cmd=tagimage&target=' + hash;
       $.get(url, function(data) {
@@ -29,7 +27,7 @@ $().ready(function() {
         ['download', 'rename', 'rm'],
         ['view', 'sort'],
         ['tagimage'],
-        ['help'],
+        ['documentation'],
       ],
     },
     contextmenu: {
@@ -42,4 +40,6 @@ $().ready(function() {
   $(document).on('mouseenter', '.elfinder-cwd-file', function() {
     $(this).removeAttr('title');
   });
+
+  $('.elfinder-toolbar').append('<div class="visualDocumentation"><a href="http://wiki.dexonline.ro/wiki/Ghidul_dic%C8%9Bionarului_vizual">ajutor</a></div>');
 });

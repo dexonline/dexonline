@@ -164,8 +164,10 @@ if ($searchType == SEARCH_INFLECTED) {
     $lexems = Lexem::searchApproximate($cuv, $hasDiacritics, true);
     if (count($lexems) == 1) {
       FlashMessage::add("Ați fost redirecționat automat la forma „{$lexems[0]->formNoAccent}”.");
-    } else if (!count($lexems)) {
-      FlashMessage::add("Niciun rezultat relevant pentru „{$cuv}”.");
+    } else {
+      if (!count($lexems)) {
+        FlashMessage::add("Niciun rezultat relevant pentru „{$cuv}”.");
+      }
       header("HTTP/1.0 404 Not Found");
     }
   }

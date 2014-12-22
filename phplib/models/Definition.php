@@ -12,8 +12,14 @@ class Definition extends BaseObject implements DatedObject {
   }
 
   public static function loadByLexemId($lexemId) {
-    return Model::factory('Definition')->select('Definition.*')->join('LexemDefinitionMap', array('Definition.id', '=', 'definitionId'))
-      ->where('LexemDefinitionMap.lexemId', $lexemId)->where_not_equal('status', ST_DELETED)->order_by_asc('sourceId')->find_many();
+    return Model::factory('Definition')
+      ->select('Definition.*')
+      ->join('LexemDefinitionMap', array('Definition.id', '=', 'definitionId'))
+      ->join('Source', array('Source.id', '=', 'sourceId'))
+      ->where('LexemDefinitionMap.lexemId', $lexemId)
+      ->where_not_equal('status', ST_DELETED)
+      ->order_by_asc('displayOrder')
+      ->find_many();
   }
 
   public static function countAssociated() {

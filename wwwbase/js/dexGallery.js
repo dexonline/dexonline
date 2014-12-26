@@ -47,7 +47,8 @@ function drawOnCanvas(visualId) {
   }).done(function(data) {
     data = JSON.parse(data);
     var widthScale = parseInt(canvas.attr('width')) / data.dims.width,
-        heightScale = parseInt(canvas.attr('height')) / data.dims.height;
+        heightScale = parseInt(canvas.attr('height')) / data.dims.height,
+        word = window.location.pathname.replace('/definitie/', '');
 
     for(var i = 0; i < data.tags.length; i++) {
       data.tags[i].textX *= widthScale;
@@ -55,7 +56,12 @@ function drawOnCanvas(visualId) {
       data.tags[i].textY *= heightScale;
       data.tags[i].imgY *= heightScale;
 
-      drawTag(canvas, i, data.tags[i]);
+      console.log(data.tags[i].lexeme);
+      console.log(word);
+
+      colorText = (data.tags[i].lexeme == decodeURI(word) ) ? '#F00' : '#000';
+
+      drawTag(canvas, i, data.tags[i], colorText);
     }
   });
 
@@ -63,7 +69,7 @@ function drawOnCanvas(visualId) {
     canvas.removeLayerGroup('DummyText');
 }
 
-function drawTag(canvas, tagNo, tagData) {
+function drawTag(canvas, tagNo, tagData, colorText) {
   var tagNamePadding = 10;
   var tagNameMaxWidth = 100;
 
@@ -87,7 +93,7 @@ function drawTag(canvas, tagNo, tagData) {
     layer: true,
     name: 'tag' + tagNo,
     groups: ['Tags'],
-    strokeStyle: '#000',
+    strokeStyle: colorText,
     strokeWidth: 2,
     x1: tagData.textX, y1: tagData.textY,
     x2: tagData.imgX, y2: tagData.imgY
@@ -111,7 +117,7 @@ function drawTag(canvas, tagNo, tagData) {
     name: 'tagName' + tagNo,
     groups: ['TagsName'],
     fromCenter: true,
-    fillStyle: '#000',
+    fillStyle: colorText,
     strokeWidth: 2,
     fontSize: 14,
     fontFamily: 'Arial',

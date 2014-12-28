@@ -58,11 +58,6 @@ $reports = array(
         'count' => Model::factory('LexemModel')->where('modelType', 'T')->count(),
         'privilege' => PRIV_LOC
   ),
-  array('text' => 'Imagini de revizuit (din dicționarul vizual)',
-        'url' => 'admin/visualTag',
-        'count' => Model::factory('Visual')->where('revised', 0)->count(),
-        'privilege' => PRIV_VISUAL
-  ),
 );
 
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());

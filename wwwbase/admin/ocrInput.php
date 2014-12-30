@@ -4,6 +4,7 @@ util_assertModerator(PRIV_ADMIN);
 util_assertNotMirror();
 
 $sourceId = util_getRequestIntParameter('source');
+$editorId = util_getRequestIntParameter('editor');
 $class = "msgOK";
 $message = "";
 
@@ -43,6 +44,9 @@ if ($_FILES && $_FILES["file"]) {
           $ocr->lotId = $lotId;
           $ocr->userId = $userId;
           $ocr->sourceId = $sourceId;
+          if ($editorId) {
+            $ocr->editorId = $editorId;
+          }
           $ocr->ocrText = $line;
           $ocr->dateAdded = date('Y-m-d H:i:s');
           try {
@@ -64,9 +68,11 @@ if ($_FILES && $_FILES["file"]) {
   }
 }
 
+SmartyWrap::assign("sectionTitle", "OCR Input");
 SmartyWrap::assign("msgClass", $class);
 SmartyWrap::assign("message", $message);
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
+SmartyWrap::assign("allOCRModerators", Model::factory('User')->where_raw('moderator & 4')->order_by_asc('id')->find_many());
 SmartyWrap::displayAdminPage('admin/ocrInput.ihtml');
 
 ?>

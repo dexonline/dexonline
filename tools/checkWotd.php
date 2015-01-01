@@ -90,7 +90,7 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
 
   // Warn if the image has no credits
   if (!$wotds[0]->getImageCredits()) {
-    addInfo($date, "Imaginea {$wotds[0]->image} nu are credite; verificați conținutul fișierului authors.desc");
+    addInfo($date, "Imaginea {$wotds[0]->image} nu are credite; verificați conținutul fișierului docs/imageCredits/wotd.desc");
   }
 }
 

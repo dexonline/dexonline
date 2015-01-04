@@ -30,8 +30,8 @@ jQuery(document).ready(function() {
     $('#jcrop').load(function() {
       $(this).Jcrop({
         bgColor: '',
-        boxHeight: 500,
-        boxWidth: 500,
+        boxHeight: 600,
+        boxWidth: 800,
         onSelect: setCoords,
         onChange: setCoords
       }, function() {

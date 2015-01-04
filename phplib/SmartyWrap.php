@@ -123,7 +123,7 @@ class SmartyWrap {
         case 'select2':             self::$cssFiles[17] = 'select2/select2.css?v=3'; break;
         case 'gallery':            
           self::$cssFiles[18] = 'colorbox/colorbox.css?v=1'; 
-          self::$cssFiles[19] = 'visualDict.css?v=2';
+          self::$cssFiles[19] = 'visualDict.css?v=3';
           break;
         case 'textComplete':        self::$cssFiles[20] = 'jquery.textcomplete.css'; break;
         default:
@@ -163,7 +163,7 @@ class SmartyWrap {
         case 'select2':          self::$jsFiles[20] = 'select2.min.js?v=3'; break;
         case 'select2Dev':       self::$jsFiles[21] = 'select2Dev.js?v=6'; break;
         case 'visual':           self::$jsFiles[22] = 'visual.js?v=2'; break;
-        case 'visualTag':        self::$jsFiles[23] = 'visualTag.js'; break;
+        case 'visualTag':        self::$jsFiles[23] = 'visualTag.js?v=2'; break;
         case 'gallery':          
           self::$jsFiles[24] = 'colorbox/jquery.colorbox-min.js';
           self::$jsFiles[25] = 'colorbox/jquery.colorbox-ro.js';

@@ -263,7 +263,8 @@ class StringUtil {
   }
 
   static function isSpam($s) {
-    return preg_match("/\\[url=/i", $s);
+    return (stristr($s, '[url=') !== false) ||
+      (stristr($s, 'http://') !== false);
   }
 
   /** Like the standard explode(), but filters out zero-length components **/

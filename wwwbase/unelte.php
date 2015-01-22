@@ -62,7 +62,7 @@ $clients = array(
         'requires' => '',
         'authors' => array('Adrian Vîntu' => 'http://adrianvintu.com'),
         'license' => 'Freeware',
-        'options' => array('vision' => 0, 'sync' => 0, 'regexp' => 1, 'suggest' => 0, 'diacritics' => 0, 'full' => 0, 'flex' => 1, 'click' => 0, 'history' => 1)),
+        'options' => array('vision' => 0, 'sync' => 0, 'regexp' => 1, 'suggest' => 1, 'diacritics' => 0, 'full' => 0, 'flex' => 1, 'click' => 1, 'history' => 1)),
 
   array('name' => array('DEX pentru Windows Phone', 'http://dex-wp.adrianvintu.com/'),
         'available' => true,
@@ -112,7 +112,7 @@ $clients = array(
         'requires' => '',
         'authors' => array('Cosmin Mihu' => ''),
         'license' => 'Freeware',
-        'options' => array('vision' => 0, 'sync' => 0, 'regexp' => 1, 'suggest' => 1, 'diacritics' => 1, 'full' => 0, 'flex' => 0, 'click' => 1, 'history' => 1)),
+        'options' => array('vision' => 0, 'sync' => 0, 'regexp' => 0, 'suggest' => 0, 'diacritics' => 1, 'full' => 0, 'flex' => 0, 'click' => 0, 'history' => 0)),
 
   array('name' => array('PocketDEX', 'http://pocketdex.aamedia.ro/'),
         'available' => false,

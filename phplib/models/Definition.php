@@ -115,7 +115,7 @@ class Definition extends BaseObject implements DatedObject {
 
     $sourceClause = $sourceId ? "and D.sourceId = $sourceId" : '';
     $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
-    $statusClause = util_isModerator(PRIV_VIEW_HIDDEN) ? sprintf("and D.status in (%d,%d)", ST_ACTIVE, ST_HIDDEN) : sprintf("and D.status = %d", ST_ACTIVE);
+    $statusClause = sprintf("and D.status in (%d,%d)", ST_ACTIVE, ST_HIDDEN);
     // TODO Using the number constants is not a good practice
     return ORM::for_table('Definition')
       ->raw_query("select distinct D.* from Definition D, LexemDefinitionMap L, Source S " .
@@ -126,7 +126,7 @@ class Definition extends BaseObject implements DatedObject {
 
   public static function searchLexemId($lexemId, $exclude_unofficial = false) {
     $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
-    $statusClause = util_isModerator(PRIV_VIEW_HIDDEN) ? sprintf("and D.status in (%d,%d)", ST_ACTIVE, ST_HIDDEN) : sprintf("and D.status = %d", ST_ACTIVE);
+    $statusClause = sprintf("and D.status in (%d,%d)", ST_ACTIVE, ST_HIDDEN);
     return Model::factory('Definition')
       ->raw_query("select D.* from Definition D, LexemDefinitionMap L, Source S where D.id = L.definitionId " .
                   "and D.sourceId = S.id and L.lexemId = '$lexemId' $excludeClause $statusClause " .

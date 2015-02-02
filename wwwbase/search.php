@@ -199,7 +199,12 @@ if ($searchType == SEARCH_INFLECTED) {
 $conjugations = NULL;
 $declensions = NULL;
 if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $searchType == SEARCH_FULL_TEXT || $searchType == SEARCH_MULTIWORD) {
+  // Filter out hidden definitions
+  $hiddenSources = array();
+  SearchResult::filterHidden($searchResults, $hiddenSources);
+
   SmartyWrap::assign('results', $searchResults);
+  SmartyWrap::assign('hiddenSources', $hiddenSources);
  
   // Maps lexems to arrays of inflected forms (some lexems may lack inflections)
   // Also compute the text of the link to the paradigm div,
@@ -237,6 +242,7 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
   }
 }
 
+// Collect source list to display in meta tags
 $sourceList = array();
 if (isset($searchResults)) {
   foreach ($searchResults as $row) {

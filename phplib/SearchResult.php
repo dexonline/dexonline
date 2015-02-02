@@ -68,6 +68,19 @@ class SearchResult {
     return $results;
   }
 
+  // For users who can see hidden definitions, does nothing.
+  // For other users removes hidden search results from $searchResults and stores their sources in $sources
+  public static function filterHidden(&$searchResults, &$sources) {
+    if (!util_isModerator(PRIV_VIEW_HIDDEN)) {
+      foreach ($searchResults as $i => &$sr) {
+        if ($sr->source->isOfficial == SOURCE_TYPE_HIDDEN || $sr->definition->status == ST_HIDDEN) {
+          $sources[$sr->source->id] = $sr->source;
+          unset($searchResults[$i]);
+        }
+      }
+    }
+  }
+
   private static function mapById($objects) {
     $result = array();
     foreach ($objects as $o) {

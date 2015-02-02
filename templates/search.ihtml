@@ -189,7 +189,7 @@
     {/literal}
   {/if}
 
-  {if isset($hiddenSources)}
+  {if isset($hiddenSources) && count($hiddenSources) && !count($results)}
     Puteți găsi definiții pentru acest cuvânt în dicționarele:
 
     <li>

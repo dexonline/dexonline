@@ -23,7 +23,7 @@
       <link rel="image_src" href="{$imgRoot}/logo-dexonline-2.png" />
     {/if}
     {include file="bits/cssJs.ihtml"}
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
     <link href="https://plus.google.com/100407552237543221945" rel="publisher" />
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="http://dexonline.ro/rss/cuvantul-zilei">
@@ -38,7 +38,7 @@
         {/if}
         <div class="socialPlugins">
           <div class="fbTop">
-            <iframe src="http://www.facebook.com/plugins/like.php?ref=zepu_home&locale=en_US&app_id=225575497453880&amp;href=http%3A%2F%2Ffacebook.com%2Fdexonline&&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
+            <iframe src="http://www.facebook.com/plugins/like.php?ref=zepu_home&amp;locale=en_US&amp;app_id=225575497453880&amp;href=http%3A%2F%2Ffacebook.com%2Fdexonline&&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" style="border:none; overflow:hidden; width:120px; height:21px;"></iframe>
           </div>
           <div class="plusTop">
             <script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
@@ -98,7 +98,6 @@
             </li>
           </ul>
         {/if}
-        </ul>
       </header>
       <div id="contentProper">
         {include file="flashMessages.ihtml"}

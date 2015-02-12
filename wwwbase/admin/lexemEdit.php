@@ -295,12 +295,19 @@ function goodForVariantJson($meanings) {
   if (count($meanings) > 1) {
     return false;
   }
+
   $m = $meanings[0];
-  return $m->sourceIds &&
-    !$m->internalRep &&
-    !$m->internalComment &&
-    !$m->meaningTagIds &&
-    !$m->relationIds;
+  if (!$m->sourceIds || $m->internalRep || $m->internalComment || $m->meaningTagIds) {
+    return false;
+  }
+
+  for ($i = 1; $i < Relation::NUM_TYPES; $i++) {
+    if (!empty($m->relationIds[$i])) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 /* This page handles a lot of actions. Move the minor ones here so they don't clutter the preview/save actions,

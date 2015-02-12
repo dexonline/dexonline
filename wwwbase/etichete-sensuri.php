@@ -21,7 +21,7 @@ if ($submitButton) {
   util_assertModerator(PRIV_ADMIN);
   $values = explode(',', $value);
   foreach ($values as $value) {
-    $value = mb_strtolower(trim($value));
+    $value = trim($value);
     if ($value && !MeaningTag::get_by_value($value)) {
       $mt = Model::factory('MeaningTag')->create();
       $mt->value = $value;

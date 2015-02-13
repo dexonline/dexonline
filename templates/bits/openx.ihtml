@@ -1,3 +1,14 @@
+{assign var="cb" value="100000000"|rand:999999999}
+{assign var="url" value="http://openx.dexonline.ro:8080/www/delivery"}
+<iframe id='a917dcff' name='a917dcff' src='{$url}/afr.php?zoneid={$zoneId}&amp;cb={$cb}' frameborder='0' scrolling='no' width='728' height='90'>
+  <a href='{$url}/ck.php?n=ac8d0c94&amp;cb={$cb}' target='_blank'>
+    <img src='{$url}/avw.php?zoneid={$zoneId}&amp;cb={$cb}&amp;n=ac8d0c94' border='0' alt='' />
+  </a>
+</iframe>
+
+{* Legacy Javascript code. Not good because it is blocking and some providers block the 8080 port. *}
+{* TODO: Make use of the params in the iframe version. *}
+{*
 {assign var="params" value=$params|default:null}
 <script type='text/javascript'><!--//<![CDATA[
    var m3_u = (location.protocol=='https:'?'https://openx.dexonline.ro/www/delivery/ajs.php':'http://openx.dexonline.ro:8080/www/delivery/ajs.php');
@@ -17,3 +28,4 @@
    if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
    document.write ("'><\/scr"+"ipt>");
 //]]>--></script>
+*}

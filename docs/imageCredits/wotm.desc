@@ -5,4 +5,6 @@
 
 ^2014\/maidan::delacroix.desc
 ^2012\/(boicot|plagiat|salutar)::va.desc
+^2013\/transformator::rb.desc
+^2014\/diaspora::rb.desc
 ^201[2-5]\/::cn.desc

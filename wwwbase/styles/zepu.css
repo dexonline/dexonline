@@ -238,12 +238,6 @@ img {
   padding-right: 26px;
 }
 
-@media (max-width: 1024px) {
-  #mainMenu .donateLink {
-    top: 18%;
-  }
-}
-
 .fbBottom {
   border-bottom: 1px solid #BFBFBF; 
   border-top: 1px solid #BFBFBF; 
@@ -282,31 +276,31 @@ img {
 #searchHomePage {
   margin: 25px auto;
   padding: 0px;
-  width: 640px;
+  width: 730px;
 }
 
 #searchForm {
  float: left;
- padding-left: 13px;
- width: 600px;
+ width: 100%;
 }
 
 #searchOtherPages {
   margin: 10px auto 15px;
-  width: 550px;
+  width: 730px;
 }
 
 #searchButton {
   background: #761818;
-  border: 0px; /* border: 0px, otherwise it draws a gray border around button */
-  border-radius: 4px;
+  border: 0px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
   color: #fff;
   cursor: pointer;
-  font-size: 13px;
-  height: 22px;
-  letter-spacing:1px;
-  margin-top: 1px;
-  width: 56px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  padding: 12px 13px;
+  margin: 0px 0px 0px -5px;
+  box-shadow: none;
 }
 
 #searchButton:hover {
@@ -315,9 +309,7 @@ img {
 
 #advancedAnchor { /* the link for "căutare avansată" */
   float: right;
-  margin-right: 10px;
-  margin-top: 5px;
-  margin-left: 5px;
+  padding: 11px 10px 0 0;
 }
 
 #advSearch { /* not Sonia's! */
@@ -327,26 +319,21 @@ img {
 }
 
 .searchTextField {
-  width: 360px;
+  width: 596px;
   display: inline;
   float: left;
   margin-right: 2px;
 }
 
-.searchButtons {
-  width: 190px;
-  display: inline; 
-  float: left;
-  margin-right: 1px;
-}
-
 .searchField {
   border: 1px solid #761818;
-  border-radius: 4px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
   font: 18px Arial;
-  margin: 0px 5px 0px 0px;
-  padding: 0px 0px 0px 2px;
-  width: 352px;
+  margin: 0;
+  padding: 9px 2px;
+  width: 520px;
+  vertical-align: top;
 }
 
 .searchField:focus {
@@ -1024,7 +1011,7 @@ input.pagedisplay {
 /* REDESIGN WIDGETS January 2013 */
 .widgetBox {
   position: absolute;
-  top: 100px;
+  top: 8%;
   right: 0px;
   width: 240px;
   font-size: 13px;
@@ -1127,7 +1114,7 @@ body .socialNetworks label {
 
 @media screen and (max-width: 1024px) {
   #searchHomePage {
-    width: 570px;
+    margin-left: 40px;
   }
 
   #missionStatement {
@@ -1136,6 +1123,10 @@ body .socialNetworks label {
 
   #banner_mainPage {
     margin-left: 40px;
+  }
+
+  #mainMenu .donateLink {
+    top: 14%;
   }
 }
 

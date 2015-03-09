@@ -71,7 +71,7 @@
               <li><a href="{$wwwRoot}legaturi">Legături externe</a></li>
             </ul>
           </li>
-          {if !$suggestNoBanner && !$suggestHiddenSearchForm}
+          {if !$suggestHiddenSearchForm}
             <li class="donateLink"><a href="{$wwwRoot}doneaza">Donează</a></li>
           {/if}
           {if $isMobile}

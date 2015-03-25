@@ -202,6 +202,11 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
   // Filter out hidden definitions
   $hiddenSources = array();
   SearchResult::filterHidden($searchResults, $hiddenSources);
+  if (Config::get('global.aprilFoolsDay')) {
+    foreach ($searchResults as $sr) {
+      $sr->definition->htmlRep = StringUtil::iNoGrammer($sr->definition->htmlRep);
+    }
+  }
 
   SmartyWrap::assign('results', $searchResults);
   SmartyWrap::assign('hiddenSources', $hiddenSources);

@@ -67,6 +67,9 @@ mysql_loc_prefix = LOC_
 skins[] = zepu
 skins[] = polar
 
+; Seasonal pranks FTW
+aprilFoolsDay = 0
+
 ; This section handles donations through a third party.
 [euplatesc]
 ; Key for euplatesc.ro or 0 to disable the donation box.

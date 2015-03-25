@@ -247,6 +247,28 @@ class StringUtil {
     return $tpl_output;
   }
 
+  // Post-filter for April Fools' Day, 2015
+  static function iNoGrammer($s) {
+    // Getting ready to remove hyphens
+    $s = preg_replace("/(\w)-(\w)/u", "\${1}###\${2}", $s);
+    $s = preg_replace("/(\W)ca(\W)/u", "\${1}k\${2}", $s);
+    $s = preg_replace("/(\W)sau(\W)/u", "\${1}s-au\${2}", $s);
+    $s = preg_replace("/(\W)la(\W)/u", "\${1}l-a\${2}", $s);
+    $s = preg_replace("/(\W)pe care(\W)/u", "\${1}care\${2}", $s);
+    $s = preg_replace("/(\W)de pe(\W)/u", "\${1}dupe\${2}", $s);
+    $s = preg_replace("/(\W)după(\W)/u", "\${1}dupe\${2}", $s);
+    $s = preg_replace("/(\w)uoas(\w)/u", "\${1}oas\${2}", $s); // respectuoasă
+    $s = preg_replace("/ua/", "oa", $s);
+    $s = preg_replace("/(\W)fi(\W)/u", "\${1}fiii\${2}", $s); // one of the i's will be removed below
+    $s = preg_replace("/(\w)ii/u", "\${1}i", $s);
+    $s = preg_replace("/înn(\w)/u", "în\${1}", $s);
+    $s = preg_replace("/(\W)sunt(em|eți)?/i", "\${1}sânt\${2}", $s);
+
+     // Now remove hyphens, but keep the ones we added ourselves
+    $s = preg_replace("/(\w)###(\w)/u", "\${1}\${2}", $s);
+    return $s;
+  }
+
   /** Simple wrapper to call parse_str and return the array it produces **/
   static function parseStr($s) {
     $result = array();

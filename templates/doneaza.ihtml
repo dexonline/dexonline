@@ -31,8 +31,9 @@ function formCheck(formobj) {
       <form action="doneaza-euplatesc.php" method="post" enctype="multipart/form-data"  onsubmit="return formCheck(this);">
         <label>Suma</label>
         <select name="amount">
+          <option value="10">10 lei</option>
           <option value="20">20 lei</option>
-          <option value="50">50 lei</option>
+          <option value="50" selected>50 lei</option>
           <option value="100">100 lei</option>
           <option value="150">150 lei</option>
           <option value="200">200 lei</option>

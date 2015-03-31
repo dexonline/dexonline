@@ -300,6 +300,7 @@ img {
   letter-spacing: 1px;
   padding: 12px 13px;
   margin: 0px 0px 0px -5px;
+  height: 41px;
   box-shadow: none;
 }
 
@@ -332,7 +333,7 @@ img {
   font: 18px Arial;
   margin: 0;
   padding: 9px 2px;
-  width: 520px;
+  width: 500px;
   vertical-align: top;
 }
 

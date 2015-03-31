@@ -263,6 +263,8 @@ class StringUtil {
     $s = preg_replace("/(\w)ii/u", "\${1}i", $s);
     $s = preg_replace("/înn(\w)/u", "în\${1}", $s);
     $s = preg_replace("/(\W)sunt(em|eți)?/i", "\${1}sânt\${2}", $s);
+    $s = preg_replace("/(\W)numai(\W)/i", "\${1}decât\${2}", $s);
+    $s = preg_replace("/(\W)doar(\W)/i", "\${1}decât\${2}", $s);
 
      // Now remove hyphens, but keep the ones we added ourselves
     $s = preg_replace("/(\w)###(\w)/u", "\${1}\${2}", $s);

@@ -266,7 +266,7 @@ class StringUtil {
     $s = preg_replace("/(\W)numai(\W)/i", "\${1}decât\${2}", $s);
     $s = preg_replace("/(\W)doar(\W)/i", "\${1}decât\${2}", $s);
 
-    if (13 != rand(1,20)) {
+    if (rand(1,20) <= 10) {
       $s = str_replace(array("ă", "â", "î", "ș", "ț"), array("a", "a", "i", "s", "t"), $s);
     }
 

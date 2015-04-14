@@ -2,9 +2,8 @@
 #
 # Configuration script to be run when a new client is first checked out
 
-FULL_NAME=`readlink -e $0`
-TOOLS_DIR=`dirname $FULL_NAME`
-ROOT_DIR=`dirname $TOOLS_DIR`
+CWD=`pwd`
+ROOT_DIR=`dirname $CWD`
 cd $ROOT_DIR
 echo "The root of your client appears to be $ROOT_DIR"
 

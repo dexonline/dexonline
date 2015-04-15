@@ -2,6 +2,8 @@
 #
 # Configuration script to be run when a new client is first checked out
 
+# for OS X compatibility, do not use readlink
+cd `dirname $0`
 CWD=`pwd`
 ROOT_DIR=`dirname $CWD`
 cd $ROOT_DIR

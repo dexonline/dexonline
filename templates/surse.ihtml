@@ -43,6 +43,14 @@
                 {if $s->isOfficial==1}Specializat{/if}
                 {if $s->isOfficial==0}Neoficial{/if}
                 <br/>
+                {if $s->curators}
+                  Curatori:
+                  {foreach from=$s->curators item=c name=curators}
+                    {$c.name}{if !$smarty.foreach.curators.last}, {/if}
+                  {/foreach}
+                {else}
+                  Nu este asignat niciun curator
+                {/if}
               </span>
             </span>
           </td>

@@ -22,6 +22,10 @@ if (util_isModerator(PRIV_VIEW_HIDDEN)) {
   $sources = Model::factory('Source')->where_not_equal('isOfficial', SOURCE_TYPE_HIDDEN)->order_by_asc('displayOrder')->find_many();
 }
 
+foreach($sources as $source) {
+  $source->curators = Curator::getCuratorsForSource($source->id());
+}
+
 SmartyWrap::assign('sources', $sources);
 SmartyWrap::assign('page_title', 'Surse');
 SmartyWrap::addCss('jqueryui');

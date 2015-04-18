@@ -172,6 +172,7 @@ class SmartyWrap {
           break;
         case 'modelDropdown':    self::$jsFiles[28] = 'modelDropdown.js'; break;
         case 'textComplete':     self::$jsFiles[29] = 'jquery.textcomplete.min.js'; break;
+        case 'editareSursa':     self::$jsFiles[30] = 'editareSursa.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

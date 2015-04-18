@@ -21,22 +21,52 @@ if ($submitButton) {
   $src->canDistribute = util_getRequestParameterWithDefault("canDistribute", 0);
   $src->defCount = util_getRequestIntParameter("defCount");
 
+  $existing_curators = Curator::getCuratorsForSource($sourceId);
+  $curators = array_unique(util_getRequestIntArrayParameter('curators'));
+
   if (validate($src)) {
     // For new sources, set displayOrder to the highest available + 1
     if (!$sourceId) {
       $src->displayOrder = Model::factory('Source')->count() + 1;
     }
     $src->updatePercentComplete();
-    $src->save();
-    FlashMessage::add('Modificările au fost salvate', 'info');
+    try {
+      ORM::get_db()->beginTransaction();
+      $src->save();
+      // Delete curators no longer assigned
+      $existing_ids = array();
+      /** @var User $user */
+      foreach($existing_curators as $user) {
+        $existing_ids[] = $user->id();
+        if(!in_array($user->id(), $curators)) {
+          Model::factory('Curator')->where(array('sourceId' => $sourceId, 'userId' => $user->id()))->delete_many();
+        }
+      }
+      // Attach new curators
+      foreach($curators as $userId) {
+        if(!in_array($userId, $existing_ids)) {
+          $curator = Model::factory('Curator')->create();
+          $curator->sourceId = $sourceId;
+          $curator->userId = $userId;
+          $curator->save();
+        }
+      }
+      ORM::get_db()->commit();
+      FlashMessage::add('Modificările au fost salvate', 'info');
+    }
+    catch(Exception $e) {
+      ORM::get_db()->rollBack();
+      FlashMessage::add('Modificările au putut fi salvate, err:' . $e->getMessage());
+    }
     util_redirect("editare-sursa?id={$src->id}");
   }
 }
 
+SmartyWrap::assign('curators', Curator::getCuratorsForSource($sourceId));
 SmartyWrap::assign('src', $src);
 SmartyWrap::assign('page_title', $sourceId ? "Editare sursă {$src->shortName}" : "Adăugare sursă");
-SmartyWrap::addCss('jqueryui');
-SmartyWrap::addJs('jqueryui');
+SmartyWrap::addCss('select2');
+SmartyWrap::addJs('jqueryui', 'select2', 'editareSursa');
 SmartyWrap::display('editare-sursa.ihtml');
 
 /**

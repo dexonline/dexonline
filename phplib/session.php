@@ -22,6 +22,9 @@ function session_login($user, $openidData) {
   if (!$user->identity) {
     $user->identity = $openidData['identity'];
   }
+  if (!$user->openidConnectSub && isset($openidData['sub'])) {
+    $user->openidConnectSub = $openidData['sub'];
+  }
   if (!$user->nick && isset($openidData['nickname'])) {
     $user->nick = $openidData['nickname'];
   }
@@ -180,6 +183,10 @@ function session_getDefaultContribSourceId() {
   // Previously we stored some short name, not the source id -- just return
   // FALSE in that case
   return is_numeric($value) ? $value : FALSE;
+}
+
+function session_get($name) {
+  return session_getWithDefault($name, null);
 }
 
 function session_getWithDefault($name, $default) {

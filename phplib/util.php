@@ -461,6 +461,7 @@ function util_fetchUrl($url) {
   $ch = curl_init($url);
   curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // follow redirects
   $data = curl_exec($ch);
   $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   curl_close($ch);
@@ -475,6 +476,13 @@ function util_makePostRequest($url, $data, $useCookies = false) {
   }
   curl_setopt($ch, CURLOPT_POST, true);
   curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+  // For JSON data, set the content type
+  if (is_object(json_decode($data))) {
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                  "Content-Type: application/json",
+                  'Content-Length: ' . strlen($data)
+                ));
+  }
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($ch, CURLOPT_USERAGENT, 'dexonline.ro');
   $result = curl_exec($ch);

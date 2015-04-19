@@ -13,7 +13,7 @@ $xml = util_getRequestParameter('xml');
 $all = util_getRequestParameter('all');
 
 
-$redirect = session_getWithDefault('redirect', false);
+$redirect = session_get('redirect');
 $redirectFrom = session_getWithDefault('init_word', '');
 session_unsetVariable('redirect');
 session_unsetVariable('init_word');

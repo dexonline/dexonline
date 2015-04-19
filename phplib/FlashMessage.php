@@ -24,8 +24,8 @@ class FlashMessage {
   }
 
   static function restoreFromSession() {
-    if (($message = session_getWithDefault('flashMessage', null)) &&
-        ($type = session_getWithDefault('flashMessageType', null))) {
+    if (($message = session_get('flashMessage')) &&
+        ($type = session_get('flashMessageType'))) {
       $GLOBALS['flashMessage'] = $message; // Already has a trailing <br/>
       $GLOBALS['flashMessageType'] = $type;
       session_unsetVariable('flashMessage');

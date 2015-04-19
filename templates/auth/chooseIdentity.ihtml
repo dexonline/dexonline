@@ -7,7 +7,7 @@ Toți utilizatorii necesită un nume de cont; puteți alege una din opțiunile d
   <label for="claimAccount">Un cont existent pe DEX online</label>
   <div class="radioButtonIndent">
     Numele de cont sau adresa de email:
-    <input type="text" name="nickOrEmail" value="{$data.email}" size="20"
+    <input type="text" name="nickOrEmail" value="{$data.email|default:''}" size="20"
       onclick="document.getElementById('claimAccount').checked = true"/>
     Parola:
     <input type="password" name="password" value="{$password|default:''}" size="20"
@@ -15,15 +15,15 @@ Toți utilizatorii necesită un nume de cont; puteți alege una din opțiunile d
     <br/>
 
     Dacă aveți un cont pe DEX online, dar v-ați uitat parola,
-    <a href="{$wwwRoot}auth/parola-uitata?identity={$randString}{if $data.email}&amp;email={$data.email|escape:'url'}{/if}">click aici</a>.
+    <a href="{$wwwRoot}auth/parola-uitata?identity={$randString}{if isset($data.email)}&amp;email={$data.email|escape:'url'}{/if}">click aici</a>.
   </div>
 
-  {if $data.fullname}
+  {if isset($data.fullname)}
     <input type="radio" name="loginType" value="1" id="useFullName" {if $loginType == 1}checked="checked"{/if}/>
     <label for="useFullName">Numele întreg ({$data.fullname})</label><br/>
   {/if}
 
-  {if $data.nickname}
+  {if isset($data.nickname)}
     <input type="radio" name="loginType" value="2" id="useNickname" {if $loginType == 2}checked="checked"{/if}/>
     <label for="useNickname">Porecla OpenID ({$data.nickname})</label><br/>
   {/if}

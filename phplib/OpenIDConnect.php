@@ -13,12 +13,22 @@ class OpenIDConnect {
     $this->configFetched = false;
   }
 
+  /* Converts Base64URL-encoded data to Base64. */
+  function b64url2b64($base64url) {
+    $padding = strlen($base64url) % 4;
+    if ($padding > 0) {
+      $base64url .= str_repeat('=', 4 - $padding);
+    }
+    return strtr($base64url, '-_', '+/');
+  }
+
   /**
    * Only decodes the second part (dot-separated).
    **/
   function decodeJWT($jwt) {
     $parts = explode(".", $jwt);
-    return json_decode(base64_decode($parts[1]), true);
+    $base64Url = $this->b64url2b64($parts[1]);
+    return json_decode(base64_decode($base64Url), true);
   }
 
   private function getReturnTo() {

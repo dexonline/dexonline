@@ -45,6 +45,7 @@ class FlexStringUtil {
                                        array('i', 'e'),
                                        array('i', 'â'), // vinde
                                        array('i', 'o'), // veni / vino
+                                       array('i', 'u'), // cumpl'i / cumplu
                                        array('ică', 'ele'), // păturică
                                        array('î', 'ă'), // vârî, coborî
                                        array('î', 'â'), // imambaialdî

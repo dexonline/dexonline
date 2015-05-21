@@ -18,7 +18,7 @@ database = mysql://root@localhost/DEX
 ; Show some debug information when this user is logged in.
 debugUser = ""
 
-; True on development installations. Mainly used to hide the Google analytics code
+; True on development installations. Used to hide the Google analytics code and to allow fake user logins
 developmentMode = 0
 
 ; API key for Google search of clones 

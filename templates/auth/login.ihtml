@@ -1,3 +1,8 @@
+{if $allowFakeUsers}
+  <p class="paragraphTitle">Utilizator de test</p>
+  {include file="bits/fakeUser.ihtml"}
+{/if}
+
 <p class="paragraphTitle">Autentificare cu OpenID</p>
 
 <form name="loginForm" method="post" action="{$wwwRoot}auth/login">

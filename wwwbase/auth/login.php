@@ -5,10 +5,31 @@ util_assertNotMirror();
 util_assertNotLoggedIn();
 
 $openid = util_getRequestParameter('openid');
+$fakeUserNick = util_getRequestParameter('fakeUserNick');
+$priv = util_getRequestParameter('priv');
+
+$devel = Config::get('global.developmentMode');
+
+if ($fakeUserNick) {
+  if (!$devel) {
+    FlashMessage::add('Conectarea cu utilizatori de test este permisă doar în development.');
+    util_redirect('login');
+  }
+  $user = User::get_by_nick($fakeUserNick);
+  if (!$user) {
+    $user = Model::factory('User')->create();
+    $user->identity = 'http://fake.example.com';
+    $user->nick = $fakeUserNick;
+    $user->name = $fakeUserNick;
+    $user->moderator = array_sum($priv);
+    $user->save();
+    session_login($user, array());
+  }
+}
 
 switch ($openid) {
-case 'google': $openid = "https://accounts.google.com/o/oauth2/auth"; break;
-case 'yahoo': $openid = "http://yahoo.com/"; break;
+  case 'google': $openid = "https://accounts.google.com/o/oauth2/auth"; break;
+  case 'yahoo': $openid = "http://yahoo.com/"; break;
 }
 
 if ($openid) {
@@ -59,6 +80,14 @@ if ($openid) {
       }
     }
   }
+}
+
+if ($devel) {
+  SmartyWrap::assign('allowFakeUsers', true);
+  SmartyWrap::assign('privilegeNames', $PRIV_NAMES);
+  SmartyWrap::assign('fakeUserNick', 'test' . rand(10000, 99999));
+} else {
+  SmartyWrap::assign('allowFakeUsers', false);
 }
 
 SmartyWrap::assign('openid', $openid);

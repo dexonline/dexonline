@@ -20,6 +20,8 @@ $delete = util_getRequestParameter('delete');
 if ($delete) {
   $f = new FtpUtil();
   $f->staticServerDelete($AVATAR_REMOTE_FILE);
+  $user->hasAvatar = 0;
+  $user->save();
   FlashMessage::add('Imaginea a fost ștearsă.', 'info');
   util_redirect('preferinte');
 }
@@ -41,6 +43,9 @@ $f = new FtpUtil();
 $f->staticServerPut($tmpFileName, $AVATAR_REMOTE_FILE);
 unlink($rawFileName);
 unlink($tmpFileName);
+
+$user->hasAvatar = 1;
+$user->save();
 
 FlashMessage::add('Imaginea a fost salvată.', 'info');
 util_redirect('preferinte');

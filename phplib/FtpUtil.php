@@ -2,7 +2,7 @@
 
 class FtpUtil {
   private $conn;
-  
+
   function __construct() {
     $user = Config::get('static.user');
     $pass = Config::get('static.password');
@@ -45,6 +45,11 @@ class FtpUtil {
     return !empty($listing);
   }
 
+  function staticServerRelativeFileList($rel_path) {
+    $path = sprintf("%s/%s", Config::get('static.path'), $rel_path);
+    $file_list = ftp_nlist($this->conn, $path);
+    return $file_list;
+  }
 }
 
 ?>

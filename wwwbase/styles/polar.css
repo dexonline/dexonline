@@ -660,26 +660,18 @@ abbr {
 #advSearch {
   display: block !important;
   position: relative;
-  top: -24px;
+  top: 5px;
   margin-left: 3px;
 }
 
-#sourceDropDown {
-  position: relative;
-  top: -27px;
-  left: -110px;
-}
-
 #searchButton {
-  position: relative;
-  top: -26px;
-  left: 330px;
   box-shadow: none;
 }
 
 .searchField {
   margin-left: 5px;
   margin-top: 5px;
+  width: 200px;
 }
 
 #advancedAnchor,

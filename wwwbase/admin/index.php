@@ -41,7 +41,7 @@ $reports = array(
   array('text' => 'Lexeme cu comentarii',
         'url' => 'admin/viewLexemsWithComments',
         'count' => Model::factory('Lexem')->where_not_null('comment')->count(),
-        'privilege' => PRIV_LOC
+        'privilege' => PRIV_EDIT
   ),
   array('text' => 'Lexeme fără accent',
         'url' => 'admin/viewLexemsWithoutAccents',
@@ -56,7 +56,7 @@ $reports = array(
   array('text' => 'Lexeme fără paradigme',
         'url' => 'admin/viewTemporaryLexems',
         'count' => Model::factory('LexemModel')->where('modelType', 'T')->count(),
-        'privilege' => PRIV_LOC
+        'privilege' => PRIV_EDIT
   ),
 );
 

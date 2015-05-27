@@ -178,7 +178,7 @@ function confirmDissociateDefinition(id) {
 }
 
 /* adapted from http://stackoverflow.com/questions/7563169/detect-which-word-has-been-clicked-on-within-a-text */
-function searchClickedWord() {
+function searchClickedWord(event) {
   if ($(event.target).is('abbr')) return false;
 
   // Gets clicked on word (or selected text if text is selected)

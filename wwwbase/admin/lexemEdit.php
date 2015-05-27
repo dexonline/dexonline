@@ -94,7 +94,7 @@ $canEdit = array(
   'hyphenations' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
   'loc' => (int)util_isModerator(PRIV_LOC),
   'meanings' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
-  'paradigm' => (int)(!$lexem->isLoc() || util_isModerator(PRIV_LOC)),
+  'paradigm' => util_isModerator(PRIV_EDIT),
   'pronunciations' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
   'sources' => util_isModerator(PRIV_LOC | PRIV_EDIT),
   'structStatus' => ($oss == Lexem::STRUCT_STATUS_NEW) || ($oss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),

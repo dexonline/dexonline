@@ -23,14 +23,21 @@ class SmartyWrap {
     self::assign('developmentMode', Config::get('global.developmentMode'));
     self::assign('isMobile', util_isMobile());
     self::assign('suggestNoBanner', util_suggestNoBanner());
+    self::assign('acEnable',  Config::get('search.acEnable'));
+    self::assign('acMinChars', Config::get('search.acMinChars'));
     self::assign('GLOBALS', $GLOBALS);
     self::$theSmarty->registerPlugin('function', 'getDebugInfo', array('SmartyWrap', 'getDebugInfo'));
   }
 
   static function fetchSkin() {
     $skin = session_getSkin();
-    self::addCss($skin, 'jqueryui');
-    self::addJs('jquery', 'jqueryui', 'dex');
+    self::addCss($skin);
+    self::addJs('jquery', 'dex');
+    $acEnable = self::$theSmarty->tpl_vars['acEnable']->value;
+    if ($acEnable) {
+        self::addCss('jqueryui');
+        self::addJs('jqueryui');
+    }
     $skinVariables = array_merge(Config::getSection("skin-default"),
                                  Config::getSection("skin-{$skin}"));
     self::assign('skinVariables', $skinVariables);

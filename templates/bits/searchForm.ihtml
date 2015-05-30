@@ -38,29 +38,38 @@
   };
   document.frm.cuv.addEventListener("keydown", slash, false);
 
-  var searchInput = $('.searchField');
-
   {/literal}
 
-  var searchCache = {};
+  {if $acEnable}
 
-  searchInput.autocomplete({
-    minLength: 2,
-    source: function(request, response){
-      var term = request.term;
-      if (term in searchCache){
-        response(searchCache[term]);
-        return;
-      }
-      $.getJSON('{$wwwRoot}searchcomplete.php', request, function(data, status, xhr){
-        searchCache[term] = data;
-        response(data);
+    (function(){
+
+      var searchForm = $('#searchForm');
+      var searchInput = $('.searchField');
+      var searchCache = {};
+      var minLength = {$acMinChars};
+
+      searchInput.autocomplete({
+        minLength: minLength,
+        source: function(request, response){
+          var term = request.term;
+          if (term in searchCache){
+            response(searchCache[term]);
+            return;
+          }
+          $.getJSON('{$wwwRoot}searchcomplete.php', request, function(data, status, xhr){
+            searchCache[term] = data;
+            response(data);
+          });
+        },
+        select: function(event, ui){
+          searchInput.val(ui.item.value);
+          searchForm.submit();
+        }
       });
-    },
-    select: function(event, ui){
-      searchInput.text(ui.value);
-      $('#searchForm').submit();
-    }
-  });
+
+    })();
+
+  {/if}
 
 </script>

@@ -21,7 +21,7 @@ debugUser = ""
 ; True on development installations. Used to hide the Google analytics code and to allow fake user logins
 developmentMode = 0
 
-; API key for Google search of clones 
+; API key for Google search of clones
 googleSearchApiKey = "Insert your API key here"
 
 ; Show our web host logo
@@ -138,6 +138,13 @@ wotdSubscribe = false
 
 [limits]
 limitFulltextSearch = 200
+
+[search]
+acEnable = true
+acMinChars = 3
+;normal or inflected
+acSearchType = normal
+acLimit = 10
 
 ; Configuration for the Romanian literature crawler
 [crawler]

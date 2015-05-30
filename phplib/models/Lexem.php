@@ -118,9 +118,33 @@ class Lexem extends BaseObject implements DatedObject {
                       "and sourceId in (select id from Source where canDistribute) order by D.modDate, D.id");
   }
 
-  public static function searchLikeInflectedForms($search, $hasDiacritics, $useMemcache = false) {
+  public static function searchLike($search, $hasDiacritics, $useMemcache = false, $limit = 10) {
     if ($useMemcache) {
       $key = "like_" . ($hasDiacritics ? '1' : '0') . "_$search";
+      $result = mc_get($key);
+      if ($result) {
+        return $result;
+      }
+    }
+
+    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
+    $result = Model::factory('Lexem')
+      ->where_like($field, $search)
+      ->order_by_asc('formNoAccent')
+      ->limit($limit)
+      ->distinct()
+      ->find_many();
+
+    if ($useMemcache) {
+      mc_set($key, $result);
+    }
+    return $result;
+  }
+
+
+  public static function searchLikeInflectedForms($search, $hasDiacritics, $useMemcache = false, $limit = 10) {
+    if ($useMemcache) {
+      $key = "likeInflected_" . ($hasDiacritics ? '1' : '0') . "_$search";
       $result = mc_get($key);
       if ($result) {
         return $result;
@@ -135,7 +159,7 @@ class Lexem extends BaseObject implements DatedObject {
       ->join('InflectedForm', 'lm.id = f.lexemModelId', 'f')
       ->where_like("f.$field", $search)
       ->order_by_asc('l.formNoAccent')
-      ->limit(10)
+      ->limit($limit)
       ->find_many();
     if ($useMemcache) {
       mc_set($key, $result);

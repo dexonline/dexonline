@@ -142,8 +142,6 @@ limitFulltextSearch = 200
 [search]
 acEnable = true
 acMinChars = 3
-;normal or inflected
-acSearchType = normal
 acLimit = 10
 
 ; Configuration for the Romanian literature crawler

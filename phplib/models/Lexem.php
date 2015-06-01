@@ -141,32 +141,6 @@ class Lexem extends BaseObject implements DatedObject {
     return $result;
   }
 
-
-  public static function searchLikeInflectedForms($search, $hasDiacritics, $useMemcache = false, $limit = 10) {
-    if ($useMemcache) {
-      $key = "likeInflected_" . ($hasDiacritics ? '1' : '0') . "_$search";
-      $result = mc_get($key);
-      if ($result) {
-        return $result;
-      }
-    }
-    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-    $result = Model::factory('Lexem')
-      ->table_alias('l')
-      ->select('l.*')
-      ->distinct()
-      ->join('LexemModel', 'l.id = lm.lexemId', 'lm')
-      ->join('InflectedForm', 'lm.id = f.lexemModelId', 'f')
-      ->where_like("f.$field", $search)
-      ->order_by_asc('l.formNoAccent')
-      ->limit($limit)
-      ->find_many();
-    if ($useMemcache) {
-      mc_set($key, $result);
-    }
-    return $result;
-  }
-
   public static function searchInflectedForms($cuv, $hasDiacritics, $useMemcache = false) {
     if ($useMemcache) {
       $key = "inflected_" . ($hasDiacritics ? '1' : '0') . "_$cuv";

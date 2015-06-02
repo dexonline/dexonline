@@ -231,6 +231,29 @@ function util_getRequestIntParameterWithDefault($name, $default) {
   return ($string == NULL) ? $default : (int)$string;
 }
 
+/**
+ * $_GET the list of comma-separated values and split into an integer array.
+ * @param string $name
+ *   Request parameter name
+ * @param array $default
+ *   Default value
+ *
+ * @return array
+ *   Array of integers, or $default when error occurs
+ */
+function util_getRequestIntArrayParameter($name, $default = array()) {
+  $ret = $default;
+  if ($array = util_getRequestCsv($name)) {
+    if (is_array($array)) {
+      foreach ($array as &$item) {
+        $item = (int) $item;
+      }
+      $ret = $array;
+    }
+  }
+  return $ret;
+}
+
 /* A boolean is a checkbox, a yes/no radio button pair, or any field that returns empty for false and non-empty for true. */
 function util_getBoolean($name) {
   $v = util_getRequestParameter($name);

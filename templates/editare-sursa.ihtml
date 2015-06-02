@@ -44,8 +44,13 @@
   <input type="checkbox" id="cbCanDistribute" name="canDistribute" value="1" {if $src->canDistribute}checked="checked"{/if}/>
   <label for="cbCanDistribute">Poate fi redistribuită</label><br/>
 
+  <label for="curators">Curatori:</label><input type="text" id="curators" name="curators" />
   <br/>
 
   <input type="submit" name="submitButton" value="Salvează"/>
   <a href="">renunță</a>
 </form>
+<script>
+  var curators = [{foreach from=$curators item=c name=ec}{literal}{ id:{/literal}{$c->id()}, text: "{$c->name}"{literal}}{/literal}{if not $smarty.foreach.ec.last}, {/if}{/foreach}];
+  var curators_ids = [{foreach from=$curators item=c name=eci}{$c->id()}{if not $smarty.foreach.eci.last}, {/if}{/foreach}];
+</script>

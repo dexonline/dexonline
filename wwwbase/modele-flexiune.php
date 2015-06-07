@@ -5,41 +5,28 @@ DebugInfo::disable();
 
 $locVersion = util_getRequestParameter('locVersion');
 $modelType = util_getRequestParameter('modelType');
-$modelNumber = util_getRequestParameter('modelNumber');
 
-$locVersions = Config::getLocVersions();
 $modelType = ModelType::get_by_code($modelType); // Use the ModelType object from this point on
 
-if ($locVersion && $modelType && $modelNumber) {
-  SmartyWrap::assign('selectedLocVersion', $locVersion);
-  SmartyWrap::assign('selectedModelType', $modelType->code);
-  SmartyWrap::assign('selectedModelNumber', $modelNumber);
-
-  LocVersion::changeDatabase($locVersion);
-
-  if ($modelNumber == -1) {
-    $modelsToDisplay = FlexModel::loadByType($modelType->code);
-  } else {
-    $modelsToDisplay = array(Model::factory('FlexModel')->where('modelType', $modelType->code)->where('number', $modelNumber)->find_one());
-  }
-
-  $lexemModels = array();
-  foreach ($modelsToDisplay as $m) {
-    $lexemModels[] = getLexemModel($m->exponent, $modelType->code, $m->number);
-  }
-  
-  SmartyWrap::assign('modelsToDisplay', $modelsToDisplay);
-  SmartyWrap::assign('lexemModels', $lexemModels);
-} else {
-  SmartyWrap::assign('selectedLocVersion', $locVersions[0]->name);
-  SmartyWrap::assign('selectedModelType', '');
-  SmartyWrap::assign('selectedModelNumber', '');
+if (!$locVersion || !$modelType) {
+  FlashMessage::add('Date incorecte');
+  util_redirect('scrabble');
 }
 
-SmartyWrap::assign('page_title', 'Modele de flexiune');
-SmartyWrap::assign('locVersions', $locVersions);
+LocVersion::changeDatabase($locVersion);
+$models = FlexModel::loadByType($modelType->code);
+
+$lexemModels = array();
+foreach ($models as $m) {
+  $lexemModels[] = getLexemModel($m->exponent, $modelType->code, $m->number);
+}
+  
 SmartyWrap::addCss('paradigm');
-SmartyWrap::addJs('modelDropdown');
+SmartyWrap::assign('page_title', 'Modele de flexiune');
+SmartyWrap::assign('models', $models);
+SmartyWrap::assign('lexemModels', $lexemModels);
+SmartyWrap::assign('locVersion', $locVersion);
+SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::display('modele-flexiune.ihtml');
 
 /*************************************************************************/

@@ -1088,6 +1088,37 @@ body .socialNetworks label {
   width: 48px;
 }
 
+.scrabbleSection {
+  margin-bottom: 10px;
+}
+
+.scrabbleSection .title {
+  background: #ccc;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  font-size: 120%;
+  font-weight: bold;
+  padding: 5px;
+}
+
+.scrabbleSection .body {
+  border: 1px solid black;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 5px;
+}
+
+.locDiff .del {
+  color: red;
+}
+
+.locDiff .ins {
+  color: green;
+}
+
 /* align banner to the left only on small resolutions;
    adjust widget box size from homepage, on small resolutions */
 @media screen and (max-width: 1093px) {

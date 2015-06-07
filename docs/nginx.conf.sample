@@ -114,8 +114,6 @@ server {
     rewrite ^/contrib.php$ /contribuie permanent;
     rewrite ^/corect.php$ /articol/Ghid_de_exprimare_corectă permanent;
     rewrite ^/license.php$ /licenta-gpl permanent;
-    rewrite ^/scrabbleCheckInflection.php$ /scrabble-flexiune permanent;
-    rewrite ^/scrabbleLoc.php$ /scrabble-loc permanent;
     rewrite ^/tools.php$ /unelte permanent;
   }
 }

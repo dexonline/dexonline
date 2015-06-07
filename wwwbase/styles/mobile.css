@@ -4,7 +4,7 @@
 @import "mobileAndDesktop.css";
 
 /* GLOBAL */
-html, body, div, input {
+html, body, div {
   font-family: Verdana, Arial, sans-serif;
   border: 0;
   font-size: 14px;
@@ -196,6 +196,37 @@ footer ul li.desktopLink {
 
 .defDetails a {
   text-decoration: none;
+}
+
+.scrabbleSection {
+  margin-bottom: 10px;
+}
+
+.scrabbleSection .title {
+  background: #ccc;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  font-size: 120%;
+  font-weight: bold;
+  padding: 5px;
+}
+
+.scrabbleSection .body {
+  border: 1px solid black;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 5px;
+}
+
+.locDiff .del {
+  color: red;
+}
+
+.locDiff .ins {
+  color: green;
 }
 
 /* only small resolution devices in portrait mode */

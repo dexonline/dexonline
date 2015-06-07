@@ -118,17 +118,7 @@ calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
 </ul>
 
 <p class="paragraphTitle">
-  <a name="scrabble"></a>Unelte pentru Federația Română de Scrabble
+  <a name="scrabble"></a>Unelte pentru jocul de Scrabble
 </p>
 
-<ul class="browserIntegration">
-	<li><a href="scrabble-loc">Lista Oficială de Cuvinte</a> acceptată de Federația Română de Scrabble.
-	  <ul>
-	    <li><a href="http://wiki.dexonline.ro/wiki/Preciz%C4%83ri_privind_LOC" target="_blank">Precizări</a> privind notațiile din listă</li>
-	  </ul>
-	</li>
-
-	<li><a href="modele-flexiune">Lista modelelor de flexiune</a>.</li>
-	<li><a href="scrabble-flexiune">Verificare formă flexionară</a> - aflați rapid dacă o formă flexionară este în LOC.</li>
-  <li><a href="scrabble-forme">Lista formelor unice</a> (fără diacritice, accente, dublete, cu lungimi între 2 și 15 litere).</li>
-</ul>
+Vezi pagina integrată <a href="scrabble">scrabble</a>.

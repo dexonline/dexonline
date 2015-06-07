@@ -92,8 +92,6 @@ RewriteRule ^contrib.php$ /contribuie [R=301,L]
 RewriteRule ^corect.php$ /articol/Ghid_de_exprimare_corectă [R=301,L]
 RewriteRule ^ghid-exprimare$ /articol/Ghid_de_exprimare_corectă [R=301,L]
 RewriteRule ^license.php$ /licenta-gpl [R=301,L]
-RewriteRule ^scrabbleCheckInflection.php$ /scrabble-flexiune [R=301,L]
-RewriteRule ^scrabbleLoc.php$ /scrabble-loc [R=301,L]
 RewriteRule ^tools.php$ /unelte [R=301,L]
 
 # Append .php when a file by that name exists

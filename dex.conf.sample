@@ -40,7 +40,7 @@ logSearch = 0
 ; Full name of the log file
 logPath = /var/log/dex-query.log
 
-; Folder for temporal data
+; Folder for temporary data
 tempDir = /tmp
 
 ; For each query, log at most this many results

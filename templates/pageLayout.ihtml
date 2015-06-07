@@ -67,6 +67,7 @@
               <li><a href="{$wwwRoot}cuvantul-zilei">Cuvântul zilei</a></li>
               <li><a href="{$wwwRoot}cuvantul-lunii">Cuvântul lunii</a></li>
               <li><a href="{$wwwRoot}cuvinte-aleatoare">Cuvinte aleatoare</a></li>
+              <li><a href="{$wwwRoot}scrabble">Scrabble</a></li>
               <li><a href="{$wwwRoot}unelte">Unelte</a></li>
               <li><a href="{$wwwRoot}legaturi">Legături externe</a></li>
             </ul>
@@ -135,12 +136,14 @@
               <a href="{$wwwRoot}"><img src="{$wwwRoot}img/mobile/logo-dexonline-30.png" alt="logo dexonline.ro" /></a>
             </div>
           {/if}
-          <div id="searchArea">
-            <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return searchSubmit()">
-              <input type="search" name="cuv" size="15" value="{$cuv|escape}" maxlength="50" id="searchField" autocomplete="off" autofocus />
-              <span><input type="submit" value="caută" id="searchButton" /></span>
-            </form>
-          </div>
+          {if !$suggestHiddenSearchForm}
+            <div id="searchArea">
+              <form action="{$wwwRoot}search.php" name="frm" class="searchForm" onsubmit="return searchSubmit()">
+                <input type="search" name="cuv" size="15" value="{$cuv|escape}" maxlength="50" id="searchField" autocomplete="off" autofocus />
+                <span><input type="submit" value="caută" id="searchButton" /></span>
+              </form>
+            </div>
+          {/if}
           {include file=$contentTemplateName}
         </div>
       {/if}

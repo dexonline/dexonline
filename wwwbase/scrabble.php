@@ -4,6 +4,9 @@ $form = util_getRequestParameter('form');
 $locVersion = util_getRequestParameter('locVersion');
 
 $locVersions = Config::getLocVersions();
+if (!util_isModerator(PRIV_LOC)) {
+  $locVersions = array_slice($locVersions, 1); // remove the version in progress
+}
 
 if ($locVersion && $form) {
   LocVersion::changeDatabase($locVersion);
@@ -36,12 +39,14 @@ if ($locVersion && $form) {
   SmartyWrap::assign('selectedLocVersion', $locVersion);
   SmartyWrap::assign('data', $data);
 } else {
-  SmartyWrap::assign('selectedLocVersion', $locVersions[1]->name);
+  SmartyWrap::assign('selectedLocVersion', $locVersions[0]->name);
   SmartyWrap::assign('page_title', 'Căutare formă flexionară în LOC ' . $form);
 }
 
-setlocale(LC_ALL, "ro_RO.utf8");
+SmartyWrap::addJs('modelDropdown');
+SmartyWrap::assign('suggestHiddenSearchForm', true);
+SmartyWrap::assign('page_title', 'Scrabble');
 SmartyWrap::assign('locVersions', $locVersions);
-SmartyWrap::display('scrabble-flexiune.ihtml');
+SmartyWrap::display('scrabble.ihtml');
 
 ?>

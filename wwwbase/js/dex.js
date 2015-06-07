@@ -95,9 +95,11 @@ function searchInitAutocomplete(acMinChars, wwwRoot){
   });
 }
 
-function searchInit(acMinChars) {
+function searchInit(acEnable, acMinChars) {
   searchInitFocus();
-  searchInitAutocomplete(acMinChars, wwwRoot);
+  if (acEnable) {
+    searchInitAutocomplete(acMinChars, wwwRoot);
+  }
 }
 
 function getWwwRoot() {

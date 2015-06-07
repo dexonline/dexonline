@@ -11,7 +11,7 @@ class TopEntry {
 /*
  *                      nick            source (short)     createDate              1:ratio (3-> 33%, 4 -> 25%)
  */
-    $bulk = array(array(null,           'MDN',             " = '2007-09-15'",      null),
+    $bulk = array(array(null,           "MDN '00",         " = '2007-09-15'",      null),
                   array(null,           'Petro-Sedim',     null,                   null),
                   array(null,           'GTA',             null,                   null),
                   array(null,           'DCR2',            null,                   null),

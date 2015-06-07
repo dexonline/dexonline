@@ -309,7 +309,7 @@ SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('advancedSearch', $text || $sourceId);
 
 /* Gallery */
-$images = Visual::loadAllForLexems($lexems);
+$images = empty($lexems) ? array() : Visual::loadAllForLexems($lexems);
 SmartyWrap::assign('images', $images);
 if (count($images)) {
   SmartyWrap::addCss('gallery');

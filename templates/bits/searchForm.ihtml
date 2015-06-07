@@ -7,7 +7,7 @@
 <form action="{$wwwRoot}search.php" name="frm" onsubmit="return searchSubmit()" id="searchForm">
 
   <div class="searchTextField">
-    <input type="text" name="cuv" class="searchField" value="{$cuv|escape}"  maxlength="50" title="Caută"/>
+    <input type="text" name="cuv" class="searchField" value="{$cuv|escape}" maxlength="50"/>
     <input type="submit" value="caută" id="searchButton" class="btn"/>
   </div>
 

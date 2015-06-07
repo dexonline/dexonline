@@ -50,6 +50,56 @@ function searchSubmit() {
   return false;
 }
 
+
+function searchInitFocus() {
+  document.frm.cuv.select();
+  document.frm.cuv.focus();
+
+  function slash(evt) { // ignore / and let it be used by the browser
+    evt = evt || window.event;
+    var charCode = evt.keyCode || evt.which;
+    if (charCode == 191 && !evt.shiftKey) {
+      this.blur();
+      return false;
+    }
+  }
+
+  document.frm.cuv.addEventListener("keydown", slash, false);
+}
+
+
+function searchInitAutocomplete(acMinChars, wwwRoot){
+
+  var searchForm = $('#searchForm');
+  var searchInput = $('.searchField');
+  var searchCache = {};
+  var queryURL = wwwRoot + 'searchComplete.php';
+
+  searchInput.autocomplete({
+    minLength: acMinChars,
+    source: function(request, response){
+      var term = request.term;
+      if (term in searchCache){
+        response(searchCache[term]);
+        return;
+      }
+      $.getJSON(queryURL, request, function(data, status, xhr){
+        searchCache[term] = data;
+        response(data);
+      });
+    },
+    select: function(event, ui){
+      searchInput.val(ui.item.value);
+      searchForm.submit();
+    }
+  });
+}
+
+function searchInit(acMinChars) {
+  searchInitFocus();
+  searchInitAutocomplete(acMinChars, wwwRoot);
+}
+
 function getWwwRoot() {
   var pos = window.location.href.indexOf('/wwwbase/');
   if (pos == -1) {
@@ -272,7 +322,7 @@ function trim(str) {
 
 // Add/remove bookmarks
 function addBookmark(linkElement) {
-  var url = linkElement.attr('href'); 
+  var url = linkElement.attr('href');
   var ajaxLoader = createAjaxLoader();
 
   // show ajax indicator
@@ -347,7 +397,7 @@ function createAjaxLoader() {
   return $('<img src="' + wwwRoot + 'img/icons/ajax-indicator.gif" />');
 }
 
-if (typeof jQuery != 'undefined') { 
+if (typeof jQuery != 'undefined') {
   $(document).ready(function() {
     $('body').click(function() {
       $('#mainMenu li ul, #userMenu li ul').hide();

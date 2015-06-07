@@ -132,7 +132,6 @@ class Lexem extends BaseObject implements DatedObject {
       ->where_like($field, $search)
       ->order_by_asc('formNoAccent')
       ->limit($limit)
-      ->distinct()
       ->find_many();
 
     if ($useMemcache) {

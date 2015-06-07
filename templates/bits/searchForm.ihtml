@@ -24,52 +24,5 @@
 </form>
 <div class="clearer"></div>
 <script type="text/javascript">
-  {literal}
-  document.frm.cuv.select();
-  document.frm.cuv.focus();
-
-  function slash(evt) { // ignore / and let it be used by the browser
-    evt = evt || window.event;
-    var charCode = evt.keyCode || evt.which;
-    if (charCode == 191 && !evt.shiftKey) {
-      this.blur();
-      return false;
-    }
-  };
-  document.frm.cuv.addEventListener("keydown", slash, false);
-
-  {/literal}
-
-  {if $acEnable}
-
-    (function(){
-
-      var searchForm = $('#searchForm');
-      var searchInput = $('.searchField');
-      var searchCache = {};
-      var minLength = {$acMinChars};
-
-      searchInput.autocomplete({
-        minLength: minLength,
-        source: function(request, response){
-          var term = request.term;
-          if (term in searchCache){
-            response(searchCache[term]);
-            return;
-          }
-          $.getJSON('{$wwwRoot}searchcomplete.php', request, function(data, status, xhr){
-            searchCache[term] = data;
-            response(data);
-          });
-        },
-        select: function(event, ui){
-          searchInput.val(ui.item.value);
-          searchForm.submit();
-        }
-      });
-
-    })();
-
-  {/if}
-
+  searchInit({$acMinChars});
 </script>

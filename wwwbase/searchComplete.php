@@ -1,6 +1,5 @@
 <?php
 require_once("../phplib/util.php");
-setlocale(LC_ALL, "ro_RO.utf8");
 header("Content-Type: application/json");
 
 

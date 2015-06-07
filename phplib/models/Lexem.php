@@ -118,6 +118,28 @@ class Lexem extends BaseObject implements DatedObject {
                       "and sourceId in (select id from Source where canDistribute) order by D.modDate, D.id");
   }
 
+  public static function searchLike($search, $hasDiacritics, $useMemcache = false, $limit = 10) {
+    if ($useMemcache) {
+      $key = "like_" . ($hasDiacritics ? '1' : '0') . "_$search";
+      $result = mc_get($key);
+      if ($result) {
+        return $result;
+      }
+    }
+
+    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
+    $result = Model::factory('Lexem')
+      ->where_like($field, $search)
+      ->order_by_asc('formNoAccent')
+      ->limit($limit)
+      ->find_many();
+
+    if ($useMemcache) {
+      mc_set($key, $result);
+    }
+    return $result;
+  }
+
   public static function searchInflectedForms($cuv, $hasDiacritics, $useMemcache = false) {
     if ($useMemcache) {
       $key = "inflected_" . ($hasDiacritics ? '1' : '0') . "_$cuv";
@@ -160,7 +182,7 @@ class Lexem extends BaseObject implements DatedObject {
     $search_time = sprintf('%0.3f', $end - $start);
 /*
     $logArray = "";
-    foreach ($result as $word) {		
+    foreach ($result as $word) {
       $logArray = $logArray . " " . $word;
     }
     $logEntry = "$method\t$search_time\t$cuv:\t$logArray\t$leng\t" . count($result) . "\n";
@@ -294,7 +316,7 @@ class Lexem extends BaseObject implements DatedObject {
         } else {
           $lexem = Lexem::deepCreate($if->form, 'A', $pm->adjectiveModel, '', $this->isLoc());
           $lexem->deepSave();
-          
+
           // Also associate the new lexem with the same definitions as $this.
           $ldms = LexemDefinitionMap::get_all_by_lexemId($this->id);
           foreach ($ldms as $ldm) {
@@ -524,7 +546,7 @@ class Lexem extends BaseObject implements DatedObject {
 
     $clone->setLexemModels(array($lm));
     $clone->deepSave();
-    
+
     // Clone the definition list
     $ldms = LexemDefinitionMap::get_all_by_lexemId($this->id);
     foreach ($ldms as $ldm) {

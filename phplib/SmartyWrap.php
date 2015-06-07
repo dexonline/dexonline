@@ -23,6 +23,8 @@ class SmartyWrap {
     self::assign('developmentMode', Config::get('global.developmentMode'));
     self::assign('isMobile', util_isMobile());
     self::assign('suggestNoBanner', util_suggestNoBanner());
+    self::assign('acEnable',  Config::get('search.acEnable'));
+    self::assign('acMinChars', Config::get('search.acMinChars'));
     self::assign('GLOBALS', $GLOBALS);
     self::$theSmarty->registerPlugin('function', 'getDebugInfo', array('SmartyWrap', 'getDebugInfo'));
   }
@@ -31,6 +33,11 @@ class SmartyWrap {
     $skin = session_getSkin();
     self::addCss($skin);
     self::addJs('jquery', 'dex');
+    $acEnable = self::$theSmarty->tpl_vars['acEnable']->value;
+    if ($acEnable) {
+        self::addCss('jqueryui');
+        self::addJs('jqueryui');
+    }
     $skinVariables = array_merge(Config::getSection("skin-default"),
                                  Config::getSection("skin-{$skin}"));
     self::assign('skinVariables', $skinVariables);
@@ -44,7 +51,7 @@ class SmartyWrap {
   }
 
   static function fetchCommonPageWithSkin($templateName) {
-    self::assign('contentTemplateName', "$templateName");  
+    self::assign('contentTemplateName', "$templateName");
     return self::fetchSkin();
   }
 
@@ -121,8 +128,8 @@ class SmartyWrap {
         case 'lexemEdit':           self::$cssFiles[15] = 'lexemEdit.css?v=10'; break;
         case 'jcrop':               self::$cssFiles[16] = 'jcrop/jquery.Jcrop.min.css?v=3'; break;
         case 'select2':             self::$cssFiles[17] = 'select2/select2.css?v=3'; break;
-        case 'gallery':            
-          self::$cssFiles[18] = 'colorbox/colorbox.css?v=1'; 
+        case 'gallery':
+          self::$cssFiles[18] = 'colorbox/colorbox.css?v=1';
           self::$cssFiles[19] = 'visualDict.css?v=3';
           break;
         case 'textComplete':        self::$cssFiles[20] = 'jquery.textcomplete.css'; break;
@@ -137,7 +144,7 @@ class SmartyWrap {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
       switch($id) {
-        case 'jquery':           self::$jsFiles[1] = 'jquery-1.10.2.min.js'; break; 
+        case 'jquery':           self::$jsFiles[1] = 'jquery-1.10.2.min.js'; break;
         case 'jqueryui':         self::$jsFiles[2] = 'jquery-ui-1.10.3.custom.min.js'; break;
         case 'jqgrid':
           self::$jsFiles[3] = 'grid.locale-en.js?v=2';
@@ -150,7 +157,7 @@ class SmartyWrap {
           self::$jsFiles[8] = 'tablesorter.dev.js?v=3';
           break;
         case 'pager':            self::$jsFiles[9] = 'jquery.tablesorter.pager.min.js'; break;
-        case 'elfinder':         self::$jsFiles[10] = 'elfinder.min.js?v=1'; break; 
+        case 'elfinder':         self::$jsFiles[10] = 'elfinder.min.js?v=1'; break;
         case 'windowEngine':     self::$jsFiles[11] = 'jquery-wm.js'; break;
         case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js?v=1'; break;
         case 'dex':              self::$jsFiles[13] = 'dex.js?v=29'; break;
@@ -164,7 +171,7 @@ class SmartyWrap {
         case 'select2Dev':       self::$jsFiles[21] = 'select2Dev.js?v=6'; break;
         case 'visual':           self::$jsFiles[22] = 'visual.js?v=2'; break;
         case 'visualTag':        self::$jsFiles[23] = 'visualTag.js?v=2'; break;
-        case 'gallery':          
+        case 'gallery':
           self::$jsFiles[24] = 'colorbox/jquery.colorbox-min.js';
           self::$jsFiles[25] = 'colorbox/jquery.colorbox-ro.js';
           self::$jsFiles[26] = 'dexGallery.js?v=2';

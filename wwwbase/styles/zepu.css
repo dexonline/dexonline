@@ -326,7 +326,7 @@ img {
   margin-right: 2px;
 }
 
-.searchField {
+.searchField, .scrabbleSearchField {
   border: 1px solid #761818;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
@@ -1109,6 +1109,26 @@ body .socialNetworks label {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   padding: 5px;
+}
+
+.scrabbleSearchDiv {
+  text-align: center;
+}
+
+.scrabbleVerif {
+  display: inline-block;
+  height: 24px;
+  padding: 9px 0px;
+  vertical-align: middle;
+  width: 24px;
+}
+
+.scrabbleVerifYes {
+  background: url("../img/icons/check.png") 0px 9px no-repeat;
+}
+
+.scrabbleVerifNo {
+  background: url("../img/icons/cross.png") 0px 9px no-repeat;
 }
 
 .locDiff .del {

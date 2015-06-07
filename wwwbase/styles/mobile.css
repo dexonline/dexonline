@@ -62,7 +62,7 @@ table {
   text-align: center;
 }
 
-#searchField {
+#searchField, .scrabbleSearchField {
   width: 70%;
   border: 1px solid #761818;
   border-top-left-radius: 4px;
@@ -219,6 +219,25 @@ footer ul li.desktopLink {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   padding: 5px;
+}
+
+.scrabbleSearchDiv {
+  text-align: center;
+}
+
+.scrabbleVerif {
+  display: inline-block;
+  height: 24px;
+  vertical-align: middle;
+  width: 24px;
+}
+
+.scrabbleVerifYes {
+  background: url("../img/icons/check.png") 0px 0px no-repeat;
+}
+
+.scrabbleVerifNo {
+  background: url("../img/icons/cross.png") 0px 0px no-repeat;
 }
 
 .locDiff .del {

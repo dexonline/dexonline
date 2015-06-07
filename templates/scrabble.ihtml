@@ -8,17 +8,25 @@
     Joci Scrabble și prietenii tăi nu cred că <i>kwyjibo</i> este un cuvânt perfect legal? Tastează cuvântul tău ca să le arăți cine e șeful.<br><br>
 
     <form action="scrabble" method="get">
-      Caută
-      <input type="text" name="form" placeholder="kwyjibo" value="{$form|default:""|escape}" autofocus>
-      în versiunea
-      <select name="locVersion">
-        {foreach from=$locVersions item=lv}
-          <option value="{$lv->name|escape}" {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
-            {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
-          </option>
-        {/foreach}
-      </select>
-      <input type="submit" name="submitButton" value="verifică">
+
+      <div class="scrabbleSearchDiv">
+        {if isset($data)}
+          <div class="scrabbleVerif {if count($data)}scrabbleVerifYes{else}scrabbleVerifNo{/if}">&nbsp;</div>
+        {/if}
+
+        <input class="scrabbleSearchField" type="text" name="form" placeholder="kwyjibo" value="{$form|default:""|escape}" autofocus><br>
+
+        în versiunea
+        <select name="locVersion">
+          {foreach from=$locVersions item=lv}
+            <option value="{$lv->name|escape}" {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
+              {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
+            </option>
+          {/foreach}
+        </select>
+
+        <input type="submit" name="submitButton" value="verifică">
+      </div>
     </form>
 
     {if isset($data)}

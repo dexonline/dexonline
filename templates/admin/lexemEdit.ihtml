@@ -140,8 +140,7 @@
     {include file="bits/lexemEditModel.ihtml"
              id="stem"
              lm=$stemLexemModel
-             models=$modelsT
-             readonly=!$canEdit.paradigm}
+             models=$modelsT}
 
     <div>
       <div id="paradigmTabs">
@@ -166,8 +165,7 @@
           {include file="bits/lexemEditModel.ihtml"
                    id=$i
                    lm=$lm
-                   models=$models[$i]
-                   readonly=!$canEdit.paradigm}
+                   models=$models[$i]}
         {/foreach}
       </div>
       <br>

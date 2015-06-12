@@ -1,3 +1,4 @@
+{assign var="readonly" value=!$canEdit.loc && $lm->isLoc}
 <div class="lexemModelTab" id="lmTab_{$id}">
   <table class="paradigmFields">
     <tr>

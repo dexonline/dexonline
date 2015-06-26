@@ -14,7 +14,7 @@ class SimilarRecord {
     $sr->definition = $definition->loadSimilar($lexemIds, $diffSize);
 
     if ($sr->definition) {
-      $sr->htmlDiff = LDiff::htmlDiff($sr->definition->internalRep, $definition->internalRep);
+      $sr->htmlDiff = LDiff::htmlDiff($sr->definition->internalRep, $definition->internalRep, true);
     } else {
       $sr->htmlDiff = null;
     }

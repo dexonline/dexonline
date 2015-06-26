@@ -401,11 +401,13 @@ hr {
 
 #similarDiff ins {
   background-color: #AFA;
+  cursor: pointer;
   text-decoration: none;
 }
 
 #similarDiff del {
   background-color: #FAA;
+  cursor: pointer;
   text-decoration: none;
 }
 

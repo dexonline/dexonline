@@ -59,7 +59,7 @@ class LDiff {
     if ($i0 != $i || $j0 != $j) {
       $results[] = array($i0, $i - $i0, $j0, $j - $j0);
     }
-    
+
     return $results;
   }
 
@@ -68,23 +68,55 @@ class LDiff {
     return self::diff(explode(' ', $old), explode(' ', $new));
   }
 
-  static function htmlDiff($old, $new) {
+  // A clickable diff adds offset information to each <ins> and <del> tag.
+  // Javascript can use this to, for example, fix typos with a single click.
+  static function htmlDiff($old, $new, $clickable = false) {
+    // Break the strings into words.
     $result = '';
     $owords = explode(' ', $old);
     $nwords = explode(' ', $new);
+
+    // Compute the offset of each word
+    $ooff = array();
+    foreach ($owords as $i => $ignored) {
+      $ooff[$i] = $i ? ($ooff[$i - 1] + strlen($owords[$i - 1]) + 1) : 0;
+    }
+    $ooff[] = strlen($old);
+    $noff = array();
+    foreach ($nwords as $i => $ignored) {
+      $noff[$i] = $i ? ($noff[$i - 1] + strlen($nwords[$i - 1]) + 1) : 0;
+    }
+    $noff[] = strlen($new);
+
+    // Compute the diff
     $diff = self::diff($owords, $nwords);
+
+    // Assemble the HTML
     $i = $j = 0;
     foreach ($diff as list($ostart, $olen, $nstart, $nlen)) {
       assert($ostart - $i == $nstart - $j);
-      $result .= implode(' ', array_slice($owords, $i, $ostart - $i)) . ' ';
-      $result .= '<del>' . implode(' ', array_slice($owords, $ostart, $olen)) . '</del> ';
-      $result .= '<ins>' . implode(' ', array_slice($nwords, $nstart, $nlen)) . '</ins> ';
+      $common = implode(' ', array_slice($owords, $i, $ostart - $i));
+      $deleted = implode(' ', array_slice($owords, $ostart, $olen));
+      $inserted = implode(' ', array_slice($nwords, $nstart, $nlen));
+
+      $result .= $common . ' ';
+      if ($clickable) {
+        $result .= sprintf('<span class="diff" data-start1="%s" data-len1="%s" data-start2="%s" data-len2="%s">',
+                           $ooff[$ostart],
+                           strlen($deleted),
+                           $noff[$nstart],
+                           strlen($inserted));
+      }
+      $result .= "<del>{$deleted}</del> <ins>{$inserted}</ins> ";
+      if ($clickable) {
+        $result .= '</span>';
+      }
 
       $i = $ostart + $olen;
       $j = $nstart + $nlen;
     }
 
-    $result .= implode(' ', array_slice($owords, $i));
+    $result .= implode(' ', array_slice($owords, $i)); // final common part
 
     return $result;
   }

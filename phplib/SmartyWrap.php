@@ -121,7 +121,7 @@ class SmartyWrap {
         case 'zepu':                self::$cssFiles[8] = 'zepu.css?v=73'; break;
         case 'polar':               self::$cssFiles[9] = 'polar.css?v=35'; break;
         case 'mobile':              self::$cssFiles[10] = 'mobile.css?v=21'; break;
-        case 'flex':                self::$cssFiles[11] = 'flex.css?v=14'; break;
+        case 'flex':                self::$cssFiles[11] = 'flex.css?v=15'; break;
         case 'paradigm':            self::$cssFiles[12] = 'paradigm.css?v=3'; break;
         case 'hangman':             self::$cssFiles[13] = 'hangman.css?v=5'; break;
         case 'mill':                self::$cssFiles[14] = 'mill.css?v=3'; break;
@@ -168,7 +168,7 @@ class SmartyWrap {
         case 'lexemEdit':        self::$jsFiles[18] = 'lexemEdit.js?v=15'; break;
         case 'jcrop':            self::$jsFiles[19] = 'jquery.Jcrop.min.js?v=2'; break;
         case 'select2':          self::$jsFiles[20] = 'select2.min.js?v=3'; break;
-        case 'select2Dev':       self::$jsFiles[21] = 'select2Dev.js?v=6'; break;
+        case 'select2Dev':       self::$jsFiles[21] = 'select2Dev.js?v=7'; break;
         case 'visual':           self::$jsFiles[22] = 'visual.js?v=2'; break;
         case 'visualTag':        self::$jsFiles[23] = 'visualTag.js?v=2'; break;
         case 'gallery':
@@ -179,6 +179,7 @@ class SmartyWrap {
           break;
         case 'modelDropdown':    self::$jsFiles[28] = 'modelDropdown.js'; break;
         case 'textComplete':     self::$jsFiles[29] = 'jquery.textcomplete.min.js'; break;
+        case 'definitionEdit':   self::$jsFiles[30] = 'definitionEdit.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

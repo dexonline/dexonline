@@ -13,13 +13,8 @@ class SimilarRecord {
     $sr->source = SimilarSource::getSimilarSource($definition->sourceId);
     $sr->definition = $definition->loadSimilar($lexemIds, $diffSize);
 
-    // Ignore abbreviations indicated by hash signs when computing the difference.
-    // Hash signs are our addition and mean different things in different dictionaries.
-    // See for example "#Din lat.#" (DEX '09) vs. "Din #lat.#" (DEX '98).
     if ($sr->definition) {
-      $noHashes1 = str_replace('#', '', $sr->definition->internalRep);
-      $noHashes2 = str_replace('#', '', $definition->internalRep);
-      $sr->htmlDiff = SimpleDiff::htmlDiff($noHashes1, $noHashes2);
+      $sr->htmlDiff = LDiff::htmlDiff($sr->definition->internalRep, $definition->internalRep);
     } else {
       $sr->htmlDiff = null;
     }

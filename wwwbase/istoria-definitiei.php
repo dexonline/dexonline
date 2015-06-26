@@ -40,7 +40,7 @@ foreach ($recordSet as $row) {
   }
 
   if($row['OldInternalRep'] !== $row['NewInternalRep']) {
-    $changeSet['diff'] = SimpleDiff::htmlDiff($row['OldInternalRep'], $row['NewInternalRep']);
+    $changeSet['diff'] = LDiff::htmlDiff($row['OldInternalRep'], $row['NewInternalRep']);
     $changeSet['changesCount']++;
   }
 

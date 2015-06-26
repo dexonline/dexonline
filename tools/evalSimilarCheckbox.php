@@ -29,10 +29,10 @@ $defs = Model::factory('Definition')
   ->where('sourceId', $source->id)
   ->where_gt('createDate', $timestamp)
   ->where('status', ST_ACTIVE)
-  ->order_by_asc('createDate')
+  ->order_by_asc('lexicon')
   ->find_many();
 
-$truePositives = $falsePositives = $trueNegatives = $falseNegatives = 0;
+$truePositives = $falsePositives = $trueNegatives = 0;
 
 foreach ($defs as $def) {
   $lexemIds = db_getArray("select distinct lexemId from LexemDefinitionMap where definitionId = {$def->id}");
@@ -49,7 +49,10 @@ foreach ($defs as $def) {
       if ($def->similarSource) {
         $falsePositives++;
       } else {
-        $falseNegatives++;
+	// Do not report false negatives; just fix them
+        $correct = true;
+        $def->similarSource = 1;
+        $def->save();
       }
     }
     printf("Definiție [%s] bifă [%s] diferență %4d     %s URL %s/admin/definitionEdit?definitionId=%d\n",
@@ -65,8 +68,6 @@ foreach ($defs as $def) {
 printf("True positives: %0.2lf%%\n", $truePositives / count($defs) * 100);
 printf("True negatives: %0.2lf%%\n", $trueNegatives / count($defs) * 100);
 printf("False positives: %0.2lf%%\n", $falsePositives / count($defs) * 100);
-printf("False negatives: %0.2lf%%\n", $falseNegatives / count($defs) * 100);
-printf("Rată de eroare: %0.2lf%%\n", ($falsePositives + $falseNegatives) / count($defs) * 100);
 
 
 /*************************************************************************/

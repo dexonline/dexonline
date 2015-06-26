@@ -51,7 +51,7 @@ class Definition extends BaseObject implements DatedObject {
       // Find the definition with the minimum diff from the original
       $diffSize = 0;
       foreach ($candidates as $d) {
-        $size = count(LDiff::textDiff($this->internalRep, $d->internalRep));
+        $size = LDiff::diffMeasure($this->internalRep, $d->internalRep);
         if (!$result || ($size < $diffSize)) {
           $result = $d;
           $diffSize = $size;

@@ -68,6 +68,16 @@ class LDiff {
     return self::diff(explode(' ', $old), explode(' ', $new));
   }
 
+  // returns a degree of dissimilarity between two strings.
+  static function diffMeasure($old, $new) {
+    $diff = self::textDiff($old, $new);
+    $result = 0;
+    foreach ($diff as list($ostart, $olen, $nstart, $nlen)) {
+      $result += $olen + $nlen;
+    }
+    return $result;
+  }
+
   // A clickable diff adds offset information to each <ins> and <del> tag.
   // Javascript can use this to, for example, fix typos with a single click.
   static function htmlDiff($old, $new, $clickable = false) {

@@ -86,8 +86,6 @@ if ($devel) {
   SmartyWrap::assign('allowFakeUsers', true);
   SmartyWrap::assign('privilegeNames', $PRIV_NAMES);
   SmartyWrap::assign('fakeUserNick', 'test' . rand(10000, 99999));
-} else {
-  SmartyWrap::assign('allowFakeUsers', false);
 }
 
 SmartyWrap::assign('openid', $openid);

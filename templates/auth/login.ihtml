@@ -1,3 +1,6 @@
+{assign var="allowFakeUsers" value=$allowFakeUsers|default:false}
+{assign var="openid" value=$openid|default:''}
+
 {if $allowFakeUsers}
   <p class="paragraphTitle">Utilizator de test</p>
   {include file="bits/fakeUser.ihtml"}

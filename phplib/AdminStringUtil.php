@@ -541,7 +541,7 @@ class AdminStringUtil {
   /**
    * Creates and caches a map($from, pair($to, $ambiguous)) for this sourceId.
    * That is, for each sourceId and abbreviated text, we store the expanded text and whether the abbreviation is ambiguous.
-   * An ambigious abbreviation such as "top" or "gen" also has a meaning as an inflected form.
+   * An ambiguous abbreviation such as "top" or "gen" also has a meaning as an inflected form.
    * Ambiguous abbreviations should be expanded carefully, or with human approval.
    */
   private static function loadAbbreviations($sourceId) {
@@ -564,7 +564,7 @@ class AdminStringUtil {
           }
           $numWords = 1 + substr_count($from, ' ');
           $regexp = str_replace(array('.', ' '), array("\\.", ' *'), $from);
-          $pattern = "[^-a-zăâîșțáéíóúA-ZĂÂÎȘȚÁÉÍÓÚ.]({$regexp})([^-a-zăâîșțáéíóúA-ZĂÂÎȘȚÁÉÍÓÚ.]|$)";
+          $pattern = "\W({$regexp})(\W|$)";
           $hasCaps = ($from !== mb_strtolower($from));
           $result[$from] = array('to' => $to, 'ambiguous' => $ambiguous, 'regexp' => $pattern, 'numWords' => $numWords, 'hasCaps' => $hasCaps);
         }

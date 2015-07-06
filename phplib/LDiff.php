@@ -9,6 +9,8 @@
  * When it retraces the path, it collapses consecutive insertions or deletions.
  **/
 
+ini_set('memory_limit', '1024M');
+
 class LDiff {
 
   // Returns an array of modifications. Each entry in the array is a tuple:

@@ -1,5 +1,5 @@
 {assign var="cb" value="100000000"|rand:999999999}
-{assign var="url" value="http://openx.dexonline.ro:8080/www/delivery"}
+{assign var="url" value="http://openx.dexonline.ro/www/delivery"}
 <iframe id='a917dcff' name='a917dcff' src='{$url}/afr.php?zoneid={$zoneId}&amp;cb={$cb}' frameborder='0' scrolling='no' width='728' height='90'>
   <a href='{$url}/ck.php?n=ac8d0c94&amp;cb={$cb}' target='_blank'>
     <img src='{$url}/avw.php?zoneid={$zoneId}&amp;cb={$cb}&amp;n=ac8d0c94' border='0' alt='' />

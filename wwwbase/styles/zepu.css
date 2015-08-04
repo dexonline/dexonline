@@ -238,21 +238,6 @@ img {
   padding-right: 26px;
 }
 
-.fbBottom {
-  border-bottom: 1px solid #BFBFBF; 
-  border-top: 1px solid #BFBFBF; 
-  margin: 20px auto 10px;/*it was 0 auto 10*/ 
-  padding: 5px 0px 5px 3px; 
-  width: 960px;
-}
-
-.fbTop,
-.plusTop {
-  float: right;
-  margin-top: -3px;
-  padding: 10px 0px;
-}
-
 
 /* SITE IDENTITY */
 .siteLogo {
@@ -371,12 +356,25 @@ img {
 
 
 /* FACEBOOK AND GOOGLE PLUS PLUGIN */
+.fbBottom {
+  border-bottom: 1px solid #BFBFBF; 
+  border-top: 1px solid #BFBFBF; 
+  margin: 20px auto 10px;/*it was 0 auto 10*/ 
+  padding: 5px 0px 5px 3px; 
+  width: 960px;
+  height: 23px;
+}
+
 .fbTop,
 .plusTop {
   float: right;
   margin-top: -3px;
+  padding: 10px 0px;
 }
 
+.plusTop {
+  width: 90px;
+}
 
 /* MISSION STATEMENT */
 #missionStatement {

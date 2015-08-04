@@ -1,13 +1,11 @@
 <section class="fbBottom" id="fbBottom">
+  <div class="fb-like"
+       data-href="https://www.facebook.com/dexonline"
+       data-ref="zepu_bottom"
+       data-width="875"
+       data-layout="standard"
+       data-action="like"
+       data-show-faces="true"
+       data-share="true">
+  </div>
 </section>
-{literal}
-<script>
-$(document).ready(function(){
-  $('#fbBottom').append('<div id="fb-root"></div>');
-  $('#fbBottom').append('<fb:like href="http://facebook.com/dexonline" send="true" width="875" ref="zepu_bottom" show_faces="true"></fb:like>');
-  jQuery.getScript("http://connect.facebook.net/ro_RO/all.js#appId=173110666079819&amp;xfbml=1", function() {
-    FB.init({status: true, cookie: true, xfbml: true}); 
-  });
-});
-</script>
-{/literal}

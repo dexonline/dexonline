@@ -9,7 +9,7 @@
   <head>
     <title>{$page_title|escape} | DEX online</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta content="initial-scale=1.0; maximum-scale=3.0; user-scalable=yes" name="viewport">
+    <meta content="initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" name="viewport">
     {if $page_description}
       <meta name="description" content="{$page_description}"/>
     {/if}

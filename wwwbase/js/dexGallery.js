@@ -128,7 +128,7 @@ function drawTag(canvas, tagNo, tagData, colorText) {
       mouseover: 'pointer'
     },
     click: function() {
-      window.open('http://www.dexonline.ro/definitie/' + tagData.lexeme, '_self');
+      window.open('https://dexonline.ro/definitie/' + tagData.lexeme, '_self');
     }
   });
 }

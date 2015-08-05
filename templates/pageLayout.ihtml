@@ -23,9 +23,9 @@
       <link rel="image_src" href="{$imgRoot}/logo-dexonline-2.png" />
     {/if}
     {include file="bits/cssJs.ihtml"}
-    <link rel="search" type="application/opensearchdescription+xml" href="http://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
+    <link rel="search" type="application/opensearchdescription+xml" href="https://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
     <link href="https://plus.google.com/100407552237543221945" rel="publisher" />
-    <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="http://dexonline.ro/rss/cuvantul-zilei">
+    <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="https://dexonline.ro/rss/cuvantul-zilei">
     <link rel="apple-touch-icon" href="{$imgRoot}/apple-touch-icon.png">
   </head>
 
@@ -41,7 +41,7 @@
           </div>
           <div class="plusTop">
             <script src="https://apis.google.com/js/platform.js" async defer></script>
-            <g:plusone size="medium" href="http://dexonline.ro"></g:plusone>
+            <g:plusone size="medium" href="https://dexonline.ro"></g:plusone>
           </div>
         </div>
         <ul id="mainMenu">
@@ -153,7 +153,7 @@
         {if $isMobile}
           <li id="desktopLink" data-skin="{$cfg.global.desktopSkin}"><a href="#">Versiunea pentru desktop</a></li>
         {/if}
-        <li>Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro)</li>
+        <li>Copyright (C) 2004-{$currentYear} DEX online (https://dexonline.ro)</li>
         <li class="licenceLink"><a href="{$wwwRoot}licenta">Licență</a></li>
         {if $cfg.global.hostedBy}
           <li class="hostingLink">{include file="hosting/`$cfg.global.hostedBy`.ihtml"}</li>

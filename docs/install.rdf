@@ -12,7 +12,7 @@
                    em:version="1.1"
                    em:creator="DEX online"
                    em:description="Corector ortografic pentru limba română"
-                   em:homepageURL="http://dexonline.ro"
+                   em:homepageURL="https://dexonline.ro"
                    em:contributor="Cătălin Frâncu">
     <em:targetApplication RDF:resource="rdf:#$GZ0Y+1"/>
   </RDF:Description>

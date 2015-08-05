@@ -5,7 +5,7 @@
   {if $skinVariables.wotdSubscribe}
     <div id="wotdSocialMedia">
       <img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"/>
-      <a type="application/rss+xml" href="http://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"/></a>
+      <a type="application/rss+xml" href="https://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"/></a>
       <a href="http://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"/></a>
       <span id="toggleTitle" class="toggleClosed">detalii</span>
     </div>
@@ -21,7 +21,7 @@
       href="http://www.feedmyinbox.com/">feed my inbox</a>:
 
         <ul>
-          <li>La <i>Website or Feed URL</i> introduceți <code>http://dexonline.ro/rss/cuvantul-zilei</code></li>
+          <li>La <i>Website or Feed URL</i> introduceți <code>https://dexonline.ro/rss/cuvantul-zilei</code></li>
           <li>La <i>Your Email Address</i> introduceți adresa dumneavoastră de e-mail</li>
           <li>Apăsați <i>Submit</i>
           <li>Veți primi un e-mail pentru confirmarea abonării</li>
@@ -29,7 +29,7 @@
         </ul>
       </li>
 
-      <li><b>RSS:</b> Dacă folosiți un cititor de bloguri, puteți adăuga <a href="http://dexonline.ro/rss/cuvantul-zilei">feed-ul pentru cuvântul
+      <li><b>RSS:</b> Dacă folosiți un cititor de bloguri, puteți adăuga <a href="https://dexonline.ro/rss/cuvantul-zilei">feed-ul pentru cuvântul
       zilei</a> la lista urmărită.</li>
 
       <li><b>Facebook:</b> Cuvântul zilei este publicat automat și pe Facebook. Puteți aprecia <a href="http://www.facebook.com/dexonline">pagina DEX

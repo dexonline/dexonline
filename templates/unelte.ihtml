@@ -99,7 +99,7 @@ calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
     </ul>
   </li>
 
-  <li><a href="#" onclick="return addProvider('http://dexonline.ro/download/dex.xml')">Adăugați DEX online la motoarele de căutare</a> ale browserului
+  <li><a href="#" onclick="return addProvider('https://dexonline.ro/download/dex.xml')">Adăugați DEX online la motoarele de căutare</a> ale browserului
   dumneavoastră. Mulțumiri lui Alexandru Lixandru.</li>
 
   <li>Un <a href="http://www.ieaddons.com/ro/addons/detail.aspx?id=12819">accelerator pentru Internet Explorer</a>. El vă permite să selectați un

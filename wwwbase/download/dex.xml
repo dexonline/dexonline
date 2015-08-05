@@ -4,9 +4,9 @@
    <Description>Cauta definitii in Dictionarul Explicativ On-line</Description>
    <Tags>dex dictionar</Tags>
    <Contact>alex.lixandru@gmail.com</Contact>
-   <Url type="text/html" template="http://dexonline.ro/definitie/{searchTerms}"/>
+   <Url type="text/html" template="https://dexonline.ro/definitie/{searchTerms}"/>
    <LongName>DEX Online</LongName>
-   <Image height="16" width="16" type="image/vnd.microsoft.icon">http://dexonline.ro/favicon.ico</Image>
+   <Image height="16" width="16" type="image/vnd.microsoft.icon">https://dexonline.ro/favicon.ico</Image>
    <Query role="example" searchTerms="copil"/>
    <Developer>Alexandru Ionut Lixandru</Developer>
    <Attribution>
@@ -19,5 +19,5 @@
    <Language>*</Language>
    <OutputEncoding>UTF-8</OutputEncoding>
    <InputEncoding>UTF-8</InputEncoding>
-   <moz:SearchForm>http://dexonline.ro/</moz:SearchForm>
+   <moz:SearchForm>https://dexonline.ro/</moz:SearchForm>
 </OpenSearchDescription>

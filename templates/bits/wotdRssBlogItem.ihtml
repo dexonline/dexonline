@@ -3,7 +3,7 @@
 {/if}
 {$def->htmlRep}
 <br/>
-Sursa: <a class="ref" href="http://dexonline.ro/surse" title="{$source->name|escape}, {$source->year|escape}"
+Sursa: <a class="ref" href="https://dexonline.ro/surse" title="{$source->name|escape}, {$source->year|escape}"
 >{$source->shortName|escape}
 {if $source->year}
 ({$source->year|regex_replace:"/ .*$/":""})

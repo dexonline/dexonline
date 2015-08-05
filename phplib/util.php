@@ -389,9 +389,9 @@ function util_deleteFile($fileName) {
 
 /**
  * Search engine friendly URLs used for the search page:
- * 1) http://dexonline.ro/definitie[-<sursa>]/<cuvânt>[/<defId>][/paradigma]
- * 2) http://dexonline.ro/lexem[-<sursa>]/<cuvânt>[/<lexemId>][/paradigma]
- * 3) http://dexonline.ro/text[-<sursa>]/<text>
+ * 1) https://dexonline.ro/definitie[-<sursa>]/<cuvânt>[/<defId>][/paradigma]
+ * 2) https://dexonline.ro/lexem[-<sursa>]/<cuvânt>[/<lexemId>][/paradigma]
+ * 3) https://dexonline.ro/text[-<sursa>]/<text>
  * Links of the old form (search.php?...) can only come via the search form and should not contain lexemId / definitionId.
  */
 function util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm, $xml, $all) {

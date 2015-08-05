@@ -31,18 +31,18 @@ foreach ($dbResult as $dbRow) {
   $rowC = $dbRow;
   if ($rowB[1] && $rowB[1] != $rowA[1]) {
     // If 2 or more lexems have identical forms, only add a definition URL for the first one
-    addUrl('http://dexonline.ro/definitie/' . urlencode($rowB[1]));
+    addUrl('https://dexonline.ro/definitie/' . urlencode($rowB[1]));
   }
   if ($rowB[0] && ($rowB[1] == $rowA[1] || $rowB[1] == $rowC[1])) {
     // Only add a link to the lexem if it has homonyms. Otherwise, its page is identical to the definition page.
-    addUrl("http://dexonline.ro/lexem/{$rowB[1]}/{$rowB[0]}");
+    addUrl("https://dexonline.ro/lexem/{$rowB[1]}/{$rowB[0]}");
   }
 }
 // Now process the last row
 if ($rowC[1] == $rowB[1]) {
-  addUrl("http://dexonline.ro/lexem/{$rowC[1]}/{$rowC[0]}");
+  addUrl("https://dexonline.ro/lexem/{$rowC[1]}/{$rowC[0]}");
 } else {
-  addUrl('http://dexonline.ro/definitie/' . urlencode($rowC[1]));
+  addUrl('https://dexonline.ro/definitie/' . urlencode($rowC[1]));
 }
 
 closeCurrentFile();
@@ -68,16 +68,16 @@ function addUrl($url) {
 }
 
 function addOtherUrls() {
-  addUrl('http://dexonline.ro/');
-  addUrl('http://dexonline.ro/contact');
-  addUrl('http://dexonline.ro/contribuie');
-  addUrl('http://dexonline.ro/articol/Ghid_de_exprimare_corect%C4%83');
-  addUrl('http://dexonline.ro/licenta-gpl');
-  addUrl('http://dexonline.ro/auth/login');
-  addUrl('http://dexonline.ro/unelte');
-  addUrl('http://dexonline.ro/top');
-  addUrl('http://dexonline.ro/update.php');
-  addUrl('http://dexonline.ro/update3.php');
+  addUrl('https://dexonline.ro/');
+  addUrl('https://dexonline.ro/contact');
+  addUrl('https://dexonline.ro/contribuie');
+  addUrl('https://dexonline.ro/articol/Ghid_de_exprimare_corect%C4%83');
+  addUrl('https://dexonline.ro/licenta-gpl');
+  addUrl('https://dexonline.ro/auth/login');
+  addUrl('https://dexonline.ro/unelte');
+  addUrl('https://dexonline.ro/top');
+  addUrl('https://dexonline.ro/update.php');
+  addUrl('https://dexonline.ro/update3.php');
 }
 
 function closeCurrentFile() {
@@ -119,7 +119,7 @@ function generateIndexFile() {
 
   for ($i = 1; $i <= $g_numFiles; $i++) {
     fprintf($f, "  <sitemap>\n");
-    fprintf($f, "    <loc>http://dexonline.ro/sitemap{$i}.xml.gz</loc>\n");
+    fprintf($f, "    <loc>https://dexonline.ro/sitemap{$i}.xml.gz</loc>\n");
     fprintf($f, "  </sitemap>\n");
   }
 

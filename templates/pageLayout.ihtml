@@ -76,7 +76,7 @@
             <li class="donateLink"><a href="{$wwwRoot}doneaza">Donează</a></li>
           {/if}
           {if $isMobile}
-            <li id="mobileLink"><a href="{$wwwRoot}mobil">Versiunea pentru mobil</a></li>
+            <li id="mobileLink"><a href="#">Versiunea pentru mobil</a></li>
           {/if}
         </ul>
         {if !$is_mirror}
@@ -150,8 +150,8 @@
 
     <footer>
       <ul>
-        {if $skinVariables.desktopLink}
-          <li class="desktopLink"><a href="{$wwwRoot}desktop">Versiunea pentru desktop</a></li>
+        {if $isMobile}
+          <li id="desktopLink" data-skin="{$cfg.global.desktopSkin}"><a href="#">Versiunea pentru desktop</a></li>
         {/if}
         <li>Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro)</li>
         <li class="licenceLink"><a href="{$wwwRoot}licenta">Licență</a></li>

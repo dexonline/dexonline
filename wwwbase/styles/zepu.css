@@ -82,6 +82,10 @@ img {
   padding-left: 16px;
 }
 
+#desktopLink {
+  display: none;
+}
+
 #userNick {
   display: block;
   float: right;

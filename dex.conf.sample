@@ -66,6 +66,8 @@ mysql_loc_prefix = LOC_
 ; Available skins
 skins[] = zepu
 skins[] = polar
+desktopSkin = zepu
+mobileSkin = mobile
 
 ; Seasonal pranks FTW
 aprilFoolsDay = 0
@@ -103,7 +105,6 @@ type = fake
 ; Default variables for all skins
 [skin-default]
 banner = true
-desktopLink = false
 fbLarge = true
 fullMenu = true
 permalink = true
@@ -127,7 +128,6 @@ openx_otherPages = ""
 
 [skin-mobile]
 banner = false
-desktopLink = true
 fbLarge = false
 fullMenu = false
 permalink = false
@@ -235,7 +235,7 @@ interval = 5
 ; settings for the static server
 [static]
 
-url = http://static.dexonline.ro:8080/
+url = https://dexonline.ro/static/
 
 ; the remaining settings are only necessary for FTP upload
 host = static.dexonline.ro

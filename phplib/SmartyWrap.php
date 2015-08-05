@@ -25,6 +25,7 @@ class SmartyWrap {
     self::assign('suggestNoBanner', util_suggestNoBanner());
     self::assign('acEnable',  Config::get('search.acEnable'));
     self::assign('acMinChars', Config::get('search.acMinChars'));
+    self::assign('cfg', Config::getAll());
     self::assign('GLOBALS', $GLOBALS);
     self::$theSmarty->registerPlugin('function', 'getDebugInfo', array('SmartyWrap', 'getDebugInfo'));
   }
@@ -118,9 +119,9 @@ class SmartyWrap {
           self::$cssFiles[6] = 'elfinderDev.css';
           break;
         case 'windowEngine':        self::$cssFiles[7] = 'jquery-wm/main.css'; break;
-        case 'zepu':                self::$cssFiles[8] = 'zepu.css?v=73'; break;
-        case 'polar':               self::$cssFiles[9] = 'polar.css?v=35'; break;
-        case 'mobile':              self::$cssFiles[10] = 'mobile.css?v=21'; break;
+        case 'zepu':                self::$cssFiles[8] = 'zepu.css?v=74'; break;
+        case 'polar':               self::$cssFiles[9] = 'polar.css?v=36'; break;
+        case 'mobile':              self::$cssFiles[10] = 'mobile.css?v=22'; break;
         case 'flex':                self::$cssFiles[11] = 'flex.css?v=15'; break;
         case 'paradigm':            self::$cssFiles[12] = 'paradigm.css?v=3'; break;
         case 'hangman':             self::$cssFiles[13] = 'hangman.css?v=5'; break;
@@ -160,7 +161,7 @@ class SmartyWrap {
         case 'elfinder':         self::$jsFiles[10] = 'elfinder.min.js?v=1'; break;
         case 'windowEngine':     self::$jsFiles[11] = 'jquery-wm.js'; break;
         case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js?v=1'; break;
-        case 'dex':              self::$jsFiles[13] = 'dex.js?v=29'; break;
+        case 'dex':              self::$jsFiles[13] = 'dex.js?v=30'; break;
         case 'flex':             self::$jsFiles[14] = 'flex.js?v=2'; break;
         case 'hangman':          self::$jsFiles[15] = 'hangman.js?v=5'; break;
         case 'mill':             self::$jsFiles[16] = 'mill.js?v=3'; break;

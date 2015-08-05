@@ -144,7 +144,7 @@ footer a:visited {
   padding-right: 5px;
 }
 
-footer ul li.desktopLink {
+#desktopLink {
   background: url("../img/icons/computer.png") 0px -2px no-repeat;
   padding-left: 20px;
   margin-bottom: 12px;

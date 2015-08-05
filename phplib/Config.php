@@ -33,6 +33,10 @@ class Config {
     }
   }
 
+  static function getAll() {
+    return self::$config;
+  }
+
   /* Returns an array containing all the variables in the given section, or the empty array if the section does not exist. */
   static function getSection($section) {
     return array_key_exists($section, self::$config) ? self::$config[$section] : array();

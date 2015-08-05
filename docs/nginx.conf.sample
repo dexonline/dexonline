@@ -14,45 +14,6 @@ server {
 
   location / {
 
-    #####################################################################################
-    # This section is desktop-specific and it should be commented out on m.dexonline.ro #
-    #####################################################################################
-
-    # Redirect mobiles to mobile's server, unless they have a cookie saying they want the desktop version
-    # Keep this in sync with phplib/util.php:util_isMobile() and with the Varnish configuration
-    if ($http_user_agent ~* ^(DoCoMo|J-PHONE|KDDI|UP.Browser|DDIPOCKET|.*iPhone.*|.*iPod.*|.*BlackBerry.*|.*Windows.CE.*|.*LG.*|.*HTC.*|.*MOT.*|.*Motorola.*|.*Nokia.*|.*Samsung.*|.*SonyEricsson.*|.*Palm.*|.*Symbian.*|.*Android.*)) {
-      set $test A;
-    }
-
-    if ($cookie_desktopVersion != 1) {
-      set $test "${test}B"; 
-    }
-
-    if ($test = AB) {
-      rewrite ^(.*)$  http://m.dexonline.ro$1 last;
-    }
-
-    # When the user visits dexonline.ro/mobil, delete the desktopVersion cookie and send them to m.dexonline.ro
-    if ($uri ~ ^/mobil$) {
-      add_header Set-Cookie "desktopVersion=0; Domain=.dexonline.ro; Path=/; Max-Age=-1";
-      rewrite ^(.*)$  http://m.dexonline.ro/ last;
-    }
-
-    #####################################################################################################
-    # This section is mobile-specific and it should be commented out on all sites except m.dexonline.ro #
-    #####################################################################################################
-
-    # When the user visits m.dexonline.ro/desktop, set a 10-year cookie and send them to dexonline.ro
-    # Keep this cookie name in sync with the Varnish rules on the production server
-    #if ($uri ~ ^/desktop$) {
-    #  add_header Set-Cookie "desktopVersion=1; Domain=.dexonline.ro; Path=/; Max-Age=315360000";
-    #  rewrite ^(.*)$  http://dexonline.ro/ last;
-    #}
-
-    ################################################################
-    # The rest of the file is common to mobile and desktop servers #
-    ################################################################
-
     rewrite ^/text(-([^/]+))?/(.*)$ /search.php?cuv=$3&source=$2&text=1 last;
     rewrite ^/spre/(.*)$ /goto.php?key=$1 last;
     rewrite ^/utilizator/(.*)$ /user.php?n=$1 last;

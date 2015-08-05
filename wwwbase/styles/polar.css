@@ -356,6 +356,10 @@ th.headerSortDown {
   padding-left: 16px;
 }
 
+#desktopLink {
+  display: none;
+}
+
 .wotdArchive {
   margin-bottom: 10px;
 }

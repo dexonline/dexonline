@@ -149,25 +149,24 @@ function session_setWidgetCount($widgetCount) {
 }
 
 function session_getSkin() {
+  // Check for user preferences and anonymous preferences
   $user = session_getUser();
   $skin = ($user && $user->skin) ? $user->skin : session_getCookieSetting('skin');
   if ($skin && session_isValidSkin($skin)) {
     return $skin;
-  } else {
-    $skins = Config::get('global.skins');
-    return $skins[0];
   }
+
+  // Check if the user has a mobile device
+  if (util_isMobile()) {
+    return Config::get('global.mobileSkin');
+  }
+
+  // Return the default skin
+  return Config::get('global.desktopSkin');
 }
 
 function session_setSkin($skin) {
-  $skins = Config::get('global.skins');
-  $defaultSkin = $skins[0];
-  if ($skin == $defaultSkin) { 
-    // Clear the cookie instead of setting it to the default skin.
-    setcookie("prefs[skin]", NULL, time() - 3600, '/');
-  } else {
-    setcookie('prefs[skin]', $skin, time() + ONE_YEAR_IN_SECONDS, '/');
-  }
+  setcookie('prefs[skin]', $skin, time() + ONE_YEAR_IN_SECONDS, '/');
 }
 
 function session_isValidSkin($skin) {

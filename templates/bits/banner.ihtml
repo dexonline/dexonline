@@ -5,17 +5,17 @@
   {if $adsProvider == 'diverta'}
     {* TODO: edit openx.ihtml to make this work *}
     {include file="bits/openx.ihtml" zoneId="" params=$adsProviderParams}
-  {elseif $bannerType == 'openx'}
+  {elseif $cfg.banner.type == 'openx'}
     {assign var="key" value="openx_`$id`"}
     {if $skinVariables.$key}
       {include file="bits/openx.ihtml" zoneId=$skinVariables.$key}
     {/if}
-  {elseif $bannerType == 'adsense'}
+  {elseif $cfg.banner.type == 'adsense'}
     {assign var="key" value="adsense_`$id`"}
     {if $skinVariables.$key}
       {include file="bits/adsense.ihtml" adUnitId=$skinVariables.$key}
     {/if}
-  {elseif $bannerType == 'fake'}
+  {elseif $cfg.banner.type == 'fake'}
     <div style="background: #761818; color: white; font-size: 20px; height: {$height}px; width: {$width}px;">
       Banner fals
     </div>

@@ -11,20 +11,12 @@ class SmartyWrap {
     self::$theSmarty->compile_dir = util_getRootPath() . 'templates_c';
     self::assign('wwwRoot', util_getWwwRoot());
     self::assign('imgRoot', util_getImgRoot());
-    self::assign('staticServer', Config::get('static.url'));
     self::assign('sources', Model::factory('Source')->order_by_desc('isOfficial')->order_by_asc('displayOrder')->find_many());
     self::assign('sUser', session_getUser());
-    self::assign('is_mirror', Config::get('global.mirror'));
     self::assign('nick', session_getUserNick());
-    self::assign('contact_email', Config::get('global.contact'));
-    self::assign('hostedBy', Config::get('global.hostedBy'));
     self::assign('currentYear', date("Y"));
-    self::assign('bannerType', Config::get('banner.type'));
-    self::assign('developmentMode', Config::get('global.developmentMode'));
     self::assign('isMobile', util_isMobile());
     self::assign('suggestNoBanner', util_suggestNoBanner());
-    self::assign('acEnable',  Config::get('search.acEnable'));
-    self::assign('acMinChars', Config::get('search.acMinChars'));
     self::assign('cfg', Config::getAll());
     self::assign('GLOBALS', $GLOBALS);
     self::$theSmarty->registerPlugin('function', 'getDebugInfo', array('SmartyWrap', 'getDebugInfo'));
@@ -34,8 +26,7 @@ class SmartyWrap {
     $skin = session_getSkin();
     self::addCss($skin);
     self::addJs('jquery', 'dex');
-    $acEnable = self::$theSmarty->tpl_vars['acEnable']->value;
-    if ($acEnable) {
+    if (Config::get('search.acEnable')) {
         self::addCss('jqueryui');
         self::addJs('jqueryui');
     }

@@ -65,9 +65,9 @@
         <tr>
           <td>{$lv->name|escape}</td>
           <td>{$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"}</td>
-          <td><a href="{$staticServer}download/scrabble/loc-reduse-{$lv->name}.zip">descarcă</a></td>
-          <td><a href="{$staticServer}download/scrabble/loc-baza-{$lv->name}.zip">descarcă</a></td>
-          <td><a href="{$staticServer}download/scrabble/loc-flexiuni-{$lv->name}.zip">descarcă</a></td>
+          <td><a href="{$cfg.static.url}download/scrabble/loc-reduse-{$lv->name}.zip">descarcă</a></td>
+          <td><a href="{$cfg.static.url}download/scrabble/loc-baza-{$lv->name}.zip">descarcă</a></td>
+          <td><a href="{$cfg.static.url}download/scrabble/loc-flexiuni-{$lv->name}.zip">descarcă</a></td>
         </tr>
       {/foreach}
     </table>

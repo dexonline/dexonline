@@ -5,7 +5,7 @@
 
 {include file="bits/prototypes.ihtml"}
 <div id="jCropCanvas" class="imageHolder">
-  <img id="jcrop" class="visualTagImg" src="{$staticServer}/img/visual/{$visual->path}" alt="Imagine de etichetat"/>
+  <img id="jcrop" class="visualTagImg" src="{$cfg.static.url}/img/visual/{$visual->path}" alt="Imagine de etichetat"/>
   <div id="selectionOptions">
     <input id="x" type="hidden" size="4" name="x"/>
     <input id="y" type="hidden" size="4" name="y"/>

@@ -24,8 +24,8 @@
 </form>
 <div class="clearer"></div>
 <script type="text/javascript">
-  {if $acEnable}
-    searchInit(true, {$acMinChars});
+  {if $cfg.search.acEnable}
+    searchInit(true, {$cfg.search.acMinChars});
   {else}
     searchInit(false);
   {/if}

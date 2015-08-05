@@ -44,15 +44,15 @@
       | <a href="{$wwwRoot}definitie/{$row->definition->lexicon}/{$row->definition->id}" title="Link doar către această definiție">Permalink</a>
     {/if}
 
-    {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT) && !$is_mirror}
+    {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT) && !$cfg.global.mirror}
       | <a target="edit_window" href="{$wwwRoot}admin/definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
     {/if}
 
-    {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT) && !$is_mirror}
+    {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT) && !$cfg.global.mirror}
       | <a href="{$wwwRoot}istoria-definitiei?id={$row->definition->id}">Istoria definiției</a>
     {/if}
 
-    {if $sUser && ($sUser->moderator & $smarty.const.PRIV_WOTD) && !$is_mirror}
+    {if $sUser && ($sUser->moderator & $smarty.const.PRIV_WOTD) && !$cfg.global.mirror}
       {if $row->definition->status == 0}
         {if $row->wotd}
         | În lista de WotD {if $row->wotd!==true}({$row->wotd}){/if}

@@ -25,4 +25,4 @@ pentru a vă asigura că întrebarea dumneavoastră nu este deja tratată acolo.
 </ul>
 
 Adresa noastră de e-mail este <a
-href="mailto:{$contact_email|escape}">{$contact_email|escape}</a>. Vă așteptăm!
+href="mailto:{$cfg.global.contact|escape}">{$cfg.global.contact|escape}</a>. Vă așteptăm!

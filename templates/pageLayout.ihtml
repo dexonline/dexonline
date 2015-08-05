@@ -79,7 +79,7 @@
             <li id="mobileLink"><a href="#">Versiunea pentru mobil</a></li>
           {/if}
         </ul>
-        {if !$is_mirror}
+        {if !$cfg.global.mirror}
           <ul id="userMenu">
             <li id="userNick"><div id="userPic"></div><a href="#" onclick="return false;">{$nick|escape}</a>
               <ul>
@@ -155,8 +155,8 @@
         {/if}
         <li>Copyright (C) 2004-{$currentYear} DEX online (http://dexonline.ro)</li>
         <li class="licenceLink"><a href="{$wwwRoot}licenta">Licență</a></li>
-        {if $hostedBy}
-          <li class="hostingLink">{include file="hosting/$hostedBy.ihtml"}</li>
+        {if $cfg.global.hostedBy}
+          <li class="hostingLink">{include file="hosting/`$cfg.global.hostedBy`.ihtml"}</li>
         {/if}
       </ul>
     </footer>

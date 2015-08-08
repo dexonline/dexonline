@@ -30,6 +30,10 @@
   </head>
 
   <body {if !$onHomePage}class="secondary"{/if}>
+    {if !$suggestNoBanner && $skinVariables.responsiveBanner}
+      {include file="bits/responsiveBanner.ihtml"}
+    {/if}
+
     {if $skinVariables.fullMenu}
       <header id="menu" class="bendShadow">
         {if !$onHomePage}

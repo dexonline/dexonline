@@ -112,7 +112,7 @@ class SmartyWrap {
         case 'windowEngine':        self::$cssFiles[7] = 'jquery-wm/main.css'; break;
         case 'zepu':                self::$cssFiles[8] = 'zepu.css?v=74'; break;
         case 'polar':               self::$cssFiles[9] = 'polar.css?v=36'; break;
-        case 'mobile':              self::$cssFiles[10] = 'mobile.css?v=22'; break;
+        case 'mobile':              self::$cssFiles[10] = 'mobile.css?v=23'; break;
         case 'flex':                self::$cssFiles[11] = 'flex.css?v=15'; break;
         case 'paradigm':            self::$cssFiles[12] = 'paradigm.css?v=3'; break;
         case 'hangman':             self::$cssFiles[13] = 'hangman.css?v=5'; break;

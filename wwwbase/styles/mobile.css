@@ -326,3 +326,8 @@ body #hangman .btn {
 	min-height: 40px;
 	margin: 5px;
 }
+
+.responsiveBannerContainer {
+  margin-bottom: 3px;
+  text-align: center;
+}

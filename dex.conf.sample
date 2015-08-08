@@ -108,6 +108,7 @@ banner = true
 fbLarge = true
 fullMenu = true
 permalink = true
+responsiveBanner = false
 searchForm = true
 typo = true
 wotdArchive = true
@@ -127,10 +128,12 @@ openx_mainPage = ""
 openx_otherPages = ""
 
 [skin-mobile]
+adsense_allPages = ""
 banner = false
 fbLarge = false
 fullMenu = false
 permalink = false
+responsiveBanner = true
 searchForm = false
 typo = false
 wotdArchive = false

@@ -6,7 +6,7 @@
     <div id="wotdSocialMedia">
       <img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"/>
       <a type="application/rss+xml" href="https://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"/></a>
-      <a href="http://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"/></a>
+      <a href="https://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"/></a>
       <span id="toggleTitle" class="toggleClosed">detalii</span>
     </div>
   {/if}
@@ -32,7 +32,7 @@
       <li><b>RSS:</b> Dacă folosiți un cititor de bloguri, puteți adăuga <a href="https://dexonline.ro/rss/cuvantul-zilei">feed-ul pentru cuvântul
       zilei</a> la lista urmărită.</li>
 
-      <li><b>Facebook:</b> Cuvântul zilei este publicat automat și pe Facebook. Puteți aprecia <a href="http://www.facebook.com/dexonline">pagina DEX
+      <li><b>Facebook:</b> Cuvântul zilei este publicat automat și pe Facebook. Puteți aprecia <a href="https://www.facebook.com/dexonline">pagina DEX
       online</a> pentru a primi cuvântul zilei cu fluxul dumneavoastră de știri.</li>
 
     </ul>

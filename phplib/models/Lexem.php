@@ -205,13 +205,17 @@ class Lexem extends BaseObject implements DatedObject {
     }
     $mysqlRegexp = StringUtil::dexRegexpToMysqlRegexp($regexp);
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-    if ($sourceId) {
-      // Suppres warnings from idiorm's log query function, which uses vsprintf, which trips on extra % signs.
-      $result = @Model::factory('Lexem')->select('Lexem.*')->distinct()->join('LexemDefinitionMap', 'Lexem.id = lexemId')
-        ->join('Definition', 'definitionId = d.id', 'd')->where_raw("$field $mysqlRegexp")->where('d.sourceId', $sourceId)
-        ->order_by_asc('formNoAccent')->limit(1000)->find_many();
-    } else {
-      $result = @Model::factory('Lexem')->where_raw("$field $mysqlRegexp")->order_by_asc('formNoAccent')->limit(1000)->find_many();
+    try {
+      if ($sourceId) {
+	// Suppres warnings from idiorm's log query function, which uses vsprintf, which trips on extra % signs.
+	$result = @Model::factory('Lexem')->select('Lexem.*')->distinct()->join('LexemDefinitionMap', 'Lexem.id = lexemId')
+	  ->join('Definition', 'definitionId = d.id', 'd')->where_raw("$field $mysqlRegexp")->where('d.sourceId', $sourceId)
+	  ->order_by_asc('formNoAccent')->limit(1000)->find_many();
+      } else {
+	$result = @Model::factory('Lexem')->where_raw("$field $mysqlRegexp")->order_by_asc('formNoAccent')->limit(1000)->find_many();
+      }
+    } catch (Exception $e) {
+      $result = null; // Bad regexp
     }
     if ($useMemcache) {
       mc_set($key, $result);
@@ -229,10 +233,14 @@ class Lexem extends BaseObject implements DatedObject {
     }
     $mysqlRegexp = StringUtil::dexRegexpToMysqlRegexp($regexp);
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-    $result = $sourceId ?
-      db_getSingleValue("select count(distinct L.id) from Lexem L join LexemDefinitionMap on L.id = lexemId join Definition D on definitionId = D.id " .
-                        "where $field $mysqlRegexp and sourceId = $sourceId order by formNoAccent") :
-      Model::factory('Lexem')->where_raw("$field $mysqlRegexp")->count();
+    try {
+      $result = $sourceId ?
+        db_getSingleValue("select count(distinct L.id) from Lexem L join LexemDefinitionMap on L.id = lexemId join Definition D on definitionId = D.id " .
+                          "where $field $mysqlRegexp and sourceId = $sourceId order by formNoAccent") :
+        Model::factory('Lexem')->where_raw("$field $mysqlRegexp")->count();
+    } catch (Exception $e) {
+      $result = 0; // Bad regexp
+    }
     if ($useMemcache) {
       mc_set($key, $result);
     }

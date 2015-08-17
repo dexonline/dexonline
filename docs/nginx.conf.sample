@@ -48,7 +48,6 @@ server {
     rewrite ^/contact$ /simple.php?p=contact last;
     rewrite ^/informatii$ http://wiki.dexonline.ro/wiki/Informații last;
     rewrite ^/legaturi$ /simple.php?p=links last;
-    rewrite ^/licenta-gpl$ /simple.php?p=license last;
     rewrite ^/publicitate$ /simple.php?p=ads last;
     rewrite ^/articol/(.*)$ /wikiArticle.php?title=$1 last;
     rewrite ^/rss/articole$ /articole.php?t=rss last;
@@ -74,7 +73,6 @@ server {
     rewrite ^/contact.php$ /contact permanent;
     rewrite ^/contrib.php$ /contribuie permanent;
     rewrite ^/corect.php$ /articol/Ghid_de_exprimare_corectă permanent;
-    rewrite ^/license.php$ /licenta-gpl permanent;
     rewrite ^/tools.php$ /unelte permanent;
   }
 }

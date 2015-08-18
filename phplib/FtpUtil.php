@@ -14,7 +14,9 @@ class FtpUtil {
   }
 
   function __destruct() {
-    ftp_close($this->conn);
+    if ($this->conn) {
+      ftp_close($this->conn);
+    }
   }
 
   function staticServerPut($localFile, $remoteFile) {

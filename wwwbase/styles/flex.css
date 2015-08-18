@@ -356,17 +356,6 @@ hr {
   color: green;
 }
 
-.tooltip2 {
-  background: url("../img/icons/information.png") no-repeat;
-  display: inline-block;
-  width: 16px;
-}
-
-.ui-tooltip {
-  font-size: 12px;
-  z-index: 200000; /* Make it work with the window manager */
-}
-
 #similarRecord {
   display: none;
 }

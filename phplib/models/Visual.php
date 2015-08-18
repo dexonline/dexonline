@@ -62,7 +62,7 @@ class Visual extends BaseObject implements DatedObject {
   }
 
   function ensureThumb() {
-    if (!$this->thumbExists()) {
+    if (!$this->thumbExists() && Config::get('static.user') && Config::get('static.password')) {
       $this->createThumb();
     }
   }

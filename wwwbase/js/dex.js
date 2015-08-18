@@ -11,10 +11,12 @@ $(function() {
 
 if (typeof jQuery.ui != 'undefined') {
   $(function() {
-    $(document).tooltip({
+    $('.tooltip2').tooltip({
       content: function () {
         return $(this).prop('title');
-      }
+      },
+      show: { delay: 10 },
+      track: true
     });
 
     $('.mention').tooltip({

@@ -152,7 +152,7 @@ class SmartyWrap {
         case 'elfinder':         self::$jsFiles[10] = 'elfinder.min.js?v=1'; break;
         case 'windowEngine':     self::$jsFiles[11] = 'jquery-wm.js'; break;
         case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js?v=1'; break;
-        case 'dex':              self::$jsFiles[13] = 'dex.js?v=30'; break;
+        case 'dex':              self::$jsFiles[13] = 'dex.js?v=31'; break;
         case 'flex':             self::$jsFiles[14] = 'flex.js?v=2'; break;
         case 'hangman':          self::$jsFiles[15] = 'hangman.js?v=5'; break;
         case 'mill':             self::$jsFiles[16] = 'mill.js?v=3'; break;

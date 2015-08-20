@@ -18,7 +18,7 @@
 
     {foreach from=$lexemModels item=lm}
       <input type="checkbox" id="lm_{$lm->id}" name="lexemModelId[]" value="{$lm->id}">
-      <label for="lm_{$l->id}">
+      <label for="lm_{$lm->id}">
         {include file="bits/lexemName.ihtml" lexem=$lm->getLexem()}
         <span class="deemph">({$lm->modelType}{$lm->modelNumber})</span>
       </label>

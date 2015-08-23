@@ -1,5 +1,6 @@
 {assign var="wa" value=$wa|default:null}
-{if $wa->title == "Ghid de exprimare corectă"}
+{assign var="title" value=$wa->title|default:null}
+{if $title == "Ghid de exprimare corectă"}
   <div id="guideNotice">
     Ghidul de exprimare are o structură nouă. <a href="#" onclick="return false;">detalii</a>
   </div>
@@ -31,7 +32,7 @@
 {foreach from=$wikiTitles key=k item=v}
 <h3>{$k|escape:'html'}</h3>
   {foreach from=$v item=titlePair}
-    {if $titlePair[0] != $wa->title}
+    {if $titlePair[0] != $title}
     <a href="{$wwwRoot}articol/{$titlePair[1]}">{$titlePair[0]}</a><br/>
     {/if}
   {/foreach}

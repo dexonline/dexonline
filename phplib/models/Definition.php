@@ -277,9 +277,10 @@ class Definition extends BaseObject implements DatedObject {
     $result = array();
     foreach ($defCounts as $defId => $cnt) {
       if ($cnt >= 2) {
-        $result[] = Definition::get_by_id($defId);
-      } else {
-        break;
+        $d = Definition::get_by_id($defId);
+        if ($d) { // Hidden definitions might return null
+          $result[] = $d;
+        }
       }
     }
     return $result;

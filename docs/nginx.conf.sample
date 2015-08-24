@@ -10,7 +10,7 @@ server {
   # Note: this directive only works for actually broken URLS.
   # Once Nginx passes control to PHP, we are responsible for providing the content of the 404 page as well.
   # See http://stackoverflow.com/questions/437256/why-wont-my-php-app-send-a-404-error
-  error_page 404 = /404;
+  error_page 404 /404;
 
   location / {
 

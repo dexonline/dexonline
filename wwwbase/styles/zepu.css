@@ -303,9 +303,12 @@ img {
 }
 
 #advSearch { /* not Sonia's! */
-  color: #761818;
   float: left;
   margin: 10px 0px 0px;
+}
+
+#advSearchHelp {
+  margin-left: 20px;
 }
 
 .searchTextField {

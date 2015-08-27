@@ -231,7 +231,7 @@ function validate($lexem, $original, $variantIds, $meanings) {
   $variantOf = Lexem::get_by_id($lexem->variantOfId);
   if ($variantOf && !goodForVariantJson($meanings)) {
     FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși sensuri. " .
-                      "Este permis doar un sens, fără conținut, pentru indicarea surselor.");
+                      "Este permis doar un sens, fără conținut, pentru indicarea surselor și a registrelor de folosire.");
   }
   if ($variantOf && !empty($variantIds)) {
     FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși variante.");
@@ -297,7 +297,7 @@ function goodForVariantJson($meanings) {
   }
 
   $m = $meanings[0];
-  if (!$m->sourceIds || $m->internalRep || $m->internalComment || $m->meaningTagIds) {
+  if (!$m->sourceIds || $m->internalRep || $m->internalComment) {
     return false;
   }
 

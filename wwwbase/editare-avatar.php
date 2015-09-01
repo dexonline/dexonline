@@ -2,6 +2,7 @@
 require_once("../phplib/util.php");
 
 $file = util_getUploadedFile('avatarFileName');
+$ext = pathinfo($file['name'], PATHINFO_EXTENSION);
 $error = '';
 
 if (!$file) {
@@ -12,11 +13,7 @@ if (!$file) {
   $error = 'Sunt permise doar imagini jpeg, png sau gif.';
 } else if ($file['error']) {
   $error = 'A intervenit o eroare la încărcare.';
-}
-/*
-http://stackoverflow.com/questions/6755192/uploaded-file-type-check-by-php/6755263#6755263
-*/
-else if(!in_array(exif_imagetype($file['tmp_name']), array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF))) {
+} else if (getimagesize($file['tmp_name'] === false) || !in_array($ext, array('png','jpg','gif'))) {
   $error = 'Sunt permise doar imagini jpeg, png sau gif.';
 }
 

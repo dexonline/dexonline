@@ -2,6 +2,7 @@
 require_once("../phplib/util.php");
 
 $file = util_getUploadedFile('avatarFileName');
+$ext = pathinfo($file['name'], PATHINFO_EXTENSION);
 $error = '';
 
 if (!$file) {
@@ -12,6 +13,8 @@ if (!$file) {
   $error = 'Sunt permise doar imagini jpeg, png sau gif.';
 } else if ($file['error']) {
   $error = 'A intervenit o eroare la încărcare.';
+} else if (getimagesize($file['tmp_name'] === false) || !in_array($ext, array('png','jpg','gif'))) {
+  $error = 'Sunt permise doar imagini jpeg, png sau gif.';
 }
 
 if ($error) {

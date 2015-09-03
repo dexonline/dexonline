@@ -116,7 +116,7 @@ sau
   </form>
   <div class="flexExplanation">
     Folosiți cu precauție această unealtă. Ea înlocuiește primul text cu al doilea în toate definițiile, făcând diferența între litere mari și mici (case-sensitive) și fără expresii regulate
-    (textul este căutat ca atare). Vor fi modificate maxim 1.000 de definiții. Veți putea vedea lista de modificări propuse și să o acceptați. Din păcate, nu avem posibilitatea să subliniem
+    (textul este căutat ca atare). Vor fi modificate maximum 1.000 de definiții. Veți putea vedea lista de modificări propuse și să o acceptați. Din păcate, nu avem posibilitatea să subliniem
     exact porțiunile din text modificate.
   </div>
   <br/>

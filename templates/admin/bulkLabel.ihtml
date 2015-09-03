@@ -1,7 +1,7 @@
 <a href="bulkLabelSelectSuffix.php">Alege alt sufix</a><br/>
 
 <ul>
-  <li>Sunt prezentate maxim 20 de lexeme pe pagină.</li>
+  <li>Sunt prezentate maximum 20 de lexeme pe pagină.</li>
   <li>
     Restricțiile nu sunt luate în considerare în timp real (toate
     formele vor fi afișate chiar dacă indicați unele restricții),

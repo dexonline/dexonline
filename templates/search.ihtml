@@ -54,7 +54,7 @@
     {elseif $searchType == $smarty.const.SEARCH_REGEXP}
       {if $numResults}
         {if $numResults > count($lexems)}
-          {$numResults} rezultate pentru „{$cuv|escape}” (maxim {$lexems|@count} afișate):
+          {$numResults} rezultate pentru „{$cuv|escape}” (maximum {$lexems|@count} afișate):
         {else}
           {$numResults} rezultate pentru „{$cuv|escape}”:
         {/if}
@@ -82,7 +82,7 @@
       {/if}
 
       {if $numResults > count($results)}
-        (maxim {$results|@count} afișate)
+        (maximum {$results|@count} afișate)
       {/if}
 
     {elseif $searchType == $smarty.const.SEARCH_MULTIWORD}
@@ -141,7 +141,7 @@
 
   {if $ignoredWords}
     <span class="stopWords">
-      Sunt permise maxim 5 cuvinte. Următoarele cuvinte au fost ignorate:
+      Sunt permise maximum 5 cuvinte. Următoarele cuvinte au fost ignorate:
       <b>
         {foreach from=$ignoredWords item=word}
           {$word|escape}

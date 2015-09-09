@@ -260,7 +260,7 @@ if (isset($searchResults)) {
 // META tags - TODO move in a dedicated file
 if ($cuv) {
   $page_keywords = "{$cuv}, definiție {$cuv}";
-  $page_description = "Dicționar dexonline (DEX online). Definiții";
+  $page_description = "Dicționar dexonline. Definiții";
   if (in_array('Sinonime', $sourceList)) {
     $page_keywords .= ", sinonime {$cuv}";
     $page_description .= ', sinonime';
@@ -281,7 +281,7 @@ if ($cuv) {
     $page_keywords .= ", paradigmă {$cuv}";
     $page_description .= ', paradigme';
   }
-  $page_keywords .= ", dexonline, DEX online";
+  $page_keywords .= ", dexonline";
   $page_description .= " pentru {$cuv}";
 
   $page_title = '';

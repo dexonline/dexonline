@@ -9,7 +9,7 @@ switch($p) {
     break;
   case 'contact': SmartyWrap::assign('page_title', 'Contact'); break;
   case 'links': SmartyWrap::assign('page_title', 'Legături'); break;
-  case 'ads': SmartyWrap::assign('page_title', 'Publicitate pe DEX online'); break;
+  case 'ads': SmartyWrap::assign('page_title', 'Publicitate pe dexonline'); break;
   default: exit;
 }
 

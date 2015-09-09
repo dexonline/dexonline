@@ -1,10 +1,10 @@
 Acest fișier este scris în limba engleză, deoarece există persoane
-interesate de baza de date a DEX online care nu vorbesc
+interesate de baza de date a dexonline care nu vorbesc
 românește. Dacă aveți nevoie de ajutor cu traducerea, vă rugăm
 contactați-ne la adresa contact@dexonline.ro.
 ------------------------------------------------------------------------------
 
-DEX online schema documentation
+dexonline schema documentation
 ===============================
 
 This documentation is by no means complete. Nor do we promise to keep

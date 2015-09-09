@@ -57,7 +57,7 @@
         {else}
           {if $lm->isLoc}da{else}nu{/if}
         {/if}
-        <span class="tooltip2" title="DEX online menține Lista Oficială de Cuvinte a Federației Române de Scrabble. Acest câmp poate fi modificat
+        <span class="tooltip2" title="dexonline menține Lista Oficială de Cuvinte a Federației Române de Scrabble. Acest câmp poate fi modificat
         numai de către un set restrâns de administratori ai LOC.">&nbsp;</span>
       </td>
     </tr>

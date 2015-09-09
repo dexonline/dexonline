@@ -21,7 +21,7 @@
     <label for="detailsVisible">Datele mele sunt vizibile public</label>
     <div class="describeOption">
       Identitatea OpenID, numele și adresa de email furnizate de OpenID vor apărea în <a href="{$wwwRoot}utilizator/{$sUser->nick}">profilul dumneavoastră</a>.<br/>
-      <i>DEX online</i> nu permite editarea directă a acestor date. Ele sunt preluate din identitatea OpenID.
+      <i>dexonline</i> nu permite editarea directă a acestor date. Ele sunt preluate din identitatea OpenID.
     </div>
   {/if}
 

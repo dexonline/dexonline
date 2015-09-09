@@ -7,7 +7,7 @@ Allow from all
 
 RewriteEngine on
 Options -MultiViews
-# Uncomment the next line when running DEX online from within a user directory
+# Uncomment the next line when running dexonline from within a user directory
 # RewriteBase /~cata/DEX/wwwbase/
 
 # Note: this directive only works for actually broken URLS.

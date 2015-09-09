@@ -2,17 +2,17 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>DEX online - update.php</title>
+    <title>dexonline - update.php</title>
   </head>
 
   <body>
-    <p>Acest script exportă baza de date a <i>DEX online</i> sau
+    <p>Acest script exportă baza de date a <i>dexonline</i> sau
     porțiuni ale ei. Dacă doriți să scrieți un client care să
     transfere baza de date și să o folosească off-line, comunicați cu
     acest script pentru a vă sincroniza periodic baza de date.</p>
 
     <p><b>LICENȚĂ:</b> Copierea, folosirea și redistribuirea acestor
-    definițiilor din <i>DEX online</i> sunt permise sub <a
+    definițiilor din <i>dexonline</i> sunt permise sub <a
     href="{$wwwRoot}licenta">Licența Publică Generală GNU</a>.</p>
 
     <p><b>OBSERVAȚIE:</b> Este obligatoriu ca mecanismul pe care îl
@@ -82,7 +82,7 @@
        <li><b>a:</b> Exportă și cuvântul-titlu cu diacritice pentru fiecare
        definiție. Această opțiune este ignorată începând cu versiunea 2.0.</li>
 
-       <li><b>d:</b> Înlocuiește unele notații interne ale <i>DEX online</i>
+       <li><b>d:</b> Înlocuiește unele notații interne ale <i>dexonline</i>
        (-, **, *, &lt;, &gt;) cu caractere Unicode (&amp;#x2013;, &amp;diams;,
        &amp;loz;, &amp;lt;, &amp;gt;).</li>
     </ul>

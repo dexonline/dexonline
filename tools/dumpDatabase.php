@@ -41,7 +41,7 @@ if ($doFullDump) {
 }
 
 OS::executeAndAssert("rm -f $SQL_FILE");
-OS::executeAndAssert("echo \"-- Copyright (C) 2004-$currentYear DEX online (https://dexonline.ro)\" > $SQL_FILE");
+OS::executeAndAssert("echo \"-- Copyright (C) 2004-$currentYear dexonline (https://dexonline.ro)\" > $SQL_FILE");
 OS::executeAndAssert("cat $LICENSE >> $SQL_FILE");
 $mysql = "$COMMON_COMMAND $tablesToIgnore >> $SQL_FILE";
 OS::executeAndAssert($mysql);

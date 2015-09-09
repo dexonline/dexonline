@@ -1,4 +1,4 @@
-; Configuration file for a DEX online installation
+; Configuration file for a dexonline installation
 ; Some entire sections are optional. Please refer to each section's comments.
 
 [global]
@@ -92,7 +92,7 @@ functestDatabase = mysql://root@localhost/DEXtest
 
 ; Lock file to use for functional tests.
 ; The testing infrastructure should touch this file at the beginning and delete it at the end.
-; DEX online will read functestDatabase instead of database if this file exists.
+; dexonline will read functestDatabase instead of database if this file exists.
 ; Comment this out in production.
 functestLockFile = /tmp/dex-functest
 
@@ -169,7 +169,7 @@ dir_index_file = index
 index_file_ext = html,php,aspx,asp,pl,py,jsp
 
 ; Crawler signature
-user_agent = "DEX online crawler v1.0"
+user_agent = "dexonline crawler v1.0"
 
 ; Pages to crawl
 ; whiteList[] = http://example.com/

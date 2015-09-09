@@ -2,7 +2,7 @@
 require_once("../phplib/util.php");
 
 $clientOptions = array(
-  'sync' => array('Sincronizare cu DEX online', 'Acest client se poate conecta periodic la DEX online pentru a-și transfera definițiile nou adăugate.'),
+  'sync' => array('Sincronizare cu dexonline', 'Acest client se poate conecta periodic la dexonline pentru a-și transfera definițiile nou adăugate.'),
   'vision' => array('Interfață pentru nevăzători', 'Acest client are o interfață prietenoasă pentru nevăzători.'),
   'regexp' => array('Expresii regulate, wildcards', 'Acest client acceptă căutări cu expresii regulate și/sau wildcards, cum ar fi «echi*» pentru echilibru, echinocțiu etc.'),
   'suggest' => array('Sugestii', 'Acest client oferă cele mai apropiate rezultate atunci când cuvântul căutat nu este găsit exact.'),

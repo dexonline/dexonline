@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{$page_title|escape} | DEX online</title>
+    <title>{$page_title|escape} | dexonline</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta content="initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" name="viewport">
     {if $page_description}
@@ -19,7 +19,7 @@
     {if !isset($not_generic_img)}
       <meta property="og:image" content="{$imgRoot}/logo-dexonline-2.png" />
       <meta property="og:type" content="website" />
-      <meta property="og:title" content="DEX online" />
+      <meta property="og:title" content="dexonline" />
       <link rel="image_src" href="{$imgRoot}/logo-dexonline-2.png" />
     {/if}
     {include file="bits/cssJs.ihtml"}
@@ -37,7 +37,7 @@
     {if $skinVariables.fullMenu}
       <header id="menu" class="bendShadow">
         {if !$onHomePage}
-          <a href="{$wwwRoot}" id="homeLink" title="Pagina principală DEX online"></a>
+          <a href="{$wwwRoot}" id="homeLink" title="Pagina principală dexonline"></a>
         {/if}
         <div class="socialPlugins">
           <div class="fbTop">
@@ -157,7 +157,7 @@
         {if $isMobile}
           <li id="desktopLink" data-skin="{$cfg.global.desktopSkin}"><a href="#">Versiunea pentru desktop</a></li>
         {/if}
-        <li>Copyright (C) 2004-{$currentYear} DEX online (https://dexonline.ro)</li>
+        <li>Copyright (C) 2004-{$currentYear} dexonline (https://dexonline.ro)</li>
         <li class="licenceLink"><a href="{$wwwRoot}licenta">Licență</a></li>
         {if $cfg.global.hostedBy}
           <li class="hostingLink">{include file="hosting/`$cfg.global.hostedBy`.ihtml"}</li>

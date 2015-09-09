@@ -31,11 +31,11 @@ Dacă aveți un cont Google sau Yahoo, îl puteți folosi ca OpenID:<br/><br/>
 </div>
 
 <ul>
-  <li>Nu este nevoie să vă creați un cont nou pentru DEX online, ceea ce vă economisește timp;</li>
+  <li>Nu este nevoie să vă creați un cont nou pentru <i>dexonline</i>, ceea ce vă economisește timp;</li>
   <li>Nu este nevoie să memorați o parolă în plus;</li>
   <li>Un cont OpenID, odată creat, poate fi refolosit pe orice site care admite OpenID, iar numărul acestora este în creștere;</li>
   <li>Sunt șanse mari să aveți deja un OpenID, deoarece multe site-uri mari (Google, Yahoo și altele) servesc și ca furnizori de OpenID;</li>
-  <li>Dacă aveați deja un cont pe DEX online, îl veți putea revendica și asocia cu OpenID-ul dumneavoastră.</li>
+  <li>Dacă aveați deja un cont pe <i>dexonline</i>, îl veți putea revendica și asocia cu OpenID-ul dumneavoastră.</li>
 </ul>
 
 Puteți citi mai multe informații pe <a href="http://openid.net/">site-ul OpenID</a> (în limba engleză).
@@ -46,7 +46,7 @@ Vizitați <a href="http://openid.net/get-an-openid/">lista furnizorilor de OpenI
 
 <p class="paragraphTitle">Precizare</p>
 
-Majoritatea funcțiilor din DEX online nu necesită autentificarea, cu excepțiile:
+Majoritatea funcțiilor din <i>dexonline</i> nu necesită autentificarea, cu excepțiile:
 
 <ul>
   <li>Dacă contribuiți cu definiții, ele se vor adăuga în contul dumneavostră;</li>

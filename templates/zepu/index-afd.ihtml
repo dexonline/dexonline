@@ -4,7 +4,7 @@
 </section>
 
 <section id="searchHomePage">
-  <b>Decât tasta-ți un cuvânt și Dexonline vil caută!!</b>
+  <b>Decât tasta-ți un cuvânt și <i>dexonline</i> vil caută!!</b>
   {include file="bits/searchForm.ihtml" advancedSearch=0}
 </section>
 

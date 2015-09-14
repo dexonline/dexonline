@@ -67,5 +67,5 @@ SmartyWrap::assign('reports', $reports);
 SmartyWrap::assign('sectionTitle', 'Pagina moderatorului');
 SmartyWrap::addCss('jqueryui', 'select2');
 SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev', 'modelDropdown');
-SmartyWrap::displayAdminPage('admin/index.ihtml');
+SmartyWrap::displayAdminPage('admin/index.tpl');
 ?>

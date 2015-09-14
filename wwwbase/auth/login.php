@@ -75,7 +75,7 @@ if ($openid) {
     } else {
       $authResult = OpenID::beginAuth($openid, null);
       if ($authResult != null) {
-        SmartyWrap::displayWithoutSkin('auth/beginAuth.ihtml');
+        SmartyWrap::displayWithoutSkin('auth/beginAuth.tpl');
         exit;
       }
     }
@@ -91,6 +91,6 @@ if ($devel) {
 SmartyWrap::assign('openid', $openid);
 SmartyWrap::assign('page_title', 'Autentificare cu OpenID');
 SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::display('auth/login.ihtml');
+SmartyWrap::display('auth/login.tpl');
 
 ?>

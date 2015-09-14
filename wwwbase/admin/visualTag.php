@@ -54,6 +54,6 @@ SmartyWrap::assign('lexem', Lexem::get_by_id($v->lexemeId));
 SmartyWrap::assign('sectionTitle', 'Etichetare imagini pentru definiții');
 SmartyWrap::addCss('jqueryui-smoothness', 'jcrop', 'select2', 'jqgrid', 'jqueryui', 'gallery');
 SmartyWrap::addJs('jquery', 'jqueryui', 'jcrop', 'visualTag', 'select2', 'select2Dev', 'jqgrid', 'gallery'); 
-SmartyWrap::displayAdminPage('admin/visualTag.ihtml');
+SmartyWrap::displayAdminPage('admin/visualTag.tpl');
 
 ?>

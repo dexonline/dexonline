@@ -65,7 +65,7 @@ if ($user) {
   SmartyWrap::assign('data', $data);
   SmartyWrap::assign('randString', $randString);
   SmartyWrap::assign('loginType', $loginType);
-  SmartyWrap::display('auth/chooseIdentity.ihtml');  
+  SmartyWrap::display('auth/chooseIdentity.tpl');  
 }
 
 ?>

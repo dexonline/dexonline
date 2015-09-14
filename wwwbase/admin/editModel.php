@@ -274,7 +274,7 @@ SmartyWrap::assign('errorMessage', $errorMessage);
 SmartyWrap::assign('sectionTitle', "Editare model {$modelType}{$modelNumber}");
 SmartyWrap::addCss('paradigm', 'jqueryui');
 SmartyWrap::addJs('jquery', 'jqueryui');
-SmartyWrap::displayAdminPage('admin/editModel.ihtml');
+SmartyWrap::displayAdminPage('admin/editModel.tpl');
 
 
 /****************************************************************************/

@@ -90,7 +90,7 @@ function dumpSources($remoteFile) {
 
   log_scriptLog("dumping sources");
   SmartyWrap::assign('sources', Model::factory('Source')->order_by_asc('id')->find_many());
-  $xml = SmartyWrap::fetch('xmldump/sources.ihtml');
+  $xml = SmartyWrap::fetch('xmldump/sources.tpl');
   $FTP->staticServerPutContents(gzencode($xml), $remoteFile);
 }
 
@@ -99,7 +99,7 @@ function dumpInflections($remoteFile) {
 
   log_scriptLog("dumping inflections");
   SmartyWrap::assign('inflections', Model::factory('Inflection')->order_by_asc('id')->find_many());
-  $xml = SmartyWrap::fetch('xmldump/inflections.ihtml');
+  $xml = SmartyWrap::fetch('xmldump/inflections.tpl');
   $FTP->staticServerPutContents(gzencode($xml), $remoteFile);
 }
 
@@ -126,7 +126,7 @@ function dumpAbbrevs($remoteFile) {
   }
   SmartyWrap::assign('sources', $sources);
   SmartyWrap::assign('sections', $sections);
-  $xml = SmartyWrap::fetch('xmldump/abbrev.ihtml');
+  $xml = SmartyWrap::fetch('xmldump/abbrev.tpl');
   $FTP->staticServerPutContents(gzencode($xml), $remoteFile);
 }
 
@@ -144,7 +144,7 @@ function dumpDefinitions($query, $remoteFile, $message) {
     $def->internalRep = AdminStringUtil::xmlizeRequired($def->internalRep);
     SmartyWrap::assign('def', $def);
     SmartyWrap::assign('nick', $USERS[$def->userId]);
-    gzwrite($file, SmartyWrap::fetch('xmldump/definition.ihtml'));
+    gzwrite($file, SmartyWrap::fetch('xmldump/definition.tpl'));
   }
   gzwrite($file, "</Definitions>\n");
   gzclose($file);
@@ -164,7 +164,7 @@ function dumpLexems($query, $remoteFile, $message) {
   foreach($results as $row) {
     $lexem = Model::factory('Lexem')->create($row);
     SmartyWrap::assign('lexem', $lexem);
-    gzwrite($file, SmartyWrap::fetch('xmldump/lexem.ihtml'));
+    gzwrite($file, SmartyWrap::fetch('xmldump/lexem.tpl'));
   }
   gzwrite($file, "</Lexems>\n");
   gzclose($file);

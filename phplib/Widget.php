@@ -11,22 +11,22 @@ class Widget {
 
   // 'enabled' means "enabled by default". All widgets can later be enabled or disabled based on user prefs.
   public static $DATA = array(self::WIDGET_WOTD        => array('name' => 'Cuvântul zilei',
-                                                                'template' => 'wotd.ihtml',
+                                                                'template' => 'wotd.tpl',
                                                                 'enabled' => true),
                               self::WIDGET_WOTM        => array('name' => 'Cuvântul lunii',
-                                                                'template' => 'wotm.ihtml',
+                                                                'template' => 'wotm.tpl',
                                                                 'enabled' => true),
                               self::WIDGET_RANDOM_WORD => array('name' => 'Cuvânt aleator',
-                                                                'template' => 'randomWord.ihtml',
+                                                                'template' => 'randomWord.tpl',
                                                                 'enabled' => true),
                               self::WIDGET_AOTM        => array('name' => 'Articolul lunii',
-                                                                'template' => 'articleOfTheMonth.ihtml',
+                                                                'template' => 'articleOfTheMonth.tpl',
                                                                 'enabled' => true),
                               self::WIDGET_GAMES       => array('name' => 'Jocuri',
-                                                                'template' => 'games.ihtml',
+                                                                'template' => 'games.tpl',
                                                                 'enabled' => true),
                               self::WIDGET_SOCIAL      => array('name' => 'Rețele sociale',
-                                                                'template' => 'social.ihtml',
+                                                                'template' => 'social.tpl',
                                                                 'enabled' => true),
                               );
 

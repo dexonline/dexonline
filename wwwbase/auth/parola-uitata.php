@@ -16,7 +16,7 @@ SmartyWrap::assign('suggestHiddenSearchForm', true);
 if ($submitButton) {
   if (!$email) {
     FlashMessage::add('Trebuie să introduceți o adresă de e-mail.');
-    SmartyWrap::display('auth/parola-uitata.ihtml');
+    SmartyWrap::display('auth/parola-uitata.tpl');
   } else {
     $user = User::get_by_email($email);
     if ($user) {
@@ -31,16 +31,16 @@ if ($submitButton) {
       // Send email
       SmartyWrap::assign('homePage', util_getFullServerUrl());
       SmartyWrap::assign('token', $pt->token);
-      $body = SmartyWrap::fetch('email/resetPassword.ihtml');
+      $body = SmartyWrap::fetch('email/resetPassword.tpl');
       $ourEmail = Config::get('global.contact');
       $headers = array("From: dexonline <$ourEmail>", "Reply-To: $ourEmail", 'Content-Type: text/plain; charset=UTF-8');
       $result = mail($email, "Schimbarea parolei pentru dexonline", $body, implode("\r\n", $headers));
     }
     // Display a confirmation even for incorrect addresses.
-    SmartyWrap::display('auth/passwordRecoveryEmailSent.ihtml');
+    SmartyWrap::display('auth/passwordRecoveryEmailSent.tpl');
   }
 } else {
-  SmartyWrap::display('auth/parola-uitata.ihtml');
+  SmartyWrap::display('auth/parola-uitata.tpl');
 }
 
 

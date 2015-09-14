@@ -9,5 +9,5 @@
   <div class="scrabbleModelName">
     {$m->number}. {$m->exponent|regex_replace:"/\'(a|e|i|o|u|ă|î|â)/":"<span class=\"accented\">\$1</span>"}
   </div>
-  {include file="paradigm/paradigm.ihtml" lexemModel=$lm}
+  {include file="paradigm/paradigm.tpl" lexemModel=$lm}
 {/foreach}

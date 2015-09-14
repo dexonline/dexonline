@@ -22,7 +22,7 @@
       <meta property="og:title" content="dexonline" />
       <link rel="image_src" href="{$imgRoot}/logo-dexonline-2.png" />
     {/if}
-    {include file="bits/cssJs.ihtml"}
+    {include file="bits/cssJs.tpl"}
     <link rel="search" type="application/opensearchdescription+xml" href="https://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
     <link href="https://plus.google.com/100407552237543221945" rel="publisher" />
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="https://dexonline.ro/rss/cuvantul-zilei">
@@ -31,7 +31,7 @@
 
   <body {if !$onHomePage}class="secondary"{/if}>
     {if !$suggestNoBanner && $skinVariables.responsiveBanner}
-      {include file="bits/responsiveBanner.ihtml"}
+      {include file="bits/responsiveBanner.tpl"}
     {/if}
 
     {if $skinVariables.fullMenu}
@@ -41,7 +41,7 @@
         {/if}
         <div class="socialPlugins">
           <div class="fbTop">
-            {include file="bits/facebookButton.ihtml"}
+            {include file="bits/facebookButton.tpl"}
           </div>
           <div class="plusTop">
             <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -104,16 +104,16 @@
         {/if}
       </header>
       <div id="contentProper">
-        {include file="flashMessages.ihtml"}
+        {include file="flashMessages.tpl"}
 
         {if !$onHomePage && !$suggestHiddenSearchForm && $skinVariables.searchForm}
           <section id="searchOtherPages">
-            {include file="bits/searchForm.ihtml"}
+            {include file="bits/searchForm.tpl"}
           </section>
         {/if}
 
         {if !$onHomePage && !$suggestNoBanner && $skinVariables.banner}
-          {include file="bits/banner.ihtml" id="otherPages" width="728" height="90"}
+          {include file="bits/banner.tpl" id="otherPages" width="728" height="90"}
         {/if}
 
         <section>
@@ -121,7 +121,7 @@
         </section>
 
         {if !$onHomePage && $skinVariables.fbLarge}
-          {include file="bits/facebook.ihtml"}
+          {include file="bits/facebook.tpl"}
         {/if}
       </div>
       {else}
@@ -160,11 +160,11 @@
         <li>Copyright (C) 2004-{$currentYear} dexonline (https://dexonline.ro)</li>
         <li class="licenceLink"><a href="{$wwwRoot}licenta">Licență</a></li>
         {if $cfg.global.hostedBy}
-          <li class="hostingLink">{include file="hosting/`$cfg.global.hostedBy`.ihtml"}</li>
+          <li class="hostingLink">{include file="hosting/`$cfg.global.hostedBy`.tpl"}</li>
         {/if}
       </ul>
     </footer>
-    {include file="bits/analytics.ihtml"}
+    {include file="bits/analytics.tpl"}
     {getDebugInfo}
   </body>
 </html>

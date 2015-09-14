@@ -1,7 +1,7 @@
 <div style="font-weight: bold; text-align: center">Decât tasta-ți un cuvânt și <i>dexonline</i> vil caută!!</div>
 
 <div id="wotdMobile" class="widget">
-  Cuvântul zilei: {include file="bits/wotdurl.ihtml"}
+  Cuvântul zilei: {include file="bits/wotdurl.tpl"}
 </div>
 
 <div id="likes">

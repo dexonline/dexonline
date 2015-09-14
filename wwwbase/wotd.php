@@ -29,11 +29,11 @@ if ($type == 'rss' || $type == 'blog') {
         $curDate = strftime("%e %B", $ts);
         SmartyWrap::assign('curDate', $curDate);
         $item['title'] = "{$curDate} – " . $def->lexicon;
-        $item['description'] = SmartyWrap::fetch('bits/wotdRssBlogItem.ihtml');
+        $item['description'] = SmartyWrap::fetch('bits/wotdRssBlogItem.tpl');
     }
     else {
         $item['title'] = $def->lexicon;
-        $item['description'] = SmartyWrap::fetch('bits/wotdRssItem.ihtml');
+        $item['description'] = SmartyWrap::fetch('bits/wotdRssItem.tpl');
     }
     $item['pubDate'] = date('D, d M Y H:i:s', $ts) . ' EEST';
     $item['link'] = util_getFullServerUrl() . 'cuvantul-zilei/' . date('Y/m/d', $ts);
@@ -86,7 +86,7 @@ $def = Definition::get_by_id($defId);
 if ($type == 'url') {
   SmartyWrap::assign('today', $today);
   SmartyWrap::assign('title', $def->lexicon);
-  SmartyWrap::displayWithoutSkin('bits/wotdurl.ihtml');
+  SmartyWrap::displayWithoutSkin('bits/wotdurl.tpl');
   exit;
 }
 
@@ -112,6 +112,6 @@ SmartyWrap::assign('page_keywords', "Cuvântul zilei, {$def->lexicon}, dexonline
 SmartyWrap::assign('page_description', $pageDesc);
 SmartyWrap::assign('searchResult', array_pop($searchResults));
 
-SmartyWrap::display('wotd.ihtml');
+SmartyWrap::display('wotd.tpl');
 
 ?>

@@ -63,5 +63,5 @@
     </tr>
   </table>
 
-  {include file="paradigm/paradigm.ihtml" lexemModel=$lm}
+  {include file="paradigm/paradigm.tpl" lexemModel=$lm}
 </div>

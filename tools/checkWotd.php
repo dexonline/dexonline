@@ -116,7 +116,7 @@ if (count($messages)) {
 
   SmartyWrap::assign('numDays', NUM_DAYS);
   SmartyWrap::assign('messages', $messages);
-  $body = SmartyWrap::fetch('email/checkWotd.ihtml');
+  $body = SmartyWrap::fetch('email/checkWotd.tpl');
   if ($sendEmail) {
     log_scriptLog("checkWotd: sending email");
     mail($mailTo, $subject, $body, implode("\r\n", $MAIL_HEADERS));

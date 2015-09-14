@@ -47,6 +47,6 @@ SmartyWrap::addJs('modelDropdown');
 SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::assign('page_title', 'Scrabble');
 SmartyWrap::assign('locVersions', $locVersions);
-SmartyWrap::display('scrabble.ihtml');
+SmartyWrap::display('scrabble.tpl');
 
 ?>

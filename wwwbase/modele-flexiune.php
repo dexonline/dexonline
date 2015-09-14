@@ -27,7 +27,7 @@ SmartyWrap::assign('models', $models);
 SmartyWrap::assign('lexemModels', $lexemModels);
 SmartyWrap::assign('locVersion', $locVersion);
 SmartyWrap::assign('modelType', $modelType);
-SmartyWrap::display('modele-flexiune.ihtml');
+SmartyWrap::display('modele-flexiune.tpl');
 
 /*************************************************************************/
 

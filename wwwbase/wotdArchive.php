@@ -87,5 +87,5 @@ SmartyWrap::assign('nextMonth', $nextMonth);
 $words = createCalendar($year, $month);
 SmartyWrap::assign('words', $words);
 
-SmartyWrap::displayWithoutSkin('wotdArchive.ihtml');
+SmartyWrap::displayWithoutSkin('wotdArchive.tpl');
 ?>

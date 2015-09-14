@@ -85,7 +85,7 @@
             {assign var="m" value=$models[$pIter]}
             {assign var="mt" value=$modelTypes[$pIter]}
             <div class="blParadigm" style="display: none" id="paradigm_{$l->id}_{$m->modelType}_{$m->number}">
-              {include file="paradigm/paradigm.ihtml" lexemModel=$lm}
+              {include file="paradigm/paradigm.tpl" lexemModel=$lm}
             </div>
           {/foreach}
         </div>

@@ -25,7 +25,7 @@ if ($lastClientUpdate == '0') {
 SmartyWrap::assign('diffs', getDiffsBetween($lastClientUpdate, $TODAY, $REMOTE_FOLDER));
 
 header('Content-type: text/xml');
-print SmartyWrap::fetch('update4.ihtml');
+print SmartyWrap::fetch('update4.tpl');
 
 /**************************************************************************/
 

@@ -3,15 +3,15 @@
   {foreach from=$lexems item=lexem}
     <div class="paraLexem">
       <div class="lexemData">
-        <span class="lexemName">{include file="bits/lexemName.ihtml" lexem=$lexem}</span>
-        {include file="bits/locInfo.ihtml" isLoc=$lexem->isLoc()}
+        <span class="lexemName">{include file="bits/lexemName.tpl" lexem=$lexem}</span>
+        {include file="bits/locInfo.tpl" isLoc=$lexem->isLoc()}
         {if $sUser && ($sUser->moderator & ($smarty.const.PRIV_EDIT + $smarty.const.PRIV_STRUCT))}
           <a class="paraEdit" href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexem->id}" title="editează lexemul"></a>
         {/if}
       </div>
 
       {foreach from=$lexem->getLexemModels() item=lm}
-        {include file="paradigm/paradigm.ihtml" lexemModel=$lm}
+        {include file="paradigm/paradigm.tpl" lexemModel=$lm}
       {/foreach}
     </div>
   {/foreach}

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="bits/cssJs.ihtml"}
+    {include file="bits/cssJs.tpl"}
     <title>dexonline - Sincronizare client</title>
   </head>
 

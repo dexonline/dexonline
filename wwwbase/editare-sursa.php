@@ -37,7 +37,7 @@ SmartyWrap::assign('src', $src);
 SmartyWrap::assign('page_title', $sourceId ? "Editare sursă {$src->shortName}" : "Adăugare sursă");
 SmartyWrap::addCss('jqueryui');
 SmartyWrap::addJs('jqueryui');
-SmartyWrap::display('editare-sursa.ihtml');
+SmartyWrap::display('editare-sursa.tpl');
 
 /**
  * Returns true on success, false on errors.

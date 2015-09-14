@@ -223,7 +223,7 @@ SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('sectionTitle', $isOCR ? "Adăugare definiție (OCR)" : "Editare definiție: {$definition->id}");
 SmartyWrap::addCss('jqueryui', 'select2');
 SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev', 'definitionEdit');
-SmartyWrap::displayAdminPage('admin/definitionEdit.ihtml');
+SmartyWrap::displayAdminPage('admin/definitionEdit.tpl');
 
 /**
  * Load all lexems having the same form as one of the given lexems, but exclude the given lexems.

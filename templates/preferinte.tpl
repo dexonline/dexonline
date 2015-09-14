@@ -1,7 +1,7 @@
 {if $sUser}
   <form action="editare-avatar" method="post" enctype="multipart/form-data">
     <p class="paragraphTitle">Imagine</p>
-    {include file="bits/avatar.ihtml" user=$sUser}
+    {include file="bits/avatar.tpl" user=$sUser}
     <label for="avatarFileName">Fișier:</label>
     <input id="avatarFileName" type="file" name="avatarFileName">
     <input id="avatarSubmit" type="submit" name="submit" value="Editează" disabled="disabled">

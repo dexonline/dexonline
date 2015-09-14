@@ -7,7 +7,7 @@ $data = OpenID::finishAuth();
 if (!$data) {
   SmartyWrap::assign('page_title', 'Autentificare cu OpenID');
   SmartyWrap::assign('suggestHiddenSearchForm', true);
-  SmartyWrap::display('auth/login.ihtml');
+  SmartyWrap::display('auth/login.tpl');
   exit();
 }
 
@@ -28,7 +28,7 @@ if ($user) {
   SmartyWrap::assign('data', $data);
   SmartyWrap::assign('randString', $randString);
   SmartyWrap::assign('loginType', $loginType);
-  SmartyWrap::display('auth/chooseIdentity.ihtml');  
+  SmartyWrap::display('auth/chooseIdentity.tpl');  
 }
 
 ?>

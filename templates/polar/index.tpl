@@ -12,11 +12,11 @@
 </section>
 
 <section id="searchHomePage">
-  {include file="bits/searchForm.ihtml" advancedSearch=0}
+  {include file="bits/searchForm.tpl" advancedSearch=0}
 </section>
 
 {if !$suggestNoBanner}
-  {include file="bits/banner.ihtml" id="mainPage" width="728" height="90"}
+  {include file="bits/banner.tpl" id="mainPage" width="728" height="90"}
 {/if}
 
 <section id="missionStatement">
@@ -26,5 +26,5 @@
 </section>
 
 <section class="widget wotd">
-  {include file="widgets/wotd.ihtml"}
+  {include file="widgets/wotd.tpl"}
 </section>

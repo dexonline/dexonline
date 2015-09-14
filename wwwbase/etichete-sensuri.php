@@ -36,6 +36,6 @@ $meaningTags = Model::factory('MeaningTag')->order_by_asc('value')->find_many();
 
 SmartyWrap::assign('meaningTags', $meaningTags);
 SmartyWrap::assign('page_title', 'Etichete pentru sensuri');
-SmartyWrap::display('etichete-sensuri.ihtml');
+SmartyWrap::display('etichete-sensuri.tpl');
 
 ?>

@@ -49,6 +49,6 @@ SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::assign('inflections', $inflections);
 SmartyWrap::assign('modelTypes', ModelType::loadCanonical());
 SmartyWrap::addJs('jqTableDnd');
-SmartyWrap::display('editor-modele/flexiuni.ihtml');
+SmartyWrap::display('editor-modele/flexiuni.tpl');
 
 ?>

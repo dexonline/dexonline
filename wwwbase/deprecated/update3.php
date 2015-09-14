@@ -5,7 +5,7 @@ set_time_limit(0);
 // If no GET arguments are set, print usage and return.
 if (count($_GET) == 0) {
   SmartyWrap::addCss('polar');
-  SmartyWrap::displayWithoutSkin('update3Instructions.ihtml');
+  SmartyWrap::displayWithoutSkin('update3Instructions.tpl');
   return;
 }
 
@@ -17,19 +17,19 @@ $timestamp = util_getRequestIntParameter('timestamp');
 $version = util_getRequestParameterWithDefault('version', '3.0');
 
 if ($export && util_isDesktopBrowser() && !session_getUser()) {
-  SmartyWrap::display('updateError.ihtml');
+  SmartyWrap::display('updateError.tpl');
   exit();
 }
 
 if ($export == 'sources') {
   SmartyWrap::assign('sources', Model::factory('Source')->find_many());
-  SmartyWrap::displayWithoutSkin('update3Sources.ihtml');
+  SmartyWrap::displayWithoutSkin('update3Sources.tpl');
 } else if ($export == 'inflections') {
   SmartyWrap::assign('inflections', Model::factory('Inflection')->order_by_asc('id')->find_many());
-  SmartyWrap::displayWithoutSkin('update3Inflections.ihtml');
+  SmartyWrap::displayWithoutSkin('update3Inflections.tpl');
 } else if ($export == 'abbrev') {
   SmartyWrap::assign('abbrev', AdminStringUtil::loadRawAbbreviations());
-  SmartyWrap::displayWithoutSkin('update3Abbrev.ihtml');
+  SmartyWrap::displayWithoutSkin('update3Abbrev.tpl');
 } else if ($export == 'definitions') {
   userCache_init();
   $statusClause = $timestamp ? '' : ' and status = 0';
@@ -57,7 +57,7 @@ if ($export == 'sources') {
     SmartyWrap::assign('def', $def);
     SmartyWrap::assign('lexemIds', $lexemIds);
     SmartyWrap::assign('user', userCache_get($def->userId));
-    SmartyWrap::displayWithoutSkin('update3Definitions.ihtml');
+    SmartyWrap::displayWithoutSkin('update3Definitions.tpl');
   }
 
   print "</Definitions>\n";
@@ -69,7 +69,7 @@ if ($export == 'sources') {
   foreach ($lexemDbResult as $dbRow) {
     $lexem = Model::factory('Lexem')->create($dbRow);
     SmartyWrap::assign('lexem', $lexem);
-    SmartyWrap::displayWithoutSkin('update3Lexems.ihtml');
+    SmartyWrap::displayWithoutSkin('update3Lexems.tpl');
   }
   print "</Lexems>\n";
 }

@@ -3,7 +3,7 @@
 </div>
 <br/>
 
-{include file="bits/prototypes.ihtml"}
+{include file="bits/prototypes.tpl"}
 <div id="jCropCanvas" class="imageHolder">
   <img id="jcrop" class="visualTagImg" src="{$cfg.static.url}/img/visual/{$visual->path}" alt="Imagine de etichetat"/>
   <div id="selectionOptions">

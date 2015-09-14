@@ -6,5 +6,5 @@ SmartyWrap::assign('bulkData', TopEntry::getTopData(CRIT_CHARS, SORT_DESC, false
 SmartyWrap::assign('page_title', 'Topul voluntarilor');
 SmartyWrap::addCss('tablesorter');
 SmartyWrap::addJs('pager', 'tablesorter');
-SmartyWrap::display('top.ihtml');
+SmartyWrap::display('top.tpl');
 ?>

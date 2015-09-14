@@ -7,7 +7,7 @@
   {if $showSources}
     <div class="title"> 
       <form name="frm" class="searchForm" action="#">
-        {include file="sourceDropDown.ihtml" urlName=1 autosubmit=1}
+        {include file="sourceDropDown.tpl" urlName=1 autosubmit=1}
       </form>
     </div>
   {/if}

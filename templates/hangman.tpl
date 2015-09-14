@@ -38,7 +38,7 @@
 
     <div id="resultsWrapper" class="txt">
       {foreach from=$searchResults item=row}
-        {include file="bits/definition.ihtml" row=$row}
+        {include file="bits/definition.tpl" row=$row}
       {/foreach}
     </div>
   </form>

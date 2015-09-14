@@ -51,6 +51,6 @@ SmartyWrap::assign('listType', $listType);
 SmartyWrap::assign('locVersions', $locVersions);
 SmartyWrap::assign('diff', $diff);
 SmartyWrap::assign('zipUrl', $zipUrl);
-SmartyWrap::display('scrabble-diferente-loc.ihtml');
+SmartyWrap::display('scrabble-diferente-loc.tpl');
 
 ?>

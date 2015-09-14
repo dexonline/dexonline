@@ -23,6 +23,6 @@ SmartyWrap::assign('sectionCount', count($defs));
 SmartyWrap::assign('sectionSources', true);
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::displayAdminPage('admin/definitionList.ihtml');
+SmartyWrap::displayAdminPage('admin/definitionList.tpl');
 
 ?>

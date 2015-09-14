@@ -7,7 +7,7 @@
 
 <form action="wotdExport.php">
   Descarcă lista pentru luna
-  {include file="bits/numericDropDown.ihtml" name="month" start=1 end=13 selected=$downloadMonth}
-  {include file="bits/numericDropDown.ihtml" name="year" start=$downloadYear-3 end=$downloadYear+3 selected=$downloadYear}
+  {include file="bits/numericDropDown.tpl" name="month" start=1 end=13 selected=$downloadMonth}
+  {include file="bits/numericDropDown.tpl" name="year" start=$downloadYear-3 end=$downloadYear+3 selected=$downloadYear}
   <input type="submit" name="submitButton" value="Descarcă"/>
 </form>

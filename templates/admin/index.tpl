@@ -27,29 +27,29 @@ sau
   Definiții:
   <input type="text" name="name" size="10" value="*"/>
   &nbsp; &nbsp; starea:
-  {include file="statusDropDown.ihtml"
+  {include file="statusDropDown.tpl"
            name="status"
            statuses=$allStatuses
            selectedStatus=1}
   &nbsp; &nbsp; trimise de:
   <input type="text" name="nick" size="10" value=""/>
   &nbsp; &nbsp; sursa:
-  {include file="sourceDropDown.ihtml" name="sourceId"}
+  {include file="sourceDropDown.tpl" name="sourceId"}
   <br/>
   &nbsp; &nbsp; &nbsp; &nbsp; între
   {assign var="nextYear" value=$currentYear+1}
-  {include file="bits/numericDropDown.ihtml"
+  {include file="bits/numericDropDown.tpl"
            name="yr1" start=2001 end=$nextYear}
-  {include file="bits/numericDropDown.ihtml"
+  {include file="bits/numericDropDown.tpl"
            name="mo1" start=1 end=13}
-  {include file="bits/numericDropDown.ihtml"
+  {include file="bits/numericDropDown.tpl"
            name="da1" start=1 end=32}
   &nbsp; &nbsp; și
-  {include file="bits/numericDropDown.ihtml"
+  {include file="bits/numericDropDown.tpl"
            name="yr2" start=2001 end=$nextYear selected=$currentYear}
-  {include file="bits/numericDropDown.ihtml"
+  {include file="bits/numericDropDown.tpl"
            name="mo2" start=1 end=13 selected=12}
-  {include file="bits/numericDropDown.ihtml"
+  {include file="bits/numericDropDown.tpl"
            name="da2" start=1 end=32 selected=31}
   &nbsp; &nbsp; 
   <input type="submit" name="searchButton" value="Caută"/>
@@ -59,7 +59,7 @@ sau
 <form action="lexemSearch.php" method="get">
   Caută lexeme:
   <input type="text" name="form" size="10" value="*">
-  sursa: {include file="sourceDropDown.ihtml"}
+  sursa: {include file="sourceDropDown.tpl"}
   <select name="loc">
     <option value="2">indiferent de LOC</option>
     <option value="1">incluse în LOC</option>
@@ -72,7 +72,7 @@ sau
   </select>
   <br/>
   &nbsp; &nbsp; &nbsp; &nbsp;
-  structurare: {include file="bits/structStatus.ihtml" canEdit=true anyOption=true}
+  structurare: {include file="bits/structStatus.tpl" canEdit=true anyOption=true}
   &nbsp;
   trimise de: <input type="text" name="nick" size="10" value=""/>
   <input type="submit" name="searchButton" value="Caută">
@@ -111,7 +111,7 @@ sau
   <form action="bulkReplace.php" method="get">
     Înlocuiește în definiții: <input type="text" name="search" size="25"/>
     cu <input type="text" name="replace" size="25"/>
-    în sursa: {include file="sourceDropDown.ihtml"}
+    în sursa: {include file="sourceDropDown.tpl"}
     <input type="submit" name="previewButton" value="Previzualizează" onclick="return hideSubmitButton(this)"/>
   </form>
   <div class="flexExplanation">

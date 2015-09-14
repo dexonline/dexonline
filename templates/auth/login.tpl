@@ -3,7 +3,7 @@
 
 {if $allowFakeUsers}
   <p class="paragraphTitle">Utilizator de test</p>
-  {include file="bits/fakeUser.ihtml"}
+  {include file="bits/fakeUser.tpl"}
 {/if}
 
 <p class="paragraphTitle">Autentificare cu OpenID</p>

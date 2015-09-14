@@ -178,7 +178,7 @@
     <h3>Participii regenerate conform modelului A{$newParticipleNumber}:</h3>
 
     {foreach from=$participles item=p key=i}
-      {include file="paradigm/paradigm.ihtml" lexemModel=$p}
+      {include file="paradigm/paradigm.tpl" lexemModel=$p}
     {/foreach}
   {/if}
 

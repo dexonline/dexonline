@@ -10,5 +10,5 @@ SmartyWrap::assign('downloadYear', date("Y",strtotime("+1 month")));
 SmartyWrap::assign('downloadMonth', date("m",strtotime("+1 month")));
 SmartyWrap::addCss('jqgrid', 'jqueryui', 'select2');
 SmartyWrap::addJs('jquery', 'jqgrid', 'jqueryui', 'wotd', 'select2');
-SmartyWrap::displayAdminPage('admin/wotd.ihtml');
+SmartyWrap::displayAdminPage('admin/wotd.tpl');
 ?>

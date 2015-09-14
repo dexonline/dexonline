@@ -318,11 +318,11 @@ if (count($images)) {
 
 if (!$xml) {
   SmartyWrap::addCss('paradigm');
-  SmartyWrap::display('search.ihtml');
+  SmartyWrap::display('search.tpl');
 
 } else {
   header('Content-type: text/xml');
-  SmartyWrap::displayWithoutSkin('searchXML.ihtml');
+  SmartyWrap::displayWithoutSkin('searchXML.tpl');
 }
 
 if (Config::get('global.logSearch')) {

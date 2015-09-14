@@ -104,6 +104,6 @@ SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('sectionTitle', 'Căutare lexeme');
 SmartyWrap::assign('sectionCount', count($lexems));
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::displayAdminPage('admin/lexemList.ihtml');
+SmartyWrap::displayAdminPage('admin/lexemList.tpl');
 
 ?>

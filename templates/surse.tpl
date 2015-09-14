@@ -46,7 +46,7 @@
               </span>
             </span>
           </td>
-          <td data-text="{$s->percentComplete}">{include file="bits/sourcePercentComplete.ihtml" s=$s}</td>
+          <td data-text="{$s->percentComplete}">{include file="bits/sourcePercentComplete.tpl" s=$s}</td>
           {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
             <td><a href="editare-sursa?id={$s->id}">editează</a></td>
           {/if}

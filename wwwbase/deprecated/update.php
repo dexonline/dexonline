@@ -6,7 +6,7 @@ set_time_limit(0);
 
 // If no GET arguments are set, print usage and return.
 if (count($_GET) == 0) {
-  SmartyWrap::displayWithoutSkin('updateInstructions.ihtml');
+  SmartyWrap::displayWithoutSkin('updateInstructions.tpl');
   return;
 }
 
@@ -22,7 +22,7 @@ $timestamp = util_getRequestIntParameter('timestamp');
 $version = util_getRequestParameterWithDefault('version', '1.0');
 
 if ($timestamp !== null && util_isDesktopBrowser() && !session_getUser()) {
-  SmartyWrap::display('updateError.ihtml');
+  SmartyWrap::display('updateError.tpl');
   exit();
 }
 
@@ -50,7 +50,7 @@ foreach ($defDbResult as $row) {
   fetchNextRow($row);
   SmartyWrap::assign('version', $version);
   SmartyWrap::assign('includeNameWithDiacritics', hasFlag('a'));
-  SmartyWrap::displayWithoutSkin('update.ihtml');
+  SmartyWrap::displayWithoutSkin('update.tpl');
 }
 
 print "</Dictionary>\n";

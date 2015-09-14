@@ -8,5 +8,5 @@ if (!$user) {
 
 SmartyWrap::assign('page_title', 'Cuvinte favorite');
 SmartyWrap::assign('bookmarks', UserWordBookmarkDisplayObject::getByUser($user->id));
-SmartyWrap::display('cuvinte-favorite.ihtml');
+SmartyWrap::display('cuvinte-favorite.tpl');
 ?>

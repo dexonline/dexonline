@@ -30,7 +30,7 @@ if ($provider == 'diverta') {
 }
 
 SmartyWrap::assign('clickurl', str_replace('__', '&', $clickurl));
-$output = SmartyWrap::fetch("ads/{$provider}.ihtml");
+$output = SmartyWrap::fetch("ads/{$provider}.tpl");
 $output = addslashes(str_replace("\n", ' ', $output));
 print "document.write(\"{$output}\");";
 

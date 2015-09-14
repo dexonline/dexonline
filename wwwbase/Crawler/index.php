@@ -25,8 +25,8 @@ SmartyWrap::assign('page_title', 'Romanian Crawler Log');
 SmartyWrap::assign('values', $values);
 SmartyWrap::assign('options', $options);
 
-//SmartyWrap::smartyDisplay('crawler/crawler.ihtml');
+//SmartyWrap::display('crawler/crawler.tpl');
 SmartyWrap::assign('jqueryLibPath', '../js/jquery-1.8.3.min.js');
-SmartyWrap::displayWithoutSkin('crawler/crawler.ihtml');
+SmartyWrap::displayWithoutSkin('crawler/crawler.tpl');
 
 ?>

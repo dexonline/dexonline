@@ -13,5 +13,5 @@ switch($p) {
   default: exit;
 }
 
-SmartyWrap::display("$p.ihtml");
+SmartyWrap::display("$p.tpl");
 ?>

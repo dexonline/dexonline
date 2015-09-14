@@ -15,4 +15,4 @@ if ($wa) {
 SmartyWrap::assign('wikiTitles', WikiArticle::loadAllTitles());
 SmartyWrap::addCss('tablesorter');
 SmartyWrap::addJs('tablesorter');
-SmartyWrap::display('wikiArticle.ihtml');
+SmartyWrap::display('wikiArticle.tpl');

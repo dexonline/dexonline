@@ -22,5 +22,5 @@ SmartyWrap::assign('sectionTitle', 'Definiții nemoderate');
 SmartyWrap::assign('sectionCount', count($searchResults));
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::displayAdminPage('admin/definitionList.ihtml');
+SmartyWrap::displayAdminPage('admin/definitionList.tpl');
 ?>

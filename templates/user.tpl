@@ -1,5 +1,5 @@
 <div class="userProfileHeader">
-  {include file="bits/avatar.ihtml" user=$user}
+  {include file="bits/avatar.tpl" user=$user}
   <h3>
     Utilizator: {$user->nick|escape}
     {if $sUser && $user->id == $sUser->id}

@@ -52,6 +52,6 @@ SmartyWrap::assign('sectionTitle', 'Înlocuire în masă');
 SmartyWrap::assign('sectionCount', count($searchResults));
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::displayAdminPage('admin/bulkReplace.ihtml');
+SmartyWrap::displayAdminPage('admin/bulkReplace.tpl');
 
 ?>

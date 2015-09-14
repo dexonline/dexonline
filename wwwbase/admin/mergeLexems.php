@@ -108,7 +108,7 @@ SmartyWrap::assign('sectionTitle', 'Unificare lexeme');
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::assign('lexems', $lexems);
-SmartyWrap::displayAdminPage('admin/mergeLexems.ihtml');
+SmartyWrap::displayAdminPage('admin/mergeLexems.tpl');
 
 
 /***************************************************/

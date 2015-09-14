@@ -7,5 +7,5 @@ RecentLink::createOrUpdate('Word of the Day - Imagini');
 SmartyWrap::assign('sectionTitle', 'Imagini pentru cuvântul zilei');
 SmartyWrap::addCss('elfinder', 'jqueryui');
 SmartyWrap::addJs('jquery', 'jqueryui', 'elfinder');
-SmartyWrap::displayAdminPage('admin/wotdImages.ihtml');
+SmartyWrap::displayAdminPage('admin/wotdImages.tpl');
 ?>

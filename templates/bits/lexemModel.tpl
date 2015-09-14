@@ -11,5 +11,5 @@
   <br>
   <span class="lexemTags">{$lexemModel->tags|escape}</span>
 {/if}
-{include file="bits/locInfo.ihtml" isLoc=$lexemModel->isLoc}
-{include file="bits/lexemSources.ihtml" lexemModel=$lexemModel}
+{include file="bits/locInfo.tpl" isLoc=$lexemModel->isLoc}
+{include file="bits/lexemSources.tpl" lexemModel=$lexemModel}

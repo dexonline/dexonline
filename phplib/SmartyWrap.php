@@ -34,10 +34,10 @@ class SmartyWrap {
                                  Config::getSection("skin-{$skin}"));
     self::assign('skinVariables', $skinVariables);
     self::registerOutputFilters();
-    return self::fetch("pageLayout.ihtml");
+    return self::fetch("pageLayout.tpl");
   }
 
-  /* Common case: render the $templateName inside pageLayout.ihtml and with the user-preferred skin */
+  /* Common case: render the $templateName inside pageLayout.tpl and with the user-preferred skin */
   static function display($templateName) {
     print self::fetchCommonPageWithSkin($templateName);
   }
@@ -62,7 +62,7 @@ class SmartyWrap {
     self::assign('templateName', $templateName);
   	self::addCss('flex');
     self::addJs('dex', 'flex', 'jquery');
-    print self::fetch('admin/pageLayout.ihtml');
+    print self::fetch('admin/pageLayout.tpl');
   }
 
   static function fetch($templateName) {
@@ -94,7 +94,7 @@ class SmartyWrap {
     SmartyWrap::assign('debug_messages', $data['messages']);
     SmartyWrap::assign('debug_runningTimeMillis', $data['runningTimeMillis']);
     SmartyWrap::assign('debug_ormQueryLog', $data['ormQueryLog']);
-    return SmartyWrap::fetch('bits/debugInfo.ihtml');
+    return SmartyWrap::fetch('bits/debugInfo.tpl');
   }
 
   static function addCss(/* Variable-length argument list */) {

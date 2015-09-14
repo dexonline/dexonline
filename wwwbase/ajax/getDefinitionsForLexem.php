@@ -16,6 +16,6 @@ foreach ($defs as $def) {
 }
 
 SmartyWrap::assign('results', $results);
-SmartyWrap::displayWithoutSkin('ajax/getDefinitionsForLexem.ihtml');
+SmartyWrap::displayWithoutSkin('ajax/getDefinitionsForLexem.tpl');
 
 ?>

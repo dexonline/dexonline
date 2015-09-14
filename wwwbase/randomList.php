@@ -63,11 +63,11 @@ $cnt = count($forms);
 
 if ($noSkin) {
     SmartyWrap::assign('forms', $forms);
-    SmartyWrap::displayWithoutSkin('randomWordListSimple.ihtml');
+    SmartyWrap::displayWithoutSkin('randomWordListSimple.tpl');
 }
 else {
     SmartyWrap::assign('forms', $forms);
     SmartyWrap::assign('page_title', "O listă de {$cnt} de cuvinte{$wotd} alese la întâmplare.");
-    SmartyWrap::display('randomWordList.ihtml');
+    SmartyWrap::display('randomWordList.tpl');
 }
 ?>

@@ -11,6 +11,6 @@ SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('sectionTitle', 'Lexeme neasociate');
 SmartyWrap::assign('sectionCount', count($lexems));
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::displayAdminPage('admin/lexemList.ihtml');
+SmartyWrap::displayAdminPage('admin/lexemList.tpl');
 
 ?>

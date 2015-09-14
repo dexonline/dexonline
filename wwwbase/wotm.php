@@ -21,7 +21,7 @@ $def = Definition::get_by_id($wotm->definitionId);
 if ($type == 'url') {
   SmartyWrap::assign('today', $today);
   SmartyWrap::assign('title', $def->lexicon);
-  SmartyWrap::displayWithoutSkin('bits/wotmurl.ihtml');
+  SmartyWrap::displayWithoutSkin('bits/wotmurl.tpl');
   exit;
 }
 
@@ -51,6 +51,6 @@ SmartyWrap::assign('page_keywords', "Cuvântul lunii, {$def->lexicon}, dexonline
 SmartyWrap::assign('page_description', "$pageTitle de la dexonline");
 SmartyWrap::assign('searchResult', array_pop($searchResults));
 
-SmartyWrap::display('wotm.ihtml');
+SmartyWrap::display('wotm.tpl');
 
 ?>

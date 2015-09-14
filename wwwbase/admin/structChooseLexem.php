@@ -32,6 +32,6 @@ SmartyWrap::assign('sectionTitle', 'Lexeme ușor de structurat');
 SmartyWrap::assign('sectionCount', count($lexems));
 //SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::displayAdminPage('admin/structChooseLexem.ihtml');
+SmartyWrap::displayAdminPage('admin/structChooseLexem.tpl');
 
 ?>

@@ -5,11 +5,11 @@
 
 <section id="searchHomePage">
   <b>Decât tasta-ți un cuvânt și <i>dexonline</i> vil caută!!</b>
-  {include file="bits/searchForm.ihtml" advancedSearch=0}
+  {include file="bits/searchForm.tpl" advancedSearch=0}
 </section>
 
 {if !$suggestNoBanner}
-  {include file="bits/banner.ihtml" id="mainPage" width="728" height="90"}
+  {include file="bits/banner.tpl" id="mainPage" width="728" height="90"}
 {/if}
 
 {if $numEnabledWidgets}

@@ -73,7 +73,7 @@ SmartyWrap::assign('modelCounts', $modelCounts);
 SmartyWrap::assign('lexemCounts', $lexemCounts);
 SmartyWrap::assign('canDelete', $canDelete);
 SmartyWrap::assign('showAddForm', $showAddForm);
-SmartyWrap::display('tipuri-modele.ihtml');
+SmartyWrap::display('tipuri-modele.tpl');
 
 /***************************************************************************/
 

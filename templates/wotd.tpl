@@ -49,7 +49,7 @@
   </script>
 {/if}
 
-{include file="bits/definition.ihtml" row=$searchResult}
+{include file="bits/definition.tpl" row=$searchResult}
 
 {if $reason}
   <div class="wotdReason">

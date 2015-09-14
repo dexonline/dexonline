@@ -47,6 +47,6 @@ SmartyWrap::addCss('jcrop');
 SmartyWrap::addJs('jcrop');
 SmartyWrap::assign('page_title', "Editarea pozei de profil");
 SmartyWrap::assign('rawFileName', "{$user->id}_raw.{$ext}");
-SmartyWrap::display('editare-avatar.ihtml');
+SmartyWrap::display('editare-avatar.tpl');
 
 ?>

@@ -18,5 +18,5 @@ foreach($wotds as $wotd) {
 SmartyWrap::assign('sectionTitle', "Descărcarea cuvintelor zilei - {$month}/{$year}");
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('wotdSet', $wotdSet);
-SmartyWrap::displayAdminPage('admin/wotdExport.ihtml');
+SmartyWrap::displayAdminPage('admin/wotdExport.tpl');
 ?>

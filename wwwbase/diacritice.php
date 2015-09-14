@@ -344,7 +344,7 @@ if (strstr( $_SERVER['SCRIPT_NAME'], 'diacritice.php')) {
 	}
 
 
-	SmartyWrap::displayPageWithSkin('../diacritics_fix/diacritics_fix.ihtml');
+	SmartyWrap::displayPageWithSkin('../diacritics_fix/diacritics_fix.tpl');
 }
 
 ?>

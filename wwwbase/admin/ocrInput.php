@@ -73,6 +73,6 @@ SmartyWrap::assign("msgClass", $class);
 SmartyWrap::assign("message", $message);
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign("allOCRModerators", Model::factory('User')->where_raw('moderator & 4')->order_by_asc('id')->find_many());
-SmartyWrap::displayAdminPage('admin/ocrInput.ihtml');
+SmartyWrap::displayAdminPage('admin/ocrInput.tpl');
 
 ?>

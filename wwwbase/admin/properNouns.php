@@ -132,6 +132,6 @@ SmartyWrap::assign('sectionTitle', 'Marcare substantive proprii');
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('prefix', $prefix);
-SmartyWrap::displayAdminPage('admin/properNouns.ihtml');
+SmartyWrap::displayAdminPage('admin/properNouns.tpl');
 
 ?>

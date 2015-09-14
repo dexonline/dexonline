@@ -41,6 +41,6 @@ SmartyWrap::assign('articol', $wotm->article);
 SmartyWrap::assign('titleM', $def->lexicon);
 SmartyWrap::assign('todayM', date('Y/m'));
 
-$page = Config::get('global.aprilFoolsDay') ? 'index-afd.ihtml' : 'index.ihtml';
+$page = Config::get('global.aprilFoolsDay') ? 'index-afd.tpl' : 'index.tpl';
 SmartyWrap::displayPageWithSkin($page);
 ?>

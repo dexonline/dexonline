@@ -19,6 +19,6 @@ SmartyWrap::assign('sectionTitle', 'Lexeme fără accent');
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('sectionCount', count($lexems));
-SmartyWrap::displayAdminPage('admin/lexemList.ihtml');
+SmartyWrap::displayAdminPage('admin/lexemList.tpl');
 
 ?>

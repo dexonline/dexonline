@@ -56,5 +56,5 @@ if (util_isModerator(PRIV_ADMIN)) {
 }
 SmartyWrap::assign('user', $user);
 SmartyWrap::assign('userData', $userData);
-SmartyWrap::display('user.ihtml');
+SmartyWrap::display('user.tpl');
 ?>

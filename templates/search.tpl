@@ -32,7 +32,7 @@
   
       {if count($lexems) == 1}
         {* If there is exactly one lexem, do not link to the lexem page, because it would print an almost exact duplicate of this page. *}
-        „{include file="bits/lexemName.ihtml" lexem=$lexems.0}”
+        „{include file="bits/lexemName.tpl" lexem=$lexems.0}”
       {else}
         {foreach from=$lexems item=lexem key=row_id}
           <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{$lexem->formNoAccent}</a
@@ -70,7 +70,7 @@
           {else}
             {$results|@count} definiții pentru
           {/if}
-          „{include file="bits/lexemName.ihtml" lexem=$lexems.0}”
+          „{include file="bits/lexemName.tpl" lexem=$lexems.0}”
         {/if}
       {/if}
 
@@ -120,12 +120,12 @@
 <div id="resultsWrapper" class="txt">
   {if $searchType != $smarty.const.SEARCH_REGEXP}
     <div id="paradigmDiv" {if !$showParadigm}style="display: none"{/if}>
-      {if $showParadigm}{include file="bits/multiParadigm.ihtml"}{/if}
+      {if $showParadigm}{include file="bits/multiParadigm.tpl"}{/if}
     </div>
   {/if}
 
   {if !empty($images)}
-    {include file="bits/gallery.ihtml" images=$images}
+    {include file="bits/gallery.tpl" images=$images}
   {/if}
 
   {if $stopWords}
@@ -173,7 +173,7 @@
         {assign var=notDisplayedUnofficial value=false}
       {/if}
     {/if}
-    {include file="bits/definition.ihtml" row=$row}
+    {include file="bits/definition.tpl" row=$row}
   {/foreach}
 
   {if $sUser}
@@ -202,7 +202,7 @@
   {if $searchType == $smarty.const.SEARCH_APPROXIMATE || $searchType == $smarty.const.SEARCH_REGEXP}
     {foreach from=$lexems item=lexem key=row_id}
       {if $row_id}|{/if}
-      <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{include file="bits/lexemName.ihtml" lexem=$lexem}</a>
+      <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{include file="bits/lexemName.tpl" lexem=$lexem}</a>
     {/foreach}
   {/if}
 

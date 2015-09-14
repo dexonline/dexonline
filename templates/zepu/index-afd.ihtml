@@ -4,7 +4,7 @@
 </section>
 
 <section id="searchHomePage">
-  <b>Decât tasta-ți un cuvânt și Dexonline vil caută!!</b>
+  <b>Decât tasta-ți un cuvânt și <i>dexonline</i> vil caută!!</b>
   {include file="bits/searchForm.ihtml" advancedSearch=0}
 </section>
 
@@ -29,7 +29,7 @@
 {/if}
 
 <section id="missionStatement">
-  DEX online transpune pe Internet dicționare de prestigiu ale limbi române. Proiectul este întreținut de un colectiv de voluntari.
+  <i>dexonline<i> transpune pe Internet dicționare de prestigiu ale limbi române. Proiectul este întreținut de un colectiv de voluntari.
   O parte din definiți poate fii descărcate liber și gratuit sub Licența Publică Generală GNU.<br>
   Starea curentă: {$words_total} de definiți, din care {$words_last_month} învățate în ultima lună.
 </section>

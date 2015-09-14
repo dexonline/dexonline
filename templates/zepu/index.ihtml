@@ -28,7 +28,7 @@
 {/if}
 
 <section id="missionStatement">
-  DEX online transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
+  <i>dexonline</i> transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
   O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.<br>
   Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.
 </section>

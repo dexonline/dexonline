@@ -769,7 +769,7 @@ footer li:last-child:after {
 }
 
 #homeLink:before {
-  content: "DEX online";
+  content: "dexonline";
   color: #000;
   display: inline-block;
   font-family: serif;

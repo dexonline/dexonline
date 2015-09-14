@@ -1,6 +1,6 @@
 <p class="paragraphTitle">Clienți off-line</p>
 
-Aceste aplicații transferă definițiile din <i>DEX online</i> pe
+Aceste aplicații transferă definițiile din <i>dexonline</i> pe
 calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
 în absența unei conexiuni la internet.
 
@@ -99,18 +99,18 @@ calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
     </ul>
   </li>
 
-  <li><a href="#" onclick="return addProvider('https://dexonline.ro/download/dex.xml')">Adăugați DEX online la motoarele de căutare</a> ale browserului
+  <li><a href="#" onclick="return addProvider('https://dexonline.ro/download/dex.xml')">Adăugați <i>dexonline</i> la motoarele de căutare</a> ale browserului
   dumneavoastră. Mulțumiri lui Alexandru Lixandru.</li>
 
   <li>Un <a href="http://www.ieaddons.com/ro/addons/detail.aspx?id=12819">accelerator pentru Internet Explorer</a>. El vă permite să selectați un
-  cuvânt din pagină și să-l căutați rapid în <i>DEX online</i>.</li>
+  cuvânt din pagină și să-l căutați rapid în <i>dexonline</i>.</li>
 
   <li>Ați întâlnit cuvinte pe care nu le cunoașteți în pagini
   românești? Acest modul Firefox vă permite să le căutați cu ușurință
-  în DEX online. Salvați <a href="download/dex-context-search.xml">acest
+  în <i>dexonline</i>. Salvați <a href="download/dex-context-search.xml">acest
   fișier</a> în directorul <tt>searchplugins/</tt> al aplicației
   Firefox și reporniți Firefox. Acum, dacă selectați orice cuvânt și
-  dați clic-dreapta, veți avea opțiunea să-l căutați în DEX online.
+  dați clic-dreapta, veți avea opțiunea să-l căutați în <i>dexonline</i>.
   Mulțumiri lui Radu George Mureșan.</li>
 
   <li>O <a href="https://chrome.google.com/extensions/detail/adpeehopdngemnfahceoeppdadkiagka">extensie Google Chrome</a>, autor OviTeodor.</li>

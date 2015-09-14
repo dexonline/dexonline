@@ -29,7 +29,7 @@
 
 <br/>
 <b>Precizare:</b>
-DEX online are un sistem care detectează automat abrevierile. Efectele sunt bune pe termen lung: este bine ca bucățile din text care sunt abrevieri, nu cuvinte propriu-zise, să fie delimitate ca atare.
+<i>dexonline</i> are un sistem care detectează automat abrevierile. Efectele sunt bune pe termen lung: este bine ca bucățile din text care sunt abrevieri, nu cuvinte propriu-zise, să fie delimitate ca atare.
 Problema cu acest sistem este că unele bucăți din text sunt ambigue; „lat.” poate însemna „limba latină”, dar poate fi și cuvântul „lat” la sfârșitul unei propoziții. În aceeași situație se află „gen.” (genitiv),
 „dat.” (dativ) și altele. Aceste cazuri au nevoie de decizia unui operator uman. Vi se prezintă o definiție la întâmplare, dintre cele cu ambiguități. Pentru fiecare ambiguitate, indicați dacă este o
 abreviere (<img src="{$imgRoot}/icons/zoom_out.png" alt="abreviere" title="abreviere"/>)

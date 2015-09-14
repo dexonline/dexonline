@@ -16,7 +16,7 @@
 {if $skinVariables.wotdSubscribe}
   <div id="toggleContents" class="commonShadow">
     <ul>
-      <li><b>Email:</b> <i>DEX online</i> nu oferă cuvântul zilei direct prin email. Există însă <a
+      <li><b>Email:</b> <i>dexonline</i> nu oferă cuvântul zilei direct prin email. Există însă <a
       href="http://www.google.com/search?q=rss+by+email">numeroase site-uri</a> care fac acest lucru pentru orice RSS. Vă recomandăm <a
       href="http://www.feedmyinbox.com/">feed my inbox</a>:
 
@@ -32,8 +32,8 @@
       <li><b>RSS:</b> Dacă folosiți un cititor de bloguri, puteți adăuga <a href="https://dexonline.ro/rss/cuvantul-zilei">feed-ul pentru cuvântul
       zilei</a> la lista urmărită.</li>
 
-      <li><b>Facebook:</b> Cuvântul zilei este publicat automat și pe Facebook. Puteți aprecia <a href="https://www.facebook.com/dexonline">pagina DEX
-      online</a> pentru a primi cuvântul zilei cu fluxul dumneavoastră de știri.</li>
+      <li><b>Facebook:</b> Cuvântul zilei este publicat automat și pe Facebook. Puteți aprecia <a href="https://www.facebook.com/dexonline">pagina
+      dexonline</a> pentru a primi cuvântul zilei cu fluxul dumneavoastră de știri.</li>
 
     </ul>
   </div>

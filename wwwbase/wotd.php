@@ -108,7 +108,7 @@ SmartyWrap::assign('timestamp', $timestamp);
 SmartyWrap::assign('not_generic_img', true);
 SmartyWrap::assign('mysqlDate', $mysqlDate);
 SmartyWrap::assign('page_title', $pageTitle);
-SmartyWrap::assign('page_keywords', "Cuvântul zilei, {$def->lexicon}, dexonline, DEX online, $pageTitle");
+SmartyWrap::assign('page_keywords', "Cuvântul zilei, {$def->lexicon}, dexonline, $pageTitle");
 SmartyWrap::assign('page_description', $pageDesc);
 SmartyWrap::assign('searchResult', array_pop($searchResults));
 

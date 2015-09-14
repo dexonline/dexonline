@@ -207,7 +207,7 @@ function addProvider(url) {
     window.external.AddSearchProvider(url);
   } catch (e) {
     alert('Aveți nevoie de Firefox 2.0 sau Internet Explorer 7 ' +
-          'pentru a adăuga DEX online la lista motoarelor de căutare.');
+          'pentru a adăuga dexonline la lista motoarelor de căutare.');
   }
 }
 

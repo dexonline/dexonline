@@ -4,7 +4,7 @@ Toți utilizatorii necesită un nume de cont; puteți alege una din opțiunile d
 
 <form id="claimIdForm" method="post" action="{$wwwRoot}auth/revendicare">
   <input type="radio" name="loginType" value="0" id="claimAccount" {if $loginType == 0}checked="checked"{/if}/>
-  <label for="claimAccount">Un cont existent pe DEX online</label>
+  <label for="claimAccount">Un cont existent pe <i>dexonline</i></label>
   <div class="radioButtonIndent">
     Numele de cont sau adresa de email:
     <input type="text" name="nickOrEmail" value="{$data.email|default:''}" size="20"
@@ -14,7 +14,7 @@ Toți utilizatorii necesită un nume de cont; puteți alege una din opțiunile d
       onclick="document.getElementById('claimAccount').checked = true"/>
     <br/>
 
-    Dacă aveți un cont pe DEX online, dar v-ați uitat parola,
+    Dacă aveți un cont pe <i>dexonline,</i> dar v-ați uitat parola,
     <a href="{$wwwRoot}auth/parola-uitata?identity={$randString}{if isset($data.email)}&amp;email={$data.email|escape:'url'}{/if}">click aici</a>.
   </div>
 

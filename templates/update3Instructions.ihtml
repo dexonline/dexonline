@@ -3,11 +3,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     {include file="bits/cssJs.ihtml"}
-    <title>DEX online - Sincronizare client</title>
+    <title>dexonline - Sincronizare client</title>
   </head>
 
   <body>
-    <p>Acest script exportă baza de date a <i>DEX online</i> sau
+    <p>Acest script exportă baza de date a <i>dexonline</i> sau
     porțiuni ale ei. Dacă doriți să scrieți un client care să
     transfere baza de date și să o folosească off-line, comunicați cu
     acest script pentru a sincroniza periodic baza de date.</p>
@@ -20,7 +20,7 @@
     <ul>
 
       <li>Copierea, folosirea și redistribuirea definițiilor
-      din <i>DEX online</i> sunt permise
+      din <i>dexonline</i> sunt permise
       sub <a href="{$wwwRoot}licenta">Licența Publică Generală
       GNU</a>.</li>
 
@@ -77,7 +77,7 @@
 
     <h3>Surse</h3>
 
-    DEX online își preia definițiile din diferite "surse", care de
+    <i>dexonline</i> își preia definițiile din diferite "surse", care de
     obicei se referă la un dicționar tipărit, identificat prin titlu,
     autor, editură și an de apariție. Lista de surse este întotdeauna
     exportată complet. Ea se modifică rar și vă recomandăm să o
@@ -196,15 +196,14 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
       transmis un identificator pe care clientul dumneavoastră nu îl
       are în baza de date. Acest lucru se întâmplă când o definiție
       este ștearsă pe site fără să fi trecut vreodată prin starea
-      "activă" (inițial toate definițiile trimise pentru <i>DEX
-      online</i> intră în starea "temporară" până când sunt
-      moderate). În această situație, ignorați pur și simplu
-      înregistrarea.</li>
+      "activă" (inițial toate definițiile trimise pentru <i>dexonline</i>
+      intră în starea "temporară" până când sunt moderate). În această
+      situație, ignorați pur și simplu înregistrarea.</li>
 
       <li>Când setul de lexeme asociate cu o definiție se schimbă,
       întreaga definiție este resincronizată.</li>
 
-      <li><img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/> DEX online indică abrevierile între două semne „#”. De exemplu, #expr.# înseamnă „expresie”.
+      <li><img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/> <i>dexonline</i> indică abrevierile între două semne „#”. De exemplu, #expr.# înseamnă „expresie”.
       Din motive istorice, versiunea 3.0 nu exportă aceste caractere. Versiunile începând cu 3.1 le exportă. Vedeți și secțiunea specială despre abrevieri.
     </ul>
 
@@ -213,8 +212,8 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
     <h3>Flexiuni</h3>
 
     Această categorie exportă tipurile distincte de flexiuni folosite de
-    <i>DEX online,</i> care reprezintă un subset al flexiunilor limbii
-    române (de exemplu, momentan <i>DEX online</i> nu folosește
+    <i>dexonline,</i> care reprezintă un subset al flexiunilor limbii
+    române (de exemplu, momentan <i>dexonline</i> nu folosește
     vocativul substantivelor). Și această categorie este exportată
     complet, întrucât se modifică foarte rar (vă recomandăm să o
     transferați numai atunci când, la sincronizarea lexemelor,
@@ -362,7 +361,7 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
       timestamp-ului modificării.</li>
 
       <li>Scriptul nu trimite informații despre ștergerea unui
-      lexem. Când un lexem este șters în <i>DEX online</i>, el este în
+      lexem. Când un lexem este șters în <i>dexonline</i>, el este în
       mod automat disociat de toate definițiile cu care era
       asociat. Clientul dumneavoastră va primi noile definiții (când
       sincronizează secțiunea de definiții) și va face și el
@@ -374,7 +373,7 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
       întreg lexemul va fi resincronizat.</li>
 
       <li>Lexemul are întoteauna cel puțin o formă flexionară. Echipa
-      <i>DEX online</i> nu a terminat încă de etichetat toate lexemele
+      <i>dexonline</i> nu a terminat încă de etichetat toate lexemele
       și deci paradigmele unor lexeme sunt încă necunoscute. Chiar și
       acele lexeme au o singură formă flexionară, corespunzătoare unei
       flexiuni "temporare".</li>
@@ -390,7 +389,7 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
 
     <h3>Abrevieri</h3>
 
-    Această categorie exportă abrevierile folosite de DEX online, așa cum au fost ele moștenite din dicționarele originale. Această categorie este exportată complet.
+    Această categorie exportă abrevierile folosite de <i>dexonline,</i> așa cum au fost ele moștenite din dicționarele originale. Această categorie este exportată complet.
     Vă recomandăm să o transferați numai atunci când, la sincronizarea definițiilor, întâlniți o abreviere necunoscută. Nu toate dicționarele au fost prelucrate pentru
     expandarea abrevierilor, dar le vom procesa pe toate, în timp.<br/><br/>
 

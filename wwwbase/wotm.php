@@ -47,7 +47,7 @@ SmartyWrap::assign('timestamp', $timestamp);
 SmartyWrap::assign('not_generic_img', true);
 SmartyWrap::assign('mysqlDate', $mysqlDate); //???
 SmartyWrap::assign('page_title', $pageTitle);
-SmartyWrap::assign('page_keywords', "Cuvântul lunii, {$def->lexicon}, dexonline, DEX online, $pageTitle");
+SmartyWrap::assign('page_keywords', "Cuvântul lunii, {$def->lexicon}, dexonline, $pageTitle");
 SmartyWrap::assign('page_description', "$pageTitle de la dexonline");
 SmartyWrap::assign('searchResult', array_pop($searchResults));
 

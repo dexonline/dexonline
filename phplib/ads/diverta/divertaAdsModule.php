@@ -12,7 +12,7 @@ class DivertaAdsModule extends AdsModule {
                     "and title not like '%erotic%' " . 
                     "and title not like '%bordel%' " . 
                     "and title not like '%glamour%' " . 
-                    "order by clicks/impressions desc limit $random, 1", null)
+                    "order by clicks/impressions desc limit $random, 1")
         ->find_one();
       return array('bookId' => $book->id);
     }

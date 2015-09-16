@@ -19,7 +19,7 @@ if ($type == 'rss') {
   SmartyWrap::assign('rss_description', 'Articole pe teme lingvistice de la dexonline');
   SmartyWrap::assign('rss_pubDate', date('D, d M Y H:i:s') . ' EEST');
   SmartyWrap::assign('results', $results);
-  SmartyWrap::displayWithoutSkin('rss.ixml');
+  SmartyWrap::displayWithoutSkin('xml/rss.tpl');
   exit;
 }
 

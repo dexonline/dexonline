@@ -50,7 +50,7 @@ foreach ($defDbResult as $row) {
   fetchNextRow($row);
   SmartyWrap::assign('version', $version);
   SmartyWrap::assign('includeNameWithDiacritics', hasFlag('a'));
-  SmartyWrap::displayWithoutSkin('update.tpl');
+  SmartyWrap::displayWithoutSkin('xml/update.tpl');
 }
 
 print "</Dictionary>\n";

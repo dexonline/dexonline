@@ -322,7 +322,7 @@ if (!$xml) {
 
 } else {
   header('Content-type: text/xml');
-  SmartyWrap::displayWithoutSkin('searchXML.tpl');
+  SmartyWrap::displayWithoutSkin('xml/search.tpl');
 }
 
 if (Config::get('global.logSearch')) {

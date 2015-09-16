@@ -47,7 +47,7 @@ if ($type == 'rss' || $type == 'blog') {
   SmartyWrap::assign('rss_description', 'Doza zilnică de cuvinte de la DEXonline!');
   SmartyWrap::assign('rss_pubDate', date('D, d M Y H:i:s') . ' EEST');
   SmartyWrap::assign('results', $results);
-  SmartyWrap::displayWithoutSkin('rss.ixml');
+  SmartyWrap::displayWithoutSkin('xml/rss.tpl');
   exit;
 }
 

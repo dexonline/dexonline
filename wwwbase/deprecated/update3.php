@@ -23,13 +23,13 @@ if ($export && util_isDesktopBrowser() && !session_getUser()) {
 
 if ($export == 'sources') {
   SmartyWrap::assign('sources', Model::factory('Source')->find_many());
-  SmartyWrap::displayWithoutSkin('update3Sources.tpl');
+  SmartyWrap::displayWithoutSkin('xml/update3Sources.tpl');
 } else if ($export == 'inflections') {
   SmartyWrap::assign('inflections', Model::factory('Inflection')->order_by_asc('id')->find_many());
-  SmartyWrap::displayWithoutSkin('update3Inflections.tpl');
+  SmartyWrap::displayWithoutSkin('xml/update3Inflections.tpl');
 } else if ($export == 'abbrev') {
   SmartyWrap::assign('abbrev', AdminStringUtil::loadRawAbbreviations());
-  SmartyWrap::displayWithoutSkin('update3Abbrev.tpl');
+  SmartyWrap::displayWithoutSkin('xml/update3Abbrev.tpl');
 } else if ($export == 'definitions') {
   userCache_init();
   $statusClause = $timestamp ? '' : ' and status = 0';
@@ -57,7 +57,7 @@ if ($export == 'sources') {
     SmartyWrap::assign('def', $def);
     SmartyWrap::assign('lexemIds', $lexemIds);
     SmartyWrap::assign('user', userCache_get($def->userId));
-    SmartyWrap::displayWithoutSkin('update3Definitions.tpl');
+    SmartyWrap::displayWithoutSkin('xml/update3Definitions.tpl');
   }
 
   print "</Definitions>\n";
@@ -69,7 +69,7 @@ if ($export == 'sources') {
   foreach ($lexemDbResult as $dbRow) {
     $lexem = Model::factory('Lexem')->create($dbRow);
     SmartyWrap::assign('lexem', $lexem);
-    SmartyWrap::displayWithoutSkin('update3Lexems.tpl');
+    SmartyWrap::displayWithoutSkin('xml/update3Lexems.tpl');
   }
   print "</Lexems>\n";
 }

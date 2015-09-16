@@ -24,7 +24,7 @@
     {/block}
     {include file="admin/recentlyVisited.tpl"}
     {include file="admin/flashMessages.tpl"}
-    {include file="errorMessage.tpl"}
+    {include file="bits/errorMessage.tpl"}
     {block name=content}{/block}
     {getDebugInfo}
   </body>

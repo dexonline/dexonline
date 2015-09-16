@@ -22,7 +22,7 @@
       </div>
       
       <div class="sourceCheckboxGroup">
-        {include file="sourceCheckboxGroup.tpl"}
+        {include file="bits/sourceCheckboxGroup.tpl"}
       </div>
       
       <div>

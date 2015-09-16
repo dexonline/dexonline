@@ -34,14 +34,14 @@
     Definiții:
     <input type="text" name="name" size="10" value="*"/>
     &nbsp; &nbsp; starea:
-    {include file="statusDropDown.tpl"
+    {include file="bits/statusDropDown.tpl"
     name="status"
     statuses=$allStatuses
     selectedStatus=1}
     &nbsp; &nbsp; trimise de:
     <input type="text" name="nick" size="10" value=""/>
     &nbsp; &nbsp; sursa:
-    {include file="sourceDropDown.tpl" name="sourceId"}
+    {include file="bits/sourceDropDown.tpl" name="sourceId"}
     <br/>
     &nbsp; &nbsp; &nbsp; &nbsp; între
     {assign var="nextYear" value=$currentYear+1}
@@ -66,7 +66,7 @@
   <form action="lexemSearch.php" method="get">
     Caută lexeme:
     <input type="text" name="form" size="10" value="*">
-    sursa: {include file="sourceDropDown.tpl"}
+    sursa: {include file="bits/sourceDropDown.tpl"}
     <select name="loc">
       <option value="2">indiferent de LOC</option>
       <option value="1">incluse în LOC</option>
@@ -118,7 +118,7 @@
     <form action="bulkReplace.php" method="get">
       Înlocuiește în definiții: <input type="text" name="search" size="25"/>
       cu <input type="text" name="replace" size="25"/>
-      în sursa: {include file="sourceDropDown.tpl"}
+      în sursa: {include file="bits/sourceDropDown.tpl"}
       <input type="submit" name="previewButton" value="Previzualizează" onclick="return hideSubmitButton(this)"/>
     </form>
     <div class="flexExplanation">

@@ -104,7 +104,7 @@
         {/if}
       </header>
       <div id="contentProper">
-        {include file="flashMessages.tpl"}
+        {include file="bits/flashMessages.tpl"}
 
         {if !$onHomePage && !$suggestHiddenSearchForm && $skinVariables.searchForm}
           <section id="searchOtherPages">

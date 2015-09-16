@@ -9,7 +9,7 @@
 {block name=headerSources}
   <div class="title">
     <form name="frm" class="searchForm" action="#">
-      {include file="sourceDropDown.tpl" urlName=1 autosubmit=1}
+      {include file="bits/sourceDropDown.tpl" urlName=1 autosubmit=1}
     </form>
   </div>
 {/block}

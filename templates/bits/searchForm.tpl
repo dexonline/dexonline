@@ -18,7 +18,7 @@
   <div id="advSearch" {if !$advancedSearch}style="display: none"{/if}>
     <input type="checkbox" name="text" value="1" id="defBody" {if $text}checked="checked"{/if}/>
     <label for="defBody">Caută în tot textul definițiilor</label>
-    {include file="sourceDropDown.tpl" urlName=1}
+    {include file="bits/sourceDropDown.tpl" urlName=1}
     <a id="advSearchHelp" href="http://wiki.dexonline.ro/wiki/Ajutor_pentru_căutare" target="_blank">ajutor</a>
   </div>
 </form>

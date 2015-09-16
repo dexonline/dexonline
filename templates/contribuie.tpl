@@ -27,7 +27,7 @@
       <tr>
         <td><p class="labelContribute">Sursa:</p></td>
         <td>
-          {include file="sourceDropDown.tpl" sources=$contribSources src_selected=$sourceId skipAnySource=1}
+          {include file="bits/sourceDropDown.tpl" sources=$contribSources src_selected=$sourceId skipAnySource=1}
           <a href="surse">lista de surse acceptate</a>
           <div id="formattingLink"><a href="http://wiki.dexonline.ro/wiki/Ghidul_voluntarului" target="_blank">instrucțiuni de formatare</a></div>
         </td>

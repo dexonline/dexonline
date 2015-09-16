@@ -62,7 +62,7 @@ $cnt = count($forms);
 
 if ($noSkin) {
     SmartyWrap::assign('forms', $forms);
-    SmartyWrap::displayWithoutSkin('randomWordListSimple.tpl');
+    SmartyWrap::displayWithoutSkin('bits/randomWordListSimple.tpl');
 }
 else {
     SmartyWrap::assign('forms', $forms);

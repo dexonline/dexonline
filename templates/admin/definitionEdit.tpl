@@ -47,7 +47,7 @@
         <td>Sursa:</td>
         <td>
           {if $source->canModerate}
-            {include file="sourceDropDown.tpl" sources=$allModeratorSources src_selected=$def->sourceId skipAnySource=true}
+            {include file="bits/sourceDropDown.tpl" sources=$allModeratorSources src_selected=$def->sourceId skipAnySource=true}
           {else}
             <input type="hidden" name="source" value="{$def->sourceId}"/>
             {$source->shortName}
@@ -60,7 +60,7 @@
       <tr>
         <td>Starea:</td>
         <td>
-          {include file="statusDropDown.tpl" name="status" statuses=$allStatuses selectedStatus=$def->status}
+          {include file="bits/statusDropDown.tpl" name="status" statuses=$allStatuses selectedStatus=$def->status}
 
           <span class="tooltip2" title="Dacă treceți o definiție în starea ștearsă, ea va fi automat disociată de orice lexem. Notă: Definiția va
                                         fi imposibil de găsit la o căutare ulterioară, tocmai din cauza disocierii (căutarea se face după lexem). Definiția este încă disponibilă în

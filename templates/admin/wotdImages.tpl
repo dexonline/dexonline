@@ -11,7 +11,7 @@
   <div id="fileManager"></div>
   <br/>
 
-  <script type="text/javascript">
+  <script>
    $().ready(function() {
        $('#fileManager').elfinder({
            url: '../elfinder-connector/wotd_connector.php',

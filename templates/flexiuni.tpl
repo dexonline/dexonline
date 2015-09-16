@@ -58,7 +58,7 @@
   Pentru fiecare model în parte, veți avea posibilitatea să specificați forme lipsă (de exemplu, pentru V666) sau forme cu mai multe valori (de exemplu, mai mult ca perfectul verbelor).
   Vi se permite ștergerea doar a acelor flexiuni care nu sunt folosite în niciun model (de obicei, cele nou create).
 
-  <script type="text/javascript">
+  <script>
    $(document).ready(function() {ldelim}
            $("#inflections").tableDnD();
        {rdelim});

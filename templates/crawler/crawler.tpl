@@ -3,9 +3,9 @@
 
 		<title>Romanian crawler log</title>
 
-		<script type="text/javascript" src='http://code.jquery.com/jquery-2.0.3.js'></script>
+		<script src='http://code.jquery.com/jquery-2.0.3.js'></script>
 
-		<script type="text/javascript" src='../js/crawler_ajax.js'></script>
+		<script src='../js/crawler_ajax.js'></script>
 
 		<link rel="StyleSheet" type="text/css" href="../styles/crawler.css"/>
 

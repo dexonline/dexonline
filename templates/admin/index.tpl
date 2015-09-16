@@ -203,7 +203,7 @@
     <a href="{$wwwRoot}admin/ocrInput.php">adaugă definiții OCR</a>
   {/if}
 
-  <script type="text/javascript">
+  <script>
    $(adminIndexInit);
   </script>
 {/block}

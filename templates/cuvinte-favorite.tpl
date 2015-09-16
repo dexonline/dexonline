@@ -14,7 +14,7 @@
           <span>{$row->html}</span>
         </div>
       {/foreach}
-      <script type="text/javascript">
+      <script>
        $(function () {
            $('.bookmarkRemoveButton').click(function () {
                removeBookmark($(this));

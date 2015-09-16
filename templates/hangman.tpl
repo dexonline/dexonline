@@ -3,7 +3,7 @@
 {block name=title}Spânzurătoarea{/block}
 
 {block name=content}
-  <script type="text/javascript">
+  <script>
    var word = "{$word}";
    var difficulty = "{$difficulty}";
   </script>

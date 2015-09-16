@@ -43,7 +43,7 @@
       </ul>
     </div>
 
-    <script type="text/javascript">
+    <script>
      $(function() {ldelim}
              $('#toggleTitle').click(function() {ldelim}
                      $('#toggleContents').slideToggle(200);
@@ -85,7 +85,7 @@
 
     {* Javascript for "Add to favorites" *}
     {if $sUser}
-      <script type="text/javascript">
+      <script>
        $(function () {
          $('.bookmarkAddButton').click(function () {
            addBookmark($(this));
@@ -97,7 +97,7 @@
 
     {* Javascript for "Report a typo" *}
     <div id="typoDiv"></div>
-    <script type="text/javascript">
+    <script>
      $(".typoLink").click(showTypoForm);
     </script>
   {/if}

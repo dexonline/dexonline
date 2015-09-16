@@ -27,7 +27,7 @@
     <a href="preferinte">renunță</a>
   </form>
 
-  <script type="text/javascript">
+  <script>
    $(function() {
        var jcropOrigWidth, jcropOrigHeight;
        

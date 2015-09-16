@@ -83,6 +83,6 @@
     </tr>
   </table>
 
-  <script type="text/javascript">$(contribBodyLoad);</script>
-  <script type="text/javascript">$(contribInit);</script>
+  <script>$(contribBodyLoad);</script>
+  <script>$(contribInit);</script>
 {/block}

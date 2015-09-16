@@ -6,7 +6,7 @@
 
 {block name=content}
   {assign var=ambiguities value=$ambiguities|default:null}
-  <script type="text/javascript">$(function() {ldelim} initAbbrevCounter({$ambiguities|@count}); {rdelim});</script>
+  <script>$(function() {ldelim} initAbbrevCounter({$ambiguities|@count}); {rdelim});</script>
 
   {if $def}
     <form action="" method="post">

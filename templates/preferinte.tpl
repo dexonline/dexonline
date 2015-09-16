@@ -72,7 +72,7 @@
     {/if}
   </form>
 
-  <script type="text/javascript">
+  <script>
    $('#avatarFileName').change(function() {
        var error = '';
        var allowedTypes = ['image/gif', 'image/jpeg', 'image/png'];

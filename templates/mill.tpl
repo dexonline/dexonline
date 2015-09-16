@@ -3,7 +3,7 @@
 {block name=title}Moara cuvintelor{/block}
 
 {block name=content}
-  <script type="text/javascript">
+  <script>
    var word = "";
    var difficulty = 1;
    var answer = "";

@@ -51,7 +51,7 @@
   </tbody>
 </table>
 
-<script type="text/javascript">
+<script>
   $(document).ready(function() {
     $("#{$tableId}").tablesorter({
       sortInitialOrder: "desc"

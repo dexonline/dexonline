@@ -23,7 +23,7 @@
   </div>
 </form>
 <div class="clearer"></div>
-<script type="text/javascript">
+<script>
   {if $cfg.search.acEnable}
     searchInit(true, {$cfg.search.acMinChars});
   {else}

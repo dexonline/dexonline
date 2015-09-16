@@ -47,7 +47,7 @@
           <label class="tipText">* necesar pentru trimiterea confirmării plății</label>
         </form>
       </div>
-      <script type="text/javascript">
+      <script>
        $(function() {
          $('#donateOnlineEmail').focus();
        });
@@ -91,7 +91,7 @@
   </div>
 
 
-  <script type="text/javascript">
+  <script>
    $(function() {
      $('.donateDetailLink').click(function() {
        $(this).parent().next().slideToggle();

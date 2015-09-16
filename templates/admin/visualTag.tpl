@@ -75,7 +75,7 @@
     <div id="tagsPaging"></div>
   </div>
 
-  <script type="text/javascript">
+  <script>
    $(visualTagInit);
    $(replaceSubmitEvent);
   </script>

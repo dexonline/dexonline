@@ -58,7 +58,7 @@
     <li>Vă puteți crea o listă de definiții favorite pentru acces ușor.</li>
   </ul>
 
-  <script type="text/javascript">
+  <script>
    document.loginForm.openid.focus();
   </script>
 {/block}

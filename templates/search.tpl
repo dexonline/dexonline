@@ -182,7 +182,7 @@
     {/foreach}
 
     {if $sUser}
-      <script type="text/javascript">
+      <script>
        $(function () {
          $('.bookmarkAddButton').click(function () {
            addBookmark($(this));
@@ -211,7 +211,7 @@
 
     {if $skinVariables.typo}
       <div id="typoDiv"></div>
-      <script type="text/javascript">
+      <script>
        $(".typoLink").click(showTypoForm);
       </script>
     {/if}

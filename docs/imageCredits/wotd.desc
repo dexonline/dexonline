@@ -6,6 +6,7 @@
 ^2013-02\/(tehnicolor|colombina|kir|ugui)::rb.desc
 ^2013-07\/contrapunct::rb.desc
 ^2014-04\/fisier::rb.desc
+^2015-09\/(blues|alean|cristelnita|livrea|luctuos|tarzan|glacial)::gm.desc
 ^201[3-5]-::cn.desc
 ^2012-(09|10|11|12)::cn.desc
 ^2012-0[2-8]::va.desc

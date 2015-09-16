@@ -190,7 +190,7 @@
     <a href="{$wwwRoot}surse">surse</a> |
     <a href="{$wwwRoot}etichete-sensuri">etichete pentru sensuri</a> |
     <a href="{$wwwRoot}tipuri-modele">tipuri de modele</a> |
-    <a href="{$wwwRoot}editor-modele/flexiuni">flexiuni</a> |
+    <a href="{$wwwRoot}flexiuni">flexiuni</a> |
   {/if}
   {if $sUser->moderator & $smarty.const.PRIV_VISUAL}
     <a href="{$wwwRoot}admin/visual.php">dicționarul vizual</a> |

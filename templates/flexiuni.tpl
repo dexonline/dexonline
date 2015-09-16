@@ -59,8 +59,8 @@
   Vi se permite ștergerea doar a acelor flexiuni care nu sunt folosite în niciun model (de obicei, cele nou create).
 
   <script>
-   $(document).ready(function() {ldelim}
-           $("#inflections").tableDnD();
-       {rdelim});
+   $(document).ready(function() {
+     $("#inflections").tableDnD();
+   });
   </script>
 {/block}

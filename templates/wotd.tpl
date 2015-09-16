@@ -44,13 +44,13 @@
     </div>
 
     <script>
-     $(function() {ldelim}
-             $('#toggleTitle').click(function() {ldelim}
-                     $('#toggleContents').slideToggle(200);
-                 $('#toggleTitle').toggleClass('toggleOpen');
-                 $('#toggleTitle').toggleClass('toggleClosed');
-                 {rdelim});
-         {rdelim});
+     $(function() {
+       $('#toggleTitle').click(function() {
+         $('#toggleContents').slideToggle(200);
+         $('#toggleTitle').toggleClass('toggleOpen');
+         $('#toggleTitle').toggleClass('toggleClosed');
+       });
+     });
     </script>
   {/if}
 

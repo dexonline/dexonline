@@ -1,5 +1,4 @@
 <a id="randomWordLink" href="{$wwwRoot}definitie/"></a>
-aha
 
 <script>
  $.ajax({

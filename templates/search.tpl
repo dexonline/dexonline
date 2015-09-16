@@ -182,16 +182,14 @@
     {/foreach}
 
     {if $sUser}
-      {literal}
       <script type="text/javascript">
        $(function () {
-           $('.bookmarkAddButton').click(function () {
-               addBookmark($(this));
-               return false;
-           });
+         $('.bookmarkAddButton').click(function () {
+           addBookmark($(this));
+           return false;
+         });
        });
       </script>
-    {/literal}
     {/if}
 
     {if isset($hiddenSources) && count($hiddenSources) && !count($results)}
@@ -213,11 +211,9 @@
 
     {if $skinVariables.typo}
       <div id="typoDiv"></div>
-      {literal}
       <script type="text/javascript">
        $(".typoLink").click(showTypoForm);
       </script>
-    {/literal}
     {/if}
   </div>
 {/block}

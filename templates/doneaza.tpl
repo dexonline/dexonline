@@ -6,13 +6,13 @@
   <script>
    <!--
    function formCheck(formobj) {
-       var email = formobj.elements['email'].value;
-       if (email) {
-           return true;
-       } else {
-           alert('Vă rugăm să completați adresa de email.');
-           return false;
-       }
+     var email = formobj.elements['email'].value;
+     if (email) {
+       return true;
+     } else {
+       alert('Vă rugăm să completați adresa de email.');
+       return false;
+     }
    }
    // -->
   </script>
@@ -48,11 +48,9 @@
         </form>
       </div>
       <script type="text/javascript">
-       {literal}
        $(function() {
-           $('#donateOnlineEmail').focus();
+         $('#donateOnlineEmail').focus();
        });
-    {/literal}
       </script>
     {/if}
 
@@ -95,10 +93,10 @@
 
   <script type="text/javascript">
    $(function() {
-       $('.donateDetailLink').click(function() {
-           $(this).parent().next().slideToggle();
-           return false;
-       });
+     $('.donateDetailLink').click(function() {
+       $(this).parent().next().slideToggle();
+       return false;
+     });
    });
   </script>
 {/block}

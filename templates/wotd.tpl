@@ -85,16 +85,14 @@
 
     {* Javascript for "Add to favorites" *}
     {if $sUser}
-      {literal}
       <script type="text/javascript">
        $(function () {
-           $('.bookmarkAddButton').click(function () {
-               addBookmark($(this));
-               return false;
-           });
+         $('.bookmarkAddButton').click(function () {
+           addBookmark($(this));
+           return false;
+         });
        });
       </script>
-    {/literal}
     {/if}
 
     {* Javascript for "Report a typo" *}

@@ -7,14 +7,12 @@
     {assign var="text" value=$text|default:false}
     <script> 
      var sel_sources={$s};
-     {literal}
      $(document).ready(function(){
-         for(var i=0; i<sel_sources.length; i++) {
-             var item = document.getElementById('s_' + sel_sources[i]);
-             $(item).attr("checked", true);
-         }
+       for (var i=0; i<sel_sources.length; i++) {
+         var item = document.getElementById('s_' + sel_sources[i]);
+         $(item).attr("checked", true);
+       }
      });
-    {/literal}
     </script>
     <form action="{$wwwRoot}cuvinte.php" method="POST" name="frm" onsubmit="return searchSubmit()" id="searchFormCuv">
       

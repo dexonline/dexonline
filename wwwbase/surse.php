@@ -23,7 +23,6 @@ if (util_isModerator(PRIV_VIEW_HIDDEN)) {
 }
 
 SmartyWrap::assign('sources', $sources);
-SmartyWrap::assign('page_title', 'Surse');
 SmartyWrap::addCss('jqueryui');
 SmartyWrap::addJs('jqueryui', 'jqTableDnd', 'tablesorter');
 SmartyWrap::display('surse.tpl');

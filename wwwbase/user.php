@@ -48,7 +48,6 @@ while ($rankChars < $numUsers && $topChars[$rankChars]->userNick != $nick) {
 }
 
 $userData['rank_chars'] = $rankChars + 1;
-SmartyWrap::assign('page_title', "Utilizator: $nick");
 SmartyWrap::assign('medals', Medal::loadForUser($user));
 if (util_isModerator(PRIV_ADMIN)) {
   // Admins can grant/revoke medals

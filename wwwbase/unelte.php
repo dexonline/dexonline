@@ -148,7 +148,6 @@ $clients = array(
 $osNames = array('android' => 'Android', 'iphone' => 'iPhone', 'java' => 'Java', 'linux' => 'GNU / Linux', 'mac' => 'Mac',
                  'windows' => 'Windows', 'windowsce' => 'Windows CE', 'windowsPhone' => 'Windows Phone');
 
-SmartyWrap::assign('page_title', 'Unelte');
 SmartyWrap::assign('clients', $clients);
 SmartyWrap::assign('clientOptions', $clientOptions);
 SmartyWrap::assign('osNames', $osNames);

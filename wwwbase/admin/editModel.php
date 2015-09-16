@@ -271,7 +271,6 @@ SmartyWrap::assign('inputValues', $inputValues);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('wasPreviewed', $previewButton);
 SmartyWrap::assign('errorMessage', $errorMessage);
-SmartyWrap::assign('sectionTitle', "Editare model {$modelType}{$modelNumber}");
 SmartyWrap::addCss('paradigm', 'jqueryui');
 SmartyWrap::addJs('jquery', 'jqueryui');
 SmartyWrap::displayAdminPage('admin/editModel.tpl');

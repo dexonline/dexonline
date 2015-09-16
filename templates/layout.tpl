@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{$page_title|escape} | dexonline</title>
+    <title>{block name=title}Dicționare ale limbii române{/block} | dexonline</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta content="initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" name="viewport">
     {if $page_description}
@@ -117,7 +117,7 @@
         {/if}
 
         <section>
-          {include file=$contentTemplateName}
+          {block name=content}{/block}
         </section>
 
         {if !$onHomePage && $skinVariables.fbLarge}
@@ -148,7 +148,7 @@
               </form>
             </div>
           {/if}
-          {include file=$contentTemplateName}
+          {block name=content}{/block}
         </div>
       {/if}
 

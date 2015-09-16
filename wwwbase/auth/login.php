@@ -89,7 +89,6 @@ if ($devel) {
 }
 
 SmartyWrap::assign('openid', $openid);
-SmartyWrap::assign('page_title', 'Autentificare cu OpenID');
 SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::display('auth/login.tpl');
 

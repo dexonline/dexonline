@@ -7,7 +7,6 @@ $restrictedSources = Model::factory('Source')
   ->order_by_asc('publisher')
   ->find_many();
 
-SmartyWrap::assign('page_title', 'Licență');
 SmartyWrap::assign('restrictedSources', $restrictedSources);
 SmartyWrap::display('licenta.tpl');
 

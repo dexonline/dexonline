@@ -325,11 +325,6 @@ class DiacriticsFixer {
 
 
 if (strstr( $_SERVER['SCRIPT_NAME'], 'diacritice.php')) {
-
-
-
-	SmartyWrap::assign('page_title', 'Corector diacritice');
-
 	$obj = new DiacriticsFixer();
 
 	if (isset($_POST['text']) && $_POST['text'] != '') {
@@ -344,7 +339,7 @@ if (strstr( $_SERVER['SCRIPT_NAME'], 'diacritice.php')) {
 	}
 
 
-	SmartyWrap::displayPageWithSkin('../diacritics_fix/diacritics_fix.tpl');
+	SmartyWrap::display('diacritics_fix/diacritics_fix.tpl');
 }
 
 ?>

@@ -26,7 +26,6 @@ SmartyWrap::assign('skin', $skin);
 SmartyWrap::assign('availableSkins', Config::get('global.skins'));
 SmartyWrap::assign('privilegeNames', $PRIV_NAMES);
 SmartyWrap::assign('widgets', $widgets);
-SmartyWrap::assign('page_title', 'Preferințe');
 SmartyWrap::display('preferinte.tpl');
 
 ?>

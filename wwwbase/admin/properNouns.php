@@ -128,7 +128,6 @@ foreach ($lexems as $l) {
 }
 
 RecentLink::createOrUpdate('Marcare substantive proprii');
-SmartyWrap::assign('sectionTitle', 'Marcare substantive proprii');
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('prefix', $prefix);

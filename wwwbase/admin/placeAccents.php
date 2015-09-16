@@ -48,7 +48,6 @@ foreach($lexems as $l) {
 }
 
 RecentLink::createOrUpdate('Plasare accente');
-SmartyWrap::assign('sectionTitle', 'Plasare accente');
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('chars', $chars);
 SmartyWrap::assign('searchResults', $searchResults);

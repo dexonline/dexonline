@@ -66,7 +66,6 @@ foreach ($modelTypes as $mt) {
   $canDelete[] = ($numLexems == 0) && ($numDependants <= 1);
 }
 
-SmartyWrap::assign('page_title', 'Tipuri de modele');
 SmartyWrap::assign('canonicalModelTypes', ModelType::loadCanonical());
 SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('modelCounts', $modelCounts);

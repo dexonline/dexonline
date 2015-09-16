@@ -72,8 +72,6 @@ if ($searchButton || $prevPageButton || $nextPageButton) {
 
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('args', $args);
-SmartyWrap::assign('sectionTitle', 'Căutare definiții');
-SmartyWrap::assign('sectionCount', count($searchResults));
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::displayAdminPage('admin/definitionLookup.tpl');

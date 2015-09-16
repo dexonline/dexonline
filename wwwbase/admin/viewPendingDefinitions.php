@@ -18,9 +18,7 @@ $searchResults = SearchResult::mapDefinitionArray($defs);
 FileCache::putModeratorQueryResults($ip, $searchResults);
 
 SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('sectionTitle', 'Definiții nemoderate');
-SmartyWrap::assign('sectionCount', count($searchResults));
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::displayAdminPage('admin/definitionList.tpl');
+SmartyWrap::displayAdminPage('admin/viewPendingDefinitions.tpl');
 ?>

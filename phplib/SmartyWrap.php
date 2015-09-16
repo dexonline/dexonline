@@ -9,6 +9,7 @@ class SmartyWrap {
     self::$theSmarty = new Smarty();
     self::$theSmarty->template_dir = util_getRootPath() . 'templates';
     self::$theSmarty->compile_dir = util_getRootPath() . 'templates_c';
+    self::$theSmarty->inheritance_merge_compiled_includes = false; // This allows variable names in {include} tags
     self::assign('wwwRoot', util_getWwwRoot());
     self::assign('imgRoot', util_getImgRoot());
     self::assign('sources', Model::factory('Source')->order_by_desc('isOfficial')->order_by_asc('displayOrder')->find_many());
@@ -22,7 +23,7 @@ class SmartyWrap {
     self::$theSmarty->registerPlugin('function', 'getDebugInfo', array('SmartyWrap', 'getDebugInfo'));
   }
 
-  static function fetchSkin() {
+  static function fetchSkin($templateName) {
     $skin = session_getSkin();
     self::addCss($skin);
     self::addJs('jquery', 'dex');
@@ -34,23 +35,17 @@ class SmartyWrap {
                                  Config::getSection("skin-{$skin}"));
     self::assign('skinVariables', $skinVariables);
     self::registerOutputFilters();
-    return self::fetch("pageLayout.tpl");
+    return self::fetch($templateName);
   }
 
   /* Common case: render the $templateName inside pageLayout.tpl and with the user-preferred skin */
   static function display($templateName) {
-    print self::fetchCommonPageWithSkin($templateName);
-  }
-
-  static function fetchCommonPageWithSkin($templateName) {
-    self::assign('contentTemplateName', "$templateName");
-    return self::fetchSkin();
+    print self::fetchSkin($templateName);
   }
 
   static function displayPageWithSkin($templateName) {
     $skin = session_getSkin();
-    self::assign('contentTemplateName', "$skin/$templateName");
-    print self::fetchSkin();
+    print self::fetchSkin("{$skin}/$templateName");
   }
 
   static function displayWithoutSkin($templateName) {
@@ -62,7 +57,7 @@ class SmartyWrap {
     self::assign('templateName', $templateName);
   	self::addCss('flex');
     self::addJs('dex', 'flex', 'jquery');
-    print self::fetch('admin/pageLayout.tpl');
+    print self::fetch($templateName);
   }
 
   static function fetch($templateName) {

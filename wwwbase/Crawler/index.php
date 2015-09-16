@@ -18,10 +18,6 @@ foreach($rows as $obj) {
 	array_push($values,$obj->domain);
 }
 
-//var_dump($options);
-
-SmartyWrap::assign('page_title', 'Romanian Crawler Log');
-
 SmartyWrap::assign('values', $values);
 SmartyWrap::assign('options', $options);
 

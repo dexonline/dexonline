@@ -70,7 +70,6 @@ foreach($rezultate as $iter) {
 }
 
 
-SmartyWrap::assign('page_title', 'Site Clones');
 SmartyWrap::assign('definition', $definition);
 
 SmartyWrap::assign('listAll', $listAll);

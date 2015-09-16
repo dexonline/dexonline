@@ -220,7 +220,6 @@ SmartyWrap::assign('homonyms', loadSetHomonyms($lexems));
 SmartyWrap::assign("allStatuses", util_getAllStatuses());
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::assign('sectionTitle', $isOCR ? "Adăugare definiție (OCR)" : "Editare definiție: {$definition->id}");
 SmartyWrap::addCss('jqueryui', 'select2');
 SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev', 'definitionEdit');
 SmartyWrap::displayAdminPage('admin/definitionEdit.tpl');
@@ -238,3 +237,4 @@ function loadSetHomonyms($lexems) {
 }
 
 ?>
+o

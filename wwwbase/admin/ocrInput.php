@@ -68,7 +68,6 @@ if ($_FILES && $_FILES["file"]) {
   }
 }
 
-SmartyWrap::assign("sectionTitle", "OCR Input");
 SmartyWrap::assign("msgClass", $class);
 SmartyWrap::assign("message", $message);
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());

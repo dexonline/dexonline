@@ -127,7 +127,6 @@ SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('lmMatrix', $lmMatrix);
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
-SmartyWrap::assign('sectionTitle', "Sufix: -$suffix");
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::addCss('paradigm');
 SmartyWrap::displayAdminPage('admin/bulkLabel.tpl');

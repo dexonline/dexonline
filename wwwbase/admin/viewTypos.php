@@ -18,11 +18,8 @@ $defs = Model::factory('Definition')
   ->raw_query("select * from Definition where {$sourceClause} id in (select definitionId from Typo) order by lexicon")->find_many();
 
 SmartyWrap::assign('searchResults', SearchResult::mapDefinitionArray($defs));
-SmartyWrap::assign('sectionTitle', 'Definiții cu greșeli de tipar');
-SmartyWrap::assign('sectionCount', count($defs));
-SmartyWrap::assign('sectionSources', true);
 SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::displayAdminPage('admin/definitionList.tpl');
+SmartyWrap::displayAdminPage('admin/viewTypos.tpl');
 
 ?>

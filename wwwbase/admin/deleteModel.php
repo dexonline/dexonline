@@ -29,7 +29,6 @@ SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::assign('modelNumber', $modelNumber);
 SmartyWrap::assign('lexemModels', $lexemModels);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::assign('sectionTitle', "Ștergere model {$modelType}{$modelNumber}");
 SmartyWrap::displayAdminPage('admin/deleteModel.tpl');
 
 ?>

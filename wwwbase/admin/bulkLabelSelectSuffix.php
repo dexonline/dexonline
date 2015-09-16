@@ -12,7 +12,6 @@ foreach ($dbResult as $row) {
 }
 
 SmartyWrap::assign('stats', $stats);
-SmartyWrap::assign('sectionTitle', 'Alegere sufix pentru etichetare asistată');
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::displayAdminPage('admin/bulkLabelSelectSuffix.tpl');
 

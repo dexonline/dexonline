@@ -1,11 +1,17 @@
-<p class="paragraphTitle">Parolă uitată</p>
+{extends file="layout.tpl"}
 
-Pentru a vă recupera parola, introduceți adresa de e-mail asociată cu contul <i>dexonline</i>. Vă vom trimite un e-mail cu instrucțiuni pentru recuperarea
-parolei.<br/><br/>
+{block name=title}Parolă uitată{/block}
 
-<form method="post" action="{$wwwRoot}auth/parola-uitata">
-  Adresa de e-mail:
-  <input type="text" name="email" value="{$email}" size="30"/>
-  <input type="hidden" name="identity" value="{$identity}"/>
-  <input type=submit id="login" name="submitButton" value="Trimite"/>  
-</form>
+{block name=content}
+  <p class="paragraphTitle">Parolă uitată</p>
+
+  Pentru a vă recupera parola, introduceți adresa de e-mail asociată cu contul <i>dexonline</i>. Vă vom trimite un e-mail cu instrucțiuni pentru recuperarea
+  parolei.<br/><br/>
+
+  <form method="post" action="{$wwwRoot}auth/parola-uitata">
+    Adresa de e-mail:
+    <input type="text" name="email" value="{$email}" size="30"/>
+    <input type="hidden" name="identity" value="{$identity}"/>
+    <input type=submit id="login" name="submitButton" value="Trimite"/>  
+  </form>
+{/block}

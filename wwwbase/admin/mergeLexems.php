@@ -104,7 +104,6 @@ foreach ($dbResult as $row) {
 }
 
 RecentLink::createOrUpdate('Unificare lexeme');
-SmartyWrap::assign('sectionTitle', 'Unificare lexeme');
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::assign('lexems', $lexems);

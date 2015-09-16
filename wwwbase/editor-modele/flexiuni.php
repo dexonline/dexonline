@@ -44,7 +44,6 @@ foreach ($inflections as $infl) {
   $infl->canDelete = !in_array($infl->id, $usedInflectionIds);
 }
 
-SmartyWrap::assign('page_title', 'Editare flexiuni');
 SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::assign('inflections', $inflections);
 SmartyWrap::assign('modelTypes', ModelType::loadCanonical());

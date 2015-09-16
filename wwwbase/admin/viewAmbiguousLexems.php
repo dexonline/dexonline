@@ -6,10 +6,8 @@ util_assertNotMirror();
 RecentLink::createOrUpdate('Lexeme ambigue');
 $lexems = Lexem::loadAmbiguous();
 
-SmartyWrap::assign('sectionTitle', 'Lexeme ambigue (cu nume și descriere identice)');
-SmartyWrap::assign('sectionCount', count($lexems));
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('lexems', $lexems);
-SmartyWrap::displayAdminPage('admin/lexemList.tpl');
+SmartyWrap::displayAdminPage('admin/viewAmbiguousLexems.tpl');
 
 ?>

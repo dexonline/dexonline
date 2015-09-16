@@ -1,20 +1,28 @@
-<a href="wotd.php">Lista cuvintelor zilei</a> |
-<a href="http://wiki.dexonline.ro/wiki/Imagini_pentru_cuv%C3%A2ntul_zilei">instrucțiuni</a>
+{extends file="admin/layout.tpl"}
 
-<div id="fileManager"></div>
-<br/>
+{block name=title}Imagini pentru cuvântul zilei{/block}
 
-<script type="text/javascript">
-  $().ready(function() {
-    $('#fileManager').elfinder({
-      url: '../elfinder-connector/wotd_connector.php',
-      lang: 'en'
-    }).elfinder('instance');
-  });
-</script>
+{block name=headerTitle}Imagini pentru cuvântul zilei{/block}
 
-<form action="wotdCompressImages" method="post" enctype="multipart/form-data" target="_new">
-  Comprimă imagini (o arhivă zip):
-  <input type="file" name="file"/>
-  <input type="submit" name="submitButton" value="Comprimă"/>      
-</form>
+{block name=content}
+  <a href="wotd.php">Lista cuvintelor zilei</a> |
+  <a href="http://wiki.dexonline.ro/wiki/Imagini_pentru_cuv%C3%A2ntul_zilei">instrucțiuni</a>
+
+  <div id="fileManager"></div>
+  <br/>
+
+  <script type="text/javascript">
+   $().ready(function() {
+       $('#fileManager').elfinder({
+           url: '../elfinder-connector/wotd_connector.php',
+           lang: 'en'
+       }).elfinder('instance');
+   });
+  </script>
+
+  <form action="wotdCompressImages" method="post" enctype="multipart/form-data" target="_new">
+    Comprimă imagini (o arhivă zip):
+    <input type="file" name="file"/>
+    <input type="submit" name="submitButton" value="Comprimă"/>      
+  </form>
+{/block}

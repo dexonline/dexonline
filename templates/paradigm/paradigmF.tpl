@@ -1,1 +1,1 @@
-paradigmN.ihtml
+paradigmN.tpl

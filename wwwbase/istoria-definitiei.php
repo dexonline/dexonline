@@ -49,7 +49,6 @@ foreach ($recordSet as $row) {
   }
 }
 
-SmartyWrap::assign('page_title', 'Istoria definiției ' . $def->lexicon);
 SmartyWrap::assign('def', $def);
 SmartyWrap::assign('changeSets', $changeSets);
 SmartyWrap::display('istoria-definitiei.tpl');

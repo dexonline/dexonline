@@ -40,7 +40,6 @@ if (!$data) {
   }
 }
 
-SmartyWrap::assign('page_title', 'Autentificare cu OpenID');
 SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::assign('data', $data);
 SmartyWrap::assign('chosenNick', $nick);

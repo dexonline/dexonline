@@ -26,7 +26,6 @@ if(DEBUG) {
 
 $s = "[" . ($sources ? implode($sources, ",") : "") . "]";
 
-SmartyWrap::assign('page_title', 'Cuvinte');
 SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::assign('results', $searchResults);
 SmartyWrap::assign('s', $s);

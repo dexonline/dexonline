@@ -34,18 +34,15 @@ if ($locVersion && $form) {
     ->order_by_asc('LM.lexemId')
     ->find_array();
 
-  SmartyWrap::assign('page_title', 'Verificare LOC: ' . $form);
   SmartyWrap::assign('form', $form);
   SmartyWrap::assign('selectedLocVersion', $locVersion);
   SmartyWrap::assign('data', $data);
 } else {
   SmartyWrap::assign('selectedLocVersion', $locVersions[0]->name);
-  SmartyWrap::assign('page_title', 'Căutare formă flexionară în LOC ' . $form);
 }
 
 SmartyWrap::addJs('modelDropdown');
 SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::assign('page_title', 'Scrabble');
 SmartyWrap::assign('locVersions', $locVersions);
 SmartyWrap::display('scrabble.tpl');
 

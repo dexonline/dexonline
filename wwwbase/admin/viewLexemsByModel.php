@@ -8,9 +8,9 @@ $lexems = Lexem::loadByCanonicalModel($modelType, $modelNumber);
 RecentLink::createOrUpdate("Model: $modelType$modelNumber");
 
 SmartyWrap::assign('lexems', $lexems);
-SmartyWrap::assign('sectionTitle', "Lexeme pentru modelul $modelType$modelNumber");
-SmartyWrap::assign('sectionCount', count($lexems));
+SmartyWrap::assign('modelType', $modelType);
+SmartyWrap::assign('modelNumber', $modelNumber);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::displayAdminPage('admin/lexemList.tpl');
+SmartyWrap::displayAdminPage('admin/viewLexemsByModel.tpl');
 
 ?>

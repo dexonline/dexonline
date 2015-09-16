@@ -10,7 +10,6 @@ $sourceId = util_getRequestParameter('source');
 if ($sourceId) {
   $source = Source::get_by_id($sourceId);
   RecentLink::createOrUpdate("Lexeme neetichetate {$source->shortName}");
-  SmartyWrap::assign('sectionTitle', "Lexeme neetichetate {$source->shortName}");
   $lexems = Model::factory('Lexem')
     ->table_alias('l')
     ->select('l.*')
@@ -26,7 +25,6 @@ if ($sourceId) {
     ->find_many();
 } else {
   RecentLink::createOrUpdate('Lexeme neetichetate');
-  SmartyWrap::assign('sectionTitle', 'Lexeme neetichetate');
   $lexems = Model::factory('Lexem')
     ->table_alias('l')
     ->select('l.*')
@@ -39,7 +37,6 @@ if ($sourceId) {
 
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('lexems', $lexems);
-SmartyWrap::assign('sectionCount', count($lexems));
-SmartyWrap::displayAdminPage('admin/lexemList.tpl');
+SmartyWrap::displayAdminPage('admin/viewTemporaryLexems.tpl');
 
 ?>

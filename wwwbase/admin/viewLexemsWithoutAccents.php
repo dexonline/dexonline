@@ -15,10 +15,8 @@ $lexems = Model::factory('Lexem')
 
 RecentLink::createOrUpdate('Lexeme fără accent');
 
-SmartyWrap::assign('sectionTitle', 'Lexeme fără accent');
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('lexems', $lexems);
-SmartyWrap::assign('sectionCount', count($lexems));
-SmartyWrap::displayAdminPage('admin/lexemList.tpl');
+SmartyWrap::displayAdminPage('admin/viewLexemsWithoutAccents.tpl');
 
 ?>

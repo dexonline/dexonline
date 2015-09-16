@@ -8,9 +8,7 @@ RecentLink::createOrUpdate('Lexeme neasociate');
 $lexems = Lexem::loadUnassociated();
 
 SmartyWrap::assign('lexems', $lexems);
-SmartyWrap::assign('sectionTitle', 'Lexeme neasociate');
-SmartyWrap::assign('sectionCount', count($lexems));
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::displayAdminPage('admin/lexemList.tpl');
+SmartyWrap::displayAdminPage('admin/viewUnassociatedLexems.tpl');
 
 ?>

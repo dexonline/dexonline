@@ -1,58 +1,64 @@
-{assign var="allowFakeUsers" value=$allowFakeUsers|default:false}
-{assign var="openid" value=$openid|default:''}
+{extends file="layout.tpl"}
 
-{if $allowFakeUsers}
-  <p class="paragraphTitle">Utilizator de test</p>
-  {include file="bits/fakeUser.tpl"}
-{/if}
+{block name=title}Autentificare cu OpenID{/block}
 
-<p class="paragraphTitle">Autentificare cu OpenID</p>
+{block name=content}
+  {assign var="allowFakeUsers" value=$allowFakeUsers|default:false}
+  {assign var="openid" value=$openid|default:''}
 
-<form name="loginForm" method="post" action="{$wwwRoot}auth/login">
-  OpenID:
-  <input type="text" name="openid" value="{$openid}" size="50"/>
-  <input type=submit id="login" name="submitButton" value="Autentificare"/>
-</form>
-<br/>
+  {if $allowFakeUsers}
+    <p class="paragraphTitle">Utilizator de test</p>
+    {include file="bits/fakeUser.tpl"}
+  {/if}
 
-Dacă aveți un cont Google sau Yahoo, îl puteți folosi ca OpenID:<br/><br/>
+  <p class="paragraphTitle">Autentificare cu OpenID</p>
 
-<div id="openidProviders">
-  <a href="{$wwwRoot}auth/login?openid=google"><img src="{$imgRoot}/openid/google.png" alt="Autentificare cu un cont Google"/></a>
-  <a href="{$wwwRoot}auth/login?openid=yahoo"><img src="{$imgRoot}/openid/yahoo.png" alt="Autentificare cu un cont Yahoo"/></a>
-</div>
+  <form name="loginForm" method="post" action="{$wwwRoot}auth/login">
+    OpenID:
+    <input type="text" name="openid" value="{$openid}" size="50"/>
+    <input type=submit id="login" name="submitButton" value="Autentificare"/>
+  </form>
+  <br/>
 
-<p class="paragraphTitle">Ce este OpenID?</p>
+  Dacă aveți un cont Google sau Yahoo, îl puteți folosi ca OpenID:<br/><br/>
 
-<div id="openidHeadline">
-  <img src="{$imgRoot}/openid/openid.png" alt="Logo OpenID"/>
+  <div id="openidProviders">
+    <a href="{$wwwRoot}auth/login?openid=google"><img src="{$imgRoot}/openid/google.png" alt="Autentificare cu un cont Google"/></a>
+    <a href="{$wwwRoot}auth/login?openid=yahoo"><img src="{$imgRoot}/openid/yahoo.png" alt="Autentificare cu un cont Yahoo"/></a>
+  </div>
 
-  <span>este o modalitate mai rapidă și mai ușoară de a vă autentifica pe un site web.</span>
-</div>
+  <p class="paragraphTitle">Ce este OpenID?</p>
 
-<ul>
-  <li>Nu este nevoie să vă creați un cont nou pentru <i>dexonline</i>, ceea ce vă economisește timp;</li>
-  <li>Nu este nevoie să memorați o parolă în plus;</li>
-  <li>Un cont OpenID, odată creat, poate fi refolosit pe orice site care admite OpenID, iar numărul acestora este în creștere;</li>
-  <li>Sunt șanse mari să aveți deja un OpenID, deoarece multe site-uri mari (Google, Yahoo și altele) servesc și ca furnizori de OpenID;</li>
-  <li>Dacă aveați deja un cont pe <i>dexonline</i>, îl veți putea revendica și asocia cu OpenID-ul dumneavoastră.</li>
-</ul>
+  <div id="openidHeadline">
+    <img src="{$imgRoot}/openid/openid.png" alt="Logo OpenID"/>
 
-Puteți citi mai multe informații pe <a href="http://openid.net/">site-ul OpenID</a> (în limba engleză).
+    <span>este o modalitate mai rapidă și mai ușoară de a vă autentifica pe un site web.</span>
+  </div>
 
-<p class="paragraphTitle">Cum obțin un OpenID?</p>
+  <ul>
+    <li>Nu este nevoie să vă creați un cont nou pentru <i>dexonline</i>, ceea ce vă economisește timp;</li>
+    <li>Nu este nevoie să memorați o parolă în plus;</li>
+    <li>Un cont OpenID, odată creat, poate fi refolosit pe orice site care admite OpenID, iar numărul acestora este în creștere;</li>
+    <li>Sunt șanse mari să aveți deja un OpenID, deoarece multe site-uri mari (Google, Yahoo și altele) servesc și ca furnizori de OpenID;</li>
+    <li>Dacă aveați deja un cont pe <i>dexonline</i>, îl veți putea revendica și asocia cu OpenID-ul dumneavoastră.</li>
+  </ul>
 
-Vizitați <a href="http://openid.net/get-an-openid/">lista furnizorilor de OpenID</a>.
+  Puteți citi mai multe informații pe <a href="http://openid.net/">site-ul OpenID</a> (în limba engleză).
 
-<p class="paragraphTitle">Precizare</p>
+  <p class="paragraphTitle">Cum obțin un OpenID?</p>
 
-Majoritatea funcțiilor din <i>dexonline</i> nu necesită autentificarea, cu excepțiile:
+  Vizitați <a href="http://openid.net/get-an-openid/">lista furnizorilor de OpenID</a>.
 
-<ul>
-  <li>Dacă contribuiți cu definiții, ele se vor adăuga în contul dumneavostră;</li>
-  <li>Vă puteți crea o listă de definiții favorite pentru acces ușor.</li>
-</ul>
+  <p class="paragraphTitle">Precizare</p>
 
-<script type="text/javascript">
-  document.loginForm.openid.focus();
-</script>
+  Majoritatea funcțiilor din <i>dexonline</i> nu necesită autentificarea, cu excepțiile:
+
+  <ul>
+    <li>Dacă contribuiți cu definiții, ele se vor adăuga în contul dumneavostră;</li>
+    <li>Vă puteți crea o listă de definiții favorite pentru acces ușor.</li>
+  </ul>
+
+  <script type="text/javascript">
+   document.loginForm.openid.focus();
+  </script>
+{/block}

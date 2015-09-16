@@ -1,100 +1,106 @@
-{assign var="nextday" value=$nextday|default:false}
-{assign var="prevday" value=$prevday|default:false}
-{assign var="reason" value=$reason|default:''}
-<div>
-  {if $skinVariables.wotdSubscribe}
-    <div id="wotdSocialMedia">
-      <img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"/>
-      <a type="application/rss+xml" href="https://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"/></a>
-      <a href="https://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"/></a>
-      <span id="toggleTitle" class="toggleClosed">detalii</span>
-    </div>
-  {/if}
-  <p class="paragraphTitle">Cuvântul zilei, {$timestamp|date_format:'%e %B %Y'}</p>
-</div>
+{extends file="layout.tpl"}
 
-{if $skinVariables.wotdSubscribe}
-  <div id="toggleContents" class="commonShadow">
-    <ul>
-      <li><b>Email:</b> <i>dexonline</i> nu oferă cuvântul zilei direct prin email. Există însă <a
+{block name=title}{$page_title}{/block}
+
+{block name=content}
+  {assign var="nextday" value=$nextday|default:false}
+  {assign var="prevday" value=$prevday|default:false}
+  {assign var="reason" value=$reason|default:''}
+  <div>
+    {if $skinVariables.wotdSubscribe}
+      <div id="wotdSocialMedia">
+        <img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"/>
+        <a type="application/rss+xml" href="https://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"/></a>
+        <a href="https://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"/></a>
+        <span id="toggleTitle" class="toggleClosed">detalii</span>
+      </div>
+    {/if}
+    <p class="paragraphTitle">Cuvântul zilei, {$timestamp|date_format:'%e %B %Y'}</p>
+  </div>
+
+  {if $skinVariables.wotdSubscribe}
+    <div id="toggleContents" class="commonShadow">
+      <ul>
+        <li><b>Email:</b> <i>dexonline</i> nu oferă cuvântul zilei direct prin email. Există însă <a
       href="http://www.google.com/search?q=rss+by+email">numeroase site-uri</a> care fac acest lucru pentru orice RSS. Vă recomandăm <a
       href="http://www.feedmyinbox.com/">feed my inbox</a>:
 
-        <ul>
-          <li>La <i>Website or Feed URL</i> introduceți <code>https://dexonline.ro/rss/cuvantul-zilei</code></li>
-          <li>La <i>Your Email Address</i> introduceți adresa dumneavoastră de e-mail</li>
-          <li>Apăsați <i>Submit</i>
-          <li>Veți primi un e-mail pentru confirmarea abonării</li>
-          <li>În continuare veți primi zilnic câte un email cu cuvântul zilei.</li>
-        </ul>
-      </li>
+          <ul>
+            <li>La <i>Website or Feed URL</i> introduceți <code>https://dexonline.ro/rss/cuvantul-zilei</code></li>
+            <li>La <i>Your Email Address</i> introduceți adresa dumneavoastră de e-mail</li>
+            <li>Apăsați <i>Submit</i>
+              <li>Veți primi un e-mail pentru confirmarea abonării</li>
+              <li>În continuare veți primi zilnic câte un email cu cuvântul zilei.</li>
+          </ul>
+            </li>
 
-      <li><b>RSS:</b> Dacă folosiți un cititor de bloguri, puteți adăuga <a href="https://dexonline.ro/rss/cuvantul-zilei">feed-ul pentru cuvântul
-      zilei</a> la lista urmărită.</li>
+            <li><b>RSS:</b> Dacă folosiți un cititor de bloguri, puteți adăuga <a href="https://dexonline.ro/rss/cuvantul-zilei">feed-ul pentru cuvântul
+              zilei</a> la lista urmărită.</li>
 
-      <li><b>Facebook:</b> Cuvântul zilei este publicat automat și pe Facebook. Puteți aprecia <a href="https://www.facebook.com/dexonline">pagina
-      dexonline</a> pentru a primi cuvântul zilei cu fluxul dumneavoastră de știri.</li>
+            <li><b>Facebook:</b> Cuvântul zilei este publicat automat și pe Facebook. Puteți aprecia <a href="https://www.facebook.com/dexonline">pagina
+              dexonline</a> pentru a primi cuvântul zilei cu fluxul dumneavoastră de știri.</li>
 
-    </ul>
-  </div>
-
-  <script type="text/javascript">
-    $(function() {ldelim}
-      $('#toggleTitle').click(function() {ldelim}
-        $('#toggleContents').slideToggle(200);
-        $('#toggleTitle').toggleClass('toggleOpen');
-        $('#toggleTitle').toggleClass('toggleClosed');
-      {rdelim});
-    {rdelim});
-  </script>
-{/if}
-
-{include file="bits/definition.tpl" row=$searchResult}
-
-{if $reason}
-  <div class="wotdReason">
-    <b>Cheia alegerii:</b> {$reason|escape:'html'}
-  </div>
-{/if}
-
-<div id="wotdPrevNext">
-  {if $prevday}<div class="prev"><a href="{$wwwRoot}cuvantul-zilei/{$prevday}">« precedentul</a></div>{/if}
-  {if $nextday}<div class="next"><a href="{$wwwRoot}cuvantul-zilei/{$nextday}">următorul »</a></div>{/if}
-  <div style="clear: both;"></div>
-</div>
-
-{if $imageUrl}
-  <div id="wotdImage">
-    <img src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
-    <div class="copyright">
-      {if $imageCredits}{$imageCredits}{/if}
+      </ul>
     </div>
-  </div>
-{/if}
 
-{if $skinVariables.wotdArchive}
-  <p class="paragraphTitle">Arhiva cuvintelor zilei</p>
-
-  <div id="wotdArchive" class="wotdArchive"></div>
-  <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$timestamp|date_format:'%Y/%m'}','#wotdArchive')</script>
-
-  {* Javascript for "Add to favorites" *}
-  {if $sUser}
-    {literal}
     <script type="text/javascript">
-    $(function () {
-      $('.bookmarkAddButton').click(function () {
-        addBookmark($(this));
-        return false;
-      });
-    });
+     $(function() {ldelim}
+             $('#toggleTitle').click(function() {ldelim}
+                     $('#toggleContents').slideToggle(200);
+                 $('#toggleTitle').toggleClass('toggleOpen');
+                 $('#toggleTitle').toggleClass('toggleClosed');
+                 {rdelim});
+         {rdelim});
     </script>
-    {/literal}
   {/if}
 
-  {* Javascript for "Report a typo" *}
-  <div id="typoDiv"></div>
-  <script type="text/javascript">
-    $(".typoLink").click(showTypoForm);
-  </script>
-{/if}
+  {include file="bits/definition.tpl" row=$searchResult}
+
+  {if $reason}
+    <div class="wotdReason">
+      <b>Cheia alegerii:</b> {$reason|escape:'html'}
+    </div>
+  {/if}
+
+  <div id="wotdPrevNext">
+    {if $prevday}<div class="prev"><a href="{$wwwRoot}cuvantul-zilei/{$prevday}">« precedentul</a></div>{/if}
+    {if $nextday}<div class="next"><a href="{$wwwRoot}cuvantul-zilei/{$nextday}">următorul »</a></div>{/if}
+    <div style="clear: both;"></div>
+  </div>
+
+  {if $imageUrl}
+    <div id="wotdImage">
+      <img src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
+      <div class="copyright">
+        {if $imageCredits}{$imageCredits}{/if}
+      </div>
+    </div>
+  {/if}
+
+  {if $skinVariables.wotdArchive}
+    <p class="paragraphTitle">Arhiva cuvintelor zilei</p>
+
+    <div id="wotdArchive" class="wotdArchive"></div>
+    <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$timestamp|date_format:'%Y/%m'}','#wotdArchive')</script>
+
+    {* Javascript for "Add to favorites" *}
+    {if $sUser}
+      {literal}
+      <script type="text/javascript">
+       $(function () {
+           $('.bookmarkAddButton').click(function () {
+               addBookmark($(this));
+               return false;
+           });
+       });
+      </script>
+    {/literal}
+    {/if}
+
+    {* Javascript for "Report a typo" *}
+    <div id="typoDiv"></div>
+    <script type="text/javascript">
+     $(".typoLink").click(showTypoForm);
+    </script>
+  {/if}
+{/block}

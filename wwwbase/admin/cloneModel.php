@@ -75,7 +75,6 @@ SmartyWrap::assign('newModelNumber', $newModelNumber);
 SmartyWrap::assign('lexemModels', $lexemModels);
 SmartyWrap::assign('errorMessage', $errorMessages);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::assign('sectionTitle', "Clonare model: {$modelType}{$modelNumber}");
 SmartyWrap::displayAdminPage('admin/cloneModel.tpl');
 
 ?>

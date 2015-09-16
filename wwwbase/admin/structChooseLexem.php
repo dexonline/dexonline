@@ -28,9 +28,6 @@ foreach ($lexems as $l) {
 
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('sectionTitle', 'Lexeme ușor de structurat');
-SmartyWrap::assign('sectionCount', count($lexems));
-//SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::displayAdminPage('admin/structChooseLexem.tpl');
 

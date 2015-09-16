@@ -12,7 +12,6 @@ $numEnabledWidgets = array_reduce($widgets, function($result, $w) { return $resu
 $wordCount = Definition::getWordCount();
 $wordCountRough = $wordCount - ($wordCount % 10000);
 
-SmartyWrap::assign('page_title', 'Dicționar explicativ al limbii române');
 SmartyWrap::assign('onHomePage', '1');
 SmartyWrap::assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțuvwxyz'));
 SmartyWrap::assign('words_total', util_formatNumber($wordCount, 0));

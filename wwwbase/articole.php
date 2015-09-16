@@ -23,6 +23,5 @@ if ($type == 'rss') {
   exit;
 }
 
-SmartyWrap::assign('page_title', 'Articole lingvistice');
 SmartyWrap::assign('wikiTitles', WikiArticle::loadAllTitles());
 SmartyWrap::display('articole.tpl');

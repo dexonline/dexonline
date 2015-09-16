@@ -61,7 +61,6 @@ if ($sendButton) {
 
 SmartyWrap::assign('lexemIds', $lexemIds);
 SmartyWrap::assign('contribSources', Model::factory('Source')->where('canContribute', true)->order_by_asc('displayOrder')->find_many());
-SmartyWrap::assign('page_title', 'Contribuie cu definiții');
 SmartyWrap::assign('suggestNoBanner', true);
 SmartyWrap::addCss('jqueryui', 'select2');
 SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev');

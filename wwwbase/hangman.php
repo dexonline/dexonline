@@ -72,7 +72,6 @@ $word = mb_strtoupper($lexem->formNoAccent);
 
 SmartyWrap::assign('wordLength', mb_strlen($word));
 SmartyWrap::assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțuvwxyz', null, PREG_SPLIT_NO_EMPTY));
-SmartyWrap::assign('page_title', 'Spânzurătoarea');
 SmartyWrap::assign('word', $word);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('difficulty', $difficulty);

@@ -22,7 +22,6 @@ foreach ($models as $m) {
 }
   
 SmartyWrap::addCss('paradigm');
-SmartyWrap::assign('page_title', 'Modele de flexiune');
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('lexemModels', $lexemModels);
 SmartyWrap::assign('locVersion', $locVersion);

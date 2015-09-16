@@ -1,26 +1,36 @@
-<form action="deleteModel.php" method="post" onsubmit="this.bogusButton.disabled = true;">
-  <input type="hidden" name="modelType" value="{$modelType}"/>
-  <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
+{extends file="admin/layout.tpl"}
 
-  {if count($lexemModels)}
-    Există {$lexemModels|@count} lexem(e) etichetate cu acest model. Dacă
-    apăsați butonul "Confirmă", ele vor fi reetichetate cu modelul T1.
-  {else}
-    Nu există lexeme etichetate cu acest model. Modelul poate fi șters
-    fără probleme.
-  {/if}
-  <br/><br/>
+{block name=title}Ștergere model{/block}
 
-  {foreach from=$lexemModels item=lm}
-    {include file="bits/lexemName.tpl" lexem=$lm->getLexem()}
-    <span class="deemph">({$lm->modelType}{$lm->modelNumber})</span>
-    &nbsp;&nbsp;
-    <a href="../admin/lexemEdit.php?lexemId={$lm->getLexem()->id}">editează</a>
+{block name=headerTitle}
+  Ștergere model {$modelType}{$modelNumber}
+{/block}
+
+{block name=content}
+  <form action="deleteModel.php" method="post" onsubmit="this.bogusButton.disabled = true;">
+    <input type="hidden" name="modelType" value="{$modelType}"/>
+    <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
+
+    {if count($lexemModels)}
+      Există {$lexemModels|@count} lexem(e) etichetate cu acest model. Dacă
+      apăsați butonul "Confirmă", ele vor fi reetichetate cu modelul T1.
+    {else}
+      Nu există lexeme etichetate cu acest model. Modelul poate fi șters
+      fără probleme.
+    {/if}
+    <br/><br/>
+
+    {foreach from=$lexemModels item=lm}
+      {include file="bits/lexemName.tpl" lexem=$lm->getLexem()}
+      <span class="deemph">({$lm->modelType}{$lm->modelNumber})</span>
+      &nbsp;&nbsp;
+      <a href="../admin/lexemEdit.php?lexemId={$lm->getLexem()->id}">editează</a>
+      <br/>
+    {/foreach}
     <br/>
-  {/foreach}
-   <br/>
 
-  <!-- We want to disable the button on click, but still submit a value -->
-  <input type="hidden" name="deleteButton" value="1"/>
-  <input type="submit" name="bogusButton" value="Confirmă"/>
-</form>
+    <!-- We want to disable the button on click, but still submit a value -->
+    <input type="hidden" name="deleteButton" value="1"/>
+    <input type="submit" name="bogusButton" value="Confirmă"/>
+  </form>
+{/block}

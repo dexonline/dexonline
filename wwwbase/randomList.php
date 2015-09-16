@@ -25,7 +25,6 @@ else {
     $wListLength = NULL;
 }
 
-
 $listLength = (int) util_getRequestParameter('n');
 if (!is_int($listLength) || $listLength<=MIN_LIST_LENGTH || $listLength>MAX_LIST_LENGTH) {
     $listLength = DEFAULT_LIST_LENGTH;

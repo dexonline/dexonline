@@ -10,7 +10,6 @@ $email = util_getRequestParameter('email');
 
 SmartyWrap::assign('identity', $identity);
 SmartyWrap::assign('email', $email);
-SmartyWrap::assign('page_title', 'Parolă uitată');
 SmartyWrap::assign('suggestHiddenSearchForm', true);
 
 if ($submitButton) {

@@ -1,7 +1,7 @@
 <html>
 	<head>
 
-		<title>{$page_title}</title>
+		<title>Romanian crawler log</title>
 
 		<script type="text/javascript" src='http://code.jquery.com/jquery-2.0.3.js'></script>
 

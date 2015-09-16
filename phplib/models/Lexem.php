@@ -271,7 +271,7 @@ class Lexem extends BaseObject implements DatedObject {
       'where description = "" ' .
       'group by form ' .
       'having count(*) > 1';
-    return Model::factory('Lexem')->raw_query($query, null)->find_many();
+    return Model::factory('Lexem')->raw_query($query)->find_many();
   }
 
   public function getVariantIds() {

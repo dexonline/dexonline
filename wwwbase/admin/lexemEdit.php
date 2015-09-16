@@ -126,8 +126,6 @@ SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('structStatusNames', Lexem::$STRUCT_STATUS_NAMES);
 SmartyWrap::addCss('jqueryui-smoothness', 'paradigm', 'select2', 'lexemEdit', 'windowEngine', 'textComplete');
 SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev', 'lexemEdit', 'windowEngine', 'cookie', 'modelDropdown', 'textComplete');
-SmartyWrap::assign('sectionTitle', "Editare lexem: {$lexem->form} {$lexem->modelType}{$lexem->modelNumber}{$lexem->restriction}");
-SmartyWrap::assign('noAdminHeader', true);
 SmartyWrap::displayAdminPage('admin/lexemEdit.tpl');
 
 /**************************************************************************/
@@ -351,7 +349,6 @@ function handleLexemActions() {
     $lexem->delete();
     SmartyWrap::assign('lexem', $lexem);
     SmartyWrap::assign('homonyms', $homonyms);
-    SmartyWrap::assign('sectionTitle', 'Confirmare ștergere lexem');
     SmartyWrap::displayAdminPage('admin/lexemDeleted.tpl');
     exit;
   }

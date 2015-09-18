@@ -5,7 +5,7 @@ require_once __DIR__ . '/../phplib/mime-mail-parser/MimeMailParser.class.php';
 
 log_scriptLog("getWotdImageByEmail: starting");
 
-$validSenderAddress = Config::get("WotD.imageEmailSender") or die("No image email sender in config file\r\n");
+$validSenders = Config::get("WotD.imageEmailSender") or die("No image email sender in config file\r\n");
 $validHeight = Config::get("WotD.wotdImageHeight") or die("No image height in config file\r\n");
 $validWidth = Config::get("WotD.wotdImageWidth") or die("No image width in config file\r\n");
 $daysInterval = Config::get("WotD.interval")or die("No days interval in config file\r\n");
@@ -18,7 +18,7 @@ $sender = $Parser->getHeader("from");
 $subject = imap_utf8($Parser->getHeader("subject"));
 
 $parsedSender = mailparse_rfc822_parse_addresses($sender);
-if ((count($parsedSender) != 1) || ($parsedSender[0]['address'] !== $validSenderAddress)) {
+if ((count($parsedSender) != 1) || (!in_array($parsedSender[0]['address'], $validSenders))) {
   OS::errorAndExit("Ignoring message '$subject' due to invalid sender '$sender'", 0);
 }
 

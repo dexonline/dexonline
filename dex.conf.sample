@@ -222,8 +222,9 @@ rcpt-info[] = info-user-2@example.com
 rcpt-error[] = error-user-1@example.com
 rcpt-error[] = error-user-2@example.com
 
-; Author of WotD images
-imageEmailSender = user@example.com
+; Authors of WotD images
+imageEmailSender[] = user1@example.com
+imageEmailSender[] = user2@example.com
 
 ; Password to be sent with each image
 password = foobar
@@ -233,7 +234,7 @@ wotdImageHeight = 300
 wotdImageWidth = 300
 
 ; We only accept WotD images for days within $interval days of today.
-interval = 5
+interval = 31
 
 ; settings for the static server
 [static]

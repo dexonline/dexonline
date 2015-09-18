@@ -3,11 +3,11 @@
 class WordOfTheDay extends BaseObject {
   public static $_table = 'WordOfTheDay';
   public static $DEFAULT_IMAGE;
-  public static $IMAGE_DESCRIPTION_DIR;
+  public static $IMAGE_CREDITS_DIR;
 
   public static function init() {
     self::$DEFAULT_IMAGE = "generic.jpg";
-    self::$IMAGE_DESCRIPTION_DIR = util_getRootPath() . 'docs/imageCredits';
+    self::$IMAGE_CREDITS_DIR = util_getRootPath() . 'docs/imageCredits';
   }
 
   public static function getRSSWotD($delay = 0) {
@@ -44,7 +44,7 @@ class WordOfTheDay extends BaseObject {
     if (!$this->image) {
       return null;
     }
-    $lines = @file(self::$IMAGE_DESCRIPTION_DIR . "/wotd.desc");
+    $lines = @file(self::$IMAGE_CREDITS_DIR . "/wotd.desc");
     if (!$lines) {
       return null;
     }
@@ -56,8 +56,8 @@ class WordOfTheDay extends BaseObject {
       $line = trim($line);
       if ($line) {
         $parts = explode('::', trim($line));
-        if (preg_match("/{$parts[0]}/", $this->image)) {
-          $filename = self::$IMAGE_DESCRIPTION_DIR . '/' . $parts[1];
+        if (preg_match("/{$parts[0]}/", $this->displayDate)) {
+          $filename = self::$IMAGE_CREDITS_DIR . '/' . $parts[1];
           return @file_get_contents($filename); // This could be false if the file does not exist.
         }
       }

@@ -1,10 +1,10 @@
 <?php
 
-WordOfTheMonth::$IMAGE_DESCRIPTION_DIR = util_getRootPath() . 'docs/imageCredits';
+WordOfTheMonth::$IMAGE_CREDITS_DIR = util_getRootPath() . 'docs/imageCredits';
 
 class WordOfTheMonth extends BaseObject {
   public static $_table = 'WordOfTheMonth';
-  public static $IMAGE_DESCRIPTION_DIR;
+  public static $IMAGE_CREDITS_DIR;
 
   public static function getWotM($date) {
     return Model::factory('WordOfTheMonth')
@@ -40,7 +40,7 @@ class WordOfTheMonth extends BaseObject {
     if (!$this->image) {
       return null;
     }
-    $lines = @file(self::$IMAGE_DESCRIPTION_DIR . "/wotm.desc");
+    $lines = @file(self::$IMAGE_CREDITS_DIR . "/wotm.desc");
     if (!$lines) {
       return null;
     }
@@ -52,8 +52,8 @@ class WordOfTheMonth extends BaseObject {
       $line = trim($line);
       if ($line) {
         $parts = explode('::', trim($line));
-        if (preg_match("/{$parts[0]}/", $this->image)) {
-          $filename = self::$IMAGE_DESCRIPTION_DIR . '/' . $parts[1];
+        if (preg_match("/{$parts[0]}/", $this->displayDate)) {
+          $filename = self::$IMAGE_CREDITS_DIR . '/' . $parts[1];
           return @file_get_contents($filename); // This could be false if the file does not exist.
         }
       }

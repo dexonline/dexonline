@@ -1,11 +1,12 @@
 # Liniile goale și comentariile sunt ignorate.
 # Un comentariu începe de la # și se termină la sfârșitul liniei.
-# Liniile au formatul <regexp>::<fișier>.
-# Liniile sunt procesate de sus în jos până când un regex se potrivește. Este afișat conținutul fișierului respectiv.
+# Liniile au formatul <regex>::<fișier>.
+# Liniile sunt procesate de sus în jos până când un regex se potrivește cu o dată.
+# Este afișat conținutul fișierului respectiv.
 
-^2014\/maidan::delacroix.desc
-^2012\/(boicot|plagiat|salutar)::va.desc
-^2013\/transformator::rb.desc
-^2014\/diaspora::rb.desc
-^2015\/băjenie::rb.desc
-^201[2-5]\/::cn.desc
+^2014-02::delacroix.desc
+^2012-(04|07|08)::va.desc
+^2013-07::rb.desc
+^2014-11::rb.desc
+^2015-09::rb.desc
+^201[2-5]-::cn.desc

@@ -10,8 +10,8 @@
   {include file="bits/definition.tpl" row=$searchResult}
 
   <div id="wotdPrevNext">
-    {if $prevmon}<div class="prev"><a href="{$wwwRoot}cuvantul-lunii/{$prevmon}">« precedentul</a></div>{/if}
-    {if $nextmon}<div class="next"><a href="{$wwwRoot}cuvantul-lunii/{$nextmon}">următorul »</a></div>{/if}
+    {if isset($prevmon)}<div class="prev"><a href="{$wwwRoot}cuvantul-lunii/{$prevmon}">« precedentul</a></div>{/if}
+    {if isset($nextmon)}<div class="next"><a href="{$wwwRoot}cuvantul-lunii/{$nextmon}">următorul »</a></div>{/if}
     <div style="clear: both;"></div>
   </div>
 

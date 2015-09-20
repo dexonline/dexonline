@@ -1,14 +1,14 @@
 # Liniile goale și comentariile sunt ignorate.
 # Un comentariu începe de la # și se termină la sfârșitul liniei.
-# Liniile au formatul <regex>::<fișier>.
+# Liniile au formatul <regex>::<etichetă>
 # Liniile sunt procesate de sus în jos până când un regex se potrivește cu o dată.
-# Este afișat conținutul fișierului respectiv.
+# Este afișat creditul înregistrării WotdArtist cu eticheta respectivă.
 
-^2015-(09|10|11|12)-(1[6-9]|2.|3.)::gm.desc
-^2015-(09|10|11|12)-(0.|1[0-5])::cn.desc
-^2013-02-(24|25|26|27)::rb.desc
-^2013-07-26::rb.desc
-^2014-04-23::rb.desc
-^201[3-5]-::cn.desc
-^2012-(09|10|11|12)::cn.desc
-^2012-0[2-8]::va.desc
+^2015-(09|10|11|12)-(1[6-9]|2.|3.)::gm
+^2015-(09|10|11|12)-(0.|1[0-5])::cn
+^2013-02-(24|25|26|27)::rb
+^2013-07-26::rb
+^2014-04-23::rb
+^201[3-5]-::cn
+^2012-(09|10|11|12)::cn
+^2012-0[2-8]::va

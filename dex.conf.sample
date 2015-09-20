@@ -216,15 +216,11 @@ log2file = true
 sender = sending-user@example.com
 reply-to = reply-to-user@example.com
 
-; Recipients of WotD reminders
+; Recipients of WotD reminders (in addition to the targeted WotD artists)
 rcpt-info[] = info-user-1@example.com
 rcpt-info[] = info-user-2@example.com
 rcpt-error[] = error-user-1@example.com
 rcpt-error[] = error-user-2@example.com
-
-; Authors of WotD images
-imageEmailSender[] = user1@example.com
-imageEmailSender[] = user2@example.com
 
 ; Password to be sent with each image
 password = foobar

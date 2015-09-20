@@ -36,29 +36,10 @@ class WordOfTheMonth extends BaseObject {
     return null;
   }
 
-  public function getImageCredits() {
-    if (!$this->image) {
-      return null;
-    }
-    $lines = @file(self::$IMAGE_CREDITS_DIR . "/wotm.desc");
-    if (!$lines) {
-      return null;
-    }
-    foreach ($lines as $line) {
-      $commentStart = strpos($line, '#');
-      if ($commentStart !== false) {
-        $line = substr($line, 0, $commentStart);
-      }
-      $line = trim($line);
-      if ($line) {
-        $parts = explode('::', trim($line));
-        if (preg_match("/{$parts[0]}/", $this->displayDate)) {
-          $filename = self::$IMAGE_CREDITS_DIR . '/' . $parts[1];
-          return @file_get_contents($filename); // This could be false if the file does not exist.
-        }
-      }
-    }
-    return null;
+  public function getArtist() {
+    return ($this->image)
+      ? WotdArtist::getByDate($this->displayDate, true) // true = WotM
+      : null;
   }
 
 }

@@ -103,7 +103,7 @@ if ($mysqlDate < $today || util_isModerator(PRIV_ADMIN)) {
 }
 
 SmartyWrap::assign('imageUrl', $wotd->getImageUrl());
-SmartyWrap::assign('imageCredits', $wotd->getImageCredits());
+SmartyWrap::assign('artist', $wotd->getArtist());
 SmartyWrap::assign('timestamp', $timestamp);
 SmartyWrap::assign('not_generic_img', true);
 SmartyWrap::assign('mysqlDate', $mysqlDate);

@@ -5,7 +5,16 @@ require_once __DIR__ . '/../phplib/mime-mail-parser/MimeMailParser.class.php';
 
 log_scriptLog("getWotdImageByEmail: starting");
 
-$validSenders = Config::get("WotD.imageEmailSender") or die("No image email sender in config file\r\n");
+$dryRun = false;
+foreach ($argv as $i => $arg) {
+  if ($i) {
+    switch ($arg) {
+    case '--dry-run': $dryRun = true; break;
+    default: print "Unknown flag $arg -- aborting\n"; exit;
+    }
+  }
+}
+
 $validHeight = Config::get("WotD.wotdImageHeight") or die("No image height in config file\r\n");
 $validWidth = Config::get("WotD.wotdImageWidth") or die("No image width in config file\r\n");
 $daysInterval = Config::get("WotD.interval")or die("No days interval in config file\r\n");
@@ -18,8 +27,14 @@ $sender = $Parser->getHeader("from");
 $subject = imap_utf8($Parser->getHeader("subject"));
 
 $parsedSender = mailparse_rfc822_parse_addresses($sender);
-if ((count($parsedSender) != 1) || (!in_array($parsedSender[0]['address'], $validSenders))) {
+if (count($parsedSender) != 1) {
   OS::errorAndExit("Ignoring message '$subject' due to invalid sender '$sender'", 0);
+}
+
+$from = $parsedSender[0]['address'];
+$artist = WotdArtist::get_by_email($from);
+if (!$artist) {
+  OS::errorAndExit("Ignoring message '$subject' because sender '$from' is not a WotD artist", 0);
 }
 
 $word = GetWotdFromSubject($subject);
@@ -69,6 +84,12 @@ try {
   }
   $wotd = $wotds[0];
 
+  // No exception if no artist is assigned -- that's probably simply an ommission.
+  $artist = WotdArtist::getByDate($wotd->displayDate);
+  if ($artist && $artist->email != $from) {
+    throw new Exception("Cuvântul '$word' îi este alocat altui artist.");
+  }
+
   $today = date('Y-m-d');
   if ($wotd->image && ($wotd->displayDate < $today)) {
     throw new Exception("Cuvântul zilei '$word' are deja o imagine ataşată. Nu puteți modifica imaginile cuvintelor din trecut.");
@@ -95,11 +116,18 @@ log_scriptLog("getWotdImageByEmail: done");
 /***************************************************************************/
 
 function ReplyToEmail($senderAddress, $subject, $message) {
+  global $dryRun;
+
   $sender = Config::get('WotD.sender');
   $replyto = Config::get('WotD.reply-to');
   $headers = array("From: $sender", "Reply-To: $replyto", 'Content-Type: text/plain; charset=UTF-8');
 
-  mail($senderAddress, "Re: $subject", $message, implode("\r\n", $headers));
+  if ($dryRun) {
+    print "---- DRY RUN ----\n";
+    print "Către: $senderAddress\nSubiect: Re: $subject\n\n$message\n";
+  } else {
+    mail($senderAddress, "Re: $subject", $message, implode("\r\n", $headers));
+  }
 }
 
 function GetWotdFromSubject($subject) {

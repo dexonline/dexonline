@@ -19,7 +19,7 @@
     <div id="wotdImage">
       <img src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
       <div class="copyright">
-        {if $imageCredits}{$imageCredits}{/if}
+        {$artist->credits|default:''}
       </div>
     </div>
   {/if}

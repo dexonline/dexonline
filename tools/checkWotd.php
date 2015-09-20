@@ -8,8 +8,8 @@ log_scriptLog("checkWotd: starting");
 
 define('NUM_DAYS', 3);
 
-$MAIL_INFO = Config::get('WotD.rcpt-info',array());
-$MAIL_ERROR = Config::get('WotD.rcpt-error',array());
+$rcptInfo = Config::get('WotD.rcpt-info',array());
+$rcptError = Config::get('WotD.rcpt-error',array());
 $sender = Config::get('WotD.sender', '');
 $replyto = Config::get('WotD.reply-to', '');
 $MAIL_HEADERS = array("From: $sender", "Reply-To: $replyto", 'Content-Type: text/plain; charset=UTF-8');
@@ -39,9 +39,10 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
     addError($date, count($wotds) ? sprintf("Există %s cuvinte", count($wotds)) : "Nu există niciun cuvânt");
     continue;
   }
+  $wotd = $wotds[0];
 
   // Check that it has exactly one WotD rel
-  $rels = WordOfTheDayRel::get_all_by_wotdId($wotds[0]->id);
+  $rels = WordOfTheDayRel::get_all_by_wotdId($wotd->id);
   if (count($rels) != 1) {
     addError($date, count($rels) ? sprintf("Există %s definiții asociate", count($rels)) : "Nu există nicio definiție asociată");
     continue;
@@ -56,9 +57,14 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
 
   // Check that we haven't had the same word or a similar one in the past.
   // Currently we look for words that contain, or are contained by, the proposed word.
-  $query = sprintf("select d.lexicon, w.displayDate from WordOfTheDay w, WordOfTheDayRel r, Definition d " .
-                   "where w.id = r.wotdId and r.refId = d.id and r.refType = 'Definition' and w.displayDate < '%s' and " .
-                   "((instr('%s', lexicon) > 0) or (lexicon like '%%%s%%'))",
+  $query = sprintf("select d.lexicon, w.displayDate " .
+                   "from WordOfTheDay w, WordOfTheDayRel r, Definition d " .
+                   "where w.id = r.wotdId " .
+                   "and r.refId = d.id " .
+                   "and r.refType = 'Definition' " .
+                   "and w.displayDate < '%s' " .
+                   "and char_length(lexicon) >= 4 " .
+                   "and ((instr('%s', lexicon) > 0) or (lexicon like '%%%s%%'))",
                    $date, $def->lexicon, $def->lexicon);
   $dups = db_getArrayOfRows($query);
   if (count($dups)) {
@@ -69,28 +75,32 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
     addInfo($date, $msg);
   }
 
+  // Check that there is an artist
+  $artist = WotdArtist::getByDate($date);
+  if (!$artist) {
+    addError($date, 'Niciun artist nu este asignat; verificați conținutul fișierului docs/imageCredits/wotd.desc');
+  }
+
   // Check that there is an image
-  if (!$wotds[0]->image) {
-    $assignedImage = assignImageByName($wotds[0], $def);
+  if (!$wotd->image) {
+    $assignedImage = assignImageByName($wotd, $def);
     if ($assignedImage) {
-      $wotds[0]->image = $assignedImage;
-      $wotds[0]->save();
+      $wotd->image = $assignedImage;
+      $wotd->save();
       addInfo($date, "Am asociat definiția '{$def->lexicon}' cu imaginea {$assignedImage}");
     } else {
-      addError($date, sprintf("Definiția '%s' nu are o imagine asociată (motivul alegerii: %s)", $def->lexicon, $wotds[0]->description));
+      addError($date, sprintf("Definiția '%s' nu are o imagine asociată (motivul alegerii: %s)", $def->lexicon, $wotd->description));
+      if ($artist && !in_array($artist->email, $rcptError)) {
+        $rcptError[] = $artist->email;
+      }
       continue;
     }
   }
 
   // Check that the image file exists
-  if (!$wotds[0]->imageExists()) {
-    addError($date, sprintf("Definiția '%s' are imaginea asociată '%s', dar fișierul nu există", $def->lexicon, $wotds[0]->image));
+  if (!$wotd->imageExists()) {
+    addError($date, sprintf("Definiția '%s' are imaginea asociată '%s', dar fișierul nu există", $def->lexicon, $wotd->image));
     continue;
-  }
-
-  // Warn if the image has no credits
-  if (!$wotds[0]->getImageCredits()) {
-    addInfo($date, "Imaginea {$wotds[0]->image} nu are credite; verificați conținutul fișierului docs/imageCredits/wotd.desc");
   }
 }
 
@@ -107,10 +117,10 @@ if (count($messages)) {
     default: $subject = sprintf("în %s zile", $days - 1);
     }
     $subject = 'Cuvântul zilei: acțiune necesară ' . $subject;
-    $mailTo = array_merge($MAIL_INFO, $MAIL_ERROR);
+    $mailTo = array_merge($rcptInfo, $rcptError);
   } else {
     $subject = 'Cuvântul zilei: notă informativă';
-    $mailTo = $MAIL_INFO;
+    $mailTo = $rcptInfo;
   }
   $mailTo = implode(', ', $mailTo);
 

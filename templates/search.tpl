@@ -1,6 +1,14 @@
 {extends file="layout.tpl"}
 
-{block name=title}{$page_title}{/block}
+{block name=title}
+  {$cuv|escape} - definiție
+  {if count($sourceList) == 1}{$sourceList[0]}{/if}
+  {if $showParadigm}și paradigmă{/if}
+{/block}
+
+{block name=pageDescription}
+  <meta name="description" content="{$pageDescription}"/>
+{/block}
 
 {block name=content}
   {assign var="declensionText" value=$declensionText|default:null}

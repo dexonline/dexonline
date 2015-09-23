@@ -72,14 +72,12 @@ if (!empty($lexems)) {
 
   if (empty($filtered_lexems)) {
     FlashMessage::add("Niciun rezultat pentru {$cuv}.");
-    SmartyWrap::assign('page_title', "Eroare");
   }
 
   $declensionText = $conjugations ? ($declensions ? 'Conjugare / Declinare' : 'Conjugare') : ($declensions ? 'Declinare' : '');
 
   if ($cuv && !empty($filtered_lexems)) {
     SmartyWrap::assign('cuv', $cuv);
-    SmartyWrap::assign('page_title', "{$declensionText}: {$cuv}");
     SmartyWrap::assign('declensionText', "{$declensionText}: {$cuv}");
   }
 
@@ -108,7 +106,6 @@ if (!empty($lexems)) {
 }
 else {
   FlashMessage::add("Niciun rezultat pentru {$cuv}.");
-  SmartyWrap::assign('page_title', "Eroare");
 }
 
 if ($ajax) {

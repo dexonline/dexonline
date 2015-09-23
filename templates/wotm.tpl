@@ -1,6 +1,13 @@
 {extends file="layout.tpl"}
 
-{block name=title}{$page_title}{/block}
+{block name=title}
+  Cuvântul lunii {$timestamp|date_format:'%B %Y'}: {$searchResult->definition->lexicon}
+{/block}
+
+{block name=pageDescription}
+  <meta name="description"
+        content="Cuvântul lunii {$timestamp|date_format:'%B %Y'} la dexonline: {$searchResult->definition->lexicon}"/>
+{/block}
 
 {block name=content}
   <div>

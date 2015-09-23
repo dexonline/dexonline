@@ -12,7 +12,6 @@ $showParadigm = util_getRequestParameter('showParadigm');
 $xml = util_getRequestParameter('xml');
 $all = util_getRequestParameter('all');
 
-
 $redirect = session_get('redirect');
 $redirectFrom = session_getWithDefault('init_word', '');
 session_unsetVariable('redirect');
@@ -92,15 +91,11 @@ if ($lexemId) {
   if ($lexem) {
     $lexems = array($lexem);
     SmartyWrap::assign('cuv', $lexem->formNoAccent);
-    if ($definitions) {
-      SmartyWrap::assign('page_title', "Lexem: {$lexem->formNoAccent}");
-    } else {
-      SmartyWrap::assign('page_title', "Lexem neoficial: {$lexem->formNoAccent}");
+    if (empty($definitions)) {
       SmartyWrap::assign('exclude_unofficial', $exclude_unofficial);
     }
   } else {
     $lexems = array();
-    SmartyWrap::assign('page_title', "Eroare");
     FlashMessage::add("Nu există niciun lexem cu ID-ul căutat.");
     header("HTTP/1.0 404 Not Found");
   }
@@ -256,46 +251,33 @@ if (isset($searchResults)) {
       }
   }
 }
+SmartyWrap::assign('sourceList', $sourceList);
 
 // META tags - TODO move in a dedicated file
 if ($cuv) {
-  $page_keywords = "{$cuv}, definiție {$cuv}";
-  $page_description = "Dicționar dexonline. Definiții";
+  $pageDescription = "Dicționar dexonline. Definiții";
   if (in_array('Sinonime', $sourceList)) {
-    $page_keywords .= ", sinonime {$cuv}";
-    $page_description .= ', sinonime';
+    $pageDescription .= ', sinonime';
   }
   if (in_array('Antonime', $sourceList)) {
-    $page_keywords .= ", antonime {$cuv}";
-    $page_description .= ', antonime';
+    $pageDescription .= ', antonime';
   }
   if(!is_null($conjugations)) {
-    $page_keywords .= ", conjugări {$cuv}";
-    $page_description .= ', conjugări';
+    $pageDescription .= ', conjugări';
   }
   if (!is_null($declensions)) {
-    $page_keywords .= ", declinări {$cuv}";
-    $page_description .= ', declinări';
+    $pageDescription .= ', declinări';
   }
   if (!is_null($conjugations) || !is_null($declensions)) {
-    $page_keywords .= ", paradigmă {$cuv}";
-    $page_description .= ', paradigme';
+    $pageDescription .= ', paradigme';
   }
-  $page_keywords .= ", dexonline";
-  $page_description .= " pentru {$cuv}";
+  $pageDescription .= " pentru {$cuv}";
 
-  $page_title = '';
   if (count($sourceList)) {
-    $page_description .= " din dicționarele: " . implode(", ", $sourceList);
-    if (count($sourceList) == 1) {
-        $page_title = ' ' . $sourceList[0];
-    }
+    $pageDescription .= " din dicționarele: " . implode(", ", $sourceList);
   }
-  $page_title .= $showParadigm ? ' si paradigme' : '';
 
-  SmartyWrap::assign('page_title', "{$cuv} - definitie{$page_title}");
-  SmartyWrap::assign('page_keywords', $page_keywords);
-  SmartyWrap::assign('page_description', $page_description);
+  SmartyWrap::assign('pageDescription', $pageDescription);
 }
 
 // Ads

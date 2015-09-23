@@ -91,9 +91,6 @@ if ($type == 'url') {
 }
 
 $searchResults = SearchResult::mapDefinitionArray(array($def));
-$roDate = strftime("%e %B %Y", $timestamp);
-$pageTitle = sprintf("Cuvântul zilei (%s): %s", $roDate, $def->lexicon);
-$pageDesc = sprintf("Cuvântul zilei de la dexonline. Azi, %s: %s", $roDate, $def->lexicon);
 
 if ($mysqlDate > WOTD_BIG_BANG) {
   SmartyWrap::assign('prevday', date('Y/m/d', $timestamp - ONE_DAY_IN_SECS));
@@ -106,10 +103,6 @@ SmartyWrap::assign('imageUrl', $wotd->getImageUrl());
 SmartyWrap::assign('artist', $wotd->getArtist());
 SmartyWrap::assign('timestamp', $timestamp);
 SmartyWrap::assign('not_generic_img', true);
-SmartyWrap::assign('mysqlDate', $mysqlDate);
-SmartyWrap::assign('page_title', $pageTitle);
-SmartyWrap::assign('page_keywords', "Cuvântul zilei, {$def->lexicon}, dexonline, $pageTitle");
-SmartyWrap::assign('page_description', $pageDesc);
 SmartyWrap::assign('searchResult', array_pop($searchResults));
 
 SmartyWrap::display('wotd.tpl');

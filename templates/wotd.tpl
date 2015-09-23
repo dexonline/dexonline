@@ -1,6 +1,13 @@
 {extends file="layout.tpl"}
 
-{block name=title}{$page_title}{/block}
+{block name=title}
+  Cuvântul zilei ({$timestamp|date_format:'%e %B %Y'}): {$searchResult->definition->lexicon}
+{/block}
+
+{block name=pageDescription}
+  <meta name="description"
+        content="Cuvântul zilei de {$timestamp|date_format:'%e %B %Y'} la dexonline: {$searchResult->definition->lexicon}"/>
+{/block}
 
 {block name=content}
   {assign var="nextday" value=$nextday|default:false}

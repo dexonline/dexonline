@@ -26,8 +26,6 @@ if ($type == 'url') {
 }
 
 $searchResults = SearchResult::mapDefinitionArray(array($def));
-$roDate = strftime("%e %B %Y", $timestamp);
-$pageTitle = sprintf("Cuvântul lunii: %s (%s)", $def->lexicon, $roDate);
 
 $cYear = date('Y', $timestamp);
 $cMonth = date('n', $timestamp);
@@ -45,10 +43,6 @@ SmartyWrap::assign('imageUrl', $wotm->getImageUrl());
 SmartyWrap::assign('artist', $wotm->getArtist());
 SmartyWrap::assign('timestamp', $timestamp);
 SmartyWrap::assign('not_generic_img', true);
-SmartyWrap::assign('mysqlDate', $mysqlDate); //???
-SmartyWrap::assign('page_title', $pageTitle);
-SmartyWrap::assign('page_keywords', "Cuvântul lunii, {$def->lexicon}, dexonline, $pageTitle");
-SmartyWrap::assign('page_description', "$pageTitle de la dexonline");
 SmartyWrap::assign('searchResult', array_pop($searchResults));
 
 SmartyWrap::display('wotm.tpl');

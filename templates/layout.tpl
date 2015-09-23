@@ -1,21 +1,14 @@
 {assign var="cuv" value=$cuv|default:''}
 {assign var="onHomePage" value=$onHomePage|default:false}
-{assign var="page_description" value=$page_description|default:''}
-{assign var="page_keywords" value=$page_keywords|default:''}
 {assign var="suggestHiddenSearchForm" value=$suggestHiddenSearchForm|default:false}
 {assign var="suggestNoBanner" value=$suggestNoBanner|default:false}
 <!DOCTYPE html>
 <html>
   <head>
     <title>{block name=title}Dicționare ale limbii române{/block} | dexonline</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <meta content="initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" name="viewport">
-    {if $page_description}
-      <meta name="description" content="{$page_description}"/>
-    {/if}
-    {if $page_keywords}
-      <meta name="keywords" content="{$page_keywords}"/>
-    {/if}
+    {block name=pageDescription}{/block}
     {if !isset($not_generic_img)}
       <meta property="og:image" content="{$imgRoot}/logo-dexonline-2.png" />
       <meta property="og:type" content="website" />

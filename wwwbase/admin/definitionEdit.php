@@ -237,4 +237,3 @@ function loadSetHomonyms($lexems) {
 }
 
 ?>
-o

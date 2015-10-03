@@ -9,7 +9,7 @@
   imaginii dumneavoastră de profil.
 
   <div id="rawAvatarContainer">
-    <img id="jcropTarget" src="{$imgRoot}/user/{$rawFileName}?cb={1000000000|rand:9999999999}" alt="imaginea utilizatorului {$user->nick|escape}"/>
+    <img id="jcropTarget" src="{$imgRoot}/generated/{$rawFileName}?cb={1000000000|rand:9999999999}" alt="imaginea utilizatorului {$sUser->nick|escape}"/>
   </div>
 
   <p class="paragraphTitle">Rezultat</p>
@@ -18,7 +18,7 @@
 
   <form id="avatarForm" action="salvare-avatar" method="post">
     <div id="avatarPreviewContainer">
-      <img id="jcropPreview" src="{$imgRoot}/user/{$rawFileName}?cb={1000000000|rand:9999999999}" alt="previzualizare" class="jcrop-preview" />
+      <img id="jcropPreview" src="{$imgRoot}/generated/{$rawFileName}?cb={1000000000|rand:9999999999}" alt="previzualizare" class="jcrop-preview" />
     </div>
     <input type="hidden" name="x0" value=""/>
     <input type="hidden" name="y0" value=""/>

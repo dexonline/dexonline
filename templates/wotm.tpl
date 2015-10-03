@@ -9,6 +9,10 @@
         content="Cuvântul lunii {$timestamp|date_format:'%B %Y'} la dexonline: {$searchResult->definition->lexicon}"/>
 {/block}
 
+{block name=openGraph}
+  {* Nothing -- so crawlers index the image of the month instead. *}
+{/block}
+
 {block name=content}
   <div>
     <p class="paragraphTitle">Cuvântul lunii {$timestamp|date_format:'%B %Y'}</p>

@@ -42,7 +42,6 @@ if ($mysqlDate < $today || util_isModerator(PRIV_ADMIN)) {
 SmartyWrap::assign('imageUrl', $wotm->getImageUrl());
 SmartyWrap::assign('artist', $wotm->getArtist());
 SmartyWrap::assign('timestamp', $timestamp);
-SmartyWrap::assign('not_generic_img', true);
 SmartyWrap::assign('searchResult', array_pop($searchResults));
 
 SmartyWrap::display('wotm.tpl');

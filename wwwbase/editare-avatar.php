@@ -13,7 +13,7 @@ if (!$file) {
   $error = 'Sunt permise doar imagini jpeg, png sau gif.';
 } else if ($file['error']) {
   $error = 'A intervenit o eroare la încărcare.';
-} else if (getimagesize($file['tmp_name'] === false) || !in_array($ext, array('png','jpg','gif'))) {
+} else if ((getimagesize($file['tmp_name']) === false) || !in_array($ext, array('png','jpg','gif'))) {
   $error = 'Sunt permise doar imagini jpeg, png sau gif.';
 }
 
@@ -29,13 +29,13 @@ if (!$user) {
 }
 
 // Remove any old files (with different extensions)
-$oldFiles = glob(util_getRootPath() . "wwwbase/img/user/{$user->id}_raw.*");
+$oldFiles = glob(util_getRootPath() . "wwwbase/img/generated/{$user->id}_raw.*");
 foreach ($oldFiles as $oldFile) {
   unlink($oldFile);
 }
 
 $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-$destFileName = util_getRootPath() . "wwwbase/img/user/{$user->id}_raw.{$ext}";
+$destFileName = util_getRootPath() . "wwwbase/img/generated/{$user->id}_raw.{$ext}";
 
 if (!move_uploaded_file($file['tmp_name'], $destFileName)) {
   FlashMessage::add('A intervenit o eroare la copierea fișierului.');

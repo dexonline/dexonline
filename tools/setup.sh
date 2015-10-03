@@ -26,7 +26,7 @@ else
 fi
 
 # Make the logs and the Smarty compiled templates directory world-writable
-echo "* running chmod on the log/ directory and files"
+echo "* making some directories and files world-writable"
 chmod 777 log
 touch log/userlog
 chmod 666 log/userlog
@@ -39,16 +39,10 @@ chmod 666 log/wotdelflog
 touch log/visuallog
 chmod 666 log/visuallog
 
-echo "* running chmod on the templates_c directory"
 chmod 777 templates_c
 
-# Make all directories under wwwbase/img/wotd/ world-writable
-echo "* making some directories under wwwbase/img/ world-writable"
-find wwwbase/img/wotd/ -type d | xargs chmod 777
-find wwwbase/img/visual/ -type d | xargs chmod 777
-
-# Allow users to upload temporary images for avatar cropping
-chmod 777 wwwbase/img/user
+# Allow the webserver to store images here (e.g. for Elfinder thumbs).
+chmod 777 wwwbase/img/generated
 
 # Symlink hooks unless they already exist
 if [ ! -e .git/hooks/pre-commit ]; then

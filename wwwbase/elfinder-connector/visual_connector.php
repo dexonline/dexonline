@@ -33,8 +33,8 @@ $opts = array(
       'imgLib'        => 'gd',
 
       // Thumbnails are still stored locally
-      'tmbPath'       => '../img/wotd/visual',
-      'tmbURL'        => '../img/wotd/visual',
+      'tmbPath'       => '../img/generated',
+      'tmbURL'        => '../img/generated',
     )
   )
 );

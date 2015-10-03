@@ -262,10 +262,8 @@ adjectiveModel - The number (not ID!) of the adjective model. An
 The Visual table
 ------------------
 
-Contains information about definition images. Images are stored in 
-wwwbase/img/visual folder and every image has a corresponding thumbnail
-that is created in a .thumb folder (e.g. wwwbase/img/visual/flower.jpg
--> image => wwwbase/img/visual/.thumb/flower.jpg -> thumbnail).
+Contains information about definition images. Images are stored on the
+static server in the /img/visual folder (thumbnails in /img/visual/thumb).
 
 id - Unique numeric ID.
 path - Image path relative to visual folder.

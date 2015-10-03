@@ -9,6 +9,10 @@
         content="Cuvântul zilei de {$timestamp|date_format:'%e %B %Y'} la dexonline: {$searchResult->definition->lexicon}"/>
 {/block}
 
+{block name=openGraph}
+  {* Nothing -- so crawlers index the image of the day instead. *}
+{/block}
+
 {block name=content}
   {assign var="nextday" value=$nextday|default:false}
   {assign var="prevday" value=$prevday|default:false}

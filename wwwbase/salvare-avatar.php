@@ -9,8 +9,8 @@ if (!$user) {
 
 define('AVATAR_RESOLUTION', 48);
 define('AVATAR_QUALITY', 100);
-$AVATAR_REMOTE_FILE = "/img/user/{$user->id}.jpg";
-$AVATAR_RAW_GLOB = util_getRootPath() . "wwwbase/img/user/{$user->id}_raw.*";
+$AVATAR_REMOTE_FILE = "/img/generated/{$user->id}.jpg";
+$AVATAR_RAW_GLOB = util_getRootPath() . "wwwbase/img/generated/{$user->id}_raw.*";
 
 $x0 = util_getRequestParameter('x0');
 $y0 = util_getRequestParameter('y0');

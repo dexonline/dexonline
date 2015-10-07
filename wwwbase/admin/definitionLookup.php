@@ -72,7 +72,6 @@ if ($searchButton || $prevPageButton || $nextPageButton) {
 
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('args', $args);
-SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::displayAdminPage('admin/definitionLookup.tpl');
 ?>

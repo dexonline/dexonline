@@ -6,7 +6,7 @@ util_assertNotMirror();
 $reports = array(
   array('text' => 'Definiții nemoderate',
         'url' => 'admin/viewPendingDefinitions',
-        'count' => Model::factory('Definition')->where('status', ST_PENDING)->count(),
+        'count' => Model::factory('Definition')->where('status', Definition::ST_PENDING)->count(),
         'privilege' => PRIV_EDIT
   ),
   array('text' => 'Definiții cu greșeli de tipar',
@@ -61,7 +61,6 @@ $reports = array(
 );
 
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::assign("allStatuses", util_getAllStatuses());
 SmartyWrap::assign('structStatusNames', Lexem::$STRUCT_STATUS_NAMES);
 SmartyWrap::assign('reports', $reports);
 SmartyWrap::addCss('jqueryui', 'select2');

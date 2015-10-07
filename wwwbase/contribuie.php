@@ -28,7 +28,7 @@ if ($sendButton) {
     SmartyWrap::assign('previewDivContent', AdminStringUtil::htmlize($def, $sourceId));
   } else {
     $definition = Model::factory('Definition')->create();
-    $definition->status = ST_PENDING;
+    $definition->status = Definition::ST_PENDING;
     $definition->userId = session_getUserId();
     $definition->sourceId = $sourceId;
     $definition->internalRep = $def;

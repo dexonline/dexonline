@@ -7,7 +7,7 @@ require_once __DIR__ . '/../phplib/util.php';
 
 $defs = Model::factory('Definition')
   ->where('userId', 0)
-  ->where('status', ST_PENDING)
+  ->where('status', Definition::ST_PENDING)
   ->where_like('internalRep', '%[url=%')
   ->find_many();
 

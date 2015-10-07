@@ -37,7 +37,7 @@ if ($submitButton) {
 
 $MARKER = 'DEADBEEF'; // any string that won't occur naturally in a definition
 $def = null;
-$ids = db_getArray(sprintf('select id from Definition where status != %d and abbrevReview = %d', ST_DELETED, ABBREV_AMBIGUOUS));
+$ids = db_getArray(sprintf('select id from Definition where status != %d and abbrevReview = %d', Definition::ST_DELETED, ABBREV_AMBIGUOUS));
 if (count($ids)) {
   $defId = $ids[array_rand($ids, 1)];
   $def = Definition::get_by_id($defId);

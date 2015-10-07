@@ -122,7 +122,6 @@ SmartyWrap::assign('models', $models);
 SmartyWrap::assign('jsonSources', Source::getJson());
 SmartyWrap::assign('modelsT', FlexModel::loadByType('T'));
 SmartyWrap::assign('canEdit', $canEdit);
-SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('structStatusNames', Lexem::$STRUCT_STATUS_NAMES);
 SmartyWrap::addCss('jqueryui-smoothness', 'paradigm', 'select2', 'lexemEdit', 'windowEngine', 'textComplete');
 SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev', 'lexemEdit', 'windowEngine', 'cookie', 'modelDropdown', 'textComplete');
@@ -335,7 +334,7 @@ function handleLexemActions() {
       '@' . mb_strtoupper(AdminStringUtil::internalize($lexem->form, false)) .
       '@ v. @' . $miniDefTarget . '.@';
     $def->htmlRep = AdminStringUtil::htmlize($def->internalRep, $def->sourceId);
-    $def->status = ST_ACTIVE;
+    $def->status = Definition::ST_ACTIVE;
     $def->save();
 
     LexemDefinitionMap::associate($lexem->id, $def->id);

@@ -13,12 +13,11 @@ if ( $sourceUrlName ) {
 }
 
 $ip = $_SERVER['REMOTE_ADDR'];
-$defs = Definition::searchModerator('*', '', $sourceId, ST_PENDING, 0, 0, time(), 1, 500);
+$defs = Definition::searchModerator('*', '', $sourceId, Definition::ST_PENDING, 0, 0, time(), 1, 500);
 $searchResults = SearchResult::mapDefinitionArray($defs);
 FileCache::putModeratorQueryResults($ip, $searchResults);
 
 SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::displayAdminPage('admin/viewPendingDefinitions.tpl');
 ?>

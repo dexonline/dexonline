@@ -122,23 +122,12 @@ function util_defineConstants() {
   define("CRIT_NICK",  3);
   define("CRIT_DATE",  4);
 
-  define("ST_ACTIVE", 0);
-  define("ST_PENDING", 1);
-  define("ST_DELETED", 2);
-  define("ST_HIDDEN", 3);
-
   define("ABBREV_NOT_REVIEWED", 0);
   define("ABBREV_AMBIGUOUS", 1);
   define("ABBREV_REVIEW_COMPLETE", 2);
 
   define("MAX_RECENT_LINKS", 20);
   
-  $GLOBALS['wordStatuses'] = array(ST_ACTIVE  => "Activă",
-                                   ST_PENDING => "Temporară",
-                                   ST_DELETED => "Ștearsă",
-                                   ST_HIDDEN  => "Ascunsă",
-                             );
-
   define("SEARCH_REGEXP", 0);
   define("SEARCH_MULTIWORD", 1);
   define("SEARCH_INFLECTED", 2);
@@ -180,10 +169,6 @@ function util_defineConstants() {
   define('DEFAULT_LIMIT_FULLTEXT', 500);
   define('LIMIT_FULLTEXT_DISPLAY', Config::get('limits.limitFulltextSearch', DEFAULT_LIMIT_FULLTEXT));
   define('PREVIEW_LIMIT', 20);
-}
-
-function util_getAllStatuses() {
-  return $GLOBALS['wordStatuses'];
 }
 
 function util_randomCapitalLetterString($length) {

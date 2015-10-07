@@ -40,7 +40,7 @@ class SearchResult {
       $results[$t->definitionId]->typos[] = $t;
     }
 
-    $comments = Model::factory('Comment')->where_in('definitionId', $defIds)->where('status', ST_ACTIVE)->find_many();
+    $comments = Model::factory('Comment')->where_in('definitionId', $defIds)->where('status', Definition::ST_ACTIVE)->find_many();
     foreach ($comments as $c) {
       $results[$c->definitionId]->comment = $c;
       // We still run one query per comment author, but there are very few comments
@@ -73,7 +73,7 @@ class SearchResult {
   public static function filterHidden(&$searchResults, &$sources) {
     if (!util_isModerator(PRIV_VIEW_HIDDEN)) {
       foreach ($searchResults as $i => &$sr) {
-        if ($sr->source->isOfficial == SOURCE_TYPE_HIDDEN || $sr->definition->status == ST_HIDDEN) {
+        if ($sr->source->isOfficial == SOURCE_TYPE_HIDDEN || $sr->definition->status == Definition::ST_HIDDEN) {
           $sources[$sr->source->id] = $sr->source;
           unset($searchResults[$i]);
         }

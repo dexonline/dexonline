@@ -6,7 +6,7 @@ util_assertNotMirror();
 $defId = util_getRequestParameter('id');
 $def = Definition::get_by_id($defId);
 if ($def && $def->id) {
-  $def->status = ST_DELETED;
+  $def->status = Definition::ST_DELETED;
   $def->save();
   db_execute("delete from Typo where definitionId = {$def->id}");
 

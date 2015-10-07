@@ -46,9 +46,7 @@
           {$row->definition->htmlRep}<br/>
           <span class="defDetails">
             Sursa: {$row->source->shortName|escape} |
-            {assign var=status value=$row->definition->status}
-            {assign var=statusName value=$allStatuses[$status]}
-            Starea: {$statusName}
+            Starea: {$row->definition->getStatusName()}
           </span>
           <br/>
         {/foreach}

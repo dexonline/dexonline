@@ -17,7 +17,7 @@ if ($sourceId) {
     ->join('LexemModel', 'lm.lexemId = l.id', 'lm')
     ->join('LexemDefinitionMap', 'ldm.lexemId = l.id', 'ldm')
     ->join('Definition', 'd.id = ldm.definitionId', 'd')
-    ->where('d.status', ST_ACTIVE)
+    ->where('d.status', Definition::ST_ACTIVE)
     ->where('d.sourceId', $sourceId)
     ->where('lm.modelType', 'T')
     ->order_by_asc('formNoAccent')

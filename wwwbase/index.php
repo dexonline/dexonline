@@ -27,14 +27,14 @@ if (!$wotd) {
   $wotd = WordOfTheDay::getTodaysWord();
 }
 $defId = WordOfTheDayRel::getRefId($wotd->id);
-$def = Model::factory('Definition')->where('id', $defId)->where('status', ST_ACTIVE)->find_one();
+$def = Model::factory('Definition')->where('id', $defId)->where('status', Definition::ST_ACTIVE)->find_one();
 SmartyWrap::assign('thumbUrl', $wotd->getThumbUrl());
 SmartyWrap::assign('title', $def->lexicon);
 SmartyWrap::assign('today', date('Y/m/d'));
 
 /* WotM part */
 $wotm = WordOfTheMonth::getCurrentWotM();
-$def = Model::factory('Definition')->where('id', $wotm->definitionId)->where('status', ST_ACTIVE)->find_one();
+$def = Model::factory('Definition')->where('id', $wotm->definitionId)->where('status', Definition::ST_ACTIVE)->find_one();
 SmartyWrap::assign('thumbUrlM', $wotm->getThumbUrl());
 SmartyWrap::assign('articol', $wotm->article);
 SmartyWrap::assign('titleM', $def->lexicon);

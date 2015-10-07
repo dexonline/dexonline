@@ -48,7 +48,6 @@ SmartyWrap::assign('search', $search);
 SmartyWrap::assign('replace', $replace);
 SmartyWrap::assign('sourceId', $sourceId);
 SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::displayAdminPage('admin/bulkReplace.tpl');
 

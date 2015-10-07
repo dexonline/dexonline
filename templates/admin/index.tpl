@@ -34,10 +34,7 @@
     Definiții:
     <input type="text" name="name" size="10" value="*"/>
     &nbsp; &nbsp; starea:
-    {include file="bits/statusDropDown.tpl"
-    name="status"
-    statuses=$allStatuses
-    selectedStatus=1}
+    {include file="bits/statusDropDown.tpl" name="status" selectedStatus=Definition::ST_PENDING}
     &nbsp; &nbsp; trimise de:
     <input type="text" name="nick" size="10" value=""/>
     &nbsp; &nbsp; sursa:

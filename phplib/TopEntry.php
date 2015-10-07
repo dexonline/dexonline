@@ -45,7 +45,11 @@ class TopEntry {
       $clause = "not {$clause}";
     }
 
-    $statusClause = util_isModerator(PRIV_VIEW_HIDDEN) ? sprintf("status in (%d,%d)", ST_ACTIVE, ST_HIDDEN) : sprintf("status = %d", ST_ACTIVE);
+    if (util_isModerator(PRIV_VIEW_HIDDEN)) {
+      $statusClause = sprintf("status in (%d,%d)", Definition::ST_ACTIVE, Definition::ST_HIDDEN);
+    } else {
+      $statusClause = sprintf("status = %d", Definition::ST_ACTIVE);
+    }
 
     $query = "select nick, count(*) as NumDefinitions, sum(length(internalRep)) as NumChars, max(createDate) as Timestamp 
     from Definition, User 

@@ -8,10 +8,9 @@ $results = array();
 foreach ($defs as $def) {
   $htmlRep = str_replace("\n", ' ', $def->htmlRep);
   $source = Source::get_by_id($def->sourceId);
-  $status = $GLOBALS['wordStatuses'][$def->status];
   $results[] = array('id' => $def->id,
                      'shortName' => $source->shortName,
-                     'status' => $status,
+                     'status' => $def->getStatusName(),
                      'htmlRep' => $htmlRep);
 }
 

@@ -14,7 +14,7 @@
       Sursa: {$row->source->shortName|escape} |
       Trimisă de {$row->user->nick|escape}</a>,
       {$row->definition->createDate|date_format:"%e %b %Y"} |
-      Starea: {$allStatuses[$row->definition->status]} |
+      Starea: {$row->definition->getStatusName()} |
 
       <a href="definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
     </span>

@@ -4,7 +4,6 @@ util_assertModerator(PRIV_WOTD);
 util_assertNotMirror();
 RecentLink::createOrUpdate('Cuvântul zilei');
 
-SmartyWrap::assign('allStatuses', util_getAllStatuses());
 SmartyWrap::assign('downloadYear', date("Y",strtotime("+1 month")));
 SmartyWrap::assign('downloadMonth', date("m",strtotime("+1 month")));
 SmartyWrap::addCss('jqgrid', 'jqueryui', 'select2');

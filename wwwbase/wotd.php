@@ -19,7 +19,7 @@ if ($type == 'rss' || $type == 'blog') {
     $item = array();
     $ts = strtotime($w->displayDate);
     $defId = WordOfTheDayRel::getRefId($w->id);
-    $def = Model::factory('Definition')->where('id', $defId)->where('status', ST_ACTIVE)->find_one();
+    $def = Model::factory('Definition')->where('id', $defId)->where('status', Definition::ST_ACTIVE)->find_one();
     $source = Model::factory('Source')->where('id', $def->sourceId)->find_one();
 
     SmartyWrap::assign('def', $def);

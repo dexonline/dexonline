@@ -47,7 +47,7 @@ if (!$definitionId) {
     $def = AdminStringUtil::internalizeDefinition($ocr->ocrText, $sourceId, $ambiguousMatches);
 
     $definition = Model::factory('Definition')->create();
-    $definition->status = ST_PENDING;
+    $definition->status = Definition::ST_PENDING;
     $definition->userId = session_getUserId();
     $definition->sourceId = $sourceId;
     $definition->similarSource = $similarSource;
@@ -71,7 +71,7 @@ if (!($definition = Definition::get_by_id($definitionId))) {
   return;
 }
 
-$comment = Model::factory('Comment')->where('definitionId', $definitionId)->where('status', ST_ACTIVE)->find_one();
+$comment = Model::factory('Comment')->where('definitionId', $definitionId)->where('status', Definition::ST_ACTIVE)->find_one();
 $commentUser = $comment ? User::get_by_id($comment->userId) : null;
 $oldInternalRep = $definition->internalRep;
 
@@ -130,7 +130,7 @@ if (count($lexemIds)) {
 if ($commentContents) {
   if (!$comment) {
     $comment = Model::factory('Comment')->create();
-    $comment->status = ST_ACTIVE;
+    $comment->status = Definition::ST_ACTIVE;
     $comment->definitionId = $definitionId;
   }
   $newContents = AdminStringUtil::internalizeDefinition($commentContents, $sourceId);
@@ -143,7 +143,7 @@ if ($commentContents) {
   }
 } else if ($comment) {
   // User wiped out the existing comment, set status to DELETED.
-  $comment->status = ST_DELETED;
+  $comment->status = Definition::ST_DELETED;
   $comment->userId = session_getUserId();  
 }
 
@@ -151,7 +151,7 @@ if (($acceptButton || $moveButton) && !$hasErrors) {
   // The only difference between these two is that but_move also changes the
   // status to Active
   if ($moveButton) {
-    $definition->status = ST_ACTIVE;
+    $definition->status = Definition::ST_ACTIVE;
   }
     
   // Accept the definition and delete the typos associated with it.
@@ -161,7 +161,7 @@ if (($acceptButton || $moveButton) && !$hasErrors) {
     $comment->save();
   }
 
-  if ($definition->status == ST_DELETED) {
+  if ($definition->status == Definition::ST_DELETED) {
     // If by deleting this definition, any associated lexems become unassociated, delete them
     $ldms = LexemDefinitionMap::get_all_by_definitionId($definition->id);
     db_execute("delete from LexemDefinitionMap where definitionId = {$definition->id}");
@@ -217,7 +217,6 @@ SmartyWrap::assign('commentUser', $commentUser);
 SmartyWrap::assign('lexemIds', $lexemIds);
 SmartyWrap::assign('typos', Typo::get_all_by_definitionId($definition->id));
 SmartyWrap::assign('homonyms', loadSetHomonyms($lexems));
-SmartyWrap::assign("allStatuses", util_getAllStatuses());
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::addCss('jqueryui', 'select2');

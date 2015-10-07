@@ -298,19 +298,20 @@
       </div>
 
       {foreach from=$searchResults item=row}
-        <div class="defWrapper {if $row->definition->structured}structured{else}unstructured{/if}" id="def_{$row->definition->id}">
-          <div data-code="0" class="rep internal hidden">{$row->definition->internalRepAbbrev|escape}</div>
-          <div data-code="1" class="rep hidden">{$row->definition->htmlRepAbbrev}</div>
-          <div data-code="2" class="rep internal hidden">{$row->definition->internalRep|escape}</div>
-          <div data-code="3" data-active class="rep">{$row->definition->htmlRep}</div>
+        {$def=$row->definition}
+        <div class="defWrapper {if $def->structured}structured{else}unstructured{/if}" id="def_{$def->id}">
+          <div data-code="0" class="rep internal hidden">{$def->internalRepAbbrev|escape}</div>
+          <div data-code="1" class="rep hidden">{$def->htmlRepAbbrev}</div>
+          <div data-code="2" class="rep internal hidden">{$def->internalRep|escape}</div>
+          <div data-code="3" data-active class="rep">{$def->htmlRep}</div>
           <span class="defDetails">
-            id: {$row->definition->id}
+            id: {$def->id}
             | sursa: {$row->source->shortName|escape}
-            | starea: {$allStatuses[$row->definition->status]}
+            | starea: {$def->getStatusName()}
             {if $canEdit.general}
-              | <a href="definitionEdit.php?definitionId={$row->definition->id}" target="_blank">editează</a>
-              | <a href="lexemEdit.php?lexemId={$lexem->id}&amp;dissociateDefinitionId={$row->definition->id}"
-                   title="disociază definiția de lexem" onclick="return confirmDissociateDefinition({$row->definition->id})">disociază</a>
+              | <a href="definitionEdit.php?definitionId={$def->id}" target="_blank">editează</a>
+              | <a href="lexemEdit.php?lexemId={$lexem->id}&amp;dissociateDefinitionId={$def->id}"
+                   title="disociază definiția de lexem" onclick="return confirmDissociateDefinition({$def->id})">disociază</a>
             {/if}
             | <a href="#" class="toggleRepLink" title="comută între notația internă și HTML"
                  data-value="1" data-order="1" data-other-text="html">text</a>
@@ -318,7 +319,7 @@
                  data-value="1" data-order="2" data-other-text="abreviat">expandat</a>
             {if $canEdit.defStructured}
               | <a href="#" class="toggleStructuredLink" title="comută definiția între structurată și nestructurată"
-                   >{if $row->definition->structured}structurată{else}nestructurată{/if}</a>
+                   >{if $def->structured}structurată{else}nestructurată{/if}</a>
             {/if}
           </span>
           {if $row->comment}

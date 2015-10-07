@@ -28,7 +28,7 @@ $defs = Model::factory('Definition')
   ->where('userId', $user->id)
   ->where('sourceId', $source->id)
   ->where_gt('createDate', $timestamp)
-  ->where('status', ST_ACTIVE)
+  ->where('status', Definition::ST_ACTIVE)
   ->order_by_asc('lexicon')
   ->find_many();
 

@@ -3,12 +3,28 @@
 class Definition extends BaseObject implements DatedObject {
   public static $_table = 'Definition';
 
+  const ST_ACTIVE = 0;
+  const ST_PENDING = 1;
+  const ST_DELETED = 2;
+  const ST_HIDDEN = 3;
+
+  public static $STATUS_NAMES = [
+    self::ST_ACTIVE  => 'activă',
+    self::ST_PENDING => 'temporară',
+    self::ST_DELETED => 'ștearsă',
+    self::ST_HIDDEN  => 'ascunsă',
+  ];
+
   public static function get_by_id($id) {
     if (util_isModerator(PRIV_ADMIN)) {
       return parent::get_by_id($id);
     } else {
-      return Model::factory('Definition')->where('id',$id)->where_not_equal('status', ST_HIDDEN)->find_one();
+      return Model::factory('Definition')->where('id',$id)->where_not_equal('status', self::ST_HIDDEN)->find_one();
     }
+  }
+
+  public function getStatusName() {
+    return self::$STATUS_NAMES[$this->status];
   }
 
   public static function loadByLexemId($lexemId) {
@@ -17,7 +33,7 @@ class Definition extends BaseObject implements DatedObject {
       ->join('LexemDefinitionMap', array('Definition.id', '=', 'definitionId'))
       ->join('Source', array('Source.id', '=', 'sourceId'))
       ->where('LexemDefinitionMap.lexemId', $lexemId)
-      ->where_not_equal('status', ST_DELETED)
+      ->where_not_equal('status', self::ST_DELETED)
       ->order_by_asc('displayOrder')
       ->find_many();
   }
@@ -43,7 +59,7 @@ class Definition extends BaseObject implements DatedObject {
         ->select('d.*')
         ->distinct()
         ->join('LexemDefinitionMap', 'ldm.definitionId = d.id', 'ldm')
-        ->where_not_equal('d.status', ST_DELETED)
+        ->where_not_equal('d.status', self::ST_DELETED)
         ->where('d.sourceId', $similarSource->id)
         ->where_in('ldm.lexemId', $lexemIds)
         ->find_many();
@@ -69,7 +85,7 @@ class Definition extends BaseObject implements DatedObject {
       ->where_gte('lexicon', $wordStart)
       ->where_lte('lexicon', $wordEnd)
       ->where_in('sourceId', $sources)
-      ->where('status', ST_ACTIVE)
+      ->where('status', self::ST_ACTIVE)
       ->order_by_asc('lexicon')
       ->order_by_asc('sourceId')
       ->find_many();
@@ -82,14 +98,14 @@ class Definition extends BaseObject implements DatedObject {
     // (3) not deleted, not associated
     // We compute (3) as (all definitions) - (1) - (2).
     $all = Model::factory('Definition')->count();
-    $deleted = Model::factory('Definition')->where('status', ST_DELETED)->count();
+    $deleted = Model::factory('Definition')->where('status', self::ST_DELETED)->count();
     $associated = db_getSingleValue('select count(distinct definitionId) from LexemDefinitionMap');
     return $all - $deleted - $associated;
   }
 
   public static function countAmbiguousAbbrevs() {
     return Model::factory('Definition')
-      ->where_not_equal('status', ST_DELETED)
+      ->where_not_equal('status', self::ST_DELETED)
       ->where('abbrevReview', ABBREV_AMBIGUOUS)
       ->count();
   }
@@ -108,7 +124,7 @@ class Definition extends BaseObject implements DatedObject {
 
     $sourceClause = $sourceId ? "and D.sourceId = $sourceId" : '';
     $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
-    $statusClause = sprintf("and D.status in (%d,%d)", ST_ACTIVE, ST_HIDDEN);
+    $statusClause = sprintf("and D.status in (%d,%d)", self::ST_ACTIVE, self::ST_HIDDEN);
     // TODO Using the number constants is not a good practice
     return ORM::for_table('Definition')
       ->raw_query("select distinct D.* from Definition D, LexemDefinitionMap L, Source S " .
@@ -119,7 +135,7 @@ class Definition extends BaseObject implements DatedObject {
 
   public static function searchLexemId($lexemId, $exclude_unofficial = false) {
     $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
-    $statusClause = sprintf("and D.status in (%d,%d)", ST_ACTIVE, ST_HIDDEN);
+    $statusClause = sprintf("and D.status in (%d,%d)", self::ST_ACTIVE, self::ST_HIDDEN);
     return Model::factory('Definition')
       ->raw_query("select D.* from Definition D, LexemDefinitionMap L, Source S where D.id = L.definitionId " .
                   "and D.sourceId = S.id and L.lexemId = '$lexemId' $excludeClause $statusClause " .
@@ -245,11 +261,11 @@ class Definition extends BaseObject implements DatedObject {
     $userClause = $userId ? "and Definition.userId = $userId" : '';
     $offset = ($page - 1) * $resultsPerPage;
 
-    if ($status == ST_DELETED) {
+    if ($status == self::ST_DELETED) {
       // Deleted definitions are not associated with any lexem
       $collate = $hasDiacritics ? '' : 'collate utf8_general_ci';
       return Model::factory('Definition')
-        ->raw_query("select * from Definition where lexicon $collate $regexp and status = " . ST_DELETED . " and createDate between $beginTime and $endTime " .
+        ->raw_query("select * from Definition where lexicon $collate $regexp and status = " . self::ST_DELETED . " and createDate between $beginTime and $endTime " .
                     "$sourceClause $userClause order by lexicon, sourceId limit $offset, $resultsPerPage")->find_many();
     } else {
       $query = "select distinct Definition.* from Lexem join LexemDefinitionMap on Lexem.id = LexemDefinitionMap.lexemId " .
@@ -291,7 +307,7 @@ class Definition extends BaseObject implements DatedObject {
     if ($cachedWordCount) {
       return $cachedWordCount;
     }
-    $result = Model::factory('Definition')->where('status', ST_ACTIVE)->count();
+    $result = Model::factory('Definition')->where('status', self::ST_ACTIVE)->count();
     FileCache::putWordCount($result);
     return $result;
   }
@@ -302,7 +318,7 @@ class Definition extends BaseObject implements DatedObject {
       return $cachedWordCountLastMonth;
     }
     $last_month = time() - 30 * 86400;
-    $result = Model::factory('Definition')->where('status', ST_ACTIVE)->where_gte('createDate', $last_month)->count();
+    $result = Model::factory('Definition')->where('status', self::ST_ACTIVE)->where_gte('createDate', $last_month)->count();
     FileCache::putWordCountLastMonth($result);
     return $result;
   }

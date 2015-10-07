@@ -122,10 +122,15 @@ if ($defId) {
   SmartyWrap::assign('defId', $defId);
   $searchType = SEARCH_DEF_ID;
   if (util_isModerator(PRIV_VIEW_HIDDEN)) {
-      $def = Model::factory('Definition')->where('id', $defId)->where_in('status', array(ST_ACTIVE, ST_HIDDEN))->find_one();
-  }
-  else {
-      $def = Model::factory('Definition')->where('id', $defId)->where('status', ST_ACTIVE)->find_one();
+    $def = Model::factory('Definition')
+         ->where('id', $defId)
+         ->where_in('status', array(Definition::ST_ACTIVE, Definition::ST_HIDDEN))
+         ->find_one();
+  } else {
+    $def = Model::factory('Definition')
+         ->where('id', $defId)
+         ->where('status', Definition::ST_ACTIVE)
+         ->find_one();
   }
   $definitions = array();
   if ($def) {

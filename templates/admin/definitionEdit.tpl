@@ -60,7 +60,7 @@
       <tr>
         <td>Starea:</td>
         <td>
-          {include file="bits/statusDropDown.tpl" name="status" statuses=$allStatuses selectedStatus=$def->status}
+          {include file="bits/statusDropDown.tpl" name="status" selectedStatus=$def->status}
 
           <span class="tooltip2" title="Dacă treceți o definiție în starea ștearsă, ea va fi automat disociată de orice lexem. Notă: Definiția va
                                         fi imposibil de găsit la o căutare ulterioară, tocmai din cauza disocierii (căutarea se face după lexem). Definiția este încă disponibilă în
@@ -147,7 +147,7 @@
     Id: {$def->id} |
     Sursa: {$source->shortName|escape} |
     Trimisă de {$user->nick|escape}, {$def->createDate|date_format:"%e %b %Y"} |
-    Starea: {$allStatuses[$def->status]}
+    Starea: {$def->getStatusName()}
   </span>
 
   <div id="commentPreview">{$comment->htmlContents|default:''}</div>

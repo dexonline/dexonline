@@ -51,7 +51,6 @@ RecentLink::createOrUpdate('Plasare accente');
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('chars', $chars);
 SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign("allStatuses", util_getAllStatuses());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::displayAdminPage('admin/placeAccents.tpl');
 

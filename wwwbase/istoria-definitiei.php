@@ -11,7 +11,7 @@ $recordSet = db_execute("SELECT old.Version AS OldVersion, new.Version AS NewVer
 
 $changeSets = array();
 $diffs = array();
-$statuses = util_getAllStatuses();
+$statuses = Definition::$STATUS_NAMES;
 
 foreach ($recordSet as $row) {
   $changeSet = $row;

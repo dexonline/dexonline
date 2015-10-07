@@ -1,18 +1,17 @@
 {foreach from=$searchResults item=row}
-  <div id="def{$row->definition->id}">
-    {$row->definition->htmlRep}<br/>
+  {$def=$row->definition}
+  <div id="def{$def->id}">
+    {$def->htmlRep}<br/>
     <span class="defDetails">
-      Id: {$row->definition->id} |
+      Id: {$def->id} |
       Sursa: {$row->source->shortName|escape} |
       Trimisă de {$row->user->nick|escape},
-      {$row->definition->createDate|date_format:"%e %b %Y"} |
-      {assign var=status value=$row->definition->status}
-      {assign var=statusName value=$allStatuses[$status]}
-      Starea: {$statusName} |
+      {$def->createDate|date_format:"%e %b %Y"} |
+      Starea: {$def->getStatusName()} |
 
-      <a href="definitionEdit.php?definitionId={$row->definition->id}">Editează</a>
-      {if $status == $smarty.const.ST_PENDING}
-        | <a href="#" title="Șterge această definiție" onclick="return deleteDefinition('def{$row->definition->id}', {$row->definition->id});">Șterge</a>
+      <a href="definitionEdit.php?definitionId={$def->id}">Editează</a>
+      {if $def->status == Definition::ST_PENDING}
+        | <a href="#" title="Șterge această definiție" onclick="return deleteDefinition('def{$def->id}', {$def->id});">Șterge</a>
       {/if}
     </span>
     <br/>

@@ -5,7 +5,7 @@ util_assertModerator(PRIV_WOTD | PRIV_EDIT);
 util_assertNotMirror();
 
 $query = util_getRequestParameter('term');
-$definitions = Model::factory('Definition')->where('status', ST_ACTIVE)->where_like('lexicon', "{$query}%")
+$definitions = Model::factory('Definition')->where('status', Definition::ST_ACTIVE)->where_like('lexicon', "{$query}%")
   ->order_by_asc('lexicon')->limit(20)->find_many();
 $resp = array('results' => array());
 foreach ($definitions as $definition){

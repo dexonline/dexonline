@@ -44,6 +44,7 @@ body {
 
 #meaningTree .id,
 #meaningTree .internalRep,
+#meaningTree .internalEtymology,
 #meaningTree .internalComment,
 #meaningTree .sourceIds,
 #meaningTree .meaningTagIds,
@@ -69,6 +70,16 @@ body {
   border-bottom: 1px dotted #444;
   color: #000;
   text-decoration: none;
+}
+
+#meaningTree .htmlEtymology {
+  font-size: 13px;
+  margin-right: 10px;
+}
+
+#meaningTree .htmlEtymology:not(:empty)::before {
+  content: "Etimologie: ";
+  color: #040;
 }
 
 #meaningTree .htmlComment {
@@ -121,21 +132,17 @@ body {
   padding: 0em 1em;
 }
 
-.meaningEditor td {
-  vertical-align: top;
+#meaningEditor label {
+  display: inline-block;
+  width: 80px;
 }
 
-.leftColumn {
-  padding-right: 10px;
-}
-
-#editorInternalRep {
-  height: 190px;
-  width: 510px;
-}
-
-#editorInternalComment {
-  width: 390px;
+#editorRep,
+#editorEtymology,
+#editorComment {
+  display: block;
+  margin-bottom: 10px;
+  width: 500px;
 }
 
 abbr {

@@ -278,6 +278,7 @@ function goodForVariant($meanings) {
   $relations = Relation::get_all_by_meaningId($m->id);
   return count($mss) &&
     !$m->internalRep &&
+    !$m->internalEtymology &&
     !$m->internalComment &&
     empty($relations);
 }
@@ -292,11 +293,11 @@ function goodForVariantJson($meanings) {
   }
 
   $m = $meanings[0];
-  if (!$m->sourceIds || $m->internalRep || $m->internalComment) {
+  if (!$m->sourceIds || $m->internalRep || $m->internalEtymology || $m->internalComment) {
     return false;
   }
 
-  for ($i = 1; $i < Relation::NUM_TYPES; $i++) {
+  for ($i = 1; $i <= Relation::NUM_TYPES; $i++) {
     if (!empty($m->relationIds[$i])) {
       return false;
     }

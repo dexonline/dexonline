@@ -18,6 +18,8 @@
           </span>
           <span class="internalRep">{$t.meaning->internalRep}</span>
           <span class="htmlRep">{$t.meaning->htmlRep}</span>
+          <span class="internalEtymology">{$t.meaning->internalEtymology}</span>
+          <span class="htmlEtymology">{$t.meaning->htmlEtymology}</span>
           <span class="internalComment">{$t.meaning->internalComment}</span>
           <span class="htmlComment">{$t.meaning->htmlComment}</span>
           <span class="sources">

@@ -18,7 +18,7 @@ class Relation extends BaseObject implements DatedObject {
       ->order_by_asc('formNoAccent')
       ->find_many();
     $results = array();
-    for ($i = 1; $i < self::NUM_TYPES; $i++) {
+    for ($i = 1; $i <= self::NUM_TYPES; $i++) {
       $results[$i] = array();
     }
     foreach ($lexems as $l) {

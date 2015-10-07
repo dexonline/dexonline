@@ -63,6 +63,8 @@ class Meaning extends BaseObject implements DatedObject {
       $m = $tuple->id ? self::get_by_id($tuple->id) : Model::factory('Meaning')->create();
       $m->internalRep = $tuple->internalRep;
       $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
+      $m->internalEtymology = $tuple->internalEtymology;
+      $m->htmlEtymology = AdminStringUtil::htmlize($m->internalEtymology, 0);
       $m->internalComment = $tuple->internalComment;
       $m->htmlComment = AdminStringUtil::htmlize($m->internalComment, 0);
       $row['meaning'] = $m;
@@ -99,6 +101,8 @@ class Meaning extends BaseObject implements DatedObject {
       $m->lexemId = $lexem->id;
       $m->internalRep = $tuple->internalRep;
       $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
+      $m->internalEtymology = $tuple->internalEtymology;
+      $m->htmlEtymology = AdminStringUtil::htmlize($m->internalEtymology, 0);
       $m->internalComment = $tuple->internalComment;
       $m->htmlComment = AdminStringUtil::htmlize($m->internalComment, 0);
       $m->save();

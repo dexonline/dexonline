@@ -36,10 +36,10 @@ function lexemEditInit() {
   $('.editorRelation').select2('enable', false);
 
   $('#relationType').change(selectRelationType).change();
-  $('#editorInternalRep, #editorInternalComment, #editorSources, #editorTags, .editorRelation').bind(
+  $('#editorRep, #editorEtymology, #editorComment, #editorSources, #editorTags, .editorRelation').bind(
     'change keyup input paste', function() { struct_anyChanges = true; });
 
-  $('#editorInternalRep').textcomplete([
+  $('#editorRep').textcomplete([
     {
       match: /(([a-zăâîșț]+)\[[0-9.]*)$/i,
       search: meaningMention,
@@ -253,9 +253,10 @@ function beginMeaningEdit() {
   struct_anyChanges = false;
   var c = $('#meaningTree li.selected > .meaningContainer');
 
-  $('#editorInternalRep, #editorInternalComment, #relationType, #editMeaningAcceptButton, #editMeaningCancelButton').removeProp('disabled');
-  $('#editorInternalRep').val(c.find('.internalRep').text());
-  $('#editorInternalComment').val(c.find('.internalComment').text());
+  $('#editorRep, #editorEtymology, #editorComment, #relationType, #editMeaningAcceptButton, #editMeaningCancelButton').removeProp('disabled');
+  $('#editorRep').val(c.find('.internalRep').text());
+  $('#editorEtymology').val(c.find('.internalEtymology').text());
+  $('#editorComment').val(c.find('.internalComment').text());
   $('#editorSources').select2('val', c.find('.sourceIds').text().split(','));
   $('#editorSources').select2('enable');
   $('#editorTags').select2('val', c.find('.meaningTagIds').text().split(','));
@@ -276,15 +277,23 @@ function acceptMeaningEdit() {
   var c = $('#meaningTree li.selected > .meaningContainer');
 
   // Update internal and HTML definition
-  var internalRep = $('#editorInternalRep').val();
+  var internalRep = $('#editorRep').val();
   c.find('.internalRep').text(internalRep);
   $.post(wwwRoot + 'ajax/htmlize.php',
          { internalRep: internalRep, sourceId: 0 },
          function(data) { c.find('.htmlRep').html(data); }
         );
 
+  // Update internal and HTML etymology
+  var internalEtymology = $('#editorEtymology').val();
+  c.find('.internalEtymology').text(internalEtymology);
+  $.post(wwwRoot + 'ajax/htmlize.php',
+         { internalRep: internalEtymology, sourceId: 0 },
+         function(data) { c.find('.htmlEtymology').html(data); }
+        );
+
   // Update internal and HTML comment
-  var internalComment = $('#editorInternalComment').val();
+  var internalComment = $('#editorComment').val();
   c.find('.internalComment').text(internalComment);
   $.post(wwwRoot + 'ajax/htmlize.php',
          { internalRep: internalComment, sourceId: 0 },
@@ -322,10 +331,11 @@ function acceptMeaningEdit() {
 
 function endMeaningEdit() {
   struct_anyChanges = false;
-  $('#editorInternalRep, #editorInternalComment, #editMeaningAcceptButton, #editMeaningCancelButton').prop('disabled', 'disabled');
+  $('#editorRep, #editorEtymology, #editorComment, #editMeaningAcceptButton, #editMeaningCancelButton').prop('disabled', 'disabled');
   $('#relationType').attr('disabled', 'disabled');
-  $('#editorInternalRep').val('');
-  $('#editorInternalComment').val('');
+  $('#editorRep').val('');
+  $('#editorEtymology').val('');
+  $('#editorComment').val('');
   $('#editorSources').select2('val', []);
   $('#editorSources').select2('enable', false);
   $('#editorTags').select2('val', []);
@@ -352,6 +362,7 @@ function meaningTreeWalk(node, results, level) {
                    'level': level,
                    'breadcrumb': c.find('.breadcrumb').text(),
                    'internalRep': c.find('.internalRep').text(),
+                   'internalEtymology': c.find('.internalEtymology').text(),
                    'internalComment': c.find('.internalComment').text(),
                    'sourceIds': c.find('.sourceIds').text(),
                    'meaningTagIds': c.find('.meaningTagIds').text(),

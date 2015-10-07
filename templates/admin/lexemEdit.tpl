@@ -22,6 +22,8 @@
         <span class="meaningTagIds"></span>
         <span class="internalRep"></span>
         <span class="htmlRep"></span>
+        <span class="internalEtymology"></span>
+        <span class="htmlEtymology"></span>
         <span class="internalComment"></span>
         <span class="htmlComment"></span>
         <span class="sources"></span>
@@ -213,70 +215,54 @@
 
     {if $canEdit.meanings}
       <div class="box" data-id="meaningEditor" data-title="Editorul de sensuri" data-left="10" data-top="30" data-width="960" data-height="280" data-minimized="1">
-        <table class="meaningEditor">
-          <tr>
-            <td class="leftColumn" rowspan="5">
-              <textarea id="editorInternalRep" rows="10" cols="10" disabled placeholder="sensul definiției..."></textarea>
-            </td>
-            
-            <td colspan="2">
-              <textarea id="editorInternalComment" rows="3" cols="10" disabled placeholder="comentariu..."></textarea>
-            </td>
-          </tr>
-          
-          <tr>
-            <td><label for="editorSources">surse:</label></td>
-            <td>
-              <select id="editorSources" multiple="multiple">
-                {foreach from=$sources item=s}
-                  <option value="{$s->id}">{$s->shortName}</option>
-                {/foreach}
-              </select>
-            </td>
-          </tr>
-          
-          <tr>
-            <td><label for="editorTags">etichete:</label></td>
-            <td>
-              <select id="editorTags" multiple="multiple">
-                {foreach from=$meaningTags item=mt}
-                  <option value="{$mt->id}">{$mt->value}</option>
-                {/foreach}
-              </select>
-            </td>
-          </tr>
-          
-          <tr>
-            <td>relații:</td>
-            <td>
-              <select id="relationType" disabled>
-                <option value="1" title="sinonime">=</option>
-                <option value="2" title="antonime">≠</option>
-                <option value="3" title="diminutive">&lt;</option>
-                <option value="4" title="augmentative">&gt;</option>
-              </select>
-              <span class="relationWrapper" data-type="1">
-                <input class="editorRelation" data-placeholder="adaugă sinonime..." type="hidden">
-              </span>
-              <span class="relationWrapper" data-type="2">
-                <input class="editorRelation" data-placeholder="adaugă antonime..." type="hidden">
-              </span>
-              <span class="relationWrapper" data-type="3">
-                <input class="editorRelation" data-placeholder="adaugă diminutive..." type="hidden">
-              </span>
-              <span class="relationWrapper" data-type="4">
-                <input class="editorRelation" data-placeholder="adaugă augmentative..." type="hidden">
-              </span>
-            </td>
-          </tr>
-          
-          <tr>
-            <td colspan="2">
-              <input id="editMeaningAcceptButton" type="button" disabled value="acceptă">
-              <input id="editMeaningCancelButton" type="button" disabled value="renunță">
-            </td>
-          </tr>
-        </table>
+        <div id="meaningEditor">
+          <textarea id="editorRep" rows="10" cols="10" disabled placeholder="sensul definiției..."></textarea>
+          <textarea id="editorEtymology" rows="5" cols="10" disabled placeholder="etimologie..."></textarea>
+          <textarea id="editorComment" rows="3" cols="10" disabled placeholder="comentariu..."></textarea>
+
+          <div>
+            <label for="editorSources">surse:</label></td>
+          <select id="editorSources" multiple="multiple">
+            {foreach from=$sources item=s}
+              <option value="{$s->id}">{$s->shortName}</option>
+            {/foreach}
+          </select>
+          </div>
+
+          <div>
+            <label for="editorTags">etichete:</label>
+            <select id="editorTags" multiple="multiple">
+              {foreach from=$meaningTags item=mt}
+                <option value="{$mt->id}">{$mt->value}</option>
+              {/foreach}
+            </select>
+          </div>
+
+          <div>
+            <label for="relationType">relații:</label>
+            <select id="relationType" disabled>
+              <option value="1" title="sinonime">sinonime</option>
+              <option value="2" title="antonime">antonime</option>
+              <option value="3" title="diminutive">diminutive</option>
+              <option value="4" title="augmentative">augmentative</option>
+            </select>
+            <span class="relationWrapper" data-type="1">
+              <input class="editorRelation" data-placeholder="adaugă sinonime..." type="hidden">
+            </span>
+            <span class="relationWrapper" data-type="2">
+              <input class="editorRelation" data-placeholder="adaugă antonime..." type="hidden">
+            </span>
+            <span class="relationWrapper" data-type="3">
+              <input class="editorRelation" data-placeholder="adaugă diminutive..." type="hidden">
+            </span>
+            <span class="relationWrapper" data-type="4">
+              <input class="editorRelation" data-placeholder="adaugă augmentative..." type="hidden">
+            </span>
+          </div>
+
+          <input id="editMeaningAcceptButton" type="button" disabled value="acceptă">
+          <input id="editMeaningCancelButton" type="button" disabled value="renunță">
+        </div>
       </div>
     {/if}
 

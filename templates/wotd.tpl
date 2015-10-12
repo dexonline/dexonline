@@ -73,26 +73,39 @@
     </div>
   {/if}
 
-  <div id="wotdPrevNext">
-    {if $prevday}<div class="prev"><a href="{$wwwRoot}cuvantul-zilei/{$prevday}">« precedentul</a></div>{/if}
-    {if $nextday}<div class="next"><a href="{$wwwRoot}cuvantul-zilei/{$nextday}">următorul »</a></div>{/if}
-    <div style="clear: both;"></div>
-  </div>
-
-  {if $imageUrl}
-    <div id="wotdImage">
-      <img src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
-      <div class="copyright">
-        {$artist->credits|default:''}
-      </div>
-    </div>
-  {/if}
+    {if $imageUrl}
+        <div id="wotdImage">
+            <table>
+                <tr>
+                    <td><a href="{$wwwRoot}cuvantul-zilei/{$prevday}">«</a></td>
+                    <td>
+                        <img src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
+                        <div class="copyright">
+                            {$artist->credits|default:''}
+                        </div>
+                    </td>
+                    <td><a href="{$wwwRoot}cuvantul-zilei/{$nextday}">»</a></td>
+                </tr>
+            </table>
+        </div>
+    {/if}
 
   {if $skinVariables.wotdArchive}
     <p class="paragraphTitle">Arhiva cuvintelor zilei</p>
 
     <div id="wotdArchive" class="wotdArchive"></div>
     <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$timestamp|date_format:'%Y/%m'}','#wotdArchive')</script>
+
+    <div id="oldWotD" class="widgetBox widgetWotD bendShadow"></div>
+    <script>
+      loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei-anii-trecuti/{$timestamp|date_format:'%Y/%m/%d'}','#oldWotD');
+      topWidgetStart = $('.widgetWotD').position().top;
+      $(document).ready(function () {
+        $(window).scroll(function (event) {
+          $('.widgetWotD').css('top', $(document).scrollTop() + topWidgetStart);
+        });
+      });
+    </script>
 
     {* Javascript for "Add to favorites" *}
     {if $sUser}

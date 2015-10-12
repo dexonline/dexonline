@@ -88,4 +88,4 @@ $words = createCalendar($year, $month);
 SmartyWrap::assign('words', $words);
 
 SmartyWrap::displayWithoutSkin('bits/wotdArchive.tpl');
-?>
+

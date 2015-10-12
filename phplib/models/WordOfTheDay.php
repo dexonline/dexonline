@@ -11,7 +11,7 @@ class WordOfTheDay extends BaseObject {
   }
 
   public static function getRSSWotD($delay = 0) {
-      $nowDate = ( $delay == 0 ) ? 'NOW()' : 'DATE_SUB(NOW(), INTERVAL ' . $delay. ' MINUTE)';
+    $nowDate = ( $delay == 0 ) ? 'NOW()' : 'DATE_SUB(NOW(), INTERVAL ' . $delay. ' MINUTE)';
     return Model::factory('WordOfTheDay')->where_gt('displayDate', '2011-01-01')->where_raw('displayDate < ' . $nowDate)
       ->order_by_desc('displayDate')->limit(25)->find_many();
   }
@@ -22,6 +22,11 @@ class WordOfTheDay extends BaseObject {
 
   public static function updateTodaysWord() {
     db_execute('update WordOfTheDay set displayDate=curdate() where displayDate is null order by priority, rand() limit 1');
+  }
+
+  public static function getPreviousYearsWotds($month, $day) {
+    return Model::factory('WordOfTheDay')->where_raw('month(displayDate) = ?', $month)->where_raw('day(displayDate) = ?', $day)
+      ->order_by_desc('displayDate')->limit(25)->find_many();
   }
 
   public static function getStatus($refId, $refType = 'Definition') {

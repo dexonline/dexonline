@@ -850,6 +850,27 @@ input.pagedisplay {
   text-align: center;
 }
 
+#wotdImage table
+{
+    margin: 0 auto;
+    text-align: center;
+    border-collapse:collapse;
+}
+
+#wotdImage table td {
+    width: 100px;
+    border:none;
+    outline:none;
+}
+
+#wotdImage table td a {
+    text-decoration: none;
+}
+
+#oldWotD {
+  float: right;
+}
+
 #wotdImage .copyright {
   color: #BFBFBF;
   margin: 0px auto;
@@ -1021,6 +1042,11 @@ input.pagedisplay {
   right: 0px;
   width: 240px;
   font-size: 13px;
+}
+
+.widgetWotD {
+  top: 220px;
+  width: 220px;
 }
 
 .widgetList {

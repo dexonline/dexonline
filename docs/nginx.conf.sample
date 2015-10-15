@@ -35,6 +35,7 @@ server {
     rewrite ^/rss/cuvantul-zilei$ /wotd.php?t=rss last;
     rewrite ^/rss/cuvântul-zilei/(\d+)$ /wotd.php?t=blog&h=$1 last;
     rewrite ^/arhiva/cuvantul-zilei/(\d+)/(\d+)/?$ /wotdArchive.php?y=$1&m=$2 last;
+    rewrite ^/arhiva/cuvantul-zilei-anii-trecuti/(\d+)/(\d+)/(\d+)/?$ /wotdPreviousYears.php?y=$1&m=$2&d=$3 last;
     rewrite ^/arhiva/cuvantul-zilei/$ /wotdArchive.php last;
     rewrite ^/cuvinte-aleatoare$ /randomList.php last;
     rewrite ^/cuvinte-aleatoare/(\d+)$ /randomList.php?n=$1 last;

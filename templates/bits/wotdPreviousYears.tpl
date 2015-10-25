@@ -4,15 +4,15 @@
     </li>
     {foreach from=$wotds item=w}
     <li>
-        <img src="{$w.img}" alt="iconiță cuvântul zilei" class="commonShadow"/>
-    <span>
-        <label>În anul {$w.year}</label>
-        <br/>
-        <a href="{$w.href}">{$w.word}</a>
-        {if $w.tip}
-        <span class="tooltip2" title="{$w.tip}">&nbsp;</span>
-        {/if}
-    </span>
+        <img src="{$w.img}" alt="iconița cuvântului zilei" class="commonShadow"/>
+        <span>
+            <label>{$w.year}:&nbsp;</label>
+            <a href="{$w.href}">{$w.word}</a>
+            <br/>
+            {if $w.tip}
+            <div class="tooltip" title="">{$w.tip}</div>
+            {/if}
+        </span>
     </li>
     {/foreach}
 </ul>

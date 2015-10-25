@@ -19,6 +19,14 @@ if (typeof jQuery.ui != 'undefined') {
       track: true
     });
 
+    $('.tooltip').tooltip({
+      content: function () {
+          return $(this).html();
+      },
+      show: { delay: 10 },
+      track: true
+    });
+
     $('.mention').tooltip({
       content: function(callback) {
         var meaningId = $(this).prop('title');

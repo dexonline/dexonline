@@ -187,6 +187,13 @@ blockquote {
   max-width: 300px;
 }
 
+.tooltip {
+    width: 138px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .tooltip2 {
   background: url("../img/icons/information.png") no-repeat;
   display: inline-block;

@@ -27,7 +27,7 @@ Options:
     -v = verbose
 
 Example:
-    php bulk/importDefinitions.php -f definitions.txt -u 471 -s 19 -t 0 -d -v
+    php bulk/importDefinitions.php -f definitions.txt -u 471 -s 19 -t 0 -d -v > result.log
 
 ");
 }
@@ -118,9 +118,11 @@ if($verbose) echo("Everything OK, start processing...\n");
 $lines = file($fileName);
 if($verbose) echo("File read. Start inserting the definitions...\n");
 
-$new = fopen($fileName . "-NEW", 'w');
-$existing = fopen($fileName . "-EXISTING", 'w');
-$tobechecked = fopen($fileName . "-TOBECHECKED", 'w');
+if ($checkingDryrun) {
+  $new = fopen($fileName . "-NEW", 'w');
+  $existing = fopen($fileName . "-EXISTING", 'w');
+  $tobechecked = fopen($fileName . "-TOBECHECKED", 'w');
+}
 
 $i = 0;
 while ($i < count($lines)) {
@@ -245,8 +247,10 @@ while ($i < count($lines)) {
   }
 }
 
-fclose($new);
-fclose($existing);
-fclose($tobechecked);
+if ($checkingDryrun) {
+  fclose($new);
+  fclose($existing);
+  fclose($tobechecked);
+}
 
 ?>

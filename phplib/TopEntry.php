@@ -9,19 +9,20 @@ class TopEntry {
 
   private static function getSqlStatement($manual) {
 /*
- *                      nick            source (short)     createDate              1:ratio (3-> 33%, 4 -> 25%)
+ *      nick            source (short)     createDate              1:ratio (3-> 33%, 4 -> 25%)
  */
-    $bulk = array(array(null,           "MDN '00",         " = '2007-09-15'",      null),
-                  array(null,           'Petro-Sedim',     null,                   null),
-                  array(null,           'GTA',             null,                   null),
-                  array(null,           'DCR2',            null,                   null),
-                  array(null,           'DOR',             null,                   null),
-                  array('raduborza',    'DOOM 2',          " > '2013-01-01'",         4),
-                  array(null,           'DRAM',            null,                   null),
-                  array(null,           'DRAM 2015',       null,                   null),
-                  array('siveco',       null,              null,                   null),
-                  array('RACAI',        null,              null,                   null),
-                  );
+    $bulk = [
+        [null,           "MDN '00",         " = '2007-09-15'",      null],
+        [null,           'Petro-Sedim',     null,                   null],
+        [null,           'GTA',             null,                   null],
+        [null,           'DCR2',            null,                   null],
+        [null,           'DOR',             null,                   null],
+        ['raduborza',    'DOOM 2',          " > '2013-01-01'",         4],
+        [null,           'DRAM',            null,                   null],
+        [null,           'DRAM 2015',       null,                   null],
+        ['siveco',       null,              null,                   null],
+        ['RACAI',        null,              null,                   null],
+    ];
     $conditions = array();
     foreach ($bulk as $tuple) {
       $parts = array();

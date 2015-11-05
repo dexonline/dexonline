@@ -10,7 +10,7 @@
             <a href="{$w.href}">{$w.word}</a>
             <br/>
             {if $w.tip}
-            <div class="tooltip" title="">{$w.tip}</div>
+            <div class="tooltip" title="&nbsp;">{$w.tip}</div>
             {/if}
         </span>
     </li>

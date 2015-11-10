@@ -1045,8 +1045,11 @@ input.pagedisplay {
 }
 
 .widgetWotD {
-  top: 220px;
-  width: 220px;
+  position: absolute;
+  top: 100px;
+  right: 0px;
+  width: 240px;
+  font-size: 13px;
 }
 
 .widgetList {

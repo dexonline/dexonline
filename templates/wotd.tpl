@@ -96,7 +96,7 @@
     <div id="wotdArchive" class="wotdArchive"></div>
     <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$timestamp|date_format:'%Y/%m'}','#wotdArchive')</script>
 
-    <div id="oldWotD" class="widgetBox widgetWotD bendShadow"></div>
+    <div id="oldWotD" class="widgetWotD"></div>
     <script>
       loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei-anii-trecuti/{$timestamp|date_format:'%Y/%m/%d'}','#oldWotD');
       topWidgetStart = $('.widgetWotD').position().top;

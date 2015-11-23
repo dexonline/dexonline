@@ -88,6 +88,7 @@ function searchInitAutocomplete(acMinChars, wwwRoot){
   var queryURL = wwwRoot + 'searchComplete.php';
 
   searchInput.autocomplete({
+    delay: 500,
     minLength: acMinChars,
     source: function(request, response){
       var term = request.term;

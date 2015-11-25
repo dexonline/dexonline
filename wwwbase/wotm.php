@@ -7,9 +7,9 @@ require_once("../phplib/util.php");
 $date = util_getRequestParameter('d');
 $type = util_getRequestParameter('t');
 
-$today = date('Y-m-d', time());
+$today = date('Y-m', time());
 $timestamp = $date ? strtotime($date) : time();
-$mysqlDate = date("Y-m-d", $timestamp);
+$mysqlDate = date("Y-m", $timestamp);
 
 if ($mysqlDate < WOTM_BIG_BANG || (($mysqlDate > $today) && !util_isModerator(PRIV_ADMIN))) {
   util_redirect(util_getWwwRoot() . 'cuvantul-lunii');

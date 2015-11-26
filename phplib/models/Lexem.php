@@ -173,22 +173,9 @@ class Lexem extends BaseObject implements DatedObject {
         return $result;
       }
     }
-    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
 
-    $start = microtime(true);
-    $method = "trigram";
-    $leng = mb_strlen($cuv);
     $result = NGram::searchNGram($cuv);
-    $end = microtime(true);
-    $search_time = sprintf('%0.3f', $end - $start);
-/*
-    $logArray = "";
-    foreach ($result as $word) {
-      $logArray = $logArray . " " . $word;
-    }
-    $logEntry = "$method\t$search_time\t$cuv:\t$logArray\t$leng\t" . count($result) . "\n";
-    file_put_contents("/var/log/dex-approx.log", $logEntry, FILE_APPEND | LOCK_EX);
-*/
+
     if ($useMemcache) {
       mc_set($key, $result);
     }

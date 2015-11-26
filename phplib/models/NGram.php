@@ -8,8 +8,15 @@ class NGram extends BaseObject {
   public static $LENGTH_DIF = 2; // Maximum length difference between the searched word and the suggested one
   public static $MAX_RESULTS = 20; //Maximum number of suggestions
 
+  private static function canonicalize($s) {
+    // Remove spaces and dashes from the word
+    $s = str_replace([' ', '-'], '', $s);
+    return $s;
+  }
+
   // Returns an array of n-grams.
   public static function split($s) {
+    $s = self::canonicalize($s);
     $s = str_repeat('#', self::$NGRAM_SIZE - 1) . $s . str_repeat('%', self::$NGRAM_SIZE - 1);
     $len = mb_strlen($s);
     $results = array();
@@ -20,6 +27,7 @@ class NGram extends BaseObject {
   }
 
   public static function searchNGram($cuv) {
+    $cuv = self::canonicalize($cuv);
     $leng = mb_strlen($cuv);
     
     $hash = NGram::searchLexemIds($cuv);

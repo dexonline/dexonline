@@ -236,8 +236,8 @@ class StringUtil {
                       );
 
     foreach ($char_map as $a => $i) {
-      $tpl_output = str_replace($a, $i, $tpl_output);
-      $tpl_output = preg_replace("/(r(?:o|u)m)$i(n)/i", "\${1}$a\${2}", $tpl_output);
+      $tpl_output = preg_replace("/\b$a\b/", $i, $tpl_output);
+      $tpl_output = preg_replace("/(r[ou]m)$i(n)/i", "\${1}$a\${2}", $tpl_output);
     }
 
     // sunt(em,eți) -> sînt(em,eți)

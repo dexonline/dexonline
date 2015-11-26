@@ -398,6 +398,18 @@ function handleLexemActions() {
       $m->save();
     }
 
+    // Add images and image tags from $lexem to $other
+    $visuals = Visual::get_all_by_lexemeId($lexem->id);
+    foreach ($visuals as $v) {
+      $v->lexemeId = $other->id;
+      $v->save();
+    }
+    $visualTags = VisualTag::get_all_by_lexemeId($lexem->id);
+    foreach ($visualTags as $vt) {
+      $vt->lexemeId = $other->id;
+      $vt->save();
+    }
+
     $lexem->delete();
     util_redirect("lexemEdit.php?lexemId={$other->id}");
   }

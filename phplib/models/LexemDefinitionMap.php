@@ -46,6 +46,14 @@ class LexemDefinitionMap extends BaseObject implements DatedObject {
       $ldm->delete();
     }
   }
+
+  public static function deleteByDefinitionId($definitionId) {
+    Definition::updateModDate($definitionId);
+    $ldms = LexemDefinitionMap::get_all_by_definitionid($definitionId);
+    foreach ($ldms as $ldm) {
+      $ldm->delete();
+    }
+  }
 }
 
 ?>

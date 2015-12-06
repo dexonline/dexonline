@@ -244,6 +244,10 @@ class LexemModel extends BaseObject implements DatedObject {
     parent::delete();
   }
 
+  public function __toString() {
+    return "{$this->modelType}{$this->modelNumber}{$this->restriction}";
+  }
+
 }
 
 ?>

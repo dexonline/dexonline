@@ -15,7 +15,7 @@ $result = Model::factory('Definition')
         ->where('status', Definition::ST_ACTIVE)
         ->where_gte('lexicon', $start)
         ->order_by_asc('lexicon')
-        ->limit(10)
+        ->limit(100)
         ->find_result_set();
 $count = count($result);
 

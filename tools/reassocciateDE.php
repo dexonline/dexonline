@@ -38,12 +38,11 @@ foreach($result as $i => $d) {
   $done = false;
   while (!$done) {
     $errors = [];
-    $line = readline('Lexeme de asociat: ');
+    $line = myReadline('Lexeme de asociat: ');
     $line = trim($line);
-    readline_add_history($line);
     if (empty($line)) {
       // Empty line means ignore this definition
-      $line = readline('Ignor această definiție? [D/n] ');
+      $line = myReadline('Ignor această definiție? [D/n] ');
       $done = ($line != 'n');
     } else {
       // Parse the proposed lexem list
@@ -121,7 +120,7 @@ foreach($result as $i => $d) {
           }
           print("  * {$action}{$l->form} ($lms) ({$l->id})\n");
         }
-        $line = readline('De acord? [D/n] ');
+        $line = myReadline('De acord? [D/n] ');
         $done = ($line != 'n');
         if ($done) {
 
@@ -150,7 +149,7 @@ foreach($result as $i => $d) {
             $l = Lexem::get_by_id($l->id); // force a refresh
             $ldms = LexemDefinitionMap::get_all_by_lexemId($l->id);
             if (!count($ldms) && !$l->isLoc()) {
-              $delete = readline("Șterg lexemul neasociat {$l}? [D/n] ");
+              $delete = myReadline("Șterg lexemul neasociat {$l}? [D/n] ");
               if ($delete != 'n') {
                 $l->delete();
               }
@@ -190,4 +189,10 @@ function lexemWithModel($l, $modelType, $modelNumber) {
   $lexemModels = [$lm];
   $l->setLexemModels($lexemModels);
   return $l;
+}
+
+// Readline with UTF-8 is broken on Ubuntu. Use rlwrap and naive fgets.
+function myReadline($prompt) {
+  print($prompt);
+  return trim(fgets(STDIN));
 }

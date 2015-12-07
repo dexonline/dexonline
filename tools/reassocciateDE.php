@@ -73,11 +73,10 @@ foreach($result as $i => $d) {
           }
         } else {
           $matches = Model::factory('Lexem')
-                   ->where_any_is([
-                     ['form' => $form],
-                     ['formNoAccent' => $form]
-                   ])
-                   ->find_many();
+	    ->where_any_is([['form' => $form],
+			    ['formNoAccent' => $form]],
+			   ['form' => '= binary', 'formNoAccent' => '= binary'])
+	    ->find_many();
           if (count($matches) == 0) {
             if ($modelType) {
               $l = Lexem::deepCreate($form, $modelType, $modelNumber);

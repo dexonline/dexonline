@@ -29,10 +29,10 @@ foreach($result as $i => $d) {
 
   // Print the definition and lexems
   print("\n\n**** [{$d->lexicon}]\t\t[{$SERVER_URL}/admin/definitionEdit.php?definitionId={$d->id}]\t\t({$i}/{$count})\n");
-  printf(mb_substr($d->internalRep, 0, 120) . "\n");
+  printf(mb_substr($d->internalRep, 0, 300) . "\n");
   foreach ($lexems as $l) {
     $lms = implode('/', $l->getLexemModels());
-    print("  * Lexem: {$l->form} ($lms) ({$l->id})\n");
+    print("  * Lexem: {$l->form} ($lms) ({$l->id}) [{$SERVER_URL}/admin/lexemEdit.php?lexemId={$l->id}]\n");
   }
 
   $done = false;
@@ -117,7 +117,7 @@ foreach($result as $i => $d) {
           } else if (!$l->getFirstLexemModel()->id) {
             $action = 'SCHIMB MODELUL ';
           }
-          print("  * {$action}{$l->form} ($lms) ({$l->id})\n");
+          print("  * {$action}{$l->form} ($lms) ({$l->id}) [{$SERVER_URL}/admin/lexemEdit.php?lexemId={$l->id}]\n");
         }
         $line = myReadline('De acord? [D/n] ');
         $done = ($line != 'n');

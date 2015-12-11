@@ -39,11 +39,29 @@ foreach($result as $i => $d) {
   while (!$done) {
     $errors = [];
     $line = myReadline('Lexeme de asociat: ');
-    $line = trim($line);
     if (empty($line)) {
       // Empty line means ignore this definition
       $line = myReadline('Ignor această definiție? [D/n] ');
       $done = ($line != 'n');
+
+    } else if ($line == 'c') {
+      if ((count($lexems) == 1) && $lexems[0]->hasModel('T', 1)) {
+        $l = $lexems[0];
+        $line = myReadline("Capitalizez și convertesc la I3 lexemul {$l}? [D/n] ");
+        $done = ($line != 'n');
+        if ($done) {
+          $l->form = AdminStringUtil::capitalize($l->form);
+          $l->formNoAccent = str_replace("'", '', $l->form);
+          foreach ($l->getLexemModels() as $lm) {
+            $lm->delete(); // This will also delete LexemSources and InflectedForms
+          }
+          $l = lexemWithModel($l, 'I', 3);
+          $l->deepSave();
+        }
+      } else {
+        printf("Comanda 'c' este permisă doar pentru un singur lexem T1\n");
+      }
+
     } else {
       // Parse the proposed lexem list
       $new = [];

@@ -26,18 +26,24 @@ if (!$wotd) {
   WordOfTheDay::updateTodaysWord();
   $wotd = WordOfTheDay::getTodaysWord();
 }
+if (!$wotd) {
+  $wotd = Model::factory('WordOfTheDay')->create(); // generic WotD
+}
 $defId = WordOfTheDayRel::getRefId($wotd->id);
 $def = Model::factory('Definition')->where('id', $defId)->where('status', Definition::ST_ACTIVE)->find_one();
 SmartyWrap::assign('thumbUrl', $wotd->getThumbUrl());
-SmartyWrap::assign('title', $def->lexicon);
+SmartyWrap::assign('wotdDef', $def);
 SmartyWrap::assign('today', date('Y/m/d'));
 
 /* WotM part */
 $wotm = WordOfTheMonth::getCurrentWotM();
+if (!$wotm) {
+  $wotm = Model::factory('WordOfTheMonth')->create(); // generic WotM
+}
 $def = Model::factory('Definition')->where('id', $wotm->definitionId)->where('status', Definition::ST_ACTIVE)->find_one();
 SmartyWrap::assign('thumbUrlM', $wotm->getThumbUrl());
 SmartyWrap::assign('articol', $wotm->article);
-SmartyWrap::assign('titleM', $def->lexicon);
+SmartyWrap::assign('wotmDef', $def);
 SmartyWrap::assign('todayM', date('Y/m'));
 
 $page = Config::get('global.aprilFoolsDay') ? 'index-afd.tpl' : 'index.tpl';

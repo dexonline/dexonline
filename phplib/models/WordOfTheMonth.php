@@ -4,6 +4,7 @@ WordOfTheMonth::$IMAGE_CREDITS_DIR = util_getRootPath() . 'docs/imageCredits';
 
 class WordOfTheMonth extends BaseObject {
   public static $_table = 'WordOfTheMonth';
+  public static $DEFAULT_IMAGE = 'generic.jpg';
   public static $IMAGE_CREDITS_DIR;
 
   public static function getWotM($date) {
@@ -30,10 +31,8 @@ class WordOfTheMonth extends BaseObject {
   }
 
   public function getThumbUrl() {
-    if ($this->image) {
-      return Config::get('static.url') . 'img/wotd/cuvantul-lunii/thumb/' . $this->image;
-    }
-    return null;
+    $pic = $this->image ? $this->image : self::$DEFAULT_IMAGE;
+    return Config::get('static.url') . 'img/wotd/cuvantul-lunii/thumb/' . $pic;
   }
 
   public function getArtist() {

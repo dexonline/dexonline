@@ -16,7 +16,7 @@
     {include file="bits/banner.tpl" id="mainPage" width="728" height="90"}
   {/if}
 
-  {if $numEnabledWidgets}
+  {if $numEnabledWidgets && $skinVariables.widgets}
     <section class="widgetBox bendShadow">
   	  <ul class="widgetList">
         {foreach from=$widgets item=params}

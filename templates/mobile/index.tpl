@@ -3,9 +3,11 @@
 {block name=title}Dicționar explicativ al limbii române{/block}
 
 {block name=content}
-  <div id="wotdMobile" class="widget">
-    Cuvântul zilei: {include file="bits/wotdurl.tpl"}
-  </div>
+  {if $wotdDef}
+    <div id="wotdMobile" class="widget">
+      Cuvântul zilei: {include file="bits/wotdurl.tpl" linkText=$wotdDef->lexicon}
+    </div>
+  {/if}
 
   <div id="likes">
     <script src="https://apis.google.com/js/platform.js" async defer></script>

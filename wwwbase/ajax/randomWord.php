@@ -5,6 +5,6 @@ require_once("../../phplib/util.php");
 $count = Model::factory('RandomWord')->count();
 $choice = rand(1, $count);
 $rw = RandomWord::get_by_seq($choice);
-echo $rw->cuv;
+echo $rw ? $rw->cuv : '';
 
 ?>

@@ -111,6 +111,7 @@ permalink = true
 responsiveBanner = false
 searchForm = true
 typo = true
+widgets = false
 wotdArchive = true
 wotdSubscribe = true
 

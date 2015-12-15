@@ -1,1 +1,1 @@
-<a href="{$wwwRoot}cuvantul-lunii/{$todayM}">{$title}</a>
+<a href="{$wwwRoot}cuvantul-lunii/{$todayM}">{$linkText}</a>

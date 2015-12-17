@@ -54,7 +54,7 @@ function db_executeSqlFile($filename) {
 function db_changeDatabase($dbName) {
   $dbName = addslashes($dbName);
   db_init();
-  return db_execute("use $dbName");
+  return db_execute("use `$dbName`");
 }
 
 /**

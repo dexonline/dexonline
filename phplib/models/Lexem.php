@@ -130,6 +130,7 @@ class Lexem extends BaseObject implements DatedObject {
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     $result = Model::factory('Lexem')
       ->select('formNoAccent')
+      ->distinct()
       ->where_like($field, $search)
       ->order_by_asc('formNoAccent')
       ->limit($limit)

@@ -85,7 +85,7 @@ function searchInitAutocomplete(acMinChars, wwwRoot){
   var searchForm = $('#searchForm');
   var searchInput = $('.searchField');
   var searchCache = {};
-  var queryURL = wwwRoot + 'searchComplete.php';
+  var queryURL = wwwRoot + 'ajax/searchComplete.php';
 
   searchInput.autocomplete({
     delay: 500,

@@ -4,6 +4,8 @@
 # Liniile sunt procesate de sus în jos până când un regex se potrivește cu o dată.
 # Este afișat creditul înregistrării WotdArtist cu eticheta respectivă.
 
+^2016-(0\d|10|11|12)-(1[6-9]|2.|3.)::gm
+^2016-(0\d|10|11|12)-(0.|1[0-5])::cn
 ^2015-11-05::wiki-leek
 ^2015-(09|10|11|12)-(1[6-9]|2.|3.)::gm
 ^2015-(09|10|11|12)-(0.|1[0-5])::cn

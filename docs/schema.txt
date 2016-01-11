@@ -241,7 +241,7 @@ select exponent, Inflection.description, variant, applOrder,
   order by inflectionId, variant, applOrder;
 
 
-The participleModel table
+The ParticipleModel table
 ---------------------------
 
 Lexems labeled with the model_type 'VT' are transitive verbs and their
@@ -258,6 +258,24 @@ verbModel - The number (not ID!) of the verb model. An entry in
 adjectiveModel - The number (not ID!) of the adjective model. An
   entry in Model is guaranteed to exist with type A and number
   adjectiveModel.
+
+
+The ConstraintMap table
+-----------------------
+
+For each restriction, this table lists the forbidden inflected forms. For
+example, if an 'M' model (masculine noun) is tagged with the restriction
+'S', then it will only generate singular forms, as shown by the query:
+
+select *
+  from Inflection
+  where modelType = 'M'
+    and id not in (
+      select inflectionId
+      from ConstraintMap
+        where code = 'S'
+    );
+
 
 The Visual table
 ------------------

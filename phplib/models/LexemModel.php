@@ -141,40 +141,39 @@ class LexemModel extends BaseObject implements DatedObject {
 
   // Throws an exception if the given inflection cannot be generated
   public function generateInflectedFormWithModel($form, $inflId, $modelId) {
-    if (!ConstraintMap::validInflection($inflId, $this->restriction)) {
-      return array();
-    }
     $ifs = array();
     $mds = Model::factory('ModelDescription')->where('modelId', $modelId)->where('inflectionId', $inflId)
       ->order_by_asc('variant')->order_by_asc('applOrder')->find_many();
  
     $start = 0;
     while ($start < count($mds)) {
+      $variant = $mds[$start]->variant;
+      $recommended = $mds[$start]->recommended;
+      
       // Identify all the md's that differ only by the applOrder
       $end = $start + 1;
       while ($end < count($mds) && $mds[$end]->applOrder != 0) {
         $end++;
       }
 
-      $inflId = $mds[$start]->inflectionId;
-      $accentShift = $mds[$start]->accentShift;
-      $vowel = $mds[$start]->vowel;
-      
-      // Apply all the transforms from $start to $end - 1.
-      $variant = $mds[$start]->variant;
-      $recommended = $mds[$start]->recommended;
-      
-      // Load the transforms
-      $transforms = array();
-      for ($i = $end - 1; $i >= $start; $i--) {
-        $transforms[] = Transform::get_by_id($mds[$i]->transformId);
+      if (ConstraintMap::validInflection($inflId, $this->restriction, $variant)) {
+        $inflId = $mds[$start]->inflectionId;
+        $accentShift = $mds[$start]->accentShift;
+        $vowel = $mds[$start]->vowel;
+
+        // Load and apply all the transforms from $start to $end - 1.
+        $transforms = array();
+        for ($i = $end - 1; $i >= $start; $i--) {
+          $transforms[] = Transform::get_by_id($mds[$i]->transformId);
+        }
+
+        $result = FlexStringUtil::applyTransforms($form, $transforms, $accentShift, $vowel);
+        if (!$result) {
+          throw new Exception();
+        }
+        $ifs[] = InflectedForm::create($result, $this->id, $inflId, $variant, $recommended);
       }
-      
-      $result = FlexStringUtil::applyTransforms($form, $transforms, $accentShift, $vowel);
-      if (!$result) {
-        throw new Exception();
-      }
-      $ifs[] = InflectedForm::create($result, $this->id, $inflId, $variant, $recommended);
+
       $start = $end;
     }
     

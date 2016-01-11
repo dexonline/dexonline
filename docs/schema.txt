@@ -276,6 +276,11 @@ select *
         where code = 'S'
     );
 
+With the addition of the vocative case, we ran into situations where the
+model allows two forms ('copil' -> 'copilule' and 'copile'), but some
+lexems only have one of these ('cal' -> 'calule', but not 'cale'). Hence,
+the 'variant' field in ConstraintMap specifies the number of the forbidden
+variant (0-based). The special value -1 forbids all variants.
 
 The Visual table
 ------------------

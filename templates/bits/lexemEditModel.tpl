@@ -26,7 +26,7 @@
       <td>restricții:</td>
       <td>
         <input type="text" name="restriction[]" value="{$lm->restriction}" size="5" {if $readonly}readonly{/if}>
-        <span class="tooltip2" title="litere din setul <b>S</b>ingular, <b>P</b>lural, <b>U</b>nipersonal, <b>I</b>mpersonal, <b>T</b>recut, <b>V</b> (vocativ masculin forma 1), <b>v</b> (vocativ masculin forma 2), <b>W</b> (vocativ feminin forma 1), <b>w</b> (vocativ feminin forma 2)">&nbsp;</span>
+        <span class="tooltip2" title="litere din setul <b>S</b>ingular, <b>P</b>lural, <b>U</b>nipersonal, <b>I</b>mpersonal, <b>T</b>recut, <b>V</b> (vocativ masculin/neutru forma 1), <b>v</b> (vocativ masculin/neutru forma 2), <b>W</b> (vocativ feminin forma 1), <b>w</b> (vocativ feminin forma 2)">&nbsp;</span>
       </td>
     </tr>
 

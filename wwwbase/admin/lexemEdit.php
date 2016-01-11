@@ -208,8 +208,6 @@ function validate($lexem, $original, $variantIds, $meanings) {
           FlashMessage::add("Restricția <b>P</b> nu se aplică modelului $lm->modelType");
         }
         $hasP = true;
-      } else {
-        FlashMessage::add("Restricția <b>$c</b> este incorectă.");
       }
     }
   

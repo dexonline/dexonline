@@ -73,12 +73,11 @@ occasionally have two or more. For instance, "monedă" (coin) has the plurals
 "monede" or "monezi".
 
 modelType, modelNumber - The declension model for this lexem
-restriction - A subset of the letters S (singular), P (plural),
-  U (unipersonal), I (impersonal), T (past tenses only). Indicates
-  that this lexem only generates a subset of the allowed word forms
-  for the lexem's model. To see which restrictions allow which forms,
-  use the ConstraintMap table. For example, the verb "a ploua" ("to
-  rain") only allows third person singular form, hence the restriction I.
+restriction - A set of case-sensitive letters indicating that this lexem
+  only generates a subset of the allowed word forms for the lexem's
+  model. To see which restrictions allow which forms, use the ConstraintMap
+  table. For example, the verb "a ploua" ("to rain") only allows third
+  person singular form, hence the restriction I.
 displayOrder - order of preference for these models. Does not imply "right"
   or "wrong" in the linguistic sense. It is simply used so that a lexem's
   models can be displayed consistently in the same order every time.
@@ -281,6 +280,19 @@ model allows two forms ('copil' -> 'copilule' and 'copile'), but some
 lexems only have one of these ('cal' -> 'calule', but not 'cale'). Hence,
 the 'variant' field in ConstraintMap specifies the number of the forbidden
 variant (0-based). The special value -1 forbids all variants.
+
+List of constraints:
+
+S = singular
+P = plural
+U = unipersonal (verbs only)
+I = impersonal (verbs only)
+T = past tenses (verbs only)
+V = first form of the singular masculine/neutral vocative only
+v = second form of the singular masculine/neutral vocative only
+W = first form of the singular feminine vocative only
+w = second form of the singular feminine vocative only
+
 
 The Visual table
 ------------------

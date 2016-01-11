@@ -10,7 +10,7 @@ class ConstraintMap extends BaseObject {
    */
   public static function validInflection($inflId, $restr, $variant) {
     $count = Model::factory('ConstraintMap')
-           ->where_raw("locate(code, '$restr') > 0")
+           ->where_raw("locate(code, binary '$restr') > 0")
            ->where('inflectionId', $inflId)
            ->where_in('variant', [$variant, self::ALL_VARIANTS])
            ->count();

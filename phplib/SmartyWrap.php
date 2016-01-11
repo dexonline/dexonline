@@ -120,7 +120,6 @@ class SmartyWrap {
           self::$cssFiles[19] = 'visualDict.css?v=3';
           break;
         case 'textComplete':        self::$cssFiles[20] = 'jquery.textcomplete.css'; break;
-        case 'forbiddenForms':      self::$cssFiles[21] = 'forbiddenForms.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -168,7 +167,6 @@ class SmartyWrap {
         case 'modelDropdown':    self::$jsFiles[28] = 'modelDropdown.js'; break;
         case 'textComplete':     self::$jsFiles[29] = 'jquery.textcomplete.min.js'; break;
         case 'definitionEdit':   self::$jsFiles[30] = 'definitionEdit.js'; break;
-        case 'forbiddenForms':   self::$jsFiles[31] = 'forbiddenForms.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

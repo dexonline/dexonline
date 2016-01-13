@@ -132,19 +132,3 @@ function select2InitSelectionAjax(element, callback) {
   });
   callback(data);
 }
-
-function select2InitSelectionModelAjax(element, callback) {
-  var data = [];
-
-  $(element.val().split(',')).each(function (index, model) {
-    $.ajax({
-      url: wwwRoot + 'ajax/getModelByName.php?name=' + this,
-      dataType: 'json',
-      success: function(displayValue) {
-        data.push({ id: model, text: displayValue });
-      },
-      async: false,
-    });
-  });
-  callback(data);
-}

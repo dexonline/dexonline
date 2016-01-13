@@ -454,11 +454,11 @@ function similarLexemChange(e) {
   var restriction = $(this).siblings('input[name="restriction[]"]');
   var span = $(this).closest('*[data-model-dropdown]');
 
-  var url = wwwRoot + 'ajax/getModelByLexemId.php?id=' + e.val;
+  var url = wwwRoot + 'ajax/getModelsByLexemId.php?id=' + e.val;
   $.get(url, null, null, 'json')
     .done(function(data) {
-      mtSelect.data('selected', data.modelType);
-      mnSelect.data('selected', data.modelNumber);
+      mtSelect.data('selected', data[0].modelType);
+      mnSelect.data('selected', data[0].modelNumber);
       updateModelTypeList(span);
       restriction.val(data.restriction);
     });

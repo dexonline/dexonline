@@ -8,7 +8,7 @@
 
 {block name=content}
   {foreach from=$lexems key=i item=l}
-    <a href="lexemEdit?lexemId={$l->id}">{$l->formNoAccent}</a>
+    {include file="bits/lexemLink.tpl" lexem=$l}
     <div class="blDefinitions">
       {foreach from=$searchResults[$i] item=row}
         {$row->definition->htmlRep} <span class="defDetails">{$row->source->shortName}</span><br/>

@@ -17,20 +17,14 @@
     {if $isOCR}
       <input type="hidden" name="ocr" value="1"/>
     {/if}
-    <table class="editableFields">
-      {foreach from=$homonyms item=h key=i}
-        <tr>
-          <td>
-            <img src="{$imgRoot}/icons/exclamation.png" alt="warning"/>
-            Omonim:
-          </td>
-          <td>
-            {include file="bits/lexemName.tpl" lexem=$h}
-            <a href="lexemEdit.php?lexemId={$h->id}">editează</a>
-          </td>
-        </tr>
+    {if $homonyms}
+      <img src="{$imgRoot}/icons/exclamation.png" alt="warning"/>
+      Omonim(e):
+      {foreach from=$homonyms item=h}
+        &nbsp;
+        {include file="bits/lexemLink.tpl" lexem=$h}
       {/foreach}
-    </table>
+    {/if}
 
     <table class="editableFields">
       <tr>

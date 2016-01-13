@@ -136,7 +136,7 @@
             <td>
               {foreach from=$homonyms item=h}
                 {assign var=lms value=$h->getLexemModels()}
-                <a href="lexemEdit.php?lexemId={$h->id}">{include file="bits/lexemName.tpl" lexem=$h}</a>
+                {include file="bits/lexemLink.tpl" lexem=$h}
                 {$lms[0]->modelType}{$lms[0]->modelNumber}{$lms[0]->restriction}<br>
               {/foreach}
             </td>

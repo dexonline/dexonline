@@ -1,5 +1,5 @@
 {foreach from=$lexems item=l key=row_id}
-  <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$l->id}">{include file="bits/lexemName.tpl" lexem=$l}</a>
+  {include file="bits/lexemLink.tpl" lexem=$l}
   {strip}
   (
   {foreach from=$l->getLexemModels() item=lm name=loop}

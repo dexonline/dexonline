@@ -4,6 +4,5 @@ la <a href="../admin">pagina moderatorului</a>.
 
 {foreach from=$homonyms item=h key=i}
   {if $i}|{/if}
-  <a href="lexemEdit.php?lexemId={$h->id}"
-    >{include file="bits/lexemName.tpl" lexem=$h}</a>
+  {include file="bits/lexemLink.tpl" lexem=$h}
 {/foreach}

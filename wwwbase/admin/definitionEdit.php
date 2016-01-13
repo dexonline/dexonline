@@ -122,8 +122,12 @@ if (count($lexemIds)) {
     $ldms[] = LexemDefinitionMap::create($l->id, $definitionId);
   }
 } else {
-  $lexems = Model::factory('Lexem')->select('Lexem.*')->join('LexemDefinitionMap', 'Lexem.id = lexemId', 'ldm')
-    ->where('ldm.definitionId', $definitionId)->find_many();
+  $lexems = Model::factory('Lexem')
+          ->select('Lexem.*')
+          ->join('LexemDefinitionMap', 'Lexem.id = lexemId', 'ldm')
+          ->where('ldm.definitionId', $definitionId)
+          ->order_by_asc('formNoAccent')
+          ->find_many();
   $lexemIds = util_objectProperty($lexems, 'id');
 }
 

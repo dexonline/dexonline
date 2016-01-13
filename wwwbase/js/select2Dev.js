@@ -7,6 +7,13 @@ struct_lexemAjax = {
   url: wwwRoot + 'ajax/getLexems.php',
 };
 
+struct_modelAjax = {
+  data: function(term, page) { return { term: term }; },
+  dataType: 'json',
+  results: function(data, page) { return data; }, 
+  url: wwwRoot + 'ajax/getModels.php',
+};
+
 struct_definitionAjax = {
   data: function(term, page) { return { term: term }; },
   dataType: 'json',
@@ -119,6 +126,22 @@ function select2InitSelectionAjax(element, callback) {
         } else {
           data.push({ id: lexemId, text: lexemId.substr(1) + ' (cuvânt nou)' });
         }
+      },
+      async: false,
+    });
+  });
+  callback(data);
+}
+
+function select2InitSelectionModelAjax(element, callback) {
+  var data = [];
+
+  $(element.val().split(',')).each(function (index, model) {
+    $.ajax({
+      url: wwwRoot + 'ajax/getModelByName.php?name=' + this,
+      dataType: 'json',
+      success: function(displayValue) {
+        data.push({ id: model, text: displayValue });
       },
       async: false,
     });

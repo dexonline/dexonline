@@ -12,7 +12,7 @@
 {/block}
 
 {block name=content}
-  <form action="definitionEdit.php{if $definitionId}?definitionId={$definitionId}{/if}" method="post" name="frmDef">
+  <form action="definitionEdit.php{if $definitionId}?definitionId={$definitionId}{/if}" method="post">
     <input type="hidden" name="definitionId" value="{$def->id}"/>
     {if $isOCR}
       <input type="hidden" name="ocr" value="1"/>

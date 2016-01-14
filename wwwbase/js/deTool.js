@@ -26,7 +26,6 @@ function deToolInit() {
     .change(detModelChange);
   $('#detAddRow').click(detAddRow);
   $('#butTest, #butSave').click(detBeforeSubmit);
-  $('#butNext').click(detNextDefinition);
 }
 
 function detAddRow() {
@@ -69,15 +68,4 @@ function detModelChange() {
 
 function detBeforeSubmit() {
   $('#detStemRow').remove();
-}
-
-function detNextDefinition() {
-  window.location = wwwRoot
-    + 'admin/deTool.php?definitionId='
-    + $(this).data('definitionId')
-    + '&capitalize='
-    + ($('#capitalize').prop('checked') ? 1 : 0)
-    + '&deleteOrphans='
-    + ($('#deleteOrphans').prop('checked') ? 1 : 0);
-  return false;
 }

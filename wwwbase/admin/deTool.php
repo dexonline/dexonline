@@ -9,6 +9,7 @@ $definitionId = util_getRequestParameter('definitionId');
 $jumpPrefix = util_getRequestParameterWithDefault('jumpPrefix', '');
 $butTest = util_getRequestParameter('butTest');
 $butSave = util_getRequestParameter('butSave');
+$butPrev = util_getRequestParameter('butPrev');
 $butNext = util_getRequestParameter('butNext');
 $lexemIds = util_getRequestParameter('lexemId');
 $models = util_getRequestParameter('models');
@@ -29,19 +30,41 @@ if ($definitionId) {
 }
 
 if (!$def) {
-  exit;
+  die("Definiția cerută nu există.");
 }
 
-// Load the next definition ID
-$next = Model::factory('Definition')
-  ->where('sourceId', SOURCE_ID)
-  ->where('status', Definition::ST_ACTIVE)
-  ->where_raw('((lexicon > ?) or (lexicon = ? and id > ?))',
-              [$def->lexicon, $def->lexicon, $def->id])
-  ->order_by_asc('lexicon')
-  ->order_by_asc('id')
-  ->find_one();
-$nextId = $next ? $next->id : 0;
+if ($butPrev || $butNext) {
+  // Load the prev/next definition
+  if ($butPrev) {
+    $other = Model::factory('Definition')
+           ->where('sourceId', SOURCE_ID)
+           ->where('status', Definition::ST_ACTIVE)
+           ->where_raw('((lexicon < ?) or (lexicon = ? and id < ?))',
+                       [$def->lexicon, $def->lexicon, $def->id])
+           ->order_by_desc('lexicon')
+           ->order_by_desc('id')
+           ->find_one();    
+  } else {
+    $other = Model::factory('Definition')
+           ->where('sourceId', SOURCE_ID)
+           ->where('status', Definition::ST_ACTIVE)
+           ->where_raw('((lexicon > ?) or (lexicon = ? and id > ?))',
+                       [$def->lexicon, $def->lexicon, $def->id])
+           ->order_by_asc('lexicon')
+           ->order_by_asc('id')
+           ->find_one();
+  }
+  if ($other) {
+    // Redirect to the page
+    $target = sprintf("?definitionId=%d&capitalize=%d&deleteOrphans=%d",
+                      $other->id,
+                      (int)$capitalize,
+                      (int)$deleteOrphans);
+    util_redirect($target);
+  } else {
+    SmartyWrap::assign('errorMessage', 'Ați ajuns la capătul listei de definiții.');
+  }
+}
 
 // Load the database lexems
 $dbl = Model::factory('Lexem')
@@ -170,7 +193,6 @@ if ($butSave) {
 }
 
 SmartyWrap::assign('def', $def);
-SmartyWrap::assign('nextId', $nextId);
 SmartyWrap::assign('capitalize', $capitalize);
 SmartyWrap::assign('deleteOrphans', $deleteOrphans);
 SmartyWrap::assign('passedTests', $passedTests);

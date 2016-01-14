@@ -54,9 +54,10 @@
     <label for="deleteOrphans">șterge lexemele care devin neasociate</label>
     <br><br>
 
+    <input type="submit" name="butPrev" value="« anterioara">
     <input id="butTest" type="submit" name="butTest" value="testează">
     <input id="butSave" type="submit" name="butSave" value="salvează" {if !$passedTests}disabled{/if}>
-    <button id="butNext" {if $nextId}data-definition-id="{$nextId}"{else}disabled{/if}>următoarea »</button>
+    <input type="submit" name="butNext" value="următoarea »">
   </form>
 
   <script>

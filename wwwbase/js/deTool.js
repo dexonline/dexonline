@@ -10,6 +10,7 @@ det_lexemStruct = {
 
 det_modelStruct = {
   ajax: struct_modelAjax,
+  initSelection: select2InitSelectionAjaxModel,
   minimumInputLength: 1,
   multiple: true,
   placeholder: 'caută un model',
@@ -19,24 +20,27 @@ det_modelStruct = {
 function deToolInit() {
   $('.detLexem')
     .select2(det_lexemStruct)
-    .change(detRefreshModels);
-  $('.detModels').select2(det_modelStruct);
+    .change(detLexemChange);
+  $('.detModels')
+    .select2(det_modelStruct)
+    .change(detModelChange);
   $('#detAddRow').click(detAddRow);
+  $('#butTest, #butSave').click(detBeforeSubmit);
   $('#butNext').click(detNextDefinition);
-  $('.detLexem').trigger('change');
 }
 
 function detAddRow() {
   $('#detLexemStem').select2('destroy');
   $('#detModelsStem').select2('destroy');
-  var r = $('#detRowStem').clone(true).attr('id', '').css('display', '');
+  var r = $('#detStemRow').clone(true).attr('id', '').css('display', '');
   $('#detLexems').append(r);
   r.find('.detLexem').select2(det_lexemStruct);
   r.find('.detModels').select2(det_modelStruct);
   return false;
 }
 
-function detRefreshModels() {
+function detLexemChange() {
+  // Refresh the model list
   var lexemId = $(this).val();
   var data = [];
   $.ajax({
@@ -53,9 +57,27 @@ function detRefreshModels() {
   });
   var m = $(this).closest('tr').find('.detModels');
   m.select2('data', data);
+
+  // Disable the save button
+  $('#butSave').prop('disabled', true);
+}
+
+function detModelChange() {
+  // Disable the save button
+  $('#butSave').prop('disabled', true);
+}
+
+function detBeforeSubmit() {
+  $('#detStemRow').remove();
 }
 
 function detNextDefinition() {
-  window.location = wwwRoot + 'admin/deTool.php?definitionId=' + $(this).data('definitionId');
+  window.location = wwwRoot
+    + 'admin/deTool.php?definitionId='
+    + $(this).data('definitionId')
+    + '&capitalize='
+    + ($('#capitalize').prop('checked') ? 1 : 0)
+    + '&deleteOrphans='
+    + ($('#deleteOrphans').prop('checked') ? 1 : 0);
   return false;
 }

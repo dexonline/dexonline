@@ -14,7 +14,7 @@ class Lexem extends BaseObject implements DatedObject {
                                              self::STRUCT_STATUS_UNDER_REVIEW => 'așteaptă moderarea',
                                              self::STRUCT_STATUS_DONE => 'terminată');
 
-  public static function deepCreate($form, $modelType, $modelNumber, $restriction = '', $isLoc = false) {
+  public static function create($form) {
     $l = Model::factory('Lexem')->create();
     $l->form = $form;
     $l->formNoAccent = str_replace("'", '', $form);
@@ -23,6 +23,12 @@ class Lexem extends BaseObject implements DatedObject {
     $l->description = '';
     $l->comment = null;
     $l->noAccent = false;
+
+    return $l;
+  }
+
+  public static function deepCreate($form, $modelType, $modelNumber, $restriction = '', $isLoc = false) {
+    $l = self::create($form);
 
     $lm = Model::factory('LexemModel')->create();
     $lm->displayOrder = 1;

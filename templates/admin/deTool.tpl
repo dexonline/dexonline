@@ -14,6 +14,7 @@
   <br>
 
   {$def->htmlRep}
+  <a href="definitionEdit?definitionId={$def->id}">editează</a>
   <br><br>
 
   <form action="deTool.php" method="post">
@@ -24,7 +25,7 @@
         <th>lexem</th>
         <th>modele</th>
       </tr>
-      <tr id="detRowStem" style="display: none">
+      <tr id="detStemRow" style="display: none">
         <td>
           <input id="detLexemStem" class="detLexem" type="text" name="lexemId[]" value="">
         </td>
@@ -38,8 +39,7 @@
             <input class="detLexem" type="text" name="lexemId[]" value="{$l}">
           </td>
           <td>
-            {$m=$models[$i]}
-            <input class="detModels" type="text" name="models[]" value="{','|implode:$m}">
+            <input class="detModels" type="text" name="models[]" value="{$models[$i]}">
           </td>
         </tr>
       {/foreach}
@@ -47,10 +47,15 @@
     <a id="detAddRow" href="#">adaugă o linie</a>
     <br><br>
 
-    <input type="submit" name="butTest" value="testează">
-    &nbsp;
-    <input type="submit" name="butSave" value="salvează">
-    &nbsp;
+    <input id="capitalize" type="checkbox" name="capitalize" value="1" {if $capitalize}checked{/if}>
+    <label for="capitalize">scrie cu majusculă lexemele I3</label>
+    <br>
+    <input id="deleteOrphans" type="checkbox" name="deleteOrphans" value="1" {if $deleteOrphans}checked{/if}>
+    <label for="deleteOrphans">șterge lexemele care devin neasociate</label>
+    <br><br>
+
+    <input id="butTest" type="submit" name="butTest" value="testează">
+    <input id="butSave" type="submit" name="butSave" value="salvează" {if !$passedTests}disabled{/if}>
     <button id="butNext" {if $nextId}data-definition-id="{$nextId}"{else}disabled{/if}>următoarea »</button>
   </form>
 

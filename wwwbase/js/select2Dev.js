@@ -132,3 +132,20 @@ function select2InitSelectionAjax(element, callback) {
   });
   callback(data);
 }
+
+function select2InitSelectionAjaxModel(element, callback) {
+  var data = [];
+
+  $(element.val().split(',')).each(function() {
+    $.ajax({
+      url: wwwRoot + 'ajax/getModels.php?exact=1&term=' + this,
+      dataType: 'json',
+      success: function(displayValue) {
+        var tuple = displayValue.results[0];
+        data.push(tuple);
+      },
+      async: false,
+    });
+  });
+  callback(data);
+}

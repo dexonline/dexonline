@@ -94,10 +94,15 @@ if ($butSave) {
       // Associate the lexem with the definition
       LexemDefinitionMap::associate($lexem->id, $def->id);
 
-      // Delete existing lexem models
-      LexemModel::delete_all_by_lexemId($lexem->id);
+      // There's bit of complexity here because deTool.php doesn't support
+      // restrictions, but the existing lexem models may have them.
+      // So we confront the new and old array of lexem models, copy any
+      // common ones and delete the ones that are gone.
 
-      // Associate given models
+      // Load existing lexem models
+      $dbLms = $lexem->getLexemModels();
+
+      // Create the new set of lexem models
       $lms = [];
       foreach (explode(',', $models[$i]) as $m) {
         $model = Model::factory('ModelType')
@@ -106,13 +111,25 @@ if ($butSave) {
                ->join('Model', ['canonical', '=', 'modelType'])
                ->where_raw("concat(code, number) = ? ", [$m])
                ->find_one();
-        $lm = LexemModel::create($model->code, $model->number);
-        $lm->lexemId = $lexem->id;
-        $lm->displayOrder = 1 + count($lms);
+        $lm = lmSearch($dbLms, $model->code, $model->number);
+        if (!$lm) {
+          $lm = LexemModel::create($model->code, $model->number);
+          $lm->lexemId = $lexem->id;
+        }
         $lm->setLexem($lexem);
+        $lm->displayOrder = 1 + count($lms);
         $lms[] = $lm;
       }
       $lexem->setLexemModels($lms);
+
+      // Delete old lexem models
+      foreach ($dbLms as $lm) {
+        $match = lmSearch($lms, $lm->modelType, $lm->modelNumber);
+        if (!$match) {
+          $lm->delete();
+        }
+      }
+      
       $lexem->deepSave();
     }
   }
@@ -199,3 +216,15 @@ SmartyWrap::assign('passedTests', $passedTests);
 SmartyWrap::addCss('jqueryui', 'select2');
 SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev', 'deTool');
 SmartyWrap::displayAdminPage('admin/deTool.tpl');
+
+/*************************************************************************/
+
+// Searches for a LexemModel in an array, ignoring the restriction field */
+function lmSearch($lms, $type, $number) {
+  foreach ($lms as $lm) {
+    if (($lm->modelType == $type) && ($lm->modelNumber == $number)) {
+      return $lm;
+    }
+  }
+  return null;
+}

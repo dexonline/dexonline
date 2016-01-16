@@ -7,6 +7,7 @@ util_assertNotLoggedIn();
 $openid = util_getRequestParameter('openid');
 $fakeUserNick = util_getRequestParameter('fakeUserNick');
 $priv = util_getRequestParameter('priv');
+$allPriv = util_getRequestParameter('allPriv');
 
 $devel = Config::get('global.developmentMode');
 
@@ -21,7 +22,11 @@ if ($fakeUserNick) {
     $user->identity = 'http://fake.example.com';
     $user->nick = $fakeUserNick;
     $user->name = $fakeUserNick;
-    $user->moderator = array_sum($priv);
+    if ($allPriv) {
+      $user->moderator = (1 << NUM_PRIVILEGES) - 1;
+    } else {
+      $user->moderator = array_sum($priv);
+    }
     $user->save();
     session_login($user, array());
   }

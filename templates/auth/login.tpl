@@ -7,7 +7,6 @@
   {assign var="openid" value=$openid|default:''}
 
   {if $allowFakeUsers}
-    <p class="paragraphTitle">Utilizator de test</p>
     {include file="bits/fakeUser.tpl"}
   {/if}
 

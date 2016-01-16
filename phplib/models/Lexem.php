@@ -14,12 +14,16 @@ class Lexem extends BaseObject implements DatedObject {
                                              self::STRUCT_STATUS_UNDER_REVIEW => 'așteaptă moderarea',
                                              self::STRUCT_STATUS_DONE => 'terminată');
 
+  function setForm($form) {
+    $this->form = $form;
+    $this->formNoAccent = str_replace("'", '', $form);
+    $this->formUtf8General = $l->formNoAccent;
+    $this->reverse = StringUtil::reverse($l->formNoAccent);
+  }
+  
   public static function create($form) {
     $l = Model::factory('Lexem')->create();
-    $l->form = $form;
-    $l->formNoAccent = str_replace("'", '', $form);
-    $l->formUtf8General = $l->formNoAccent;
-    $l->reverse = StringUtil::reverse($l->formNoAccent);
+    $l->setForm($form);
     $l->description = '';
     $l->comment = null;
     $l->noAccent = false;

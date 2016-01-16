@@ -4,6 +4,7 @@ util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
 define('SOURCE_ID', 25); // Dicționarul enciclopedic
+$MODELS_TO_CAPITALIZE = ['I3', 'SP'];
 
 $definitionId = util_getRequestParameter('definitionId');
 $jumpPrefix = util_getRequestParameterWithDefault('jumpPrefix', '');
@@ -104,6 +105,7 @@ if ($butSave) {
 
       // Create the new set of lexem models
       $lms = [];
+      $needsCaps = false;
       foreach (explode(',', $models[$i]) as $m) {
         $model = Model::factory('ModelType')
                ->select('code')
@@ -119,6 +121,7 @@ if ($butSave) {
         $lm->setLexem($lexem);
         $lm->displayOrder = 1 + count($lms);
         $lms[] = $lm;
+        $needsCaps |= prefixMatch($m, $MODELS_TO_CAPITALIZE);
       }
       $lexem->setLexemModels($lms);
 
@@ -128,6 +131,10 @@ if ($butSave) {
         if (!$match) {
           $lm->delete();
         }
+      }
+
+      if ($needsCaps) {
+        $lexem->setForm(AdminStringUtil::capitalize($lexem->form));
       }
       
       $lexem->deepSave();
@@ -227,4 +234,14 @@ function lmSearch($lms, $type, $number) {
     }
   }
   return null;
+}
+
+// Returns true iff any string in $prefixes is a prefix of $s
+function prefixMatch($s, $prefixes) {
+  foreach ($prefixes as $p) {
+    if (StringUtil::startsWith($s, $p)) {
+      return true;
+    }
+  }
+  return false;
 }

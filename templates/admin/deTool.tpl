@@ -48,7 +48,7 @@
     <br><br>
 
     <input id="capitalize" type="checkbox" name="capitalize" value="1" {if $capitalize}checked{/if}>
-    <label for="capitalize">scrie cu majusculă lexemele I3</label>
+    <label for="capitalize">scrie cu majusculă lexemele I3 și SP*</label>
     <br>
     <input id="deleteOrphans" type="checkbox" name="deleteOrphans" value="1" {if $deleteOrphans}checked{/if}>
     <label for="deleteOrphans">șterge lexemele care devin neasociate</label>

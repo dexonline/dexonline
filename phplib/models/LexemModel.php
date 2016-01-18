@@ -8,6 +8,7 @@ class LexemModel extends BaseObject implements DatedObject {
 
   private $lexem = null;
   private $mt = null;                  // ModelType object, but we call it $mt because there is already a DB field called 'modelType'
+  private $lexemSources = null;
   private $sources = null;
   private $sourceNames = null;         // Comma-separated list of source names
   private $inflectedForms = null;
@@ -45,6 +46,17 @@ class LexemModel extends BaseObject implements DatedObject {
     return $this->mt;
   }
 
+  function getLexemSources() {
+    if ($this->lexemSources === null) {
+      $this->lexemSources = LexemSource::get_all_by_lexemModelId($this->id);
+    }
+    return $this->lexemSources;
+  }
+
+  function setLexemSources($lexemSources) {
+    $this->lexemSources = $lexemSources;
+  }
+
   function getSources() {
     if ($this->sources === null) {
       $this->sources = Model::factory('Source')
@@ -74,10 +86,6 @@ class LexemModel extends BaseObject implements DatedObject {
       $results[] = $s->id;
     }
     return $results;
-  }
-
-  function setSources($sources) {
-    $this->sources = $sources;
   }
 
   /**

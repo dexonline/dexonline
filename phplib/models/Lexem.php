@@ -525,7 +525,7 @@ class Lexem extends BaseObject implements DatedObject {
         $if->lexemModelId = $lm->id;
         $if->save();
       }
-      foreach ($lm->getSources() as $ls) {
+      foreach ($lm->getLexemSources() as $ls) {
         $ls->lexemModelId = $lm->id;
         $ls->save();
       }

@@ -169,7 +169,7 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
       $ls->sourceId = $sourceId;
       $lexemSources[] = $ls;
     }
-    $lm->setSources($lexemSources);
+    $lm->setLexemSources($lexemSources);
 
     $lexemModels[] = $lm;
   }

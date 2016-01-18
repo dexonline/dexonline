@@ -135,6 +135,14 @@
   {/if}
 
   {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+    Pentru a reasocia cuvinte din D. Enciclopedic cu lexemele corecte, <a href="../admin/deTool.php">clic aici</a>.
+
+    <div class="flexExplanation">
+      Este o pagină care încearcă să faciliteze asocierea de lexeme și
+      modificarea modelelor acestora, reducând numărul de clicuri necesare.
+    </div>
+    <br/>
+
     Pentru a încerca etichetarea asistată a cuvintelor,
     <a href="../admin/bulkLabelSelectSuffix.php">clic aici</a>.
 

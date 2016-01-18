@@ -24,6 +24,7 @@
       <tr>
         <th>lexem</th>
         <th>modele</th>
+        <th>scurtături</th>
       </tr>
       <tr id="detStemRow" style="display: none">
         <td>
@@ -31,6 +32,9 @@
         </td>
         <td>
           <input id="detModelsStem" class="detModels" type="text" name="models[]" value="">
+        </td>
+        <td>
+          <a class="detShortcutI3" href="#">I3</a>
         </td>
       </tr>
       {foreach from=$lexemIds item=l key=i}
@@ -41,6 +45,9 @@
           <td>
             <input class="detModels" type="text" name="models[]" value="{$models[$i]}">
           </td>
+        <td>
+          <a class="detShortcutI3" href="#">I3</a>
+        </td>
         </tr>
       {/foreach}
     </table>
@@ -59,6 +66,15 @@
     <input id="butSave" type="submit" name="butSave" value="salvează" {if !$passedTests}disabled{/if}>
     <input type="submit" name="butNext" value="următoarea »">
   </form>
+
+  <h3>Note</h3>
+
+  <ul>
+    <li>
+      Legăturile de pe coloana „scurtături” sunt echivalente cu golirea listei de modele
+      și adăugarea modelului respectiv. Sunt doar scurtături mai comode.
+    </li>
+  </ul>
 
   <script>
    $(deToolInit);

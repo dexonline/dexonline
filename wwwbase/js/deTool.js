@@ -24,6 +24,7 @@ function deToolInit() {
   $('.detModels')
     .select2(det_modelStruct)
     .change(detModelChange);
+  $('.detShortcutI3').click(detShortcutI3);
   $('#detAddRow').click(detAddRow);
   $('#butTest, #butSave').click(detBeforeSubmit);
 }
@@ -64,6 +65,12 @@ function detLexemChange() {
 function detModelChange() {
   // Disable the save button
   $('#butSave').prop('disabled', true);
+}
+
+function detShortcutI3() {
+  var m = $(this).closest('tr').find('.detModels');
+  m.select2('val', ['I3']);
+  return false;
 }
 
 function detBeforeSubmit() {

@@ -10,7 +10,9 @@ $editModelButton = util_getRequestParameter('editModel');
 $cloneModelButton = util_getRequestParameter('cloneModel');
 $deleteModelButton = util_getRequestParameter('deleteModel');
 
-$args = "modelType=$modelType&modelNumber=$modelNumber";
+$args = sprintf("modelType=%s&modelNumber=%s",
+                urlencode($modelType),
+                urlencode($modelNumber));
 
 if ($showLexemsButton) {
   util_redirect("viewLexemsByModel.php?$args");

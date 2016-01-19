@@ -2,29 +2,18 @@
 require_once("../../phplib/util.php");
 header("Content-Type: application/json");
 
-
 $acEnable = Config::get("search.acEnable");
 $acMinChars = Config::get("search.acMinChars");
 $acLimit = Config::get("search.acLimit");
 
-$search = util_getRequestParameter('term');
+$term = util_getRequestParameter('term');
 
-if (!$acEnable || strlen($search) < $acMinChars) {
+if (!$acEnable || strlen($term) < $acMinChars) {
   return print(json_encode(array()));
 }
 
-$hasDiacritics =
-  session_user_prefers(Preferences::FORCE_DIACRITICS) ||
-  StringUtil::hasDiacritics($search);
+$forms = Autocomplete::ac($term, $acLimit);
 
-$search_results = Lexem::searchLike("{$search}%", $hasDiacritics, true, $acLimit);
-
-$clean_results = array_map(function($rec) {
-  return $rec['formNoAccent'];
-}, $search_results);
-
-
-return print(json_encode($clean_results));
+print json_encode($forms);
 
 ?>
-

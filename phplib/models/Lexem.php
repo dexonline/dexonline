@@ -161,15 +161,22 @@ class Lexem extends BaseObject implements DatedObject {
       }
     }
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-    $result = Model::factory('Lexem')
+    // Get the lexem IDs first, then load the lexems. This prevents MySQL
+    // from creating temporary tables on disk.
+    $ids = Model::factory('Lexem')
       ->table_alias('l')
-      ->select('l.*')
+      ->select('l.id')
       ->distinct()
       ->join('LexemModel', 'l.id = lm.lexemId', 'lm')
       ->join('InflectedForm', 'lm.id = f.lexemModelId', 'f')
       ->where("f.$field", $cuv)
       ->order_by_asc('l.formNoAccent')
-      ->find_many();
+      ->find_array();
+
+    $result = array_map(function($rec) {
+      return Lexem::get_by_id($rec['id']);
+    }, $ids);
+    
     if ($useMemcache) {
       mc_set($key, $result);
     }

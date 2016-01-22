@@ -125,12 +125,19 @@ class Definition extends BaseObject implements DatedObject {
     $sourceClause = $sourceId ? "and D.sourceId = $sourceId" : '';
     $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
     $statusClause = sprintf("and D.status in (%d,%d)", self::ST_ACTIVE, self::ST_HIDDEN);
+    // Get the IDs first, then load the definitions. This prevents MySQL
+    // from creating temporary tables on disk.
     // TODO Using the number constants is not a good practice
-    return ORM::for_table('Definition')
-      ->raw_query("select distinct D.* from Definition D, LexemDefinitionMap L, Source S " .
+    $ids = ORM::for_table('Definition')
+      ->raw_query("select distinct D.id from Definition D, LexemDefinitionMap L, Source S " .
                   "where D.id = L.definitionId and L.lexemId in ($lexemIds) and D.sourceId = S.id $statusClause $excludeClause $sourceClause " .
                   "order by S.isOfficial desc, (D.lexicon = '$preferredWord') desc, S.displayOrder, D.lexicon")
-      ->find_many();
+      ->find_array();
+    $defs = array_map(function($rec) {
+      return self::get_by_id($rec['id']);
+    }, $ids);
+
+    return $defs;
   }
 
   public static function searchLexemId($lexemId, $exclude_unofficial = false) {

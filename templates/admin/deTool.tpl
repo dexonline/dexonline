@@ -77,6 +77,9 @@
     <li>
       Din această pagină nu puteți adăuga restricții la modelele de flexiune.
     </li>
+    <li>
+      Transcrierea cu majusculă nu apare la testare, numai la salvare.
+    </li>
   </ul>
 
   <script>

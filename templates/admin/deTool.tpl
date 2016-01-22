@@ -74,6 +74,9 @@
       Legăturile de pe coloana „scurtături” sunt echivalente cu golirea listei de modele
       și adăugarea modelului respectiv. Sunt doar scurtături mai comode.
     </li>
+    <li>
+      Din această pagină nu puteți adăuga restricții la modelele de flexiune.
+    </li>
   </ul>
 
   <script>

@@ -70,6 +70,10 @@ function detModelChange() {
 function detShortcutI3() {
   var m = $(this).closest('tr').find('.detModels');
   m.select2('val', ['I3']);
+
+  // Disable the save button
+  $('#butSave').prop('disabled', true);
+
   return false;
 }
 

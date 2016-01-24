@@ -15,7 +15,9 @@ class Definition extends BaseObject implements DatedObject {
     self::ST_HIDDEN  => 'ascunsă',
   ];
 
-  public static function get_by_id($id) {
+  /* For admins, returns the definition with the given ID. For regular users,
+     return null rather than a hidden definition. */
+  public static function getByIdNotHidden($id) {
     if (util_isModerator(PRIV_ADMIN)) {
       return parent::get_by_id($id);
     } else {

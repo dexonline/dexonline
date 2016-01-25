@@ -17,6 +17,7 @@ $args = sprintf("modelType=%s&modelNumber=%s",
 if ($showLexemsButton) {
   util_redirect("viewLexemsByModel.php?$args");
 } else if ($editModelButton) {
+  $modelType = ModelType::canonicalize($modelType);
   $m = FlexModel::get_by_modelType_number($modelType, $modelNumber);
   util_redirect("editModel.php?id={$m->id}");
 } else if ($cloneModelButton) {

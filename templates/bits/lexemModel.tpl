@@ -3,7 +3,7 @@
 {$modelType->description} ({$modelType->code}{$lexemModel->modelNumber})
 {if $sUser && ($sUser->moderator & $smarty.const.PRIV_LOC)}
   <a class="paraEdit"
-     href="{$wwwRoot}admin/editModel.php?modelType={$lexemModel->modelType}&amp;modelNumber={$lexemModel->modelNumber}"
+     href="{$wwwRoot}admin/dispatchModelAction.php?editModel=1&amp;modelType={$lexemModel->modelType}&amp;modelNumber={$lexemModel->modelNumber}"
      title="editează modelul">&nbsp;
   </a>
 {/if}

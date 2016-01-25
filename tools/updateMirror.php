@@ -3,8 +3,7 @@
 require_once __DIR__ . '/../phplib/util.php';
 
 define('DATABASE_URL', Config::get('static.url') . 'download/mirrorAccess/dex-database.sql.gz');
-define('DATABASE_TMPFILE', Config::get('global.tempDir') . '/dex-database.sql');
-define('DATABASE_TMPFILE_GZIP', DATABASE_TMPFILE . '.gz');
+define('DATABASE_TMPFILE_GZIP', Config::get('global.tempDir') . '/dex-database.sql.gz');
 
 $doDatabaseCopy = true;
 $doCodeUpdate = true;
@@ -28,12 +27,11 @@ log_scriptLog('Running updateMirror.php with databaseCopy:' .
 if ($doDatabaseCopy) {
   $wget = sprintf("wget -q -O %s %s" , DATABASE_TMPFILE_GZIP, DATABASE_URL);
   OS::executeAndAssert($wget);
-  $gzip = sprintf("gunzip %s", DATABASE_TMPFILE_GZIP);
-  OS::executeAndAssert($gzip);
   $parts = db_splitDsn();
-  $mysql = sprintf("mysql -h %s -u %s --password='%s' %s < %s", $parts['host'], $parts['user'], $parts['password'], $parts['database'], DATABASE_TMPFILE);
+  $mysql = sprintf("zcat %s | mysql -h %s -u %s --password='%s' %s",
+                   DATABASE_TMPFILE_GZIP, $parts['host'], $parts['user'], $parts['password'], $parts['database']);
   OS::executeAndAssert($mysql);
-  $rm = sprintf("rm -f %s", DATABASE_TMPFILE);
+  $rm = sprintf("rm -f %s", DATABASE_TMPFILE_GZIP);
   OS::executeAndAssert($rm);
 }
 

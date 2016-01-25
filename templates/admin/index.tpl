@@ -84,7 +84,7 @@
   <br/>
 
   {if $sUser->moderator & $smarty.const.PRIV_LOC}
-    <form action="../admin/dispatchModelAction.php" method="get">
+    <form action="dispatchModelAction.php" method="get">
       <span data-model-dropdown>
         Modelul:
         <input type="hidden" name="locVersion" value="6.0" data-loc-version>

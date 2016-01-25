@@ -3,7 +3,7 @@
 {block name=title}Editare model{/block}
 
 {block name=headerTitle}
-  Editare model {$modelType}{$modelNumber}
+  Editare model {$m->modelType}{$m->number}
 {/block}
 
 {block name=content}
@@ -17,9 +17,8 @@
     <br/><br/>
   {/if}
 
-  <form action="editModel.php" method="post">
-    <input type="hidden" name="modelType" value="{$modelType}"/>
-    <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
+  <form method="post">
+    <input type="hidden" name="id" value="{$m->id}"/>
 
     <table class="editModel">
       <tr>
@@ -29,8 +28,7 @@
         </td>
         <td></td>
         <td class="input">
-          <input type="text" name="newModelNumber"
-                 value="{$newModelNumber|escape}"/>
+          <input type="text" name="number" value="{$m->number|escape}"/>
 
           <span class="tooltip2" title="Aici puteți edita exponentul ales pentru un model și formele pentru diversele flexiuni. Folosiți accente unde
                                         doriți. Dacă o flexiune nu are forme, lăsați câmpul vid. Dacă o flexiune are mai multe forme, apăsați semnul + pentru a obține câte câmpuri
@@ -44,8 +42,7 @@
         <td>Descriere</td>
         <td></td>
         <td class="input">
-          <input type="text" name="newDescription"
-                 value="{$newDescription|escape}"/>
+          <input type="text" name="description" value="{$m->description|escape}"/>
         </td>
       </tr>
       {if $adjModels}
@@ -53,12 +50,11 @@
           <td>Model de participiu</td>
           <td></td>
           <td class="input">
-            <select name="newParticipleNumber">
-              {foreach from=$adjModels item=m}
-                <option value="{$m->number}"
-                        {if $m->number == $newParticipleNumber
-                        }selected="selected"{/if}
-                        >{$m->number}{if !$m->id}*{/if} ({$m->exponent})
+            <select name="participleNumber">
+              {foreach from=$adjModels item=am}
+                <option value="{$am->number}"
+                        {if $pm && $pm->adjectiveModel == $am->number}selected="selected"{/if}
+                        >{$am->number} ({$am->exponent})
                 </option>
               {/foreach}
             </select>
@@ -69,7 +65,7 @@
         <td>Exponent</td>
         <td></td>
         <td class="input">
-          <input type="text" name="newExponent" value="{$newExponent|escape}"/>
+          <input type="text" name="exponent" value="{$m->exponent|escape}"/>
         </td>
       </tr>
 
@@ -83,7 +79,7 @@
         </th>
       </tr>
 
-      {foreach from=$newForms item=forms key=inflId}
+      {foreach from=$forms item=f key=inflId}
         <tr class="{cycle values="odd,even"}">
           <td>{$inflectionMap[$inflId]->description|escape}</td>
           <td class="addSign">
@@ -92,7 +88,7 @@
             </a>
           </td>
           <td class="input" id="td_{$inflId}">
-            {foreach from=$forms item=tuple key=i}
+            {foreach from=$f item=tuple key=i}
               <p>
                 <input class="fieldColumn" type="text" name="forms_{$inflId}_{$i}" value="{$tuple.form|escape}"/>
                 <input class="checkboxColumn" type="checkbox" name="isLoc_{$inflId}_{$i}" value="1" {if $tuple.isLoc}checked="checked"{/if}/>
@@ -104,28 +100,23 @@
       {/foreach}
     </table>
 
-    {if $wasPreviewed}
-      {if $newModelNumber != $modelNumber ||
-      $newExponent != $exponent ||
-      $newDescription != $description ||
-      $newParticipleNumber != $participleNumber}
-        <h3>Schimbări globale:</h3>
+    {if $wasPreviewed && !count($errorMessage)}
+      <h3>Schimbări globale:</h3>
 
-        <ul>
-          {if $newModelNumber != $modelNumber}
-            <li>Număr de model nou: {$newModelNumber|escape}</li>
-          {/if}
-          {if $newExponent != $exponent}
-            <li>Exponent nou: {$newExponent|escape}</li>
-          {/if}
-          {if $newDescription != $description}
-            <li>Descriere nouă: {$newDescription|escape}</li>
-          {/if}
-          {if $newParticipleNumber != $participleNumber}
-            <li>Model nou de participiu: A{$newParticipleNumber|escape}</li>
-          {/if}
-        </ul>
-      {/if}
+      <ul>
+        {if $m->number != $om->number}
+          <li>Număr de model nou: {$m->number|escape}</li>
+        {/if}
+        {if $m->exponent != $om->exponent}
+          <li>Exponent nou: {$m->exponent|escape}</li>
+        {/if}
+        {if $m->description != $om->description}
+          <li>Descriere nouă: {$m->description|escape}</li>
+        {/if}
+        {if $pm && ($pm->adjectiveModel != $opm->adjectiveModel)}
+          <li>Model nou de participiu: A{$pm->adjectiveModel|escape}</li>
+        {/if}
+      </ul>
 
       {if count($regenTransforms)}
         <h3>Lista de flexiuni afectate ({$regenTransforms|@count}):</h3>
@@ -146,10 +137,10 @@
             {/foreach}
           </tr>
           <tr class="exponent">
-            <td class="lexem">{$newExponent}</td>
+            <td class="lexem">{$m->exponent}</td>
             <td class="model">exponent</td>
             {foreach from=$regenTransforms item=ignored key=inflId}
-              {assign var="variantArray" value=$newForms[$inflId]}
+              {assign var="variantArray" value=$forms[$inflId]}
               <td class="forms">
                 {strip}
                 {foreach from=$variantArray item=tuple key=i}
@@ -183,8 +174,8 @@
       {/if}
     {/if}
 
-    {if count($participles)}
-      <h3>Participii regenerate conform modelului A{$newParticipleNumber}:</h3>
+    {if count($participles) && !count($errorMessage)}
+      <h3>Participii regenerate conform modelului A{$pm->adjectiveModel|escape}:</h3>
 
       {foreach from=$participles item=p key=i}
         {include file="paradigm/paradigm.tpl" lexemModel=$p}

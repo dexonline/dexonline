@@ -41,12 +41,7 @@ class BaseObject extends Model {
     switch ($action) {
       case self::ACTION_SELECT: return $clause->find_one();
       case self::ACTION_SELECT_ALL: return $clause->find_many();
-      case self::ACTION_DELETE_ALL:
-        $objects = $clause->find_many();
-        foreach ($objects as $o) {
-          $o->delete();
-        }
-        break;
+      case self::ACTION_DELETE_ALL: return $clause->delete_many();
     }
   }
 

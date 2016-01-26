@@ -6,9 +6,12 @@ util_assertModerator(PRIV_LOC);
 util_assertNotMirror();
 DebugInfo::disable();
 
+define('SHORT_LIST_LIMIT', 10);
+
 $id = util_getRequestParameter('id');
 $previewButton = util_getRequestParameter('previewButton');
 $confirmButton = util_getRequestParameter('confirmButton');
+$shortList = util_getBoolean('shortList');
 
 $m = FlexModel::get_by_id($id);
 $pm = ParticipleModel::loadForModel($m);
@@ -98,7 +101,8 @@ if (!$previewButton && !$confirmButton) {
   
   // Load the affected lexems. For each lexem, inflection and transform
   // list, generate a new form.
-  $lexemModels = LexemModel::loadByCanonicalModel($m->modelType, $m->number);
+  $limit = ($shortList && !$confirmButton) ? SHORT_LIST_LIMIT : 0;
+  $lexemModels = LexemModel::loadByCanonicalModel($m->modelType, $m->number, $limit);
   $regenForms = [];
   foreach ($lexemModels as $lm) {
     $l = $lm->getLexem();
@@ -271,6 +275,7 @@ if ($m->modelType == 'V') {
   SmartyWrap::assign('adjModels', FlexModel::loadByType('A'));
 }
 
+SmartyWrap::assign('shortList', $shortList);
 SmartyWrap::assign('inflectionMap', Inflection::mapById($inflections));
 SmartyWrap::assign('wasPreviewed', $previewButton);
 SmartyWrap::assign('errorMessage', $errorMessage);

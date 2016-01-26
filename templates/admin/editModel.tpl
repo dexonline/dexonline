@@ -99,6 +99,14 @@
         </tr>
       {/foreach}
     </table>
+    <br/>
+
+    <input id="shortList" type="checkbox" name="shortList" value="1" {if $shortList}checked{/if}>
+    <label for="shortList">Testează modificările pe maxim 10 lexeme</label>
+    <div class="flexExplanation">
+      Toate lexemele vor fi salvate, dar numai (maxim) 10 vor fi testate și
+      afișate. Aceasta poate accelera mult pasul de testare.
+    </div>
 
     {if $wasPreviewed && !count($errorMessage)}
       <h3>Schimbări globale:</h3>

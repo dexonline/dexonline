@@ -200,7 +200,7 @@ if (!$previewButton && !$confirmButton) {
       fclose($fp);
       chmod($fileName, 0666);
       db_execute("
-        load data infile '{$fileName}'
+        load data local infile '{$fileName}'
         into table InflectedForm
         fields terminated by ',' optionally enclosed by '\"'
         (form, formNoAccent, formUtf8General, lexemModelId, inflectionId, variant)

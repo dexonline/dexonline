@@ -183,17 +183,29 @@ if (!$previewButton && !$confirmButton) {
 
     // Regenerate the affected inflections for every lexem
     if (count($regenTransforms)) {
+      $fileName = tempnam('/tmp', 'editModel_');
+      $fp = fopen($fileName, 'w');
       foreach ($regenForms as $i => $regenRow) {
         $lm = $lexemModels[$i];
         foreach ($regenRow as $inflId => $formArray) {
-          InflectedForm::delete_all_by_lexemModelId_inflectionId(
-            $lm->id, $inflId);
-          foreach ($formArray as $i => $f) {
-            $if = InflectedForm::create($f, $lm->id, $inflId, $i);
-            $if->save();
+          foreach ($formArray as $variant => $f) {
+            $if = InflectedForm::create($f);
+            fputcsv($fp, [$if->form, $if->formNoAccent, $if->formUtf8General, $lm->id, $inflId, $variant]);
           }
         }
       }
+      foreach ($regenTransforms as $inflId => $ignored) {
+        InflectedForm::deleteByModelNumberInflectionId($m->number, $inflId);
+      }
+      fclose($fp);
+      chmod($fileName, 0666);
+      db_execute("
+        load data infile '{$fileName}'
+        into table InflectedForm
+        fields terminated by ',' optionally enclosed by '\"'
+        (form, formNoAccent, formUtf8General, lexemModelId, inflectionId, variant)
+      ");
+      unlink($fileName);
     }
 
     // Propagate the recommended bit from ModelDescription to InflectedForm

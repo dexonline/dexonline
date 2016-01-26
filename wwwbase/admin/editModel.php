@@ -193,8 +193,10 @@ if (!$previewButton && !$confirmButton) {
         $lm = $lexemModels[$i];
         foreach ($regenRow as $inflId => $formArray) {
           foreach ($formArray as $variant => $f) {
-            $if = InflectedForm::create($f);
-            fputcsv($fp, [$if->form, $if->formNoAccent, $if->formUtf8General, $lm->id, $inflId, $variant]);
+            if (ConstraintMap::allows($lm->restriction, $inflId, $variant)) {
+              $if = InflectedForm::create($f);
+              fputcsv($fp, [$if->form, $if->formNoAccent, $if->formUtf8General, $lm->id, $inflId, $variant]);
+            }
           }
         }
       }

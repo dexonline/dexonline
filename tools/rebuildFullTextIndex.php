@@ -65,7 +65,7 @@ log_scriptLog("Index size: $indexSize entries.");
 
 OS::executeAndAssert("chmod 666 $fileName");
 log_scriptLog("Importing file $fileName into table FullTextIndex");
-db_executeFromOS("load data local infile '$fileName' into table FullTextIndex");
+db_executeFromOS("load data local infile \"$fileName\" into table FullTextIndex");
 util_deleteFile($fileName);
 
 if (!Lock::release(LOCK_FULL_TEXT_INDEX)) {

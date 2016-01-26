@@ -199,10 +199,10 @@ if (!$previewButton && !$confirmButton) {
       }
       fclose($fp);
       chmod($fileName, 0666);
-      db_execute("
-        load data local infile '{$fileName}'
+      db_executeFromOS("
+        load data local infile \"{$fileName}\"
         into table InflectedForm
-        fields terminated by ',' optionally enclosed by '\"'
+        fields terminated by \",\" optionally enclosed by \"\\\"\"
         (form, formNoAccent, formUtf8General, lexemModelId, inflectionId, variant)
       ");
       unlink($fileName);

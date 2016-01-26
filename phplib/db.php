@@ -30,14 +30,18 @@ function db_execute($query, $fetchStyle = PDO::FETCH_BOTH) {
  * http://www.yiiframework.com/forum/index.php/topic/33612-load-data-local-infile-forbidden/
  * We can still run that statement from the command line.
  * This function allows us to do that until we upgrade to PHP 5.4.
+ *
+ * NOTE: The query may not contain quotes (') due to escaping issues.
  **/
 function db_executeFromOS($query) {
   $dsn = Config::get('global.database');
   $parts = db_splitDsn($dsn);
-  $command = sprintf("mysql -u %s %s %s -e \"{$query}\"",
+  $command = sprintf("mysql -h %s -u %s --password='%s' %s -e '%s'",
+                     $parts['host'],
                      $parts['user'],
-                     $parts['password'] ? ("-p " . $parts['password']) : '',
-                     $parts['database']);
+                     $parts['password'],
+                     $parts['database'],
+                     $query);
   OS::executeAndAssert($command);
 }
 

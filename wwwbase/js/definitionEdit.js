@@ -17,9 +17,20 @@ function definitionEditInit() {
     width: '600px',
   });
 
+  $('.associateHomonymLink').click(associateHomonym);
   $('#lexemIds, #sourceDropDown').change(definitionEditUpdateFieldsJson);
   $('#refreshButton').click(definitionEditUpdateFieldsJson);
   $('#similarDiff ins, #similarDiff del').click(definitionCopyFromSimilar);
+}
+
+function associateHomonym() {
+  var lexemId = $(this).data('hid');
+  var values = $('#lexemIds').select2('val');
+  if (values.indexOf(lexemId) == -1) {
+    values.push(lexemId);
+    $('#lexemIds').select2('val', values);
+  }
+  return false;
 }
 
 function definitionEditUpdateFieldsJson() {

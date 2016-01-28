@@ -400,6 +400,12 @@ hr {
   text-decoration: none;
 }
 
+.associateHomonym,
+.associateHomonymLink {
+  color: #777777;
+  font-size: 90%;
+}
+
 .select2Edit {
   background: url("../img/icons/pencil.png") no-repeat;
   padding-left: 16px;

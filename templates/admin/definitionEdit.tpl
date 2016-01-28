@@ -23,6 +23,9 @@
       {foreach from=$homonyms item=h}
         &nbsp;
         {include file="bits/lexemLink.tpl" lexem=$h}
+        <span class="associateHomonym">
+          [<a class="associateHomonymLink" data-hid="{$h->id}" href="#">asociază</a>]
+        </span>
       {/foreach}
     {/if}
 

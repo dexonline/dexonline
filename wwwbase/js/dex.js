@@ -148,6 +148,7 @@ function showTypoForm(evt) {
       div.css('display', 'none');
     }
     div.css({ 'top': desiredTop, 'left': link.offsetLeft });
+    $('#typoTextarea').focus();
   });
   return false;
 }

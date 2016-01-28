@@ -3,7 +3,8 @@
 <label for="typoTextarea">Semnalează o greșeală:</label>
 
 <form id="typoHtmlForm" method="post" action="" onsubmit="return submitTypoForm()">
-  <textarea id="typoTextarea" cols="40" rows="3" style="width: 99%"></textarea>
+  <textarea id="typoTextarea" cols="40" rows="3" style="width: 99%"
+            placeholder="descrieți problema aici..."></textarea>
   <input type="submit" value="Trimite">
   <input type="hidden" name="definitionId" value="{$definitionId}">
   <a href="#" onclick="document.getElementById('typoDiv').style.display = 'none'">anulează</a>

@@ -147,7 +147,7 @@ class SmartyWrap {
         case 'elfinder':         self::$jsFiles[10] = 'elfinder.min.js?v=1'; break;
         case 'windowEngine':     self::$jsFiles[11] = 'jquery-wm.js'; break;
         case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js?v=1'; break;
-        case 'dex':              self::$jsFiles[13] = 'dex.js?v=34'; break;
+        case 'dex':              self::$jsFiles[13] = 'dex.js?v=35'; break;
         case 'flex':             self::$jsFiles[14] = 'flex.js?v=2'; break;
         case 'hangman':          self::$jsFiles[15] = 'hangman.js?v=5'; break;
         case 'mill':             self::$jsFiles[16] = 'mill.js?v=3'; break;
@@ -155,7 +155,7 @@ class SmartyWrap {
         case 'lexemEdit':        self::$jsFiles[18] = 'lexemEdit.js?v=15'; break;
         case 'jcrop':            self::$jsFiles[19] = 'jquery.Jcrop.min.js?v=2'; break;
         case 'select2':          self::$jsFiles[20] = 'select2.min.js?v=3'; break;
-        case 'select2Dev':       self::$jsFiles[21] = 'select2Dev.js?v=7'; break;
+        case 'select2Dev':       self::$jsFiles[21] = 'select2Dev.js?v=8'; break;
         case 'visual':           self::$jsFiles[22] = 'visual.js?v=2'; break;
         case 'visualTag':        self::$jsFiles[23] = 'visualTag.js?v=2'; break;
         case 'gallery':

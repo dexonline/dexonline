@@ -32,7 +32,7 @@ function contribInit() {
     multiple: true,
     tokenSeparators: [',', '\\', '@'],
     width: '600px',
-  });
+  }).select2('focus');
 }
 
 function adminIndexInit() {

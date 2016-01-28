@@ -177,6 +177,11 @@ if ($butSave) {
           $lexem = Lexem::get_by_id($lid);
         }
 
+        // Check that either the lexem is not in LOC or the model list is unchanged
+        if ($lexem->isLoc() && !sameModels($models[$i], $lexem->getLexemModels())) {
+          throw new Exception("Nu puteți schimba modelele unui lexem inclus în loc: {$lexem}");
+        }
+
         // Check that the lexem works with every model
         foreach (explode(',', $models[$i]) as $m) {
           $model = Model::factory('ModelType')
@@ -244,4 +249,19 @@ function prefixMatch($s, $prefixes) {
     }
   }
   return false;
+}
+
+// $models: comma-separated list of models
+// $lms: old lexem models
+function sameModels($models, $lms) {
+  $parts = explode(',', $models);
+  if (count($parts) != count($lms)) {
+    return false;
+  }
+  foreach ($lms as $i => $lm) {
+    if ($parts[$i] != "{$lm->modelType}{$lm->modelNumber}") {
+      return false;
+    }
+  }
+  return true;
 }

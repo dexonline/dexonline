@@ -56,9 +56,11 @@ function detLexemChange() {
     },
   });
   var m = $(this).closest('tr').find('.detModels');
-  if (data.length) {
+  if (data.length || !lexemId) {
+    // Existing lexem entered or lexem deleted
     m.select2('data', data);
   } else {
+    // New lexem entered
     m.select2('val', ['I3']);
   }
 

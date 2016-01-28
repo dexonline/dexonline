@@ -56,7 +56,11 @@ function detLexemChange() {
     },
   });
   var m = $(this).closest('tr').find('.detModels');
-  m.select2('data', data);
+  if (data.length) {
+    m.select2('data', data);
+  } else {
+    m.select2('val', ['I3']);
+  }
 
   // Disable the save button
   $('#butSave').prop('disabled', true);

@@ -51,7 +51,9 @@ class Preferences {
     }
     if ($userPrefs) {
       foreach (preg_split('/,/', $userPrefs) as $pref) {
-        $copy[$pref]['checked'] = true;
+        if (isset($copy[$pref])) {
+          $copy[$pref]['checked'] = true;
+        }
       }
     }
     return $copy;

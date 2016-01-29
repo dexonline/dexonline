@@ -364,7 +364,7 @@ class Lexem extends BaseObject implements DatedObject {
 
         if ($lexem) {
           $infLm = $lexem->getFirstLexemModel();
-          if ($infLm->modelType != 'F' || $infLm->modelNumber != $model->number || $inf->restriction != '') {
+          if ($infLm->modelType != 'F' || $infLm->modelNumber != $model->number || $infLm->restriction != '') {
             $infLm->modelType = 'F';
             $infLm->modelNumber = $model->number;
             $infLm->restriction = '';

@@ -85,11 +85,17 @@ class wotdSave{
     }
 
     $today = date('Y-m-d', time());
-    $isPast = $wotd->displayDate && $wotd->displayDate < $today;
 
+    $setInPast = $this->displayDate && $this->displayDate < $today;
+    if ($setInPast) {
+      return 'Nu puteți asocia cuvinte cu o dată în trecut';
+    }
+
+    $isPast = $wotd->displayDate && $wotd->displayDate < $today;
     if ($isPast && $this->displayDate != $wotd->displayDate) {
       return 'Nu puteți modifica data pentru un cuvânt al zilei deja afișat';
     }
+
     if (!$this->refId) {
       return 'Trebuie să alegeți o definiție';
     }

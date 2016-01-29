@@ -18,44 +18,36 @@ function getNormalRand($std, $mean, $limit) {
   return min(max(round($rand * $std + $mean), 0), $limit);
 }
 
-function getWordForDefitionId($defId)
-{
-    $word = Model::factory('DefinitionSimple')
-        ->select('d.lexicon')
-        ->join('Definition', 'd.id = definitionId', 'd')
-        ->where('definitionId', $defId)
-        ->find_one();
-    return $word->lexicon;
+function getWordForDefinitionId($defId) {
+  $def = Definition::get_by_id($defId);
+  return $def->lexicon;
 }
 
-function getSimpleDefinitionsForLexemIds($lexemIds)
-{
-    $defIds = Model::factory('LexemDefinitionMap')
-            ->select('DefinitionId')
-            ->distinct()
-            ->where_in('LexemId', $lexemIds)
-            ->find_many();
-    $defIds = array_map(function ($def){return $def->DefinitionId;}, $defIds);
+function getSimpleDefinitionsForLexemIds($lexemIds) {
+  $defIds = Model::factory('LexemDefinitionMap')
+          ->select('definitionId')
+          ->distinct()
+          ->where_in('lexemId', $lexemIds)
+          ->find_many();
+  $defIds = array_map(function ($def){return $def->definitionId;}, $defIds);
     
-    $defs = Model::factory('DefinitionSimple')
-            ->where_in('DefinitionId',$defIds)
-            ->find_many();
+  $defs = Model::factory('DefinitionSimple')
+        ->where_in('definitionId', $defIds)
+        ->find_many();
     
-    return $defs;
+  return $defs;
 }
 
 $difficulty = util_getRequestParameterWithDefault('d', 0);
 $logAnswerId = util_getRequestParameterWithDefault('answerId', 0);
 $logGuessed = util_getRequestParameterWithDefault('guessed', 0);
 
-if($logAnswerId!=0) {
-  $log = Model::factory('DefinitionSimple')
-      ->select('*')
-      ->where('id',$logAnswerId)
-      ->find_one();
- 
+// Log the success of failure of the previous guess, if any
+// TODO: the last (tenth) guess is never logged
+if ($logAnswerId!=0) {
+  $log = DefinitionSimple::get_by_id($logAnswerId);
   $log->millShown++;
-  $log->millGuessed = $log->millGuessed + $logGuessed;
+  $log->millGuessed += $logGuessed;
   $log->save();
 }
 
@@ -66,18 +58,18 @@ $answer = rand(1, 4);
   
 $maindef = Model::factory('DefinitionSimple')->limit(1)->offset($chosenDef)->find_one();
 
-$word = getWordForDefitionId($maindef->definitionId);
+$word = getWordForDefinitionId($maindef->definitionId);
 
-$options = array();
-$options[$answer] = array();
-$options[$answer]['term'] = getWordForDefitionId($maindef->definitionId);
-$options[$answer]['text'] = $maindef->getDisplayValue();
+$options = [];
+$options[$answer] = [
+  'term' => $word,
+  'text' => $maindef->getDisplayValue(),
+];
 $used[$maindef->definitionId] = 1;
 
 $closestLexemsDefinitionsCount = null;
 $closestLexemsDefinitions = null;
-if ($difficulty > 1)
-{
+if ($difficulty > 1) {
   $nearLexemIds = NGram::searchLexemIds($word);
   arsort($nearLexemIds);
   $lexemPoolSize = 48/$difficulty;
@@ -89,15 +81,15 @@ if ($difficulty > 1)
   
   //if there are no close lexem definitions to choose from 
   //then use easier difficulty
-  if ($closestLexemsDefinitionsCount == 0)
-      $difficulty = 1;
+  if ($closestLexemsDefinitionsCount == 0) {
+    $difficulty = 1;
+  }
 }
 
 for ($i = 1; $i <= 4; $i++) {
   $def = null;  
   if ($i != $answer) {
-    do
-    {
+    do {
       if ($difficulty == 1) {
         $aux = rand(0, $count - 1);
         $def = Model::factory('DefinitionSimple')->limit(1)->offset($aux)->find_one();
@@ -111,18 +103,18 @@ for ($i = 1; $i <= 4; $i++) {
         
         //if we run out of close lexem definitions to use 
         //then use easier difficulty
-        if ($closestLexemsDefinitionsCount == 0)
-        {
-            $difficulty = 1;
+        if ($closestLexemsDefinitionsCount == 0) {
+          $difficulty = 1;
         }
       }
     } while (array_key_exists($def->definitionId, $used));
   
     
     $used[$def->definitionId] = 1;
-    $options[$i]=array();
-    $options[$i]['term'] = getWordForDefitionId($def->definitionId);
-    $options[$i]['text'] = $def->getDisplayValue();
+    $options[$i] = [
+      'term' => getWordForDefinitionId($def->definitionId),
+      'text' => $def->getDisplayValue(),
+    ];
   }
 }
 

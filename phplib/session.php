@@ -225,7 +225,7 @@ function session_kill() {
     session_start(); // It has to have been started in order to be destroyed.
   }
   session_unset();
-  session_destroy();
+  @session_destroy();
   if (ini_get("session.use_cookies")) {
     setcookie(session_name(), '', time() - 3600, '/'); // expire it
   }

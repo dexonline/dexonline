@@ -4,7 +4,7 @@
 # Liniile sunt procesate de sus în jos până când un regex se potrivește cu o dată.
 # Este afișat conținutul înregistrării WotdArtist cu eticheta respectivă.
 
-^2016-02-07::daniela.moga
+^2016-02-08::daniela.moga
 ^2016-02-(04|05|06)::marion.minkenberg
 ^2016-02-(01|02|03)::andrea.homorodean
 ^2016-01-24::rb

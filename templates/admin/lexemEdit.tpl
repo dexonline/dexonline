@@ -2,11 +2,11 @@
 
 {block name=title}Editare lexem: {$lexem->form}{/block}
 
-{block name=adminHeader}
-  {include file="bits/phpConstants.tpl"}
-{/block}
+{block name=adminHeader}{/block}
 
 {block name=content}
+  {include file="bits/phpConstants.tpl"}
+
   {assign var="searchResults" value=$searchResults|default:null}
 
   <script>

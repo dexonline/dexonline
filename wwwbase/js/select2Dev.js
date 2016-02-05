@@ -68,6 +68,15 @@ function adminIndexInit() {
   }).on('change', function(e) {
     $(this).parents('form').submit();
   });
+
+  $('#structuristId').select2({
+    ajax: struct_userAjax,
+    allowClear: true,
+    initSelection: select2InitSelectionAjaxUserSingle,
+    minimumInputLength: 1,
+    placeholder: '(opțional)',
+    width: '173px',
+  });
 }
 
 function visualTagInit() {

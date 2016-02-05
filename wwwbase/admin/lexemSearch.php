@@ -5,29 +5,27 @@ util_assertNotMirror();
 
 $form = util_getRequestParameter('form');
 $sourceId = util_getRequestParameter('source');
-$loc = util_getRequestParameter('loc');
-$paradigm = util_getRequestParameter('paradigm');
+$loc = util_getRequestParameterWithDefault('loc', 2);
+$paradigm = util_getRequestParameterWithDefault('paradigm', 2);
 $structStatus = util_getRequestParameter('structStatus');
+$structuristId = util_getRequestParameter('structuristId');
 $nick = util_getRequestParameter('nick');
-$searchButton = util_getRequestParameter('searchButton');
-
-if (!$searchButton) {
-  util_redirect('index.php');
-}
 
 $where = array();
 $joins = array();
 
 // Process the $form argument
 $form = StringUtil::cleanupQuery($form);
-list ($hasDiacritics, $hasRegexp, $ignored) = StringUtil::analyzeQuery($form);
-$field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-if ($hasRegexp) {
-  $fieldValue = StringUtil::dexRegexpToMysqlRegexp($form);
-} else {
-  $fieldValue = "= '{$form}'";
+if ($form) {
+  list ($hasDiacritics, $hasRegexp, $ignored) = StringUtil::analyzeQuery($form);
+  $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
+  if ($hasRegexp) {
+    $fieldValue = StringUtil::dexRegexpToMysqlRegexp($form);
+  } else {
+    $fieldValue = "= '{$form}'";
+  }
+  $where[] = "{$field} {$fieldValue}";
 }
-$where[] = "{$field} {$fieldValue}";
 
 // Process the $sourceId argument
 if ($sourceId) {
@@ -62,6 +60,13 @@ switch ($paradigm) {
 // Process the $structStatus argument
 if ($structStatus) {
   $where[] = "structStatus = {$structStatus}";
+}
+
+// Process the $structStatus argument
+if ($structuristId > 0) {
+  $where[] = "structuristId = {$structuristId}";
+} else if ($structuristId == -1) {
+  $where[] = "structuristId = 0 or structuristId is null";
 }
 
 // Process the $nick argument

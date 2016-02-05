@@ -5,6 +5,8 @@
 {block name=headerTitle}Pagina moderatorului{/block}
 
 {block name=content}
+  {include file="bits/phpConstants.tpl"}
+
   <h3>Rapoarte</h3>
 
   <ul>
@@ -62,7 +64,7 @@
 
   <form action="lexemSearch.php" method="get">
     Caută lexeme:
-    <input type="text" name="form" size="10" value="*">
+    <input type="text" name="form" size="30" value="" placeholder="opțional; acceptă expresii regulate">
     sursa: {include file="bits/sourceDropDown.tpl"}
     <select name="loc">
       <option value="2">indiferent de LOC</option>
@@ -78,10 +80,22 @@
     &nbsp; &nbsp; &nbsp; &nbsp;
     structurare: {include file="bits/structStatus.tpl" canEdit=true anyOption=true}
     &nbsp;
+    structurist: <input id="structuristId" name="structuristId" type="text">
+    &nbsp;
     trimise de: <input type="text" name="nick" size="10" value=""/>
     <input type="submit" name="searchButton" value="Caută">
   </form>
   <br/>
+
+  <a href="lexemSearch.php?structStatus={Lexem::STRUCT_STATUS_IN_PROGRESS}&amp;structuristId={$sUser->id}">
+    Lexemele mele în curs de structurare
+  </a>
+  <br/>
+  <a href="lexemSearch.php?structStatus={Lexem::STRUCT_STATUS_IN_PROGRESS}&amp;structuristId=-1">
+    Lexeme orfane
+  </a>
+  (în curs de structurare, fără structurist asignat)
+  <br/><br/>
 
   {if $sUser->moderator & $smarty.const.PRIV_LOC}
     <form action="dispatchModelAction.php" method="get">

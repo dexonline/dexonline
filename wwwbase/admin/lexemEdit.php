@@ -17,6 +17,7 @@ $pronunciations = util_getRequestParameter('pronunciations');
 $variantIds = util_getRequestCsv('variantIds');
 $variantOfId = util_getRequestParameter('variantOfId');
 $structStatus = util_getRequestIntParameter('structStatus');
+$structuristId = util_getRequestIntParameter('structuristId');
 $jsonMeanings = util_getRequestParameter('jsonMeanings');
 
 // LexemModel parameters (arrays)
@@ -36,7 +37,8 @@ $original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether ce
 
 if ($refreshLexem || $saveLexem) {
   populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment, $needsAccent, $hyphenations,
-           $pronunciations, $variantOfId, $structStatus, $modelType, $modelNumber, $restriction, $lmTags, $isLoc, $sourceIds);
+           $pronunciations, $variantOfId, $structStatus, $structuristId, $modelType, $modelNumber, $restriction,
+           $lmTags, $isLoc, $sourceIds);
   $meanings = json_decode($jsonMeanings);
 
   if (validate($lexem, $original, $variantIds, $meanings)) {
@@ -98,6 +100,7 @@ $canEdit = array(
   'pronunciations' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
   'sources' => util_isModerator(PRIV_LOC | PRIV_EDIT),
   'structStatus' => ($oss == Lexem::STRUCT_STATUS_NEW) || ($oss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
+  'structuristId' => util_isModerator(PRIV_ADMIN),
   'tags' => util_isModerator(PRIV_LOC | PRIV_EDIT),
   'variants' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
 );
@@ -131,7 +134,8 @@ SmartyWrap::displayAdminPage('admin/lexemEdit.tpl');
 
 // Populate lexem fields from request parameters.
 function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment, $needsAccent, $hyphenations,
-                  $pronunciations, $variantOfId, $structStatus, $modelType, $modelNumber, $restriction, $lmTags, $isLoc, $sourceIds) {
+                  $pronunciations, $variantOfId, $structStatus, $structuristId, $modelType, $modelNumber, $restriction,
+                  $lmTags, $isLoc, $sourceIds) {
   $lexem->form = AdminStringUtil::formatLexem($lexemForm);
   $lexem->formNoAccent = str_replace("'", '', $lexem->form);
   $lexem->number = $lexemNumber;
@@ -148,6 +152,12 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   $lexem->pronunciations = $pronunciations;
   $lexem->variantOfId = $variantOfId ? $variantOfId : null;
   $lexem->structStatus = $structStatus;
+  $lexem->structuristId = $structuristId;
+  // Possibly overwrite the structuristId according to the structStatus change
+  if (($original->structStatus == Lexem::STRUCT_STATUS_NEW) &&
+      ($lexem->structStatus == Lexem::STRUCT_STATUS_IN_PROGRESS)) {
+    $lexem->structuristId = session_getUserId();
+  }
 
   // Create LexemModels and LexemSources
   $lexemModels = array();
@@ -258,6 +268,28 @@ function validate($lexem, $original, $variantIds, $meanings) {
       ($original->structStatus != Lexem::STRUCT_STATUS_DONE) &&
       !util_isModerator(PRIV_EDIT)) {
     FlashMessage::add("Doar moderatorii pot marca structurarea drept terminată. Vă rugăm să folosiți valoarea „așteaptă moderarea”.");
+  }
+
+  if ($lexem->structuristId != $original->structuristId) {
+    if (util_isModerator(PRIV_ADMIN)) {
+      // Admins can modify this field
+    } else if (($original->structuristId == session_getUserId()) &&
+               !$lexem->structuristId) {
+      // Structurists can remove themselves
+    } else if (!$original->structuristId &&
+               ($lexem->structuristId == session_getUserId()) &&
+               ($original->structStatus == Lexem::STRUCT_STATUS_NEW) &&
+               ($lexem->structStatus == Lexem::STRUCT_STATUS_IN_PROGRESS)) {
+      // The system silently assigns structurists when they start the process
+    } else if (!$original->structuristId &&
+               ($lexem->structuristId == session_getUserId()) &&
+               ($original->structStatus == Lexem::STRUCT_STATUS_IN_PROGRESS) &&
+               ($lexem->structStatus == Lexem::STRUCT_STATUS_IN_PROGRESS)) {
+      // Structurists can claim orphan lexems
+    } else {
+      FlashMessage::add('Nu puteți modifica structuristul, dar puteți (1) revendica un lexem în lucru fără structurist sau ' .
+                        '(2) renunța la un lexem dacă vi se pare prea greu de structurat.');
+    }
   }
 
   return FlashMessage::getMessage() == null;

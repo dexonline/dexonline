@@ -2,7 +2,9 @@
 
 {block name=title}Editare lexem: {$lexem->form}{/block}
 
-{block name=adminHeader}{/block}
+{block name=adminHeader}
+  {include file="bits/phpConstants.tpl"}
+{/block}
 
 {block name=content}
   {assign var="searchResults" value=$searchResults|default:null}
@@ -84,6 +86,17 @@
 
             <span class="tooltip2" title="Cât timp structurarea este „în lucru”, persoanele autorizate pot modifica sensurile, variantele, silabisirile
                                           și pronunțiile. După trecerea în starea „așteaptă moderarea”, doar moderatorii mai pot schimba aceste valori.">&nbsp;</span>
+          </td>
+        </tr>
+        
+        <tr>  
+          <td><label for="structuristId">structurist:</label></td>
+          <td>
+            <input id="structuristId" name="structuristId" value="{$lexem->structuristId}" type="text">
+
+            <span class="tooltip2"
+                  title="Structuristul este implicit utilizatorul care marchează structurarea ca „în lucru”.
+                         Doar administratorii îl pot modifica, iar structuristul însuși se poate dezabona (șterge).">&nbsp;</span>
           </td>
         </tr>
         

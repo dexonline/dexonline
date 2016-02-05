@@ -71,6 +71,15 @@ function lexemEditInit() {
     width: '173px',
   });
 
+  $('#structuristId').select2({
+    ajax: struct_userAjax,
+    allowClear: true,
+    initSelection: select2InitSelectionAjaxUserSingle,
+    minimumInputLength: 1,
+    placeholder: '(opțional)',
+    width: '173px',
+  });
+
   $('#associateDefinitionId').select2({
     ajax: struct_definitionAjax,
     formatResult: function(item) {

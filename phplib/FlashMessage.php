@@ -16,6 +16,10 @@ class FlashMessage {
     return array_key_exists('flashMessageType', $GLOBALS) ? $GLOBALS['flashMessageType'] : null;
   }
 
+  static function hasMessage() {
+    return isset($GLOBALS['flashMessage']);
+  }
+
   static function saveToSession() {
     if (array_key_exists('flashMessage', $GLOBALS)) {
       session_setVariable('flashMessage', $GLOBALS['flashMessage']);

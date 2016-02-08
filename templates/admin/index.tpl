@@ -214,14 +214,19 @@
   {if $sUser->moderator & $smarty.const.PRIV_VISUAL}
     <a href="{$wwwRoot}admin/visual.php">dicționarul vizual</a> |
   {/if}
-  {if $sUser->moderator & $smarty.const.PRIV_WOTD}
-    <a href="wotd.php">cuvântul zilei</a> |
-    <a href="wotdImages.php">imaginea zilei</a> |
-  {/if}
   {if $sUser->moderator & $smarty.const.PRIV_SUPER}
     <a href="{$wwwRoot}admin/ocrInput.php">adaugă definiții OCR</a>
   {/if}
 
+  {if $sUser->moderator & $smarty.const.PRIV_WOTD}
+    <h3>Cuvântul + imaginea zilei</h3>
+
+    <a href="wotd.php">cuvântul zilei</a> |
+    <a href="wotdImages.php">imaginea zilei</a> |
+    <a href="../autori-imagini.php">autori</a>
+  {/if}
+
+  
   <script>
    $(adminIndexInit);
   </script>

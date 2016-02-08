@@ -4,7 +4,6 @@ require_once("../../phplib/util.php");
 $id = util_getRequestParameter('id');
 $term = util_getRequestParameterWithDefault('term', (1 << NUM_PRIVILEGES) - 1);
 $priv = util_getRequestParameter('priv');
-error_log(var_export($_REQUEST, true));
 
 if ($id) {
   $users = [User::get_by_id($id)];

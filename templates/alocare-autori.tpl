@@ -53,8 +53,4 @@
   </table>
 
   <div class="clearer"></div>
-
-  <script>
-   $(wotdAssignmentInit);
-  </script>
 {/block}

@@ -68,7 +68,7 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
                    $date, $def->lexicon, $def->lexicon);
   $dups = db_getArrayOfRows($query);
   if (count($dups)) {
-    $msg = "Cuvântul {$def->lexicon} seamnănă cu următoarele cuvinte deja propuse:";
+    $msg = "Cuvântul {$def->lexicon} seamănă cu următoarele cuvinte deja propuse:";
     foreach ($dups as $dup) {
       $msg .= " {$dup[0]} ({$dup[1]})";
     }
@@ -171,14 +171,15 @@ function daysBetween($date1, $date2) {
 function assignImageByName($wotd, $def) {
   global $staticFiles;
 
-  $yearMonth = substr($wotd->displayDate, 0, 7);
+  $year = substr($wotd->displayDate, 0, 4);
+  $month = substr($wotd->displayDate, 5, 2);
   $strippedLexicon = stripImageName($def->lexicon);
   foreach ($staticFiles as $file) {
-    if (StringUtil::startsWith($file, "img/wotd/$yearMonth/")) {
+    if (StringUtil::startsWith($file, "img/wotd/{$year}/{$month}/")) {
       $file = basename(trim($file));
       $strippedFile = stripImageName($file);
       if (preg_match("/{$strippedLexicon}\\.(png|jpg|jpeg)/", $strippedFile)) {
-        return "$yearMonth/$file";
+        return "{$year}/{$month}/{$file}";
       }
     }
   }

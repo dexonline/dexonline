@@ -2,7 +2,8 @@ th {
   text-align: center;
 }
 
-#artists {
+#artists,
+#calendar {
   float: left;
   margin-right: 10px;
   width: 40%;
@@ -11,11 +12,6 @@ th {
 .selectedArtist {
   background: #ccccff;
   border: 2px solid blue;
-}
-
-#calendar {
-  float: left;
-  width: 40%;
 }
 
 #artists tbody,

@@ -1,0 +1,51 @@
+th {
+  text-align: center;
+}
+
+#artists {
+  float: left;
+  margin-right: 10px;
+  width: 40%;
+}
+
+.selectedArtist {
+  background: #ccccff;
+  border: 2px solid blue;
+}
+
+#calendar {
+  float: left;
+  width: 40%;
+}
+
+#artists tbody,
+#calendar tbody {
+  cursor: pointer;
+}
+
+.artistRow:hover,
+.calendarRow:hover {
+  background: #cccccc;
+}
+
+.monthNav {
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+}
+
+.prevMonth {
+  background: url('../img/icons/control_rewind.png') 0px 1px no-repeat;
+  float: left;
+  margin-left: 5px;
+}
+
+.nextMonth {
+  background: url('../img/icons/control_fastforward.png') 0px 0px no-repeat;
+  float: right;
+  margin-right: 5px;
+}
+
+.day {
+  width: 30px;
+}

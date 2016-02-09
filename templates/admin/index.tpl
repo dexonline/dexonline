@@ -223,7 +223,8 @@
 
     <a href="wotd.php">cuvântul zilei</a> |
     <a href="wotdImages.php">imaginea zilei</a> |
-    <a href="../autori-imagini.php">autori</a>
+    <a href="../autori-imagini.php">autori</a> |
+    <a href="../alocare-autori.php">alocarea autorilor</a>
   {/if}
 
   

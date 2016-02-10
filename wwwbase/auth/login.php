@@ -34,7 +34,7 @@ if ($fakeUserNick) {
 
 switch ($openid) {
   case 'google': $openid = "https://accounts.google.com/o/oauth2/auth"; break;
-  case 'yahoo': $openid = "http://yahoo.com/"; break;
+  case 'yahoo': $openid = "http://me.yahoo.com/"; break;
 }
 
 if ($openid) {

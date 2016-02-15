@@ -1,0 +1,25 @@
+#mtTree li {
+  background: url("../img/icons/page_white_text.png") 0px 3px no-repeat;
+  cursor: pointer;
+  list-style: none;
+  padding-left: 16px;
+}
+
+.value {
+  min-height: 25px;
+  padding: 3px;
+}
+
+#mtTree .selected ul {
+  background: #e3f2fa;
+}
+
+#menuBar {
+  background-color: #90c9e8;
+  display: none;
+  padding: 3px;
+}
+
+#menuActions {
+  float: right;
+}

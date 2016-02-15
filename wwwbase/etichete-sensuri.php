@@ -2,39 +2,52 @@
 require_once("../phplib/util.php");
 
 $value = util_getRequestParameter('value');
-$deleteId = util_getRequestParameter('deleteId');
-$submitButton = util_getRequestParameter('submitButton');
+$saveButton = util_getRequestParameter('saveButton');
+$jsonTags = util_getRequestParameter('jsonTags');
 
-if ($deleteId) {
-  $mt = MeaningTag::get_by_id($deleteId);
-  $mtms = MeaningTagMap::get_all_by_meaningTagId($mt->id);
-  if (count($mtms)) {
-    FlashMessage::add("Nu pot șterge eticheta «{$mt->value}», deoarece unele sensuri o folosesc.", 'error');
-  } else {
-    $mt->delete();
-    FlashMessage::add("Am șters eticheta «{$mt->value}».", 'info');
-  }
-  util_redirect('etichete-sensuri');
-}
-
-if ($submitButton) {
+if ($saveButton) {
   util_assertModerator(PRIV_ADMIN);
-  $values = explode(',', $value);
-  foreach ($values as $value) {
-    $value = trim($value);
-    if ($value && !MeaningTag::get_by_value($value)) {
-      $mt = Model::factory('MeaningTag')->create();
-      $mt->value = $value;
-      $mt->save();
-    }
+
+  // Build a map of all MeaningTag IDs so we can delete those that are gone.
+  $ids = Model::factory('MeaningTag')
+       ->select('id')
+       ->find_array();
+
+  $idMap = [];
+  foreach($ids as $rec) {
+    $idMap[$rec['id']] = 1;
   }
-  FlashMessage::add('Etichetele au fost salvate.', 'info');
+
+  $displayOrderMap = []; // map from (the parent's) ID to displayOrder
+
+  foreach (json_decode($jsonTags) as $rec) {
+    if ($rec->id) {
+      $mt = MeaningTag::get_by_id($rec->id);
+      unset($idMap[$rec->id]);
+    } else {
+      $mt = Model::factory('MeaningTag')->create();
+    }
+    $mt->value = $rec->value;
+    $mt->parentId = $rec->parentId;
+    if (!isset($displayOrderMap[$mt->parentId])) {
+      $displayOrderMap[$mt->parentId] = 0;
+    }
+    $mt->displayOrder = ++$displayOrderMap[$mt->parentId];
+    $mt->save();
+  }
+
+  foreach ($idMap as $id => $ignored) {
+    MeaningTag::delete_all_by_id($id);
+  }
+  FlashMessage::add('Am salvat etichetele.', 'info');
   util_redirect('etichete-sensuri');
 }
 
-$meaningTags = Model::factory('MeaningTag')->order_by_asc('value')->find_many();
-
-SmartyWrap::assign('meaningTags', $meaningTags);
+SmartyWrap::assign('meaningTags', MeaningTag::loadTree());
+SmartyWrap::assign('suggestNoBanner', true);
+SmartyWrap::assign('suggestHiddenSearchForm', true);
+SmartyWrap::addCss('etichete-sensuri');
+SmartyWrap::addjs('etichete-sensuri');
 SmartyWrap::display('etichete-sensuri.tpl');
 
 ?>

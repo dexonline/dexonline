@@ -113,14 +113,14 @@ $(function() {
     }
 
     $('.value').each(function(i) {
-      var parent = $(this).parent().parent().prev();
-      var parentId = parent.is('.value') ? parent.data('id') : 0;
+      var level = $(this).parentsUntil($('#mtTree'), 'li').length;
       results.push({
         id: $(this).data('id'),
         value: $(this).text(),
-        parentId: parentId,
+        level: level,
       });
     });
+
     $('input[name=jsonTags]').val(JSON.stringify(results));
     return true;
   }

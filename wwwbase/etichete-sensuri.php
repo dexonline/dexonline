@@ -18,7 +18,10 @@ if ($saveButton) {
     $idMap[$rec['id']] = 1;
   }
 
-  $displayOrderMap = []; // map from (the parent's) ID to displayOrder
+  // For each level, store (1) the last tag ID seen and (2) the current
+  // number of children
+  $tagIds = [ 0 ];
+  $numChildren = [ 0 ];
 
   foreach (json_decode($jsonTags) as $rec) {
     if ($rec->id) {
@@ -28,12 +31,11 @@ if ($saveButton) {
       $mt = Model::factory('MeaningTag')->create();
     }
     $mt->value = $rec->value;
-    $mt->parentId = $rec->parentId;
-    if (!isset($displayOrderMap[$mt->parentId])) {
-      $displayOrderMap[$mt->parentId] = 0;
-    }
-    $mt->displayOrder = ++$displayOrderMap[$mt->parentId];
+    $mt->parentId = $tagIds[$rec->level - 1];
+    $mt->displayOrder = ++$numChildren[$rec->level - 1];
     $mt->save();
+    $tagIds[$rec->level] = $mt->id;
+    $numChildren[$rec->level] = 0;
   }
 
   foreach ($idMap as $id => $ignored) {

@@ -21,8 +21,12 @@
   height: 24px;
 }
 
-.expand.visible {
-  background: url("../img/icons/add.png") 3px 5px no-repeat;
+.expand.open {
+  background: url("../img/icons/minus.png") 3px 5px no-repeat;
+}
+
+.expand.closed {
+  background: url("../img/icons/plus.png") 3px 5px no-repeat;
 }
 
 .value {

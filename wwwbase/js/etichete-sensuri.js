@@ -22,10 +22,23 @@ $(function() {
   }
 
   function toggleSubtree(e) {
-    if ($(this).hasClass('visible')) {
-      e.stopPropagation();
-      $(this).siblings('ul').slideToggle();
+    e.stopPropagation();
+    var li = $(this).parent();
+    if ($(this).hasClass('closed')) {
+      openSubtree(li);
+    } else if ($(this).hasClass('open')) {
+      closeSubtree(li);
     }
+  }
+
+  function openSubtree(li, args) {
+    li.children('.expand').removeClass('closed').addClass('open');
+    li.children('ul').slideDown(args);
+  }
+
+  function closeSubtree(li, args) {
+    li.children('.expand').removeClass('open').addClass('closed');
+    li.children('ul').slideUp(args);
   }
 
   function tagClick(e) {
@@ -64,10 +77,10 @@ $(function() {
     var parentLi = sel.parent().parent('li');
     if (parentLi.length) {
       sel.insertAfter(parentLi);
-    }
-    var numChildren = parentLi.find('ul > li').length;
-    if (!numChildren) {
-      parentLi.find('.expand').removeClass('visible');
+      var numChildren = parentLi.find('> ul > li').length;
+      if (!numChildren) {
+        parentLi.find('.expand').removeClass('open');
+      }
     }
   }
 
@@ -75,13 +88,9 @@ $(function() {
     var parentLi = sel.prev();
     if (parentLi.length) {
       var ul = ensureUl(parentLi);
-      ul.slideDown({
+      openSubtree(parentLi, {
         complete: function() {
           sel.appendTo(ul);
-          var numChildren = ul.find('> li').length;
-          if (numChildren) {
-            parentLi.find('> .expand').addClass('visible');
-          }
         },
       });
     }
@@ -94,7 +103,7 @@ $(function() {
 
   function addChild() {
     var ul = ensureUl(sel);
-    ul.slideDown();
+    openSubtree(sel);
     var newNode = stemLi.clone(true);
     newNode.appendTo(ul).click();
   }
@@ -113,8 +122,14 @@ $(function() {
       alert('Nu pot șterge această etichetă, deoarece ea sau unele descendente ale ei sunt aplicate pe sensuri.');
     } else {
       var toDelete = sel;
+      var parentLi = sel.parent().parent('li');
+      var numSiblings = sel.siblings().length;
       endEdit();
       toDelete.remove();
+
+      if (parentLi.length && !numSiblings) {
+        parentLi.find('.expand').removeClass('open');
+      }
     }
   }
 

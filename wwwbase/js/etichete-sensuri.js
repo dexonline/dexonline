@@ -4,6 +4,7 @@ $(function() {
   var sel = null; // selected <li>
 
   function init() {
+    $('.expand').click(toggleSubtree);
     $('#mtTree li, #stem').click(tagClick);
     $('#butUp').click(moveTagUp);
     $('#butDown').click(moveTagDown);
@@ -15,6 +16,16 @@ $(function() {
     $('#butSave').click(saveTree);
     menuBar = $('#menuBar').detach();
     stemLi = $('#stem').detach().removeAttr('id');
+
+    // collapse all subtrees
+    $('#mtTree ul').hide();
+  }
+
+  function toggleSubtree(e) {
+    if ($(this).hasClass('visible')) {
+      e.stopPropagation();
+      $(this).siblings('ul').slideToggle();
+    }
   }
 
   function tagClick(e) {
@@ -54,12 +65,25 @@ $(function() {
     if (parentLi.length) {
       sel.insertAfter(parentLi);
     }
+    var numChildren = parentLi.find('ul > li').length;
+    if (!numChildren) {
+      parentLi.find('.expand').removeClass('visible');
+    }
   }
 
   function moveTagRight() {
-    if (sel.prev().length) {
-      var ul = ensureUl(sel.prev());
-      sel.appendTo(ul);
+    var parentLi = sel.prev();
+    if (parentLi.length) {
+      var ul = ensureUl(parentLi);
+      ul.slideDown({
+        complete: function() {
+          sel.appendTo(ul);
+          var numChildren = ul.find('> li').length;
+          if (numChildren) {
+            parentLi.find('> .expand').addClass('visible');
+          }
+        },
+      });
     }
   }
 
@@ -70,6 +94,7 @@ $(function() {
 
   function addChild() {
     var ul = ensureUl(sel);
+    ul.slideDown();
     var newNode = stemLi.clone(true);
     newNode.appendTo(ul).click();
   }

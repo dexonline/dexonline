@@ -3,6 +3,7 @@
   <ul {if $id}id="{$id}"{/if}>
     {foreach from=$tags item=t}
       <li>
+        <div class="expand {if count($t->children)}visible{/if}"></div>
         {strip}
         <div class="value"
              data-id="{$t->id}"

@@ -5,7 +5,14 @@
 {block name=content}
   <h3>Etichete pentru sensuri</h3>
 
+  <div class="tip">
+    <span>
+      Clic pe orice linie pentru a obține un meniu de acțiuni. Nu uitați să salvați la sfârșit.
+    </span>
+  </div>
+
   <li id="stem">
+    <div class="expand"></div>
     <div class="value" data-id="" data-can-delete="1"></div>
   </li>
   {include file="bits/meaningTagTree.tpl" tags=$meaningTags id="mtTree"}

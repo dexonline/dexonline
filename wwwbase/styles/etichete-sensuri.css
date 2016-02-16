@@ -1,8 +1,28 @@
+.tip {
+  margin: 10px;
+  text-align: center;
+}
+
+.tip span {
+  background: #e3f2fa;
+  border: 1px solid #90c9e8;
+  border-radius: 8px;
+  padding: 10px;
+}
+
 #mtTree li {
-  background: url("../img/icons/page_white_text.png") 0px 3px no-repeat;
   cursor: pointer;
   list-style: none;
-  padding-left: 16px;
+}
+
+.expand {
+  float: left;
+  width: 24px;
+  height: 24px;
+}
+
+.expand.visible {
+  background: url("../img/icons/add.png") 3px 5px no-repeat;
 }
 
 .value {

@@ -87,13 +87,13 @@ class wotdSave{
     $today = date('Y-m-d', time());
 
     $setInPast = $this->displayDate && $this->displayDate < $today;
-    if ($setInPast) {
-      return 'Nu puteți asocia cuvinte cu o dată în trecut';
+    if ($setInPast && ($this->displayDate != $wotd->displayDate)) {
+      return 'Nu puteți atribui o dată din trecut.';
     }
 
     $isPast = $wotd->displayDate && $wotd->displayDate < $today;
     if ($isPast && $this->displayDate != $wotd->displayDate) {
-      return 'Nu puteți modifica data pentru un cuvânt al zilei deja afișat';
+      return 'Nu puteți modifica data pentru un cuvânt al zilei deja afișat.';
     }
 
     if (!$this->refId) {

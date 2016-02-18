@@ -26,12 +26,12 @@
         <th>modele</th>
         <th>scurtături</th>
       </tr>
-      <tr id="detStemRow" style="display: none">
+      <tr id="detStemRow">
         <td>
-          <input id="detLexemStem" class="detLexem" type="text" name="lexemId[]" value="">
+          <input class="detLexem" type="text" name="lexemId[]" value="">
         </td>
         <td>
-          <input id="detModelsStem" class="detModels" type="text" name="models[]" value="">
+          <input class="detModels" type="text" name="models[]" value="">
         </td>
         <td>
           <a class="detShortcutI3" href="#">I3</a>
@@ -62,7 +62,7 @@
     <br><br>
 
     <input type="submit" name="butPrev" value="« anterioara">
-    <input id="butTest" type="submit" name="butTest" value="testează">
+    <input type="submit" name="butTest" value="testează">
     <input id="butSave" type="submit" name="butSave" value="salvează" {if !$passedTests}disabled{/if}>
     <input type="submit" name="butNext" value="următoarea »">
   </form>
@@ -81,8 +81,4 @@
       Transcrierea cu majusculă nu apare la testare, numai la salvare.
     </li>
   </ul>
-
-  <script>
-   $(deToolInit);
-  </script>
 {/block}

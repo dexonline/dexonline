@@ -20,38 +20,38 @@
   <form action="deTool.php" method="post">
     <input type="hidden" name="definitionId" value="{$def->id}">
 
-    <table id="detLexems">
+    <table id="lexemsTable">
       <tr>
         <th>lexem</th>
         <th>modele</th>
         <th>scurtături</th>
       </tr>
-      <tr id="detStemRow">
+      <tr id="stem">
         <td>
-          <input class="detLexem" type="text" name="lexemId[]" value="">
+          <input class="lexem" type="text" name="lexemId[]" value="">
         </td>
         <td>
-          <input class="detModels" type="text" name="models[]" value="">
+          <input class="models" type="text" name="models[]" value="">
         </td>
         <td>
-          <a class="detShortcutI3" href="#">I3</a>
+          <a class="shortcutI3" href="#">I3</a>
         </td>
       </tr>
       {foreach from=$lexemIds item=l key=i}
         <tr>
           <td>
-            <input class="detLexem" type="text" name="lexemId[]" value="{$l}">
+            <input class="lexem" type="text" name="lexemId[]" value="{$l}">
           </td>
           <td>
-            <input class="detModels" type="text" name="models[]" value="{$models[$i]}">
+            <input class="models" type="text" name="models[]" value="{$models[$i]}">
           </td>
         <td>
-          <a class="detShortcutI3" href="#">I3</a>
+          <a class="shortcutI3" href="#">I3</a>
         </td>
         </tr>
       {/foreach}
     </table>
-    <a id="detAddRow" href="#">adaugă o linie</a>
+    <a id="addRow" href="#">adaugă o linie</a>
     <br><br>
 
     <input id="capitalize" type="checkbox" name="capitalize" value="1" {if $capitalize}checked{/if}>

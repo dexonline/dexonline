@@ -21,27 +21,27 @@ $(function() {
   };
 
   function init() {
-    $('.detLexem')
+    $('.lexem')
       .select2(lexemStruct)
-      .change(detLexemChange);
-    $('.detModels')
+      .change(lexemChange);
+    $('.models')
       .select2(modelStruct)
-      .change(detModelChange);
-    $('.detShortcutI3').click(detShortcutI3);
-    $('#detAddRow').click(detAddRow);
-    stem = $('#detStemRow').detach().removeAttr('id');
-    stem.find('.detLexem').select2('destroy');
-    stem.find('.detModels').select2('destroy');
+      .change(modelChange);
+    $('.shortcutI3').click(shortcutI3);
+    $('#addRow').click(addRow);
+    stem = $('#stem').detach().removeAttr('id');
+    stem.find('.lexem').select2('destroy');
+    stem.find('.models').select2('destroy');
   }
 
-  function detAddRow() {
-    var r = stem.clone(true).appendTo('#detLexems');
-    r.find('.detLexem').select2(lexemStruct);
-    r.find('.detModels').select2(modelStruct);
+  function addRow() {
+    var r = stem.clone(true).appendTo('#lexemsTable');
+    r.find('.lexem').select2(lexemStruct);
+    r.find('.models').select2(modelStruct);
     return false;
   }
 
-  function detLexemChange() {
+  function lexemChange() {
     // Refresh the model list
     var lexemId = $(this).val();
     var data = [];
@@ -57,7 +57,7 @@ $(function() {
         });
       },
     });
-    var m = $(this).closest('tr').find('.detModels');
+    var m = $(this).closest('tr').find('.models');
     if (data.length || !lexemId) {
       // Existing lexem entered or lexem deleted
       m.select2('data', data);
@@ -70,13 +70,13 @@ $(function() {
     $('#butSave').prop('disabled', true);
   }
 
-  function detModelChange() {
+  function modelChange() {
     // Disable the save button
     $('#butSave').prop('disabled', true);
   }
 
-  function detShortcutI3() {
-    var m = $(this).closest('tr').find('.detModels');
+  function shortcutI3() {
+    var m = $(this).closest('tr').find('.models');
     m.select2('val', ['I3']);
 
     // Disable the save button

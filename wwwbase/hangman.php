@@ -1,7 +1,6 @@
 <?php
 
 require_once("../phplib/util.php");
-setlocale(LC_ALL, "ro_RO.utf8");
 
 define('maxFreq', 1);
 define('medium_easy', 0.90);

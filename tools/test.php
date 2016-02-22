@@ -160,7 +160,8 @@ assertEqualArrays(array('abbrev' => 'dat.', 'position' => 4, 'length' => 4), $am
 
 $ambiguousMatches = array();
 assertEquals("FOO s-a dus BAR", AdminStringUtil::markAbbreviations("FOO s-a dus BAR", 32, $ambiguousMatches));
-assertEquals(0, count($ambiguousMatches));
+assertEquals(1, count($ambiguousMatches));
+assertEqualArrays(['abbrev' => 's', 'position' => 4, 'length' => 1], $ambiguousMatches[0]);
 
 assertEquals("FOO <abbr class=\"abbrev\" title=\"farmacie; farmacologie\">farm.</abbr> BAR", AdminStringUtil::htmlize("FOO #farm.# BAR", 1)); /** Semicolon in abbreviation **/
 assertEquals("FOO <abbr class=\"abbrev\" title=\"substantiv masculin\">s. m.</abbr> BAR", AdminStringUtil::htmlize("FOO #s. m.# BAR", 1));
@@ -495,6 +496,6 @@ assertEquals(4, util_findSnippet(array(array(1, 2, 10),
                                        array(8, 15))));
 
 assertEquals('$abc$ @def@', AdminStringUtil::formatLexem('$abc$ @def@')); // This is intentional -- lexem formatting is very lenient.
-assertEquals("m'amă m'are", AdminStringUtil::formatLexem("m'am~a máre  "));
+assertEquals("m'am~a máre", AdminStringUtil::formatLexem("m'am~a máre  ")); // No shorthand conversions.
 
 ?>

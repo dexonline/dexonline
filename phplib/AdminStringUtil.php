@@ -133,7 +133,7 @@ class AdminStringUtil {
   }
 
   public static function formatLexem($s) {
-    return self::process($s, array('self::shorthandToUnicode', 'trim', 'strip_tags', 'StringUtil::stripHtmlEscapeCodes'));
+    return self::process($s, ['trim', 'strip_tags', 'StringUtil::stripHtmlEscapeCodes']);
   }
 
   // If preserveAccent is true, then c'as~a is converted to c'asă, but not to cásă.

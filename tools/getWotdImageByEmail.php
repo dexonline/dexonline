@@ -139,5 +139,6 @@ function getWotdFromSubject($subject) {
   if ($parts[0] != Config::get('WotD.password')) {
     throw new Exception("Parola {$parts[0]} este incorectă.");
   }
-  return $parts[1];
+  // Transliterate the word to ASCII to avoid some trouble with diacritics.
+  return StringUtil::unicodeToLatin($parts[1]);
 }

@@ -15,16 +15,16 @@ foreach ($argv as $i => $arg) {
   }
 }
 
-$validHeight = Config::get("WotD.wotdImageHeight") or die("No image height in config file\r\n");
-$validWidth = Config::get("WotD.wotdImageWidth") or die("No image width in config file\r\n");
-$daysInterval = Config::get("WotD.interval")or die("No days interval in config file\r\n");
+$validHeight = Config::get("WotD.wotdImageHeight") or die("No image height in config file\n");
+$validWidth = Config::get("WotD.wotdImageWidth") or die("No image width in config file\n");
+$daysInterval = Config::get("WotD.interval")or die("No days interval in config file\n");
 
-$email = file_get_contents("php://stdin");
+$email = file_get_contents('php://stdin');
 $Parser = new MimeMailParser();
 $Parser->setText($email);
 
-$sender = $Parser->getHeader("from");
-$subject = imap_utf8($Parser->getHeader("subject"));
+$sender = $Parser->getHeader('from');
+$subject = imap_utf8($Parser->getHeader('subject'));
 
 $parsedSender = mailparse_rfc822_parse_addresses($sender);
 if (count($parsedSender) != 1) {
@@ -37,28 +37,28 @@ if (!$artist) {
   OS::errorAndExit("Ignoring message '$subject' because sender '$from' is not a WotD artist", 0);
 }
 
-$word = GetWotdFromSubject($subject);
-
-$attachments = $Parser->getAttachments();
-if (empty($attachments)) {
-  OS::errorAndExit("Ignoring message '$subject' because it has no attachments", 0);
-} elseif (count($attachments) > 1) {
-  OS::errorAndExit("Ignoring message '$subject' because it has more than 1 attachment", 0);
-}
-
-$contentType = $attachments[0]->content_type;
-if (!StringUtil::startsWith($contentType, "image/")) {
-  OS::errorAndExit("Ignoring message '$subject' because its attachment is not an image", 0);
-}
-
-$image = $attachments[0]->content;
-$imageExtension = $attachments[0]->getFileExtension();
-$tmpFilePath = tempnam(null, 'wotd_');
-file_put_contents($tmpFilePath, $image);
-
-list($height, $width) = getimagesize($tmpFilePath);
-
 try {
+  $word = getWotdFromSubject($subject);
+
+  $attachments = $Parser->getAttachments();
+  if (empty($attachments)) {
+    throw new Exception('Mesajul nu conține fișiere atașate.');
+  } elseif (count($attachments) > 1) {
+    throw new Exception('Mesajul conține mai mult de un fișier atașat.');
+  }
+
+  $contentType = $attachments[0]->content_type;
+  if (!StringUtil::startsWith($contentType, 'image/')) {
+    throw new Exception('Fișierul atașat nu este o imagine.');
+  }
+
+  $image = $attachments[0]->content;
+  $imageExtension = $attachments[0]->getFileExtension();
+  $tmpFilePath = tempnam(null, 'wotd_');
+  file_put_contents($tmpFilePath, $image);
+
+  list($height, $width) = getimagesize($tmpFilePath);
+
   if ($height != $validHeight || $width != $validWidth) {
     throw new Exception("Imaginea trebuie să aibă dimensiuni {$validWidth} x {$validHeight}.");
   }
@@ -71,8 +71,7 @@ try {
     ->distinct()
     ->join('WordOfTheDayRel', 'wotd.id = rel.wotdId', 'rel')
     ->join('LexemDefinitionMap', 'rel.refId = ldm.definitionId', 'ldm')
-    ->join('Lexem', 'ldm.lexemId = l.id', 'l')
-    ->join('LexemModel', 'lm.lexemId = l.id', 'lm')
+    ->join('LexemModel', 'lm.lexemId = ldm.lexemId', 'lm')
     ->join('InflectedForm', 'i.lexemModelId = lm.id', 'i')
     ->where('i.formUtf8General', $word)
     ->where_gte('wotd.displayDate', $dateMin)
@@ -98,26 +97,26 @@ try {
   }
 
   $wotdDisplayDate = new DateTime($wotd->displayDate);
-  $wotd->image = sprintf("%s/%s.%s", $wotdDisplayDate->format('Y-m'), $word, $imageExtension);
+  $wotd->image = sprintf('%s/%s.%s', $wotdDisplayDate->format('Y/m'), $word, $imageExtension);
   $wotd->save();
   $wotdImagePath = '/img/wotd/' . $wotd->image;
   $f = new FtpUtil();
   $f->staticServerPut($tmpFilePath, $wotdImagePath);
   unlink($tmpFilePath);
     
-  ReplyToEmail($sender, $subject, "Am adăugat imaginea pentru '{$word}'.");
+  replyToEmail($sender, $subject, "Succes epic! Am adăugat imaginea pentru '{$word}'.");
 
 } catch (Exception $e) {
-  unlink($tmpFilePath);
+  @unlink($tmpFilePath); // may not be defined
   log_scriptLog($e->getMessage());
-  ReplyToEmail($sender, $subject, $e->getMessage());
+  replyToEmail($sender, $subject, $e->getMessage());
 }
 
-log_scriptLog("getWotdImageByEmail: done");
+log_scriptLog('getWotdImageByEmail: done');
 
 /***************************************************************************/
 
-function ReplyToEmail($senderAddress, $subject, $message) {
+function replyToEmail($senderAddress, $subject, $message) {
   global $dryRun;
 
   $sender = Config::get('WotD.sender');
@@ -132,13 +131,13 @@ function ReplyToEmail($senderAddress, $subject, $message) {
   }
 }
 
-function GetWotdFromSubject($subject) {
-  $parts = preg_split("/\\s+/", trim($subject));
+function getWotdFromSubject($subject) {
+  $parts = preg_split('/\\s+/', trim($subject));
   if (count($parts) != 2) {
-     OS::errorAndExit("Ignoring message '$subject' due to invalid subject", 0);
+    throw new Exception('Subiectul trebuie să aibă formatul <parolă> <cuvânt desenat>.');
   }
   if ($parts[0] != Config::get('WotD.password')) {
-    OS::errorAndExit("Ignoring message '$subject' due to invalid password in the subject", 0);
+    throw new Exception("Parola {$parts[0]} este incorectă.");
   }
   return $parts[1];
 }

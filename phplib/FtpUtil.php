@@ -20,15 +20,17 @@ class FtpUtil {
   }
 
   function staticServerPut($localFile, $remoteFile) {
-    // Create the directory recursively
-    $parts = explode('/', dirname($remoteFile));
-    $partial = '';
-    foreach ($parts as $part) {
-      $partial .= '/' . $part;
-      @ftp_mkdir($this->conn, $partial);
-    }
+    if ($this->conn) {
+      // Create the directory recursively
+      $parts = explode('/', dirname($remoteFile));
+      $partial = '';
+      foreach ($parts as $part) {
+        $partial .= '/' . $part;
+        @ftp_mkdir($this->conn, $partial);
+      }
 
-    ftp_put($this->conn, Config::get('static.path') . $remoteFile, $localFile, FTP_BINARY);
+      ftp_put($this->conn, Config::get('static.path') . $remoteFile, $localFile, FTP_BINARY);
+    }
   }
 
   function staticServerPutContents(&$contents, $remoteFile) {

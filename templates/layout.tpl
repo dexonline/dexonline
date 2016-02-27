@@ -80,7 +80,7 @@
           <ul id="userMenu">
             <li id="userNick"><div id="userPic"></div><a href="#" onclick="return false;">{$nick|escape}</a>
               <ul>
-                {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT)}
+                {if $sUser && $sUser->moderator}
                   <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
                 {/if}
                 <li><a href="{$wwwRoot}preferinte">Preferințe</a></li>

@@ -155,6 +155,7 @@ function util_defineConstants() {
   define('PRIV_VISUAL', 0x80);
   define('PRIV_VIEW_HIDDEN', PRIV_ADMIN);
   define('NUM_PRIVILEGES', 8);
+  define('PRIV_ANY', (1 << NUM_PRIVILEGES) - 1);
   $GLOBALS['PRIV_NAMES'] = array('Administrator', 'Moderator LOC', 'Moderator', 'Editor al ghidului de exprimare', 'Editor al cuvântului zilei',
                                  'Utilizator privilegiat', '«Structurist» al definițiilor', 'Moderator imagini definiții');
 

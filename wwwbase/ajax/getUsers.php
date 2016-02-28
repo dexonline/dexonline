@@ -7,7 +7,7 @@ $priv = util_getRequestParameter('priv');
 
 if ($id) {
   $users = [User::get_by_id($id)];
-} else {
+} else if ($term && $priv) {
   $users = Model::factory('User')
          ->where_any_is([['nick' => "%{$term}%"],
                          ['name' => "%{$term}%"],
@@ -17,6 +17,8 @@ if ($id) {
          ->order_by_asc('nick')
          ->limit(10)
          ->find_many();
+} else {
+  $users = [];
 }
 
 $resp = ['results' => []];

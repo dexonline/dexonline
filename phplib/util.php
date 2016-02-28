@@ -153,11 +153,23 @@ function util_defineConstants() {
   define('PRIV_SUPER', 0x20);
   define('PRIV_STRUCT', 0x40);
   define('PRIV_VISUAL', 0x80);
+
+  $GLOBALS['PRIV_MAP_NAMES'] = [
+    PRIV_ADMIN  => 'Administrator',
+    PRIV_LOC    => 'Moderator LOC',
+    PRIV_EDIT   => 'Moderator',
+    PRIV_GUIDE  => 'Editor al ghidului de exprimare',
+    PRIV_WOTD   =>' Editor al cuvântului zilei',
+    PRIV_SUPER  => 'Utilizator privilegiat',
+    PRIV_STRUCT => '«Structurist» al definițiilor',
+    PRIV_VISUAL => 'Moderator imagini definiții'
+  ];
+
+  $GLOBALS['PRIV_NAMES'] = array_values($GLOBALS['PRIV_MAP_NAMES']);
+  define('NUM_PRIVILEGES', count($GLOBALS['PRIV_NAMES']));
+
   define('PRIV_VIEW_HIDDEN', PRIV_ADMIN);
-  define('NUM_PRIVILEGES', 8);
   define('PRIV_ANY', (1 << NUM_PRIVILEGES) - 1);
-  $GLOBALS['PRIV_NAMES'] = array('Administrator', 'Moderator LOC', 'Moderator', 'Editor al ghidului de exprimare', 'Editor al cuvântului zilei',
-                                 'Utilizator privilegiat', '«Structurist» al definițiilor', 'Moderator imagini definiții');
 
 # TODO rethink this part
   //Source 

@@ -78,7 +78,7 @@
       <tr>
         <td>Conținut:</td>
         <td>
-          <textarea name="internalRep" rows="15" cols="80"
+          <textarea id="internalRep" name="internalRep" rows="15" cols="80"
                     >{$def->internalRep|escape}</textarea>
         </td>
       </tr>
@@ -91,7 +91,7 @@
 
         </td>
         <td>
-          <textarea name="commentContents" rows="5" cols="80">{if $comment}{$comment->contents|escape}{/if}</textarea><br/>
+          <textarea id="comment" name="commentContents" rows="5" cols="80">{if $comment}{$comment->contents|escape}{/if}</textarea><br/>
           {if $commentUser}
             <input id="preserveCommentUser" type="checkbox" name="preserveCommentUser" value="1" checked="checked">
             <label for="preserveCommentUser">Păstrează autorul comentariului original ({$commentUser->nick|escape})</label>
@@ -122,6 +122,12 @@
           <span class="tooltip2" title="Acceptă modificările făcute și, în plus, trece definiția în starea activă. Butonul este echivalent cu trecerea
                                         manuală a definiției în starea activă și este oferit ca o scurtătură.">&nbsp;</span>
 
+          <div id="tinymceButtonWrapper">
+            <button id="tinymceToggleButton" type="button" data-other-text="ascunde TinyMCE" href="#"
+                    title="TinyMCE este un editor vizual (cu butoane de bold, italic etc.).">
+              arată TinyMCE
+            </button>
+          </div>
         </td>
       </tr>
       {if $isOCR}
@@ -168,8 +174,4 @@
   <div id="similarNotIdentical"><img src="{$imgRoot}/icons/cross.png"> Diferențe față de definiția din <span class="similarSourceName"></span>:</div>
   <div id="similarIdentical"><img src="{$imgRoot}/icons/check.png"> Definiția este identică cu cea din <span class="similarSourceName"></span>.</div>
   <div id="similarDiff"></div>
-
-  <script>
-   $(definitionEditInit);
-  </script>
 {/block}

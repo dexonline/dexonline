@@ -224,7 +224,7 @@ SmartyWrap::assign('homonyms', loadSetHomonyms($lexems));
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::addCss('jqueryui', 'select2');
-SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev', 'definitionEdit');
+SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev', 'definitionEdit', 'tinymce');
 SmartyWrap::displayAdminPage('admin/definitionEdit.tpl');
 
 /**

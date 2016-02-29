@@ -172,6 +172,7 @@ class SmartyWrap {
         case 'deTool':           self::$jsFiles[31] = 'deTool.js?v=3'; break;
         case 'wotdAssignment':   self::$jsFiles[32] = 'wotdAssignment.js?v=2'; break;
         case 'etichete-sensuri': self::$jsFiles[33] = 'etichete-sensuri.js?v=2'; break;
+        case 'tinymce':          self::$jsFiles[34] = 'tinymce-4.3.4/tinymce.min.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

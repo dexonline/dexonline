@@ -426,3 +426,14 @@ hr {
 .ui-dialog .ui-dialog-buttonpane {
   padding: 0;
 }
+
+/* tinymce adjustments */
+
+/* show the resize button, but not the status bar */
+.mce-path {
+  display: none !important;
+}
+
+#tinymceButtonWrapper {
+  float: right;
+}

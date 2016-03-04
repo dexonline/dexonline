@@ -1,0 +1,38 @@
+{extends file="layout.tpl"}
+
+{block name=title}Omleta Cuvintelor{/block}
+
+{block name=content}
+<div class="scrambleArea">
+<p class="paragraphTitle"> Omleta Cuvintelor </p>
+	<div id="mainPage">
+    <form id="main" action="">Nivel dificultate:
+      <button class="difficultyButton btn" type="button" value="1">Foarte usor</button>
+      <button class="difficultyButton btn" type="button" value="2">Usor</button>
+      <button class="difficultyButton btn" type="button" value="3">Normal</button>
+      <button class="difficultyButton btn" type="button" value="4">Greu</button>
+      <button class="difficultyButton btn" type="button" value="5">"Sunt dictionar"</button>
+    </form>
+    <div id="resultSearch">Rezultatul este: 
+      <p>
+        <span id="result"></span>  
+      </p>
+      <span id="ifFound">Rezultat: </span>
+      <span>Timp ramas: </span>
+      <span id="timer"></span>
+      <span>Scor: </span>
+      <span id="score"></span>
+      <span>Nr cuvinte:</span>
+      <span id="maxWords"></span>
+    </div>
+    <div class="drawArea">
+          <canvas class="canvasArea" width='480' height='280' ></canvas>
+          <br />
+           <button class="wordBtn" type="button">Da-mi cuvintele</button>
+          <pre class="wordArea">Cuvintele posibile sunt: </pre>
+    </div>
+  </div>
+ </div>
+</div>
+{/block}
+

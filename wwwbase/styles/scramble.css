@@ -1,0 +1,27 @@
+#scramble {
+  margin: 20px 0px 10px 0px;
+}
+
+.scrambleArea {
+  border: 2px dotted rgb(151, 212, 230);
+  padding: 10px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.scrambleArea .paragraphTitle {
+  font-family: "Segoe Print", "Lucida Sans Unicode", Baskerville, Georgia; /* fonts available in "Windows 7, Windows XP, Mac OS, other", in this order */
+  color: rgb(16, 158, 27);
+  font-size: 40px;
+  text-align: center;
+  text-decoration: underline;
+}
+.drawArea {
+	text-align: center;
+}
+
+ .canvasArea{
+	border: 4px; 
+	border-style:groove;
+}
+

@@ -122,6 +122,7 @@ class SmartyWrap {
         case 'textComplete':        self::$cssFiles[20] = 'jquery.textcomplete.css'; break;
         case 'wotdAssignment':      self::$cssFiles[21] = 'wotdAssignment.css?v=2'; break;
         case 'etichete-sensuri':    self::$cssFiles[22] = 'etichete-sensuri.css?v=2'; break;
+        case 'scramble':            self::$cssFiles[23] = 'scramble.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -172,6 +173,7 @@ class SmartyWrap {
         case 'deTool':           self::$jsFiles[31] = 'deTool.js?v=2'; break;
         case 'wotdAssignment':   self::$jsFiles[32] = 'wotdAssignment.js?v=2'; break;
         case 'etichete-sensuri': self::$jsFiles[33] = 'etichete-sensuri.js?v=2'; break;
+        case 'scramble':      self::$jsFiles[34] = 'scramble.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

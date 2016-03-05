@@ -12,7 +12,7 @@
 contact = contact@dexonline.ro
 
 ; Database connection
-database = 'mysql://bog:bog911@localhost/DEX'
+database = 'mysql://root@localhost/DEX'
 ;database = mysql://root@localhost/DEX
 
 ; Show some debug information when this user is logged in.

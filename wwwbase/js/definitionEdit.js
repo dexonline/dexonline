@@ -183,6 +183,8 @@ $(function() {
       s = s.replace(/<sub>(\d)<\/sub>/gi, '_$1');
       s = s.replace(/<sup>(.*?)<\/sup>/gi, '^{$1}'); // *? = non-greedy
       s = s.replace(/<sub>(.*?)<\/sub>/gi, '_{$1}');
+      s = s.replace(/&lt;/gi, '<');
+      s = s.replace(/&gt;/gi, '>');
       ed.content = s;
     });
 

@@ -1,4 +1,6 @@
 $(function() {
+  var TINYMCE_COOKIE = 'tinymce';
+
   similarRecord = [];
   var internalRep = $('#internalRep');
   var comment = $('#comment');
@@ -26,6 +28,11 @@ $(function() {
     $('#refreshButton').click(updateFieldsJson);
     $('#similarDiff ins, #similarDiff del').click(definitionCopyFromSimilar);
     $('#tinymceToggleButton').click(tinymceToggle);
+
+    var c = $.cookie(TINYMCE_COOKIE);
+    if (c == 'on') {
+      $('#tinymceToggleButton').click();
+    }
   }
 
   function associateHomonym() {
@@ -120,14 +127,17 @@ $(function() {
         setup: tinymceSetup,
         toolbar: 'undo redo | bold italic spaced superscript subscript',
       });
+      $.cookie(TINYMCE_COOKIE, 'on');
     } else if (tinymce.get('internalRep').isHidden()) {
       for (id in tinymce.editors) {
         tinyMCE.editors[id].show();
       }
+      $.cookie(TINYMCE_COOKIE, 'on');
     } else {
       for (id in tinymce.editors) {
         tinyMCE.editors[id].hide();
       }
+      $.cookie(TINYMCE_COOKIE, 'off');
     }
     var tmp = $(this).data('otherText');
     $(this).data('otherText', $(this).text());
@@ -136,7 +146,7 @@ $(function() {
   }
 
   function tinymceSetup(editor) {
-    editor.on('init', function(evt) {
+    editor.on('init', function() {
       tinymceInitialized = true;
 
       // Register a "spaced" format
@@ -150,43 +160,11 @@ $(function() {
         editor.formatter.toggle('spaced');
       }, this);
 
-      // Convert some of our internal notation to HTML. This is not exhaustive,
-      // just enough to allow TinyMCE to work properly.
-      var s = $('#' + editor.id).val();
-      s = s.replace(/\\@/g, '~~~SAVE~~~'); // move \@ out of the way
-      s = s.replace(/@([^@]*)@/g, '<strong>$1</strong>');
-      s = s.replace(/~~~SAVE~~~/g, '\\@'); // restore \@
-
-      s = s.replace(/\\\$/g, '~~~SAVE~~~'); // move \$ out of the way
-      s = s.replace(/\$([^$]*)\$/g, '<em>$1</em>');
-      s = s.replace(/~~~SAVE~~~/g, '\\$'); // restore \$
-
-      s = s.replace(/\\%/g, '~~~SAVE~~~'); // move \% out of the way
-      s = s.replace(/%([^%]*)%/g, '<span class="spaced">$1</span>');
-      s = s.replace(/~~~SAVE~~~/g, '\\%'); // restore \%
-      
-      s = s.replace(/\^(\d)/g, '<sup>$1</sup>');
-      s = s.replace(/_(\d)/g, '<sub>$1</sub>');
-      s = s.replace(/\^\{([^}]*)\}/g, '<sup>$1</sup>');
-      s = s.replace(/_\{([^}]*)\}/g, '<sub>$1</sub>');
-      editor.setContent(s);
+      internalToHtml({ target: this });
     });
 
-    // Convert HTML to our internal notation
-    editor.on('PostProcess', function(ed) {
-      var s = ed.content;
-      s = s.replace(/<\/?p>/gi, '');
-      s = s.replace(/<\/?strong>/gi, '@');
-      s = s.replace(/<\/?em>/gi, '$');
-      s = s.replace(/<span class="spaced">(.*?)<\/span>/gi, '%$1%');
-      s = s.replace(/<sup>(\d)<\/sup>/gi, '^$1');
-      s = s.replace(/<sub>(\d)<\/sub>/gi, '_$1');
-      s = s.replace(/<sup>(.*?)<\/sup>/gi, '^{$1}'); // *? = non-greedy
-      s = s.replace(/<sub>(.*?)<\/sub>/gi, '_{$1}');
-      s = s.replace(/&lt;/gi, '<');
-      s = s.replace(/&gt;/gi, '>');
-      ed.content = s;
-    });
+    editor.on('show', internalToHtml);
+    editor.on('PostProcess', htmlToInternal);
 
     // Add a toolbar button for spaced text
     editor.addButton('spaced', {
@@ -204,6 +182,45 @@ $(function() {
         editor.formatter ? setup() : editor.on('init', setup);
       }
     });
+  }
+
+    // Convert some of our internal notation to HTML. This is not exhaustive,
+    // just enough to allow TinyMCE to work properly.
+  function internalToHtml(ed) {
+    var s = $('#' + ed.target.id).val();
+    s = s.replace(/\\@/g, '~~~SAVE~~~'); // move \@ out of the way
+    s = s.replace(/@([^@]*)@/g, '<strong>$1</strong>');
+    s = s.replace(/~~~SAVE~~~/g, '\\@'); // restore \@
+
+    s = s.replace(/\\\$/g, '~~~SAVE~~~'); // move \$ out of the way
+    s = s.replace(/\$([^$]*)\$/g, '<em>$1</em>');
+    s = s.replace(/~~~SAVE~~~/g, '\\$'); // restore \$
+
+    s = s.replace(/\\%/g, '~~~SAVE~~~'); // move \% out of the way
+    s = s.replace(/%([^%]*)%/g, '<span class="spaced">$1</span>');
+    s = s.replace(/~~~SAVE~~~/g, '\\%'); // restore \%
+      
+    s = s.replace(/\^(\d)/g, '<sup>$1</sup>');
+    s = s.replace(/_(\d)/g, '<sub>$1</sub>');
+    s = s.replace(/\^\{([^}]*)\}/g, '<sup>$1</sup>');
+    s = s.replace(/_\{([^}]*)\}/g, '<sub>$1</sub>');
+    ed.target.setContent(s);
+  }
+
+  // Convert HTML to our internal notation
+  function htmlToInternal(ed) {
+    var s = ed.content;
+    s = s.replace(/<\/?p>/gi, '');
+    s = s.replace(/<\/?strong>/gi, '@');
+    s = s.replace(/<\/?em>/gi, '$');
+    s = s.replace(/<span class="spaced">(.*?)<\/span>/gi, '%$1%');
+    s = s.replace(/<sup>(\d)<\/sup>/gi, '^$1');
+    s = s.replace(/<sub>(\d)<\/sub>/gi, '_$1');
+    s = s.replace(/<sup>(.*?)<\/sup>/gi, '^{$1}'); // *? = non-greedy
+    s = s.replace(/<sub>(.*?)<\/sub>/gi, '_{$1}');
+    s = s.replace(/&lt;/gi, '<');
+    s = s.replace(/&gt;/gi, '>');
+    ed.content = s;
   }
 
   init();

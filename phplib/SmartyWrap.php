@@ -168,7 +168,7 @@ class SmartyWrap {
           break;
         case 'modelDropdown':    self::$jsFiles[28] = 'modelDropdown.js'; break;
         case 'textComplete':     self::$jsFiles[29] = 'jquery.textcomplete.min.js'; break;
-        case 'definitionEdit':   self::$jsFiles[30] = 'definitionEdit.js?v=4'; break;
+        case 'definitionEdit':   self::$jsFiles[30] = 'definitionEdit.js?v=5'; break;
         case 'deTool':           self::$jsFiles[31] = 'deTool.js?v=3'; break;
         case 'wotdAssignment':   self::$jsFiles[32] = 'wotdAssignment.js?v=2'; break;
         case 'etichete-sensuri': self::$jsFiles[33] = 'etichete-sensuri.js?v=2'; break;

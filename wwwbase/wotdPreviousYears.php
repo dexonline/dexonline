@@ -9,10 +9,12 @@ $month = util_getRequestIntParameterWithDefault('m', date('m'));
 $day = util_getRequestIntParameterWithDefault('d', date('d'));
 
 $timestamp = mktime(0, 0, 0, $month, $day, $year);
+$now = time();
 
 $prevWotds = WordOfTheDay::getPreviousYearsWotds($month, $day);
 $wotds = [];
 foreach ($prevWotds as $w) {
+  if (strtotime($w->displayDate) >= $now) continue;
   $currentYear = substr($w->displayDate, 0, 4);
   if (count($wotds) >= NO_OF_WOTD_IN_LIST) break;
   if ($currentYear != $year) {

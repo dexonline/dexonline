@@ -443,16 +443,3 @@ if (typeof jQuery != 'undefined') {
     });
   });
 }
-
-jQuery().ready(function () {
-  if ($('#banner_otherPages')[0]) {
-    bH1 = $('#banner_otherPages')[0].offsetHeight;
-    console.log('start = ' + bH1);
-    setTimeout(function () {
-      bH2 = $('#banner_otherPages')[0].offsetHeight;
-      console.log('end = ' + bH2);
-    }, (3 * 1000));
-  } else {
-    console.log('xxx');
-  }
-});

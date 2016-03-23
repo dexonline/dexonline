@@ -7,7 +7,9 @@ $GZ_FILE = Config::get('global.tempDir') . '/dex-database.sql.gz';
 $LICENSE = util_getRootPath() . '/tools/dumpDatabaseLicense.txt';
 
 $parts = db_splitDsn();
-$COMMON_COMMAND = sprintf("mysqldump -h %s -u %s --password='%s' %s ", $parts['host'], $parts['user'], $parts['password'], $parts['database']);
+  // Skip the username/password here to avoid a Percona warning.
+  // Place them in my.cnf.
+$COMMON_COMMAND = sprintf("mysqldump -h %s %s ", $parts['host'], $parts['database']);
 
 $schemaOnly = array('RecentLink', 'Cookie', 'UserWordBookmark', 'DefinitionSimple', 'history_Comment', 'history_Definition');
 $currentYear = date("Y");

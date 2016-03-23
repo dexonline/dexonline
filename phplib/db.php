@@ -34,12 +34,13 @@ function db_execute($query, $fetchStyle = PDO::FETCH_BOTH) {
  * NOTE: The query may not contain quotes (') due to escaping issues.
  **/
 function db_executeFromOS($query) {
+  $query = str_replace("\n", ' ', $query);
   $dsn = Config::get('global.database');
   $parts = db_splitDsn($dsn);
-  $command = sprintf("mysql -h %s -u %s --password='%s' %s -e '%s'",
+  // Skip the username/password here to avoid a Percona warning.
+  // Place them in my.cnf (remeber this command runs as the webserver user).
+  $command = sprintf("mysql -h %s %s -e '%s'",
                      $parts['host'],
-                     $parts['user'],
-                     $parts['password'],
                      $parts['database'],
                      $query);
   OS::executeAndAssert($command);

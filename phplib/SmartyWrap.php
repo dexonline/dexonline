@@ -173,7 +173,7 @@ class SmartyWrap {
         case 'deTool':           self::$jsFiles[31] = 'deTool.js?v=2'; break;
         case 'wotdAssignment':   self::$jsFiles[32] = 'wotdAssignment.js?v=2'; break;
         case 'etichete-sensuri': self::$jsFiles[33] = 'etichete-sensuri.js?v=2'; break;
-        case 'scramble':      self::$jsFiles[34] = 'scramble.js'; break;
+        case 'scramble':         self::$jsFiles[34] = 'scramble.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

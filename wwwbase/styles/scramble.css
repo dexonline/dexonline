@@ -25,3 +25,49 @@
 	border-style:groove;
 }
 
+#scramble table td {
+  border: none;
+}
+
+#resultSearch span {
+  font-size: 16px;
+  font-style: italic;
+  margin-top: 20px; 
+  padding-left:  10px;
+  display: inline-block;
+
+}
+
+#scramble .difficultyButton {
+  width: 120px;
+  margin-top: 4px;
+  color: #ffffff;
+  background-color: #49AFCD;
+  background-image: -moz-linear-gradient(top, #5BC0DE, #2F96B4);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5BC0DE), to(#2F96B4));
+  background-image: -webkit-linear-gradient(top, #5BC0DE, #2F96B4);
+  background-image: -o-linear-gradient(top, #5BC0DE, #2F96B4);
+  background-image: linear-gradient(to bottom, #5BC0DE, #2F96B4);
+}
+
+#scramble .btn {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  white-space: nowrap;
+  background-repeat: repeat-x;
+  padding: 4px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid #BFBFBF;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+#scramble .btn:hover {
+  background-color: rgb(47, 150, 180);
+  background-position: 0 -15px;
+}
+

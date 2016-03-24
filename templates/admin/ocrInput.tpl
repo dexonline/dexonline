@@ -1,8 +1,8 @@
 {extends file="admin/layout.tpl"}
 
-{block name=title}OCR Input{/block}
+{block name=title}Adaugă definiții OCR din dicționar{/block}
 
-{block name=headerTitle}OCR Input{/block}
+{block name=headerTitle}Adaugă definiții OCR din dicționar{/block}
 
 {block name=content}
   <form method="post" enctype="multipart/form-data">

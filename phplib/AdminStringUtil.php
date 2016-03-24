@@ -7,9 +7,6 @@ class AdminStringUtil {
   private static $ACCENTS = array('accented' => array('á', 'Á', 'ắ', 'Ắ', 'ấ', 'Ấ',
                                                       'é', 'É', 'í', 'Í', 'î́', 'Î́',
                                                       'ó', 'Ó', 'ú', 'Ú', 'ý', 'Ý'),
-                                  'explicitAccent' => array("'a", "'A", "'ă", "'Ă", "'â", "'Â",
-                                                            "'e", "'E", "'i", "'I", "'î", "'Î",
-                                                            "'o", "'O", "'u", "'U", "'y", "'Y"),
                                   'unaccented' => array('a', 'A', 'ă', 'Ă', 'â', 'Â',
                                                         'e', 'E', 'i', 'I', 'î', 'Î',
                                                         'o', 'O', 'u', 'U', 'y', 'Y'));
@@ -136,7 +133,7 @@ class AdminStringUtil {
   }
 
   public static function formatLexem($s) {
-    return self::process($s, array('self::shorthandToUnicode', 'self::explicitAccents', 'trim', 'strip_tags', 'StringUtil::stripHtmlEscapeCodes'));
+    return self::process($s, ['trim', 'strip_tags', 'StringUtil::stripHtmlEscapeCodes']);
   }
 
   // If preserveAccent is true, then c'as~a is converted to c'asă, but not to cásă.
@@ -494,10 +491,6 @@ class AdminStringUtil {
 
   public static function removeAccents($s) {
     return str_replace(self::$ACCENTS['accented'], self::$ACCENTS['unaccented'], $s);
-  }
-
-  private static function explicitAccents($s) {
-    return str_replace(self::$ACCENTS['accented'], self::$ACCENTS['explicitAccent'], $s);
   }
 
   private static function stripIllegalCharacters($s) {

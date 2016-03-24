@@ -79,7 +79,6 @@ function searchInitFocus() {
   document.frm.cuv.addEventListener("keydown", slash, false);
 }
 
-
 function searchInitAutocomplete(acMinChars, wwwRoot){
 
   var searchForm = $('#searchForm');

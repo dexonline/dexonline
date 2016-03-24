@@ -20,10 +20,9 @@
   <div>
     {if $skinVariables.wotdSubscribe}
       <div id="wotdSocialMedia">
-        <img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"/>
+        <a href="#" id="toggleTitle"><img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"/></a>
         <a type="application/rss+xml" href="https://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"/></a>
         <a href="https://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"/></a>
-        <span id="toggleTitle" class="toggleClosed">detalii</span>
       </div>
     {/if}
     <p class="paragraphTitle">Cuvântul zilei, {$timestamp|date_format:'%e %B %Y'}</p>
@@ -31,26 +30,10 @@
 
   {if $skinVariables.wotdSubscribe}
     <div id="toggleContents" class="commonShadow">
-      <ul>
-        <li><b>Email:</b> <i>dexonline</i> nu oferă cuvântul zilei direct prin email. Există însă <a
-      href="http://www.google.com/search?q=rss+by+email">numeroase site-uri</a> care fac acest lucru pentru orice RSS. Vă recomandăm <a
-      href="http://www.feedmyinbox.com/">feed my inbox</a>:
-
-          <ul>
-            <li>La <i>Website or Feed URL</i> introduceți <code>https://dexonline.ro/rss/cuvantul-zilei</code></li>
-            <li>La <i>Your Email Address</i> introduceți adresa dumneavoastră de e-mail</li>
-            <li>Apăsați <i>Submit</i>
-              <li>Veți primi un e-mail pentru confirmarea abonării</li>
-              <li>În continuare veți primi zilnic câte un email cu cuvântul zilei.</li>
-          </ul>
-            </li>
-
-            <li><b>RSS:</b> Dacă folosiți un cititor de bloguri, puteți adăuga <a href="https://dexonline.ro/rss/cuvantul-zilei">feed-ul pentru cuvântul
-              zilei</a> la lista urmărită.</li>
-
-            <li><b>Facebook:</b> Cuvântul zilei este publicat automat și pe Facebook. Puteți aprecia <a href="https://www.facebook.com/dexonline">pagina
-              dexonline</a> pentru a primi cuvântul zilei cu fluxul dumneavoastră de știri.</li>
-
+      <i>dexonline</i> nu oferă cuvântul zilei direct prin email. Există însă
+      <a href="http://www.google.com/search?q=rss+by+email">numeroase site-uri</a>
+      care fac acest lucru pentru orice RSS. Vă recomandăm
+      <a href="https://ifttt.com/recipes/147561-rss-feed-to-email">IFTTT</a> (RSS feed to email).
       </ul>
     </div>
 
@@ -58,8 +41,7 @@
      $(function() {
        $('#toggleTitle').click(function() {
          $('#toggleContents').slideToggle(200);
-         $('#toggleTitle').toggleClass('toggleOpen');
-         $('#toggleTitle').toggleClass('toggleClosed');
+         return false;
        });
      });
     </script>

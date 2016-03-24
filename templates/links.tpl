@@ -13,7 +13,12 @@
   <ul>
     <li><a href="http://www.lingv.ro/">Institutul de Lingvistică</a> „Iorgu Iordan – Alexandru Rosetti” al Academiei Române</li>
     <li><a href="http://www.scriuromaneste.net/">ScriuRomânește.net</a> -- cum și de ce să scrii cu diacritice pe Internet</li>
-    <li><a href="http://www.unibuc.ro/prof/paliga_v_s/volu-in-form-pdf/">Sorin Paliga – volume în format PDF</a></li>
+    <li>
+      Sorin Paliga – volume în format PDF la
+      <a href="https://unibuc.academia.edu/SPaliga">Academia.edu</a>
+      și
+      <a href="https://www.researchgate.net/profile/Sorin_Paliga">ResearchGate</a>
+    </li>
   </ul>
 
   <h3>Limbi străine</h3>

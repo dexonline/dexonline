@@ -30,7 +30,9 @@ if ($submitButton) {
   util_redirect("moderatori");
 }
 
-SmartyWrap::assign('users', Model::factory('User')->where_not_equal('moderator', 0)->order_by_asc('nick')->find_many());
+$moderators = Model::factory('User')->where_not_equal('moderator', 0)->order_by_asc('nick')->find_many();
+
+SmartyWrap::assign('users', $moderators);
 SmartyWrap::display('moderatori.tpl');
 
 ?>

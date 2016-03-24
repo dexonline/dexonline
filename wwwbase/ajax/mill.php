@@ -1,7 +1,6 @@
 <?php
 
 require_once("../../phplib/util.php");
-setlocale(LC_ALL, "ro_RO.utf8");
 $xml = new SimpleXMLElement('<xml/>');
 
 function getNormalRand($std, $mean, $limit) {

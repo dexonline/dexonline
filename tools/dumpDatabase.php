@@ -7,7 +7,9 @@ $GZ_FILE = Config::get('global.tempDir') . '/dex-database.sql.gz';
 $LICENSE = util_getRootPath() . '/tools/dumpDatabaseLicense.txt';
 
 $parts = db_splitDsn();
-$COMMON_COMMAND = sprintf("mysqldump -h %s -u %s --password='%s' %s ", $parts['host'], $parts['user'], $parts['password'], $parts['database']);
+  // Skip the username/password here to avoid a Percona warning.
+  // Place them in my.cnf.
+$COMMON_COMMAND = sprintf("mysqldump -h %s %s ", $parts['host'], $parts['database']);
 
 $schemaOnly = array('RecentLink', 'Cookie', 'UserWordBookmark', 'DefinitionSimple', 'history_Comment', 'history_Definition');
 $currentYear = date("Y");
@@ -75,8 +77,17 @@ if (!$doFullDump) {
 
   // Dump only the Definitions for which we have redistribution rights
   log_scriptLog('Filtering the Definition table');
-  OS::executeAndAssert("$COMMON_COMMAND Definition --lock-all-tables --where='Definition.sourceId in (select id from Source where canDistribute)' " .
-                      ">> $SQL_FILE");
+  db_execute("create table _Definition_Copy like Definition");
+  db_execute("insert into _Definition_Copy select * from Definition");
+  $query = <<<EOT
+    update _Definition_Copy
+    set internalRep = concat(left(internalRep, 20), '...'), 
+        htmlRep = '[această definiție nu poate fi redistribuită]' 
+    where sourceId in (select id from Source where !canDistribute)
+EOT;
+  db_execute($query);
+  OS::executeAndAssert("$COMMON_COMMAND _Definition_Copy | sed 's/_Definition_Copy/Definition/g' >> $SQL_FILE");
+  db_execute("drop table _Definition_Copy");
 }
 
 OS::executeAndAssert("gzip -f $SQL_FILE");

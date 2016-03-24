@@ -887,30 +887,12 @@ input.pagedisplay {
   vertical-align: middle;
 }
 
-#toggleTitle {
-  color: #761818;
-  cursor: pointer;
-  padding-left: 20px;
-}
-
-#toggleTitle:hover {
-  text-decoration: underline;
-}
-
 #toggleContents {
   border: 1px solid #BFBFBF;
   border-radius: 4px;
   display: none;
-  margin: 5px 10px 0;
-  padding: 5px;
-}
-
-.toggleOpen {
-  background: url("../img/icons/bullet_arrow_up.png") no-repeat;
-}
-
-.toggleClosed {
-  background: url("../img/icons/bullet_arrow_down.png") no-repeat;
+  margin: 20px 10px 20px;
+  padding: 10px;
 }
 
 .word-of-the-day {
@@ -1184,6 +1166,10 @@ body .socialNetworks label {
     width: 200px;
   }
 
+  .widgetWotD {
+    width: 200px;
+  }
+
   .widgetList span {
     float: left;
     max-width: 113px;
@@ -1219,6 +1205,10 @@ body .socialNetworks label {
 /* hide widget box for very small resolutions */
 @media screen and (max-width: 983px) {
   .widgetBox {
+    display: none;
+  }
+
+  .widgetWotD {
     display: none;
   }
 

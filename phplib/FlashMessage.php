@@ -3,20 +3,22 @@
 class FlashMessage {
    // an array of [$text, $type] pairs, where $type follows Bootstrap conventions
   static $messages = [];
+  static $hasErrors = false;
 
   static function add($message, $type = 'danger') {
     self::$messages[] = [
       'text' => $message,
       'type' => $type
     ];
+    self::$hasErrors |= ($type == 'danger');
   }
 
   static function getMessages() {
     return self::$messages;
   }
 
-  static function hasMessages() {
-    return count(self::$messages) > 0;
+  static function hasErrors() {
+    return self::$hasErrors;
   }
 
   static function saveToSession() {

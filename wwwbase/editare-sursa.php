@@ -57,7 +57,7 @@ function validate($src) {
   if ($src->defCount < 0 && $src->defCount != Source::$UNKNOWN_DEF_COUNT) {
     FlashMessage::add('Numărul de definiții trebuie să fie pozitiv.');
   }
-  return !FlashMessage::hasMessages();
+  return !FlashMessage::hasErrors();
 }
 
 ?>

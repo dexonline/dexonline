@@ -23,7 +23,7 @@ if ($cloneButton) {
     FlashMessage::add('Numărul modelului nu poate fi vid.');
   }
 
-  if (!FlashMessage::hasMessages()) {
+  if (!FlashMessage::hasErrors()) {
     // Clone the model
     $model = Model::factory('FlexModel')->where('modelType', $modelType)->where('number', $modelNumber)->find_one();
     $cloneModel = FlexModel::create($modelType, $newModelNumber, "Clonat după $modelType$modelNumber", $model->exponent);

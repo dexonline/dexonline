@@ -105,17 +105,18 @@ if ($internalRep || $sourceId) {
 
 if (count($lexemIds)) {
   $lexems = array();
-  $ldms = array();
   foreach ($lexemIds as $lexemId) {
     if (StringUtil::startsWith($lexemId, '@')) {
       // create a new lexem
-      $l = Lexem::deepCreate(substr($lexemId, 1), 'T', '1');
-      $l->deepSave();
+      $form = substr($lexemId, 1);
+      $l = Lexem::deepCreate($form, 'T', '1'); // do not save it yet -- we may yet see errors.
+      if (strpos($form, "'") === false) {
+        FlashMessage::add('Vă rugăm să indicați accentul pentru lexemul nou oricând se poate.', 'warning');
+      }
     } else {
       $l = Lexem::get_by_id($lexemId);
     }
     $lexems[] = $l;
-    $ldms[] = LexemDefinitionMap::create($l->id, $definitionId);
   }
 } else {
   $lexems = Model::factory('Lexem')
@@ -147,11 +148,20 @@ if ($commentContents) {
   $comment->userId = session_getUserId();  
 }
 
-if (($acceptButton || $moveButton) && !FlashMessage::hasMessages()) {
+if (($acceptButton || $moveButton) && !FlashMessage::hasErrors()) {
   // The only difference between these two is that but_move also changes the
   // status to Active
   if ($moveButton) {
     $definition->status = Definition::ST_ACTIVE;
+  }
+
+  // Only now do we save the new lexems.
+  $ldms = [];
+  foreach ($lexems as $l) {
+    if (!$l->id) {
+      $l->deepSave();
+    }
+    $ldms[] = LexemDefinitionMap::create($l->id, $definitionId);
   }
     
   // Accept the definition and delete the typos associated with it.
@@ -174,7 +184,6 @@ if (($acceptButton || $moveButton) && !FlashMessage::hasMessages()) {
       }
     }
   } else {
-    //$ldms = LexemDefinitionMap::get_all_by_definitionId($definitionId); // FIXME 
     db_execute("delete from LexemDefinitionMap where definitionId = {$definitionId}");
     foreach ($ldms as $ldm) {
       $ldm->save();
@@ -184,13 +193,8 @@ if (($acceptButton || $moveButton) && !FlashMessage::hasMessages()) {
   log_userLog("Edited definition {$definition->id} ({$definition->lexicon})");
   util_redirect('definitionEdit.php?definitionId=' . $definitionId);
 }
-else if ($nextOcrBut && !FlashMessage::hasMessages()) {
+else if ($nextOcrBut && !FlashMessage::hasErrors()) {
   //TODO: check if definition has lexems
-  if ($ldms) {
-    foreach ($ldms as $ldm) {
-      $ldm->save();
-    }
-  }
   $definition->save();
   log_userLog("Edited OCR definition {$definition->id} ({$definition->lexicon})");
   util_redirect('definitionEdit.php');

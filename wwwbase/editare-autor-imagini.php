@@ -39,7 +39,7 @@ function validate($artist) {
     FlashMessage::add('Creditele nu pot fi vide.');
   }
 
-  return !FlashMessage::hasMessages();
+  return !FlashMessage::hasErrors();
 }
 
 ?>

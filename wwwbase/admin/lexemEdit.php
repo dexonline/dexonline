@@ -292,7 +292,7 @@ function validate($lexem, $original, $variantIds, $meanings) {
     }
   }
 
-  return !FlashMessage::hasMessages();
+  return !FlashMessage::hasErrors();
 }
 
 /* Variants can only have one empty meaning, used to list the variant's sources. */

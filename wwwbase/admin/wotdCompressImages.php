@@ -51,7 +51,7 @@ if (array_key_exists('file', $_FILES)) {
   }
 }
 
-if (FlashMessage::hasMessages()) {
+if (FlashMessage::hasErrors()) {
   util_redirect('wotdImages.php');
 }
 

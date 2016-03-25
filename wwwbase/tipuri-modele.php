@@ -90,14 +90,14 @@ function validateAdd($mt) {
   if (!$mt->description) {
     FlashMessage::add('Descrierea nu poate fi vidă. Ea trebuie să indice partea de vorbire și este vizibilă la afișarea paradigmelor.');
   }
-  return !FlashMessage::hasMessages();
+  return !FlashMessage::hasErrors();
 }
 
 function validateEdit($mt) {
   if (!$mt->description) {
     FlashMessage::add('Descrierea nu poate fi vidă. Ea trebuie să indice partea de vorbire și este vizibilă la afișarea paradigmelor.');
   }
-  return !FlashMessage::hasMessages();
+  return !FlashMessage::hasErrors();
 }
 
 function validateDelete($mt) {
@@ -109,7 +109,7 @@ function validateDelete($mt) {
   if ($numDependants > 1) {
     FlashMessage::add("Nu pot șterge tipul '{$mt->code}', deoarece este canonic pentru alte tipuri.");
   }
-  return !FlashMessage::hasMessages();
+  return !FlashMessage::hasErrors();
 }
   
 ?>

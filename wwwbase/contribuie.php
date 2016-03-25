@@ -20,7 +20,7 @@ if ($sendButton) {
     FlashMessage::add('Definiția dumneavoastră este spam.');
   }
 
-  if (FlashMessage::hasMessages()) {
+  if (FlashMessage::hasErrors()) {
     SmartyWrap::assign('sourceId', $sourceId);
     SmartyWrap::assign('def', $def);
     SmartyWrap::assign('previewDivContent', AdminStringUtil::htmlize($def, $sourceId));

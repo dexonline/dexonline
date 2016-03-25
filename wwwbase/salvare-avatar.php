@@ -22,7 +22,7 @@ if ($delete) {
   $f->staticServerDelete($AVATAR_REMOTE_FILE);
   $user->hasAvatar = 0;
   $user->save();
-  FlashMessage::add('Imaginea a fost ștearsă.', 'info');
+  FlashMessage::add('Am șters imaginea.', 'success');
   util_redirect('preferinte');
 }
 
@@ -47,7 +47,7 @@ unlink($tmpFileName);
 $user->hasAvatar = 1;
 $user->save();
 
-FlashMessage::add('Imaginea a fost salvată.', 'info');
+FlashMessage::add('Am salvat imaginea.', 'success');
 util_redirect('preferinte');
 
 /****************************************************************************/

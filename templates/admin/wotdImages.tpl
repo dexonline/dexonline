@@ -20,7 +20,7 @@
    });
   </script>
 
-  <form action="wotdCompressImages" method="post" enctype="multipart/form-data" target="_new">
+  <form action="wotdCompressImages" method="post" enctype="multipart/form-data">
     Comprimă imagini (o arhivă zip):
     <input type="file" name="file"/>
     <input type="submit" name="submitButton" value="Comprimă"/>      

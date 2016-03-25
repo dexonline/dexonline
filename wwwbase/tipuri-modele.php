@@ -12,6 +12,10 @@ $code = util_getRequestParameter('code');
 $canonical = util_getRequestParameter('canonical');
 $description = util_getRequestParameter('description');
 
+if ($showAddForm) {
+  SmartyWrap::assign('addModelType', Model::factory('ModelType')->create());
+}
+
 if ($submitAddButton) {
   $mt = Model::factory('ModelType')->create();
   $mt->code = mb_strtoupper($code);
@@ -19,7 +23,7 @@ if ($submitAddButton) {
   $mt->description = $description;
   if (validateAdd($mt)) {
     $mt->save();
-    FlashMessage::add("Am adăugat tipul de model '{$mt->code}'.", 'info');
+    FlashMessage::add("Am adăugat tipul de model '{$mt->code}'.", 'success');
     util_redirect('tipuri-modele.php');
   } else {
     $showAddForm = true;
@@ -32,7 +36,7 @@ if ($submitEditButton) {
   $mt->description = $description;
   if (validateEdit($mt)) {
     $mt->save();
-    FlashMessage::add('Am salvat descrierea.', 'info');
+    FlashMessage::add('Am salvat descrierea.', 'success');
     util_redirect('tipuri-modele.php');
   } else {
     SmartyWrap::assign('editModelType', $mt);
@@ -47,7 +51,7 @@ if ($editId) {
 if ($deleteId) {
   $mt = ModelType::get_by_id($deleteId);
   if (validateDelete($mt)) {
-    FlashMessage::add("Am șters tipul de model '{$mt->code}'.", 'info');
+    FlashMessage::add("Am șters tipul de model '{$mt->code}'.", 'success');
     $mt->delete();
     util_redirect('tipuri-modele.php');
   }
@@ -86,14 +90,14 @@ function validateAdd($mt) {
   if (!$mt->description) {
     FlashMessage::add('Descrierea nu poate fi vidă. Ea trebuie să indice partea de vorbire și este vizibilă la afișarea paradigmelor.');
   }
-  return FlashMessage::getMessage() == null;
+  return !FlashMessage::hasMessages();
 }
 
 function validateEdit($mt) {
   if (!$mt->description) {
     FlashMessage::add('Descrierea nu poate fi vidă. Ea trebuie să indice partea de vorbire și este vizibilă la afișarea paradigmelor.');
   }
-  return FlashMessage::getMessage() == null;
+  return !FlashMessage::hasMessages();
 }
 
 function validateDelete($mt) {
@@ -105,7 +109,7 @@ function validateDelete($mt) {
   if ($numDependants > 1) {
     FlashMessage::add("Nu pot șterge tipul '{$mt->code}', deoarece este canonic pentru alte tipuri.");
   }
-  return FlashMessage::getMessage() == null;
+  return !FlashMessage::hasMessages();
 }
   
 ?>

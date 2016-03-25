@@ -11,7 +11,7 @@ if ($sendButton) {
   $skin = util_getRequestParameter('skin');
   $widgets = util_getRequestParameter('widgets');
   Preferences::set($user, $detailsVisible, $userPrefs, $skin, array_sum($widgets));
-  FlashMessage::add('Preferințele au fost salvate.', 'info');
+  FlashMessage::add('Am salvat preferințele.', 'success');
   util_redirect('preferinte');
 }
 

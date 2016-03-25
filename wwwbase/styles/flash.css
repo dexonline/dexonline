@@ -1,0 +1,31 @@
+.flashMessage {
+  border: 1px solid;
+  border-radius: 4px;
+  margin: 10px auto;
+  padding: 15px;
+  width: 480px;
+}
+
+.flashMessage-success {
+  background-color: #dff0d8;
+  border-color: 1px solid #d6e9c6;
+  color: #3c763d;
+}
+
+.flashMessage-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+
+.flashMessage-warning {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+}
+
+.flashMessage-danger {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}

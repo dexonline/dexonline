@@ -530,45 +530,6 @@ footer li:last-child:after {
   border: 0px;
 }
 
-.flashMessage {
-  font-weight: bold;
-  margin: 10px auto;
-  padding: 10px;
-  width: 480px;
-  border-radius: 7px;
-}
-
-.flashMessage .pic {
-  float: left;
-  height: 16px;
-  margin-right: 10px;
-  width: 16px;
-}
-
-.flashMessage .text {
-  float: left;
-  width: 450px;
-}
-
-.errorType {
-  border: 2px solid #eea77e;
-  color: #c00;
-}
-
-.errorType .pic {
-  background: url("../img/sprite3.png") -215px -82px no-repeat;
-}
-
-.infoType {
-  border: 2px solid #a7ee7e;
-  color: green;
-}
-
-.infoType .pic {
-  background: url("../img/icons/info.png") no-repeat;
-}
-
-
 /* TOPUL VOLUNTARILOR page */
 .userTop {
   border-collapse: collapse;

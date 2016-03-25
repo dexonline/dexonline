@@ -196,7 +196,7 @@ function validate($lexem, $original, $variantIds, $meanings) {
   if ($numAccents && $lexem->noAccent) {
     FlashMessage::add('Ați indicat că lexemul nu necesită accent, dar forma conține un accent.');
   } else if (!$numAccents && !$lexem->noAccent) {
-    FlashMessage::add('Adăugați un accent sau debifați câmpul "Necesită accent".');
+    FlashMessage::add('Adăugați un accent sau debifați câmpul „Necesită accent”.');
   }
 
   foreach ($lexem->getLexemModels() as $lm) {
@@ -292,7 +292,7 @@ function validate($lexem, $original, $variantIds, $meanings) {
     }
   }
 
-  return FlashMessage::getMessage() == null;
+  return !FlashMessage::hasMessages();
 }
 
 /* Variants can only have one empty meaning, used to list the variant's sources. */

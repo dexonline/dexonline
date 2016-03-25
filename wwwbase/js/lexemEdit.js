@@ -551,16 +551,24 @@ function wmInit() {
   $('#interfaceResetLink').click(wmInterfaceReset);
 }
 
-// Sets the coordinates for each window based on the cookie (if available) or on HTML5 attributes of the original box
+// Sets the coordinates for each window based on the cookie (if available) or on HTML5 attributes of the original box.
+// Everything is relative to the coords of #wmCanvas.
 function wmSetCoordinates() {
   var props = ['left', 'top', 'width', 'height'];
   var cookie = $.cookie(COOKIE_NAME);
+  var canvasShift = {
+    left: parseInt($('#wmCanvas').offset().left),
+    top: parseInt($('#wmCanvas').offset().top),
+    width: 0,
+    height: 0,
+  };
 
   $('.window').each(function() {
     var id = $(this).attr('data-id');
     if (cookie) {
       for (var i = 0; i < props.length; i++) {
-        $(this).css(props[i], cookie[id][props[i]] + 'px');
+        var coord = cookie[id][props[i]] + canvasShift[props[i]];
+        $(this).css(props[i], coord + 'px');
       }
       if (cookie[id].minimized) {
         $(this).WM('minimize');
@@ -572,9 +580,9 @@ function wmSetCoordinates() {
         if (typeof(box.attr('data-' + props[i])) != 'undefined') {
           var value = parseInt(box.attr('data-' + props[i]));
           if (props[i] == 'left') {
-            value += parseInt($('#wmCanvas').offset().left);
+            value += canvasLeft;
           } else if (props[i] == 'top') {
-            value += parseInt($('#wmCanvas').offset().top);
+            value += canvasTop;
           }
           $(this).css(props[i], value + 'px');
         }
@@ -600,13 +608,13 @@ function wmSetCookie() {
     var params = { minimized: $(this).hasClass('minimized') };
     if (params.minimized) {
       var p = $(this).data('oldPos');
-      params.left = p.left;
-      params.top = p.top;
+      params.left = p.left - $('#wmCanvas').offset().left;
+      params.top = p.top - $('#wmCanvas').offset().top;
       params.width = p.width;
       params.height = p.height;
     } else {
-      params.left = $(this).offset().left;
-      params.top = $(this).offset().top;
+      params.left = $(this).offset().left - $('#wmCanvas').offset().left;
+      params.top = $(this).offset().top - $('#wmCanvas').offset().top;
       params.width = $(this).width();
       params.height = $(this).height();
     }

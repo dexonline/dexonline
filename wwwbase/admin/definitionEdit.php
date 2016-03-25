@@ -28,7 +28,6 @@ else {
 }
 $acceptButton = util_getRequestParameter('but_accept');
 $moveButton = util_getRequestParameter('but_move');
-$hasErrors = false;
 
 if (!$definitionId) {
   if ($isOCR) {
@@ -76,14 +75,11 @@ $commentUser = $comment ? User::get_by_id($comment->userId) : null;
 $oldInternalRep = $definition->internalRep;
 
 if ($internalRep) {
-  $errors = array();
+  $errors = [];
   $definition->internalRep = AdminStringUtil::internalizeDefinition($internalRep, $sourceId);
   $definition->htmlRep = AdminStringUtil::htmlize($definition->internalRep, $sourceId, $errors);
-  if (!empty($errors)) {
-    $hasErrors = true;
-    foreach ($errors as $error) {
-      FlashMessage::add($error);
-    }
+  foreach ($errors as $error) {
+    FlashMessage::add($error);
   }
 }
 if (isset($status)) {
@@ -151,7 +147,7 @@ if ($commentContents) {
   $comment->userId = session_getUserId();  
 }
 
-if (($acceptButton || $moveButton) && !$hasErrors) {
+if (($acceptButton || $moveButton) && !FlashMessage::hasMessages()) {
   // The only difference between these two is that but_move also changes the
   // status to Active
   if ($moveButton) {
@@ -188,7 +184,7 @@ if (($acceptButton || $moveButton) && !$hasErrors) {
   log_userLog("Edited definition {$definition->id} ({$definition->lexicon})");
   util_redirect('definitionEdit.php?definitionId=' . $definitionId);
 }
-else if ($nextOcrBut && !$hasErrors) {
+else if ($nextOcrBut && !FlashMessage::hasMessages()) {
   //TODO: check if definition has lexems
   if ($ldms) {
     foreach ($ldms as $ldm) {

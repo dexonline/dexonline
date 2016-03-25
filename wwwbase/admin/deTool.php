@@ -63,7 +63,7 @@ if ($butPrev || $butNext) {
                       (int)$deleteOrphans);
     util_redirect($target);
   } else {
-    SmartyWrap::assign('errorMessage', 'Ați ajuns la capătul listei de definiții.');
+    FlashMessage::add('Ați ajuns la capătul listei de definiții.');
   }
 }
 
@@ -179,7 +179,7 @@ if ($butSave) {
 
         // Check that either the lexem is not in LOC or the model list is unchanged
         if ($lexem->isLoc() && !sameModels($models[$i], $lexem->getLexemModels())) {
-          throw new Exception("Nu puteți schimba modelele unui lexem inclus în loc: {$lexem}");
+          throw new Exception("Nu puteți schimba modelele unui lexem inclus în loc: {$lexem}.");
         }
 
         // Check that the lexem works with every model
@@ -195,7 +195,7 @@ if ($butSave) {
           $ifs = $lm->generateInflectedForms();
           if (!is_array($ifs)) {
             $infl = Inflection::get_by_id($ifs);
-            $msg = "Lexemul „%s” nu poate fi flexionat conform modelului %s";
+            $msg = "Lexemul „%s” nu poate fi flexionat conform modelului %s.";
             throw new Exception(sprintf($msg, $lexem->form, $m));
           }
         }
@@ -203,7 +203,7 @@ if ($butSave) {
     }
     $passedTests = true;
   } catch (Exception $e) {
-    SmartyWrap::assign('errorMessage', $e->getMessage());
+    FlashMessage::add($e->getMessage());
   }
   SmartyWrap::assign('lexemIds', $lexemIds);
   SmartyWrap::assign('models', $models);

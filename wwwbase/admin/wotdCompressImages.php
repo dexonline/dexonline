@@ -51,7 +51,9 @@ if (array_key_exists('file', $_FILES)) {
   }
 }
 
-SmartyWrap::displayAdminPage('admin/wotdCompressImages.tpl');
+if (FlashMessage::hasMessages()) {
+  util_redirect('wotdImages.php');
+}
 
 /**************************************************************************/
 

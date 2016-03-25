@@ -25,7 +25,7 @@ class SmartyWrap {
 
   static function fetchSkin($templateName) {
     $skin = session_getSkin();
-    self::addCss($skin);
+    self::addCss($skin, 'flash');
     self::addJs('jquery', 'dex');
     if (Config::get('search.acEnable')) {
         self::addCss('jqueryui');
@@ -55,7 +55,7 @@ class SmartyWrap {
 
   static function displayAdminPage($templateName) {
     self::assign('templateName', $templateName);
-  	self::addCss('flex');
+  	self::addCss('flex', 'flash');
     self::addJs('dex', 'flex', 'jquery');
     print self::fetch($templateName);
   }
@@ -65,6 +65,7 @@ class SmartyWrap {
     ksort(self::$jsFiles);
     self::assign('cssFiles', self::$cssFiles);
     self::assign('jsFiles', self::$jsFiles);
+    self::assign('flashMessages', FlashMessage::getMessages());
     return self::$theSmarty->fetch($templateName);
   }
 
@@ -105,10 +106,10 @@ class SmartyWrap {
           self::$cssFiles[6] = 'elfinderDev.css';
           break;
         case 'windowEngine':        self::$cssFiles[7] = 'jquery-wm/main.css'; break;
-        case 'zepu':                self::$cssFiles[8] = 'zepu.css?v=80'; break;
-        case 'polar':               self::$cssFiles[9] = 'polar.css?v=36'; break;
+        case 'zepu':                self::$cssFiles[8] = 'zepu.css?v=81'; break;
+        case 'polar':               self::$cssFiles[9] = 'polar.css?v=37'; break;
         case 'mobile':              self::$cssFiles[10] = 'mobile.css?v=23'; break;
-        case 'flex':                self::$cssFiles[11] = 'flex.css?v=16'; break;
+        case 'flex':                self::$cssFiles[11] = 'flex.css?v=17'; break;
         case 'paradigm':            self::$cssFiles[12] = 'paradigm.css?v=3'; break;
         case 'hangman':             self::$cssFiles[13] = 'hangman.css?v=5'; break;
         case 'mill':                self::$cssFiles[14] = 'mill.css?v=3'; break;
@@ -122,6 +123,7 @@ class SmartyWrap {
         case 'textComplete':        self::$cssFiles[20] = 'jquery.textcomplete.css'; break;
         case 'wotdAssignment':      self::$cssFiles[21] = 'wotdAssignment.css?v=2'; break;
         case 'etichete-sensuri':    self::$cssFiles[22] = 'etichete-sensuri.css?v=2'; break;
+        case 'flash':               self::$cssFiles[23] = 'flash.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -150,11 +152,11 @@ class SmartyWrap {
         case 'windowEngine':     self::$jsFiles[11] = 'jquery-wm.js'; break;
         case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js?v=1'; break;
         case 'dex':              self::$jsFiles[13] = 'dex.js?v=35'; break;
-        case 'flex':             self::$jsFiles[14] = 'flex.js?v=2'; break;
+        case 'flex':             self::$jsFiles[14] = 'flex.js?v=3'; break;
         case 'hangman':          self::$jsFiles[15] = 'hangman.js?v=5'; break;
         case 'mill':             self::$jsFiles[16] = 'mill.js?v=3'; break;
         case 'wotd':             self::$jsFiles[17] = 'wotd.js?v=2'; break;
-        case 'lexemEdit':        self::$jsFiles[18] = 'lexemEdit.js?v=15'; break;
+        case 'lexemEdit':        self::$jsFiles[18] = 'lexemEdit.js?v=16'; break;
         case 'jcrop':            self::$jsFiles[19] = 'jquery.Jcrop.min.js?v=2'; break;
         case 'select2':          self::$jsFiles[20] = 'select2.min.js?v=3'; break;
         case 'select2Dev':       self::$jsFiles[21] = 'select2Dev.js?v=8'; break;

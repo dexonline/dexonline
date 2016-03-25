@@ -26,8 +26,8 @@ if ($submitButton) {
     }
   }
 
-  FlashMessage::add('Modificările au fost salvate', 'info');
-  util_redirect("moderatori");
+  FlashMessage::add('Am salvat modificările.', 'success');
+  util_redirect('moderatori');
 }
 
 $moderators = Model::factory('User')->where_not_equal('moderator', 0)->order_by_asc('nick')->find_many();

@@ -1,19 +1,3 @@
-// If there are error messages, show them in a dialog
-$(function() {
-  if($('#flashMessage').length) {
-    $('#flashMessage').dialog({
-      buttons: {
-        Ok: function() {
-          $(this).dialog('close');
-        }
-      },
-      modal: true,
-      title: 'Mesaje',
-      width: 500,
-    });
-  }
-});
-
 function blUpdateParadigmVisibility(radioButton) {
   // Locate the div containing one sub-div for each paradigm
   var components = radioButton.name.split('_', 2);

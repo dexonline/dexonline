@@ -12,19 +12,17 @@ if ($sendButton) {
   $ambiguousMatches = array();
   $def = AdminStringUtil::internalizeDefinition($def, $sourceId, $ambiguousMatches);
 
-  $errorMessage = '';
   if (!count($lexemIds)) {
-    $errorMessage = 'Trebuie să introduceți un cuvânt-titlu.';
+    FlashMessage::add('Trebuie să introduceți un cuvânt-titlu.');
   } else if (!$def) {
-    $errorMessage = 'Trebuie să introduceți o definiție.';
+    FlashMessage::add('Trebuie să introduceți o definiție.');
   } else if (StringUtil::isSpam($def)) {
-    $errorMessage = 'Definiția dumneavoastră este spam.';    
+    FlashMessage::add('Definiția dumneavoastră este spam.');
   }
 
-  if ($errorMessage) {
+  if (FlashMessage::hasMessages()) {
     SmartyWrap::assign('sourceId', $sourceId);
     SmartyWrap::assign('def', $def);
-    FlashMessage::add($errorMessage);
     SmartyWrap::assign('previewDivContent', AdminStringUtil::htmlize($def, $sourceId));
   } else {
     $definition = Model::factory('Definition')->create();
@@ -52,7 +50,7 @@ if ($sendButton) {
         log_userLog("Associating with lexem {$lexem->id} ({$lexem->form})");
       }
     }
-    FlashMessage::add('Definiția a fost trimisă. Un moderator o va examina în scurt timp. Vă mulțumim!', 'info');
+    FlashMessage::add('Am salvat definiția. Un moderator o va examina în scurt timp. Vă mulțumim!', 'success');
     util_redirect('contribuie');
   }
 } else {

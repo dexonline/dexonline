@@ -5,10 +5,8 @@
 {block name=content}
   <h3>Etichete pentru sensuri</h3>
 
-  <div class="tip">
-    <span>
-      Clic pe orice linie pentru a obține un meniu de acțiuni. Nu uitați să salvați la sfârșit.
-    </span>
+  <div class="flashMessage flashMessage-info">
+    Clic pe orice linie pentru a obține un meniu. Nu uitați să salvați la sfârșit.
   </div>
 
   <li id="stem">

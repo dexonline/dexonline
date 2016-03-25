@@ -23,8 +23,7 @@
       </div>
     {/block}
     {include file="admin/recentlyVisited.tpl"}
-    {include file="admin/flashMessages.tpl"}
-    {include file="bits/errorMessage.tpl"}
+    {include file="bits/flashMessages.tpl"}
     {block name=content}{/block}
     {getDebugInfo}
   </body>

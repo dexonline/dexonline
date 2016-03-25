@@ -150,24 +150,6 @@ body {
   width: 16px;
 }
 
-.flashMessage {
-  border: 2px solid red;
-  padding: 0.5em;
-  margin: 10px auto;
-  text-align: center;
-  width: 40em;
-}
-
-.errorType {
-  background: url("../img/icons/exclamation.png") no-repeat 10px center;
-  border: 2px solid red;
-}
-
-.infoType {
-  background: url("../img/icons/info.png") no-repeat 10px center;
-  border: 2px solid green;
-}
-
 .stopWords {
   color: #777777;
 }

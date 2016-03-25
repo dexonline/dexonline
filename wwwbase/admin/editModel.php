@@ -42,8 +42,6 @@ foreach ($ifs as $i => $if) {
                        'recommended' => $mds[$i]->recommended];
 }
 
-$errorMessage = [];
-
 if (!$previewButton && !$confirmButton) {
   // just viewing the page
   RecentLink::createOrUpdate("Editare model: {$m}");
@@ -75,7 +73,7 @@ if (!$previewButton && !$confirmButton) {
     // disallow duplicate model numbers
     $dup = FlexModel::loadCanonicalByTypeNumber($nm->modelType, $nm->number);
     if ($dup) {
-      $errorMessage[] = "Modelul {$nm} există deja.";
+      FlashMessage::add("Modelul {$nm} există deja.");
     }
   }
 
@@ -93,7 +91,9 @@ if (!$previewButton && !$confirmButton) {
         if ($transforms) {
           $regenTransforms[$infl->id][] = $transforms;
         } else {
-          $errorMessage[] = "Nu pot extrage transformările între {$nm->exponent} și " . htmlentities($tuple['form']) . ".";
+          FlashMessage::add(sprintf('Nu pot extrage transformările între %s și %s.',
+                                    $nm->exponent,
+                                    htmlentities($tuple['form'])));
         }
       }
     }
@@ -104,6 +104,7 @@ if (!$previewButton && !$confirmButton) {
   $limit = ($shortList && !$confirmButton) ? SHORT_LIST_LIMIT : 0;
   $lexemModels = LexemModel::loadByCanonicalModel($m->modelType, $m->number, $limit);
   $regenForms = [];
+  $errorCount = 0; // Do not report thousands of similar errors.
   foreach ($lexemModels as $lm) {
     $l = $lm->getLexem();
     $regenRow = [];
@@ -119,8 +120,10 @@ if (!$previewButton && !$confirmButton) {
         }
         $result = FlexStringUtil::applyTransforms($l->form, $transforms, $accentShift, $accentedVowel);
         $regenRow[$inflId][] = $result;
-        if (!$result && count($errorMessage) <= 20) {
-          $errorMessage[] = "Nu pot calcula una din formele lexemului " . htmlentities($l->form) . ".";
+        if (!$result && ($errorCount < 3)) {
+          FlashMessage::add(sprintf('Nu pot calcula una din formele lexemului %s.',
+                                    htmlentities($l->form)));
+          $errorCount++;
         }
       }
     }
@@ -134,8 +137,8 @@ if (!$previewButton && !$confirmButton) {
       $p->modelNumber = $npm->adjectiveModel;
       $ifs = $p->generateInflectedFormMap();
       if (!is_array($ifs)) {
-        $errorMessage[] = sprintf('Nu pot declina participiul "%s" conform modelului A%s.',
-                                  htmlentities($p->getLexem()->form), $npm->adjectiveModel);
+        FlashMessage::add(sprintf('Nu pot declina participiul "%s" conform modelului A%s.',
+                                  htmlentities($p->getLexem()->form), $npm->adjectiveModel));
       }
     }
 
@@ -280,7 +283,6 @@ if ($m->modelType == 'V') {
 SmartyWrap::assign('shortList', $shortList);
 SmartyWrap::assign('inflectionMap', Inflection::mapById($inflections));
 SmartyWrap::assign('wasPreviewed', $previewButton);
-SmartyWrap::assign('errorMessage', $errorMessage);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::addCss('paradigm', 'jqueryui');
 SmartyWrap::addJs('jquery', 'jqueryui');

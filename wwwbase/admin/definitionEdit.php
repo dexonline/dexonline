@@ -196,13 +196,12 @@ if (($acceptButton || $moveButton) && !FlashMessage::hasErrors()) {
 else if ($nextOcrBut && !FlashMessage::hasErrors()) {
   //TODO: check if definition has lexems
   // FIXME: This duplicates code from above
-  // Only now do we save the new lexems.
-  $ldms = [];
+  // Save the new lexems and associate all the lexems with the definition.
   foreach ($lexems as $l) {
     if (!$l->id) {
       $l->deepSave();
     }
-    $ldms[] = LexemDefinitionMap::create($l->id, $definition->id);
+    LexemDefinitionMap::associate($l->id, $definition->id);
   }
     
   $definition->save();

@@ -195,6 +195,16 @@ if (($acceptButton || $moveButton) && !FlashMessage::hasErrors()) {
 }
 else if ($nextOcrBut && !FlashMessage::hasErrors()) {
   //TODO: check if definition has lexems
+  // FIXME: This duplicates code from above
+  // Only now do we save the new lexems.
+  $ldms = [];
+  foreach ($lexems as $l) {
+    if (!$l->id) {
+      $l->deepSave();
+    }
+    $ldms[] = LexemDefinitionMap::create($l->id, $definition->id);
+  }
+    
   $definition->save();
   log_userLog("Edited OCR definition {$definition->id} ({$definition->lexicon})");
   util_redirect('definitionEdit.php');

@@ -3,233 +3,191 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$isOCR = null;
-$nextOcrBut = util_getRequestParameter('but_next_ocr');
 $definitionId = util_getRequestIntParameter('definitionId');
-if($definitionId) {
-    $lexemIds = util_getRequestCsv('lexemIds');
-    $sourceId = util_getRequestIntParameter('source');
-    $similarSource = util_getRequestParameter('similarSource');
-    $internalRep = util_getRequestParameter('internalRep');
-    $status = util_getRequestIntParameterWithDefault('status', null);
-    $commentContents = util_getRequestParameter('commentContents');
-    $preserveCommentUser = util_getRequestParameter('preserveCommentUser');
-}
-else {
-    $definitionId = null;
-    $lexemIds = null;
-    $sourceId = null;
-    $similarSource = 0;
-    $internalRep = null;
-    $status = null;
-    $commentContents = null;
-    $preserveCommentUser = null;
-    $isOCR = 1;
-}
-$acceptButton = util_getRequestParameter('but_accept');
-$moveButton = util_getRequestParameter('but_move');
 
 if (!$definitionId) {
-  if ($isOCR) {
-    //find definitions assigned to user
-    $ocr = Model::factory('OCR')->where('status', 'raw')->where('editorId', session_getUserId())->order_by_asc('dateModified')->order_by_asc('id')->find_one();
-    // find definitions assigned to noone
-    if (!$ocr || !$ocr->id) {
-      $ocr = Model::factory('OCR')->where('status', 'raw')->where_null('editorId')->order_by_asc('dateModified')->order_by_asc('id')->find_one();
-    }
-    if (!$ocr || !$ocr->id) {
-      echo("Lista cu definiții OCR este goală.");
-      return;
-    }
-    $ambiguousMatches = array();
-    $sourceId = $ocr->sourceId;
-    $def = AdminStringUtil::internalizeDefinition($ocr->ocrText, $sourceId, $ambiguousMatches);
-
-    $definition = Model::factory('Definition')->create();
-    $definition->status = Definition::ST_PENDING;
-    $definition->userId = session_getUserId();
-    $definition->sourceId = $sourceId;
-    $definition->similarSource = $similarSource;
-    $definition->internalRep = $def;
-    $definition->htmlRep = AdminStringUtil::htmlize($def, $sourceId);
-    $definition->lexicon = AdminStringUtil::extractLexicon($definition);
-    $definition->abbrevReview = count($ambiguousMatches) ? ABBREV_AMBIGUOUS : ABBREV_REVIEW_COMPLETE;
-    $definition->save();
-    $definitionId = $definition->id;
-    $ocr->definitionId = $definitionId;
-    $ocr->editorId = session_getUserId();
-    $ocr->status = 'published';
-    $ocr->save();
-  } 
-  else {
+  // User requested an OCR definition. Try to find one.
+  $ocr = OCR::getNext(session_getUserId());
+  if (!$ocr) {
+    echo('Lista cu definiții OCR este goală.');
     return;
   }
+
+  // Found one, create the Definition and update the OCR.
+  $ambiguousMatches = [];
+  $sourceId = $ocr->sourceId;
+  $def = AdminStringUtil::internalizeDefinition($ocr->ocrText, $sourceId, $ambiguousMatches);
+
+  $d = Model::factory('Definition')->create();
+  $d->status = Definition::ST_PENDING;
+  $d->userId = session_getUserId();
+  $d->sourceId = $sourceId;
+  $d->similarSource = 0;
+  $d->internalRep = $def;
+  $d->htmlRep = AdminStringUtil::htmlize($def, $sourceId);
+  $d->lexicon = AdminStringUtil::extractLexicon($d);
+  $d->abbrevReview = count($ambiguousMatches) ? ABBREV_AMBIGUOUS : ABBREV_REVIEW_COMPLETE;
+  $d->save();
+
+  $ocr->definitionId = $d->id;
+  $ocr->editorId = session_getUserId();
+  $ocr->status = 'published';
+  $ocr->save();
+
+  // Redirect to the new Definition.
+  util_redirect("definitionEdit.php?definitionId={$d->id}&isOCR=1");
 }
 
 if (!($definition = Definition::get_by_id($definitionId))) {
-  return;
+  FlashMessage::add("Nu există nicio definiție cu ID-ul {$definitionId}.");
+  util_redirect("index.php");
 }
 
-$comment = Model::factory('Comment')->where('definitionId', $definitionId)->where('status', Definition::ST_ACTIVE)->find_one();
-$commentUser = $comment ? User::get_by_id($comment->userId) : null;
-$oldInternalRep = $definition->internalRep;
+// Load request fields and buttons.
+$isOCR = util_getRequestParameter('isOCR');
+$lexemIds = util_getRequestCsv('lexemIds');
+$sourceId = util_getRequestIntParameter('source');
+$similarSource = util_getBoolean('similarSource');
+$internalRep = util_getRequestParameter('internalRep');
+$status = util_getRequestIntParameterWithDefault('status', null);
+$commentContents = util_getRequestParameter('commentContents');
+$preserveCommentUser = util_getRequestParameter('preserveCommentUser');
 
-if ($internalRep) {
+$acceptButton = util_getRequestParameter('but_accept');
+$moveButton = util_getRequestParameter('but_move');
+$nextOcrBut = util_getRequestParameter('but_next_ocr');
+
+$comment = Model::factory('Comment')->where('definitionId', $definition->id)->where('status', Definition::ST_ACTIVE)->find_one();
+$commentUser = $comment ? User::get_by_id($comment->userId) : null;
+
+if ($acceptButton || $moveButton || $nextOcrBut) {
   $errors = [];
   $definition->internalRep = AdminStringUtil::internalizeDefinition($internalRep, $sourceId);
   $definition->htmlRep = AdminStringUtil::htmlize($definition->internalRep, $sourceId, $errors);
   foreach ($errors as $error) {
     FlashMessage::add($error);
   }
-}
-if (isset($status)) {
+
   $definition->status = (int)$status;
-}
-if ($sourceId) {
   $definition->sourceId = (int)$sourceId;
-}
-
-//ugly workaround - TBD a better solution
-if ($_POST) {
-  if ($similarSource) {
-    $definition->similarSource = 1;
-  }
-  else {
-    $definition->similarSource = 0;
-  }
-}
-
-if ($internalRep || $sourceId) {
+  $definition->similarSource = $similarSource;
   $definition->lexicon = AdminStringUtil::extractLexicon($definition);
-}
 
-if (count($lexemIds)) {
-  $lexems = array();
-  foreach ($lexemIds as $lexemId) {
-    if (StringUtil::startsWith($lexemId, '@')) {
-      // create a new lexem
-      $form = substr($lexemId, 1);
-      $l = Lexem::deepCreate($form, 'T', '1'); // do not save it yet -- we may yet see errors.
-      if (strpos($form, "'") === false) {
-        FlashMessage::add('Vă rugăm să indicați accentul pentru lexemul nou oricând se poate.', 'warning');
+  if ($commentContents) {
+    if (!$comment) {
+      // Comment added
+      $comment = Model::factory('Comment')->create();
+      $comment->status = Definition::ST_ACTIVE;
+      $comment->definitionId = $definition->id;
+    }
+    $newContents = AdminStringUtil::internalizeDefinition($commentContents, $sourceId);
+    if ($newContents != $comment->contents) {
+      // Comment updated
+      $comment->contents = $newContents;
+      $comment->htmlContents = AdminStringUtil::htmlize($comment->contents, $sourceId);
+      if (!$preserveCommentUser) {
+        $comment->userId = session_getUserId();
+      }
+    }
+  } else if ($comment) {
+    // User wiped out the existing comment, set status to DELETED.
+    $comment->status = Definition::ST_DELETED;
+    $comment->userId = session_getUserId();  
+  }
+
+  if (!FlashMessage::hasErrors()) {
+    // $moveButton and $nextOcrBut also change the status to active.
+    if ($moveButton || $nextOcrBut) {
+      $definition->status = Definition::ST_ACTIVE;
+    }
+
+    // Save the new lexems, load the rest.
+    $lexems = [];
+    foreach ($lexemIds as $lexemId) {
+      if (StringUtil::startsWith($lexemId, '@')) {
+        // create a new lexem
+        $form = substr($lexemId, 1);
+        $l = Lexem::deepCreate($form, 'T', '1');
+        $l->deepSave();
+        if (strpos($form, "'") === false) {
+          FlashMessage::add('Vă rugăm să indicați accentul pentru lexemul nou oricând se poate.', 'warning');
+        }
+      } else {
+        $l = Lexem::get_by_id($lexemId);
+      }
+      $lexems[] = $l;
+    }
+
+    // Save the definition and delete the typos associated with it.
+    $definition->save();
+    db_execute("delete from Typo where definitionId = {$definition->id}");
+    if ($comment) {
+      $comment->save();
+    }
+
+    if ($definition->status == Definition::ST_DELETED) {
+      // If by deleting this definition, any associated lexems become unassociated, delete them
+      $ldms = LexemDefinitionMap::get_all_by_definitionId($definition->id);
+      db_execute("delete from LexemDefinitionMap where definitionId = {$definition->id}");
+
+      foreach ($ldms as $ldm) {
+        $l = Lexem::get_by_id($ldm->lexemId);
+        $otherLdms = LexemDefinitionMap::get_all_by_lexemId($l->id);
+        if (!$l->isLoc() && !count($otherLdms)) {
+          $l->delete();
+        }
       }
     } else {
-      $l = Lexem::get_by_id($lexemId);
+      // Save the associations.
+      db_execute("delete from LexemDefinitionMap where definitionId = {$definition->id}");
+      foreach ($lexems as $l) {
+        LexemDefinitionMap::associate($l->id, $definition->id);
+      }
     }
-    $lexems[] = $l;
+    
+    log_userLog("Edited definition {$definition->id} ({$definition->lexicon})");
+  
+    if ($nextOcrBut) {
+      // cause the next OCR definition to load
+      util_redirect('definitionEdit.php');
+    } else {
+      $url = "definitionEdit.php?definitionId={$definition->id}";
+      if ($isOCR) {
+        // carry this around so the user can click "Save" any number of times, then "next OCR".
+        $url .= "&isOCR=1";
+      }
+      util_redirect($url);
+    }
+  } else {
+    // There were errors saving.
   }
 } else {
+  // First time loading this page -- not a save.
+  RecentLink::createOrUpdate(
+    sprintf('Definiție: %s (%s)',
+            $definition->lexicon,
+            $definition->getSource()->shortName));
+
   $lexems = Model::factory('Lexem')
           ->select('Lexem.*')
           ->join('LexemDefinitionMap', 'Lexem.id = lexemId', 'ldm')
-          ->where('ldm.definitionId', $definitionId)
+          ->where('ldm.definitionId', $definition->id)
           ->order_by_asc('formNoAccent')
           ->find_many();
   $lexemIds = util_objectProperty($lexems, 'id');
 }
 
-if ($commentContents) {
-  if (!$comment) {
-    $comment = Model::factory('Comment')->create();
-    $comment->status = Definition::ST_ACTIVE;
-    $comment->definitionId = $definitionId;
-  }
-  $newContents = AdminStringUtil::internalizeDefinition($commentContents, $sourceId);
-  if ($newContents != $comment->contents) {
-    $comment->contents = $newContents;
-    $comment->htmlContents = AdminStringUtil::htmlize($comment->contents, $sourceId);
-    if (!$preserveCommentUser) {
-      $comment->userId = session_getUserId();
-    }
-  }
-} else if ($comment) {
-  // User wiped out the existing comment, set status to DELETED.
-  $comment->status = Definition::ST_DELETED;
-  $comment->userId = session_getUserId();  
-}
-
-if (($acceptButton || $moveButton) && !FlashMessage::hasErrors()) {
-  // The only difference between these two is that but_move also changes the
-  // status to Active
-  if ($moveButton) {
-    $definition->status = Definition::ST_ACTIVE;
-  }
-
-  // Only now do we save the new lexems.
-  $ldms = [];
-  foreach ($lexems as $l) {
-    if (!$l->id) {
-      $l->deepSave();
-    }
-    $ldms[] = LexemDefinitionMap::create($l->id, $definitionId);
-  }
-    
-  // Accept the definition and delete the typos associated with it.
-  $definition->save();
-  db_execute("delete from Typo where definitionId = {$definition->id}");
-  if ($comment) {
-    $comment->save();
-  }
-
-  if ($definition->status == Definition::ST_DELETED) {
-    // If by deleting this definition, any associated lexems become unassociated, delete them
-    $ldms = LexemDefinitionMap::get_all_by_definitionId($definition->id);
-    db_execute("delete from LexemDefinitionMap where definitionId = {$definition->id}");
-
-    foreach ($ldms as $ldm) {
-      $l = Lexem::get_by_id($ldm->lexemId);
-      $otherLdms = LexemDefinitionMap::get_all_by_lexemId($l->id);
-      if (!$l->isLoc() && !count($otherLdms)) {
-        $l->delete();
-      }
-    }
-  } else {
-    db_execute("delete from LexemDefinitionMap where definitionId = {$definitionId}");
-    foreach ($ldms as $ldm) {
-      $ldm->save();
-    }
-  }
-    
-  log_userLog("Edited definition {$definition->id} ({$definition->lexicon})");
-  util_redirect('definitionEdit.php?definitionId=' . $definitionId);
-}
-else if ($nextOcrBut && !FlashMessage::hasErrors()) {
-  //TODO: check if definition has lexems
-  // FIXME: This duplicates code from above
-  // Save the new lexems and associate all the lexems with the definition.
-  foreach ($lexems as $l) {
-    if (!$l->id) {
-      $l->deepSave();
-    }
-    LexemDefinitionMap::associate($l->id, $definition->id);
-  }
-    
-  $definition->save();
-  log_userLog("Edited OCR definition {$definition->id} ({$definition->lexicon})");
-  util_redirect('definitionEdit.php');
-}
-
-$source = Source::get_by_id($definition->sourceId);
-
-if (!$acceptButton && !$moveButton) {
-  // If a button was pressed, then this is a POST request and the URL
-  // does not contain the definition ID.
-  RecentLink::createOrUpdate(sprintf("Definiție: %s (%s)", $definition->lexicon, $source->shortName));
-}
-
+// Either there were errors saving, or this is the first time loading the page.
 SmartyWrap::assign('isOCR', $isOCR);
-if ($definitionId) {
-  SmartyWrap::assign('definitionId', $definitionId);
-}
 SmartyWrap::assign('def', $definition);
-SmartyWrap::assign('source', $source);
+SmartyWrap::assign('source', $definition->getSource());
 SmartyWrap::assign('sim', SimilarRecord::create($definition, $lexemIds));
 SmartyWrap::assign('user', User::get_by_id($definition->userId));
 SmartyWrap::assign('comment', $comment);
 SmartyWrap::assign('commentUser', $commentUser);
 SmartyWrap::assign('lexemIds', $lexemIds);
 SmartyWrap::assign('typos', Typo::get_all_by_definitionId($definition->id));
-SmartyWrap::assign('homonyms', loadSetHomonyms($lexems));
+SmartyWrap::assign('homonyms', loadSetHomonyms($lexemIds));
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::addCss('jqueryui', 'select2');
@@ -239,10 +197,18 @@ SmartyWrap::displayAdminPage('admin/definitionEdit.tpl');
 /**
  * Load all lexems having the same form as one of the given lexems, but exclude the given lexems.
  **/
-function loadSetHomonyms($lexems) {
-  if (count($lexems) == 0) {
+function loadSetHomonyms($lexemIds) {
+  if (count($lexemIds) == 0) {
     return array();
   }
+
+  $lexems = [];
+  foreach ($lexemIds as $id) {
+    if (!StringUtil::startsWith($id, '@')) {
+      $lexems[] = Lexem::get_by_id($id);
+    }
+  }
+
   $names = util_objectProperty($lexems, 'formNoAccent');
   $ids = util_objectProperty($lexems, 'id');
   return Model::factory('Lexem')->where_in('formNoAccent', $names)->where_not_in('id', $ids)->find_many();

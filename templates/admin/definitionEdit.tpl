@@ -12,10 +12,10 @@
 {/block}
 
 {block name=content}
-  <form action="definitionEdit.php{if $definitionId}?definitionId={$definitionId}{/if}" method="post">
+  <form action="definitionEdit.php" method="post">
     <input type="hidden" name="definitionId" value="{$def->id}"/>
     {if $isOCR}
-      <input type="hidden" name="ocr" value="1"/>
+      <input type="hidden" name="isOCR" value="1"/>
     {/if}
     {if $homonyms}
       <img src="{$imgRoot}/icons/exclamation.png" alt="warning"/>

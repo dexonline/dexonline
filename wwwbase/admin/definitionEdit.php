@@ -38,7 +38,7 @@ if (!$definitionId) {
   util_redirect("definitionEdit.php?definitionId={$d->id}&isOCR=1");
 }
 
-if (!($definition = Definition::get_by_id($definitionId))) {
+if (!($d = Definition::get_by_id($definitionId))) {
   FlashMessage::add("Nu există nicio definiție cu ID-ul {$definitionId}.");
   util_redirect("index.php");
 }
@@ -56,28 +56,28 @@ $preserveCommentUser = util_getRequestParameter('preserveCommentUser');
 $acceptButton = util_getRequestParameter('but_accept');
 $nextOcrBut = util_getRequestParameter('but_next_ocr');
 
-$comment = Model::factory('Comment')->where('definitionId', $definition->id)->where('status', Definition::ST_ACTIVE)->find_one();
+$comment = Model::factory('Comment')->where('definitionId', $d->id)->where('status', Definition::ST_ACTIVE)->find_one();
 $commentUser = $comment ? User::get_by_id($comment->userId) : null;
 
 if ($acceptButton || $nextOcrBut) {
   $errors = [];
-  $definition->internalRep = AdminStringUtil::internalizeDefinition($internalRep, $sourceId);
-  $definition->htmlRep = AdminStringUtil::htmlize($definition->internalRep, $sourceId, $errors);
+  $d->internalRep = AdminStringUtil::internalizeDefinition($internalRep, $sourceId);
+  $d->htmlRep = AdminStringUtil::htmlize($d->internalRep, $sourceId, $errors);
   foreach ($errors as $error) {
     FlashMessage::add($error);
   }
 
-  $definition->status = (int)$status;
-  $definition->sourceId = (int)$sourceId;
-  $definition->similarSource = $similarSource;
-  $definition->lexicon = AdminStringUtil::extractLexicon($definition);
+  $d->status = (int)$status;
+  $d->sourceId = (int)$sourceId;
+  $d->similarSource = $similarSource;
+  $d->lexicon = AdminStringUtil::extractLexicon($d);
 
   if ($commentContents) {
     if (!$comment) {
       // Comment added
       $comment = Model::factory('Comment')->create();
       $comment->status = Definition::ST_ACTIVE;
-      $comment->definitionId = $definition->id;
+      $comment->definitionId = $d->id;
     }
     $newContents = AdminStringUtil::internalizeDefinition($commentContents, $sourceId);
     if ($newContents != $comment->contents) {
@@ -97,7 +97,7 @@ if ($acceptButton || $nextOcrBut) {
   if (!FlashMessage::hasErrors()) {
     // $nextOcrBut also changes the status to active.
     if ($nextOcrBut) {
-      $definition->status = Definition::ST_ACTIVE;
+      $d->status = Definition::ST_ACTIVE;
     }
 
     // Save the new lexems, load the rest.
@@ -118,16 +118,16 @@ if ($acceptButton || $nextOcrBut) {
     }
 
     // Save the definition and delete the typos associated with it.
-    $definition->save();
-    db_execute("delete from Typo where definitionId = {$definition->id}");
+    $d->save();
+    db_execute("delete from Typo where definitionId = {$d->id}");
     if ($comment) {
       $comment->save();
     }
 
-    if ($definition->status == Definition::ST_DELETED) {
+    if ($d->status == Definition::ST_DELETED) {
       // If by deleting this definition, any associated lexems become unassociated, delete them
-      $ldms = LexemDefinitionMap::get_all_by_definitionId($definition->id);
-      db_execute("delete from LexemDefinitionMap where definitionId = {$definition->id}");
+      $ldms = LexemDefinitionMap::get_all_by_definitionId($d->id);
+      db_execute("delete from LexemDefinitionMap where definitionId = {$d->id}");
 
       foreach ($ldms as $ldm) {
         $l = Lexem::get_by_id($ldm->lexemId);
@@ -138,19 +138,19 @@ if ($acceptButton || $nextOcrBut) {
       }
     } else {
       // Save the associations.
-      db_execute("delete from LexemDefinitionMap where definitionId = {$definition->id}");
+      db_execute("delete from LexemDefinitionMap where definitionId = {$d->id}");
       foreach ($lexems as $l) {
-        LexemDefinitionMap::associate($l->id, $definition->id);
+        LexemDefinitionMap::associate($l->id, $d->id);
       }
     }
     
-    log_userLog("Edited definition {$definition->id} ({$definition->lexicon})");
+    log_userLog("Edited definition {$d->id} ({$d->lexicon})");
   
     if ($nextOcrBut) {
       // cause the next OCR definition to load
       util_redirect('definitionEdit.php');
     } else {
-      $url = "definitionEdit.php?definitionId={$definition->id}";
+      $url = "definitionEdit.php?definitionId={$d->id}";
       if ($isOCR) {
         // carry this around so the user can click "Save" any number of times, then "next OCR".
         $url .= "&isOCR=1";
@@ -163,14 +163,12 @@ if ($acceptButton || $nextOcrBut) {
 } else {
   // First time loading this page -- not a save.
   RecentLink::createOrUpdate(
-    sprintf('Definiție: %s (%s)',
-            $definition->lexicon,
-            $definition->getSource()->shortName));
+    sprintf('Definiție: %s (%s)', $d->lexicon, $d->getSource()->shortName));
 
   $lexems = Model::factory('Lexem')
           ->select('Lexem.*')
           ->join('LexemDefinitionMap', 'Lexem.id = lexemId', 'ldm')
-          ->where('ldm.definitionId', $definition->id)
+          ->where('ldm.definitionId', $d->id)
           ->order_by_asc('formNoAccent')
           ->find_many();
   $lexemIds = util_objectProperty($lexems, 'id');
@@ -178,14 +176,14 @@ if ($acceptButton || $nextOcrBut) {
 
 // Either there were errors saving, or this is the first time loading the page.
 SmartyWrap::assign('isOCR', $isOCR);
-SmartyWrap::assign('def', $definition);
-SmartyWrap::assign('source', $definition->getSource());
-SmartyWrap::assign('sim', SimilarRecord::create($definition, $lexemIds));
-SmartyWrap::assign('user', User::get_by_id($definition->userId));
+SmartyWrap::assign('def', $d);
+SmartyWrap::assign('source', $d->getSource());
+SmartyWrap::assign('sim', SimilarRecord::create($d, $lexemIds));
+SmartyWrap::assign('user', User::get_by_id($d->userId));
 SmartyWrap::assign('comment', $comment);
 SmartyWrap::assign('commentUser', $commentUser);
 SmartyWrap::assign('lexemIds', $lexemIds);
-SmartyWrap::assign('typos', Typo::get_all_by_definitionId($definition->id));
+SmartyWrap::assign('typos', Typo::get_all_by_definitionId($d->id));
 SmartyWrap::assign('homonyms', loadSetHomonyms($lexemIds));
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());

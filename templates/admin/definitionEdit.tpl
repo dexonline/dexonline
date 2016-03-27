@@ -14,9 +14,7 @@
 {block name=content}
   <form action="definitionEdit.php" method="post">
     <input type="hidden" name="definitionId" value="{$def->id}"/>
-    {if $isOCR}
-      <input type="hidden" name="isOCR" value="1"/>
-    {/if}
+    <input type="hidden" name="isOCR" value="{$isOCR}"/>
     {if $homonyms}
       <img src="{$imgRoot}/icons/exclamation.png" alt="warning"/>
       Omonim(e):
@@ -35,8 +33,7 @@
         <td>
           <input id="lexemIds" name="lexemIds" value="{','|implode:$lexemIds}" type="text"/>
 
-          <span class="tooltip2" title="Este bine să asociați fiecare definiție cu toate lexemele relevante. Lexemele nu vor fi salvate până nu apăsați
-                                        unul din butoanele Acceptă sau Activează.">&nbsp;</span>
+          <span class="tooltip2" title="Este bine să asociați fiecare definiție cu toate lexemele relevante.">&nbsp;</span>
 
         </td>
       </tr>
@@ -111,37 +108,25 @@
         </td>
       </tr>
       <tr>
-        <td colspan="3" class="buttonRow">
-          <input type="button" id="refreshButton" value="Reafișează"/>
-          <span class="tooltip2" title="Tipărește definiția și comentariul cu modificările făcute. Modificările nu sunt încă salvate.">&nbsp;</span>
-          &nbsp;&nbsp;
-          <input type="submit" name="but_accept" value="Acceptă"/>
-          &nbsp;&nbsp;
-          <input type="submit" name="but_move" value="Activează"/>
+        <td></td>
+        <td>
+          <div class="buttonRow">
+            <input type="button" id="refreshButton" value="Reafișează"/>
+            <span class="tooltip2" title="Tipărește definiția și comentariul cu modificările făcute. Modificările nu sunt încă salvate.">&nbsp;</span>
+            <input type="submit" name="but_accept" value="Salvează"/>
+            {if $isOCR}
+              <input type="submit" name="but_next_ocr" value="Salvează și preia următoarea definiție OCR"/>
+            {/if}
 
-          <span class="tooltip2" title="Acceptă modificările făcute și, în plus, trece definiția în starea activă. Butonul este echivalent cu trecerea
-                                        manuală a definiției în starea activă și este oferit ca o scurtătură.">&nbsp;</span>
-
-          <div id="tinymceButtonWrapper">
-            <button id="tinymceToggleButton" type="button" data-other-text="ascunde TinyMCE" href="#"
-                    title="TinyMCE este un editor vizual (cu butoane de bold, italic etc.).">
-              arată TinyMCE
-            </button>
+            <div id="tinymceButtonWrapper">
+              <button id="tinymceToggleButton" type="button" data-other-text="ascunde TinyMCE" href="#"
+                      title="TinyMCE este un editor vizual (cu butoane de bold, italic etc.).">
+                arată TinyMCE
+              </button>
+            </div>
           </div>
         </td>
       </tr>
-      {if $isOCR}
-        <tr>
-          <td colspan="3" class="buttonRow">
-            <input type="submit" name="but_next_ocr" value="Salvează și preia următoarea definiție OCR"/>
-          </td>
-        </tr>
-      {else}
-        <tr>
-          <td colspan="3" class="buttonRow">
-          </td>
-        </tr>
-      {/if}
     </table>
   </form>
 

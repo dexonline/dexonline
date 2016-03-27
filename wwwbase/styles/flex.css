@@ -1,3 +1,5 @@
+@import "common.css";
+
 abbr {
   border-bottom: 1px dotted #aaa;
   cursor: help;
@@ -47,8 +49,8 @@ table {
   vertical-align: top;
 }
 
-.editableFields tr .buttonRow {
-  text-align: center;
+.buttonRow {
+  padding: 10px 0px;
 }
 
 .discreet {

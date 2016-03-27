@@ -54,13 +54,12 @@ $commentContents = util_getRequestParameter('commentContents');
 $preserveCommentUser = util_getRequestParameter('preserveCommentUser');
 
 $acceptButton = util_getRequestParameter('but_accept');
-$moveButton = util_getRequestParameter('but_move');
 $nextOcrBut = util_getRequestParameter('but_next_ocr');
 
 $comment = Model::factory('Comment')->where('definitionId', $definition->id)->where('status', Definition::ST_ACTIVE)->find_one();
 $commentUser = $comment ? User::get_by_id($comment->userId) : null;
 
-if ($acceptButton || $moveButton || $nextOcrBut) {
+if ($acceptButton || $nextOcrBut) {
   $errors = [];
   $definition->internalRep = AdminStringUtil::internalizeDefinition($internalRep, $sourceId);
   $definition->htmlRep = AdminStringUtil::htmlize($definition->internalRep, $sourceId, $errors);
@@ -96,8 +95,8 @@ if ($acceptButton || $moveButton || $nextOcrBut) {
   }
 
   if (!FlashMessage::hasErrors()) {
-    // $moveButton and $nextOcrBut also change the status to active.
-    if ($moveButton || $nextOcrBut) {
+    // $nextOcrBut also changes the status to active.
+    if ($nextOcrBut) {
       $definition->status = Definition::ST_ACTIVE;
     }
 

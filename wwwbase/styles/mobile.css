@@ -109,6 +109,10 @@ table {
   float: right;
 }
 
+#wotdImage img {
+  max-width: 100%;
+}
+
 #likes {
   width: 100%; /*320px;*/
   height: 10%; /*30px;*/

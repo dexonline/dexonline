@@ -19,7 +19,7 @@ if (!$definitionId) {
   $def = AdminStringUtil::internalizeDefinition($ocr->ocrText, $sourceId, $ambiguousMatches);
 
   $d = Model::factory('Definition')->create();
-  $d->status = Definition::ST_PENDING;
+  $d->status = Definition::ST_ACTIVE;
   $d->userId = session_getUserId();
   $d->sourceId = $sourceId;
   $d->similarSource = 0;
@@ -95,11 +95,6 @@ if ($acceptButton || $nextOcrBut) {
   }
 
   if (!FlashMessage::hasErrors()) {
-    // $nextOcrBut also changes the status to active.
-    if ($nextOcrBut) {
-      $d->status = Definition::ST_ACTIVE;
-    }
-
     // Save the new lexems, load the rest.
     $lexems = [];
     foreach ($lexemIds as $lexemId) {

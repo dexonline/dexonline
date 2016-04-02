@@ -240,9 +240,9 @@ url = https://dexonline.ro/static/
 
 ; the remaining settings are only necessary for FTP upload
 host = static.dexonline.ro
-user = FTP_user
-password = FTP_pass
-path = FTP_path
+user = ""
+password = ""
+path = ""
 timeout = 30
 
 [openid]

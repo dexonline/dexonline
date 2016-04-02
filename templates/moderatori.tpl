@@ -27,7 +27,6 @@
           <td>
 
           </td>
-          </td>
           {section name="bit" loop=$smarty.const.NUM_PRIVILEGES}
             {math equation="1 << x" x=$smarty.section.bit.index assign="mask"}
             <td>

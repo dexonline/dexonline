@@ -9,7 +9,7 @@
 {block name=content}
   {foreach from=$lexems item=l key=row_id}
     {include file="bits/lexemLink.tpl" lexem=$l}
-    <ul><li>{$l->comment|escape|regex_replace:'/]](.)/':']]\1</li><li>'}</li></ul>
+    <ul><li>{$l->comment|escape|regex_replace:'/]]\r?\n(?!$)/':']]</li><li>'}</li></ul>
     <br>
   {/foreach}    
 {/block}

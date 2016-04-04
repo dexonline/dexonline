@@ -59,11 +59,12 @@ class LexemModel extends BaseObject implements DatedObject {
 
   function getSources() {
     if ($this->sources === null) {
-      $this->sources = Model::factory('Source')
-        ->select('Source.*')
-        ->join('LexemSource', 'Source.id = sourceId')
-        ->where('LexemSource.lexemModelId', $this->id)
-        ->find_many();
+      // Load the Sources from the in-memory LexemSource records.
+      // These could be fresher than the database ones (see lexemEdit.php).
+      $this->sources = [];
+      foreach ($this->getLexemSources() as $ls) {
+        $this->sources[] = Source::get_by_id($ls->sourceId);
+      }
     }
     return $this->sources;
   }
@@ -82,7 +83,7 @@ class LexemModel extends BaseObject implements DatedObject {
 
   function getSourceIds() {
     $results = array();
-    foreach($this->getSources() as $s) {
+    foreach ($this->getSources() as $s) {
       $results[] = $s->id;
     }
     return $results;

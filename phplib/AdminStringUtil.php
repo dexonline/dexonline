@@ -141,7 +141,7 @@ class AdminStringUtil {
     if ($preserveAccent) {
       $text = str_replace("'", "*****", $text);
     }
-    $text = self::process($text, array('self::shorthandToUnicode', 'trim', 'strip_tags'));
+    $text = self::process($text, array('self::shorthandToUnicode', 'trim', 'strip_tags', 'self::unixNewlines'));
     if ($preserveAccent) {
       $text = str_replace("*****", "'", $text);
     }
@@ -316,6 +316,11 @@ class AdminStringUtil {
     $s = preg_replace('/\\\\(.)/', '[[[$1]]]', $s);
     $s = str_replace(StringUtil::$LETTERS['shorthand'], StringUtil::$LETTERS['unicode'], $s);
     $s = preg_replace('/\\[\\[\\[(.)\\]\\]\\]/', '\\\\$1', $s);
+    return $s;
+  }
+
+  static function unixNewlines($s) {
+    $s = str_replace("\r\n", "\n", $s);
     return $s;
   }
 

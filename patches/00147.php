@@ -27,15 +27,16 @@ foreach ($defs as $d) {
                ->count();
 
     if ($otherDefs) {
-      // print "Skipping {$l->form} because it has {$otherDefs} definitions from other sources.\n";
+      print "Skipping {$l->form} because it has {$otherDefs} definitions from other sources.\n";
     } else {
       $lms = $l->getLexemModels();
 
       $changes = false;
       // Capitalize lexems for the I3 and T1 models
-      if ((count($lms) == 1) &&
+      if ((count($lms) <= 1) &&
           (strpos($l->form, "'") === false) &&
-          (($lms[0]->modelType == 'T') ||
+          ((count($lms) == 0) ||
+           ($lms[0]->modelType == 'T') ||
            (($lms[0]->modelType == 'I') && ($lms[0]->modelNumber == '3')))) {
         $form = mb_convert_case($l->form, MB_CASE_TITLE);
         if ($form != $l->form) {
@@ -46,12 +47,13 @@ foreach ($defs as $d) {
       }
 
       // Replace T1 models with I3 models
-      if ((count($lms) == 1) && ($lms[0]->modelType == 'T')) {
+      if ((count($lms) == 0) ||
+          ((count($lms) == 1) && ($lms[0]->modelType == 'T'))) {
         $changes = true;
       }
 
       if ($changes) {
-        change($l);
+        change($l, $lms);
       }
     }
   }
@@ -65,7 +67,15 @@ foreach ($defs as $d) {
 
 /**************************************************************************/
 
-function change(&$l) {
+function change(&$l, $lms) {
+  $orig = Lexem::get_by_id($l->id);
+
+  printf("Migrating %s, %d models:", $orig->form, count($lms));
+  foreach ($lms as $lm) {
+    print " {$lm}";
+  }
+  print "\n";
+
   // delete old LexemModels
   foreach ($lms as $lm) {
     $lm->delete();

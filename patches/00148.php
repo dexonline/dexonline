@@ -19,10 +19,7 @@ $lexems = Model::factory('Lexem')
         ->order_by_asc('l.form')
         ->find_many();
 $n = count($lexems);
-
-foreach ($lexems as $l) {
-  print "{$l->form}\n";
-}
+$i = 0;
 
 foreach ($lexems as $l) {
   $i++;

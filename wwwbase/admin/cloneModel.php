@@ -29,6 +29,8 @@ if ($cloneButton) {
     $cloneModel = FlexModel::create($modelType, $newModelNumber, "Clonat după $modelType$modelNumber", $model->exponent);
     $cloneModel->save();
 
+    Log::notice("Cloning model {$model->id} ({$model}) as {$cloneModel->id} ({$cloneModel})");
+
     // Clone the model descriptions
     $mds = Model::factory('ModelDescription')->where('modelId', $model->id)->order_by_asc('inflectionId')
       ->order_by_asc('variant')->order_by_asc('applOrder')->find_many();

@@ -501,6 +501,7 @@ class Lexem extends BaseObject implements DatedObject {
       $l->variantOfId = null;
       $l->save();
     }
+    Log::warning("Deleted lexem {$this->id} ({$this->formNoAccent})");
     parent::delete();
   }
 

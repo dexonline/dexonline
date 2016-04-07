@@ -16,12 +16,14 @@ switch ($oper) {
     $line->imgXCoord = util_getRequestParameter('xImg');
     $line->imgYCoord = util_getRequestParameter('yImg');
     $line->save();
+    Log::info("Added visual tag {$line->id} ({$line->label}) for image {$line->imageId}");
     break;
 
   case 'del':
     $line = VisualTag::get_by_id($id);
     
     if(!empty($line)){
+      Log::notice("Deleted visual tag {$line->id} ({$line->label}) for image {$line->imageId}");
       $line->delete();
     }   
     break;
@@ -36,6 +38,7 @@ switch ($oper) {
       $line->imgYCoord = util_getRequestParameter('imgY');
       $line->label = util_getRequestParameter('label');
       $line->save();
+      Log::notice("Edited visual tag {$line->id} ({$line->label}) for image {$line->imageId}");
   	}
     break;
 

@@ -22,7 +22,7 @@ if (is_null($status)) {
 
   $d = Definition::get_by_id($defId);
   
-  Log::notice("Added WotD, ID = {$wotd->id}, definition ID = {$d->id}, lexicon = {$d->lexicon}");
+  Log::info("Added WotD, ID = {$wotd->id}, definition ID = {$d->id}, lexicon = {$d->lexicon}");
 }
 
 $where_to_go = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/';

@@ -114,6 +114,8 @@ class wotdSave{
     $wotdr->refType = $this->refType ? $this->refType : 'Definition';
     $wotdr->wotdId = $wotd->id;
     $wotdr->save();
+    Log::notice('Saved WotD id=%s, definitionId=%s, date=%s, image=%s, description=[%s]',
+                $wotd->id, $this->refId, $wotd->displayDate, $wotd->image, $wotd->description);
     return '';
   }
 
@@ -125,6 +127,8 @@ class wotdSave{
   protected function doDelete() {
     $wotd = WordOfTheDay::get_by_id($this->id);
     if ($wotd) {
+      Log::warning('Deleted WotD id=%s date=%s, image=%s, description=[%s]',
+                   $wotd->id, $wotd->displayDate, $wotd->image, $wotd->description);
       $wotd->delete();
       return '';
     } else {

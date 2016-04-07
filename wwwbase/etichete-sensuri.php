@@ -41,6 +41,7 @@ if ($saveButton) {
   foreach ($idMap as $id => $ignored) {
     MeaningTag::delete_all_by_id($id);
   }
+  Log::notice('Saved tag tree');
   FlashMessage::add('Am salvat etichetele.', 'success');
   util_redirect('etichete-sensuri');
 }

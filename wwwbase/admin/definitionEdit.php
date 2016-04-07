@@ -34,6 +34,8 @@ if (!$definitionId) {
   $ocr->status = 'published';
   $ocr->save();
 
+  Log::notice("Imported definition {$d->id} ({$d->lexicon}) from OCR {$ocr->id}");
+
   // Redirect to the new Definition.
   util_redirect("definitionEdit.php?definitionId={$d->id}&isOCR=1");
 }
@@ -128,6 +130,7 @@ if ($acceptButton || $nextOcrBut) {
         $l = Lexem::get_by_id($ldm->lexemId);
         $otherLdms = LexemDefinitionMap::get_all_by_lexemId($l->id);
         if (!$l->isLoc() && !count($otherLdms)) {
+          Log::warning("Deleting unassociated lexem {$l->id} ({$l->formNoAccent})");
           $l->delete();
         }
       }

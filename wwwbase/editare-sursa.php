@@ -28,6 +28,7 @@ if ($submitButton) {
     }
     $src->updatePercentComplete();
     $src->save();
+    Log::notice("Added/saved source {$src->id} ({$src->shortName})");
     FlashMessage::add('Am salvat modificările.', 'success');
     util_redirect("editare-sursa?id={$src->id}");
   }

@@ -41,6 +41,7 @@ foreach ($defs as $def) {
 }
 
 if ($realRun) {
+  Log::notice("Replaced [{$search}] with [{$replace}]");
   util_redirect("index.php");
 }
 

@@ -11,7 +11,13 @@ if ($submitButton) {
   foreach ($userIds as $userId) {
     $checkboxes = util_getRequestParameterWithDefault("priv_$userId", array());
     $user = User::get_by_id($userId);
-    $user->moderator = array_sum($checkboxes);
+    $newPerm = array_sum($checkboxes);
+
+    if ($newPerm != $user->moderator) {
+      Log::warning("Changed permissions for user {$user->id} ({$user->nick}) from {$user->moderator} to {$newPerm}");
+    }
+
+    $user->moderator = $newPerm;
     $user->save();
   }
 
@@ -20,6 +26,7 @@ if ($submitButton) {
     if ($user) {
       $user->moderator = array_sum($newCheckboxes);
       $user->save();
+      Log::warning("Granted permissions {$user->moderator} to user {$user->id} ({$user->nick})");
     } else {
       FlashMessage::add("Numele de utilizator „{$newNick}” nu există");
       util_redirect("moderatori");

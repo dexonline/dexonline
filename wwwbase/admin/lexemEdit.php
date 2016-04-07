@@ -262,7 +262,7 @@ function validate($lexem, $original, $variantIds, $meanings) {
     }
     $variantMeanings = Model::factory('Meaning')->where('lexemId', $variant->id)->find_many();
     if (!goodForVariant($variantMeanings)) {
-      FlashMessage::add("\"{$variant}\" are deja propriile lui sensuri.");
+      FlashMessage::add("'{$variant}' are deja propriile lui sensuri.");
     }
   }
 
@@ -347,12 +347,14 @@ function handleLexemActions() {
   $associateDefinitionId = util_getRequestParameter('associateDefinitionId');
   if ($associateDefinitionId) {
     LexemDefinitionMap::associate($lexem->id, $associateDefinitionId);
+    Log::info("Associated lexem {$lexem->id} ({$lexem->formNoAccent}) to definition {$associateDefinitionId}");
     util_redirect("lexemEdit.php?lexemId={$lexem->id}");
   }
 
   $dissociateDefinitionId = util_getRequestParameter('dissociateDefinitionId');
   if ($dissociateDefinitionId) {
     LexemDefinitionMap::dissociate($lexem->id, $dissociateDefinitionId);
+    Log::info("Dissociated lexem {$lexem->id} ({$lexem->formNoAccent}) from definition {$dissociateDefinitionId}");
     util_redirect("lexemEdit.php?lexemId={$lexem->id}");
   }
 
@@ -371,6 +373,7 @@ function handleLexemActions() {
     $def->save();
 
     LexemDefinitionMap::associate($lexem->id, $def->id);
+    Log::info("Created mini definition {$def->id} for lexem {$lexem->id} ({$lexem->formNoAccent})");
 
     util_redirect("lexemEdit.php?lexemId={$lexem->id}");
   }
@@ -442,6 +445,7 @@ function handleLexemActions() {
       $vt->save();
     }
 
+    Log::notice("Merged lexem {$lexem->id} ({$lexem->formNoAccent}) into lexem {$other->id}");
     $lexem->delete();
     util_redirect("lexemEdit.php?lexemId={$other->id}");
   }

@@ -23,6 +23,7 @@ if ($submitAddButton) {
   $mt->description = $description;
   if (validateAdd($mt)) {
     $mt->save();
+    Log::notice("Created model type {$mt->code} ({$mt->description})");
     FlashMessage::add("Am adăugat tipul de model '{$mt->code}'.", 'success');
     util_redirect('tipuri-modele.php');
   } else {
@@ -36,6 +37,7 @@ if ($submitEditButton) {
   $mt->description = $description;
   if (validateEdit($mt)) {
     $mt->save();
+    Log::notice("Changed description for model type {$mt->code} ({$mt->description})");    
     FlashMessage::add('Am salvat descrierea.', 'success');
     util_redirect('tipuri-modele.php');
   } else {
@@ -52,6 +54,7 @@ if ($deleteId) {
   $mt = ModelType::get_by_id($deleteId);
   if (validateDelete($mt)) {
     FlashMessage::add("Am șters tipul de model '{$mt->code}'.", 'success');
+    Log::notice("Deleted model type {$mt->code} ({$mt->description})");    
     $mt->delete();
     util_redirect('tipuri-modele.php');
   }

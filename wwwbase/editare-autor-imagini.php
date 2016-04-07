@@ -16,6 +16,7 @@ if ($submitButton) {
 
   if (validate($artist)) {
     $artist->save();
+    Log::info("Added/saved author {$artist->id} ({$artist->name})");
     FlashMessage::add('Am salvat modificările.', 'success');
     util_redirect('autori-imagini.php');
   }

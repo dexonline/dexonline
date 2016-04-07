@@ -173,11 +173,13 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
     $lm->isLoc = $isLoc[$i];
     $lm->generateInflectedFormMap();
 
-    $lexemSources = array();
-    foreach (explode(',', $sourceIds[$i]) as $sourceId) {
-      $ls = Model::factory('LexemSource')->create();
-      $ls->sourceId = $sourceId;
-      $lexemSources[] = $ls;
+    $lexemSources = [];
+    if ($sourceIds[$i]) {
+      foreach (explode(',', $sourceIds[$i]) as $sourceId) {
+        $ls = Model::factory('LexemSource')->create();
+        $ls->sourceId = $sourceId;
+        $lexemSources[] = $ls;
+      }
     }
     $lm->setLexemSources($lexemSources);
 

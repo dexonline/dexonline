@@ -73,7 +73,7 @@ class LexemModel extends BaseObject implements DatedObject {
     if ($this->sourceNames === null) {
       $sources = $this->getSources();
       $results = array();
-      foreach($sources as $s) {
+      foreach ($sources as $s) {
         $results[] = $s->shortName;
       }
       $this->sourceNames = implode(', ', $results);

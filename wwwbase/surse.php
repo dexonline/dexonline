@@ -12,7 +12,8 @@ if ($submitButton) {
     $src->displayOrder = $order++;
     $src->save();
   }
-  FlashMessage::add('Ordinea a fost salvată.', 'info');
+  Log::info('Reordered sources');
+  FlashMessage::add('Am salvat ordinea.', 'success');
   util_redirect('surse');
 }
 

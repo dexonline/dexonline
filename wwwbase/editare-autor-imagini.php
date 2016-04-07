@@ -16,7 +16,8 @@ if ($submitButton) {
 
   if (validate($artist)) {
     $artist->save();
-    FlashMessage::add('Modificările au fost salvate', 'info');
+    Log::info("Added/saved author {$artist->id} ({$artist->name})");
+    FlashMessage::add('Am salvat modificările.', 'success');
     util_redirect('autori-imagini.php');
   }
 }
@@ -39,7 +40,7 @@ function validate($artist) {
     FlashMessage::add('Creditele nu pot fi vide.');
   }
 
-  return !FlashMessage::hasMessage();
+  return !FlashMessage::hasErrors();
 }
 
 ?>

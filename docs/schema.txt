@@ -325,3 +325,34 @@ textXCoord - The X coordinate for the centre of the tag text.
 textYCoord - The Y coordinate for the centre of the tag text.
 imgXCoord - The X coordinate for the spot where the tag indicates.
 imgYCoord - The Y coordinate for the spot where the tag indicates.
+
+
+The OCRLot table
+----------------
+
+Stores information about uploaded OCR batches.
+
+id - Unique numeric ID.
+sourceId - Source of the OCR data. Matches Source.id.
+userId - Person uploading the data. Matches User.id.
+fileName, fileSize - Information about the original file.
+status - Initially "started", then updated to "done" if the upload completes
+         normally.
+startedAt - Date/time at the beginning of the upload
+lastModified - Date/time upon completion.
+
+The OCR table
+-------------
+
+Stores definitions extracted from uploaded OCR batches.
+
+id - Unique numeric ID.
+lotId - OCR lot containing this record. Matches OCRLot.id.
+sourceId - Source of the OCR data (duplicates OCRLot.sourceId).
+userId - Person uploading the data (duplicates OCRLot.userId).
+ocrText - Definition text.
+status - Initially "raw", updated to "published" when an editor picks it up.
+editorId - Editor user, either scheduled (when this field is preassigned) or
+           occasional (when this field is NULL initially).
+definitionId - Corresponding definition ID (NULL if not yet ported).
+dateAdded, dateModified - timestamps for insert / last update.

@@ -4,13 +4,13 @@ ini_set('max_execution_time', '3600');
 ini_set('memory_limit', '256M');
 assert_options(ASSERT_BAIL, 1);
 
-log_scriptLog('Running rebuildFullTextIndex.php.');
+Log::notice('started');
 if (!Lock::acquire(LOCK_FULL_TEXT_INDEX)) {
   OS::errorAndExit('Lock already exists!');
   exit;
 }
 
-log_scriptLog("Clearing table FullTextIndex.");
+Log::info("Clearing table FullTextIndex.");
 db_execute('truncate table FullTextIndex');
 
 $stopWordForms = array_flip(db_getArray(
@@ -27,7 +27,7 @@ $defsSeen = 0;
 $indexSize = 0;
 $fileName = tempnam(Config::get('global.tempDir'), 'index_');
 $handle = fopen($fileName, 'w');
-log_scriptLog("Writing index to file $fileName.");
+Log::info("Writing index to file $fileName.");
 DebugInfo::disable();
 
 foreach ($dbResult as $dbRow) {
@@ -53,26 +53,25 @@ foreach ($dbResult as $dbRow) {
   if (++$defsSeen % 10000 == 0) {
     $runTime = DebugInfo::getRunningTimeInMillis() / 1000;
     $speed = round($defsSeen / $runTime);
-    log_scriptLog("$defsSeen of $numDefs definitions indexed ($speed defs/sec). " .
+    Log::info("$defsSeen of $numDefs definitions indexed ($speed defs/sec). " .
                   "Word map has " . count($ifMap) . " entries. " .
                   "Memory used: " . round(memory_get_usage() / 1048576, 1) . " MB.");
   }
 }
 
 fclose($handle);
-log_scriptLog("$defsSeen of $numDefs definitions indexed.");
-log_scriptLog("Index size: $indexSize entries.");
+Log::info("$defsSeen of $numDefs definitions indexed.");
+Log::info("Index size: $indexSize entries.");
 
 OS::executeAndAssert("chmod 666 $fileName");
-log_scriptLog("Importing file $fileName into table FullTextIndex");
+Log::info("Importing file $fileName into table FullTextIndex");
 db_executeFromOS("load data local infile \"$fileName\" into table FullTextIndex");
 util_deleteFile($fileName);
 
 if (!Lock::release(LOCK_FULL_TEXT_INDEX)) {
-  log_scriptLog('WARNING: could not release lock!');
+  Log::warning('WARNING: could not release lock!');
 }
-log_scriptLog('rebuildFullTextIndex.php completed successfully ' .
-              '(against all odds)');
+Log::notice('finished');
 
 /***************************************************************************/
 

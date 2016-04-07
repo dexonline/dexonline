@@ -42,8 +42,6 @@ foreach ($ifs as $i => $if) {
                        'recommended' => $mds[$i]->recommended];
 }
 
-$errorMessage = [];
-
 if (!$previewButton && !$confirmButton) {
   // just viewing the page
   RecentLink::createOrUpdate("Editare model: {$m}");
@@ -75,7 +73,7 @@ if (!$previewButton && !$confirmButton) {
     // disallow duplicate model numbers
     $dup = FlexModel::loadCanonicalByTypeNumber($nm->modelType, $nm->number);
     if ($dup) {
-      $errorMessage[] = "Modelul {$nm} există deja.";
+      FlashMessage::add("Modelul {$nm} există deja.");
     }
   }
 
@@ -93,7 +91,9 @@ if (!$previewButton && !$confirmButton) {
         if ($transforms) {
           $regenTransforms[$infl->id][] = $transforms;
         } else {
-          $errorMessage[] = "Nu pot extrage transformările între {$nm->exponent} și " . htmlentities($tuple['form']) . ".";
+          FlashMessage::add(sprintf('Nu pot extrage transformările între %s și %s.',
+                                    $nm->exponent,
+                                    htmlentities($tuple['form'])));
         }
       }
     }
@@ -104,6 +104,7 @@ if (!$previewButton && !$confirmButton) {
   $limit = ($shortList && !$confirmButton) ? SHORT_LIST_LIMIT : 0;
   $lexemModels = LexemModel::loadByCanonicalModel($m->modelType, $m->number, $limit);
   $regenForms = [];
+  $errorCount = 0; // Do not report thousands of similar errors.
   foreach ($lexemModels as $lm) {
     $l = $lm->getLexem();
     $regenRow = [];
@@ -119,8 +120,10 @@ if (!$previewButton && !$confirmButton) {
         }
         $result = FlexStringUtil::applyTransforms($l->form, $transforms, $accentShift, $accentedVowel);
         $regenRow[$inflId][] = $result;
-        if (!$result && count($errorMessage) <= 20) {
-          $errorMessage[] = "Nu pot calcula una din formele lexemului " . htmlentities($l->form) . ".";
+        if (!$result && ($errorCount < 3)) {
+          FlashMessage::add(sprintf('Nu pot calcula una din formele lexemului %s.',
+                                    htmlentities($l->form)));
+          $errorCount++;
         }
       }
     }
@@ -134,8 +137,8 @@ if (!$previewButton && !$confirmButton) {
       $p->modelNumber = $npm->adjectiveModel;
       $ifs = $p->generateInflectedFormMap();
       if (!is_array($ifs)) {
-        $errorMessage[] = sprintf('Nu pot declina participiul "%s" conform modelului A%s.',
-                                  htmlentities($p->getLexem()->form), $npm->adjectiveModel);
+        FlashMessage::add(sprintf('Nu pot declina participiul "%s" conform modelului A%s.',
+                                  htmlentities($p->getLexem()->form), $npm->adjectiveModel));
       }
     }
 
@@ -143,7 +146,10 @@ if (!$previewButton && !$confirmButton) {
   }
 
   if ($confirmButton) {
+    Log::notice("Saving model {$m->id} ({$m}), this could take a while");
+    
     // Save the transforms and model descriptions
+    Log::debug('Saving transforms and model descriptions');
     foreach ($regenTransforms as $inflId => $transformMatrix) {
       ModelDescription::delete_all_by_modelId_inflectionId($m->id, $inflId);
       foreach ($transformMatrix as $variant => $transforms) {
@@ -175,6 +181,7 @@ if (!$previewButton && !$confirmButton) {
 
     // Set the isLoc and recommended bits appropriately.
     // Do this separately as the loop above only includes modified forms.
+    Log::debug('Saving isLoc and recommended bits');
     foreach ($nforms as $inflId => $tupleArray) {
       foreach ($tupleArray as $variant => $tuple) {
         $md = ModelDescription::get_by_modelId_inflectionId_variant_applOrder(
@@ -186,6 +193,7 @@ if (!$previewButton && !$confirmButton) {
     }
 
     // Regenerate the affected inflections for every lexem
+    Log::debug('Regenerating modified inflections');
     if (count($regenTransforms)) {
       $fileName = tempnam('/tmp', 'editModel_');
       $fp = fopen($fileName, 'w');
@@ -215,6 +223,7 @@ if (!$previewButton && !$confirmButton) {
     }
 
     // Propagate the recommended bit from ModelDescription to InflectedForm
+    Log::debug('Propagating the "recommended" bit from ModelDescriptions to InflectedForms');
     $q = sprintf("
       update InflectedForm i
       join LexemModel lm on i.lexemModelId = lm.id
@@ -230,6 +239,7 @@ if (!$previewButton && !$confirmButton) {
 
     // Deal with changes in the model number
     if ($m->number != $nm->number) {
+      Log::debug('Propagating model number change to dependent models');
       if ($m->modelType == 'V') {
         $oldPm = ParticipleModel::loadByVerbModel($m->number);
         $oldPm->verbModel = $nm->number;
@@ -250,6 +260,7 @@ if (!$previewButton && !$confirmButton) {
     }
 
     if ($pm && ($pm->adjectiveModel != $npm->adjectiveModel)) {
+      Log::debug('Regenerating participle lexems');
       $npm->save();
 
       foreach ($participles as $p) { // $participles loaded before
@@ -259,6 +270,7 @@ if (!$previewButton && !$confirmButton) {
     }
 
     $nm->save();
+    Log::notice("Saving model {$nm->id} ({$nm}) done");
     util_redirect('../admin/index.php');
   }
 
@@ -280,7 +292,6 @@ if ($m->modelType == 'V') {
 SmartyWrap::assign('shortList', $shortList);
 SmartyWrap::assign('inflectionMap', Inflection::mapById($inflections));
 SmartyWrap::assign('wasPreviewed', $previewButton);
-SmartyWrap::assign('errorMessage', $errorMessage);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::addCss('paradigm', 'jqueryui');
 SmartyWrap::addJs('jquery', 'jqueryui');

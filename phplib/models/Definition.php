@@ -15,6 +15,8 @@ class Definition extends BaseObject implements DatedObject {
     self::ST_HIDDEN  => 'ascunsă',
   ];
 
+  private $source = null;
+
   /* For admins, returns the definition with the given ID. For regular users,
      return null rather than a hidden definition. */
   public static function getByIdNotHidden($id) {
@@ -27,6 +29,13 @@ class Definition extends BaseObject implements DatedObject {
 
   public function getStatusName() {
     return self::$STATUS_NAMES[$this->status];
+  }
+
+  public function getSource() {
+    if ($this->source === null) {
+      $this->source = Source::get_by_id($this->sourceId);
+    }
+    return $this->source;
   }
 
   public static function loadByLexemId($lexemId) {

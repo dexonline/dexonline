@@ -12,14 +12,14 @@ $g_curFile = null;
 $g_curFileSize = 0;
 $g_curFileUrl = 0;
 
-log_scriptLog('Running generateSitemap.php');
+Log::notice('started');
 
 chdir(util_getRootPath());
 openNewFile();
 addOtherUrls();
 
 $query = 'select id, formNoAccent from Lexem order by formNoAccent';
-log_scriptLog("Running mysql query: [$query]");
+Log::info("Running mysql query: [$query]");
 $dbResult = db_execute($query);
 
 $rowB = array(null, null);
@@ -47,7 +47,7 @@ if ($rowC[1] == $rowB[1]) {
 
 closeCurrentFile();
 generateIndexFile();
-log_scriptLog('generateSitemap.php completed');
+Log::notice('finished');
 
 /*************************************************************************/
 
@@ -106,13 +106,13 @@ function openNewFile() {
 
   fprintf($g_curFile, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   fprintf($g_curFile, "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n");
-  log_scriptLog("Opening next temporary sitemap file {$g_curFileName}");
+  Log::info("Opening next temporary sitemap file {$g_curFileName}");
 }
 
 function generateIndexFile() {
   global $g_numFiles;
 
-  log_scriptLog("Writing sitemap index sitemap.xml");
+  Log::info("Writing sitemap index sitemap.xml");
   $f = fopen('wwwbase/sitemap.xml', 'w');
   fprintf($f, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   fprintf($f, "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n");

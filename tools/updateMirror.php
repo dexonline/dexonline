@@ -19,10 +19,9 @@ for ($i = 1; $i < count($argv); $i++) {
   }
 }
 
-log_scriptLog('Running updateMirror.php with databaseCopy:' .
-              ($doDatabaseCopy ? 'yes' : 'no') .
-              ' codeUpdate:' .
-              ($doCodeUpdate ? 'yes' : 'no'));
+Log::notice('started with databaseCopy:%s codeUpdate:%s',
+            ($doDatabaseCopy ? 'yes' : 'no'),
+            ($doCodeUpdate ? 'yes' : 'no'));
 
 if ($doDatabaseCopy) {
   $wget = sprintf("wget -q -O %s %s" , DATABASE_TMPFILE_GZIP, DATABASE_URL);
@@ -39,6 +38,6 @@ if ($doCodeUpdate) {
   OS::executeAndAssert('cd ' . util_getRootPath() . '; /usr/bin/git pull --quiet');  
 }
 
-log_scriptLog('updateMirror.php completed successfully (against all odds)');
+Log::notice('finished');
 
 ?>

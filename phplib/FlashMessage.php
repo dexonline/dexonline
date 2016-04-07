@@ -1,39 +1,36 @@
 <?php
 
 class FlashMessage {
+   // an array of [$text, $type] pairs, where $type follows Bootstrap conventions
+  static $messages = [];
+  static $hasErrors = false;
 
-  static function add($message, $type = 'error') {
-    $oldMessage = array_key_exists('flashMessage', $GLOBALS) ? $GLOBALS['flashMessage'] : '';
-    $GLOBALS['flashMessage'] = "{$oldMessage}{$message}<br/>";
-    $GLOBALS['flashMessageType'] = $type;
+  static function add($message, $type = 'danger') {
+    self::$messages[] = [
+      'text' => $message,
+      'type' => $type
+    ];
+    self::$hasErrors |= ($type == 'danger');
   }
 
-  static function getMessage() {
-    return array_key_exists('flashMessage', $GLOBALS) ? $GLOBALS['flashMessage'] : null;
+  static function getMessages() {
+    return self::$messages;
   }
 
-  static function getMessageType() {
-    return array_key_exists('flashMessageType', $GLOBALS) ? $GLOBALS['flashMessageType'] : null;
-  }
-
-  static function hasMessage() {
-    return isset($GLOBALS['flashMessage']);
+  static function hasErrors() {
+    return self::$hasErrors;
   }
 
   static function saveToSession() {
-    if (array_key_exists('flashMessage', $GLOBALS)) {
-      session_setVariable('flashMessage', $GLOBALS['flashMessage']);
-      session_setVariable('flashMessageType', $GLOBALS['flashMessageType']);
+    if (count(self::$messages)) {
+      session_setVariable('flashMessages', self::$messages);
     }
   }
 
   static function restoreFromSession() {
-    if (($message = session_get('flashMessage')) &&
-        ($type = session_get('flashMessageType'))) {
-      $GLOBALS['flashMessage'] = $message; // Already has a trailing <br/>
-      $GLOBALS['flashMessageType'] = $type;
-      session_unsetVariable('flashMessage');
-      session_unsetVariable('flashMessageType');
+    if ($messages = session_get('flashMessages')) {
+      self::$messages = $messages;
+      session_unsetVariable('flashMessages');
     }
   }
 }

@@ -70,7 +70,7 @@ if ($openid) {
     $isOpenidConnect = false;
   }
 
-  if (!FlashMessage::getMessage()) {
+  if (!FlashMessage::hasErrors()) {
     if ($isOpenidConnect) {
       try {
         $oidc->authenticate($oidcId, $oidcSecret);

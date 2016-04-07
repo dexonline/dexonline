@@ -2,23 +2,17 @@
 
 class OS {
   static function errorAndExit($msg, $exitCode = 1) {
-    log_scriptLog("ERROR: $msg");
+    Log::error("ERROR: $msg");
     exit($exitCode);
   }
 
   static function executeAndAssert($command) {
-    self::executeAndAssertDebug($command, false);
-  }
-
-  static function executeAndAssertDebug($command, $debug) {
     $exit_code = 0;
     $output = null;
-    log_scriptLog("Executing $command");
+    Log::info("Executing $command");
     exec($command, $output, $exit_code);
-    if ($exit_code || $debug) {
-      log_scriptLog('Output: ' . implode("\n", $output));
-    }
     if ($exit_code) {
+      Log::error('Output: ' . implode("\n", $output));
       self::errorAndExit("Failed command: $command (code $exit_code)");
     }
   }

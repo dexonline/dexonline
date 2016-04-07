@@ -34,22 +34,8 @@ locVersions[] = 4.1 01/11/2008
 locVersions[] = 5.0 01/24/2011
 locVersions[] = 6.0 current
 
-; Whether or not to log query-related information
-logSearch = 0
-
-; Full name of the log file
-logPath = /var/log/dex-query.log
-
 ; Folder for temporary data
 tempDir = /tmp
-
-; For each query, log at most this many results
-; If set to zero, then log only query information, but not the results
-logResults = 0
-
-; Log this fraction of queries, sampled uniformly at random
-; Possible values: 0.00 <= logSampling <= 1.00
-logSampling = 0.10
 
 ; Max number of bookmarks/user
 maxBookmarks = 500
@@ -71,6 +57,30 @@ mobileSkin = mobile
 
 ; Seasonal pranks FTW
 aprilFoolsDay = 0
+
+[logging]
+
+; Log file name. Can also be "php://stdout" or "php://stderr"
+file = "/var/log/dexonline.log"
+
+; Maximum priority level. See <http://php.net/manual/en/function.syslog.php>.
+level = LOG_INFO
+
+[search-log]
+
+; Whether or not to log query-related information
+enabled = 0
+
+; Full name of the log file
+file = /var/log/dex-query.log
+
+; For each query, log at most this many results
+; If set to zero, then log only query information, but not the results
+results = 0
+
+; Log this fraction of queries, sampled uniformly at random
+; Possible values: 0.00 <= fraction <= 1.00
+fraction = 0.10
 
 ; This section handles donations through a third party.
 [euplatesc]
@@ -240,9 +250,9 @@ url = https://dexonline.ro/static/
 
 ; the remaining settings are only necessary for FTP upload
 host = static.dexonline.ro
-user = FTP_user
-password = FTP_pass
-path = FTP_path
+user = ""
+password = ""
+path = ""
 timeout = 30
 
 [openid]

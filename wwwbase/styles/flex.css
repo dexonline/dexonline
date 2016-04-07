@@ -1,3 +1,5 @@
+@import "common.css";
+
 abbr {
   border-bottom: 1px dotted #aaa;
   cursor: help;
@@ -27,19 +29,6 @@ table {
   white-space: nowrap;
 }
 
-.errorMessage {
-  border: 2px solid #cc0000;
-  border-collapse: collapse;
-  margin: 10px auto;
-}
-
-.errorMessage tr td {
-  font-weight: bold;
-  padding: 0px 5px;
-  text-align: left;
-  white-space: nowrap;
-}
-
 .common {
   border-collapse: collapse;
 }
@@ -60,8 +49,8 @@ table {
   vertical-align: top;
 }
 
-.editableFields tr .buttonRow {
-  text-align: center;
+.buttonRow {
+  padding: 10px 0px;
 }
 
 .discreet {
@@ -342,18 +331,6 @@ hr {
 
 .inline {
   display: inline;
-}
-
-.errorType {
-  background: url("../img/icons/exclamation.png") no-repeat 10px center;
-  border: 2px solid #eea77e;
-  color: #c00;
-}
-
-.infoType {
-  background: url("../img/icons/info.png") no-repeat 10px center;
-  border: 2px solid #a7ee7e;
-  color: green;
 }
 
 #similarRecord {

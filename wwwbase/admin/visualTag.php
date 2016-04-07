@@ -32,6 +32,7 @@ if ($saveButton) {
   $v->lexemeId = $lexemId;
   $v->revised = $revised;
   $v->save();
+  Log::notice("Saved image {$v->id} ({$v->path})");
   util_redirect("?id={$v->id}");
 }
 
@@ -45,6 +46,7 @@ if ($addTagButton) {
   $vt->imgXCoord = $imgXCoord;
   $vt->imgYCoord = $imgYCoord;
   $vt->save();
+  Log::info("Added tag {$vt->id} ({$vt->label}) to image {$v->id} ({$v->path})");
   util_redirect("?id={$v->id}");
 }
 

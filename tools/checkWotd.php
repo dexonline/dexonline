@@ -4,7 +4,8 @@
  **/
 
 require_once __DIR__ . '/../phplib/util.php';
-log_scriptLog("checkWotd: starting");
+
+Log::notice('started');
 
 define('NUM_DAYS', 3);
 
@@ -104,7 +105,7 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
   }
 }
 
-log_scriptLog("checkWotd: collected " . count($messages) . " messages");
+Log::info("checkWotd: collected " . count($messages) . " messages");
 if (count($messages)) {
   if ($firstErrorDate) {
     $today = date("Y-m-d", strtotime("today"));
@@ -128,14 +129,15 @@ if (count($messages)) {
   SmartyWrap::assign('messages', $messages);
   $body = SmartyWrap::fetch('email/checkWotd.tpl');
   if ($sendEmail) {
-    log_scriptLog("checkWotd: sending email");
+    Log::info("checkWotd: sending email");
     mail($mailTo, $subject, $body, implode("\r\n", $MAIL_HEADERS));
   } else if (!$quiet) {
     print "---- DRY RUN ----\n";
     print "Către: $mailTo\nSubiect: $subject\n\n$body\n";
   }
-  log_scriptLog("checkWotd: ending");  
 }
+
+Log::notice('finished');
 
 /*********************************************************************/
 
@@ -155,7 +157,7 @@ function addMessage($type, $date, $text) {
   global $messages;
 
   $messages[] = array('type' => $type, 'date' => $date, 'text' => $text);
-  log_scriptLog("checkWotd: adding message [$type] [$date] [$text]");
+  Log::info("checkWotd: adding message [$type] [$date] [$text]");
 }
 
 function daysBetween($date1, $date2) {

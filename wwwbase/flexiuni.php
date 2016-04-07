@@ -10,6 +10,7 @@ $deleteInflectionId = util_getRequestParameter('deleteInflectionId');
 
 if ($deleteInflectionId) {
   $infl = Inflection::get_by_id($deleteInflectionId);
+  Log::warning("Deleting inflection {$infl->id} ({$infl->description})");
   $infl->delete();
   util_redirect('flexiuni');
 }
@@ -24,6 +25,7 @@ if ($submitButton) {
     $infl->rank = $rank;
     $infl->save();
   }
+  Log::info('Reordered inflections');
 
   // Add a new inflection if one is given
   if ($newDescription) {
@@ -32,6 +34,7 @@ if ($submitButton) {
     $infl->modelType = $newModelType;
     $infl->rank = $modelTypeMap[$newModelType] + 1;
     $infl->save();
+    Log::info("Created inflection {$infl->id} ({$infl->description})");
   }
 
   util_redirect('flexiuni');

@@ -19,7 +19,7 @@ if ($submitButton) {
   } else {
     $user = User::get_by_email($email);
     if ($user) {
-      log_userLog("Password recovery requested for $email from " . $_SERVER['REMOTE_ADDR']);
+      Log::notice("Password recovery requested for $email from " . $_SERVER['REMOTE_ADDR']);
 
       // Create the token
       $pt = Model::factory('PasswordToken')->create();

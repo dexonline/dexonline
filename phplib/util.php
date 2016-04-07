@@ -107,7 +107,6 @@ function util_requireOtherFiles() {
   require_once(StringUtil::portable("$root/phplib/idiorm/idiorm.php"));
   require_once(StringUtil::portable("$root/phplib/idiorm/paris.php"));
   require_once(StringUtil::portable("$root/phplib/db.php"));
-  require_once(StringUtil::portable("$root/phplib/logging.php"));
   require_once(StringUtil::portable("$root/phplib/session.php"));
   require_once(StringUtil::portable("$root/phplib/memcache.php"));
 }

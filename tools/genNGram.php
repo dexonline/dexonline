@@ -4,8 +4,10 @@ require_once __DIR__ . '/../phplib/util.php';
 define('INSERT_SIZE', 10000);
 
 ini_set('max_execution_time', '3600');
+ini_set('memory_limit', '1G');
 
-log_scriptLog('Running genNGram.php.');
+Log::notice('started');
+
 $start = microtime(true);
 db_execute("truncate table NGram"); // This should be fast
 
@@ -24,13 +26,12 @@ foreach ($dbResult as $cnt => $row) {
     $values = array();
   }
   if ($cnt % 1000 == 0) {
-    log_scriptLog(sprintf("%d lexems processed, %0.3f lexems/second.", $cnt, $cnt / (microtime(true) - $start)));
+    Log::info('%d lexems processed, %0.3f lexems/second.', $cnt, $cnt / (microtime(true) - $start));
   }
 }
 dumpValues($values);
 
-$end = microtime(true);
-log_scriptLog(sprintf("genNGram.php completed in %0.3f seconds\n", $end - $start));
+Log::notice('finished');
 
 /*********************************************************************/
 

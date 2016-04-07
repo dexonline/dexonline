@@ -9,7 +9,7 @@
   <p class="paragraphTitle">Trimiteți o definiție</p>
 
   {if !$sUser}
-    <div class="warning">
+    <div class="flashMessage flashMessage-warning">
       Dacă doriți să primiți credit pentru definițiile trimise, vă recomandăm să vă <a href="{$wwwRoot}auth/login">autentificați</a>.
     </div>
   {/if}

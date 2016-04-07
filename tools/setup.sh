@@ -28,12 +28,6 @@ fi
 # Make the logs and the Smarty compiled templates directory world-writable
 echo "* making some directories and files world-writable"
 chmod 777 log
-touch log/userlog
-chmod 666 log/userlog
-touch log/dictlog
-chmod 666 log/dictlog
-touch log/scriptlog
-chmod 666 log/scriptlog
 touch log/wotdelflog
 chmod 666 log/wotdelflog
 touch log/visuallog

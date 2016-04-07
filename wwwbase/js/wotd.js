@@ -125,7 +125,7 @@ jQuery().ready(function (){
       {name: 'description', index: 'description', editable: true, edittype: 'textarea', hidden: false, width: descWidth},
       {name: 'definitionId', index: 'definitionId', editable: true, hidden: true}
     ],
-    rowNum: 20,
+    rowNum: 50,
     recreateForm: true,
     autoWidth: true,
     height: '100%',

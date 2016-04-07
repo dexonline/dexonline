@@ -19,8 +19,10 @@ if (is_null($status)) {
   $wotdr->refType = 'Definition';
   $wotdr->wotdId = $wotd->id;
   $wotdr->save();
+
+  $d = Definition::get_by_id($defId);
   
-  log_userLog("Added new word of the day: {$wotd->id} - the definition with the id {$wotdr->refId}");
+  Log::info("Added WotD, ID = {$wotd->id}, definition ID = {$d->id}, lexicon = {$d->lexicon}");
 }
 
 $where_to_go = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/';

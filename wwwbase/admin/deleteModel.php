@@ -20,6 +20,7 @@ if ($deleteButton) {
     $lm->save();
     $lm->regenerateParadigm();
   }
+  Log::warning("Deleting model {$model->id} ({$model})");
   $model->delete();
   util_redirect('../admin/index.php');
 }

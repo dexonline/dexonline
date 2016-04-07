@@ -14,9 +14,9 @@ $sourceClause = $sourceId ? "and sourceId = $sourceId" : '';
 $count = Model::factory('Definition')->where_raw("status = 0 {$sourceClause} and binary internalRep like '%{$search}%'")->count();
 if ($count > $MAX_AFFECTED) {
   if ($realRun) {
-    FlashMessage::add("{$count} definiții se potrivesc, numai {$MAX_AFFECTED} au fost modificate.", 'info');
+    FlashMessage::add("{$count} definiții se potrivesc, numai {$MAX_AFFECTED} au fost modificate.", 'warning');
   } else {
-    FlashMessage::add("{$count} definiții se potrivesc, maxim {$MAX_AFFECTED} vor fi modificate.");
+    FlashMessage::add("{$count} definiții se potrivesc, maxim {$MAX_AFFECTED} vor fi modificate.", 'warning');
   }
 }
 
@@ -41,6 +41,7 @@ foreach ($defs as $def) {
 }
 
 if ($realRun) {
+  Log::notice("Replaced [{$search}] with [{$replace}]");
   util_redirect("index.php");
 }
 

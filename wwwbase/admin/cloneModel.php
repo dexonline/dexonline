@@ -13,23 +13,23 @@ $chooseLexems = util_getRequestParameter('chooseLexems');
 $lexemModelIds = util_getRequestParameter('lexemModelId');
 $cloneButton = util_getRequestParameter('cloneButton');
 
-$errorMessages = array();
-
 if ($cloneButton) {
   // Disallow duplicate model numbers
   $m = FlexModel::loadCanonicalByTypeNumber($modelType, $newModelNumber);
   if ($m) {
-    $errorMessages[] = "Modelul $modelType$newModelNumber există deja.";
+    FlashMessage::add("Modelul $modelType$newModelNumber există deja.");
   }
   if (!$newModelNumber) {
-    $errorMessages[] = "Numărul modelului nu poate fi vid.";
+    FlashMessage::add('Numărul modelului nu poate fi vid.');
   }
 
-  if (!count($errorMessages)) {
+  if (!FlashMessage::hasErrors()) {
     // Clone the model
     $model = Model::factory('FlexModel')->where('modelType', $modelType)->where('number', $modelNumber)->find_one();
     $cloneModel = FlexModel::create($modelType, $newModelNumber, "Clonat după $modelType$modelNumber", $model->exponent);
     $cloneModel->save();
+
+    Log::notice("Cloning model {$model->id} ({$model}) as {$cloneModel->id} ({$cloneModel})");
 
     // Clone the model descriptions
     $mds = Model::factory('ModelDescription')->where('modelId', $model->id)->order_by_asc('inflectionId')
@@ -64,7 +64,7 @@ if ($cloneButton) {
     exit;
   }
 } else {
-  $newModelNumber = $modelNumber . ".1";
+  $newModelNumber = $modelNumber . '.1';
 }
 
 $lexemModels = LexemModel::loadByCanonicalModel($modelType, $modelNumber);
@@ -73,7 +73,6 @@ SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::assign('modelNumber', $modelNumber);
 SmartyWrap::assign('newModelNumber', $newModelNumber);
 SmartyWrap::assign('lexemModels', $lexemModels);
-SmartyWrap::assign('errorMessage', $errorMessages);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::displayAdminPage('admin/cloneModel.tpl');
 

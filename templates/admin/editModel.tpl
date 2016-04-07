@@ -10,7 +10,7 @@
   {assign var="adjModels" value=$adjModels|default:null}
   {assign var="participles" value=$participles|default:null}
   {assign var="regenTransforms" value=$regenTransforms|default:null}
-  {if $wasPreviewed && count($errorMessage) == 0}
+  {if $wasPreviewed && !count($flashMessages)}
     Examinați modificările afișate mai jos (dacă există) și, dacă totul
     arată normal, apăsați butonul "Salvează". Dacă nu, continuați editarea
     și apăsați din nou butonul "Testează".
@@ -108,7 +108,7 @@
       afișate. Aceasta poate accelera mult pasul de testare.
     </div>
 
-    {if $wasPreviewed && !count($errorMessage)}
+    {if $wasPreviewed && !count($flashMessages)}
       <h3>Schimbări globale:</h3>
 
       <ul>
@@ -182,7 +182,7 @@
       {/if}
     {/if}
 
-    {if count($participles) && !count($errorMessage)}
+    {if count($participles) && !count($flashMessages)}
       <h3>Participii regenerate conform modelului A{$pm->adjectiveModel|escape}:</h3>
 
       {foreach from=$participles item=p key=i}
@@ -193,7 +193,7 @@
     <br/>
     <input type="submit" name="previewButton" value="Testează"/>
     <!-- We want to disable the button on click, but still submit a value -->
-    {if $wasPreviewed && count($errorMessage) == 0}
+    {if $wasPreviewed && !count($flashMessages)}
       <input type="submit" name="confirmButton" value="Salvează"/>
     {/if}
   </form>

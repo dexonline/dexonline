@@ -1,79 +1,72 @@
 <?php
 
-/**
- * Class used to log data when a search is performed
- **/
+Log::init();
+
 class Log {
+  static $file;
+  static $level;
 
-  /**
-   * Constructs the object
-   * @param string $query The query
-   * @param string $query The query before the redirect (e.g. oprobiu before the automatic redirect to oprobriu)
-   * @param int $searchType The seach type
-   * @param boolean $redirect If true, then the result is a redirect [OPTIONAL]
-   * @param Definition[] $results The results [OPTIONAL]
-   * @access public
-   * @return void
-   **/
-  public function __construct($query, $queryBeforeRedirect, $searchType, $redirect = false, &$results = null) {
-    if (!Config::get('global.logSearch') || lcg_value() > Config::get('global.logSampling')) {
-      $this->query = null;
-      return false;
-    }
-    $this->query = $query;
-    $this->queryBeforeRedirect = $queryBeforeRedirect;
-    $this->searchType = $searchType;
-    if (session_variableExists('user')) {
-      $this->registeredUser = 'y';
-      $this->preferences = $_SESSION['user']->preferences; 
-    }
-    else {
-      $this->registeredUser = 'n';
-      $this->preferences = session_getCookieSetting('anonymousPrefs');
-    }
-    $this->skin = session_getSkin();
-    $this->resultCount = count($results);
-    $this->redirect = ($redirect ? 'y' : 'n');
-    $this->resultList = '';
-    
-    if ($results != null) {
-      $numResultsToLog = min(count($results), Config::get('global.logResults'));
-      $this->resultList = '';
-      for ($i = 0; $i < $numResultsToLog; $i++) {
-        $this->resultList .= ($this->resultList ? ',' : '') . $results[$i]->id;
+  static function init() {
+    self::$file = fopen(Config::get('logging.file'), 'a');
+    self::$level = Config::get('logging.level'); // no constant() call needed
+  }
+
+  private static function write($level, $args) {
+    if ($level <= self::$level) {
+      // Find the bottom-most call outside this class
+      $trace = debug_backtrace();
+      $i = 0;
+      while ($trace[$i]['file'] == __FILE__) {
+        $i++;
       }
+
+      $file = basename($trace[$i]['file']);
+      $line = $trace[$i]['line'];
+      $date = date("Y-m-d H:i:s");
+      $format = array_shift($args);
+      $user = session_getUser();
+
+      fprintf(self::$file, "[{$date}] [{$file}:{$line}] ");
+      if ($user) {
+        fprintf(self::$file, "[{$user->nick}] ");
+      }
+      vfprintf(self::$file, "{$format}\n", $args);
     }
   }
-  
-  /**
-   * Saves an entry into the log table
-   * @access public
-   * @return boolean
-   **/
-  public function logData() {
-    //If we decide to put the logged data into a table, then call $this->insert()
-    if (!$this->query) {
-      return false;
-    }
-    try {
-      $f = fopen(Config::get('global.logPath'), 'at');
-    }
-    catch (Exception $e) {
-      try {
-        $f = fopen(Config::get('global.logPath'), 'wt');
-      }
-      catch (Exception $e) {
-        throw new Exception('Error trying to access the log file', -1, $e);
-      }
-    }
 
-    $date = date('Y-m-d H:i:s');
-    $millis = DebugInfo::getRunningTimeInMillis();
-    $line = "[{$this->query}]\t[{$this->queryBeforeRedirect}]\t{$this->searchType}\t{$this->registeredUser}\t{$this->skin}\t" .
-      "{$this->preferences}\t{$this->resultCount}\t{$this->resultList}\t{$this->redirect}\t{$date}\t{$millis}\n";
-    fwrite($f, $line);
-    fclose($f);
+  /**
+   * The following functions take printf-style arguments (format + args).
+   */
+  static function emergency(/* Variable-length argument list */) {
+    self::write(LOG_EMERG, func_get_args());
   }
+
+  static function alert(/* Variable-length argument list */) {
+    self::write(LOG_ALERT, func_get_args());
+  }
+
+  static function critical(/* Variable-length argument list */) {
+    self::write(LOG_CRIT, func_get_args());
+  }
+
+  static function error(/* Variable-length argument list */) {
+    self::write(LOG_ERR, func_get_args());
+  }
+
+  static function warning(/* Variable-length argument list */) {
+    self::write(LOG_WARNING, func_get_args());
+  }
+
+  static function notice(/* Variable-length argument list */) {
+    self::write(LOG_NOTICE, func_get_args());
+  }
+
+  static function info(/* Variable-length argument list */) {
+    self::write(LOG_INFO, func_get_args());
+  }
+
+  static function debug(/* Variable-length argument list */) {
+    self::write(LOG_DEBUG, func_get_args());
+  }
+
 }
-
-?>

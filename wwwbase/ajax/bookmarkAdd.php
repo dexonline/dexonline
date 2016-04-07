@@ -23,7 +23,7 @@ if (count($bookmarks) < Config::get('global.maxBookmarks')) {
     $bookmark->userId = $userId; 
     $bookmark->definitionId = $definitionId;
     $bookmark->save();
-    log_userLog("Added to favorites: {$bookmark->id} - the definition with the id {$bookmark->definitionId} for user {$bookmark->userId}");
+    Log::info("added {$bookmark->id}, definition ID = {$definitionId}");
   }
 
   $response['status'] = 'success';

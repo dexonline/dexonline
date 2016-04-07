@@ -8,7 +8,7 @@ $modelType = util_getRequestParameter('modelType');
 $modelType = ModelType::get_by_code($modelType); // Use the ModelType object from this point on
 
 if (!$locVersion || !$modelType) {
-  FlashMessage::add('Date incorecte');
+  FlashMessage::add('Date incorecte.');
   util_redirect('scrabble');
 }
 

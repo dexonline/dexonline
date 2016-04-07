@@ -28,7 +28,7 @@ for ($i = 1; $i < count($argv); $i++) {
   }
 }
 
-log_scriptLog('Running dumpDatabase.php with argument ' . ($doFullDump ? 'full' : 'public'));
+Log::notice('started with argument %s', ($doFullDump ? 'full' : 'public'));
 
 $dbName = $parts['database'];
 $tablesToIgnore = '';
@@ -59,7 +59,7 @@ OS::executeAndAssert($command);
 if (!$doFullDump) {
   // Anonymize the User table. Handle the case for id = 0 separately, since
   // "insert into _User_Copy set id = 0" doesn't work (it inserts an id of 1).
-  log_scriptLog('Anonymizing the User table');
+  Log::info('Anonymizing the User table');
   db_execute("create table _User_Copy like User");
   db_execute("insert into _User_Copy select * from User where id = 0");
   db_execute("update _User_Copy set id = 0 where id = 1");
@@ -68,7 +68,7 @@ if (!$doFullDump) {
   OS::executeAndAssert("$COMMON_COMMAND _User_Copy | sed 's/_User_Copy/User/g' >> $SQL_FILE");
   db_execute("drop table _User_Copy");
 
-  log_scriptLog('Anonymizing the Source table');
+  Log::info('Anonymizing the Source table');
   db_execute("create table _Source_Copy like Source");
   db_execute("insert into _Source_Copy select * from Source");
   db_execute("update _Source_Copy set link = null");
@@ -76,7 +76,7 @@ if (!$doFullDump) {
   db_execute("drop table _Source_Copy");
 
   // Dump only the Definitions for which we have redistribution rights
-  log_scriptLog('Filtering the Definition table');
+  Log::info('Filtering the Definition table');
   db_execute("create table _Definition_Copy like Definition");
   db_execute("insert into _Definition_Copy select * from Definition");
   $query = <<<EOT
@@ -95,6 +95,6 @@ $f = new FtpUtil();
 $f->staticServerPut($GZ_FILE, $remoteFile);
 unlink($GZ_FILE);
 
-log_scriptLog('dumpDatabase.php completed successfully (against all odds)');
+Log::notice('finished');
 
 ?>

@@ -28,7 +28,8 @@ if ($submitButton) {
     }
     $src->updatePercentComplete();
     $src->save();
-    FlashMessage::add('Modificările au fost salvate', 'info');
+    Log::notice("Added/saved source {$src->id} ({$src->shortName})");
+    FlashMessage::add('Am salvat modificările.', 'success');
     util_redirect("editare-sursa?id={$src->id}");
   }
 }
@@ -42,17 +43,22 @@ SmartyWrap::display('editare-sursa.tpl');
  * Returns true on success, false on errors.
  */
 function validate($src) {
-  $success = true;
-  if (!$src->name) { FlashMessage::add('Numele nu poate fi vid.'); $success = false; }
-  if (!$src->shortName) { FlashMessage::add('Numele scurt nu poate fi vid.'); $success = false; }
-  if (!$src->urlName) { FlashMessage::add('Numele URL nu poate fi vid.'); $success = false; }
-  if (!$src->author) { FlashMessage::add('Autorul nu poate fi vid.'); $success = false; }
-
-  if ($src->defCount < 0 && $src->defCount != Source::$UNKNOWN_DEF_COUNT) {
-    FlashMessage::add("Numărul de definiții trebuie să fie pozitiv.");
-    $success = false;
+  if (!$src->name) {
+    FlashMessage::add('Numele nu poate fi vid.');
   }
-  return $success;
+  if (!$src->shortName) {
+    FlashMessage::add('Numele scurt nu poate fi vid.');
+  }
+  if (!$src->urlName) {
+    FlashMessage::add('Numele URL nu poate fi vid.');
+  }
+  if (!$src->author) {
+    FlashMessage::add('Autorul nu poate fi vid.');
+  }
+  if ($src->defCount < 0 && $src->defCount != Source::$UNKNOWN_DEF_COUNT) {
+    FlashMessage::add('Numărul de definiții trebuie să fie pozitiv.');
+  }
+  return !FlashMessage::hasErrors();
 }
 
 ?>

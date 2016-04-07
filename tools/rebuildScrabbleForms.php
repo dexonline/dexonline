@@ -12,7 +12,7 @@ require_once __DIR__ . '/../phplib/util.php';
 ini_set('max_execution_time', '3600');
 ini_set('memory_limit', '128M');
 
-log_scriptLog('rebuildScrabbleForms: starting');
+Log::notice('started');
 
 define('STATIC_SERVER_DIR', '/download/scrabble');
 
@@ -23,7 +23,7 @@ $f = new FtpUtil();
 (new InflectedFormList($allVersions, $f))->run();
 (new ReducedFormList($allVersions, $f))->run();
 
-log_scriptLog('rebuildScrabbleForms: ending');
+Log::notice('finished');
 
 /***************************************************************************/
 
@@ -86,10 +86,10 @@ abstract class FormList {
 
   // Compresses the txt file and uploads it to the static server
   function zipAndShip($txtFile, $zipFile, $ftpFile) {
-    log_scriptLog('* zipping');
+    Log::info('* zipping');
     OS::executeAndAssert("zip -j {$zipFile} {$txtFile}");
 
-    log_scriptLog('* copying over FTP');
+    Log::info('* copying over FTP');
     $this->ftpUtil->staticServerPut($zipFile, $ftpFile);
   }
 
@@ -124,10 +124,10 @@ abstract class FormList {
     $this->cleanup();
 
     // Write forms
-    log_scriptLog('** dumping ' . $this->getName());
+    Log::info('** dumping ' . $this->getName());
     foreach (Config::getLocVersions() as $v) {
       if (!$v->freezeTimestamp || $this->allVersions) {
-        log_scriptLog("* dumping version {$v->name}");
+        Log::info("* dumping version {$v->name}");
         LocVersion::changeDatabase($v->name);
 
         $txtFile = $this->getTxtFileName($v);
@@ -143,7 +143,7 @@ abstract class FormList {
     foreach (Config::getLocVersions() as $i => $v1) {
       foreach (Config::getLocVersions() as $j => $v2) {
         if (($i > $j) && (!$v2->freezeTimestamp || $this->allVersions)) {
-          log_scriptLog("* computing diffs between {$v1->name} and {$v2->name}");
+          Log::info("* computing diffs between {$v1->name} and {$v2->name}");
           $this->downloadAndUnzip($v1);
           $this->downloadAndUnzip($v2);
           $txt1 = $this->getTxtFileName($v1);
@@ -271,12 +271,12 @@ class ReducedFormList extends FormList {
   function postProcess($fileName) {
     $tmpFile = tempnam($this->tmpDir, 'loc_');
 
-    log_scriptLog('* removing diacritics');
+    Log::info('* removing diacritics');
     $s = file_get_contents($fileName);
     $s = StringUtil::unicodeToLatin($s);
     file_put_contents($tmpFile, $s);
 
-    log_scriptLog('* removing duplicates and sorting');
+    Log::info('* removing duplicates and sorting');
     OS::executeAndAssert("sort -u {$tmpFile} -o {$fileName}");
 
     unlink($tmpFile);

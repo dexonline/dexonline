@@ -8,16 +8,16 @@ ini_set('max_execution_time', '3600');
 ini_set('memory_limit', '256M');
 assert_options(ASSERT_BAIL, 1);
 
-log_scriptLog('Running rebuildLexemFrequencies.php.');
+Log::notice('started');
 
-log_scriptLog('Setting frequency to 1.00 for manual stop words');
+Log::info('Setting frequency to 1.00 for manual stop words');
 $lexems = Lexem::get_all_by_stopWord(1);
 foreach ($lexems as $l) {
   $l->frequency = 1.00;
   $l->save();
 }
 
-log_scriptLog("Scanning full text index");
+Log::info("Scanning full text index");
 $dbResult = db_execute("select lexemId from FullTextIndex group by lexemId order by count(*)");
 $numLexems = $dbResult->rowCount();
 $i = 0;
@@ -27,9 +27,10 @@ foreach ($dbResult as $row) {
   $lexem->save();
   $i++;
   if ($i % 10000 == 0) {
-    log_scriptLog("$i of $numLexems labeled");
+    Log::info("$i of $numLexems labeled");
   }
 }
 
-log_scriptLog('rebuildLexemFrequencies.php completed successfully');
+Log::notice('finished');
+
 ?>

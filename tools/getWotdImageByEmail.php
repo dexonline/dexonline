@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../phplib/util.php';
 require_once __DIR__ . '/../phplib/mime-mail-parser/MimeMailParser.class.php';
 
-log_scriptLog("getWotdImageByEmail: starting");
+Log::notice('started');
 
 $dryRun = false;
 foreach ($argv as $i => $arg) {
@@ -108,11 +108,11 @@ try {
 
 } catch (Exception $e) {
   @unlink($tmpFilePath); // may not be defined
-  log_scriptLog($e->getMessage());
+  Log::error($e->getMessage());
   replyToEmail($sender, $subject, $e->getMessage());
 }
 
-log_scriptLog('getWotdImageByEmail: done');
+Log::notice('finished');
 
 /***************************************************************************/
 

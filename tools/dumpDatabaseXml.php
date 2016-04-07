@@ -11,10 +11,10 @@ $LAST_DUMP_TIMESTAMP = $LAST_DUMP ? strtotime("$LAST_DUMP 00:00:00") : null;
 $USERS = getActiveUsers();
 $FTP = new FtpUtil();
 
-log_scriptLog("generating dump for $TODAY; previous dump is " . ($LAST_DUMP ? $LAST_DUMP : '-never-'));
+Log::notice("generating dump for $TODAY; previous dump is " . ($LAST_DUMP ? $LAST_DUMP : '-never-'));
 
 if ($LAST_DUMP == $TODAY) {
-  log_scriptLog("a dump already exists for $TODAY; aborting");
+  Log::error("a dump already exists for $TODAY; aborting");
   die("a dump already exists for $TODAY; aborting\n");
 }
 
@@ -47,6 +47,8 @@ if ($LAST_DUMP) {
 }
 
 removeOldDumps($REMOTE_FOLDER, $TODAY, $LAST_DUMP);
+
+Log::notice('finished');
 
 /**************************************************************************/
 
@@ -88,7 +90,7 @@ function getLastDumpDate($folder) {
 function dumpSources($remoteFile) {
   global $FTP;
 
-  log_scriptLog("dumping sources");
+  Log::info("dumping sources");
   SmartyWrap::assign('sources', Model::factory('Source')->order_by_asc('id')->find_many());
   $xml = SmartyWrap::fetch('xml/xmldump/sources.tpl');
   $FTP->staticServerPutContents(gzencode($xml), $remoteFile);
@@ -97,7 +99,7 @@ function dumpSources($remoteFile) {
 function dumpInflections($remoteFile) {
   global $FTP;
 
-  log_scriptLog("dumping inflections");
+  Log::info("dumping inflections");
   SmartyWrap::assign('inflections', Model::factory('Inflection')->order_by_asc('id')->find_many());
   $xml = SmartyWrap::fetch('xml/xmldump/inflections.tpl');
   $FTP->staticServerPutContents(gzencode($xml), $remoteFile);
@@ -106,7 +108,7 @@ function dumpInflections($remoteFile) {
 function dumpAbbrevs($remoteFile) {
   global $FTP;
 
-  log_scriptLog("dumping abbreviations");
+  Log::info("dumping abbreviations");
   $sources = AdminStringUtil::loadAbbreviationsIndex();
   $sectionNames = AdminStringUtil::getAbbrevSectionNames();
   $sections = array();
@@ -133,7 +135,7 @@ function dumpAbbrevs($remoteFile) {
 function dumpDefinitions($query, $remoteFile, $message) {
   global $FTP, $USERS;
 
-  log_scriptLog($message);
+  Log::info($message);
   $results = db_execute($query);
   $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
@@ -155,7 +157,7 @@ function dumpDefinitions($query, $remoteFile, $message) {
 function dumpLexems($query, $remoteFile, $message) {
   global $FTP;
 
-  log_scriptLog($message);
+  Log::info($message);
   $results = db_execute($query);
   $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
@@ -175,7 +177,7 @@ function dumpLexems($query, $remoteFile, $message) {
 function dumpLdm($query, $remoteFile, $message) {
   global $FTP;
 
-  log_scriptLog($message);
+  Log::info($message);
   $results = db_execute($query);
   $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
@@ -193,7 +195,7 @@ function dumpLdm($query, $remoteFile, $message) {
 function dumpLdmDiff($oldRemoteFile, $newRemoteFile, $diffRemoteFile) {
   global $FTP;
 
-  log_scriptLog('dumping lexem-definition map diff');
+  Log::info('dumping lexem-definition map diff');
 
   // Transfer the files locally
   $oldXml = wgetAndGunzip(Config::get('static.url') . '/' . $oldRemoteFile);
@@ -231,14 +233,14 @@ function wgetAndGunzip($url) {
 function removeOldDumps($folder, $today, $lastDump) {
   global $FTP, $STATIC_FILES;
 
-  log_scriptLog('removing old dumps');
+  Log::info('removing old dumps');
   foreach ($STATIC_FILES as $file) {
     $matches = array();
     $file = trim($file);
     if (preg_match(":^{$folder}/(\\d\\d\\d\\d-\\d\\d-\\d\\d)-(abbrevs|definitions|inflections|ldm|lexems|sources).xml.gz$:", $file, $matches)) {
       $date = $matches[1];
       if ($date != $today && $date != $lastDump) {
-        log_scriptLog("  deleting $file");
+        Log::info("  deleting $file");
         $FTP->staticServerDelete($file);
       }
     }

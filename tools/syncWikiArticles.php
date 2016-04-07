@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../phplib/util.php";
-log_scriptLog('Running syncWikiArticles.php');
+Log::notice('started');
 
 define('CATEGORY_LISTING_URL', 'http://wiki.dexonline.ro/api.php?action=query&list=categorymembers&cmtitle=Categorie:Sincronizare&cmlimit=max&cmsort=timestamp&cmdir=desc&format=xml');
 define('PAGE_LISTING_URL', 'http://wiki.dexonline.ro/api.php?action=query&pageids=%s&prop=info&inprop=url&format=xml');
@@ -14,7 +14,7 @@ $force = array_key_exists('force', $options);
 // Get the most recently edited category members
 $xml = simplexml_load_file(CATEGORY_LISTING_URL);
 if ($xml === false) {
-  log_scriptLog('Cannot get category listing from ' . CATEGORY_LISTING_URL);
+  Log::error('Cannot get category listing from ' . CATEGORY_LISTING_URL);
   exit(1);
 }
 $pageIds = array();
@@ -29,7 +29,7 @@ foreach ($xml->query->categorymembers->cm as $cm) {
 $pageListingUrl = sprintf(PAGE_LISTING_URL, implode('|', $pageIds));
 $xml = simplexml_load_file($pageListingUrl);
 if ($xml === false) {
-  log_scriptLog('Cannot get page info from ' . PAGE_LISTING_URL);
+  Log::error('Cannot get page info from ' . PAGE_LISTING_URL);
   exit(1);
 }
 foreach ($xml->query->pages->page as $page) {
@@ -51,12 +51,12 @@ foreach ($xml->query->pages->page as $page) {
     $curPage->fullUrl = $fullUrl;
     $curPage->wikiContents = file_get_contents($pageRawUrl);
     if ($curPage->wikiContents === false) {
-      log_scriptLog("Cannot fetch raw page from $pageRawUrl");
+      Log::error("Cannot fetch raw page from $pageRawUrl");
       exit(1);
     }
     $curPage->htmlContents = parse($curPage->wikiContents);
     if ($curPage->htmlContents === false) {
-      log_scriptLog("Cannot parse page");
+      Log::error("Cannot parse page");
       exit(1);
     }
     $curPage->save();
@@ -69,7 +69,7 @@ foreach ($xml->query->pages->page as $page) {
       $wk->keyword = $keyword;
       $wk->save();
     }
-    log_scriptLog("Saved page #{$pageId} \"{$title}\"");
+    Log::info("Saved page #{$pageId} \"{$title}\"");
   }
 }
 
@@ -80,12 +80,12 @@ $ourIds = db_getArray('select pageId from WikiArticle');
 foreach ($ourIds as $ourId) {
   if (!array_key_exists($ourId, $pageIdHash)) {
     $curPage = WikiArticle::get_by_pageId($ourId);
-    log_scriptLog("Deleting page #{$curPage->pageId} \"{$curPage->title}\"");
+    Log::info("Deleting page #{$curPage->pageId} \"{$curPage->title}\"");
     $curPage->delete();
   }
 }
 
-log_scriptLog('syncWikiArticles.php finished');
+Log::notice('finished');
 
 /*************************************************************************/
 

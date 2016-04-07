@@ -19,7 +19,7 @@ $OTRS_MAP = array('cata' => 1,
                   'Octavian.Mocanu' => 4,
                   'radu_borza' => 471);
 
-log_scriptLog("updateMedals: starting");
+Log::notice('started');
 
 $dryRun = false;
 
@@ -44,13 +44,13 @@ if ($ini) {
       $user = User::get_by_id($SVN_MAP[$svnName]);
       if ($user && $user->id) {
         if (($lines >= 10000) && (!($user->medalMask & Medal::MEDAL_PROGRAMMER_3))) {
-          log_scriptLog("Granting {$user->nick} a MEDAL_PROGRAMMER_3");
+          Log::info("Granting {$user->nick} a MEDAL_PROGRAMMER_3");
           $user->medalMask |= Medal::MEDAL_PROGRAMMER_3;
         } else if (($lines < 10000) && ($lines >= 1000) && (!($user->medalMask & Medal::MEDAL_PROGRAMMER_2))) {
-          log_scriptLog("Granting {$user->nick} a MEDAL_PROGRAMMER_2");
+          Log::info("Granting {$user->nick} a MEDAL_PROGRAMMER_2");
           $user->medalMask |= Medal::MEDAL_PROGRAMMER_2;
         } else if (($lines < 1000) && ($lines >= 100) && (!($user->medalMask & Medal::MEDAL_PROGRAMMER_1))) {
-          log_scriptLog("Granting {$user->nick} a MEDAL_PROGRAMMER_1");
+          Log::info("Granting {$user->nick} a MEDAL_PROGRAMMER_1");
           $user->medalMask |= Medal::MEDAL_PROGRAMMER_1;
         }
         $user->medalMask = Medal::getCanonicalMask($user->medalMask);
@@ -75,13 +75,13 @@ foreach ($dbResult as $r) {
     $user = User::get_by_id($OTRS_MAP[$r['login']]);
     if ($user && $user->id) {
       if (($r['count'] >= 1000) && (!($user->medalMask & Medal::MEDAL_EMAIL_3))) {
-        log_scriptLog("Granting {$user->nick} a MEDAL_EMAIL_3");
+        Log::info("Granting {$user->nick} a MEDAL_EMAIL_3");
         $user->medalMask |= Medal::MEDAL_EMAIL_3;
       } else if (($r['count'] < 1000) && ($r['count'] >= 500) && (!($user->medalMask & Medal::MEDAL_EMAIL_2))) {
-        log_scriptLog("Granting {$user->nick} a MEDAL_EMAIL_2");
+        Log::info("Granting {$user->nick} a MEDAL_EMAIL_2");
         $user->medalMask |= Medal::MEDAL_EMAIL_2;
       } else if (($r['count'] < 500) && ($r['count'] >= 100) && (!($user->medalMask & Medal::MEDAL_EMAIL_1))) {
-        log_scriptLog("Granting {$user->nick} a MEDAL_EMAIL_1");
+        Log::info("Granting {$user->nick} a MEDAL_EMAIL_1");
         $user->medalMask |= Medal::MEDAL_EMAIL_1;
       }
       $user->medalMask = Medal::getCanonicalMask($user->medalMask);
@@ -98,19 +98,19 @@ foreach ($topData as $e) {
   $user = User::get_by_nick($e->userNick);
   if ($user && $user->id) {
     if (($e->numChars >= 10000000) && (!($user->medalMask & Medal::MEDAL_VOLUNTEER_5))) {
-      log_scriptLog("Granting {$user->nick} a MEDAL_VOLUNTEER_5");
+      Log::info("Granting {$user->nick} a MEDAL_VOLUNTEER_5");
       $user->medalMask |= Medal::MEDAL_VOLUNTEER_5;
     } else if (($e->numChars >= 1000000) && ($e->numChars < 10000000) && (!($user->medalMask & Medal::MEDAL_VOLUNTEER_4))) {
-      log_scriptLog("Granting {$user->nick} a MEDAL_VOLUNTEER_4");
+      Log::info("Granting {$user->nick} a MEDAL_VOLUNTEER_4");
       $user->medalMask |= Medal::MEDAL_VOLUNTEER_4;
     } else if (($e->numChars >= 100000) && ($e->numChars < 1000000) && (!($user->medalMask & Medal::MEDAL_VOLUNTEER_3))) {
-      log_scriptLog("Granting {$user->nick} a MEDAL_VOLUNTEER_3");
+      Log::info("Granting {$user->nick} a MEDAL_VOLUNTEER_3");
       $user->medalMask |= Medal::MEDAL_VOLUNTEER_3;
     } else if (($e->numChars >= 10000) && ($e->numChars < 100000) && (!($user->medalMask & Medal::MEDAL_VOLUNTEER_2))) {
-      log_scriptLog("Granting {$user->nick} a MEDAL_VOLUNTEER_2");
+      Log::info("Granting {$user->nick} a MEDAL_VOLUNTEER_2");
       $user->medalMask |= Medal::MEDAL_VOLUNTEER_2;
     } else if (($e->numChars >= 1000) && ($e->numChars < 10000) && (!($user->medalMask & Medal::MEDAL_VOLUNTEER_1))) {
-      log_scriptLog("Granting {$user->nick} a MEDAL_VOLUNTEER_1");
+      Log::info("Granting {$user->nick} a MEDAL_VOLUNTEER_1");
       $user->medalMask |= Medal::MEDAL_VOLUNTEER_1;
     }
     $user->medalMask = Medal::getCanonicalMask($user->medalMask);
@@ -120,7 +120,7 @@ foreach ($topData as $e) {
   }
 }
 
-log_scriptLog("updateMedals: ending");  
+Log::notice('finished');
 
 /*********************************************************************/
 

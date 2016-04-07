@@ -7,18 +7,12 @@ class OS {
   }
 
   static function executeAndAssert($command) {
-    self::executeAndAssertDebug($command, false);
-  }
-
-  static function executeAndAssertDebug($command, $debug) {
     $exit_code = 0;
     $output = null;
     Log::info("Executing $command");
     exec($command, $output, $exit_code);
-    if ($exit_code || $debug) {
-      Log::debug('Output: ' . implode("\n", $output));
-    }
     if ($exit_code) {
+      Log::error('Output: ' . implode("\n", $output));
       self::errorAndExit("Failed command: $command (code $exit_code)");
     }
   }

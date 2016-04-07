@@ -58,6 +58,14 @@ mobileSkin = mobile
 ; Seasonal pranks FTW
 aprilFoolsDay = 0
 
+[logging]
+
+; Log file name. Can also be "php://stdout" or "php://stderr"
+file = "/var/log/dexonline.log"
+
+; Maximum priority level. See <http://php.net/manual/en/function.syslog.php>.
+level = LOG_INFO
+
 [search-log]
 
 ; Whether or not to log query-related information

@@ -3,7 +3,7 @@
 /**
  * Class used to log data when a search is performed
  **/
-class Log {
+class SearchLog {
 
   /**
    * Constructs the object

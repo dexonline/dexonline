@@ -314,7 +314,7 @@ if (!$xml) {
 
 if (Config::get('global.logSearch')) {
   $logDefinitions = isset($definitions) ? $definitions : array();
-  $log = new Log($cuv, $redirectFrom, $searchType, $redirect, $logDefinitions);
+  $log = new SearchLog($cuv, $redirectFrom, $searchType, $redirect, $logDefinitions);
   $log->logData();
 }
 

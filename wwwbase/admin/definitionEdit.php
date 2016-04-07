@@ -139,7 +139,7 @@ if ($acceptButton || $nextOcrBut) {
       }
     }
     
-    log_userLog("Edited definition {$d->id} ({$d->lexicon})");
+    Log::notice("Saved definition {$d->id} ({$d->lexicon})");
   
     if ($nextOcrBut) {
       // cause the next OCR definition to load

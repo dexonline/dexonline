@@ -34,7 +34,7 @@ if ($sendButton) {
     $definition->lexicon = AdminStringUtil::extractLexicon($definition);
     $definition->abbrevReview = count($ambiguousMatches) ? ABBREV_AMBIGUOUS : ABBREV_REVIEW_COMPLETE;
     $definition->save();
-    log_userLog("Added definition {$definition->id} ({$definition->lexicon})");
+    Log::notice("Added definition {$definition->id} ({$definition->lexicon})");
 
     foreach ($lexemIds as $lexemId) {
       $lexemId = addslashes(AdminStringUtil::formatLexem($lexemId));
@@ -43,11 +43,11 @@ if ($sendButton) {
         $lexem = Lexem::deepCreate(substr($lexemId, 1), 'T', '1');
         $lexem->deepSave();
         LexemDefinitionMap::associate($lexem->id, $definition->id);
-        log_userLog("Created lexem {$lexem->id} ({$lexem->form})");
+        Log::notice("Created lexem {$lexem->id} ({$lexem->form}) for definition {$definition->id}");
       } else {
         $lexem = Lexem::get_by_id($lexemId);
         LexemDefinitionMap::associate($lexem->id, $definition->id);
-        log_userLog("Associating with lexem {$lexem->id} ({$lexem->form})");
+        Log::notice("Associating definition {$definition->id} with lexem {$lexem->id} ({$lexem->form})");
       }
     }
     FlashMessage::add('Am salvat definiția. Un moderator o va examina în scurt timp. Vă mulțumim!', 'success');

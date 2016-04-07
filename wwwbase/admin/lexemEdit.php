@@ -59,7 +59,7 @@ if ($refreshLexem || $saveLexem) {
       $lexem->updateVariants($variantIds);
       $lexem->regenerateDependentLexems();
 
-      log_userLog("Edited lexem {$lexem->id} ({$lexem->form})");
+      Log::notice("Saved lexem {$lexem->id} ({$lexem->formNoAccent})");
       util_redirect("lexemEdit.php?lexemId={$lexem->id}");
     }
   } else {
@@ -388,7 +388,7 @@ function handleLexemActions() {
   $cloneLexem = util_getRequestParameter('cloneLexem');
   if ($cloneLexem) {
     $newLexem = $lexem->cloneLexem();
-    log_userLog("Cloned lexem {$lexem->id} ({$lexem->form}), new id is {$newLexem->id}");
+    Log::notice("Cloned lexem {$lexem->id} ({$lexem->formNoAccent}), new id is {$newLexem->id}");
     util_redirect("lexemEdit.php?lexemId={$newLexem->id}");
   }
 

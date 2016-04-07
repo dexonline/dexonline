@@ -24,8 +24,13 @@ class Log {
       $line = $trace[$i]['line'];
       $date = date("Y-m-d H:i:s");
       $format = array_shift($args);
+      $user = session_getUser();
 
-      vfprintf(self::$file, "[{$date}] [{$file}:{$line}] {$format}\n", $args);
+      fprintf(self::$file, "[{$date}] [{$file}:{$line}] ");
+      if ($user) {
+        fprintf(self::$file, "[{$user->nick}] ");
+      }
+      vfprintf(self::$file, "{$format}\n", $args);
     }
   }
 

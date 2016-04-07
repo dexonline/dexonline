@@ -16,7 +16,7 @@ if (!$userId) {
 
 $bookmark = Model::factory('UserWordBookmark')->where('userId', $userId)->where('definitionId', $definitionId)->find_one();
 if ($bookmark) {
-  log_userLog("Removed from favorites: {$bookmark->id} - the definition with the id {$bookmark->definitionId} of user: {$bookmark->userId}");
+  Log::info("removed {$bookmark->id}, definition ID = {$definitionId}");
   $bookmark->delete();
 }
 $response['status'] = 'success';

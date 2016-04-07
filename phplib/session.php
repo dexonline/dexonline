@@ -43,12 +43,12 @@ function session_login($user, $openidData) {
   $cookie->cookieString = util_randomCapitalLetterString(12);
   $cookie->save();
   setcookie("prefs[lll]", $cookie->cookieString, time() + ONE_MONTH_IN_SECONDS, '/');
-  log_userLog('Logged in, IP=' . $_SERVER['REMOTE_ADDR']);
+  Log::info('Logged in, IP=' . $_SERVER['REMOTE_ADDR']);
   util_redirect(util_getWwwRoot());
 }
 
 function session_logout() {
-  log_userLog('Logging out, IP=' . $_SERVER['REMOTE_ADDR']);
+  Log::info('Logged out, IP=' . $_SERVER['REMOTE_ADDR']);
   $cookieString = session_getCookieSetting('lll');
   $cookie = Cookie::get_by_cookieString($cookieString);
   if ($cookie) {

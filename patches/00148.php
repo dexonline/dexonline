@@ -61,14 +61,14 @@ foreach ($lexems as $l) {
     }
 
     if ($changes) {
-      change($l, $lms);
+      change2($l, $lms);
     }
   }
 }
 
 /**************************************************************************/
 
-function change(&$l, $lms) {
+function change2(&$l, $lms) {
   $orig = Lexem::get_by_id($l->id);
 
   printf("Migrating %s, %d models:", $orig->form, count($lms));

@@ -312,7 +312,7 @@ if (!$xml) {
   SmartyWrap::displayWithoutSkin('xml/search.tpl');
 }
 
-if (Config::get('global.logSearch')) {
+if (Config::get('search-log.enabled')) {
   $logDefinitions = isset($definitions) ? $definitions : array();
   $log = new SearchLog($cuv, $redirectFrom, $searchType, $redirect, $logDefinitions);
   $log->logData();

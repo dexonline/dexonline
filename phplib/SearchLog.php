@@ -16,7 +16,7 @@ class SearchLog {
    * @return void
    **/
   public function __construct($query, $queryBeforeRedirect, $searchType, $redirect = false, &$results = null) {
-    if (!Config::get('global.logSearch') || lcg_value() > Config::get('global.logSampling')) {
+    if (!Config::get('search-log.enabled') || lcg_value() > Config::get('search-log.fraction')) {
       $this->query = null;
       return false;
     }
@@ -37,7 +37,7 @@ class SearchLog {
     $this->resultList = '';
     
     if ($results != null) {
-      $numResultsToLog = min(count($results), Config::get('global.logResults'));
+      $numResultsToLog = min(count($results), Config::get('search-log.results'));
       $this->resultList = '';
       for ($i = 0; $i < $numResultsToLog; $i++) {
         $this->resultList .= ($this->resultList ? ',' : '') . $results[$i]->id;
@@ -56,11 +56,11 @@ class SearchLog {
       return false;
     }
     try {
-      $f = fopen(Config::get('global.logPath'), 'at');
+      $f = fopen(Config::get('search-log.file'), 'at');
     }
     catch (Exception $e) {
       try {
-        $f = fopen(Config::get('global.logPath'), 'wt');
+        $f = fopen(Config::get('search-log.file'), 'wt');
       }
       catch (Exception $e) {
         throw new Exception('Error trying to access the log file', -1, $e);

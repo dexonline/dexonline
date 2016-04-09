@@ -9,20 +9,21 @@
   calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
   în absența unei conexiuni la internet.
 
-  <table class="toolsTable minimalistTable">
+  <table class="toolsTable minimalistTable" id="toolTable">
+    <tbody>
     <tr>
-      <th>Client</th>
-      <th>Platforme</th>
+      <td>Client</td>
+      <td>Platforme</td>
       {foreach from=$clientOptions item=option key=id}
-        <th>
-          {$option.0}<br/>
+        <td>
+          {$option.0}
           <span class="tooltip2" title="{$option.1}">&nbsp;</span>
-        </th>
+        </td>
       {/foreach}
-      <th>Cerințe</th>
-      <th>Spațiu necesar</th>
-      <th>Autori</th>
-      <th>Licență</th>
+      <td>Cerințe</td>
+      <td>Spațiu necesar</td>
+      <td>Autori</td>
+      <td>Licență</td>
     </tr>
 
     {foreach from=$clients item=c}
@@ -74,6 +75,7 @@
         </tr>
       {/if}
     {/foreach}
+    </tbody>
   </table>
 
   <div class="toolsLicense">
@@ -129,4 +131,35 @@
   </p>
 
   Vezi pagina integrată <a href="scrabble">scrabble</a>.
+
+  <script type="text/javascript">
+    {literal}
+    $(document).ready(function() {
+
+      var t = $('#toolTable tbody').eq(0);
+      var r = t.find('tr');
+      var cols= r.length;
+      var rows= r.eq(0).find('td').length;
+
+      var cell, next, tem, i = 0;
+      var tb= $('<tbody></tbody>');
+
+      while(i<rows){
+        cell= 0;
+        tem= $('<tr></tr>');
+        while(cell<cols){
+          next= r.eq(cell++).find('td').eq(0);
+          tem.append(next);
+        }
+        tb.append(tem);
+        ++i;
+      }
+      $('#toolTable').append(tb);
+
+      $('#toolTable').show();
+    });
+    {/literal}
+  </script>
 {/block}
+
+

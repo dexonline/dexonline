@@ -223,7 +223,7 @@
   {if $sUser->moderator & $smarty.const.PRIV_WOTD}
     <h3>Cuvântul + imaginea zilei</h3>
 
-    <a href="wotd.php">cuvântul zilei</a> |
+    <a href="wotdTable.php">cuvântul zilei</a> |
     <a href="wotdImages.php">imaginea zilei</a> |
     <a href="../autori-imagini.php">autori</a> |
     <a href="../alocare-autori.php">alocarea autorilor</a>

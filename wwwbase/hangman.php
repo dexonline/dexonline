@@ -75,7 +75,6 @@ SmartyWrap::assign('word', $word);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('difficulty', $difficulty);
 SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::addCss('hangman');
-SmartyWrap::addJs('hangman', 'jqnotice');
+SmartyWrap::addJs('jqnotice');
 SmartyWrap::display("hangman.tpl");
 ?>

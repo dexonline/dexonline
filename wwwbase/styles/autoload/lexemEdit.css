@@ -25,7 +25,7 @@ body {
 }
 
 #meaningTree li {
-  background: url("../img/icons/page_white_text.png") 0px 3px no-repeat;
+  background: url("../../img/icons/page_white_text.png") 0px 3px no-repeat;
   list-style: none;
   padding-left: 16px;
 }
@@ -184,12 +184,12 @@ abbr {
 }
 
 .structured a.toggleStructuredLink {
-  background: url("../img/icons/bullet_green.png") 0px 1px no-repeat;
+  background: url("../../img/icons/bullet_green.png") 0px 1px no-repeat;
   padding-left: 14px;
 }
 
 .unstructured a.toggleStructuredLink {
-  background: url("../img/icons/bullet_red.png") 0px 1px no-repeat;
+  background: url("../../img/icons/bullet_red.png") 0px 1px no-repeat;
   padding-left: 14px;
 }
 
@@ -211,27 +211,27 @@ abbr {
 }
 
 input[name=cloneLexem] {
-  background: #e5e5e5 url("../img/icons/page_white_copy.png") 2px 0px no-repeat;
+  background: #e5e5e5 url("../../img/icons/page_white_copy.png") 2px 0px no-repeat;
   padding-left: 20px;
 }
 
 input[name=deleteLexem] {
-  background: #e5e5e5 url("../img/icons/cross16.png") 2px 0px no-repeat;
+  background: #e5e5e5 url("../../img/icons/cross16.png") 2px 0px no-repeat;
   padding-left: 20px;
 }
 
 input[name=mergeLexem] {
-  background: #e5e5e5 url("../img/icons/add.png") 2px 0px no-repeat;
+  background: #e5e5e5 url("../../img/icons/add.png") 2px 0px no-repeat;
   padding-left: 20px;
 }
 
 input[name=refreshLexem] {
-  background: #e5e5e5 url("../img/icons/arrow_refresh.png") 2px 0px no-repeat;
+  background: #e5e5e5 url("../../img/icons/arrow_refresh.png") 2px 0px no-repeat;
   padding-left: 20px;
 }
 
 input[name=saveLexem] {
-  background: #e5e5e5 url("../img/icons/disk.png") 2px 0px no-repeat;
+  background: #e5e5e5 url("../../img/icons/disk.png") 2px 0px no-repeat;
   padding-left: 20px;
 }
 

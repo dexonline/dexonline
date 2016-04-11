@@ -5,6 +5,6 @@ util_assertNotMirror();
 RecentLink::createOrUpdate('Adăugare imagini definiții');
 
 SmartyWrap::addCss('elfinder', 'jqueryui');
-SmartyWrap::addJs('jquery', 'jqueryui', 'elfinder', 'visual');
+SmartyWrap::addJs('jquery', 'jqueryui', 'elfinder');
 SmartyWrap::displayAdminPage('admin/visual.tpl');
 ?>

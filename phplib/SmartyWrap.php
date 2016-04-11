@@ -2,8 +2,8 @@
 
 class SmartyWrap {
   private static $theSmarty = null;
-  private static $cssFiles = array();
-  private static $jsFiles = array();
+  private static $cssFiles = [];
+  private static $jsFiles = [];
 
   static function init() {
     self::$theSmarty = new Smarty();
@@ -23,6 +23,25 @@ class SmartyWrap {
     self::$theSmarty->registerPlugin('function', 'getDebugInfo', array('SmartyWrap', 'getDebugInfo'));
   }
 
+  // Add $template.css and $template.js to the file lists, if they exist.
+  static function addSameNameFiles($template) {
+    $baseName = pathinfo($template)['filename'];
+
+    // Add {$template}.css if the file exists
+    $cssFile = "autoload/{$baseName}.css";
+    $fileName = util_getRootPath() . 'wwwbase/styles/' . $cssFile;
+    if (file_exists($fileName)) {
+      self::$cssFiles[] = $cssFile;
+    }
+
+    // Add {$template}.js if the file exists
+    $jsFile = "autoload/{$baseName}.js";
+    $fileName = util_getRootPath() . 'wwwbase/js/' . $jsFile;
+    if (file_exists($fileName)) {
+      self::$jsFiles[] = $jsFile;
+    }
+  }
+
   static function fetchSkin($templateName) {
     $skin = session_getSkin();
     self::addCss($skin, 'flash');
@@ -31,6 +50,7 @@ class SmartyWrap {
         self::addCss('jqueryui');
         self::addJs('jqueryui');
     }
+    self::addSameNameFiles($templateName);
     $skinVariables = array_merge(Config::getSection("skin-default"),
                                  Config::getSection("skin-{$skin}"));
     self::assign('skinVariables', $skinVariables);
@@ -57,6 +77,7 @@ class SmartyWrap {
     self::assign('templateName', $templateName);
   	self::addCss('flex', 'flash');
     self::addJs('dex', 'flex', 'jquery');
+    self::addSameNameFiles($templateName);
     print self::fetch($templateName);
   }
 
@@ -111,19 +132,14 @@ class SmartyWrap {
         case 'mobile':              self::$cssFiles[10] = 'mobile.css?v=23'; break;
         case 'flex':                self::$cssFiles[11] = 'flex.css?v=18'; break;
         case 'paradigm':            self::$cssFiles[12] = 'paradigm.css?v=3'; break;
-        case 'hangman':             self::$cssFiles[13] = 'hangman.css?v=5'; break;
-        case 'mill':                self::$cssFiles[14] = 'mill.css?v=3'; break;
-        case 'lexemEdit':           self::$cssFiles[15] = 'lexemEdit.css?v=10'; break;
-        case 'jcrop':               self::$cssFiles[16] = 'jcrop/jquery.Jcrop.min.css?v=3'; break;
-        case 'select2':             self::$cssFiles[17] = 'select2/select2.css?v=3'; break;
+        case 'jcrop':               self::$cssFiles[13] = 'jcrop/jquery.Jcrop.min.css?v=3'; break;
+        case 'select2':             self::$cssFiles[14] = 'select2/select2.css?v=3'; break;
         case 'gallery':
-          self::$cssFiles[18] = 'colorbox/colorbox.css?v=1';
-          self::$cssFiles[19] = 'visualDict.css?v=3';
+          self::$cssFiles[15] = 'colorbox/colorbox.css?v=1';
+          self::$cssFiles[16] = 'visualDict.css?v=3';
           break;
-        case 'textComplete':        self::$cssFiles[20] = 'jquery.textcomplete.css'; break;
-        case 'wotdAssignment':      self::$cssFiles[21] = 'wotdAssignment.css?v=2'; break;
-        case 'etichete-sensuri':    self::$cssFiles[22] = 'etichete-sensuri.css?v=2'; break;
-        case 'flash':               self::$cssFiles[23] = 'flash.css'; break;
+        case 'textComplete':        self::$cssFiles[17] = 'jquery.textcomplete.css'; break;
+        case 'flash':               self::$cssFiles[18] = 'flash.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -153,28 +169,18 @@ class SmartyWrap {
         case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js?v=1'; break;
         case 'dex':              self::$jsFiles[13] = 'dex.js?v=35'; break;
         case 'flex':             self::$jsFiles[14] = 'flex.js?v=3'; break;
-        case 'hangman':          self::$jsFiles[15] = 'hangman.js?v=5'; break;
-        case 'mill':             self::$jsFiles[16] = 'mill.js?v=3'; break;
-        case 'wotd':             self::$jsFiles[17] = 'wotd.js?v=3'; break;
-        case 'lexemEdit':        self::$jsFiles[18] = 'lexemEdit.js?v=16'; break;
-        case 'jcrop':            self::$jsFiles[19] = 'jquery.Jcrop.min.js?v=2'; break;
-        case 'select2':          self::$jsFiles[20] = 'select2.min.js?v=3'; break;
-        case 'select2Dev':       self::$jsFiles[21] = 'select2Dev.js?v=8'; break;
-        case 'visual':           self::$jsFiles[22] = 'visual.js?v=2'; break;
-        case 'visualTag':        self::$jsFiles[23] = 'visualTag.js?v=2'; break;
+        case 'jcrop':            self::$jsFiles[15] = 'jquery.Jcrop.min.js?v=2'; break;
+        case 'select2':          self::$jsFiles[16] = 'select2.min.js?v=3'; break;
+        case 'select2Dev':       self::$jsFiles[17] = 'select2Dev.js?v=8'; break;
         case 'gallery':
-          self::$jsFiles[24] = 'colorbox/jquery.colorbox-min.js';
-          self::$jsFiles[25] = 'colorbox/jquery.colorbox-ro.js';
-          self::$jsFiles[26] = 'dexGallery.js?v=2';
-          self::$jsFiles[27] = 'jcanvas.min.js';
+          self::$jsFiles[18] = 'colorbox/jquery.colorbox-min.js';
+          self::$jsFiles[19] = 'colorbox/jquery.colorbox-ro.js';
+          self::$jsFiles[20] = 'dexGallery.js?v=2';
+          self::$jsFiles[21] = 'jcanvas.min.js';
           break;
-        case 'modelDropdown':    self::$jsFiles[28] = 'modelDropdown.js'; break;
-        case 'textComplete':     self::$jsFiles[29] = 'jquery.textcomplete.min.js'; break;
-        case 'definitionEdit':   self::$jsFiles[30] = 'definitionEdit.js?v=5'; break;
-        case 'deTool':           self::$jsFiles[31] = 'deTool.js?v=3'; break;
-        case 'wotdAssignment':   self::$jsFiles[32] = 'wotdAssignment.js?v=2'; break;
-        case 'etichete-sensuri': self::$jsFiles[33] = 'etichete-sensuri.js?v=2'; break;
-        case 'tinymce':          self::$jsFiles[34] = 'tinymce-4.3.4/tinymce.min.js'; break;
+        case 'modelDropdown':    self::$jsFiles[22] = 'modelDropdown.js'; break;
+        case 'textComplete':     self::$jsFiles[23] = 'jquery.textcomplete.min.js'; break;
+        case 'tinymce':          self::$jsFiles[24] = 'tinymce-4.3.4/tinymce.min.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

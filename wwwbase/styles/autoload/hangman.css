@@ -79,7 +79,7 @@
 }
 
 #hangman .hangmanPic {
-  background: url("../img/hangman/hangman.png") -1510px -10px no-repeat;
+  background: url("../../img/hangman/hangman.png") -1510px -10px no-repeat;
   margin-top: 10px;
   width: 230px;
   height: 275px;

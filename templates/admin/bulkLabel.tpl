@@ -36,25 +36,30 @@
 
           <!-- Radio buttons to choose the model. -->
           Model de flexiune:
-          {foreach from=$models item=m key=mIter}
+          {foreach from=$models item=m key=i}
             {assign var="mId" value="`$m->modelType`_`$m->number`"}
-            {assign var="label" value="radio_`$l->id`_`$mId`"}
-            <input type="radio" name="lexem_{$l->id}" value="{$mId}"
-                   id="{$label|escape}"
-                   onclick="hideDiv('comment_{$l->id}'); return blUpdateParadigmVisibility(this)"
-            /><label for="{$label|escape}"
-                     >{$m->modelType}{$m->number} ({$m->exponent})</label>
+            <label>
+              <input class="modelRadio"
+                     type="radio"
+                     name="lexem_{$l->id}"
+                     value="{$mId}"
+                     data-order="{$i}">
+              {$m->modelType}{$m->number} ({$m->exponent})
+            </label>
             &nbsp;&nbsp;
           {/foreach}
           &nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="radio" name="lexem_{$l->id}" value="0"
-                 id="radio_{$l->id}_0"
-                 checked="checked"
-                 onclick="showDiv('comment_{$l->id}'); return blUpdateParadigmVisibility(this)"
-          /><label for="radio_{$l->id}_0">Ignoră</label>
+          <label>
+            <input class="modelRadio"
+                   type="radio"
+                   name="lexem_{$l->id}"
+                   value="0"
+                   checked="checked"/>
+            Ignoră
+          </label>
           <br/>
 
-          <div id="comment_{$l->id}" class="bulkLabelComment">
+          <div class="bulkLabelComment">
             <span style="vertical-align: top">Comentariu:</span>
             <textarea name="comment_{$l->id}" rows="2" cols="60"
                       class="commentTextArea"
@@ -67,12 +72,12 @@
           <br/>
 
           <!-- Hide/show definitions -->
-          <a href="#" id="defLink_{$l->id}"
-             onclick="return blUpdateDefVisibility(this)"
-             >ascunde definițiile</a>
+          <a class="defLink" href="#" data-other-text="arată definițiile">
+            ascunde definițiile
+          </a>
 
           <!-- Definitions -->
-          <div class="blDefinitions" id="definitions_{$l->id}">
+          <div class="blDefinitions">
             {assign var="srArray" value=$searchResults[$lIter]}
             {foreach from=$srArray item=row}
               {$row->definition->htmlRep}<br/>
@@ -86,12 +91,12 @@
 
           <!-- Div containing all the paradigms. Only one of them will -->
           <!-- be visible at any time. -->
-          <div id="paradigms_{$l->id}">
+          <div class="paradigms">
             {assign var="lmArray" value=$lmMatrix[$lIter]}
             {foreach from=$lmArray item=lm key=pIter}
               {assign var="m" value=$models[$pIter]}
               {assign var="mt" value=$modelTypes[$pIter]}
-              <div class="blParadigm" style="display: none" id="paradigm_{$l->id}_{$m->modelType}_{$m->number}">
+              <div class="blParadigm" style="display: none">
                 {include file="paradigm/paradigm.tpl" lexemModel=$lm}
               </div>
             {/foreach}

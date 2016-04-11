@@ -1,0 +1,23 @@
+.apLexemForm {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 120%;
+  width: 30em;
+}
+
+.apLetter:hover {
+  color: #00ff00;
+  cursor: pointer;
+}
+
+.apDefLink {
+  color: #777777;
+  margin-left: 50px;
+}
+
+.apDefs {
+  border: 1px solid #ddd;
+  display: none;
+  margin: 10px 0px;
+  padding: 5px;
+}

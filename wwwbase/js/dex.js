@@ -161,32 +161,6 @@ function submitTypoForm() {
   return false;
 }
 
-function contribBodyLoad() {
-  contribUpdatePreviewDiv();
-}
-
-function contribKeyPressed() {
-  var previewDiv = document.getElementById('previewDiv');
-  previewDiv.keyWasPressed = true;
-}
-
-function contribUpdatePreviewDiv() {
-  var previewDiv = document.getElementById('previewDiv');
-  if (previewDiv.keyWasPressed) {
-    var internalRep = document.frmContrib.def.value;
-    $.post(wwwRoot + 'ajax/htmlize.php', { internalRep: internalRep, sourceId: document.frmContrib.source.value })
-      .done(function(data) { $('#previewDiv').html(data); })
-      .fail(contribPreviewFail);
-    previewDiv.keyWasPressed = false;
-  }
-  setTimeout('contribUpdatePreviewDiv()', 5000);
-}
-
-function contribPreviewFail() {
-  $('#previewDiv').html('Este o problemă la comunicarea cu serverul. Voi reîncerca în 5 secunde.');
-  contribKeyPressed();   // Force another attempt in 5 seconds.
-}
-
 function toggleDivVisibility(divId) {
   var div = document.getElementById(divId);
   if (div.style.display == 'block') {

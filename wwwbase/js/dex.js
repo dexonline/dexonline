@@ -5,6 +5,7 @@ var wwwRoot = getWwwRoot();
 
 $(function() {
   $('span.def').click(searchClickedWord);
+  $('.inflLink').click(toggleInflections);
   $('#mobileLink').click(reloadAsMobile);
   $('#desktopLink').click(reloadAsDesktop);
 });
@@ -161,20 +162,20 @@ function submitTypoForm() {
   return false;
 }
 
-function toggleDivVisibility(divId) {
-  var div = document.getElementById(divId);
-  if (div.style.display == 'block') {
-    div.style.display = 'none';
-  } else {
-    div.style.display = 'block';
-  }
+function toggle(id) {
+  $('#' + id).slideToggle();
   return false;
 }
 
-function toggleInflVisibility(value, lexem) {
+function toggleInflections() {
   var div = $('#paradigmDiv');
+
   if (trim(div.html()) == '') {
-	  param = (lexem ? 'lexemId' : 'cuv') + '=' + value;
+    var lexemId = $(this).data('lexemId');
+    var cuv = $(this).data('cuv');
+	  var param = lexemId
+        ? ('lexemId=' + lexemId)
+        : ('cuv=' + cuv);
     $.get(wwwRoot + 'paradigm.php?ajax=1&' + param)
       .done(function(data) { div.html(data).slideToggle(); }); // Slide only after content is added
   } else {

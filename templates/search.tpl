@@ -112,8 +112,13 @@
         {if $onlyParadigm}
           {$declensionText}
         {else}
-          <a class="inflLink" href="#" onclick="return toggleInflVisibility({if $lexemId}'{$lexemId}',1{else}'{$cuv|escape:url}'{/if});"
-             title="clic pentru conjugarea / declinarea cuvintelor"><span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span> {$declensionText}
+          <a class="inflLink"
+             href="#"
+             data-lexem-id="{$lexemId}"
+             data-cuv="{$cuv|escape:url}"
+             title="clic pentru conjugarea / declinarea cuvintelor">
+            <span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span>
+            {$declensionText}
           </a>
         {/if}
       {/if}
@@ -211,7 +216,7 @@
     {if $skinVariables.typo}
       <div id="typoDiv"></div>
       <script>
-       $(".typoLink").click(showTypoForm);
+        $(".typoLink").click(showTypoForm);
       </script>
     {/if}
   </div>

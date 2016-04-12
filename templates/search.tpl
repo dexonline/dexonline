@@ -191,17 +191,6 @@
       {include file="bits/definition.tpl" row=$row}
     {/foreach}
 
-    {if $sUser}
-      <script>
-       $(function () {
-         $('.bookmarkAddButton').click(function () {
-           addBookmark($(this));
-           return false;
-         });
-       });
-      </script>
-    {/if}
-
     {if isset($hiddenSources) && count($hiddenSources) && !count($results)}
       Puteți găsi definiții pentru acest cuvânt în dicționarele:
 

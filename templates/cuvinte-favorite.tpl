@@ -14,14 +14,6 @@
           <span>{$row->html}</span>
         </div>
       {/foreach}
-      <script>
-       $(function () {
-           $('.bookmarkRemoveButton').click(function () {
-               removeBookmark($(this));
-               return false;
-           });
-       });
-      </script>
     {else}
       Nu aveți niciun cuvânt favorit.
     {/if}

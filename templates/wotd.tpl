@@ -89,18 +89,6 @@
       });
     </script>
 
-    {* Javascript for "Add to favorites" *}
-    {if $sUser}
-      <script>
-       $(function () {
-         $('.bookmarkAddButton').click(function () {
-           addBookmark($(this));
-           return false;
-         });
-       });
-      </script>
-    {/if}
-
     {* Javascript for "Report a typo" *}
     <div id="typoDiv"></div>
     <script>

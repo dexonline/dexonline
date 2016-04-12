@@ -186,14 +186,6 @@
       Veți primi o pagină cu 10 lexeme alese la întâmplare (deocamdată
       avem de unde alege...) pentru care puteți indica unde pică accentul.
     </div>
-
-    {* Probably safe to delete, since we have deTool.php *}
-    {* Pentru a încerca identificarea substantivelor proprii, *}
-    {* <a href="properNouns.php">clic aici</a>. *}
-    {* <div class="flexExplanation"> *}
-    {*   Veți primi grupuri de lexeme asociate cu definiții din Dicționarul Enciclopedic. *}
-    {* </div> *}
-    {* <br/> *}
   {/if}
 
   {if $sUser->moderator & $smarty.const.PRIV_STRUCT}

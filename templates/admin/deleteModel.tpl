@@ -31,6 +31,8 @@
 
     <!-- We want to disable the button on click, but still submit a value -->
     <input type="hidden" name="deleteButton" value="1"/>
-    <input type="submit" name="bogusButton" value="Confirmă"/>
+    {if $locPerm}
+      <input type="submit" name="bogusButton" value="Confirmă"/>
+    {/if}
   </form>
 {/block}

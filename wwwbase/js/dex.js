@@ -238,10 +238,6 @@ function debug(obj) {
   alert(s);
 }
 
-function confirmDissociateDefinition(id) {
-  return confirm('Doriți să disociați definiția ' + id + ' de acest lexem?');
-}
-
 /* adapted from http://stackoverflow.com/questions/7563169/detect-which-word-has-been-clicked-on-within-a-text */
 function searchClickedWord(event) {
   if ($(event.target).is('abbr')) return false;

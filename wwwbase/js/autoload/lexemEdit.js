@@ -629,3 +629,7 @@ function wmInterfaceReset() {
   wmSetCoordinates();
   return false;
 }
+
+function confirmDissociateDefinition(id) {
+  return confirm('Doriți să disociați definiția ' + id + ' de acest lexem?');
+}

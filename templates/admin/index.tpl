@@ -90,7 +90,7 @@
     </form>
   {/if}
 
-  {if $sUser->moderator & $smarty.const.PRIV_LOC}
+  {if $sUser->moderator & $smarty.const.PRIV_EDIT}
     <h3>Modele de flexiune</h3>
 
     <form action="dispatchModelAction.php" method="get">

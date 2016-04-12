@@ -2,7 +2,7 @@
 require_once("../../phplib/util.php"); 
 ini_set('memory_limit', '512M');
 ini_set('max_execution_time', '3600');
-util_assertModerator(PRIV_LOC);
+util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 DebugInfo::disable();
 
@@ -12,6 +12,8 @@ $id = util_getRequestParameter('id');
 $previewButton = util_getRequestParameter('previewButton');
 $confirmButton = util_getRequestParameter('confirmButton');
 $shortList = util_getBoolean('shortList');
+
+$locPerm = util_isModerator(PRIV_LOC);
 
 $m = FlexModel::get_by_id($id);
 $pm = ParticipleModel::loadForModel($m);
@@ -43,6 +45,12 @@ foreach ($ifs as $i => $if) {
 }
 
 if (!$previewButton && !$confirmButton) {
+  if (!$locPerm) {
+    FlashMessage::add('Întrucât nu puteți modifica Lista Oficială de Cuvinte a ' .
+                      'jocului de Scrabble, nu veți putea modifica unele dintre câmpuri.',
+                      'warning');
+  }
+
   // just viewing the page
   RecentLink::createOrUpdate("Editare model: {$m}");
   SmartyWrap::assign('m', $m);
@@ -272,6 +280,13 @@ if (!$previewButton && !$confirmButton) {
     $nm->save();
     Log::notice("Saving model {$nm->id} ({$nm}) done");
     util_redirect('../admin/index.php');
+  } else { // preview button
+    if (!FlashMessage::hasErrors()) {
+      FlashMessage::add('Examinați modificările și, dacă totul arată normal, apăsați ' .
+                        'butonul „Salvează”. Dacă nu, continuați editarea și apăsați ' .
+                        'din nou butonul „Testează”.', 'info');
+
+    }
   }
 
   SmartyWrap::assign('om', $m);
@@ -291,10 +306,10 @@ if ($m->modelType == 'V') {
 
 SmartyWrap::assign('shortList', $shortList);
 SmartyWrap::assign('inflectionMap', Inflection::mapById($inflections));
-SmartyWrap::assign('wasPreviewed', $previewButton);
+SmartyWrap::assign('previewPassed', $previewButton && !FlashMessage::hasErrors());
+SmartyWrap::assign('locPerm', $locPerm);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::addCss('paradigm', 'jqueryui');
-SmartyWrap::addJs('jquery', 'jqueryui');
 SmartyWrap::displayAdminPage('admin/editModel.tpl');
 
 /****************************************************************************/

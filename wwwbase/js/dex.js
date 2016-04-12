@@ -300,17 +300,6 @@ function deleteDefinition(defDivId, defId) {
   return false;
 }
 
-function editModelAppendBox(inflId) {
-  var obj = $('#td_' + inflId);
-  var count = $('#td_' + inflId + '> p').length;
-  obj.append('<p>');
-  obj.append('<input class="fieldColumn" type="text" name="forms_' + inflId + '_' + count + '" value=""/> ');
-  obj.append('<input class="checkboxColumn" type="checkbox" name="isLoc_' + inflId + '_' + count + '" value="1" checked="checked"/>');
-  obj.append('<input class="checkboxColumn" type="checkbox" name="recommended_' + inflId + '_' + count + '" value="1" checked="checked"/>');
-  obj.append('</p>');
-  return false;
-}
-
 function trim(str) {
 	var	str = str.replace(/^\s\s*/, ''),
     ws = /\s/,

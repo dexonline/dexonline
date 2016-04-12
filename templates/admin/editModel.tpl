@@ -10,14 +10,18 @@
   {assign var="adjModels" value=$adjModels|default:null}
   {assign var="participles" value=$participles|default:null}
   {assign var="regenTransforms" value=$regenTransforms|default:null}
-  {if $wasPreviewed && !count($flashMessages)}
-    Examinați modificările afișate mai jos (dacă există) și, dacă totul
-    arată normal, apăsați butonul "Salvează". Dacă nu, continuați editarea
-    și apăsați din nou butonul "Testează".
-    <br/><br/>
-  {/if}
 
-  <form method="post">
+  <p id="stem">
+    <input class="fieldColumn" type="text" name="" value="">
+    <input class="checkboxColumn"
+           type="checkbox"
+           name=""
+           value="1"
+           {if !$locPerm}disabled{/if}>
+    <input class="checkboxColumn" type="checkbox" name="" value="1" checked="checked">
+  </p>
+
+  <form id="modelForm" method="post">
     <input type="hidden" name="id" value="{$m->id}"/>
 
     <table class="editModel">
@@ -83,15 +87,24 @@
         <tr class="{cycle values="odd,even"}">
           <td>{$inflectionMap[$inflId]->description|escape}</td>
           <td class="addSign">
-            <a class="noBorder" href="#" onclick="return editModelAppendBox({$inflId})">
+            <a class="noBorder addFormLink" href="#" data-infl-id="{$inflId}">
               <img src="{$imgRoot}/icons/add.png" alt="plus"/>
             </a>
           </td>
-          <td class="input" id="td_{$inflId}">
+          <td class="input">
             {foreach from=$f item=tuple key=i}
               <p>
-                <input class="fieldColumn" type="text" name="forms_{$inflId}_{$i}" value="{$tuple.form|escape}"/>
-                <input class="checkboxColumn" type="checkbox" name="isLoc_{$inflId}_{$i}" value="1" {if $tuple.isLoc}checked="checked"{/if}/>
+                <input class="fieldColumn"
+                       type="text"
+                       name="forms_{$inflId}_{$i}"
+                       value="{$tuple.form|escape}"
+                       {if $tuple.isLoc && !$locPerm}disabled{/if}>
+                <input class="checkboxColumn"
+                       type="checkbox"
+                       name="isLoc_{$inflId}_{$i}"
+                       value="1"
+                       {if $tuple.isLoc}checked{/if}
+                       {if !$locPerm}disabled{/if}>
                 <input class="checkboxColumn" type="checkbox" name="recommended_{$inflId}_{$i}" value="1" {if $tuple.recommended}checked="checked"{/if}/>
               </p>
             {/foreach}
@@ -108,7 +121,7 @@
       afișate. Aceasta poate accelera mult pasul de testare.
     </div>
 
-    {if $wasPreviewed && !count($flashMessages)}
+    {if $previewPassed}
       <h3>Schimbări globale:</h3>
 
       <ul>
@@ -193,7 +206,7 @@
     <br/>
     <input type="submit" name="previewButton" value="Testează"/>
     <!-- We want to disable the button on click, but still submit a value -->
-    {if $wasPreviewed && !count($flashMessages)}
+    {if $previewPassed}
       <input type="submit" name="confirmButton" value="Salvează"/>
     {/if}
   </form>

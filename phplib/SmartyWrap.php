@@ -76,7 +76,7 @@ class SmartyWrap {
   static function displayAdminPage($templateName) {
     self::assign('templateName', $templateName);
   	self::addCss('flex', 'flash');
-    self::addJs('dex', 'flex', 'jquery');
+    self::addJs('dex', 'jquery');
     self::addSameNameFiles($templateName);
     print self::fetch($templateName);
   }
@@ -168,19 +168,18 @@ class SmartyWrap {
         case 'windowEngine':     self::$jsFiles[11] = 'jquery-wm.js'; break;
         case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js?v=1'; break;
         case 'dex':              self::$jsFiles[13] = 'dex.js?v=35'; break;
-        case 'flex':             self::$jsFiles[14] = 'flex.js?v=3'; break;
-        case 'jcrop':            self::$jsFiles[15] = 'jquery.Jcrop.min.js?v=2'; break;
-        case 'select2':          self::$jsFiles[16] = 'select2.min.js?v=3'; break;
-        case 'select2Dev':       self::$jsFiles[17] = 'select2Dev.js?v=8'; break;
+        case 'jcrop':            self::$jsFiles[14] = 'jquery.Jcrop.min.js?v=2'; break;
+        case 'select2':          self::$jsFiles[15] = 'select2.min.js?v=3'; break;
+        case 'select2Dev':       self::$jsFiles[16] = 'select2Dev.js?v=8'; break;
         case 'gallery':
-          self::$jsFiles[18] = 'colorbox/jquery.colorbox-min.js';
-          self::$jsFiles[19] = 'colorbox/jquery.colorbox-ro.js';
-          self::$jsFiles[20] = 'dexGallery.js?v=2';
-          self::$jsFiles[21] = 'jcanvas.min.js';
+          self::$jsFiles[17] = 'colorbox/jquery.colorbox-min.js';
+          self::$jsFiles[18] = 'colorbox/jquery.colorbox-ro.js';
+          self::$jsFiles[19] = 'dexGallery.js?v=2';
+          self::$jsFiles[20] = 'jcanvas.min.js';
           break;
-        case 'modelDropdown':    self::$jsFiles[22] = 'modelDropdown.js'; break;
-        case 'textComplete':     self::$jsFiles[23] = 'jquery.textcomplete.min.js'; break;
-        case 'tinymce':          self::$jsFiles[24] = 'tinymce-4.3.4/tinymce.min.js'; break;
+        case 'modelDropdown':    self::$jsFiles[21] = 'modelDropdown.js'; break;
+        case 'textComplete':     self::$jsFiles[22] = 'jquery.textcomplete.min.js'; break;
+        case 'tinymce':          self::$jsFiles[23] = 'tinymce-4.3.4/tinymce.min.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

@@ -34,6 +34,7 @@ $().ready(function() {
       // menu that opens when the user right-clicks on a file
       files: ['quicklook', 'download', '|', 'copy', 'cut', '|', 'rename', 'rm', '|', 'tagimage'],
     },
+    debug: true,
   }).elfinder('instance');
 
   // No icon tooltips.

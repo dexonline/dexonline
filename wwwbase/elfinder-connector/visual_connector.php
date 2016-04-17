@@ -11,7 +11,7 @@ include_once __DIR__ . '/VisualElFinder.php';
 
 include_once __DIR__ . '/../../phplib/util.php';
 
-$myLogger = new elFinderSimpleLogger('../../log/visuallog');
+$myLogger = new elFinderSimpleLogger(Config::get('logging.file'));
 
 // https://github.com/Studio-42/elFinder/wiki/Connector-configuration-options
 $opts = array(

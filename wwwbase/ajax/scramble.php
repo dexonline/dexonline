@@ -170,9 +170,18 @@ function findWords($wordList) {
   $j = 0;
   for($i = 0 ;$i < count($wordList); $i++) {
     //$wordList1[$i] = implode($wordList[$i]);
+    /*
     $search = Model::factory('Lexem')
             ->where("formUtf8General", $wordList[$i])
             ->find_one();
+            */
+      $search = Model::factory('InflectedForm')
+       ->select('i.*')
+       ->table_alias('i')
+       ->join('LexemModel', ('i.lexemModelId = lm.id'), 'lm')
+       ->where('i.formUtf8General', $wordList[$i])
+       ->where('lm.isLoc', 1)
+       ->find_one();
                    
     if($search && $search->formUtf8General == $wordList[$i]) {
       if(!in_array($search->formUtf8General, $wordsFound)) {

@@ -15,9 +15,14 @@ if (count($parts) == 2) {
   $lexems = Model::factory('Lexem')->where_like($field, "{$name}%")->order_by_asc('formNoAccent')->limit(10)->find_many();
 }
 
-$resp = array('results' => array());
+$resp = ['results' => []];
 foreach ($lexems as $l) {
-  $resp['results'][] = array('id' => $l->id, 'text' => (string)$l);
+  $resp['results'][] = [
+    'id' => $l->id,
+    'text' => (string)$l,
+    'consistentAccent' => $l->consistentAccent,
+    'hasParadigm' => !$l->hasModelType('T'),
+  ];
 }
 print json_encode($resp);
 

@@ -49,8 +49,6 @@ if ($saveButton) {
 SmartyWrap::assign('meaningTags', MeaningTag::loadTree());
 SmartyWrap::assign('suggestNoBanner', true);
 SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::addCss('etichete-sensuri');
-SmartyWrap::addjs('etichete-sensuri');
 SmartyWrap::display('etichete-sensuri.tpl');
 
 ?>

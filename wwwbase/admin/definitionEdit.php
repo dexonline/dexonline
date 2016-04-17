@@ -98,6 +98,7 @@ if ($acceptButton || $nextOcrBut) {
 
   if (!FlashMessage::hasErrors()) {
     // Save the new lexems, load the rest.
+    $noAccentNag = false;
     $lexems = [];
     foreach ($lexemIds as $lexemId) {
       if (StringUtil::startsWith($lexemId, '@')) {
@@ -106,12 +107,15 @@ if ($acceptButton || $nextOcrBut) {
         $l = Lexem::deepCreate($form, 'T', '1');
         $l->deepSave();
         if (strpos($form, "'") === false) {
-          FlashMessage::add('Vă rugăm să indicați accentul pentru lexemul nou oricând se poate.', 'warning');
+          $noAccentNag = true;
         }
       } else {
         $l = Lexem::get_by_id($lexemId);
       }
       $lexems[] = $l;
+    }
+    if ($noAccentNag) {
+      FlashMessage::add('Vă rugăm să indicați accentul pentru lexemele noi oricând se poate.', 'warning');
     }
 
     // Save the definition and delete the typos associated with it.
@@ -186,7 +190,7 @@ SmartyWrap::assign('homonyms', loadSetHomonyms($lexemIds));
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::addCss('jqueryui', 'select2');
-SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev', 'definitionEdit', 'tinymce', 'cookie');
+SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev', 'tinymce', 'cookie');
 SmartyWrap::displayAdminPage('admin/definitionEdit.tpl');
 
 /**

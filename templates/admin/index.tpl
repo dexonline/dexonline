@@ -90,7 +90,7 @@
     </form>
   {/if}
 
-  {if $sUser->moderator & $smarty.const.PRIV_LOC}
+  {if $sUser->moderator & $smarty.const.PRIV_EDIT}
     <h3>Modele de flexiune</h3>
 
     <form action="dispatchModelAction.php" method="get">
@@ -186,14 +186,6 @@
       Veți primi o pagină cu 10 lexeme alese la întâmplare (deocamdată
       avem de unde alege...) pentru care puteți indica unde pică accentul.
     </div>
-
-    {* Probably safe to delete, since we have deTool.php *}
-    {* Pentru a încerca identificarea substantivelor proprii, *}
-    {* <a href="properNouns.php">clic aici</a>. *}
-    {* <div class="flexExplanation"> *}
-    {*   Veți primi grupuri de lexeme asociate cu definiții din Dicționarul Enciclopedic. *}
-    {* </div> *}
-    {* <br/> *}
   {/if}
 
   {if $sUser->moderator & $smarty.const.PRIV_STRUCT}
@@ -223,7 +215,7 @@
   {if $sUser->moderator & $smarty.const.PRIV_WOTD}
     <h3>Cuvântul + imaginea zilei</h3>
 
-    <a href="wotd.php">cuvântul zilei</a> |
+    <a href="wotdTable.php">cuvântul zilei</a> |
     <a href="wotdImages.php">imaginea zilei</a> |
     <a href="../autori-imagini.php">autori</a> |
     <a href="../alocare-autori.php">alocarea autorilor</a>

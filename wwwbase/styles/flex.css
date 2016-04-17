@@ -290,28 +290,6 @@ hr {
   font-size: 100%;
 }
 
-.ap_lexemRow {
-  border-collapse: collapse;
-  border-bottom: 1px solid #cccccc;
-}
-
-.ap_lexemRow tr .ap_lexemForm {
-  float: left;
-  font-weight: bold;
-  font-size: 120%;
-  width: 30em;
-}
-
-.ap_letter:hover {
-  color: #00ff00;
-  cursor: pointer;
-}
-
-.ap_discreetLink {
-  color: #777777;
-  margin-left: 50px;
-}
-
 .bulkLabelComment {
   font-size: 90%;
   margin-left: 30px;
@@ -387,6 +365,10 @@ hr {
   background: url("../img/icons/pencil.png") no-repeat;
   padding-left: 16px;
   text-decoration: none;
+}
+
+li.select2LexemWarnings {
+  background: #f2dede !important;
 }
 
 /* Select the dark icon set for the magnifier and the X for elFinder's search box.

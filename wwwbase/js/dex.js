@@ -5,6 +5,7 @@ var wwwRoot = getWwwRoot();
 
 $(function() {
   $('span.def').click(searchClickedWord);
+  $('.inflLink').click(toggleInflections);
   $('#mobileLink').click(reloadAsMobile);
   $('#desktopLink').click(reloadAsDesktop);
 });
@@ -161,46 +162,20 @@ function submitTypoForm() {
   return false;
 }
 
-function contribBodyLoad() {
-  contribUpdatePreviewDiv();
-}
-
-function contribKeyPressed() {
-  var previewDiv = document.getElementById('previewDiv');
-  previewDiv.keyWasPressed = true;
-}
-
-function contribUpdatePreviewDiv() {
-  var previewDiv = document.getElementById('previewDiv');
-  if (previewDiv.keyWasPressed) {
-    var internalRep = document.frmContrib.def.value;
-    $.post(wwwRoot + 'ajax/htmlize.php', { internalRep: internalRep, sourceId: document.frmContrib.source.value })
-      .done(function(data) { $('#previewDiv').html(data); })
-      .fail(contribPreviewFail);
-    previewDiv.keyWasPressed = false;
-  }
-  setTimeout('contribUpdatePreviewDiv()', 5000);
-}
-
-function contribPreviewFail() {
-  $('#previewDiv').html('Este o problemă la comunicarea cu serverul. Voi reîncerca în 5 secunde.');
-  contribKeyPressed();   // Force another attempt in 5 seconds.
-}
-
-function toggleDivVisibility(divId) {
-  var div = document.getElementById(divId);
-  if (div.style.display == 'block') {
-    div.style.display = 'none';
-  } else {
-    div.style.display = 'block';
-  }
+function toggle(id) {
+  $('#' + id).slideToggle();
   return false;
 }
 
-function toggleInflVisibility(value, lexem) {
+function toggleInflections() {
   var div = $('#paradigmDiv');
+
   if (trim(div.html()) == '') {
-	  param = (lexem ? 'lexemId' : 'cuv') + '=' + value;
+    var lexemId = $(this).data('lexemId');
+    var cuv = $(this).data('cuv');
+	  var param = lexemId
+        ? ('lexemId=' + lexemId)
+        : ('cuv=' + cuv);
     $.get(wwwRoot + 'paradigm.php?ajax=1&' + param)
       .done(function(data) { div.html(data).slideToggle(); }); // Slide only after content is added
   } else {
@@ -236,10 +211,6 @@ function debug(obj) {
     }
   }
   alert(s);
-}
-
-function confirmDissociateDefinition(id) {
-  return confirm('Doriți să disociați definiția ' + id + ' de acest lexem?');
 }
 
 /* adapted from http://stackoverflow.com/questions/7563169/detect-which-word-has-been-clicked-on-within-a-text */
@@ -329,17 +300,6 @@ function deleteDefinition(defDivId, defId) {
   return false;
 }
 
-function editModelAppendBox(inflId) {
-  var obj = $('#td_' + inflId);
-  var count = $('#td_' + inflId + '> p').length;
-  obj.append('<p>');
-  obj.append('<input class="fieldColumn" type="text" name="forms_' + inflId + '_' + count + '" value=""/> ');
-  obj.append('<input class="checkboxColumn" type="checkbox" name="isLoc_' + inflId + '_' + count + '" value="1" checked="checked"/>');
-  obj.append('<input class="checkboxColumn" type="checkbox" name="recommended_' + inflId + '_' + count + '" value="1" checked="checked"/>');
-  obj.append('</p>');
-  return false;
-}
-
 function trim(str) {
 	var	str = str.replace(/^\s\s*/, ''),
     ws = /\s/,
@@ -348,98 +308,111 @@ function trim(str) {
 	return str.slice(0, i + 1);
 }
 
-// Add/remove bookmarks
-function addBookmark(linkElement) {
-  var url = linkElement.attr('href');
-  var ajaxLoader = createAjaxLoader();
+/************************* Bookmark-related code ***************************/
+$(function() {
 
-  // show ajax indicator
-  linkElement.replaceWith(ajaxLoader);
+  function init() {
+    $('.bookmarkAddButton').click(addBookmark);
+    $('.bookmarkRemoveButton').click(removeBookmark);
+  }
 
-  $.ajax({
-    url: url,
-    success: function (data) { handleAjaxResponse(data, ajaxLoader, addBookmarkSuccess, bookmarkResponseError) },
-    error: function () { bookmarkResponseError(ajaxLoader); },
-    dataType: 'json'
-  });
-}
+  function addBookmark() {
+    var url = $(this).attr('href');
+    var ajaxLoader = createAjaxLoader();
 
-function addBookmarkSuccess(targetEl) {
-  targetEl.replaceWith('Adăugat la favorite');
-}
+    // show ajax indicator
+    $(this).replaceWith(ajaxLoader);
 
-function removeBookmark(linkElement) {
-  var url = linkElement.attr('href');
-  var ajaxLoader = createAjaxLoader();
+    $.ajax({
+      url: url,
+      success: function (data) { handleAjaxResponse(data, ajaxLoader, addBookmarkSuccess, bookmarkResponseError) },
+      error: function () { bookmarkResponseError(ajaxLoader); },
+      dataType: 'json'
+    });
 
-  // show ajax indicator
-  linkElement.replaceWith(ajaxLoader);
+    return false;
+  }
 
-  $.ajax({
-    url: url,
-    success: function (data) { handleAjaxResponse(data, ajaxLoader, removeBookmarkSuccess, bookmarkResponseError) },
-    error: function () { bookmarkResponseError(ajaxLoader); },
-    dataType: 'json'
-  });
-  removeBookmarkSuccess(ajaxLoader);
-}
+  function addBookmarkSuccess(targetEl) {
+    targetEl.replaceWith('Adăugat la favorite');
+  }
 
-function removeBookmarkSuccess(targetEl) {
-  var favDef = targetEl.closest('div.favoriteDef');
-  var favDefsDiv = favDef.parent();
+  function removeBookmark() {
+    var url = $(this).attr('href');
+    var ajaxLoader = createAjaxLoader();
 
-  // remove element from the DOM
-  favDef.remove();
+    // show ajax indicator
+    $(this).replaceWith(ajaxLoader);
 
-  // update favorites index
-  var favDefs = favDefsDiv.children('div');
-  if (favDefs.length > 0) {
-    for(var i=0; i < favDefs.length; i++) {
-      var index = i + 1;
-      var fav = $(favDefs[i]);
-      fav.children('b').text(index + '.');
+    $.ajax({
+      url: url,
+      success: function (data) { handleAjaxResponse(data, ajaxLoader, removeBookmarkSuccess, bookmarkResponseError) },
+      error: function () { bookmarkResponseError(ajaxLoader); },
+      dataType: 'json'
+    });
+    removeBookmarkSuccess(ajaxLoader);
+    return false;
+  }
+
+  function removeBookmarkSuccess(targetEl) {
+    var favDef = targetEl.closest('div.favoriteDef');
+    var favDefsDiv = favDef.parent();
+
+    // remove element from the DOM
+    favDef.remove();
+
+    // update favorites index
+    var favDefs = favDefsDiv.children('div');
+    if (favDefs.length > 0) {
+      for(var i=0; i < favDefs.length; i++) {
+        var index = i + 1;
+        var fav = $(favDefs[i]);
+        fav.children('b').text(index + '.');
+      }
+    } else {
+      favDefsDiv.text('Nu aveți niciun cuvânt favorit.');
     }
-  } else {
-    favDefsDiv.text('Nu aveți niciun cuvânt favorit.');
   }
-}
 
-function bookmarkResponseError(targetEl, msg) {
-  if(msg == null) {
-    msg = 'Eroare la încărcare';
+  function bookmarkResponseError(targetEl, msg) {
+    if(msg == null) {
+      msg = 'Eroare la încărcare';
+    }
+    targetEl.replaceWith(msg);
   }
-  targetEl.replaceWith(msg);
-}
 
-function handleAjaxResponse(data, targetEl, successCallback, errorCallback) {
-  if (data.status == 'success') {
-    successCallback(targetEl);
-  } else if (data.status == 'redirect') {
-    window.location.replace(wwwRoot + data.url);
-  } else {
-    errorCallback(targetEl, data.msg);
+  function handleAjaxResponse(data, targetEl, successCallback, errorCallback) {
+    if (data.status == 'success') {
+      successCallback(targetEl);
+    } else if (data.status == 'redirect') {
+      window.location.replace(wwwRoot + data.url);
+    } else {
+      errorCallback(targetEl, data.msg);
+    }
   }
-}
 
-function createAjaxLoader() {
-  return $('<img src="' + wwwRoot + 'img/icons/ajax-indicator.gif" />');
-}
+  function createAjaxLoader() {
+    return $('<img src="' + wwwRoot + 'img/icons/ajax-indicator.gif" />');
+  }
 
-if (typeof jQuery != 'undefined') {
-  $(document).ready(function() {
-    $('body').click(function() {
-      $('#mainMenu li ul, #userMenu li ul').hide();
+  if (typeof jQuery != 'undefined') {
+    $(document).ready(function() {
+      $('body').click(function() {
+        $('#mainMenu li ul, #userMenu li ul').hide();
+      });
+      $('#mainMenu > li').click(function(event) {
+        event.stopPropagation();
+        $(this).siblings().children('ul').hide();
+        $('#userMenu li ul').hide();
+        $(this).children('ul').toggle();
+      });
+      $('#userMenu > li').click(function(event) {
+        event.stopPropagation();
+        $('#mainMenu li ul').hide();
+        $(this).children('ul').toggle();
+      });
     });
-    $('#mainMenu > li').click(function(event) {
-      event.stopPropagation();
-      $(this).siblings().children('ul').hide();
-      $('#userMenu li ul').hide();
-      $(this).children('ul').toggle();
-    });
-    $('#userMenu > li').click(function(event) {
-      event.stopPropagation();
-      $('#mainMenu li ul').hide();
-      $(this).children('ul').toggle();
-    });
-  });
-}
+  }
+
+  init();
+});

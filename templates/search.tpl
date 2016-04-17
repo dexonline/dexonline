@@ -112,8 +112,13 @@
         {if $onlyParadigm}
           {$declensionText}
         {else}
-          <a class="inflLink" href="#" onclick="return toggleInflVisibility({if $lexemId}'{$lexemId}',1{else}'{$cuv|escape:url}'{/if});"
-             title="clic pentru conjugarea / declinarea cuvintelor"><span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span> {$declensionText}
+          <a class="inflLink"
+             href="#"
+             data-lexem-id="{$lexemId}"
+             data-cuv="{$cuv|escape:url}"
+             title="clic pentru conjugarea / declinarea cuvintelor">
+            <span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span>
+            {$declensionText}
           </a>
         {/if}
       {/if}
@@ -191,17 +196,6 @@
       {include file="bits/definition.tpl" row=$row}
     {/foreach}
 
-    {if $sUser}
-      <script>
-       $(function () {
-         $('.bookmarkAddButton').click(function () {
-           addBookmark($(this));
-           return false;
-         });
-       });
-      </script>
-    {/if}
-
     {if isset($hiddenSources) && count($hiddenSources) && !count($results)}
       Puteți găsi definiții pentru acest cuvânt în dicționarele:
 
@@ -222,7 +216,7 @@
     {if $skinVariables.typo}
       <div id="typoDiv"></div>
       <script>
-       $(".typoLink").click(showTypoForm);
+        $(".typoLink").click(showTypoForm);
       </script>
     {/if}
   </div>

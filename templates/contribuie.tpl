@@ -35,7 +35,7 @@
 
       <tr>
         <td><p class="labelContribute">Definiția:</p></td>
-        <td><textarea id="defTextarea" name="def" rows="15" cols="90" onkeypress="contribKeyPressed()">{$def|escape}</textarea></td>
+        <td><textarea id="defTextarea" name="def" rows="15" cols="90">{$def|escape}</textarea></td>
       </tr>
 
       <tr>
@@ -82,7 +82,4 @@
       </td>
     </tr>
   </table>
-
-  <script>$(contribBodyLoad);</script>
-  <script>$(contribInit);</script>
 {/block}

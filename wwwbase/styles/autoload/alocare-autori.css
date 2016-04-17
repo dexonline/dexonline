@@ -31,13 +31,13 @@ th {
 }
 
 .prevMonth {
-  background: url('../img/icons/control_rewind.png') 0px 1px no-repeat;
+  background: url('../../img/icons/control_rewind.png') 0px 1px no-repeat;
   float: left;
   margin-left: 5px;
 }
 
 .nextMonth {
-  background: url('../img/icons/control_fastforward.png') 0px 0px no-repeat;
+  background: url('../../img/icons/control_fastforward.png') 0px 0px no-repeat;
   float: right;
   margin-right: 5px;
 }

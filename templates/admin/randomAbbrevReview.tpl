@@ -6,29 +6,27 @@
 
 {block name=content}
   {assign var=ambiguities value=$ambiguities|default:null}
-  <script>
-   $(function() {
-     initAbbrevCounter({$ambiguities|@count});
-   });
-  </script>
+  <span id="numAmbiguities" style="display: none">{$ambiguities|@count}</span>
 
   {if $def}
     <form action="" method="post">
       <input type="hidden" name="definitionId" value="{$def->id}"/>
       {foreach from=$text item=chunk key=i name=iter}
-        {$chunk}
-        {if !$smarty.foreach.iter.last}
-          <br/>
-          <input type="radio" id="radio_{$i}_a" name="radio_{$i}" value="abbrev" style="display: none"/>
-          <label for="radio_{$i}_a" onclick="pushAbbrevButton({$i}, 0);">
-            <img src="{$imgRoot}/icons/zoom_out.png" alt="abreviere" title="abreviere"/>
-          </label>
-          <span id="abrevText_{$i}">{$ambiguities[$i]}</span>
-          <input type="radio" id="radio_{$i}_w" name="radio_{$i}" value="word" style="display: none"/>
-          <label for="radio_{$i}_w" onclick="pushAbbrevButton({$i}, 1);">
-            <img src="{$imgRoot}/icons/zoom_in.png" alt="cuvânt" title="cuvânt"/>
-          </label>
-        {/if}
+        <span>
+          {$chunk}
+          {if !$smarty.foreach.iter.last}
+            <br/>
+            <input type="radio" id="radio_{$i}_a" name="radio_{$i}" value="abbrev" style="display: none"/>
+            <label for="radio_{$i}_a" data-order="{$i}" data-answer="0">
+              <img src="{$imgRoot}/icons/zoom_out.png" alt="abreviere" title="abreviere"/>
+            </label>
+            <span id="abrevText_{$i}" data-clicked="">{$ambiguities[$i]}</span>
+            <input type="radio" id="radio_{$i}_w" name="radio_{$i}" value="word" style="display: none"/>
+            <label for="radio_{$i}_w" data-order="{$i}" data-answer="1">
+              <img src="{$imgRoot}/icons/zoom_in.png" alt="cuvânt" title="cuvânt"/>
+            </label>
+          {/if}
+        </span>
       {/foreach}
       <br/>
       <input type="submit" name="submitButton" id="submitButton" value="OK" style="margin-top: 5px;" {if count($ambiguities)}disabled="disabled"{/if}/>

@@ -72,32 +72,32 @@
             <a class="noBorder" href="#" onclick="return mlUpdateDefVisibility({$match->id}, 'def_{$match->id}')">
               <img src={$imgRoot}/icons/book_open.png alt="definiții" title="arată definițiile"/>
             </a>
-          {/strip}
-          <br/>
-          {if ($lm->isLoc && !$lmMatch->isLoc) || $match->lostForms}
-            <ul class="mlNotes">
-              {if ($lm->isLoc && !$lmMatch->isLoc)}
-                <li>Acest lexem va fi adăugat la LOC</li>
-              {/if}
-              {if $match->addedForms}
-                <li>
-                  Următoarele forme vor fi adăugate la LOC:
-                  {foreach from=$match->addedForms item=form}
-                    {$form}
-                  {/foreach}
-                </li>
-              {/if}
-              {if $match->lostForms}
-                <li>
-                  Următoarele forme se vor pierde:
-                  {foreach from=$match->lostForms item=form}
-                    {$form}
-                  {/foreach}
-                </li>
-              {/if}
-            </ul>
-          {/if}
-          <div id="def_{$match->id}" class="blDefinitions" style="display:none"></div>
+            {/strip}
+            <br/>
+            {if ($lm->isLoc && !$lmMatch->isLoc) || $match->lostForms}
+              <ul class="mlNotes">
+                {if ($lm->isLoc && !$lmMatch->isLoc)}
+                  <li>Acest lexem va fi adăugat la LOC</li>
+                {/if}
+                {if $match->addedForms}
+                  <li>
+                    Următoarele forme vor fi adăugate la LOC:
+                    {foreach from=$match->addedForms item=form}
+                      {$form}
+                    {/foreach}
+                  </li>
+                {/if}
+                {if $match->lostForms}
+                  <li>
+                    Următoarele forme se vor pierde:
+                    {foreach from=$match->lostForms item=form}
+                      {$form}
+                    {/foreach}
+                  </li>
+                {/if}
+              </ul>
+            {/if}
+            <div id="def_{$match->id}" class="blDefinitions" style="display:none"></div>
           {/foreach}
         </div>
       </div>

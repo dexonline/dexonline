@@ -16,8 +16,7 @@
     <br/>
 
     <input type="checkbox" id="chooseLexems" name="chooseLexems"
-           value="1" checked="checked"
-           onclick="toggleDivVisibility('lexemDiv');"/>
+           value="1" checked="checked"/>
     <label for="chooseLexems">Doresc să migrez acum lexemele</label>
     <br/>
 

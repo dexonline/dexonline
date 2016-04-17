@@ -126,8 +126,8 @@ SmartyWrap::assign('jsonSources', Source::getJson());
 SmartyWrap::assign('modelsT', FlexModel::loadByType('T'));
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('structStatusNames', Lexem::$STRUCT_STATUS_NAMES);
-SmartyWrap::addCss('jqueryui-smoothness', 'paradigm', 'select2', 'lexemEdit', 'windowEngine', 'textComplete');
-SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev', 'lexemEdit', 'windowEngine', 'cookie', 'modelDropdown', 'textComplete');
+SmartyWrap::addCss('jqueryui-smoothness', 'paradigm', 'select2', 'windowEngine', 'textComplete');
+SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev', 'windowEngine', 'cookie', 'modelDropdown', 'textComplete');
 SmartyWrap::displayAdminPage('admin/lexemEdit.tpl');
 
 /**************************************************************************/

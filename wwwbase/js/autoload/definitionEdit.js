@@ -18,6 +18,7 @@ $(function() {
       escapeMarkup: function(m) { return m; },
       initSelection: select2InitSelectionAjax,
       formatSelection: formatLexemWithEditLink,
+      formatSelectionCssClass: formatLexemWithWarnings,
       minimumInputLength: 1,
       multiple: true,
       width: '600px',
@@ -99,6 +100,14 @@ $(function() {
     } else {
       return lexem.text + ' <a class="select2Edit" href="lexemEdit.php?lexemId=' + lexem.id + '">&nbsp;</a>';
     }
+  }
+
+  function formatLexemWithWarnings(lexem) {
+    if ((lexem.consistentAccent == '0') ||
+        (('hasParadigm' in lexem) && (!lexem.hasParadigm))) {
+      return 'select2LexemWarnings';
+    }
+    return '';
   }
 
   function definitionCopyFromSimilar() {

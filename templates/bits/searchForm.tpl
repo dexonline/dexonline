@@ -12,7 +12,7 @@
   </div>
 
   {if !$advancedSearch}
-    <a href="#" onclick="return toggleDivVisibility('advSearch')" id="advancedAnchor">căutare avansată</a>
+    <a href="#" onclick="return toggle('advSearch')" id="advancedAnchor">căutare avansată</a>
   {/if}
 
   <div id="advSearch" {if !$advancedSearch}style="display: none"{/if}>

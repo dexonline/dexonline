@@ -5,7 +5,7 @@
 {block name=headerTitle}Imagini pentru cuvântul zilei{/block}
 
 {block name=content}
-  <a href="wotd.php">Lista cuvintelor zilei</a> |
+  <a href="wotdTable.php">Lista cuvintelor zilei</a> |
   <a href="http://wiki.dexonline.ro/wiki/Imagini_pentru_cuv%C3%A2ntul_zilei">instrucțiuni</a>
 
   <div id="fileManager"></div>

@@ -367,6 +367,10 @@ hr {
   text-decoration: none;
 }
 
+li.select2LexemWarnings {
+  background: #f2dede !important;
+}
+
 /* Select the dark icon set for the magnifier and the X for elFinder's search box.
    For some reason, by default they show as white on white. */
 .ui-widget-header .ui-icon {

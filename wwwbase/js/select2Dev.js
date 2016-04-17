@@ -112,7 +112,12 @@ function structIndexInit() {
 
 function allowNewLexems(term, data) {
   if (!data.length || data[0].text != term) {
-    return { id: '@' + term, text: term + ' (cuvânt nou)'};
+    return {
+      id: '@' + term,
+      text: term + ' (cuvânt nou)',
+      consistentAccent: 1,
+      hasParadigm: 1,
+    };
   }
 };
 
@@ -141,12 +146,8 @@ function select2InitSelectionAjax(element, callback) {
     $.ajax({
       url: wwwRoot + 'ajax/getLexemById.php?id=' + this,
       dataType: 'json',
-      success: function(displayValue) {
-        if (displayValue) {
-          data.push({ id: lexemId, text: displayValue });
-        } else {
-          data.push({ id: lexemId, text: lexemId.substr(1) + ' (cuvânt nou)' });
-        }
+      success: function(result) {
+        data.push(result);
       },
       async: false,
     });

@@ -33,7 +33,7 @@
         <td>
           <input id="lexemIds" name="lexemIds" value="{','|implode:$lexemIds}" type="text"/>
 
-          <span class="tooltip2" title="Este bine să asociați fiecare definiție cu toate lexemele relevante.">&nbsp;</span>
+          <span class="tooltip2" title="Lexemele colorate cu roșu au accent sau paradigmă lipsă.">&nbsp;</span>
 
         </td>
       </tr>

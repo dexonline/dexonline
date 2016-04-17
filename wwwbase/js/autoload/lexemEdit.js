@@ -580,9 +580,9 @@ function wmSetCoordinates() {
         if (typeof(box.attr('data-' + props[i])) != 'undefined') {
           var value = parseInt(box.attr('data-' + props[i]));
           if (props[i] == 'left') {
-            value += canvasLeft;
+            value += canvasShift.left;
           } else if (props[i] == 'top') {
-            value += canvasTop;
+            value += canvasShift.top;
           }
           $(this).css(props[i], value + 'px');
         }

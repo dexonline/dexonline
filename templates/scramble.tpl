@@ -12,6 +12,7 @@
       <button class="difficultyButton btn" type="button" value="3">Normal</button>
       <button class="difficultyButton btn" type="button" value="4">Greu</button>
       <button class="difficultyButton btn" type="button" value="5">"Sunt dictionar"</button>
+      <label>Diacritice? <input id="toggleD" type="checkbox" /></label>
     </form>
     <div id="resultSearch" align="center">          
       <span>Timp ramas: </span>

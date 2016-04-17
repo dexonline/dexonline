@@ -1,24 +1,41 @@
 $(document).ready(function() {
    
-  function callAjax(level)
+  function GetWordAsync(level)
   {
     var result;  
      $.ajax({
         type: "POST",
-        url: wwwRoot + "ajax/scramble.php",
-        async: false,
-        data: 'difficulty='+level,
+        url: wwwRoot + "ajax/scramble.php",       
+        data: 'difficulty=' + level + "&diacritic=" + check,
         datatype: "html",
       })
       .done(function(response) {      
         result = $.parseJSON(response);
-        //console.log(result);
+        console.log(result);
+        lettersPressed = [];
+        totalWords = result.everyWord;
+
+        for(var i = 0; i < totalWords.length; i++)
+        {
+          totalWords[i] = totalWords[i].toLowerCase();
+        }
+
+        $("#maxWords").html(result.everyWord.length);
+        drawLetters(result.randomWord);
+        //Fire keyboard event checker
+      
+        //Start Timer
+        startTimer(difficulty);
+        //Fire Enter key checker
+        checkWord();
+
+        initLayerArrays();  
+        $(".wordArea").empty();
+        hide = 0; 
       })
       .fail(function() {
         console.log("Nu merge");
-      });
-    console.log(result);
-    return result;
+      });   
   }
 
   function  reposArray(array, pos1, pos2) 
@@ -57,6 +74,7 @@ $(document).ready(function() {
   var cnt = 0;
   var searchWord;
   var lettersPressed = new String(); // in acest array se retin literele tastate
+  var check; // Check is diacritics are to be used.
   var totalWords = new Array(); // the possible words that can be made from the randomWord.
   var difficulty; // initial selected difficulty
   var layers = []; // Array of currently drawn layers.
@@ -65,45 +83,30 @@ $(document).ready(function() {
   var threshold = 120; // y axis limit for moving letters
   var layerSpeed = 200; //Global animation speed
 
-
-
   function selectDifficulty() {
 
     $(".difficultyButton").on("click", function() {
       // this e pentru a prelua valoarea butonului tocmai apasat, si nu a unuia oarecare
       difficulty = $(this).attr("value");
       $(this).blur();
-        
-      var word = callAjax(difficulty);
-      if(word.everyWord.length < 4) {
-        word = callAjax(difficulty);
-      }
-      cnt = 0;
-      lettersPressed = [];
-      totalWords = word.everyWord;
-
-      for(var i = 0; i < totalWords.length; i++)
-      {
-        totalWords[i] = totalWords[i].toLowerCase();
-      }
-      //$("#result").html(word.randomWord);
-      $("#maxWords").html(word.everyWord.length);
-      drawLetters(word.randomWord);
-      //Fire keyboard event checker
-      
-      //Start Timer
-      startTimer(difficulty);
-      //Fire Enter key checker
-      checkWord();
-
-      initLayerArrays();  
-      $(".wordArea").empty();
-      hide = 0; 
-
-      console.log(totalWords);
-      console.log(word.randomWord);
-
+      check = $("#toggleD").prop('checked'); 
+      GetWordAsync(difficulty);
+           
     });
+  }
+
+  function initialPosition()
+  {
+    var posX = 0;
+    switch(layers.length / 2) 
+    {
+      case 4: posX = 140; break;
+      case 5: posX = 80;  break;
+      case 6: posX = 60;  break;
+      case 7: posX = 45;  break;
+      default: posX = 140;
+    }  
+    return posX;
   }
 
   function initLayerArrays() {
@@ -121,10 +124,8 @@ $(document).ready(function() {
     }    
   }
 
-
-
   hide = 0;
-  function testing() {
+  function ShowWordsAndEnd() {
     $(".wordBtn").on("click", function() {
       console.log("pushed");
       $(this).blur();
@@ -135,7 +136,7 @@ $(document).ready(function() {
       var start = 0;
       var stop;
 
-      drawEnd();
+      drawEnd(); //Draw Game Over
 
       if(!hide)
       {
@@ -146,7 +147,6 @@ $(document).ready(function() {
             stop = i;
             var td = "td" + i;
             var ulist = "ulist" + i;
-            //console.log("Appending td & ul");
             $('<td></td>', { "class" : td }).appendTo("." + currentTR);
             $('<ul></ul>', { "class" : ulist}).appendTo("." + td);
             for(var k = start; k < stop; k++)
@@ -168,7 +168,6 @@ $(document).ready(function() {
           {
             currentTR = initialTR + i;
             $("<tr></tr>", {"class" : currentTR}).appendTo(".wordArea");
-
           }        
         }
         hide = 1;
@@ -178,26 +177,11 @@ $(document).ready(function() {
         $(".wordArea").empty();
         hide = 0;
       }
-      /*
-      if ( !hide ) 
-      {
-        $(".wordArea").html(totalWords + " ");
-        hide = 1;
-  	  } 
-      else 
-      {
-          $(".wordArea").html("");
-          hide = 0;
-  	  }
-      */
     });
   }
 
   function inputListen() {
-    //layers = $("canvas").getLayers();
-
-    $(document).keyup(function(letter) {
-      //var searchWord = $(this).val();
+    $(document).keyup(function(letter) {      
       var key;
       key = letter.keyCode;
       var keyString;
@@ -218,16 +202,8 @@ $(document).ready(function() {
         }
       }
 
-      var posX = 0;
-      switch(upLayers.length){
-          
-          case 4: posX = 140;  break;
-          case 5: posX = 80;   break;
-          case 6: posX = 60;   break;
-          case 7: posX = 45;   break;
-          default: posX = 140;
-        }
-
+      var posX = initialPosition();
+      
       var direction = true;
       // coboara o litera
       for(var i = 0; i < upLayers.length; i++) 
@@ -245,14 +221,8 @@ $(document).ready(function() {
               $("canvas").animateLayerGroup(downLayers[j].groups[0], {
                 x: posX + (j * 65),
                 y: 200,
-              }, layerSpeed);
-              //layers[i].data.selected = true;
-              //lettersPressed += downLayers[j].data.letter.toLowerCase(); // retine pozitiile literelor apasate          
+              }, layerSpeed);       
               currentWord();             
-            //  valuesPressed[cnt] = i;
-              //cnt++; 
-              console.log("cnt la coborare= " + cnt);
-              //return;
               break;
             }
           }
@@ -260,7 +230,6 @@ $(document).ready(function() {
           break;
         }
       }
-
       if(direction)
       {
         //urca o litera
@@ -279,31 +248,14 @@ $(document).ready(function() {
                 $("canvas").animateLayerGroup(upLayers[k].groups[0], {
                   x: posX + (k * 65),
                   y: 50,
-                }, layerSpeed);
-                //layers[j].data.selected = false;
-                //lettersPressed = lettersPressed.replace(upLayers[k].data.letter.toLowerCase(), '');
-                currentWord();                          
-                //return;
+                }, layerSpeed);              
+                currentWord();                                      
                 break;
               }
             }
           }
         }
-      }
-      console.log(upLayers);
-      console.log(downLayers); 
-      /*
-      var rePoz = 0;
-      for(var i = 0; i < layers.length; i+= 2){
-        if(layers[i].data.selected) {
-          $("canvas").animateLayerGroup("boggle" + i / 2, {
-            x: posX + (rePoz / 2 * 65),
-            y: 200,
-          });
-          rePoz+=2;
-        }
-      }
-      */
+      }   
     }); 
   }
 
@@ -355,14 +307,7 @@ $(document).ready(function() {
         wPresent = 1;        
       } 
     }
-
-    switch(layers.length / 2) {
-      case 4: posX = 140; break;
-      case 5: posX = 80;  break;
-      case 6: posX = 60;  break;
-      case 7: posX = 45;  break;
-      default: posX = 140;
-    }     
+    posX = initialPosition();
 
     if (wPresent == 0) {
       wordsFound[wordsFound.length] = newWord;
@@ -373,23 +318,18 @@ $(document).ready(function() {
         {
           if(upLayers[j] == 0) 
           {
-
             upLayers[j] = downLayers[i];
             downLayers[i] = 0;
-
             $("canvas").animateLayerGroup(upLayers[j].groups[0],{
               x: posX + (j * 65),
               y: 50,
             }, layerSpeed);
-            //layers[i].data.selected = false;
             lettersPressed = "";
             currentWord();
-
             break;
           }
         }
       }
-    //cnt = 0;
     lettersPressed = [];
     }
     
@@ -434,17 +374,15 @@ $(document).ready(function() {
           {
             counter = setInterval(timeLeft, 1000); // auto reload values
             count = countReload;
-            var autoWord = callAjax(difficulty);
+            var autoWord = GetWordAsync(difficulty);
             totalWords = autoWord.everyWord;
             $("#maxWords").html(autoWord.everyWord.length);
             $("#result").html(autoWord.randomWord);
             drawLetters(autoWord.randomWord);
             initLayerArrays();
-
             $(".wordArea").empty(); // Empty displayed words
             hide = 0; 
-
-            console.log(autoWord.randomWord);
+            //console.log(autoWord.randomWord);
             cnt = 0;
           }
           else
@@ -456,20 +394,7 @@ $(document).ready(function() {
       $("#timer").html(count + " secs");
       }
   }
-
-    function initialPosition()
-    {
-      var posX = 0;
-      switch(layers.length / 2) 
-      {
-        case 4: posX = 140; break;
-        case 5: posX = 80;  break;
-        case 6: posX = 60;  break;
-        case 7: posX = 45;  break;
-        default: posX = 140;
-      }  
-      return posX;
-    }
+ 
     //Draw end screen message
     function drawEnd()
     {
@@ -553,8 +478,6 @@ $(document).ready(function() {
           drag: function(layer) {
             //console.log("Position X Y:" + layer.x + " " + layer.y);
           },
-
-
           dragcancel: function(layer) {
 
             //console.log("X:" + layer.x + "Y:" + layer.y);
@@ -590,22 +513,11 @@ $(document).ready(function() {
               }                          
             }                    
           },    
-          dragstop: function(layer) {       
-            var nb = 0;
-            var foundAt = 0;
+          dragstop: function(layer) {                           
             var move = false;
-            console.log("rect layer dragged");
-            //var moveUp = false;
+            //console.log("rect layer dragged");           
             //console.log("rect.y= " + layer.y);
-
-            switch(layers.length / 2) 
-            {
-            case 4: posX = 140; break;
-            case 5: posX = 80;  break;
-            case 6: posX = 60;  break;
-            case 7: posX = 45;  break;
-            default: posX = 140;
-            }
+            posX = initialPosition();
             //Switch position area
             for(var i = 0 ; i < downLayers.length; i++)
             {             
@@ -696,7 +608,6 @@ $(document).ready(function() {
                   move = true;
                 }
               }
-
               if(move)
               {
                 for(var i = 0 ; i < upLayers.length; i++)
@@ -753,7 +664,6 @@ $(document).ready(function() {
                       {
                         upLayers[j] = layer;
                         downLayers[i] = 0;
-
                         $("canvas").animateLayerGroup(layer.groups[0],{
                           x: posX + (j * 65),
                           y: 50,
@@ -767,8 +677,6 @@ $(document).ready(function() {
                 }
               }
             }
-            console.log(upLayers);
-            console.log(downLayers); 
           },
         })
         .drawText({
@@ -786,11 +694,9 @@ $(document).ready(function() {
           text: array[i].toUpperCase(),
           drag: function(layer) {
             //console.log("Position X Y:" + layer.x + " " + layer.y);                  
-
           },
           dragcancel: function(layer) {
-
-            console.log("Text X:" + layer.x + " " + "Y:" + layer.y);
+            //console.log("Text X:" + layer.x + " " + "Y:" + layer.y);
             if(layer.x < 35 || layer.x > 455 || layer.y < 35 || layer.y > 255)
             {
               posX = initialPosition();
@@ -821,55 +727,19 @@ $(document).ready(function() {
             }     
           },
           dragstop: function(layer) {           
-            var nb = 0;
-            var foundAt = 0;
             var move = false;
-            console.log("letter layer dropped at X: " + layer.x + " Y:" + layer.y);
-            //var moveUp = false;
-            //console.log("rect.y= " + layer.y);          
-
-            var activeDrag = function activateDrag (y)
-            {
-              console.log("Animating layer "+ y + " " + downLayers[y]._animating);
-              var cnt = 0;
-              
-              if(y == 0)
-              {
-                console.log("Setting draggable to false");
-                for(var i = 0; i < layers.length; i++)
-                {
-                  layers[i].draggable = false;
-                }
-              }
-
-              if(y == downLayers.length - 1)
-              {
-                for(var i = 0; i < layers.length; i++)
-                {
-                  layers[i].draggable = true;
-                }
-              }                        
-            }          
-
-            switch(layers.length / 2) 
-            {
-            case 4: posX = 140; break;
-            case 5: posX = 80;  break;
-            case 6: posX = 60;  break;
-            case 7: posX = 45;  break;
-            default: posX = 140;
-            }                                 
+            //console.log("letter layer dropped at X: " + layer.x + " Y:" + layer.y);
+            //console.log("rect.y= " + layer.y);                    
+            posX = initialPosition();           
             //Switch position area
             for(var i = 0 ; i < downLayers.length; i++)
-            {             
-              //if((layer.x > (l + (i * 65)) || layer.x < (r + (i * 65)) && (layer.y < 230 || layer.y > 165)))            
+            {                                   
               if(downLayers[i] != 0 && layer.groups[0] == downLayers[i].groups[0])
               {
                 for(var j = 0; j < downLayers.length; j++)
                 {
                   if(layer.x < downLayers[j].x && (layer.y < 235 && layer.y > 175))
                   { 
-
                     if (i < j && (j - 1) != 0)
                     {
                       downLayers = reposArray(downLayers, i, j - 1);                                                  
@@ -878,7 +748,6 @@ $(document).ready(function() {
                     {
                       downLayers = reposArray(downLayers, i , j);
                     } 
-
                     if(typeof downLayers === "undefined") // Try to catch array corruption
                     {
                       downLayers = [];
@@ -897,7 +766,6 @@ $(document).ready(function() {
                         }, layerSpeed);
                       }
                     }
-
                     for(var l = 0; l < downLayers.length; l++)
                     {
                       if(downLayers[l] != 0)
@@ -949,7 +817,6 @@ $(document).ready(function() {
                   move = true;
                 }
               }
-
               if(move)
               {
                 for(var i = 0 ; i < upLayers.length; i++)
@@ -1031,21 +898,15 @@ $(document).ready(function() {
                   }                
                 }
               }
-            }          
-            console.log(upLayers);
-            console.log(downLayers); 
+            }                     
           },
         })
         .animateLayerGroup("boggle" + i, {     
           x: posX, y: 50
         }, layerSpeed);
       }
-    }
-
-   //callAjax(); // init AJAX
+    }  
   selectDifficulty();
-  inputListen();
-  //checkWord();
-  testing();
-
+  inputListen();  
+  ShowWordsAndEnd();
 });

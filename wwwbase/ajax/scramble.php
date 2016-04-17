@@ -50,8 +50,7 @@ function randomWordGenerator() {
 
   $dbSearch = 0;
   $level = 0;
-  $option = util_getRequestParameter('difficulty');
-
+  $option = util_getRequestParameter('difficulty'); 
   switch ($option)
   {
     case "1": $level = NIVEL_FOARTE_USOR;  break;
@@ -187,13 +186,18 @@ function findWords($wordList) {
 
 function ajaxEcho($randWord,$wordsFound){
 
- // if(count($wordsFound) < 4) {
- //   splitWord();
- // }
- // else {
+  $diacritic = util_getRequestParameter('diacritic');
+
+  if($diacritic == "false")
+  {
+    foreach ($wordsFound as $word) {            
+        $word = StringUtil::unicodeToLatin($word);    
+    }
+    $randWord = StringUtil::unicodetolatin($randWord);
+  }
+
   $result = array('randomWord' => $randWord, 'everyWord' => $wordsFound);
   echo json_encode($result);  
- //  }
 }
 
 splitWord();

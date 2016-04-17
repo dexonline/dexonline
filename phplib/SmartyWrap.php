@@ -114,7 +114,7 @@ class SmartyWrap {
     return SmartyWrap::fetch('bits/debugInfo.tpl');
   }
 
-  static function addCss(/* Variable-length argument list */) {
+ static function addCss(/* Variable-length argument list */) {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
       switch($id) {
@@ -140,6 +140,7 @@ class SmartyWrap {
           break;
         case 'textComplete':        self::$cssFiles[17] = 'jquery.textcomplete.css'; break;
         case 'flash':               self::$cssFiles[18] = 'flash.css'; break;
+        case 'scramble':             self::$cssFiles[19] = 'scramble.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -147,7 +148,7 @@ class SmartyWrap {
     }
   }
 
-  static function addJs(/* Variable-length argument list */) {
+static function addJs(/* Variable-length argument list */) {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
       switch($id) {
@@ -180,12 +181,17 @@ class SmartyWrap {
         case 'modelDropdown':    self::$jsFiles[21] = 'modelDropdown.js'; break;
         case 'textComplete':     self::$jsFiles[22] = 'jquery.textcomplete.min.js'; break;
         case 'tinymce':          self::$jsFiles[23] = 'tinymce-4.3.4/tinymce.min.js'; break;
+        case 'scramble':         
+          self::$jsFiles[24] = 'scramble.js'; 
+          self::$jsFiles[25] = 'jcanvas.min.js';
+          break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());
       }
     }
   }
+  
 }
 
 ?>

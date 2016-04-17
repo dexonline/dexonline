@@ -12,8 +12,8 @@
 contact = contact@dexonline.ro
 
 ; Database connection
-; database = 'mysql://root:pwd@localhost/mydb'
-database = mysql://root@localhost/DEX
+database = 'mysql://root@localhost/DEX'
+;database = mysql://root@localhost/DEX
 
 ; Show some debug information when this user is logged in.
 debugUser = ""

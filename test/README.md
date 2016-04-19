@@ -16,5 +16,5 @@ Running the test suite
 3. Open Firefox.
 4. Type Ctrl+Alt+S to open the Selenium IDE.
 5. Select _File -> Open test suite..._ and open `test/dexonline-test-suite.xml`.
-6. Makre sure the Base URL is still correct.
+6. Make sure the Base URL is still correct.
 7. Click the nice green button.

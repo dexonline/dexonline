@@ -54,6 +54,17 @@ $s->isOfficial = 2; // TODO add constants in Source.php
 $s->displayOrder = 1;
 $s->save();
 
+$s = Model::factory('Source')->create();
+$s->shortName = 'Source 2';
+$s->urlName = 'source2';
+$s->name = "The Devil's Dictionary";
+$s->author = 'Ambrose Bierce';
+$s->publisher = 'Neale Publishing Co.';
+$s->year = '1911';
+$s->isOfficial = 1;
+$s->displayOrder = 2;
+$s->save();
+
 $d = Model::factory('Definition')->create();
 $d->userId = 1;
 $d->sourceId = 1;

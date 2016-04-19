@@ -1,7 +1,9 @@
 <?php
 
 function db_init() {
-  $dsn = Config::get('global.database');
+  $dsn = Config::get('testing.enabled')
+       ? Config::get('testing.database')
+       : Config::get('global.database');
 
   $parts = db_splitDsn($dsn);
   ORM::configure(sprintf("mysql:host=%s;dbname=%s", $parts['host'], $parts['database']));

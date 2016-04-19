@@ -10,16 +10,18 @@ class SmartyWrap {
     self::$theSmarty->template_dir = util_getRootPath() . 'templates';
     self::$theSmarty->compile_dir = util_getRootPath() . 'templates_c';
     self::$theSmarty->inheritance_merge_compiled_includes = false; // This allows variable names in {include} tags
-    self::assign('wwwRoot', util_getWwwRoot());
-    self::assign('imgRoot', util_getImgRoot());
-    self::assign('sources', Model::factory('Source')->order_by_desc('isOfficial')->order_by_asc('displayOrder')->find_many());
-    self::assign('sUser', session_getUser());
-    self::assign('nick', session_getUserNick());
-    self::assign('currentYear', date("Y"));
-    self::assign('isMobile', util_isMobile());
-    self::assign('suggestNoBanner', util_suggestNoBanner());
-    self::assign('cfg', Config::getAll());
-    self::assign('GLOBALS', $GLOBALS);
+    if (util_isWebBasedScript()) {
+      self::assign('wwwRoot', util_getWwwRoot());
+      self::assign('imgRoot', util_getImgRoot());
+      self::assign('sources', Model::factory('Source')->order_by_desc('isOfficial')->order_by_asc('displayOrder')->find_many());
+      self::assign('sUser', session_getUser());
+      self::assign('nick', session_getUserNick());
+      self::assign('currentYear', date("Y"));
+      self::assign('isMobile', util_isMobile());
+      self::assign('suggestNoBanner', util_suggestNoBanner());
+      self::assign('cfg', Config::getAll());
+      self::assign('GLOBALS', $GLOBALS);
+    }
     self::$theSmarty->registerPlugin('function', 'getDebugInfo', array('SmartyWrap', 'getDebugInfo'));
   }
 

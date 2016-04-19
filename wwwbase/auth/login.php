@@ -19,17 +19,17 @@ if ($fakeUserNick) {
   $user = User::get_by_nick($fakeUserNick);
   if (!$user) {
     $user = Model::factory('User')->create();
-    $user->identity = 'http://fake.example.com';
-    $user->nick = $fakeUserNick;
-    $user->name = $fakeUserNick;
-    if ($allPriv) {
-      $user->moderator = (1 << NUM_PRIVILEGES) - 1;
-    } else {
-      $user->moderator = array_sum($priv);
-    }
-    $user->save();
-    session_login($user, array());
   }
+  $user->identity = 'http://fake.example.com';
+  $user->nick = $fakeUserNick;
+  $user->name = $fakeUserNick;
+  if ($allPriv) {
+    $user->moderator = (1 << NUM_PRIVILEGES) - 1;
+  } else {
+    $user->moderator = array_sum($priv);
+  }
+  $user->save();
+  session_login($user, array());
 }
 
 switch ($openid) {

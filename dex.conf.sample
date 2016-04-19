@@ -12,7 +12,7 @@
 contact = contact@dexonline.ro
 
 ; Database connection
-; database = 'mysql://root:pwd@localhost/mydb'
+; database = "mysql://user[:password]@host/database"
 database = mysql://root@localhost/DEX
 
 ; Show some debug information when this user is logged in.
@@ -25,7 +25,7 @@ developmentMode = 0
 googleSearchApiKey = "Insert your API key here"
 
 ; Show our web host logo
-hostedBy =
+hostedBy = ""
 
 ; LOC versions (for scrabble users). Each version should have a corresponding LOC_* database.
 ; See also mysql_loc_prefix
@@ -81,6 +81,15 @@ results = 0
 ; Log this fraction of queries, sampled uniformly at random
 ; Possible values: 0.00 <= fraction <= 1.00
 fraction = 0.10
+
+[testing]
+
+; When true, put the website in testing mode and use the testing database.
+enabled = false
+
+; Database connection
+; database = "mysql://user[:password]@host/database"
+database = "mysql://root@localhost/DEX_testing"
 
 ; This section handles donations through a third party.
 [euplatesc]

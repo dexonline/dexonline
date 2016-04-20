@@ -83,16 +83,16 @@ $mt->save();
 
 // inflections
 $descriptions = [
-  '1' => 'nominative, singular, unarticulated',
-  '2' => 'genitive, singular, unarticulated',
-  '3' => 'nominative, plural, unarticulated',
-  '4' => 'genitive, plural, unarticulated',
-  '5' => 'nominative, singular, articulated',
-  '6' => 'genitive, singular, articulated',
-  '7' => 'nominative, plural, articulated',
-  '8' => 'genitive, plural, articulated',
-  '9' => 'vocative, singular',
-  '10' => 'vocative, plural',
+  '1' => 'nominativ, singular, nearticulat',
+  '2' => 'genitiv, singular, nearticulat',
+  '3' => 'nominativ, plural, nearticulat',
+  '4' => 'genitiv, plural, nearticulat',
+  '5' => 'nominativ, singular, articulat',
+  '6' => 'genitiv, singular, articulat',
+  '7' => 'nominativ, plural, articulat',
+  '8' => 'genitiv, plural, articulat',
+  '9' => 'vocativ, singular',
+  '10' => 'vocativ, plural',
 ];
 foreach ($descriptions as $rank => $d) {
   $i = Model::factory('Inflection')->create();

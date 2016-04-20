@@ -18,7 +18,7 @@
 <tr>
 	<td>verifyTable</td>
 	<td>id=inflections.1.0</td>
-	<td>nominative, singular, unarticulated</td>
+	<td>nominativ, singular, nearticulat</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
@@ -38,7 +38,7 @@
 <tr>
 	<td>verifyTable</td>
 	<td>id=inflections.2.0</td>
-	<td>genitive, singular, unarticulated</td>
+	<td>genitiv, singular, nearticulat</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
@@ -58,7 +58,7 @@
 <tr>
 	<td>verifyTable</td>
 	<td>id=inflections.3.0</td>
-	<td>nominative, plural, unarticulated</td>
+	<td>nominativ, plural, nearticulat</td>
 </tr>
 <tr>
 	<td>verifyTable</td>

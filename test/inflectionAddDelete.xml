@@ -3,22 +3,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>sourcesReorder</title>
+<title>inflectionAddDelete</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">sourcesReorder</td></tr>
+<tr><td rowspan="1" colspan="3">inflectionAddDelete</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>./surse</td>
+	<td>./flexiuni</td>
 	<td></td>
 </tr>
 <tr>
-	<td>dragAndDrop</td>
-	<td>css=td.abbreviation</td>
-	<td>+0,+50</td>
+	<td>click</td>
+	<td>name=newDescription</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=newDescription</td>
+	<td>test inflection</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -26,36 +31,25 @@
 	<td></td>
 </tr>
 <tr>
-	<td>verifyText</td>
-	<td>css=span.sourceShortName</td>
-	<td>Source 2</td>
+	<td>verifyTable</td>
+	<td>id=inflections.11.0</td>
+	<td>test inflection</td>
 </tr>
 <tr>
-	<td>verifyText</td>
-	<td>//table[@id='sources']/tbody/tr[2]/td/span</td>
-	<td>Source 1</td>
+	<td>verifyTable</td>
+	<td>id=inflections.11.1</td>
+	<td>F</td>
 </tr>
 <tr>
-	<td>dragAndDrop</td>
-	<td>css=td.abbreviation</td>
-	<td>+0,+50</td>
+	<td>verifyTable</td>
+	<td>id=inflections.11.2</td>
+	<td>11</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=submitButton</td>
+	<td>xpath=(//a[contains(text(),'șterge')])[11]</td>
 	<td></td>
 </tr>
-<tr>
-	<td>verifyText</td>
-	<td>css=span.sourceShortName</td>
-	<td>Source 1</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//table[@id='sources']/tbody/tr[2]/td/span</td>
-	<td>Source 2</td>
-</tr>
-
 </tbody></table>
 </body>
 </html>

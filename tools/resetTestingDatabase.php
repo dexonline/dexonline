@@ -36,13 +36,16 @@ exec(sprintf('mysqldump -h %s -u %s %s -d | sed -e "s/AUTO_INCREMENT=[[:digit:]]
              $gdsn['host'], $gdsn['user'], $gdsn['database'],
              $tdsn['host'], $tdsn['user'], $tdsn['database']));
 
-// create some data
+// Create some data.
+
+// users
 $u = Model::factory('User')->create();
 $u->email = 'john@x.com';
 $u->nick = 'john';
 $u->name = 'John Smith';
 $u->save();
 
+// sources
 $s = Model::factory('Source')->create();
 $s->shortName = 'Source 1';
 $s->urlName = 'source1';
@@ -65,6 +68,41 @@ $s->isOfficial = 1;
 $s->displayOrder = 2;
 $s->save();
 
+// model types
+$mt = Model::factory('ModelType')->create();
+$mt->code = 'F';
+$mt->description = 'feminine noun';
+$mt->canonical = 'F';
+$mt->save();
+
+$mt = Model::factory('ModelType')->create();
+$mt->code = 'AF';
+$mt->description = 'feminine adjective';
+$mt->canonical = 'F';
+$mt->save();
+
+// inflections
+$descriptions = [
+  '1' => 'nominative, singular, unarticulated',
+  '2' => 'genitive, singular, unarticulated',
+  '3' => 'nominative, plural, unarticulated',
+  '4' => 'genitive, plural, unarticulated',
+  '5' => 'nominative, singular, articulated',
+  '6' => 'genitive, singular, articulated',
+  '7' => 'nominative, plural, articulated',
+  '8' => 'genitive, plural, articulated',
+  '9' => 'vocative, singular',
+  '10' => 'vocative, plural',
+];
+foreach ($descriptions as $rank => $d) {
+  $i = Model::factory('Inflection')->create();
+  $i->description = $d;
+  $i->modelType = 'F';
+  $i->rank = $rank;
+  $i->save();
+}
+
+// definitions
 $d = Model::factory('Definition')->create();
 $d->userId = 1;
 $d->sourceId = 1;
@@ -73,4 +111,3 @@ $d->internalRep = '@cheese:@ a food made from the pressed curds of milk.';
 $d->htmlRep = AdminStringUtil::htmlize($d->internalRep, $d->sourceId);
 $d->status = Definition::ST_ACTIVE;
 $d->save();
-

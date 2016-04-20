@@ -15,6 +15,11 @@
 <tr><td><a href="sourcesViewLoggedIn.xml">sourcesViewLoggedIn</a></td></tr>
 <tr><td><a href="sourcesReorder.xml">sourcesReorder</a></td></tr>
 <tr><td><a href="sourceEdit.xml">sourceEdit</a></td></tr>
+<tr><td><a href="modelTypesView.xml">modelTypesView</a></td></tr>
+<tr><td><a href="modelTypeAddEditDelete.xml">modelTypeAddEditDelete</a></td></tr>
+<tr><td><a href="inflectionsView.xml">inflectionsView</a></td></tr>
+<tr><td><a href="inflectionsReorder.xml">inflectionsReorder</a></td></tr>
+<tr><td><a href="inflectionAddDelete.xml">inflectionAddDelete</a></td></tr>
 <tr><td><a href="logout.xml">logout</a></td></tr>
 </tbody></table>
 </body>

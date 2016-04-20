@@ -10,7 +10,9 @@
  * - some variables changed type in dex.conf
  * - there are new RewriteRules (commented or not) in wwwbase/.htaccess
  *
- * Checks whether any Selenium IDE tests contain a hard-coded base URL.
+ * Checks whether any Selenium IDE tests contain
+ * - a hard-coded base URL or
+ * - an absolute URL path.
  **/
 
 // We should already be at the root of the client
@@ -60,6 +62,13 @@ if ($baseUrlFiles) {
   error("The following Selenium IDE test cases contain a hard-coded base URL.\n" .
         "Please remove selenium.base and edit the 'open' command to use relative\n" .
         "URLs (using '.').\n\n" . $baseUrlFiles);
+}
+
+$absoluteUrlFiles = shell_exec('grep -Pzol "<tbody>\s+<tr>\s+<td>open</td>\s+<td>[^.]" test/*.xml');
+if ($absoluteUrlFiles) {
+  error("The following Selenium IDE test cases contain an absolute URL path.\n" .
+        "Please make sure all paths in 'open' commands begin with a '.'\n\n" .
+        $absoluteUrlFiles);
 }
 
 /***************************************************************************/

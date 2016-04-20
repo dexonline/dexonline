@@ -3,53 +3,64 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>inflectionAddDelete</title>
+<title>searchFullText</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">inflectionAddDelete</td></tr>
+<tr><td rowspan="1" colspan="3">searchFullText</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>./flexiuni</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>name=newDescription</td>
+	<td>.</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>name=newDescription</td>
-	<td>test inflection</td>
+	<td>name=cuv</td>
+	<td>din metal</td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>name=submitButton</td>
+	<td>click</td>
+	<td>id=advancedAnchor</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTable</td>
-	<td>id=inflections.11.0</td>
-	<td>test inflection</td>
-</tr>
-<tr>
-	<td>verifyTable</td>
-	<td>id=inflections.11.1</td>
-	<td>F</td>
-</tr>
-<tr>
-	<td>verifyTable</td>
-	<td>id=inflections.11.2</td>
-	<td>11</td>
+	<td>click</td>
+	<td>id=defBody</td>
+	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>link=șterge</td>
+	<td>id=searchButton</td>
 	<td></td>
 </tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=cuv</td>
+	<td>din metal</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id=defBody</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.resultBar</td>
+	<td>O definiție cuprinde toate cuvintele căutate</td>
+</tr>
+<tr>
+	<td>verifyCssCount</td>
+	<td>css=span.fth0</td>
+	<td>3</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=span.fth.fth1</td>
+	<td>metal</td>
+</tr>
+
 </tbody></table>
 </body>
 </html>

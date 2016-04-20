@@ -69,45 +69,168 @@ $s->displayOrder = 2;
 $s->save();
 
 // model types
-$mt = Model::factory('ModelType')->create();
-$mt->code = 'F';
-$mt->description = 'feminine noun';
-$mt->canonical = 'F';
-$mt->save();
-
-$mt = Model::factory('ModelType')->create();
-$mt->code = 'AF';
-$mt->description = 'feminine adjective';
-$mt->canonical = 'F';
-$mt->save();
+createModelType('T', 'T', 'temporar');
+createModelType('F', 'F', 'substantiv feminin');
+createModelType('AF', 'F', 'adjectiv feminin');
+createModelType('N', 'N', 'substantiv neutru');
 
 // inflections
+createInflections('T', [
+  'formă unică',
+]);
 $descriptions = [
-  '1' => 'nominativ, singular, nearticulat',
-  '2' => 'genitiv, singular, nearticulat',
-  '3' => 'nominativ, plural, nearticulat',
-  '4' => 'genitiv, plural, nearticulat',
-  '5' => 'nominativ, singular, articulat',
-  '6' => 'genitiv, singular, articulat',
-  '7' => 'nominativ, plural, articulat',
-  '8' => 'genitiv, plural, articulat',
-  '9' => 'vocativ, singular',
-  '10' => 'vocativ, plural',
-];
-foreach ($descriptions as $rank => $d) {
-  $i = Model::factory('Inflection')->create();
-  $i->description = $d;
-  $i->modelType = 'F';
-  $i->rank = $rank;
-  $i->save();
-}
+  'nominativ, singular, nearticulat',
+  'genitiv, singular, nearticulat',
+  'nominativ, plural, nearticulat',
+  'genitiv, plural, nearticulat',
+  'nominativ, singular, articulat',
+  'genitiv, singular, articulat',
+  'nominativ, plural, articulat',
+  'genitiv, plural, articulat',
+  'vocativ, singular',
+  'vocativ, plural',
+]; // reuse these
+createInflections('F', $descriptions);
+createInflections('N', $descriptions);
+
+// models, transforms and model descriptions
+createModelDeep('T', '1', '', 'invariabil', [
+  [ 'invariabil' ],
+]);
+createModelDeep('F', '35', '+et', "br'ânză", [
+  [ "br'ânză" ],
+  [ "br'ânze" ],
+  [ "brânz'eturi" ],
+  [ "brânz'eturi" ],
+  [ "br'ânza" ],
+  [ "br'ânzei" ],
+  [ "brânz'eturile" ],
+  [ "brânz'eturilor" ],
+  [ "br'ânză", "br'ânzo" ],
+  [ "brânz'eturilor" ],
+]);
+createModelDeep('F', '62', '', "str'adă", [
+  [ "str'adă" ],
+  [ "str'ăzi" ],
+  [ "str'ăzi" ],
+  [ "str'ăzi" ],
+  [ "str'ada" ],
+  [ "str'ăzii" ],
+  [ "str'ăzile" ],
+  [ "str'ăzilor" ],
+  [ "str'adă", "str'ado" ],
+  [ "str'ăzilor" ],
+]);
+createModelDeep('N', '1', '', "f'ir", [
+  [ "f'ir" ],
+  [ "f'ir" ],
+  [ "f'ire" ],
+  [ "f'ire" ],
+  [ "f'irul" ],
+  [ "f'irului" ],
+  [ "f'irele" ],
+  [ "f'irelor" ],
+  [ "f'irule", "f'ire" ],
+  [ "f'irelor" ],
+]);
+
+// lexems
+$l1 = createLexemDeep("br'ânză", 'F', '35', '', true);
+$l2 = createLexemDeep("c'adă", 'F', '62', '', true);
+$l3 = createLexemDeep("met'al", 'N', '1', '', true);
+$l4 = createLexemDeep("d'in", 'T', '1', '', true);
 
 // definitions
-$d = Model::factory('Definition')->create();
-$d->userId = 1;
-$d->sourceId = 1;
-$d->lexicon = 'cheese';
-$d->internalRep = '@cheese:@ a food made from the pressed curds of milk.';
-$d->htmlRep = AdminStringUtil::htmlize($d->internalRep, $d->sourceId);
-$d->status = Definition::ST_ACTIVE;
-$d->save();
+$d1 = createDefinition(
+  'Produs alimentar obținut prin coagularea și prelucrarea laptelui.',
+  'brânză', 1, 1, Definition::ST_ACTIVE);
+$d2 = createDefinition(
+  'Recipient mare, deschis, din lemn, din metal, din beton etc.',
+  'cadă', 1, 1, Definition::ST_ACTIVE);
+
+// lexem-definition maps
+LexemDefinitionMap::associate($l1->id, $d1->id);
+LexemDefinitionMap::associate($l2->id, $d2->id);
+
+// run some preprocessing
+require_once __DIR__ . '/../tools/genNGram.php';
+require_once __DIR__ . '/../tools/rebuildFullTextIndex.php';
+
+/**************************************************************************/
+
+function createModelType($code, $canonical, $description) {
+  $mt = Model::factory('ModelType')->create();
+  $mt->code = $code;
+  $mt->description = $description;
+  $mt->canonical = $canonical;
+  $mt->save();
+}
+
+function createInflections($modelType, $descriptions) {
+  foreach ($descriptions as $i => $d) {
+    $infl = Model::factory('Inflection')->create();
+    $infl->description = $d;
+    $infl->modelType = $modelType;
+    $infl->rank = $i + 1;
+    $infl->save();
+  }
+}
+
+function createModelDeep($type, $number, $description, $exponent, $paradigm) {
+  $m = Model::factory('FlexModel')->create();
+  $m->modelType = $type;
+  $m->number = $number;
+  $m->description = $description;
+  $m->exponent = $exponent;
+  $m->save();
+
+  foreach ($paradigm as $i => $forms) {
+    $infl = Inflection::get_by_modelType_rank($type, $i + 1);
+
+    foreach ($forms as $variant => $form) {
+      $transforms = FlexStringUtil::extractTransforms($m->exponent, $form, false);
+
+      $accentShift = array_pop($transforms);
+      if ($accentShift != UNKNOWN_ACCENT_SHIFT &&
+          $accentShift != NO_ACCENT_SHIFT) {
+        $accentedVowel = array_pop($transforms);
+      } else {
+        $accentedVowel = '';
+      }
+    
+      $order = count($transforms);
+      foreach ($transforms as $t) {
+        $t = Transform::createOrLoad($t->transfFrom, $t->transfTo);
+        $md = Model::factory('ModelDescription')->create();
+        $md->modelId = $m->id;
+        $md->inflectionId = $infl->id;
+        $md->variant = $variant;
+        $md->applOrder = --$order;
+        $md->transformId = $t->id;
+        $md->accentShift = $accentShift;
+        $md->vowel = $accentedVowel;
+        $md->isLoc = true;
+        $md->recommended = true;
+        $md->save();
+      }
+    }
+  }
+}
+
+function createLexemDeep($form, $modelType, $modelNumber, $restriction, $isLoc) {
+  $l = Lexem::deepCreate($form, $modelType, $modelNumber, $restriction, $isLoc);
+  $l->deepSave();
+  return $l;
+}
+
+function createDefinition($rep, $lexicon, $userId, $sourceId, $status) {
+  $d = Model::factory('Definition')->create();
+  $d->userId = $userId;
+  $d->sourceId = $sourceId;
+  $d->lexicon = $lexicon;
+  $d->internalRep = $rep;
+  $d->htmlRep = AdminStringUtil::htmlize($rep, $sourceId);
+  $d->status = $status;
+  $d->save();
+  return $d;
+}

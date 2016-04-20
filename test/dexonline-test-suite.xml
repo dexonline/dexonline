@@ -9,6 +9,10 @@
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
 <tr><td><a href="homePage.xml">homePage</a></td></tr>
+<tr><td><a href="searchByInflectedForm.xml">searchByInflectedForm</a></td></tr>
+<tr><td><a href="searchApproximate.xml">searchApproximate</a></td></tr>
+<tr><td><a href="searchRegexp.xml">searchRegexp</a></td></tr>
+<tr><td><a href="searchFullText.xml">searchFullText</a></td></tr>
 <tr><td><a href="searchByDefinitionId.xml">searchByDefinitionId</a></td></tr>
 <tr><td><a href="sourcesViewAsAnonymous.xml">sourcesViewAsAnonymous</a></td></tr>
 <tr><td><a href="loginFakeUser.xml">loginFakeUser</a></td></tr>

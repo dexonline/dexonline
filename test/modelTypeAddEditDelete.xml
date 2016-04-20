@@ -47,32 +47,32 @@
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.3.0</td>
+	<td>css=table.5.0</td>
 	<td>X</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.3.1</td>
+	<td>css=table.5.1</td>
 	<td>F</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.3.2</td>
+	<td>css=table.5.2</td>
 	<td>some description</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.3.3</td>
+	<td>css=table.5.3</td>
 	<td>0</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.3.4</td>
+	<td>css=table.5.4</td>
 	<td>0</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.3.5</td>
+	<td>css=table.5.5</td>
 	<td>editează șterge</td>
 </tr>
 <tr>
@@ -108,9 +108,8 @@
 <tr>
 	<td>verifyXpathCount</td>
 	<td>//tr</td>
-	<td>3</td>
+	<td>5</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

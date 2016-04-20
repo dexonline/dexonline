@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>searchByDefinitionId</title>
+<title>searchByInflectedForm</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">searchByDefinitionId</td></tr>
+<tr><td rowspan="1" colspan="3">searchByInflectedForm</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -18,7 +18,7 @@
 <tr>
 	<td>type</td>
 	<td>name=cuv</td>
-	<td>1</td>
+	<td>brânzeturi</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -28,13 +28,39 @@
 <tr>
 	<td>verifyValue</td>
 	<td>name=cuv</td>
-	<td>cheese</td>
+	<td>brânză</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.resultBar</td>
+	<td>O definiție pentru „brânză”&nbsp;&nbsp;&nbsp;▷ declinări</td>
 </tr>
 <tr>
 	<td>verifyText</td>
 	<td>css=span.def</td>
-	<td>exact:Produs alimentar obținut prin coagularea și prelucrarea laptelui.</td>
+	<td>Produs alimentar obținut prin coagularea și prelucrarea laptelui.</td>
 </tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=a.ref</td>
+	<td>Source 1 (2010)</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=john</td>
+	<td>john</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=typoLink-1</td>
+	<td>Semnalează o greșeală</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Permalink</td>
+	<td>Permalink</td>
+</tr>
+
 </tbody></table>
 </body>
 </html>

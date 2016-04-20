@@ -33,7 +33,7 @@
 <tr>
 	<td>verifyTable</td>
 	<td>css=table.1.2</td>
-	<td>feminine adjective</td>
+	<td>adjectiv feminin</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
@@ -63,17 +63,17 @@
 <tr>
 	<td>verifyTable</td>
 	<td>css=table.2.2</td>
-	<td>feminine noun</td>
+	<td>substantiv feminin</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
 	<td>css=table.2.3</td>
-	<td>0</td>
+	<td>2</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
 	<td>css=table.2.4</td>
-	<td>0</td>
+	<td>2</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
@@ -85,7 +85,6 @@
 	<td>link=adaugă un tip de model</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

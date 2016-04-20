@@ -33,7 +33,10 @@ function db_execute($query, $fetchStyle = PDO::FETCH_BOTH) {
  **/
 function db_executeFromOS($query) {
   $query = str_replace("\n", ' ', $query);
-  $dsn = Config::get('global.database');
+
+  $dsn = Config::get('testing.enabled')
+       ? Config::get('testing.database')
+       : Config::get('global.database');
   $parts = db_splitDsn($dsn);
   // Skip the username/password here to avoid a Percona warning.
   // Place them in my.cnf (remeber this command runs as the webserver user).

@@ -1,17 +1,19 @@
 #!/usr/bin/php
 <?php
 
-   /**
-    * Checks whether the developer modified one of the files dex.conf or wwwbase/.htaccess.
-    * If they did, they should push the same changes to dex.conf.sample and wwwbase/.htaccess.sample respectively.
-    * Specifically, we check whether
-    * - there are new sections in dex.conf
-    * - there are new variables in dex.conf
-    * - some variables changed type in dex.conf
-    * - there are new RewriteRules (commented or not) in wwwbase/.htaccess
-    */
+/**
+ * Checks whether the developer modified one of the files dex.conf or wwwbase/.htaccess.
+ * If they did, they should push the same changes to dex.conf.sample and wwwbase/.htaccess.sample respectively.
+ * Specifically, we check whether
+ * - there are new sections in dex.conf
+ * - there are new variables in dex.conf
+ * - some variables changed type in dex.conf
+ * - there are new RewriteRules (commented or not) in wwwbase/.htaccess
+ *
+ * Checks whether any Selenium IDE tests contain a hard-coded base URL.
+ **/
 
-   // We should already be at the root of the client
+// We should already be at the root of the client
 if (($dexConf = parse_ini_file('dex.conf', true)) === false) {
   error('Cannot read dex.conf');
 }
@@ -51,6 +53,13 @@ foreach ($htaccess as $rule) {
   if (!in_array($rule, $htaccessSample)) {
     error("The RewriteRule *** $rule *** is defined in wwwbase/.htaccess, but not in wwwbase/.htaccess.sample. Please reconcile the files.");
   }
+}
+
+$baseUrlFiles = shell_exec('grep -rl selenium.base test/*.xml');
+if ($baseUrlFiles) {
+  error("The following Selenium IDE test cases contain a hard-coded base URL.\n" .
+        "Please remove selenium.base and edit the 'open' command to use relative\n" .
+        "URLs (using '.').\n\n" . $baseUrlFiles);
 }
 
 /***************************************************************************/

@@ -11,6 +11,11 @@
 <tr><td><a href="homePage.xml">homePage</a></td></tr>
 <tr><td><a href="searchByDefinitionId.xml">searchByDefinitionId</a></td></tr>
 <tr><td><a href="sourcesViewAsAnonymous.xml">sourcesViewAsAnonymous</a></td></tr>
+<tr><td><a href="loginFakeUser.xml">loginFakeUser</a></td></tr>
+<tr><td><a href="sourcesViewLoggedIn.xml">sourcesViewLoggedIn</a></td></tr>
+<tr><td><a href="sourcesReorder.xml">sourcesReorder</a></td></tr>
+<tr><td><a href="sourceEdit.xml">sourceEdit</a></td></tr>
+<tr><td><a href="logout.xml">logout</a></td></tr>
 </tbody></table>
 </body>
 </html>

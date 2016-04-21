@@ -44,6 +44,19 @@ class SmartyWrap {
     }
   }
 
+  // Replace $key => $fileName with key => [ 'file' => $fileName, 'timestamp' => $timestamp ]
+  static function copyTimestamps($v, $prefix) {
+    $path = util_getRootPath() . "wwwbase/{$prefix}/";
+    $result = [];
+    foreach ($v as $key => $fileName) {
+      $result[$key] = [
+        'file' => $fileName,
+        'timestamp' => filemtime($path . $fileName),
+      ];
+    }
+    return $result;
+  }
+
   static function fetchSkin($templateName) {
     $skin = session_getSkin();
     self::addCss($skin, 'flash');
@@ -86,8 +99,8 @@ class SmartyWrap {
   static function fetch($templateName) {
     ksort(self::$cssFiles);
     ksort(self::$jsFiles);
-    self::assign('cssFiles', self::$cssFiles);
-    self::assign('jsFiles', self::$jsFiles);
+    self::assign('cssFiles', self::copyTimestamps(self::$cssFiles, 'styles'));
+    self::assign('jsFiles', self::copyTimestamps(self::$jsFiles, 'js'));
     self::assign('flashMessages', FlashMessage::getMessages());
     return self::$theSmarty->fetch($templateName);
   }
@@ -122,23 +135,23 @@ class SmartyWrap {
       switch($id) {
         case 'jqueryui':            self::$cssFiles[1] = 'lightness-1.10.3/jquery-ui-1.10.3.custom.min.css'; break;
         case 'jqueryui-smoothness': self::$cssFiles[2] = 'smoothness-1.10.4/jquery-ui-1.10.4.custom.min.css'; break;
-        case 'jqgrid':              self::$cssFiles[3] = 'ui.jqgrid.css?v=3'; break;
+        case 'jqgrid':              self::$cssFiles[3] = 'ui.jqgrid.css'; break;
         case 'tablesorter':         self::$cssFiles[4] = 'tablesorter/theme.blue.css'; break;
         case 'elfinder':
-          self::$cssFiles[5] = 'elfinder/css/elfinder.min.css?v=2';
+          self::$cssFiles[5] = 'elfinder/css/elfinder.min.css';
           self::$cssFiles[6] = 'elfinderDev.css';
           break;
         case 'windowEngine':        self::$cssFiles[7] = 'jquery-wm/main.css'; break;
-        case 'zepu':                self::$cssFiles[8] = 'zepu.css?v=82'; break;
-        case 'polar':               self::$cssFiles[9] = 'polar.css?v=37'; break;
-        case 'mobile':              self::$cssFiles[10] = 'mobile.css?v=23'; break;
-        case 'flex':                self::$cssFiles[11] = 'flex.css?v=18'; break;
-        case 'paradigm':            self::$cssFiles[12] = 'paradigm.css?v=3'; break;
-        case 'jcrop':               self::$cssFiles[13] = 'jcrop/jquery.Jcrop.min.css?v=3'; break;
-        case 'select2':             self::$cssFiles[14] = 'select2/select2.css?v=3'; break;
+        case 'zepu':                self::$cssFiles[8] = 'zepu.css'; break;
+        case 'polar':               self::$cssFiles[9] = 'polar.css'; break;
+        case 'mobile':              self::$cssFiles[10] = 'mobile.css'; break;
+        case 'flex':                self::$cssFiles[11] = 'flex.css'; break;
+        case 'paradigm':            self::$cssFiles[12] = 'paradigm.css'; break;
+        case 'jcrop':               self::$cssFiles[13] = 'jcrop/jquery.Jcrop.min.css'; break;
+        case 'select2':             self::$cssFiles[14] = 'select2/select2.css'; break;
         case 'gallery':
-          self::$cssFiles[15] = 'colorbox/colorbox.css?v=1';
-          self::$cssFiles[16] = 'visualDict.css?v=3';
+          self::$cssFiles[15] = 'colorbox/colorbox.css';
+          self::$cssFiles[16] = 'visualDict.css';
           break;
         case 'textComplete':        self::$cssFiles[17] = 'jquery.textcomplete.css'; break;
         case 'flash':               self::$cssFiles[18] = 'flash.css'; break;
@@ -156,27 +169,27 @@ class SmartyWrap {
         case 'jquery':           self::$jsFiles[1] = 'jquery-1.10.2.min.js'; break;
         case 'jqueryui':         self::$jsFiles[2] = 'jquery-ui-1.10.3.custom.min.js'; break;
         case 'jqgrid':
-          self::$jsFiles[3] = 'grid.locale-en.js?v=2';
-          self::$jsFiles[4] = 'jquery.jqGrid.min.js?v=3';
+          self::$jsFiles[3] = 'grid.locale-en.js';
+          self::$jsFiles[4] = 'jquery.jqGrid.min.js';
           break;
         case 'jqnotice':         self::$jsFiles[5] = 'jquery.notice.js'; break;
-        case 'jqTableDnd':       self::$jsFiles[6] = 'jquery.tablednd.0.8.min.js?v=1'; break;
+        case 'jqTableDnd':       self::$jsFiles[6] = 'jquery.tablednd.0.8.min.js'; break;
         case 'tablesorter':
-          self::$jsFiles[7] = 'jquery.tablesorter.min.js?v=5';
-          self::$jsFiles[8] = 'tablesorter.dev.js?v=3';
+          self::$jsFiles[7] = 'jquery.tablesorter.min.js';
+          self::$jsFiles[8] = 'tablesorter.dev.js';
           break;
         case 'pager':            self::$jsFiles[9] = 'jquery.tablesorter.pager.min.js'; break;
-        case 'elfinder':         self::$jsFiles[10] = 'elfinder.min.js?v=1'; break;
+        case 'elfinder':         self::$jsFiles[10] = 'elfinder.min.js'; break;
         case 'windowEngine':     self::$jsFiles[11] = 'jquery-wm.js'; break;
-        case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js?v=1'; break;
-        case 'dex':              self::$jsFiles[13] = 'dex.js?v=36'; break;
-        case 'jcrop':            self::$jsFiles[14] = 'jquery.Jcrop.min.js?v=2'; break;
-        case 'select2':          self::$jsFiles[15] = 'select2.min.js?v=3'; break;
-        case 'select2Dev':       self::$jsFiles[16] = 'select2Dev.js?v=8'; break;
+        case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js'; break;
+        case 'dex':              self::$jsFiles[13] = 'dex.js'; break;
+        case 'jcrop':            self::$jsFiles[14] = 'jquery.Jcrop.min.js'; break;
+        case 'select2':          self::$jsFiles[15] = 'select2.min.js'; break;
+        case 'select2Dev':       self::$jsFiles[16] = 'select2Dev.js'; break;
         case 'gallery':
           self::$jsFiles[17] = 'colorbox/jquery.colorbox-min.js';
           self::$jsFiles[18] = 'colorbox/jquery.colorbox-ro.js';
-          self::$jsFiles[19] = 'dexGallery.js?v=2';
+          self::$jsFiles[19] = 'dexGallery.js';
           self::$jsFiles[20] = 'jcanvas.min.js';
           break;
         case 'modelDropdown':    self::$jsFiles[21] = 'modelDropdown.js'; break;

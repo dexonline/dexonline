@@ -1,6 +1,6 @@
-{foreach from=$cssFiles item=cssFile}
-  <link href="{$wwwRoot}styles/{$cssFile}" rel="stylesheet" type="text/css"/>
+{foreach from=$cssFiles item=rec}
+  <link href="{$wwwRoot}styles/{$rec.file}?v={$rec.timestamp}" rel="stylesheet" type="text/css"/>
 {/foreach}
-{foreach from=$jsFiles item=jsFile}
-  <script src="{$wwwRoot}js/{$jsFile}"></script>
+{foreach from=$jsFiles item=rec}
+  <script src="{$wwwRoot}js/{$rec.file}?v={$rec.timestamp}"></script>
 {/foreach}

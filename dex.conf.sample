@@ -12,8 +12,8 @@
 contact = contact@dexonline.ro
 
 ; Database connection
-database = 'mysql://root@localhost/DEX'
-;database = mysql://root@localhost/DEX
+; database = "mysql://user[:password]@host/database"
+database = mysql://root@localhost/DEX
 
 ; Show some debug information when this user is logged in.
 debugUser = ""
@@ -25,7 +25,7 @@ developmentMode = 0
 googleSearchApiKey = "Insert your API key here"
 
 ; Show our web host logo
-hostedBy =
+hostedBy = ""
 
 ; LOC versions (for scrabble users). Each version should have a corresponding LOC_* database.
 ; See also mysql_loc_prefix
@@ -82,29 +82,21 @@ results = 0
 ; Possible values: 0.00 <= fraction <= 1.00
 fraction = 0.10
 
+[testing]
+
+; When true, put the website in testing mode and use the testing database.
+enabled = false
+
+; Database connection
+; database = "mysql://user[:password]@host/database"
+database = "mysql://root@localhost/DEX_testing"
+
 ; This section handles donations through a third party.
 [euplatesc]
 ; Key for euplatesc.ro or 0 to disable the donation box.
 euPlatescKey = 0
 ; Merchant ID for euplatesc.ro or 0 to disable the donation box.
 euPlatescMid = 0
-
-; Functional testing. We don't do much of it as of 2013.
-[functest]
-; URL that the functional test engine will exercise
-; This is the URL you normally go to in development
-; baseUrl = "http://domain.com/path"
-baseUrl = "http://localhost/~user/DEX/wwwbase/"
-
-; Database to use for functional tests.
-; Comment this out in production.
-functestDatabase = mysql://root@localhost/DEXtest
-
-; Lock file to use for functional tests.
-; The testing infrastructure should touch this file at the beginning and delete it at the end.
-; dexonline will read functestDatabase instead of database if this file exists.
-; Comment this out in production.
-functestLockFile = /tmp/dex-functest
 
 ; Banner settings
 [banner]

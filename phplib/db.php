@@ -1,12 +1,10 @@
 <?php
 
 function db_init() {
-  $functestFile = Config::get('functest.functestLockFile');
-  if ($functestFile && file_exists($functestFile)) {
-    $dsn = Config::get('functest.functestDatabase');
-  } else {
-    $dsn = Config::get('global.database');
-  }
+  $dsn = Config::get('testing.enabled')
+       ? Config::get('testing.database')
+       : Config::get('global.database');
+
   $parts = db_splitDsn($dsn);
   ORM::configure(sprintf("mysql:host=%s;dbname=%s", $parts['host'], $parts['database']));
   ORM::configure('username', $parts['user']);
@@ -35,7 +33,10 @@ function db_execute($query, $fetchStyle = PDO::FETCH_BOTH) {
  **/
 function db_executeFromOS($query) {
   $query = str_replace("\n", ' ', $query);
-  $dsn = Config::get('global.database');
+
+  $dsn = Config::get('testing.enabled')
+       ? Config::get('testing.database')
+       : Config::get('global.database');
   $parts = db_splitDsn($dsn);
   // Skip the username/password here to avoid a Percona warning.
   // Place them in my.cnf (remeber this command runs as the webserver user).

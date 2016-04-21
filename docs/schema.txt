@@ -127,12 +127,13 @@ recommended - true if the form is still in use in current speech.
 
 EXAMPLE: Here is a SQL query that lists the paradigm for "știucă":
 
-select form, Inflection.description, variant
-  from Lexem, InflectedForm, Inflection
-  where Lexem.id = lexemId
-    and inflectionId = Inflection.id
-    and formNoAccent = 'știucă'
-  order by Inflection.id;
+select lm.id, f.form, i.description, f.variant
+  from Lexem l
+  join LexemModel lm on l.id = lm.lexemId
+  join InflectedForm f on lm.id = f.lexemModelId
+  join Inflection i on f.inflectionId = i.id
+  where l.formNoAccent = 'știucă'
+  order by lm.id, i.rank, f.variant;
 
 
 The ModelType table

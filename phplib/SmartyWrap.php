@@ -44,14 +44,17 @@ class SmartyWrap {
     }
   }
 
-  // Replace $key => $fileName with key => [ 'file' => $fileName, 'timestamp' => $timestamp ]
+  // Replace $key => $fileName with key => [ 'file' => $fileName, 'date' => $date ],
+  // where date is the date + hour of the last modification of each file.
   static function copyTimestamps($v, $prefix) {
     $path = util_getRootPath() . "wwwbase/{$prefix}/";
     $result = [];
     foreach ($v as $key => $fileName) {
+      $timetamp = filemtime($path . $fileName);
+      $date = date('YmdH', $timetamp);
       $result[$key] = [
         'file' => $fileName,
-        'timestamp' => filemtime($path . $fileName),
+        'date' => $date,
       ];
     }
     return $result;

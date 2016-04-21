@@ -14,6 +14,7 @@
 <tr><td><a href="searchRegexp.xml">searchRegexp</a></td></tr>
 <tr><td><a href="searchFullText.xml">searchFullText</a></td></tr>
 <tr><td><a href="searchByDefinitionId.xml">searchByDefinitionId</a></td></tr>
+<tr><td><a href="searchByLexemId.xml">searchByLexemId</a></td></tr>
 <tr><td><a href="sourcesViewAsAnonymous.xml">sourcesViewAsAnonymous</a></td></tr>
 <tr><td><a href="loginFakeUser.xml">loginFakeUser</a></td></tr>
 <tr><td><a href="sourcesViewLoggedIn.xml">sourcesViewLoggedIn</a></td></tr>

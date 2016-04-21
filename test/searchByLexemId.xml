@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>searchByDefinitionId</title>
+<title>searchByLexemId</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">searchByDefinitionId</td></tr>
+<tr><td rowspan="1" colspan="3">searchByLexemId</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -18,7 +18,7 @@
 <tr>
 	<td>type</td>
 	<td>name=cuv</td>
-	<td>1</td>
+	<td>din</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -26,14 +26,34 @@
 	<td></td>
 </tr>
 <tr>
-	<td>verifyValue</td>
-	<td>name=cuv</td>
-	<td>brânză</td>
+	<td>verifyText</td>
+	<td>css=div.resultBar</td>
+	<td>2 definiții pentru din, din&nbsp;&nbsp;&nbsp;▷ declinări</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=span.def</td>
-	<td>exact:Produs alimentar obținut prin coagularea și prelucrarea laptelui.</td>
+	<td>link=din</td>
+	<td>din</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//a[contains(text(),'din')])[2]</td>
+	<td>din</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=din</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=cuv</td>
+	<td>din</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.resultBar</td>
+	<td>O definiție pentru „din”&nbsp;&nbsp;&nbsp;▷ declinări</td>
 </tr>
 </tbody></table>
 </body>

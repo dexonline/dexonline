@@ -139,6 +139,7 @@ $l1 = createLexemDeep("br'ânză", 'F', '35', '', true);
 $l2 = createLexemDeep("c'adă", 'F', '62', '', true);
 $l3 = createLexemDeep("met'al", 'N', '1', '', true);
 $l4 = createLexemDeep("d'in", 'T', '1', '', true);
+$l5 = createLexemDeep("d'in", 'N', '1', '', true); // fictitious
 
 // definitions
 $d1 = createDefinition(
@@ -147,10 +148,18 @@ $d1 = createDefinition(
 $d2 = createDefinition(
   'Recipient mare, deschis, din lemn, din metal, din beton etc.',
   'cadă', 1, 1, Definition::ST_ACTIVE);
+$d3 = createDefinition(
+  'prepoziție etc.',
+  'din', 1, 1, Definition::ST_ACTIVE);
+$d4 = createDefinition(
+  'O dină, două dine, definiție fictivă pentru a avea lexeme omonime.',
+  'din', 1, 1, Definition::ST_ACTIVE);
 
 // lexem-definition maps
 LexemDefinitionMap::associate($l1->id, $d1->id);
 LexemDefinitionMap::associate($l2->id, $d2->id);
+LexemDefinitionMap::associate($l4->id, $d3->id);
+LexemDefinitionMap::associate($l5->id, $d4->id);
 
 // run some preprocessing
 require_once __DIR__ . '/../tools/genNGram.php';

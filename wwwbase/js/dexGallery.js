@@ -56,8 +56,8 @@ function drawOnCanvas(visualId) {
       data.tags[i].textY *= heightScale;
       data.tags[i].imgY *= heightScale;
 
-      console.log(data.tags[i].lexeme);
-      console.log(word);
+      // console.log(data.tags[i].lexeme);
+      // console.log(word);
 
       colorText = (data.tags[i].lexeme == decodeURI(word) ) ? '#F00' : '#000';
 

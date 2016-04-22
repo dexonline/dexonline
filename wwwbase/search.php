@@ -300,7 +300,7 @@ $images = empty($lexems) ? array() : Visual::loadAllForLexems($lexems);
 SmartyWrap::assign('images', $images);
 if (count($images)) {
   SmartyWrap::addCss('gallery');
-  SmartyWrap::addJs('gallery');
+  SmartyWrap::addJs('gallery', 'jcanvas');
 }
 
 if (!$xml) {

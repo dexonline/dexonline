@@ -158,7 +158,6 @@ class SmartyWrap {
           break;
         case 'textComplete':        self::$cssFiles[17] = 'jquery.textcomplete.css'; break;
         case 'flash':               self::$cssFiles[18] = 'flash.css'; break;
-        case 'scramble':             self::$cssFiles[19] = 'scramble.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -190,19 +189,15 @@ static function addJs(/* Variable-length argument list */) {
         case 'jcrop':            self::$jsFiles[14] = 'jquery.Jcrop.min.js'; break;
         case 'select2':          self::$jsFiles[15] = 'select2.min.js'; break;
         case 'select2Dev':       self::$jsFiles[16] = 'select2Dev.js'; break;
+        case 'jcanvas':          self::$jsFiles[17] = 'jcanvas.min.js'; break;
         case 'gallery':
-          self::$jsFiles[17] = 'colorbox/jquery.colorbox-min.js';
-          self::$jsFiles[18] = 'colorbox/jquery.colorbox-ro.js';
-          self::$jsFiles[19] = 'dexGallery.js';
-          self::$jsFiles[20] = 'jcanvas.min.js';
+          self::$jsFiles[18] = 'colorbox/jquery.colorbox-min.js';
+          self::$jsFiles[19] = 'colorbox/jquery.colorbox-ro.js';
+          self::$jsFiles[20] = 'dexGallery.js';
           break;
         case 'modelDropdown':    self::$jsFiles[21] = 'modelDropdown.js'; break;
         case 'textComplete':     self::$jsFiles[22] = 'jquery.textcomplete.min.js'; break;
         case 'tinymce':          self::$jsFiles[23] = 'tinymce-4.3.4/tinymce.min.js'; break;
-        case 'scramble':         
-          self::$jsFiles[24] = 'scramble.js'; 
-          self::$jsFiles[25] = 'jcanvas.min.js';
-          break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

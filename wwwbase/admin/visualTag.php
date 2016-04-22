@@ -54,7 +54,7 @@ SmartyWrap::assign('visual', $v);
 SmartyWrap::assign('lexem', Lexem::get_by_id($v->lexemeId));
 
 SmartyWrap::addCss('jqueryui-smoothness', 'jcrop', 'select2', 'jqgrid', 'jqueryui', 'gallery');
-SmartyWrap::addJs('jquery', 'jqueryui', 'jcrop', 'select2', 'select2Dev', 'jqgrid', 'gallery'); 
+SmartyWrap::addJs('jquery', 'jqueryui', 'jcrop', 'select2', 'select2Dev', 'jqgrid', 'gallery', 'jcanvas'); 
 SmartyWrap::displayAdminPage('admin/visualTag.tpl');
 
 ?>

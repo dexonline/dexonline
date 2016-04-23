@@ -134,7 +134,7 @@ function select2InitSelectionAjaxSingle(element, callback) {
   if (id) {
     $.ajax(wwwRoot + 'ajax/getLexemById.php?id=' + id, {dataType: 'json'})
       .done(function(data) {
-        callback({ id: id, text: data });
+        callback(data);
       });
   }
 }

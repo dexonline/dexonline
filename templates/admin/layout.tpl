@@ -25,6 +25,7 @@
     {include file="admin/recentlyVisited.tpl"}
     {include file="bits/flashMessages.tpl"}
     {block name=content}{/block}
+    {block name=stats}{/block}
     {getDebugInfo}
   </body>
 </html>

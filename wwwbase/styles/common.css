@@ -111,7 +111,6 @@ blockquote {
   min-width: 500px;
 }
 
-
 /* Unelte table, Surse table, Licențe table */
 .minimalistTable,
 .wikiArticle table {
@@ -361,4 +360,22 @@ blockquote {
 .donateContent h2 {
   color: #3D65B0;
   font-weight: bold;
+}
+
+.adminSpace {
+  width: 500px;
+}
+
+/* Stats table */
+.adminSpace table
+{
+  border-collapse: collapse;
+  font-weight: normal;
+}
+
+.adminSpace td,
+.adminSpace th {
+  border: 1px solid;
+  margin: 3px;
+  padding: 3px;
 }

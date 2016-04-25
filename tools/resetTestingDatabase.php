@@ -39,23 +39,23 @@ exec(sprintf('mysqldump -h %s -u %s %s -d | sed -e "s/AUTO_INCREMENT=[[:digit:]]
 // Create some data.
 
 // users
-$u = Model::factory('User')->create();
-$u->email = 'john@x.com';
-$u->nick = 'john';
-$u->name = 'John Smith';
-$u->save();
+$john = Model::factory('User')->create();
+$john->email = 'john@x.com';
+$john->nick = 'john';
+$john->name = 'John Smith';
+$john->save();
 
 // sources
-$s = Model::factory('Source')->create();
-$s->shortName = 'Source 1';
-$s->urlName = 'source1';
-$s->name = 'English - Klingon Dictionary';
-$s->author = 'Worf';
-$s->publisher = 'The Klingon Academy';
-$s->year = '2010';
-$s->isOfficial = 2; // TODO add constants in Source.php
-$s->displayOrder = 1;
-$s->save();
+$klingon = Model::factory('Source')->create();
+$klingon->shortName = 'Source 1';
+$klingon->urlName = 'source1';
+$klingon->name = 'English - Klingon Dictionary';
+$klingon->author = 'Worf';
+$klingon->publisher = 'The Klingon Academy';
+$klingon->year = '2010';
+$klingon->isOfficial = 2; // TODO add constants in Source.php
+$klingon->displayOrder = 1;
+$klingon->save();
 
 $s = Model::factory('Source')->create();
 $s->shortName = 'Source 2';
@@ -144,22 +144,26 @@ $l5 = createLexemDeep("d'in", 'N', '1', '', true); // fictitious
 // definitions
 $d1 = createDefinition(
   'Produs alimentar obținut prin coagularea și prelucrarea laptelui.',
-  'brânză', 1, 1, Definition::ST_ACTIVE);
+  'brânză', $john->id, $klingon->id, Definition::ST_ACTIVE);
 $d2 = createDefinition(
   'Recipient mare, deschis, din lemn, din metal, din beton etc.',
-  'cadă', 1, 1, Definition::ST_ACTIVE);
+  'cadă', $john->id, $klingon->id, Definition::ST_ACTIVE);
 $d3 = createDefinition(
   'prepoziție etc.',
-  'din', 1, 1, Definition::ST_ACTIVE);
+  'din', $john->id, $klingon->id, Definition::ST_ACTIVE);
 $d4 = createDefinition(
   'O dină, două dine, definiție fictivă pentru a avea lexeme omonime.',
-  'din', 1, 1, Definition::ST_ACTIVE);
+  'din', $john->id, $klingon->id, Definition::ST_ACTIVE);
 
 // lexem-definition maps
 LexemDefinitionMap::associate($l1->id, $d1->id);
 LexemDefinitionMap::associate($l2->id, $d2->id);
 LexemDefinitionMap::associate($l4->id, $d3->id);
 LexemDefinitionMap::associate($l5->id, $d4->id);
+
+// comments
+createComment('Foarte foarte gustoasă',
+              $d1->id, $john->id, Definition::ST_ACTIVE);
 
 // AdsLink
 $al = Model::factory('AdsLink')->create();
@@ -254,6 +258,19 @@ function createDefinition($rep, $lexicon, $userId, $sourceId, $status) {
   $d->status = $status;
   $d->save();
   return $d;
+}
+
+function createComment($rep, $definitionId, $userId, $status) {
+  $d = Definition::get_by_id($definitionId);
+
+  $c = Model::factory('Comment')->create();
+  $c->definitionId = $definitionId;
+  $c->userId = $userId;
+  $c->status = $status;
+  $c->contents = $rep;
+  $c->htmlContents = AdminStringUtil::htmlize($rep, $d->sourceId);
+  $c->save();
+  return $c;
 }
 
 function createWotdArtist($label, $name, $email, $credits) {

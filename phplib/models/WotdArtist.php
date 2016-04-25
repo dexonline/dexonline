@@ -5,12 +5,11 @@ class WotdArtist extends BaseObject {
 
   const CREDITS_FILE_WOTM = 'docs/imageCredits/wotm.desc';
 
-  static function getByDate($displayDate, $wotm = false) {
-    if ($wotm) {
-      $lines = @file(util_getRootPath() . self::CREDITS_FILE_WOTM);
-      if (!$lines) {
-        return null;
-      }
+  static function getAllWotmCredits() {
+    $result = [];
+
+    $lines = @file(util_getRootPath() . self::CREDITS_FILE_WOTM);
+    if ($lines) {
       foreach ($lines as $line) {
         $commentStart = strpos($line, '#');
         if ($commentStart !== false) {
@@ -19,9 +18,23 @@ class WotdArtist extends BaseObject {
         $line = trim($line);
         if ($line) {
           $parts = explode('::', trim($line));
-          if (preg_match("/{$parts[0]}/", $displayDate)) {
-            return WotdArtist::get_by_label($parts[1]);
-          }
+          $result[] = [
+            'regexp' => $parts[0],
+            'label' => $parts[1],
+          ];
+        }
+      }
+    }
+
+    return $result;
+  }
+
+  static function getByDate($displayDate, $wotm = false) {
+    if ($wotm) {
+      $credits = self::getAllWotmCredits();
+      foreach ($credits as $line) {
+        if (preg_match('/' . $line['regexp'] . '/', $displayDate)) {
+          return WotdArtist::get_by_label($line['label']);
         }
       }
       return null;

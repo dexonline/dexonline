@@ -25,6 +25,8 @@
 <tr><td><a href="inflectionsView.xml">inflectionsView</a></td></tr>
 <tr><td><a href="inflectionsReorder.xml">inflectionsReorder</a></td></tr>
 <tr><td><a href="inflectionAddDelete.xml">inflectionAddDelete</a></td></tr>
+<tr><td><a href="wotdArtistsView.xml">wotdArtistsView</a></td></tr>
+<tr><td><a href="wotdArtistAddEditDelete.xml">wotdArtistAddEditDelete</a></td></tr>
 <tr><td><a href="logout.xml">logout</a></td></tr>
 </tbody></table>
 </body>

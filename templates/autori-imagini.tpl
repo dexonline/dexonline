@@ -11,7 +11,7 @@
       <th>e-mail</th>
       <th>cod</th>
       <th>credite</th>
-      <th>editează</th>
+      <th>acțiuni</th>
     </tr>
     {foreach from=$artists item=a}
       <tr>
@@ -19,7 +19,12 @@
         <td>{$a->email}</td>
         <td>{$a->label}</td>
         <td>{$a->credits|escape}</td>
-        <td><a href="editare-autor-imagini.php?id={$a->id}">editează</a></td>
+        <td>
+          <a href="editare-autor-imagini.php?id={$a->id}">editează</a>
+          {if $a->canDelete}
+            <a href="editare-autor-imagini.php?deleteId={$a->id}">șterge</a>
+          {/if}
+        </td>
       </tr>
     {/foreach}
   </table>

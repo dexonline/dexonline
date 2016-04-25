@@ -3,10 +3,18 @@ require_once('../phplib/util.php');
 util_assertModerator(PRIV_WOTD);
 
 $id = util_getRequestParameter('id');
+$deleteId = util_getRequestParameter('deleteId');
 $submitButton = util_getRequestParameter('submitButton');
 $artist = $id
         ? WotdArtist::get_by_id($id)
         : Model::factory('WotdArtist')->create();
+
+if ($deleteId) {
+  WotdArtist::delete_all_by_id($deleteId);
+  Log::info("Deleted author {$deleteId}");
+  FlashMessage::add('Am șters autorul.', 'success');
+  util_redirect('autori-imagini.php');
+}
 
 if ($submitButton) {
   $artist->name = util_getRequestParameter('name');
@@ -38,6 +46,14 @@ function validate($artist) {
   }
   if (!$artist->credits) {
     FlashMessage::add('Creditele nu pot fi vide.');
+  }
+
+  $other = Model::factory('WotdArtist')
+         ->where('label', $artist->label)
+         ->where_not_equal('id', (int) $artist->id) // could be "" when adding a new artist
+         ->find_one();
+  if ($other) {
+    FlashMessage::add('Codul este deja folosit.');
   }
 
   return !FlashMessage::hasErrors();

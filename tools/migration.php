@@ -18,6 +18,10 @@ require_once __DIR__ . '/../phplib/util.php';
 define('PATCH_DIR', __DIR__ . '/../patches/');
 define('PATCH_REGEXP', '/^\d{5}\./');
 
+// Make sure we are in not testing mode.
+!Config::get('testing.enabled')
+  or die("Please set enabled = false in the [testing] section.\n");
+
 $dryRun = false;
 foreach ($argv as $i => $arg) {
   if ($i) {

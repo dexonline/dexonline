@@ -161,6 +161,10 @@ LexemDefinitionMap::associate($l2->id, $d2->id);
 LexemDefinitionMap::associate($l4->id, $d3->id);
 LexemDefinitionMap::associate($l5->id, $d4->id);
 
+// WotD artists
+$artist1 = createWotdArtist('artist1', 'Geniu Neînțeles', 'geniu@example.com', '© Geniu Neînțeles');
+$artist2 = createWotdArtist('artist2', 'Luceafărul grafittiului românesc', 'luceafar@example.com', '© Luceafărul');
+
 // run some preprocessing
 require_once __DIR__ . '/../tools/genNGram.php';
 require_once __DIR__ . '/../tools/rebuildFullTextIndex.php';
@@ -242,4 +246,14 @@ function createDefinition($rep, $lexicon, $userId, $sourceId, $status) {
   $d->status = $status;
   $d->save();
   return $d;
+}
+
+function createWotdArtist($label, $name, $email, $credits) {
+  $a = Model::factory('WotdArtist')->create();
+  $a->label = $label;
+  $a->name = $name;
+  $a->email = $email;
+  $a->credits = $credits;
+  $a->save();
+  return $a;
 }

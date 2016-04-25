@@ -22,7 +22,9 @@ if ($fakeUserNick) {
   }
   $user->identity = 'http://fake.example.com';
   $user->nick = $fakeUserNick;
-  $user->name = $fakeUserNick;
+  if (!$user->name) {
+    $user->name = $fakeUserNick;
+  }
   if ($allPriv) {
     $user->moderator = (1 << NUM_PRIVILEGES) - 1;
   } else {

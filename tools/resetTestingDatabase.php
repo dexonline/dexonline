@@ -134,12 +134,19 @@ createModelDeep('N', '1', '', "f'ir", [
   [ "f'irelor" ],
 ]);
 
+// inflection constraints
+createConstraints('S', '%plural%', '%', -1);
+createConstraints('W', '%vocativ, singular%', 'F', 1);
+createConstraints('w', '%vocativ, singular%', 'F', 0);
+
 // lexems
 $l1 = createLexemDeep("br'ânză", 'F', '35', '', true);
 $l2 = createLexemDeep("c'adă", 'F', '62', '', true);
 $l3 = createLexemDeep("met'al", 'N', '1', '', true);
 $l4 = createLexemDeep("d'in", 'T', '1', '', true);
 $l5 = createLexemDeep("d'in", 'N', '1', '', true); // fictitious
+$l6 = createLexemDeep("l'adă", 'F', '62', 'S', true);
+$l7 = createLexemDeep("ogr'adă", 'F', '62', 'W', true);
 
 // definitions
 $d1 = createDefinition(
@@ -239,6 +246,20 @@ function createModelDeep($type, $number, $description, $exponent, $paradigm) {
         $md->save();
       }
     }
+  }
+}
+
+function createConstraints($code, $inflectionRegexp, $modelTypeRegexp, $variant) {
+  $inflections = Model::factory('Inflection')
+               ->where_like('description', $inflectionRegexp)
+               ->where_like('modelType', $modelTypeRegexp)
+               ->find_many();
+  foreach ($inflections as $i) {
+    $c = Model::factory('ConstraintMap')->create();
+    $c->code = $code;
+    $c->inflectionId = $i->id;
+    $c->variant = $variant;
+    $c->save();
   }
 }
 

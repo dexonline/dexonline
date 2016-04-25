@@ -33,7 +33,7 @@
 <tr>
 	<td>verifyText</td>
 	<td>css=div.resultBar</td>
-	<td>exact:2 rezultate pentru „*ă*”:</td>
+	<td>exact:4 rezultate pentru „*ă*”:</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -45,7 +45,16 @@
 	<td>link=cadă</td>
 	<td>cadă</td>
 </tr>
-
+<tr>
+	<td>verifyText</td>
+	<td>link=ladă</td>
+	<td>ladă</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=ogradă</td>
+	<td>ogradă</td>
+</tr>
 </tbody></table>
 </body>
 </html>

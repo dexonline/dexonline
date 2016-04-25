@@ -16,6 +16,7 @@
 <tr><td><a href="searchByDefinitionId.xml">searchByDefinitionId</a></td></tr>
 <tr><td><a href="searchByLexemId.xml">searchByLexemId</a></td></tr>
 <tr><td><a href="sourcesViewAsAnonymous.xml">sourcesViewAsAnonymous</a></td></tr>
+<tr><td><a href="adsLink.xml">adsLink</a></td></tr>
 <tr><td><a href="loginFakeUser.xml">loginFakeUser</a></td></tr>
 <tr><td><a href="sourcesViewLoggedIn.xml">sourcesViewLoggedIn</a></td></tr>
 <tr><td><a href="sourcesReorder.xml">sourcesReorder</a></td></tr>

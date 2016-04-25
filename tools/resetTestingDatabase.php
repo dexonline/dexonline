@@ -161,6 +161,13 @@ LexemDefinitionMap::associate($l2->id, $d2->id);
 LexemDefinitionMap::associate($l4->id, $d3->id);
 LexemDefinitionMap::associate($l5->id, $d4->id);
 
+// AdsLink
+$al = Model::factory('AdsLink')->create();
+$al->skey = 'wikipedia';
+$al->name = 'wikipedia';
+$al->url= 'http://wikipedia.org';
+$al->save();
+
 // WotD artists
 $artist1 = createWotdArtist('artist1', 'Geniu Neînțeles', 'geniu@example.com', '© Geniu Neînțeles');
 $artist2 = createWotdArtist('artist2', 'Luceafărul grafittiului românesc', 'luceafar@example.com', '© Luceafărul');

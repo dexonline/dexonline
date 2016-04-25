@@ -57,16 +57,16 @@ $klingon->isOfficial = 2; // TODO add constants in Source.php
 $klingon->displayOrder = 1;
 $klingon->save();
 
-$s = Model::factory('Source')->create();
-$s->shortName = 'Source 2';
-$s->urlName = 'source2';
-$s->name = "The Devil's Dictionary";
-$s->author = 'Ambrose Bierce';
-$s->publisher = 'Neale Publishing Co.';
-$s->year = '1911';
-$s->isOfficial = 1;
-$s->displayOrder = 2;
-$s->save();
+$devil = Model::factory('Source')->create();
+$devil->shortName = 'Source 2';
+$devil->urlName = 'source2';
+$devil->name = "The Devil's Dictionary";
+$devil->author = 'Ambrose Bierce';
+$devil->publisher = 'Neale Publishing Co.';
+$devil->year = '1911';
+$devil->isOfficial = 1;
+$devil->displayOrder = 2;
+$devil->save();
 
 // model types
 createModelType('T', 'T', 'temporar');
@@ -171,6 +171,12 @@ LexemDefinitionMap::associate($l5->id, $d4->id);
 // comments
 createComment('Foarte foarte gustoasă',
               $d1->id, $john->id, Definition::ST_ACTIVE);
+
+// lexem sources
+$ls = Model::factory('LexemSource')->create();
+$ls->lexemModelId = $l3->getLexemModels()[0]->id;
+$ls->sourceId = $devil->id;
+$ls->save();
 
 // AdsLink
 $al = Model::factory('AdsLink')->create();

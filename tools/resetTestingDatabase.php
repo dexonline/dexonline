@@ -174,6 +174,7 @@ $artist2 = createWotdArtist('artist2', 'Luceafărul grafittiului românesc', 'lu
 
 // run some preprocessing
 require_once __DIR__ . '/../tools/genNGram.php';
+require_once __DIR__ . '/../tools/rebuildAutocomplete.php';
 require_once __DIR__ . '/../tools/rebuildFullTextIndex.php';
 
 /**************************************************************************/

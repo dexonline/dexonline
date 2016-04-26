@@ -189,6 +189,13 @@ $al->save();
 $artist1 = createWotdArtist('artist1', 'Geniu Neînțeles', 'geniu@example.com', '© Geniu Neînțeles');
 $artist2 = createWotdArtist('artist2', 'Luceafărul grafittiului românesc', 'luceafar@example.com', '© Luceafărul');
 
+// Wiki articles, sections and keywords
+$article1 = createWikiArticle(17, 123, 'Niciun sau nici un', 'Conținutul articolului 1.', 'Exprimare corectă');
+$article2 = createWikiArticle(27, 345, 'Ghid de exprimare', 'Conținutul articolului 2.', null);
+createWikiKeyword($article1->id, 'metal');
+createWikiKeyword($article2->id, 'metal');
+createWikiKeyword($article1->id, 'din');
+
 // run some preprocessing
 require_once __DIR__ . '/../tools/genNGram.php';
 require_once __DIR__ . '/../tools/rebuildAutocomplete.php';
@@ -308,4 +315,31 @@ function createWotdArtist($label, $name, $email, $credits) {
   $a->credits = $credits;
   $a->save();
   return $a;
+}
+
+function createWikiArticle($pageId, $revId, $title, $body, $section) {
+  $a = Model::factory('WikiArticle')->create();
+  $a->pageId = $pageId;
+  $a->revId = $revId;
+  $a->title = $title;
+  $a->fullUrl = '';
+  $a->wikiContents = $body;
+  $a->htmlContents = $body;
+  $a->save();
+
+  if ($section) {
+    $s = Model::factory('WikiSection')->create();
+    $s->pageId = $pageId;
+    $s->section = $section;
+    $s->save();
+  }
+
+  return $a;
+}
+
+function createWikiKeyword($wikiArticleId, $keyword) {
+  $wk = Model::factory('WikiKeyword')->create();
+  $wk->wikiArticleId = $wikiArticleId;
+  $wk->keyword = $keyword;
+  $wk->save();
 }

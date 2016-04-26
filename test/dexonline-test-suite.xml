@@ -16,6 +16,8 @@
 <tr><td><a href="searchByDefinitionId.xml">searchByDefinitionId</a></td></tr>
 <tr><td><a href="searchByLexemId.xml">searchByLexemId</a></td></tr>
 <tr><td><a href="adsLink.xml">adsLink</a></td></tr>
+<tr><td><a href="articles.xml">articles</a></td></tr>
+<tr><td><a href="articlesSearchResults.xml">articlesSearchResults</a></td></tr>
 <tr><td><a href="commentView.xml">commentView</a></td></tr>
 <tr><td><a href="constraints.xml">constraints</a></td></tr>
 <tr><td><a href="autocomplete.xml">autocomplete</a></td></tr>

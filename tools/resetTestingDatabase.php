@@ -55,6 +55,7 @@ $klingon->publisher = 'The Klingon Academy';
 $klingon->year = '2010';
 $klingon->isOfficial = 2; // TODO add constants in Source.php
 $klingon->displayOrder = 1;
+$klingon->canContribute = 1;
 $klingon->save();
 
 $devil = Model::factory('Source')->create();

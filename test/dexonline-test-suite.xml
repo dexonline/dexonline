@@ -20,6 +20,7 @@
 <tr><td><a href="articlesSearchResults.xml">articlesSearchResults</a></td></tr>
 <tr><td><a href="commentView.xml">commentView</a></td></tr>
 <tr><td><a href="constraints.xml">constraints</a></td></tr>
+<tr><td><a href="contrib.xml">contrib</a></td></tr>
 <tr><td><a href="autocomplete.xml">autocomplete</a></td></tr>
 <tr><td><a href="lexemSourcesView.xml">lexemSourcesView</a></td></tr>
 <tr><td><a href="sourcesViewAsAnonymous.xml">sourcesViewAsAnonymous</a></td></tr>

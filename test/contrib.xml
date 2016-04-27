@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>contrib</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">contrib</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>./contribuie</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.flashMessage.flashMessage-warning</td>
+	<td>Dacă doriți să primiți credit pentru definițiile trimise, vă recomandăm să vă autentificați.</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=previewDiv</td>
+	<td>Aici puteți vedea rezultatul (se actualizează automat la fiecare 5 secunde).</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=send</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.flashMessage.flashMessage-danger</td>
+	<td>Trebuie să introduceți un cuvânt-titlu.</td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>css=.select2-input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>css=.select2-input.select2-focused</td>
+	<td>metal</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAt</td>
+	<td>css=.select2-result-label:contains('metal')</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=send</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.flashMessage.flashMessage-danger</td>
+	<td>Trebuie să introduceți o definiție.</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=li.select2-search-choice &gt; div</td>
+	<td>metal</td>
+</tr>
+<tr>
+	<td>verifySelectedLabel</td>
+	<td>id=sourceDropDown</td>
+	<td>Source 1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=defTextarea</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=defTextarea</td>
+	<td>altă definiție</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>id=previewDiv</td>
+	<td>altă definiție</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=send</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.flashMessage.flashMessage-success</td>
+	<td>Am salvat definiția. Un moderator o va examina în scurt timp. Vă mulțumim!</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=homeLink</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=cuv</td>
+	<td>metal</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=searchButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.resultBar</td>
+	<td>Din motive de copyright, doar administratorii site-ului pot vedea definițiile pentru „metal”&nbsp;&nbsp;&nbsp;▷ declinări</td>
+</tr>
+</tbody></table>
+</body>
+</html>

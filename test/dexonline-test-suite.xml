@@ -34,6 +34,7 @@
 <tr><td><a href="inflectionsView.xml">inflectionsView</a></td></tr>
 <tr><td><a href="inflectionsReorder.xml">inflectionsReorder</a></td></tr>
 <tr><td><a href="inflectionAddDelete.xml">inflectionAddDelete</a></td></tr>
+<tr><td><a href="tagsEdit.xml">tagsEdit</a></td></tr>
 <tr><td><a href="wotdArtistsView.xml">wotdArtistsView</a></td></tr>
 <tr><td><a href="wotdArtistAddEditDelete.xml">wotdArtistAddEditDelete</a></td></tr>
 <tr><td><a href="wotdAssignment.xml">wotdAssignment</a></td></tr>

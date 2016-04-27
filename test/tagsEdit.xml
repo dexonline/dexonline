@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>tagsEdit</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">tagsEdit</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>./etichete-sensuri</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=div.expand.closed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyNotVisible</td>
+	<td>//ul[@id='mtTree']/li[2]/ul/li/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//ul[@id='mtTree']/li[2]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>css=div.expand.open</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyVisible</td>
+	<td>//ul[@id='mtTree']/li[2]/ul/li/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//ul[@id='mtTree']/li[2]/ul/li[2]/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=butLeft</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>200</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=valueBox</td>
+	<td>familiar2</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=butUp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>200</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=butSave</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//ul[@id='mtTree']/li[3]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.value</td>
+	<td>expresie</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//ul[@id='mtTree']/li[2]/div[2]</td>
+	<td>familiar2</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//ul[@id='mtTree']/li[3]/div[2]</td>
+	<td>registru stilistic</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//ul[@id='mtTree']/li[3]/ul/li/div[2]</td>
+	<td>argou</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//ul[@id='mtTree']/li[2]/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=valueBox</td>
+	<td>familiar</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=butDown</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>200</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=butRight</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=butSave</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>200</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//ul[@id='mtTree']/li[2]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.value</td>
+	<td>expresie</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//ul[@id='mtTree']/li[2]/div[2]</td>
+	<td>registru stilistic</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//ul[@id='mtTree']/li[2]/ul/li/div[2]</td>
+	<td>argou</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//ul[@id='mtTree']/li[2]/ul/li[2]/div[2]</td>
+	<td>familiar</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//ul[@id='mtTree']/li[2]/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=butAddSibling</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=valueBox</td>
+	<td>frate</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//ul[@id='mtTree']/li[2]/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=butAddChild</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>200</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=butUp</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=valueBox</td>
+	<td>fiu</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=butSave</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//ul[@id='mtTree']/li[2]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.value</td>
+	<td>expresie</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//ul[@id='mtTree']/li[2]/div[2]</td>
+	<td>registru stilistic</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//ul[@id='mtTree']/li[2]/ul/li/div[2]</td>
+	<td>argou</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//ul[@id='mtTree']/li[2]/ul/li[2]/div[2]</td>
+	<td>fiu</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//ul[@id='mtTree']/li[2]/ul/li[3]/div[2]</td>
+	<td>familiar</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//ul[@id='mtTree']/li[3]/div[2]</td>
+	<td>frate</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//ul[@id='mtTree']/li[3]/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=butDelete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//ul[@id='mtTree']/li[2]/ul/li[2]/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=butDelete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=butSave</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//ul[@id='mtTree']/li[2]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=div.value</td>
+	<td>expresie</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//ul[@id='mtTree']/li[2]/div[2]</td>
+	<td>registru stilistic</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//ul[@id='mtTree']/li[2]/ul/li/div[2]</td>
+	<td>argou</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//ul[@id='mtTree']/li[2]/ul/li[2]/div[2]</td>
+	<td>familiar</td>
+</tr>
+</tbody></table>
+</body>
+</html>

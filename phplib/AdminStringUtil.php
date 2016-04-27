@@ -311,8 +311,9 @@ class AdminStringUtil {
     // Replace \abcd with the Unicode character 0xABCD
     $s = preg_replace_callback('/\\\\([\dabcdefABCDEF]{4,5})/', 'self::_unicodeReplace', $s);
 
-    // Replace non-breaking spaces with regular spaces.
+    // Remove non-breaking spaces and soft hyphens.
     $s = str_replace(chr(0xc2) . chr(0xa0), ' ', $s);
+    $s = str_replace(chr(0xc2) . chr(0xad), '', $s);
   
     // A bit of a hack: We should not replace \~e with \ĕ, therefore we isolate
     // the \~ compound first and restore it at the end.

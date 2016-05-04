@@ -126,7 +126,9 @@ class AccuracyProject extends BaseObject {
     $result['defCount'] = $this->getQuery()->count();
 
      // accuracy (fraction of correct characters expressed as percentage)
-    $result['accuracy'] = (1 - $result['errors'] / $result['evalLength']) * 100;
+    $result['accuracy'] = $result['evalLength']
+                        ? (1 - $result['errors'] / $result['evalLength']) * 100
+                        : 0;
 
     return $result;
   }
@@ -179,6 +181,11 @@ class AccuracyProject extends BaseObject {
     $result .= ")";
 
     return $result;
+  }
+
+  function delete() {
+    AccuracyRecord::delete_all_by_projectId($this->id);
+    parent::delete();
   }
 }
 

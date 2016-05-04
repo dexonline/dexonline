@@ -164,6 +164,7 @@
     <a href="{$wwwRoot}etichete-sensuri">etichete</a> |
     <a href="{$wwwRoot}tipuri-modele">tipuri de model</a> |
     <a href="{$wwwRoot}flexiuni">flexiuni</a> |
+    <a href="{$wwwRoot}acuratete">verificarea acurateței editorilor</a> |
     <a href="{$wwwRoot}admin/ocrInput.php">adaugă definiții OCR</a>
     <br/>
   {/if}

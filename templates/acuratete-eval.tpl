@@ -3,7 +3,7 @@
 {block name=title}{$project->name} | verificarea acurateței{/block}
 
 {block name=content}
-  <h2>Proiect de verificarea a acurateței - {$project->name}</h2>
+  <h2>Proiect de verificare a acurateței - {$project->name}</h2>
 
   <h3>Definiția curentă</h3>
 
@@ -40,7 +40,7 @@
 
   <table class="minimalistTable">
     <tr>
-      <td>utilizator evaluat</td>
+      <td>utilizator</td>
       <td>{$project->getUser()->nick}</td>
     </tr>
     {if $project->sourceId}
@@ -71,23 +71,23 @@
 
   <table class="minimalistTable">
     <tr>
-      <td>Total definiții</td>
+      <td>total definiții</td>
       <td>{$accuracyData.defCount}</td>
     </tr>
     <tr>
-      <td>Definiții evaluate</td>
+      <td>definiții evaluate</td>
       <td>{$accuracyData.evalCount}</td>
     </tr>
     <tr>
-      <td>Caractere evaluate</td>
+      <td>caractere evaluate</td>
       <td>{$accuracyData.evalLength}</td>
     </tr>
     <tr>
-      <td>Erori</td>
+      <td>erori</td>
       <td>{$accuracyData.errors}</td>
     </tr>
     <tr>
-      <td>Acuratețe</td>
+      <td>acuratețe</td>
       <td>{$accuracyData.accuracy|string_format:"%.3f"}</td>
     </tr>
   </table>

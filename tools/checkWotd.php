@@ -79,7 +79,7 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
   // Check that there is an artist
   $artist = WotdArtist::getByDate($date);
   if (!$artist) {
-    addError($date, 'Niciun artist nu este asignat; verificați conținutul fișierului docs/imageCredits/wotd.desc');
+    addError($date, 'Niciun artist nu este asignat; asignați un artist la https://dexonline.ro/alocare-autori');
   }
 
   // Check that there is an image

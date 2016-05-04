@@ -6,7 +6,7 @@ class AccuracyProject extends BaseObject {
   const METHOD_NEWEST = 0;
   const METHOD_OLDEST = 1;
   const METHOD_RANDOM = 2;
-  const METHOD_NAMES = [
+  static $METHOD_NAMES = [
     self::METHOD_NEWEST => 'Descrescător după dată',
     self::METHOD_OLDEST => 'Crescător după dată',
     self::METHOD_RANDOM => 'Ordine aleatorie',
@@ -16,11 +16,11 @@ class AccuracyProject extends BaseObject {
   private $user = null;
 
   static function getMethodNames() {
-    return self::METHOD_NAMES;
+    return self::$METHOD_NAMES;
   }
 
   function getMethodName() {
-    return self::METHOD_NAMES[$this->method];
+    return self::$METHOD_NAMES[$this->method];
   }
 
   function getSource() {

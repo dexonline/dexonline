@@ -3,24 +3,9 @@ require_once("../phplib/util.php");
 util_assertModerator(PRIV_ADMIN);
 
 $submitButton = util_getRequestParameter('submitButton');
-$deleteButton = util_getRequestParameter('deleteButton');
 $id = util_getRequestParameter('id');
 
 $user = session_getUser();
-
-if ($deleteButton) {
-  $ap = AccuracyProject::get_by_id($id);
-  if ($id) {
-    $ap->delete();
-  }
-  FlashMessage::add('Am șters proiectul.', 'success');
-  util_redirect('acuratete');
-}
-
-if ($id) {
-  // open this project
-  util_redirect("acuratete-eval?id={$id}");
-}
 
 $p = Model::factory('AccuracyProject')->create(); // new project
 $p->ownerId = $user->id;
@@ -35,7 +20,7 @@ if ($submitButton) {
 
   if ($p->validate()) {
     $p->save();
-    util_redirect("acuratete-eval?id={$p->id}");
+    util_redirect("acuratete-eval?projectId={$p->id}");
   }
 }
 

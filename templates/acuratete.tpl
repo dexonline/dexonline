@@ -8,8 +8,8 @@
   {if $projects}
     <h3>Proiectele mele</h3>
 
-    <form method="get">
-      {include "bits/dropdown.tpl" name="id" data=$projects}
+    <form action="acuratete-eval" method="get">
+      {include "bits/dropdown.tpl" name="projectId" data=$projects}
 
       <button type="submit">deschide</button>
 

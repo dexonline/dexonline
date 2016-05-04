@@ -72,7 +72,7 @@ function lexemEditInit() {
   });
 
   $('#structuristId').select2({
-    ajax: struct_userAjax,
+    ajax: createUserAjaxStruct(PRIV_STRUCT),
     allowClear: true,
     initSelection: select2InitSelectionAjaxUserSingle,
     minimumInputLength: 1,

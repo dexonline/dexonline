@@ -7,13 +7,17 @@ $priv = util_getRequestParameter('priv');
 
 if ($id) {
   $users = [User::get_by_id($id)];
-} else if ($term && $priv) {
+} else if ($term) {
   $users = Model::factory('User')
          ->where_any_is([['nick' => "%{$term}%"],
                          ['name' => "%{$term}%"],
                          ['email' => "%{$term}%"]],
-                        'like')
-         ->where_raw("moderator & {$priv}")
+                        'like');
+  if ($priv) {
+    $users = $users->where_raw("moderator & {$priv}");
+  }
+
+  $users = $users
          ->order_by_asc('nick')
          ->limit(10)
          ->find_many();

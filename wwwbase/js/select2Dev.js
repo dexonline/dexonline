@@ -21,17 +21,19 @@ struct_definitionAjax = {
   url: wwwRoot + 'ajax/wotdGetDefinitions.php',
 };
 
-// TODO this is hard-coded for PRIV_STRUCT. Should be configurable
-struct_userAjax = {
-  data: function(term) {
-    return { term: term,
-             priv: PRIV_STRUCT,
-           };
-  },
-  dataType: 'json',
-  results: function(data, page) { return data; }, 
-  url: wwwRoot + 'ajax/getUsers.php',
-};
+function createUserAjaxStruct(priv = 0) {
+  return {
+    data: function(term) {
+      return {
+        term: term,
+        priv: priv,
+      };
+    },
+    dataType: 'json',
+    results: function(data, page) { return data; }, 
+    url: wwwRoot + 'ajax/getUsers.php',
+  };
+}
 
 function contribInit() {
   $('#lexemIds').select2({
@@ -70,7 +72,7 @@ function adminIndexInit() {
   });
 
   $('#structuristId').select2({
-    ajax: struct_userAjax,
+    ajax: createUserAjaxStruct(PRIV_STRUCT),
     allowClear: true,
     initSelection: select2InitSelectionAjaxUserSingle,
     minimumInputLength: 1,

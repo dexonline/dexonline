@@ -88,7 +88,10 @@
     </tr>
     <tr>
       <td>acuratețe</td>
-      <td>{$accuracyData.accuracy|string_format:"%.3f"}</td>
+      <td>
+        {$accuracyData.accuracy|string_format:"%.3f"}
+        ({$accuracyData.errorRate|string_format:"%.2f"} erori / 1.000 caractere)
+      </td>
     </tr>
   </table>
 

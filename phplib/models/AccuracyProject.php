@@ -129,6 +129,9 @@ class AccuracyProject extends BaseObject {
     $result['accuracy'] = $result['evalLength']
                         ? (1 - $result['errors'] / $result['evalLength']) * 100
                         : 0;
+    $result['errorRate'] = $result['evalLength']
+                         ? $result['errors'] / $result['evalLength'] * 1000
+                         : 0;
 
     return $result;
   }

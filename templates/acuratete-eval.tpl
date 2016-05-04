@@ -21,7 +21,8 @@
       </button>
 
       <div class="links">
-        <a href="admin/definitionEdit.php?definitionId={$def->id}">editează definiția</a>
+        <a href="admin/definitionEdit.php?definitionId={$def->id}">editează definiția</a> |
+        <a href="acuratete">înapoi la lista de proiecte</a>
       </div>
     </form>
   </div>
@@ -35,6 +36,34 @@
       {$def->htmlRep}
     </div>
   </div>
+
+  <h3>Raport de acuratețe</h3>
+
+  <table class="minimalistTable">
+    <tr>
+      <td>total definiții</td>
+      <td>{$accuracyData.defCount}</td>
+    </tr>
+    <tr>
+      <td>definiții evaluate</td>
+      <td>{$accuracyData.evalCount}</td>
+    </tr>
+    <tr>
+      <td>caractere evaluate</td>
+      <td>{$accuracyData.evalLength}</td>
+    </tr>
+    <tr>
+      <td>erori</td>
+      <td>{$accuracyData.errors}</td>
+    </tr>
+    <tr>
+      <td>acuratețe</td>
+      <td>
+        {$accuracyData.accuracy|string_format:"%.3f"}%
+        ({$accuracyData.errorRate|string_format:"%.2f"} erori / 1.000 caractere)
+      </td>
+    </tr>
+  </table>
 
   <h3>Detalii despre proiect</h3>
 
@@ -67,42 +96,10 @@
     </tr>
   </table>
 
-  <h3>Raport de acuratețe</h3>
-
-  <table class="minimalistTable">
-    <tr>
-      <td>total definiții</td>
-      <td>{$accuracyData.defCount}</td>
-    </tr>
-    <tr>
-      <td>definiții evaluate</td>
-      <td>{$accuracyData.evalCount}</td>
-    </tr>
-    <tr>
-      <td>caractere evaluate</td>
-      <td>{$accuracyData.evalLength}</td>
-    </tr>
-    <tr>
-      <td>erori</td>
-      <td>{$accuracyData.errors}</td>
-    </tr>
-    <tr>
-      <td>acuratețe</td>
-      <td>
-        {$accuracyData.accuracy|string_format:"%.3f"}
-        ({$accuracyData.errorRate|string_format:"%.2f"} erori / 1.000 caractere)
-      </td>
-    </tr>
-  </table>
-
   <h3>Definiții evaluate (click pentru a le reevalua)</h3>
 
   {foreach $definitionData as $rec}
     <a href="?projectId={$project->id}&defId={$rec.id}">{$rec.lexicon}</a>
   {/foreach}
-
-  <div>
-    <a href="acuratete">înapoi la lista de proiecte</a>
-  </div>
 
 {/block}

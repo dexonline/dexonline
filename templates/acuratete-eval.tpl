@@ -21,7 +21,7 @@
       </button>
 
       <div class="links">
-        <a href="admin/definitionEdit.php?id={$def->id}">editează definiția</a>
+        <a href="admin/definitionEdit.php?definitionId={$def->id}">editează definiția</a>
       </div>
     </form>
   </div>

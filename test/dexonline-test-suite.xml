@@ -24,6 +24,7 @@
 <tr><td><a href="autocomplete.xml">autocomplete</a></td></tr>
 <tr><td><a href="lexemSourcesView.xml">lexemSourcesView</a></td></tr>
 <tr><td><a href="sourcesViewAsAnonymous.xml">sourcesViewAsAnonymous</a></td></tr>
+<tr><td><a href="hangman.xml">hangman</a></td></tr>
 <tr><td><a href="loginFakeUser.xml">loginFakeUser</a></td></tr>
 <tr><td><a href="bookmarks.xml">bookmarks</a></td></tr>
 <tr><td><a href="sourcesViewLoggedIn.xml">sourcesViewLoggedIn</a></td></tr>

@@ -148,6 +148,8 @@ $l4 = createLexemDeep("d'in", 'T', '1', '', true);
 $l5 = createLexemDeep("d'in", 'N', '1', '', true); // fictitious
 $l6 = createLexemDeep("l'adă", 'F', '62', 'S', true);
 $l7 = createLexemDeep("ogr'adă", 'F', '62', 'W', true);
+$l1->frequency = 0.95; // for the Hangman game
+$l1->save();
 
 // definitions
 $d1 = createDefinition(

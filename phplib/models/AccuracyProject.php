@@ -1,6 +1,6 @@
 <?php
 
-class AccuracyProject extends BaseObject {
+class AccuracyProject extends BaseObject implements DatedObject {
   static $_table = 'AccuracyProject';
 
   const METHOD_NEWEST = 0;
@@ -97,7 +97,7 @@ class AccuracyProject extends BaseObject {
           ->select('d.lexicon')
           ->join('AccuracyRecord', [ 'd.id', '=', 'ar.definitionId'], 'ar')
           ->where('ar.projectId', $this->id)
-          ->order_by_asc('d.lexicon')
+          ->order_by_desc('ar.createDate')
           ->find_array();
     return $data;
   }

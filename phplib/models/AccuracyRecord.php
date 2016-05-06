@@ -1,6 +1,6 @@
 <?php
 
-class AccuracyRecord extends BaseObject {
+class AccuracyRecord extends BaseObject implements DatedObject {
   static $_table = 'AccuracyRecord';
 }
 

@@ -96,7 +96,11 @@
     </tr>
   </table>
 
-  <h3>Definiții evaluate (click pentru a le reevalua)</h3>
+  <h3>Definiții evaluate</h3>
+
+  <div>
+    Cel mai recent evaluate definiții apar primele. Puteți da clic pentru a le reevalua.
+  </div>
 
   {foreach $definitionData as $rec}
     <a href="?projectId={$project->id}&defId={$rec.id}">{$rec.lexicon}</a>

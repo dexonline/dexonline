@@ -150,6 +150,7 @@ class AdminStringUtil {
 
   static function internalizeDefinition($def, $sourceId, &$ambiguousMatches = null) {
     $def = trim($def);
+    $def = str_replace([ '$$', '@@', '%%' ], '', $def);
     $def = self::shorthandToUnicode($def);
     $def = self::migrateFormatChars($def);
     // Do not strip tags here. strip_tags will strip them even if they're not

@@ -2,7 +2,7 @@
 require_once("../../phplib/util.php");
 
 $id = util_getRequestParameter('id');
-$term = util_getRequestParameterWithDefault('term', (1 << NUM_PRIVILEGES) - 1);
+$term = util_getRequestParameter('term');
 $priv = util_getRequestParameter('priv');
 
 if ($id) {

@@ -52,11 +52,22 @@ foreach ($staticFiles as $file) {
   }
 }
 
+$ftp = new FtpUtil();
+
 foreach ($imgs as $img => $ignored) {
   if (!isset($thumbs[$img])) {
     print "Image without a thumbnail: {$img}\n";
     if ($fix) {
-      generateThumbnail($img);
+      generateThumbnail($ftp, $img);
+    }
+  }
+}
+
+foreach ($thumbs as $thumb => $ignored) {
+  if (!isset($imgs[$thumb])) {
+    print "Thumbnail without an image: {$thumb}\n";
+    if ($fix) {
+      // TODO: static server delete (with logging)
     }
   }
 }
@@ -65,7 +76,12 @@ foreach ($imgs as $img => $ignored) {
 
 /*************************************************************************/
 
-function generateThumbnail($img) {
+function generateThumbnail($ftp, $img) {
+  if (!$ftp->connected()) {
+    Log::error("Cannot connect to FTP server - skipping thumb generation.");
+    return;
+  }
+
   $extension = @pathinfo($img)['extension']; // may be missing entirely
   $extension = strtolower($extension);
 
@@ -76,7 +92,9 @@ function generateThumbnail($img) {
 
     OS::executeAndAssert("rm -f /tmp/a.{$extension} /tmp/t.{$extension}");
     OS::executeAndAssert("wget -q -O /tmp/a.{$extension} '$url'");
-    OS::executeAndAssert("convert -strip -geometry 48x48 -sharpen 1x1 a.{$extension} t.{$extension}");
-    // TODO: FTP upload
+    OS::executeAndAssert("convert -strip -geometry 48x48 -sharpen 1x1 /tmp/a.{$extension} /tmp/t.{$extension}");
+
+    Log::info("FTP upload: /tmp/t.{$extension} => " . Config::get('static.url') . THUMB_PREFIX . $img);
+    $ftp->staticServerPut("/tmp/t.{$extension}", THUMB_PREFIX . $img);
   }
 }

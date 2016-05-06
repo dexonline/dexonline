@@ -19,6 +19,10 @@ class FtpUtil {
     }
   }
 
+  function connected() {
+    return $this->conn != null;
+  }
+
   function staticServerPut($localFile, $remoteFile) {
     if ($this->conn) {
       // Create the directory recursively

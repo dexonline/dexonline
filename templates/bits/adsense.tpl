@@ -5,8 +5,4 @@
      data-ad-slot="{$adUnitId}"></ins>
 <script>
   (adsbygoogle = window.adsbygoogle || []).push({});
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-2697300012216849",
-    enable_page_level_ads: true
-  });
 </script>

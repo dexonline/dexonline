@@ -14,9 +14,9 @@ require_once __DIR__ . '/../phplib/util.php';
 
 define('IMG_PREFIX', 'img/wotd/');
 define('THUMB_PREFIX', 'img/wotd/thumb/');
+define('UNUSED_PREFIX', 'nefolosite/');
 $IGNORED_PREFIXES = [
   'img/wotd/cuvantul-lunii',
-  'img/wotd/nefolosite',
   'img/wotd/misc/aleator.jpg', // random word icon
   'img/wotd/misc/papirus.png', // article of the month icon
   'img/wotd/generic.jpg',      // no image icon
@@ -101,7 +101,8 @@ foreach ($used as $u => $ignored) {
 
 // Report images on the static server that aren't used in WotD records
 foreach ($imgs as $img => $ignored) {
-  if (!isset($used[$img])) {
+  if (!isset($used[$img]) &&
+      !StringUtil::startsWith($img, UNUSED_PREFIX)) {
     print "Unused image: {$img}\n";
   }
 }

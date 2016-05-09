@@ -16,6 +16,10 @@ define('IMG_PREFIX', 'img/wotd/');
 define('THUMB_PREFIX', 'img/wotd/thumb/');
 $IGNORED_PREFIXES = [
   'img/wotd/cuvantul-lunii',
+  'img/wotd/nefolosite',
+  'img/wotd/misc/aleator.jpg', // random word icon
+  'img/wotd/misc/papirus.png', // article of the month icon
+  'img/wotd/generic.jpg',      // no image icon
 ];
 
 $fix = false;
@@ -30,6 +34,7 @@ foreach ($argv as $i => $arg) {
 
 $staticFiles = file(Config::get('static.url') . 'fileList.txt');
 
+// Grab images and thumbs from the static server file list.
 $imgs = [];
 $thumbs = [];
 
@@ -42,18 +47,32 @@ foreach ($staticFiles as $file) {
   }
 
   if (!$filtered) {
-    // best-effort test to discern files from directories
-    //  if (preg_match('/.*\.[a-z]+/i', $file)) {
-    if (StringUtil::startsWith($file, THUMB_PREFIX)) {
-      $thumbs[substr($file, strlen(THUMB_PREFIX))] = 1;
-    } else if (StringUtil::startsWith($file, IMG_PREFIX)) {
-      $imgs[substr($file, strlen(IMG_PREFIX))] = 1;
+    // Filter /YYYY and /YYYY/MM directory names
+    if (preg_match("#^" . IMG_PREFIX . "[0-9]{4}(/[0-9]{2})?$#", $file) ||
+        preg_match("#^" . THUMB_PREFIX . "[0-9]{4}(/[0-9]{2})?$#", $file)) {
+      Log::debug("Ignoring directory: {$file}");
+    } else {
+      if (StringUtil::startsWith($file, THUMB_PREFIX)) {
+        $thumbs[substr($file, strlen(THUMB_PREFIX))] = 1;
+      } else if (StringUtil::startsWith($file, IMG_PREFIX)) {
+        $imgs[substr($file, strlen(IMG_PREFIX))] = 1;
+      }
     }
+  }
+}
+
+// Grab images referred by WordOfTheDay DB records.
+$used = [];
+$wotds = Model::factory('WordOfTheDay')->find_result_set();
+foreach ($wotds as $w) {
+  if ($w->image) {
+    $used[$w->image] = 1;
   }
 }
 
 $ftp = new FtpUtil();
 
+// Report images without thumbnails.
 foreach ($imgs as $img => $ignored) {
   if (!isset($thumbs[$img])) {
     print "Image without a thumbnail: {$img}\n";
@@ -63,16 +82,29 @@ foreach ($imgs as $img => $ignored) {
   }
 }
 
+// Report thumbnails without images (orphan thumbnails).
 foreach ($thumbs as $thumb => $ignored) {
   if (!isset($imgs[$thumb])) {
     print "Thumbnail without an image: {$thumb}\n";
     if ($fix) {
-      // TODO: static server delete (with logging)
+      deleteOrphanThumbnail($ftp, $thumb);
     }
   }
 }
 
-// TODO: more tests
+// Report images in WotD records that don't exist on the static server.
+foreach ($used as $u => $ignored) {
+  if (!isset($imgs[$u])) {
+    print "Missing image reference: {$u}\n";
+  }
+}
+
+// Report images on the static server that aren't used in WotD records
+foreach ($imgs as $img => $ignored) {
+  if (!isset($used[$img])) {
+    print "Unused image: {$img}\n";
+  }
+}
 
 /*************************************************************************/
 
@@ -96,5 +128,20 @@ function generateThumbnail($ftp, $img) {
 
     Log::info("FTP upload: /tmp/t.{$extension} => " . Config::get('static.url') . THUMB_PREFIX . $img);
     $ftp->staticServerPut("/tmp/t.{$extension}", THUMB_PREFIX . $img);
+  }
+}
+
+function deleteOrphanThumbnail($ftp, $thumb) {
+  if (!$ftp->connected()) {
+    Log::error("Cannot connect to FTP server - skipping orphan thumb deletion.");
+    return;
+  }
+
+  $extension = @pathinfo($img)['extension']; // may be missing entirely
+  $extension = strtolower($extension);
+
+  if (in_array($extension, [ 'jpeg', 'jpg', 'png' ])) {
+    Log::info("Deleting %s%s", THUMB_PREFIX, $thumb);
+    $ftp->staticServerDelete(THUMB_PREFIX . $thumb);
   }
 }

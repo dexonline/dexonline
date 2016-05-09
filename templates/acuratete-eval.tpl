@@ -9,7 +9,9 @@
 
   <div class="defActions">
     <form method="post">
-      <input type="hidden" name="defId" value="{$def->id}">
+      {if $def}
+        <input type="hidden" name="defId" value="{$def->id}">
+      {/if}
       <input type="hidden" name="projectId" value="{$project->id}">
 
       <button id="butDown" type="button" class="sign">&ndash;</button>
@@ -21,20 +23,26 @@
       </button>
 
       <div class="links">
-        <a href="admin/definitionEdit.php?definitionId={$def->id}">editează definiția</a> |
+        {if $def}
+          <a href="admin/definitionEdit.php?definitionId={$def->id}">editează definiția</a> |
+        {/if}
         <a href="acuratete">înapoi la lista de proiecte</a>
       </div>
     </form>
   </div>
 
   <div class="currentDef">
-    <div class="defComment">
-      {$def->internalRep}
-    </div>
+    {if $def}
+      <div class="defComment">
+        {$def->internalRep}
+      </div>
 
-    <div class="defComment">
-      {$def->htmlRep}
-    </div>
+      <div class="defComment">
+        {$def->htmlRep}
+      </div>
+    {else}
+      Nu mai există definiții de evaluat. Dumneavoastră sau alt evaluator le-ați evaluat pe toate.
+    {/if}
   </div>
 
   <h3>Raport de acuratețe</h3>

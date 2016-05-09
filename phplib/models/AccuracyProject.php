@@ -85,7 +85,7 @@ class AccuracyProject extends BaseObject implements DatedObject {
   // Finds a definition covered by the project that wasn't already evaluated.
   function getDefinition() {
     return $this->getQuery()
-      ->where_raw("id not in (select definitionId from AccuracyRecord where projectId = {$this->id})")
+      ->where_raw("id not in (select definitionId from AccuracyRecord)")
       ->find_one();
   }
 

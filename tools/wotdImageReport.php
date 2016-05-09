@@ -15,12 +15,6 @@ require_once __DIR__ . '/../phplib/util.php';
 define('IMG_PREFIX', 'img/wotd/');
 define('THUMB_PREFIX', 'img/wotd/thumb/');
 define('UNUSED_PREFIX', 'nefolosite/');
-$IGNORED_PREFIXES = [
-  'img/wotd/cuvantul-lunii',
-  'img/wotd/misc/aleator.jpg', // random word icon
-  'img/wotd/misc/papirus.png', // article of the month icon
-  'img/wotd/generic.jpg',      // no image icon
-];
 
 $fix = false;
 foreach ($argv as $i => $arg) {
@@ -41,22 +35,15 @@ $thumbs = [];
 foreach ($staticFiles as $file) {
   $file = trim($file);
 
-  $filtered = false;
-  foreach ($IGNORED_PREFIXES as $prefix) {
-    $filtered |= StringUtil::startsWith($file, $prefix);
-  }
-
-  if (!$filtered) {
-    // Filter /YYYY and /YYYY/MM directory names
-    if (preg_match("#^" . IMG_PREFIX . "[0-9]{4}(/[0-9]{2})?$#", $file) ||
-        preg_match("#^" . THUMB_PREFIX . "[0-9]{4}(/[0-9]{2})?$#", $file)) {
-      Log::debug("Ignoring directory: {$file}");
-    } else {
-      if (StringUtil::startsWith($file, THUMB_PREFIX)) {
-        $thumbs[substr($file, strlen(THUMB_PREFIX))] = 1;
-      } else if (StringUtil::startsWith($file, IMG_PREFIX)) {
-        $imgs[substr($file, strlen(IMG_PREFIX))] = 1;
-      }
+  // Filter /YYYY and /YYYY/MM directory names
+  if (preg_match("#^" . IMG_PREFIX . "[0-9]{4}(/[0-9]{2})?$#", $file) ||
+      preg_match("#^" . THUMB_PREFIX . "[0-9]{4}(/[0-9]{2})?$#", $file)) {
+    Log::debug("Ignoring directory: {$file}");
+  } else {
+    if (StringUtil::startsWith($file, THUMB_PREFIX)) {
+      $thumbs[substr($file, strlen(THUMB_PREFIX))] = 1;
+    } else if (StringUtil::startsWith($file, IMG_PREFIX)) {
+      $imgs[substr($file, strlen(IMG_PREFIX))] = 1;
     }
   }
 }
@@ -67,6 +54,15 @@ $wotds = Model::factory('WordOfTheDay')->find_result_set();
 foreach ($wotds as $w) {
   if ($w->image) {
     $used[$w->image] = 1;
+  }
+}
+
+// Grab images referred by WordOfTheMonth DB records.
+$wotms = Model::factory('WordOfTheMonth')->find_result_set();
+foreach ($wotms as $w) {
+  if ($w->image) {
+    $file = "cuvantul-lunii/{$w->image}";
+    $used[$file] = 1;
   }
 }
 

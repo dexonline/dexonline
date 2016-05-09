@@ -14,7 +14,18 @@ require_once __DIR__ . '/../phplib/util.php';
 
 define('IMG_PREFIX', 'img/wotd/');
 define('THUMB_PREFIX', 'img/wotd/thumb/');
+define('WOTM_PREFIX', 'img/wotd/cuvantul-lunii/');
 define('UNUSED_PREFIX', 'nefolosite/');
+$IGNORED = [
+  'cuvantul-lunii' => 1,
+  'cuvantul-lunii/generic.jpg' => 1,
+  'generic.jpg' => 1,
+  'misc' => 1,
+  'misc/aleator.jpg' => 1,
+  'misc/papirus.png' => 1,
+  'nefolosite' => 1,
+  'thumb' => 1,
+];
 
 $fix = false;
 foreach ($argv as $i => $arg) {
@@ -35,16 +46,14 @@ $thumbs = [];
 foreach ($staticFiles as $file) {
   $file = trim($file);
 
-  // Filter /YYYY and /YYYY/MM directory names
-  if (preg_match("#^" . IMG_PREFIX . "[0-9]{4}(/[0-9]{2})?$#", $file) ||
-      preg_match("#^" . THUMB_PREFIX . "[0-9]{4}(/[0-9]{2})?$#", $file)) {
+  if (isMonthYearDirectory($file)) {
     Log::debug("Ignoring directory: {$file}");
+  } else if (StringUtil::startsWith($file, THUMB_PREFIX)) {
+    $thumbs[substr($file, strlen(THUMB_PREFIX))] = 1;
+  } else if (StringUtil::startsWith($file, IMG_PREFIX)) {
+    $imgs[substr($file, strlen(IMG_PREFIX))] = 1;
   } else {
-    if (StringUtil::startsWith($file, THUMB_PREFIX)) {
-      $thumbs[substr($file, strlen(THUMB_PREFIX))] = 1;
-    } else if (StringUtil::startsWith($file, IMG_PREFIX)) {
-      $imgs[substr($file, strlen(IMG_PREFIX))] = 1;
-    }
+    // Ignore files outside the img/wotd/ directory
   }
 }
 
@@ -70,7 +79,8 @@ $ftp = new FtpUtil();
 
 // Report images without thumbnails.
 foreach ($imgs as $img => $ignored) {
-  if (!isset($thumbs[$img])) {
+  if (!isset($thumbs[$img]) &&
+      !isset($IGNORED[$img])) {
     print "Image without a thumbnail: {$img}\n";
     if ($fix) {
       generateThumbnail($ftp, $img);
@@ -98,7 +108,8 @@ foreach ($used as $u => $ignored) {
 // Report images on the static server that aren't used in WotD records
 foreach ($imgs as $img => $ignored) {
   if (!isset($used[$img]) &&
-      !StringUtil::startsWith($img, UNUSED_PREFIX)) {
+      !StringUtil::startsWith($img, UNUSED_PREFIX) &&
+      !isset($IGNORED[$img])) {
     print "Unused image: {$img}\n";
   }
 }
@@ -114,7 +125,7 @@ function generateThumbnail($ftp, $img) {
   $extension = @pathinfo($img)['extension']; // may be missing entirely
   $extension = strtolower($extension);
 
-  if (in_array($extension, [ 'jpeg', 'jpg', 'png' ])) {
+  if (in_array($extension, [ 'gif', 'jpeg', 'jpg', 'png' ])) {
     Log::info("Generating thumbnail for $img");
     $url = Config::get('static.url') . IMG_PREFIX . $img;
     Log::info("Fetching $url");
@@ -137,8 +148,12 @@ function deleteOrphanThumbnail($ftp, $thumb) {
   $extension = @pathinfo($img)['extension']; // may be missing entirely
   $extension = strtolower($extension);
 
-  if (in_array($extension, [ 'jpeg', 'jpg', 'png' ])) {
+  if (in_array($extension, [ 'gif', 'jpeg', 'jpg', 'png' ])) {
     Log::info("Deleting %s%s", THUMB_PREFIX, $thumb);
     $ftp->staticServerDelete(THUMB_PREFIX . $thumb);
   }
+}
+
+function isMonthYearDirectory($file) {
+  return preg_match("#[0-9]{4}(/[0-9]{2})?$#", $file);
 }

@@ -145,7 +145,7 @@ function deleteOrphanThumbnail($ftp, $thumb) {
     return;
   }
 
-  $extension = @pathinfo($img)['extension']; // may be missing entirely
+  $extension = @pathinfo($thumb)['extension']; // may be missing entirely
   $extension = strtolower($extension);
 
   if (in_array($extension, [ 'gif', 'jpeg', 'jpg', 'png' ])) {

@@ -52,6 +52,7 @@ mysql_loc_prefix = LOC_
 ; Available skins
 skins[] = zepu
 skins[] = polar
+skins[] = responsive
 desktopSkin = zepu
 mobileSkin = mobile
 
@@ -125,6 +126,12 @@ openx_mainPage = ""
 openx_otherPages = ""
 
 [skin-polar]
+adsense_mainPage = ""
+adsense_otherPages = ""
+openx_mainPage = ""
+openx_otherPages = ""
+
+[skin-responsive]
 adsense_mainPage = ""
 adsense_otherPages = ""
 openx_mainPage = ""

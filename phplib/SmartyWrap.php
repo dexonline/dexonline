@@ -63,7 +63,7 @@ class SmartyWrap {
   static function fetchSkin($templateName) {
     $skin = session_getSkin();
     self::addCss($skin, 'flash');
-    self::addJs('jquery', 'dex');
+    self::addJs('jquery', 'dex', 'bootstrap');
     if (Config::get('search.acEnable')) {
         self::addCss('jqueryui');
         self::addJs('jqueryui');
@@ -149,19 +149,23 @@ class SmartyWrap {
           self::$cssFiles[8] = 'elfinderDev.css';
           break;
         case 'windowEngine':        self::$cssFiles[9] = 'jquery-wm/main.css'; break;
-        case 'zepu':                self::$cssFiles[10] = 'zepu.css'; break;
-        case 'polar':               self::$cssFiles[11] = 'polar.css'; break;
-        case 'mobile':              self::$cssFiles[12] = 'mobile.css'; break;
-        case 'flex':                self::$cssFiles[13] = 'flex.css'; break;
-        case 'paradigm':            self::$cssFiles[14] = 'paradigm.css'; break;
-        case 'jcrop':               self::$cssFiles[15] = 'jcrop/jquery.Jcrop.min.css'; break;
-        case 'select2':             self::$cssFiles[16] = 'select2/select2.min.css'; break;
-        case 'gallery':
-          self::$cssFiles[17] = 'colorbox/colorbox.css';
-          self::$cssFiles[18] = 'visualDict.css';
+        case 'responsive':
+          self::$cssFiles[10] = 'bootstrap/css/bootstrap.min.css';
+          self::$cssFiles[11] = 'bootstrap/css/bootstrap-theme.min.css';
           break;
-        case 'textComplete':        self::$cssFiles[19] = 'jquery.textcomplete.css'; break;
-        case 'flash':               self::$cssFiles[20] = 'flash.css'; break;
+        case 'zepu':                self::$cssFiles[12] = 'zepu.css'; break;
+        case 'polar':               self::$cssFiles[13] = 'polar.css'; break;
+        case 'mobile':              self::$cssFiles[14] = 'mobile.css'; break;
+        case 'flex':                self::$cssFiles[15] = 'flex.css'; break;
+        case 'paradigm':            self::$cssFiles[16] = 'paradigm.css'; break;
+        case 'jcrop':               self::$cssFiles[17] = 'jcrop/jquery.Jcrop.min.css'; break;
+        case 'select2':             self::$cssFiles[18] = 'select2/select2.min.css'; break;
+        case 'gallery':
+          self::$cssFiles[19] = 'colorbox/colorbox.css';
+          self::$cssFiles[20] = 'visualDict.css';
+          break;
+        case 'textComplete':        self::$cssFiles[21] = 'jquery.textcomplete.css'; break;
+        case 'flash':               self::$cssFiles[22] = 'flash.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -203,16 +207,25 @@ static function addJs(/* Variable-length argument list */) {
           self::$jsFiles[21] = 'colorbox/jquery.colorbox-ro.js';
           self::$jsFiles[22] = 'dexGallery.js';
           break;
+<<<<<<< 36346fa92eebeea35b04ccfbee6e5f3cdf5df229
         case 'modelDropdown':    self::$jsFiles[23] = 'modelDropdown.js'; break;
         case 'textComplete':     self::$jsFiles[24] = 'jquery.textcomplete.min.js'; break;
         case 'tinymce':          self::$jsFiles[25] = 'tinymce-4.4.0/tinymce.min.js'; break;
+=======
+        case 'modelDropdown':    self::$jsFiles[21] = 'modelDropdown.js'; break;
+        case 'textComplete':     self::$jsFiles[22] = 'jquery.textcomplete.min.js'; break;
+        case 'tinymce':          self::$jsFiles[23] = 'tinymce-4.3.4/tinymce.min.js'; break;
+        case 'bootstrap':
+          self::$jsFiles[24] = 'bootstrap/js/bootstrap.min.js';
+          break;
+>>>>>>> [refs #412] (WIP) adding `responsive` skin and bootstrap
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());
       }
     }
   }
-  
+
 }
 
 ?>

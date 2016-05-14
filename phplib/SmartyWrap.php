@@ -148,20 +148,21 @@ class SmartyWrap {
           self::$cssFiles[7] = 'elfinder/css/elfinder.min.css';
           self::$cssFiles[8] = 'elfinderDev.css';
           break;
-        case 'windowEngine':        self::$cssFiles[9] = 'jquery-wm/main.css'; break;
-        case 'zepu':                self::$cssFiles[10] = 'zepu.css'; break;
-        case 'polar':               self::$cssFiles[11] = 'polar.css'; break;
-        case 'mobile':              self::$cssFiles[12] = 'mobile.css'; break;
-        case 'flex':                self::$cssFiles[13] = 'flex.css'; break;
-        case 'paradigm':            self::$cssFiles[14] = 'paradigm.css'; break;
-        case 'jcrop':               self::$cssFiles[15] = 'jcrop/jquery.Jcrop.min.css'; break;
-        case 'select2':             self::$cssFiles[16] = 'select2/select2.min.css'; break;
+        case 'responsive':          self::$cssFiles[9] = 'responsive.css'; break;
+        case 'windowEngine':        self::$cssFiles[10] = 'jquery-wm/main.css'; break;
+        case 'zepu':                self::$cssFiles[11] = 'zepu.css'; break;
+        case 'polar':               self::$cssFiles[12] = 'polar.css'; break;
+        case 'mobile':              self::$cssFiles[13] = 'mobile.css'; break;
+        case 'flex':                self::$cssFiles[14] = 'flex.css'; break;
+        case 'paradigm':            self::$cssFiles[15] = 'paradigm.css'; break;
+        case 'jcrop':               self::$cssFiles[16] = 'jcrop/jquery.Jcrop.min.css'; break;
+        case 'select2':             self::$cssFiles[17] = 'select2/select2.min.css'; break;
         case 'gallery':
-          self::$cssFiles[17] = 'colorbox/colorbox.css';
-          self::$cssFiles[18] = 'visualDict.css';
+          self::$cssFiles[18] = 'colorbox/colorbox.css';
+          self::$cssFiles[19] = 'visualDict.css';
           break;
-        case 'textComplete':        self::$cssFiles[19] = 'jquery.textcomplete.css'; break;
-        case 'flash':               self::$cssFiles[20] = 'flash.css'; break;
+        case 'textComplete':        self::$cssFiles[20] = 'jquery.textcomplete.css'; break;
+        case 'flash':               self::$cssFiles[21] = 'flash.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());

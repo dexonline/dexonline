@@ -1,0 +1,25 @@
+/* .donateLink:after { */
+/*     content: ""; */
+/*     width: 16px; */
+/*     height: 16px; */
+/*     display: inline-block; */
+/*     background: url("../img/icons/coins.png") 0 0 no-repeat; */
+/*     margin-left: 3px; */
+/* } */
+
+/* SITE IDENTITY */
+.siteLogo {
+  background: url("../img/sprite3.png") no-repeat;
+  height: 82px;
+  margin: 30px auto 5px auto;
+  width: 316px;
+}
+
+.tagline {
+  color: #444;
+  font-size: 14px;
+  letter-spacing: 1px;
+  margin: -10px auto 10px;
+  padding: 0px 0px 0px 100px;
+  text-align: center;
+}

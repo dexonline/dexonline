@@ -11,20 +11,32 @@
   </header>
 
   <section class="row">
-    <div class="col-md-10">
+    <div class="col-md-9">
       <div class="row">
         <div class="col-md-12">
-          <section class="row" id="searchHomePage">
-            {include file="bits/searchForm.tpl" advancedSearch=0}
+          <section class="row">
+            {include file="responsive/bits/searchForm.tpl" advancedSearch=0}
           </section>
 
           {if !$suggestNoBanner}
-            {include file="bits/banner.tpl" id="mainPage" width="728" height="90"}
+            <div class="row">
+              {include file="responsive/bits/banner.tpl" id="mainPage" width="100%" height="90"}
+            </div>
           {/if}
+
+          <footer class="row margin-top-25" id="missionStatement">
+            <div class="col-md-12">
+              <p>
+                <i>dexonline</i> transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
+                O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.<br>
+                Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.
+              </p>
+            </div>
+          </footer>
         </div>
       </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
       {if $numEnabledWidgets && $skinVariables.widgets}
         <section class="widgetBox bendShadow">
           <ul class="widgetList">
@@ -42,12 +54,4 @@
       {/if}
     </div>
   </section>
-
-  <footer class="row" id="missionStatement">
-    <p class="col-md-12">
-        <i>dexonline</i> transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
-        O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.<br>
-        Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.
-    </p>
-  </footer>
 {/block}

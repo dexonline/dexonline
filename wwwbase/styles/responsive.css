@@ -8,6 +8,10 @@
 /* } */
 
 /* SITE IDENTITY */
+.siteIdentity {
+    margin-bottom: 25px;
+}
+
 .siteLogo {
   background: url("../img/sprite3.png") no-repeat;
   height: 82px;
@@ -23,3 +27,9 @@
   padding: 0px 0px 0px 100px;
   text-align: center;
 }
+
+#advSearch {
+    padding: 5px 0 5px 0;
+}
+
+.margin-top-25 { margin-top: 25px; }

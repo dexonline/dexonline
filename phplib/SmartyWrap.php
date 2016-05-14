@@ -63,7 +63,7 @@ class SmartyWrap {
   static function fetchSkin($templateName) {
     $skin = session_getSkin();
     self::addCss($skin, 'flash');
-    self::addJs('jquery', 'dex');
+    self::addJs('jquery', 'dex', 'bootstrap');
     if (Config::get('search.acEnable')) {
         self::addCss('jqueryui');
         self::addJs('jqueryui');
@@ -212,7 +212,7 @@ static function addJs(/* Variable-length argument list */) {
       }
     }
   }
-  
+
 }
 
 ?>

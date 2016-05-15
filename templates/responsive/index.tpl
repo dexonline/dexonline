@@ -17,7 +17,7 @@
           {include file="responsive/bits/searchForm.tpl" advancedSearch=0}
 
           {if !$suggestNoBanner}
-            {include file="responsive/bits/banner.tpl" id="mainPage" width="100%" height="90"}
+            {include file="responsive/bits/banner.tpl" id="mainPage" width="728" height="90"}
           {/if}
 
           <footer class="row" id="missionStatement">

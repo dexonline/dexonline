@@ -32,4 +32,34 @@
     padding: 5px 0 5px 0;
 }
 
+.navbar-toggle {
+    float: left;
+    margin-left: 15px;
+}
+
+
+/* @media (max-width: 767px) {
+   .navbar-collapse .navbar-form {
+   margin: 0;
+   border: 0 none;
+   }
+   .navbar-form {
+   -webkit-box-shadow: none;
+   box-shadow: none;
+   padding: 10px 0px;
+   }
+   } */
+@media (min-width: 768px) {
+  .navbar-collapse.collapse {
+    display: inline-block!important;
+    float: left;
+  }
+  #navMenuLogin {
+    float: right;
+  }
+  #navMenuMobileLogin {
+    display: none !important;
+  }
+}
+
 .margin-top-25 { margin-top: 25px; }

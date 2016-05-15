@@ -24,7 +24,7 @@
             <li>{include file="widgets/`$params.template`"}</li>
           {/if}
         {/foreach}
-        
+
         <li class="widgetsPreferences">
           <a href="preferinte">personalizare elemente</a>
         </li>

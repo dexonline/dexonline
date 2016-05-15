@@ -14,17 +14,13 @@
     <div class="col-md-9">
       <div class="row">
         <div class="col-md-12">
-          <section class="row">
-            {include file="responsive/bits/searchForm.tpl" advancedSearch=0}
-          </section>
+          {include file="responsive/bits/searchForm.tpl" advancedSearch=0}
 
           {if !$suggestNoBanner}
-            <div class="row">
-              {include file="responsive/bits/banner.tpl" id="mainPage" width="100%" height="90"}
-            </div>
+            {include file="responsive/bits/banner.tpl" id="mainPage" width="100%" height="90"}
           {/if}
 
-          <footer class="row margin-top-25" id="missionStatement">
+          <footer class="row" id="missionStatement">
             <div class="col-md-12">
               <p>
                 <i>dexonline</i> transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.

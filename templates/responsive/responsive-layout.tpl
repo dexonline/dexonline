@@ -107,9 +107,11 @@
         </div>
       </header>
       <main class="row">
-      <div class="col-md-12">
-        {block name=content}{/block}
-      </div>
+        <div class="col-md-12 main-content">
+          {block name="before-content"}{/block}
+          {block name="content"}{/block}
+          {block name="after-content"}{/block}
+        </div>
       </main>
       <footer class="row">
         <div class="col-md-12">

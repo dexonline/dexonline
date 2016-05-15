@@ -34,9 +34,12 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
+                <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-target="#navMenuMobileLogin" aria-expanded="false">
+                  <span class="glyphicon glyphicon-user"></span>
+                </button>
               </div>
-              <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse" id="navMenu">
+                <!-- Collect the nav links, forms, and other content for toggling -->
                 <ul class="nav navbar-nav">
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Despre noi <span class="caret"></span></a>
@@ -69,11 +72,30 @@
                     </ul>
                   </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+              </div>
+              <div class="collapse navbar-collapse" id="navMenuMobileLogin">
+                {if !$cfg.global.mirror}
+                  <ul class="nav navbar-nav">
+                    {if $sUser && $sUser->moderator}
+                      <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
+                    {/if}
+                    <li><a href="{$wwwRoot}preferinte">Preferințe</a></li>
+                    {if $sUser}
+                      <li><a href="{$wwwRoot}utilizator/{$sUser->nick}">Profilul meu</a></li>
+                      <li><a href="{$wwwRoot}cuvinte-favorite">Cuvinte favorite</a></li>
+                      <li><a href="{$wwwRoot}auth/logout">Închide sesiunea</a></li>
+                    {else}
+                      <li><a href="{$wwwRoot}auth/login">Autentificare cu OpenID</a></li>
+                    {/if}
+                  </ul>
+                {/if}
+              </div>
+              <div class="collapse navbar-collapse hidden-xs" id="navMenuLogin">
+                <ul class="nav navbar-nav">
                   {if !$cfg.global.mirror}
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                                          role="button" aria-haspopup="true" aria-expanded="false">
+                         role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="glyphicon glyphicon-user"></span>
                         {$nick|escape}
                       </a>
@@ -93,7 +115,7 @@
                     </li>
                   {/if}
                   {if !$suggestHiddenSearchForm}
-                    <li>
+                    <li class="hidden-xs">
                       <a class="donateLink" href="{$wwwRoot}doneaza">
                         <span class="glyphicon glyphicon-credit-card"></span>
                         Donează

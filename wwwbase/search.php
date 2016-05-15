@@ -211,7 +211,7 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
 
   SmartyWrap::assign('results', $searchResults);
   SmartyWrap::assign('hiddenSources', $hiddenSources);
- 
+
   // Maps lexems to arrays of inflected forms (some lexems may lack inflections)
   // Also compute the text of the link to the paradigm div,
   // which can be 'conjugări', 'declinări' or both
@@ -306,7 +306,7 @@ if (count($images)) {
 
 if (!$xml) {
   SmartyWrap::addCss('paradigm');
-  SmartyWrap::display('search.tpl');
+  SmartyWrap::displayPageWithSkin('search.tpl');
 
 } else {
   header('Content-type: text/xml');

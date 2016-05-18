@@ -84,7 +84,7 @@ foreach ($definitions as $def) {
 }
 $searchResults = SearchResult::mapDefinitionArray($definitions);
 $definitionLexem = mb_strtoupper(AdminStringUtil::internalize($lexem->form, false));
-$meaningTags = Model::factory('MeaningTag')->order_by_asc('value')->find_many();
+$tags = Model::factory('Tag')->order_by_asc('value')->find_many();
 
 $ss = $lexem->structStatus;
 $oss = $original->structStatus; // syntactic sugar
@@ -119,7 +119,7 @@ SmartyWrap::assign('stemLexemModel', $stemLexemModel);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('definitionLexem', $definitionLexem);
 SmartyWrap::assign('homonyms', Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many());
-SmartyWrap::assign('meaningTags', $meaningTags);
+SmartyWrap::assign('tags', $tags);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('jsonSources', Source::getJson());

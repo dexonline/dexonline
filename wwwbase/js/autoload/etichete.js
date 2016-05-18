@@ -5,7 +5,7 @@ $(function() {
 
   function init() {
     $('.expand').click(toggleSubtree);
-    $('#mtTree li, #stem').click(tagClick);
+    $('#tagTree li, #stem').click(tagClick);
     $('#butUp').click(moveTagUp);
     $('#butDown').click(moveTagDown);
     $('#butLeft').click(moveTagLeft);
@@ -18,7 +18,7 @@ $(function() {
     stemLi = $('#stem').detach().removeAttr('id');
 
     // collapse all subtrees
-    $('#mtTree ul').hide();
+    $('#tagTree ul').hide();
   }
 
   function toggleSubtree(e) {
@@ -153,7 +153,7 @@ $(function() {
     }
 
     $('.value').each(function(i) {
-      var level = $(this).parentsUntil($('#mtTree'), 'li').length;
+      var level = $(this).parentsUntil($('#tagTree'), 'li').length;
       results.push({
         id: $(this).data('id'),
         value: $(this).text(),

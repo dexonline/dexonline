@@ -12,7 +12,7 @@
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>./etichete-sensuri</td>
+	<td>./etichete</td>
 	<td></td>
 </tr>
 <tr>
@@ -22,12 +22,12 @@
 </tr>
 <tr>
 	<td>verifyNotVisible</td>
-	<td>//ul[@id='mtTree']/li[2]/ul/li/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/ul/li/div[2]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//ul[@id='mtTree']/li[2]/div</td>
+	<td>//ul[@id='tagTree']/li[2]/div</td>
 	<td></td>
 </tr>
 <tr>
@@ -37,12 +37,12 @@
 </tr>
 <tr>
 	<td>verifyVisible</td>
-	<td>//ul[@id='mtTree']/li[2]/ul/li/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/ul/li/div[2]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//ul[@id='mtTree']/li[2]/ul/li[2]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/ul/li[2]/div[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -77,7 +77,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//ul[@id='mtTree']/li[3]/div</td>
+	<td>//ul[@id='tagTree']/li[3]/div</td>
 	<td></td>
 </tr>
 <tr>
@@ -87,22 +87,22 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//ul[@id='mtTree']/li[2]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/div[2]</td>
 	<td>familiar2</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//ul[@id='mtTree']/li[3]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[3]/div[2]</td>
 	<td>registru stilistic</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//ul[@id='mtTree']/li[3]/ul/li/div[2]</td>
+	<td>//ul[@id='tagTree']/li[3]/ul/li/div[2]</td>
 	<td>argou</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//ul[@id='mtTree']/li[2]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/div[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -137,7 +137,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//ul[@id='mtTree']/li[2]/div</td>
+	<td>//ul[@id='tagTree']/li[2]/div</td>
 	<td></td>
 </tr>
 <tr>
@@ -147,22 +147,22 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//ul[@id='mtTree']/li[2]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/div[2]</td>
 	<td>registru stilistic</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//ul[@id='mtTree']/li[2]/ul/li/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/ul/li/div[2]</td>
 	<td>argou</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//ul[@id='mtTree']/li[2]/ul/li[2]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/ul/li[2]/div[2]</td>
 	<td>familiar</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//ul[@id='mtTree']/li[2]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/div[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -177,7 +177,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//ul[@id='mtTree']/li[2]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/div[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -207,7 +207,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//ul[@id='mtTree']/li[2]/div</td>
+	<td>//ul[@id='tagTree']/li[2]/div</td>
 	<td></td>
 </tr>
 <tr>
@@ -217,32 +217,32 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//ul[@id='mtTree']/li[2]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/div[2]</td>
 	<td>registru stilistic</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//ul[@id='mtTree']/li[2]/ul/li/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/ul/li/div[2]</td>
 	<td>argou</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//ul[@id='mtTree']/li[2]/ul/li[2]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/ul/li[2]/div[2]</td>
 	<td>fiu</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//ul[@id='mtTree']/li[2]/ul/li[3]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/ul/li[3]/div[2]</td>
 	<td>familiar</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//ul[@id='mtTree']/li[3]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[3]/div[2]</td>
 	<td>frate</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//ul[@id='mtTree']/li[3]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[3]/div[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -252,7 +252,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//ul[@id='mtTree']/li[2]/ul/li[2]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/ul/li[2]/div[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -267,7 +267,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//ul[@id='mtTree']/li[2]/div</td>
+	<td>//ul[@id='tagTree']/li[2]/div</td>
 	<td></td>
 </tr>
 <tr>
@@ -277,17 +277,17 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//ul[@id='mtTree']/li[2]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/div[2]</td>
 	<td>registru stilistic</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//ul[@id='mtTree']/li[2]/ul/li/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/ul/li/div[2]</td>
 	<td>argou</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//ul[@id='mtTree']/li[2]/ul/li[2]/div[2]</td>
+	<td>//ul[@id='tagTree']/li[2]/ul/li[2]/div[2]</td>
 	<td>familiar</td>
 </tr>
 </tbody></table>

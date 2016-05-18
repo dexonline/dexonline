@@ -20,8 +20,8 @@
       <div class="meaningContainer">
         <span class="id"></span>
         <span class="breadcrumb"></span>
-        <span class="meaningTags"></span>
-        <span class="meaningTagIds"></span>
+        <span class="tags"></span>
+        <span class="tagIds"></span>
         <span class="internalRep"></span>
         <span class="htmlRep"></span>
         <span class="internalEtymology"></span>
@@ -245,7 +245,7 @@
           <div>
             <label for="editorTags">etichete:</label>
             <select id="editorTags" multiple="multiple">
-              {foreach from=$meaningTags item=mt}
+              {foreach from=$tags item=mt}
                 <option value="{$mt->id}">{$mt->value}</option>
               {/foreach}
             </select>

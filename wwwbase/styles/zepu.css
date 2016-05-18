@@ -947,7 +947,7 @@ input.pagedisplay {
   margin-left: 10px;
 }
 
-.meaningTag {
+.tag {
   background: #ddd;
   border: 1px solid #777;
   border-radius: 4px;
@@ -956,22 +956,22 @@ input.pagedisplay {
   margin-bottom: 10px;
 }
 
-.meaningTag .value {
+.tag .value {
   border-right: 1px solid #777;
   float: left;
   padding: 5px;
 }
 
-.meaningTag .link {
+.tag .link {
   float: left;
   padding: 5px 3px;
 }
 
-.meaningTag .link:hover {
+.tag .link:hover {
   background: #e77;
 }
 
-.meaningTag a {
+.tag a {
   color: #000;
   font-weight: bold;
   text-decoration: none;

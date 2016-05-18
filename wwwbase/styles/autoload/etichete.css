@@ -10,7 +10,7 @@
   padding: 10px;
 }
 
-#mtTree li {
+#tagTree li {
   cursor: pointer;
   list-style: none;
 }
@@ -34,7 +34,7 @@
   padding: 3px;
 }
 
-#mtTree .selected ul {
+#tagTree .selected ul {
   background: #e3f2fa;
 }
 

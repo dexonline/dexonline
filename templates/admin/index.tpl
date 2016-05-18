@@ -161,7 +161,7 @@
     <br/>
     <a href="{$wwwRoot}moderatori">moderatori</a> |
     <a href="{$wwwRoot}surse">surse</a> |
-    <a href="{$wwwRoot}etichete-sensuri">etichete</a> |
+    <a href="{$wwwRoot}etichete">etichete</a> |
     <a href="{$wwwRoot}tipuri-modele">tipuri de model</a> |
     <a href="{$wwwRoot}flexiuni">flexiuni</a> |
     <a href="{$wwwRoot}acuratete">verificarea acurateței editorilor</a> |

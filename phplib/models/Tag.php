@@ -1,16 +1,16 @@
 <?php
 
-class MeaningTag extends BaseObject implements DatedObject {
-  public static $_table = 'MeaningTag';
+class Tag extends BaseObject implements DatedObject {
+  public static $_table = 'Tag';
 
   // fields populated during loadTree()
   public $canDelete = 1;
   public $children = [];
 
   static function loadByMeaningId($meaningId) {
-    return Model::factory('MeaningTag')
-      ->select('MeaningTag.*')
-      ->join('MeaningTagMap', array('MeaningTag.id', '=', 'meaningTagId'))
+    return Model::factory('Tag')
+      ->select('Tag.*')
+      ->join('MeaningTagMap', array('Tag.id', '=', 'tagId'))
       ->where('MeaningTagMap.meaningId', $meaningId)
       ->order_by_asc('value')
       ->find_many();
@@ -18,7 +18,7 @@ class MeaningTag extends BaseObject implements DatedObject {
 
   // Returns an array of root tags with their $children and $canDelete fields populated
   static function loadTree() {
-    $tags = Model::factory('MeaningTag')->order_by_asc('displayOrder')->find_many();
+    $tags = Model::factory('Tag')->order_by_asc('displayOrder')->find_many();
 
     // Map the tags by id
     $map = [];
@@ -28,11 +28,11 @@ class MeaningTag extends BaseObject implements DatedObject {
 
     // Mark tags which can be deleted
     $usedIds = Model::factory('MeaningTagMap')
-             ->select('meaningTagId')
+             ->select('tagId')
              ->distinct()
              ->find_many();
     foreach ($usedIds as $rec) {
-      $map[$rec->meaningTagId]->canDelete = 0;
+      $map[$rec->tagId]->canDelete = 0;
     }
 
     // Make each tag its parent's child

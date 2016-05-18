@@ -6,12 +6,12 @@
         <div class="meaningContainer">
           <span class="id">{$t.meaning->id}</span>
           <span class="breadcrumb"></span>
-          <span class="meaningTags">
+          <span class="tags">
             {foreach from=$t.tags item=tag}
               <span class="tag">{$tag->value}</span>
             {/foreach}
           </span>
-          <span class="meaningTagIds">
+          <span class="tagIds">
             {foreach from=$t.tags item=tag name=tagLoop}
               {$tag->id}{if !$smarty.foreach.tagLoop.last},{/if}
             {/foreach}

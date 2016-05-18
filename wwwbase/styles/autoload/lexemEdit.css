@@ -47,7 +47,7 @@ body {
 #meaningTree .internalEtymology,
 #meaningTree .internalComment,
 #meaningTree .sourceIds,
-#meaningTree .meaningTagIds,
+#meaningTree .tagIds,
 #meaningTree .relationIds {
   display: none;
 }
@@ -102,7 +102,7 @@ body {
   border-color: #e0c29d;
 }
 
-#meaningTree .meaningTags span {
+#meaningTree .tags span {
   background: #dbf7da;
   border-color: #9fe09d;
 }

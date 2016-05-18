@@ -31,7 +31,7 @@ class SmartyWrap {
 
     // Add {$template}.css if the file exists
     $cssFile = "autoload/{$baseName}.css";
-    $fileName = util_getRootPath() . 'wwwbase/styles/' . $cssFile;
+    $fileName = util_getRootPath() . 'wwwbase/css/' . $cssFile;
     if (file_exists($fileName)) {
       self::$cssFiles[] = $cssFile;
     }
@@ -102,7 +102,7 @@ class SmartyWrap {
   static function fetch($templateName) {
     ksort(self::$cssFiles);
     ksort(self::$jsFiles);
-    self::assign('cssFiles', self::copyTimestamps(self::$cssFiles, 'styles'));
+    self::assign('cssFiles', self::copyTimestamps(self::$cssFiles, 'css'));
     self::assign('jsFiles', self::copyTimestamps(self::$jsFiles, 'js'));
     self::assign('flashMessages', FlashMessage::getMessages());
     return self::$theSmarty->fetch($templateName);

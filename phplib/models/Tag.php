@@ -10,8 +10,8 @@ class Tag extends BaseObject implements DatedObject {
   static function loadByMeaningId($meaningId) {
     return Model::factory('Tag')
       ->select('Tag.*')
-      ->join('MeaningTagMap', array('Tag.id', '=', 'tagId'))
-      ->where('MeaningTagMap.meaningId', $meaningId)
+      ->join('MeaningTag', array('Tag.id', '=', 'tagId'))
+      ->where('MeaningTag.meaningId', $meaningId)
       ->order_by_asc('value')
       ->find_many();
   }
@@ -27,7 +27,7 @@ class Tag extends BaseObject implements DatedObject {
     }
 
     // Mark tags which can be deleted
-    $usedIds = Model::factory('MeaningTagMap')
+    $usedIds = Model::factory('MeaningTag')
              ->select('tagId')
              ->distinct()
              ->find_many();

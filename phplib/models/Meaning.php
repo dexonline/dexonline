@@ -111,7 +111,7 @@ class Meaning extends BaseObject implements DatedObject {
       $sourceIds = StringUtil::explode(',', $tuple->sourceIds);
       MeaningSource::updateList(array('meaningId' => $m->id), 'sourceId', $sourceIds);
       $tagIds = StringUtil::explode(',', $tuple->tagIds);
-      MeaningTagMap::updateList(array('meaningId' => $m->id), 'tagId', $tagIds);
+      MeaningTag::updateList(array('meaningId' => $m->id), 'tagId', $tagIds);
       foreach ($tuple->relationIds as $type => $lexemIdString) {
         if ($type) {
           $lexemIds = StringUtil::explode(',', $lexemIdString);
@@ -135,7 +135,7 @@ class Meaning extends BaseObject implements DatedObject {
 
   public function delete() {
     MeaningSource::deleteByMeaningId($this->id);
-    MeaningTagMap::deleteByMeaningId($this->id);
+    MeaningTag::deleteByMeaningId($this->id);
     Relation::delete_all_by_meaningId($this->id);
     parent::delete();
   }
@@ -151,11 +151,11 @@ class Meaning extends BaseObject implements DatedObject {
     $clone->save();
 
     // Clone its tags
-    $mtms = MeaningTagMap::get_all_by_meaningId($this->id);
-    foreach ($mtms as $mtm) {
-      $mtmClone = $mtm->parisClone();
-      $mtmClone->meaningId = $clone->id;
-      $mtmClone->save();
+    $mts = MeaningTag::get_all_by_meaningId($this->id);
+    foreach ($mts as $mt) {
+      $mtClone = $mt->parisClone();
+      $mtClone->meaningId = $clone->id;
+      $mtClone->save();
     }
 
     // Clone its sources

@@ -17,7 +17,7 @@ truncate table LexemDefinitionMap;
 truncate table Link;
 truncate table Meaning;
 truncate table MeaningSource;
-truncate table MeaningTagMap;
+truncate table MeaningTag;
 -- truncate table Model;
 -- truncate table ModelDescription;
 -- truncate table ModelType;

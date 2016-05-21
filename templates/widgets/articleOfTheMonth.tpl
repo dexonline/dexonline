@@ -1,5 +1,10 @@
-<img alt="articolul lunii" src="{$cfg.static.url}img/wotd/thumb/misc/papirus.png" class="commonShadow" />
-<span>
-  <label>Articolul lunii</label><br />
+{extends file="widgets/layout.tpl"}
+
+{block name="widget-header"}
+  Articolul lunii
+{/block}
+
+{block name="widget-body"}
+  <img alt="articolul lunii" src="{$cfg.static.url}img/wotd/thumb/misc/papirus.png" class="commonShadow" />
   <a href="{$wwwRoot}articol/{$articol}">{$articol|replace:'_':' '}</a>
-</span>
+{/block}

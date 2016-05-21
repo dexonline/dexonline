@@ -1,4 +1,4 @@
-{extends file="layout.tpl"}
+{extends file="page.tpl"}
 
 {block name=title}
   {$cuv|escape} - definiție

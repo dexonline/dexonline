@@ -306,7 +306,7 @@ if (count($images)) {
 
 if (!$xml) {
   SmartyWrap::addCss('paradigm');
-  SmartyWrap::displayPageWithSkin('search.tpl');
+  SmartyWrap::display('search.tpl');
 
 } else {
   header('Content-type: text/xml');

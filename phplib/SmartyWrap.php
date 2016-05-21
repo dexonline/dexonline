@@ -62,7 +62,7 @@ class SmartyWrap {
 
   static function fetchSkin($templateName) {
     $skin = session_getSkin();
-    self::addCss($skin, 'flash');
+    self::addCss($skin, 'flash', 'bootstrap');
     self::addJs('jquery', 'dex', 'bootstrap');
     if (Config::get('search.acEnable')) {
         self::addCss('jqueryui');
@@ -148,8 +148,8 @@ class SmartyWrap {
           self::$cssFiles[7] = 'elfinder/css/elfinder.min.css';
           self::$cssFiles[8] = 'elfinderDev.css';
           break;
-        case 'responsive':          self::$cssFiles[9] = 'responsive.css'; break;
-        case 'windowEngine':        self::$cssFiles[10] = 'jquery-wm/main.css'; break;
+        case 'windowEngine':        self::$cssFiles[9] = 'jquery-wm/main.css'; break;
+        case 'responsive':          self::$cssFiles[10] = 'responsive.css'; break;
         case 'zepu':                self::$cssFiles[11] = 'zepu.css'; break;
         case 'polar':               self::$cssFiles[12] = 'polar.css'; break;
         case 'mobile':              self::$cssFiles[13] = 'mobile.css'; break;

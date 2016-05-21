@@ -1,4 +1,4 @@
-{extends file="layout.tpl"}
+{extends file="page.tpl"}
 
 {block name=title}
   {$cuv|escape} - definiție
@@ -28,11 +28,11 @@
   {assign var="allDefinitions" value=$allDefinitions|default:null}
 
   {if count($lexems) || count($results) }
-    <div class="resultBar">
+    <p class="bg-info">
       {if $searchType == $smarty.const.SEARCH_INFLECTED}
         {if count($results) == 0}
           {if $src_selected}
-            Nu am găsit în acest dicționar definiția lui 
+            Nu am găsit în acest dicționar definiția lui
           {else}
             Din motive de copyright, doar administratorii site-ului pot vedea definițiile pentru
           {/if}
@@ -40,19 +40,19 @@
           O definiție pentru
         {else}
           {if $allDefinitions == 0 && $totalDefinitionsCount}
-            Din <a href="{$smarty.server.REQUEST_URI}/expandat" title="arată toate definițiile">totalul de {$totalDefinitionsCount}</a> sunt afișate 
+            Din <a href="{$smarty.server.REQUEST_URI}/expandat" title="arată toate definițiile">totalul de {$totalDefinitionsCount}</a> sunt afișate
           {/if}
           {$results|@count} definiții pentru
         {/if}
-        
+
         {if count($lexems) == 1}
           {* If there is exactly one lexem, do not link to the lexem page, because it would print an almost exact duplicate of this page. *}
           „{include file="bits/lexemName.tpl" lexem=$lexems.0}”
         {else}
           {foreach from=$lexems item=lexem key=row_id}
             <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{$lexem->formNoAccent}</a
-                          >{if $lexem->description} ({$lexem->description|escape}){/if
-                                                                                  }{if $row_id < count($lexems) - 1},{/if}
+                                                                                                >{if $lexem->description} ({$lexem->description|escape}){/if
+                                                                                                                                                        }{if $row_id < count($lexems) - 1},{/if}
           {/foreach}
         {/if}
 
@@ -129,7 +129,7 @@
           Repetați căutarea <a href="{$wwwRoot}definitie/{$cuv|escape}">în toate dicționarele</a>
         {/if}
       {/if}
-    </div>
+    </p>
   {/if}
 
   {if $searchType == $smarty.const.SEARCH_FULL_TEXT && $lockExists}
@@ -216,7 +216,7 @@
     {if $skinVariables.typo}
       <div id="typoDiv"></div>
       <script>
-        $(".typoLink").click(showTypoForm);
+       $(".typoLink").click(showTypoForm);
       </script>
     {/if}
   </div>

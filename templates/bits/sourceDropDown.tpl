@@ -3,7 +3,7 @@
 {assign var="src_selected" value=$src_selected|default:null}
 {assign var="urlName" value=$urlName|default:false}
 {assign var="autosubmit" value=$autosubmit|default:false}
-<select name="{$name}" id="sourceDropDown" {if $autosubmit}onchange="this.form.submit();"{/if}>
+<select class="form-control" name="{$name}" id="sourceDropDown" {if $autosubmit}onchange="this.form.submit();"{/if}>
   {if !$skipAnySource}
     <option value="">Toate sursele</option>
   {/if}

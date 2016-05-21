@@ -1,4 +1,4 @@
-{extends file="responsive/responsive-layout.tpl"}
+{extends file="layout.tpl"}
 
 {block name=title}Dicționar explicativ al limbii române{/block}
 
@@ -14,10 +14,10 @@
     <div class="col-md-9">
       <div class="row">
         <div class="col-md-12">
-          {include file="responsive/bits/searchForm.tpl" advancedSearch=0}
+          {include file="bits/searchForm.tpl" advancedSearch=0}
 
           {if !$suggestNoBanner}
-            {include file="responsive/bits/banner.tpl" id="mainPage" width="728" height="90"}
+            {include file="bits/banner.tpl" id="mainPage" width="728" height="90"}
           {/if}
 
           <footer class="row" id="missionStatement">

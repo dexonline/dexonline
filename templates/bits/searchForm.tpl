@@ -9,12 +9,20 @@
       <div class="row">
         <div class="col-md-12">
           <div class="input-group">
+            {if !$advancedSearch}
+              <span class="input-group-btn">
+                <button type="button" title="căutare avansată"
+                        class="btn btn-default" onclick="return toggle('advSearch')">
+                  <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+              </span>
+            {/if}
             <input type="text" class="form-control searchField" name="cuv" placeholder="cuvânt" value="{$cuv|escape}" maxlength="50"/>
             <span class="input-group-btn">
-              <button type="submit" value="caută" id="searchButton" class="btn btn-default">caută</button>
-              {if !$advancedSearch}
-                <button type="button" class="btn btn-link hidden-xs" onclick="return toggle('advSearch')">căutare avansată</button>
-              {/if}
+              <button type="submit" value="caută" id="searchButton" class="btn btn-default">
+                  <span class="glyphicon glyphicon-search"></span>
+                caută
+              </button>
             </span>
           </div>
         </div>

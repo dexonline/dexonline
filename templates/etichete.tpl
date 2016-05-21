@@ -13,7 +13,7 @@
     <div class="expand"></div>
     <div class="value" data-id="" data-can-delete="1"></div>
   </li>
-  {include file="bits/meaningTagTree.tpl" tags=$meaningTags id="mtTree"}
+  {include file="bits/tagTree.tpl" tags=$tags id="tagTree"}
 
   <div id="menuBar">
     <input type="text" name="value" value="" id="valueBox" size="20">
@@ -42,7 +42,7 @@
     </div>
   </div>
 
-  <form method="post" action="etichete-sensuri">
+  <form method="post" action="etichete">
     <input type="hidden" name="jsonTags" value="">
     <input type="submit" id="butSave" name="saveButton" value="salvează">
   </form>

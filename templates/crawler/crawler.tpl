@@ -7,7 +7,7 @@
 
 		<script src='../js/crawler_ajax.js'></script>
 
-		<link rel="StyleSheet" type="text/css" href="../styles/crawler.css"/>
+		<link rel="StyleSheet" type="text/css" href="../css/crawler.css"/>
 
 	</head>
 	<body>

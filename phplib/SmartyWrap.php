@@ -31,7 +31,7 @@ class SmartyWrap {
 
     // Add {$template}.css if the file exists
     $cssFile = "autoload/{$baseName}.css";
-    $fileName = util_getRootPath() . 'wwwbase/styles/' . $cssFile;
+    $fileName = util_getRootPath() . 'wwwbase/css/' . $cssFile;
     if (file_exists($fileName)) {
       self::$cssFiles[] = $cssFile;
     }
@@ -102,7 +102,7 @@ class SmartyWrap {
   static function fetch($templateName) {
     ksort(self::$cssFiles);
     ksort(self::$jsFiles);
-    self::assign('cssFiles', self::copyTimestamps(self::$cssFiles, 'styles'));
+    self::assign('cssFiles', self::copyTimestamps(self::$cssFiles, 'css'));
     self::assign('jsFiles', self::copyTimestamps(self::$jsFiles, 'js'));
     self::assign('flashMessages', FlashMessage::getMessages());
     return self::$theSmarty->fetch($templateName);
@@ -138,31 +138,35 @@ class SmartyWrap {
       switch($id) {
         case 'jqueryui':            self::$cssFiles[1] = 'lightness-1.10.3/jquery-ui-1.10.3.custom.min.css'; break;
         case 'jqueryui-smoothness': self::$cssFiles[2] = 'smoothness-1.10.4/jquery-ui-1.10.4.custom.min.css'; break;
-        case 'jqgrid':              self::$cssFiles[3] = 'ui.jqgrid.css'; break;
-        case 'tablesorter':         self::$cssFiles[4] = 'tablesorter/theme.blue.css'; break;
+        case 'bootstrap':
+          self::$cssFiles[3] = 'bootstrap.min.css';
+          self::$cssFiles[4] = 'bootstrap-theme.min.css';
+          break;
+        case 'jqgrid':              self::$cssFiles[5] = 'ui.jqgrid.css'; break;
+        case 'tablesorter':         self::$cssFiles[6] = 'tablesorter/theme.blue.css'; break;
         case 'elfinder':
-          self::$cssFiles[5] = 'elfinder/css/elfinder.min.css';
-          self::$cssFiles[6] = 'elfinderDev.css';
+          self::$cssFiles[7] = 'elfinder/css/elfinder.min.css';
+          self::$cssFiles[8] = 'elfinderDev.css';
           break;
-        case 'windowEngine':        self::$cssFiles[7] = 'jquery-wm/main.css'; break;
+        case 'windowEngine':        self::$cssFiles[8] = 'jquery-wm/main.css'; break;
         case 'responsive':
-          self::$cssFiles[8] = 'bootstrap/css/bootstrap.min.css';
-          self::$cssFiles[9] = 'bootstrap/css/bootstrap-theme.min.css';
-          self::$cssFiles[10] = 'responsive.css';
+          self::$cssFiles[10] = 'bootstrap/css/bootstrap.min.css';
+          self::$cssFiles[11] = 'bootstrap/css/bootstrap-theme.min.css';
+          self::$cssFiles[12] = 'responsive.css';
           break;
-        case 'zepu':                self::$cssFiles[11] = 'zepu.css'; break;
-        case 'polar':               self::$cssFiles[12] = 'polar.css'; break;
-        case 'mobile':              self::$cssFiles[13] = 'mobile.css'; break;
-        case 'flex':                self::$cssFiles[14] = 'flex.css'; break;
-        case 'paradigm':            self::$cssFiles[15] = 'paradigm.css'; break;
-        case 'jcrop':               self::$cssFiles[16] = 'jcrop/jquery.Jcrop.min.css'; break;
-        case 'select2':             self::$cssFiles[17] = 'select2/select2.css'; break;
+        case 'zepu':                self::$cssFiles[13] = 'zepu.css'; break;
+        case 'polar':               self::$cssFiles[14] = 'polar.css'; break;
+        case 'mobile':              self::$cssFiles[15] = 'mobile.css'; break;
+        case 'flex':                self::$cssFiles[16] = 'flex.css'; break;
+        case 'paradigm':            self::$cssFiles[17] = 'paradigm.css'; break;
+        case 'jcrop':               self::$cssFiles[18] = 'jcrop/jquery.Jcrop.min.css'; break;
+        case 'select2':             self::$cssFiles[19] = 'select2/select2.css'; break;
         case 'gallery':
-          self::$cssFiles[18] = 'colorbox/colorbox.css';
-          self::$cssFiles[19] = 'visualDict.css';
+          self::$cssFiles[20] = 'colorbox/colorbox.css';
+          self::$cssFiles[21] = 'visualDict.css';
           break;
-        case 'textComplete':        self::$cssFiles[20] = 'jquery.textcomplete.css'; break;
-        case 'flash':               self::$cssFiles[21] = 'flash.css'; break;
+        case 'textComplete':        self::$cssFiles[22] = 'jquery.textcomplete.css'; break;
+        case 'flash':               self::$cssFiles[23] = 'flash.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -176,36 +180,34 @@ static function addJs(/* Variable-length argument list */) {
       switch($id) {
         case 'jquery':           self::$jsFiles[1] = 'jquery-1.10.2.min.js'; break;
         case 'jqueryui':         self::$jsFiles[2] = 'jquery-ui-1.10.3.custom.min.js'; break;
+        case 'bootstrap':        self::$jsFiles[3] = 'bootstrap.min.js'; break;
         case 'jqgrid':
-          self::$jsFiles[3] = 'grid.locale-en.js';
-          self::$jsFiles[4] = 'jquery.jqGrid.min.js';
+          self::$jsFiles[4] = 'grid.locale-en.js';
+          self::$jsFiles[5] = 'jquery.jqGrid.min.js';
           break;
-        case 'jqnotice':         self::$jsFiles[5] = 'jquery.notice.js'; break;
-        case 'jqTableDnd':       self::$jsFiles[6] = 'jquery.tablednd.0.8.min.js'; break;
+        case 'jqnotice':         self::$jsFiles[6] = 'jquery.notice.js'; break;
+        case 'jqTableDnd':       self::$jsFiles[7] = 'jquery.tablednd.0.8.min.js'; break;
         case 'tablesorter':
-          self::$jsFiles[7] = 'jquery.tablesorter.min.js';
-          self::$jsFiles[8] = 'tablesorter.dev.js';
+          self::$jsFiles[8] = 'jquery.tablesorter.min.js';
+          self::$jsFiles[9] = 'tablesorter.dev.js';
           break;
-        case 'pager':            self::$jsFiles[9] = 'jquery.tablesorter.pager.min.js'; break;
-        case 'elfinder':         self::$jsFiles[10] = 'elfinder.min.js'; break;
-        case 'windowEngine':     self::$jsFiles[11] = 'jquery-wm.js'; break;
-        case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js'; break;
-        case 'dex':              self::$jsFiles[13] = 'dex.js'; break;
-        case 'jcrop':            self::$jsFiles[14] = 'jquery.Jcrop.min.js'; break;
-        case 'select2':          self::$jsFiles[15] = 'select2.min.js'; break;
-        case 'select2Dev':       self::$jsFiles[16] = 'select2Dev.js'; break;
-        case 'jcanvas':          self::$jsFiles[17] = 'jcanvas.min.js'; break;
+        case 'pager':            self::$jsFiles[10] = 'jquery.tablesorter.pager.min.js'; break;
+        case 'elfinder':         self::$jsFiles[11] = 'elfinder.min.js'; break;
+        case 'windowEngine':     self::$jsFiles[12] = 'jquery-wm.js'; break;
+        case 'cookie':           self::$jsFiles[13] = 'jquery.cookie.js'; break;
+        case 'dex':              self::$jsFiles[14] = 'dex.js'; break;
+        case 'jcrop':            self::$jsFiles[15] = 'jquery.Jcrop.min.js'; break;
+        case 'select2':          self::$jsFiles[16] = 'select2.min.js'; break;
+        case 'select2Dev':       self::$jsFiles[17] = 'select2Dev.js'; break;
+        case 'jcanvas':          self::$jsFiles[18] = 'jcanvas.min.js'; break;
         case 'gallery':
-          self::$jsFiles[18] = 'colorbox/jquery.colorbox-min.js';
-          self::$jsFiles[19] = 'colorbox/jquery.colorbox-ro.js';
-          self::$jsFiles[20] = 'dexGallery.js';
+          self::$jsFiles[19] = 'colorbox/jquery.colorbox-min.js';
+          self::$jsFiles[20] = 'colorbox/jquery.colorbox-ro.js';
+          self::$jsFiles[21] = 'dexGallery.js';
           break;
-        case 'modelDropdown':    self::$jsFiles[21] = 'modelDropdown.js'; break;
-        case 'textComplete':     self::$jsFiles[22] = 'jquery.textcomplete.min.js'; break;
-        case 'tinymce':          self::$jsFiles[23] = 'tinymce-4.3.4/tinymce.min.js'; break;
-        case 'bootstrap':
-          self::$jsFiles[24] = 'bootstrap/js/bootstrap.min.js';
-          break;
+        case 'modelDropdown':    self::$jsFiles[22] = 'modelDropdown.js'; break;
+        case 'textComplete':     self::$jsFiles[23] = 'jquery.textcomplete.min.js'; break;
+        case 'tinymce':          self::$jsFiles[24] = 'tinymce-4.3.4/tinymce.min.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

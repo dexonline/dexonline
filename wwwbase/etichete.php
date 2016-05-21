@@ -8,8 +8,8 @@ $jsonTags = util_getRequestParameter('jsonTags');
 if ($saveButton) {
   util_assertModerator(PRIV_ADMIN);
 
-  // Build a map of all MeaningTag IDs so we can delete those that are gone.
-  $ids = Model::factory('MeaningTag')
+  // Build a map of all Tag IDs so we can delete those that are gone.
+  $ids = Model::factory('Tag')
        ->select('id')
        ->find_array();
 
@@ -25,30 +25,30 @@ if ($saveButton) {
 
   foreach (json_decode($jsonTags) as $rec) {
     if ($rec->id) {
-      $mt = MeaningTag::get_by_id($rec->id);
+      $t = Tag::get_by_id($rec->id);
       unset($idMap[$rec->id]);
     } else {
-      $mt = Model::factory('MeaningTag')->create();
+      $t = Model::factory('Tag')->create();
     }
-    $mt->value = $rec->value;
-    $mt->parentId = $tagIds[$rec->level - 1];
-    $mt->displayOrder = ++$numChildren[$rec->level - 1];
-    $mt->save();
-    $tagIds[$rec->level] = $mt->id;
+    $t->value = $rec->value;
+    $t->parentId = $tagIds[$rec->level - 1];
+    $t->displayOrder = ++$numChildren[$rec->level - 1];
+    $t->save();
+    $tagIds[$rec->level] = $t->id;
     $numChildren[$rec->level] = 0;
   }
 
   foreach ($idMap as $id => $ignored) {
-    MeaningTag::delete_all_by_id($id);
+    Tag::delete_all_by_id($id);
   }
   Log::notice('Saved tag tree');
   FlashMessage::add('Am salvat etichetele.', 'success');
-  util_redirect('etichete-sensuri');
+  util_redirect('etichete');
 }
 
-SmartyWrap::assign('meaningTags', MeaningTag::loadTree());
+SmartyWrap::assign('tags', Tag::loadTree());
 SmartyWrap::assign('suggestNoBanner', true);
 SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::display('etichete-sensuri.tpl');
+SmartyWrap::display('etichete.tpl');
 
 ?>

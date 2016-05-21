@@ -98,7 +98,7 @@ function util_getImgRoot() {
 }
 
 function util_getCssRoot() {
-  return util_getWwwRoot() . "styles"; 
+  return util_getWwwRoot() . "css"; 
 }
 
 function util_requireOtherFiles() {

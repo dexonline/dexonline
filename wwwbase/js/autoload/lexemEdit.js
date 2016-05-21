@@ -268,7 +268,7 @@ function beginMeaningEdit() {
   $('#editorComment').val(c.find('.internalComment').text());
   $('#editorSources').select2('val', c.find('.sourceIds').text().split(','));
   $('#editorSources').select2('enable');
-  $('#editorTags').select2('val', c.find('.meaningTagIds').text().split(','));
+  $('#editorTags').select2('val', c.find('.tagIds').text().split(','));
   $('#editorTags').select2('enable');
 
   c.find('.relationIds').each(function() {
@@ -318,11 +318,11 @@ function acceptMeaningEdit() {
   });
 
   // Update meaning tags and meaningIds
-  var meaningTagIds = $('#editorTags').val();
-  c.find('.meaningTagIds').text(meaningTagIds ? meaningTagIds.join(',') : '');
-  c.find('.meaningTags').text('');
+  var tagIds = $('#editorTags').val();
+  c.find('.tagIds').text(tagIds ? tagIds.join(',') : '');
+  c.find('.tags').text('');
   $('#editorTags option:selected').each(function() {
-    c.find('.meaningTags').append('<span class="tag">' + $(this).text() + '</span>');
+    c.find('.tags').append('<span class="tag">' + $(this).text() + '</span>');
   });
 
   // Update relation tags and relationIds
@@ -374,7 +374,7 @@ function meaningTreeWalk(node, results, level) {
                    'internalEtymology': c.find('.internalEtymology').text(),
                    'internalComment': c.find('.internalComment').text(),
                    'sourceIds': c.find('.sourceIds').text(),
-                   'meaningTagIds': c.find('.meaningTagIds').text(),
+                   'tagIds': c.find('.tagIds').text(),
                    'relationIds': relationIds,
                  });
     $(this).children('ul').each(function() {

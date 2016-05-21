@@ -1,7 +1,14 @@
-<img src="{$imgRoot}/hangman/thumb.png" alt="iconiță spânzurătoarea" class="gameIcon commonShadow" />
-<span>
-  <label>Jocuri</label><br />
-  <a href="{$wwwRoot}spanzuratoarea">spânzurătoarea</a><br/>
-  <a href="{$wwwRoot}moara">moara cuvintelor</a>{**<br/>
-  <a href="{$wwwRoot}omleta">omleta cuvintelor</a>**}
-</span>
+{extends file="widgets/layout.tpl"}
+
+{block name="widget-header"}
+  Jocuri
+{/block}
+
+{block name="widget-body"}
+  <img src="{$imgRoot}/hangman/thumb.png" alt="iconiță spânzurătoarea" class="gameIcon commonShadow" />
+  <ul class="list-unstyled list-games">
+    <li><a href="{$wwwRoot}spanzuratoarea">spânzurătoarea</a></li>
+    <li><a href="{$wwwRoot}moara">moara cuvintelor</a></li>
+    {* <li><a href="{$wwwRoot}omleta">omleta cuvintelor</a></li>*}
+  </ul>
+{/block}

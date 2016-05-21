@@ -37,7 +37,7 @@
       </main>
       <footer class="row">
         <div class="col-md-12">
-          <ul>
+          <ul class="list-inline">
             <li>Copyright (C) 2004-{$currentYear} dexonline (https://dexonline.ro)</li>
             <li class="licenceLink"><a href="{$wwwRoot}licenta">Licență</a></li>
             {if $cfg.global.hostedBy}

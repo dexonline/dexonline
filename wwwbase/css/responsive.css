@@ -32,6 +32,12 @@
     padding: 5px 0 5px 0;
 }
 
+.list-games {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
 /* .navbar-toggle { */
 /*     float: left; */
 /*     margin-left: 15px; */

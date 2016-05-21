@@ -10,44 +10,36 @@
     </div>
   </header>
 
-  <section class="row">
-    <div class="col-md-9">
-      <div class="row">
-        <div class="col-md-12">
-          {include file="bits/searchForm.tpl" advancedSearch=0}
+  {include file="bits/searchForm.tpl" advancedSearch=0}
 
-          {if !$suggestNoBanner}
-            {include file="bits/banner.tpl" id="mainPage" width="728" height="90"}
-          {/if}
+  {if !$suggestNoBanner}
+    {include file="bits/banner.tpl" id="mainPage" width="1024" height="90"}
+  {/if}
 
-          <footer class="row" id="missionStatement">
-            <div class="col-md-12">
-              <p>
-                <i>dexonline</i> transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
-                O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.<br>
-                Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.
-              </p>
-            </div>
-          </footer>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
+  <section class="row widgets">
+    <div class="col-md-12">
       {if $numEnabledWidgets && $skinVariables.widgets}
-        <section class="widgetBox bendShadow">
-          <ul class="widgetList">
-            {foreach from=$widgets item=params}
-              {if $params.enabled}
-                <li>{include file="widgets/`$params.template`"}</li>
-              {/if}
-            {/foreach}
+        {foreach from=$widgets item=params}
+          {if $params.enabled}
+            <div class="col-sm-4 col-xs-12">{include file="widgets/`$params.template`"}</div>
+          {/if}
+        {/foreach}
 
-            <li class="widgetsPreferences">
-              <a href="preferinte">personalizare elemente</a>
-            </li>
-          </ul>
-        </section>
+        <div class="widgetsPreferences">
+          <a href="preferinte">personalizare elemente</a>
+        </div>
       {/if}
     </div>
   </section>
+
+  <footer class="row" id="missionStatement">
+    <div class="col-md-12">
+      <p>
+        <i>dexonline</i> transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
+        O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.<br>
+        Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.
+      </p>
+    </div>
+  </footer>
+
 {/block}

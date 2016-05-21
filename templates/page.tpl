@@ -1,11 +1,11 @@
-{extends file="responsive/responsive-layout.tpl"}
+{extends file="layout.tpl"}
 
 {block name="before-content"}
   {if !$suggestHiddenSearchForm && $skinVariables.searchForm}
-    {include file="responsive/bits/searchForm.tpl"}
+    {include file="bits/searchForm.tpl"}
   {/if}
   {if !$suggestNoBanner && $skinVariables.banner}
-    {include file="responsive/bits/banner.tpl" id="otherPages" width="728" height="90"}
+    {include file="bits/banner.tpl" id="otherPages" width="728" height="90"}
   {/if}
 {/block}
 

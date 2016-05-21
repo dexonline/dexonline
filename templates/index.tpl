@@ -1,4 +1,4 @@
-{extends file="base.tpl"}
+{extends file="layout.tpl"}
 
 {block name=title}Dicționar explicativ al limbii române{/block}
 
@@ -10,35 +10,44 @@
     </div>
   </header>
 
-  {include file="bits/searchForm.tpl" advancedSearch=0}
+  <section class="row">
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-12">
+          {include file="bits/searchForm.tpl" advancedSearch=0}
 
-  {if !$suggestNoBanner}
-    {include file="bits/banner.tpl" id="mainPage" width="1024" height="90"}
-  {/if}
-
-
-  <section class="row widgets">
-    <div class="col-md-12">
-      {if $numEnabledWidgets && $skinVariables.widgets}
-        {foreach from=$widgets item=params}
-          {if $params.enabled}
-            <div class="col-sm-4 col-xs-12">{include file="widgets/`$params.template`"}</div>
+          {if !$suggestNoBanner}
+            {include file="bits/banner.tpl" id="mainPage" width="728" height="90"}
           {/if}
-        {/foreach}
+
+          <footer class="row" id="missionStatement">
+            <div class="col-md-12">
+              <p>
+                <i>dexonline</i> transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
+                O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.<br>
+                Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.
+              </p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      {if $numEnabledWidgets && $skinVariables.widgets}
+        <section class="widgetBox bendShadow">
+          <ul class="widgetList">
+            {foreach from=$widgets item=params}
+              {if $params.enabled}
+                <li>{include file="widgets/`$params.template`"}</li>
+              {/if}
+            {/foreach}
+
+            <li class="widgetsPreferences">
+              <a href="preferinte">personalizare elemente</a>
+            </li>
+          </ul>
+        </section>
       {/if}
     </div>
-    <div class="col-md-12">
-      <a class="btn btn-link customise-widgets pull-right" href="preferinte"><span class="glyphicon glyphicon-cog"></span>personalizare elemente</a>
-    </div>
   </section>
-
-
-  <div class="col-md-6 col-md-offset-3 website-statement text-center">
-    <p>
-      <i>dexonline</i> transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
-      O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.<br>
-      Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.
-    </p>
-  </div>
-
 {/block}

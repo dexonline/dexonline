@@ -62,7 +62,7 @@ class SmartyWrap {
 
   static function fetchSkin($templateName) {
     $skin = session_getSkin();
-    self::addCss($skin, 'flash');
+    self::addCss($skin, 'flash', 'bootstrap');
     self::addJs('jquery', 'dex', 'bootstrap');
     if (Config::get('search.acEnable')) {
         self::addCss('jqueryui');
@@ -149,24 +149,20 @@ class SmartyWrap {
           self::$cssFiles[8] = 'elfinderDev.css';
           break;
         case 'windowEngine':        self::$cssFiles[9] = 'jquery-wm/main.css'; break;
-        case 'responsive':
-          self::$cssFiles[10] = 'bootstrap/css/bootstrap.min.css';
-          self::$cssFiles[11] = 'bootstrap/css/bootstrap-theme.min.css';
-          self::$cssFiles[12] = 'responsive.css';
-          break;
-        case 'zepu':                self::$cssFiles[13] = 'zepu.css'; break;
-        case 'polar':               self::$cssFiles[14] = 'polar.css'; break;
-        case 'mobile':              self::$cssFiles[15] = 'mobile.css'; break;
-        case 'flex':                self::$cssFiles[16] = 'flex.css'; break;
-        case 'paradigm':            self::$cssFiles[17] = 'paradigm.css'; break;
-        case 'jcrop':               self::$cssFiles[18] = 'jcrop/jquery.Jcrop.min.css'; break;
-        case 'select2':             self::$cssFiles[19] = 'select2/select2.min.css'; break;
+        case 'responsive':          self::$cssFiles[10] = 'responsive.css'; break;
+        case 'zepu':                self::$cssFiles[11] = 'zepu.css'; break;
+        case 'polar':               self::$cssFiles[12] = 'polar.css'; break;
+        case 'mobile':              self::$cssFiles[13] = 'mobile.css'; break;
+        case 'flex':                self::$cssFiles[14] = 'flex.css'; break;
+        case 'paradigm':            self::$cssFiles[15] = 'paradigm.css'; break;
+        case 'jcrop':               self::$cssFiles[16] = 'jcrop/jquery.Jcrop.min.css'; break;
+        case 'select2':             self::$cssFiles[17] = 'select2/select2.css'; break;
         case 'gallery':
-          self::$cssFiles[20] = 'colorbox/colorbox.css';
-          self::$cssFiles[21] = 'visualDict.css';
+          self::$cssFiles[18] = 'colorbox/colorbox.css';
+          self::$cssFiles[19] = 'visualDict.css';
           break;
-        case 'textComplete':        self::$cssFiles[22] = 'jquery.textcomplete.css'; break;
-        case 'flash':               self::$cssFiles[23] = 'flash.css'; break;
+        case 'textComplete':        self::$cssFiles[20] = 'jquery.textcomplete.css'; break;
+        case 'flash':               self::$cssFiles[21] = 'flash.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());

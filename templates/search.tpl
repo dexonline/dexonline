@@ -28,7 +28,7 @@
   {assign var="allDefinitions" value=$allDefinitions|default:null}
 
   {if count($lexems) || count($results) }
-    <p class="bg-info">
+    <p class="alert alert-info">
       {if $searchType == $smarty.const.SEARCH_INFLECTED}
         {if count($results) == 0}
           {if $src_selected}
@@ -40,9 +40,11 @@
           O definiție pentru
         {else}
           {if $allDefinitions == 0 && $totalDefinitionsCount}
-            Din <a href="{$smarty.server.REQUEST_URI}/expandat" title="arată toate definițiile">totalul de {$totalDefinitionsCount}</a> sunt afișate
+            Din <a href="{$smarty.server.REQUEST_URI}/expandat" title="arată toate definițiile">
+              <strong>totalul de {$totalDefinitionsCount}</strong>
+            </a> sunt afișate
           {/if}
-          {$results|@count} definiții pentru
+          <strong>{$results|@count}</strong> definiții pentru
         {/if}
 
         {if count($lexems) == 1}

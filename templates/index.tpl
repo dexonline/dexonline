@@ -1,4 +1,4 @@
-{extends file="layout.tpl"}
+{extends file="base.tpl"}
 
 {block name=title}Dicționar explicativ al limbii române{/block}
 

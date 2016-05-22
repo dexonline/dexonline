@@ -1,12 +1,3 @@
-/* .donateLink:after { */
-/*     content: ""; */
-/*     width: 16px; */
-/*     height: 16px; */
-/*     display: inline-block; */
-/*     background: url("../img/icons/coins.png") 0 0 no-repeat; */
-/*     margin-left: 3px; */
-/* } */
-
 /* SITE IDENTITY */
 .siteIdentity {
     margin-bottom: 25px;
@@ -38,31 +29,22 @@
     vertical-align: middle;
 }
 
-/* .navbar-toggle { */
-/*     float: left; */
-/*     margin-left: 15px; */
-/* } */
-/*  */
-
-/* @media (max-width: 767px) {
-   .navbar-collapse .navbar-form {
-   margin: 0;
-   border: 0 none;
-   }
-   .navbar-form {
-   -webkit-box-shadow: none;
-   box-shadow: none;
-   padding: 10px 0px;
-   }
-   } */
-/* @media (min-width: 768px) { */
-/*   .navbar-collapse.collapse { */
-/*     display: inline-block!important; */
-/*     float: left; */
-/*   } */
-/*   #navMenuLogin { */
-/*     float: right; */
-/*   } */
-/* } */
-
-.margin-top-25 { margin-top: 25px; }
+.nav-logo {
+    background: url("../img/sprite3.png") -88px -82px no-repeat;
+    height: 25px;
+    width: 111px;
+}
+@media (max-width: 768px) {
+    .nav-logo {
+        background: url("../img/sprite3.png") -88px -82px no-repeat;
+        height: 25px;
+        width: 111px !important;
+    }
+}
+@media (max-width: 992px) {
+    .nav-logo {
+        background: url("../img/sprite3.png") -88px -82px no-repeat;
+        height: 25px;
+        width: 25px;
+    }
+}

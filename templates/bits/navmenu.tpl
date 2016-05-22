@@ -1,6 +1,11 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
+     {if !$onHomePage}
+       <a class="navbar-brand" href="{$wwwRoot}" title="Prima pagină">
+        <div class="nav-logo"></div>
+       </a>
+     {/if}
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navMenu" aria-expanded="false">
         <span class="sr-only">Navigare</span>
         <span class="icon-bar"></span>

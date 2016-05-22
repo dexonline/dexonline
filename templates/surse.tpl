@@ -3,15 +3,15 @@
 {block name=title}Surse{/block}
 
 {block name=content}
-  <ul class ="dictSourceTips">
-    <li>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii</li>
+  <div class="alert alert-info">
+    <p>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii</p>
     {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
-      <li>Pentru a reordona sursele, apucați de un rând, dar nu de o zonă cu text. La sfârșit, nu uitați să salvați.</li>
+      <p>Pentru a reordona sursele, apucați de un rând, dar nu de o zonă cu text. La sfârșit, nu uitați să salvați.</p>
     {/if}
-  </ul>
+  </div>
 
   <form method="post" action="surse">
-    <table id="sources" class="minimalistTable">
+    <table id="sources" class="table table-striped ">
       <thead>
         <tr>
           <th class="abbreviation">Nume scurt</th>

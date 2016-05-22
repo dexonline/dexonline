@@ -3,11 +3,10 @@
 <label for="typoTextarea">Semnalează o greșeală:</label>
 
 <form id="typoHtmlForm" method="post" action="" onsubmit="return submitTypoForm()">
-  <textarea id="typoTextarea" cols="40" rows="3" style="width: 99%"
-            placeholder="descrieți problema aici..."></textarea>
-  <input type="submit" value="Trimite">
+  <textarea class="form-control" id="typoTextarea" cols="40" rows="3" placeholder="descrieți problema aici..."></textarea>
+  <input class="btn btn-default" type="submit" value="Trimite">
   <input type="hidden" name="definitionId" value="{$definitionId}">
-  <a href="#" onclick="document.getElementById('typoDiv').style.display = 'none'">anulează</a>
+  <a class="btn btn-link" href="#" onclick="document.getElementById('typoDiv').style.display = 'none'">anulează</a>
 </form><br/>
 
 <div id="typoDivNote">Note:</div>

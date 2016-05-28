@@ -15,6 +15,8 @@ foreach ($definitions as $definition){
                              'text' => mb_substr($definition->internalRep, 0, 80),
                              'source' => $source->shortName);
 }
+
+header('Content-Type: application/json');
 echo json_encode($resp);
 
 ?>

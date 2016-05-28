@@ -21,9 +21,11 @@ foreach ($lexems as $l) {
     'id' => $l->id,
     'text' => (string)$l,
     'consistentAccent' => $l->consistentAccent,
-    'hasParadigm' => !$l->hasModelType('T'),
+    'hasParadigm' => $l->hasParadigm(),
   ];
 }
+
+header('Content-Type: application/json');
 print json_encode($resp);
 
 ?>

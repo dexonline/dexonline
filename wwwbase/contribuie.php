@@ -2,7 +2,7 @@
 require_once("../phplib/util.php");
 util_assertNotMirror();
 
-$lexemIds = util_getRequestCsv('lexemIds');
+$lexemIds = util_getRequestParameter('lexemIds');
 $sourceId = util_getRequestParameter('source');
 $def = util_getRequestParameter('def');
 $sendButton = util_getRequestParameter('send');

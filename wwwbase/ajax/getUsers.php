@@ -30,4 +30,6 @@ foreach ($users as $u) {
   $resp['results'][] = ['id' => $u->id,
                         'text' => "{$u->nick} ({$u->name})"];
 }
+
+header('Content-Type: application/json');
 print json_encode($resp);

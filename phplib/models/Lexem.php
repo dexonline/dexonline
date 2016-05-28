@@ -84,6 +84,10 @@ class Lexem extends BaseObject implements DatedObject {
     return false;
   }
 
+  function hasParadigm() {
+    return !$this->hasModelType('T');
+  }
+
   function isLoc() {
     foreach ($this->getLexemModels() as $lm) {
       if ($lm->isLoc) {

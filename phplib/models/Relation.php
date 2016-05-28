@@ -32,7 +32,7 @@ class Relation extends BaseObject implements DatedObject {
     $results = array();
     foreach ($map as $type => $lexemIds) {
       if ($type) {
-        $results[$type] = Lexem::loadByIds(StringUtil::explode(',', $lexemIds));
+        $results[$type] = Lexem::loadByIds($lexemIds);
       }
     }
     return $results;

@@ -21,9 +21,15 @@ if ($usage == 'table') {
 
 foreach($lines as $line) {
   $row = Lexem::get_by_id($line->lexemeId);
-  $tags[] = array('id' => $line->id, 'label' => $line->label, 'textX' => $line->textXCoord,
-                  'textY' => $line->textYCoord, 'imgX' => $line->imgXCoord,
-                  'imgY' => $line->imgYCoord, 'lexeme' => !empty($row) ? $row->formUtf8General : '');
+  $tags[] = [
+    'id' => $line->id,
+    'label' => $line->label,
+    'textXCoord' => $line->textXCoord,
+    'textYCoord' => $line->textYCoord,
+    'imgXCoord' => $line->imgXCoord,
+    'imgYCoord' => $line->imgYCoord,
+    'lexeme' => !empty($row) ? $row->formUtf8General : '',
+  ];
 }
 
 if($usage == 'table') {

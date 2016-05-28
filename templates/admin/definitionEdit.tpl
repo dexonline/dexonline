@@ -18,7 +18,7 @@
     {if $homonyms}
       <img src="{$imgRoot}/icons/exclamation.png" alt="warning"/>
       Omonim(e):
-      {foreach from=$homonyms item=h}
+      {foreach $homonyms as $h}
         &nbsp;
         {include file="bits/lexemLink.tpl" lexem=$h}
         <span class="associateHomonym">
@@ -31,7 +31,14 @@
       <tr>
         <td>Lexeme:</td>
         <td>
-          <input id="lexemIds" name="lexemIds" value="{','|implode:$lexemIds}" type="text"/>
+          <select id="lexemIds" name="lexemIds[]" style="width: 100%" multiple>
+            {foreach $lexemIds as $l}
+              <option value="{$l}" selected></option>
+            {/foreach}
+            {foreach $homonyms as $h}
+              <option value="{$h->id}"></option>
+            {/foreach}
+          </select>
 
           <span class="tooltip2" title="Lexemele colorate cu roșu au accent sau paradigmă lipsă.">&nbsp;</span>
 

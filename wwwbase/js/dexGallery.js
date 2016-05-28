@@ -48,16 +48,16 @@ function drawOnCanvas(visualId) {
     data = JSON.parse(data);
     var widthScale = parseInt(canvas.attr('width')) / data.dims.width,
         heightScale = parseInt(canvas.attr('height')) / data.dims.height,
-        word = window.location.pathname.replace('/definitie/', '');
+        word = $('input[name="cuv"]').val();
 
     for(var i = 0; i < data.tags.length; i++) {
-      data.tags[i].textX *= widthScale;
-      data.tags[i].imgX *= widthScale;
-      data.tags[i].textY *= heightScale;
-      data.tags[i].imgY *= heightScale;
+      data.tags[i].textXCoord *= widthScale;
+      data.tags[i].imgXCoord *= widthScale;
+      data.tags[i].textYCoord *= heightScale;
+      data.tags[i].imgYCoord *= heightScale;
 
-      // console.log(data.tags[i].lexeme);
-      // console.log(word);
+      console.log(data.tags[i].lexeme);
+      console.log(word);
 
       colorText = (data.tags[i].lexeme == decodeURI(word) ) ? '#F00' : '#000';
 
@@ -85,7 +85,7 @@ function drawTag(canvas, tagNo, tagData, colorText) {
     fontFamily: 'Arial',
     text: tagData.label,
     maxWidth: tagNameMaxWidth,
-    x: tagData.textX, y: tagData.textY
+    x: tagData.textXCoord, y: tagData.textYCoord
   })
 
   // Draws the line between the two points
@@ -95,8 +95,8 @@ function drawTag(canvas, tagNo, tagData, colorText) {
     groups: ['Tags'],
     strokeStyle: colorText,
     strokeWidth: 2,
-    x1: tagData.textX, y1: tagData.textY,
-    x2: tagData.imgX, y2: tagData.imgY
+    x1: tagData.textXCoord, y1: tagData.textYCoord,
+    x2: tagData.imgXCoord, y2: tagData.imgYCoord
   })
 
   // Draws a rectangle that has the dimensions of the dummy text + tagNamePadding
@@ -106,7 +106,7 @@ function drawTag(canvas, tagNo, tagData, colorText) {
     groups: ['TagsBackground'],
     fromCenter: true,
     fillStyle: '#fff',
-    x: tagData.textX, y: tagData.textY,
+    x: tagData.textXCoord, y: tagData.textYCoord,
     width: canvas.measureText('dummyText' + tagNo).width + tagNamePadding,
     height: canvas.measureText('dummyText' + tagNo).height + tagNamePadding
   })
@@ -123,7 +123,7 @@ function drawTag(canvas, tagNo, tagData, colorText) {
     fontFamily: 'Arial',
     text: tagData.label,
     maxWidth: tagNameMaxWidth,
-    x: tagData.textX, y: tagData.textY,
+    x: tagData.textXCoord, y: tagData.textYCoord,
     cursors: {
       mouseover: 'pointer'
     },

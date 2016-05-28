@@ -5,6 +5,9 @@ util_assertNotMirror();
 
 handleLexemActions();
 
+// We get some data as JSON because it is 2-dimensional (a list of lists)
+// and PHP cannot parse the form data correctly.
+
 // Lexem parameters
 $lexemId = util_getRequestParameter('lexemId');
 $lexemForm = util_getRequestParameter('lexemForm');
@@ -14,7 +17,7 @@ $lexemComment = util_getRequestParameter('lexemComment');
 $needsAccent = util_getBoolean('needsAccent');
 $hyphenations = util_getRequestParameter('hyphenations');
 $pronunciations = util_getRequestParameter('pronunciations');
-$variantIds = util_getRequestCsv('variantIds');
+$variantIds = util_getRequestParameter('variantIds');
 $variantOfId = util_getRequestParameter('variantOfId');
 $structStatus = util_getRequestIntParameter('structStatus');
 $structuristId = util_getRequestIntParameter('structuristId');
@@ -24,7 +27,8 @@ $jsonMeanings = util_getRequestParameter('jsonMeanings');
 $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
 $restriction = util_getRequestParameter('restriction');
-$sourceIds = util_getRequestParameter('lexemSourceIds');
+$jsonSourceIds = util_getRequestParameter('jsonSourceIds');
+$sourceIds = json_decode($jsonSourceIds);
 $lmTags = util_getRequestParameter('lmTags');
 $isLoc = util_getRequestParameter('isLoc');
 
@@ -122,7 +126,6 @@ SmartyWrap::assign('homonyms', Model::factory('Lexem')->where('formNoAccent', $l
 SmartyWrap::assign('tags', $tags);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
 SmartyWrap::assign('models', $models);
-SmartyWrap::assign('jsonSources', Source::getJson());
 SmartyWrap::assign('modelsT', FlexModel::loadByType('T'));
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('structStatusNames', Lexem::$STRUCT_STATUS_NAMES);
@@ -160,8 +163,8 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   }
 
   // Create LexemModels and LexemSources
-  $lexemModels = array();
-  for ($i = 1; $i < count($modelType); $i++) {
+  $lexemModels = [];
+  for ($i = 0; $i < count($modelType); $i++) {
     $lm = Model::factory('LexemModel')->create();
     $lm->lexemId = $lexem->id;
     $lm->setLexem($lexem); // Otherwise it will reload the original
@@ -174,12 +177,10 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
     $lm->generateInflectedFormMap();
 
     $lexemSources = [];
-    if ($sourceIds[$i]) {
-      foreach (explode(',', $sourceIds[$i]) as $sourceId) {
-        $ls = Model::factory('LexemSource')->create();
-        $ls->sourceId = $sourceId;
-        $lexemSources[] = $ls;
-      }
+    foreach ($sourceIds[$i] as $sourceId) {
+      $ls = Model::factory('LexemSource')->create();
+      $ls->sourceId = $sourceId;
+      $lexemSources[] = $ls;
     }
     $lm->setLexemSources($lexemSources);
 
@@ -325,7 +326,7 @@ function goodForVariantJson($meanings) {
   }
 
   $m = $meanings[0];
-  if (!$m->sourceIds || $m->internalRep || $m->internalEtymology || $m->internalComment) {
+  if (empty($m->sourceIds) || $m->internalRep || $m->internalEtymology || $m->internalComment) {
     return false;
   }
 

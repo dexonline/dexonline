@@ -69,8 +69,8 @@ class Meaning extends BaseObject implements DatedObject {
       $m->htmlComment = AdminStringUtil::htmlize($m->internalComment, 0);
       $row['meaning'] = $m;
 
-      $row['sources'] = Source::loadByIds(StringUtil::explode(',', $tuple->sourceIds));
-      $row['tags'] = Tag::loadByIds(StringUtil::explode(',', $tuple->tagIds));
+      $row['sources'] = Source::loadByIds($tuple->sourceIds);
+      $row['tags'] = Tag::loadByIds($tuple->tagIds);
       $row['relations'] = Relation::loadRelatedLexems($tuple->relationIds);
       $row['children'] = array();
 
@@ -108,13 +108,10 @@ class Meaning extends BaseObject implements DatedObject {
       $m->save();
       $meaningStack[$tuple->level] = $m->id;
 
-      $sourceIds = StringUtil::explode(',', $tuple->sourceIds);
-      MeaningSource::updateList(array('meaningId' => $m->id), 'sourceId', $sourceIds);
-      $tagIds = StringUtil::explode(',', $tuple->tagIds);
-      MeaningTag::updateList(array('meaningId' => $m->id), 'tagId', $tagIds);
-      foreach ($tuple->relationIds as $type => $lexemIdString) {
+      MeaningSource::updateList(array('meaningId' => $m->id), 'sourceId', $tuple->sourceIds);
+      MeaningTag::updateList(array('meaningId' => $m->id), 'tagId', $tuple->tagIds);
+      foreach ($tuple->relationIds as $type => $lexemIds) {
         if ($type) {
-          $lexemIds = StringUtil::explode(',', $lexemIdString);
           Relation::updateList(array('meaningId' => $m->id, 'type' => $type), 'lexemId', $lexemIds);
         }
       }

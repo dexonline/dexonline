@@ -20,7 +20,11 @@
       <tr>
         <td><p class="labelContribute">Cuvântul definit:</p></td>
         <td>
-          <input id="lexemIds" name="lexemIds" value="{','|implode:$lexemIds}" type="text"/>
+          <select id="lexemIds" name="lexemIds[]" style="width: 100%" multiple>
+            {foreach $lexemIds as $l}
+              <option value="{$l}" selected></option>
+            {/foreach}
+          </select>
         </td>
       </tr>
 

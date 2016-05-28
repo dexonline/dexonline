@@ -25,13 +25,13 @@
     Navigare rapidă:
 
     <form class="inline" action="lexemEdit.php" method="get">
-      <input id="lexemId" type="text" name="lexemId"/>
+      <select id="lexemId" name="lexemId"></select>
     </form>
 
     sau
 
     <form class="inline" action="definitionEdit.php" method="get">
-      <input id="definitionId" type="text" name="definitionId"/>
+      <select id="definitionId" name="definitionId"></select>
     </form>
     <br/><br/>
 
@@ -83,7 +83,7 @@
       &nbsp; &nbsp; &nbsp; &nbsp;
       structurare: {include file="bits/structStatus.tpl" canEdit=true anyOption=true}
       &nbsp;
-      structurist: <input id="structuristId" name="structuristId" type="text">
+      structurist: <select id="structuristId" name="structuristId"></select>
       &nbsp;
       trimise de: <input type="text" name="nick" size="10" value=""/>
       <input type="submit" name="searchButton" value="Caută">

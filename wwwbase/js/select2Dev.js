@@ -1,57 +1,102 @@
 /* Custom code built on top of select2.min.js */
 
-struct_lexemAjax = {
-  data: function(term, page) { return { term: term }; },
-  dataType: 'json',
-  results: function(data, page) { return data; }, 
-  url: wwwRoot + 'ajax/getLexems.php',
-};
+$.fn.select2.defaults.set('language', 'ro');
 
-struct_modelAjax = {
-  data: function(term, page) { return { term: term }; },
-  dataType: 'json',
-  results: function(data, page) { return data; }, 
-  url: wwwRoot + 'ajax/getModels.php',
-};
+/**
+ * Resolves a select element whose <option>s contain only IDs.
+ * Fetches the display value and possibly other attributes.
+ * obj = jQuery object
+ * url = Ajax URL used to resolve IDs to objects
+ **/
+function resolveSelect(obj, url) {
+  var values = [];
+  obj.find('option').each(function() {
+    values.push($(this).val());
+  });
 
-struct_definitionAjax = {
-  data: function(term, page) { return { term: term }; },
-  dataType: 'json',
-  results: function(data, page) { return data; }, 
-  url: wwwRoot + 'ajax/wotdGetDefinitions.php',
-};
+  return $.ajax({
+    url: wwwRoot + url + '?q=' + JSON.stringify(values),
+  }).done(function(data) {
+    for (var i = 0; i < data.length; i++) {
+      var o = obj.find('option').eq(i);
+      o.html(data[i].text);
+      // Convert any properties besides id and text to HTML5 data attributes
+      for (var prop in data[i]) {
+        if (prop != 'id' && prop != 'text') {
+          o.data(prop, data[i][prop]);
+        }
+      }
+    }
+  });
+}
+
+/**
+ * Builds a Deferred around resolveSelect() that runs when all the objects are initialized.
+ **/
+function resolveSelectDeferred(sel, url) {
+  var deferreds = [];
+
+  $(sel).each(function() {
+    var obj = $(this);
+    deferreds.push(
+      resolveSelect(obj, url)
+    );
+  });
+
+  return $.when.apply($, deferreds);
+}
+
+/**
+ * Initialize select2 objects whose <option>s contain only IDs.
+ * sel = CSS selector
+ * url = Ajax URL used to resolve IDs to objects
+ * options = options passed to select2
+ *
+ * Returns a Deferred object that runs when all objects are initialized.
+ **/
+function initSelect2(sel, url, options) {
+  return resolveSelectDeferred(sel, url)
+    .done(function() {
+      $(sel).select2(options);
+    });
+}
+
+/**
+ * Refresh select2 objects whose <option>s contain only IDs.
+ * sel = CSS selector
+ * url = Ajax URL used to resolve IDs to objects
+ **/
+function refreshSelect2(sel, url) {
+  return resolveSelectDeferred(sel, url)
+    .done(function() {
+      $(sel).trigger('change');
+    });
+}
 
 function createUserAjaxStruct(priv = 0) {
   return {
-    data: function(term) {
+    data: function(params) {
       return {
-        term: term,
+        term: params.term,
         priv: priv,
       };
     },
-    dataType: 'json',
-    results: function(data, page) { return data; }, 
     url: wwwRoot + 'ajax/getUsers.php',
   };
 }
 
-function contribInit() {
-  $('#lexemIds').select2({
-    ajax: struct_lexemAjax,
-    createSearchChoice: allowNewLexems,
-    formatInputTooShort: function () { return 'Vă rugăm să introduceți minim un caracter'; },
-    formatSearching: function () { return 'Căutare...'; },
-    initSelection: select2InitSelectionAjax,
-    minimumInputLength: 1,
-    multiple: true,
-    tokenSeparators: [',', '\\', '@'],
-    width: '600px',
-  }).select2('focus');
-}
+function allowNewLexems(data) {
+  return {
+    id: '@' + data.term,
+    text: data.term + ' (cuvânt nou)',
+  };
+};
 
 function adminIndexInit() {
   $('#lexemId').select2({
-    ajax: struct_lexemAjax,
+    ajax: {
+      url: wwwRoot + 'ajax/getLexems.php',
+    },
     minimumInputLength: 1,
     placeholder: 'caută un lexem',
     width: '300px',
@@ -60,8 +105,8 @@ function adminIndexInit() {
   });
 
   $('#definitionId').select2({
-    ajax: struct_definitionAjax,
-    formatResult: function(item) {
+    ajax: { url: wwwRoot + 'ajax/wotdGetDefinitions.php', },
+    templateResult: function(item) {
       return item.text + ' (' + item.source + ') [' + item.id + ']';
     },
     minimumInputLength: 1,
@@ -74,114 +119,8 @@ function adminIndexInit() {
   $('#structuristId').select2({
     ajax: createUserAjaxStruct(PRIV_STRUCT),
     allowClear: true,
-    initSelection: select2InitSelectionAjaxUserSingle,
     minimumInputLength: 1,
     placeholder: '(opțional)',
-    width: '173px',
+    width: '250px',
   });
 }
-
-function visualTagInit() {
-  $('#lexemId').select2({
-    ajax: struct_lexemAjax,
-    initSelection: select2InitSelectionAjaxSingle,
-    minimumInputLength: 1,
-    placeholder: 'caută un lexem',
-    width: '300px',
-  });
-  $('#tagLexemId').select2({
-    ajax: struct_lexemAjax,
-    initSelection: select2InitSelectionAjaxSingle,
-    minimumInputLength: 1,
-    placeholder: 'caută un lexem',
-    width: '300px',
-  }).on('change', function(e) {
-    if (!$('#tagLabel').val()) {
-      var displayValue = $(this).select2('data').text;
-      $('#tagLabel').val(displayValue);
-    }
-  });
-}
-
-function structIndexInit() {
-  $('#structLexemFinder').select2({
-    ajax: struct_lexemAjax,
-    minimumInputLength: 1,
-    placeholder: 'caută un lexem...',
-    width: '300px',
-  });
-}
-
-function allowNewLexems(term, data) {
-  if (!data.length || data[0].text != term) {
-    return {
-      id: '@' + term,
-      text: term + ' (cuvânt nou)',
-      consistentAccent: 1,
-      hasParadigm: 1,
-    };
-  }
-};
-
-function select2InitSelection(element, callback) {
-  var data = [];
-  $(element.val().split(',')).each(function () {
-    data.push({ id: this, text: this });
-  });
-  callback(data);
-}
-
-function select2InitSelectionAjaxSingle(element, callback) {
-  var id = $(element).val();
-  if (id) {
-    $.ajax(wwwRoot + 'ajax/getLexemById.php?id=' + id, {dataType: 'json'})
-      .done(function(data) {
-        callback(data);
-      });
-  }
-}
-
-function select2InitSelectionAjax(element, callback) {
-  var data = [];
-
-  $(element.val().split(',')).each(function (index, lexemId) {
-    $.ajax({
-      url: wwwRoot + 'ajax/getLexemById.php?id=' + this,
-      dataType: 'json',
-      success: function(result) {
-        data.push(result);
-      },
-      async: false,
-    });
-  });
-  callback(data);
-}
-
-function select2InitSelectionAjaxModel(element, callback) {
-  var data = [];
-
-  $(element.val().split(',')).each(function() {
-    $.ajax({
-      url: wwwRoot + 'ajax/getModels.php?exact=1&term=' + this,
-      dataType: 'json',
-      success: function(displayValue) {
-        var tuple = displayValue.results[0];
-        data.push(tuple);
-      },
-      async: false,
-    });
-  });
-  callback(data);
-}
-
-function select2InitSelectionAjaxUserSingle(element, callback) {
-  var id = $(element).val();
-  if (id) {
-    $.ajax(wwwRoot + 'ajax/getUsers.php?id=' + id, {dataType: 'json'})
-      .done(function(data) {
-        var rec = data.results[0];
-        callback(rec);
-      });
-  }
-}
-

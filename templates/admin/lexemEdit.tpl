@@ -10,7 +10,6 @@
   {assign var="searchResults" value=$searchResults|default:null}
 
   <script>
-   sourceMap = JSON.parse('{$jsonSources}');
    canEdit = { 'paradigm': {$canEdit.paradigm}, 'loc': {$canEdit.loc} };
   </script>
 
@@ -41,6 +40,7 @@
   <form action="lexemEdit.php" method="post">
     <input type="hidden" name="lexemId" value="{$lexem->id}">
     <input type="hidden" name="jsonMeanings" value="">
+    <input type="hidden" name="jsonSourceIds" value="">
     <input type="hidden" name="mergeLexemId" value="">
 
     {include file="admin/lexemEditActions.tpl"}
@@ -92,7 +92,11 @@
         <tr>  
           <td><label for="structuristId">structurist:</label></td>
           <td>
-            <input id="structuristId" name="structuristId" value="{$lexem->structuristId}" type="text">
+            <select id="structuristId" name="structuristId">
+              {if $lexem->structuristId}
+                <option value="{$lexem->structuristId}" selected></option>
+              {/if}
+            </select>
 
             <span class="tooltip2"
                   title="Structuristul este implicit utilizatorul care marchează structurarea ca „în lucru”.
@@ -128,7 +132,9 @@
         <tr>
           <td><label for="variantOfId">variantă a lui:</label></td>
           <td>
-            <input id="variantOfId" name="variantOfId" value="{$lexem->variantOfId}" type="text" {if !$canEdit.variants}readonly{/if}>
+            <select id="variantOfId" name="variantOfId" {if !$canEdit.variants}disabled{/if}>
+              <option value="{$lexem->variantOfId}"></option>
+            </select>
             <span class="tooltip2"
                   title="Variantele nu pot avea sensuri, exemple, variante sau etimologii proprii. Ele pot avea pronunții și silabisiri proprii.">&nbsp;</span>
           </td>
@@ -137,7 +143,11 @@
         <tr>  
           <td><label for="variantIds">variante:</label></td>
           <td>
-            <input id="variantIds" name="variantIds" value="{','|implode:$variantIds}" type="text" {if !$canEdit.variants}readonly{/if}>
+            <select id="variantIds" name="variantIds[]" multiple {if !$canEdit.variants}disabled{/if}>
+              {foreach $variantIds as $id}
+                <option value="{$id}" selected></option>
+              {/foreach}
+            </select>
             <span class="tooltip2"
                   title="Variantele nu pot avea sensuri, exemple, variante sau etimologii proprii. Ele pot avea pronunții și silabisiri proprii.">&nbsp;</span>
           </td>
@@ -234,19 +244,19 @@
           <textarea id="editorComment" rows="3" cols="10" disabled placeholder="comentariu..."></textarea>
 
           <div>
-            <label for="editorSources">surse:</label></td>
-          <select id="editorSources" multiple="multiple">
-            {foreach from=$sources item=s}
-              <option value="{$s->id}">{$s->shortName}</option>
-            {/foreach}
-          </select>
+            <label for="editorSources">surse:</label>
+            <select id="editorSources" multiple disabled>
+              {foreach from=$sources item=s}
+                <option value="{$s->id}">{$s->shortName}</option>
+              {/foreach}
+            </select>
           </div>
 
           <div>
             <label for="editorTags">etichete:</label>
-            <select id="editorTags" multiple="multiple">
-              {foreach from=$tags item=mt}
-                <option value="{$mt->id}">{$mt->value}</option>
+            <select id="editorTags" multiple disabled>
+              {foreach $tags as $t}
+                <option value="{$t->id}">{$t->value}</option>
               {/foreach}
             </select>
           </div>
@@ -260,16 +270,16 @@
               <option value="4" title="augmentative">augmentative</option>
             </select>
             <span class="relationWrapper" data-type="1">
-              <input class="editorRelation" data-placeholder="adaugă sinonime..." type="hidden">
+              <select class="editorRelation" multiple disabled></select>
             </span>
             <span class="relationWrapper" data-type="2">
-              <input class="editorRelation" data-placeholder="adaugă antonime..." type="hidden">
+              <select class="editorRelation" multiple disabled></select>
             </span>
             <span class="relationWrapper" data-type="3">
-              <input class="editorRelation" data-placeholder="adaugă diminutive..." type="hidden">
+              <select class="editorRelation" multiple disabled></select>
             </span>
             <span class="relationWrapper" data-type="4">
-              <input class="editorRelation" data-placeholder="adaugă augmentative..." type="hidden">
+              <select class="editorRelation" multiple disabled></select>
             </span>
           </div>
 
@@ -332,7 +342,8 @@
 
       {if $canEdit.general}
         <div class="addDefinition">
-          <input type="text" id="associateDefinitionId" name="associateDefinitionId">
+          <select id="associateDefinitionId" name="associateDefinitionId">
+          </select>
           <input type="submit" name="associateDefinition" value="Asociază">
         </div>
       {/if}
@@ -348,8 +359,4 @@
       {/if}
     </div>
   </form>
-
-  <script>
-   $(lexemEditInit);
-  </script>
 {/block}

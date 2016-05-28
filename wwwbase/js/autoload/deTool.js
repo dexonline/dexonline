@@ -1,37 +1,51 @@
 $(function() {
   var stem = null;
+  var stemOption = null;
 
   var lexemStruct = {
-    ajax: struct_lexemAjax,
+    ajax: {
+      url: wwwRoot + 'ajax/getLexems.php',
+    },
     allowClear: true,
-    createSearchChoice: allowNewLexems,
-    initSelection: select2InitSelectionAjaxSingle,
+    createTag: allowNewLexems,
     minimumInputLength: 1,
     placeholder: 'caută un lexem',
-    width: '300px',
+    tags: true,
   };
 
   var modelStruct = {
-    ajax: struct_modelAjax,
-    initSelection: select2InitSelectionAjaxModel,
+    ajax: {
+      url: wwwRoot + 'ajax/getModelsByCodes.php',
+      data: function(params) {
+        // convert the request into the format expected server-side
+        var arr = [params.term];
+        return {
+          q: JSON.stringify(arr),
+          fuzzy: true,
+        };
+      },
+      processResults: function (data, params) {
+        // parse the results into the format expected by select2
+        return {
+          results: data,
+        }
+      },
+    },
     minimumInputLength: 1,
-    multiple: true,
     placeholder: 'caută un model',
-    width: '300px',
   };
 
   function init() {
-    $('.lexem')
-      .select2(lexemStruct)
-      .change(lexemChange);
-    $('.models')
-      .select2(modelStruct)
-      .change(modelChange);
+    initSelect2('.lexem', 'ajax/getLexemsById.php', lexemStruct);
+    initSelect2('.models', 'ajax/getModelsByCodes.php', modelStruct);
+    $('.lexem').change(lexemChange);
+    $('.models').change(modelChange);
     $('.shortcutI3').click(shortcutI3);
     $('#addRow').click(addRow);
+    $('#butTest, #butSave').click(endEdit);
+
     stem = $('#stem').detach().removeAttr('id');
-    stem.find('.lexem').select2('destroy');
-    stem.find('.models').select2('destroy');
+    stemOption = stem.find('.models option').detach();
   }
 
   function addRow() {
@@ -41,48 +55,67 @@ $(function() {
     return false;
   }
 
+  // Refresh the model list
   function lexemChange() {
-    // Refresh the model list
     var lexemId = $(this).val();
-    var data = [];
-    $.ajax({
-      url: wwwRoot + 'ajax/getModelsByLexemId.php?id=' + lexemId,
-      dataType: 'json',
-      async: false,
-      success: function(models) {
-        $.each(models, function(index, t) {
-          var id = t.modelType + t.modelNumber;
-          var text = t.modelType + t.modelNumber + ' (' + t.exponent + ')';
-          data.push({ id: id, text: text });
-        });
-      },
-    });
     var m = $(this).closest('tr').find('.models');
-    if (data.length || !lexemId) {
-      // Existing lexem entered or lexem deleted
-      m.select2('data', data);
+    m.html('');
+    
+    if (lexemId == null) {
+      // lexem field cleared
+      m.trigger('change');
+    } else if (lexemId.startsWith('@')) {
+      // new lexem form
+      m.append(stemOption).trigger('change');
     } else {
-      // New lexem entered
-      m.select2('val', ['I3']);
+      $.ajax({
+        url: wwwRoot + 'ajax/getModelsByLexemId.php?id=' + lexemId,
+        success: function(models) {
+          $.each(models, function(index, t) {
+            var id = t.modelType + t.modelNumber;
+            var text = t.modelType + t.modelNumber + ' (' + t.exponent + ')';
+            m.append(new Option(text, id, true, true));
+          });
+          m.trigger('change');
+        },
+      });
     }
 
-    // Disable the save button
     $('#butSave').prop('disabled', true);
   }
 
   function modelChange() {
-    // Disable the save button
     $('#butSave').prop('disabled', true);
   }
 
   function shortcutI3() {
+    console.log('here');
     var m = $(this).closest('tr').find('.models');
-    m.select2('val', ['I3']);
+    m.html('').append(stemOption).trigger('change');
 
-    // Disable the save button
     $('#butSave').prop('disabled', true);
 
     return false;
+  }
+
+  function endEdit() {
+    // create an array of arrays of model codes
+    var models = [];
+    $('.models').each(function() {
+      var list = [];
+      $(this).find('option:selected').each(function() {
+        list.push($(this).val());
+      });
+      models.push(list);
+    });
+    $('input[name="jsonModels"]').val(JSON.stringify(models));
+
+    // make sure even empty lexemIds are being submitted
+    $('.lexem').each(function() {
+      if ($(this).val() == null) {
+        $(this).append(new Option(0, 0, true, true));
+      }
+    });
   }
 
   init();

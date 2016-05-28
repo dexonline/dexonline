@@ -29,7 +29,11 @@
       </tr>
       <tr>
         <td>utilizator</td>
-        <td><input type="text" id="userId" name="userId" value="{$p->userId}"></td>
+        <td>
+          <select id="userId" name="userId">
+            <option value="{$p->userId}" selected></option>
+          </select>
+        </td>
       </tr>
       <tr>
         <td>sursă (opțional)</td>

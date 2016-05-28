@@ -19,6 +19,7 @@
 
   <form action="deTool.php" method="post">
     <input type="hidden" name="definitionId" value="{$def->id}">
+    <input type="hidden" name="jsonModels" value="">
 
     <table id="lexemsTable">
       <tr>
@@ -28,10 +29,13 @@
       </tr>
       <tr id="stem">
         <td>
-          <input class="lexem" type="text" name="lexemId[]" value="">
+          <select class="lexem" name="lexemId[]" style="width: 300px;">
+          </select>
         </td>
         <td>
-          <input class="models" type="text" name="models[]" value="">
+          <select class="models" name="models[]" style="width: 500px;" multiple>
+            <option value="I3" selected>I3 (nume proprii)</option>
+          </select>
         </td>
         <td>
           <a class="shortcutI3" href="#">I3</a>
@@ -40,10 +44,16 @@
       {foreach from=$lexemIds item=l key=i}
         <tr>
           <td>
-            <input class="lexem" type="text" name="lexemId[]" value="{$l}">
+            <select class="lexem" name="lexemId[]" style="width: 300px;">
+              <option value="{$l}" selected></option>
+            </select>
           </td>
           <td>
-            <input class="models" type="text" name="models[]" value="{$models[$i]}">
+            <select class="models" name="models[]" style="width: 500px;" multiple>
+              {foreach $models[$i] as $m}
+                <option value="{$m}" selected></option>
+              {/foreach}
+            </select>
           </td>
         <td>
           <a class="shortcutI3" href="#">I3</a>
@@ -62,7 +72,7 @@
     <br><br>
 
     <input type="submit" name="butPrev" value="« anterioara">
-    <input type="submit" name="butTest" value="testează">
+    <input id="butTest" type="submit" name="butTest" value="testează">
     <input id="butSave" type="submit" name="butSave" value="salvează" {if !$passedTests}disabled{/if}>
     <input type="submit" name="butNext" value="următoarea »">
   </form>

@@ -5,7 +5,15 @@ $(function() {
   function init() {
     window.setInterval(updatePreview, 5000);
     $('#defTextarea').on('input propertychange', defChanged);
-    contribInit();
+
+    initSelect2('#lexemIds', 'ajax/getLexemsById.php', {
+      ajax: { url: wwwRoot + 'ajax/getLexems.php' },
+      createTag: allowNewLexems,
+      minimumInputLength: 1,
+      tags: true,
+    }).done(function() {
+      $('#lexemIds').select2('focus');
+    });
   }
 
   function defChanged() {

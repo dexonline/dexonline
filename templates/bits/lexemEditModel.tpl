@@ -1,5 +1,5 @@
 {assign var="readonly" value=!$canEdit.loc && $lm->isLoc}
-<div class="lexemModelTab" id="lmTab_{$id}">
+<div id="lmTab_{$id}">
   <table class="paradigmFields">
     <tr>
       <td>model:</td>
@@ -16,7 +16,7 @@
             <input type="hidden" name="modelType[]" value="{$lm->modelType}">
             <input type="hidden" name="modelNumber[]" value="{$lm->modelNumber}">
           {else}
-            <input class="similarLexem" type="text">
+            <select class="similarLexem"></select>
           {/if}
         </span>
       </td>
@@ -33,7 +33,11 @@
     <tr>
       <td>surse:</td>
       <td>
-        <input type="text" class="lexemSourceIds" name="lexemSourceIds[]" value="{","|implode:$lm->getSourceIds()}" {if !$canEdit.sources}readonly{/if}>
+        <select class="lexemSourceIds" name="lexemSourceIds[]" multiple {if !$canEdit.sources}disabled{/if}>
+          {foreach $lm->getSourceIds() as $lsId}
+            <option value="{$lsId}" selected></option>
+          {/foreach}
+        </select>
       </td>
     </tr>
 

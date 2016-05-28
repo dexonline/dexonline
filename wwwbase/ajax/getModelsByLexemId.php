@@ -20,6 +20,8 @@ foreach ($data as $rec) {
                 'restriction' => $rec->restriction,
                 'exponent' => $rec->exponent];
 }
+
+header('Content-Type: application/json');
 print json_encode($results);
 
 ?>

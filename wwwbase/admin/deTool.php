@@ -13,9 +13,13 @@ $butSave = util_getRequestParameter('butSave');
 $butPrev = util_getRequestParameter('butPrev');
 $butNext = util_getRequestParameter('butNext');
 $lexemIds = util_getRequestParameter('lexemId');
-$models = util_getRequestParameter('models');
 $capitalize = util_getBoolean('capitalize');
 $deleteOrphans = util_getBoolean('deleteOrphans');
+
+// We need to save model info as JSON because it is 2-dimensional
+// (a list of lists of models) and PHP cannot parse the form data correctly.
+$jsonModels = util_getRequestParameter('jsonModels');
+$models = json_decode($jsonModels);
 
 if ($definitionId) {
   $def = Definition::get_by_id($definitionId);
@@ -106,7 +110,7 @@ if ($butSave) {
       // Create the new set of lexem models
       $lms = [];
       $needsCaps = false;
-      foreach (explode(',', $models[$i]) as $m) {
+      foreach ($models[$i] as $m) {
         $model = Model::factory('ModelType')
                ->select('code')
                ->select('number')
@@ -171,8 +175,7 @@ if ($butSave) {
 
       if ($lid) {
         if (StringUtil::startsWith($lid, '@')) {
-          $lexem = Model::factory('Lexem')->create();
-          $lexem->form = substr($lid, 1);
+          $lexem = Lexem::create(substr($lid, 1));
         } else {
           $lexem = Lexem::get_by_id($lid);
         }
@@ -183,7 +186,7 @@ if ($butSave) {
         }
 
         // Check that the lexem works with every model
-        foreach (explode(',', $models[$i]) as $m) {
+        foreach ($models[$i] as $m) {
           $model = Model::factory('ModelType')
                  ->select('code')
                  ->select('number')
@@ -214,9 +217,9 @@ if ($butSave) {
     foreach($l->getLexemModels() as $lm) {
       $m[] = "{$lm->modelType}{$lm->modelNumber}";
     }
-    $models[] = implode(',', $m);
+    $models[] = $m;
   }
-  
+
   SmartyWrap::assign('lexemIds', $dblIds);
   SmartyWrap::assign('models', $models);
 }
@@ -254,12 +257,11 @@ function prefixMatch($s, $prefixes) {
 // $models: comma-separated list of models
 // $lms: old lexem models
 function sameModels($models, $lms) {
-  $parts = explode(',', $models);
-  if (count($parts) != count($lms)) {
+  if (count($models) != count($lms)) {
     return false;
   }
   foreach ($lms as $i => $lm) {
-    if ($parts[$i] != "{$lm->modelType}{$lm->modelNumber}") {
+    if ($models[$i] != "{$lm->modelType}{$lm->modelNumber}") {
       return false;
     }
   }

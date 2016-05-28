@@ -1,29 +1,37 @@
-function beginEdit(id) {
+function beginEdit(id, op) {
+  var rowId = $('#wotdGrid').jqGrid('getGridParam', 'selrow');
+
   $('#displayDate').datepicker({ dateFormat: 'yy-mm-dd' });
   $('#displayDate')[0].style.width = '400px';
 
+  $('#lexicon').html('');
+  if (op == 'edit') {
+    var lexicon = $('#wotdGrid').getCell(rowId, 'lexicon');
+    console.log(lexicon);
+    $('#lexicon').append(new Option(lexicon, lexicon, true, true));
+  }
   $('#lexicon').select2({
     ajax: {
-      data: function(term, page) { return { term: term }; },
-      results: function(data, page) { return data; },
       url: wwwRoot + 'ajax/wotdGetDefinitions.php',
     },
-    formatResult: function(item) {
+    templateResult: function(item) {
       return item.text + ' (' + item.source + ') [' + item.id + ']';
     },
-    initSelection: copyInitSelection,
     minimumInputLength: 1,
     placeholder: 'caută un cuvânt...',
     width: '410px',
   }).on('change', function(e) {
-    var data = $('#lexicon').select2('data');
+    var data = $('#lexicon').select2('data')[0];
     $('#definitionId').val(data.id);
     $('#lexicon').val(data.lexicon);
   });
-  $('#lexicon').select2('readonly', $('#lexicon').val() != '');
+  $('#lexicon').prop('disabled', op == 'edit');
 
   $('#priority')[0].style.width = '400px';
   $('#description')[0].style.width = '400px';
+
+  // TODO the staticServerImageList is getting big
+  $('#image').html('');
   $('#image').select2({
     allowClear: true,
     data: staticServerImageList,
@@ -31,11 +39,6 @@ function beginEdit(id) {
     placeholder: 'caută o imagine...',
     width: '410px',
   });
-}
-
-function copyInitSelection(element, callback) {
-  var data = {id: element.val(), text: element.val()};
-  callback(data);
 }
 
 function endEdit(data) {
@@ -52,7 +55,7 @@ function checkServerResponse(response, postData) {
 }
 
 function getStaticServerImageList() {
-  var data = [];
+  var data = [{id: '', text: ''}];
 
   $.get("https://dexonline.ro/static/fileList.txt", function(contents) {
     var lines = contents.split('\n');
@@ -71,7 +74,7 @@ function getStaticServerImageList() {
   return data;
 }
 
-jQuery().ready(function (){
+$(function (){
   var editOptions = {
     reloadAfterSubmit: true,
     closeAfterEdit: true,
@@ -114,14 +117,14 @@ jQuery().ready(function (){
     datatype: 'xml',
     colNames: ['Cuvînt', 'Sursă', 'Definiție', 'Data afișării', 'Adăugată de', 'Pr.', 'Tipul resursei', 'Imagine', 'Descriere', 'ID-ul definiției'],
     colModel: [
-      {name: 'lexicon', index: 'lexicon', editable: true, width: lexWidth},
+      {name: 'lexicon', index: 'lexicon', editable: true, edittype: 'select', editoptions: {value: 'x:x'}, width: lexWidth},
       {name: 'source', index: 'shortName', width: sourceWidth},
       {name: 'htmlRep', index: 'htmlRep', width: htmlWidth},
       {name: 'displayDate', index: 'displayDate', width: dateWidth, editable: true},
       {name: 'name', index: 'u.name', width: userWidth},
       {name: 'priority', index: 'priority', editable: true, width: priorWidth},
       {name: 'refType', index: 'refType', editable: true, edittype: 'select', editoptions: {value: 'Definition:Definition'}, hidden: true},
-      {name: 'image', index: 'w.image', editable: true, width: imageWidth},
+      {name: 'image', index: 'w.image', editable: true, edittype: 'select', editoptions: {value: 'x:x'}, width: imageWidth},
       {name: 'description', index: 'description', editable: true, edittype: 'textarea', hidden: false, width: descWidth},
       {name: 'definitionId', index: 'definitionId', editable: true, hidden: true}
     ],

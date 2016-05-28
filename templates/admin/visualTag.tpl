@@ -13,10 +13,6 @@
   {include file="bits/prototypes.tpl"}
   <div id="jCropCanvas" class="imageHolder">
     <img id="jcrop" class="visualTagImg" src="{$cfg.static.url}/img/visual/{$visual->path}" alt="Imagine de etichetat"/>
-    <div id="selectionOptions">
-      <input id="x" type="hidden" size="4" name="x"/>
-      <input id="y" type="hidden" size="4" name="y"/>
-    </div>
   </div>
 
   <div id="tagOptions">
@@ -25,7 +21,9 @@
     <form class="inline" action="" method="post">
       <input id="visualId" type="hidden" name="id" value="{$visual->id}">
       Cuvânt asociat:
-      <input id="lexemId" type="text" name="lexemId" value="{$visual->lexemeId}">
+      <select id="lexemId" name="lexemId">
+        <option value="{$visual->lexemeId}" selected></option>
+      </select>
       <br>
       <input type="checkbox" id="revisedCheckbox" name="revised" value="1" {if $visual->revised}checked{/if}>
       <label for="revisedCheckbox">Etichetarea este completă</label>
@@ -38,7 +36,8 @@
     <form class="inline" action="" method="post">
       <input type="hidden" name="id" value="{$visual->id}">
       Cuvânt asociat:
-      <input id="tagLexemId" type="text" name="tagLexemId">
+      <select id="tagLexemId" name="tagLexemId">
+      </select>
       <br>
       Text de afișat:
       <input id="tagLabel" type="text" name="tagLabel">
@@ -74,11 +73,6 @@
     <table id="tagsGrid"></table>
     <div id="tagsPaging"></div>
   </div>
-
-  <script>
-   $(visualTagInit);
-   $(replaceSubmitEvent);
-  </script>
 
   <p class="missingImageError">
     Hopa! Au apărut probleme la încărcarea imaginii.<br/>

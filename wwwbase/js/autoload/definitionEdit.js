@@ -12,18 +12,14 @@ $(function() {
     similarRecord = JSON.parse(c);
     updateFields(similarRecord);
 
-    $('#lexemIds').select2({
-      ajax: struct_lexemAjax,
-      createSearchChoice: allowNewLexems,
-      escapeMarkup: function(m) { return m; },
-      initSelection: select2InitSelectionAjax,
-      formatSelection: formatLexemWithEditLink,
-      formatSelectionCssClass: formatLexemWithWarnings,
+    initSelect2('#lexemIds', 'ajax/getLexemsById.php', {
+      ajax: { url: wwwRoot + 'ajax/getLexems.php' },
+      createTag: allowNewLexems,
       minimumInputLength: 1,
-      multiple: true,
-      width: '600px',
+      tags: true,
+      templateSelection: formatLexemWithEditLink,
     });
-
+            
     $('.associateHomonymLink').click(associateHomonym);
     $('#lexemIds, #sourceDropDown').change(updateFieldsJson);
     $('#refreshButton').click(updateFieldsJson);
@@ -36,13 +32,12 @@ $(function() {
     }
   }
 
+  /* The option already exists in the select. Find it and make it selected. */
   function associateHomonym() {
     var lexemId = $(this).data('hid');
-    var values = $('#lexemIds').select2('val');
-    if (values.indexOf(lexemId) == -1) {
-      values.push(lexemId);
-      $('#lexemIds').select2('val', values);
-    }
+    var option = $('#lexemIds option[value="' + lexemId + '"]');
+    option.prop('selected', true);
+    $('#lexemIds').trigger('change');
     return false;
   }
 
@@ -93,21 +88,30 @@ $(function() {
     }
   }
 
+  /**
+   * The consistent accent / paradigm info propagates in two ways:
+   * - for initial elements, using HTML5 data attributes
+   * - for dynamically added elements, using json parameters
+   **/
   function formatLexemWithEditLink(lexem) {
+    var elementData = $(lexem.element).data();
+    var html;
+
     if (startsWith(lexem.id, '@')) {
       // don't show an edit link for soon-to-be created lexems
-      return lexem.text;
+      html = lexem.text;
     } else {
-      return lexem.text + ' <a class="select2Edit" href="lexemEdit.php?lexemId=' + lexem.id + '">&nbsp;</a>';
+      html = lexem.text + ' <a class="select2Edit" href="lexemEdit.php?lexemId=' + lexem.id + '">&nbsp;</a>';
     }
-  }
 
-  function formatLexemWithWarnings(lexem) {
     if ((lexem.consistentAccent == '0') ||
-        (('hasParadigm' in lexem) && (!lexem.hasParadigm))) {
-      return 'select2LexemWarnings';
+        (lexem.hasParadigm === false) ||
+        (elementData.consistentAccent === '0') ||
+        (elementData.hasParadigm === false)) {
+      return $('<span class="select2LexemWarnings">' + html + '</span>');
+    } else {
+      return $('<span>' + html + '</span>');
     }
-    return '';
   }
 
   function definitionCopyFromSimilar() {

@@ -47,7 +47,7 @@ if (!($d = Definition::get_by_id($definitionId))) {
 
 // Load request fields and buttons.
 $isOCR = util_getRequestParameter('isOCR');
-$lexemIds = util_getRequestCsv('lexemIds');
+$lexemIds = util_getRequestParameter('lexemIds');
 $sourceId = util_getRequestIntParameter('source');
 $similarSource = util_getBoolean('similarSource');
 $internalRep = util_getRequestParameter('internalRep');

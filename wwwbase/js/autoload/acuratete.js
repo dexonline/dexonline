@@ -1,13 +1,11 @@
 $(function() {
-  $('#userId').select2({
+  initSelect2('#userId', 'ajax/getUsersById.php', {
     ajax: createUserAjaxStruct(),
-    allowClear: true,
-    initSelection: select2InitSelectionAjaxUserSingle,
     minimumInputLength: 3,
-    width: '173px',
+    placeholder: '(opțional)',
+    width: '180px',
   });
-
-
+            
   $('#deleteButton').click(function() {
     return confirm('Confirmați ștergerea proiectului?');
   });

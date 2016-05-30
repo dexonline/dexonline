@@ -68,6 +68,13 @@ $(function() {
       }
     ]);
 
+    initSelect2('#entryId', 'ajax/getEntriesById.php', {
+      ajax: { url: wwwRoot + 'ajax/getEntries.php' },
+      allowClear: true,
+      minimumInputLength: 1,
+      width: '180px',
+    });
+
     initSelect2('#variantIds', 'ajax/getLexemsById.php', {
       ajax: { url: wwwRoot + 'ajax/getLexems.php' },
       minimumInputLength: 1,

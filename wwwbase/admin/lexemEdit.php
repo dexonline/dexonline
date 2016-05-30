@@ -17,6 +17,7 @@ $lexemComment = util_getRequestParameter('lexemComment');
 $needsAccent = util_getBoolean('needsAccent');
 $hyphenations = util_getRequestParameter('hyphenations');
 $pronunciations = util_getRequestParameter('pronunciations');
+$entryId = util_getRequestParameter('entryId');
 $variantIds = util_getRequestParameterWithDefault('variantIds', []);
 $variantOfId = util_getRequestParameter('variantOfId');
 $structStatus = util_getRequestIntParameter('structStatus');
@@ -41,8 +42,8 @@ $original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether ce
 
 if ($refreshLexem || $saveLexem) {
   populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment, $needsAccent, $hyphenations,
-           $pronunciations, $variantOfId, $structStatus, $structuristId, $modelType, $modelNumber, $restriction,
-           $lmTags, $isLoc, $sourceIds);
+           $pronunciations, $entryId, $variantOfId, $structStatus, $structuristId, $modelType, $modelNumber,
+           $restriction, $lmTags, $isLoc, $sourceIds);
   $meanings = json_decode($jsonMeanings);
 
   if (validate($lexem, $original, $variantIds, $meanings)) {
@@ -137,8 +138,8 @@ SmartyWrap::displayAdminPage('admin/lexemEdit.tpl');
 
 // Populate lexem fields from request parameters.
 function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment, $needsAccent, $hyphenations,
-                  $pronunciations, $variantOfId, $structStatus, $structuristId, $modelType, $modelNumber, $restriction,
-                  $lmTags, $isLoc, $sourceIds) {
+                  $pronunciations, $entryId, $variantOfId, $structStatus, $structuristId, $modelType, $modelNumber,
+                  $restriction, $lmTags, $isLoc, $sourceIds) {
   $lexem->form = AdminStringUtil::formatLexem($lexemForm);
   $lexem->formNoAccent = str_replace("'", '', $lexem->form);
   $lexem->number = $lexemNumber;
@@ -153,6 +154,7 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   $lexem->noAccent = !$needsAccent;
   $lexem->hyphenations = $hyphenations;
   $lexem->pronunciations = $pronunciations;
+  $lexem->entryId = $entryId;
   $lexem->variantOfId = $variantOfId ? $variantOfId : null;
   $lexem->structStatus = $structStatus;
   $lexem->structuristId = $structuristId;

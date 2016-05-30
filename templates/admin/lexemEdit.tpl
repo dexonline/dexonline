@@ -128,7 +128,18 @@
                                           plante, elementele de compunere etc.">&nbsp;</span>
           </td>
         </tr>
-        
+
+        <tr>
+          <td><label for="entryId">intrare:</label></td>
+          <td>
+            <select id="entryId" name="entryId">
+              {if $lexem->entryId}
+                <option value="{$lexem->entryId}"></option>
+              {/if}
+            </select>
+          </td>
+        </tr>
+
         <tr>
           <td><label for="variantOfId">variantă a lui:</label></td>
           <td>

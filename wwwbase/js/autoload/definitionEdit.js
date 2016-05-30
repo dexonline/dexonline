@@ -4,7 +4,6 @@ $(function() {
   similarRecord = [];
   var internalRep = $('#internalRep');
   var comment = $('#comment');
-  var tinymceInitialized = false;
 
   function init() {
     // Show/hide elements related to the similar source and definition
@@ -42,7 +41,6 @@ $(function() {
   }
 
   function updateFieldsJson() {
-    tinymce.triggerSave();
     var data = {
       definitionId: $('input[name="definitionId"]').val(),
       definitionInternalRep: internalRep.val(),
@@ -130,7 +128,7 @@ $(function() {
   }
 
   function tinymceToggle() {
-    if (!tinymceInitialized) {
+    if (!tinymce.activeEditor) {
       tinymce.init({
         content_css: '../styles/tinymce.css',
         entity_encoding: 'raw',
@@ -139,16 +137,13 @@ $(function() {
         selector: 'textarea',
         setup: tinymceSetup,
         toolbar: 'undo redo | bold italic spaced superscript subscript',
+        width: 650,
       });
-      $.cookie(TINYMCE_COOKIE, 'on');
-    } else if (tinymce.get('internalRep').isHidden()) {
-      for (id in tinymce.editors) {
-        tinyMCE.editors[id].show();
-      }
       $.cookie(TINYMCE_COOKIE, 'on');
     } else {
       for (id in tinymce.editors) {
-        tinyMCE.editors[id].hide();
+        tinymce.EditorManager.execCommand(
+          'mceRemoveEditor',true, id);
       }
       $.cookie(TINYMCE_COOKIE, 'off');
     }
@@ -160,7 +155,6 @@ $(function() {
 
   function tinymceSetup(editor) {
     editor.on('init', function() {
-      tinymceInitialized = true;
 
       // Register a "spaced" format
       editor.formatter.register('spaced', {
@@ -178,6 +172,9 @@ $(function() {
 
     editor.on('show', internalToHtml);
     editor.on('PostProcess', htmlToInternal);
+    editor.on('change', function () {
+      editor.save();
+    });
 
     // Add a toolbar button for spaced text
     editor.addButton('spaced', {

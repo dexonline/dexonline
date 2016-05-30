@@ -361,16 +361,6 @@ hr {
   font-size: 90%;
 }
 
-.select2Edit {
-  background: url("../img/icons/pencil.png") no-repeat;
-  padding-left: 16px;
-  text-decoration: none;
-}
-
-.select2LexemWarnings {
-  color: red;
-}
-
 /* Select the dark icon set for the magnifier and the X for elFinder's search box.
    For some reason, by default they show as white on white. */
 .ui-widget-header .ui-icon {

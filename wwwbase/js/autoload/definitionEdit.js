@@ -86,32 +86,6 @@ $(function() {
     }
   }
 
-  /**
-   * The consistent accent / paradigm info propagates in two ways:
-   * - for initial elements, using HTML5 data attributes
-   * - for dynamically added elements, using json parameters
-   **/
-  function formatLexemWithEditLink(lexem) {
-    var elementData = $(lexem.element).data();
-    var html;
-
-    if (startsWith(lexem.id, '@')) {
-      // don't show an edit link for soon-to-be created lexems
-      html = lexem.text;
-    } else {
-      html = lexem.text + ' <a class="select2Edit" href="lexemEdit.php?lexemId=' + lexem.id + '">&nbsp;</a>';
-    }
-
-    if ((lexem.consistentAccent == '0') ||
-        (lexem.hasParadigm === false) ||
-        (elementData.consistentAccent === '0') ||
-        (elementData.hasParadigm === false)) {
-      return $('<span class="select2LexemWarnings">' + html + '</span>');
-    } else {
-      return $('<span>' + html + '</span>');
-    }
-  }
-
   function definitionCopyFromSimilar() {
     var ins = ($(this).prop('tagName') == 'INS') ? 1 : 0;
     var defId = $('input[name=definitionId]').val();

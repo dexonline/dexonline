@@ -25,6 +25,7 @@ if ($delete) {
 
 if ($save) {
   $e->description = util_getRequestParameter('description');
+  $lexemIds = util_getRequestParameter('lexemIds');
 
   $errors = $e->validate();
   if ($errors) {
@@ -32,18 +33,33 @@ if ($save) {
   } else {
     $e->save();
 
+    // dissociate the entry from the old lexems
+    foreach ($e->getLexems() as $l) {
+      $l->entryId = null;
+      $l->save();
+    }
+
+    // associate the entry with the new lexems
+    foreach ($lexemIds as $id) {
+      $l = Lexem::get_by_id($id);
+      $l->entryId = $e->id;
+      $l->save();
+    }
+
     FlashMessage::add('Am salvat intrarea.', 'success');
     util_redirect("?id={$e->id}");
   }
 } else {
   // Viewing the page, not saving
+  $lexemIds = $e->getLexemIds();
 }
 
 SmartyWrap::assign('e', $e);
+SmartyWrap::assign('lexemIds', $lexemIds);
 SmartyWrap::assign('suggestNoBanner', true);
 SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::addCss('bootstrap');
-SmartyWrap::addJs('bootstrap');
+SmartyWrap::addCss('bootstrap', 'select2');
+SmartyWrap::addJs('bootstrap', 'select2', 'select2Dev');
 SmartyWrap::display('editEntry.tpl');
 
 ?>

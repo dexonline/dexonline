@@ -367,8 +367,7 @@ blockquote {
 }
 
 /* Stats table */
-.adminSpace table
-{
+.adminSpace table {
   border-collapse: collapse;
   font-weight: normal;
 }
@@ -378,4 +377,14 @@ blockquote {
   border: 1px solid;
   margin: 3px;
   padding: 3px;
+}
+
+.select2Edit {
+  background: url("../img/icons/pencil.png") no-repeat;
+  padding-left: 16px;
+  text-decoration: none;
+}
+
+.select2LexemWarnings {
+  color: red;
 }

@@ -22,6 +22,15 @@
 
     {include "bits/fgf.tpl" field="description" value=$e->description label="descriere"}
 
+    <div class="form-group"">
+      <label for="lexemIds">lexeme</label>
+      <select id="lexemIds" name="lexemIds[]" style="width: 100%" multiple>
+        {foreach $lexemIds as $l}
+          <option value="{$l}" selected></option>
+        {/foreach}
+      </select>
+    </div>
+
     <button type="submit" class="btn btn-primary" name="save">
       <i class="glyphicon glyphicon-floppy-disk"></i>
       salvează

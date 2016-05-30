@@ -12,7 +12,7 @@
 
   <ul>
     <li><a href="http://www.lingv.ro/">Institutul de Lingvistică</a> „Iorgu Iordan – Alexandru Rosetti” al Academiei Române</li>
-    <li><a href="http://www.scriuromaneste.net/">ScriuRomânește.net</a> -- cum și de ce să scrii cu diacritice pe Internet</li>
+    <li><a href="http://www.xn--scriuromnete-wbb074b.net/">ScriuRomânește.net</a> -- cum și de ce să scrii cu diacritice pe Internet</li>
     <li>
       Sorin Paliga – volume în format PDF la
       <a href="https://unibuc.academia.edu/SPaliga">Academia.edu</a>

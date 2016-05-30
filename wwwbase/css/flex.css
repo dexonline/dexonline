@@ -368,7 +368,7 @@ hr {
 }
 
 .select2LexemWarnings {
-  color: #761818;
+  color: red;
 }
 
 /* Select the dark icon set for the magnifier and the X for elFinder's search box.

@@ -98,7 +98,9 @@ function formatLexemWithEditLink(lexem) {
     // don't show an edit link for soon-to-be created lexems
     html = lexem.text;
   } else {
-    html = lexem.text + ' <a class="select2Edit" href="lexemEdit.php?lexemId=' + lexem.id + '">&nbsp;</a>';
+    html = lexem.text +
+      ' <a class="select2Edit" href="' + wwwRoot + 'admin/lexemEdit.php?lexemId=' +
+      lexem.id + '">&nbsp;</a>';
   }
 
   if ((lexem.consistentAccent == '0') ||
@@ -109,6 +111,12 @@ function formatLexemWithEditLink(lexem) {
   } else {
     return $('<span>' + html + '</span>');
   }
+}
+
+function formatEntryWithEditLink(lexem) {
+  return $('<span>' + lexem.text +
+           ' <a class="select2Edit" href="' + wwwRoot + 'editEntry.php?id=' + lexem.id +
+           '">&nbsp;</a></span>');
 }
 
 function allowNewLexems(data) {

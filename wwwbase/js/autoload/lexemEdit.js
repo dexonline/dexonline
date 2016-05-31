@@ -72,6 +72,7 @@ $(function() {
       ajax: { url: wwwRoot + 'ajax/getEntries.php' },
       allowClear: true,
       minimumInputLength: 1,
+      templateSelection: formatEntryWithEditLink,
       width: '180px',
     });
 

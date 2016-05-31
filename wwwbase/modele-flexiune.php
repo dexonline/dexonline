@@ -15,14 +15,14 @@ if (!$locVersion || !$modelType) {
 LocVersion::changeDatabase($locVersion);
 $models = FlexModel::loadByType($modelType->code);
 
-$lexemModels = array();
+$lexems = [];
 foreach ($models as $m) {
-  $lexemModels[] = getLexemModel($m->exponent, $modelType->code, $m->number);
+  $lexems[] = getLexem($m->exponent, $modelType->code, $m->number);
 }
   
 SmartyWrap::addCss('paradigm');
 SmartyWrap::assign('models', $models);
-SmartyWrap::assign('lexemModels', $lexemModels);
+SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('locVersion', $locVersion);
 SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::display('modele-flexiune.tpl');
@@ -30,28 +30,26 @@ SmartyWrap::display('modele-flexiune.tpl');
 /*************************************************************************/
 
 /**
- * Returns a LexemModel for a given word and model. Creates one if one doesn't exist.
+ * Returns a lexem for a given word and model. Creates one if one doesn't exist.
  **/
-function getLexemModel($form, $modelType, $modelNumber) {
+function getLexem($form, $modelType, $modelNumber) {
   // Load by canonical model, so if $modelType is V, look for a lexem with type V or VT.
-  $lm = Model::factory('LexemModel')
-    ->table_alias('lm')
-    ->select('lm.*')
-    ->join('Lexem', 'l.id = lm.lexemId', 'l')
-    ->join('ModelType', 'modelType = code', 'mt')
-    ->where('mt.canonical', $modelType)
-    ->where('lm.modelNumber', $modelNumber)
-    ->where('l.form', $form)
-    ->limit(1)
-    ->find_one();
-  if ($lm) {
-    $lm->loadInflectedFormMap();
+  $l = Model::factory('Lexem')
+     ->table_alias('l')
+     ->select('l.*')
+     ->join('ModelType', 'modelType = code', 'mt')
+     ->where('mt.canonical', $modelType)
+     ->where('l.modelNumber', $modelNumber)
+     ->where('l.form', $form)
+     ->limit(1)
+     ->find_one();
+  if ($l) {
+    $l->loadInflectedFormMap();
   } else {
-    $l = Lexem::deepCreate($form, $modelType, $modelNumber);
-    $lm = $l->getFirstLexemModel();
-    $lm->generateInflectedFormMap();
+    $l = Lexem::create($form, $modelType, $modelNumber);
+    $l->generateInflectedFormMap();
   }
-  return $lm;
+  return $l;
 }
 
 ?>

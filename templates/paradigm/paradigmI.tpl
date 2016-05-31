@@ -1,2 +1,2 @@
-{* Argument: $lexemModel *}
-{include file="bits/lexemModel.tpl" lexemModel=$lexemModel}
+{* Argument: $lexem *}
+{include "bits/lexem.tpl" lexem=$lexem}

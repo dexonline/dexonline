@@ -3,7 +3,7 @@ require_once("../../phplib/util.php");
 
 // Select suffixes and counts for temporary lexems.
 $dbResult = db_execute("select reverse(substring(reverse, 1, 4)) as s, count(*) as c " .
-                       "from Lexem join LexemModel on lexemId = Lexem.id " .
+                       "from Lexem " .
                        "where modelType = 'T' " .
                        "group by s having c >= 5 order by c desc, s", PDO::FETCH_ASSOC);
 $stats = array();

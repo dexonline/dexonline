@@ -13,25 +13,25 @@
   font-weight: bold;
 }
 
-.lexemModel {
+.lexem {
   border-collapse: collapse;
   margin-left: 0;
   margin-top: 5px;
 }
 
-.lexemModel td {
+.lexem td {
   border: 1px solid #dddddd;
   padding: 0px 10px;
 }
 
-.lexemModel .inflection {
+.lexem .inflection {
   color: #555555;
   font-style: italic;
   font-size: small;
   text-align: center;
 }
 
-.lexemModel .form {
+.lexem .form {
   font-style: italic;
 }
 
@@ -39,11 +39,11 @@
   text-decoration: underline;
 }
 
-.lexemModel .spacer {
+.lexem .spacer {
   height: 2px;
 }
 
-.lexemModel tr .person {
+.lexem tr .person {
   text-align: right;
 }
 
@@ -60,7 +60,7 @@
   font-weight: bold;
 }
 
-.lexemTags,
+.lexemNotes,
 .lexemSources {
   font-size: 75%;
   color: green;

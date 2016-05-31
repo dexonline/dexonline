@@ -15,11 +15,11 @@
     </a>
   </p>
 
-  {foreach from=$models item=m key=i}
-    {assign var="lm" value=$lexemModels[$i]}
+  {foreach $models as $i => $m}
+    {assign var="l" value=$lexems[$i]}
     <h4>
       {$m->number}. {$m->getHtmlExponent()}
     </h4>
-    {include file="paradigm/paradigm.tpl" lexemModel=$lm}
+    {include file="paradigm/paradigm.tpl" lexem=$l}
   {/foreach}
 {/block}

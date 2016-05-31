@@ -55,7 +55,7 @@ $reports = array(
   ),
   array('text' => 'Lexeme fără paradigme',
         'url' => 'admin/viewTemporaryLexems',
-        'count' => Model::factory('LexemModel')->where('modelType', 'T')->count(),
+        'count' => Model::factory('Lexem')->where('modelType', 'T')->count(),
         'privilege' => PRIV_EDIT
   ),
 );

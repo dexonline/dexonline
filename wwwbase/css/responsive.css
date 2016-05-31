@@ -1,0 +1,118 @@
+/* SITE IDENTITY */
+.siteIdentity {
+    margin-bottom: 25px;
+}
+
+.siteLogo {
+  background: url("../img/sprite3.png") no-repeat;
+  height: 82px;
+  margin: 30px auto 5px auto;
+  width: 316px;
+}
+
+.tagline {
+  color: #444;
+  font-size: 14px;
+  letter-spacing: 1px;
+  margin: -10px auto 10px;
+  padding: 0px 0px 0px 100px;
+  text-align: center;
+}
+
+#advSearch {
+    padding: 5px 0 5px 0;
+}
+
+.list-games {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.nav-logo {
+    background: url("../img/sprite3.png") -88px -82px no-repeat;
+    height: 25px;
+    width: 111px;
+}
+@media (max-width: 768px) {
+    .nav-logo {
+        background: url("../img/sprite3.png") -88px -82px no-repeat;
+        height: 25px;
+        width: 111px !important;
+    }
+}
+@media (max-width: 992px) {
+    .nav-logo {
+        background: url("../img/sprite3.png") -88px -82px no-repeat;
+        height: 25px;
+        width: 25px;
+    }
+}
+
+.sourceComplete0 {
+  color: #000;
+}
+
+.sourceComplete1 {
+  color: #CC0000;
+}
+
+.sourceComplete2 {
+  color: orange;
+}
+
+.sourceComplete3 {
+  color: #DAC003;
+}
+
+.sourceComplete4 {
+  color: blue;
+}
+
+.sourceComplete5 {
+  color: green;
+}
+
+.sourceName {
+  cursor: help;
+  position: relative;
+}
+
+.sourceName span {
+  margin-left: -999em;
+  position: absolute;
+}
+
+.sourceName:hover span {
+  background: #FFF;
+  border: 1px solid #000;
+  margin-left: 0;
+  padding: 10px;
+  position: absolute;
+  left: 1em;
+  top: 2em;
+  z-index: 99;
+}
+
+.popUpShadow,
+#typoDiv {
+  -webkit-box-shadow: 5px 5px 10px #555;
+  -moz-box-shadow: 5px 5px 10px #555;
+  box-shadow: 5px 5px 10px #555;
+}
+
+.popUpShadow {
+  min-width: 500px;
+}
+
+#typoDiv {
+  background: #EEE;
+  border: 1px solid #777;
+  border-radius: 4px;
+  display: none;
+  margin-top: 10px;
+  padding: 8px;
+  position: absolute;
+  width: 400px;
+  z-index: 100;
+}

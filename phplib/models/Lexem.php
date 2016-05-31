@@ -415,6 +415,151 @@ class Lexem extends BaseObject implements DatedObject {
     }
   }
 
+  /**
+   * Returns an array of InflectedForms. These can be loaded from the disk ($method = METHOD_LOAD)
+   * or generated on the fly ($method = METHOD_GENERATE);
+   **/
+  function getInflectedForms($method) {
+    return ($method == self::METHOD_LOAD)
+      ? $this->loadInflectedForms()
+      : $this->generateInflectedForms();
+  }
+
+  function loadInflectedForms() {
+    if ($this->inflectedForms === null) {
+      $this->inflectedForms = Model::factory('InflectedForm')
+        ->where('lexemId', $this->id)
+        ->order_by_asc('inflectionId')
+        ->order_by_asc('variant')
+        ->find_many();
+    }
+    return ($this->inflectedForms);
+  }
+
+  function generateInflectedForms() {
+    if ($this->inflectedForms === null) {
+      $model = FlexModel::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
+      $inflIds = db_getArray("select distinct inflectionId from ModelDescription where modelId = {$model->id} order by inflectionId");
+
+      try {
+        $this->inflectedForms = array();
+        foreach ($inflIds as $inflId) {
+          $if = $this->generateInflectedFormWithModel($this->form, $inflId, $model->id);
+          $this->inflectedForms = array_merge($this->inflectedForms, $if);
+        }
+      } catch (Exception $ignored) {
+        // Make a note of the inflection we cannot generate
+        $this->inflectedForms = $inflId;
+      }
+    }
+    return $this->inflectedForms;
+  }
+
+  function getInflectedFormMap($method) {
+    if ($this->inflectedFormMap === null) {
+      $ifs = $this->getInflectedForms($method);
+      if (is_array($ifs)) {
+        $this->inflectedFormMap = InflectedForm::mapByInflectionRank($ifs);
+      }
+    }
+    return $this->inflectedFormMap;
+  }
+
+  function loadInflectedFormMap() {
+    return $this->getInflectedFormMap(self::METHOD_LOAD);
+  }
+
+  function generateInflectedFormMap() {
+    return $this->getInflectedFormMap(self::METHOD_GENERATE);
+  }
+
+  // Throws an exception if the given inflection cannot be generated
+  public function generateInflectedFormWithModel($form, $inflId, $modelId) {
+    $ifs = [];
+    $mds = Model::factory('ModelDescription')
+         ->where('modelId', $modelId)
+         ->where('inflectionId', $inflId)
+         ->order_by_asc('variant')
+         ->order_by_asc('applOrder')
+         ->find_many();
+ 
+    $start = 0;
+    while ($start < count($mds)) {
+      $variant = $mds[$start]->variant;
+      $recommended = $mds[$start]->recommended;
+      
+      // Identify all the md's that differ only by the applOrder
+      $end = $start + 1;
+      while ($end < count($mds) && $mds[$end]->applOrder != 0) {
+        $end++;
+      }
+
+      if (ConstraintMap::validInflection($inflId, $this->restriction, $variant)) {
+        $inflId = $mds[$start]->inflectionId;
+        $accentShift = $mds[$start]->accentShift;
+        $vowel = $mds[$start]->vowel;
+
+        // Load and apply all the transforms from $start to $end - 1.
+        $transforms = array();
+        for ($i = $end - 1; $i >= $start; $i--) {
+          $transforms[] = Transform::get_by_id($mds[$i]->transformId);
+        }
+
+        $result = FlexStringUtil::applyTransforms($form, $transforms, $accentShift, $vowel);
+        if (!$result) {
+          throw new Exception();
+        }
+        $ifs[] = InflectedForm::create($result, $this->id, $inflId, $variant, $recommended);
+      }
+
+      $start = $end;
+    }
+    
+    return $ifs;
+  }
+
+  /**
+   * Deletes the lexem's old inflected forms, if they exist, then saves the new ones.
+   **/
+  function regenerateParadigm() {
+    if ($this->id) {
+      InflectedForm::delete_all_by_lexemId($this->id);
+    }
+    foreach ($this->generateInflectedForms() as $if) {
+      $if->lexemId = $this->id;
+      $if->save();
+    }
+  }
+
+  /**
+   * Adds an isLoc field to every inflected form in the map. Assumes the map already exists.
+   **/
+  function addLocInfo() {
+    // Build a map of inflection IDs not in LOC
+    $ids = Model::factory('InflectedForm')
+      ->table_alias('i')
+      ->select('i.id')
+      ->join('Lexem', 'i.lexemId = l.id', 'l')
+      ->join('ModelType', 'l.modelType = mt.code', 'mt')
+      ->join('Model', 'mt.canonical = m.modelType and l.modelNumber = m.number', 'm')
+      ->join('ModelDescription', 'm.id = md.modelId and i.variant = md.variant and i.inflectionId = md.inflectionId', 'md')
+      ->where('md.applOrder', 0)
+      ->where('md.isLoc', 0)
+      ->where('l.id', $this->id)
+      ->find_array();
+    $map = array();
+    foreach ($ids as $rec) {
+      $map[$rec['id']] = 1;
+    }
+
+    // Set the bit accordingly on every inflection in the map
+    foreach ($this->inflectedFormMap as $ifs) {
+      foreach ($ifs as $if) {
+        $if->isLoc = !array_key_exists($if->id, $map);
+      }
+    }
+  }
+
   public function regenerateDependentLexems() {
     if ($this->modelType == 'VT') {
       $this->regeneratePastParticiple();

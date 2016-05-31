@@ -17,9 +17,9 @@
 
   {foreach $models as $i => $m}
     {assign var="l" value=$lexems[$i]}
-    <div class="scrabbleModelName">
+    <h4>
       {$m->number}. {$m->getHtmlExponent()}
-    </div>
+    </h4>
     {include "paradigm/paradigm.tpl" lexem=$l}
   {/foreach}
 {/block}

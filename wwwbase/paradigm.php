@@ -58,8 +58,7 @@ if (!empty($lexems)) {
   $declensions = false;
   $filtered_lexems = array();
   foreach ($lexems as $l) {
-    $lm = $l->getFirstLexemModel(); // One LexemModel suffices -- they all better have the same modelType.
-    $isVerb = ($lm->modelType == 'V') || ($lm->modelType == 'VT');
+    $isVerb = ($l->modelType == 'V') || ($l->modelType == 'VT');
     if (((TYPE_SHOW_ONLY_VERBS == $type) && $isVerb) ||
         ((TYPE_SHOW_NO_VERBS == $type) && !$isVerb) ||
         !$type) {
@@ -85,15 +84,13 @@ if (!empty($lexems)) {
   // TODO: this code replicates code from search.php
   $hasUnrecommendedForms = false;
   foreach ($filtered_lexems as $l) {
-    foreach($l->getLexemModels() as $lm) {
-      $lm->getModelType();
-      $lm->getSourceNames();
-      $map = $lm->loadInflectedFormMap();
-      $lm->addLocInfo();
-      foreach ($map as $ifs) {
-        foreach ($ifs as $if) {
-          $hasUnrecommendedForms |= !$if->recommended;
-        }
+    $l->getModelType();
+    $l->getSourceNames();
+    $map = $l->loadInflectedFormMap();
+    $l->addLocInfo();
+    foreach ($map as $ifs) {
+      foreach ($ifs as $if) {
+        $hasUnrecommendedForms |= !$if->recommended;
       }
     }
   }
@@ -110,8 +107,7 @@ else {
 
 if ($ajax) {
   SmartyWrap::displayWithoutSkin('bits/multiParadigm.tpl');
-}
-else {
+} else {
   SmartyWrap::addCss('paradigm');
   SmartyWrap::display('search.tpl');
 }

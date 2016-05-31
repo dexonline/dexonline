@@ -9,11 +9,11 @@
 
   <a href="scrabble">« înapoi</a><br><br>
 
-  {foreach from=$models item=m key=i}
-    {assign var="lm" value=$lexemModels[$i]}
+  {foreach $models as $i => $m}
+    {assign var="l" value=$lexems[$i]}
     <div class="scrabbleModelName">
       {$m->number}. {$m->exponent|regex_replace:"/\'(a|e|i|o|u|ă|î|â)/":"<span class=\"accented\">\$1</span>"}
     </div>
-    {include file="paradigm/paradigm.tpl" lexemModel=$lm}
+    {include "paradigm/paradigm.tpl" lexem=$l}
   {/foreach}
 {/block}

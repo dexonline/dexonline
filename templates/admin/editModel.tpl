@@ -147,7 +147,7 @@
           {/foreach}
         </ol>
 
-        <h3>Lexemele afectate ({$lexemModels|@count}) și noile lor forme:</h3>
+        <h3>Lexemele afectate ({$lexems|@count}) și noile lor forme:</h3>
 
         <table class="changedForms">
           <tr class="header">
@@ -173,11 +173,11 @@
               </td>
             {/foreach}
           </tr>
-          {foreach from=$lexemModels item=lm key=lIndex}
+          {foreach $lexems as $lIndex => $l}
             {assign var="inflArray" value=$regenForms[$lIndex]}
             <tr>
-              <td class="lexem">{$lm->getLexem()->form|escape}</td>
-              <td class="model">{$lm->modelType}{$lm->modelNumber}</td>
+              <td class="lexem">{$l->form|escape}</td>
+              <td class="model">{$l->modelType}{$l->modelNumber}</td>
               {foreach from=$inflArray item=variantArray key=inflId}
                 <td class="forms">
                   {strip}
@@ -199,7 +199,7 @@
       <h3>Participii regenerate conform modelului A{$pm->adjectiveModel|escape}:</h3>
 
       {foreach from=$participles item=p key=i}
-        {include file="paradigm/paradigm.tpl" lexemModel=$p}
+        {include file="paradigm/paradigm.tpl" lexem=$p}
       {/foreach}
     {/if}
 

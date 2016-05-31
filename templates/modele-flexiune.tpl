@@ -20,6 +20,6 @@
     <h4>
       {$m->number}. {$m->getHtmlExponent()}
     </h4>
-    {include file="paradigm/paradigm.tpl" lexem=$l}
+    {include "paradigm/paradigm.tpl" lexem=$l}
   {/foreach}
 {/block}

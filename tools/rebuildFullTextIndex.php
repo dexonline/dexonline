@@ -23,16 +23,16 @@ $stopWordForms = array_flip(db_getArray(
   'where l.id = i.lexemId ' .
   'and l.stopWord'));
 
-// Build a map of inflectedForm => list of (lexemModelId, inflectionId) pairs
+// Build a map of inflectedForm => list of (lexemId, inflectionId) pairs
 Log::info("Building inflected form map.");
-$dbResult = db_execute("select formNoAccent, lexemModelId, inflectionId from InflectedForm");
+$dbResult = db_execute("select formNoAccent, lexemId, inflectionId from InflectedForm");
 $ifMap = [];
 foreach ($dbResult as $r) {
   $form = $r['formNoAccent'];
   $s = isset($ifMap[$form])
      ? ($ifMap[$form] . ',')
      : '';
-  $s .= $r['lexemModelId'] . ',' . $r['inflectionId'];
+  $s .= $r['lexemId'] . ',' . $r['inflectionId'];
   $ifMap[$form] = $s;
 }
 unset($dbResult);

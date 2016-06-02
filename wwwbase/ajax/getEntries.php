@@ -4,7 +4,7 @@ require_once("../../phplib/util.php");
 $query = util_getRequestParameter('term');
 
 $entries = Model::factory('Entry')
-         ->where_like('description', "%{$query}%")
+         ->where_like('description', "{$query}%")
          ->order_by_asc('description')
          ->limit(10)
          ->find_many();

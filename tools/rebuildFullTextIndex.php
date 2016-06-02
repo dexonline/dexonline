@@ -30,7 +30,7 @@ foreach ($dbResult as $r) {
   $s = isset($ifMap[$form])
      ? ($ifMap[$form] . ',')
      : '';
-  $s .= $r['lexemModelId'] . ',' . $r['inflectionId'];
+  $s .= $r['lexemId'] . ',' . $r['inflectionId'];
   $ifMap[$form] = $s;
 }
 unset($dbResult);

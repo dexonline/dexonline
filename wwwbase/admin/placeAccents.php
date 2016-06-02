@@ -20,9 +20,7 @@ if ($submitButton) {
       } else if ($position != -1) {
         $lexem->form = mb_substr($lexem->form, 0, $position) . "'" . mb_substr($lexem->form, $position);
         $lexem->save();
-        foreach ($lexem->getLexemModels() as $lm) {
-          $lm->regenerateParadigm();
-        }
+        $lexem->regenerateParadigm();
       }
     }
   }

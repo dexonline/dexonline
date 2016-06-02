@@ -40,7 +40,6 @@
   <form action="lexemEdit.php" method="post">
     <input type="hidden" name="lexemId" value="{$lexem->id}">
     <input type="hidden" name="jsonMeanings" value="">
-    <input type="hidden" name="jsonSourceIds" value="">
     <input type="hidden" name="mergeLexemId" value="">
 
     {include file="admin/lexemEditActions.tpl"}
@@ -163,15 +162,13 @@
                   title="Variantele nu pot avea sensuri, exemple, variante sau etimologii proprii. Ele pot avea pronunții și silabisiri proprii.">&nbsp;</span>
           </td>
         </tr>
-        
         {if $homonyms}
           <tr>
             <td>omonime:</td>
             <td>
               {foreach from=$homonyms item=h}
-                {assign var=lms value=$h->getLexemModels()}
                 {include file="bits/lexemLink.tpl" lexem=$h}
-                {$lms[0]->modelType}{$lms[0]->modelNumber}{$lms[0]->restriction}<br>
+                {$h->modelType}{$h->modelNumber}{$h->restriction}<br>
               {/foreach}
             </td>
           </tr>
@@ -180,46 +177,17 @@
     </div>
 
     <div class="box" data-id="paradigm" data-title="Paradigmă" data-left="345" data-top="0" data-width="650" data-height="320">
-      {include file="bits/lexemEditModel.tpl"
-      id="stem"
-      lm=$stemLexemModel
-      models=$modelsT}
 
       <div>
-        <div id="paradigmTabs">
-          {if $canEdit.paradigm}
-            <a href="#" id="addLexemModel">adaugă un model</a>
-          {/if}
-          <ul>
-            {foreach from=$lexemModels key=i item=lm}
-              <li>
-                {if $canEdit.paradigm}
-                  <span class="ui-icon ui-icon-arrow-4"></span>
-                {/if}
-                <a href="#lmTab_{$i}">{$lm->modelType}{$lm->modelNumber}</a>
-                {if $canEdit.loc || !$lm->isLoc}
-                  <span class="ui-icon ui-icon-close"></span>
-                {/if}
-              </li>
-            {/foreach}
-          </ul>
-
-          {foreach from=$lexemModels key=i item=lm}
-            {include file="bits/lexemEditModel.tpl"
-            id=$i
-            lm=$lm
-            models=$models[$i]}
-          {/foreach}
-        </div>
-        <br>
-
-        Comentarii despre paradigmă:
-        <br>
-        
-        <textarea name="lexemComment" rows="3" cols="60" class="commentTextArea"
-                  placeholder="Dacă observați greșeli în paradigmă, notați-le în acest câmp și ele vor fi semnalate unui moderator cu drept de gestiune a LOC."
-                  >{$lexem->comment|escape}</textarea>
+        {include "bits/lexemEditModel.tpl" l=$lexem models=$models}
       </div>
+
+      Comentarii despre paradigmă:
+      <br>
+        
+      <textarea name="lexemComment" rows="3" cols="60" class="commentTextArea"
+                placeholder="Dacă observați greșeli în paradigmă, notați-le în acest câmp și ele vor fi semnalate unui moderator cu drept de gestiune a LOC."
+                >{$lexem->comment|escape}</textarea>
     </div>
 
     <div class="box meaningTreeContainer" data-id="meaningTree" data-title="Sensuri" data-left="10" data-top="330" data-width="960" data-height="280" data-minimized="1">

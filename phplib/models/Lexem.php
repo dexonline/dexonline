@@ -53,6 +53,10 @@ class Lexem extends BaseObject implements DatedObject {
     return $this->mt;
   }
 
+  function hasModel($type, $number) {
+    return ($this->modelType == $type) && ($this->modelNumber == $number);
+  }
+
   function hasParadigm() {
     return $this->modelType != 'T';
   }
@@ -460,7 +464,7 @@ class Lexem extends BaseObject implements DatedObject {
     foreach ($ifs as $if) {
       $lexem = Model::factory('Lexem')
              ->where('formNoAccent', $if->formNoAccent)
-             ->where_raw("(modelType = 'T' or (modelType = 'A' and .modelNumber = '{$pm->adjectiveModel}'))")
+             ->where_raw("(modelType = 'T' or (modelType = 'A' and modelNumber = '{$pm->adjectiveModel}'))")
              ->find_one();
 
       if ($lexem) {
@@ -475,7 +479,7 @@ class Lexem extends BaseObject implements DatedObject {
           $lexem->deepSave();
         }
       } else {
-        $lexem = Lexem::create($if->form, 'A', $pm->adjectiveModel, '', $this->isLoc());
+        $lexem = Lexem::create($if->form, 'A', $pm->adjectiveModel, '', $this->isLoc);
         $lexem->deepSave();
 
         // Also associate the new lexem with the same definitions as $this.
@@ -514,7 +518,7 @@ class Lexem extends BaseObject implements DatedObject {
           $lexem->deepSave();
         }
       } else {
-        $lexem = Lexem::create($if->form, 'F', $model->number, '', $this->isLoc());
+        $lexem = Lexem::create($if->form, 'F', $model->number, '', $this->isLoc);
         $lexem->deepSave();
 
         // Also associate the new lexem with the same definitions as $this.
@@ -554,7 +558,7 @@ class Lexem extends BaseObject implements DatedObject {
    * Only deletes participles that do not have their own definitions.
    */
   public function deleteParticiple() {
-    if ($this->modelType == 'V' || $l->modelType == 'VT') {
+    if ($this->modelType == 'V' || $this->modelType == 'VT') {
       $infl = Inflection::loadParticiple();
       $pm = ParticipleModel::get_by_verbModel($this->modelNumber);
       $this->_deleteDependentModels($infl->id, 'A', [$pm->adjectiveModel]);
@@ -653,10 +657,14 @@ class Lexem extends BaseObject implements DatedObject {
   }
 
   /**
-   * Saves a lexem and its dependants. Only call after having deleted the lexem's old dependants.
+   * Saves a lexem and its dependants.
    **/
   function deepSave() {
     $this->save();
+
+    InflectedForm::delete_all_by_lexemId($this->id);
+    LexemSource::delete_all_by_lexemId($this->id);
+
     foreach ($this->generateInflectedForms() as $if) {
       $if->lexemId = $this->id;
       $if->save();
@@ -676,13 +684,11 @@ class Lexem extends BaseObject implements DatedObject {
     $clone->description = ($this->description) ? "CLONĂ {$this->description}" : "CLONĂ";
     $clone->verifSp = false;
     $clone->structStatus = self::STRUCT_STATUS_NEW;
-    $clone->displayOrder = 1;
     $clone->modelType = 'T';
     $clone->modelNumber = '1';
     $clone->restriction = '';
-    $clone->tags = '';
+    $clone->notes = '';
     $clone->isLoc = false;
-    $clone->setLexem($clone);
     $clone->deepSave();
 
     // Clone the definition list

@@ -175,13 +175,13 @@ function findWords($wordList) {
             ->where("formUtf8General", $wordList[$i])
             ->find_one();
             */
-      $search = Model::factory('InflectedForm')
-       ->select('i.*')
-       ->table_alias('i')
-       ->join('LexemModel', ('i.lexemModelId = lm.id'), 'lm')
-       ->where('i.formUtf8General', $wordList[$i])
-       ->where('lm.isLoc', 1)
-       ->find_one();
+    $search = Model::factory('InflectedForm')
+            ->select('i.*')
+            ->table_alias('i')
+            ->join('Lexem', ['i.lexemId', '=', 'l.id'], 'l')
+            ->where('i.formUtf8General', $wordList[$i])
+            ->where('l.isLoc', 1)
+            ->find_one();
                    
     if($search && $search->formUtf8General == $wordList[$i]) {
       if(!in_array($search->formUtf8General, $wordsFound)) {

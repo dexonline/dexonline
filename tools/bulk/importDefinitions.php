@@ -214,8 +214,7 @@ while ($i < count($lines)) {
         $lexems = Model::factory('Lexem')
           ->table_alias('l')
           ->select('l.*')
-          ->join('LexemModel', 'l.id = lm.lexemId', 'lm')
-          ->join('InflectedForm', 'l.id = i.lexemModelId', 'i')
+          ->join('InflectedForm', 'l.id = i.lexemId', 'i')
           ->where('i.formNoAccent', $name)
           ->find_many();
         if ( count($lexems) ) {

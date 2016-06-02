@@ -1,7 +1,6 @@
 $(function() {
   var anyChanges = false;
   var COOKIE_NAME = 'lexemEdit';
-  var lexemModelStem = null;
   $.cookie.json = true;
 
   var lexemSourceOptions = {
@@ -18,8 +17,6 @@ $(function() {
   };
 
   function init() {
-    lexemModelStem = $('#lmTab_stem').detach().removeAttr('id');
-
     $('#meaningTree li, #stemNode li').click(meaningClick);
     $('#addMeaningButton').click(addMeaning);
     $('#addSubmeaningButton').click(addSubmeaning);
@@ -116,25 +113,15 @@ $(function() {
     $('.toggleStructuredLink').click(toggleStructuredClick);
     $('#defFilterSelect').click(defFilterChange);
 
-    initSelect2('#paradigmTabs .lexemSourceIds', 'ajax/getSourcesById.php', lexemSourceOptions);
+    initSelect2('.paradigmFields .sourceIds', 'ajax/getSourcesById.php', lexemSourceOptions);
 
-    $('#paradigmTabs .similarLexem')
+    $('.similarLexem')
       .select2(similarLexemOptions)
       .on('change', similarLexemChange);
 
     $('.mergeLexem').click(mergeLexemButtonClick);
 
-    var t = $('#paradigmTabs');
-    t.tabs();
-    if (canEdit.paradigm) {
-      t.find('.ui-tabs-nav').sortable({
-        axis: "x",
-        stop: reorderLexemModelTabs
-      });
-    }
-    $('#addLexemModel').click(addLexemModelTab);
-    t.on('click', '.ui-icon-close', closeLexemModelTab);
-    t.on('click', '.fakeCheckbox', toggleIsLoc);
+    $('.fakeCheckbox').click(toggleIsLoc);
 
     wmInit();
   }
@@ -423,17 +410,6 @@ $(function() {
     meaningTreeWalk($('#meaningTree'), results, 0);
     $('input[name=jsonMeanings]').val(JSON.stringify(results));
 
-    // convert lexemSources to JSON
-    var sources = [];
-    $('#paradigmTabs .lexemSourceIds').each(function() {
-      var list = [];
-      $(this).find('option:selected').each(function() {
-        list.push($(this).val());
-      });
-      sources.push(list);
-    });
-    $('input[name="jsonSourceIds"]').val(JSON.stringify(sources));
-
     // allow disabled selects to submit (they should have been readonly,
     // not disabled, but Select2 4.0 doesn't use readonly).
     $('#variantOfId, #variantIds').prop('disabled', false);
@@ -506,63 +482,15 @@ $(function() {
   }
 
   function similarLexemChange() {
-    var mtSelect = $(this).siblings('select[name="modelType[]"]');
-    var mnSelect = $(this).prevAll('select[name="modelNumber[]"]');
-    var restriction = $(this).siblings('input[name="restriction[]"]');
-    var span = $(this).closest('*[data-model-dropdown]');
-
     var lexemId = $(this).find('option:selected').val();
-    var url = wwwRoot + 'ajax/getModelsByLexemId.php?id=' + lexemId;
+    var url = wwwRoot + 'ajax/getModelByLexemId.php?id=' + lexemId;
     $.get(url)
       .done(function(data) {
-        mtSelect.data('selected', data[0].modelType);
-        mnSelect.data('selected', data[0].modelNumber);
-        updateModelTypeList(span);
-        restriction.val(data.restriction);
+        $('select[name="modelType"]').data('selected', data.modelType);
+        $('select[name="modelNumber"]').data('selected', data.modelNumber);
+        updateModelTypeList($('*[data-model-dropdown]'));
+        $('input[name="restriction"]').val(data.restriction);
       });
-  }
-
-  function addLexemModelTab() {
-    var tabIndex = $('#paradigmTabs > ul li').length;
-    var tabId = 'lmTab_' + randomDigits(9);
-    var tabContents = lexemModelStem.clone(true).attr('id', tabId);
-    var li = $('#paradigmTabs > ul li').clone().first();
-    li.find('a').text('nou').attr('href', '#' + tabId);
-    $('#paradigmTabs > ul').append(li);
-    $('#paradigmTabs').append(tabContents);
-    $('#paradigmTabs').tabs('refresh');
-    $('#paradigmTabs').tabs('option', 'active', tabIndex);
-    $('#' + tabId).find('select[data-model-type]').val('T'); // clone() doesn't copy selectedness
-    $('#' + tabId).find('.similarLexem')
-      .select2(similarLexemOptions)
-      .on('change', similarLexemChange);
-    $('#' + tabId).find('.lexemSourceIds')
-      .select2(lexemSourceOptions);
-    return false;
-  }
-
-  function closeLexemModelTab() {
-    var tabId = $(this).prev('a').attr('href');
-
-    if ($('#paradigmTabs > ul li').length == 1) {
-      alert('Nu puteți șterge unicul model.');
-    } else {
-      $(this).closest('li').remove();
-      $(tabId).remove();
-      $('#paradigmTabs').tabs('refresh');
-    }
-  }
-
-  // Order the tab panels in accordance with the <li> order. This doesn't sem to happen automatically
-  function reorderLexemModelTabs() {
-    var current = $('#paradigmTabs > ul');
-    $('#paradigmTabs > ul li a').each(function() {
-      var tabId = $(this).attr('href');
-      var tab = $(tabId);
-      tab.insertAfter(current);
-      current = tab;
-    });
-    $('#paradigmTabs').tabs("refresh");
   }
 
   function toggleIsLoc() {

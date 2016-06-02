@@ -12,7 +12,6 @@ truncate table FullTextIndex;
 -- truncate table Inflection;
 -- truncate table Lexem;
 truncate table LexemDefinitionMap;
--- truncate table LexemModel;
 -- truncate table LexemSource;
 truncate table Link;
 truncate table Meaning;

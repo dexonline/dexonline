@@ -19,7 +19,6 @@
 
   <form action="deTool.php" method="post">
     <input type="hidden" name="definitionId" value="{$def->id}">
-    <input type="hidden" name="jsonModels" value="">
 
     <table id="lexemsTable">
       <tr>
@@ -33,7 +32,7 @@
           </select>
         </td>
         <td>
-          <select class="models" name="models[]" style="width: 500px;" multiple>
+          <select class="model" name="model[]" style="width: 500px;">
             <option value="I3" selected>I3 (nume proprii)</option>
           </select>
         </td>
@@ -41,7 +40,7 @@
           <a class="shortcutI3" href="#">I3</a>
         </td>
       </tr>
-      {foreach from=$lexemIds item=l key=i}
+      {foreach $lexemIds as $i => $l}
         <tr>
           <td>
             <select class="lexem" name="lexemId[]" style="width: 300px;">
@@ -49,10 +48,8 @@
             </select>
           </td>
           <td>
-            <select class="models" name="models[]" style="width: 500px;" multiple>
-              {foreach $models[$i] as $m}
-                <option value="{$m}" selected></option>
-              {/foreach}
+            <select class="model" name="model[]" style="width: 500px;">
+              <option value="{$models[$i]}" selected></option>
             </select>
           </td>
         <td>
@@ -81,8 +78,8 @@
 
   <ul>
     <li>
-      Legăturile de pe coloana „scurtături” sunt echivalente cu golirea listei de modele
-      și adăugarea modelului respectiv. Sunt doar scurtături mai comode.
+      Legăturile de pe coloana „scurtături” sunt echivalente cu selectarea
+      modelului respectiv. Sunt doar scurtături mai comode.
     </li>
     <li>
       Din această pagină nu puteți adăuga restricții la modelele de flexiune.

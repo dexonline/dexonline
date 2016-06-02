@@ -37,28 +37,28 @@ $(function() {
 
   function init() {
     initSelect2('.lexem', 'ajax/getLexemsById.php', lexemStruct);
-    initSelect2('.models', 'ajax/getModelsByCodes.php', modelStruct);
+    initSelect2('.model', 'ajax/getModelsByCodes.php', modelStruct);
     $('.lexem').change(lexemChange);
-    $('.models').change(modelChange);
+    $('.model').change(modelChange);
     $('.shortcutI3').click(shortcutI3);
     $('#addRow').click(addRow);
     $('#butTest, #butSave').click(endEdit);
 
     stem = $('#stem').detach().removeAttr('id');
-    stemOption = stem.find('.models option').detach();
+    stemOption = stem.find('.model option').detach();
   }
 
   function addRow() {
     var r = stem.clone(true).appendTo('#lexemsTable');
     r.find('.lexem').select2(lexemStruct);
-    r.find('.models').select2(modelStruct);
+    r.find('.model').select2(modelStruct);
     return false;
   }
 
   // Refresh the model list
   function lexemChange() {
     var lexemId = $(this).val();
-    var m = $(this).closest('tr').find('.models');
+    var m = $(this).closest('tr').find('.model');
     m.html('');
     
     if (lexemId == null) {
@@ -69,13 +69,11 @@ $(function() {
       m.append(stemOption).trigger('change');
     } else {
       $.ajax({
-        url: wwwRoot + 'ajax/getModelsByLexemId.php?id=' + lexemId,
-        success: function(models) {
-          $.each(models, function(index, t) {
-            var id = t.modelType + t.modelNumber;
-            var text = t.modelType + t.modelNumber + ' (' + t.exponent + ')';
-            m.append(new Option(text, id, true, true));
-          });
+        url: wwwRoot + 'ajax/getModelByLexemId.php?id=' + lexemId,
+        success: function(model) {
+          var id = model.modelType + model.modelNumber;
+          var text = model.modelType + model.modelNumber + ' (' + model.exponent + ')';
+          m.append(new Option(text, id, true, true));
           m.trigger('change');
         },
       });
@@ -90,7 +88,7 @@ $(function() {
 
   function shortcutI3() {
     console.log('here');
-    var m = $(this).closest('tr').find('.models');
+    var m = $(this).closest('tr').find('.model');
     m.html('').append(stemOption).trigger('change');
 
     $('#butSave').prop('disabled', true);
@@ -99,19 +97,8 @@ $(function() {
   }
 
   function endEdit() {
-    // create an array of arrays of model codes
-    var models = [];
-    $('.models').each(function() {
-      var list = [];
-      $(this).find('option:selected').each(function() {
-        list.push($(this).val());
-      });
-      models.push(list);
-    });
-    $('input[name="jsonModels"]').val(JSON.stringify(models));
-
-    // make sure even empty lexemIds are being submitted
-    $('.lexem').each(function() {
+    // make sure even empty lexemIds and models are being submitted
+    $('.lexem, .model').each(function() {
       if ($(this).val() == null) {
         $(this).append(new Option(0, 0, true, true));
       }

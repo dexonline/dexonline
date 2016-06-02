@@ -177,10 +177,10 @@ class BaseFormList extends FormList {
 
   function getQuery() {
     return
-      'select L.form, LM.modelType, LM.modelNumber, LM.restriction '.
-      'from Lexem L join LexemModel LM on L.id = LM.lexemId ' .
-      'where LM.isLoc ' .
-      'order by L.formNoAccent asc, LM.modelType asc, LM.modelNumber asc';
+      'select form, modelType, modelNumber, restriction '.
+      'from Lexem ' .
+      'where isLoc ' .
+      'order by formNoAccent asc, modelType asc, modelNumber asc';
   }
 
   function format($row) {
@@ -211,17 +211,16 @@ class InflectedFormList extends FormList {
   function getQuery() {
     return
       'select distinct I.formNoAccent ' .
-      'from InflectedForm I, LexemModel LM, Lexem L, Model M, ModelDescription MD, ModelType MT ' .
-      'where I.lexemModelId = LM.id ' .
-      'and LM.lexemId = L.id ' .
-      'and LM.modelType = MT.code ' .
+      'from InflectedForm I, Lexem L, Model M, ModelDescription MD, ModelType MT ' .
+      'where I.lexemId = L.id ' .
+      'and L.modelType = MT.code ' .
       'and MT.canonical = M.modelType ' .
-      'and LM.modelNumber = M.number ' .
+      'and L.modelNumber = M.number ' .
       'and M.id = MD.modelId ' .
       'and MD.inflectionId = I.inflectionId ' .
       'and MD.variant = I.variant ' .
       'and MD.applOrder = 0 ' .
-      'and LM.isLoc and MD.isLoc ' .
+      'and L.isLoc and MD.isLoc ' .
       'order by I.formNoAccent asc';
   }
 
@@ -250,17 +249,16 @@ class ReducedFormList extends FormList {
   function getQuery() {
     return
       'select I.formNoAccent ' .
-      'from InflectedForm I, LexemModel LM, Lexem L, Model M, ModelDescription MD, ModelType MT ' .
-      'where I.lexemModelId = LM.id ' .
-      'and LM.lexemId = L.id ' .
-      'and LM.modelType = MT.code ' .
+      'from InflectedForm I, Lexem L, Model M, ModelDescription MD, ModelType MT ' .
+      'where I.lexemId = L.id ' .
+      'and L.modelType = MT.code ' .
       'and MT.canonical = M.modelType ' .
-      'and LM.modelNumber = M.number ' .
+      'and L.modelNumber = M.number ' .
       'and M.id = MD.modelId ' .
       'and MD.inflectionId = I.inflectionId ' .
       'and MD.variant = I.variant ' .
       'and MD.applOrder = 0 ' .
-      'and LM.isLoc and MD.isLoc ' .
+      'and L.isLoc and MD.isLoc ' .
       'and char_length(I.formNoAccent) between 2 and 15';
   }
 

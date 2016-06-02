@@ -31,5 +31,4 @@ foreach ($codes as $code) {
 }
 
 header('Content-Type: application/json');
-Log::info(json_encode($data));
 print json_encode($data);

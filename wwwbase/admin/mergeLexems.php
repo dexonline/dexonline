@@ -25,10 +25,9 @@ if ($submitButton) {
       }
 
       // Add $dest to LOC if $src is in LOC
-      if ($src->isLoc() && !$dest->isLoc()) {
-        $lm = $dest->getFirstLexemModel();
-        $lm->isLoc = true;
-        $lm->save();
+      if ($src->isLoc && !$dest->isLoc) {
+        $dest->isLoc = true;
+        $dest>save();
       }
 
       // Delay the deletion because we might have to merge $src with other lexems.
@@ -39,7 +38,6 @@ if ($submitButton) {
     $lexem->delete();
   }
   util_redirect("mergeLexems.php?modelType={$modelType}");
-  exit;
 }
 
 $PLURAL_INFLECTIONS = array(3, 11, 19, 27, 35);
@@ -52,22 +50,19 @@ if ($modelType == 'T') {
 }
 $dbResult = db_execute("select distinct l.* " .
                        "from Lexem l " .
-                       "join LexemModel lm on lm.lexemId = l.id " .
                        "where {$whereClause} " .
                        "order by formNoAccent",
                        PDO::FETCH_ASSOC);
 
-$lexems = array();
+$lexems = [];
 foreach ($dbResult as $row) {
   $lexem = Model::factory('Lexem')->create($row);
-  $matches = array();
 
   $lexem->matches = Model::factory('Lexem')
     ->table_alias('l')
     ->select('l.*')
     ->distinct()
-    ->join('LexemModel', 'lm.lexemId = l.id', 'lm')
-    ->join('InflectedForm', 'i.lexemModelId = lm.id', 'i')
+    ->join('InflectedForm', 'i.lexemId = l.id', 'i')
     ->where('i.formNoAccent', $lexem->formNoAccent)
     ->where_in('i.inflectionId', $PLURAL_INFLECTIONS)
     ->where_not_equal('l.id', $lexem->id)
@@ -114,13 +109,8 @@ SmartyWrap::displayAdminPage('admin/mergeLexems.tpl');
 
 /** Returns an array containing only the accented forms, not the entire InflectedForm objects **/
 function loadIfArray($lexem) {
-  $lm = $lexem->getFirstLexemModel();
-  $ifs = $lm->loadInflectedForms();
-  $result = array();
-  foreach ($ifs as $if) {
-    $result[] = $if->form;
-  }
-  return $result;
+  $ifs = $lexem->loadInflectedForms();
+  return util_objectProperty($ifs, 'form');
 }
 
 ?>

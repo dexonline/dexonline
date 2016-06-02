@@ -15,8 +15,8 @@
     &nbsp;&nbsp;
   {/if}
 
-  {if $canEdit.loc || !$lexem->isLoc()}
-    <input type="submit" name="deleteLexem" value="Șterge" {if $lexem->isLoc()}disabled="disabled"{/if}
+  {if $canEdit.loc || !$lexem->isLoc}
+    <input type="submit" name="deleteLexem" value="Șterge" {if $lexem->isLoc}disabled="disabled"{/if}
            onclick="return confirm('Confirmați ștergerea acestui lexem?');"/>
     
     <span class="tooltip2" title="Șterge lexemul. Definițiile cu care el era asociat nu vor fi șterse, dar, dacă nu sunt asociate cu niciun alt lexem,
@@ -26,10 +26,9 @@
     
     {if $homonyms}
       {foreach from=$homonyms item=h}
-        {assign var=lms value=$h->getLexemModels()}
         &nbsp;&nbsp;
         <input type="submit" class="mergeLexem" id="mergeLexem_{$h->id}" name="mergeLexem"
-               value="Unifică cu {$h->form} {$lms[0]->modelType}{$lms[0]->modelNumber}{$lms[0]->restriction}"/>
+               value="Unifică cu {$h->form} {$h->modelType}{$h->modelNumber}{$h->restriction}"/>
       {/foreach}
     {/if}
   {/if}

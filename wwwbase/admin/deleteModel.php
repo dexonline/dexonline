@@ -10,12 +10,12 @@ $modelNumber = util_getRequestParameter('modelNumber');
 $deleteButton = util_getRequestParameter('deleteButton');
 
 $model = Model::factory('FlexModel')->where('modelType', $modelType)->where('number', $modelNumber)->find_one();
-$lexemModels = LexemModel::loadByCanonicalModel($modelType, $modelNumber);
+$lexems = Lexem::loadByCanonicalModel($modelType, $modelNumber);
 
 $locPerm = util_isModerator(PRIV_LOC);
 $numLoc = 0;
-foreach ($lexemModels as $lm) {
-  $numLoc += ($lm->isLoc);
+foreach ($lexems as $l) {
+  $numLoc += ($l->isLoc);
 }
 
 if ($numLoc && !$locPerm) {
@@ -25,22 +25,22 @@ if ($numLoc && !$locPerm) {
 }
 
 if ($deleteButton) {
-  foreach ($lexemModels as $lm) {
-    $lm->modelType = 'T';
-    $lm->modelNumber = '1';
-    $lm->restriction = '';
-    $lm->save();
-    $lm->regenerateParadigm();
+  foreach ($lexems as $l) {
+    $l->modelType = 'T';
+    $l->modelNumber = '1';
+    $l->restriction = '';
+    $l->save();
+    $l->regenerateParadigm();
   }
   Log::warning("Deleting model {$model->id} ({$model})");
   $model->delete();
-  util_redirect('../admin/index.php');
+  util_redirect('index.php');
 }
 
 RecentLink::createOrUpdate("Ștergere model: {$model}");
 SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::assign('modelNumber', $modelNumber);
-SmartyWrap::assign('lexemModels', $lexemModels);
+SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('locPerm', $locPerm);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::displayAdminPage('admin/deleteModel.tpl');

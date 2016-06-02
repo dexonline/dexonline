@@ -13,13 +13,9 @@ $butSave = util_getRequestParameter('butSave');
 $butPrev = util_getRequestParameter('butPrev');
 $butNext = util_getRequestParameter('butNext');
 $lexemIds = util_getRequestParameter('lexemId');
+$models = util_getRequestParameter('model');
 $capitalize = util_getBoolean('capitalize');
 $deleteOrphans = util_getBoolean('deleteOrphans');
-
-// We need to save model info as JSON because it is 2-dimensional
-// (a list of lists of models) and PHP cannot parse the form data correctly.
-$jsonModels = util_getRequestParameter('jsonModels');
-$models = json_decode($jsonModels);
 
 if ($definitionId) {
   $def = Definition::get_by_id($definitionId);
@@ -88,60 +84,36 @@ if ($butSave) {
 
   foreach ($lexemIds as $i => $lid) {
     if ($lid) {
+      $m = $models[$i];
+
       // Create a new lexem or load the existing one
       if (StringUtil::startsWith($lid, '@')) {
         $lexem = Lexem::create(substr($lid, 1));
-        $lexem->save();
       } else {
         $lexem = Lexem::get_by_id($lid);
       }
 
-      // Associate the lexem with the definition
-      LexemDefinitionMap::associate($lexem->id, $def->id);
-
-      // There's bit of complexity here because deTool.php doesn't support
-      // restrictions, but the existing lexem models may have them.
-      // So we confront the new and old array of lexem models, copy any
-      // common ones and delete the ones that are gone.
-
-      // Load existing lexem models
-      $dbLms = $lexem->getLexemModels();
-
-      // Create the new set of lexem models
-      $lms = [];
-      $needsCaps = false;
-      foreach ($models[$i] as $m) {
+      $needsCaps = prefixMatch($m, $MODELS_TO_CAPITALIZE);
+      if ($capitalize && $needsCaps) {
+        $lexem->setForm(AdminStringUtil::capitalize($lexem->form));
+      }
+        
+      if ($m != "{$lexem->modelType}{$lexem->modelNumber}") {
         $model = Model::factory('ModelType')
                ->select('code')
                ->select('number')
                ->join('Model', ['canonical', '=', 'modelType'])
                ->where_raw("concat(code, number) = ? ", [$m])
                ->find_one();
-        $lm = lmSearch($dbLms, $model->code, $model->number);
-        if (!$lm) {
-          $lm = LexemModel::create($model->code, $model->number);
-          $lm->lexemId = $lexem->id;
-        }
-        $lm->setLexem($lexem);
-        $lm->displayOrder = 1 + count($lms);
-        $lms[] = $lm;
-        $needsCaps |= prefixMatch($m, $MODELS_TO_CAPITALIZE);
-      }
-      $lexem->setLexemModels($lms);
-
-      // Delete old lexem models
-      foreach ($dbLms as $lm) {
-        $match = lmSearch($lms, $lm->modelType, $lm->modelNumber);
-        if (!$match) {
-          $lm->delete();
-        }
+        $lexem->modelType = $model->code;
+        $lexem->modelNumber = $model->number;
       }
 
-      if ($needsCaps) {
-        $lexem->setForm(AdminStringUtil::capitalize($lexem->form));
-      }
-      
-      $lexem->deepSave();
+      $lexem->save();
+      $lexem->regenerateParadigm();
+
+      // Associate the lexem with the definition
+      LexemDefinitionMap::associate($lexem->id, $def->id);
     }
   }
 
@@ -169,7 +141,9 @@ if ($butSave) {
     }
 
     foreach ($lexemIds as $i => $lid) {
-      if (empty($lid) xor empty($models[$i])) {
+      $m = $models[$i];
+
+      if (empty($lid) xor empty($m)) {
         throw new Exception('Nu puteți avea un lexem fără modele nici invers.');
       }
 
@@ -181,26 +155,23 @@ if ($butSave) {
         }
 
         // Check that either the lexem is not in LOC or the model list is unchanged
-        if ($lexem->isLoc() && !sameModels($models[$i], $lexem->getLexemModels())) {
-          throw new Exception("Nu puteți schimba modelele unui lexem inclus în loc: {$lexem}.");
+        if ($lexem->isLoc && ($m != "{$lexem->modelType}{$lexem->modelNumber}")) {
+          throw new Exception("Nu puteți schimba modelul unui lexem inclus în loc: {$lexem}.");
         }
 
-        // Check that the lexem works with every model
-        foreach ($models[$i] as $m) {
-          $model = Model::factory('ModelType')
-                 ->select('code')
-                 ->select('number')
-                 ->join('Model', ['canonical', '=', 'modelType'])
-                 ->where_raw("concat(code, number) = ? ", [$m])
-                 ->find_one();
-          $lm = LexemModel::create($model->code, $model->number);
-          $lm->setLexem($lexem);
-          $ifs = $lm->generateInflectedForms();
-          if (!is_array($ifs)) {
-            $infl = Inflection::get_by_id($ifs);
-            $msg = "Lexemul „%s” nu poate fi flexionat conform modelului %s.";
-            throw new Exception(sprintf($msg, $lexem->form, $m));
-          }
+        // Check that the lexem works with the model
+        $model = Model::factory('ModelType')
+               ->select('code')
+               ->select('number')
+               ->join('Model', ['canonical', '=', 'modelType'])
+               ->where_raw("concat(code, number) = ? ", [$m])
+               ->find_one();
+        $l = Lexem::create($lexem->form, $model->code, $model->number);
+        $ifs = $l->generateInflectedForms();
+        if (!is_array($ifs)) {
+          $infl = Inflection::get_by_id($ifs);
+          $msg = "Lexemul „%s” nu poate fi flexionat conform modelului %s.";
+          throw new Exception(sprintf($msg, $lexem->form, $m));
         }
       }
     }
@@ -213,11 +184,7 @@ if ($butSave) {
 } else {
   $models = [];
   foreach ($dbl as $l) {
-    $m = [];
-    foreach($l->getLexemModels() as $lm) {
-      $m[] = "{$lm->modelType}{$lm->modelNumber}";
-    }
-    $models[] = $m;
+    $models[] = "{$l->modelType}{$l->modelNumber}";
   }
 
   SmartyWrap::assign('lexemIds', $dblIds);
@@ -234,16 +201,6 @@ SmartyWrap::displayAdminPage('admin/deTool.tpl');
 
 /*************************************************************************/
 
-// Searches for a LexemModel in an array, ignoring the restriction field */
-function lmSearch($lms, $type, $number) {
-  foreach ($lms as $lm) {
-    if (($lm->modelType == $type) && ($lm->modelNumber == $number)) {
-      return $lm;
-    }
-  }
-  return null;
-}
-
 // Returns true iff any string in $prefixes is a prefix of $s
 function prefixMatch($s, $prefixes) {
   foreach ($prefixes as $p) {
@@ -252,18 +209,4 @@ function prefixMatch($s, $prefixes) {
     }
   }
   return false;
-}
-
-// $models: comma-separated list of models
-// $lms: old lexem models
-function sameModels($models, $lms) {
-  if (count($models) != count($lms)) {
-    return false;
-  }
-  foreach ($lms as $i => $lm) {
-    if ($models[$i] != "{$lm->modelType}{$lm->modelNumber}") {
-      return false;
-    }
-  }
-  return true;
 }

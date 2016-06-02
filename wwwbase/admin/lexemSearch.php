@@ -11,8 +11,8 @@ $structStatus = util_getRequestParameter('structStatus');
 $structuristId = util_getRequestParameter('structuristId');
 $nick = util_getRequestParameter('nick');
 
-$where = array();
-$joins = array();
+$where = [];
+$joins = [];
 
 // Process the $form argument
 $form = StringUtil::cleanupQuery($form);
@@ -36,23 +36,19 @@ if ($sourceId) {
 // Process the $loc argument
 switch ($loc) {
   case 0:
-    $joins['lexemModel'] = true;
-    $where[] = "not lm.isLoc";
+    $where[] = "not isLoc";
     break;
   case 1:
-    $joins['lexemModel'] = true;
-    $where[] = "lm.isLoc";
+    $where[] = "isLoc";
     break;
 }
 
 // Process the $paradigm argument
 switch ($paradigm) {
   case 0:
-    $joins['lexemModel'] = true;
     $where[] = "modelType = 'T'";
     break;
   case 1:
-    $joins['lexemModel'] = true;
     $where[] = "modelType != 'T'";
     break;
 }
@@ -93,8 +89,6 @@ foreach ($joins as $join => $ignored) {
       $query = $query->join('LexemDefinitionMap', 'l.id = ldm.lexemId', 'ldm')
         ->join('Definition', 'ldm.definitionId = d.id', 'd');
       break;
-    case 'lexemModel':
-      $query = $query->join('LexemModel', 'l.id = lm.lexemId', 'lm');
   }
 }
 

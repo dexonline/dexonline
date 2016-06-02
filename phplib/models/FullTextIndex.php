@@ -3,40 +3,40 @@
 class FullTextIndex extends BaseObject {
   public static $_table = 'FullTextIndex';
 
-  public static function loadDefinitionIdsForLexemModels($lexemModelIds, $sourceId) {
-    if (empty($lexemModelIds)) {
-      return array();
+  public static function loadDefinitionIdsForLexems($lexemIds, $sourceId) {
+    if (empty($lexemIds)) {
+      return [];
     }
-    $lexemString = implode(',', $lexemModelIds);
+    $lexemString = implode(',', $lexemIds);
     if ($sourceId) {
       $query = "select distinct definitionId " .
         "from FullTextIndex F " .
         "join Definition D on D.id = F.definitionId " .
-        "where lexemModelId in ($lexemString) " .
+        "where lexemId in ($lexemString) " .
         "and D.sourceId = $sourceId " .
         "order by definitionId";
     } else {
       $query = "select distinct definitionId " .
         "from FullTextIndex " .
-        "where lexemModelId in ($lexemString) " .
+        "where lexemId in ($lexemString) " .
         "order by definitionId";
     }
     return db_getArray($query);
   }
 
-  // For each defId, build an array of arrays of positions, one array for each lexemModelId
-  public static function loadPositionsByLexemIdsDefinitionIds($lmMap, $defIds) {
-    $positionMap = array();
-    foreach ($lmMap as $lmIds) {
-      if (!empty($lmIds)) {
-        // Load all positions in all definitions for this LexemModel set
+  // For each defId, build an array of arrays of positions, one array for each lexemId
+  public static function loadPositionsByLexemIdsDefinitionIds($lexemMap, $defIds) {
+    $positionMap = [];
+    foreach ($lexemMap as $lexemIds) {
+      if (!empty($lexemIds)) {
+        // Load all positions in all definitions for this Lexem set
         $query = sprintf('select distinct definitionId, position from FullTextIndex ' .
-                         'where lexemModelId in (%s) ' .
+                         'where lexemId in (%s) ' .
                          'and definitionId in (%s) ' .
                          'order by definitionId, position',
-                         implode(',', $lmIds), implode(',', $defIds));
+                         implode(',', $lexemIds), implode(',', $defIds));
         $results = db_getArrayOfRows($query, PDO::FETCH_NUM);
-        $results[] = array(-1, -1); // sentinel
+        $results[] = [-1, -1]; // sentinel
 
         // Now iterate in defId order and collect position arrays
         $i = 0;

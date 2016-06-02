@@ -164,32 +164,29 @@ class Definition extends BaseObject implements DatedObject {
   public static function searchFullText($words, $hasDiacritics, $sourceId) {
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     $intersection = null;
-    $stopWords = array();
-    $lmMap = array();
+    $stopWords = [];
+    $lexemMap = [];
 
     foreach ($words as $word) {
-      // Get all LexemModels generating this form
-      $lms = Model::factory('LexemModel')
-        ->table_alias('L')
-        ->select('L.id')
+      // Get all lexems generating this form
+      $lexems = Model::factory('InflectedForm')
+        ->select('lexemId')
         ->distinct()
-        ->join('InflectedForm', 'I.lexemModelId = L.id', 'I')
-        ->where("I.{$field}", $word)
+        ->where($field, $word)
         ->find_many();
-      $lmIds = util_objectProperty($lms, 'id');
-      $lmMap[] = $lmIds;
+      $lexemIds = util_objectProperty($lexems, 'lexemId');
+      $lexemMap[] = $lexemIds;
 
-      // Get the FullTextIndex records for each LexemModels. Note that the FTI excludes stop words.
-      $defIds = FullTextIndex::loadDefinitionIdsForLexemModels($lmIds, $sourceId);
+      // Get the FullTextIndex records for each form. Note that the FTI excludes stop words.
+      $defIds = FullTextIndex::loadDefinitionIdsForLexems($lexemIds, $sourceId);
 
       // Determine whether the word is a stop word.
       if (empty($defIds)) {
         $isStopWord = Model::factory('InflectedForm')
-          ->table_alias('I')
-          ->join('LexemModel', 'I.lexemModelId = LM.id', 'LM')
-          ->join('Lexem', 'LM.lexemId = L.id', 'L')
-          ->where("I.{$field}", $word)
-          ->where('L.stopWord', 1)
+          ->table_alias('i')
+          ->join('Lexem', 'i.lexemId = l.id', 'l')
+          ->where("i.{$field}", $word)
+          ->where('l.stopWord', 1)
           ->count();
       } else {
         $isStopWord = false;
@@ -205,18 +202,18 @@ class Definition extends BaseObject implements DatedObject {
     }
 
     if (empty($intersection)) { // This can happen when the query is all stopwords or the source selection produces no results
-      return array(array(), $stopWords);
+      return [[], $stopWords];
     }
     if (count($words) == 1) {
       // For single-word queries, skip the ordering part.
       // We could sort the definitions by lexicon, but it is very expensive.
-      return array($intersection, $stopWords);
+      return [$intersection, $stopWords];
     }
 
     // Now compute a score for every definition
     DebugInfo::resetClock();
-    $positionMap = FullTextIndex::loadPositionsByLexemIdsDefinitionIds($lmMap, $intersection);
-    $shortestIntervals = array();
+    $positionMap = FullTextIndex::loadPositionsByLexemIdsDefinitionIds($lexemMap, $intersection);
+    $shortestIntervals = [];
     foreach ($intersection as $defId) {
       $shortestIntervals[] = util_findSnippet($positionMap[$defId]);
     }
@@ -226,29 +223,25 @@ class Definition extends BaseObject implements DatedObject {
     }
     DebugInfo::stopClock("Computed score for every definition");
 
-    return array($intersection, $stopWords);
+    return [$intersection, $stopWords];
   }
 
   public static function highlight($words, &$definitions) {
-    $res = array_fill_keys($words, array());
+    $res = array_fill_keys($words, []);
 
     foreach ($res as $key => &$words) {
-      $var = sprintf("select distinct i2.formNoAccent  
-        from InflectedForm i1, LexemModel lm1, Lexem l, LexemModel lm2, InflectedForm i2
-        where i1.lexemModelId = lm1.id and
-        lm1.lexemId = l.id and
-        l.id = lm2.lexemId and
-        lm2.id = i2.lexemModelId and
-        not l.stopWord and
-        i1.formUtf8General = '%s'", $key);
-
-      $query = db_getArray($var);
-
-      foreach ($query as $q) {
-        array_push($words, $q);
+      $forms = Model::factory('InflectedForm')
+             ->table_alias('i1')
+             ->select('i2.formNoAccent')
+             ->distinct()
+             ->join('Lexem', ['i1.lexemId', '=', 'l.id'], 'l')
+             ->left_outer_join('InflectedForm', ['i2.lexemId', '=', 'l.id'], 'i2')
+             ->where('l.stopWord', 0)
+             ->where('i1.formUtf8General', $key)
+             ->find_many();
+      foreach ($forms as $f) {
+        $words[] = $f->formNoAccent;
       }
-
-      $words = array_unique($words);
 
       if (empty($words)) {
         unset($res[$key]);

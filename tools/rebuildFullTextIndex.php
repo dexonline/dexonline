@@ -17,21 +17,20 @@ db_execute('truncate table FullTextIndex');
 // Build a map of stop words
 $stopWordForms = array_flip(db_getArray(
   'select distinct i.formNoAccent ' .
-  'from Lexem l, LexemModel lm, InflectedForm i ' .
-  'where l.id = lm.lexemId ' .
-  'and lm.id = i.lexemModelId ' .
+  'from Lexem l, InflectedForm i ' .
+  'where l.id = i.lexemId ' .
   'and l.stopWord'));
 
-// Build a map of inflectedForm => list of (lexemModelId, inflectionId) pairs
+// Build a map of inflectedForm => list of (lexemId, inflectionId) pairs
 Log::info("Building inflected form map.");
-$dbResult = db_execute("select formNoAccent, lexemModelId, inflectionId from InflectedForm");
+$dbResult = db_execute("select formNoAccent, lexemId, inflectionId from InflectedForm");
 $ifMap = [];
 foreach ($dbResult as $r) {
   $form = $r['formNoAccent'];
   $s = isset($ifMap[$form])
      ? ($ifMap[$form] . ',')
      : '';
-  $s .= $r['lexemModelId'] . ',' . $r['inflectionId'];
+  $s .= $r['lexemId'] . ',' . $r['inflectionId'];
   $ifMap[$form] = $s;
 }
 unset($dbResult);
@@ -58,8 +57,6 @@ foreach ($dbResult as $dbRow) {
           fwrite($handle, $lexemList[$i] . "\t" . $lexemList[$i + 1] . "\t" . $dbRow[0] . "\t" . $position . "\n");
           $indexSize++;
         }
-      } else {
-        // print "Not found: $word\n";
       }
     }
   }
@@ -84,7 +81,7 @@ util_deleteFile($fileName);
 if (!Lock::release(LOCK_FULL_TEXT_INDEX)) {
   Log::warning('WARNING: could not release lock!');
 }
-Log::notice('finished; peak memory usage %d MB', round(memory_get_usage() / 1048576, 1));
+Log::notice('finished; peak memory usage %d MB', round(memory_get_peak_usage() / 1048576, 1));
 
 /***************************************************************************/
 

@@ -177,7 +177,7 @@ createComment('Foarte foarte gustoasă',
 
 // lexem sources
 $ls = Model::factory('LexemSource')->create();
-$ls->lexemModelId = $l3->getLexemModels()[0]->id;
+$ls->lexemId = $l3->id;
 $ls->sourceId = $devil->id;
 $ls->save();
 
@@ -286,7 +286,7 @@ function createConstraints($code, $inflectionRegexp, $modelTypeRegexp, $variant)
 }
 
 function createLexemDeep($form, $modelType, $modelNumber, $restriction, $isLoc) {
-  $l = Lexem::deepCreate($form, $modelType, $modelNumber, $restriction, $isLoc);
+  $l = Lexem::create($form, $modelType, $modelNumber, $restriction, $isLoc);
   $l->deepSave();
   return $l;
 }

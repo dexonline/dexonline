@@ -10,7 +10,7 @@ $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
 $newModelNumber = util_getRequestParameter('newModelNumber');
 $chooseLexems = util_getRequestParameter('chooseLexems');
-$lexemModelIds = util_getRequestParameter('lexemModelId');
+$lexemIds = util_getRequestParameter('lexemId');
 $cloneButton = util_getRequestParameter('cloneButton');
 
 if ($cloneButton) {
@@ -51,28 +51,27 @@ if ($cloneButton) {
     }
 
     // Migrate the selected lexems.
-    if ($chooseLexems && $lexemModelIds) {
-      foreach ($lexemModelIds as $lexemModelId) {
-        $lm = LexemModel::get_by_id($lexemModelId);
-        $lm->modelNumber = $newModelNumber;
-        $lm->save();
+    if ($chooseLexems && $lexemIds) {
+      foreach ($lexemIds as $lexemId) {
+        $l = Lexem::get_by_id($lexemId);
+        $l->modelNumber = $newModelNumber;
+        $l->save();
         // It is not necessary to regenerate the paradigm for now, since
         // the inflected forms are identical.
       }
     }
     util_redirect('../admin/index.php');
-    exit;
   }
 } else {
   $newModelNumber = $modelNumber . '.1';
 }
 
-$lexemModels = LexemModel::loadByCanonicalModel($modelType, $modelNumber);
+$lexems = Lexem::loadByCanonicalModel($modelType, $modelNumber);
 
 SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::assign('modelNumber', $modelNumber);
 SmartyWrap::assign('newModelNumber', $newModelNumber);
-SmartyWrap::assign('lexemModels', $lexemModels);
+SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::displayAdminPage('admin/cloneModel.tpl');
 

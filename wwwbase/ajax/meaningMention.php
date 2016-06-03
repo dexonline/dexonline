@@ -9,8 +9,7 @@ $lexems = Model::factory('Lexem')
   ->table_alias('l')
   ->select('l.*')
   ->distinct()
-  ->join('LexemModel', 'lm.lexemId = l.id', 'lm')
-  ->join('InflectedForm', 'i.lexemModelId = lm.id', 'i')
+  ->join('InflectedForm', 'i.lexemId = l.id', 'i')
   ->where('i.formNoAccent', $form)
   ->find_many();
 

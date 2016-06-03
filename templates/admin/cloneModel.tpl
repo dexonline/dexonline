@@ -24,11 +24,11 @@
       Bifați lexemele pe care doriți să le migrați la noul model:
       <br/>
 
-      {foreach from=$lexemModels item=lm}
-        <input type="checkbox" id="lm_{$lm->id}" name="lexemModelId[]" value="{$lm->id}">
-        <label for="lm_{$lm->id}">
-          {include file="bits/lexemName.tpl" lexem=$lm->getLexem()}
-          <span class="deemph">({$lm->modelType}{$lm->modelNumber})</span>
+      {foreach $lexems as $l}
+        <label>
+          <input type="checkbox" name="lexemId[]" value="{$l->id}">
+          {include file="bits/lexemName.tpl" lexem=$l}
+          <span class="deemph">({$l->modelType}{$l->modelNumber})</span>
         </label>
         <br>
       {/foreach}

@@ -140,7 +140,7 @@ class SmartyWrap {
         case 'jqueryui-smoothness': self::$cssFiles[2] = 'smoothness-1.10.4/jquery-ui-1.10.4.custom.min.css'; break;
         case 'bootstrap':
           self::$cssFiles[3] = 'bootstrap.min.css';
-          self::$cssFiles[4] = 'bootstrap-theme.min.css';
+          // self::$cssFiles[4] = 'bootstrap-theme.min.css';
           break;
         case 'jqgrid':              self::$cssFiles[5] = 'ui.jqgrid.css'; break;
         case 'tablesorter':         self::$cssFiles[6] = 'tablesorter/theme.blue.css'; break;

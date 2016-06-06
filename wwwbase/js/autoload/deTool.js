@@ -2,14 +2,14 @@ $(function() {
   var stem = null;
   var stemOption = null;
 
-  var lexemStruct = {
+  var entryStruct = {
     ajax: {
-      url: wwwRoot + 'ajax/getLexems.php',
+      url: wwwRoot + 'ajax/getEntries.php',
     },
     allowClear: true,
     createTag: allowNewOptions,
     minimumInputLength: 1,
-    placeholder: 'caută un lexem',
+    placeholder: 'caută o intrare',
     tags: true,
   };
 
@@ -36,9 +36,9 @@ $(function() {
   };
 
   function init() {
-    initSelect2('.lexem', 'ajax/getLexemsById.php', lexemStruct);
+    initSelect2('.entry', 'ajax/getEntriesById.php', entryStruct);
     initSelect2('.model', 'ajax/getModelsByCodes.php', modelStruct);
-    $('.lexem').change(lexemChange);
+    $('.entry').change(entryChange);
     $('.model').change(modelChange);
     $('.shortcutI3').click(shortcutI3);
     $('#addRow').click(addRow);
@@ -49,23 +49,23 @@ $(function() {
   }
 
   function addRow() {
-    var r = stem.clone(true).appendTo('#lexemsTable');
-    r.find('.lexem').select2(lexemStruct);
+    var r = stem.clone(true).appendTo('#entriesTable');
+    r.find('.entry').select2(entryStruct);
     r.find('.model').select2(modelStruct);
     return false;
   }
 
   // Refresh the model list
-  function lexemChange() {
-    var lexemId = $(this).val();
+  function entryChange() {
+    var entryId = $(this).val();
     var m = $(this).closest('tr').find('.model');
     m.html('');
     
-    if (lexemId == null) {
-      // lexem field cleared
+    if (entryId == null) {
+      // entry field cleared
       m.trigger('change');
-    } else if (lexemId.startsWith('@')) {
-      // new lexem form
+    } else if (entryId.startsWith('@')) {
+      // new entry form
       m.append(stemOption).trigger('change');
     } else {
       $.ajax({
@@ -97,8 +97,8 @@ $(function() {
   }
 
   function endEdit() {
-    // make sure even empty lexemIds and models are being submitted
-    $('.lexem, .model').each(function() {
+    // make sure even empty entryIds and models are being submitted
+    $('.entry, .model').each(function() {
       if ($(this).val() == null) {
         $(this).append(new Option(0, 0, true, true));
       }

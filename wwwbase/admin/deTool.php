@@ -198,7 +198,7 @@ if ($butSave) {
     $models[] = "{$l->modelType}{$l->modelNumber}";
   }
 
-  SmartyWrap::assign('lexemIds', $dblIds);
+  SmartyWrap::assign('entryIds', $dblIds);
   SmartyWrap::assign('models', $models);
 }
 

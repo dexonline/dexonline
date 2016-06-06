@@ -86,8 +86,8 @@ $query = Model::factory('Lexem')
 foreach ($joins as $join => $ignored) {
   switch ($join) {
     case 'definition':
-      $query = $query->join('LexemDefinitionMap', 'l.id = ldm.lexemId', 'ldm')
-        ->join('Definition', 'ldm.definitionId = d.id', 'd');
+      $query = $query->join('EntryDefinition', ['l.entryId', '=', 'ed.entryId'], 'ed')
+        ->join('Definition', 'ed.definitionId = d.id', 'd');
       break;
   }
 }

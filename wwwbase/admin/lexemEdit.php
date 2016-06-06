@@ -76,13 +76,6 @@ if ($refreshLexem || $saveLexem) {
   SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
 }
 
-$definitions = Definition::loadByLexemId($lexem->id);
-foreach ($definitions as $def) {
-  $def->internalRepAbbrev = AdminStringUtil::expandAbbreviations($def->internalRep, $def->sourceId);
-  $def->htmlRepAbbrev = AdminStringUtil::htmlize($def->internalRepAbbrev, $def->sourceId);
-}
-$searchResults = SearchResult::mapDefinitionArray($definitions);
-$definitionLexem = mb_strtoupper(AdminStringUtil::internalize($lexem->form, false));
 $tags = Model::factory('Tag')->order_by_asc('value')->find_many();
 
 $ss = $lexem->structStatus;
@@ -109,8 +102,6 @@ $canEdit = array(
 $models = FlexModel::loadByType($lexem->modelType);
 
 SmartyWrap::assign('lexem', $lexem);
-SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('definitionLexem', $definitionLexem);
 SmartyWrap::assign('homonyms', Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many());
 SmartyWrap::assign('tags', $tags);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
@@ -321,40 +312,6 @@ function handleLexemActions() {
   $lexemId = util_getRequestParameter('lexemId');
   $lexem = Lexem::get_by_id($lexemId);
 
-  $associateDefinitionId = util_getRequestParameter('associateDefinitionId');
-  if ($associateDefinitionId) {
-    LexemDefinitionMap::associate($lexem->id, $associateDefinitionId);
-    Log::info("Associated lexem {$lexem->id} ({$lexem->formNoAccent}) to definition {$associateDefinitionId}");
-    util_redirect("lexemEdit.php?lexemId={$lexem->id}");
-  }
-
-  $dissociateDefinitionId = util_getRequestParameter('dissociateDefinitionId');
-  if ($dissociateDefinitionId) {
-    LexemDefinitionMap::dissociate($lexem->id, $dissociateDefinitionId);
-    Log::info("Dissociated lexem {$lexem->id} ({$lexem->formNoAccent}) from definition {$dissociateDefinitionId}");
-    util_redirect("lexemEdit.php?lexemId={$lexem->id}");
-  }
-
-  $createDefinition = util_getRequestParameter('createDefinition');
-  $miniDefTarget = util_getRequestParameter('miniDefTarget');
-  if ($createDefinition) {
-    $def = Model::factory('Definition')->create();
-    $def->userId = session_getUserId();
-    $def->sourceId = Source::get_by_shortName('Neoficial')->id;
-    $def->lexicon = $lexem->formNoAccent;
-    $def->internalRep =
-      '@' . mb_strtoupper(AdminStringUtil::internalize($lexem->form, false)) .
-      '@ v. @' . $miniDefTarget . '.@';
-    $def->htmlRep = AdminStringUtil::htmlize($def->internalRep, $def->sourceId);
-    $def->status = Definition::ST_ACTIVE;
-    $def->save();
-
-    LexemDefinitionMap::associate($lexem->id, $def->id);
-    Log::info("Created mini definition {$def->id} for lexem {$lexem->id} ({$lexem->formNoAccent})");
-
-    util_redirect("lexemEdit.php?lexemId={$lexem->id}");
-  }
-
   $deleteLexem = util_getRequestParameter('deleteLexem');
   if ($deleteLexem) {
     $homonyms = Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many();
@@ -370,61 +327,6 @@ function handleLexemActions() {
     $newLexem = $lexem->cloneLexem();
     Log::notice("Cloned lexem {$lexem->id} ({$lexem->formNoAccent}), new id is {$newLexem->id}");
     util_redirect("lexemEdit.php?lexemId={$newLexem->id}");
-  }
-
-  $mergeLexem = util_getRequestParameter('mergeLexem');
-  $mergeLexemId = util_getRequestParameter('mergeLexemId');
-  if ($mergeLexem) {
-    $other = Lexem::get_by_id($mergeLexemId);
-
-    if ($lexem->form != $other->form) {
-      FlashMessage::add('Nu pot unifica lexemele deoarece accentele diferă. Rezolvați diferența și încercați din nou.');
-      util_redirect("lexemEdit.php?lexemId={$lexem->id}");
-    }
-
-    // if $lexem has a paradigm and $other doesn't, keep $lexem
-    if (($other->modelType == 'T') && ($lexem->modelType != 'T')) {
-      $tmp = $lexem;
-      $lexem = $other;
-      $other = $tmp;
-    }
-
-    // copy definitions
-    $defs = Definition::loadByLexemId($lexem->id);
-    foreach ($defs as $def) {
-      LexemDefinitionMap::associate($other->id, $def->id);
-    }
-
-    // Add meanings from $lexem to $other and renumber their displayOrder and breadcrumb
-    // displayOrders are generated sequentially regardless of level.
-    // Breadcrumbs follow levels so only their first part changes.
-    $counter = Model::factory('Meaning')->where('lexemId', $other->id)->count();
-    $numRoots = Model::factory('Meaning')->where('lexemId', $other->id)->where('parentId', 0)->count();
-    $meanings = Model::factory('Meaning')->where('lexemId', $lexem->id)->order_by_asc('displayOrder')->find_many();
-    foreach ($meanings as $m) {
-      $m->lexemId = $other->id;
-      $m->displayOrder = ++$counter;
-      $parts = explode('.', $m->breadcrumb, 2);
-      $parts[0] += $numRoots;
-      $m->breadcrumb = implode('.', $parts);
-      $m->save();
-    }
-
-    // Add images and image tags from $lexem to $other
-    $visuals = Visual::get_all_by_lexemeId($lexem->id);
-    foreach ($visuals as $v) {
-      $v->lexemeId = $other->id;
-      $v->save();
-    }
-    $visualTags = VisualTag::get_all_by_lexemeId($lexem->id);
-    foreach ($visualTags as $vt) {
-      $vt->lexemeId = $other->id;
-      $vt->save();
-    }
-
-    Log::notice("Merged lexem {$lexem->id} ({$lexem->formNoAccent}) into lexem {$other->id}");
-    $lexem->delete();
-    util_redirect("lexemEdit.php?lexemId={$other->id}");
   }
 }
 

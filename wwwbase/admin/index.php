@@ -33,9 +33,9 @@ $reports = array(
         'privilege' => PRIV_EDIT
   ),
   // this takes about 500 ms (even though the query is similar to the one for unassociated definitions)
-  array('text' => 'Lexeme neasociate cu nicio definiție',
-        'url' => 'admin/viewUnassociatedLexems',
-        'count' => Lexem::countUnassociated(),
+  array('text' => 'Intrări neasociate cu nicio definiție',
+        'url' => 'admin/viewUnassociatedEntries',
+        'count' => Entry::countUnassociated(),
         'privilege' => PRIV_EDIT
   ),
   array('text' => 'Lexeme cu comentarii',

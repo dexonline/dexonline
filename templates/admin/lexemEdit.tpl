@@ -40,7 +40,6 @@
   <form action="lexemEdit.php" method="post">
     <input type="hidden" name="lexemId" value="{$lexem->id}">
     <input type="hidden" name="jsonMeanings" value="">
-    <input type="hidden" name="mergeLexemId" value="">
 
     {include file="admin/lexemEditActions.tpl"}
 
@@ -268,74 +267,5 @@
       </div>
     {/if}
 
-    <div class="box" data-id="definitions" data-title="Definiții asociate ({$searchResults|@count})" data-left="0" data-top="335" data-width="995" data-height="300">
-      <div>
-        <select id="defFilterSelect">
-          <option value="">toate</option>
-          <option value="structured">structurate</option>
-          <option value="unstructured">nestructurate</option>
-        </select>
-        <select class="toggleRepSelect" data-order="1">
-          <option value="0">text</option>
-          <option value="1" selected>html</option>
-        </select>
-        <select class="toggleRepSelect" data-order="2">
-          <option value="0">expandat</option>
-          <option value="1" selected>abreviat</option>
-        </select>
-      </div>
-
-      {foreach from=$searchResults item=row}
-        {$def=$row->definition}
-        <div class="defWrapper {if $def->structured}structured{else}unstructured{/if}" id="def_{$def->id}">
-          <div data-code="0" class="rep internal hidden">{$def->internalRepAbbrev|escape}</div>
-          <div data-code="1" class="rep hidden">{$def->htmlRepAbbrev}</div>
-          <div data-code="2" class="rep internal hidden">{$def->internalRep|escape}</div>
-          <div data-code="3" data-active class="rep">{$def->htmlRep}</div>
-          <span class="defDetails">
-            id: {$def->id}
-            | sursa: {$row->source->shortName|escape}
-            | starea: {$def->getStatusName()}
-            {if $canEdit.general}
-              | <a href="definitionEdit.php?definitionId={$def->id}" target="_blank">editează</a>
-              | <a href="lexemEdit.php?lexemId={$lexem->id}&amp;dissociateDefinitionId={$def->id}"
-                   title="disociază definiția de lexem" onclick="return confirmDissociateDefinition({$def->id})">disociază</a>
-            {/if}
-            | <a href="#" class="toggleRepLink" title="comută între notația internă și HTML"
-                 data-value="1" data-order="1" data-other-text="html">text</a>
-            | <a href="#" class="toggleRepLink" title="contractează sau expandează abrevierile"
-                 data-value="1" data-order="2" data-other-text="abreviat">expandat</a>
-            {if $canEdit.defStructured}
-              | <a href="#" class="toggleStructuredLink" title="comută definiția între structurată și nestructurată"
-                   >{if $def->structured}structurată{else}nestructurată{/if}</a>
-            {/if}
-          </span>
-          {if $row->comment}
-            <div class="commentInternalRep">
-              Comentariu: {$row->comment->contents} -
-              <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}">{$row->commentAuthor->nick|escape}</a>
-            </div>
-          {/if}
-        </div>
-      {/foreach}
-
-      {if $canEdit.general}
-        <div class="addDefinition">
-          <select id="associateDefinitionId" name="associateDefinitionId">
-          </select>
-          <input type="submit" name="associateDefinition" value="Asociază">
-        </div>
-      {/if}
-
-      {if !count($searchResults) && $canEdit.general}
-        <div class="addDefinition">
-          Puteți crea o mini-definiție. Introduceți termenul-destinație, fără alte formatări (bold, italic etc.):<br>
-          
-          <b>{$definitionLexem|escape}</b> v. <input type="text" name="miniDefTarget" size="20" class="miniDefTarget">.
-          &nbsp;&nbsp;
-          <input type="submit" name="createDefinition" value="Creează">
-        </div>
-      {/if}
-    </div>
   </form>
 {/block}

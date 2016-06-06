@@ -1,0 +1,31 @@
+.defWrapper .rep {
+  margin-top: 10px;
+}
+
+.defWrapper .internal {
+  font-family: courier;
+}
+
+.defWrapper .hiddenRep {
+  display: none;
+}
+
+.commentInternalRep {
+  color: #333;
+  margin-left:15px;
+  margin-top: 5px;
+  padding: 5px;
+}
+
+.defDetails {
+  color: #999999;
+  font-family: sans-serif;
+}
+
+.defDetails a {
+  color: #777777;
+}
+
+.defDetails a:hover {
+  color: #555555;
+}

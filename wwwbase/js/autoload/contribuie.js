@@ -8,7 +8,7 @@ $(function() {
 
     initSelect2('#lexemIds', 'ajax/getLexemsById.php', {
       ajax: { url: wwwRoot + 'ajax/getLexems.php' },
-      createTag: allowNewLexems,
+      createTag: allowNewOptions,
       minimumInputLength: 1,
       tags: true,
     }).done(function() {

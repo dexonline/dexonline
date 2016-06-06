@@ -119,7 +119,7 @@ function formatEntryWithEditLink(lexem) {
            '">&nbsp;</a></span>');
 }
 
-function allowNewLexems(data) {
+function allowNewOptions(data) {
   return {
     id: '@' + data.term,
     text: data.term + ' (cuvânt nou)',

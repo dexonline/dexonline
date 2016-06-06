@@ -67,12 +67,12 @@ if ($butPrev || $butNext) {
   }
 }
 
-// Load the database lexems
-$dbl = Model::factory('Lexem')
-     ->select('Lexem.*')
-     ->join('LexemDefinitionMap', 'Lexem.id = lexemId', 'ldm')
-     ->where('ldm.definitionId', $def->id)
-     ->order_by_asc('formNoAccent')
+// Load the database entries
+$dbl = Model::factory('Entry')
+     ->select('Entry.*')
+     ->join('EntryDefinition', 'Entry.id = entryId', 'ed')
+     ->where('ed.definitionId', $def->id)
+     ->order_by_asc('description')
      ->find_many();
 $dblIds = util_objectProperty($dbl, 'id');
 
@@ -192,7 +192,7 @@ if ($butSave) {
     $models[] = "{$l->modelType}{$l->modelNumber}";
   }
 
-  SmartyWrap::assign('lexemIds', $dblIds);
+  SmartyWrap::assign('entryIds', $dblIds);
   SmartyWrap::assign('models', $models);
 }
 

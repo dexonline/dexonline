@@ -11,16 +11,15 @@ $(function() {
     similarRecord = JSON.parse(c);
     updateFields(similarRecord);
 
-    initSelect2('#lexemIds', 'ajax/getLexemsById.php', {
-      ajax: { url: wwwRoot + 'ajax/getLexems.php' },
-      createTag: allowNewLexems,
+    initSelect2('#entryIds', 'ajax/getEntriesById.php', {
+      ajax: { url: wwwRoot + 'ajax/getEntries.php' },
+      createTag: allowNewOptions,
       minimumInputLength: 1,
       tags: true,
-      templateSelection: formatLexemWithEditLink,
+      templateSelection: formatEntryWithEditLink,
     });
             
-    $('.associateHomonymLink').click(associateHomonym);
-    $('#lexemIds, #sourceDropDown').change(updateFieldsJson);
+    $('#entryIds, #sourceDropDown').change(updateFieldsJson);
     $('#refreshButton').click(updateFieldsJson);
     $('#similarDiff ins, #similarDiff del').click(definitionCopyFromSimilar);
     $('#tinymceToggleButton').click(tinymceToggle);
@@ -31,22 +30,13 @@ $(function() {
     }
   }
 
-  /* The option already exists in the select. Find it and make it selected. */
-  function associateHomonym() {
-    var lexemId = $(this).data('hid');
-    var option = $('#lexemIds option[value="' + lexemId + '"]');
-    option.prop('selected', true);
-    $('#lexemIds').trigger('change');
-    return false;
-  }
-
   function updateFieldsJson() {
     var data = {
       definitionId: $('input[name="definitionId"]').val(),
       definitionInternalRep: internalRep.val(),
       commentInternalRep: comment.val(),
       sourceId: $('#sourceDropDown').val(),
-      lexemIds: $('#lexemIds').val(),
+      entryIds: $('#entryIds').val(),
     };
     $.post(wwwRoot + 'ajax/getSimilarRecord.php', data, updateFields, 'json');
   }

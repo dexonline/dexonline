@@ -39,6 +39,12 @@ if ($createTree) {
   util_redirect("editTree.php?id={$t->id}");
 }
 
+if ($dissociateDefinitionId) {
+  EntryDefinition::dissociate($e->id, $dissociateDefinitionId);
+  Log::info("Dissociated lexem {$e->id} ({$e->description}) from definition {$dissociateDefinitionId}");
+  util_redirect("?id={$e->id}");
+}
+
 if ($delete) {
   $e->delete();
   FlashMessage::add('Am șters intrarea.', 'success');

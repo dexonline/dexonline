@@ -15,33 +15,16 @@
   <form action="definitionEdit.php" method="post">
     <input type="hidden" name="definitionId" value="{$def->id}"/>
     <input type="hidden" name="isOCR" value="{$isOCR}"/>
-    {if $homonyms}
-      <img src="{$imgRoot}/icons/exclamation.png" alt="warning"/>
-      Omonim(e):
-      {foreach $homonyms as $h}
-        &nbsp;
-        {include file="bits/lexemLink.tpl" lexem=$h}
-        <span class="associateHomonym">
-          [<a class="associateHomonymLink" data-hid="{$h->id}" href="#">asociază</a>]
-        </span>
-      {/foreach}
-    {/if}
 
     <table class="editableFields">
       <tr>
-        <td>Lexeme:</td>
+        <td>Intrări:</td>
         <td>
-          <select id="lexemIds" name="lexemIds[]" style="width: 100%" multiple>
-            {foreach $lexemIds as $l}
-              <option value="{$l}" selected></option>
-            {/foreach}
-            {foreach $homonyms as $h}
-              <option value="{$h->id}"></option>
+          <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
+            {foreach $entryIds as $e}
+              <option value="{$e}" selected></option>
             {/foreach}
           </select>
-
-          <span class="tooltip2" title="Lexemele colorate cu roșu au accent sau paradigmă lipsă.">&nbsp;</span>
-
         </td>
       </tr>
       <tr>
@@ -63,8 +46,8 @@
         <td>
           {include file="bits/statusDropDown.tpl" name="status" selectedStatus=$def->status}
 
-          <span class="tooltip2" title="Dacă treceți o definiție în starea ștearsă, ea va fi automat disociată de orice lexem. Notă: Definiția va
-                                        fi imposibil de găsit la o căutare ulterioară, tocmai din cauza disocierii (căutarea se face după lexem). Definiția este încă disponibilă în
+          <span class="tooltip2" title="Dacă treceți o definiție în starea ștearsă, ea va fi automat disociată de orice intrare. Notă: Definiția va
+                                        fi imposibil de găsit la o căutare ulterioară, tocmai din cauza disocierii. Definiția este încă disponibilă în
                                         panoul de pagini recent vizitate.">&nbsp;</span>
 
         </td>

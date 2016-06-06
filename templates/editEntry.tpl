@@ -45,4 +45,73 @@
       șterge
     </button>
   </form>
+
+  {if $e->id}
+    <h3>Definiții asociate ({$searchResults|count})</h3>
+
+    <form class="form-inline">
+      <div class="form-group">
+
+        <select id="defFilterSelect" class="form-control">
+          <option value="">toate</option>
+          <option value="structured">structurate</option>
+          <option value="unstructured">nestructurate</option>
+        </select>
+
+        <select class="toggleRepSelect form-control" data-order="1">
+          <option value="0">text</option>
+          <option value="1" selected>html</option>
+        </select>
+
+        <select class="toggleRepSelect form-control" data-order="2">
+          <option value="0">expandat</option>
+          <option value="1" selected>abreviat</option>
+        </select>
+
+      </div>
+    </form>
+
+    {foreach from=$searchResults item=row}
+      {$def=$row->definition}
+      <div class="defWrapper {if $def->structured}structured{else}unstructured{/if}" id="def_{$def->id}">
+        <div data-code="0" class="rep internal hiddenRep">{$def->internalRepAbbrev|escape}</div>
+        <div data-code="1" class="rep hiddenRep">{$def->htmlRepAbbrev}</div>
+        <div data-code="2" class="rep internal hiddenRep">{$def->internalRep|escape}</div>
+        <div data-code="3" data-active class="rep">{$def->htmlRep}</div>
+        <span class="defDetails">
+          id: {$def->id}
+          | sursa: {$row->source->shortName|escape}
+          | starea: {$def->getStatusName()}
+          | <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}" target="_blank">editează</a>
+          | <a href="?id={$e->id}&amp;dissociateDefinitionId={$def->id}"
+               class="dissociateLink"
+               title="disociază definiția de lexem"
+               >disociază</a>
+          | <a href="#" class="toggleRepLink" title="comută între notația internă și HTML"
+               data-value="1" data-order="1" data-other-text="html">text</a>
+          | <a href="#" class="toggleRepLink" title="contractează sau expandează abrevierile"
+               data-value="1" data-order="2" data-other-text="abreviat">expandat</a>
+
+          |
+          <a href="#"
+             title="comută definiția între structurată și nestructurată"
+             >
+            <span class="toggleStructuredLink" {if !$def->structured}style="display: none"{/if}>
+              <i class="glyphicon glyphicon-ok"></i> structurată
+            </span>
+            <span class="toggleStructuredLink" {if $def->structured}style="display: none"{/if}>
+              <i class="glyphicon glyphicon-remove"></i> nestructurată
+            </span>
+          </a>
+        </span>
+
+        {if $row->comment}
+          <div class="commentInternalRep">
+            Comentariu: {$row->comment->contents} -
+            <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}">{$row->commentAuthor->nick|escape}</a>
+          </div>
+        {/if}
+      </div>
+    {/foreach}
+  {/if}
 {/block}

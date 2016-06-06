@@ -20,15 +20,15 @@
   <form action="deTool.php" method="post">
     <input type="hidden" name="definitionId" value="{$def->id}">
 
-    <table id="lexemsTable">
+    <table id="entriesTable">
       <tr>
-        <th>lexem</th>
+        <th>intrare</th>
         <th>modele</th>
         <th>scurtături</th>
       </tr>
       <tr id="stem">
         <td>
-          <select class="lexem" name="lexemId[]" style="width: 300px;">
+          <select class="entry" name="entryId[]" style="width: 300px;">
           </select>
         </td>
         <td>
@@ -40,10 +40,10 @@
           <a class="shortcutI3" href="#">I3</a>
         </td>
       </tr>
-      {foreach $lexemIds as $i => $l}
+      {foreach $entryIds as $i => $l}
         <tr>
           <td>
-            <select class="lexem" name="lexemId[]" style="width: 300px;">
+            <select class="entry" name="entryId[]" style="width: 300px;">
               <option value="{$l}" selected></option>
             </select>
           </td>
@@ -65,7 +65,7 @@
     <label for="capitalize">scrie cu majusculă lexemele I3 și SP*</label>
     <br>
     <input id="deleteOrphans" type="checkbox" name="deleteOrphans" value="1" {if $deleteOrphans}checked{/if}>
-    <label for="deleteOrphans">șterge lexemele care devin neasociate</label>
+    <label for="deleteOrphans">șterge intrările care devin neasociate</label>
     <br><br>
 
     <input type="submit" name="butPrev" value="« anterioara">

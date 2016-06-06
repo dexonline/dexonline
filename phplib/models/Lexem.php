@@ -266,18 +266,6 @@ class Lexem extends BaseObject implements DatedObject {
     return $result;
   }
 
-  public static function countUnassociated() {
-    // We compute this as (all lexems) - (lexems showing up in LexemDefinitionMap)
-    $all = Model::factory('Lexem')->count();
-    $associated = db_getSingleValue('select count(distinct lexemId) from LexemDefinitionMap');
-    return $all - $associated;
-  }
-
-  public static function loadUnassociated() {
-    return Model::factory('Lexem')
-      ->raw_query('select * from Lexem where id not in (select lexemId from LexemDefinitionMap) order by formNoAccent')->find_many();
-  }
-
   /**
    * For every set of lexems having the same form and no description, load one of them at random.
    */
@@ -626,7 +614,6 @@ class Lexem extends BaseObject implements DatedObject {
       if ($this->modelType == 'VT' || $this->modelType == 'V') {
         $this->deleteLongInfinitive();
       }
-      LexemDefinitionMap::deleteByLexemId($this->id);
       Meaning::delete_all_by_lexemId($this->id);
       Relation::delete_all_by_lexemId($this->id);
       InflectedForm::delete_all_by_lexemId($this->id);

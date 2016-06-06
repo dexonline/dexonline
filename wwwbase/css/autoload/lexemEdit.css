@@ -150,60 +150,8 @@ abbr {
   cursor: help;
 }
 
-.defWrapper .rep {
-  margin-top: 10px;
-}
-
-.defWrapper .internal {
-  font-family: courier;
-}
-
-.defWrapper .hidden {
-  display: none;
-}
-
-.commentInternalRep {
-  color: #333;
-  margin-left:15px;
-  margin-top: 5px;
-  padding: 5px;
-}
-
-.defDetails {
-  color: #999999;
-  font-family: sans-serif;
-  font-size: 80%;
-}
-
-.defDetails a {
-  color: #777777;
-}
-
-.defDetails a:hover {
-  color: #555555;
-}
-
-.structured a.toggleStructuredLink {
-  background: url("../../img/icons/bullet_green.png") 0px 1px no-repeat;
-  padding-left: 14px;
-}
-
-.unstructured a.toggleStructuredLink {
-  background: url("../../img/icons/bullet_red.png") 0px 1px no-repeat;
-  padding-left: 14px;
-}
-
-.addDefinition {
-  margin-top: 10px;
-}
-
 .rightColumn {
   padding-left: 30px;
-}
-
-.miniDefTarget {
-  font-family: serif;
-  font-weight: bold;
 }
 
 #structStatus {
@@ -217,11 +165,6 @@ input[name=cloneLexem] {
 
 input[name=deleteLexem] {
   background: #e5e5e5 url("../../img/icons/cross16.png") 2px 0px no-repeat;
-  padding-left: 20px;
-}
-
-input[name=mergeLexem] {
-  background: #e5e5e5 url("../../img/icons/add.png") 2px 0px no-repeat;
   padding-left: 20px;
 }
 

@@ -8,22 +8,9 @@ $def = Definition::get_by_id($defId);
 if ($def && $def->id) {
   $def->status = Definition::ST_DELETED;
   $def->save();
-  db_execute("delete from Typo where definitionId = {$def->id}");
+  EntryDefinition::dissociateDefinition($def->id);
+  Typo::delete_all_by_definitionId($def->id);
   Log::notice("Marked definition {$def->id} ({$def->lexicon}) as deleted");
-
-  // TODO: This code replicates code in definitionEdit.php
-  // If by deleting this definition, any associated lexems become unassociated, delete them
-  $ldms = LexemDefinitionMap::get_all_by_definitionId($def->id);
-  db_execute("delete from LexemDefinitionMap where definitionId = {$def->id}");
-
-  foreach ($ldms as $ldm) {
-    $l = Lexem::get_by_id($ldm->lexemId);
-    $otherLdms = LexemDefinitionMap::get_all_by_lexemId($l->id);
-    if (!$l->isLoc() && !count($otherLdms)) {
-      Log::warning("Deleting unassociated lexem {$l->id} ({$l->formNoAccent})");
-      $l->delete();
-    }
-  }
 }
 
 ?>

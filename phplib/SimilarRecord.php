@@ -7,11 +7,11 @@ class SimilarRecord {
   public $htmlDiff;    // null if $source or $definition are null
   public $identical;   // true iff $definition is not null and identical to the original definition
 
-  static function create($definition, $lexemIds) {
+  static function create($definition, $entryIds) {
     $diffSize = 0;
     $sr = new SimilarRecord();
     $sr->source = SimilarSource::getSimilarSource($definition->sourceId);
-    $sr->definition = $definition->loadSimilar($lexemIds, $diffSize);
+    $sr->definition = $definition->loadSimilar($entryIds, $diffSize);
 
     if ($sr->definition) {
       $sr->htmlDiff = LDiff::htmlDiff($sr->definition->internalRep, $definition->internalRep, true);

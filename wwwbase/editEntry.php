@@ -39,6 +39,12 @@ if ($createTree) {
   util_redirect("editTree.php?id={$t->id}");
 }
 
+if ($dissociateDefinitionId) {
+  EntryDefinition::dissociate($e->id, $dissociateDefinitionId);
+  Log::info("Dissociated lexem {$e->id} ({$e->description}) from definition {$dissociateDefinitionId}");
+  util_redirect("?id={$e->id}");
+}
+
 if ($delete) {
   $e->delete();
   FlashMessage::add('Am șters intrarea.', 'success');
@@ -119,6 +125,13 @@ $canEdit = [
   || util_isModerator(PRIV_EDIT),
   'structuristId' => util_isModerator(PRIV_ADMIN),
 ];
+
+$definitions = Definition::loadByEntryId($e->id);
+foreach ($definitions as $def) {
+  $def->internalRepAbbrev = AdminStringUtil::expandAbbreviations($def->internalRep, $def->sourceId);
+  $def->htmlRepAbbrev = AdminStringUtil::htmlize($def->internalRepAbbrev, $def->sourceId);
+}
+$searchResults = SearchResult::mapDefinitionArray($definitions);
 
 SmartyWrap::assign('e', $e);
 SmartyWrap::assign('searchResults', $searchResults);

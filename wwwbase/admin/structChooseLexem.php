@@ -9,8 +9,8 @@ util_assertNotMirror();
 $lexems = Model::factory('Lexem')
   ->table_alias('l')
   ->select('l.*')
-  ->join('LexemDefinitionMap', 'l.id = ldm.lexemId', 'ldm')
-  ->join('Definition', 'ldm.definitionId = d.id', 'd')
+  ->join('EntryDefinition', 'l.entryId = ed.entryId', 'ed')
+  ->join('Definition', 'ed.definitionId = d.id', 'd')
   ->where('l.structStatus', Lexem::STRUCT_STATUS_NEW)
   ->where_not_equal('d.status', Definition::ST_DELETED)
   ->group_by('l.id')
@@ -22,7 +22,7 @@ $lexems = Model::factory('Lexem')
 // Load the definitions for each lexem
 $searchResults = array();
 foreach ($lexems as $l) {
-  $defs = Definition::loadByLexemId($l->id);
+  $defs = Definition::loadByEntryId($l->entryId);
   $searchResults[] = SearchResult::mapDefinitionArray($defs);
 }
 

@@ -55,14 +55,15 @@ do {
 
   // select all the definitions for the given lexem
   $defs = Model::factory('Definition')
-    ->select('Definition.*')
-    ->join('LexemDefinitionMap', 'Definition.id = ldm.definitionId', 'ldm')
-    ->join('Source', 's.id = sourceId', 's')
-    ->where('ldm.lexemId', $lexem->id)
-    ->where('status', 0)
-    ->where('s.isOfficial', 2)
-    ->order_by_asc('displayOrder')
-    ->find_many();
+        ->table_alias('d')
+        ->select('d.*')
+        ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
+        ->join('Source', ['s.id', '=', 'd.sourceId'], 's')
+        ->where('ed.entryId', $lexem->entryId)
+        ->where('d.status', Definition::ST_ACTIVE)
+        ->where('s.isOfficial', SOURCE_TYPE_OFFICIAL)
+        ->order_by_asc('s.displayOrder')
+        ->find_many();
 // loop untill you find a lexem with a definition
 } while (!$defs);
 

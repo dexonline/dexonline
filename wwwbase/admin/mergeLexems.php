@@ -19,15 +19,16 @@ if ($submitButton) {
       $dest = Lexem::get_by_id($parts[2]);
 
       // Merge $src into $dest
-      $defs = Definition::loadByLexemId($src->id);
+      $defs = Definition::loadByEntryId($src->entryId);
       foreach ($defs as $def) {
-        LexemDefinitionMap::associate($dest->id, $def->id);
+        EntryDefinition::dissociate($src->entryId, $def->id);
+        EntryDefinition::associate($dest->entryId, $def->id);
       }
 
       // Add $dest to LOC if $src is in LOC
       if ($src->isLoc && !$dest->isLoc) {
         $dest->isLoc = true;
-        $dest>save();
+        $dest->save();
       }
 
       // Delay the deletion because we might have to merge $src with other lexems.

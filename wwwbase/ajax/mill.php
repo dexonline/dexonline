@@ -23,12 +23,14 @@ function getWordForDefinitionId($defId) {
 }
 
 function getSimpleDefinitionsForLexemIds($lexemIds) {
-  $defIds = Model::factory('LexemDefinitionMap')
+  $defIds = Model::factory('EntryDefinition')
+          ->table_alias('ed')
           ->select('definitionId')
           ->distinct()
-          ->where_in('lexemId', $lexemIds)
+          ->join('Lexem', ['ed.entryId', '=', 'l.entryId'], 'l')
+          ->where_in('l.id', $lexemIds)
           ->find_many();
-  $defIds = array_map(function ($def){return $def->definitionId;}, $defIds);
+  $defIds = array_map(function ($def) { return $def->definitionId; }, $defIds);
     
   $defs = Model::factory('DefinitionSimple')
         ->where_in('definitionId', $defIds)

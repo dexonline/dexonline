@@ -6,6 +6,7 @@ util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 $id = util_getRequestParameter('id');
 $save = util_getRequestParameter('save') !== null;
 $delete = util_getRequestParameter('delete') !== null;
+$dissociateDefinitionId = util_getRequestParameter('dissociateDefinitionId');
 
 if ($id) {
   $e = Entry::get_by_id($id);
@@ -15,6 +16,12 @@ if ($id) {
   }
 } else {
   $e = Model::factory('Entry')->create();
+}
+
+if ($dissociateDefinitionId) {
+  EntryDefinition::dissociate($e->id, $dissociateDefinitionId);
+  Log::info("Dissociated lexem {$e->id} ({$e->description}) from definition {$dissociateDefinitionId}");
+  util_redirect("?id={$e->id}");
 }
 
 if ($delete) {
@@ -54,7 +61,15 @@ if ($save) {
   $lexemIds = $e->getLexemIds();
 }
 
+$definitions = Definition::loadByEntryId($e->id);
+foreach ($definitions as $def) {
+  $def->internalRepAbbrev = AdminStringUtil::expandAbbreviations($def->internalRep, $def->sourceId);
+  $def->htmlRepAbbrev = AdminStringUtil::htmlize($def->internalRepAbbrev, $def->sourceId);
+}
+$searchResults = SearchResult::mapDefinitionArray($definitions);
+
 SmartyWrap::assign('e', $e);
+SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('lexemIds', $lexemIds);
 SmartyWrap::assign('suggestNoBanner', true);
 SmartyWrap::assign('suggestHiddenSearchForm', true);

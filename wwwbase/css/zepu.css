@@ -36,18 +36,6 @@ h2 {
   margin: 15px 0px;
 }
 
-h3, h4 {
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 110%;
-  margin-bottom: 5px;
-  margin-top: 10px;
-}
-
-h4 {
-  color: #761818;
-}
-
 .h4Sub {
   font-style: italic;
   color: #BFBFBF;

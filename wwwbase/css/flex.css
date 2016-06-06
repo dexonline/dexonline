@@ -355,12 +355,6 @@ hr {
   text-decoration: none;
 }
 
-.associateHomonym,
-.associateHomonymLink {
-  color: #777777;
-  font-size: 90%;
-}
-
 /* Select the dark icon set for the magnifier and the X for elFinder's search box.
    For some reason, by default they show as white on white. */
 .ui-widget-header .ui-icon {

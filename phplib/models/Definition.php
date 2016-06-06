@@ -49,6 +49,18 @@ class Definition extends BaseObject implements DatedObject {
       ->find_many();
   }
 
+  public static function loadByEntryId($entryId) {
+    return Model::factory('Definition')
+      ->table_alias('d')
+      ->select('d.*')
+      ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
+      ->join('Source', ['s.id', '=', 'd.sourceId'], 's')
+      ->where('ed.entryId', $entryId)
+      ->where_not_equal('status', self::ST_DELETED)
+      ->order_by_asc('displayOrder')
+      ->find_many();
+  }
+
   public static function countAssociated() {
     // same as select count(distinct definitionId) from LexemDefinitionMap, only faster.
     $r =  Model::factory('Definition')
@@ -58,22 +70,22 @@ class Definition extends BaseObject implements DatedObject {
   }
 
   // Looks for a similar definition. Optionally sets $diffSize to the number of differences it finds.
-  function loadSimilar($lexemIds, &$diffSize = null) {
+  function loadSimilar($entryIds, &$diffSize = null) {
     $result = null;
 
     // First see if there is a similar source
     $similarSource = SimilarSource::getSimilarSource($this->sourceId);
-    if ($similarSource && count($lexemIds)) {
-      // Load all definitions from $similarSource mapped to any of $lexemIds
+    if ($similarSource && count($entryIds)) {
+      // Load all definitions from $similarSource mapped to any of $entryIds
       $candidates = Model::factory('Definition')
-        ->table_alias('d')
-        ->select('d.*')
-        ->distinct()
-        ->join('LexemDefinitionMap', 'ldm.definitionId = d.id', 'ldm')
-        ->where_not_equal('d.status', self::ST_DELETED)
-        ->where('d.sourceId', $similarSource->id)
-        ->where_in('ldm.lexemId', $lexemIds)
-        ->find_many();
+                  ->table_alias('d')
+                  ->select('d.*')
+                  ->distinct()
+                  ->join('EntryDefinition', ['ed.definitionId', '=', 'd.id'], 'ed')
+                  ->where_not_equal('d.status', self::ST_DELETED)
+                  ->where('d.sourceId', $similarSource->id)
+                  ->where_in('ed.entryId', $entryIds)
+                  ->find_many();
 
       // Find the definition with the minimum diff from the original
       $diffSize = 0;
@@ -110,7 +122,7 @@ class Definition extends BaseObject implements DatedObject {
     // We compute (3) as (all definitions) - (1) - (2).
     $all = Model::factory('Definition')->count();
     $deleted = Model::factory('Definition')->where('status', self::ST_DELETED)->count();
-    $associated = db_getSingleValue('select count(distinct definitionId) from LexemDefinitionMap');
+    $associated = db_getSingleValue('select count(distinct definitionId) from EntryDefinition');
     return $all - $deleted - $associated;
   }
 
@@ -279,11 +291,29 @@ class Definition extends BaseObject implements DatedObject {
         ->raw_query("select * from Definition where lexicon $collate $regexp and status = " . self::ST_DELETED . " and createDate between $beginTime and $endTime " .
                     "$sourceClause $userClause order by lexicon, sourceId limit $offset, $resultsPerPage")->find_many();
     } else {
-      $query = "select distinct Definition.* from Lexem join LexemDefinitionMap on Lexem.id = LexemDefinitionMap.lexemId " .
-        "join Definition on LexemDefinitionMap.definitionId = Definition.id where formNoAccent $regexp " .
-        "and Definition.status = $status and Definition.createDate >= $beginTime and Definition.createDate <= $endTime " .
-        "$sourceClause $userClause order by lexicon, sourceId limit $offset, $resultsPerPage";
-      return Model::factory('Definition')->raw_query($query)->find_many();
+      $q = Model::factory('Definition')
+        ->table_alias('d')
+        ->select('d.*')
+        ->join('EntryDefinition', ['ed.definitionId', '=', 'd.id'], 'ed')
+        ->join('Lexem', ['ed.entryId', '=', 'l.entryId'], 'l')
+        ->where_raw("l.formNoAccent  $regexp")
+        ->where('d.status', $status)
+        ->where_gte('d.createDate', $beginTime)
+        ->where_lte('d.createDate', $endTime);
+
+      if ($sourceId) {
+        $q = $q->where('d.sourceId', $sourceId);
+      }
+      if ($userId) {
+        $q = $q->where('d.userId', $userId);
+      }
+
+      return $q
+        ->order_by_asc('lexicon')
+        ->order_by_asc('sourceId')
+        ->limit($resultsPerPage)
+        ->offset($offset)
+        ->find_many();
     }
   }
 

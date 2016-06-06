@@ -89,6 +89,11 @@ if ($butSave) {
       // Create a new lexem or load the existing one
       if (StringUtil::startsWith($lid, '@')) {
         $lexem = Lexem::create(substr($lid, 1));
+
+        // Create an entry
+        $e = Entry::createAndSave($lexem->formNoAccent);
+        $lexem->entryId = $e->id;
+
       } else {
         $lexem = Lexem::get_by_id($lid);
       }

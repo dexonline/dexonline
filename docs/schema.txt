@@ -34,6 +34,13 @@ htmlRep - HTML-formatted text, ready for printing in a browser.
 status - 0 = active, 1 = temporary (not yet reviewed), 2 = deleted
 
 
+The Entry table
+---------------
+
+An entry is a unit of meaning. It is a container for one or more lexems
+having identical meanings. Each lexem belongs to exactly one entry.
+
+
 The Lexem table
 ----------------
 
@@ -77,14 +84,12 @@ isLoc - You can probably ignore this. Indicates whether the
   Romanian Scrabble Federation for all its competitions. A few
   moderators can modify this list.
 
-The LexemDefinitionMap table
-----------------------------
+The EntryDefinition table
+-------------------------
 
-This links lexems to definitions in a many-to-many relationship. At
-the moment, all homonym lexems are connected to all the
-definitions. In the long run, we plan to fix the database so that, for
-example, "mare" ("sea") and "mare" ("large") are only linked to their
-respective definitions.
+This links entries to definitions in a many-to-many relationship. This table
+may contain errors, linking definitions to the incorrect homonym (words
+with identical spelling but different meanings).
 
 
 The Inflection table

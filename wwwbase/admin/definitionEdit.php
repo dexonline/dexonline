@@ -47,7 +47,7 @@ if (!($d = Definition::get_by_id($definitionId))) {
 
 // Load request fields and buttons.
 $isOCR = util_getRequestParameter('isOCR');
-$lexemIds = util_getRequestParameter('lexemIds');
+$entryIds = util_getRequestParameter('entryIds');
 $sourceId = util_getRequestIntParameter('source');
 $similarSource = util_getBoolean('similarSource');
 $internalRep = util_getRequestParameter('internalRep');
@@ -97,22 +97,27 @@ if ($acceptButton || $nextOcrBut) {
   }
 
   if (!FlashMessage::hasErrors()) {
-    // Save the new lexems, load the rest.
+    // Save the new entries, load the rest.
     $noAccentNag = false;
-    $lexems = [];
-    foreach ($lexemIds as $lexemId) {
-      if (StringUtil::startsWith($lexemId, '@')) {
-        // create a new lexem
-        $form = substr($lexemId, 1);
-        $l = Lexem::deepCreate($form, 'T', '1');
-        $l->deepSave();
+    $entries = [];
+    foreach ($entryIds as $entryId) {
+      if (StringUtil::startsWith($entryId, '@')) {
+        // create a new lexem and entry
+        $form = substr($entryId, 1);
+        $l = Lexem::create($form, 'T', '1');
+        $e = Entry::createAndSave($l->formNoAccent);
+        $l->entryId = $e->id;
+        $l->save();
+        $l->regenerateParadigm();
+
         if (strpos($form, "'") === false) {
           $noAccentNag = true;
         }
+
       } else {
-        $l = Lexem::get_by_id($lexemId);
+        $e = Entry::get_by_id($entryId);
       }
-      $lexems[] = $l;
+      $entries[] = $e;
     }
     if ($noAccentNag) {
       FlashMessage::add('Vă rugăm să indicați accentul pentru lexemele noi oricând se poate.', 'warning');
@@ -120,29 +125,18 @@ if ($acceptButton || $nextOcrBut) {
 
     // Save the definition and delete the typos associated with it.
     $d->save();
-    db_execute("delete from Typo where definitionId = {$d->id}");
+    Typo::delete_all_by_definitionId($d->id);
     if ($comment) {
       $comment->save();
     }
 
     if ($d->status == Definition::ST_DELETED) {
-      // If by deleting this definition, any associated lexems become unassociated, delete them
-      $ldms = LexemDefinitionMap::get_all_by_definitionId($d->id);
-      db_execute("delete from LexemDefinitionMap where definitionId = {$d->id}");
-
-      foreach ($ldms as $ldm) {
-        $l = Lexem::get_by_id($ldm->lexemId);
-        $otherLdms = LexemDefinitionMap::get_all_by_lexemId($l->id);
-        if (!$l->isLoc() && !count($otherLdms)) {
-          Log::warning("Deleting unassociated lexem {$l->id} ({$l->formNoAccent})");
-          $l->delete();
-        }
-      }
+      EntryDefinition::dissociateDefinition($d->id);
     } else {
       // Save the associations.
-      db_execute("delete from LexemDefinitionMap where definitionId = {$d->id}");
-      foreach ($lexems as $l) {
-        LexemDefinitionMap::associate($l->id, $d->id);
+      EntryDefinition::delete_all_by_definitionId($d->id);
+      foreach ($entries as $e) {
+        EntryDefinition::associate($e->id, $d->id);
       }
     }
     
@@ -167,13 +161,14 @@ if ($acceptButton || $nextOcrBut) {
   RecentLink::createOrUpdate(
     sprintf('Definiție: %s (%s)', $d->lexicon, $d->getSource()->shortName));
 
-  $lexems = Model::factory('Lexem')
-          ->select('Lexem.*')
-          ->join('LexemDefinitionMap', 'Lexem.id = lexemId', 'ldm')
-          ->where('ldm.definitionId', $d->id)
-          ->order_by_asc('formNoAccent')
-          ->find_many();
-  $lexemIds = util_objectProperty($lexems, 'id');
+  $entries = Model::factory('Entry')
+           ->table_alias('e')
+           ->select('e.id')
+           ->join('EntryDefinition', ['ed.entryId', '=', 'e.id'], 'ed')
+           ->where('ed.definitionId', $d->id)
+           ->order_by_asc('description')
+           ->find_many();
+  $entryIds = util_objectProperty($entries, 'id');
 }
 
 $typos = Model::factory('Typo')
@@ -185,37 +180,16 @@ $typos = Model::factory('Typo')
 SmartyWrap::assign('isOCR', $isOCR);
 SmartyWrap::assign('def', $d);
 SmartyWrap::assign('source', $d->getSource());
-SmartyWrap::assign('sim', SimilarRecord::create($d, $lexemIds));
+SmartyWrap::assign('sim', SimilarRecord::create($d, $entryIds));
 SmartyWrap::assign('user', User::get_by_id($d->userId));
 SmartyWrap::assign('comment', $comment);
 SmartyWrap::assign('commentUser', $commentUser);
-SmartyWrap::assign('lexemIds', $lexemIds);
+SmartyWrap::assign('entryIds', $entryIds);
 SmartyWrap::assign('typos', $typos);
-SmartyWrap::assign('homonyms', loadSetHomonyms($lexemIds));
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::addCss('jqueryui', 'select2');
 SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev', 'tinymce', 'cookie');
 SmartyWrap::displayAdminPage('admin/definitionEdit.tpl');
-
-/**
- * Load all lexems having the same form as one of the given lexems, but exclude the given lexems.
- **/
-function loadSetHomonyms($lexemIds) {
-  if (count($lexemIds) == 0) {
-    return array();
-  }
-
-  $lexems = [];
-  foreach ($lexemIds as $id) {
-    if (!StringUtil::startsWith($id, '@')) {
-      $lexems[] = Lexem::get_by_id($id);
-    }
-  }
-
-  $names = util_objectProperty($lexems, 'formNoAccent');
-  $ids = util_objectProperty($lexems, 'id');
-  return Model::factory('Lexem')->where_in('formNoAccent', $names)->where_not_in('id', $ids)->find_many();
-}
 
 ?>

@@ -63,7 +63,7 @@ if ($openid) {
     } else {
       // OpenID connect, but no dynamic registration and no explicit config.
       // Log this and display an error message.
-      log_userlog("Need OpenID Connect registration for {$openid}");
+      Log::error("Need OpenID Connect registration for {$openid}");
       FlashMessage::add('Momentan nu putem accepta OpenID de la acest furnizor. Problema nu ține de noi, dar vom încerca să o reparăm.');
     }
 

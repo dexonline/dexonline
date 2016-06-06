@@ -23,14 +23,6 @@
     ele vor deveni neasociate, ceea ce înseamnă că nu vor fi niciodată afișate ca rezultat al unei căutări. Probabil trebuie să vă asigurați că
     definițiile respective sunt asociate cu un alt lexem înainte de a-l șterge pe acesta. Notă: Lexemele care sunt parte din LOC nu pot fi șterse,
     pentru a preveni modificarea accidentală a LOC. Scoateți întâi lexemul din LOC, după care îl puteți șterge.">&nbsp;</span>
-    
-    {if $homonyms}
-      {foreach from=$homonyms item=h}
-        &nbsp;&nbsp;
-        <input type="submit" class="mergeLexem" id="mergeLexem_{$h->id}" name="mergeLexem"
-               value="Unifică cu {$h->form} {$h->modelType}{$h->modelNumber}{$h->restriction}"/>
-      {/foreach}
-    {/if}
   {/if}
   
   &nbsp;&nbsp;

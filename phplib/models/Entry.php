@@ -26,6 +26,13 @@ class Entry extends BaseObject implements DatedObject {
     return $e;
   }
 
+  static function createAndSave($description) {
+    $e = Model::factory('Entry')->create();
+    $e->description = $description;
+    $e->save();
+    return $e;
+  }
+
   function getLexems() {
     if ($this->lexems === null) {
       $this->lexems = Lexem::get_all_by_entryId($this->id);

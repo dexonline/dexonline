@@ -480,6 +480,8 @@ class Lexem extends BaseObject implements DatedObject {
         }
       } else {
         $lexem = Lexem::create($if->form, 'A', $pm->adjectiveModel, '', $this->isLoc);
+        $entry = Entry::createAndSave($if->formNoAccent);
+        $lexem->entryId = $entry->id;
         $lexem->deepSave();
 
         // Also associate the new lexem with the same definitions as $this.
@@ -519,6 +521,8 @@ class Lexem extends BaseObject implements DatedObject {
         }
       } else {
         $lexem = Lexem::create($if->form, 'F', $model->number, '', $this->isLoc);
+        $entry = Entry::createAndSave($if->formNoAccent);
+        $lexem->entryId = $entry->id;
         $lexem->deepSave();
 
         // Also associate the new lexem with the same definitions as $this.

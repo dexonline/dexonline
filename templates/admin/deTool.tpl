@@ -20,7 +20,7 @@
   <form action="deTool.php" method="post">
     <input type="hidden" name="definitionId" value="{$def->id}">
 
-    <table id="entriesTable">
+    <table id="lexemsTable">
       <tr>
         <th>lexem</th>
         <th>model</th>
@@ -28,7 +28,7 @@
       </tr>
       <tr id="stem">
         <td>
-          <select class="entry" name="entryId[]" style="width: 300px;">
+          <select class="lexem" name="lexemId[]" style="width: 300px;">
           </select>
         </td>
         <td>
@@ -40,10 +40,10 @@
           <a class="shortcutI3" href="#">I3</a>
         </td>
       </tr>
-      {foreach $entryIds as $i => $l}
+      {foreach $lexemIds as $i => $l}
         <tr>
           <td>
-            <select class="entry" name="entryId[]" style="width: 300px;">
+            <select class="lexem" name="lexemId[]" style="width: 300px;">
               <option value="{$l}" selected></option>
             </select>
           </td>

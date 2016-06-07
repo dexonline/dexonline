@@ -242,7 +242,7 @@ function searchClickedWord(event) {
   }
 
   // Trim trailing dots
-  var regex = new RegExp(nonLetter + "$");
+  var regex = new RegExp(nonLetter + "$", 'i');
   while (word && regex.test(word)) {
     word = word.substr(0, word.length - 1);
   }

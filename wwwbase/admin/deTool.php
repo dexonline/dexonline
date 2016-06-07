@@ -67,20 +67,21 @@ if ($butPrev || $butNext) {
   }
 }
 
-// Load the database entries
-$dbl = Model::factory('Entry')
-     ->select('Entry.*')
-     ->join('EntryDefinition', 'Entry.id = entryId', 'ed')
-     ->where('ed.definitionId', $def->id)
-     ->order_by_asc('description')
-     ->find_many();
+// Load the database lexems
+$dbl = Model::factory('Lexem')
+  ->table_alias('l')
+  ->select('l.*')
+  ->join('EntryDefinition', ['ed.entryId', '=', 'l.entryId'], 'ed')
+  ->where('ed.definitionId', $def->id)
+  ->order_by_asc('formNoAccent')
+  ->find_many();
 $dblIds = util_objectProperty($dbl, 'id');
 
 $passedTests = false;
 
 if ($butSave) {
-  // Dissociate all lexems
-  LexemDefinitionMap::deleteByDefinitionId($def->id);
+  // Dissociate all entries
+  EntryDefinition::deleteByDefinitionId($def->id);
 
   foreach ($lexemIds as $i => $lid) {
     if ($lid) {
@@ -96,11 +97,14 @@ if ($butSave) {
 
       } else {
         $lexem = Lexem::get_by_id($lid);
+        $e = Entry::get_by_id($lexem->entryId);
       }
 
       $needsCaps = prefixMatch($m, $MODELS_TO_CAPITALIZE);
       if ($capitalize && $needsCaps) {
         $lexem->setForm(AdminStringUtil::capitalize($lexem->form));
+        $e->description = AdminStringUtil::capitalize($e->description);
+        $e->save();
       }
         
       if ($m != "{$lexem->modelType}{$lexem->modelNumber}") {
@@ -118,16 +122,18 @@ if ($butSave) {
       $lexem->regenerateParadigm();
 
       // Associate the lexem with the definition
-      LexemDefinitionMap::associate($lexem->id, $def->id);
+      EntryDefinition::associate($e->id, $def->id);
     }
   }
 
   // Delete orphaned lexems
   if ($deleteOrphans) {
     foreach ($dbl as $l) {
-      $ldms = LexemDefinitionMap::get_all_by_lexemId($l->id);
-      if (!count($ldms)) {
+      $e = Entry::get_by_id($l->entryId);
+      $eds = EntryDefinition::get_all_by_entryId($e->id);
+      if (!count($eds)) {
         $l->delete();
+        $e->delete();
       }
     }
   }
@@ -192,7 +198,7 @@ if ($butSave) {
     $models[] = "{$l->modelType}{$l->modelNumber}";
   }
 
-  SmartyWrap::assign('entryIds', $dblIds);
+  SmartyWrap::assign('lexemIds', $dblIds);
   SmartyWrap::assign('models', $models);
 }
 

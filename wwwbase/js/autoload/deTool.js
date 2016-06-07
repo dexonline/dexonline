@@ -2,14 +2,14 @@ $(function() {
   var stem = null;
   var stemOption = null;
 
-  var entryStruct = {
+  var lexemStruct = {
     ajax: {
-      url: wwwRoot + 'ajax/getEntries.php',
+      url: wwwRoot + 'ajax/getLexems.php',
     },
     allowClear: true,
     createTag: allowNewOptions,
     minimumInputLength: 1,
-    placeholder: 'caută o intrare',
+    placeholder: 'caută un lexem',
     tags: true,
   };
 
@@ -36,9 +36,9 @@ $(function() {
   };
 
   function init() {
-    initSelect2('.entry', 'ajax/getEntriesById.php', entryStruct);
+    initSelect2('.lexem', 'ajax/getLexemsById.php', lexemStruct);
     initSelect2('.model', 'ajax/getModelsByCodes.php', modelStruct);
-    $('.entry').change(entryChange);
+    $('.lexem').change(lexemChange);
     $('.model').change(modelChange);
     $('.shortcutI3').click(shortcutI3);
     $('#addRow').click(addRow);
@@ -49,23 +49,23 @@ $(function() {
   }
 
   function addRow() {
-    var r = stem.clone(true).appendTo('#entriesTable');
-    r.find('.entry').select2(entryStruct);
+    var r = stem.clone(true).appendTo('#lexemsTable');
+    r.find('.lexem').select2(lexemStruct);
     r.find('.model').select2(modelStruct);
     return false;
   }
 
   // Refresh the model list
-  function entryChange() {
-    var entryId = $(this).val();
+  function lexemChange() {
+    var lexemId = $(this).val();
     var m = $(this).closest('tr').find('.model');
     m.html('');
     
-    if (entryId == null) {
-      // entry field cleared
+    if (lexemId == null) {
+      // lexem field cleared
       m.trigger('change');
-    } else if (entryId.startsWith('@')) {
-      // new entry form
+    } else if (lexemId.startsWith('@')) {
+      // new lexem form
       m.append(stemOption).trigger('change');
     } else {
       $.ajax({
@@ -97,8 +97,8 @@ $(function() {
   }
 
   function endEdit() {
-    // make sure even empty entryIds and models are being submitted
-    $('.entry, .model').each(function() {
+    // make sure even empty lexemIds and models are being submitted
+    $('.lexem, .model').each(function() {
       if ($(this).val() == null) {
         $(this).append(new Option(0, 0, true, true));
       }

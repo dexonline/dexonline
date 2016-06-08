@@ -227,21 +227,26 @@ while ($i < count($lines)) {
     if (count($lexems)) {
       // Reuse existing lexem.
       $lexem = $lexems[0];
+      $entry = Entry::get_by_id($lexem->entryId);
       if($verbose) echo("\t\tReusing lexem {$lexem->id} ({$lexem->form})\n");
     } else {
       if($verbose) echo("\t\tCreating a new lexem for name {$name}\n");
       if (!$dryrun) {
         // Create a new lexem.
-        $lexem = Lexem::deepCreate($name, 'T', '1');
+        $lexem = Lexem::create($name, 'T', '1');
+        $entry = Entry::createAndSave($lexem->formNoAccent);
+        $lexem->entryId = $entry->id;
         $lexem->deepSave();
         if($verbose) echo("\t\tCreated lexem {$lexem->id} ({$lexem->form})\n");
       }
     }
 
     // procedura de asociere a definiției cu lexemul de mai sus
-    if($verbose) echo("\t\tAssociate lexem {$name} ({$lexem->id}) to definition ({$definition->id})\n");
+    if($verbose) echo("\t\tAssociate entry {$entry->id} ({$entry->description}) " .
+                      "for lexem {$lexem->id} ({$lexem}) " .
+                      "to definition ({$definition->id})\n");
     if (!$dryrun) {
-      LexemDefinitionMap::associate($lexem->id, $definition->id);
+      EntryDefinition::associate($entry->id, $definition->id);
     }
   }
 }

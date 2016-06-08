@@ -86,7 +86,7 @@ if ($lexemId) {
     $lexemId = '';
   }
   $lexem = Lexem::get_by_id($lexemId);
-  $definitions = Definition::searchLexemId($lexemId, $exclude_unofficial);
+  $definitions = Definition::searchLexem($lexem, $exclude_unofficial);
   $searchResults = SearchResult::mapDefinitionArray($definitions);
   SmartyWrap::assign('results', $searchResults);
   if ($lexem) {

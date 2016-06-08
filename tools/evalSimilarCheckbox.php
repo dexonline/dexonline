@@ -35,8 +35,8 @@ $defs = Model::factory('Definition')
 $truePositives = $falsePositives = $trueNegatives = 0;
 
 foreach ($defs as $def) {
-  $lexemIds = db_getArray("select distinct lexemId from LexemDefinitionMap where definitionId = {$def->id}");
-  $similar = $def->loadSimilar($lexemIds, $diffSize);
+  $entryIds = db_getArray("select distinct entryId from EntryDefinition where definitionId = {$def->id}");
+  $similar = $def->loadSimilar($entryIds, $diffSize);
   if ($similar) {
     $correct = ($def->similarSource == 1) == ($diffSize == 0);
     if ($correct) {

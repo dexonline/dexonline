@@ -5,7 +5,7 @@ if (count($_GET) == 0) {
   util_redirect("http://wiki.dexonline.ro/wiki/Protocol_de_exportare_a_datelor");
 }
 
-$x = new XmlDump(4);
+$x = new XmlDump(5);
 $lastDump = $x->getLastDumpDate();
 
 $lastClientUpdate = util_getRequestParameterWithDefault('last', '0');
@@ -21,4 +21,4 @@ SmartyWrap::assign('url', $x->getUrl());
 SmartyWrap::assign('diffs', $x->getDiffsSince($lastClientUpdate));
 
 header('Content-type: text/xml');
-print SmartyWrap::fetch('xml/update4.tpl');
+print SmartyWrap::fetch('xml/update5.tpl');

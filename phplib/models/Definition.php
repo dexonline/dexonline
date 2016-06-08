@@ -38,17 +38,6 @@ class Definition extends BaseObject implements DatedObject {
     return $this->source;
   }
 
-  public static function loadByLexemId($lexemId) {
-    return Model::factory('Definition')
-      ->select('Definition.*')
-      ->join('LexemDefinitionMap', array('Definition.id', '=', 'definitionId'))
-      ->join('Source', array('Source.id', '=', 'sourceId'))
-      ->where('LexemDefinitionMap.lexemId', $lexemId)
-      ->where_not_equal('status', self::ST_DELETED)
-      ->order_by_asc('displayOrder')
-      ->find_many();
-  }
-
   public static function loadByEntryId($entryId) {
     return Model::factory('Definition')
       ->table_alias('d')
@@ -59,14 +48,6 @@ class Definition extends BaseObject implements DatedObject {
       ->where_not_equal('status', self::ST_DELETED)
       ->order_by_asc('displayOrder')
       ->find_many();
-  }
-
-  public static function countAssociated() {
-    // same as select count(distinct definitionId) from LexemDefinitionMap, only faster.
-    $r =  Model::factory('Definition')
-      ->raw_query('select count(*) as c from (select count(*) from LexemDefinitionMap group by definitionId) as someLabel')
-      ->find_one();
-    return $r->c;
   }
 
   // Looks for a similar definition. Optionally sets $diffSize to the number of differences it finds.
@@ -104,7 +85,6 @@ class Definition extends BaseObject implements DatedObject {
   public static function getListOfWordsFromSources($wordStart, $wordEnd, $sources) {
     return Model::factory('Definition')
       ->select('Definition.*')
-      ->join('LexemDefinitionMap', array('Definition.id', '=', 'definitionId'))
       ->where_gte('lexicon', $wordStart)
       ->where_lte('lexicon', $wordEnd)
       ->where_in('sourceId', $sources)
@@ -137,12 +117,12 @@ class Definition extends BaseObject implements DatedObject {
     if (!count($lexems)) {
       return array();
     }
-    $lexemIds = '';
+    $entryIds = '';
     foreach ($lexems as $lexem) {
-      if ($lexemIds) {
-        $lexemIds .= ',';
+      if ($entryIds) {
+        $entryIds .= ',';
       }
-      $lexemIds .= $lexem->id;
+      $entryIds .= $lexem->entryId;
     }
 
     $sourceClause = $sourceId ? "and D.sourceId = $sourceId" : '';
@@ -152,8 +132,8 @@ class Definition extends BaseObject implements DatedObject {
     // from creating temporary tables on disk.
     // TODO Using the number constants is not a good practice
     $ids = ORM::for_table('Definition')
-      ->raw_query("select distinct D.id from Definition D, LexemDefinitionMap L, Source S " .
-                  "where D.id = L.definitionId and L.lexemId in ($lexemIds) and D.sourceId = S.id $statusClause $excludeClause $sourceClause " .
+      ->raw_query("select distinct D.id from Definition D, EntryDefinition ED, Source S " .
+                  "where D.id = ED.definitionId and ED.entryId in ($entryIds) and D.sourceId = S.id $statusClause $excludeClause $sourceClause " .
                   "order by S.isOfficial desc, (D.lexicon = '$preferredWord') desc, S.displayOrder, D.lexicon")
       ->find_array();
     $defs = array_map(function($rec) {
@@ -163,12 +143,12 @@ class Definition extends BaseObject implements DatedObject {
     return $defs;
   }
 
-  public static function searchLexemId($lexemId, $exclude_unofficial = false) {
+  public static function searchLexem($lexem, $exclude_unofficial = false) {
     $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
     $statusClause = sprintf("and D.status in (%d,%d)", self::ST_ACTIVE, self::ST_HIDDEN);
     return Model::factory('Definition')
-      ->raw_query("select D.* from Definition D, LexemDefinitionMap L, Source S where D.id = L.definitionId " .
-                  "and D.sourceId = S.id and L.lexemId = '$lexemId' $excludeClause $statusClause " .
+      ->raw_query("select D.* from Definition D, EntryDefinition ED, Source S where D.id = ED.definitionId " .
+                  "and D.sourceId = S.id and ED.entryId = '{$lexem->entryId}' $excludeClause $statusClause " .
                   "order by S.isOfficial desc, S.displayOrder, D.lexicon")
       ->find_many();
   }

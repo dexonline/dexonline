@@ -166,10 +166,10 @@ $d4 = createDefinition(
   'din', $john->id, $klingon->id, Definition::ST_ACTIVE);
 
 // lexem-definition maps
-LexemDefinitionMap::associate($l1->id, $d1->id);
-LexemDefinitionMap::associate($l2->id, $d2->id);
-LexemDefinitionMap::associate($l4->id, $d3->id);
-LexemDefinitionMap::associate($l5->id, $d4->id);
+EntryDefinition::associate($l1->entryId, $d1->id);
+EntryDefinition::associate($l2->entryId, $d2->id);
+EntryDefinition::associate($l4->entryId, $d3->id);
+EntryDefinition::associate($l5->entryId, $d4->id);
 
 // comments
 createComment('Foarte foarte gustoasă',
@@ -287,6 +287,8 @@ function createConstraints($code, $inflectionRegexp, $modelTypeRegexp, $variant)
 
 function createLexemDeep($form, $modelType, $modelNumber, $restriction, $isLoc) {
   $l = Lexem::create($form, $modelType, $modelNumber, $restriction, $isLoc);
+  $e = Entry::createAndSave($l->formNoAccent);
+  $l->entryId = $e->id;
   $l->deepSave();
   return $l;
 }

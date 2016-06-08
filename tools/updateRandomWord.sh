@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS tmpRandomWord LIKE RandomWord;
 INSERT INTO tmpRandomWord (id, cuv, surse)
 SELECT L.id, L.formNoAccent cuv, GROUP_CONCAT(DISTINCT S.shortName) surse
 FROM Lexem L
-JOIN LexemDefinitionMap M ON L.id=M.lexemId
-JOIN Definition D ON D.id=M.definitionId
+JOIN EntryDefinition ED ON L.entryId=ED.entryId
+JOIN Definition D ON D.id=ED.definitionId
 JOIN Source S ON D.sourceId=S.id
 WHERE S.isOfficial=2
 AND status=0

@@ -41,7 +41,7 @@ foreach($lexems as $l) {
   }
   $chars[$l->id] = $charArray;
 
-  $definitions = Definition::loadByLexemId($l->id);
+  $definitions = Definition::loadByEntryId($l->entryId);
   $searchResults[$l->id] = SearchResult::mapDefinitionArray($definitions);
 }
 

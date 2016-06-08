@@ -15,6 +15,11 @@ function db_init() {
                                          PDO::MYSQL_ATTR_LOCAL_INFILE => true));
 }
 
+// When false, PDO returns result sets and does not load the results in memory.
+function db_setBuffering($boolean) {
+  ORM::get_db()->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, $boolean);
+}
+
 // Returns a DB result set that you can iterate with foreach($result as $row)
 function db_execute($query, $fetchStyle = PDO::FETCH_BOTH) {
   DebugInfo::resetClock();

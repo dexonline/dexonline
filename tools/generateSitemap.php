@@ -76,8 +76,6 @@ function addOtherUrls() {
   addUrl('https://dexonline.ro/auth/login');
   addUrl('https://dexonline.ro/unelte');
   addUrl('https://dexonline.ro/top');
-  addUrl('https://dexonline.ro/update.php');
-  addUrl('https://dexonline.ro/update3.php');
 }
 
 function closeCurrentFile() {

@@ -93,26 +93,3 @@
   top: 2em;
   z-index: 99;
 }
-
-.popUpShadow,
-#typoDiv {
-  -webkit-box-shadow: 5px 5px 10px #555;
-  -moz-box-shadow: 5px 5px 10px #555;
-  box-shadow: 5px 5px 10px #555;
-}
-
-.popUpShadow {
-  min-width: 500px;
-}
-
-#typoDiv {
-  background: #EEE;
-  border: 1px solid #777;
-  border-radius: 4px;
-  display: none;
-  margin-top: 10px;
-  padding: 8px;
-  position: absolute;
-  width: 400px;
-  z-index: 100;
-}

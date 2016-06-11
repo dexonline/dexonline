@@ -133,31 +133,23 @@ function randomDigits(count) {
 }
 
 function showTypoForm(evt) {
-  link = evt.target;
-  desiredTop = link.offsetTop + link.offsetHeight;
-  definitionId = link.id.substr(9); // Skip typoLink- prefix
-  currentTop = document.getElementById('typoDiv').offsetTop;
+  evt.preventDefault();
+  var $link = $(evt.target);
+  var definitionId = $link.data('definition');
+  var $modal = $('#typoDiv');
   $.get(wwwRoot + 'ajax/typo.php?definitionId=' + definitionId, function(data) {
-    div = $('#typoDiv').html(data);
-    divMarginTop = parseInt(div.css('margin-top').replace('px', ''));
-    // Hide the div if it was already open at the same coords.
-    // Show the div if it was shown at other coords or hidden
-    if (div.css('display') == 'none' || desiredTop + divMarginTop != currentTop) {
-      div.css('display', 'block');
-    } else {
-      div.css('display', 'none');
-    }
-    div.css({ 'top': desiredTop, 'left': link.offsetLeft });
+    $modal.html(data);
+    $modal.modal();
     $('#typoTextarea').focus();
   });
   return false;
 }
 
 function submitTypoForm() {
-  textarea = $("#typoHtmlForm > textarea").val();
-  defId = $("#typoHtmlForm > input:hidden").val();
+  var textarea = $("#typoHtmlForm > textarea").val();
+  var defId = $("#typoHtmlForm > input:hidden").val();
   $.post(wwwRoot + 'ajax/typo.php', { definitionId: defId, text: textarea, submit: 1 }, function(data) {
-    $('#typoDiv').html(data).delay(2000).fadeOut('slow');
+    $('#typoDiv').html(data);
   });
   return false;
 }

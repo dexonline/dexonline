@@ -83,13 +83,9 @@
   position: absolute;
 }
 
-.sourceName:hover span {
-  background: #FFF;
-  border: 1px solid #000;
-  margin-left: 0;
-  padding: 10px;
-  position: absolute;
-  left: 1em;
-  top: 2em;
-  z-index: 99;
+.sourceName:hover .popover {
+    display: block;
+    min-width: 500px;
+    left: 1em;
+    top: 2em;
 }

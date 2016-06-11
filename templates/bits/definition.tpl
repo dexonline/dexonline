@@ -11,30 +11,30 @@
     ({$row->source->year|regex_replace:"/ .*$/":""})
     {/if}
     </a> |
-    
+
     {* TODO de generalizat *}
     {if $row->source->shortName == 'DCR2'}
         Furnizată de <a class="ref" href="{$wwwRoot}spre/logos">Editura Logos</a> |
     {/if}
 
     {if $row->user->id}
-      Adăugată de 
+      Adăugată de
       <a href="{$wwwRoot}utilizator/{$row->user->nick|escape:"url"}">{$row->user->nick|escape}</a>
     {else}
       Adăugată de anonim
     {/if}
 
-    {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT)} 
+    {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT)}
       | Id: {$row->definition->id}
     {/if}
 
     {if $skinVariables.typo}
-      | <a class="typoLink" id="typoLink-{$row->definition->id}" href="#">Semnalează o greșeală</a>
+      | <a class="typoLink" data-definition="{$row->definition->id}" href="#">Semnalează o greșeală</a>
     {/if}
 
     {if $sUser}
       {if $row->bookmark}
-        | Adăugat la favorite 
+        | Adăugat la favorite
       {else}
         | <a class="bookmarkAddButton" href="{$wwwRoot}ajax/bookmarkAdd.php?definitionId={$row->definition->id}">Adaugă la favorite</a>
       {/if}

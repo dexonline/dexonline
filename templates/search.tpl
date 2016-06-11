@@ -219,7 +219,7 @@
     {/if}
 
     {if $skinVariables.typo}
-      <div id="typoDiv"></div>
+      <div id="typoDiv" class="modal fade" tabindex="-1" role="dialog"></div>
       <script>
        $(".typoLink").click(showTypoForm);
       </script>

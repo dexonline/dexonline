@@ -37,18 +37,20 @@
                 <input type="hidden" name="ids[]" value="{$s->id}"/>
                 <span class="sourceName">
                   {$s->name}
-                  <span class="popUpShadow">
-                    <b>{$s->name}</b><br/>
-                    Autor: {$s->author}<br/>
-                    Editură: {$s->publisher}<br/>
-                    Anul apariției: {$s->year}<br/>
-                    Tipul:
-                    {if $s->isOfficial==3}Ascuns{/if}
-                    {if $s->isOfficial==2}Oficial{/if}
-                    {if $s->isOfficial==1}Specializat{/if}
-                    {if $s->isOfficial==0}Neoficial{/if}
-                    <br/>
-                  </span>
+                  <div class="popover bottom">
+                    <div class="arrow"></div>
+                    <h3 class="popover-title">{$s->name}</h3>
+                    <div class="popover-content">
+                      Autor: {$s->author}<br/>
+                      Editură: {$s->publisher}<br/>
+                      Anul apariției: {$s->year}<br/>
+                      Tipul:
+                      {if $s->isOfficial==3}Ascuns{/if}
+                      {if $s->isOfficial==2}Oficial{/if}
+                      {if $s->isOfficial==1}Specializat{/if}
+                      {if $s->isOfficial==0}Neoficial{/if}
+                    </div>
+                  </div>
                 </span>
               </td>
               <td data-text="{$s->percentComplete}">{include file="bits/sourcePercentComplete.tpl" s=$s}</td>

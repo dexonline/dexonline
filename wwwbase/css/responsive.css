@@ -89,3 +89,36 @@
     left: 1em;
     top: 2em;
 }
+
+.wotdArchiveTable {
+    text-align: center;
+    vertical-align: middle;
+    table-layout: fixed;
+}
+
+.wotdArchiveTable .wotdDoM {
+    text-align: right;
+    font-weight: bold;
+}
+
+.wotdArchiveTable caption {
+    padding: 10px;
+    font-weight: bold;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.wotdArchiveTable .glyphicon {
+    cursor: pointer;
+}
+
+.wotdArchiveTable td {
+    width: 90px;
+    height: 90px;
+}

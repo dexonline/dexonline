@@ -1,6 +1,6 @@
 <div class="modal-dialog">
   <div class="modal-content">
-      <form id="typoHtmlForm" method="post" action="" onsubmit="return submitTypoForm()">
+    <form id="typoHtmlForm" method="post" action="" onsubmit="return submitTypoForm()">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <h4 class="modal-title">Semnalează o greșeală</h4>

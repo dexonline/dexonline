@@ -146,8 +146,8 @@ function showTypoForm(evt) {
 }
 
 function submitTypoForm() {
-  var textarea = $("#typoHtmlForm > textarea").val();
-  var defId = $("#typoHtmlForm > input:hidden").val();
+  var textarea = $("#typoHtmlForm  #typoTextarea").val();
+  var defId = $("#typoHtmlForm input[name='definitionId']").val();
   $.post(wwwRoot + 'ajax/typo.php', { definitionId: defId, text: textarea, submit: 1 }, function(data) {
     $('#typoDiv').html(data);
   });

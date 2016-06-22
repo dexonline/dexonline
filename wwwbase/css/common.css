@@ -79,11 +79,6 @@
   display: none;
 }
 
-blockquote {
-  border: 1px solid;
-  padding: 2px 6px;
-}
-
 .btn,
 .commonShadow {
   -webkit-box-shadow: 1px 1px 2px #999;
@@ -387,4 +382,20 @@ blockquote {
 
 .select2LexemWarnings {
   color: red;
+}
+
+/* as suggested by http://pdenya.com/2013/08/08/vertical-space-in-bootstrap/ */
+.voffset  { margin-top: 2px; }
+.voffset1 { margin-top: 5px; }
+.voffset2 { margin-top: 10px; }
+.voffset3 { margin-top: 15px; }
+.voffset4 { margin-top: 30px; }
+.voffset5 { margin-top: 40px; }
+.voffset6 { margin-top: 60px; }
+.voffset7 { margin-top: 80px; }
+.voffset8 { margin-top: 100px; }
+.voffset9 { margin-top: 150px; }
+
+textarea {
+  font-family:monospace;
 }

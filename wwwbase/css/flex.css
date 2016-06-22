@@ -47,10 +47,6 @@ table {
   vertical-align: top;
 }
 
-.buttonRow {
-  padding: 10px 0px;
-}
-
 .discreet {
   text-decoration: none;
   color: blue;
@@ -307,50 +303,6 @@ hr {
 
 .inline {
   display: inline;
-}
-
-#similarRecord {
-  display: none;
-}
-
-#commentPreview:empty {
-  display: none;
-}
-
-#commentPreview,
-#similarDiff {
-  background: #f4f4f4;
-  border: 1px dotted #777;
-  margin-left:15px;
-  margin-top: 5px;
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-#similarSourceMessageYes,
-#similarSourceMessageNoSource,
-#similarSourceMessageNoDefinition,
-#similarRep,
-#similarIdentical,
-#similarNotIdentical {
-  margin-top: 5px;
-}
-
-#similarIdentical img,
-#similarNotIdentical img {
-  vertical-align: middle;
-}
-
-#similarDiff ins {
-  background-color: #AFA;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-#similarDiff del {
-  background-color: #FAA;
-  cursor: pointer;
-  text-decoration: none;
 }
 
 /* Select the dark icon set for the magnifier and the X for elFinder's search box.

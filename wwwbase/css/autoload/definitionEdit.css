@@ -1,0 +1,34 @@
+#similarRecord {
+  display: none;
+}
+
+#commentPreview:empty {
+  display: none;
+}
+
+#similarSourceMessageYes,
+#similarSourceMessageNoSource,
+#similarSourceMessageNoDefinition,
+#similarRep,
+#similarIdentical,
+#similarNotIdentical {
+  margin-top: 5px;
+}
+
+#similarIdentical img,
+#similarNotIdentical img {
+  vertical-align: middle;
+}
+
+#similarDiff ins {
+  background-color: #AFA;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#similarDiff del {
+  background-color: #FAA;
+  cursor: pointer;
+  text-decoration: none;
+}
+

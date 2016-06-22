@@ -8,6 +8,11 @@ class SimilarRecord {
   public $identical;   // true iff $definition is not null and identical to the original definition
 
   static function create($definition, $entryIds) {
+    // filter any $entryIds beginning with '@' (newly added entries)
+    $entryIds = array_filter($entryIds, function($id) {
+      return !StringUtil::startsWith($id, '@');
+    });
+
     $diffSize = 0;
     $sr = new SimilarRecord();
     $sr->source = SimilarSource::getSimilarSource($definition->sourceId);

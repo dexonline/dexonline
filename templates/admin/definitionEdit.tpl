@@ -90,6 +90,16 @@
           {/if}
         </td>
       </tr>
+      <tr>
+        <td>Etichete:</td>
+        <td>
+          <select id="tagIds" name="tagIds[]" style="width: 100%" multiple>
+            {foreach $tagIds as $t}
+              <option value="{$t}" selected></option>
+            {/foreach}
+          </select>
+        </td>
+      </tr>
       <tr id='similarSourceRow' {if !$sim->source}style="display:none"{/if}>
         <td>Similarități</td>
         <td>

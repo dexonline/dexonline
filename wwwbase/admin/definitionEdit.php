@@ -54,6 +54,7 @@ $internalRep = util_getRequestParameter('internalRep');
 $status = util_getRequestIntParameterWithDefault('status', null);
 $commentContents = util_getRequestParameter('commentContents');
 $preserveCommentUser = util_getRequestParameter('preserveCommentUser');
+$tagIds = util_getRequestParameter('tagIds');
 
 $acceptButton = util_getRequestParameter('but_accept');
 $nextOcrBut = util_getRequestParameter('but_next_ocr');
@@ -140,6 +141,15 @@ if ($acceptButton || $nextOcrBut) {
       }
     }
     
+    // Delete the old tags and add the new tags.
+    DefinitionTag::delete_all_by_definitionId($d->id);
+    foreach ($tagIds as $tagId) {
+      $dt = Model::factory('DefinitionTag')->create();
+      $dt->definitionId = $d->id;
+      $dt->tagId = $tagId;
+      $dt->save();
+    }
+
     Log::notice("Saved definition {$d->id} ({$d->lexicon})");
   
     if ($nextOcrBut) {
@@ -169,6 +179,9 @@ if ($acceptButton || $nextOcrBut) {
            ->order_by_asc('description')
            ->find_many();
   $entryIds = util_objectProperty($entries, 'id');
+
+  $dts = DefinitionTag::get_all_by_definitionId($d->id);
+  $tagIds = util_objectProperty($dts, 'tagId');
 }
 
 // Either there were errors saving, or this is the first time loading the page.
@@ -180,6 +193,7 @@ SmartyWrap::assign('user', User::get_by_id($d->userId));
 SmartyWrap::assign('comment', $comment);
 SmartyWrap::assign('commentUser', $commentUser);
 SmartyWrap::assign('entryIds', $entryIds);
+SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('typos', Typo::get_all_by_definitionId($d->id));
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());

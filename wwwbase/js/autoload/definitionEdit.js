@@ -19,6 +19,11 @@ $(function() {
       templateSelection: formatEntryWithEditLink,
     });
             
+    initSelect2('#tagIds', 'ajax/getTagsById.php', {
+      ajax: { url: wwwRoot + 'ajax/getTags.php' },
+      minimumInputLength: 1,
+    });
+            
     $('#entryIds, #sourceDropDown').change(updateFieldsJson);
     $('#refreshButton').click(updateFieldsJson);
     $('#similarDiff ins, #similarDiff del').click(definitionCopyFromSimilar);

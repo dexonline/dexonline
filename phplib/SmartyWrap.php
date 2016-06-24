@@ -148,20 +148,19 @@ class SmartyWrap {
           self::$cssFiles[7] = 'elfinder/css/elfinder.min.css';
           self::$cssFiles[8] = 'elfinderDev.css';
           break;
-        case 'windowEngine':        self::$cssFiles[9] = 'jquery-wm/main.css'; break;
-        case 'zepu':                self::$cssFiles[10] = 'zepu.css'; break;
-        case 'polar':               self::$cssFiles[11] = 'polar.css'; break;
-        case 'mobile':              self::$cssFiles[12] = 'mobile.css'; break;
-        case 'flex':                self::$cssFiles[13] = 'flex.css'; break;
-        case 'paradigm':            self::$cssFiles[14] = 'paradigm.css'; break;
-        case 'jcrop':               self::$cssFiles[15] = 'jcrop/jquery.Jcrop.min.css'; break;
-        case 'select2':             self::$cssFiles[16] = 'select2/select2.min.css'; break;
+        case 'zepu':                self::$cssFiles[9] = 'zepu.css'; break;
+        case 'polar':               self::$cssFiles[10] = 'polar.css'; break;
+        case 'mobile':              self::$cssFiles[11] = 'mobile.css'; break;
+        case 'flex':                self::$cssFiles[12] = 'flex.css'; break;
+        case 'paradigm':            self::$cssFiles[13] = 'paradigm.css'; break;
+        case 'jcrop':               self::$cssFiles[14] = 'jcrop/jquery.Jcrop.min.css'; break;
+        case 'select2':             self::$cssFiles[15] = 'select2/select2.min.css'; break;
         case 'gallery':
-          self::$cssFiles[17] = 'colorbox/colorbox.css';
-          self::$cssFiles[18] = 'visualDict.css';
+          self::$cssFiles[16] = 'colorbox/colorbox.css';
+          self::$cssFiles[17] = 'visualDict.css';
           break;
-        case 'textComplete':        self::$cssFiles[19] = 'jquery.textcomplete.css'; break;
-        case 'flash':               self::$cssFiles[20] = 'flash.css'; break;
+        case 'textComplete':        self::$cssFiles[18] = 'jquery.textcomplete.css'; break;
+        case 'flash':               self::$cssFiles[19] = 'flash.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -188,24 +187,23 @@ static function addJs(/* Variable-length argument list */) {
           break;
         case 'pager':            self::$jsFiles[10] = 'jquery.tablesorter.pager.min.js'; break;
         case 'elfinder':         self::$jsFiles[11] = 'elfinder.min.js'; break;
-        case 'windowEngine':     self::$jsFiles[12] = 'jquery-wm.js'; break;
-        case 'cookie':           self::$jsFiles[13] = 'jquery.cookie.js'; break;
-        case 'dex':              self::$jsFiles[14] = 'dex.js'; break;
-        case 'jcrop':            self::$jsFiles[15] = 'jquery.Jcrop.min.js'; break;
+        case 'cookie':           self::$jsFiles[12] = 'jquery.cookie.js'; break;
+        case 'dex':              self::$jsFiles[13] = 'dex.js'; break;
+        case 'jcrop':            self::$jsFiles[14] = 'jquery.Jcrop.min.js'; break;
         case 'select2':
-          self::$jsFiles[16] = 'select2/select2.min.js';
-          self::$jsFiles[17] = 'select2/i18n/ro.js';
+          self::$jsFiles[15] = 'select2/select2.min.js';
+          self::$jsFiles[16] = 'select2/i18n/ro.js';
           break;
-        case 'select2Dev':       self::$jsFiles[18] = 'select2Dev.js'; break;
-        case 'jcanvas':          self::$jsFiles[19] = 'jcanvas.min.js'; break;
+        case 'select2Dev':       self::$jsFiles[17] = 'select2Dev.js'; break;
+        case 'jcanvas':          self::$jsFiles[18] = 'jcanvas.min.js'; break;
         case 'gallery':
-          self::$jsFiles[20] = 'colorbox/jquery.colorbox-min.js';
-          self::$jsFiles[21] = 'colorbox/jquery.colorbox-ro.js';
-          self::$jsFiles[22] = 'dexGallery.js';
+          self::$jsFiles[19] = 'colorbox/jquery.colorbox-min.js';
+          self::$jsFiles[20] = 'colorbox/jquery.colorbox-ro.js';
+          self::$jsFiles[21] = 'dexGallery.js';
           break;
-        case 'modelDropdown':    self::$jsFiles[23] = 'modelDropdown.js'; break;
-        case 'textComplete':     self::$jsFiles[24] = 'jquery.textcomplete.min.js'; break;
-        case 'tinymce':          self::$jsFiles[25] = 'tinymce-4.4.0/tinymce.min.js'; break;
+        case 'modelDropdown':    self::$jsFiles[22] = 'modelDropdown.js'; break;
+        case 'textComplete':     self::$jsFiles[23] = 'jquery.textcomplete.min.js'; break;
+        case 'tinymce':          self::$jsFiles[24] = 'tinymce-4.4.0/tinymce.min.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

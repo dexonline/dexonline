@@ -110,12 +110,21 @@
       </div>
     </div>
 
-    <div id='similarSourceRow' class="form-group" {if !$sim->source}style="display:none"{/if}>
+    <div class="form-group" {if !$sim->source}style="display:none"{/if}>
       <label class="col-sm-2 control-label"></label>
-      <div class="col-sm-10">
 
-        <input type="checkbox" id="similarSource" name="similarSource" value="1" {if $def->similarSource}checked="checked"{/if}/>
+      <div class="col-sm-10">
+        <input type="checkbox" id="similarSource" name="similarSource" value="1" {if $def->similarSource}checked="checked"{/if}>
         <label for="similarSource">Definiție identică cu cea din <span class="similarSourceName"></span></label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label"></label>
+
+      <div class="col-sm-10">
+        <input type="checkbox" id="structured" name="structured" value="1" {if $def->structured}checked="checked"{/if}>
+        <label for="structured">Definiția a fost structurată</label>
       </div>
     </div>
 

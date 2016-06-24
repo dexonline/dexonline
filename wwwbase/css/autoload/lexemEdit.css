@@ -1,17 +1,5 @@
-body {
-  margin: 2px;
-}
-
-.box {
-  display: none;
-}
-
 #stemNode {
   display: none;
-}
-
-#wmCanvas {
-  margin: 2px;
 }
 
 #meaningTree {
@@ -150,85 +138,6 @@ abbr {
   cursor: help;
 }
 
-.rightColumn {
-  padding-left: 30px;
-}
-
-#structStatus {
-  width: 172px;
-}
-
-input[name=cloneLexem] {
-  background: #e5e5e5 url("../../img/icons/page_white_copy.png") 2px 0px no-repeat;
-  padding-left: 20px;
-}
-
-input[name=deleteLexem] {
-  background: #e5e5e5 url("../../img/icons/cross16.png") 2px 0px no-repeat;
-  padding-left: 20px;
-}
-
-input[name=refreshLexem] {
-  background: #e5e5e5 url("../../img/icons/arrow_refresh.png") 2px 0px no-repeat;
-  padding-left: 20px;
-}
-
-input[name=saveLexem] {
-  background: #e5e5e5 url("../../img/icons/disk.png") 2px 0px no-repeat;
-  padding-left: 20px;
-}
-
 input[readonly] {
   background-color: #f4f4f4;
-}
-
-.select2-container-multi,
-.select2-result { /* select2 custom selectors */
-  font-size: 12px;
-}
-
-.lexemEditActions {
-  margin: 0px 0px;
-}
-
-.lexemEditActions .links {
-  float: right;
-  padding: 3px 10px;
-}
-
-.lexemEditActions .links a {
-  padding-left: 10px;
-}
-
-/* Paradigm tabs settings */
-
-.paradigmFields tr td {
-  vertical-align: text-top;
-}
-
-/* Window manager settings
-  (with jQuery custom selectors) */
-.titlebaricon {
-  display: none;
-}
-
-.titlebartext {
-  left: 10px;
-  top: 3px
-}
-
-.closebut {
-  display: none;
-}
-
-.windowtitlebar > .horizbuts {
-  width: 39px;
-}
-
-.windowcontent {
-  padding: 3px;
-}
-
-.select2-drop {
-  z-index: 200000 !important; /* Make it work with the window manager */
 }

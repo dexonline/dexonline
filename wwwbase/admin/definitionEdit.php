@@ -23,6 +23,7 @@ if (!$definitionId) {
   $d->userId = session_getUserId();
   $d->sourceId = $sourceId;
   $d->similarSource = 0;
+  $d->structured = 0;
   $d->internalRep = $def;
   $d->htmlRep = AdminStringUtil::htmlize($def, $sourceId);
   $d->lexicon = AdminStringUtil::extractLexicon($d);
@@ -50,6 +51,7 @@ $isOCR = util_getRequestParameter('isOCR');
 $entryIds = util_getRequestParameter('entryIds');
 $sourceId = util_getRequestIntParameter('source');
 $similarSource = util_getBoolean('similarSource');
+$structured = util_getBoolean('structured');
 $internalRep = util_getRequestParameter('internalRep');
 $status = util_getRequestIntParameterWithDefault('status', null);
 $commentContents = util_getRequestParameter('commentContents');
@@ -73,6 +75,7 @@ if ($acceptButton || $nextOcrBut) {
   $d->status = (int)$status;
   $d->sourceId = (int)$sourceId;
   $d->similarSource = $similarSource;
+  $d->structured = $structured;
   $d->lexicon = AdminStringUtil::extractLexicon($d);
 
   if ($commentContents) {

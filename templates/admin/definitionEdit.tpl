@@ -121,6 +121,15 @@
 
     <div class="form-group">
       <label class="col-sm-2 control-label"></label>
+
+      <div class="col-sm-10">
+        <input type="checkbox" id="structured" name="structured" value="1" {if $def->structured}checked="checked"{/if}>
+        <label for="structured">Definiția a fost structurată</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label"></label>
       <div class="col-sm-10">
 
         <div class="btn-group">

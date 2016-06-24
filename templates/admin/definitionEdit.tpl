@@ -146,9 +146,11 @@
 
   </form>
 
-  <h3>Previzualizare</h3>
-
   <div class="panel panel-default">
+    <div class="panel-heading">
+      Previzualizare
+    </div>
+
     <div class="panel-body">
       <div id="defPreview">{$def->htmlRep}</div>
       <span class="defDetails">

@@ -1,13 +1,11 @@
 $(function() {
   var anyChanges = false;
-  var COOKIE_NAME = 'lexemEdit';
-  $.cookie.json = true;
 
   var lexemSourceOptions = {
     ajax: { url: wwwRoot + 'ajax/getSources.php' },
     minimumInputLength: 1,
     placeholder: 'surse care atestă flexiunea',
-    width: '250px',
+    width: '100%',
   };
   var similarLexemOptions = {
     ajax: { url: wwwRoot + 'ajax/getLexems.php' },
@@ -70,13 +68,13 @@ $(function() {
       allowClear: true,
       minimumInputLength: 1,
       templateSelection: formatEntryWithEditLink,
-      width: '180px',
+      width: '100%',
     });
 
     initSelect2('#variantIds', 'ajax/getLexemsById.php', {
       ajax: { url: wwwRoot + 'ajax/getLexems.php' },
       minimumInputLength: 1,
-      width: '180px',
+      width: '100%',
     });
 
     initSelect2('#variantOfId', 'ajax/getLexemsById.php', {
@@ -84,7 +82,7 @@ $(function() {
       allowClear: true,
       minimumInputLength: 1,
       placeholder: '(opțional)',
-      width: '180px',
+      width: '100%',
     });
 
     initSelect2('#structuristId', 'ajax/getUsersById.php', {
@@ -92,22 +90,20 @@ $(function() {
       allowClear: true,
       minimumInputLength: 3,
       placeholder: '(opțional)',
-      width: '180px',
+      width: '100%',
     });
     
     $('#editMeaningAcceptButton').click(acceptMeaningEdit);
     $('#editMeaningCancelButton').click(endMeaningEdit);
     $('.lexemEditSaveButton').click(saveEverything);
 
-    initSelect2('.paradigmFields .sourceIds', 'ajax/getSourcesById.php', lexemSourceOptions);
+    initSelect2('#sourceIds', 'ajax/getSourcesById.php', lexemSourceOptions);
 
     $('.similarLexem')
       .select2(similarLexemOptions)
       .on('change', similarLexemChange);
 
     $('.fakeCheckbox').click(toggleIsLoc);
-
-    wmInit();
   }
 
   function addMeaning() {
@@ -241,7 +237,7 @@ $(function() {
     $('#editorComment').val(c.find('.internalComment').text());
 
     $('#editorSources option').prop('selected', false);
-    c.find('.sourceIds span').each(function() {
+    c.find('#sourceIds span').each(function() {
       var id = $(this).text();
       $('#editorSources option[value="' + id + '"]').prop('selected', true);
     });
@@ -299,10 +295,10 @@ $(function() {
            'text');
 
     // Update sources and source IDs
-    c.find('.sourceIds, .sources').text('');
+    c.find('#sourceIds, .sources').text('');
     $('#editorSources option:selected').each(function() {
       c.find('.sources').append('<span class="tag">' + $(this).text() + '</span>');
-      c.find('.sourceIds').append('<span>' + $(this).val() + '</span>');
+      c.find('#sourceIds').append('<span>' + $(this).val() + '</span>');
     });
 
     // Update tags and tag IDs
@@ -353,7 +349,7 @@ $(function() {
       var c = $(this).children('.meaningContainer');
 
       // Collect source, tag and relation IDs
-      var sourceIds = c.find('.sourceIds span').map(function() {
+      var sourceIds = c.find('#sourceIds span').map(function() {
         return $(this).text();
       }).get();
 
@@ -427,105 +423,6 @@ $(function() {
       .fail(function () {
         callback([]); // Callback must be invoked even if something went wrong.
       });
-  }
-
-  // Initializes the window manager
-  function wmInit() {
-    $('.box').each(function() {
-      // Convert each box to a window
-      var $w = $().WM('open');
-      $w.find('.titlebartext').text($(this).attr('data-title'));
-      $w.attr('data-id', $(this).attr('data-id'));
-      $w.find('.windowcontent').append($(this).children());
-      $('#wmCanvas').append($w);
-    });
-    wmSetCoordinates();
-
-    // Set some handlers for moving, resizing, and resetting the interface
-    $('#resizerproxy').mouseup(wmSetCookie);
-    $('#moverproxy').mouseup(wmSetCookie);
-    $('.minimizebut, .maximizebut, .restorebut').click(wmSetCookie);
-    $('.windowtitlebar').dblclick(wmSetCookie);
-    $('#interfaceResetLink').click(wmInterfaceReset);
-  }
-
-  // Sets the coordinates for each window based on the cookie (if available) or on HTML5 attributes of the original box.
-  // Everything is relative to the coords of #wmCanvas.
-  function wmSetCoordinates() {
-    var props = ['left', 'top', 'width', 'height'];
-    var cookie = $.cookie(COOKIE_NAME);
-    var canvasShift = {
-      left: parseInt($('#wmCanvas').offset().left),
-      top: parseInt($('#wmCanvas').offset().top),
-      width: 0,
-      height: 0,
-    };
-
-    $('.window').each(function() {
-      var id = $(this).attr('data-id');
-      if (cookie) {
-        for (var i = 0; i < props.length; i++) {
-          var coord = cookie[id][props[i]] + canvasShift[props[i]];
-          $(this).css(props[i], coord + 'px');
-        }
-        if (cookie[id].minimized) {
-          $(this).WM('minimize');
-        }
-      } else {
-        // No cookie - load the corresponding box
-        var box = $('.box[data-id="' + id + '"]');
-        for (var i = 0; i < props.length; i++) {
-          if (typeof(box.attr('data-' + props[i])) != 'undefined') {
-            var value = parseInt(box.attr('data-' + props[i]));
-            if (props[i] == 'left') {
-              value += canvasShift.left;
-            } else if (props[i] == 'top') {
-              value += canvasShift.top;
-            }
-            $(this).css(props[i], value + 'px');
-          }
-        }
-        if (box.attr('data-minimized')) {
-          $(this).WM('minimize');
-        } else if ($(this).hasClass('minimized')) {
-          $(this).WM('restore');
-        }
-      }
-    });
-    if (cookie) {
-      $('.window[data-id="' + cookie.focused + '"]').WM('raise');
-    } else {
-      // Raise minimized windows for clean interfaces, so that the users know they're there
-      $('.window.minimized').each(function() { $(this).WM('raise'); });
-    }
-  }
-
-  function wmSetCookie() {
-    var data = {};
-    $('.window').each(function() {
-      var params = { minimized: $(this).hasClass('minimized') };
-      if (params.minimized) {
-        var p = $(this).data('oldPos');
-        params.left = p.left - $('#wmCanvas').offset().left;
-        params.top = p.top - $('#wmCanvas').offset().top;
-        params.width = p.width;
-        params.height = p.height;
-      } else {
-        params.left = $(this).offset().left - $('#wmCanvas').offset().left;
-        params.top = $(this).offset().top - $('#wmCanvas').offset().top;
-        params.width = $(this).width();
-        params.height = $(this).height();
-      }
-      data[$(this).attr('data-id')] = params;
-    });
-    data['focused'] = $('.window.focused').attr('data-id');
-    $.cookie(COOKIE_NAME, data, { expires: 365 });
-  }
-
-  function wmInterfaceReset() {
-    $.removeCookie(COOKIE_NAME);
-    wmSetCoordinates();
-    return false;
   }
 
   init();

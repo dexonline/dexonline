@@ -108,9 +108,11 @@ SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('structStatusNames', Lexem::$STRUCT_STATUS_NAMES);
-SmartyWrap::addCss('jqueryui-smoothness', 'paradigm', 'select2', 'windowEngine', 'textComplete');
-SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev', 'windowEngine', 'cookie', 'modelDropdown', 'textComplete');
-SmartyWrap::displayAdminPage('admin/lexemEdit.tpl');
+SmartyWrap::assign('suggestHiddenSearchForm', true);
+SmartyWrap::assign('suggestNoBanner', true);
+SmartyWrap::addCss('jqueryui-smoothness', 'paradigm', 'bootstrap', 'select2', 'textComplete');
+SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev', 'bootstrap', 'modelDropdown', 'textComplete');
+SmartyWrap::display('admin/lexemEdit.tpl');
 
 /**************************************************************************/
 

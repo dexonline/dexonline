@@ -8,7 +8,12 @@
   {else}
     {$title="Editare definiție {$def->id}"}
   {/if}
-  <h3>{$title}</h3>
+  <h3>
+    {$title}
+    <span class="pull-right">
+      <small><a href="http://wiki.dexonline.ro/wiki/Editarea_defini%C8%9Biilor">instrucțiuni</a></small>
+    </span>
+  </h3>
 
   <form action="definitionEdit.php" method="post" class="form-horizontal">
     <input type="hidden" name="definitionId" value="{$def->id}"/>
@@ -33,22 +38,14 @@
         {else}
           <input type="hidden" name="source" value="{$def->sourceId}"/>
           {$source->shortName}
-          
-          <span class="tooltip2" title="Sursa nu este deschisă pentru moderare și nu poate fi modificată.">&nbsp;</span>
         {/if}
       </div>
     </div>
 
     <div class="form-group">
       <label class="col-sm-2 control-label">stare</label>
-      <div class="col-sm-9">
+      <div class="col-sm-10">
         {include file="bits/statusDropDown.tpl" name="status" selectedStatus=$def->status}
-      </div>
-
-      <div class="col-sm-1">
-        <span class="tooltip2" title="Dacă treceți o definiție în starea ștearsă, ea va fi automat disociată de orice intrare. Notă: Definiția va
-                                      fi imposibil de găsit la o căutare ulterioară, tocmai din cauza disocierii. Definiția este încă disponibilă în
-                                      panoul de pagini recent vizitate.">&nbsp;</span>
       </div>
     </div>
 
@@ -74,30 +71,21 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">
         comentariu (opțional)
-
-        <span class="tooltip2" title="Comentariul va fi vizibil public într-un subalineat al definiției. Folosiți acest câmp pentru a face adnotări pe
-                                      marginea unei definiții fără a altera forma originală a definiției.">&nbsp;</span>
       </label>
 
       <div class="col-sm-10">
         <textarea id="comment" name="commentContents" class="form-control" rows="3">{if $comment}{$comment->contents|escape}{/if}</textarea>
+
+        {if $commentUser}
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="preserveCommentUser" value="1" checked="checked">
+              Păstrează autorul comentariului original ({$commentUser->nick|escape})
+            </label>
+          </div>
+        {/if}
       </div>
     </div>
-
-    {if $commentUser}
-      <div class="form-group">
-        <label class="col-sm-2 control-label"></label>
-
-        <div class="col-sm-10">
-          <input id="preserveCommentUser" type="checkbox" name="preserveCommentUser" value="1" checked="checked">
-          <label for="preserveCommentUser">Păstrează autorul comentariului original ({$commentUser->nick|escape})</label>
-        
-          <span class="tooltip2" title="Dacă modificați un comentariu existent, puteți alege să vă treceți drept autor al comentariului sau să păstrați
-                                        autorul versiunii anterioare. Sistemul nu ia automat această decizie. Nu fiți modești; dacă considerați că ați îmbunătățit semnificativ
-                                        comentariul, însușiți-vi-l!">&nbsp;</span>
-        </div>
-      </div>
-    {/if}
 
     <div class="form-group">
       <label class="col-sm-2 control-label">etichete</label>
@@ -107,24 +95,22 @@
             <option value="{$t}" selected></option>
           {/foreach}
         </select>
-      </div>
-    </div>
 
-    <div class="form-group" {if !$sim->source}style="display:none"{/if}>
-      <label class="col-sm-2 control-label"></label>
+        {** These aren't logically connected, but we like them vertically compressed **}
+        <div class="checkbox" {if !$sim->source}style="display:none"{/if}>
+          <label>
+            <input type="checkbox" name="similarSource" value="1" {if $def->similarSource}checked="checked"{/if}>
+            Definiție identică cu cea din <span class="similarSourceName"></span>
+          </label>
+        </div>
 
-      <div class="col-sm-10">
-        <input type="checkbox" id="similarSource" name="similarSource" value="1" {if $def->similarSource}checked="checked"{/if}>
-        <label for="similarSource">Definiție identică cu cea din <span class="similarSourceName"></span></label>
-      </div>
-    </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="structured" value="1" {if $def->structured}checked="checked"{/if}>
+            Definiția a fost structurată
+          </label>
+        </div>
 
-    <div class="form-group">
-      <label class="col-sm-2 control-label"></label>
-
-      <div class="col-sm-10">
-        <input type="checkbox" id="structured" name="structured" value="1" {if $def->structured}checked="checked"{/if}>
-        <label for="structured">Definiția a fost structurată</label>
       </div>
     </div>
 
@@ -134,13 +120,12 @@
 
         <div class="btn-group">
           <input type="button" class="btn btn-default" id="refreshButton" value="Reafișează"/>
-          <span class="tooltip2" title="Tipărește definiția și comentariul cu modificările făcute. Modificările nu sunt încă salvate.">&nbsp;</span>
         </div>
 
         <div class="btn-group">
           <input type="submit" class="btn btn-primary" name="but_accept" value="Salvează"/>
           {if $isOCR}
-            <input type="submit" name="but_next_ocr" value="Salvează și preia următoarea definiție OCR"/>
+            <input type="submit" class="btn btn-primary" name="but_next_ocr" value="Salvează și preia următoarea definiție OCR"/>
           {/if}
         </div>
 

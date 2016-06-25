@@ -72,8 +72,8 @@ $reason = '';
 if ($wotd) {
   $reason = $wotd->description;
   if (
-    util_isModerator(PRIV_ADMIN) || 
-    ($date && strtotime($date) < time() - WOTD_REASON_DISPLAY_DELAY * ONE_DAY_IN_SECS) 
+    util_isModerator(PRIV_ADMIN) ||
+    ($date && strtotime($date) < time() - WOTD_REASON_DISPLAY_DELAY * ONE_DAY_IN_SECS)
   ) {
     SmartyWrap::assign('reason', $reason);
   }

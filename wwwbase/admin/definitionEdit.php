@@ -176,6 +176,11 @@ if ($acceptButton || $nextOcrBut) {
   $lexemIds = util_objectProperty($lexems, 'id');
 }
 
+$typos = Model::factory('Typo')
+  ->where('definitionId', $d->id)
+  ->order_by_asc('id')
+  ->find_many();
+
 // Either there were errors saving, or this is the first time loading the page.
 SmartyWrap::assign('isOCR', $isOCR);
 SmartyWrap::assign('def', $d);
@@ -185,7 +190,7 @@ SmartyWrap::assign('user', User::get_by_id($d->userId));
 SmartyWrap::assign('comment', $comment);
 SmartyWrap::assign('commentUser', $commentUser);
 SmartyWrap::assign('lexemIds', $lexemIds);
-SmartyWrap::assign('typos', Typo::get_all_by_definitionId($d->id));
+SmartyWrap::assign('typos', $typos);
 SmartyWrap::assign('homonyms', loadSetHomonyms($lexemIds));
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());

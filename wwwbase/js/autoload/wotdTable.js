@@ -1,80 +1,65 @@
-function beginEdit(id, op) {
-  var rowId = $('#wotdGrid').jqGrid('getGridParam', 'selrow');
+$(function (){
 
-  $('#displayDate').datepicker({ dateFormat: 'yy-mm-dd' });
-  $('#displayDate')[0].style.width = '400px';
-
-  $('#lexicon').html('');
-  if (op == 'edit') {
-    var lexicon = $('#wotdGrid').getCell(rowId, 'lexicon');
-    console.log(lexicon);
-    $('#lexicon').append(new Option(lexicon, lexicon, true, true));
+  function formInit(id) {
+    $('#image').html('').append(imageList.find('option').clone());
   }
-  $('#lexicon').select2({
-    ajax: {
-      url: wwwRoot + 'ajax/wotdGetDefinitions.php',
-    },
-    templateResult: function(item) {
-      return item.text + ' (' + item.source + ') [' + item.id + ']';
-    },
-    minimumInputLength: 1,
-    placeholder: 'caută un cuvânt...',
-    width: '410px',
-  }).on('change', function(e) {
-    var data = $('#lexicon').select2('data')[0];
-    $('#definitionId').val(data.id);
-    $('#lexicon').val(data.lexicon);
-  });
-  $('#lexicon').prop('disabled', op == 'edit');
 
-  $('#priority')[0].style.width = '400px';
-  $('#description')[0].style.width = '400px';
+  function beginEdit(id, op) {
+    var rowId = $('#wotdGrid').jqGrid('getGridParam', 'selrow');
 
-  // TODO the staticServerImageList is getting big
-  $('#image').html('');
-  $('#image').select2({
-    allowClear: true,
-    data: staticServerImageList,
-    minimumInputLength: 1,
-    placeholder: 'caută o imagine...',
-    width: '410px',
-  });
-}
+    $('#displayDate').datepicker({ dateFormat: 'yy-mm-dd' });
+    $('#displayDate')[0].style.width = '400px';
 
-function endEdit(data) {
-  data.definitionId = $('#definitionId').val();
-  return [true];
-}
+    $('#lexicon').html('');
+    if (op == 'edit') {
+      var lexicon = $('#wotdGrid').getCell(rowId, 'lexicon');
+      $('#lexicon').append(new Option(lexicon, lexicon, true, true));
+    }
+    $('#lexicon').select2({
+      ajax: {
+        url: wwwRoot + 'ajax/wotdGetDefinitions.php',
+      },
+      templateResult: function(item) {
+        return item.text + ' (' + item.source + ') [' + item.id + ']';
+      },
+      minimumInputLength: 1,
+      placeholder: 'caută un cuvânt...',
+      width: '410px',
+    }).on('change', function(e) {
+      var data = $('#lexicon').select2('data')[0];
+      $('#definitionId').val(data.id);
+      $('#lexicon').val(data.lexicon);
+    });
+    $('#lexicon').prop('disabled', op == 'edit');
 
-function checkServerResponse(response, postData) {
-  if (response.responseText) {
-    return [false, response.responseText];
-  } else {
+    $('#priority')[0].style.width = '400px';
+    $('#description')[0].style.width = '400px';
+
+    // This needs to be selected explicitly sometimes -- don't know why
+    var value = $('#wotdGrid').getCell(rowId, 'image');
+    $('#image option[value="' + value + '"]').prop('selected', true);
+
+    $('#image').select2({
+      allowClear: true,
+      minimumInputLength: 1,
+      placeholder: 'caută o imagine...',
+      width: '410px',
+    });
+  }
+
+  function endEdit(data) {
+    data.definitionId = $('#definitionId').val();
     return [true];
   }
-}
 
-function getStaticServerImageList() {
-  var data = [{id: '', text: ''}];
-
-  $.get("https://dexonline.ro/static/fileList.txt", function(contents) {
-    var lines = contents.split('\n');
-    for (var i = 0; i < lines.length; i++) {
-      var s = lines[i];
-      if (startsWith(s, 'img/wotd/') &&
-          (endsWith(s, '.jpeg') || endsWith(s, '.jpg') || endsWith(s, '.png') || endsWith(s, '.gif') ||
-           endsWith(s, '.JPEG') || endsWith(s, '.JPG') || endsWith(s, '.PNG') || endsWith(s, '.GIF')) &&
-          s.indexOf('thumb') == -1) {
-        var option = s.substr(9); // Skip the 'img/wotd/' characters
-        data.push({id: option, text: option});
-      }
+  function checkServerResponse(response, postData) {
+    if (response.responseText) {
+      return [false, response.responseText];
+    } else {
+      return [true];
     }
-  });
+  }
 
-  return data;
-}
-
-$(function (){
   var editOptions = {
     reloadAfterSubmit: true,
     closeAfterEdit: true,
@@ -82,6 +67,7 @@ $(function (){
     beforeSubmit: endEdit,
     afterShowForm: beginEdit,
     afterSubmit: checkServerResponse,
+    onInitializeForm: formInit,
     width: 500,
   };
 
@@ -110,7 +96,7 @@ $(function (){
   var priorWidth  =  50;
   var imageWidth  =  70;
   var descWidth   = screenWidth - (lexWidth + sourceWidth + htmlWidth + dateWidth + userWidth + priorWidth + imageWidth) - 40;
-  staticServerImageList = getStaticServerImageList();
+  var imageList = $('#imageList').detach().removeAttr('id');
 
   $('#wotdGrid').jqGrid({
     url: wwwRoot + 'ajax/wotdTableRows.php',

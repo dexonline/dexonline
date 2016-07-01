@@ -28,14 +28,17 @@ class SearchResult {
       $result->definition = $definition;
       $result->user = $userMap[$definition->userId];
       $result->source = $sourceMap[$definition->sourceId];
-      $result->typos = array();
+      $result->typos = [];
       $result->comment = null;
       $result->wotd = false;
       $result->bookmark = false;
       $results[$definition->id] = $result;
     }
 
-    $typos = Model::factory('Typo')->where_in('definitionId', $defIds)->find_many();
+    $typos = Model::factory('Typo')
+           ->where_in('definitionId', $defIds)
+           ->order_by_asc('id')
+           ->find_many();
     foreach ($typos as $t) {
       $results[$t->definitionId]->typos[] = $t;
     }

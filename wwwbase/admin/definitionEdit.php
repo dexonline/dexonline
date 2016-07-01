@@ -187,6 +187,11 @@ if ($acceptButton || $nextOcrBut) {
   $tagIds = util_objectProperty($dts, 'tagId');
 }
 
+$typos = Model::factory('Typo')
+  ->where('definitionId', $d->id)
+  ->order_by_asc('id')
+  ->find_many();
+
 // Either there were errors saving, or this is the first time loading the page.
 SmartyWrap::assign('isOCR', $isOCR);
 SmartyWrap::assign('def', $d);
@@ -197,7 +202,7 @@ SmartyWrap::assign('comment', $comment);
 SmartyWrap::assign('commentUser', $commentUser);
 SmartyWrap::assign('entryIds', $entryIds);
 SmartyWrap::assign('tagIds', $tagIds);
-SmartyWrap::assign('typos', Typo::get_all_by_definitionId($d->id));
+SmartyWrap::assign('typos', $typos);
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('suggestHiddenSearchForm', true);

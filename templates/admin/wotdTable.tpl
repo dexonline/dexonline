@@ -10,6 +10,12 @@
   <table id="wotdGrid"></table>
   <div id="wotdPaging"></div>
 
+  <select id="imageList">
+    {foreach $imageList as $image}
+      <option value="{$image}">{$image}</option>
+    {/foreach}
+  </select>
+
   <br/>
 
   <form action="wotdExport.php">

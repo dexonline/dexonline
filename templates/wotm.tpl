@@ -14,26 +14,31 @@
 {/block}
 
 {block name=content}
-  <div>
-    <p class="paragraphTitle">Cuvântul lunii {$timestamp|date_format:'%B %Y'}</p>
-  </div>
-
-  {include file="bits/definition.tpl" row=$searchResult}
-
-  <div id="wotdPrevNext">
-    {if isset($prevmon)}<div class="prev"><a href="{$wwwRoot}cuvantul-lunii/{$prevmon}">« precedentul</a></div>{/if}
-    {if isset($nextmon)}<div class="next"><a href="{$wwwRoot}cuvantul-lunii/{$nextmon}">următorul »</a></div>{/if}
-    <div style="clear: both;"></div>
-  </div>
-
-  {if $imageUrl}
-    <div id="wotdImage">
-      <img src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
-      <div class="copyright">
-        {$artist->credits|default:''}
-      </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <span>Cuvântul lunii {$timestamp|date_format:'%B %Y'}</span>
+      <span class="pull-right">
+        {if isset($prevmon)}
+          <a title="precedentul" href="{$wwwRoot}cuvantul-lunii/{$prevmon}"><span class="glyphicon glyphicon-chevron-left"></span></a>
+        {/if}
+        {if isset($nextmon)}
+          <a title="următorul" href="{$wwwRoot}cuvantul-lunii/{$nextmon}"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        {/if}
+      </span>
     </div>
-  {/if}
+    <div class="panel-body">
+      {include file="bits/definition.tpl" row=$searchResult}
+
+      {if $imageUrl}
+        <img class="img-responsive center-block" src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
+        <div class="text-muted pull-right">
+          {$artist->credits|default:''}
+        </div>
+      {/if}
+
+    </div>
+  </div>
+
 
   {*
      {if $skinVariables.wotdArchive}

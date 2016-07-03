@@ -6,52 +6,45 @@
   {assign var="def" value=$def|default:null}
   {assign var="previewDivContent" value=$previewDivContent|default:null}
 
-  <p class="paragraphTitle">Trimiteți o definiție</p>
+  <h2>Trimiteți o definiție</h2>
 
   {if !$sUser}
-    <div class="flashMessage flashMessage-warning">
+    <div class="alert alert-warning">
       Dacă doriți să primiți credit pentru definițiile trimise, vă recomandăm să vă <a href="{$wwwRoot}auth/login">autentificați</a>.
     </div>
   {/if}
 
   <form id="frmContrib" name="frmContrib" method="post" action="contribuie">
-    <table id="defUserEdit">
 
-      <tr>
-        <td><p class="labelContribute">Cuvântul definit:</p></td>
-        <td>
-          <select id="lexemIds" name="lexemIds[]" style="width: 100%" multiple>
-            {foreach $lexemIds as $l}
-              <option value="{$l}" selected></option>
-            {/foreach}
-          </select>
-        </td>
-      </tr>
 
-      <tr>
-        <td><p class="labelContribute">Sursa:</p></td>
-        <td>
-          {include file="bits/sourceDropDown.tpl" sources=$contribSources src_selected=$sourceId skipAnySource=1}
-          <a href="surse">lista de surse acceptate</a>
-          <div id="formattingLink"><a href="http://wiki.dexonline.ro/wiki/Ghidul_voluntarului" target="_blank">instrucțiuni de formatare</a></div>
-        </td>
-      </tr>
+    <div class="form-group">
+      <label for="lexemIds">Cuvântul definit</label>
+      <select id="lexemIds" name="lexemIds[]" style="width: 100%" multiple>
+        {foreach $lexemIds as $l}
+          <option value="{$l}" selected></option>
+        {/foreach}
+      </select>
+    </div>
 
-      <tr>
-        <td><p class="labelContribute">Definiția:</p></td>
-        <td><textarea id="defTextarea" name="def" rows="15" cols="90">{$def|escape}</textarea></td>
-      </tr>
+    <div class="form-group">
+      <label for="sourceDropDown">Sursa</label>
+      {include file="bits/sourceDropDown.tpl" sources=$contribSources src_selected=$sourceId skipAnySource=1}
+      <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+      <a href="surse">lista de surse acceptate</a>
+      <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+      <a href="http://wiki.dexonline.ro/wiki/Ghidul_voluntarului" target="_blank">instrucțiuni de formatare</a>
+    </div>
 
-      <tr>
-        <td colspan="2">
-          <input type="submit" name="send" value="Trimite"/>
-          <input type="reset" name="clear" value="Șterge" onclick="return confirm('Confirmați ștergerea definiției?')"/>
-        </td>
-      </tr>
-    </table>
+    <div class="form-group">
+      <label for="defTextarea">Definiția</label>
+      <textarea class="form-control" id="defTextarea" name="def" rows="15" cols="90">{$def|escape}</textarea>
+    </div>
+
+    <input type="submit" name="send" value="Trimite" class="btn btn-default" />
+    <input type="reset" name="clear" value="Șterge" onclick="return confirm('Confirmați ștergerea definiției?')" class="btn btn-warning"/>
   </form>
 
-  <p class="paragraphTitle">Rezultat</p>
+  <h3>Rezultat</h3>
 
   <div id="previewDiv" class="contribPreview">
     {if $previewDivContent}
@@ -63,9 +56,9 @@
 
   <br/>
 
-  <p class="paragraphTitle">Exemplu</p>
+  <h3>Exemplu</h3>
 
-  <table class="contribExample">
+  <table class="table table-bordered">
     <tr>
       <th>Tastați...</th>
       <th>Pentru a obține...</th>

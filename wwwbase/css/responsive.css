@@ -139,6 +139,14 @@
   font-size: x-large;
 }
 
+#avatarPreviewContainer {
+  border-radius: 4px;
+  height: 48px;
+  margin: 10px 0px;
+  overflow: hidden;
+  width: 48px;
+}
+
 /* helper classes */
 .table-striped-column-odd > tbody > tr td:nth-of-type(odd),
 .table-striped-column-even > tbody > tr td:nth-of-type(even) {

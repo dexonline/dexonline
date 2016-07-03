@@ -3,106 +3,136 @@
 {block name=title}Scrabble{/block}
 
 {block name=content}
-  <div class="scrabbleSection">
-    <div class="title">Verificare Scrabble</div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Verificare Scrabble</div>
 
-    <div class="body">
+    <div class="panel-body">
       {assign var="form" value=$form|default:""}
       {assign var="selectedLocVersion" value=$selectedLocVersion|default:null}
 
-      Joci Scrabble și prietenii tăi nu cred că <i>kwyjibo</i> este un cuvânt perfect legal? Tastează cuvântul tău ca să le arăți cine e șeful.<br><br>
+      <p>
+        Joci Scrabble și prietenii tăi nu cred că <em>kwyjibo</em> este un cuvânt perfect legal? Tastează cuvântul tău ca să le arăți cine e șeful.
+      </p>
 
       <form action="scrabble" method="get">
 
         <div class="scrabbleSearchDiv">
           {if isset($data)}
-            <div class="scrabbleVerif {if count($data)}scrabbleVerifYes{else}scrabbleVerifNo{/if}">&nbsp;</div>
+            <div class="form-group has-feedback {if count($data)}has-success{else}has-error{/if}">
+          {else}
+            <div class="form-group">
           {/if}
+          <input class="scrabbleSearchField form-control" type="text" name="form" placeholder="kwyjibo" value="{$form|default:""|escape}" autofocus>
+          {if isset($data)}
+            {if count($data)}
+              <span class="form-control-feedback glyphicon glyphicon-ok"></span>
+            {else}
+              <span class="form-control-feedback glyphicon glyphicon-remove"></span>
+            {/if}
+          {/if}
+          </div>
 
-          <input class="scrabbleSearchField" type="text" name="form" placeholder="kwyjibo" value="{$form|default:""|escape}" autofocus><br>
+          <div class="form-inline text-center">
+            în versiunea
+            <select name="locVersion" class="form-control">
+              {foreach from=$locVersions item=lv}
+                <option value="{$lv->name|escape}" {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
+                  {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
+                </option>
+              {/foreach}
+            </select>
 
-          în versiunea
-          <select name="locVersion">
-            {foreach from=$locVersions item=lv}
-              <option value="{$lv->name|escape}" {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
-                {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
-              </option>
-            {/foreach}
-          </select>
-
-          <input type="submit" name="submitButton" value="verifică">
+            <input type="submit" name="submitButton" value="verifică" class="btn btn-primary">
+          </div>
         </div>
       </form>
 
+      <br />
+
       {if isset($data)}
-        <ul>
           {if !count($data)}
-            <li>Niciun cuvânt din LOC {$selectedLocVersion|escape} nu generează forma
-              <b>{$form|escape}.</b></li>
+            <p class="alert alert-danger">
+              Niciun cuvânt din LOC {$selectedLocVersion|escape} nu generează forma
+              <strong>{$form|escape}.</strong>
+            </p>
           {else}
-              {foreach from=$data item=r}
-                <li>
-                  <b>{$r.inflectedForm|escape}</b> provine din
-                  <a href="{$wwwRoot}definitie/{$r.lexemFormNoAccent|escape}">{$r.lexemForm|escape}</a>
-                  {$r.modelType}{$r.modelNumber}{$r.restriction}
-                  ({$r.inflection|escape})
-                </li>
-              {/foreach}
+            <div class="alert alert-success">
+              <dl class="dl-horizontal">
+                {foreach from=$data item=r}
+                  <dt>{$r.inflectedForm|escape}</dt>
+                  <dd>provine din
+                    <a href="{$wwwRoot}definitie/{$r.lexemFormNoAccent|escape}">{$r.lexemForm|escape}</a>
+                    {$r.modelType}{$r.modelNumber}{$r.restriction}
+                    ({$r.inflection|escape})
+                  </dd>
+                {/foreach}
+              </dl>
+            </div>
           {/if}
-        </ul>
       {/if}
     </div>
   </div>
 
-  <div class="scrabbleSection">
-    <div class="title">Lista Oficială de Cuvinte admise la Scrabble</div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Lista Oficială de Cuvinte admise la Scrabble</div>
 
-    <div class="body">
-      <table class="minimalistTable">
-        <tr>
-          <th>versiunea</th>
-          <th>data publicării</th>
-          <th>forme reduse</th>
-          <th>forme de bază</th>
-          <th>forme flexionare</th>
-        </tr>
-        {foreach from=$locVersions item=lv}
+    <div class="panel-body">
+      <table class="table table-striped-column-even">
+        <thead>
           <tr>
-            <td>{$lv->name|escape}</td>
-            <td>{$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"}</td>
-            <td><a href="{$cfg.static.url}download/scrabble/loc-reduse-{$lv->name}.zip">descarcă</a></td>
-            <td><a href="{$cfg.static.url}download/scrabble/loc-baza-{$lv->name}.zip">descarcă</a></td>
-            <td><a href="{$cfg.static.url}download/scrabble/loc-flexiuni-{$lv->name}.zip">descarcă</a></td>
+            <th>versiunea</th>
+            <th>data publicării</th>
+            <th>forme reduse</th>
+            <th>forme de bază</th>
+            <th>forme flexionare</th>
           </tr>
-        {/foreach}
+        </thead>
+        <tbody>
+          {foreach from=$locVersions item=lv}
+            <tr>
+              <td>{$lv->name|escape}</td>
+              <td>{$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"}</td>
+              <td><a href="{$cfg.static.url}download/scrabble/loc-reduse-{$lv->name}.zip">descarcă</a></td>
+              <td><a href="{$cfg.static.url}download/scrabble/loc-baza-{$lv->name}.zip">descarcă</a></td>
+              <td><a href="{$cfg.static.url}download/scrabble/loc-flexiuni-{$lv->name}.zip">descarcă</a></td>
+            </tr>
+          {/foreach}
+        </tbody>
       </table>
 
-      <ul>
-        <li><i>forme reduse</i> = lista de cuvinte între 2 și 15 litere, fără diacritice</li>
-        <li><i>forme de bază</i> = lista de cuvinte ordonată alfabetic (<a href="http://wiki.dexonline.ro/wiki/Preciz%C4%83ri_privind_LOC" target="_blank">legenda notațiilor</a>)</li>
-        <li><i>forme flexionare</i> = lista de cuvinte cu conjugările/declinările lor</li>
-      </ul>
+      <dl class="dl-horizontal">
+        <dt>forme reduse</dt>
+        <dd>lista de cuvinte între 2 și 15 litere, fără diacritice</dd>
+        <dt>forme de bază</dt>
+        <dd>lista de cuvinte ordonată alfabetic (<a href="http://wiki.dexonline.ro/wiki/Preciz%C4%83ri_privind_LOC" target="_blank">legenda notațiilor</a>)</dd>
+        <dt>forme flexionare</dt>
+        <dd>lista de cuvinte cu conjugările/declinările lor</dd>
+      </dl>
     </div>
   </div>
-  
-  <div class="scrabbleSection">
-    <div class="title">Diferențe între versiuni</div>
 
-    <div class="body">
-      Află ce s-a schimbat între două versiuni ale LOC.<br><br>
+  <div class="panel panel-default">
+    <div class="panel-heading">Diferențe între versiuni</div>
 
-      <form action="scrabble-diferente-loc" method="get">
-        Compară
+    <div class="panel-body">
+      <p>
+        Află ce s-a schimbat între două versiuni ale LOC.
+      </p>
 
-        <select name="list">
-          <option value="base">formele de bază</option>
-          <option value="inflected">formele flexionare</option>
-          <option value="reduced">formele reduse</option>
-        </select>
+      <form class="form-inline" action="scrabble-diferente-loc" method="get">
+        <div class="form-group">
+          Compară
+          <select id="formeleDeBaza" class="form-control" name="list">
+            <option value="base">formele de bază</option>
+            <option value="inflected">formele flexionare</option>
+            <option value="reduced">formele reduse</option>
+          </select>
+        </div>
 
+        <div class="form-group">
         între
 
-        <select name="locVersions">
+        <select class="form-control" name="locVersions">
           {foreach from=$locVersions item=old key=i}
             {foreach from=$locVersions item=new key=j}
               {if $i > $j}
@@ -113,41 +143,49 @@
             {/foreach}
           {/foreach}
         </select>
-        <input type="submit" name="submitButton" value="compară">
+        </div>
+        <input type="submit" name="submitButton" value="compară" class="btn btn-primary" />
       </form>
     </div>
   </div>
 
-  <div class="scrabbleSection">
-    <div class="title">Modele de flexionare</div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Modele de flexionare</div>
 
-    <div class="body">
-      <i>Stradă, cadă, ladă</i> și <i>ogradă</i> se declină la fel... dar <i>baladă</i> și <i>livadă</i> nu? Iată de ce.<br><br>
+    <div class="panel-body">
+      <p>
+        <em>Stradă, cadă, ladă</em> și <em>ogradă</em> se declină la fel... dar <em>baladă</em> și <em>livadă</em> nu? Iată de ce.
+      </p>
 
-      <form action="modele-flexiune" method="get">
-        <span data-model-dropdown>
-          Arată modelele pentru
+      <form class="form-inline" action="modele-flexiune" method="get">
+        <div class="form-group">
+          <span data-model-dropdown>
 
-          <select name="modelType" data-model-type data-canonical="1" data-verbose="1" data-selected="">
-          </select>
+            Arată modelele pentru
 
-          în versiunea
+            <select class="form-control" name="modelType" data-model-type data-canonical="1" data-verbose="1" data-selected="">
+            </select>
 
-          <select name="locVersion" data-loc-version>
-            {foreach from=$locVersions item=lv}
-              <option value="{$lv->name|escape}">
-                {$lv->name|escape}
-              </option>
-            {/foreach}
-          </select>
 
-          {*
-             <select name="modelNumber" data-model-number data-all-option="1" data-selected="">
-             </select>
-           *}
-        </span>
+            în versiunea
 
-        <input type="submit" name="submitButton" value="arată"
+            <select class="form-control" name="locVersion" data-loc-version>
+              {foreach from=$locVersions item=lv}
+                <option value="{$lv->name|escape}">
+                  {$lv->name|escape}
+                </option>
+              {/foreach}
+            </select>
+
+
+            {*
+               <select name="modelNumber" data-model-number data-all-option="1" data-selected="">
+               </select>
+             *}
+          </span>
+        </div>
+
+        <input class="btn btn-primary" type="submit" name="submitButton" value="arată"
                onclick="return hideSubmitButton(this)"/>
       </form>
     </div>

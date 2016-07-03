@@ -122,3 +122,25 @@
     width: 90px;
     height: 90px;
 }
+
+.scrabbleSearchField {
+  font-size: x-large;
+  max-width: 90%;
+  margin: 0 auto;
+  height: 5rem;
+  text-align: center;
+}
+
+.scrabbleSearchDiv .form-control-feedback {
+  width: 5rem;
+  height: 5rem;
+  line-height: 5rem;
+  right: 5%;
+  font-size: x-large;
+}
+
+/* helper classes */
+.table-striped-column-odd > tbody > tr td:nth-of-type(odd),
+.table-striped-column-even > tbody > tr td:nth-of-type(even) {
+  background-color: #f9f9f9;
+}

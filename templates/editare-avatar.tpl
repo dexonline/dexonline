@@ -3,18 +3,22 @@
 {block name=title}Editarea pozei de profil{/block}
 
 {block name=content}
-  <p class="paragraphTitle">Editarea imaginii de profil</p>
+  <h3>Editarea imaginii de profil</h3>
 
-  Decupați o zonă pătrată din imaginea de mai jos. Zona selectată va fi redimensionată automat la 48x48 pixeli. Aceasta este dimensiunea standard a
-  imaginii dumneavoastră de profil.
+  <p>
+    Decupați o zonă pătrată din imaginea de mai jos. Zona selectată va fi redimensionată automat la 48x48 pixeli. Aceasta este dimensiunea standard a
+    imaginii dumneavoastră de profil.
+  </p>
 
   <div id="rawAvatarContainer">
     <img id="jcropTarget" src="{$imgRoot}/generated/{$rawFileName}?cb={1000000000|rand:9999999999}" alt="imaginea utilizatorului {$sUser->nick|escape}"/>
   </div>
 
-  <p class="paragraphTitle">Rezultat</p>
+  <h3>Rezultat</h3>
 
-  Rezultatul selecției dumneavoastră apare aici. Dacă totul arată bine, apăsați butonul Salvează.
+  <p>
+    Rezultatul selecției dumneavoastră apare aici. Dacă totul arată bine, apăsați butonul Salvează.
+  </p>
 
   <form id="avatarForm" action="salvare-avatar" method="post">
     <div id="avatarPreviewContainer">
@@ -23,14 +27,14 @@
     <input type="hidden" name="x0" value=""/>
     <input type="hidden" name="y0" value=""/>
     <input type="hidden" name="side" value=""/>
-    <input type="submit" name="submit" value="Salvează"/>
-    <a href="preferinte">renunță</a>
+    <input class="btn btn-primary" type="submit" name="submit" value="Salvează"/>
+    <a class="btn btn-link" href="preferinte">renunță</a>
   </form>
 
   <script>
    $(function() {
        var jcropOrigWidth, jcropOrigHeight;
-       
+
        $('#jcropTarget').Jcrop({
            aspectRatio: 1,
            keySupport: false,

@@ -3,27 +3,31 @@
 {block name=title}Unelte{/block}
 
 {block name=content}
-  <p class="paragraphTitle">Clienți off-line</p>
+  <h3>Clienți off-line</h3>
 
-  Aceste aplicații transferă definițiile din <i>dexonline</i> pe
-  calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
-  în absența unei conexiuni la internet.
+  <p>
+    Aceste aplicații transferă definițiile din <i>dexonline</i> pe
+    calculatorul dumneavoastră personal. Ulterior, le puteți consulta și
+    în absența unei conexiuni la internet.
+  </p>
 
-  <table class="toolsTable minimalistTable" id="toolTable">
+  <br />
+
+  <table class="table table-striped-column-odd" id="toolTable">
     <tbody>
     <tr>
-      <td>Client</td>
-      <td>Platforme</td>
+      <th>Client</th>
+      <th>Platforme</th>
       {foreach from=$clientOptions item=option key=id}
-        <td>
+        <th>
           {$option.0}
           <span class="tooltip2" title="{$option.1}">&nbsp;</span>
-        </td>
+        </th>
       {/foreach}
-      <td>Cerințe</td>
-      <td>Spațiu necesar</td>
-      <td>Autori</td>
-      <td>Licență</td>
+      <th>Cerințe</th>
+      <th>Spațiu necesar</th>
+      <th>Autori</th>
+      <th>Licență</th>
     </tr>
 
     {foreach from=$clients item=c}
@@ -78,20 +82,24 @@
     </tbody>
   </table>
 
-  <div class="toolsLicense">
-    <b>Licență:</b> Informațiile din acest tabel poartă o dublă licență: Licența Publică Generală GNU (care se aplică întregului site) și licența <a
-  href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0</a>. Informațiile pot fi folosite (copiate,
-    modificate, adaptate, etc) de către siteul http://wikipedia.org. Datele sunt adunate de pe lista discutii@dexonline.ro (fostă
-    dictionar@yahoogroups.com) prin colaborare cu dezvoltatorii aplicațiilor.
-    <br/><br/>
-
-    <b>License:</b> The information in this table is dual-licensed under the GNU General Public License (as applicable to the entire site) and the <a
-  href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0</a> license. The information can be used (copied,
-    modified, adapted etc.) by the website http://wikipedia.org. The data are gathered from the mailing list discutii@dexonline.ro (formerly
-    dictionar@yahoogroups.com) in collaboration with the application developers.
+  <div class="alert alert-warning">
+    <p>
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <strong>Licență:</strong> Informațiile din acest tabel poartă o dublă licență: Licența Publică Generală GNU (care se aplică întregului site) și licența <a
+                                                                                                                                                                  href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0</a>. Informațiile pot fi folosite (copiate,
+      modificate, adaptate, etc) de către siteul http://wikipedia.org. Datele sunt adunate de pe lista discutii@dexonline.ro (fostă
+      dictionar@yahoogroups.com) prin colaborare cu dezvoltatorii aplicațiilor.
+    </p>
+    <p>
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <strong>License:</strong> The information in this table is dual-licensed under the GNU General Public License (as applicable to the entire site) and the <a
+                                                                                                                                                                   href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0</a> license. The information can be used (copied,
+      modified, adapted etc.) by the website http://wikipedia.org. The data are gathered from the mailing list discutii@dexonline.ro (formerly
+      dictionar@yahoogroups.com) in collaboration with the application developers.
+    </p>
   </div>
 
-  <p class="paragraphTitle">Integrare în browser</p>
+  <h4>Integrare în browser</h4>
   <ul class="browserIntegration">
     <li>Instalați un corector ortografic pentru limba română pentru Firefox:
       <a href="{$cfg.static.url}download/dex-ff.xpi" onclick="return installFirefoxSpellChecker(event);">clic aici</a>.
@@ -126,9 +134,9 @@
 
   </ul>
 
-  <p class="paragraphTitle">
+  <h4>
     <a name="scrabble"></a>Unelte pentru jocul de Scrabble
-  </p>
+  </h4>
 
   Vezi pagina integrată <a href="scrabble">scrabble</a>.
 
@@ -138,8 +146,8 @@
 
       var t = $('#toolTable tbody').eq(0);
       var r = t.find('tr');
-      var cols= r.length;
-      var rows= r.eq(0).find('td').length;
+      var cols = r.length;
+      var rows = r.eq(0).find('td, th').length;
 
       var cell, next, tem, i = 0;
       var tb= $('<tbody></tbody>');
@@ -148,7 +156,7 @@
         cell= 0;
         tem= $('<tr></tr>');
         while(cell<cols){
-          next= r.eq(cell++).find('td').eq(0);
+          next= r.eq(cell++).find('td, th').eq(0);
           tem.append(next);
         }
         tb.append(tem);
@@ -161,5 +169,3 @@
     {/literal}
   </script>
 {/block}
-
-

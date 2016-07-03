@@ -3,7 +3,7 @@
 {block name=title}Articole lingvistice{/block}
 
 {block name=content}
-  <p class="paragraphTitle">Articole lingvistice</p>
+  <h1>Articole lingvistice</h1>
 
   <div id="linguisticArticles">
     {foreach from=$wikiTitles key=k item=v}

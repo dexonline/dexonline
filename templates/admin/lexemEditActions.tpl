@@ -25,17 +25,18 @@
     </button>
   {/if}
 
+  <a href="?lexemId={$lexem->id}">renunță</a>
+
   {if $canEdit.loc || !$lexem->isLoc}
     <button type="submit"
             name="deleteLexem"
             value="1"
             onclick="return confirm('Confirmați ștergerea acestui lexem?');"
-            class="btn btn-danger"
+            class="btn btn-danger pull-right"
             {if $lexem->isLoc}disabled="disabled"{/if}>
       <i class="glyphicon glyphicon-trash"></i>
       șterge
     </button>
   {/if}
   
-  <a href="?lexemId={$lexem->id}">renunță</a>
 </div>

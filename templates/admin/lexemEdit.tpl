@@ -211,12 +211,12 @@
 
         <div class="checkbox">
           <label>
-            <input type="hidden" name="isLoc" value="{if $lexem->isLoc}1{/if}">
-            {if $canEdit.loc}
-              <input type="checkbox" class="fakeCheckbox" value="1" {if $lexem->isLoc}checked{/if}>
-            {else}
-              {if $lexem->isLoc}da{else}nu{/if}
-            {/if}
+            <input type="checkbox"
+                   name="isLoc"
+                   value="1"
+                   {if $lexem->isLoc}checked{/if}
+                   {if !$canEdit.loc}disabled{/if}
+                   >
             inclus în LOC
           </label>
         </div>

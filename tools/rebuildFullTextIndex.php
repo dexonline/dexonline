@@ -1,8 +1,9 @@
 <?php
 require_once __DIR__ . '/../phplib/util.php';
 ini_set('max_execution_time', '3600');
-ini_set('memory_limit', '256M');
+ini_set('memory_limit', '512M');
 assert_options(ASSERT_BAIL, 1);
+ORM::get_db()->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 
 define('BATCH_SIZE', 10000);
 
@@ -15,59 +16,63 @@ if (!Lock::acquire(LOCK_FULL_TEXT_INDEX)) {
 Log::info("Clearing table FullTextIndex.");
 db_execute('truncate table FullTextIndex');
 
+// Build a map of stop words
 $stopWordForms = array_flip(db_getArray(
   'select distinct i.formNoAccent ' .
   'from Lexem l, InflectedForm i ' .
   'where l.id = i.lexemId ' .
   'and l.stopWord'));
 
+// Build a map of inflectedForm => list of (lexemModelId, inflectionId) pairs
+Log::info("Building inflected form map.");
+$dbResult = db_execute("select formNoAccent, lexemModelId, inflectionId from InflectedForm");
 $ifMap = [];
-$offset = 0;
+foreach ($dbResult as $r) {
+  $form = $r['formNoAccent'];
+  $s = isset($ifMap[$form])
+     ? ($ifMap[$form] . ',')
+     : '';
+  $s .= $r['lexemModelId'] . ',' . $r['inflectionId'];
+  $ifMap[$form] = $s;
+}
+unset($dbResult);
+Log::info("Inflected form map has %d entries.", count($ifMap));
+Log::info("Memory used: %d MB", round(memory_get_usage() / 1048576, 1));
+
+// Process definitions
+$dbResult = db_execute('select id, internalRep from Definition where status = 0');
+$defsSeen = 0;
 $indexSize = 0;
 $fileName = tempnam(Config::get('global.tempDir'), 'index_');
 $handle = fopen($fileName, 'w');
 Log::info("Writing index to file $fileName.");
 DebugInfo::disable();
 
-do {
-  $defs = Model::factory('Definition')
-        ->select('id')
-        ->select('internalRep')
-        ->where('status', Definition::ST_ACTIVE)
-        ->limit(BATCH_SIZE)
-        ->offset($offset)
-        ->find_array();
+foreach ($dbResult as $dbRow) {
+  $words = extractWords($dbRow[1]);
 
-  foreach ($defs as $d) {
-    $words = extractWords($d['internalRep']);
-
-    foreach ($words as $position => $word) {
-      if (!isset($stopWordForms[$word])) {
-        if (!array_key_exists($word, $ifMap)) {
-          cacheWordForm($word);
-        }
-        if (array_key_exists($word, $ifMap)) {
-          $lexemList = preg_split('/,/', $ifMap[$word]);
-          for ($i = 0; $i < count($lexemList); $i += 2) {
-            fwrite($handle, $lexemList[$i] . "\t" . $lexemList[$i + 1] . "\t" . $d['id'] . "\t" . $position . "\n");
-            $indexSize++;
-          }
-        } else {
-          // print "Not found: $word\n";
+  foreach ($words as $position => $word) {
+    if (!isset($stopWordForms[$word])) {
+      if (array_key_exists($word, $ifMap)) {
+        $lexemList = preg_split('/,/', $ifMap[$word]);
+        for ($i = 0; $i < count($lexemList); $i += 2) {
+          fwrite($handle, $lexemList[$i] . "\t" . $lexemList[$i + 1] . "\t" . $dbRow[0] . "\t" . $position . "\n");
+          $indexSize++;
         }
       }
     }
   }
 
-  $offset += BATCH_SIZE;
-  $runTime = DebugInfo::getRunningTimeInMillis() / 1000;
-  $speed = round($offset / $runTime);
-  Log::info("$offset definitions indexed ($speed defs/sec). " .
-            "Word map has " . count($ifMap) . " entries. " .
-            "Memory used: " . round(memory_get_usage() / 1048576, 1) . " MB.");
-} while (count($defs) == BATCH_SIZE);
+  if (++$defsSeen % 10000 == 0) {
+    $runTime = DebugInfo::getRunningTimeInMillis() / 1000;
+    $speed = round($defsSeen / $runTime);
+    Log::info("$defsSeen definitions indexed ($speed defs/sec). ");
+  }
+}
+unset($dbResult);
 
 fclose($handle);
+Log::info("$defsSeen definitions indexed.");
 Log::info("Index size: $indexSize entries.");
 
 OS::executeAndAssert("chmod 666 $fileName");
@@ -78,7 +83,7 @@ util_deleteFile($fileName);
 if (!Lock::release(LOCK_FULL_TEXT_INDEX)) {
   Log::warning('WARNING: could not release lock!');
 }
-Log::notice('finished');
+Log::notice('finished; peak memory usage %d MB', round(memory_get_peak_usage() / 1048576, 1));
 
 /***************************************************************************/
 
@@ -107,19 +112,6 @@ function extractWords($text) {
   }
 
   return $result;
-}
-
-// Look up all lexems that generate this word form and that are not stop words
-function cacheWordForm($word) {
-  global $ifMap;
-  $dbResult = db_execute("select lexemId, inflectionId from InflectedForm where formNoAccent = '{$word}'");
-  $value = '';
-  foreach ($dbResult as $dbRow) {
-    $value .= ',' . $dbRow['lexemId'] . ',' . $dbRow['inflectionId'];
-  }
-  if ($value) {
-    $ifMap[$word] = substr($value, 1);
-  }
 }
 
 ?>

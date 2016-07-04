@@ -15,6 +15,7 @@ $lexemNumber = util_getRequestParameter('lexemNumber');
 $lexemDescription = util_getRequestParameter('lexemDescription');
 $lexemComment = util_getRequestParameter('lexemComment');
 $needsAccent = util_getBoolean('needsAccent');
+$stopWord = util_getBoolean('stopWord');
 $hyphenations = util_getRequestParameter('hyphenations');
 $pronunciations = util_getRequestParameter('pronunciations');
 $entryId = util_getRequestParameter('entryId');
@@ -41,9 +42,10 @@ $lexem = Lexem::get_by_id($lexemId);
 $original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether certain fields have changed
 
 if ($refreshLexem || $saveLexem) {
-  populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment, $needsAccent, $hyphenations,
-           $pronunciations, $entryId, $variantOfId, $structStatus, $structuristId, $modelType, $modelNumber,
-           $restriction, $notes, $isLoc, $sourceIds);
+  populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
+           $needsAccent, $stopWord, $hyphenations, $pronunciations, $entryId, $variantOfId,
+           $structStatus, $structuristId, $modelType, $modelNumber, $restriction, $notes,
+           $isLoc, $sourceIds);
   $meanings = json_decode($jsonMeanings);
 
   if (validate($lexem, $original, $variantIds, $meanings)) {
@@ -108,6 +110,7 @@ $canEdit = array(
   'sources' => util_isModerator(PRIV_LOC | PRIV_EDIT),
   'structStatus' => ($oss == Lexem::STRUCT_STATUS_NEW) || ($oss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
   'structuristId' => util_isModerator(PRIV_ADMIN),
+  'stopWord' => util_isModerator(PRIV_ADMIN),
   'tags' => util_isModerator(PRIV_LOC | PRIV_EDIT),
   'variants' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
 );
@@ -132,9 +135,10 @@ SmartyWrap::display('admin/lexemEdit.tpl');
 /**************************************************************************/
 
 // Populate lexem fields from request parameters.
-function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment, $needsAccent, $hyphenations,
-                  $pronunciations, $entryId, $variantOfId, $structStatus, $structuristId, $modelType, $modelNumber,
-                  $restriction, $notes, $isLoc, $sourceIds) {
+function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
+                  $needsAccent, $stopWord, $hyphenations, $pronunciations, $entryId, $variantOfId,
+                  $structStatus, $structuristId, $modelType, $modelNumber, $restriction, $notes,
+                  $isLoc, $sourceIds) {
   $lexem->setForm(AdminStringUtil::formatLexem($lexemForm));
   $lexem->number = $lexemNumber;
   $lexem->description = AdminStringUtil::internalize($lexemDescription, false);
@@ -146,6 +150,7 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
     $lexem->comment .= " [[" . session_getUser() . ", " . strftime("%d %b %Y %H:%M") . "]]";
   }
   $lexem->noAccent = !$needsAccent;
+  $lexem->stopWord = $stopWord;
   $lexem->hyphenations = $hyphenations;
   $lexem->pronunciations = $pronunciations;
   $lexem->entryId = $entryId;

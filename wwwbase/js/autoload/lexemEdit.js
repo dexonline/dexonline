@@ -393,6 +393,8 @@ $(function() {
     // allow disabled selects to submit (they should have been readonly,
     // not disabled, but Select2 4.0 doesn't use readonly).
     $('#variantOfId, #variantIds').prop('disabled', false);
+    $('select[name="modelType"]').prop('disabled', false);
+    $('select[name="modelNumber"]').prop('disabled', false);
 
     $('#meaningForm').submit();
   }

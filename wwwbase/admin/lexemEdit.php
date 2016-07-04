@@ -32,7 +32,7 @@ $modelNumber = util_getRequestParameter('modelNumber');
 $restriction = util_getRequestParameter('restriction');
 $sourceIds = util_getRequestParameterWithDefault('sourceIds', []);
 $notes = util_getRequestParameter('notes');
-$isLoc = util_getRequestParameter('isLoc');
+$isLoc = util_getBoolean('isLoc');
 
 // Button parameters
 $refreshLexem = util_getRequestParameter('refreshLexem');

@@ -144,6 +144,18 @@
           </label>
         </div>
 
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"
+                   name="stopWord"
+                   value="1"
+                   {if $lexem->stopWord}checked{/if}
+                   {if !$canEdit.stopWord}disabled{/if}
+                   >
+            ignoră la căutările full-text
+          </label>
+        </div>
+
         <div class="form-group {if isset($errors.structStatus)}has-error{/if}">
           <label for="structStatus">structurare</label>
           {include file="bits/structStatus.tpl" selected=$lexem->structStatus canEdit=$canEdit.structStatus}

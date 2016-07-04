@@ -85,6 +85,11 @@ $(function() {
       width: '100%',
     });
 
+    initSelect2('#tagIds', 'ajax/getTagsById.php', {
+      ajax: { url: wwwRoot + 'ajax/getTags.php' },
+      minimumInputLength: 1,
+    });
+            
     initSelect2('#structuristId', 'ajax/getUsersById.php', {
       ajax: createUserAjaxStruct(PRIV_STRUCT),
       allowClear: true,

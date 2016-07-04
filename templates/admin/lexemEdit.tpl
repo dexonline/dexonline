@@ -114,6 +114,15 @@
 
       <div class="col-md-6">
 
+        <div class="form-group">
+          <label for="tagIds">etichete</label>
+          <select id="tagIds" name="tagIds[]" class="form-control" multiple>
+            {foreach $tagIds as $t}
+              <option value="{$t}" selected></option>
+            {/foreach}
+          </select>
+        </div>
+
         {include "bits/fgf.tpl"
         field="hyphenations"
         value=$lexem->hyphenations

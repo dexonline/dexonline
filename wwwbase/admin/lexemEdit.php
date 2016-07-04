@@ -20,6 +20,7 @@ $pronunciations = util_getRequestParameter('pronunciations');
 $entryId = util_getRequestParameter('entryId');
 $variantIds = util_getRequestParameterWithDefault('variantIds', []);
 $variantOfId = util_getRequestParameter('variantOfId');
+$tagIds = util_getRequestParameter('tagIds');
 $structStatus = util_getRequestIntParameter('structStatus');
 $structuristId = util_getRequestIntParameter('structuristId');
 $jsonMeanings = util_getRequestParameter('jsonMeanings');
@@ -60,6 +61,15 @@ if ($refreshLexem || $saveLexem) {
       $lexem->updateVariants($variantIds);
       $lexem->regenerateDependentLexems();
 
+      // Delete the old tags and add the new tags.
+      LexemTag::delete_all_by_lexemId($lexem->id);
+      foreach ($tagIds as $tagId) {
+        $lt = Model::factory('LexemTag')->create();
+        $lt->lexemId = $lexem->id;
+        $lt->tagId = $tagId;
+        $lt->save();
+      }
+
       Log::notice("Saved lexem {$lexem->id} ({$lexem->formNoAccent})");
       util_redirect("lexemEdit.php?lexemId={$lexem->id}");
     }
@@ -72,6 +82,10 @@ if ($refreshLexem || $saveLexem) {
 } else {
   // Case 3: First time loading this page
   $lexem->loadInflectedFormMap();
+
+  $lts = LexemTag::get_all_by_lexemId($lexem->id);
+  $tagIds = util_objectProperty($lts, 'tagId');
+
   SmartyWrap::assign('variantIds', $lexem->getVariantIds());
   SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
 }
@@ -104,6 +118,7 @@ $models = FlexModel::loadByType($lexem->modelType);
 SmartyWrap::assign('lexem', $lexem);
 SmartyWrap::assign('homonyms', Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many());
 SmartyWrap::assign('tags', $tags);
+SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('canEdit', $canEdit);

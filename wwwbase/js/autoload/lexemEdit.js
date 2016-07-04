@@ -107,8 +107,6 @@ $(function() {
     $('.similarLexem')
       .select2(similarLexemOptions)
       .on('change', similarLexemChange);
-
-    $('.fakeCheckbox').click(toggleIsLoc);
   }
 
   function addMeaning() {
@@ -399,6 +397,7 @@ $(function() {
     // not disabled, but Select2 4.0 doesn't use readonly).
     $('#variantOfId, #variantIds').prop('disabled', false);
     $('input[name="stopWord"]').prop('disabled', false);
+    $('input[name="isLoc"]').prop('disabled', false);
     $('select[name="modelType"]').prop('disabled', false);
     $('select[name="modelNumber"]').prop('disabled', false);
 
@@ -415,11 +414,6 @@ $(function() {
         updateModelTypeList($('*[data-model-dropdown]'));
         $('input[name="restriction"]').val(data.restriction);
       });
-  }
-
-  function toggleIsLoc() {
-    var hidden = $(this).prev();
-    hidden.val(1 - hidden.val());
   }
 
   function meaningMention(term, callback) {

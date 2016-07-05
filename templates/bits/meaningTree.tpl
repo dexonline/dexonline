@@ -1,14 +1,14 @@
 {* Recursively displays a meaning tree (or forest). The id, if not empty, is only set for the root <ul>. *}
 {if $meanings || $id}
-  <ul {if $id}id="{$id}"{/if}>
+  <ul {if $id}id="{$id}" class="meaningTree"{/if}>
     {foreach $meanings as $t}
       <li>{strip}
         <div class="meaningContainer">
           <span class="id">{$t.meaning->id}</span>
-          <span class="breadcrumb"></span>
+          <span class="bc"></span>
           <span class="tags">
             {foreach $t.tags as $tag}
-              <span class="tag">{$tag->value}</span>
+              <span class="meaningTag">{$tag->value}</span>
             {/foreach}
           </span>
           <span class="tagIds">
@@ -24,7 +24,7 @@
           <span class="htmlComment">{$t.meaning->htmlComment}</span>
           <span class="sources">
             {foreach $t.sources as $s}
-              <span class="tag">{$s->shortName}</span>
+              <span class="meaningTag">{$s->shortName}</span>
             {/foreach}
           </span>
           <span class="sourceIds">
@@ -35,7 +35,9 @@
           {foreach $t.relations as $type => $lexemList}
             <span class="relation" data-type="{$type}">
               {foreach $lexemList as $l}
-                <span class="tag">{include file="bits/lexemName.tpl" lexem=$l}</span>
+                <span class="meaningTag">
+                  {include file="bits/lexemName.tpl" lexem=$l}
+                </span>
               {/foreach}
             </span>
             <span class="relationIds" data-type="{$type}">

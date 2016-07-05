@@ -151,6 +151,12 @@ class Tree extends BaseObject implements DatedObject {
     }
   }
 
+  public function delete() {
+    TreeEntry::delete_all_by_treeId($this->id);
+    Log::warning("Deleted tree {$this->id} ({$this->description})");
+    parent::delete();
+  }
+
 }
 
 ?>

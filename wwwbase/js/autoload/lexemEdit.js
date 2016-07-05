@@ -23,7 +23,6 @@ $(function() {
     $('#meaningDownButton').click(meaningDown);
     $('#meaningLeftButton').click(meaningLeft);
     $('#meaningRightButton').click(meaningRight);
-    meaningTreeRenumber();
 
     initSelect2('#editorSources', 'ajax/getSourcesById.php', {
       placeholder: 'adaugă o sursă...',

@@ -3,6 +3,7 @@
 class Tree extends BaseObject implements DatedObject {
   public static $_table = 'Tree';
 
+  private $entries = null;
   private $meanings = null;
 
   static function createAndSave($description) {
@@ -10,6 +11,26 @@ class Tree extends BaseObject implements DatedObject {
     $t->description = $description;
     $t->save();
     return $t;
+  }
+
+  function getEntries() {
+    if ($this->entries === null) {
+      $this->entries = Model::factory('Entry')
+                   ->table_alias('e')
+                   ->select('e.*')
+                   ->join('TreeEntry', ['te.entryId', '=', 'e.id'], 'te')
+                   ->where('te.treeId', $this->id)
+                   ->find_many();
+    }
+    return $this->entries;
+  }
+
+  function getEntryIds() {
+    $result = [];
+    foreach ($this->getEntries() as $e) {
+      $result[] = $e->id;
+    }
+    return $result;
   }
 
   /* Returns a recursive tree of meanings */
@@ -64,6 +85,19 @@ class Tree extends BaseObject implements DatedObject {
       $results['children'][] = self::buildTree($map, $childId, $children);
     }
     return $results;
+  }
+
+  /**
+   * Validates a tree for correctness. Returns an array of { field => array of errors }.
+   **/
+  function validate() {
+    $errors = [];
+
+    if (!mb_strlen($this->description)) {
+      $errors['description'][] = _('Descrierea nu poate fi vidă.');
+    }
+
+    return $errors;
   }
 
   public function delete() {

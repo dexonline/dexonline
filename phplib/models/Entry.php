@@ -4,6 +4,7 @@ class Entry extends BaseObject implements DatedObject {
   public static $_table = 'Entry';
 
   private $lexems = null;
+  private $trees = null;
 
   static function createAndSave($description) {
     $e = Model::factory('Entry')->create();
@@ -13,7 +14,7 @@ class Entry extends BaseObject implements DatedObject {
   }
 
   function getLexems() {
-    if ($this->lexems == null) {
+    if ($this->lexems === null) {
       $this->lexems = Lexem::get_all_by_entryId($this->id);
     }
     return $this->lexems;
@@ -25,6 +26,32 @@ class Entry extends BaseObject implements DatedObject {
       $result[] = $l->id;
     }
     return $result;
+  }
+
+  function getTrees() {
+    if ($this->trees === null) {
+      $this->trees = Model::factory('Tree')
+                   ->table_alias('t')
+                   ->select('t.*')
+                   ->join('TreeEntry', ['te.treeId', '=', 't.id'], 'te')
+                   ->where('te.entryId', $this->id)
+                   ->find_many();
+    }
+    return $this->trees;
+  }
+
+  function getTreeIds() {
+    $result = [];
+    foreach ($this->getTrees() as $t) {
+      $result[] = $t->id;
+    }
+    return $result;
+  }
+
+  function loadMeanings() {
+    foreach ($this->getTrees() as $t) {
+      $t->getMeanings();
+    }
   }
 
   public static function countUnassociated() {

@@ -33,6 +33,7 @@ if ($delete) {
 if ($save) {
   $e->description = util_getRequestParameter('description');
   $lexemIds = util_getRequestParameter('lexemIds');
+  $treeIds = util_getRequestParameter('treeIds');
 
   $errors = $e->validate();
   if ($errors) {
@@ -53,12 +54,22 @@ if ($save) {
       $l->save();
     }
 
+    // dissociate the entry from the old trees
+    TreeEntry::delete_all_by_entryId($e->id);
+
+    // associate the entry with the new trees
+    foreach ($treeIds as $tid) {
+      TreeEntry::associate($tid, $e->id);
+    }
+
     FlashMessage::add('Am salvat intrarea.', 'success');
     util_redirect("?id={$e->id}");
   }
 } else {
   // Viewing the page, not saving
   $lexemIds = $e->getLexemIds();
+  $treeIds = $e->getTreeIds();
+  $e->loadMeanings();
 }
 
 $definitions = Definition::loadByEntryId($e->id);
@@ -71,10 +82,11 @@ $searchResults = SearchResult::mapDefinitionArray($definitions);
 SmartyWrap::assign('e', $e);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('lexemIds', $lexemIds);
+SmartyWrap::assign('treeIds', $treeIds);
 SmartyWrap::assign('suggestNoBanner', true);
 SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::addCss('bootstrap', 'select2');
-SmartyWrap::addJs('bootstrap', 'select2', 'select2Dev');
+SmartyWrap::addCss('bootstrap', 'select2', 'meaningTree');
+SmartyWrap::addJs('bootstrap', 'select2', 'select2Dev', 'meaningTree');
 SmartyWrap::display('editEntry.tpl');
 
 ?>

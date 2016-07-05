@@ -150,6 +150,7 @@ class Tree extends BaseObject implements DatedObject {
       $this->cloneMeanings($rec['children'], $newm->id, $newTreeId);
     }
   }
+
 }
 
 ?>

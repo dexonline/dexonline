@@ -55,6 +55,7 @@ class Entry extends BaseObject implements DatedObject {
 
   public function delete() {
     EntryDefinition::deleteByEntryId($this->id);
+    TreeEntry::delete_all_by_entryId($this->id);
 
     // do not delete the lexems for now -- just orphan them
     $lexems = Lexem::get_all_by_entryId($this->id);

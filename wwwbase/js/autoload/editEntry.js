@@ -11,7 +11,6 @@ $(function() {
     initSelect2('#treeIds', 'ajax/getTreesById.php', {
       ajax: { url: wwwRoot + 'ajax/getTrees.php' },
       minimumInputLength: 1,
-      templateSelection: formatTreeWithEditLink,
     });
             
     $('.toggleRepLink').click(toggleRepClick);

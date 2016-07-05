@@ -119,12 +119,6 @@ function formatEntryWithEditLink(lexem) {
            'editEntry.php?id=' + lexem.id + '"></a></span>');
 }
 
-function formatTreeWithEditLink(tree) {
-  return $('<span>' + tree.text +
-           ' <a class="select2Edit" href="' + wwwRoot + 'editTree.php?id=' + tree.id +
-           '">&nbsp;</a></span>');
-}
-
 function allowNewOptions(data) {
   return {
     id: '@' + data.term,

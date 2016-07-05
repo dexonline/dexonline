@@ -89,7 +89,7 @@ if ($refreshLexem || $saveLexem) {
   $tagIds = util_objectProperty($lts, 'tagId');
 
   SmartyWrap::assign('variantIds', $lexem->getVariantIds());
-  SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
+  // SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
 }
 
 $tags = Model::factory('Tag')->order_by_asc('value')->find_many();

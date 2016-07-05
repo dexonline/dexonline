@@ -60,7 +60,13 @@
 
     {foreach $e->getTrees() as $t}
       <div class="panel panel-default">
-        <div class="panel-heading">{$t->description}</div>
+        <div class="panel-heading">
+          {$t->description}
+          <a href="editTree.php?id={$t->id}" class="pull-right">
+            <i class="glyphicon glyphicon-pencil"></i>
+            editează
+          </a>
+        </div>
         <div class="panel-body">
           {include file="bits/meaningTree.tpl" meanings=$t->getMeanings() id="meaningTree-{$t->id}"}
         </div>

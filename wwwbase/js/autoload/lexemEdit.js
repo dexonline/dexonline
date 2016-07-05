@@ -214,21 +214,6 @@ $(function() {
     return !anyChanges || confirm('Aveți deja un sens în curs de modificare. Confirmați renunțarea la modificări?');
   }
 
-  function meaningTreeRenumberHelper(node, prefix) {
-    node.children('li').each(function(i) {
-      var c = $(this).children('.meaningContainer');
-      var s = prefix + (prefix ? '.' : '') + (i + 1);
-      c.find('.breadcrumb').text(s);
-      $(this).children('ul').each(function() {
-        meaningTreeRenumberHelper($(this), s);
-      });
-    });
-  }
-
-  function meaningTreeRenumber() {
-    meaningTreeRenumberHelper($('#meaningTree'), '');
-  }
-
   function beginMeaningEdit() {
     var c = $('#meaningTree li.selected > .meaningContainer');
 

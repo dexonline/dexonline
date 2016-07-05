@@ -161,6 +161,7 @@ class SmartyWrap {
           break;
         case 'textComplete':        self::$cssFiles[18] = 'jquery.textcomplete.css'; break;
         case 'flash':               self::$cssFiles[19] = 'flash.css'; break;
+        case 'meaningTree':         self::$cssFiles[20] = 'meaningTree.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -204,6 +205,7 @@ static function addJs(/* Variable-length argument list */) {
         case 'modelDropdown':    self::$jsFiles[22] = 'modelDropdown.js'; break;
         case 'textComplete':     self::$jsFiles[23] = 'jquery.textcomplete.min.js'; break;
         case 'tinymce':          self::$jsFiles[24] = 'tinymce-4.4.0/tinymce.min.js'; break;
+        case 'meaningTree':      self::$jsFiles[25] = 'meaningTree.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

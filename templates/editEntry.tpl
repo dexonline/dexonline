@@ -31,6 +31,15 @@
       </select>
     </div>
 
+    <div class="form-group"">
+      <label for="treeIds">arbori de sensuri</label>
+      <select id="treeIds" name="treeIds[]" style="width: 100%" multiple>
+        {foreach $treeIds as $t}
+          <option value="{$t}" selected></option>
+        {/foreach}
+      </select>
+    </div>
+
     <button type="submit" class="btn btn-primary" name="save">
       <i class="glyphicon glyphicon-floppy-disk"></i>
       salvează
@@ -47,6 +56,17 @@
   </form>
 
   {if $e->id}
+    <h3>Arbori de sensuri asociați ({$e->getTrees()|count})</h3>
+
+    {foreach $e->getTrees() as $t}
+      <div class="panel panel-default">
+        <div class="panel-heading">{$t->description}</div>
+        <div class="panel-body">
+          {include file="bits/meaningTree.tpl" meanings=$t->getMeanings() id="meaningTree-{$t->id}"}
+        </div>
+      </div>
+    {/foreach}
+
     <h3>Definiții asociate ({$searchResults|count})</h3>
 
     <form class="form-inline">

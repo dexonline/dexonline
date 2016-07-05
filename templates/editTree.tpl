@@ -31,6 +31,13 @@
       </select>
     </div>
 
+    <div class="form-group"">
+      <label>sensuri</label>
+      <div>
+        {include file="bits/meaningTree.tpl" meanings=$t->getMeanings() id="meaningTree-{$t->id}"}
+      </div>
+    </div>
+
     <button type="submit" class="btn btn-primary" name="save">
       <i class="glyphicon glyphicon-floppy-disk"></i>
       salvează

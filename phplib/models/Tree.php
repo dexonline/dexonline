@@ -14,7 +14,6 @@ class Tree extends BaseObject implements DatedObject {
   private $entries = null;
   private $meanings = null;
 
-to trees. Addresses #66.
   static function createAndSave($description) {
     $t = Model::factory('Tree')->create();
     $t->description = $description;

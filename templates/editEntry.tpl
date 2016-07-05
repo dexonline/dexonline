@@ -71,6 +71,15 @@
 
     </div>
 
+    <div class="form-group"">
+      <label for="treeIds">arbori de sensuri</label>
+      <select id="treeIds" name="treeIds[]" style="width: 100%" multiple>
+        {foreach $treeIds as $t}
+          <option value="{$t}" selected></option>
+        {/foreach}
+      </select>
+    </div>
+
     <button type="submit" class="btn btn-primary" name="save">
       <i class="glyphicon glyphicon-floppy-disk"></i>
       salvează

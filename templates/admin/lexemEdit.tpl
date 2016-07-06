@@ -43,210 +43,226 @@
   </ul>
   
   <form action="lexemEdit.php" method="post">
-    <input type="hidden" name="lexemId" value="{$lexem->id}">
-    <input type="hidden" name="jsonMeanings" value="">
+    <div class="panel panel-default">
 
-    <div id="wmCanvas"></div>
+      <div class="panel-heading">Proprietăți</div>
 
-    <div class="row">
-      <div class="col-md-6">
+      <div class="panel-body">
+        <input type="hidden" name="lexemId" value="{$lexem->id}">
+        <input type="hidden" name="jsonMeanings" value="">
 
-        {include "bits/fgf.tpl"
-        field="lexemForm"
-        value=$lexem->form
-        label="formă"
-        readonly=!$canEdit.form}
+        <div class="row">
+          <div class="col-md-6">
 
-        {include "bits/fgf.tpl"
-        field="lexemNumber"
-        type="number"
-        value=$lexem->number
-        label="număr"
-        placeholder="opțional, pentru numerotarea omonimelor"
-        readonly=!$canEdit.general}
-        
-        {include "bits/fgf.tpl"
-        field="lexemDescription"
-        value=$lexem->description
-        label="descriere"
-        placeholder="opțională, pentru diferențierea omonimelor"
-        readonly=!$canEdit.description}
+            {include "bits/fgf.tpl"
+            field="lexemForm"
+            value=$lexem->form
+            label="formă"
+            readonly=!$canEdit.form}
 
-        {if $homonyms}
-          <div class="form-group">
-            <label>omonime</label>
+            {include "bits/fgf.tpl"
+            field="lexemNumber"
+            type="number"
+            value=$lexem->number
+            label="număr"
+            placeholder="opțional, pentru numerotarea omonimelor"
+            readonly=!$canEdit.general}
+            
+            {include "bits/fgf.tpl"
+            field="lexemDescription"
+            value=$lexem->description
+            label="descriere"
+            placeholder="opțională, pentru diferențierea omonimelor"
+            readonly=!$canEdit.description}
 
-            {foreach from=$homonyms item=h}
-              <div>
-                {include file="bits/lexemLink.tpl" lexem=$h}
-                {$h->modelType}{$h->modelNumber}{$h->restriction}
+            {if $homonyms}
+              <div class="form-group">
+                <label>omonime</label>
+
+                {foreach from=$homonyms item=h}
+                  <div>
+                    {include file="bits/lexemLink.tpl" lexem=$h}
+                    {$h->modelType}{$h->modelNumber}{$h->restriction}
+                  </div>
+                {/foreach}
               </div>
-            {/foreach}
+            {/if}
+
+            <div class="form-group">
+              <label for="entryId">intrare</label>
+              <select id="entryId" name="entryId">
+                {if $lexem->entryId}
+                  <option value="{$lexem->entryId}" selected></option>
+                {/if}
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="variantOfId">variantă a lui</label>
+              <select id="variantOfId" name="variantOfId" {if !$canEdit.variants}disabled{/if}>
+                <option value="{$lexem->variantOfId}" selected></option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="variantIds">variante</label>
+              <select id="variantIds" name="variantIds[]" multiple {if !$canEdit.variants}disabled{/if}>
+                {foreach $variantIds as $id}
+                  <option value="{$id}" selected></option>
+                {/foreach}
+              </select>
+            </div>
+            
           </div>
-        {/if}
 
-        <div class="form-group">
-          <label for="entryId">intrare</label>
-          <select id="entryId" name="entryId">
-            {if $lexem->entryId}
-              <option value="{$lexem->entryId}" selected></option>
-            {/if}
-          </select>
+          <div class="col-md-6">
+
+            <div class="form-group">
+              <label for="tagIds">etichete</label>
+              <select id="tagIds" name="tagIds[]" class="form-control" multiple>
+                {foreach $tagIds as $t}
+                  <option value="{$t}" selected></option>
+                {/foreach}
+              </select>
+            </div>
+
+            {include "bits/fgf.tpl"
+            field="hyphenations"
+            value=$lexem->hyphenations
+            label="silabisiri"
+            placeholder="opționale, despărțite prin virgule"
+            readonly=!$canEdit.hyphenations}
+
+            {include "bits/fgf.tpl"
+            field="pronunciations"
+            value=$lexem->pronunciations
+            label="pronunții"
+            placeholder="opționale, despărțite prin virgule"
+            readonly=!$canEdit.pronunciations}
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="needsAccent" value="1" {if !$lexem->noAccent}checked{/if}>
+                necesită accent
+              </label>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"
+                       name="stopWord"
+                       value="1"
+                       {if $lexem->stopWord}checked{/if}
+                       {if !$canEdit.stopWord}disabled{/if}
+                       >
+                ignoră la căutările full-text
+              </label>
+            </div>
+
+            <div class="form-group {if isset($errors.structStatus)}has-error{/if}">
+              <label for="structStatus">structurare</label>
+              {include file="bits/structStatus.tpl" selected=$lexem->structStatus canEdit=$canEdit.structStatus}
+              {include "bits/fieldErrors.tpl" errors=$errors.structStatus|default:null}
+            </div>
+
+            <div class="form-group">
+              <label for="structuristId">structurist</label>
+              <select id="structuristId" name="structuristId">
+                {if $lexem->structuristId}
+                  <option value="{$lexem->structuristId}" selected></option>
+                {/if}
+              </select>
+            </div>
+
+          </div>
         </div>
-        
-        <div class="form-group">
-          <label for="variantOfId">variantă a lui</label>
-          <select id="variantOfId" name="variantOfId" {if !$canEdit.variants}disabled{/if}>
-            <option value="{$lexem->variantOfId}" selected></option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label for="variantIds">variante</label>
-          <select id="variantIds" name="variantIds[]" multiple {if !$canEdit.variants}disabled{/if}>
-            {foreach $variantIds as $id}
-              <option value="{$id}" selected></option>
-            {/foreach}
-          </select>
-        </div>
-        
-      </div>
-
-      <div class="col-md-6">
-
-        <div class="form-group">
-          <label for="tagIds">etichete</label>
-          <select id="tagIds" name="tagIds[]" class="form-control" multiple>
-            {foreach $tagIds as $t}
-              <option value="{$t}" selected></option>
-            {/foreach}
-          </select>
-        </div>
-
-        {include "bits/fgf.tpl"
-        field="hyphenations"
-        value=$lexem->hyphenations
-        label="silabisiri"
-        placeholder="opționale, despărțite prin virgule"
-        readonly=!$canEdit.hyphenations}
-
-        {include "bits/fgf.tpl"
-        field="pronunciations"
-        value=$lexem->pronunciations
-        label="pronunții"
-        placeholder="opționale, despărțite prin virgule"
-        readonly=!$canEdit.pronunciations}
-
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" name="needsAccent" value="1" {if !$lexem->noAccent}checked{/if}>
-            necesită accent
-          </label>
-        </div>
-
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"
-                   name="stopWord"
-                   value="1"
-                   {if $lexem->stopWord}checked{/if}
-                   {if !$canEdit.stopWord}disabled{/if}
-                   >
-            ignoră la căutările full-text
-          </label>
-        </div>
-
-        <div class="form-group {if isset($errors.structStatus)}has-error{/if}">
-          <label for="structStatus">structurare</label>
-          {include file="bits/structStatus.tpl" selected=$lexem->structStatus canEdit=$canEdit.structStatus}
-          {include "bits/fieldErrors.tpl" errors=$errors.structStatus|default:null}
-        </div>
-
-        <div class="form-group">
-          <label for="structuristId">structurist</label>
-          <select id="structuristId" name="structuristId">
-            {if $lexem->structuristId}
-              <option value="{$lexem->structuristId}" selected></option>
-            {/if}
-          </select>
-        </div>
-
       </div>
     </div>
 
-    <h3>Model de flexiune</h3>
+    <div class="panel panel-default">
 
-    <div class="row">
-      <div class="col-md-6">
+      <div class="panel-heading">Model de flexiune</div>
 
-        {assign var="readonly" value=!$canEdit.loc && $lexem->isLoc}
+      <div class="panel-body">
 
-        <div class="form-group">
-          <label>tip + număr + restricții</label>
+        <div class="row">
+          <div class="col-md-6">
 
-          <div class="form-inline" data-model-dropdown>
-            <input type="hidden" name="locVersion" value="6.0" data-loc-version>
+            {assign var="readonly" value=!$canEdit.loc && $lexem->isLoc}
 
-            <select name="modelType" class="form-control" {if $readonly}disabled{/if} data-model-type data-selected="{$lexem->modelType}">
-            </select>
+            <div class="form-group">
+              <label>tip + număr + restricții</label>
 
-            <select name="modelNumber" class="form-control" {if $readonly}disabled{/if} data-model-number data-selected="{$lexem->modelNumber}">
-            </select>
-            
-            <input type="text"
-                   class="form-control"
-                   name="restriction"
-                   value="{$lexem->restriction}"
-                   size="5"
-                   placeholder="restricții"
-                   {if $readonly}readonly{/if}>
+              <div class="form-inline" data-model-dropdown>
+                <input type="hidden" name="locVersion" value="6.0" data-loc-version>
+
+                <select name="modelType" class="form-control" {if $readonly}disabled{/if} data-model-type data-selected="{$lexem->modelType}">
+                </select>
+
+                <select name="modelNumber" class="form-control" {if $readonly}disabled{/if} data-model-number data-selected="{$lexem->modelNumber}">
+                </select>
+                
+                <input type="text"
+                       class="form-control"
+                       name="restriction"
+                       value="{$lexem->restriction}"
+                       size="5"
+                       placeholder="restricții"
+                       {if $readonly}readonly{/if}>
+              </div>
+            </div>
+
+            {if !$readonly}
+              <div class="form-group">
+                <select class="similarLexem"></select>
+              </div>
+            {/if}
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"
+                       name="isLoc"
+                       value="1"
+                       {if $lexem->isLoc}checked{/if}
+                       {if !$canEdit.loc}disabled{/if}
+                       >
+                inclus în LOC
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label>surse care atestă flexiunea</label>
+              <select id="sourceIds" name="sourceIds[]" multiple {if !$canEdit.sources}disabled{/if}>
+                {foreach $lexem->getSourceIds() as $lsId}
+                  <option value="{$lsId}" selected></option>
+                {/foreach}
+              </select>
+            </div>
           </div>
-        </div>
 
-        {if !$readonly}
-          <div class="form-group">
-            <select class="similarLexem"></select>
+          <div class="col-md-6">
+            {include "bits/fgf.tpl"
+            field="notes"
+            value=$lexem->notes
+            label="precizări"
+            placeholder="explicații despre sursa flexiunii"
+            readonly=!$canEdit.tags}
+
+            <div class="form-group">
+              <label>comentariu</label>
+
+              <textarea name="lexemComment" class="form-control" rows="4"
+                        placeholder="Comentarii și/sau greșeli observate în paradigmă"
+                        >{$lexem->comment|escape}</textarea>
+            </div>
           </div>
-        {/if}
-
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"
-                   name="isLoc"
-                   value="1"
-                   {if $lexem->isLoc}checked{/if}
-                   {if !$canEdit.loc}disabled{/if}
-                   >
-            inclus în LOC
-          </label>
-        </div>
-
-        <div class="form-group">
-          <label>surse care atestă flexiunea</label>
-          <select id="sourceIds" name="sourceIds[]" multiple {if !$canEdit.sources}disabled{/if}>
-            {foreach $lexem->getSourceIds() as $lsId}
-              <option value="{$lsId}" selected></option>
-            {/foreach}
-          </select>
-        </div>
-
-        {include "bits/fgf.tpl"
-        field="notes"
-        value=$lexem->notes
-        label="precizări"
-        placeholder="explicații despre sursa flexiunii"
-        readonly=!$canEdit.tags}
-
-        <div class="form-group">
-          <label>comentariu</label>
-
-          <textarea name="lexemComment" class="form-control" rows="3"
-                    placeholder="Comentarii și/sau greșeli observate în paradigmă"
-                    >{$lexem->comment|escape}</textarea>
         </div>
       </div>
+    </div>
 
-      <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">Paradigmă</div>
+      <div class="panel-body">
         {include "paradigm/paradigm.tpl" lexem=$lexem}
       </div>
     </div>

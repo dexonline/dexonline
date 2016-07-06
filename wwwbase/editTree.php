@@ -50,12 +50,17 @@ if ($save) {
   $entryIds = $t->getEntryIds();
 }
 
+$tags = Model::factory('Tag')->order_by_asc('value')->find_many();
+
 SmartyWrap::assign('t', $t);
 SmartyWrap::assign('entryIds', $entryIds);
+// TODO: canEdit if STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT)
+SmartyWrap::assign('canEdit', true);
+SmartyWrap::assign('tags', $tags);
 SmartyWrap::assign('suggestNoBanner', true);
 SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::addCss('bootstrap', 'select2', 'meaningTree');
-SmartyWrap::addJs('bootstrap', 'select2', 'select2Dev', 'meaningTree');
+SmartyWrap::addCss('bootstrap', 'select2', 'meaningTree', 'textComplete');
+SmartyWrap::addJs('bootstrap', 'select2', 'select2Dev', 'meaningTree', 'textComplete');
 SmartyWrap::display('editTree.tpl');
 
 ?>

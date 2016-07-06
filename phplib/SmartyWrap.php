@@ -205,8 +205,8 @@ static function addJs(/* Variable-length argument list */) {
           break;
         case 'modelDropdown':    self::$jsFiles[22] = 'modelDropdown.js'; break;
         case 'textComplete':     self::$jsFiles[23] = 'jquery.textcomplete.min.js'; break;
-        case 'tinymce':          self::$jsFiles[24] = 'tinymce-4.3.4/tinymce.min.js'; break;
-        case 'meaningTree':      self::$jsFiles[24] = 'meaningTree.js'; break;
+        case 'tinymce':          self::$jsFiles[24] = 'tinymce-4.4.0/tinymce.min.js'; break;
+        case 'meaningTree':      self::$jsFiles[25] = 'meaningTree.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

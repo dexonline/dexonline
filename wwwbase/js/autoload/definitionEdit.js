@@ -99,7 +99,7 @@ $(function() {
   function tinymceToggle() {
     if (!tinymce.activeEditor) {
       tinymce.init({
-        content_css: '../styles/tinymce.css',
+        content_css: '../css/tinymce.css',
         entity_encoding: 'raw',
         menubar: false,
         resize: 'both',

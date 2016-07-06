@@ -86,7 +86,7 @@ SmartyWrap::assign('treeIds', $treeIds);
 SmartyWrap::assign('suggestNoBanner', true);
 SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::addCss('bootstrap', 'select2', 'meaningTree');
-SmartyWrap::addJs('bootstrap', 'select2', 'select2Dev', 'meaningTree');
+SmartyWrap::addJs('bootstrap', 'select2', 'select2Dev', 'meaningTree', 'textComplete');
 SmartyWrap::display('editEntry.tpl');
 
 ?>

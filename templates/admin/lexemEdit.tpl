@@ -12,36 +12,10 @@
 
   {include file="bits/phpConstants.tpl"}
 
-  {assign var="searchResults" value=$searchResults|default:null}
-
   <script>
    canEdit = { 'paradigm': {$canEdit.paradigm}, 'loc': {$canEdit.loc} };
   </script>
 
-  {* Stem meaning editor that we clone whenever we append a new meaning *}
-  <ul id="stemNode">
-    <li>
-      <div class="meaningContainer">
-        <span class="id"></span>
-        <span class="breadcrumb"></span>
-        <span class="tags"></span>
-        <span class="tagIds"></span>
-        <span class="internalRep"></span>
-        <span class="htmlRep"></span>
-        <span class="internalEtymology"></span>
-        <span class="htmlEtymology"></span>
-        <span class="internalComment"></span>
-        <span class="htmlComment"></span>
-        <span class="sources"></span>
-        <span class="sourceIds"></span>
-        {for $type=1 to Relation::NUM_TYPES}
-          <span class="relation" data-type="{$type}"></span>
-          <span class="relationIds" data-type="{$type}"></span>
-        {/for}
-      </div>
-    </li>
-  </ul>
-  
   <form action="lexemEdit.php" method="post">
     <div class="panel panel-default">
 
@@ -49,7 +23,6 @@
 
       <div class="panel-body">
         <input type="hidden" name="lexemId" value="{$lexem->id}">
-        <input type="hidden" name="jsonMeanings" value="">
 
         <div class="row">
           <div class="col-md-6">
@@ -268,82 +241,6 @@
     </div>
 
     {include file="admin/lexemEditActions.tpl"}
-
-    <div class="box meaningTreeContainer" data-id="meaningTree">
-      {include file="bits/meaningTree.tpl" meanings=$meanings id="meaningTree"}
-
-      <div id="meaningMenu">
-        {if $canEdit.meanings}
-          <input type="button" id="addMeaningButton" value="adaugă sens"
-                 title="Adaugă un sens ca frate al sensului selectat. Dacă nici un sens nu este selectat, adaugă un sens la sfârșitul listei.">
-          <input type="button" id="addSubmeaningButton" value="adaugă subsens" disabled
-                 title="Adaugă un sens ca ultimul fiu al sensului selectat">
-          <input type="button" id="deleteMeaningButton" value="șterge sens" disabled
-                 title="Șterge sensul selectat">
-          <input type="button" id="meaningRightButton" class="arrowButton" value="⇨" disabled
-                 title="Sensul devine fiu al fratelui său anterior.">
-          <input type="button" id="meaningLeftButton" class="arrowButton" value="⇦" disabled
-                 title="Sensul devine fratele următor al tatălui său.">
-          <input type="button" id="meaningDownButton" class="arrowButton" value="⇩" disabled
-                 title="Sensul schimbă locurile cu fratele său următor.">
-          <input type="button" id="meaningUpButton" class="arrowButton" value="⇧" disabled
-                 title="Sensul schimbă locurile cu fratele său anterior.">
-        {/if}
-      </div>
-    </div>
-
-    {if $canEdit.meanings}
-      <div class="box" data-id="meaningEditor" data-title="Editorul de sensuri" data-left="10" data-top="30" data-width="960" data-height="280" data-minimized="1">
-        <div id="meaningEditor">
-          <textarea id="editorRep" rows="10" cols="10" disabled placeholder="sensul definiției..."></textarea>
-          <textarea id="editorEtymology" rows="5" cols="10" disabled placeholder="etimologie..."></textarea>
-          <textarea id="editorComment" rows="3" cols="10" disabled placeholder="comentariu..."></textarea>
-
-          <div>
-            <label for="editorSources">surse:</label>
-            <select id="editorSources" multiple disabled>
-              {foreach from=$sources item=s}
-                <option value="{$s->id}">{$s->shortName}</option>
-              {/foreach}
-            </select>
-          </div>
-
-          <div>
-            <label for="editorTags">etichete:</label>
-            <select id="editorTags" multiple disabled>
-              {foreach $tags as $t}
-                <option value="{$t->id}">{$t->value}</option>
-              {/foreach}
-            </select>
-          </div>
-
-          <div>
-            <label for="relationType">relații:</label>
-            <select id="relationType" disabled>
-              <option value="1" title="sinonime">sinonime</option>
-              <option value="2" title="antonime">antonime</option>
-              <option value="3" title="diminutive">diminutive</option>
-              <option value="4" title="augmentative">augmentative</option>
-            </select>
-            <span class="relationWrapper" data-type="1">
-              <select class="editorRelation" multiple disabled></select>
-            </span>
-            <span class="relationWrapper" data-type="2">
-              <select class="editorRelation" multiple disabled></select>
-            </span>
-            <span class="relationWrapper" data-type="3">
-              <select class="editorRelation" multiple disabled></select>
-            </span>
-            <span class="relationWrapper" data-type="4">
-              <select class="editorRelation" multiple disabled></select>
-            </span>
-          </div>
-
-          <input id="editMeaningAcceptButton" type="button" disabled value="acceptă">
-          <input id="editMeaningCancelButton" type="button" disabled value="renunță">
-        </div>
-      </div>
-    {/if}
 
   </form>
 {/block}

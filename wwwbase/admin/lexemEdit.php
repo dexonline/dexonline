@@ -104,7 +104,6 @@ $canEdit = array(
   'form' => !$lexem->isLoc || util_isModerator(PRIV_LOC),
   'hyphenations' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
   'loc' => (int)util_isModerator(PRIV_LOC),
-  'meanings' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
   'paradigm' => util_isModerator(PRIV_EDIT),
   'pronunciations' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
   'sources' => util_isModerator(PRIV_LOC | PRIV_EDIT),
@@ -128,8 +127,8 @@ SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('structStatusNames', Lexem::$STRUCT_STATUS_NAMES);
 SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::assign('suggestNoBanner', true);
-SmartyWrap::addCss('jqueryui-smoothness', 'paradigm', 'bootstrap', 'select2', 'textComplete');
-SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev', 'bootstrap', 'modelDropdown', 'textComplete');
+SmartyWrap::addCss('jqueryui-smoothness', 'paradigm', 'bootstrap', 'select2');
+SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev', 'bootstrap', 'modelDropdown');
 SmartyWrap::display('admin/lexemEdit.tpl');
 
 /**************************************************************************/

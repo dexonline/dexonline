@@ -123,6 +123,10 @@ $(function() {
   }
 
   function tinymceSetup(editor) {
+    // Compensate for (possibly) a TinyMCE bug <https://github.com/tinymce/tinymce/issues/3047>
+    var obj = $('#' + editor.id);
+    obj.val(obj.val().replace('<', '&lt;'));
+
     editor.on('init', function() {
 
       // Register a "spaced" format

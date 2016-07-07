@@ -110,3 +110,9 @@
   background: #ffccff;
   border-color: #cca3cc;
 }
+
+.textcomplete-item a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 500px;
+}

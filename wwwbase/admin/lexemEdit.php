@@ -24,7 +24,6 @@ $variantOfId = util_getRequestParameter('variantOfId');
 $tagIds = util_getRequestParameter('tagIds');
 $structStatus = util_getRequestIntParameter('structStatus');
 $structuristId = util_getRequestIntParameter('structuristId');
-$jsonMeanings = util_getRequestParameter('jsonMeanings');
 
 // Paradigm parameters
 $modelType = util_getRequestParameter('modelType');
@@ -46,9 +45,8 @@ if ($refreshLexem || $saveLexem) {
            $needsAccent, $stopWord, $hyphenations, $pronunciations, $entryId, $variantOfId,
            $structStatus, $structuristId, $modelType, $modelNumber, $restriction, $notes,
            $isLoc, $sourceIds);
-  $meanings = json_decode($jsonMeanings);
 
-  if (validate($lexem, $original, $variantIds, $meanings)) {
+  if (validate($lexem, $original, $variantIds)) {
     // Case 1: Validation passed
     if ($saveLexem) {
       if (($original->modelType == 'VT') && ($lexem->modelType != 'VT')) {
@@ -59,7 +57,6 @@ if ($refreshLexem || $saveLexem) {
         $original->deleteLongInfinitive();
       }
       $lexem->deepSave();
-      Meaning::saveTree($meanings, $lexem);
       $lexem->updateVariants($variantIds);
       $lexem->regenerateDependentLexems();
 
@@ -80,7 +77,6 @@ if ($refreshLexem || $saveLexem) {
   }
   // Case 1-2: Page was submitted
   SmartyWrap::assign('variantIds', $variantIds);
-  SmartyWrap::assign('meanings', Meaning::convertTree($meanings));
 } else {
   // Case 3: First time loading this page
   $lexem->loadInflectedFormMap();
@@ -89,7 +85,6 @@ if ($refreshLexem || $saveLexem) {
   $tagIds = util_objectProperty($lts, 'tagId');
 
   SmartyWrap::assign('variantIds', $lexem->getVariantIds());
-  // SmartyWrap::assign('meanings', Meaning::loadTree($lexem->id));
 }
 
 $tags = Model::factory('Tag')->order_by_asc('value')->find_many();
@@ -179,7 +174,7 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   $lexem->setLexemSources($lexemSources);
 }
 
-function validate($lexem, $original, $variantIds, $meanings) {
+function validate($lexem, $original, $variantIds) {
   if (!$lexem->form) {
     FlashMessage::add('Forma nu poate fi vidă.');
   }
@@ -225,10 +220,6 @@ function validate($lexem, $original, $variantIds, $meanings) {
   }
 
   $variantOf = Lexem::get_by_id($lexem->variantOfId);
-  if ($variantOf && !goodForVariantJson($meanings)) {
-    FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși sensuri. " .
-                      "Este permis doar un sens, fără conținut, pentru indicarea surselor și a registrelor de folosire.");
-  }
   if ($variantOf && !empty($variantIds)) {
     FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși variante.");
   }
@@ -249,10 +240,11 @@ function validate($lexem, $original, $variantIds, $meanings) {
     if ($variantVariantCount) {
       FlashMessage::add("\"{$variant}\" are deja propriile lui variante.");
     }
-    $variantMeanings = Model::factory('Meaning')->where('lexemId', $variant->id)->find_many();
-    if (!goodForVariant($variantMeanings)) {
-      FlashMessage::add("'{$variant}' are deja propriile lui sensuri.");
-    }
+    // TODO: lexems should only be variants of other lexems in the same entry, right?
+    // $variantMeanings = Model::factory('Meaning')->where('lexemId', $variant->id)->find_many();
+    // if (!goodForVariant($variantMeanings)) {
+    //   FlashMessage::add("'{$variant}' are deja propriile lui sensuri.");
+    // }
   }
 
   if (($lexem->structStatus == Lexem::STRUCT_STATUS_DONE) &&
@@ -284,47 +276,6 @@ function validate($lexem, $original, $variantIds, $meanings) {
   }
 
   return !FlashMessage::hasErrors();
-}
-
-/* Variants can only have one empty meaning, used to list the variant's sources. */
-function goodForVariant($meanings) {
-  if (empty($meanings)) {
-    return true;
-  }
-  if (count($meanings) > 1) {
-    return false;
-  }
-  $m = $meanings[0];
-  $mss = MeaningSource::get_all_by_meaningId($m->id);
-  $relations = Relation::get_all_by_meaningId($m->id);
-  return count($mss) &&
-    !$m->internalRep &&
-    !$m->internalEtymology &&
-    !$m->internalComment &&
-    empty($relations);
-}
-
-/* Same, but for a JSON object. */
-function goodForVariantJson($meanings) {
-  if (empty($meanings)) {
-    return true;
-  }
-  if (count($meanings) > 1) {
-    return false;
-  }
-
-  $m = $meanings[0];
-  if (empty($m->sourceIds) || $m->internalRep || $m->internalEtymology || $m->internalComment) {
-    return false;
-  }
-
-  for ($i = 1; $i <= Relation::NUM_TYPES; $i++) {
-    if (!empty($m->relationIds[$i])) {
-      return false;
-    }
-  }
-
-  return true;
 }
 
 /* This page handles a lot of actions. Move the minor ones here so they don't clutter the preview/save actions,

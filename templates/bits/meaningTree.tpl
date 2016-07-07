@@ -28,7 +28,7 @@
               {/foreach}
             </span>
           {/foreach}
-          
+
           {if $editable}
             <span class="id">{$t.meaning->id}</span>
             <span class="internalRep">{$t.meaning->internalRep}</span>

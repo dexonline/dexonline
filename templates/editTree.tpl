@@ -17,6 +17,9 @@
     {/if}
   </h3>
 
+  {* Allow the JS editor to run *}
+  <div id="editable" style="display: none"></div>
+
   {* Stem meaning editor that we clone whenever we append a new meaning *}
   <ul id="stemNode">
     <li>
@@ -59,7 +62,10 @@
     <div class="form-group"">
       <label>sensuri</label>
       <div>
-        {include file="bits/meaningTree.tpl" meanings=$t->getMeanings() id="meaningTree"}
+        {include file="bits/meaningTree.tpl"
+                 meanings=$t->getMeanings()
+                 id="meaningTree"
+                 editable=true}
 
         <div id="meaningMenu">
           {if $canEdit}

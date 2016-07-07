@@ -5,7 +5,7 @@ $(function() {
   var editable = $('#editable').length;
 
   function init() {
-    if (!editable) {
+    if (editable) {
       initEditable();
     }
     meaningTreeRenumber();

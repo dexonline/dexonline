@@ -27,10 +27,13 @@ if ($delete) {
 if ($save) {
   $t->description = util_getRequestParameter('description');
   $entryIds = util_getRequestParameter('entryIds');
+  $jsonMeanings = util_getRequestParameter('jsonMeanings');
+  $meanings = json_decode($jsonMeanings);
 
   $errors = $t->validate();
   if ($errors) {
     SmartyWrap::assign('errors', $errors);
+    $t->setMeanings(Meaning::convertTree($meanings));
   } else {
     $t->save();
 
@@ -41,6 +44,8 @@ if ($save) {
     foreach ($entryIds as $eid) {
       TreeEntry::associate($t->id, $eid);
     }
+
+    Meaning::saveTree($meanings, $t);
 
     FlashMessage::add('Am salvat arborele.', 'success');
     util_redirect("?id={$t->id}");

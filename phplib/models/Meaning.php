@@ -8,23 +8,27 @@ class Meaning extends BaseObject implements DatedObject {
    * We need this in case validation fails and we cannot save the tree, so we need to display it again.
    **/
   static function convertTree($meanings) {
-    $meaningStack = array();
-    $results = array();
+    $meaningStack = [];
+    $results = [];
+
     foreach ($meanings as $tuple) {
-      $row = array();
-      $m = $tuple->id ? self::get_by_id($tuple->id) : Model::factory('Meaning')->create();
+      $row = [];
+      $m = $tuple->id
+         ? self::get_by_id($tuple->id)
+         : Model::factory('Meaning')->create();
+
       $m->internalRep = $tuple->internalRep;
       $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
       $m->internalEtymology = $tuple->internalEtymology;
       $m->htmlEtymology = AdminStringUtil::htmlize($m->internalEtymology, 0);
       $m->internalComment = $tuple->internalComment;
       $m->htmlComment = AdminStringUtil::htmlize($m->internalComment, 0);
-      $row['meaning'] = $m;
 
+      $row['meaning'] = $m;
       $row['sources'] = Source::loadByIds($tuple->sourceIds);
       $row['tags'] = Tag::loadByIds($tuple->tagIds);
       $row['relations'] = Relation::loadRelatedLexems($tuple->relationIds);
-      $row['children'] = array();
+      $row['children'] = [];
 
       if ($tuple->level) {
         $meaningStack[$tuple->level - 1]['children'][] = &$row;
@@ -34,23 +38,27 @@ class Meaning extends BaseObject implements DatedObject {
       $meaningStack[$tuple->level] = &$row;
       unset($row);
     }
+
     return $results;
   }
 
-  /* Save a tree produced by the tree editor in admin/lexemEdit.php */
-  static function saveTree($meanings, $lexem) {
-    $seenMeaningIds = array();
+  /* Save a tree produced by the tree editor in editTree.php */
+  static function saveTree($meanings, $tree) {
+    $seenMeaningIds = [];
 
-    // Keep track of the previous meaning ID at each level. This allows us to populate the parentId field
-    $meaningStack = array();
+    // Keep track of the previous meaning ID at each level. This allows us
+    // to populate the parentId field
+    $meaningStack = [];
     $displayOrder = 1;
     foreach ($meanings as $tuple) {
-      $m = $tuple->id ? self::get_by_id($tuple->id) : Model::factory('Meaning')->create();
+      $m = $tuple->id
+         ? self::get_by_id($tuple->id)
+         : Model::factory('Meaning')->create();
       $m->parentId = $tuple->level ? $meaningStack[$tuple->level - 1] : 0;
       $m->displayOrder = $displayOrder++;
       $m->breadcrumb = $tuple->breadcrumb;
       $m->userId = session_getUserId();
-      $m->lexemId = $lexem->id;
+      $m->treeId = $tree->id;
       $m->internalRep = $tuple->internalRep;
       $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
       $m->internalEtymology = $tuple->internalEtymology;
@@ -60,21 +68,22 @@ class Meaning extends BaseObject implements DatedObject {
       $m->save();
       $meaningStack[$tuple->level] = $m->id;
 
-      MeaningSource::updateList(array('meaningId' => $m->id), 'sourceId', $tuple->sourceIds);
-      MeaningTag::updateList(array('meaningId' => $m->id), 'tagId', $tuple->tagIds);
+      MeaningSource::updateList(['meaningId' => $m->id], 'sourceId', $tuple->sourceIds);
+      MeaningTag::updateList(['meaningId' => $m->id], 'tagId', $tuple->tagIds);
       foreach ($tuple->relationIds as $type => $lexemIds) {
         if ($type) {
-          Relation::updateList(array('meaningId' => $m->id, 'type' => $type), 'lexemId', $lexemIds);
+          Relation::updateList(['meaningId' => $m->id, 'type' => $type],
+                               'lexemId', $lexemIds);
         }
       }
       $seenMeaningIds[] = $m->id;
     }
-    self::deleteNotInSet($seenMeaningIds, $lexem->id);
+    self::deleteNotInSet($seenMeaningIds, $tree->id);
   }
 
-  /* Deletes all the meanings associated $lexemId that aren't in the $meaningIds set */
-  public static function deleteNotInSet($meaningIds, $lexemId) {
-    $meanings = self::get_all_by_lexemId($lexemId);
+  /* Deletes all the meanings associated with $treeId that aren't in the $meaningIds set */
+  public static function deleteNotInSet($meaningIds, $treeId) {
+    $meanings = self::get_all_by_treeId($treeId);
     foreach ($meanings as $m) {
       if (!in_array($m->id, $meaningIds)) {
         $m->delete();

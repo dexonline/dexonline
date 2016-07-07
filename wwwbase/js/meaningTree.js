@@ -51,13 +51,13 @@ $(function() {
         match: /(([a-zăâîșț]+)\[[0-9.]*)$/i,
         search: meaningMention,
         template: function(obj) {
-          return '<b>' + obj.lexem + ' ' + obj.breadcrumb + ':</b> ' + obj.meaning;
+          return '<b>' + obj.description + ' ' + obj.breadcrumb + ':</b> ' + obj.meaning;
         },
         replace: function(value) {
           return '$2[' + value.meaningId + ']';
         },
         index: 1,
-        maxCount: 5
+        maxCount: 5,
       }
     ]);
 
@@ -186,7 +186,14 @@ $(function() {
   }
 
   function meaningEditorUnchanged(node) {
-    return !anyChanges || confirm('Aveți deja un sens în curs de modificare. Confirmați renunțarea la modificări?');
+    if (!anyChanges) {
+      return true;
+    }
+    if (confirm('Aveți deja un sens în curs de modificare. Confirmați renunțarea la modificări?')) {
+      anyChanges = false;
+      return true;
+    }
+    return false;
   }
 
   function beginMeaningEdit() {
@@ -258,16 +265,16 @@ $(function() {
            'text');
 
     // Update sources and source IDs
-    c.find('#sourceIds, .sources').text('');
+    c.find('.sourceIds, .sources').text('');
     $('#editorSources option:selected').each(function() {
-      c.find('.sources').append('<span class="tag">' + $(this).text() + '</span>');
-      c.find('#sourceIds').append('<span>' + $(this).val() + '</span>');
+      c.find('.sources').append('<span class="meaningTag">' + $(this).text() + '</span>');
+      c.find('.sourceIds').append('<span>' + $(this).val() + '</span>');
     });
 
     // Update tags and tag IDs
     c.find('.tagIds, .tags').text('');
     $('#editorTags option:selected').each(function() {
-      c.find('.tags').append('<span class="tag">' + $(this).text() + '</span>');
+      c.find('.tags').append('<span class="meaningTag">' + $(this).text() + '</span>');
       c.find('.tagIds').append('<span>' + $(this).val() + '</span>');
     });
 
@@ -278,7 +285,7 @@ $(function() {
       var tags = c.find('.relation[data-type="' + type + '"]').text('');
 
       $('.relationWrapper[data-type="' + type + '"] option:selected').each(function() {
-        tags.append('<span class="tag">' + $(this).text() + '</span>');
+        tags.append('<span class="meaningTag">' + $(this).text() + '</span>');
         ids.append('<span>' + $(this).val() + '</span>');
       });
     });
@@ -312,7 +319,7 @@ $(function() {
       var c = $(this).children('.meaningContainer');
 
       // Collect source, tag and relation IDs
-      var sourceIds = c.find('#sourceIds span').map(function() {
+      var sourceIds = c.find('.sourceIds span').map(function() {
         return $(this).text();
       }).get();
 
@@ -327,16 +334,17 @@ $(function() {
         }).get();
       });
 
-      results.push({ 'id': c.find('.id').text(),
-                     'level': level,
-                     'breadcrumb': c.find('.breadcrumb').text(),
-                     'internalRep': c.find('.internalRep').text(),
-                     'internalEtymology': c.find('.internalEtymology').text(),
-                     'internalComment': c.find('.internalComment').text(),
-                     'sourceIds': sourceIds,
-                     'tagIds': tagIds,
-                     'relationIds': relationIds,
-                   });
+      results.push({
+        'id': c.find('.id').text(),
+        'level': level,
+        'breadcrumb': c.find('.bc').text(),
+        'internalRep': c.find('.internalRep').text(),
+        'internalEtymology': c.find('.internalEtymology').text(),
+        'internalComment': c.find('.internalComment').text(),
+        'sourceIds': sourceIds,
+        'tagIds': tagIds,
+        'relationIds': relationIds,
+      });
       $(this).children('ul').each(function() {
         meaningTreeWalk($(this), results, level + 1);
       });

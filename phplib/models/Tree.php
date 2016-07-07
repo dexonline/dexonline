@@ -33,6 +33,10 @@ class Tree extends BaseObject implements DatedObject {
     return $result;
   }
 
+  function setMeanings($meanings) {
+    $this->meanings = $meanings;
+  }
+
   /* Returns a recursive tree of meanings */
   function getMeanings() {
     if ($this->meanings === null) {

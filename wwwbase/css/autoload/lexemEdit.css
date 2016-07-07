@@ -1,8 +1,0 @@
-abbr {
-  border-bottom: 1px dotted #aaa;
-  cursor: help;
-}
-
-input[readonly] {
-  background-color: #f4f4f4;
-}

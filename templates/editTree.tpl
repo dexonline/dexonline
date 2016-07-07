@@ -139,8 +139,8 @@
               <div class="form-group">
                 <label for="editorTags">etichete</label>
                 <select id="editorTags" multiple disabled>
-                  {foreach $tags as $t}
-                    <option value="{$t->id}">{$t->value}</option>
+                  {foreach $tags as $tag}
+                    <option value="{$tag->id}">{$tag->value}</option>
                   {/foreach}
                 </select>
               </div>

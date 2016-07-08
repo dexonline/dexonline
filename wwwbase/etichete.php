@@ -39,7 +39,8 @@ if ($saveButton) {
   }
 
   foreach ($idMap as $id => $ignored) {
-    Tag::delete_all_by_id($id);
+    $tag = Tag::get_by_id($id);
+    $tag->delete();
   }
   Log::notice('Saved tag tree');
   FlashMessage::add('Am salvat etichetele.', 'success');

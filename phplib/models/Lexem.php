@@ -683,15 +683,6 @@ class Lexem extends BaseObject implements DatedObject {
     $clone->isLoc = false;
     $clone->deepSave();
 
-    // Clone the root meanings
-    $meanings = Model::factory('Meaning')
-              ->where('lexemId', $this->id)
-              ->where('parentId', 0)
-              ->find_many();
-    foreach ($meanings as $m) {
-      $m->cloneMeaning($clone->id, 0);
-    }
-
     return $clone;
   }
 

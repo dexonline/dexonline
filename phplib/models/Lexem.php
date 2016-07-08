@@ -615,7 +615,6 @@ class Lexem extends BaseObject implements DatedObject {
       if ($this->modelType == 'VT' || $this->modelType == 'V') {
         $this->deleteLongInfinitive();
       }
-      Meaning::delete_all_by_lexemId($this->id);
       Relation::delete_all_by_lexemId($this->id);
       InflectedForm::delete_all_by_lexemId($this->id);
       LexemSource::delete_all_by_lexemId($this->id);

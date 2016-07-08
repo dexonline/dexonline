@@ -28,18 +28,7 @@ if (typeof jQuery.ui != 'undefined') {
       track: true
     });
 
-    $('.mention').tooltip({
-      content: function(callback) {
-        var meaningId = $(this).prop('title');
-        $.getJSON(wwwRoot + 'ajax/getMeaningById', { id: meaningId })
-          .done(function(resp) {
-            callback('<b>' + resp.lexem + ' (' + resp.breadcrumb + '):</b> ' + resp.htmlRep);
-          })
-          .fail(function() {
-            callback('');
-          });
-      }
-    });
+    $('.mention').tooltip().each(resolveMention);
   });
 }
 
@@ -298,6 +287,16 @@ function deleteDefinition(defDivId, defId) {
     .done(function() { $('#' + defDivId).css('display', 'none'); })
     .fail(function() { alert('A apărut o problemă la comunicarea cu serverul. Definiția nu a fost încă ștearsă.'); });
   return false;
+}
+
+function resolveMention() {
+  var elem = $(this);
+  var meaningId = elem.data('originalTitle');
+  $.getJSON(wwwRoot + 'ajax/getMeaningById', { id: meaningId })
+    .done(function(resp) {
+      elem.attr('data-original-title',
+                '<b>' + resp.description + '</b> (' + resp.breadcrumb + '): ' + resp.htmlRep);
+    });
 }
 
 function trim(str) {

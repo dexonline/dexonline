@@ -92,8 +92,8 @@ class Meaning extends BaseObject implements DatedObject {
   }
 
   public function delete() {
-    MeaningSource::deleteByMeaningId($this->id);
-    MeaningTag::deleteByMeaningId($this->id);
+    MeaningSource::delete_all_by_meaningId($this->id);
+    MeaningTag::delete_all_by_meaningId($this->id);
     Relation::delete_all_by_meaningId($this->id);
     parent::delete();
   }

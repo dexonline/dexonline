@@ -96,7 +96,7 @@ class Definition extends BaseObject implements DatedObject {
 
   public static function countUnassociated() {
     // There are three disjoint types of definitions:
-    // (1) deleted -- these are never associated with lexems
+    // (1) deleted -- these are never associated with entries
     // (2) not deleted, associated
     // (3) not deleted, not associated
     // We compute (3) as (all definitions) - (1) - (2).

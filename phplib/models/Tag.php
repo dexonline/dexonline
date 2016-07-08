@@ -50,6 +50,11 @@ class Tag extends BaseObject implements DatedObject {
       return !$t->parentId;
     });
   }
+
+  public function delete() {
+    Log::warning("Deleted tag {$this->id} ({$this->value})");
+    parent::delete();
+  }
 }
 
 ?>

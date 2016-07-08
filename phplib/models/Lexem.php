@@ -618,6 +618,7 @@ class Lexem extends BaseObject implements DatedObject {
       Relation::delete_all_by_lexemId($this->id);
       InflectedForm::delete_all_by_lexemId($this->id);
       LexemSource::delete_all_by_lexemId($this->id);
+      LexemTag::delete_all_by_lexemId($this->id);
       // delete_all_by_lexemId doesn't work for FullTextIndex because it doesn't have an ID column
       Model::factory('FullTextIndex')->where('lexemId', $this->id)->delete_many();
     }

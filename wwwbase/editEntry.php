@@ -14,8 +14,11 @@ if ($id) {
     FlashMessage::add(_('Intrarea nu există.'));
     util_redirect(util_getWwwRoot());
   }
+  // Keep a copy so we can test whether certain fields have changed
+  $original = Entry::get_by_id($id);
 } else {
   $e = Model::factory('Entry')->create();
+  $original = Model::factory('Entry')->create();
 }
 
 if ($dissociateDefinitionId) {
@@ -32,13 +35,21 @@ if ($delete) {
 
 if ($save) {
   $e->description = util_getRequestParameter('description');
+  $e->structStatus = util_getRequestIntParameter('structStatus');
+  $e->structuristId = util_getRequestIntParameter('structuristId');
   $lexemIds = util_getRequestParameter('lexemIds');
   $treeIds = util_getRequestParameter('treeIds');
 
-  $errors = $e->validate();
+  $errors = $e->validate($original);
   if ($errors) {
     SmartyWrap::assign('errors', $errors);
   } else {
+    // Possibly overwrite the structuristId according to the structStatus change
+    if (($original->structStatus == Entry::STRUCT_STATUS_NEW) &&
+        ($e->structStatus == Entry::STRUCT_STATUS_IN_PROGRESS)) {
+      $e->structuristId = session_getUserId();
+    }
+
     $e->save();
 
     // dissociate the entry from the old lexems
@@ -79,10 +90,22 @@ foreach ($definitions as $def) {
 }
 $searchResults = SearchResult::mapDefinitionArray($definitions);
 
+$ss = $e->structStatus;
+$oss = $original->structStatus; // syntactic sugar
+
+$canEdit = [
+  'structStatus' => in_array($oss,
+                             [ Entry::STRUCT_STATUS_NEW, Entry::STRUCT_STATUS_IN_PROGRESS ])
+  || util_isModerator(PRIV_EDIT),
+  'structuristId' => util_isModerator(PRIV_ADMIN),
+];
+
 SmartyWrap::assign('e', $e);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('lexemIds', $lexemIds);
 SmartyWrap::assign('treeIds', $treeIds);
+SmartyWrap::assign('canEdit', $canEdit);
+SmartyWrap::assign('structStatusNames', Entry::$STRUCT_STATUS_NAMES);
 SmartyWrap::assign('suggestNoBanner', true);
 SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::addCss('bootstrap', 'select2', 'meaningTree');

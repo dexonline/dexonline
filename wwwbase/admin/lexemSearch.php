@@ -55,14 +55,17 @@ switch ($paradigm) {
 
 // Process the $structStatus argument
 if ($structStatus) {
-  $where[] = "structStatus = {$structStatus}";
+  $joins['entry'] = true;
+  $where[] = "e.structStatus = {$structStatus}";
 }
 
 // Process the $structStatus argument
 if ($structuristId > 0) {
-  $where[] = "structuristId = {$structuristId}";
+  $joins['entry'] = true;
+  $where[] = "e.structuristId = {$structuristId}";
 } else if ($structuristId == -1) {
-  $where[] = "structuristId = 0 or structuristId is null";
+  $joins['entry'] = true;
+  $where[] = "e.structuristId = 0 or e.structuristId is null";
 }
 
 // Process the $nick argument
@@ -88,6 +91,10 @@ foreach ($joins as $join => $ignored) {
     case 'definition':
       $query = $query->join('EntryDefinition', ['l.entryId', '=', 'ed.entryId'], 'ed')
         ->join('Definition', 'ed.definitionId = d.id', 'd');
+      break;
+
+    case 'entry':
+      $query = $query->join('Entry', ['l.entryId', '=', 'e.id'], 'e');
       break;
   }
 }

@@ -119,7 +119,7 @@ $(function() {
   function deleteTag() {
     var blockers = sel.find('[data-can-delete=0]');
     if (blockers.length) {
-      alert('Nu pot șterge această etichetă, deoarece ea sau unele descendente ale ei sunt aplicate pe sensuri.');
+      alert('Nu pot șterge această etichetă, deoarece ea sau unele descendente ale ei sunt folosite.');
     } else {
       var toDelete = sel;
       var parentLi = sel.parent().parent('li');

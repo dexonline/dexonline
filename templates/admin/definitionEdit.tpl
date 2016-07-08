@@ -11,7 +11,12 @@
   <h3>
     {$title}
     <span class="pull-right">
-      <small><a href="http://wiki.dexonline.ro/wiki/Editarea_defini%C8%9Biilor">instrucțiuni</a></small>
+      <small>
+        <a href="http://wiki.dexonline.ro/wiki/Editarea_defini%C8%9Biilor">
+          <i class="glyphicon glyphicon-question-sign"></i>
+          instrucțiuni
+        </a>
+      </small>
     </span>
   </h3>
 

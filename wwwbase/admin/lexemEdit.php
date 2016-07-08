@@ -22,8 +22,6 @@ $entryId = util_getRequestParameter('entryId');
 $variantIds = util_getRequestParameterWithDefault('variantIds', []);
 $variantOfId = util_getRequestParameter('variantOfId');
 $tagIds = util_getRequestParameter('tagIds');
-$structStatus = util_getRequestIntParameter('structStatus');
-$structuristId = util_getRequestIntParameter('structuristId');
 
 // Paradigm parameters
 $modelType = util_getRequestParameter('modelType');
@@ -43,8 +41,7 @@ $original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether ce
 if ($refreshLexem || $saveLexem) {
   populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
            $needsAccent, $stopWord, $hyphenations, $pronunciations, $entryId, $variantOfId,
-           $structStatus, $structuristId, $modelType, $modelNumber, $restriction, $notes,
-           $isLoc, $sourceIds);
+           $modelType, $modelNumber, $restriction, $notes, $isLoc, $sourceIds);
 
   if (validate($lexem, $original, $variantIds)) {
     // Case 1: Validation passed
@@ -89,24 +86,19 @@ if ($refreshLexem || $saveLexem) {
 
 $tags = Model::factory('Tag')->order_by_asc('value')->find_many();
 
-$ss = $lexem->structStatus;
-$oss = $original->structStatus; // syntactic sugar
-
 $canEdit = array(
   'general' => util_isModerator(PRIV_EDIT),
   'defStructured' => util_isModerator(PRIV_EDIT),
   'description' => util_isModerator(PRIV_EDIT),
   'form' => !$lexem->isLoc || util_isModerator(PRIV_LOC),
-  'hyphenations' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
+  'hyphenations' => util_isModerator(PRIV_STRUCT | PRIV_EDIT),
   'loc' => (int)util_isModerator(PRIV_LOC),
   'paradigm' => util_isModerator(PRIV_EDIT),
-  'pronunciations' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
+  'pronunciations' => util_isModerator(PRIV_STRUCT | PRIV_EDIT),
   'sources' => util_isModerator(PRIV_LOC | PRIV_EDIT),
-  'structStatus' => ($oss == Lexem::STRUCT_STATUS_NEW) || ($oss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
-  'structuristId' => util_isModerator(PRIV_ADMIN),
   'stopWord' => util_isModerator(PRIV_ADMIN),
   'tags' => util_isModerator(PRIV_LOC | PRIV_EDIT),
-  'variants' => ($ss == Lexem::STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT),
+  'variants' => util_isModerator(PRIV_STRUCT | PRIV_EDIT),
 );
 
 // Prepare a list of model numbers, to be used in the paradigm drop-down.
@@ -119,7 +111,6 @@ SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('canEdit', $canEdit);
-SmartyWrap::assign('structStatusNames', Lexem::$STRUCT_STATUS_NAMES);
 SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::assign('suggestNoBanner', true);
 SmartyWrap::addCss('jqueryui-smoothness', 'paradigm', 'bootstrap', 'select2');
@@ -131,8 +122,7 @@ SmartyWrap::display('admin/lexemEdit.tpl');
 // Populate lexem fields from request parameters.
 function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
                   $needsAccent, $stopWord, $hyphenations, $pronunciations, $entryId, $variantOfId,
-                  $structStatus, $structuristId, $modelType, $modelNumber, $restriction, $notes,
-                  $isLoc, $sourceIds) {
+                  $modelType, $modelNumber, $restriction, $notes, $isLoc, $sourceIds) {
   $lexem->setForm(AdminStringUtil::formatLexem($lexemForm));
   $lexem->number = $lexemNumber;
   $lexem->description = AdminStringUtil::internalize($lexemDescription, false);
@@ -149,13 +139,6 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   $lexem->pronunciations = $pronunciations;
   $lexem->entryId = $entryId;
   $lexem->variantOfId = $variantOfId ? $variantOfId : null;
-  $lexem->structStatus = $structStatus;
-  $lexem->structuristId = $structuristId;
-  // Possibly overwrite the structuristId according to the structStatus change
-  if (($original->structStatus == Lexem::STRUCT_STATUS_NEW) &&
-      ($lexem->structStatus == Lexem::STRUCT_STATUS_IN_PROGRESS)) {
-    $lexem->structuristId = session_getUserId();
-  }
 
   $lexem->modelType = $modelType;
   $lexem->modelNumber = $modelNumber;
@@ -245,34 +228,6 @@ function validate($lexem, $original, $variantIds) {
     // if (!goodForVariant($variantMeanings)) {
     //   FlashMessage::add("'{$variant}' are deja propriile lui sensuri.");
     // }
-  }
-
-  if (($lexem->structStatus == Lexem::STRUCT_STATUS_DONE) &&
-      ($original->structStatus != Lexem::STRUCT_STATUS_DONE) &&
-      !util_isModerator(PRIV_EDIT)) {
-    FlashMessage::add("Doar moderatorii pot marca structurarea drept terminată. Vă rugăm să folosiți valoarea „așteaptă moderarea”.");
-  }
-
-  if ($lexem->structuristId != $original->structuristId) {
-    if (util_isModerator(PRIV_ADMIN)) {
-      // Admins can modify this field
-    } else if (($original->structuristId == session_getUserId()) &&
-               !$lexem->structuristId) {
-      // Structurists can remove themselves
-    } else if (!$original->structuristId &&
-               ($lexem->structuristId == session_getUserId()) &&
-               ($original->structStatus == Lexem::STRUCT_STATUS_NEW) &&
-               ($lexem->structStatus == Lexem::STRUCT_STATUS_IN_PROGRESS)) {
-      // The system silently assigns structurists when they start the process
-    } else if (!$original->structuristId &&
-               ($lexem->structuristId == session_getUserId()) &&
-               ($original->structStatus == Lexem::STRUCT_STATUS_IN_PROGRESS) &&
-               ($lexem->structStatus == Lexem::STRUCT_STATUS_IN_PROGRESS)) {
-      // Structurists can claim orphan lexems
-    } else {
-      FlashMessage::add('Nu puteți modifica structuristul, dar puteți (1) revendica un lexem în lucru fără structurist sau ' .
-                        '(2) renunța la un lexem dacă vi se pare prea greu de structurat.');
-    }
   }
 
   return !FlashMessage::hasErrors();

@@ -40,14 +40,6 @@ $(function() {
       minimumInputLength: 1,
     });
             
-    initSelect2('#structuristId', 'ajax/getUsersById.php', {
-      ajax: createUserAjaxStruct(PRIV_STRUCT),
-      allowClear: true,
-      minimumInputLength: 3,
-      placeholder: '(opțional)',
-      width: '100%',
-    });
-    
     $('.lexemEditSaveButton').click(saveEverything);
 
     initSelect2('#sourceIds', 'ajax/getSourcesById.php', lexemSourceOptions);

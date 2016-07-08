@@ -97,47 +97,6 @@ class Meaning extends BaseObject implements DatedObject {
     Relation::delete_all_by_meaningId($this->id);
     parent::delete();
   }
-
-  /**
-   * Different from __clone(). We save the object to the database to assign it an ID. We also clone its descendants,
-   * relations, sources and tags.
-   **/
-  public function cloneMeaning($newLexemId, $newParentId) {
-    $clone = $this->parisClone();
-    $clone->lexemId = $newLexemId;
-    $clone->parentId = $newParentId;
-    $clone->save();
-
-    // Clone its tags
-    $mts = MeaningTag::get_all_by_meaningId($this->id);
-    foreach ($mts as $mt) {
-      $mtClone = $mt->parisClone();
-      $mtClone->meaningId = $clone->id;
-      $mtClone->save();
-    }
-
-    // Clone its sources
-    $mss = MeaningSource::get_all_by_meaningId($this->id);
-    foreach ($mss as $ms) {
-      $msClone = $ms->parisClone();
-      $msClone->meaningId = $clone->id;
-      $msClone->save();
-    }
-
-    // Clone its relations
-    $relations = Relation::get_all_by_meaningId($this->id);
-    foreach ($relations as $r) {
-      $rc = $r->parisClone();
-      $rc->meaningId = $clone->id;
-      $rc->save();
-    }
-
-    // Clone its children
-    $children = Meaning::get_all_by_parentId($this->id);
-    foreach ($children as $child) {
-      $child->cloneMeaning($newLexemId, $clone->id);
-    }
-  }
 }
 
 ?>

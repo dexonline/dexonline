@@ -99,8 +99,8 @@ function formatLexemWithEditLink(lexem) {
     html = lexem.text;
   } else {
     html = lexem.text +
-      ' <a class="select2Edit" href="' + wwwRoot + 'admin/lexemEdit.php?lexemId=' +
-      lexem.id + '">&nbsp;</a>';
+      ' <a class="glyphicon glyphicon-pencil" href="' + wwwRoot +
+      'admin/lexemEdit.php?lexemId=' + lexem.id + '"></a>';
   }
 
   if ((lexem.consistentAccent == '0') ||
@@ -115,8 +115,8 @@ function formatLexemWithEditLink(lexem) {
 
 function formatEntryWithEditLink(lexem) {
   return $('<span>' + lexem.text +
-           ' <a class="select2Edit" href="' + wwwRoot + 'editEntry.php?id=' + lexem.id +
-           '">&nbsp;</a></span>');
+           ' <a class="glyphicon glyphicon-pencil" href="' + wwwRoot +
+           'editEntry.php?id=' + lexem.id + '"></a></span>');
 }
 
 function allowNewOptions(data) {

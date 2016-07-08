@@ -1308,12 +1308,3 @@ body .socialNetworks label {
 .widgetBox.bendShadow:after {
   display: none;
 }
-
-/* temporary */
-
-.tooltip {
-  width: 138px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}

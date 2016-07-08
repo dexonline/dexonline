@@ -5,13 +5,11 @@
 }
 
 .meaningTree ul {
-  padding-left: 10px;
+  padding-left: 30px;
 }
 
 .meaningTree li {
-  background: url("../img/icons/page_white_text.png") 0px 3px no-repeat;
   list-style: none;
-  padding-left: 16px;
 }
 
 .meaningTree .meaningContainer {

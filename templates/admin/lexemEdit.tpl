@@ -6,7 +6,12 @@
   <h3>
     Editare lexem: {$lexem->form}
     <span class="pull-right">
-      <small><a href="http://wiki.dexonline.ro/wiki/Editarea_lexemelor">instrucțiuni</a></small>
+      <small>
+        <a href="http://wiki.dexonline.ro/wiki/Editarea_lexemelor">
+          <i class="glyphicon glyphicon-question-sign"></i>
+          instrucțiuni
+        </a>
+      </small>
     </span>
   </h3>
 

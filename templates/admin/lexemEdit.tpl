@@ -15,8 +15,6 @@
     </span>
   </h3>
 
-  {include file="bits/phpConstants.tpl"}
-
   <script>
    canEdit = { 'paradigm': {$canEdit.paradigm}, 'loc': {$canEdit.loc} };
   </script>
@@ -76,26 +74,6 @@
             </div>
             
             <div class="form-group">
-              <label for="variantOfId">variantă a lui</label>
-              <select id="variantOfId" name="variantOfId" {if !$canEdit.variants}disabled{/if}>
-                <option value="{$lexem->variantOfId}" selected></option>
-              </select>
-            </div>
-            
-            <div class="form-group">
-              <label for="variantIds">variante</label>
-              <select id="variantIds" name="variantIds[]" multiple {if !$canEdit.variants}disabled{/if}>
-                {foreach $variantIds as $id}
-                  <option value="{$id}" selected></option>
-                {/foreach}
-              </select>
-            </div>
-            
-          </div>
-
-          <div class="col-md-6">
-
-            <div class="form-group">
               <label for="tagIds">etichete</label>
               <select id="tagIds" name="tagIds[]" class="form-control" multiple>
                 {foreach $tagIds as $t}
@@ -103,6 +81,10 @@
                 {/foreach}
               </select>
             </div>
+            
+          </div>
+
+          <div class="col-md-6">
 
             {include "bits/fgf.tpl"
             field="hyphenations"
@@ -117,6 +99,23 @@
             label="pronunții"
             placeholder="opționale, despărțite prin virgule"
             readonly=!$canEdit.pronunciations}
+
+
+            <div class="form-group">
+              <label for="variantOfId">variantă a lui</label>
+              <select id="variantOfId" name="variantOfId" {if !$canEdit.variants}disabled{/if}>
+                <option value="{$lexem->variantOfId}" selected></option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="variantIds">variante</label>
+              <select id="variantIds" name="variantIds[]" multiple {if !$canEdit.variants}disabled{/if}>
+                {foreach $variantIds as $id}
+                  <option value="{$id}" selected></option>
+                {/foreach}
+              </select>
+            </div>
 
             <div class="checkbox">
               <label>
@@ -135,21 +134,6 @@
                        >
                 ignoră la căutările full-text
               </label>
-            </div>
-
-            <div class="form-group {if isset($errors.structStatus)}has-error{/if}">
-              <label for="structStatus">structurare</label>
-              {include file="bits/structStatus.tpl" selected=$lexem->structStatus canEdit=$canEdit.structStatus}
-              {include "bits/fieldErrors.tpl" errors=$errors.structStatus|default:null}
-            </div>
-
-            <div class="form-group">
-              <label for="structuristId">structurist</label>
-              <select id="structuristId" name="structuristId">
-                {if $lexem->structuristId}
-                  <option value="{$lexem->structuristId}" selected></option>
-                {/if}
-              </select>
             </div>
 
           </div>

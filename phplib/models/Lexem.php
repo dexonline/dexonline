@@ -10,18 +10,8 @@ class Lexem extends BaseObject implements DatedObject {
   private $inflectedForms = null;
   private $inflectedFormMap = null;    // Mapped by various criteria depending on the caller
 
-  const STRUCT_STATUS_NEW = 1;
-  const STRUCT_STATUS_IN_PROGRESS = 2;
-  const STRUCT_STATUS_UNDER_REVIEW = 3;
-  const STRUCT_STATUS_DONE = 4;
-
   const METHOD_GENERATE = 1;
   const METHOD_LOAD = 2;
-
-  public static $STRUCT_STATUS_NAMES = array(self::STRUCT_STATUS_NEW => 'neîncepută',
-                                             self::STRUCT_STATUS_IN_PROGRESS => 'în lucru',
-                                             self::STRUCT_STATUS_UNDER_REVIEW => 'așteaptă moderarea',
-                                             self::STRUCT_STATUS_DONE => 'terminată');
 
   function setForm($form) {
     $this->form = $form;
@@ -675,7 +665,6 @@ class Lexem extends BaseObject implements DatedObject {
     $clone = $this->parisClone();
     $clone->description = ($this->description) ? "CLONĂ {$this->description}" : "CLONĂ";
     $clone->verifSp = false;
-    $clone->structStatus = self::STRUCT_STATUS_NEW;
     $clone->modelType = 'T';
     $clone->modelNumber = '1';
     $clone->restriction = '';

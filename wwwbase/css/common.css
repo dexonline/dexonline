@@ -374,12 +374,6 @@
   padding: 3px;
 }
 
-.select2Edit {
-  background: url("../img/icons/pencil.png") no-repeat;
-  padding-left: 16px;
-  text-decoration: none;
-}
-
 .select2LexemWarnings {
   color: red;
 }

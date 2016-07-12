@@ -3,6 +3,14 @@
 class Tree extends BaseObject implements DatedObject {
   public static $_table = 'Tree';
 
+  const ST_VISIBLE = 0;
+  const ST_HIDDEN = 1;
+
+  public static $STATUS_NAMES = [
+    self::ST_VISIBLE  => 'vizibil',
+    self::ST_HIDDEN  => 'ascuns',
+  ];
+
   private $entries = null;
   private $meanings = null;
 
@@ -102,18 +110,6 @@ class Tree extends BaseObject implements DatedObject {
     }
 
     return $errors;
-  }
-
-  public function delete() {
-    TreeEntry::delete_all_by_treeId($this->id);
-
-    $meanings = Meaning::get_all_by_treeId($this->id);
-    foreach ($meanings as $m) {
-      $m->delete();
-    }
-
-    Log::warning("Deleted tree {$this->id} ({$this->description})");
-    parent::delete();
   }
 
 }

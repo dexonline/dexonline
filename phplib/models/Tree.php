@@ -112,6 +112,44 @@ class Tree extends BaseObject implements DatedObject {
     return $errors;
   }
 
+  function clone() {
+    $newt = $this->parisClone();
+    $newt->description .= ' (CLONĂ)';
+    $newt->save();
+
+    $tes = TreeEntry::get_all_by_treeId($this->id);
+    foreach ($tes as $te) {
+      TreeEntry::associate($newt->id, $te->entryId);
+    }
+
+    $this->cloneMeanings($this->getMeanings(), 0, $newt->id);
+
+    return $newt;
+  }
+
+  function cloneMeanings($meanings, $parentId, $newTreeId) {
+    foreach ($meanings as $rec) {
+      $m = $rec['meaning'];
+
+      // update the treeId and parentId fields
+      $newm = $m->parisClone();
+      $newm->parentId = $parentId;
+      $newm->treeId = $newTreeId;
+      $newm->save();
+
+      // copy the meaning sources, meaning tags and relations
+      foreach (['MeaningSource', 'MeaningTag', 'Relation'] as $className) {
+        $oldSet = $className::get_all_by_meaningId($m->id);
+        foreach ($oldSet as $old) {
+          $new = $old->parisClone();
+          $new->meaningId = $newm->id;
+          $new->save();
+        }
+      }
+
+      $this->cloneMeanings($rec['children'], $newm->id, $newTreeId);
+    }
+  }
 }
 
 ?>

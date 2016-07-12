@@ -5,15 +5,23 @@ util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 
 $id = util_getRequestParameter('id');
 $save = util_getRequestParameter('save') !== null;
+$clone = util_getRequestParameter('clone') !== null;
 
 if ($id) {
   $t = Tree::get_by_id($id);
   if (!$t) {
-    FlashMessage::add(_('Arborele nu există.'));
+    FlashMessage::add('Arborele nu există.');
     util_redirect(util_getWwwRoot());
   }
 } else {
   $t = Model::factory('Tree')->create();
+}
+
+if ($clone) {
+  $newt = $t->clone();
+  Log::info("Cloned tree {$t->id} ({$t->description}), new id {$newt->id}");
+  FlashMessage::add('Am clonat arborele.', 'success');
+  util_redirect("?id={$newt->id}");
 }
 
 if ($save) {

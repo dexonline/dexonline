@@ -28,6 +28,17 @@ if ($dissociateDefinitionId) {
   util_redirect("?id={$e->id}");
 }
 
+if ($createTree) {
+  if (!$id) {
+    FlashMessage::add('Nu puteți crea un arbore de sensuri înainte să salvați intrarea.');
+    util_redirect(util_getWwwRoot());
+  }
+  $t = Tree::createAndSave($e->description . " (NOU)");
+  TreeEntry::associate($t->id, $e->id);
+  FlashMessage::add("Am creat un arbore de sensuri pentru {$e->description}.", 'success');
+  util_redirect("editTree.php?id={$t->id}");
+}
+
 if ($delete) {
   $e->delete();
   FlashMessage::add('Am șters intrarea.', 'success');

@@ -48,26 +48,41 @@
     <input type="hidden" name="id" value="{$t->id}">
     <input type="hidden" name="jsonMeanings" value="">
 
-    {include "bits/fgf.tpl" field="description" value=$t->description label="descriere"}
+    <div class="row">
+      <div class="col-md-6">
+        {include "bits/fgf.tpl" field="description" value=$t->description label="descriere"}
 
-    <div class="form-group"">
-      <label for="entryIds">intrări</label>
-      <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
-        {foreach $entryIds as $e}
-          <option value="{$e}" selected></option>
-        {/foreach}
-      </select>
+        <div class="form-group"">
+          <label for="entryIds">intrări</label>
+          <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
+            {foreach $entryIds as $e}
+              <option value="{$e}" selected></option>
+            {/foreach}
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>stare</label>
+          <select name="status" class="form-control">
+            {foreach $statusNames as $i => $s}
+              <option value="{$i}" {if $i == $t->status}selected{/if}>{$s}</option>
+            {/foreach}
+          </select>
+        </div>
+      </div>
     </div>
 
-    <div class="form-group"">
-      <label>sensuri</label>
-      <div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Sensuri</div>
+      <div class="panel-body">
         {include file="bits/meaningTree.tpl"
                  meanings=$t->getMeanings()
                  id="meaningTree"
                  editable=true}
 
-        <div id="meaningMenu">
+        <div>
           {if $canEdit}
             <div class="btn-group">
               <button type="button" class="btn btn-default btn-sm" id="addMeaningButton"
@@ -192,11 +207,6 @@
       <a href="{if $t->id}?id={$t->id}{/if}">
         anulează
       </a>
-
-      <button type="submit" class="btn btn-danger pull-right" name="delete">
-        <i class="glyphicon glyphicon-trash"></i>
-        șterge
-      </button>
     </div>
   </form>
 {/block}

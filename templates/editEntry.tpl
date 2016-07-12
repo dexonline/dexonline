@@ -63,6 +63,11 @@
       salvează
     </button>
 
+    <button type="submit" class="btn btn-default" name="createTree">
+      <i class="glyphicon glyphicon-tree-deciduous"></i>
+      creează un arbore de sensuri
+    </button>
+
     <a href="{if $e->id}?id={$e->id}{/if}">
       anulează
     </a>

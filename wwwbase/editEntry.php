@@ -5,13 +5,14 @@ util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 
 $id = util_getRequestParameter('id');
 $save = util_getRequestParameter('save') !== null;
+$createTree = util_getRequestParameter('createTree') !== null;
 $delete = util_getRequestParameter('delete') !== null;
 $dissociateDefinitionId = util_getRequestParameter('dissociateDefinitionId');
 
 if ($id) {
   $e = Entry::get_by_id($id);
   if (!$e) {
-    FlashMessage::add(_('Intrarea nu există.'));
+    FlashMessage::add('Intrarea nu există.');
     util_redirect(util_getWwwRoot());
   }
   // Keep a copy so we can test whether certain fields have changed
@@ -25,6 +26,17 @@ if ($dissociateDefinitionId) {
   EntryDefinition::dissociate($e->id, $dissociateDefinitionId);
   Log::info("Dissociated lexem {$e->id} ({$e->description}) from definition {$dissociateDefinitionId}");
   util_redirect("?id={$e->id}");
+}
+
+if ($createTree) {
+  if (!$id) {
+    FlashMessage::add('Nu puteți crea un arbore de sensuri înainte să salvați intrarea.');
+    util_redirect(util_getWwwRoot());
+  }
+  $t = Tree::createAndSave($e->description . " (NOU)");
+  TreeEntry::associate($t->id, $e->id);
+  FlashMessage::add("Am creat un arbore de sensuri pentru {$e->description}.", 'success');
+  util_redirect("editTree.php?id={$t->id}");
 }
 
 if ($delete) {

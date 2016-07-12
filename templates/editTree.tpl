@@ -204,6 +204,11 @@
         salvează
       </button>
 
+      <button type="submit" class="btn btn-default" name="clone">
+        <i class="glyphicon glyphicon-duplicate"></i>
+        clonează
+      </button>
+
       <a href="{if $t->id}?id={$t->id}{/if}">
         anulează
       </a>

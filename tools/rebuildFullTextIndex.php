@@ -5,6 +5,8 @@ ini_set('memory_limit', '512M');
 assert_options(ASSERT_BAIL, 1);
 ORM::get_db()->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 
+define('BATCH_SIZE', 10000);
+
 Log::notice('started');
 if (!Lock::acquire(LOCK_FULL_TEXT_INDEX)) {
   OS::errorAndExit('Lock already exists!');

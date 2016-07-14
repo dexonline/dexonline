@@ -4,21 +4,21 @@ $(function() {
   var coords = new Object();
 
   function init() {
-    initSelect2('#lexemId', 'ajax/getLexemsById.php', {
+    initSelect2('#entryId', 'ajax/getEntriesById.php', {
       ajax: {
-        url: wwwRoot + 'ajax/getLexems.php',
+        url: wwwRoot + 'ajax/getEntries.php',
       },
       minimumInputLength: 1,
-      placeholder: 'caută un lexem',
+      placeholder: 'caută o intrare',
       width: '300px',
     });
 
-    $('#tagLexemId').select2({
-      ajax: { url: wwwRoot + 'ajax/getLexems.php' },
+    $('#tagEntryId').select2({
+      ajax: { url: wwwRoot + 'ajax/getEntries.php' },
       minimumInputLength: 1,
-      placeholder: 'caută un lexem',
+      placeholder: 'caută o intrare',
       width: '300px',
-    }).change(copyLexemToTag);
+    }).change(copyEntryToTag);
 
     initJcrop();
     imageLoadError();
@@ -52,8 +52,8 @@ $(function() {
 
     /* Validate new tag data before submitting the form. */
     $('#addTagButton').click(function() {
-      if (!$('#tagLexemId').val()) {
-        alert('Lexemul etichetei nu poate lipsi.');
+      if (!$('#tagEntryId').val()) {
+        alert('Trebuie să specificați o intrare.');
         return false;
       } else if (!$('#tagLabel').val()) {
         alert('Textul de afișat nu poate fi vid.');
@@ -73,10 +73,10 @@ $(function() {
       postData: { visualId: $('#visualId').val(), usage: 'table' },
       datatype: 'json',
       cmTemplate: {sortable: false},
-      colNames: ['Id', 'Lexem', 'Text afișat', 'X Etichetă', 'Y Etichetă', 'X Imagine', 'Y Imagine'],
+      colNames: ['Id', 'Intrare', 'Text afișat', 'X Etichetă', 'Y Etichetă', 'X Imagine', 'Y Imagine'],
       colModel: [
         {name: 'id', index: 'id', hidden: true},
-        {name: 'lexeme', index: 'lexeme', width: 80, align: 'center'},
+        {name: 'entry', index: 'entry', width: 80, align: 'center'},
         {name: 'label', index: 'label', width: 120, align: 'center', editable: true},
         {name: 'textXCoord', index: 'textXCoord', width: 55, align: 'center', editable: true},
         {name: 'textYCoord', index: 'textYCoord', width: 55, align: 'center', editable: true},
@@ -138,11 +138,11 @@ $(function() {
   }
 
   /** Replaces the submit event that triggers on change, set in select2Dev.js */
-  function copyLexemToTag() {
+  function copyEntryToTag() {
     if (!$('#tagLabel').val()) {
       var text = $(this).select2('data')[0].text;
 
-      // Matches only the lexeme, without the description in brackets 
+      // Matches only the entry, without the description in brackets 
       text = text.match(/^[^ \(]+/);
 
       $('#tagLabel').val(text);

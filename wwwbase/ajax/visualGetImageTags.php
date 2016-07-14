@@ -20,7 +20,7 @@ if ($usage == 'table') {
 }
 
 foreach($lines as $line) {
-  $row = Lexem::get_by_id($line->lexemeId);
+  $entry = Entry::get_by_id($line->entryId);
   $tags[] = [
     'id' => $line->id,
     'label' => $line->label,
@@ -28,7 +28,7 @@ foreach($lines as $line) {
     'textYCoord' => $line->textYCoord,
     'imgXCoord' => $line->imgXCoord,
     'imgYCoord' => $line->imgYCoord,
-    'lexeme' => !empty($row) ? $row->formUtf8General : '',
+    'entry' => $entry ? $entry->description : '',
   ];
 }
 

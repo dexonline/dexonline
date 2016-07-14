@@ -6,10 +6,10 @@ RecentLink::createOrUpdate('Etichetare Imagini Definiții');
 
 $fileName = util_getRequestParameter('fileName');
 $id = util_getRequestParameter('id');
-$lexemId = util_getRequestParameter('lexemId');
+$entryId = util_getRequestParameter('entryId');
 $revised = util_getBoolean('revised');
 $saveButton = util_getRequestParameter('saveButton');
-$tagLexemId = util_getRequestParameter('tagLexemId');
+$tagEntryId = util_getRequestParameter('tagEntryId');
 $tagLabel = util_getRequestParameter('tagLabel');
 $textXCoord = util_getRequestParameter('textXCoord');
 $textYCoord = util_getRequestParameter('textYCoord');
@@ -29,7 +29,7 @@ if ($fileName) {
 $v = Visual::get_by_id($id);
 
 if ($saveButton) {
-  $v->lexemeId = $lexemId;
+  $v->entryId = $entryId;
   $v->revised = $revised;
   $v->save();
   Log::notice("Saved image {$v->id} ({$v->path})");
@@ -39,7 +39,7 @@ if ($saveButton) {
 if ($addTagButton) {
   $vt = Model::factory('VisualTag')->create();
   $vt->imageId = $v->id;
-  $vt->lexemeId = $tagLexemId;
+  $vt->entryId = $tagEntryId;
   $vt->label = $tagLabel;
   $vt->textXCoord = $textXCoord;
   $vt->textYCoord = $textYCoord;
@@ -51,7 +51,7 @@ if ($addTagButton) {
 }
 
 SmartyWrap::assign('visual', $v);
-SmartyWrap::assign('lexem', Lexem::get_by_id($v->lexemeId));
+SmartyWrap::assign('entry', Entry::get_by_id($v->entryId));
 
 SmartyWrap::addCss('jqueryui-smoothness', 'jcrop', 'select2', 'jqgrid', 'jqueryui', 'gallery');
 SmartyWrap::addJs('jquery', 'jqueryui', 'jcrop', 'select2', 'select2Dev', 'jqgrid', 'gallery', 'jcanvas'); 

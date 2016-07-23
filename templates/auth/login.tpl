@@ -24,8 +24,8 @@
   Dacă aveți un cont Google sau Yahoo, îl puteți folosi ca OpenID:<br/><br/>
 
   <div id="openidProviders">
-    <a href="{$wwwRoot}auth/login?openid=google"><img src="{$imgRoot}/openid/google.png" alt="Autentificare cu un cont Google"/></a>
-    <a href="{$wwwRoot}auth/login?openid=yahoo"><img src="{$imgRoot}/openid/yahoo.png" alt="Autentificare cu un cont Yahoo"/></a>
+    <a href="{$wwwRoot}auth/login?openid=google"><img src="{$imgRoot}/openid/btn_google_dark_normal.png" alt="Autentificare cu un cont Google"/></a>
+    <a href="{$wwwRoot}auth/login?openid=yahoo"><img src="{$imgRoot}/openid/btn_yahoo_light.png" alt="Autentificare cu un cont Yahoo"/></a>
   </div>
 
   <h3>Ce este OpenID?</h3>

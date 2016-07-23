@@ -62,7 +62,7 @@ class SmartyWrap {
 
   static function fetchSkin($templateName) {
     $skin = session_getSkin();
-    self::addCss($skin, 'flash', 'bootstrap');
+    self::addCss($skin, 'bootstrap');
     self::addJs('jquery', 'dex', 'bootstrap');
     if (Config::get('search.acEnable')) {
         self::addCss('jqueryui');
@@ -93,7 +93,7 @@ class SmartyWrap {
 
   static function displayAdminPage($templateName) {
     self::assign('templateName', $templateName);
-  	self::addCss('flex', 'flash');
+  	self::addCss('flex');
     self::addJs('dex', 'jquery');
     self::addSameNameFiles($templateName);
     print self::fetch($templateName);
@@ -162,7 +162,6 @@ class SmartyWrap {
           self::$cssFiles[19] = 'visualDict.css';
           break;
         case 'textComplete':        self::$cssFiles[20] = 'jquery.textcomplete.css'; break;
-        case 'flash':               self::$cssFiles[21] = 'flash.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());

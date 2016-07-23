@@ -34,6 +34,10 @@
   padding: 3px;
 }
 
+#valueBox {
+  max-height: 2em;
+}
+
 #tagTree .selected ul {
   background: #e3f2fa;
 }
@@ -41,9 +45,10 @@
 #menuBar {
   background-color: #90c9e8;
   display: none;
-  padding: 3px;
+  line-height: 2.5em;
 }
 
 #menuActions {
   float: right;
+  margin-right: 5px;
 }

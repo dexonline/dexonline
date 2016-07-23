@@ -30,6 +30,7 @@
       </header>
       <main class="row">
         <div class="col-md-12 main-content">
+          {include file="bits/flashMessages.tpl"}
           {block name="before-content"}{/block}
           {block name="content"}{/block}
           {block name="after-content"}{/block}

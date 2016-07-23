@@ -329,7 +329,9 @@ $(function() {
     targetEl.replaceWith('Adăugat la favorite');
   }
 
-  function removeBookmark() {
+  function removeBookmark(evt) {
+    evt.preventDefault();
+
     var url = $(this).attr('href');
     var ajaxLoader = createAjaxLoader();
 
@@ -347,23 +349,32 @@ $(function() {
   }
 
   function removeBookmarkSuccess(targetEl) {
-    var favDef = targetEl.closest('div.favoriteDef');
-    var favDefsDiv = favDef.parent();
+    var idx = targetEl.parent().data('idx');
+    var favDefsParent = targetEl.closest('.favoriteDefs');
 
-    // remove element from the DOM
-    favDef.remove();
+    // get all elements with matching data-dev
+    var favDef = $('[data-idx="' + idx + '"]');
 
-    // update favorites index
-    var favDefs = favDefsDiv.children('div');
-    if (favDefs.length > 0) {
-      for(var i=0; i < favDefs.length; i++) {
-        var index = i + 1;
-        var fav = $(favDefs[i]);
-        fav.children('b').text(index + '.');
+    // remove elements from the DOM
+    favDef.fadeOut(function(){
+      favDef.remove();
+
+      // update favorites index
+      // placed in the fadeout callback so the deleted items
+      // will be removed from the dom before the length assertion
+      var favDefs = favDefsParent.children('dt');
+      if (favDefs.length > 0) {
+        favDefs.each(function(idx, elem){
+          var fav = $(elem);
+          var dd = fav.next();
+          var new_idx = idx + 1;
+
+          fav.children('.count').text(new_idx + '.');
+        });
+      } else {
+        favDefsParent.text('Nu aveți niciun cuvânt favorit.');
       }
-    } else {
-      favDefsDiv.text('Nu aveți niciun cuvânt favorit.');
-    }
+    });
   }
 
   function bookmarkResponseError(targetEl, msg) {

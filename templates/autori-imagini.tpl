@@ -5,8 +5,9 @@
 {block name=content}
 
   <table class="table table-condensed table-bordered table-striped">
-    <caption class="table-caption text-center">
+    <caption class="table-caption">
       Autori ai imaginilor
+      <a class="btn btn-xs btn-success pull-right" href="editare-autor-imagini.php">adaugă un autor</a>
     </caption>
     <tr>
       <th>nume</th>
@@ -30,7 +31,5 @@
       </tr>
     {/foreach}
   </table>
-
-  <a class="btn btn-primary" href="editare-autor-imagini.php">adaugă un autor</a>
 
 {/block}

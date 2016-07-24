@@ -6,64 +6,71 @@
   <h2>Verificarea acurateței</h2>
 
   {if $projects}
-    <h3>Proiectele mele</h3>
-
-    <form action="acuratete-eval" method="get">
-      {include "bits/dropdown.tpl" name="projectId" data=$projects}
-
-      <button type="submit">deschide</button>
-
-      <button type="submit" id="deleteButton" name="deleteButton" value="1">
-        șterge
-      </button>
-    </form>
+    <div class="panel panel-default">
+      <div class="panel-heading">Proiectele mele</div>
+      <div class="panel-body">
+        <form action="acuratete-eval" method="get">
+          <div class="row">
+            <div class="col-sm-10">
+              {include "bits/dropdown.tpl" name="projectId" data=$projects}
+            </div>
+            <div class="col-sm-2">
+              <button class="btn btn-default" type="submit">deschide</button>
+              <button class="btn btn-danger" type="submit" id="deleteButton" name="deleteButton" value="1">șterge</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   {/if}
 
-  <h3>Creează un proiect nou</h3>
+  <div class="panel panel-default">
+    <div class="panel-heading">Creează un proiect nou</div>
+    <div class="panel-body">
 
-  <form method="post">
-    <table class="minimalistTable">
-      <tr>
-        <td>nume</td>
-        <td><input type="text" name="name" value="{$p->name}"></td>
-      </tr>
-      <tr>
-        <td>utilizator</td>
-        <td>
-          <select id="userId" name="userId">
-            <option value="{$p->userId}" selected></option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td>sursă (opțional)</td>
-        <td>
-          {include "bits/sourceDropDown.tpl" name="sourceId" src_selected=$p->sourceId}
-        </td>
-      </tr>
-      <tr>
-        <td>dată de început (opțional)</td>
-        <td><input type="text" name="startDate" value="{$p->startDate}" placeholder="AAAA-LL-ZZ"></td>
-      </tr>
-      <tr>
-        <td>dată de sfârșit (opțional)</td>
-        <td><input type="text" name="endDate" value="{$p->endDate}" placeholder="AAAA-LL-ZZ"></td>
-      </tr>
-      <tr>
-        <td>metodă</td>
-        <td>
-          {include "bits/dropdown.tpl" name="method" data=AccuracyProject::getMethodNames() selected=$p->method}
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <button type="submit" name="submitButton" value="1">
-            creează
-          </button>
-        </td>
-      </tr>
-    </table>
+      <form class="form-horizontal" method="post">
+        <div class="form-group">
+          <label for="f_name" class="col-sm-2 control-label">Nume</label>
+          <div class="col-sm-8">
+            <input type="text" id="f_name" class="form-control" name="name" value="{$p->name}" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="userId" class="col-sm-2 control-label">Utilizator</label>
+          <div class="col-sm-8">
+            <select id="userId" name="userId" class="form-control">
+              <option value="{$p->userId}" selected></option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="sourceDropDown" class="col-sm-2 control-label">sursă (opțional)</label>
+          <div class="col-sm-8">
+            {include "bits/sourceDropDown.tpl" name="sourceId" src_selected=$p->sourceId}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="f_startDate" class="col-sm-2 control-label">dată de început (opțional)</label>
+          <div class="col-sm-8">
+            <input type="text" id="f_startDate" name="startDate" value="{$p->startDate}" class="form-control" placeholder="AAAA-LL-ZZ" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="f_endDate" class="col-sm-2 control-label">dată de sfârșit (opțional)</label>
+          <div class="col-sm-8">
+            <input type="text" id="f_endDate" name="endDate" value="{$p->endDate}" placeholder="AAAA-LL-ZZ" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">metodă</label>
+          <div class="col-sm-8">
+            {include "bits/dropdown.tpl" name="method" data=AccuracyProject::getMethodNames() selected=$p->method}
+          </div>
+        </div>
 
-  </form>
+        <button class="btn btn-primary" type="submit" name="submitButton" value="1">creează</button>
+
+      </form>
+    </div>
+  </div>
 {/block}

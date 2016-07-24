@@ -36,15 +36,18 @@
           {block name="after-content"}{/block}
         </div>
       </main>
-      <footer class="row">
+      <footer class="row footer">
         <div class="col-md-12">
-          <ul class="list-inline">
-            <li>Copyright (C) 2004-{$currentYear} dexonline (https://dexonline.ro)</li>
-            <li class="licenceLink"><a href="{$wwwRoot}licenta">Licență</a></li>
-            {if $cfg.global.hostedBy}
-              <li class="hostingLink">{include file="hosting/`$cfg.global.hostedBy`.tpl"}</li>
-            {/if}
-          </ul>
+          {block name="footer"}{/block}
+          <div class="text-center">
+            <ul class="list-inline">
+              <li>Copyright (C) 2004-{$currentYear} dexonline (https://dexonline.ro)</li>
+              <li class="licenceLink"><a href="{$wwwRoot}licenta">Licență</a></li>
+              {if $cfg.global.hostedBy}
+                <li class="hostingLink">{include file="hosting/`$cfg.global.hostedBy`.tpl"}</li>
+              {/if}
+            </ul>
+          </div>
         </div>
       </footer>
     </div>

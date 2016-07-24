@@ -7,9 +7,6 @@
   {if !$suggestNoBanner && $skinVariables.banner}
     {include file="bits/banner.tpl" id="otherPages" width="728" height="90"}
   {/if}
-
-  {include file="bits/flashMessages.tpl"}
-
 {/block}
 
 {block name="after-content"}

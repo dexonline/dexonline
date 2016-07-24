@@ -4,45 +4,81 @@
 
 {block name=content}
   {if $showAddForm}
-    <h3>Adaugă un tip de model nou</h3>
+    <div class="panel panel-default">
+      <div class="panel-heading">Adaugă un tip de model nou</div>
+      <div class="panel-body">
 
-    Notă: prin această interfață nu se pot crea tipuri de model canonice, ci doar redirectări la alte tipuri.<br/><br/>
+        <p>
+          Notă: prin această interfață nu se pot crea tipuri de model canonice, ci doar redirectări la alte tipuri.
+        </p>
 
-    <form method="post" action="tipuri-modele.php">
-      <input type="hidden" name="id" value="0"/>
-      cod: <input type="text" name="code" value="{$addModelType->code}" size="10" maxlength="10"/><br/>
+        <form method="post" action="tipuri-modele.php">
+          <input type="hidden" name="id" value="0" />
+          <div class="form-group">
+            <label>Cod</label>
+            <input type="text" name="code" value="{$addModelType->code}" size="10" class="form-control" />
+          </div>
 
-      cod canonic:
-      <select name="canonical">
-        {foreach from=$canonicalModelTypes item=mt}
-          <option value="{$mt->code}">{$mt->code}</option>
-        {/foreach}
-      </select><br/>
+          <div class="form-group">
+            <label>Cod canonic</label>
+            <select class="form-control" name="canonical">
+              {foreach from=$canonicalModelTypes item=mt}
+                <option value="{$mt->code}">{$mt->code}</option>
+              {/foreach}
+            </select>
+          </div>
 
-      descriere: <input type="text" name="description" value="{$addModelType->description}" size="40"/><br/>
-      <input type="submit" name="submitAddButton" value="acceptă"/>
-      <a href="tipuri-modele">renunță</a>
-    </form>
+          <div class="form-group">
+            <label>Descriere</label>
+            <input type="text" name="description" value="{$addModelType->description}" class="form-control" />
+          </div>
+
+          <input class="btn btn-primary" type="submit" name="submitAddButton" value="acceptă" />
+          <a href="tipuri-modele">renunță</a>
+        </form>
+      </div>
+    </div>
   {/if}
 
   {if isset($editModelType)}
-    <h3>Editează tipul de model {$editModelType->code}</h3>
+    <div class="panel panel-default">
+      <div class="panel-heading">Editează tipul de model {$editModelType->code}</div>
+      <div class="panel-body">
 
-    <form method="post" action="tipuri-modele.php">
-      <input type="hidden" name="id" value="{$editModelType->id}"/>
-      cod: {$editModelType->code}<br/>
-      {if $editModelType->code != $editModelType->canonical}
-        cod canonic: {$editModelType->canonical}<br/>
-      {/if}
-      descriere: <input type="text" name="description" value="{$editModelType->description}" size="40"/><br/>
-      <input type="submit" name="submitEditButton" value="acceptă"/>
-      <a href="tipuri-modele">renunță</a>
-    </form>
+        <form method="post" action="tipuri-modele.php">
+          <input type="hidden" name="id" value="{$editModelType->id}" />
+
+          <div class="form-group">
+            <label>Cod</label>
+            <input type="text" value="{$editModelType->code}" disabled="disabled" class="form-control" />
+          </div>
+
+          {if $editModelType->code != $editModelType->canonical}
+            <div class="form-group">
+              <label>Cod canonic</label>
+              <input type="text" value="{$editModelType->canonical}" disabled="disabled" class="form-control" />
+            </div>
+            {/if}
+
+          <div class="form-group">
+            <label>descriere</label>
+            <input type="text" name="description" value="{$editModelType->description}" class="form-control" />
+          </div>
+
+          <input type="submit" name="submitEditButton" class="btn btn-primary" value="acceptă" />
+          <a class="btn btn-link" href="tipuri-modele">renunță</a>
+        </form>
+      </div>
+    </div>
   {/if}
 
-  <h3>Tipuri de modele</h3>
-
-  <table>
+  <table class="table-condensed table-bordered table-striped col-sm-12">
+    <caption class="table-caption">
+      Tipuri de modele
+      {if !$showAddForm}
+        <a class="btn btn-xs btn-success pull-right" href="?add=1">adaugă un tip de model</a>
+      {/if}
+    </caption>
     <tr>
       <th>cod</th>
       <th>cod canonic</th>
@@ -69,7 +105,4 @@
     {/foreach}
   </table>
 
-  {if !$showAddForm}
-    <a href="?add=1">adaugă un tip de model</a>
-  {/if}
 {/block}

@@ -152,3 +152,15 @@
 .table-striped-column-even > tbody > tr td:nth-of-type(even) {
   background-color: #f9f9f9;
 }
+
+.sourceShortName {
+  color: #444;
+}
+
+.sourceShortName {
+  background: #DDD;
+  border-radius: 2px;
+  font-size: 80%;
+  margin-left: 10px;
+  padding: 3px 5px;
+}

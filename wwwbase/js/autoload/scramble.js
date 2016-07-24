@@ -1,15 +1,15 @@
 $(document).ready(function() {
-   
+
   function GetWordAsync(level)
   {
-    var result;  
+    var result;
      $.ajax({
         type: "POST",
-        url: wwwRoot + "ajax/scramble.php",       
+        url: wwwRoot + "ajax/scramble.php",
         data: 'difficulty=' + level + "&diacritic=" + check,
         datatype: "html",
       })
-      .done(function(response) {      
+      .done(function(response) {
         result = $.parseJSON(response);
         console.log(result);
         lettersPressed = [];
@@ -23,29 +23,29 @@ $(document).ready(function() {
         $("#maxWords").html(result.everyWord.length);
         drawLetters(result.randomWord);
         //Fire keyboard event checker
-      
+
         //Start Timer
         startTimer(difficulty);
         //Fire Enter key checker
         checkWord();
 
-        initLayerArrays();  
-        $(".wordArea").empty();
-        hide = 0; 
+        initLayerArrays();
+        $(".wordArea").hide().find('tr').remove();
+        hide = 0;
       })
       .fail(function() {
         console.log("Nu merge");
-      });   
+      });
   }
 
-  function  reposArray(array, pos1, pos2) 
+  function  reposArray(array, pos1, pos2)
   {
     var i, tmp;
     //cast inputs as integers
     pos1 = parseInt(pos1, 10);
-    pos2 = parseInt(pos2, 10);    
+    pos2 = parseInt(pos2, 10);
     // if positions are different inside array
-    if (pos1 !== pos2 && 0 <= pos1 && pos1 <= array.length && 0 <= pos2 && pos2 <= array.length) 
+    if (pos1 !== pos2 && 0 <= pos1 && pos1 <= array.length && 0 <= pos2 && pos2 <= array.length)
       {
       //save element from pos1
       tmp = array[pos1];
@@ -65,7 +65,7 @@ $(document).ready(function() {
         }
       }
       //put element from position 1 to destination
-      array[pos2] = tmp;          
+      array[pos2] = tmp;
     }
      return array;
   }
@@ -78,34 +78,34 @@ $(document).ready(function() {
   var totalWords = new Array(); // the possible words that can be made from the randomWord.
   var difficulty; // initial selected difficulty
   var layers = []; // Array of currently drawn layers.
-  var upLayers = []; // Letters in the top 
+  var upLayers = []; // Letters in the top
   var downLayers = []; // Letters in the bottom
   var threshold = 120; // y axis limit for moving letters
   var layerSpeed = 200; //Global animation speed
 
   function selectDifficulty() {
 
-    $(".difficultyButton").on("click", function() {
+    $("#scramble").find('button').on("click", function() {
       // this e pentru a prelua valoarea butonului tocmai apasat, si nu a unuia oarecare
       difficulty = $(this).attr("value");
       $(this).blur();
-      check = $("#toggleD").prop('checked'); 
+      check = $("#toggleD").prop('checked');
       GetWordAsync(difficulty);
-           
+
     });
   }
 
   function initialPosition()
   {
     var posX = 0;
-    switch(layers.length / 2) 
+    switch(layers.length / 2)
     {
       case 4: posX = 140; break;
       case 5: posX = 80;  break;
       case 6: posX = 60;  break;
       case 7: posX = 45;  break;
       default: posX = 140;
-    }  
+    }
     return posX;
   }
 
@@ -121,7 +121,7 @@ $(document).ready(function() {
     {
       upLayers.push(layers[i]);
       downLayers.push(0);
-    }    
+    }
   }
 
   hide = 0;
@@ -132,11 +132,14 @@ $(document).ready(function() {
 
       var ul = 0;
       var initialTR = "wordList";
-      var currentTR = initialTR;    
+      var currentTR = initialTR;
       var start = 0;
       var stop;
 
       drawEnd(); //Draw Game Over
+
+      var wordArea = $('.wordArea');
+      wordArea.show();
 
       if(!hide)
       {
@@ -148,7 +151,7 @@ $(document).ready(function() {
             var td = "td" + i;
             var ulist = "ulist" + i;
             $('<td></td>', { "class" : td }).appendTo("." + currentTR);
-            $('<ul></ul>', { "class" : ulist}).appendTo("." + td);
+            $('<ul></ul>', { "class" : ulist + ' list-unstyled'}).appendTo("." + td);
             for(var k = start; k < stop; k++)
             {
               if(typeof totalWords[k] === "undefined")
@@ -157,8 +160,8 @@ $(document).ready(function() {
               }
               else
               {
-                var list = "<li>" + totalWords[k] + "</li>";                          
-                $("." + ulist).append(list);                
+                var list = "<li>" + totalWords[k] + "</li>";
+                $("." + ulist).append(list);
               }
             }
             ul++;
@@ -167,21 +170,21 @@ $(document).ready(function() {
           if($("." + currentTR).children().length % 9 == 0)
           {
             currentTR = initialTR + i;
-            $("<tr></tr>", {"class" : currentTR}).appendTo(".wordArea");
-          }        
+            $("<tr></tr>", {"class" : currentTR}).appendTo(wordArea);
+          }
         }
         hide = 1;
       }
       else
       {
-        $(".wordArea").empty();
+        $(".wordArea").hide().find('tr').remove();
         hide = 0;
       }
     });
   }
 
   function inputListen() {
-    $(document).keyup(function(letter) {      
+    $(document).keyup(function(letter) {
       var key;
       key = letter.keyCode;
       var keyString;
@@ -203,14 +206,14 @@ $(document).ready(function() {
       }
 
       var posX = initialPosition();
-      
+
       var direction = true;
       // coboara o litera
-      for(var i = 0; i < upLayers.length; i++) 
+      for(var i = 0; i < upLayers.length; i++)
       {
-        if(upLayers[i] != 0 && (keyString == upLayers[i].data.letter || keyString == upLayers[i].data.selected)) 
+        if(upLayers[i] != 0 && (keyString == upLayers[i].data.letter || keyString == upLayers[i].data.selected))
         {
-          for(var j = 0; j < downLayers.length; j++) 
+          for(var j = 0; j < downLayers.length; j++)
           {
             if(downLayers[j] == 0)
             {
@@ -221,8 +224,8 @@ $(document).ready(function() {
               $("canvas").animateLayerGroup(downLayers[j].groups[0], {
                 x: posX + (j * 65),
                 y: 200,
-              }, layerSpeed);       
-              currentWord();             
+              }, layerSpeed);
+              currentWord();
               break;
             }
           }
@@ -233,9 +236,9 @@ $(document).ready(function() {
       if(direction)
       {
         //urca o litera
-        for(var j = 0; j < downLayers.length; j++) 
+        for(var j = 0; j < downLayers.length; j++)
         {
-          if(downLayers[j] != 0 && (keyString == downLayers[j].data.letter || keyString == downLayers[j].data.selected)) 
+          if(downLayers[j] != 0 && (keyString == downLayers[j].data.letter || keyString == downLayers[j].data.selected))
           {
             for(var k = 0; k < upLayers.length; k++)
             {
@@ -248,15 +251,15 @@ $(document).ready(function() {
                 $("canvas").animateLayerGroup(upLayers[k].groups[0], {
                   x: posX + (k * 65),
                   y: 50,
-                }, layerSpeed);              
-                currentWord();                                      
+                }, layerSpeed);
+                currentWord();
                 break;
               }
             }
           }
         }
-      }   
-    }); 
+      }
+    });
   }
 
   function checkWord() {
@@ -276,7 +279,7 @@ $(document).ready(function() {
           }
         }
         if (found) {
-          scoreSystem(lettersPressed, lettersPressed.length);        
+          scoreSystem(lettersPressed, lettersPressed.length);
         }
         $("#score").html(score);
         cnt = 0;
@@ -292,7 +295,7 @@ $(document).ready(function() {
       if(downLayers[k] != 0)
       {
         lettersPressed += downLayers[k].data.letter.toLowerCase();
-      }       
+      }
     }
     console.log(lettersPressed);
   }
@@ -304,19 +307,19 @@ $(document).ready(function() {
     var wPresent = 0; // signals if the word has already been found and scored
     for (var i = -1; i < wordsFound.length; i++) {
       if (wordsFound[i] == newWord) {
-        wPresent = 1;        
-      } 
+        wPresent = 1;
+      }
     }
     posX = initialPosition();
 
     if (wPresent == 0) {
       wordsFound[wordsFound.length] = newWord;
       hasFound++;
-      for(var i = 0; i < downLayers.length; i++) 
-      {        
+      for(var i = 0; i < downLayers.length; i++)
+      {
         for(var j = 0; j < upLayers.length; j++)
         {
-          if(upLayers[j] == 0) 
+          if(upLayers[j] == 0)
           {
             upLayers[j] = downLayers[i];
             downLayers[i] = 0;
@@ -332,18 +335,18 @@ $(document).ready(function() {
       }
     lettersPressed = [];
     }
-    
+
     console.log(wordsFound.length, wPresent, wordsFound);
     if(wPresent == 0) {
       if(wordLength < 3) {
         score += 5;
-      } 
+      }
       else if(wordLength < 4) {
         score += 10;
-      } 
+      }
       else if(wordLength < 5) {
         score += 15;
-      } 
+      }
       else if (wordLength <= 6) {
         score += 20;
       }
@@ -351,7 +354,7 @@ $(document).ready(function() {
     return score;
   }
 
-  
+
   var counter;
   function startTimer(timeMode) {
 
@@ -380,21 +383,21 @@ $(document).ready(function() {
             $("#result").html(autoWord.randomWord);
             drawLetters(autoWord.randomWord);
             initLayerArrays();
-            $(".wordArea").empty(); // Empty displayed words
-            hide = 0; 
+            $(".wordArea").hide().find('tr').remove(); // Empty displayed words
+            hide = 0;
             //console.log(autoWord.randomWord);
             cnt = 0;
           }
           else
           {
            drawEnd();
-          }          
+          }
           return;
         }
-      $("#timer").html(count + " secs");
+      $("#timer").html(count + " secunde");
       }
   }
- 
+
     //Draw end screen message
     function drawEnd()
     {
@@ -403,7 +406,7 @@ $(document).ready(function() {
       $("canvas").removeLayers();
       clearInterval(counter);
 
-      
+
       $("canvas").drawText({
         layer: true,
         draggable: true,
@@ -419,7 +422,7 @@ $(document).ready(function() {
         strokeWidth: 2,
         x: 800, y: 120,
         fontSize: 60,
-        fontFamily: "Verdana, sans-serif",       
+        fontFamily: "Verdana, sans-serif",
         text: "Game Over",
 
       })
@@ -439,13 +442,13 @@ $(document).ready(function() {
         var d_height   = 75;
         var d_fontsize = 60;
 
-      
+
         for (var i = 0; i < array.length; i++) {
 
           var posX =  0;// 110 + ( i * 65 );
 
           switch(array.length){
-          
+
             case 4: posX = 140 + (i * 65); break;
             case 5: posX = 80 + (i * 65);  break;
             case 6: posX = 60 + (i * 65);  break;
@@ -484,11 +487,11 @@ $(document).ready(function() {
             console.log("Rect X:" + layer.x + " " + "Y:" + layer.y);
             if(layer.x < 35 || layer.x > 465 || layer.y < 35 || layer.y > 265)
             {
-              posX = initialPosition();          
+              posX = initialPosition();
               for(var i = 0; i < upLayers.length; i++)
               {
                 if(upLayers[i] == layer)
-                {              
+                {
                   $("canvas").animateLayerGroup(layer.groups[0],{
                     x: posX + (i * 65),
                     y: 50,
@@ -510,33 +513,33 @@ $(document).ready(function() {
                   //$("canvas").stopLayerGroup(layer.groups[0]);
                   break;
                 }
-              }                          
-            }                    
-          },    
-          dragstop: function(layer) {                           
+              }
+            }
+          },
+          dragstop: function(layer) {
             var move = false;
-            //console.log("rect layer dragged");           
+            //console.log("rect layer dragged");
             //console.log("rect.y= " + layer.y);
             posX = initialPosition();
             //Switch position area
             for(var i = 0 ; i < downLayers.length; i++)
-            {             
-              //if((layer.x > (l + (i * 65)) || layer.x < (r + (i * 65)) && (layer.y < 230 || layer.y > 165)))            
+            {
+              //if((layer.x > (l + (i * 65)) || layer.x < (r + (i * 65)) && (layer.y < 230 || layer.y > 165)))
               if(downLayers[i] != 0 && layer== downLayers[i])
               {
                 for(var j = 0; j < downLayers.length; j++)
                 {
                   if(layer.x < downLayers[j].x && (layer.y < 235 && layer.y > 175))
-                  { 
+                  {
 
                     if (i < j && (j - 1) != 0)
                     {
-                      downLayers = reposArray(downLayers, i, j - 1);                                                  
+                      downLayers = reposArray(downLayers, i, j - 1);
                     }
                     else
                     {
                       downLayers = reposArray(downLayers, i , j);
-                    } 
+                    }
 
                     if(typeof downLayers === "undefined") // Try to catch array corruption
                     {
@@ -545,7 +548,7 @@ $(document).ready(function() {
                       {
                         if(layers[i].y > threshold)
                         {
-                          downLayers[i] = layers[i];                       
+                          downLayers[i] = layers[i];
                         }
                       }
                       for(var j = 0; j < downLayers.length; j++)
@@ -568,11 +571,11 @@ $(document).ready(function() {
                       }
                     }
                     currentWord();
-                    break;                    
+                    break;
                   }
                   if(layer.x > downLayers[j].x && (layer.y < 235 && layer.y > 175) && j == downLayers.length - 1)
                   {
-                    downLayers = reposArray(downLayers, i , j);                
+                    downLayers = reposArray(downLayers, i , j);
                     for(var l = 0; l < downLayers.length; l++)
                     {
                       if(downLayers[l] != 0)
@@ -581,9 +584,9 @@ $(document).ready(function() {
                           x: posX + (l * 65),
                          y: 200,
                         }, layerSpeed);
-                      }                      
-                    }  
-                   currentWord();               
+                      }
+                    }
+                   currentWord();
                   }
                 }
                 break;
@@ -690,10 +693,10 @@ $(document).ready(function() {
           strokeWidth: 1,
           x: 500, y: 50,
           fontSize: d_fontsize,
-          fontFamily: "Verdana, sans-serif",       
+          fontFamily: "Verdana, sans-serif",
           text: array[i].toUpperCase(),
           drag: function(layer) {
-            //console.log("Position X Y:" + layer.x + " " + layer.y);                  
+            //console.log("Position X Y:" + layer.x + " " + layer.y);
           },
           dragcancel: function(layer) {
             //console.log("Text X:" + layer.x + " " + "Y:" + layer.y);
@@ -703,7 +706,7 @@ $(document).ready(function() {
               for(var i = 0; i < upLayers.length; i++)
               {
                 if(upLayers[i] != 0 && upLayers[i].groups[0] == layer.groups[0])
-                {              
+                {
                   $("canvas").animateLayerGroup(layer.groups[0],{
                     x: posX + (i * 65),
                     y: 50,
@@ -723,31 +726,31 @@ $(document).ready(function() {
                   //$("canvas").stopLayerGroup(layer.groups[0]);
                   break;
                 }
-              }            
-            }     
+              }
+            }
           },
-          dragstop: function(layer) {           
+          dragstop: function(layer) {
             var move = false;
             //console.log("letter layer dropped at X: " + layer.x + " Y:" + layer.y);
-            //console.log("rect.y= " + layer.y);                    
-            posX = initialPosition();           
+            //console.log("rect.y= " + layer.y);
+            posX = initialPosition();
             //Switch position area
             for(var i = 0 ; i < downLayers.length; i++)
-            {                                   
+            {
               if(downLayers[i] != 0 && layer.groups[0] == downLayers[i].groups[0])
               {
                 for(var j = 0; j < downLayers.length; j++)
                 {
                   if(layer.x < downLayers[j].x && (layer.y < 235 && layer.y > 175))
-                  { 
+                  {
                     if (i < j && (j - 1) != 0)
                     {
-                      downLayers = reposArray(downLayers, i, j - 1);                                                  
+                      downLayers = reposArray(downLayers, i, j - 1);
                     }
                     else
                     {
                       downLayers = reposArray(downLayers, i , j);
-                    } 
+                    }
                     if(typeof downLayers === "undefined") // Try to catch array corruption
                     {
                       downLayers = [];
@@ -755,7 +758,7 @@ $(document).ready(function() {
                       {
                         if(layers[i].y > threshold)
                         {
-                          downLayers[i] = layers[i];                       
+                          downLayers[i] = layers[i];
                         }
                       }
                       for(var j = 0; j < downLayers.length; j++)
@@ -777,11 +780,11 @@ $(document).ready(function() {
                       }
                     }
                     currentWord();
-                    break;                    
+                    break;
                   }
                   if(layer.x > downLayers[j].x && (layer.y < 235 && layer.y > 175) && j == downLayers.length - 1)
                   {
-                    downLayers = reposArray(downLayers, i , j);                
+                    downLayers = reposArray(downLayers, i , j);
                     for(var l = 0; l < downLayers.length; l++)
                     {
                       if(downLayers[l] != 0)
@@ -790,9 +793,9 @@ $(document).ready(function() {
                           x: posX + (l * 65),
                          y: 200,
                         }, layerSpeed);
-                      }                      
-                    }  
-                   currentWord();               
+                      }
+                    }
+                   currentWord();
                   }
                 }
                 break;
@@ -835,7 +838,7 @@ $(document).ready(function() {
                             upLayers[i] = 0;
                             break;
                           }
-                        }                    
+                        }
                         $("canvas").animateLayerGroup(layer.groups[0],{
                           x: posX + (j * 65),
                           y: 200,
@@ -884,29 +887,29 @@ $(document).ready(function() {
                             upLayers[j] = layers[k];
                             downLayers[i] = 0;
                             break;
-                          }                        
-                        } 
+                          }
+                        }
                         $("canvas").animateLayerGroup(layer.groups[0],{
                           x: posX + (j * 65),
                           y: 50,
                         }, layerSpeed);
                         currentWord();
                         break;
-                      }                      
+                      }
                     }
                     break;
-                  }                
+                  }
                 }
               }
-            }                     
+            }
           },
         })
-        .animateLayerGroup("boggle" + i, {     
+        .animateLayerGroup("boggle" + i, {
           x: posX, y: 50
         }, layerSpeed);
       }
-    }  
+    }
   selectDifficulty();
-  inputListen();  
+  inputListen();
   ShowWordsAndEnd();
 });

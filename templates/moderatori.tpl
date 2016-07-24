@@ -4,7 +4,7 @@
 
 {block name=content}
   <form method="post" action="moderatori">
-    <table class="sources">
+    <table class="table table-condensed table-striped table-bordered">
       <tr>
         <th>Nume utilizator</th>
         <th>Ultima activitate</th>
@@ -37,8 +37,7 @@
       {/foreach}
       <tr>
         <td>
-          Adaugă un moderator nou:<br/>
-	        <input type="text" name="newNick" value=""/>
+	  <input type="text" name="newNick" value="" class="form-control" placeholder="Moderator nou" />
         </td>
         <td></td>
         {section name="bit" loop=$smarty.const.NUM_PRIVILEGES}
@@ -47,6 +46,6 @@
         {/section}
       </tr>
     </table>
-    <input type="submit" name="submitButton" value="Salvează"/>
+    <input type="submit" class="btn btn-primary" name="submitButton" value="Salvează" />
   </form>
 {/block}

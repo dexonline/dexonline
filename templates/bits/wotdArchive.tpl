@@ -1,5 +1,5 @@
 <table class="table table-bordered table-striped wotdArchiveTable">
-  <caption class="text-center">
+  <caption class="text-center table-caption">
     <div id="wotdArchiveHeader">
       {if $showPrev==1}
         <span onclick="loadAjaxContent('{$wwwRoot}{$prevMonth}', '#wotdArchive');" id="navLeft"

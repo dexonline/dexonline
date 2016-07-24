@@ -9,8 +9,10 @@
   {/if}
 {/block}
 
-{block name="after-content"}
+{block name="footer"}
   {if $skinVariables.fbLarge}
+    <hr />
     {include file="bits/facebook.tpl"}
+    <hr />
   {/if}
 {/block}

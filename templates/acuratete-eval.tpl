@@ -5,113 +5,106 @@
 {block name=content}
   <h2>Proiect de verificare a acurateței - {$project->name}</h2>
 
-  <h3>Definiția curentă</h3>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Definiția curentă
+      <a class="btn btn-xs btn-default pull-right" href="acuratete">înapoi la lista de proiecte</a>
+    </div>
+    <div class="panel-body">
 
-  <div class="defActions">
-    <form method="post">
-      {if $def}
-        <input type="hidden" name="defId" value="{$def->id}">
-      {/if}
-      <input type="hidden" name="projectId" value="{$project->id}">
-
-      <button id="butDown" type="button" class="sign">&ndash;</button>
-      <input id="errors" type="number" name="errors" value="{$errors}" min="0" max="999">
-      <button id="butUp" type="button" class="sign">+</button>
-
-      <button class="spacer" type="submit" name="submitButton" value="1">
-        Salvează și preia următoarea
-      </button>
-
-      <div class="links">
+      <form class="form-inline" method="post">
         {if $def}
-          <a href="admin/definitionEdit.php?definitionId={$def->id}">editează definiția</a> |
+          <input type="hidden" name="defId" value="{$def->id}">
         {/if}
-        <a href="acuratete">înapoi la lista de proiecte</a>
+        <input type="hidden" name="projectId" value="{$project->id}">
+
+        <button id="butDown" type="button" class="btn btn-default">&ndash;</button>
+        <input class="form-control" id="errors" type="number" name="errors" value="{$errors}" min="0" max="999">
+        <button id="butUp" type="button" class="btn btn-default">+</button>
+
+        <button class="btn btn-success" type="submit" name="submitButton" value="1">
+          Salvează și preia următoarea
+        </button>
+
+        {if $def}
+          <a class="btn btn-warning" href="admin/definitionEdit.php?definitionId={$def->id}">editează definiția</a>
+        {/if}
+      </form>
+
+      <br />
+
+      <div class="well">
+        {if $def}
+          <div class="defComment">
+            {$def->internalRep}
+          </div>
+
+          <div class="defComment">
+            {$def->htmlRep}
+          </div>
+        {else}
+          Nu mai există definiții de evaluat. Dumneavoastră sau alt evaluator le-ați evaluat pe toate.
+        {/if}
       </div>
-    </form>
+
+    </div>
   </div>
 
-  <div class="currentDef">
-    {if $def}
-      <div class="defComment">
-        {$def->internalRep}
-      </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Raport de acuratețe</div>
+    <div class="panel-body">
+      <dl class="dl-horizontal">
+        <dt>total definiții</dt>
+        <dd>{$accuracyData.defCount}</dd>
+        <dt>definiții evaluate</dt>
+        <dd>{$accuracyData.evalCount}</dd>
+        <dt>caractere evaluate</dt>
+        <dd>{$accuracyData.evalLength}</dd>
+        <dt>erori</dt>
+        <dd>{$accuracyData.errors}</dd>
+        <dt>acuratețe</dt>
+        <dd>
+          {$accuracyData.accuracy|string_format:"%.3f"}%
+          ({$accuracyData.errorRate|string_format:"%.2f"} erori / 1.000 caractere)
+        </dd>
+      </dl>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Detalii despre proiect</div>
+    <div class="panel-body">
 
-      <div class="defComment">
-        {$def->htmlRep}
-      </div>
-    {else}
-      Nu mai există definiții de evaluat. Dumneavoastră sau alt evaluator le-ați evaluat pe toate.
-    {/if}
+      <dl class="dl-horizontal">
+        <dt>utilizator</dt>
+        <dd>{$project->getUser()->nick}</dd>
+        {if $project->sourceId}
+          <dt>sursă</dt>
+          <dd>{$project->getSource()->shortName}</dd>
+        {/if}
+        {if $project->hasStartDate()}
+          <dt>dată de început</dt>
+          <dd>{$project->startDate}</dd>
+        {/if}
+        {if $project->hasEndDate()}
+          <dt>dată de sfârșit</dt>
+          <dd>{$project->endDate}</dd>
+        {/if}
+        <dt>metodă</dt>
+        <dd>{$project->getMethodName()}</dd>
+      </dl>
+
+    </div>
   </div>
 
-  <h3>Raport de acuratețe</h3>
+  <div class="panel panel-default">
+    <div class="panel-heading">Definiții evaluate</div>
+    <div class="panel-body">
+      <p>Cel mai recent evaluate definiții apar primele. Puteți da clic pentru a le reevalua.</p>
 
-  <table class="minimalistTable">
-    <tr>
-      <td>total definiții</td>
-      <td>{$accuracyData.defCount}</td>
-    </tr>
-    <tr>
-      <td>definiții evaluate</td>
-      <td>{$accuracyData.evalCount}</td>
-    </tr>
-    <tr>
-      <td>caractere evaluate</td>
-      <td>{$accuracyData.evalLength}</td>
-    </tr>
-    <tr>
-      <td>erori</td>
-      <td>{$accuracyData.errors}</td>
-    </tr>
-    <tr>
-      <td>acuratețe</td>
-      <td>
-        {$accuracyData.accuracy|string_format:"%.3f"}%
-        ({$accuracyData.errorRate|string_format:"%.2f"} erori / 1.000 caractere)
-      </td>
-    </tr>
-  </table>
-
-  <h3>Detalii despre proiect</h3>
-
-  <table class="minimalistTable">
-    <tr>
-      <td>utilizator</td>
-      <td>{$project->getUser()->nick}</td>
-    </tr>
-    {if $project->sourceId}
-      <tr>
-        <td>sursă</td>
-        <td>{$project->getSource()->shortName}</td>
-      </tr>
-    {/if}
-    {if $project->hasStartDate()}
-      <tr>
-        <td>dată de început</td>
-        <td>{$project->startDate}</td>
-      </tr>
-    {/if}
-    {if $project->hasEndDate()}
-      <tr>
-        <td>dată de sfârșit</td>
-        <td>{$project->endDate}</td>
-      </tr>
-    {/if}
-    <tr>
-      <td>metodă</td>
-      <td>{$project->getMethodName()}</td>
-    </tr>
-  </table>
-
-  <h3>Definiții evaluate</h3>
-
-  <div>
-    Cel mai recent evaluate definiții apar primele. Puteți da clic pentru a le reevalua.
+      {foreach $definitionData as $rec}
+        <a href="?projectId={$project->id}&defId={$rec.id}">{$rec.lexicon}</a>
+      {/foreach}
+    </div>
   </div>
-
-  {foreach $definitionData as $rec}
-    <a href="?projectId={$project->id}&defId={$rec.id}">{$rec.lexicon}</a>
-  {/foreach}
 
 {/block}

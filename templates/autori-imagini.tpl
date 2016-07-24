@@ -3,9 +3,11 @@
 {block name=title}Autori ai imaginilor{/block}
 
 {block name=content}
-  <p class="paragraphTitle">Autori ai imaginilor</p>
-  
-  <table class="toolsTable minimalistTable">
+
+  <table class="table table-condensed table-bordered table-striped">
+    <caption class="table-caption text-center">
+      Autori ai imaginilor
+    </caption>
     <tr>
       <th>nume</th>
       <th>e-mail</th>
@@ -28,5 +30,7 @@
       </tr>
     {/foreach}
   </table>
-  <a href="editare-autor-imagini.php">adaugă un autor</a>
+
+  <a class="btn btn-primary" href="editare-autor-imagini.php">adaugă un autor</a>
+
 {/block}

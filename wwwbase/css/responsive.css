@@ -101,7 +101,7 @@
     font-weight: bold;
 }
 
-.wotdArchiveTable caption {
+.table-caption {
     padding: 10px;
     font-weight: bold;
     background-color: #f9f9f9;
@@ -114,7 +114,7 @@
     border-top-right-radius: 5px;
 }
 
-.wotdArchiveTable .glyphicon {
+.table-caption .glyphicon {
     cursor: pointer;
 }
 

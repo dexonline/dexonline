@@ -19,29 +19,25 @@
 
   <form method="post">
     <input type="hidden" name="id" value="{$artist->id}"/>
-    <table class="minimalistTable">
-      <tr>
-        <td>nume</td>
-        <td><input type="text" name="name" value="{$artist->name}" size="50"/></td>
-      </tr>
-      <tr>
-        <td>e-mail</td>
-        <td><input type="text" name="email" value="{$artist->email}" size="50"/></td>
-      </tr>
-      <tr>
-        <td>cod</td>
-        <td><input type="text" name="label" value="{$artist->label}" size="30"/></td>
-      </tr>
-      <tr>
-        <td>credite</td>
-        <td><input type="text" name="credits" value="{$artist->credits|escape}" size="80"/></td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <input type="submit" name="submitButton" value="salvează"/>
-          <a href="autori-imagini.php">înapoi la lista de autori</a>
-        </td>
-      </tr>
-    </table>
+
+    <div class="form-group">
+      <label>Nume</label>
+      <input type="text" name="name" value="{$artist->name}" size="50" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="text" name="email" value="{$artist->email}" size="50" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label>cod</label>
+      <input type="text" name="label" value="{$artist->label}" size="30" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label>credite</label>
+      <input type="text" name="credits" value="{$artist->credits|escape}" size="80" class="form-control" />
+    </div>
+    <input class="btn btn-primary" type="submit" name="submitButton" value="salvează" />
+    <a class="btn btn-link" href="autori-imagini.php">înapoi la lista de autori</a>
+
   </form>
 {/block}

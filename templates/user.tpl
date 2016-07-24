@@ -4,73 +4,96 @@
 
 {block name=content}
   <div class="userProfileHeader">
-    {include file="bits/avatar.tpl" user=$user}
     <h3>
-      Utilizator: {$user->nick|escape}
-      {if $sUser && $user->id == $sUser->id}
-        <a class="profileEditLink" href="{$wwwRoot}preferinte">editează profilul</a>
-      {/if}
     </h3>
   </div>
 
-  {if $user->detailsVisible}
-    <fieldset class="userProfileSection">
-      <legend>Date personale</legend>
-      {if $user->identity}
-        <label class="userFields">OpenID</label>
-        <a href="{$user->identity}">{$user->identity}</a>
-        <br/>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      {include file="bits/avatar.tpl" user=$user}
+      <span>{$user->nick|escape}</span>
+      {if $sUser && $user->id == $sUser->id}
+        <a class="btn btn-default btn-sm pull-right" href="{$wwwRoot}preferinte">editează profilul</a>
       {/if}
 
-      {if $user->detailsVisible && $user->name}
-        <label class="userFields">Nume</label>
-        {$user->name|escape}
-        <br/>
+    </div>
+    {if $user->detailsVisible}
+      <div class="panel-body">
+        <dl class="dl-horizontal">
+          {if $user->identity}
+            <dt>OpenID</dt>
+            <dd><a href="{$user->identity}">{$user->identity}</a></dd>
+          {/if}
+
+          {if $user->detailsVisible && $user->name}
+            <dt>Nume</dt>
+            <dd>{$user->name|escape}</dd>
+          {/if}
+
+          {if $user->detailsVisible && $user->email}
+            <dt>Adresă de e-mail</dt>
+            <dd>{$user->email|escape}</dd>
+            <br/>
+          {/if}
+        </dl>
+      </div>
+    {/if}
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Contribuții</div>
+    <div class="panel-body">
+      <dl class="dl-horizontal">
+
+        <dt>Definiții trimise</dt>
+        <dd>
+          {$userData.num_words|default:0}
+          {if isset($userData.num_words)}(locul {$userData.rank_words}){/if}
+        </dd>
+
+        <dt>Lungime totală</dt>
+        <dd>
+          {$userData.num_chars|default:0} caractere
+          {if isset($userData.num_chars)}(locul {$userData.rank_chars}){/if}
+        </dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Medalii
+      {if $sUser && $sUser->moderator & $smarty.const.PRIV_ADMIN}
+        <button class="btn btn-xs btn-default pull-right" data-toggle="collapse" data-target="#medalEditDiv">Editează</button>
+      {/if}
+    </div>
+    <div class="panel-body">
+      {if $sUser && $sUser->moderator & $smarty.const.PRIV_ADMIN}
+        <form id="medalEditDiv" method="post" class="collapse">
+          <div class="medalCheckboxes">
+            <input type="hidden" name="userId" value="{$user->id}"/>
+            {foreach from=$allMedals key=mask item=params}
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="medalsGranted[]" id="cb_{$mask}" value="{$mask}" {if array_key_exists($mask, $medals)}checked="checked"{/if}/>
+                  {$params.name} {$params.description}
+                </label>
+              </div>
+            {/foreach}
+          </div>
+          <input class="btn btn-default" type="submit" name="medalSaveButton" value="Salvează"/>
+        </form>
       {/if}
 
-      {if $user->detailsVisible && $user->email}
-        <label class="userFields">Adresă de e-mail</label>
-        {$user->email|escape}
-        <br/>
-      {/if}
-    </fieldset>
-  {/if}
-
-  <fieldset class="userProfileSection">
-    <legend>Contribuții</legend>
-    <span class="userFields">Definiții trimise</span>
-    {$userData.num_words|default:0}
-    {if isset($userData.num_words)}(locul {$userData.rank_words}){/if}
-    <br/>
-
-    <span class="userFields">Lungime totală</span>
-    {$userData.num_chars|default:0} caractere
-    {if isset($userData.num_chars)}(locul {$userData.rank_chars}){/if}
-    <br/>
-  </fieldset>
-
-  <fieldset class="userProfileSection">
-    <legend>Medalii</legend>
-    {if $sUser && $sUser->moderator & $smarty.const.PRIV_ADMIN}
-      <span class="sectionEdit"><a onclick="$('#medalEditDiv').slideToggle(); return false;" href="#">editează</a></span>
-      <form id="medalEditDiv" method="post">
-        <div class="medalCheckboxes">
-          <input type="hidden" name="userId" value="{$user->id}"/>
-          {foreach from=$allMedals key=mask item=params}
-            <input type="checkbox" name="medalsGranted[]" id="cb_{$mask}" value="{$mask}" {if array_key_exists($mask, $medals)}checked="checked"{/if}/>
-            <label for="cb_{$mask}">{$params.name} {$params.description}</label><br/>
+      {if $medals}
+        <div class="text-center">
+          {foreach from=$medals item=params}
+            <img src="{$imgRoot}/medals/{$params.pic}" alt="{$params.name}" title="{$params.name} {$params.description}"/>
           {/foreach}
         </div>
-        <input type="submit" name="medalSaveButton" value="Salvează"/>
-      </form>
-    {/if}
-
-    {if $medals}
-      {foreach from=$medals item=params}
-        <img src="{$imgRoot}/medals/{$params.pic}" alt="{$params.name}" title="{$params.name} {$params.description}"/>
-      {/foreach}
-    {else}
-      <span class="userNoMedals">Utilizatorul {$user->nick|escape} nu are medalii.</span>
-    {/if}
-  </fieldset>
+      {else}
+        <span class="userNoMedals">Utilizatorul {$user->nick|escape} nu are medalii.</span>
+      {/if}
+    </div>
+  </div>
 {/block}

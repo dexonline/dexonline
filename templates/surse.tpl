@@ -63,9 +63,11 @@
       </tbody>
     </table>
     {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
-      <input type="submit" name="submitButton" value="Salvează"/> &nbsp;
-      <a href="editare-sursa">adaugă o sursă</a> &nbsp;
-      <a href="">renunță</a>
+      <input class="btn btn-primary" type="submit" name="submitButton" value="Salvează"/> &nbsp;
+      <a class="btn btn-success" href="editare-sursa">
+        adaugă o sursă
+      </a>
+      <a class="btn btn-link" href="">renunță</a>
     {/if}
   </form>
 

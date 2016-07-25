@@ -23,6 +23,8 @@ if ($cuv && !$redirect) {
 
 util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm, $xml, $all);
 
+$paradigmLink = $_SERVER['REQUEST_URI'] . ($showParadigm ? '' : '/paradigma');
+
 $searchType = SEARCH_INFLECTED;
 $hasDiacritics = session_user_prefers(Preferences::FORCE_DIACRITICS);
 $exclude_unofficial = session_user_prefers(Preferences::EXCLUDE_UNOFFICIAL);
@@ -32,7 +34,6 @@ $showParadigm = $showParadigm || session_user_prefers(Preferences::SHOW_PARADIGM
 $all = $all || $showParadigm;
 SmartyWrap::assign('allDefinitions', $all);
 
-$paradigmLink = $_SERVER['REQUEST_URI'] . ($showParadigm ? '' : '/paradigma');
 $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
 $sourceId = $source ? $source->id : null;
 

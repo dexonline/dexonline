@@ -117,13 +117,16 @@ if ($butSave) {
                ->join('Model', ['canonical', '=', 'modelType'])
                ->where_raw("concat(code, number) = ? ", [$m])
                ->find_one();
-        $lm = lmSearch($dbLms, $model->code, $model->number);
-        if (!$lm) {
-          $lm = LexemModel::create($model->code, $model->number);
-          $lm->lexemId = $lexem->id;
-        }
+        $lm = LexemModel::create($model->code, $model->number);
         $lm->setLexem($lexem);
+        $lm->lexemId = $lexem->id;
         $lm->displayOrder = 1 + count($lms);
+        $oldLm = lmSearch($dbLms, $model->code, $model->number);
+        if ($oldLm) {
+          $lm->restriction = $oldLm->restriction;
+          $lm->tags = $oldLm->tags;
+          $lm->isLoc = $oldLm->isLoc;
+        }
         $lms[] = $lm;
         $needsCaps |= prefixMatch($m, $MODELS_TO_CAPITALIZE);
       }
@@ -131,10 +134,7 @@ if ($butSave) {
 
       // Delete old lexem models
       foreach ($dbLms as $lm) {
-        $match = lmSearch($lms, $lm->modelType, $lm->modelNumber);
-        if (!$match) {
-          $lm->delete();
-        }
+        $lm->delete();
       }
 
       if ($needsCaps) {

@@ -50,7 +50,6 @@ mirror = 0
 mysql_loc_prefix = LOC_
 
 ; Available skins
-skins[] = polar
 skins[] = responsive
 desktopSkin = responsive
 mobileSkin = responsive
@@ -118,29 +117,11 @@ wotdArchive = true
 wotdSubscribe = true
 
 ; Skin-specific variables. Fill in the blanks with AdSense ad unit IDs or OpenX zone IDs.
-[skin-polar]
-adsense_mainPage = ""
-adsense_otherPages = ""
-openx_mainPage = ""
-openx_otherPages = ""
-
 [skin-responsive]
 adsense_mainPage = ""
 adsense_otherPages = ""
 openx_mainPage = ""
 openx_otherPages = ""
-
-[skin-mobile]
-adsense_allPages = ""
-banner = false
-fbLarge = false
-fullMenu = false
-permalink = false
-responsiveBanner = true
-searchForm = false
-typo = false
-wotdArchive = false
-wotdSubscribe = false
 
 [limits]
 limitFulltextSearch = 200

@@ -150,17 +150,16 @@ class SmartyWrap {
           break;
         case 'windowEngine':        self::$cssFiles[9] = 'jquery-wm/main.css'; break;
         case 'responsive':          self::$cssFiles[10] = 'responsive.css'; break;
-        case 'polar':               self::$cssFiles[11] = 'polar.css'; break;
-        case 'mobile':              self::$cssFiles[12] = 'mobile.css'; break;
-        case 'flex':                self::$cssFiles[13] = 'flex.css'; break;
-        case 'paradigm':            self::$cssFiles[14] = 'paradigm.css'; break;
-        case 'jcrop':               self::$cssFiles[15] = 'jcrop/jquery.Jcrop.min.css'; break;
-        case 'select2':             self::$cssFiles[16] = 'select2/select2.css'; break;
+        case 'mobile':              self::$cssFiles[11] = 'mobile.css'; break;
+        case 'flex':                self::$cssFiles[12] = 'flex.css'; break;
+        case 'paradigm':            self::$cssFiles[13] = 'paradigm.css'; break;
+        case 'jcrop':               self::$cssFiles[14] = 'jcrop/jquery.Jcrop.min.css'; break;
+        case 'select2':             self::$cssFiles[15] = 'select2/select2.css'; break;
         case 'gallery':
-          self::$cssFiles[17] = 'colorbox/colorbox.css';
-          self::$cssFiles[18] = 'visualDict.css';
+          self::$cssFiles[16] = 'colorbox/colorbox.css';
+          self::$cssFiles[17] = 'visualDict.css';
           break;
-        case 'textComplete':        self::$cssFiles[19] = 'jquery.textcomplete.css'; break;
+        case 'textComplete':        self::$cssFiles[18] = 'jquery.textcomplete.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());

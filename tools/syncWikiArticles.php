@@ -8,7 +8,7 @@ define('PAGE_LISTING_URL', 'http://wiki.dexonline.ro/api.php?action=query&pageid
 define('PARSER_URL', 'http://wiki.dexonline.ro/api.php');
 define('PAGE_RAW_URL', 'http://wiki.dexonline.ro/index.php?action=raw&curid=%d');
 
-$options = getopt('', array('force'));
+$options = getopt('', ['force']);
 $force = array_key_exists('force', $options);
 
 // Get the most recently edited category members
@@ -17,8 +17,8 @@ if ($xml === false) {
   Log::error('Cannot get category listing from ' . CATEGORY_LISTING_URL);
   exit(1);
 }
-$pageIds = array();
-$pageIdHash = array();
+$pageIds = [];
+$pageIdHash = [];
 foreach ($xml->query->categorymembers->cm as $cm) {
   $pageId = (string)$cm->attributes()->pageid;
   $pageIds[] = $pageId;
@@ -92,15 +92,65 @@ Log::notice('finished');
 function parse($text) {
   // Preprocessing
   $text = "__NOEDITSECTION__\n" . $text; // Otherwise the returned HTML will contain section edit links
-  $text = str_replace(array('ş', 'Ş', 'ţ', 'Ţ'), array('ș', 'Ș', 'ț', 'Ț'), $text);
+  $text = str_replace(['ş', 'Ş', 'ţ', 'Ţ'], ['ș', 'Ș', 'ț', 'Ț'], $text);
 
   // Actual parsing
-  $xmlString = util_makePostRequest(PARSER_URL, array('action' => 'parse', 'text' => $text, 'format' => 'xml', 'editsection' => false));
+  $xmlString = util_makePostRequest(PARSER_URL, [
+    'action' => 'parse',
+    'text' => $text,
+    'format' => 'xml',
+    'editsection' => false,
+    'disablepp' => true,
+  ]);
   $xml = simplexml_load_string($xmlString);
   $html = (string)$xml->parse->text;
   if (!$html) {
     return false;
   }
+
+  // Manipulate the DOM to convert some elements to bootstrap
+  // Ensure there is a single root element
+  $html = "<div>{$html}</div>";
+  
+  // Load the HTML and make sure it is in UTF8. Do not add DTD and <head> and <body> tags.
+  $dom = new DOMDocument();
+  $dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'),
+                 LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+  // Add table classes
+  foreach($dom->getElementsByTagName('table') as $table) {
+    $table->setAttribute('class', $table->getAttribute('class') . ' table');
+  }
+
+  // Convert toc divs to panels
+  $toc = $dom->getElementById('toc');
+  if ($toc) {
+    $toc->setAttribute('class', 'panel panel-default');
+
+    foreach ($toc->childNodes as $c) {
+      if ($c->nodeType == XML_ELEMENT_NODE) { // skip text nodes
+        if ($c->getAttribute('id') == 'toctitle') {
+          $title = $c;
+        } else if ($c->nodeName == 'ul') {
+          $ul = $c;
+        }
+      }
+    }
+
+    $title->setAttribute('class', 'panel-heading');
+    $title->nodeValue = 'Cuprins';
+
+    $body = $dom->createElement('div');
+    $body->setAttribute('class', 'panel-body');
+    $toc->removeChild($ul);
+    $body->appendChild($ul);
+    $toc->appendChild($body);
+  }
+
+  $html = $dom->saveHTML();
+
+  // decode all non-ASCII characters, which DOMDocument does by default.
+  $html = html_entity_decode($html);
 
   // Postprocessing
   // Convert links to other articles, even if they are not under [[Categorie:Sincronizare]]

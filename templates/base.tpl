@@ -10,10 +10,10 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" name="viewport">
     {block name=pageDescription}{/block}
     {block name=openGraph}
-      <meta property="og:image" content="{$imgRoot}/logo-dexonline-2.png" />
+      <meta property="og:image" content="{$imgRoot}/logo/logo-og.png" />
       <meta property="og:type" content="website" />
       <meta property="og:title" content="dexonline" />
-      <link rel="image_src" href="{$imgRoot}/logo-dexonline-2.png" />
+      <link rel="image_src" href="{$imgRoot}/logo/logo-og.png" />
     {/block}
     {include file="bits/cssJs.tpl"}
     <link rel="search" type="application/opensearchdescription+xml" href="https://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>

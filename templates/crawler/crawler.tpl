@@ -47,7 +47,7 @@
 			</div>
 		</div>
 
-		<img id="logo" src="../img/logo-dexonline-2.png"/>
+		<img id="logo" src="../img/logo/logo-og.png"/>
 
 	</body>
 </html>

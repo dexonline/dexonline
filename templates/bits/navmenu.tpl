@@ -1,11 +1,12 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-     {if !$onHomePage}
-       <a class="navbar-brand" href="{$wwwRoot}" title="Prima pagină">
-        <div class="nav-logo"></div>
-       </a>
-     {/if}
+      {if !$onHomePage}
+        <a class="navbar-brand" href="{$wwwRoot}" title="Prima pagină">
+          <img id="logo-wide" alt="logo dexonline" src="{$wwwRoot}img/logo/logo-nav-wide.png">
+          <img id="logo-narrow" alt="logo dexonline" src="{$wwwRoot}img/logo/logo-nav-narrow.png">
+        </a>
+      {/if}
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navMenu" aria-expanded="false">
         <span class="sr-only">Navigare</span>
         <span class="icon-bar"></span>

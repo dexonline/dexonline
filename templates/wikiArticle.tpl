@@ -4,19 +4,20 @@
 
 {block name=content}
   {assign var="wa" scope=global value=$wa|default:null}
-  {assign var="title" value=$wa->title|default:null}
+  {assign var="title" value=$wa->title|default:'Articol inexistent'}
 
-  <p class="paragraphTitle">
-    {$wa->title|default:'Articol inexistent'}
-  </p>
+  <h3>{$wa->title}</h3>
+
   <div class="wikiArticle">
     {$wa->htmlContents|default:'Articolul pe care îl căutați nu există.'}
   </div>
 
-  <p class="paragraphTitle">Alte articole lingvistice</p>
+  <hr>
+
+  <h3>Alte articole lingvistice</h3>
 
   {foreach from=$wikiTitles key=k item=v}
-    <h3>{$k|escape:'html'}</h3>
+    <h4>{$k|escape:'html'}</h4>
     {foreach from=$v item=titlePair}
       {if $titlePair[0] != $title}
         <a href="{$wwwRoot}articol/{$titlePair[1]}">{$titlePair[0]}</a><br/>

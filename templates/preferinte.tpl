@@ -71,7 +71,7 @@
               <option value="{$i}" {if $i == $skin}selected="selected"{/if}>{$i|capitalize}</option>
             {/foreach}
           </select>
-          <span class="help-block">Notă: Numai designul Zepu este ținut la zi cu cele mai noi funcții.</span>
+          <span class="help-block">Notă: Numai designul Responsive este ținut la zi cu cele mai noi funcții.</span>
         </div>
       </div>
     </div>

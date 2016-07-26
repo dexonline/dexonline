@@ -29,24 +29,19 @@
     vertical-align: middle;
 }
 
-.nav-logo {
-    background: url("../img/sprite3.png") -88px -82px no-repeat;
-    height: 25px;
-    width: 111px;
+.navbar-brand > img {
+  margin-top: -13px;
 }
+
 @media (max-width: 768px) {
-    .nav-logo {
-        background: url("../img/sprite3.png") -88px -82px no-repeat;
-        height: 25px;
-        width: 111px !important;
-    }
+  #logo-wide {
+    display: none;
+  }
 }
-@media (max-width: 992px) {
-    .nav-logo {
-        background: url("../img/sprite3.png") -88px -82px no-repeat;
-        height: 25px;
-        width: 25px;
-    }
+@media (min-width: 769px) {
+  #logo-narrow {
+    display: none;
+  }
 }
 
 .sourceComplete0 {

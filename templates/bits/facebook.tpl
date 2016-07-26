@@ -9,7 +9,7 @@
 <section class="fbBottom" id="fbBottom">
   <div class="fb-like"
        data-href="https://www.facebook.com/dexonline"
-       data-ref="zepu_bottom"
+       data-ref="responsive_footer"
        data-width="875"
        data-layout="standard"
        data-action="like"

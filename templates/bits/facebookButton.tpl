@@ -10,7 +10,7 @@
 <div style="border:none; overflow:hidden; width:120px; height:21px;"
      class="fb-like"
      data-href="https://www.facebook.com/dexonline"
-     data-ref="zepu_home"
+     data-ref="responsive_nav"
      data-width="120"
      data-layout="button_count"
      data-action="like"

@@ -474,7 +474,7 @@ function util_makePostRequest($url, $data, $useCookies = false) {
   curl_setopt($ch, CURLOPT_POST, true);
   curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
   // For JSON data, set the content type
-  if (is_object(json_decode($data))) {
+  if (is_string($data) && is_object(json_decode($data))) {
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                   "Content-Type: application/json",
                   'Content-Length: ' . strlen($data)

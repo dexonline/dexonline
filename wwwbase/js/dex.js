@@ -6,8 +6,6 @@ var wwwRoot = getWwwRoot();
 $(function() {
   $('span.def').click(searchClickedWord);
   $('.inflLink').click(toggleInflections);
-  $('#mobileLink').click(reloadAsMobile);
-  $('#desktopLink').click(reloadAsDesktop);
 });
 
 if (typeof jQuery.ui != 'undefined') {
@@ -236,19 +234,6 @@ function searchClickedWord(event) {
   if (word) {
     window.location = wwwRoot + 'definitie' + source + '/' + encodeURIComponent(word);
   }
-}
-
-function reloadAsMobile() {
-  document.cookie = 'prefs[skin]=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC';
-  location.reload();
-  return false;
-}
-
-function reloadAsDesktop() {
-  var skin = $(this).data('skin');
-  document.cookie = 'prefs[skin]=' + skin + '; path=/; Max-Age=315360000';
-  location.reload();
-  return false;
 }
 
 function hideSubmitButton(button) {

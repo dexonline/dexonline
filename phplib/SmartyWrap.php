@@ -17,7 +17,6 @@ class SmartyWrap {
       self::assign('sUser', session_getUser());
       self::assign('nick', session_getUserNick());
       self::assign('currentYear', date("Y"));
-      self::assign('isMobile', util_isMobile());
       self::assign('suggestNoBanner', util_suggestNoBanner());
       self::assign('cfg', Config::getAll());
       self::assign('GLOBALS', $GLOBALS);
@@ -149,17 +148,16 @@ class SmartyWrap {
           self::$cssFiles[8] = 'elfinderDev.css';
           break;
         case 'responsive':          self::$cssFiles[9] = 'responsive.css'; break;
-        case 'mobile':              self::$cssFiles[10] = 'mobile.css'; break;
-        case 'flex':                self::$cssFiles[11] = 'flex.css'; break;
-        case 'paradigm':            self::$cssFiles[12] = 'paradigm.css'; break;
-        case 'jcrop':               self::$cssFiles[13] = 'jcrop/jquery.Jcrop.min.css'; break;
-        case 'select2':             self::$cssFiles[14] = 'select2/select2.min.css'; break;
+        case 'flex':                self::$cssFiles[10] = 'flex.css'; break;
+        case 'paradigm':            self::$cssFiles[11] = 'paradigm.css'; break;
+        case 'jcrop':               self::$cssFiles[12] = 'jcrop/jquery.Jcrop.min.css'; break;
+        case 'select2':             self::$cssFiles[13] = 'select2/select2.min.css'; break;
         case 'gallery':
-          self::$cssFiles[15] = 'colorbox/colorbox.css';
-          self::$cssFiles[16] = 'visualDict.css';
+          self::$cssFiles[14] = 'colorbox/colorbox.css';
+          self::$cssFiles[15] = 'visualDict.css';
           break;
-        case 'textComplete':        self::$cssFiles[17] = 'jquery.textcomplete.css'; break;
-        case 'meaningTree':         self::$cssFiles[18] = 'meaningTree.css'; break;
+        case 'textComplete':        self::$cssFiles[16] = 'jquery.textcomplete.css'; break;
+        case 'meaningTree':         self::$cssFiles[17] = 'meaningTree.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());

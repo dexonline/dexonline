@@ -149,20 +149,7 @@ function session_setWidgetCount($widgetCount) {
 }
 
 function session_getSkin() {
-  // Check for user preferences and anonymous preferences
-  $user = session_getUser();
-  $skin = ($user && $user->skin) ? $user->skin : session_getCookieSetting('skin');
-  if ($skin && session_isValidSkin($skin)) {
-    return $skin;
-  }
-
-  // Check if the user has a mobile device
-  if (util_isMobile()) {
-    return Config::get('global.mobileSkin');
-  }
-
-  // Return the default skin
-  return Config::get('global.desktopSkin');
+  return 'responsive';
 }
 
 function session_setSkin($skin) {

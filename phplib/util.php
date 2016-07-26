@@ -432,17 +432,6 @@ function util_isDesktopBrowser() {
     (strpos($u, 'Opera') !== false) || (strpos($u, 'Safari') !== false);
 }
 
-function util_isMobile($userAgent = null) {
-  if (!util_isWebBasedScript()) {
-    return false;
-  }
-  if (!$userAgent && array_key_exists('HTTP_USER_AGENT', $_SERVER)) {
-    $userAgent = $_SERVER['HTTP_USER_AGENT'];
-  }
-  /* Keep this in sync with the Varnish configuration file. */
-  return preg_match('/^(DoCoMo|J-PHONE|KDDI|UP.Browser|DDIPOCKET|.*iPhone.*|.*iPod.*|.*BlackBerry.*|.*Windows.CE.*|.*LG.*|.*HTC.*|.*MOT.*|.*Motorola.*|.*Nokia.*|.*Samsung.*|.*SonyEricsson.*|.*Palm.*|.*Symbian.*|.*Android.*)/i', $userAgent);
-}
-
 function util_suggestNoBanner() {
   if (isset($_SERVER['REQUEST_URI']) && preg_match('/(masturba|fute)/', $_SERVER['REQUEST_URI'])) {
     return true; // No banners on certain obscene pages

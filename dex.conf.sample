@@ -50,11 +50,10 @@ mirror = 0
 mysql_loc_prefix = LOC_
 
 ; Available skins
-skins[] = zepu
 skins[] = polar
 skins[] = responsive
-desktopSkin = zepu
-mobileSkin = mobile
+desktopSkin = responsive
+mobileSkin = responsive
 
 ; Seasonal pranks FTW
 aprilFoolsDay = 0
@@ -119,12 +118,6 @@ wotdArchive = true
 wotdSubscribe = true
 
 ; Skin-specific variables. Fill in the blanks with AdSense ad unit IDs or OpenX zone IDs.
-[skin-zepu]
-adsense_mainPage = ""
-adsense_otherPages = ""
-openx_mainPage = ""
-openx_otherPages = ""
-
 [skin-polar]
 adsense_mainPage = ""
 adsense_otherPages = ""

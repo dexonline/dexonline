@@ -51,8 +51,6 @@ mysql_loc_prefix = LOC_
 
 ; Available skins
 skins[] = responsive
-desktopSkin = responsive
-mobileSkin = responsive
 
 ; Seasonal pranks FTW
 aprilFoolsDay = 0

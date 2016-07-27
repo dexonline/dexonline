@@ -140,7 +140,7 @@ class SmartyWrap {
         case 'flex':                self::$cssFiles[11] = 'flex.css'; break;
         case 'paradigm':            self::$cssFiles[12] = 'paradigm.css'; break;
         case 'jcrop':               self::$cssFiles[13] = 'jcrop/jquery.Jcrop.min.css'; break;
-        case 'select2':             self::$cssFiles[14] = 'select2/select2.css'; break;
+        case 'select2':             self::$cssFiles[14] = 'select2/select2.min.css'; break;
         case 'gallery':
           self::$cssFiles[15] = 'colorbox/colorbox.css';
           self::$cssFiles[16] = 'visualDict.css';

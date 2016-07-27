@@ -25,8 +25,12 @@ class WordOfTheDay extends BaseObject {
   }
 
   public static function getPreviousYearsWotds($month, $day) {
-    return Model::factory('WordOfTheDay')->where_raw('month(displayDate) = ?', $month)->where_raw('day(displayDate) = ?', $day)
-      ->where_raw('year(displayDate) <= YEAR(CURDATE())')->order_by_desc('displayDate')->limit(25)->find_many();
+    return Model::factory('WordOfTheDay')
+      ->where_raw('month(displayDate) = ?', $month)
+      ->where_raw('day(displayDate) = ?', $day)
+      ->order_by_desc('displayDate')
+      ->limit(25)
+      ->find_many();
   }
 
   public static function getStatus($refId, $refType = 'Definition') {

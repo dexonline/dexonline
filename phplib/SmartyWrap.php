@@ -80,8 +80,8 @@ class SmartyWrap {
 
   static function displayAdminPage($templateName) {
     self::assign('templateName', $templateName);
-  	self::addCss('flex');
-    self::addJs('dex', 'jquery');
+  	self::addCss('flex', 'bootstrap');
+    self::addJs('dex', 'jquery', 'bootstrap');
     self::addSameNameFiles($templateName);
     print self::fetch($templateName);
   }
@@ -190,9 +190,6 @@ static function addJs(/* Variable-length argument list */) {
         case 'modelDropdown':    self::$jsFiles[23] = 'modelDropdown.js'; break;
         case 'textComplete':     self::$jsFiles[24] = 'jquery.textcomplete.min.js'; break;
         case 'tinymce':          self::$jsFiles[25] = 'tinymce-4.4.0/tinymce.min.js'; break;
-        case 'bootstrap':
-          self::$jsFiles[26] = 'bootstrap/js/bootstrap.min.js';
-          break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

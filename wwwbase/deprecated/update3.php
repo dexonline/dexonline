@@ -4,7 +4,7 @@ set_time_limit(0);
 
 // If no GET arguments are set, print usage and return.
 if (count($_GET) == 0) {
-  SmartyWrap::displayWithoutSkin('update3Instructions.tpl');
+  SmartyWrap::display('deprecated/update3Instructions.tpl');
   return;
 }
 

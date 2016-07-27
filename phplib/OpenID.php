@@ -62,6 +62,7 @@ class OpenID {
         return null;
       } else {
         header("Location: $redirect_url");
+        SmartyWrap::display('auth/beginAuth.tpl');
         exit;
       }
     } else {

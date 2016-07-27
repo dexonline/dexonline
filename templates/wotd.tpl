@@ -76,19 +76,8 @@
     <div id="oldWotD" class="widgetWotD"></div>
     <script>
      loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei-anii-trecuti/{$timestamp|date_format:'%Y/%m/%d'}','#oldWotD');
-     topWidgetStart = $('.widgetWotD').position().top;
-     $(document).ready(function () {
-       $(window).scroll(function (event) {
-         $('.widgetWotD').css('top', $(document).scrollTop() + topWidgetStart);
-       });
-     });
     </script>
 
-    {* Javascript for "Report a typo" *}
-    <div id="typoDiv" class="modal fade" tabindex="-1" role="dialog"></div>
-
-    <script>
-     $(".typoLink").click(showTypoForm);
-    </script>
+    {include "bits/typoForm.tpl"}
   {/if}
 {/block}

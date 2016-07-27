@@ -80,11 +80,8 @@ if ($openid) {
         FlashMessage::add($e->getMessage());
       }
     } else {
-      $authResult = OpenID::beginAuth($openid, null);
-      if ($authResult != null) {
-        SmartyWrap::displayWithoutSkin('auth/beginAuth.tpl');
-        exit;
-      }
+      // This returns null on errors; does not return at all on success.
+      OpenID::beginAuth($openid, null);
     }
   }
 }

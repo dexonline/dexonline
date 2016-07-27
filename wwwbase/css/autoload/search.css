@@ -1,0 +1,26 @@
+/* Full text highlight. Keep the number of colors in sync with Definition::highlight(). */
+.fth {
+  color: #FFF;
+  border-width: 1.5px;
+  border-style: outset;
+}
+
+.fth0 {
+  background: #cc0000;
+}
+
+.fth1 {
+  background: #cc6600;
+}
+
+.fth2 {
+  background: #008800;
+}
+
+.fth3 {
+  background: #000088;
+}
+
+.fth4 {
+  background: #880088;
+}

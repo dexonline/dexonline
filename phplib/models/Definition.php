@@ -268,7 +268,7 @@ class Definition extends BaseObject implements DatedObject {
                                          "<span class=\"fth fth{$classIndex}\">{$m[0]}</span>",
                                          $m[1], strlen($m[0]));
         }
-        $classIndex = ($classIndex + 1) % 5; // keep the number of colors in sync with common.css
+        $classIndex = ($classIndex + 1) % 5; // keep the number of colors in sync with search.css
       }
     }
   }

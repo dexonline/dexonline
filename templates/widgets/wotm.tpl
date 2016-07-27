@@ -5,7 +5,7 @@
 {/block}
 
 {block name="widget-body"}
-  <img src="{$thumbUrlM}" alt="iconiță cuvântul lunii" class="commonShadow" />
+  <img src="{$thumbUrlM}" alt="iconiță cuvântul lunii">
   {if $wotmDef}
     {include file="bits/wotmurl.tpl" linkText=$wotmDef->lexicon}
   {/if}

@@ -17,22 +17,22 @@
 {block name=stats}
   <h4>Alocare definiții OCR</h4>
   <div class="adminSpace">
-  <table id="editorStats">
-    <tr>
-      <th>Moderator</th>
-      <th>Definiții finalizate</th>
-      <th>Definiții alocate</th>
-      <th>Caractere alocate</th>
-    </tr>
-    {foreach $statsEditors as $i}
-    <tr>
-      <td>{$i.0}</td>
-      <td>{$i.1}</td>
-      <td>{$i.2}</td>
-      <td>{$i.4}</td>
-    </tr>
-    {/foreach}
-  </table>
+    <table id="editorStats">
+      <tr>
+        <th>Moderator</th>
+        <th>Definiții finalizate</th>
+        <th>Definiții alocate</th>
+        <th>Caractere alocate</th>
+      </tr>
+      {foreach $statsEditors as $i}
+        <tr>
+          <td>{$i.0}</td>
+          <td>{$i.1}</td>
+          <td>{$i.2}</td>
+          <td>{$i.4}</td>
+        </tr>
+      {/foreach}
+    </table>
   </div>
 
   <h4>Dicționare prelucrate</h4>

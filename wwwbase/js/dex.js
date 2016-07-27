@@ -381,24 +381,5 @@ $(function() {
     return $('<img src="' + wwwRoot + 'img/icons/ajax-indicator.gif" />');
   }
 
-  if (typeof jQuery != 'undefined') {
-    $(document).ready(function() {
-      $('body').click(function() {
-        $('#mainMenu li ul, #userMenu li ul').hide();
-      });
-      $('#mainMenu > li').click(function(event) {
-        event.stopPropagation();
-        $(this).siblings().children('ul').hide();
-        $('#userMenu li ul').hide();
-        $(this).children('ul').toggle();
-      });
-      $('#userMenu > li').click(function(event) {
-        event.stopPropagation();
-        $('#mainMenu li ul').hide();
-        $(this).children('ul').toggle();
-      });
-    });
-  }
-
   init();
 });

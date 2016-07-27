@@ -8,7 +8,7 @@
 
   <h3>{$wa->title}</h3>
 
-  <div class="wikiArticle">
+  <div>
     {$wa->htmlContents|default:'Articolul pe care îl căutați nu există.'}
   </div>
 

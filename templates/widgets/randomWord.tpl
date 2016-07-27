@@ -5,6 +5,6 @@
 {/block}
 
 {block name="widget-body"}
-  <img alt="cuvânt aleator" src="{$cfg.static.url}img/wotd/thumb/misc/aleator.jpg" class="commonShadow" />
+  <img alt="cuvânt aleator" src="{$cfg.static.url}img/wotd/thumb/misc/aleator.jpg">
   {include file="bits/randomWord.tpl"}
 {/block}

@@ -1,5 +1,3 @@
-@import "common.css";
-
 abbr {
   border-bottom: 1px dotted #aaa;
   cursor: help;
@@ -385,4 +383,27 @@ hr {
 
 #tinymceButtonWrapper {
   float: right;
+}
+
+.select2Edit {
+  background: url("../img/icons/pencil.png") no-repeat;
+  padding-left: 16px;
+  text-decoration: none;
+}
+
+.select2LexemWarnings {
+  color: red;
+}
+
+.tooltip {
+  width: 138px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tooltip2 {
+  background: url("../img/icons/information.png") no-repeat;
+  display: inline-block;
+  width: 16px;
 }

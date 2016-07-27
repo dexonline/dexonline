@@ -72,12 +72,22 @@
     <div id="wotdArchive" class="wotdArchive"></div>
     <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$timestamp|date_format:'%Y/%m'}','#wotdArchive')</script>
 
-    <br />
-    <div id="oldWotD" class="widgetWotD"></div>
-    <script>
-     loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei-anii-trecuti/{$timestamp|date_format:'%Y/%m/%d'}','#oldWotD');
-    </script>
-
-    {include "bits/typoForm.tpl"}
+    <h3>Cuvântul zilei de {$timestamp|date_format:'%e %B'} în alți ani:</h3>
+    {foreach from=$otherYears item=r}
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <img class="pull-right" src="{$r.wotd->getThumbUrl()}" alt="iconița cuvântului zilei" />
+          <p>
+            <strong>{$r.wotd->displayDate|date_format:'%Y'}:</strong>
+            <a href="{$wwwRoot}cuvantul-zilei/{$r.wotd->displayDate|date_format:'%Y/%m/%d'}">
+              {$r.word}
+            </a>
+          </p>
+          {$r.wotd->description}
+        </div>
+      </div>
+    {/foreach}
   {/if}
+
+  {include "bits/typoForm.tpl"}
 {/block}

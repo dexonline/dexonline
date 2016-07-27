@@ -1,0 +1,15 @@
+.adminSpace {
+  width: 500px;
+}
+
+.adminSpace table {
+  border-collapse: collapse;
+  font-weight: normal;
+}
+
+.adminSpace td,
+.adminSpace th {
+  border: 1px solid;
+  margin: 3px;
+  padding: 3px;
+}

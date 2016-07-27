@@ -6,6 +6,7 @@ var wwwRoot = getWwwRoot();
 $(function() {
   $('span.def').click(searchClickedWord);
   $('.inflLink').click(toggleInflections);
+  $('#typoModal').on('shown.bs.modal', shownTypoModal);
 });
 
 if (typeof jQuery.ui != 'undefined') {
@@ -119,25 +120,22 @@ function randomDigits(count) {
   return s;
 }
 
-function showTypoForm(evt) {
-  evt.preventDefault();
-  var $link = $(evt.target);
-  var definitionId = $link.data('definition');
-  var $modal = $('#typoDiv');
-  $.get(wwwRoot + 'ajax/typo.php?definitionId=' + definitionId, function(data) {
-    $modal.html(data);
-    $modal.modal();
-    $('#typoTextarea').focus();
-  });
-  return false;
+function shownTypoModal(event) {
+  var link = $(event.relatedTarget); // link that triggered the modal
+  var defId = link.data('definitionId');
+  $('input[name="definitionId"]').val(defId);
+  $('#typoTextarea').val('').focus();
 }
 
 function submitTypoForm() {
-  var textarea = $("#typoHtmlForm  #typoTextarea").val();
-  var defId = $("#typoHtmlForm input[name='definitionId']").val();
-  $.post(wwwRoot + 'ajax/typo.php', { definitionId: defId, text: textarea, submit: 1 }, function(data) {
-    $('#typoDiv').html(data);
-  });
+  var text = $('#typoTextarea').val();
+  var defId = $('input[name="definitionId"]').val();
+  $.post(wwwRoot + 'ajax/typo.php',
+         { definitionId: defId, text: text, submit: 1 },
+         function() {
+           $('#typoModal').modal('hide');
+           $('#typoConfModal').modal();
+         });
   return false;
 }
 

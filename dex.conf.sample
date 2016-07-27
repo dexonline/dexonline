@@ -104,7 +104,6 @@ banner = true
 fbLarge = true
 fullMenu = true
 permalink = true
-responsiveBanner = false
 searchForm = true
 typo = true
 widgets = true

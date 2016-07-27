@@ -80,8 +80,8 @@ class SmartyWrap {
 
   static function displayAdminPage($templateName) {
     self::assign('templateName', $templateName);
-  	self::addCss('flex');
-    self::addJs('dex', 'jquery');
+  	self::addCss('flex', 'bootstrap');
+    self::addJs('dex', 'jquery', 'bootstrap');
     self::addSameNameFiles($templateName);
     print self::fetch($templateName);
   }

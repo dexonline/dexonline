@@ -176,11 +176,17 @@
     {/if}
 
     {if $wikiArticles}
-      <div class="wikiArticleLink">
-        Articole pe această temă:
-        {foreach from=$wikiArticles item=wa}
-          <a href="{$wwwRoot}articol/{$wa->getUrlTitle()}">{$wa->title}</a>
-        {/foreach}
+      <div class="panel panel-info">
+        <div class="panel-heading">Articole pe această temă:</div>
+        <div class="panel-body">
+          <ul class="list-unstyled">
+            {foreach from=$wikiArticles item=wa}
+              <li>
+                <a href="{$wwwRoot}articol/{$wa->getUrlTitle()}">{$wa->title}</a>
+              </li>
+            {/foreach}
+          </ul>
+        </div>
       </div>
     {/if}
 

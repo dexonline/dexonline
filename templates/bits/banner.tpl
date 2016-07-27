@@ -1,6 +1,6 @@
 {assign var="adsProvider" value=$adsProvider|default:null}
 {assign var="adsProviderParams" value=$adsProviderParams|default:null}
-{** Arguments: id, width and height. Expects corresponding values in the [skin-*] section of dex.conf. **}
+{** Arguments: id, width and height. Expects corresponding values in the [skin] section of dex.conf. **}
 <section class="row" id="banner_{$id}" style="margin: 25px;">
   <div class="col-md-12">
     <div class="center-block" style="max-width: {$width}px;">

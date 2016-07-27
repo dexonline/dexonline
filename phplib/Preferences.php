@@ -59,32 +59,22 @@ class Preferences {
     return $copy;
   }
 
-  static function getSkin($user) {
-    return session_getSkin();
-  }
-
   static function getWidgets($user) {
     return $user
       ? Widget::getWidgets($user->widgetMask, $user->widgetCount)
       : Widget::getWidgets(session_getWidgetMask(), session_getWidgetCount());
   }
 
-  static function set($user, $detailsVisible, $userPrefs, $skin, $widgetMask) {
+  static function set($user, $detailsVisible, $userPrefs, $widgetMask) {
     if ($user) {
       $user->detailsVisible = $detailsVisible;
       $user->preferences = $userPrefs;
-      if (session_isValidSkin($skin)) {
-        $user->skin = $skin;
-      }
       $user->widgetMask = $widgetMask;
       $user->widgetCount = Widget::WIDGET_COUNT;
       $user->save();
       session_setVariable('user', $user);
     } else {
       session_setAnonymousPrefs($userPrefs);
-      if (session_isValidSkin($skin)) {
-        session_setSkin($skin);
-      }
       // Set the widgetMask / widgetCount cookies. This is a bit complex because we want to delete the cookie when the settings are all default.
       if ($widgetMask == Widget::getDefaultWidgetMask()) {
         session_setWidgetMask(null);

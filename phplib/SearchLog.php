@@ -31,7 +31,6 @@ class SearchLog {
       $this->registeredUser = 'n';
       $this->preferences = session_getCookieSetting('anonymousPrefs');
     }
-    $this->skin = session_getSkin();
     $this->resultCount = count($results);
     $this->redirect = ($redirect ? 'y' : 'n');
     $this->resultList = '';
@@ -69,7 +68,7 @@ class SearchLog {
 
     $date = date('Y-m-d H:i:s');
     $millis = DebugInfo::getRunningTimeInMillis();
-    $line = "[{$this->query}]\t[{$this->queryBeforeRedirect}]\t{$this->searchType}\t{$this->registeredUser}\t{$this->skin}\t" .
+    $line = "[{$this->query}]\t[{$this->queryBeforeRedirect}]\t{$this->searchType}\t{$this->registeredUser}\t" .
       "{$this->preferences}\t{$this->resultCount}\t{$this->resultList}\t{$this->redirect}\t{$date}\t{$millis}\n";
     fwrite($f, $line);
     fclose($f);

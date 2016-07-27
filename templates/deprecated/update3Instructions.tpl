@@ -1,30 +1,26 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {include file="bits/cssJs.tpl"}
-    <title>dexonline - Sincronizare client</title>
-  </head>
+{extends file="layout.tpl"}
 
-  <body>
-    <p>Acest script exportă baza de date a <i>dexonline</i> sau
+{block name=title}dexonline - Sincronizare client{/block}
+
+{block name=content}
+  <p>Acest script exportă baza de date a <i>dexonline</i> sau
     porțiuni ale ei. Dacă doriți să scrieți un client care să
     transfere baza de date și să o folosească off-line, comunicați cu
     acest script pentru a sincroniza periodic baza de date.</p>
 
-    <p><img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/> Acest script este învechit și va fi retras din folosință la 1 martie 2012. El a
-      fost înlocuit de versiunea următoare, <a href="{$wwwRoot}update4.php">update4.php</a>.</p>
+  <p><img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/> Acest script este învechit și va fi retras din folosință la 1 martie 2012. El a
+    fost înlocuit de versiunea următoare, <a href="{$wwwRoot}update4.php">update4.php</a>.</p>
 
-    <h2>Generalități</h2>
+  <h2>Generalități</h2>
 
-    <ul>
+  <ul>
 
-      <li>Copierea, folosirea și redistribuirea definițiilor
+    <li>Copierea, folosirea și redistribuirea definițiilor
       din <i>dexonline</i> sunt permise
       sub <a href="{$wwwRoot}licenta">Licența Publică Generală
       GNU</a>.</li>
 
-      <li>Este obligatoriu ca mecanismul pe care îl folosiți pentru transfer
+    <li>Este obligatoriu ca mecanismul pe care îl folosiți pentru transfer
       să accepte date comprimate cu gzip. Mai exact, trebuie ca, la
       stabilirea conexiunii HTTP, să setați antetul <b>Accept-Encoding:
       gzip</b> (cel puțin). Datele pe care le primiți sunt comprimate cu
@@ -34,7 +30,7 @@
       remarcat că orice browser modern folosește gzip, deci îl puteți
       folosi pentru a inspecta vizual datele.</li>
 
-      <li>Un <b>timestamp</b> semnifică numărul de secunde trecute de
+    <li>Un <b>timestamp</b> semnifică numărul de secunde trecute de
       la 1 ianuarie 1970 GMT. Limbajul în care dezvoltați aplicația ar
       trebui să aibă funcții de conversie din data/ora calendaristică
       în timestamp. Când clientul se conectează la server, trebuie
@@ -44,55 +40,55 @@
       timestamp, precum și timestamp-ul curent, pe care îl puteți
       păstra și folosi ca parametru la următoarea actualizare.</li>
 
-      <li>Serverul își exportă datele în ordinea cronologică a
+    <li>Serverul își exportă datele în ordinea cronologică a
       modificărilor. Dacă conexiunea se întrerupe prematur, clientul
       poate reapela scriptul cu ultimul timestamp pe care l-a primit,
       pentru a continua de unde a rămas.</li>
 
-      <li>Puteți citi detalii despre <a href="http://wiki.dexonline.ro/wiki/Ghidul_voluntarului">formatarea definițiilor</a>.</li>
+    <li>Puteți citi detalii despre <a href="http://wiki.dexonline.ro/wiki/Ghidul_voluntarului">formatarea definițiilor</a>.</li>
 
-    </ul>
-
-
-    <h2>Versiuni</h2>
-
-    <img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/>
-
-    Opțional, puteți adăuga parametrul <b>version</b> la
-    URL. Versiunea implicită este 3.0 (din motive istorice), iar
-    versiunea curentă este 3.1. Pe parcursul documentului, diferențele
-    dintre versiuni sunt semnalate cu simbolul <img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/>.
+  </ul>
 
 
-    <h2>Date exportate</h2>
+  <h2>Versiuni</h2>
 
-    Scriptul exportă separat diverse tipuri de date. Pentru a
-    transfera toate datele, trebuie să invocați de mai multe ori acest
-    script, folosind parametrul GET <b>export=...</b> pentru a
-    controla tipul de date. Nu este obligatoriu să transferați toate
-    tipurile de date la fiecare sincronizare a clientului, dar am
-    făcut această separare pentru ușurința implementării.
+  <img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/>
+
+  Opțional, puteți adăuga parametrul <b>version</b> la
+  URL. Versiunea implicită este 3.0 (din motive istorice), iar
+  versiunea curentă este 3.1. Pe parcursul documentului, diferențele
+  dintre versiuni sunt semnalate cu simbolul <img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/>.
+
+
+  <h2>Date exportate</h2>
+
+  Scriptul exportă separat diverse tipuri de date. Pentru a
+  transfera toate datele, trebuie să invocați de mai multe ori acest
+  script, folosind parametrul GET <b>export=...</b> pentru a
+  controla tipul de date. Nu este obligatoriu să transferați toate
+  tipurile de date la fiecare sincronizare a clientului, dar am
+  făcut această separare pentru ușurința implementării.
 
 
 
-    <h3>Surse</h3>
+  <h3>Surse</h3>
 
-    <i>dexonline</i> își preia definițiile din diferite "surse", care de
-    obicei se referă la un dicționar tipărit, identificat prin titlu,
-    autor, editură și an de apariție. Lista de surse este întotdeauna
-    exportată complet. Ea se modifică rar și vă recomandăm să o
-    resincronizați numai dacă observați că ați primit definiții care
-    folosesc surse necunoscute.<br/><br/>
+  <i>dexonline</i> își preia definițiile din diferite "surse", care de
+  obicei se referă la un dicționar tipărit, identificat prin titlu,
+  autor, editură și an de apariție. Lista de surse este întotdeauna
+  exportată complet. Ea se modifică rar și vă recomandăm să o
+  resincronizați numai dacă observați că ați primit definiții care
+  folosesc surse necunoscute.<br/><br/>
 
-    Parametri acceptați:
+  Parametri acceptați:
 
-    <ul>
-      <li>export=sources</li>
-    </ul>
+  <ul>
+    <li>export=sources</li>
+  </ul>
 
-    Formatul este:
+  Formatul este:
 
-    <pre class="exportSample">
+  <pre class="exportSample">
 &lt;Sources>
   &lt;NumResults><i>număr</i>&lt;/NumResults>
   &lt;Source>
@@ -106,9 +102,9 @@
   ....
 &lt;/Sources></pre>
 
-    De exemplu:
+  De exemplu:
 
-    <pre class="exportSample">
+  <pre class="exportSample">
 &lt;Sources>
   &lt;NumResults>22&lt;/NumResults>
   &lt;Source>
@@ -124,18 +120,18 @@
 
 
 
-    <h3>Definiții</h3>
+  <h3>Definiții</h3>
 
-    Parametri acceptați:
+  Parametri acceptați:
 
-    <ul>
-      <li>export=definitions</li>
-      <li>timestamp=<i>număr</i></li>      
-    </ul>    
+  <ul>
+    <li>export=definitions</li>
+    <li>timestamp=<i>număr</i></li>      
+  </ul>    
 
-    Formatul este:
+  Formatul este:
 
-    <pre class="exportSample">
+  <pre class="exportSample">
 &lt;Definitions>
   &lt;NumResults><i>număr</i>&lt;/NumResults>
   &lt;Definition>                         ;; Exemplu de definiție modificată
@@ -157,9 +153,9 @@
   ....
 &lt;/Definitions></pre>
 
-    De exemplu:
+  De exemplu:
 
-    <pre class="exportSample">
+  <pre class="exportSample">
 &lt;Definitions>
   &lt;NumResults>2&lt;/NumResults>
   &lt;Definition> 
@@ -181,18 +177,18 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
   &lt;/Definition>
 &lt;/Definitions></pre>
 
-    Precizări:
+  Precizări:
 
-    <ul>
+  <ul>
 
-      <li>Definițiile sunt listate în ordinea crescătoare a
+    <li>Definițiile sunt listate în ordinea crescătoare a
       timestamp-ului modificării. Pentru definițiile șterse este
       listat doar câmpul <code>&lt;Deleted/></code>. Pentru
       definițiile modificate sau adăugate, sunt listați autorul,
       sursa, textul propriu-zis și zero sau mai multe cuvinte (numite
       lexeme) cu care definiția este asociată.</li>
 
-      <li>Este posibil ca, în cazul unei definiții șterse, să vă fie
+    <li>Este posibil ca, în cazul unei definiții șterse, să vă fie
       transmis un identificator pe care clientul dumneavoastră nu îl
       are în baza de date. Acest lucru se întâmplă când o definiție
       este ștearsă pe site fără să fi trecut vreodată prin starea
@@ -200,34 +196,34 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
       intră în starea "temporară" până când sunt moderate). În această
       situație, ignorați pur și simplu înregistrarea.</li>
 
-      <li>Când setul de lexeme asociate cu o definiție se schimbă,
+    <li>Când setul de lexeme asociate cu o definiție se schimbă,
       întreaga definiție este resincronizată.</li>
 
-      <li><img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/> <i>dexonline</i> indică abrevierile între două semne „#”. De exemplu, #expr.# înseamnă „expresie”.
+    <li><img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/> <i>dexonline</i> indică abrevierile între două semne „#”. De exemplu, #expr.# înseamnă „expresie”.
       Din motive istorice, versiunea 3.0 nu exportă aceste caractere. Versiunile începând cu 3.1 le exportă. Vedeți și secțiunea specială despre abrevieri.
-    </ul>
+  </ul>
 
 
 
-    <h3>Flexiuni</h3>
+  <h3>Flexiuni</h3>
 
-    Această categorie exportă tipurile distincte de flexiuni folosite de
-    <i>dexonline,</i> care reprezintă un subset al flexiunilor limbii
-    române (de exemplu, momentan <i>dexonline</i> nu folosește
-    vocativul substantivelor). Și această categorie este exportată
-    complet, întrucât se modifică foarte rar (vă recomandăm să o
-    transferați numai atunci când, la sincronizarea lexemelor,
-    întâlniți o valoare nouă pentru parametrul <code>InflId</code>).<br/><br/>
+  Această categorie exportă tipurile distincte de flexiuni folosite de
+  <i>dexonline,</i> care reprezintă un subset al flexiunilor limbii
+  române (de exemplu, momentan <i>dexonline</i> nu folosește
+  vocativul substantivelor). Și această categorie este exportată
+  complet, întrucât se modifică foarte rar (vă recomandăm să o
+  transferați numai atunci când, la sincronizarea lexemelor,
+  întâlniți o valoare nouă pentru parametrul <code>InflId</code>).<br/><br/>
 
-    Parametri acceptați:
+  Parametri acceptați:
 
-    <ul>
-      <li>export=inflections</li>
-    </ul>
+  <ul>
+    <li>export=inflections</li>
+  </ul>
 
-    Formatul este:
+  Formatul este:
 
-    <pre class="exportSample">
+  <pre class="exportSample">
 &lt;Inflections>
   &lt;NumResults><i>număr</i>&lt;/NumResults>
   &lt;Inflection>
@@ -239,9 +235,9 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
   &lt;/Inflection>
 &lt;/Inflections></pre>
 
-    De exemplu:
+  De exemplu:
 
-    <pre class="exportSample">
+  <pre class="exportSample">
 &lt;Inflections>
   &lt;NumResults>86&lt;/NumResults>
   &lt;Inflection>
@@ -258,23 +254,23 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
 
 
 
-    <h3>Lexeme</h3>
+  <h3>Lexeme</h3>
 
-    "Lexemul" este un termen lingvistic pentru cuvânt. Un lexem este
-    caracterizat printr-un identificator numeric unic, un nume, o
-    descriere opțională (folosită pentru diferențierea omonimelor) și
-    o listă de forme flexionare.
+  "Lexemul" este un termen lingvistic pentru cuvânt. Un lexem este
+  caracterizat printr-un identificator numeric unic, un nume, o
+  descriere opțională (folosită pentru diferențierea omonimelor) și
+  o listă de forme flexionare.
 
-    Parametri acceptați:
+  Parametri acceptați:
 
-    <ul>
-      <li>export=lexems</li>
-      <li>timestamp=<i>număr</i></li>      
-    </ul>    
+  <ul>
+    <li>export=lexems</li>
+    <li>timestamp=<i>număr</i></li>      
+  </ul>    
 
-    Formatul este:
+  Formatul este:
 
-    <pre class="exportSample">
+  <pre class="exportSample">
 &lt;Lexems>
   &lt;NumResults><i>număr</i>&lt;/NumResults>
   &lt;Lexem>
@@ -295,9 +291,9 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
   ....
 &lt;/Lexems></pre>
 
-    De exemplu:
+  De exemplu:
 
-    <pre class="exportSample">
+  <pre class="exportSample">
 &lt;Lexems>
   &lt;NumResults>105&lt;/NumResults>
   &lt;Lexem>
@@ -353,14 +349,14 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
   ....
 &lt;/Lexems></pre>
 
-    Precizări:
+  Precizări:
 
-    <ul>
+  <ul>
 
-      <li>Lexemele sunt listate în ordinea crescătoare a
+    <li>Lexemele sunt listate în ordinea crescătoare a
       timestamp-ului modificării.</li>
 
-      <li>Scriptul nu trimite informații despre ștergerea unui
+    <li>Scriptul nu trimite informații despre ștergerea unui
       lexem. Când un lexem este șters în <i>dexonline</i>, el este în
       mod automat disociat de toate definițiile cu care era
       asociat. Clientul dumneavoastră va primi noile definiții (când
@@ -369,44 +365,44 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
       pe termen nelimitat, deoarece el nu mai este folosit, iar
       ștergerea unui lexem este o operație rară.</li>
 
-      <li>Dacă cel puțin una din formele flexionare se modifică,
+    <li>Dacă cel puțin una din formele flexionare se modifică,
       întreg lexemul va fi resincronizat.</li>
 
-      <li>Lexemul are întoteauna cel puțin o formă flexionară. Echipa
+    <li>Lexemul are întoteauna cel puțin o formă flexionară. Echipa
       <i>dexonline</i> nu a terminat încă de etichetat toate lexemele
       și deci paradigmele unor lexeme sunt încă necunoscute. Chiar și
       acele lexeme au o singură formă flexionară, corespunzătoare unei
       flexiuni "temporare".</li>
 
-      <li>Nu vă recomandăm să folosiți numele lexemului (cel din
+    <li>Nu vă recomandăm să folosiți numele lexemului (cel din
       câmpul form) pentru căutări. Folosiți formele flexionare pentru
       aceasta. De cele mai multe ori, numele lexemului coincide cu
       prima dintre formele flexionare, iar când nu este așa, există un
       motiv.</li>
 
-    </ul>
+  </ul>
 
 
-    <h3>Abrevieri</h3>
+  <h3>Abrevieri</h3>
 
-    Această categorie exportă abrevierile folosite de <i>dexonline,</i> așa cum au fost ele moștenite din dicționarele originale. Această categorie este exportată complet.
-    Vă recomandăm să o transferați numai atunci când, la sincronizarea definițiilor, întâlniți o abreviere necunoscută. Nu toate dicționarele au fost prelucrate pentru
-    expandarea abrevierilor, dar le vom procesa pe toate, în timp.<br/><br/>
+  Această categorie exportă abrevierile folosite de <i>dexonline,</i> așa cum au fost ele moștenite din dicționarele originale. Această categorie este exportată complet.
+  Vă recomandăm să o transferați numai atunci când, la sincronizarea definițiilor, întâlniți o abreviere necunoscută. Nu toate dicționarele au fost prelucrate pentru
+  expandarea abrevierilor, dar le vom procesa pe toate, în timp.<br/><br/>
 
-    <img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/> Aceste informații sunt exportate pentru orice versiune le solicitați, dar vă vor fi de folos
-    în special începând cu versiunea 3.1, când abrevierile sunt delimitate în definiții prin semne „#”.
+  <img src="{$imgRoot}/icons/exclamation.png" alt="exclamation"/> Aceste informații sunt exportate pentru orice versiune le solicitați, dar vă vor fi de folos
+  în special începând cu versiunea 3.1, când abrevierile sunt delimitate în definiții prin semne „#”.
 
 
-    Parametri acceptați:
+  Parametri acceptați:
 
-    <ul>
-      <li>export=abbrev
+  <ul>
+    <li>export=abbrev
       <span class="deemph">&nbsp;(Cuvântul „abbreviations” era prea lung, așa că l-am... abreviat...)</span></li>
-    </ul>
+  </ul>
 
-    Formatul este:
+  Formatul este:
 
-    <pre class="exportSample">
+  <pre class="exportSample">
 &lt;AbbrevList>
   &lt;Sources>
     &lt;Source id="<i>număr</i>" sections="<i>secțiuni_CSV</i>"/>
@@ -421,9 +417,9 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
   ....
 &lt;/AbbrevList></pre>
 
-    De exemplu:
+  De exemplu:
 
-    <pre class="exportSample">
+  <pre class="exportSample">
 &lt;AbbrevList>
   &lt;Sources>
     &lt;Source id="0" sections="common"/>
@@ -446,16 +442,14 @@ obiectelor aflate la (sau dincolo de) orizont apar ca și cum s-ar reflecta înt
   ....
 &lt;/AbbrevList></pre>
 
-    Precizări:
+  Precizări:
 
-    <ul>
-      <li>Întrucât multe din dicționare folosesc sisteme asemănătoare sau chiar identice de abrevieri (de exemplu diversele ediții din DEX), am creat un sistem bazat pe secțiuni.
+  <ul>
+    <li>Întrucât multe din dicționare folosesc sisteme asemănătoare sau chiar identice de abrevieri (de exemplu diversele ediții din DEX), am creat un sistem bazat pe secțiuni.
       În exemplul de mai sus, sursele sunt 0, 1, 2..., iar sursele 1 și 2 folosesc un set identic de abrevieri, compus din secțiunile „common” și „dex”.</li>
 
-      <li>Dacă o abreviere este definită în mai multe secțiuni, trebuie folosită valoarea din secțiunea definită mai târziu în eticheta &lt;Source>.
+    <li>Dacă o abreviere este definită în mai multe secțiuni, trebuie folosită valoarea din secțiunea definită mai târziu în eticheta &lt;Source>.
       De exemplu, DEX folosește secțiunile „common, dex” și ambele secțiuni definesc o abreviere pentru „mil.”. În acest caz, trebuie folosită valoarea „milion”.
       În practică nu avem încă o astfel de situație, dar anticipăm apariția ei pe măsură ce procesăm noi dicționare.</li>
-    </ul>
-
-  </body>
-</html>
+  </ul>
+{/block}

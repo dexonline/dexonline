@@ -29,7 +29,13 @@
       {/if}
 
       {if $skinVariables.typo}
-        | <a class="typoLink" data-definition="{$row->definition->id}" href="#">Semnalează o greșeală</a>
+        |
+        <a href="#"
+           data-definition-id="{$row->definition->id}"
+           data-toggle="modal"
+           data-target="#typoModal">
+          Semnalează o greșeală
+        </a>
       {/if}
 
       {if $sUser}

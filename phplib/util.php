@@ -303,7 +303,7 @@ function util_isModerator($type) {
 
 function util_assertNotMirror() {
   if (Config::get('global.mirror')) {
-    SmartyWrap::displayWithoutSkin('mirror_message.tpl');
+    SmartyWrap::display('mirror_message.tpl');
     exit;
   }
 }

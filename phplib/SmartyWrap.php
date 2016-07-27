@@ -59,30 +59,18 @@ class SmartyWrap {
     return $result;
   }
 
-  static function fetchSkin($templateName) {
-    $skin = session_getSkin();
-    self::addCss($skin, 'bootstrap');
+  /* Prepare and display a template. */
+  static function display($templateName) {
+    self::addCss('responsive', 'bootstrap');
     self::addJs('jquery', 'dex', 'bootstrap');
     if (Config::get('search.acEnable')) {
         self::addCss('jqueryui');
         self::addJs('jqueryui');
     }
     self::addSameNameFiles($templateName);
-    $skinVariables = array_merge(Config::getSection("skin-default"),
-                                 Config::getSection("skin-{$skin}"));
-    self::assign('skinVariables', $skinVariables);
+    self::assign('skinVariables', Config::getSection('skin'));
     self::registerOutputFilters();
-    return self::fetch($templateName);
-  }
-
-  /* Common case: render the $templateName inside pageLayout.tpl and with the user-preferred skin */
-  static function display($templateName) {
-    print self::fetchSkin($templateName);
-  }
-
-  static function displayPageWithSkin($templateName) {
-    $skin = session_getSkin();
-    print self::fetchSkin("{$skin}/$templateName");
+    print self::fetch($templateName);
   }
 
   static function displayWithoutSkin($templateName) {

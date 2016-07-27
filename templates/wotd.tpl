@@ -28,10 +28,10 @@
       <br />
       <div class="panel panel-default">
         <div class="panel-body">
-            <i>dexonline</i> nu oferă cuvântul zilei direct prin email. Există însă
-            <a href="http://www.google.com/search?q=rss+by+email">numeroase site-uri</a>
-            care fac acest lucru pentru orice RSS. Vă recomandăm
-            <a href="https://ifttt.com/recipes/147561-rss-feed-to-email">IFTTT</a> (RSS feed to email).
+          <i>dexonline</i> nu oferă cuvântul zilei direct prin email. Există însă
+          <a href="http://www.google.com/search?q=rss+by+email">numeroase site-uri</a>
+          care fac acest lucru pentru orice RSS. Vă recomandăm
+          <a href="https://ifttt.com/recipes/147561-rss-feed-to-email">IFTTT</a> (RSS feed to email).
         </div>
       </div>
     </div>
@@ -47,26 +47,23 @@
           <a href="{$wwwRoot}cuvantul-zilei/{$prevday}"><span class="glyphicon glyphicon-chevron-left"></span></a>
           <a href="{$wwwRoot}cuvantul-zilei/{$nextday}"><span class="glyphicon glyphicon-chevron-right"></span></a>
         </span>
+      </div>
     </div>
-  </div>
-  <div class="panel-body">
-    {include file="bits/definition.tpl" row=$searchResult}
-    {if $imageUrl}
-      <img class="img-responsive center-block" src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
-      <div class="text-muted pull-right">
+    <div class="panel-body">
+      {include file="bits/definition.tpl" row=$searchResult}
+      {if $imageUrl}
+        <img class="img-responsive center-block" src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
+        <div class="text-muted pull-right">
           {$artist->credits|default:''}
+        </div>
+      {/if}
+    </div>
+    {if $reason}
+      <div class="panel-footer">
+        <b>Cheia alegerii:</b> {$reason|escape:'html'}
       </div>
     {/if}
   </div>
-  {if $reason}
-    <div class="panel-footer">
-      <b>Cheia alegerii:</b> {$reason|escape:'html'}
-    </div>
-  {/if}
-</div>
-
-
-
 
   {if $skinVariables.wotdArchive}
     <br />
@@ -78,13 +75,13 @@
     <br />
     <div id="oldWotD" class="widgetWotD"></div>
     <script>
-      loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei-anii-trecuti/{$timestamp|date_format:'%Y/%m/%d'}','#oldWotD');
-      topWidgetStart = $('.widgetWotD').position().top;
-      $(document).ready(function () {
-        $(window).scroll(function (event) {
-          $('.widgetWotD').css('top', $(document).scrollTop() + topWidgetStart);
-        });
-      });
+     loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei-anii-trecuti/{$timestamp|date_format:'%Y/%m/%d'}','#oldWotD');
+     topWidgetStart = $('.widgetWotD').position().top;
+     $(document).ready(function () {
+       $(window).scroll(function (event) {
+         $('.widgetWotD').css('top', $(document).scrollTop() + topWidgetStart);
+       });
+     });
     </script>
 
     {* Javascript for "Report a typo" *}

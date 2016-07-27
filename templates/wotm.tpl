@@ -38,15 +38,4 @@
 
     </div>
   </div>
-
-
-  {*
-     {if $skinVariables.wotdArchive}
-     <p class="paragraphTitle">Arhiva cuvintelor lunii</p>
-
-     <div id="wotmArchive" class="wotmArchive"></div>
-     <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-lunii/{$timestamp|date_format:'%Y'}','#wotmArchive')</script>
-
-     {/if}
-   *}
 {/block}

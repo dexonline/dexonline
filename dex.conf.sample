@@ -49,9 +49,6 @@ mirror = 0
 ; Prefix for the LOC databases.
 mysql_loc_prefix = LOC_
 
-; Available skins
-skins[] = responsive
-
 ; Seasonal pranks FTW
 aprilFoolsDay = 0
 
@@ -101,8 +98,8 @@ euPlatescMid = 0
 ; The option "fake" displays a placeholder banner and can be used in development/beta (so as not to steal real impressions from campaigns).
 type = fake
 
-; Default variables for all skins
-[skin-default]
+; Configure skin elements
+[skin]
 banner = true
 fbLarge = true
 fullMenu = true
@@ -113,9 +110,6 @@ typo = true
 widgets = true
 wotdArchive = true
 wotdSubscribe = true
-
-; Skin-specific variables. Fill in the blanks with AdSense ad unit IDs or OpenX zone IDs.
-[skin-responsive]
 adsense_mainPage = ""
 adsense_otherPages = ""
 openx_mainPage = ""

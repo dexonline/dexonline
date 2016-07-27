@@ -63,20 +63,6 @@
     </div>
 
     <div class="panel panel-default">
-      <div class="panel-heading">Design</div>
-      <div class="panel-body">
-        <div class="form-group">
-          <select class="form-control" name="skin" id="skinsList">
-            {foreach from=$availableSkins item=i}
-              <option value="{$i}" {if $i == $skin}selected="selected"{/if}>{$i|capitalize}</option>
-            {/foreach}
-          </select>
-          <span class="help-block">Notă: Numai designul Responsive este ținut la zi cu cele mai noi funcții.</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel panel-default">
       <div class="panel-heading">Elemente în pagina principală</div>
       <div class="panel-body">
 

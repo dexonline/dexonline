@@ -148,18 +148,6 @@ function session_setWidgetCount($widgetCount) {
   setcookie('prefs[widgetCount]', $widgetCount, time() + ONE_YEAR_IN_SECONDS, '/');
 }
 
-function session_getSkin() {
-  return 'responsive';
-}
-
-function session_setSkin($skin) {
-  setcookie('prefs[skin]', $skin, time() + ONE_YEAR_IN_SECONDS, '/');
-}
-
-function session_isValidSkin($skin) {
-  return in_array($skin, Config::get('global.skins'));
-}
-
 function session_setSourceCookie($source) {
   setcookie('prefs[source]', $source, time() + ONE_YEAR_IN_SECONDS, '/');
 }

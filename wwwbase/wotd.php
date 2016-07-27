@@ -98,9 +98,32 @@ if ($mysqlDate < $today || util_isModerator(PRIV_ADMIN)) {
   SmartyWrap::assign('nextday', date('Y/m/d', $timestamp + ONE_DAY_IN_SECS));
 }
 
+// Load the WotD for this day in other years.
+$year = date('Y', $timestamp);
+$month = date('m', $timestamp);
+$day = date('d', $timestamp);
+
+$prevWotds = WordOfTheDay::getPreviousYearsWotds($month, $day);
+$otherYears = [];
+foreach ($prevWotds as $w) {
+  if ($w->displayDate < $today) {
+    $currentYear = substr($w->displayDate, 0, 4);
+    if ($currentYear != $year) {
+      $defId = WordOfTheDayRel::getRefId($w->id);
+      $def = Definition::get_by_id_status($defId, Definition::ST_ACTIVE);
+
+      $otherYears[] = [
+        'wotd' => $w,
+        'word' => $def->lexicon,
+      ];
+    }
+  }
+}
+
 SmartyWrap::assign('imageUrl', $wotd->getImageUrl());
 SmartyWrap::assign('artist', $wotd->getArtist());
 SmartyWrap::assign('timestamp', $timestamp);
+SmartyWrap::assign('otherYears', $otherYears);
 SmartyWrap::assign('searchResult', array_pop($searchResults));
 
 SmartyWrap::display('wotd.tpl');

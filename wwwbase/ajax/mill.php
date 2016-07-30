@@ -1,21 +1,6 @@
 <?php
 
 require_once("../../phplib/util.php");
-$xml = new SimpleXMLElement('<xml/>');
-
-function getNormalRand($std, $mean, $limit) {
-  //$std Standard Deviation
-  //$mean The mean
-  //$limit Maximum number
-  //Using Box-Muller transform
-  $x1 = (float)rand(0, $limit)/(float)$limit;
-  $x2 = (float)rand(0, $limit)/(float)$limit;
-  
-  $rand = sqrt(-2 * log($x1)) * cos(2 * pi() * $x2);
-  
-  // Make sure the result is between 0 and $limit inclusive
-  return min(max(round($rand * $std + $mean), 0), $limit);
-}
 
 function getWordForDefinitionId($defId) {
   $def = Definition::get_by_id($defId);
@@ -39,14 +24,14 @@ function getSimpleDefinitionsForLexemIds($lexemIds) {
   return $defs;
 }
 
-$difficulty = util_getRequestParameterWithDefault('d', 0);
-$logAnswerId = util_getRequestParameterWithDefault('answerId', 0);
-$logGuessed = util_getRequestParameterWithDefault('guessed', 0);
+$difficulty = util_getRequestParameter('d');
+$logDefId = util_getRequestParameter('defId');
+$logGuessed = util_getRequestParameter('guessed');
 
-// Log the success of failure of the previous guess, if any
+// Log the success or failure of the previous guess, if any
 // TODO: the last (tenth) guess is never logged
-if ($logAnswerId!=0) {
-  $log = DefinitionSimple::get_by_id($logAnswerId);
+if ($logDefId) {
+  $log = DefinitionSimple::get_by_id($logDefId);
   $log->millShown++;
   $log->millGuessed += $logGuessed;
   $log->save();
@@ -73,7 +58,7 @@ $closestLexemsDefinitions = null;
 if ($difficulty > 1) {
   $nearLexemIds = NGram::searchLexemIds($word);
   arsort($nearLexemIds);
-  $lexemPoolSize = 48/$difficulty;
+  $lexemPoolSize = 48 / $difficulty;
   $closestLexemIds = array_slice($nearLexemIds, 0, $lexemPoolSize, true);
   $closestLexemIds = array_keys($closestLexemIds);
   
@@ -119,15 +104,12 @@ for ($i = 1; $i <= 4; $i++) {
   }
 }
 
+$resp = [
+  'word' => $word,
+  'defId' => $maindef->id,
+  'answer' => $answer,
+  'definition' => $options,
+];
 
-$xml->addChild('word', $word);
-$xml->addChild('answerId', $maindef->id);
-for ($i = 1; $i <= 4; $i++) {
-  $def = $xml->addChild('definition' . $i);
-  $def->addChild('term', $options[$i]['term']);
-  $def->addChild('text', $options[$i]['text']);
-}
-$xml->addChild('answer', $answer);
-
-print($xml->asXML());
-?>
+header('Content-Type: application/json');
+print json_encode($resp);

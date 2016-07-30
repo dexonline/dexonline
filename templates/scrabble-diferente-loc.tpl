@@ -3,20 +3,28 @@
 {block name=title}Lista Oficială de Cuvinte{/block}
 
 {block name=content}
-  <p class="paragraphTitle">
+  <h3>
     Diferențe între LOC {$locVersions.0} și LOC {$locVersions.1} ({$listType})
+  </h3>
+
+  <p>
+    <a class="btn btn-default" href="scrabble">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      înapoi
+    </a>
+    <a class="btn btn-default" href="{$zipUrl}">
+      <i class="glyphicon glyphicon-floppy-disk"></i>
+      descarcă
+    </a>
   </p>
 
-  <a href="scrabble">« înapoi</a> |
-  <a href="{$zipUrl}">descarcă</a>
-
+  {strip}
   <pre class="locDiff">
-    {strip}
     {foreach from=$diff item=rec}
-      <div class="{$rec.0}">
+      <div class="{if $rec.0 == 'ins'}text-success{else}text-danger{/if}">
         {$rec.1}
       </div>
     {/foreach}
-  {/strip}
   </pre>
+  {/strip}
 {/block}

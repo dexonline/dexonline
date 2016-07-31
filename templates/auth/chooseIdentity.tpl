@@ -3,7 +3,7 @@
 {block name=title}Autentificare cu OpenID{/block}
 
 {block name=content}
-  <p class="paragraphTitle">Autentificare cu OpenID</p>
+  <h3>Autentificare cu OpenID</h3>
 
   Toți utilizatorii necesită un nume de cont; puteți alege una din opțiunile de mai jos.<br/>
 

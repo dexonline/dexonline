@@ -15,6 +15,10 @@ class InflectedForm extends BaseObject {
     return $if;
   }
 
+  public function getHtmlForm() {
+    return StringUtil::highlightAccent($this->form);
+  }
+
   public static function mapByInflectionRank($ifs) {
     $result = array();
     foreach ($ifs as $if) {

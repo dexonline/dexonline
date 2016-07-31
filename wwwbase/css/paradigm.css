@@ -35,9 +35,8 @@
   font-style: italic;
 }
 
-.lexem .form .accented {
-  font-weight: bold;
-  font-style: normal;
+.accented {
+  text-decoration: underline;
 }
 
 .lexem .spacer {
@@ -75,15 +74,6 @@
 
 .paradigmLink {
   font-size: small;
-}
-
-.scrabbleModelName {
-  font-weight: bold;
-}
-
-.scrabbleModelName .accented {
-  font-style: italic;
-  font-weight: normal;
 }
 
 .notInLoc {

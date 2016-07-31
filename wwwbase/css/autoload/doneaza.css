@@ -1,0 +1,34 @@
+.paymentSection {
+  min-height: 290px;
+}
+
+.onlineDonationButton {
+  padding: 0;
+  background: #D4EFFA url("../../img/donate.png") 0px 0px no-repeat;
+  border: 0px;
+  border-radius: 12px;
+  cursor: pointer;
+  width: 252px;
+  height: 34px;
+}
+
+.bankTransfer ul {
+  padding-left: 15px;
+}
+
+.bankTransfer ul li {
+  list-style-type: none;
+  margin-top: 7px;
+  color: #777;
+}
+
+.bankAccount {
+  font-weight: bold;
+  color: #555;
+  font-size: 13px;
+}
+
+form.payPal {
+  margin-top: 35px;
+  zoom: 1.5;
+}

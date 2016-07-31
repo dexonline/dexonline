@@ -3,7 +3,7 @@
     {$row->definition->htmlRep}
   </p>
 
-  <p class="text-muted">
+  <p class="defDetails text-muted">
     <small>
       Sursa: <a class="ref" href="{$wwwRoot}surse" title="{$row->source->name|escape}, {$row->source->year|escape}"
                 >{$row->source->shortName|escape}

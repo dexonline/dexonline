@@ -1,0 +1,40 @@
+.sourceComplete0 {
+  color: #000;
+}
+
+.sourceComplete1 {
+  color: #CC0000;
+}
+
+.sourceComplete2 {
+  color: orange;
+}
+
+.sourceComplete3 {
+  color: #DAC003;
+}
+
+.sourceComplete4 {
+  color: blue;
+}
+
+.sourceComplete5 {
+  color: green;
+}
+
+.sourceName {
+  cursor: help;
+  position: relative;
+}
+
+.sourceName span {
+  margin-left: -999em;
+  position: absolute;
+}
+
+.sourceName:hover .popover {
+  display: block;
+  min-width: 500px;
+  left: 1em;
+  top: 2em;
+}

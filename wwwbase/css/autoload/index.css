@@ -1,0 +1,27 @@
+/* TODO: watch out for conflicts between index.tpl and admin/index.tpl */
+.siteIdentity {
+    margin-bottom: 25px;
+}
+
+.siteLogo {
+  background: url("../../img/logo/logo-main.png") no-repeat;
+  height: 82px;
+  margin: 30px auto 5px auto;
+  width: 316px;
+}
+
+.tagline {
+  color: #444;
+  font-size: 14px;
+  letter-spacing: 1px;
+  margin: -10px auto 10px;
+  padding: 0px 0px 0px 100px;
+  text-align: center;
+}
+
+/* used in widgets/games.tpl, but only appears on the home page */
+.list-games {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+}

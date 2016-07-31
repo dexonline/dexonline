@@ -1,0 +1,16 @@
+/* used from bits/wotdArchive.tpl, but only included (via Ajax) in wotd.tpl */
+.wotdArchiveTable {
+    text-align: center;
+    vertical-align: middle;
+    table-layout: fixed;
+}
+
+.wotdArchiveTable .wotdDoM {
+    text-align: right;
+    font-weight: bold;
+}
+
+.wotdArchiveTable td {
+    width: 90px;
+    height: 90px;
+}

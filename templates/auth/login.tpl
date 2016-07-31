@@ -12,25 +12,36 @@
 
   <h3>Autentificare cu OpenID</h3>
 
-  <form class="form-inline" name="loginForm" method="post" action="{$wwwRoot}auth/login">
+  <form class="form-inline" method="post" action="{$wwwRoot}auth/login">
     <div class="form-group">
-      <label for="openid">OpenID:</label>
-      <input class="form-control" type="text" name="openid" id="openid" value="{$openid}" size="50"/>
+      <label>
+        OpenID:
+        <input class="form-control" type="text" name="openid" value="{$openid}" size="50" autofocus/>
+      </label>
     </div>
-    <input class="btn btn-primary" type=submit id="login" name="submitButton" value="Autentificare"/>
+    <button class="btn btn-primary" type="submit">
+      Autentificare
+    </button>
   </form>
-  <br/>
 
-  Dacă aveți un cont Google sau Yahoo, îl puteți folosi ca OpenID:<br/><br/>
+  <div class="voffset3"></div>
 
-  <div id="openidProviders">
-    <a href="{$wwwRoot}auth/login?openid=google"><img src="{$imgRoot}/openid/btn_google_dark_normal.png" alt="Autentificare cu un cont Google"/></a>
-    <a href="{$wwwRoot}auth/login?openid=yahoo"><img src="{$imgRoot}/openid/btn_yahoo_light.png" alt="Autentificare cu un cont Yahoo"/></a>
+  <p>
+    Dacă aveți un cont Google sau Yahoo, îl puteți folosi ca OpenID:
+  </p>
+
+  <div>
+    <a href="{$wwwRoot}auth/login?openid=google">
+      <img src="{$imgRoot}/openid/btn_google_dark_normal.png" alt="Autentificare cu un cont Google">
+    </a>
+    <a href="{$wwwRoot}auth/login?openid=yahoo">
+      <img src="{$imgRoot}/openid/btn_yahoo_light.png" alt="Autentificare cu un cont Yahoo">
+    </a>
   </div>
 
   <h3>Ce este OpenID?</h3>
 
-  <div id="openidHeadline">
+  <div>
     <img src="{$imgRoot}/openid/openid.png" alt="Logo OpenID"/>
 
     <span>este o modalitate mai rapidă și mai ușoară de a vă autentifica pe un site web.</span>
@@ -44,22 +55,25 @@
     <li>Dacă aveați deja un cont pe <i>dexonline</i>, îl veți putea revendica și asocia cu OpenID-ul dumneavoastră.</li>
   </ul>
 
-  Puteți citi mai multe informații pe <a href="http://openid.net/">site-ul OpenID</a> (în limba engleză).
+  <p>
+    Puteți citi mai multe informații pe <a href="http://openid.net/">site-ul OpenID</a>
+    (în limba engleză).
+  </p>
 
-  <p class="paragraphTitle">Cum obțin un OpenID?</p>
+  <h3>Cum obțin un OpenID?</h3>
 
-  Vizitați <a href="http://openid.net/get-an-openid/">lista furnizorilor de OpenID</a>.
+  <p>
+    Vizitați <a href="http://openid.net/get-an-openid/">lista furnizorilor de OpenID</a>.
+  </p>
 
-  <p class="paragraphTitle">Precizare</p>
+  <h3>Precizare</h3>
 
-  Majoritatea funcțiilor din <i>dexonline</i> nu necesită autentificarea, cu excepțiile:
+  <p>
+    Majoritatea funcțiilor din <i>dexonline</i> nu necesită autentificarea, cu excepțiile:
+  </p>
 
   <ul>
     <li>Dacă contribuiți cu definiții, ele se vor adăuga în contul dumneavostră;</li>
     <li>Vă puteți crea o listă de definiții favorite pentru acces ușor.</li>
   </ul>
-
-  <script>
-   document.loginForm.openid.focus();
-  </script>
 {/block}

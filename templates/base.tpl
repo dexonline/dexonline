@@ -4,6 +4,7 @@
 {assign var="suggestNoBanner" value=$suggestNoBanner|default:false}
 <!DOCTYPE html>
 <html lang="ro">
+
   <head>
     <title>{block name=title}Dicționare ale limbii române{/block} | dexonline</title>
     <meta charset="utf-8" />
@@ -15,12 +16,15 @@
       <meta property="og:title" content="dexonline" />
       <link rel="image_src" href="{$imgRoot}/logo/logo-og.png" />
     {/block}
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,b,i,bi"
+          rel="stylesheet" type="text/css">
     {include file="bits/cssJs.tpl"}
     <link rel="search" type="application/opensearchdescription+xml" href="https://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
     <link href="https://plus.google.com/100407552237543221945" rel="publisher" />
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="https://dexonline.ro/rss/cuvantul-zilei">
     <link rel="apple-touch-icon" href="{$imgRoot}/apple-touch-icon.png">
   </head>
+
   <body>
     <div class="container">
       <header class="row">
@@ -54,4 +58,5 @@
     {include file="bits/analytics.tpl"}
     {getDebugInfo}
   </body>
+
 </html>

@@ -1,0 +1,15 @@
+.scrabbleSearchField {
+  font-size: x-large;
+  max-width: 90%;
+  margin: 0 auto;
+  height: 5rem;
+  text-align: center;
+}
+
+.scrabbleSearchDiv .form-control-feedback {
+  width: 5rem;
+  height: 5rem;
+  line-height: 5rem;
+  right: 5%;
+  font-size: x-large;
+}

@@ -5,6 +5,7 @@ util_assertNotMirror();
 
 $sourceId = util_getRequestIntParameter('source');
 $editorId = util_getRequestIntParameter('editor');
+$terminator = PHP_EOL . (util_getRequestIntParameter('term') == 1 ? PHP_EOL : "");
 $class = "msgOK";
 $message = "";
 
@@ -36,7 +37,9 @@ if ($_FILES && $_FILES["file"]) {
       $lineCount = 0;
 
       $fp = fopen($_FILES["file"]["tmp_name"],'r');
-      while ($line = fgets($fp)) {
+      //while ($line = fgets($fp)) {
+      while (!feof($fp)) {
+        $line = stream_get_line($fp, 1000000, $terminator);
         $line = trim($line);
         if (!empty($line)) {
           $lineCount++;

@@ -6,7 +6,7 @@
 {else}
   {strip}
     {foreach from=$ifArray item=if key=i}
-        {assign var="form" value=$if->form|regex_replace:"/\'(a|e|i|o|u|ă|î|â|y)/":"<span class=\"accented\">\$1</span>"}
+        {assign var="form" value=$if->getHtmlForm()}
         {if $i}, {/if}
         {if !$if->recommended}
           <span class="notRecommended" title="formă nerecomandată">{$form}*</span>

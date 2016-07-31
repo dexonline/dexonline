@@ -14,6 +14,10 @@ class FlexModel extends BaseObject {
     return $fm;
   }
 
+  public function getHtmlExponent() {
+    return StringUtil::highlightAccent($this->exponent);
+  }
+
   public static function loadByType($type) {
     $type = ModelType::canonicalize($type);
     // Need a raw query here because order_by_asc() expects a field, nothing more

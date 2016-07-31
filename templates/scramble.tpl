@@ -3,9 +3,12 @@
 {block name=title}Omleta Cuvintelor{/block}
 
 {block name=content}
-  <div class="scrambleArea">
-    <p class="paragraphTitle"> Omleta Cuvintelor </p>
-    <div id="mainPage">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Omleta cuvintelor</h3>
+    </div>
+    <div class="panel-body">
+
       <form id="scramble" action="">
         <dl class="dl-horizontal">
           <dt>Nivel dificultate</dt>
@@ -22,6 +25,7 @@
           </dd>
         </dl>
       </form>
+
       <div id="resultSearch" align="center">
         <span>Timp ramas: </span>
         <span id="timer"> 0 </span>
@@ -30,6 +34,7 @@
         <span>Nr. cuvinte:</span>
         <span id="maxWords">0</span>
       </div>
+
       <div class="drawArea">
         <canvas class="canvasArea" width='480' height='280' ></canvas>
         <br/>
@@ -40,7 +45,7 @@
           <tr class="wordList"></tr>
         </table>
       </div>
+
     </div>
-  </div>
   </div>
 {/block}

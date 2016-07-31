@@ -3,7 +3,7 @@
 {block name=title}Parolă uitată{/block}
 
 {block name=content}
-  <p class="paragraphTitle">Parolă uitată</p>
+  <h3>Parolă uitată</h3>
 
   Pentru a vă recupera parola, introduceți adresa de e-mail asociată cu contul <i>dexonline</i>. Vă vom trimite un e-mail cu instrucțiuni pentru recuperarea
   parolei.<br/><br/>

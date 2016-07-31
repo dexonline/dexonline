@@ -8,7 +8,11 @@
   <form method="post" enctype="multipart/form-data">
     Sursa: {include file="bits/sourceDropDown.tpl" sources=$allModeratorSources skipAnySource=true}<br/>
     Moderator: {include file="bits/moderatorDropDown.tpl" name="editor" moderators=$allOCRModerators}<br/>
-    <label for="file">Fișier: </label><input type="file" name="file" id="file"><br/>
+    <label for="file">Fișier: </label><input type="file" name="file" id="file"/><br/>
+    <label for="term">Terminator: </label><select name="term">
+      <option value="0">Linie nouă</option>
+      <option value="1">Linie dublă</option>
+    </select><br/>
     <input type="submit" name="submit" value="Încarcă">
   </form>
   <div class="{$msgClass}">{$message}</div>

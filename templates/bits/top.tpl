@@ -20,17 +20,39 @@
   {if $pager}
     <tfoot>
       <tr id="{$tableId}Pager">
-        <td colspan="5">
-          <img src="{$imgRoot}/icons/control_start.png" class="first" alt="Prima pagină"/>
-          <img src="{$imgRoot}/icons/control_rewind.png" class="prev" alt="Pagina anterioară"/>
-          <input type="text" class="pagedisplay" size="5"/>
-          <img src="{$imgRoot}/icons/control_fastforward.png" class="next" alt="Pagina următoare"/>
-          <img src="{$imgRoot}/icons/control_end.png" class="last" alt="Ultima pagină"/>
-          <select class="pagesize">
-            <option value="15">15 pe pagină</option>
-            <option value="30">30 pe pagină</option>
-            <option value="50">50 pe pagină</option>
-          </select>
+        <td colspan="5" class="text-center">
+          <ul class="list-inline">
+            <li>
+              <a href="#" class="first" title="prima pagină">
+                <i class="glyphicon glyphicon-fast-backward"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="prev" title="pagina anterioară">
+                <i class="glyphicon glyphicon-step-backward"></i>
+              </a>
+            </li>
+            <li>
+              <input type="text" class="pagedisplay" size="5"/>
+            </li>
+            <li>
+              <a href="#" class="next" title="pagina următoare">
+                <i class="glyphicon glyphicon-step-forward"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="last" title="ultima pagină">
+                <i class="glyphicon glyphicon-fast-forward"></i>
+              </a>
+            </li>
+            <li>
+              <select class="pagesize form-control">
+                <option value="15">15 pe pagină</option>
+                <option value="30">30 pe pagină</option>
+                <option value="50">50 pe pagină</option>
+              </select>
+            </li>
+          </ul>
         </td>
       </tr>
     </tfoot>

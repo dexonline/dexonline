@@ -50,9 +50,7 @@
           {foreach from=$clientOptions item=ignored key=id}
             <td>
               {if $c.options[$id]}
-                <img src="{$imgRoot}/icons/check.png" alt="da" title="da"/>
-              {else}
-                <img src="{$imgRoot}/icons/cross.png" alt="nu" title="nu"/>
+                <img src="{$imgRoot}/icons/check.png" alt="da"/>
               {/if}
             </td>
           {/foreach}

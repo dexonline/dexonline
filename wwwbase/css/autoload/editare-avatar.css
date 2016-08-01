@@ -1,0 +1,7 @@
+#avatarPreviewContainer {
+  border-radius: 4px;
+  height: 48px;
+  margin: 10px 0px;
+  overflow: hidden;
+  width: 48px;
+}

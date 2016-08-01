@@ -1,32 +1,9 @@
-/* SITE IDENTITY */
-.siteIdentity {
-    margin-bottom: 25px;
-}
-
-.siteLogo {
-  background: url("../img/logo/logo-main.png") no-repeat;
-  height: 82px;
-  margin: 30px auto 5px auto;
-  width: 316px;
-}
-
-.tagline {
-  color: #444;
-  font-size: 14px;
-  letter-spacing: 1px;
-  margin: -10px auto 10px;
-  padding: 0px 0px 0px 100px;
-  text-align: center;
+body {
+  font-family: 'Open Sans', serif;
 }
 
 #advSearch {
-    padding: 5px 0 5px 0;
-}
-
-.list-games {
-    display: inline-block;
-    margin-bottom: 0;
-    vertical-align: middle;
+  padding: 5px 0 5px 0;
 }
 
 .navbar-brand > img {
@@ -42,58 +19,6 @@
   #logo-narrow {
     display: none;
   }
-}
-
-.sourceComplete0 {
-  color: #000;
-}
-
-.sourceComplete1 {
-  color: #CC0000;
-}
-
-.sourceComplete2 {
-  color: orange;
-}
-
-.sourceComplete3 {
-  color: #DAC003;
-}
-
-.sourceComplete4 {
-  color: blue;
-}
-
-.sourceComplete5 {
-  color: green;
-}
-
-.sourceName {
-  cursor: help;
-  position: relative;
-}
-
-.sourceName span {
-  margin-left: -999em;
-  position: absolute;
-}
-
-.sourceName:hover .popover {
-    display: block;
-    min-width: 500px;
-    left: 1em;
-    top: 2em;
-}
-
-.wotdArchiveTable {
-    text-align: center;
-    vertical-align: middle;
-    table-layout: fixed;
-}
-
-.wotdArchiveTable .wotdDoM {
-    text-align: right;
-    font-weight: bold;
 }
 
 .table-caption {
@@ -113,35 +38,6 @@
     cursor: pointer;
 }
 
-.wotdArchiveTable td {
-    width: 90px;
-    height: 90px;
-}
-
-.scrabbleSearchField {
-  font-size: x-large;
-  max-width: 90%;
-  margin: 0 auto;
-  height: 5rem;
-  text-align: center;
-}
-
-.scrabbleSearchDiv .form-control-feedback {
-  width: 5rem;
-  height: 5rem;
-  line-height: 5rem;
-  right: 5%;
-  font-size: x-large;
-}
-
-#avatarPreviewContainer {
-  border-radius: 4px;
-  height: 48px;
-  margin: 10px 0px;
-  overflow: hidden;
-  width: 48px;
-}
-
 /* helper classes */
 .table-striped-column-odd > tbody > tr td:nth-of-type(odd),
 .table-striped-column-even > tbody > tr td:nth-of-type(even) {
@@ -157,42 +53,32 @@
   padding: 3px 5px;
 }
 
-
-.paymentSection {
-  min-height: 290px;
-}
-
-.onlineDonationButton {
-  padding: 0;
-  background: #D4EFFA url("../img/donate.png") 0px 0px no-repeat;
-  border: 0px;
-  border-radius: 12px;
-  cursor: pointer;
-  width: 252px;
-  height: 34px;
-}
-
-.bankTransfer ul {
-  padding-left: 15px;
-}
-
-.bankTransfer ul li {
-  list-style-type: none;
-  margin-top: 7px;
-  color: #777;
-}
-
-.bankAccount {
-  font-weight: bold;
-  color: #555;
-  font-size: 13px;
-}
-
-form.payPal {
-  margin-top: 35px;
-  zoom: 1.5;
-}
-
 .footer {
   padding-top: 1rem;
 }
+
+/********************* Definitions *********************/
+
+p.def {
+  color: black;
+  font-size: 16px;
+  line-height: 1.6em;
+}
+
+p.defDetails {
+  margin-top: -10px;
+}
+
+/********************* Vertical spacing *********************/
+
+/* as suggested by http://pdenya.com/2013/08/08/vertical-space-in-bootstrap/ */
+.voffset  { margin-top: 2px; }
+.voffset1 { margin-top: 5px; }
+.voffset2 { margin-top: 10px; }
+.voffset3 { margin-top: 15px; }
+.voffset4 { margin-top: 30px; }
+.voffset5 { margin-top: 40px; }
+.voffset6 { margin-top: 60px; }
+.voffset7 { margin-top: 80px; }
+.voffset8 { margin-top: 100px; }
+.voffset9 { margin-top: 150px; }

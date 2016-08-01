@@ -346,6 +346,13 @@ class StringUtil {
   static function portable($s) {
     return str_replace('/', DIRECTORY_SEPARATOR, $s);
   }
+
+  /* Place a css class around the accented letter */
+  static function highlightAccent($s) {
+    return preg_replace("/\'(a|e|i|o|u|ă|î|â)/",
+                        "<span class=\"accented\">\$1</span>",
+                        $s);
+  }
 }
 
 ?>

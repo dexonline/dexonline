@@ -150,6 +150,12 @@ class Tree extends BaseObject implements DatedObject {
       $this->cloneMeanings($rec['children'], $newm->id, $newTreeId);
     }
   }
+
+  public function delete() {
+    Relation::delete_all_by_treeId($this->id);
+    parent::delete();
+  }
+
 }
 
 ?>

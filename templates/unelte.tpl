@@ -99,7 +99,8 @@
     </p>
   </div>
 
-  <h4>Integrare în browser</h4>
+  <h3>Integrare în browser</h3>
+  
   <ul class="browserIntegration">
     <li>Instalați un corector ortografic pentru limba română pentru Firefox:
       <a href="{$cfg.static.url}download/dex-ff.xpi" onclick="return installFirefoxSpellChecker(event);">clic aici</a>.
@@ -133,39 +134,4 @@
     <li>Un <a href="https://wordpress.org/plugins/dexonline-searchbox/">modul WordPress</a> pentru blogul dumneavoastră.</li>
 
   </ul>
-
-  <h4>
-    <a name="scrabble"></a>Unelte pentru jocul de Scrabble
-  </h4>
-
-  Vezi pagina integrată <a href="scrabble">scrabble</a>.
-
-  <script type="text/javascript">
-    {literal}
-    $(document).ready(function() {
-
-      var t = $('#toolTable tbody').eq(0);
-      var r = t.find('tr');
-      var cols = r.length;
-      var rows = r.eq(0).find('td, th').length;
-
-      var cell, next, tem, i = 0;
-      var tb= $('<tbody></tbody>');
-
-      while(i<rows){
-        cell= 0;
-        tem= $('<tr></tr>');
-        while(cell<cols){
-          next= r.eq(cell++).find('td, th').eq(0);
-          tem.append(next);
-        }
-        tb.append(tem);
-        ++i;
-      }
-      $('#toolTable').append(tb);
-
-      $('#toolTable').show();
-    });
-    {/literal}
-  </script>
 {/block}

@@ -152,14 +152,7 @@ class Tree extends BaseObject implements DatedObject {
   }
 
   public function delete() {
-    TreeEntry::delete_all_by_treeId($this->id);
-
-    $meanings = Meaning::get_all_by_treeId($this->id);
-    foreach ($meanings as $m) {
-      $m->delete();
-    }
-
-    Log::warning("Deleted tree {$this->id} ({$this->description})");
+    Relation::delete_all_by_treeId($this->id);
     parent::delete();
   }
 

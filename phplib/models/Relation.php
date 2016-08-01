@@ -8,31 +8,31 @@ class Relation extends BaseObject implements DatedObject {
   const TYPE_AUGMENTATIVE = 4;
   const NUM_TYPES = 4;
 
-  // Returns a meaning's related lexems, mapped by type
+  // Returns a meaning's related trees, mapped by type
   static function loadByMeaningId($meaningId) {
-    $lexems = Model::factory('Lexem')
-      ->select('Lexem.*')
+    $trees = Model::factory('Tree')
+      ->select('Tree.*')
       ->select('Relation.type')
-      ->join('Relation', array('Lexem.id', '=', 'lexemId'))
+      ->join('Relation', ['Tree.id', '=', 'treeId'])
       ->where('Relation.meaningId', $meaningId)
       ->order_by_asc('formNoAccent')
       ->find_many();
-    $results = array();
+    $results = [];
     for ($i = 1; $i <= self::NUM_TYPES; $i++) {
-      $results[$i] = array();
+      $results[$i] = [];
     }
-    foreach ($lexems as $l) {
-      $results[$l->type][] = $l;
+    foreach ($trees as $t) {
+      $results[$t->type][] = $t;
     }
     return $results;
   }
 
-  // Returns a meaning's related lexems, given a map of relation type to lexem ID array
-  static function loadRelatedLexems($map) {
-    $results = array();
-    foreach ($map as $type => $lexemIds) {
+  // Returns a meaning's related trees, given a map of relation type to tree ID array
+  static function loadRelatedTrees($map) {
+    $results = [];
+    foreach ($map as $type => $treeIds) {
       if ($type) {
-        $results[$type] = Lexem::loadByIds($lexemIds);
+        $results[$type] = Tree::loadByIds($treeIds);
       }
     }
     return $results;

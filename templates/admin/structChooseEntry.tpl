@@ -1,14 +1,14 @@
 {extends file="admin/layout.tpl"}
 
-{block name=title}Lexeme ușor de structurat{/block}
+{block name=title}Intrări ușor de structurat{/block}
 
 {block name=headerTitle}
-  Lexeme ușor de structurat ({$lexems|count})
+  Intrări ușor de structurat ({$entries|count})
 {/block}
 
 {block name=content}
-  {foreach from=$lexems key=i item=l}
-    {include file="bits/lexemLink.tpl" lexem=$l}
+  {foreach from=$entries key=i item=e}
+    {include file="bits/entryLink.tpl" entry=$e}
     <div class="blDefinitions">
       {foreach from=$searchResults[$i] item=row}
         {$row->definition->htmlRep} <span class="defDetails">{$row->source->shortName}</span><br/>

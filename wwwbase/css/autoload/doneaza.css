@@ -1,5 +1,31 @@
-.paymentSection {
-  min-height: 290px;
+@media (min-width: 1201px) {
+  .paymentSection {
+    min-height: 210px;
+  }
+
+  form.payPal {
+    margin-top: 35px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .paymentSection {
+    min-height: 245px;
+  }
+
+  form.payPal {
+    margin-top: 45px;
+  }
+}
+
+@media (max-width: 991px) {
+  .paymentSection {
+    min-height: 100px;
+  }
+
+  form.payPal {
+    margin-top: 0;
+  }
 }
 
 .onlineDonationButton {
@@ -14,6 +40,7 @@
 
 .bankTransfer ul {
   padding-left: 15px;
+  font-size: 12px;
 }
 
 .bankTransfer ul li {
@@ -28,7 +55,12 @@
   font-size: 13px;
 }
 
-form.payPal {
-  margin-top: 35px;
-  zoom: 1.5;
+.select-donated-sum,
+.donor-email {
+  display: inline-block;
+  width: 70%;
+}
+
+.donate-labels {
+  min-width: 60px;
 }

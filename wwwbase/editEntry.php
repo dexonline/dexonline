@@ -95,6 +95,14 @@ if ($save) {
   $e->loadMeanings();
 }
 
+// Load the distinct model types for the entry's lexems
+$modelTypes = [];
+foreach ($lexemIds as $lexemId) {
+  $l = Lexem::get_by_id($lexemId);
+  $modelTypes[] = $l->modelType;
+}
+$modelTypes = array_unique($modelTypes);
+
 $definitions = Definition::loadByEntryId($e->id);
 foreach ($definitions as $def) {
   $def->internalRepAbbrev = AdminStringUtil::expandAbbreviations($def->internalRep, $def->sourceId);
@@ -116,6 +124,7 @@ SmartyWrap::assign('e', $e);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('lexemIds', $lexemIds);
 SmartyWrap::assign('treeIds', $treeIds);
+SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('structStatusNames', Entry::$STRUCT_STATUS_NAMES);
 SmartyWrap::assign('suggestNoBanner', true);

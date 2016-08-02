@@ -73,28 +73,21 @@
           <span title="Comisionul este oprit la trimitere" class="glyphicon glyphicon-info-sign tooltip2">&nbsp;</span>
         </div>
         <div class="panel-body bankTransfer">
-          <ul class="list-unstyled">
-            <li>
-              Beneficiar
-              <span class="bankAccount">Asociația dexonline</span>
-            </li>
-            <li>
-              CIF
-              <span class="bankAccount">30855345</span>
-            </li>
-            <li>
-              Adresa
-              <span class="bankAccount">strada Remetea nr. 20, București, sector 2</span>
-            </li>
-            <li>
-              Cont
-              <span class="bankAccount">Banca Transilvania, sucursala Obor</span>
-            </li>
-            <li>
-              RON
-              <span class="bankAccount">RO96 BTRL 0440 1205 M306 19XX</span>
-            </li>
-          </ul>
+          <div class="form-group">
+            <label>Beneficiar</label>Asociația dexonline
+          </div>
+          <div class="form-group">
+            <label>CIF</label>30855345
+          </div>
+          <div class="form-group">
+            <label>Adresa</label>strada Remetea nr. 20, București, sector 2
+          </div>
+          <div class="form-group">
+            <label>Cont</label>Banca Transilvania, sucursala Obor
+          </div>
+          <div class="form-group">
+            <label>RON</label>RO96 BTRL 0440 1205 M306 19XX
+          </div>
         </div>
       </div>
     </div>

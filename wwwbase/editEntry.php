@@ -120,23 +120,6 @@ $canEdit = [
   'structuristId' => util_isModerator(PRIV_ADMIN),
 ];
 
-$definitions = Definition::loadByEntryId($e->id);
-foreach ($definitions as $def) {
-  $def->internalRepAbbrev = AdminStringUtil::expandAbbreviations($def->internalRep, $def->sourceId);
-  $def->htmlRepAbbrev = AdminStringUtil::htmlize($def->internalRepAbbrev, $def->sourceId);
-}
-$searchResults = SearchResult::mapDefinitionArray($definitions);
-
-$ss = $e->structStatus;
-$oss = $original->structStatus; // syntactic sugar
-
-$canEdit = [
-  'structStatus' => in_array($oss,
-                             [ Entry::STRUCT_STATUS_NEW, Entry::STRUCT_STATUS_IN_PROGRESS ])
-  || util_isModerator(PRIV_EDIT),
-  'structuristId' => util_isModerator(PRIV_ADMIN),
-];
-
 SmartyWrap::assign('e', $e);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('lexemIds', $lexemIds);

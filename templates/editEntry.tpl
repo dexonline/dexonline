@@ -71,31 +71,6 @@
 
     </div>
 
-    <div class="form-group {if isset($errors.structStatus)}has-error{/if}">
-      <label for="structStatus">structurare</label>
-      {include file="bits/structStatus.tpl" selected=$e->structStatus canEdit=$canEdit.structStatus}
-      {include "bits/fieldErrors.tpl" errors=$errors.structStatus|default:null}
-    </div>
-
-    <div class="form-group">
-      <label for="structuristId">structurist</label>
-      <select id="structuristId" name="structuristId">
-        {if $e->structuristId}
-          <option value="{$e->structuristId}" selected></option>
-        {/if}
-      </select>
-      {include "bits/fieldErrors.tpl" errors=$errors.structuristId|default:null}
-    </div>
-
-    <div class="form-group"">
-      <label for="treeIds">arbori de sensuri</label>
-      <select id="treeIds" name="treeIds[]" style="width: 100%" multiple>
-        {foreach $treeIds as $t}
-          <option value="{$t}" selected></option>
-        {/foreach}
-      </select>
-    </div>
-
     <button type="submit" class="btn btn-primary" name="save">
       <i class="glyphicon glyphicon-floppy-disk"></i>
       salvează

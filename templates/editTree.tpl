@@ -52,17 +52,6 @@
       <div class="col-md-6">
         {include "bits/fgf.tpl" field="description" value=$t->description label="descriere"}
 
-        <div class="form-group"">
-          <label for="entryIds">intrări</label>
-          <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
-            {foreach $entryIds as $e}
-              <option value="{$e}" selected></option>
-            {/foreach}
-          </select>
-        </div>
-      </div>
-
-      <div class="col-md-6">
         <div class="form-group">
           <label>stare</label>
           <select name="status" class="form-control">
@@ -70,6 +59,22 @@
               <option value="{$i}" {if $i == $t->status}selected{/if}>{$s}</option>
             {/foreach}
           </select>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group"">
+          <label for="entryIds">intrări</label>
+          <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
+            {foreach $entryIds as $e}
+              <option value="{$e}" selected></option>
+            {/foreach}
+          </select>
+
+          Tipuri de model:
+          {foreach $modelTypes as $mt}
+            <span class="label label-default">{$mt->modelType}</span>
+          {/foreach}
         </div>
       </div>
     </div>

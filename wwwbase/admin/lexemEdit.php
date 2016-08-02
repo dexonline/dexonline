@@ -88,7 +88,6 @@ $tags = Model::factory('Tag')->order_by_asc('value')->find_many();
 
 $canEdit = array(
   'general' => util_isModerator(PRIV_EDIT),
-  'defStructured' => util_isModerator(PRIV_EDIT),
   'description' => util_isModerator(PRIV_EDIT),
   'form' => !$lexem->isLoc || util_isModerator(PRIV_LOC),
   'hyphenations' => util_isModerator(PRIV_STRUCT | PRIV_EDIT),

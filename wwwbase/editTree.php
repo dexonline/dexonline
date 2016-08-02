@@ -56,10 +56,20 @@ if ($save) {
   $entryIds = $t->getEntryIds();
 }
 
+// Load the distinct model types for the entries' lexems
+$modelTypes = Model::factory('Lexem')
+  ->table_alias('l')
+  ->select('l.modelType')
+  ->distinct()
+  ->where_in('entryId', $entryIds)
+  ->order_by_asc('modelType')
+  ->find_many();
+
 $tags = Model::factory('Tag')->order_by_asc('value')->find_many();
 
 SmartyWrap::assign('t', $t);
 SmartyWrap::assign('entryIds', $entryIds);
+SmartyWrap::assign('modelTypes', $modelTypes);
 // TODO: canEdit if STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT)
 SmartyWrap::assign('canEdit', true);
 SmartyWrap::assign('tags', $tags);

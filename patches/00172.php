@@ -21,5 +21,3 @@ foreach ($rels as $r) {
   $r->treeId = $t->id;
   $r->save();
 }
-
-exit;

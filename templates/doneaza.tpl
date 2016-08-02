@@ -24,8 +24,8 @@
             <div class="panel-body">
               <form id="donateOnline" action="doneaza-euplatesc.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                  <label>Suma</label>
-                  <select name="amount" class="form-control">
+                  <label class="donate-labels">Suma</label>
+                  <select name="amount" class="form-control select-donated-sum">
                     <option value="10">10 lei</option>
                     <option value="20">20 lei</option>
                     <option value="50" selected>50 lei</option>
@@ -35,12 +35,11 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label title="e-mailul este necesar pentru trimiterea confirmării plății">E-mail *</label>
-                  <input id="donateOnlineEmail" type="text" name="email" value="{$defaultEmail}" class="form-control" />
+                  <label title="e-mailul este necesar pentru trimiterea confirmării plății" class="donate-labels">E-mail *</label>
+                  <input id="donateOnlineEmail" type="text" name="email" value="{$defaultEmail}" class="form-control donor-email" />
                 </div>
                 <div class="text-center">
                   <input type="submit" name="Doneaza" value="" class="onlineDonationButton btn"/>
-                  <p class="help-block">* necesar pentru trimiterea confirmării plății</p>
                 </div>
               </form>
             </div>
@@ -85,7 +84,7 @@
             </li>
             <li>
               Adresa
-              <span class="bankAccount">strada Remetea nr. 20, <br />București, sector 2</span>
+              <span class="bankAccount">strada Remetea nr. 20, București, sector 2</span>
             </li>
             <li>
               Cont

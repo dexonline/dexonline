@@ -27,7 +27,7 @@ class Meaning extends BaseObject implements DatedObject {
       $row['meaning'] = $m;
       $row['sources'] = Source::loadByIds($tuple->sourceIds);
       $row['tags'] = Tag::loadByIds($tuple->tagIds);
-      $row['relations'] = Relation::loadRelatedLexems($tuple->relationIds);
+      $row['relations'] = Relation::loadRelatedTrees($tuple->relationIds);
       $row['children'] = [];
 
       if ($tuple->level) {
@@ -70,10 +70,10 @@ class Meaning extends BaseObject implements DatedObject {
 
       MeaningSource::updateList(['meaningId' => $m->id], 'sourceId', $tuple->sourceIds);
       MeaningTag::updateList(['meaningId' => $m->id], 'tagId', $tuple->tagIds);
-      foreach ($tuple->relationIds as $type => $lexemIds) {
+      foreach ($tuple->relationIds as $type => $treeIds) {
         if ($type) {
           Relation::updateList(['meaningId' => $m->id, 'type' => $type],
-                               'lexemId', $lexemIds);
+                               'treeId', $treeIds);
         }
       }
       $seenMeaningIds[] = $m->id;

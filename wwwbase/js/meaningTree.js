@@ -33,8 +33,8 @@ $(function() {
       width: '100%',
     });
 
-    initSelect2('.editorRelation', 'ajax/getLexemsById.php', {
-      ajax: { url: wwwRoot + 'ajax/getLexems.php' },
+    initSelect2('.editorRelation', 'ajax/getTreesById.php', {
+      ajax: { url: wwwRoot + 'ajax/getTrees.php' },
       minimumInputLength: 1,
       width: '100%',
     });
@@ -231,7 +231,7 @@ $(function() {
     $.when(
       $('#editorTags').trigger('change'),
       $('#editorSources').trigger('change'),
-      refreshSelect2('.editorRelation', 'ajax/getLexemsById.php')
+      refreshSelect2('.editorRelation', 'ajax/getTreesById.php')
     ).done(function() {
       anyChanges = false;
     });
@@ -278,7 +278,7 @@ $(function() {
       c.find('.tagIds').append('<span>' + $(this).val() + '</span>');
     });
 
-    // Update relations and lexem IDs
+    // Update relations and tree IDs
     c.find('.relationIds').each(function() {
       var ids = $(this).text('');
       var type = ids.attr('data-type');

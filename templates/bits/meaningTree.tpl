@@ -19,16 +19,16 @@
               <span class="meaningTag">{$s->shortName}</span>
             {/foreach}
           </span>
-          {foreach $t.relations as $type => $lexemList}
+          {foreach $t.relations as $type => $treeList}
             <span class="relation" data-type="{$type}">
-              {foreach $lexemList as $l}
+              {foreach $treeList as $tree}
                 <span class="meaningTag">
-                  {include file="bits/lexemName.tpl" lexem=$l}
+                  {$tree->description}
                 </span>
               {/foreach}
             </span>
           {/foreach}
-
+          
           {if $editable}
             <span class="id">{$t.meaning->id}</span>
             <span class="internalRep">{$t.meaning->internalRep}</span>
@@ -44,10 +44,10 @@
                 <span>{$s->id}</span>
               {/foreach}
             </span>
-            {foreach $t.relations as $type => $lexemList}
+            {foreach $t.relations as $type => $treeList}
               <span class="relationIds" data-type="{$type}">
-                {foreach $lexemList as $l}
-                  <span>{$l->id}</span>
+                {foreach $treeList as $tree}
+                  <span>{$tree->id}</span>
                 {/foreach}
               </span>
             {/foreach}

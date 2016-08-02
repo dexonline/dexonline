@@ -192,7 +192,7 @@
   {if $sUser->moderator & $smarty.const.PRIV_STRUCT}
     <h3>Structurare</h3>
 
-    <a href="structChooseLexem">Cuvinte ușor de structurat</a>
+    <a href="structChooseEntry.php">Intrări ușor de structurat</a>
     (100 de cuvinte din DEX cu definiții cât mai scurte)
     <br/>
 

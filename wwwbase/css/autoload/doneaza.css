@@ -10,7 +10,7 @@
 
 @media (max-width: 1200px) {
   .paymentSection {
-    min-height: 245px;
+    min-height: 230px;
   }
 
   form.payPal {
@@ -38,21 +38,16 @@
   height: 34px;
 }
 
-.bankTransfer ul {
-  padding-left: 15px;
+.paymentSection .panel-body {
   font-size: 12px;
 }
 
-.bankTransfer ul li {
-  list-style-type: none;
-  margin-top: 7px;
-  color: #777;
+.bankTransfer .form-group {
+  margin-bottom: 5px;
 }
 
-.bankAccount {
-  font-weight: bold;
-  color: #555;
-  font-size: 13px;
+.bankTransfer label {
+  padding-right: 10px;
 }
 
 .select-donated-sum,

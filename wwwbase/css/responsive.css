@@ -83,6 +83,33 @@ p.defDetails {
   margin-top: -10px;
 }
 
+#resultsWrapper .glyphicon-comment {
+  color: #1E83C2;
+  padding-right: 10px;
+}
+
+.panel-comment {
+  margin-top: 20px;
+  margin-left: 30px;
+}
+
+.panel-comment .panel-body {
+  padding: 0px 15px 15px;
+}
+
+.panel-comment:before {
+background-color: #FFF;
+  box-shadow: -4px 2px 2px 0 #ddd;
+  content: "\00a0";
+  display: block;
+  height: 20px;
+  left: 20px;
+  position: relative;
+  top: -6px;
+  transform: rotate( 135deg );
+  width: 20px;
+}
+
 /********************* Vertical spacing *********************/
 
 /* as suggested by http://pdenya.com/2013/08/08/vertical-space-in-bootstrap/ */

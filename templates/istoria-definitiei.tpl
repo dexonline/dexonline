@@ -3,45 +3,65 @@
 {block name=title}Istoria definiției {$def->lexicon}{/block}
 
 {block name=content}
-  <div class="istoriaDefinitieiContainer">
-    <h4>Istoria definiției {$def->lexicon}</h4>
-    <div class="changeSets">
-      {if $changeSets|@count > 0}
-        {foreach from=$changeSets item=changeSet key=row_id}
-          <div class="changeSet">
-            <div class="changeSetHeader">Modificat la {$changeSet.NewDate|date_format:"%d %b %Y %T"} de {$changeSet.NewModUserNick|default:"NULL"}<!-- (changeset: {$changeSet.OldVersion} - {$changeSet.NewVersion}) --></div>
-            <div class="changeSetContent">
-              {if isset($changeSet.diff)}
-                <div class="changeSetDiff">
-                  <strong>Modificări la reprezentarea internă:</strong>
-                  <div class="internalRepDiff">{$changeSet.diff}</div>
-                </div>
-              {/if}
-              {if $changeSet.changesCount > 1 || ($changeSet.changesCount == 1 && !isset($changeSet.diff)) }
-                <ul>
-                  {if $changeSet.OldUserId != $changeSet.NewUserId}
-                    <li><strong>userul</strong> s-a modificat din <em>{$changeSet.OldUserNick|default:"NULL"}</em> în <em>{$changeSet.NewUserNick|default:"NULL"}</em></li>
-                  {/if}
-                  {if $changeSet.OldModUserId != $changeSet.NewModUserId}
-                    <li><strong>userul modificării</strong> s-a modificat din <em>{$changeSet.OldModUserNick|default:"NULL"}</em> în <em>{$changeSet.NewModUserNick|default:"NULL"}</em></li>
-                  {/if}
-                  {if $changeSet.OldSourceId != $changeSet.NewSourceId}
-                    <li><strong>sursa</strong> s-a modificat din <em>{$changeSet.OldSourceName|default:"NULL"}</em> în <em>{$changeSet.NewSourceName|default:"NULL"}</em></li>
-                  {/if}
-                  {if $changeSet.OldStatus != $changeSet.NewStatus}
-                    <li><strong>starea</strong> s-a modificat din <em>{$changeSet.OldStatusName|default:"NULL"}</em> în <em>{$changeSet.NewStatusName|default:"NULL"}</em></li>
-                  {/if}
-                  {if $changeSet.OldLexicon != $changeSet.NewLexicon}
-                    <li><strong>lexiconul</strong> s-a modificat din <em>{$changeSet.OldLexicon|default:"NULL"}</em> în <em>{$changeSet.NewLexicon|default:"NULL"}</em></li>
-                  {/if}
-                </ul>
-              {/if}
-            </div>
-          </div>
-        {/foreach}
-      {else}
-        Nu există modificări la această definiție.
+  <h3>Istoria definiției <a href="{$wwwRoot}definitie/{$def->id}">{$def->lexicon}</a></h3>
+
+  {foreach $changeSets as $c}
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <i class="glyphicon glyphicon-user"></i>
+        {$c.NewModUserNick|default:"necunoscut"}
+
+        <div class="pull-right">
+          <i class="glyphicon glyphicon-calendar"></i>
+          {$c.NewDate|date_format:"%e %B %Y %T"}
+        </div>
+
+      </div>
+
+      {if isset($c.diff)}
+        <div class="panel-body">
+          <p>{$c.diff}</p>
+        </div>
       {/if}
+
+      <ul class="list-group">
+        {if $c.OldUserId != $c.NewUserId}
+          <li class="list-group-item">
+            <strong>utilizator:</strong>
+            <span class="label label-danger">{$c.OldUserNick|default:"necunoscut"}</span>
+            <i class="glyphicon glyphicon-arrow-right"></i>
+            <span class="label label-success">{$c.NewUserNick|default:"necunoscut"}</span>
+          </li>
+        {/if}
+        {if $c.OldSourceId != $c.NewSourceId}
+          <li class="list-group-item">
+            <strong>sursa:</strong>
+            <span class="label label-danger">{$c.OldSourceName|default:"necunoscută"}</span>
+            <i class="glyphicon glyphicon-arrow-right"></i>
+            <span class="label label-success">{$c.NewSourceName|default:"necunoscută"}</span>
+          </li>
+        {/if}
+        {if $c.OldStatus != $c.NewStatus}
+          <li class="list-group-item">
+            <strong>starea:</strong>
+            <span class="label label-danger">{$c.OldStatusName|default:"necunoscută"}</span>
+            <i class="glyphicon glyphicon-arrow-right"></i>
+            <span class="label label-success">{$c.NewStatusName|default:"necunoscută"}</span>
+          </li>
+        {/if}
+        {if $c.OldLexicon != $c.NewLexicon}
+          <li class="list-group-item">
+            <strong>lexicon:</strong>
+            <span class="label label-danger">{$c.OldLexicon}</span>
+            <i class="glyphicon glyphicon-arrow-right"></i>
+            <span class="label label-success">{$c.NewLexicon}</span>
+          </li>
+        {/if}
+      </ul>
+
     </div>
-  </div>
+  {foreachelse}
+    <p>Nu există modificări la această definiție.</p>
+  {/foreach}
 {/block}

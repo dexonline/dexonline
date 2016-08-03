@@ -18,7 +18,7 @@
           {include file="bits/adsense.tpl" adUnitId=$skinVariables.$key}
         {/if}
       {elseif $cfg.banner.type == 'fake'}
-        <div class="center-block" style="background: #761818; color: white; font-size: 20px; height: {$height}px; max-width: {$width}px;">
+        <div class="center-block" style="background: #777; color: white; font-size: 20px; height: {$height}px; max-width: {$width}px;">
           Banner fals
         </div>
       {/if}

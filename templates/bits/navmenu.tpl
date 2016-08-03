@@ -1,12 +1,24 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <div class="navbar-header">
+    <div class="navbar-header navbar-left pull-left">
       {if !$onHomePage}
         <a class="navbar-brand" href="{$wwwRoot}" title="Prima pagină">
           <img id="logo-wide" alt="logo dexonline" src="{$wwwRoot}img/logo/logo-nav-wide.png">
           <img id="logo-narrow" alt="logo dexonline" src="{$wwwRoot}img/logo/logo-nav-narrow.png">
         </a>
       {/if}
+    </div>
+
+    <div class="navbar-header navbar-right pull-right">
+      <ul class="nav navbar-nav pull-left">
+        <li>
+          <a class="donateLink" href="{$wwwRoot}doneaza">
+            <span class="glyphicon glyphicon-credit-card"></span>
+            Donează
+          </a>
+        </li>
+      </ul>
+
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navMenu" aria-expanded="false">
         <span class="sr-only">Navigare</span>
         <span class="icon-bar"></span>
@@ -14,6 +26,7 @@
         <span class="icon-bar"></span>
       </button>
     </div>
+
     <div class="collapse navbar-collapse" id="navMenu">
       <!-- Collect the nav links, forms, and other content for toggling -->
       <ul class="nav navbar-nav">
@@ -55,6 +68,7 @@
                role="button" aria-haspopup="true" aria-expanded="false">
               <span class="glyphicon glyphicon-user"></span>
               {$nick|escape}
+              <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
               {if $sUser && $sUser->moderator}
@@ -72,16 +86,7 @@
           </li>
         </ul>
       {/if}
-      {if !$suggestHiddenSearchForm}
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a class="donateLink" href="{$wwwRoot}doneaza">
-              <span class="glyphicon glyphicon-credit-card"></span>
-              Donează
-            </a>
-          </li>
-        </ul>
-      {/if}
+
     </div>
   </div>
 </nav>

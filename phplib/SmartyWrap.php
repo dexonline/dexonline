@@ -130,22 +130,25 @@ class SmartyWrap {
           // self::$cssFiles[4] = 'bootstrap-theme.min.css';
           break;
         case 'jqgrid':              self::$cssFiles[5] = 'ui.jqgrid.css'; break;
-        case 'tablesorter':         self::$cssFiles[6] = 'tablesorter/theme.blue.css'; break;
+        case 'tablesorter':
+          self::$cssFiles[6] = 'tablesorter/theme.bootstrap.css';
+          self::$cssFiles[7] = 'tablesorter/jquery.tablesorter.pager.min.css';
+          break;
         case 'elfinder':
-          self::$cssFiles[7] = 'elfinder/css/elfinder.min.css';
-          self::$cssFiles[8] = 'elfinderDev.css';
+          self::$cssFiles[8] = 'elfinder/css/elfinder.min.css';
+          self::$cssFiles[9] = 'elfinderDev.css';
           break;
-        case 'windowEngine':        self::$cssFiles[9] = 'jquery-wm/main.css'; break;
-        case 'responsive':          self::$cssFiles[10] = 'responsive.css'; break;
-        case 'flex':                self::$cssFiles[11] = 'flex.css'; break;
-        case 'paradigm':            self::$cssFiles[12] = 'paradigm.css'; break;
-        case 'jcrop':               self::$cssFiles[13] = 'jcrop/jquery.Jcrop.min.css'; break;
-        case 'select2':             self::$cssFiles[14] = 'select2/select2.min.css'; break;
+        case 'windowEngine':        self::$cssFiles[10] = 'jquery-wm/main.css'; break;
+        case 'responsive':          self::$cssFiles[11] = 'responsive.css'; break;
+        case 'flex':                self::$cssFiles[12] = 'flex.css'; break;
+        case 'paradigm':            self::$cssFiles[13] = 'paradigm.css'; break;
+        case 'jcrop':               self::$cssFiles[14] = 'jcrop/jquery.Jcrop.min.css'; break;
+        case 'select2':             self::$cssFiles[15] = 'select2/select2.min.css'; break;
         case 'gallery':
-          self::$cssFiles[15] = 'colorbox/colorbox.css';
-          self::$cssFiles[16] = 'visualDict.css';
+          self::$cssFiles[16] = 'colorbox/colorbox.css';
+          self::$cssFiles[17] = 'visualDict.css';
           break;
-        case 'textComplete':        self::$cssFiles[17] = 'jquery.textcomplete.css'; break;
+        case 'textComplete':        self::$cssFiles[18] = 'jquery.textcomplete.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -168,9 +171,9 @@ static function addJs(/* Variable-length argument list */) {
         case 'jqTableDnd':       self::$jsFiles[7] = 'jquery.tablednd.0.8.min.js'; break;
         case 'tablesorter':
           self::$jsFiles[8] = 'jquery.tablesorter.min.js';
-          self::$jsFiles[9] = 'tablesorter.dev.js';
+          self::$jsFiles[9] = 'jquery.tablesorter.widgets.js';
+          self::$jsFiles[10] = 'jquery.tablesorter.pager.min.js';
           break;
-        case 'pager':            self::$jsFiles[10] = 'jquery.tablesorter.pager.min.js'; break;
         case 'elfinder':         self::$jsFiles[11] = 'elfinder.min.js'; break;
         case 'windowEngine':     self::$jsFiles[12] = 'jquery-wm.js'; break;
         case 'cookie':           self::$jsFiles[13] = 'jquery.cookie.js'; break;

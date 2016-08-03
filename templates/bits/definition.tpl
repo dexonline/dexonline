@@ -73,11 +73,13 @@
   </p>
 
   {if $row->comment}
-    <div class="well well-sm">
-      <i class="glyphicon glyphicon-comment"></i>
-      {$row->comment->htmlContents} -
-      <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}"
-         >{$row->commentAuthor->nick|escape}</a>
+    <div class="panel panel-default panel-comment">
+      <div class="panel-body">
+        <i class="glyphicon glyphicon-comment"></i>
+        {$row->comment->htmlContents} -
+        <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}"
+           >{$row->commentAuthor->nick|escape}</a>
+      </div>
     </div>
   {/if}
 </p>

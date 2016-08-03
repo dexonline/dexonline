@@ -25,7 +25,4 @@
     {/foreach}
   {/foreach}
 
-  <script>
-   $(tablesorterMediaWikiInit);
-  </script>
 {/block}

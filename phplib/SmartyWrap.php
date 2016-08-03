@@ -170,9 +170,9 @@ static function addJs(/* Variable-length argument list */) {
         case 'jqnotice':         self::$jsFiles[6] = 'jquery.notice.js'; break;
         case 'jqTableDnd':       self::$jsFiles[7] = 'jquery.tablednd.0.8.min.js'; break;
         case 'tablesorter':
-          self::$jsFiles[8] = 'jquery.tablesorter.min.js';
-          self::$jsFiles[9] = 'jquery.tablesorter.widgets.js';
-          self::$jsFiles[10] = 'jquery.tablesorter.pager.min.js';
+          self::$jsFiles[8] = 'tablesorter/jquery.tablesorter.min.js';
+          self::$jsFiles[9] = 'tablesorter/jquery.tablesorter.widgets.js';
+          self::$jsFiles[10] = 'tablesorter/jquery.tablesorter.pager.min.js';
           break;
         case 'elfinder':         self::$jsFiles[11] = 'elfinder.min.js'; break;
         case 'windowEngine':     self::$jsFiles[12] = 'jquery-wm.js'; break;

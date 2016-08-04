@@ -97,6 +97,10 @@ euPlatescMid = 0
 ; Type of banner to be served. Choices are "openx", "adsense", "fake" or "none".
 ; The option "fake" displays a placeholder banner and can be used in development/beta (so as not to steal real impressions from campaigns).
 type = fake
+adsense_mainPage = ""
+adsense_otherPages = ""
+openx_mainPage = ""
+openx_otherPages = ""
 
 ; Configure skin elements
 [skin]
@@ -109,10 +113,6 @@ typo = true
 widgets = true
 wotdArchive = true
 wotdSubscribe = true
-adsense_mainPage = ""
-adsense_otherPages = ""
-openx_mainPage = ""
-openx_otherPages = ""
 
 [limits]
 limitFulltextSearch = 200

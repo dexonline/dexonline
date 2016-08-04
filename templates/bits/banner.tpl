@@ -9,13 +9,13 @@
         {include file="bits/openx.tpl" zoneId="" params=$adsProviderParams}
       {elseif $cfg.banner.type == 'openx'}
         {assign var="key" value="openx_`$id`"}
-        {if $skinVariables.$key}
-          {include file="bits/openx.tpl" zoneId=$skinVariables.$key}
+        {if $cfg.banner.$key}
+          {include file="bits/openx.tpl" zoneId=$cfg.banner.$key}
         {/if}
       {elseif $cfg.banner.type == 'adsense'}
         {assign var="key" value="adsense_`$id`"}
-        {if $skinVariables.$key}
-          {include file="bits/adsense.tpl" adUnitId=$skinVariables.$key}
+        {if $cfg.banner.$key}
+          {include file="bits/adsense.tpl" adUnitId=$cfg.banner.$key}
         {/if}
       {elseif $cfg.banner.type == 'fake'}
         <div class="center-block" style="background: #777; color: white; font-size: 20px; height: {$height}px; max-width: {$width}px;">

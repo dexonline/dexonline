@@ -7,6 +7,7 @@ $(function() {
   $('span.def').click(searchClickedWord);
   $('.inflLink').click(toggleInflections);
   $('#typoModal').on('shown.bs.modal', shownTypoModal);
+  openxInit();
 });
 
 if (typeof jQuery.ui != 'undefined') {
@@ -40,6 +41,25 @@ if (typeof jQuery.ui != 'undefined') {
       }
     });
   });
+}
+
+function openxInit() {
+  if ($('#theZone').length) {
+    var w = $(window).width(), zoneId, width;
+    if (w > openxBreakpoint1) {
+      zoneId = openxZoneId1;
+      width = openxWidth1;
+    } else if (w > openxBreakpoint2) {
+      zoneId = openxZoneId2;
+      width = openxWidth2;
+    } else {
+      zoneId = openxZoneId3;
+      width = openxWidth3;
+    }
+    $('#theZone').attr('data-revive-zoneid', zoneId);
+    $('#bannerWrapper').width(width);
+    $.getScript(openxUrl);
+  }
 }
 
 function loadAjaxContent(url, elid) {

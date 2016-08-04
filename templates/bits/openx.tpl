@@ -1,31 +1,13 @@
-{assign var="cb" value="100000000"|rand:999999999}
-{assign var="url" value="https://dexonline.ro/openx/www/delivery"}
-<iframe id='a917dcff' name='a917dcff' src='{$url}/afr.php?zoneid={$zoneId}&amp;cb={$cb}' frameborder='0' scrolling='no' width='728' height='90'>
-  <a href='{$url}/ck.php?n=ac8d0c94&amp;cb={$cb}' target='_blank'>
-    <img src='{$url}/avw.php?zoneid={$zoneId}&amp;cb={$cb}&amp;n=ac8d0c94' border='0' alt='' />
-  </a>
-</iframe>
+<ins id="theZone" data-revive-zoneid="" data-revive-id="{$cfg.banner.openxReviveId}"></ins>
 
-{* Legacy Javascript code. Not good because it is blocking and some providers block the 8080 port. *}
-{* TODO: Make use of the params in the iframe version. *}
-{*
-{assign var="params" value=$params|default:null}
-<script type='text/javascript'><!--//<![CDATA[
-   var m3_u = (location.protocol=='https:'?'https://openx.dexonline.ro/www/delivery/ajs.php':'http://openx.dexonline.ro:8080/www/delivery/ajs.php');
-   var m3_r = Math.floor(Math.random()*99999999999);
-   if (!document.MAX_used) document.MAX_used = ',';
-   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
-   document.write ("?zoneid={$zoneId}");
-   document.write ('&amp;cb=' + m3_r);
-   {foreach from=$params item=value key=key}
-     document.write('&amp;{$key}={$value}');
-   {/foreach}
-   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
-   document.write ('&amp;charset=UTF-8');
-   document.write ("&amp;loc=" + escape(window.location));
-   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
-   if (document.context) document.write ("&context=" + escape(document.context));
-   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
-   document.write ("'><\/scr"+"ipt>");
-//]]>--></script>
-*}
+<script>
+ var openxUrl = '{$cfg.banner.openxUrl}';
+ var openxZoneId1 = '{$cfg.banner.openxZoneId1}';
+ var openxWidth1 = '{$cfg.banner.openxWidth1}';
+ var openxBreakpoint1 = '{$cfg.banner.openxBreakpoint1}';
+ var openxZoneId2 = '{$cfg.banner.openxZoneId2}';
+ var openxWidth2 = '{$cfg.banner.openxWidth2}';
+ var openxBreakpoint2 = '{$cfg.banner.openxBreakpoint2}';
+ var openxZoneId3 = '{$cfg.banner.openxZoneId3}';
+ var openxWidth3 = '{$cfg.banner.openxWidth3}';
+</script>

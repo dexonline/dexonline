@@ -5,7 +5,7 @@ require_once("../phplib/ads/adsModule.php");
 
 $provider = util_getRequestParameter('provider'); // Display a banner for this provider
 $go = util_getRequestParameter('go');             // Track a click and redirect to this provider
-$clickurl = util_getRequestParameter('clickurl'); // Sent to us by OpenX; when displaying a banner, we have to link to this URL
+$clickurl = util_getRequestParameter('clickurl'); // Sent to us by Revive; when displaying a banner, we have to link to this URL
 if ($go) {
   $provider = $go;
   $go = true;

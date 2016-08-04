@@ -7,7 +7,7 @@ $(function() {
   $('span.def').click(searchClickedWord);
   $('.inflLink').click(toggleInflections);
   $('#typoModal').on('shown.bs.modal', shownTypoModal);
-  openxInit();
+  reviveInit();
 });
 
 if (typeof jQuery.ui != 'undefined') {
@@ -43,22 +43,22 @@ if (typeof jQuery.ui != 'undefined') {
   });
 }
 
-function openxInit() {
+function reviveInit() {
   if ($('#theZone').length) {
     var w = $(window).width(), zoneId, width;
-    if (w > openxBreakpoint1) {
-      zoneId = openxZoneId1;
-      width = openxWidth1;
-    } else if (w > openxBreakpoint2) {
-      zoneId = openxZoneId2;
-      width = openxWidth2;
+    if (w > reviveBreakpoint1) {
+      zoneId = reviveZoneId1;
+      width = reviveWidth1;
+    } else if (w > reviveBreakpoint2) {
+      zoneId = reviveZoneId2;
+      width = reviveWidth2;
     } else {
-      zoneId = openxZoneId3;
-      width = openxWidth3;
+      zoneId = reviveZoneId3;
+      width = reviveWidth3;
     }
     $('#theZone').attr('data-revive-zoneid', zoneId);
     $('#bannerWrapper').width(width);
-    $.getScript(openxUrl);
+    $.getScript(reviveUrl);
   }
 }
 

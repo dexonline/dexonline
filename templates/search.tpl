@@ -176,10 +176,10 @@
     {/if}
 
     {if $wikiArticles}
-      <div class="panel panel-info">
+      <div class="panel panel-default">
         <div class="panel-heading">Articole pe această temă:</div>
         <div class="panel-body">
-          <ul class="list-unstyled">
+          <ul>
             {foreach from=$wikiArticles item=wa}
               <li>
                 <a href="{$wwwRoot}articol/{$wa->getUrlTitle()}">{$wa->title}</a>

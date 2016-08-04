@@ -99,8 +99,16 @@ euPlatescMid = 0
 type = fake
 adsense_mainPage = ""
 adsense_otherPages = ""
-openx_mainPage = ""
-openx_otherPages = ""
+openxUrl = "https://dexonline.ro/openx/www/delivery/asyncjs.php"
+openxReviveId = ""
+openxZoneId1 = ""
+openxWidth1 = ""
+openxBreakpoint1 = ""
+openxZoneId2 = ""
+openxWidth2 = ""
+openxBreakpoint2 = ""
+openxZoneId3 = ""
+openxWidth3 = ""
 
 ; Configure skin elements
 [skin]

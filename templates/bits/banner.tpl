@@ -4,10 +4,10 @@
 <section class="row" id="banner_{$id}" style="margin: 25px;">
   <div id="bannerWrapper" class="center-block">
     {if $adsProvider == 'diverta'}
-      {* TODO: edit openx.tpl to make this work *}
-      {include file="bits/openx.tpl" zoneId="" params=$adsProviderParams}
-    {elseif $cfg.banner.type == 'openx'}
-      {include file="bits/openx.tpl"}
+      {* TODO: edit revive.tpl to make this work *}
+      {include file="bits/revive.tpl" zoneId="" params=$adsProviderParams}
+    {elseif $cfg.banner.type == 'revive'}
+      {include file="bits/revive.tpl"}
     {elseif $cfg.banner.type == 'adsense'}
       {assign var="key" value="adsense_`$id`"}
       {if $cfg.banner.$key}

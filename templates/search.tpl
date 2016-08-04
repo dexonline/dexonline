@@ -195,19 +195,23 @@
     {foreach from=$results item=row key=i}
       {if $searchType != $smarty.const.SEARCH_FULL_TEXT }
         {if $row->source->isOfficial == 1 && $notDisplayedSpec}
-          <hr/>
-          <h3>Definiții din dicționare specializate</h3>
-          <p class="text-muted">
-            Aceste definiții pot explica numai anumite înțelesuri ale cuvintelor.
-          </p>
+          <br/>
+          <div class="callout callout-info">
+            <h3>Definiții din dicționare specializate</h3>
+            <p class="text-muted">
+              Aceste definiții pot explica numai anumite înțelesuri ale cuvintelor.
+            </p>
+          </div>
           {assign var=notDisplayedSpec value=false}
         {elseif $row->source->isOfficial == 0 && $notDisplayedUnofficial}
-          <hr/>
-          <h3>Definiții din dicționare neoficiale</h3>
-          <p class="text-muted">
-            Deoarece nu sunt editate de lexicografi, aceste definiții pot conține erori,
-            deci e preferabilă consultarea altor dicționare în paralel.
-          </p>
+          <br/>
+          <div class="callout callout-info">
+            <h3>Definiții din dicționare neoficiale</h3>
+            <p class="text-muted">
+              Deoarece nu sunt editate de lexicografi, aceste definiții pot conține erori,
+              deci e preferabilă consultarea altor dicționare în paralel.
+            </p>
+          </div>
           {assign var=notDisplayedUnofficial value=false}
         {/if}
       {/if}

@@ -110,6 +110,22 @@ background-color: #FFF;
   width: 20px;
 }
 
+.callout {
+  padding: 10px 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
+
+.callout-info {
+  border-left-color: #1e83c2;
+}
+
+.callout h3 {
+  color: #1e83c2;
+}
+
 /********************* Vertical spacing *********************/
 
 /* as suggested by http://pdenya.com/2013/08/08/vertical-space-in-bootstrap/ */

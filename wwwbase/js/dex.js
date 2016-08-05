@@ -7,7 +7,6 @@ $(function() {
   $('span.def').click(searchClickedWord);
   $('.inflLink').click(toggleInflections);
   $('#typoModal').on('shown.bs.modal', shownTypoModal);
-  reviveInit();
 });
 
 if (typeof jQuery.ui != 'undefined') {

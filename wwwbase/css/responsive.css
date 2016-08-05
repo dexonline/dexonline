@@ -8,22 +8,43 @@ body {
 
 .navbar-brand > img {
   margin-top: -13px;
+  margin-left: 16px;
 }
 
 @media (max-width: 768px) {
   .navbar-collapse {
      clear:both;
   }
+
+  .navbar-default .navbar-collapse {
+    background-color: #f8f8f8;
+  }
 }
+
 @media (max-width: 992px) {
   #logo-wide {
     display: none;
   }
+
+  .navbar-brand > img {
+    margin-left: 0;
+  }
 }
+
 @media (min-width: 993px) {
   #logo-narrow {
     display: none;
   }
+
+  header .container {
+    padding: 0;
+  }
+}
+
+.navbar-default {
+  background-color: #FFF;
+  border-bottom: 1px solid #e8e8e8;
+  box-shadow: 0 0 8px 0 rgba(0,0,0,.1);
 }
 
 .navbar-default .navbar-nav>li>a.donateLink {
@@ -125,6 +146,9 @@ background-color: #FFF;
 .callout h3 {
   color: #1e83c2;
 }
+
+
+
 
 /********************* Vertical spacing *********************/
 

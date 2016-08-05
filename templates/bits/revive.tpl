@@ -1,7 +1,6 @@
 <ins id="theZone" data-revive-zoneid="" data-revive-id="{$cfg.banner.reviveId}"></ins>
 
 <script>
- var reviveUrl = '{$cfg.banner.reviveUrl}';
  var reviveZoneId1 = '{$cfg.banner.reviveZoneId1}';
  var reviveWidth1 = '{$cfg.banner.reviveWidth1}';
  var reviveBreakpoint1 = '{$cfg.banner.reviveBreakpoint1}';
@@ -10,4 +9,7 @@
  var reviveBreakpoint2 = '{$cfg.banner.reviveBreakpoint2}';
  var reviveZoneId3 = '{$cfg.banner.reviveZoneId3}';
  var reviveWidth3 = '{$cfg.banner.reviveWidth3}';
+ reviveInit();
 </script>
+
+<script src="{$cfg.banner.reviveUrl}"></script>

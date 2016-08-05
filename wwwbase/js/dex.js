@@ -7,7 +7,6 @@ $(function() {
   $('span.def').click(searchClickedWord);
   $('.inflLink').click(toggleInflections);
   $('#typoModal').on('shown.bs.modal', shownTypoModal);
-  reviveInit();
 });
 
 if (typeof jQuery.ui != 'undefined') {
@@ -58,7 +57,6 @@ function reviveInit() {
     }
     $('#theZone').attr('data-revive-zoneid', zoneId);
     $('#bannerWrapper').width(width);
-    $.getScript(reviveUrl);
   }
 }
 

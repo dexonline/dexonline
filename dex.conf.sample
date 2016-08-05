@@ -94,21 +94,21 @@ euPlatescMid = 0
 
 ; Banner settings
 [banner]
-; Type of banner to be served. Choices are "openx", "adsense", "fake" or "none".
+; Type of banner to be served. Choices are "revive", "adsense", "fake" or "none".
 ; The option "fake" displays a placeholder banner and can be used in development/beta (so as not to steal real impressions from campaigns).
 type = fake
 adsense_mainPage = ""
 adsense_otherPages = ""
-openxUrl = "https://dexonline.ro/openx/www/delivery/asyncjs.php"
-openxReviveId = ""
-openxZoneId1 = ""
-openxWidth1 = ""
-openxBreakpoint1 = ""
-openxZoneId2 = ""
-openxWidth2 = ""
-openxBreakpoint2 = ""
-openxZoneId3 = ""
-openxWidth3 = ""
+reviveUrl = "https://dexonline.ro/openx/www/delivery/asyncjs.php"
+reviveId = ""
+reviveZoneId1 = ""
+reviveWidth1 = ""
+reviveBreakpoint1 = ""
+reviveZoneId2 = ""
+reviveWidth2 = ""
+reviveBreakpoint2 = ""
+reviveZoneId3 = ""
+reviveWidth3 = ""
 
 ; Configure skin elements
 [skin]

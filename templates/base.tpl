@@ -26,12 +26,10 @@
   </head>
 
   <body>
+    <header>
+      {include file="bits/navmenu.tpl"}
+    </header>
     <div class="container">
-      <header class="row">
-        <div class="col-md-12">
-          {include file="bits/navmenu.tpl"}
-        </div>
-      </header>
       <main class="row">
         <div class="col-md-12 main-content">
           {include file="bits/flashMessages.tpl"}

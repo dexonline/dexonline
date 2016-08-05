@@ -1,5 +1,5 @@
 <nav class="navbar navbar-default">
-  <div class="container-fluid">
+  <div class="container">
     <div class="navbar-header navbar-left pull-left">
       {if !$onHomePage}
         <a class="navbar-brand" href="{$wwwRoot}" title="Prima pagină">
@@ -31,7 +31,7 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Despre noi <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle about-us" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Despre noi <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii" target="_blank">Informații</a></li>
             <li><a href="{$wwwRoot}contact">Contact</a></li>

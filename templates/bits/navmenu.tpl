@@ -12,14 +12,14 @@
     <div class="navbar-header navbar-right pull-right">
       <ul class="nav navbar-nav pull-left">
         <li>
-          <a class="donateLink" href="{$wwwRoot}doneaza">
+          <button type="button" class="btn btn-info navbar-btn donateLink" href="{$wwwRoot}doneaza">
             <span class="glyphicon glyphicon-credit-card"></span>
             Donează
-          </a>
+          </button>
         </li>
       </ul>
 
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navMenu" aria-expanded="false">
+      <button type="button" class="navbar-toggle collapsed hamburger-menu" data-toggle="collapse" data-target="#navMenu" aria-expanded="false">
         <span class="sr-only">Navigare</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>

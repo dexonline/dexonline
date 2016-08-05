@@ -19,6 +19,10 @@ body {
   .navbar-default .navbar-collapse {
     background-color: #f8f8f8;
   }
+
+  #logo-narrow {
+    margin-top: -4px;
+  }
 }
 
 @media (max-width: 992px) {
@@ -50,6 +54,17 @@ body {
 .navbar-default .navbar-nav>li>a.donateLink {
   color: #1e83c2;
 }
+
+@media (min-width: 768px) {
+  .navbar-right {
+    margin-right: 0;
+  }
+}
+
+.hamburger-menu {
+  margin-top: 16px;
+}
+
 
 /* Accomodate non-collapsible donate link. */
 .navbar-toggle {

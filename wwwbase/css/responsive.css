@@ -11,7 +11,7 @@ body {
   margin-left: 16px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .navbar-collapse {
      clear:both;
   }

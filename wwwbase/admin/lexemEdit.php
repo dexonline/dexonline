@@ -169,31 +169,29 @@ function validate($lexem, $original, $variantIds) {
     FlashMessage::add('Adăugați un accent sau debifați câmpul „Necesită accent”.');
   }
 
-  $hasS = false;
-  $hasP = false;
+  // Gather all different restriction - model type pairs
+  $pairs = Model::factory('ConstraintMap')
+         ->table_alias('cm')
+         ->select_expr('binary cm.code', 'restr')
+         ->select('mt.code', 'modelType')
+         ->distinct()
+         ->join('Inflection', ['cm.inflectionId', '=', 'i.id'], 'i')
+         ->join('ModelType', ['i.modelType', '=', 'mt.canonical'], 'mt')
+         ->find_array();
+  $restrMap = [];
+  foreach ($pairs as $p) {
+    $restrMap[$p['restr']][$p['modelType']] = true;
+  }
+
   for ($i = 0; $i < mb_strlen($lexem->restriction); $i++) {
     $c = StringUtil::getCharAt($lexem->restriction, $i);
-    if ($c == 'T' || $c == 'U' || $c == 'I') {
-      if ($lexem->modelType != 'V' && $lexem->modelType != 'VT') {
-        FlashMessage::add("Restricția <b>$c</b> se aplică numai verbelor");
-      }
-    } else if ($c == 'S') {
-      if ($lexem->modelType == 'I' || $lexem->modelType == 'T') {
-        FlashMessage::add("Restricția <b>S</b> nu se aplică modelului $lexem->modelType");
-      }
-      $hasS = true;
-    } else if ($c == 'P') {
-      if ($lexem->modelType == 'I' || $lexem->modelType == 'T') {
-        FlashMessage::add("Restricția <b>P</b> nu se aplică modelului $lexem->modelType");
-      }
-      $hasP = true;
+    if (!isset($restrMap[$c])) {
+      FlashMessage::add("Restricția <strong>$c</strong> este nedefinită.");
+    } else if (!isset($restrMap[$c][$lexem->modelType])) {
+      FlashMessage::add("Restricția <strong>$c</strong> nu se aplică modelului <strong>{$lexem->modelType}.</strong>");
     }
   }
   
-  if ($hasS && $hasP) {
-    FlashMessage::add("Restricțiile <b>S</b> și <b>P</b> nu pot coexista.");
-  }
-
   $ifs = $lexem->generateInflectedForms();
   if (!is_array($ifs)) {
     $infl = Inflection::get_by_id($ifs);

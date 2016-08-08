@@ -21,20 +21,6 @@ $(function() {
       width: '100%',
     });
 
-    initSelect2('#variantIds', 'ajax/getLexemsById.php', {
-      ajax: { url: wwwRoot + 'ajax/getLexems.php' },
-      minimumInputLength: 1,
-      width: '100%',
-    });
-
-    initSelect2('#variantOfId', 'ajax/getLexemsById.php', {
-      ajax: { url: wwwRoot + 'ajax/getLexems.php' },
-      allowClear: true,
-      minimumInputLength: 1,
-      placeholder: '(opțional)',
-      width: '100%',
-    });
-
     initSelect2('#tagIds', 'ajax/getTagsById.php', {
       ajax: { url: wwwRoot + 'ajax/getTags.php' },
       minimumInputLength: 1,
@@ -52,7 +38,6 @@ $(function() {
   function saveEverything() {
     // allow disabled selects to submit (they should have been readonly,
     // not disabled, but Select2 4.0 doesn't use readonly).
-    $('#variantOfId, #variantIds').prop('disabled', false);
     $('input[name="stopWord"]').prop('disabled', false);
     $('input[name="isLoc"]').prop('disabled', false);
     $('select[name="modelType"]').prop('disabled', false);

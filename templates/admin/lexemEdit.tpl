@@ -36,6 +36,13 @@
             label="formă"
             readonly=!$canEdit.form}
 
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="needsAccent" value="1" {if !$lexem->noAccent}checked{/if}>
+                necesită accent
+              </label>
+            </div>
+
             {include "bits/fgf.tpl"
             field="lexemNumber"
             type="number"
@@ -73,15 +80,6 @@
               </select>
             </div>
             
-            <div class="form-group">
-              <label for="tagIds">etichete</label>
-              <select id="tagIds" name="tagIds[]" class="form-control" multiple>
-                {foreach $tagIds as $t}
-                  <option value="{$t}" selected></option>
-                {/foreach}
-              </select>
-            </div>
-            
           </div>
 
           <div class="col-md-6">
@@ -100,27 +98,19 @@
             placeholder="opționale, despărțite prin virgule"
             readonly=!$canEdit.pronunciations}
 
-
             <div class="form-group">
-              <label for="variantOfId">variantă a lui</label>
-              <select id="variantOfId" name="variantOfId" {if !$canEdit.variants}disabled{/if}>
-                <option value="{$lexem->variantOfId}" selected></option>
-              </select>
-            </div>
-            
-            <div class="form-group">
-              <label for="variantIds">variante</label>
-              <select id="variantIds" name="variantIds[]" multiple {if !$canEdit.variants}disabled{/if}>
-                {foreach $variantIds as $id}
-                  <option value="{$id}" selected></option>
+              <label for="tagIds">etichete</label>
+              <select id="tagIds" name="tagIds[]" class="form-control" multiple>
+                {foreach $tagIds as $t}
+                  <option value="{$t}" selected></option>
                 {/foreach}
               </select>
             </div>
-
+            
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="needsAccent" value="1" {if !$lexem->noAccent}checked{/if}>
-                necesită accent
+                <input type="checkbox" name="main" value="1" {if $lexem->main}checked{/if}>
+                formă principală
               </label>
             </div>
 

@@ -151,6 +151,7 @@ class Tree extends BaseObject implements DatedObject {
     }
   }
 
+  // TODO this shouldn't be used, since we use visibility in place of deletions.
   public function delete() {
     Relation::delete_all_by_treeId($this->id);
     parent::delete();

@@ -270,15 +270,6 @@ class Lexem extends BaseObject implements DatedObject {
     return Model::factory('Lexem')->raw_query($query)->find_many();
   }
 
-  public function getVariantIds() {
-    $variants = Model::factory('Lexem')->select('id')->where('variantOfId', $this->id)->find_many();
-    $ids = array();
-    foreach ($variants as $variant) {
-      $ids[] = $variant->id;
-    }
-    return $ids;
-  }
-
   /**
    * Returns an array of InflectedForms. These can be loaded from the disk ($method = METHOD_LOAD)
    * or generated on the fly ($method = METHOD_GENERATE);
@@ -512,28 +503,6 @@ class Lexem extends BaseObject implements DatedObject {
     }
   }
 
-  public function updateVariants($variantIds) {
-    foreach ($variantIds as $variantId) {
-      $variant = Lexem::get_by_id($variantId);
-      $variant->variantOfId = $this->id;
-      $variant->save();
-    }
-
-    // Delete variants no longer in the list
-    if ($variantIds) {
-      $lexemsToClear = Model::factory('Lexem')
-                     ->where('variantOfId', $this->id)
-                     ->where_not_in('id', $variantIds)
-                     ->find_many();
-    } else {
-      $lexemsToClear = self::get_all_by_variantOfId($this->id);
-    }
-    foreach($lexemsToClear as $l) {
-      $l->variantOfId = null;
-      $l->save();
-    }
-  }
-
   /**
    * Called when the model type of a lexem changes from VT to something else.
    * Only deletes participles that do not have their own definitions.
@@ -610,12 +579,6 @@ class Lexem extends BaseObject implements DatedObject {
       LexemTag::delete_all_by_lexemId($this->id);
       // delete_all_by_lexemId doesn't work for FullTextIndex because it doesn't have an ID column
       Model::factory('FullTextIndex')->where('lexemId', $this->id)->delete_many();
-    }
-    // Clear the variantOfId field for lexems having $this as main.
-    $lexemsToClear = Lexem::get_all_by_variantOfId($this->id);
-    foreach ($lexemsToClear as $l) {
-      $l->variantOfId = null;
-      $l->save();
     }
     Log::warning("Deleted lexem {$this->id} ({$this->formNoAccent})");
     parent::delete();

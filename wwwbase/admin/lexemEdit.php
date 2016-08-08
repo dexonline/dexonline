@@ -15,12 +15,11 @@ $lexemNumber = util_getRequestParameter('lexemNumber');
 $lexemDescription = util_getRequestParameter('lexemDescription');
 $lexemComment = util_getRequestParameter('lexemComment');
 $needsAccent = util_getBoolean('needsAccent');
+$main = util_getBoolean('main');
 $stopWord = util_getBoolean('stopWord');
 $hyphenations = util_getRequestParameter('hyphenations');
 $pronunciations = util_getRequestParameter('pronunciations');
 $entryId = util_getRequestParameter('entryId');
-$variantIds = util_getRequestParameterWithDefault('variantIds', []);
-$variantOfId = util_getRequestParameter('variantOfId');
 $tagIds = util_getRequestParameter('tagIds');
 
 // Paradigm parameters
@@ -40,10 +39,10 @@ $original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether ce
 
 if ($refreshLexem || $saveLexem) {
   populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
-           $needsAccent, $stopWord, $hyphenations, $pronunciations, $entryId, $variantOfId,
+           $needsAccent, $main, $stopWord, $hyphenations, $pronunciations, $entryId,
            $modelType, $modelNumber, $restriction, $notes, $isLoc, $sourceIds);
 
-  if (validate($lexem, $original, $variantIds)) {
+  if (validate($lexem, $original)) {
     // Case 1: Validation passed
     if ($saveLexem) {
       if (($original->modelType == 'VT') && ($lexem->modelType != 'VT')) {
@@ -54,7 +53,6 @@ if ($refreshLexem || $saveLexem) {
         $original->deleteLongInfinitive();
       }
       $lexem->deepSave();
-      $lexem->updateVariants($variantIds);
       $lexem->regenerateDependentLexems();
 
       // Delete the old tags and add the new tags.
@@ -73,15 +71,12 @@ if ($refreshLexem || $saveLexem) {
     // Case 2: Validation failed
   }
   // Case 1-2: Page was submitted
-  SmartyWrap::assign('variantIds', $variantIds);
 } else {
   // Case 3: First time loading this page
   $lexem->loadInflectedFormMap();
 
   $lts = LexemTag::get_all_by_lexemId($lexem->id);
   $tagIds = util_objectProperty($lts, 'tagId');
-
-  SmartyWrap::assign('variantIds', $lexem->getVariantIds());
 }
 
 $tags = Model::factory('Tag')->order_by_asc('value')->find_many();
@@ -97,7 +92,6 @@ $canEdit = array(
   'sources' => util_isModerator(PRIV_LOC | PRIV_EDIT),
   'stopWord' => util_isModerator(PRIV_ADMIN),
   'tags' => util_isModerator(PRIV_LOC | PRIV_EDIT),
-  'variants' => util_isModerator(PRIV_STRUCT | PRIV_EDIT),
 );
 
 // Prepare a list of model numbers, to be used in the paradigm drop-down.
@@ -120,7 +114,7 @@ SmartyWrap::display('admin/lexemEdit.tpl');
 
 // Populate lexem fields from request parameters.
 function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
-                  $needsAccent, $stopWord, $hyphenations, $pronunciations, $entryId, $variantOfId,
+                  $needsAccent, $main, $stopWord, $hyphenations, $pronunciations, $entryId,
                   $modelType, $modelNumber, $restriction, $notes, $isLoc, $sourceIds) {
   $lexem->setForm(AdminStringUtil::formatLexem($lexemForm));
   $lexem->number = $lexemNumber;
@@ -133,11 +127,11 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
     $lexem->comment .= " [[" . session_getUser() . ", " . strftime("%d %b %Y %H:%M") . "]]";
   }
   $lexem->noAccent = !$needsAccent;
+  $lexem->main = $main;
   $lexem->stopWord = $stopWord;
   $lexem->hyphenations = $hyphenations;
   $lexem->pronunciations = $pronunciations;
   $lexem->entryId = $entryId;
-  $lexem->variantOfId = $variantOfId ? $variantOfId : null;
 
   $lexem->modelType = $modelType;
   $lexem->modelNumber = $modelNumber;
@@ -156,7 +150,7 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   $lexem->setLexemSources($lexemSources);
 }
 
-function validate($lexem, $original, $variantIds) {
+function validate($lexem, $original) {
   if (!$lexem->form) {
     FlashMessage::add('Forma nu poate fi vidă.');
   }
@@ -197,34 +191,6 @@ function validate($lexem, $original, $variantIds) {
     $infl = Inflection::get_by_id($ifs);
     FlashMessage::add(sprintf("Nu pot genera flexiunea '%s' conform modelului %s%s",
                               htmlentities($infl->description), $lexem->modelType, $lexem->modelNumber));
-  }
-
-  $variantOf = Lexem::get_by_id($lexem->variantOfId);
-  if ($variantOf && !empty($variantIds)) {
-    FlashMessage::add("Acest lexem este o variantă a lui {$variantOf} și nu poate avea el însuși variante.");
-  }
-  if ($variantOf && ($variantOf->id == $lexem->id)) {
-    FlashMessage::add("Lexemul nu poate fi variantă a lui însuși.");
-  }
-
-  foreach ($variantIds as $variantId) {
-    $variant = Lexem::get_by_id($variantId);
-    if ($variant->id == $lexem->id) {
-      FlashMessage::add('Lexemul nu poate fi variantă a lui însuși.');
-    }
-    if ($variant->variantOfId && $variant->variantOfId != $lexem->id) {
-      $other = Lexem::get_by_id($variant->variantOfId);
-      FlashMessage::add("\"{$variant}\" este deja marcat ca variantă a lui \"{$other}\".");
-    }
-    $variantVariantCount = Model::factory('Lexem')->where('variantOfId', $variant->id)->count();
-    if ($variantVariantCount) {
-      FlashMessage::add("\"{$variant}\" are deja propriile lui variante.");
-    }
-    // TODO: lexems should only be variants of other lexems in the same entry, right?
-    // $variantMeanings = Model::factory('Meaning')->where('lexemId', $variant->id)->find_many();
-    // if (!goodForVariant($variantMeanings)) {
-    //   FlashMessage::add("'{$variant}' are deja propriile lui sensuri.");
-    // }
   }
 
   return !FlashMessage::hasErrors();

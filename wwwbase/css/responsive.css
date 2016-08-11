@@ -168,6 +168,8 @@ background-color: #FFF;
   color: #1e83c2;
 }
 
+
+/********************* Home page widgets *********************/
 a.widget,
 .widget.multiple-links {
   margin: 10px;
@@ -194,6 +196,12 @@ a.widget,
 
 .widget-icon {
   margin-top: 14px;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .widget {
+    min-height: 185px;
+  }
 }
 
 

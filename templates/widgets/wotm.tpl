@@ -1,12 +1,11 @@
-{extends file="widgets/layout.tpl"}
-
-{block name="widget-header"}
-  Cuvântul lunii
-{/block}
-
-{block name="widget-body"}
-  <img src="{$thumbUrlM}" alt="iconiță cuvântul lunii">
-  {if $wotmDef}
-    {include file="bits/wotmurl.tpl" linkText=$wotmDef->lexicon}
-  {/if}
-{/block}
+<a href="{$wwwRoot}cuvantul-lunii/{$todayM}" class="widget row">
+  <div class="col-md-8">
+    <h4>Cuvântul lunii</h4><br/>
+    {if $wotmDef}
+      <span class="widget-value">{$wotmDef->lexicon}</span>
+    {/if}
+  </div>
+  <div class="col-md-4">
+    <img src="{$thumbUrlM}" alt="iconiță cuvântul lunii" class="widget-icon">
+  </div>
+</a>

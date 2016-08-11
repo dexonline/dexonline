@@ -43,6 +43,10 @@ body {
   header .container {
     padding: 0;
   }
+
+  .widget>div {
+    min-height: 88px;
+  }
 }
 
 .navbar-default {
@@ -160,11 +164,37 @@ background-color: #FFF;
   border-left-color: #1e83c2;
 }
 
-.callout h3 {
+.callout-info h3 {
   color: #1e83c2;
 }
 
+a.widget,
+.widget.multiple-links {
+  margin: 10px;
+  padding: 20px 10px;
+  border: 1px solid #CCC;
+  box-shadow: 0 0 8px 0 rgba(0,0,0,.1);
+  border-radius: 4px;
+  display: block;
+  color: #777;
+}
 
+.widget:hover {
+  border-color: #1e83c2;
+}
+
+.widget h4,
+.widget-value {
+  display: inline-block;
+}
+
+.list-games {
+  padding-left: 18px;
+}
+
+.widget-icon {
+  margin-top: 14px;
+}
 
 
 /********************* Vertical spacing *********************/

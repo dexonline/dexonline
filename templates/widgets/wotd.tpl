@@ -1,15 +1,14 @@
-{extends file="widgets/layout.tpl"}
-
-{block name="widget-header"}
-  Cuvântul zilei
-{/block}
-
-{block name="widget-body"}
+<a class="widget row" href="{$wwwRoot}cuvantul-zilei/{$today}">
+  <div class="col-md-8">
+    <h4>Cuvântul zilei</h4><br/>
+    {if $wotdDef}
+      <span class="widget-value">{$wotdDef->lexicon}</span>
+    {/if}
+  </div>
+  <div class="col-md-4">
   {if !$thumbUrl}
     {assign var="thumbUrl" value="wotd/thumb/generic.jpg"}
   {/if}
-  <img src="{$thumbUrl}" alt="iconiță cuvântul zilei">
-  {if $wotdDef}
-    {include file="bits/wotdurl.tpl" linkText=$wotdDef->lexicon}
-  {/if}
-{/block}
+  <img src="{$thumbUrl}" alt="iconiță cuvântul zilei" class="widget-icon">
+  </div>
+</a>

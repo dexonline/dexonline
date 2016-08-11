@@ -25,8 +25,10 @@
             <div class="col-sm-4 col-xs-12">{include file="widgets/`$params.template`"}</div>
           {/if}
         {/foreach}
-        <a class="btn btn-link pull-right" href="preferinte">personalizare elemente</a>
       {/if}
+    </div>
+    <div class="col-md-12">
+      <a class="btn btn-link pull-right" href="preferinte">personalizare elemente</a>
     </div>
   </section>
 

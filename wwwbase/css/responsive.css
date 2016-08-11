@@ -204,6 +204,16 @@ a.widget,
   }
 }
 
+.customise-widgets {
+  padding-right: 25px;
+  font-size: 12px;
+}
+
+.customise-widgets .glyphicon {
+  margin-right: 3px;
+  color: #999;
+}
+
 
 /********************* Vertical spacing *********************/
 

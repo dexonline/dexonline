@@ -28,7 +28,7 @@
       {/if}
     </div>
     <div class="col-md-12">
-      <a class="btn btn-link pull-right" href="preferinte">personalizare elemente</a>
+      <a class="btn btn-link customise-widgets pull-right" href="preferinte"><span class="glyphicon glyphicon-cog"></span>personalizare elemente</a>
     </div>
   </section>
 

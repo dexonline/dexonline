@@ -255,6 +255,13 @@ a.widget,
   color: #999;
 }
 
+#ui-id-1 {
+  background: #FFF;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  box-shadow: 0 6px 8px 0px #999;
+}
+
 
 /********************* Vertical spacing *********************/
 

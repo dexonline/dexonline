@@ -12,9 +12,9 @@
     <div class="navbar-header navbar-right pull-right">
       <ul class="nav navbar-nav pull-left">
         <li>
-          <button type="button" class="btn btn-info navbar-btn donateLink" href="{$wwwRoot}doneaza">
+          <button type="button" class="btn btn-info navbar-btn donateLink">
             <span class="glyphicon glyphicon-credit-card"></span>
-            Donează
+            <a href="{$wwwRoot}doneaza">Donează</a>
           </button>
         </li>
       </ul>

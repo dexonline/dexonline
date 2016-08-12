@@ -262,6 +262,13 @@ a.widget,
   box-shadow: 0 6px 8px 0px #999;
 }
 
+#ui-id-1 a:hover {
+  background: #eee;
+  border-color: #eee;
+  border-radius: 0;
+  cursor: pointer;
+}
+
 
 /********************* Vertical spacing *********************/
 

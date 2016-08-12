@@ -166,6 +166,10 @@ background-color: #FFF;
 
 
 /********************* Home page (widgets, etc) *********************/
+.widgets {
+  margin-top: 25px;
+}
+
 a.widget,
 .widget.multiple-links {
   margin: 10px;

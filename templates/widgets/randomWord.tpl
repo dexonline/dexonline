@@ -1,4 +1,4 @@
-<a id="randomWordLink" class="widget row" href="{$wwwRoot}definitie/">
+<a id="randomWordLink" class="widget random-word row" href="{$wwwRoot}definitie/">
   <div class="col-md-8">
     <h4>Cuvânt aleator</h4><br/>
     <script>
@@ -7,11 +7,11 @@
        success: function(cuv) {
          oldHref = $('#randomWordLink').attr('href');
          $('#randomWordLink').attr('href', oldHref + cuv);
-         $('.widget-value').text(cuv);
+         $('.random-value').text(cuv);
        }
      });
     </script>
-    <span class="widget-value"></span>
+    <span class="widget-value random-value"></span>
   </div>
   <div class="col-md-4">
     <img alt="cuvânt aleator" src="{$cfg.static.url}img/wotd/thumb/misc/aleator.jpg" class="widget-icon">

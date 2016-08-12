@@ -1,4 +1,4 @@
-<a class="widget row" href="{$wwwRoot}cuvantul-zilei/{$today}">
+<a class="widget wotd row" href="{$wwwRoot}cuvantul-zilei/{$today}">
   <div class="col-md-8">
     <h4>Cuvântul zilei</h4><br/>
     {if $wotdDef}

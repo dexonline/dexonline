@@ -1,4 +1,4 @@
-<a href="{$wwwRoot}cuvantul-lunii/{$todayM}" class="widget row">
+<a href="{$wwwRoot}cuvantul-lunii/{$todayM}" class="widget wotm row">
   <div class="col-md-8">
     <h4>Cuvântul lunii</h4><br/>
     {if $wotmDef}

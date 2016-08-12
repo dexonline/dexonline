@@ -1,4 +1,4 @@
-<div class="widget row multiple-links">
+<div class="widget games row multiple-links">
   <div class="col-md-8">
     <h4>Jocuri</h4><br/>
     <ul class="list-games">

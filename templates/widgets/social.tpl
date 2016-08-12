@@ -1,4 +1,4 @@
-<div class="widget row multiple-links">
+<div class="widget social row multiple-links">
   <div class="col-md-12">
     <h4>Urmărește-ne pe</h4>
     <ul class="list-inline">

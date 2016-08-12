@@ -8,7 +8,7 @@
     "@gray-lighter": "lighten(@gray-base, 93.5%)",
     "@brand-primary": "#761818",
     "@brand-success": "#5cb85c",
-    "@brand-info": "#5bc0de",
+    "@brand-info": "#1e83c2",
     "@brand-warning": "#f0ad4e",
     "@brand-danger": "#d9534f",
     "@body-bg": "#fff",
@@ -16,10 +16,10 @@
     "@link-color": "@brand-primary",
     "@link-hover-color": "darken(@link-color, 15%)",
     "@link-hover-decoration": "underline",
-    "@font-family-sans-serif": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
-    "@font-family-serif": "Georgia, \"Times New Roman\", Times, serif",
+    "@font-family-sans-serif": "Arial, sans-serif",
+    "@font-family-serif": "\"Open Sans\", \"Times New Roman\", serif",
     "@font-family-monospace": "Menlo, Monaco, Consolas, \"Courier New\", monospace",
-    "@font-family-base": "@font-family-sans-serif",
+    "@font-family-base": "@font-family-serif",
     "@font-size-base": "14px",
     "@font-size-large": "ceil((@font-size-base * 1.25))",
     "@font-size-small": "ceil((@font-size-base * 0.85))",
@@ -431,5 +431,5 @@
     "scrollspy.js",
     "transition.js"
   ],
-  "customizerUrl": "https://getbootstrap.com/customize/?id=a725e3ea25ef5aaf5a67a1c16426bfc6"
+  "customizerUrl": "http://getbootstrap.com/customize/?id=dbb6f5da9b5a08898348721b1a1cd35a"
 }

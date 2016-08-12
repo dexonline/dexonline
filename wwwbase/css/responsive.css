@@ -175,14 +175,33 @@ a.widget,
   margin: 10px;
   padding: 20px 10px;
   border: 1px solid #CCC;
-  box-shadow: 0 0 8px 0 rgba(0,0,0,.1);
   border-radius: 4px;
   display: block;
   color: #777;
 }
 
-.widget:hover {
-  border-color: #1e83c2;
+.widget.aotm:hover {
+  border-color: #1DE3CE;
+}
+
+.widget.games:hover {
+  border-color: #761818;
+}
+
+.widget.random-word:hover {
+  border-color: #FFC03F;
+}
+
+.widget.social:hover {
+  border-color: #3B5998;
+}
+
+.widget.wotd:hover {
+  border-color: #E31DB2;
+}
+
+.widget.wotm:hover {
+  border-color: #25D228;
 }
 
 .widget h4,

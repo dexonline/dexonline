@@ -1,4 +1,4 @@
-<a class="widget row" href="{$wwwRoot}articol/{$articol}">
+<a class="widget aotm row" href="{$wwwRoot}articol/{$articol}">
   <div class="col-md-8">
     <h4>Articolul lunii</h4><br/>
     <span class="widget-value">{$articol|replace:'_':' '}</span>

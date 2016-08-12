@@ -119,7 +119,7 @@ function parse($text) {
 
   // Add table classes
   foreach($dom->getElementsByTagName('table') as $table) {
-    $table->setAttribute('class', $table->getAttribute('class') . ' table');
+    $table->setAttribute('class', trim($table->getAttribute('class') . ' table table-hover'));
   }
 
   // Convert toc divs to panels

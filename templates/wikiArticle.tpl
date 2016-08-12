@@ -16,13 +16,17 @@
 
   <h3>Alte articole lingvistice</h3>
 
-  {foreach from=$wikiTitles key=k item=v}
-    <h4>{$k|escape:'html'}</h4>
-    {foreach from=$v item=titlePair}
-      {if $titlePair[0] != $title}
-        <a href="{$wwwRoot}articol/{$titlePair[1]}">{$titlePair[0]}</a><br/>
-      {/if}
+    {foreach from=$wikiTitles key=k item=v}
+      <h4>{$k|escape:'html'}</h4>
+      <ul>
+        {foreach from=$v item=titlePair}
+          {if $titlePair[0] != $title}
+            <li>
+              <a href="{$wwwRoot}articol/{$titlePair[1]}">{$titlePair[0]}</a>
+            </li>
+          {/if}
+        {/foreach}
+      </ul><br/>
     {/foreach}
-  {/foreach}
 
 {/block}

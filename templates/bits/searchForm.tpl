@@ -20,7 +20,11 @@
             <input type="text" class="form-control searchField" name="cuv" placeholder="cuvânt" value="{$cuv|escape}" maxlength="50"/>
             <span class="input-group-btn">
               <button type="submit" value="caută" id="searchButton" class="btn btn-primary">
+<<<<<<< HEAD
                 <span class="glyphicon glyphicon-search"></span>
+=======
+                  <span class="glyphicon glyphicon-search"></span>
+>>>>>>> eaee2d4b0edc1a6a869c63f16ef795b4bee633e8
                 caută
               </button>
             </span>

@@ -3,7 +3,7 @@
 {assign var="suggestHiddenSearchForm" value=$suggestHiddenSearchForm|default:false}
 {assign var="suggestNoBanner" value=$suggestNoBanner|default:false}
 <!DOCTYPE html>
-<html lang="ro">
+<html>
 
   <head>
     <title>{block name=title}Dicționare ale limbii române{/block} | dexonline</title>

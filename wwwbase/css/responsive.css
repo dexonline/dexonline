@@ -126,12 +126,17 @@
 
 p.def {
   color: black;
+  cursor: pointer;
   font-size: 16px;
   line-height: 1.6em;
 }
 
 p.defDetails {
   margin-top: -10px;
+}
+
+.spaced {
+  letter-spacing: 3px;
 }
 
 #resultsWrapper .glyphicon-comment {

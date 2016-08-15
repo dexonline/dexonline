@@ -48,7 +48,7 @@
             <img src={$imgRoot}/icons/pencil.png alt="editează" title="editează lexemul"/>
           </a> &nbsp;
           <a class="noBorder" href="#" onclick="return mlUpdateDefVisibility({$l->id}, 'def_{$l->id}')">
-            <img src={$imgRoot}/icons/book_open.png alt="definiții" title="arată definițiile"/>
+            <i class="glyphicon glyphicon-folder-open" title="arată definițiile"></i>
           </a>
         {/strip}
         </div>
@@ -66,7 +66,7 @@
               <img src={$imgRoot}/icons/pencil.png alt="editează" title="editează lexemul"/>
             </a> &nbsp;
             <a class="noBorder" href="#" onclick="return mlUpdateDefVisibility({$match->id}, 'def_{$match->id}')">
-              <img src={$imgRoot}/icons/book_open.png alt="definiții" title="arată definițiile"/>
+              <i class="glyphicon glyphicon-folder-open" title="arată definițiile"></i>
             </a>
             {/strip}
             <br/>

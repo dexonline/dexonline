@@ -395,7 +395,7 @@ $(function() {
   }
 
   function createAjaxLoader() {
-    return $('<img src="' + wwwRoot + 'img/icons/ajax-indicator.gif" />');
+    return $('<i class="glyphicon glyphicon-hourglass"></i>');
   }
 
   init();

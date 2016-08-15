@@ -88,7 +88,7 @@
           <td>{$inflectionMap[$inflId]->description|escape}</td>
           <td class="addSign">
             <a class="noBorder addFormLink" href="#" data-infl-id="{$inflId}">
-              <img src="{$imgRoot}/icons/add.png" alt="plus"/>
+              <i class="glyphicon glyphicon-plus"></i>
             </a>
           </td>
           <td class="input">

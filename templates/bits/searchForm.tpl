@@ -2,7 +2,6 @@
 {assign var="cuv" value=$cuv|default:''}
 {assign var="text" value=$text|default:false}
 
-
 <section class="row search">
   <div class="col-md-12">
     <form action="{$wwwRoot}search.php" name="frm" onsubmit="return searchSubmit()" id="searchForm">

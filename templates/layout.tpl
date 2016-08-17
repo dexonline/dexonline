@@ -5,7 +5,7 @@
     {include file="bits/searchForm.tpl"}
   {/if}
   {if !$suggestNoBanner && $skinVariables.banner}
-    {include file="bits/banner.tpl" id="otherPages" width="728" height="90"}
+    {include file="bits/banner.tpl" id="otherPages"}
   {/if}
 {/block}
 

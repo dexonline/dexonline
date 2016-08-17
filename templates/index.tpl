@@ -13,7 +13,7 @@
   {include file="bits/searchForm.tpl" advancedSearch=0}
 
   {if !$suggestNoBanner}
-    {include file="bits/banner.tpl" id="mainPage" width="1024" height="90"}
+    {include file="bits/banner.tpl" id="mainPage"}
   {/if}
 
 

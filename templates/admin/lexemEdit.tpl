@@ -309,9 +309,9 @@
       {foreach from=$searchResults item=row}
         {$def=$row->definition}
         <div class="defWrapper {if $def->structured}structured{else}unstructured{/if}" id="def_{$def->id}">
-          <div data-code="0" class="rep internal hidden">{$def->internalRepAbbrev|escape}</div>
-          <div data-code="1" class="rep hidden">{$def->htmlRepAbbrev}</div>
-          <div data-code="2" class="rep internal hidden">{$def->internalRep|escape}</div>
+          <div data-code="0" class="rep internal hiddenRep">{$def->internalRepAbbrev|escape}</div>
+          <div data-code="1" class="rep hiddenRep">{$def->htmlRepAbbrev}</div>
+          <div data-code="2" class="rep internal hiddenRep">{$def->internalRep|escape}</div>
           <div data-code="3" data-active class="rep">{$def->htmlRep}</div>
           <span class="defDetails">
             id: {$def->id}

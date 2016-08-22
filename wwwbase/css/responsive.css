@@ -124,6 +124,14 @@
 
 /********************* Definitions *********************/
 
+/* 
+  Make Firefox abbr underlining consistent with other browsers.
+  Reference: https://github.com/dexonline/dexonline/issues/485
+*/
+abbr[title] {
+  text-decoration: none;
+}
+
 p.def {
   color: black;
   cursor: pointer;

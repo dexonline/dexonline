@@ -92,3 +92,11 @@
   color: #1010c0;
   font-style: italic;
 }
+
+/* 
+  Fix the inflection arrow for Google Chrome
+  Reference: https://github.com/dexonline/dexonline/issues/484
+*/
+#inflArrow {
+  font-family: serif;
+}

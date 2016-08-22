@@ -17,7 +17,7 @@
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.toolsTable.minimalistTable.1.4</td>
+	<td>css=table.table-condensed.1.4</td>
 	<td>editează șterge</td>
 </tr>
 <tr>
@@ -52,7 +52,7 @@
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.toolsTable.minimalistTable.1.4</td>
+	<td>css=table.table-condensed.1.4</td>
 	<td>editează</td>
 </tr>
 <tr>
@@ -87,10 +87,9 @@
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.toolsTable.minimalistTable.1.4</td>
+	<td>css=table.table-condensed.1.4</td>
 	<td>editează șterge</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

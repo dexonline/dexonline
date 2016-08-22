@@ -42,7 +42,7 @@
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>id=advancedAnchor</td>
+	<td>//button[@title='căutare avansată']</td>
 	<td></td>
 </tr>
 </tbody></table>

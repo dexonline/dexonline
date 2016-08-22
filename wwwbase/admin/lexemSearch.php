@@ -11,8 +11,8 @@ $structStatus = util_getRequestParameter('structStatus');
 $structuristId = util_getRequestParameter('structuristId');
 $nick = util_getRequestParameter('nick');
 
-$where = array();
-$joins = array();
+$where = [];
+$joins = [];
 
 // Process the $form argument
 $form = StringUtil::cleanupQuery($form);
@@ -36,37 +36,36 @@ if ($sourceId) {
 // Process the $loc argument
 switch ($loc) {
   case 0:
-    $joins['lexemModel'] = true;
-    $where[] = "not lm.isLoc";
+    $where[] = "not isLoc";
     break;
   case 1:
-    $joins['lexemModel'] = true;
-    $where[] = "lm.isLoc";
+    $where[] = "isLoc";
     break;
 }
 
 // Process the $paradigm argument
 switch ($paradigm) {
   case 0:
-    $joins['lexemModel'] = true;
     $where[] = "modelType = 'T'";
     break;
   case 1:
-    $joins['lexemModel'] = true;
     $where[] = "modelType != 'T'";
     break;
 }
 
 // Process the $structStatus argument
 if ($structStatus) {
-  $where[] = "structStatus = {$structStatus}";
+  $joins['entry'] = true;
+  $where[] = "e.structStatus = {$structStatus}";
 }
 
 // Process the $structStatus argument
 if ($structuristId > 0) {
-  $where[] = "structuristId = {$structuristId}";
+  $joins['entry'] = true;
+  $where[] = "e.structuristId = {$structuristId}";
 } else if ($structuristId == -1) {
-  $where[] = "structuristId = 0 or structuristId is null";
+  $joins['entry'] = true;
+  $where[] = "e.structuristId = 0 or e.structuristId is null";
 }
 
 // Process the $nick argument
@@ -90,11 +89,13 @@ $query = Model::factory('Lexem')
 foreach ($joins as $join => $ignored) {
   switch ($join) {
     case 'definition':
-      $query = $query->join('LexemDefinitionMap', 'l.id = ldm.lexemId', 'ldm')
-        ->join('Definition', 'ldm.definitionId = d.id', 'd');
+      $query = $query->join('EntryDefinition', ['l.entryId', '=', 'ed.entryId'], 'ed')
+        ->join('Definition', 'ed.definitionId = d.id', 'd');
       break;
-    case 'lexemModel':
-      $query = $query->join('LexemModel', 'l.id = lm.lexemId', 'lm');
+
+    case 'entry':
+      $query = $query->join('Entry', ['l.entryId', '=', 'e.id'], 'e');
+      break;
   }
 }
 

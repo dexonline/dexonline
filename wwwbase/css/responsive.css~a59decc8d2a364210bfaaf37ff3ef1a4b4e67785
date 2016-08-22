@@ -1,0 +1,286 @@
+#advSearch {
+  padding: 5px 0 5px 0;
+}
+
+.navbar-brand > img {
+  margin-top: -13px;
+  margin-left: 16px;
+}
+
+@media (max-width: 767px) {
+  .navbar-collapse {
+     clear:both;
+  }
+
+  .navbar-default .navbar-collapse {
+    background-color: #f8f8f8;
+  }
+
+  #logo-narrow {
+    margin-top: -4px;
+  }
+}
+
+@media (max-width: 992px) {
+  #logo-wide {
+    display: none;
+  }
+
+  .navbar-brand > img {
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 993px) {
+  #logo-narrow {
+    display: none;
+  }
+
+  header .container {
+    padding: 0;
+  }
+
+  .widget>div {
+    min-height: 88px;
+  }
+}
+
+.navbar-default {
+  background-color: #FFF;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid #e8e8e8;
+  box-shadow: 0 0 8px 0 rgba(0,0,0,.1);
+}
+
+.navbar-default .navbar-nav>li>a.donateLink {
+  color: #1e83c2;
+}
+
+@media (min-width: 768px) {
+  .navbar-right {
+    margin-right: 0;
+  }
+}
+
+.hamburger-menu {
+  margin-top: 16px;
+}
+
+
+/* Accomodate non-collapsible donate link. */
+.navbar-toggle {
+  margin-left: 20px;
+}
+
+.donateLink a {
+  color: #FFF;
+}
+
+.donateLink a:hover {
+  text-decoration: none;
+}
+
+.glyphicon-credit-card {
+  top: 2px;
+  padding-right: 4px;
+}
+
+.table-caption {
+    padding: 10px;
+    font-weight: bold;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.table-caption .glyphicon {
+    cursor: pointer;
+}
+
+/* helper classes */
+.table-striped-column-odd > tbody > tr td:nth-of-type(odd),
+.table-striped-column-even > tbody > tr td:nth-of-type(even) {
+  background-color: #f9f9f9;
+}
+
+.sourceShortName {
+  background: #DDD;
+  border-radius: 2px;
+  color: #444;
+  font-size: 80%;
+  margin-left: 10px;
+  padding: 3px 5px;
+}
+
+.footer {
+  padding-top: 1rem;
+}
+
+/********************* Definitions *********************/
+
+p.def {
+  color: black;
+  font-size: 16px;
+  line-height: 1.6em;
+}
+
+p.defDetails {
+  margin-top: -10px;
+}
+
+#resultsWrapper .glyphicon-comment {
+  color: #1E83C2;
+  padding-right: 10px;
+}
+
+.panel-comment {
+  margin-top: 20px;
+  margin-left: 30px;
+}
+
+.panel-comment .panel-body {
+  padding: 0px 15px 15px;
+}
+
+.panel-comment:before {
+background-color: #FFF;
+  box-shadow: -4px 2px 2px 0 #ddd;
+  content: "\00a0";
+  display: block;
+  height: 20px;
+  left: 20px;
+  position: relative;
+  top: -6px;
+  transform: rotate( 135deg );
+  width: 20px;
+}
+
+.callout {
+  padding: 10px 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
+
+.callout-info {
+  border-left-color: #1e83c2;
+}
+
+.callout-info h3 {
+  color: #1e83c2;
+}
+
+
+/********************* Home page (widgets, etc) *********************/
+.widgets {
+  margin-top: 25px;
+}
+
+a.widget,
+.widget.multiple-links {
+  margin: 10px;
+  padding: 20px 10px;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  display: block;
+  color: #777;
+}
+
+.widget.aotm:hover {
+  border-color: #1DE3CE;
+}
+
+.widget.games:hover {
+  border-color: #761818;
+}
+
+.widget.random-word:hover {
+  border-color: #FFC03F;
+}
+
+.widget.social:hover {
+  border-color: #3B5998;
+}
+
+.widget.wotd:hover {
+  border-color: #E31DB2;
+}
+
+.widget.wotm:hover {
+  border-color: #25D228;
+}
+
+.widget h4,
+.widget-value {
+  display: inline-block;
+}
+
+.list-games {
+  padding-left: 18px;
+}
+
+.widget-icon {
+  margin-top: 14px;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .widget {
+    min-height: 185px;
+  }
+}
+
+.customise-widgets {
+  padding-right: 25px;
+  font-size: 12px;
+}
+
+.customise-widgets .glyphicon {
+  margin-right: 3px;
+  color: #999;
+}
+
+#searchForm .form-control:focus {
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.075), 0 0 4px #ddd;
+  box-shadow: 0 1px 1px rgba(0,0,0,.075), 0 0 4px #ddd;
+}
+
+.website-statement {
+  color: #999;
+}
+
+#ui-id-1 {
+  background: #FFF;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  box-shadow: 0 6px 8px 0px #999;
+}
+
+#ui-id-1 a:hover {
+  background: #eee;
+  border-color: #eee;
+  border-radius: 0;
+  cursor: pointer;
+  color: #761818;
+}
+
+
+/********************* Vertical spacing *********************/
+
+/* as suggested by http://pdenya.com/2013/08/08/vertical-space-in-bootstrap/ */
+.voffset  { margin-top: 2px; }
+.voffset1 { margin-top: 5px; }
+.voffset2 { margin-top: 10px; }
+.voffset3 { margin-top: 15px; }
+.voffset4 { margin-top: 30px; }
+.voffset5 { margin-top: 40px; }
+.voffset6 { margin-top: 60px; }
+.voffset7 { margin-top: 80px; }
+.voffset8 { margin-top: 100px; }
+.voffset9 { margin-top: 150px; }

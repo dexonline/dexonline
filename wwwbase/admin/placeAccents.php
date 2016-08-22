@@ -20,9 +20,7 @@ if ($submitButton) {
       } else if ($position != -1) {
         $lexem->form = mb_substr($lexem->form, 0, $position) . "'" . mb_substr($lexem->form, $position);
         $lexem->save();
-        foreach ($lexem->getLexemModels() as $lm) {
-          $lm->regenerateParadigm();
-        }
+        $lexem->regenerateParadigm();
       }
     }
   }
@@ -43,7 +41,7 @@ foreach($lexems as $l) {
   }
   $chars[$l->id] = $charArray;
 
-  $definitions = Definition::loadByLexemId($l->id);
+  $definitions = Definition::loadByEntryId($l->entryId);
   $searchResults[$l->id] = SearchResult::mapDefinitionArray($definitions);
 }
 

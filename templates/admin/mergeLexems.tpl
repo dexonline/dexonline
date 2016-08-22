@@ -32,13 +32,11 @@
     <input type="hidden" name="modelType" value="{$modelType}"/>
 
     {foreach from=$lexems item=l key=lIter}
-      {assign var="lms" value=$l->getLexemModels()}
-      {assign var="lm" value=$lms[0]}
       <div class="blLexem">
         <div class="blLexemTitle">
           <span class="name">{$lIter+1}. {$l->form|escape}</span>
-          {$lm->modelType}{$lm->modelNumber}{$lm->restriction}
-          <span class="{if $lm->isLoc}isLoc{else}isNotLoc{/if}">LOC</span>
+          {$l->modelType}{$l->modelNumber}{$l->restriction}
+          <span class="{if $l->isLoc}isLoc{else}isNotLoc{/if}">LOC</span>
           {*
              {assign var="ifs" value=$l->loadInflectedForms()}
              {foreach from=$ifs item=if}
@@ -50,33 +48,31 @@
             <img src={$imgRoot}/icons/pencil.png alt="editează" title="editează lexemul"/>
           </a> &nbsp;
           <a class="noBorder" href="#" onclick="return mlUpdateDefVisibility({$l->id}, 'def_{$l->id}')">
-            <img src={$imgRoot}/icons/book_open.png alt="definiții" title="arată definițiile"/>
+            <i class="glyphicon glyphicon-folder-open" title="arată definițiile"></i>
           </a>
         {/strip}
         </div>
         <div id="def_{$l->id}" class="blDefinitions" style="display:none"></div>
         <div class="blLexemBody">
           {foreach from=$l->matches item=match}
-            {assign var="lmsMatch" value=$match->getLexemModels()}
-            {assign var="lmMatch" value=$lmsMatch[0]}
             {assign var="checkboxId" value="merge_`$l->id`_`$match->id`"}
             <input type="checkbox" id="{$checkboxId}" name="{$checkboxId}" value="1"/>
             <label for="{$checkboxId}"> 
-              Unifică cu {$match->form} {$lmMatch->modelType}{$lmMatch->modelNumber}{$lmMatch->restriction}
+              Unifică cu {$match->form} {$match->modelType}{$match->modelNumber}{$match->restriction}
             </label>
-            <span class="{if $lmMatch->isLoc}isLoc{else}isNotLoc{/if}">LOC</span>
+            <span class="{if $match->isLoc}isLoc{else}isNotLoc{/if}">LOC</span>
             {strip}
             <a class="noBorder" target="_blank" href="../admin/lexemEdit.php?lexemId={$match->id}">
               <img src={$imgRoot}/icons/pencil.png alt="editează" title="editează lexemul"/>
             </a> &nbsp;
             <a class="noBorder" href="#" onclick="return mlUpdateDefVisibility({$match->id}, 'def_{$match->id}')">
-              <img src={$imgRoot}/icons/book_open.png alt="definiții" title="arată definițiile"/>
+              <i class="glyphicon glyphicon-folder-open" title="arată definițiile"></i>
             </a>
             {/strip}
             <br/>
-            {if ($lm->isLoc && !$lmMatch->isLoc) || $match->lostForms}
+            {if ($l->isLoc && !$match->isLoc) || $match->lostForms}
               <ul class="mlNotes">
-                {if ($lm->isLoc && !$lmMatch->isLoc)}
+                {if ($l->isLoc && !$match->isLoc)}
                   <li>Acest lexem va fi adăugat la LOC</li>
                 {/if}
                 {if $match->addedForms}

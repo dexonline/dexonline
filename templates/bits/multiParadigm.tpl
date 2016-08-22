@@ -1,18 +1,16 @@
 {assign var="hasUnrecommendedForms" value=$hasUnrecommendedForms|default:false}
 {if $lexems}
-  {foreach from=$lexems item=lexem}
+  {foreach $lexems as $lexem}
     <div class="paraLexem">
       <div class="lexemData">
         <span class="lexemName">{include file="bits/lexemName.tpl" lexem=$lexem}</span>
-        {include file="bits/locInfo.tpl" isLoc=$lexem->isLoc()}
+        {include file="bits/locInfo.tpl" isLoc=$lexem->isLoc}
         {if $sUser && ($sUser->moderator & ($smarty.const.PRIV_EDIT + $smarty.const.PRIV_STRUCT))}
           <a class="paraEdit" href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexem->id}" title="editează lexemul"></a>
         {/if}
       </div>
 
-      {foreach from=$lexem->getLexemModels() item=lm}
-        {include file="paradigm/paradigm.tpl" lexemModel=$lm}
-      {/foreach}
+      {include file="paradigm/paradigm.tpl" lexem=$lexem}
     </div>
   {/foreach}
 

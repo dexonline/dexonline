@@ -1,362 +1,225 @@
-{extends file="admin/layout.tpl"}
+{extends file="layout.tpl"}
 
 {block name=title}Editare lexem: {$lexem->form}{/block}
 
-{block name=adminHeader}{/block}
-
 {block name=content}
-  {include file="bits/phpConstants.tpl"}
-
-  {assign var="searchResults" value=$searchResults|default:null}
+  <h3>
+    Editare lexem: {$lexem->form}
+    <span class="pull-right">
+      <small>
+        <a href="http://wiki.dexonline.ro/wiki/Editarea_lexemelor">
+          <i class="glyphicon glyphicon-question-sign"></i>
+          instrucțiuni
+        </a>
+      </small>
+    </span>
+  </h3>
 
   <script>
    canEdit = { 'paradigm': {$canEdit.paradigm}, 'loc': {$canEdit.loc} };
   </script>
 
-  {* Stem meaning editor that we clone whenever we append a new meaning *}
-  <ul id="stemNode">
-    <li>
-      <div class="meaningContainer">
-        <span class="id"></span>
-        <span class="breadcrumb"></span>
-        <span class="tags"></span>
-        <span class="tagIds"></span>
-        <span class="internalRep"></span>
-        <span class="htmlRep"></span>
-        <span class="internalEtymology"></span>
-        <span class="htmlEtymology"></span>
-        <span class="internalComment"></span>
-        <span class="htmlComment"></span>
-        <span class="sources"></span>
-        <span class="sourceIds"></span>
-        {for $type=1 to Relation::NUM_TYPES}
-          <span class="relation" data-type="{$type}"></span>
-          <span class="relationIds" data-type="{$type}"></span>
-        {/for}
-      </div>
-    </li>
-  </ul>
-  
   <form action="lexemEdit.php" method="post">
-    <input type="hidden" name="lexemId" value="{$lexem->id}">
-    <input type="hidden" name="jsonMeanings" value="">
-    <input type="hidden" name="jsonSourceIds" value="">
-    <input type="hidden" name="mergeLexemId" value="">
+    <div class="panel panel-default">
+
+      <div class="panel-heading">Proprietăți</div>
+
+      <div class="panel-body">
+        <input type="hidden" name="lexemId" value="{$lexem->id}">
+
+        <div class="row">
+          <div class="col-md-6">
+
+            {include "bits/fgf.tpl"
+            field="lexemForm"
+            value=$lexem->form
+            label="formă"
+            readonly=!$canEdit.form}
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="needsAccent" value="1" {if !$lexem->noAccent}checked{/if}>
+                necesită accent
+              </label>
+            </div>
+
+            {include "bits/fgf.tpl"
+            field="lexemNumber"
+            type="number"
+            value=$lexem->number
+            label="număr"
+            placeholder="opțional, pentru numerotarea omonimelor"
+            readonly=!$canEdit.general}
+            
+            {include "bits/fgf.tpl"
+            field="lexemDescription"
+            value=$lexem->description
+            label="descriere"
+            placeholder="opțională, pentru diferențierea omonimelor"
+            readonly=!$canEdit.description}
+
+            {if $homonyms}
+              <div class="form-group">
+                <label>omonime</label>
+
+                {foreach from=$homonyms item=h}
+                  <div>
+                    {include file="bits/lexemLink.tpl" lexem=$h}
+                    {$h->modelType}{$h->modelNumber}{$h->restriction}
+                  </div>
+                {/foreach}
+              </div>
+            {/if}
+
+            <div class="form-group">
+              <label for="entryId">intrare</label>
+              <select id="entryId" name="entryId">
+                {if $lexem->entryId}
+                  <option value="{$lexem->entryId}" selected></option>
+                {/if}
+              </select>
+            </div>
+            
+          </div>
+
+          <div class="col-md-6">
+
+            {include "bits/fgf.tpl"
+            field="hyphenations"
+            value=$lexem->hyphenations
+            label="silabisiri"
+            placeholder="opționale, despărțite prin virgule"
+            readonly=!$canEdit.hyphenations}
+
+            {include "bits/fgf.tpl"
+            field="pronunciations"
+            value=$lexem->pronunciations
+            label="pronunții"
+            placeholder="opționale, despărțite prin virgule"
+            readonly=!$canEdit.pronunciations}
+
+            <div class="form-group">
+              <label for="tagIds">etichete</label>
+              <select id="tagIds" name="tagIds[]" class="form-control" multiple>
+                {foreach $tagIds as $t}
+                  <option value="{$t}" selected></option>
+                {/foreach}
+              </select>
+            </div>
+            
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="main" value="1" {if $lexem->main}checked{/if}>
+                formă principală
+              </label>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"
+                       name="stopWord"
+                       value="1"
+                       {if $lexem->stopWord}checked{/if}
+                       {if !$canEdit.stopWord}disabled{/if}
+                       >
+                ignoră la căutările full-text
+              </label>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+
+      <div class="panel-heading">Model de flexiune</div>
+
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-md-6">
+
+            {assign var="readonly" value=!$canEdit.loc && $lexem->isLoc}
+
+            <div class="form-group">
+              <label>tip + număr + restricții</label>
+
+              <div class="form-inline" data-model-dropdown>
+                <input type="hidden" name="locVersion" value="6.0" data-loc-version>
+
+                <select name="modelType" class="form-control" {if $readonly}disabled{/if} data-model-type data-selected="{$lexem->modelType}">
+                </select>
+
+                <select name="modelNumber" class="form-control" {if $readonly}disabled{/if} data-model-number data-selected="{$lexem->modelNumber}">
+                </select>
+                
+                <input type="text"
+                       class="form-control"
+                       name="restriction"
+                       value="{$lexem->restriction}"
+                       size="5"
+                       placeholder="restricții"
+                       {if $readonly}readonly{/if}>
+              </div>
+            </div>
+
+            {if !$readonly}
+              <div class="form-group">
+                <select class="similarLexem"></select>
+              </div>
+            {/if}
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"
+                       name="isLoc"
+                       value="1"
+                       {if $lexem->isLoc}checked{/if}
+                       {if !$canEdit.loc}disabled{/if}
+                       >
+                inclus în LOC
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label>surse care atestă flexiunea</label>
+              <select id="sourceIds" name="sourceIds[]" multiple {if !$canEdit.sources}disabled{/if}>
+                {foreach $lexem->getSourceIds() as $lsId}
+                  <option value="{$lsId}" selected></option>
+                {/foreach}
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            {include "bits/fgf.tpl"
+            field="notes"
+            value=$lexem->notes
+            label="precizări"
+            placeholder="explicații despre sursa flexiunii"
+            readonly=!$canEdit.tags}
+
+            <div class="form-group">
+              <label>comentariu</label>
+
+              <textarea name="lexemComment" class="form-control" rows="4"
+                        placeholder="Comentarii și/sau greșeli observate în paradigmă"
+                        >{$lexem->comment|escape}</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">Paradigmă</div>
+      <div class="panel-body">
+        {include "paradigm/paradigm.tpl" lexem=$lexem}
+      </div>
+    </div>
 
     {include file="admin/lexemEditActions.tpl"}
 
-    <div id="wmCanvas"></div>
-
-    <div class="box" data-id="properties" data-title="Proprietăți" data-left="0" data-top="0" data-width="330" data-height="320">
-      <table>
-        <tr>
-          <td><label for="lexemForm">nume:</label></td>
-          <td>
-            <input type="text" id="lexemForm" name="lexemForm" value="{$lexem->form|escape}" size="20" {if !$canEdit.form}readonly{/if}>
-            
-            <span class="tooltip2" title="Cuvântul-titlu. Accentul trebuie indicat chiar și pentru lexemele monosilabice, altfel paradigma nu va
-                                          conține deloc accente. Valoarea acestui câmp este folosită la căutări și este vizibilă public la afișarea flexiunilor unui cuvânt. Odată
-                                          ce un lexem a fost inclus în LOC, numele și descrierea lexemului mai pot fi modificate numai de către moderatorii LOC.">&nbsp;</span>
-          </td>
-        </tr>
-
-        <tr>
-          <td><label for="lexemNumber">număr:</label></td>
-          <td>
-            <input type="number" id="lexemNumber" name="lexemNumber" value="{$lexem->number}"
-                   min="1" max="99" maxlength="2" size="2" {if !$canEdit.general}readonly{/if}>
-            
-            <span class="tooltip2" title="Opțional, pentru numerotarea omonimelor.">&nbsp;</span>
-          </td>
-        </tr>
-        
-        <tr>
-          <td><label for="lexemDescription">descriere:</label></td>
-          <td>
-            <input type="text" id="lexemDescription" name="lexemDescription" value="{$lexem->description|escape}" size="20"
-                   placeholder="opțională, pentru diferențierea omonimelor" {if !$canEdit.description}readonly{/if}>
-            <span class="tooltip2" title="O scurtă descriere, vizibilă public, pentru diferențierea omonimelor.">&nbsp;</span>
-          </td>
-        </tr>
-        
-        <tr>  
-          <td><label for="structStatus">structurare:</label></td>
-          <td>
-            {include file="bits/structStatus.tpl" selected=$lexem->structStatus canEdit=$canEdit.structStatus}
-
-            <span class="tooltip2" title="Cât timp structurarea este „în lucru”, persoanele autorizate pot modifica sensurile, variantele, silabisirile
-                                          și pronunțiile. După trecerea în starea „așteaptă moderarea”, doar moderatorii mai pot schimba aceste valori.">&nbsp;</span>
-          </td>
-        </tr>
-        
-        <tr>  
-          <td><label for="structuristId">structurist:</label></td>
-          <td>
-            <select id="structuristId" name="structuristId">
-              {if $lexem->structuristId}
-                <option value="{$lexem->structuristId}" selected></option>
-              {/if}
-            </select>
-
-            <span class="tooltip2"
-                  title="Structuristul este implicit utilizatorul care marchează structurarea ca „în lucru”.
-                         Doar administratorii îl pot modifica, iar structuristul însuși se poate dezabona (șterge).">&nbsp;</span>
-          </td>
-        </tr>
-        
-        <tr>
-          <td><label for="hyphenations">silabisiri:</label></td>
-          <td>
-            <input id="hyphenations" name="hyphenations" type="text" value="{$lexem->hyphenations}" size="20"
-                   placeholder="opționale, despărțite prin virgule" {if !$canEdit.hyphenations}readonly{/if}>
-          </td>
-        </tr>
-        
-        <tr>
-          <td><label for="pronunciations">pronunții:</label></td>
-          <td>
-            <input id="pronunciations" name="pronunciations" type="text" value="{$lexem->pronunciations}" size="20"
-                   placeholder="opționale, despărțite prin virgule" {if !$canEdit.pronunciations}readonly{/if}>
-          </td>
-        </tr>
-        
-        <tr>
-          <td><label for="needsAccent">necesită accent:</label></td>
-          <td>        
-            <input type="checkbox" id="needsAccent" name="needsAccent" value="1" {if !$lexem->noAccent}checked{/if}>
-            <span class="tooltip2" title="Majoritatea lexemelor necesită accent. Excepție fac cuvintele compuse, denumirile științifice de animale și
-                                          plante, elementele de compunere etc.">&nbsp;</span>
-          </td>
-        </tr>
-        
-        <tr>
-          <td><label for="variantOfId">variantă a lui:</label></td>
-          <td>
-            <select id="variantOfId" name="variantOfId" {if !$canEdit.variants}disabled{/if}>
-              <option value="{$lexem->variantOfId}"></option>
-            </select>
-            <span class="tooltip2"
-                  title="Variantele nu pot avea sensuri, exemple, variante sau etimologii proprii. Ele pot avea pronunții și silabisiri proprii.">&nbsp;</span>
-          </td>
-        </tr>
-        
-        <tr>  
-          <td><label for="variantIds">variante:</label></td>
-          <td>
-            <select id="variantIds" name="variantIds[]" multiple {if !$canEdit.variants}disabled{/if}>
-              {foreach $variantIds as $id}
-                <option value="{$id}" selected></option>
-              {/foreach}
-            </select>
-            <span class="tooltip2"
-                  title="Variantele nu pot avea sensuri, exemple, variante sau etimologii proprii. Ele pot avea pronunții și silabisiri proprii.">&nbsp;</span>
-          </td>
-        </tr>
-        
-        {if $homonyms}
-          <tr>
-            <td>omonime:</td>
-            <td>
-              {foreach from=$homonyms item=h}
-                {assign var=lms value=$h->getLexemModels()}
-                {include file="bits/lexemLink.tpl" lexem=$h}
-                {$lms[0]->modelType}{$lms[0]->modelNumber}{$lms[0]->restriction}<br>
-              {/foreach}
-            </td>
-          </tr>
-        {/if}
-      </table>
-    </div>
-
-    <div class="box" data-id="paradigm" data-title="Paradigmă" data-left="345" data-top="0" data-width="650" data-height="320">
-      {include file="bits/lexemEditModel.tpl"
-      id="stem"
-      lm=$stemLexemModel
-      models=$modelsT}
-
-      <div>
-        <div id="paradigmTabs">
-          {if $canEdit.paradigm}
-            <a href="#" id="addLexemModel">adaugă un model</a>
-          {/if}
-          <ul>
-            {foreach from=$lexemModels key=i item=lm}
-              <li>
-                {if $canEdit.paradigm}
-                  <span class="ui-icon ui-icon-arrow-4"></span>
-                {/if}
-                <a href="#lmTab_{$i}">{$lm->modelType}{$lm->modelNumber}</a>
-                {if $canEdit.loc || !$lm->isLoc}
-                  <span class="ui-icon ui-icon-close"></span>
-                {/if}
-              </li>
-            {/foreach}
-          </ul>
-
-          {foreach from=$lexemModels key=i item=lm}
-            {include file="bits/lexemEditModel.tpl"
-            id=$i
-            lm=$lm
-            models=$models[$i]}
-          {/foreach}
-        </div>
-        <br>
-
-        Comentarii despre paradigmă:
-        <br>
-        
-        <textarea name="lexemComment" rows="3" cols="60" class="commentTextArea"
-                  placeholder="Dacă observați greșeli în paradigmă, notați-le în acest câmp și ele vor fi semnalate unui moderator cu drept de gestiune a LOC."
-                  >{$lexem->comment|escape}</textarea>
-      </div>
-    </div>
-
-    <div class="box meaningTreeContainer" data-id="meaningTree" data-title="Sensuri" data-left="10" data-top="330" data-width="960" data-height="280" data-minimized="1">
-      {include file="bits/meaningTree.tpl" meanings=$meanings id="meaningTree"}
-
-      <div id="meaningMenu">
-        {if $canEdit.meanings}
-          <input type="button" id="addMeaningButton" value="adaugă sens"
-                 title="Adaugă un sens ca frate al sensului selectat. Dacă nici un sens nu este selectat, adaugă un sens la sfârșitul listei.">
-          <input type="button" id="addSubmeaningButton" value="adaugă subsens" disabled
-                 title="Adaugă un sens ca ultimul fiu al sensului selectat">
-          <input type="button" id="deleteMeaningButton" value="șterge sens" disabled
-                 title="Șterge sensul selectat">
-          <input type="button" id="meaningRightButton" class="arrowButton" value="⇨" disabled
-                 title="Sensul devine fiu al fratelui său anterior.">
-          <input type="button" id="meaningLeftButton" class="arrowButton" value="⇦" disabled
-                 title="Sensul devine fratele următor al tatălui său.">
-          <input type="button" id="meaningDownButton" class="arrowButton" value="⇩" disabled
-                 title="Sensul schimbă locurile cu fratele său următor.">
-          <input type="button" id="meaningUpButton" class="arrowButton" value="⇧" disabled
-                 title="Sensul schimbă locurile cu fratele său anterior.">
-        {else}
-          <span class="tooltip2" title="Sensurile, variantele, pronunțiile și silabisirile pot fi modificate doar cât timp structurarea este „în lucru”.">&nbsp;</span>
-        {/if}
-      </div>
-    </div>
-
-    {if $canEdit.meanings}
-      <div class="box" data-id="meaningEditor" data-title="Editorul de sensuri" data-left="10" data-top="30" data-width="960" data-height="280" data-minimized="1">
-        <div id="meaningEditor">
-          <textarea id="editorRep" rows="10" cols="10" disabled placeholder="sensul definiției..."></textarea>
-          <textarea id="editorEtymology" rows="5" cols="10" disabled placeholder="etimologie..."></textarea>
-          <textarea id="editorComment" rows="3" cols="10" disabled placeholder="comentariu..."></textarea>
-
-          <div>
-            <label for="editorSources">surse:</label>
-            <select id="editorSources" multiple disabled>
-              {foreach from=$sources item=s}
-                <option value="{$s->id}">{$s->shortName}</option>
-              {/foreach}
-            </select>
-          </div>
-
-          <div>
-            <label for="editorTags">etichete:</label>
-            <select id="editorTags" multiple disabled>
-              {foreach $tags as $t}
-                <option value="{$t->id}">{$t->value}</option>
-              {/foreach}
-            </select>
-          </div>
-
-          <div>
-            <label for="relationType">relații:</label>
-            <select id="relationType" disabled>
-              <option value="1" title="sinonime">sinonime</option>
-              <option value="2" title="antonime">antonime</option>
-              <option value="3" title="diminutive">diminutive</option>
-              <option value="4" title="augmentative">augmentative</option>
-            </select>
-            <span class="relationWrapper" data-type="1">
-              <select class="editorRelation" multiple disabled></select>
-            </span>
-            <span class="relationWrapper" data-type="2">
-              <select class="editorRelation" multiple disabled></select>
-            </span>
-            <span class="relationWrapper" data-type="3">
-              <select class="editorRelation" multiple disabled></select>
-            </span>
-            <span class="relationWrapper" data-type="4">
-              <select class="editorRelation" multiple disabled></select>
-            </span>
-          </div>
-
-          <input id="editMeaningAcceptButton" type="button" disabled value="acceptă">
-          <input id="editMeaningCancelButton" type="button" disabled value="renunță">
-        </div>
-      </div>
-    {/if}
-
-    <div class="box" data-id="definitions" data-title="Definiții asociate ({$searchResults|@count})" data-left="0" data-top="335" data-width="995" data-height="300">
-      <div>
-        <select id="defFilterSelect">
-          <option value="">toate</option>
-          <option value="structured">structurate</option>
-          <option value="unstructured">nestructurate</option>
-        </select>
-        <select class="toggleRepSelect" data-order="1">
-          <option value="0">text</option>
-          <option value="1" selected>html</option>
-        </select>
-        <select class="toggleRepSelect" data-order="2">
-          <option value="0">expandat</option>
-          <option value="1" selected>abreviat</option>
-        </select>
-      </div>
-
-      {foreach from=$searchResults item=row}
-        {$def=$row->definition}
-        <div class="defWrapper {if $def->structured}structured{else}unstructured{/if}" id="def_{$def->id}">
-          <div data-code="0" class="rep internal hiddenRep">{$def->internalRepAbbrev|escape}</div>
-          <div data-code="1" class="rep hiddenRep">{$def->htmlRepAbbrev}</div>
-          <div data-code="2" class="rep internal hiddenRep">{$def->internalRep|escape}</div>
-          <div data-code="3" data-active class="rep">{$def->htmlRep}</div>
-          <span class="defDetails">
-            id: {$def->id}
-            | sursa: {$row->source->shortName|escape}
-            | starea: {$def->getStatusName()}
-            {if $canEdit.general}
-              | <a href="definitionEdit.php?definitionId={$def->id}" target="_blank">editează</a>
-              | <a href="lexemEdit.php?lexemId={$lexem->id}&amp;dissociateDefinitionId={$def->id}"
-                   title="disociază definiția de lexem" onclick="return confirmDissociateDefinition({$def->id})">disociază</a>
-            {/if}
-            | <a href="#" class="toggleRepLink" title="comută între notația internă și HTML"
-                 data-value="1" data-order="1" data-other-text="html">text</a>
-            | <a href="#" class="toggleRepLink" title="contractează sau expandează abrevierile"
-                 data-value="1" data-order="2" data-other-text="abreviat">expandat</a>
-            {if $canEdit.defStructured}
-              | <a href="#" class="toggleStructuredLink" title="comută definiția între structurată și nestructurată"
-                   >{if $def->structured}structurată{else}nestructurată{/if}</a>
-            {/if}
-          </span>
-          {if $row->comment}
-            <div class="commentInternalRep">
-              Comentariu: {$row->comment->contents} -
-              <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}">{$row->commentAuthor->nick|escape}</a>
-            </div>
-          {/if}
-        </div>
-      {/foreach}
-
-      {if $canEdit.general}
-        <div class="addDefinition">
-          <select id="associateDefinitionId" name="associateDefinitionId">
-          </select>
-          <input type="submit" name="associateDefinition" value="Asociază">
-        </div>
-      {/if}
-
-      {if !count($searchResults) && $canEdit.general}
-        <div class="addDefinition">
-          Puteți crea o mini-definiție. Introduceți termenul-destinație, fără alte formatări (bold, italic etc.):<br>
-          
-          <b>{$definitionLexem|escape}</b> v. <input type="text" name="miniDefTarget" size="20" class="miniDefTarget">.
-          &nbsp;&nbsp;
-          <input type="submit" name="createDefinition" value="Creează">
-        </div>
-      {/if}
-    </div>
   </form>
 {/block}

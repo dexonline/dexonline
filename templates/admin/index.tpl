@@ -192,16 +192,16 @@
   {if $sUser->moderator & $smarty.const.PRIV_STRUCT}
     <h3>Structurare</h3>
 
-    <a href="structChooseLexem">Cuvinte ușor de structurat</a>
+    <a href="structChooseEntry.php">Intrări ușor de structurat</a>
     (100 de cuvinte din DEX cu definiții cât mai scurte)
     <br/>
 
-    <a href="lexemSearch.php?structStatus={Lexem::STRUCT_STATUS_IN_PROGRESS}&amp;structuristId={$sUser->id}">
+    <a href="lexemSearch.php?structStatus={Entry::STRUCT_STATUS_IN_PROGRESS}&amp;structuristId={$sUser->id}">
       Lexemele mele în curs de structurare
     </a>
     <br/>
 
-    <a href="lexemSearch.php?structStatus={Lexem::STRUCT_STATUS_IN_PROGRESS}&amp;structuristId=-1">
+    <a href="lexemSearch.php?structStatus={Entry::STRUCT_STATUS_IN_PROGRESS}&amp;structuristId=-1">
       Lexeme orfane
     </a>
     (în curs de structurare, fără structurist asignat)

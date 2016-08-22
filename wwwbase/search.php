@@ -86,7 +86,7 @@ if ($lexemId) {
     $lexemId = '';
   }
   $lexem = Lexem::get_by_id($lexemId);
-  $definitions = Definition::searchLexemId($lexemId, $exclude_unofficial);
+  $definitions = Definition::searchLexem($lexem, $exclude_unofficial);
   $searchResults = SearchResult::mapDefinitionArray($definitions);
   SmartyWrap::assign('results', $searchResults);
   if ($lexem) {
@@ -219,8 +219,7 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
     $conjugations = false;
     $declensions = false;
     foreach ($lexems as $l) {
-      $lm = $l->getFirstLexemModel(); // One LexemModel suffices -- they all better have the same modelType.
-      $isVerb = ($lm->modelType == 'V') || ($lm->modelType == 'VT');
+      $isVerb = ($l->modelType == 'V') || ($l->modelType == 'VT');
       $conjugations |= $isVerb;
       $declensions |= !$isVerb;
     }
@@ -229,15 +228,13 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
     if ($showParadigm) {
       $hasUnrecommendedForms = false;
       foreach ($lexems as $l) {
-        foreach ($l->getLexemModels() as $lm) {
-          $lm->getModelType();
-          $lm->getSourceNames();
-          $map = $lm->loadInflectedFormMap();
-          $lm->addLocInfo();
-          foreach ($map as $ifs) {
-            foreach ($ifs as $if) {
-              $hasUnrecommendedForms |= !$if->recommended;
-            }
+        $l->getModelType();
+        $l->getSourceNames();
+        $map = $l->loadInflectedFormMap();
+        $l->addLocInfo();
+        foreach ($map as $ifs) {
+          foreach ($ifs as $if) {
+            $hasUnrecommendedForms |= !$if->recommended;
           }
         }
       }
@@ -297,7 +294,7 @@ SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('advancedSearch', $text || $sourceId);
 
 /* Gallery */
-$images = empty($lexems) ? array() : Visual::loadAllForLexems($lexems);
+$images = empty($lexems) ? [] : Visual::loadAllForLexems($lexems);
 SmartyWrap::assign('images', $images);
 if (count($images)) {
   SmartyWrap::addCss('gallery');

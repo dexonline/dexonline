@@ -33,9 +33,9 @@ $reports = array(
         'privilege' => PRIV_EDIT
   ),
   // this takes about 500 ms (even though the query is similar to the one for unassociated definitions)
-  array('text' => 'Lexeme neasociate cu nicio definiție',
-        'url' => 'admin/viewUnassociatedLexems',
-        'count' => Lexem::countUnassociated(),
+  array('text' => 'Intrări neasociate cu nicio definiție',
+        'url' => 'admin/viewUnassociatedEntries',
+        'count' => Entry::countUnassociated(),
         'privilege' => PRIV_EDIT
   ),
   array('text' => 'Lexeme cu comentarii',
@@ -55,13 +55,13 @@ $reports = array(
   ),
   array('text' => 'Lexeme fără paradigme',
         'url' => 'admin/viewTemporaryLexems',
-        'count' => Model::factory('LexemModel')->where('modelType', 'T')->count(),
+        'count' => Model::factory('Lexem')->where('modelType', 'T')->count(),
         'privilege' => PRIV_EDIT
   ),
 );
 
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::assign('structStatusNames', Lexem::$STRUCT_STATUS_NAMES);
+SmartyWrap::assign('structStatusNames', Entry::$STRUCT_STATUS_NAMES);
 SmartyWrap::assign('reports', $reports);
 SmartyWrap::addCss('jqueryui', 'select2');
 SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev', 'modelDropdown');

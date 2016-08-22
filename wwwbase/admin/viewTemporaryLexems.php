@@ -14,22 +14,18 @@ if ($sourceId) {
     ->table_alias('l')
     ->select('l.*')
     ->distinct()
-    ->join('LexemModel', 'lm.lexemId = l.id', 'lm')
-    ->join('LexemDefinitionMap', 'ldm.lexemId = l.id', 'ldm')
-    ->join('Definition', 'd.id = ldm.definitionId', 'd')
+    ->join('EntryDefinition', 'ed.entryId = l.entryId', 'ed')
+    ->join('Definition', 'd.id = ed.definitionId', 'd')
     ->where('d.status', Definition::ST_ACTIVE)
     ->where('d.sourceId', $sourceId)
-    ->where('lm.modelType', 'T')
+    ->where('l.modelType', 'T')
     ->order_by_asc('formNoAccent')
     ->limit(1000)
     ->find_many();
 } else {
   RecentLink::createOrUpdate('Lexeme neetichetate');
   $lexems = Model::factory('Lexem')
-    ->table_alias('l')
-    ->select('l.*')
-    ->join('LexemModel', 'lm.lexemId = l.id', 'lm')
-    ->where('lm.modelType', 'T')
+    ->where('modelType', 'T')
     ->order_by_asc('formNoAccent')
     ->limit(1000)
     ->find_many();

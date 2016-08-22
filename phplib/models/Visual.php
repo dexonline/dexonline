@@ -7,7 +7,7 @@ class Visual extends BaseObject implements DatedObject {
   const STATIC_THUMB_DIR = 'img/visual/thumb/';
   const THUMB_SIZE = 150;
 
-  private $lexem = null;
+  private $entry = null;
 
   static function createFromFile($fileName) {
     $v = Model::factory('Visual')->create();
@@ -26,10 +26,10 @@ class Visual extends BaseObject implements DatedObject {
   }
 
   function getTitle() {
-    if ($this->lexem === null) {
-      $this->lexem = Lexem::get_by_id($this->lexemeId);
+    if ($this->entry === null) {
+      $this->entry = Entry::get_by_id($this->entryId);
     }
-    return $this->lexem ? $this->lexem->formNoAccent : '';
+    return $this->entry ? $this->entry->description : '';
   }
 
   function getImageUrl() {
@@ -69,15 +69,15 @@ class Visual extends BaseObject implements DatedObject {
 
   // Loads all Visuals that are associated with one of the lexems, either directly or through a VisualTag.
   static function loadAllForLexems($lexems) {
-    $map = array();
+    $map = [];
 
     foreach ($lexems as $l) {
-      $vs = Visual::get_all_by_lexemeId($l->id);
+      $vs = Visual::get_all_by_entryId($l->entryId);
       foreach ($vs as $v) {
         $map[$v->id] = $v;
       }
 
-      $vts = VisualTag::get_all_by_lexemeId($l->id);
+      $vts = VisualTag::get_all_by_entryId($l->entryId);
       foreach ($vts as $vt) {
         $v = Visual::get_by_id($vt->imageId);
         $map[$v->id] = $v;

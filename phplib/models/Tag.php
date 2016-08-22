@@ -27,12 +27,14 @@ class Tag extends BaseObject implements DatedObject {
     }
 
     // Mark tags which can be deleted
-    $usedIds = Model::factory('MeaningTag')
-             ->select('tagId')
-             ->distinct()
-             ->find_many();
-    foreach ($usedIds as $rec) {
-      $map[$rec->tagId]->canDelete = 0;
+    foreach (['DefinitionTag', 'MeaningTag', 'LexemTag'] as $table) {
+      $usedIds = Model::factory($table)
+               ->select('tagId')
+               ->distinct()
+               ->find_many();
+      foreach ($usedIds as $rec) {
+        $map[$rec->tagId]->canDelete = 0;
+      }
     }
 
     // Make each tag its parent's child
@@ -47,6 +49,11 @@ class Tag extends BaseObject implements DatedObject {
     return array_filter($tags, function($t) {
       return !$t->parentId;
     });
+  }
+
+  public function delete() {
+    Log::warning("Deleted tag {$this->id} ({$this->value})");
+    parent::delete();
   }
 }
 

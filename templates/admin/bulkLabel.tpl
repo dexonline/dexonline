@@ -92,12 +92,12 @@
           <!-- Div containing all the paradigms. Only one of them will -->
           <!-- be visible at any time. -->
           <div class="paradigms">
-            {assign var="lmArray" value=$lmMatrix[$lIter]}
-            {foreach from=$lmArray item=lm key=pIter}
+            {assign var="lArray" value=$lMatrix[$lIter]}
+            {foreach $lArray as $pIter => $l }
               {assign var="m" value=$models[$pIter]}
               {assign var="mt" value=$modelTypes[$pIter]}
               <div class="blParadigm" style="display: none">
-                {include file="paradigm/paradigm.tpl" lexemModel=$lm}
+                {include "paradigm/paradigm.tpl" lexem=$l}
               </div>
             {/foreach}
           </div>

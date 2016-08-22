@@ -17,8 +17,8 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.resultBar</td>
-	<td>Din motive de copyright, doar administratorii site-ului pot vedea definițiile pentru „ladă”&nbsp;&nbsp;&nbsp;▽ declinări</td>
+	<td>css=div.panel-body</td>
+	<td>Din motive de copyright, doar administratorii site-ului pot vedea definițiile pentru „ladă”&nbsp;&nbsp;&nbsp;▽ declinări ladă <br /> substantiv feminin (F62) nearticulat articulat nominativ-acuzativ singular ladă lada plural — — genitiv-dativ singular lăzi lăzii plural — — vocativ singular ladă, lado plural — <br /> Link către această paradigmă</td>
 </tr>
 <tr>
 	<td>verifyText</td>
@@ -27,52 +27,52 @@
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexemModel.1.2</td>
+	<td>css=table.lexem.1.2</td>
 	<td>ladă</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexemModel.1.3</td>
+	<td>css=table.lexem.1.3</td>
 	<td>lada</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexemModel.2.1</td>
+	<td>css=table.lexem.2.1</td>
 	<td>—</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexemModel.2.2</td>
+	<td>css=table.lexem.2.2</td>
 	<td>—</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexemModel.3.2</td>
+	<td>css=table.lexem.3.2</td>
 	<td>lăzi</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexemModel.3.3</td>
+	<td>css=table.lexem.3.3</td>
 	<td>lăzii</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexemModel.4.1</td>
+	<td>css=table.lexem.4.1</td>
 	<td>—</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexemModel.4.2</td>
+	<td>css=table.lexem.4.2</td>
 	<td>—</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexemModel.5.2</td>
+	<td>css=table.lexem.5.2</td>
 	<td>ladă, lado</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexemModel.6.1</td>
+	<td>css=table.lexem.6.1</td>
 	<td>—</td>
 </tr>
 <tr>
@@ -82,10 +82,9 @@
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexemModel.5.2</td>
+	<td>css=table.lexem.5.2</td>
 	<td>ogradă</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

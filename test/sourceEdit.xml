@@ -237,8 +237,8 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=span.sourceName</td>
-	<td>English - Klingon Dictionary English - Klingon Dictionary<br /> Autor: Worf<br /> Editură: The Klingon Academy<br /> Anul apariției: 2010<br /> Tipul: Oficial</td>
+	<td>css=div.popover</td>
+	<td>English - Klingon Dictionary Autor: Worf<br /> Editură: The Klingon Academy<br /> Anul apariției: 2010<br /> Tipul: Oficial</td>
 </tr>
 <tr>
 	<td>verifyText</td>

@@ -8,7 +8,7 @@ $definitionId = util_getRequestParameter('definitionId');
 $definitionInternalRep = util_getRequestParameter('definitionInternalRep');
 $commentInternalRep = util_getRequestParameter('commentInternalRep');
 $sourceId = util_getRequestParameter('sourceId');
-$lexemIds = util_getRequestParameter('lexemIds');
+$entryIds = util_getRequestParameter('entryIds');
 
 $d = Definition::get_by_id($definitionId);
 $d->internalRep = AdminStringUtil::internalizeDefinition($definitionInternalRep, $sourceId);
@@ -18,7 +18,7 @@ $d->sourceId = $sourceId;
 $commentInternalRep = AdminStringUtil::internalizeDefinition($commentInternalRep, $sourceId);
 $commentHtmlRep = AdminStringUtil::htmlize($commentInternalRep, $sourceId);
 
-$sim = SimilarRecord::create($d, $lexemIds);
+$sim = SimilarRecord::create($d, $entryIds);
 
 $data = $sim->getJsonFriendly();
 $data['htmlRep'] = $d->htmlRep;

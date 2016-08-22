@@ -2,7 +2,8 @@
 require_once("../../phplib/util.php");
 
 $lexemId = util_getRequestParameter('lexemId');
-$defs = Definition::loadByLexemId($lexemId);
+$lexem = Lexem::get_by_id($lexemId);
+$defs = Definition::loadByEntryId($lexem->entryId);
 
 $results = array();
 foreach ($defs as $def) {

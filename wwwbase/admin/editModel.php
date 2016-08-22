@@ -23,8 +23,8 @@ $inflections = Model::factory('Inflection')
              ->find_many();
 
 // Generate the forms
-$lexem = Lexem::deepCreate($m->exponent, $m->modelType, $m->number);
-$ifs = $lexem->getFirstLexemModel()->generateInflectedForms();
+$lexem = Lexem::create($m->exponent, $m->modelType, $m->number);
+$ifs = $lexem->generateInflectedForms();
 
 // Load the model descriptions
 $mds = ModelDescription::loadForModel($m->id);
@@ -110,11 +110,10 @@ if (!$previewButton && !$confirmButton) {
   // Load the affected lexems. For each lexem, inflection and transform
   // list, generate a new form.
   $limit = ($shortList && !$confirmButton) ? SHORT_LIST_LIMIT : 0;
-  $lexemModels = LexemModel::loadByCanonicalModel($m->modelType, $m->number, $limit);
+  $lexems = Lexem::loadByCanonicalModel($m->modelType, $m->number, $limit);
   $regenForms = [];
   $errorCount = 0; // Do not report thousands of similar errors.
-  foreach ($lexemModels as $lm) {
-    $l = $lm->getLexem();
+  foreach ($lexems as $l) {
     $regenRow = [];
     foreach ($regenTransforms as $inflId => $variants) {
       $regenRow[$inflId] = [];
@@ -146,7 +145,7 @@ if (!$previewButton && !$confirmButton) {
       $ifs = $p->generateInflectedFormMap();
       if (!is_array($ifs)) {
         FlashMessage::add(sprintf('Nu pot declina participiul "%s" conform modelului A%s.',
-                                  htmlentities($p->getLexem()->form), $npm->adjectiveModel));
+                                  htmlentities($p->form), $npm->adjectiveModel));
       }
     }
 
@@ -206,12 +205,12 @@ if (!$previewButton && !$confirmButton) {
       $fileName = tempnam('/tmp', 'editModel_');
       $fp = fopen($fileName, 'w');
       foreach ($regenForms as $i => $regenRow) {
-        $lm = $lexemModels[$i];
+        $l = $lexems[$i];
         foreach ($regenRow as $inflId => $formArray) {
           foreach ($formArray as $variant => $f) {
-            if (ConstraintMap::allows($lm->restriction, $inflId, $variant)) {
+            if (ConstraintMap::allows($l->restriction, $inflId, $variant)) {
               $if = InflectedForm::create($f);
-              fputcsv($fp, [$if->form, $if->formNoAccent, $if->formUtf8General, $lm->id, $inflId, $variant]);
+              fputcsv($fp, [$if->form, $if->formNoAccent, $if->formUtf8General, $l->id, $inflId, $variant]);
             }
           }
         }
@@ -225,7 +224,7 @@ if (!$previewButton && !$confirmButton) {
         load data local infile \"{$fileName}\"
         into table InflectedForm
         fields terminated by \",\" optionally enclosed by \"\\\"\"
-        (form, formNoAccent, formUtf8General, lexemModelId, inflectionId, variant)
+        (form, formNoAccent, formUtf8General, lexemId, inflectionId, variant)
       ");
       unlink($fileName);
     }
@@ -234,10 +233,9 @@ if (!$previewButton && !$confirmButton) {
     Log::debug('Propagating the "recommended" bit from ModelDescriptions to InflectedForms');
     $q = sprintf("
       update InflectedForm i
-      join LexemModel lm on i.lexemModelId = lm.id
-      join Lexem l on lm.lexemId = l.id
-      join ModelType mt on lm.modelType = mt.code
-      join Model m on mt.canonical = m.modelType and lm.modelNumber = m.number
+      join Lexem l on i.lexemId = l.id
+      join ModelType mt on l.modelType = mt.code
+      join Model m on mt.canonical = m.modelType and l.modelNumber = m.number
       join ModelDescription md on m.id = md.modelId and i.inflectionId = md.inflectionId and i.variant = md.variant
       set i.recommended = md.recommended
       where m.id = %s
@@ -261,9 +259,9 @@ if (!$previewButton && !$confirmButton) {
         }
       }
 
-      foreach ($lexemModels as $lm) {
-        $lm->modelNumber = $nm->number;
-        $lm->save();
+      foreach ($lexems as $l) {
+        $l->modelNumber = $nm->number;
+        $l->save();
       }
     }
 
@@ -295,7 +293,7 @@ if (!$previewButton && !$confirmButton) {
   SmartyWrap::assign('m', $nm);
   SmartyWrap::assign('pm', $npm);
   SmartyWrap::assign('forms', $nforms);
-  SmartyWrap::assign('lexemModels', $lexemModels);
+  SmartyWrap::assign('lexems', $lexems);
   SmartyWrap::assign('regenForms', $regenForms);
   SmartyWrap::assign('regenTransforms', $regenTransforms);
 }
@@ -332,23 +330,22 @@ function equalArrays($a, $b) {
 }
 
 /**
- * Returns all LexemModels of model A$pm that belong to lexems having
- * the same form as participle InflectedForms of verbs of model VT$m.
- * Assumes that $pm is the correct participle (adjective) model for $m.
+ * Returns all lexems of model A$pm that have the same form as participle
+ * InflectedForms of verbs of model VT$model.
+ * Assumes that $pm is the correct participle (adjective) model for $model.
  **/
 function loadParticiplesForVerbModel($model, $pm) {
   $infl = Inflection::loadParticiple();
-  return Model::factory('LexemModel')
-    ->table_alias('lmpart')
-    ->join('Lexem', 'lmpart.lexemId = part.id', 'part')
+  return Model::factory('Lexem')
+    ->table_alias('part')
+    ->select('part.*')
     ->join('InflectedForm', 'part.formNoAccent = i.formNoAccent', 'i')
-    ->join('LexemModel', 'i.lexemModelId = lminfin.id', 'lminfin')
-    ->select('lmpart.*')
-    ->where('lminfin.modelType', 'VT')
-    ->where('lminfin.modelNumber', $model->number)
+    ->join('Lexem', 'i.lexemId = infin.id', 'infin')
+    ->where('infin.modelType', 'VT')
+    ->where('infin.modelNumber', $model->number)
     ->where('i.inflectionId', $infl->id)
-    ->where('lmpart.modelType', 'A')
-    ->where('lmpart.modelNumber', $pm->adjectiveModel)
+    ->where('part.modelType', 'A')
+    ->where('part.modelNumber', $pm->adjectiveModel)
     ->order_by_asc('part.formNoAccent')
     ->find_many();
 }

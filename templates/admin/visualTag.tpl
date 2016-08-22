@@ -20,9 +20,9 @@
 
     <form class="inline" action="" method="post">
       <input id="visualId" type="hidden" name="id" value="{$visual->id}">
-      Cuvânt asociat:
-      <select id="lexemId" name="lexemId">
-        <option value="{$visual->lexemeId}" selected></option>
+      Intrare asociată:
+      <select id="entryId" name="entryId">
+        <option value="{$visual->entryId}" selected></option>
       </select>
       <br>
       <input type="checkbox" id="revisedCheckbox" name="revised" value="1" {if $visual->revised}checked{/if}>
@@ -35,8 +35,8 @@
 
     <form class="inline" action="" method="post">
       <input type="hidden" name="id" value="{$visual->id}">
-      Cuvânt asociat:
-      <select id="tagLexemId" name="tagLexemId">
+      Intrare asociată:
+      <select id="tagEntryId" name="tagEntryId">
       </select>
       <br>
       Text de afișat:

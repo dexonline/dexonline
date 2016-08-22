@@ -1,0 +1,116 @@
+.meaningTree {
+  margin-bottom: 10px;
+  margin-top: 0px;
+  padding-left: 0px;
+}
+
+.meaningTree ul {
+  padding-left: 30px;
+}
+
+.meaningTree li {
+  list-style: none;
+}
+
+.meaningTree .meaningContainer {
+  padding: 2px 5px;
+}
+
+.meaningTree .selected > .meaningContainer {
+  background: #90c9e8;
+}
+
+.meaningTree .selected ul {
+  background: #e3f2fa;
+}
+
+.meaningTree .id,
+.meaningTree .internalRep,
+.meaningTree .internalEtymology,
+.meaningTree .internalComment,
+.meaningTree .sourceIds,
+.meaningTree .tagIds,
+.meaningTree .relationIds {
+  display: none;
+}
+
+.meaningTree .bc {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.meaningTree .bc:after {
+  content: ".";
+}
+
+.meaningTree .htmlRep {
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.meaningTree .mention {
+  border-bottom: 1px dotted #444;
+  color: #000;
+  text-decoration: none;
+}
+
+.meaningTree .htmlEtymology {
+  font-size: 13px;
+  margin-right: 10px;
+}
+
+.meaningTree .htmlEtymology:not(:empty)::before {
+  content: "Etimologie: ";
+  color: #040;
+}
+
+.meaningTree .htmlComment {
+  font-size: 11px;
+}
+
+.meaningTree .meaningTag {
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  display: inline-block;
+  font-size: 10px;
+  margin-right: 5px;
+  padding: 1px 4px;
+  white-space: nowrap;
+}
+
+.meaningTree .sources span {
+  background: #f7eada;
+  border-color: #e0c29d;
+}
+
+.meaningTree .tags span {
+  background: #dbf7da;
+  border-color: #9fe09d;
+}
+
+.meaningTree .relation[data-type="1"] span {
+  background: #daebf7;
+  border-color: #9dc5e0;
+}
+
+.meaningTree .relation[data-type="2"] span {
+  background: #f7dcda;
+  border-color: #e0a19d;
+}
+
+.meaningTree .relation[data-type="3"] span {
+  background: #ffebff;
+  border-color: #e6b8e6;
+}
+
+.meaningTree .relation[data-type="4"] span {
+  background: #ffccff;
+  border-color: #cca3cc;
+}
+
+.textcomplete-item a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 500px;
+}

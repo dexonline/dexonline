@@ -98,7 +98,9 @@ function formatLexemWithEditLink(lexem) {
     // don't show an edit link for soon-to-be created lexems
     html = lexem.text;
   } else {
-    html = lexem.text + ' <a class="select2Edit" href="lexemEdit.php?lexemId=' + lexem.id + '">&nbsp;</a>';
+    html = lexem.text +
+      ' <a class="glyphicon glyphicon-pencil" href="' + wwwRoot +
+      'admin/lexemEdit.php?lexemId=' + lexem.id + '"></a>';
   }
 
   if ((lexem.consistentAccent == '0') ||
@@ -111,7 +113,13 @@ function formatLexemWithEditLink(lexem) {
   }
 }
 
-function allowNewLexems(data) {
+function formatEntryWithEditLink(lexem) {
+  return $('<span>' + lexem.text +
+           ' <a class="glyphicon glyphicon-pencil" href="' + wwwRoot +
+           'editEntry.php?id=' + lexem.id + '"></a></span>');
+}
+
+function allowNewOptions(data) {
   return {
     id: '@' + data.term,
     text: data.term + ' (cuvânt nou)',

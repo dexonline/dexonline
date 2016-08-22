@@ -32,12 +32,12 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.resultBar</td>
+	<td>css=div.panel-body</td>
 	<td>O definiție pentru „brânză”&nbsp;&nbsp;&nbsp;▷ declinări</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=span.def</td>
+	<td>css=p.def</td>
 	<td>Produs alimentar obținut prin coagularea și prelucrarea laptelui.</td>
 </tr>
 <tr>
@@ -52,7 +52,7 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>id=typoLink-1</td>
+	<td>//a[@data-definition-id='1']</td>
 	<td>Semnalează o greșeală</td>
 </tr>
 <tr>
@@ -60,7 +60,6 @@
 	<td>link=Permalink</td>
 	<td>Permalink</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

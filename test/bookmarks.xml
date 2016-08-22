@@ -32,7 +32,7 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=span.defDetails</td>
+	<td>css=small</td>
 	<td>exact:Sursa: Source 1 (2010) | Adăugată de john | Id: 1 | Semnalează o greșeală | Adăugat la favorite | Permalink | Editează | Istoria definiției | Adaugă WotD</td>
 </tr>
 <tr>
@@ -57,7 +57,7 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.favoriteDef &gt; span</td>
+	<td>css=dd</td>
 	<td>Produs alimentar obținut prin coagularea și prelucrarea laptelui.</td>
 </tr>
 <tr>
@@ -77,7 +77,7 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.favoriteDefs</td>
+	<td>css=dl.favoriteDefs</td>
 	<td>Nu aveți niciun cuvânt favorit.</td>
 </tr>
 <tr>
@@ -90,7 +90,6 @@
 	<td>link=Adaugă la favorite</td>
 	<td>Adaugă la favorite</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

@@ -11,8 +11,8 @@
     <input type="hidden" name="modelType" value="{$modelType}"/>
     <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
 
-    {if count($lexemModels)}
-      Există {$lexemModels|@count} lexem(e) etichetate cu acest model. Dacă
+    {if count($lexems)}
+      Există {$lexems|@count} lexem(e) etichetate cu acest model. Dacă
       apăsați butonul "Confirmă", ele vor fi reetichetate cu modelul T1.
     {else}
       Nu există lexeme etichetate cu acest model. Modelul poate fi șters
@@ -20,11 +20,11 @@
     {/if}
     <br/><br/>
 
-    {foreach from=$lexemModels item=lm}
-      {include file="bits/lexemName.tpl" lexem=$lm->getLexem()}
-      <span class="deemph">({$lm->modelType}{$lm->modelNumber})</span>
+    {foreach from=$lexems item=l}
+      {include "bits/lexemName.tpl" lexem=$l}
+      <span class="deemph">({$l->modelType}{$l->modelNumber})</span>
       &nbsp;&nbsp;
-      <a href="../admin/lexemEdit.php?lexemId={$lm->getLexem()->id}">editează</a>
+      <a href="../admin/lexemEdit.php?lexemId={$l->id}">editează</a>
       <br/>
     {/foreach}
     <br/>

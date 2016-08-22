@@ -17,8 +17,13 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.wikiArticleLink</td>
-	<td>Articole pe această temă: Niciun sau nici un Ghid de exprimare</td>
+	<td>css=div.panel-heading</td>
+	<td>Articole pe această temă:</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=#resultsWrapper &gt; div.panel.panel-default &gt; div.panel-body</td>
+	<td>Niciun sau nici un Ghid de exprimare</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -32,8 +37,13 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.wikiArticleLink</td>
-	<td>Articole pe această temă: Niciun sau nici un</td>
+	<td>css=div.panel-heading</td>
+	<td>Articole pe această temă:</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=#resultsWrapper &gt; div.panel.panel-default &gt; div.panel-body</td>
+	<td>Niciun sau nici un</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -60,7 +70,6 @@
 	<td>css=body</td>
 	<td>glob:*Articole pe această temă*</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

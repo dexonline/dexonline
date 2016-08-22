@@ -27,23 +27,18 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.flashMessage.flashMessage-danger</td>
-	<td>Numele nu poate fi vid.</td>
+	<td>//div/div/div/div</td>
+	<td>× Numele nu poate fi vid.</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//div[@id='contentProper']/div/div[2]</td>
-	<td>Codul nu poate fi vid (îl folosim încă la cuvântul lunii).</td>
+	<td>//div/div/div[2]</td>
+	<td>× Codul nu poate fi vid (îl folosim încă la cuvântul lunii).</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//div[@id='contentProper']/div/div[3]</td>
-	<td>Creditele nu pot fi vide.</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>name=name</td>
-	<td></td>
+	<td>//div/div/div[3]</td>
+	<td>× Creditele nu pot fi vide.</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -72,13 +67,8 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.flashMessage.flashMessage-danger</td>
-	<td>Codul este deja folosit.</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>name=label</td>
-	<td></td>
+	<td>//div/div/div/div</td>
+	<td>× Codul este deja folosit.</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -92,37 +82,32 @@
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.toolsTable.minimalistTable.3.0</td>
+	<td>css=table.table-condensed.3.0</td>
 	<td>Ion Popescu-Gopo</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.toolsTable.minimalistTable.3.1</td>
+	<td>css=table.table-condensed.3.1</td>
 	<td>gopo@example.com</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.toolsTable.minimalistTable.3.2</td>
+	<td>css=table.table-condensed.3.2</td>
 	<td>gopo</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.toolsTable.minimalistTable.3.3</td>
+	<td>css=table.table-condensed.3.3</td>
 	<td>© Gopo</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.toolsTable.minimalistTable.3.4</td>
+	<td>css=table.table-condensed.3.4</td>
 	<td>editează șterge</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>xpath=(//a[contains(text(),'editează')])[3]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>name=name</td>
 	<td></td>
 </tr>
 <tr>
@@ -152,27 +137,27 @@
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.toolsTable.minimalistTable.3.0</td>
+	<td>css=table.table-condensed.3.0</td>
 	<td>Ion Popescu-Gopo2</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.toolsTable.minimalistTable.3.1</td>
+	<td>css=table.table-condensed.3.1</td>
 	<td>gopo@example.com2</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.toolsTable.minimalistTable.3.2</td>
+	<td>css=table.table-condensed.3.2</td>
 	<td>gopo2</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.toolsTable.minimalistTable.3.3</td>
+	<td>css=table.table-condensed.3.3</td>
 	<td>© Gopo2</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.toolsTable.minimalistTable.3.4</td>
+	<td>css=table.table-condensed.3.4</td>
 	<td>editează șterge</td>
 </tr>
 <tr>
@@ -182,15 +167,14 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.flashMessage.flashMessage-success</td>
-	<td>Am șters autorul.</td>
+	<td>//div/div/div/div</td>
+	<td>× Am șters autorul.</td>
 </tr>
 <tr>
 	<td>verifyXpathCount</td>
 	<td>//tr</td>
 	<td>3</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

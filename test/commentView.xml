@@ -17,15 +17,14 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=span.defComment</td>
-	<td>exact:Comentariu: Foarte foarte gustoasă - john</td>
+	<td>//div[@id='resultsWrapper']/div/div</td>
+	<td>Foarte foarte gustoasă - john</td>
 </tr>
 <tr>
-	<td>verifyElementPresent</td>
-	<td>css=span.defComment &gt; a</td>
-	<td></td>
+	<td>verifyText</td>
+	<td>xpath=(//a[contains(text(),'john')])[2]</td>
+	<td>john</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

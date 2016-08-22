@@ -26,9 +26,14 @@
 	<td></td>
 </tr>
 <tr>
+	<td>selectWindow</td>
+	<td>null</td>
+	<td></td>
+</tr>
+<tr>
 	<td>verifyText</td>
-	<td>css=div.flashMessage.flashMessage-danger</td>
-	<td>Ați fost redirecționat automat la forma „brânză”.</td>
+	<td>//div/div/div/div</td>
+	<td>× Ați fost redirecționat automat la forma „brânză”.</td>
 </tr>
 <tr>
 	<td>verifyValue</td>
@@ -37,10 +42,9 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=span.def</td>
+	<td>css=p.def</td>
 	<td>Produs alimentar obținut prin coagularea și prelucrarea laptelui.</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

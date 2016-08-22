@@ -17,12 +17,12 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=p.paragraphTitle</td>
+	<td>css=h1</td>
 	<td>Articole lingvistice</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=#linguisticArticles &gt; a</td>
+	<td>css=#linguisticArticles &gt; ul &gt; li &gt; a</td>
 	<td>Ghid de exprimare</td>
 </tr>
 <tr>
@@ -36,33 +36,28 @@
 	<td>Niciun sau nici un</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>//div[@id='linguisticArticles']/h3[2]</td>
-	<td></td>
-</tr>
-<tr>
 	<td>clickAndWait</td>
-	<td>css=#linguisticArticles &gt; a</td>
+	<td>css=#linguisticArticles &gt; ul &gt; li &gt; a</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=p.paragraphTitle</td>
+	<td>css=h3</td>
 	<td>Ghid de exprimare</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.wikiArticle</td>
+	<td>css=div.col-md-12.main-content &gt; div</td>
 	<td>Conținutul articolului 2.</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//div[@id='contentProper']/section[3]/p[2]</td>
+	<td>//h3[2]</td>
 	<td>Alte articole lingvistice</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//div[@id='contentProper']/section[3]/h3[2]</td>
+	<td>//h4[2]</td>
 	<td>Exprimare corectă</td>
 </tr>
 <tr>
@@ -70,7 +65,6 @@
 	<td>link=Niciun sau nici un</td>
 	<td>Niciun sau nici un</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

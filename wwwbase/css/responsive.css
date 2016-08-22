@@ -122,6 +122,10 @@
   padding-top: 1rem;
 }
 
+.fbBottom {
+  overflow-x: hidden;
+}
+
 /********************* Definitions *********************/
 
 /* 

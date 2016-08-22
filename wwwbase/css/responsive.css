@@ -53,10 +53,6 @@
   box-shadow: 0 0 8px 0 rgba(0,0,0,.1);
 }
 
-.navbar-default .navbar-nav>li>a.donateLink {
-  color: #1e83c2;
-}
-
 @media (min-width: 768px) {
   .navbar-right {
     margin-right: 0;
@@ -71,14 +67,6 @@
 /* Accomodate non-collapsible donate link. */
 .navbar-toggle {
   margin-left: 20px;
-}
-
-.donateLink a {
-  color: #FFF;
-}
-
-.donateLink a:hover {
-  text-decoration: none;
 }
 
 .glyphicon-credit-card {

@@ -13,7 +13,6 @@ class SmartyWrap {
     if (util_isWebBasedScript()) {
       self::assign('wwwRoot', util_getWwwRoot());
       self::assign('imgRoot', util_getImgRoot());
-      self::assign('sources', Model::factory('Source')->order_by_desc('isOfficial')->order_by_asc('displayOrder')->find_many());
       self::assign('sUser', session_getUser());
       self::assign('nick', session_getUserNick());
       self::assign('currentYear', date("Y"));
@@ -60,7 +59,7 @@ class SmartyWrap {
   }
 
   /* Prepare and display a template. */
-  static function display($templateName) {
+  static function display($templateName, $hardened = false) {
     self::addCss('responsive', 'bootstrap');
     self::addJs('jquery', 'dex', 'bootstrap');
     if (Config::get('search.acEnable')) {
@@ -69,6 +68,13 @@ class SmartyWrap {
     }
     self::addSameNameFiles($templateName);
     self::assign('skinVariables', Config::getSection('skin'));
+    if (!$hardened) {
+      $sources = Model::factory('Source')
+               ->order_by_desc('isOfficial')
+               ->order_by_asc('displayOrder')
+               ->find_many();
+      self::assign('sources', $sources);
+    }
     self::registerOutputFilters();
     print self::fetch($templateName);
   }

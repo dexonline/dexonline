@@ -35,6 +35,10 @@ function util_initEverything() {
   FlashMessage::restoreFromSession();
   SmartyWrap::init();
   DebugInfo::init();
+  if (util_isWebBasedScript() && Config::get('global.maintenanceMode')) {
+    SmartyWrap::display('maintenance.tpl', true);
+    exit;
+  }
 }
 
 function util_defineRootPath() {

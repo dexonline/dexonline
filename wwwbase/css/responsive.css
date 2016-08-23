@@ -125,22 +125,21 @@ abbr[title] {
 }
 
 .defWrapper {
-  margin: 1.6em 0;
-  font-size: 1.15em;
+  margin: 1.6em 0; /* top/bottom margins to match the line-height */
+  font-size: 1.15em; /* define the font-size on the wrapper, for better encapsulation */
   line-height: 1.6;
 }
 
 p.def {
   color: black;
   cursor: pointer;
-  margin: 0;
-  font-size: 1em;
+  margin: 0; /* remove paragraph margin */
 }
 
 p.defDetails {
-  margin: 0;
-  font-size: 0.85em;
-  line-height: 1.88; /* 1.6 / 0.85em */
+  margin: 0; /* remove paragraph margin */
+  font-size: 0.85em; 
+  line-height: 1.88; /* equivalent line height: 1.6 / 0.85em */
 }
 
 .spaced {

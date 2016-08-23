@@ -158,7 +158,7 @@ function submitTypoForm() {
 }
 
 function toggle(id) {
-  $('#' + id).slideToggle();
+  $('#' + id).stop().slideToggle();
   return false;
 }
 

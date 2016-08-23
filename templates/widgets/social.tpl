@@ -4,17 +4,17 @@
     <ul class="list-inline">
       <li>
       	<a href="https://www.facebook.com/dexonline">
-      		<img src='./img/svg/facebook.svg' width='32' height='32' alt='Iconiță Facebook' title='Urmărește-ne pe Facebook'>
+      		<img src='./img/social-media/facebook-64.png' width='32' height='32' alt='Iconiță Facebook' title='Urmărește-ne pe Facebook'>
       	</a>
       </li>
       <li>
       	<a href="http://dexonline.blogspot.ro">
-      		<img src='./img/svg/blogger.svg' width='32' height='32' alt='Iconiță Blogger' title='Urmărește-ne pe Blogger'>
+      		<img src='./img/social-media/blogger-64.png' width='32' height='32' alt='Iconiță Blogger' title='Urmărește-ne pe Blogger'>
       	</a>
       </li>
       <li>
       	<a href="https://twitter.com/DexOnlineRo">
-      		<img src='./img/svg/twitter.svg' width='32' height='32' alt='Iconiță Twitter' title='Urmărește-ne pe Twitter'>
+      		<img src='./img/social-media/twitter-64.png' width='32' height='32' alt='Iconiță Twitter' title='Urmărește-ne pe Twitter'>
       	</a>
       </li>
     </ul>

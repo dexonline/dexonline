@@ -112,7 +112,7 @@ class Tree extends BaseObject implements DatedObject {
     return $errors;
   }
 
-  function clone() {
+  function _clone() {
     $newt = $this->parisClone();
     $newt->description .= ' (CLONĂ)';
     $newt->save();

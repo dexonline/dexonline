@@ -35,6 +35,10 @@ function util_initEverything() {
   FlashMessage::restoreFromSession();
   SmartyWrap::init();
   DebugInfo::init();
+  if (util_isWebBasedScript() && Config::get('global.maintenanceMode')) {
+    SmartyWrap::display('maintenance.tpl', true);
+    exit;
+  }
 }
 
 function util_defineRootPath() {
@@ -369,15 +373,6 @@ function util_findSnippet($p) {
   return $result;
 }
 
-function util_enforceGzipEncoding() {
-  $acceptEncoding = isset($_SERVER['HTTP_ACCEPT_ENCODING'])
-    ? $_SERVER['HTTP_ACCEPT_ENCODING'] : "";
-  if (strstr($acceptEncoding, "gzip") === FALSE) {
-    header("HTTP/1.0 403 Forbidden");
-    exit;
-  }
-}
-
 function util_deleteFile($fileName) {
   if (file_exists($fileName)) {
     unlink($fileName);
@@ -422,16 +417,6 @@ function util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $show
   util_redirect(util_getWwwRoot() . $url . $allPart);
 }
 
-/** Relaxed browser check. Currently checks for a few major browser. Can have false negatives, but (hopefully) no false positives. **/
-function util_isDesktopBrowser() {
-  if (!util_isWebBasedScript()) {
-    return false;
-  }
-  $u = $_SERVER['HTTP_USER_AGENT'];
-  return (strpos($u, 'Firefox') !== false) || (strpos($u, 'MSIE') !== false) || (strpos($u, 'Chrome') !== false) ||
-    (strpos($u, 'Opera') !== false) || (strpos($u, 'Safari') !== false);
-}
-
 function util_suggestNoBanner() {
   if (isset($_SERVER['REQUEST_URI']) && preg_match('/(masturba|fute)/', $_SERVER['REQUEST_URI'])) {
     return true; // No banners on certain obscene pages
@@ -474,12 +459,6 @@ function util_makePostRequest($url, $data, $useCookies = false) {
   $result = curl_exec($ch);
   curl_close($ch);
   return $result;
-}
-
-function util_print($var) {
-  print "<pre>\n";
-  print_r($var);
-  print "</pre>\n";
 }
 
 /** Returns $obj->$prop for every $obj in $a **/

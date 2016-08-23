@@ -28,7 +28,7 @@
         | Id: {$row->definition->id}
       {/if}
 
-      {if $skinVariables.typo}
+      {if $skinVariables.typo && !$cfg.global.mirror}
         |
         <a href="#"
            data-definition-id="{$row->definition->id}"

@@ -21,6 +21,9 @@ debugUser = ""
 ; True on development installations. Used to hide the Google analytics code and to allow fake user logins
 developmentMode = 0
 
+; Display a maintenance page when true. Requires the DB to exist, but it may be empty.
+maintenanceMode = 0
+
 ; API key for Google search of clones
 googleSearchApiKey = "Insert your API key here"
 

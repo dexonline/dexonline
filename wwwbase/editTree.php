@@ -18,7 +18,7 @@ if ($id) {
 }
 
 if ($clone) {
-  $newt = $t->clone();
+  $newt = $t->_clone();
   Log::info("Cloned tree {$t->id} ({$t->description}), new id {$newt->id}");
   FlashMessage::add('Am clonat arborele.', 'success');
   util_redirect("?id={$newt->id}");

@@ -1,4 +1,4 @@
-<p>
+<div class="defWrapper">
   <p class="def" title="Clic pentru a naviga la acest cuvânt">
     {$row->definition->htmlRep}
   </p>
@@ -82,4 +82,4 @@
       </div>
     </div>
   {/if}
-</p>
+</div>

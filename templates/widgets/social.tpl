@@ -1,5 +1,5 @@
 <div class="widget social row multiple-links">
-  <div class="col-md-12">
+  <div class="col-md-12 col-sm-12 col-xs-12">
     <h4>Urmărește-ne pe</h4>
     <ul class="list-inline">
       <li>

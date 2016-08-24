@@ -238,14 +238,49 @@ a.widget,
   padding-left: 18px;
 }
 
-.widget-icon {
-  margin-top: 14px;
+.widget-thumbnail {
+  padding-left: 0;
+}
+
+@media (min-width: 992px) {
+  .widget {
+    min-height: 124px;
+  }
+
+  .widget-icon {
+    width: 64px;
+    padding-top: 10px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .widget {
+    min-height: 148px;
+  }
+
+  .widget-icon {
+    width: 88px;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
   .widget {
-    min-height: 185px;
+    min-height: 205px;
   }
+
+  .widget-icon {
+    width: 88px;
+    padding-top: 10px;
+    padding-left: 15px;
+  }
+}
+
+@media (max-width: 767px) {
+  .widget-icon {
+    width: 88px;
+    padding-top: 10px;
+    padding-left: 15px;
+  }s
 }
 
 .customise-widgets {

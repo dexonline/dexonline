@@ -207,8 +207,8 @@ SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canMo
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::assign('suggestNoBanner', true);
-SmartyWrap::addCss('jqueryui', 'bootstrap', 'select2');
-SmartyWrap::addJs('jquery', 'jqueryui', 'bootstrap', 'select2', 'select2Dev', 'tinymce', 'cookie');
+SmartyWrap::addCss('jqueryui', 'select2');
+SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev', 'tinymce', 'cookie');
 SmartyWrap::display('admin/definitionEdit.tpl');
 
 ?>

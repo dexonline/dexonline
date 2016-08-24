@@ -106,8 +106,8 @@ SmartyWrap::assign('models', $models);
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::assign('suggestNoBanner', true);
-SmartyWrap::addCss('jqueryui-smoothness', 'paradigm', 'bootstrap', 'select2');
-SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev', 'bootstrap', 'modelDropdown');
+SmartyWrap::addCss('jqueryui-smoothness', 'paradigm', 'select2');
+SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev', 'modelDropdown');
 SmartyWrap::display('admin/lexemEdit.tpl');
 
 /**************************************************************************/

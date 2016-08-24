@@ -129,8 +129,8 @@ SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('structStatusNames', Entry::$STRUCT_STATUS_NAMES);
 SmartyWrap::assign('suggestNoBanner', true);
 SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::addCss('bootstrap', 'select2', 'meaningTree');
-SmartyWrap::addJs('bootstrap', 'select2', 'select2Dev', 'meaningTree', 'textComplete');
+SmartyWrap::addCss('select2', 'meaningTree');
+SmartyWrap::addJs('select2', 'select2Dev', 'meaningTree', 'textComplete');
 SmartyWrap::display('editEntry.tpl');
 
 ?>

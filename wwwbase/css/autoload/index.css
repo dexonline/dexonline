@@ -25,3 +25,9 @@
   margin-bottom: 0;
   vertical-align: middle;
 }
+
+/* Admin index page styles */
+.quickNav form {
+  display: inline;
+  margin-right: 20px;
+}

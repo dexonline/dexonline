@@ -208,7 +208,7 @@ SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::assign('suggestNoBanner', true);
 SmartyWrap::addCss('jqueryui', 'select2');
-SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev', 'tinymce', 'cookie');
+SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev', 'tinymce', 'cookie');
 SmartyWrap::display('admin/definitionEdit.tpl');
 
 ?>

@@ -5,6 +5,6 @@ util_assertNotMirror();
 RecentLink::createOrUpdate('Imaginea zilei');
 
 SmartyWrap::addCss('elfinder', 'jqueryui');
-SmartyWrap::addJs('jquery', 'jqueryui', 'elfinder');
+SmartyWrap::addJs('jqueryui', 'elfinder');
 SmartyWrap::displayAdminPage('admin/wotdImages.tpl');
 ?>

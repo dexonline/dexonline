@@ -73,7 +73,6 @@ if (count($ids)) {
 
 SmartyWrap::assign('def', $def);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::addJs('jquery');
 SmartyWrap::displayAdminPage('admin/randomAbbrevReview.tpl');
 
 /**

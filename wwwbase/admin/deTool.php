@@ -207,7 +207,7 @@ SmartyWrap::assign('capitalize', $capitalize);
 SmartyWrap::assign('deleteOrphans', $deleteOrphans);
 SmartyWrap::assign('passedTests', $passedTests);
 SmartyWrap::addCss('jqueryui', 'select2');
-SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev');
+SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev');
 SmartyWrap::displayAdminPage('admin/deTool.tpl');
 
 /*************************************************************************/

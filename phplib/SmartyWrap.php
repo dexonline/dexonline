@@ -86,13 +86,7 @@ class SmartyWrap {
 
   static function displayAdminPage($templateName) {
     self::assign('templateName', $templateName);
-    /* TODO: This replicates code from display(). */
-    $sources = Model::factory('Source')
-             ->order_by_desc('isOfficial')
-             ->order_by_asc('displayOrder')
-             ->find_many();
-    self::assign('sources', $sources);
-    self::addCss('flex', 'bootstrap');
+  	self::addCss('flex', 'bootstrap');
     self::addJs('dex', 'jquery', 'bootstrap');
     self::addSameNameFiles($templateName);
     print self::fetch($templateName);

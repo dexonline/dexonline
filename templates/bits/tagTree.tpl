@@ -3,7 +3,7 @@
   <ul {if $id}id="{$id}"{/if}>
     {foreach from=$tags item=t}
       <li>
-        <div class="expand {if count($t->children)}closed{/if}"></div>
+        <div class="expand glyphicon {if count($t->children)}closed glyphicon-plus{/if}"></div>
         {strip}
         <div class="value"
              data-id="{$t->id}"

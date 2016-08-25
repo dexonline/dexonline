@@ -32,12 +32,12 @@ $(function() {
   }
 
   function openSubtree(li, args) {
-    li.children('.expand').removeClass('closed').addClass('open');
+    li.children('.expand').removeClass('closed glyphicon-plus').addClass('open glyphicon-minus');
     li.children('ul').slideDown(args);
   }
 
   function closeSubtree(li, args) {
-    li.children('.expand').removeClass('open').addClass('closed');
+    li.children('.expand').removeClass('open glyphicon-minus').addClass('closed glyphicon-plus');
     li.children('ul').slideUp(args);
   }
 
@@ -79,7 +79,7 @@ $(function() {
       sel.insertAfter(parentLi);
       var numChildren = parentLi.find('> ul > li').length;
       if (!numChildren) {
-        parentLi.find('.expand').removeClass('open');
+        parentLi.find('.expand').removeClass('open glyphicon-minus');
       }
     }
   }
@@ -128,7 +128,7 @@ $(function() {
       toDelete.remove();
 
       if (parentLi.length && !numSiblings) {
-        parentLi.find('.expand').removeClass('open');
+        parentLi.find('.expand').removeClass('open glyphicon-minus');
       }
     }
   }

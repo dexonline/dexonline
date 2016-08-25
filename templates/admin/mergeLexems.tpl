@@ -45,7 +45,7 @@
            *}
           {strip}
           <a class="noBorder" target="_blank" href="../admin/lexemEdit.php?lexemId={$l->id}">
-            <img src={$imgRoot}/icons/pencil.png alt="editează" title="editează lexemul"/>
+            <i class="glyphicon glyphicon-pencil" title="editează lexemul"></i>
           </a> &nbsp;
           <a class="noBorder" href="#" onclick="return mlUpdateDefVisibility({$l->id}, 'def_{$l->id}')">
             <i class="glyphicon glyphicon-folder-open" title="arată definițiile"></i>
@@ -63,7 +63,7 @@
             <span class="{if $match->isLoc}isLoc{else}isNotLoc{/if}">LOC</span>
             {strip}
             <a class="noBorder" target="_blank" href="../admin/lexemEdit.php?lexemId={$match->id}">
-              <img src={$imgRoot}/icons/pencil.png alt="editează" title="editează lexemul"/>
+              <i class="glyphicon glyphicon-pencil" title="editează lexemul"></i>
             </a> &nbsp;
             <a class="noBorder" href="#" onclick="return mlUpdateDefVisibility({$match->id}, 'def_{$match->id}')">
               <i class="glyphicon glyphicon-folder-open" title="arată definițiile"></i>

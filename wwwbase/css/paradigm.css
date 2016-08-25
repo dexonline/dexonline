@@ -2,13 +2,6 @@
   margin-bottom: 10px;
 }
 
-.paraEdit {
-  background: url("../img/icons/pencil.png") no-repeat;
-  font-size: 16px;
-  padding-left: 16px;
-  text-decoration: none;
-}
-
 .lexemName {
   font-weight: bold;
 }

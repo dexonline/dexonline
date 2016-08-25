@@ -6,7 +6,9 @@
         <span class="lexemName">{include file="bits/lexemName.tpl" lexem=$lexem}</span>
         {include file="bits/locInfo.tpl" isLoc=$lexem->isLoc}
         {if $sUser && ($sUser->moderator & ($smarty.const.PRIV_EDIT + $smarty.const.PRIV_STRUCT))}
-          <a class="paraEdit" href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexem->id}" title="editează lexemul"></a>
+          <a href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexem->id}" title="editează lexemul">
+            <i class="glyphicon glyphicon-pencil"></i>
+          </a>
         {/if}
       </div>
 

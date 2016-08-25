@@ -11,9 +11,9 @@ $(function() {
     var span = $(this).siblings('span');
     var state = parseInt($(this).data('answer'));
     if (state) {
-      span.css('border-bottom', '2px solid green');
+      span.removeClass('text-danger').addClass('text-success');
     } else {
-      span.css('border-bottom', '2px solid red');
+      span.removeClass('text-success').addClass('text-danger');
     }
     if (!span.data('clicked')) {
       span.data('clicked', '1');

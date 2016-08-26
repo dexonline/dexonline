@@ -1,118 +1,124 @@
-{extends file="admin/layout.tpl"}
+{extends file="layout.tpl"}
 
 {block name=title}Editare model{/block}
-
-{block name=headerTitle}
-  Editare model {$m->modelType}{$m->number}
-{/block}
 
 {block name=content}
   {assign var="adjModels" value=$adjModels|default:null}
   {assign var="participles" value=$participles|default:null}
   {assign var="regenTransforms" value=$regenTransforms|default:null}
 
-  <p id="stem">
-    <input class="fieldColumn" type="text" name="" value="">
-    <input class="checkboxColumn"
-           type="checkbox"
-           name=""
-           value="1"
-           {if !$locPerm}disabled{/if}>
-    <input class="checkboxColumn" type="checkbox" name="" value="1" checked="checked">
-  </p>
+  <h3>Editare model {$m->modelType}{$m->number}</h3>
 
-  <form id="modelForm" method="post">
+  <form class="form-horizontal" id="modelForm" method="post">
     <input type="hidden" name="id" value="{$m->id}"/>
 
-    <table class="editModel">
-      <tr>
-        <td>
-          Număr model
-          <span class="small">(poate conține orice caractere)</span>
-        </td>
-        <td></td>
-        <td class="input">
-          <input type="text" name="number" value="{$m->number|escape}"/>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Proprietăți
+      </div>
 
-          <span class="tooltip2" title="Aici puteți edita exponentul ales pentru un model și formele pentru diversele flexiuni. Folosiți accente unde
-                                        doriți. Dacă o flexiune nu are forme, lăsați câmpul vid. Dacă o flexiune are mai multe forme, apăsați semnul + pentru a obține câte câmpuri
-                                        doriți. Pentru a șterge o formă, ștergeți conținutul câmpului respectiv. Dacă bifați/debifați o formă pentru LOC, rezultatul se va aplica
-                                        tuturor formelor corespunzătoare ale lexemelor din acest model, dar nu și la alte modele. Tipul modelului nu este editabil, dar numărul
-                                        este.">&nbsp;</span>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">număr de model</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="text" name="number" value="{$m->number|escape}"/>
+            <small class="text-muted">poate conține orice caractere</small>
+          </div>
+        </div>
 
-        </td>
-      </tr>
-      <tr>
-        <td>Descriere</td>
-        <td></td>
-        <td class="input">
-          <input type="text" name="description" value="{$m->description|escape}"/>
-        </td>
-      </tr>
-      {if $adjModels}
+        <div class="form-group">
+          <label class="col-sm-3 control-label">descriere</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="text" name="description" value="{$m->description|escape}"/>
+          </div>
+        </div>
+
+        {if $adjModels}
+          <div class="form-group">
+            <label class="col-sm-3 control-label">model de participiu</label>
+            <div class="col-sm-9">
+              <select class="form-control" name="participleNumber">
+                {foreach from=$adjModels item=am}
+                  <option value="{$am->number}"
+                          {if $pm && $pm->adjectiveModel == $am->number}selected="selected"{/if}
+                          >{$am->number} ({$am->exponent})
+                  </option>
+                {/foreach}
+              </select>
+            </div>
+          </div>
+        {/if}
+
+        <div class="form-group">
+          <label class="col-sm-3 control-label">exponent</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="text" name="exponent" value="{$m->exponent|escape}"/>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Forme
+      </div>
+
+      <table class="table table-striped table-condensed">
         <tr>
-          <td>Model de participiu</td>
-          <td></td>
-          <td class="input">
-            <select name="participleNumber">
-              {foreach from=$adjModels item=am}
-                <option value="{$am->number}"
-                        {if $pm && $pm->adjectiveModel == $am->number}selected="selected"{/if}
-                        >{$am->number} ({$am->exponent})
-                </option>
+          <th>flexiune</th>
+          <th></th>
+          <th>forme</th>
+          <th>LOC</th>
+          <th>recom.</th>
+        </tr>
+
+        {foreach $forms as $inflId => $f}
+          <tr>
+            <td>{$inflectionMap[$inflId]->description|escape}</td>
+            <td>
+              <a class="addFormLink" href="#" data-infl-id="{$inflId}">
+                <i class="glyphicon glyphicon-plus"></i>
+              </a>
+            </td>
+            <td>
+              {foreach $f as $i => $tuple}
+                <div>
+                  <input class="form-control"
+                         type="text"
+                         name="forms_{$inflId}_{$i}"
+                         value="{$tuple.form|escape}"
+                         {if $tuple.isLoc && !$locPerm}disabled{/if}>
+                </div>
               {/foreach}
-            </select>
-          </td>
-        </tr>
-      {/if}
-      <tr class="exponent">
-        <td>Exponent</td>
-        <td></td>
-        <td class="input">
-          <input type="text" name="exponent" value="{$m->exponent|escape}"/>
-        </td>
-      </tr>
-
-      <tr>
-        <th>Flexiune</th>
-        <th></th>
-        <th class="input">
-          <span class="fieldColumn">Forme</span>
-          <span class="checkboxColumn">LOC</span>
-          <span class="checkboxColumn">Recom.</span>
-        </th>
-      </tr>
-
-      {foreach from=$forms item=f key=inflId}
-        <tr class="{cycle values="odd,even"}">
-          <td>{$inflectionMap[$inflId]->description|escape}</td>
-          <td class="addSign">
-            <a class="noBorder addFormLink" href="#" data-infl-id="{$inflId}">
-              <i class="glyphicon glyphicon-plus"></i>
-            </a>
-          </td>
-          <td class="input">
-            {foreach from=$f item=tuple key=i}
-              <p>
-                <input class="fieldColumn"
-                       type="text"
-                       name="forms_{$inflId}_{$i}"
-                       value="{$tuple.form|escape}"
-                       {if $tuple.isLoc && !$locPerm}disabled{/if}>
-                <input class="checkboxColumn"
-                       type="checkbox"
-                       name="isLoc_{$inflId}_{$i}"
-                       value="1"
-                       {if $tuple.isLoc}checked{/if}
-                       {if !$locPerm}disabled{/if}>
-                <input class="checkboxColumn" type="checkbox" name="recommended_{$inflId}_{$i}" value="1" {if $tuple.recommended}checked="checked"{/if}/>
-              </p>
-            {/foreach}
-          </td>
-        </tr>
-      {/foreach}
-    </table>
-    <br/>
+            </td>
+            <td>
+              {foreach $f as $i => $tuple}
+                <div>
+                  <input class="checkbox"
+                         type="checkbox"
+                         name="isLoc_{$inflId}_{$i}"
+                         value="1"
+                         {if $tuple.isLoc}checked{/if}
+                         {if !$locPerm}disabled{/if}>
+                </div>
+              {/foreach}
+            </td>
+            <td>
+              {foreach $f as $i => $tuple}
+                <div>
+                  <input class="checkbox"
+                         type="checkbox"
+                         name="recommended_{$inflId}_{$i}"
+                         value="1"
+                         {if $tuple.recommended}checked{/if}>
+                </div>
+              {/foreach}
+            </td>
+          </tr>
+        {/foreach}
+      </table>
+    </div>
 
     <input id="shortList" type="checkbox" name="shortList" value="1" {if $shortList}checked{/if}>
     <label for="shortList">Testează modificările pe maxim 10 lexeme</label>

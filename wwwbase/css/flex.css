@@ -239,10 +239,6 @@ hr {
   width: 60px;
 }
 
-.editModel tr .addSign {
-  vertical-align: bottom;
-}
-
 .editModel .exponent td {
   border-bottom: 1px solid #aaaaaa;
 }

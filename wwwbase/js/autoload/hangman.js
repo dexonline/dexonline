@@ -44,7 +44,7 @@ $(function() {
       $('.letterButtons').each(function() {
         $(this).attr('disabled', 'disabled');
       });
-      $('#resultsWrapper').slideToggle();
+      $('#resultsWrapper').stop().slideToggle();
     }
   }
 

@@ -33,12 +33,12 @@ $(function() {
 
   function openSubtree(li, args) {
     li.children('.expand').removeClass('closed glyphicon-plus').addClass('open glyphicon-minus');
-    li.children('ul').slideDown(args);
+    li.children('ul').stop().slideDown(args);
   }
 
   function closeSubtree(li, args) {
     li.children('.expand').removeClass('open glyphicon-minus').addClass('closed glyphicon-plus');
-    li.children('ul').slideUp(args);
+    li.children('ul').stop().slideUp(args);
   }
 
   function tagClick(e) {

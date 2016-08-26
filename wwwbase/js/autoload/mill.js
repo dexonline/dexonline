@@ -101,7 +101,7 @@ $(function() {
         $('#definitionsSection').append(html);
       }
     }
-    $('#defPanel').slideToggle();
+    $('#defPanel').stop().slideToggle();
   }
 
   init();

@@ -12,7 +12,7 @@ $(function() {
   });
 
   $('.donateDetailLink').click(function() {
-    $(this).parent().next().slideToggle();
+    $(this).parent().next().stop().slideToggle();
     return false;
   });
 });

@@ -4,8 +4,8 @@ require_once("../phplib/util.php");
 util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 
 $id = util_getRequestParameter('id');
-$save = util_getRequestParameter('save') !== null;
-$clone = util_getRequestParameter('clone') !== null;
+$save = util_getBoolean('save');
+$clone = util_getBoolean('clone');
 
 if ($id) {
   $t = Tree::get_by_id($id);

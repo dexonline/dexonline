@@ -145,7 +145,7 @@ function adminIndexInit() {
     },
     minimumInputLength: 1,
     placeholder: 'caută o definiție',
-    width: '400px',
+    width: '300px',
   }).on('change', function(e) {
     $(this).parents('form').submit();
   });
@@ -155,6 +155,6 @@ function adminIndexInit() {
     allowClear: true,
     minimumInputLength: 1,
     placeholder: '(opțional)',
-    width: '250px',
+    width: '100%',
   });
 }

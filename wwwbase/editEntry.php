@@ -4,9 +4,9 @@ require_once("../phplib/util.php");
 util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 
 $id = util_getRequestParameter('id');
-$save = util_getRequestParameter('save') !== null;
-$createTree = util_getRequestParameter('createTree') !== null;
-$delete = util_getRequestParameter('delete') !== null;
+$save = util_getBoolean('save');
+$createTree = util_getBoolean('createTree');
+$delete = util_getBoolean('delete');
 $dissociateDefinitionId = util_getRequestParameter('dissociateDefinitionId');
 
 if ($id) {

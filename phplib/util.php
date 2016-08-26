@@ -232,10 +232,13 @@ function util_getRequestIntParameterWithDefault($name, $default) {
   return ($string == NULL) ? $default : (int)$string;
 }
 
-/* A boolean is a checkbox, a yes/no radio button pair, or any field that returns empty for false and non-empty for true. */
+/**
+ * A boolean is a checkbox, a yes/no radio button pair, a button or any field that returns
+ * empty for false and non-empty for true.
+ **/
 function util_getBoolean($name) {
   $v = util_getRequestParameter($name);
-  return $v ? true : false;
+  return $v !== NULL;
 }
 
 function util_getRequestCheckboxArray($name, $separator) {

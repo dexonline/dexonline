@@ -19,7 +19,7 @@ $da2 = util_getRequestIntParameter('da2');
 $page = util_getRequestIntParameterWithDefault('page', 1);
 $prevPageButton = util_getRequestParameter('prevPageButton');
 $nextPageButton = util_getRequestParameter('nextPageButton');
-$searchButton = util_getRequestParameter('searchButton') !== null;
+$searchButton = util_getBoolean('searchButton');
 
 $ip = $_SERVER['REMOTE_ADDR'];
 

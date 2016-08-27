@@ -56,7 +56,7 @@ $internalRep = util_getRequestParameter('internalRep');
 $status = util_getRequestIntParameterWithDefault('status', null);
 $commentContents = util_getRequestParameter('commentContents');
 $preserveCommentUser = util_getRequestParameter('preserveCommentUser');
-$tagIds = util_getRequestParameter('tagIds');
+$tagIds = util_getRequestParameterWithDefault('tagIds', []);
 
 $acceptButton = util_getRequestParameter('but_accept');
 $nextOcrBut = util_getRequestParameter('but_next_ocr');

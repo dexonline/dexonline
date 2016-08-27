@@ -187,7 +187,7 @@ if ($searchType == SEARCH_INFLECTED) {
     SmartyWrap::assign('wikiArticles', WikiArticle::loadForLexems($lexems));
   }
 
-  if (!$definitions) {
+  if (empty($definitions)) {
     $definitions = [];
   }
 

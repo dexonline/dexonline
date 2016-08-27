@@ -12,20 +12,15 @@ $(function() {
   }
 
   function appendForm() {
+    var target = $(this).next();
     var inflId = $(this).data('inflId');
-    var td = $(this).closest('td').next();
-    var count = td.children().length;
+    var count = target.children().length;
+    var suffix = inflId + '_' + count;
 
-    var d = td.children('div').first().clone(true).appendTo(td);
-    d.children('input').attr('name', 'forms_' + inflId + '_' + count).val('');
-
-    td = td.next();
-    d = td.children('div').first().clone(true).appendTo(td);
-    d.children('input').attr('name', 'isLoc_' + inflId + '_' + count);
-
-    td = td.next();
-    d = td.children('div').first().clone(true).appendTo(td);
-    d.children('input').attr('name', 'recommended_' + inflId + '_' + count);
+    var r = target.children().first().clone(true).appendTo(target);
+    r.find('input').eq(0).attr('name', 'forms_' + suffix).val('');
+    r.find('input').eq(1).attr('name', 'isLoc_' + suffix);
+    r.find('input').eq(2).attr('name', 'recommended_' + suffix);
 
     return false;
   }

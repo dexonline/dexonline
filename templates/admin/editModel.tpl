@@ -9,7 +9,7 @@
 
   <h3>Editare model {$m->modelType}{$m->number}</h3>
 
-  <form class="form-horizontal" id="modelForm" method="post">
+  <form id="modelForm" method="post">
     <input type="hidden" name="id" value="{$m->id}"/>
 
     <div class="panel panel-default">
@@ -17,7 +17,7 @@
         Proprietăți
       </div>
 
-      <div class="panel-body">
+      <div class="panel-body form-horizontal">
         <div class="form-group">
           <label class="col-sm-3 control-label">număr de model</label>
           <div class="col-sm-9">
@@ -66,154 +66,163 @@
 
       <table class="table table-striped table-condensed">
         <tr>
-          <th>flexiune</th>
-          <th></th>
-          <th>forme</th>
-          <th>LOC</th>
-          <th>recom.</th>
+          <th class="row">
+            <div class="col-xs-5">flexiune</div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-6 row">
+              <div class="col-xs-8">forme</div>
+              <div class="col-xs-2">LOC</div>
+              <div class="col-xs-2">recom</div>
+            </div>
+          </th>
         </tr>
 
         {foreach $forms as $inflId => $f}
           <tr>
-            <td>{$inflectionMap[$inflId]->description|escape}</td>
-            <td>
-              <a class="addFormLink" href="#" data-infl-id="{$inflId}">
-                <i class="glyphicon glyphicon-plus"></i>
-              </a>
-            </td>
-            <td>
-              {foreach $f as $i => $tuple}
-                <div>
-                  <input class="form-control"
-                         type="text"
-                         name="forms_{$inflId}_{$i}"
-                         value="{$tuple.form|escape}"
-                         {if $tuple.isLoc && !$locPerm}disabled{/if}>
-                </div>
-              {/foreach}
-            </td>
-            <td>
-              {foreach $f as $i => $tuple}
-                <div>
-                  <input class="checkbox"
-                         type="checkbox"
-                         name="isLoc_{$inflId}_{$i}"
-                         value="1"
-                         {if $tuple.isLoc}checked{/if}
-                         {if !$locPerm}disabled{/if}>
-                </div>
-              {/foreach}
-            </td>
-            <td>
-              {foreach $f as $i => $tuple}
-                <div>
-                  <input class="checkbox"
-                         type="checkbox"
-                         name="recommended_{$inflId}_{$i}"
-                         value="1"
-                         {if $tuple.recommended}checked{/if}>
-                </div>
-              {/foreach}
+            <td class="row">
+              <div class="col-xs-5">
+                {$inflectionMap[$inflId]->description|escape}
+              </div>
+              <div class="col-xs-1 addFormLink" data-infl-id="{$inflId}">
+                <a href="#">
+                  <i class="glyphicon glyphicon-plus"></i>
+                </a>
+              </div>
+              <div class="col-xs-6 row">
+                {foreach $f as $i => $tuple}
+                  <div>
+                    <div class="col-xs-8">
+                      <input class="form-control input-sm"
+                             type="text"
+                             name="forms_{$inflId}_{$i}"
+                             value="{$tuple.form|escape}"
+                             {if $tuple.isLoc && !$locPerm}disabled{/if}>
+                    </div>
+                    <div class="col-xs-2">
+                      <input class="checkbox"
+                             type="checkbox"
+                             name="isLoc_{$inflId}_{$i}"
+                             value="1"
+                             {if $tuple.isLoc}checked{/if}
+                             {if !$locPerm}disabled{/if}>
+                    </div>
+                    <div class="col-xs-2">
+                      <input class="checkbox"
+                             type="checkbox"
+                             name="recommended_{$inflId}_{$i}"
+                             value="1"
+                             {if $tuple.recommended}checked{/if}>
+                    </div>
+                  </div>
+                {/foreach}
+              </div>
             </td>
           </tr>
         {/foreach}
       </table>
     </div>
 
-    <input id="shortList" type="checkbox" name="shortList" value="1" {if $shortList}checked{/if}>
-    <label for="shortList">Testează modificările pe maxim 10 lexeme</label>
-    <div class="flexExplanation">
-      Toate lexemele vor fi salvate, dar numai (maxim) 10 vor fi testate și
-      afișate. Aceasta poate accelera mult pasul de testare.
-    </div>
-
     {if $previewPassed}
-      <h3>Schimbări globale:</h3>
-
-      <ul>
-        {if $m->number != $om->number}
-          <li>Număr de model nou: {$m->number|escape}</li>
-        {/if}
-        {if $m->exponent != $om->exponent}
-          <li>Exponent nou: {$m->exponent|escape}</li>
-        {/if}
-        {if $m->description != $om->description}
-          <li>Descriere nouă: {$m->description|escape}</li>
-        {/if}
-        {if $pm && ($pm->adjectiveModel != $opm->adjectiveModel)}
-          <li>Model nou de participiu: A{$pm->adjectiveModel|escape}</li>
-        {/if}
-      </ul>
-
       {if count($regenTransforms)}
-        <h3>Lista de flexiuni afectate ({$regenTransforms|@count}):</h3>
-        <ol>
-          {foreach from=$regenTransforms item=ignored key=inflId}
-            <li>{$inflectionMap[$inflId]->description|escape}</li>
-          {/foreach}
-        </ol>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Lexeme afectate ({$lexems|@count})
+          </div>
 
-        <h3>Lexemele afectate ({$lexems|@count}) și noile lor forme:</h3>
+          <table class="table table-condensed table-striped">
 
-        <table class="changedForms">
-          <tr class="header">
-            <td class="lexem">Lexem</td>
-            <td class="model">Model</td>
-            {foreach from=$regenTransforms item=ignored key=ignored2}
-              <td class="forms">{counter name="otherCounter"}.</td>
-            {/foreach}
-          </tr>
-          <tr class="exponent">
-            <td class="lexem">{$m->exponent}</td>
-            <td class="model">exponent</td>
-            {foreach from=$regenTransforms item=ignored key=inflId}
-              {assign var="variantArray" value=$forms[$inflId]}
-              <td class="forms">
-                {strip}
-                {foreach from=$variantArray item=tuple key=i}
-                  {if $i}, {/if}
-                  {$tuple.form|escape}
-                {/foreach}
-              {/strip}
-              {if !count($variantArray)}&mdash;{/if}
-              </td>
-            {/foreach}
-          </tr>
-          {foreach $lexems as $lIndex => $l}
-            {assign var="inflArray" value=$regenForms[$lIndex]}
             <tr>
-              <td class="lexem">{$l->form|escape}</td>
-              <td class="model">{$l->modelType}{$l->modelNumber}</td>
-              {foreach from=$inflArray item=variantArray key=inflId}
-                <td class="forms">
-                  {strip}
-                  {foreach from=$variantArray item=form key=i}
-                    {if $i}, {/if}
-                    {$form|escape}
-                  {/foreach}
-                  {if !count($variantArray)}&mdash;{/if}
-                {/strip}
-                </td>
+              <th>lexem</th>
+              <th>Model</th>
+              {foreach $regenTransforms as $inflId => $ignored}
+                <th>{$inflectionMap[$inflId]->description|escape}</th>
               {/foreach}
             </tr>
-          {/foreach}
-        </table>
+
+            <tr>
+              <th>{$m->exponent}</th>
+              <th>exponent</th>
+              {foreach $regenTransforms as $inflId => $ignored}
+                {assign var="variantArray" value=$forms[$inflId]}
+                <th>
+                  {strip}
+                  {foreach $variantArray as $i => $tuple}
+                    {if $i}, {/if}
+                    {$tuple.form|escape}
+                  {/foreach}
+                  {if !count($variantArray)}&mdash;{/if}
+                  {/strip}
+                </th>
+              {/foreach}
+            </tr>
+
+            {foreach $lexems as $lIndex => $l}
+              {assign var="inflArray" value=$regenForms[$lIndex]}
+              <tr>
+                <td>{$l->form|escape}</td>
+                <td>{$l->modelType}{$l->modelNumber}</td>
+                {foreach $inflArray as $variantArray}
+                  <td>
+                    {', '|implode:$variantArray|escape}
+                    {if !count($variantArray)}&mdash;{/if}
+                  </td>
+                {/foreach}
+              </tr>
+            {/foreach}
+          </table>
+        </div>
       {/if}
     {/if}
 
-    {if count($participles) && !count($flashMessages)}
-      <h3>Participii regenerate conform modelului A{$pm->adjectiveModel|escape}:</h3>
+    {if count($participles) && !FlashMessage::hasErrors()}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Participii regenerate conform modelului A{$pm->adjectiveModel|escape}
+        </div>
 
-      {foreach from=$participles item=p key=i}
-        {include file="paradigm/paradigm.tpl" lexem=$p}
-      {/foreach}
+        <div class="panel-body">
+          {foreach from=$participles item=p key=i}
+            {include file="paradigm/paradigm.tpl" lexem=$p}
+          {/foreach}
+        </div>
+      </div>
     {/if}
 
-    <br/>
-    <input type="submit" name="previewButton" value="Testează"/>
-    <!-- We want to disable the button on click, but still submit a value -->
-    {if $previewPassed}
-      <input type="submit" name="confirmButton" value="Salvează"/>
-    {/if}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Acțiuni
+      </div>
+
+      <div class="panel-body">
+        <div class="form-group form-inline">
+          <label class="control-label">
+            <input class="checkbox" type="checkbox" name="shortList" value="1"
+                   {if $shortList}checked{/if}>
+            testează modificările pe maxim 10 lexeme
+          </label>
+
+        </div>
+
+        <p class="text-muted">
+          Toate lexemele vor fi salvate, dar numai (maxim) 10 vor fi testate și
+          afișate. Aceasta poate accelera mult pasul de testare.
+        </p>
+
+        <div class="form-group">
+
+          <button class="btn btn-default" type="submit" name="previewButton">
+            testează
+          </button>
+
+          {if $previewPassed}
+            <button class="btn btn-default" type="submit" name="confirmButton">
+              <i class="glyphicon glyphicon-floppy-disk"></i>
+              salvează
+            </button>
+          {/if}
+
+        </div>
+      </div>
+    </div>
   </form>
 {/block}

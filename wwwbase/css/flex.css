@@ -211,66 +211,6 @@ hr {
   text-decoration: none;
 }
 
-.editModel {
-  border-collapse: collapse;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.editModel tr th {
-  text-align: left;
-}
-
-.editModel tr .input {
-  padding-left: 10px;
-}
-
-.editModel tr .input {
-  padding-left: 10px;
-}
-
-.fieldColumn {
-  float: left;
-  width: 200px;
-}
-
-.checkboxColumn {
-  float: left;
-  width: 60px;
-}
-
-.editModel .exponent td {
-  border-bottom: 1px solid #aaaaaa;
-}
-
-.editModel .even {
-  background: #ddd;
-}
-
-.editModel p {
-  margin: 0;
-  padding: 0;
-}
-
-.changedForms {
-  border-collapse: collapse;
-}
-
-.changedForms .header,
-.changedForms .exponent {
-  font-weight: bold;
-}
-
-.changedForms tr .model {
-  color: #777777;
-  padding: 0px 10px;
-}
-
-.changedForms tr td {
-  border: 1px solid #cccccc;
-  padding: 0px 10px;
-}
-
 .cm_lexemDiv {
   margin-left: 50px;
 }

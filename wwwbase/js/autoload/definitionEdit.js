@@ -105,6 +105,7 @@ $(function() {
         resize: 'both',
         selector: 'textarea',
         setup: tinymceSetup,
+        statusbar: false,
         toolbar: 'undo redo | bold italic spaced superscript subscript',
         width: 650,
       });

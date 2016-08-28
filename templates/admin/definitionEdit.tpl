@@ -25,17 +25,6 @@
     <input type="hidden" name="isOCR" value="{$isOCR}"/>
 
     <div class="form-group"">
-      <label for="entryIds" class="col-sm-2 control-label">intrări</label>
-      <div class="col-sm-10">
-        <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
-          {foreach $entryIds as $e}
-            <option value="{$e}" selected></option>
-          {/foreach}
-        </select>
-      </div>
-    </div>
-
-    <div class="form-group"">
       <label class="col-sm-2 control-label">sursă</label>
       <div class="col-sm-10">
         {if $source->canModerate}
@@ -64,6 +53,17 @@
         </div>
       </div>
     {/if}
+
+    <div class="form-group"">
+      <label for="entryIds" class="col-sm-2 control-label">intrări</label>
+      <div class="col-sm-10">
+        <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
+          {foreach $entryIds as $e}
+            <option value="{$e}" selected></option>
+          {/foreach}
+        </select>
+      </div>
+    </div>
 
     <div class="form-group">
       <label class="col-sm-2 control-label">conținut</label>

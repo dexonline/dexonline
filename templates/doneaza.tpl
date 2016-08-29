@@ -2,6 +2,9 @@
 
 {block name=title}Donează{/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
   <div>
     <h2>Donează</h2>

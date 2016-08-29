@@ -60,7 +60,6 @@ if ($user) {
   $randString = util_randomCapitalLetterString(20);
   FileCache::put($randString, $data);
 
-  SmartyWrap::assign('suggestHiddenSearchForm', true);
   SmartyWrap::assign('data', $data);
   SmartyWrap::assign('randString', $randString);
   SmartyWrap::assign('loginType', $loginType);

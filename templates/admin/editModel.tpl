@@ -2,6 +2,9 @@
 
 {block name=title}Editare model{/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
   {assign var="adjModels" value=$adjModels|default:null}
   {assign var="participles" value=$participles|default:null}

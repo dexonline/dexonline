@@ -1,5 +1,8 @@
 {extends file="layout.tpl"}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=title}
   {if $e->id}
     Intrare {$e->description}

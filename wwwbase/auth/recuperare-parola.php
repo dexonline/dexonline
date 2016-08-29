@@ -26,7 +26,6 @@ if (!$pt) {
     session_login($user, $data);
   }
 }
-SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::display('auth/passwordRecoveryWrongData.tpl');
 
 ?>

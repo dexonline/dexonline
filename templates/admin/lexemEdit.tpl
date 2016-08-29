@@ -2,6 +2,9 @@
 
 {block name=title}Editare lexem: {$lexem->form}{/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
   <h3>
     Editare lexem: {$lexem->form}

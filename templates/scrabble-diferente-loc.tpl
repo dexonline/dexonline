@@ -2,6 +2,9 @@
 
 {block name=title}Lista Oficială de Cuvinte{/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
   <h3>
     Diferențe între LOC {$locVersions.0} și LOC {$locVersions.1} ({$listType})

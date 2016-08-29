@@ -205,8 +205,6 @@ SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('typos', $typos);
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::assign('suggestNoBanner', true);
 SmartyWrap::addCss('jqueryui', 'select2');
 SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev', 'tinymce', 'cookie');
 SmartyWrap::display('admin/definitionEdit.tpl');

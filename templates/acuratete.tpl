@@ -2,6 +2,9 @@
 
 {block name=title}Verificarea acurateței{/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
   <h2>Verificarea acurateței</h2>
 

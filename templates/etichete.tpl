@@ -2,6 +2,9 @@
 
 {block name=title}Etichete pentru sensuri{/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
   <h3>Etichete pentru sensuri</h3>
 

@@ -5,8 +5,6 @@ util_assertModerator(PRIV_WOTD);
 $artists = Model::factory('WotdArtist')->find_many();
 
 SmartyWrap::assign('artists', $artists);
-SmartyWrap::assign('suggestNoBanner', true);
-SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::display('alocare-autori.tpl');
 
 ?>

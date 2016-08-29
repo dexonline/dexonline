@@ -2,6 +2,9 @@
 
 {block name=title}Editare definiție{/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
   {if $isOCR}
     {$title='Adăugare definiție OCR'}

@@ -2,6 +2,8 @@
 
 {block name=title}Spânzurătoarea{/block}
 
+{block name=search}{/block}
+
 {block name=content}
   <script>
    var word = "{$word}";

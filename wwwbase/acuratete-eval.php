@@ -48,8 +48,6 @@ SmartyWrap::assign('def', $def);
 SmartyWrap::assign('errors', $errors);
 SmartyWrap::assign('definitionData', $defData);
 SmartyWrap::assign('accuracyData', $accData);
-SmartyWrap::assign('suggestNoBanner', true);
-SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::display('acuratete-eval.tpl');
 
 ?>

@@ -2,6 +2,9 @@
 
 {block name=title}Pagina moderatorului{/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
   <h3>Pagina moderatorului</h3>
 

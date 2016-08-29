@@ -2,6 +2,8 @@
 
 {block name=title}Moara cuvintelor{/block}
 
+{block name=search}{/block}
+
 {block name=content}
   <div class="panel panel-default millArea">
     <div class="panel-heading">

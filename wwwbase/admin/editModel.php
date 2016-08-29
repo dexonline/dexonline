@@ -304,8 +304,6 @@ SmartyWrap::assign('inflectionMap', Inflection::mapById($inflections));
 SmartyWrap::assign('previewPassed', $previewButton && !FlashMessage::hasErrors());
 SmartyWrap::assign('locPerm', $locPerm);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::assign('suggestNoBanner', true);
-SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::addCss('paradigm', 'jqueryui');
 SmartyWrap::display('admin/editModel.tpl');
 

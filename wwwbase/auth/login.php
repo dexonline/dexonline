@@ -93,7 +93,6 @@ if ($devel) {
 }
 
 SmartyWrap::assign('openid', $openid);
-SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::display('auth/login.tpl');
 
 ?>

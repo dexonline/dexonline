@@ -104,8 +104,6 @@ SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('canEdit', $canEdit);
-SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::assign('suggestNoBanner', true);
 SmartyWrap::addCss('jqueryui-smoothness', 'paradigm', 'select2');
 SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev', 'modelDropdown');
 SmartyWrap::display('admin/lexemEdit.tpl');

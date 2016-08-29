@@ -2,6 +2,9 @@
 
 {block name=title}Cuvinte{/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
   <div id="searchCuv">
     {assign var="text" value=$text|default:false}

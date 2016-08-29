@@ -10,7 +10,6 @@ $email = util_getRequestParameter('email');
 
 SmartyWrap::assign('identity', $identity);
 SmartyWrap::assign('email', $email);
-SmartyWrap::assign('suggestHiddenSearchForm', true);
 
 if ($submitButton) {
   if (!$email) {

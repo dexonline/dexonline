@@ -37,8 +37,6 @@ foreach ($aps as $ap) {
 
 SmartyWrap::assign('projects', $projects);
 SmartyWrap::assign('p', $p);
-SmartyWrap::assign('suggestNoBanner', true);
-SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::addCss('select2');
 SmartyWrap::addJs('select2', 'select2Dev');
 SmartyWrap::display('acuratete.tpl');

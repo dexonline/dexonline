@@ -2,6 +2,9 @@
 
 {block name=title}{$project->name} | verificarea acurateței{/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
   <h2>Proiect de verificare a acurateței - {$project->name}</h2>
 

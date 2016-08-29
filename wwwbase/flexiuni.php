@@ -47,7 +47,6 @@ foreach ($inflections as $infl) {
   $infl->canDelete = !in_array($infl->id, $usedInflectionIds);
 }
 
-SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::assign('inflections', $inflections);
 SmartyWrap::assign('modelTypes', ModelType::loadCanonical());
 SmartyWrap::addJs('jqTableDnd');

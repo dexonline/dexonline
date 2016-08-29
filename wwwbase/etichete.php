@@ -48,8 +48,6 @@ if ($saveButton) {
 }
 
 SmartyWrap::assign('tags', Tag::loadTree());
-SmartyWrap::assign('suggestNoBanner', true);
-SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::display('etichete.tpl');
 
 ?>

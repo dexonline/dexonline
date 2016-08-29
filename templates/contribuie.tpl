@@ -2,6 +2,9 @@
 
 {block name=title}Contribuie cu definiții{/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
   {assign var="def" value=$def|default:null}
   {assign var="previewDivContent" value=$previewDivContent|default:null}

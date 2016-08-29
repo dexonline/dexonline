@@ -2,6 +2,9 @@
 
 {block name=title}Editare flexiuni{/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
   <h2>Editare flexiuni</h2>
 

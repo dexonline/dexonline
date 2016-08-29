@@ -2,6 +2,8 @@
 
 {block name=title}Scrabble{/block}
 
+{block name=search}{/block}
+
 {block name=content}
   <div class="panel panel-default">
     <div class="panel-heading">Verificare Scrabble</div>

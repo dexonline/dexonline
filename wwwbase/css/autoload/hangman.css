@@ -28,12 +28,12 @@
 	font-size: 13px;
 }
 
-.newGameControls input {
+.newGameControls button {
   width: 100px;
   margin-top: 4px;
 }
 
-#hangman .newGame:hover {
+#hangman .newGameControls button:hover {
 	background: #2F96B4;
 	background-position: 0px -15px;
 }

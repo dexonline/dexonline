@@ -58,7 +58,7 @@
           <div class="panel-body">
             <form class="form-horizontal" action="definitionLookup.php" method="post">
               <div class="form-group">
-                <label class="col-sm-3 control-label">lexicon</label>
+                <label class="col-sm-3 control-label">lexem</label>
                 <div class="col-sm-9">
                   <input class="form-control" type="text" name="name" value="*">
                 </div>

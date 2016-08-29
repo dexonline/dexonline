@@ -105,8 +105,9 @@ $(function() {
         resize: 'both',
         selector: 'textarea',
         setup: tinymceSetup,
+        statusbar: false,
         toolbar: 'undo redo | bold italic spaced superscript subscript',
-        width: 650,
+        width: '100%',
       });
       $.cookie(TINYMCE_COOKIE, 'on');
     } else {

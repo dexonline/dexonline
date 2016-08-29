@@ -6,7 +6,7 @@
 {block name=search}{/block}
 
 {block name=content}
-  <h2>Verificarea acurateței</h2>
+  <h3>Verificarea acurateței</h3>
 
   {if $projects}
     <div class="panel panel-default">

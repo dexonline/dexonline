@@ -127,7 +127,7 @@ SmartyWrap::assign('treeIds', $treeIds);
 SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('structStatusNames', Entry::$STRUCT_STATUS_NAMES);
-SmartyWrap::addCss('select2', 'meaningTree');
+SmartyWrap::addCss('select2', 'meaningTree', 'admin');
 SmartyWrap::addJs('select2', 'select2Dev', 'meaningTree', 'textComplete');
 SmartyWrap::display('editEntry.tpl');
 

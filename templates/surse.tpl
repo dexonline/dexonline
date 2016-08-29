@@ -2,7 +2,13 @@
 
 {block name=title}Surse{/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
+
+  <h3>Surse</h3>
+
   <div class="alert alert-info">
     <p>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii</p>
     {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}

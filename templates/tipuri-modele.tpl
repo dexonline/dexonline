@@ -2,6 +2,9 @@
 
 {block name=title}Tipuri de modele{/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
   {if $showAddForm}
     <div class="panel panel-default">

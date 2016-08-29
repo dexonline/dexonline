@@ -40,6 +40,7 @@ if ($submitButton) {
 $moderators = Model::factory('User')->where_not_equal('moderator', 0)->order_by_asc('nick')->find_many();
 
 SmartyWrap::assign('users', $moderators);
+SmartyWrap::addCss('admin');
 SmartyWrap::display('moderatori.tpl');
 
 ?>

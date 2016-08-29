@@ -6,7 +6,7 @@
 {block name=search}{/block}
 
 {block name=content}
-  <h2>Editare flexiuni</h2>
+  <h3>Editare flexiuni</h3>
 
   <p class="alert alert-info">
     <strong>Instrucțiuni:</strong> Trageți de rânduri pentru a le reordona, apoi apăsați <em>Salvează</em>.

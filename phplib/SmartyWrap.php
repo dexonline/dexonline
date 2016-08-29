@@ -151,16 +151,17 @@ class SmartyWrap {
           self::$cssFiles[9] = 'elfinderDev.css';
           break;
         case 'responsive':          self::$cssFiles[10] = 'responsive.css'; break;
-        case 'flex':                self::$cssFiles[11] = 'flex.css'; break;
-        case 'paradigm':            self::$cssFiles[12] = 'paradigm.css'; break;
-        case 'jcrop':               self::$cssFiles[13] = 'jcrop/jquery.Jcrop.min.css'; break;
-        case 'select2':             self::$cssFiles[14] = 'select2/select2.min.css'; break;
+        case 'admin':               self::$cssFiles[11] = 'admin.css'; break;
+        case 'flex':                self::$cssFiles[12] = 'flex.css'; break;
+        case 'paradigm':            self::$cssFiles[13] = 'paradigm.css'; break;
+        case 'jcrop':               self::$cssFiles[14] = 'jcrop/jquery.Jcrop.min.css'; break;
+        case 'select2':             self::$cssFiles[15] = 'select2/select2.min.css'; break;
         case 'gallery':
-          self::$cssFiles[15] = 'colorbox/colorbox.css';
-          self::$cssFiles[16] = 'visualDict.css';
+          self::$cssFiles[16] = 'colorbox/colorbox.css';
+          self::$cssFiles[17] = 'visualDict.css';
           break;
-        case 'textComplete':        self::$cssFiles[17] = 'jquery.textcomplete.css'; break;
-        case 'meaningTree':         self::$cssFiles[18] = 'meaningTree.css'; break;
+        case 'textComplete':        self::$cssFiles[18] = 'jquery.textcomplete.css'; break;
+        case 'meaningTree':         self::$cssFiles[19] = 'meaningTree.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -168,7 +169,7 @@ class SmartyWrap {
     }
   }
 
-static function addJs(/* Variable-length argument list */) {
+  static function addJs(/* Variable-length argument list */) {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
       switch($id) {

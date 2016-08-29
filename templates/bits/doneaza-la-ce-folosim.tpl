@@ -1,4 +1,4 @@
-<h2>La ce folosim sumele donate</h2>
+<h3>La ce folosim sumele donate</h3>
 
 <p>Avem multe idei pentru a dezvolta site-ul și prea puțin timp să ne ocupăm voluntar de ele. Echipa noastră constă din șapte oameni și toți suntem
   voluntari. Aceasta înseamnă că lucrăm cu mare plăcere, dar trecem <i>dexonline</i> pe planul doi oricând apar nevoi mai urgente în viețile

@@ -9,7 +9,7 @@
   {assign var="def" value=$def|default:null}
   {assign var="previewDivContent" value=$previewDivContent|default:null}
 
-  <h2>Trimiteți o definiție</h2>
+  <h3>Trimiteți o definiție</h3>
 
   {if !$sUser}
     <div class="alert alert-warning alert-dismissible" role="alert">

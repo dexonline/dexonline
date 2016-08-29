@@ -48,6 +48,7 @@ if ($saveButton) {
 }
 
 SmartyWrap::assign('tags', Tag::loadTree());
+SmartyWrap::addCss('admin');
 SmartyWrap::display('etichete.tpl');
 
 ?>

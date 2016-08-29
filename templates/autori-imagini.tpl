@@ -2,6 +2,9 @@
 
 {block name=title}Autori ai imaginilor{/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
 
   <table class="table table-condensed table-bordered table-striped">

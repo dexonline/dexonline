@@ -24,7 +24,7 @@ if (util_isModerator(PRIV_VIEW_HIDDEN)) {
 }
 
 SmartyWrap::assign('sources', $sources);
-SmartyWrap::addCss('jqueryui');
+SmartyWrap::addCss('jqueryui', 'admin');
 SmartyWrap::addJs('jqueryui', 'jqTableDnd', 'tablesorter');
 SmartyWrap::display('surse.tpl');
 

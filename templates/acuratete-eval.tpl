@@ -6,7 +6,7 @@
 {block name=search}{/block}
 
 {block name=content}
-  <h2>Proiect de verificare a acurateței - {$project->name}</h2>
+  <h3>Proiect de verificare a acurateței - {$project->name}</h3>
 
   <div class="panel panel-default">
     <div class="panel-heading">

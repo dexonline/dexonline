@@ -8,6 +8,9 @@
   {/if}
 {/block}
 
+{block name=banner}{/block}
+{block name=search}{/block}
+
 {block name=content}
   <div class="panel panel-default">
     <div class="panel-heading">

@@ -1,4 +1,4 @@
-<h2>Sponsorizarea Asociației dexonline</h2>
+<h3>Sponsorizarea Asociației dexonline</h3>
 
 <div>
   Dacă ai o firmă, ai profit și plătești impozit, ne poți sponsoriza. Suma donată se scade din impozitul pe profit dacă se îndeplinesc cumulat condițiile:
@@ -21,5 +21,3 @@
     <li>RON<span class="bankAccount"> RO96 BTRL 0440 1205 M306 19XX</span></li>
   </ul>
 </div>
-
-<br /><br />

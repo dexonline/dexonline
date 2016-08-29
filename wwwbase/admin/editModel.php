@@ -304,7 +304,7 @@ SmartyWrap::assign('inflectionMap', Inflection::mapById($inflections));
 SmartyWrap::assign('previewPassed', $previewButton && !FlashMessage::hasErrors());
 SmartyWrap::assign('locPerm', $locPerm);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::addCss('paradigm', 'jqueryui');
+SmartyWrap::addCss('paradigm', 'jqueryui', 'admin');
 SmartyWrap::display('admin/editModel.tpl');
 
 /****************************************************************************/

@@ -1,0 +1,4 @@
+/* Styles for pages which only admins can see. */
+.navbar {
+  margin-bottom: 0;
+}

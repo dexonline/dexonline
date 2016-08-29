@@ -2,3 +2,7 @@
 .navbar {
   margin-bottom: 0;
 }
+
+a:visited {
+  color: #551a8b;
+}

@@ -1,7 +1,5 @@
 <?php
 
-WordOfTheMonth::$IMAGE_CREDITS_DIR = util_getRootPath() . 'docs/imageCredits';
-
 class WordOfTheMonth extends BaseObject {
   public static $_table = 'WordOfTheMonth';
   public static $DEFAULT_IMAGE = 'generic.jpg';
@@ -42,5 +40,7 @@ class WordOfTheMonth extends BaseObject {
   }
 
 }
+
+WordOfTheMonth::$IMAGE_CREDITS_DIR = util_getRootPath() . 'docs/imageCredits';
 
 ?>

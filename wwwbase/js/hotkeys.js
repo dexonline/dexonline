@@ -13,7 +13,6 @@ $(function() {
   }
 
   function redirectToAdmin() {
-    console.log('foo');
     window.location = wwwRoot + 'admin';
   }
 

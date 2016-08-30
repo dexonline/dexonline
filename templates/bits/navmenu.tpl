@@ -124,6 +124,8 @@
           <ul>
             <li><b>Alt-D</b> = navigare rapidă - definiții</li>
             <li><b>Alt-L</b> = navigare rapidă - lexeme</li>
+            <li><b>Alt-Shift-D</b> = căutare definiții</li>
+            <li><b>Alt-Shift-L</b> = căutare lexeme</li>
           </ul>
 
         </div>

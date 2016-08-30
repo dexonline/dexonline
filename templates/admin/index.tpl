@@ -60,7 +60,7 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">lexem</label>
                 <div class="col-sm-9">
-                  <input class="form-control" type="text" name="name" value="*">
+                  <input id="definitionName" class="form-control" type="text" name="name" value="*">
                 </div>
               </div>
 
@@ -130,7 +130,10 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">forma</label>
                 <div class="col-sm-9">
-                  <input class="form-control" type="text" name="form"
+                  <input id="lexemForm"
+                         class="form-control"
+                         type="text"
+                         name="form"
                          placeholder="acceptă expresii regulate">
                 </div>
               </div>

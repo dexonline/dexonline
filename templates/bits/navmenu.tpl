@@ -76,6 +76,14 @@
               {if $sUser && $sUser->moderator}
                 <li><a href="{$wwwRoot}admin">Pagina moderatorului</a></li>
               {/if}
+              {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
+                <li>
+                  <a href="#" data-toggle="modal" data-target="#hotkeysModal">
+                    <i class="glyphicon glyphicon-hand-up"></i>
+                    Hotkeys
+                  </a>
+                </li>
+              {/if}
               <li><a href="{$wwwRoot}preferinte">Preferințe</a></li>
               {if $sUser}
                 <li><a href="{$wwwRoot}utilizator/{$sUser->nick}">Profilul meu</a></li>
@@ -92,3 +100,34 @@
     </div>
   </div>
 </nav>
+
+{if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
+  <div class="modal fade" id="hotkeysModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Hotkeys (scurtături)</h4>
+        </div>
+        <div class="modal-body">
+
+          <h4>Globale</h4>
+
+          <ul>
+            <li><b>Alt-A</b> = pagina moderatorului</li>
+          </ul>
+
+          <h4>Pagina moderatorului</h4>
+          
+          <ul>
+            <li><b>Alt-D</b> = navigare rapidă - definiții</li>
+            <li><b>Alt-L</b> = navigare rapidă - lexeme</li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+{/if}

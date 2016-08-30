@@ -63,8 +63,11 @@ class SmartyWrap {
     self::addCss('responsive', 'bootstrap');
     self::addJs('jquery', 'dex', 'bootstrap');
     if (Config::get('search.acEnable')) {
-        self::addCss('jqueryui');
-        self::addJs('jqueryui');
+      self::addCss('jqueryui');
+      self::addJs('jqueryui');
+    }
+    if (util_isModerator(PRIV_EDIT)) {
+      self::addJs('hotkeys');
     }
     self::addSameNameFiles($templateName);
     self::assign('skinVariables', Config::getSection('skin'));
@@ -206,6 +209,10 @@ class SmartyWrap {
         case 'textComplete':     self::$jsFiles[23] = 'jquery.textcomplete.min.js'; break;
         case 'tinymce':          self::$jsFiles[24] = 'tinymce-4.4.0/tinymce.min.js'; break;
         case 'meaningTree':      self::$jsFiles[25] = 'meaningTree.js'; break;
+        case 'hotkeys':
+          self::$jsFiles[26] = 'third-party/jquery.hotkeys.js';
+          self::$jsFiles[27] = 'hotkeys.js';
+          break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

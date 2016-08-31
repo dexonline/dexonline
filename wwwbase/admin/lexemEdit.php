@@ -105,7 +105,7 @@ SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::addCss('paradigm', 'select2', 'admin');
-SmartyWrap::addJs('select2', 'select2Dev', 'modelDropdown');
+SmartyWrap::addJs('select2', 'modelDropdown');
 SmartyWrap::display('admin/lexemEdit.tpl');
 
 /**************************************************************************/

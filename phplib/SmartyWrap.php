@@ -194,8 +194,8 @@ class SmartyWrap {
         case 'select2':
           self::$jsFiles[15] = 'third-party/select2/select2.min.js';
           self::$jsFiles[16] = 'third-party/select2/i18n/ro.js';
+          self::$jsFiles[17] = 'select2Dev.js';
           break;
-        case 'select2Dev':    self::$jsFiles[17] = 'select2Dev.js'; break;
         case 'jcanvas':       self::$jsFiles[18] = 'third-party/jcanvas.min.js'; break;
         case 'gallery':
           self::$jsFiles[19] = 'third-party/colorbox/jquery.colorbox-min.js';

@@ -58,8 +58,8 @@ $commentContents = util_getRequestParameter('commentContents');
 $preserveCommentUser = util_getRequestParameter('preserveCommentUser');
 $tagIds = util_getRequestParameterWithDefault('tagIds', []);
 
-$saveButton = util_getRequestParameter('saveButton');
-$nextOcrBut = util_getRequestParameter('but_next_ocr');
+$saveButton = util_getBoolean('saveButton');
+$nextOcrBut = util_getBoolean('but_next_ocr');
 
 $comment = Model::factory('Comment')->where('definitionId', $d->id)->where('status', Definition::ST_ACTIVE)->find_one();
 $commentUser = $comment ? User::get_by_id($comment->userId) : null;

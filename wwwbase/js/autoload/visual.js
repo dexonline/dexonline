@@ -42,5 +42,4 @@ $().ready(function() {
     $(this).removeAttr('title');
   });
 
-  $('.elfinder-toolbar').append('<div class="visualDocumentation"><a href="http://wiki.dexonline.ro/wiki/Ghidul_dic%C8%9Bionarului_vizual">ajutor</a></div>');
 });

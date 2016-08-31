@@ -76,20 +76,6 @@ hr {
   margin: 0px;
 }
 
-.defDetails {
-  color: #999999;
-  font-family: sans-serif;
-  font-size: 80%;
-}
-
-.defDetails a {
-  color: #777777;
-}
-
-.defDetails a:hover {
-  color: #555555;
-}
-
 .debugInfo {
   border-top: 1px solid #777777;
   font-size: 75%;

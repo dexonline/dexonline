@@ -4,7 +4,7 @@ util_assertModerator(PRIV_WOTD);
 util_assertNotMirror();
 RecentLink::createOrUpdate('Imaginea zilei');
 
-SmartyWrap::addCss('elfinder', 'jqueryui');
-SmartyWrap::addJs('jqueryui', 'elfinder');
-SmartyWrap::displayAdminPage('admin/wotdImages.tpl');
+SmartyWrap::addCss('elfinder', 'jqueryui', 'admin');
+SmartyWrap::addJs('elfinder', 'jqueryui');
+SmartyWrap::display('admin/wotdImages.tpl');
 ?>

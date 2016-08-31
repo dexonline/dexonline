@@ -76,6 +76,7 @@
       </button>
 
       <a class="btn btn-success" href="editare-sursa">
+        <i class="glyphicon glyphicon-plus"></i>
         adaugă o sursă
       </a>
       <a class="btn btn-link" href="">renunță</a>

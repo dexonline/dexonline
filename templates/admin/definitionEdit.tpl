@@ -27,22 +27,50 @@
     <input type="hidden" name="definitionId" value="{$def->id}"/>
     <input type="hidden" name="isOCR" value="{$isOCR}"/>
 
-    <div class="form-group"">
-      <label class="col-sm-2 control-label">sursă</label>
-      <div class="col-sm-10">
-        {if $source->canModerate}
-          {include file="bits/sourceDropDown.tpl" sources=$allModeratorSources src_selected=$def->sourceId skipAnySource=true}
-        {else}
-          <input type="hidden" name="source" value="{$def->sourceId}"/>
-          {$source->shortName}
-        {/if}
-      </div>
-    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group"">
+          <label class="col-sm-4 control-label">sursă</label>
+          <div class="col-sm-8">
+            {if $source->canModerate}
+              {include file="bits/sourceDropDown.tpl" sources=$allModeratorSources src_selected=$def->sourceId skipAnySource=true}
+            {else}
+              <input type="hidden" name="source" value="{$def->sourceId}"/>
+              {$source->shortName}
+            {/if}
+          </div>
+        </div>
 
-    <div class="form-group">
-      <label class="col-sm-2 control-label">stare</label>
-      <div class="col-sm-10">
-        {include file="bits/statusDropDown.tpl" name="status" selectedStatus=$def->status}
+        <div class="form-group">
+          <label class="col-sm-4 control-label">stare</label>
+          <div class="col-sm-8">
+            {include file="bits/statusDropDown.tpl" name="status" selectedStatus=$def->status}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">etichete</label>
+          <div class="col-sm-10">
+            <select id="tagIds" name="tagIds[]" class="form-control" multiple>
+              {foreach $tagIds as $t}
+                <option value="{$t}" selected></option>
+              {/foreach}
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group"">
+          <label for="entryIds" class="col-sm-2 control-label">intrări</label>
+          <div class="col-sm-10">
+            <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
+              {foreach $entryIds as $e}
+                <option value="{$e}" selected></option>
+              {/foreach}
+            </select>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -56,17 +84,6 @@
         </div>
       </div>
     {/if}
-
-    <div class="form-group"">
-      <label for="entryIds" class="col-sm-2 control-label">intrări</label>
-      <div class="col-sm-10">
-        <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
-          {foreach $entryIds as $e}
-            <option value="{$e}" selected></option>
-          {/foreach}
-        </select>
-      </div>
-    </div>
 
     <div class="form-group">
       <label class="col-sm-2 control-label">conținut</label>
@@ -92,17 +109,6 @@
             </label>
           </div>
         {/if}
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="col-sm-2 control-label">etichete</label>
-      <div class="col-sm-10">
-        <select id="tagIds" name="tagIds[]" class="form-control" multiple>
-          {foreach $tagIds as $t}
-            <option value="{$t}" selected></option>
-          {/foreach}
-        </select>
 
         {** These aren't logically connected, but we like them vertically compressed **}
         <div class="checkbox" {if !$sim->source}style="display:none"{/if}>
@@ -118,7 +124,6 @@
             Definiția a fost structurată
           </label>
         </div>
-
       </div>
     </div>
 

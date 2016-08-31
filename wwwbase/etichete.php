@@ -2,7 +2,7 @@
 require_once("../phplib/util.php");
 
 $value = util_getRequestParameter('value');
-$saveButton = util_getRequestParameter('saveButton');
+$saveButton = util_getBoolean('saveButton');
 $jsonTags = util_getRequestParameter('jsonTags');
 
 if ($saveButton) {

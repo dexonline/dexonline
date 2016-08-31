@@ -5,9 +5,9 @@ util_assertModerator(PRIV_ADMIN);
 $userIds = util_getRequestParameter('userIds');
 $newNick = util_getRequestParameter('newNick');
 $newCheckboxes = util_getRequestParameterWithDefault("newPriv", array());
-$submitButton = util_getRequestParameter('submitButton');
+$saveButton = util_getBoolean('saveButton');
 
-if ($submitButton) {
+if ($saveButton) {
   foreach ($userIds as $userId) {
     $checkboxes = util_getRequestParameterWithDefault("priv_$userId", array());
     $user = User::get_by_id($userId);

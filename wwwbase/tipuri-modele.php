@@ -5,8 +5,7 @@ util_assertModerator(PRIV_EDIT);
 $showAddForm = util_getRequestParameter('add');
 $editId = util_getRequestParameter('editId');
 $deleteId = util_getRequestParameter('deleteId');
-$submitAddButton = util_getRequestParameter('submitAddButton');
-$submitEditButton = util_getRequestParameter('submitEditButton');
+$saveButton = util_getBoolean('saveButton');
 $id = util_getRequestParameter('id');
 $code = util_getRequestParameter('code');
 $canonical = util_getRequestParameter('canonical');
@@ -16,7 +15,8 @@ if ($showAddForm) {
   SmartyWrap::assign('addModelType', Model::factory('ModelType')->create());
 }
 
-if ($submitAddButton) {
+if ($saveButton && !$id) {
+  // Add a new model
   $mt = Model::factory('ModelType')->create();
   $mt->code = mb_strtoupper($code);
   $mt->canonical = $canonical;
@@ -32,7 +32,8 @@ if ($submitAddButton) {
   }
 }
 
-if ($submitEditButton) {
+if ($saveButton && $id) {
+  // Save an existing model
   $mt = ModelType::get_by_id($id);
   $mt->description = $description;
   if (validateEdit($mt)) {

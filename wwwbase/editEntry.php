@@ -4,7 +4,7 @@ require_once("../phplib/util.php");
 util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 
 $id = util_getRequestParameter('id');
-$save = util_getBoolean('save');
+$saveButton = util_getBoolean('saveButton');
 $createTree = util_getBoolean('createTree');
 $delete = util_getBoolean('delete');
 $dissociateDefinitionId = util_getRequestParameter('dissociateDefinitionId');
@@ -45,7 +45,7 @@ if ($delete) {
   util_redirect(util_getWwwRoot());
 }
 
-if ($save) {
+if ($saveButton) {
   $e->description = util_getRequestParameter('description');
   $e->structStatus = util_getRequestIntParameter('structStatus');
   $e->structuristId = util_getRequestIntParameter('structuristId');

@@ -47,6 +47,11 @@
         {/section}
       </tr>
     </table>
-    <input type="submit" class="btn btn-primary" name="submitButton" value="Salvează" />
+
+    <button type="submit" class="btn btn-primary" name="saveButton">
+      <i class="glyphicon glyphicon-floppy-disk"></i>
+      salvează
+    </button>
+
   </form>
 {/block}

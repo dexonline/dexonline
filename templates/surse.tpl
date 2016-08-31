@@ -29,7 +29,7 @@
         </tr>
       </thead>
       <tbody>
-        {foreach from=$sources item=s}
+        {foreach from=$src item=s}
           {if $s->isActive || ($sUser && $sUser->moderator & $smarty.const.PRIV_EDIT)}
             <tr>
               <td class="abbreviation">
@@ -68,18 +68,24 @@
         {/foreach}
       </tbody>
     </table>
+
     {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
-      <input class="btn btn-primary" type="submit" name="submitButton" value="Salvează"/> &nbsp;
+      <button class="btn btn-primary" type="submit" name="saveButton">
+        <i class="glyphicon glyphicon-floppy-disk"></i>
+        salvează
+      </button>
+
       <a class="btn btn-success" href="editare-sursa">
         adaugă o sursă
       </a>
       <a class="btn btn-link" href="">renunță</a>
     {/if}
+
   </form>
 
   <script>
    $(document).ready(function() {
-       $("#sources").tablesorter();
+     $("#sources").tablesorter();
    });
   </script>
 
@@ -87,7 +93,7 @@
   {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
     <script>
      jQuery(document).ready(function() {
-         $("#sources").tableDnD();
+       $("#sources").tableDnD();
      });
     </script>
   {/if}

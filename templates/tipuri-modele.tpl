@@ -18,12 +18,12 @@
         <form method="post" action="tipuri-modele.php">
           <input type="hidden" name="id" value="0" />
           <div class="form-group">
-            <label>Cod</label>
+            <label>cod</label>
             <input type="text" name="code" value="{$addModelType->code}" size="10" class="form-control" />
           </div>
 
           <div class="form-group">
-            <label>Cod canonic</label>
+            <label>cod canonic</label>
             <select class="form-control" name="canonical">
               {foreach from=$canonicalModelTypes item=mt}
                 <option value="{$mt->code}">{$mt->code}</option>
@@ -32,12 +32,17 @@
           </div>
 
           <div class="form-group">
-            <label>Descriere</label>
+            <label>descriere</label>
             <input type="text" name="description" value="{$addModelType->description}" class="form-control" />
           </div>
 
-          <input class="btn btn-primary" type="submit" name="submitAddButton" value="acceptă" />
-          <a href="tipuri-modele">renunță</a>
+          <button class="btn btn-primary" type="submit" name="saveButton">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            salvează
+          </button>
+
+          <a class="btn btn-link" href="tipuri-modele">renunță</a>
+
         </form>
       </div>
     </div>
@@ -52,13 +57,13 @@
           <input type="hidden" name="id" value="{$editModelType->id}" />
 
           <div class="form-group">
-            <label>Cod</label>
+            <label>cod</label>
             <input type="text" value="{$editModelType->code}" disabled="disabled" class="form-control" />
           </div>
 
           {if $editModelType->code != $editModelType->canonical}
             <div class="form-group">
-              <label>Cod canonic</label>
+              <label>cod canonic</label>
               <input type="text" value="{$editModelType->canonical}" disabled="disabled" class="form-control" />
             </div>
             {/if}
@@ -68,7 +73,11 @@
             <input type="text" name="description" value="{$editModelType->description}" class="form-control" />
           </div>
 
-          <input type="submit" name="submitEditButton" class="btn btn-primary" value="acceptă" />
+          <button class="btn btn-primary" type="submit" name="saveButton">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+            salvează
+          </button>
+
           <a class="btn btn-link" href="tipuri-modele">renunță</a>
         </form>
       </div>
@@ -79,7 +88,10 @@
     <caption class="table-caption">
       Tipuri de modele
       {if !$showAddForm}
-        <a class="btn btn-xs btn-success pull-right" href="?add=1">adaugă un tip de model</a>
+        <a class="btn btn-xs btn-success pull-right" href="?add=1">
+          <i class="glyphicon glyphicon-plus"></i>
+          adaugă un tip de model
+        </a>
       {/if}
     </caption>
     <tr>

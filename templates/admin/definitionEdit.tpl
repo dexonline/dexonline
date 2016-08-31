@@ -126,19 +126,33 @@
       <label class="col-sm-2 control-label"></label>
       <div class="col-sm-10">
 
-        <div class="btn-group">
-          <input type="button" class="btn btn-default" id="refreshButton" value="Reafișează"/>
-        </div>
+        <button id="refreshButton"
+                type="button"
+                name="refreshButton"
+                class="btn btn-primary">
+          <i class="glyphicon glyphicon-refresh"></i>
+          reafișează
+        </button>
 
-        <div class="btn-group">
-          <input type="submit" class="btn btn-primary" name="but_accept" value="Salvează"/>
-          {if $isOCR}
-            <input type="submit" class="btn btn-primary" name="but_next_ocr" value="Salvează și preia următoarea definiție OCR"/>
-          {/if}
-        </div>
+        <button type="submit"
+                name="saveButton"
+                class="btn btn-default">
+          <i class="glyphicon glyphicon-floppy-disk"></i>
+          salvează
+        </button>
+
+        {if $isOCR}
+          <button type="submit" class="btn btn-default" name="but_next_ocr">
+            salvează și preia următoarea definiție OCR
+          </button>
+        {/if}
 
         <div class="btn-group pull-right" id="tinymceButtonWrapper">
-          <button id="tinymceToggleButton" type="button" class="btn btn-default" data-other-text="ascunde TinyMCE" href="#"
+          <button id="tinymceToggleButton"
+                  type="button"
+                  class="btn btn-default"
+                  data-other-text="ascunde TinyMCE"
+                  href="#"
                   title="TinyMCE este un editor vizual (cu butoane de bold, italic etc.).">
             arată TinyMCE
           </button>

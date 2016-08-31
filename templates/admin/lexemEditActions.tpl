@@ -1,15 +1,13 @@
 <div class="voffset3">
   <button type="submit"
-          name="refreshLexem"
-          value="1"
-          class="lexemEditSaveButton btn btn-default">
+          name="refreshButton"
+          class="lexemEditSaveButton btn btn-primary">
     <i class="glyphicon glyphicon-refresh"></i>
     reafișează
   </button>
 
   <button type="submit"
-          name="saveLexem"
-          value="1"
+          name="saveButton"
           class="lexemEditSaveButton btn btn-default">
     <i class="glyphicon glyphicon-floppy-disk"></i>
     salvează

@@ -117,6 +117,8 @@
 
           <ul>
             <li><b>Alt-A</b> = pagina moderatorului</li>
+            <li><b>Alt-R</b> = reafișează (unde este cazul)</li>
+            <li><b>Alt-S</b> = salvează</li>
           </ul>
 
           <h4>Pagina moderatorului</h4>

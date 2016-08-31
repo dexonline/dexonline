@@ -58,13 +58,13 @@ $commentContents = util_getRequestParameter('commentContents');
 $preserveCommentUser = util_getRequestParameter('preserveCommentUser');
 $tagIds = util_getRequestParameterWithDefault('tagIds', []);
 
-$acceptButton = util_getRequestParameter('but_accept');
+$saveButton = util_getRequestParameter('saveButton');
 $nextOcrBut = util_getRequestParameter('but_next_ocr');
 
 $comment = Model::factory('Comment')->where('definitionId', $d->id)->where('status', Definition::ST_ACTIVE)->find_one();
 $commentUser = $comment ? User::get_by_id($comment->userId) : null;
 
-if ($acceptButton || $nextOcrBut) {
+if ($saveButton || $nextOcrBut) {
   $errors = [];
   $d->internalRep = AdminStringUtil::internalizeDefinition($internalRep, $sourceId);
   $d->htmlRep = AdminStringUtil::htmlize($d->internalRep, $sourceId, $errors);

@@ -4,7 +4,7 @@ require_once("../phplib/util.php");
 util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 
 $id = util_getRequestParameter('id');
-$save = util_getBoolean('save');
+$saveButton = util_getBoolean('saveButton');
 $clone = util_getBoolean('clone');
 
 if ($id) {
@@ -24,7 +24,7 @@ if ($clone) {
   util_redirect("?id={$newt->id}");
 }
 
-if ($save) {
+if ($saveButton) {
   $t->description = util_getRequestParameter('description');
   $t->status = util_getRequestParameter('status');
   $entryIds = util_getRequestParameter('entryIds');

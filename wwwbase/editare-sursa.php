@@ -35,8 +35,6 @@ if ($submitButton) {
 }
 
 SmartyWrap::assign('src', $src);
-SmartyWrap::addCss('jqueryui');
-SmartyWrap::addJs('jqueryui');
 SmartyWrap::display('editare-sursa.tpl');
 
 /**

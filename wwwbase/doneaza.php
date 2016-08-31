@@ -6,8 +6,6 @@ $haveEuPlatescCredentials = Config::get('euplatesc.euPlatescMid') && Config::get
 
 SmartyWrap::assign('haveEuPlatescCredentials', $haveEuPlatescCredentials);
 SmartyWrap::assign('defaultEmail', $user ? $user->email : '');
-SmartyWrap::addCss('jqueryui');
-SmartyWrap::addJs('jqueryui');
 SmartyWrap::display('doneaza.tpl');
 
 ?>

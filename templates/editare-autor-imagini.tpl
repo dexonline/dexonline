@@ -1,4 +1,4 @@
-{extends file="layout.tpl"}
+{extends "layout-admin.tpl"}
 
 {block name=title}
   {if $artist->id}
@@ -7,9 +7,6 @@
     Adăugare autor
   {/if}
 {/block}
-
-{block name=banner}{/block}
-{block name=search}{/block}
 
 {block name=content}
   <div class="panel panel-default">

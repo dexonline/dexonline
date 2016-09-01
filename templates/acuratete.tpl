@@ -1,9 +1,6 @@
-{extends file="layout.tpl"}
+{extends "layout-admin.tpl"}
 
 {block name=title}Verificarea acurateței{/block}
-
-{block name=banner}{/block}
-{block name=search}{/block}
 
 {block name=content}
   <h3>Verificarea acurateței</h3>

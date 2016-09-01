@@ -1,9 +1,6 @@
-{extends file="layout.tpl"}
+{extends "layout-admin.tpl"}
 
 {block name=title}Alocare autori{/block}
-
-{block name=banner}{/block}
-{block name=search}{/block}
 
 {block name=content}
   <h3>Alocarea autorilor de imagini</h3>

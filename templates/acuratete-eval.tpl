@@ -1,9 +1,6 @@
-{extends file="layout.tpl"}
+{extends "layout-admin.tpl"}
 
 {block name=title}{$project->name} | verificarea acurateței{/block}
-
-{block name=banner}{/block}
-{block name=search}{/block}
 
 {block name=content}
   <h3>Proiect de verificare a acurateței - {$project->name}</h3>

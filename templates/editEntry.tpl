@@ -1,7 +1,4 @@
-{extends file="layout.tpl"}
-
-{block name=banner}{/block}
-{block name=search}{/block}
+{extends "layout-admin.tpl"}
 
 {block name=title}
   {if $e->id}

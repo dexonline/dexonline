@@ -61,8 +61,8 @@ if ($sendButton) {
 
 SmartyWrap::assign('lexemIds', $lexemIds);
 SmartyWrap::assign('contribSources', Model::factory('Source')->where('canContribute', true)->order_by_asc('displayOrder')->find_many());
-SmartyWrap::addCss('select2');
-SmartyWrap::addJs('select2');
+SmartyWrap::addCss('select2', 'tinymce');
+SmartyWrap::addJs('select2', 'tinymce', 'cookie');
 SmartyWrap::display('contribuie.tpl');
 
 ?>

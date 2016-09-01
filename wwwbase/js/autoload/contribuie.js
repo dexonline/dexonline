@@ -1,10 +1,9 @@
 $(function() {
-  // Was there a key press since the last preview update?
-  var keyPressed = false;
+  // If the textarea value doesn't change, don't recompute the preview.
+  var rep = '';
 
   function init() {
     window.setInterval(updatePreview, 5000);
-    $('#defTextarea').on('input propertychange', defChanged);
 
     initSelect2('#lexemIds', 'ajax/getLexemsById.php', {
       ajax: { url: wwwRoot + 'ajax/getLexems.php' },
@@ -16,16 +15,12 @@ $(function() {
     });
   }
 
-  function defChanged() {
-    keyPressed = true;
-  }
-
   function updatePreview() {
-    if (keyPressed) {
-      keyPressed = false;
-      var internalRep = $('#defTextarea').val();
+    var newRep = $('#defTextarea').val();
+    if (newRep != rep) {
+      rep = newRep;
       var sourceId = $('#sourceDropDown').val();
-      $.post(wwwRoot + 'ajax/htmlize.php', { internalRep: internalRep, sourceId: sourceId })
+      $.post(wwwRoot + 'ajax/htmlize.php', { internalRep: rep, sourceId: sourceId })
         .done(function(data) { $('#previewDiv').html(data); })
         .fail(updatePreviewFail);
     }

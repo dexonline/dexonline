@@ -160,7 +160,8 @@ class SmartyWrap {
           self::$cssFiles[15] = 'visualDict.css';
           break;
         case 'textComplete':        self::$cssFiles[16] = 'third-party/jquery.textcomplete.css'; break;
-        case 'meaningTree':         self::$cssFiles[17] = 'meaningTree.css'; break;
+        case 'tinymce':             self::$cssFiles[17] = 'tinymce.css'; break;
+        case 'meaningTree':         self::$cssFiles[18] = 'meaningTree.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());
@@ -203,11 +204,14 @@ class SmartyWrap {
           break;
         case 'modelDropdown': self::$jsFiles[22] = 'modelDropdown.js'; break;
         case 'textComplete':  self::$jsFiles[23] = 'third-party/jquery.textcomplete.min.js'; break;
-        case 'tinymce':       self::$jsFiles[24] = 'third-party/tinymce-4.4.0/tinymce.min.js'; break;
-        case 'meaningTree':   self::$jsFiles[25] = 'meaningTree.js'; break;
+        case 'tinymce':
+          self::$jsFiles[24] = 'third-party/tinymce-4.4.0/tinymce.min.js';
+          self::$jsFiles[25] = 'tinymce.js';
+          break;
+        case 'meaningTree':   self::$jsFiles[26] = 'meaningTree.js'; break;
         case 'hotkeys':
-          self::$jsFiles[26] = 'third-party/jquery.hotkeys.js';
-          self::$jsFiles[27] = 'hotkeys.js';
+          self::$jsFiles[27] = 'third-party/jquery.hotkeys.js';
+          self::$jsFiles[28] = 'hotkeys.js';
           break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");

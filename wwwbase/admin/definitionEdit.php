@@ -205,7 +205,7 @@ SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('typos', $typos);
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::addCss('select2', 'admin');
+SmartyWrap::addCss('select2', 'tinymce', 'admin');
 SmartyWrap::addJs('select2', 'tinymce', 'cookie');
 SmartyWrap::display('admin/definitionEdit.tpl');
 

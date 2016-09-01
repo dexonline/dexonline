@@ -17,23 +17,30 @@
 
   <form id="frmContrib" name="frmContrib" method="post" action="contribuie">
 
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="lexemIds">Cuvântul definit</label>
+        <select id="lexemIds" name="lexemIds[]" style="width: 100%" multiple>
+          {foreach $lexemIds as $l}
+            <option value="{$l}" selected></option>
+          {/foreach}
+        </select>
+      </div>
 
-    <div class="form-group">
-      <label for="lexemIds">Cuvântul definit</label>
-      <select id="lexemIds" name="lexemIds[]" style="width: 100%" multiple>
-        {foreach $lexemIds as $l}
-          <option value="{$l}" selected></option>
-        {/foreach}
-      </select>
-    </div>
+      <div class="form-group col-md-6">
+        <label for="sourceDropDown">Sursa</label>
+        {include "bits/sourceDropDown.tpl" sources=$contribSources src_selected=$sourceId skipAnySource=1}
 
-    <div class="form-group">
-      <label for="sourceDropDown">Sursa</label>
-      {include file="bits/sourceDropDown.tpl" sources=$contribSources src_selected=$sourceId skipAnySource=1}
-      <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-      <a href="surse">lista de surse acceptate</a>
-      <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-      <a href="http://wiki.dexonline.ro/wiki/Ghidul_voluntarului" target="_blank">instrucțiuni de formatare</a>
+        <a href="surse">
+          <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i>
+          lista de surse acceptate
+        </a>
+
+        <a href="http://wiki.dexonline.ro/wiki/Ghidul_voluntarului" target="_blank">
+          <i class="glyphicon glyphicon-book" aria-hidden="true"></i>
+          instrucțiuni de formatare
+        </a>
+      </div>
     </div>
 
     <div class="form-group">
@@ -43,6 +50,18 @@
 
     <input type="submit" name="send" value="Trimite" class="btn btn-default" />
     <input type="reset" name="clear" value="Șterge" onclick="return confirm('Confirmați ștergerea definiției?')" class="btn btn-warning"/>
+
+    <div class="btn-group pull-right" id="tinymceButtonWrapper">
+      <button id="tinymceToggleButton"
+              type="button"
+              class="btn btn-default"
+              data-other-text="ascunde TinyMCE"
+              href="#"
+              title="TinyMCE este un editor vizual (cu butoane de bold, italic etc.).">
+        arată TinyMCE
+      </button>
+    </div>
+
   </form>
 
   <h3>Rezultat</h3>

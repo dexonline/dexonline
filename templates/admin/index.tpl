@@ -8,24 +8,6 @@
   {include file="bits/phpConstants.tpl"}
 
   {if $sUser->moderator & $smarty.const.PRIV_EDIT}
-    <div class="panel panel-default quickNav">
-      <div class="panel-heading">
-        Navigare rapidă
-      </div>
-
-      <div class="panel-body">
-        <form action="lexemEdit.php">
-          <select id="lexemId" name="lexemId"></select>
-        </form>
-
-        <form action="definitionEdit.php">
-          <select id="definitionId" name="definitionId"></select>
-        </form>
-      </div>
-    </div>
-  {/if}
-
-  {if $sUser->moderator & $smarty.const.PRIV_EDIT}
     <div class="panel panel-default">
       <div class="panel-heading">
         Rapoarte
@@ -41,6 +23,24 @@
           {/if}
         {/foreach}
       </table>
+    </div>
+  {/if}
+
+  {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+    <div class="panel panel-default quickNav">
+      <div class="panel-heading">
+        Navigare rapidă
+      </div>
+
+      <div class="panel-body">
+        <form action="lexemEdit.php">
+          <select id="lexemId" name="lexemId"></select>
+        </form>
+
+        <form action="definitionEdit.php">
+          <select id="definitionId" name="definitionId"></select>
+        </form>
+      </div>
     </div>
   {/if}
 

@@ -83,6 +83,44 @@
       </div>
     </div>
 
+    {if count($relatedMeanings)}
+      <div class="panel panel-default">
+        <div class="panel-heading">Arbori în relație cu acesta</div>
+
+        <table class="table table-condensed table-bordered">
+          <thead>
+            <tr>
+              <th>arbore</th>
+              <th>sens</th>
+              <th>tip</th>
+              <th>text</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {foreach $relatedMeanings as $m}
+              <tr>
+                <td>
+                  <a href="editTree.php?id={$m->getTree()->id}">
+                    {$m->getTree()->description}
+                  </a>
+                </td>
+                <td>
+                  <strong>{$m->breadcrumb}</strong>
+                </td>
+                <td>
+                  {Relation::$TYPE_NAMES[$m->relationType]}
+                </td>
+                <td>
+                  {$m->htmlRep}
+                </td>
+              </tr>
+            {/foreach}
+          </tbody>
+        </table>
+      </div>
+    {/if}
+
     <div class="panel panel-default">
       <div class="panel-heading">Sensuri</div>
       <div class="panel-body">
@@ -179,10 +217,9 @@
                 <label>relații:</label>
 
                 <select id="relationType" class="form-control" disabled>
-                  <option value="1" title="sinonime">sinonime</option>
-                  <option value="2" title="antonime">antonime</option>
-                  <option value="3" title="diminutive">diminutive</option>
-                  <option value="4" title="augmentative">augmentative</option>
+                  {foreach Relation::$TYPE_NAMES as $type => $name}
+                    <option value="{$type}"" title="{$name}">{$name}</option>
+                  {/foreach}
                 </select>
 
                 <span class="relationWrapper" data-type="1">

@@ -68,12 +68,25 @@ $modelTypes = Model::factory('Lexem')
 
 $tags = Model::factory('Tag')->order_by_asc('value')->find_many();
 
+$relatedMeanings = Model::factory('Meaning')
+                 ->table_alias('m')
+                 ->select('m.*')
+                 ->select('r.type', 'relationType')
+                 ->join('Relation', ['m.id', '=', 'r.meaningId'], 'r')
+                 ->where('r.treeId', $t->id)
+                 ->find_many();
+foreach ($relatedMeanings as $m) {
+  $m->getTree(); // preload it
+}
+
+
 SmartyWrap::assign('t', $t);
 SmartyWrap::assign('entryIds', $entryIds);
 SmartyWrap::assign('modelTypes', $modelTypes);
 // TODO: canEdit if STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT)
 SmartyWrap::assign('canEdit', true);
 SmartyWrap::assign('tags', $tags);
+SmartyWrap::assign('relatedMeanings', $relatedMeanings);
 SmartyWrap::assign('statusNames', Tree::$STATUS_NAMES);
 SmartyWrap::addCss('select2', 'meaningTree', 'textComplete', 'admin');
 SmartyWrap::addJs('select2', 'meaningTree', 'textComplete');

@@ -198,7 +198,7 @@ background-color: #FFF;
 a.widget,
 .widget.multiple-links {
   margin: 10px;
-  padding: 20px 10px;
+  padding: 15px 10px;
   border: 1px solid #CCC;
   border-radius: 4px;
   display: block;
@@ -238,49 +238,60 @@ a.widget,
   padding-left: 18px;
 }
 
-.widget-thumbnail {
-  padding-left: 0;
+.widget-icon {
+    width: 88px;
+}
+
+@media (width: 992px) {
+  .widget-icon {
+    padding-top: 10px;
+  }
 }
 
 @media (min-width: 992px) {
   .widget {
-    min-height: 124px;
-  }
-
-  .widget-icon {
-    width: 64px;
-    padding-top: 10px;
+    min-height: 215px;
   }
 }
 
 @media (min-width: 1200px) {
   .widget {
-    min-height: 148px;
+    min-height: 136px;
+  }
+
+  .widget-thumbnail {
+    padding-left: 0;
   }
 
   .widget-icon {
-    width: 88px;
+    padding-top: 10px;
   }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
   .widget {
-    min-height: 205px;
+    min-height: 215px;
   }
 
   .widget-icon {
-    width: 88px;
     padding-top: 10px;
-    padding-left: 15px;
   }
 }
 
 @media (max-width: 767px) {
   .widget-icon {
-    width: 88px;
     padding-top: 10px;
-    padding-left: 15px;
-  }s
+  }
+
+  .widget-thumbnail {
+    text-align: right;
+  }
+}
+
+@media (max-width: 320px) {
+  .list-games {
+    font-size: 11px;
+  }
 }
 
 .customise-widgets {

@@ -1,5 +1,5 @@
 <a id="randomWordLink" class="widget random-word row" href="{$wwwRoot}definitie/">
-  <div class="col-md-8 col-sm-12 col-xs-6">
+  <div class="col-lg-8 col-md-12 col-sm-12 col-xs-6">
     <h4>Cuvânt aleator</h4><br/>
     <script>
      $.ajax({
@@ -13,7 +13,7 @@
     </script>
     <span class="widget-value random-value"></span>
   </div>
-  <div class="col-md-4 col-sm-12 col-xs-6 widget-thumbnail">
+  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-6 widget-thumbnail">
     <img alt="cuvânt aleator" src="{$cfg.static.url}img/wotd/thumb/misc/aleator.jpg" class="widget-icon">
   </div>
 </a>

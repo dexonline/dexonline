@@ -33,6 +33,7 @@ if ($saveButton) {
 
   $errors = $t->validate();
   if ($errors) {
+    FlashMessage::add('Nu pot salva arborele datorită erorilor de mai jos.');
     SmartyWrap::assign('errors', $errors);
     $t->setMeanings(Meaning::convertTree($meanings));
   } else {

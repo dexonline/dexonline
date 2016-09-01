@@ -55,13 +55,14 @@
       <div class="col-md-6">
         {include "bits/fgf.tpl" field="description" value=$t->description label="descriere"}
 
-        <div class="form-group">
+        <div class="form-group {if isset($errors.status)}has-error{/if}">
           <label>stare</label>
           <select name="status" class="form-control">
             {foreach $statusNames as $i => $s}
               <option value="{$i}" {if $i == $t->status}selected{/if}>{$s}</option>
             {/foreach}
           </select>
+          {include "bits/fieldErrors.tpl" errors=$errors.status|default:null}
         </div>
       </div>
 

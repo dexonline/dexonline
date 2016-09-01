@@ -106,7 +106,21 @@ class Tree extends BaseObject implements DatedObject {
     $errors = [];
 
     if (!mb_strlen($this->description)) {
-      $errors['description'][] = _('Descrierea nu poate fi vidă.');
+      $errors['description'][] = 'Descrierea nu poate fi vidă.';
+    }
+
+    if ($this->status == self::ST_HIDDEN) {
+      // Look for meanings from visible trees that are in a relation with us.
+      $count = Model::factory('Meaning')
+             ->table_alias('m')
+             ->join('Tree', ['m.treeId', '=', 't.id'], 't') // not us, but the meaning's tree
+             ->join('Relation', ['m.id', '=', 'r.meaningId'], 'r')
+             ->where('t.status', self::ST_VISIBLE)
+             ->where('r.treeId', $this->id)
+             ->count();
+      if ($count) {
+        $errors['status'][] = 'Nu puteți ascunde arborele, deoarece alte sensuri sunt în relație cu el.';
+      }
     }
 
     return $errors;

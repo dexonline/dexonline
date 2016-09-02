@@ -97,6 +97,18 @@
   background-color: #f9f9f9;
 }
 
+p.text-small {
+  font-size: 10px;
+}
+
+p.text-medium {
+  font-size: 18px;
+}
+
+p.text-big {
+  font-size: 20px;
+}
+
 .sourceShortName {
   background: #DDD;
   border-radius: 2px;

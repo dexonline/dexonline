@@ -6,7 +6,7 @@
 
   <h3>Contact</h3>
 
-  <p style="font-size: 18px">
+  <p class="text-medium">
     <a href="mailto:{$cfg.global.contact|escape}">
       <i class="glyphicon glyphicon-envelope"></i>
       {$cfg.global.contact|escape}

@@ -189,121 +189,6 @@ background-color: #FFF;
   color: #1e83c2;
 }
 
-
-/********************* Home page (widgets, etc) *********************/
-.widgets {
-  margin-top: 25px;
-}
-
-a.widget,
-.widget.multiple-links {
-  margin: 10px;
-  padding: 15px 10px;
-  border: 1px solid #CCC;
-  border-radius: 4px;
-  display: block;
-  color: #777;
-}
-
-.widget.aotm:hover {
-  border-color: #1DE3CE;
-}
-
-.widget.games:hover {
-  border-color: #761818;
-}
-
-.widget.random-word:hover {
-  border-color: #FFC03F;
-}
-
-.widget.social:hover {
-  border-color: #3B5998;
-}
-
-.widget.wotd:hover {
-  border-color: #E31DB2;
-}
-
-.widget.wotm:hover {
-  border-color: #25D228;
-}
-
-.widget h4,
-.widget-value {
-  display: inline-block;
-}
-
-.list-games {
-  padding-left: 18px;
-}
-
-.widget-icon {
-    width: 88px;
-}
-
-@media (width: 992px) {
-  .widget-icon {
-    padding-top: 10px;
-  }
-}
-
-@media (min-width: 992px) {
-  .widget {
-    min-height: 215px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .widget {
-    min-height: 136px;
-  }
-
-  .widget-thumbnail {
-    padding-left: 0;
-  }
-
-  .widget-icon {
-    padding-top: 10px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  .widget {
-    min-height: 215px;
-  }
-
-  .widget-icon {
-    padding-top: 10px;
-  }
-}
-
-@media (max-width: 767px) {
-  .widget-icon {
-    padding-top: 10px;
-  }
-
-  .widget-thumbnail {
-    text-align: right;
-  }
-}
-
-@media (max-width: 320px) {
-  .list-games {
-    font-size: 11px;
-  }
-}
-
-.customise-widgets {
-  padding-right: 25px;
-  font-size: 12px;
-}
-
-.customise-widgets .glyphicon {
-  margin-right: 3px;
-  color: #999;
-}
-
 #searchForm {
   margin-bottom: 25px;
 }
@@ -321,10 +206,6 @@ a.widget,
   max-width: 728px;
   padding-top: 30px;
   text-align: center;
-}
-
-.website-statement {
-  color: #999;
 }
 
 #ui-id-1 {

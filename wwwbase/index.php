@@ -31,7 +31,7 @@ if (!$wotd) {
 }
 $defId = WordOfTheDayRel::getRefId($wotd->id);
 $def = Model::factory('Definition')->where('id', $defId)->where('status', Definition::ST_ACTIVE)->find_one();
-SmartyWrap::assign('thumbUrl', $wotd->getThumbUrl());
+SmartyWrap::assign('thumbUrl', $wotd->getMediumThumbUrl());
 SmartyWrap::assign('wotdDef', $def);
 SmartyWrap::assign('today', date('Y/m/d'));
 

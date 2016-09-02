@@ -14,6 +14,8 @@
     <span class="widget-value random-value"></span>
   </div>
   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-6 widget-thumbnail">
-    <img alt="cuvânt aleator" src="{$cfg.static.url}img/wotd/thumb/misc/aleator.jpg" class="widget-icon">
+    <img alt="cuvânt aleator"
+         src="{$cfg.static.url}img/wotd/thumb88/misc/aleator.jpg"
+         class="widget-icon">
   </div>
 </a>

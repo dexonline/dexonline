@@ -5,6 +5,10 @@ class WordOfTheDay extends BaseObject {
   public static $DEFAULT_IMAGE;
   public static $IMAGE_CREDITS_DIR;
 
+  // Thumbnail sizes
+  const SIZE_S = 48;
+  const SIZE_M = 88;
+
   public static function init() {
     self::$DEFAULT_IMAGE = "generic.jpg";
     self::$IMAGE_CREDITS_DIR = util_getRootPath() . 'docs/imageCredits';
@@ -44,9 +48,18 @@ class WordOfTheDay extends BaseObject {
     return Config::get('static.url') . 'img/wotd/' . $pic;
   }
 
-  public function getThumbUrl() {
+  public function getThumbUrl($size) {
     $pic = $this->image ? $this->image : self::$DEFAULT_IMAGE;
-    return Config::get('static.url') . 'img/wotd/thumb/' . $pic;
+    return sprintf('%simg/wotd/thumb%s/%s',
+                   Config::get('static.url'),  $size, $pic);
+  }
+
+  public function getSmallThumbUrl() {
+    return $this->getThumbUrl(self::SIZE_S);
+  }
+
+  public function getMediumThumbUrl() {
+    return $this->getThumbUrl(self::SIZE_M);
   }
 
   public function getArtist() {

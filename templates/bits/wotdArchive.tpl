@@ -41,7 +41,8 @@
                 {if $day.wotd && $day.wotd->image && $day.visible}
                   {strip}
                     <a href="{$wwwRoot}cuvantul-zilei/{$day.wotd->displayDate|replace:'-':'/'}">
-                      <img src="{$day.wotd->getThumbUrl()}" alt="thumbnail {$day.def->lexicon}"/>
+                      <img src="{$day.wotd->getSmallThumbUrl()}"
+                           alt="thumbnail {$day.def->lexicon}">
                     </a>
                   {/strip}
                 {/if}

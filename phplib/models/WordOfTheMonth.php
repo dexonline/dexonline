@@ -32,7 +32,8 @@ class WordOfTheMonth extends BaseObject {
 
   public function getThumbUrl() {
     $pic = $this->image ? $this->image : self::$DEFAULT_IMAGE;
-    return Config::get('static.url') . 'img/wotd/thumb/cuvantul-lunii/' . $pic;
+    // WotM only uses medium thumbs
+    return Config::get('static.url') . 'img/wotd/thumb88/cuvantul-lunii/' . $pic;
   }
 
   public function getArtist() {

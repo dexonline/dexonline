@@ -6,9 +6,6 @@
     {/if}
   </div>
   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-6 widget-thumbnail">
-  {if !$thumbUrl}
-    {assign var="thumbUrl" value="wotd/thumb/generic.jpg"}
-  {/if}
-  <img src="{$thumbUrl}" alt="iconiță cuvântul zilei" class="widget-icon">
+    <img src="{$thumbUrl}" alt="iconiță cuvântul zilei" class="widget-icon">
   </div>
 </a>

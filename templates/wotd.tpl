@@ -76,7 +76,9 @@
     {foreach from=$otherYears item=r}
       <div class="panel panel-default">
         <div class="panel-body">
-          <img class="pull-right" src="{$r.wotd->getThumbUrl()}" alt="iconița cuvântului zilei" />
+          <img class="pull-right"
+               src="{$r.wotd->getSmallThumbUrl()}"
+               alt="iconița cuvântului zilei" />
           <p>
             <strong>{$r.wotd->displayDate|date_format:'%Y'}:</strong>
             <a href="{$wwwRoot}cuvantul-zilei/{$r.wotd->displayDate|date_format:'%Y/%m/%d'}">

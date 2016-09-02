@@ -5,9 +5,9 @@ util_assertModerator(PRIV_ADMIN);
 $userIds = util_getRequestParameter('userIds');
 $newNick = util_getRequestParameter('newNick');
 $newCheckboxes = util_getRequestParameterWithDefault("newPriv", array());
-$submitButton = util_getRequestParameter('submitButton');
+$saveButton = util_getBoolean('saveButton');
 
-if ($submitButton) {
+if ($saveButton) {
   foreach ($userIds as $userId) {
     $checkboxes = util_getRequestParameterWithDefault("priv_$userId", array());
     $user = User::get_by_id($userId);
@@ -40,6 +40,7 @@ if ($submitButton) {
 $moderators = Model::factory('User')->where_not_equal('moderator', 0)->order_by_asc('nick')->find_many();
 
 SmartyWrap::assign('users', $moderators);
+SmartyWrap::addCss('admin');
 SmartyWrap::display('moderatori.tpl');
 
 ?>

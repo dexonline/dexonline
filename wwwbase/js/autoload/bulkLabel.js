@@ -9,16 +9,16 @@ $(function() {
     // show or hide the comment field
     var comment = $(this).parent().siblings('.bulkLabelComment');
     if ($(this).val() == '0') {
-      comment.slideDown();
+      comment.stop().slideDown();
     } else {
-      comment.slideUp();
+      comment.stop().slideUp();
     }
 
     // show the corresponding paradigm
     var paradigms = $(this).parent().siblings('.paradigms').children();
     var order = parseInt($(this).data('order'));
-    paradigms.slideUp();
-    paradigms.eq(order).slideDown();
+    paradigms.stop().slideUp();
+    paradigms.eq(order).stop().slideDown();
   }
 
   function defClick(anchor) {
@@ -26,7 +26,7 @@ $(function() {
     $(this).data('otherText', $(this).text());
     $(this).text(tmp);
 
-    $(this).siblings('.blDefinitions').slideToggle();
+    $(this).siblings('.blDefinitions').stop().slideToggle();
     return false;
   }
 

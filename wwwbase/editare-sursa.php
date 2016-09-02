@@ -3,10 +3,10 @@ require_once("../phplib/util.php");
 util_assertModerator(PRIV_ADMIN);
 
 $sourceId = util_getRequestParameter('id');
-$submitButton = util_getRequestParameter('submitButton');
+$saveButton = util_getBoolean('saveButton');
 $src = $sourceId ? Source::get_by_id($sourceId) : Model::factory('Source')->create();
 
-if ($submitButton) {
+if ($saveButton) {
   $src->name = util_getRequestParameter("name");
   $src->shortName = util_getRequestParameter("shortName");
   $src->urlName = util_getRequestParameter("urlName");
@@ -35,8 +35,6 @@ if ($submitButton) {
 }
 
 SmartyWrap::assign('src', $src);
-SmartyWrap::addCss('jqueryui');
-SmartyWrap::addJs('jqueryui');
 SmartyWrap::display('editare-sursa.tpl');
 
 /**

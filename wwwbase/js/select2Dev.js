@@ -113,10 +113,16 @@ function formatLexemWithEditLink(lexem) {
   }
 }
 
-function formatEntryWithEditLink(lexem) {
-  return $('<span>' + lexem.text +
-           ' <a class="glyphicon glyphicon-pencil" href="' + wwwRoot +
-           'editEntry.php?id=' + lexem.id + '"></a></span>');
+function formatEntryWithEditLink(entry) {
+  if (startsWith(entry.id, '@')) {
+    // don't show an edit link for soon-to-be created entries
+    var link = '';
+  } else {
+    var link = ' <a class="glyphicon glyphicon-pencil" href="' + wwwRoot +
+      'editEntry.php?id=' + entry.id + '"></a>';
+  }
+
+  return $('<span>' + entry.text + link + '</span>');
 }
 
 function allowNewOptions(data) {
@@ -145,7 +151,7 @@ function adminIndexInit() {
     },
     minimumInputLength: 1,
     placeholder: 'caută o definiție',
-    width: '400px',
+    width: '300px',
   }).on('change', function(e) {
     $(this).parents('form').submit();
   });
@@ -155,6 +161,6 @@ function adminIndexInit() {
     allowClear: true,
     minimumInputLength: 1,
     placeholder: '(opțional)',
-    width: '250px',
+    width: '100%',
   });
 }

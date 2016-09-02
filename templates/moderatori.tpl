@@ -1,13 +1,14 @@
-{extends file="layout.tpl"}
+{extends "layout-admin.tpl"}
 
 {block name=title}Moderatori{/block}
 
 {block name=content}
+  <h3>Moderatori</h3>
+
   <form method="post" action="moderatori">
     <table class="table table-condensed table-striped table-bordered">
       <tr>
         <th>Nume utilizator</th>
-        <th>Ultima activitate</th>
         <th>Admin</th>
         <th>Moderator LOC</th>
         <th>Moderator</th>
@@ -24,9 +25,7 @@
             {* Ensure this user is processed even if all the boxes are unchecked *}
             <input type="hidden" name="userIds[]" value="{$user->id}"/>
           </td>
-          <td>
 
-          </td>
           {section name="bit" loop=$smarty.const.NUM_PRIVILEGES}
             {math equation="1 << x" x=$smarty.section.bit.index assign="mask"}
             <td>
@@ -37,15 +36,19 @@
       {/foreach}
       <tr>
         <td>
-	  <input type="text" name="newNick" value="" class="form-control" placeholder="Moderator nou" />
+	        <input type="text" name="newNick" class="form-control" placeholder="Moderator nou">
         </td>
-        <td></td>
         {section name="bit" loop=$smarty.const.NUM_PRIVILEGES}
           {math equation="1 << x" x=$smarty.section.bit.index assign="mask"}
           <td><input type="checkbox" name="newPriv[]" value="{$mask}"/></td>
         {/section}
       </tr>
     </table>
-    <input type="submit" class="btn btn-primary" name="submitButton" value="Salvează" />
+
+    <button type="submit" class="btn btn-primary" name="saveButton">
+      <i class="glyphicon glyphicon-floppy-disk"></i>
+      salvează
+    </button>
+
   </form>
 {/block}

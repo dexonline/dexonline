@@ -8,7 +8,7 @@ $definitionId = util_getRequestParameter('definitionId');
 $definitionInternalRep = util_getRequestParameter('definitionInternalRep');
 $commentInternalRep = util_getRequestParameter('commentInternalRep');
 $sourceId = util_getRequestParameter('sourceId');
-$entryIds = util_getRequestParameter('entryIds');
+$entryIds = util_getRequestParameterWithDefault('entryIds', []);
 
 $d = Definition::get_by_id($definitionId);
 $d->internalRep = AdminStringUtil::internalizeDefinition($definitionInternalRep, $sourceId);

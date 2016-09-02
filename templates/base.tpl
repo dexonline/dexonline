@@ -1,7 +1,5 @@
 {assign var="cuv" value=$cuv|default:''}
 {assign var="onHomePage" value=$onHomePage|default:false}
-{assign var="suggestHiddenSearchForm" value=$suggestHiddenSearchForm|default:false}
-{assign var="suggestNoBanner" value=$suggestNoBanner|default:false}
 <!DOCTYPE html>
 <html>
 

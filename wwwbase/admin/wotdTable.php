@@ -22,6 +22,6 @@ SmartyWrap::assign('downloadYear', date("Y",strtotime("+1 month")));
 SmartyWrap::assign('downloadMonth', date("m",strtotime("+1 month")));
 SmartyWrap::assign('imageList', $imageList);
 SmartyWrap::addCss('jqgrid', 'jqueryui', 'select2');
-SmartyWrap::addJs('jquery', 'jqgrid', 'jqueryui', 'select2');
+SmartyWrap::addJs('jqgrid', 'jqueryui', 'select2');
 SmartyWrap::displayAdminPage('admin/wotdTable.tpl');
 ?>

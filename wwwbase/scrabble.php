@@ -41,7 +41,6 @@ if ($locVersion && $form) {
 }
 
 SmartyWrap::addJs('modelDropdown');
-SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::assign('locVersions', $locVersions);
 SmartyWrap::display('scrabble.tpl');
 

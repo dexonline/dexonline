@@ -2,6 +2,8 @@
 
 {block name=title}Parolă uitată{/block}
 
+{block name=search}{/block}
+
 {block name=content}
   <h3>Parolă uitată</h3>
 

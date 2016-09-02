@@ -4,8 +4,8 @@ require_once("../phplib/util.php");
 util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 
 $id = util_getRequestParameter('id');
-$save = util_getRequestParameter('save') !== null;
-$clone = util_getRequestParameter('clone') !== null;
+$saveButton = util_getBoolean('saveButton');
+$clone = util_getBoolean('clone');
 
 if ($id) {
   $t = Tree::get_by_id($id);
@@ -24,7 +24,7 @@ if ($clone) {
   util_redirect("?id={$newt->id}");
 }
 
-if ($save) {
+if ($saveButton) {
   $t->description = util_getRequestParameter('description');
   $t->status = util_getRequestParameter('status');
   $entryIds = util_getRequestParameter('entryIds');
@@ -33,6 +33,7 @@ if ($save) {
 
   $errors = $t->validate();
   if ($errors) {
+    FlashMessage::add('Nu pot salva arborele datorită erorilor de mai jos.');
     SmartyWrap::assign('errors', $errors);
     $t->setMeanings(Meaning::convertTree($meanings));
   } else {
@@ -67,17 +68,28 @@ $modelTypes = Model::factory('Lexem')
 
 $tags = Model::factory('Tag')->order_by_asc('value')->find_many();
 
+$relatedMeanings = Model::factory('Meaning')
+                 ->table_alias('m')
+                 ->select('m.*')
+                 ->select('r.type', 'relationType')
+                 ->join('Relation', ['m.id', '=', 'r.meaningId'], 'r')
+                 ->where('r.treeId', $t->id)
+                 ->find_many();
+foreach ($relatedMeanings as $m) {
+  $m->getTree(); // preload it
+}
+
+
 SmartyWrap::assign('t', $t);
 SmartyWrap::assign('entryIds', $entryIds);
 SmartyWrap::assign('modelTypes', $modelTypes);
 // TODO: canEdit if STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT)
 SmartyWrap::assign('canEdit', true);
 SmartyWrap::assign('tags', $tags);
+SmartyWrap::assign('relatedMeanings', $relatedMeanings);
 SmartyWrap::assign('statusNames', Tree::$STATUS_NAMES);
-SmartyWrap::assign('suggestNoBanner', true);
-SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::addCss('bootstrap', 'select2', 'meaningTree', 'textComplete');
-SmartyWrap::addJs('bootstrap', 'select2', 'select2Dev', 'meaningTree', 'textComplete');
+SmartyWrap::addCss('select2', 'meaningTree', 'textComplete', 'admin');
+SmartyWrap::addJs('select2', 'meaningTree', 'textComplete');
 SmartyWrap::display('editTree.tpl');
 
 ?>

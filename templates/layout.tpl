@@ -1,11 +1,13 @@
 {extends file="base.tpl"}
 
 {block name="before-content"}
-  {if !$suggestHiddenSearchForm && $skinVariables.searchForm}
+  {block name="search"}
     {include file="bits/searchForm.tpl"}
-  {/if}
+  {/block}
   {if !$suggestNoBanner && $skinVariables.banner}
-    {include file="bits/banner.tpl" id="otherPages"}
+    {block name="banner"}
+      {include file="bits/banner.tpl" id="otherPages"}
+    {/block}
   {/if}
 {/block}
 

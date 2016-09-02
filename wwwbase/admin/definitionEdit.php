@@ -56,15 +56,15 @@ $internalRep = util_getRequestParameter('internalRep');
 $status = util_getRequestIntParameterWithDefault('status', null);
 $commentContents = util_getRequestParameter('commentContents');
 $preserveCommentUser = util_getRequestParameter('preserveCommentUser');
-$tagIds = util_getRequestParameter('tagIds');
+$tagIds = util_getRequestParameterWithDefault('tagIds', []);
 
-$acceptButton = util_getRequestParameter('but_accept');
-$nextOcrBut = util_getRequestParameter('but_next_ocr');
+$saveButton = util_getBoolean('saveButton');
+$nextOcrBut = util_getBoolean('but_next_ocr');
 
 $comment = Model::factory('Comment')->where('definitionId', $d->id)->where('status', Definition::ST_ACTIVE)->find_one();
 $commentUser = $comment ? User::get_by_id($comment->userId) : null;
 
-if ($acceptButton || $nextOcrBut) {
+if ($saveButton || $nextOcrBut) {
   $errors = [];
   $d->internalRep = AdminStringUtil::internalizeDefinition($internalRep, $sourceId);
   $d->htmlRep = AdminStringUtil::htmlize($d->internalRep, $sourceId, $errors);
@@ -205,10 +205,8 @@ SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('typos', $typos);
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::assign('suggestNoBanner', true);
-SmartyWrap::addCss('jqueryui', 'bootstrap', 'select2');
-SmartyWrap::addJs('jquery', 'jqueryui', 'bootstrap', 'select2', 'select2Dev', 'tinymce', 'cookie');
+SmartyWrap::addCss('select2', 'tinymce', 'admin');
+SmartyWrap::addJs('select2', 'tinymce', 'cookie');
 SmartyWrap::display('admin/definitionEdit.tpl');
 
 ?>

@@ -9,8 +9,8 @@ DebugInfo::disable();
 define('SHORT_LIST_LIMIT', 10);
 
 $id = util_getRequestParameter('id');
-$previewButton = util_getRequestParameter('previewButton');
-$confirmButton = util_getRequestParameter('confirmButton');
+$previewButton = util_getBoolean('previewButton');
+$confirmButton = util_getBoolean('confirmButton');
 $shortList = util_getBoolean('shortList');
 
 $locPerm = util_isModerator(PRIV_LOC);
@@ -287,9 +287,6 @@ if (!$previewButton && !$confirmButton) {
     }
   }
 
-  SmartyWrap::assign('om', $m);
-  SmartyWrap::assign('opm', $pm);
-  SmartyWrap::assign('oforms', $forms);
   SmartyWrap::assign('m', $nm);
   SmartyWrap::assign('pm', $npm);
   SmartyWrap::assign('forms', $nforms);
@@ -307,8 +304,8 @@ SmartyWrap::assign('inflectionMap', Inflection::mapById($inflections));
 SmartyWrap::assign('previewPassed', $previewButton && !FlashMessage::hasErrors());
 SmartyWrap::assign('locPerm', $locPerm);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::addCss('paradigm', 'jqueryui');
-SmartyWrap::displayAdminPage('admin/editModel.tpl');
+SmartyWrap::addCss('paradigm', 'admin');
+SmartyWrap::display('admin/editModel.tpl');
 
 /****************************************************************************/
 

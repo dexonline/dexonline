@@ -1,4 +1,4 @@
-{extends file="layout.tpl"}
+{extends "layout-admin.tpl"}
 
 {block name=title}
   {if $e->id}
@@ -71,7 +71,7 @@
 
     </div>
 
-    <button type="submit" class="btn btn-primary" name="save">
+    <button type="submit" class="btn btn-primary" name="saveButton">
       <i class="glyphicon glyphicon-floppy-disk"></i>
       salvează
     </button>
@@ -140,7 +140,7 @@
         <div data-code="1" class="rep hiddenRep">{$def->htmlRepAbbrev}</div>
         <div data-code="2" class="rep internal hiddenRep">{$def->internalRep|escape}</div>
         <div data-code="3" data-active class="rep">{$def->htmlRep}</div>
-        <span class="defDetails">
+        <p class="defDetails text-muted">
           id: {$def->id}
           | sursa: {$row->source->shortName|escape}
           | starea: {$def->getStatusName()}
@@ -165,7 +165,7 @@
               <i class="glyphicon glyphicon-remove"></i> nestructurată
             </span>
           </a>
-        </span>
+        </p>
 
         {if $row->comment}
           <div class="commentInternalRep">

@@ -1,21 +1,19 @@
-{extends file="layout.tpl"}
+{extends "layout-admin.tpl"}
 
 {block name=title}Editare flexiuni{/block}
 
 {block name=content}
-  <h2>Editare flexiuni</h2>
+  <h3>Editare flexiuni</h3>
 
   <p class="alert alert-info">
-    <strong>Instrucțiuni:</strong> Trageți de rânduri pentru a le reordona, apoi apăsați <em>Salvează</em>.
-    Acest tabel enumeră setul cel mai cuprinzător de forme pe care le poate avea fiecare tip de model.
-    Pentru fiecare model în parte, veți avea posibilitatea să specificați forme lipsă (de exemplu, pentru V666) sau forme cu mai multe valori (de exemplu, mai mult ca perfectul verbelor).
-    Vi se permite ștergerea doar a acelor flexiuni care nu sunt folosite în niciun model (de obicei, cele nou create).
+    <strong>Instrucțiuni:</strong> Trageți de rânduri pentru a le reordona, apoi apăsați
+    <em>Salvează</em>. Puteți șterge doar flexiunile nefolosite (de obicei, cele nou create).
   </p>
 
 
 
   <form method="post" action="flexiuni">
-    <table id="inflections" class="table-bordered table-hover table-condensed table-striped col-sm-12">
+    <table id="inflections" class="table table-bordered table-hover table-condensed table-striped">
       <thead>
         <tr>
           <th>Descriere</th>
@@ -54,9 +52,10 @@
       </tbody>
     </table>
 
-    <div class="clearfix"></div>
-    <br />
-    <input type="submit" name="submitButton" value="Salvează" class="btn btn-primary" />
+    <button type="submit" name="saveButton" class="btn btn-primary">
+      <i class="glyphicon glyphicon-floppy-disk"></i>
+      salvează
+    </button>
 
   </form>
 

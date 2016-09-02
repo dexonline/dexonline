@@ -39,12 +39,12 @@ $(function() {
   function toggleRepClick() {
     // Hide the old definition
     var oldActive = $(this).closest('.defDetails').prevAll('[data-active]');
-    oldActive.slideToggle().removeAttr('data-active');
+    oldActive.stop().slideToggle().removeAttr('data-active');
 
     // Recalculate the code and show the new definition
     var code = oldActive.attr('data-code') ^ $(this).attr('data-order');
     var newActive = $(this).closest('.defDetails').prevAll('[data-code=' + code + ']');
-    newActive.slideToggle().attr('data-active', '');
+    newActive.stop().slideToggle().attr('data-active', '');
 
     // Toggle the link text and data-value attribute
     var tmp = $(this).text();

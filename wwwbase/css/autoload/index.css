@@ -140,3 +140,9 @@ a.widget,
   margin-right: 3px;
   color: #999;
 }
+
+/* Admin index page styles */
+.quickNav form {
+  display: inline;
+  margin-right: 20px;
+}

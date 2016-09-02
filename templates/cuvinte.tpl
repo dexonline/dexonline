@@ -1,4 +1,4 @@
-{extends file="layout.tpl"}
+{extends "layout-admin.tpl"}
 
 {block name=title}Cuvinte{/block}
 

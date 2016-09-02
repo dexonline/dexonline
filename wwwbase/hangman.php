@@ -75,7 +75,7 @@ SmartyWrap::assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțu
 SmartyWrap::assign('word', $word);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('difficulty', $difficulty);
-SmartyWrap::assign('suggestHiddenSearchForm', true);
+// TODO replace jqnotice with Bootstrap
 SmartyWrap::addJs('jqnotice');
 SmartyWrap::display("hangman.tpl");
 ?>

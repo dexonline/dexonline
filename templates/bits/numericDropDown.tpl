@@ -1,5 +1,5 @@
 {assign var=selected value=$selected|default:null}
-<select name="{$name}">
+<select class="form-control" name="{$name}">
   {section name="sectionName" start=$start loop=$end}
     <option value="{$smarty.section.sectionName.index}"
             {if $smarty.section.sectionName.index == $selected}

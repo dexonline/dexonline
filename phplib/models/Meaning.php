@@ -3,6 +3,15 @@
 class Meaning extends BaseObject implements DatedObject {
   public static $_table = 'Meaning';
 
+  private $tree = null;
+
+  function getTree() {
+    if ($this->tree === null) {
+      $this->tree = Tree::get_by_id($this->treeId);
+    }
+    return $this->tree;
+  }
+
   /**
    * Convert a tree produced by the tree editor to the format used by loadTree.
    * We need this in case validation fails and we cannot save the tree, so we need to display it again.

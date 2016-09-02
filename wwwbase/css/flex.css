@@ -76,20 +76,6 @@ hr {
   margin: 0px;
 }
 
-.defDetails {
-  color: #999999;
-  font-family: sans-serif;
-  font-size: 80%;
-}
-
-.defDetails a {
-  color: #777777;
-}
-
-.defDetails a:hover {
-  color: #555555;
-}
-
 .debugInfo {
   border-top: 1px solid #777777;
   font-size: 75%;
@@ -151,11 +137,6 @@ hr {
   color: gray;
 }
 
-.flexExplanation {
-  font-size: 90%;
-  margin-left: 50px;
-}
-
 .blLexem {
   border: 1px solid #000;
   margin-top: 10px;
@@ -211,70 +192,6 @@ hr {
   text-decoration: none;
 }
 
-.editModel {
-  border-collapse: collapse;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.editModel tr th {
-  text-align: left;
-}
-
-.editModel tr .input {
-  padding-left: 10px;
-}
-
-.editModel tr .input {
-  padding-left: 10px;
-}
-
-.fieldColumn {
-  float: left;
-  width: 200px;
-}
-
-.checkboxColumn {
-  float: left;
-  width: 60px;
-}
-
-.editModel tr .addSign {
-  vertical-align: bottom;
-}
-
-.editModel .exponent td {
-  border-bottom: 1px solid #aaaaaa;
-}
-
-.editModel .even {
-  background: #ddd;
-}
-
-.editModel p {
-  margin: 0;
-  padding: 0;
-}
-
-.changedForms {
-  border-collapse: collapse;
-}
-
-.changedForms .header,
-.changedForms .exponent {
-  font-weight: bold;
-}
-
-.changedForms tr .model {
-  color: #777777;
-  padding: 0px 10px;
-}
-
-.changedForms tr td {
-  border: 1px solid #cccccc;
-  padding: 0px 10px;
-}
-
 .cm_lexemDiv {
   margin-left: 50px;
 }
@@ -313,23 +230,6 @@ hr {
 
 .ui-dialog .ui-dialog-buttonpane {
   padding: 0;
-}
-
-/* tinymce adjustments */
-
-/* show the resize button, but not the status bar */
-.mce-path {
-  display: none !important;
-}
-
-#tinymceButtonWrapper {
-  float: right;
-}
-
-.select2Edit {
-  background: url("../img/icons/pencil.png") no-repeat;
-  padding-left: 16px;
-  text-decoration: none;
 }
 
 .select2LexemWarnings {

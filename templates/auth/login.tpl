@@ -2,6 +2,8 @@
 
 {block name=title}Autentificare cu OpenID{/block}
 
+{block name=search}{/block}
+
 {block name=content}
   {assign var="allowFakeUsers" value=$allowFakeUsers|default:false}
   {assign var="openid" value=$openid|default:''}

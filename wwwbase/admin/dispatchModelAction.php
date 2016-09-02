@@ -5,10 +5,10 @@ util_assertNotMirror();
 
 $modelType = util_getRequestParameter('modelType');
 $modelNumber = util_getRequestParameter('modelNumber');
-$showLexemsButton = util_getRequestParameter('showLexems');
-$editModelButton = util_getRequestParameter('editModel');
-$cloneModelButton = util_getRequestParameter('cloneModel');
-$deleteModelButton = util_getRequestParameter('deleteModel');
+$showLexemsButton = util_getBoolean('showLexems');
+$editModelButton = util_getBoolean('editModel');
+$cloneModelButton = util_getBoolean('cloneModel');
+$deleteModelButton = util_getBoolean('deleteModel');
 
 $args = sprintf("modelType=%s&modelNumber=%s",
                 urlencode($modelType),

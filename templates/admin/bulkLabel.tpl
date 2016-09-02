@@ -29,7 +29,8 @@
         <div class="blLexemTitle">
           <span class="name">{$lIter+1}. {$l->formNoAccent|escape}</span>
           <a class="noBorder" href="../admin/lexemEdit.php?lexemId={$l->id}">
-            <img src={$imgRoot}/icons/pencil.png alt="editează" title="editează lexemul"/>
+            <i class="glyphicon glyphicon-pencil"></i>
+            editează
           </a>
         </div>
         <div class="blLexemBody">

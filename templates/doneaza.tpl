@@ -1,10 +1,10 @@
-{extends file="layout.tpl"}
+{extends "layout-admin.tpl"}
 
 {block name=title}Donează{/block}
 
 {block name=content}
   <div>
-    <h2>Donează</h2>
+    <h3>Donează</h3>
 
     <p>
       Dacă ați ajuns pe această pagină, probabil că știți deja ce este <i>dexonline</i>

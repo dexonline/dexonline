@@ -1,4 +1,4 @@
-{extends file="layout.tpl"}
+{extends "layout-admin.tpl"}
 
 {block name=title}Editare definiție{/block}
 
@@ -24,33 +24,50 @@
     <input type="hidden" name="definitionId" value="{$def->id}"/>
     <input type="hidden" name="isOCR" value="{$isOCR}"/>
 
-    <div class="form-group"">
-      <label for="entryIds" class="col-sm-2 control-label">intrări</label>
-      <div class="col-sm-10">
-        <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
-          {foreach $entryIds as $e}
-            <option value="{$e}" selected></option>
-          {/foreach}
-        </select>
-      </div>
-    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group"">
+          <label class="col-sm-4 control-label">sursă</label>
+          <div class="col-sm-8">
+            {if $source->canModerate}
+              {include file="bits/sourceDropDown.tpl" sources=$allModeratorSources src_selected=$def->sourceId skipAnySource=true}
+            {else}
+              <input type="hidden" name="source" value="{$def->sourceId}"/>
+              {$source->shortName}
+            {/if}
+          </div>
+        </div>
 
-    <div class="form-group"">
-      <label class="col-sm-2 control-label">sursă</label>
-      <div class="col-sm-10">
-        {if $source->canModerate}
-          {include file="bits/sourceDropDown.tpl" sources=$allModeratorSources src_selected=$def->sourceId skipAnySource=true}
-        {else}
-          <input type="hidden" name="source" value="{$def->sourceId}"/>
-          {$source->shortName}
-        {/if}
+        <div class="form-group">
+          <label class="col-sm-4 control-label">stare</label>
+          <div class="col-sm-8">
+            {include file="bits/statusDropDown.tpl" name="status" selectedStatus=$def->status}
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label class="col-sm-2 control-label">stare</label>
-      <div class="col-sm-10">
-        {include file="bits/statusDropDown.tpl" name="status" selectedStatus=$def->status}
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">etichete</label>
+          <div class="col-sm-10">
+            <select id="tagIds" name="tagIds[]" class="form-control" multiple>
+              {foreach $tagIds as $t}
+                <option value="{$t}" selected></option>
+              {/foreach}
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group"">
+          <label for="entryIds" class="col-sm-2 control-label">intrări</label>
+          <div class="col-sm-10">
+            <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
+              {foreach $entryIds as $e}
+                <option value="{$e}" selected></option>
+              {/foreach}
+            </select>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -89,17 +106,6 @@
             </label>
           </div>
         {/if}
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="col-sm-2 control-label">etichete</label>
-      <div class="col-sm-10">
-        <select id="tagIds" name="tagIds[]" class="form-control" multiple>
-          {foreach $tagIds as $t}
-            <option value="{$t}" selected></option>
-          {/foreach}
-        </select>
 
         {** These aren't logically connected, but we like them vertically compressed **}
         <div class="checkbox" {if !$sim->source}style="display:none"{/if}>
@@ -115,7 +121,6 @@
             Definiția a fost structurată
           </label>
         </div>
-
       </div>
     </div>
 
@@ -123,19 +128,33 @@
       <label class="col-sm-2 control-label"></label>
       <div class="col-sm-10">
 
-        <div class="btn-group">
-          <input type="button" class="btn btn-default" id="refreshButton" value="Reafișează"/>
-        </div>
+        <button id="refreshButton"
+                type="button"
+                name="refreshButton"
+                class="btn btn-primary">
+          <i class="glyphicon glyphicon-refresh"></i>
+          reafișează
+        </button>
 
-        <div class="btn-group">
-          <input type="submit" class="btn btn-primary" name="but_accept" value="Salvează"/>
-          {if $isOCR}
-            <input type="submit" class="btn btn-primary" name="but_next_ocr" value="Salvează și preia următoarea definiție OCR"/>
-          {/if}
-        </div>
+        <button type="submit"
+                name="saveButton"
+                class="btn btn-default">
+          <i class="glyphicon glyphicon-floppy-disk"></i>
+          salvează
+        </button>
+
+        {if $isOCR}
+          <button type="submit" class="btn btn-default" name="but_next_ocr">
+            salvează și preia următoarea definiție OCR
+          </button>
+        {/if}
 
         <div class="btn-group pull-right" id="tinymceButtonWrapper">
-          <button id="tinymceToggleButton" type="button" class="btn btn-default" data-other-text="ascunde TinyMCE" href="#"
+          <button id="tinymceToggleButton"
+                  type="button"
+                  class="btn btn-default"
+                  data-other-text="ascunde TinyMCE"
+                  href="#"
                   title="TinyMCE este un editor vizual (cu butoane de bold, italic etc.).">
             arată TinyMCE
           </button>
@@ -151,13 +170,13 @@
     </div>
 
     <div class="panel-body">
-      <div id="defPreview">{$def->htmlRep}</div>
-      <span class="defDetails">
+      <p class="def" id="defPreview">{$def->htmlRep}</p>
+      <p class="defDetails text-muted">
         Id: {$def->id} |
         Sursa: {$source->shortName|escape} |
         Trimisă de {$user->nick|escape}, {$def->createDate|date_format:"%e %b %Y"} |
         Starea: {$def->getStatusName()}
-      </span>
+      </p>
     </div>
 
     <div class="panel-footer">

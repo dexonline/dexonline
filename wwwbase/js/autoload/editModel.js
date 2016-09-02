@@ -1,9 +1,6 @@
 $(function() {
 
-  var stem = null;
-
   function init() {
-    stem = $('#stem').detach().removeAttr('id');
     $('#modelForm').submit(beforeSubmit);
     $('.addFormLink').click(appendForm);
   }
@@ -15,15 +12,16 @@ $(function() {
   }
 
   function appendForm() {
+    var target = $(this).next();
     var inflId = $(this).data('inflId');
-    var td = $(this).closest('td').next();
-    var count = td.children().length;
+    var count = target.children().length;
+    var suffix = inflId + '_' + count;
 
-    var p = stem.clone(true);
-    p.children().eq(0).attr('name', 'forms_' + inflId + '_' + count);
-    p.children().eq(1).attr('name', 'isLoc_' + inflId + '_' + count);
-    p.children().eq(2).attr('name', 'recommended_' + inflId + '_' + count);
-    p.appendTo(td);
+    var r = target.children().first().clone(true).appendTo(target);
+    r.find('input').eq(0).attr('name', 'forms_' + suffix).val('');
+    r.find('input').eq(1).attr('name', 'isLoc_' + suffix);
+    r.find('input').eq(2).attr('name', 'recommended_' + suffix);
+
     return false;
   }
 

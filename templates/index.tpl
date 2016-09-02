@@ -12,7 +12,7 @@
 
   {include file="bits/searchForm.tpl" advancedSearch=0}
 
-  {if !$suggestNoBanner}
+  {if !$suggestNoBanner && $skinVariables.banner}
     {include file="bits/banner.tpl" id="mainPage"}
   {/if}
 

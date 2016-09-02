@@ -2,9 +2,9 @@
 {assign var=modelType value=$lexem->getModelType()}
 {$modelType->description} ({$modelType->code}{$lexem->modelNumber})
 {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT)}
-  <a class="paraEdit"
-     href="{$wwwRoot}admin/dispatchModelAction.php?editModel=1&amp;modelType={$lexem->modelType}&amp;modelNumber={$lexem->modelNumber}"
-     title="editează modelul">&nbsp;
+  <a href="{$wwwRoot}admin/dispatchModelAction.php?editModel=1&amp;modelType={$lexem->modelType}&amp;modelNumber={$lexem->modelNumber}"
+     title="editează modelul">
+    <i class="glyphicon glyphicon-pencil"></i>    
   </a>
 {/if}
 {if $lexem->notes}

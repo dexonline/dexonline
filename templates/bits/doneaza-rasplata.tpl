@@ -1,4 +1,4 @@
-<h2>Ce primiți în schimb</h2>
+<h3>Ce primiți în schimb</h3>
 
 <div>
 

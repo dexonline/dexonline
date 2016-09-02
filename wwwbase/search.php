@@ -187,22 +187,29 @@ if ($searchType == SEARCH_INFLECTED) {
     SmartyWrap::assign('wikiArticles', WikiArticle::loadForLexems($lexems));
   }
 
-  if (isset($definitions)) {
-    $totalDefinitionsCount = count($definitions);
-    if(!$all && ($totalDefinitionsCount > PREVIEW_LIMIT)) {
-      $definitions = array_slice($definitions, 0, PREVIEW_LIMIT);
-      SmartyWrap::assign('totalDefinitionsCount', $totalDefinitionsCount);
-    }
-    $searchResults = SearchResult::mapDefinitionArray($definitions);
+  if (empty($definitions)) {
+    $definitions = [];
   }
+
+  $searchResults = SearchResult::mapDefinitionArray($definitions);
 }
 
 $conjugations = NULL;
 $declensions = NULL;
 if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $searchType == SEARCH_FULL_TEXT || $searchType == SEARCH_MULTIWORD) {
   // Filter out hidden definitions
-  $hiddenSources = array();
+  $hiddenSources = [];
   SearchResult::filterHidden($searchResults, $hiddenSources);
+
+  // Only once we've filtered them can we count the total and take a slice
+  if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_MULTIWORD) {
+    $totalDefinitionsCount = count($searchResults);
+    if (!$all && ($totalDefinitionsCount > PREVIEW_LIMIT)) {
+      $searchResults = array_slice($searchResults, 0, PREVIEW_LIMIT);
+      SmartyWrap::assign('totalDefinitionsCount', $totalDefinitionsCount);
+    }
+  }
+  
   if (Config::get('global.aprilFoolsDay')) {
     foreach ($searchResults as $sr) {
       $sr->definition->htmlRep = StringUtil::iNoGrammer($sr->definition->htmlRep);

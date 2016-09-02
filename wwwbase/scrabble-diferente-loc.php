@@ -44,7 +44,6 @@ foreach (file($txtFile) as $line) {
 @unlink($zipFile);
 @unlink($txtFile);
 
-SmartyWrap::assign('suggestHiddenSearchForm', 1);
 SmartyWrap::assign('keyword', $keyword);
 SmartyWrap::assign('listType', $listType);
 SmartyWrap::assign('locVersions', $locVersions);

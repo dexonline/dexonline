@@ -108,6 +108,7 @@ $lexems = $query->find_many();
 
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
+SmartyWrap::addCss('admin');
 SmartyWrap::displayAdminPage('admin/lexemSearch.tpl');
 
 ?>

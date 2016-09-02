@@ -31,20 +31,20 @@ $notes = util_getRequestParameter('notes');
 $isLoc = util_getBoolean('isLoc');
 
 // Button parameters
-$refreshLexem = util_getRequestParameter('refreshLexem');
-$saveLexem = util_getRequestParameter('saveLexem');
+$refreshButton = util_getBoolean('refreshButton');
+$saveButton = util_getBoolean('saveButton');
 
 $lexem = Lexem::get_by_id($lexemId);
 $original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether certain fields have changed
 
-if ($refreshLexem || $saveLexem) {
+if ($refreshButton || $saveButton) {
   populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
            $needsAccent, $main, $stopWord, $hyphenations, $pronunciations, $entryId,
            $modelType, $modelNumber, $restriction, $notes, $isLoc, $sourceIds);
 
   if (validate($lexem, $original)) {
     // Case 1: Validation passed
-    if ($saveLexem) {
+    if ($saveButton) {
       if (($original->modelType == 'VT') && ($lexem->modelType != 'VT')) {
         $original->deleteParticiple();
       }
@@ -104,10 +104,8 @@ SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('canEdit', $canEdit);
-SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::assign('suggestNoBanner', true);
-SmartyWrap::addCss('jqueryui-smoothness', 'paradigm', 'bootstrap', 'select2');
-SmartyWrap::addJs('jqueryui', 'select2', 'select2Dev', 'bootstrap', 'modelDropdown');
+SmartyWrap::addCss('paradigm', 'select2', 'admin');
+SmartyWrap::addJs('select2', 'modelDropdown');
 SmartyWrap::display('admin/lexemEdit.tpl');
 
 /**************************************************************************/

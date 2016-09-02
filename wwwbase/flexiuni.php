@@ -2,7 +2,7 @@
 require_once("../phplib/util.php");
 util_assertModerator(PRIV_LOC);
 
-$submitButton = util_getRequestParameter('submitButton');
+$saveButton = util_getBoolean('saveButton');
 $inflectionIds = util_getRequestParameter('inflectionIds');
 $newDescription = util_getRequestParameter('newDescription');
 $newModelType = util_getRequestParameter('newModelType');
@@ -15,7 +15,7 @@ if ($deleteInflectionId) {
   util_redirect('flexiuni');
 }
 
-if ($submitButton) {
+if ($saveButton) {
   // Re-rank the inflections according to the order in $inflectionIds
   $modelTypeMap = array();
   foreach ($inflectionIds as $inflId) {
@@ -47,9 +47,9 @@ foreach ($inflections as $infl) {
   $infl->canDelete = !in_array($infl->id, $usedInflectionIds);
 }
 
-SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::assign('inflections', $inflections);
 SmartyWrap::assign('modelTypes', ModelType::loadCanonical());
+SmartyWrap::addCss('admin');
 SmartyWrap::addJs('jqTableDnd');
 SmartyWrap::display('flexiuni.tpl');
 

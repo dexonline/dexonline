@@ -151,7 +151,5 @@ $osNames = array('android' => 'Android', 'iphone' => 'iPhone', 'java' => 'Java',
 SmartyWrap::assign('clients', $clients);
 SmartyWrap::assign('clientOptions', $clientOptions);
 SmartyWrap::assign('osNames', $osNames);
-SmartyWrap::addCss('jqueryui');
-SmartyWrap::addJs('jqueryui');
 SmartyWrap::display('unelte.tpl');
 ?>

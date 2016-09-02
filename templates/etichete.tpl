@@ -1,4 +1,4 @@
-{extends file="layout.tpl"}
+{extends "layout-admin.tpl"}
 
 {block name=title}Etichete pentru sensuri{/block}
 
@@ -48,6 +48,11 @@
 
   <form method="post" action="etichete">
     <input type="hidden" name="jsonTags" value="">
-    <input class="btn btn-default" type="submit" id="butSave" name="saveButton" value="salvează">
+
+    <button class="btn btn-primary" type="submit" id="butSave" name="saveButton">
+      <i class="glyphicon glyphicon-floppy-disk"></i>
+      salvează
+    </button>
+
   </form>
 {/block}

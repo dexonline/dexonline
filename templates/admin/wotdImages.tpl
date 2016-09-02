@@ -1,28 +1,34 @@
-{extends file="admin/layout.tpl"}
+{extends "layout-admin.tpl"}
 
 {block name=title}Imagini pentru cuvântul zilei{/block}
 
-{block name=headerTitle}Imagini pentru cuvântul zilei{/block}
-
 {block name=content}
-  <a href="wotdTable.php">Lista cuvintelor zilei</a> |
-  <a href="http://wiki.dexonline.ro/wiki/Imagini_pentru_cuv%C3%A2ntul_zilei">instrucțiuni</a>
+
+  <h3>Imagini pentru cuvântul zilei</h3>
 
   <div id="fileManager"></div>
-  <br/>
 
-  <script>
-   $().ready(function() {
-       $('#fileManager').elfinder({
-           url: '../elfinder-connector/wotd_connector.php',
-           lang: 'en'
-       }).elfinder('instance');
-   });
-  </script>
+  <h3>Pagini asociate</h3>
 
+  <ul>
+
+    <li>
+      <a href="wotdTable.php">Lista cuvintelor zilei</a>
+    </li>
+
+    <li>
+      <a href="http://wiki.dexonline.ro/wiki/Imagini_pentru_cuv%C3%A2ntul_zilei"
+         >instrucțiuni</a>
+    </li>
+
+  </ul>
+
+  {** Unused for many years **}
+  {**
   <form action="wotdCompressImages" method="post" enctype="multipart/form-data">
     Comprimă imagini (o arhivă zip):
     <input type="file" name="file"/>
     <input type="submit" name="submitButton" value="Comprimă"/>      
   </form>
+  **}
 {/block}

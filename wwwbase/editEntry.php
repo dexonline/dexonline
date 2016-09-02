@@ -4,9 +4,9 @@ require_once("../phplib/util.php");
 util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 
 $id = util_getRequestParameter('id');
-$save = util_getRequestParameter('save') !== null;
-$createTree = util_getRequestParameter('createTree') !== null;
-$delete = util_getRequestParameter('delete') !== null;
+$saveButton = util_getBoolean('saveButton');
+$createTree = util_getBoolean('createTree');
+$delete = util_getBoolean('delete');
 $dissociateDefinitionId = util_getRequestParameter('dissociateDefinitionId');
 
 if ($id) {
@@ -45,7 +45,7 @@ if ($delete) {
   util_redirect(util_getWwwRoot());
 }
 
-if ($save) {
+if ($saveButton) {
   $e->description = util_getRequestParameter('description');
   $e->structStatus = util_getRequestIntParameter('structStatus');
   $e->structuristId = util_getRequestIntParameter('structuristId');
@@ -127,10 +127,8 @@ SmartyWrap::assign('treeIds', $treeIds);
 SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('structStatusNames', Entry::$STRUCT_STATUS_NAMES);
-SmartyWrap::assign('suggestNoBanner', true);
-SmartyWrap::assign('suggestHiddenSearchForm', true);
-SmartyWrap::addCss('bootstrap', 'select2', 'meaningTree');
-SmartyWrap::addJs('bootstrap', 'select2', 'select2Dev', 'meaningTree', 'textComplete');
+SmartyWrap::addCss('select2', 'meaningTree', 'admin');
+SmartyWrap::addJs('select2', 'meaningTree', 'textComplete');
 SmartyWrap::display('editEntry.tpl');
 
 ?>

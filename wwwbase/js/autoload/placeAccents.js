@@ -11,7 +11,7 @@ $(function() {
     $(this).data('otherText', $(this).text());
     $(this).text(tmp);
 
-    $(this).closest('div').next().slideToggle();
+    $(this).closest('div').next().stop().slideToggle();
     return false;
   }
 

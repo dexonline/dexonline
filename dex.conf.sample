@@ -119,7 +119,6 @@ banner = true
 fbLarge = true
 fullMenu = true
 permalink = true
-searchForm = true
 typo = true
 widgets = true
 wotdArchive = true

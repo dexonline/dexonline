@@ -2,6 +2,8 @@
 
 {block name=title}Spânzurătoarea{/block}
 
+{block name=search}{/block}
+
 {block name=content}
   <script>
    var word = "{$word}";
@@ -36,10 +38,10 @@
 
         <div class="newGameControls">
           <label>Joc nou:</label>
-          <input class="btn btn-info" type="button" name="newGame_1" value="ușor"/>
-          <input class="btn btn-info" type="button" name="newGame_2" value="mediu"/><br/>
-          <input class="btn btn-info" type="button" name="newGame_3" value="dificil"/>
-          <input class="btn btn-info" type="button" name="newGame_4" value="expert"/>
+          <button class="btn btn-info" type="button" data-level="1">ușor</button>
+          <button class="btn btn-info" type="button" data-level="2">mediu</button><br/>
+          <button class="btn btn-info" type="button" data-level="3">dificil</button>
+          <button class="btn btn-info" type="button" data-level="4">expert</button>
         </div>
 
         <div id="resultsWrapper" class="txt">

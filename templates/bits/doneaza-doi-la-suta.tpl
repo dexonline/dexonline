@@ -1,4 +1,4 @@
-<h2 id="doiLaSuta">Redirecționează 2% din impozitul pe venit</h2>
+<h3 id="doiLaSuta">Redirecționează 2% din impozitul pe venit</h3>
 
 <div>Codul Fiscal pune la dispoziția contribuabililor mecanismul de redirecționare a 2% din impozitul pe venit datorat pentru anul trecut. 
   Astfel, poți ajuta <i>Asociația dexonline</i> fără să te coste nimic! Procedura este simplă, trebuie doar să te încadrezi în termenul limită: 25 mai anul curent!<br />
@@ -27,5 +27,3 @@
 
   Mai multe informații puteți găsi <a href="http://doilasuta.ro">aici</a>.
 </div>
-
-<br /><br />

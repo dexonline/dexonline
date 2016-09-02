@@ -4,7 +4,7 @@ util_assertModerator(PRIV_WOTD);
 
 $id = util_getRequestParameter('id');
 $deleteId = util_getRequestParameter('deleteId');
-$submitButton = util_getRequestParameter('submitButton');
+$saveButton = util_getBoolean('saveButton');
 $artist = $id
         ? WotdArtist::get_by_id($id)
         : Model::factory('WotdArtist')->create();
@@ -16,7 +16,7 @@ if ($deleteId) {
   util_redirect('autori-imagini.php');
 }
 
-if ($submitButton) {
+if ($saveButton) {
   $artist->name = util_getRequestParameter('name');
   $artist->email = util_getRequestParameter('email');
   $artist->label = util_getRequestParameter('label');

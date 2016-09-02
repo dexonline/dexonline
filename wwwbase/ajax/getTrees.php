@@ -5,6 +5,7 @@ $query = util_getRequestParameter('term');
 
 $trees = Model::factory('Tree')
        ->where_like('description', "{$query}%")
+       ->where('status', Tree::ST_VISIBLE)
        ->order_by_asc('description')
        ->limit(10)
        ->find_many();

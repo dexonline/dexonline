@@ -2,7 +2,7 @@
 require_once("../phplib/util.php");
 
 $value = util_getRequestParameter('value');
-$saveButton = util_getRequestParameter('saveButton');
+$saveButton = util_getBoolean('saveButton');
 $jsonTags = util_getRequestParameter('jsonTags');
 
 if ($saveButton) {
@@ -48,8 +48,7 @@ if ($saveButton) {
 }
 
 SmartyWrap::assign('tags', Tag::loadTree());
-SmartyWrap::assign('suggestNoBanner', true);
-SmartyWrap::assign('suggestHiddenSearchForm', true);
+SmartyWrap::addCss('admin');
 SmartyWrap::display('etichete.tpl');
 
 ?>

@@ -2,6 +2,8 @@
 
 {block name=title}Autentificare cu OpenID{/block}
 
+{block name=search}{/block}
+
 {block name=content}
   <h3>Autentificare cu OpenID</h3>
 

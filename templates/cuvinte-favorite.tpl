@@ -3,7 +3,7 @@
 {block name=title}Cuvinte favorite{/block}
 
 {block name=content}
-  <h2>Lista cuvintelor favorite pentru {$sUser->nick} ({$sUser->name})</h2>
+  <h3>Lista cuvintelor favorite pentru {$sUser->nick} ({$sUser->name})</h3>
 
   <dl class="favoriteDefs">
     {if $bookmarks}

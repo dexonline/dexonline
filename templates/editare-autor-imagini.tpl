@@ -1,4 +1,4 @@
-{extends file="layout.tpl"}
+{extends "layout-admin.tpl"}
 
 {block name=title}
   {if $artist->id}
@@ -38,7 +38,11 @@
           <label>Credite</label>
           <input type="text" name="credits" value="{$artist->credits|escape}" size="80" class="form-control" />
         </div>
-        <input class="btn btn-primary" type="submit" name="submitButton" value="salvează" />
+
+        <button class="btn btn-primary" type="submit" name="saveButton">
+          <i class="glyphicon glyphicon-floppy-disk"></i>
+          salvează
+        </button>
         <a class="btn btn-link" href="autori-imagini.php">înapoi la lista de autori</a>
 
       </form>

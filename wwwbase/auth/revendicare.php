@@ -40,7 +40,6 @@ if (!$data) {
   }
 }
 
-SmartyWrap::assign('suggestHiddenSearchForm', true);
 SmartyWrap::assign('data', $data);
 SmartyWrap::assign('chosenNick', $nick);
 SmartyWrap::assign('password', $password);

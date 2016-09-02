@@ -5,7 +5,6 @@ util_assertNotLoggedIn();
 
 $data = OpenID::finishAuth();
 if (!$data) {
-  SmartyWrap::assign('suggestHiddenSearchForm', true);
   SmartyWrap::display('auth/login.tpl');
   exit();
 }
@@ -22,7 +21,6 @@ if ($user) {
   $randString = util_randomCapitalLetterString(20);
   FileCache::put($randString, $data);
 
-  SmartyWrap::assign('suggestHiddenSearchForm', true);
   SmartyWrap::assign('data', $data);
   SmartyWrap::assign('randString', $randString);
   SmartyWrap::assign('loginType', $loginType);

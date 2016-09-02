@@ -1,4 +1,18 @@
+/**
+ * Note: this file is included both from HTML (for the main page) and from
+ * JS (for the TinyMCE iframe).
+ **/
 .spaced {
   background: #ddd;
   letter-spacing: 3px;
 }
+
+/* show the resize button, but not the status bar */
+.mce-path {
+  display: none !important;
+}
+
+.mce-statusbar {
+  border-width: 0 !important;
+}
+

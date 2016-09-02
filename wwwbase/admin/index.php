@@ -63,7 +63,7 @@ $reports = array(
 SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('structStatusNames', Entry::$STRUCT_STATUS_NAMES);
 SmartyWrap::assign('reports', $reports);
-SmartyWrap::addCss('jqueryui', 'select2');
-SmartyWrap::addJs('jquery', 'jqueryui', 'select2', 'select2Dev', 'modelDropdown');
-SmartyWrap::displayAdminPage('admin/index.tpl');
+SmartyWrap::addCss('select2', 'admin');
+SmartyWrap::addJs('select2', 'modelDropdown');
+SmartyWrap::display('admin/index.tpl');
 ?>

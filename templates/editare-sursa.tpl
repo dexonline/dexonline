@@ -1,4 +1,4 @@
-{extends file="layout.tpl"}
+{extends "layout-admin.tpl"}
 
 {block name=title}
   {if $src->id}
@@ -21,12 +21,6 @@
       <form method="post" action="editare-sursa">
         <input type="hidden" name="id" value="{$src->id}" />
 
-        <p>
-          Pe ultima linie puteți adăuga o sursă
-          nouă. Ordonarea surselor este funcțională, dar este greoaie deocamdată. Sursele neoficiale sunt întotdeauna listate după cele oficiale, indiferent
-          de ordonarea manuală.
-        </p>
-
         <div class="form-group">
           <label>Nume</label>
           <input type="text" name="name" value="{$src->name}" class="form-control" />
@@ -44,7 +38,8 @@
           <label>Nume URL</label>
           <input type="text" name="urlName" value="{$src->urlName}" class="form-control" />
           <p class="help-block">
-            Numele care apare în URL la căutarea într-o anumită sursă, cum ar fi https://dexonline.ro/definitie-<strong>der</strong>/copil
+            Numele care apare în URL la căutarea într-o anumită sursă, cum ar fi
+            https://dexonline.ro/definitie-<strong>der</strong>/copil
           </p>
         </div>
 
@@ -114,7 +109,10 @@
           </label>
         </div>
 
-        <input class="btn btn-primary" type="submit" name="submitButton" value="Salvează" />
+        <button class="btn btn-primary" type="submit" name="saveButton">
+          <i class="glyphicon glyphicon-floppy-disk"></i>
+          salvează
+        </button>
         <a class="btn btn-link" href="">renunță</a>
       </form>
     </div>

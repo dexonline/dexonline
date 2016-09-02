@@ -13,8 +13,6 @@
 require_once __DIR__ . '/../phplib/util.php';
 
 define('IMG_PREFIX', 'img/wotd/');
-// TODO: remove the thumb/ directory and related code, after the merge
-define('THUMB_PREFIX', 'img/wotd/thumb/');
 define('THUMB_S_PREFIX', 'img/wotd/thumb' . WordOfTheDay::SIZE_S . '/');
 define('THUMB_M_PREFIX', 'img/wotd/thumb' . WordOfTheDay::SIZE_M . '/');
 define('WOTM_PREFIX', 'img/wotd/cuvantul-lunii/');
@@ -27,7 +25,6 @@ $IGNORED = [
   'misc/aleator.jpg' => 1,
   'misc/papirus.png' => 1,
   'nefolosite' => 1,
-  'thumb' => 1,
   'thumb' . WordOfTheDay::SIZE_S => 1,
   'thumb' . WordOfTheDay::SIZE_M => 1,
 ];
@@ -58,8 +55,6 @@ foreach ($staticFiles as $file) {
     $thumbsS[substr($file, strlen(THUMB_S_PREFIX))] = 1;
   } else if (StringUtil::startsWith($file, THUMB_M_PREFIX)) {
     $thumbsM[substr($file, strlen(THUMB_M_PREFIX))] = 1;
-  } else if (StringUtil::startsWith($file, THUMB_PREFIX)) {
-    $IGNORED[$file] = 1;
   } else if (StringUtil::startsWith($file, IMG_PREFIX)) {
     $imgs[substr($file, strlen(IMG_PREFIX))] = 1;
   } else {
@@ -111,7 +106,7 @@ foreach ($thumbsM as $thumb => $ignored) {
   if (!isset($imgs[$thumb])) {
     print "Medium thumbnail without an image: {$thumb}\n";
     if ($fix) {
-      deleteOrphanThumbnail($ftp, $thumb);
+      deleteOrphanThumbnail($ftp, $thumb, THUMB_M_PREFIX);
     }
   }
 }
@@ -120,7 +115,7 @@ foreach ($thumbsS as $thumb => $ignored) {
   if (!isset($imgs[$thumb])) {
     print "Small thumbnail without an image: {$thumb}\n";
     if ($fix) {
-      deleteOrphanThumbnail($ftp, $thumb);
+      deleteOrphanThumbnail($ftp, $thumb, THUMB_S_PREFIX);
     }
   }
 }
@@ -172,7 +167,7 @@ function generateThumbnail($ftp, $img, $size, $prefix) {
   }
 }
 
-function deleteOrphanThumbnail($ftp, $thumb) {
+function deleteOrphanThumbnail($ftp, $thumb, $prefix) {
   if (!$ftp->connected()) {
     Log::error("Cannot connect to FTP server - skipping orphan thumb deletion.");
     return;
@@ -182,8 +177,8 @@ function deleteOrphanThumbnail($ftp, $thumb) {
   $extension = strtolower($extension);
 
   if (in_array($extension, [ 'gif', 'jpeg', 'jpg', 'png' ])) {
-    Log::info("Deleting %s%s", THUMB_PREFIX, $thumb);
-    $ftp->staticServerDelete(THUMB_PREFIX . $thumb);
+    Log::info("Deleting %s%s", $prefix, $thumb);
+    $ftp->staticServerDelete($prefix . $thumb);
   }
 }
 

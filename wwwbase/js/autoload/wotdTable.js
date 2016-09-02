@@ -87,14 +87,14 @@ $(function (){
     reloadAfterSubmit: true,
   };
 
-  var screenWidth = $(".header").width();
+  var screenWidth = $(window).width();
   var lexWidth    = 120;
   var sourceWidth =  60;
   var htmlWidth   = 450;
   var dateWidth   =  90;
   var userWidth   =  90;
   var priorWidth  =  50;
-  var imageWidth  =  70;
+  var imageWidth  = 130;
   var descWidth   = screenWidth - (lexWidth + sourceWidth + htmlWidth + dateWidth + userWidth + priorWidth + imageWidth) - 40;
   var imageList = $('#imageList').detach().removeAttr('id');
 

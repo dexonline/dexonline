@@ -13,7 +13,7 @@
   <ul>
 
     <li>
-      <a href="wotdTable.php">Lista cuvintelor zilei</a>
+      <a href="wotdTable.php">lista cuvintelor zilei</a>
     </li>
 
     <li>

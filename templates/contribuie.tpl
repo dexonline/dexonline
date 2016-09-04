@@ -18,14 +18,6 @@
   <form id="frmContrib" name="frmContrib" method="post" action="contribuie">
 
     <div class="row">
-      <div class="form-group col-md-6">
-        <label for="lexemIds">Cuvântul definit</label>
-        <select id="lexemIds" name="lexemIds[]" style="width: 100%" multiple>
-          {foreach $lexemIds as $l}
-            <option value="{$l}" selected></option>
-          {/foreach}
-        </select>
-      </div>
 
       <div class="form-group col-md-6">
         <label for="sourceDropDown">Sursa</label>
@@ -41,6 +33,16 @@
           instrucțiuni de formatare
         </a>
       </div>
+
+      <div class="form-group col-md-6">
+        <label for="lexemIds">Cuvântul definit</label>
+        <select id="lexemIds" name="lexemIds[]" style="width: 100%" multiple>
+          {foreach $lexemIds as $l}
+            <option value="{$l}" selected></option>
+          {/foreach}
+        </select>
+      </div>
+
     </div>
 
     <div class="form-group">

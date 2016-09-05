@@ -158,7 +158,7 @@ p.defDetails {
   letter-spacing: 3px;
 }
 
-#resultsWrapper .glyphicon-comment {
+.defWrapper .glyphicon-comment {
   color: #1E83C2;
   padding-right: 10px;
 }

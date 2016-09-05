@@ -81,6 +81,9 @@ if ($refreshButton || $saveButton) {
 
 $tags = Model::factory('Tag')->order_by_asc('value')->find_many();
 
+$definitions = Definition::loadByEntryId($lexem->entryId);
+$searchResults = SearchResult::mapDefinitionArray($definitions);
+
 $canEdit = array(
   'general' => util_isModerator(PRIV_EDIT),
   'description' => util_isModerator(PRIV_EDIT),
@@ -99,6 +102,7 @@ $models = FlexModel::loadByType($lexem->modelType);
 
 SmartyWrap::assign('lexem', $lexem);
 SmartyWrap::assign('homonyms', Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many());
+SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('tags', $tags);
 SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());

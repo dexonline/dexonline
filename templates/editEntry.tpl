@@ -178,10 +178,10 @@
           id: {$def->id}
           | sursa: {$row->source->shortName|escape}
           | starea: {$def->getStatusName()}
-          | <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}" target="_blank">editează</a>
+          | <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}">editează</a>
           | <a href="?id={$e->id}&amp;dissociateDefinitionId={$def->id}"
                class="dissociateLink"
-               title="disociază definiția de lexem"
+               title="disociază definiția de intrare"
                >disociază</a>
           | <a href="#" class="toggleRepLink" title="comută între notația internă și HTML"
                data-value="1" data-order="1" data-other-text="html">text</a>

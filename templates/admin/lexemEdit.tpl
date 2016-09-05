@@ -70,11 +70,11 @@
                 <div class="col-md-10">
 
                   {foreach from=$homonyms item=h}
-                  <div>
-                    {include file="bits/lexemLink.tpl" lexem=$h}
-                    {$h->modelType}{$h->modelNumber}{$h->restriction}
-                  </div>
-                {/foreach}
+                    <div>
+                      {include file="bits/lexemLink.tpl" lexem=$h}
+                      {$h->modelType}{$h->modelNumber}{$h->restriction}
+                    </div>
+                  {/foreach}
 
                 </div>
               </div>
@@ -244,6 +244,37 @@
       <div class="panel-heading">Paradigmă</div>
       <div class="panel-body">
         {include "paradigm/paradigm.tpl" lexem=$lexem}
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">Definitiții ({$searchResults|count})</div>
+      <div class="panel-body panel-admin">
+        {foreach from=$searchResults item=row}
+          {$def=$row->definition}
+          <div class="defWrapper">
+            <p class="def">{$row->definition->htmlRep}</p>
+
+            <p class="defDetails text-muted">
+              <small>
+                id: {$def->id}
+                | sursa: {$row->source->shortName|escape}
+                | starea: {$def->getStatusName()}
+                | <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}">editează</a>
+              </small>
+            </p>
+
+            {if $row->comment}
+              <div class="panel panel-default panel-comment">
+                <div class="panel-body">
+                  <i class="glyphicon glyphicon-comment"></i>
+                  {$row->comment->htmlContents} -
+                  <b>{$row->commentAuthor->nick|escape}</b>
+                </div>
+              </div>
+            {/if}
+          </div>
+        {/foreach}
       </div>
     </div>
 

@@ -160,6 +160,19 @@ class Entry extends BaseObject implements DatedObject {
     EntryDefinition::deleteByEntryId($this->id);
     TreeEntry::delete_all_by_entryId($this->id);
 
+    // orphan Visuals and VisualTags
+    $visuals = Visual::get_all_by_entryId($this->id);
+    foreach ($visuals as $v) {
+      $v->entryId = 0;
+      $v->save();
+    }
+
+    $vts = VisualTag::get_all_by_entryId($this->id);
+    foreach ($vts as $vt) {
+      $vt->entryId = 0;
+      $vt->save();
+    }
+
     // do not delete the lexems for now -- just orphan them
     $lexems = Lexem::get_all_by_entryId($this->id);
     foreach ($lexems as $l) {

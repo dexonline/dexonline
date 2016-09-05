@@ -24,7 +24,7 @@
 
         <button class="btn btn-success" type="submit" name="saveButton">
           <i class="glyphicon glyphicon-floppy-disk"></i>
-          salvează și preia următoarea
+          <u>s</u>alvează și preia următoarea
         </button>
 
         {if $def}

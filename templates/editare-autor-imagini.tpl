@@ -39,9 +39,9 @@
           <input type="text" name="credits" value="{$artist->credits|escape}" size="80" class="form-control" />
         </div>
 
-        <button class="btn btn-primary" type="submit" name="saveButton">
+        <button class="btn btn-success" type="submit" name="saveButton">
           <i class="glyphicon glyphicon-floppy-disk"></i>
-          salvează
+          <u>s</u>alvează
         </button>
         <a class="btn btn-link" href="autori-imagini.php">înapoi la lista de autori</a>
 

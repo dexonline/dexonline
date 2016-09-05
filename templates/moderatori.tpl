@@ -45,9 +45,9 @@
       </tr>
     </table>
 
-    <button type="submit" class="btn btn-primary" name="saveButton">
+    <button type="submit" class="btn btn-success" name="saveButton">
       <i class="glyphicon glyphicon-floppy-disk"></i>
-      salvează
+      <u>s</u>alvează
     </button>
 
   </form>

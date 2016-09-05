@@ -215,9 +215,9 @@
           </button>
 
           {if $previewPassed}
-            <button class="btn btn-success" type="submit" name="confirmButton">
+            <button class="btn btn-success" type="submit" name="saveButton">
               <i class="glyphicon glyphicon-floppy-disk"></i>
-              salvează
+              <u>s</u>alvează
             </button>
           {/if}
 

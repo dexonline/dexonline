@@ -244,7 +244,7 @@
     <div>
       <button type="submit" class="btn btn-success" name="saveButton">
         <i class="glyphicon glyphicon-floppy-disk"></i>
-        salvează
+        <u>s</u>alvează
       </button>
 
       <button type="submit" class="btn btn-default" name="clone">

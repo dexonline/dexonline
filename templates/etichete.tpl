@@ -51,7 +51,7 @@
 
     <button class="btn btn-success" type="submit" id="butSave" name="saveButton">
       <i class="glyphicon glyphicon-floppy-disk"></i>
-      salvează
+      <u>s</u>alvează
     </button>
 
   </form>

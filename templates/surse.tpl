@@ -69,7 +69,7 @@
     {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
       <button class="btn btn-success" type="submit" name="saveButton">
         <i class="glyphicon glyphicon-floppy-disk"></i>
-        salvează
+        <u>s</u>alvează
       </button>
 
       <a class="btn btn-default" href="editare-sursa">

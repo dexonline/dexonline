@@ -4,14 +4,14 @@
           name="refreshButton"
           class="lexemEditSaveButton btn btn-primary">
     <i class="glyphicon glyphicon-refresh"></i>
-    reafișează
+    <u>r</u>eafișează
   </button>
 
   <button type="submit"
           name="saveButton"
           class="lexemEditSaveButton btn btn-success">
     <i class="glyphicon glyphicon-floppy-disk"></i>
-    salvează
+    <u>s</u>alvează
   </button>
 
   {if $canEdit.general}

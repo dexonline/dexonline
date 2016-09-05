@@ -10,7 +10,7 @@ define('SHORT_LIST_LIMIT', 10);
 
 $id = util_getRequestParameter('id');
 $previewButton = util_getBoolean('previewButton');
-$confirmButton = util_getBoolean('confirmButton');
+$saveButton = util_getBoolean('saveButton');
 $shortList = util_getBoolean('shortList');
 
 $locPerm = util_isModerator(PRIV_LOC);
@@ -44,7 +44,7 @@ foreach ($ifs as $i => $if) {
                        'recommended' => $mds[$i]->recommended];
 }
 
-if (!$previewButton && !$confirmButton) {
+if (!$previewButton && !$saveButton) {
   if (!$locPerm) {
     FlashMessage::add('Întrucât nu puteți modifica Lista Oficială de Cuvinte a ' .
                       'jocului de Scrabble, nu veți putea modifica unele dintre câmpuri.',
@@ -109,7 +109,7 @@ if (!$previewButton && !$confirmButton) {
   
   // Load the affected lexems. For each lexem, inflection and transform
   // list, generate a new form.
-  $limit = ($shortList && !$confirmButton) ? SHORT_LIST_LIMIT : 0;
+  $limit = ($shortList && !$saveButton) ? SHORT_LIST_LIMIT : 0;
   $lexems = Lexem::loadByCanonicalModel($m->modelType, $m->number, $limit);
   $regenForms = [];
   $errorCount = 0; // Do not report thousands of similar errors.
@@ -152,7 +152,7 @@ if (!$previewButton && !$confirmButton) {
     SmartyWrap::assign('participles', $participles);
   }
 
-  if ($confirmButton) {
+  if ($saveButton) {
     Log::notice("Saving model {$m->id} ({$m}), this could take a while");
     
     // Save the transforms and model descriptions

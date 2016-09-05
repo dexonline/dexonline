@@ -1,24 +1,28 @@
-{extends file="admin/layout.tpl"}
+{extends file="layout-admin.tpl"}
 
 {block name=title}Ștergere model{/block}
 
-{block name=headerTitle}
-  Ștergere model {$modelType}{$modelNumber}
-{/block}
-
 {block name=content}
+  <h3>Ștergere model {$modelType}{$modelNumber}</h3>
+
   <form action="deleteModel.php" method="post" onsubmit="this.bogusButton.disabled = true;">
     <input type="hidden" name="modelType" value="{$modelType}"/>
     <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
 
     {if count($lexems)}
-      Există {$lexems|@count} lexem(e) etichetate cu acest model. Dacă
-      apăsați butonul "Confirmă", ele vor fi reetichetate cu modelul T1.
-    {else}
-      Nu există lexeme etichetate cu acest model. Modelul poate fi șters
-      fără probleme.
+      <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        Există {$lexems|@count} lexem(e) etichetate cu acest model. Dacă
+        apăsați butonul "Confirmă", ele vor fi reetichetate cu modelul T1.
+      </div>
+      {else}
+      <p>
+        Nu există lexeme etichetate cu acest model. Modelul poate fi șters
+        fără probleme.
+      </p>
     {/if}
-    <br/><br/>
 
     {foreach from=$lexems item=l}
       {include "bits/lexemName.tpl" lexem=$l}
@@ -30,9 +34,11 @@
     <br/>
 
     <!-- We want to disable the button on click, but still submit a value -->
-    <input type="hidden" name="deleteButton" value="1"/>
     {if $locPerm}
-      <input type="submit" name="bogusButton" value="Confirmă"/>
+      <button type="submit" class="btn btn-danger" name="deleteButton">
+        <i class="glyphicon glyphicon-trash"></i>
+        șterge
+      </button>
     {/if}
   </form>
 {/block}

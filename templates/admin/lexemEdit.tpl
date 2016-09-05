@@ -20,6 +20,8 @@
   </script>
 
   <form action="lexemEdit.php" method="post">
+    {include file="admin/lexemEditActions.tpl"}
+
     <div class="panel panel-default">
 
       <div class="panel-heading">Proprietăți</div>
@@ -277,8 +279,6 @@
         {/foreach}
       </div>
     </div>
-
-    {include file="admin/lexemEditActions.tpl"}
 
   </form>
 {/block}

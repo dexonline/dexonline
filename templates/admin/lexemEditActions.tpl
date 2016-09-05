@@ -1,4 +1,5 @@
-<div class="voffset3">
+<div class="form-group">
+
   <button type="submit"
           name="refreshButton"
           class="lexemEditSaveButton btn btn-primary">

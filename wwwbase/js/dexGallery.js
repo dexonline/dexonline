@@ -39,7 +39,7 @@ function drawOnCanvas(visualId) {
   var canvas = $('#activeCanvas');
   // The colorbox plugin title is made up of two parts:
   // 1. the unique id of the image from the Visual table
-  // 2. the name of the lexeme corresponding to the image
+  // 2. the name of the label corresponding to the image
   $.ajax({
     type: 'POST',
     url: wwwRoot + 'ajax/visualGetImageTags.php',
@@ -56,10 +56,7 @@ function drawOnCanvas(visualId) {
       data.tags[i].textYCoord *= heightScale;
       data.tags[i].imgYCoord *= heightScale;
 
-      console.log(data.tags[i].lexeme);
-      console.log(word);
-
-      colorText = (data.tags[i].lexeme == decodeURI(word) ) ? '#F00' : '#000';
+      colorText = (data.tags[i].label == decodeURI(word) ) ? '#F00' : '#000';
 
       drawTag(canvas, i, data.tags[i], colorText);
     }
@@ -128,7 +125,7 @@ function drawTag(canvas, tagNo, tagData, colorText) {
       mouseover: 'pointer'
     },
     click: function() {
-      window.open('https://dexonline.ro/definitie/' + tagData.lexeme, '_self');
+      window.open(wwwRoot + 'definitie/' + tagData.lexem, '_self');
     }
   });
 }

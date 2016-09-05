@@ -3,8 +3,8 @@ require_once("../phplib/util.php");
 util_assertModerator(PRIV_ADMIN);
 
 $projectId = util_getRequestParameter('projectId');
-$submitButton = util_getRequestParameter('submitButton');
-$deleteButton = util_getRequestParameter('deleteButton');
+$saveButton = util_getBoolean('saveButton');
+$deleteButton = util_getBoolean('deleteButton');
 $defId = util_getRequestParameter('defId');
 $errors = util_getRequestParameter('errors');
 
@@ -17,7 +17,7 @@ if ($deleteButton) {
   util_redirect('acuratete');
 }
 
-if ($submitButton) {
+if ($saveButton) {
   $ar = AccuracyRecord::get_by_projectId_definitionId($projectId, $defId);
   if (!$ar) {
     $ar = Model::factory('AccuracyRecord')->create();

@@ -242,7 +242,7 @@
     {/if}
 
     <div>
-      <button type="submit" class="btn btn-primary" name="saveButton">
+      <button type="submit" class="btn btn-success" name="saveButton">
         <i class="glyphicon glyphicon-floppy-disk"></i>
         salvează
       </button>
@@ -252,7 +252,7 @@
         clonează
       </button>
 
-      <a href="{if $t->id}?id={$t->id}{/if}">
+      <a class="btn btn-link" href="{if $t->id}?id={$t->id}{/if}">
         anulează
       </a>
     </div>

@@ -24,5 +24,5 @@
       </label>
     </div>
   </div>
-  <input class="btn btn-default" type=submit name="submitButton" value="Conectare ca utilizator de test"/>
+  <input class="btn btn-warning" type=submit name="submitButton" value="Conectare ca utilizator de test"/>
 </form>

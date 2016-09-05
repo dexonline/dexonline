@@ -11,12 +11,17 @@
       <div class="panel-body">
         <form action="acuratete-eval" method="get">
           <div class="row">
-            <div class="col-sm-10">
+            <div class="col-sm-9">
               {include "bits/dropdown.tpl" name="projectId" data=$projects}
             </div>
-            <div class="col-sm-2">
-              <button class="btn btn-default" type="submit">deschide</button>
-              <button class="btn btn-danger" type="submit" id="deleteButton" name="deleteButton" value="1">șterge</button>
+            <div class="col-sm-3">
+              <button class="btn btn-primary" type="submit">
+                deschide
+              </button>
+              <button class="btn btn-danger" type="submit" id="deleteButton" name="deleteButton">
+                <i class="glyphicon glyphicon-trash"></i>
+                șterge
+              </button>
             </div>
           </div>
         </form>

@@ -138,13 +138,13 @@
 
         <button type="submit"
                 name="saveButton"
-                class="btn btn-default">
+                class="btn btn-success">
           <i class="glyphicon glyphicon-floppy-disk"></i>
           salvează
         </button>
 
         {if $isOCR}
-          <button type="submit" class="btn btn-default" name="but_next_ocr">
+          <button type="submit" class="btn btn-success" name="but_next_ocr">
             salvează și preia următoarea definiție OCR
           </button>
         {/if}

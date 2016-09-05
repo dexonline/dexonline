@@ -33,7 +33,7 @@
             <input type="text" name="description" value="{$addModelType->description}" class="form-control" />
           </div>
 
-          <button class="btn btn-primary" type="submit" name="saveButton">
+          <button class="btn btn-success" type="submit" name="saveButton">
             <i class="glyphicon glyphicon-floppy-disk"></i>
             salvează
           </button>
@@ -70,7 +70,7 @@
             <input type="text" name="description" value="{$editModelType->description}" class="form-control" />
           </div>
 
-          <button class="btn btn-primary" type="submit" name="saveButton">
+          <button class="btn btn-success" type="submit" name="saveButton">
             <i class="glyphicon glyphicon-floppy-disk"></i>
             salvează
           </button>
@@ -81,15 +81,9 @@
     </div>
   {/if}
 
-  <table class="table-condensed table-bordered table-striped col-sm-12">
+  <table class="table table-condensed table-bordered table-striped col-sm-12">
     <caption class="table-caption">
       Tipuri de modele
-      {if !$showAddForm}
-        <a class="btn btn-xs btn-success pull-right" href="?add=1">
-          <i class="glyphicon glyphicon-plus"></i>
-          adaugă un tip de model
-        </a>
-      {/if}
     </caption>
     <tr>
       <th>cod</th>
@@ -117,4 +111,10 @@
     {/foreach}
   </table>
 
+  {if !$showAddForm}
+    <a class="btn btn-default" href="?add=1">
+      <i class="glyphicon glyphicon-plus"></i>
+      adaugă un tip de model
+    </a>
+  {/if}
 {/block}

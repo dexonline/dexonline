@@ -9,7 +9,7 @@
 
   <button type="submit"
           name="saveButton"
-          class="lexemEditSaveButton btn btn-default">
+          class="lexemEditSaveButton btn btn-success">
     <i class="glyphicon glyphicon-floppy-disk"></i>
     salvează
   </button>

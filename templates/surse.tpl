@@ -67,12 +67,12 @@
     </table>
 
     {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
-      <button class="btn btn-primary" type="submit" name="saveButton">
+      <button class="btn btn-success" type="submit" name="saveButton">
         <i class="glyphicon glyphicon-floppy-disk"></i>
         salvează
       </button>
 
-      <a class="btn btn-success" href="editare-sursa">
+      <a class="btn btn-default" href="editare-sursa">
         <i class="glyphicon glyphicon-plus"></i>
         adaugă o sursă
       </a>

@@ -210,12 +210,12 @@
 
         <div class="form-group">
 
-          <button class="btn btn-default" type="submit" name="previewButton">
+          <button class="btn btn-primary" type="submit" name="previewButton">
             testează
           </button>
 
           {if $previewPassed}
-            <button class="btn btn-default" type="submit" name="confirmButton">
+            <button class="btn btn-success" type="submit" name="confirmButton">
               <i class="glyphicon glyphicon-floppy-disk"></i>
               salvează
             </button>

@@ -49,7 +49,7 @@
   <form method="post" action="etichete">
     <input type="hidden" name="jsonTags" value="">
 
-    <button class="btn btn-primary" type="submit" id="butSave" name="saveButton">
+    <button class="btn btn-success" type="submit" id="butSave" name="saveButton">
       <i class="glyphicon glyphicon-floppy-disk"></i>
       salvează
     </button>

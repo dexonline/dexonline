@@ -22,12 +22,16 @@
         <input class="form-control" id="errors" type="number" name="errors" value="{$errors}" min="0" max="999">
         <button id="butUp" type="button" class="btn btn-default">+</button>
 
-        <button class="btn btn-success" type="submit" name="submitButton" value="1">
-          Salvează și preia următoarea
+        <button class="btn btn-success" type="submit" name="saveButton">
+          <i class="glyphicon glyphicon-floppy-disk"></i>
+          salvează și preia următoarea
         </button>
 
         {if $def}
-          <a class="btn btn-warning" href="admin/definitionEdit.php?definitionId={$def->id}">editează definiția</a>
+          <a class="btn btn-default" href="admin/definitionEdit.php?definitionId={$def->id}">
+            <i class="glyphicon glyphicon-pencil"></i>
+            editează definiția
+          </a>
         {/if}
       </form>
 
@@ -35,13 +39,13 @@
 
       <div class="well">
         {if $def}
-          <div class="defComment">
+          <p>
             {$def->internalRep}
-          </div>
+          </p>
 
-          <div class="defComment">
+          <p>
             {$def->htmlRep}
-          </div>
+          </p>
         {else}
           Nu mai există definiții de evaluat. Dumneavoastră sau alt evaluator le-ați evaluat pe toate.
         {/if}

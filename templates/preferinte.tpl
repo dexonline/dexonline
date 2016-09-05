@@ -17,7 +17,11 @@
           </div>
           <input id="avatarSubmit" class="btn btn-default" type="submit" name="submit" value="Editează" disabled="disabled">
           {* TODO: Hide this when the user does not have an avatar *}
-          <a href="salvare-avatar?delete=1" onclick="return confirm('Confirmați ștergerea imaginii?');">șterge imaginea</a>
+          <a href="salvare-avatar?delete=1"
+             class="btn btn-link"
+             onclick="return confirm('Confirmați ștergerea imaginii?');">
+            șterge imaginea
+          </a>
 
           <p class="text-muted">
             Imaginea profilului dumneavoastră are rezoluția de 48x48 pixeli. Pe ecranul următor puteți edita poza încărcată.
@@ -93,7 +97,10 @@
       </div>
     {/if}
 
-    <input class="btn btn-primary" type="submit" name="send" value="Salvează" id="saveButton"/>
+    <button class="btn btn-success" type="submit" name="saveButton">
+      <i class="glyphicon glyphicon-floppy-disk"></i>
+      salvează
+    </button>
     {if $sUser}
       <a class="btn btn-link" href="{$wwwRoot}utilizator/{$sUser->nick|escape}">renunță</a>
     {/if}

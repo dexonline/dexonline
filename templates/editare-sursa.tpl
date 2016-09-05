@@ -109,7 +109,7 @@
           </label>
         </div>
 
-        <button class="btn btn-primary" type="submit" name="saveButton">
+        <button class="btn btn-success" type="submit" name="saveButton">
           <i class="glyphicon glyphicon-floppy-disk"></i>
           salvează
         </button>

@@ -1,11 +1,11 @@
 <?php
 require_once("../phplib/util.php");
 
-$sendButton = util_getRequestParameter('send');
+$saveButton = util_getBoolean('saveButton');
 
 $user = session_getUser();
 
-if ($sendButton) {
+if ($saveButton) {
   $detailsVisible = util_getRequestParameterWithDefault('detailsVisible', 0);
   $userPrefs = util_getRequestCheckboxArray('userPrefs', ',');
   $widgets = util_getRequestParameter('widgets');

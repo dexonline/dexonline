@@ -13,7 +13,7 @@
       înapoi
     </a>
     <a class="btn btn-default" href="{$zipUrl}">
-      <i class="glyphicon glyphicon-floppy-disk"></i>
+      <i class="glyphicon glyphicon-download-alt"></i>
       descarcă
     </a>
   </p>

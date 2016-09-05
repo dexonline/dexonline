@@ -50,8 +50,16 @@
       <textarea class="form-control" id="defTextarea" name="def" rows="15" cols="90">{$def|escape}</textarea>
     </div>
 
-    <input type="submit" name="send" value="Trimite" class="btn btn-default" />
-    <input type="reset" name="clear" value="Șterge" onclick="return confirm('Confirmați ștergerea definiției?')" class="btn btn-warning"/>
+    <button type="submit" name="send" class="btn btn-success">
+      trimite
+    </button>
+
+    <button type="reset"
+            onclick="return confirm('Confirmați ștergerea definiției?')"
+            class="btn btn-danger">
+      <i class="glyphicon glyphicon-trash"></i>
+      șterge
+    </button>
 
     <div class="btn-group pull-right" id="tinymceButtonWrapper">
       <button id="tinymceToggleButton"

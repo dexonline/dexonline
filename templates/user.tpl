@@ -64,7 +64,9 @@
     <div class="panel-heading">
       Medalii
       {if $sUser && $sUser->moderator & $smarty.const.PRIV_ADMIN}
-        <button class="btn btn-xs btn-default pull-right" data-toggle="collapse" data-target="#medalEditDiv">Editează</button>
+        <button class="btn btn-xs btn-default pull-right" data-toggle="collapse" data-target="#medalEditDiv">
+          editează medaliile
+        </button>
       {/if}
     </div>
     <div class="panel-body">

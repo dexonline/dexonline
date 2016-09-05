@@ -7,10 +7,6 @@
   <table class="table table-condensed table-bordered table-striped">
     <caption class="table-caption">
       Autori ai imaginilor
-      <a class="btn btn-xs btn-success pull-right" href="editare-autor-imagini.php">
-        <i class="glyphicon glyphicon-plus"></i>
-        adaugă un autor
-      </a>
     </caption>
     <tr>
       <th>nume</th>
@@ -34,5 +30,10 @@
       </tr>
     {/foreach}
   </table>
+
+  <a class="btn btn-default" href="editare-autor-imagini.php">
+    <i class="glyphicon glyphicon-plus"></i>
+    adaugă un autor
+  </a>
 
 {/block}

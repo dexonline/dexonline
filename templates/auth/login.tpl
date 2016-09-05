@@ -20,10 +20,11 @@
         OpenID:
         <input class="form-control" type="text" name="openid" value="{$openid}" size="50" autofocus/>
       </label>
+
+      <button class="btn btn-primary" type="submit">
+        Autentificare
+      </button>
     </div>
-    <button class="btn btn-primary" type="submit">
-      Autentificare
-    </button>
   </form>
 
   <div class="voffset3"></div>

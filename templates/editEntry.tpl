@@ -76,13 +76,18 @@
       salvează
     </button>
 
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#mergeModal">
+      <i class="glyphicon glyphicon-resize-small"></i>
+      unifică cu...
+    </button>
+
     <button type="submit" class="btn btn-default" name="createTree">
       <i class="glyphicon glyphicon-tree-deciduous"></i>
       creează un arbore de sensuri
     </button>
 
-    <a href="{if $e->id}?id={$e->id}{/if}">
-      anulează
+    <a class="btn btn-link" href="{if $e->id}?id={$e->id}{/if}">
+      renunță
     </a>
 
     <button type="submit" class="btn btn-danger pull-right" name="delete">
@@ -90,6 +95,35 @@
       șterge
     </button>
   </form>
+
+  <div class="modal fade" id="mergeModal" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form action="editEntry.php" method="post" role="form">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Unifică intrarea cu...</h4>
+          </div>
+
+          <div class="modal-body">
+            <input type="hidden" name="id" value="{$e->id}">
+            <select id="mergeEntryId" name="mergeEntryId" class="form-control">
+            </select>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" name="mergeButton">
+              <i class="glyphicon glyphicon-resize-small"></i>
+              unifică
+            </button>
+            <button type="button" class="btn btn-link" data-dismiss="modal">renunță</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   {if $e->id}
     <h3>Arbori de sensuri asociați ({$e->getTrees()|count})</h3>

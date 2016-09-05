@@ -21,6 +21,13 @@ $(function() {
       minimumInputLength: 1,
     });
             
+    $('#mergeEntryId').select2({
+      ajax: { url: wwwRoot + 'ajax/getEntries.php' },
+      minimumInputLength: 1,
+      placeholder: 'alegeți o intrare',
+      width: '100%',
+    });
+
     $('.toggleRepLink').click(toggleRepClick);
     $('.toggleRepSelect').click(toggleRepChange);
     $('.toggleStructuredLink').click(toggleStructuredClick);

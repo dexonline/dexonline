@@ -124,6 +124,38 @@ class Entry extends BaseObject implements DatedObject {
     return $errors;
   }
 
+  public function mergeInto($otherId) {
+    $eds = EntryDefinition::get_all_by_entryId($this->id);
+    foreach ($eds as $ed) {
+      EntryDefinition::associate($otherId, $ed->definitionId);
+    }
+
+    $tes = TreeEntry::get_all_by_entryId($this->id);
+    foreach ($tes as $te) {
+      TreeEntry::associate($te->treeId, $otherId);
+    }
+
+    $lexems = Lexem::get_all_by_entryId($this->id);
+    foreach ($lexems as $l) {
+      $l->entryId = $otherId;
+      $l->save();
+    }
+
+    $visuals = Visual::get_all_by_entryId($this->id);
+    foreach ($visuals as $v) {
+      $v->entryId = $otherId;
+      $v->save();
+    }
+
+    $vts = VisualTag::get_all_by_entryId($this->id);
+    foreach ($vts as $vt) {
+      $vt->entryId = $otherId;
+      $vt->save();
+    }
+
+    $this->delete();
+  }
+
   public function delete() {
     EntryDefinition::deleteByEntryId($this->id);
     TreeEntry::delete_all_by_entryId($this->id);

@@ -5,6 +5,7 @@ util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 
 $id = util_getRequestParameter('id');
 $saveButton = util_getBoolean('saveButton');
+$mergeButton = util_getBoolean('mergeButton');
 $createTree = util_getBoolean('createTree');
 $delete = util_getBoolean('delete');
 $dissociateDefinitionId = util_getRequestParameter('dissociateDefinitionId');
@@ -26,6 +27,27 @@ if ($dissociateDefinitionId) {
   EntryDefinition::dissociate($e->id, $dissociateDefinitionId);
   Log::info("Dissociated lexem {$e->id} ({$e->description}) from definition {$dissociateDefinitionId}");
   util_redirect("?id={$e->id}");
+}
+
+if ($mergeButton) {
+  $mergeEntryId = util_getRequestParameter('mergeEntryId');
+  $other = Entry::get_by_id($mergeEntryId);
+
+  if (!$other) {
+    FlashMessage::add('Intrarea selectată nu există.');
+    util_redirect("?id={$e->id}");
+  } else if (!$e->id) {
+    FlashMessage::add('Nu puteți face unificarea la momentul creării.');
+    util_redirect(util_getWwwRoot());
+  } else if ($other->id == $e->id) {
+    FlashMessage::add('Nu puteți unifica intrarea cu ea însăși (serios!).');
+    util_redirect("?id={$e->id}");
+  }
+
+  $e->mergeInto($other->id);
+
+  FlashMessage::add('Am unificat intrările.', 'success');
+  util_redirect("?id={$other->id}");
 }
 
 if ($createTree) {

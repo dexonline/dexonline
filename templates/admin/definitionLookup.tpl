@@ -1,26 +1,37 @@
-{extends file="admin/layout.tpl"}
+{extends file="layout-admin.tpl"}
 
 {block name=title}Căutare definiții{/block}
 
-{block name=headerTitle}
-  Căutare definiții ({$searchResults|count})
-{/block}
-
 {block name=content}
+  <h3>{$searchResults|count} rezultate</h3>
+
   <form action="definitionLookup.php" method="post">
     {foreach from=$args key=name item=value}
       <input type="hidden" name="{$name}" value="{$value}">
     {/foreach}
-    <input type="submit" name="prevPageButton" value="<< înapoi">
-    &nbsp; <b>pagina {$args.page}</b> &nbsp;
-    <input type="submit" name="nextPageButton" value="înainte >>">
-    <br><br>
 
-    {include file="admin/definitionList.tpl"}
-    {if (count($searchResults))}
-      <input type="submit" name="prevPageButton" value="<< înapoi">
-      &nbsp; <b>pagina {$args.page}</b> &nbsp;
-      <input type="submit" name="nextPageButton" value="înainte >>">
-    {/if}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="button-group text-center">
+          <button type="submit" class="btn btn-default pull-left" name="prevPageButton">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            înapoi
+          </button>
+
+          <b>pagina {$args.page}</b>
+
+          <button type="submit" class="btn btn-default pull-right" name="nextPageButton">
+            înainte
+            <i class="glyphicon glyphicon-chevron-right"></i>
+          </button>
+        </div>
+
+        <div class="clearfix"></div>
+      </div>
+      <div class="panel-body">
+        {include file="admin/definitionList.tpl"}
+      </div>
+    </div>
+
   </form>
 {/block}

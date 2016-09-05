@@ -1,12 +1,11 @@
-{extends file="admin/layout.tpl"}
+{extends file="layout-admin.tpl"}
 
 {block name=title}Căutare lexeme{/block}
 
-{block name=headerTitle}
-  Căutare lexeme
-  ({$lexems|count})
-{/block}
-
 {block name=content}
+
+  <h3>{$lexems|count} rezultate</h3>
+
   {include file="admin/lexemList.tpl"}
+
 {/block}

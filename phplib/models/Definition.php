@@ -258,7 +258,8 @@ class Definition extends BaseObject implements DatedObject {
     }
   }
 
-  public static function searchModerator($cuv, $hasDiacritics, $sourceId, $status, $userId, $beginTime, $endTime, $page, $resultsPerPage) {
+  public static function searchModerator($cuv, $hasDiacritics, $sourceId, $status, $userId,
+                                         $beginTime, $endTime, $page, $resultsPerPage) {
     $regexp = StringUtil::dexRegexpToMysqlRegexp($cuv);
     $sourceClause = $sourceId ? "and Definition.sourceId = $sourceId" : '';
     $userClause = $userId ? "and Definition.userId = $userId" : '';
@@ -272,14 +273,15 @@ class Definition extends BaseObject implements DatedObject {
                     "$sourceClause $userClause order by lexicon, sourceId limit $offset, $resultsPerPage")->find_many();
     } else {
       $q = Model::factory('Definition')
-        ->table_alias('d')
-        ->select('d.*')
-        ->join('EntryDefinition', ['ed.definitionId', '=', 'd.id'], 'ed')
-        ->join('Lexem', ['ed.entryId', '=', 'l.entryId'], 'l')
-        ->where_raw("l.formNoAccent  $regexp")
-        ->where('d.status', $status)
-        ->where_gte('d.createDate', $beginTime)
-        ->where_lte('d.createDate', $endTime);
+         ->table_alias('d')
+         ->select('d.*')
+         ->distinct()
+         ->join('EntryDefinition', ['ed.definitionId', '=', 'd.id'], 'ed')
+         ->join('Lexem', ['ed.entryId', '=', 'l.entryId'], 'l')
+         ->where_raw("l.formNoAccent  $regexp")
+         ->where('d.status', $status)
+         ->where_gte('d.createDate', $beginTime)
+         ->where_lte('d.createDate', $endTime);
 
       if ($sourceId) {
         $q = $q->where('d.sourceId', $sourceId);

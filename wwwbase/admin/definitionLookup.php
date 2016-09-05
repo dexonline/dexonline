@@ -74,5 +74,6 @@ if ($searchButton || $prevPageButton || $nextPageButton) {
 
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('args', $args);
+SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/definitionLookup.tpl');
 ?>

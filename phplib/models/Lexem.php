@@ -262,7 +262,7 @@ class Lexem extends BaseObject implements DatedObject {
     // The key here is to create a subquery of all the forms appearing at least twice
     // This takes about 0.6s
     $query = 'select * from Lexem ' .
-      'join (select form as f from Lexem group by form having count(*) > 1) dup ' .
+      'join (select binary form as f from Lexem group by form having count(*) > 1) dup ' .
       'on form = f ' .
       'where description = "" ' .
       'group by form ' .

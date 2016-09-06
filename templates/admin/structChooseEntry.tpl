@@ -1,18 +1,27 @@
-{extends file="admin/layout.tpl"}
+{extends file="layout-admin.tpl"}
 
 {block name=title}Intrări ușor de structurat{/block}
 
-{block name=headerTitle}
-  Intrări ușor de structurat ({$entries|count})
-{/block}
-
 {block name=content}
-  {foreach from=$entries key=i item=e}
-    {include file="bits/entryLink.tpl" entry=$e}
-    <div class="blDefinitions">
-      {foreach from=$searchResults[$i] item=row}
-        {$row->definition->htmlRep} <span class="defDetails">{$row->source->shortName}</span><br/>
-      {/foreach}
+  <h3> {$entries|count} de intrări ușor de structurat</h3>
+
+  {foreach $entries as $i => $e}
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        {include "bits/entryLink.tpl" entry=$e}
+      </div>
+
+      <div class="panel-body">
+        {foreach from=$searchResults[$i] item=row}
+          <p>
+            {$row->definition->htmlRep}
+            <small class="text-muted">{$row->source->shortName}</small>
+          </p>
+        {/foreach}
+      </div>
+
     </div>
   {/foreach}
+
 {/block}

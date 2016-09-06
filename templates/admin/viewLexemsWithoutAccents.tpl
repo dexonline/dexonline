@@ -1,12 +1,11 @@
-{extends file="admin/layout.tpl"}
+{extends file="layout-admin.tpl"}
 
 {block name=title}Lexeme fără accent{/block}
 
-{block name=headerTitle}
-  Lexeme fără accent
-  ({$lexems|count})
-{/block}
-
 {block name=content}
-  {include file="admin/lexemList.tpl"}
+
+  <h3>{$lexems|count} lexeme fără accent</h3>
+
+  {include "admin/lexemList.tpl"}
+
 {/block}

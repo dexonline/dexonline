@@ -27,7 +27,7 @@ $reports = array(
         'privilege' => PRIV_EDIT
   ),
   // this takes about 300 ms
-  array('text' => 'Definiții neasociate cu niciun lexem',
+  array('text' => 'Definiții neasociate cu nicio intrare',
         'url' => 'admin/viewUnassociatedDefinitions',
         'count' => Definition::countUnassociated(),
         'privilege' => PRIV_EDIT

@@ -1,11 +1,15 @@
-{extends file="admin/layout.tpl"}
+{extends file="layout-admin.tpl"}
 
 {block name=title}Definiții neasociate{/block}
 
-{block name=headerTitle}
-  Definiții neasociate ({$searchResults|count})
-{/block}
-
 {block name=content}
-  {include file="admin/definitionList.tpl"}
+
+  <h3>{$searchResults|count} definiții neasociate</h3>
+
+  <div class="panel panel-default">
+    <div class="panel-body panel-admin">
+      {include file="admin/definitionList.tpl"}
+    </div>
+  </div>
+
 {/block}

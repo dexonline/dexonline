@@ -2,7 +2,6 @@
 require_once("../../phplib/util.php"); 
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
-RecentLink::createOrUpdate('Definiții nemoderate');
 
 $sourceId = 0;
 $sourceUrlName = util_getRequestParameter('source');
@@ -34,6 +33,6 @@ $searchResults = SearchResult::mapDefinitionArray($defs);
 FileCache::putModeratorQueryResults($ip, $searchResults);
 
 SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::displayAdminPage('admin/viewPendingDefinitions.tpl');
+SmartyWrap::addCss('admin');
+SmartyWrap::display('admin/viewPendingDefinitions.tpl');
 ?>

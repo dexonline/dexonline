@@ -3,7 +3,6 @@
 require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
-RecentLink::createOrUpdate('Definiții neasociate');
 
 $defs = Model::factory('Definition')
       ->table_alias('d')
@@ -14,7 +13,7 @@ $defs = Model::factory('Definition')
       ->find_many();
 
 SmartyWrap::assign('searchResults', SearchResult::mapDefinitionArray($defs));
-SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::displayAdminPage('admin/viewUnassociatedDefinitions.tpl');
+SmartyWrap::addCss('admin');
+SmartyWrap::display('admin/viewUnassociatedDefinitions.tpl');
 
 ?>

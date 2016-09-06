@@ -1,19 +1,22 @@
-{extends file="admin/layout.tpl"}
+{extends file="layout-admin.tpl"}
 
 {block name=title}Definiții cu greșeli de tipar{/block}
 
-{block name=headerTitle}
-  Definiții cu greșeli de tipar ({$searchResults|count})
-{/block}
-
-{block name=headerSources}
-  <div class="title">
-    <form name="frm" class="searchForm" action="#">
-      {include file="bits/sourceDropDown.tpl" urlName=1 autosubmit=1}
-    </form>
-  </div>
-{/block}
-
 {block name=content}
-  {include file="admin/definitionList.tpl"}
+  <h3>{$searchResults|count} definiții cu greșeli de tipar</h3>
+
+  <form class="form-inline">
+    <div class="form-group">
+      <label class="control-label">sursa</label>
+      {include "bits/sourceDropDown.tpl" urlName=1 autosubmit=1}
+    </div>
+  </form>
+
+  <div class="voffset3"></div>
+
+  <div class="panel panel-default">
+    <div class="panel-body panel-admin">
+      {include file="admin/definitionList.tpl"}
+    </div>
+  </div>
 {/block}

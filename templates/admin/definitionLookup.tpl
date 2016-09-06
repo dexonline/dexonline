@@ -28,7 +28,7 @@
 
         <div class="clearfix"></div>
       </div>
-      <div class="panel-body">
+      <div class="panel-body panel-admin">
         {include file="admin/definitionList.tpl"}
       </div>
     </div>

@@ -52,7 +52,7 @@
           </a>
         {/strip}
         </div>
-        <div id="def_{$l->id}" class="blDefinitions" style="display:none"></div>
+        <div id="def_{$l->id}" style="display:none"></div>
         <div class="blLexemBody">
           {foreach from=$l->matches item=match}
             {assign var="checkboxId" value="merge_`$l->id`_`$match->id`"}
@@ -93,7 +93,7 @@
                 {/if}
               </ul>
             {/if}
-            <div id="def_{$match->id}" class="blDefinitions" style="display:none"></div>
+            <div id="def_{$match->id}" style="display:none"></div>
           {/foreach}
         </div>
       </div>

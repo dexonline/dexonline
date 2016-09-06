@@ -4,9 +4,9 @@ util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
 $suffix = util_getRequestParameter('suffix');
-$submitButton = util_getRequestParameter('submitButton');
+$saveButton = util_getBoolean('saveButton');
 
-if ($submitButton) {
+if ($saveButton) {
   foreach ($_REQUEST as $name => $modelId) {
     if (StringUtil::startsWith($name, 'lexem_')) {
       $parts = preg_split('/_/', $name);
@@ -32,8 +32,6 @@ if ($submitButton) {
 }
 
 $reverseSuffix = StringUtil::reverse($suffix);
-
-RecentLink::createOrUpdate("Etichetare asistată: -$suffix");
 
 $numLabeled = Model::factory('Lexem')
   ->where_not_equal('modelType', 'T')
@@ -116,8 +114,7 @@ SmartyWrap::assign('models', $models);
 SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('lMatrix', $lMatrix);
-SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::addCss('paradigm');
-SmartyWrap::displayAdminPage('admin/bulkLabel.tpl');
+SmartyWrap::addCss('paradigm', 'admin');
+SmartyWrap::display('admin/bulkLabel.tpl');
 
 ?>

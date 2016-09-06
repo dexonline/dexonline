@@ -28,6 +28,7 @@ foreach ($entries as $e) {
 
 SmartyWrap::assign('entries', $entries);
 SmartyWrap::assign('searchResults', $searchResults);
+SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/structChooseEntry.tpl');
 
 ?>

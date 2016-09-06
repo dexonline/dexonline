@@ -148,11 +148,6 @@ hr {
   padding-left: 10px;
 }
 
-.blLexemTitle .name {
-  font-weight: bold;
-  font-size: 120%;    
-}
-
 .isLoc {
   color: green;
   font-weight: bold;
@@ -172,33 +167,13 @@ hr {
   padding-left: 10px;
 }
 
-.blParadigm {
-  margin-bottom: 5px;
-}
-
 .blInflection {
   color: #777777;
   margin-left: 40px;
 }
 
-.blDefinitions {
-  border: 1px solid #777777;
-  margin: 10px 40px;
-  padding: 5px;
-}
-
-.blDefinitions a {
-  color: #000;
-  text-decoration: none;
-}
-
 .cm_lexemDiv {
   margin-left: 50px;
-}
-
-.bulkLabelComment {
-  font-size: 90%;
-  margin-left: 30px;
 }
 
 .noBorder img {

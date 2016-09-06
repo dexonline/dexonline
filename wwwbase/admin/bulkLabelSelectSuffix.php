@@ -12,7 +12,7 @@ foreach ($dbResult as $row) {
 }
 
 SmartyWrap::assign('stats', $stats);
-SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::displayAdminPage('admin/bulkLabelSelectSuffix.tpl');
+SmartyWrap::addCss('admin');
+SmartyWrap::display('admin/bulkLabelSelectSuffix.tpl');
 
 ?>

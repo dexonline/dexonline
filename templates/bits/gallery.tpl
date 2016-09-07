@@ -1,4 +1,4 @@
-{include file="bits/prototypes.tpl"}
+{include "bits/galleryCanvas.tpl"}
 <div id="gallery">
   {foreach from=$images item=i}
     <a class="gallery" href="{$i->getImageUrl()}" data-visual-id="{$i->id}" title="Imagine: {$i->getTitle()}">

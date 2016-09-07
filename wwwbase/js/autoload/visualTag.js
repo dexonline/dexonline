@@ -20,8 +20,19 @@ $(function() {
       width: '300px',
     }).change(copyEntryToTag);
 
-    initJcrop();
-    imageLoadError();
+    $('#jcrop').Jcrop({
+      bgColor: '',
+      boxHeight: 0,
+      boxWidth: $('.imageHolder').width(),
+      onSelect: setCoords,
+      onChange: setCoords
+    }, function() {
+      jcrop_api = this;
+    });
+
+    $('#jcrop').error(function() {
+      $('.imageHolder').html('Nu pot încărca imaginea. Te rugăm să contactezi un administrator.');
+    });
 
     $('#setTextCoords').click(function() {
       $('#textXCoord').val(coords.cx);
@@ -117,20 +128,6 @@ $(function() {
                });
   }
 
-  function initJcrop() {
-    $('#jcrop').load(function() {
-      $(this).Jcrop({
-        bgColor: '',
-        boxHeight: 600,
-        boxWidth: 800,
-        onSelect: setCoords,
-        onChange: setCoords
-      }, function() {
-        jcrop_api = this;
-      });
-    });
-  }
-
   function setCoords(c) {
     // Calculates the centre of the selection
     coords.cx = Math.round(c.x + c.w / 2);
@@ -155,14 +152,6 @@ $(function() {
     } else {
       return [true];
     }
-  }
-
-  /* Prints an error message instead of the image, in case it is 
-     missing from the database */
-  function imageLoadError() {
-    $('.visualTagImg').error(function() {
-      $('.imageHolder').html($('.missingImageError').css('display', 'block'));
-    });
   }
 
   init();

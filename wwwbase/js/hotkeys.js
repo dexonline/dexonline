@@ -14,6 +14,8 @@ $(function() {
 
     $(document).bind('keydown', 'alt+r', clickRefreshButton);
     $(document).bind('keydown', 'alt+s', clickSaveButton);
+
+    $(document).bind('keydown', 'alt+p', clickPreviewTags);
   }
 
   function redirectToAdmin() {
@@ -47,6 +49,11 @@ $(function() {
 
   function clickSaveButton() {
     $('button[name="saveButton"]').click();
+    return false;
+  }
+
+  function clickPreviewTags() {
+    $('#previewTags').click();
     return false;
   }
 

@@ -2,20 +2,19 @@
 require_once('../../phplib/util.php');
 util_assertModerator(PRIV_VISUAL);
 util_assertNotMirror();
-RecentLink::createOrUpdate('Etichetare Imagini Definiții');
 
 $fileName = util_getRequestParameter('fileName');
 $id = util_getRequestParameter('id');
 $entryId = util_getRequestParameter('entryId');
 $revised = util_getBoolean('revised');
-$saveButton = util_getRequestParameter('saveButton');
+$saveButton = util_getBoolean('saveButton');
 $tagEntryId = util_getRequestParameter('tagEntryId');
 $tagLabel = util_getRequestParameter('tagLabel');
 $textXCoord = util_getRequestParameter('textXCoord');
 $textYCoord = util_getRequestParameter('textYCoord');
 $imgXCoord = util_getRequestParameter('imgXCoord');
 $imgYCoord = util_getRequestParameter('imgYCoord');
-$addTagButton = util_getRequestParameter('addTagButton');
+$addTagButton = util_getBoolean('addTagButton');
 
 // Tag the image specified by $fileName. Create a Visual object if one doesn't exist, then redirect to it.
 if ($fileName) {
@@ -53,8 +52,9 @@ if ($addTagButton) {
 SmartyWrap::assign('visual', $v);
 SmartyWrap::assign('entry', Entry::get_by_id($v->entryId));
 
-SmartyWrap::addCss('jqueryui-smoothness', 'jcrop', 'select2', 'jqgrid', 'jqueryui', 'gallery');
+SmartyWrap::addCss('jqueryui-smoothness', 'jcrop', 'select2', 'jqgrid', 'jqueryui', 'gallery',
+                   'admin');
 SmartyWrap::addJs('jqueryui', 'jcrop', 'select2', 'jqgrid', 'gallery', 'jcanvas'); 
-SmartyWrap::displayAdminPage('admin/visualTag.tpl');
+SmartyWrap::display('admin/visualTag.tpl');
 
 ?>

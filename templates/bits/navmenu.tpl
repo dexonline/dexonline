@@ -130,6 +130,12 @@
             <li><b>Alt-Shift-L</b> = căutare lexeme</li>
           </ul>
 
+          <h4>Etichetarea imaginilor</h4>
+          
+          <ul>
+            <li><b>Alt-P</b> = previzualizarea etichetelor</li>
+          </ul>
+
         </div>
       </div>
     </div>

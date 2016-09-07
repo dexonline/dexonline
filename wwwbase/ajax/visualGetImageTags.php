@@ -22,7 +22,8 @@ if ($usage == 'table') {
 foreach($lines as $line) {
   // Link to one of the entry's lexems.
   // TODO: implement entry search and link to the entry itself.
-  $lexem = Lexem::get_by_entryId($line->entryId);
+  $entry = Entry::get_by_id($line->entryId);
+  $lexem = Lexem::get_by_entryId($entry->id);
   $tags[] = [
     'id' => $line->id,
     'label' => $line->label,
@@ -31,6 +32,7 @@ foreach($lines as $line) {
     'imgXCoord' => $line->imgXCoord,
     'imgYCoord' => $line->imgYCoord,
     'lexem' => $lexem ? $lexem->formNoAccent : '',
+    'entry' => $entry->description,
   ];
 }
 

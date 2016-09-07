@@ -157,7 +157,7 @@ class SmartyWrap {
         case 'select2':             self::$cssFiles[13] = 'third-party/select2.min.css'; break;
         case 'gallery':
           self::$cssFiles[14] = 'third-party/colorbox/colorbox.css';
-          self::$cssFiles[15] = 'visualDict.css';
+          self::$cssFiles[15] = 'gallery.css';
           break;
         case 'textComplete':        self::$cssFiles[16] = 'third-party/jquery.textcomplete.css'; break;
         case 'tinymce':             self::$cssFiles[17] = 'tinymce.css'; break;

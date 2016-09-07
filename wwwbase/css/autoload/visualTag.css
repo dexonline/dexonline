@@ -1,0 +1,12 @@
+.container {
+  width: 100%;
+}
+
+.imageHolder {
+  border: 1px solid #000;
+}
+
+/* hide unwanted horizontal scrollbar */
+.ui-jqgrid .ui-jqgrid-btable {
+  table-layout: auto !important;
+}

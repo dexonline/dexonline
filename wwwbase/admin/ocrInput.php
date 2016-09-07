@@ -6,12 +6,12 @@ util_assertNotMirror();
 $sourceId = util_getRequestIntParameter('source');
 $editorId = util_getRequestIntParameter('editor');
 $terminator = PHP_EOL . (util_getRequestIntParameter('term') == 1 ? PHP_EOL : "");
-$class = "msgOK";
+$class = "success";
 $message = "";
 
 if ($_FILES && $_FILES["file"]) {
   if ($_FILES["file"]["error"] > 0) {
-    $class = "msgErr";
+    $class = "danger";
     $message =  "Eroare: " . $_FILES["file"]["error"];
   }
   else {
@@ -27,11 +27,11 @@ if ($_FILES && $_FILES["file"]) {
       $ocrLot->save();
     }
     catch (Exception $e) {
-      $class = "msgErr";
+      $class = "danger";
       $message = "<div> Eroare: " . $e->getMessage() . "</div>";
     }
 
-    if ($class != "msgErr") {
+    if ($class != "danger") {
       $lotId = $ocrLot->id();
       $errCount = 0;
       $lineCount = 0;
@@ -57,7 +57,7 @@ if ($_FILES && $_FILES["file"]) {
           }
           catch (Exception $e) {
             $errCount++;
-            $class = "msgErr";
+            $class = "danger";
             $message .= "<div> Eroare: " . $e->getMessage() . "</div>";
           }
         }
@@ -65,7 +65,9 @@ if ($_FILES && $_FILES["file"]) {
 
       $ocrLot->status = 'done';
       $ocrLot->save();
-      $message .= "Fișierul " . $_FILES["file"]["name"] . " (" . $lineCount . " linii) a fost salvat" .  ($class == "msgErr" ? (" cu " . $errCount . " erori...") : "!");
+      $message .= "Fișierul " . $_FILES["file"]["name"] . " (" . $lineCount .
+               " linii) a fost salvat" .
+               ($class == "danger" ? (" cu " . $errCount . " erori...") : "!");
     }
 
   }
@@ -112,6 +114,7 @@ GROUP BY U.nick, S.shortName"
 
 SmartyWrap::assign("statsPrep", db_execute(OCR_PREP_STATS));
 SmartyWrap::assign("statsEditors", db_execute(OCR_EDITOR_STATS));
-SmartyWrap::displayAdminPage('admin/ocrInput.tpl');
+SmartyWrap::addCss('admin');
+SmartyWrap::display('admin/ocrInput.tpl');
 
 ?>

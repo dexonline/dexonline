@@ -1,12 +1,11 @@
-{extends file="admin/layout.tpl"}
+{extends file="layout-admin.tpl"}
 
 {block name=title}Intrări neasociate{/block}
 
-{block name=headerTitle}
-  Intrări neasociate cu definiții
-  ({$entries|count})
-{/block}
-
 {block name=content}
+
+  <h3>{$entries|count} intrări neasociate cu definiții</h3>
+
   {include file="admin/entryList.tpl"}
+
 {/block}

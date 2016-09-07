@@ -7,6 +7,16 @@ $(function() {
   $('p.def').click(searchClickedWord);
   $('.inflLink').click(toggleInflections);
   $('#typoModal').on('shown.bs.modal', shownTypoModal);
+
+  // prevent double clicking of submit buttons
+  $('input[type="submit"], button[type="submit"]').click(function() {
+    if ($(this).data('clicked')) {
+      return false;
+    } else {
+      $(this).data('clicked', true);
+      return true;
+    }
+  });
 });
 
 if (typeof jQuery.ui != 'undefined') {
@@ -250,12 +260,6 @@ function searchClickedWord(event) {
   if (word) {
     window.location = wwwRoot + 'definitie' + source + '/' + encodeURIComponent(word);
   }
-}
-
-function hideSubmitButton(button) {
-  button.disabled = true;
-  button.form.submit();
-  return false;
 }
 
 function installFirefoxSpellChecker(evt) {

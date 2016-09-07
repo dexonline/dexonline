@@ -179,16 +179,10 @@
               {/foreach}
             </select>
 
-
-            {*
-               <select name="modelNumber" data-model-number data-all-option="1" data-selected="">
-               </select>
-             *}
           </span>
         </div>
 
-        <input class="btn btn-primary" type="submit" name="submitButton" value="arată"
-               onclick="return hideSubmitButton(this)"/>
+        <input class="btn btn-primary" type="submit" name="submitButton" value="arată">
       </form>
     </div>
   </div>

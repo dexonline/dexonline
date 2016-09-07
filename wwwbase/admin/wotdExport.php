@@ -17,7 +17,7 @@ foreach($wotds as $wotd) {
 
 SmartyWrap::assign('month', $month);
 SmartyWrap::assign('year', $year);
-SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('wotdSet', $wotdSet);
-SmartyWrap::displayAdminPage('admin/wotdExport.tpl');
+SmartyWrap::addCss('admin');
+SmartyWrap::display('admin/wotdExport.tpl');
 ?>

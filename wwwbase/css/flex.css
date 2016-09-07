@@ -137,51 +137,8 @@ hr {
   color: gray;
 }
 
-.blLexem {
-  border: 1px solid #000;
-  margin-top: 10px;
-}
-
-.blLexemTitle {
-  background: #dddddd;
-  border-bottom: 1px solid #000;
-  padding-left: 10px;
-}
-
-.isLoc {
-  color: green;
-  font-weight: bold;
-}
-
-.isNotLoc {
-  color: red;
-  text-decoration: line-through;
-}
-
-.blLexemTitle a {
-  margin-left: 5px;
-  vertical-align: 10%;
-}
-
-.blLexemBody {
-  padding-left: 10px;
-}
-
-.blInflection {
-  color: #777777;
-  margin-left: 40px;
-}
-
 .cm_lexemDiv {
   margin-left: 50px;
-}
-
-.noBorder img {
-  border: 0;
-}
-
-.mlNotes {
-  margin: 5px 0px;
 }
 
 .spaced {

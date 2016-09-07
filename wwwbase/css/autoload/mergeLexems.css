@@ -1,0 +1,17 @@
+.checkbox {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.panel-body {
+  padding-bottom: 0;
+}
+
+.btn-link {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.well {
+  display: none;
+}

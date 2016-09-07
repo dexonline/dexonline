@@ -38,73 +38,92 @@
     <input type="hidden" name="modelType" value="{$modelType}"/>
 
     {foreach from=$lexems item=l key=lIter}
-      <div class="blLexem">
-        <div class="blLexemTitle">
-          <span class="name">{$lIter+1}. {$l->form|escape}</span>
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          {$lIter+1}. <strong>{$l->form|escape}</strong>
           {$l->modelType}{$l->modelNumber}{$l->restriction}
-          <span class="{if $l->isLoc}isLoc{else}isNotLoc{/if}">LOC</span>
-          {*
-             {assign var="ifs" value=$l->loadInflectedForms()}
-             {foreach from=$ifs item=if}
-             {$if->form}
-             {/foreach}
-           *}
-          {strip}
-          <a class="noBorder" target="_blank" href="../admin/lexemEdit.php?lexemId={$l->id}">
-            <i class="glyphicon glyphicon-pencil" title="editează lexemul"></i>
-          </a> &nbsp;
-          <a class="noBorder" href="#" onclick="return mlUpdateDefVisibility({$l->id}, 'def_{$l->id}')">
-            <i class="glyphicon glyphicon-folder-open" title="arată definițiile"></i>
+          {if $l->isLoc}
+            <span class="label label-success">LOC</span>
+          {/if}
+          <a href="../admin/lexemEdit.php?lexemId={$l->id}" class="btn btn-link">
+            <i class="glyphicon glyphicon-pencil"></i>
+            editează
           </a>
-        {/strip}
+          <a href="#"
+             class="defToggle btn btn-link"
+             data-lexem-id="{$l->id}"
+             data-div-id="def_{$l->id}">
+            <i class="glyphicon glyphicon-folder-open"></i>
+            arată definițiile
+          </a>
         </div>
-        <div id="def_{$l->id}" style="display:none"></div>
-        <div class="blLexemBody">
-          {foreach from=$l->matches item=match}
-            {assign var="checkboxId" value="merge_`$l->id`_`$match->id`"}
-            <input type="checkbox" id="{$checkboxId}" name="{$checkboxId}" value="1"/>
-            <label for="{$checkboxId}"> 
-              Unifică cu {$match->form} {$match->modelType}{$match->modelNumber}{$match->restriction}
-            </label>
-            <span class="{if $match->isLoc}isLoc{else}isNotLoc{/if}">LOC</span>
-            {strip}
-            <a class="noBorder" target="_blank" href="../admin/lexemEdit.php?lexemId={$match->id}">
-              <i class="glyphicon glyphicon-pencil" title="editează lexemul"></i>
-            </a> &nbsp;
-            <a class="noBorder" href="#" onclick="return mlUpdateDefVisibility({$match->id}, 'def_{$match->id}')">
-              <i class="glyphicon glyphicon-folder-open" title="arată definițiile"></i>
-            </a>
-            {/strip}
-            <br/>
-            {if ($l->isLoc && !$match->isLoc) || $match->lostForms}
-              <ul class="mlNotes">
-                {if ($l->isLoc && !$match->isLoc)}
-                  <li>Acest lexem va fi adăugat la LOC</li>
+
+        <div class="panel-body panel-admin">
+          <div class="well" id="def_{$l->id}"></div>
+
+          <div class="form-group">
+
+            {foreach from=$l->matches item=match}
+              <div class="checkbox">
+                {assign var="checkboxId" value="merge_`$l->id`_`$match->id`"}
+                <label> 
+                  <input type="checkbox" name="{$checkboxId}" value="1"/>
+                  Unifică cu <strong>{$match->form}</strong>
+                  {$match->modelType}{$match->modelNumber}{$match->restriction}
+                </label>
+
+                {if $match->isLoc}
+                  <span class="label label-success">LOC</span>
                 {/if}
-                {if $match->addedForms}
-                  <li>
-                    Următoarele forme vor fi adăugate la LOC:
-                    {foreach from=$match->addedForms item=form}
-                      {$form}
-                    {/foreach}
-                  </li>
-                {/if}
-                {if $match->lostForms}
-                  <li>
-                    Următoarele forme se vor pierde:
-                    {foreach from=$match->lostForms item=form}
-                      {$form}
-                    {/foreach}
-                  </li>
-                {/if}
-              </ul>
-            {/if}
-            <div id="def_{$match->id}" style="display:none"></div>
-          {/foreach}
+
+                <a href="../admin/lexemEdit.php?lexemId={$match->id}" class="btn btn-link">
+                  <i class="glyphicon glyphicon-pencil"></i>
+                  editează
+                </a>
+
+                <a href="#"
+                   class="defToggle btn btn-link"
+                   data-lexem-id="{$match->id}"
+                   data-div-id="def_{$match->id}">
+                  <i class="glyphicon glyphicon-folder-open"></i>
+                  arată definițiile
+                </a>
+              </div>
+
+              {if ($l->isLoc && !$match->isLoc) || $match->addedForms || $match->lostForms}
+                <ul>
+                  {if ($l->isLoc && !$match->isLoc)}
+                    <li>Acest lexem va fi adăugat la LOC</li>
+                  {/if}
+                  {if $match->addedForms}
+                    <li>
+                      Următoarele forme vor fi adăugate la LOC:
+                      {foreach from=$match->addedForms item=form}
+                        {$form}
+                      {/foreach}
+                    </li>
+                  {/if}
+                  {if $match->lostForms}
+                    <li>
+                      Următoarele forme se vor pierde:
+                      {foreach from=$match->lostForms item=form}
+                        {$form}
+                      {/foreach}
+                    </li>
+                  {/if}
+                </ul>
+              {/if}
+              <div class="well" id="def_{$match->id}"></div>
+            {/foreach}
+          </div>
         </div>
       </div>
     {/foreach}
 
-    <input type="submit" name="submitButton" value="Salvează"/>
+    <button type="submit" class="btn btn-success" name="saveButton">
+      <i class="glyphicon glyphicon-floppy-disk"></i>
+      <u>s</u>alvează
+    </button>
   </form>
 {/block}

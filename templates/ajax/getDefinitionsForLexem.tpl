@@ -1,6 +1,8 @@
 {foreach from=$results item=row}
-  {$row.htmlRep}<br/>
-  <span class="defDetails">
-    Id: {$row.id} | Sursa: {$row.shortName} | Starea: {$row.status}
-  </span><br/>
+  <div class="defWrapper">
+    <p class="def">{$row.htmlRep}</p>
+    <p class="defDetails text-muted">
+      id: {$row.id} | sursa: {$row.shortName} | starea: {$row.status}
+    </p>
+  </div>
 {/foreach}

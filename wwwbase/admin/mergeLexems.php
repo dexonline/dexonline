@@ -6,9 +6,9 @@ util_hideEmptyRequestParameters();
 DebugInfo::disable();
 
 $modelType = util_getRequestParameterWithDefault('modelType', 'M');
-$submitButton = util_getRequestParameter('submitButton');
+$saveButton = util_getBoolean('saveButton');
 
-if ($submitButton) {
+if ($saveButton) {
   $lexemsToDelete = array();
   foreach ($_REQUEST as $name => $value) {
     if (StringUtil::startsWith($name, 'merge_') && $value) {

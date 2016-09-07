@@ -3,9 +3,9 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$submitButton = util_getRequestParameter('submitButton');
+$saveButton = util_getBoolean('saveButton');
 
-if ($submitButton) {
+if ($saveButton) {
   foreach ($_REQUEST as $name => $position) {
     if (StringUtil::startsWith($name, 'position_')) {
       $parts = preg_split('/_/', $name);
@@ -45,11 +45,10 @@ foreach($lexems as $l) {
   $searchResults[$l->id] = SearchResult::mapDefinitionArray($definitions);
 }
 
-RecentLink::createOrUpdate('Plasare accente');
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('chars', $chars);
 SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::displayAdminPage('admin/placeAccents.tpl');
+SmartyWrap::addCss('admin');
+SmartyWrap::display('admin/placeAccents.tpl');
 
 ?>

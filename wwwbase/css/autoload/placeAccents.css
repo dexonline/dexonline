@@ -10,12 +10,7 @@
   cursor: pointer;
 }
 
-.apDefLink {
-  color: #777777;
-  margin-left: 50px;
-}
-
-.apDefs {
+.panel-admin {
   border: 1px solid #ddd;
   display: none;
   margin: 10px 0px;

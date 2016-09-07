@@ -19,7 +19,7 @@ $(function() {
       span.data('clicked', '1');
       numLeft--;
       if (!numLeft) {
-        $('#submitButton').removeAttr('disabled');
+        $('button[name="saveButton"]').removeAttr('disabled');
       }
     }
   }

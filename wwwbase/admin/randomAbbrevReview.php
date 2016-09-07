@@ -3,8 +3,9 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$submitButton = util_getRequestParameter('submitButton');
-if ($submitButton) {
+$saveButton = util_getBoolean('saveButton');
+
+if ($saveButton) {
   $defId = util_getRequestParameter('definitionId');
   $def = Definition::get_by_id($defId);
 
@@ -72,8 +73,8 @@ if (count($ids)) {
 }
 
 SmartyWrap::assign('def', $def);
-SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
-SmartyWrap::displayAdminPage('admin/randomAbbrevReview.tpl');
+SmartyWrap::addCss('admin');
+SmartyWrap::display('admin/randomAbbrevReview.tpl');
 
 /**
  * Sort matches from last to first

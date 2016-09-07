@@ -1,34 +1,40 @@
-{extends file="admin/layout.tpl"}
+{extends file="layout-admin.tpl"}
 
 {block name=title}Unificare lexeme{/block}
 
-{block name=headerTitle}Unificare lexeme{/block}
-
 {block name=content}
-  Pentru fiecare lexem la plural sunt indicate lexemele la singular
-  corespunzătoare. Bifați unul sau mai multe, după caz. Puteți salva
-  pagina în orice moment; lexemele rămase vor fi afișate din nou la
-  reîncărcarea paginii. Pentru moment, nu există o modalitate de a
-  „ignora” un lexem. Lexemele pe care nu le unificați vor apărea mereu
-  în listă.
+  <h3>Unificare lexeme - {$lexems|@count} rezultate</h3>
 
-  <br/><br/>
+  <div class="alert alert-info alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+    </button>
 
-  <form method="get" action="">
-    Filtrează după tipul lexemului:
-    <select name="modelType">
-      <option value="">Toate (lent)</option>
-      <option value="M" {if $modelType == 'M'}selected="selected"{/if}>M</option>
-      <option value="F" {if $modelType == 'F'}selected="selected"{/if}>F</option>
-      <option value="N" {if $modelType == 'N'}selected="selected"{/if}>N</option>
-      <option value="T" {if $modelType == 'T'}selected="selected"{/if}>T (lent)</option>
-    </select>
-    <input type="submit" value="Filtrează"/>
+    Pentru fiecare lexem la plural sunt indicate lexemele la singular
+    corespunzătoare. Bifați unul sau mai multe, după caz. Puteți salva
+    pagina în orice moment; lexemele rămase vor fi afișate din nou la
+    reîncărcarea paginii. Pentru moment, nu există o modalitate de a
+    „ignora” un lexem. Lexemele pe care nu le unificați vor apărea mereu
+    în listă.
+  </div>
+
+  <form class="form-inline">
+    <div class="form-group">
+      <label>tipul lexemului</label>
+      <select name="modelType" class="form-control">
+        <option value="">Toate (lent)</option>
+        <option value="M" {if $modelType == 'M'}selected="selected"{/if}>M</option>
+        <option value="F" {if $modelType == 'F'}selected="selected"{/if}>F</option>
+        <option value="N" {if $modelType == 'N'}selected="selected"{/if}>N</option>
+        <option value="T" {if $modelType == 'T'}selected="selected"{/if}>T (lent)</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">
+      filtrează
+    </button>
   </form>
 
-  <h3>{$lexems|@count} rezultate</h3>
-
-  <form action="" method="post">
+  <form class="voffset4" method="post">
     <input type="hidden" name="modelType" value="{$modelType}"/>
 
     {foreach from=$lexems item=l key=lIter}

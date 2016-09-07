@@ -49,6 +49,7 @@ if ($modelType == 'T') {
 } else {
   $whereClause = '(modelType = "T") or (modelType in ("M", "F", "N") and restriction like "%P%")';
 }
+// TODO speed up the page for T lexems
 $dbResult = db_execute("select distinct l.* " .
                        "from Lexem l " .
                        "where {$whereClause} " .
@@ -99,11 +100,10 @@ foreach ($dbResult as $row) {
   }
 }
 
-RecentLink::createOrUpdate('Unificare lexeme');
-SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::assign('lexems', $lexems);
-SmartyWrap::displayAdminPage('admin/mergeLexems.tpl');
+SmartyWrap::addCss('admin');
+SmartyWrap::display('admin/mergeLexems.tpl');
 
 
 /***************************************************/

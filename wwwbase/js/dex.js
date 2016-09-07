@@ -79,24 +79,7 @@ function searchSubmit() {
   return false;
 }
 
-
-function searchInitFocus() {
-  document.frm.cuv.select();
-  document.frm.cuv.focus();
-
-  function slash(evt) { // ignore / and let it be used by the browser
-    evt = evt || window.event;
-    var charCode = evt.keyCode || evt.which;
-    if (charCode == 191 && !evt.shiftKey) {
-      this.blur();
-      return false;
-    }
-  }
-
-  document.frm.cuv.addEventListener("keydown", slash, false);
-}
-
-function searchInitAutocomplete(acMinChars, wwwRoot){
+function searchInitAutocomplete(acMinChars){
 
   var searchForm = $('#searchForm');
   var searchInput = $('.searchField');
@@ -125,9 +108,21 @@ function searchInitAutocomplete(acMinChars, wwwRoot){
 }
 
 function searchInit(acEnable, acMinChars) {
-  searchInitFocus();
+  $('.searchField').select();
+
+  // Ignore / and let it be used by the browser.
+  // Keydown is buggy on iPhones and also triggers on the '?' key.
+  // Keypress is not perfect either as it will require an extra '/' press.
+  $('.searchField').on('keypress', function(e) {
+    var c = String.fromCharCode(e.which);
+    if (c == '/') {
+      $(this).blur();
+      return false;
+    }
+  });
+
   if (acEnable) {
-    searchInitAutocomplete(acMinChars, wwwRoot);
+    searchInitAutocomplete(acMinChars);
   }
 }
 
@@ -206,16 +201,6 @@ function startsWith(str, sub) {
 
 function endsWith(str, sub) {
   return str.substr(str.length - sub.length) == sub;
-}
-
-function debug(obj) {
-  var s = '';
-  for (prop in obj) {
-    if (obj[prop] && !startsWith(obj[prop].toString(), 'function ')) {
-      s += prop + ':' + obj[prop] + '\n';
-    }
-  }
-  alert(s);
 }
 
 /* adapted from http://stackoverflow.com/questions/7563169/detect-which-word-has-been-clicked-on-within-a-text */

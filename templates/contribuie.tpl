@@ -15,7 +15,7 @@
     </div>
   {/if}
 
-  <form id="frmContrib" name="frmContrib" method="post" action="contribuie">
+  <form method="post">
 
     <div class="row">
 

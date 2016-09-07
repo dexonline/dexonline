@@ -38,6 +38,10 @@ $(function() {
     $('button[name="delete"]').click(function() {
       return confirm('Confirmați ștergerea acestei intrări?');
     });
+
+    $('#mergeModal').on('shown.bs.modal', function () {
+      $('#mergeEntryId').select2('open');
+    });
   }
 
   /* Definitions can be shown as internal or HTML notation, with abbreviations expanded or collapsed. This gives rise to four combinations, coded on

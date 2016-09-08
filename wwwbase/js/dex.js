@@ -110,17 +110,6 @@ function searchInitAutocomplete(acMinChars){
 function searchInit(acEnable, acMinChars) {
   $('.searchField').select();
 
-  // Ignore / and let it be used by the browser.
-  // Keydown is buggy on iPhones and also triggers on the '?' key.
-  // Keypress is not perfect either as it will require an extra '/' press.
-  $('.searchField').on('keypress', function(e) {
-    var c = String.fromCharCode(e.which);
-    if (c == '/') {
-      $(this).blur();
-      return false;
-    }
-  });
-
   if (acEnable) {
     searchInitAutocomplete(acMinChars);
   }
@@ -133,14 +122,6 @@ function getWwwRoot() {
   } else {
     return window.location.href.substr(0, pos + 9);
   }
-}
-
-function randomDigits(count) {
-  var s = '';
-  while (count--) {
-    s += Math.floor(Math.random() * 10);
-  }
-  return s;
 }
 
 function shownTypoModal(event) {

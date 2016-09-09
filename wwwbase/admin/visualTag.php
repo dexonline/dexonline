@@ -52,8 +52,7 @@ if ($addTagButton) {
 SmartyWrap::assign('visual', $v);
 SmartyWrap::assign('entry', Entry::get_by_id($v->entryId));
 
-SmartyWrap::addCss('jqueryui-smoothness', 'jcrop', 'select2', 'jqgrid', 'jqueryui', 'gallery',
-                   'admin');
+SmartyWrap::addCss('jqueryui', 'jcrop', 'select2', 'jqgrid', 'gallery', 'admin');
 SmartyWrap::addJs('jqueryui', 'jcrop', 'select2', 'jqgrid', 'gallery', 'jcanvas'); 
 SmartyWrap::display('admin/visualTag.tpl');
 

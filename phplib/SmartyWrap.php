@@ -124,29 +124,28 @@ class SmartyWrap {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
       switch($id) {
-        case 'jqueryui':            self::$cssFiles[1] = 'third-party/lightness-1.10.3/jquery-ui-1.10.3.custom.min.css'; break;
-        case 'jqueryui-smoothness': self::$cssFiles[2] = 'third-party/smoothness-1.10.4/jquery-ui-1.10.4.custom.min.css'; break;
-        case 'bootstrap':           self::$cssFiles[3] = 'bootstrap.min.css'; break;
-        case 'jqgrid':              self::$cssFiles[4] = 'third-party/ui.jqgrid.css'; break;
+        case 'jqueryui':            self::$cssFiles[1] = 'third-party/smoothness-1.10.4/jquery-ui-1.10.4.custom.min.css'; break;
+        case 'bootstrap':           self::$cssFiles[2] = 'bootstrap.min.css'; break;
+        case 'jqgrid':              self::$cssFiles[3] = 'third-party/ui.jqgrid.css'; break;
         case 'tablesorter':
-          self::$cssFiles[5] = 'third-party/tablesorter/theme.bootstrap.css';
-          self::$cssFiles[6] = 'third-party/tablesorter/jquery.tablesorter.pager.min.css';
+          self::$cssFiles[4] = 'third-party/tablesorter/theme.bootstrap.css';
+          self::$cssFiles[5] = 'third-party/tablesorter/jquery.tablesorter.pager.min.css';
           break;
         case 'elfinder':
-          self::$cssFiles[7] = 'third-party/elfinder/css/elfinder.min.css';
+          self::$cssFiles[6] = 'third-party/elfinder/css/elfinder.min.css';
           break;
-        case 'responsive':          self::$cssFiles[8] = 'responsive.css'; break;
-        case 'admin':               self::$cssFiles[9] = 'admin.css'; break;
-        case 'paradigm':            self::$cssFiles[10] = 'paradigm.css'; break;
-        case 'jcrop':               self::$cssFiles[11] = 'third-party/jcrop/jquery.Jcrop.min.css'; break;
-        case 'select2':             self::$cssFiles[12] = 'third-party/select2.min.css'; break;
+        case 'responsive':          self::$cssFiles[7] = 'responsive.css'; break;
+        case 'admin':               self::$cssFiles[8] = 'admin.css'; break;
+        case 'paradigm':            self::$cssFiles[9] = 'paradigm.css'; break;
+        case 'jcrop':               self::$cssFiles[10] = 'third-party/jcrop/jquery.Jcrop.min.css'; break;
+        case 'select2':             self::$cssFiles[11] = 'third-party/select2.min.css'; break;
         case 'gallery':
-          self::$cssFiles[13] = 'third-party/colorbox/colorbox.css';
-          self::$cssFiles[14] = 'gallery.css';
+          self::$cssFiles[12] = 'third-party/colorbox/colorbox.css';
+          self::$cssFiles[13] = 'gallery.css';
           break;
-        case 'textComplete':        self::$cssFiles[15] = 'third-party/jquery.textcomplete.css'; break;
-        case 'tinymce':             self::$cssFiles[16] = 'tinymce.css'; break;
-        case 'meaningTree':         self::$cssFiles[17] = 'meaningTree.css'; break;
+        case 'textComplete':        self::$cssFiles[14] = 'third-party/jquery.textcomplete.css'; break;
+        case 'tinymce':             self::$cssFiles[15] = 'tinymce.css'; break;
+        case 'meaningTree':         self::$cssFiles[16] = 'meaningTree.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());

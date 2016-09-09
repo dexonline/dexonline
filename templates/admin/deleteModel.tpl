@@ -5,7 +5,7 @@
 {block name=content}
   <h3>Ștergere model {$modelType}{$modelNumber}</h3>
 
-  <form action="deleteModel.php" method="post" onsubmit="this.bogusButton.disabled = true;">
+  <form method="post">
     <input type="hidden" name="modelType" value="{$modelType}"/>
     <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
 
@@ -26,7 +26,7 @@
 
     {foreach from=$lexems item=l}
       {include "bits/lexemName.tpl" lexem=$l}
-      <span class="deemph">({$l->modelType}{$l->modelNumber})</span>
+      <small class="text-muted">({$l->modelType}{$l->modelNumber})</small>
       &nbsp;&nbsp;
       <a href="../admin/lexemEdit.php?lexemId={$l->id}">editează</a>
       <br/>

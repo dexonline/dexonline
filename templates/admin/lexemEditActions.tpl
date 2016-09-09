@@ -16,8 +16,7 @@
 
   {if $canEdit.general}
     <button type="submit"
-            name="cloneLexem"
-            value="1"
+            name="cloneButton"
             class="btn btn-default">
       <i class="glyphicon glyphicon-duplicate"></i>
       clonează
@@ -28,8 +27,7 @@
 
   {if $canEdit.loc || !$lexem->isLoc}
     <button type="submit"
-            name="deleteLexem"
-            value="1"
+            name="deleteButton"
             onclick="return confirm('Confirmați ștergerea acestui lexem?');"
             class="btn btn-danger pull-right"
             {if $lexem->isLoc}disabled="disabled"{/if}>

@@ -3,8 +3,6 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 util_assertNotMirror();
 
-handleLexemActions();
-
 // We get some data as JSON because it is 2-dimensional (a list of lists)
 // and PHP cannot parse the form data correctly.
 
@@ -33,9 +31,32 @@ $isLoc = util_getBoolean('isLoc');
 // Button parameters
 $refreshButton = util_getBoolean('refreshButton');
 $saveButton = util_getBoolean('saveButton');
+$cloneButton = util_getBoolean('cloneButton');
+$deleteButton = util_getBoolean('deleteButton');
 
 $lexem = Lexem::get_by_id($lexemId);
 $original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether certain fields have changed
+
+if ($cloneButton) {
+  $newLexem = $lexem->cloneLexem();
+  Log::notice("Cloned lexem {$lexem->id} ({$lexem->formNoAccent}), new id is {$newLexem->id}");
+  util_redirect("lexemEdit.php?lexemId={$newLexem->id}");
+}
+
+if ($deleteButton) {
+  $homonym = Model::factory('Lexem')
+           ->where('formNoAccent', $lexem->formNoAccent)
+           ->where_not_equal('id', $lexem->id)
+           ->find_one();
+  $lexem->delete();
+  if ($homonym) {
+    FlashMessage::add('Am șters lexemul și v-am redirectat la unul dintre omonime.', 'success');
+    util_redirect("?lexemId={$homonym->id}");
+  } else {
+    FlashMessage::add('Am șters lexemul.', 'success');
+    util_redirect('index.php');
+  }
+}
 
 if ($refreshButton || $saveButton) {
   populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
@@ -196,30 +217,6 @@ function validate($lexem, $original) {
   }
 
   return !FlashMessage::hasErrors();
-}
-
-/* This page handles a lot of actions. Move the minor ones here so they don't clutter the preview/save actions,
-   which are hairy enough by themselves. */
-function handleLexemActions() {
-  $lexemId = util_getRequestParameter('lexemId');
-  $lexem = Lexem::get_by_id($lexemId);
-
-  $deleteLexem = util_getRequestParameter('deleteLexem');
-  if ($deleteLexem) {
-    $homonyms = Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many();
-    $lexem->delete();
-    SmartyWrap::assign('lexem', $lexem);
-    SmartyWrap::assign('homonyms', $homonyms);
-    SmartyWrap::displayAdminPage('admin/lexemDeleted.tpl');
-    exit;
-  }
-
-  $cloneLexem = util_getRequestParameter('cloneLexem');
-  if ($cloneLexem) {
-    $newLexem = $lexem->cloneLexem();
-    Log::notice("Cloned lexem {$lexem->id} ({$lexem->formNoAccent}), new id is {$newLexem->id}");
-    util_redirect("lexemEdit.php?lexemId={$newLexem->id}");
-  }
 }
 
 ?>

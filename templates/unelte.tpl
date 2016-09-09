@@ -19,9 +19,9 @@
       <th>Client</th>
       <th>Platforme</th>
       {foreach from=$clientOptions item=option key=id}
-        <th>
+        <th title="{$option.1}">
           {$option.0}
-          <span class="tooltip2" title="{$option.1}">&nbsp;</span>
+          <i class="text-info glyphicon glyphicon-info-sign"></i>
         </th>
       {/foreach}
       <th>Cerințe</th>

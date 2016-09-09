@@ -17,9 +17,9 @@
       <div class="row">
         <div class="col-md-4">
           <div class="panel panel-info paymentSection">
-            <div class="panel-heading">
+            <div class="panel-heading" title="Comision fix de 3,5%">
               Donează online
-              <span title="Comision fix de 3,5%" class="glyphicon glyphicon-info-sign tooltip2">&nbsp;</span>
+              <i class="glyphicon glyphicon-info-sign"></i>
             </div>
             <div class="panel-body">
               <form id="donateOnline" action="doneaza-euplatesc.php" method="post" enctype="multipart/form-data">
@@ -50,9 +50,9 @@
 
     <div class="col-md-4">
       <div class="panel panel-info paymentSection">
-        <div class="panel-heading">
+        <div class="panel-heading" title="Comision mediu 6,5% (10% la donații de 5€, 4% la 25€)">
           Donează prin PayPal
-          <span title="Comision mediu 6,5% (10% la donații de 5€, 4% la 25€)" class="glyphicon glyphicon-info-sign tooltip2">&nbsp;</span>
+          <i class="glyphicon glyphicon-info-sign"></i>
         </div>
         <div class="panel-body text-center">
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" class="payPal">
@@ -68,9 +68,9 @@
 
     <div class="col-md-4">
       <div class="panel panel-info paymentSection">
-        <div class="panel-heading">
+        <div class="panel-heading" title="Comisionul este oprit la trimitere">
           Donează prin transfer bancar
-          <span title="Comisionul este oprit la trimitere" class="glyphicon glyphicon-info-sign tooltip2">&nbsp;</span>
+          <i class="glyphicon glyphicon-info-sign"></i>
         </div>
         <div class="panel-body bankTransfer">
           <div class="form-group">

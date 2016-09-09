@@ -107,7 +107,7 @@ function formatLexemWithEditLink(lexem) {
       (lexem.hasParadigm === false) ||
       (elementData.consistentAccent === '0') ||
       (elementData.hasParadigm === false)) {
-    return $('<span class="select2LexemWarnings">' + html + '</span>');
+    return $('<span class="text-danger">' + html + '</span>');
   } else {
     return $('<span>' + html + '</span>');
   }

@@ -87,20 +87,6 @@ class SmartyWrap {
     print self::fetch($templateName);
   }
 
-  static function displayAdminPage($templateName) {
-    self::assign('templateName', $templateName);
-    /* TODO: This replicates code from display(). */
-    $sources = Model::factory('Source')
-             ->order_by_desc('isOfficial')
-             ->order_by_asc('displayOrder')
-             ->find_many();
-    self::assign('sources', $sources);
-    self::addCss('flex', 'bootstrap');
-    self::addJs('dex', 'jquery', 'bootstrap');
-    self::addSameNameFiles($templateName);
-    print self::fetch($templateName);
-  }
-
   static function fetch($templateName) {
     ksort(self::$cssFiles);
     ksort(self::$jsFiles);
@@ -151,17 +137,16 @@ class SmartyWrap {
           break;
         case 'responsive':          self::$cssFiles[8] = 'responsive.css'; break;
         case 'admin':               self::$cssFiles[9] = 'admin.css'; break;
-        case 'flex':                self::$cssFiles[10] = 'flex.css'; break;
-        case 'paradigm':            self::$cssFiles[11] = 'paradigm.css'; break;
-        case 'jcrop':               self::$cssFiles[12] = 'third-party/jcrop/jquery.Jcrop.min.css'; break;
-        case 'select2':             self::$cssFiles[13] = 'third-party/select2.min.css'; break;
+        case 'paradigm':            self::$cssFiles[10] = 'paradigm.css'; break;
+        case 'jcrop':               self::$cssFiles[11] = 'third-party/jcrop/jquery.Jcrop.min.css'; break;
+        case 'select2':             self::$cssFiles[12] = 'third-party/select2.min.css'; break;
         case 'gallery':
-          self::$cssFiles[14] = 'third-party/colorbox/colorbox.css';
-          self::$cssFiles[15] = 'gallery.css';
+          self::$cssFiles[13] = 'third-party/colorbox/colorbox.css';
+          self::$cssFiles[14] = 'gallery.css';
           break;
-        case 'textComplete':        self::$cssFiles[16] = 'third-party/jquery.textcomplete.css'; break;
-        case 'tinymce':             self::$cssFiles[17] = 'tinymce.css'; break;
-        case 'meaningTree':         self::$cssFiles[18] = 'meaningTree.css'; break;
+        case 'textComplete':        self::$cssFiles[15] = 'third-party/jquery.textcomplete.css'; break;
+        case 'tinymce':             self::$cssFiles[16] = 'tinymce.css'; break;
+        case 'meaningTree':         self::$cssFiles[17] = 'meaningTree.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());

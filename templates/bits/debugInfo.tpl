@@ -1,4 +1,4 @@
-<div class="debugInfo">
+<div>
   Pagină generată în {$debug_runningTimeMillis} ms.<br/>
   {foreach from=$debug_messages item=line}
     {$line|escape}<br/>

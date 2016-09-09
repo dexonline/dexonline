@@ -42,7 +42,7 @@ $(function() {
     $('.model').change(modelChange);
     $('.shortcutI3').click(shortcutI3);
     $('#addRow').click(addRow);
-    $('#butTest, #butSave').click(endEdit);
+    $('#refreshButton, #saveButton').click(endEdit);
 
     stem = $('#stem').detach().removeAttr('id');
     stemOption = stem.find('.model option').detach();
@@ -79,11 +79,11 @@ $(function() {
       });
     }
 
-    $('#butSave').prop('disabled', true);
+    $('#saveButton').prop('disabled', true);
   }
 
   function modelChange() {
-    $('#butSave').prop('disabled', true);
+    $('#saveButton').prop('disabled', true);
   }
 
   function shortcutI3() {
@@ -91,7 +91,7 @@ $(function() {
     var m = $(this).closest('tr').find('.model');
     m.html('').append(stemOption).trigger('change');
 
-    $('#butSave').prop('disabled', true);
+    $('#saveButton').prop('disabled', true);
 
     return false;
   }

@@ -1,23 +1,30 @@
-{extends file="admin/layout.tpl"}
+{extends file="layout-admin.tpl"}
 
 {block name=title}Definiție din DE{/block}
 
-{block name=headerTitle}
-  Definiție din Dicționarul enciclopedic: {$def->lexicon} ({$def->id})
-{/block}
-
 {block name=content}
-  <form action="deTool.php" method="post">
-    Sari la prefixul:
-    <input type="text" name="jumpPrefix" value="">
+  <h3>Definiție din Dicționarul enciclopedic: {$def->lexicon} ({$def->id})</h3>
+
+  <form class="form-horizontal" method="post">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">sari la prefixul</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" name="jumpPrefix">
+      </div>
+    </div>
   </form>
-  <br>
 
-  {$def->htmlRep}
-  <a href="definitionEdit?definitionId={$def->id}">editează</a>
-  <br><br>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      {$def->htmlRep}
+      <a href="definitionEdit?definitionId={$def->id}">
+        <i class="glyphicon glyphicon-pencil"></i>
+        editează
+      </a>
+    </div>
+  </div>
 
-  <form action="deTool.php" method="post">
+  <form method="post">
     <input type="hidden" name="definitionId" value="{$def->id}">
 
     <table id="lexemsTable">
@@ -61,31 +68,70 @@
     <a id="addRow" href="#">adaugă o linie</a>
     <br><br>
 
-    <input id="capitalize" type="checkbox" name="capitalize" value="1" {if $capitalize}checked{/if}>
-    <label for="capitalize">scrie cu majusculă lexemele I3 și SP*</label>
-    <br>
-    <input id="deleteOrphans" type="checkbox" name="deleteOrphans" value="1" {if $deleteOrphans}checked{/if}>
-    <label for="deleteOrphans">șterge lexemele și intrările care devin neasociate</label>
-    <br><br>
+    <div class="checkbox">
+      <label>
+        <input id="capitalize" type="checkbox" name="capitalize" value="1"
+               {if $capitalize}checked{/if}>
+        scrie cu majusculă lexemele I3 și SP*
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input id="deleteOrphans" type="checkbox" name="deleteOrphans" value="1"
+               {if $deleteOrphans}checked{/if}>
+        șterge lexemele și intrările care devin neasociate
+      </label>
+    </div>
 
-    <input type="submit" name="butPrev" value="« anterioara">
-    <input id="butTest" type="submit" name="butTest" value="testează">
-    <input id="butSave" type="submit" name="butSave" value="salvează" {if !$passedTests}disabled{/if}>
-    <input type="submit" name="butNext" value="următoarea »">
+    <div class="form-group">
+      <button type="submit" class="btn btn-default" name="butPrev">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        anterioara
+      </button>
+
+      <button id="refreshButton"
+              type="submit"
+              name="refreshButton"
+              class="btn btn-primary">
+        <i class="glyphicon glyphicon-refresh"></i>
+        <u>r</u>eafișează
+      </button>
+
+      <button type="submit"
+              name="saveButton"
+              class="btn btn-success"
+              {if !$passedTests}disabled{/if}>
+        <i class="glyphicon glyphicon-floppy-disk"></i>
+        <u>s</u>alvează
+      </button>
+
+      <button type="submit" class="btn btn-default" name="butNext">
+        <i class="glyphicon glyphicon-chevron-right"></i>
+        următoarea
+      </button>
+
+    </div>
   </form>
 
-  <h3>Note</h3>
+  <div class="alert alert-info alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">
+      <span>&times;</span>
+    </button>
 
-  <ul>
-    <li>
-      Legăturile de pe coloana „scurtături” sunt echivalente cu selectarea
-      modelului respectiv. Sunt doar scurtături mai comode.
-    </li>
-    <li>
-      Din această pagină nu puteți adăuga restricții la modelele de flexiune.
-    </li>
-    <li>
-      Transcrierea cu majusculă nu apare la testare, numai la salvare.
-    </li>
-  </ul>
+    <p><strong>Note:</strong></p>
+
+    <ul>
+      <li>
+        Legăturile de pe coloana „scurtături” sunt echivalente cu selectarea
+        modelului respectiv. Sunt doar scurtături mai comode.
+      </li>
+      <li>
+        Din această pagină nu puteți adăuga restricții la modelele de flexiune.
+      </li>
+      <li>
+        Transcrierea cu majusculă nu apare la testare, numai la salvare.
+      </li>
+    </ul>
+  </div>
+
 {/block}

@@ -8,10 +8,10 @@ $MODELS_TO_CAPITALIZE = ['I3', 'SP'];
 
 $definitionId = util_getRequestParameter('definitionId');
 $jumpPrefix = util_getRequestParameterWithDefault('jumpPrefix', '');
-$butTest = util_getRequestParameter('butTest');
-$butSave = util_getRequestParameter('butSave');
-$butPrev = util_getRequestParameter('butPrev');
-$butNext = util_getRequestParameter('butNext');
+$refreshButton = util_getBoolean('refreshButton');
+$saveButton = util_getBoolean('saveButton');
+$butPrev = util_getBoolean('butPrev');
+$butNext = util_getBoolean('butNext');
 $lexemIds = util_getRequestParameter('lexemId');
 $models = util_getRequestParameter('model');
 $capitalize = util_getBoolean('capitalize');
@@ -79,7 +79,7 @@ $dblIds = util_objectProperty($dbl, 'id');
 
 $passedTests = false;
 
-if ($butSave) {
+if ($saveButton) {
   // Dissociate all entries
   EntryDefinition::deleteByDefinitionId($def->id);
 
@@ -145,7 +145,7 @@ if ($butSave) {
                     (int)$deleteOrphans);
   util_redirect($target);
 
-} else if ($butTest) {
+} else if ($refreshButton) {
   try {
     if (!count($lexemIds)) {
       throw new Exception('Trebuie să asociați cel puțin un lexem.');
@@ -206,9 +206,9 @@ SmartyWrap::assign('def', $def);
 SmartyWrap::assign('capitalize', $capitalize);
 SmartyWrap::assign('deleteOrphans', $deleteOrphans);
 SmartyWrap::assign('passedTests', $passedTests);
-SmartyWrap::addCss('select2');
+SmartyWrap::addCss('admin', 'select2');
 SmartyWrap::addJs('select2');
-SmartyWrap::displayAdminPage('admin/deTool.tpl');
+SmartyWrap::display('admin/deTool.tpl');
 
 /*************************************************************************/
 

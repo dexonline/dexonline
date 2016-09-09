@@ -43,7 +43,7 @@
 
           <td>
             {foreach from=$c.os item=os}
-              <img src="{$imgRoot}/icons/{$os}.png" alt="{$os}" title="{$osNames[$os]}" />
+              <img src="{$imgRoot}/os/{$os}.png" alt="{$os}" title="{$osNames[$os]}" />
             {/foreach}
           </td>
 

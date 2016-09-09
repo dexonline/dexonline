@@ -20,7 +20,6 @@ class SmartyWrap {
       self::assign('cfg', Config::getAll());
       self::assign('GLOBALS', $GLOBALS);
     }
-    self::$theSmarty->registerPlugin('function', 'getDebugInfo', array('SmartyWrap', 'getDebugInfo'));
   }
 
   // Add $template.css and $template.js to the file lists, if they exist.
@@ -107,17 +106,6 @@ class SmartyWrap {
     if (session_user_prefers(Preferences::OLD_ORTHOGRAPHY)) {
       self::$theSmarty->registerFilter('output', array('StringUtil', 'replace_ai'));
     }
-  }
-
-  static function getDebugInfo() {
-    $data = DebugInfo::getDebugInfo();
-    if (!$data['enabled']) {
-      return '';
-    }
-    SmartyWrap::assign('debug_messages', $data['messages']);
-    SmartyWrap::assign('debug_runningTimeMillis', $data['runningTimeMillis']);
-    SmartyWrap::assign('debug_ormQueryLog', $data['ormQueryLog']);
-    return SmartyWrap::fetch('bits/debugInfo.tpl');
   }
 
  static function addCss(/* Variable-length argument list */) {

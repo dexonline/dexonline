@@ -1,6 +1,5 @@
 <?php
 require_once("../phplib/util.php"); 
-DebugInfo::disable();
 
 $locVersion = util_getRequestParameter('locVersion');
 $modelType = util_getRequestParameter('modelType');

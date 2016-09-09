@@ -51,8 +51,8 @@
         </div>
       </footer>
     </div>
-    {include file="bits/analytics.tpl"}
-    {getDebugInfo}
+    {include "bits/analytics.tpl"}
+    {include "bits/debugInfo.tpl"}
   </body>
 
 </html>

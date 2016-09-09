@@ -18,7 +18,7 @@
         <th>«Structurist» al definițiilor</th>
         <th>Dicționarul vizual</th>
       </tr>
-      {foreach from=$users item=user}
+      {foreach $users as $user}
         <tr>
           <td>
             <a href="{$wwwRoot}utilizator/{$user->nick}">{$user->nick}</a>

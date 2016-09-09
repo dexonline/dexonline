@@ -13,7 +13,7 @@
       <input type="hidden" name="definitionId" value="{$def->id}"/>
 
       <p>
-        {foreach from=$text item=chunk key=i name=iter}
+        {foreach $text as $i => $chunk name=iter}
           <span>
             {$chunk}
             {if !$smarty.foreach.iter.last}

@@ -37,7 +37,7 @@
           <div class="form-inline text-center">
             în versiunea
             <select name="locVersion" class="form-control">
-              {foreach from=$locVersions item=lv}
+              {foreach $locVersions as $lv}
                 <option value="{$lv->name|escape}" {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
                   {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
                 </option>
@@ -60,7 +60,7 @@
           {else}
             <div class="alert alert-success">
               <dl class="dl-horizontal">
-                {foreach from=$data item=r}
+                {foreach $data as $r}
                   <dt>{$r.inflectedForm|escape}</dt>
                   <dd>provine din
                     <a href="{$wwwRoot}definitie/{$r.lexemFormNoAccent|escape}">{$r.lexemForm|escape}</a>
@@ -90,7 +90,7 @@
           </tr>
         </thead>
         <tbody>
-          {foreach from=$locVersions item=lv}
+          {foreach $locVersions as $lv}
             <tr>
               <td>{$lv->name|escape}</td>
               <td>{$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"}</td>
@@ -135,8 +135,8 @@
         între
 
         <select class="form-control" name="locVersions">
-          {foreach from=$locVersions item=old key=i}
-            {foreach from=$locVersions item=new key=j}
+          {foreach $locVersions as $i => $old}
+            {foreach $locVersions as $j => $new}
               {if $i > $j}
                 <option value="{$old->name|escape},{$new->name|escape}">
                   versiunea {$old->name|escape} și versiunea {$new->name|escape}
@@ -172,7 +172,7 @@
             în versiunea
 
             <select class="form-control" name="locVersion" data-loc-version>
-              {foreach from=$locVersions item=lv}
+              {foreach $locVersions as $lv}
                 <option value="{$lv->name|escape}">
                   {$lv->name|escape}
                 </option>

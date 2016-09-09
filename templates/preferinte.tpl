@@ -54,7 +54,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Preferințe</div>
       <div class="panel-body">
-        {foreach from=$userPrefs key=value item=i}
+        {foreach $userPrefs as $value => $i}
           <div class="checkbox">
             <label>
               <input type="checkbox" name="userPrefs[]" id="cb_{$value}" value="{$value}" class="cbOption" {if $i.checked}checked="checked"{/if}/>
@@ -70,7 +70,7 @@
       <div class="panel-heading">Elemente în pagina principală</div>
       <div class="panel-body">
 
-        {foreach from=$widgets item=w key=value}
+        {foreach $widgets as $value => $w}
           <div class="checkbox">
             <label>
               <input type="checkbox" name="widgets[]" id="widget{$value}" value="{$value}" {if $w.enabled}checked="checked"{/if}/>

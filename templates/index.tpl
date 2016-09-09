@@ -20,7 +20,7 @@
   <section class="row widgets">
     <div class="col-md-12">
       {if $numEnabledWidgets && $skinVariables.widgets}
-        {foreach from=$widgets item=params}
+        {foreach $widgets as $params}
           {if $params.enabled}
             <div class="col-sm-4 col-xs-12">{include file="widgets/`$params.template`"}</div>
           {/if}

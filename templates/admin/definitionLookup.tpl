@@ -6,7 +6,7 @@
   <h3>{$searchResults|count} rezultate</h3>
 
   <form action="definitionLookup.php" method="post">
-    {foreach from=$args key=name item=value}
+    {foreach $args as $name => $value}
       <input type="hidden" name="{$name}" value="{$value}">
     {/foreach}
 

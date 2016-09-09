@@ -5,7 +5,7 @@
       <Description>{$lexem->description|escape}</Description>
     {/if}
     {assign var="ifs" value=$lexem->loadInflectedForms()}
-    {foreach from=$ifs item=if}
+    {foreach $ifs as $if}
       <InflectedForm>
         <InflectionId>{$if->inflectionId}</InflectionId>
         <Form>{$if->form|escape}</Form>

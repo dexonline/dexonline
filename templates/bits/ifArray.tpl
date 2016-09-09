@@ -5,7 +5,7 @@
   &mdash;
 {else}
   {strip}
-    {foreach from=$ifArray item=if key=i}
+    {foreach $ifArray as $i => $if}
         {assign var="form" value=$if->getHtmlForm()}
         {if $i}, {/if}
         {if !$if->recommended}

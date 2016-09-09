@@ -24,7 +24,7 @@
       </thead>
 
       <tbody>
-        {foreach from=$inflections item=infl}
+        {foreach $inflections as $infl}
           <tr>
             <td class="nick">
               <input type="hidden" name="inflectionIds[]" value="{$infl->id}"/>
@@ -41,7 +41,7 @@
           </td>
           <td>
             <select class="form-control" name="newModelType">
-              {foreach from=$modelTypes item=mt}
+              {foreach $modelTypes as $mt}
                 <option value="{$mt->code|escape}">{$mt->code|escape}</option>
               {/foreach}
             </select>

@@ -14,7 +14,7 @@
       </div>
 
       <table class="table table-condensed table-hover">
-        {foreach from=$reports item=r}
+        {foreach $reports as $r}
           {if ($r.count != '0') && ($sUser->moderator & $r.privilege)}
             <tr>
               <td>{$r.text}</td>

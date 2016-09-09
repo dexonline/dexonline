@@ -30,9 +30,9 @@
     </tr>
   </thead>
   <tbody>
-    {foreach from=$words item=week}
+    {foreach $words as $week}
       <tr>
-        {foreach from=$week item=day}
+        {foreach $week as $day}
           {if $day}
             <td class="activeMonth">
               <div class="wotdDoM">{$day.dayOfMonth}</div>

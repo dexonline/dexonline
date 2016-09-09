@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Sources>
-  {foreach from=$sources item=s}
+  {foreach $sources as $s}
     <Source id="{$s->id}">
       <ShortName>{$s->shortName|escape}</ShortName>
       <Name>{$s->name|escape}</Name>

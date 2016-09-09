@@ -38,7 +38,7 @@
             <label class="col-sm-3 control-label">model de participiu</label>
             <div class="col-sm-9">
               <select class="form-control" name="participleNumber">
-                {foreach from=$adjModels item=am}
+                {foreach $adjModels as $am}
                   <option value="{$am->number}"
                           {if $pm && $pm->adjectiveModel == $am->number}selected="selected"{/if}
                           >{$am->number} ({$am->exponent})
@@ -181,7 +181,7 @@
         </div>
 
         <div class="panel-body">
-          {foreach from=$participles item=p key=i}
+          {foreach $participles as $i => $p}
             {include file="paradigm/paradigm.tpl" lexem=$p}
           {/foreach}
         </div>
@@ -194,19 +194,18 @@
       </div>
 
       <div class="panel-body">
-        <div class="form-group form-inline">
+        <div class="checkbox">
           <label class="control-label">
             <input class="checkbox" type="checkbox" name="shortList" value="1"
                    {if $shortList}checked{/if}>
             testează modificările pe maxim 10 lexeme
           </label>
 
+          <p class="text-muted">
+            Toate lexemele vor fi salvate, dar numai (maxim) 10 vor fi testate și
+            afișate. Aceasta poate accelera mult pasul de testare.
+          </p>
         </div>
-
-        <p class="text-muted">
-          Toate lexemele vor fi salvate, dar numai (maxim) 10 vor fi testate și
-          afișate. Aceasta poate accelera mult pasul de testare.
-        </p>
 
         <div class="form-group">
 

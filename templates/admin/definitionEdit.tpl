@@ -75,7 +75,7 @@
       <div class="form-group">
         <label class="col-sm-2 control-label">greșeli de tipar</label>
         <div class="col-sm-10">
-          {foreach from=$typos item=typo}
+          {foreach $typos as $typo}
             <p class="bg-danger voffset1">{$typo->problem|escape}</p>
           {/foreach}
         </div>

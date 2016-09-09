@@ -22,7 +22,7 @@
           <div class="form-group">
             <label>cod canonic</label>
             <select class="form-control" name="canonical">
-              {foreach from=$canonicalModelTypes item=mt}
+              {foreach $canonicalModelTypes as $mt}
                 <option value="{$mt->code}">{$mt->code}</option>
               {/foreach}
             </select>
@@ -94,7 +94,7 @@
       <th>acțiuni</th>
     </tr>
 
-    {foreach from=$modelTypes item=mt key=i}
+    {foreach $modelTypes as $i => $mt}
       <tr>
         <td>{$mt->code}</td>
         <td>{if $mt->code != $mt->canonical}{$mt->canonical}{/if}</td>

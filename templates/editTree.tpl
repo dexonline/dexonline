@@ -195,7 +195,7 @@
               <div class="form-group">
                 <label for="editorSources">surse</label>
                 <select id="editorSources" multiple disabled>
-                  {foreach from=$sources item=s}
+                  {foreach $sources as $s}
                     <option value="{$s->id}">{$s->shortName}</option>
                   {/foreach}
                 </select>

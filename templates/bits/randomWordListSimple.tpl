@@ -1,5 +1,5 @@
 <table>
-  {foreach from=$forms item=form key=row_id}
+  {foreach $forms as $form}
     <tr>
       <td>
         <a href="{$wwwRoot}definitie/{$form.0}">{$form.0}</a>

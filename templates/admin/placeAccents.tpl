@@ -19,7 +19,7 @@
 
 
   <form action="placeAccents.php" method="post">
-    {foreach from=$lexems item=l}
+    {foreach $lexems as $l}
       {assign var=lexemId value=$l->id}
       {assign var=charArray value=$chars[$lexemId]}
       {assign var=srArray value=$searchResults[$lexemId]}
@@ -28,7 +28,7 @@
         <input type="hidden" name="position_{$l->id}" value="-1"/>
 
         <span class="apLexemForm">
-          {foreach from=$charArray item=char key=cIndex}
+          {foreach $charArray as $cIndex => $char}
             <span class="apLetter" data-order="{$cIndex}">{$char}</span>
           {/foreach}
         </span>
@@ -54,7 +54,7 @@
       </div>
 
       <div class="panel-admin">
-        {foreach from=$srArray item=row}
+        {foreach $srArray as $row}
           <div class="defWrapper">
             <p class="def">{$row->definition->htmlRep}</p>
             <p class="defDetails">

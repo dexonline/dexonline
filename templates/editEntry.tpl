@@ -167,7 +167,7 @@
       </div>
     </form>
 
-    {foreach from=$searchResults item=row}
+    {foreach $searchResults as $row}
       {$def=$row->definition}
       <div class="defWrapper {if $def->structured}structured{else}unstructured{/if}" id="def_{$def->id}">
         <div data-code="0" class="rep internal hiddenRep">{$def->internalRepAbbrev|escape}</div>

@@ -109,7 +109,7 @@
                 <label class="col-md-2">omonime</label>
                 <div class="col-md-10">
 
-                  {foreach from=$homonyms item=h}
+                  {foreach $homonyms as $h}
                     <div>
                       {include file="bits/lexemLink.tpl" lexem=$h}
                       {$h->modelType}{$h->modelNumber}{$h->restriction}
@@ -290,7 +290,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Definitiții ({$searchResults|count})</div>
       <div class="panel-body panel-admin">
-        {foreach from=$searchResults item=row}
+        {foreach $searchResults as $row}
           {$def=$row->definition}
           <div class="defWrapper">
             <p class="def">{$row->definition->htmlRep}</p>

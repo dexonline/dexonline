@@ -30,7 +30,7 @@
         </div>
 
         <div class="controls">
-          {foreach from=$letters item=letter key=i}
+          {foreach $letters as $letter}
             <input class="letterButtons btn" type="button" value="{$letter|mb_strtoupper}"/>
           {/foreach}
           <input id="hintButton" type="button" value="Dă-mi un indiciu" class="btn" />
@@ -45,8 +45,8 @@
         </div>
 
         <div id="resultsWrapper" class="txt">
-          {foreach from=$searchResults item=row}
-            {include file="bits/definition.tpl" row=$row}
+          {foreach $searchResults as $row}
+            {include file="bits/definition.tpl"}
           {/foreach}
         </div>
       </form>

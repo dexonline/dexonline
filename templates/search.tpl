@@ -52,7 +52,7 @@
             {* If there is exactly one lexem, do not link to the lexem page, because it would print an almost exact duplicate of this page. *}
             „{include file="bits/lexemName.tpl" lexem=$lexems.0}”
           {else}
-            {foreach from=$lexems item=lexem key=row_id}
+            {foreach $lexems as $row_id => $lexem}
               <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{$lexem->formNoAccent}</a
                                                                                                   >{if $lexem->description} ({$lexem->description|escape}){/if
                                                                                                                                                           }{if $row_id < count($lexems) - 1},{/if}
@@ -157,7 +157,7 @@
       <span class="stopWords">
         Următoarele cuvinte au fost ignorate deoarece sunt prea comune:
         <b>
-          {foreach from=$stopWords item=word}
+          {foreach $stopWords as $word}
             {$word|escape}
           {/foreach}
         </b>
@@ -168,7 +168,7 @@
       <span class="stopWords">
         Sunt permise maximum 5 cuvinte. Următoarele cuvinte au fost ignorate:
         <b>
-          {foreach from=$ignoredWords item=word}
+          {foreach $ignoredWords as $word}
             {$word|escape}
           {/foreach}
         </b>
@@ -180,7 +180,7 @@
         <div class="panel-heading">Articole pe această temă:</div>
         <div class="panel-body">
           <ul>
-            {foreach from=$wikiArticles item=wa}
+            {foreach $wikiArticles as $wa}
               <li>
                 <a href="{$wwwRoot}articol/{$wa->getUrlTitle()}">{$wa->title}</a>
               </li>
@@ -192,7 +192,7 @@
 
     {assign var=notDisplayedUnofficial value=true}
     {assign var=notDisplayedSpec value=true}
-    {foreach from=$results item=row key=i}
+    {foreach $results as $i => $row}
       {if $searchType != $smarty.const.SEARCH_FULL_TEXT }
         {if $row->source->isOfficial == 1 && $notDisplayedSpec}
           <br/>
@@ -222,14 +222,14 @@
       Puteți găsi definiții pentru acest cuvânt în dicționarele:
 
       <li>
-        {foreach from=$hiddenSources item=hs}
+        {foreach $hiddenSources as $hs}
           <ul>{$hs->name}, {$hs->publisher}, {$hs->year}</ul>
         {/foreach}
       </li>
     {/if}
 
     {if $searchType == $smarty.const.SEARCH_APPROXIMATE || $searchType == $smarty.const.SEARCH_REGEXP}
-      {foreach from=$lexems item=lexem key=row_id}
+      {foreach $lexems as $row_id => $lexem}
         {if $row_id}|{/if}
         <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{include file="bits/lexemName.tpl" lexem=$lexem}</a>
       {/foreach}

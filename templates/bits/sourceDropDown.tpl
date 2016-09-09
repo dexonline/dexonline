@@ -10,7 +10,7 @@
   {if !$skipAnySource}
     <option value="">Toate sursele</option>
   {/if}
-  {foreach from=$sources item=source}
+  {foreach $sources as $source}
     {if $urlName}
       {assign var="submitValue" value=$source->urlName}
     {else}

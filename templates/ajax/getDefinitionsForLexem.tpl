@@ -1,4 +1,4 @@
-{foreach from=$results item=row}
+{foreach $results as $row}
   <div class="defWrapper">
     <p class="def">{$row.htmlRep}</p>
     <p class="defDetails text-muted">

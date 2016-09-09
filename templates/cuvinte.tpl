@@ -34,7 +34,7 @@
   </div>
 
   {assign var="results" value=$results|default:null}
-  {foreach from=$results item=row key=i}
+  {foreach $results as $i => $row}
     <p>
       <span class="def" title="Clic pentru a naviga la acest cuvânt">
         {$row->definition->htmlRep}

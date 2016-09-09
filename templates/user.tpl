@@ -74,7 +74,7 @@
         <form id="medalEditDiv" method="post" class="collapse">
           <div class="medalCheckboxes">
             <input type="hidden" name="userId" value="{$user->id}"/>
-            {foreach from=$allMedals key=mask item=params}
+            {foreach $allMedals as $mask => $params}
               <div class="checkbox">
                 <label>
                   <input type="checkbox" name="medalsGranted[]" id="cb_{$mask}" value="{$mask}" {if array_key_exists($mask, $medals)}checked="checked"{/if}/>
@@ -89,7 +89,7 @@
 
       {if $medals}
         <div class="text-center">
-          {foreach from=$medals item=params}
+          {foreach $medals as $params}
             <img src="{$imgRoot}/medals/{$params.pic}" alt="{$params.name}" title="{$params.name} {$params.description}"/>
           {/foreach}
         </div>

@@ -12,7 +12,7 @@
     {/if}
   </Full>
   <Diffs>
-    {foreach from=$diffs item=date}
+    {foreach $diffs as $date}
     <Diff date="{$date}">
       <Definitions>{$url}/{$date}-definitions-diff.xml.gz</Definitions>
       <Lexems>{$url}/{$date}-lexems-diff.xml.gz</Lexems>

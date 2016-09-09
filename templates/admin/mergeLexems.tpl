@@ -37,7 +37,7 @@
   <form class="voffset4" method="post">
     <input type="hidden" name="modelType" value="{$modelType}"/>
 
-    {foreach from=$lexems item=l key=lIter}
+    {foreach $lexems as $lIter => $l}
       <div class="panel panel-default">
 
         <div class="panel-heading">
@@ -64,7 +64,7 @@
 
           <div class="form-group">
 
-            {foreach from=$l->matches item=match}
+            {foreach $l->matches as $match}
               <div class="checkbox">
                 {assign var="checkboxId" value="merge_`$l->id`_`$match->id`"}
                 <label> 
@@ -99,7 +99,7 @@
                   {if $match->addedForms}
                     <li>
                       Următoarele forme vor fi adăugate la LOC:
-                      {foreach from=$match->addedForms item=form}
+                      {foreach $match->addedForms as $form}
                         {$form}
                       {/foreach}
                     </li>
@@ -107,7 +107,7 @@
                   {if $match->lostForms}
                     <li>
                       Următoarele forme se vor pierde:
-                      {foreach from=$match->lostForms item=form}
+                      {foreach $match->lostForms as $form}
                         {$form}
                       {/foreach}
                     </li>

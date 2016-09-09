@@ -20,7 +20,7 @@
 
   {strip}
   <pre class="locDiff">
-    {foreach from=$diff item=rec}
+    {foreach $diff as $rec}
       <div class="{if $rec.0 == 'ins'}text-success{else}text-danger{/if}">
         {$rec.1}
       </div>

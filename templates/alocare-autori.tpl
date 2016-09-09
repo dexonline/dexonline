@@ -15,7 +15,7 @@
       <table class="table table-hover table-responsive table-condensed table-bordered" id="artists">
         <caption class="table-caption text-center">autori</caption>
         <tbody>
-          {foreach from=$artists item=a}
+          {foreach $artists as $a}
             <tr class="artistRow" data-id="{$a->id}">
               <td>
                 {$a->name}

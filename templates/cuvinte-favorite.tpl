@@ -7,7 +7,7 @@
 
   <dl class="favoriteDefs">
     {if $bookmarks}
-      {foreach from=$bookmarks item=row key=i}
+      {foreach $bookmarks as $i => $row}
         <dt data-idx="{$i}">
           <strong class="count">{$i+1}.</strong>
           <a href="{$wwwRoot}definitie/{$row->definitionId}">{$row->lexicon}</a>

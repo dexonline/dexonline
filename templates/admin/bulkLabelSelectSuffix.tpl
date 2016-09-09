@@ -16,7 +16,7 @@
       <label>sufix</label>
 
       <select class="form-control" name="suffix">
-        {foreach from=$stats item=stat}
+        {foreach $stats as $stat}
           <option value="{$stat.0}">{$stat.0} ({$stat.1})</option>
         {/foreach}
       </select>

@@ -1,4 +1,4 @@
-{foreach from=$searchResults item=row}
+{foreach $searchResults as $row}
   {$def=$row->definition}
   <div class="defWrapper" id="def{$def->id}">
 
@@ -24,7 +24,7 @@
 
     {if count($row->typos)}
       <ul>
-        {foreach from=$row->typos item=typo}
+        {foreach $row->typos as $typo}
           <li id="typo{$typo->id}">
 
             <span class="text-warning">

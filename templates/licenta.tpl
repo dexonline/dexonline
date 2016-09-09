@@ -18,7 +18,7 @@
       <th>Autor</th>
       <th>Editură</th>
     </tr>
-    {foreach from=$restrictedSources item=rs}
+    {foreach $restrictedSources as $rs}
       <tr>
         <td class="dictionaryName">{$rs->name}
           <span class="sourceShortName pull-right">{$rs->shortName}</span>

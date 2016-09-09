@@ -15,7 +15,7 @@
       <th>credite</th>
       <th>acțiuni</th>
     </tr>
-    {foreach from=$artists item=a}
+    {foreach $artists as $a}
       <tr>
         <td>{$a->name}</td>
         <td>{$a->email}</td>

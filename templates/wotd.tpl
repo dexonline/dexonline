@@ -73,7 +73,7 @@
     <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$timestamp|date_format:'%Y/%m'}','#wotdArchive')</script>
 
     <h3>Cuvântul zilei de {$timestamp|date_format:'%e %B'} în alți ani:</h3>
-    {foreach from=$otherYears item=r}
+    {foreach $otherYears as $r}
       <div class="panel panel-default">
         <div class="panel-body">
           <img class="pull-right"

@@ -13,7 +13,7 @@
       </div>
 
       <div class="panel-body">
-        {foreach from=$searchResults[$i] item=row}
+        {foreach $searchResults[$i] as $row}
           <p>
             {$row->definition->htmlRep}
             <small class="text-muted">{$row->source->shortName}</small>

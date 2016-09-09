@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AbbrevList>
   <Sources>
-    {foreach from=$sources key=sourceId item=source}
+    {foreach $sources as $sourceId => $source}
       <Source id="{$sourceId}">
-        {foreach from=$source item=section}
+        {foreach $source as $section}
           <Section>{$section}</Section>
         {/foreach}
       </Source>
     {/foreach}
   </Sources>
-  {foreach from=$sections key=sectionName item=section}
+  {foreach $sections as $sectionName => $section}
     <Section name="{$sectionName}">
-      {foreach from=$section item=abbrev}
+      {foreach $section as $abbrev}
         <Abbrev short="{$abbrev.short}"{if $abbrev.ambiguous
            } ambiguous="1"{/if}>{$abbrev.long}</Abbrev>
       {/foreach}

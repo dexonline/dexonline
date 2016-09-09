@@ -26,7 +26,7 @@
         </tr>
       </thead>
       <tbody>
-        {foreach from=$src item=s}
+        {foreach $src as $s}
           {if $s->isActive || ($sUser && $sUser->moderator & $smarty.const.PRIV_EDIT)}
             <tr>
               <td class="abbreviation">

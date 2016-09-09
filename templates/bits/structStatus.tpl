@@ -9,7 +9,7 @@
   {if $anyOption}
     <option value="0">oricare</option>
   {/if}
-  {foreach from=$structStatusNames key=i item=s}
+  {foreach $structStatusNames as $i => $s}
     <option value="{$i}" {if $i == $selected}selected{/if}>{$s}</option>
   {/foreach}
 </select>

@@ -16,7 +16,7 @@
     </thead>
 
     <tbody>
-      {foreach from=$wotdSet item=t}
+      {foreach $wotdSet as $t}
         <tr>
           <td>{$t.wotd->displayDate|date_format:"%e %b"}</td>
           <td>

@@ -5,7 +5,7 @@
   <link>{$rss_link}</link>
   <description>{$rss_description}</description>
   <pubDate>{$rss_pubDate}</pubDate>
-  {foreach from=$results item="it"}
+  {foreach $results as $it}
   <item>
     <title>{$it.title}</title>
     <pubDate>{$it.pubDate}</pubDate>

@@ -17,14 +17,14 @@
         Există {$lexems|@count} lexem(e) etichetate cu acest model. Dacă
         apăsați butonul "Confirmă", ele vor fi reetichetate cu modelul T1.
       </div>
-      {else}
+    {else}
       <p>
         Nu există lexeme etichetate cu acest model. Modelul poate fi șters
         fără probleme.
       </p>
     {/if}
 
-    {foreach from=$lexems item=l}
+    {foreach $lexems as $l}
       {include "bits/lexemName.tpl" lexem=$l}
       <small class="text-muted">({$l->modelType}{$l->modelNumber})</small>
       &nbsp;&nbsp;

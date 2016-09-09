@@ -3,7 +3,7 @@
 <searchResults>
     <word>{$cuv}</word>
     <definitions>
-        {foreach from=$results item=row key=i}
+        {foreach $results as $row}
         <definition id="{$row->definition->id}">
             <internalRep>{$row->definition->internalRep|escape:html}</internalRep>
             <htmlRep>{$row->definition->htmlRep}</htmlRep>

@@ -1,0 +1,4 @@
+/* The first checkbox in the list moves down without this */
+.checkbox {
+  margin-top: -5px;
+}

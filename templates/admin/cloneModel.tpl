@@ -1,41 +1,51 @@
-{extends file="admin/layout.tpl"}
+{extends file="layout-admin.tpl"}
 
 {block name=title}Clonare model{/block}
 
-{block name=headerTitle}
-  Clonare model {$modelType}{$modelNumber}
-{/block}
-
 {block name=content}
-  <form action="cloneModel.php" method="post" onsubmit="this.bogusButton.disabled = true;">
+  <h3>Clonare model {$modelType}{$modelNumber}</h3>
+
+  <form method="post">
     <input type="hidden" name="modelType" value="{$modelType}"/>
     <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
 
-    Număr nou de model:
-    <input type="text" name="newModelNumber" value="{$newModelNumber|escape}"/>
-    <br/>
+    <div class="form-group form-inline">
+      <label class="control-label">număr nou de model</label>
+      <input type="text" class="form-control" name="newModelNumber" value="{$newModelNumber|escape}">
+    </div>
 
-    <input type="checkbox" id="chooseLexems" name="chooseLexems"
-           value="1" checked="checked"/>
-    <label for="chooseLexems">Doresc să migrez acum lexemele</label>
-    <br/>
-
-    <div id="lexemDiv" class="cm_lexemDiv" style="display: block">
+    <p>
       Bifați lexemele pe care doriți să le migrați la noul model:
-      <br/>
+    </p>
 
+    <div class="form-group">
+      <button class="btn btn-default bulk" type="button" data-checked="1">
+        <i class="text-success glyphicon glyphicon-ok"></i>
+        bifează tot
+      </button>
+      <button class="btn btn-default bulk" type="button" data-checked="0">
+        <i class="text-danger glyphicon glyphicon-remove"></i>
+        debifează tot
+      </button>
+    </div>
+
+    <div class="row form-group">
       {foreach $lexems as $l}
-        <label>
-          <input type="checkbox" name="lexemId[]" value="{$l->id}">
-          {include file="bits/lexemName.tpl" lexem=$l}
-          <span class="deemph">({$l->modelType}{$l->modelNumber})</span>
-        </label>
-        <br>
+        <div class="checkbox col-xs-6 col-sm-4 col-md-3 col-lg-2">
+          <label>
+            <input type="checkbox" name="lexemId[]" value="{$l->id}">
+            {include file="bits/lexemName.tpl" lexem=$l}
+            <small class="text-muted">({$l->modelType}{$l->modelNumber})</small>
+          </label>
+        </div>
       {/foreach}
     </div>
 
-    <!-- We want to disable the button on click, but still submit a value -->
-    <input type="hidden" name="cloneButton" value="1"/>
-    <input type="submit" name="bogusButton" value="Clonează"/>
+    <div class="form-group">
+      <button type="submit" class="btn btn-success" name="saveButton">
+        <i class="glyphicon glyphicon-floppy-disk"></i>
+        <u>s</u>alvează
+      </button>
+    </div>
   </form>
 {/block}

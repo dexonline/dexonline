@@ -88,12 +88,12 @@ $(function (){
   };
 
   var screenWidth = $(window).width();
-  var lexWidth    = 120;
+  var lexWidth    = 100;
   var sourceWidth =  60;
-  var htmlWidth   = 450;
+  var htmlWidth   = 250;
   var dateWidth   =  90;
   var userWidth   =  90;
-  var priorWidth  =  50;
+  var priorWidth  =  40;
   var imageWidth  = 130;
   var descWidth   = screenWidth - (lexWidth + sourceWidth + htmlWidth + dateWidth + userWidth + priorWidth + imageWidth) - 40;
   var imageList = $('#imageList').detach().removeAttr('id');

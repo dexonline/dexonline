@@ -101,12 +101,13 @@ $(function (){
   $('#wotdGrid').jqGrid({
     url: wwwRoot + 'ajax/wotdTableRows.php',
     datatype: 'xml',
-    colNames: ['Cuvînt', 'Sursă', 'Definiție', 'Data afișării', 'Adăugată de', 'Pr.', 'Tipul resursei', 'Imagine', 'Descriere', 'ID-ul definiției'],
+    colNames: ['Cuvînt', 'Sursă', 'Definiție', 'Descr', 'Data afișării', 'Adăugată de', 'Pr.', 'Tipul resursei', 'Imagine', 'Descriere', 'ID-ul definiției'],
     colModel: [
       {name: 'lexicon', index: 'lexicon', editable: true, edittype: 'select', editoptions: {value: 'x:x'}, width: lexWidth},
       {name: 'source', index: 'shortName', width: sourceWidth},
       {name: 'htmlRep', index: 'htmlRep', width: htmlWidth},
-      {name: 'displayDate', index: 'displayDate', width: dateWidth, editable: true},
+      {name: 'descr', index:'description', width:0, hidden: true},
+      {name: 'displayDate', index: 'displayDate', width: dateWidth, editable: true, cellattr: function (a,b,c,d,x) {console.log(x); return ' title="' + x.descr + '"'}},
       {name: 'name', index: 'u.name', width: userWidth},
       {name: 'priority', index: 'priority', editable: true, width: priorWidth},
       {name: 'refType', index: 'refType', editable: true, edittype: 'select', editoptions: {value: 'Definition:Definition'}, hidden: true},

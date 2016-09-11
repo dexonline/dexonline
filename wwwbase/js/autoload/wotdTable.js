@@ -90,7 +90,7 @@ $(function (){
   var screenWidth = $(window).width();
   var lexWidth    = 100;
   var sourceWidth =  60;
-  var htmlWidth   = 250;
+  var htmlWidth   = 350;
   var dateWidth   =  90;
   var userWidth   =  90;
   var priorWidth  =  40;
@@ -107,7 +107,7 @@ $(function (){
       {name: 'source', index: 'shortName', width: sourceWidth},
       {name: 'htmlRep', index: 'htmlRep', width: htmlWidth},
       {name: 'descr', index:'description', width:0, hidden: true},
-      {name: 'displayDate', index: 'displayDate', width: dateWidth, editable: true, cellattr: function (a,b,c,d,x) {console.log(x); return ' title="' + x.descr + '"'}},
+      {name: 'displayDate', index: 'displayDate', width: dateWidth, editable: true, cellattr: function (a,b,c,d,x) {return ' title="' + x.descr + '"'}},
       {name: 'name', index: 'u.name', width: userWidth},
       {name: 'priority', index: 'priority', editable: true, width: priorWidth},
       {name: 'refType', index: 'refType', editable: true, edittype: 'select', editoptions: {value: 'Definition:Definition'}, hidden: true},

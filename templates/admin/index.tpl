@@ -33,12 +33,16 @@
       </div>
 
       <div class="panel-body">
-        <form action="lexemEdit.php">
-          <select id="lexemId" name="lexemId"></select>
-        </form>
-
         <form action="definitionEdit.php">
           <select id="definitionId" name="definitionId"></select>
+        </form>
+
+        <form action="{$wwwRoot}editEntry.php">
+          <select id="entryId" name="id"></select>
+        </form>
+
+        <form action="lexemEdit.php">
+          <select id="lexemId" name="lexemId"></select>
         </form>
       </div>
     </div>

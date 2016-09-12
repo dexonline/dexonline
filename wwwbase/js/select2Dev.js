@@ -134,14 +134,12 @@ function allowNewOptions(data) {
 
 function adminIndexInit() {
   $('#lexemId').select2({
-    ajax: {
-      url: wwwRoot + 'ajax/getLexems.php',
-    },
+    ajax: { url: wwwRoot + 'ajax/getLexems.php', },
     minimumInputLength: 1,
     placeholder: 'caută un lexem',
     width: '300px',
   }).on('change', function(e) {
-    $(this).parents('form').submit();
+    $(this).closest('form').submit();
   });
 
   $('#definitionId').select2({
@@ -153,7 +151,16 @@ function adminIndexInit() {
     placeholder: 'caută o definiție',
     width: '300px',
   }).on('change', function(e) {
-    $(this).parents('form').submit();
+    $(this).closest('form').submit();
+  });
+
+  $('#entryId').select2({
+    ajax: { url: wwwRoot + 'ajax/getEntries.php', },
+    minimumInputLength: 1,
+    placeholder: 'caută o intrare',
+    width: '300px',
+  }).on('change', function(e) {
+    $(this).closest('form').submit();
   });
 
   $('#structuristId').select2({

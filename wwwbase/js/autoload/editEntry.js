@@ -32,6 +32,7 @@ $(function() {
     $('.toggleRepSelect').click(toggleRepChange);
     $('.toggleStructuredLink').click(toggleStructuredClick);
     $('#defFilterSelect').click(defFilterChange);
+    $('#treeFilterSelect').change(treeFilterChange);
 
     $('.dissociateLink').click(confirmDissociateDefinition);
 
@@ -90,6 +91,13 @@ $(function() {
     $(this).toggle();
 
     return false;
+  }
+
+  function treeFilterChange() {
+    $('.tree').stop().slideDown();
+    if ($(this).val() != -1) {
+      $('.tree:not(.tree-status-' + $(this).val()).stop().slideUp();
+    }
   }
 
   function defFilterChange() {

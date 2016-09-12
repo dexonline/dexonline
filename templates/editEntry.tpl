@@ -128,8 +128,18 @@
   {if $e->id}
     <h3>Arbori de sensuri asociați ({$e->getTrees()|count})</h3>
 
+    <form>
+      <div class="form-group form-inline">
+        <select id="treeFilterSelect" class="form-control">
+          <option value="{Tree::ST_VISIBLE}">doar arborii vizibili</option>
+          <option value="{Tree::ST_HIDDEN}">doar arborii ascunși</option>
+          <option value="-1">toți arborii</option>
+        </select>
+      </div>
+    </form>
+
     {foreach $e->getTrees() as $t}
-      <div class="panel panel-default">
+      <div class="panel panel-default tree tree-status-{$t->status}">
         <div class="panel-heading">
           {$t->description}
           <a href="editTree.php?id={$t->id}" class="pull-right">

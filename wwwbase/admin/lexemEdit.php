@@ -98,6 +98,8 @@ if ($refreshButton || $saveButton) {
 
   $lts = LexemTag::get_all_by_lexemId($lexem->id);
   $tagIds = util_objectProperty($lts, 'tagId');
+
+  RecentLink::add("Lexem: $lexem (ID={$lexem->id})");
 }
 
 $tags = Model::factory('Tag')->order_by_asc('value')->find_many();

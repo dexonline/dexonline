@@ -55,6 +55,7 @@ if ($saveButton) {
 } else {
   $t->getMeanings(); // ensure they are loaded
   $entryIds = $t->getEntryIds();
+  RecentLink::add("Arbore: {$t->description} (ID={$t->id})");
 }
 
 // Load the distinct model types for the entries' lexems

@@ -52,7 +52,7 @@ if (!$previewButton && !$saveButton) {
   }
 
   // just viewing the page
-  RecentLink::createOrUpdate("Editare model: {$m}");
+  RecentLink::add("Editare model: {$m}");
   SmartyWrap::assign('m', $m);
   SmartyWrap::assign('pm', $pm);
   SmartyWrap::assign('forms', $forms);
@@ -303,7 +303,6 @@ SmartyWrap::assign('shortList', $shortList);
 SmartyWrap::assign('inflectionMap', Inflection::mapById($inflections));
 SmartyWrap::assign('previewPassed', $previewButton && !FlashMessage::hasErrors());
 SmartyWrap::assign('locPerm', $locPerm);
-SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::addCss('paradigm', 'admin');
 SmartyWrap::display('admin/editModel.tpl');
 

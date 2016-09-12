@@ -84,6 +84,14 @@
                   </a>
                 </li>
               {/if}
+              {if isset($recentLinks)}
+                <li>
+                  <a href="#" id="recentPagesLink" data-toggle="modal" data-target="#recentModal">
+                    <i class="glyphicon glyphicon-pushpin"></i>
+                    Pagini vizitate recent
+                  </a>
+                </li>
+              {/if}
               <li><a href="{$wwwRoot}preferinte">Preferințe</a></li>
               {if $sUser}
                 <li><a href="{$wwwRoot}utilizator/{$sUser->nick}">Profilul meu</a></li>
@@ -119,6 +127,7 @@
             <li><b>Alt-A</b> = pagina moderatorului</li>
             <li><b>Alt-R</b> = reafișează (unde este cazul)</li>
             <li><b>Alt-S</b> = salvează</li>
+            <li><b>Alt-V</b> = pagini vizitate recent</li>
           </ul>
 
           <h4>Pagina moderatorului</h4>

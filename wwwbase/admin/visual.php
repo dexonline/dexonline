@@ -2,7 +2,7 @@
 require_once("../../phplib/util.php");
 util_assertModerator(PRIV_VISUAL);
 util_assertNotMirror();
-RecentLink::createOrUpdate('Adăugare imagini definiții');
+RecentLink::add('Dicționarul vizual');
 
 SmartyWrap::addCss('elfinder', 'jqueryui', 'admin');
 SmartyWrap::addJs('elfinder', 'jqueryui');

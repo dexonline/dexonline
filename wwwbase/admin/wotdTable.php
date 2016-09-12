@@ -2,7 +2,7 @@
 require_once("../../phplib/util.php");
 util_assertModerator(PRIV_WOTD);
 util_assertNotMirror();
-RecentLink::createOrUpdate('Cuvântul zilei');
+RecentLink::add('Cuvântul zilei');
 
 // Load the image list
 $imageList = [''];

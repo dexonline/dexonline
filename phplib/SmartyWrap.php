@@ -76,6 +76,9 @@ class SmartyWrap {
                ->order_by_asc('displayOrder')
                ->find_many();
       self::assign('sources', $sources);
+      if (util_isModerator(PRIV_ANY)) {
+        self::assign('recentLinks', RecentLink::load());
+      }
     }
     self::registerOutputFilters();
     print self::fetch($templateName);

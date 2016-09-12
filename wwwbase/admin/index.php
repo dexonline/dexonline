@@ -60,7 +60,6 @@ $reports = array(
   ),
 );
 
-SmartyWrap::assign('recentLinks', RecentLink::loadForUser());
 SmartyWrap::assign('structStatusNames', Entry::$STRUCT_STATUS_NAMES);
 SmartyWrap::assign('reports', $reports);
 SmartyWrap::addCss('select2', 'admin');

@@ -6,15 +6,16 @@ $(function() {
     $.hotkeys.options.filterContentEditable = false;
     $.hotkeys.options.filterTextInputs = false;
 
-    $(document).bind('keydown', 'alt+a', redirectToAdmin);
     $(document).bind('keydown', 'alt+l', quickNavLexemFocus);
     $(document).bind('keydown', 'alt+d', quickNavDefFocus);
     $(document).bind('keydown', 'alt+i', quickNavEntryFocus);
     $(document).bind('keydown', 'alt+shift+l', lexemSearchFocus);
     $(document).bind('keydown', 'alt+shift+d', defSearchFocus);
 
+    $(document).bind('keydown', 'alt+a', redirectToAdmin);
     $(document).bind('keydown', 'alt+r', clickRefreshButton);
     $(document).bind('keydown', 'alt+s', clickSaveButton);
+    $(document).bind('keydown', 'alt+v', clickRecentPagesLink);
 
     $(document).bind('keydown', 'alt+p', clickPreviewTags);
   }
@@ -55,6 +56,11 @@ $(function() {
 
   function clickSaveButton() {
     $('button[name="saveButton"]').click();
+    return false;
+  }
+
+  function clickRecentPagesLink() {
+    $('#recentPagesLink').click();
     return false;
   }
 

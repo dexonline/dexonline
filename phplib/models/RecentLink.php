@@ -3,10 +3,14 @@
 class RecentLink extends BaseObject {
   public static $_table = 'RecentLink';
 
-  public static function createOrUpdate($text) {
+  public static function add($text) {
     $userId = session_getUserId();
     $url = $_SERVER['REQUEST_URI'];
-    $rl = Model::factory('RecentLink')->where('userId', $userId)->where('url', $url)->where('text', $text)->find_one();
+    $rl = Model::factory('RecentLink')
+        ->where('userId', $userId)
+        ->where('url', $url)
+        ->where('text', $text)
+        ->find_one();
 
     if (!$rl) {
       $rl = Model::factory('RecentLink')->create();
@@ -20,9 +24,12 @@ class RecentLink extends BaseObject {
   }
 
   // Also deletes the ones in excess of MAX_RECENT_LINKS
-  public static function loadForUser() {
+  public static function load() {
     $userId = session_getUserId();
-    $recentLinks = Model::factory('RecentLink')->where('userId', $userId)->order_by_desc('visitDate')->find_many();
+    $recentLinks = Model::factory('RecentLink')
+                 ->where('userId', $userId)
+                 ->order_by_desc('visitDate')
+                 ->find_many();
     while (count($recentLinks) > MAX_RECENT_LINKS) {
       $deadLink = array_pop($recentLinks);
       $deadLink->delete();

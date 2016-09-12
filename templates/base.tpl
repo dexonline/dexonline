@@ -26,6 +26,7 @@
   <body>
     <header>
       {include file="bits/navmenu.tpl"}
+      {include file="bits/recentlyVisited.tpl"}
     </header>
     <div class="container">
       <main class="row">

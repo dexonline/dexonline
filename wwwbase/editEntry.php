@@ -115,6 +115,7 @@ if ($saveButton) {
   $lexemIds = $e->getLexemIds();
   $treeIds = $e->getTreeIds();
   $e->loadMeanings();
+  RecentLink::add("Intrare: {$e->description} (ID={$e->id})");
 }
 
 // Load the distinct model types for the entry's lexems

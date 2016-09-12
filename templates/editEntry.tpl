@@ -19,53 +19,68 @@
 
   {include file="bits/phpConstants.tpl"}
 
-  <form action="editEntry.php" method="post" role="form">
+  <form class="form-horizontal" method="post" role="form">
     <input type="hidden" name="id" value="{$e->id}">
 
     <div class="row">
 
       <div class="col-md-6">
-        {include "bits/fgf.tpl" field="description" value=$e->description label="descriere"}
+        {include "bits/fhf.tpl" field="description" value=$e->description label="descriere"}
 
         <div class="form-group {if isset($errors.structStatus)}has-error{/if}">
-          <label for="structStatus">structurare</label>
-          {include file="bits/structStatus.tpl" selected=$e->structStatus canEdit=$canEdit.structStatus}
-          {include "bits/fieldErrors.tpl" errors=$errors.structStatus|default:null}
+          <label for="structStatus" class="col-md-2 control-label">
+            structurare
+          </label>
+          <div class="col-md-10">
+            {include "bits/structStatus.tpl" selected=$e->structStatus canEdit=$canEdit.structStatus}
+            {include "bits/fieldErrors.tpl" errors=$errors.structStatus|default:null}
+          </div>
         </div>
 
         <div class="form-group">
-          <label for="structuristId">structurist</label>
-          <select id="structuristId" name="structuristId">
-            {if $e->structuristId}
-              <option value="{$e->structuristId}" selected></option>
-            {/if}
-          </select>
-          {include "bits/fieldErrors.tpl" errors=$errors.structuristId|default:null}
+          <label for="structuristId" class="col-md-2 control-label">
+            structurist
+          </label>
+          <div class="col-md-10">
+            <select id="structuristId" name="structuristId">
+              {if $e->structuristId}
+                <option value="{$e->structuristId}" selected></option>
+              {/if}
+            </select>
+            {include "bits/fieldErrors.tpl" errors=$errors.structuristId|default:null}
+          </div>
         </div>
       </div>
 
       <div class="col-md-6">
-        <div class="form-group"">
-          <label for="lexemIds">lexeme</label>
-          <select id="lexemIds" name="lexemIds[]" style="width: 100%" multiple>
-            {foreach $lexemIds as $l}
-              <option value="{$l}" selected></option>
+        <div class="form-group">
+          <label for="lexemIds" class="col-md-2 control-label">
+            lexeme
+          </label>
+          <div class="col-md-10">
+            <select id="lexemIds" name="lexemIds[]" style="width: 100%" multiple>
+              {foreach $lexemIds as $l}
+                <option value="{$l}" selected></option>
+              {/foreach}
+            </select>
+            Tipuri de model:
+            {foreach $modelTypes as $mt}
+              <span class="label label-default">{$mt}</span>
             {/foreach}
-          </select>
-
-          Tipuri de model:
-          {foreach $modelTypes as $mt}
-            <span class="label label-default">{$mt}</span>
-          {/foreach}
+          </div>
         </div>
 
         <div class="form-group"">
-          <label for="treeIds">arbori de sensuri</label>
-          <select id="treeIds" name="treeIds[]" style="width: 100%" multiple>
-            {foreach $treeIds as $t}
-              <option value="{$t}" selected></option>
-            {/foreach}
-          </select>
+          <label for="treeIds" class="col-md-2 control-label">
+            arbori
+          </label>
+          <div class="col-md-10">
+            <select id="treeIds" name="treeIds[]" style="width: 100%" multiple>
+              {foreach $treeIds as $t}
+                <option value="{$t}" selected></option>
+              {/foreach}
+            </select>
+          </div>
         </div>
       </div>
 

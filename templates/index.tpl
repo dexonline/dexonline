@@ -3,9 +3,9 @@
 {block name=title}Dicționar explicativ al limbii române{/block}
 
 {block name=content}
-  <header class="row">
-    <div class="col-md-12 siteIdentity">
-      <div class="siteLogo"></div>
+  <header>
+    <div class="siteIdentity">
+      <img class='siteLogo' src='{$wwwRoot}img/svg/logo-dexonline.svg' alt='Dexonline'/>
       <div class="tagline">Dicționare ale limbii române</div>
     </div>
   </header>

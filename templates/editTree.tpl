@@ -44,87 +44,111 @@
     </li>
   </ul>
 
-  <form action="editTree.php" method="post" role="form">
+  <form class="form-horizontal" method="post" role="form">
     <input type="hidden" name="id" value="{$t->id}">
     <input type="hidden" name="jsonMeanings" value="">
 
     <div class="row">
       <div class="col-md-6">
-        {include "bits/fgf.tpl" field="description" value=$t->description label="descriere"}
+        {include "bits/fhf.tpl" field="description" value=$t->description label="descriere"}
 
         <div class="form-group {if isset($errors.status)}has-error{/if}">
-          <label>stare</label>
-          <select name="status" class="form-control">
-            {foreach $statusNames as $i => $s}
-              <option value="{$i}" {if $i == $t->status}selected{/if}>{$s}</option>
-            {/foreach}
-          </select>
-          {include "bits/fieldErrors.tpl" errors=$errors.status|default:null}
+          <label class="col-md-2 control-label">stare</label>
+          <div class="col-md-10">
+            <select name="status" class="form-control">
+              {foreach $statusNames as $i => $s}
+                <option value="{$i}" {if $i == $t->status}selected{/if}>{$s}</option>
+              {/foreach}
+            </select>
+            {include "bits/fieldErrors.tpl" errors=$errors.status|default:null}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-success" name="saveButton">
+              <i class="glyphicon glyphicon-floppy-disk"></i>
+              <u>s</u>alvează
+            </button>
+
+            <button type="submit" class="btn btn-default" name="clone">
+              <i class="glyphicon glyphicon-duplicate"></i>
+              clonează
+            </button>
+
+            <a class="btn btn-link" href="{if $t->id}?id={$t->id}{/if}">
+              anulează
+            </a>
+          </div>
         </div>
       </div>
 
       <div class="col-md-6">
         <div class="form-group"">
-          <label for="entryIds">intrări</label>
-          <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
-            {foreach $entryIds as $e}
-              <option value="{$e}" selected></option>
-            {/foreach}
-          </select>
+          <label for="entryIds" class="col-md-2 control-label">intrări</label>
+          <div class="col-md-10">
+            <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
+              {foreach $entryIds as $e}
+                <option value="{$e}" selected></option>
+              {/foreach}
+            </select>
 
-          Tipuri de model:
-          {foreach $modelTypes as $mt}
-            <span class="label label-default">{$mt->modelType}</span>
-          {/foreach}
+            Tipuri de model:
+            {foreach $modelTypes as $mt}
+              <span class="label label-default">{$mt->modelType}</span>
+            {/foreach}
+          </div>
         </div>
       </div>
     </div>
+  </form>
 
-    {if count($relatedMeanings)}
-      <div class="panel panel-default">
-        <div class="panel-heading">Arbori în relație cu acesta</div>
+  {if count($relatedMeanings)}
+    <div class="panel panel-default">
+      <div class="panel-heading">Arbori în relație cu acesta</div>
 
-        <table class="table table-condensed table-bordered">
-          <thead>
+      <table class="table table-condensed table-bordered">
+        <thead>
+          <tr>
+            <th>arbore</th>
+            <th>sens</th>
+            <th>tip</th>
+            <th>text</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {foreach $relatedMeanings as $m}
             <tr>
-              <th>arbore</th>
-              <th>sens</th>
-              <th>tip</th>
-              <th>text</th>
+              <td>
+                <a href="editTree.php?id={$m->getTree()->id}">
+                  {$m->getTree()->description}
+                </a>
+              </td>
+              <td>
+                <strong>{$m->breadcrumb}</strong>
+              </td>
+              <td>
+                {Relation::$TYPE_NAMES[$m->relationType]}
+              </td>
+              <td>
+                {$m->htmlRep}
+              </td>
             </tr>
-          </thead>
+          {/foreach}
+        </tbody>
+      </table>
+    </div>
+  {/if}
 
-          <tbody>
-            {foreach $relatedMeanings as $m}
-              <tr>
-                <td>
-                  <a href="editTree.php?id={$m->getTree()->id}">
-                    {$m->getTree()->description}
-                  </a>
-                </td>
-                <td>
-                  <strong>{$m->breadcrumb}</strong>
-                </td>
-                <td>
-                  {Relation::$TYPE_NAMES[$m->relationType]}
-                </td>
-                <td>
-                  {$m->htmlRep}
-                </td>
-              </tr>
-            {/foreach}
-          </tbody>
-        </table>
-      </div>
-    {/if}
-
+  <form>
     <div class="panel panel-default">
       <div class="panel-heading">Sensuri</div>
       <div class="panel-body">
         {include file="bits/meaningTree.tpl"
-                 meanings=$t->getMeanings()
-                 id="meaningTree"
-                 editable=true}
+        meanings=$t->getMeanings()
+        id="meaningTree"
+        editable=true}
 
         <div>
           {if $canEdit}
@@ -241,20 +265,5 @@
       </div>
     {/if}
 
-    <div>
-      <button type="submit" class="btn btn-success" name="saveButton">
-        <i class="glyphicon glyphicon-floppy-disk"></i>
-        <u>s</u>alvează
-      </button>
-
-      <button type="submit" class="btn btn-default" name="clone">
-        <i class="glyphicon glyphicon-duplicate"></i>
-        clonează
-      </button>
-
-      <a class="btn btn-link" href="{if $t->id}?id={$t->id}{/if}">
-        anulează
-      </a>
-    </div>
   </form>
 {/block}

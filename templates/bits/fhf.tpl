@@ -20,6 +20,6 @@
            placeholder="{$placeholder}"
            {if $autofocus}autofocus{/if}
            {if $readonly}readonly{/if}>
+    {include "bits/fieldErrors.tpl" errors=$errors.$field|default:null}
   </div>
-  {include "bits/fieldErrors.tpl" errors=$errors.$field|default:null}
 </div>

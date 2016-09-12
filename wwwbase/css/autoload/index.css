@@ -1,22 +1,19 @@
 /* TODO: watch out for conflicts between index.tpl and admin/index.tpl */
 .siteIdentity {
-    margin-bottom: 25px;
+    max-width: 316px;
+    margin: 30px auto 35px;
 }
 
 .siteLogo {
-  background: url("../../img/svg/logo-dexonline.svg") no-repeat;
-  height: 82px;
-  margin: 30px auto 5px auto;
-  width: 316px;
+  width: 100%;
 }
 
 .tagline {
   color: #444;
   font-size: 14px;
   letter-spacing: 1px;
-  margin: -10px auto 10px;
-  padding: 0px 0px 0px 100px;
-  text-align: center;
+  text-align: right;
+  margin: -2px auto 0;
 }
 
 .website-statement {

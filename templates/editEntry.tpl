@@ -1,6 +1,6 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}
+{block "title"}
   {if $e->id}
     Intrare {$e->description}
   {else}
@@ -8,7 +8,7 @@
   {/if}
 {/block}
 
-{block name=content}
+{block "content"}
   <h3>
     {if $e->id}
       Editează intrarea

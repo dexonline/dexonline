@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Moderatori{/block}
+{block "title"}Moderatori{/block}
 
-{block name=content}
+{block "content"}
   <h3>Moderatori</h3>
 
   <form method="post" action="moderatori">

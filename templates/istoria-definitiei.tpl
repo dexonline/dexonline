@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Istoria definiției {$def->lexicon}{/block}
+{block "title"}Istoria definiției {$def->lexicon}{/block}
 
-{block name=content}
+{block "content"}
   <h3>Istoria definiției <a href="{$wwwRoot}definitie/{$def->id}">{$def->lexicon}</a></h3>
 
   {foreach $changeSets as $c}

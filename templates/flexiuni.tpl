@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Editare flexiuni{/block}
+{block "title"}Editare flexiuni{/block}
 
-{block name=content}
+{block "content"}
   <h3>Editare flexiuni</h3>
 
   <p class="alert alert-info">

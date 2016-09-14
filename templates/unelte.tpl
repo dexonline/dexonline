@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Unelte{/block}
+{block "title"}Unelte{/block}
 
-{block name=content}
+{block "content"}
   <h3>Clienți off-line</h3>
 
   <p>

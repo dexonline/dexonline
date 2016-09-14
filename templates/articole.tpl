@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Articole lingvistice{/block}
+{block "title"}Articole lingvistice{/block}
 
-{block name=content}
+{block "content"}
   <h1>Articole lingvistice</h1>
 
   <div id="linguisticArticles">

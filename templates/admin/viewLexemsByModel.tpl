@@ -1,10 +1,10 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}
+{block "title"}
   Lexeme pentru modelul {$modelType}{$modelNumber}
 {/block}
 
-{block name=content}
+{block "content"}
   <h3>{$lexems|count} lexeme pentru modelul {$modelType}{$modelNumber}</h3>
   
   {include file="admin/lexemList.tpl"}

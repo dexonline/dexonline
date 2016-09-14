@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Omleta Cuvintelor{/block}
+{block "title"}Omleta Cuvintelor{/block}
 
-{block name=content}
+{block "content"}
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">Omleta cuvintelor</h3>

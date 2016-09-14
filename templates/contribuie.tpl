@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Contribuie cu definiții{/block}
+{block "title"}Contribuie cu definiții{/block}
 
-{block name=content}
+{block "content"}
   {assign var="def" value=$def|default:null}
   {assign var="previewDivContent" value=$previewDivContent|default:null}
 

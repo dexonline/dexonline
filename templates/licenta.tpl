@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Licență{/block}
+{block "title"}Licență{/block}
 
-{block name=content}
+{block "content"}
   <h2>Licență</h2>
 
   <h3>Pentru dicționare fără drept de redistribuire</h3>

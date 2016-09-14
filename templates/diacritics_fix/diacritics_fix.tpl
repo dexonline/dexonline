@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Corector diacritice{/block}
+{block "title"}Corector diacritice{/block}
 
-{block name=content}
+{block "content"}
   <link rel="StyleSheet" type="text/css" href="/DEX/wwwbase/css/diacritics_fix.css"/>
 
   <div id="textareaSubtitle">

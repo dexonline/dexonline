@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Lista Oficială de Cuvinte{/block}
+{block "title"}Lista Oficială de Cuvinte{/block}
 
-{block name=content}
+{block "content"}
   <h3>
     Diferențe între LOC {$locVersions.0} și LOC {$locVersions.1} ({$listType})
   </h3>

@@ -1,10 +1,10 @@
 {extends "layout.tpl"}
 
-{block name=title}Recuperarea parolei{/block}
+{block "title"}Recuperarea parolei{/block}
 
-{block name=search}{/block}
+{block "search"}{/block}
 
-{block name=content}
+{block "content"}
   Ați introdus un cod de recuperare greșit sau o identitate greșită. Vă rugăm asigurați-vă că ați copiat adresa corectă din mesajul e-mail pe care vi
   l-am trimis.
 {/block}

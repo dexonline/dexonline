@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Cuvinte favorite{/block}
+{block "title"}Cuvinte favorite{/block}
 
-{block name=content}
+{block "content"}
   <h3>Lista cuvintelor favorite pentru {$sUser->nick} ({$sUser->name})</h3>
 
   <dl class="favoriteDefs">

@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Editare model{/block}
+{block "title"}Editare model{/block}
 
-{block name=content}
+{block "content"}
   {assign var="adjModels" value=$adjModels|default:null}
   {assign var="participles" value=$participles|default:null}
   {assign var="regenTransforms" value=$regenTransforms|default:null}

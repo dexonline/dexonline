@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Editare definiție{/block}
+{block "title"}Editare definiție{/block}
 
-{block name=content}
+{block "content"}
   {if $isOCR}
     {$title='Adăugare definiție OCR'}
   {else}

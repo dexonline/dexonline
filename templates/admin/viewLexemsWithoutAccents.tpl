@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Lexeme fără accent{/block}
+{block "title"}Lexeme fără accent{/block}
 
-{block name=content}
+{block "content"}
 
   <h3>{$lexems|count} lexeme fără accent</h3>
 

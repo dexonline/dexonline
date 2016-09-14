@@ -1,19 +1,19 @@
 {extends "layout.tpl"}
 
-{block name=title}
+{block "title"}
   Cuvântul zilei ({$timestamp|date_format:'%e %B %Y'}): {$searchResult->definition->lexicon}
 {/block}
 
-{block name=pageDescription}
+{block "pageDescription"}
   <meta name="description"
         content="Cuvântul zilei de {$timestamp|date_format:'%e %B %Y'} la dexonline: {$searchResult->definition->lexicon}"/>
 {/block}
 
-{block name=openGraph}
+{block "openGraph"}
   {* Nothing -- so crawlers index the image of the day instead. *}
 {/block}
 
-{block name=content}
+{block "content"}
   {assign var="nextday" value=$nextday|default:false}
   {assign var="prevday" value=$prevday|default:false}
   {assign var="reason" value=$reason|default:''}

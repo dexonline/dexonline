@@ -1,6 +1,6 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}
+{block "title"}
   {if $t->id}
     Arbore {$t->description}
   {else}
@@ -8,7 +8,7 @@
   {/if}
 {/block}
 
-{block name=content}
+{block "content"}
   <h3>
     {if $t->id}
       Editează arborele

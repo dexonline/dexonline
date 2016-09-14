@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Cuvinte{/block}
+{block "title"}Cuvinte{/block}
 
-{block name=content}
+{block "content"}
   <div id="searchCuv">
     {assign var="text" value=$text|default:false}
     <script> 

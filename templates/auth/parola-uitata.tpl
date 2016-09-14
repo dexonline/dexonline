@@ -1,10 +1,10 @@
 {extends "layout.tpl"}
 
-{block name=title}Parolă uitată{/block}
+{block "title"}Parolă uitată{/block}
 
-{block name=search}{/block}
+{block "search"}{/block}
 
-{block name=content}
+{block "content"}
   <h3>Parolă uitată</h3>
 
   Pentru a vă recupera parola, introduceți adresa de e-mail asociată cu contul <i>dexonline</i>. Vă vom trimite un e-mail cu instrucțiuni pentru recuperarea

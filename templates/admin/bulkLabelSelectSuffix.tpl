@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Alegere sufix{/block}
+{block "title"}Alegere sufix{/block}
 
-{block name=content}
+{block "content"}
 
   <h3>Alegere sufix pentru etichetare în masă</h3>
 

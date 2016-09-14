@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Preferințe{/block}
+{block "title"}Preferințe{/block}
 
-{block name=content}
+{block "content"}
   {if $sUser}
     <div class="panel panel-default">
       <div class="panel-heading">Imagine</div>

@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Definiții cu greșeli de tipar{/block}
+{block "title"}Definiții cu greșeli de tipar{/block}
 
-{block name=content}
+{block "content"}
   <h3>{$searchResults|count} definiții cu greșeli de tipar</h3>
 
   <form class="form-inline">

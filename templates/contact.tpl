@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Contact{/block}
+{block "title"}Contact{/block}
 
-{block name=content}
+{block "content"}
 
   <h3>Contact</h3>
 

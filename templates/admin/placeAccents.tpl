@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Plasare accente{/block}
+{block "title"}Plasare accente{/block}
 
-{block name=content}
+{block "content"}
   <h3>Plasare accente</h3>
 
   <div class="alert alert-info alert-dismissible">

@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Definiții neasociate{/block}
+{block "title"}Definiții neasociate{/block}
 
-{block name=content}
+{block "content"}
 
   <h3>{$searchResults|count} definiții neasociate</h3>
 

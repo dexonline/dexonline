@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Pagină dezactivată{/block}
+{block "title"}Pagină dezactivată{/block}
 
-{block name=content}
+{block "content"}
 
   <h2>Pagină dezactivată</h2>
   

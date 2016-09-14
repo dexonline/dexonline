@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Etichete pentru sensuri{/block}
+{block "title"}Etichete pentru sensuri{/block}
 
-{block name=content}
+{block "content"}
   <h3>Etichete pentru sensuri</h3>
 
   <div class="row">

@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Definiții nemoderate{/block}
+{block "title"}Definiții nemoderate{/block}
 
-{block name=content}
+{block "content"}
 
   <h3>{$searchResults|count} definiții nemoderate</h3>
 

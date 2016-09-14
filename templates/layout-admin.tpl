@@ -1,5 +1,5 @@
 {extends "layout.tpl"}
 
-{block name=banner}{/block}
-{block name=search}{/block}
-{block name=footer}{/block}
+{block "banner"}{/block}
+{block "search"}{/block}
+{block "footer"}{/block}

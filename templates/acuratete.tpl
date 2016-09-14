@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Verificarea acurateței{/block}
+{block "title"}Verificarea acurateței{/block}
 
-{block name=content}
+{block "content"}
   <h3>Verificarea acurateței</h3>
 
   {if $projects}

@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Autori ai imaginilor{/block}
+{block "title"}Autori ai imaginilor{/block}
 
-{block name=content}
+{block "content"}
 
   <table class="table table-condensed table-bordered table-striped">
     <caption class="table-caption">

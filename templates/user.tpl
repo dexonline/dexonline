@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Utilizator: {$user->nick}{/block}
+{block "title"}Utilizator: {$user->nick}{/block}
 
-{block name=content}
+{block "content"}
   <div class="userProfileHeader">
     <h3>
     </h3>

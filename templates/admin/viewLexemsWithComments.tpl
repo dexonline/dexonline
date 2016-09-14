@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Lexeme cu comentarii{/block}
+{block "title"}Lexeme cu comentarii{/block}
 
-{block name=content}
+{block "content"}
   <h3>{$lexems|count} lexeme cu comentarii</h3>
 
   {foreach $lexems as $l}

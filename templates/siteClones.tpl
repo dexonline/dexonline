@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Site Clones{/block}
+{block "title"}Site Clones{/block}
 
-{block name=content}
+{block "content"}
   <h3>Site Clones </h3>
 
   <p> {$definition} </p>

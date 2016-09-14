@@ -1,10 +1,10 @@
 {extends "layout.tpl"}
 
-{block name=title}
+{block "title"}
   {$forms|@count} de cuvinte{$wotd} alese la întâmplare
 {/block}
 
-{block name=content}
+{block "content"}
   <h3>
     {$forms|@count} de cuvinte{$wotd} alese la întâmplare
   </h3>

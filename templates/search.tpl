@@ -1,18 +1,18 @@
 {extends "layout.tpl"}
 
-{block name=title}
+{block "title"}
   {$cuv|escape} - definiție
   {if count($sourceList) == 1}{$sourceList[0]}{/if}
   {if $showParadigm}și paradigmă{/if}
 {/block}
 
-{block name=pageDescription}
+{block "pageDescription"}
   {if isset($pageDescription)}
     <meta name="description" content="{$pageDescription}"/>
   {/if}
 {/block}
 
-{block name=content}
+{block "content"}
   {assign var="declensionText" value=$declensionText|default:null}
   {assign var="exclude_unofficial" value=$exclude_unofficial|default:false}
   {assign var="ignoredWords" value=$ignoredWords|default:null}

@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Lexeme ambigue{/block}
+{block "title"}Lexeme ambigue{/block}
 
-{block name=content}
+{block "content"}
 
   <h3>{$lexems|count} lexeme ambigue (cu nume și descriere identice)</h3>
   

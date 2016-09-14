@@ -4,11 +4,11 @@
 <html>
 
   <head>
-    <title>{block name=title}Dicționare ale limbii române{/block} | dexonline</title>
+    <title>{block "title"}Dicționare ale limbii române{/block} | dexonline</title>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" name="viewport">
-    {block name=pageDescription}{/block}
-    {block name=openGraph}
+    {block "pageDescription"}{/block}
+    {block "openGraph"}
       <meta property="og:image" content="{$imgRoot}/logo/logo-og.png" />
       <meta property="og:type" content="website" />
       <meta property="og:title" content="dexonline" />
@@ -32,14 +32,14 @@
       <main class="row">
         <div class="col-md-12 main-content">
           {include file="bits/flashMessages.tpl"}
-          {block name="before-content"}{/block}
-          {block name="content"}{/block}
-          {block name="after-content"}{/block}
+          {block "before-content"}{/block}
+          {block "content"}{/block}
+          {block "after-content"}{/block}
         </div>
       </main>
       <footer class="row footer">
         <div class="col-md-12">
-          {block name="footer"}{/block}
+          {block "footer"}{/block}
           <div class="text-center">
             <ul class="list-inline">
               <li>Copyright (C) 2004-{$currentYear} dexonline (https://dexonline.ro)</li>

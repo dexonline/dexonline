@@ -1,10 +1,10 @@
 {extends "layout.tpl"}
 
-{block name=title}Moara cuvintelor{/block}
+{block "title"}Moara cuvintelor{/block}
 
-{block name=search}{/block}
+{block "search"}{/block}
 
-{block name=content}
+{block "content"}
   <div class="panel panel-default millArea">
     <div class="panel-heading">
       <h3 class="panel-title">Moara cuvintelor</h3>

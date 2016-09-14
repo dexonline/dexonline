@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Alocare autori{/block}
+{block "title"}Alocare autori{/block}
 
-{block name=content}
+{block "content"}
   <h3>Alocarea autorilor de imagini</h3>
 
   <p>

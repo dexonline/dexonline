@@ -1,10 +1,10 @@
 {extends "layout.tpl"}
 
-{block name=title}Scrabble{/block}
+{block "title"}Scrabble{/block}
 
-{block name=search}{/block}
+{block "search"}{/block}
 
-{block name=content}
+{block "content"}
   <div class="panel panel-default">
     <div class="panel-heading">Verificare Scrabble</div>
 

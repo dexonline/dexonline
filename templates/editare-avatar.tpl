@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Editarea pozei de profil{/block}
+{block "title"}Editarea pozei de profil{/block}
 
-{block name=content}
+{block "content"}
   <h3>Editarea imaginii de profil</h3>
 
   <p>

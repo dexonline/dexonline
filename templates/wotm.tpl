@@ -1,19 +1,19 @@
 {extends "layout.tpl"}
 
-{block name=title}
+{block "title"}
   Cuvântul lunii {$timestamp|date_format:'%B %Y'}: {$searchResult->definition->lexicon}
 {/block}
 
-{block name=pageDescription}
+{block "pageDescription"}
   <meta name="description"
         content="Cuvântul lunii {$timestamp|date_format:'%B %Y'} la dexonline: {$searchResult->definition->lexicon}"/>
 {/block}
 
-{block name=openGraph}
+{block "openGraph"}
   {* Nothing -- so crawlers index the image of the month instead. *}
 {/block}
 
-{block name=content}
+{block "content"}
   <div class="panel panel-default">
     <div class="panel-heading">
       <span>Cuvântul lunii {$timestamp|date_format:'%B %Y'}</span>

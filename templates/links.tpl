@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Legături{/block}
+{block "title"}Legături{/block}
 
-{block name=content}
+{block "content"}
   <p>
     Această pagină conține legături utile de natură lingvistică. Aceste legături nu sunt sponsorizate, ci le considerăm utile pentru
     vizitatorii <i>dexonline</i>. Nu suntem afiliați cu site-urile sau instituțiile menționate.

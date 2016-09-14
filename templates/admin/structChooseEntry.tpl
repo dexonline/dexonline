@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Intrări ușor de structurat{/block}
+{block "title"}Intrări ușor de structurat{/block}
 
-{block name=content}
+{block "content"}
   <h3> {$entries|count} de intrări ușor de structurat</h3>
 
   {foreach $entries as $i => $e}

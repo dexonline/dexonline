@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Cuvântul zilei{/block}
+{block "title"}Cuvântul zilei{/block}
 
-{block name=content}
+{block "content"}
 
   <h3>Cuvântul zilei</h3>
 

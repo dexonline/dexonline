@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Pagina moderatorului{/block}
+{block "title"}Pagina moderatorului{/block}
 
-{block name=content}
+{block "content"}
   <h3>Pagina moderatorului</h3>
 
   {include file="bits/phpConstants.tpl"}

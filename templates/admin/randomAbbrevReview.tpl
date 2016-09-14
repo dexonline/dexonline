@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Examinare abrevieri{/block}
+{block "title"}Examinare abrevieri{/block}
 
-{block name=content}
+{block "content"}
   <h3>Examinare abrevieri</h3>
 
   {assign var=ambiguities value=$ambiguities|default:null}

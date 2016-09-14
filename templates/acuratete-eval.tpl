@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}{$project->name} | verificarea acurateței{/block}
+{block "title"}{$project->name} | verificarea acurateței{/block}
 
-{block name=content}
+{block "content"}
   <h3>Proiect de verificare a acurateței - {$project->name}</h3>
 
   <div class="panel panel-default">

@@ -1,7 +1,7 @@
 {extends "layout.tpl"}
 
-{block name=title}Autentificare cu OpenID{/block}
+{block "title"}Autentificare cu OpenID{/block}
 
-{block name=content}
+{block "content"}
   Vă redirecționăm către serverul OpenID...
 {/block}

@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Editare lexem: {$lexem->form}{/block}
+{block "title"}Editare lexem: {$lexem->form}{/block}
 
-{block name=content}
+{block "content"}
   <h3>
     Editare lexem: {$lexem->form}
     <span class="pull-right">

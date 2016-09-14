@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Lexeme neetichetate{/block}
+{block "title"}Lexeme neetichetate{/block}
 
-{block name=content}
+{block "content"}
 
   <h3>{$lexems|count} lexeme neetichetate</h3>
 

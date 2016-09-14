@@ -1,10 +1,10 @@
 {extends "layout.tpl"}
 
-{block name=title}Autentificare cu OpenID{/block}
+{block "title"}Autentificare cu OpenID{/block}
 
-{block name=search}{/block}
+{block "search"}{/block}
 
-{block name=content}
+{block "content"}
   {assign var="allowFakeUsers" value=$allowFakeUsers|default:false}
   {assign var="openid" value=$openid|default:''}
 

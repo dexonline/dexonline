@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Căutare definiții{/block}
+{block "title"}Căutare definiții{/block}
 
-{block name=content}
+{block "content"}
   <h3>{$searchResults|count} rezultate</h3>
 
   <form action="definitionLookup.php" method="post">

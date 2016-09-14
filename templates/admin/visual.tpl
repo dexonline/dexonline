@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Dicționarul vizual{/block}
+{block "title"}Dicționarul vizual{/block}
 
-{block name=content}
+{block "content"}
 
   <div class="wrapper">
     <h3>

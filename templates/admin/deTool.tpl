@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Definiție din DE{/block}
+{block "title"}Definiție din DE{/block}
 
-{block name=content}
+{block "content"}
   <h3>Definiție din Dicționarul enciclopedic: {$def->lexicon} ({$def->id})</h3>
 
   <form class="form-horizontal" method="post">

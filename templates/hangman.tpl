@@ -1,10 +1,10 @@
 {extends "layout.tpl"}
 
-{block name=title}Spânzurătoarea{/block}
+{block "title"}Spânzurătoarea{/block}
 
-{block name=search}{/block}
+{block "search"}{/block}
 
-{block name=content}
+{block "content"}
   <script>
    var word = "{$word}";
    var difficulty = "{$difficulty}";

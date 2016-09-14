@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Modele de flexiune{/block}
+{block "title"}Modele de flexiune{/block}
 
-{block name=content}
+{block "content"}
   <h3>
     Modele de flexiune pentru tipul {$modelType->code} ({$modelType->description})
     în LOC versiunea {$locVersion}

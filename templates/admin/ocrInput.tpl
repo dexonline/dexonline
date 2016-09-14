@@ -1,9 +1,9 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Adaugă definiții OCR din dicționar{/block}
+{block "title"}Adaugă definiții OCR din dicționar{/block}
 
 
-{block name=content}
+{block "content"}
   <h3>Adaugă definiții OCR din dicționar</h3>
 
   {if $message}

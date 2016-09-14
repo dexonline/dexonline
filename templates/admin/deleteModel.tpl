@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Ștergere model{/block}
+{block "title"}Ștergere model{/block}
 
-{block name=content}
+{block "content"}
   <h3>Ștergere model {$modelType}{$modelNumber}</h3>
 
   <form method="post">

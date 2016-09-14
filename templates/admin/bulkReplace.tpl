@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Înlocuire în masă{/block}
+{block "title"}Înlocuire în masă{/block}
 
-{block name=content}
+{block "content"}
   <h3>Înlocuire în masă: {$searchResults|count} de definiții</h3>
 
   <div class="panel-admin">

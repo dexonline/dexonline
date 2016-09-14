@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Surse{/block}
+{block "title"}Surse{/block}
 
-{block name=content}
+{block "content"}
 
   <h3>Surse</h3>
 

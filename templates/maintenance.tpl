@@ -1,8 +1,8 @@
 {extends "base.tpl"}
 
-{block name=title}Mentenanță{/block}
+{block "title"}Mentenanță{/block}
 
-{block name=content}
+{block "content"}
 
   <h2>Lucrări de mentenanță</h2>
 

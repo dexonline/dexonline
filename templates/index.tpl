@@ -1,8 +1,8 @@
 {extends "base.tpl"}
 
-{block name=title}Dicționar explicativ al limbii române{/block}
+{block "title"}Dicționar explicativ al limbii române{/block}
 
-{block name=content}
+{block "content"}
   <header>
     <div class="siteIdentity">
       <img class='siteLogo' src='{$wwwRoot}img/svg/logo-dexonline.svg' alt='Dexonline'/>

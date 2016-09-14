@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Donează{/block}
+{block "title"}Donează{/block}
 
-{block name=content}
+{block "content"}
   <div>
     <h3>Donează</h3>
 

@@ -1,6 +1,6 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}
+{block "title"}
   {if $artist->id}
     Editare autor
   {else}
@@ -8,7 +8,7 @@
   {/if}
 {/block}
 
-{block name=content}
+{block "content"}
   <div class="panel panel-default">
     <div class="panel-heading">
       {if $artist->id}

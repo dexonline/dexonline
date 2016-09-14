@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Etichetare sufix -{$suffix}{/block}
+{block "title"}Etichetare sufix -{$suffix}{/block}
 
-{block name=content}
+{block "content"}
   <h3>Etichetare sufix -{$suffix}</h3>
 
   <p>

@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Căutare lexeme{/block}
+{block "title"}Căutare lexeme{/block}
 
-{block name=content}
+{block "content"}
 
   <h3>{$lexems|count} rezultate</h3>
 

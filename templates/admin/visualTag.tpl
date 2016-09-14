@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Etichetare imagine{/block}
+{block "title"}Etichetare imagine{/block}
 
-{block name=content}
+{block "content"}
   <h3>Etichetare imagine {$visual->path}</h3>
 
   <p>

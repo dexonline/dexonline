@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Imagini pentru cuvântul zilei{/block}
+{block "title"}Imagini pentru cuvântul zilei{/block}
 
-{block name=content}
+{block "content"}
 
   <h3>Imagini pentru cuvântul zilei</h3>
 

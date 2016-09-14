@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Unificare lexeme{/block}
+{block "title"}Unificare lexeme{/block}
 
-{block name=content}
+{block "content"}
   <h3>Unificare lexeme - {$lexems|@count} rezultate</h3>
 
   <div class="alert alert-info alert-dismissible" role="alert">

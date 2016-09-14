@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Clonare model{/block}
+{block "title"}Clonare model{/block}
 
-{block name=content}
+{block "content"}
   <h3>Clonare model {$modelType}{$modelNumber}</h3>
 
   <form method="post">

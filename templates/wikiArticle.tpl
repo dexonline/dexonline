@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}{$wa->title|default:'Articol inexistent'}{/block}
+{block "title"}{$wa->title|default:'Articol inexistent'}{/block}
 
-{block name=content}
+{block "content"}
   {assign var="wa" scope=global value=$wa|default:null}
   {assign var="title" value=$wa->title|default:'Articol inexistent'}
 

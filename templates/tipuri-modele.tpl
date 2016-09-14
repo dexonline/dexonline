@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Tipuri de modele{/block}
+{block "title"}Tipuri de modele{/block}
 
-{block name=content}
+{block "content"}
   {if $showAddForm}
     <div class="panel panel-default">
       <div class="panel-heading">Adaugă un tip de model nou</div>

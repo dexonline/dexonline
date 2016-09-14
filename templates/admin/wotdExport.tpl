@@ -1,8 +1,8 @@
 {extends "layout-admin.tpl"}
 
-{block name=title}Descarcă cuvântul zilei{/block}
+{block "title"}Descarcă cuvântul zilei{/block}
 
-{block name=content}
+{block "content"}
 
   <h3>Descarcă cuvintele zilei - {$month}/{$year}</h3>
 

@@ -1,10 +1,10 @@
 {extends "layout.tpl"}
 
-{block name=title}Autentificare cu OpenID{/block}
+{block "title"}Autentificare cu OpenID{/block}
 
-{block name=search}{/block}
+{block "search"}{/block}
 
-{block name=content}
+{block "content"}
   <h3>Autentificare cu OpenID</h3>
 
   Toți utilizatorii necesită un nume de cont; puteți alege una din opțiunile de mai jos.<br/>

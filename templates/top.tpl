@@ -1,8 +1,8 @@
 {extends "layout.tpl"}
 
-{block name=title}Topul voluntarilor{/block}
+{block "title"}Topul voluntarilor{/block}
 
-{block name=content}
+{block "content"}
   <h3>Topul contribuțiilor manuale</h3>
 
   Pentru fiecare utilizator sunt indicate numărul de definiții trimise și numărul total

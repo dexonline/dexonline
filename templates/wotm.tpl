@@ -1,4 +1,4 @@
-{extends file="layout.tpl"}
+{extends "layout.tpl"}
 
 {block name=title}
   Cuvântul lunii {$timestamp|date_format:'%B %Y'}: {$searchResult->definition->lexicon}

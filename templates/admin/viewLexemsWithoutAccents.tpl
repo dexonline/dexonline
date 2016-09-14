@@ -1,4 +1,4 @@
-{extends file="layout-admin.tpl"}
+{extends "layout-admin.tpl"}
 
 {block name=title}Lexeme fără accent{/block}
 

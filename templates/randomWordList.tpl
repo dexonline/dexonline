@@ -1,4 +1,4 @@
-{extends file="layout.tpl"}
+{extends "layout.tpl"}
 
 {block name=title}
   {$forms|@count} de cuvinte{$wotd} alese la întâmplare

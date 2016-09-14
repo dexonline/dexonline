@@ -1,4 +1,4 @@
-{extends file="layout.tpl"}
+{extends "layout.tpl"}
 
 {block name=title}Moara cuvintelor{/block}
 

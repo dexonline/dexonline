@@ -1,4 +1,4 @@
-{extends file="base.tpl"}
+{extends "base.tpl"}
 
 {block name=title}Mentenanță{/block}
 

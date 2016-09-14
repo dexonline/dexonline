@@ -623,7 +623,7 @@ class Lexem extends BaseObject implements DatedObject {
     return $this->description ? "{$this->formNoAccent} ({$this->description})" : $this->formNoAccent;
   }
 
-  public function cloneLexem() {
+  public function _clone() {
     $clone = $this->parisClone();
     $clone->description = ($this->description) ? "CLONĂ {$this->description}" : "CLONĂ";
     $clone->verifSp = false;

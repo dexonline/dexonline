@@ -26,6 +26,28 @@ class Entry extends BaseObject implements DatedObject {
     return $e;
   }
 
+  function _clone($cloneDefinitions, $cloneTrees) {
+    $e = $this->parisClone();
+    $e->description .= ' (CLONĂ)';
+    $e->save();
+
+    if ($cloneDefinitions) {
+      $eds = EntryDefinition::get_all_by_entryId($this->id);
+      foreach ($eds as $ed) {
+        EntryDefinition::associate($e->id, $ed->definitionId);
+      }
+    }
+
+    if ($cloneTrees) {
+      $tes = TreeEntry::get_all_by_entryId($this->id);
+      foreach ($tes as $te) {
+        TreeEntry::associate($te->treeId, $e->id);
+      }
+    }
+
+    return $e;
+  }
+
   function getLexems() {
     if ($this->lexems === null) {
       $this->lexems = Lexem::get_all_by_entryId($this->id);

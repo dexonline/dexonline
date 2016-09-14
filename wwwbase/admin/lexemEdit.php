@@ -38,7 +38,7 @@ $lexem = Lexem::get_by_id($lexemId);
 $original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether certain fields have changed
 
 if ($cloneButton) {
-  $newLexem = $lexem->cloneLexem();
+  $newLexem = $lexem->_clone();
   Log::notice("Cloned lexem {$lexem->id} ({$lexem->formNoAccent}), new id is {$newLexem->id}");
   util_redirect("lexemEdit.php?lexemId={$newLexem->id}");
 }

@@ -96,6 +96,11 @@
       unifică cu...
     </button>
 
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#cloneModal">
+      <i class="glyphicon glyphicon-duplicate"></i>
+      clonează...
+    </button>
+
     <button type="submit" class="btn btn-default" name="createTree">
       <i class="glyphicon glyphicon-tree-deciduous"></i>
       creează un arbore de sensuri
@@ -114,12 +119,12 @@
   <div class="modal fade" id="mergeModal" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <form action="editEntry.php" method="post" role="form">
+        <form method="post" role="form">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel">Unifică intrarea cu...</h4>
+            <h4 class="modal-title">Unifică intrarea cu...</h4>
           </div>
 
           <div class="modal-body">
@@ -132,6 +137,45 @@
             <button type="submit" class="btn btn-primary" name="mergeButton">
               <i class="glyphicon glyphicon-resize-small"></i>
               unifică
+            </button>
+            <button type="button" class="btn btn-link" data-dismiss="modal">renunță</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="cloneModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form method="post" role="form">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Clonează intrarea</h4>
+          </div>
+
+          <div class="modal-body">
+            <input type="hidden" name="id" value="{$e->id}">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="cloneDefinitions" checked>
+                copiază asocierile cu definiții
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="cloneTrees" checked>
+                copiază asocierile cu arbori
+              </label>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" name="cloneButton">
+              <i class="glyphicon glyphicon-duplicate"></i>
+              clonează
             </button>
             <button type="button" class="btn btn-link" data-dismiss="modal">renunță</button>
           </div>

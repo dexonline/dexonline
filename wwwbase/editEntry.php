@@ -6,6 +6,7 @@ util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 $id = util_getRequestParameter('id');
 $saveButton = util_getBoolean('saveButton');
 $mergeButton = util_getBoolean('mergeButton');
+$cloneButton = util_getBoolean('cloneButton');
 $createTree = util_getBoolean('createTree');
 $delete = util_getBoolean('delete');
 $dissociateDefinitionId = util_getRequestParameter('dissociateDefinitionId');
@@ -48,6 +49,16 @@ if ($mergeButton) {
 
   FlashMessage::add('Am unificat intrările.', 'success');
   util_redirect("?id={$other->id}");
+}
+
+if ($cloneButton) {
+  $cloneDefinitions = util_getBoolean('cloneDefinitions');
+  $cloneTrees = util_getBoolean('cloneTrees');
+
+  $newe = $e->_clone($cloneDefinitions, $cloneTrees);
+  Log::info("Cloned entry {$e->id} ({$e->description}), new id {$newe->id}");
+  FlashMessage::add('Am clonat intrarea.', 'success');
+  util_redirect("?id={$newe->id}");
 }
 
 if ($createTree) {

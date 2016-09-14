@@ -87,7 +87,7 @@
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>name=submitButton</td>
+	<td>name=saveButton</td>
 	<td></td>
 </tr>
 </tbody></table>

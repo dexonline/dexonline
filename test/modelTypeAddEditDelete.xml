@@ -37,7 +37,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=submitAddButton</td>
+	<td>name=saveButton</td>
 	<td></td>
 </tr>
 <tr>
@@ -92,7 +92,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=submitEditButton</td>
+	<td>name=saveButton</td>
 	<td></td>
 </tr>
 <tr>

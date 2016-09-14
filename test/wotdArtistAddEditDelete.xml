@@ -22,17 +22,17 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=submitButton</td>
+	<td>name=saveButton</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//div/div/div/div</td>
+	<td>//main/div/div/div/div</td>
 	<td>× Numele nu poate fi vid.</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//div/div/div[2]</td>
+	<td>//main/div/div/div/div[2]</td>
 	<td>× Codul nu poate fi vid (îl folosim încă la cuvântul lunii).</td>
 </tr>
 <tr>
@@ -62,12 +62,12 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=submitButton</td>
+	<td>name=saveButton</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//div/div/div/div</td>
+	<td>//main/div/div/div/div</td>
 	<td>× Codul este deja folosit.</td>
 </tr>
 <tr>
@@ -77,7 +77,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=submitButton</td>
+	<td>name=saveButton</td>
 	<td></td>
 </tr>
 <tr>
@@ -132,7 +132,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=submitButton</td>
+	<td>name=saveButton</td>
 	<td></td>
 </tr>
 <tr>
@@ -167,7 +167,7 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//div/div/div/div</td>
+	<td>//main/div/div/div/div</td>
 	<td>× Am șters autorul.</td>
 </tr>
 <tr>

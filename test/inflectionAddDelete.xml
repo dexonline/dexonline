@@ -27,7 +27,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=submitButton</td>
+	<td>name=saveButton</td>
 	<td></td>
 </tr>
 <tr>

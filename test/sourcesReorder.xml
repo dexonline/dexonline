@@ -22,7 +22,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=submitButton</td>
+	<td>name=saveButton</td>
 	<td></td>
 </tr>
 <tr>
@@ -42,7 +42,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>name=submitButton</td>
+	<td>name=saveButton</td>
 	<td></td>
 </tr>
 <tr>
@@ -55,7 +55,6 @@
 	<td>//table[@id='sources']/tbody/tr[2]/td/span</td>
 	<td>Source 2</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

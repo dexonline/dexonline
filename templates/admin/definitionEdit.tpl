@@ -30,7 +30,7 @@
           <label class="col-sm-4 control-label">sursă</label>
           <div class="col-sm-8">
             {if $source->canModerate}
-              {include file="bits/sourceDropDown.tpl" sources=$allModeratorSources src_selected=$def->sourceId skipAnySource=true}
+              {include "bits/sourceDropDown.tpl" sources=$allModeratorSources src_selected=$def->sourceId skipAnySource=true}
             {else}
               <input type="hidden" name="source" value="{$def->sourceId}"/>
               {$source->shortName}
@@ -41,7 +41,7 @@
         <div class="form-group">
           <label class="col-sm-4 control-label">stare</label>
           <div class="col-sm-8">
-            {include file="bits/statusDropDown.tpl" name="status" selectedStatus=$def->status}
+            {include "bits/statusDropDown.tpl" name="status" selectedStatus=$def->status}
           </div>
         </div>
       </div>

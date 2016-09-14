@@ -182,7 +182,7 @@
 
         <div class="panel-body">
           {foreach $participles as $i => $p}
-            {include file="paradigm/paradigm.tpl" lexem=$p}
+            {include "paradigm/paradigm.tpl" lexem=$p}
           {/foreach}
         </div>
       </div>

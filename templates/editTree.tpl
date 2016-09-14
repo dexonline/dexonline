@@ -145,7 +145,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Sensuri</div>
       <div class="panel-body">
-        {include file="bits/meaningTree.tpl"
+        {include "bits/meaningTree.tpl"
         meanings=$t->getMeanings()
         id="meaningTree"
         editable=true}

@@ -17,7 +17,7 @@
     {/if}
   </h3>
 
-  {include file="bits/phpConstants.tpl"}
+  {include "bits/phpConstants.tpl"}
 
   <form class="form-horizontal" method="post" role="form">
     <input type="hidden" name="id" value="{$e->id}">
@@ -207,7 +207,7 @@
           </a>
         </div>
         <div class="panel-body">
-          {include file="bits/meaningTree.tpl" meanings=$t->getMeanings() id="meaningTree-{$t->id}"}
+          {include "bits/meaningTree.tpl" meanings=$t->getMeanings() id="meaningTree-{$t->id}"}
         </div>
       </div>
     {/foreach}

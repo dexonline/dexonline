@@ -29,7 +29,7 @@
         <div class="clearfix"></div>
       </div>
       <div class="panel-body panel-admin">
-        {include file="admin/definitionList.tpl"}
+        {include "admin/definitionList.tpl"}
       </div>
     </div>
 

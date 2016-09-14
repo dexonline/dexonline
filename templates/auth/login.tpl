@@ -9,7 +9,7 @@
   {assign var="openid" value=$openid|default:''}
 
   {if $allowFakeUsers}
-    {include file="bits/fakeUser.tpl"}
+    {include "bits/fakeUser.tpl"}
   {/if}
 
   <h3>Autentificare cu OpenID</h3>

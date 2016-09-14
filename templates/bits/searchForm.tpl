@@ -33,7 +33,7 @@
               Caută în tot textul definițiilor
             </label>
           </div>
-          {include file="bits/sourceDropDown.tpl" urlName=1}
+          {include "bits/sourceDropDown.tpl" urlName=1}
           <a id="advSearchHelp" href="http://wiki.dexonline.ro/wiki/Ajutor_pentru_căutare" target="_blank">ajutor</a>
         </div>
       </div>

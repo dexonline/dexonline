@@ -50,7 +50,7 @@
 
           {if count($lexems) == 1}
             {* If there is exactly one lexem, do not link to the lexem page, because it would print an almost exact duplicate of this page. *}
-            „{include file="bits/lexemName.tpl" lexem=$lexems.0}”
+            „{include "bits/lexemName.tpl" lexem=$lexems.0}”
           {else}
             {foreach $lexems as $row_id => $lexem}
               <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{$lexem->formNoAccent}</a
@@ -88,7 +88,7 @@
               {else}
                 {$results|@count} definiții pentru
               {/if}
-              „{include file="bits/lexemName.tpl" lexem=$lexems.0}”
+              „{include "bits/lexemName.tpl" lexem=$lexems.0}”
             {/if}
           {/if}
 
@@ -135,7 +135,7 @@
 
         {if $searchType != $smarty.const.SEARCH_REGEXP}
           <div id="paradigmDiv" {if !$showParadigm}style="display: none"{/if}>
-            {if $showParadigm}{include file="bits/multiParadigm.tpl"}{/if}
+            {if $showParadigm}{include "bits/multiParadigm.tpl"}{/if}
           </div>
         {/if}
 
@@ -150,7 +150,7 @@
 
   <div id="resultsWrapper" class="txt">
     {if !empty($images)}
-      {include file="bits/gallery.tpl" images=$images}
+      {include "bits/gallery.tpl" images=$images}
     {/if}
 
     {if $stopWords}
@@ -215,7 +215,7 @@
           {assign var=notDisplayedUnofficial value=false}
         {/if}
       {/if}
-      {include file="bits/definition.tpl" row=$row}
+      {include "bits/definition.tpl" row=$row}
     {/foreach}
 
     {if isset($hiddenSources) && count($hiddenSources) && !count($results)}
@@ -231,7 +231,7 @@
     {if $searchType == $smarty.const.SEARCH_APPROXIMATE || $searchType == $smarty.const.SEARCH_REGEXP}
       {foreach $lexems as $row_id => $lexem}
         {if $row_id}|{/if}
-        <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{include file="bits/lexemName.tpl" lexem=$lexem}</a>
+        <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{include "bits/lexemName.tpl" lexem=$lexem}</a>
       {/foreach}
     {/if}
 

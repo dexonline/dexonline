@@ -16,7 +16,7 @@
 
   <div class="panel panel-default">
     <div class="panel-body panel-admin">
-      {include file="admin/definitionList.tpl"}
+      {include "admin/definitionList.tpl"}
     </div>
   </div>
 {/block}

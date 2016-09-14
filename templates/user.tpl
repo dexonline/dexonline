@@ -10,7 +10,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      {include file="bits/avatar.tpl" user=$user}
+      {include "bits/avatar.tpl" user=$user}
       <span>{$user->nick|escape}</span>
       {if $sUser && $user->id == $sUser->id}
         <a class="btn btn-default btn-sm pull-right" href="{$wwwRoot}preferinte">editează profilul</a>

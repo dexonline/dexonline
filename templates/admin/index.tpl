@@ -5,7 +5,7 @@
 {block "content"}
   <h3>Pagina moderatorului</h3>
 
-  {include file="bits/phpConstants.tpl"}
+  {include "bits/phpConstants.tpl"}
 
   {if $sUser->moderator & $smarty.const.PRIV_EDIT}
     <div class="panel panel-default">
@@ -84,7 +84,7 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">sursa</label>
                 <div class="col-sm-9">
-                  {include file="bits/sourceDropDown.tpl" name="sourceId"}
+                  {include "bits/sourceDropDown.tpl" name="sourceId"}
                 </div>
               </div>
 
@@ -143,7 +143,7 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">sursa</label>
                 <div class="col-sm-9">
-                  {include file="bits/sourceDropDown.tpl"}
+                  {include "bits/sourceDropDown.tpl"}
                 </div>
               </div>
 
@@ -172,7 +172,7 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">structurare</label>
                 <div class="col-sm-9">
-                  {include file="bits/structStatus.tpl" canEdit=true anyOption=true}
+                  {include "bits/structStatus.tpl" canEdit=true anyOption=true}
                 </div>
               </div>
 
@@ -290,7 +290,7 @@
           <div class="form-group">
             <label class="col-sm-3 control-label">sursa</label>
             <div class="col-sm-9">
-              {include file="bits/sourceDropDown.tpl" name="sourceId"}
+              {include "bits/sourceDropDown.tpl" name="sourceId"}
             </div>
           </div>
 

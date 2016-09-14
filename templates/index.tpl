@@ -10,10 +10,10 @@
     </div>
   </header>
 
-  {include file="bits/searchForm.tpl" advancedSearch=0}
+  {include "bits/searchForm.tpl" advancedSearch=0}
 
   {if !$suggestNoBanner && $skinVariables.banner}
-    {include file="bits/banner.tpl" id="mainPage"}
+    {include "bits/banner.tpl" id="mainPage"}
   {/if}
 
 
@@ -22,7 +22,7 @@
       {if $numEnabledWidgets && $skinVariables.widgets}
         {foreach $widgets as $params}
           {if $params.enabled}
-            <div class="col-sm-4 col-xs-12">{include file="widgets/`$params.template`"}</div>
+            <div class="col-sm-4 col-xs-12">{include "widgets/`$params.template`"}</div>
           {/if}
         {/foreach}
       {/if}

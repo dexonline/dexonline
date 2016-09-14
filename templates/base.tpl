@@ -16,7 +16,7 @@
     {/block}
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,b,i,bi"
           rel="stylesheet" type="text/css">
-    {include file="bits/cssJs.tpl"}
+    {include "bits/cssJs.tpl"}
     <link rel="search" type="application/opensearchdescription+xml" href="https://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
     <link href="https://plus.google.com/100407552237543221945" rel="publisher" />
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="https://dexonline.ro/rss/cuvantul-zilei">
@@ -25,13 +25,13 @@
 
   <body>
     <header>
-      {include file="bits/navmenu.tpl"}
-      {include file="bits/recentlyVisited.tpl"}
+      {include "bits/navmenu.tpl"}
+      {include "bits/recentlyVisited.tpl"}
     </header>
     <div class="container">
       <main class="row">
         <div class="col-md-12 main-content">
-          {include file="bits/flashMessages.tpl"}
+          {include "bits/flashMessages.tpl"}
           {block "before-content"}{/block}
           {block "content"}{/block}
           {block "after-content"}{/block}
@@ -45,7 +45,7 @@
               <li>Copyright (C) 2004-{$currentYear} dexonline (https://dexonline.ro)</li>
               <li class="licenceLink"><a href="{$wwwRoot}licenta">Licență</a></li>
               {if $cfg.global.hostedBy}
-                <li class="hostingLink">{include file="hosting/`$cfg.global.hostedBy`.tpl"}</li>
+                <li class="hostingLink">{include "hosting/`$cfg.global.hostedBy`.tpl"}</li>
               {/if}
             </ul>
           </div>

@@ -5,13 +5,13 @@
   <div id="bannerWrapper" class="center-block">
     {if $adsProvider == 'diverta'}
       {* TODO: edit revive.tpl to make this work *}
-      {include file="bits/revive.tpl" zoneId="" params=$adsProviderParams}
+      {include "bits/revive.tpl" zoneId="" params=$adsProviderParams}
     {elseif $cfg.banner.type == 'revive'}
-      {include file="bits/revive.tpl"}
+      {include "bits/revive.tpl"}
     {elseif $cfg.banner.type == 'adsense'}
       {assign var="key" value="adsense_`$id`"}
       {if $cfg.banner.$key}
-        {include file="bits/adsense.tpl" adUnitId=$cfg.banner.$key}
+        {include "bits/adsense.tpl" adUnitId=$cfg.banner.$key}
       {/if}
     {elseif $cfg.banner.type == 'fake'}
       <div class="center-block fakeBanner">

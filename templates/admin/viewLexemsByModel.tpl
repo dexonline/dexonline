@@ -7,5 +7,5 @@
 {block "content"}
   <h3>{$lexems|count} lexeme pentru modelul {$modelType}{$modelNumber}</h3>
   
-  {include file="admin/lexemList.tpl"}
+  {include "admin/lexemList.tpl"}
 {/block}

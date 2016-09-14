@@ -111,7 +111,7 @@
 
                   {foreach $homonyms as $h}
                     <div>
-                      {include file="bits/lexemLink.tpl" lexem=$h}
+                      {include "bits/lexemLink.tpl" lexem=$h}
                       {$h->modelType}{$h->modelNumber}{$h->restriction}
                     </div>
                   {/foreach}

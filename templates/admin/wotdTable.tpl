@@ -43,12 +43,12 @@
       <form class="form-inline" action="wotdExport.php">
         <div class="form-group">
           <label>luna</label>
-          {include file="bits/numericDropDown.tpl" name="month" start=1 end=13 selected=$downloadMonth}
+          {include "bits/numericDropDown.tpl" name="month" start=1 end=13 selected=$downloadMonth}
         </div>
 
         <div class="form-group">
           <label>anul</label>
-          {include file="bits/numericDropDown.tpl" name="year" start=$downloadYear-3 end=$downloadYear+3 selected=$downloadYear}
+          {include "bits/numericDropDown.tpl" name="year" start=$downloadYear-3 end=$downloadYear+3 selected=$downloadYear}
         </div>
 
         <button type="submit" class="btn btn-primary" name="submitButton">

@@ -6,6 +6,6 @@
 
   <h3>{$entries|count} intrări neasociate cu definiții</h3>
 
-  {include file="admin/entryList.tpl"}
+  {include "admin/entryList.tpl"}
 
 {/block}

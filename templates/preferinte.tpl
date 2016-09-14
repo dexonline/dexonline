@@ -8,7 +8,7 @@
       <div class="panel-heading">Imagine</div>
       <div class="panel-body">
         <form action="editare-avatar" method="post" enctype="multipart/form-data">
-          {include file="bits/avatar.tpl" user=$sUser}
+          {include "bits/avatar.tpl" user=$sUser}
           <br />
           <br />
           <div class="form-group">

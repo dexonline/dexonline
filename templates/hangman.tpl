@@ -46,7 +46,7 @@
 
         <div id="resultsWrapper" class="txt">
           {foreach $searchResults as $row}
-            {include file="bits/definition.tpl"}
+            {include "bits/definition.tpl"}
           {/foreach}
         </div>
       </form>

@@ -17,7 +17,7 @@
     <div class="expand"></div>
     <div class="value" data-id="" data-can-delete="1"></div>
   </li>
-  {include file="bits/tagTree.tpl" tags=$tags id="tagTree"}
+  {include "bits/tagTree.tpl" tags=$tags id="tagTree"}
 
   <div id="menuBar">
     <input type="text" name="value" value="" id="valueBox" size="20">

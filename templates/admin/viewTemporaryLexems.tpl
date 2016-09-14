@@ -6,6 +6,6 @@
 
   <h3>{$lexems|count} lexeme neetichetate</h3>
 
-  {include file="admin/lexemList.tpl"}
+  {include "admin/lexemList.tpl"}
 
 {/block}

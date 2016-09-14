@@ -3,8 +3,8 @@
   {foreach $lexems as $lexem}
     <div class="paraLexem">
       <div class="lexemData">
-        <span class="lexemName">{include file="bits/lexemName.tpl" lexem=$lexem}</span>
-        {include file="bits/locInfo.tpl" isLoc=$lexem->isLoc}
+        <span class="lexemName">{include "bits/lexemName.tpl" lexem=$lexem}</span>
+        {include "bits/locInfo.tpl" isLoc=$lexem->isLoc}
         {if $sUser && ($sUser->moderator & ($smarty.const.PRIV_EDIT + $smarty.const.PRIV_STRUCT))}
           <a class="btn btn-link" href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexem->id}">
             <i class="glyphicon glyphicon-pencil"></i>
@@ -17,7 +17,7 @@
         {/if}
       </div>
 
-      {include file="paradigm/paradigm.tpl" lexem=$lexem}
+      {include "paradigm/paradigm.tpl" lexem=$lexem}
     </div>
   {/foreach}
 

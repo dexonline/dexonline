@@ -94,9 +94,9 @@
       </div>
 
       <div class="clearfix"></div>
-      {include file="bits/doneaza-la-ce-folosim.tpl"}
-      {include file="bits/doneaza-doi-la-suta.tpl"}
-      {include file="bits/doneaza-firme.tpl"}
-      {include file="bits/doneaza-rasplata.tpl"}
+      {include "bits/doneaza-la-ce-folosim.tpl"}
+      {include "bits/doneaza-doi-la-suta.tpl"}
+      {include "bits/doneaza-firme.tpl"}
+      {include "bits/doneaza-rasplata.tpl"}
   </div>
 {/block}

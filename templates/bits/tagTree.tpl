@@ -11,7 +11,7 @@
           {$t->value}
         </div>
         {/strip}
-        {include file="bits/tagTree.tpl" tags=$t->children id=""}
+        {include "bits/tagTree.tpl" tags=$t->children id=""}
       </li>
     {/foreach}
   </ul>

@@ -53,7 +53,7 @@
             {/foreach}
           {/if}
         </div>
-        {include file="bits/meaningTree.tpl" meanings=$t.children id=""}
+        {include "bits/meaningTree.tpl" meanings=$t.children id=""}
       {/strip}</li>
     {/foreach}
   </ul>

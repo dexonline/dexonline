@@ -47,11 +47,7 @@
                       Autor: {$s->author}<br/>
                       Editură: {$s->publisher}<br/>
                       Anul apariției: {$s->year}<br/>
-                      Tipul:
-                      {if $s->isOfficial==3}Ascuns{/if}
-                      {if $s->isOfficial==2}Oficial{/if}
-                      {if $s->isOfficial==1}Specializat{/if}
-                      {if $s->isOfficial==0}Neoficial{/if}
+                      Tipul: {$s->getTypeName()}
                     </div>
                   </div>
                 </span>

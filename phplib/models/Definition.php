@@ -115,27 +115,36 @@ class Definition extends BaseObject implements DatedObject {
 
   public static function loadForLexems(&$lexems, $sourceId, $preferredWord, $exclude_unofficial = false) {
     if (!count($lexems)) {
-      return array();
+      return [];
     }
-    $entryIds = '';
+    $entryIds = [];
     foreach ($lexems as $lexem) {
-      if ($entryIds) {
-        $entryIds .= ',';
-      }
-      $entryIds .= $lexem->entryId;
+      $entryIds[] = $lexem->entryId;
     }
 
-    $sourceClause = $sourceId ? "and D.sourceId = $sourceId" : '';
-    $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
-    $statusClause = sprintf("and D.status in (%d,%d)", self::ST_ACTIVE, self::ST_HIDDEN);
     // Get the IDs first, then load the definitions. This prevents MySQL
     // from creating temporary tables on disk.
-    // TODO Using the number constants is not a good practice
-    $ids = ORM::for_table('Definition')
-      ->raw_query("select distinct D.id from Definition D, EntryDefinition ED, Source S " .
-                  "where D.id = ED.definitionId and ED.entryId in ($entryIds) and D.sourceId = S.id $statusClause $excludeClause $sourceClause " .
-                  "order by S.isOfficial desc, (D.lexicon = '$preferredWord') desc, S.displayOrder, D.lexicon")
+    $query = Model::factory('Definition')
+           ->table_alias('d')
+           ->select('d.id')
+           ->distinct()
+           ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
+           ->join('Source', ['d.sourceId', '=', 's.id'], 's')
+           ->where_in('ed.entryId', $entryIds)
+           ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN]);
+    if ($exclude_unofficial) {
+      $query = $query->where_not_equal('s.type', Source::TYPE_UNOFFICIAL);
+    }
+    if ($sourceId) {
+      $query = $query->where('s.id', $sourceId);
+    }
+    $ids = $query
+      ->order_by_desc('s.type')
+      ->order_by_expr("d.lexicon = '{$preferredWord}' desc")
+      ->order_by_asc('s.displayOrder')
+      ->order_by_asc('d.lexicon')
       ->find_array();
+
     $defs = array_map(function($rec) {
       return self::get_by_id($rec['id']);
     }, $ids);
@@ -144,12 +153,20 @@ class Definition extends BaseObject implements DatedObject {
   }
 
   public static function searchLexem($lexem, $exclude_unofficial = false) {
-    $excludeClause = $exclude_unofficial ? "and S.isOfficial <> 0 " : '';
-    $statusClause = sprintf("and D.status in (%d,%d)", self::ST_ACTIVE, self::ST_HIDDEN);
-    return Model::factory('Definition')
-      ->raw_query("select D.* from Definition D, EntryDefinition ED, Source S where D.id = ED.definitionId " .
-                  "and D.sourceId = S.id and ED.entryId = '{$lexem->entryId}' $excludeClause $statusClause " .
-                  "order by S.isOfficial desc, S.displayOrder, D.lexicon")
+    $query = Model::factory('Definition')
+           ->table_alias('d')
+           ->select('d.*')
+           ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
+           ->join('Source', ['d.sourceId', '=', 's.id'], 's')
+           ->where('ed.entryId', $lexem->entryId)
+           ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN]);
+    if ($exclude_unofficial) {
+      $query = $query->where_not_equal('s.type', Source::TYPE_UNOFFICIAL);
+    }
+    return $query
+      ->order_by_desc('s.type')
+      ->order_by_asc('s.displayOrder')
+      ->order_by_asc('d.lexicon')
       ->find_many();
   }
 

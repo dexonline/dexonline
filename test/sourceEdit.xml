@@ -57,8 +57,8 @@
 </tr>
 <tr>
 	<td>select</td>
-	<td>name=isOfficial</td>
-	<td>label=Neoficial</td>
+	<td>name=type</td>
+	<td>label=neoficial</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -127,8 +127,8 @@
 </tr>
 <tr>
 	<td>verifySelectedLabel</td>
-	<td>name=isOfficial</td>
-	<td>Neoficial</td>
+	<td>name=type</td>
+	<td>neoficial</td>
 </tr>
 <tr>
 	<td>verifyValue</td>
@@ -192,8 +192,8 @@
 </tr>
 <tr>
 	<td>select</td>
-	<td>name=isOfficial</td>
-	<td>label=Oficial</td>
+	<td>name=type</td>
+	<td>label=oficial</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -238,7 +238,7 @@
 <tr>
 	<td>verifyText</td>
 	<td>css=div.popover</td>
-	<td>English - Klingon Dictionary Autor: Worf<br /> Editură: The Klingon Academy<br /> Anul apariției: 2010<br /> Tipul: Oficial</td>
+	<td>English - Klingon Dictionary Autor: Worf<br /> Editură: The Klingon Academy<br /> Anul apariției: 2010<br /> Tipul: oficial</td>
 </tr>
 <tr>
 	<td>verifyText</td>

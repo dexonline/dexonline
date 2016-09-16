@@ -61,7 +61,7 @@ do {
         ->join('Source', ['s.id', '=', 'd.sourceId'], 's')
         ->where('ed.entryId', $lexem->entryId)
         ->where('d.status', Definition::ST_ACTIVE)
-        ->where('s.isOfficial', SOURCE_TYPE_OFFICIAL)
+        ->where('s.type', Source::TYPE_OFFICIAL)
         ->order_by_asc('s.displayOrder')
         ->find_many();
 // loop untill you find a lexem with a definition

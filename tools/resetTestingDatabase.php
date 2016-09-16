@@ -53,7 +53,7 @@ $klingon->name = 'English - Klingon Dictionary';
 $klingon->author = 'Worf';
 $klingon->publisher = 'The Klingon Academy';
 $klingon->year = '2010';
-$klingon->isOfficial = 2; // TODO add constants in Source.php
+$klingon->type = Source::TYPE_OFFICIAL;
 $klingon->displayOrder = 1;
 $klingon->canContribute = 1;
 $klingon->save();
@@ -65,7 +65,7 @@ $devil->name = "The Devil's Dictionary";
 $devil->author = 'Ambrose Bierce';
 $devil->publisher = 'Neale Publishing Co.';
 $devil->year = '1911';
-$devil->isOfficial = 1;
+$devil->type = Source::TYPE_SPECIALIZED;
 $devil->displayOrder = 2;
 $devil->save();
 

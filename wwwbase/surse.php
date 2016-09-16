@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/util.php");
+require_once('../phplib/util.php');
 
 $saveButton = util_getBoolean('saveButton');
 
@@ -23,7 +23,7 @@ if (util_isModerator(PRIV_VIEW_HIDDEN)) {
            ->find_many();
 } else {
   $sources = Model::factory('Source')
-           ->where_not_equal('isOfficial', SOURCE_TYPE_HIDDEN)
+           ->where_not_equal('type', Source::TYPE_HIDDEN)
            ->order_by_asc('displayOrder')
            ->find_many();
 }

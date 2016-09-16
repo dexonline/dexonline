@@ -72,7 +72,6 @@ class SmartyWrap {
     self::assign('skinVariables', Config::getSection('skin'));
     if (!$hardened) {
       $sources = Model::factory('Source')
-               ->order_by_desc('isOfficial')
                ->order_by_asc('displayOrder')
                ->find_many();
       self::assign('sources', $sources);

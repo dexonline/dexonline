@@ -194,7 +194,7 @@
     {assign var=notDisplayedSpec value=true}
     {foreach $results as $i => $row}
       {if $searchType != $smarty.const.SEARCH_FULL_TEXT }
-        {if $row->source->isOfficial == 1 && $notDisplayedSpec}
+        {if $row->source->type == Source::TYPE_SPECIALIZED && $notDisplayedSpec}
           <br/>
           <div class="callout callout-info">
             <h3>Definiții din dicționare specializate</h3>
@@ -203,7 +203,7 @@
             </p>
           </div>
           {assign var=notDisplayedSpec value=false}
-        {elseif $row->source->isOfficial == 0 && $notDisplayedUnofficial}
+        {elseif $row->source->type == Source::TYPE_UNOFFICIAL && $notDisplayedUnofficial}
           <br/>
           <div class="callout callout-info">
             <h3>Definiții din dicționare neoficiale</h3>

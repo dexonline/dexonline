@@ -65,11 +65,12 @@
 
         <div class="form-group">
           <label>Tip:</label>
-          <select class="form-control" name="isOfficial">
-            <option value="3" {if $src->isOfficial==3 }selected{/if}>Ascuns</option>
-            <option value="2" {if $src->isOfficial==2 }selected{/if}>Oficial</option>
-            <option value="1" {if $src->isOfficial==1 }selected{/if}>Specializat</option>
-            <option value="0" {if $src->isOfficial==0 }selected{/if}>Neoficial</option>
+          <select class="form-control" name="type">
+            {foreach Source::$TYPE_NAMES as $type => $name}
+              <option value="{$type}" {if $src->type == $type}selected{/if}>
+                {$name}
+              </option>
+            {/foreach}
           </select>
         </div>
 
@@ -83,28 +84,28 @@
 
         <div class="checkbox">
           <label for="cbIsActive">
-            <input type="checkbox" id="cbIsActive" name="isActive" value="1" {if $src->isActive}checked="checked"{/if} />
+            <input type="checkbox" id="cbIsActive" name="isActive" {if $src->isActive}checked="checked"{/if} />
             Sursa este activă (și vizibilă tuturor utilizatorilor)
           </label>
         </div>
 
         <div class="checkbox">
           <label for="cbCanContribute">
-            <input type="checkbox" id="cbCanContribute" name="canContribute" value="1" {if $src->canContribute}checked="checked"{/if} />
+            <input type="checkbox" id="cbCanContribute" name="canContribute" {if $src->canContribute}checked="checked"{/if} />
             Deschisă pentru contribuții
           </label>
         </div>
 
         <div class="checkbox">
           <label for="cbCanModerate">
-            <input type="checkbox" id="cbCanModerate" name="canModerate" value="1" {if $src->canModerate}checked="checked"{/if} />
+            <input type="checkbox" id="cbCanModerate" name="canModerate" {if $src->canModerate}checked="checked"{/if} />
             Poate fi aleasă de moderatori
           </label>
         </div>
 
         <div class="checkbox">
           <label for="cbCanDistribute">
-            <input type="checkbox" id="cbCanDistribute" name="canDistribute" value="1" {if $src->canDistribute}checked="checked"{/if} />
+            <input type="checkbox" id="cbCanDistribute" name="canDistribute" {if $src->canDistribute}checked="checked"{/if} />
             Poate fi redistribuită
           </label>
         </div>

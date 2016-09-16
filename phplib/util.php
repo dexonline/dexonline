@@ -174,13 +174,6 @@ function util_defineConstants() {
   define('PRIV_VIEW_HIDDEN', PRIV_ADMIN);
   define('PRIV_ANY', (1 << NUM_PRIVILEGES) - 1);
 
-# TODO rethink this part
-  //Source 
-  define('SOURCE_TYPE_HIDDEN', 3);
-  define('SOURCE_TYPE_OFFICIAL', 2);
-  define('SOURCE_TYPE_SPECIALIZED', 1);
-  define('SOURCE_TYPE_UNOFFICIAL', 0);
-
   //Limits
   define('DEFAULT_LIMIT_FULLTEXT', 500);
   define('LIMIT_FULLTEXT_DISPLAY', Config::get('limits.limitFulltextSearch', DEFAULT_LIMIT_FULLTEXT));

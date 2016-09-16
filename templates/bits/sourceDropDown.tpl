@@ -16,18 +16,12 @@
     {else}
       {assign var="submitValue" value=$source->id}
     {/if}
-    {if $source->isOfficial != 3}
+    {if ($source->type != Source::TYPE_HIDDEN) ||
+        ($sUser && $sUser->moderator & $smarty.const.PRIV_VIEW_HIDDEN)}
       <option value="{$submitValue}"
-              {if $src_selected == $source->id}selected="selected"{/if}
-              >{$source->shortName|escape}</option>
-    {else}
-      {if $sUser}
-        {if $sUser->moderator & $smarty.const.PRIV_VIEW_HIDDEN}
-          <option value="{$submitValue}"
-                  {if $src_selected == $source->id}selected="selected"{/if}
-                  >{$source->shortName|escape}</option>
-        {/if}
-      {/if}
+              {if $src_selected == $source->id}selected="selected"{/if}>
+        {$source->shortName|escape}
+      </option>
     {/if}
   {/foreach}
 </select>

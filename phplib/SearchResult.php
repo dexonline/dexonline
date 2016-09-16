@@ -76,7 +76,8 @@ class SearchResult {
   public static function filterHidden(&$searchResults, &$sources) {
     if (!util_isModerator(PRIV_VIEW_HIDDEN)) {
       foreach ($searchResults as $i => &$sr) {
-        if ($sr->source->isOfficial == SOURCE_TYPE_HIDDEN || $sr->definition->status == Definition::ST_HIDDEN) {
+        if ($sr->source->type == Source::TYPE_HIDDEN ||
+            $sr->definition->status == Definition::ST_HIDDEN) {
           $sources[$sr->source->id] = $sr->source;
           unset($searchResults[$i]);
         }

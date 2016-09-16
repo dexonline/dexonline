@@ -5,10 +5,12 @@
 {block "content"}
   <h3>{$searchResults|count} definiții cu greșeli de tipar</h3>
 
-  <form class="form-inline">
+  <form class="form-horizontal">
     <div class="form-group">
-      <label class="control-label">sursa</label>
-      {include "bits/sourceDropDown.tpl" urlName=1 autosubmit=1}
+      <label class="col-md-1 control-label">sursa</label>
+      <div class="col-md-11">
+        {include "bits/sourceDropDown.tpl" urlName=1 autosubmit=1}
+      </div>
     </div>
   </form>
 

@@ -21,7 +21,7 @@ foreach ($staticFiles as $s) {
 SmartyWrap::assign('downloadYear', date("Y",strtotime("+1 month")));
 SmartyWrap::assign('downloadMonth', date("m",strtotime("+1 month")));
 SmartyWrap::assign('imageList', $imageList);
-SmartyWrap::addCss('jqgrid', 'jqueryui', 'select2', 'admin');
-SmartyWrap::addJs('jqgrid', 'jqueryui', 'select2');
+SmartyWrap::addCss('jqgrid', 'jqueryui', 'admin');
+SmartyWrap::addJs('jqgrid', 'jqueryui', 'select2Dev');
 SmartyWrap::display('admin/wotdTable.tpl');
 ?>

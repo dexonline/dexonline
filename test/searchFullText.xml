@@ -27,7 +27,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>id=defBody</td>
+	<td>name=text</td>
 	<td></td>
 </tr>
 <tr>
@@ -42,7 +42,7 @@
 </tr>
 <tr>
 	<td>verifyValue</td>
-	<td>id=defBody</td>
+	<td>name=text</td>
 	<td>on</td>
 </tr>
 <tr>

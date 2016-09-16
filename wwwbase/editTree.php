@@ -89,8 +89,8 @@ SmartyWrap::assign('canEdit', true);
 SmartyWrap::assign('tags', $tags);
 SmartyWrap::assign('relatedMeanings', $relatedMeanings);
 SmartyWrap::assign('statusNames', Tree::$STATUS_NAMES);
-SmartyWrap::addCss('select2', 'meaningTree', 'textComplete', 'admin');
-SmartyWrap::addJs('select2', 'meaningTree', 'textComplete');
+SmartyWrap::addCss('meaningTree', 'textComplete', 'admin');
+SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete');
 SmartyWrap::display('editTree.tpl');
 
 ?>

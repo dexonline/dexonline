@@ -8,6 +8,19 @@ $(function() {
   $('.inflLink').click(toggleInflections);
   $('#typoModal').on('shown.bs.modal', shownTypoModal);
 
+  $('.searchField').select();
+
+  $('.sourceDropDown').select2({
+    templateResult: formatSource,
+    templateSelection: formatSource,
+    width: '100%',
+  });
+
+  var d = $('#autocompleteEnabled');
+  if (d.length) {
+    searchInitAutocomplete(d.data('minChars'));
+  }
+
   // prevent double clicking of submit buttons
   $('input[type="submit"], button[type="submit"]').click(function() {
     if ($(this).data('clicked')) {
@@ -39,6 +52,12 @@ if (typeof jQuery.ui != 'undefined') {
 
     $('.mention').tooltip().each(resolveMention);
   });
+}
+
+function formatSource(item) {
+  return $('<span>' +
+           item.text.replace(/(\(([^)]+)\))/, '<strong>$2</strong>') +
+           '</span>');
 }
 
 function reviveInit() {
@@ -105,14 +124,6 @@ function searchInitAutocomplete(acMinChars){
       searchForm.submit();
     }
   });
-}
-
-function searchInit(acEnable, acMinChars) {
-  $('.searchField').select();
-
-  if (acEnable) {
-    searchInitAutocomplete(acMinChars);
-  }
 }
 
 function getWwwRoot() {
@@ -218,7 +229,7 @@ function searchClickedWord(event) {
     word = word.substr(0, word.length - 1);
   }
 
-  var source = $('#sourceDropDown').length ? $('#sourceDropDown').val() : '';
+  var source = $('.sourceDropDown').length ? $('.sourceDropDown').val() : '';
   if (source) {
     source = '-' + source;
   }

@@ -37,8 +37,8 @@ foreach ($aps as $ap) {
 
 SmartyWrap::assign('projects', $projects);
 SmartyWrap::assign('p', $p);
-SmartyWrap::addCss('select2', 'admin');
-SmartyWrap::addJs('select2');
+SmartyWrap::addCss('admin');
+SmartyWrap::addJs('select2Dev');
 SmartyWrap::display('acuratete.tpl');
 
 ?>

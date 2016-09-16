@@ -2,6 +2,10 @@
   padding: 5px 0 5px 0;
 }
 
+#advSearch .checkbox {
+  margin-top: 6px;
+}
+
 .navbar-brand > img {
   margin-top: -13px;
   margin-left: 16px;

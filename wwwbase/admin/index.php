@@ -62,7 +62,7 @@ $reports = array(
 
 SmartyWrap::assign('structStatusNames', Entry::$STRUCT_STATUS_NAMES);
 SmartyWrap::assign('reports', $reports);
-SmartyWrap::addCss('select2', 'admin');
-SmartyWrap::addJs('select2', 'modelDropdown');
+SmartyWrap::addCss('admin');
+SmartyWrap::addJs('select2Dev', 'modelDropdown');
 SmartyWrap::display('admin/index.tpl');
 ?>

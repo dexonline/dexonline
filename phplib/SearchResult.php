@@ -10,12 +10,12 @@ class SearchResult {
 
   public static function mapDefinitionArray($definitionArray) {
     if (empty($definitionArray)) {
-      return array();
+      return [];
     }
-    $results = array();
-    $defIds = array();
-    $sourceIds = array();
-    $userIds = array();
+    $results = [];
+    $defIds = [];
+    $sourceIds = [];
+    $userIds = [];
     foreach ($definitionArray as $definition) {
       $defIds[] = $definition->id;
       $sourceIds[] = $definition->sourceId;
@@ -32,6 +32,7 @@ class SearchResult {
       $result->comment = null;
       $result->wotd = false;
       $result->bookmark = false;
+      $result->tags = Tag::loadByDefinitionId($definition->id);
       $results[$definition->id] = $result;
     }
 
@@ -86,7 +87,7 @@ class SearchResult {
   }
 
   private static function mapById($objects) {
-    $result = array();
+    $result = [];
     foreach ($objects as $o) {
       $result[$o->id] = $o;
     }

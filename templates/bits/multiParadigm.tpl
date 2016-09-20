@@ -4,6 +4,9 @@
     <div class="paraLexem">
       <div class="lexemData">
         <span class="lexemName">{include "bits/lexemName.tpl" lexem=$lexem}</span>
+        {foreach $lexem->getTags() as $t}
+          <label class="label label-info">{$t->value}</label>
+        {/foreach}
         {include "bits/locInfo.tpl" isLoc=$lexem->isLoc}
         {if $sUser && ($sUser->moderator & ($smarty.const.PRIV_EDIT + $smarty.const.PRIV_STRUCT))}
           <a class="btn btn-link" href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexem->id}">

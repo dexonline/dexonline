@@ -7,10 +7,28 @@ class Tag extends BaseObject implements DatedObject {
   public $canDelete = 1;
   public $children = [];
 
+  static function loadByDefinitionId($defId) {
+    return Model::factory('Tag')
+      ->select('Tag.*')
+      ->join('DefinitionTag', ['Tag.id', '=', 'tagId'])
+      ->where('DefinitionTag.definitionId', $defId)
+      ->order_by_asc('value')
+      ->find_many();
+  }
+
+  static function loadByLexemId($lexemId) {
+    return Model::factory('Tag')
+      ->select('Tag.*')
+      ->join('LexemTag', ['Tag.id', '=', 'tagId'])
+      ->where('LexemTag.lexemId', $lexemId)
+      ->order_by_asc('value')
+      ->find_many();
+  }
+
   static function loadByMeaningId($meaningId) {
     return Model::factory('Tag')
       ->select('Tag.*')
-      ->join('MeaningTag', array('Tag.id', '=', 'tagId'))
+      ->join('MeaningTag', ['Tag.id', '=', 'tagId'])
       ->where('MeaningTag.meaningId', $meaningId)
       ->order_by_asc('value')
       ->find_many();

@@ -94,6 +94,13 @@ class Lexem extends BaseObject implements DatedObject {
     return $results;
   }
 
+  function getTags() {
+    if ($this->tags === null) {
+      $this->tags = Tag::loadByLexemId($this->id);
+    }
+    return $this->tags;
+  }
+
   public static function loadByExtendedName($extName) {
     $parts = preg_split('/\(/', $extName, 2);
     $name = addslashes(trim($parts[0]));

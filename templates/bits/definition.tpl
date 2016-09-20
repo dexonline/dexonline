@@ -1,6 +1,9 @@
 <div class="defWrapper">
   <p class="def" title="Clic pentru a naviga la acest cuvânt">
     {$row->definition->htmlRep}
+    {foreach $row->tags as $t}
+      <label class="label label-info">{$t->value}</label>
+    {/foreach}
   </p>
 
   <p class="defDetails text-muted">

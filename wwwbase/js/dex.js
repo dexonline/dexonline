@@ -139,7 +139,8 @@ function shownTypoModal(event) {
   var link = $(event.relatedTarget); // link that triggered the modal
   var defId = link.data('definitionId');
   $('input[name="definitionId"]').val(defId);
-  $('#typoTextarea').val('').focus();
+  $('#typoTextarea').focus();
+  $('#typoSubmit').removeData('clicked'); // allow clicking the button again
 }
 
 function submitTypoForm() {
@@ -149,6 +150,7 @@ function submitTypoForm() {
          { definitionId: defId, text: text, submit: 1 },
          function() {
            $('#typoModal').modal('hide');
+           $('#typoTextarea').val('');
            $('#typoConfModal').modal();
          });
   return false;

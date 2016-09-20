@@ -29,7 +29,7 @@
           </div>
 
           <div class="modal-footer">
-            <input class="btn btn-primary" type="submit" value="Trimite">
+            <button class="btn btn-primary" id="typoSubmit" type="submit">trimite</button>
             <button class="btn btn-link" href="#" data-dismiss="modal">anulează</button>
           </div>
         </form>

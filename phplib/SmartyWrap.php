@@ -59,7 +59,7 @@ class SmartyWrap {
 
   /* Prepare and display a template. */
   static function display($templateName, $hardened = false) {
-    self::addCss('responsive', 'bootstrap', 'select2');
+    self::addCss('main', 'bootstrap', 'select2');
     self::addJs('jquery', 'dex', 'bootstrap', 'select2');
     if (Config::get('search.acEnable')) {
       self::addCss('jqueryui');
@@ -124,7 +124,7 @@ class SmartyWrap {
         case 'elfinder':
           self::$cssFiles[6] = 'third-party/elfinder/css/elfinder.min.css';
           break;
-        case 'responsive':          self::$cssFiles[7] = 'responsive.css'; break;
+        case 'main':                self::$cssFiles[7] = 'main.css'; break;
         case 'admin':               self::$cssFiles[8] = 'admin.css'; break;
         case 'paradigm':            self::$cssFiles[9] = 'paradigm.css'; break;
         case 'jcrop':               self::$cssFiles[10] = 'third-party/jcrop/jquery.Jcrop.min.css'; break;

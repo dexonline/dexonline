@@ -5,7 +5,7 @@ util_assertNotMirror();
 $lexemIds = Request::get('lexemIds');
 $sourceId = Request::get('source');
 $def = Request::get('def');
-$sendButton = Request::isset('send');
+$sendButton = Request::has('send');
 
 if ($sendButton) {
   session_setSourceCookie($sourceId);

@@ -4,7 +4,7 @@ util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
 $suffix = Request::get('suffix');
-$saveButton = Request::isset('saveButton');
+$saveButton = Request::has('saveButton');
 
 if ($saveButton) {
   foreach ($_REQUEST as $name => $modelId) {

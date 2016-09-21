@@ -8,14 +8,14 @@ $MODELS_TO_CAPITALIZE = ['I3', 'SP'];
 
 $definitionId = Request::get('definitionId');
 $jumpPrefix = Request::get('jumpPrefix', '');
-$refreshButton = Request::isset('refreshButton');
-$saveButton = Request::isset('saveButton');
-$butPrev = Request::isset('butPrev');
-$butNext = Request::isset('butNext');
+$refreshButton = Request::has('refreshButton');
+$saveButton = Request::has('saveButton');
+$butPrev = Request::has('butPrev');
+$butNext = Request::has('butNext');
 $lexemIds = Request::get('lexemId');
 $models = Request::get('model');
-$capitalize = Request::isset('capitalize');
-$deleteOrphans = Request::isset('deleteOrphans');
+$capitalize = Request::has('capitalize');
+$deleteOrphans = Request::has('deleteOrphans');
 
 if ($definitionId) {
   $def = Definition::get_by_id($definitionId);

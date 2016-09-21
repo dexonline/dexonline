@@ -6,15 +6,15 @@ util_assertNotMirror();
 $fileName = Request::get('fileName');
 $id = Request::get('id');
 $entryId = Request::get('entryId');
-$revised = Request::isset('revised');
-$saveButton = Request::isset('saveButton');
+$revised = Request::has('revised');
+$saveButton = Request::has('saveButton');
 $tagEntryId = Request::get('tagEntryId');
 $tagLabel = Request::get('tagLabel');
 $textXCoord = Request::get('textXCoord');
 $textYCoord = Request::get('textYCoord');
 $imgXCoord = Request::get('imgXCoord');
 $imgYCoord = Request::get('imgYCoord');
-$addTagButton = Request::isset('addTagButton');
+$addTagButton = Request::has('addTagButton');
 
 // Tag the image specified by $fileName. Create a Visual object if one doesn't exist, then redirect to it.
 if ($fileName) {

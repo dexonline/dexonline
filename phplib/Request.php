@@ -19,7 +19,7 @@ class Request {
   }
 
   /* Reads a present-or-not parameter (checkbox, button etc.). */
-  static function isset($name) {
+  static function has($name) {
     return array_key_exists($name, $_REQUEST);
   }
 

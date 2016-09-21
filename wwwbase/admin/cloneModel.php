@@ -10,7 +10,7 @@ $modelType = Request::get('modelType');
 $modelNumber = Request::get('modelNumber');
 $newModelNumber = Request::get('newModelNumber');
 $lexemIds = Request::get('lexemId', []);
-$saveButton = Request::isset('saveButton');
+$saveButton = Request::has('saveButton');
 
 if ($saveButton) {
   // Disallow duplicate model numbers

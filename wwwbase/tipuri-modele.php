@@ -5,7 +5,7 @@ util_assertModerator(PRIV_EDIT);
 $showAddForm = Request::get('add');
 $editId = Request::get('editId');
 $deleteId = Request::get('deleteId');
-$saveButton = Request::isset('saveButton');
+$saveButton = Request::has('saveButton');
 $id = Request::get('id');
 $code = Request::get('code');
 $canonical = Request::get('canonical');

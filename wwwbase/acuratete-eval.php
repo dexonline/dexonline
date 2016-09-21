@@ -3,8 +3,8 @@ require_once("../phplib/util.php");
 util_assertModerator(PRIV_ADMIN);
 
 $projectId = Request::get('projectId');
-$saveButton = Request::isset('saveButton');
-$deleteButton = Request::isset('deleteButton');
+$saveButton = Request::has('saveButton');
+$deleteButton = Request::has('deleteButton');
 $defId = Request::get('defId');
 $errors = Request::get('errors');
 

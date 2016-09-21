@@ -3,7 +3,7 @@ require_once('../phplib/util.php');
 util_assertModerator(PRIV_ADMIN);
 
 $sourceId = Request::get('id');
-$saveButton = Request::isset('saveButton');
+$saveButton = Request::has('saveButton');
 $src = $sourceId ? Source::get_by_id($sourceId) : Model::factory('Source')->create();
 
 if ($saveButton) {
@@ -14,11 +14,11 @@ if ($saveButton) {
   $src->publisher = Request::get('publisher');
   $src->year = Request::get('year');
   $src->link = Request::get('link');
-  $src->isActive = Request::isset('isActive');
+  $src->isActive = Request::has('isActive');
   $src->type = Request::get('type');
-  $src->canContribute = Request::isset('canContribute');
-  $src->canModerate = Request::isset('canModerate');
-  $src->canDistribute = Request::isset('canDistribute');
+  $src->canContribute = Request::has('canContribute');
+  $src->canModerate = Request::has('canModerate');
+  $src->canDistribute = Request::has('canDistribute');
   $src->defCount = Request::get('defCount');
 
   if (validate($src)) {

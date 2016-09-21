@@ -12,9 +12,9 @@ $lexemForm = Request::get('lexemForm');
 $lexemNumber = Request::get('lexemNumber');
 $lexemDescription = Request::get('lexemDescription');
 $lexemComment = Request::get('lexemComment');
-$needsAccent = Request::isset('needsAccent');
-$main = Request::isset('main');
-$stopWord = Request::isset('stopWord');
+$needsAccent = Request::has('needsAccent');
+$main = Request::has('main');
+$stopWord = Request::has('stopWord');
 $hyphenations = Request::get('hyphenations');
 $pronunciations = Request::get('pronunciations');
 $entryId = Request::get('entryId');
@@ -26,13 +26,13 @@ $modelNumber = Request::get('modelNumber');
 $restriction = Request::get('restriction');
 $sourceIds = Request::get('sourceIds', []);
 $notes = Request::get('notes');
-$isLoc = Request::isset('isLoc');
+$isLoc = Request::has('isLoc');
 
 // Button parameters
-$refreshButton = Request::isset('refreshButton');
-$saveButton = Request::isset('saveButton');
-$cloneButton = Request::isset('cloneButton');
-$deleteButton = Request::isset('deleteButton');
+$refreshButton = Request::has('refreshButton');
+$saveButton = Request::has('saveButton');
+$cloneButton = Request::has('cloneButton');
+$deleteButton = Request::has('deleteButton');
 
 $lexem = Lexem::get_by_id($lexemId);
 $original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether certain fields have changed

@@ -9,9 +9,9 @@ DebugInfo::disable();
 define('SHORT_LIST_LIMIT', 10);
 
 $id = Request::get('id');
-$previewButton = Request::isset('previewButton');
-$saveButton = Request::isset('saveButton');
-$shortList = Request::isset('shortList');
+$previewButton = Request::has('previewButton');
+$saveButton = Request::has('saveButton');
+$shortList = Request::has('shortList');
 
 $locPerm = util_isModerator(PRIV_LOC);
 

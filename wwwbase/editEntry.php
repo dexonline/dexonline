@@ -4,11 +4,11 @@ require_once("../phplib/util.php");
 util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 
 $id = Request::get('id');
-$saveButton = Request::isset('saveButton');
-$mergeButton = Request::isset('mergeButton');
-$cloneButton = Request::isset('cloneButton');
-$createTree = Request::isset('createTree');
-$delete = Request::isset('delete');
+$saveButton = Request::has('saveButton');
+$mergeButton = Request::has('mergeButton');
+$cloneButton = Request::has('cloneButton');
+$createTree = Request::has('createTree');
+$delete = Request::has('delete');
 $dissociateDefinitionId = Request::get('dissociateDefinitionId');
 
 if ($id) {
@@ -52,8 +52,8 @@ if ($mergeButton) {
 }
 
 if ($cloneButton) {
-  $cloneDefinitions = Request::isset('cloneDefinitions');
-  $cloneTrees = Request::isset('cloneTrees');
+  $cloneDefinitions = Request::has('cloneDefinitions');
+  $cloneTrees = Request::has('cloneTrees');
 
   $newe = $e->_clone($cloneDefinitions, $cloneTrees);
   Log::info("Cloned entry {$e->id} ({$e->description}), new id {$newe->id}");

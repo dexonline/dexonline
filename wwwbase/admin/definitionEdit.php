@@ -50,16 +50,16 @@ if (!($d = Definition::get_by_id($definitionId))) {
 $isOCR = Request::get('isOCR');
 $entryIds = Request::get('entryIds');
 $sourceId = Request::get('source');
-$similarSource = Request::isset('similarSource');
-$structured = Request::isset('structured');
+$similarSource = Request::has('similarSource');
+$structured = Request::has('structured');
 $internalRep = Request::get('internalRep');
 $status = Request::get('status', null);
 $commentContents = Request::get('commentContents');
 $preserveCommentUser = Request::get('preserveCommentUser');
 $tagIds = Request::get('tagIds', []);
 
-$saveButton = Request::isset('saveButton');
-$nextOcrBut = Request::isset('but_next_ocr');
+$saveButton = Request::has('saveButton');
+$nextOcrBut = Request::has('but_next_ocr');
 
 $comment = Model::factory('Comment')->where('definitionId', $d->id)->where('status', Definition::ST_ACTIVE)->find_one();
 $commentUser = $comment ? User::get_by_id($comment->userId) : null;

@@ -3,7 +3,7 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$saveButton = Request::isset('saveButton');
+$saveButton = Request::has('saveButton');
 
 if ($saveButton) {
   $defId = Request::get('definitionId');

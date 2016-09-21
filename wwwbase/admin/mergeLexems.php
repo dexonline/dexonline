@@ -6,7 +6,7 @@ util_hideEmptyRequestParameters();
 DebugInfo::disable();
 
 $modelType = Request::get('modelType', 'M');
-$saveButton = Request::isset('saveButton');
+$saveButton = Request::has('saveButton');
 
 if ($saveButton) {
   $lexemsToDelete = array();

@@ -2,7 +2,7 @@
 require_once("../phplib/util.php");
 util_assertModerator(PRIV_LOC);
 
-$saveButton = Request::isset('saveButton');
+$saveButton = Request::has('saveButton');
 $inflectionIds = Request::get('inflectionIds');
 $newDescription = Request::get('newDescription');
 $newModelType = Request::get('newModelType');

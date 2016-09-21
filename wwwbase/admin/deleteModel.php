@@ -7,7 +7,7 @@ DebugInfo::disable();
 
 $modelType = Request::get('modelType');
 $modelNumber = Request::get('modelNumber');
-$deleteButton = Request::isset('deleteButton');
+$deleteButton = Request::has('deleteButton');
 
 $model = Model::factory('FlexModel')
        ->where('modelType', $modelType)

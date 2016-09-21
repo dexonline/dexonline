@@ -1,7 +1,7 @@
 <?php
 require_once("../phplib/util.php");
 
-$saveButton = Request::isset('saveButton');
+$saveButton = Request::has('saveButton');
 
 $user = session_getUser();
 

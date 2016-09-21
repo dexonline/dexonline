@@ -2,7 +2,7 @@
 require_once("../phplib/util.php");
 
 $value = Request::get('value');
-$saveButton = Request::isset('saveButton');
+$saveButton = Request::has('saveButton');
 $jsonTags = Request::get('jsonTags');
 
 if ($saveButton) {

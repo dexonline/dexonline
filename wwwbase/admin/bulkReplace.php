@@ -8,7 +8,7 @@ $MAX_AFFECTED = 1000;
 $search = Request::get('search');
 $replace = Request::get('replace');
 $sourceId = Request::get('sourceId');
-$saveButton = Request::isset('saveButton');
+$saveButton = Request::has('saveButton');
 
 $query = Model::factory('Definition')
        ->where('status', Definition::ST_ACTIVE)

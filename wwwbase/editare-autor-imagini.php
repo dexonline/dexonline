@@ -4,7 +4,7 @@ util_assertModerator(PRIV_WOTD);
 
 $id = Request::get('id');
 $deleteId = Request::get('deleteId');
-$saveButton = Request::isset('saveButton');
+$saveButton = Request::has('saveButton');
 $artist = $id
         ? WotdArtist::get_by_id($id)
         : Model::factory('WotdArtist')->create();

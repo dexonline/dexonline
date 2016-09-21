@@ -16,9 +16,9 @@ $yr2 = Request::get('yr2');
 $mo2 = Request::get('mo2');
 $da2 = Request::get('da2');
 $page = Request::get('page', 1);
-$prevPageButton = Request::isset('prevPageButton');
-$nextPageButton = Request::isset('nextPageButton');
-$searchButton = Request::isset('searchButton');
+$prevPageButton = Request::has('prevPageButton');
+$nextPageButton = Request::has('nextPageButton');
+$searchButton = Request::has('searchButton');
 
 $ip = $_SERVER['REMOTE_ADDR'];
 

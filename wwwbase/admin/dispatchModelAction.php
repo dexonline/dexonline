@@ -5,10 +5,10 @@ util_assertNotMirror();
 
 $modelType = Request::get('modelType');
 $modelNumber = Request::get('modelNumber');
-$showLexemsButton = Request::isset('showLexems');
-$editModelButton = Request::isset('editModel');
-$cloneModelButton = Request::isset('cloneModel');
-$deleteModelButton = Request::isset('deleteModel');
+$showLexemsButton = Request::has('showLexems');
+$editModelButton = Request::has('editModel');
+$cloneModelButton = Request::has('cloneModel');
+$deleteModelButton = Request::has('deleteModel');
 
 $args = sprintf("modelType=%s&modelNumber=%s",
                 urlencode($modelType),

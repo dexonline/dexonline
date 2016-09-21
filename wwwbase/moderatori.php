@@ -5,7 +5,7 @@ util_assertModerator(PRIV_ADMIN);
 $userIds = Request::get('userIds');
 $newNick = Request::get('newNick');
 $newCheckboxes = Request::get("newPriv", []);
-$saveButton = Request::isset('saveButton');
+$saveButton = Request::has('saveButton');
 
 if ($saveButton) {
   foreach ($userIds as $userId) {

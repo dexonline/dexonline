@@ -1,10 +1,4 @@
-#advSearch {
-  padding: 5px 0 5px 0;
-}
-
-#advSearch .checkbox {
-  margin-top: 6px;
-}
+/*********** navbar and its elements ***********/
 
 .navbar-brand > img {
   margin-top: -13px;
@@ -78,49 +72,57 @@
   padding-right: 4px;
 }
 
-.table-caption {
-    padding: 10px;
-    font-weight: bold;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+
+/*********** search form ***********/
+
+#searchForm {
+  margin-bottom: 25px;
 }
 
-.table-caption .glyphicon {
-    cursor: pointer;
+#searchForm .form-control:focus {
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.075), 0 0 4px #ddd;
+  box-shadow: 0 1px 1px rgba(0,0,0,.075), 0 0 4px #ddd;
 }
 
-/* helper classes */
-.table-striped-column-odd > tbody > tr td:nth-of-type(odd),
-.table-striped-column-even > tbody > tr td:nth-of-type(even) {
-  background-color: #f9f9f9;
+#advSearch {
+  padding: 5px 0 5px 0;
 }
 
-p.text-small {
-  font-size: 10px;
+#advSearch .checkbox {
+  margin-top: 6px;
 }
 
-p.text-medium {
-  font-size: 18px;
+/* autocomplete options */
+#ui-id-1 {
+  background: #FFF;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  box-shadow: 0 6px 8px 0px #999;
 }
 
-p.text-big {
+#ui-id-1 a:hover {
+  background: #eee;
+  border-color: #eee;
+  border-radius: 0;
+  cursor: pointer;
+  color: #761818;
+}
+
+
+/*********** banner ***********/
+
+.fakeBanner {
+  background: #777;
+  color: white;
   font-size: 20px;
+  height: 90px;
+  max-width: 728px;
+  padding-top: 30px;
+  text-align: center;
 }
 
-.sourceShortName {
-  background: #DDD;
-  border-radius: 2px;
-  color: #444;
-  font-size: 80%;
-  margin-left: 10px;
-  padding: 3px 5px;
-}
+
+/*********** footer ***********/
 
 .footer {
   padding-top: 1rem;
@@ -130,7 +132,8 @@ p.text-big {
   overflow-x: hidden;
 }
 
-/********************* Definitions *********************/
+
+/*********** definitions ***********/
 
 /* 
   Make Firefox abbr underlining consistent with other browsers.
@@ -177,7 +180,7 @@ p.defDetails {
 }
 
 .panel-comment:before {
-background-color: #FFF;
+  background-color: #FFF;
   box-shadow: -4px 2px 2px 0 #ddd;
   content: "\00a0";
   display: block;
@@ -205,43 +208,56 @@ background-color: #FFF;
   color: #1e83c2;
 }
 
-#searchForm {
-  margin-bottom: 25px;
+
+/*********** tables ***********/
+
+.table-caption {
+    padding: 10px;
+    font-weight: bold;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
-#searchForm .form-control:focus {
-  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.075), 0 0 4px #ddd;
-  box-shadow: 0 1px 1px rgba(0,0,0,.075), 0 0 4px #ddd;
+.table-caption .glyphicon {
+    cursor: pointer;
 }
 
-.fakeBanner {
-  background: #777;
-  color: white;
+.table-striped-column-odd > tbody > tr td:nth-of-type(odd),
+.table-striped-column-even > tbody > tr td:nth-of-type(even) {
+  background-color: #f9f9f9;
+}
+
+.sourceShortName {
+  background: #DDD;
+  border-radius: 2px;
+  color: #444;
+  font-size: 80%;
+  margin-left: 10px;
+  padding: 3px 5px;
+}
+
+
+/*********** misc helpers ***********/
+
+p.text-small {
+  font-size: 10px;
+}
+
+p.text-medium {
+  font-size: 18px;
+}
+
+p.text-big {
   font-size: 20px;
-  height: 90px;
-  max-width: 728px;
-  padding-top: 30px;
-  text-align: center;
 }
 
-#ui-id-1 {
-  background: #FFF;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  box-shadow: 0 6px 8px 0px #999;
-}
-
-#ui-id-1 a:hover {
-  background: #eee;
-  border-color: #eee;
-  border-radius: 0;
-  cursor: pointer;
-  color: #761818;
-}
-
-
-/********************* Vertical spacing *********************/
-
+/* vertical spacing */
 /* as suggested by http://pdenya.com/2013/08/08/vertical-space-in-bootstrap/ */
 .voffset  { margin-top: 2px; }
 .voffset1 { margin-top: 5px; }

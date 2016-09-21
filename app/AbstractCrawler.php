@@ -4,7 +4,7 @@
  * alyn.cti@gmail.com
  */
 require_once __DIR__ . '/../phplib/util.php';
-require_once util_getRootPath() . 'phplib/simple_html_dom.php';
+require_once util_getRootPath() . 'phplib/third-party/simple_html_dom.php';
 require_once util_getRootPath() . 'phplib/AppLog.php';
 require_once util_getRootPath() . 'phplib/MemoryManagement.php';
 

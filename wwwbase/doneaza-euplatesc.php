@@ -7,7 +7,7 @@
 require_once("../phplib/util.php");
 $mid = Config::get('euplatesc.euPlatescMid');
 $key = Config::get('euplatesc.euPlatescKey');
-require_once("../phplib/euplatesc.php");
+require_once("../phplib/third-party/euplatesc.php");
 
 ?>
 

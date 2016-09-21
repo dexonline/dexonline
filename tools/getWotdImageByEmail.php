@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../phplib/util.php';
-require_once __DIR__ . '/../phplib/mime-mail-parser/MimeMailParser.class.php';
+require_once __DIR__ . '/../phplib/third-party/mime-mail-parser/MimeMailParser.class.php';
 
 Log::notice('started');
 

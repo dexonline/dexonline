@@ -107,9 +107,9 @@ function util_getCssRoot() {
 
 function util_requireOtherFiles() {
   $root = util_getRootPath();
-  require_once(StringUtil::portable("$root/phplib/smarty/Smarty.class.php"));
-  require_once(StringUtil::portable("$root/phplib/idiorm/idiorm.php"));
-  require_once(StringUtil::portable("$root/phplib/idiorm/paris.php"));
+  require_once(StringUtil::portable("$root/phplib/third-party/smarty/Smarty.class.php"));
+  require_once(StringUtil::portable("$root/phplib/third-party/idiorm/idiorm.php"));
+  require_once(StringUtil::portable("$root/phplib/third-party/idiorm/paris.php"));
   require_once(StringUtil::portable("$root/phplib/db.php"));
   require_once(StringUtil::portable("$root/phplib/session.php"));
   require_once(StringUtil::portable("$root/phplib/memcache.php"));

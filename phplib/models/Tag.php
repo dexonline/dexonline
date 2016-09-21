@@ -16,15 +16,6 @@ class Tag extends BaseObject implements DatedObject {
       ->find_many();
   }
 
-  static function loadByLexemId($lexemId) {
-    return Model::factory('Tag')
-      ->select('Tag.*')
-      ->join('LexemTag', ['Tag.id', '=', 'tagId'])
-      ->where('LexemTag.lexemId', $lexemId)
-      ->order_by_asc('value')
-      ->find_many();
-  }
-
   static function loadByMeaningId($meaningId) {
     return Model::factory('Tag')
       ->select('Tag.*')

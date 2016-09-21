@@ -18,7 +18,7 @@ $stopWord = util_getBoolean('stopWord');
 $hyphenations = util_getRequestParameter('hyphenations');
 $pronunciations = util_getRequestParameter('pronunciations');
 $entryId = util_getRequestParameter('entryId');
-$tagIds = util_getRequestParameter('tagIds');
+$tagIds = util_getRequestParameterWithDefault('tagIds', []);
 
 // Paradigm parameters
 $modelType = util_getRequestParameter('modelType');
@@ -61,7 +61,7 @@ if ($deleteButton) {
 if ($refreshButton || $saveButton) {
   populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
            $needsAccent, $main, $stopWord, $hyphenations, $pronunciations, $entryId,
-           $modelType, $modelNumber, $restriction, $notes, $isLoc, $sourceIds);
+           $modelType, $modelNumber, $restriction, $notes, $isLoc, $sourceIds, $tagIds);
 
   if (validate($lexem, $original)) {
     // Case 1: Validation passed
@@ -76,15 +76,6 @@ if ($refreshButton || $saveButton) {
       $lexem->deepSave();
       $lexem->regenerateDependentLexems();
 
-      // Delete the old tags and add the new tags.
-      LexemTag::delete_all_by_lexemId($lexem->id);
-      foreach ($tagIds as $tagId) {
-        $lt = Model::factory('LexemTag')->create();
-        $lt->lexemId = $lexem->id;
-        $lt->tagId = $tagId;
-        $lt->save();
-      }
-
       Log::notice("Saved lexem {$lexem->id} ({$lexem->formNoAccent})");
       util_redirect("lexemEdit.php?lexemId={$lexem->id}");
     }
@@ -96,18 +87,13 @@ if ($refreshButton || $saveButton) {
   // Case 3: First time loading this page
   $lexem->loadInflectedFormMap();
 
-  $lts = LexemTag::get_all_by_lexemId($lexem->id);
-  $tagIds = util_objectProperty($lts, 'tagId');
-
   RecentLink::add("Lexem: $lexem (ID={$lexem->id})");
 }
-
-$tags = Model::factory('Tag')->order_by_asc('value')->find_many();
 
 $definitions = Definition::loadByEntryId($lexem->entryId);
 $searchResults = SearchResult::mapDefinitionArray($definitions);
 
-$canEdit = array(
+$canEdit = [
   'general' => util_isModerator(PRIV_EDIT),
   'description' => util_isModerator(PRIV_EDIT),
   'form' => !$lexem->isLoc || util_isModerator(PRIV_LOC),
@@ -118,7 +104,7 @@ $canEdit = array(
   'sources' => util_isModerator(PRIV_LOC | PRIV_EDIT),
   'stopWord' => util_isModerator(PRIV_ADMIN),
   'tags' => util_isModerator(PRIV_LOC | PRIV_EDIT),
-);
+];
 
 // Prepare a list of model numbers, to be used in the paradigm drop-down.
 $models = FlexModel::loadByType($lexem->modelType);
@@ -126,8 +112,6 @@ $models = FlexModel::loadByType($lexem->modelType);
 SmartyWrap::assign('lexem', $lexem);
 SmartyWrap::assign('homonyms', Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many());
 SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('tags', $tags);
-SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('canEdit', $canEdit);
@@ -140,7 +124,7 @@ SmartyWrap::display('admin/lexemEdit.tpl');
 // Populate lexem fields from request parameters.
 function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
                   $needsAccent, $main, $stopWord, $hyphenations, $pronunciations, $entryId,
-                  $modelType, $modelNumber, $restriction, $notes, $isLoc, $sourceIds) {
+                  $modelType, $modelNumber, $restriction, $notes, $isLoc, $sourceIds, $tagIds) {
   $lexem->setForm(AdminStringUtil::formatLexem($lexemForm));
   $lexem->number = $lexemNumber;
   $lexem->description = AdminStringUtil::internalize($lexemDescription, false);
@@ -163,9 +147,8 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   $lexem->restriction = $restriction;
   $lexem->notes = $notes;
   $lexem->isLoc = $isLoc;
-  $lexem->generateInflectedFormMap();
 
-  // Create LexemSources
+  // create LexemSources
   $lexemSources = [];
   foreach ($sourceIds as $sourceId) {
     $ls = Model::factory('LexemSource')->create();
@@ -173,6 +156,17 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
     $lexemSources[] = $ls;
   }
   $lexem->setLexemSources($lexemSources);
+
+  // create LexemTags
+  $lexemTags = [];
+  foreach ($tagIds as $tagId) {
+    $lt = Model::factory('LexemTag')->create();
+    $lt->tagId = $tagId;
+    $lexemTags[] = $lt;
+  }
+  $lexem->setLexemTags($lexemTags);
+
+  $lexem->generateInflectedFormMap();
 }
 
 function validate($lexem, $original) {

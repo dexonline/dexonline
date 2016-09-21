@@ -9,6 +9,9 @@ class Lexem extends BaseObject implements DatedObject {
   private $sourceNames = null;         // Comma-separated list of source names
   private $inflectedForms = null;
   private $inflectedFormMap = null;    // Mapped by various criteria depending on the caller
+  private $lexemTags = null;
+  private $tags = null;
+  private $animate = null;
 
   const METHOD_GENERATE = 1;
   const METHOD_LOAD = 2;
@@ -94,11 +97,46 @@ class Lexem extends BaseObject implements DatedObject {
     return $results;
   }
 
+  function getLexemTags() {
+    if ($this->lexemTags === null) {
+      $this->lexemTags = LexemTag::get_all_by_lexemId($this->id);
+    }
+    return $this->lexemTags;
+  }
+
+  function setLexemTags($lexemTags) {
+    $this->lexemTags = $lexemTags;
+  }
+
   function getTags() {
     if ($this->tags === null) {
-      $this->tags = Tag::loadByLexemId($this->id);
+      $this->tags = [];
+      foreach ($this->getLexemTags() as $lt) {
+        $this->tags[] = Tag::get_by_id($lt->tagId);
+      }
     }
     return $this->tags;
+  }
+
+  function getTagIds() {
+    $results = [];
+    foreach ($this->getLexemTags() as $lt) {
+      $results[] = $lt->tagId;
+    }
+    return $results;
+  }
+
+  function isAnimate() {
+    if ($this->animate === null) {
+      $this->animate = false;
+      $animateValues = Config::get('tags.animateLexeme');
+      foreach ($this->getTags() as $t) {
+        if (in_array($t->value, $animateValues)) {
+          $this->animate = true;
+        }
+      }
+    }
+    return $this->animate;
   }
 
   public static function loadByExtendedName($extName) {
@@ -337,6 +375,12 @@ class Lexem extends BaseObject implements DatedObject {
 
   // Throws an exception if the given inflection cannot be generated
   public function generateInflectedFormWithModel($form, $inflId, $modelId) {
+    $inflection = Inflection::get_by_id($inflId);
+    if ($inflection->animate && !$this->isAnimate()) {
+      // animate inflections, like the vocative, require the lexeme to be animate
+      return [];
+    }
+
     $ifs = [];
     $mds = Model::factory('ModelDescription')
          ->where('modelId', $modelId)
@@ -344,7 +388,7 @@ class Lexem extends BaseObject implements DatedObject {
          ->order_by_asc('variant')
          ->order_by_asc('applOrder')
          ->find_many();
- 
+
     $start = 0;
     while ($start < count($mds)) {
       $variant = $mds[$start]->variant;
@@ -615,6 +659,7 @@ class Lexem extends BaseObject implements DatedObject {
 
     InflectedForm::delete_all_by_lexemId($this->id);
     LexemSource::delete_all_by_lexemId($this->id);
+    LexemTag::delete_all_by_lexemId($this->id);
 
     foreach ($this->generateInflectedForms() as $if) {
       $if->lexemId = $this->id;
@@ -623,6 +668,10 @@ class Lexem extends BaseObject implements DatedObject {
     foreach ($this->getLexemSources() as $ls) {
       $ls->lexemId = $this->id;
       $ls->save();
+    }
+    foreach ($this->getLexemTags() as $lt) {
+      $lt->lexemId = $this->id;
+      $lt->save();
     }
   }
 

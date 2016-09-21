@@ -4,11 +4,11 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$definitionId = util_getRequestParameter('definitionId');
-$definitionInternalRep = util_getRequestParameter('definitionInternalRep');
-$commentInternalRep = util_getRequestParameter('commentInternalRep');
-$sourceId = util_getRequestParameter('sourceId');
-$entryIds = util_getRequestParameterWithDefault('entryIds', []);
+$definitionId = Request::get('definitionId');
+$definitionInternalRep = Request::get('definitionInternalRep');
+$commentInternalRep = Request::get('commentInternalRep');
+$sourceId = Request::get('sourceId');
+$entryIds = Request::get('entryIds', []);
 
 $d = Definition::get_by_id($definitionId);
 $d->internalRep = AdminStringUtil::internalizeDefinition($definitionInternalRep, $sourceId);

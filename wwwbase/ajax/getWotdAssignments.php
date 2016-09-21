@@ -2,8 +2,8 @@
 require_once('../../phplib/util.php');
 util_assertModerator(PRIV_WOTD);
 
-$year = util_getRequestParameter('year');
-$month = util_getRequestParameter('month');
+$year = Request::get('year');
+$month = Request::get('month');
 
 if (!$year) {
   $year = date('Y');

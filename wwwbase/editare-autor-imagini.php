@@ -2,9 +2,9 @@
 require_once('../phplib/util.php');
 util_assertModerator(PRIV_WOTD);
 
-$id = util_getRequestParameter('id');
-$deleteId = util_getRequestParameter('deleteId');
-$saveButton = util_getBoolean('saveButton');
+$id = Request::get('id');
+$deleteId = Request::get('deleteId');
+$saveButton = Request::isset('saveButton');
 $artist = $id
         ? WotdArtist::get_by_id($id)
         : Model::factory('WotdArtist')->create();
@@ -17,10 +17,10 @@ if ($deleteId) {
 }
 
 if ($saveButton) {
-  $artist->name = util_getRequestParameter('name');
-  $artist->email = util_getRequestParameter('email');
-  $artist->label = util_getRequestParameter('label');
-  $artist->credits = util_getRequestParameter('credits');
+  $artist->name = Request::get('name');
+  $artist->email = Request::get('email');
+  $artist->label = Request::get('label');
+  $artist->credits = Request::get('credits');
 
   if (validate($artist)) {
     $artist->save();

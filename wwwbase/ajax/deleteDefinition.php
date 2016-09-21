@@ -3,7 +3,7 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$defId = util_getRequestParameter('id');
+$defId = Request::get('id');
 $def = Definition::get_by_id($defId);
 if ($def && $def->id) {
   $def->status = Definition::ST_DELETED;

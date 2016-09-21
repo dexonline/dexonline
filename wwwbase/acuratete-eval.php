@@ -2,11 +2,11 @@
 require_once("../phplib/util.php");
 util_assertModerator(PRIV_ADMIN);
 
-$projectId = util_getRequestParameter('projectId');
-$saveButton = util_getBoolean('saveButton');
-$deleteButton = util_getBoolean('deleteButton');
-$defId = util_getRequestParameter('defId');
-$errors = util_getRequestParameter('errors');
+$projectId = Request::get('projectId');
+$saveButton = Request::isset('saveButton');
+$deleteButton = Request::isset('deleteButton');
+$defId = Request::get('defId');
+$errors = Request::get('errors');
 
 if ($deleteButton) {
   $ap = AccuracyProject::get_by_id($projectId);

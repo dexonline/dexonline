@@ -2,14 +2,14 @@
 require_once("../phplib/util.php");
 util_assertModerator(PRIV_ADMIN);
 
-$userIds = util_getRequestParameter('userIds');
-$newNick = util_getRequestParameter('newNick');
-$newCheckboxes = util_getRequestParameterWithDefault("newPriv", array());
-$saveButton = util_getBoolean('saveButton');
+$userIds = Request::get('userIds');
+$newNick = Request::get('newNick');
+$newCheckboxes = Request::get("newPriv", []);
+$saveButton = Request::isset('saveButton');
 
 if ($saveButton) {
   foreach ($userIds as $userId) {
-    $checkboxes = util_getRequestParameterWithDefault("priv_$userId", array());
+    $checkboxes = Request::get("priv_$userId", []);
     $user = User::get_by_id($userId);
     $newPerm = array_sum($checkboxes);
 

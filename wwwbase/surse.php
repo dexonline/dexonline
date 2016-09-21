@@ -1,12 +1,12 @@
 <?php
 require_once('../phplib/util.php');
 
-$saveButton = util_getBoolean('saveButton');
+$saveButton = Request::isset('saveButton');
 
 if ($saveButton) {
   util_assertModerator(PRIV_ADMIN);
   $order = 1;
-  $ids = util_getRequestParameter('ids');
+  $ids = Request::get('ids');
   foreach ($ids as $id) {
     $src = Source::get_by_id($id);
     $src->displayOrder = $order++;

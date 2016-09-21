@@ -3,9 +3,9 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_ADMIN);
 util_assertNotMirror();
 
-$sourceId = util_getRequestIntParameter('source');
-$editorId = util_getRequestIntParameter('editor');
-$terminator = PHP_EOL . (util_getRequestIntParameter('term') == 1 ? PHP_EOL : "");
+$sourceId = Request::get('source');
+$editorId = Request::get('editor');
+$terminator = PHP_EOL . (Request::get('term') == 1 ? PHP_EOL : "");
 $class = "success";
 $message = "";
 

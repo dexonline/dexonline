@@ -3,9 +3,9 @@ require_once("../phplib/util.php");
 
 util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 
-$id = util_getRequestParameter('id');
-$saveButton = util_getBoolean('saveButton');
-$clone = util_getBoolean('clone');
+$id = Request::get('id');
+$saveButton = Request::isset('saveButton');
+$clone = Request::isset('clone');
 
 if ($id) {
   $t = Tree::get_by_id($id);
@@ -25,10 +25,10 @@ if ($clone) {
 }
 
 if ($saveButton) {
-  $t->description = util_getRequestParameter('description');
-  $t->status = util_getRequestParameter('status');
-  $entryIds = util_getRequestParameter('entryIds');
-  $jsonMeanings = util_getRequestParameter('jsonMeanings');
+  $t->description = Request::get('description');
+  $t->status = Request::get('status');
+  $entryIds = Request::get('entryIds');
+  $jsonMeanings = Request::get('jsonMeanings');
   $meanings = json_decode($jsonMeanings);
 
   $errors = $t->validate();

@@ -3,13 +3,13 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 util_assertNotMirror();
 
-$form = util_getRequestParameter('form');
-$sourceId = util_getRequestParameter('source');
-$loc = util_getRequestParameterWithDefault('loc', 2);
-$paradigm = util_getRequestParameterWithDefault('paradigm', 2);
-$structStatus = util_getRequestParameter('structStatus');
-$structuristId = util_getRequestParameter('structuristId');
-$nick = util_getRequestParameter('nick');
+$form = Request::get('form');
+$sourceId = Request::get('source');
+$loc = Request::get('loc', 2);
+$paradigm = Request::get('paradigm', 2);
+$structStatus = Request::get('structStatus');
+$structuristId = Request::get('structuristId');
+$nick = Request::get('nick');
 
 $where = [];
 $joins = [];

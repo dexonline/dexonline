@@ -3,8 +3,8 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$suffix = util_getRequestParameter('suffix');
-$saveButton = util_getBoolean('saveButton');
+$suffix = Request::get('suffix');
+$saveButton = Request::isset('saveButton');
 
 if ($saveButton) {
   foreach ($_REQUEST as $name => $modelId) {
@@ -19,11 +19,11 @@ if ($saveButton) {
         assert(count($parts) == 2);
         $lexem->modelType = $parts[0];
         $lexem->modelNumber = $parts[1];
-        $lexem->restriction = util_getRequestParameter('restr_' . $lexem->id);
+        $lexem->restriction = Request::get('restr_' . $lexem->id);
         $lexem->save();
         $lexem->regenerateParadigm();
       } else {
-        $lexem->comment = util_getRequestParameter('comment_' . $lexem->id);
+        $lexem->comment = Request::get('comment_' . $lexem->id);
         $lexem->save();
       }
     }

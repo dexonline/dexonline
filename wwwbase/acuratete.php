@@ -2,8 +2,8 @@
 require_once("../phplib/util.php");
 util_assertModerator(PRIV_ADMIN);
 
-$submitButton = util_getRequestParameter('submitButton');
-$id = util_getRequestParameter('id');
+$submitButton = Request::get('submitButton');
+$id = Request::get('id');
 
 $user = session_getUser();
 
@@ -11,12 +11,12 @@ $p = Model::factory('AccuracyProject')->create(); // new project
 $p->ownerId = $user->id;
 
 if ($submitButton) {
-  $p->name = util_getRequestParameter('name');
-  $p->userId = util_getRequestParameter('userId');
-  $p->sourceId = util_getRequestParameter('sourceId');
-  $p->startDate = util_getRequestParameter('startDate');
-  $p->endDate = util_getRequestParameter('endDate');
-  $p->method = util_getRequestParameter('method');
+  $p->name = Request::get('name');
+  $p->userId = Request::get('userId');
+  $p->sourceId = Request::get('sourceId');
+  $p->startDate = Request::get('startDate');
+  $p->endDate = Request::get('endDate');
+  $p->method = Request::get('method');
 
   if ($p->validate()) {
     $p->save();

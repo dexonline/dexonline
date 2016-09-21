@@ -2,24 +2,24 @@
 require_once('../phplib/util.php');
 util_assertModerator(PRIV_ADMIN);
 
-$sourceId = util_getRequestParameter('id');
-$saveButton = util_getBoolean('saveButton');
+$sourceId = Request::get('id');
+$saveButton = Request::isset('saveButton');
 $src = $sourceId ? Source::get_by_id($sourceId) : Model::factory('Source')->create();
 
 if ($saveButton) {
-  $src->name = util_getRequestParameter('name');
-  $src->shortName = util_getRequestParameter('shortName');
-  $src->urlName = util_getRequestParameter('urlName');
-  $src->author = util_getRequestParameter('author');
-  $src->publisher = util_getRequestParameter('publisher');
-  $src->year = util_getRequestParameter('year');
-  $src->link = util_getRequestParameter('link');
-  $src->isActive = util_getBoolean('isActive');
-  $src->type = util_getRequestParameter('type');
-  $src->canContribute = util_getBoolean('canContribute');
-  $src->canModerate = util_getBoolean('canModerate');
-  $src->canDistribute = util_getBoolean('canDistribute');
-  $src->defCount = util_getRequestIntParameter('defCount');
+  $src->name = Request::get('name');
+  $src->shortName = Request::get('shortName');
+  $src->urlName = Request::get('urlName');
+  $src->author = Request::get('author');
+  $src->publisher = Request::get('publisher');
+  $src->year = Request::get('year');
+  $src->link = Request::get('link');
+  $src->isActive = Request::isset('isActive');
+  $src->type = Request::get('type');
+  $src->canContribute = Request::isset('canContribute');
+  $src->canModerate = Request::isset('canModerate');
+  $src->canDistribute = Request::isset('canDistribute');
+  $src->defCount = Request::get('defCount');
 
   if (validate($src)) {
     // For new sources, set displayOrder to the highest available + 1

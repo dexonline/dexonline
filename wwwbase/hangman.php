@@ -13,7 +13,7 @@ define('mediumLength', 7);
 define('hardLength', 9);
 define('expertLength', 30);
 
-$difficulty = util_getRequestParameterWithDefault('d', 0);
+$difficulty = Request::get('d', 0);
 switch ($difficulty) {
 case 4:
   $minFreq = minFreq;

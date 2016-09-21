@@ -3,8 +3,8 @@ require_once("../../phplib/util.php");
 util_assertNotMirror();
 util_assertNotLoggedIn();
 
-$token = util_getRequestParameter('token');
-$identity = util_getRequestParameter('identity');
+$token = Request::get('token');
+$identity = Request::get('identity');
 
 $pt = PasswordToken::get_by_token($token);
 $data = FileCache::get($identity);

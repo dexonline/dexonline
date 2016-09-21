@@ -3,8 +3,8 @@
 require_once("../../phplib/util.php");
 util_assertNotMirror();
 
-$text = util_getRequestParameter('text');
-$definitionId = util_getRequestIntParameter('definitionId');
+$text = Request::get('text');
+$definitionId = Request::get('definitionId');
 
 if ($text && $definitionId) {
   $typo = Model::factory('Typo')->create();

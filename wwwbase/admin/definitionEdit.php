@@ -3,7 +3,7 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$definitionId = util_getRequestIntParameter('definitionId');
+$definitionId = Request::get('definitionId');
 
 if (!$definitionId) {
   // User requested an OCR definition. Try to find one.
@@ -47,19 +47,19 @@ if (!($d = Definition::get_by_id($definitionId))) {
 }
 
 // Load request fields and buttons.
-$isOCR = util_getRequestParameter('isOCR');
-$entryIds = util_getRequestParameter('entryIds');
-$sourceId = util_getRequestIntParameter('source');
-$similarSource = util_getBoolean('similarSource');
-$structured = util_getBoolean('structured');
-$internalRep = util_getRequestParameter('internalRep');
-$status = util_getRequestIntParameterWithDefault('status', null);
-$commentContents = util_getRequestParameter('commentContents');
-$preserveCommentUser = util_getRequestParameter('preserveCommentUser');
-$tagIds = util_getRequestParameterWithDefault('tagIds', []);
+$isOCR = Request::get('isOCR');
+$entryIds = Request::get('entryIds');
+$sourceId = Request::get('source');
+$similarSource = Request::isset('similarSource');
+$structured = Request::isset('structured');
+$internalRep = Request::get('internalRep');
+$status = Request::get('status', null);
+$commentContents = Request::get('commentContents');
+$preserveCommentUser = Request::get('preserveCommentUser');
+$tagIds = Request::get('tagIds', []);
 
-$saveButton = util_getBoolean('saveButton');
-$nextOcrBut = util_getBoolean('but_next_ocr');
+$saveButton = Request::isset('saveButton');
+$nextOcrBut = Request::isset('but_next_ocr');
 
 $comment = Model::factory('Comment')->where('definitionId', $d->id)->where('status', Definition::ST_ACTIVE)->find_one();
 $commentUser = $comment ? User::get_by_id($comment->userId) : null;

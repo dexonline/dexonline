@@ -6,9 +6,9 @@ util_assertModerator(PRIV_SUPER);
 define('DEBUG', 0);
 
 require_once("../phplib/util.php");
-$word_start = util_getRequestParameter('i');
-$word_end = util_getRequestParameter('e');
-$sources = util_getRequestParameter('s');
+$word_start = Request::get('i');
+$word_end = Request::get('e');
+$sources = Request::get('s');
 
 $searchResults = null;
 if ($word_start && $word_end && $sources) {

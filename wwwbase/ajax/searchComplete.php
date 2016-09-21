@@ -6,7 +6,7 @@ $acEnable = Config::get("search.acEnable");
 $acMinChars = Config::get("search.acMinChars");
 $acLimit = Config::get("search.acLimit");
 
-$term = util_getRequestParameter('term');
+$term = Request::get('term');
 
 if (!$acEnable || strlen($term) < $acMinChars) {
   return print(json_encode(array()));

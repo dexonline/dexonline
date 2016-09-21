@@ -2,8 +2,8 @@
 
 require_once("../phplib/util.php");
 
-$year = util_getRequestIntParameterWithDefault('y', date('Y'));
-$month = util_getRequestIntParameterWithDefault('m', date('m'));
+$year = Request::get('y', date('Y'));
+$month = Request::get('m', date('m'));
 
 function getDaysOfMonth($year, $month) {
   return date('t', mktime(0, 0, 0, $month, 1, $year));

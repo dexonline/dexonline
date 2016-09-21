@@ -5,9 +5,9 @@ util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 DebugInfo::disable();
 
-$modelType = util_getRequestParameter('modelType');
-$modelNumber = util_getRequestParameter('modelNumber');
-$deleteButton = util_getBoolean('deleteButton');
+$modelType = Request::get('modelType');
+$modelNumber = Request::get('modelNumber');
+$deleteButton = Request::isset('deleteButton');
 
 $model = Model::factory('FlexModel')
        ->where('modelType', $modelType)

@@ -1,8 +1,8 @@
 <?php
 require_once("../../phplib/util.php");
 
-$form = util_getRequestParameter('form');
-$qualifier = util_getRequestParameter('qualifier');
+$form = Request::get('form');
+$qualifier = Request::get('qualifier');
 
 $data = Model::factory('InflectedForm')
       ->table_alias('if')

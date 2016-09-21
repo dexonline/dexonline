@@ -5,10 +5,10 @@ util_assertNotMirror();
 
 $MAX_AFFECTED = 1000;
 
-$search = util_getRequestParameter('search');
-$replace = util_getRequestParameter('replace');
-$sourceId = util_getRequestParameter('sourceId');
-$saveButton = util_getBoolean('saveButton');
+$search = Request::get('search');
+$replace = Request::get('replace');
+$sourceId = Request::get('sourceId');
+$saveButton = Request::isset('saveButton');
 
 $query = Model::factory('Definition')
        ->where('status', Definition::ST_ACTIVE)

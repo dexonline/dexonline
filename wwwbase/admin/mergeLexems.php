@@ -5,8 +5,8 @@ util_assertNotMirror();
 util_hideEmptyRequestParameters();
 DebugInfo::disable();
 
-$modelType = util_getRequestParameterWithDefault('modelType', 'M');
-$saveButton = util_getBoolean('saveButton');
+$modelType = Request::get('modelType', 'M');
+$saveButton = Request::isset('saveButton');
 
 if ($saveButton) {
   $lexemsToDelete = array();

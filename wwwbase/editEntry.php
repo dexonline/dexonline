@@ -3,13 +3,13 @@ require_once("../phplib/util.php");
 
 util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 
-$id = util_getRequestParameter('id');
-$saveButton = util_getBoolean('saveButton');
-$mergeButton = util_getBoolean('mergeButton');
-$cloneButton = util_getBoolean('cloneButton');
-$createTree = util_getBoolean('createTree');
-$delete = util_getBoolean('delete');
-$dissociateDefinitionId = util_getRequestParameter('dissociateDefinitionId');
+$id = Request::get('id');
+$saveButton = Request::isset('saveButton');
+$mergeButton = Request::isset('mergeButton');
+$cloneButton = Request::isset('cloneButton');
+$createTree = Request::isset('createTree');
+$delete = Request::isset('delete');
+$dissociateDefinitionId = Request::get('dissociateDefinitionId');
 
 if ($id) {
   $e = Entry::get_by_id($id);
@@ -31,7 +31,7 @@ if ($dissociateDefinitionId) {
 }
 
 if ($mergeButton) {
-  $mergeEntryId = util_getRequestParameter('mergeEntryId');
+  $mergeEntryId = Request::get('mergeEntryId');
   $other = Entry::get_by_id($mergeEntryId);
 
   if (!$other) {
@@ -52,8 +52,8 @@ if ($mergeButton) {
 }
 
 if ($cloneButton) {
-  $cloneDefinitions = util_getBoolean('cloneDefinitions');
-  $cloneTrees = util_getBoolean('cloneTrees');
+  $cloneDefinitions = Request::isset('cloneDefinitions');
+  $cloneTrees = Request::isset('cloneTrees');
 
   $newe = $e->_clone($cloneDefinitions, $cloneTrees);
   Log::info("Cloned entry {$e->id} ({$e->description}), new id {$newe->id}");
@@ -79,11 +79,11 @@ if ($delete) {
 }
 
 if ($saveButton) {
-  $e->description = util_getRequestParameter('description');
-  $e->structStatus = util_getRequestIntParameter('structStatus');
-  $e->structuristId = util_getRequestIntParameter('structuristId');
-  $lexemIds = util_getRequestParameter('lexemIds');
-  $treeIds = util_getRequestParameter('treeIds');
+  $e->description = Request::get('description');
+  $e->structStatus = Request::get('structStatus');
+  $e->structuristId = Request::get('structuristId');
+  $lexemIds = Request::get('lexemIds');
+  $treeIds = Request::get('treeIds');
 
   $errors = $e->validate($original);
   if ($errors) {

@@ -8,10 +8,10 @@ DebugInfo::disable();
 
 define('SHORT_LIST_LIMIT', 10);
 
-$id = util_getRequestParameter('id');
-$previewButton = util_getBoolean('previewButton');
-$saveButton = util_getBoolean('saveButton');
-$shortList = util_getBoolean('shortList');
+$id = Request::get('id');
+$previewButton = Request::isset('previewButton');
+$saveButton = Request::isset('saveButton');
+$shortList = Request::isset('shortList');
 
 $locPerm = util_isModerator(PRIV_LOC);
 
@@ -62,13 +62,13 @@ if (!$previewButton && !$saveButton) {
   // Preview or Save button pressed
   // Read form values
   $nm = FlexModel::get_by_id($id); // new model
-  $nm->number = util_getRequestParameter('number');
-  $nm->description = util_getRequestParameter('description');
-  $nm->exponent = util_getRequestParameter('exponent');
+  $nm->number = Request::get('number');
+  $nm->description = Request::get('description');
+  $nm->exponent = Request::get('exponent');
 
   $npm = ParticipleModel::loadForModel($m);
   if ($npm) {
-    $npm->adjectiveModel = util_getRequestParameter('participleNumber');
+    $npm->adjectiveModel = Request::get('participleNumber');
   }
 
   $nforms = [];

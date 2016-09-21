@@ -8,7 +8,7 @@ if (count($_GET) == 0) {
 $x = new XmlDump(5);
 $lastDump = $x->getLastDumpDate();
 
-$lastClientUpdate = util_getRequestParameterWithDefault('last', '0');
+$lastClientUpdate = Request::get('last', '0');
 if ($lastClientUpdate == '0') {
   // Dump the freshest full dump we have
   // TODO: return an error if there is no full dump

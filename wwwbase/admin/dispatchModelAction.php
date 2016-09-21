@@ -3,12 +3,12 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$modelType = util_getRequestParameter('modelType');
-$modelNumber = util_getRequestParameter('modelNumber');
-$showLexemsButton = util_getBoolean('showLexems');
-$editModelButton = util_getBoolean('editModel');
-$cloneModelButton = util_getBoolean('cloneModel');
-$deleteModelButton = util_getBoolean('deleteModel');
+$modelType = Request::get('modelType');
+$modelNumber = Request::get('modelNumber');
+$showLexemsButton = Request::isset('showLexems');
+$editModelButton = Request::isset('editModel');
+$cloneModelButton = Request::isset('cloneModel');
+$deleteModelButton = Request::isset('deleteModel');
 
 $args = sprintf("modelType=%s&modelNumber=%s",
                 urlencode($modelType),

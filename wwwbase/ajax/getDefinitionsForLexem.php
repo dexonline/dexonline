@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php");
 
-$lexemId = util_getRequestParameter('lexemId');
+$lexemId = Request::get('lexemId');
 $lexem = Lexem::get_by_id($lexemId);
 $defs = Definition::loadByEntryId($lexem->entryId);
 

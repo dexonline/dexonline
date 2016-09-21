@@ -5,7 +5,7 @@ util_assertNotMirror();
 
 $sourceClause = '';
 $sourceId = 0;
-$sourceUrlName = util_getRequestParameter('source');
+$sourceUrlName = Request::get('source');
 if ($sourceUrlName) {
   $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
   $sourceId = $source ? $source->id : 0;

@@ -7,32 +7,32 @@ util_assertNotMirror();
 // and PHP cannot parse the form data correctly.
 
 // Lexem parameters
-$lexemId = util_getRequestParameter('lexemId');
-$lexemForm = util_getRequestParameter('lexemForm');
-$lexemNumber = util_getRequestParameter('lexemNumber');
-$lexemDescription = util_getRequestParameter('lexemDescription');
-$lexemComment = util_getRequestParameter('lexemComment');
-$needsAccent = util_getBoolean('needsAccent');
-$main = util_getBoolean('main');
-$stopWord = util_getBoolean('stopWord');
-$hyphenations = util_getRequestParameter('hyphenations');
-$pronunciations = util_getRequestParameter('pronunciations');
-$entryId = util_getRequestParameter('entryId');
-$tagIds = util_getRequestParameterWithDefault('tagIds', []);
+$lexemId = Request::get('lexemId');
+$lexemForm = Request::get('lexemForm');
+$lexemNumber = Request::get('lexemNumber');
+$lexemDescription = Request::get('lexemDescription');
+$lexemComment = Request::get('lexemComment');
+$needsAccent = Request::isset('needsAccent');
+$main = Request::isset('main');
+$stopWord = Request::isset('stopWord');
+$hyphenations = Request::get('hyphenations');
+$pronunciations = Request::get('pronunciations');
+$entryId = Request::get('entryId');
+$tagIds = Request::get('tagIds', []);
 
 // Paradigm parameters
-$modelType = util_getRequestParameter('modelType');
-$modelNumber = util_getRequestParameter('modelNumber');
-$restriction = util_getRequestParameter('restriction');
-$sourceIds = util_getRequestParameterWithDefault('sourceIds', []);
-$notes = util_getRequestParameter('notes');
-$isLoc = util_getBoolean('isLoc');
+$modelType = Request::get('modelType');
+$modelNumber = Request::get('modelNumber');
+$restriction = Request::get('restriction');
+$sourceIds = Request::get('sourceIds', []);
+$notes = Request::get('notes');
+$isLoc = Request::isset('isLoc');
 
 // Button parameters
-$refreshButton = util_getBoolean('refreshButton');
-$saveButton = util_getBoolean('saveButton');
-$cloneButton = util_getBoolean('cloneButton');
-$deleteButton = util_getBoolean('deleteButton');
+$refreshButton = Request::isset('refreshButton');
+$saveButton = Request::isset('saveButton');
+$cloneButton = Request::isset('cloneButton');
+$deleteButton = Request::isset('deleteButton');
 
 $lexem = Lexem::get_by_id($lexemId);
 $original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether certain fields have changed

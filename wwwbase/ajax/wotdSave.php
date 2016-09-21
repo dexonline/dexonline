@@ -159,14 +159,14 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_WOTD);
 util_assertNotMirror();
 
-$oper = util_getRequestParameter('oper');
-$id = util_getRequestParameter('id');
-$displayDate = util_getRequestParameter('displayDate');
-$priority = util_getRequestParameter('priority');
-$definitionId = util_getRequestParameter('definitionId');
-$refType = util_getRequestParameter('refType');
-$image = util_getRequestParameter('image');
-$description = util_getRequestParameter('description');
+$oper = Request::get('oper');
+$id = Request::get('id');
+$displayDate = Request::get('displayDate');
+$priority = Request::get('priority');
+$definitionId = Request::get('definitionId');
+$refType = Request::get('refType');
+$image = Request::get('image');
+$description = Request::get('description');
 
 switch ($oper) {
 case 'edit': $app = new wotdSave($id, $displayDate, $priority, $definitionId, $refType, $image, $description); break;

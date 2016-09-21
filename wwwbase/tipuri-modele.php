@@ -2,14 +2,14 @@
 require_once("../phplib/util.php"); 
 util_assertModerator(PRIV_EDIT);
 
-$showAddForm = util_getRequestParameter('add');
-$editId = util_getRequestParameter('editId');
-$deleteId = util_getRequestParameter('deleteId');
-$saveButton = util_getBoolean('saveButton');
-$id = util_getRequestParameter('id');
-$code = util_getRequestParameter('code');
-$canonical = util_getRequestParameter('canonical');
-$description = util_getRequestParameter('description');
+$showAddForm = Request::get('add');
+$editId = Request::get('editId');
+$deleteId = Request::get('deleteId');
+$saveButton = Request::isset('saveButton');
+$id = Request::get('id');
+$code = Request::get('code');
+$canonical = Request::get('canonical');
+$description = Request::get('description');
 
 if ($showAddForm) {
   SmartyWrap::assign('addModelType', Model::factory('ModelType')->create());

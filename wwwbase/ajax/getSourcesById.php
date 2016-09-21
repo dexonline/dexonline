@@ -3,7 +3,7 @@ require_once("../../phplib/util.php");
 
 // Takes a JSON-encoded list of ids
 
-$jsonIds = util_getRequestParameter('q');
+$jsonIds = Request::get('q');
 $ids = json_decode($jsonIds);
 $data = [];
 

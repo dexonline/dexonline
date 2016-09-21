@@ -1,7 +1,7 @@
 <?php
 require_once("../phplib/util.php");
 
-$title = util_getRequestParameter('title');
+$title = Request::get('title');
 $wikiTitle = WikiArticle::urlTitleToWikiTitle($title);
 $wa = WikiArticle::get_by_title(addslashes($wikiTitle));
 

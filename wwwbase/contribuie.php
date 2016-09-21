@@ -2,10 +2,10 @@
 require_once("../phplib/util.php");
 util_assertNotMirror();
 
-$lexemIds = util_getRequestParameter('lexemIds');
-$sourceId = util_getRequestParameter('source');
-$def = util_getRequestParameter('def');
-$sendButton = util_getBoolean('send');
+$lexemIds = Request::get('lexemIds');
+$sourceId = Request::get('source');
+$def = Request::get('def');
+$sendButton = Request::isset('send');
 
 if ($sendButton) {
   session_setSourceCookie($sourceId);

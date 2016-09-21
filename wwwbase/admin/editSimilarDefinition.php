@@ -4,13 +4,13 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$defId = util_getRequestParameter('defId');
-$similarId = util_getRequestParameter('similarId');
-$dstart = util_getRequestParameter('dstart');
-$dlen = util_getRequestParameter('dlen');
-$sstart = util_getRequestParameter('sstart');
-$slen = util_getRequestParameter('slen');
-$ins = util_getRequestParameter('ins');
+$defId = Request::get('defId');
+$similarId = Request::get('similarId');
+$dstart = Request::get('dstart');
+$dlen = Request::get('dlen');
+$sstart = Request::get('sstart');
+$slen = Request::get('slen');
+$ins = Request::get('ins');
 
 $def = Definition::get_by_id($defId);
 $similar = Definition::get_by_id($similarId);

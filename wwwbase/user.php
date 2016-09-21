@@ -2,10 +2,10 @@
 require_once("../phplib/util.php");
 
 // Parse or initialize the GET/POST arguments
-$nick = util_getRequestParameter('n');
-$medalSaveButton = util_getRequestParameter('medalSaveButton');
-$userId = util_getRequestParameter('userId');
-$medalsGranted = util_getRequestParameter('medalsGranted');
+$nick = Request::get('n');
+$medalSaveButton = Request::get('medalSaveButton');
+$userId = Request::get('userId');
+$medalsGranted = Request::get('medalsGranted');
 
 if ($medalSaveButton) {
   util_assertModerator(PRIV_ADMIN);

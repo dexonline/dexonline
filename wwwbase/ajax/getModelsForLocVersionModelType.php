@@ -1,8 +1,8 @@
 <?php
 require_once("../../phplib/util.php");
 
-$modelType = util_getRequestParameter('modelType');
-$locVersion = util_getRequestParameter('locVersion');
+$modelType = Request::get('modelType');
+$locVersion = Request::get('locVersion');
 
 if ($locVersion) {
   LocVersion::changeDatabase($locVersion);

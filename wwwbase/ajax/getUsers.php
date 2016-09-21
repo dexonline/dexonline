@@ -1,9 +1,9 @@
 <?php
 require_once("../../phplib/util.php");
 
-$id = util_getRequestParameter('id');
-$term = util_getRequestParameter('term');
-$priv = util_getRequestParameter('priv');
+$id = Request::get('id');
+$term = Request::get('term');
+$priv = Request::get('priv');
 
 if ($id) {
   $users = [User::get_by_id($id)];

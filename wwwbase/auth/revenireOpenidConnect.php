@@ -3,10 +3,10 @@ require_once("../../phplib/util.php");
 util_assertNotMirror();
 util_assertNotLoggedIn();
 
-$error = util_getRequestParameter('error');
-$errorDescription = util_getRequestParameter('error_description');
-$code = util_getRequestParameter('code');
-$state = util_getRequestParameter('state');
+$error = Request::get('error');
+$errorDescription = Request::get('error_description');
+$code = Request::get('code');
+$state = Request::get('state');
 $provider = session_get('openid_connect_provider');
 
 try {

@@ -6,16 +6,16 @@ util_assertNotMirror();
 define('SOURCE_ID', 25); // Dicționarul enciclopedic
 $MODELS_TO_CAPITALIZE = ['I3', 'SP'];
 
-$definitionId = util_getRequestParameter('definitionId');
-$jumpPrefix = util_getRequestParameterWithDefault('jumpPrefix', '');
-$refreshButton = util_getBoolean('refreshButton');
-$saveButton = util_getBoolean('saveButton');
-$butPrev = util_getBoolean('butPrev');
-$butNext = util_getBoolean('butNext');
-$lexemIds = util_getRequestParameter('lexemId');
-$models = util_getRequestParameter('model');
-$capitalize = util_getBoolean('capitalize');
-$deleteOrphans = util_getBoolean('deleteOrphans');
+$definitionId = Request::get('definitionId');
+$jumpPrefix = Request::get('jumpPrefix', '');
+$refreshButton = Request::isset('refreshButton');
+$saveButton = Request::isset('saveButton');
+$butPrev = Request::isset('butPrev');
+$butNext = Request::isset('butNext');
+$lexemIds = Request::get('lexemId');
+$models = Request::get('model');
+$capitalize = Request::isset('capitalize');
+$deleteOrphans = Request::isset('deleteOrphans');
 
 if ($definitionId) {
   $def = Definition::get_by_id($definitionId);

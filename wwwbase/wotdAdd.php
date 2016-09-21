@@ -4,7 +4,7 @@ require_once("../phplib/util.php");
 util_assertModerator(PRIV_WOTD);
 util_assertNotMirror();
 
-$defId = util_getRequestParameter('defId');
+$defId = Request::get('defId');
 
 $status = WordOfTheDay::getStatus($defId);
 

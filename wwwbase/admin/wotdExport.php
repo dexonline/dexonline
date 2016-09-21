@@ -2,8 +2,8 @@
 require_once("../../phplib/util.php");
 util_assertModerator(PRIV_WOTD);
 
-$month = util_getRequestParameter('month');
-$year = util_getRequestParameter('year');
+$month = Request::get('month');
+$year = Request::get('year');
 
 $month = sprintf("%02d", $month);
 $wotds = Model::factory('WordOfTheDay')->where_like('displayDate', "{$year}-{$month}-%")->order_by_asc('displayDate')->find_many();

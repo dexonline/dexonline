@@ -5,20 +5,20 @@ util_assertNotMirror();
 
 define('RESULTS_PER_PAGE', 500);
 
-$name = util_getRequestParameter('name');
-$status = util_getRequestIntParameter('status');
-$nick = util_getRequestParameter('nick');
-$sourceId = util_getRequestIntParameter('sourceId');
-$yr1 = util_getRequestIntParameter('yr1');
-$mo1 = util_getRequestIntParameter('mo1');
-$da1 = util_getRequestIntParameter('da1');
-$yr2 = util_getRequestIntParameter('yr2');
-$mo2 = util_getRequestIntParameter('mo2');
-$da2 = util_getRequestIntParameter('da2');
-$page = util_getRequestIntParameterWithDefault('page', 1);
-$prevPageButton = util_getBoolean('prevPageButton');
-$nextPageButton = util_getBoolean('nextPageButton');
-$searchButton = util_getBoolean('searchButton');
+$name = Request::get('name');
+$status = Request::get('status');
+$nick = Request::get('nick');
+$sourceId = Request::get('sourceId');
+$yr1 = Request::get('yr1');
+$mo1 = Request::get('mo1');
+$da1 = Request::get('da1');
+$yr2 = Request::get('yr2');
+$mo2 = Request::get('mo2');
+$da2 = Request::get('da2');
+$page = Request::get('page', 1);
+$prevPageButton = Request::isset('prevPageButton');
+$nextPageButton = Request::isset('nextPageButton');
+$searchButton = Request::isset('searchButton');
 
 $ip = $_SERVER['REMOTE_ADDR'];
 

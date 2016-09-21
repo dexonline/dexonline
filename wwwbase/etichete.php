@@ -1,9 +1,9 @@
 <?php
 require_once("../phplib/util.php");
 
-$value = util_getRequestParameter('value');
-$saveButton = util_getBoolean('saveButton');
-$jsonTags = util_getRequestParameter('jsonTags');
+$value = Request::get('value');
+$saveButton = Request::isset('saveButton');
+$jsonTags = Request::get('jsonTags');
 
 if ($saveButton) {
   util_assertModerator(PRIV_ADMIN);

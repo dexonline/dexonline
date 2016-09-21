@@ -1,6 +1,6 @@
 <?php
 require_once("../phplib/util.php");
-$p = util_getRequestParameter('p');
+$p = Request::get('p');
 
 switch($p) {
   case '404':

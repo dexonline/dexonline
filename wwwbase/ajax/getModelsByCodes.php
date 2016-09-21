@@ -3,8 +3,8 @@ require_once("../../phplib/util.php");
 
 // Takes a JSON-encoded list of model codes
 
-$jsonCodes = util_getRequestParameter('q');
-$fuzzy = util_getRequestParameter('fuzzy');
+$jsonCodes = Request::get('q');
+$fuzzy = Request::get('fuzzy');
 $codes = json_decode($jsonCodes);
 $data = [];
 

@@ -3,11 +3,11 @@ require_once("../../phplib/util.php");
 util_assertNotMirror();
 util_assertNotLoggedIn();
 
-$loginType = util_getRequestParameter('loginType');
-$nickOrEmail = util_getRequestParameter('nickOrEmail');
-$password = util_getRequestParameter('password');
-$nick = util_getRequestParameter('nick');
-$randString = util_getRequestParameter('randString');
+$loginType = Request::get('loginType');
+$nickOrEmail = Request::get('nickOrEmail');
+$password = Request::get('password');
+$nick = Request::get('nick');
+$randString = Request::get('randString');
 
 $data = FileCache::get($randString);
 if (!$data) {

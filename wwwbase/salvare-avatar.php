@@ -12,10 +12,10 @@ define('AVATAR_QUALITY', 100);
 $AVATAR_REMOTE_FILE = "/img/user/{$user->id}.jpg";
 $AVATAR_RAW_GLOB = util_getRootPath() . "wwwbase/img/generated/{$user->id}_raw.*";
 
-$x0 = util_getRequestParameter('x0');
-$y0 = util_getRequestParameter('y0');
-$side = util_getRequestParameter('side');
-$delete = util_getRequestParameter('delete');
+$x0 = Request::get('x0');
+$y0 = Request::get('y0');
+$side = Request::get('side');
+$delete = Request::get('delete');
 
 if ($delete) {
   $f = new FtpUtil();

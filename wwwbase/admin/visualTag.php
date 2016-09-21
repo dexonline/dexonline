@@ -3,18 +3,18 @@ require_once('../../phplib/util.php');
 util_assertModerator(PRIV_VISUAL);
 util_assertNotMirror();
 
-$fileName = util_getRequestParameter('fileName');
-$id = util_getRequestParameter('id');
-$entryId = util_getRequestParameter('entryId');
-$revised = util_getBoolean('revised');
-$saveButton = util_getBoolean('saveButton');
-$tagEntryId = util_getRequestParameter('tagEntryId');
-$tagLabel = util_getRequestParameter('tagLabel');
-$textXCoord = util_getRequestParameter('textXCoord');
-$textYCoord = util_getRequestParameter('textYCoord');
-$imgXCoord = util_getRequestParameter('imgXCoord');
-$imgYCoord = util_getRequestParameter('imgYCoord');
-$addTagButton = util_getBoolean('addTagButton');
+$fileName = Request::get('fileName');
+$id = Request::get('id');
+$entryId = Request::get('entryId');
+$revised = Request::isset('revised');
+$saveButton = Request::isset('saveButton');
+$tagEntryId = Request::get('tagEntryId');
+$tagLabel = Request::get('tagLabel');
+$textXCoord = Request::get('textXCoord');
+$textYCoord = Request::get('textYCoord');
+$imgXCoord = Request::get('imgXCoord');
+$imgYCoord = Request::get('imgYCoord');
+$addTagButton = Request::isset('addTagButton');
 
 // Tag the image specified by $fileName. Create a Visual object if one doesn't exist, then redirect to it.
 if ($fileName) {

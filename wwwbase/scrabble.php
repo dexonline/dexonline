@@ -1,7 +1,7 @@
 <?php
 require_once("../phplib/util.php");
-$form = util_getRequestParameter('form');
-$locVersion = util_getRequestParameter('locVersion');
+$form = Request::get('form');
+$locVersion = Request::get('locVersion');
 
 $locVersions = Config::getLocVersions();
 if (!util_isModerator(PRIV_LOC)) {

@@ -1,7 +1,7 @@
 <?php
 require_once("../phplib/util.php");
 
-$file = util_getUploadedFile('avatarFileName');
+$file = Request::getFile('avatarFileName');
 $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
 $error = '';
 

@@ -1,8 +1,8 @@
 <?php
 require_once("../../phplib/util.php");
 
-$oper = util_getRequestParameter('oper');
-$id = util_getRequestParameter('id');
+$oper = Request::get('oper');
+$id = Request::get('id');
 
 switch ($oper) {
   case 'del':
@@ -18,11 +18,11 @@ switch ($oper) {
     $line = VisualTag::get_by_id($id);
   	
     if(!empty($line)){
-      $line->textXCoord = util_getRequestParameter('textXCoord');
-      $line->textYCoord = util_getRequestParameter('textYCoord');;
-      $line->imgXCoord = util_getRequestParameter('imgXCoord');
-      $line->imgYCoord = util_getRequestParameter('imgYCoord');
-      $line->label = util_getRequestParameter('label');
+      $line->textXCoord = Request::get('textXCoord');
+      $line->textYCoord = Request::get('textYCoord');;
+      $line->imgXCoord = Request::get('imgXCoord');
+      $line->imgYCoord = Request::get('imgYCoord');
+      $line->label = Request::get('label');
       $line->save();
       Log::notice("Edited visual tag {$line->id} ({$line->label}) for image {$line->imageId}");
   	}

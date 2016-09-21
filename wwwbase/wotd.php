@@ -5,9 +5,9 @@ define('WOTD_BIG_BANG', '2011-05-01');
 define('WOTD_REASON_DISPLAY_DELAY', 2);
 
 require_once("../phplib/util.php");
-$date = util_getRequestParameter('d');
-$type = util_getRequestParameter('t');
-$delay = util_getRequestParameter('h', 0); //delay in minutes
+$date = Request::get('d');
+$type = Request::get('t');
+$delay = Request::get('h', 0); //delay in minutes
 
 // RSS stuff - could be separated from the rest
 // TODO optimize & factorize

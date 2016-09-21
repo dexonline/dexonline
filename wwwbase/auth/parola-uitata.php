@@ -4,9 +4,9 @@ require_once("../../phplib/util.php");
 util_assertNotMirror();
 util_assertNotLoggedIn();
 
-$submitButton = util_getRequestParameter('submitButton');
-$identity = util_getRequestParameter('identity');
-$email = util_getRequestParameter('email');
+$submitButton = Request::get('submitButton');
+$identity = Request::get('identity');
+$email = Request::get('email');
 
 SmartyWrap::assign('identity', $identity);
 SmartyWrap::assign('email', $email);

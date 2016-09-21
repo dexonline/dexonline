@@ -4,8 +4,8 @@ define('WOTM_BIG_BANG', '2012-04-01');
 
 require_once("../phplib/util.php");
 
-$date = util_getRequestParameter('d');
-$type = util_getRequestParameter('t');
+$date = Request::get('d');
+$type = Request::get('t');
 
 $today = date('Y-m-01', time()); // Always use the first of the month
 $timestamp = $date ? strtotime($date) : time();

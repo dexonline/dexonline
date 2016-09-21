@@ -5,7 +5,7 @@ util_hideEmptyRequestParameters();
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$sourceId = util_getRequestParameter('source');
+$sourceId = Request::get('source');
 
 if ($sourceId) {
   $source = Source::get_by_id($sourceId);

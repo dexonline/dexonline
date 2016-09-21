@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php");
 
-$query = util_getRequestParameter('term');
+$query = Request::get('term');
 
 $tags = Model::factory('Tag')
       ->where_like('value', "%{$query}%")

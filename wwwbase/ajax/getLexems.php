@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php");
 
-$query = util_getRequestParameter('term');
+$query = Request::get('term');
 $parts = preg_split('/\(/', $query, 2);
 $name = AdminStringUtil::internalizeWordName(trim($parts[0]));
 $field = StringUtil::hasDiacritics($name) ? 'formNoAccent' : 'formUtf8General';

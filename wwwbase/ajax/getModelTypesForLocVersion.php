@@ -1,8 +1,8 @@
 <?php
 require_once("../../phplib/util.php");
 
-$locVersion = util_getRequestParameter('locVersion');
-$canonical = util_getRequestParameter('canonical');
+$locVersion = Request::get('locVersion');
+$canonical = Request::get('canonical');
 LocVersion::changeDatabase($locVersion);
 
 if ($canonical) {

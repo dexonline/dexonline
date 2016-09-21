@@ -3,10 +3,10 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$saveButton = util_getBoolean('saveButton');
+$saveButton = Request::isset('saveButton');
 
 if ($saveButton) {
-  $defId = util_getRequestParameter('definitionId');
+  $defId = Request::get('definitionId');
   $def = Definition::get_by_id($defId);
 
   // Collect the user choices

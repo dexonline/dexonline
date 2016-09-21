@@ -3,14 +3,14 @@
 require_once("../phplib/util.php");
 require_once("../phplib/ads/adsModule.php");
 
-$cuv = util_getRequestParameter('cuv');
-$lexemId = util_getRequestParameter('lexemId');
-$defId = util_getRequestParameter('defId');
-$sourceUrlName = util_getRequestParameter('source');
-$text = util_getRequestIntParameter('text');
-$showParadigm = util_getRequestParameter('showParadigm');
-$xml = util_getRequestParameter('xml');
-$all = util_getRequestParameter('all');
+$cuv = Request::get('cuv');
+$lexemId = Request::get('lexemId');
+$defId = Request::get('defId');
+$sourceUrlName = Request::get('source');
+$text = Request::isset('text');
+$showParadigm = Request::get('showParadigm');
+$xml = Request::get('xml');
+$all = Request::get('all');
 
 $redirect = session_get('redirect');
 $redirectFrom = session_getWithDefault('init_word', '');

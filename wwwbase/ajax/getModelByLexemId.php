@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php");
 
-$id = util_getRequestParameter('id');
+$id = Request::get('id');
 
 $l = Lexem::get_by_id($id);
 $mt = ModelType::get_by_code($l->modelType);

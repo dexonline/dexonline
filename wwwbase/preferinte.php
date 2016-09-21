@@ -1,14 +1,14 @@
 <?php
 require_once("../phplib/util.php");
 
-$saveButton = util_getBoolean('saveButton');
+$saveButton = Request::isset('saveButton');
 
 $user = session_getUser();
 
 if ($saveButton) {
-  $detailsVisible = util_getRequestParameterWithDefault('detailsVisible', 0);
-  $userPrefs = util_getRequestCheckboxArray('userPrefs', ',');
-  $widgets = util_getRequestParameter('widgets');
+  $detailsVisible = Request::get('detailsVisible', 0);
+  $userPrefs = implode(Request::get('userPrefs'), ',');
+  $widgets = Request::get('widgets');
   Preferences::set($user, $detailsVisible, $userPrefs, array_sum($widgets));
   FlashMessage::add('Am salvat preferințele.', 'success');
   util_redirect('preferinte');

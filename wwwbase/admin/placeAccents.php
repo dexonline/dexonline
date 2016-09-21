@@ -3,7 +3,7 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 util_assertNotMirror();
 
-$saveButton = util_getBoolean('saveButton');
+$saveButton = Request::isset('saveButton');
 
 if ($saveButton) {
   foreach ($_REQUEST as $name => $position) {
@@ -12,7 +12,7 @@ if ($saveButton) {
       assert(count($parts) == 2);
       assert($parts[0] == 'position');
       $lexem = Lexem::get_by_id($parts[1]);
-      $noAccent = util_getRequestParameter('noAccent_' . $lexem->id);
+      $noAccent = Request::get('noAccent_' . $lexem->id);
 
       if ($noAccent) {
         $lexem->noAccent = 1;

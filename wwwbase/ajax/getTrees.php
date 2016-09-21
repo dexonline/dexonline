@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php");
 
-$query = util_getRequestParameter('term');
+$query = Request::get('term');
 
 $trees = Model::factory('Tree')
        ->where_like('description', "{$query}%")

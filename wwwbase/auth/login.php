@@ -4,10 +4,10 @@ require_once("../../phplib/util.php");
 util_assertNotMirror();
 util_assertNotLoggedIn();
 
-$openid = util_getRequestParameter('openid');
-$fakeUserNick = util_getRequestParameter('fakeUserNick');
-$priv = util_getRequestParameter('priv');
-$allPriv = util_getRequestParameter('allPriv');
+$openid = Request::get('openid');
+$fakeUserNick = Request::get('fakeUserNick');
+$priv = Request::get('priv');
+$allPriv = Request::get('allPriv');
 
 $devel = Config::get('global.developmentMode');
 

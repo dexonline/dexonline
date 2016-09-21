@@ -1,7 +1,7 @@
 <?php
 require_once("../phplib/util.php");
 
-$type = util_getRequestParameter('t');
+$type = Request::get('t');
 
 if ($type == 'rss') {
   $articles = WikiArticle::getRss();

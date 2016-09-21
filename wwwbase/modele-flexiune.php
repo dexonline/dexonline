@@ -1,8 +1,8 @@
 <?php
 require_once("../phplib/util.php"); 
 
-$locVersion = util_getRequestParameter('locVersion');
-$modelType = util_getRequestParameter('modelType');
+$locVersion = Request::get('locVersion');
+$modelType = Request::get('modelType');
 
 $modelType = ModelType::get_by_code($modelType); // Use the ModelType object from this point on
 

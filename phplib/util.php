@@ -208,47 +208,6 @@ function util_formatNumber($n, $decimals) {
   return number_format($n, $decimals, ',', '.');
 }
 
-function util_getRequestParameter($name) {
-  return util_getRequestParameterWithDefault($name, NULL);
-}
-
-function util_getRequestParameterWithDefault($name, $default) {
-  return array_key_exists($name, $_REQUEST) ? $_REQUEST[$name] : $default;
-}
-
-function util_getRequestIntParameter($name) {
-  return util_getRequestIntParameterWithDefault($name, 0);
-}
-
-function util_getRequestIntParameterWithDefault($name, $default) {
-  $string = util_getRequestParameter($name);
-  return ($string == NULL) ? $default : (int)$string;
-}
-
-/**
- * A boolean is a checkbox, a yes/no radio button pair, a button or any field that returns
- * empty for false and non-empty for true.
- **/
-function util_getBoolean($name) {
-  $v = util_getRequestParameter($name);
-  return $v !== NULL;
-}
-
-function util_getRequestCheckboxArray($name, $separator) {
-  $arr = util_getRequestParameter($name);
-  return $arr ? implode($separator, $arr) : '';
-}
-
-/** Returns an array of values from a parameter in CSV format **/
-function util_getRequestCsv($name) {
-  $s = util_getRequestParameter($name);
-  return $s ? explode(',', $s) : array();
-}
-
-function util_getUploadedFile($name) {
-  return array_key_exists($name, $_FILES) ? $_FILES[$name] : null;
-}
-
 function util_redirect($location) {
   // Fix an Android issue with redirects caused by diacritics
   $location = str_replace(array('ă', 'â', 'î', 'ș', 'ț', 'Ă', 'Â', 'Î', 'Ș', 'Ț'),

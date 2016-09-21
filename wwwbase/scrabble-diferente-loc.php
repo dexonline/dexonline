@@ -1,7 +1,7 @@
 <?php
 require_once("../phplib/util.php");
-$list = util_getRequestParameter('list');
-$locVersions = util_getRequestCsv('locVersions');
+$list = Request::get('list');
+$locVersions = Request::getCsv('locVersions');
 
 switch ($list) {
   case 'base':

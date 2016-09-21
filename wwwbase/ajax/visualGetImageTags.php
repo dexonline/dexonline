@@ -2,10 +2,10 @@
 
 require_once('../../phplib/util.php');
 
-$visualId = util_getRequestParameter('visualId');
-$page = util_getRequestParameter('page');
-$limit = util_getRequestParameter('rows');
-$usage = util_getRequestParameter('usage');
+$visualId = Request::get('visualId');
+$page = Request::get('page');
+$limit = Request::get('rows');
+$usage = Request::get('usage');
 $resp = array(); $tags = array();
 
 if ($usage == 'table') {

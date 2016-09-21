@@ -2,7 +2,7 @@
 
 require_once("../../phplib/util.php");
 
-$definitionId = util_getRequestParameter('definitionId');
+$definitionId = Request::get('definitionId');
 
 $response = array();
 $userId = session_getUserId();

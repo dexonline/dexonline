@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php");
 
-$id = util_getRequestParameter('id');
+$id = Request::get('id');
 $m = Meaning::get_by_id($id);
 $t = Tree::get_by_id($m->treeId);
 $results = array('description' => $t->description,

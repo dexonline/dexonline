@@ -4,10 +4,10 @@ require_once("../phplib/util.php");
 define('TYPE_SHOW_ONLY_VERBS', 'conjugare');
 define('TYPE_SHOW_NO_VERBS', 'declinare');
 
-$cuv = util_getRequestParameter('cuv');
-$lexemId = util_getRequestParameter('lexemId');
-$ajax = util_getRequestParameter('ajax');
-$type = util_getRequestParameter('type');
+$cuv = Request::get('cuv');
+$lexemId = Request::get('lexemId');
+$ajax = Request::get('ajax');
+$type = Request::get('type');
 
 $searchType = SEARCH_INFLECTED;
 $arr = StringUtil::analyzeQuery($cuv);

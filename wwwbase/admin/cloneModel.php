@@ -6,11 +6,11 @@ util_assertModerator(PRIV_LOC);
 util_assertNotMirror();
 DebugInfo::disable();
 
-$modelType = util_getRequestParameter('modelType');
-$modelNumber = util_getRequestParameter('modelNumber');
-$newModelNumber = util_getRequestParameter('newModelNumber');
-$lexemIds = util_getRequestParameterWithDefault('lexemId', []);
-$saveButton = util_getBoolean('saveButton');
+$modelType = Request::get('modelType');
+$modelNumber = Request::get('modelNumber');
+$newModelNumber = Request::get('newModelNumber');
+$lexemIds = Request::get('lexemId', []);
+$saveButton = Request::isset('saveButton');
 
 if ($saveButton) {
   // Disallow duplicate model numbers

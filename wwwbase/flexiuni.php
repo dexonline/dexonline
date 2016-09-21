@@ -2,11 +2,11 @@
 require_once("../phplib/util.php");
 util_assertModerator(PRIV_LOC);
 
-$saveButton = util_getBoolean('saveButton');
-$inflectionIds = util_getRequestParameter('inflectionIds');
-$newDescription = util_getRequestParameter('newDescription');
-$newModelType = util_getRequestParameter('newModelType');
-$deleteInflectionId = util_getRequestParameter('deleteInflectionId');
+$saveButton = Request::isset('saveButton');
+$inflectionIds = Request::get('inflectionIds');
+$newDescription = Request::get('newDescription');
+$newModelType = Request::get('newModelType');
+$deleteInflectionId = Request::get('deleteInflectionId');
 
 if ($deleteInflectionId) {
   $infl = Inflection::get_by_id($deleteInflectionId);

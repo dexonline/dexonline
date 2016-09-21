@@ -4,7 +4,7 @@ setlocale(LC_ALL, "ro_RO.utf8");
 ini_set('memory_limit','-1');
 
 
-//$searchWord = util_getRequestParameter('searchWord');
+//$searchWord = Request::get('searchWord');
 //$option = $_GET['difficulty'];
 //var_dump($option);
 
@@ -50,7 +50,7 @@ function randomWordGenerator() {
 
   $dbSearch = 0;
   $level = 0;
-  $option = util_getRequestParameter('difficulty'); 
+  $option = Request::get('difficulty'); 
   switch ($option)
   {
     case "1": $level = NIVEL_FOARTE_USOR;  break;
@@ -195,7 +195,7 @@ function findWords($wordList) {
 
 function ajaxEcho($randWord,$wordsFound){
 
-  $diacritic = util_getRequestParameter('diacritic');
+  $diacritic = Request::get('diacritic');
 
   if($diacritic == "false")
   {

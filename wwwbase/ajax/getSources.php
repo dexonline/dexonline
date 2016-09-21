@@ -4,7 +4,7 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_STRUCT | PRIV_EDIT);
 util_assertNotMirror();
 
-$query = util_getRequestParameter('term');
+$query = Request::get('term');
 // Latin alphabet comparisons - allow Ş or S instead of Ș
 $sources = Model::factory('Source')
          ->where_raw("shortName collate utf8_general_ci like '{$query}%'")

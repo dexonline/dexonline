@@ -3,9 +3,9 @@ header('Content-type: application/x-javascript');
 require_once("../phplib/util.php");
 require_once("../phplib/ads/adsModule.php");
 
-$provider = util_getRequestParameter('provider'); // Display a banner for this provider
-$go = util_getRequestParameter('go');             // Track a click and redirect to this provider
-$clickurl = util_getRequestParameter('clickurl'); // Sent to us by Revive; when displaying a banner, we have to link to this URL
+$provider = Request::get('provider'); // Display a banner for this provider
+$go = Request::get('go');             // Track a click and redirect to this provider
+$clickurl = Request::get('clickurl'); // Sent to us by Revive; when displaying a banner, we have to link to this URL
 if ($go) {
   $provider = $go;
   $go = true;
@@ -13,7 +13,7 @@ if ($go) {
 require_once("../phplib/ads/{$provider}/{$provider}AdsModule.php");
 
 if ($provider == 'diverta') {
-  $bookId = util_getRequestParameter('bookId');
+  $bookId = Request::get('bookId');
   $book = DivertaBook::get_by_id($bookId);
   if (!$book) {
     exit;

@@ -24,9 +24,9 @@ function getSimpleDefinitionsForLexemIds($lexemIds) {
   return $defs;
 }
 
-$difficulty = util_getRequestParameter('d');
-$logDefId = util_getRequestParameter('defId');
-$logGuessed = util_getRequestParameter('guessed');
+$difficulty = Request::get('d');
+$logDefId = Request::get('defId');
+$logGuessed = Request::get('guessed');
 
 // Log the success or failure of the previous guess, if any
 // TODO: the last (tenth) guess is never logged

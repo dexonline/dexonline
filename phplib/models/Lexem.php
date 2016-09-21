@@ -139,6 +139,10 @@ class Lexem extends BaseObject implements DatedObject {
     return $this->animate;
   }
 
+  function setAnimate($animate) {
+    $this->animate = $animate;
+  }
+
   public static function loadByExtendedName($extName) {
     $parts = preg_split('/\(/', $extName, 2);
     $name = addslashes(trim($parts[0]));

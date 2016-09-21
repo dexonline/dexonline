@@ -46,6 +46,7 @@ function getLexem($form, $modelType, $modelNumber) {
     $l->loadInflectedFormMap();
   } else {
     $l = Lexem::create($form, $modelType, $modelNumber);
+    $l->setAnimate(true);
     $l->generateInflectedFormMap();
   }
   return $l;

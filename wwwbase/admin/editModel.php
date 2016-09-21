@@ -24,6 +24,7 @@ $inflections = Model::factory('Inflection')
 
 // Generate the forms
 $lexem = Lexem::create($m->exponent, $m->modelType, $m->number);
+$lexem->setAnimate(true);
 $ifs = $lexem->generateInflectedForms();
 
 // Load the model descriptions

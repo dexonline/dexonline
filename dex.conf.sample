@@ -239,5 +239,4 @@ credentials[example.com] = "client_id|client_secret"
 [tags]
 
 ; Animate lexemes have forms for the vocative case
-animateLexeme[] = "animat"
-animateLexeme[] = "personificabil"
+animateLexeme[] = "admite vocativul"

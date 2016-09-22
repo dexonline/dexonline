@@ -221,7 +221,10 @@ class StringUtil {
                       );
 
     foreach ($char_map as $a => $i) {
-      $tpl_output = preg_replace("/\b$a\b/", $i, $tpl_output);
+      // workaround for the fact that /\b{$a}\b/u doesn't work.
+      // see http://stackoverflow.com/questions/2432868/php-regex-word-boundary-matching-in-utf-8
+      $tpl_output = preg_replace("/(?<=[A-Za-zĂȘȚășț]){$a}(?=[A-Za-zĂȘȚășț])/",
+                                 "$1{$i}$2", $tpl_output);
       $tpl_output = preg_replace("/(r[ou]m)$i(n)/i", "\${1}$a\${2}", $tpl_output);
     }
 

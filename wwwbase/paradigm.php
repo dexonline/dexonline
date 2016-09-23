@@ -12,6 +12,7 @@ $type = Request::get('type');
 $searchType = SEARCH_INFLECTED;
 $arr = StringUtil::analyzeQuery($cuv);
 $hasDiacritics = session_user_prefers(Preferences::FORCE_DIACRITICS) || $arr[0];
+$oldOrthography = session_user_prefers(Preferences::OLD_ORTHOGRAPHY);
 
 // LexemId search
 if ($lexemId) {
@@ -43,11 +44,7 @@ if ($cuv) {
 
 // Normal search
 if ($searchType == SEARCH_INFLECTED) {
-  $lexems = Lexem::searchInflectedForms($cuv, $hasDiacritics);
-  if (count($lexems) == 0) {
-    $cuv_old = StringUtil::tryOldOrthography($cuv);
-    $lexems = Lexem::searchInflectedForms($cuv_old, $hasDiacritics);
-  }
+  $lexems = Lexem::searchInflectedForms($cuv, $hasDiacritics, $oldOrthography);
 }
 
 // Maps lexems to arrays of inflected forms (some lexems may lack inflections)

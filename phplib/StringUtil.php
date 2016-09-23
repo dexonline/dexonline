@@ -24,22 +24,44 @@ class StringUtil {
                   '-', '-', ' * ', ' ** ', '"', '"'],
   ];
 
-  // Note: This does not handle the mixed case of old orthgraphy and no diacriticals (e.g. inminind instead of înmânând).
-  // That case is inherently ambiguous. For example, if the query is 'gindind', the correct substitution is 'gândind',
-  // where the second 'i' is left unchanged.
-  public static function tryOldOrthography($cuv) {
-    if (preg_match('/^sînt(em|eți)?$/', $cuv)) {
-      return str_replace('î', 'u', $cuv);
-    }
+  // prefixes which should be followed by 'î', not 'â'
+  static $I_PREFIXES = [
+    'auto',
+    'bine',
+    'bun',
+    'cap',
+    'co',
+    'de',
+    'dez', // false positive: "dezânoaie"
+    'ex',
+    'ne',
+    'nemai',
+    'ori',
+    'prea',
+    'pre',
+    're',
+    'semi',
+    'sub',
+    'supra',
+    'ultra',
+    // false negatives: "altîncotro"
+  ];
 
-    if (mb_strlen($cuv) > 2) {
-      $interior = mb_substr($cuv, 1, mb_strlen($cuv) - 2);
-      if (mb_stripos($interior, 'î') !== FALSE) {
-        return self::getCharAt($cuv, 0) . str_replace('î', 'â', $interior) . self::getLastChar($cuv);
+  // Convert old (î) orthography to new (â) orthography.
+  // Assumes $s uses diacritics (if needed).
+  public static function convertOrthography($s) {
+    if (preg_match('/^sînt(em|eți)?$/ui', $s)) {
+      return str_replace(['î', 'Î'], ['u', 'U'], $s);
+    } else {
+      // replace î with â unless it's at the beginning, the end or after a prefix
+      $r = '';
+      foreach (self::$I_PREFIXES as $p) {
+        $r .= "(?<!^{$p})";
       }
+      $s = preg_replace("/(?<!^){$r}î(?=.)/u", 'â', $s);
+      $s = preg_replace("/(?<!^){$r}Î(?=.)/u", 'Â', $s);
+      return $s;
     }
-
-    return NULL;
   }
 
   public static function unicodeToLatin($s) {

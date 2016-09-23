@@ -27,6 +27,7 @@ $paradigmLink = $_SERVER['REQUEST_URI'] . ($showParadigm ? '' : '/paradigma');
 
 $searchType = SEARCH_INFLECTED;
 $hasDiacritics = session_user_prefers(Preferences::FORCE_DIACRITICS);
+$oldOrthography = session_user_prefers(Preferences::OLD_ORTHOGRAPHY);
 $exclude_unofficial = session_user_prefers(Preferences::EXCLUDE_UNOFFICIAL);
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
@@ -40,7 +41,7 @@ $sourceId = $source ? $source->id : null;
 if ($cuv) {
   SmartyWrap::assign('cuv', $cuv);
   $arr = StringUtil::analyzeQuery($cuv);
-  $hasDiacritics = session_user_prefers(Preferences::FORCE_DIACRITICS) || $arr[0];
+  $hasDiacritics = $hasDiacritics || $arr[0];
   $hasRegexp = $arr[1];
   $isAllDigits = $arr[2];
 }
@@ -145,21 +146,20 @@ if ($defId) {
 
 // Normal search
 if ($searchType == SEARCH_INFLECTED) {
-  $lexems = Lexem::searchInflectedForms($cuv, $hasDiacritics, true);
-  if (count($lexems) == 0) {
-    $cuv_old = StringUtil::tryOldOrthography($cuv);
-    $lexems = Lexem::searchInflectedForms($cuv_old, $hasDiacritics, true);
-  }
+  $lexems = Lexem::searchInflectedForms($cuv, $hasDiacritics, $oldOrthography);
+
   if (count($lexems) == 0) {
     $searchType = SEARCH_MULTIWORD;
     $words = preg_split('/[ .-]+/', $cuv);
     if (count($words) > 1) {
       $ignoredWords = array_slice($words, 5);
       $words = array_slice($words, 0, 5);
-      $definitions = Definition::searchMultipleWords($words, $hasDiacritics, $sourceId, $exclude_unofficial);
+      $definitions = Definition::searchMultipleWords($words, $hasDiacritics, $oldOrthography,
+                                                     $sourceId, $exclude_unofficial);
       SmartyWrap::assign('ignoredWords', $ignoredWords);
     }
   }
+
   if (count($lexems) == 0 && empty($definitions)) {
     $searchType = SEARCH_APPROXIMATE;
     $lexems = Lexem::searchApproximate($cuv, $hasDiacritics, true);
@@ -172,6 +172,7 @@ if ($searchType == SEARCH_INFLECTED) {
       header("HTTP/1.0 404 Not Found");
     }
   }
+
   if (count($lexems) == 1 && $cuv != $lexems[0]->formNoAccent) {
     // Convenience redirect when there is only one correct form. We want all pages to be canonical
     $sourcePart = $source ? "-{$source->urlName}" : '';

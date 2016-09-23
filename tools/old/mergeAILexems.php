@@ -23,13 +23,31 @@ foreach ($lexems as $l) {
     $candidates = Model::factory('Lexem')
                 ->where_raw("formNoAccent = binary '{$iform}'")
                 ->find_many();
-    if (count($candidates) > 1) {
-      foreach ($candidates as $c) {
-        print "merging {$c} {$c->id} {$c->entryId} into {$l} {$l->id}\n";
-        // TODO
-        // * delete empty trees for $c's entry
-        // * merge entries
-        // * delete $c
+    foreach ($candidates as $c) {
+      if ($c->isLoc) {
+        Log::warning("Skipping {$c} (ID: {$c->id}) because isLoc = 1");
+      } else {
+        print "merging {$c} (ID: {$c->id}, entry: {$c->entryId}) into {$l} (ID: {$l->id})\n";
+
+        // Delete empty trees
+        $tes = TreeEntry::get_all_by_entryId($c->entryId);
+        foreach ($tes as $te) {
+          $t = Tree::get_by_id($te->treeId);
+          $meanings = Meaning::get_all_by_treeId($t->id);
+          if (!count($meanings)) {
+            Relation::delete_all_by_treeId($t->id);
+            TreeEntry::delete_all_by_treeId($t->id);
+            $t->delete();
+          }
+        }
+
+        // Merge entries
+        if ($c->entryId != $l->entryId) {
+          $e = Entry::get_by_id($c->entryId);
+          $e->mergeInto($l->entryId);
+        }
+
+        $c->delete();
       }
     }
   }

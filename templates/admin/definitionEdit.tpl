@@ -33,7 +33,7 @@
               {include "bits/sourceDropDown.tpl" sources=$allModeratorSources src_selected=$def->sourceId skipAnySource=true}
             {else}
               <input type="hidden" name="source" value="{$def->sourceId}"/>
-              {$source->shortName}
+              <input class="form-control" type="text" disabled value="{$source->shortName}">
             {/if}
           </div>
         </div>

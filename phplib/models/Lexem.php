@@ -46,6 +46,15 @@ class Lexem extends BaseObject implements DatedObject {
     return $this->mt;
   }
 
+  function getPartOfSpeeech() {
+    if ($this->modelType == 'I') {
+      $model = FlexModel::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
+      return $model->description;
+    } else {
+      return $this->getModelType()->description;
+    }
+  }
+
   function hasModel($type, $number) {
     return ($this->modelType == $type) && ($this->modelNumber == $number);
   }

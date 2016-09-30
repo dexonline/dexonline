@@ -33,6 +33,7 @@ if ($saveButton) {
     $cloneModel->save();
 
     Log::notice("Cloning model {$model->id} ({$model}) as {$cloneModel->id} ({$cloneModel})");
+    FlashMessage::add('Am clonat modelul.', 'success');
 
     // Clone the model descriptions
     $mds = Model::factory('ModelDescription')
@@ -42,8 +43,7 @@ if ($saveButton) {
          ->order_by_asc('applOrder')
          ->find_many();
     foreach ($mds as $md) {
-      $newMd = Model::factory('ModelDescription')->create();
-      $newMd->copyFrom($md);
+      $newMd = $md->parisClone();
       $newMd->modelId = $cloneModel->id;
       $newMd->save();
     }
@@ -65,7 +65,7 @@ if ($saveButton) {
       // It is not necessary to regenerate the paradigm for now, since
       // the inflected forms are identical.
     }
-    util_redirect('../admin/index.php');
+    util_redirect("editModel.php?id={$cloneModel->id}");
   }
 } else {
   $newModelNumber = $modelNumber . '.1';

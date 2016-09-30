@@ -1,6 +1,5 @@
 {* Argument: $lexem *}
-{assign var=modelType value=$lexem->getModelType()}
-{$modelType->description} ({$modelType->code}{$lexem->modelNumber})
+{$lexem->getPartOfSpeeech()} ({$lexem->modelType}{$lexem->modelNumber})
 {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT)}
   <a href="{$wwwRoot}admin/dispatchModelAction.php?editModel=1&amp;modelType={$lexem->modelType}&amp;modelNumber={$lexem->modelNumber}"
      title="editează modelul">

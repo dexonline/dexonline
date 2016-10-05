@@ -11,7 +11,7 @@ $sourceId = Request::get('sourceId');
 $saveButton = Request::has('saveButton');
 
 $query = Model::factory('Definition')
-       ->where('status', Definition::ST_ACTIVE)
+       ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
        ->where_raw('(binary internalRep like ?)', ["%{$search}%"]);
 if ($sourceId) {
   $query = $query->where('sourceId', $sourceId);

@@ -13,14 +13,15 @@ require_once __DIR__ . '/../phplib/util.php';
 
 $DOR_SOURCE_ID = 38;
 $URL = 'https://dexonline.ro/admin/definitionEdit.php?definitionId='; // for edit links
+$ERRORS = 5; // halt at this error count
 
 // regex parts
 $PART_PRON = '( \[.*(pr\.|cit\.).*\])';
 $PART_HYPH = '( \(sil\. [^)]+\))';
 
 $REGEX_WORD = "/^@([^@]+)@\s+/";
-$REGEX_POS = "/^([a-z.\/ ]+){$PART_PRON}?{$PART_HYPH}?([,;] |$)/";
-$REGEX_INFL = "/^([-a-zăâîșț1-3. ]+) [$]([-a-zăâîșțáéíóúắấ \\/]+)[$]{$PART_HYPH}?([,;] |$)/";
+$REGEX_POS = "/^([a-zăâîșț.\/()+ ]+)({$PART_PRON}|{$PART_HYPH})*([,;] |$)/";
+$REGEX_INFL = "/^([-a-zăâîșț1-3.() ]+) [$]([-a-zA-ZÅÁăâîșțáéíóúắấ'., \\/]+)[$]{$PART_HYPH}?([,;] |$)/";
 
 $defs = Model::factory('Definition')
       ->select('id')
@@ -28,7 +29,10 @@ $defs = Model::factory('Definition')
       ->where('structured', 0)
       //->where_in('lexicon', ['aerisi'])
       ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
+      ->order_by_asc('lexicon')
       ->find_many();
+
+$errors = 0;
 
 foreach ($defs as $i => $defId) {
   try {
@@ -36,8 +40,11 @@ foreach ($defs as $i => $defId) {
 
     // cleanup
     $s = $d->internalRep;
+    $s = str_replace(');$', '$);', $s);
     $s = str_replace(',$ ', '$, ', $s);
     $s = str_replace(';$ ', '$; ', $s);
+    $s = str_replace(')$ ', '$) ', $s);
+    $s = preg_replace('/\)\$$/', '$)', $s);
 
     // match the word being defined
     if (!preg_match($REGEX_WORD, $s, $m)) {
@@ -78,13 +85,23 @@ foreach ($defs as $i => $defId) {
       throw new Exception('Cannot parse inflection list');
     }
 
+    foreach ($inflList as $rec) {
+      if ((strpos($rec['form'], '.') !== false) &&
+	  ($rec['inflection'] != 'abr.')) {
+	throw new Exception('Inflected form contains a dot');
+      }
+    }
+
     // printf("Base form: [{$baseForm}]\n");
     // print_r($posList);
     // print_r($inflList);
 
   } catch (Exception $e) {
-    Log::warning('%s: %s [%s%d]', $e->getMessage(), $d->internalRep, $URL, $d->id);
-    exit;
+    Log::warning('[%d] %s: %s [%s%d]', $i, $e->getMessage(),
+		 $d->internalRep, $URL, $d->id);
+    if (++$errors == $ERRORS) {
+      exit;
+    }
   }
   
   if ($i % 1000 == 0) {

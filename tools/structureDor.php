@@ -8,15 +8,20 @@
 require_once __DIR__ . '/../phplib/util.php';
 
 $DOR_SOURCE_ID = 38;
-$REGEX_WORD = '/^@([^@]+)@\s+/';
-$REGEX_POS = '/^([a-z. ]+)( \(sil\. \$[-a-zăâîșț]+\$\))?([,;] |$)/';
-$REGEX_INFL = '/^([-a-z. ]+) \$([-a-zăâîșțáéíóú]+)\$( \(sil\. \$[-a-zăâîșț]+\$\))?([,;] |$)/';
+
+// regex parts
+$PART_PRON = '( \[.*(pr\.|cit\.).*\])';
+$PART_HYPH = '( \(sil\. \$[-a-zăâîșț]+\$\))';
+
+$REGEX_WORD = "/^@([^@]+)@\s+/";
+$REGEX_POS = "/^([a-z. ]+){$PART_PRON}?{$PART_HYPH}?([,;] |$)/";
+$REGEX_INFL = "/^([-a-z. ]+) [$]([-a-zăâîșțáéíóú]+)[$]{$PART_HYPH}?([,;] |$)/";
 
 $defs = Model::factory('Definition')
       ->select('id')
       ->where('sourceId', $DOR_SOURCE_ID)
       ->where('structured', 0)
-      //      ->where_in('id', [623577, 656145])
+      // ->where_in('lexicon', ['aerarium'])
       ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
       ->find_many();
 
@@ -25,8 +30,7 @@ foreach ($defs as $i => $defId) {
     $d = Definition::get_by_id($defId->id);
 
     // cleanup
-    $s = str_replace('$ $', ' ', $d->internalRep);
-    $s = str_replace('@ @', ' ', $s);
+    $s = $d->internalRep;
     $s = str_replace(',$ ', '$, ', $s);
     $s = str_replace(';$ ', '$; ', $s);
 
@@ -44,7 +48,8 @@ foreach ($defs as $i => $defId) {
       $s = substr($s, strlen($m[0]));
       $posList[] = [
         'pos' => $m[1],
-        'extra' => $m[2],
+        'pronunciation' => $m[2],
+        'hyphenation' => $m[4],
       ];
     }
 

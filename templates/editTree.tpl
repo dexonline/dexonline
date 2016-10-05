@@ -64,23 +64,6 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-success" name="saveButton">
-              <i class="glyphicon glyphicon-floppy-disk"></i>
-              <u>s</u>alvează
-            </button>
-
-            <button type="submit" class="btn btn-default" name="clone">
-              <i class="glyphicon glyphicon-duplicate"></i>
-              clonează
-            </button>
-
-            <a class="btn btn-link" href="{if $t->id}?id={$t->id}{/if}">
-              anulează
-            </a>
-          </div>
-        </div>
       </div>
 
       <div class="col-md-6">
@@ -101,6 +84,36 @@
         </div>
       </div>
     </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-1 col-md-11">
+        <button type="submit" class="btn btn-success" name="saveButton">
+          <i class="glyphicon glyphicon-floppy-disk"></i>
+          <u>s</u>alvează
+        </button>
+
+        <button type="submit" class="btn btn-default" name="clone">
+          <i class="glyphicon glyphicon-duplicate"></i>
+          clonează
+        </button>
+
+        <a class="btn btn-link" href="{if $t->id}?id={$t->id}{/if}">
+          anulează
+        </a>
+
+        <button type="submit"
+                class="btn btn-danger pull-right"
+                name="delete"
+                {if !$canDelete}
+                disabled
+                title="Nu puteți șterge acest arbore, deoarece el are sensuri și/sau relații."
+                {/if}>
+          <i class="glyphicon glyphicon-trash"></i>
+          șterge
+        </button>
+      </div>
+    </div>
+
   </form>
 
   {if count($relatedMeanings)}

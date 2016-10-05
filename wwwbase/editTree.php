@@ -6,6 +6,7 @@ util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 $id = Request::get('id');
 $saveButton = Request::has('saveButton');
 $clone = Request::has('clone');
+$delete = Request::has('delete');
 
 if ($id) {
   $t = Tree::get_by_id($id);
@@ -22,6 +23,18 @@ if ($clone) {
   Log::info("Cloned tree {$t->id} ({$t->description}), new id {$newt->id}");
   FlashMessage::add('Am clonat arborele.', 'success');
   util_redirect("?id={$newt->id}");
+}
+
+if ($delete) {
+  $te = TreeEntry::get_by_treeId($t->id); // try to redirect to a relevant entry
+  $t->delete();
+  FlashMessage::add('Am șters arborele.', 'success');
+
+  if ($te) {
+    util_redirect("editEntry.php?id={$te->entryId}");
+  } else {
+    util_redirect(util_getWwwRoot());
+  }
 }
 
 if ($saveButton) {
@@ -81,11 +94,20 @@ foreach ($relatedMeanings as $m) {
 }
 
 
+$numMeanings = Model::factory('Meaning')
+  ->where('treeId', $t->id)
+  ->count();
+$numRelations = Model::factory('Relation')
+  ->where('treeId', $t->id)
+  ->count();
+$canDelete = !$numMeanings && !$numRelations;
+
 SmartyWrap::assign('t', $t);
 SmartyWrap::assign('entryIds', $entryIds);
 SmartyWrap::assign('modelTypes', $modelTypes);
 // TODO: canEdit if STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT)
 SmartyWrap::assign('canEdit', true);
+SmartyWrap::assign('canDelete', $canDelete);
 SmartyWrap::assign('tags', $tags);
 SmartyWrap::assign('relatedMeanings', $relatedMeanings);
 SmartyWrap::assign('statusNames', Tree::$STATUS_NAMES);

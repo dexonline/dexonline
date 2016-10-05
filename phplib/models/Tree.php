@@ -165,6 +165,18 @@ class Tree extends BaseObject implements DatedObject {
     }
   }
 
+  /**
+   * This should only be called on trees with no meanings and no relations.
+   **/
+  public function delete() {
+    Meaning::delete_all_by_treeId($this->id);
+    Relation::delete_all_by_treeId($this->id);
+    TreeEntry::delete_all_by_treeId($this->id);
+
+    Log::warning("Deleted entry {$this->id} ({$this->description})");
+    parent::delete();
+  }
+
 }
 
 ?>

@@ -13,26 +13,24 @@ require_once __DIR__ . '/../phplib/util.php';
 
 $DOR_SOURCE_ID = 38;
 $URL = 'https://dexonline.ro/admin/definitionEdit.php?definitionId='; // for edit links
-$ERRORS = 5; // halt at this error count
 
 // regex parts
 $PART_PRON = '( \[.*(pr\.|cit\.).*\])';
 $PART_HYPH = '( \(sil\. [^)]+\))';
+$PART_COMMENT = '( \([^)]+\))';
 
 $REGEX_WORD = "/^@([^@]+)@\s+/";
-$REGEX_POS = "/^([a-zăâîșț.\/()+ ]+)({$PART_PRON}|{$PART_HYPH})*([,;] |$)/";
-$REGEX_INFL = "/^([-a-zăâîșț1-3.() ]+) [$]([-a-zA-ZÅÁăâîșțáéíóúắấ'., \\/]+)[$]{$PART_HYPH}?([,;] |$)/";
+$REGEX_POS = "/^([-a-zăâîșț1-3.\/()+ ]+)({$PART_PRON}|{$PART_HYPH})*([,;] |$)/";
+$REGEX_INFL = "/^([-a-zăâîșț1-3.() ]+) [$]([-a-zA-ZÅÁăâîșțĂÂÎȘȚáéíóúýắấäüµΩ'., \\/]+)[$]{$PART_HYPH}?{$PART_COMMENT}?([,;] |$)/";
 
 $defs = Model::factory('Definition')
       ->select('id')
       ->where('sourceId', $DOR_SOURCE_ID)
       ->where('structured', 0)
-      //->where_in('lexicon', ['aerisi'])
       ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
       ->order_by_asc('lexicon')
       ->find_many();
-
-$errors = 0;
+$errorCount = 0;
 
 foreach ($defs as $i => $defId) {
   try {
@@ -81,7 +79,6 @@ foreach ($defs as $i => $defId) {
     }
 
     if ($s) {
-      var_dump($s);
       throw new Exception('Cannot parse inflection list');
     }
 
@@ -97,14 +94,14 @@ foreach ($defs as $i => $defId) {
     // print_r($inflList);
 
   } catch (Exception $e) {
-    Log::warning('[%d] %s: %s [%s%d]', $i, $e->getMessage(),
-		 $d->internalRep, $URL, $d->id);
-    if (++$errors == $ERRORS) {
-      exit;
-    }
+    Log::warning('%s: %s [%s%d]', $e->getMessage(), $d->internalRep, $URL, $d->id);
+    $errorCount++;
   }
   
   if ($i % 1000 == 0) {
     Log::info('Processed %d / %d definitions.', $i, count($defs));
   }
 }
+
+Log::warning('Processed %d definitions, skipped %d due to parsing errors.',
+             count($defs), $errorCount);

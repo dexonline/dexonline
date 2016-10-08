@@ -31,6 +31,7 @@ $defs = Model::factory('Definition')
       ->order_by_asc('lexicon')
       ->find_many();
 $errorCount = 0;
+$inflMap = [];
 
 foreach ($defs as $i => $defId) {
   try {
@@ -84,11 +85,18 @@ foreach ($defs as $i => $defId) {
 
     foreach ($inflList as $rec) {
       if ((strpos($rec['form'], '.') !== false) &&
-	  ($rec['inflection'] != 'abr.')) {
-	throw new Exception('Inflected form contains a dot');
+          ($rec['inflection'] != 'abr.')) {
+        throw new Exception('Inflected form contains a dot');
       }
     }
 
+    foreach ($posList as $pos) {
+      foreach ($inflList as $infl) {
+        // Log::info("[%s] [%s] [%s] = [%s]", $baseForm, $pos['pos'], $infl['inflection'], $infl['form']);
+        $inflMap[$pos['pos']][] = $baseForm;
+        $inflMap[$pos['pos']] = array_slice($inflMap[$pos['pos']], 0, 10);
+      }
+    }
     // printf("Base form: [{$baseForm}]\n");
     // print_r($posList);
     // print_r($inflList);
@@ -105,3 +113,11 @@ foreach ($defs as $i => $defId) {
 
 Log::warning('Processed %d definitions, skipped %d due to parsing errors.',
              count($defs), $errorCount);
+
+foreach ($inflMap as $pos => $wordList) {
+  print("{$pos}:");
+  foreach ($wordList as $i => $form) {
+    print(" [$form]");
+  }
+  print("\n");
+}

@@ -23,6 +23,17 @@ $REGEX_WORD = "/^@([^@]+)@\s+/";
 $REGEX_POS = "/^([-a-zăâîșț1-3.\/()+ ]+)({$PART_PRON}|{$PART_HYPH})*([,;] |$)/";
 $REGEX_INFL = "/^([-a-zăâîșț1-3.() ]+) [$]([-a-zA-ZÅÁăâîșțĂÂÎȘȚáéíóúýắấäüµΩ'., \\/]+)[$]{$PART_HYPH}?{$PART_COMMENT}?([,;] |$)/";
 
+class ParseException extends Exception {
+}
+
+class SemanticException extends Exception {
+}
+
+// Inflection map definitions
+$INFL_MAP = [
+ 'vb' => [],
+];
+
 $defs = Model::factory('Definition')
       ->select('id')
       ->where('sourceId', $DOR_SOURCE_ID)
@@ -31,7 +42,6 @@ $defs = Model::factory('Definition')
       ->order_by_asc('lexicon')
       ->find_many();
 $errorCount = 0;
-$inflMap = [];
 
 foreach ($defs as $i => $defId) {
   try {
@@ -47,7 +57,7 @@ foreach ($defs as $i => $defId) {
 
     // match the word being defined
     if (!preg_match($REGEX_WORD, $s, $m)) {
-      throw new Exception('Cannot parse word');
+      throw new ParseException('Cannot parse word');
     }
     $s = substr($s, strlen($m[0]));
 
@@ -65,7 +75,7 @@ foreach ($defs as $i => $defId) {
     }
 
     if (empty($posList)) {
-      throw new Exception('Cannot parse part of speech');
+      throw new ParseException('Cannot parse part of speech');
     }
 
     // match the inflections and inflected forms
@@ -80,30 +90,28 @@ foreach ($defs as $i => $defId) {
     }
 
     if ($s) {
-      throw new Exception('Cannot parse inflection list');
+      throw new ParseException('Cannot parse inflection list');
     }
 
     foreach ($inflList as $rec) {
       if ((strpos($rec['form'], '.') !== false) &&
           ($rec['inflection'] != 'abr.')) {
-        throw new Exception('Inflected form contains a dot');
+        throw new ParseException('Inflected form contains a dot');
       }
     }
 
     foreach ($posList as $pos) {
-      foreach ($inflList as $infl) {
-        // Log::info("[%s] [%s] [%s] = [%s]", $baseForm, $pos['pos'], $infl['inflection'], $infl['form']);
-        $inflMap[$pos['pos']][] = $baseForm;
-        $inflMap[$pos['pos']] = array_slice($inflMap[$pos['pos']], 0, 10);
+      if (!isset($INFL_MAP[$pos['pos']])) {
+	throw new SemanticException(sprintf('Unknown part of speech [%s]', $pos['pos']));
       }
     }
-    // printf("Base form: [{$baseForm}]\n");
-    // print_r($posList);
-    // print_r($inflList);
 
-  } catch (Exception $e) {
-    Log::warning('%s: %s [%s%d]', $e->getMessage(), $d->internalRep, $URL, $d->id);
+  } catch (ParseException $e) {
+    Log::warning('Parse Exception %s: %s [%s%d]', $e->getMessage(), $d->internalRep, $URL, $d->id);
     $errorCount++;
+  } catch (SemanticException $e) {
+    Log::warning('Semantic Exception %s: %s [%s%d]', $e->getMessage(), $d->internalRep, $URL, $d->id);
+    exit;
   }
   
   if ($i % 1000 == 0) {
@@ -113,11 +121,3 @@ foreach ($defs as $i => $defId) {
 
 Log::warning('Processed %d definitions, skipped %d due to parsing errors.',
              count($defs), $errorCount);
-
-foreach ($inflMap as $pos => $wordList) {
-  print("{$pos}:");
-  foreach ($wordList as $i => $form) {
-    print(" [$form]");
-  }
-  print("\n");
-}

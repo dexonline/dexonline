@@ -41,15 +41,21 @@ class AdminStringUtil {
 
   private static function extractLexiconHelper($def) {
     $internalRep = $def->internalRep;
-    if ($def->sourceId == 7 || $def->sourceId == 9) {
+    if ($def->sourceId == 7 || $def->sourceId == 9 || $def->sourceId == 38) {
       // Some sources write @A se iubi@ instead of just @iubi@.
       if (StringUtil::startsWith($internalRep, '@A se ')) {
         $internalRep = '@' . substr($internalRep, 6);
       } else if (StringUtil::startsWith($internalRep, '@A (se) ')) {
         $internalRep = '@' . substr($internalRep, 8);
+      } else if (StringUtil::startsWith($internalRep, '@a (se) ')) {
+        $internalRep = '@' . substr($internalRep, 8);
       } else if (StringUtil::startsWith($internalRep, '@A SE ')) {
         $internalRep = '@' . substr($internalRep, 6);
+      } else if (StringUtil::startsWith($internalRep, '@a se ')) {
+        $internalRep = '@' . substr($internalRep, 6);
       } else if (StringUtil::startsWith($internalRep, '@A ')) {
+        $internalRep = '@' . substr($internalRep, 3);
+      } else if (StringUtil::startsWith($internalRep, '@a ')) {
         $internalRep = '@' . substr($internalRep, 3);
       }
     }

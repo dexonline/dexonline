@@ -141,7 +141,16 @@
       dați clic-dreapta, veți avea opțiunea să-l căutați în <i>dexonline</i>.
       Mulțumiri lui Radu George Mureșan.</li>
 
-    <li>O <a href="https://chrome.google.com/extensions/detail/adpeehopdngemnfahceoeppdadkiagka">extensie Google Chrome</a>, autor OviTeodor.</li>
+    <li>
+      Două extensii de Chrome pentru căutarea cu clic dreapta:
+      <a href="https://chrome.google.com/webstore/detail/mfbhbmjeaomdhmkcfhlldgedmohdpeml?hl=ro">
+        dexonline
+      </a>
+      •
+      <a href="https://chrome.google.com/webstore/detail/adpeehopdngemnfahceoeppdadkiagka?hl=ro">
+        Dex Online Search
+      </a>
+    </li>
 
     <li>Un <a href="https://wordpress.org/plugins/dexonline-searchbox/">modul WordPress</a> pentru blogul dumneavoastră.</li>
 

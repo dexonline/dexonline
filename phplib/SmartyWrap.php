@@ -32,6 +32,7 @@ class SmartyWrap {
     if (file_exists($fileName)) {
       self::$cssFiles[] = $cssFile;
     }
+    self::$cssFiles[] = "responsive.css";
 
     // Add {$template}.js if the file exists
     $jsFile = "autoload/{$baseName}.js";
@@ -136,6 +137,7 @@ class SmartyWrap {
         case 'textComplete':        self::$cssFiles[14] = 'third-party/jquery.textcomplete.css'; break;
         case 'tinymce':             self::$cssFiles[15] = 'tinymce.css'; break;
         case 'meaningTree':         self::$cssFiles[16] = 'meaningTree.css'; break;
+        case 'responsive':         self::$cssFiles[100] = 'responsive.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           util_redirect(util_getWwwRoot());

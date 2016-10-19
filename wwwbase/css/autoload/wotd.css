@@ -14,3 +14,15 @@
     width: 90px;
     height: 90px;
 }
+
+#wotdSocialMedia {
+    text-align: center;
+}
+
+.wotd-navigation {
+    height: 29px;
+}
+
+.wotd-navigation span {
+    font-size: 28px;
+}

@@ -12,6 +12,35 @@
   #logo-narrow {
     margin-top: -4px;
   }
+
+  /* Arhiva cuvintelor zilei */
+  .wotdArchiveTable tbody td {
+    display: block;
+    width: auto;
+    height: auto;
+    font-size: 1.2em;
+    text-align: left;
+    border: none;
+    background: #fff;
+  }
+
+  .wotdArchiveTable thead,
+  .wotdArchiveTable tbody td:not(.activeMonth) {
+    display: none;
+  }
+
+  .wotdArchiveTable tbody td > div {
+    display: inline-block;
+  }
+
+  .wotdArchiveTable .wotdDoM {
+    width: 5%;
+  }
+
+  .wotd-link {
+    width: 78%;
+  }
+
 }
 
 @media (max-width: 992px) {
@@ -41,5 +70,15 @@
 @media (min-width: 768px) {
   .navbar-right {
     margin-right: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .wotdArchiveTable .wotdDoM {
+    width: 8%;
+  }
+
+  .wotd-link {
+    width: 70%;
   }
 }

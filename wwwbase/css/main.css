@@ -227,3 +227,13 @@ p.text-big {
 .voffset7 { margin-top: 80px; }
 .voffset8 { margin-top: 100px; }
 .voffset9 { margin-top: 150px; }
+
+
+/*********** Word of the month ***********/
+.wotm-navigation {
+    height: 29px;
+}
+
+.wotm-navigation span {
+    font-size: 28px;
+}

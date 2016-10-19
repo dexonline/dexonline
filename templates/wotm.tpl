@@ -14,17 +14,20 @@
 {/block}
 
 {block "content"}
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <span>Cuvântul lunii {$timestamp|date_format:'%B %Y'}</span>
-      <span class="pull-right">
+  <h3>Cuvântul lunii {$timestamp|date_format:'%B %Y'}</h3>
+  <div class="container panel panel-default">
+    <div class="row panel-heading">
+
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotm-navigation">
         {if isset($prevmon)}
-          <a title="precedentul" href="{$wwwRoot}cuvantul-lunii/{$prevmon}"><span class="glyphicon glyphicon-chevron-left"></span></a>
+          <a title="precedentul" href="{$wwwRoot}cuvantul-lunii/{$prevmon}"><span class="glyphicon glyphicon-chevron-left pull-left"></span></a>
         {/if}
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotm-navigation">
         {if isset($nextmon)}
-          <a title="următorul" href="{$wwwRoot}cuvantul-lunii/{$nextmon}"><span class="glyphicon glyphicon-chevron-right"></span></a>
+          <a title="următorul" href="{$wwwRoot}cuvantul-lunii/{$nextmon}"><span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
         {/if}
-      </span>
+      </div>
     </div>
     <div class="panel-body">
       {include "bits/definition.tpl" row=$searchResult}

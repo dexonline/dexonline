@@ -32,7 +32,6 @@ class SmartyWrap {
     if (file_exists($fileName)) {
       self::$cssFiles[] = $cssFile;
     }
-    self::$cssFiles[] = "responsive.css";
 
     // Add {$template}.js if the file exists
     $jsFile = "autoload/{$baseName}.js";
@@ -70,6 +69,7 @@ class SmartyWrap {
       self::addJs('hotkeys');
     }
     self::addSameNameFiles($templateName);
+    self::$cssFiles[] = "responsive.css";
     self::assign('skinVariables', Config::getSection('skin'));
     if (!$hardened) {
       $sources = Model::factory('Source')

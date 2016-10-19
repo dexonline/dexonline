@@ -18,11 +18,13 @@
   {assign var="prevday" value=$prevday|default:false}
   {assign var="reason" value=$reason|default:''}
 
+<h3>Cuvântul zilei, {$timestamp|date_format:'%e %B %Y'}</h3>
+
   {if $skinVariables.wotdSubscribe}
     <div id="wotdSocialMedia">
-      <a href="#toggleContents" data-toggle="collapse"><img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"/></a>
-      <a type="application/rss+xml" href="https://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"/></a>
-      <a href="https://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"/></a>
+          <a href="#toggleContents" data-toggle="collapse"><img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"/></a>
+          <a type="application/rss+xml" href="https://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"/></a>
+          <a href="https://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"/></a>
     </div>
     <div id="toggleContents" class="collapse">
       <br />
@@ -39,17 +41,16 @@
 
   <br />
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <div class="panel-title">
-        <span>Cuvântul zilei, {$timestamp|date_format:'%e %B %Y'}</span>
-        <span class="pull-right">
+  <div class="container panel panel-default">
+    <div class="row panel-heading">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotd-navigation">
           <a href="{$wwwRoot}cuvantul-zilei/{$prevday}"><span class="glyphicon glyphicon-chevron-left"></span></a>
-          <a href="{$wwwRoot}cuvantul-zilei/{$nextday}"><span class="glyphicon glyphicon-chevron-right"></span></a>
-        </span>
-      </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotd-navigation">
+          <a href="{$wwwRoot}cuvantul-zilei/{$nextday}"><span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+        </div>
     </div>
-    <div class="panel-body">
+    <div class="row panel-body">
       {include "bits/definition.tpl" row=$searchResult}
       {if $imageUrl}
         <img class="img-responsive center-block" src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
@@ -59,7 +60,7 @@
       {/if}
     </div>
     {if $reason}
-      <div class="panel-footer">
+      <div class="row panel-footer">
         <b>Cheia alegerii:</b> {$reason|escape:'html'}
       </div>
     {/if}

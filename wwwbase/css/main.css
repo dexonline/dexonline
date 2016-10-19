@@ -1,46 +1,10 @@
+/* stylesheet for dexonline custom style. Do Not include here responsive tweaks, use responsive.css instead */
+
 /*********** navbar and its elements ***********/
 
 .navbar-brand > img {
   margin-top: -13px;
   margin-left: 16px;
-}
-
-@media (max-width: 767px) {
-  .navbar-collapse {
-     clear:both;
-  }
-
-  .navbar-default .navbar-collapse {
-    background-color: #f8f8f8;
-  }
-
-  #logo-narrow {
-    margin-top: -4px;
-  }
-}
-
-@media (max-width: 992px) {
-  #logo-wide {
-    display: none;
-  }
-
-  .navbar-brand > img {
-    margin-left: 0;
-  }
-}
-
-@media (min-width: 993px) {
-  #logo-narrow {
-    display: none;
-  }
-
-  header .container {
-    padding: 0;
-  }
-
-  .widget>div {
-    min-height: 88px;
-  }
 }
 
 .navbar-default {
@@ -49,12 +13,6 @@
   border-radius: 0;
   border-bottom: 1px solid #e8e8e8;
   box-shadow: 0 0 8px 0 rgba(0,0,0,.1);
-}
-
-@media (min-width: 768px) {
-  .navbar-right {
-    margin-right: 0;
-  }
 }
 
 .hamburger-menu {

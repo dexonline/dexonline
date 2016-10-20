@@ -36,7 +36,7 @@
           {if $day}
             <td class="activeMonth">
               <div class="wotdDoM">{$day.dayOfMonth}</div>
-              <div>{if $day.visible}<a href="{$wwwRoot}cuvantul-zilei/{$day.wotd->displayDate|replace:'-':'/'}">{$day.def->lexicon}</a>{else}&nbsp;{/if}</div>
+              <div class="wotd-link">{if $day.visible}<a href="{$wwwRoot}cuvantul-zilei/{$day.wotd->displayDate|replace:'-':'/'}">{$day.def->lexicon}</a>{else}&nbsp;{/if}</div>
               <div class="thumb">
                 {if $day.wotd && $day.wotd->image && $day.visible}
                   {strip}

@@ -26,3 +26,42 @@
 .wotd-navigation span {
     font-size: 28px;
 }
+
+@media (max-width: 767px) {
+  .wotdArchiveTable tbody td {
+    display: block;
+    width: auto;
+    height: auto;
+    font-size: 1.2em;
+    text-align: left;
+    border: none;
+    background: #fff;
+  }
+
+  .wotdArchiveTable thead,
+  .wotdArchiveTable tbody td:not(.activeMonth) {
+    display: none;
+  }
+
+  .wotdArchiveTable tbody td > div {
+    display: inline-block;
+  }
+
+  .wotdArchiveTable .wotdDoM {
+    width: 5%;
+  }
+
+  .wotd-link {
+    width: 78%;
+  }
+}
+
+@media (max-width: 320px) {
+  .wotdArchiveTable .wotdDoM {
+    width: 8%;
+  }
+
+  .wotd-link {
+    width: 70%;
+  }
+}

@@ -18,9 +18,14 @@
   {assign var="prevday" value=$prevday|default:false}
   {assign var="reason" value=$reason|default:''}
 
-  {if $skinVariables.wotdSubscribe}
-    <h3>Cuvântul zilei, {$timestamp|date_format:'%e %B %Y'}</h3>
+<h3>Cuvântul zilei, {$timestamp|date_format:'%e %B %Y'}</h3>
 
+  {if $skinVariables.wotdSubscribe}
+    <div id="wotdSocialMedia">
+          <a href="#toggleContents" data-toggle="collapse"><img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"/></a>
+          <a type="application/rss+xml" href="https://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"/></a>
+          <a href="https://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"/></a>
+    </div>
     <div id="toggleContents" class="collapse">
       <br />
       <div class="panel panel-default">
@@ -38,16 +43,11 @@
 
   <div class="container panel panel-default">
     <div class="row panel-heading">
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 wotd-navigation">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotd-navigation">
           <a href="{$wwwRoot}cuvantul-zilei/{$prevday}"><span class="glyphicon glyphicon-chevron-left"></span></a>
         </div>
-        <div id="wotdSocialMedia" class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-          <a href="#toggleContents" data-toggle="collapse"><img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"/></a>
-          <a type="application/rss+xml" href="https://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"/></a>
-          <a href="https://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"/></a>
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 wotd-navigation">
-          <a href="{$wwwRoot}cuvantul-zilei/{$nextday}"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotd-navigation">
+          <a href="{$wwwRoot}cuvantul-zilei/{$nextday}"><span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
         </div>
     </div>
     <div class="row panel-body">

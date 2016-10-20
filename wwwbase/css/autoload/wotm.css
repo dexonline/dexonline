@@ -1,0 +1,8 @@
+/*********** Word of the month ***********/
+.wotm-navigation {
+    height: 29px;
+}
+
+.wotm-navigation span {
+    font-size: 28px;
+}

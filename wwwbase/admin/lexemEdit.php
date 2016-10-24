@@ -157,14 +157,15 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   }
   $lexem->setLexemSources($lexemSources);
 
-  // create LexemTags
-  $lexemTags = [];
+  // create ObjectTags
+  $objectTags = [];
   foreach ($tagIds as $tagId) {
-    $lt = Model::factory('LexemTag')->create();
-    $lt->tagId = $tagId;
-    $lexemTags[] = $lt;
+    $ot = Model::factory('ObjectTag')->create();
+    $ot->objectType = ObjectTag::TYPE_LEXEM;
+    $ot->tagId = $tagId;
+    $objectTags[] = $ot;
   }
-  $lexem->setLexemTags($lexemTags);
+  $lexem->setObjectTags($objectTags);
 
   $lexem->generateInflectedFormMap();
 }

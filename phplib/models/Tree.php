@@ -152,13 +152,20 @@ class Tree extends BaseObject implements DatedObject {
       $newm->save();
 
       // copy the meaning sources, meaning tags and relations
-      foreach (['MeaningSource', 'MeaningTag', 'Relation'] as $className) {
+      foreach (['MeaningSource', 'Relation'] as $className) {
         $oldSet = $className::get_all_by_meaningId($m->id);
         foreach ($oldSet as $old) {
           $new = $old->parisClone();
           $new->meaningId = $newm->id;
           $new->save();
         }
+      }
+
+      $ots = ObjectTag::getMeaningTags($m->id);
+      foreach ($ots as $ot) {
+        $new = $ot->parisClone();
+        $new->objectId = $newm->id;
+        $new->save();
       }
 
       $this->cloneMeanings($rec['children'], $newm->id, $newTreeId);

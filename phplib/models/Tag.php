@@ -10,8 +10,9 @@ class Tag extends BaseObject implements DatedObject {
   static function loadByDefinitionId($defId) {
     return Model::factory('Tag')
       ->select('Tag.*')
-      ->join('DefinitionTag', ['Tag.id', '=', 'tagId'])
-      ->where('DefinitionTag.definitionId', $defId)
+      ->join('ObjectTag', ['Tag.id', '=', 'tagId'])
+      ->where('ObjectTag.objectType', ObjectTag::TYPE_DEFINITION)
+      ->where('ObjectTag.objectId', $defId)
       ->order_by_asc('value')
       ->find_many();
   }
@@ -19,8 +20,9 @@ class Tag extends BaseObject implements DatedObject {
   static function loadByMeaningId($meaningId) {
     return Model::factory('Tag')
       ->select('Tag.*')
-      ->join('MeaningTag', ['Tag.id', '=', 'tagId'])
-      ->where('MeaningTag.meaningId', $meaningId)
+      ->join('ObjectTag', ['Tag.id', '=', 'tagId'])
+      ->where('ObjectTag.objectType', ObjectTag::TYPE_MEANING)
+      ->where('ObjectTag.objectId', $meaningId)
       ->order_by_asc('value')
       ->find_many();
   }
@@ -36,14 +38,12 @@ class Tag extends BaseObject implements DatedObject {
     }
 
     // Mark tags which can be deleted
-    foreach (['DefinitionTag', 'MeaningTag', 'LexemTag'] as $table) {
-      $usedIds = Model::factory($table)
-               ->select('tagId')
-               ->distinct()
-               ->find_many();
-      foreach ($usedIds as $rec) {
-        $map[$rec->tagId]->canDelete = 0;
-      }
+    $usedIds = Model::factory('ObjectTag')
+             ->select('tagId')
+             ->distinct()
+             ->find_many();
+    foreach ($usedIds as $rec) {
+      $map[$rec->tagId]->canDelete = 0;
     }
 
     // Make each tag its parent's child

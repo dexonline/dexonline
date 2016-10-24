@@ -9,7 +9,7 @@ class Lexem extends BaseObject implements DatedObject {
   private $sourceNames = null;         // Comma-separated list of source names
   private $inflectedForms = null;
   private $inflectedFormMap = null;    // Mapped by various criteria depending on the caller
-  private $lexemTags = null;
+  private $objectTags = null;
   private $tags = null;
   private $animate = null;
 
@@ -106,22 +106,22 @@ class Lexem extends BaseObject implements DatedObject {
     return $results;
   }
 
-  function getLexemTags() {
-    if ($this->lexemTags === null) {
-      $this->lexemTags = LexemTag::get_all_by_lexemId($this->id);
+  function getObjectTags() {
+    if ($this->objectTags === null) {
+      $this->objectTags = ObjectTag::getLexemTags($this->id);
     }
-    return $this->lexemTags;
+    return $this->objectTags;
   }
 
-  function setLexemTags($lexemTags) {
-    $this->lexemTags = $lexemTags;
+  function setObjectTags($objectTags) {
+    $this->objectTags = $objectTags;
   }
 
   function getTags() {
     if ($this->tags === null) {
       $this->tags = [];
-      foreach ($this->getLexemTags() as $lt) {
-        $this->tags[] = Tag::get_by_id($lt->tagId);
+      foreach ($this->getObjectTags() as $ot) {
+        $this->tags[] = Tag::get_by_id($ot->tagId);
       }
     }
     return $this->tags;
@@ -129,8 +129,8 @@ class Lexem extends BaseObject implements DatedObject {
 
   function getTagIds() {
     $results = [];
-    foreach ($this->getLexemTags() as $lt) {
-      $results[] = $lt->tagId;
+    foreach ($this->getObjectTags() as $ot) {
+      $results[] = $ot->tagId;
     }
     return $results;
   }
@@ -645,7 +645,7 @@ class Lexem extends BaseObject implements DatedObject {
       }
       InflectedForm::delete_all_by_lexemId($this->id);
       LexemSource::delete_all_by_lexemId($this->id);
-      LexemTag::delete_all_by_lexemId($this->id);
+      ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_LEXEM);
       // delete_all_by_lexemId doesn't work for FullTextIndex because it doesn't have an ID column
       Model::factory('FullTextIndex')->where('lexemId', $this->id)->delete_many();
     }
@@ -677,7 +677,7 @@ class Lexem extends BaseObject implements DatedObject {
 
     InflectedForm::delete_all_by_lexemId($this->id);
     LexemSource::delete_all_by_lexemId($this->id);
-    LexemTag::delete_all_by_lexemId($this->id);
+    ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_LEXEM);
 
     foreach ($this->generateInflectedForms() as $if) {
       $if->lexemId = $this->id;
@@ -687,9 +687,9 @@ class Lexem extends BaseObject implements DatedObject {
       $ls->lexemId = $this->id;
       $ls->save();
     }
-    foreach ($this->getLexemTags() as $lt) {
-      $lt->lexemId = $this->id;
-      $lt->save();
+    foreach ($this->getObjectTags() as $ot) {
+      $ot->objectId = $this->id;
+      $ot->save();
     }
   }
 

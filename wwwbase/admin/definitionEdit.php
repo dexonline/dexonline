@@ -143,15 +143,8 @@ if ($saveButton || $nextOcrBut) {
         EntryDefinition::associate($e->id, $d->id);
       }
     }
-    
-    // Delete the old tags and add the new tags.
-    DefinitionTag::delete_all_by_definitionId($d->id);
-    foreach ($tagIds as $tagId) {
-      $dt = Model::factory('DefinitionTag')->create();
-      $dt->definitionId = $d->id;
-      $dt->tagId = $tagId;
-      $dt->save();
-    }
+
+    ObjectTag::wipeAndRecreate($d->id, ObjectTag::TYPE_DEFINITION, $tagIds);
 
     Log::notice("Saved definition {$d->id} ({$d->lexicon})");
   
@@ -183,7 +176,7 @@ if ($saveButton || $nextOcrBut) {
            ->find_many();
   $entryIds = util_objectProperty($entries, 'id');
 
-  $dts = DefinitionTag::get_all_by_definitionId($d->id);
+  $dts = ObjectTag::getDefinitionTags($d->id);
   $tagIds = util_objectProperty($dts, 'tagId');
 }
 

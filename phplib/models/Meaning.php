@@ -78,7 +78,12 @@ class Meaning extends BaseObject implements DatedObject {
       $meaningStack[$tuple->level] = $m->id;
 
       MeaningSource::updateList(['meaningId' => $m->id], 'sourceId', $tuple->sourceIds);
-      MeaningTag::updateList(['meaningId' => $m->id], 'tagId', $tuple->tagIds);
+      ObjectTag::updateList(
+        [
+          'objectId' => $m->id,
+          'objectType' => ObjectTag::TYPE_MEANING,
+        ],
+        'tagId', $tuple->tagIds);
       foreach ($tuple->relationIds as $type => $treeIds) {
         if ($type) {
           Relation::updateList(['meaningId' => $m->id, 'type' => $type],
@@ -102,7 +107,7 @@ class Meaning extends BaseObject implements DatedObject {
 
   public function delete() {
     MeaningSource::delete_all_by_meaningId($this->id);
-    MeaningTag::delete_all_by_meaningId($this->id);
+    ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_MEANING);
     Relation::delete_all_by_meaningId($this->id);
     parent::delete();
   }

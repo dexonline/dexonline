@@ -28,11 +28,12 @@ $(function() {
       width: '100%',
     });
 
-    $('#editorTags').select2({
+    initSelect2('#editorTags', 'ajax/getTagsById.php', {
+      ajax: { url: wwwRoot + 'ajax/getTags.php' },
+      minimumInputLength: 1,
       placeholder: 'adaugă o etichetă...',
       width: '100%',
     });
-    makeSortable($('#editorTags'));
 
     initSelect2('.editorRelation', 'ajax/getTreesById.php', {
       ajax: { url: wwwRoot + 'ajax/getTrees.php' },
@@ -43,9 +44,9 @@ $(function() {
     $('#relationType').change(selectRelationType).change();
     $('#editorRep, #editorEtymology, #editorComment, #editorSources, ' +
       '#editorTags, .editorRelation').bind(
-      'change keyup input paste', function() {
-        anyChanges = true;
-      });
+        'change keyup input paste', function() {
+          anyChanges = true;
+        });
 
     $('#editorRep').textcomplete([
       {
@@ -213,10 +214,10 @@ $(function() {
       $('#editorSources option[value="' + id + '"]').prop('selected', true);
     });
 
-    $('#editorTags option').prop('selected', false);
+    $('#editorTags').empty();
     c.find('.tagIds span').each(function() {
       var id = $(this).text();
-      $('#editorTags option[value="' + id + '"]').prop('selected', true);
+      $('#editorTags').append(new Option('', id, true, true));
     });
 
     $('.editorRelation').html('');
@@ -230,8 +231,8 @@ $(function() {
     });
 
     $.when(
-      $('#editorTags').trigger('change'),
       $('#editorSources').trigger('change'),
+      refreshSelect2('#editorTags', 'ajax/getTagsById.php'),
       refreshSelect2('.editorRelation', 'ajax/getTreesById.php')
     ).done(function() {
       anyChanges = false;

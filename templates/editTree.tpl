@@ -240,11 +240,7 @@
 
               <div class="form-group">
                 <label for="editorTags">etichete</label>
-                <select id="editorTags" multiple disabled>
-                  {foreach $tags as $tag}
-                    <option value="{$tag->id}">{$tag->value}</option>
-                  {/foreach}
-                </select>
+                <select id="editorTags" multiple disabled></select>
               </div>
 
               <div class="form-group">

@@ -80,8 +80,6 @@ $modelTypes = Model::factory('Lexem')
   ->order_by_asc('modelType')
   ->find_many();
 
-$tags = Model::factory('Tag')->order_by_asc('value')->find_many();
-
 $relatedMeanings = Model::factory('Meaning')
                  ->table_alias('m')
                  ->select('m.*')
@@ -108,7 +106,6 @@ SmartyWrap::assign('modelTypes', $modelTypes);
 // TODO: canEdit if STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT)
 SmartyWrap::assign('canEdit', true);
 SmartyWrap::assign('canDelete', $canDelete);
-SmartyWrap::assign('tags', $tags);
 SmartyWrap::assign('relatedMeanings', $relatedMeanings);
 SmartyWrap::assign('statusNames', Tree::$STATUS_NAMES);
 SmartyWrap::addCss('meaningTree', 'textComplete', 'admin');

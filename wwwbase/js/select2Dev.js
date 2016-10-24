@@ -87,7 +87,7 @@ function makeSortable(s) {
       } else {
         s.children().eq(newIndex - 1).after(o);
       }
-      console.log(s.val());
+      s.trigger('change'); // make this count as a change in the meaning tree editor
     }
   });
 }

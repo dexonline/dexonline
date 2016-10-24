@@ -13,7 +13,6 @@ class Tag extends BaseObject implements DatedObject {
       ->join('ObjectTag', ['Tag.id', '=', 'tagId'])
       ->where('ObjectTag.objectType', ObjectTag::TYPE_DEFINITION)
       ->where('ObjectTag.objectId', $defId)
-      ->order_by_asc('value')
       ->find_many();
   }
 
@@ -23,7 +22,6 @@ class Tag extends BaseObject implements DatedObject {
       ->join('ObjectTag', ['Tag.id', '=', 'tagId'])
       ->where('ObjectTag.objectType', ObjectTag::TYPE_MEANING)
       ->where('ObjectTag.objectId', $meaningId)
-      ->order_by_asc('value')
       ->find_many();
   }
 

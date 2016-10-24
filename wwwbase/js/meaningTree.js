@@ -32,6 +32,7 @@ $(function() {
       placeholder: 'adaugă o etichetă...',
       width: '100%',
     });
+    makeSortable($('#editorTags'));
 
     initSelect2('.editorRelation', 'ajax/getTreesById.php', {
       ajax: { url: wwwRoot + 'ajax/getTrees.php' },

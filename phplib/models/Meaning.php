@@ -78,12 +78,7 @@ class Meaning extends BaseObject implements DatedObject {
       $meaningStack[$tuple->level] = $m->id;
 
       MeaningSource::updateList(['meaningId' => $m->id], 'sourceId', $tuple->sourceIds);
-      ObjectTag::updateList(
-        [
-          'objectId' => $m->id,
-          'objectType' => ObjectTag::TYPE_MEANING,
-        ],
-        'tagId', $tuple->tagIds);
+      ObjectTag::wipeAndRecreate($m->id, ObjectTag::TYPE_MEANING, $tuple->tagIds);
       foreach ($tuple->relationIds as $type => $treeIds) {
         if ($type) {
           Relation::updateList(['meaningId' => $m->id, 'type' => $type],

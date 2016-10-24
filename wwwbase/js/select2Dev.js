@@ -57,8 +57,39 @@ function resolveSelectDeferred(sel, url) {
 function initSelect2(sel, url, options) {
   return resolveSelectDeferred(sel, url)
     .done(function() {
-      $(sel).select2(options);
+      var s = $(sel);
+      s.select2(options);
+      makeSortable(s);
     });
+}
+
+// Make values sortable. The trick here is to make the <select> options mirror
+// the value order.
+function makeSortable(s) {
+  s.parent().find("ul.select2-selection__rendered").sortable({
+    containment: 'parent',
+
+    start: function(e, ui) {
+      // store the starting index so we can track its movement
+      $(this).attr('data-old-index', ui.item.index());
+    },
+
+    update: function(e, ui) {
+      var oldIndex = $(this).attr('data-old-index');
+      // sometimes index() returns a value equal to length, not length -1
+      var newIndex = Math.min(ui.item.index(), s.children().length - 1);
+
+      $(this).removeAttr('data-old-index');
+
+      var o = s.children().eq(oldIndex).remove();
+      if (newIndex == 0) {
+        s.prepend(o);
+      } else {
+        s.children().eq(newIndex - 1).after(o);
+      }
+      console.log(s.val());
+    }
+  });
 }
 
 /**

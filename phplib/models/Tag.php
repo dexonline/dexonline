@@ -7,24 +7,22 @@ class Tag extends BaseObject implements DatedObject {
   public $canDelete = 1;
   public $children = [];
 
-  static function loadByDefinitionId($defId) {
+  static function loadByObject($objectType, $objectId) {
     return Model::factory('Tag')
       ->select('Tag.*')
       ->join('ObjectTag', ['Tag.id', '=', 'tagId'])
-      ->where('ObjectTag.objectType', ObjectTag::TYPE_DEFINITION)
-      ->where('ObjectTag.objectId', $defId)
+      ->where('ObjectTag.objectType', $objectType)
+      ->where('ObjectTag.objectId', $objectId)
       ->order_by_asc('ObjectTag.id')
       ->find_many();
   }
 
+  static function loadByDefinitionId($defId) {
+    return self::loadByObject(ObjectTag::TYPE_DEFINITION, $defId);
+  }
+
   static function loadByMeaningId($meaningId) {
-    return Model::factory('Tag')
-      ->select('Tag.*')
-      ->join('ObjectTag', ['Tag.id', '=', 'tagId'])
-      ->where('ObjectTag.objectType', ObjectTag::TYPE_MEANING)
-      ->where('ObjectTag.objectId', $meaningId)
-      ->order_by_asc('ObjectTag.id')
-      ->find_many();
+    return self::loadByObject(ObjectTag::TYPE_MEANING, $meaningId);
   }
 
   // Returns an array of root tags with their $children and $canDelete fields populated

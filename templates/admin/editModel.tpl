@@ -90,7 +90,7 @@
               </div>
               <div class="col-xs-6 row">
                 {foreach $f as $i => $tuple}
-                  <div>
+                  <div class="fieldWrapper">
                     <div class="col-xs-8">
                       <input class="form-control input-sm"
                              type="text"

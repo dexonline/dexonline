@@ -17,7 +17,7 @@ $(function() {
     var count = target.children().length;
     var suffix = inflId + '_' + count;
 
-    var r = target.children().first().clone(true).appendTo(target);
+    var r = $('.fieldWrapper').first().clone(true).appendTo(target);
     r.find('input').eq(0).attr('name', 'forms_' + suffix).val('');
     r.find('input').eq(1).attr('name', 'isLoc_' + suffix);
     r.find('input').eq(2).attr('name', 'recommended_' + suffix);

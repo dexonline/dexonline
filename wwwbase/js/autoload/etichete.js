@@ -13,6 +13,7 @@ $(function() {
     $('#butAddSibling').click(addSibling);
     $('#butAddChild').click(addChild);
     $('#butDelete').click(deleteTag);
+    $('#butDetails').click(redirectToDetails);
     $('#butSave').click(saveTree);
     menuBar = $('#menuBar').detach();
     stemLi = $('#stem').detach().removeAttr('id');
@@ -52,6 +53,8 @@ $(function() {
     var value = sel.find('> .value').hide();
     menuBar.insertAfter(value).show();
     menuBar.find('#valueBox').val(value.text()).focus();
+
+    $('#butDetails').prop('disabled', !value.text());
   }
 
   /* End the previous edit, if any */
@@ -131,6 +134,12 @@ $(function() {
         parentLi.find('.expand').removeClass('open glyphicon-minus');
       }
     }
+  }
+
+  function redirectToDetails() {
+    var id = sel.find('> .value').data('id');
+    var url = $(this).data('href') + id;
+    window.location = url;
   }
 
   function validate() {

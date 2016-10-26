@@ -43,6 +43,12 @@
       <button class="btn btn-xs btn-danger" id="butDelete"
               title="Șterge eticheta."
               >șterge</button>
+      <button class="btn btn-xs btn-info" id="butDetails" data-href="eticheta.php?id="
+              title="Detalii despre folosirea etichetei."
+        >
+        <i class="glyphicon glyphicon-eye-open"></i>
+        detalii
+      </button>
     </div>
   </div>
 

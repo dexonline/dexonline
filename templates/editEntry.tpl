@@ -42,10 +42,14 @@
             structurist
           </label>
           <div class="col-md-10">
-            <select id="structuristId" name="structuristId">
-              {if $e->structuristId}
-                <option value="{$e->structuristId}" selected></option>
-              {/if}
+            <select id="structuristId" name="structuristId" class="form-control">
+              <option value="0">niciunul</option>
+              {foreach $structurists as $s}
+                <option value="{$s->id}"
+                        {if $s->id == $e->structuristId}selected{/if}>
+                  {$s->nick} ({$s->name})
+                </option>
+              {/foreach}
             </select>
             {include "bits/fieldErrors.tpl" errors=$errors.structuristId|default:null}
           </div>

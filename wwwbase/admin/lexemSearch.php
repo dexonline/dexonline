@@ -59,11 +59,11 @@ if ($structStatus) {
   $where[] = "e.structStatus = {$structStatus}";
 }
 
-// Process the $structStatus argument
+// Process the $structuristId argument
 if ($structuristId > 0) {
   $joins['entry'] = true;
   $where[] = "e.structuristId = {$structuristId}";
-} else if ($structuristId == -1) {
+} else if ($structuristId == 0) {
   $joins['entry'] = true;
   $where[] = "e.structuristId = 0 or e.structuristId is null";
 }

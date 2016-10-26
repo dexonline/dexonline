@@ -61,6 +61,7 @@ $reports = array(
 );
 
 SmartyWrap::assign('structStatusNames', Entry::$STRUCT_STATUS_NAMES);
+SmartyWrap::assign('structurists', User::getStructurists());
 SmartyWrap::assign('reports', $reports);
 SmartyWrap::addCss('admin');
 SmartyWrap::addJs('select2Dev', 'modelDropdown');

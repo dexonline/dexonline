@@ -8,14 +8,6 @@ $(function() {
       templateSelection: formatLexemWithEditLink,
     });
             
-    initSelect2('#structuristId', 'ajax/getUsersById.php', {
-      ajax: createUserAjaxStruct(PRIV_STRUCT),
-      allowClear: true,
-      minimumInputLength: 3,
-      placeholder: '(opțional)',
-      width: '100%',
-    });
-    
     initSelect2('#treeIds', 'ajax/getTreesById.php', {
       ajax: { url: wwwRoot + 'ajax/getTrees.php' },
       minimumInputLength: 1,

@@ -161,6 +161,7 @@ SmartyWrap::assign('treeIds', $treeIds);
 SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('structStatusNames', Entry::$STRUCT_STATUS_NAMES);
+SmartyWrap::assign('structurists', User::getStructurists($e->structuristId));
 SmartyWrap::addCss('meaningTree', 'admin');
 SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete');
 SmartyWrap::display('editEntry.tpl');

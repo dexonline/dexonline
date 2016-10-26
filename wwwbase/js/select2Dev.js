@@ -193,12 +193,4 @@ function adminIndexInit() {
   }).on('change', function(e) {
     $(this).closest('form').submit();
   });
-
-  $('#structuristId').select2({
-    ajax: createUserAjaxStruct(PRIV_STRUCT),
-    allowClear: true,
-    minimumInputLength: 1,
-    placeholder: '(opțional)',
-    width: '100%',
-  });
 }

@@ -179,7 +179,15 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">structurist</label>
                 <div class="col-sm-9">
-                  <select id="structuristId" name="structuristId"></select>
+                  <select name="structuristId" class="form-control">
+                    <option value="-1">oricare</option>
+                    <option value="0">niciunul</option>
+                    {foreach $structurists as $s}
+                      <option value="{$s->id}">
+                        {$s->nick} ({$s->name})
+                      </option>
+                    {/foreach}
+                  </select>
                 </div>
               </div>
 

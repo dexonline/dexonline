@@ -4,7 +4,9 @@ require_once("../../phplib/util.php");
 util_assertModerator(PRIV_EDIT);
 
 $id = Request::get('id');
-$value = Request::has('value');
+$value = Request::get('value');
+
+Log::info("Setting structured = %d on definition %d", $value, $id);
 
 $def = Definition::get_by_id($id);
 $def->structured = $value;

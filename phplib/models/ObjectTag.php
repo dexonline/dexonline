@@ -7,16 +7,24 @@ class ObjectTag extends BaseObject implements DatedObject {
   const TYPE_LEXEM = 2;
   const TYPE_MEANING = 3;
 
+  static function getAllByIdType($objectId, $objectType) {
+    return Model::factory('ObjectTag')
+      ->where('objectId', $objectId)
+      ->where('objectType', $objectType)
+      ->order_by_asc('id')
+      ->find_many();
+  }
+
   static function getDefinitionTags($definitionId) {
-    return self::get_all_by_objectId_objectType($definitionId, self::TYPE_DEFINITION);
+    return self::getAllByIdType($definitionId, self::TYPE_DEFINITION);
   }
 
   static function getLexemTags($lexemId) {
-    return self::get_all_by_objectId_objectType($lexemId, self::TYPE_LEXEM);
+    return self::getAllByIdType($lexemId, self::TYPE_LEXEM);
   }
 
   static function getMeaningTags($meaningId) {
-    return self::get_all_by_objectId_objectType($meaningId, self::TYPE_MEANING);
+    return self::getAllByIdType($meaningId, self::TYPE_MEANING);
   }
 
   // Deletes the old tags and adds the new tags.

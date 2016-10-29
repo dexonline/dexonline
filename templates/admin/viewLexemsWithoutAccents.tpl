@@ -6,6 +6,6 @@
 
   <h3>{$lexems|count} lexeme fără accent</h3>
 
-  {include "admin/lexemList.tpl"}
+  {include "bits/lexemList.tpl"}
 
 {/block}

@@ -6,6 +6,6 @@
 
   <h3>{$lexems|count} lexeme ambigue (cu nume și descriere identice)</h3>
   
-  {include "admin/lexemList.tpl"}
+  {include "bits/lexemList.tpl"}
 
 {/block}

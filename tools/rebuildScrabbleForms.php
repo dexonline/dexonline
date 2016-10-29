@@ -10,7 +10,7 @@
 
 require_once __DIR__ . '/../phplib/util.php';
 ini_set('max_execution_time', '3600');
-ini_set('memory_limit', '128M');
+ini_set('memory_limit', '256M');
 
 Log::notice('started');
 

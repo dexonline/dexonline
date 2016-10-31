@@ -154,12 +154,34 @@ $canEdit = [
   'structuristId' => util_isModerator(PRIV_ADMIN),
 ];
 
+$homonymIds = [];
+foreach ($e->getLexems() as $l) {
+  $homonymLexems = Model::factory('Lexem')
+                 ->select('entryId')
+                 ->where('formNoAccent', $l->formNoAccent)
+                 ->where_not_equal('id', $l->id)
+                 ->find_array();
+  foreach ($homonymLexems as $h) {
+    $homonymIds[$h['entryId']] = true;
+  }
+}
+unset($homonymIds[$e->id]);
+
+if (count($homonymIds)) {
+  $homonyms = Model::factory('Entry')
+            ->where_in('id', array_keys($homonymIds))
+            ->find_many();
+} else {
+  $homonyms = [];
+}
+
 SmartyWrap::assign('e', $e);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('lexemIds', $lexemIds);
 SmartyWrap::assign('treeIds', $treeIds);
 SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('canEdit', $canEdit);
+SmartyWrap::assign('homonyms', $homonyms);
 SmartyWrap::assign('structStatusNames', Entry::$STRUCT_STATUS_NAMES);
 SmartyWrap::assign('structurists', User::getStructurists($e->structuristId));
 SmartyWrap::addCss('meaningTree', 'admin');

@@ -86,6 +86,21 @@
             </select>
           </div>
         </div>
+
+        {if $homonyms}
+          <div class="form-group">
+            <label class="col-md-2">omonime</label>
+            <div class="col-md-10">
+
+              {foreach $homonyms as $h}
+                <div>
+                  {include "bits/entryLink.tpl" entry=$h}
+                </div>
+              {/foreach}
+
+            </div>
+          </div>
+        {/if}
       </div>
 
     </div>

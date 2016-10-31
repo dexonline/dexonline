@@ -109,8 +109,13 @@ $canEdit = [
 // Prepare a list of model numbers, to be used in the paradigm drop-down.
 $models = FlexModel::loadByType($lexem->modelType);
 
+$homonyms = Model::factory('Lexem')
+          ->where('formNoAccent', $lexem->formNoAccent)
+          ->where_not_equal('id', $lexem->id)
+          ->find_many();
+
 SmartyWrap::assign('lexem', $lexem);
-SmartyWrap::assign('homonyms', Model::factory('Lexem')->where('formNoAccent', $lexem->formNoAccent)->where_not_equal('id', $lexem->id)->find_many());
+SmartyWrap::assign('homonyms', $homonyms);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
 SmartyWrap::assign('models', $models);

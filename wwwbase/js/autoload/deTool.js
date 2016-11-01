@@ -87,7 +87,6 @@ $(function() {
   }
 
   function shortcutI3() {
-    console.log('here');
     var m = $(this).closest('tr').find('.model');
     m.html('').append(stemOption).trigger('change');
 

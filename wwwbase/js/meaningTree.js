@@ -50,13 +50,22 @@ $(function() {
 
     $('#editorRep').textcomplete([
       {
-        match: /(([a-zăâîșț]+)\[[0-9.]*)$/i,
+        match: /(([a-zăâîșț]+)((\[[0-9.]*)|(\[\[)))$/i,
         search: meaningMention,
         template: function(obj) {
-          return '<b>' + obj.description + ' ' + obj.breadcrumb + ':</b> ' + obj.meaning;
+          if (obj.treeDescription) {
+            return 'arbore: <b>' + obj.treeDescription + '</b> ' +
+              'intrare: <b>' + obj.entryDescription + '</b>';
+          } else {
+            return '<b>' + obj.description + ' ' + obj.breadcrumb + ':</b> ' + obj.meaning;
+          }
         },
         replace: function(value) {
-          return '$2[' + value.meaningId + ']';
+          if (value.treeId) {
+            return '$2[[' + value.treeId + ']]';
+          } else {
+            return '$2[' + value.meaningId + ']';
+          }
         },
         index: 1,
         maxCount: 5,
@@ -366,7 +375,12 @@ $(function() {
 
   function meaningMention(term, callback) {
     parts = term.split('[');
-    $.getJSON(wwwRoot + 'ajax/meaningMention', { form: parts[0], qualifier: parts[1] })
+
+    var url = (parts.length == 2)
+        ? wwwRoot + 'ajax/meaningMention.php'
+        : wwwRoot + 'ajax/treeMention.php';
+
+    $.getJSON(url, { form: parts[0], qualifier: parts[1] })
       .done(function(resp) {
         callback(resp); // `resp` must be an Array
       })

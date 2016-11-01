@@ -58,6 +58,11 @@ $reports = array(
         'count' => Model::factory('Lexem')->where('modelType', 'T')->count(),
         'privilege' => PRIV_EDIT
   ),
+  array('text' => 'Mențiuni despre arbori nestructurați',
+        'url' => 'admin/viewTreeMentions',
+        'count' => Model::factory('Mention')->where('objectType', Mention::TYPE_TREE)->count(),
+        'privilege' => PRIV_EDIT
+  ),
 );
 
 SmartyWrap::assign('structStatusNames', Entry::$STRUCT_STATUS_NAMES);

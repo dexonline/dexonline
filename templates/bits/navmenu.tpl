@@ -3,8 +3,8 @@
     <div class="navbar-header navbar-left pull-left">
       {if !$onHomePage}
         <a class="navbar-brand" href="{$wwwRoot}" title="Prima pagină">
-          <img id="logo-wide" alt="logo dexonline" src="{$wwwRoot}img/svg/logo-dexonline.svg" width="173">
-          <img id="logo-narrow" alt="logo dexonline" src="{$wwwRoot}img/svg/logo-narrow.svg" width='44'>
+          <img id="logo-wide" alt="logo dexonline" src="{$wwwRoot}img/svg/logo-nav-wide.svg" width="173">
+          <img id="logo-narrow" alt="logo dexonline" src="{$wwwRoot}img/svg/logo-nav-narrow.svg" width='44'>
         </a>
       {/if}
     </div>

@@ -100,10 +100,27 @@ class Meaning extends BaseObject implements DatedObject {
     }
   }
 
+  public function save() {
+    parent::save();
+
+    // extract and save all mentions contained in this meaning
+
+    preg_match_all("/\\[\\[(\d+)\\]\\]/", $this->internalRep, $m);
+    $u = array_unique($m[1]);
+    Mention::wipeAndRecreate($this->id, Mention::TYPE_TREE, $u);
+
+    preg_match_all("/(?<!\\[)\\[(\d+)\\](?!\\])/", $this->internalRep, $m);
+    $u = array_unique($m[1]);
+    Mention::wipeAndRecreate($this->id, Mention::TYPE_MEANING, $u);
+  }
+
   public function delete() {
     MeaningSource::delete_all_by_meaningId($this->id);
     ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_MEANING);
     Relation::delete_all_by_meaningId($this->id);
+    // Delete mentions containing this meaning on either side
+    Mention::delete_all_by_meaningId($this->id);
+    Mention::delete_all_by_objectId_objectType($this->id, Mention::TYPE_MEANING);
     parent::delete();
   }
 }

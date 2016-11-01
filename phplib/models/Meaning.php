@@ -118,6 +118,16 @@ class Meaning extends BaseObject implements DatedObject {
     MeaningSource::delete_all_by_meaningId($this->id);
     ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_MEANING);
     Relation::delete_all_by_meaningId($this->id);
+
+    // Reprocess meanings mentioning this one to remove said mentions
+    $mentions = Mention::getMeaningMentions($this->id);
+    foreach ($mentions as $ment) {
+      $m = Meaning::get_by_id($ment->meaningId);
+      $m->internalRep = str_replace("[{$this->id}]", '', $m->internalRep);
+      $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
+      $m->save();
+    }
+
     // Delete mentions containing this meaning on either side
     Mention::delete_all_by_meaningId($this->id);
     Mention::delete_all_by_objectId_objectType($this->id, Mention::TYPE_MEANING);

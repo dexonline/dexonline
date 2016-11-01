@@ -179,6 +179,15 @@ class Tree extends BaseObject implements DatedObject {
     Meaning::delete_all_by_treeId($this->id);
     Relation::delete_all_by_treeId($this->id);
     TreeEntry::delete_all_by_treeId($this->id);
+
+    // Reprocess meanings mentioning this tree to remove said mentions
+    $mentions = Mention::getTreeMentions($this->id);
+    foreach ($mentions as $ment) {
+      $m = Meaning::get_by_id($ment->meaningId);
+      $m->internalRep = str_replace("[[{$this->id}]]", '', $m->internalRep);
+      $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
+      $m->save();
+    }
     Mention::delete_all_by_objectId_objectType($this->id, Mention::TYPE_TREE);
 
     Log::warning("Deleted entry {$this->id} ({$this->description})");

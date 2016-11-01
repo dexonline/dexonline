@@ -12,19 +12,20 @@ class Mention extends BaseObject implements DatedObject {
   const TYPE_TREE = 2;
 
   static function getAllByIdType($objectId, $objectType) {
-    return Model::factory('Meaning')
+    return Model::factory('Mention')
       ->where('objectId', $objectId)
       ->where('objectType', $objectType)
       ->order_by_asc('id')
       ->find_many();
   }
 
+  // Returns mentions having this meaning as *destination*.
   static function getMeaningMentions($meaningId) {
     return self::getAllByIdType($meaningId, self::TYPE_MEANING);
   }
 
-  static function getTreeMentions($meaningId) {
-    return self::getAllByIdType($meaningId, self::TYPE_TREE);
+  static function getTreeMentions($treeId) {
+    return self::getAllByIdType($treeId, self::TYPE_TREE);
   }
 
   // Deletes the old mentions and adds the new mentions

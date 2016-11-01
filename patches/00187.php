@@ -3,7 +3,7 @@
 // Identify all existing mentions and index them in the Mention table
 
 $meanings = Model::factory('Meaning')
-          ->where_raw('internalRep rlike "\\\\[\\\\d+\\\\]"')
+          ->where_raw('internalRep rlike "\\\\[[0-9]+\\\\]"')
           ->find_many();
 
 foreach ($meanings as $m) {

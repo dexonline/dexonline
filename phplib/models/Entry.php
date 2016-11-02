@@ -11,6 +11,9 @@ class Entry extends BaseObject implements DatedObject {
   const STRUCT_STATUS_UNDER_REVIEW = 3;
   const STRUCT_STATUS_DONE = 4;
 
+  const STRUCTURIST_ID_ANY = -1;
+  const STRUCTURIST_ID_NONE = 0;
+
   public static $STRUCT_STATUS_NAMES = [
     self::STRUCT_STATUS_NEW => 'neîncepută',
     self::STRUCT_STATUS_IN_PROGRESS => 'în lucru',

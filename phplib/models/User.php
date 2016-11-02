@@ -7,13 +7,14 @@ class User extends BaseObject {
     return $this->nick;
   }
 
-  static function getStructurists($includeUserId = null) {
+  static function getStructurists($includeUserId = 0) {
+    if (!$includeUserId) {
+      $includeUserId = null; // prevent loading the Anonymous user (id = 0)
+    }
     return Model::factory('User')
       ->where_raw('(moderator & ?) or (id = ?)', [PRIV_STRUCT, $includeUserId])
       ->order_by_asc('nick')
       ->find_many();
-
-
   }
 }
 

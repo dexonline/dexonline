@@ -180,8 +180,8 @@
                 <label class="col-sm-3 control-label">structurist</label>
                 <div class="col-sm-9">
                   <select name="structuristId" class="form-control">
-                    <option value="-1">oricare</option>
-                    <option value="0">niciunul</option>
+                    <option value="{Entry::STRUCTURIST_ID_ANY}">oricare</option>
+                    <option value="{Entry::STRUCTURIST_ID_NONE}">niciunul</option>
                     {foreach $structurists as $s}
                       <option value="{$s->id}">
                         {$s->nick} ({$s->name})
@@ -397,7 +397,7 @@
           </li>
 
           <li>
-            <a href="lexemSearch.php?structStatus={Entry::STRUCT_STATUS_IN_PROGRESS}&amp;structuristId=-1">
+            <a href="lexemSearch.php?structStatus={Entry::STRUCT_STATUS_IN_PROGRESS}&amp;structuristId={Entry::STRUCTURIST_ID_NONE}">
               Lexeme orfane
             </a>
             <span class="text-muted">

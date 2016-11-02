@@ -43,7 +43,7 @@
           </label>
           <div class="col-md-10">
             <select id="structuristId" name="structuristId" class="form-control">
-              <option value="0">niciunul</option>
+              <option value="{Entry::STRUCTURIST_ID_NONE}">niciunul</option>
               {foreach $structurists as $s}
                 <option value="{$s->id}"
                         {if $s->id == $e->structuristId}selected{/if}>

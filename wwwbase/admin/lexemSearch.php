@@ -60,12 +60,9 @@ if ($structStatus) {
 }
 
 // Process the $structuristId argument
-if ($structuristId > 0) {
+if ($structuristId != Entry::STRUCTURIST_ID_ANY) {
   $joins['entry'] = true;
   $where[] = "e.structuristId = {$structuristId}";
-} else if ($structuristId == 0) {
-  $joins['entry'] = true;
-  $where[] = "e.structuristId = 0 or e.structuristId is null";
 }
 
 // Process the $nick argument

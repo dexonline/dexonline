@@ -30,6 +30,10 @@ $(function() {
       return true;
     }
   });
+
+  $('li.disabled a').click(function() {
+    return false;
+  });
 });
 
 if (typeof jQuery.ui != 'undefined') {

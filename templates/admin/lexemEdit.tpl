@@ -291,29 +291,7 @@
       <div class="panel-heading">Definitiții ({$searchResults|count})</div>
       <div class="panel-body panel-admin">
         {foreach $searchResults as $row}
-          {$def=$row->definition}
-          <div class="defWrapper">
-            <p class="def">{$row->definition->htmlRep}</p>
-
-            <p class="defDetails text-muted">
-              <small>
-                id: {$def->id}
-                | sursa: {$row->source->shortName|escape}
-                | starea: {$def->getStatusName()}
-                | <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}">editează</a>
-              </small>
-            </p>
-
-            {if $row->comment}
-              <div class="panel panel-default panel-comment">
-                <div class="panel-body">
-                  <i class="glyphicon glyphicon-comment"></i>
-                  {$row->comment->htmlContents} -
-                  <b>{$row->commentAuthor->nick|escape}</b>
-                </div>
-              </div>
-            {/if}
-          </div>
+          {include "bits/definition.tpl" showStatus=1}
         {/foreach}
       </div>
     </div>

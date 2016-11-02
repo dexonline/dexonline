@@ -215,7 +215,12 @@
           {assign var=notDisplayedUnofficial value=false}
         {/if}
       {/if}
-      {include "bits/definition.tpl" row=$row}
+      {include "bits/definition.tpl"
+      showBookmark=1
+      showCourtesyLink=1
+      showHistory=1
+      showTypo=1
+      showWotd=1}
     {/foreach}
 
     {if isset($hiddenSources) && count($hiddenSources) && !count($results)}

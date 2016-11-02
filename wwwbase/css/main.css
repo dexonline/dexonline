@@ -113,7 +113,7 @@ p.def {
   margin: 0; /* remove paragraph margin */
 }
 
-p.defDetails {
+.defDetails {
   margin: 0; /* remove paragraph margin */
   font-size: 0.85em; 
   line-height: 1.88; /* equivalent line height: 1.6 / 0.85em */

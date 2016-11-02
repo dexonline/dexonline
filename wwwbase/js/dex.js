@@ -292,48 +292,57 @@ $(function() {
   }
 
   function addBookmark() {
-    var url = $(this).attr('href');
-    var ajaxLoader = createAjaxLoader();
+    var anchor = $(this);
+    var url = anchor.attr('href');
 
-    // show ajax indicator
-    $(this).replaceWith(ajaxLoader);
+    // show loading message
+    anchor.find('span').text('un moment...');
 
     $.ajax({
       url: url,
-      success: function (data) { handleAjaxResponse(data, ajaxLoader, addBookmarkSuccess, bookmarkResponseError) },
-      error: function () { bookmarkResponseError(ajaxLoader); },
-      dataType: 'json'
+      dataType: 'json',
+      success: function (data) {
+        handleAjaxResponse(data, anchor, addBookmarkSuccess, bookmarkResponseError);
+      },
+      error: function () {
+        bookmarkResponseError(anchor);
+      },
     });
 
     return false;
   }
 
-  function addBookmarkSuccess(targetEl) {
-    targetEl.replaceWith('Adăugat la favorite');
+  function addBookmarkSuccess(anchor) {
+    anchor.find('span').text('adăugat la favorite');
+    anchor.closest('li').addClass('disabled');
   }
 
   function removeBookmark(evt) {
     evt.preventDefault();
 
-    var url = $(this).attr('href');
-    var ajaxLoader = createAjaxLoader();
+    var anchor = $(this);
+    var url = anchor.attr('href');
 
     // show ajax indicator
-    $(this).replaceWith(ajaxLoader);
+    $(this).text('un moment...');
 
     $.ajax({
       url: url,
-      success: function (data) { handleAjaxResponse(data, ajaxLoader, removeBookmarkSuccess, bookmarkResponseError) },
-      error: function () { bookmarkResponseError(ajaxLoader); },
-      dataType: 'json'
+      dataType: 'json',
+      success: function (data) {
+        handleAjaxResponse(data, anchor, removeBookmarkSuccess, bookmarkResponseError);
+      },
+      error: function () {
+        bookmarkResponseError(anchor);
+      },
     });
-    removeBookmarkSuccess(ajaxLoader);
+
     return false;
   }
 
-  function removeBookmarkSuccess(targetEl) {
-    var idx = targetEl.parent().data('idx');
-    var favDefsParent = targetEl.closest('.favoriteDefs');
+  function removeBookmarkSuccess(anchor) {
+    var idx = anchor.parent().data('idx');
+    var favDefsParent = anchor.closest('.favoriteDefs');
 
     // get all elements with matching data-dev
     var favDef = $('[data-idx="' + idx + '"]');
@@ -360,25 +369,23 @@ $(function() {
     });
   }
 
-  function bookmarkResponseError(targetEl, msg) {
+  function bookmarkResponseError(anchor, msg) {
     if(msg == null) {
-      msg = 'Eroare la încărcare';
+      msg = 'eroare la încărcare';
     }
-    targetEl.replaceWith(msg);
+    anchor.find('span').text(msg);
+    anchor.closest('li').addClass('disabled');
   }
 
-  function handleAjaxResponse(data, targetEl, successCallback, errorCallback) {
+  function handleAjaxResponse(data, anchor, successCallback, errorCallback) {
+    console.log(data);
     if (data.status == 'success') {
-      successCallback(targetEl);
+      successCallback(anchor);
     } else if (data.status == 'redirect') {
       window.location.replace(wwwRoot + data.url);
     } else {
-      errorCallback(targetEl, data.msg);
+      errorCallback(anchor, data.msg);
     }
-  }
-
-  function createAjaxLoader() {
-    return $('<i class="glyphicon glyphicon-hourglass"></i>');
   }
 
   init();

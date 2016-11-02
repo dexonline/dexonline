@@ -14,6 +14,8 @@ if ($saveButton) {
   $src->publisher = Request::get('publisher');
   $src->year = Request::get('year');
   $src->link = Request::get('link');
+  $src->courtesyLink = Request::get('courtesyLink');
+  $src->courtesyText = Request::get('courtesyText');
   $src->isActive = Request::has('isActive');
   $src->type = Request::get('type');
   $src->canContribute = Request::has('canContribute');

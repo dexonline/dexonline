@@ -20,11 +20,12 @@
         </a>
       </li>
 
-      {* TODO de generalizat *}
-      {if $row->source->shortName == 'DCR2'}
+      {if $row->source->courtesyLink}
         <li>
           furnizată de
-          <a class="ref" href="{$wwwRoot}spre/logos">Editura Logos</a>
+          <a class="ref" href="{$wwwRoot}spre/{$row->source->courtesyLink}">
+            {$row->source->courtesyText}
+          </a>
         </li>
       {/if}
 

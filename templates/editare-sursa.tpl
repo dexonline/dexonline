@@ -64,6 +64,20 @@
         </div>
 
         <div class="form-group">
+          <label>Legătura către editură/autor</label>
+          <input type="text" name="courtesyLink" value="{$src->courtesyLink}" class="form-control">
+          <p class="help-block">
+            Trebuie să fie o valoare <code>skey</code> din tabela AdsLink, de exemplu „logos”
+            pentru DCR.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label>Textul pentru legătura către editură/autor</label>
+          <input type="text" name="courtesyText" value="{$src->courtesyText}" class="form-control">
+        </div>
+
+        <div class="form-group">
           <label>Tip:</label>
           <select class="form-control" name="type">
             {foreach Source::$TYPE_NAMES as $type => $name}

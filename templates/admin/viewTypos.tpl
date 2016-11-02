@@ -16,9 +16,11 @@
 
   <div class="voffset3"></div>
 
-  <div class="panel panel-default">
-    <div class="panel-body panel-admin">
-      {include "admin/definitionList.tpl"}
-    </div>
-  </div>
+  {foreach $searchResults as $row}
+    {include "bits/definition.tpl"
+    showHistory=1
+    showStatus=1
+    showTypos=1}
+  {/foreach}
+
 {/block}

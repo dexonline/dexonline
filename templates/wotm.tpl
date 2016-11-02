@@ -35,8 +35,8 @@
       row=$searchResult
       showBookmark=1
       showCourtesyLink=1
-      showHistory=1
-      showTypo=1}
+      showFlagTypo=1
+      showHistory=1}
 
       {if $imageUrl}
         <img class="img-responsive center-block" src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>

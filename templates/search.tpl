@@ -218,8 +218,8 @@
       {include "bits/definition.tpl"
       showBookmark=1
       showCourtesyLink=1
+      showFlagTypo=1
       showHistory=1
-      showTypo=1
       showWotd=1}
     {/foreach}
 

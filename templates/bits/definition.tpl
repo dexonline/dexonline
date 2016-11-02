@@ -1,12 +1,13 @@
 {$showBookmark=$showBookmark|default:false}
 {$showCourtesyLink=$showCourtesyLink|default:false}
 {$showEditLink=$showEditLink|default:true}
+{$showFlagTypo=$showFlagTypo|default:false}
 {$showHistory=$showHistory|default:false}
 {$showId=$showId|default:true}
 {$showPermalink=$showPermalink|default:true}
 {$showSource=$showSource|default:true}
 {$showStatus=$showStatus|default:false}
-{$showTypo=$showTypo|default:false}
+{$showTypos=$showTypos|default:false}
 {$showUser=$showUser|default:true}
 {$showWotd=$showWotd|default:false}
 
@@ -87,7 +88,7 @@
         </a>
 
         <ul class="dropdown-menu">
-          {if $showTypo}
+          {if $showFlagTypo}
             {if $skinVariables.typo && !$cfg.global.mirror}
               <li>
                 <a href="#"
@@ -189,5 +190,27 @@
            >{$row->commentAuthor->nick|escape}</a>
       </div>
     </div>
+  {/if}
+
+  {if $showTypos}
+    {if count($row->typos)}
+      <ul>
+        {foreach $row->typos as $typo}
+          <li id="typo{$typo->id}">
+            
+            <span class="text-warning">
+              {$typo->problem|escape}
+            </span>
+            
+            <a href="#"
+               title="Ignoră această raportare"
+               onclick="return ignoreTypo('typo{$typo->id}', {$typo->id});">
+              ignoră
+            </a>
+            
+          </li>
+        {/foreach}
+      </ul>
+    {/if}
   {/if}
 </div>

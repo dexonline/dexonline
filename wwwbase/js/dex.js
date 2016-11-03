@@ -34,6 +34,8 @@ $(function() {
   $('li.disabled a').click(function() {
     return false;
   });
+
+  $('.defWrapper .deleteLink').click(deleteDefinition);
 });
 
 if (typeof jQuery.ui != 'undefined') {
@@ -262,10 +264,14 @@ function ignoreTypo(typoDivId, typoId) {
   return false;
 }
 
-function deleteDefinition(defDivId, defId) {
-  $.get(wwwRoot + 'ajax/deleteDefinition.php', { id: defId })
-    .done(function() { $('#' + defDivId).css('display', 'none'); })
+function deleteDefinition() {
+  var link = $(this);
+  var defId = link.data('id');
+
+  $.get(wwwRoot + 'ajax/deleteDefinition.php?id=' + defId)
+    .done(function() { link.closest('.defWrapper').slideUp(); })
     .fail(function() { alert('A apărut o problemă la comunicarea cu serverul. Definiția nu a fost încă ștearsă.'); });
+
   return false;
 }
 

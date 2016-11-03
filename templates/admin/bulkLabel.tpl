@@ -102,17 +102,8 @@
 
           <!-- Definitions -->
           <div class="panel-admin">
-            {assign var="srArray" value=$searchResults[$lIter]}
-            {foreach $srArray as $row}
-              <div class="defWrapper">
-                <p class="def">
-                  {$row->definition->htmlRep}
-                </p>
-                <p class="defDetails text-muted">
-                  sursa: {$row->source->shortName|escape} |
-                  starea: {$row->definition->getStatusName()}
-                </p>
-              </div>
+            {foreach $searchResults[$lIter] as $row}
+              {include "bits/definition.tpl" showDropup=0 showUser=0}
             {/foreach}
           </div>
 

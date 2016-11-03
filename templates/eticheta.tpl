@@ -71,6 +71,10 @@
       {/if}
     </h3>
 
-    {include "admin/definitionList.tpl"}
+    {foreach $searchResults as $row}
+      {include "bits/definition.tpl"
+      showDropup=0
+      showStatus=1}
+    {/foreach}
   {/if}
 {/block}

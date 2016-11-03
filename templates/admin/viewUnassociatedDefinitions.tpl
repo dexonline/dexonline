@@ -6,10 +6,12 @@
 
   <h3>{$searchResults|count} definiții neasociate</h3>
 
-  <div class="panel panel-default">
-    <div class="panel-body panel-admin">
-      {include "admin/definitionList.tpl"}
-    </div>
-  </div>
+  {foreach $searchResults as $row}
+    {include "bits/definition.tpl"
+    showDate=1
+    showDeleteLink=1
+    showDropup=0
+    showStatus=1}
+  {/foreach}
 
 {/block}

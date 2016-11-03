@@ -28,9 +28,13 @@
 
         <div class="clearfix"></div>
       </div>
+
       <div class="panel-body panel-admin">
-        {include "admin/definitionList.tpl"}
+        {foreach $searchResults as $row}
+          {include "bits/definition.tpl" showDropup=0}
+        {/foreach}
       </div>
+
     </div>
 
   </form>

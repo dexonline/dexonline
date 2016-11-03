@@ -81,9 +81,9 @@
         {/if}
       {/if}
 
-      <li class="dropdown pull-right">
+      <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          alte acțiuni
+          acțiuni
           <span class="caret"></span>
         </a>
 

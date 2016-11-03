@@ -34,21 +34,7 @@
   </div>
 
   {assign var="results" value=$results|default:null}
-  {foreach $results as $i => $row}
-    <p>
-      <span class="def" title="Clic pentru a naviga la acest cuvânt">
-        {$row->definition->htmlRep}
-      </span>
-      <br/>
-
-      <span class="defDetails">
-        Sursa: <a class="ref" href="{$wwwRoot}surse" title="{$row->source->name|escape}, {$row->source->year|escape}"
-                  >{$row->source->shortName|escape}
-        {if $row->source->year}
-          ({$row->source->year|regex_replace:"/ .*$/":""})
-        {/if}
-        </a>
-      </span>
-    </p>
+  {foreach $results as $row}
+    {include "bits/definition.tpl"}
   {/foreach}
 {/block}

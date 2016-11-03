@@ -7,17 +7,7 @@
 
   <div class="panel-admin">
     {foreach $searchResults as $row}
-      <div class="defWrapper">
-        <p class="def">{$row->definition->htmlRep}</p>
-
-        <p class="defDetails text-muted">
-          ID: {$row->definition->id} |
-          sursa: {$row->source->shortName|escape} |
-          starea: {$row->definition->getStatusName()} |
-
-          <a href="definitionEdit.php?definitionId={$row->definition->id}">editează</a>
-        </p>
-      </div>
+      {include "bits/definition.tpl" showDropup=0 showStatus=1 showUser=0}
     {/foreach}
   </div>
 

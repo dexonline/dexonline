@@ -55,13 +55,7 @@
 
       <div class="panel-admin">
         {foreach $srArray as $row}
-          <div class="defWrapper">
-            <p class="def">{$row->definition->htmlRep}</p>
-            <p class="defDetails">
-              sursa: {$row->source->shortName|escape} |
-              starea: {$row->definition->getStatusName()}
-            </p>
-          </div>
+          {include "bits/definition.tpl" showDropup=0 showId=0 showStatus=1 showUser=0}
         {/foreach}
       </div>
     {/foreach}

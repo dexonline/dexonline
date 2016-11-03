@@ -171,12 +171,6 @@
 
     <div class="panel-body">
       <p class="def" id="defPreview">{$def->htmlRep}</p>
-      <p class="defDetails text-muted">
-        Id: {$def->id} |
-        Sursa: {$source->shortName|escape} |
-        Trimisă de {$user->nick|escape}, {$def->createDate|date_format:"%e %b %Y"} |
-        Starea: {$def->getStatusName()}
-      </p>
     </div>
 
     <div class="panel-footer">

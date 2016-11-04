@@ -17,7 +17,7 @@
             șterge
           </a>
         </dt>
-        <dd data-idx="{$i}">{$row->html}</dd>
+        <dd class="favoriteDefs" data-idx="{$i}">{$row->html}</dd>
       {/foreach}
     {else}
       Nu aveți niciun cuvânt favorit.

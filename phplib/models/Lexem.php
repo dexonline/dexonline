@@ -445,7 +445,8 @@ class Lexem extends BaseObject implements DatedObject {
   }
 
   function generateCompoundForms($infl) {
-    if (!ConstraintMap::validInflection($infl->id, $this->restriction)) {
+    if (!ConstraintMap::validInflection($infl->id, $this->restriction) ||
+        ($infl->animate && !$this->isAnimate())) {
       return [];
     }
 

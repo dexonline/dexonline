@@ -200,6 +200,11 @@ p.def {
   padding: 3px 5px;
 }
 
+/*********** favorites ***********/
+
+dd.favoriteDefs {
+  margin-bottom: 1em;
+}
 
 /*********** misc helpers ***********/
 

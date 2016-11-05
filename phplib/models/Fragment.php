@@ -8,17 +8,19 @@ class Fragment extends BaseObject implements DatedObject {
   const DEC_FULL = 1;
   const DEC_NO_ARTICLE = 2;
   const DEC_NO_ARTICLE_NOMINATIVE = 3;
-  const DEC_INVARIABLE = 4;
-  const DEC_INVARIABLE_PLURAL = 5;
-  const DEC_INVARIABLE_DATIVE = 6;
+  const DEC_INVARIABLE_N_SG = 4;
+  const DEC_INVARIABLE_N_PL = 5;
+  const DEC_INVARIABLE_D_SG = 6;
+  const DEC_INVARIABLE_D_PL = 7;
 
   public static $DEC_NAMES = [
     self::DEC_FULL  => 'flexiune completă',
     self::DEC_NO_ARTICLE  => 'nearticulat',
-    self::DEC_NO_ARTICLE_NOMINATIVE  => 'nearticulat nominativ',
-    self::DEC_INVARIABLE  => 'invariabil',
-    self::DEC_INVARIABLE_PLURAL  => 'invariabil plural',
-    self::DEC_INVARIABLE_DATIVE  => 'invariabil genitiv',
+    self::DEC_NO_ARTICLE_NOMINATIVE  => 'nearticulat n.-ac.',
+    self::DEC_INVARIABLE_N_SG  => 'invariabil n.-ac. sg.',
+    self::DEC_INVARIABLE_N_PL  => 'invariabil n.-ac. pl.',
+    self::DEC_INVARIABLE_D_SG  => 'invariabil d.-g. sg.',
+    self::DEC_INVARIABLE_D_PL  => 'invariabil d.-g. pl.',
   ];
 
   // Helper table that translates compound inflections into fragment inflections.
@@ -42,16 +44,21 @@ class Fragment extends BaseObject implements DatedObject {
       'case' => Inflection::CASE_NOMINATIVE,
       'article' => Inflection::ARTICLE_NONE,
     ],
-    self::DEC_INVARIABLE => [
+    self::DEC_INVARIABLE_N_SG => [
       // no restrictions -- ordering by inflection rank should suffice
     ],
-    self::DEC_INVARIABLE_PLURAL => [
+    self::DEC_INVARIABLE_N_PL => [
       'number' => Inflection::NUMBER_PLURAL,
       'case' => Inflection::CASE_NOMINATIVE,
       'article' => Inflection::ARTICLE_NONE,
     ],
-    self::DEC_INVARIABLE_DATIVE => [
+    self::DEC_INVARIABLE_D_SG => [
       'number' => Inflection::NUMBER_SINGULAR,
+      'case' => Inflection::CASE_DATIVE,
+      'article' => Inflection::ARTICLE_DEFINITE,
+    ],
+    self::DEC_INVARIABLE_D_PL => [
+      'number' => Inflection::NUMBER_PLURAL,
       'case' => Inflection::CASE_DATIVE,
       'article' => Inflection::ARTICLE_DEFINITE,
     ],

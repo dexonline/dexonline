@@ -21,9 +21,29 @@ class Fragment extends BaseObject implements DatedObject {
     self::DEC_INVARIABLE_DATIVE  => 'invariabil dativ',
   ];
 
+  // Helper table that translates compound inflections into fragment inflections.
+  // "null" means "the fragment mimics the compound inflection".
   public static $INV_RULES = [
+    self::DEC_FULL => [
+      'gender' => null,
+      'number' => null,
+      'case' => null,
+      'article' => null,
+    ],
+    self::DEC_ARTICLE => [
+      'gender' => null,
+      'number' => null,
+      'case' => null,
+      'article' => Inflection::ARTICLE_DEFINITE,
+    ],
+    self::DEC_NO_ARTICLE => [
+      'gender' => null,
+      'number' => null,
+      'case' => null,
+      'article' => Inflection::ARTICLE_NONE,
+    ],
     self::DEC_INVARIABLE => [
-      // no other restrictions
+      // no restrictions -- ordering by inflection rank should suffice
     ],
     self::DEC_INVARIABLE_PLURAL => [
       'number' => Inflection::NUMBER_PLURAL,
@@ -54,39 +74,20 @@ class Fragment extends BaseObject implements DatedObject {
   //
   // decide which inflection of the part lexeme we need to look at
   static function getInflection($infl, $partModelType, $declension) {
-    if (array_key_exists($declension, self::$INV_RULES)) {
-      // return the lowest rank inflection
-      $query =  Model::factory('Inflection')
-             ->table_alias('i')
-             ->select('i.*')
-             ->join('ModelType', ['i.modelType', '=', 'mt.canonical'], 'mt')
-             ->where('mt.code', $partModelType);
+    $query = Model::factory('Inflection')
+           ->table_alias('i')
+           ->select('i.*')
+           ->join('ModelType', ['i.modelType', '=', 'mt.canonical'], 'mt')
+           ->where('mt.code', $partModelType);
 
-      foreach (self::$INV_RULES[$declension] as $field => $value) {
-        $query = $query->where($field, $value);
+    foreach (self::$INV_RULES[$declension] as $field => $value) {
+      if ($value === null) {
+        $value = $infl->$field; // mimic compund inflection
       }
-
-      return $query->order_by_asc('i.rank')->find_one();
+      $query = $query->order_by_expr("(`{$field}` = {$value}) desc");
     }
 
-    // obey DEC_ARTICLE and DEC_NO_ARTICLE
-    switch ($declension) {
-      case self::DEC_FULL: $desiredArticle = $infl->article; break;
-      case self::DEC_ARTICLE: $desiredArticle = Inflection::ARTICLE_DEFINITE; break;
-      case self::DEC_NO_ARTICLE: $desiredArticle = Inflection::ARTICLE_NONE; break;
-    }
-
-    return Model::factory('Inflection')
-      ->table_alias('i')
-      ->select('i.*')
-      ->join('ModelType', ['i.modelType', '=', 'mt.canonical'], 'mt')
-      ->where('mt.code', $partModelType)
-      ->order_by_expr("(gender = {$infl->gender}) desc")
-      ->order_by_expr("(number = {$infl->number}) desc")
-      ->order_by_expr("(`case` = {$infl->case}) desc")
-      ->order_by_expr("(article = {$desiredArticle}) desc")
-      ->order_by_asc('i.rank')
-      ->find_one();
+    return $query->order_by_asc('i.rank')->find_one();
   }
 }
 

@@ -374,7 +374,7 @@ class StringUtil {
 
   /* Place a css class around the accented letter */
   static function highlightAccent($s) {
-    return preg_replace("/\'(a|e|i|o|u|ă|î|â)/",
+    return preg_replace("/\'(a|e|i|o|u|ă|î|â)/i",
                         "<span class=\"accented\">\$1</span>",
                         $s);
   }

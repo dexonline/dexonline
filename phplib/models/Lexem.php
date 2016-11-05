@@ -471,7 +471,12 @@ class Lexem extends BaseObject implements DatedObject {
           }
           $f = $inflectedForm->form;
           if ($frag->capitalized) {
-            $f = AdminStringUtil::capitalize($f);
+            // the first symbol could be an apostrophe
+            if (StringUtil::startsWith($f, "'")) {
+              $f = "'" . AdminStringUtil::capitalize(substr($f, 1));
+            } else {
+              $f = AdminStringUtil::capitalize($f);
+            }
           }
           $form .= $f;
         } else {

@@ -6,19 +6,19 @@ class Fragment extends BaseObject implements DatedObject {
   public static $_table = 'Fragment';
 
   const DEC_FULL = 1;
-  const DEC_ARTICLE = 2;
-  const DEC_NO_ARTICLE = 3;
+  const DEC_NO_ARTICLE = 2;
+  const DEC_NO_ARTICLE_NOMINATIVE = 3;
   const DEC_INVARIABLE = 4;
   const DEC_INVARIABLE_PLURAL = 5;
   const DEC_INVARIABLE_DATIVE = 6;
 
   public static $DEC_NAMES = [
     self::DEC_FULL  => 'flexiune completă',
-    self::DEC_ARTICLE  => 'articulat',
     self::DEC_NO_ARTICLE  => 'nearticulat',
+    self::DEC_NO_ARTICLE_NOMINATIVE  => 'nearticulat nominativ',
     self::DEC_INVARIABLE  => 'invariabil',
     self::DEC_INVARIABLE_PLURAL  => 'invariabil plural',
-    self::DEC_INVARIABLE_DATIVE  => 'invariabil dativ',
+    self::DEC_INVARIABLE_DATIVE  => 'invariabil genitiv',
   ];
 
   // Helper table that translates compound inflections into fragment inflections.
@@ -30,16 +30,16 @@ class Fragment extends BaseObject implements DatedObject {
       'case' => null,
       'article' => null,
     ],
-    self::DEC_ARTICLE => [
-      'gender' => null,
-      'number' => null,
-      'case' => null,
-      'article' => Inflection::ARTICLE_DEFINITE,
-    ],
     self::DEC_NO_ARTICLE => [
       'gender' => null,
       'number' => null,
       'case' => null,
+      'article' => Inflection::ARTICLE_NONE,
+    ],
+    self::DEC_NO_ARTICLE_NOMINATIVE => [
+      'gender' => null,
+      'number' => null,
+      'case' => Inflection::CASE_NOMINATIVE,
       'article' => Inflection::ARTICLE_NONE,
     ],
     self::DEC_INVARIABLE => [

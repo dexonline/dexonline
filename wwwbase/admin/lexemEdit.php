@@ -21,12 +21,22 @@ $entryId = Request::get('entryId');
 $tagIds = Request::get('tagIds', []);
 
 // Paradigm parameters
-$modelType = Request::get('modelType');
-$modelNumber = Request::get('modelNumber');
-$restriction = Request::get('restriction');
+$compound = Request::has('compound');
 $sourceIds = Request::get('sourceIds', []);
 $notes = Request::get('notes');
 $isLoc = Request::has('isLoc');
+
+// Simple lexeme parameters
+$modelType = Request::get('modelType');
+$modelNumber = Request::get('modelNumber');
+$restriction = Request::get('restriction');
+
+// Compound lexeme parameters
+$compoundModelType = Request::get('compoundModelType');
+$compoundRestriction = Request::get('compoundRestriction');
+$partIds = Request::get('partIds', []);
+$declensions = Request::get('declensions', []);
+$capitalized = Request::get('capitalized');
 
 // Button parameters
 $refreshButton = Request::has('refreshButton');
@@ -61,7 +71,9 @@ if ($deleteButton) {
 if ($refreshButton || $saveButton) {
   populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
            $needsAccent, $main, $stopWord, $hyphenations, $pronunciations, $entryId,
-           $modelType, $modelNumber, $restriction, $notes, $isLoc, $sourceIds, $tagIds);
+           $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
+           $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
+           $sourceIds, $tagIds);
 
   if (validate($lexem, $original)) {
     // Case 1: Validation passed
@@ -129,7 +141,9 @@ SmartyWrap::display('admin/lexemEdit.tpl');
 // Populate lexem fields from request parameters.
 function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
                   $needsAccent, $main, $stopWord, $hyphenations, $pronunciations, $entryId,
-                  $modelType, $modelNumber, $restriction, $notes, $isLoc, $sourceIds, $tagIds) {
+                  $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
+                  $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
+                  $sourceIds, $tagIds) {
   $lexem->setForm(AdminStringUtil::formatLexem($lexemForm));
   $lexem->number = $lexemNumber;
   $lexem->description = AdminStringUtil::internalize($lexemDescription, false);
@@ -147,11 +161,25 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   $lexem->pronunciations = $pronunciations;
   $lexem->entryId = $entryId;
 
-  $lexem->modelType = $modelType;
-  $lexem->modelNumber = $modelNumber;
-  $lexem->restriction = $restriction;
+  $lexem->compound = $compound;
   $lexem->notes = $notes;
   $lexem->isLoc = $isLoc;
+
+  if ($compound) {
+    $lexem->modelType = $compoundModelType;
+    $lexem->modelNumber = 0;
+    $lexem->restriction = $compoundRestriction;
+    // create Fragments
+    $fragments = [];
+    foreach ($partIds as $i => $partId) {
+      $fragments[] = Fragment::create($partId, $declensions[$i], $capitalized[$i], $i);
+    }
+    $lexem->setFragments($fragments);
+  } else {
+    $lexem->modelType = $modelType;
+    $lexem->modelNumber = $modelNumber;
+    $lexem->restriction = $restriction;
+  }
 
   // create LexemSources
   $lexemSources = [];

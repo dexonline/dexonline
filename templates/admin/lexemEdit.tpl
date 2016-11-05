@@ -196,35 +196,111 @@
             {assign var="readonly" value=!$canEdit.loc && $lexem->isLoc}
 
             <div class="form-group">
-              <label class="col-md-3 control-label">tip + număr</label>
+              <label class="col-md-3 control-label">lexem compus</label>
 
-              <div class="col-md-9 form-inline" data-model-dropdown>
-                <input type="hidden" name="locVersion" value="6.0" data-loc-version>
+              <div class="col-md-9">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"
+                           name="compound"
+                           value="1"
+                           {if $lexem->compound}checked{/if}
+                           {if $readonly}disabled{/if}
+                           >
+                  </label>
+                </div>
+              </div>
+            </div>
 
-                <select name="modelType" class="form-control" {if $readonly}disabled{/if} data-model-type data-selected="{$lexem->modelType}">
-                </select>
+            {* Fields for simple lexemes *}
+            <div id="modelDataSimple" {if $lexem->compound}style="display: none"{/if}>
+              <div class="form-group">
+                <label class="col-md-3 control-label">tip + număr</label>
 
-                <select name="modelNumber" class="form-control" {if $readonly}disabled{/if} data-model-number data-selected="{$lexem->modelNumber}">
-                </select>
-                
-                <input type="text"
-                       class="form-control"
-                       name="restriction"
-                       value="{$lexem->restriction}"
-                       size="5"
-                       placeholder="restricții"
-                       {if $readonly}readonly{/if}>
+                <div class="col-md-9 form-inline" data-model-dropdown>
+                  <input type="hidden" name="locVersion" value="6.0" data-loc-version>
+
+                  <select name="modelType"
+                          class="form-control"
+                          {if $readonly}disabled{/if}
+                          data-model-type
+                          data-selected="{$lexem->modelType}">
+                  </select>
+
+                  <select name="modelNumber"
+                          class="form-control"
+                          {if $readonly}disabled{/if}
+                          data-model-number
+                          data-selected="{$lexem->modelNumber}">
+                  </select>
+                  
+                  <input type="text"
+                         class="form-control"
+                         name="restriction"
+                         value="{$lexem->restriction}"
+                         size="5"
+                         placeholder="restricții"
+                         {if $readonly}readonly{/if}>
+                </div>
+
+              </div>
+
+              {if !$readonly}
+                <div class="form-group">
+                  <div class="col-md-offset-3 col-md-9">
+                    <select class="similarLexem"></select>
+                  </div>
+                </div>
+              {/if}
+            </div>
+
+            {* Fields for compound lexemes *}
+            <div id="modelDataCompound" {if !$lexem->compound}style="display: none"{/if}>
+
+              <div class="form-group">
+                <label class="col-md-3 control-label">tip</label>
+
+                <div class="col-md-9 form-inline">
+                  <select name="compoundModelType" class="form-control">
+                    {foreach $modelTypes as $mt}
+                      <option value="{$mt->code}"
+                              {if $lexem->modelType == $mt->code}selected{/if}>
+                        {$mt->code}
+                      </option>
+                    {/foreach}
+                  </select>
+
+                  <input type="text"
+                         class="form-control"
+                         name="compoundRestriction"
+                         value="{$lexem->restriction}"
+                         size="5"
+                         placeholder="restricții"
+                         {if $readonly}readonly{/if}>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-3 control-label">compus din</label>
+
+                <div class="col-md-9">
+                  <div id="fragmentContainer">
+                    {include "bits/fragment.tpl" id="stem"}
+                    {foreach $lexem->getFragments() as $fragment}
+                      {include "bits/fragment.tpl"}
+                    {/foreach}
+                  </div>
+
+                  <div class="voffset2"></div>
+
+                  <button id="addFragmentButton" class="btn btn-default btn-sm" type="button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    adaugă
+                  </button>
+                </div>
               </div>
 
             </div>
-
-            {if !$readonly}
-              <div class="form-group">
-                <div class="col-md-offset-3 col-md-9">
-                  <select class="similarLexem"></select>
-                </div>
-              </div>
-            {/if}
 
             <div class="form-group">
               <div class="col-md-offset-3 col-md-9">
@@ -242,9 +318,13 @@
               </div>
             </div>
 
+          </div>
+
+          <div class="col-md-6 form-horizontal">
+
             <div class="form-group">
-              <label class="col-md-3 control-label">surse</label>
-              <div class="col-md-9">
+              <label class="col-md-2 control-label">surse</label>
+              <div class="col-md-10">
                 <select id="sourceIds"
                         class="form-control""
                         name="sourceIds[]"
@@ -256,9 +336,7 @@
                 </select>
               </div>
             </div>
-          </div>
 
-          <div class="col-md-6 form-horizontal">
             {include "bits/fhf.tpl"
             field="notes"
             value=$lexem->notes
@@ -275,6 +353,7 @@
                           >{$lexem->comment|escape}</textarea>
               </div>
             </div>
+
           </div>
         </div>
       </div>

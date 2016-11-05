@@ -1,4 +1,7 @@
 $(function() {
+
+  var stem = null;
+
   var lexemSourceOptions = {
     ajax: { url: wwwRoot + 'ajax/getSources.php' },
     minimumInputLength: 1,
@@ -11,8 +14,16 @@ $(function() {
     placeholder: 'sau indicați un lexem similar',
     width: '250px',
   };
+  var fragmentOptions = {
+    ajax: { url: wwwRoot + 'ajax/getLexems.php' },
+    minimumInputLength: 1,
+    placeholder: 'fragment',
+    width: '100px',
+  };
 
   function init() {
+    stem = $('#stem').detach();
+
     initSelect2('#entryId', 'ajax/getEntriesById.php', {
       ajax: { url: wwwRoot + 'ajax/getEntries.php' },
       allowClear: true,
@@ -33,6 +44,13 @@ $(function() {
     $('.similarLexem')
       .select2(similarLexemOptions)
       .on('change', similarLexemChange);
+
+    $('input[name="compound"]').click(compoundToggle);
+    $('#addFragmentButton').click(addFragment);
+    $('#fragmentContainer').on('click', '.capitalized', capitalizedToggle);
+    $('#fragmentContainer').on('click', '.deleteFragmentButton', deleteFragment);
+
+    initSelect2('.fragment', 'ajax/getLexemsById.php', fragmentOptions);
   }
 
   function saveEverything() {
@@ -54,6 +72,28 @@ $(function() {
         updateModelTypeList($('*[data-model-dropdown]'));
         $('input[name="restriction"]').val(data.restriction);
       });
+  }
+
+  function compoundToggle() {
+    $('#modelDataSimple').slideToggle();
+    $('#modelDataCompound').slideToggle();
+  }
+
+  function capitalizedToggle() {
+    var value = Number($(this).is(':checked'));
+    $(this)
+      .closest('.fragmentWrapper')
+      .find('input[name="capitalized[]"]')
+      .val(value);
+  }
+
+  function addFragment() {
+    var t = stem.clone(true).appendTo('#fragmentContainer');
+    t.find('.fragment').select2(fragmentOptions);
+  }
+
+  function deleteFragment() {
+    $(this).closest('.fragmentWrapper').remove();
   }
 
   init();

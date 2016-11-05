@@ -3,7 +3,8 @@
 class InflectedForm extends BaseObject {
   public static $_table = 'InflectedForm';
 
-  public static function create($form = null, $lexemId = null, $inflectionId = null, $variant = null, $recommended = 1) {
+  public static function create($form = null, $lexemId = null, $inflectionId = null,
+                                $variant = null, $recommended = 1) {
     $if = Model::factory('InflectedForm')->create();
     $if->form = $form;
     $if->formNoAccent = str_replace("'", '', $form);

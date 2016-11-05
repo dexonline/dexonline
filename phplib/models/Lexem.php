@@ -10,6 +10,8 @@ class Lexem extends BaseObject implements DatedObject {
   private $inflectedForms = null;
   private $inflectedFormMap = null;    // Mapped by various criteria depending on the caller
   private $objectTags = null;
+  private $fragments = null;           // for compound lexemes
+  private $compoundParts = null;
   private $tags = null;
   private $animate = null;
 
@@ -61,6 +63,30 @@ class Lexem extends BaseObject implements DatedObject {
 
   function hasParadigm() {
     return $this->modelType != 'T';
+  }
+
+  function getFragments() {
+    if ($this->fragments === null) {
+      $this->fragments = Model::factory('Fragment')
+                       ->where('lexemId', $this->id)
+                       ->order_by_asc('rank')
+                       ->find_many();
+    }
+    return $this->fragments;
+  }
+
+  function setFragments($fragments) {
+    $this->fragments = $fragments;
+  }
+
+  function getCompoundParts() {
+    if ($this->compoundParts === null) {
+      $this->compoundParts = [];
+      foreach ($this->getFragments() as $f) {
+        $this->compoundParts[] = Lexem::get_by_id($f->partId);
+      }
+    }
+    return $this->compoundParts;
   }
 
   function getLexemSources() {
@@ -356,20 +382,47 @@ class Lexem extends BaseObject implements DatedObject {
 
   function generateInflectedForms() {
     if ($this->inflectedForms === null) {
-      $model = FlexModel::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
-      $inflIds = db_getArray("select distinct inflectionId from ModelDescription where modelId = {$model->id} order by inflectionId");
+
+      $this->inflectedForms = [];
 
       try {
-        $this->inflectedForms = array();
-        foreach ($inflIds as $inflId) {
-          $if = $this->generateInflectedFormWithModel($this->form, $inflId, $model->id);
-          $this->inflectedForms = array_merge($this->inflectedForms, $if);
+
+        if ($this->compound) {
+
+          // generate forms for compound lexemes
+          $inflections = Model::factory('Inflection')
+                       ->table_alias('i')
+                       ->select('i.*')
+                       ->join('ModelType', ['i.modelType', '=', 'mt.canonical'], 'mt')
+                       ->where('mt.code', $this->modelType)
+                       ->order_by_asc('i.rank')
+                       ->find_many();
+          foreach ($inflections as $i) {
+            $ifs = $this->generateCompoundForms($i);
+            $this->inflectedForms = array_merge($this->inflectedForms, $ifs);
+          }
+
+        } else {
+
+          // generate forms for simple lexemes
+
+          $model = FlexModel::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
+          $inflIds = db_getArray("select distinct inflectionId from ModelDescription " .
+                                 "where modelId = {$model->id} order by inflectionId");
+
+          foreach ($inflIds as $inflId) {
+            $ifs = $this->generateInflectedFormWithModel($this->form, $inflId, $model->id);
+            $this->inflectedForms = array_merge($this->inflectedForms, $ifs);
+          }
+
         }
+
       } catch (Exception $ignored) {
         // Make a note of the inflection we cannot generate
         $this->inflectedForms = $inflId;
       }
     }
+
     return $this->inflectedForms;
   }
 
@@ -391,8 +444,53 @@ class Lexem extends BaseObject implements DatedObject {
     return $this->getInflectedFormMap(self::METHOD_GENERATE);
   }
 
-  // Throws an exception if the given inflection cannot be generated
-  public function generateInflectedFormWithModel($form, $inflId, $modelId) {
+  function generateCompoundForms($infl) {
+    if (!ConstraintMap::validInflection($infl->id, $this->restriction)) {
+      return [];
+    }
+
+    $delimiter = (strpos($this->form, '-') === false) ? ' ' : '-';
+    $fragments = $this->getFragments();
+    $parts = $this->getCompoundParts();
+    $form = '';
+
+    $noForms = false;
+    foreach ($parts as $i => $p) {
+      $frag = $fragments[$i];
+
+      // figure out which inflection we want from the part's model type and declension
+      $targetInfl = Fragment::getInflection($infl, $p->modelType, $frag->declension);
+
+      if ($targetInfl) {
+        $inflectedForm = InflectedForm::get_by_lexemId_inflectionId_variant(
+          $p->id, $targetInfl->id, 0);
+
+        if ($inflectedForm) {
+          if ($i) {
+            $form .= $delimiter;
+          }
+          $f = $inflectedForm->form;
+          if ($frag->capitalized) {
+            $f = AdminStringUtil::capitalize($f);
+          }
+          $form .= $f;
+        } else {
+          $noForms = true;
+        }
+      } else {
+        $noForms = true;
+      }
+    }
+
+    if ($noForms) {
+      return [];
+    } else {
+      return [ InflectedForm::create($form, $this->id, $infl->id, 0, true) ];
+    }
+  }
+
+  // throws an exception if the given inflection cannot be generated
+  function generateInflectedFormWithModel($form, $inflId, $modelId) {
     $inflection = Inflection::get_by_id($inflId);
     if ($inflection->animate && !$this->isAnimate()) {
       // animate inflections, like the vocative, require the lexeme to be animate
@@ -646,6 +744,8 @@ class Lexem extends BaseObject implements DatedObject {
       InflectedForm::delete_all_by_lexemId($this->id);
       LexemSource::delete_all_by_lexemId($this->id);
       ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_LEXEM);
+      Fragment::delete_all_by_lexemId($this->id);
+      Fragment::delete_all_by_partId($this->id);
       // delete_all_by_lexemId doesn't work for FullTextIndex because it doesn't have an ID column
       Model::factory('FullTextIndex')->where('lexemId', $this->id)->delete_many();
     }
@@ -675,10 +775,15 @@ class Lexem extends BaseObject implements DatedObject {
   function deepSave() {
     $this->save();
 
+    Fragment::delete_all_by_lexemId($this->id);
     InflectedForm::delete_all_by_lexemId($this->id);
     LexemSource::delete_all_by_lexemId($this->id);
     ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_LEXEM);
 
+    foreach ($this->getFragments() as $f) {
+      $f->lexemId = $this->id;
+      $f->save();
+    }
     foreach ($this->generateInflectedForms() as $if) {
       $if->lexemId = $this->id;
       $if->save();

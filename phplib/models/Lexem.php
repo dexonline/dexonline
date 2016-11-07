@@ -475,15 +475,15 @@ class Lexem extends BaseObject implements DatedObject {
           );
         }
       } else {
-        // figure out which inflection we want from the part's model type and declension
-        $targetInfl = Fragment::getInflection($infl, $p->modelType, $frag->declension);
-        $if = InflectedForm::get_by_lexemId_inflectionId_variant($p->id, $targetInfl->id, 0);
-        if (!$if) {
-          throw new ParadigmException(
-            $infl->id,
-            "Lexemul „{$p->form}” nu generează forme utile pentru tipul de model {$this->modelType}"
-          );
-        }
+        // Load a preferred order of inflections from the part's model type and declension.
+        // Try them one by one until one generates a form.
+        $inflections = Fragment::getInflections($infl, $p->modelType, $frag->declension);
+        $i = 0;
+
+        do {
+          $if = InflectedForm::get_by_lexemId_inflectionId_variant($p->id, $inflections[$i]->id, 0);
+          $i++;
+        } while (!$if);
       }
 
       $f = $if->form;

@@ -23,20 +23,20 @@ class Fragment extends BaseObject implements DatedObject {
     self::DEC_FULL => [
       'gender' => null,
       'number' => null,
-      'case' => null,
       'article' => null,
+      'case' => null,
     ],
     self::DEC_NO_ARTICLE => [
       'gender' => null,
       'number' => null,
-      'case' => null,
       'article' => Inflection::ARTICLE_NONE,
+      'case' => null,
     ],
     self::DEC_NO_ARTICLE_NOMINATIVE => [
       'gender' => null,
       'number' => null,
-      'case' => Inflection::CASE_NOMINATIVE,
       'article' => Inflection::ARTICLE_NONE,
+      'case' => Inflection::CASE_NOMINATIVE,
     ],
     self::DEC_INVARIABLE => [
       // special case, handled in Lexem.php
@@ -58,8 +58,10 @@ class Fragment extends BaseObject implements DatedObject {
   // * the model type of the part lexeme,
   // * and the declension type for the part lexeme,
   //
-  // decide which inflection of the part lexeme we need to look at
-  static function getInflection($infl, $partModelType, $declension) {
+  // decide which inflection of the part lexeme we need to look at.
+  // Returns all the legal inflections in decreasing order of desirability.
+  // This helps with lexemes that don't have all the forms (e.g. vocative is missing).
+  static function getInflections($infl, $partModelType, $declension) {
     $query = Model::factory('Inflection')
            ->table_alias('i')
            ->select('i.*')
@@ -73,7 +75,7 @@ class Fragment extends BaseObject implements DatedObject {
       $query = $query->order_by_expr("(`{$field}` = {$value}) desc");
     }
 
-    return $query->order_by_asc('i.rank')->find_one();
+    return $query->order_by_asc('i.rank')->find_many();
   }
 }
 

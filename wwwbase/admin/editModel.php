@@ -143,8 +143,9 @@ if (!$previewButton && !$saveButton) {
     $participles = loadParticiplesForVerbModel($m, $pm);
     foreach ($participles as $p) {
       $p->modelNumber = $npm->adjectiveModel;
-      $ifs = $p->generateInflectedFormMap();
-      if (!is_array($ifs)) {
+      try {
+        $p->generateInflectedFormMap();
+      } catch (ParadigmException $pe) {
         FlashMessage::add(sprintf('Nu pot declina participiul "%s" conform modelului A%s.',
                                   htmlentities($p->form), $npm->adjectiveModel));
       }

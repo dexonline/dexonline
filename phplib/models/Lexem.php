@@ -361,7 +361,8 @@ class Lexem extends BaseObject implements DatedObject {
 
   /**
    * Returns an array of InflectedForms. These can be loaded from the disk ($method = METHOD_LOAD)
-   * or generated on the fly ($method = METHOD_GENERATE);
+   * or generated on the fly ($method = METHOD_GENERATE).
+   * Throws ParadigmException for METHOD_GENERATE if any inflection cannot be generated.
    **/
   function getInflectedForms($method) {
     return ($method == self::METHOD_LOAD)
@@ -380,58 +381,51 @@ class Lexem extends BaseObject implements DatedObject {
     return ($this->inflectedForms);
   }
 
+  // throws ParadigmException if any inflection cannot be generated
   function generateInflectedForms() {
     if ($this->inflectedForms === null) {
 
       $this->inflectedForms = [];
 
-      try {
+      if ($this->compound) {
 
-        if ($this->compound) {
-
-          // generate forms for compound lexemes
-          $inflections = Model::factory('Inflection')
-                       ->table_alias('i')
-                       ->select('i.*')
-                       ->join('ModelType', ['i.modelType', '=', 'mt.canonical'], 'mt')
-                       ->where('mt.code', $this->modelType)
-                       ->order_by_asc('i.rank')
-                       ->find_many();
-          foreach ($inflections as $inflId => $i) {
-            $ifs = $this->generateCompoundForms($i);
-            $this->inflectedForms = array_merge($this->inflectedForms, $ifs);
-          }
-
-        } else {
-
-          // generate forms for simple lexemes
-
-          $model = FlexModel::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
-          $inflIds = db_getArray("select distinct inflectionId from ModelDescription " .
-                                 "where modelId = {$model->id} order by inflectionId");
-
-          foreach ($inflIds as $inflId) {
-            $ifs = $this->generateInflectedFormWithModel($this->form, $inflId, $model->id);
-            $this->inflectedForms = array_merge($this->inflectedForms, $ifs);
-          }
-
+        // generate forms for compound lexemes
+        $inflections = Model::factory('Inflection')
+                     ->table_alias('i')
+                     ->select('i.*')
+                     ->join('ModelType', ['i.modelType', '=', 'mt.canonical'], 'mt')
+                     ->where('mt.code', $this->modelType)
+                     ->order_by_asc('i.rank')
+                     ->find_many();
+        foreach ($inflections as $inflId => $i) {
+          $ifs = $this->generateCompoundForms($i);
+          $this->inflectedForms = array_merge($this->inflectedForms, $ifs);
         }
 
-      } catch (Exception $ignored) {
-        // Make a note of the inflection we cannot generate
-        $this->inflectedForms = $inflId;
+      } else {
+
+        // generate forms for simple lexemes
+
+        $model = FlexModel::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
+        $inflIds = db_getArray("select distinct inflectionId from ModelDescription " .
+                               "where modelId = {$model->id} order by inflectionId");
+
+        foreach ($inflIds as $inflId) {
+          $ifs = $this->generateInflectedFormWithModel($this->form, $inflId, $model->id);
+          $this->inflectedForms = array_merge($this->inflectedForms, $ifs);
+        }
+
       }
     }
 
     return $this->inflectedForms;
   }
 
+  // for METHOD_GENERATE, throws ParadigmException if any inflection cannot be generated
   function getInflectedFormMap($method) {
     if ($this->inflectedFormMap === null) {
       $ifs = $this->getInflectedForms($method);
-      if (is_array($ifs)) {
-        $this->inflectedFormMap = InflectedForm::mapByInflectionRank($ifs);
-      }
+      $this->inflectedFormMap = InflectedForm::mapByInflectionRank($ifs);
     }
     return $this->inflectedFormMap;
   }
@@ -440,11 +434,12 @@ class Lexem extends BaseObject implements DatedObject {
     return $this->getInflectedFormMap(self::METHOD_LOAD);
   }
 
+  // throws ParadigmException if any inflection cannot be generated
   function generateInflectedFormMap() {
     return $this->getInflectedFormMap(self::METHOD_GENERATE);
   }
 
-  // throws an exception if the given inflection cannot be generated
+  // throws ParadigmException if the given inflection cannot be generated
   function generateCompoundForms($infl) {
     if (!ConstraintMap::validInflection($infl->id, $this->restriction) ||
         ($infl->animate && !$this->isAnimate())) {
@@ -456,20 +451,28 @@ class Lexem extends BaseObject implements DatedObject {
     $chunks = preg_split('/[-\s]/', $this->formNoAccent);
 
     if (count($chunks) != count($fragments)) {
-      return [];
+      throw new ParadigmException(
+        $infl->id,
+        sprintf("Lexemul este compus din %d părți, dar ați indicat %d fragmente.",
+                count($chunks), count($fragments))
+      );
     }
 
     $forms = [];
 
     foreach ($parts as $i => $p) {
       $frag = $fragments[$i];
+      $chunk = $chunks[$i];
 
       if ($frag->declension == Fragment::DEC_INVARIABLE) {
         // make sure the corresponding chunk of $this->formNoAccent matches
         // one of the inflected forms of $p
-        $if = InflectedForm::get_by_lexemId_formNoAccent($p->id, $chunks[$i]);
+        $if = InflectedForm::get_by_lexemId_formNoAccent($p->id, $chunk);
         if (!$if) {
-          throw new Exception('foo');
+          throw new ParadigmException(
+            $infl->id,
+            "Lexemul „{$p->form}” nu generează forma „{$chunk}”."
+          );
         }
       } else {
         // figure out which inflection we want from the part's model type and declension
@@ -477,32 +480,26 @@ class Lexem extends BaseObject implements DatedObject {
         $if = InflectedForm::get_by_lexemId_inflectionId_variant($p->id, $targetInfl->id, 0);
       }
 
-      if ($if) {
-        $f = $if->form;
+      $f = $if->form;
 
-        if ($frag->capitalized) {
-          // the first symbol could be an apostrophe
-          if (StringUtil::startsWith($f, "'")) {
-            $f = "'" . AdminStringUtil::capitalize(substr($f, 1));
-          } else {
-            $f = AdminStringUtil::capitalize($f);
-          }
+      if ($frag->capitalized) {
+        // the first symbol could be an apostrophe
+        if (StringUtil::startsWith($f, "'")) {
+          $f = "'" . AdminStringUtil::capitalize(substr($f, 1));
+        } else {
+          $f = AdminStringUtil::capitalize($f);
         }
-
-        $forms[] = $f;
       }
+
+      $forms[] = $f;
     }
 
-    if (count($forms) == count($parts)) { // all lookups were successful
-      $delimiter = (strpos($this->form, '-') === false) ? ' ' : '-';
-      $f = implode($delimiter, $forms);
-      return [ InflectedForm::create($f, $this->id, $infl->id, 0, true) ];
-    } else {
-      return [];
-    }
+    $delimiter = (strpos($this->form, '-') === false) ? ' ' : '-';
+    $f = implode($delimiter, $forms);
+    return [ InflectedForm::create($f, $this->id, $infl->id, 0, true) ];
   }
 
-  // throws an exception if the given inflection cannot be generated
+  // throws ParadigmException if the given inflection cannot be generated
   function generateInflectedFormWithModel($form, $inflId, $modelId) {
     $inflection = Inflection::get_by_id($inflId);
     if ($inflection->animate && !$this->isAnimate()) {
@@ -535,14 +532,14 @@ class Lexem extends BaseObject implements DatedObject {
         $vowel = $mds[$start]->vowel;
 
         // Load and apply all the transforms from $start to $end - 1.
-        $transforms = array();
+        $transforms = [];
         for ($i = $end - 1; $i >= $start; $i--) {
           $transforms[] = Transform::get_by_id($mds[$i]->transformId);
         }
 
         $result = FlexStringUtil::applyTransforms($form, $transforms, $accentShift, $vowel);
         if (!$result) {
-          throw new Exception();
+          throw new ParadigmException($inflId, 'Nu pot genera forma.');
         }
         $ifs[] = InflectedForm::create($result, $this->id, $inflId, $variant, $recommended);
       }
@@ -555,6 +552,7 @@ class Lexem extends BaseObject implements DatedObject {
 
   /**
    * Deletes the lexem's old inflected forms, if they exist, then saves the new ones.
+   * Throws ParadigmException if any inflection cannot be generated.
    **/
   function regenerateParadigm() {
     if ($this->id) {

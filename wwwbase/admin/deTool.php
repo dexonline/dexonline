@@ -179,11 +179,6 @@ if ($saveButton) {
                ->find_one();
         $l = Lexem::create($lexem->form, $model->code, $model->number);
         $ifs = $l->generateInflectedForms();
-        if (!is_array($ifs)) {
-          $infl = Inflection::get_by_id($ifs);
-          $msg = "Lexemul „%s” nu poate fi flexionat conform modelului %s.";
-          throw new Exception(sprintf($msg, $lexem->form, $m));
-        }
       }
     }
     $passedTests = true;

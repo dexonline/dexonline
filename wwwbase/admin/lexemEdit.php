@@ -200,7 +200,11 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   }
   $lexem->setObjectTags($objectTags);
 
-  $lexem->generateInflectedFormMap();
+  try {
+    $lexem->generateInflectedFormMap();
+  } catch (ParadigmException $pe) {
+    FlashMessage::add($pe->getMessage());
+  }
 }
 
 function validate($lexem, $original) {
@@ -239,11 +243,10 @@ function validate($lexem, $original) {
     }
   }
   
-  $ifs = $lexem->generateInflectedForms();
-  if (!is_array($ifs)) {
-    $infl = Inflection::get_by_id($ifs);
-    FlashMessage::add(sprintf("Nu pot genera flexiunea '%s' conform modelului %s%s",
-                              htmlentities($infl->description), $lexem->modelType, $lexem->modelNumber));
+  try {
+    $ifs = $lexem->generateInflectedForms();
+  } catch (ParadigmException $pe) {
+    FlashMessage::add($pe->getMessage());
   }
 
   return !FlashMessage::hasErrors();

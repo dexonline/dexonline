@@ -51,7 +51,7 @@ class Lexem extends BaseObject implements DatedObject {
   function getPartOfSpeeech() {
     if ($this->modelType == 'I') {
       $model = FlexModel::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
-      return $model->description;
+      return $model ? $model->description : '';
     } else {
       return $this->getModelType()->description;
     }
@@ -397,7 +397,7 @@ class Lexem extends BaseObject implements DatedObject {
                        ->where('mt.code', $this->modelType)
                        ->order_by_asc('i.rank')
                        ->find_many();
-          foreach ($inflections as $i) {
+          foreach ($inflections as $inflId => $i) {
             $ifs = $this->generateCompoundForms($i);
             $this->inflectedForms = array_merge($this->inflectedForms, $ifs);
           }
@@ -444,54 +444,61 @@ class Lexem extends BaseObject implements DatedObject {
     return $this->getInflectedFormMap(self::METHOD_GENERATE);
   }
 
+  // throws an exception if the given inflection cannot be generated
   function generateCompoundForms($infl) {
     if (!ConstraintMap::validInflection($infl->id, $this->restriction) ||
         ($infl->animate && !$this->isAnimate())) {
       return [];
     }
 
-    $delimiter = (strpos($this->form, '-') === false) ? ' ' : '-';
     $fragments = $this->getFragments();
-    $parts = $this->getCompoundParts();
-    $form = '';
+    $parts = $this->getCompoundParts();  // lexems
+    $chunks = preg_split('/[-\s]/', $this->formNoAccent);
 
-    $noForms = false;
+    if (count($chunks) != count($fragments)) {
+      return [];
+    }
+
+    $forms = [];
+
     foreach ($parts as $i => $p) {
       $frag = $fragments[$i];
 
-      // figure out which inflection we want from the part's model type and declension
-      $targetInfl = Fragment::getInflection($infl, $p->modelType, $frag->declension);
-
-      if ($targetInfl) {
-        $inflectedForm = InflectedForm::get_by_lexemId_inflectionId_variant(
-          $p->id, $targetInfl->id, 0);
-
-        if ($inflectedForm) {
-          if ($i) {
-            $form .= $delimiter;
-          }
-          $f = $inflectedForm->form;
-          if ($frag->capitalized) {
-            // the first symbol could be an apostrophe
-            if (StringUtil::startsWith($f, "'")) {
-              $f = "'" . AdminStringUtil::capitalize(substr($f, 1));
-            } else {
-              $f = AdminStringUtil::capitalize($f);
-            }
-          }
-          $form .= $f;
-        } else {
-          $noForms = true;
+      if ($frag->declension == Fragment::DEC_INVARIABLE) {
+        // make sure the corresponding chunk of $this->formNoAccent matches
+        // one of the inflected forms of $p
+        $if = InflectedForm::get_by_lexemId_formNoAccent($p->id, $chunks[$i]);
+        if (!$if) {
+          throw new Exception('foo');
         }
       } else {
-        $noForms = true;
+        // figure out which inflection we want from the part's model type and declension
+        $targetInfl = Fragment::getInflection($infl, $p->modelType, $frag->declension);
+        $if = InflectedForm::get_by_lexemId_inflectionId_variant($p->id, $targetInfl->id, 0);
+      }
+
+      if ($if) {
+        $f = $if->form;
+
+        if ($frag->capitalized) {
+          // the first symbol could be an apostrophe
+          if (StringUtil::startsWith($f, "'")) {
+            $f = "'" . AdminStringUtil::capitalize(substr($f, 1));
+          } else {
+            $f = AdminStringUtil::capitalize($f);
+          }
+        }
+
+        $forms[] = $f;
       }
     }
 
-    if ($noForms) {
-      return [];
+    if (count($forms) == count($parts)) { // all lookups were successful
+      $delimiter = (strpos($this->form, '-') === false) ? ' ' : '-';
+      $f = implode($delimiter, $forms);
+      return [ InflectedForm::create($f, $this->id, $infl->id, 0, true) ];
     } else {
-      return [ InflectedForm::create($form, $this->id, $infl->id, 0, true) ];
+      return [];
     }
   }
 

@@ -436,4 +436,54 @@ function util_makeSet($a) {
   return $result;
 }
 
+function util_recount() {
+  Variable::poke(
+    'Count.pendingDefinitions',
+    Model::factory('Definition')->where('status', Definition::ST_PENDING)->count()
+  );
+  Variable::poke(
+    'Count.definitionsWithTypos',
+    Model::factory('Typo')->select('definitionId')->distinct()->count()
+  );
+  Variable::poke(
+    'Count.ambiguousAbbrevs',
+    Definition::countAmbiguousAbbrevs()
+  );
+  Variable::poke(
+    'Count.rawOcrDefinitions',
+    Model::factory('OCR')->where('status', 'raw')->count()
+  );
+  // this takes about 300 ms
+  Variable::poke(
+    'Count.unassociatedDefinitions',
+    Definition::countUnassociated()
+  );
+  // this takes about 500 ms (even though the query is similar to the one for unassociated
+  // definitions)
+  Variable::poke(
+    'Count.unassociatedEntries',
+    Entry::countUnassociated()
+  );
+  Variable::poke(
+    'Count.lexemesWithoutAccent',
+    Model::factory('Lexem')->where('consistentAccent', 0)->count()
+  );
+  Variable::poke(
+    'Count.ambiguousLexemes',
+    count(Lexem::loadAmbiguous())
+  );
+  Variable::poke(
+    'Count.temporaryLexemes',
+    Model::factory('Lexem')->where('modelType', 'T')->count()
+  );
+  Variable::poke(
+    'Count.treeMentions',
+    Model::factory('Mention')->where('objectType', Mention::TYPE_TREE)->count()
+  );
+  Variable::poke(
+    'Count.lexemesWithComments',
+    Model::factory('Lexem')->where_not_null('comment')->count()
+  );
+}
+
 ?>

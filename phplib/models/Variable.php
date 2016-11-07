@@ -1,6 +1,6 @@
 <?php
 
-class Variable extends BaseObject {
+class Variable extends BaseObject implements DatedObject {
   public static $_table = 'Variable';
 
   public static function peek($name, $default = null) {

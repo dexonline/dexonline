@@ -11,11 +11,25 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         Rapoarte
+
+        <form class="pull-right">
+
+          <small class="text-muted">
+            calculate acum {($timeAgo/60)|string_format:"%d"} minute, {$timeAgo%60} secunde
+          </small>
+
+          <button type="submit" name="recountButton" class="btn btn-info btn-xs">
+            <i class="glyphicon glyphicon-repeat"></i>
+            recalculează acum
+          </button>
+
+        </form>
+
       </div>
 
       <table class="table table-condensed table-hover">
         {foreach $reports as $r}
-          {if ($r.count != '0') && ($sUser->moderator & $r.privilege)}
+          {if $r.count && ($sUser->moderator & $r.privilege)}
             <tr>
               <td>{$r.text}</td>
               <td><a href="{$wwwRoot}{$r.url}">{$r.count}</a></td>

@@ -18,7 +18,7 @@ $(function() {
     ajax: { url: wwwRoot + 'ajax/getLexems.php' },
     minimumInputLength: 1,
     placeholder: 'fragment',
-    width: '100px',
+    width: '180px',
   };
 
   function init() {
@@ -47,6 +47,7 @@ $(function() {
 
     $('input[name="compound"]').click(compoundToggle);
     $('#addFragmentButton').click(addFragment);
+    $('#autoFragmentButton').click(autoFragment);
     $('#fragmentContainer').on('click', '.capitalized', capitalizedToggle);
     $('#fragmentContainer').on('click', '.deleteFragmentButton', deleteFragment);
 
@@ -85,6 +86,35 @@ $(function() {
       .closest('.fragmentWrapper')
       .find('input[name="capitalized[]"]')
       .val(value);
+  }
+
+  function autoFragment() {
+    var parts = $('#lexemForm').val().split(/[-\s]+/);
+
+    // remove all fragments and add parts.length new ones
+    $('#fragmentContainer').empty();
+    for (var i = 0; i < parts.length; i++) {
+      addFragment();
+    }
+
+    // look up the fragments
+    parts.forEach(function(form, i) {
+      $.ajax({
+        url: wwwRoot + 'ajax/getLexemByInflectedForm.php?form=' + form,
+      }).done(function(data) {
+        if (data) {
+          $('.fragment')
+            .eq(i)
+            .append(new Option(data.text, data.id, true, true))
+            .trigger('change');
+          if (data.capitalized) {
+            $('.capitalized')
+              .eq(i)
+              .trigger('click');
+          }
+        }
+      });
+    });
   }
 
   function addFragment() {

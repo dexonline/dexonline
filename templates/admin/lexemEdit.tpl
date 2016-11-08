@@ -297,6 +297,10 @@
                     <i class="glyphicon glyphicon-plus"></i>
                     adaugă
                   </button>
+                  <button id="autoFragmentButton" class="btn btn-default btn-sm" type="button">
+                    <i class="glyphicon glyphicon-scissors"></i>
+                    autocompletează
+                  </button>
                 </div>
               </div>
 

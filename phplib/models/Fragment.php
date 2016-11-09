@@ -9,17 +9,22 @@ class Fragment extends BaseObject implements DatedObject {
   const DEC_NO_ARTICLE = 2;
   const DEC_NO_ARTICLE_NOMINATIVE = 3;
   const DEC_INVARIABLE = 4;
+  const DEC_NOMINATIVE = 5;
 
   public static $DEC_NAMES = [
+    self::DEC_INVARIABLE => 'invariabil',
     self::DEC_FULL => 'flexiune completă',
     self::DEC_NO_ARTICLE => 'nearticulat',
+    self::DEC_NOMINATIVE => 'n.-ac.',
     self::DEC_NO_ARTICLE_NOMINATIVE => 'nearticulat n.-ac.',
-    self::DEC_INVARIABLE => 'invariabil',
   ];
 
   // Helper table that translates compound inflections into fragment inflections.
   // "null" means "the fragment mimics the compound inflection".
   public static $INV_RULES = [
+    self::DEC_INVARIABLE => [
+      // special case, handled in Lexem.php
+    ],
     self::DEC_FULL => [
       'gender' => null,
       'number' => null,
@@ -32,14 +37,17 @@ class Fragment extends BaseObject implements DatedObject {
       'article' => Inflection::ARTICLE_NONE,
       'case' => null,
     ],
+    self::DEC_NOMINATIVE => [
+      'gender' => null,
+      'number' => null,
+      'article' => null,
+      'case' => Inflection::CASE_NOMINATIVE,
+    ],
     self::DEC_NO_ARTICLE_NOMINATIVE => [
       'gender' => null,
       'number' => null,
       'article' => Inflection::ARTICLE_NONE,
       'case' => Inflection::CASE_NOMINATIVE,
-    ],
-    self::DEC_INVARIABLE => [
-      // special case, handled in Lexem.php
     ],
   ];
 

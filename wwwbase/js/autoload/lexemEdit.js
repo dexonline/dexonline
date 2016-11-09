@@ -91,6 +91,10 @@ $(function() {
   function autoFragment() {
     var parts = $('#lexemForm').val().split(/[-\s]+/);
 
+    // sync the needsAccent checkbox with the lexem form
+    var hasAccent = $('#lexemForm').val().indexOf("'") != -1;
+    $('input[name="needsAccent"]').prop('checked', hasAccent);
+
     // remove all fragments and add parts.length new ones
     $('#fragmentContainer').empty();
     for (var i = 0; i < parts.length; i++) {

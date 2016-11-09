@@ -116,7 +116,7 @@ $(function() {
     }
     var newNode = stem.clone(true);
     var ul = ensureUl($('#meaningTree li.selected'));
-    newNode.appendTo(ul);
+    newNode.prependTo(ul);
     newNode.click();
     meaningTreeRenumber();
   }

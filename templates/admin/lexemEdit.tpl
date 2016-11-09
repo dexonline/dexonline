@@ -349,7 +349,7 @@
             readonly=!$canEdit.tags}
 
             <div class="form-group">
-              <label class="col-md-2">comentariu</label>
+              <label class="col-md-2">comentariu (privat)</label>
 
               <div class="col-md-10">
                 <textarea name="lexemComment" class="form-control" rows="4"

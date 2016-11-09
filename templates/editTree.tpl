@@ -223,7 +223,7 @@
               </div>
 
               <div class="form-group">
-                <label>comentariu</label>
+                <label>comentariu (public)</label>
                 <textarea id="editorComment" class="form-control" rows="3" disabled></textarea>
               </div>
             </div>

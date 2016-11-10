@@ -18,15 +18,29 @@
             {$chunk}
             {if !$smarty.foreach.iter.last}
               <hr>
-              <input type="radio" id="radio_{$i}_a" name="radio_{$i}" value="abbrev" style="display: none"/>
-              <label for="radio_{$i}_a" data-order="{$i}" data-answer="0">
-                <i class="glyphicon glyphicon-zoom-out text-danger"></i>
-              </label>
-              <span id="abrevText_{$i}" data-clicked="">{$ambiguities[$i]}</span>
-              <input type="radio" id="radio_{$i}_w" name="radio_{$i}" value="word" style="display: none"/>
-              <label for="radio_{$i}_w" data-order="{$i}" data-answer="1">
-                <i class="glyphicon glyphicon-zoom-in text-success"></i>
-              </label>
+              <div>
+                <input type="radio"
+                       id="radio_{$i}_a"
+                       name="radio_{$i}"
+                       value="abbrev"
+                       style="display: none">
+
+                <label for="radio_{$i}_a" data-order="{$i}" data-answer="0">
+                  <i class="glyphicon glyphicon-zoom-out text-danger"></i>
+                </label>
+
+                <span id="abrevText_{$i}" data-clicked="">{$ambiguities[$i]}</span>
+
+                <input type="radio"
+                       id="radio_{$i}_w"
+                       name="radio_{$i}"
+                       value="word"
+                       style="display: none">
+
+                <label for="radio_{$i}_w" data-order="{$i}" data-answer="1">
+                  <i class="glyphicon glyphicon-zoom-in text-success"></i>
+                </label>
+              </div>
             {/if}
           </span>
         {/foreach}

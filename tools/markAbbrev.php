@@ -11,7 +11,7 @@ foreach ($dbResult as $row) {
   $ambiguousMatches = array();
   // Remove existing hash signs
   $newRep = str_replace('#', '', $def->internalRep);
-  $newRep = AdminStringUtil::internalizeDefinition($newRep, $def->sourceId, $ambiguousMatches);
+  $newRep = AdminStringUtil::sanitize($newRep, $def->sourceId, $ambiguousMatches);
   if (count($ambiguousMatches) || ($newRep !== $def->internalRep)) {
     print "{$def->id} {$newRep}\n";
   }

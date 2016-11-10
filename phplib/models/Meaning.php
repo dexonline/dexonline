@@ -26,11 +26,11 @@ class Meaning extends BaseObject implements DatedObject {
          ? self::get_by_id($tuple->id)
          : Model::factory('Meaning')->create();
 
-      $m->internalRep = $tuple->internalRep;
+      $m->internalRep = AdminStringUtil::sanitize($tuple->internalRep);
       $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
-      $m->internalEtymology = $tuple->internalEtymology;
+      $m->internalEtymology = AdminStringUtil::sanitize($tuple->internalEtymology);
       $m->htmlEtymology = AdminStringUtil::htmlize($m->internalEtymology, 0);
-      $m->internalComment = $tuple->internalComment;
+      $m->internalComment = AdminStringUtil::sanitize($tuple->internalComment);
       $m->htmlComment = AdminStringUtil::htmlize($m->internalComment, 0);
 
       $row['meaning'] = $m;
@@ -68,11 +68,11 @@ class Meaning extends BaseObject implements DatedObject {
       $m->breadcrumb = $tuple->breadcrumb;
       $m->userId = session_getUserId();
       $m->treeId = $tree->id;
-      $m->internalRep = $tuple->internalRep;
+      $m->internalRep = AdminStringUtil::sanitize($tuple->internalRep);
       $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
-      $m->internalEtymology = $tuple->internalEtymology;
+      $m->internalEtymology = AdminStringUtil::sanitize($tuple->internalEtymology);
       $m->htmlEtymology = AdminStringUtil::htmlize($m->internalEtymology, 0);
-      $m->internalComment = $tuple->internalComment;
+      $m->internalComment = AdminStringUtil::sanitize($tuple->internalComment);
       $m->htmlComment = AdminStringUtil::htmlize($m->internalComment, 0);
       $m->save();
       $meaningStack[$tuple->level] = $m->id;

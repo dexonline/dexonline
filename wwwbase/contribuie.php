@@ -10,7 +10,7 @@ $sendButton = Request::has('send');
 if ($sendButton) {
   session_setSourceCookie($sourceId);
   $ambiguousMatches = array();
-  $def = AdminStringUtil::internalizeDefinition($def, $sourceId, $ambiguousMatches);
+  $def = AdminStringUtil::sanitize($def, $sourceId, $ambiguousMatches);
 
   if (!count($lexemIds)) {
     FlashMessage::add('Trebuie să introduceți un cuvânt-titlu.');

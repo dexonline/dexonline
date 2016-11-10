@@ -36,7 +36,7 @@ $searchResults = SearchResult::mapDefinitionArray($defs);
 foreach ($defs as $def) {
   $def->internalRep = str_replace($search, $replace, $def->internalRep);
   $ambiguousMatches = [];
-  $def->internalRep = AdminStringUtil::internalizeDefinition(
+  $def->internalRep = AdminStringUtil::sanitize(
     $def->internalRep, $def->sourceId, $ambiguousMatches);
   $def->htmlRep = AdminStringUtil::htmlize($def->internalRep, $def->sourceId);
 

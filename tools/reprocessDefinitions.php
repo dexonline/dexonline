@@ -6,7 +6,7 @@ $i = 0;
 $modified = 0;
 foreach ($dbResult as $row) {
   $def = Model::factory('Definition')->create($row);
-  $newRep = AdminStringUtil::internalizeDefinition($def->internalRep, $def->sourceId);
+  $newRep = AdminStringUtil::sanitize($def->internalRep, $def->sourceId);
   $newHtmlRep = AdminStringUtil::htmlize($newRep, $def->sourceId);
   if ($newRep !== $def->internalRep || $newHtmlRep !== $def->htmlRep) {
     $modified++;

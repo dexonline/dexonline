@@ -40,7 +40,7 @@ foreach ($lines as $count => $line) {
 			    '@ $vb.$ ', '@ $loc.$ ', ', -~A@ '),
 		      $line);
   verify_alpha($line, $count);
-  $line = text_internalizeDefinition($line);
+  $line = text_sanitize($line);
   $d = new Definition();
   $d->userId = $radu->id;
   $d->sourceId = $mdnSrc->id;

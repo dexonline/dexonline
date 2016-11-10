@@ -16,7 +16,7 @@ if (!$definitionId) {
   // Found one, create the Definition and update the OCR.
   $ambiguousMatches = [];
   $sourceId = $ocr->sourceId;
-  $def = AdminStringUtil::internalizeDefinition($ocr->ocrText, $sourceId, $ambiguousMatches);
+  $def = AdminStringUtil::sanitize($ocr->ocrText, $sourceId, $ambiguousMatches);
 
   $d = Model::factory('Definition')->create();
   $d->status = Definition::ST_ACTIVE;
@@ -66,7 +66,7 @@ $commentUser = $comment ? User::get_by_id($comment->userId) : null;
 
 if ($saveButton || $nextOcrBut) {
   $errors = [];
-  $d->internalRep = AdminStringUtil::internalizeDefinition($internalRep, $sourceId);
+  $d->internalRep = AdminStringUtil::sanitize($internalRep, $sourceId);
   $d->htmlRep = AdminStringUtil::htmlize($d->internalRep, $sourceId, $errors);
   foreach ($errors as $error) {
     FlashMessage::add($error);
@@ -85,7 +85,7 @@ if ($saveButton || $nextOcrBut) {
       $comment->status = Definition::ST_ACTIVE;
       $comment->definitionId = $d->id;
     }
-    $newContents = AdminStringUtil::internalizeDefinition($commentContents, $sourceId);
+    $newContents = AdminStringUtil::sanitize($commentContents, $sourceId);
     if ($newContents != $comment->contents) {
       // Comment updated
       $comment->contents = $newContents;

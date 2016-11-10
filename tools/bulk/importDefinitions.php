@@ -188,7 +188,7 @@ while ($i < count($lines)) {
   $definition->userId = $userId;
   $definition->sourceId = $sourceId;
   $definition->status = $status;
-  $definition->internalRep = AdminStringUtil::internalizeDefinition($def, $sourceId);
+  $definition->internalRep = AdminStringUtil::sanitize($def, $sourceId);
   $definition->htmlRep = AdminStringUtil::htmlize($definition->internalRep, $sourceId);
   $definition->lexicon = AdminStringUtil::extractLexicon($definition);
   $definition->save();

@@ -154,15 +154,18 @@ class AdminStringUtil {
     return $text;
   }
 
-  static function internalizeDefinition($def, $sourceId, &$ambiguousMatches = null) {
-    $def = trim($def);
-    $def = str_replace([ '$$', '@@', '%%' ], '', $def);
-    $def = self::shorthandToUnicode($def);
-    $def = self::migrateFormatChars($def);
+  // Sanitizes a definition or meaning
+  static function sanitize($s, $sourceId = null, &$ambiguousMatches = null) {
+    $s = trim($s);
+    $s = str_replace([ '$$', '@@', '%%' ], '', $s);
+    $s = self::shorthandToUnicode($s);
+    $s = self::migrateFormatChars($s);
     // Do not strip tags here. strip_tags will strip them even if they're not
     // closed, so things like "< fr." will get stripped.
-    $def = self::markAbbreviations($def, $sourceId, $ambiguousMatches);
-    return self::internalizeAllReferences($def);
+    if ($sourceId) {
+      $s = self::markAbbreviations($s, $sourceId, $ambiguousMatches);
+    }
+    return self::internalizeAllReferences($s);
   }
 
   static function migrateFormatChars($s) {

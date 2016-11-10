@@ -45,7 +45,7 @@ $to->internalRep =
   substr($to->internalRep, 0, $tstart) .
   $mid .
   substr($to->internalRep, $tstart + $tlen);
-$to->internalRep = AdminStringUtil::internalizeDefinition($to->internalRep, $to->sourceId);
+$to->internalRep = AdminStringUtil::sanitize($to->internalRep, $to->sourceId);
 $to->htmlRep = AdminStringUtil::htmlize($to->internalRep, $to->sourceId);
 $to->save();
 

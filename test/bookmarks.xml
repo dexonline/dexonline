@@ -17,12 +17,12 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>link=Adaugă la favorite</td>
-	<td>Adaugă la favorite</td>
+	<td>css=a.bookmarkAddButton &gt; span</td>
+	<td>adaugă la favorite</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=Adaugă la favorite</td>
+	<td>css=a.bookmarkAddButton</td>
 	<td></td>
 </tr>
 <tr>
@@ -32,8 +32,8 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=small</td>
-	<td>exact:Sursa: Source 1 (2010) | Adăugată de john | Id: 1 | Semnalează o greșeală | Adăugat la favorite | Permalink | Editează | Istoria definiției | Adaugă WotD</td>
+	<td>css=a.bookmarkAddButton &gt; span</td>
+	<td>adăugat la favorite</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -62,12 +62,12 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>link=Șterge</td>
-	<td>Șterge</td>
+	<td>link=șterge</td>
+	<td>șterge</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=Șterge</td>
+	<td>link=șterge</td>
 	<td></td>
 </tr>
 <tr>
@@ -87,8 +87,8 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>link=Adaugă la favorite</td>
-	<td>Adaugă la favorite</td>
+	<td>css=a.bookmarkAddButton &gt; span</td>
+	<td>adaugă la favorite</td>
 </tr>
 </tbody></table>
 </body>

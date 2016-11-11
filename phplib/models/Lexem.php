@@ -13,6 +13,8 @@ class Lexem extends BaseObject implements DatedObject {
   private $fragments = null;           // for compound lexemes
   private $compoundParts = null;
   private $tags = null;
+  private $entries = null;
+  private $entryLexems = null;
   private $animate = null;
 
   const METHOD_GENERATE = 1;
@@ -125,11 +127,32 @@ class Lexem extends BaseObject implements DatedObject {
   }
 
   function getSourceIds() {
-    $results = array();
-    foreach ($this->getSources() as $s) {
-      $results[] = $s->id;
+    return util_objectProperty($this->getSources(), 'id');
+  }
+
+  function getEntryLexems() {
+    if ($this->entryLexems === null) {
+      $this->entryLexems = EntryLexem::get_all_by_lexemId($this->id);
     }
-    return $results;
+    return $this->entryLexems;
+  }
+
+  function setEntryLexems($entryLexems) {
+    $this->entryLexems = $entryLexems;
+  }
+
+  function getEntries() {
+    if ($this->entries === null) {
+      $this->entries = [];
+      foreach ($this->getEntryLexems() as $el) {
+        $this->entries[] = Entry::get_by_id($el->entryId);
+      }
+    }
+    return $this->entries;
+  }
+
+  function getEntryIds() {
+    return util_objectProperty($this->getEntries(), 'id');
   }
 
   function getObjectTags() {
@@ -301,7 +324,8 @@ class Lexem extends BaseObject implements DatedObject {
                 ->table_alias('l')
                 ->select('l.*')
                 ->distinct()
-                ->join('EntryDefinition', ['l.entryId', '=', 'ed.entryId'], 'ed')
+                ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+                ->join('EntryDefinition', ['el.entryId', '=', 'ed.entryId'], 'ed')
                 ->join('Definition', ['ed.definitionId', '=', 'd.id'], 'd')
                 ->where_raw("$field $mysqlRegexp")
                 ->where('d.sourceId', $sourceId)
@@ -312,31 +336,7 @@ class Lexem extends BaseObject implements DatedObject {
         $result = @Model::factory('Lexem')->where_raw("$field $mysqlRegexp")->order_by_asc('formNoAccent')->limit(1000)->find_many();
       }
     } catch (Exception $e) {
-      $result = null; // Bad regexp
-    }
-    if ($useMemcache) {
-      mc_set($key, $result);
-    }
-    return $result;
-  }
-
-  public static function countRegexpMatches($regexp, $hasDiacritics, $sourceId, $useMemcache) {
-    if ($useMemcache) {
-      $key = "regexpCount_" . ($hasDiacritics ? '1' : '0') . "_" . ($sourceId ? $sourceId : 0) . "_$regexp";
-      $result = mc_get($key);
-      if ($result) {
-        return $result;
-      }
-    }
-    $mysqlRegexp = StringUtil::dexRegexpToMysqlRegexp($regexp);
-    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-    try {
-      $result = $sourceId ?
-        db_getSingleValue("select count(distinct L.id) from Lexem L join EntryDefinition ED on L.entryId = ED.entryId join Definition D on definitionId = D.id " .
-                          "where $field $mysqlRegexp and sourceId = $sourceId order by formNoAccent") :
-        Model::factory('Lexem')->where_raw("$field $mysqlRegexp")->count();
-    } catch (Exception $e) {
-      $result = 0; // Bad regexp
+      $result = []; // Bad regexp
     }
     if ($useMemcache) {
       mc_set($key, $result);
@@ -632,13 +632,15 @@ class Lexem extends BaseObject implements DatedObject {
         }
       } else {
         $lexem = Lexem::create($if->form, 'A', $pm->adjectiveModel, '', $this->isLoc);
-        $entry = Entry::createAndSave($if->formNoAccent);
-        $lexem->entryId = $entry->id;
         $lexem->deepSave();
+        $entry = Entry::createAndSave($if->formNoAccent);
+        EntryLexem::associate($entry->id, $lexem->id);
 
         // Also associate the new entry with the same definitions as $this.
-        $eds = EntryDefinition::get_all_by_entryId($this->entryId);
+        $eds = EntryDefinition::getForLexem($this);
+        Log::error(count($eds));
         foreach ($eds as $ed) {
+          Log::error("Asociez {$entry->id} cu {$ed->definitionId}");
           EntryDefinition::associate($entry->id, $ed->definitionId);
         }
         FlashMessage::add("Am creat automat lexemul {$lexem->formNoAccent} (A{$pm->adjectiveModel}) și l-am asociat cu toate definițiile verbului.", 'info');
@@ -673,12 +675,12 @@ class Lexem extends BaseObject implements DatedObject {
         }
       } else {
         $lexem = Lexem::create($if->form, 'F', $model->number, '', $this->isLoc);
-        $entry = Entry::createAndSave($if->formNoAccent);
-        $lexem->entryId = $entry->id;
         $lexem->deepSave();
+        $entry = Entry::createAndSave($if->formNoAccent);
+        EntryLexem::associate($entry->id, $lexem->id);
 
         // Also associate the new entry with the same definitions as $this.
-        $eds = EntryDefinition::get_all_by_entryId($this->entryId);
+        $eds = EntryDefinition::getForLexem($this);
         foreach ($eds as $ed) {
           EntryDefinition::associate($entry->id, $ed->definitionId);
         }
@@ -715,7 +717,7 @@ class Lexem extends BaseObject implements DatedObject {
    */
   private function _deleteDependentModels($inflId, $modelType, $modelNumbers) {
     // Load and hash all the definitionIds
-    $eds = EntryDefinition::get_all_by_entryId($this->entryId);
+    $eds = EntryDefinition::getForLexem($this);
     $defHash = [];
     foreach($eds as $ed) {
       $defHash[$ed->definitionId] = true;
@@ -732,7 +734,7 @@ class Lexem extends BaseObject implements DatedObject {
             ($l->modelType == $modelType && in_array($l->modelNumber, $modelNumbers))) {
           // If $l has the right model, delete it unless it has its own definitions
           $ownDefinitions = false;
-          $eds = EntryDefinition::get_all_by_entryId($l->entryId);
+          $eds = EntryDefinition::getForLexem($l);
           foreach ($eds as $ed) {
             if (!array_key_exists($ed->definitionId, $defHash)) {
               $ownDefinitions = true;
@@ -741,8 +743,15 @@ class Lexem extends BaseObject implements DatedObject {
 
           if (!$ownDefinitions) {
             FlashMessage::add("Am șters automat lexemul {$l->formNoAccent}.", 'info');
-            $e = Entry::get_by_id($l->entryId);
-            $e->delete();
+            $entries = Model::factory('Entry')
+                     ->table_alias('e')
+                     ->select('e.*')
+                     ->join('EntryLexem', ['e.id', '=', 'el.entryId'], 'el')
+                     ->where('el.lexemId', $l->id)
+                     ->find_many();
+            foreach ($entries as $e) {
+              $e->delete();
+            }
             $l->delete();
           }
         }
@@ -795,6 +804,7 @@ class Lexem extends BaseObject implements DatedObject {
     Fragment::delete_all_by_lexemId($this->id);
     InflectedForm::delete_all_by_lexemId($this->id);
     LexemSource::delete_all_by_lexemId($this->id);
+    EntryLexem::delete_all_by_lexemId($this->id);
     ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_LEXEM);
 
     foreach ($this->getFragments() as $f) {
@@ -804,6 +814,10 @@ class Lexem extends BaseObject implements DatedObject {
     foreach ($this->generateInflectedForms() as $if) {
       $if->lexemId = $this->id;
       $if->save();
+    }
+    foreach ($this->getEntryLexems() as $el) {
+      $el->lexemId = $this->id;
+      $el->save();
     }
     foreach ($this->getLexemSources() as $ls) {
       $ls->lexemId = $this->id;

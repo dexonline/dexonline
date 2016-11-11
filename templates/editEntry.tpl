@@ -185,6 +185,12 @@
             </div>
             <div class="checkbox">
               <label>
+                <input type="checkbox" name="cloneLexems" checked>
+                copiază asocierile cu lexeme
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
                 <input type="checkbox" name="cloneTrees" checked>
                 copiază asocierile cu arbori
               </label>

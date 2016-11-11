@@ -227,7 +227,7 @@ while ($i < count($lines)) {
     if (count($lexems)) {
       // Reuse existing lexem.
       $lexem = $lexems[0];
-      $entry = Entry::get_by_id($lexem->entryId);
+      $entry = $lexem->getEntries()[0];
       if($verbose) echo("\t\tReusing lexem {$lexem->id} ({$lexem->form})\n");
     } else {
       if($verbose) echo("\t\tCreating a new lexem for name {$name}\n");

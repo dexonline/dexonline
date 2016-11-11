@@ -24,9 +24,8 @@ $(function() {
   function init() {
     stem = $('#stem').detach();
 
-    initSelect2('#entryId', 'ajax/getEntriesById.php', {
+    initSelect2('#entryIds', 'ajax/getEntriesById.php', {
       ajax: { url: wwwRoot + 'ajax/getEntries.php' },
-      allowClear: true,
       minimumInputLength: 1,
       templateSelection: formatEntryWithEditLink,
       width: '100%',

@@ -17,7 +17,7 @@ $main = Request::has('main');
 $stopWord = Request::has('stopWord');
 $hyphenations = Request::get('hyphenations');
 $pronunciations = Request::get('pronunciations');
-$entryId = Request::get('entryId');
+$entryIds = Request::get('entryIds', []);
 $tagIds = Request::get('tagIds', []);
 
 // Paradigm parameters
@@ -70,7 +70,7 @@ if ($deleteButton) {
 
 if ($refreshButton || $saveButton) {
   populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
-           $needsAccent, $main, $stopWord, $hyphenations, $pronunciations, $entryId,
+           $needsAccent, $main, $stopWord, $hyphenations, $pronunciations, $entryIds,
            $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
            $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
            $sourceIds, $tagIds);
@@ -102,7 +102,7 @@ if ($refreshButton || $saveButton) {
   RecentLink::add("Lexem: $lexem (ID={$lexem->id})");
 }
 
-$definitions = Definition::loadByEntryId($lexem->entryId);
+$definitions = Definition::loadByEntryIds($lexem->getEntryIds());
 $searchResults = SearchResult::mapDefinitionArray($definitions);
 
 $canEdit = [
@@ -140,7 +140,7 @@ SmartyWrap::display('admin/lexemEdit.tpl');
 
 // Populate lexem fields from request parameters.
 function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
-                  $needsAccent, $main, $stopWord, $hyphenations, $pronunciations, $entryId,
+                  $needsAccent, $main, $stopWord, $hyphenations, $pronunciations, $entryIds,
                   $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
                   $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
                   $sourceIds, $tagIds) {
@@ -159,7 +159,6 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   $lexem->stopWord = $stopWord;
   $lexem->hyphenations = $hyphenations;
   $lexem->pronunciations = $pronunciations;
-  $lexem->entryId = $entryId;
 
   $lexem->compound = $compound;
   $lexem->notes = $notes;
@@ -180,6 +179,15 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
     $lexem->modelNumber = $modelNumber;
     $lexem->restriction = $restriction;
   }
+
+  // create EntryLexems
+  $entryLexems = [];
+  foreach ($entryIds as $entryId) {
+    $el = Model::factory('EntryLexem')->create();
+    $el->entryId = $entryId;
+    $entryLexems[] = $el;
+  }
+  $lexem->setEntryLexems($entryLexems);
 
   // create LexemSources
   $lexemSources = [];

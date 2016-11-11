@@ -38,13 +38,17 @@ class Definition extends BaseObject implements DatedObject {
     return $this->source;
   }
 
-  public static function loadByEntryId($entryId) {
+  public static function loadByEntryIds($entryIds) {
+    if (!count($entryIds)) {
+      return [];
+    }
+
     return Model::factory('Definition')
       ->table_alias('d')
       ->select('d.*')
       ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
       ->join('Source', ['s.id', '=', 'd.sourceId'], 's')
-      ->where('ed.entryId', $entryId)
+      ->where_in('ed.entryId', $entryIds)
       ->where_not_equal('status', self::ST_DELETED)
       ->order_by_asc('displayOrder')
       ->find_many();
@@ -117,10 +121,7 @@ class Definition extends BaseObject implements DatedObject {
     if (!count($lexems)) {
       return [];
     }
-    $entryIds = [];
-    foreach ($lexems as $lexem) {
-      $entryIds[] = $lexem->entryId;
-    }
+    $lexemIds = util_objectProperty($lexems, 'id');
 
     // Get the IDs first, then load the definitions. This prevents MySQL
     // from creating temporary tables on disk.
@@ -129,8 +130,9 @@ class Definition extends BaseObject implements DatedObject {
            ->select('d.id')
            ->distinct()
            ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
+           ->join('EntryLexem', ['ed.entryId', '=', 'el.entryId'], 'el')
            ->join('Source', ['d.sourceId', '=', 's.id'], 's')
-           ->where_in('ed.entryId', $entryIds)
+           ->where_in('el.lexemId', $lexemIds)
            ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN]);
     if ($exclude_unofficial) {
       $query = $query->where_not_equal('s.type', Source::TYPE_UNOFFICIAL);
@@ -157,8 +159,9 @@ class Definition extends BaseObject implements DatedObject {
            ->table_alias('d')
            ->select('d.*')
            ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
+           ->join('EntryLexem', ['ed.entryId', '=', 'el.entryId'], 'el')
            ->join('Source', ['d.sourceId', '=', 's.id'], 's')
-           ->where('ed.entryId', $lexem->entryId)
+           ->where('el.lexemId', $lexem->id)
            ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN]);
     if ($exclude_unofficial) {
       $query = $query->where_not_equal('s.type', Source::TYPE_UNOFFICIAL);
@@ -294,7 +297,8 @@ class Definition extends BaseObject implements DatedObject {
          ->select('d.*')
          ->distinct()
          ->join('EntryDefinition', ['ed.definitionId', '=', 'd.id'], 'ed')
-         ->join('Lexem', ['ed.entryId', '=', 'l.entryId'], 'l')
+         ->join('EntryLexem', ['el.entryId', '=', 'ed.entryId'], 'el')
+         ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
          ->where_raw("l.formNoAccent  $regexp")
          ->where('d.status', $status)
          ->where_gte('d.createDate', $beginTime)

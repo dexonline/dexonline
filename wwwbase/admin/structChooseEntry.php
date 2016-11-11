@@ -22,7 +22,7 @@ $entries = Model::factory('Entry')
 // Load the definitions for each lexem
 $searchResults = [];
 foreach ($entries as $e) {
-  $defs = Definition::loadByEntryId($e->id);
+  $defs = Definition::loadByEntryIds([$e->id]);
   $searchResults[] = SearchResult::mapDefinitionArray($defs);
 }
 

@@ -416,9 +416,9 @@ function util_makePostRequest($url, $data, $useCookies = false) {
   return $result;
 }
 
-/** Returns $obj->$prop for every $obj in $a **/
+/* Returns $obj->$prop for every $obj in $a */
 function util_objectProperty($a, $prop) {
-  $results = array();
+  $results = [];
   foreach ($a as $obj) {
     $results[] = $obj->$prop;
   }

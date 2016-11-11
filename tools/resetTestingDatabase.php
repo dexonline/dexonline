@@ -166,10 +166,10 @@ $d4 = createDefinition(
   'din', $john->id, $klingon->id, Definition::ST_ACTIVE);
 
 // lexem-definition maps
-EntryDefinition::associate($l1->entryId, $d1->id);
-EntryDefinition::associate($l2->entryId, $d2->id);
-EntryDefinition::associate($l4->entryId, $d3->id);
-EntryDefinition::associate($l5->entryId, $d4->id);
+EntryDefinition::associate($l1->getEntries()[0]->id, $d1->id);
+EntryDefinition::associate($l2->getEntries()[0]->id, $d2->id);
+EntryDefinition::associate($l4->getEntries()[0]->id, $d3->id);
+EntryDefinition::associate($l5->getEntries()[0]->id, $d4->id);
 
 // comments
 createComment('Foarte foarte gustoasă',
@@ -287,10 +287,12 @@ function createConstraints($code, $inflectionRegexp, $modelTypeRegexp, $variant)
 
 function createLexemDeep($form, $modelType, $modelNumber, $restriction, $isLoc) {
   $l = Lexem::create($form, $modelType, $modelNumber, $restriction, $isLoc);
-  $e = Entry::createAndSave($l->formNoAccent);
-  $l->entryId = $e->id;
   $l->deepSave();
-  return $l;
+  $e = Entry::createAndSave($l->formNoAccent);
+  EntryLexem::associate($e->id, $l->id);
+
+  // reload to flush the $entryLexems field
+  return Lexem::get_by_id($l->id);
 }
 
 function createDefinition($rep, $lexicon, $userId, $sourceId, $status) {

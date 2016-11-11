@@ -13,7 +13,9 @@
             <i class="glyphicon glyphicon-pencil"></i>
             editează lexemul
           </a>
-          <a class="btn btn-link" href="{$wwwRoot}editEntry.php?id={$lexem->entryId}">
+          {$eids=$lexem->getEntryIds()}
+          <a class="btn btn-link"
+             href="{$wwwRoot}editEntry.php?id={$eids[0]}">
             <i class="glyphicon glyphicon-pencil"></i>
             editează intrarea
           </a>

@@ -12,6 +12,7 @@ truncate table Definition;
 truncate table DefinitionSimple;
 truncate table Entry;
 truncate table EntryDefinition;
+truncate table EntryLexem;
 truncate table FullTextIndex;
 -- truncate table InflectedForm;
 -- truncate table Inflection;

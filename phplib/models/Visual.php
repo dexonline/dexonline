@@ -72,12 +72,22 @@ class Visual extends BaseObject implements DatedObject {
     $map = [];
 
     foreach ($lexems as $l) {
-      $vs = Visual::get_all_by_entryId($l->entryId);
+      $vs = Model::factory('Visual')
+          ->table_alias('v')
+          ->select('v.*')
+          ->join('EntryLexem', ['el.entryId', '=', 'v.entryId'], 'el')
+          ->where('el.lexemId', $l->id)
+          ->find_many();
       foreach ($vs as $v) {
         $map[$v->id] = $v;
       }
 
-      $vts = VisualTag::get_all_by_entryId($l->entryId);
+      $vts = Model::factory('VisualTag')
+           ->table_alias('vt')
+           ->select('vt.*')
+           ->join('EntryLexem', ['el.entryId', '=', 'vt.entryId'], 'el')
+           ->where('el.lexemId', $l->id)
+           ->find_many();
       foreach ($vts as $vt) {
         $v = Visual::get_by_id($vt->imageId);
         $map[$v->id] = $v;

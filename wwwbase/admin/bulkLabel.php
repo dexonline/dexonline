@@ -104,7 +104,7 @@ foreach ($lexems as $l) {
 // Load the definitions for each lexem
 $searchResults = array();
 foreach ($lexems as $l) {
-  $definitions = Definition::loadByEntryId($l->entryId);
+  $definitions = Definition::loadByEntryIds($l->getEntryIds());
   $searchResults[] = SearchResult::mapDefinitionArray($definitions);
 }
 

@@ -29,6 +29,7 @@ if ($form) {
 
 // Process the $sourceId argument
 if ($sourceId) {
+  $joins['entryLexem'] = true;
   $joins['definition'] = true;
   $where[] = "sourceId = {$sourceId}";
 }
@@ -55,12 +56,14 @@ switch ($paradigm) {
 
 // Process the $structStatus argument
 if ($structStatus) {
+  $joins['entryLexem'] = true;
   $joins['entry'] = true;
   $where[] = "e.structStatus = {$structStatus}";
 }
 
 // Process the $structuristId argument
 if ($structuristId != Entry::STRUCTURIST_ID_ANY) {
+  $joins['entryLexem'] = true;
   $joins['entry'] = true;
   $where[] = "e.structuristId = {$structuristId}";
 }
@@ -69,6 +72,7 @@ if ($structuristId != Entry::STRUCTURIST_ID_ANY) {
 if ($nick) {
   $user = User::get_by_nick($nick);
   if ($user) {
+    $joins['entryLexem'] = true;
     $joins['definition'] = true;
     $where[] = "userId = {$user->id}";
   }
@@ -85,13 +89,18 @@ $query = Model::factory('Lexem')
 // ... and joins
 foreach ($joins as $join => $ignored) {
   switch ($join) {
+    case 'entryLexem':
+      $query = $query->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el');
+      break;
+
     case 'definition':
-      $query = $query->join('EntryDefinition', ['l.entryId', '=', 'ed.entryId'], 'ed')
-        ->join('Definition', 'ed.definitionId = d.id', 'd');
+      $query = $query
+             ->join('EntryDefinition', ['el.entryId', '=', 'ed.entryId'], 'ed')
+             ->join('Definition', 'ed.definitionId = d.id', 'd');
       break;
 
     case 'entry':
-      $query = $query->join('Entry', ['l.entryId', '=', 'e.id'], 'e');
+      $query = $query->join('Entry', ['el.entryId', '=', 'e.id'], 'e');
       break;
   }
 }

@@ -71,7 +71,8 @@ if ($butPrev || $butNext) {
 $dbl = Model::factory('Lexem')
   ->table_alias('l')
   ->select('l.*')
-  ->join('EntryDefinition', ['ed.entryId', '=', 'l.entryId'], 'ed')
+  ->join('EntryLexem', ['el.lexemId', '=', 'l.id'], 'el')
+  ->join('EntryDefinition', ['ed.entryId', '=', 'el.entryId'], 'ed')
   ->where('ed.definitionId', $def->id)
   ->order_by_asc('formNoAccent')
   ->find_many();
@@ -93,11 +94,10 @@ if ($saveButton) {
 
         // Create an entry
         $e = Entry::createAndSave($lexem->formNoAccent);
-        $lexem->entryId = $e->id;
 
       } else {
         $lexem = Lexem::get_by_id($lid);
-        $e = Entry::get_by_id($lexem->entryId);
+        $e = $lexem->getEntries()[0];
       }
 
       $needsCaps = prefixMatch($m, $MODELS_TO_CAPITALIZE);
@@ -120,6 +120,7 @@ if ($saveButton) {
 
       $lexem->save();
       $lexem->regenerateParadigm();
+      EntryLexem::associate($e->id, $lexem->id);
 
       // Associate the lexem with the definition
       EntryDefinition::associate($e->id, $def->id);
@@ -129,11 +130,17 @@ if ($saveButton) {
   // Delete orphaned lexems
   if ($deleteOrphans) {
     foreach ($dbl as $l) {
-      $e = Entry::get_by_id($l->entryId);
-      $eds = EntryDefinition::get_all_by_entryId($e->id);
-      if (!count($eds)) {
+      $keepLexem = false;
+      foreach ($l->getEntries() as $e) {
+        $eds = EntryDefinition::get_all_by_entryId($e->id);
+        if (count($eds)) {
+          $keepLexem = true;
+        } else {
+          $e->delete();
+        }
+      }
+      if (!$keepLexem) {
         $l->delete();
-        $e->delete();
       }
     }
   }

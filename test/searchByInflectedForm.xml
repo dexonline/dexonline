@@ -52,13 +52,13 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//a[@data-definition-id='1']</td>
-	<td>Semnalează o greșeală</td>
+	<td>link=semnalează o greșeală</td>
+	<td>semnalează o greșeală</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>link=Permalink</td>
-	<td>Permalink</td>
+	<td>link=permalink</td>
+	<td>permalink</td>
 </tr>
 </tbody></table>
 </body>

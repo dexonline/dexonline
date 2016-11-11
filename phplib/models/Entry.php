@@ -29,7 +29,7 @@ class Entry extends BaseObject implements DatedObject {
     return $e;
   }
 
-  function _clone($cloneDefinitions, $cloneTrees) {
+  function _clone($cloneDefinitions, $cloneLexems, $cloneTrees) {
     $e = $this->parisClone();
     $e->description .= ' (CLONĂ)';
     $e->save();
@@ -38,6 +38,13 @@ class Entry extends BaseObject implements DatedObject {
       $eds = EntryDefinition::get_all_by_entryId($this->id);
       foreach ($eds as $ed) {
         EntryDefinition::associate($e->id, $ed->definitionId);
+      }
+    }
+
+    if ($cloneLexems) {
+      $els = EntryLexem::get_all_by_entryId($this->id);
+      foreach ($els as $el) {
+        EntryLexem::associate($e->id, $el->lexemId);
       }
     }
 
@@ -53,7 +60,12 @@ class Entry extends BaseObject implements DatedObject {
 
   function getLexems() {
     if ($this->lexems === null) {
-      $this->lexems = Lexem::get_all_by_entryId($this->id);
+      $this->lexems = Model::factory('Lexem')
+                    ->table_alias('l')
+                    ->select('l.*')
+                    ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+                    ->where('el.entryId', $this->id)
+                    ->find_many();
     }
     return $this->lexems;
   }
@@ -160,10 +172,9 @@ class Entry extends BaseObject implements DatedObject {
       TreeEntry::associate($te->treeId, $otherId);
     }
 
-    $lexems = Lexem::get_all_by_entryId($this->id);
-    foreach ($lexems as $l) {
-      $l->entryId = $otherId;
-      $l->save();
+    $els = EntryLexem::get_all_by_entryId($this->id);
+    foreach ($els as $el) {
+      EntryLexem::associate($otherId, $el->lexemId);
     }
 
     $visuals = Visual::get_all_by_entryId($this->id);
@@ -183,6 +194,7 @@ class Entry extends BaseObject implements DatedObject {
 
   public function delete() {
     EntryDefinition::deleteByEntryId($this->id);
+    EntryLexem::delete_all_by_entryId($this->id);
     TreeEntry::delete_all_by_entryId($this->id);
 
     // orphan Visuals and VisualTags
@@ -196,14 +208,6 @@ class Entry extends BaseObject implements DatedObject {
     foreach ($vts as $vt) {
       $vt->entryId = 0;
       $vt->save();
-    }
-
-    // do not delete the lexems for now -- just orphan them
-    $lexems = Lexem::get_all_by_entryId($this->id);
-    foreach ($lexems as $l) {
-      Log::info("Orphaned lexem {$l}");
-      $l->entryId = null;
-      $l->save();
     }
 
     Log::warning("Deleted entry {$this->id} ({$this->description})");

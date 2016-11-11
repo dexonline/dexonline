@@ -12,10 +12,11 @@ function getSimpleDefinitionsForLexemIds($lexemIds) {
           ->table_alias('ed')
           ->select('definitionId')
           ->distinct()
-          ->join('Lexem', ['ed.entryId', '=', 'l.entryId'], 'l')
+          ->join('EntryLexem', ['ed.entryId', '=', 'el.entryId'], 'el')
+          ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
           ->where_in('l.id', $lexemIds)
           ->find_many();
-  $defIds = array_map(function ($def) { return $def->definitionId; }, $defIds);
+  $defIds = util_objectProperty($defIds, 'definitionId');
     
   $defs = Model::factory('DefinitionSimple')
         ->where_in('definitionId', $defIds)

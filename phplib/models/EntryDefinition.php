@@ -41,6 +41,15 @@ class EntryDefinition extends BaseObject implements DatedObject {
     }
   }
 
+  static function getForLexem($l) {
+    return Model::factory('EntryDefinition')
+      ->table_alias('ed')
+      ->select('ed.*')
+      ->join('EntryLexem', ['ed.entryId', '=', 'el.entryId'], 'el')
+      ->where('el.lexemId', $l->id)
+      ->find_many();
+  }
+
   public function save() {
     parent::save();
     Definition::updateModDate($this->definitionId);

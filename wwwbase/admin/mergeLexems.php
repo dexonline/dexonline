@@ -9,7 +9,7 @@ $modelType = Request::get('modelType', 'M');
 $saveButton = Request::has('saveButton');
 
 if ($saveButton) {
-  $lexemsToDelete = array();
+  $lexemsToDelete = [];
   foreach ($_REQUEST as $name => $value) {
     if (StringUtil::startsWith($name, 'merge_') && $value) {
       $parts = preg_split('/_/', $name);
@@ -18,11 +18,18 @@ if ($saveButton) {
       $src = Lexem::get_by_id($parts[1]);
       $dest = Lexem::get_by_id($parts[2]);
 
+      $srcEls = EntryLexem::get_all_by_lexemId($src->id);
+      $destEls = EntryLexem::get_all_by_lexemId($dest->id);
+
       // Merge $src into $dest
-      $defs = Definition::loadByEntryId($src->entryId);
-      foreach ($defs as $def) {
-        EntryDefinition::dissociate($src->entryId, $def->id);
-        EntryDefinition::associate($dest->entryId, $def->id);
+      foreach ($srcEls as $srcEl) {
+        $eds = EntryDefinition::get_all_by_entryId($srcEl->entryId);
+        foreach ($eds as $ed) {
+          foreach ($destEls as $destEl) {
+            EntryDefinition::associate($destEl->entryId, $ed->definitionId);
+          }
+          EntryDefinition::dissociate($srcEl->entryId, $ed->definitionId);
+        }
       }
 
       // Add $dest to LOC if $src is in LOC

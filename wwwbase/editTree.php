@@ -76,7 +76,8 @@ $modelTypes = Model::factory('Lexem')
   ->table_alias('l')
   ->select('l.modelType')
   ->distinct()
-  ->where_in('entryId', $entryIds)
+  ->join('EntryLexem', ['el.lexemId', '=', 'l.id'], 'el')
+  ->where_in('el.entryId', $entryIds)
   ->order_by_asc('modelType')
   ->find_many();
 

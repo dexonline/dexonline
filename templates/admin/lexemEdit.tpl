@@ -121,12 +121,12 @@
             {/if}
 
             <div class="form-group">
-              <label for="entryId" class="col-md-2 control-label">intrare</label>
+              <label for="entryIds" class="col-md-2 control-label">intrări</label>
               <div class="col-md-10">
-                <select id="entryId" name="entryId" class="form-control">
-                  {if $lexem->entryId}
-                    <option value="{$lexem->entryId}" selected></option>
-                  {/if}
+                <select id="entryIds" name="entryIds[]" class="form-control" multiple>
+                  {foreach $lexem->getEntryIds() as $eid}
+                    <option value="{$eid}" selected></option>
+                  {/foreach}
                 </select>
               </div>
             </div>

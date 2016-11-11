@@ -53,9 +53,10 @@ if ($mergeButton) {
 
 if ($cloneButton) {
   $cloneDefinitions = Request::has('cloneDefinitions');
+  $cloneLexems = Request::has('cloneLexems');
   $cloneTrees = Request::has('cloneTrees');
 
-  $newe = $e->_clone($cloneDefinitions, $cloneTrees);
+  $newe = $e->_clone($cloneDefinitions, $cloneLexems, $cloneTrees);
   Log::info("Cloned entry {$e->id} ({$e->description}), new id {$newe->id}");
   FlashMessage::add('Am clonat intrarea.', 'success');
   util_redirect("?id={$newe->id}");
@@ -97,23 +98,14 @@ if ($saveButton) {
 
     $e->save();
 
-    // dissociate the entry from the old lexems
-    foreach ($e->getLexems() as $l) {
-      $l->entryId = null;
-      $l->save();
+    // dissociate old lexems and associate new ones
+    EntryLexem::delete_all_by_entryId($e->id);
+    foreach ($lexemIds as $lid) {
+      EntryLexem::associate($e->id, $lid);
     }
 
-    // associate the entry with the new lexems
-    foreach ($lexemIds as $id) {
-      $l = Lexem::get_by_id($id);
-      $l->entryId = $e->id;
-      $l->save();
-    }
-
-    // dissociate the entry from the old trees
+    // dissociate old trees and associate new ones
     TreeEntry::delete_all_by_entryId($e->id);
-
-    // associate the entry with the new trees
     foreach ($treeIds as $tid) {
       TreeEntry::associate($tid, $e->id);
     }
@@ -137,7 +129,7 @@ foreach ($lexemIds as $lexemId) {
 }
 $modelTypes = array_unique($modelTypes);
 
-$definitions = Definition::loadByEntryId($e->id);
+$definitions = Definition::loadByEntryIds([$e->id]);
 foreach ($definitions as $def) {
   $def->internalRepAbbrev = AdminStringUtil::expandAbbreviations($def->internalRep, $def->sourceId);
   $def->htmlRepAbbrev = AdminStringUtil::htmlize($def->internalRepAbbrev, $def->sourceId);
@@ -156,16 +148,17 @@ $canEdit = [
 
 $homonymIds = [];
 foreach ($e->getLexems() as $l) {
-  $homonymLexems = Model::factory('Lexem')
-                 ->select('entryId')
-                 ->where('formNoAccent', $l->formNoAccent)
-                 ->where_not_equal('id', $l->id)
-                 ->find_array();
-  foreach ($homonymLexems as $h) {
+  $homonymEntries = Model::factory('EntryLexem')
+                  ->table_alias('el')
+                  ->select('el.entryId')
+                  ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
+                  ->where('l.formNoAccent', $l->formNoAccent)
+                  ->where_not_equal('el.entryId', $e->id)
+                  ->find_array();
+  foreach ($homonymEntries as $h) {
     $homonymIds[$h['entryId']] = true;
   }
 }
-unset($homonymIds[$e->id]);
 
 if (count($homonymIds)) {
   $homonyms = Model::factory('Entry')

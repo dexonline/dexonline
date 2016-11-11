@@ -3,7 +3,7 @@ require_once("../../phplib/util.php");
 
 $lexemId = Request::get('lexemId');
 $lexem = Lexem::get_by_id($lexemId);
-$defs = Definition::loadByEntryId($lexem->entryId);
+$defs = Definition::loadByEntryIds($lexem->getEntryIds());
 $searchResults = SearchResult::mapDefinitionArray($defs);
 
 SmartyWrap::assign('results', $searchResults);

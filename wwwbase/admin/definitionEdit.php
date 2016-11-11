@@ -110,9 +110,9 @@ if ($saveButton || $nextOcrBut) {
         $form = substr($entryId, 1);
         $l = Lexem::create($form, 'T', '1');
         $e = Entry::createAndSave($l->formNoAccent);
-        $l->entryId = $e->id;
         $l->save();
         $l->regenerateParadigm();
+        EntryLexem::associate($e->id, $l->id);
 
         if (strpos($form, "'") === false) {
           $noAccentNag = true;

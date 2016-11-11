@@ -109,8 +109,8 @@ SmartyWrap::assign('src_selected', $sourceId);
 // Regular expressions
 if ($hasRegexp) {
   $searchType = SEARCH_REGEXP;
-  $numResults = Lexem::countRegexpMatches($cuv, $hasDiacritics, $sourceId, true);
   $lexems = Lexem::searchRegexp($cuv, $hasDiacritics, $sourceId, true);
+  $numResults = count($lexems);
   SmartyWrap::assign('numResults', $numResults);
   SmartyWrap::assign('lexems', $lexems);
   if (!$numResults) {

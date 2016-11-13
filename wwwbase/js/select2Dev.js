@@ -60,13 +60,14 @@ function initSelect2(sel, url, options) {
       var s = $(sel);
       s.select2(options);
       makeSortable(s);
+      makeClickable(s);
     });
 }
 
 // Make values sortable. The trick here is to make the <select> options mirror
 // the value order.
 function makeSortable(s) {
-  s.parent().find("ul.select2-selection__rendered").sortable({
+  s.parent().find('ul.select2-selection__rendered').sortable({
     containment: 'parent',
 
     start: function(e, ui) {
@@ -76,7 +77,7 @@ function makeSortable(s) {
 
     update: function(e, ui) {
       var oldIndex = $(this).attr('data-old-index');
-      // sometimes index() returns a value equal to length, not length -1
+      // sometimes index() returns a value equal to length, not length - 1
       var newIndex = Math.min(ui.item.index(), s.children().length - 1);
 
       $(this).removeAttr('data-old-index');
@@ -88,6 +89,36 @@ function makeSortable(s) {
         s.children().eq(newIndex - 1).after(o);
       }
       s.trigger('change'); // make this count as a change in the meaning tree editor
+    }
+  });
+}
+
+// Allow sorting of select2 options by clicking on them and using the arrow keys
+function makeClickable(s) {
+  s.parent().on('click', 'li.select2-selection__choice', function() {
+    $(this).siblings().removeClass('select2-highlighted');
+    $(this).addClass('select2-highlighted');
+  });
+  s.parent().on('keyup', '.select2-container', function(e) {
+    var o = $(this).find('.select2-highlighted');
+    if (o.length) {
+      var index = o.index();
+      var length = s.children().length;
+      var opt = s.children().eq(index); // <select> option
+
+      var step = 0;
+      if ((e.keyCode == 37) && (index > 0)) {
+        opt.prev().before(opt);
+        step = -1;
+      } else if ((e.keyCode == 39) && (index < length - 1)) {
+        opt.next().after(opt);
+        step = 1;
+      }
+
+      if (step) {
+        s.trigger('change');
+        $(this).find('.select2-selection__choice').eq(index + step).addClass('select2-highlighted');
+      }
     }
   });
 }

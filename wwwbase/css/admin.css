@@ -12,3 +12,9 @@ main a:visited {
   margin-top: 0;
   margin-bottom: 0.8em;
 }
+
+.select2-container--default
+.select2-selection--multiple
+.select2-selection__choice.select2-highlighted {
+  background-color: #aaa;
+}

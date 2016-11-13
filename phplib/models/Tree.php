@@ -24,11 +24,12 @@ class Tree extends BaseObject implements DatedObject {
   function getEntries() {
     if ($this->entries === null) {
       $this->entries = Model::factory('Entry')
-                   ->table_alias('e')
-                   ->select('e.*')
-                   ->join('TreeEntry', ['te.entryId', '=', 'e.id'], 'te')
-                   ->where('te.treeId', $this->id)
-                   ->find_many();
+                     ->table_alias('e')
+                     ->select('e.*')
+                     ->join('TreeEntry', ['te.entryId', '=', 'e.id'], 'te')
+                     ->where('te.treeId', $this->id)
+                     ->order_by_asc('te.id')
+                     ->find_many();
     }
     return $this->entries;
   }

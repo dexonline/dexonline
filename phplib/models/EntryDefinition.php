@@ -1,25 +1,7 @@
 <?php
 
-class EntryDefinition extends BaseObject implements DatedObject {
+class EntryDefinition extends Association implements DatedObject {
   public static $_table = 'EntryDefinition';
-
-  public static function associate($entryId, $definitionId) {
-    // The definition and the entry should exist
-    $definition = Definition::get_by_id($definitionId);
-    $entry = Entry::get_by_id($entryId);
-    if (!$definition || !$entry) {
-      return;
-    }
-
-    // The association itself should not exist.
-    $ed = self::get_by_entryId_definitionId($entryId, $definitionId);
-    if (!$ed) {
-      $ed = Model::factory('EntryDefinition')->create();
-      $ed->entryId = $entryId;
-      $ed->definitionId = $definitionId;
-      $ed->save();
-    }
-  }
 
   public static function dissociate($entryId, $definitionId) {
     self::delete_all_by_entryId_definitionId($entryId, $definitionId);

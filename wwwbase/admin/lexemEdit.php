@@ -183,18 +183,14 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   // create EntryLexems
   $entryLexems = [];
   foreach ($entryIds as $entryId) {
-    $el = Model::factory('EntryLexem')->create();
-    $el->entryId = $entryId;
-    $entryLexems[] = $el;
+    $entryLexems[] = EntryLexem::create($entryId, null);
   }
   $lexem->setEntryLexems($entryLexems);
 
   // create LexemSources
   $lexemSources = [];
   foreach ($sourceIds as $sourceId) {
-    $ls = Model::factory('LexemSource')->create();
-    $ls->sourceId = $sourceId;
-    $lexemSources[] = $ls;
+    $lexemSources[] = LexemSource::create(null, $sourceId);
   }
   $lexem->setLexemSources($lexemSources);
 

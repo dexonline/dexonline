@@ -29,7 +29,16 @@ abstract class Association extends BaseObject {
     ];
   }
 
-  public static function associate($id1, $id2) {
+  static function create($id1, $id2) {
+    $f = static::getFields();
+
+    $a = Model::factory(static::$_table)->create();
+    $a->set($f['field1'], $id1);
+    $a->set($f['field2'], $id2);
+    return $a;
+  }
+
+  static function associate($id1, $id2) {
     $f = static::getFields();
 
     // The two objects should exist
@@ -45,21 +54,45 @@ abstract class Association extends BaseObject {
        ->where($f['field2'], $id2)
        ->find_one();
     if (!$a) {
-      $a = Model::factory(static::$_table)->create();
-      $a->set($f['field1'], $id1);
-      $a->set($f['field2'], $id2);
+      $a = static::create($id1, $id2);
       $a->save();
     }
 
   }
 
-  public static function dissociate($id1, $id2) {
+  static function dissociate($id1, $id2) {
     $f = static::getFields();
 
     Model::factory(static::$_table)
-       ->where($f['field1'], $id1)
-       ->where($f['field2'], $id2)
-       ->delete_many();
+      ->where($f['field1'], $id1)
+      ->where($f['field2'], $id2)
+      ->delete_many();
+  }
+
+  /**
+   * One of the arguments is an array and the other one is a numeric ID.
+   * Delete all the associations of the numeric ID and reassociate it with every value in the array.
+   **/
+  static function wipeAndRecreate($val1, $val2) {
+    $f = static::getFields();
+
+    if (is_array($val1)) {
+      Model::factory(static::$_table)
+        ->where($f['field2'], $val2)
+        ->delete_many();
+
+      foreach ($val1 as $x) {
+        self::associate($x, $val2);
+      }
+    } else {
+      Model::factory(static::$_table)
+        ->where($f['field1'], $val1)
+        ->delete_many();
+
+      foreach ($val2 as $x) {
+        self::associate($val1, $x);
+      }
+    }
   }
 
   function save() {

@@ -52,13 +52,7 @@ if ($saveButton) {
   } else {
     $t->save();
 
-    // dissociate the tree from the old entries
-    TreeEntry::delete_all_by_treeId($t->id);
-
-    // associate the tree with the new entries
-    foreach ($entryIds as $eid) {
-      TreeEntry::associate($t->id, $eid);
-    }
+    TreeEntry::wipeAndRecreate($t->id, $entryIds);
 
     Meaning::saveTree($meanings, $t);
 

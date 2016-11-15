@@ -3,10 +3,11 @@
 require_once __DIR__ . "/../phplib/util.php";
 Log::notice('started');
 
-define('CATEGORY_LISTING_URL', 'http://wiki.dexonline.ro/api.php?action=query&list=categorymembers&cmtitle=Categorie:Sincronizare&cmlimit=max&cmsort=timestamp&cmdir=desc&format=xml');
-define('PAGE_LISTING_URL', 'http://wiki.dexonline.ro/api.php?action=query&pageids=%s&prop=info&inprop=url&format=xml');
-define('PARSER_URL', 'http://wiki.dexonline.ro/api.php');
-define('PAGE_RAW_URL', 'http://wiki.dexonline.ro/index.php?action=raw&curid=%d');
+define('WIKI_BASE', 'http://wiki.dexonline.ro');
+define('CATEGORY_LISTING_URL', WIKI_BASE . '/api.php?action=query&list=categorymembers&cmtitle=Categorie:Sincronizare&cmlimit=max&cmsort=timestamp&cmdir=desc&format=xml');
+define('PAGE_LISTING_URL', WIKI_BASE . '/api.php?action=query&pageids=%s&prop=info&inprop=url&format=xml');
+define('PARSER_URL', WIKI_BASE . '/api.php');
+define('PAGE_RAW_URL', WIKI_BASE . '/index.php?action=raw&curid=%d');
 
 $options = getopt('', ['force']);
 $force = array_key_exists('force', $options);
@@ -17,6 +18,7 @@ if ($xml === false) {
   Log::error('Cannot get category listing from ' . CATEGORY_LISTING_URL);
   exit(1);
 }
+
 $pageIds = [];
 $pageIdHash = [];
 foreach ($xml->query->categorymembers->cm as $cm) {
@@ -153,6 +155,10 @@ function parse($text) {
   $html = html_entity_decode($html);
 
   // Postprocessing
+  //Use media files from wiki
+  $html = preg_replace('/src="\/(.*)\.(jpg|png|gif)"/', 'src="' . WIKI_BASE . '/$1.$2"', $html);
+  $html = preg_replace('/href="\/(.*)\.(jpg|png|gif)"/', 'href="' . WIKI_BASE . '/$1.$2"', $html);
+
   // Convert links to other articles, even if they are not under [[Categorie:Sincronizare]]
   $html = str_replace('href="/wiki/', 'href="/articol/', $html);
 

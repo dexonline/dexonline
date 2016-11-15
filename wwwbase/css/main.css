@@ -232,3 +232,30 @@ p.text-big {
 .voffset7 { margin-top: 80px; }
 .voffset8 { margin-top: 100px; }
 .voffset9 { margin-top: 150px; }
+
+/* articles images (imported from wiki */
+
+div.tright {
+  margin: .5em 0 1.3em 1.4em;
+  clear: right;
+  float: right;
+}
+
+div.thumb {
+  margin-bottom: .5em;
+  width: auto;
+  background-color: transparent;
+}
+
+html .thumbimage {
+  border: 1px solid #ccc;
+}
+
+div.thumbinner {
+  border: 1px solid #ccc;
+  padding: 3px;
+  background-color: #f9f9f9;
+  font-size: 94%;
+  text-align: center;
+  overflow: hidden;
+}

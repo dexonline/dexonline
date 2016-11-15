@@ -82,7 +82,7 @@ $passedTests = false;
 
 if ($saveButton) {
   // Dissociate all entries
-  EntryDefinition::deleteByDefinitionId($def->id);
+  EntryDefinition::delete_all_by_definitionId($def->id);
 
   foreach ($lexemIds as $i => $lid) {
     if ($lid) {

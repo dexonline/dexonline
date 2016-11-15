@@ -2,7 +2,7 @@
 
 /**
  * An Association is a table / class that stores many-to-many mappings between
- * two other classes.
+ * two other classes. Assumes that the two classes implement DatedObject.
  **/
 abstract class Association extends BaseObject {
   public static $_table;
@@ -14,7 +14,7 @@ abstract class Association extends BaseObject {
   // * its fields are 'fooId' and 'barId'
   // * the corresponding tables are 'Foo' and 'Bar' with the primary key field 'id'.
   protected static function getFields() {
-    preg_match_all('/((?:^|[A-Z])[a-z]+)/', static::$_table, $matches);
+    preg_match_all('/([A-Z][a-z]+)/', static::$_table, $matches);
 
     if (!isset($matches[0]) || (count($matches[0]) != 2)) {
       throw new Exception(sprintf('Cannot parse default class/field names for association "%s"',
@@ -52,6 +52,36 @@ abstract class Association extends BaseObject {
     }
 
   }
+
+  public static function dissociate($id1, $id2) {
+    $f = static::getFields();
+
+    Model::factory(static::$_table)
+       ->where($f['field1'], $id1)
+       ->where($f['field2'], $id2)
+       ->delete_many();
+  }
+
+  function save() {
+    $f = static::getFields();
+
+    parent::save();
+    self::updateModDate($f['class1'], $this->get($f['field1']));
+    self::updateModDate($f['class2'], $this->get($f['field2']));
+  }
+
+  function delete() {
+    $f = static::getFields();
+
+    self::updateModDate($f['class1'], $this->get($f['field1']));
+    self::updateModDate($f['class2'], $this->get($f['field2']));
+    parent::delete();
+  }
+
+  static function updateModDate($class, $id) {
+    return db_execute("update {$class} set modDate = unix_timestamp() where id = {$id}");
+  }
+
 }
 
 ?>

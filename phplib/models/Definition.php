@@ -368,11 +368,6 @@ class Definition extends BaseObject implements DatedObject {
     return $result;
   }
 
-  public static function updateModDate($defId) {
-    $modDate = time();
-    return db_execute("update Definition set modDate = '$modDate' where id = '$defId'");
-  }
-
   public function save() {
     $this->modUserId = session_getUserId();
     return parent::save();

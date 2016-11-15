@@ -638,9 +638,7 @@ class Lexem extends BaseObject implements DatedObject {
 
         // Also associate the new entry with the same definitions as $this.
         $eds = EntryDefinition::getForLexem($this);
-        Log::error(count($eds));
         foreach ($eds as $ed) {
-          Log::error("Asociez {$entry->id} cu {$ed->definitionId}");
           EntryDefinition::associate($entry->id, $ed->definitionId);
         }
         FlashMessage::add("Am creat automat lexemul {$lexem->formNoAccent} (A{$pm->adjectiveModel}) și l-am asociat cu toate definițiile verbului.", 'info');

@@ -1,6 +1,6 @@
 <?php
 
-class Source extends BaseObject {
+class Source extends BaseObject implements DatedObject {
   public static $_table = 'Source';
 
   const TYPE_UNOFFICIAL = 0;

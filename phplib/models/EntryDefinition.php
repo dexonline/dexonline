@@ -3,11 +3,6 @@
 class EntryDefinition extends Association implements DatedObject {
   public static $_table = 'EntryDefinition';
 
-  public static function dissociate($entryId, $definitionId) {
-    self::delete_all_by_entryId_definitionId($entryId, $definitionId);
-    Definition::updateModDate($definitionId);
-  }
-
   public static function dissociateDefinition($definitionId) {
     // If by deleting this definition, any associated entries become unassociated, delete them
     $eds = EntryDefinition::get_all_by_definitionId($definitionId);
@@ -32,23 +27,6 @@ class EntryDefinition extends Association implements DatedObject {
       ->find_many();
   }
 
-  public function save() {
-    parent::save();
-    Definition::updateModDate($this->definitionId);
-  }  
-
-  public static function deleteByEntryId($entryId) {
-    $eds = self::get_all_by_entryId($entryId);
-    foreach ($eds as $ed) {
-      Definition::updateModDate($ed->definitionId);
-      $ed->delete();
-    }
-  }
-
-  public static function deleteByDefinitionId($definitionId) {
-    Definition::updateModDate($definitionId);
-    self::delete_all_by_definitionid($definitionId);
-  }
 }
 
 ?>

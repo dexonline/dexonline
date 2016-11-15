@@ -193,7 +193,7 @@ class Entry extends BaseObject implements DatedObject {
   }
 
   public function delete() {
-    EntryDefinition::deleteByEntryId($this->id);
+    EntryDefinition::delete_all_by_entryId($this->id);
     EntryLexem::delete_all_by_entryId($this->id);
     TreeEntry::delete_all_by_entryId($this->id);
 

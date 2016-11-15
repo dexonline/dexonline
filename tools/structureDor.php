@@ -404,10 +404,7 @@ foreach ($defs as $i => $defId) {
 		$m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
 		$m->save();
 
-		$ms = Model::factory('MeaningSource')->create();
-		$ms->meaningId = $m->id;
-		$ms->sourceId = $DOR_SOURCE_ID;
-		$ms->save();
+    MeaningSource::associate($m->id, $DOR_SOURCE_ID);
 
 		Log::info("Symbol meaning [{$symbol}] on lexem {$l} for definition " .
 			  "{$d->internalRep}");
@@ -488,7 +485,7 @@ function associateHomonyms($d, $fieldToMatch, $form, &$lexems, &$lexemIds,
     foreach ($inflectedForms as $if) {
       $currentSet = [];
       foreach ($lexems as $l) {
-	$currentSet[] = (string)$l;
+        $currentSet[] = (string)$l;
       }
       $currentSet = implode(', ', $currentSet);
 

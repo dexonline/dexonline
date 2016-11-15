@@ -35,24 +35,15 @@ class Entry extends BaseObject implements DatedObject {
     $e->save();
 
     if ($cloneDefinitions) {
-      $eds = EntryDefinition::get_all_by_entryId($this->id);
-      foreach ($eds as $ed) {
-        EntryDefinition::associate($e->id, $ed->definitionId);
-      }
+      EntryDefinition::copy($this->id, $e->id, 1);
     }
 
     if ($cloneLexems) {
-      $els = EntryLexem::get_all_by_entryId($this->id);
-      foreach ($els as $el) {
-        EntryLexem::associate($e->id, $el->lexemId);
-      }
+      EntryLexem::copy($this->id, $e->id, 1);
     }
 
     if ($cloneTrees) {
-      $tes = TreeEntry::get_all_by_entryId($this->id);
-      foreach ($tes as $te) {
-        TreeEntry::associate($te->treeId, $e->id);
-      }
+      TreeEntry::copy($this->id, $e->id, 2);
     }
 
     return $e;
@@ -162,20 +153,9 @@ class Entry extends BaseObject implements DatedObject {
   }
 
   public function mergeInto($otherId) {
-    $eds = EntryDefinition::get_all_by_entryId($this->id);
-    foreach ($eds as $ed) {
-      EntryDefinition::associate($otherId, $ed->definitionId);
-    }
-
-    $tes = TreeEntry::get_all_by_entryId($this->id);
-    foreach ($tes as $te) {
-      TreeEntry::associate($te->treeId, $otherId);
-    }
-
-    $els = EntryLexem::get_all_by_entryId($this->id);
-    foreach ($els as $el) {
-      EntryLexem::associate($otherId, $el->lexemId);
-    }
+    EntryDefinition::copy($this->id, $otherId, 1);
+    EntryLexem::copy($this->id, $otherId, 1);
+    TreeEntry::copy($this->id, $otherId, 2);
 
     $visuals = Visual::get_all_by_entryId($this->id);
     foreach ($visuals as $v) {

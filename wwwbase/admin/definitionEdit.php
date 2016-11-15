@@ -137,11 +137,7 @@ if ($saveButton || $nextOcrBut) {
     if ($d->status == Definition::ST_DELETED) {
       EntryDefinition::dissociateDefinition($d->id);
     } else {
-      // Save the associations.
-      EntryDefinition::delete_all_by_definitionId($d->id);
-      foreach ($entries as $e) {
-        EntryDefinition::associate($e->id, $d->id);
-      }
+      EntryDefinition::wipeAndRecreate(util_objectProperty($entries, 'id'), $d->id);
     }
 
     ObjectTag::wipeAndRecreate($d->id, ObjectTag::TYPE_DEFINITION, $tagIds);

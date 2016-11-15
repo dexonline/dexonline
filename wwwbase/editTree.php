@@ -52,13 +52,7 @@ if ($saveButton) {
   } else {
     $t->save();
 
-    // dissociate the tree from the old entries
-    TreeEntry::delete_all_by_treeId($t->id);
-
-    // associate the tree with the new entries
-    foreach ($entryIds as $eid) {
-      TreeEntry::associate($t->id, $eid);
-    }
+    TreeEntry::wipeAndRecreate($t->id, $entryIds);
 
     Meaning::saveTree($meanings, $t);
 
@@ -72,14 +66,18 @@ if ($saveButton) {
 }
 
 // Load the distinct model types for the entries' lexems
-$modelTypes = Model::factory('Lexem')
-  ->table_alias('l')
-  ->select('l.modelType')
-  ->distinct()
-  ->join('EntryLexem', ['el.lexemId', '=', 'l.id'], 'el')
-  ->where_in('el.entryId', $entryIds)
-  ->order_by_asc('modelType')
-  ->find_many();
+if (count($entryIds)) {
+  $modelTypes = Model::factory('Lexem')
+              ->table_alias('l')
+              ->select('l.modelType')
+              ->distinct()
+              ->join('EntryLexem', ['el.lexemId', '=', 'l.id'], 'el')
+              ->where_in('el.entryId', $entryIds)
+              ->order_by_asc('modelType')
+              ->find_many();
+} else {
+  $modelTypes = [];
+}
 
 $relatedMeanings = Model::factory('Meaning')
                  ->table_alias('m')

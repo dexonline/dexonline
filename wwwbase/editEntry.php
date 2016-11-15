@@ -98,17 +98,9 @@ if ($saveButton) {
 
     $e->save();
 
-    // dissociate old lexems and associate new ones
-    EntryLexem::delete_all_by_entryId($e->id);
-    foreach ($lexemIds as $lid) {
-      EntryLexem::associate($e->id, $lid);
-    }
-
-    // dissociate old trees and associate new ones
-    TreeEntry::delete_all_by_entryId($e->id);
-    foreach ($treeIds as $tid) {
-      TreeEntry::associate($tid, $e->id);
-    }
+    // dissociate old lexems and trees and associate new ones
+    EntryLexem::wipeAndRecreate($e->id, $lexemIds);
+    TreeEntry::wipeAndRecreate($treeIds, $e->id);
 
     FlashMessage::add('Am salvat intrarea.', 'success');
     util_redirect("?id={$e->id}");

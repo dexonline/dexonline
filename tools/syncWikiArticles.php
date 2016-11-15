@@ -156,9 +156,9 @@ function parse($text) {
 
   // Postprocessing
   //Use media files from wiki
-  $html = preg_replace('/src="\/(.*)\.(jpg|png|gif)"/', 'src="' . WIKI_BASE . '/$1.$2"', $html);
-  $html = preg_replace('/href="\/(.*)\.(jpg|png|gif)"/', 'href="' . WIKI_BASE . '/$1.$2"', $html);
-  $html = preg_replace('/srcset="(.*)"/', '', $html);
+  $html = preg_replace('/src="\/(.*?)\.(jpg|png|gif)"/', 'src="' . WIKI_BASE . '/$1.$2"', $html);
+  $html = preg_replace('/href="\/(.*?)\.(jpg|png|gif)"/', 'href="' . WIKI_BASE . '/$1.$2"', $html);
+  $html = preg_replace('/srcset="(.*?)"/', '', $html);
 
   // Convert links to other articles, even if they are not under [[Categorie:Sincronizare]]
   $html = str_replace('href="/wiki/', 'href="/articol/', $html);

@@ -95,6 +95,31 @@ abstract class Association extends BaseObject {
     }
   }
 
+  /**
+   * Copies all the associations of $srcId to $destId. $pos can be 1 (first field) or 2
+   * (second field). For example, to copy EntryLexems from lexem #123 to lexem #456, use
+   * EntryLexem::copy(123, 456, 2).
+   **/
+  static function copy($srcId, $destId, $pos) {
+    $f = static::getFields();
+
+    if ($pos == 1) {
+      $associations = Model::factory(static::$_table)
+                    ->where($f['field1'], $srcId)
+                    ->find_many();
+      foreach ($associations as $a) {
+        self::associate($destId, $a->get($f['field2']));
+      }
+    } else {
+      $associations = Model::factory(static::$_table)
+                    ->where($f['field2'], $srcId)
+                    ->find_many();
+      foreach ($associations as $a) {
+        self::associate($a->get($f['field1']), $destId);
+      }
+    }
+  }
+
   function save() {
     $f = static::getFields();
 

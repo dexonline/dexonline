@@ -132,10 +132,7 @@ class Tree extends BaseObject implements DatedObject {
     $newt->description .= ' (CLONĂ)';
     $newt->save();
 
-    $tes = TreeEntry::get_all_by_treeId($this->id);
-    foreach ($tes as $te) {
-      TreeEntry::associate($newt->id, $te->entryId);
-    }
+    TreeEntry::copy($this->id, $newt->id, 1);
 
     $this->cloneMeanings($this->getMeanings(), 0, $newt->id);
 

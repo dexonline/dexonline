@@ -66,14 +66,18 @@ if ($saveButton) {
 }
 
 // Load the distinct model types for the entries' lexems
-$modelTypes = Model::factory('Lexem')
-  ->table_alias('l')
-  ->select('l.modelType')
-  ->distinct()
-  ->join('EntryLexem', ['el.lexemId', '=', 'l.id'], 'el')
-  ->where_in('el.entryId', $entryIds)
-  ->order_by_asc('modelType')
-  ->find_many();
+if (count($entryIds)) {
+  $modelTypes = Model::factory('Lexem')
+              ->table_alias('l')
+              ->select('l.modelType')
+              ->distinct()
+              ->join('EntryLexem', ['el.lexemId', '=', 'l.id'], 'el')
+              ->where_in('el.entryId', $entryIds)
+              ->order_by_asc('modelType')
+              ->find_many();
+} else {
+  $modelTypes = [];
+}
 
 $relatedMeanings = Model::factory('Meaning')
                  ->table_alias('m')

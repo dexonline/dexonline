@@ -458,11 +458,13 @@ function util_recount() {
     'Count.unassociatedDefinitions',
     Definition::countUnassociated()
   );
-  // this takes about 500 ms (even though the query is similar to the one for unassociated
-  // definitions)
   Variable::poke(
     'Count.unassociatedEntries',
-    Entry::countUnassociated()
+    count(Entry::loadUnassociated())
+  );
+  Variable::poke(
+    'Count.unassociatedLexems',
+    Lexem::countUnassociated()
   );
   Variable::poke(
     'Count.lexemesWithoutAccent',

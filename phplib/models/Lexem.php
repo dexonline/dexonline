@@ -360,6 +360,15 @@ class Lexem extends BaseObject implements DatedObject {
   }
 
   /**
+   * Counts lexems not associated with any entries.
+   **/
+  public static function countUnassociated() {
+    $numLexems = Model::factory('Lexem')->count();
+    $numAssociated = db_getSingleValue('select count(distinct lexemId) from EntryLexem');
+    return $numLexems - $numAssociated;
+  }
+
+  /**
    * Returns an array of InflectedForms. These can be loaded from the disk ($method = METHOD_LOAD)
    * or generated on the fly ($method = METHOD_GENERATE).
    * Throws ParadigmException for METHOD_GENERATE if any inflection cannot be generated.

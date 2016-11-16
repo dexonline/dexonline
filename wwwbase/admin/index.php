@@ -38,9 +38,14 @@ $reports = [
    'count' => Variable::peek('Count.unassociatedDefinitions'),
    'privilege' => PRIV_EDIT
   ],
-  ['text' => 'Intrări neasociate cu nicio definiție',
+  ['text' => 'Intrări neasociate cu definiții / lexeme',
    'url' => 'admin/viewUnassociatedEntries',
    'count' => Variable::peek('Count.unassociatedEntries'),
+   'privilege' => PRIV_EDIT
+  ],
+  ['text' => 'Lexeme neasociate cu nicio intrare',
+   'url' => 'admin/viewUnassociatedLexems',
+   'count' => Variable::peek('Count.unassociatedLexems'),
    'privilege' => PRIV_EDIT
   ],
   ['text' => 'Lexeme cu comentarii',

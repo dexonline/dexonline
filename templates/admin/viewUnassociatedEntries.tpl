@@ -4,7 +4,7 @@
 
 {block "content"}
 
-  <h3>{$entries|count} intrări neasociate cu definiții</h3>
+  <h3>{$entries|count} intrări neasociate cu definiții / lexeme</h3>
 
   {include "admin/entryList.tpl"}
 

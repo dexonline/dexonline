@@ -95,16 +95,12 @@ class Entry extends BaseObject implements DatedObject {
     }
   }
 
-  public static function countUnassociated() {
-    // We compute this as (all entries) - (entries showing up in EntryDefinition)
-    $all = Model::factory('Entry')->count();
-    $associated = db_getSingleValue('select count(distinct entryId) from EntryDefinition');
-    return $all - $associated;
-  }
-
   public static function loadUnassociated() {
+    $query = 'select * from Entry ' .
+           'where id not in (select entryId from EntryLexem) ' .
+           'or id not in (select entryId from EntryDefinition)';
     return Model::factory('Entry')
-      ->raw_query('select * from Entry where id not in (select entryId from EntryDefinition) order by description')
+      ->raw_query($query)
       ->find_many();
   }
 

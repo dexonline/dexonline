@@ -766,6 +766,7 @@ class Lexem extends BaseObject implements DatedObject {
         $this->deleteLongInfinitive();
       }
       InflectedForm::delete_all_by_lexemId($this->id);
+      EntryLexem::delete_all_by_lexemId($this->id);
       LexemSource::delete_all_by_lexemId($this->id);
       ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_LEXEM);
       Fragment::delete_all_by_lexemId($this->id);

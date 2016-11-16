@@ -467,6 +467,10 @@ function util_recount() {
     Lexem::countUnassociated()
   );
   Variable::poke(
+    'Count.unassociatedTrees',
+    Tree::countUnassociated()
+  );
+  Variable::poke(
     'Count.lexemesWithoutAccent',
     Model::factory('Lexem')->where('consistentAccent', 0)->count()
   );

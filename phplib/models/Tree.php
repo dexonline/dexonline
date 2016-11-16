@@ -101,6 +101,15 @@ class Tree extends BaseObject implements DatedObject {
   }
 
   /**
+   * Counts trees not associated with any entries.
+   **/
+  public static function countUnassociated() {
+    $numTrees = Model::factory('Tree')->count();
+    $numAssociated = db_getSingleValue('select count(distinct treeId) from TreeEntry');
+    return $numTrees - $numAssociated;
+  }
+
+  /**
    * Validates a tree for correctness. Returns an array of { field => array of errors }.
    **/
   function validate() {
@@ -217,7 +226,7 @@ class Tree extends BaseObject implements DatedObject {
     }
     Mention::delete_all_by_objectId_objectType($this->id, Mention::TYPE_TREE);
 
-    Log::warning("Deleted entry {$this->id} ({$this->description})");
+    Log::warning("Deleted tree {$this->id} ({$this->description})");
     parent::delete();
   }
 

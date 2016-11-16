@@ -91,6 +91,24 @@
         {/if}
       {/if}
 
+      {if $showWotd}
+        {if $sUser && ($sUser->moderator & $smarty.const.PRIV_WOTD) && !$cfg.global.mirror}
+          <li>
+            {if $def->status == 0}
+              {if $row->wotd}
+                în lista de WotD {if $row->wotd!==true}({$row->wotd}){/if}
+              {else}
+                <a href="{$wwwRoot}wotdAdd.php?defId={$def->id}">
+                  adaugă WotD
+                </a>
+              {/if}
+            {else}
+              definiție ascunsă
+            {/if}
+          </li>
+        {/if}
+      {/if}
+
       {if $showDeleteLink}
         {if $def->status == Definition::ST_PENDING}
           <li>
@@ -167,35 +185,6 @@
                     istoria definiției
                   </a>
                 </li>
-              {/if}
-            {/if}
-
-            {if $showWotd}
-              {if $sUser && ($sUser->moderator & $smarty.const.PRIV_WOTD) && !$cfg.global.mirror}
-                {if $def->status == 0}
-                  {if $row->wotd}
-                    <li class="disabled">
-                      <a href="#">
-                        <i class="glyphicon glyphicon-education"></i>
-                        în lista de WotD {if $row->wotd!==true}({$row->wotd}){/if}
-                      </a>
-                    </li>
-                  {else}
-                    <li>
-                      <a href="{$wwwRoot}wotdAdd.php?defId={$def->id}">
-                        <i class="glyphicon glyphicon-education"></i>
-                        adaugă WotD
-                      </a>
-                    </li>
-                  {/if}
-                {else}
-                  <li class="disabled">
-                    <a href="#">
-                      <i class="glyphicon glyphicon-education"></i>
-                      definiție ascunsă
-                    </a>
-                  </li>
-                {/if}
               {/if}
             {/if}
 

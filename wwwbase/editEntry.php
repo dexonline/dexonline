@@ -9,6 +9,7 @@ $mergeButton = Request::has('mergeButton');
 $cloneButton = Request::has('cloneButton');
 $createTree = Request::has('createTree');
 $delete = Request::has('delete');
+$deleteExt = Request::has('deleteExt');
 $dissociateDefinitionId = Request::get('dissociateDefinitionId');
 
 if ($id) {
@@ -76,6 +77,24 @@ if ($createTree) {
 if ($delete) {
   $e->delete();
   FlashMessage::add('Am șters intrarea.', 'success');
+  util_redirect(util_getWwwRoot());
+}
+
+// Delete the entry, its T1 lexemes and its empty trees.
+if ($deleteExt) {
+  foreach ($e->getLexems() as $l) {
+    if ($l->modelType == 'T') {
+      $l->delete();
+    }
+  }
+  foreach ($e->getTrees() as $t) {
+    if (!$t->hasMeanings()) {
+      $t->delete();
+    }
+  }
+
+  $e->delete();
+  FlashMessage::add('Am șters intrarea extinsă.', 'success');
   util_redirect(util_getWwwRoot());
 }
 

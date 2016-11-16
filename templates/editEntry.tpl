@@ -129,10 +129,21 @@
       renunță
     </a>
 
-    <button type="submit" class="btn btn-danger pull-right" name="delete">
-      <i class="glyphicon glyphicon-trash"></i>
-      șterge
-    </button>
+    <div class="pull-right">
+      <button type="submit" class="btn btn-danger" name="delete">
+        <i class="glyphicon glyphicon-trash"></i>
+        șterge
+      </button>
+
+      <button type="submit"
+              class="btn btn-danger"
+              name="deleteExt"
+              title="șterge intrarea, lexemele de tip T și arborii goi">
+        <i class="glyphicon glyphicon-trash"></i>
+        <i class="glyphicon glyphicon-trash"></i>
+        șterge extins
+      </button>
+    </div>
   </form>
 
   <div class="modal fade" id="mergeModal" role="dialog">

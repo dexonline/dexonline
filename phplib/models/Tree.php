@@ -42,6 +42,12 @@ class Tree extends BaseObject implements DatedObject {
     return $result;
   }
 
+  function hasMeanings() {
+    return Model::factory('Meaning')
+      ->where('treeId', $this->id)
+      ->count();
+  }
+
   function setMeanings($meanings) {
     $this->meanings = $meanings;
   }

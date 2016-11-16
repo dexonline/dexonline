@@ -92,6 +92,15 @@
           <u>s</u>alvează
         </button>
 
+        <button type="button"
+                class="btn btn-default"
+                {if !count($entryTrees)}disabled{/if}
+                data-toggle="modal"
+                data-target="#mergeModal">
+          <i class="glyphicon glyphicon-resize-small"></i>
+          unifică cu...
+        </button>
+
         <button type="submit" class="btn btn-default" name="clone">
           <i class="glyphicon glyphicon-duplicate"></i>
           clonează
@@ -115,6 +124,41 @@
     </div>
 
   </form>
+
+  <div class="modal fade" id="mergeModal" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form method="post" role="form">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Unifică arborele cu...</h4>
+          </div>
+
+          <div class="modal-body">
+            <p>
+              Iată arborii asociați cu oricare din intrările acestui arbore.
+            </p>
+            <input type="hidden" name="id" value="{$t->id}">
+            <select name="mergeTreeId" class="form-control">
+              {foreach $entryTrees as $other}
+                <option value="{$other->id}">{$other->description}</option>
+              {/foreach}
+            </select>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" name="mergeButton">
+              <i class="glyphicon glyphicon-resize-small"></i>
+              unifică
+            </button>
+            <button type="button" class="btn btn-link" data-dismiss="modal">renunță</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   {if count($relatedMeanings)}
     <div class="panel panel-default">
@@ -147,6 +191,34 @@
               <td>
                 {$m->htmlRep}
               </td>
+            </tr>
+          {/foreach}
+        </tbody>
+      </table>
+    </div>
+  {/if}
+
+  {if count($treeMentions)}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {$treeMentions|count} mențiuni despre acest arbore
+      </div>
+
+      <table class="table table-condensed table-bordered">
+        <thead>
+          <tr>
+            <th>arbore-sursă</th>
+            <th>sens</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {foreach $treeMentions as $m}
+            <tr>
+              <td>
+                <a href="{$wwwRoot}editTree.php?id={$m->srcId}">{$m->srcDesc}</a>
+              </td>
+              <td><b>{$m->breadcrumb}.</b> {$m->htmlRep}</td>
             </tr>
           {/foreach}
         </tbody>

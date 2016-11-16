@@ -70,7 +70,7 @@ abstract class Association extends BaseObject {
   }
 
   /**
-   * Copies all the associations of $srcId to $destId. $first can be 1 (first field) or 2
+   * Copies all the associations of $srcId to $destId. $pos can be 1 (first field) or 2
    * (second field). For example, to copy EntryLexems from lexem #123 to lexem #456, write
    * EntryLexem::copy(123, 456, 2).
    **/

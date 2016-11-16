@@ -127,6 +127,35 @@ class Tree extends BaseObject implements DatedObject {
     return $errors;
   }
 
+  public function mergeInto($otherId) {
+    // Meanings will be renumbered, increasing their displayOrder and breadcrumb values
+    $deltaDisplayOrder = Model::factory('Meaning')
+                       ->where('treeId', $otherId)
+                       ->count();
+    $deltaBreadcrumb = Model::factory('Meaning')
+                     ->where('treeId', $otherId)
+                     ->where('parentId', 0)
+                     ->count();
+
+    TreeEntry::copy($this->id, $otherId, 1);
+
+    $relations = Relation::get_all_by_treeId($this->id);
+    foreach ($relations as $r) {
+      $r->treeId = $otherId;
+      $r->save();
+    }
+
+    $meanings = Meaning::get_all_by_treeId($this->id);
+    foreach ($meanings as $m) {
+      $m->displayOrder += $deltaDisplayOrder;
+      $m->increaseBreadcrumb($deltaBreadcrumb);
+      $m->treeId = $otherId;
+      $m->save();
+    }
+
+    $this->delete();
+  }
+
   function _clone() {
     $newt = $this->parisClone();
     $newt->description .= ' (CLONĂ)';

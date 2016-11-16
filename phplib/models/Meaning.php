@@ -13,6 +13,15 @@ class Meaning extends BaseObject implements DatedObject {
   }
 
   /**
+   * Increases the first part of the breadcrumb by $x, so 3.5.1 increased by 7 becomes 10.5.1.
+   **/
+  function increaseBreadcrumb($x) {
+    $parts = explode('.', $this->breadcrumb);
+    $parts[0] += $x;
+    $this->breadcrumb = implode('.', $parts);
+  }
+
+  /**
    * Convert a tree produced by the tree editor to the format used by loadTree.
    * We need this in case validation fails and we cannot save the tree, so we need to display it again.
    **/

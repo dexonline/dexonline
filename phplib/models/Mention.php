@@ -28,6 +28,29 @@ class Mention extends BaseObject implements DatedObject {
     return self::getAllByIdType($treeId, self::TYPE_TREE);
   }
 
+  // Get detailed tree mentions about a tree, including origin tree and meaning.
+  // If $treeId is null, get detailed tree mentions about all trees.
+  static function getDetailedTreeMentions($treeId = null) {
+    $query = Model::factory('Mention')
+           ->table_alias('m')
+           ->select('mean.htmlRep')
+           ->select('mean.breadcrumb')
+           ->select('src.id', 'srcId')
+           ->select('src.description', 'srcDesc')
+           ->select('dest.id', 'destId')
+           ->select('dest.description', 'destDesc')
+           ->join('Meaning', ['m.meaningId', '=', 'mean.id'], 'mean')
+           ->join('Tree', ['mean.treeId', '=', 'src.id'], 'src')
+           ->join('Tree', ['m.objectId', '=', 'dest.id'], 'dest')
+           ->where('m.objectType', Mention::TYPE_TREE);
+
+    if ($treeId) {
+      $query = $query->where('dest.id', $treeId);
+    }
+
+    return $query->find_many();
+  }
+
   // Deletes the old mentions and adds the new mentions
   static function wipeAndRecreate($meaningId, $objectType, $objectIds) {
     self::delete_all_by_meaningId_objectType($meaningId, $objectType);

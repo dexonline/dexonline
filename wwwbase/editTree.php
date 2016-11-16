@@ -5,6 +5,7 @@ util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
 
 $id = Request::get('id');
 $saveButton = Request::has('saveButton');
+$mergeButton = Request::has('mergeButton');
 $clone = Request::has('clone');
 $delete = Request::has('delete');
 
@@ -16,6 +17,27 @@ if ($id) {
   }
 } else {
   $t = Model::factory('Tree')->create();
+}
+
+if ($mergeButton) {
+  $mergeTreeId = Request::get('mergeTreeId');
+  $other = Tree::get_by_id($mergeTreeId);
+
+  if (!$other) {
+    FlashMessage::add('Arborele selectat nu există.');
+    util_redirect("?id={$t->id}");
+  }
+
+  $treeMentions = Mention::getTreeMentions($t->id);
+  if (count($treeMentions)) {
+    FlashMessage::add('Nu puteți unifica acest arbore până nu rezolvați mențiunile despre el.');
+    util_redirect("?id={$t->id}");
+  }
+
+  $t->mergeInto($other->id);
+
+  FlashMessage::add('Am unificat arborii.', 'success');
+  util_redirect("?id={$other->id}");
 }
 
 if ($clone) {
@@ -90,6 +112,17 @@ foreach ($relatedMeanings as $m) {
   $m->getTree(); // preload it
 }
 
+// find other trees from this tree's entries
+$entryTrees = Model::factory('Tree')
+  ->table_alias('t')
+  ->select('t.*')
+  ->join('TreeEntry', ['t.id', '=', 'te.treeId'], 'te')
+  ->join('TreeEntry', ['te.entryId', '=', 'te2.entryId'], 'te2')
+  ->where('te2.treeId', $t->id)
+  ->where_not_equal('t.id', $t->id)
+  ->find_many();
+
+$treeMentions = Mention::getDetailedTreeMentions($t->id);
 
 $numMeanings = Model::factory('Meaning')
   ->where('treeId', $t->id)
@@ -106,6 +139,8 @@ SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('canEdit', true);
 SmartyWrap::assign('canDelete', $canDelete);
 SmartyWrap::assign('relatedMeanings', $relatedMeanings);
+SmartyWrap::assign('entryTrees', $entryTrees);
+SmartyWrap::assign('treeMentions', $treeMentions);
 SmartyWrap::assign('statusNames', Tree::$STATUS_NAMES);
 SmartyWrap::addCss('meaningTree', 'textComplete', 'admin');
 SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete');

@@ -233,22 +233,20 @@ if ($searchType == SEARCH_INFLECTED || $searchType == SEARCH_LEXEM_ID || $search
     }
     $declensionText = $conjugations ? ($declensions ? 'conjugări / declinări' : 'conjugări') : 'declinări';
 
-    if ($showParadigm) {
-      $hasUnrecommendedForms = false;
-      foreach ($lexems as $l) {
-        $l->getModelType();
-        $l->getSourceNames();
-        $map = $l->loadInflectedFormMap();
-        $l->addLocInfo();
-        foreach ($map as $ifs) {
-          foreach ($ifs as $if) {
-            $hasUnrecommendedForms |= !$if->recommended;
-          }
+    $hasUnrecommendedForms = false;
+    foreach ($lexems as $l) {
+      $l->getModelType();
+      $l->getSourceNames();
+      $map = $l->loadInflectedFormMap();
+      $l->addLocInfo();
+      foreach ($map as $ifs) {
+        foreach ($ifs as $if) {
+          $hasUnrecommendedForms |= !$if->recommended;
         }
       }
-
-      SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
     }
+    SmartyWrap::assign('hasUnrecommendedForms', $hasUnrecommendedForms);
+
     SmartyWrap::assign('declensionText', $declensionText);
   }
 }

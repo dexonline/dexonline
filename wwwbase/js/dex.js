@@ -5,7 +5,6 @@ var wwwRoot = getWwwRoot();
 
 $(function() {
   $('p.def').click(searchClickedWord);
-  $('.inflLink').click(toggleInflections);
   $('#typoModal').on('shown.bs.modal', shownTypoModal);
 
   $('.searchField').select();
@@ -164,25 +163,6 @@ function submitTypoForm() {
 
 function toggle(id) {
   $('#' + id).stop().slideToggle();
-  return false;
-}
-
-function toggleInflections() {
-  var div = $('#paradigmDiv');
-
-  if (trim(div.html()) == '') {
-    var lexemId = $(this).data('lexemId');
-    var cuv = $(this).data('cuv');
-	  var param = lexemId
-        ? ('lexemId=' + lexemId)
-        : ('cuv=' + cuv);
-    $.get(wwwRoot + 'paradigm.php?ajax=1&' + param)
-      .done(function(data) { div.html(data).slideToggle(); }); // Slide only after content is added
-  } else {
-    div.slideToggle();
-  }
-  var arrow = $('#inflArrow');
-  arrow.html((arrow.html() == '\u25bd') ? '&#x25b7;' : '&#x25bd;');
   return false;
 }
 

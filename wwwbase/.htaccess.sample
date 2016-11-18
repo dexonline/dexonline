@@ -28,10 +28,6 @@ RewriteRule ^lexem(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)? search.php?cuv=$3
 RewriteRule ^([^/]+)/cauta/?$ /definitie/$1 [R=301,L]
 RewriteRule ^cauta.php /search.php [R=301,L]
 
-RewriteRule ^flexiune/lexem/(.*)$ paradigm.php?lexemId=$1 [PT,L]
-RewriteRule ^(declinare|conjugare)/lexem/(.*)$ paradigm.php?lexemId=$2&type=$1 [PT,L]
-RewriteRule ^flexiune/(.*)$ paradigm.php?cuv=$1 [PT,L]
-RewriteRule ^(declinare|conjugare)/(.*)$ paradigm.php?cuv=$2&type=$1 [PT,L]
 RewriteRule ^cuvantul-zilei$ wotd.php [PT,L]
 RewriteRule ^cuvantul-zilei/(.*)$ wotd.php?d=$1 [PT,L]
 RewriteRule ^cuvantul-lunii$ wotm.php [PT,L]

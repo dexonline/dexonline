@@ -19,7 +19,6 @@
   {assign var="lexems" value=$lexems|default:null}
   {assign var="lexemId" value=$lexemId|default:null}
   {assign var="lockExists" value=$lockExists|default:false}
-  {assign var="onlyParadigm" value=$onlyParadigm|default:false}
   {assign var="results" value=$results|default:null}
   {assign var="showParadigm" value=$showParadigm|default:false}
   {assign var="stopWords" value=$stopWords|default:null}
@@ -112,18 +111,14 @@
         &nbsp;
 
         {if $declensionText}
-          {if $onlyParadigm}
+          <a class="inflLink"
+             href="#"
+             data-lexem-id="{$lexemId}"
+             data-cuv="{$cuv|escape:url}"
+             title="clic pentru conjugarea / declinarea cuvintelor">
+            <span class="caret"></span>
             {$declensionText}
-          {else}
-            <a class="inflLink"
-               href="#"
-               data-lexem-id="{$lexemId}"
-               data-cuv="{$cuv|escape:url}"
-               title="clic pentru conjugarea / declinarea cuvintelor">
-              <span id="inflArrow">{if $showParadigm}&#x25bd;{else}&#x25b7;{/if}</span>
-              {$declensionText}
-            </a>
-          {/if}
+          </a>
         {/if}
 
         {if !count($results) && count($lexems)}
@@ -135,7 +130,7 @@
 
         {if $searchType != $smarty.const.SEARCH_REGEXP}
           <div id="paradigmDiv" {if !$showParadigm}style="display: none"{/if}>
-            {if $showParadigm}{include "bits/multiParadigm.tpl"}{/if}
+            {include "bits/multiParadigm.tpl"}
           </div>
         {/if}
 

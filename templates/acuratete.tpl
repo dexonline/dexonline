@@ -51,7 +51,7 @@
         <div class="form-group">
           <label for="sourceDropDown" class="col-sm-2 control-label">sursă (opțional)</label>
           <div class="col-sm-8">
-            {include "bits/sourceDropDown.tpl" name="sourceId" src_selected=$p->sourceId}
+            {include "bits/sourceDropDown.tpl" name="sourceId" sourceId=$p->sourceId}
           </div>
         </div>
         <div class="form-group">

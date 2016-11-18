@@ -1,15 +1,19 @@
 <?php
 
-require_once("../phplib/util.php");
-require_once("../phplib/ads/adsModule.php");
+require_once('../phplib/util.php');
+require_once('../phplib/ads/adsModule.php');
 
-define("SEARCH_REGEXP", 0);
-define("SEARCH_MULTIWORD", 1);
-define("SEARCH_INFLECTED", 2);
-define("SEARCH_APPROXIMATE", 3);
-define("SEARCH_DEF_ID", 4);
-define("SEARCH_LEXEM_ID", 5);
-define("SEARCH_FULL_TEXT", 6);
+define('SEARCH_REGEXP', 0);
+define('SEARCH_MULTIWORD', 1);
+define('SEARCH_INFLECTED', 2);
+define('SEARCH_APPROXIMATE', 3);
+define('SEARCH_DEF_ID', 4);
+define('SEARCH_LEXEM_ID', 5);
+define('SEARCH_FULL_TEXT', 6);
+
+define('LIMIT_FULLTEXT_DISPLAY', Config::get('limits.limitFulltextSearch', 500));
+
+define('HEADER_404', 'HTTP/1.0 404 Not Found');
 
 $cuv = Request::get('cuv');
 $lexemId = Request::get('lexemId');
@@ -61,11 +65,29 @@ if ($isAllDigits) {
   }
 }
 
+// Definition.id search
+if ($defId) {
+  $searchType = SEARCH_DEF_ID;
+  $statuses = util_isModerator(PRIV_VIEW_HIDDEN)
+            ? [Definition::ST_ACTIVE, Definition::ST_HIDDEN]
+            : [Definition::ST_ACTIVE];
+  $definitions = Model::factory('Definition')
+               ->where('id', $defId)
+               ->where_in('status', $statuses)
+               ->find_many();
+  if (empty($definitions)) {
+    header(HEADER_404);
+  }
+  $searchResults = SearchResult::mapDefinitionArray($definitions);
+  SmartyWrap::assign('results', $searchResults);
+}
+
 if ($text) {
   $searchType = SEARCH_FULL_TEXT;
+  $definitions = [];
+
   if (Lock::exists(LOCK_FULL_TEXT_INDEX)) {
-    SmartyWrap::assign('lockExists', true);
-    $definitions = array();
+    SmartyWrap::assign('fullTextLock', true);
   } else {
     $words = preg_split('/ +/', $cuv);
     list($defIds, $stopWords) = Definition::searchFullText($words, $hasDiacritics, $sourceId);
@@ -74,12 +96,11 @@ if ($text) {
     // Show at most 500 definitions;
     $defIds = array_slice($defIds, 0, LIMIT_FULLTEXT_DISPLAY);
     // Load definitions in the given order
-    $definitions = array();
     foreach ($defIds as $id) {
       $definitions[] = Definition::get_by_id($id);
     }
-    if (!count($defIds)) {
-      FlashMessage::add('Nicio definiție nu conține toate cuvintele căutate.');
+    if (empty($definitions)) {
+      header(HEADER_404);
     }
     Definition::highlight($words, $definitions);
   }
@@ -107,12 +128,12 @@ if ($lexemId) {
   } else {
     $lexems = array();
     FlashMessage::add("Nu există niciun lexem cu ID-ul căutat.");
-    header("HTTP/1.0 404 Not Found");
+    header(HEADER_404);
   }
   SmartyWrap::assign('lexems', $lexems);
 }
 
-SmartyWrap::assign('src_selected', $sourceId);
+SmartyWrap::assign('sourceId', $sourceId);
 
 // Regular expressions
 if ($hasRegexp) {
@@ -123,36 +144,11 @@ if ($hasRegexp) {
   SmartyWrap::assign('lexems', $lexems);
   if (!$numResults) {
     FlashMessage::add("Niciun rezultat pentru {$cuv}.");
-    header("HTTP/1.0 404 Not Found");
+    header(HEADER_404);
   }
 }
 
-// Definition.id search
-if ($defId) {
-  SmartyWrap::assign('defId', $defId);
-  $searchType = SEARCH_DEF_ID;
-  if (util_isModerator(PRIV_VIEW_HIDDEN)) {
-    $def = Model::factory('Definition')
-         ->where('id', $defId)
-         ->where_in('status', array(Definition::ST_ACTIVE, Definition::ST_HIDDEN))
-         ->find_one();
-  } else {
-    $def = Model::factory('Definition')
-         ->where('id', $defId)
-         ->where('status', Definition::ST_ACTIVE)
-         ->find_one();
-  }
-  $definitions = array();
-  if ($def) {
-    $definitions[] = $def;
-  } else {
-    FlashMessage::add("Nu există nicio definiție cu ID-ul {$defId}.");
-  }
-  $searchResults = SearchResult::mapDefinitionArray($definitions);
-  SmartyWrap::assign('results', $searchResults);
-}
-
-// Normal search
+// If no search type requested so far, then normal search
 if ($searchType == SEARCH_INFLECTED) {
   $lexems = Lexem::searchInflectedForms($cuv, $hasDiacritics, $oldOrthography);
 
@@ -177,7 +173,7 @@ if ($searchType == SEARCH_INFLECTED) {
       if (!count($lexems)) {
         FlashMessage::add("Niciun rezultat relevant pentru „{$cuv}”.");
       }
-      header("HTTP/1.0 404 Not Found");
+      header(HEADER_404);
     }
   }
 

@@ -167,8 +167,6 @@ function util_defineConstants() {
   define('PRIV_ANY', (1 << NUM_PRIVILEGES) - 1);
 
   //Limits
-  define('DEFAULT_LIMIT_FULLTEXT', 500);
-  define('LIMIT_FULLTEXT_DISPLAY', Config::get('limits.limitFulltextSearch', DEFAULT_LIMIT_FULLTEXT));
   define('PREVIEW_LIMIT', 20);
 }
 

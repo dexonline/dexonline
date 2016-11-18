@@ -18,7 +18,6 @@
   {assign var="ignoredWords" value=$ignoredWords|default:null}
   {assign var="lexems" value=$lexems|default:null}
   {assign var="lexemId" value=$lexemId|default:null}
-  {assign var="lockExists" value=$lockExists|default:false}
   {assign var="results" value=$results|default:null}
   {assign var="showParadigm" value=$showParadigm|default:false}
   {assign var="stopWords" value=$stopWords|default:null}
@@ -45,120 +44,131 @@
   <div class="tab-content">
     {* results tab *}
     <div role="tabpanel" class="tab-pane {if !$showParadigm}active{/if}" id="resultsTab">
-      {if count($lexems) || count($results) }
-        <div class="panel panel-default">
-          <div class="panel-body">
-            {if $searchType == $smarty.const.SEARCH_INFLECTED}
-              {if count($results) == 0}
-                {if $src_selected}
-                  Nu am găsit în acest dicționar definiția lui
-                {else}
-                  Din motive de copyright, doar administratorii site-ului pot vedea definițiile pentru
-                {/if}
-              {elseif count($results) == 1}
-                O definiție pentru
-              {else}
-                {if $allDefinitions == 0 && $totalDefinitionsCount}
-                  Din <a href="{$smarty.server.REQUEST_URI}/expandat" title="arată toate definițiile">
-                  <strong>totalul de {$totalDefinitionsCount}</strong>
-                  </a> sunt afișate
-                {/if}
-                <strong>{$results|@count}</strong> definiții pentru
-              {/if}
+        {if $searchType == $smarty.const.SEARCH_DEF_ID}
+          {if count($results)}
+            <h3>
+              Definiția cu ID-ul
+              {foreach $results as $key => $ignored}
+                {$key}:
+              {/foreach}
+            </h3>
+          {else}
+            <h4>
+              Nu există nicio definiție cu ID-ul căutat.
+            </h4>
+          {/if}
 
-              {if count($lexems) == 1}
-                {* If there is exactly one lexem, do not link to the lexem page, because it would print an almost exact duplicate of this page. *}
-                „{include "bits/lexemName.tpl" lexem=$lexems.0}”
-              {else}
-                {foreach $lexems as $row_id => $lexem}
-                  <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{$lexem->formNoAccent}</a
-                              >{if $lexem->description} ({$lexem->description|escape}){/if
-                                                                                      }{if $row_id < count($lexems) - 1},{/if}
-                {/foreach}
-              {/if}
+        {elseif $searchType == $smarty.const.SEARCH_FULL_TEXT}
+          {if isset($fullTextLock)}
+            <h3>Căutare dezactivată</h3>
 
-            {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
-              {if count($lexems)}
-                Cuvântul „{$cuv|escape}” nu a fost găsit, dar am găsit următoarele {$lexems|@count} cuvinte apropiate:
-              {/if}
-
-            {elseif $searchType == $smarty.const.SEARCH_DEF_ID}
-              {if count($results)}
-                Definiția cu ID-ul {$defId|escape}:
-              {/if}
-
-            {elseif $searchType == $smarty.const.SEARCH_REGEXP}
-              {if $numResults}
-                {if $numResults > count($lexems)}
-                  {$numResults} rezultate pentru „{$cuv|escape}” (maximum {$lexems|@count} afișate):
-                {else}
-                  {$numResults} rezultate pentru „{$cuv|escape}”:
-                {/if}
-              {/if}
-
-            {elseif $searchType == $smarty.const.SEARCH_LEXEM_ID}
-              {if count($lexems) > 0}
-                {if $exclude_unofficial}
-                  Lexemul cu ID-ul căutat există, dar este neoficial.
-                {else}
-                  {if count($results) == 1}
-                    O definiție pentru
-                  {else}
-                    {$results|@count} definiții pentru
-                  {/if}
-                  „{include "bits/lexemName.tpl" lexem=$lexems.0}”
-                {/if}
-              {/if}
-
-            {elseif $searchType == $smarty.const.SEARCH_FULL_TEXT}
-              {if $numResults == 1}
-                O definiție cuprinde toate cuvintele căutate
-              {elseif $numResults > 1}
-                {$numResults} definiții cuprind toate cuvintele căutate
-              {/if}
+            <p>
+              Momentan nu puteți căuta prin textul definițiilor, deoarece indexul este
+              în curs de reconstrucție. Această operație durează de obicei circa 10 minute.
+              Ne cerem scuze pentru neplăcere.
+            </p>
+          {else}
+            <h3>
+              {include "bits/count.tpl"
+                       number=$numResults
+                       none="Nicio definiție nu cuprinde"
+                       one="O definiție cuprinde"
+                       many="definiții cuprind"
+                       common="toate cuvintele căutate"}
 
               {if $numResults > count($results)}
                 (maximum {$results|@count} afișate)
               {/if}
+            </h3>
 
-            {elseif $searchType == $smarty.const.SEARCH_MULTIWORD}
-              {$results|@count} definiții se potrivesc cu cel puțin doi dintre termenii căutați. Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat
-              sau puteți căuta <a href="{$wwwRoot}text/{$cuv|escape:url}">în tot corpul definițiilor</a>.
-
+            {if $stopWords}
+              <p class="text-warning">
+                Următoarele cuvinte au fost ignorate deoarece sunt prea comune:
+                <strong>
+                  {foreach $stopWords as $word}
+                    {$word|escape}
+                  {/foreach}
+                </strong>
+              </span>
             {/if}
+          {/if}
 
-            &nbsp;
+        {elseif $searchType == $smarty.const.SEARCH_INFLECTED}
+          {if count($results) == 0}
+            {if $sourceId}
+              Nu am găsit în acest dicționar definiția lui
+            {else}
+              Din motive de copyright, doar administratorii site-ului pot vedea definițiile pentru
+            {/if}
+          {elseif count($results) == 1}
+            O definiție pentru
+          {else}
+            {if $allDefinitions == 0 && $totalDefinitionsCount}
+              Din <a href="{$smarty.server.REQUEST_URI}/expandat" title="arată toate definițiile">
+              <strong>totalul de {$totalDefinitionsCount}</strong>
+              </a> sunt afișate
+            {/if}
+            <strong>{$results|@count}</strong> definiții pentru
+          {/if}
 
-            {if !count($results) && count($lexems)}
-              {if $src_selected}
-                <br/>
-                Repetați căutarea <a href="{$wwwRoot}definitie/{$cuv|escape}">în toate dicționarele</a>
+          {if count($lexems) == 1}
+            {* If there is exactly one lexem, do not link to the lexem page, because it would print an almost exact duplicate of this page. *}
+            „{include "bits/lexemName.tpl" lexem=$lexems.0}”
+          {else}
+            {foreach $lexems as $row_id => $lexem}
+              <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">{$lexem->formNoAccent}</a
+                                >{if $lexem->description} ({$lexem->description|escape}){/if
+                                                                                        }{if $row_id < count($lexems) - 1},{/if}
+            {/foreach}
+          {/if}
+
+        {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
+          {if count($lexems)}
+            Cuvântul „{$cuv|escape}” nu a fost găsit, dar am găsit următoarele {$lexems|@count} cuvinte apropiate:
+          {/if}
+
+        {elseif $searchType == $smarty.const.SEARCH_REGEXP}
+          {if $numResults}
+            {if $numResults > count($lexems)}
+              {$numResults} rezultate pentru „{$cuv|escape}” (maximum {$lexems|@count} afișate):
+            {else}
+              {$numResults} rezultate pentru „{$cuv|escape}”:
+            {/if}
+          {/if}
+
+        {elseif $searchType == $smarty.const.SEARCH_LEXEM_ID}
+          {if count($lexems) > 0}
+            {if $exclude_unofficial}
+              Lexemul cu ID-ul căutat există, dar este neoficial.
+            {else}
+              {if count($results) == 1}
+                O definiție pentru
+              {else}
+                {$results|@count} definiții pentru
               {/if}
+              „{include "bits/lexemName.tpl" lexem=$lexems.0}”
             {/if}
+          {/if}
 
-          </div>
-        </div>
-      {/if}
+        {elseif $searchType == $smarty.const.SEARCH_MULTIWORD}
+          {$results|@count} definiții se potrivesc cu cel puțin doi dintre termenii căutați. Dacă rezultatele nu sunt mulțumitoare, puteți căuta cuvintele separat
+          sau puteți căuta <a href="{$wwwRoot}text/{$cuv|escape:url}">în tot corpul definițiilor</a>.
 
-      {if $searchType == $smarty.const.SEARCH_FULL_TEXT && $lockExists}
-        Momentan nu puteți căuta prin textul definițiilor, deoarece indexul este în curs de reconstrucție. Această operație durează de obicei circa
-        10 minute. Ne cerem scuze pentru neplăcere.
-      {/if}
+        {/if}
+
+        &nbsp;
+
+        {if !count($results) && count($lexems)}
+          {if $sourceId}
+            <br/>
+            Repetați căutarea <a href="{$wwwRoot}definitie/{$cuv|escape}">în toate dicționarele</a>
+          {/if}
+        {/if}
+      </h3>
 
       <div id="resultsWrapper" class="txt">
         {if !empty($images)}
           {include "bits/gallery.tpl" images=$images}
-        {/if}
-
-        {if $stopWords}
-          <span class="stopWords">
-            Următoarele cuvinte au fost ignorate deoarece sunt prea comune:
-            <b>
-              {foreach $stopWords as $word}
-                {$word|escape}
-              {/foreach}
-            </b>
-          </span>
         {/if}
 
         {if $ignoredWords}

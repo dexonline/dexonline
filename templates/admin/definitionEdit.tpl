@@ -30,7 +30,7 @@
           <label class="col-sm-4 control-label">sursă</label>
           <div class="col-sm-8">
             {if $source->canModerate}
-              {include "bits/sourceDropDown.tpl" sources=$allModeratorSources src_selected=$def->sourceId skipAnySource=true}
+              {include "bits/sourceDropDown.tpl" sources=$allModeratorSources sourceId=$def->sourceId skipAnySource=true}
             {else}
               <input type="hidden" name="source" value="{$def->sourceId}"/>
               <input class="form-control" type="text" disabled value="{$source->shortName}">

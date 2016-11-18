@@ -21,7 +21,7 @@
 
       <div class="form-group col-md-6">
         <label for="sourceDropDown">Sursa</label>
-        {include "bits/sourceDropDown.tpl" sources=$contribSources src_selected=$sourceId skipAnySource=1}
+        {include "bits/sourceDropDown.tpl" sources=$contribSources skipAnySource=1}
 
         <a href="surse">
           <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i>

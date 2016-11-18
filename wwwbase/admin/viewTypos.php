@@ -10,7 +10,7 @@ if ($sourceUrlName) {
   $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
   $sourceId = $source ? $source->id : 0;
   $sourceClause = $source ? "sourceId = {$sourceId} and " : '';
-  SmartyWrap::assign('src_selected', $sourceId);
+  SmartyWrap::assign('sourceId', $sourceId);
 }
 
 $defs = Model::factory('Definition')

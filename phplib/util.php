@@ -165,9 +165,6 @@ function util_defineConstants() {
 
   define('PRIV_VIEW_HIDDEN', PRIV_ADMIN);
   define('PRIV_ANY', (1 << NUM_PRIVILEGES) - 1);
-
-  //Limits
-  define('PREVIEW_LIMIT', 20);
 }
 
 function util_randomCapitalLetterString($length) {

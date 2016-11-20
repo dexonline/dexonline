@@ -72,16 +72,23 @@ class SearchResult {
     return $results;
   }
 
-  // For users who can see hidden definitions, does nothing.
-  // For other users removes hidden search results from $searchResults and stores their sources in $sources
-  public static function filterHidden(&$searchResults, &$sources) {
-    if (!util_isModerator(PRIV_VIEW_HIDDEN)) {
-      foreach ($searchResults as $i => &$sr) {
-        if ($sr->source->type == Source::TYPE_HIDDEN ||
-            $sr->definition->status == Definition::ST_HIDDEN) {
-          $sources[$sr->source->id] = $sr->source;
-          unset($searchResults[$i]);
-        }
+  // If the user chose to exclude unofficial definitions, filter them out.
+  // If the user may not see hidden definitions, filter those out.
+  // Add information about the changes to the $extra array.
+  public static function filter(&$searchResults, &$extra) {
+    $excludeUnofficial = session_user_prefers(Preferences::EXCLUDE_UNOFFICIAL);
+
+    foreach ($searchResults as $i => &$sr) {
+      if ($excludeUnofficial && ($sr->source->type == Source::TYPE_UNOFFICIAL)) {
+        // hide unofficial definitions
+        $extra['unofficialHidden'] = true;
+        unset($searchResults[$i]);
+      } else if (!util_isModerator(PRIV_VIEW_HIDDEN) &&
+                 (($sr->source->type == Source::TYPE_HIDDEN) ||
+                  ($sr->definition->status == Definition::ST_HIDDEN))) {
+        // hide hidden definitions or definitions from hidden sources
+        $extra['sourcesHidden'][$sr->source->id] = $sr->source;
+        unset($searchResults[$i]);
       }
     }
   }

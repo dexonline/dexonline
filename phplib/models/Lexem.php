@@ -307,37 +307,52 @@ class Lexem extends BaseObject implements DatedObject {
 
   }
 
-  public static function searchRegexp($regexp, $hasDiacritics, $sourceId, $useMemcache) {
+  static function getRegexpQuery($regexp, $hasDiacritics, $sourceId) {
+    $mysqlRegexp = StringUtil::dexRegexpToMysqlRegexp($regexp);
+    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
+
+    if ($sourceId) {
+      // Suppres warnings from idiorm's log query function, which uses vsprintf,
+      // which trips on extra % signs.
+      return @Model::factory('Lexem')
+        ->table_alias('l')
+        ->select('l.*')
+        ->distinct()
+        ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+        ->join('EntryDefinition', ['el.entryId', '=', 'ed.entryId'], 'ed')
+        ->join('Definition', ['ed.definitionId', '=', 'd.id'], 'd')
+        ->where_raw("$field $mysqlRegexp")
+        ->where('d.sourceId', $sourceId);
+    } else {
+      return @Model::factory('Lexem')
+        ->table_alias('l')
+        ->where_raw("$field $mysqlRegexp");
+    }
+  }
+
+  static function searchRegexp($regexp, $hasDiacritics, $sourceId, $count = false,
+                               $useMemcache = true) {
     if ($useMemcache) {
-      $key = "regexp_" . ($hasDiacritics ? '1' : '0') . "_" . ($sourceId ? $sourceId : 0) . "_$regexp";
+      $key = sprintf('%s_%s_%s_%s',
+                     ($count ? 'regexpCount' : 'regexp'),
+                     ($hasDiacritics ? '1' : '0'),
+                     ($sourceId ? $sourceId : 0),
+                     $regexp);
       $result = mc_get($key);
       if ($result) {
         return $result;
       }
     }
-    $mysqlRegexp = StringUtil::dexRegexpToMysqlRegexp($regexp);
-    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
+
     try {
-      if ($sourceId) {
-        // Suppres warnings from idiorm's log query function, which uses vsprintf, which trips on extra % signs.
-        $result = @Model::factory('Lexem')
-                ->table_alias('l')
-                ->select('l.*')
-                ->distinct()
-                ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
-                ->join('EntryDefinition', ['el.entryId', '=', 'ed.entryId'], 'ed')
-                ->join('Definition', ['ed.definitionId', '=', 'd.id'], 'd')
-                ->where_raw("$field $mysqlRegexp")
-                ->where('d.sourceId', $sourceId)
-                ->order_by_asc('l.formNoAccent')
-                ->limit(1000)
-                ->find_many();
-      } else {
-        $result = @Model::factory('Lexem')->where_raw("$field $mysqlRegexp")->order_by_asc('formNoAccent')->limit(1000)->find_many();
-      }
+      $q = self::getRegexpQuery($regexp, $hasDiacritics, $sourceId);
+      $result = $count
+              ? $q->count()
+              : $q->order_by_asc('l.formNoAccent')->limit(1000)->find_many();
     } catch (Exception $e) {
-      $result = []; // Bad regexp
+      $result = $count ? 0 : []; // Bad regexp
     }
+
     if ($useMemcache) {
       mc_set($key, $result);
     }

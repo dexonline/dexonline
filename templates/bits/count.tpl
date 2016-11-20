@@ -1,9 +1,15 @@
-{if !$number}
+{$total=$total|default:$displayed}
+
+{if !$total}
   {$none} {$common}
-{elseif $number == 1}
+{elseif $total == 1}
   {$one} {$common}
-{elseif $number % 100 < 20}
-  {$number} {$many} {$common}
+{elseif $total % 100 < 20}
+  {$total} {$many} {$common}
 {else}
-  {$number} de {$many} {$common}
+  {$total} de {$many} {$common}
+{/if}
+
+{if $total > $displayed}
+  (maximum {$displayed} afișate)
 {/if}

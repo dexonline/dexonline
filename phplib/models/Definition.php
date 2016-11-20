@@ -117,7 +117,7 @@ class Definition extends BaseObject implements DatedObject {
       ->count();
   }
 
-  public static function loadForLexems(&$lexems, $sourceId, $preferredWord, $exclude_unofficial = false) {
+  public static function loadForLexems(&$lexems, $sourceId, $preferredWord) {
     if (!count($lexems)) {
       return [];
     }
@@ -134,9 +134,6 @@ class Definition extends BaseObject implements DatedObject {
            ->join('Source', ['d.sourceId', '=', 's.id'], 's')
            ->where_in('el.lexemId', $lexemIds)
            ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN]);
-    if ($exclude_unofficial) {
-      $query = $query->where_not_equal('s.type', Source::TYPE_UNOFFICIAL);
-    }
     if ($sourceId) {
       $query = $query->where('s.id', $sourceId);
     }
@@ -154,19 +151,15 @@ class Definition extends BaseObject implements DatedObject {
     return $defs;
   }
 
-  public static function searchLexem($lexem, $exclude_unofficial = false) {
-    $query = Model::factory('Definition')
-           ->table_alias('d')
-           ->select('d.*')
-           ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
-           ->join('EntryLexem', ['ed.entryId', '=', 'el.entryId'], 'el')
-           ->join('Source', ['d.sourceId', '=', 's.id'], 's')
-           ->where('el.lexemId', $lexem->id)
-           ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN]);
-    if ($exclude_unofficial) {
-      $query = $query->where_not_equal('s.type', Source::TYPE_UNOFFICIAL);
-    }
-    return $query
+  public static function searchLexem($lexem) {
+    return Model::factory('Definition')
+      ->table_alias('d')
+      ->select('d.*')
+      ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
+      ->join('EntryLexem', ['ed.entryId', '=', 'el.entryId'], 'el')
+      ->join('Source', ['d.sourceId', '=', 's.id'], 's')
+      ->where('el.lexemId', $lexem->id)
+      ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN])
       ->order_by_desc('s.type')
       ->order_by_asc('s.displayOrder')
       ->order_by_asc('d.lexicon')
@@ -321,13 +314,12 @@ class Definition extends BaseObject implements DatedObject {
   }
 
   // Return definitions that are associated with at least two of the lexems
-  public static function searchMultipleWords($words, $hasDiacritics, $oldOrthography, $sourceId,
-                                             $exclude_unofficial) {
-    $defCounts = array();
+  public static function searchMultipleWords($words, $hasDiacritics, $oldOrthography, $sourceId) {
+    $defCounts = [];
     foreach ($words as $word) {
       $lexems = Lexem::searchInflectedForms($word, $hasDiacritics, $oldOrthography);
       if (count($lexems)) {
-        $definitions = self::loadForLexems($lexems, $sourceId, $word, $exclude_unofficial);
+        $definitions = self::loadForLexems($lexems, $sourceId, $word);
         foreach ($definitions as $def) {
           $defCounts[$def->id] = array_key_exists($def->id, $defCounts) ? $defCounts[$def->id] + 1 : 1;
         }

@@ -214,18 +214,6 @@ class StringUtil {
     return $result;
   }
 
-  static function validateAlphabet($s, $alphabet) {
-    $len = mb_strlen($s);
-    for ($i = 0; $i < $len; $i++) {
-      $c = self::getCharAt($s, $i);
-      $found = mb_strpos($alphabet, $c);
-      if ($found === false) {
-        return false;
-      }
-    }
-    return true;
-  }
-
   static function stripHtmlEscapeCodes($s) {
     return preg_replace("/&[^;]+;/", "", $s);
   }

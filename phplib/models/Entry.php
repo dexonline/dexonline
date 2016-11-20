@@ -104,6 +104,36 @@ class Entry extends BaseObject implements DatedObject {
       ->find_many();
   }
 
+  static function searchInflectedForms($cuv, $hasDiacritics, $oldOrthography, $useMemcache = true) {
+    if ($useMemcache) {
+      $key = sprintf("inflected_%d_%d_%s", (int)$hasDiacritics, (int)$oldOrthography, $cuv);
+      $result = mc_get($key);
+      if ($result) {
+        return $result;
+      }
+    }
+
+    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
+    if ($oldOrthography) {
+      $cuv = StringUtil::convertOrthography($cuv);
+    }
+
+    $entries = Model::factory('Entry')
+             ->table_alias('e')
+             ->select('e.*')
+             ->distinct()
+             ->join('EntryLexem', 'e.id = el.entryId', 'el')
+             ->join('InflectedForm', 'el.lexemId = f.lexemId', 'f')
+             ->where("f.$field", $cuv)
+             ->order_by_asc('e.description')
+             ->find_many();
+
+    if ($useMemcache) {
+      mc_set($key, $entries);
+    }
+    return $entries;
+  }
+
   /**
    * Validates an entry for correctness. Returns an array of { field => array of errors }.
    * $original: the original, unmodified entry

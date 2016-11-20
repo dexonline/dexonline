@@ -106,6 +106,7 @@ if ($cuv) {
 
 $definitions = [];
 $lexems = [];
+$entries = [];
 $extra = [];
 
 if ($isAllDigits) {
@@ -171,16 +172,16 @@ if ($hasRegexp) {
 
 // If no search type requested so far, then normal search
 if ($searchType == SEARCH_INFLECTED) {
-  $lexems = Lexem::searchInflectedForms($cuv, $hasDiacritics, $oldOrthography);
+  $entries = Entry::searchInflectedForms($cuv, $hasDiacritics, $oldOrthography);
 
   // successful search
-  if (count($lexems)) {
-    $definitions = Definition::loadForLexems($lexems, $sourceId, $cuv);
+  if (count($entries)) {
+    $definitions = Definition::loadForEntries($entries, $sourceId, $cuv);
     SmartyWrap::assign('wikiArticles', WikiArticle::loadForLexems($lexems));
   }
 
   // fallback to multiword search
-  if (empty($lexems) && preg_match('/[- .]/', $cuv)) {
+  if (empty($entries) && preg_match('/[- .]/', $cuv)) {
     $searchType = SEARCH_MULTIWORD;
     $words = preg_split('/[- .]+/', $cuv);
     $extra['ignoredWords'] = array_slice($words, 5);
@@ -190,7 +191,7 @@ if ($searchType == SEARCH_INFLECTED) {
   }
 
   // fallback to approximate search
-  if (empty($lexems) && empty($definitions)) {
+  if (empty($entries) && empty($definitions)) {
     $searchType = SEARCH_APPROXIMATE;
     $lexems = Lexem::searchApproximate($cuv, $hasDiacritics, true);
     if (count($lexems) == 1) {
@@ -221,7 +222,7 @@ if ($defLimit) {
   }
 }
   
-if (empty($lexems) && empty($searchResults)) {
+if (empty($entries) && empty($searchResults)) {
   header('HTTP/1.0 404 Not Found');
 }
 
@@ -233,10 +234,12 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
   // Compute the text of the link to the paradigm div
   $conjugations = false;
   $declensions = false;
-  foreach ($lexems as $l) {
-    $isVerb = ($l->modelType == 'V') || ($l->modelType == 'VT');
-    $conjugations |= $isVerb;
-    $declensions |= !$isVerb;
+  foreach ($entries as $e) {
+    foreach ($e->getLexems() as $l) {
+      $isVerb = ($l->modelType == 'V') || ($l->modelType == 'VT');
+      $conjugations |= $isVerb;
+      $declensions |= !$isVerb;
+    }
   }
   $declensionText = $conjugations
                   ? ($declensions ? 'conjugări / declinări' : 'conjugări')
@@ -245,14 +248,16 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
 
   // Check if any of the inflected forms are unrecommended
   $hasUnrecommendedForms = false;
-  foreach ($lexems as $l) {
-    $l->getModelType();
-    $l->getSourceNames();
-    $map = $l->loadInflectedFormMap();
-    $l->addLocInfo();
-    foreach ($map as $ifs) {
-      foreach ($ifs as $if) {
-        $hasUnrecommendedForms |= !$if->recommended;
+  foreach ($entries as $e) {
+    foreach ($e->getLexems() as $l) {
+      $l->getModelType();
+      $l->getSourceNames();
+      $map = $l->loadInflectedFormMap();
+      $l->addLocInfo();
+      foreach ($map as $ifs) {
+        foreach ($ifs as $if) {
+          $hasUnrecommendedForms |= !$if->recommended;
+        }
       }
     }
   }
@@ -303,6 +308,7 @@ if (count($images)) {
 }
 
 SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('entries', $entries);
 SmartyWrap::assign('results', $searchResults);
 SmartyWrap::assign('extra', $extra);
 SmartyWrap::assign('text', $text);

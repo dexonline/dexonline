@@ -138,23 +138,20 @@
             pentru
           {/if}
 
-          {if count($lexems) == 1}
+          {if count($entries) == 1}
             {* If there is exactly one lexem, do not link to the lexem page, because
                it would print an almost exact duplicate of this page. *}
-            <strong>{include "bits/lexemName.tpl" lexem=$lexems.0}</strong>
+            <strong>{$entries.0->description}</strong>
           {/if}
         </h3>
 
-        {if count($lexems) > 1}
+        {if count($entries) > 1}
           <ul>
-            {foreach $lexems as $l}
+            {foreach $entries as $e}
               <li>
-                <a href="{$wwwRoot}lexem/{$l->formNoAccent}/{$l->id}">
-                  {$l->formNoAccent}
+                <a href="{$wwwRoot}intrare/{$e->description}/{$e->id}">
+                  {$e->description}
                 </a>
-                {if $l->description}
-                  ({$l->description|escape})
-                {/if}
               </li>
             {/foreach}
           </ul>
@@ -313,8 +310,20 @@
     {* paradigm tab *}
     {if $searchParams.paradigm}
       <div role="tabpanel" class="tab-pane {if $showParadigm}active{/if}" id="paradigmTab">
-        <div id="paradigmDiv">
-          {include "bits/multiParadigm.tpl"}
+        {foreach $entries as $e}
+          {include "bits/multiParadigm.tpl" entry=$e}
+        {/foreach}
+
+        {if $hasUnrecommendedForms}
+          <div class="notRecommendedLegend">* Formă nerecomandată</div>
+        {/if}
+
+        <div>
+          <a class="paradigmLink"
+             title="Link către această pagină, dar cu flexiunile expandate"
+             href="{$paradigmLink}">
+            Link către această paradigmă
+          </a>
         </div>
       </div>
     {/if}

@@ -254,41 +254,6 @@ class Lexem extends BaseObject implements DatedObject {
     return $result;
   }
 
-  public static function searchInflectedForms($cuv, $hasDiacritics, $oldOrthography,
-                                              $useMemcache = true) {
-    if ($useMemcache) {
-      $key = sprintf("inflected_%d_%d_%s", (int)$hasDiacritics, (int)$oldOrthography, $cuv);
-      $result = mc_get($key);
-      if ($result) {
-        return $result;
-      }
-    }
-
-    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-    if ($oldOrthography) {
-      $cuv = StringUtil::convertOrthography($cuv);
-    }
-    // Get the lexem IDs first, then load the lexems. This prevents MySQL
-    // from creating temporary tables on disk.
-    $ids = Model::factory('Lexem')
-         ->table_alias('l')
-         ->select('l.id')
-         ->distinct()
-         ->join('InflectedForm', 'l.id = f.lexemId', 'f')
-         ->where("f.$field", $cuv)
-         ->order_by_asc('l.formNoAccent')
-         ->find_array();
-
-    $result = array_map(function($rec) {
-      return Lexem::get_by_id($rec['id']);
-    }, $ids);
-    
-    if ($useMemcache) {
-      mc_set($key, $result);
-    }
-    return $result;
-  }
-
   public static function searchApproximate($cuv, $hasDiacritics, $useMemcache = false) {
     if ($useMemcache) {
       $key = "approx_" . ($hasDiacritics ? '1' : '0') . "_$cuv";

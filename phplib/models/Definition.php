@@ -117,11 +117,11 @@ class Definition extends BaseObject implements DatedObject {
       ->count();
   }
 
-  public static function loadForLexems(&$lexems, $sourceId, $preferredWord) {
-    if (!count($lexems)) {
+  public static function loadForEntries(&$entries, $sourceId, $preferredWord) {
+    if (!count($entries)) {
       return [];
     }
-    $lexemIds = util_objectProperty($lexems, 'id');
+    $entryIds = util_objectProperty($entries, 'id');
 
     // Get the IDs first, then load the definitions. This prevents MySQL
     // from creating temporary tables on disk.
@@ -130,9 +130,8 @@ class Definition extends BaseObject implements DatedObject {
            ->select('d.id')
            ->distinct()
            ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
-           ->join('EntryLexem', ['ed.entryId', '=', 'el.entryId'], 'el')
            ->join('Source', ['d.sourceId', '=', 's.id'], 's')
-           ->where_in('el.lexemId', $lexemIds)
+           ->where_in('ed.entryId', $entryIds)
            ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN]);
     if ($sourceId) {
       $query = $query->where('s.id', $sourceId);

@@ -59,8 +59,7 @@
   color: green;
 }
 
-#paradigmDiv {
-  margin-top: 5px;
+.paradigmDiv {
   white-space: nowrap;
 }
 

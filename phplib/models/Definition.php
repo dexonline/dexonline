@@ -208,8 +208,7 @@ class Definition extends BaseObject implements DatedObject {
       return [[], $stopWords];
     }
     if (count($words) == 1) {
-      // For single-word queries, skip the ordering part.
-      // We could sort the definitions by lexicon, but it is very expensive.
+      // For single-word queries, let the caller do the sorting.
       return [$intersection, $stopWords];
     }
 

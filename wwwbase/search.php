@@ -70,6 +70,14 @@ if ($text) {
     foreach ($defIds as $id) {
       $definitions[] = Definition::get_by_id($id);
     }
+
+    // For single-word queries, just order the definitions by lexicon.
+    if (count($words) - count($stopWords) == 1) {
+      usort($definitions, function($a, $b) {
+        return strcoll($a->lexicon, $b->lexicon) > 0;
+      });
+    }
+
     if (!count($defIds)) {
       FlashMessage::add('Nicio definiție nu conține toate cuvintele căutate.');
     }

@@ -96,6 +96,32 @@ class Entry extends BaseObject implements DatedObject {
     }
   }
 
+  // Returns the description up to the first parenthesis (if any).
+  function getShortDescription() {
+    return preg_split('/\s+\(/', $this->description)[0];
+  }
+
+  /**
+   * Returns the list of lexemes sorted with main lexems first. Excludes lexemes that have
+   * a form equal to the entry's description.
+   **/
+  function getPrintableLexems() {
+    $results = $this->getLexems();
+
+    usort($results, function($a, $b) {
+      return ($a->main < $b->main);
+    });
+
+    // only consider the text up to the parenthesis (if present)
+    $short = $this->getShortDescription();
+
+    $results = array_filter($results, function($l) use ($short) {
+      return $l->formNoAccent != $short;
+    });
+
+    return $results;
+  }
+
   public static function loadUnassociated() {
     $query = 'select * from Entry ' .
            'where id not in (select entryId from EntryLexem) ' .

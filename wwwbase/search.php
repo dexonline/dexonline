@@ -8,62 +8,64 @@ define('SEARCH_MULTIWORD', 1);
 define('SEARCH_INFLECTED', 2);
 define('SEARCH_APPROXIMATE', 3);
 define('SEARCH_DEF_ID', 4);
-define('SEARCH_LEXEM_ID', 5);
+define('SEARCH_ENTRY_ID', 5);
 define('SEARCH_FULL_TEXT', 6);
+define('SEARCH_LEXEM_ID', 7);
 
 define('LIMIT_FULLTEXT_DISPLAY', Config::get('limits.limitFulltextSearch', 500));
 define('PREVIEW_LIMIT', 20); // how many definitions to show by default
 
 // categories: whether to show the official / specialized / unofficial category headers
 // defLimit: how many definitions to display (null = not relevant)
-// lexemList: whether to print a list of matching lexemes
-// paradigm: whether to display the paradigm for $lexems
+// entryList: whether to print a list of matching entries
+// paradigm: whether to display the paradigm for $entries
 $SEARCH_PARAMS = [
   SEARCH_REGEXP => [
     'categories' => false,
     'defLimit' => null,
-    'lexemList' => true,
+    'entryList' => true,
     'paradigm' => false,
   ],
   SEARCH_MULTIWORD => [
     'categories' => false,
     'defLimit' => PREVIEW_LIMIT,
-    'lexemList' => false,
+    'entryList' => false,
     'paradigm' => false,
   ],
   SEARCH_INFLECTED => [
     'categories' => true,
     'defLimit' => PREVIEW_LIMIT,
-    'lexemList' => false,
+    'entryList' => false,
     'paradigm' => true,
   ],
   SEARCH_APPROXIMATE => [
     'categories' => false,
     'defLimit' => null,
-    'lexemList' => true,
+    'entryList' => true,
     'paradigm' => false,
   ],
   SEARCH_DEF_ID => [
     'categories' => true,
     'defLimit' => null,
-    'lexemList' => false,
+    'entryList' => false,
     'paradigm' => false,
   ],
-  SEARCH_LEXEM_ID => [
+  SEARCH_ENTRY_ID => [
     'categories' => true,
     'defLimit' => null,
-    'lexemList' => false,
+    'entryList' => false,
     'paradigm' => true,
   ],
   SEARCH_FULL_TEXT => [
     'categories' => false,
     'defLimit' => null, // there is a limit, but we handle it separately for memory reasons
-    'lexemList' => false,
+    'entryList' => false,
     'paradigm' => false,
   ],
 ];
 
 $cuv = Request::get('cuv');
+$entryId = Request::get('entryId');
 $lexemId = Request::get('lexemId');
 $defId = Request::get('defId');
 $sourceUrlName = Request::get('source');
@@ -81,7 +83,8 @@ if ($cuv && !$redirect) {
   $cuv = StringUtil::cleanupQuery($cuv);
 }
 
-util_redirectToFriendlyUrl($cuv, $lexemId, $sourceUrlName, $text, $showParadigm, $xml, $all);
+util_redirectToFriendlyUrl($cuv, $entryId, $lexemId, $sourceUrlName, $text, $showParadigm,
+                           $xml, $all);
 
 $paradigmLink = $_SERVER['REQUEST_URI'] . ($showParadigm ? '' : '/paradigma');
 
@@ -105,8 +108,8 @@ if ($cuv) {
 }
 
 $definitions = [];
-$lexems = [];
 $entries = [];
+$lexems = [];
 $extra = [];
 
 if ($isAllDigits) {
@@ -126,6 +129,17 @@ if ($defId) {
                ->where('id', $defId)
                ->where_in('status', $statuses)
                ->find_many();
+}
+
+// Lexem.id search
+if ($lexemId) {
+  $searchType = SEARCH_LEXEM_ID;
+  $l = Lexem::get_by_id($lexemId);
+  if (!$l || empty($l->getEntries())) {
+    util_redirect(util_getWwwRoot());
+  }
+  $e = $l->getEntries()[0];
+  util_redirect(sprintf('%sintrare/%s/%s', util_getWwwRoot(), $e->getShortDescription(), $e->id));
 }
 
 // Full-text search
@@ -151,19 +165,20 @@ if ($text) {
   }
 }
 
-// Search by lexeme ID
-if ($lexemId) {
+// Search by entry ID
+if ($entryId) {
   // TODO obey sourceId
-  $searchType = SEARCH_LEXEM_ID;
-  $lexem = Lexem::get_by_id($lexemId);
-  if ($lexem) {
-    $lexems = [$lexem];
-    SmartyWrap::assign('cuv', $lexem->formNoAccent);
-    $definitions = Definition::searchLexem($lexem);
+  $searchType = SEARCH_ENTRY_ID;
+  $entry = Entry::get_by_id($entryId);
+  if ($entry) {
+    $entries = [$entry];
+    SmartyWrap::assign('cuv', $entry->getShortDescription());
+    $definitions = Definition::searchEntry($entry);
   }
 }
 
 // Regular expression search
+// Count all the results, but load at most 1,000
 if ($hasRegexp) {
   $searchType = SEARCH_REGEXP;
   $extra['numLexems'] = Lexem::searchRegexp($cuv, $hasDiacritics, $sourceId, true);
@@ -177,7 +192,7 @@ if ($searchType == SEARCH_INFLECTED) {
   // successful search
   if (count($entries)) {
     $definitions = Definition::loadForEntries($entries, $sourceId, $cuv);
-    SmartyWrap::assign('wikiArticles', WikiArticle::loadForLexems($lexems));
+    SmartyWrap::assign('wikiArticles', WikiArticle::loadForEntries($entries));
   }
 
   // fallback to multiword search
@@ -193,19 +208,19 @@ if ($searchType == SEARCH_INFLECTED) {
   // fallback to approximate search
   if (empty($entries) && empty($definitions)) {
     $searchType = SEARCH_APPROXIMATE;
-    $lexems = Lexem::searchApproximate($cuv, $hasDiacritics, true);
-    if (count($lexems) == 1) {
-      FlashMessage::add("Ați fost redirecționat automat la forma „{$lexems[0]->formNoAccent}”.");
+    $entries = Lexem::searchApproximate($cuv, $hasDiacritics, true);
+    if (count($entries) == 1) {
+      FlashMessage::add("Ați fost redirecționat automat la forma „{$entries[0]->description}”.");
     }
   }
 
   // Convenience redirect when there is only one correct form. We want all pages to be canonical.
-  if ((count($lexems) == 1) && ($cuv != $lexems[0]->formNoAccent)) {
+  if ((count($entries) == 1) && ($cuv != $entries[0]->getShortDescription())) {
     $sourcePart = $source ? "-{$source->urlName}" : '';
     session_setVariable('redirect', true);
     session_setVariable('init_word', $cuv);
     util_redirect(util_getWwwRoot() .
-                  "definitie{$sourcePart}/{$lexems[0]->formNoAccent}");
+                  "definitie{$sourcePart}/{$entries[0]->getShortDescription()}");
   }
 }
 
@@ -222,7 +237,7 @@ if ($defLimit) {
   }
 }
   
-if (empty($entries) && empty($searchResults)) {
+if (empty($entries) && empty($lexems) && empty($searchResults)) {
   header('HTTP/1.0 404 Not Found');
 }
 
@@ -300,15 +315,15 @@ if ($cuv) {
 }
 
 // Gallery images
-$images = empty($lexems) ? [] : Visual::loadAllForLexems($lexems);
+$images = empty($entries) ? [] : Visual::loadAllForEntries($entries);
 SmartyWrap::assign('images', $images);
 if (count($images)) {
   SmartyWrap::addCss('gallery');
   SmartyWrap::addJs('gallery', 'jcanvas');
 }
 
-SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('entries', $entries);
+SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('results', $searchResults);
 SmartyWrap::assign('extra', $extra);
 SmartyWrap::assign('text', $text);

@@ -150,14 +150,13 @@ class Definition extends BaseObject implements DatedObject {
     return $defs;
   }
 
-  public static function searchLexem($lexem) {
+  public static function searchEntry($entry) {
     return Model::factory('Definition')
       ->table_alias('d')
       ->select('d.*')
       ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
-      ->join('EntryLexem', ['ed.entryId', '=', 'el.entryId'], 'el')
       ->join('Source', ['d.sourceId', '=', 's.id'], 's')
-      ->where('el.lexemId', $lexem->id)
+      ->where('ed.entryId', $entry->id)
       ->where_in('d.status', [self::ST_ACTIVE, self::ST_HIDDEN])
       ->order_by_desc('s.type')
       ->order_by_asc('s.displayOrder')
@@ -316,9 +315,9 @@ class Definition extends BaseObject implements DatedObject {
   public static function searchMultipleWords($words, $hasDiacritics, $oldOrthography, $sourceId) {
     $defCounts = [];
     foreach ($words as $word) {
-      $lexems = Lexem::searchInflectedForms($word, $hasDiacritics, $oldOrthography);
-      if (count($lexems)) {
-        $definitions = self::loadForLexems($lexems, $sourceId, $word);
+      $entries = Entry::searchInflectedForms($word, $hasDiacritics, $oldOrthography);
+      if (count($entries)) {
+        $definitions = self::loadForEntries($entries, $sourceId, $word);
         foreach ($definitions as $def) {
           $defCounts[$def->id] = array_key_exists($def->id, $defCounts) ? $defCounts[$def->id] + 1 : 1;
         }
@@ -326,7 +325,7 @@ class Definition extends BaseObject implements DatedObject {
     }
     arsort($defCounts);
 
-    $result = array();
+    $result = [];
     foreach ($defCounts as $defId => $cnt) {
       if ($cnt >= 2) {
         $d = Definition::get_by_id($defId);

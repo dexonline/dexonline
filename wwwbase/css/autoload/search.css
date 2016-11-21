@@ -1,3 +1,11 @@
+.variantList span:before {
+  content: '•';
+}
+
+.entryList span:not(:first-child):before {
+  content: '•';
+}
+
 /* Full text highlight. Keep the number of colors in sync with Definition::highlight(). */
 .fth {
   color: #FFF;

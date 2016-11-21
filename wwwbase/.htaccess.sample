@@ -22,7 +22,8 @@ RewriteRule ^spre/(.*)$ goto.php?key=$1 [PT,L]
 RewriteRule ^utilizator/(.*)$ user.php?n=$1 [PT,L]
 
 RewriteRule ^definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)?(/xml)?(/expandat)? search.php?cuv=$3&source=$2&defId=$5&showParadigm=$6&xml=$7&all=$8 [PT,L]
-RewriteRule ^lexem(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)?$ search.php?cuv=$3&source=$2&lexemId=$5&showParadigm=$6 [PT,L]
+RewriteRule ^intrare(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)?$ search.php?cuv=$3&source=$2&entryId=$5&showParadigm=$6 [PT,L]
+RewriteRule ^lexem/([^/]+)(/([0-9]+))?$ search.php?cuv=$1&lexemId=$3 [PT,L]
 
 # Rewrites for old syntax used by dex-online.ro
 RewriteRule ^([^/]+)/cauta/?$ /definitie/$1 [R=301,L]

@@ -67,31 +67,29 @@ class Visual extends BaseObject implements DatedObject {
     }
   }
 
-  // Loads all Visuals that are associated with one of the lexems, either directly or through a VisualTag.
-  static function loadAllForLexems($lexems) {
+  // Loads all Visuals that are associated with one of the entries,
+  // either directly or through a VisualTag.
+  static function loadAllForEntries($entries) {
+    if (empty($entries)) {
+      return [];
+    }
+
     $map = [];
+    $entryIds = util_objectProperty($entries, 'id');
 
-    foreach ($lexems as $l) {
-      $vs = Model::factory('Visual')
-          ->table_alias('v')
-          ->select('v.*')
-          ->join('EntryLexem', ['el.entryId', '=', 'v.entryId'], 'el')
-          ->where('el.lexemId', $l->id)
-          ->find_many();
-      foreach ($vs as $v) {
-        $map[$v->id] = $v;
-      }
+    $vs = Model::factory('Visual')
+        ->where_in('entryId', $entryIds)
+        ->find_many();
+    foreach ($vs as $v) {
+      $map[$v->id] = $v;
+    }
 
-      $vts = Model::factory('VisualTag')
-           ->table_alias('vt')
-           ->select('vt.*')
-           ->join('EntryLexem', ['el.entryId', '=', 'vt.entryId'], 'el')
-           ->where('el.lexemId', $l->id)
-           ->find_many();
-      foreach ($vts as $vt) {
-        $v = Visual::get_by_id($vt->imageId);
-        $map[$v->id] = $v;
-      }
+    $vts = Model::factory('VisualTag')
+         ->where_in('entryId', $entryIds)
+         ->find_many();
+    foreach ($vts as $vt) {
+      $v = Visual::get_by_id($vt->imageId);
+      $map[$v->id] = $v;
     }
 
     foreach ($map as $v) {

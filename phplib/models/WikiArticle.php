@@ -26,7 +26,7 @@ class WikiArticle extends BaseObject implements DatedObject {
   }
 
   public function getUrlTitle() {
-    return WikiArticle::wikiTitleToUrlTitle($this->title);
+    return self::wikiTitleToUrlTitle($this->title);
   }
 
   public static function urlTitleToWikiTitle($urlTitle) {
@@ -46,17 +46,21 @@ class WikiArticle extends BaseObject implements DatedObject {
     return $result;
   }
 
-  public static function loadForLexems($lexems) {
-    if (!count($lexems)) {
-      return array();
+  public static function loadForEntries($entries) {
+    if (!count($entries)) {
+      return [];
     }
-    $lexemForms = array();
-    foreach ($lexems as $l) {
-      $lexemForms[] = "'{$l->formNoAccent}'"; 
-    }
-    $lexemConcat = implode(', ', $lexemForms);
+    $entryIds = util_objectProperty($entries, 'id');
+
     return Model::factory('WikiArticle')
-      ->raw_query("select WikiArticle.* from WikiArticle, WikiKeyword where WikiArticle.id = WikiKeyword.wikiArticleId and WikiKeyword.keyword in ($lexemConcat)")
+      ->table_alias('wa')
+      ->select('wa.id')
+      ->select('wa.title')
+      ->distinct()
+      ->join('WikiKeyword', ['wa.id', '=', 'wk.wikiArticleId'], 'wk')
+      ->join('Lexem', ['wk.keyword', '=', 'l.formNoAccent'], 'l')
+      ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+      ->where_in('el.entryId', $entryIds)
       ->find_many();
   }
 

@@ -15,8 +15,6 @@
 {block "content"}
   {assign var="declensionText" value=$declensionText|default:null}
   {assign var="excludeUnofficial" value=$excludeUnofficial|default:false}
-  {assign var="lexems" value=$lexems|default:null}
-  {assign var="results" value=$results|default:null}
   {assign var="showParadigm" value=$showParadigm|default:false}
   {assign var="wikiArticles" value=$wikiArticles|default:null}
   {assign var="allDefinitions" value=$allDefinitions|default:null}
@@ -88,10 +86,10 @@
           {/if}
         {/if}
 
-      {* lexeme ID search *}
-      {elseif $searchType == $smarty.const.SEARCH_LEXEM_ID}
+      {* entry ID search *}
+      {elseif $searchType == $smarty.const.SEARCH_ENTRY_ID}
         <h3>
-          {if count($lexems)}
+          {if count($entries)}
             {include "bits/count.tpl"
             displayed=count($results)
             none="Nicio definiție"
@@ -99,9 +97,9 @@
             many="definiții"
             common="pentru"}
 
-            „{include "bits/lexemName.tpl" lexem=$lexems.0}”
+            <strong>{$entries[0]->description}</strong>
           {else}
-            Nu există niciun lexem cu ID-ul căutat.
+            Nu există nicio intrare cu ID-ul căutat.
           {/if}
         </h3>
 
@@ -125,7 +123,7 @@
       {elseif $searchType == $smarty.const.SEARCH_INFLECTED}
         <h3>
           {if empty($results) && $sourceId}
-              Nu am găsit în acest dicționar definiția lui
+            Nu am găsit în acest dicționar definiția lui
           {else}
             {include "bits/count.tpl"
             displayed=count($results)
@@ -134,28 +132,32 @@
             one="O definiție"
             many="definiții"
             common=""}
-
-            pentru
-          {/if}
-
-          {if count($entries) == 1}
-            {* If there is exactly one lexem, do not link to the lexem page, because
-               it would print an almost exact duplicate of this page. *}
-            <strong>{$entries.0->description}</strong>
           {/if}
         </h3>
 
-        {if count($entries) > 1}
-          <ul>
-            {foreach $entries as $e}
-              <li>
+        <ul>
+          {foreach $entries as $e}
+            <li>
+              {* If there is exactly one entry, do not link to the entry page, because
+                 it would print an almost exact duplicate of this page. *}
+              {if count($entries) > 1}
                 <a href="{$wwwRoot}intrare/{$e->description}/{$e->id}">
                   {$e->description}
                 </a>
-              </li>
-            {/foreach}
-          </ul>
-        {/if}
+              {else}
+                <strong>{$e->description}</strong>
+              {/if}
+
+              <span class="variantList">
+                {foreach $e->getPrintableLexems() as $l}
+                  <span {if !$l->main}class="text-muted"{/if}>
+                    {include "bits/lexemName.tpl" lexem=$l}
+                  </span>
+                {/foreach}
+              </span>
+            </li>
+          {/foreach}
+        </ul>
 
         {if $extra.numDefinitions > count($results)}
           <p>
@@ -199,7 +201,7 @@
       {* approximate search *}
       {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
         <h3>
-          {if count($lexems)}
+          {if count($entries)}
             Cuvântul <strong>{$cuv|escape}</strong> nu este în dicționar. Iată câteva sugestii:
           {else}
             Niciun rezultat pentru <strong>{$cuv|escape}</strong>
@@ -209,7 +211,7 @@
       {/if}
 
       {* various warnings and subtitles *}
-      {if !count($results) && count($lexems) && $sourceId}
+      {if !count($results) && count($entries) && $sourceId}
         <p>
           Repetați căutarea <a href="{$wwwRoot}definitie/{$cuv|escape}">în toate dicționarele</a>.
         </p>
@@ -293,14 +295,30 @@
 
         {/foreach}
 
-        {* lexeme list *}
-        {if $searchParams.lexemList}
-          {foreach $lexems as $row_id => $lexem}
-            {if $row_id}|{/if}
-            <a href="{$wwwRoot}lexem/{$lexem->formNoAccent}/{$lexem->id}">
-              {include "bits/lexemName.tpl" lexem=$lexem}
-            </a>
-          {/foreach}
+        {* entry list *}
+        {if $searchParams.entryList}
+          <span class="entryList">
+            {foreach $entries as $e}
+              <span>
+                <a href="{$wwwRoot}intrare/{$e->getShortDescription()}/{$e->id}">
+                  {$e->description|escape}
+                </a>
+              </span>
+            {/foreach}
+          </span>
+        {/if}
+
+        {* lexem list *}
+        {if count($lexems)}
+          <span class="entryList">
+            {foreach $lexems as $l}
+              <span>
+                <a href="{$wwwRoot}lexem/{$l->formNoAccent}/{$l->id}">
+                  {include "bits/lexemName.tpl" lexem=$l}
+                </a>
+              </span>
+            {/foreach}
+          </span>
         {/if}
 
         {include "bits/typoForm.tpl"}

@@ -279,6 +279,8 @@ class Lexem extends BaseObject implements DatedObject {
     if ($sourceId) {
       // Suppres warnings from idiorm's log query function, which uses vsprintf,
       // which trips on extra % signs.
+      // TODO: count() works incorrectly here, because idiorm issues distinct count(*)
+      // instead of count(distinct *).
       return @Model::factory('Lexem')
         ->table_alias('l')
         ->select('l.*')

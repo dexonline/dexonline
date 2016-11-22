@@ -68,9 +68,10 @@ $(function() {
           }
         },
         index: 1,
-        maxCount: 10,
-      }
-    ]);
+      },
+    ], {
+      maxCount: 1000,
+    });
 
     $('#editMeaningAcceptButton').click(acceptMeaningEdit);
     $('#editMeaningCancelButton').click(endMeaningEdit);

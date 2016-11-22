@@ -109,6 +109,11 @@
   border-color: #cca3cc;
 }
 
+.textcomplete-dropdown {
+  max-height: 155px;
+  overflow-y: scroll;
+}
+
 .textcomplete-item a {
   overflow: hidden;
   text-overflow: ellipsis;

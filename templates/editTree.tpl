@@ -230,10 +230,9 @@
     <div class="panel panel-default">
       <div class="panel-heading">Sensuri</div>
       <div class="panel-body">
-        {include "bits/meaningTree.tpl"
+        {include "bits/editableMeaningTree.tpl"
         meanings=$t->getMeanings()
-        id="meaningTree"
-        editable=true}
+        id="meaningTree"}
 
         <div>
           {if $canEdit}

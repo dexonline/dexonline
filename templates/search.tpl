@@ -33,11 +33,56 @@
         </a>
       </li>
     {/if}
+
+    {if count($structuredResults)}
+      <li role="presentation">
+        <a href="#structuredTab" aria-controls="structuredTab" role="tab" data-toggle="tab">
+          definiții structurate
+        </a>
+      </li>
+    {/if}
   </ul>
 
   <div class="tab-content">
     {* results tab *}
     <div role="tabpanel" class="tab-pane {if !$showParadigm}active{/if}" id="resultsTab">
+
+      {if $searchParams.trees && $extra.hasTrees}
+        {foreach $entries as $e}
+
+          <h3>
+            {* If there is exactly one entry, do not link to the entry page, because
+               it would print an almost exact duplicate of this page. *}
+            {include "bits/entry.tpl" entry=$e link=(count($entries) > 1)}
+
+            <span class="variantList">
+              {foreach $e->getPrintableLexems() as $l}
+                <span {if !$l->main}class="text-muted"{/if}>
+                  {$l->formNoAccent}
+                </span>
+              {/foreach}
+            </span>
+          </h3>
+
+          {foreach $e->getTrees() as $t}
+            <div class="panel panel-default tree tree-status-{$t->status}">
+              <div class="panel-heading">
+                {$t->description}
+                {if $sUser && $sUser->moderator & ($smarty.const.PRIV_EDIT + $smarty.const.PRIV_STRUCT)}
+                  <a href="{$wwwRoot}editTree.php?id={$t->id}" class="pull-right">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                    editează
+                  </a>
+                {/if}
+              </div>
+              <div class="panel-body">
+                {include "bits/meaningTree.tpl" meanings=$t->getMeanings()}
+              </div>
+            </div>
+          {/foreach}
+        {/foreach}
+      {/if}
+
       {* definition ID search *}
       {if $searchType == $smarty.const.SEARCH_DEF_ID}
         {if count($results)}
@@ -135,29 +180,25 @@
           {/if}
         </h3>
 
-        <ul>
-          {foreach $entries as $e}
-            <li>
-              {* If there is exactly one entry, do not link to the entry page, because
-                 it would print an almost exact duplicate of this page. *}
-              {if count($entries) > 1}
-                <a href="{$wwwRoot}intrare/{$e->description}/{$e->id}">
-                  {$e->description}
-                </a>
-              {else}
-                <strong>{$e->description}</strong>
-              {/if}
+        {if !$searchParams.trees || !$extra.hasTrees}
+          <ul>
+            {foreach $entries as $e}
+              <li>
+                {* If there is exactly one entry, do not link to the entry page, because
+                   it would print an almost exact duplicate of this page. *}
+                {include "bits/entry.tpl" entry=$e link=(count($entries) > 1)}
 
-              <span class="variantList">
-                {foreach $e->getPrintableLexems() as $l}
-                  <span {if !$l->main}class="text-muted"{/if}>
-                    {include "bits/lexemName.tpl" lexem=$l}
-                  </span>
-                {/foreach}
-              </span>
-            </li>
-          {/foreach}
-        </ul>
+                <span class="variantList">
+                  {foreach $e->getPrintableLexems() as $l}
+                    <span {if !$l->main}class="text-muted"{/if}>
+                      {$l->formNoAccent}
+                    </span>
+                  {/foreach}
+                </span>
+              </li>
+            {/foreach}
+          </ul>
+        {/if}
 
         {if $extra.numDefinitions > count($results)}
           <p>
@@ -211,20 +252,20 @@
       {/if}
 
       {* various warnings and subtitles *}
-      {if !count($results) && count($entries) && $sourceId}
+      {if !count($results) && !count($structuredResults) && count($entries) && $sourceId}
         <p>
           Repetați căutarea <a href="{$wwwRoot}definitie/{$cuv|escape}">în toate dicționarele</a>.
         </p>
       {/if}
 
-      {if !count($results) && isset($extra.unofficialHidden)}
+      {if !count($results) && !count($structuredResults) && isset($extra.unofficialHidden)}
         <p class="text-warning">
           Există definiții din dicționare neoficiale, pe care ați ales
           <a href="{$wwwRoot}preferinte">să le ascundeți</a>.
         </p>
       {/if}
 
-      {if !count($results) && isset($extra.sourcesHidden)}
+      {if !count($results) && !count($structuredResults) && isset($extra.sourcesHidden)}
         <p class="text-warning">
           Există definiții din dicționare pentru care dexonline nu are drepturi de redistribuire:
         </p>
@@ -259,41 +300,7 @@
         {/if}
 
         {* definitions and categories *}
-        {$displayedUnofficial=false}
-        {$displayedSpec=false}
-        {foreach $results as $i => $row}
-
-          {if $searchParams.categories}
-            {if $row->source->type == Source::TYPE_SPECIALIZED && !$displayedSpec}
-              <br/>
-              <div class="callout callout-info">
-                <h3>Definiții din dicționare specializate</h3>
-                <p class="text-muted">
-                  Aceste definiții pot explica numai anumite înțelesuri ale cuvintelor.
-                </p>
-              </div>
-              {$displayedSpec=true}
-            {elseif $row->source->type == Source::TYPE_UNOFFICIAL && !$displayedUnofficial}
-              <br/>
-              <div class="callout callout-info">
-                <h3>Definiții din dicționare neoficiale</h3>
-                <p class="text-muted">
-                  Deoarece nu sunt editate de lexicografi, aceste definiții pot conține erori,
-                  deci e preferabilă consultarea altor dicționare în paralel.
-                </p>
-              </div>
-              {$displayedUnofficial=true}
-            {/if}
-          {/if}
-
-          {include "bits/definition.tpl"
-          showBookmark=1
-          showCourtesyLink=1
-          showFlagTypo=1
-          showHistory=1
-          showWotd=1}
-
-        {/foreach}
+        {include "bits/definitionList.tpl" results=$results}
 
         {* entry list *}
         {if $searchParams.entryList}
@@ -343,6 +350,28 @@
             Link către această paradigmă
           </a>
         </div>
+      </div>
+    {/if}
+
+    {* structured definitions tab *}
+    {if count($structuredResults)}
+      <div role="tabpanel" class="tab-pane" id="structuredTab">
+
+        <h3>
+          {include "bits/count.tpl"
+          displayed=count($structuredResults)
+          none="Nicio definiție structurată"
+          one="O definiție structurată"
+          many="definiții structurate"
+          common=""}
+        </h3>
+
+        <p>
+          Aceste definiții sunt deja încorporate în sensurile prezentate în tabul „rezultate”.
+        </p>
+
+        {include "bits/definitionList.tpl" results=$structuredResults}
+
       </div>
     {/if}
   </div>

@@ -2,8 +2,16 @@
   content: '•';
 }
 
+h3 .variantList {
+  font-size: 80%;
+}
+
 .entryList span:not(:first-child):before {
   content: '•';
+}
+
+.entryName {
+  font-weight: bold;
 }
 
 /* Full text highlight. Keep the number of colors in sync with Definition::highlight(). */

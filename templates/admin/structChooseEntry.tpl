@@ -9,7 +9,7 @@
     <div class="panel panel-default">
 
       <div class="panel-heading">
-        {include "bits/entryLink.tpl" entry=$e}
+        {include "bits/entry.tpl" entry=$e editLink=true}
       </div>
 
       <div class="panel-body">

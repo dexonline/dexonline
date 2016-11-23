@@ -94,7 +94,7 @@
 
               {foreach $homonyms as $h}
                 <div>
-                  {include "bits/entryLink.tpl" entry=$h}
+                  {include "bits/entry.tpl" entry=$h editLink=true}
                 </div>
               {/foreach}
 

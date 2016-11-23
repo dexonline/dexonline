@@ -74,23 +74,27 @@ class SearchResult {
 
   // If the user chose to exclude unofficial definitions, filter them out.
   // If the user may not see hidden definitions, filter those out.
-  // Add information about the changes to the $extra array.
-  public static function filter(&$searchResults, &$extra) {
+  // Returns information about changes made.
+  static function filter(&$searchResults) {
+    $unofficialHidden = null;
+    $sourcesHidden = null;
     $excludeUnofficial = session_user_prefers(Preferences::EXCLUDE_UNOFFICIAL);
 
     foreach ($searchResults as $i => &$sr) {
       if ($excludeUnofficial && ($sr->source->type == Source::TYPE_UNOFFICIAL)) {
         // hide unofficial definitions
-        $extra['unofficialHidden'] = true;
+        $unofficialHidden = true;
         unset($searchResults[$i]);
       } else if (!util_isModerator(PRIV_VIEW_HIDDEN) &&
                  (($sr->source->type == Source::TYPE_HIDDEN) ||
                   ($sr->definition->status == Definition::ST_HIDDEN))) {
         // hide hidden definitions or definitions from hidden sources
-        $extra['sourcesHidden'][$sr->source->id] = $sr->source;
+        $sourcesHidden[$sr->source->id] = $sr->source;
         unset($searchResults[$i]);
       }
     }
+
+    return [ $unofficialHidden, $sourcesHidden ];
   }
 
   private static function mapById($objects) {

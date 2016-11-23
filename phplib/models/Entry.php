@@ -103,24 +103,22 @@ class Entry extends BaseObject implements DatedObject {
   }
 
   /**
-   * Returns the list of lexemes sorted with main lexems first. Excludes lexemes that have
-   * a form equal to the entry's description.
+   * Returns the list of lexemes sorted with main lexems first. Excludes duplicate lexems
+   * and lexemes that have a form equal to the entry's description.
    **/
   function getPrintableLexems() {
-    $results = $this->getLexems();
+    $map = [];
+    foreach ($this->getLexems() as $l) {
+      $map[$l->formNoAccent] = $l;
+    }
 
-    usort($results, function($a, $b) {
+    unset($map[$this->getShortDescription()]);
+
+    usort($map, function($a, $b) {
       return ($a->main < $b->main);
     });
 
-    // only consider the text up to the parenthesis (if present)
-    $short = $this->getShortDescription();
-
-    $results = array_filter($results, function($l) use ($short) {
-      return $l->formNoAccent != $short;
-    });
-
-    return $results;
+    return $map;
   }
 
   public static function loadUnassociated() {

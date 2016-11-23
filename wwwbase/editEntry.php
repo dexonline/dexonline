@@ -189,7 +189,7 @@ SmartyWrap::assign('homonyms', $homonyms);
 SmartyWrap::assign('structStatusNames', Entry::$STRUCT_STATUS_NAMES);
 SmartyWrap::assign('structurists', User::getStructurists($e->structuristId));
 SmartyWrap::addCss('meaningTree', 'admin');
-SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete');
+SmartyWrap::addJs('select2Dev', 'textComplete');
 SmartyWrap::display('editEntry.tpl');
 
 ?>

@@ -1,4 +1,4 @@
-{assign var="accent" value=$accent|default:false}
+{$accent=$accent|default:false}
 {strip}
   {if $accent}
     {$lexem->form|escape}

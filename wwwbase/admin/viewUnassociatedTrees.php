@@ -13,7 +13,6 @@ $trees = Model::factory('Tree')
 
 SmartyWrap::assign('trees', $trees);
 SmartyWrap::addCss('admin', 'meaningTree');
-SmartyWrap::addJs('meaningTree');
 SmartyWrap::display('admin/viewUnassociatedTrees.tpl');
 
 ?>

@@ -23,44 +23,51 @@ $SEARCH_PARAMS = [
   SEARCH_REGEXP => [
     'categories' => false,
     'defLimit' => null,
-    'entryList' => true,
+    'entryList' => false,
     'paradigm' => false,
+    'trees' => false,
   ],
   SEARCH_MULTIWORD => [
     'categories' => false,
     'defLimit' => PREVIEW_LIMIT,
     'entryList' => false,
     'paradigm' => false,
+    'trees' => false,
   ],
   SEARCH_INFLECTED => [
     'categories' => true,
     'defLimit' => PREVIEW_LIMIT,
     'entryList' => false,
     'paradigm' => true,
+    'trees' => true,
   ],
   SEARCH_APPROXIMATE => [
     'categories' => false,
     'defLimit' => null,
     'entryList' => true,
     'paradigm' => false,
+    'trees' => false,
   ],
   SEARCH_DEF_ID => [
     'categories' => true,
     'defLimit' => null,
     'entryList' => false,
     'paradigm' => false,
+    'trees' => false,
   ],
   SEARCH_ENTRY_ID => [
     'categories' => true,
     'defLimit' => null,
     'entryList' => false,
     'paradigm' => true,
+    'trees' => true,
   ],
   SEARCH_FULL_TEXT => [
     'categories' => false,
     'defLimit' => null, // there is a limit, but we handle it separately for memory reasons
     'entryList' => false,
     'paradigm' => false,
+    'trees' => false,
   ],
 ];
 
@@ -235,21 +242,56 @@ if ($searchType == SEARCH_INFLECTED) {
   }
 }
 
+$results = SearchResult::mapDefinitionArray($definitions);
+$structuredResults = [];
+
+// Filter out structured definitions if we are displaying trees
+if ($SEARCH_PARAMS[$searchType]['trees']) {
+  foreach ($results as $i => $sr) {
+    if ($sr->definition->structured) {
+      $structuredResults[] = $sr;
+      unset($results[$i]);
+    }
+  }
+}
+
 // Filter out hidden definitions
-$searchResults = SearchResult::mapDefinitionArray($definitions);
-SearchResult::filter($searchResults, $extra);
+list($extra['unofficialHidden'], $extra['sourcesHidden'])
+  = SearchResult::filter($results);
+
+// Don't save extra information for structured definitions.
+// If there are none left after filtering, then we'll hide the tab altogether.
+SearchResult::filter($structuredResults);
 
 // Keep only a maximum number of definitions
 $defLimit = $SEARCH_PARAMS[$searchType]['defLimit'];
 if ($defLimit) {
-  $extra['numDefinitions'] = count($searchResults);
+  $extra['numDefinitions'] = count($results);
   if (!$all) {
-    $searchResults = array_slice($searchResults, 0, $defLimit);
+    $results = array_slice($results, 0, $defLimit);
   }
 }
   
-if (empty($entries) && empty($lexems) && empty($searchResults)) {
+if (empty($entries) && empty($lexems) && empty($results)) {
   header('HTTP/1.0 404 Not Found');
+}
+
+// Collect meaning trees
+if ($SEARCH_PARAMS[$searchType]['trees']) {
+  $hasTrees = false;
+  foreach ($entries as $e) {
+    foreach ($e->getTrees() as $t) {
+      if (($t->status == Tree::ST_VISIBLE) &&
+          count($t->getMeanings())) {
+        $hasTrees = true;
+      }
+    }
+  }
+
+  $extra['hasTrees'] = $hasTrees;
+  if ($hasTrees) {
+    SmartyWrap::addCss('meaningTree');
+  }
 }
 
 // Collect inflected forms
@@ -292,7 +334,10 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
 
 // Collect source list to display in meta tags
 $sourceList = [];
-foreach ($searchResults as $row) {
+foreach ($results as $row) {
+  $sourceList[$row->source->shortName] = true;
+}
+foreach ($structuredResults as $row) {
   $sourceList[$row->source->shortName] = true;
 }
 $sourceList = array_keys($sourceList);
@@ -335,7 +380,8 @@ if (count($images)) {
 
 SmartyWrap::assign('entries', $entries);
 SmartyWrap::assign('lexems', $lexems);
-SmartyWrap::assign('results', $searchResults);
+SmartyWrap::assign('results', $results);
+SmartyWrap::assign('structuredResults', $structuredResults);
 SmartyWrap::assign('extra', $extra);
 SmartyWrap::assign('text', $text);
 SmartyWrap::assign('searchType', $searchType);
@@ -358,7 +404,7 @@ if (!$xml) {
 
 // Logging
 if (Config::get('search-log.enabled')) {
-  $logDefinitions = isset($definitions) ? $definitions : array();
+  $logDefinitions = isset($definitions) ? $definitions : [];
   $log = new SearchLog($cuv, $redirectFrom, $searchType, $redirect, $logDefinitions);
   $log->logData();
 }

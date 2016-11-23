@@ -77,6 +77,7 @@ class Entry extends BaseObject implements DatedObject {
                    ->select('t.*')
                    ->join('TreeEntry', ['te.treeId', '=', 't.id'], 'te')
                    ->where('te.entryId', $this->id)
+                   ->order_by_asc('te.id')
                    ->find_many();
     }
     return $this->trees;

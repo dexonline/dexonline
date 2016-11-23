@@ -1,5 +1,6 @@
 <?php
 require_once("../../phplib/util.php"); 
+ini_set('max_execution_time', '3600');
 util_assertModerator(PRIV_ADMIN);
 util_assertNotMirror();
 
@@ -10,9 +11,12 @@ $replace = Request::get('replace');
 $sourceId = Request::get('sourceId');
 $saveButton = Request::has('saveButton');
 
+// Escape literal percent signs. Use | as escape character so that constructs like
+// \% (which in dexonline notation mean "literal percent sign") are unaffected.
+$mysqlSearch = str_replace('%', '|%', $search);
 $query = Model::factory('Definition')
        ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
-       ->where_raw('(binary internalRep like ?)', ["%{$search}%"]);
+       ->where_raw('(binary internalRep like ? escape "|")', ["%{$mysqlSearch}%"]);
 if ($sourceId) {
   $query = $query->where('sourceId', $sourceId);
 }

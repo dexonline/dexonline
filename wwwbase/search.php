@@ -280,10 +280,12 @@ if (empty($entries) && empty($lexems) && empty($results)) {
 if ($SEARCH_PARAMS[$searchType]['trees']) {
   $hasTrees = false;
   foreach ($entries as $e) {
-    foreach ($e->getTrees() as $t) {
-      if (($t->status == Tree::ST_VISIBLE) &&
-          count($t->getMeanings())) {
-        $hasTrees = true;
+    if (in_array($e->structStatus, [Entry::STRUCT_STATUS_DONE, Entry::STRUCT_STATUS_UNDER_REVIEW])) {
+      foreach ($e->getTrees() as $t) {
+        if (($t->status == Tree::ST_VISIBLE) &&
+            count($t->getMeanings())) {
+          $hasTrees = true;
+        }
       }
     }
   }

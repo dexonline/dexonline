@@ -199,7 +199,8 @@ function util_isWebBasedScript() {
 }
 
 function util_isAjax() {
-  return StringUtil::startsWith($_SERVER['REQUEST_URI'], util_getWwwRoot() . 'ajax/');
+  return isset($_SERVER['REQUEST_URI']) &&
+    StringUtil::startsWith($_SERVER['REQUEST_URI'], util_getWwwRoot() . 'ajax/');
 }
 
 function util_getFullServerUrl() {

@@ -242,6 +242,10 @@ if ($searchType == SEARCH_INFLECTED) {
 $results = SearchResult::mapDefinitionArray($definitions);
 $structuredResults = [];
 
+// Filter out hidden definitions
+list($extra['unofficialHidden'], $extra['sourcesHidden'])
+  = SearchResult::filter($results);
+
 // Filter out structured definitions if we are displaying trees
 if ($SEARCH_PARAMS[$searchType]['trees']) {
   foreach ($results as $i => $sr) {
@@ -251,14 +255,6 @@ if ($SEARCH_PARAMS[$searchType]['trees']) {
     }
   }
 }
-
-// Filter out hidden definitions
-list($extra['unofficialHidden'], $extra['sourcesHidden'])
-  = SearchResult::filter($results);
-
-// Don't save extra information for structured definitions.
-// If there are none left after filtering, then we'll hide the tab altogether.
-SearchResult::filter($structuredResults);
 
 // Keep only a maximum number of definitions
 $defLimit = $SEARCH_PARAMS[$searchType]['defLimit'];

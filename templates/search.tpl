@@ -367,7 +367,8 @@
         </h3>
 
         <p>
-          Aceste definiții sunt deja încorporate în sensurile prezentate în tabul „rezultate”.
+          Aceste definiții sunt deja încorporate în filele „rezultate” și
+          „{$declensionText|default:"declinări"}”.
         </p>
 
         {include "bits/definitionList.tpl" results=$structuredResults}

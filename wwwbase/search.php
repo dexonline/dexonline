@@ -176,9 +176,6 @@ if ($text) {
       });
     }
 
-    if (!count($defIds)) {
-      FlashMessage::add('Nicio definiție nu conține toate cuvintele căutate.');
-    }
     Definition::highlight($words, $definitions);
   }
 }

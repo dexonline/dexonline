@@ -172,7 +172,7 @@ class AdminStringUtil {
     // First, check that all format chars come in pairs
     $len = strlen($s);
     $i = 0;
-    $state = array('$' => false, '@' => false, '%' => false);
+    $state = [ '$' => false, '@' => false, '%' => false ];
     $value = $len ? array_fill(0, $len, 4) : array(); // 0 = punctuation (.,;:), 1 = closing char, 2 = whitespace, 3 = opening char, 4 = other
     while ($i < $len) {
       $c = $s[$i];
@@ -199,7 +199,7 @@ class AdminStringUtil {
     // - opening chars need to more right past whitespace and punctuation (.,;:)
     // - closing chars need to move left past whitespace
     // Therefore, take every string consisting of (w)hitespace, (p)unctuation, (o)pening chars and (c)losing chars and rearrange it as p,c,w,o
-    $matches = array();
+    $matches = [];
     preg_match_all('/[ .,;:@$%]+/', $s, $matches, PREG_OFFSET_CAPTURE);
     if (count($matches)) {
       foreach ($matches[0] as $match) {
@@ -338,7 +338,7 @@ class AdminStringUtil {
     return $s;
   }
 
-  // Converts the text to html. If $obeyNewlines is TRUE, replaces \n with
+  // Converts the text to html. If $obeyNewlines is true, replaces \n with
   // <br/>\n; otherwise leaves \n as \n. Collects unrecoverable errors in $errors.
   static function htmlize($s, $sourceId, &$errors = null, $obeyNewlines = false) {
     $s = htmlspecialchars($s, ENT_NOQUOTES);
@@ -346,6 +346,7 @@ class AdminStringUtil {
     $s = self::convertMeaningMentionsToHtml($s);
     $s = self::insertSuperscripts($s);
     $s = self::internalToHtml($s, $obeyNewlines);
+    $s = self::emphasize($s);
     $s = self::htmlizeAbbreviations($s, $sourceId, $errors);
     $s = self::minimalInternalToHtml($s);
     return $s;
@@ -397,20 +398,20 @@ class AdminStringUtil {
   static function internalToHtml($s, $obeyNewlines) {
     // We can't have user-entered tags since we have called htmlspecialchars
     // already. However, we can have tags like <sup> and <a>.
-    $inTag = FALSE;
-    $inBold = FALSE;
-    $inItalic = FALSE;
-    $inQuotes = FALSE;
-    $inSpaced = FALSE;
+    $inTag = false;
+    $inBold = false;
+    $inItalic = false;
+    $inQuotes = false;
+    $inSpaced = false;
 
     $result = '';
     $len = mb_strlen($s);
     for ($i = 0; $i < $len; $i++) {
       $c = StringUtil::getCharAt($s, $i);
       if ($c == '<') {
-        $inTag = TRUE;
+        $inTag = true;
       } else if ($c == '>') {
-        $inTag = FALSE;
+        $inTag = false;
       }
 
       if ($inTag) {
@@ -441,6 +442,15 @@ class AdminStringUtil {
       }
     }
     return $result;
+  }
+
+  static function emphasize($s) {
+    $count = 0;
+    $s = preg_replace('/__(.*?)__/', '<span class="emph">$1</span>', $s, -1, $count);
+    if ($count) {
+      $s = "<span class=\"deemph\">$s</span>";
+    }
+    return $s;
   }
 
   static function xmlizeOptional($s) {
@@ -525,7 +535,7 @@ class AdminStringUtil {
     $len = mb_strlen($s);
     for ($i = 0; $i < $len; $i++) {
       $c = StringUtil::getCharAt($s, $i);
-      if (strstr(self::$ILLEGAL_NAME_CHARS, $c) === FALSE) {
+      if (strstr(self::$ILLEGAL_NAME_CHARS, $c) === false) {
         $result .= $c;
       }
     }

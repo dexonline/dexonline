@@ -123,6 +123,14 @@ p.def {
   letter-spacing: 3px;
 }
 
+.deemph {
+  color: #ccc;
+}
+
+.emph {
+  color: black;
+}
+
 .defWrapper .glyphicon-comment {
   color: #1E83C2;
   padding-right: 10px;

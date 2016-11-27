@@ -124,6 +124,16 @@ $entryTrees = Model::factory('Tree')
 
 $treeMentions = Mention::getDetailedTreeMentions($t->id);
 
+$frequentTags = Model::factory('Tag')
+              ->table_alias('t')
+              ->select('t.*')
+              ->join('ObjectTag', ['t.id', '=', 'ot.tagId'], 'ot')
+              ->where('ot.objectType', ObjectTag::TYPE_MEANING)
+              ->group_by('t.id')
+              ->order_by_expr('count(*) desc')
+              ->limit(4)
+              ->find_many();
+
 $numMeanings = Model::factory('Meaning')
   ->where('treeId', $t->id)
   ->count();
@@ -141,6 +151,7 @@ SmartyWrap::assign('canDelete', $canDelete);
 SmartyWrap::assign('relatedMeanings', $relatedMeanings);
 SmartyWrap::assign('entryTrees', $entryTrees);
 SmartyWrap::assign('treeMentions', $treeMentions);
+SmartyWrap::assign('frequentTags', $frequentTags);
 SmartyWrap::assign('statusNames', Tree::$STATUS_NAMES);
 SmartyWrap::addCss('meaningTree', 'textComplete', 'admin');
 SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete');

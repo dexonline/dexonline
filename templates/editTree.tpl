@@ -311,7 +311,23 @@
               </div>
 
               <div class="form-group">
-                <label for="editorTags">etichete</label>
+                <div>
+                  <label for="editorTags">etichete</label>
+
+                  {* show a few frequent tags *}
+                  <div class="pull-right">
+                    {foreach $frequentTags as $ft}
+                      <button class="btn btn-default btn-xs frequentTag"
+                              type="button"
+                              data-id="{$ft->id}"
+                              data-text="{$ft->value}"
+                              disabled>
+                        {$ft->value}
+                      </button>
+                    {/foreach}
+                  </div>
+                </div>
+                
                 <select id="editorTags" multiple disabled></select>
               </div>
 

@@ -35,6 +35,8 @@ $(function() {
       width: '100%',
     });
 
+    $('.frequentTag').click(frequentTagClick);
+
     initSelect2('.editorRelation', 'ajax/getTreesById.php', {
       ajax: { url: wwwRoot + 'ajax/getTrees.php' },
       minimumInputLength: 1,
@@ -191,6 +193,17 @@ $(function() {
     }
   }
 
+  function frequentTagClick() {
+    var id = $(this).data('id');
+    var text = $(this).data('text');
+
+    if ($('#editorTags').val().indexOf(String(id)) == -1) { // tag does not already exist
+      $('#editorTags')
+        .append(new Option(text, id, true, true))
+        .trigger('change');
+    }
+  }
+
   function enableMeaningActions(enabled) {
     $('#addSubmeaningButton, #deleteMeaningButton, #meaningUpButton, ' +
       '#meaningDownButton, #meaningLeftButton, #meaningRightButton')
@@ -212,7 +225,7 @@ $(function() {
     var c = $('#meaningTree li.selected > .meaningContainer');
 
     $('#editorRep, #editorEtymology, #editorComment, #editorSources, ' +
-      '#editorTags, #relationType, .editorRelation, #editMeaningAcceptButton, ' +
+      '#editorTags, .frequentTag, #relationType, .editorRelation, #editMeaningAcceptButton, ' +
       '#editMeaningCancelButton').removeProp('disabled');
     $('#editorRep').val(c.find('.internalRep').text());
     $('#editorEtymology').val(c.find('.internalEtymology').text());
@@ -307,7 +320,7 @@ $(function() {
 
   function endMeaningEdit() {
     $('#editorRep, #editorEtymology, #editorComment, #editorSources, ' +
-      '#editorTags, #relationType, .editorRelation, #editMeaningAcceptButton, ' +
+      '#editorTags, .frequentTag, #relationType, .editorRelation, #editMeaningAcceptButton, ' +
       '#editMeaningCancelButton').prop('disabled', true);
     $('#editorRep').val('');
     $('#editorEtymology').val('');

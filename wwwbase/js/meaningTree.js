@@ -212,7 +212,8 @@ $(function() {
     var id = $(this).data('id');
     var text = $(this).data('text');
 
-    if ($('#editorTags').val().indexOf(String(id)) == -1) { // tag does not already exist
+    var val = $('#editorTags').val() || []; // jquery returns null when no options are selected
+    if (val.indexOf(String(id)) == -1) { // tag does not already exist
       $('#editorTags')
         .append(new Option(text, id, true, true))
         .trigger('change');

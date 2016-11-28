@@ -92,10 +92,25 @@ $(function() {
     });
   }
 
+  // Also scrolls the .treeWrapper to bring the selected node into view
   function meaningTreeRenumber() {
     $('.meaningTree').each(function() {
       meaningTreeRenumberHelper($(this), '');
     });
+
+    var sel = $('#meaningTree li.selected');
+    if (sel.length) {
+      var w = $('.treeWrapper');
+
+      // distance from selected meaning to tree wrapper
+      var dist = sel.offset().top - w.offset().top + w.scrollTop();
+      var height = w.height();
+
+      // scroll the selected meaning so it's visible within .treeWrapper, at 1/3 from the top.
+      w.animate({
+        scrollTop: dist - height / 3,
+      });
+    }
   }
 
   function addMeaning() {

@@ -230,10 +230,12 @@
     <div class="panel panel-default">
       <div class="panel-heading">Sensuri</div>
       <div class="panel-body">
-        {include "bits/meaningTree.tpl"
-        meanings=$t->getMeanings()
-        id="meaningTree"
-        editable=true}
+        <div class="treeWrapper">
+          {include "bits/meaningTree.tpl"
+          meanings=$t->getMeanings()
+          id="meaningTree"
+          editable=true}
+        </div>
 
         <div>
           {if $canEdit}
@@ -286,12 +288,12 @@
             <div class="col-md-8">
               <div class="form-group">
                 <label>sens</label>
-                <textarea id="editorRep" class="form-control" rows="10" disabled></textarea>
+                <textarea id="editorRep" class="form-control" rows="6" disabled></textarea>
               </div>
 
               <div class="form-group">
                 <label>etimologie</label>
-                <textarea id="editorEtymology" class="form-control" rows="5" disabled></textarea>
+                <textarea id="editorEtymology" class="form-control" rows="4" disabled></textarea>
               </div>
 
               <div class="form-group">

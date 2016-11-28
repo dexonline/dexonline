@@ -247,9 +247,7 @@ $(function() {
   function beginMeaningEdit() {
     var c = $('#meaningTree li.selected > .meaningContainer');
 
-    $('#editorRep, #editorEtymology, #editorComment, #editorSources, ' +
-      '#editorTags, .frequentSource, .frequentTag, #relationType, .editorRelation, ' +
-      '#editMeaningAcceptButton, #editMeaningCancelButton').removeProp('disabled');
+    $('.editorObj').removeProp('disabled');
     $('#editorRep').val(c.find('.internalRep').text());
     $('#editorEtymology').val(c.find('.internalEtymology').text());
     $('#editorComment').val(c.find('.internalComment').text());
@@ -342,9 +340,7 @@ $(function() {
   }
 
   function endMeaningEdit() {
-    $('#editorRep, #editorEtymology, #editorComment, #editorSources, ' +
-      '#editorTags, .frequentSource, .frequentTag, #relationType, .editorRelation, ' +
-      '#editMeaningAcceptButton, #editMeaningCancelButton').prop('disabled', true);
+    $('.editorObj').prop('disabled', true);
     $('#editorRep').val('');
     $('#editorEtymology').val('');
     $('#editorComment').val('');

@@ -288,17 +288,26 @@
             <div class="col-md-8">
               <div class="form-group">
                 <label>sens</label>
-                <textarea id="editorRep" class="form-control" rows="6" disabled></textarea>
+                <textarea id="editorRep"
+                          class="form-control editorObj"
+                          rows="6"
+                          disabled></textarea>
               </div>
 
               <div class="form-group">
                 <label>etimologie</label>
-                <textarea id="editorEtymology" class="form-control" rows="4" disabled></textarea>
+                <textarea id="editorEtymology"
+                          class="form-control editorObj"
+                          rows="4"
+                          disabled></textarea>
               </div>
 
               <div class="form-group">
                 <label>comentariu (public)</label>
-                <textarea id="editorComment" class="form-control" rows="3" disabled></textarea>
+                <textarea id="editorComment"
+                          class="form-control editorObj"
+                          rows="3"
+                          disabled></textarea>
               </div>
             </div>
 
@@ -310,7 +319,7 @@
                   {* show a few frequent sources *}
                   <div class="pull-right">
                     {foreach $frequentSources as $fs}
-                      <button class="btn btn-default btn-xs frequentSource"
+                      <button class="btn btn-default btn-xs frequentSource editorObj"
                               type="button"
                               data-id="{$fs->id}"
                               data-text="{$fs->shortName}"
@@ -321,7 +330,7 @@
                   </div>
                 </div>
 
-                <select id="editorSources" multiple disabled>
+                <select id="editorSources" class="editorObj" multiple disabled>
                   {foreach $sources as $s}
                     <option value="{$s->id}">{$s->shortName}</option>
                   {/foreach}
@@ -335,7 +344,7 @@
                   {* show a few frequent tags *}
                   <div class="pull-right">
                     {foreach $frequentTags as $ft}
-                      <button class="btn btn-default btn-xs frequentTag"
+                      <button class="btn btn-default btn-xs frequentTag editorObj"
                               type="button"
                               data-id="{$ft->id}"
                               data-text="{$ft->value}"
@@ -346,36 +355,50 @@
                   </div>
                 </div>
                 
-                <select id="editorTags" multiple disabled></select>
+                <select id="editorTags" class="editorObj" multiple disabled></select>
               </div>
 
               <div class="form-group">
                 <label>relații:</label>
 
-                <select id="relationType" class="form-control" disabled>
+                <select id="relationType" class="form-control editorObj" disabled>
                   {foreach Relation::$TYPE_NAMES as $type => $name}
                     <option value="{$type}"" title="{$name}">{$name}</option>
                   {/foreach}
                 </select>
 
                 <span class="relationWrapper" data-type="1">
-                  <select class="form-control editorRelation" multiple disabled></select>
+                  <select class="form-control editorRelation editorObj" multiple disabled>
+                  </select>
                 </span>
                 <span class="relationWrapper" data-type="2">
-                  <select class="form-control editorRelation" multiple disabled></select>
+                  <select class="form-control editorRelation editorObj" multiple disabled>
+                  </select>
                 </span>
                 <span class="relationWrapper" data-type="3">
-                  <select class="form-control editorRelation" multiple disabled></select>
+                  <select class="form-control editorRelation editorObj" multiple disabled>
+                  </select>
                 </span>
                 <span class="relationWrapper" data-type="4">
-                  <select class="form-control editorRelation" multiple disabled></select>
+                  <select class="form-control editorRelation editorObj" multiple disabled>
+                  </select>
                 </span>
               </div>
             </div>
           </div>
 
-          <input id="editMeaningAcceptButton" type="button" disabled value="acceptă">
-          <input id="editMeaningCancelButton" type="button" disabled value="renunță">
+          <button id="editMeaningAcceptButton"
+                  type="button"
+                  class="btn btn-sm btn-default editorObj"
+                  disabled>
+            acceptă
+          </button>
+          <button id="editMeaningCancelButton"
+                  type="button"
+                  class="btn btn-sm btn-default editorObj"
+                  disabled>
+            renunță
+          </button>
         </div>
       </div>
     {/if}

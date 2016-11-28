@@ -35,6 +35,7 @@ $(function() {
       width: '100%',
     });
 
+    $('.frequentSource').click(frequentSourceClick);
     $('.frequentTag').click(frequentTagClick);
 
     initSelect2('.editorRelation', 'ajax/getTreesById.php', {
@@ -208,15 +209,21 @@ $(function() {
     }
   }
 
-  function frequentTagClick() {
-    var id = $(this).data('id');
-    var text = $(this).data('text');
+  function frequentSourceClick() {
+    frequentObjectClick($(this), $('#editorSources'));
+  }
 
-    var val = $('#editorTags').val() || []; // jquery returns null when no options are selected
-    if (val.indexOf(String(id)) == -1) { // tag does not already exist
-      $('#editorTags')
-        .append(new Option(text, id, true, true))
-        .trigger('change');
+  function frequentTagClick() {
+    frequentObjectClick($(this), $('#editorTags'));
+  }
+
+  function frequentObjectClick(obj, target) {
+    var id = obj.data('id');
+    var text = obj.data('text');
+
+    var val = target.val() || []; // jquery returns null when no options are selected
+    if (val.indexOf(String(id)) == -1) { // option does not already exist
+      target.append(new Option(text, id, true, true)).trigger('change');
     }
   }
 
@@ -241,8 +248,8 @@ $(function() {
     var c = $('#meaningTree li.selected > .meaningContainer');
 
     $('#editorRep, #editorEtymology, #editorComment, #editorSources, ' +
-      '#editorTags, .frequentTag, #relationType, .editorRelation, #editMeaningAcceptButton, ' +
-      '#editMeaningCancelButton').removeProp('disabled');
+      '#editorTags, .frequentSource, .frequentTag, #relationType, .editorRelation, ' +
+      '#editMeaningAcceptButton, #editMeaningCancelButton').removeProp('disabled');
     $('#editorRep').val(c.find('.internalRep').text());
     $('#editorEtymology').val(c.find('.internalEtymology').text());
     $('#editorComment').val(c.find('.internalComment').text());
@@ -336,8 +343,8 @@ $(function() {
 
   function endMeaningEdit() {
     $('#editorRep, #editorEtymology, #editorComment, #editorSources, ' +
-      '#editorTags, .frequentTag, #relationType, .editorRelation, #editMeaningAcceptButton, ' +
-      '#editMeaningCancelButton').prop('disabled', true);
+      '#editorTags, .frequentSource, .frequentTag, #relationType, .editorRelation, ' +
+      '#editMeaningAcceptButton, #editMeaningCancelButton').prop('disabled', true);
     $('#editorRep').val('');
     $('#editorEtymology').val('');
     $('#editorComment').val('');

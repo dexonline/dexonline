@@ -304,7 +304,23 @@
 
             <div class="col-md-4">
               <div class="form-group">
-                <label for="editorSources">surse</label>
+                <div>
+                  <label for="editorSources">surse</label>
+
+                  {* show a few frequent sources *}
+                  <div class="pull-right">
+                    {foreach $frequentSources as $fs}
+                      <button class="btn btn-default btn-xs frequentSource"
+                              type="button"
+                              data-id="{$fs->id}"
+                              data-text="{$fs->shortName}"
+                              disabled>
+                        {$fs->shortName}
+                      </button>
+                    {/foreach}
+                  </div>
+                </div>
+
                 <select id="editorSources" multiple disabled>
                   {foreach $sources as $s}
                     <option value="{$s->id}">{$s->shortName}</option>

@@ -221,10 +221,14 @@ $(function() {
     var id = obj.data('id');
     var text = obj.data('text');
 
-    var val = target.val() || []; // jquery returns null when no options are selected
-    if (val.indexOf(String(id)) == -1) { // option does not already exist
-      target.append(new Option(text, id, true, true)).trigger('change');
+    var opt = target.children('option[value="' + id + '"]');
+    if (opt.length) {
+      // option already exists, just make it selected
+      opt.prop('selected', true);
+    } else {
+      target.append(new Option(text, id, true, true))
     }
+    target.trigger('change');
   }
 
   function enableMeaningActions(enabled) {

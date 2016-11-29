@@ -240,15 +240,23 @@
         <div>
           {if $canEdit}
             <div class="btn-group">
-              <button type="button" class="btn btn-default btn-sm" id="addMeaningButton"
+              <button type="button"
+                      class="btn btn-default btn-sm"
+                      id="addMeaningButton"
                       title="Adaugă un sens ca frate al sensului selectat. Dacă nici un sens nu este selectat, adaugă un sens la sfârșitul listei.">
                 adaugă sens
               </button>
-              <button type="button" class="btn btn-default btn-sm" id="addSubmeaningButton" disabled
+              <button type="button"
+                      class="btn btn-default btn-sm meaningAction"
+                      id="addSubmeaningButton"
+                      disabled
                       title="Adaugă un sens ca ultimul fiu al sensului selectat">
                 adaugă subsens
               </button>
-              <button type="button" class="btn btn-danger btn-sm" id="deleteMeaningButton" disabled
+              <button type="button"
+                      class="btn btn-danger btn-sm meaningAction"
+                      id="deleteMeaningButton"
+                      disabled
                       title="Șterge sensul selectat">
                 <i class="glyphicon glyphicon-trash"></i>
                 șterge sens
@@ -256,19 +264,31 @@
             </div>
 
             <div class="btn-group">
-              <button type="button" class="btn btn-default btn-sm" id="meaningLeftButton" disabled
+              <button type="button"
+                      class="btn btn-default btn-sm meaningAction"
+                      id="meaningLeftButton"
+                      disabled
                       title="Sensul devine fratele următor al tatălui său.">
                 <i class="glyphicon glyphicon-arrow-left"></i>
               </button>
-              <button type="button" class="btn btn-default btn-sm" id="meaningRightButton" disabled
+              <button type="button"
+                      class="btn btn-default btn-sm meaningAction"
+                      id="meaningRightButton"
+                      disabled
                       title="Sensul devine fiu al fratelui său anterior.">
                 <i class="glyphicon glyphicon-arrow-right"></i>
               </button>
-              <button type="button" class="btn btn-default btn-sm" id="meaningDownButton" disabled
+              <button type="button"
+                      class="btn btn-default btn-sm meaningAction"
+                      id="meaningDownButton"
+                      disabled
                       title="Sensul schimbă locurile cu fratele său următor.">
                 <i class="glyphicon glyphicon-arrow-down"></i>
               </button>
-              <button type="button" class="btn btn-default btn-sm" id="meaningUpButton" disabled
+              <button type="button"
+                      class="btn btn-default btn-sm meaningAction"
+                      id="meaningUpButton"
+                      disabled
                       title="Sensul schimbă locurile cu fratele său anterior.">
                 <i class="glyphicon glyphicon-arrow-up"></i>
               </button>
@@ -386,19 +406,6 @@
               </div>
             </div>
           </div>
-
-          <button id="editMeaningAcceptButton"
-                  type="button"
-                  class="btn btn-sm btn-default editorObj"
-                  disabled>
-            acceptă
-          </button>
-          <button id="editMeaningCancelButton"
-                  type="button"
-                  class="btn btn-sm btn-default editorObj"
-                  disabled>
-            renunță
-          </button>
         </div>
       </div>
     {/if}

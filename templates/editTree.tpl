@@ -30,10 +30,6 @@
         <span class="tagIds"></span>
         <span class="internalRep"></span>
         <span class="htmlRep"></span>
-        <span class="internalEtymology"></span>
-        <span class="htmlEtymology"></span>
-        <span class="internalComment"></span>
-        <span class="htmlComment"></span>
         <span class="sources"></span>
         <span class="sourceIds"></span>
         {for $type=1 to Relation::NUM_TYPES}
@@ -311,22 +307,6 @@
                 <textarea id="editorRep"
                           class="form-control editorObj"
                           rows="6"
-                          disabled></textarea>
-              </div>
-
-              <div class="form-group">
-                <label>etimologie</label>
-                <textarea id="editorEtymology"
-                          class="form-control editorObj"
-                          rows="4"
-                          disabled></textarea>
-              </div>
-
-              <div class="form-group">
-                <label>comentariu (public)</label>
-                <textarea id="editorComment"
-                          class="form-control editorObj"
-                          rows="3"
                           disabled></textarea>
               </div>
             </div>

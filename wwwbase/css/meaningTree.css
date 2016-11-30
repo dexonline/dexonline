@@ -26,8 +26,6 @@
 
 .meaningTree .id,
 .meaningTree .internalRep,
-.meaningTree .internalEtymology,
-.meaningTree .internalComment,
 .meaningTree .sourceIds,
 .meaningTree .tagIds,
 .meaningTree .relationIds {
@@ -52,20 +50,6 @@
   border-bottom: 1px dotted #444;
   color: #000;
   text-decoration: none;
-}
-
-.meaningTree .htmlEtymology {
-  font-size: 13px;
-  margin-right: 10px;
-}
-
-.meaningTree .htmlEtymology:not(:empty)::before {
-  content: "Etimologie: ";
-  color: #040;
-}
-
-.meaningTree .htmlComment {
-  font-size: 11px;
 }
 
 .meaningTree .meaningTag {

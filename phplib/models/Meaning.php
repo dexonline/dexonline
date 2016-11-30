@@ -66,10 +66,6 @@ class Meaning extends BaseObject implements DatedObject {
 
       $m->internalRep = AdminStringUtil::sanitize($tuple->internalRep);
       $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
-      $m->internalEtymology = AdminStringUtil::sanitize($tuple->internalEtymology);
-      $m->htmlEtymology = AdminStringUtil::htmlize($m->internalEtymology, 0);
-      $m->internalComment = AdminStringUtil::sanitize($tuple->internalComment);
-      $m->htmlComment = AdminStringUtil::htmlize($m->internalComment, 0);
 
       $row['meaning'] = $m;
       $row['sources'] = Source::loadByIds($tuple->sourceIds);
@@ -108,10 +104,6 @@ class Meaning extends BaseObject implements DatedObject {
       $m->treeId = $tree->id;
       $m->internalRep = AdminStringUtil::sanitize($tuple->internalRep);
       $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
-      $m->internalEtymology = AdminStringUtil::sanitize($tuple->internalEtymology);
-      $m->htmlEtymology = AdminStringUtil::htmlize($m->internalEtymology, 0);
-      $m->internalComment = AdminStringUtil::sanitize($tuple->internalComment);
-      $m->htmlComment = AdminStringUtil::htmlize($m->internalComment, 0);
       $m->save();
       $meaningStack[$tuple->level] = $m->id;
 

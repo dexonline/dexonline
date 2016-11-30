@@ -236,8 +236,6 @@ $(function() {
 
     $('.editorObj').removeProp('disabled');
     $('#editorRep').val(c.find('.internalRep').text());
-    $('#editorEtymology').val(c.find('.internalEtymology').text());
-    $('#editorComment').val(c.find('.internalComment').text());
 
     $('#editorSources option').prop('selected', false);
     c.find('.sourceIds span').each(function() {
@@ -277,22 +275,6 @@ $(function() {
            function(data) { c.find('.htmlRep').html(data); }
           );
 
-    // Update internal and HTML etymology
-    var internalEtymology = $('#editorEtymology').val();
-    c.find('.internalEtymology').text(internalEtymology);
-    $.post(wwwRoot + 'ajax/htmlize.php',
-           { internalRep: internalEtymology, sourceId: 0 },
-           function(data) { c.find('.htmlEtymology').html(data); }
-          );
-
-    // Update internal and HTML comment
-    var internalComment = $('#editorComment').val();
-    c.find('.internalComment').text(internalComment);
-    $.post(wwwRoot + 'ajax/htmlize.php',
-           { internalRep: internalComment, sourceId: 0 },
-           function(data) { c.find('.htmlComment').html(data); },
-           'text');
-
     // Update sources and source IDs
     c.find('.sourceIds, .sources').text('');
     $('#editorSources option:selected').each(function() {
@@ -323,8 +305,6 @@ $(function() {
   function clearEditor() {
     $('.editorObj').prop('disabled', true);
     $('#editorRep').val('');
-    $('#editorEtymology').val('');
-    $('#editorComment').val('');
     $('#editorSources option:selected').removeAttr('selected');
     $('#editorSources').trigger('change');
     $('#editorTags option:selected').removeAttr('selected');
@@ -363,8 +343,6 @@ $(function() {
         'level': level,
         'breadcrumb': c.find('.bc').text(),
         'internalRep': c.find('.internalRep').text(),
-        'internalEtymology': c.find('.internalEtymology').text(),
-        'internalComment': c.find('.internalComment').text(),
         'sourceIds': sourceIds,
         'tagIds': tagIds,
         'relationIds': relationIds,

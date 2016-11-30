@@ -845,6 +845,7 @@ class Lexem extends BaseObject implements DatedObject {
     $clone = $this->parisClone();
     $clone->description = ($this->description) ? "CLONĂ {$this->description}" : "CLONĂ";
     $clone->verifSp = false;
+    $clone->compound = false;
     $clone->modelType = 'T';
     $clone->modelNumber = '1';
     $clone->restriction = '';

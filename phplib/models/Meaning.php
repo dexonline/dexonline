@@ -3,6 +3,11 @@
 class Meaning extends BaseObject implements DatedObject {
   public static $_table = 'Meaning';
 
+  const TYPE_MEANING = 0;
+  const TYPE_ETYMOLOGY = 1;
+  const TYPE_EXAMPLE = 2;
+  const TYPE_COMMENT = 3;
+
   private $tree = null;
 
   function getTree() {
@@ -19,6 +24,30 @@ class Meaning extends BaseObject implements DatedObject {
     $parts = explode('.', $this->breadcrumb);
     $parts[0] += $x;
     $this->breadcrumb = implode('.', $parts);
+  }
+
+  /**
+   * Fills in the displayOrder and breadcrumb fields for an array of meanings.
+   * Assumes the parentId is filled in. The ID may be empty (in which case that meaning should
+   * not have children).
+   **/
+  static function renumber($meanings) {
+    $order = 0;
+    $numChildren = [ 0 => 0 ];  // number of children seen so far for each meaningId
+    $breadcrumb = [];           // breadcrumbs for meanings seen so far
+
+    foreach ($meanings as $m) {
+      $m->displayOrder = ++$order;
+
+      if ($m->parentId) {
+        $m->breadcrumb = $breadcrumb[$m->parentId] . '.' . (++$numChildren[$m->parentId]);
+      } else {
+        $m->breadcrumb = ++$numChildren[$m->parentId];
+      }
+
+      $breadcrumb[$m->id] = $m->breadcrumb;
+      $numChildren[$m->id] = 0;
+    }
   }
 
   /**

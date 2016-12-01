@@ -13,6 +13,7 @@
       <h4 class="panel-title">
         Finanțarea unor noi proiecte software
         <a class="btn btn-xs btn-default pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <i class="glyphicon glyphicon-chevron-down"></i>
           detalii
         </a>
       </h4>
@@ -44,6 +45,7 @@
       <h4 class="panel-title">
         Achiziționarea unor noi dicționare în format electronic
         <a class="btn btn-xs btn-default pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="glyphicon glyphicon-chevron-down"></i>
           detalii
         </a>
       </h4>
@@ -75,6 +77,7 @@
       <h4 class="panel-title">
         Importarea unor dicționare vechi, de referință
         <a class="btn btn-xs btn-default pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+          <i class="glyphicon glyphicon-chevron-down"></i>
           detalii
         </a>
       </h4>
@@ -111,6 +114,7 @@
       <h4 class="panel-title">
         Colaborări plătite cu lexicografi și/sau lingviști
         <a class="btn btn-xs btn-default pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+          <i class="glyphicon glyphicon-chevron-down"></i>
           detalii
         </a>
       </h4>
@@ -146,6 +150,7 @@
       <h4 class="panel-title">
         Motivarea comunității de voluntari pentru implicare
         <a class="btn btn-xs btn-default pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+          <i class="glyphicon glyphicon-chevron-down"></i>
           detalii
         </a>
       </h4>
@@ -171,6 +176,7 @@
       <h4 class="panel-title">
         Organizarea de concursuri și oferirea de premii
         <a class="btn btn-xs btn-default pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+          <i class="glyphicon glyphicon-chevron-down"></i>
           detalii
         </a>
       </h4>
@@ -195,6 +201,7 @@
       <h4 class="panel-title">
         Mentenanța sistemului
         <a class="btn btn-xs btn-default pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven">
+          <i class="glyphicon glyphicon-chevron-down"></i>
           detalii
         </a>
       </h4>

@@ -127,7 +127,7 @@
                   {$word|escape}
                 {/foreach}
               </strong>
-              </p>
+            </p>
           {/if}
         {/if}
 

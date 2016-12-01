@@ -357,19 +357,21 @@
     {if count($structuredResults)}
       <div role="tabpanel" class="tab-pane" id="structuredTab">
 
-        <h3>
-          {include "bits/count.tpl"
-          displayed=count($structuredResults)
-          none="Nicio definiție structurată"
-          one="O definiție structurată"
-          many="definiții structurate"
-          common=""}
-        </h3>
+        <div class="callout callout-info">
+          <h3>
+            {include "bits/count.tpl"
+            displayed=count($structuredResults)
+            none="Nicio definiție structurată"
+            one="O definiție structurată"
+            many="definiții structurate"
+            common=""}
+          </h3>
 
-        <p>
-          Aceste definiții sunt deja încorporate în filele „rezultate” și
-          „{$declensionText|default:"declinări"}”.
-        </p>
+          <p class="text-muted">
+            Aceste definiții sunt deja încorporate în filele „rezultate” și
+            „{$declensionText|default:"declinări"}”.
+          </p>
+        </div>
 
         {include "bits/definitionList.tpl" results=$structuredResults}
 

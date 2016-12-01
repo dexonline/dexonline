@@ -9,6 +9,8 @@
 {/block}
 
 {block "content"}
+  {include "bits/phpConstants.tpl"}
+
   <h3>
     {if $t->id}
       Editează arborele
@@ -26,14 +28,15 @@
       <div class="meaningContainer">
         <span class="id"></span>
         <span class="bc"></span>
+
+        {* if this were empty, no radio button would be selected for new meanings *}
+        <span class="type">{Meaning::TYPE_MEANING}</span>
+
+        <span class="typeName"></span>
         <span class="tags"></span>
         <span class="tagIds"></span>
         <span class="internalRep"></span>
         <span class="htmlRep"></span>
-        <span class="internalEtymology"></span>
-        <span class="htmlEtymology"></span>
-        <span class="internalComment"></span>
-        <span class="htmlComment"></span>
         <span class="sources"></span>
         <span class="sourceIds"></span>
         {for $type=1 to Relation::NUM_TYPES}
@@ -230,22 +233,32 @@
     <div class="panel panel-default">
       <div class="panel-heading">Sensuri</div>
       <div class="panel-body">
-        {include "bits/editableMeaningTree.tpl"
-        meanings=$t->getMeanings()
-        id="meaningTree"}
+        <div class="treeWrapper">
+          {include "bits/editableMeaningTree.tpl"
+          meanings=$t->getMeanings()
+          id="meaningTree"}
+        </div>
 
         <div>
           {if $canEdit}
             <div class="btn-group">
-              <button type="button" class="btn btn-default btn-sm" id="addMeaningButton"
+              <button type="button"
+                      class="btn btn-default btn-sm"
+                      id="addMeaningButton"
                       title="Adaugă un sens ca frate al sensului selectat. Dacă nici un sens nu este selectat, adaugă un sens la sfârșitul listei.">
                 adaugă sens
               </button>
-              <button type="button" class="btn btn-default btn-sm" id="addSubmeaningButton" disabled
+              <button type="button"
+                      class="btn btn-default btn-sm meaningAction"
+                      id="addSubmeaningButton"
+                      disabled
                       title="Adaugă un sens ca ultimul fiu al sensului selectat">
                 adaugă subsens
               </button>
-              <button type="button" class="btn btn-danger btn-sm" id="deleteMeaningButton" disabled
+              <button type="button"
+                      class="btn btn-danger btn-sm meaningAction"
+                      id="deleteMeaningButton"
+                      disabled
                       title="Șterge sensul selectat">
                 <i class="glyphicon glyphicon-trash"></i>
                 șterge sens
@@ -253,19 +266,31 @@
             </div>
 
             <div class="btn-group">
-              <button type="button" class="btn btn-default btn-sm" id="meaningLeftButton" disabled
+              <button type="button"
+                      class="btn btn-default btn-sm meaningAction"
+                      id="meaningLeftButton"
+                      disabled
                       title="Sensul devine fratele următor al tatălui său.">
                 <i class="glyphicon glyphicon-arrow-left"></i>
               </button>
-              <button type="button" class="btn btn-default btn-sm" id="meaningRightButton" disabled
+              <button type="button"
+                      class="btn btn-default btn-sm meaningAction"
+                      id="meaningRightButton"
+                      disabled
                       title="Sensul devine fiu al fratelui său anterior.">
                 <i class="glyphicon glyphicon-arrow-right"></i>
               </button>
-              <button type="button" class="btn btn-default btn-sm" id="meaningDownButton" disabled
+              <button type="button"
+                      class="btn btn-default btn-sm meaningAction"
+                      id="meaningDownButton"
+                      disabled
                       title="Sensul schimbă locurile cu fratele său următor.">
                 <i class="glyphicon glyphicon-arrow-down"></i>
               </button>
-              <button type="button" class="btn btn-default btn-sm" id="meaningUpButton" disabled
+              <button type="button"
+                      class="btn btn-default btn-sm meaningAction"
+                      id="meaningUpButton"
+                      disabled
                       title="Sensul schimbă locurile cu fratele său anterior.">
                 <i class="glyphicon glyphicon-arrow-up"></i>
               </button>
@@ -284,25 +309,49 @@
 
             <div class="col-md-8">
               <div class="form-group">
+                <label>tip</label>
+                <div>
+                  {foreach Meaning::$TYPE_NAMES as $i => $tn}
+                    <label class="radio-inline">
+                      <input type="radio"
+                             name="editorType"
+                             class="editorObj editorType"
+                             value="{$i}"
+                             disabled>
+                      {$tn}
+                    </label>
+                  {/foreach}
+                </div>
+              </div>
+              <div class="form-group">
                 <label>sens</label>
-                <textarea id="editorRep" class="form-control" rows="10" disabled></textarea>
-              </div>
-
-              <div class="form-group">
-                <label>etimologie</label>
-                <textarea id="editorEtymology" class="form-control" rows="5" disabled></textarea>
-              </div>
-
-              <div class="form-group">
-                <label>comentariu (public)</label>
-                <textarea id="editorComment" class="form-control" rows="3" disabled></textarea>
+                <textarea id="editorRep"
+                          class="form-control editorObj"
+                          rows="6"
+                          disabled></textarea>
               </div>
             </div>
 
             <div class="col-md-4">
               <div class="form-group">
-                <label for="editorSources">surse</label>
-                <select id="editorSources" multiple disabled>
+                <div>
+                  <label for="editorSources">surse</label>
+
+                  {* show a few frequent sources *}
+                  <div class="pull-right">
+                    {foreach $frequentSources as $fs}
+                      <button class="btn btn-default btn-xs frequentSource editorObj"
+                              type="button"
+                              data-id="{$fs->id}"
+                              data-text="{$fs->shortName}"
+                              disabled>
+                        {$fs->shortName}
+                      </button>
+                    {/foreach}
+                  </div>
+                </div>
+
+                <select id="editorSources" class="editorObj" multiple disabled>
                   {foreach $sources as $s}
                     <option value="{$s->id}">{$s->shortName}</option>
                   {/foreach}
@@ -310,37 +359,54 @@
               </div>
 
               <div class="form-group">
-                <label for="editorTags">etichete</label>
-                <select id="editorTags" multiple disabled></select>
+                <div>
+                  <label for="editorTags">etichete</label>
+
+                  {* show a few frequent tags *}
+                  <div class="pull-right">
+                    {foreach $frequentTags as $ft}
+                      <button class="btn btn-default btn-xs frequentTag editorObj"
+                              type="button"
+                              data-id="{$ft->id}"
+                              data-text="{$ft->value}"
+                              disabled>
+                        {$ft->value}
+                      </button>
+                    {/foreach}
+                  </div>
+                </div>
+                
+                <select id="editorTags" class="editorObj" multiple disabled></select>
               </div>
 
               <div class="form-group">
                 <label>relații:</label>
 
-                <select id="relationType" class="form-control" disabled>
+                <select id="relationType" class="form-control editorObj" disabled>
                   {foreach Relation::$TYPE_NAMES as $type => $name}
                     <option value="{$type}"" title="{$name}">{$name}</option>
                   {/foreach}
                 </select>
 
                 <span class="relationWrapper" data-type="1">
-                  <select class="form-control editorRelation" multiple disabled></select>
+                  <select class="form-control editorRelation editorObj" multiple disabled>
+                  </select>
                 </span>
                 <span class="relationWrapper" data-type="2">
-                  <select class="form-control editorRelation" multiple disabled></select>
+                  <select class="form-control editorRelation editorObj" multiple disabled>
+                  </select>
                 </span>
                 <span class="relationWrapper" data-type="3">
-                  <select class="form-control editorRelation" multiple disabled></select>
+                  <select class="form-control editorRelation editorObj" multiple disabled>
+                  </select>
                 </span>
                 <span class="relationWrapper" data-type="4">
-                  <select class="form-control editorRelation" multiple disabled></select>
+                  <select class="form-control editorRelation editorObj" multiple disabled>
+                  </select>
                 </span>
               </div>
             </div>
           </div>
-
-          <input id="editMeaningAcceptButton" type="button" disabled value="acceptă">
-          <input id="editMeaningCancelButton" type="button" disabled value="renunță">
         </div>
       </div>
     {/if}

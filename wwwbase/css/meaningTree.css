@@ -16,13 +16,14 @@
   padding: 2px 5px;
 }
 
-.meaningTree .bc {
+.meaningTree .bc:not(:empty) {
   font-weight: bold;
   margin-right: 5px;
 }
 
-.meaningTree .bc:after {
-  content: ".";
+.meaningTree .typeName:not(:empty) {
+  font-weight: bold;
+  margin-right: 5px;
 }
 
 .meaningTree .htmlRep {
@@ -34,20 +35,6 @@
   border-bottom: 1px dotted #444;
   color: #000;
   text-decoration: none;
-}
-
-.meaningTree .htmlEtymology {
-  font-size: 13px;
-  margin-right: 10px;
-}
-
-.meaningTree .htmlEtymology:not(:empty)::before {
-  content: "Etimologie: ";
-  color: #040;
-}
-
-.meaningTree .htmlComment {
-  font-size: 11px;
 }
 
 .meaningTree .tag-group {

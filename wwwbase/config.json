@@ -17,6 +17,7 @@
     "@link-hover-color": "darken(@link-color, 15%)",
     "@link-hover-decoration": "underline",
     "@font-family-sans-serif": "\"Open Sans\", Arial, sans-serif",
+    "@font-family-serif": "Georgia, \"Times New Roman\", Times, serif",
     "@font-family-monospace": "Menlo, Monaco, Consolas, \"Courier New\", monospace",
     "@font-family-base": "@font-family-sans-serif",
     "@font-size-base": "14px",
@@ -63,7 +64,7 @@
     "@table-border-color": "#ddd",
     "@btn-font-weight": "normal",
     "@btn-default-color": "#333",
-    "@btn-default-bg": "#fff",
+    "@btn-default-bg": "#eee",
     "@btn-default-border": "#ccc",
     "@btn-primary-color": "#fff",
     "@btn-primary-bg": "@brand-primary",
@@ -430,5 +431,5 @@
     "scrollspy.js",
     "transition.js"
   ],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=84b6a322c34d623424a9112fd087a0f7"
+  "customizerUrl": "http://getbootstrap.com/customize/?id=bdba6c1395a03958c3a243e5c9a4e25f"
 }

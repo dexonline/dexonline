@@ -25,6 +25,7 @@
 }
 
 .meaningTree .id,
+.meaningTree .type,
 .meaningTree .internalRep,
 .meaningTree .sourceIds,
 .meaningTree .tagIds,
@@ -32,13 +33,14 @@
   display: none;
 }
 
-.meaningTree .bc {
+.meaningTree .bc:not(:empty) {
   font-weight: bold;
   margin-right: 5px;
 }
 
-.meaningTree .bc:after {
-  content: ".";
+.meaningTree .typeName:not(:empty) {
+  font-weight: bold;
+  margin-right: 5px;
 }
 
 .meaningTree .htmlRep {

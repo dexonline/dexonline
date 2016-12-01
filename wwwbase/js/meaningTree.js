@@ -8,7 +8,7 @@ $(function() {
     if (editable) {
       initEditable();
     }
-    meaningTreeRenumber();
+    renumber();
   }
 
   function initEditable() {
@@ -88,23 +88,37 @@ $(function() {
     }
   }
 
-  function meaningTreeRenumberHelper(node, prefix) {
-    node.children('li').each(function(i) {
+  function renumberHelper(node, prefix) {
+    var count = 0;
+    node.children('li').each(function() {
       var c = $(this).children('.meaningContainer');
-      var s = prefix + (prefix ? '.' : '') + (i + 1);
-      c.find('.bc').text(s);
+      var type = c.children('.type').text();
+
+      var s;
+      if (type == 0) {
+        s = prefix + (++count) + '.';
+        c.find('.bc').text(s);
+        c.find('.typeName').empty();
+      } else {
+        s = MEANING_TYPE_NAMES[type];
+        c.find('.bc').empty();
+        c.find('.typeName').text(s);
+      }
+
       $(this).children('ul').each(function() {
-        meaningTreeRenumberHelper($(this), s);
+        renumberHelper($(this), s);
       });
     });
   }
 
-  // Also scrolls the .treeWrapper to bring the selected node into view
-  function meaningTreeRenumber() {
+  function renumber() {
     $('.meaningTree').each(function() {
-      meaningTreeRenumberHelper($(this), '');
+      renumberHelper($(this), '');
     });
+  }
 
+  // Scrolls the .treeWrapper to bring the selected node into view
+  function scroll() {
     var sel = $('#meaningTree li.selected');
     if (sel.length) {
       var w = $('.treeWrapper');
@@ -125,21 +139,32 @@ $(function() {
     var newNode = stem.clone(true);
     var node = $('#meaningTree li.selected');
     if (node.length) {
+      // give the new meaning the same type as its sibling
+      var text = node.find('> .meaningContainer > .type').text();
+      newNode.find('.type').text(text);
       newNode.insertAfter(node);
     } else {
       newNode.appendTo($('#meaningTree'));
     }
     newNode.click();
-    meaningTreeRenumber();
+    renumber();
+    scroll();
   }
 
   function addSubmeaning() {
     acceptMeaningEdit();
     var newNode = stem.clone(true);
-    var ul = ensureUl($('#meaningTree li.selected'));
+    var sel = $('#meaningTree li.selected');
+
+    // give the new meaning the same type as its parent
+    var text = sel.find('> .meaningContainer > .type').text();
+    newNode.find('.type').text(text);
+
+    var ul = ensureUl(sel);
     newNode.prependTo(ul);
     newNode.click();
-    meaningTreeRenumber();
+    renumber();
+    scroll();
   }
 
   function deleteMeaning() {
@@ -150,7 +175,7 @@ $(function() {
       node.remove();
       $('.meaningAction').prop('disabled', true);
       clearEditor();
-      meaningTreeRenumber();
+      renumber();
     }
   }
 
@@ -161,7 +186,8 @@ $(function() {
     var parentLi = node.parent().parent('li');
     if (parentLi.length) {
       node.insertAfter(parentLi);
-      meaningTreeRenumber();
+      renumber();
+      scroll();
     }
   }
 
@@ -172,7 +198,8 @@ $(function() {
     if (node.prev().length) {
       var ul = ensureUl(node.prev());
       node.appendTo(ul);
-      meaningTreeRenumber();
+      renumber();
+      scroll();
     }
   }
 
@@ -181,7 +208,8 @@ $(function() {
   function meaningUp() {
     var node = $('#meaningTree li.selected');
     node.insertBefore(node.prev());
-    meaningTreeRenumber();
+    renumber();
+    scroll();
   }
 
   // The selected node swaps places with its next sibling.
@@ -189,7 +217,8 @@ $(function() {
   function meaningDown() {
     var node = $('#meaningTree li.selected');
     node.insertAfter(node.next());
-    meaningTreeRenumber();
+    renumber();
+    scroll();
   }
 
   /* Ensures the node has a <ul> child, creates it if it doesn't, and returns the <ul> child. */
@@ -235,6 +264,10 @@ $(function() {
     var c = $('#meaningTree li.selected > .meaningContainer');
 
     $('.editorObj').removeProp('disabled');
+
+    var type = c.find('.type').text();
+    $('.editorType[value="' + type + '"]').prop('checked', true);
+
     $('#editorRep').val(c.find('.internalRep').text());
 
     $('#editorSources option').prop('selected', false);
@@ -266,6 +299,10 @@ $(function() {
 
   function acceptMeaningEdit() {
     var c = $('#meaningTree li.selected > .meaningContainer');
+
+    // Update the meaning type
+    var type = parseInt($('.editorType:checked').val());
+    c.find('.type').text(type);
 
     // Update internal and HTML definition
     var internalRep = $('#editorRep').val();
@@ -300,10 +337,13 @@ $(function() {
         ids.append('<span>' + $(this).val() + '</span>');
       });
     });
+
+    renumber();
   }
 
   function clearEditor() {
     $('.editorObj').prop('disabled', true);
+    $('.editorType').prop('checked', false);
     $('#editorRep').val('');
     $('#editorSources option:selected').removeAttr('selected');
     $('#editorSources').trigger('change');
@@ -340,6 +380,7 @@ $(function() {
 
       results.push({
         'id': c.find('.id').text(),
+        'type': c.find('.type').text(),
         'level': level,
         'breadcrumb': c.find('.bc').text(),
         'internalRep': c.find('.internalRep').text(),

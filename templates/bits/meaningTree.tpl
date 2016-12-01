@@ -6,6 +6,8 @@
       <li>{strip}
         <div class="meaningContainer">
           <span class="bc"></span>
+          <span class="type">{$t.meaning->type}</span>
+          <span class="typeName">{$t.meaning->getDisplayTypeName()}</span>
           <span class="tags">
             {foreach $t.tags as $tag}
               <span class="meaningTag">{$tag->value}</span>

@@ -9,6 +9,8 @@
 {/block}
 
 {block "content"}
+  {include "bits/phpConstants.tpl"}
+
   <h3>
     {if $t->id}
       Editează arborele
@@ -26,6 +28,11 @@
       <div class="meaningContainer">
         <span class="id"></span>
         <span class="bc"></span>
+
+        {* if this were empty, no radio button would be selected for new meanings *}
+        <span class="type">{Meaning::TYPE_MEANING}</span>
+
+        <span class="typeName"></span>
         <span class="tags"></span>
         <span class="tagIds"></span>
         <span class="internalRep"></span>
@@ -302,6 +309,21 @@
           <div class="row">
 
             <div class="col-md-8">
+              <div class="form-group">
+                <label>tip</label>
+                <div>
+                  {foreach Meaning::$TYPE_NAMES as $i => $tn}
+                    <label class="radio-inline">
+                      <input type="radio"
+                             name="editorType"
+                             class="editorObj editorType"
+                             value="{$i}"
+                             disabled>
+                      {$tn}
+                    </label>
+                  {/foreach}
+                </div>
+              </div>
               <div class="form-group">
                 <label>sens</label>
                 <textarea id="editorRep"

@@ -8,7 +8,7 @@ $(function() {
     if (editable) {
       initEditable();
     }
-    meaningTreeRenumber();
+    renumber();
   }
 
   function initEditable() {
@@ -35,6 +35,9 @@ $(function() {
       width: '100%',
     });
 
+    $('.frequentSource').click(frequentSourceClick);
+    $('.frequentTag').click(frequentTagClick);
+
     initSelect2('.editorRelation', 'ajax/getTreesById.php', {
       ajax: { url: wwwRoot + 'ajax/getTrees.php' },
       minimumInputLength: 1,
@@ -42,11 +45,14 @@ $(function() {
     });
 
     $('#relationType').change(selectRelationType).change();
-    $('#editorRep, #editorEtymology, #editorComment, #editorSources, ' +
-      '#editorTags, .editorRelation').bind(
-        'change keyup input paste', function() {
-          anyChanges = true;
-        });
+
+    $('.editorObj').bind(
+      'change keyup input paste', function() {
+        anyChanges = true;
+      });
+    $('.meaningAction').click(function() {
+      anyChanges = true;
+    });
 
     $('#editorRep').textcomplete([
       {
@@ -73,65 +79,103 @@ $(function() {
       maxCount: 1000,
     });
 
-    $('#editMeaningAcceptButton').click(acceptMeaningEdit);
-    $('#editMeaningCancelButton').click(endMeaningEdit);
-
     $('form').submit(saveEverything);
+
+    window.onbeforeunload = function(e) {
+      return anyChanges
+        ? 'Confirmați părăsirea paginii? Aveți modificări nesalvate.'
+        : null;
+    }
   }
 
-  function meaningTreeRenumberHelper(node, prefix) {
-    node.children('li').each(function(i) {
+  function renumberHelper(node, prefix) {
+    var count = 0;
+    node.children('li').each(function() {
       var c = $(this).children('.meaningContainer');
-      var s = prefix + (prefix ? '.' : '') + (i + 1);
-      c.find('.bc').text(s);
+      var type = c.children('.type').text();
+
+      var s;
+      if (type == 0) {
+        s = prefix + (++count) + '.';
+        c.find('.bc').text(s);
+        c.find('.typeName').empty();
+      } else {
+        s = MEANING_TYPE_NAMES[type];
+        c.find('.bc').empty();
+        c.find('.typeName').text(s);
+      }
+
       $(this).children('ul').each(function() {
-        meaningTreeRenumberHelper($(this), s);
+        renumberHelper($(this), s);
       });
     });
   }
 
-  function meaningTreeRenumber() {
+  function renumber() {
     $('.meaningTree').each(function() {
-      meaningTreeRenumberHelper($(this), '');
+      renumberHelper($(this), '');
     });
   }
 
-  function addMeaning() {
-    if (!meaningEditorUnchanged()) {
-      return false;
+  // Scrolls the .treeWrapper to bring the selected node into view
+  function scroll() {
+    var sel = $('#meaningTree li.selected');
+    if (sel.length) {
+      var w = $('.treeWrapper');
+
+      // distance from selected meaning to tree wrapper
+      var dist = sel.offset().top - w.offset().top + w.scrollTop();
+      var height = w.height();
+
+      // scroll the selected meaning so it's visible within .treeWrapper, at 1/3 from the top.
+      w.animate({
+        scrollTop: dist - height / 3,
+      });
     }
+  }
+
+  function addMeaning() {
+    acceptMeaningEdit();
     var newNode = stem.clone(true);
     var node = $('#meaningTree li.selected');
     if (node.length) {
+      // give the new meaning the same type as its sibling
+      var text = node.find('> .meaningContainer > .type').text();
+      newNode.find('.type').text(text);
       newNode.insertAfter(node);
     } else {
       newNode.appendTo($('#meaningTree'));
     }
     newNode.click();
-    meaningTreeRenumber();
+    renumber();
+    scroll();
   }
 
   function addSubmeaning() {
-    if (!meaningEditorUnchanged()) {
-      return false;
-    }
+    acceptMeaningEdit();
     var newNode = stem.clone(true);
-    var ul = ensureUl($('#meaningTree li.selected'));
+    var sel = $('#meaningTree li.selected');
+
+    // give the new meaning the same type as its parent
+    var text = sel.find('> .meaningContainer > .type').text();
+    newNode.find('.type').text(text);
+
+    var ul = ensureUl(sel);
     newNode.prependTo(ul);
     newNode.click();
-    meaningTreeRenumber();
+    renumber();
+    scroll();
   }
 
   function deleteMeaning() {
-    if (!meaningEditorUnchanged()) {
-      return false;
-    }
+    acceptMeaningEdit();
     var node = $('#meaningTree li.selected');
     var numChildren = node.children('ul').children().length;
     if (!numChildren || confirm('Confirmați ștergerea sensului și a tuturor subsensurilor?')) {
       node.remove();
-      enableMeaningActions(false);
-      meaningTreeRenumber();
+      $('.meaningAction').prop('disabled', true);
+      clearEditor();
+      renumber();
     }
   }
 
@@ -142,7 +186,8 @@ $(function() {
     var parentLi = node.parent().parent('li');
     if (parentLi.length) {
       node.insertAfter(parentLi);
-      meaningTreeRenumber();
+      renumber();
+      scroll();
     }
   }
 
@@ -153,7 +198,8 @@ $(function() {
     if (node.prev().length) {
       var ul = ensureUl(node.prev());
       node.appendTo(ul);
-      meaningTreeRenumber();
+      renumber();
+      scroll();
     }
   }
 
@@ -162,7 +208,8 @@ $(function() {
   function meaningUp() {
     var node = $('#meaningTree li.selected');
     node.insertBefore(node.prev());
-    meaningTreeRenumber();
+    renumber();
+    scroll();
   }
 
   // The selected node swaps places with its next sibling.
@@ -170,7 +217,8 @@ $(function() {
   function meaningDown() {
     var node = $('#meaningTree li.selected');
     node.insertAfter(node.next());
-    meaningTreeRenumber();
+    renumber();
+    scroll();
   }
 
   /* Ensures the node has a <ul> child, creates it if it doesn't, and returns the <ul> child. */
@@ -183,40 +231,44 @@ $(function() {
 
   function meaningClick(event) {
     event.stopPropagation();
-    if (meaningEditorUnchanged()) {
-      $('#meaningTree li.selected').removeClass('selected');
-      $(this).addClass('selected');
-      enableMeaningActions(true);
-      beginMeaningEdit();
-    }
+    acceptMeaningEdit();
+    $('#meaningTree li.selected').removeClass('selected');
+    $(this).addClass('selected');
+    $('.meaningAction').prop('disabled', false);
+    beginMeaningEdit();
   }
 
-  function enableMeaningActions(enabled) {
-    $('#addSubmeaningButton, #deleteMeaningButton, #meaningUpButton, ' +
-      '#meaningDownButton, #meaningLeftButton, #meaningRightButton')
-      .prop('disabled', !enabled);
+  function frequentSourceClick() {
+    frequentObjectClick($(this), $('#editorSources'));
   }
 
-  function meaningEditorUnchanged(node) {
-    if (!anyChanges) {
-      return true;
+  function frequentTagClick() {
+    frequentObjectClick($(this), $('#editorTags'));
+  }
+
+  function frequentObjectClick(obj, target) {
+    var id = obj.data('id');
+    var text = obj.data('text');
+
+    var opt = target.children('option[value="' + id + '"]');
+    if (opt.length) {
+      // option already exists, just make it selected
+      opt.prop('selected', true);
+    } else {
+      target.append(new Option(text, id, true, true))
     }
-    if (confirm('Aveți deja un sens în curs de modificare. Confirmați renunțarea la modificări?')) {
-      anyChanges = false;
-      return true;
-    }
-    return false;
+    target.trigger('change');
   }
 
   function beginMeaningEdit() {
     var c = $('#meaningTree li.selected > .meaningContainer');
 
-    $('#editorRep, #editorEtymology, #editorComment, #editorSources, ' +
-      '#editorTags, #relationType, .editorRelation, #editMeaningAcceptButton, ' +
-      '#editMeaningCancelButton').removeProp('disabled');
+    $('.editorObj').removeProp('disabled');
+
+    var type = c.find('.type').text();
+    $('.editorType[value="' + type + '"]').prop('checked', true);
+
     $('#editorRep').val(c.find('.internalRep').text());
-    $('#editorEtymology').val(c.find('.internalEtymology').text());
-    $('#editorComment').val(c.find('.internalComment').text());
 
     $('#editorSources option').prop('selected', false);
     c.find('.sourceIds span').each(function() {
@@ -240,17 +292,17 @@ $(function() {
       });
     });
 
-    $.when(
-      $('#editorSources').trigger('change'),
-      refreshSelect2('#editorTags', 'ajax/getTagsById.php'),
-      refreshSelect2('.editorRelation', 'ajax/getTreesById.php')
-    ).done(function() {
-      anyChanges = false;
-    });
+    $('#editorSources').trigger('change');
+    refreshSelect2('#editorTags', 'ajax/getTagsById.php');
+    refreshSelect2('.editorRelation', 'ajax/getTreesById.php');
   }
 
   function acceptMeaningEdit() {
     var c = $('#meaningTree li.selected > .meaningContainer');
+
+    // Update the meaning type
+    var type = parseInt($('.editorType:checked').val());
+    c.find('.type').text(type);
 
     // Update internal and HTML definition
     var internalRep = $('#editorRep').val();
@@ -259,22 +311,6 @@ $(function() {
            { internalRep: internalRep, sourceId: 0 },
            function(data) { c.find('.htmlRep').html(data); }
           );
-
-    // Update internal and HTML etymology
-    var internalEtymology = $('#editorEtymology').val();
-    c.find('.internalEtymology').text(internalEtymology);
-    $.post(wwwRoot + 'ajax/htmlize.php',
-           { internalRep: internalEtymology, sourceId: 0 },
-           function(data) { c.find('.htmlEtymology').html(data); }
-          );
-
-    // Update internal and HTML comment
-    var internalComment = $('#editorComment').val();
-    c.find('.internalComment').text(internalComment);
-    $.post(wwwRoot + 'ajax/htmlize.php',
-           { internalRep: internalComment, sourceId: 0 },
-           function(data) { c.find('.htmlComment').html(data); },
-           'text');
 
     // Update sources and source IDs
     c.find('.sourceIds, .sources').text('');
@@ -302,22 +338,18 @@ $(function() {
       });
     });
 
-    anyChanges = false;
+    renumber();
   }
 
-  function endMeaningEdit() {
-    $('#editorRep, #editorEtymology, #editorComment, #editorSources, ' +
-      '#editorTags, #relationType, .editorRelation, #editMeaningAcceptButton, ' +
-      '#editMeaningCancelButton').prop('disabled', true);
+  function clearEditor() {
+    $('.editorObj').prop('disabled', true);
+    $('.editorType').prop('checked', false);
     $('#editorRep').val('');
-    $('#editorEtymology').val('');
-    $('#editorComment').val('');
     $('#editorSources option:selected').removeAttr('selected');
     $('#editorSources').trigger('change');
     $('#editorTags option:selected').removeAttr('selected');
     $('#editorTags').trigger('change');
     $('.editorRelation').html('').trigger('change');
-    anyChanges = false;
   }
 
   function selectRelationType() {
@@ -348,11 +380,10 @@ $(function() {
 
       results.push({
         'id': c.find('.id').text(),
+        'type': c.find('.type').text(),
         'level': level,
         'breadcrumb': c.find('.bc').text(),
         'internalRep': c.find('.internalRep').text(),
-        'internalEtymology': c.find('.internalEtymology').text(),
-        'internalComment': c.find('.internalComment').text(),
         'sourceIds': sourceIds,
         'tagIds': tagIds,
         'relationIds': relationIds,
@@ -364,9 +395,9 @@ $(function() {
   }
 
   function saveEverything() {
-    if (anyChanges) {
-      acceptMeaningEdit();
-    }
+    window.onbeforeunload = null;
+
+    acceptMeaningEdit();
 
     // convert meanings to JSON
     var results = new Array();

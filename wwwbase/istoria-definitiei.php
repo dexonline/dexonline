@@ -6,43 +6,85 @@ util_assertModerator(PRIV_EDIT);
 $id = Request::get('id');
 $def = Definition::get_by_id($id);
 
-$recordSet = db_execute("SELECT old.Version AS OldVersion, new.Version AS NewVersion, old.ModDate AS OldDate, new.ModDate AS NewDate, old.UserId AS OldUserId, new.UserId AS NewUserId, oldUser.nick AS OldUserNick, newUser.nick AS NewUserNick, old.Status AS OldStatus, new.Status AS NewStatus, old.SourceId AS OldSourceId, new.SourceId AS NewSourceId, oldSource.shortName AS OldSourceName, newSource.shortName AS NewSourceName, old.Lexicon AS OldLexicon, new.Lexicon as NewLexicon, old.ModUserId AS OldModUserId, new.ModUserId AS NewModUserId, oldModUser.nick AS OldModUserNick, newModUser.nick AS NewModUserNick, old.InternalRep AS OldInternalRep, new.InternalRep AS NewInternalRep FROM history_Definition AS old LEFT JOIN User AS oldUser ON old.UserId = oldUser.id LEFT JOIN User AS oldModUser ON old.ModUserId = oldModUser.id LEFT JOIN Source AS oldSource ON old.SourceId = oldSource.id, history_Definition AS new LEFT JOIN User AS newUser ON new.UserId = newUser.id LEFT JOIN User AS newModUser ON new.ModUserId = newModUser.id LEFT JOIN Source AS newSource ON new.SourceId = newSource.id WHERE old.Id = new.Id AND old.Action = new.Action AND new.Version = old.Version + 1 AND old.NewDate = new.ModDate AND old.Action = 'UPDATE' AND old.Id = '$id' ORDER BY old.Version DESC");
+$query = 'select h.*, u.nick as unick, mu.nick as munick, s.shortName ' .
+       'from history_Definition h ' .
+       'left join User u on h.UserId = u.id ' .
+       'left join User mu on h.ModUserId = mu.id ' .
+       'left join Source s on h.SourceId = s.id ' .
+       "where h.Id = $id " .
+       'order by Version';
+$recordSet = db_execute($query);
 
+$prev = null;
 $changeSets = [];
-$statuses = Definition::$STATUS_NAMES;
 
 foreach ($recordSet as $row) {
-  $changeSet = $row;
-  $numChanges = 0;
-
-  if($row['OldUserId'] !== $row['NewUserId']) {
-    $numChanges++;
+  if ($prev) {
+    compareVersions($prev, $row, $changeSets);
   }
-
-  if ($row['OldSourceId'] !== $row['NewSourceId']) {
-    $numChanges++;
-  }
-
-  if ($row['OldStatus'] !== $row['NewStatus']) {
-    $changeSet['OldStatusName'] = $statuses[$row['OldStatus']];
-    $changeSet['NewStatusName'] = $statuses[$row['NewStatus']];
-    $numChanges++;
-  }
-
-  if ($row['OldLexicon'] !== $row['NewLexicon']) {
-    $numChanges++;
-  }
-
-  if ($row['OldInternalRep'] !== $row['NewInternalRep']) {
-    $changeSet['diff'] = LDiff::htmlDiff($row['OldInternalRep'], $row['NewInternalRep']);
-    $numChanges++;
-  }
-
-  if ($numChanges) {
-    $changeSets[] = $changeSet;
-  }
+  $prev = $row;
 }
+
+// And once more for the current version
+$query = 'select d.userId as UserId, ' .
+  'd.sourceId as SourceId, ' .
+  'd.status as Status, ' .
+  'd.lexicon as Lexicon, ' .
+  'd.internalRep as InternalRep, ' .
+  'd.modDate as NewDate, ' .
+  'u.nick as unick, ' .
+  'mu.nick as munick, ' .
+  's.shortName as shortName ' .
+  'from Definition d ' .
+  'left join User u on d.userId = u.id ' .
+  'left join User mu on d.modUserId = mu.id ' .
+  'left join Source s on d.sourceId = s.id ' .
+  "where d.id = $id ";
+$recordSet = db_execute($query);
+
+foreach ($recordSet as $row) { // just once, really
+  compareVersions($prev, $row, $changeSets);
+}
+
+$changeSets = array_reverse($changeSets); // newest changes first
 
 SmartyWrap::assign('def', $def);
 SmartyWrap::assign('changeSets', $changeSets);
 SmartyWrap::display('istoria-definitiei.tpl');
+
+/*************************************************************************/
+
+function compareVersions(&$old, &$new, &$changeSets) {
+  $changeSet = [];
+  $numChanges = 0;
+
+  if($old['UserId'] !== $new['UserId']) {
+    $numChanges++;
+  }
+
+  if ($old['SourceId'] !== $new['SourceId']) {
+    $numChanges++;
+  }
+
+  if ($old['Status'] !== $new['Status']) {
+    $statuses = Definition::$STATUS_NAMES;
+    $changeSet['OldStatusName'] = $statuses[$old['Status']];
+    $changeSet['NewStatusName'] = $statuses[$new['Status']];
+    $numChanges++;
+  }
+
+  if ($old['Lexicon'] !== $new['Lexicon']) {
+    $numChanges++;
+  }
+
+  if ($old['InternalRep'] !== $new['InternalRep']) {
+    $changeSet['diff'] = LDiff::htmlDiff($old['InternalRep'], $new['InternalRep']);
+    $numChanges++;
+  }
+
+  if ($numChanges) {
+    $changeSet['old'] = $old;
+    $changeSet['new'] = $new;
+    $changeSets[] = $changeSet;
+  }
+}

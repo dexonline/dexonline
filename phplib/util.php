@@ -32,7 +32,9 @@ function util_initEverything() {
   db_init();
   session_init();
   mc_init();
-  FlashMessage::restoreFromSession();
+  if (!util_isAjax()) {
+    FlashMessage::restoreFromSession();
+  }
   SmartyWrap::init();
   DebugInfo::init();
   if (util_isWebBasedScript() && Config::get('global.maintenanceMode')) {
@@ -181,6 +183,11 @@ function util_randomCapitalLetterString($length) {
  */
 function util_isWebBasedScript() {
   return isset($_SERVER['REMOTE_ADDR']);
+}
+
+function util_isAjax() {
+  return isset($_SERVER['REQUEST_URI']) &&
+    StringUtil::startsWith($_SERVER['REQUEST_URI'], util_getWwwRoot() . 'ajax/');
 }
 
 function util_getFullServerUrl() {

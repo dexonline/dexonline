@@ -124,6 +124,25 @@ $entryTrees = Model::factory('Tree')
 
 $treeMentions = Mention::getDetailedTreeMentions($t->id);
 
+$frequentSources = Model::factory('Source')
+                 ->table_alias('s')
+                 ->select('s.*')
+                 ->join('MeaningSource', ['s.id', '=', 'ms.sourceId'], 'ms')
+                 ->group_by('s.id')
+                 ->order_by_expr('count(*) desc')
+                 ->limit(5)
+                 ->find_many();
+
+$frequentTags = Model::factory('Tag')
+              ->table_alias('t')
+              ->select('t.*')
+              ->join('ObjectTag', ['t.id', '=', 'ot.tagId'], 'ot')
+              ->where('ot.objectType', ObjectTag::TYPE_MEANING)
+              ->group_by('t.id')
+              ->order_by_expr('count(*) desc')
+              ->limit(4)
+              ->find_many();
+
 $numMeanings = Model::factory('Meaning')
   ->where('treeId', $t->id)
   ->count();
@@ -141,6 +160,8 @@ SmartyWrap::assign('canDelete', $canDelete);
 SmartyWrap::assign('relatedMeanings', $relatedMeanings);
 SmartyWrap::assign('entryTrees', $entryTrees);
 SmartyWrap::assign('treeMentions', $treeMentions);
+SmartyWrap::assign('frequentSources', $frequentSources);
+SmartyWrap::assign('frequentTags', $frequentTags);
 SmartyWrap::assign('statusNames', Tree::$STATUS_NAMES);
 SmartyWrap::addCss('editableMeaningTree', 'textComplete', 'admin');
 SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete');

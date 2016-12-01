@@ -10,11 +10,11 @@
 
       <div class="panel-heading">
         <i class="glyphicon glyphicon-user"></i>
-        {$c.NewModUserNick|default:"necunoscut"}
+        {$c.new.munick|default:"necunoscut"}
 
         <div class="pull-right">
           <i class="glyphicon glyphicon-calendar"></i>
-          {$c.NewDate|date_format:"%e %B %Y %T"}
+          {$c.new.NewDate|date_format:"%e %B %Y %T"}
         </div>
 
       </div>
@@ -26,23 +26,23 @@
       {/if}
 
       <ul class="list-group">
-        {if $c.OldUserId != $c.NewUserId}
+        {if $c.old.UserId != $c.new.UserId}
           <li class="list-group-item">
             <strong>utilizator:</strong>
-            <span class="label label-danger">{$c.OldUserNick|default:"necunoscut"}</span>
+            <span class="label label-danger">{$c.old.unick|default:"necunoscut"}</span>
             <i class="glyphicon glyphicon-arrow-right"></i>
-            <span class="label label-success">{$c.NewUserNick|default:"necunoscut"}</span>
+            <span class="label label-success">{$c.new.unick|default:"necunoscut"}</span>
           </li>
         {/if}
-        {if $c.OldSourceId != $c.NewSourceId}
+        {if $c.old.SourceId != $c.new.SourceId}
           <li class="list-group-item">
             <strong>sursa:</strong>
-            <span class="label label-danger">{$c.OldSourceName|default:"necunoscută"}</span>
+            <span class="label label-danger">{$c.old.shortName|default:"necunoscută"}</span>
             <i class="glyphicon glyphicon-arrow-right"></i>
-            <span class="label label-success">{$c.NewSourceName|default:"necunoscută"}</span>
+            <span class="label label-success">{$c.new.shortName|default:"necunoscută"}</span>
           </li>
         {/if}
-        {if $c.OldStatus != $c.NewStatus}
+        {if $c.old.Status != $c.new.Status}
           <li class="list-group-item">
             <strong>starea:</strong>
             <span class="label label-danger">{$c.OldStatusName|default:"necunoscută"}</span>
@@ -50,12 +50,12 @@
             <span class="label label-success">{$c.NewStatusName|default:"necunoscută"}</span>
           </li>
         {/if}
-        {if $c.OldLexicon != $c.NewLexicon}
+        {if $c.old.Lexicon != $c.new.Lexicon}
           <li class="list-group-item">
             <strong>lexicon:</strong>
-            <span class="label label-danger">{$c.OldLexicon}</span>
+            <span class="label label-danger">{$c.old.Lexicon}</span>
             <i class="glyphicon glyphicon-arrow-right"></i>
-            <span class="label label-success">{$c.NewLexicon}</span>
+            <span class="label label-success">{$c.new.Lexicon}</span>
           </li>
         {/if}
       </ul>

@@ -3,7 +3,27 @@
 class Meaning extends BaseObject implements DatedObject {
   public static $_table = 'Meaning';
 
+  const TYPE_MEANING = 0;
+  const TYPE_ETYMOLOGY = 1;
+  const TYPE_EXAMPLE = 2;
+  const TYPE_COMMENT = 3;
+
+  public static $TYPE_NAMES = [
+    self::TYPE_MEANING => 'sens',
+    self::TYPE_ETYMOLOGY => 'etimologie',
+    self::TYPE_EXAMPLE => 'exemplu',
+    self::TYPE_COMMENT => 'comentariu',
+  ];
+
   private $tree = null;
+
+  function getDisplayTypeName() {
+    if ($this->type == self::TYPE_MEANING) {
+      return '';
+    } else {
+      return self::$TYPE_NAMES[$this->type];
+    }
+  }
 
   function getTree() {
     if ($this->tree === null) {
@@ -22,6 +42,30 @@ class Meaning extends BaseObject implements DatedObject {
   }
 
   /**
+   * Fills in the displayOrder and breadcrumb fields for an array of meanings.
+   * Assumes the parentId and type fields are filled in. The ID may be empty
+   * (in which case that meaning should not have children).
+   **/
+  static function renumber($meanings) {
+    $order = 0;
+    $numChildren = [ 0 => 0 ];  // number of children seen so far for each meaningId
+    $breadcrumb = [ 0 => '' ];           // breadcrumbs for meanings seen so far
+
+    foreach ($meanings as $m) {
+      $m->displayOrder = ++$order;
+
+      if ($m->type == Meaning::TYPE_MEANING) {
+        $m->breadcrumb = $breadcrumb[$m->parentId] . (++$numChildren[$m->parentId]) . '.';
+      } else {
+        $m->breadcrumb = '';
+      }
+
+      $breadcrumb[$m->id] = $m->breadcrumb;
+      $numChildren[$m->id] = 0;
+    }
+  }
+
+  /**
    * Convert a tree produced by the tree editor to the format used by loadTree.
    * We need this in case validation fails and we cannot save the tree, so we need to display it again.
    **/
@@ -35,12 +79,9 @@ class Meaning extends BaseObject implements DatedObject {
          ? self::get_by_id($tuple->id)
          : Model::factory('Meaning')->create();
 
+      $m->type = $tuple->type;
       $m->internalRep = AdminStringUtil::sanitize($tuple->internalRep);
       $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
-      $m->internalEtymology = AdminStringUtil::sanitize($tuple->internalEtymology);
-      $m->htmlEtymology = AdminStringUtil::htmlize($m->internalEtymology, 0);
-      $m->internalComment = AdminStringUtil::sanitize($tuple->internalComment);
-      $m->htmlComment = AdminStringUtil::htmlize($m->internalComment, 0);
 
       $row['meaning'] = $m;
       $row['sources'] = Source::loadByIds($tuple->sourceIds);
@@ -72,6 +113,7 @@ class Meaning extends BaseObject implements DatedObject {
       $m = $tuple->id
          ? self::get_by_id($tuple->id)
          : Model::factory('Meaning')->create();
+      $m->type = $tuple->type;
       $m->parentId = $tuple->level ? $meaningStack[$tuple->level - 1] : 0;
       $m->displayOrder = $displayOrder++;
       $m->breadcrumb = $tuple->breadcrumb;
@@ -79,10 +121,6 @@ class Meaning extends BaseObject implements DatedObject {
       $m->treeId = $tree->id;
       $m->internalRep = AdminStringUtil::sanitize($tuple->internalRep);
       $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
-      $m->internalEtymology = AdminStringUtil::sanitize($tuple->internalEtymology);
-      $m->htmlEtymology = AdminStringUtil::htmlize($m->internalEtymology, 0);
-      $m->internalComment = AdminStringUtil::sanitize($tuple->internalComment);
-      $m->htmlComment = AdminStringUtil::htmlize($m->internalComment, 0);
       $m->save();
       $meaningStack[$tuple->level] = $m->id;
 

@@ -7,9 +7,8 @@
         <div class="meaningContainer">
           <div>
             <span class="bc">{$t.meaning->breadcrumb}</span>
+            <span class="typeName">{$t.meaning->getDisplayTypeName()}</span>
             <span class="htmlRep">{$t.meaning->htmlRep}</span>
-            <span class="htmlEtymology">{$t.meaning->htmlEtymology}</span>
-            <span class="htmlComment">{$t.meaning->htmlComment}</span>
           </div>
 
           <div class="defDetails"">

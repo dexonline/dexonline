@@ -34,7 +34,7 @@
     {if count($structuredResults)}
       <li role="presentation">
         <a href="#structuredTab" aria-controls="structuredTab" role="tab" data-toggle="tab">
-          definiții structurate
+          alte definiții
         </a>
       </li>
     {/if}
@@ -265,15 +265,15 @@
           <h3>
             {include "bits/count.tpl"
             displayed=count($structuredResults)
-            none="Nicio definiție structurată"
-            one="O definiție structurată"
-            many="definiții structurate"
+            none="Nicio definiție încorporată"
+            one="O definiție încorporată"
+            many="definiții încorporate"
             common=""}
           </h3>
 
           <p class="text-muted">
             Aceste definiții sunt deja încorporate în filele „rezultate” și
-            „{$declensionText|default:"declinări"}”.
+            „{$declensionText|default:"declinări"}”. Le prezentăm pentru edificare.
           </p>
         </div>
 

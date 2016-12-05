@@ -1,8 +1,10 @@
+{$categories=$categories|default:true}
 {$displayedUnofficial=false}
 {$displayedSpec=false}
+
 {foreach $results as $i => $row}
 
-  {if $searchParams.categories}
+  {if $categories}
     {if $row->source->type == Source::TYPE_SPECIALIZED && !$displayedSpec}
       <br/>
       <div class="callout callout-info">
@@ -33,3 +35,5 @@
   showWotd=1}
 
 {/foreach}
+
+{include "bits/typoForm.tpl"}

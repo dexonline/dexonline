@@ -44,7 +44,7 @@
           <button class="btn btn-info" type="button" data-level="4">expert</button>
         </div>
 
-        <div id="resultsWrapper" class="txt">
+        <div id="resultsWrapper">
           {foreach $searchResults as $row}
             {include "bits/definition.tpl" showBookmark=1}
           {/foreach}

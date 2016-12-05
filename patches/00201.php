@@ -2,9 +2,6 @@
 
 // Renumber all trees
 
-define('ETYMOLOGY_TAG_ID', 1);
-define('EXAMPLE_TAG_ID', 3);
-
 // select trees that have meanings
 $trees = Model::factory('Tree')
        ->table_alias('t')

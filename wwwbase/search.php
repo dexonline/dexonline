@@ -15,60 +15,33 @@ define('SEARCH_LEXEM_ID', 7);
 define('LIMIT_FULLTEXT_DISPLAY', Config::get('limits.limitFulltextSearch', 500));
 define('PREVIEW_LIMIT', 20); // how many definitions to show by default
 
-// categories: whether to show the official / specialized / unofficial category headers
 // defLimit: how many definitions to display (null = not relevant)
-// entryList: whether to print a list of matching entries
 // paradigm: whether to display the paradigm for $entries
+// trees: whether to display the entries' trees
+$DEFAULT_SEARCH_PARAMS = [
+  'defLimit' => null,
+  'paradigm' => false,
+  'trees' => false,
+];
+
 $SEARCH_PARAMS = [
-  SEARCH_REGEXP => [
-    'categories' => false,
-    'defLimit' => null,
-    'entryList' => false,
-    'paradigm' => false,
-    'trees' => false,
-  ],
-  SEARCH_MULTIWORD => [
-    'categories' => false,
+  SEARCH_REGEXP => $DEFAULT_SEARCH_PARAMS,
+  SEARCH_MULTIWORD => array_replace($DEFAULT_SEARCH_PARAMS, [
     'defLimit' => PREVIEW_LIMIT,
-    'entryList' => false,
-    'paradigm' => false,
-    'trees' => false,
-  ],
-  SEARCH_INFLECTED => [
-    'categories' => true,
+  ]),
+  SEARCH_INFLECTED => array_replace($DEFAULT_SEARCH_PARAMS, [
     'defLimit' => PREVIEW_LIMIT,
-    'entryList' => false,
     'paradigm' => true,
     'trees' => true,
-  ],
-  SEARCH_APPROXIMATE => [
-    'categories' => false,
-    'defLimit' => null,
-    'entryList' => true,
-    'paradigm' => false,
-    'trees' => false,
-  ],
-  SEARCH_DEF_ID => [
-    'categories' => true,
-    'defLimit' => null,
-    'entryList' => false,
-    'paradigm' => false,
-    'trees' => false,
-  ],
-  SEARCH_ENTRY_ID => [
-    'categories' => true,
-    'defLimit' => null,
-    'entryList' => false,
+  ]),
+  SEARCH_APPROXIMATE => $DEFAULT_SEARCH_PARAMS,
+  SEARCH_DEF_ID => $DEFAULT_SEARCH_PARAMS,
+  SEARCH_ENTRY_ID => array_replace($DEFAULT_SEARCH_PARAMS, [
     'paradigm' => true,
     'trees' => true,
-  ],
-  SEARCH_FULL_TEXT => [
-    'categories' => false,
-    'defLimit' => null, // there is a limit, but we handle it separately for memory reasons
-    'entryList' => false,
-    'paradigm' => false,
-    'trees' => false,
-  ],
+  ]),
+  // there is a limit for full-text searches, but we handle it separately for memory reasons
+  SEARCH_FULL_TEXT => $DEFAULT_SEARCH_PARAMS,
 ];
 
 $cuv = Request::get('cuv');
@@ -117,6 +90,7 @@ if ($cuv) {
 $definitions = [];
 $entries = [];
 $lexems = [];
+$trees = [];
 $extra = [];
 
 if ($isAllDigits) {
@@ -160,7 +134,7 @@ if ($text) {
     list($defIds, $stopWords) = Definition::searchFullText($words, $hasDiacritics, $sourceId);
 
     // enforce the limit before even loading the definitions to save memory
-    $extra['numDefinitions'] = count($defIds);
+    $extra['numDefinitionsFullText'] = count($defIds);
     $extra['stopWords'] = $stopWords;
     $defIds = array_slice($defIds, 0, LIMIT_FULLTEXT_DISPLAY);
 
@@ -270,21 +244,21 @@ if (empty($entries) && empty($lexems) && empty($results)) {
 }
 
 // Collect meaning trees
-if ($SEARCH_PARAMS[$searchType]['trees']) {
-  $hasTrees = false;
+// only display trees when no source is selected
+if ($SEARCH_PARAMS[$searchType]['trees'] && !$sourceId) {
+  $statuses = [Entry::STRUCT_STATUS_DONE, Entry::STRUCT_STATUS_UNDER_REVIEW];
   foreach ($entries as $e) {
-    if (in_array($e->structStatus, [Entry::STRUCT_STATUS_DONE, Entry::STRUCT_STATUS_UNDER_REVIEW])) {
+    if (in_array($e->structStatus, $statuses)) {
       foreach ($e->getTrees() as $t) {
         if (($t->status == Tree::ST_VISIBLE) &&
             count($t->getMeanings())) {
-          $hasTrees = true;
+          $trees[$t->id] = $t;
         }
       }
     }
   }
 
-  $extra['hasTrees'] = $hasTrees;
-  if ($hasTrees) {
+  if (count($trees)) {
     SmartyWrap::addCss('meaningTree');
   }
 }
@@ -376,6 +350,7 @@ if (count($images)) {
 SmartyWrap::assign('entries', $entries);
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('results', $results);
+SmartyWrap::assign('trees', $trees);
 SmartyWrap::assign('structuredResults', $structuredResults);
 SmartyWrap::assign('extra', $extra);
 SmartyWrap::assign('text', $text);

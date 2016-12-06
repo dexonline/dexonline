@@ -27,6 +27,17 @@ class ObjectTag extends BaseObject implements DatedObject {
     return self::getAllByIdType($meaningId, self::TYPE_MEANING);
   }
 
+  static function associate($objectType, $objectId, $tagId) {
+    // The association should not already exist
+    if (!self::get_by_objectType_objectId_tagId($objectType, $objectId, $tagId)) {
+      $ot = Model::factory('ObjectTag')->create();
+      $ot->objectType = $objectType;
+      $ot->objectId = $objectId;
+      $ot->tagId = $tagId;
+      $ot->save();
+    }
+  }
+
   // Deletes the old tags and adds the new tags.
   static function wipeAndRecreate($objectId, $objectType, $tagIds) {
     self::delete_all_by_objectId_objectType($objectId, $objectType);

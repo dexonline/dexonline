@@ -49,7 +49,7 @@ class Meaning extends BaseObject implements DatedObject {
   static function renumber($meanings) {
     $order = 0;
     $numChildren = [ 0 => 0 ];  // number of children seen so far for each meaningId
-    $breadcrumb = [ 0 => '' ];           // breadcrumbs for meanings seen so far
+    $breadcrumb = [ 0 => '' ];  // breadcrumbs for meanings seen so far
 
     foreach ($meanings as $m) {
       $m->displayOrder = ++$order;

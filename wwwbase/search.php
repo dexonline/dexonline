@@ -134,6 +134,8 @@ if ($text) {
     list($defIds, $stopWords) = Definition::searchFullText($words, $hasDiacritics, $sourceId);
 
     // enforce the limit before even loading the definitions to save memory
+    // TODO: this can lead to a bug as follows: we load 100 definitions and filter them down
+    // to 90. Then we print "100 definitions (at most 90 shown)".
     $extra['numDefinitionsFullText'] = count($defIds);
     $extra['stopWords'] = $stopWords;
     $defIds = array_slice($defIds, 0, LIMIT_FULLTEXT_DISPLAY);

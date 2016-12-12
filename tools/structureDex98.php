@@ -9,13 +9,14 @@ require_once __DIR__ . '/../phplib/third-party/PHP-parsing-tool/Parser.php';
   
 define('SOURCE_ID', 1);
 define('MY_USER_ID', 1);
-define('BATCH_SIZE', 10000);
-define('START_AT', '');
+define('BATCH_SIZE', 1);
+define('START_AT', 'spic');
 
 $GRAMMAR = [
   'start' => [
-    'entryWithInflectedForms " " filler',
-    'prefixEntry filler',
+    'entryWithInflectedForms " " meaning squareBracket? (" - " etymology)?',
+    'prefixEntry meaning squareBracket? (" - " etymology)?',
+    'entryWithInflectedForms " " reference',   // just a reference to the main form
   ],
   'entryWithInflectedForms' => [
     '"@" form homonym? "-"? boldForms ","? "@" formsAndPoss',
@@ -63,6 +64,7 @@ $GRAMMAR = [
   'pos' => [
     '"#adj.# #interog.# #f.#"',
     '"#adj.# #interog.#"',
+    '"#adj.# #invar.#"',
     '"#adj.# #m.#"',
     '"#adj.# #n.#"',
     '"#adj.# #f.#"',
@@ -94,10 +96,13 @@ $GRAMMAR = [
     '"#pron. pos.#"',
     '"#pron. refl.#"',
     '"#pron.#"',
+    '"#s. f.# #invar.#"',
     '"#s. f.# #pl.#"',
     '"#s. f.#"',
-    '"#s. m.# și #f.#"',
+    '"#s. m.# #invar.#"',
     '"#s. m.# #pl.#"',
+    '"#s. m.# și #f.#"',
+    '"#s. m.# și #n.#"',
     '"#s. m.#"',
     '"#s. n.# #pl.#"',
     '"#s. n.#"',
@@ -116,6 +121,38 @@ $GRAMMAR = [
   'verbVoice' => [
     '" #" ("Tranz." | "Refl." | "Intranz.") "#"',
   ],
+
+  'reference' => [
+    '/#[vV]\.# @/ form homonym? "-"? "."? "@"',
+    '"@" form homonym? "-"? "."? "@"',
+  ],
+
+  'meaning' => [
+    '/.*?(?=( - | \\[|$))/',
+  ],
+
+  'squareBracket' => [
+    '" [" /[^]]*/ "]"'
+  ],
+
+  'etymology' => [
+    '/.*/',
+  ],
+
+];
+
+$MEANING_GRAMMAR = [
+  'start' => [
+    'arabMeaning+" "',
+    'unnumbered',
+  ],
+  'arabMeaning' => [
+    '/@[1-9]\.@ / unnumbered',
+  ],
+  'unnumbered' => [
+    '/.*?(?=( @[1-9]\.@ |$))/',
+  ],
+
   'filler' => [
     '/.*/',
   ],
@@ -123,16 +160,8 @@ $GRAMMAR = [
 
 Log::info('started');
 
-$grammar = '';
-foreach ($GRAMMAR as $name => $productions) {
-  $grammar .= "{$name} ";
-  foreach ($productions as $p) {
-    $grammar .= " :=> {$p}";
-  }
-  $grammar .= ".\n";
-}
-
-$parser = new \ParserGenerator\Parser($grammar);
+$parser = makeParser($GRAMMAR);
+$meaningParser = makeParser($MEANING_GRAMMAR);
 
 $offset = 0;
 
@@ -148,22 +177,26 @@ do {
 
   foreach ($defs as $d) {
     $parsed = $parser->parse($d->internalRep);
-    if ($parsed) {
-      // print "{$d->internalRep}\n";
-      // foreach($parsed->findAll('entryWithInflectedForms') as $s) {
-      //   echo "  entry: {$s}\n";
-      // }
-      // foreach($parsed->findAll('pos') as $s) {
-      //   echo "  part of speech: {$s}\n";
-      // }
+    if (!$parsed) {
+      // Log::error('Cannot parse: %s', $d->internalRep);
     } else {
-      Log::error('Cannot parse: %s', $d->internalRep);
-      print "{$d->internalRep}\n";
+
+      $meaning = $parsed->findFirst('meaning');
+      if (!$meaning) {
+        Log::error('No meaning: %s', $d->internalRep);
+      }
+
+      $parsed = $meaningParser->parse($meaning);
+      if ($parsed) {
+        var_dump($parsed->dump());
+      } else {
+        Log::error('Cannot parse meaning: %s', $meaning);
+      }
     }
   }
 
   $offset += BATCH_SIZE;
-  // exit;
+  exit;
   Log::info("Processed $offset definitions.");
 } while (count($defs));
 
@@ -172,3 +205,15 @@ Log::info('ended');
 
 /*************************************************************************/
 
+function makeParser($grammar) {
+  $s = '';
+  foreach ($grammar as $name => $productions) {
+    $s .= "{$name} ";
+    foreach ($productions as $p) {
+      $s .= " :=> {$p}";
+    }
+    $s .= ".\n";
+  }
+
+  return new \ParserGenerator\Parser($s);
+}

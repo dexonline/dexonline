@@ -10,7 +10,7 @@ require_once __DIR__ . '/../phplib/third-party/PHP-parsing-tool/Parser.php';
 define('SOURCE_ID', 1);
 define('MY_USER_ID', 1);
 define('BATCH_SIZE', 1);
-define('START_AT', 'spic');
+define('START_AT', 'fi');
 
 $GRAMMAR = [
   'start' => [
@@ -143,16 +143,46 @@ $GRAMMAR = [
 
 $MEANING_GRAMMAR = [
   'start' => [
-    'arabMeaning+" "',
-    'unnumbered',
+    'caps+" "',
+    'romans',
   ],
-  'arabMeaning' => [
-    '/@[1-9]\.@ / unnumbered',
+  'caps' => [
+    'capsCounter " " romans',
   ],
-  'unnumbered' => [
-    '/.*?(?=( @[1-9]\.@ |$))/',
+  'romans' => [
+    '(romanPreamble " ")? roman+" "',
+    'arabs',
+  ],
+  'romanPreamble' => [
+    '/.*?(?=( @[IV]+\.@ ))/',
+  ],
+  'roman' => [
+    '/@[IV]+\.@/ " " arabs',
+  ],
+  'arabs' => [
+    '(arabPreamble " ")? arab+" "',
+    'doubleAsterisk',
+  ],
+  'arabPreamble' => [
+    '/.*?(?=( @\d\.@ ))/',
+  ],
+  'arab' => [   // @1.@, @2.@, ...
+    '/@\d+\.@ / doubleAsterisk',
+  ],
+  'doubleAsterisk' => [ // includes ** and *
+    'singleAsterisk+" ** "',
+  ],
+  'singleAsterisk' => [ // includes *
+    'basic+" * "',
+  ],
+  'basic' => [
+    '/.*?(?=( @[IV]+\.@ | @\d\.@ | \*\* | \* |$))/',
   ],
 
+  'capsCounter' => [
+    '/@[A-E]\.@/',
+  ],
+  
   'filler' => [
     '/.*/',
   ],
@@ -188,9 +218,10 @@ do {
 
       $parsed = $meaningParser->parse($meaning);
       if ($parsed) {
-        var_dump($parsed->dump());
+        print $parsed->dump() . "\n";
+        printTree($parsed, 0);
       } else {
-        Log::error('Cannot parse meaning: %s', $meaning);
+        Log::error('Cannot parse meaning: [%s] (def: %s)', $meaning, $d->internalRep);
       }
     }
   }
@@ -216,4 +247,20 @@ function makeParser($grammar) {
   }
 
   return new \ParserGenerator\Parser($s);
+}
+
+function printTree($node, $level) {
+  if ($node instanceof ParserGenerator\SyntaxTreeNode\Branch) {
+    // print str_repeat('  ', $level);
+    // printf("%s:%s\n", $node->getType(), $node->getDetailType());
+    if (in_array($node->getType(), ['roman'])) {
+      $level++;
+    }
+    foreach ($node->getSubnodes() as $child) {
+      printTree($child, $level);
+    }
+  } else {
+    print str_repeat('  ', $level);
+    printf("%s\n", $node->getContent());
+  }
 }

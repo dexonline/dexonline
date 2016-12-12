@@ -9,15 +9,19 @@ require_once __DIR__ . '/../phplib/third-party/PHP-parsing-tool/Parser.php';
   
 define('SOURCE_ID', 1);
 define('MY_USER_ID', 1);
-define('BATCH_SIZE', 1000);
+define('BATCH_SIZE', 10000);
 define('START_AT', '');
 
 $GRAMMAR = [
   'start' => [
     'entryWithInflectedForms " " filler',
+    'prefixEntry filler',
   ],
   'entryWithInflectedForms' => [
     '"@" form homonym? "-"? boldForms ","? "@" formsAndPoss',
+  ],
+  'prefixEntry' => [
+    '"@" form homonym? "-"? "@ " ?"Element de compunere"',
   ],
   'boldForms' => [
     '", " form boldForms',
@@ -35,11 +39,13 @@ $GRAMMAR = [
     '"$ și"',
   ],
   'usage' => [
-    '/ \(@[-0-9IV, ]+@\)/',
+    '/ \(@[-0-9A-EIV, ]+@\)/',
     '" #pers.# 3 #sg.#"',
-    '" #pers.# 3"',
+    '/ #pers.# [1-6]/',
+    '" (#pop.#)"',
     '" (rar)"',
     '" (rar, @2@)"',
+    '" (@2,@ rar)"',
     '" și"',
   ],
   'forms' => [
@@ -70,6 +76,7 @@ $GRAMMAR = [
     '"#art. nehot.#"',
     '"#conj.#"',
     '"#interj.#"',
+    '"#loc. adj.#"',
     '"#loc. adv.#"',
     '"#num. card.#"',
     '"#num. col.#"',
@@ -85,20 +92,23 @@ $GRAMMAR = [
     '"#pron. pers.# #f.#"',
     '"#pron. pers.#"',
     '"#pron. pos.#"',
+    '"#pron. refl.#"',
     '"#pron.#"',
+    '"#s. f.# #pl.#"',
     '"#s. f.#"',
     '"#s. m.# și #f.#"',
     '"#s. m.# #pl.#"',
     '"#s. m.#"',
+    '"#s. n.# #pl.#"',
     '"#s. n.#"',
     '"#subst.#"',
-    '"Element de compunere"', // TODO remove
-    '"#v.#"', // TODO remove
+    '"#v.#"',
     'verbPos',
   ],
   'verbPos' => [
     '"#vb.# " verbGroup "." verbVoice??',
-    '"#vb.# " verbGroup',
+    '"#vb.# " verbGroup "."?',
+    '"#vb.# #intranz.#"',
   ],
   'verbGroup' => [
     '("I" | "II" | "III" | "IV")',
@@ -132,7 +142,6 @@ do {
         ->where('status', Definition::ST_ACTIVE)
         ->where_gte('lexicon', START_AT)
         ->order_by_asc('lexicon')
-        ->order_by_asc('internalRep')
         ->limit(BATCH_SIZE)
         ->offset($offset)
         ->find_many();
@@ -148,7 +157,7 @@ do {
       //   echo "  part of speech: {$s}\n";
       // }
     } else {
-      Log::error("Cannot parse: {$d->internalRep}");
+      Log::error('Cannot parse: %s', $d->internalRep);
       print "{$d->internalRep}\n";
     }
   }

@@ -17,11 +17,27 @@ $(function() {
     $(document).bind('keydown', 'alt+s', clickSaveButton);
     $(document).bind('keydown', 'alt+v', clickRecentPagesLink);
 
+    $(document).bind('keydown', 'alt+c', redirectToWotDTable);
+    $(document).bind('keydown', 'alt+z', redirectToWotDImage);
+    $(document).bind('keydown', 'alt+x', redirectToWotDAuthorAssign);
+
     $(document).bind('keydown', 'alt+p', clickPreviewTags);
   }
 
   function redirectToAdmin() {
     window.location = wwwRoot + 'admin';
+  }
+
+  function redirectToWotDTable() {
+    window.location = wwwRoot + 'admin/wotdTable.php';
+  }
+
+  function redirectToWotDImage() {
+    window.location = wwwRoot + 'admin/wotdImages.php';
+  }
+
+  function redirectToWotDAuthorAssign() {
+    window.location = wwwRoot + 'alocare-autori.php';
   }
 
   function quickNavLexemFocus() {

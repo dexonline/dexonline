@@ -27,9 +27,18 @@
   {/foreach}
 
   {if $hasUnrecommendedForms}
-    <div class="notRecommendedLegend">* Formă nerecomandată</div>
+    <div class="notRecommendedLegend">* Formă nerecomandată sau greșită – <span class="notRecommendedShowHide">(arată)</span></span></div>
   {/if}
   {if !$onlyParadigm}
     <div><a class="paradigmLink" title="Link către această pagină, dar cu flexiunile expandate!" href="{$paradigmLink}">Link către această paradigmă</a></div>
   {/if}
 {/if}
+
+{literal}
+<script>
+  $('.notRecommendedShowHide').click(function() {
+    $('span.notRecommended').toggleClass("toggleOff");
+    $(this).text($(this).text() == '(arată)' ? '(ascunde)' : '(arată)');
+  });
+</script>
+{/literal}

@@ -86,6 +86,16 @@
   font-style: italic;
 }
 
+.toggleOff {
+  display: none;
+}
+
+.notRecommendedShowHide {
+  color: blue;
+  cursor: pointer;
+}
+
+
 /* 
   Fix the inflection arrow for Google Chrome
   Reference: https://github.com/dexonline/dexonline/issues/484

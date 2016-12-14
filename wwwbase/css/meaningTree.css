@@ -17,8 +17,8 @@
 }
 
 .meaningTree .bc:not(:empty) {
-  font-weight: bold;
   margin-right: 5px;
+  vertical-align: top;
 }
 
 .meaningTree .typeName:not(:empty) {
@@ -98,10 +98,11 @@
   font-weight: bold;
   display: inline-block;
   color: #444;
+  padding-top: 25px;
 }
 
 .meaningTree .htmlRep.meaningBody {
-  padding-top: 25px;
+  width: 90%;
 }
 
 .meaningContainer .defDetails {

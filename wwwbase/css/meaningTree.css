@@ -137,3 +137,12 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+
+.tab-pane h3,
+.tab-pane > ul {
+  margin-left: 20px;
+}
+
+.tab-pane > ul {
+  margin-bottom: 20px;
+}

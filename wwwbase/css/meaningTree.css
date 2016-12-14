@@ -22,8 +22,8 @@
 }
 
 .meaningTree .typeName:not(:empty) {
-  font-weight: bold;
   margin-right: 5px;
+  color: #777;
 }
 
 .meaningTree .htmlRep {
@@ -48,31 +48,37 @@
 .meaningTree .label-tag {
   background: #fcece3;
   color: #444;
+  font-weight: normal;
 }
 
 .meaningTree .label-source {
-  background: #eee;
+  background: #fdf7c7;
   color: #444;
+  font-weight: normal;
 }
 
 .meaningTree .label-relation-1 {
   background: #e5fce8;
   color: #444;
+  font-weight: normal;
 }
 
 .meaningTree .label-relation-2 {
   background: #fce5e5;
   color: #444;
+  font-weight: normal;
 }
 
 .meaningTree .label-relation-3 {
   background: #fff;
   color: #444;
+  font-weight: normal;
 }
 
 .meaningTree .label-relation-4 {
   background: #fff;
   color: #444;
+  font-weight: normal;
 }
 
 .textcomplete-dropdown {

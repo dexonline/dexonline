@@ -8,11 +8,18 @@ class Meaning extends BaseObject implements DatedObject {
   const TYPE_EXAMPLE = 2;
   const TYPE_COMMENT = 3;
 
-  public static $TYPE_NAMES = [
+  static $TYPE_NAMES = [
     self::TYPE_MEANING => 'sens',
     self::TYPE_ETYMOLOGY => 'etimologie',
     self::TYPE_EXAMPLE => 'exemplu',
     self::TYPE_COMMENT => 'comentariu',
+  ];
+
+  static $CSS_CLASS_NAMES = [
+    self::TYPE_MEANING => 'meaningBody',
+    self::TYPE_ETYMOLOGY => 'etymologyBody',
+    self::TYPE_EXAMPLE => 'exampleBody',
+    self::TYPE_COMMENT => 'commentBody',
   ];
 
   private $tree = null;
@@ -23,6 +30,10 @@ class Meaning extends BaseObject implements DatedObject {
     } else {
       return self::$TYPE_NAMES[$this->type];
     }
+  }
+
+  function getCssClass() {
+    return self::$CSS_CLASS_NAMES[$this->type];
   }
 
   function getTree() {

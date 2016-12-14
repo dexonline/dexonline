@@ -8,7 +8,7 @@
           <div>
             <span class="bc">{$t.meaning->breadcrumb}</span>
             <span class="typeName">{$t.meaning->getDisplayTypeName()}</span>
-            <span class="htmlRep">{$t.meaning->htmlRep}</span>
+            <span class="htmlRep {$t.meaning->getCssClass()}">{$t.meaning->htmlRep}</span>
           </div>
 
           <div class="defDetails"">

@@ -85,3 +85,19 @@
   text-overflow: ellipsis;
   width: 500px;
 }
+
+.meaningTree .htmlRep.meaningBody,
+.meaningContainer .bc {
+  font-size: 18px;
+  font-weight: bold;
+  display: inline-block;
+  color: #444;
+}
+
+.meaningTree .htmlRep.meaningBody {
+  padding-top: 25px;
+}
+
+.meaningContainer .defDetails {
+  padding-left: 35px;
+}

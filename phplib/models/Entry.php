@@ -150,6 +150,14 @@ class Entry extends BaseObject implements DatedObject {
   }
 
   public function mergeInto($otherId) {
+    // Delete any empty trees of $this before the merge
+    foreach ($this->getTrees() as $t) {
+      $meaning = Meaning::get_by_treeId($t->id);
+      if (!$meaning) {
+        $t->delete();
+      }
+    }
+
     EntryDefinition::copy($this->id, $otherId, 1);
     EntryLexem::copy($this->id, $otherId, 1);
     TreeEntry::copy($this->id, $otherId, 2);

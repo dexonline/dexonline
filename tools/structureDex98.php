@@ -6,17 +6,18 @@
 
 require_once __DIR__ . '/../phplib/util.php';
 require_once __DIR__ . '/../phplib/third-party/PHP-parsing-tool/Parser.php';
-  
+ini_set('memory_limit', '1024M');
+
 define('SOURCE_ID', 1);
 define('MY_USER_ID', 1);
-define('BATCH_SIZE', 1);
-define('START_AT', 'fi');
+define('BATCH_SIZE', 10000);
+define('START_AT', '');
 
 $GRAMMAR = [
   'start' => [
+    'entryWithInflectedForms " " reference',   // just a reference to the main form
     'entryWithInflectedForms " " meaning squareBracket? (" - " etymology)?',
     'prefixEntry meaning squareBracket? (" - " etymology)?',
-    'entryWithInflectedForms " " reference',   // just a reference to the main form
   ],
   'entryWithInflectedForms' => [
     '"@" form homonym? "-"? boldForms ","? "@" formsAndPoss',
@@ -40,7 +41,7 @@ $GRAMMAR = [
     '"$ și"',
   ],
   'usage' => [
-    '/ \(@[-0-9A-EIV, ]+@\)/',
+    '/ \(@[-0-9A-EIVX, ]+@\)/',
     '" #pers.# 3 #sg.#"',
     '/ #pers.# [1-6]/',
     '" (#pop.#)"',
@@ -147,24 +148,18 @@ $MEANING_GRAMMAR = [
     'romans',
   ],
   'caps' => [
-    'capsCounter " " romans',
+    '/@[A-E]\.@ / romans',
   ],
   'romans' => [
-    '(romanPreamble " ")? roman+" "',
+    '(basic " ")? roman+" "',
     'arabs',
   ],
-  'romanPreamble' => [
-    '/.*?(?=( @[IV]+\.@ ))/',
-  ],
   'roman' => [
-    '/@[IV]+\.@/ " " arabs',
+    '/@[IVX]+\.@/ " " arabs',
   ],
   'arabs' => [
-    '(arabPreamble " ")? arab+" "',
+    '(basic " ")? arab+" "',
     'doubleAsterisk',
-  ],
-  'arabPreamble' => [
-    '/.*?(?=( @\d\.@ ))/',
   ],
   'arab' => [   // @1.@, @2.@, ...
     '/@\d+\.@ / doubleAsterisk',
@@ -176,19 +171,38 @@ $MEANING_GRAMMAR = [
     'basic+" * "',
   ],
   'basic' => [
-    '/.*?(?=( @[IV]+\.@ | @\d\.@ | \*\* | \* |$))/',
+    '/.*?(?=( @[A-E]+\.@ | @[IVX]+\.@ | @\d\.@ | \*\* | \* |$))/',
   ],
 
-  'capsCounter' => [
-    '/@[A-E]\.@/',
-  ],
-  
   'filler' => [
     '/.*/',
   ],
 ];
 
 Log::info('started');
+
+// build  a tag map, mapped by value
+$tagMap = [];
+$tags = Model::factory('Tag')->find_many();
+foreach ($tags as $t) {
+  $tagMap[$t->value] = $t;
+}
+
+// augment the tag map with some hard-coded translations
+$tagMap['adjectival'] = $tagMap['(și) adjectival'];
+$tagMap['argotic'] = $tagMap['argou; argotic'];
+$tagMap['articol; articulat'] = $tagMap['articulat'];
+$tagMap['colectiv'] = $tagMap['(cu sens) colectiv'];
+$tagMap['cu sens colectiv'] = $tagMap['(cu sens) colectiv'];
+$tagMap['în expresie'] = $tagMap['expresie'];
+$tagMap['în locuțiune adverbială'] = $tagMap['locuțiune adverbială'];
+$tagMap['în sintagma'] = $tagMap['(în) sintagmă'];
+$tagMap['în sintagmele'] = $tagMap['(în) sintagmă'];
+$tagMap['la plural'] = $tagMap['(la) plural'];
+$tagMap['la singular'] = $tagMap['(la) singular'];
+$tagMap['substantivat'] = $tagMap['(și) substantivat'];
+$tagMap['termen bisericesc'] = $tagMap['(termen) bisericesc'];
+$tagMap['termen militar'] = $tagMap['(termen) militar'];
 
 $parser = makeParser($GRAMMAR);
 $meaningParser = makeParser($MEANING_GRAMMAR);
@@ -206,28 +220,31 @@ do {
         ->find_many();
 
   foreach ($defs as $d) {
-    $parsed = $parser->parse($d->internalRep);
+    $rep = preprocess($d->internalRep);
+
+    $parsed = $parser->parse($rep);
     if (!$parsed) {
-      // Log::error('Cannot parse: %s', $d->internalRep);
+      // Log::error('Cannot parse: %s', $rep);
     } else {
-
       $meaning = $parsed->findFirst('meaning');
-      if (!$meaning) {
-        Log::error('No meaning: %s', $d->internalRep);
-      }
+      $reference = $parsed->findFirst('reference');
 
-      $parsed = $meaningParser->parse($meaning);
-      if ($parsed) {
-        print $parsed->dump() . "\n";
-        printTree($parsed, 0);
+      if ($meaning) {
+        $parsed = $meaningParser->parse($meaning);
+        if ($parsed) {
+          createMeanings($parsed, $d);
+        } else {
+          Log::error('Cannot parse meaning for [%s]: [%s]', $d->lexicon, $meaning);
+        }
+      } else if ($reference) {
+        mergeVariant($d, $reference);
       } else {
-        Log::error('Cannot parse meaning: [%s] (def: %s)', $meaning, $d->internalRep);
+        Log::error('No meaning nor reference: %s', $rep);
       }
     }
   }
 
   $offset += BATCH_SIZE;
-  exit;
   Log::info("Processed $offset definitions.");
 } while (count($defs));
 
@@ -249,18 +266,128 @@ function makeParser($grammar) {
   return new \ParserGenerator\Parser($s);
 }
 
-function printTree($node, $level) {
-  if ($node instanceof ParserGenerator\SyntaxTreeNode\Branch) {
-    // print str_repeat('  ', $level);
-    // printf("%s:%s\n", $node->getType(), $node->getDetailType());
-    if (in_array($node->getType(), ['roman'])) {
-      $level++;
+function preprocess($rep) {
+  $rep = preg_replace('/ @([A-E]\.) ([IVX]+\.)@ /', ' @$1@ @$2@ ', $rep);
+  $rep = preg_replace('/ @([IVX]+\.) (\d\.)@ /', ' @$1@ @$2@ ', $rep);
+  return $rep;
+}
+
+function mergeVariant($def, $reference) {
+  $form = $reference->findFirst('form');
+  $form = preg_replace('/\.$/', '', $form); // remove the final dot.
+
+  $defEntries = Model::Factory('Entry')
+              ->table_alias('e')
+              ->select('e.*')
+              ->join('EntryDefinition', ['ed.entryId', '=', 'e.id'], 'ed')
+              ->where('ed.definitionId', $def->id)
+              ->find_many();
+  if (count($defEntries) != 1) {
+    Log::error('Cannot merge %s into %s because %s has %d entries.',
+               $def->lexicon, $form, $def->lexicon, count($defEntries));
+    return;
+  }
+
+  $formEntries = Model::Factory('Entry')
+               ->table_alias('e')
+               ->select('e.*')
+               ->join('EntryLexem', ['el.entryId', '=', 'e.id'], 'el')
+               ->join('Lexem', ['l.id', '=', 'el.lexemId'], 'l')
+               ->where_raw('(l.formNoAccent = binary ?)', [ $form ])
+               ->find_many();
+  if (count($formEntries) != 1) {
+    Log::error('Cannot merge %s into %s because %s has %d entries.',
+               $def->lexicon, $form, $form, count($formEntries));
+    return;
+  }
+
+  if ($defEntries[0]->id == $formEntries[0]->id) {
+    // nothing to do, already in the same entry
+    return;
+  }
+
+  Log::info('Merging %s into %s.', $def->lexicon, $form);
+  $defEntries[0]->mergeInto($formEntries[0]->id);
+}
+
+function createMeanings($parsed, $def) {
+  // Log::info('Creating meanings for %s', $def->lexicon);
+  //  print "============ Creating meanings for {$def->lexicon}\n";
+  foreach ($parsed->findAll('reference') as $ref) {
+    print "REFERENCE:{$def->lexicon} {$ref}\n";
+  }
+  foreach ($parsed->findAll('basic') as $rep) {
+    $rep = (string)$rep;
+    //    print "{$rep}\n";
+
+    // separate qualifiers and try to convert them to labels
+    $quals = getQualifiers($rep);
+
+    if ($rep[0] == '#') {
+      //      print implode(',', $quals) . "LEXICON:{$def->lexicon} {$rep}\n";
     }
-    foreach ($node->getSubnodes() as $child) {
-      printTree($child, $level);
+  }
+  // print $parsed->dump() . "\n";
+}
+
+// Parses qualifiers like "(#Înv.# și #pop.#)" before a meaning.
+// Returns a list of tags.
+// Modifies $rep when possible.
+function getQualifiers(&$rep) {
+  global $tagMap;
+
+  $result = [];
+
+  if (preg_match('/^\(([^)]+)\) (.*)$/', $rep, $m)) {
+    $parts = preg_split('/[,;] /', $m[1]);
+
+    foreach ($parts as $part) {
+      if (preg_match('/^(#[^#]+#) și (#[^#]+#)$/', $part, $m2)) {
+        $result[] = processQualifier($m2[1]);
+        $result[] = processQualifier($m2[2]);
+      } else {
+        $result[] = processQualifier($part);
+      }
     }
+
+    if (count(array_filter($result)) == count($result)) {
+      // no null elements, safe to remove the qualifier portion
+      $rep = $m[2];
+    }
+  }
+
+  // Remove abbreviations from the beginning, while we have tags for them.
+  do {
+    $hash = false;
+    if (preg_match('/^#([^#]+)#,? (.*)$/', $rep, $m)) {
+      $abbr = mb_strtolower($m[1]);
+      $exp = AdminStringUtil::getAbbreviation(SOURCE_ID, $abbr);
+      if (isset($tagMap[$exp])) {
+        $result[] = $tagMap[$exp];
+        $rep = $m[2];
+        $hash = true;
+      }
+    }
+  } while ($hash);
+
+  return $result;
+}
+
+// Returns a matching tag or null if there is no matching tag.
+function processQualifier($qual) {
+  global $tagMap;
+
+  $qual = mb_strtolower($qual);
+
+  // expand all abbreviations
+  $m = [];
+  while (preg_match('/^([^#]*)#([^#]+)#(.*)$/', $qual, $m)) {
+    $qual = sprintf('%s%s%s', $m[1], AdminStringUtil::getAbbreviation(SOURCE_ID, $m[2]), $m[3]);
+  }
+
+  if (isset($tagMap[$qual])) {
+    return $tagMap[$qual];
   } else {
-    print str_repeat('  ', $level);
-    printf("%s\n", $node->getContent());
+    return null;
   }
 }

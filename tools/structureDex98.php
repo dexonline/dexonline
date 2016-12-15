@@ -11,7 +11,7 @@ ini_set('memory_limit', '1024M');
 define('SOURCE_ID', 1);
 define('MY_USER_ID', 1);
 define('BATCH_SIZE', 10000);
-define('START_AT', 'afurisenie');
+define('START_AT', '');
 
 $GRAMMAR = [
   'start' => [
@@ -202,9 +202,7 @@ $ETYMOLOGY_GRAMMAR = [
     '"Din " langList " " formNone " " translation "."',
   ],
   'import' => [
-    '"#Cuv.# " lang',
-    '"#Loc.# " lang',
-    '"#Expr.# " lang',
+    '("#Cuv.# " | "#Loc.# " | "#Expr.# ") lang',
   ],
   'withSuffix' => [
     'formNone elision? " + #suf.# " suffixDot',
@@ -529,12 +527,11 @@ function createEtymologies($etymology, $parser, $def) {
                                    $rule->findFirst('translation')));
         $result[] = [ 'meaning' => $m, 'tags' => $tags ];
 
-      } else if ($rule->findFirst('fromLang') && $rule->findFirst('formDot')) {
+      } else if (($r = $rule->findFirst('fromLang')) && $rule->findFirst('formDot')) {
         // '("Din " | "După ") (langList " " formComma " ")* langList " " formDot',
-        $fromLang = $rule->findFirst('fromLang');
-        $after = (string)$fromLang->getSubnode(0) == 'După ';
+        $after = (string)$r->getSubnode(0) == 'După ';
 
-        $list = $fromLang->findFirst('list');
+        $list = $r->findFirst('list');
         if ($list) {
           foreach ($list->getSubnodes() as $item) {
             $tags = [];
@@ -553,10 +550,10 @@ function createEtymologies($etymology, $parser, $def) {
         if ($after) {
           $tags[] = getTag('după');
         }
-        foreach ($fromLang->getSubnode(2)->findAll('lang') as $l) {
+        foreach ($r->getSubnode(2)->findAll('lang') as $l) {
           $tags[] = expandAndGetTag($l);
         }
-        $m = makeEtymology(preg_replace('/\.@$/', '@', $fromLang->getSubnode(4)));
+        $m = makeEtymology(preg_replace('/\.@$/', '@', $r->getSubnode(4)));
           
         $result[] = [ 'meaning' => $m, 'tags' => $tags ];
 
@@ -588,12 +585,49 @@ function createEtymologies($etymology, $parser, $def) {
         $m = makeEtymology(expandAllAbbreviations($r));
         $tags = [];
         $result[] = [ 'meaning' => $m, 'tags' => $tags ];
-        // printf("[%s] %s %s\n", $def->lexicon, implode(',', $tags), $m->internalRep);
+
+      } else if (($r = $rule->findFirst('confer')) && $rule->findFirst('lang')) {
+        // '"#Cf.# " (lang " " conferSourceComma " ")* lang " " conferSourceDot',
+        $list = $r->findFirst('list');
+        if ($list) {
+          foreach ($list->getSubnodes() as $item) {
+            $tags = [
+              getTag('Cf.'),
+              expandAndGetTag($item->findFirst('lang')),
+            ];
+            $m = makeEtymology(preg_replace('/,%$/', '%', $item->findFirst('conferSourceComma')));
+            $result[] = [ 'meaning' => $m, 'tags' => $tags ];
+          }
+        }
+
+        $tags = [
+          getTag('Cf.'),
+          expandAndGetTag($r->getSubnode(2)),
+        ];
+        $m = makeEtymology(preg_replace('/\.%$/', '%', $r->findFirst('conferSourceDot')));
+        $result[] = [ 'meaning' => $m, 'tags' => $tags ];
+
+      } else if ($r = $rule->findFirst('confer')) {
+        // '"#Cf.# " conferSourceDot',
+        $tags = [ getTag('Cf.') ];
+        $m = makeEtymology(preg_replace('/\.%$/', '%', $r->findFirst('conferSourceDot')));
+        $result[] = [ 'meaning' => $m, 'tags' => $tags ];
+
+      } else if ($r = $rule->findFirst('import')) {
+        // '("#Cuv.# " | "#Loc.# " | "#Expr.# ") lang',
+        print "*** [{$def->lexicon}] {$etymology}\n";
+        // print $r->dump() . "\n";
+
+        $type = mb_strtolower(preg_replace('/ $/', '', $r->getSubnode(0)));
+        $tags = [
+          expandAndGetTag($type),
+          expandAndGetTag($r->findFirst('lang')),
+        ];
+        $m = makeEtymology('');
+        $result[] = [ 'meaning' => $m, 'tags' => $tags ];
+        printf("[%s] %s %s\n", $def->lexicon, implode(',', $tags), $m->internalRep);
 
       } else {
-        print "*** [{$def->lexicon}] {$etymology}\n";
-        print $rule->dump() . "\n";
-        exit;
       }
     }
   } else {

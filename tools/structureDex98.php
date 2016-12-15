@@ -11,7 +11,7 @@ ini_set('memory_limit', '1024M');
 define('SOURCE_ID', 1);
 define('MY_USER_ID', 1);
 define('BATCH_SIZE', 10000);
-define('START_AT', '');
+define('START_AT', 'adâncime');
 
 $GRAMMAR = [
   'start' => [
@@ -179,6 +179,78 @@ $MEANING_GRAMMAR = [
   ],
 ];
 
+$ETYMOLOGY_GRAMMAR = [
+  'start' => [
+    'reference',
+    'fromLang',
+    'import',
+    'withSuffix',
+    'glue',
+    'confer',
+    'regression',
+    'latin',
+    'specials',
+  ],
+  'reference' => [
+    '"#V.# " formDot',
+    '"Din " formDot',
+    '"De la " formDot',
+  ],
+  'fromLang' => [
+    '"Din " (lang " " formComma " ")* lang " " formDot',
+  ],
+  'import' => [
+    '"#Cuv.# " lang',
+    '"#Loc.# " lang',
+    '"#Expr.# " lang',
+  ],
+  'withSuffix' => [
+    'formNone " + #suf.# " suffixDot',
+  ],
+  'glue' => [
+    '(formNone " + ")+ formDot',
+  ],
+  'confer' => [
+    '"#Cf.# " conferSourceDot',
+    '"#Cf.# " lang " " conferSourceDot',
+  ],
+  'regression' => [
+    '"Din " formNone " (derivat regresiv)."',
+  ],
+  'latin' => [
+    '"#Lat.# " formDot',
+    '"#Lat.# " formNone translation "."',
+  ],
+  'specials' => [
+    '"Denumire comercială."',
+    '"#Et. nec.#"',
+    '"Formație onomatopeică."',
+    '"Onomatopee."',
+    '"Probabil formație onomatopeică."',
+  ],
+  'lang' => [
+    '/#[^#]+#/',
+  ],
+  'formComma' => [
+    '/@[^@,]+,@/',
+  ],
+  'formDot' => [
+    '/@[^@.]+\.@/',
+  ],
+  'formNone' => [
+    '/@[^@]+@/',
+  ],
+  'suffixDot' => [
+    '/\$-[^$.]+\.\$/',
+  ],
+  'conferSourceDot' => [
+    '/%[^%.]+\.%/',
+  ],
+  'translation' => [
+    '/"[^"]+"/',
+  ],
+];
+
 Log::info('started');
 
 // build  a tag map, mapped by value
@@ -200,12 +272,15 @@ $tagMap['în sintagma'] = $tagMap['(în) sintagmă'];
 $tagMap['în sintagmele'] = $tagMap['(în) sintagmă'];
 $tagMap['la plural'] = $tagMap['(la) plural'];
 $tagMap['la singular'] = $tagMap['(la) singular'];
+$tagMap['plural'] = $tagMap['(la) plural'];
+$tagMap['singular'] = $tagMap['(la) singular'];
 $tagMap['substantivat'] = $tagMap['(și) substantivat'];
 $tagMap['termen bisericesc'] = $tagMap['(termen) bisericesc'];
 $tagMap['termen militar'] = $tagMap['(termen) militar'];
 
 $parser = makeParser($GRAMMAR);
 $meaningParser = makeParser($MEANING_GRAMMAR);
+$etymologyParser = makeParser($ETYMOLOGY_GRAMMAR);
 
 $offset = 0;
 
@@ -227,12 +302,14 @@ do {
       // Log::error('Cannot parse: %s', $rep);
     } else {
       $meaning = $parsed->findFirst('meaning');
+      $etymology = $parsed->findFirst('etymology');
       $reference = $parsed->findFirst('reference');
 
       if ($meaning) {
         $parsed = $meaningParser->parse($meaning);
         if ($parsed) {
           createMeanings($parsed, $d);
+          createEtymologies($etymology, $etymologyParser, $d);
         } else {
           Log::error('Cannot parse meaning for [%s]: [%s]', $d->lexicon, $meaning);
         }
@@ -242,6 +319,7 @@ do {
         Log::error('No meaning nor reference: %s', $rep);
       }
     }
+    // exit;
   }
 
   $offset += BATCH_SIZE;
@@ -283,8 +361,8 @@ function mergeVariant($def, $reference) {
               ->where('ed.definitionId', $def->id)
               ->find_many();
   if (count($defEntries) != 1) {
-    Log::error('Cannot merge %s into %s because %s has %d entries.',
-               $def->lexicon, $form, $def->lexicon, count($defEntries));
+    // Log::error('Cannot merge %s into %s because %s has %d entries.',
+    //            $def->lexicon, $form, $def->lexicon, count($defEntries));
     return;
   }
 
@@ -296,8 +374,8 @@ function mergeVariant($def, $reference) {
                ->where_raw('(l.formNoAccent = binary ?)', [ $form ])
                ->find_many();
   if (count($formEntries) != 1) {
-    Log::error('Cannot merge %s into %s because %s has %d entries.',
-               $def->lexicon, $form, $form, count($formEntries));
+    // Log::error('Cannot merge %s into %s because %s has %d entries.',
+    //            $def->lexicon, $form, $form, count($formEntries));
     return;
   }
 
@@ -311,8 +389,6 @@ function mergeVariant($def, $reference) {
 }
 
 function createMeanings($parsed, $def) {
-  // Log::info('Creating meanings for %s', $def->lexicon);
-  //  print "============ Creating meanings for {$def->lexicon}\n";
   foreach ($parsed->findAll('reference') as $ref) {
     print "REFERENCE:{$def->lexicon} {$ref}\n";
   }
@@ -323,11 +399,8 @@ function createMeanings($parsed, $def) {
     // separate qualifiers and try to convert them to labels
     $quals = getQualifiers($rep);
 
-    if ($rep[0] == '#') {
-      //      print implode(',', $quals) . "LEXICON:{$def->lexicon} {$rep}\n";
-    }
+    // Log::info('%s: %s %s', $def->lexicon, implode(' ', $quals), $rep);
   }
-  // print $parsed->dump() . "\n";
 }
 
 // Parses qualifiers like "(#Înv.# și #pop.#)" before a meaning.
@@ -337,6 +410,8 @@ function getQualifiers(&$rep) {
   global $tagMap;
 
   $result = [];
+
+  getAbbreviations($rep, $result);
 
   if (preg_match('/^\(([^)]+)\) (.*)$/', $rep, $m)) {
     $parts = preg_split('/[,;] /', $m[1]);
@@ -356,21 +431,29 @@ function getQualifiers(&$rep) {
     }
   }
 
-  // Remove abbreviations from the beginning, while we have tags for them.
+  // Consume abbreviations once more -- sometimes they precede the qualifiers, sometimes
+  // they follow them.
+  getAbbreviations($rep, $result);
+
+  return $result;
+}
+
+// Remove abbreviations from the beginning, while we have tags for them.
+function getAbbreviations(&$rep, &$result) {
+  global $tagMap;
+
   do {
     $hash = false;
-    if (preg_match('/^#([^#]+)#,? (.*)$/', $rep, $m)) {
-      $abbr = mb_strtolower($m[1]);
+    if (preg_match('/^(și )?#([^#]+)#,? (.*)$/', $rep, $m)) {
+      $abbr = mb_strtolower($m[2]);
       $exp = AdminStringUtil::getAbbreviation(SOURCE_ID, $abbr);
       if (isset($tagMap[$exp])) {
         $result[] = $tagMap[$exp];
-        $rep = $m[2];
+        $rep = $m[3];
         $hash = true;
       }
     }
   } while ($hash);
-
-  return $result;
 }
 
 // Returns a matching tag or null if there is no matching tag.
@@ -378,16 +461,30 @@ function processQualifier($qual) {
   global $tagMap;
 
   $qual = mb_strtolower($qual);
-
-  // expand all abbreviations
-  $m = [];
-  while (preg_match('/^([^#]*)#([^#]+)#(.*)$/', $qual, $m)) {
-    $qual = sprintf('%s%s%s', $m[1], AdminStringUtil::getAbbreviation(SOURCE_ID, $m[2]), $m[3]);
-  }
+  $qual = expandAllAbbreviations($qual);
 
   if (isset($tagMap[$qual])) {
     return $tagMap[$qual];
   } else {
     return null;
+  }
+}
+
+function expandAllAbbreviations($s) {
+  $m = [];
+  while (preg_match('/^([^#]*)#([^#]+)#(.*)$/', $s, $m)) {
+    $s = sprintf('%s%s%s', $m[1], AdminStringUtil::getAbbreviation(SOURCE_ID, $m[2]), $m[3]);
+  }
+  return $s;
+}
+
+function createEtymologies($etymology, $parser, $def) {
+  if (!$etymology) {
+    return;
+  }
+  $etymology = (string)$etymology;
+  $parsed = $parser->parse($etymology);
+  if (!$parsed) {
+    print "{$etymology}\n";
   }
 }

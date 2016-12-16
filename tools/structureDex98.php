@@ -11,7 +11,7 @@ ini_set('memory_limit', '1024M');
 define('SOURCE_ID', 1);
 define('MY_USER_ID', 1);
 define('BATCH_SIZE', 10000);
-define('START_AT', 'ac');
+define('START_AT', '');
 
 $GRAMMAR = [
   'start' => [
@@ -176,8 +176,7 @@ $MEANING_GRAMMAR = [
   ],
 
   'expressions' => [ // A = B. C = D. ...
-    '"#Expr.#" expression+" "',
-    'basic',
+    '"#Expr.# " expression+" "',
   ],
   'expression' => [
     'key " = " value "."',
@@ -344,7 +343,6 @@ do {
 
       if ($meaning) {
         $parsed = $meaningParser->parse($meaning);
-        print $parsed->dump() . "\n";
         if ($parsed) {
           $tuples1 = createMeanings($parsed, $d);
           $tuples2 = createEtymologies($etymology, $etymologyParser, $d);
@@ -432,12 +430,21 @@ function createMeanings($parsed, $def) {
   $result = [];
 
   foreach ($parsed->findAll('basic') as $rep) {
-    $rep = (string)$rep;
+    $expressions = $rep->findAll('expression');
+    if (count($expressions)) {
+      $tags = [ getTag('expresie') ];
+      foreach ($expressions as $e) {
+        $result[] = makeMeaning($e, $tags);
+      }
+    } else {
 
-    // separate qualifiers and try to convert them to labels
-    $quals = getQualifiers($rep);
+      $rep = (string)$rep;
 
-    $result[] = makeMeaning($rep, $quals);
+      // separate qualifiers and try to convert them to labels
+      $quals = getQualifiers($rep);
+
+      $result[] = makeMeaning($rep, $quals);
+    }
   }
 
   return $result;
@@ -462,8 +469,10 @@ function getQualifiers(&$rep) {
         $result[] = processQualifier($part);
       }
     }
+    $origCount = count($result);
+    $result = array_filter($result);
 
-    if (count(array_filter($result)) == count($result)) {
+    if (count($result) == $origCount) {
       // no null elements, safe to remove the qualifier portion
       $rep = $m[2];
     }
@@ -678,10 +687,7 @@ function createEtymologies($etymology, $parser, $def) {
         $result[] = makeEtymology('', $tags);
 
       } else {
-        print "*** [{$def->lexicon}] {$etymology}\n";
-        print $rule->dump() . "\n";
-        exit;
-
+        Log::error('Cannot parse etymology for [%s] %s', $def->lexicon, $etymology);
       }
     }
   } else {
@@ -713,23 +719,81 @@ function makeEtymology($internalRep, $tags) {
 
 function makeTree($tuples, $def) {
   // TODO: figure out which tree to use
-  $t = null;
+  $entries = Model::factory('Entry')
+           ->table_alias('e')
+           ->select('e.*')
+           ->join('EntryDefinition', ['ed.entryId', '=', 'e.id'], 'ed')
+           ->where('ed.definitionId', $def->id)
+           ->find_many();
+  if (!count($entries)) {
+    Log::error('No associated entries for [%s]', $def->lexicon);
+    return;
+  }
 
-  printf("*** [%s] [%s]\n", $def->lexicon, $def->internalRep);
+  $minStructStatus = Entry::STRUCT_STATUS_DONE;
+  foreach ($entries as $e) {
+    $minStructStatus = min($minStructStatus, $e->structStatus);
+  }
+  if ($minStructStatus > Entry::STRUCT_STATUS_NEW) {
+    Log::error('All entries have been structured for [%s]', $def->lexicon);
+    return;
+  }
+
+  // Look for an empty tree...
+  $t = null;
+  foreach ($entries as $e) {
+    foreach ($e->getTrees() as $tree) {
+      if (!Meaning::get_by_treeId($tree->id)) {
+        $t = $tree;
+      }
+    }
+  }
+
+  // ...or create one...
+  $t = Model::factory('Tree')->create();
+  $t->description = $entries[0]->description;
+  $t->save();
+
+  // ... and associate it with all the entries
+  foreach ($entries as $e) {
+    TreeEntry::associate($t->id, $e->id);
+  }
+
+  //  printf("*** [%s] [%s]\n", $def->lexicon, $def->internalRep);
+  $order = 0;
   foreach ($tuples as $tuple) {
     $m = $tuple['meaning'];
     $m->parentId = 0;
     $m->userId = MY_USER_ID;
-    // $m->treeId = $t->id; TODO
+    $m->treeId = $t->id;
     $m->internalRep = expandAllAbbreviations($m->internalRep);
-    $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);    
-    printf("[%s] %s %s %s\n",
-           $def->lexicon,
-           $m->getDisplayTypeName(),
-           implode(' ', $tuple['tags']),
-           $m->internalRep);
+    $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
+    $m->displayOrder = ++$order;
+    if ($m->type == Meaning::TYPE_MEANING) {
+      $m->breadcrumb = "{$m->displayOrder}.";
+    } else {
+      $m->breadcrumb = '';
+    }
+    // printf("[%s] %s %s [%s]\n",
+    //        $def->lexicon,
+    //        $m->getDisplayTypeName(),
+    //        implode(' ', $tuple['tags']),
+    //        $m->internalRep);
+    $m->save();
+
+    foreach($tuple['tags'] as $tag) {
+      ObjectTag::associate(ObjectTag::TYPE_MEANING, $m->id, $tag->id);
+    }
+    MeaningSource::associate($m->id, SOURCE_ID);
   }
-  exit;
+
+  foreach ($entries as $e) {
+    $e->deleteEmptyTrees();
+    $e->structStatus = Entry::STRUCT_STATUS_IN_PROGRESS;
+    $e->save();
+  }
+
+  Log::info('saved tree for [%s]', $def->lexicon);
 }
 
 // If no tag with the given value exists, then

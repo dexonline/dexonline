@@ -11,7 +11,7 @@ ini_set('memory_limit', '1024M');
 define('SOURCE_ID', 1);
 define('MY_USER_ID', 1);
 define('BATCH_SIZE', 10000);
-define('START_AT', '');
+define('START_AT', 'ac');
 
 $GRAMMAR = [
   'start' => [
@@ -171,7 +171,22 @@ $MEANING_GRAMMAR = [
     'basic+" * "',
   ],
   'basic' => [
+    'expressions',
     '/.*?(?=( @[A-E]+\.@ | @[IVX]+\.@ | @\d\.@ | \*\* | \* |$))/',
+  ],
+
+  'expressions' => [ // A = B. C = D. ...
+    '"#Expr.#" expression+" "',
+    'basic',
+  ],
+  'expression' => [
+    'key " = " value "."',
+  ],
+  'key' => [
+    '/.*?(?=( = | @[A-E]+\.@ | @[IVX]+\.@ | @\d\.@ | \*\* | \* |$))/',
+  ],
+  'value' => [
+    '/.*?(?=\.)/',
   ],
 
   'filler' => [
@@ -329,12 +344,12 @@ do {
 
       if ($meaning) {
         $parsed = $meaningParser->parse($meaning);
+        print $parsed->dump() . "\n";
         if ($parsed) {
-          // $tuples1 = createMeanings($parsed, $d);
-          $tuples1 = [];
+          $tuples1 = createMeanings($parsed, $d);
           $tuples2 = createEtymologies($etymology, $etymologyParser, $d);
           $tuples = array_merge($tuples1, $tuples2);
-          makeTree($tuples);
+          makeTree($tuples, $d);
         } else {
           Log::error('Cannot parse meaning for [%s]: [%s]', $d->lexicon, $meaning);
         }
@@ -414,19 +429,18 @@ function mergeVariant($def, $reference) {
 }
 
 function createMeanings($parsed, $def) {
-  foreach ($parsed->findAll('reference') as $ref) {
-    print "REFERENCE:{$def->lexicon} {$ref}\n";
-  }
+  $result = [];
+
   foreach ($parsed->findAll('basic') as $rep) {
     $rep = (string)$rep;
-    //    print "{$rep}\n";
 
     // separate qualifiers and try to convert them to labels
     $quals = getQualifiers($rep);
 
-    // Log::info('%s: %s %s', $def->lexicon, implode(' ', $quals), $rep);
+    $result[] = makeMeaning($rep, $quals);
   }
-  return [];
+
+  return $result;
 }
 
 // Parses qualifiers like "(#Înv.# și #pop.#)" before a meaning.
@@ -489,7 +503,12 @@ function processQualifier($qual) {
 function expandAllAbbreviations($s) {
   $m = [];
   while (preg_match('/^([^#]*)#([^#]+)#(.*)$/', $s, $m)) {
-    $s = sprintf('%s%s%s', $m[1], AdminStringUtil::getAbbreviation(SOURCE_ID, $m[2]), $m[3]);
+    $abbr = mb_strtolower($m[2]);
+    $exp = AdminStringUtil::getAbbreviation(SOURCE_ID, $abbr);
+    if ($abbr != $m[2]) { // is capitalized
+      $exp = AdminStringUtil::capitalize($exp);
+    }
+    $s = sprintf('%s%s%s', $m[1], $exp, $m[3]);
   }
   return $s;
 }
@@ -511,9 +530,8 @@ function createEtymologies($etymology, $parser, $def) {
 
       if ($r = $rule->findFirst('latin')) {
         // '"#Lat.# " etc.'
-        $m = makeEtymology(substr($r, 7)); // skip "#Lat.# "
         $tags = [ getTag('limba latină') ];
-        $result[] = [ 'meaning' => $m, 'tags' => $tags ];
+        $result[] = makeEtymology(substr($r, 7), $tags); // skip "#Lat.# "
 
       } else if ($rule->findFirst('fromLang') && $rule->findFirst('translation')) {
         // '"Din " langList " " formNone " " translation "."',
@@ -522,10 +540,8 @@ function createEtymologies($etymology, $parser, $def) {
         foreach ($rule->findAll('lang') as $l) {
           $tags[] = expandAndGetTag($l);
         }
-        $m = makeEtymology(sprintf('%s %s',
-                                   $rule->findFirst('formNone'),
-                                   $rule->findFirst('translation')));
-        $result[] = [ 'meaning' => $m, 'tags' => $tags ];
+        $rep = sprintf('%s %s', $rule->findFirst('formNone'), $rule->findFirst('translation'));
+        $result[] = makeEtymology($rep, $tags);
 
       } else if (($r = $rule->findFirst('fromLang')) && $rule->findFirst('formDot')) {
         // '("Din " | "După ") (langList " " formComma " ")* langList " " formDot',
@@ -541,8 +557,8 @@ function createEtymologies($etymology, $parser, $def) {
             foreach ($item->findAll('lang') as $l) {
               $tags[] = expandAndGetTag($l);
             }
-            $m = makeEtymology(preg_replace('/,@$/', '@', $item->findFirst('formComma')));
-            $result[] = [ 'meaning' => $m, 'tags' => $tags ];
+            $rep = preg_replace('/,@$/', '@', $item->findFirst('formComma'));
+            $result[] = makeEtymology($rep, $tags);
           }
         }
 
@@ -553,38 +569,34 @@ function createEtymologies($etymology, $parser, $def) {
         foreach ($r->getSubnode(2)->findAll('lang') as $l) {
           $tags[] = expandAndGetTag($l);
         }
-        $m = makeEtymology(preg_replace('/\.@$/', '@', $r->getSubnode(4)));
-          
-        $result[] = [ 'meaning' => $m, 'tags' => $tags ];
+        $rep = preg_replace('/\.@$/', '@', $r->getSubnode(4));
+        $result[] = makeEtymology($rep, $tags);
 
       } else if ($rule->findFirst('reference')) {
         // '("#V.# " | "Din " | "De la ") formDot',
-        $m = makeEtymology(preg_replace('/\.@$/', '@', $rule->findFirst('formDot')));
+        $rep = preg_replace('/\.@$/', '@', $rule->findFirst('formDot'));
         switch ($rule->findFirst('reference')->getSubnode(0)) {
           case '#V.# ': $tags = [ getTag('vezi') ]; break;
           case 'Din ': $tags = [ getTag('din') ]; break;
           case 'De la ': $tags = [ getTag('de la') ]; break;
         }
-        $result[] = [ 'meaning' => $m, 'tags' => $tags ];
+        $result[] = makeEtymology($rep, $tags);
 
       } else if (($r = $rule->findFirst('withSuffix')) && $rule->findFirst('formItalicBracketDot')) {
         // 'formNone " + #suf.# " suffixNone " (după " lang " " formItalicBracketDot',
         $rep = sprintf('%s + sufix %s', $r->findFirst('formNone'), $r->findFirst('suffixNone'));
-        $m = makeEtymology(expandAllAbbreviations($rep));
-        $tags = [];
-        $result[] = [ 'meaning' => $m, 'tags' => $tags ];
+        $result[] = makeEtymology(expandAllAbbreviations($rep), []);
 
-        $form = preg_replace('/\)\.\$$/', '$', $rule->findFirst('formItalicBracketDot'));
-        $rep = sprintf('%s %s', $r->findFirst('lang'), $form);
-        $m = makeEtymology(expandAllAbbreviations($rep));
-        $tags = [ getTag('după') ];
-        $result[] = [ 'meaning' => $m, 'tags' => $tags ];
+        $rep = preg_replace('/\)\.\$$/', '$', $rule->findFirst('formItalicBracketDot'));
+        $tags = [
+          getTag('după'),
+          expandAndGetTag($r->findFirst('lang')),
+        ];
+        $result[] = makeEtymology($rep, $tags);
 
       } else if ($r = $rule->findFirst('withSuffix')) {
         // other withSuffix rules
-        $m = makeEtymology(expandAllAbbreviations($r));
-        $tags = [];
-        $result[] = [ 'meaning' => $m, 'tags' => $tags ];
+        $result[] = makeEtymology(expandAllAbbreviations($r), []);
 
       } else if (($r = $rule->findFirst('confer')) && $rule->findFirst('lang')) {
         // '"#Cf.# " (lang " " conferSourceComma " ")* lang " " conferSourceDot',
@@ -595,8 +607,8 @@ function createEtymologies($etymology, $parser, $def) {
               getTag('Cf.'),
               expandAndGetTag($item->findFirst('lang')),
             ];
-            $m = makeEtymology(preg_replace('/,%$/', '%', $item->findFirst('conferSourceComma')));
-            $result[] = [ 'meaning' => $m, 'tags' => $tags ];
+            $rep = preg_replace('/,%$/', '%', $item->findFirst('conferSourceComma'));
+            $result[] = makeEtymology($rep, $tags);
           }
         }
 
@@ -604,64 +616,120 @@ function createEtymologies($etymology, $parser, $def) {
           getTag('Cf.'),
           expandAndGetTag($r->getSubnode(2)),
         ];
-        $m = makeEtymology(preg_replace('/\.%$/', '%', $r->findFirst('conferSourceDot')));
-        $result[] = [ 'meaning' => $m, 'tags' => $tags ];
+        $rep = preg_replace('/\.%$/', '%', $r->findFirst('conferSourceDot'));
+        $result[] = makeEtymology($rep, $tags);
 
       } else if ($r = $rule->findFirst('confer')) {
         // '"#Cf.# " conferSourceDot',
+        $rep = preg_replace('/\.%$/', '%', $r->findFirst('conferSourceDot'));
         $tags = [ getTag('Cf.') ];
-        $m = makeEtymology(preg_replace('/\.%$/', '%', $r->findFirst('conferSourceDot')));
-        $result[] = [ 'meaning' => $m, 'tags' => $tags ];
+        $result[] = makeEtymology($rep, $tags);
 
       } else if ($r = $rule->findFirst('import')) {
         // '("#Cuv.# " | "#Loc.# " | "#Expr.# ") lang',
-        print "*** [{$def->lexicon}] {$etymology}\n";
-        // print $r->dump() . "\n";
-
         $type = mb_strtolower(preg_replace('/ $/', '', $r->getSubnode(0)));
         $tags = [
           expandAndGetTag($type),
           expandAndGetTag($r->findFirst('lang')),
         ];
-        $m = makeEtymology('');
-        $result[] = [ 'meaning' => $m, 'tags' => $tags ];
-        printf("[%s] %s %s\n", $def->lexicon, implode(',', $tags), $m->internalRep);
+        $result[] = makeEtymology('', $tags);
+
+      } else if (($r = $rule->findFirst('glue')) && $rule->findFirst('formItalicBracketDot')) {
+        // 'formNone+" + " " (după " lang " " formItalicBracketDot',
+        $result[] = makeEtymology($r->getSubnode(0), []);
+
+        $rep = preg_replace('/\)\.\$$/', '$', $rule->findFirst('formItalicBracketDot'));
+        $tags = [
+          getTag('după'),
+          expandAndGetTag($r->findFirst('lang')),
+        ];
+        $result[] = makeEtymology($rep, $tags);
+
+      } else if ($r = $rule->findFirst('glue')) {
+        // other glue rules
+        // remove the final . (or the dot from .@)
+        $rep = preg_replace('/\.$/', '', $r);
+        $rep = preg_replace('/\.@$/', '@', $rep);
+
+        $result[] = makeEtymology(expandAllAbbreviations($rep), []);
+
+      } else if ($r = $rule->findFirst('regression')) {
+        // '"Din " formNone " (derivat regresiv)."',
+        $rep = $r->findFirst('formNone');
+        $tags = [
+          getTag('derivat regresiv'),
+          getTag('din'),
+        ];
+        $result[] = makeEtymology($rep, $tags);
+
+      } else if ($r = $rule->findFirst('specials')) {
+        switch ((string)$r) {
+          case 'Denumire comercială.': $tags = [ getTag('denumire comercială') ]; break;
+          case '#Et. nec.#': $tags = [ getTag('necunoscută') ]; break;
+          case 'Formație onomatopeică.': $tags = [ getTag('formație onomatopeică') ]; break;
+          case 'Onomatopee.': $tags = [ getTag('onomatopee') ]; break;
+          case 'Probabil formație onomatopeică.':
+            $tags = [
+              getTag('probabil'),
+              getTag('formație onomatopeică'),
+            ];
+            break;
+        }
+        $result[] = makeEtymology('', $tags);
 
       } else {
+        print "*** [{$def->lexicon}] {$etymology}\n";
+        print $rule->dump() . "\n";
+        exit;
+
       }
     }
   } else {
     // Create a meaning using the whole text
-    $m = Model::factory('Meaning')->create();
-    $m->type = Meaning::TYPE_ETYMOLOGY;
-    $m->internalRep = $etymology;
-    $result[] = [
-      'meaning' => $m,
-      'tags' => [],
-    ];
+    $result[] = makeEtymology($etymology, []);
   }
 
   return $result;
 }
 
-function makeEtymology($internalRep) {
+function makeMeaningWithType($type, $internalRep, $tags) {
   $m = Model::factory('Meaning')->create();
-  $m->type = Meaning::TYPE_ETYMOLOGY;
+  $m->type = $type;
   $m->internalRep = $internalRep;
-  return $m;
+
+  return [
+    'meaning' => $m,
+    'tags' => $tags,
+  ];
 }
 
-function makeTree($tuples) {
+function makeMeaning($internalRep, $tags) {
+  return makeMeaningWithType(Meaning::TYPE_MEANING, $internalRep, $tags);
+}
+
+function makeEtymology($internalRep, $tags) {
+  return makeMeaningWithType(Meaning::TYPE_ETYMOLOGY, $internalRep, $tags);
+}
+
+function makeTree($tuples, $def) {
   // TODO: figure out which tree to use
   $t = null;
 
+  printf("*** [%s] [%s]\n", $def->lexicon, $def->internalRep);
   foreach ($tuples as $tuple) {
     $m = $tuple['meaning'];
     $m->parentId = 0;
     $m->userId = MY_USER_ID;
     // $m->treeId = $t->id; TODO
+    $m->internalRep = expandAllAbbreviations($m->internalRep);
     $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);    
+    printf("[%s] %s %s %s\n",
+           $def->lexicon,
+           $m->getDisplayTypeName(),
+           implode(' ', $tuple['tags']),
+           $m->internalRep);
   }
+  exit;
 }
 
 // If no tag with the given value exists, then

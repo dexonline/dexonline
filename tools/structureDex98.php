@@ -750,9 +750,15 @@ function makeTree($tuples, $def) {
   }
 
   // ...or create one...
-  $t = Model::factory('Tree')->create();
-  $t->description = $entries[0]->description;
-  $t->save();
+  if (!$t) {
+    $t = Model::factory('Tree')->create();
+    $t->description = $entries[0]->description;
+    $t->save();
+  }
+  if ($t->status == Tree::ST_HIDDEN) {
+    $t->status = Tree::ST_VISIBLE;
+    $t->save();
+  }
 
   // ... and associate it with all the entries
   foreach ($entries as $e) {

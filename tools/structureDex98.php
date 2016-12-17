@@ -172,6 +172,7 @@ $MEANING_GRAMMAR = [
   ],
   'basic' => [
     'expressions',
+    'synonyms',
     '/.*?(?=( @[A-E]+\.@ | @[IVX]+\.@ | @\d\.@ | \*\* | \* |$))/',
   ],
 
@@ -188,6 +189,17 @@ $MEANING_GRAMMAR = [
     '/.*?(?=\.)/',
   ],
 
+  'synonyms' => [
+    'synonym+" "',
+  ],
+
+  'synonym' => [
+    'word /[;,.]/',
+  ],
+  'word' => [
+    '/[^ ;,.]+/',
+  ],
+  
   'filler' => [
     '/.*/',
   ],
@@ -314,6 +326,10 @@ $tagMap['substantivat'] = $tagMap['(și) substantivat'];
 $tagMap['termen bisericesc'] = $tagMap['(termen) bisericesc'];
 $tagMap['termen militar'] = $tagMap['(termen) militar'];
 
+// store meaning synonyms - we can only associate them at the end, once
+// we have all the trees
+$synMap = [];
+
 $parser = makeParser($GRAMMAR);
 $meaningParser = makeParser($MEANING_GRAMMAR);
 $etymologyParser = makeParser($ETYMOLOGY_GRAMMAR);
@@ -363,6 +379,34 @@ do {
   $offset += BATCH_SIZE;
   Log::info("Processed $offset definitions.");
 } while (count($defs));
+
+Log::info('associating synonyms');
+
+foreach ($synMap as $meaningId => $synList) {
+  foreach ($synList as $form) {
+    $trees = Model::factory('Tree')
+           ->table_alias('t')
+           ->select('t.*')
+           ->distinct()
+           ->join('TreeEntry', ['t.id', '=', 'te.treeId'], 'te')
+           ->join('EntryLexem', ['te.entryId', '=', 'el.entryId'], 'el')
+           ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
+           ->where('l.formNoAccent', $form)
+           ->find_many();
+    if (count($trees)) {
+      foreach ($trees as $t) {
+        $r = Model::factory('Relation')->create();
+        $r->meaningId = $meaningId;
+        $r->treeId = $t->id;
+        $r->type = Relation::TYPE_SYNONYM;
+        $r->save();
+        Log::info('tree [%s], synonym [%s] for meaning %s', $t->description, $form, $meaningId);
+      }
+    } else {
+      Log::info('no trees for synonym [%s] for meaning %s', $meaningId, $form);
+    }
+  }
+}
 
 Log::info('ended');
 
@@ -431,11 +475,20 @@ function createMeanings($parsed, $def) {
 
   foreach ($parsed->findAll('basic') as $rep) {
     $expressions = $rep->findAll('expression');
+    $synonyms = $rep->findAll('synonym');
     if (count($expressions)) {
       $tags = [ getTag('expresie') ];
       foreach ($expressions as $e) {
         $result[] = makeMeaning($e, $tags);
       }
+
+    } else if (count($synonyms)) {
+      $synList = [];
+      foreach ($synonyms as $s) {
+        $synList[] = (string)$s->findFirst('word');
+      }
+      $result[] = makeMeaning('', [], $synList);
+
     } else {
 
       $rep = (string)$rep;
@@ -698,7 +751,7 @@ function createEtymologies($etymology, $parser, $def) {
   return $result;
 }
 
-function makeMeaningWithType($type, $internalRep, $tags) {
+function makeMeaningWithType($type, $internalRep, $tags, $synonyms) {
   $m = Model::factory('Meaning')->create();
   $m->type = $type;
   $m->internalRep = $internalRep;
@@ -706,19 +759,22 @@ function makeMeaningWithType($type, $internalRep, $tags) {
   return [
     'meaning' => $m,
     'tags' => $tags,
+    'synonyms' => $synonyms,
   ];
 }
 
-function makeMeaning($internalRep, $tags) {
-  return makeMeaningWithType(Meaning::TYPE_MEANING, $internalRep, $tags);
+function makeMeaning($internalRep, $tags, $synonyms = []) {
+  return makeMeaningWithType(Meaning::TYPE_MEANING, $internalRep, $tags, $synonyms);
 }
 
+// etymologies don't have synonyms
 function makeEtymology($internalRep, $tags) {
-  return makeMeaningWithType(Meaning::TYPE_ETYMOLOGY, $internalRep, $tags);
+  return makeMeaningWithType(Meaning::TYPE_ETYMOLOGY, $internalRep, $tags, []);
 }
 
 function makeTree($tuples, $def) {
-  // TODO: figure out which tree to use
+  global $synMap;
+
   $entries = Model::factory('Entry')
            ->table_alias('e')
            ->select('e.*')
@@ -765,7 +821,7 @@ function makeTree($tuples, $def) {
     TreeEntry::associate($t->id, $e->id);
   }
 
-  //  printf("*** [%s] [%s]\n", $def->lexicon, $def->internalRep);
+  // printf("*** [%s] [%s]\n", $def->lexicon, $def->internalRep);
   $order = 0;
   foreach ($tuples as $tuple) {
     $m = $tuple['meaning'];
@@ -786,6 +842,12 @@ function makeTree($tuples, $def) {
     //        implode(' ', $tuple['tags']),
     //        $m->internalRep);
     $m->save();
+
+    // We cannot associate synonyms here because the target trees may not yet exist.
+    // Store them for the end.
+    if (count($tuple['synonyms'])) {
+      $synMap[$m->id] = $tuple['synonyms'];
+    }
 
     foreach($tuple['tags'] as $tag) {
       ObjectTag::associate(ObjectTag::TYPE_MEANING, $m->id, $tag->id);

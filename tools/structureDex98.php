@@ -173,9 +173,12 @@ $MEANING_GRAMMAR = [
   'basic' => [
     'expressions',
     'synonyms',
-    '/.*?(?=( @[A-E]+\.@ | @[IVX]+\.@ | @\d\.@ | \*\* | \* |$))/',
+    'phrase " $#p. ext.#$ " phrase',
+    'phrase',
   ],
-
+  'phrase' => [
+    '/.*?(?=( @[A-E]+\.@ | @[IVX]+\.@ | @\d\.@ | \*\* | \* | \$#p. ext.#\$ |$))/',
+  ],
   'expressions' => [ // A = B. C = D. ...
     '"#Expr.# " expression+" "',
   ],
@@ -183,7 +186,7 @@ $MEANING_GRAMMAR = [
     'key " = " value "."',
   ],
   'key' => [
-    '/.*?(?=( = | @[A-E]+\.@ | @[IVX]+\.@ | @\d\.@ | \*\* | \* |$))/',
+    '/.*?(?=( = | @[A-E]+\.@ | @[IVX]+\.@ | @\d\.@ | \*\* | \* | \$#p. ext.#\$ |$))/',
   ],
   'value' => [
     '/.*?(?=\.)/',
@@ -476,6 +479,8 @@ function createMeanings($parsed, $def) {
   foreach ($parsed->findAll('basic') as $rep) {
     $expressions = $rep->findAll('expression');
     $synonyms = $rep->findAll('synonym');
+    $phrases = $rep->findAll('phrase');
+
     if (count($expressions)) {
       $tags = [ getTag('expresie') ];
       foreach ($expressions as $e) {
@@ -489,13 +494,19 @@ function createMeanings($parsed, $def) {
       }
       $result[] = makeMeaning('', [], $synList);
 
+    } else if (count($phrases) == 2) { // A; p. ext. B
+      $p0 = (string)$phrases[0];
+      $p0 = preg_replace('/;$/', '.', $p0); // replace a final semicolon with a dot
+      $quals = getQualifiers($p0);
+      $result[] = makeMeaning($p0, $quals);
+
+      $p1 = AdminStringUtil::capitalize((string)$phrases[1]);
+      $tags = [ getTag('prin extensiune') ];
+      $result[] = makeMeaning($p1, $tags);
+
     } else {
-
       $rep = (string)$rep;
-
-      // separate qualifiers and try to convert them to labels
       $quals = getQualifiers($rep);
-
       $result[] = makeMeaning($rep, $quals);
     }
   }

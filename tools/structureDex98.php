@@ -387,6 +387,7 @@ Log::info('associating synonyms');
 
 foreach ($synMap as $meaningId => $synList) {
   foreach ($synList as $form) {
+    // lookup by main form first
     $trees = Model::factory('Tree')
            ->table_alias('t')
            ->select('t.*')
@@ -396,6 +397,18 @@ foreach ($synMap as $meaningId => $synList) {
            ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
            ->where('l.formNoAccent', $form)
            ->find_many();
+
+    // lookup by inflected form next
+    $trees = Model::factory('Tree')
+           ->table_alias('t')
+           ->select('t.*')
+           ->distinct()
+           ->join('TreeEntry', ['t.id', '=', 'te.treeId'], 'te')
+           ->join('EntryLexem', ['te.entryId', '=', 'el.entryId'], 'el')
+           ->join('InflectedForm', ['el.lexemId', '=', 'i.lexemId'], 'i')
+           ->where('i.formNoAccent', $form)
+           ->find_many();
+
     if (count($trees)) {
       foreach ($trees as $t) {
         $r = Model::factory('Relation')->create();
@@ -406,7 +419,7 @@ foreach ($synMap as $meaningId => $synList) {
         Log::info('tree [%s], synonym [%s] for meaning %s', $t->description, $form, $meaningId);
       }
     } else {
-      Log::info('no trees for synonym [%s] for meaning %s', $meaningId, $form);
+      Log::info('no trees for synonym [%s] for meaning %s', $form, $meaningId);
     }
   }
 }
@@ -490,7 +503,10 @@ function createMeanings($parsed, $def) {
     } else if (count($synonyms)) {
       $synList = [];
       foreach ($synonyms as $s) {
-        $synList[] = (string)$s->findFirst('word');
+        $word = (string)$s->findFirst('word');
+        $word = preg_replace('/\^\d$/', '', $word);
+        $word = preg_replace('/\(ă\)$/', '', $word);
+        $synList[] = $word;
       }
       $result[] = makeMeaning('', [], $synList);
 

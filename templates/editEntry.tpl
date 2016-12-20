@@ -32,7 +32,9 @@
             structurare
           </label>
           <div class="col-md-10">
-            {include "bits/structStatus.tpl" selected=$e->structStatus canEdit=$canEdit.structStatus}
+            {include "bits/structStatusRadio.tpl"
+            selected=$e->structStatus
+            canEdit=$canEdit.structStatus}
             {include "bits/fieldErrors.tpl" errors=$errors.structStatus|default:null}
           </div>
         </div>

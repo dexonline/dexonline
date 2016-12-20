@@ -85,7 +85,6 @@ $minModDate = Model::factory('Variable')
             ->min('modDate');
 $timeAgo = time() - $minModDate;
 
-SmartyWrap::assign('structStatusNames', Entry::$STRUCT_STATUS_NAMES);
 SmartyWrap::assign('structurists', User::getStructurists());
 SmartyWrap::assign('reports', $reports);
 SmartyWrap::assign('timeAgo', $timeAgo);

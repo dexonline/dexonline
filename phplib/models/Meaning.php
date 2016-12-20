@@ -8,21 +8,24 @@ class Meaning extends BaseObject implements DatedObject {
   const TYPE_EXAMPLE = 2;
   const TYPE_COMMENT = 3;
 
-  public static $TYPE_NAMES = [
-    self::TYPE_MEANING => 'sens',
+  public static $DISPLAY_NAMES = [
+    self::TYPE_MEANING => '',
     self::TYPE_ETYMOLOGY => 'etimologie',
     self::TYPE_EXAMPLE => 'exemplu',
     self::TYPE_COMMENT => 'comentariu',
   ];
 
+  public static $FIELD_NAMES = [
+    self::TYPE_MEANING => 'sens',
+    self::TYPE_ETYMOLOGY => 'etimologie',
+    self::TYPE_EXAMPLE => 'exemplu',
+    self::TYPE_COMMENT => 'comentariu (public)',
+  ];
+
   private $tree = null;
 
   function getDisplayTypeName() {
-    if ($this->type == self::TYPE_MEANING) {
-      return '';
-    } else {
-      return self::$TYPE_NAMES[$this->type];
-    }
+    return self::$DISPLAY_NAMES[$this->type];
   }
 
   function getTree() {

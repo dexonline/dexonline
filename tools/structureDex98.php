@@ -796,6 +796,9 @@ function makeMeaning($internalRep, $tags, $synonyms = []) {
 
 // etymologies don't have synonyms
 function makeEtymology($internalRep, $tags) {
+  // replace % signs with @ signs
+  $internalRep = preg_replace('/%/', '@', $internalRep);
+
   return makeMeaningWithType(Meaning::TYPE_ETYMOLOGY, $internalRep, $tags, []);
 }
 

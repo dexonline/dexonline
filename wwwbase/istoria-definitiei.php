@@ -26,24 +26,26 @@ foreach ($recordSet as $row) {
 }
 
 // And once more for the current version
-$query = 'select d.userId as UserId, ' .
-  'd.sourceId as SourceId, ' .
-  'd.status as Status, ' .
-  'd.lexicon as Lexicon, ' .
-  'd.internalRep as InternalRep, ' .
-  'd.modDate as NewDate, ' .
-  'u.nick as unick, ' .
-  'mu.nick as munick, ' .
-  's.shortName as shortName ' .
-  'from Definition d ' .
-  'left join User u on d.userId = u.id ' .
-  'left join User mu on d.modUserId = mu.id ' .
-  'left join Source s on d.sourceId = s.id ' .
-  "where d.id = $id ";
-$recordSet = db_execute($query);
+if ($prev) {
+  $query = 'select d.userId as UserId, ' .
+         'd.sourceId as SourceId, ' .
+         'd.status as Status, ' .
+         'd.lexicon as Lexicon, ' .
+         'd.internalRep as InternalRep, ' .
+         'd.modDate as NewDate, ' .
+         'u.nick as unick, ' .
+         'mu.nick as munick, ' .
+         's.shortName as shortName ' .
+         'from Definition d ' .
+         'left join User u on d.userId = u.id ' .
+         'left join User mu on d.modUserId = mu.id ' .
+         'left join Source s on d.sourceId = s.id ' .
+         "where d.id = $id ";
+  $recordSet = db_execute($query);
 
-foreach ($recordSet as $row) { // just once, really
-  compareVersions($prev, $row, $changeSets);
+  foreach ($recordSet as $row) { // just once, really
+    compareVersions($prev, $row, $changeSets);
+  }
 }
 
 $changeSets = array_reverse($changeSets); // newest changes first

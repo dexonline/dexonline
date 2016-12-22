@@ -86,25 +86,6 @@ abstract class Association extends BaseObject {
     }
   }
 
-  function save() {
-    parent::save();
-    self::updateModDates();
-  }
-
-  function delete() {
-    self::updateModDates();
-    parent::delete();
-  }
-
-  function updateModDates() {
-    for ($i = 0; $i < 2; $i++) {
-      $query = sprintf("update %s set modDate = unix_timestamp() where id = %s",
-                       static::$classes[$i],
-                       $this->get(static::$fields[$i]));
-      db_execute($query);
-    }
-  }
-
 }
 
 ?>

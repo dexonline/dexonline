@@ -14,7 +14,7 @@ JOIN Definition D ON D.id=ED.definitionId
 JOIN Source S ON D.sourceId=S.id
 WHERE S.type=2
 AND status=0
-GROUP BY L.form;
+GROUP BY L.formNoAccent;
 
 RENAME TABLE RandomWord TO _tmp, tmpRandomWord TO RandomWord, _tmp TO tmpRandomWord;
 

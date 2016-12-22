@@ -14,6 +14,9 @@ class Tree extends BaseObject implements DatedObject {
   private $entries = null;
   private $meanings = null;
 
+  // an array of etymologies extracted from $meanings[$i]
+  private $etymologies = null;
+
   static function createAndSave($description) {
     $t = Model::factory('Tree')->create();
     $t->description = $description;
@@ -104,6 +107,33 @@ class Tree extends BaseObject implements DatedObject {
       $results['children'][] = self::buildTree($map, $childId, $children);
     }
     return $results;
+  }
+
+  function getEtymologies() {
+    if ($this->etymologies === null) {
+      $this->extractEtymologies();
+    }
+    return $this->etymologies;
+  }
+
+  function extractEtymologies() {
+    $this->getMeanings();
+    $this->etymologies = [];
+
+    $this->extractEtymologiesHelper($this->meanings);
+  }
+
+  function extractEtymologiesHelper(&$meanings) {
+    if (!empty($meanings)) {
+      foreach ($meanings as $i => &$t) {
+        if ($t['meaning']->type == Meaning::TYPE_ETYMOLOGY) {
+          $this->etymologies[] = $t;
+          unset($meanings[$i]);
+        } else {
+          $this->extractEtymologiesHelper($t['children']);
+        }
+      }
+    }
   }
 
   /**

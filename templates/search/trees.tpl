@@ -11,6 +11,9 @@
     </div>
     <div class="panel-body">
       {include "bits/meaningTree.tpl" meanings=$t->getMeanings()}
+
+      <h4>Origine</h4>
+      {include "bits/meaningTree.tpl" meanings=$t->getEtymologies() etymologies=true}
     </div>
   </div>
 {/foreach}

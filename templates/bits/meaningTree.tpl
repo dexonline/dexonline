@@ -1,13 +1,24 @@
 {* Recursively displays a meaning tree. *}
 {$root=$root|default:true}
+{$etymologies=$etymologies|default:false}
 {if $meanings}
   <ul {if $root}class="meaningTree"{/if}>
     {foreach $meanings as $t}
       <li>
         <div class="meaningContainer">
           <div>
-            <span class="bc">{$t.meaning->breadcrumb}</span>
-            <span class="typeName">{$t.meaning->getDisplayTypeName()}</span>
+            {if $etymologies}
+              {if count($t.tags)}
+                <span class="tag-group">
+                  {foreach $t.tags as $tag}
+                    <span class="label label-tag">{$tag->value}</span>
+                  {/foreach}
+                </span>
+              {/if}
+            {else}
+              <span class="bc">{$t.meaning->breadcrumb}</span>
+              <span class="typeName">{$t.meaning->getDisplayTypeName()}</span>
+            {/if}
             <span class="htmlRep {$t.meaning->getCssClass()}">{$t.meaning->htmlRep}</span>
           </div>
 
@@ -22,7 +33,7 @@
               </span>
             {/if}
 
-            {if count($t.tags)}
+            {if !$etymologies && count($t.tags)}
               <span class="tag-group">
                 <span class="text-muted">etichete:</span>
                 {foreach $t.tags as $tag}

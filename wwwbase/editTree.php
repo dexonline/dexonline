@@ -124,10 +124,12 @@ $entryTrees = Model::factory('Tree')
 
 $treeMentions = Mention::getDetailedTreeMentions($t->id);
 
+$excludedSources = [ "DEX '98" ];
 $frequentSources = Model::factory('Source')
                  ->table_alias('s')
                  ->select('s.*')
                  ->join('MeaningSource', ['s.id', '=', 'ms.sourceId'], 'ms')
+                 ->where_not_in('shortName', $excludedSources)
                  ->group_by('s.id')
                  ->order_by_expr('count(*) desc')
                  ->limit(5)

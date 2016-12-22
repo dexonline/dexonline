@@ -63,7 +63,7 @@ $(function() {
             return 'arbore: <b>' + obj.treeDescription + '</b> ' +
               'intrare: <b>' + obj.entryDescription + '</b>';
           } else {
-            return '<b>' + obj.description + ' ' + obj.breadcrumb + ':</b> ' + obj.meaning;
+            return '<b>' + obj.description + ' ' + obj.breadcrumb + '</b> ' + obj.meaning;
           }
         },
         replace: function(value) {

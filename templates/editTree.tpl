@@ -311,7 +311,7 @@
               <div class="form-group">
                 <label>tip</label>
                 <div>
-                  {foreach Meaning::$TYPE_NAMES as $i => $tn}
+                  {foreach Meaning::$FIELD_NAMES as $i => $tn}
                     <label class="radio-inline">
                       <input type="radio"
                              name="editorType"

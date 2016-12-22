@@ -204,7 +204,18 @@ class Entry extends BaseObject implements DatedObject {
     return $errors;
   }
 
+  public function deleteEmptyTrees() {
+    foreach ($this->getTrees() as $t) {
+      $meaning = Meaning::get_by_treeId($t->id);
+      if (!$meaning) {
+        $t->delete();
+      }
+    }
+  }
+
   public function mergeInto($otherId) {
+    $this->deleteEmptyTrees();
+
     EntryDefinition::copy($this->id, $otherId, 1);
     EntryLexem::copy($this->id, $otherId, 1);
     TreeEntry::copy($this->id, $otherId, 2);
@@ -244,6 +255,10 @@ class Entry extends BaseObject implements DatedObject {
 
     Log::warning("Deleted entry {$this->id} ({$this->description})");
     parent::delete();
+  }
+
+  public function __toString() {
+    return $this->description;
   }
 
 }

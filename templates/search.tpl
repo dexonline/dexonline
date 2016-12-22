@@ -244,7 +244,7 @@
         {/foreach}
 
         {if $hasUnrecommendedForms}
-          <div class="notRecommendedLegend">* Formă nerecomandată</div>
+          <div class="notRecommendedLegend">* Formă nerecomandată sau greșită – <span class="notRecommendedShowHide">(arată)</span></span></div>
         {/if}
 
         <div>
@@ -282,5 +282,4 @@
       </div>
     {/if}
   </div>
-
 {/block}

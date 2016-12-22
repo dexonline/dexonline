@@ -20,6 +20,7 @@ $(function() {
     $(document).bind('keydown', 'alt+c', redirectToWotDTable);
     $(document).bind('keydown', 'alt+z', redirectToWotDImage);
     $(document).bind('keydown', 'alt+x', redirectToWotDAuthorAssign);
+    $(document).bind('keydown', 'alt+w', toggleWotdMode);
 
     $(document).bind('keydown', 'alt+p', clickPreviewTags);
   }
@@ -38,6 +39,10 @@ $(function() {
 
   function redirectToWotDAuthorAssign() {
     window.location = wwwRoot + 'alocare-autori.php';
+  }
+
+  function toggleWotdMode() {
+    window.location = wwwRoot + 'admin/toggleWotdMode.php';
   }
 
   function quickNavLexemFocus() {

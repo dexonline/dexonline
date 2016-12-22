@@ -206,4 +206,17 @@ function session_kill() {
   }
 }
 
+function session_toggleWotdMode() {
+  $old = isset($_COOKIE['prefs']['wotdMode']);
+  $new = !$old;
+
+  if ($new) {
+    setcookie('prefs[wotdMode]', '1', time() + ONE_YEAR_IN_SECONDS, '/');
+    FlashMessage::add('Modul WotD activat', 'success');
+  } else {
+    setcookie('prefs[wotdMode]', '', time() - 3600, '/');
+    FlashMessage::add('Modul WotD dezactivat', 'warning');
+  }
+}
+
 ?>

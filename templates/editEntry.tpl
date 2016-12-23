@@ -127,6 +127,15 @@
       creează un arbore de sensuri
     </button>
 
+    {if $e->id}
+      <a href="http://wiki.dexonline.ro/wiki/Intrare:{$e->id}"
+         class="btn btn-default"
+         target="_blank">
+        <i class="glyphicon glyphicon-comment"></i>
+        wiki
+      </a>
+    {/if}
+
     <a class="btn btn-link" href="{if $e->id}?id={$e->id}{/if}">
       renunță
     </a>

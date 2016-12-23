@@ -46,6 +46,10 @@ if ($cuv) {
   $isAllDigits = $arr[2];
 }
 
+$showWotd = session_isWotdMode()
+  && util_isModerator(PRIV_EDIT)
+  && !Config::get('global.mirror');
+
 if ($isAllDigits) {
   $d = Definition::getByIdNotHidden($cuv);
   if ($d) {
@@ -191,9 +195,23 @@ if ($searchType == SEARCH_INFLECTED) {
 
   SmartyWrap::assign('lexems', $lexems);
   if ($searchType == SEARCH_INFLECTED) {
-    // For successful searches, load the definitions, inflections and linguistic articles
+    // For successful searches, load the definitions and linguistic articles
     $definitions = Definition::loadForLexems($lexems, $sourceId, $cuv, $exclude_unofficial);
     SmartyWrap::assign('wikiArticles', WikiArticle::loadForLexems($lexems));
+
+    // Add a warning if this word is in WotD
+    if ($showWotd) {
+      $wasWotd = Model::factory('Definition')
+               ->table_alias('d')
+               ->join('WordOfTheDayRel', ['d.id', '=', 'r.refId'], 'r')
+               ->join('WordOfTheDay', ['w.id', '=', 'r.wotdId'], 'w')
+               ->where('d.lexicon', $cuv)
+               ->where('r.refType', 'Definition')
+               ->find_one();
+      if ($wasWotd) {
+        FlashMessage::add('Acest cuvânt este în lista WotD', 'warning');
+      }
+    }
   }
 
   if (empty($definitions)) {
@@ -298,10 +316,6 @@ if ($cuv) {
 
   SmartyWrap::assign('pageDescription', $pageDescription);
 }
-
-$showWotd = session_isWotdMode()
-  && util_isModerator(PRIV_EDIT)
-  && !Config::get('global.mirror');
 
 // Ads
 AdsModule::runAllModules(empty($lexems) ? null : $lexems, empty($definitions) ? null : $definitions);

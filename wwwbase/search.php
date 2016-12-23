@@ -299,6 +299,10 @@ if ($cuv) {
   SmartyWrap::assign('pageDescription', $pageDescription);
 }
 
+$showWotd = session_isWotdMode()
+  && util_isModerator(PRIV_EDIT)
+  && !Config::get('global.mirror');
+
 // Ads
 AdsModule::runAllModules(empty($lexems) ? null : $lexems, empty($definitions) ? null : $definitions);
 
@@ -308,7 +312,7 @@ SmartyWrap::assign('showParadigm', $showParadigm);
 SmartyWrap::assign('locParadigm', session_user_prefers(Preferences::LOC_PARADIGM));
 SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('advancedSearch', $text || $sourceId);
-SmartyWrap::assign('showWotd', session_isWotdMode());
+SmartyWrap::assign('showWotd', $showWotd);
 
 /* Gallery */
 $images = empty($lexems) ? [] : Visual::loadAllForLexems($lexems);

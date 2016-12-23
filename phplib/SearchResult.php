@@ -1,12 +1,21 @@
 <?php
 
 class SearchResult {
+
+  const WOTD_IN_LIST = 0;     // definition itself is in WotD
+  const WOTD_RELATED = 1;     // a related definition is in WotD
+  const WOTD_NOT_IN_LIST = 2; // definition and its related definitions are not in WotD
+
   public $definition;
   public $user;
   public $source;
   public $typos;
   public $comment;
   public $commentAuthor = NULL;
+  public $bookmark;
+  public $tags;
+  public $wotdType;
+  public $wotdDate;
 
   public static function mapDefinitionArray($definitionArray) {
     if (empty($definitionArray)) {
@@ -30,7 +39,8 @@ class SearchResult {
       $result->source = $sourceMap[$definition->sourceId];
       $result->typos = [];
       $result->comment = null;
-      $result->wotd = false;
+      $result->wotdType = self::WOTD_NOT_IN_LIST;
+      $result->wotdDate = null;
       $result->bookmark = false;
       $result->tags = Tag::loadByDefinitionId($definition->id);
       $results[$definition->id] = $result;
@@ -54,14 +64,29 @@ class SearchResult {
     if ($suid = session_getUserId()) {
       $defIdString = implode(',', $defIds);
 
-      // This actually requires a stronger condition: that the user has PRIV_WOTD privileges; but that check would require a DB hit.
-      // So we check that the user is logged in, which is cheap. The admin permission is checked in the template.
-      $wotdStatuses = ORM::for_table('WordOfTheDay')
-        ->raw_query("select R.refId, W.displayDate from WordOfTheDay W join WordOfTheDayRel R on W.id = R.wotdId " .
-                    "where R.refId in ($defIdString) and refType = 'Definition'")
-        ->find_many();
-      foreach ($wotdStatuses as $w) {
-        $results[$w->refId]->wotd = $w->displayDate ? $w->displayDate : true;
+      // This actually requires a stronger condition: that the user has PRIV_WOTD privileges;
+      // but that check would require a DB hit. So we check that the user is logged in, which
+      // is cheap. The admin permission is checked in the template.
+
+      // Select definitions that were themselves WotD or definitions from the same entries as the
+      // former.
+      $wotdRecs = Model::factory('Definition')
+               ->table_alias('d')
+               ->select('d.id')
+               ->select('r.refId')
+               ->select('w.displayDate')
+               ->join('EntryDefinition', ['d.id', '=', 'ed1.definitionId'], 'ed1')
+               ->join('EntryDefinition', ['ed1.entryId', '=', 'ed2.entryId'], 'ed2')
+               ->join('WordOfTheDayRel', ['ed2.definitionId', '=', 'r.refId'], 'r')
+               ->join('WordOfTheDay', ['w.id', '=', 'r.wotdId'], 'w')
+               ->where_in('d.id', $defIds)
+               ->where('r.refType', 'Definition')
+               ->find_many();
+      foreach ($wotdRecs as $w) {
+        $results[$w->id]->wotdType = ($w->id == $w->refId)
+                                   ? self::WOTD_IN_LIST
+                                   : self::WOTD_RELATED;
+        $results[$w->id]->wotdDate = $w->displayDate;
       }
 
       $bookmarks = Model::factory('UserWordBookmark')->where('userId', $suid)->where_in('definitionId', $defIds)->find_many();

@@ -5,7 +5,7 @@
   <ul {if $root}class="meaningTree"{/if}>
     {foreach $meanings as $t}
       <li>
-        <div class="meaningContainer">
+        <div class="meaningContainer {if $root}primaryMeaning{else}secondaryMeaning{/if}">
           <div>
             {if $etymologies}
               {if count($t.tags)}

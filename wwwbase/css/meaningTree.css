@@ -7,13 +7,12 @@
 .meaningTree ul {
   padding-left: 30px;
   margin-left: 10px;
-  border-left: 1px dashed #9d9d9d;
 }
 
 .meaningTree ul ul {
   padding-left: 30px;
   margin-left: 10px;
-  border-left: 1px dashed #9d9d9d;
+  border-left: 1px solid #9d9d9d;
 }
 
 .meaningTree li {
@@ -102,11 +101,25 @@
 
 .meaningTree .htmlRep.meaningBody,
 .meaningContainer .bc {
+
+  display: inline-block;
+  padding-top: 25px;
+}
+
+.primaryMeaning .bc,
+.primaryMeaning .meaningBody {
+  color: #444;
   font-size: 18px;
   font-weight: bold;
-  display: inline-block;
-  color: #444;
-  padding-top: 25px;
+}
+
+.secondaryMeaning .bc,
+.secondaryMeaning .meaningBody {
+  color: #888;
+}
+
+.secondaryMeaning .bc {
+  font-weight: bold;
 }
 
 .meaningTree .htmlRep.meaningBody {

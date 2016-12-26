@@ -58,6 +58,18 @@ class Tag extends BaseObject implements DatedObject {
     });
   }
 
+  function getAncestors() {
+    $p = $this;
+    $result = [];
+
+    do {
+      array_unshift($result, $p);
+      $p = Tag::get_by_id($p->parentId);
+    } while ($p);
+
+    return $result;
+  }
+
   public function delete() {
     ObjectTag::delete_all_by_tagId($this->id);
     parent::delete();

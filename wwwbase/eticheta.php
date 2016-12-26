@@ -10,15 +10,10 @@ $id = Request::get('id');
 
 $tag = Tag::get_by_id($id);
 
-// load the tag's ancestors
-$hierarchy = [ $tag ];
-$p = $tag;
-while ($p) {
-  $p = Tag::get_by_id($p->parentId);
-  if ($p) {
-    array_unshift($hierarchy, $p);
-  }
-}
+$homonyms = Model::factory('Tag')
+          ->where('value', $tag->value)
+          ->where_not_equal('id', $tag->id)
+          ->find_many();
 
 $defCount = Model::factory('ObjectTag')
           ->where('objectType', ObjectTag::TYPE_DEFINITION)
@@ -61,7 +56,7 @@ $meanings = Model::factory('Meaning')
           ->find_many();
 
 SmartyWrap::assign('t', $tag);
-SmartyWrap::assign('hierarchy', $hierarchy);
+SmartyWrap::assign('homonyms', $homonyms);
 SmartyWrap::assign('defCount', $defCount);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('lexemCount', $lexemCount);

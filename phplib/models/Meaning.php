@@ -7,12 +7,14 @@ class Meaning extends BaseObject implements DatedObject {
   const TYPE_ETYMOLOGY = 1;
   const TYPE_EXAMPLE = 2;
   const TYPE_COMMENT = 3;
+  const TYPE_DIFF = 4;
 
   public static $DISPLAY_NAMES = [
     self::TYPE_MEANING => '',
     self::TYPE_ETYMOLOGY => 'etimologie',
     self::TYPE_EXAMPLE => 'exemplu',
     self::TYPE_COMMENT => 'comentariu',
+    self::TYPE_DIFF => 'diferențiere',
   ];
 
   public static $FIELD_NAMES = [
@@ -20,6 +22,7 @@ class Meaning extends BaseObject implements DatedObject {
     self::TYPE_ETYMOLOGY => 'etimologie',
     self::TYPE_EXAMPLE => 'exemplu',
     self::TYPE_COMMENT => 'comentariu (public)',
+    self::TYPE_DIFF => 'diferențiere',
   ];
 
   private $tree = null;

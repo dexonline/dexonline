@@ -7,13 +7,13 @@
 .meaningTree ul {
   padding-left: 30px;
   margin-left: 10px;
-  border-left: 1px solid rgba(138,109,59,0.75);
+  border-left: 1px dashed #9d9d9d;
 }
 
 .meaningTree ul ul {
   padding-left: 30px;
   margin-left: 10px;
-  border-left: 1px solid rgba(138,109,59,0.50);
+  border-left: 1px dashed #9d9d9d;
 }
 
 .meaningTree li {
@@ -132,7 +132,7 @@
 }
 
 .tree .panel-heading {
-  background-color: #8a6d3b;
+  background-color: #777;
   color: #fff;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;

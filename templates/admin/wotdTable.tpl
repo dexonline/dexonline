@@ -17,7 +17,7 @@
 
   <div class="voffset3"></div>
 
-  <div class="panel panel-default quickNav">
+  <div class="panel panel-default">
     <div class="panel-heading">
       Pagini asociate
     </div>
@@ -34,7 +34,7 @@
     </ul>
   </div>
 
-  <div class="panel panel-default quickNav">
+  <div class="panel panel-default">
     <div class="panel-heading">
       Descarcă lista de cuvinte
     </div>

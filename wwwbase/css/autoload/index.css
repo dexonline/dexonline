@@ -140,6 +140,5 @@ a.widget,
 
 /* Admin index page styles */
 .quickNav form {
-  display: inline;
-  margin-right: 20px;
+  margin-bottom: 5px;
 }

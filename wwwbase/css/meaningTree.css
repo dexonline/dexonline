@@ -115,7 +115,8 @@
   font-weight: bold;
 }
 
-.secondaryMeaning .bc {
+.secondaryMeaning .bc,
+.etymology {
   font-weight: bold;
 }
 

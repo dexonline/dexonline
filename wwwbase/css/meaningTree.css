@@ -154,3 +154,47 @@
 .tab-pane > ul {
   margin-bottom: 20px;
 }
+
+@media (max-width: 480px) {
+  .meaningTree .secondaryMeaning .htmlRep.meaningBody {
+    width: 86%;
+  }
+
+  .meaningContainer .defDetails {
+    padding-left: 32px;
+  }
+
+  .meaningTree ul {
+    padding-left: 20px;
+    margin-left: 0;
+  }
+
+  .meaningTree ul ul {
+    padding-left: 28px;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .panel-body {
+    padding: 0;
+  }
+
+  .meaningContainer .defDetails {
+    padding-left: 4px;
+  }
+
+  .meaningTree ul,
+  .meaningTree ul ul {
+    padding-left: 0;
+    margin-left: 0;
+  }
+
+  .meaningTree .primaryMeaning .htmlRep.meaningBody {
+    width: 86%;
+  }
+
+  .meaningTree .secondaryMeaning .htmlRep.meaningBody {
+    width: 83%;
+  }
+}

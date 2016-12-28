@@ -12,7 +12,6 @@
 .meaningTree ul ul {
   padding-left: 30px;
   margin-left: 10px;
-  border-left: 1px solid #9d9d9d;
 }
 
 .meaningTree li {
@@ -30,7 +29,10 @@
 
 .meaningTree .typeName:not(:empty) {
   margin-right: 5px;
-  color: #777;
+  color: #fff;
+  background-color: #aaa;
+  padding: 3px 6px;
+  border-radius: 3px;
 }
 
 .meaningTree .htmlRep {
@@ -121,11 +123,11 @@
 }
 
 .meaningContainer .defDetails {
-  padding-left: 35px;
+  padding-left: 42px;
 }
 
 .exampleBody {
-  color: #8a6d3b;
+  color: #555;
 }
 
 .tree .panel-body {

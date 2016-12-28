@@ -108,14 +108,8 @@
 
 .primaryMeaning .bc,
 .primaryMeaning .meaningBody {
-  color: #444;
   font-size: 18px;
   font-weight: bold;
-}
-
-.secondaryMeaning .bc,
-.secondaryMeaning .meaningBody {
-  color: #888;
 }
 
 .secondaryMeaning .bc {
@@ -147,8 +141,7 @@
 .tree .panel-heading {
   background-color: #777;
   color: #fff;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-radius: 0;
 }
 
 .tab-pane h3,

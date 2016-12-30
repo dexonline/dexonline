@@ -93,6 +93,10 @@ $lexems = [];
 $trees = [];
 $extra = [];
 
+$showWotd = session_isWotdMode()
+  && util_isModerator(PRIV_EDIT)
+  && !Config::get('global.mirror');
+
 if ($isAllDigits) {
   $d = Definition::getByIdNotHidden($cuv);
   if ($d) {
@@ -184,6 +188,20 @@ if ($searchType == SEARCH_INFLECTED) {
   if (count($entries)) {
     $definitions = Definition::loadForEntries($entries, $sourceId, $cuv);
     SmartyWrap::assign('wikiArticles', WikiArticle::loadForEntries($entries));
+
+    // Add a warning if this word is in WotD
+    if ($showWotd) {
+      $wasWotd = Model::factory('Definition')
+               ->table_alias('d')
+               ->join('WordOfTheDayRel', ['d.id', '=', 'r.refId'], 'r')
+               ->join('WordOfTheDay', ['w.id', '=', 'r.wotdId'], 'w')
+               ->where('d.lexicon', $cuv)
+               ->where('r.refType', 'Definition')
+               ->find_one();
+      if ($wasWotd) {
+        FlashMessage::add('Acest cuvânt este în lista WotD', 'warning');
+      }
+    }
   }
 
   // fallback to multiword search
@@ -365,6 +383,7 @@ SmartyWrap::assign('locParadigm', session_user_prefers(Preferences::LOC_PARADIGM
 SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('advancedSearch', $text || $sourceId);
 SmartyWrap::assign('allDefinitions', $all);
+SmartyWrap::assign('showWotd', $showWotd);
 
 if (!$xml) {
   SmartyWrap::addCss('paradigm');

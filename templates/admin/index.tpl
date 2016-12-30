@@ -47,17 +47,35 @@
       </div>
 
       <div class="panel-body">
-        <form action="definitionEdit.php">
-          <select id="definitionId" name="definitionId"></select>
-        </form>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+          <form action="definitionEdit.php">
+            <select id="definitionId" name="definitionId"></select>
+          </form>
+        </div>
 
-        <form action="{$wwwRoot}editEntry.php">
-          <select id="entryId" name="id"></select>
-        </form>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+          <form action="{$wwwRoot}editEntry.php">
+            <select id="entryId" name="id"></select>
+          </form>
+        </div>
 
-        <form action="lexemEdit.php">
-          <select id="lexemId" name="lexemId"></select>
-        </form>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+          <form action="lexemEdit.php">
+            <select id="lexemId" name="lexemId"></select>
+          </form>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-6">
+          <form action="{$wwwRoot}editTree.php">
+            <select id="treeId" name="id"></select>
+          </form>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-6">
+          <form action="{$wwwRoot}eticheta.php">
+            <select id="labelId" name="id"></select>
+          </form>
+        </div>
       </div>
     </div>
   {/if}

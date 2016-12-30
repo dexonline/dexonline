@@ -9,6 +9,8 @@
 {/block}
 
 {block "content"}
+  {$renameTrees=$renameTrees|default:false}
+
   <h3>
     {if $e->id}
       Editează intrarea
@@ -25,7 +27,32 @@
     <div class="row">
 
       <div class="col-md-6">
-        {include "bits/fhf.tpl" field="description" value=$e->description label="descriere"}
+        <div class="form-group {if isset($errors.description)}has-error{/if}">
+          <label for="description" class="col-md-2 control-label">
+            descriere
+          </label>
+          <div class="col-md-10">
+            <div>
+              <input type="text"
+                     class="form-control"
+                     id="description"
+                     name="description"
+                     value="{$e->description}">
+              {include "bits/fieldErrors.tpl" errors=$errors.description|default:null}
+            </div>
+
+            <div id="renameDiv"
+                 class="checkbox {if !$renameTrees}hidden{/if}">
+              <label>
+                <input type="checkbox"
+                       name="renameTrees"
+                       value="1"
+                       {if $renameTrees}checked{/if}>
+                redenumește și arborii la fel
+              </label>
+            </div>
+          </div>
+        </div>
 
         <div class="form-group {if isset($errors.structStatus)}has-error{/if}">
           <label for="structStatus" class="col-md-2 control-label">
@@ -126,6 +153,15 @@
       <i class="glyphicon glyphicon-tree-deciduous"></i>
       creează un arbore de sensuri
     </button>
+
+    {if $e->id}
+      <a href="http://wiki.dexonline.ro/wiki/Intrare:{$e->id}"
+         class="btn btn-default"
+         target="_blank">
+        <i class="glyphicon glyphicon-comment"></i>
+        wiki
+      </a>
+    {/if}
 
     <a class="btn btn-link" href="{if $e->id}?id={$e->id}{/if}">
       renunță

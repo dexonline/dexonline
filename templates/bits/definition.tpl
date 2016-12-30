@@ -92,21 +92,23 @@
       {/if}
 
       {if $showWotd}
-        {if $sUser && ($sUser->moderator & $smarty.const.PRIV_WOTD) && !$cfg.global.mirror}
-          <li>
-            {if $def->status == 0}
-              {if $row->wotd}
-                în lista de WotD {if $row->wotd!==true}({$row->wotd}){/if}
-              {else}
-                <a href="{$wwwRoot}wotdAdd.php?defId={$def->id}">
-                  adaugă WotD
-                </a>
-              {/if}
-            {else}
-              definiție ascunsă
-            {/if}
-          </li>
-        {/if}
+        <li>
+          <i class="glyphicon glyphicon-calendar"></i>
+          {if $def->status == Definition::ST_HIDDEN}
+            definiție ascunsă
+          {else if $row->wotdType == SearchResult::WOTD_NOT_IN_LIST}
+            <a href="{$wwwRoot}wotdAdd.php?defId={$def->id}">
+              adaugă WotD
+            </a>
+          {else if $row->wotdType == SearchResult::WOTD_IN_LIST}
+            în lista de WotD {if $row->wotdDate}({$row->wotdDate}){/if}
+          {else} {* a related definition is in WotD *}
+            <span class="text-warning">
+              o definiție similară este în WotD
+              {if $row->wotdDate}({$row->wotdDate}){/if}
+            </span>
+          {/if}
+        </li>
       {/if}
 
       {if $showDeleteLink}

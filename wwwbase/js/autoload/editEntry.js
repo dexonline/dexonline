@@ -20,6 +20,8 @@ $(function() {
       width: '100%',
     });
 
+    $('#description').change(showRenameDiv);
+
     $('.toggleRepLink').click(toggleRepClick);
     $('.toggleRepSelect').click(toggleRepChange);
     $('.toggleStructuredLink').click(toggleStructuredClick);
@@ -37,9 +39,14 @@ $(function() {
     });
   }
 
-  /* Definitions can be shown as internal or HTML notation, with abbreviations expanded or collapsed. This gives rise to four combinations, coded on
-   * two bits each. Clicking on the "show / hide HTML" and show / hide abbreviations" fiddles some bits and sets the "visible" class on the
-   * appropriate div. */
+  function showRenameDiv() {
+    $('#renameDiv').removeClass('hidden');
+  }
+
+  /* Definitions can be shown as internal or HTML notation, with abbreviations expanded
+   * or collapsed. This gives rise to four combinations, coded on two bits each.
+   * Clicking on the "show / hide HTML" and show / hide abbreviations" fiddles some bits
+   * and sets the "visible" class on the appropriate div. */
   function toggleRepClick() {
     // Hide the old definition
     var oldActive = $(this).closest('.defDetails').prevAll('[data-active]');
@@ -58,7 +65,8 @@ $(function() {
     return false;
   }
 
-  /* User has selected a value from the text/html select. Toggle all definitions that aren't in that state already. */
+  /* User has selected a value from the text/html select. Toggle all definitions that
+   * aren't in that state already. */
   function toggleRepChange() {
     var order = $(this).attr('data-order');
     var value = 1 - $(this).val(); // Links that have this BAD value need to be clicked.

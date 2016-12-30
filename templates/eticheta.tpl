@@ -5,12 +5,17 @@
 {block "content"}
   <h3>Eticheta {$t->value}</h3>
 
-  {foreach $hierarchy as $i => $h}
-    {if $i}
-      <i class="glyphicon glyphicon-chevron-right"></i>
-    {/if}
-    <label class="label label-info">{$h->value}</label>
-  {/foreach}
+  {include "bits/tagAncestors.tpl" tag=$t}
+
+  {if count($homonyms)}
+    <h3>Ononime</h3>
+
+    {foreach $homonyms as $h}
+      <div class="voffset">
+        {include "bits/tagAncestors.tpl" tag=$h}
+      </div>
+    {/foreach}
+  {/if}
 
   {if count($lexems)}
     <h3>

@@ -104,10 +104,12 @@ if ($saveButton) {
   $e->structuristId = Request::get('structuristId');
   $lexemIds = Request::get('lexemIds');
   $treeIds = Request::get('treeIds');
+  $renameTrees = Request::has('renameTrees');
 
   $errors = $e->validate($original);
   if ($errors) {
     SmartyWrap::assign('errors', $errors);
+    SmartyWrap::assign('renameTrees', $renameTrees);
   } else {
     // Possibly overwrite the structuristId according to the structStatus change
     if (($original->structStatus == Entry::STRUCT_STATUS_NEW) &&
@@ -120,6 +122,13 @@ if ($saveButton) {
     // dissociate old lexems and trees and associate new ones
     EntryLexem::wipeAndRecreate($e->id, $lexemIds);
     TreeEntry::wipeAndRecreate($treeIds, $e->id);
+
+    if ($renameTrees) {
+      foreach ($e->getTrees() as $t) {
+        $t->description = $e->description;
+        $t->save();
+      }
+    }
 
     FlashMessage::add('Am salvat intrarea.', 'success');
     util_redirect("?id={$e->id}");

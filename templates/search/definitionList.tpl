@@ -32,7 +32,7 @@
   showCourtesyLink=1
   showFlagTypo=1
   showHistory=1
-  showWotd=1}
+  showWotd=$showWotd}
 
 {/foreach}
 

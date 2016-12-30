@@ -218,6 +218,7 @@
             <li><b>Alt-R</b> = reafișează (unde este cazul)</li>
             <li><b>Alt-S</b> = salvează</li>
             <li><b>Alt-V</b> = pagini vizitate recent</li>
+            <li><b>Alt-W</b> = intră/ieși din modul WotD</li>
           </ul>
 
           <h4>Pagina moderatorului</h4>

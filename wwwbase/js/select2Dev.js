@@ -199,9 +199,7 @@ function adminIndexInit() {
     ajax: { url: wwwRoot + 'ajax/getLexems.php', },
     minimumInputLength: 1,
     placeholder: 'caută un lexem',
-    width: '300px',
-  }).on('change', function(e) {
-    $(this).closest('form').submit();
+    width: '100%',
   });
 
   $('#definitionId').select2({
@@ -211,17 +209,31 @@ function adminIndexInit() {
     },
     minimumInputLength: 1,
     placeholder: 'caută o definiție',
-    width: '300px',
-  }).on('change', function(e) {
-    $(this).closest('form').submit();
+    width: '100%',
   });
 
   $('#entryId').select2({
     ajax: { url: wwwRoot + 'ajax/getEntries.php', },
     minimumInputLength: 1,
     placeholder: 'caută o intrare',
-    width: '300px',
-  }).on('change', function(e) {
+    width: '100%',
+  });
+
+  $('#treeId').select2({
+    ajax: { url: wwwRoot + 'ajax/getTrees.php', },
+    minimumInputLength: 1,
+    placeholder: 'caută un arbore',
+    width: '100%',
+  });
+
+  $('#labelId').select2({
+    ajax: { url: wwwRoot + 'ajax/getTags.php', },
+    minimumInputLength: 1,
+    placeholder: 'caută o etichetă',
+    width: '100%',
+  });
+
+  $('.quickNav select').change(function(e) {
     $(this).closest('form').submit();
   });
 }

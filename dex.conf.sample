@@ -132,6 +132,9 @@ acEnable = true
 acMinChars = 3
 acLimit = 10
 
+; Whether to show meaning trees
+showTrees = false
+
 ; Configuration for the Romanian literature crawler
 [crawler]
 

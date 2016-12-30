@@ -12,6 +12,7 @@ define('SOURCE_ID', 27);
 define('MY_USER_ID', 1);
 define('BATCH_SIZE', 10000);
 define('START_AT', '');
+define('EDIT_URL', 'https://dexonline.ro/admin/definitionEdit.php?definitionId=');
 
 $GRAMMAR = [
   'start' => [
@@ -54,7 +55,7 @@ $GRAMMAR = [
     'form+", "',
   ],
   'form' => [
-    '/[-a-zA-ZáäăắâấçÇÁÄĂẮÂẤéÉíîî́ÍÎÎ́óöÓÖșȘțȚúÚýÝ\\\\\'(). ]+/',
+    '/[-a-zA-ZáàäåăắâấÁÀÄÅĂẮÂẤçÇéèêÉÈÊíîî́ÍÎÎ́óöÓÖ®șȘțȚúüÚÜýÝ\\\\\'(). ]+/',
   ],
   'homonym' => [
     '/\^\d/',
@@ -71,6 +72,7 @@ $GRAMMAR = [
     '"#adj.# #f.#"',
     '"#adj. dem.#"',
     '"#adj. nehot.#"',
+    '"#adj. pron. dem.#"',
     '"#adj. pos.#"',
     '"#adj.#"',
     '"#adv.#"',
@@ -79,8 +81,13 @@ $GRAMMAR = [
     '"#art. nehot.#"',
     '"#conj.#"',
     '"#interj.#"',
+    '"#loc.#"',
     '"#loc. adj.#"',
+    '"#loc. adj. și adv.#"',
     '"#loc. adv.#"',
+    '"#loc. vb.# #impers.#"',
+    '"#n. pr.#"',
+    '"#num.#"',
     '"#num. card.#"',
     '"#num. col.#"',
     '"#num. ord.#"',
@@ -354,7 +361,7 @@ do {
 
     $parsed = $parser->parse($rep);
     if (!$parsed) {
-      Log::error('Cannot parse: %s', $rep);
+      Log::error('Cannot parse: %s %s%d', $rep, EDIT_URL, $d->id);
     } else {
       // $meaning = $parsed->findFirst('meaning');
       // $etymology = $parsed->findFirst('etymology');

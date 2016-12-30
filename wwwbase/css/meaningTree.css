@@ -28,10 +28,12 @@
 }
 
 .meaningTree .typeName:not(:empty) {
+  display: inline-block;
   margin-right: 5px;
+  margin-bottom: 3px;
+  padding: 3px 6px;
   color: #fff;
   background-color: #aaa;
-  padding: 3px 6px;
   border-radius: 3px;
 }
 

@@ -361,27 +361,28 @@ do {
 
     $parsed = $parser->parse($rep);
     if (!$parsed) {
-      Log::error('Cannot parse: %s %s%d', $rep, EDIT_URL, $d->id);
+      // Log::error('Cannot parse: %s %s%d', $rep, EDIT_URL, $d->id);
     } else {
-      // $meaning = $parsed->findFirst('meaning');
-      // $etymology = $parsed->findFirst('etymology');
-      // $reference = $parsed->findFirst('reference');
+      $meaning = $parsed->findFirst('meaning');
+      $etymology = $parsed->findFirst('etymology');
+      $reference = $parsed->findFirst('reference');
 
-      // if ($meaning) {
-      //   $parsed = $meaningParser->parse($meaning);
-      //   if ($parsed) {
-      //     $tuples1 = createMeanings($parsed, $d);
-      //     $tuples2 = createEtymologies($etymology, $etymologyParser, $d);
-      //     $tuples = array_merge($tuples1, $tuples2);
-      //     makeTree($tuples, $d);
-      //   } else {
-      //     Log::error('Cannot parse meaning for [%s]: [%s]', $d->lexicon, $meaning);
-      //   }
-      // } else if ($reference) {
-      //   mergeVariant($d, $reference);
-      // } else {
-      //   Log::error('No meaning nor reference: %s', $rep);
-      // }
+      if ($meaning) {
+        $parsed = $meaningParser->parse($meaning);
+        if ($parsed) {
+          //     $tuples1 = createMeanings($parsed, $d);
+          //     $tuples2 = createEtymologies($etymology, $etymologyParser, $d);
+          //     $tuples = array_merge($tuples1, $tuples2);
+          //     makeTree($tuples, $d);
+        } else {
+          Log::error('Cannot parse meaning for [%s]: [%s] %s%d',
+          $d->lexicon, $meaning, EDIT_URL, $d->id);
+        }
+      } else if ($reference) {
+        //   mergeVariant($d, $reference);
+      } else {
+        // Log::error('No meaning nor reference: %s %s%d', $rep, EDIT_URL, $d->id);
+      }
     }
     // exit;
   }

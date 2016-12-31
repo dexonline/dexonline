@@ -196,8 +196,8 @@ SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('homonyms', $homonyms);
 SmartyWrap::assign('structurists', User::getStructurists($e->structuristId));
-SmartyWrap::addCss('meaningTree', 'admin');
-SmartyWrap::addJs('select2Dev', 'textComplete');
+SmartyWrap::addCss('editableMeaningTree', 'admin');
+SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete');
 SmartyWrap::display('editEntry.tpl');
 
 ?>

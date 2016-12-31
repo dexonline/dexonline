@@ -281,7 +281,9 @@
           </a>
         </div>
         <div class="panel-body">
-          {include "bits/meaningTree.tpl" meanings=$t->getMeanings() id="meaningTree-{$t->id}"}
+          {include "bits/editableMeaningTree.tpl"
+          meanings=$t->getMeanings()
+          id="meaningTree-{$t->id}"}
         </div>
       </div>
     {/foreach}

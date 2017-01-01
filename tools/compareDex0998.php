@@ -35,7 +35,7 @@ do {
 
     if ($old && ($old->internalRep != $d->internalRep)) {
       $numDifferent++;
-      Log::error('Different: %s %s%d', $d->lexicon, EDIT_URL, $d->id);
+      Log::error('Different: %s %s%d %d', $d->lexicon, EDIT_URL, $d->id, $old->id);
     }
   }
 
@@ -49,10 +49,10 @@ Log::info('ended');
 /*************************************************************************/
 
 // Adapted from Definition::loadSimilar to include several editions
-function loadSimilar($d, &$diffSize = null) {
+function loadSimilar($def, &$diffSize = null) {
   $result = null;
 
-  $eds = EntryDefinition::get_all_by_definitionId($d->id);
+  $eds = EntryDefinition::get_all_by_definitionId($def->id);
   $entryIds = util_objectProperty($eds, 'entryId');
 
   // First see if there is a similar source
@@ -71,7 +71,7 @@ function loadSimilar($d, &$diffSize = null) {
     // Find the definition with the minimum diff from the original
     $diffSize = 0;
     foreach ($candidates as $d) {
-      $size = LDiff::diffMeasure($d->internalRep, $d->internalRep);
+      $size = LDiff::diffMeasure($def->internalRep, $d->internalRep);
       if (!$result || ($size < $diffSize)) {
         $result = $d;
         $diffSize = $size;

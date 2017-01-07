@@ -135,7 +135,8 @@ function refreshSelect2(sel, url) {
     });
 }
 
-function createUserAjaxStruct(priv = 0) {
+function createUserAjaxStruct(priv) {
+  if (typeof(priv)==='undefined') priv = 10;
   return {
     data: function(params) {
       return {

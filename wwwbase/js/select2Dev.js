@@ -136,7 +136,7 @@ function refreshSelect2(sel, url) {
 }
 
 function createUserAjaxStruct(priv) {
-  if (typeof(priv)==='undefined') priv = 10;
+  if (typeof(priv)==='undefined') priv = 0;
   return {
     data: function(params) {
       return {

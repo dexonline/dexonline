@@ -181,6 +181,18 @@ $typos = Model::factory('Typo')
   ->order_by_asc('id')
   ->find_many();
 
+if ($isOCR) {
+  $potentialLexicon = AdminStringUtil::extractLexicon($d);
+  $entries = Model::factory('Definition')
+      ->table_alias('d')
+      ->distinct('e.entryId')
+      ->join('EntryDefinition', ['d.id', '=', 'e.definitionId'], 'e')
+      ->where('d.lexicon', $potentialLexicon)
+      ->find_many();
+  $entryIds = array_unique(util_objectProperty($entries, 'entryId'));
+}
+
+
 // Either there were errors saving, or this is the first time loading the page.
 SmartyWrap::assign('isOCR', $isOCR);
 SmartyWrap::assign('def', $d);

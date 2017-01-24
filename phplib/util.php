@@ -386,6 +386,8 @@ function util_suggestNoBanner() {
 
 // Returns a pair of ($data, $httpCode)
 function util_fetchUrl($url) {
+  $url = str_replace(' ', '%20', $url);
+
   $ch = curl_init($url);
   curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

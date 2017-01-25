@@ -368,11 +368,11 @@ class AdminStringUtil {
 
   static function convertMeaningMentionsToHtml($s) {
     $s = preg_replace(
-      '/([a-zăâîșț]+)\[\[([0-9]+)\]\]/i',
+      '/([-a-zăâîșț]+)\[\[([0-9]+)\]\]/i',
       '<span data-toggle="tooltip" data-html="true" class="treeMention" title="$2">$1</span>',
       $s);
     $s = preg_replace(
-      '/([a-zăâîșț]+)\[([0-9]+)\]/i',
+      '/([-a-zăâîșț]+)\[([0-9]+)\]/i',
       '<span data-toggle="tooltip" data-html="true" class="mention" title="$2">$1</span>',
       $s);
     return $s;

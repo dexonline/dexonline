@@ -56,7 +56,7 @@ $(function() {
 
     $('#editorRep').textcomplete([
       {
-        match: /(([a-zăâîșț]+)((\[[0-9.]*)|(\[\[)))$/i,
+        match: /(([-a-zăâîșț]+)((\[[0-9.]*)|(\[\[)))$/i,
         search: meaningMention,
         template: function(obj) {
           if (obj.treeDescription) {

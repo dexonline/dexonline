@@ -37,7 +37,7 @@ if ($sendButton) {
     Log::notice("Added definition {$definition->id} ({$definition->lexicon})");
 
     foreach ($lexemIds as $lexemId) {
-      $lexemId = addslashes(AdminStringUtil::formatLexem($lexemId));
+      $lexemId = AdminStringUtil::formatLexem($lexemId);
       if (StringUtil::startsWith($lexemId, '@')) {
         // create a new lexem
         $lexem = Lexem::create(substr($lexemId, 1), 'T', '1');

@@ -20,7 +20,7 @@ $(function() {
       width: '100%',
     });
 
-    $('#description').change(showRenameDiv);
+    $('#description').on('change input paste', showRenameDiv);
 
     $('.toggleRepLink').click(toggleRepClick);
     $('.toggleRepSelect').click(toggleRepChange);

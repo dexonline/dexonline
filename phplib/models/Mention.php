@@ -51,6 +51,24 @@ class Mention extends BaseObject implements DatedObject {
     return $query->find_many();
   }
 
+  // Get detailed meaning mentions about any meaning inside this tree.
+  static function getDetailedMeaningMentions($treeId) {
+    return Model::factory('Mention')
+      ->table_alias('m')
+      ->select('msrc.htmlRep', 'srcRep')
+      ->select('msrc.breadcrumb', 'srcBreadcrumb')
+      ->select('mdest.breadcrumb', 'destBreadcrumb')
+      ->select('tsrc.id', 'tsrcId')
+      ->select('tsrc.description', 'tsrcDesc')
+      ->join('Meaning', ['m.meaningId', '=', 'msrc.id'], 'msrc')
+      ->join('Tree', ['msrc.treeId', '=', 'tsrc.id'], 'tsrc')
+      ->join('Meaning', ['m.objectId', '=', 'mdest.id'], 'mdest')
+      ->join('Tree', ['mdest.treeId', '=', 'tdest.id'], 'tdest')
+      ->where('m.objectType', Mention::TYPE_MEANING)
+      ->where('tdest.id', $treeId)
+      ->find_many();
+  }
+
   // Deletes the old mentions and adds the new mentions
   static function wipeAndRecreate($meaningId, $objectType, $objectIds) {
     self::delete_all_by_meaningId_objectType($meaningId, $objectType);

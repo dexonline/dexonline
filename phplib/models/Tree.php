@@ -136,6 +136,17 @@ class Tree extends BaseObject implements DatedObject {
     }
   }
 
+  /* Return meanings that are in relation with this tree. */
+  function getRelatedMeanings() {
+    return Model::factory('Meaning')
+      ->table_alias('m')
+      ->select('m.*')
+      ->select('r.type', 'relationType')
+      ->join('Relation', ['m.id', '=', 'r.meaningId'], 'r')
+      ->where('r.treeId', $this->id)
+      ->find_many();
+  }
+
   /**
    * Counts trees not associated with any entries.
    **/

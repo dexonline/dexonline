@@ -221,7 +221,37 @@
               <td>
                 <a href="{$wwwRoot}editTree.php?id={$m->srcId}">{$m->srcDesc}</a>
               </td>
-              <td><b>{$m->breadcrumb}.</b> {$m->htmlRep}</td>
+              <td><b>{$m->breadcrumb}</b> {$m->htmlRep}</td>
+            </tr>
+          {/foreach}
+        </tbody>
+      </table>
+    </div>
+  {/if}
+
+  {if count($meaningMentions)}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {$meaningMentions|count} mențiuni despre sensuri din acest arbore
+      </div>
+
+      <table class="table table-condensed table-bordered">
+        <thead>
+          <tr>
+            <th>arbore-sursă</th>
+            <th>sens-sursă</th>
+            <th>sens-destinație</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {foreach $meaningMentions as $m}
+            <tr>
+              <td>
+                <a href="{$wwwRoot}editTree.php?id={$m->tsrcId}">{$m->tsrcDesc}</a>
+              </td>
+              <td><b>{$m->srcBreadcrumb}</b> {$m->srcRep}</td>
+              <td><b>{$m->destBreadcrumb}</b></td>
             </tr>
           {/foreach}
         </tbody>

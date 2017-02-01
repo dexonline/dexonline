@@ -43,7 +43,20 @@ if ($mergeButton) {
 if ($clone) {
   $newt = $t->_clone();
   Log::info("Cloned tree {$t->id} ({$t->description}), new id {$newt->id}");
-  FlashMessage::add('Am clonat arborele.', 'success');
+
+  // Warn if the original tree had relations or meaning or tree mentions
+  $triggers = count($t->getRelatedMeanings()) +
+            count(Mention::getTreeMentions($t->id)) +
+            count(Mention::getDetailedMeaningMentions($t->id));
+  if ($triggers) {
+    FlashMessage::add(
+      'Am clonat arborele. Nu uitați că arborele original avea mențiuni și/sau relații.',
+      'warning'
+    );
+  } else {
+    FlashMessage::add('Am clonat arborele.', 'success');
+  }
+
   util_redirect("?id={$newt->id}");
 }
 
@@ -101,13 +114,7 @@ if (count($entryIds)) {
   $modelTypes = [];
 }
 
-$relatedMeanings = Model::factory('Meaning')
-                 ->table_alias('m')
-                 ->select('m.*')
-                 ->select('r.type', 'relationType')
-                 ->join('Relation', ['m.id', '=', 'r.meaningId'], 'r')
-                 ->where('r.treeId', $t->id)
-                 ->find_many();
+$relatedMeanings = $t->getRelatedMeanings();
 foreach ($relatedMeanings as $m) {
   $m->getTree(); // preload it
 }
@@ -123,6 +130,7 @@ $entryTrees = Model::factory('Tree')
   ->find_many();
 
 $treeMentions = Mention::getDetailedTreeMentions($t->id);
+$meaningMentions = Mention::getDetailedMeaningMentions($t->id);
 
 $excludedSources = [ "DEX '98" ];
 $frequentSources = Model::factory('Source')
@@ -162,6 +170,7 @@ SmartyWrap::assign('canDelete', $canDelete);
 SmartyWrap::assign('relatedMeanings', $relatedMeanings);
 SmartyWrap::assign('entryTrees', $entryTrees);
 SmartyWrap::assign('treeMentions', $treeMentions);
+SmartyWrap::assign('meaningMentions', $meaningMentions);
 SmartyWrap::assign('frequentSources', $frequentSources);
 SmartyWrap::assign('frequentTags', $frequentTags);
 SmartyWrap::assign('statusNames', Tree::$STATUS_NAMES);

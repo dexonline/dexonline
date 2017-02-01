@@ -85,6 +85,22 @@
             {/foreach}
           </div>
         </div>
+
+        {if $treesFromSameEntries}
+          <div class="form-group">
+            <label class="col-md-2">omonime</label>
+            <div class="col-md-10">
+
+              {foreach $treesFromSameEntries as $t}
+                <div>
+                  <a href="editTree.php?id={$t->id}">{$t->description}</a>
+                </div>
+              {/foreach}
+
+            </div>
+          </div>
+        {/if}
+
       </div>
     </div>
 

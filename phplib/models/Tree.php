@@ -147,6 +147,18 @@ class Tree extends BaseObject implements DatedObject {
       ->find_many();
   }
 
+  function getTreesFromSameEntries() {
+    return Model::factory('Tree')
+      ->table_alias('t')
+      ->select('t.*')
+      ->distinct()
+      ->join('TreeEntry', ['te1.treeId', '=', 't.id'], 'te1')
+      ->join('TreeEntry', ['te2.entryId', '=', 'te1.entryId'], 'te2')
+      ->where('te2.treeId', $this->id)
+      ->where_not_equal('t.id', $this->id)
+      ->find_many();
+  }
+
   /**
    * Counts trees not associated with any entries.
    **/

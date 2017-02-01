@@ -3,7 +3,7 @@
     <span aria-hidden="true">&times;</span>
   </button>
 
-  <p>
+  <p class="lead">
     <strong>
       „Democrația înseamnă doi lupi și un miel care votează ce să mănânce la prânz.”
     </strong>
@@ -19,4 +19,10 @@
       <small>(timp de 8 ore)</small>
     </button>
   </p>
+
+  <p class="small">
+    * Acest mesaj este publicat cu majoritatea, dar nu cu unanimitatea echipei dexonline.
+    Unii membri ar fi preferat doar un protest în nume personal.
+  </p>
+
 </div>

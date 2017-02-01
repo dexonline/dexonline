@@ -24,6 +24,10 @@
   </head>
 
   <body>
+    {if isset($callToAction)}
+      {include $cfg.global.callToAction}
+    {/if}
+    
     <header>
       {include "bits/navmenu.tpl"}
       {include "bits/recentlyVisited.tpl"}

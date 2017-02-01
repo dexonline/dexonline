@@ -65,6 +65,12 @@ class SmartyWrap {
       self::addCss('jqueryui');
       self::addJs('jqueryui');
     }
+    if (Config::get('global.callToAction') &&
+        !isset($_COOKIE['hideCallToAction'])) { // CTA campaign active and user did not hide it
+      self::addCss('callToAction');
+      self::addJs('callToAction', 'cookie');
+      self::assign('callToAction', true);
+    }
     if (util_isModerator(PRIV_EDIT)) {
       self::addJs('hotkeys');
     }
@@ -138,6 +144,7 @@ class SmartyWrap {
         case 'tinymce':             self::$cssFiles[15] = 'tinymce.css'; break;
         case 'meaningTree':         self::$cssFiles[16] = 'meaningTree.css'; break;
         case 'editableMeaningTree': self::$cssFiles[17] = 'editableMeaningTree.css'; break;
+        case 'callToAction':        self::$cssFiles[18] = 'callToAction.css'; break;
         case 'responsive':          self::$cssFiles[100] = 'responsive.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
@@ -190,6 +197,7 @@ class SmartyWrap {
           self::$jsFiles[27] = 'third-party/jquery.hotkeys.js';
           self::$jsFiles[28] = 'hotkeys.js';
           break;
+        case 'callToAction':  self::$jsFiles[29] = 'callToAction.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           util_redirect(util_getWwwRoot());

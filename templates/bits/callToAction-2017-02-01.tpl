@@ -21,8 +21,8 @@
   </p>
 
   <p class="small">
-    * Acest mesaj este publicat cu majoritatea, dar nu cu unanimitatea echipei dexonline.
-    Unii membri ar fi preferat doar un protest în nume personal.
+    * Am oscilat între a protesta în numele echipei sau fiecare în nume personal.
+    Totuși, majoritatea a mers pe ideea acestui mesaj.
   </p>
 
 </div>

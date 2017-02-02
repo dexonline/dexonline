@@ -91,9 +91,9 @@
             <label class="col-md-2">omonime</label>
             <div class="col-md-10">
 
-              {foreach $treesFromSameEntries as $t}
+              {foreach $treesFromSameEntries as $tfse}
                 <div>
-                  <a href="editTree.php?id={$t->id}">{$t->description}</a>
+                  <a href="editTree.php?id={$tfse->id}">{$tfse->description}</a>
                 </div>
               {/foreach}
 

@@ -32,6 +32,7 @@
   <ul>
     <li><a href="http://www.scrabblero.ro/">Federația Română de Scrabble</a></li>
     <li><a href="http://www.scrabrom.3x.ro/Anascrab7.html">Anascrab</a>, un generator de anagrame de șapte litere</li>
+    <li><a href="https://play.google.com/store/apps/details?id=com.dance.findwords">Găsește cuvinte</a>, un ajutor pentru cuvinte încrucișate și scrabble</li>
   </ul>
 
   <h3>Programe care folosesc baza de date a dexonline</h3>

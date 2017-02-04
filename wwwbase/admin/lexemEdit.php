@@ -19,6 +19,7 @@ $hyphenations = Request::get('hyphenations');
 $pronunciations = Request::get('pronunciations');
 $entryIds = Request::get('entryIds', []);
 $tagIds = Request::get('tagIds', []);
+$renameRelated = Request::has('renameRelated');
 
 // Paradigm parameters
 $compound = Request::has('compound');
@@ -88,13 +89,38 @@ if ($refreshButton || $saveButton) {
       $lexem->deepSave();
       $lexem->regenerateDependentLexems();
 
+      if ($renameRelated) {
+        // Grab all the entries
+        foreach ($lexem->getEntries() as $e) {
+          if ($e->description == $original->formNoAccent) {
+            FlashMessage::add(sprintf('Am redenumit o intrare din „%s” în „%s”.',
+                                      $e->description, $lexem->formNoAccent),
+                              'warning');
+            $e->description = $lexem->formNoAccent;
+            $e->save();
+          }
+          foreach ($e->getTrees() as $t) {
+            if ($t->description == $original->formNoAccent) {
+              FlashMessage::add(sprintf('Am redenumit un arbore din „%s” în „%s”.',
+                                        $t->description, $lexem->formNoAccent),
+                                'warning');
+              $t->description = $lexem->formNoAccent;
+              $t->save();
+            }
+          }
+        }
+      }
+
       Log::notice("Saved lexem {$lexem->id} ({$lexem->formNoAccent})");
       util_redirect("lexemEdit.php?lexemId={$lexem->id}");
     }
   } else {
     // Case 2: Validation failed
   }
+
   // Case 1-2: Page was submitted
+  SmartyWrap::assign('renameRelated', $renameRelated);
+
 } else {
   // Case 3: First time loading this page
   $lexem->loadInflectedFormMap();

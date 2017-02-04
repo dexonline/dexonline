@@ -38,6 +38,8 @@ $(function() {
             
     $('.lexemEditSaveButton').click(saveEverything);
 
+    $('#lexemForm').on('change input paste', showRenameDiv);
+
     initSelect2('#sourceIds', 'ajax/getSourcesById.php', lexemSourceOptions);
 
     $('.similarLexem')
@@ -127,6 +129,10 @@ $(function() {
 
   function deleteFragment() {
     $(this).closest('.fragmentWrapper').remove();
+  }
+
+  function showRenameDiv() {
+    $('#renameDiv').removeClass('hidden');
   }
 
   init();

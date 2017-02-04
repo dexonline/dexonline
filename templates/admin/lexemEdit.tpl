@@ -3,6 +3,8 @@
 {block "title"}Editare lexem: {$lexem->form}{/block}
 
 {block "content"}
+  {$renameRelated=$renameRelated|default:false}
+
   <h3>
     Editare lexem: {$lexem->form}
     <span class="pull-right">
@@ -79,6 +81,17 @@
                        name="lexemForm"
                        value="{$lexem->form|escape}"
                        {if !$canEdit.form}readonly{/if}>
+
+                <div id="renameDiv"
+                     class="checkbox {if !$renameRelated}hidden{/if}">
+                  <label>
+                    <input type="checkbox"
+                           name="renameRelated"
+                           value="1"
+                           {if $renameRelated}checked{/if}>
+                    redenumește și intrările și arborii care au această descriere
+                  </label>
+                </div>
 
                 <div class="checkbox">
                   <label>

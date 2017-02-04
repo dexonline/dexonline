@@ -122,6 +122,22 @@ class Meaning extends BaseObject implements DatedObject {
   static function saveTree($meanings, $tree) {
     $seenMeaningIds = [];
 
+    // Keep track of meanings that have incoming mentions
+    $meaningsHavingMentions = Mention::getMeaningsHavingMentions($tree->id);
+    $meaningIdsHavingMentions = util_objectProperty($meaningsHavingMentions, 'id');
+
+    // Keep track of original reps, mapped by id.
+    // Then we can give warnings when meanings with mentions change.
+    $original = Model::factory('Meaning')
+              ->where('treeId', $tree->id)
+              ->order_by_asc('displayOrder')
+              ->find_many();
+    $map = [];
+    foreach ($original as $m) {
+      $map[$m->id] = $m;
+    }
+    $modifiedMeaningsWithMentions = [];
+
     // Keep track of the previous meaning ID at each level. This allows us
     // to populate the parentId field
     $meaningStack = [];
@@ -141,6 +157,11 @@ class Meaning extends BaseObject implements DatedObject {
       $m->save();
       $meaningStack[$tuple->level] = $m->id;
 
+      if (in_array($m->id, $meaningIdsHavingMentions) &&
+          ($map[$m->id]->internalRep != $m->internalRep)) {
+        $modifiedMeaningsWithMentions[] = $m->breadcrumb;
+      }
+
       MeaningSource::updateList(['meaningId' => $m->id], 'sourceId', $tuple->sourceIds);
       ObjectTag::wipeAndRecreate($m->id, ObjectTag::TYPE_MEANING, $tuple->tagIds);
       foreach ($tuple->relationIds as $type => $treeIds) {
@@ -152,6 +173,14 @@ class Meaning extends BaseObject implements DatedObject {
       $seenMeaningIds[] = $m->id;
     }
     self::deleteNotInSet($seenMeaningIds, $tree->id);
+
+    if (count($modifiedMeaningsWithMentions)) {
+      FlashMessage::add(sprintf('Ați modificat unele sensuri despre care există mențiuni: ' .
+                                '<strong>%s</strong> Vă rugăm să consultați lista de mențiuni ' .
+                                'ca să vă asigurați că ele sunt bine plasate.',
+                                implode(', ', $modifiedMeaningsWithMentions)),
+                        'warning');
+    }
   }
 
   /* Deletes all the meanings associated with $treeId that aren't in the $meaningIds set */

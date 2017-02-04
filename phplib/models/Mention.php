@@ -28,6 +28,18 @@ class Mention extends BaseObject implements DatedObject {
     return self::getAllByIdType($treeId, self::TYPE_TREE);
   }
 
+  // Returns an array of Meanings in this tree that have mentions
+  static function getMeaningsHavingMentions($treeId) {
+    return Model::factory('Meaning')
+      ->table_alias('m')
+      ->select('m.*')
+      ->distinct()
+      ->join('Mention', ['m.id', '=', 'ment.objectId'], 'ment')
+      ->where('ment.objectType', self::TYPE_MEANING)
+      ->where('m.treeId', $treeId)
+      ->find_many();
+  }
+
   // Get detailed tree mentions about a tree, including origin tree and meaning.
   // If $treeId is null, get detailed tree mentions about all trees.
   static function getDetailedTreeMentions($treeId = null) {

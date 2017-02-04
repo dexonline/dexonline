@@ -15,7 +15,6 @@ $where = [];
 $joins = [];
 
 // Process the $form argument
-$form = StringUtil::cleanupQuery($form);
 if ($form) {
   list ($hasDiacritics, $hasRegexp, $ignored) = StringUtil::analyzeQuery($form);
   $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';

@@ -6,15 +6,9 @@
   <div class="col-md-12">
     <form action="{$wwwRoot}search.php" name="frm" onsubmit="return searchSubmit()" id="searchForm">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12 col-sm-11">
           <div class="input-group">
-            <span class="input-group-btn">
-              <button type="button" title="căutare avansată"
-                      class="btn btn-primary" onclick="return toggle('advSearch')">
-                <span class="glyphicon glyphicon-menu-hamburger"></span>
-              </button>
-            </span>
-            <input type="text" class="form-control searchField" name="cuv" placeholder="cuvânt" value="{$cuv|escape}" maxlength="50"/>
+            <input type="text" class="form-control searchField" name="cuv" placeholder="cuvânt" id="searchField" value="{$cuv|escape}" maxlength="50"/>
             <span class="input-group-btn">
               <button type="submit" value="caută" id="searchButton" class="btn btn-primary">
                 <span class="glyphicon glyphicon-search"></span>
@@ -22,6 +16,9 @@
               </button>
             </span>
           </div>
+        </div>
+        <div class="col-sm-0 col-md-1">
+        <a href="#" id="advancedAnchor" onclick="return toggle('advSearch')" >opțiuni</a>
         </div>
       </div>
 

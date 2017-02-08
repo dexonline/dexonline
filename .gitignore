@@ -7,9 +7,6 @@ wwwbase/sitemap.xml
 wwwbase/sitemap*.xml.gz
 wwwbase/stat/sysstatgraph/data.json
 
-# Local certificate file
-cacert.pem
-
 # Other
 log/
 *.pyc

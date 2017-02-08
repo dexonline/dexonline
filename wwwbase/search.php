@@ -381,9 +381,12 @@ SmartyWrap::assign('sourceId', $sourceId);
 SmartyWrap::assign('showParadigm', $showParadigm);
 SmartyWrap::assign('locParadigm', session_user_prefers(Preferences::LOC_PARADIGM));
 SmartyWrap::assign('paradigmLink', $paradigmLink);
-SmartyWrap::assign('advancedSearch', $text || $sourceId);
 SmartyWrap::assign('allDefinitions', $all);
 SmartyWrap::assign('showWotd', $showWotd);
+if ($text || $sourceId) { 
+  // must show the advanced search menu regardless of preference
+  SmartyWrap::assign('advancedSearch', true);
+}
 
 if (!$xml) {
   SmartyWrap::addCss('paradigm');

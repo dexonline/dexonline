@@ -10,7 +10,7 @@
     </div>
   </header>
 
-  {include "bits/searchForm.tpl" advancedSearch=0}
+  {include "bits/searchForm.tpl"}
 
   {if !$suggestNoBanner && $skinVariables.banner}
     {include "bits/banner.tpl" id="mainPage"}

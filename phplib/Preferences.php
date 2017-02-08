@@ -8,6 +8,7 @@ class Preferences {
   const EXCLUDE_UNOFFICIAL = 'EXCLUDE_UNOFFICIAL';
   const SHOW_PARADIGM = 'SHOW_PARADIGM';
   const LOC_PARADIGM = 'LOC_PARADIGM';
+  const SHOW_ADVANCED = 'SHOW_ADVANCED';
 
   // Set of all customizable user preferences
   public static $allPrefs = array(
@@ -34,6 +35,10 @@ class Preferences {
     self::LOC_PARADIGM => array(
       'label' => 'Arată formele ilegale la jocul de scrabble',
       'comment' => 'La afișarea paradigmei, aceste forme flexionare vor apărea cu roșu.', 
+    ),
+    self::SHOW_ADVANCED => array(
+      'label' => 'Afișează meniul de căutare avansată în mod implicit',
+      'comment' => 'În mod implicit, meniul de căutare avansată (marcat cu \'opțiuni\') va fi afișat pe toate paginile.', 
     ),
   );
 

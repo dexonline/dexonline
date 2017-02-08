@@ -41,6 +41,12 @@ function util_initEverything() {
     SmartyWrap::display('maintenance.tpl', true);
     exit;
   }
+  util_initAdvancedSearchPreference();
+}
+
+function util_initAdvancedSearchPreference() {
+  $advancedSearch = session_user_prefers(Preferences::SHOW_ADVANCED);
+  SmartyWrap::assign('advancedSearch', $advancedSearch);
 }
 
 function util_defineRootPath() {

@@ -7,10 +7,10 @@ $id = Request::get('id');
 $saveButton = Request::has('saveButton');
 $mergeButton = Request::has('mergeButton');
 $cloneButton = Request::has('cloneButton');
+$dissociateButton = Request::has('dissociateButton');
 $createTree = Request::has('createTree');
 $delete = Request::has('delete');
 $deleteExt = Request::has('deleteExt');
-$dissociateDefinitionId = Request::get('dissociateDefinitionId');
 
 if ($id) {
   $e = Entry::get_by_id($id);
@@ -25,9 +25,12 @@ if ($id) {
   $original = Model::factory('Entry')->create();
 }
 
-if ($dissociateDefinitionId) {
-  EntryDefinition::dissociate($e->id, $dissociateDefinitionId);
-  Log::info("Dissociated lexem {$e->id} ({$e->description}) from definition {$dissociateDefinitionId}");
+if ($dissociateButton) {
+  $defIds = Request::get('dissociateDefinitionIds', []);
+  foreach ($defIds as $defId) {
+    EntryDefinition::dissociate($e->id, $defId);
+    Log::info("Dissociated entry {$e->id} ({$e->description}) from definition {$defId}");
+  }
   util_redirect("?id={$e->id}");
 }
 
@@ -68,7 +71,7 @@ if ($createTree) {
     FlashMessage::add('Nu puteți crea un arbore de sensuri înainte să salvați intrarea.');
     util_redirect(util_getWwwRoot());
   }
-  $t = Tree::createAndSave($e->description . " (NOU)");
+  $t = Tree::createAndSave($e->description);
   TreeEntry::associate($t->id, $e->id);
   FlashMessage::add("Am creat un arbore de sensuri pentru {$e->description}.", 'success');
   util_redirect("editTree.php?id={$t->id}");

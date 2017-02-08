@@ -28,8 +28,6 @@ $(function() {
     $('#defFilterSelect').click(defFilterChange);
     $('#treeFilterSelect').change(treeFilterChange);
 
-    $('.dissociateLink').click(confirmDissociateDefinition);
-
     $('button[name="delete"]').click(function() {
       return confirm('Confirmați ștergerea acestei intrări?');
     });
@@ -111,10 +109,6 @@ $(function() {
     } else {
       $('.defWrapper.structured').show('slow');
     }
-  }
-
-  function confirmDissociateDefinition() {
-    return confirm('Confirmați disocierea definiției?');
   }
 
   init();

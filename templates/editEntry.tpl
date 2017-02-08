@@ -312,47 +312,58 @@
       </div>
     </form>
 
-    {foreach $searchResults as $row}
-      {$def=$row->definition}
-      <div class="defWrapper {if $def->structured}structured{else}unstructured{/if}" id="def_{$def->id}">
-        <div data-code="0" class="rep internal hiddenRep">{$def->internalRepAbbrev|escape}</div>
-        <div data-code="1" class="rep hiddenRep">{$def->htmlRepAbbrev}</div>
-        <div data-code="2" class="rep internal hiddenRep">{$def->internalRep|escape}</div>
-        <div data-code="3" data-active class="rep">{$def->htmlRep}</div>
-        <p class="defDetails text-muted">
-          id: {$def->id}
-          | sursa: {$row->source->shortName|escape}
-          | starea: {$def->getStatusName()}
-          | <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}">editează</a>
-          | <a href="?id={$e->id}&amp;dissociateDefinitionId={$def->id}"
-               class="dissociateLink"
-               title="disociază definiția de intrare"
-               >disociază</a>
-          | <a href="#" class="toggleRepLink" title="comută între notația internă și HTML"
-               data-value="1" data-order="1" data-other-text="html">text</a>
-          | <a href="#" class="toggleRepLink" title="contractează sau expandează abrevierile"
-               data-value="1" data-order="2" data-other-text="abreviat">expandat</a>
+    <form method="post" role="form">
+      {foreach $searchResults as $row}
+        {$def=$row->definition}
+        <div class="defWrapper {if $def->structured}structured{else}unstructured{/if}" id="def_{$def->id}">
+          <div data-code="0" class="rep internal hiddenRep">{$def->internalRepAbbrev|escape}</div>
+          <div data-code="1" class="rep hiddenRep">{$def->htmlRepAbbrev}</div>
+          <div data-code="2" class="rep internal hiddenRep">{$def->internalRep|escape}</div>
+          <div data-code="3" data-active class="rep">{$def->htmlRep}</div>
+          <p class="defDetails text-muted">
+            id: {$def->id}
+            | sursa: {$row->source->shortName|escape}
+            | starea: {$def->getStatusName()}
+            | <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}">editează</a>
+            |
+            <label class="checkbox-inline">
+              <input type="checkbox" name="dissociateDefinitionIds[]" value="{$def->id}">
+              disociază
+            </label>
+            | <a href="#" class="toggleRepLink" title="comută între notația internă și HTML"
+                 data-value="1" data-order="1" data-other-text="html">text</a>
+            | <a href="#" class="toggleRepLink" title="contractează sau expandează abrevierile"
+                 data-value="1" data-order="2" data-other-text="abreviat">expandat</a>
 
-          |
-          <a href="#"
-             title="comută definiția între structurată și nestructurată"
-             >
-            <span class="toggleStructuredLink" {if !$def->structured}style="display: none"{/if}>
-              <i class="glyphicon glyphicon-ok"></i> structurată
-            </span>
-            <span class="toggleStructuredLink" {if $def->structured}style="display: none"{/if}>
-              <i class="glyphicon glyphicon-remove"></i> nestructurată
-            </span>
-          </a>
-        </p>
+            |
+            <a href="#"
+               title="comută definiția între structurată și nestructurată"
+               >
+              <span class="toggleStructuredLink" {if !$def->structured}style="display: none"{/if}>
+                <i class="glyphicon glyphicon-ok"></i> structurată
+              </span>
+              <span class="toggleStructuredLink" {if $def->structured}style="display: none"{/if}>
+                <i class="glyphicon glyphicon-remove"></i> nestructurată
+              </span>
+            </a>
+          </p>
 
-        {if $row->comment}
-          <div class="commentInternalRep">
-            Comentariu: {$row->comment->contents} -
-            <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}">{$row->commentAuthor->nick|escape}</a>
-          </div>
-        {/if}
+          {if $row->comment}
+            <div class="commentInternalRep">
+              Comentariu: {$row->comment->contents} -
+              <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}">{$row->commentAuthor->nick|escape}</a>
+            </div>
+          {/if}
+        </div>
+      {/foreach}
+
+      <div>
+        <button type="submit" class="btn btn-success" name="dissociateButton">
+          <i class="glyphicon glyphicon-resize-full"></i>
+          disociază
+        </button>
       </div>
-    {/foreach}
+
+    </form>
   {/if}
 {/block}

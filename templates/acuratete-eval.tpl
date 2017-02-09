@@ -71,6 +71,35 @@
           {$accuracyData.accuracy|string_format:"%.3f"}%
           ({$accuracyData.errorRate|string_format:"%.2f"} erori / 1.000 caractere)
         </dd>
+        <hr>
+        <form class="pull-right" method="post">
+          <input type="hidden" name="projectId" value="{$project->id}">
+
+          <button class="btn btn-default btn-xs" type="submit" name="recomputeSpeedButton">
+            <i class="glyphicon glyphicon-refresh"></i>
+            recalculează viteza
+          </button>
+        </form>
+
+        {if $project->getSpeed()}
+
+          <dt>viteză</dt>
+          <dd>
+            {$project->getSpeed()|number_format:0:',':'.'} caractere / oră
+          </dd>
+          <dt>total caractere</dt>
+          <dd>{$project->totalLength|number_format:0:',':'.'}</dd>
+          <dt>timp petrecut</dt>
+          <dd>{($project->timeSpent/3600)|string_format:"%.2f"} ore</dd>
+          <dt>definiții ignorate</dt>
+          <dd>{$project->ignoredDefinitions|number_format:0:',':'.'}</dd>
+
+        {else}
+
+          <dt>viteză</dt>
+          <dd>necunoscută</dd>
+
+        {/if}
       </dl>
     </div>
   </div>

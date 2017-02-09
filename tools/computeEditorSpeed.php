@@ -10,6 +10,8 @@ define('DEFAULT_LIMIT', 1000);
  **/
 define('SLOW_LIMIT', 0.1);
 
+db_setBuffering(false);
+
 $options = getopt('u:s::l::');
 
 if (!isset($options['u'])) {

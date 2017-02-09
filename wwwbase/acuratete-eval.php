@@ -5,13 +5,22 @@ util_assertModerator(PRIV_ADMIN);
 $projectId = Request::get('projectId');
 $saveButton = Request::has('saveButton');
 $deleteButton = Request::has('deleteButton');
+$recomputeSpeedButton = Request::has('recomputeSpeedButton');
 $defId = Request::get('defId');
 $errors = Request::get('errors');
 
+$project = AccuracyProject::get_by_id($projectId);
+
+if ($recomputeSpeedButton) {
+  $project->recomputeSpeedData();
+  $project->save();
+  FlashMessage::add('Am recalculat viteza.', 'success');
+  util_redirect("?projectId={$projectId}");
+}
+
 if ($deleteButton) {
-  $ap = AccuracyProject::get_by_id($projectId);
-  if ($ap) {
-    $ap->delete();
+  if ($project) {
+    $project->delete();
   }
   FlashMessage::add('Am șters proiectul.', 'success');
   util_redirect('acuratete');
@@ -28,8 +37,6 @@ if ($saveButton) {
   $ar->save();
   util_redirect("?projectId={$projectId}");
 }
-
-$project = AccuracyProject::get_by_id($projectId);
 
 if ($defId) {
   $def = Definition::get_by_id($defId);

@@ -12,6 +12,9 @@ class AccuracyProject extends BaseObject implements DatedObject {
     self::METHOD_RANDOM => 'Ordine aleatorie',
   ];
 
+  // Below this speed (chars/sec) we ignore a definition when computing editor speed.
+  const SLOW_LIMIT = 0.1;
+
   private $source = null;
   private $user = null;
 
@@ -45,8 +48,9 @@ class AccuracyProject extends BaseObject implements DatedObject {
     return $this->endDate && ($this->endDate != '0000-00-00');
   }
 
-  // Returns a ready-to-run idiorm query
-  function getQuery() {
+  // Returns a ready-to-run idiorm query.
+  // When $forceNewest is true, sorts definitions by newest regardless of $method.
+  function getQuery($forceNewest = false) {
     $q = Model::factory('Definition')
        ->where_in('status', [ Definition::ST_ACTIVE, Definition::ST_HIDDEN ])
        ->where('userId', $this->userId);
@@ -65,7 +69,8 @@ class AccuracyProject extends BaseObject implements DatedObject {
       $q = $q->where_lte('createDate', $ts);
     }
 
-    switch ($this->method) {
+    $method = $forceNewest ? self::METHOD_NEWEST : $this->method;
+    switch ($method) {
       case self::METHOD_NEWEST:
         $q = $q->order_by_desc('createDate');
         break;
@@ -134,6 +139,48 @@ class AccuracyProject extends BaseObject implements DatedObject {
                          : 0;
 
     return $result;
+  }
+
+  // Recomputes the total definition length and time spend
+  function recomputeSpeedData() {
+    db_setBuffering(false);
+
+    $defs = $this->getQuery(true)->find_many();
+
+    $prev = 0; // timestamp of the *next* definition in chronological order
+    $this->totalLength = 0;
+    $this->timeSpent = 0;
+    $this->ignoredDefinitions = 0;
+    foreach ($defs as $d) {
+      $ignored = true;
+      if ($prev) {
+        $time = $prev - $d->createDate;
+        if ($time) {
+          $len = mb_strlen($d->internalRep);
+          $speed = $len / $time;
+          if ($speed > self::SLOW_LIMIT) {
+            $this->totalLength += $len;
+            $this->timeSpent += $time;
+            $ignored = false;
+          }
+        }
+      }
+      if ($ignored) {
+        $this->ignoredDefinitions++;
+      }
+      $prev = $d->createDate;
+    }
+
+    db_setBuffering(true);
+  }
+
+  // returns the speed in characters / hour
+  function getSpeed() {
+    if ($this->timeSpent) {
+      return $this->totalLength * 3600 / $this->timeSpent;
+    } else {
+      return 0;
+    }
   }
 
   // Validates the project. Sets flash errors if needed. Returns true on success.

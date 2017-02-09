@@ -19,6 +19,7 @@ if ($submitButton) {
   $p->method = Request::get('method');
 
   if ($p->validate()) {
+    $p->recomputeSpeedData();
     $p->save();
     util_redirect("acuratete-eval?projectId={$p->id}");
   }

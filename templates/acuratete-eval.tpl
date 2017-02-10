@@ -8,7 +8,6 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       Definiția curentă
-      <a class="btn btn-xs btn-default pull-right" href="acuratete">înapoi la lista de proiecte</a>
     </div>
     <div class="panel-body">
 
@@ -59,17 +58,17 @@
     <div class="panel-body">
       <dl class="dl-horizontal">
         <dt>total definiții</dt>
-        <dd>{$accuracyData.defCount}</dd>
+        <dd>{$project->defCount}</dd>
         <dt>definiții evaluate</dt>
-        <dd>{$accuracyData.evalCount}</dd>
+        <dd>{$project->evalCount}</dd>
         <dt>caractere evaluate</dt>
-        <dd>{$accuracyData.evalLength}</dd>
+        <dd>{$project->evalLength}</dd>
         <dt>erori</dt>
-        <dd>{$accuracyData.errors}</dd>
+        <dd>{$project->errorCount}</dd>
         <dt>acuratețe</dt>
         <dd>
-          {$accuracyData.accuracy|string_format:"%.3f"}%
-          ({$accuracyData.errorRate|string_format:"%.2f"} erori / 1.000 caractere)
+          {$project->accuracy|string_format:"%.3f"}%
+          ({$project->errorRate|string_format:"%.2f"} erori / 1.000 caractere)
         </dd>
         <hr>
         <form class="pull-right" method="post">
@@ -140,4 +139,17 @@
     </div>
   </div>
 
+  <form method="post">
+    <input type="hidden" name="projectId" value="{$project->id}">
+
+    <a class="btn btn-default" href="acuratete">
+      <i class="glyphicon glyphicon-arrow-left"></i>
+      înapoi la lista de proiecte
+    </a>
+
+    <button class="btn btn-danger" type="submit" id="deleteButton" name="deleteButton">
+      <i class="glyphicon glyphicon-trash"></i>
+      șterge
+    </button>
+  </form>
 {/block}

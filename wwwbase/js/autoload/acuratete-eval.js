@@ -1,4 +1,8 @@
 $(function() {
+  $('#deleteButton').click(function() {
+    return confirm('Confirmați ștergerea proiectului?');
+  });
+
   $('#butDown').click(function() {
     changeValue(-1);
   });

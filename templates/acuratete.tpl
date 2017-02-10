@@ -8,24 +8,35 @@
   {if $projects}
     <div class="panel panel-default">
       <div class="panel-heading">Proiectele mele</div>
-      <div class="panel-body">
-        <form action="acuratete-eval" method="get">
-          <div class="row">
-            <div class="col-sm-9">
-              {include "bits/dropdown.tpl" name="projectId" data=$projects}
-            </div>
-            <div class="col-sm-3">
-              <button class="btn btn-primary" type="submit">
-                deschide
-              </button>
-              <button class="btn btn-danger" type="submit" id="deleteButton" name="deleteButton">
-                <i class="glyphicon glyphicon-trash"></i>
-                șterge
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+
+      <table id="projectTable" class="table">
+
+        <thead>
+          <tr>
+            <th>nume</th>
+            <th>utilizator</th>
+            <th>sursă</th>
+            <th>definiții</th>
+            <th>erori/KB</th>
+            <th>car/oră</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {foreach $projects as $proj}
+            <tr>
+              <td><a href="acuratete-eval?projectId={$proj->id}">{$proj->name}</a></td>
+              <td>{$proj->getUser()}</td>
+              <td>{$proj->getSource()->shortName}</td>
+              <td>{$proj->defCount|number_format:0:',':'.'}</td>
+              <td>{$proj->errorRate|string_format:"%.2f"}</td>
+              <td>{$proj->getSpeed()|number_format:0:',':'.'}</td>
+            </tr>
+          {/foreach}
+        </tbody>
+
+        {include "bits/pager.tpl" id="projectPager" colspan="6"}
+      </table>
     </div>
   {/if}
 

@@ -48,13 +48,12 @@ if ($defId) {
 }
 
 $defData = $project->getDefinitionData();
-$accData = $project->getAccuracyData();
+$project->computeAccuracyData();
 
 SmartyWrap::assign('project', $project);
 SmartyWrap::assign('def', $def);
 SmartyWrap::assign('errors', $errors);
 SmartyWrap::assign('definitionData', $defData);
-SmartyWrap::assign('accuracyData', $accData);
 SmartyWrap::display('acuratete-eval.tpl');
 
 ?>

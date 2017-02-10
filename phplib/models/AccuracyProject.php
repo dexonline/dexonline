@@ -18,6 +18,14 @@ class AccuracyProject extends BaseObject implements DatedObject {
   private $source = null;
   private $user = null;
 
+  // accuracy data, computed on demand
+  public $evalCount = 0;  // number of evaluated definitions
+  public $evalLength = 0; // length of evaluated definitions
+  public $errorCount = 0; // number of errors
+  public $defCount = 0;   // number of available definitions
+  public $accuracy = 0;   // fraction of correct characters expressed as percentage
+  public $errorRate = 0;  // errors per thousand characters
+
   static function getMethodNames() {
     return self::$METHOD_NAMES;
   }
@@ -108,12 +116,10 @@ class AccuracyProject extends BaseObject implements DatedObject {
   }
 
   // Returns accuracy results based on the definitions evaluated so far.
-  function getAccuracyData() {
-    $result = [
-      'evalCount' => 0,                         // number of evaluated definitions
-      'evalLength' => 0,                        // length of evaluated definitions
-      'errors' => 0,                            // number of errors
-    ];
+  function computeAccuracyData() {
+    $this->evalLength = 0;
+    $this->errorCount = 0;
+
     $data = Model::factory('Definition')
           ->table_alias('d')
           ->select_expr('char_length(d.internalRep)', 'len')
@@ -122,23 +128,16 @@ class AccuracyProject extends BaseObject implements DatedObject {
           ->where('ar.projectId', $this->id)
           ->find_many();
     foreach ($data as $row) {
-      $result['evalCount']++;
-      $result['evalLength'] += $row->len;
-      $result['errors'] += $row->errors;
+      $this->evalLength += $row->len;
+      $this->errorCount += $row->errors;
     }
 
-     // number of matching definitions
-    $result['defCount'] = $this->getQuery()->count();
-
-     // accuracy (fraction of correct characters expressed as percentage)
-    $result['accuracy'] = $result['evalLength']
-                        ? (1 - $result['errors'] / $result['evalLength']) * 100
-                        : 0;
-    $result['errorRate'] = $result['evalLength']
-                         ? $result['errors'] / $result['evalLength'] * 1000
-                         : 0;
-
-    return $result;
+    $this->evalCount = count($data);
+    $this->defCount = $this->getQuery()->count();
+    if ($this->evalLength) {
+      $this->accuracy = (1 - $this->errorCount / $this->evalLength) * 100;
+      $this->errorRate = $this->errorCount / $this->evalLength * 1000;
+    }
   }
 
   // Recomputes the total definition length and time spend

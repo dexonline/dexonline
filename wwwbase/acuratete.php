@@ -33,13 +33,14 @@ $aps = Model::factory('AccuracyProject')
 // build a map of project ID => project
 $projects = [];
 foreach ($aps as $ap) {
+  $ap->computeAccuracyData();
   $projects[$ap->id] = $ap;
 }
 
 SmartyWrap::assign('projects', $projects);
 SmartyWrap::assign('p', $p);
-SmartyWrap::addCss('admin');
-SmartyWrap::addJs('select2Dev');
+SmartyWrap::addCss('admin', 'tablesorter');
+SmartyWrap::addJs('select2Dev', 'tablesorter');
 SmartyWrap::display('acuratete.tpl');
 
 ?>

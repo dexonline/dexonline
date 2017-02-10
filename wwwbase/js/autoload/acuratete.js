@@ -5,7 +5,17 @@ $(function() {
     placeholder: 'alegeți un utilizator',
   });
 
-  $('#deleteButton').click(function() {
-    return confirm('Confirmați ștergerea proiectului?');
+  $("#projectTable").tablesorter({
+    headerTemplate: '{content} {icon}',
+    sortInitialOrder: 'asc',
+    theme: 'bootstrap',
+    widgets : [ "uitheme" ],
   });
+  
+  $('#projectTable').tablesorterPager({
+    container: $("#projectPager"),
+    output: '{page}/{totalPages}',
+    size: 15,
+  });
+
 });

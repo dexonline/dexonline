@@ -28,6 +28,7 @@
   {/if}
 
   {include "bits/definition.tpl"
+  i=$i
   showBookmark=1
   showCourtesyLink=1
   showFlagTypo=1

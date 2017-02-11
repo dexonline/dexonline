@@ -1,4 +1,5 @@
 {$showBookmark=$showBookmark|default:false}
+{$showRemoveBookmark=$showRemoveBookmark|default:false}
 {$showCourtesyLink=$showCourtesyLink|default:false}
 {$showDate=$showDate|default:false}
 {$showDeleteLink=$showDeleteLink|default:false}
@@ -14,7 +15,12 @@
 {$showUser=$showUser|default:true}
 {$showWotd=$showWotd|default:false}
 
-{$def=$row->definition}
+{* the second case is for the favorites list *}
+{if isset($row->definition)}
+  {$def=$row->definition}
+{else}
+  {$def=$row}
+{/if}
 
 <div class="defWrapper">
   <p class="def" title="Clic pentru a naviga la acest cuvânt">
@@ -165,6 +171,16 @@
                   </li>
                 {/if}
               {/if}
+            {/if}
+
+            {if $showRemoveBookmark}
+              <li>
+                <a class="bookmarkRemoveButton"
+                   href="{$wwwRoot}ajax/bookmarkRemove.php?definitionId={$def->definitionId}">
+                  <i class="glyphicon glyphicon-heart"></i>
+                  <span>șterge de la favorite</span>
+                </a>
+              </li>
             {/if}
 
             {if $showPermalink}

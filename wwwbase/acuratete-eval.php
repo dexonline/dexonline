@@ -11,6 +11,16 @@ $errors = Request::get('errors');
 
 $project = AccuracyProject::get_by_id($projectId);
 
+if (!$project) {
+  FlashMessage::add('Proiectul nu există.', 'danger');
+  util_redirect('index.php');
+}
+
+if (session_getUserId() != $project->ownerId) {
+  FlashMessage::add('Proiectul nu vă aparține.', 'danger');
+  util_redirect('index.php');
+}
+
 if ($recomputeSpeedButton) {
   $project->recomputeSpeedData();
   $project->save();

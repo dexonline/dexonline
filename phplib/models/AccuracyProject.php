@@ -16,6 +16,7 @@ class AccuracyProject extends BaseObject implements DatedObject {
   const SLOW_LIMIT = 0.1;
 
   private $source = null;
+  private $owner = null;
   private $user = null;
 
   // accuracy data, computed on demand
@@ -46,6 +47,13 @@ class AccuracyProject extends BaseObject implements DatedObject {
       $this->user = User::get_by_id($this->userId);
     }
     return $this->user;
+  }
+
+  function getOwner() {
+    if ($this->owner === null) {
+      $this->owner = User::get_by_id($this->ownerId);
+    }
+    return $this->owner;
   }
 
   function hasStartDate() {

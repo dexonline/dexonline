@@ -2,6 +2,7 @@
 require_once("../phplib/util.php");
 util_assertModerator(PRIV_ADMIN);
 
+$includePublic = Request::has('includePublic');
 $submitButton = Request::has('submitButton');
 $id = Request::get('id');
 
@@ -26,8 +27,13 @@ if ($submitButton) {
   }
 }
 
+$criteria = [ ['ownerId' => $user->id] ];
+if ($includePublic) {
+  $criteria[] = ['public' => true];
+}
+
 $aps = Model::factory('AccuracyProject')
-  ->where('ownerId', $user->id)
+  ->where_any_is($criteria)
   ->order_by_asc('name')
   ->find_many();
 
@@ -40,6 +46,7 @@ foreach ($aps as $ap) {
 
 SmartyWrap::assign('projects', $projects);
 SmartyWrap::assign('p', $p);
+SmartyWrap::assign('includePublic', $includePublic);
 SmartyWrap::addCss('admin', 'tablesorter');
 SmartyWrap::addJs('select2Dev', 'tablesorter');
 SmartyWrap::display('acuratete.tpl');

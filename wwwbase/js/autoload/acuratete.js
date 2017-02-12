@@ -18,4 +18,12 @@ $(function() {
     size: 15,
   });
 
+  $('#includePublic').change(function() {
+    if ($(this).prop('checked')) {
+      window.location = 'acuratete?includePublic=1';
+    } else {
+      window.location = 'acuratete';
+    }
+  });
+
 });

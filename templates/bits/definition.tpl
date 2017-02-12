@@ -15,12 +15,7 @@
 {$showUser=$showUser|default:true}
 {$showWotd=$showWotd|default:false}
 
-{* the second case is for the favorites list *}
-{if isset($row->definition)}
-  {$def=$row->definition}
-{else}
-  {$def=$row}
-{/if}
+{$def=$row->definition}
 
 <div class="defWrapper">
   <p class="def" title="Clic pentru a naviga la acest cuvânt">
@@ -177,7 +172,7 @@
               <li>
                 <a class="bookmarkRemoveButton"
                    href="{$wwwRoot}ajax/bookmarkRemove.php?definitionId={$def->definitionId}">
-                  <i class="glyphicon glyphicon-heart"></i>
+                  <i class="glyphicon glyphicon-remove"></i>
                   <span>șterge de la favorite</span>
                 </a>
               </li>

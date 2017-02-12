@@ -55,8 +55,8 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">Raport de acuratețe</div>
-    <div class="panel-body">
-      <dl class="dl-horizontal">
+    <div class="panel-body row">
+      <dl class="dl-horizontal col-md-6">
         <dt>total definiții</dt>
         <dd>{$project->defCount}</dd>
         <dt>definiții evaluate</dt>
@@ -70,7 +70,10 @@
           {$project->accuracy|string_format:"%.3f"}%
           ({$project->errorRate|string_format:"%.2f"} erori / 1.000 caractere)
         </dd>
-        <hr>
+      </dl>
+
+      <dl class="dl-horizontal col-md-6">
+
         <form class="pull-right" method="post">
           <input type="hidden" name="projectId" value="{$project->id}">
 

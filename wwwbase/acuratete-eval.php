@@ -40,6 +40,7 @@ if ($deleteButton) {
 if ($editProjectButton) {
   $project->name = Request::get('name');
   $project->method = Request::get('method');
+  $project->public = Request::has('public');
   if ($project->validate()) {
     $project->save();
     FlashMessage::add('Am actualizat datele.', 'success');

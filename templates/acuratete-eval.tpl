@@ -141,6 +141,20 @@
           </div>
 
           <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"
+                         name="public"
+                         {if $project->public}checked{/if}
+                         value="1">
+                  public pentru alți moderatori
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
 
             <div>
               <label class="col-sm-2 control-label">utilizator</label>

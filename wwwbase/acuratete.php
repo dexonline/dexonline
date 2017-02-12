@@ -2,7 +2,7 @@
 require_once("../phplib/util.php");
 util_assertModerator(PRIV_ADMIN);
 
-$submitButton = Request::get('submitButton');
+$submitButton = Request::has('submitButton');
 $id = Request::get('id');
 
 $user = session_getUser();
@@ -17,6 +17,7 @@ if ($submitButton) {
   $p->startDate = Request::get('startDate');
   $p->endDate = Request::get('endDate');
   $p->method = Request::get('method');
+  $p->public = Request::has('public');
 
   if ($p->validate()) {
     $p->recomputeSpeedData();

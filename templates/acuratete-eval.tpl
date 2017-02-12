@@ -103,28 +103,96 @@
     </div>
   </div>
   <div class="panel panel-default">
-    <div class="panel-heading">Detalii despre proiect</div>
-    <div class="panel-body">
+    <div class="panel-heading">
+      <a class="collapsed"
+         data-toggle="collapse"
+         href="#editPanel">
+        <i class="pull-right glyphicon glyphicon-chevron-down"></i>
+        Editează proiectul
+      </a>
+    </div>
 
-      <dl class="dl-horizontal">
-        <dt>utilizator</dt>
-        <dd>{$project->getUser()->nick}</dd>
-        {if $project->sourceId}
-          <dt>sursă</dt>
-          <dd>{$project->getSource()->shortName}</dd>
-        {/if}
-        {if $project->hasStartDate()}
-          <dt>dată de început</dt>
-          <dd>{$project->startDate}</dd>
-        {/if}
-        {if $project->hasEndDate()}
-          <dt>dată de sfârșit</dt>
-          <dd>{$project->endDate}</dd>
-        {/if}
-        <dt>metodă</dt>
-        <dd>{$project->getMethodName()}</dd>
-      </dl>
+    <div id="editPanel" class="panel-collapse collapse">
+      <div class="panel-body">
 
+        <form class="form-horizontal" method="post">
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">nume</label>
+            <div class="col-sm-10">
+              <input type="text"
+                     class="form-control"
+                     name="name"
+                     value="{$project->name}">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">metodă</label>
+            <div class="col-sm-10">
+              {include "bits/dropdown.tpl"
+              name="method"
+              data=AccuracyProject::getMethodNames()
+              selected=$project->method}
+            </div>
+          </div>
+
+          <div class="form-group">
+
+            <div>
+              <label class="col-sm-2 control-label">utilizator</label>
+              <div class="col-sm-10">
+                <p class="form-control-static">
+                  {$project->getUser()->nick}
+                </p>
+              </div>
+            </div>
+
+            {if $project->sourceId}
+              <div>
+                <label class="col-sm-2 control-label">sursă</label>
+                <div class="col-sm-10">
+                  <p class="form-control-static">
+                    {$project->getSource()->shortName}
+                  </p>
+                </div>
+              </div>
+            {/if}
+
+            {if $project->hasStartDate()}
+              <div>
+                <label class="col-sm-2 control-label">dată de început</label>
+                <div class="col-sm-10">
+                  <p class="form-control-static">
+                    {$project->startDate}
+                  </p>
+                </div>
+              </div>
+            {/if}
+
+            {if $project->hasEndDate()}
+              <div>
+                <label class="col-sm-2 control-label">dată de sfârșit</label>
+                <div class="col-sm-10">
+                  <p class="form-control-static">
+                    {$project->endDate}
+                  </p>
+                </div>
+              </div>
+            {/if}
+
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+              <button class="btn btn-success" type="submit" name="editProjectButton">
+                actualizează
+              </button>
+            </div>
+          </div>
+        </form>
+
+      </div>
     </div>
   </div>
 

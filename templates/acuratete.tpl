@@ -27,7 +27,7 @@
             <tr>
               <td><a href="acuratete-eval?projectId={$proj->id}">{$proj->name}</a></td>
               <td>{$proj->getUser()}</td>
-              <td>{$proj->getSource()->shortName}</td>
+              <td>{$proj->getSource()->shortName|default:'&mdash;'}</td>
               <td>{$proj->defCount|number_format:0:',':'.'}</td>
               <td>{$proj->errorRate|string_format:"%.2f"}</td>
               <td>{$proj->getSpeed()|number_format:0:',':'.'}</td>

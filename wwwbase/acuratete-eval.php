@@ -6,6 +6,7 @@ $projectId = Request::get('projectId');
 $saveButton = Request::has('saveButton');
 $deleteButton = Request::has('deleteButton');
 $recomputeSpeedButton = Request::has('recomputeSpeedButton');
+$editProjectButton = Request::has('editProjectButton');
 $defId = Request::get('defId');
 $errors = Request::get('errors');
 
@@ -34,6 +35,16 @@ if ($deleteButton) {
   }
   FlashMessage::add('Am șters proiectul.', 'success');
   util_redirect('acuratete');
+}
+
+if ($editProjectButton) {
+  $project->name = Request::get('name');
+  $project->method = Request::get('method');
+  if ($project->validate()) {
+    $project->save();
+    FlashMessage::add('Am actualizat datele.', 'success');
+    util_redirect("?projectId={$projectId}");
+  }
 }
 
 if ($saveButton) {

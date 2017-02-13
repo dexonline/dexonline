@@ -11,10 +11,10 @@ if (!$userId) {
   $response['url'] = 'login';
 
   echo json_encode($response);
-  exit();
+  exit;
 }
 
-$bookmarks = UserWordBookmarkDisplayObject::getByUser($userId);
+$bookmarks = UserWordBookmark::get_all_by_userId($userId);
 if (count($bookmarks) < Config::get('global.maxBookmarks')) {
   $existing = Model::factory('UserWordBookmark')
             ->where('userId', $userId)

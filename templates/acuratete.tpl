@@ -5,54 +5,52 @@
 {block "content"}
   <h3>Verificarea acurateței</h3>
 
-  {if $projects}
-    <div class="panel panel-default">
-      <div class="panel-heading">Proiectele mele</div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Proiectele mele</div>
 
-      <div class="panel-body">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"
-                   id="includePublic"
-                   {if $includePublic}checked{/if}
-                   value="1">
-            include proiectele publice ale altor moderatori
-          </label>
-        </div>
+    <div class="panel-body">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"
+                 id="includePublic"
+                 {if $includePublic}checked{/if}
+                 value="1">
+          include proiectele publice ale altor moderatori
+        </label>
       </div>
-
-      <table id="projectTable" class="table">
-
-        <thead>
-          <tr>
-            <th>nume</th>
-            <th>autor proiect</th>
-            <th>editor</th>
-            <th>sursă</th>
-            <th>definiții</th>
-            <th>erori/KB</th>
-            <th>car/oră</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {foreach $projects as $proj}
-            <tr>
-              <td><a href="acuratete-eval?projectId={$proj->id}">{$proj->name}</a></td>
-              <td>{$proj->getOwner()}</td>
-              <td>{$proj->getUser()}</td>
-              <td>{$proj->getSource()->shortName|default:'&mdash;'}</td>
-              <td>{$proj->defCount|number_format:0:',':'.'}</td>
-              <td>{$proj->errorRate|string_format:"%.2f"}</td>
-              <td>{$proj->getSpeed()|number_format:0:',':'.'}</td>
-            </tr>
-          {/foreach}
-        </tbody>
-
-        {include "bits/pager.tpl" id="projectPager" colspan="7"}
-      </table>
     </div>
-  {/if}
+
+    <table id="projectTable" class="table">
+
+      <thead>
+        <tr>
+          <th>nume</th>
+          <th>autor proiect</th>
+          <th>editor</th>
+          <th>sursă</th>
+          <th>definiții</th>
+          <th>erori/KB</th>
+          <th>car/oră</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {foreach $projects as $proj}
+          <tr>
+            <td><a href="acuratete-eval?projectId={$proj->id}">{$proj->name}</a></td>
+            <td>{$proj->getOwner()}</td>
+            <td>{$proj->getUser()}</td>
+            <td>{$proj->getSource()->shortName|default:'&mdash;'}</td>
+            <td>{$proj->defCount|number_format:0:',':'.'}</td>
+            <td>{$proj->errorRate|string_format:"%.2f"}</td>
+            <td>{$proj->getSpeed()|number_format:0:',':'.'}</td>
+          </tr>
+        {/foreach}
+      </tbody>
+
+      {include "bits/pager.tpl" id="projectPager" colspan="7"}
+    </table>
+  </div>
 
   <div class="panel panel-default">
     <div class="panel-heading">Creează un proiect nou</div>

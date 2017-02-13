@@ -1,5 +1,6 @@
-{assign var="selected" value=$selected|default:null}
-<select class="form-control" name="{$name}">
+{$selected=$selected|default:null}
+{$disabled=$disabled|default:false}
+<select class="form-control" name="{$name}" {if $disabled}disabled{/if}>
   {foreach $data as $key => $value}
     <option value="{$key}" {if $key == $selected}selected{/if}>
       {$value}

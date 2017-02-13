@@ -17,8 +17,10 @@ if (!$project) {
   util_redirect('index.php');
 }
 
-if (session_getUserId() != $project->ownerId) {
-  FlashMessage::add('Proiectul nu vă aparține.', 'danger');
+$mine = session_getUserId() == $project->ownerId;
+
+if (!$project->public && !$mine) {
+  FlashMessage::add('Proiectul nu vă aparține și nu este public.', 'danger');
   util_redirect('index.php');
 }
 
@@ -64,8 +66,11 @@ if ($defId) {
   $def = Definition::get_by_id($defId);
   $ar = AccuracyRecord::get_by_projectId_definitionId($projectId, $defId);
   $errors = $ar->errors;
-} else {
+} else if ($mine) {
   $def = $project->getDefinition();
+  $errors = 0;
+} else {
+  $def = null;
   $errors = 0;
 }
 
@@ -73,6 +78,7 @@ $defData = $project->getDefinitionData();
 $project->computeAccuracyData();
 
 SmartyWrap::assign('project', $project);
+SmartyWrap::assign('mine', $mine);
 SmartyWrap::assign('def', $def);
 SmartyWrap::assign('errors', $errors);
 SmartyWrap::assign('definitionData', $defData);

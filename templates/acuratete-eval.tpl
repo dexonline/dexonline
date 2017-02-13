@@ -5,53 +5,60 @@
 {block "content"}
   <h3>Proiect de verificare a acurateței - {$project->name}</h3>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      Definiția curentă
-    </div>
-    <div class="panel-body">
-
-      <form class="form-inline" method="post">
-        {if $def}
-          <input type="hidden" name="defId" value="{$def->id}">
-        {/if}
-        <input type="hidden" name="projectId" value="{$project->id}">
-
-        <button id="butDown" type="button" class="btn btn-default">&ndash;</button>
-        <input class="form-control" id="errors" type="number" name="errors" value="{$errors}" min="0" max="999">
-        <button id="butUp" type="button" class="btn btn-default">+</button>
-
-        <button class="btn btn-success" type="submit" name="saveButton">
-          <i class="glyphicon glyphicon-floppy-disk"></i>
-          <u>s</u>alvează și preia următoarea
-        </button>
-
-        {if $def}
-          <a class="btn btn-default" href="admin/definitionEdit.php?definitionId={$def->id}">
-            <i class="glyphicon glyphicon-pencil"></i>
-            editează definiția
-          </a>
-        {/if}
-      </form>
-
-      <br />
-
-      <div class="well">
-        {if $def}
-          <p>
-            {$def->internalRep}
-          </p>
-
-          <p>
-            {$def->htmlRep}
-          </p>
-        {else}
-          Nu mai există definiții de evaluat. Dumneavoastră sau alt evaluator le-ați evaluat pe toate.
+  {if $def}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Definiția curentă
+        {if !$mine}
+          ({$errors} erori)
         {/if}
       </div>
+      <div class="panel-body">
 
+        {if $mine}
+          <form class="form-inline" method="post">
+            {if $def}
+              <input type="hidden" name="defId" value="{$def->id}">
+            {/if}
+            <input type="hidden" name="projectId" value="{$project->id}">
+
+            <button id="butDown" type="button" class="btn btn-default">&ndash;</button>
+            <input class="form-control" id="errors" type="number" name="errors" value="{$errors}" min="0" max="999">
+            <button id="butUp" type="button" class="btn btn-default">+</button>
+
+            <button class="btn btn-success" type="submit" name="saveButton">
+              <i class="glyphicon glyphicon-floppy-disk"></i>
+              <u>s</u>alvează și preia următoarea
+            </button>
+
+            {if $def}
+              <a class="btn btn-default" href="admin/definitionEdit.php?definitionId={$def->id}">
+                <i class="glyphicon glyphicon-pencil"></i>
+                editează definiția
+              </a>
+            {/if}
+          </form>
+          <br />
+        {/if}
+
+        <div class="well">
+          {if $def}
+            <p>
+              {$def->internalRep}
+            </p>
+
+            <p>
+              {$def->htmlRep}
+            </p>
+          {else}
+            Nu mai există definiții de evaluat. Dumneavoastră sau alt evaluator le-ați evaluat
+            pe toate.
+          {/if}
+        </div>
+
+      </div>
     </div>
-  </div>
+  {/if}
 
   <div class="panel panel-default">
     <div class="panel-heading">Raport de acuratețe</div>
@@ -74,14 +81,16 @@
 
       <dl class="dl-horizontal col-md-6">
 
-        <form class="pull-right" method="post">
-          <input type="hidden" name="projectId" value="{$project->id}">
+        {if $mine}
+          <form class="pull-right" method="post">
+            <input type="hidden" name="projectId" value="{$project->id}">
 
-          <button class="btn btn-default btn-xs" type="submit" name="recomputeSpeedButton">
-            <i class="glyphicon glyphicon-refresh"></i>
-            recalculează viteza
-          </button>
-        </form>
+            <button class="btn btn-default btn-xs" type="submit" name="recomputeSpeedButton">
+              <i class="glyphicon glyphicon-refresh"></i>
+              recalculează viteza
+            </button>
+          </form>
+        {/if}
 
         {if $project->getSpeed()}
 
@@ -111,7 +120,11 @@
          data-toggle="collapse"
          href="#editPanel">
         <i class="pull-right glyphicon glyphicon-chevron-down"></i>
-        Editează proiectul
+        {if $mine}
+          Editează proiectul
+        {else}
+          Detalii despre proiect
+        {/if}
       </a>
     </div>
 
@@ -126,7 +139,8 @@
               <input type="text"
                      class="form-control"
                      name="name"
-                     value="{$project->name}">
+                     value="{$project->name}"
+                     {if !$mine}disabled{/if}>
             </div>
           </div>
 
@@ -136,7 +150,8 @@
               {include "bits/dropdown.tpl"
               name="method"
               data=AccuracyProject::getMethodNames()
-              selected=$project->method}
+              selected=$project->method
+              disabled=!$mine}
             </div>
           </div>
 
@@ -147,6 +162,7 @@
                   <input type="checkbox"
                          name="public"
                          {if $project->public}checked{/if}
+                         {if !$mine}disabled{/if}
                          value="1">
                   public pentru alți moderatori
                 </label>
@@ -200,13 +216,15 @@
 
           </div>
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-8">
-              <button class="btn btn-success" type="submit" name="editProjectButton">
-                actualizează
-              </button>
+          {if $mine}
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-8">
+                <button class="btn btn-success" type="submit" name="editProjectButton">
+                  actualizează
+                </button>
+              </div>
             </div>
-          </div>
+          {/if}
         </form>
 
       </div>

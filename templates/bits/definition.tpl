@@ -1,4 +1,5 @@
 {$showBookmark=$showBookmark|default:false}
+{$showRemoveBookmark=$showRemoveBookmark|default:false}
 {$showCourtesyLink=$showCourtesyLink|default:false}
 {$showDate=$showDate|default:false}
 {$showDeleteLink=$showDeleteLink|default:false}
@@ -165,6 +166,16 @@
                   </li>
                 {/if}
               {/if}
+            {/if}
+
+            {if $showRemoveBookmark}
+              <li>
+                <a class="bookmarkRemoveButton"
+                   href="{$wwwRoot}ajax/bookmarkRemove.php?definitionId={$def->definitionId}">
+                  <i class="glyphicon glyphicon-remove"></i>
+                  <span>șterge de la favorite</span>
+                </a>
+              </li>
             {/if}
 
             {if $showPermalink}

@@ -331,8 +331,8 @@ $(function() {
   }
 
   function removeBookmarkSuccess(anchor) {
-    var idx = anchor.parent().data('idx');
-    var favDefsParent = anchor.closest('.favoriteDefs');
+    var favDefsParent = anchor.closest('.favoriteDef');
+    var idx = favDefsParent.data('idx');
 
     // get all elements with matching data-dev
     var favDef = $('[data-idx="' + idx + '"]');
@@ -344,7 +344,7 @@ $(function() {
       // update favorites index
       // placed in the fadeout callback so the deleted items
       // will be removed from the dom before the length assertion
-      var favDefs = favDefsParent.children('dt');
+      var favDefs = favDefsParent.children('dd');
       if (favDefs.length > 0) {
         favDefs.each(function(idx, elem){
           var fav = $(elem);

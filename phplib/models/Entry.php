@@ -160,6 +160,18 @@ class Entry extends BaseObject implements DatedObject {
     return $entries;
   }
 
+  // Returns the first main lexeme (or the first lexeme if none of them are main).
+  function getMainLexem() {
+    return Model::factory('Lexem')
+      ->table_alias('l')
+      ->select('l.*')
+      ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+      ->where('el.entryId', $this->id)
+      ->order_by_desc('l.main')
+      ->order_by_asc('el.id')
+      ->find_one();
+  }
+
   /**
    * Validates an entry for correctness. Returns an array of { field => array of errors }.
    * $original: the original, unmodified entry

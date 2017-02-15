@@ -223,13 +223,15 @@ if ($searchType == SEARCH_INFLECTED) {
     }
   }
 
-  // Convenience redirect when there is only one correct form. We want all pages to be canonical.
-  if ((count($entries) == 1) && ($cuv != $entries[0]->getShortDescription())) {
-    $sourcePart = $source ? "-{$source->urlName}" : '';
-    session_setVariable('redirect', true);
-    session_setVariable('init_word', $cuv);
-    util_redirect(util_getWwwRoot() .
-                  "definitie{$sourcePart}/{$entries[0]->getShortDescription()}");
+  if (count($entries) == 1) {
+    // Convenience redirect when there is only one correct form. We want all pages to be canonical.
+    $l = $entries[0]->getMainLexem();
+    if ($cuv != $l->formNoAccent) {
+      $sourcePart = $source ? "-{$source->urlName}" : '';
+      session_setVariable('redirect', true);
+      session_setVariable('init_word', $cuv);
+      util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$l->formNoAccent}");
+    }
   }
 }
 

@@ -88,14 +88,16 @@
 
             {include "search/trees.tpl"}
 
-            <h3>
-              {include "bits/count.tpl"
-              displayed=count($results)
-              none="Nicio definiție"
-              one="O definiție"
-              many="definiții"
-              common=""}
-            </h3>
+            {if count($results)}
+              <h3>
+                {include "bits/count.tpl"
+                displayed=count($results)
+                none=""
+                one="O definiție"
+                many="definiții"
+                common=""}
+              </h3>
+            {/if}
           {else}
 
             <h3>
@@ -172,15 +174,17 @@
 
         {* another <h3> for the definition list, if needed *}
         {if count($trees) || (count($entries) > 1)}
-          <h3>
-            {include "bits/count.tpl"
-            displayed=count($results)
-            total=$extra.numDefinitions
-            none="Nicio definiție"
-            one="O definiție"
-            many="definiții"
-            common=""}
-          </h3>
+          {if count($results)}
+            <h3>
+              {include "bits/count.tpl"
+              displayed=count($results)
+              total=$extra.numDefinitions
+              none=""
+              one="O definiție"
+              many="definiții"
+              common=""}
+            </h3>
+          {/if}
         {/if}
 
         {include "search/missingDefinitionWarnings.tpl"}
@@ -244,7 +248,10 @@
         {/foreach}
 
         {if $hasUnrecommendedForms}
-          <div class="notRecommendedLegend">* Formă nerecomandată sau greșită – <span class="notRecommendedShowHide">(arată)</span></span></div>
+          <div class="notRecommendedLegend">
+            * Formă nerecomandată sau greșită –
+            <span class="notRecommendedShowHide">(arată)</span>
+          </div>
         {/if}
 
         <div>

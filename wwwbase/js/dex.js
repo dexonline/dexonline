@@ -4,7 +4,7 @@ var nonLetter = '[^' + Alphabet + ']';
 var wwwRoot = getWwwRoot();
 
 $(function() {
-  $('p.def').click(searchClickedWord);
+  $('.def').click(searchClickedWord);
   $('#typoModal').on('shown.bs.modal', shownTypoModal);
 
   $('.searchField').select();

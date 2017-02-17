@@ -19,7 +19,7 @@
               <span class="bc">{$t.meaning->breadcrumb}</span>
               <span class="typeName">{$t.meaning->getDisplayTypeName()}</span>
             {/if}
-            <span class="htmlRep {$t.meaning->getCssClass()}">{$t.meaning->htmlRep}</span>
+            <span class="def htmlRep {$t.meaning->getCssClass()}">{$t.meaning->htmlRep}</span>
           </div>
 
           <div class="defDetails"">

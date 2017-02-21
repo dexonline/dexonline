@@ -73,7 +73,7 @@ UPDATE Source SET sourceTypeId = 1, managerId = NULL, importType = 0, reformId =
 UPDATE Source SET sourceTypeId = 2, managerId = NULL, importType = 0, reformId = 7 WHERE id = 18; # DOOM
 UPDATE Source SET sourceTypeId = 2, managerId = 471, importType = 0, reformId = 1 WHERE id = 19; # DOOM 2
 UPDATE Source SET sourceTypeId = 1, managerId = NULL, importType = 0, reformId = 1 WHERE id = 20; # MDA
-UPDATE Source SET sourceTypeId = 1, managerId = N471, importType = 3, reformId = 3 WHERE id = 21; # MDN 00
+UPDATE Source SET sourceTypeId = 1, managerId = 471, importType = 3, reformId = 3 WHERE id = 21; # MDN 00
 UPDATE Source SET sourceTypeId = 5, managerId = NULL, importType = 0, reformId = 1 WHERE id = 22; # Neoficial
 UPDATE Source SET sourceTypeId = 1, managerId = NULL, importType = 0, reformId = 7 WHERE id = 23; # DLRLV
 UPDATE Source SET sourceTypeId = 1, managerId = NULL, importType = 0, reformId = 7 WHERE id = 24; # DLRLC

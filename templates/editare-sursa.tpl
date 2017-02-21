@@ -59,6 +59,58 @@
         </div>
 
         <div class="form-group">
+          <label>Tipul sursei</label>
+          <select class="form-control" name="sourceTypeId">
+            <option>Fără categorie</option>
+            {foreach $sourceTypes as $type}
+              <option value="{$type->id}" {if $src->sourceTypeId == $type->id}selected{/if}>
+                {$type->name}
+              </option>
+            {/foreach}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Managerul dicționarului</label>
+          <select class="form-control" name="managerId">
+            <option>Fără moderator</option>
+            {foreach $managers as $manager}
+              <option value="{$manager->id}" {if $src->managerId == $manager->id}selected{/if}>
+                {$manager->name}
+              </option>
+            {/foreach}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Tipul importului</label>
+          <select class="form-control" name="importType">
+            {foreach Source::$IMPORT_TYPE_LABELS as $importType => $label}
+              <option value="{$importType}" {if $src->importType == $importType}selected{/if}>
+                {$label}
+              </option>
+            {/foreach}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Reforma ortografică</label>
+          <select class="form-control" name="reformId">
+            <option>Fără categorie</option>
+            {foreach $reforms as $reform}
+              <option value="{$reform->id}" {if $src->reformId == $reform->id}selected{/if}>
+                {$reform->name}
+              </option>
+            {/foreach}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Notă</label>
+          <input type="text" name="year" value="{$src->remark}" class="form-control" />
+        </div>
+
+        <div class="form-group">
           <label>Legătura către formatul scanat</label>
           <input type="text" name="link" value="{$src->link}" class="form-control" />
         </div>
@@ -78,7 +130,7 @@
         </div>
 
         <div class="form-group">
-          <label>Tip:</label>
+          <label>Tip</label>
           <select class="form-control" name="type">
             {foreach Source::$TYPE_NAMES as $type => $name}
               <option value="{$type}" {if $src->type == $type}selected{/if}>

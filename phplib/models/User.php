@@ -16,6 +16,7 @@ class User extends BaseObject {
       ->order_by_asc('nick')
       ->find_many();
   }
+
 }
 
 ?>

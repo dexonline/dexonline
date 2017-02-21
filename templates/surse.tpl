@@ -48,6 +48,16 @@
                       Editură: {$s->publisher}<br/>
                       Anul apariției: {$s->year}<br/>
                       Tipul: {$s->getTypeName()}
+                      {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
+                        {if $s->importType}
+                      <br/>
+                      Import {$s->getImportTypeLabel()}
+                        {/if}
+                        {if $s->managerId}
+                      <br/>
+                      Manager: {User::getField('name', $s->managerId)}
+                        {/if}
+                      {/if}
                     </div>
                   </div>
                 </span>

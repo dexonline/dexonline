@@ -13,6 +13,11 @@ if ($saveButton) {
   $src->author = Request::get('author');
   $src->publisher = Request::get('publisher');
   $src->year = Request::get('year');
+  $src->sourceTypeId = Request::get('sourceTypeId');
+  $src->managerId = Request::get('managerId');
+  $src->importType = Request::get('importType');
+  $src->reformId = Request::get('reformId');
+  $src->remark = Request::get('remark');
   $src->link = Request::get('link');
   $src->courtesyLink = Request::get('courtesyLink');
   $src->courtesyText = Request::get('courtesyText');
@@ -37,6 +42,9 @@ if ($saveButton) {
 }
 
 SmartyWrap::assign('src', $src);
+SmartyWrap::assign("managers", Model::factory('User')->where_raw('moderator & 4')->order_by_asc('id')->find_many());
+SmartyWrap::assign("sourceTypes", Model::factory('SourceType')->order_by_asc('id')->find_many());
+SmartyWrap::assign("reforms", Model::factory('OrthographicReforms')->order_by_asc('id')->find_many());
 SmartyWrap::display('editare-sursa.tpl');
 
 /**

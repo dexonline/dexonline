@@ -120,6 +120,14 @@ class BaseObject extends Model {
     }
     return $clone;
   }
+
+  static function getField ($colname, $id) {
+    $result = Model::factory('User')
+        ->select_many($colname)
+        ->find_one($id);
+    return $result->$colname;
+  }
+
 }
 
 ?>

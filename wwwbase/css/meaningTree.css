@@ -57,14 +57,15 @@
 }
 
 .meaningTree .label-tag {
-  background: #fcece3;
-  color: #444;
+  background: #1e83c2;
+  color: white;
   font-weight: normal;
 }
 
 .meaningTree .label-source {
-  background: #fdf7c7;
+  background: #eee;
   color: #444;
+  cursor: help;
   font-weight: normal;
 }
 
@@ -111,10 +112,13 @@
   padding-top: 25px;
 }
 
-.primaryMeaning .bc,
-.primaryMeaning .meaningBody {
+.primaryMeaning .bc {
   font-size: 18px;
   font-weight: bold;
+}
+
+.primaryMeaning .meaningBody {
+  font-size: 18px;
 }
 
 .secondaryMeaning .bc,

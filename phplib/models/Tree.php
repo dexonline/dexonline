@@ -102,6 +102,7 @@ class Tree extends BaseObject implements DatedObject {
                      'sources' => MeaningSource::loadSourcesByMeaningId($meaningId),
                      'tags' => Tag::loadByMeaningId($meaningId),
                      'relations' => Relation::loadByMeaningId($meaningId),
+                     'hasRelations' => (Relation::get_by_meaningId($meaningId) != null),
                      'children' => []);
     foreach ($children[$meaningId] as $childId) {
       $results['children'][] = self::buildTree($map, $childId, $children);

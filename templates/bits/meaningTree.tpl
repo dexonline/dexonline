@@ -4,6 +4,8 @@
 {if $meanings}
   <ul {if $root}class="meaningTree"{/if}>
     {foreach $meanings as $t}
+      {$relationsShown=false}
+      {$tagsShown=false}
       <li>
         <div class="meaningContainer {if $root}primaryMeaning{else}secondaryMeaning{/if}">
           <div>
@@ -14,12 +16,26 @@
                     <span class="label label-tag">{$tag->value}</span>
                   {/foreach}
                 </span>
+                {$tagsShown=true}
               {/if}
             {else}
               <span class="bc">{$t.meaning->breadcrumb}</span>
               <span class="typeName">{$t.meaning->getDisplayTypeName()}</span>
             {/if}
-            <span class="def htmlRep {$t.meaning->getCssClass()}">{$t.meaning->htmlRep}</span>
+
+            {* When the meaning itself is empty, show something else *}
+            <span class="def htmlRep {$t.meaning->getCssClass()}">
+              {if $t.meaning->htmlRep}
+                {$t.meaning->htmlRep}
+              {elseif $t.hasRelations}
+                {include "bits/meaningRelations.tpl" relations=$t.relations}
+                {$relationsShown=true}
+              {elseif count($t.tags) && !$tagsShown}
+                {include "bits/meaningTags.tpl" tags=$t.tags}
+                {$tagsShown=true}
+              {/if}
+            </span>
+
           </div>
 
           <div class="defDetails"">
@@ -33,30 +49,13 @@
               </span>
             {/if}
 
-            {if !$etymologies && count($t.tags)}
-              <span class="tag-group">
-                <span class="text-muted">etichete:</span>
-                {foreach $t.tags as $tag}
-                  <span class="label label-tag">{$tag->value}</span>
-                {/foreach}
-              </span>
+            {if count($t.tags) && !$tagsShown}
+              {include "bits/meaningTags.tpl" tags=$t.tags}
             {/if}
 
-            {foreach $t.relations as $type => $treeList}
-              {if !empty($treeList)}
-                <span class="tag-group">
-                  <span class="text-muted">{Relation::$TYPE_NAMES[$type]}:</span>
-                  {foreach $treeList as $tree}
-                    {$entries=$tree->getEntries()}
-                    <span class="label label-relation-{$type}">
-                      <a href="{$wwwRoot}intrare/{$tree->description}/{$entries[0]->id}">
-                        {$tree->description}
-                      </a>
-                    </span>
-                  {/foreach}
-                </span>
-              {/if}
-            {/foreach}
+            {if !$relationsShown}
+              {include "bits/meaningRelations.tpl" relations=$t.relations title=true}
+            {/if}
           </div>
 
         </div>

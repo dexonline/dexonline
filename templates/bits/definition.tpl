@@ -171,7 +171,7 @@
             {if $showRemoveBookmark}
               <li>
                 <a class="bookmarkRemoveButton"
-                   href="{$wwwRoot}ajax/bookmarkRemove.php?definitionId={$def->definitionId}">
+                   href="{$wwwRoot}ajax/bookmarkRemove.php?definitionId={$def->id}">
                   <i class="glyphicon glyphicon-remove"></i>
                   <span>șterge de la favorite</span>
                 </a>

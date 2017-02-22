@@ -370,11 +370,7 @@
         </tr>
         <tr>
           <td><a href="{$wwwRoot}flexiuni">flexiuni</a></td>
-          <td><a href="{$wwwRoot}acuratete">verificarea acurateței editorilor</a></td>
-        </tr>
-        <tr>
           <td><a href="{$wwwRoot}admin/ocrInput.php">adaugă definiții OCR</a></td>
-          <td></td>
         </tr>
       </table>
     </div>
@@ -401,6 +397,10 @@
             <span class="text-muted">
               pentru lexeme alese la întâmplare
             </span>
+          </li>
+
+          <li>
+            <a href="{$wwwRoot}acuratete">verificarea acurateței editorilor</a>
           </li>
         </ul>
       </div>

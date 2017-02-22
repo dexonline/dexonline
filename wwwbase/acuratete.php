@@ -1,6 +1,6 @@
 <?php
 require_once("../phplib/util.php");
-util_assertModerator(PRIV_ADMIN);
+util_assertModerator(PRIV_EDIT | PRIV_ADMIN);
 
 $includePublic = Request::has('includePublic');
 $submitButton = Request::has('submitButton');

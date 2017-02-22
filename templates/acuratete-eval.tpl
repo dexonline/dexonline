@@ -12,7 +12,14 @@
         {if !$mine}
           ({$errors} erori)
         {/if}
+
+        <a class="btn btn-default btn-xs pull-right"
+           href="admin/definitionEdit.php?definitionId={$def->id}">
+          <i class="glyphicon glyphicon-pencil"></i>
+          editează
+        </a>
       </div>
+
       <div class="panel-body">
 
         {if $mine}
@@ -31,12 +38,6 @@
               <u>s</u>alvează și preia următoarea
             </button>
 
-            {if $def}
-              <a class="btn btn-default" href="admin/definitionEdit.php?definitionId={$def->id}">
-                <i class="glyphicon glyphicon-pencil"></i>
-                editează definiția
-              </a>
-            {/if}
           </form>
           <br />
         {/if}
@@ -237,7 +238,13 @@
       <p>Cel mai recent evaluate definiții apar primele. Puteți da clic pentru a le reevalua.</p>
 
       {foreach $definitionData as $rec}
-        <a href="?projectId={$project->id}&defId={$rec.id}">{$rec.lexicon}</a>
+        <a href="?projectId={$project->id}&defId={$rec.id}">
+          {$rec.lexicon}
+        </a>
+        {if $rec.errors}
+          ({$rec.errors})
+        {/if}
+        |
       {/foreach}
     </div>
   </div>

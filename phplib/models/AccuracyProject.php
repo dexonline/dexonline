@@ -116,6 +116,7 @@ class AccuracyProject extends BaseObject implements DatedObject {
           ->table_alias('d')
           ->select('d.id')
           ->select('d.lexicon')
+          ->select('ar.errors')
           ->join('AccuracyRecord', [ 'd.id', '=', 'ar.definitionId'], 'ar')
           ->where('ar.projectId', $this->id)
           ->order_by_desc('ar.createDate')

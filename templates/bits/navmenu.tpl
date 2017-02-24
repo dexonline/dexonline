@@ -219,6 +219,7 @@
             <li><b>Alt-S</b> = salvează</li>
             <li><b>Alt-V</b> = pagini vizitate recent</li>
             <li><b>Alt-W</b> = intră/ieși din modul WotD</li>
+            <li><b>Alt-W</b> = intră/ieși din modul WotD</li>
           </ul>
 
           <h4>Pagina moderatorului</h4>
@@ -230,6 +231,11 @@
             <li><b>Alt-Shift-D</b> = căutare definiții</li>
             <li><b>Alt-Shift-L</b> = căutare lexeme</li>
           </ul>
+
+          <h4>Pagina moderatorului</h4>
+            <li><b>Alt-Z</b> = navigare rapidă - imaginile cuvintelor zilei</li>
+            <li><b>Alt-X</b> = navigare rapidă - asignare autori</li>
+            <li><b>Alt-C</b> = navigare rapidă - cuvintele zilei</li>
 
           <h4>Etichetarea imaginilor</h4>
           

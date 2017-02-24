@@ -12,6 +12,14 @@
 ini_set('memory_limit', '1024M');
 
 class LDiff {
+  const SPLIT_LEVEL_LETTER = 0;
+  const SPLIT_LEVEL_WORD = 1;
+  #const DEFAULT_SPLIT_LEVEL = LDiff::SPLIT_LEVEL_WORD;
+  const DEFAULT_SPLIT_LEVEL = LDiff::SPLIT_LEVEL_LETTER;
+  public static $SPLIT_LEVEL = [
+    LDiff::SPLIT_LEVEL_LETTER => '',
+    LDiff::SPLIT_LEVEL_WORD => ' ',
+  ];
 
   // Returns an array of modifications. Each entry in the array is a tuple:
   // ($offsetOld, $lengthOld, $offsetNew, $lengthNew)
@@ -66,8 +74,8 @@ class LDiff {
   }
 
   // text diff works at word level
-  static function textDiff($old, $new) {
-    return self::diff(explode(' ', $old), explode(' ', $new));
+  static function textDiff($old, $new, $splitLevel = LDiff::DEFAULT_SPLIT_LEVEL) {
+    return self::diff(explode(LDiff::$SPLIT_LEVEL[$splitLevel], $old), explode(LDiff::$SPLIT_LEVEL[$splitLevel], $new));
   }
 
   // returns a degree of dissimilarity between two strings.
@@ -83,10 +91,11 @@ class LDiff {
   // A clickable diff adds offset information to each <ins> and <del> tag.
   // Javascript can use this to, for example, fix typos with a single click.
   static function htmlDiff($old, $new, $clickable = false) {
+    $splitLevel = session_getSplitLevel();
     // Break the strings into words.
     $result = '';
-    $owords = explode(' ', $old);
-    $nwords = explode(' ', $new);
+    $owords = preg_split('/' . LDiff::$SPLIT_LEVEL[$splitLevel] .'/u', $old, null, PREG_SPLIT_NO_EMPTY);
+    $nwords = preg_split('/' . LDiff::$SPLIT_LEVEL[$splitLevel] .'/u', $new, null, PREG_SPLIT_NO_EMPTY);
 
     // Compute the offset of each word
     $ooff = array();
@@ -107,9 +116,9 @@ class LDiff {
     $i = $j = 0;
     foreach ($diff as list($ostart, $olen, $nstart, $nlen)) {
       assert($ostart - $i == $nstart - $j);
-      $common = implode(' ', array_slice($owords, $i, $ostart - $i));
-      $deleted = implode(' ', array_slice($owords, $ostart, $olen));
-      $inserted = implode(' ', array_slice($nwords, $nstart, $nlen));
+      $common = implode(LDiff::$SPLIT_LEVEL[$splitLevel], array_slice($owords, $i, $ostart - $i));
+      $deleted = implode(LDiff::$SPLIT_LEVEL[$splitLevel], array_slice($owords, $ostart, $olen));
+      $inserted = implode(LDiff::$SPLIT_LEVEL[$splitLevel], array_slice($nwords, $nstart, $nlen));
 
       $result .= $common . ' ';
       if ($clickable) {
@@ -128,7 +137,7 @@ class LDiff {
       $j = $nstart + $nlen;
     }
 
-    $result .= implode(' ', array_slice($owords, $i)); // final common part
+    $result .= implode(LDiff::$SPLIT_LEVEL[$splitLevel], array_slice($owords, $i)); // final common part
 
     return $result;
   }

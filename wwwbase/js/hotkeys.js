@@ -21,6 +21,7 @@ $(function() {
     $(document).bind('keydown', 'alt+z', redirectToWotDImage);
     $(document).bind('keydown', 'alt+x', redirectToWotDAuthorAssign);
     $(document).bind('keydown', 'alt+w', toggleWotdMode);
+    $(document).bind('keydown', 'alt+shift+w', toggleWordHistoryDiffSplitLevel);
 
     $(document).bind('keydown', 'alt+p', clickPreviewTags);
   }
@@ -43,6 +44,10 @@ $(function() {
 
   function toggleWotdMode() {
     window.location = wwwRoot + 'admin/toggleWotdMode.php';
+  }
+
+  function toggleWordHistoryDiffSplitLevel() {
+    window.location = wwwRoot + 'admin/toggleWordHistoryDiffLevel.php';
   }
 
   function quickNavLexemFocus() {

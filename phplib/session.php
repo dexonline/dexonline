@@ -222,4 +222,28 @@ function session_toggleWotdMode() {
   }
 }
 
+function session_isWordHistoryDiffSplitLevel() {
+  return isset($_COOKIE['prefs']['splitLevel']);
+}
+
+function session_getSplitLevel() {
+  if (session_isWordHistoryDiffSplitLevel()) {
+    return $_COOKIE['prefs']['splitLevel'];
+  } else {
+    return LDiff::DEFAULT_SPLIT_LEVEL;
+  }
+}
+
+function session_toggleWordHistoryDiffSplitLevel() {
+  $currentLevel = session_getSplitLevel();
+
+  if ($currentLevel == LDiff::SPLIT_LEVEL_LETTER) {
+    setcookie('prefs[splitLevel]', LDiff::SPLIT_LEVEL_WORD, time() + ONE_YEAR_IN_SECONDS, '/');
+    FlashMessage::add('Diferențe la nivel de cuvinte', 'success');
+  } else {
+    setcookie('prefs[splitLevel]', LDiff::SPLIT_LEVEL_LETTER, time() - 3600, '/');
+    FlashMessage::add('Diferențe la nivel de litere', 'warning');
+  }
+}
+
 ?>

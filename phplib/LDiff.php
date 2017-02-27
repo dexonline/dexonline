@@ -14,7 +14,7 @@ ini_set('memory_limit', '1024M');
 class LDiff {
   const SPLIT_LEVEL_LETTER = 0;
   const SPLIT_LEVEL_WORD = 1;
-  #const DEFAULT_SPLIT_LEVEL = LDiff::SPLIT_LEVEL_WORD;
+  // const DEFAULT_SPLIT_LEVEL = LDiff::SPLIT_LEVEL_WORD;
   const DEFAULT_SPLIT_LEVEL = LDiff::SPLIT_LEVEL_LETTER;
   public static $SPLIT_LEVEL = [
     LDiff::SPLIT_LEVEL_LETTER => '',
@@ -75,7 +75,9 @@ class LDiff {
 
   // text diff works at word level
   static function textDiff($old, $new, $splitLevel = LDiff::DEFAULT_SPLIT_LEVEL) {
-    return self::diff(explode(LDiff::$SPLIT_LEVEL[$splitLevel], $old), explode(LDiff::$SPLIT_LEVEL[$splitLevel], $new));
+    $sep = LDiff::$SPLIT_LEVEL[$splitLevel];
+    return self::diff(preg_split("/{$sep}/", $old),
+                      preg_split("/{$sep}/", $new));
   }
 
   // returns a degree of dissimilarity between two strings.
@@ -92,10 +94,12 @@ class LDiff {
   // Javascript can use this to, for example, fix typos with a single click.
   static function htmlDiff($old, $new, $clickable = false) {
     $splitLevel = session_getSplitLevel();
+    $sep = LDiff::$SPLIT_LEVEL[$splitLevel];
+
     // Break the strings into words.
     $result = '';
-    $owords = preg_split('/' . LDiff::$SPLIT_LEVEL[$splitLevel] .'/u', $old, null, PREG_SPLIT_NO_EMPTY);
-    $nwords = preg_split('/' . LDiff::$SPLIT_LEVEL[$splitLevel] .'/u', $new, null, PREG_SPLIT_NO_EMPTY);
+    $owords = preg_split("/{$sep}/u", $old, null, PREG_SPLIT_NO_EMPTY);
+    $nwords = preg_split("/{$sep}/u", $new, null, PREG_SPLIT_NO_EMPTY);
 
     // Compute the offset of each word
     $ooff = array();

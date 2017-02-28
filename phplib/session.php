@@ -79,6 +79,7 @@ function session_loadUserFromCookie() {
   }
 }
 
+// TODO add a $default = false parameter
 function session_getCookieSetting($name) {
   if (array_key_exists('prefs', $_COOKIE)) {
     $prefsCookie = $_COOKIE['prefs'];
@@ -236,13 +237,18 @@ function session_getSplitLevel() {
 
 function session_toggleWordHistoryDiffSplitLevel() {
   $currentLevel = session_getSplitLevel();
+  $newLevel = LDiff::SPLIT_LEVEL_LETTER + LDiff::SPLIT_LEVEL_WORD - $currentLevel;
 
-  if ($currentLevel == LDiff::SPLIT_LEVEL_LETTER) {
-    setcookie('prefs[splitLevel]', LDiff::SPLIT_LEVEL_WORD, time() + ONE_YEAR_IN_SECONDS, '/');
-    FlashMessage::add('Diferențe la nivel de cuvinte', 'success');
+  if ($newLevel != LDiff::DEFAULT_SPLIT_LEVEL) {
+    setcookie('prefs[splitLevel]', $newLevel, time() + ONE_YEAR_IN_SECONDS, '/');
   } else {
     setcookie('prefs[splitLevel]', LDiff::SPLIT_LEVEL_LETTER, time() - 3600, '/');
+  }
+
+  if ($newLevel == LDiff::SPLIT_LEVEL_LETTER) {
     FlashMessage::add('Diferențe la nivel de litere', 'warning');
+  } else {
+    FlashMessage::add('Diferențe la nivel de cuvinte', 'success');
   }
 }
 

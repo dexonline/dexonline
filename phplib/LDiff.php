@@ -14,8 +14,8 @@ ini_set('memory_limit', '1024M');
 class LDiff {
   const SPLIT_LEVEL_LETTER = 0;
   const SPLIT_LEVEL_WORD = 1;
-  // const DEFAULT_SPLIT_LEVEL = LDiff::SPLIT_LEVEL_WORD;
-  const DEFAULT_SPLIT_LEVEL = LDiff::SPLIT_LEVEL_LETTER;
+  const DEFAULT_SPLIT_LEVEL = LDiff::SPLIT_LEVEL_WORD;
+
   public static $SPLIT_LEVEL = [
     LDiff::SPLIT_LEVEL_LETTER => '',
     LDiff::SPLIT_LEVEL_WORD => ' ',

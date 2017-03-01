@@ -3,7 +3,7 @@
      style="display:block"
      data-ad-client="ca-pub-2697300012216849"
      data-ad-slot="{$adUnitId}"
-     data-ad-format="auto"></ins>
+     data-ad-format="horizontal"></ins>
 <script>
  (adsbygoogle = window.adsbygoogle || []).push({});
 </script>

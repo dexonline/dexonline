@@ -11,3 +11,6 @@ wwwbase/stat/sysstatgraph/data.json
 log/
 *.pyc
 *~
+
+# macOS stuff
+.DS_Store

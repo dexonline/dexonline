@@ -1,15 +1,18 @@
 {assign var="results" value=$results|default:null}
 {
-    "word": "{$cuv|escape:javascript}",
+    "type": "searchResults",
+    "word": {$cuv|@json_encode},
     "definitions": [
         {foreach $results as $row}
         {
-            "internalRep": "{$row->definition->internalRep|escape:html|escape:javascript}",
-            "htmlRep": "{$row->definition->htmlRep|escape:javascript}",
-            "userNick": "{$row->user->nick|escape:javascript}",
-            "sourceName": "{$row->source->shortName|escape:javascript}",
-            "createDate": "{$row->definition->createDate|escape:javascript}",
-            "modDate": "{$row->definition->modDate|escape:javascript}"
+            "type": "definition",
+            "id": {$row->definition->id|@json_encode},
+            "internalRep": {$row->definition->internalRep|escape:html|@json_encode}, 
+            "htmlRep": {$row->definition->htmlRep|@json_encode},
+            "userNick": {$row->user->nick|@json_encode},
+            "sourceName": {$row->source->shortName|@json_encode},
+            "createDate": {$row->definition->createDate|@json_encode},
+            "modDate": {$row->definition->modDate|@json_encode}
         }{if !$row@last},{/if}
         {/foreach}
     ]

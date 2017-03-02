@@ -406,7 +406,7 @@ switch ($format['name']) {
     SmartyWrap::displayWithoutSkin('xml/search.tpl');
     break;
   case 'json':
-    header('Content-type: text/json');
+    header('Content-type: application/json');
     SmartyWrap::displayWithoutSkin('json/search.tpl');
     break;
   case 'html':

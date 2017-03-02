@@ -45,10 +45,10 @@ $SEARCH_PARAMS = [
 ];
 
 function check_format() {
-  if (Request::get('xml')) {
+  if (Request::get('xml') && Config::get('global.xmlApi')) {
     return array('name' => 'xml', 'tpl_path' => '/xml');
   }
-  if (Request::get('json')) {
+  if (Request::get('json') && Config::get('global.jsonApi')) {
     return array('name' => 'json', 'tpl_path' => '/json');
   }
   return array('name' => 'html', 'tpl_path' => '');

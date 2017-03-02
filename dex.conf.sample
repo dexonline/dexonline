@@ -58,6 +58,13 @@ aprilFoolsDay = 0
 ; Call to action for occasional activism. Specify a template to include, or false to turn off.
 callToAction = false
 
+; API formats
+
+; Enable XML response when appending /xml to the definition URL
+xmlApi = 1;
+; Enable JSON response when appending /json to the definition URL
+jsonApi = 1;
+
 [logging]
 
 ; Log file name. Can also be "php://stdout" or "php://stderr"

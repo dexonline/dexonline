@@ -342,12 +342,12 @@ function util_deleteFile($fileName) {
  * Links of the old form (search.php?...) can only come via the search form and should not contain lexemId / definitionId.
  */
 function util_redirectToFriendlyUrl($cuv, $entryId, $lexemId, $sourceUrlName, $text, $showParadigm,
-                                    $xml, $all) {
+                                    $format, $all) {
   if (strpos($_SERVER['REQUEST_URI'], '/search.php?') === false) {
     return;    // The url is already friendly.
   }
 
-  if ($xml) {
+  if ($format->name != 'html') {
     return;
   }
 

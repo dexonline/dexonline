@@ -45,9 +45,13 @@ $SEARCH_PARAMS = [
 ];
 
 function check_format() {
-  if (Request::get('xml')) return array('name' => 'xml', 'tpl_path' : 'xml/');
-  if (Request::get('json')) return array('name' => 'json', 'tpl_path' : 'json/');
-  return return array('name' => 'html', 'tpl_path' : '');
+  if (Request::get('xml')) {
+    return array('name' => 'xml', 'tpl_path' => '/xml');
+  }
+  if (Request::get('json')) {
+    return array('name' => 'json', 'tpl_path' => '/json');
+  }
+  return array('name' => 'html', 'tpl_path' => '');
 }
 
 $cuv = Request::get('cuv');
@@ -106,7 +110,7 @@ $showWotd = session_isWotdMode()
 if ($isAllDigits) {
   $d = Definition::getByIdNotHidden($cuv);
   if ($d) {
-    util_redirect(util_getWwwRoot() . "definitie/{$d->lexicon}/{$d->id}" . $format->tpl_path);
+    util_redirect(util_getWwwRoot() . "definitie/{$d->lexicon}/{$d->id}" . $format['tpl_path']);
   }
 }
 
@@ -236,7 +240,7 @@ if ($searchType == SEARCH_INFLECTED) {
       $sourcePart = $source ? "-{$source->urlName}" : '';
       session_setVariable('redirect', true);
       session_setVariable('init_word', $cuv);
-      util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$l->formNoAccent}" . $format->tpl_path);
+      util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$l->formNoAccent}" . $format['tpl_path']);
     }
   }
 }
@@ -396,7 +400,7 @@ if ($text || $sourceId) {
   SmartyWrap::assign('advancedSearch', true);
 }
 
-switch ($format->name) {
+switch ($format['name']) {
   case 'xml':
     header('Content-type: text/xml');
     SmartyWrap::displayWithoutSkin('xml/search.tpl');

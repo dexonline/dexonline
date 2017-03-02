@@ -347,7 +347,7 @@ function util_redirectToFriendlyUrl($cuv, $entryId, $lexemId, $sourceUrlName, $t
     return;    // The url is already friendly.
   }
 
-  if ($format->name != 'html') {
+  if ($format['name'] != 'html') {
     return;
   }
 

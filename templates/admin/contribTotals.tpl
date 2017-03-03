@@ -67,6 +67,7 @@
           <tr>
             <th>sursă</th>
             <th>caractere</th>
+            <th>corecturi față de OCR</th>
           </tr>
         </thead>
 
@@ -75,6 +76,7 @@
             <tr>
               <td>{$row->shortName}</td>
               <td>{$row->length|number_format:0:',':'.'}</td>
+              <td>{$changes[$row->id]|number_format:0:',':'.'}</td>
             </tr>
           {/foreach}
         </tbody>
@@ -82,7 +84,8 @@
         <tfoot>
           <tr>
             <th>total</th>
-            <th>{$sum|number_format:0:',':'.'}</th>
+            <th>{$sumLength|number_format:0:',':'.'}</th>
+            <th>{$sumChanges|number_format:0:',':'.'}</th>
           </tr>
         </tfoot>
 

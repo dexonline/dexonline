@@ -32,13 +32,39 @@ if ($submitButton) {
              ->find_many();
 
 
-    $sum = 0;
+    $sumLength = 0;
     foreach ($results as $row) {
-      $sum += $row->length;
+      $sumLength += $row->length;
+    }
+
+    // Load each definition and compare it with the OCR version (if available)
+    $defs = Model::factory('Definition')
+          ->table_alias('d')
+          ->left_outer_join('OCR', ['d.id', '=', 'o.definitionId'], 'o')
+          ->where('d.userId', $userId)
+          ->where_in('d.status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
+          ->where_raw("(date(from_unixtime(d.createDate)) between ? and ?)",
+                      [$startDate, $endDate])
+          ->find_many();
+
+    $changes = [];
+    $sumChanges = 0;
+    foreach ($results as $row) {
+      $changes[$row->id] = 0;
+    }
+
+    foreach ($defs as $d) {
+      if ($d->definitionId) { // there exists a corresponding OCR record
+        $diffSize = count(LDiff::textDiff($d->internalRep, $d->ocrText));
+        $changes[$d->sourceId] += $diffSize;
+        $sumChanges += $diffSize;
+      }
     }
 
     SmartyWrap::assign('results', $results);
-    SmartyWrap::assign('sum', $sum);
+    SmartyWrap::assign('changes', $changes);
+    SmartyWrap::assign('sumLength', $sumLength);
+    SmartyWrap::assign('sumChanges', $sumChanges);
   }
 } else {
   $userId = null;

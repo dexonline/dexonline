@@ -44,16 +44,6 @@ $SEARCH_PARAMS = [
   SEARCH_FULL_TEXT => $DEFAULT_SEARCH_PARAMS,
 ];
 
-function check_format() {
-  if (Request::get('xml') && Config::get('global.xmlApi')) {
-    return array('name' => 'xml', 'tpl_path' => '/xml');
-  }
-  if (Request::get('json') && Config::get('global.jsonApi')) {
-    return array('name' => 'json', 'tpl_path' => '/json');
-  }
-  return array('name' => 'html', 'tpl_path' => '');
-}
-
 $cuv = Request::get('cuv');
 $entryId = Request::get('entryId');
 $lexemId = Request::get('lexemId');
@@ -61,7 +51,7 @@ $defId = Request::get('defId');
 $sourceUrlName = Request::get('source');
 $text = Request::has('text');
 $showParadigm = Request::get('showParadigm');
-$format = check_format();
+$format = checkFormat();
 $all = Request::get('all');
 
 $redirect = session_get('redirect');
@@ -422,4 +412,14 @@ if (Config::get('search-log.enabled')) {
   $log->logData();
 }
 
-?>
+/*************************************************************************/
+
+function checkFormat() {
+  if (Request::get('xml') && Config::get('global.xmlApi')) {
+    return array('name' => 'xml', 'tpl_path' => '/xml');
+  }
+  if (Request::get('json') && Config::get('global.jsonApi')) {
+    return array('name' => 'json', 'tpl_path' => '/json');
+  }
+  return array('name' => 'html', 'tpl_path' => '');
+}

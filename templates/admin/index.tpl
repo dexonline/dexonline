@@ -372,6 +372,10 @@
           <td><a href="{$wwwRoot}flexiuni">flexiuni</a></td>
           <td><a href="{$wwwRoot}admin/ocrInput.php">adaugă definiții OCR</a></td>
         </tr>
+        <tr>
+          <td><a href="{$wwwRoot}admin/contribTotals">contorizare contribuții</a></td>
+          <td></td>
+        </tr>
       </table>
     </div>
   {/if}

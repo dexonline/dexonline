@@ -49,6 +49,23 @@
 
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"
+                   name="showChanges"
+                   {if $showChanges}checked{/if}
+                   value="1">
+            contorizează corecturile față de originalul OCR
+          </label>
+          <span class="text-muted">
+            (poate fi lent și/sau poate da eroare pentru volume mari de date)
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
         <button class="btn btn-primary" type="submit" name="submitButton">
           raportează
         </button>
@@ -76,7 +93,9 @@
             <tr>
               <td>{$row->shortName}</td>
               <td>{$row->length|number_format:0:',':'.'}</td>
-              <td>{$changes[$row->id]|number_format:0:',':'.'}</td>
+              <td>
+                {$changes[$row->id]|default:0|number_format:0:',':'.'}
+              </td>
             </tr>
           {/foreach}
         </tbody>
@@ -85,7 +104,7 @@
           <tr>
             <th>total</th>
             <th>{$sumLength|number_format:0:',':'.'}</th>
-            <th>{$sumChanges|number_format:0:',':'.'}</th>
+            <th>{$sumChanges|default:0|number_format:0:',':'.'}</th>
           </tr>
         </tfoot>
 

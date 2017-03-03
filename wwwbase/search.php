@@ -44,6 +44,16 @@ $SEARCH_PARAMS = [
   SEARCH_FULL_TEXT => $DEFAULT_SEARCH_PARAMS,
 ];
 
+function check_format() {
+  if (Request::get('xml') && Config::get('global.xmlApi')) {
+    return array('name' => 'xml', 'tpl_path' => '/xml');
+  }
+  if (Request::get('json') && Config::get('global.jsonApi')) {
+    return array('name' => 'json', 'tpl_path' => '/json');
+  }
+  return array('name' => 'html', 'tpl_path' => '');
+}
+
 $cuv = Request::get('cuv');
 $entryId = Request::get('entryId');
 $lexemId = Request::get('lexemId');
@@ -51,7 +61,7 @@ $defId = Request::get('defId');
 $sourceUrlName = Request::get('source');
 $text = Request::has('text');
 $showParadigm = Request::get('showParadigm');
-$xml = Request::get('xml');
+$format = check_format();
 $all = Request::get('all');
 
 $redirect = session_get('redirect');
@@ -64,7 +74,7 @@ if ($cuv && !$redirect) {
 }
 
 util_redirectToFriendlyUrl($cuv, $entryId, $lexemId, $sourceUrlName, $text, $showParadigm,
-                           $xml, $all);
+                           $format, $all);
 
 $paradigmLink = $_SERVER['REQUEST_URI'] . ($showParadigm ? '' : '/paradigma');
 
@@ -100,7 +110,7 @@ $showWotd = session_isWotdMode()
 if ($isAllDigits) {
   $d = Definition::getByIdNotHidden($cuv);
   if ($d) {
-    util_redirect(util_getWwwRoot() . "definitie/{$d->lexicon}/{$d->id}" . ($xml ? '/xml' : ''));
+    util_redirect(util_getWwwRoot() . "definitie/{$d->lexicon}/{$d->id}" . $format['tpl_path']);
   }
 }
 
@@ -230,7 +240,7 @@ if ($searchType == SEARCH_INFLECTED) {
       $sourcePart = $source ? "-{$source->urlName}" : '';
       session_setVariable('redirect', true);
       session_setVariable('init_word', $cuv);
-      util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$l->formNoAccent}" . ($xml ? '/xml' : ''));
+      util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$l->formNoAccent}" . $format['tpl_path']);
     }
   }
 }
@@ -390,13 +400,19 @@ if ($text || $sourceId) {
   SmartyWrap::assign('advancedSearch', true);
 }
 
-if (!$xml) {
-  SmartyWrap::addCss('paradigm');
-  SmartyWrap::display('search.tpl');
-
-} else {
-  header('Content-type: text/xml');
-  SmartyWrap::displayWithoutSkin('xml/search.tpl');
+switch ($format['name']) {
+  case 'xml':
+    header('Content-type: text/xml');
+    SmartyWrap::displayWithoutSkin('xml/search.tpl');
+    break;
+  case 'json':
+    header('Content-type: application/json');
+    SmartyWrap::displayWithoutSkin('json/search.tpl');
+    break;
+  case 'html':
+  default:
+    SmartyWrap::addCss('paradigm');
+    SmartyWrap::display('search.tpl');
 }
 
 // Logging

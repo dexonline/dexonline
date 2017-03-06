@@ -304,11 +304,27 @@
               <button type="button"
                       class="btn btn-danger btn-sm meaningAction"
                       id="deleteMeaningButton"
-                      disabled
-                      title="Șterge sensul selectat">
+                      data-toggle="popover"
+                      role="button"
+                      tabindex="0"
+                      disabled>
                 <i class="glyphicon glyphicon-trash"></i>
                 șterge sens
               </button>
+
+              <div id="deletePopoverContent" style="display: none">
+                <button type="button"
+                        class="btn btn-danger btn-sm meaningAction deleteMeaningConfirmButton">
+                  <i class="glyphicon glyphicon-trash"></i>
+                  confirm
+                </button>
+                <button type="button"
+                        class="btn btn-default btn-sm meaningAction deleteMeaningCancelButton">
+                  <i class="glyphicon glyphicon-remove"></i>
+                  m-am răzgândit
+                </button>
+              </div>
+
             </div>
 
             <div class="btn-group">

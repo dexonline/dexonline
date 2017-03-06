@@ -15,7 +15,8 @@ $(function() {
     $('#meaningTree li, #stemNode li').click(meaningClick);
     $('#addMeaningButton').click(addMeaning);
     $('#addSubmeaningButton').click(addSubmeaning);
-    $('#deleteMeaningButton').click(deleteMeaning);
+    $(document).on('click', '.deleteMeaningConfirmButton', deleteMeaning);
+    $(document).on('click', '.deleteMeaningCancelButton', hidePopover);
     $('#meaningUpButton').click(meaningUp);
     $('#meaningDownButton').click(meaningDown);
     $('#meaningLeftButton').click(meaningLeft);
@@ -168,15 +169,12 @@ $(function() {
   }
 
   function deleteMeaning() {
+    hidePopover();
     acceptMeaningEdit();
-    var node = $('#meaningTree li.selected');
-    var numChildren = node.children('ul').children().length;
-    if (!numChildren || confirm('Confirmați ștergerea sensului și a tuturor subsensurilor?')) {
-      node.remove();
-      $('.meaningAction').prop('disabled', true);
-      clearEditor();
-      renumber();
-    }
+    $('#meaningTree li.selected').remove();
+    $('.meaningAction').prop('disabled', true);
+    clearEditor();
+    renumber();
   }
 
   // The selected node becomes his father's next sibling.
@@ -419,6 +417,17 @@ $(function() {
       .fail(function () {
         callback([]); // Callback must be invoked even if something went wrong.
       });
+  }
+
+  // Compensate for a bug in Bootstrap 3.3.7:
+  // https://github.com/twbs/bootstrap/issues/16732
+  function hidePopover() {
+    $('.popover').fadeOut('slow').popover('hide');
+    if ($.fn.popover.Constructor.VERSION == "3.3.7") {
+      $('[data-toggle="popover"]').on("hidden.bs.popover", function() {
+        $(this).data("bs.popover").inState.click = false
+      })
+    }
   }
 
   init();

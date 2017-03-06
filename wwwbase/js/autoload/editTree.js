@@ -8,6 +8,15 @@ $(function() {
       templateSelection: formatEntryWithEditLink,
     });
             
+    $('#deleteMeaningButton').popover({
+      container: 'body',
+      content: function() {
+        return $('#deletePopoverContent').html();
+      },
+      html : true,
+      trigger : 'click',
+    });
+
     $('button[name="delete"]').click(function() {
       return confirm('Confirmați ștergerea acestui arbore?');
     });

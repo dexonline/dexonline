@@ -3,3 +3,7 @@
   max-height: 300px;
   overflow-y: auto;
 }
+
+.popover {
+  max-width: 100%;
+}

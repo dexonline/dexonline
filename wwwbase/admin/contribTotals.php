@@ -20,7 +20,7 @@ if ($submitButton) {
     // Compute the definition totals for the given parameters
     $results = Model::factory('Definition')
              ->table_alias('d')
-             ->select_expr('sum(length(internalRep))', 'length')
+             ->select_expr('sum(char_length(internalRep))', 'length')
              ->select('s.id')
              ->select('s.shortName')
              ->join('Source', ['d.sourceId', '=', 's.id'], 's')

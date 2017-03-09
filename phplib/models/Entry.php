@@ -31,7 +31,8 @@ class Entry extends BaseObject implements DatedObject {
 
   function _clone($cloneDefinitions, $cloneLexems, $cloneTrees) {
     $e = $this->parisClone();
-    $e->description .= ' (CLONĂ)';
+    $e->structStatus = self::STRUCT_STATUS_NEW;
+    $e->structuristId = 0;
     $e->save();
 
     if ($cloneDefinitions) {

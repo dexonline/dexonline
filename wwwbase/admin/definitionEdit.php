@@ -163,13 +163,7 @@ if ($saveButton || $nextOcrBut) {
   RecentLink::add(sprintf('Definiție: %s (%s) (ID=%s)',
                           $d->lexicon, $d->getSource()->shortName, $d->id));
 
-  $entries = Model::factory('Entry')
-           ->table_alias('e')
-           ->select('e.id')
-           ->join('EntryDefinition', ['ed.entryId', '=', 'e.id'], 'ed')
-           ->where('ed.definitionId', $d->id)
-           ->order_by_asc('description')
-           ->find_many();
+  $entries = $d->getEntries();
   $entryIds = util_objectProperty($entries, 'id');
 
   $dts = ObjectTag::getDefinitionTags($d->id);

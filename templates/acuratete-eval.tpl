@@ -57,6 +57,14 @@
           {/if}
         </div>
 
+        <div>
+          intrări asociate:
+          {foreach $def->getEntries() as $e name=entryLoop}
+            {include "bits/entry.tpl" entry=$e link=true}
+            {if !$smarty.foreach.entryLoop.last} | {/if}
+          {/foreach}
+        </div>
+
       </div>
     </div>
   {/if}
@@ -233,14 +241,14 @@
     <div class="panel-body">
       <p>Cel mai recent evaluate definiții apar primele. Puteți da clic pentru a le reevalua.</p>
 
-      {foreach $definitionData as $rec}
+      {foreach $definitionData as $rec name=definitionLoop}
         <a href="?projectId={$project->id}&defId={$rec.id}">
           {$rec.lexicon}
         </a>
         {if $rec.errors}
           ({$rec.errors})
         {/if}
-        |
+        {if !$smarty.foreach.definitionLoop.last} | {/if}
       {/foreach}
     </div>
   </div>

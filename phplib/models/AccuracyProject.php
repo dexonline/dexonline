@@ -7,9 +7,21 @@ class AccuracyProject extends BaseObject implements DatedObject {
   const METHOD_OLDEST = 1;
   const METHOD_RANDOM = 2;
   static $METHOD_NAMES = [
-    self::METHOD_NEWEST => 'Descrescător după dată',
-    self::METHOD_OLDEST => 'Crescător după dată',
-    self::METHOD_RANDOM => 'Ordine aleatorie',
+    self::METHOD_NEWEST => 'descrescător după dată',
+    self::METHOD_OLDEST => 'crescător după dată',
+    self::METHOD_RANDOM => 'ordine aleatorie',
+  ];
+
+  // Who has read access to this project?
+  const VIS_PRIVATE = 0;  // owner only
+  const VIS_ADMIN = 1;    // owner and PRIV_ADMIN's
+  const VIS_EDITOR = 2;   // owner, PRIV_ADMIN's and the editor being evaluated
+  const VIS_PUBLIC = 3;   // all PRIV_ADMIN's and PRIV_EDIT's
+  static $VIS_NAMES = [
+    self::VIS_PRIVATE => 'doar autorul proiectului',
+    self::VIS_ADMIN => 'autorul proiectului și administratorii',
+    self::VIS_EDITOR => 'autorul proiectului, administratorii și editorul evaluat',
+    self::VIS_PUBLIC => 'toți administratorii și editorii',
   ];
 
   // Below this speed (chars/sec) we ignore a definition when computing editor speed.
@@ -31,8 +43,20 @@ class AccuracyProject extends BaseObject implements DatedObject {
     return self::$METHOD_NAMES;
   }
 
-  function getMethodName() {
-    return self::$METHOD_NAMES[$this->method];
+  function visibleTo($user) {
+    if ($user->id == $this->ownerId) {
+      return true;
+    }
+    switch ($this->visibility) {
+      case self::VIS_PRIVATE:
+        return false;
+      case self::VIS_ADMIN:
+        return $user->moderator & PRIV_ADMIN;
+      case self::VIS_EDITOR:
+        return ($user->moderator & PRIV_ADMIN) || ($user->id == $this->userId);
+      case self::VIS_PUBLIC:
+        return $user->moderator & (PRIV_ADMIN | PRIV_EDIT);
+    }
   }
 
   function getSource() {

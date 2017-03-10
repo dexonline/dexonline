@@ -19,8 +19,8 @@ if (!$project) {
 
 $mine = session_getUserId() == $project->ownerId;
 
-if (!$project->public && !$mine) {
-  FlashMessage::add('Proiectul nu vă aparține și nu este public.', 'danger');
+if (!$project->visibleTo(session_getUser())) {
+  FlashMessage::add('Nu aveți dreptul să vedeți acest proiect.', 'danger');
   util_redirect('index.php');
 }
 
@@ -42,7 +42,7 @@ if ($deleteButton) {
 if ($editProjectButton) {
   $project->name = Request::get('name');
   $project->method = Request::get('method');
-  $project->public = Request::has('public');
+  $project->visibility = Request::get('visibility');
   if ($project->validate()) {
     $project->save();
     FlashMessage::add('Am actualizat datele.', 'success');

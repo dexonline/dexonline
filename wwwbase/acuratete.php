@@ -18,7 +18,7 @@ if ($submitButton) {
   $p->startDate = Request::get('startDate');
   $p->endDate = Request::get('endDate');
   $p->method = Request::get('method');
-  $p->public = Request::has('public');
+  $p->visibility = Request::get('visibility');
 
   if ($p->validate()) {
     $p->recomputeSpeedData();
@@ -27,15 +27,22 @@ if ($submitButton) {
   }
 }
 
-$criteria = [ ['ownerId' => $user->id] ];
-if ($includePublic) {
-  $criteria[] = ['public' => true];
+$aps = Model::factory('AccuracyProject');
+if ($includePublic && util_isModerator(PRIV_ADMIN)) {
+  $aps = $aps->where_raw(
+    '((ownerId = ?) or (visibility != ?))',
+    [ $user->id, AccuracyProject::VIS_PRIVATE ]
+  );
+} else if ($includePublic && util_isModerator(PRIV_EDIT)) {
+  $aps = $aps->where_raw(
+    '((ownerId = ?) or ((visibility = ?) && (userId = ?)) or (visibility = ?))',
+    [ $user->id, AccuracyProject::VIS_EDITOR, $user->id, AccuracyProject::VIS_PUBLIC ]
+  );
+} else {
+  $aps = $aps->where('ownerId', $user->id);
 }
 
-$aps = Model::factory('AccuracyProject')
-  ->where_any_is($criteria)
-  ->order_by_asc('name')
-  ->find_many();
+$aps = $aps->order_by_asc('name')->find_many();
 
 // build a map of project ID => project
 $projects = [];

@@ -106,16 +106,12 @@
         </div>
 
         <div class="form-group">
-          <div class="col-sm-offset-3 col-sm-9">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox"
-                       name="public"
-                       {if $p->public}checked{/if}
-                       value="1">
-                public pentru alți moderatori
-              </label>
-            </div>
+          <label class="col-sm-3 control-label">vizibilitate</label>
+          <div class="col-sm-9">
+            {include "bits/dropdown.tpl"
+            name="visibility"
+            data=AccuracyProject::$VIS_NAMES
+            selected=$p->visibility}
           </div>
         </div>
 

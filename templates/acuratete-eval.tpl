@@ -157,17 +157,13 @@
           </div>
 
           <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox"
-                         name="public"
-                         {if $project->public}checked{/if}
-                         {if !$mine}disabled{/if}
-                         value="1">
-                  public pentru alți moderatori
-                </label>
-              </div>
+            <label class="col-sm-2 control-label">vizibilitate</label>
+            <div class="col-sm-10">
+              {include "bits/dropdown.tpl"
+              name="visibility"
+              data=AccuracyProject::$VIS_NAMES
+              selected=$project->visibility
+              disabled=!$mine}
             </div>
           </div>
 

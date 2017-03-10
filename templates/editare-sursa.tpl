@@ -107,7 +107,7 @@
 
         <div class="form-group">
           <label>Notă</label>
-          <input type="text" name="year" value="{$src->remark}" class="form-control" />
+          <input type="text" name="remark" value="{$src->remark}" class="form-control" />
         </div>
 
         <div class="form-group">

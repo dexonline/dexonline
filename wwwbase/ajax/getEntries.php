@@ -2,9 +2,11 @@
 require_once("../../phplib/util.php");
 
 $query = Request::get('term');
+$exclude = Request::get('exclude', 0);
 
 $entries = Model::factory('Entry')
          ->where_like('description', "{$query}%")
+         ->where_not_equal('id', $exclude)
          ->order_by_asc('description')
          ->limit(10)
          ->find_many();

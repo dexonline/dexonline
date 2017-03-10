@@ -14,7 +14,13 @@ $(function() {
     });
             
     $('#mergeEntryId').select2({
-      ajax: { url: wwwRoot + 'ajax/getEntries.php' },
+      ajax: {
+        url: wwwRoot + 'ajax/getEntries.php',
+        data: function(params) {
+          params['exclude'] = $('#mergeModal input[name="id"]').val();
+          return params;
+        },
+      },
       minimumInputLength: 1,
       placeholder: 'alegeți o intrare',
       width: '100%',

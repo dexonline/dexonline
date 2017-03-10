@@ -122,7 +122,7 @@ class BaseObject extends Model {
   }
 
   static function getField ($colname, $id) {
-    $result = Model::factory('User')
+    $result = Model::factory(get_called_class())
         ->select_many($colname)
         ->find_one($id);
     return $result->$colname;

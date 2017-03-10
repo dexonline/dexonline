@@ -18,6 +18,10 @@
       <thead>
         <tr>
           <th class="abbreviation">Nume scurt</th>
+          {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
+          <th class="type">Categorie</th>
+          <th class="manager">Manager</th>
+          {/if}
           <th class="nick">Nume</th>
           <th>% utilizat</th>
           {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
@@ -36,6 +40,14 @@
                   <span class="sourceShortName">{$s->shortName}</span>
                 {/if}
               </td>
+              {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
+              <td class="type">
+                <span class="sourceType">{if $s->sourceTypeId}{SourceType::getField('name', $s->sourceTypeId)}{else}{/if}</span>
+              </td>
+              <td class="manager">
+                <span class="sourceManager">{if $s->managerId}{User::getField('name', $s->managerId)}{else}{/if}</span>
+              </td>
+              {/if}
               <td class="nick">
                 <input type="hidden" name="ids[]" value="{$s->id}"/>
                 <span class="sourceName">
@@ -47,15 +59,10 @@
                       Autor: {$s->author}<br/>
                       Editură: {$s->publisher}<br/>
                       Anul apariției: {$s->year}<br/>
-                      Tipul: {$s->getTypeName()}
                       {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
                         {if $s->importType}
                       <br/>
                       Import {$s->getImportTypeLabel()}
-                        {/if}
-                        {if $s->managerId}
-                      <br/>
-                      Manager: {User::getField('name', $s->managerId)}
                         {/if}
                       {/if}
                     </div>

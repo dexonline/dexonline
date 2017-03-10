@@ -481,6 +481,10 @@ function util_recount() {
     Tree::countUnassociated()
   );
   Variable::poke(
+    'Count.ambiguousEntries',
+    count(Entry::loadAmbiguous())
+  );
+  Variable::poke(
     'Count.lexemesWithoutAccent',
     Model::factory('Lexem')->where('consistentAccent', 0)->count()
   );

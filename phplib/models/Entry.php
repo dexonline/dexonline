@@ -131,6 +131,21 @@ class Entry extends BaseObject implements DatedObject {
       ->find_many();
   }
 
+  /**
+   * For every set of entries having the same case-sensitive description, load one of them at random.
+   */
+  public static function loadAmbiguous() {
+    // The key here is to create a subquery of all the case-insensitiv descriptions
+    // appearing at least twice.
+    $query = 'select * from Entry ' .
+           'join (select description d from Entry group by description having count(*) > 1) dup ' .
+           'on description = d ' .
+           'group by binary description ' .
+           'having count(*) > 1 ' .
+           'order by description';
+    return Model::factory('Entry')->raw_query($query)->find_many();
+  }
+  
   static function searchInflectedForms($cuv, $hasDiacritics, $oldOrthography, $useMemcache = true) {
     if ($useMemcache) {
       $key = sprintf("inflected_%d_%d_%s", (int)$hasDiacritics, (int)$oldOrthography, $cuv);

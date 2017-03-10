@@ -60,7 +60,7 @@
         <div>
           intrări asociate:
           {foreach $def->getEntries() as $e name=entryLoop}
-            {include "bits/entry.tpl" entry=$e link=true}
+            {include "bits/entry.tpl" entry=$e editLink=true}
             {if !$smarty.foreach.entryLoop.last} | {/if}
           {/foreach}
         </div>

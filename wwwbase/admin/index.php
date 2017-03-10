@@ -53,6 +53,11 @@ $reports = [
    'count' => Variable::peek('Count.unassociatedTrees'),
    'privilege' => PRIV_EDIT
   ],
+  ['text' => 'Intrări ambigue',
+   'url' => 'admin/viewAmbiguousEntries',
+   'count' => Variable::peek('Count.ambiguousEntries'),
+   'privilege' => PRIV_EDIT
+  ],
   ['text' => 'Lexeme cu comentarii',
    'url' => 'admin/viewLexemsWithComments',
    'count' => Variable::peek('Count.lexemesWithComments'),

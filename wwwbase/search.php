@@ -15,6 +15,13 @@ define('SEARCH_LEXEM_ID', 7);
 define('LIMIT_FULLTEXT_DISPLAY', Config::get('limits.limitFulltextSearch', 500));
 define('PREVIEW_LIMIT', 20); // how many definitions to show by default
 
+define('SPOOF_ENABLED', Config::get('global.spoofEnabled', false));
+
+if(SPOOF_ENABLED) {
+  define('SPOOF_WORDS', Config::get('global.spoofWords', []));
+  define('SPOOF_NORMALIZE', Config::get('global.spoofNormalize', true));
+};
+
 // defLimit: how many definitions to display (null = not relevant)
 // paradigm: whether to display the paradigm for $entries
 // trees: whether to display the entries' trees
@@ -85,6 +92,14 @@ if ($cuv) {
   $hasDiacritics = $hasDiacritics || $arr[0];
   $hasRegexp = $arr[1];
   $isAllDigits = $arr[2];
+}
+
+if(SPOOF_ENABLED && $cuv) {
+  $cuv_normalized = SPOOF_NORMALIZE ? mb_strtolower(StringUtil::unicodeToLatin($cuv)) : $cuv;
+  $cuv_spoofed = SPOOF_WORDS[$cuv_normalized];
+  if ($cuv_spoofed) {
+    $cuv_spoofed_hasDiacritics = $hasDiacritics || StringUtil::analyzeQuery($cuv_spoofed)[0];
+  }
 }
 
 $definitions = [];
@@ -168,7 +183,13 @@ if ($entryId) {
   if ($entry) {
     $entries = [$entry];
     SmartyWrap::assign('cuv', $entry->getShortDescription());
-    $definitions = Definition::searchEntry($entry);
+    if (SPOOF_ENABLED && $cuv_spoofed) {
+      $entries_spoofed = Entry::searchInflectedForms($cuv_spoofed, $cuv_spoofed_hasDiacritics, $oldOrthography);
+      $definitions = Definition::searchEntry($entries_spoofed[0]);
+    }
+    else {
+      $definitions = Definition::searchEntry($entry);
+    }
   }
 }
 
@@ -186,7 +207,13 @@ if ($searchType == SEARCH_INFLECTED) {
 
   // successful search
   if (count($entries)) {
-    $definitions = Definition::loadForEntries($entries, $sourceId, $cuv);
+    if(SPOOF_ENABLED && $cuv_spoofed) {
+      $entries_spoofed = Entry::searchInflectedForms($cuv_spoofed, $cuv_spoofed_hasDiacritics, false);
+      $definitions = Definition::loadForEntries($entries_spoofed, $sourceId, $cuv);
+    }
+    else {
+      $definitions = Definition::loadForEntries($entries, $sourceId, $cuv);
+    }
     SmartyWrap::assign('wikiArticles', WikiArticle::loadForEntries($entries));
 
     // Add a warning if this word is in WotD
@@ -236,6 +263,21 @@ if ($searchType == SEARCH_INFLECTED) {
 }
 
 $results = SearchResult::mapDefinitionArray($definitions);
+
+if(SPOOF_ENABLED && $cuv_spoofed) {
+
+  function replaceSpoofedWord($definition, $cuv) {
+    $pattern = '/<b>(.*)<\/b>(\s.*)/';
+    $replacement = sprintf('<b>%s</b>${2}', mb_strtoupper($cuv));
+    $definition->htmlRep = preg_replace($pattern, $replacement, $definition->htmlRep);
+    return $definition;
+  }
+
+  foreach ($results as $result) {
+    $result->definition = replaceSpoofedWord($result->definition, $cuv);
+  }
+}
+
 $structuredResults = [];
 
 // Filter out hidden definitions
@@ -260,7 +302,7 @@ if ($defLimit) {
     $results = array_slice($results, 0, $defLimit);
   }
 }
-  
+
 if (empty($entries) && empty($lexems) && empty($results)) {
   header('HTTP/1.0 404 Not Found');
 }
@@ -385,7 +427,7 @@ SmartyWrap::assign('locParadigm', session_user_prefers(Preferences::LOC_PARADIGM
 SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('allDefinitions', $all);
 SmartyWrap::assign('showWotd', $showWotd);
-if ($text || $sourceId) { 
+if ($text || $sourceId) {
   // must show the advanced search menu regardless of preference
   SmartyWrap::assign('advancedSearch', true);
 }

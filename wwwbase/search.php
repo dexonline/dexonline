@@ -96,7 +96,7 @@ if ($cuv) {
 
 if(SPOOF_ENABLED && $cuv) {
   $cuv_normalized = SPOOF_NORMALIZE ? mb_strtolower(StringUtil::unicodeToLatin($cuv)) : $cuv;
-  $cuv_spoofed = SPOOF_WORDS[$cuv_normalized];
+  $cuv_spoofed = @SPOOF_WORDS[$cuv_normalized];
   if ($cuv_spoofed) {
     $cuv_spoofed_hasDiacritics = $hasDiacritics || StringUtil::analyzeQuery($cuv_spoofed)[0];
   }
@@ -267,9 +267,9 @@ $results = SearchResult::mapDefinitionArray($definitions);
 if(SPOOF_ENABLED && $cuv_spoofed) {
 
   function replaceSpoofedWord($definition, $cuv) {
-    $pattern = '/<b>(.*)<\/b>(\s.*)/';
+    $pattern = '/<b>(.*)<\/b>(.*?)/U';
     $replacement = sprintf('<b>%s</b>${2}', mb_strtoupper($cuv));
-    $definition->htmlRep = preg_replace($pattern, $replacement, $definition->htmlRep);
+    $definition->htmlRep = preg_replace($pattern, $replacement, $definition->htmlRep, 1);
     return $definition;
   }
 

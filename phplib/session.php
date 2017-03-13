@@ -42,7 +42,7 @@ function session_login($user, $openidData) {
   $cookie->userId = $user->id;
   $cookie->cookieString = util_randomCapitalLetterString(12);
   $cookie->save();
-  setcookie("prefs[lll]", $cookie->cookieString, time() + ONE_MONTH_IN_SECONDS, '/');
+  setcookie("prefs[lll]", $cookie->cookieString, time() + ONE_YEAR_IN_SECONDS, '/');
   Log::info('Logged in, IP=' . $_SERVER['REMOTE_ADDR']);
   util_redirect(util_getWwwRoot());
 }

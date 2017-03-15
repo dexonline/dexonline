@@ -74,6 +74,11 @@ if ($defId) {
   $errors = 0;
 }
 
+if ($def) {
+  $homonyms = Entry::getHomonyms($def->getEntries());
+  SmartyWrap::assign('homonyms', $homonyms);
+}
+
 $defData = $project->getDefinitionData();
 $project->computeAccuracyData();
 

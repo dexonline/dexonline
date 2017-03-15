@@ -169,27 +169,7 @@ $canEdit = [
   'structuristId' => util_isModerator(PRIV_ADMIN),
 ];
 
-$homonymIds = [];
-foreach ($e->getLexems() as $l) {
-  $homonymEntries = Model::factory('EntryLexem')
-                  ->table_alias('el')
-                  ->select('el.entryId')
-                  ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
-                  ->where('l.formNoAccent', $l->formNoAccent)
-                  ->where_not_equal('el.entryId', $e->id)
-                  ->find_array();
-  foreach ($homonymEntries as $h) {
-    $homonymIds[$h['entryId']] = true;
-  }
-}
-
-if (count($homonymIds)) {
-  $homonyms = Model::factory('Entry')
-            ->where_in('id', array_keys($homonymIds))
-            ->find_many();
-} else {
-  $homonyms = [];
-}
+$homonyms = Entry::getHomonyms([ $e ]);
 
 SmartyWrap::assign('e', $e);
 SmartyWrap::assign('searchResults', $searchResults);

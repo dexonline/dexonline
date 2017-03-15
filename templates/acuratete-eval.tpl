@@ -70,6 +70,14 @@
           {/foreach}
         </div>
 
+        {if count($homonyms)}
+          intrări omonime:
+          {foreach $homonyms as $h name=homonymLoop}
+            {include "bits/entry.tpl" entry=$h editLink=true}
+            {if !$smarty.foreach.homonymLoop.last} | {/if}
+          {/foreach}
+        {/if}
+
       </div>
     </div>
   {/if}

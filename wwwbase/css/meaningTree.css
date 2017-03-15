@@ -112,6 +112,10 @@
   padding-top: 25px;
 }
 
+.etymologyBc {
+  font-weight: bold;
+}
+
 .primaryMeaning .bc {
   font-size: 18px;
   font-weight: bold;

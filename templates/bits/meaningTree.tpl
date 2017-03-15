@@ -10,6 +10,10 @@
         <div class="meaningContainer {if $root}primaryMeaning{else}secondaryMeaning{/if}">
           <div>
             {if $etymologies}
+              {if $t.lastBreadcrumb}
+                <span class="etymologyBc">({$t.lastBreadcrumb})</span>
+              {/if}
+              
               {if count($t.tags)}
                 <span class="tag-group">
                   {foreach $t.tags as $tag}

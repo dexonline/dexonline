@@ -1,19 +1,4 @@
-button.sign {
-  font-weight: bold;
-}
-
-button.spacer {
-  margin-left: 30px;
-}
-
-.defActions {
-  margin: 20px 0px;
-}
-
-.defActions .links {
-  float: right;
-}
-
 .currentDef {
-  margin-bottom: 20px;
+  font-size: 1.15em;
+  line-height: 1.6;
 }

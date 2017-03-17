@@ -175,7 +175,7 @@ $typos = Model::factory('Typo')
   ->order_by_asc('id')
   ->find_many();
 
-if ($isOCR) {
+if ($isOCR && empty($entryIds)) {
   $potentialLexicon = AdminStringUtil::extractLexicon($d);
   $entries = Model::factory('Definition')
       ->table_alias('d')

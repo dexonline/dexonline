@@ -98,12 +98,17 @@ class Tree extends BaseObject implements DatedObject {
    * 'children': a recursive dictionary containing this meaning's children
    **/
   private function buildTree(&$map, $meaningId, &$children) {
-    $results = array('meaning' => $map[$meaningId],
-                     'sources' => MeaningSource::loadSourcesByMeaningId($meaningId),
-                     'tags' => Tag::loadByMeaningId($meaningId),
-                     'relations' => Relation::loadByMeaningId($meaningId),
-                     'hasRelations' => (Relation::get_by_meaningId($meaningId) != null),
-                     'children' => []);
+    $results = [
+      'meaning' => $map[$meaningId],
+      'sources' => MeaningSource::loadSourcesByMeaningId($meaningId),
+      'tags' => Tag::loadByMeaningId($meaningId),
+      'relations' => Relation::loadByMeaningId($meaningId),
+      'hasRelations' => (Relation::get_by_meaningId($meaningId) != null),
+      'children' => [],
+      // Meaningful for etymologies: the breadcrumb of the lowest ancestor of TYPE_MEANING.
+      // Populated by Tree::extractEtymologies().
+      'lastBreadcrumb' => null,
+    ];
     foreach ($children[$meaningId] as $childId) {
       $results['children'][] = self::buildTree($map, $childId, $children);
     }
@@ -121,17 +126,19 @@ class Tree extends BaseObject implements DatedObject {
     $this->getMeanings();
     $this->etymologies = [];
 
-    $this->extractEtymologiesHelper($this->meanings);
+    $this->extractEtymologiesHelper($this->meanings, null);
   }
 
-  function extractEtymologiesHelper(&$meanings) {
+  function extractEtymologiesHelper(&$meanings, $lastBreadcrumb) {
     if (!empty($meanings)) {
       foreach ($meanings as $i => &$t) {
         if ($t['meaning']->type == Meaning::TYPE_ETYMOLOGY) {
+          $t['lastBreadcrumb'] = $lastBreadcrumb;
           $this->etymologies[] = $t;
           unset($meanings[$i]);
         } else {
-          $this->extractEtymologiesHelper($t['children']);
+          $bc = ($t['meaning']->breadcrumb) ? $t['meaning']->breadcrumb : $lastBreadcrumb;
+          $this->extractEtymologiesHelper($t['children'], $bc);
         }
       }
     }

@@ -188,6 +188,34 @@ class Entry extends BaseObject implements DatedObject {
       ->find_one();
   }
 
+  static function getHomonyms($entries) {
+    $entryIds = [];
+    $homonymIds = [];
+
+    foreach ($entries as $e) {
+      $entryIds[] = $e->id;
+
+      foreach ($e->getLexems() as $l) {
+        $homonymEntries = Model::factory('EntryLexem')
+                        ->table_alias('el')
+                        ->select('el.entryId')
+                        ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
+                        ->where('l.formNoAccent', $l->formNoAccent)
+                        ->find_array();
+        foreach ($homonymEntries as $h) {
+          $homonymIds[$h['entryId']] = true;
+        }
+      }
+    }
+
+    $homonyms = Model::factory('Entry')
+              ->where_in('id', array_keys($homonymIds))
+              ->where_not_in('id', $entryIds)
+              ->find_many();
+
+    return $homonyms;
+  }
+
   /**
    * Validates an entry for correctness. Returns an array of { field => array of errors }.
    * $original: the original, unmodified entry

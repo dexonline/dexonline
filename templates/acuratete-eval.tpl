@@ -30,7 +30,13 @@
             <input type="hidden" name="projectId" value="{$project->id}">
 
             <button id="butDown" type="button" class="btn btn-default">&ndash;</button>
-            <input class="form-control" id="errors" type="number" name="errors" value="{$errors}" min="0" max="999">
+            <input class="form-control"
+                   id="errors"
+                   type="number"
+                   name="errors"
+                   value="{$errors}"
+                   min="0"
+                   max="999">
             <button id="butUp" type="button" class="btn btn-default">+</button>
 
             <button class="btn btn-success" type="submit" name="saveButton">
@@ -39,16 +45,15 @@
             </button>
 
           </form>
-          <br />
         {/if}
 
-        <div class="well">
+        <div class="voffset2">
           {if $def}
-            <p>
+            <p class="currentDef">
               {$def->internalRep}
             </p>
 
-            <p>
+            <p class="currentDef">
               {$def->htmlRep}
             </p>
           {else}
@@ -64,6 +69,14 @@
             {if !$smarty.foreach.entryLoop.last} | {/if}
           {/foreach}
         </div>
+
+        {if count($homonyms)}
+          intrări omonime:
+          {foreach $homonyms as $h name=homonymLoop}
+            {include "bits/entry.tpl" entry=$h editLink=true}
+            {if !$smarty.foreach.homonymLoop.last} | {/if}
+          {/foreach}
+        {/if}
 
       </div>
     </div>

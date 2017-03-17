@@ -85,7 +85,7 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">conținut</label>
       <div class="col-sm-10">
-        <textarea id="internalRep" name="internalRep" class="form-control" rows="10"
+        <textarea id="internalRep" name="internalRep" class="form-control" rows="10" autofocus
                   >{$def->internalRep|escape}</textarea>
       </div>
     </div>

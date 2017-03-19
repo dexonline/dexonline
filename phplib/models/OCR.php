@@ -15,14 +15,12 @@ class OCR extends BaseObject {
     $ocr = Model::factory('OCR')
          ->where('status', 'raw')
          ->where('editorId', $editorId)
-         ->order_by_asc('dateModified')
          ->order_by_asc('id')
          ->find_one();
     if (!$ocr) {
       $ocr = Model::factory('OCR')
            ->where('status', 'raw')
            ->where_null('editorId')
-           ->order_by_asc('dateModified')
            ->order_by_asc('id')
            ->find_one();
     }

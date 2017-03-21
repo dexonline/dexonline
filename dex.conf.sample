@@ -253,6 +253,14 @@ password = ""
 path = ""
 timeout = 30
 
+; connection info for OTRS (used to process donations automatically)
+; NOTE: passwords are sent unencrypted. Do not run this from the outside.
+[otrs]
+
+restUrl = http://otrs.dexonline.ro/otrs/nph-genericinterface.pl/Webservice/rest
+login = ""
+password = ""
+
 [openid]
 
 ; OpenID 2.0 should just work (TM).

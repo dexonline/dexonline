@@ -80,6 +80,28 @@ function reviveInit() {
     }
     $('#theZone').attr('data-revive-zoneid', zoneId);
     $('#bannerWrapper').width(width);
+    $.getScript(reviveUrl);
+  }
+}
+
+function pubGalaxyInit() {
+  if ($('.pubGalaxyDiv').length) {
+    var w = $(window).width(), divId, adUnit, width, height;
+    if (w > pubGalaxyBreakpoint1) {
+      divId = pubGalaxyId1;
+      adUnit = pubGalaxyAdUnit1;
+      width = pubGalaxyWidth1;
+      height = pubGalaxyHeight1;
+    } else {
+      divId = pubGalaxyId2;
+      adUnit = pubGalaxyAdUnit2;
+      width = pubGalaxyWidth2;
+      height = pubGalaxyHeight2;
+    }
+    $('.pubGalaxyDiv').width(width).height(height).attr('id', divId);
+    googletag.cmd.push(function() {
+      googletag.pubads().display(adUnit, [width, height], divId);
+    });
   }
 }
 

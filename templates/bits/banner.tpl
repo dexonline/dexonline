@@ -13,6 +13,8 @@
       {if $cfg.banner.$key}
         {include "bits/adsense.tpl" adUnitId=$cfg.banner.$key}
       {/if}
+    {elseif $cfg.banner.type == 'pubgalaxy'}
+      {include "bits/pubGalaxy.tpl"}
     {elseif $cfg.banner.type == 'fake'}
       <div class="center-block fakeBanner">
         Banner fals

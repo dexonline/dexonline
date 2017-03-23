@@ -118,11 +118,12 @@ euPlatescMid = 0
 
 ; Banner settings
 [banner]
-; Type of banner to be served. Choices are "revive", "adsense", "fake" or "none".
+; Type of banner to be served. Choices are "revive", "adsense", "pubgalaxy", "fake" or "none".
 ; The option "fake" displays a placeholder banner and can be used in development/beta (so as not to steal real impressions from campaigns).
 type = fake
 adsense_mainPage = ""
 adsense_otherPages = ""
+
 reviveUrl = "https://dexonline.ro/openx/www/delivery/asyncjs.php"
 reviveId = ""
 reviveZoneId1 = ""
@@ -133,6 +134,16 @@ reviveWidth2 = ""
 reviveBreakpoint2 = ""
 reviveZoneId3 = ""
 reviveWidth3 = ""
+
+pubGalaxyId1 = ""
+pubGalaxyAdUnit1 = ""
+pubGalaxyWidth1 = ""
+pubGalaxyHeight1 = ""
+pubGalaxyBreakpoint1 = ""
+pubGalaxyId2 = ""
+pubGalaxyAdUnit2 = ""
+pubGalaxyWidth2 = ""
+pubGalaxyHeight2 = ""
 
 ; Configure skin elements
 [skin]

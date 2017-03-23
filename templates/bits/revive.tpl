@@ -9,7 +9,6 @@
  var reviveBreakpoint2 = '{$cfg.banner.reviveBreakpoint2}';
  var reviveZoneId3 = '{$cfg.banner.reviveZoneId3}';
  var reviveWidth3 = '{$cfg.banner.reviveWidth3}';
+ var reviveUrl = '{$cfg.banner.reviveUrl}';
  reviveInit();
 </script>
-
-<script src="{$cfg.banner.reviveUrl}"></script>

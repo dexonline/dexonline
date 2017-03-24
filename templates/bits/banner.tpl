@@ -2,7 +2,7 @@
 {assign var="adsProviderParams" value=$adsProviderParams|default:null}
 {** Arguments: id, width and height. Expects corresponding values in the [skin] section of dex.conf. **}
 <section class="row" id="banner_{$id}" style="margin-bottom: 25px;">
-  <div id="bannerWrapper" class="center-block">
+  <div id="bannerWrapper" class="center-block text-center">
     {if $adsProvider == 'diverta'}
       {* TODO: edit revive.tpl to make this work *}
       {include "bits/revive.tpl" zoneId="" params=$adsProviderParams}

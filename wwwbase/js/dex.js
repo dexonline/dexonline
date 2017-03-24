@@ -84,24 +84,17 @@ function reviveInit() {
   }
 }
 
-function pubGalaxyInit() {
-  if ($('.pubGalaxyDiv').length) {
-    var w = $(window).width(), divId, adUnit, width, height;
-    if (w > pubGalaxyBreakpoint1) {
-      divId = pubGalaxyId1;
-      adUnit = pubGalaxyAdUnit1;
-      width = pubGalaxyWidth1;
-      height = pubGalaxyHeight1;
-    } else {
-      divId = pubGalaxyId2;
-      adUnit = pubGalaxyAdUnit2;
-      width = pubGalaxyWidth2;
-      height = pubGalaxyHeight2;
-    }
-    $('.pubGalaxyDiv').width(width).height(height).attr('id', divId);
-    googletag.cmd.push(function() {
-      googletag.pubads().display(adUnit, [width, height], divId);
-    });
+function getWidth() {
+  if (self.innerWidth) {
+    return self.innerWidth;
+  }
+
+  if (document.documentElement && document.documentElement.clientWidth) {
+    return document.documentElement.clientWidth;
+  }
+
+  if (document.body) {
+    return document.body.clientWidth;
   }
 }
 

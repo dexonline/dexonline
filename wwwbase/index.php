@@ -46,6 +46,6 @@ SmartyWrap::assign('articol', $wotm->article);
 SmartyWrap::assign('wotmDef', $def);
 SmartyWrap::assign('todayM', date('Y/m'));
 
-$page = Config::get('global.aprilFoolsDay') ? 'index-afd.tpl' : 'index.tpl';
+$page = 'index.tpl';
 SmartyWrap::display($page);
 ?>

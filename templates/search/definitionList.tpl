@@ -35,7 +35,7 @@
   showWotd=$showWotd}
 
 {/foreach}
-<script src="../js/third-party/typewriter.js"></script>
-<script src="../js/typewriter.js"></script>
+<script src="{$wwwRoot}js/third-party/typewriter.js"></script>
+<script src="{$wwwRoot}js/typewriter.js"></script>
 
 {include "bits/typoForm.tpl"}

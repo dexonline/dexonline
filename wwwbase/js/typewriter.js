@@ -46,7 +46,7 @@
     return noCookie && goodDate;
   }
 
-  if (shouldRun()) {
+  if (true || shouldRun()) {
     var rootElements = [].slice.call(document.querySelectorAll('p.def'));
     rootElements.forEach(function(rootElement) {
       var walker = walkerFactory(rootElement);

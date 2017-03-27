@@ -23,24 +23,7 @@
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="https://dexonline.ro/rss/cuvantul-zilei">
     <link rel="apple-touch-icon" href="{$imgRoot}/apple-touch-icon.png">
     {if $aprilFoolsDay}
-        <style>
-            #aprilFoolsOverlay {
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: 1000;
-                background-color: #fff;
-            }
-            #aprilFoolsOverlay p {
-                vertical-align: middle;
-                border: 0;
-                background-color: transparent;
-                font-size: 3em;
-                text-align: center;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="{$wwwRoot}/typewriter/run.css" />
     {/if}
   </head>
 
@@ -83,11 +66,12 @@
   </body>
 
   {if $aprilFoolsDay}
-    <script src="{$wwwbase}js/third-party/typewriter.js"></script>
+    <script src="{$wwwRoot}typewriter/typewriter.js"></script>
     <script
         id="aprilFools"
-        src="{$wwwbase}js/aprilFools.js"
-        data-sound="{$wwwbase}typewriter/typewriter-keystroke.mp3"></script>
+        src="{$wwwRoot}/typewriter/run.js"
+        data-sound="{$wwwRoot}typewriter/typewriter-keystroke.mp3"></script>
+    <script>typewriter.guardedRunAll();</script>
   {/if}
 
 </html>

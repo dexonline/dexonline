@@ -23,6 +23,7 @@
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="https://dexonline.ro/rss/cuvantul-zilei">
     <link rel="apple-touch-icon" href="{$imgRoot}/apple-touch-icon.png">
     {if $aprilFoolsDay}
+        <link rel="prefetch" href="{$wwwRoot}/typewriter/font/FuckinGwenhwyfar.ttf" />
         <link rel="stylesheet" type="text/css" href="{$wwwRoot}/typewriter/run.css" />
     {/if}
   </head>

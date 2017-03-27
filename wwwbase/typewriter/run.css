@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Typewriter";
+    src: url("./font/FuckinGwenhwyfar.ttf") format("truetype");
+}
+
 #aprilFoolsOverlay {
   width: 100%;
   height: 100%;
@@ -16,3 +21,7 @@
   text-align: center;
 }
 
+.typewriterTarget {
+    font-family: "Typewriter";
+    font-size: 1.5em;
+}

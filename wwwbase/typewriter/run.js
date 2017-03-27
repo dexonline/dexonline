@@ -8,9 +8,12 @@
   var ELEM_OVERLAY_ID = "aprilFoolsOverlay";
   var ELEM_OVERLAY_TARGET_ID = "aprilFoolsOverlayTarget";
 
+  var CSS_TYPETARGET = "typewriterTarget";
+
   function setupOverlay() {
     var overlay = document.createElement('div');
     overlay.setAttribute('id', ELEM_OVERLAY_ID);
+    overlay.classList.add(CSS_TYPETARGET);
 
     var typeInto = document.createElement('p');
     typeInto.setAttribute('id', ELEM_OVERLAY_TARGET_ID);
@@ -95,6 +98,7 @@
   function runDefinitions() {
     var rootElements = [].slice.call(document.querySelectorAll('.defWrapper p.def'));
     rootElements.forEach(function(rootElement) {
+      rootElement.classList.add(CSS_TYPETARGET);
       var walker = walkerFactory(rootElement);
       var textNodes = nodesFromWalker(walker);
       var typeWriters = textNodes.map(typewriterFactory);

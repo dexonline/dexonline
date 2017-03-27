@@ -119,7 +119,7 @@
     });
     typewriter.setCompletionCallback(function(){
       teardownOverlay(overlay);
-      doneCallback();
+      doneCallback ? doneCallback() : undefined;
     });
     typewriter.typeText(
      "Momentan toate dactilografele noastre sunt ocupate. Căutarea dumneavoastră este importantă pentru noi."

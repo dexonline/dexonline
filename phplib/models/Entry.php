@@ -208,10 +208,14 @@ class Entry extends BaseObject implements DatedObject {
       }
     }
 
-    $homonyms = Model::factory('Entry')
-              ->where_in('id', array_keys($homonymIds))
-              ->where_not_in('id', $entryIds)
-              ->find_many();
+    if (empty($homonymIds)) {
+      $homonyms = [];
+    } else {
+      $homonyms = Model::factory('Entry')
+                ->where_in('id', array_keys($homonymIds))
+                ->where_not_in('id', $entryIds)
+                ->find_many();
+    }
 
     return $homonyms;
   }

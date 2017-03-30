@@ -17,12 +17,12 @@
   var CSS_TYPETARGET = "typewriterTarget";
   var SOUND_BASEPATH = document.getElementById('aprilFools').getAttribute('data-sound');
   var KEY_SOUNDS = keySounds(SOUND_BASEPATH);
+  var SOUND_CR = new Audio(SOUND_BASEPATH + 'cr.mp3');
 
   var TEXT_OVERLAY = [
     "Momentan toate dactilografele noastre sunt ocupate.",
     "Vă rugăm așteptați.",
     "Căutarea dumneavoastră este importantă pentru noi.",
-    ". . ."
   ];
 
   function setupOverlay() {
@@ -44,10 +44,15 @@
     document.body.style.overflow = '';
   }
 
-  function playSound(chr) {
-    var sndIdx = Math.floor(Math.random() * keySounds.length);
-    var sound = new Audio(KEY_SOUNDS[sndIdx]);
+  function playSound(sound) {
+    sound.pause();
+    sound.currentTime = 0;
     sound.play();
+  }
+
+  function playRandomKeySound(chr) {
+    var sndIdx = Math.floor(Math.random() * keySounds.length);
+    playSound(new Audio(KEY_SOUNDS[sndIdx]));
   };
 
   function setCookie(name) {
@@ -119,7 +124,7 @@
     var fooElem = document.createElement('pre');
     soundTyper = new Typewriter(fooElem);
     soundTyper.setDelay(150, 50);
-    soundTyper.setCharacterCallback(playSound);
+    soundTyper.setCharacterCallback(playRandomKeySound);
     soundTyper.typeText(rootElements[0].innerText);
 
     // Create typewriters for each element's text nodes.
@@ -144,7 +149,7 @@
       typewriter.setCaret("");
       typewriter.setCaretPeriod(0);
       typewriter.setDelay(150, 50);
-      typewriter.setCharacterCallback(playSound);
+      typewriter.setCharacterCallback(playRandomKeySound);
       return typewriter;
     }
 
@@ -154,14 +159,18 @@
       typeInto.appendChild(target);
       return function(next, all) {
         typewriter.setCompletionCallback(function(){
-          var next_next = next + 1;
-          if (next_next <= all.length) {
-            all[next](next_next, all);
+          playSound(SOUND_CR);
+          function runNext(){
+            var next_next = next + 1;
+            if (next_next <= all.length) {
+              all[next](next_next, all);
+            }
+            else {
+              teardownOverlay(overlay);
+              doneCallback ? doneCallback() : undefined;
+            }
           }
-          else {
-            teardownOverlay(overlay);
-            doneCallback ? doneCallback() : undefined;
-          }
+          window.setTimeout(runNext, 3000);
         });
         typewriter.typeText(text);
       }

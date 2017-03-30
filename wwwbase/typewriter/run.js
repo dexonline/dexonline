@@ -18,6 +18,13 @@
   var SOUND_BASEPATH = document.getElementById('aprilFools').getAttribute('data-sound');
   var KEY_SOUNDS = keySounds(SOUND_BASEPATH);
 
+  var TEXT_OVERLAY = [
+    "Momentan toate dactilografele noastre sunt ocupate.",
+    "Vă rugăm așteptați.",
+    "Căutarea dumneavoastră este importantă pentru noi.",
+    ". . ."
+  ];
+
   function setupOverlay() {
     var overlay = document.createElement('div');
     overlay.setAttribute('id', ELEM_OVERLAY_ID);
@@ -75,7 +82,7 @@
       typewriter.setCompletionCallback(function(){
         var next_next = next_idx + 1;
         if (next_next <= all.length) {
-          all[next_idx](next_idx+1, all);
+          all[next_idx](next_next, all);
         }
       });
       typewriter.typeText(text);
@@ -121,7 +128,7 @@
       var walker = walkerFactory(rootElement);
       var textNodes = nodesFromWalker(walker);
       var typeWriters = textNodes.map(typewriterFactory);
-      typeWriters[0](1, typeWriters, true);
+      typeWriters[0](1, typeWriters);
     });
 
     if (rootElements.length > 0) { setCookie(COOKIE_DEFINITIONS); };
@@ -131,21 +138,38 @@
 
     var overlay = setupOverlay();
     var typeInto = document.getElementById('aprilFoolsOverlayTarget');
-    var typewriter = new Typewriter(typeInto);
 
-    typewriter.setCaret("");
-    typewriter.setCaretPeriod(0);
-    typewriter.setDelay(150, 50);
-    typewriter.setCharacterCallback(function(chr){
-      playSound();
-    });
-    typewriter.setCompletionCallback(function(){
-      teardownOverlay(overlay);
-      doneCallback ? doneCallback() : undefined;
-    });
-    typewriter.typeText(
-     "Momentan toate dactilografele noastre sunt ocupate. Căutarea dumneavoastră este importantă pentru noi."
-    )
+    function newTypewriter(elem) {
+      var typewriter = new Typewriter(elem);
+      typewriter.setCaret("");
+      typewriter.setCaretPeriod(0);
+      typewriter.setDelay(150, 50);
+      typewriter.setCharacterCallback(playSound);
+      return typewriter;
+    }
+
+    function typeLineFactory(text) {
+      var target = document.createElement('p');
+      var typewriter = newTypewriter(target);
+      typeInto.appendChild(target);
+      return function(next, all) {
+        typewriter.setCompletionCallback(function(){
+          var next_next = next + 1;
+          if (next_next <= all.length) {
+            all[next](next_next, all);
+          }
+          else {
+            teardownOverlay(overlay);
+            doneCallback ? doneCallback() : undefined;
+          }
+        });
+        typewriter.typeText(text);
+      }
+    }
+
+    var typers = TEXT_OVERLAY.map(typeLineFactory);
+    typers[0](1, typers);
+
     setCookie(COOKIE_OVERLAY);
   }
 

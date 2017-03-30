@@ -5,7 +5,7 @@
   function keySounds(soundPath) {
     var appendPath = function(fileName) { return soundPath + fileName; }
     var fileNameFromIdx = function(idx) { return 'key_' + idx + '.mp3'; }
-    return [0, 1, 2, 3].map(fileNameFromIdx).map(appendPath);
+    return [0, 1, 2, 3, 4].map(fileNameFromIdx).map(appendPath);
   };
 
   var COOKIE_DEFINITIONS = "typewriterRanDefinitions";

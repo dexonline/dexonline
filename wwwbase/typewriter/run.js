@@ -2,6 +2,12 @@
 
   var App = window.typewriter = {};
 
+  function keySounds(soundPath) {
+    var appendPath = function(fileName) { return soundPath + fileName; }
+    var fileNameFromIdx = function(idx) { return 'key_' + idx + '.mp3'; }
+    return [0, 1, 2, 3].map(fileNameFromIdx).map(appendPath);
+  };
+
   var COOKIE_DEFINITIONS = "typewriterRanDefinitions";
   var COOKIE_OVERLAY = "typewriterRanOverlay";
 
@@ -9,6 +15,8 @@
   var ELEM_OVERLAY_TARGET_ID = "aprilFoolsOverlayTarget";
 
   var CSS_TYPETARGET = "typewriterTarget";
+  var SOUND_BASEPATH = document.getElementById('aprilFools').getAttribute('data-sound');
+  var KEY_SOUNDS = keySounds(SOUND_BASEPATH);
 
   function setupOverlay() {
     var overlay = document.createElement('div');
@@ -29,9 +37,9 @@
     document.body.style.overflow = '';
   }
 
-  function playSound(sound, chr) {
-    sound.pause();
-    sound.currentTime = 0;
+  function playSound(chr) {
+    var sndIdx = Math.floor(Math.random() * keySounds.length);
+    var sound = new Audio(KEY_SOUNDS[sndIdx]);
     sound.play();
   };
 
@@ -62,6 +70,7 @@
     var text = node.nodeValue;
     node.nodeValue = "";
     var typewriter = new Typewriter(node);
+    typewriter.setDelay(150, 50);
     return function(next_idx, all) {
       typewriter.setCompletionCallback(function(){
         var next_next = next_idx + 1;
@@ -97,19 +106,28 @@
 
   function runDefinitions() {
     var rootElements = [].slice.call(document.querySelectorAll('.defWrapper p.def'));
+
+    // Create a new element so we can output typing sounds.
+    // Doesn't have to be added to the DOM.
+    var fooElem = document.createElement('pre');
+    soundTyper = new Typewriter(fooElem);
+    soundTyper.setDelay(150, 50);
+    soundTyper.setCharacterCallback(playSound);
+    soundTyper.typeText(rootElements[0].innerText);
+
+    // Create typewriters for each element's text nodes.
     rootElements.forEach(function(rootElement) {
       rootElement.classList.add(CSS_TYPETARGET);
       var walker = walkerFactory(rootElement);
       var textNodes = nodesFromWalker(walker);
       var typeWriters = textNodes.map(typewriterFactory);
-      typeWriters[0](1, typeWriters);
+      typeWriters[0](1, typeWriters, true);
     });
+
     if (rootElements.length > 0) { setCookie(COOKIE_DEFINITIONS); };
   };
 
   function runOverlay(doneCallback) {
-    var soundPath = document.getElementById('aprilFools').getAttribute('data-sound');
-    var typingSound = new Audio(soundPath);
 
     var overlay = setupOverlay();
     var typeInto = document.getElementById('aprilFoolsOverlayTarget');
@@ -117,9 +135,9 @@
 
     typewriter.setCaret("");
     typewriter.setCaretPeriod(0);
-    typewriter.setDelay(500, 100);
-    typewriter.setCharacterCallback(function(){
-      playSound(typingSound);
+    typewriter.setDelay(150, 50);
+    typewriter.setCharacterCallback(function(chr){
+      playSound();
     });
     typewriter.setCompletionCallback(function(){
       teardownOverlay(overlay);

@@ -30,7 +30,7 @@
     overlay.setAttribute('id', ELEM_OVERLAY_ID);
     overlay.classList.add(CSS_TYPETARGET);
 
-    var typeInto = document.createElement('p');
+    var typeInto = document.createElement('div');
     typeInto.setAttribute('id', ELEM_OVERLAY_TARGET_ID);
     overlay.appendChild(typeInto);
 

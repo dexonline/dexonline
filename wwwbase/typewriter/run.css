@@ -11,17 +11,19 @@
   left: 0;
   z-index: 1000;
   background-color: #fff;
+  display: table;
 }
 
 #aprilFoolsOverlayTarget {
   vertical-align: middle;
   border: 0;
   background-color: transparent;
-  font-size: 3em;
+  font-size: 4.5rem;
   text-align: center;
+  display: table-cell;
 }
 
 .typewriterTarget {
     font-family: "Typewriter";
-    font-size: 1.5em;
+    font-size: 1.5rem;
 }

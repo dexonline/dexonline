@@ -1,4 +1,5 @@
 {assign var="cuv" value=$cuv|default:''}
+{assign var="aprilFoolsDay" value=$cfg.global.aprilFoolsDay|default:false}
 {assign var="onHomePage" value=$onHomePage|default:false}
 <!DOCTYPE html>
 <html>
@@ -21,13 +22,18 @@
     <link href="https://plus.google.com/100407552237543221945" rel="publisher" />
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="https://dexonline.ro/rss/cuvantul-zilei">
     <link rel="apple-touch-icon" href="{$imgRoot}/apple-touch-icon.png">
+    {if $aprilFoolsDay}
+        <link rel="prefetch" href="{$wwwRoot}typewriter/font/FuckinGwenhwyfar.ttf" />
+        <link rel="stylesheet" type="text/css" href="{$wwwRoot}typewriter/run.css" />
+    {/if}
   </head>
 
   <body>
+
     {if isset($callToAction)}
       {include $cfg.global.callToAction}
     {/if}
-    
+
     <header>
       {include "bits/navmenu.tpl"}
       {include "bits/recentlyVisited.tpl"}
@@ -59,5 +65,14 @@
     {include "bits/analytics.tpl"}
     {include "bits/debugInfo.tpl"}
   </body>
+
+  {if $aprilFoolsDay}
+    <script src="{$wwwRoot}typewriter/typewriter.js"></script>
+    <script
+        id="aprilFools"
+        src="{$wwwRoot}typewriter/run.js"
+        data-sound="{$wwwRoot}typewriter/sound/"></script>
+    <script>typewriter.guardedRunAll();</script>
+  {/if}
 
 </html>

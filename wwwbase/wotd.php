@@ -1,13 +1,21 @@
 <?php
 
-define('ONE_DAY_IN_SECS',86400);
-define('WOTD_BIG_BANG', '2011-05-01');
-define('WOTD_REASON_DISPLAY_DELAY', 2);
+define('WOTD_BIG_BANG', '2011/05/01');
+define('MAX_DATE_FOR_REASON_DISPLAY', '-2 days midnight'); // hide reason for newer words
 
 require_once("../phplib/util.php");
 $date = Request::get('d');
 $type = Request::get('t');
 $delay = Request::get('h', 0); //delay in minutes
+
+if (!$date) {
+  $date = date('Y/m/d');
+}
+// use objects from here on
+$date = new DateTimeImmutable($date);
+$today = new DateTimeImmutable('today midnight');
+$bigBang = new DateTimeImmutable(WOTD_BIG_BANG);
+$maxReasonDate = new DateTimeImmutable(MAX_DATE_FOR_REASON_DISPLAY);
 
 // RSS stuff - could be separated from the rest
 // TODO optimize & factorize
@@ -50,18 +58,18 @@ if ($type == 'rss' || $type == 'blog') {
   exit;
 }
 
-$today = date('Y-m-d', time());
-$timestamp = $date ? strtotime($date) : time();
-$mysqlDate = date("Y-m-d", $timestamp);
-
-if ($mysqlDate < WOTD_BIG_BANG || (($mysqlDate > $today) && !util_isModerator(PRIV_ADMIN))) {
+if (($date < $bigBang) ||
+    (($date > $today) && !util_isModerator(PRIV_ADMIN))) {
+  FlashMessage::add('Nu puteți vedea cuvântul acelei zile.', 'warning');
   util_redirect(util_getWwwRoot() . 'cuvantul-zilei');
 }
+
+$mysqlDate = $date->format('Y-m-d');
 
 $wotd = WordOfTheDay::get_by_displayDate($mysqlDate);
 if (!$wotd) {
   // We shouldn't have missing words since the Big Bang.
-  if ($mysqlDate != $today) {
+  if ($date != $today) {
     util_redirect(util_getWwwRoot() . 'cuvantul-zilei');
   }
   WordOfTheDay::updateTodaysWord();
@@ -71,10 +79,7 @@ if (!$wotd) {
 $reason = '';
 if ($wotd) {
   $reason = $wotd->description;
-  if (
-    util_isModerator(PRIV_ADMIN) ||
-    ($date && strtotime($date) < time() - WOTD_REASON_DISPLAY_DELAY * ONE_DAY_IN_SECS)
-  ) {
+  if (util_isModerator(PRIV_ADMIN) || ($date <= $maxReasonDate)) {
     SmartyWrap::assign('reason', $reason);
   }
 }
@@ -89,19 +94,27 @@ if ($type == 'url') {
   exit;
 }
 
-$searchResults = SearchResult::mapDefinitionArray(array($def));
+$searchResults = SearchResult::mapDefinitionArray([$def]);
 
-if ($mysqlDate > WOTD_BIG_BANG) {
-  SmartyWrap::assign('prevday', date('Y/m/d', $timestamp - ONE_DAY_IN_SECS));
+if ($date > $bigBang) {
+  $prevDay = $date->sub(new DateInterval('P1D'))->format('Y/m/d');
+  SmartyWrap::assign('prevDay', $prevDay);
+} else {
+  SmartyWrap::assign('prevDay', false);
 }
-if ($mysqlDate < $today || util_isModerator(PRIV_ADMIN)) {
-  SmartyWrap::assign('nextday', date('Y/m/d', $timestamp + ONE_DAY_IN_SECS));
+
+if ($date < $today || util_isModerator(PRIV_ADMIN)) {
+  $nextDay = $date->add(new DateInterval('P1D'))->format('Y/m/d');
+  SmartyWrap::assign('nextDay', $nextDay);
+} else {
+  SmartyWrap::assign('nextDay', false);
 }
 
 // Load the WotD for this day in other years.
-$year = date('Y', $timestamp);
-$month = date('m', $timestamp);
-$day = date('d', $timestamp);
+$year = $date->format('Y');
+$month = $date->format('m');
+$monthName = strftime('%B', $date->getTimestamp());
+$day = $date->format('j');
 
 $prevWotds = WordOfTheDay::getPreviousYearsWotds($month, $day);
 $otherYears = [];
@@ -122,7 +135,10 @@ foreach ($prevWotds as $w) {
 
 SmartyWrap::assign('imageUrl', $wotd->getImageUrl());
 SmartyWrap::assign('artist', $wotd->getArtist());
-SmartyWrap::assign('timestamp', $timestamp);
+SmartyWrap::assign('year', $year);
+SmartyWrap::assign('month', $month);
+SmartyWrap::assign('monthName', $monthName);
+SmartyWrap::assign('day', $day);
 SmartyWrap::assign('otherYears', $otherYears);
 SmartyWrap::assign('searchResult', array_pop($searchResults));
 

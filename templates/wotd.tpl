@@ -1,12 +1,13 @@
 {extends "layout.tpl"}
 
 {block "title"}
-  Cuvântul zilei ({$timestamp|date_format:'%e %B %Y'}): {$searchResult->definition->lexicon}
+  Cuvântul zilei ({$day} {$monthName} {$year}): {$searchResult->definition->lexicon}
 {/block}
 
 {block "pageDescription"}
+  {$lexicon=$searchResult->definition->lexicon}
   <meta name="description"
-        content="Cuvântul zilei de {$timestamp|date_format:'%e %B %Y'} la dexonline: {$searchResult->definition->lexicon}"/>
+        content="Cuvântul zilei de {$day} {$monthName} {$year} la dexonline: {$lexicon}"/>
 {/block}
 
 {block "openGraph"}
@@ -14,11 +15,9 @@
 {/block}
 
 {block "content"}
-  {assign var="nextday" value=$nextday|default:false}
-  {assign var="prevday" value=$prevday|default:false}
   {assign var="reason" value=$reason|default:''}
 
-<h3>Cuvântul zilei, {$timestamp|date_format:'%e %B %Y'}</h3>
+<h3>Cuvântul zilei, {$day} {$monthName} {$year}</h3>
 
   {if $skinVariables.wotdSubscribe}
     <div id="wotdSocialMedia">
@@ -43,12 +42,21 @@
 
   <div class="container panel panel-default">
     <div class="row panel-heading">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotd-navigation">
-          <a href="{$wwwRoot}cuvantul-zilei/{$prevday}"><span class="glyphicon glyphicon-chevron-left"></span></a>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotd-navigation">
-          <a href="{$wwwRoot}cuvantul-zilei/{$nextday}"><span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
-        </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotd-navigation">
+        {if $prevDay}
+          <a href="{$wwwRoot}cuvantul-zilei/{$prevDay}">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+        {/if}
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 wotd-navigation">
+        {if $nextDay}
+          <a href="{$wwwRoot}cuvantul-zilei/{$nextDay}">
+            <span class="glyphicon glyphicon-chevron-right pull-right">
+            </span>
+          </a>
+        {/if}
+      </div>
     </div>
     <div class="row panel-body">
 
@@ -78,9 +86,9 @@
     <h3>Arhiva cuvintelor zilei</h3>
 
     <div id="wotdArchive" class="wotdArchive"></div>
-    <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$timestamp|date_format:'%Y/%m'}','#wotdArchive')</script>
+    <script>loadAjaxContent('{$wwwRoot}arhiva/cuvantul-zilei/{$year}/{$month}','#wotdArchive')</script>
 
-    <h3>Cuvântul zilei de {$timestamp|date_format:'%e %B'} în alți ani:</h3>
+    <h3>Cuvântul zilei de {$day} {$monthName} în alți ani:</h3>
     {foreach $otherYears as $r}
       <div class="panel panel-default">
         <div class="panel-body">

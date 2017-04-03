@@ -283,8 +283,6 @@ class Lexem extends BaseObject implements DatedObject {
       // instead of count(distinct *).
       return @Model::factory('Lexem')
         ->table_alias('l')
-        ->select('l.*')
-        ->distinct()
         ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
         ->join('EntryDefinition', ['el.entryId', '=', 'ed.entryId'], 'ed')
         ->join('Definition', ['ed.definitionId', '=', 'd.id'], 'd')
@@ -313,10 +311,21 @@ class Lexem extends BaseObject implements DatedObject {
 
     try {
       $q = self::getRegexpQuery($regexp, $hasDiacritics, $sourceId);
-      $result = $count
-              ? $q->count()
-              : $q->order_by_asc('l.formNoAccent')->limit(1000)->find_many();
+      if ($count) {
+        $result = $q
+                ->select_expr('count(distinct l.id)', 'count')
+                ->find_array();
+        $result = $result[0]['count'];
+      } else {
+        $result = $q
+                ->select('l.*')
+                ->distinct()
+                ->order_by_asc('l.formNoAccent')
+                ->limit(1000)
+                ->find_many();
+      }
     } catch (Exception $e) {
+      var_dump($e);
       $result = $count ? 0 : []; // Bad regexp
     }
 

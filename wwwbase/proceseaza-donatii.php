@@ -7,14 +7,17 @@ define('OTRS_DONATION_EMAIL_REGEX',
        '^3. PRET: (?<amount>[0-9.]+) RON.*' .
        '^   EMAIL: (?<email>[^\n]+)$/ms');
 
-$odp = new OtrsDonationProvider();
-$donors = $odp->getDonors();
-var_dump($donors);
+$submitButton = Request::has('submitButton');
 
-//SmartyWrap::display('proceseaza-donatii.tpl');
+if ($submitButton) {
+  $odp = new OtrsDonationProvider();
+  $donors = $odp->getDonors();
+}
+
+SmartyWrap::display('proceseaza-donatii.tpl');
 
 abstract class DonationProvider {
-  // Must return a list of tuples [ 'email' => <email address>, 'amount' => <donation amount ]
+  // Must return a list of tuples [ 'email' => <email address>, 'amount' => <donation amount> ]
   abstract function getDonors();
 }
 

@@ -7,18 +7,75 @@ define('OTRS_DONATION_EMAIL_REGEX',
        '^3. PRET: (?<amount>[0-9.]+) RON.*' .
        '^   EMAIL: (?<email>[^\n]+)$/ms');
 
-$submitButton = Request::has('submitButton');
+$previewButton = Request::has('previewButton');
+$saveButton = Request::has('saveButton');
 
-if ($submitButton) {
+if ($previewButton) {
   $odp = new OtrsDonationProvider();
-  $donors = $odp->getDonors();
+  // $otrsDonors = $odp->getDonors();
+  $otrsDonors = [];
+
+  $emails = Request::get('email');
+  $amounts = Request::get('amount');
+  $dates = Request::get('date');
+  $mdp = new ManualDonationProvider($emails, $amounts, $dates);
+
+  $mdp->processDonors();
+
+  SmartyWrap::assign('manualDonors', $mdp->getDonors());
 }
 
 SmartyWrap::display('proceseaza-donatii.tpl');
 
+class Donor {
+  public $email;
+  public $amount;
+  public $date;
+  public $description;
+
+  function __construct($email, $amount, $date, $description) {
+    $this->email = $email;
+    $this->amount = $amount;
+    $this->date = $date;
+    $this->description = $description;
+  }
+
+  function validate() {
+    if ($this->email && $this->amount && $this->date) {
+      return true;
+    } else {
+      FlashMessage::add("Donatorul {$this} nu poate fi procesat pentru că are câmpuri vide.",
+                        'warning');
+      return false;
+    }
+  }
+
+  function process() {
+    if (!$this->validate()) {
+      return;
+    }
+    $u = User::get_by_email($this->email);
+    if ($u) {
+      var_dump("{$this}: {$u->nick}");
+    }
+  }
+
+  function __toString() {
+    return (string)$this->description;
+  }
+}
+
 abstract class DonationProvider {
-  // Must return a list of tuples [ 'email' => <email address>, 'amount' => <donation amount> ]
+  protected $donors;
+
+  // must return an array of Donor objects
   abstract function getDonors();
+
+  function processDonors() {
+    foreach ($this->donors as $d) {
+      $d->process();
+    }
+  }
 }
 
 class OtrsDonationProvider extends DonationProvider {
@@ -51,6 +108,7 @@ class OtrsDonationProvider extends DonationProvider {
       'Password' => Config::get('otrs.password'),
       'Queues' => 'ONG',
       'States' => 'new',
+      'From' => 'office@euplatesc.ro', // TODO: test if it needs '%' regex
     ]);
     $this->ticketIds = $response->TicketID;
 
@@ -71,8 +129,7 @@ class OtrsDonationProvider extends DonationProvider {
       $from = $article->From;
       $body = $article->Body;
 
-      if (preg_match('/euplatesc/', $from) &&
-          preg_match(OTRS_DONATION_EMAIL_REGEX, $body, $match)) {
+      if (preg_match(OTRS_DONATION_EMAIL_REGEX, $body, $match)) {
 
         $results[] = [
           'email' => $match['email'],
@@ -91,5 +148,21 @@ class OtrsDonationProvider extends DonationProvider {
       'TicketID' => $ticketId,
       'AllArticles' => '1',
     ]);
+  }
+}
+
+class ManualDonationProvider extends DonationProvider {
+
+  function __construct($emails, $amounts, $dates) {
+    $this->donors = [];
+    foreach ($emails as $i => $e) {
+      if ($e || $amounts[$i] || $dates[$i]) {
+        $this->donors[] = new Donor($e, $amounts[$i], $dates[$i], $i + 1);
+      }
+    }
+  }
+
+  function getDonors() {
+    return $this->donors;
   }
 }

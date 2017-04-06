@@ -9,8 +9,8 @@ if (!$definitionId) {
   // User requested an OCR definition. Try to find one.
   $ocr = OCR::getNext(session_getUserId());
   if (!$ocr) {
-    echo('Lista cu definiții OCR este goală.');
-    return;
+    FlashMessage::add('Lista cu definiții OCR este goală.', 'warning');
+    util_redirect('index.php');
   }
 
   // Found one, create the Definition and update the OCR.
@@ -45,6 +45,8 @@ if (!($d = Definition::get_by_id($definitionId))) {
   FlashMessage::add("Nu există nicio definiție cu ID-ul {$definitionId}.");
   util_redirect("index.php");
 }
+
+$orig = Definition::get_by_id($definitionId); // for comparison
 
 // Load request fields and buttons.
 $isOCR = Request::get('isOCR');
@@ -124,7 +126,8 @@ if ($saveButton || $nextOcrBut) {
       $entries[] = $e;
     }
     if ($noAccentNag) {
-      FlashMessage::add('Vă rugăm să indicați accentul pentru lexemele noi oricând se poate.', 'warning');
+      FlashMessage::add('Vă rugăm să indicați accentul pentru lexemele noi oricând se poate.',
+                        'warning');
     }
 
     // Save the definition and delete the typos associated with it.
@@ -132,6 +135,12 @@ if ($saveButton || $nextOcrBut) {
     Typo::delete_all_by_definitionId($d->id);
     if ($comment) {
       $comment->save();
+    }
+
+    if ($d->structured && ($d->internalRep != $orig->internalRep)) {
+      FlashMessage::add('Ați modificat o definiție deja structurată. Dacă se poate, ' .
+                        'vă rugăm să modificați corespunzător și arborele de sensuri.',
+                        'warning');
     }
 
     if ($d->status == Definition::ST_DELETED) {

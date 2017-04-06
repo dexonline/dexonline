@@ -1,5 +1,7 @@
 <?php
-require_once('../phplib/util.php');
+require_once '../phplib/util.php';
+require_once '../phplib/third-party/PHPMailer/PHPMailerAutoload.php';
+
 util_assertModerator(PRIV_ADMIN);
 
 define('OTRS_DONATION_EMAIL_REGEX',
@@ -8,57 +10,153 @@ define('OTRS_DONATION_EMAIL_REGEX',
        '^   EMAIL: (?<email>[^\n]+)$/ms');
 
 $previewButton = Request::has('previewButton');
-$saveButton = Request::has('saveButton');
+$processButton = Request::has('processButton');
+$backButton = Request::has('backButton');
 
-if ($previewButton) {
+if ($processButton) {
+  $mdp = readManualDonorData();
+  $mdp->prepareDonors();
+  $mdp->processDonors();
+  FlashMessage::add('Am procesat donațiile. Dacă au existat utilizatori care au primit ' .
+                    'medalii și/sau scutiri de bannere, nu uitați să goliți parțial cache-ul ' .
+                    'lui Varnish: sudo varnishadm ban.url ^/utilizator',
+                    'success');
+  util_redirect('proceseaza-donatii.php');
+
+} else if ($previewButton) {
   $odp = new OtrsDonationProvider();
   // $otrsDonors = $odp->getDonors();
   $otrsDonors = [];
 
-  $emails = Request::get('email');
-  $amounts = Request::get('amount');
-  $dates = Request::get('date');
-  $mdp = new ManualDonationProvider($emails, $amounts, $dates);
-
-  $mdp->processDonors();
+  $mdp = readManualDonorData();
+  $mdp->prepareDonors();
 
   SmartyWrap::assign('manualDonors', $mdp->getDonors());
+  if (FlashMessage::hasErrors()) {
+    SmartyWrap::display('proceseaza-donatii.tpl');
+  } else {
+    SmartyWrap::display('proceseaza-donatii2.tpl');
+  }
+
+} else if ($backButton) {
+
+  $mdp = readManualDonorData();
+  SmartyWrap::assign('manualDonors', $mdp->getDonors());
+  SmartyWrap::display('proceseaza-donatii.tpl');
+
+} else {
+
+  SmartyWrap::display('proceseaza-donatii.tpl');
+
 }
 
-SmartyWrap::display('proceseaza-donatii.tpl');
+/*************************************************************************/
+
+function readManualDonorData() {
+  $emails = Request::get('email', []);
+  $amounts = Request::get('amount', []);
+  $dates = Request::get('date', []);
+
+  $sendEmail = [];
+  foreach ($emails as $i => $e) {
+    if (Request::has("manualSendMessage_{$i}")) {
+      $sendEmail[] = $i;
+    }
+  }
+
+  return new ManualDonationProvider($emails, $amounts, $dates, $sendEmail);
+}
 
 class Donor {
+  const AMOUNT_MEDAL = 20;
+  const AMOUNT_NO_BANNERS = 50;
+  const AMOUNT_STICKER = 100;
+  const AMOUNT_TEE = 200;
+
   public $email;
   public $amount;
   public $date;
+  public $source;
+  public $sendEmail;
   public $description;
+  public $user;
+  public $textMessage;
+  public $htmlMessage;
+  public $valid;
 
-  function __construct($email, $amount, $date, $description) {
+  function __construct($email, $amount, $date, $source, $sendEmail, $description) {
     $this->email = $email;
     $this->amount = $amount;
     $this->date = $date;
+    $this->source = $source;
+    $this->sendEmail = $sendEmail;
     $this->description = $description;
   }
 
+  function needsEmail() {
+    return $this->amount >= self::AMOUNT_MEDAL;
+  }
+
   function validate() {
-    if ($this->email && $this->amount && $this->date) {
-      return true;
-    } else {
-      FlashMessage::add("Donatorul {$this} nu poate fi procesat pentru că are câmpuri vide.",
-                        'warning');
-      return false;
+    $this->valid = $this->email && $this->amount && $this->date;
+
+    if (!$this->valid) {
+      FlashMessage::add("Donatorul {$this} nu poate fi procesat pentru că are câmpuri vide.");
+    }
+
+    return $this->valid;
+  }
+
+  function prepare() {
+    $this->user = User::get_by_email($this->email);
+
+    SmartyWrap::assign('donor', $this);
+
+    if ($this->amount >= self::AMOUNT_MEDAL) {
+      $this->textMessage = SmartyWrap::fetch('email/donationThankYouTxt.tpl');
+      $this->htmlMessage = SmartyWrap::fetch('email/donationThankYouHtml.tpl');
     }
   }
 
   function process() {
-    if (!$this->validate()) {
-      return;
+    if ($this->sendEmail) {
+      $mail = new PHPMailer();
+
+      $mail->setFrom(Config::get('global.contact'), 'dexonline');
+      $mail->addAddress($this->email);
+      $mail->isHTML(true);
+      $mail->CharSet = 'utf-8';
+
+      $mail->Subject = 'Mulțumiri';
+      $mail->Body = $this->htmlMessage;
+      $mail->AltBody = $this->textMessage;
+
+      if (!$mail->send()) {
+        FlashMessage::add(sprintf('Emailul către %s a eșuat: %s',
+                                  $this->email, $mail->ErrorInfo));
+      }
     }
-    $u = User::get_by_email($this->email);
-    if ($u) {
-      var_dump("{$this}: {$u->nick}");
+
+    if ($this->user) {
+      if ($this->amount >= self::AMOUNT_MEDAL) {
+        $this->user->medalMask |= Medal::MEDAL_SPONSOR;
+        $this->user->save();
+      }
+      if ($this->amount >= self::AMOUNT_NO_BANNERS) {
+        $this->user->noAdsUntil = strtotime('+1 year');
+        $this->user->save();
+      }
     }
+
+    $donation = Model::factory('Donation')->create();
+    $donation->email = $this->email;
+    $donation->amount = $this->amount;
+    $donation->date = $this->date;
+    $donation->source = $this->source;
+    $donation->emailSent = $this->sendEmail;
+    $donation->save();
   }
+
 
   function __toString() {
     return (string)$this->description;
@@ -70,6 +168,12 @@ abstract class DonationProvider {
 
   // must return an array of Donor objects
   abstract function getDonors();
+
+  function prepareDonors() {
+    foreach ($this->donors as $d) {
+      $d->prepare();
+    }
+  }
 
   function processDonors() {
     foreach ($this->donors as $d) {
@@ -153,11 +257,14 @@ class OtrsDonationProvider extends DonationProvider {
 
 class ManualDonationProvider extends DonationProvider {
 
-  function __construct($emails, $amounts, $dates) {
+  function __construct($emails, $amounts, $dates, $sendEmail) {
     $this->donors = [];
     foreach ($emails as $i => $e) {
       if ($e || $amounts[$i] || $dates[$i]) {
-        $this->donors[] = new Donor($e, $amounts[$i], $dates[$i], $i + 1);
+        $s = in_array($i, $sendEmail);
+        $d = new Donor($e, $amounts[$i], $dates[$i], Donation::SOURCE_MANUAL, $s, $i + 1);
+        $d->validate();
+        $this->donors[] = $d;
       }
     }
   }

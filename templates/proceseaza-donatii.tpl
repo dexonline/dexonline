@@ -19,8 +19,10 @@
       <div class="panel-heading">Donații introduse manual</div>
       <div class="panel-body">
         {section rowLoop start=0 loop=5}
-          {$donor=$manualDonors[$smarty.section.rowLoop.index]|default:null}
+          {$i=$smarty.section.rowLoop.index}
+          {$donor=$manualDonors[$i]|default:null}
           <div>
+
             <div class="row form-group">
               <div class="col-md-4">
                 <input type="email"
@@ -31,6 +33,8 @@
               </div>
               <div class="col-md-4">
                 <input type="number"
+                       min="0"
+                       step="1"
                        name="amount[]"
                        value="{$donor->amount|default:''}""
                        class="form-control"
@@ -50,16 +54,9 @@
     </div>
 
     <div>
-
       <button type="submit" class="btn btn-default" name="previewButton">
         previzualizează
       </button>
-
-      <button type="submit" class="btn btn-success" name="saveButton">
-        <i class="glyphicon glyphicon-floppy-disk"></i>
-        <u>s</u>alvează
-      </button>
-
     </div>
 
   </form>

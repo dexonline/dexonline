@@ -11,7 +11,17 @@ $parts = db_splitDsn();
   // Place them in my.cnf.
 $COMMON_COMMAND = sprintf("mysqldump -h %s %s ", $parts['host'], $parts['database']);
 
-$schemaOnly = array('RecentLink', 'Cookie', 'UserWordBookmark', 'DefinitionSimple', 'history_Comment', 'history_Definition');
+$schemaOnly = [
+  'AccuracyProject',
+  'AccuracyRecord',
+  'Cookie',
+  'DefinitionSimple',
+  'Donation',
+  'RecentLink',
+  'UserWordBookmark',
+  'history_Comment',
+  'history_Definition',
+];
 $currentYear = date("Y");
 
 // Full/Public dump: the public dump omits the user table, which contains emails and md5-ed passwords.

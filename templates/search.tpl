@@ -12,6 +12,12 @@
   {/if}
 {/block}
 
+{block "banner"}
+  {if $bannerPos == -1}
+    {include "bits/banner.tpl"} {* normal code unless the banner goes between definitions *}
+  {/if}
+{/block}
+
 {block "content"}
   {assign var="declensionText" value=$declensionText|default:null}
   {assign var="showParadigm" value=$showParadigm|default:false}

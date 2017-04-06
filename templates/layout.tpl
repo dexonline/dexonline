@@ -36,9 +36,7 @@
 
     <header>
       {block "banner"}
-        {if !$suggestNoBanner && $skinVariables.banner}
-          {include "bits/banner.tpl" id="{if $onHomePage}mainPage{else}otherPages{/if}"}
-        {/if}
+        {include "bits/banner.tpl"}
       {/block}
       {include "bits/navmenu.tpl"}
       {include "bits/recentlyVisited.tpl"}

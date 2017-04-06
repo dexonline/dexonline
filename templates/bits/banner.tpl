@@ -1,9 +1,16 @@
 {assign var="adsProvider" value=$adsProvider|default:null}
 {assign var="adsProviderParams" value=$adsProviderParams|default:null}
 
-{** Arguments: id. Expects corresponding values in the [banner] section of dex.conf. **}
+
+{** Expects corresponding values in the [banner] section of dex.conf. **}
+{if $onHomePage}
+  {$id='mainPage'}
+{else}
+  {$id='otherPages'}
+{/if}
+
 {if !$suggestNoBanner && $skinVariables.banner}
-  <section class="row topBanner" id="banner_{if $onHomePage}mainPage{else}otherPages{/if}">
+  <section class="row topBanner" id="banner_{$id}">
     <div id="bannerWrapper" class="center-block text-center">
       {if $adsProvider == 'diverta'}
         {* TODO: edit revive.tpl to make this work *}

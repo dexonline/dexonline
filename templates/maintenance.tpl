@@ -1,6 +1,9 @@
-{extends "base.tpl"}
+{extends "layout.tpl"}
 
 {block "title"}Mentenanță{/block}
+
+{block "search"}{/block}
+{block "banner"}{/block}
 
 {block "content"}
 
@@ -11,3 +14,5 @@
   </h4>
 
 {/block}
+
+{block "footer"}{/block}

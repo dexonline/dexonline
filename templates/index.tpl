@@ -1,6 +1,8 @@
-{extends "base.tpl"}
+{extends "layout.tpl"}
 
 {block "title"}Dicționar explicativ al limbii române{/block}
+
+{block "search"}{/block}
 
 {block "content"}
   <header>
@@ -11,11 +13,6 @@
   </header>
 
   {include "bits/searchForm.tpl"}
-
-  {if !$suggestNoBanner && $skinVariables.banner}
-    {include "bits/banner.tpl" id="mainPage"}
-  {/if}
-
 
   <section class="row widgets">
     <div class="col-md-12">
@@ -42,3 +39,5 @@
   </div>
 
 {/block}
+
+{block "footer"}{/block}

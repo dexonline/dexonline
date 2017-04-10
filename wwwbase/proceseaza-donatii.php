@@ -24,14 +24,17 @@ if ($processButton) {
   util_redirect('proceseaza-donatii.php');
 
 } else if ($previewButton) {
-  $odp = new OtrsDonationProvider();
-  // $otrsDonors = $odp->getDonors();
-  $otrsDonors = [];
+  $includeOtrs = Request::has('includeOtrs');
+  if ($includeOtrs) {
+    $odp = new OtrsDonationProvider();
+    $odp->prepareDonors();
+    SmartyWrap::assign('otrsDonors', $odp->getDonors());
+  }
 
   $mdp = readManualDonorData();
   $mdp->prepareDonors();
-
   SmartyWrap::assign('manualDonors', $mdp->getDonors());
+
   if (FlashMessage::hasErrors()) {
     SmartyWrap::display('proceseaza-donatii.tpl');
   } else {
@@ -157,17 +160,29 @@ class Donor {
     $donation->save();
   }
 
-
   function __toString() {
     return (string)$this->description;
+  }
+}
+
+class OtrsDonor extends Donor {
+  public $ticketId;
+
+  function __construct($email, $amount, $date, $source, $sendEmail, $ticketId) {
+    parent::__construct($email, $amount, $date, $source, $sendEmail, $ticketId);
+    $this->ticketId = $ticketId;
+  }
+  function __toString() {
+    return "tichet ID={$this->ticketId}";
   }
 }
 
 abstract class DonationProvider {
   protected $donors;
 
-  // must return an array of Donor objects
-  abstract function getDonors();
+  function getDonors() {
+    return $this->donors;
+  }
 
   function prepareDonors() {
     foreach ($this->donors as $d) {
@@ -183,7 +198,6 @@ abstract class DonationProvider {
 }
 
 class OtrsDonationProvider extends DonationProvider {
-  private $ticketIds = null;
 
   function restQuery($page, $params) {
     $getArgs = [];
@@ -205,7 +219,8 @@ class OtrsDonationProvider extends DonationProvider {
     return json_decode($response);
   }
 
-  function getDonors() {
+  function __construct() {
+
     // get tickets ID from the donation queue and save them for postprocessing
     $response = $this->restQuery('TicketSearch', [
       'UserLogin' => Config::get('otrs.login'),
@@ -214,13 +229,12 @@ class OtrsDonationProvider extends DonationProvider {
       'States' => 'new',
       'From' => 'office@euplatesc.ro', // TODO: test if it needs '%' regex
     ]);
-    $this->ticketIds = $response->TicketID;
 
-    $results = [];
+    $this->donors = [];
 
     // get the body for each ticket and, if it matches a donation email, extract the email addresss
     // and amount
-    foreach ($this->ticketIds as $tid) {
+    foreach ($response->TicketID as $tid) {
       $ticket = $this->getTicket($tid);
       if (!$ticket ||
           !property_exists($ticket, 'Ticket') ||
@@ -230,19 +244,22 @@ class OtrsDonationProvider extends DonationProvider {
         throw new Exception('Răspuns incorect de la OTRS');
       }
       $article = $ticket->Ticket[0]->Article[0];
+      $created = $ticket->Ticket[0]->Created;
       $from = $article->From;
       $body = $article->Body;
 
       if (preg_match(OTRS_DONATION_EMAIL_REGEX, $body, $match)) {
 
-        $results[] = [
-          'email' => $match['email'],
-          'amount' => $match['amount'],
-        ];
+        $d = new OtrsDonor($match['email'],
+                           $match['amount'],
+                           explode(' ', $created)[0], // just the date part
+                           Donation::SOURCE_OTRS,
+                           true,
+                           $tid);
+        $d->validate();
+        $this->donors[] = $d;
       }
     }
-
-    return $results;
   }
 
   function getTicket($ticketId) {

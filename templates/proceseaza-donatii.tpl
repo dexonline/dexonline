@@ -12,6 +12,12 @@
     <div class="panel panel-default">
       <div class="panel-heading">Donații OTRS</div>
       <div class="panel-body">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="includeOtrs" value="1" checked>
+            preia tichetele din OTRS
+          </label>
+        </div>
       </div>
     </div>
 

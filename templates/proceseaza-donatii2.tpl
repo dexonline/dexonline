@@ -9,11 +9,40 @@
 
   <form class="form" method="post">
 
-    <div class="panel panel-default">
-      <div class="panel-heading">Donații OTRS</div>
-      <div class="panel-body">
+    {if !empty($otrsDonors)}
+      <div class="panel panel-default">
+        <div class="panel-heading">Donații OTRS</div>
+        <div class="panel-body">
+          {foreach $otrsDonors as $donor}
+            <h4>Donație de la {$donor->email}, {$donor->amount} de lei, {$donor->date}</h4>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="processTicketId[]" value="{$donor->ticketId}" checked>
+                salvează donația și închide tichetul
+              </label>
+            </div>
+
+            {if $donor->needsEmail()}
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="messageTicketId[]" value="{$donor->ticketId}" checked>
+                  trimite un mesaj cu textul:
+                </label>
+              </div>
+
+              <div class="well">
+                {$donor->htmlMessage}
+              </div>
+            {else}
+              <p class="text-muted">
+                Pentru sume mici nu este necesar să trimitem mesaj.
+              </p>
+            {/if}
+          {/foreach}
+        </div>
       </div>
-    </div>
+    {/if}
 
     {if count($manualDonors)}
       <div class="panel panel-default">
@@ -45,20 +74,23 @@
           {/foreach}
         </div>
       </div>
-
     {/if}
 
     <div>
 
-      <button type="submit" class="btn btn-success" name="processButton">
-        <i class="glyphicon glyphicon-ok"></i>
-        procesează
-      </button>
+      {if empty($otrsDonors) && empty($manualDonors)}
+        Nimic de făcut.
+      {else}
+        <button type="submit" class="btn btn-success" name="processButton">
+          <i class="glyphicon glyphicon-ok"></i>
+          procesează
+        </button>
 
-      <button type="submit" class="btn btn-default" name="backButton">
-        <i class="glyphicon glyphicon-arrow-left"></i>
-        înapoi
-      </button>
+        <button type="submit" class="btn btn-default" name="backButton">
+          <i class="glyphicon glyphicon-arrow-left"></i>
+          înapoi
+        </button>
+      {/if}
 
     </div>
 

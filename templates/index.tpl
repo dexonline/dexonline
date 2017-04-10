@@ -2,6 +2,7 @@
 
 {block "title"}Dicționar explicativ al limbii române{/block}
 
+{block "banner"}{/block}
 {block "search"}{/block}
 
 {block "content"}
@@ -13,6 +14,7 @@
   </header>
 
   {include "bits/searchForm.tpl"}
+  {include "bits/banner.tpl"}
 
   <section class="row widgets">
     <div class="col-md-12">

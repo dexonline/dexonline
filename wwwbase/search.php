@@ -412,19 +412,6 @@ if (count($images)) {
   SmartyWrap::addJs('gallery', 'jcanvas');
 }
 
-// Decide where to position the banner. Skip a few lines if we have enough definitions.
-// Otherwise, leave it at the top.
-$bannerPos = -1; // top
-if (count($results)) {
-  $totalLen = 0;
-  foreach ($results as $i => $r) {
-    $totalLen += mb_strlen($r->definition->internalRep);
-    if (($totalLen >= 200) && ($bannerPos == -1)) {
-      $bannerPos = $i;
-    }
-  }
-}
-
 SmartyWrap::assign('entries', $entries);
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('results', $results);
@@ -440,7 +427,6 @@ SmartyWrap::assign('locParadigm', session_user_prefers(Preferences::LOC_PARADIGM
 SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('allDefinitions', $all);
 SmartyWrap::assign('showWotd', $showWotd);
-SmartyWrap::assign('bannerPos', $bannerPos);
 if ($text || $sourceId) {
   // must show the advanced search menu regardless of preference
   SmartyWrap::assign('advancedSearch', true);

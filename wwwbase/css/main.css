@@ -81,11 +81,6 @@
 
 /*********** banner ***********/
 
-.topBanner {
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
 .fakeBanner {
   background: #777;
   color: white;

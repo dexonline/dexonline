@@ -34,10 +34,6 @@
   showHistory=1
   showWotd=$showWotd}
 
-  {if $i == $bannerPos}
-    {include "bits/banner.tpl"}
-  {/if}
-
 {/foreach}
 
 {include "bits/typoForm.tpl"}

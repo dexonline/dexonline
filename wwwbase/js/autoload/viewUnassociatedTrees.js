@@ -1,4 +1,4 @@
-$(function (){
+$(function() {
 
   $('.tree .deleteLink').click(deleteTree);
 

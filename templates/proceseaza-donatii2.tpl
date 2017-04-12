@@ -8,6 +8,9 @@
   <h3>Procesează donații</h3>
 
   <form class="form" method="post">
+    {if $includeOtrs}
+      <input type="hidden" name="includeOtrs" value="1">
+    {/if}
 
     {if !empty($otrsDonors)}
       <div class="panel panel-default">
@@ -76,22 +79,24 @@
       </div>
     {/if}
 
-    <div>
-
-      {if empty($otrsDonors) && empty($manualDonors)}
+    {if empty($otrsDonors) && empty($manualDonors)}
+      <p>
         Nimic de făcut.
-      {else}
+      </p>
+    {/if}
+
+    <div>
+      {if !empty($otrsDonors) || !empty($manualDonors)}
         <button type="submit" class="btn btn-success" name="processButton">
           <i class="glyphicon glyphicon-ok"></i>
           procesează
         </button>
-
-        <button type="submit" class="btn btn-default" name="backButton">
-          <i class="glyphicon glyphicon-arrow-left"></i>
-          înapoi
-        </button>
       {/if}
 
+      <button type="submit" class="btn btn-default" name="backButton">
+        <i class="glyphicon glyphicon-arrow-left"></i>
+        înapoi
+      </button>
     </div>
 
   </form>

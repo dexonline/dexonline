@@ -147,7 +147,6 @@ function util_defineConstants() {
   define('LOCK_FULL_TEXT_INDEX', 'full_text_index');
   define('CURL_COOKIE_FILE', '/dexonline_cookie.txt');
 
-#TODO clean up here
   define('PRIV_ADMIN', 0x01);
   define('PRIV_LOC', 0x02);
   define('PRIV_EDIT', 0x04);
@@ -157,18 +156,17 @@ function util_defineConstants() {
   define('PRIV_STRUCT', 0x40);
   define('PRIV_VISUAL', 0x80);
 
-  $GLOBALS['PRIV_MAP_NAMES'] = [
-    PRIV_ADMIN  => 'Administrator',
-    PRIV_LOC    => 'Moderator LOC',
-    PRIV_EDIT   => 'Moderator',
-    PRIV_GUIDE  => 'Editor al ghidului de exprimare',
-    PRIV_WOTD   =>' Editor al cuvântului zilei',
-    PRIV_SUPER  => 'Utilizator privilegiat',
-    PRIV_STRUCT => '«Structurist» al definițiilor',
-    PRIV_VISUAL => 'Moderator imagini definiții'
+  $GLOBALS['PRIV_NAMES'] = [
+    'administrator',
+    'LOC scrabble',
+    'moderator',
+    'nefolosit', // was: 'Editor al ghidului de exprimare'
+    'cuvântul zilei',
+    'nefolosit', // was: 'utilizator privilegiat'
+    'structurist al definițiilor',
+    'dicționarul vizual',
   ];
 
-  $GLOBALS['PRIV_NAMES'] = array_values($GLOBALS['PRIV_MAP_NAMES']);
   define('NUM_PRIVILEGES', count($GLOBALS['PRIV_NAMES']));
 
   define('PRIV_VIEW_HIDDEN', PRIV_ADMIN);

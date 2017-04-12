@@ -36,7 +36,7 @@ if ($processButton) {
                     'medalii și/sau scutiri de bannere, nu uitați să goliți parțial cache-ul ' .
                     'lui Varnish: sudo varnishadm ban.url ^/utilizator',
                     'success');
-  // util_redirect('proceseaza-donatii.php');
+  util_redirect('proceseaza-donatii.php');
 
 } else if ($previewButton) {
   if ($includeOtrs) {
@@ -230,10 +230,11 @@ class OtrsDonationProvider extends DonationProvider {
       'From' => 'office@euplatesc.ro',
     ]);
 
+    $ticketIds = isset($response->TicketID) ? $response->TicketID : [];
     $this->donors = [];
 
     // get the body for each ticket and, if it matches a donation email, build a new donor
-    foreach ($response->TicketID as $tid) {
+    foreach ($ticketIds as $tid) {
       $ticket = OtrsApiClient::getTicket($tid);
       if (!$ticket ||
           !property_exists($ticket, 'Ticket') ||
@@ -283,27 +284,31 @@ class ManualDonationProvider extends DonationProvider {
 }
 
 class OtrsApiClient {
+  const METHOD_GET = 'GET';
+  const METHOD_POST = 'POST';
+  const METHOD_PATCH = 'PATCH';
 
-  static function restQuery($page, $params) {
+  static function restQuery($page, $params, $method = self::METHOD_GET) {
     // add the login credentials
     $params['UserLogin'] = Config::get('otrs.login');
     $params['Password'] = Config::get('otrs.password');
 
-    // encode the params
-    $getArgs = [];
-    foreach ($params as $key => $value) {
-      $getArgs[] = "{$key}=" . urlencode($value);
+    $url = sprintf('%s/%s', Config::get('otrs.restUrl'), $page);
+
+    if ($method == SELF::METHOD_GET) {
+      // URL-encode the params
+      $getArgs = [];
+      foreach ($params as $key => $value) {
+        $getArgs[] = "{$key}=" . urlencode($value);
+      }
+
+      $url .= '?' . implode('&', $getArgs);
+      list($response, $httpCode) = util_fetchUrl($url);
+
+    } else {
+      $jsonData = json_encode($params);
+      list($response, $httpCode) = util_makeRequest($url, $jsonData, $method);
     }
-
-    // construct the URL
-    $url = sprintf('%s/%s?%s',
-                   Config::get('otrs.restUrl'),
-                   $page,
-                   implode('&', $getArgs));
-
-    // run the query
-    list($response, $httpCode) = util_fetchUrl($url);
-    var_dump($url);
 
     if ($httpCode != 200) {
       throw new Exception('Eroare la comunicarea cu OTRS');
@@ -322,8 +327,10 @@ class OtrsApiClient {
   static function closeTicket($ticketId) {
     return self::restQuery('TicketUpdate', [
       'TicketID' => $ticketId,
-      'State' => 'closed successful',
-    ]);
+      'Ticket' => [
+        'State' => 'closed successful',
+      ],
+    ], self::METHOD_PATCH);
   }
 
   static function searchTickets($params) {

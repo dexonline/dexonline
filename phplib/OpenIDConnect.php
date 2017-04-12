@@ -78,7 +78,7 @@ class OpenIDConnect {
       'redirect_uris' => array(self::getReturnTo()),
     );
     $url = $this->wellKnownConfig['registration_endpoint'];
-    $jsonResult = util_makePostRequest($url, json_encode($json));
+    list($jsonResult, $httpCode) = util_makeRequest($url, json_encode($json));
     $result = json_decode($jsonResult, true);
     if (!$result || !isset($result['client_secret'])) {
       return null;
@@ -138,7 +138,7 @@ class OpenIDConnect {
     );
 
     $query = http_build_query($params, null, '&');
-    $jsonResult = util_makePostRequest($url, $query);
+    list($jsonResult, $httpCode) = util_makeRequest($url, $query);
     $result = json_decode($jsonResult, true);
     if (!$result || isset($result['error'])) {
       throw new OpenIDException('Eroare la cererea unui token');

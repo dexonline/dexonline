@@ -401,16 +401,16 @@ function util_fetchUrl($url) {
   $data = curl_exec($ch);
   $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   curl_close($ch);
-  return array($data, $httpCode);
+  return [$data, $httpCode];
 }
 
-function util_makePostRequest($url, $data, $useCookies = false) {
+function util_makeRequest($url, $data, $method = 'POST', $useCookies = false) {
   $ch = curl_init($url);
   if ($useCookies) {
     curl_setopt($ch, CURLOPT_COOKIEFILE, Config::get('global.tempDir') . CURL_COOKIE_FILE);
     curl_setopt($ch, CURLOPT_COOKIEJAR, Config::get('global.tempDir') . CURL_COOKIE_FILE);
   }
-  curl_setopt($ch, CURLOPT_POST, true);
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
   curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
   // For JSON data, set the content type
   if (is_string($data) && is_object(json_decode($data))) {
@@ -422,8 +422,9 @@ function util_makePostRequest($url, $data, $useCookies = false) {
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($ch, CURLOPT_USERAGENT, 'dexonline.ro');
   $result = curl_exec($ch);
+  $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   curl_close($ch);
-  return $result;
+  return [$result, $httpCode];
 }
 
 /* Returns $obj->$prop for every $obj in $a */

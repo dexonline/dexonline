@@ -208,7 +208,7 @@ if ($searchType == SEARCH_INFLECTED) {
   // successful search
   if (count($entries)) {
     if(SPOOF_ENABLED && $cuv_spoofed) {
-      $entries_spoofed = Entry::searchInflectedForms($cuv_spoofed, $cuv_spoofed_hasDiacritics, false);
+      $entries_spoofed = Entry::searchInflectedForms($cuv_spoofed, $cuv_spoofed_hasDiacritics);
       $definitions = Definition::loadForEntries($entries_spoofed, $sourceId, $cuv);
     }
     else {
@@ -244,7 +244,7 @@ if ($searchType == SEARCH_INFLECTED) {
   // fallback to approximate search
   if (empty($entries) && empty($definitions)) {
     $searchType = SEARCH_APPROXIMATE;
-    $entries = Lexem::searchApproximate($cuv, $hasDiacritics, true);
+    $entries = Lexem::searchApproximate($cuv);
     if (count($entries) == 1) {
       FlashMessage::add("Ați fost redirecționat automat la forma „{$entries[0]->description}”.");
     }

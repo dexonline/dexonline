@@ -43,9 +43,6 @@ tempDir = /tmp
 ; Max number of bookmarks/user
 maxBookmarks = 500
 
-; Whether to use the memcached server
-memcache = 0
-
 ; If this site is a mirror, certain features will be disabled: user login, typo reporting etc.
 mirror = 0
 

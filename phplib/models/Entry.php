@@ -146,15 +146,7 @@ class Entry extends BaseObject implements DatedObject {
     return Model::factory('Entry')->raw_query($query)->find_many();
   }
   
-  static function searchInflectedForms($cuv, $hasDiacritics, $oldOrthography, $useMemcache = true) {
-    if ($useMemcache) {
-      $key = sprintf("inflected_%d_%d_%s", (int)$hasDiacritics, (int)$oldOrthography, $cuv);
-      $result = mc_get($key);
-      if ($result) {
-        return $result;
-      }
-    }
-
+  static function searchInflectedForms($cuv, $hasDiacritics, $oldOrthography) {
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     if ($oldOrthography) {
       $cuv = StringUtil::convertOrthography($cuv);
@@ -170,9 +162,6 @@ class Entry extends BaseObject implements DatedObject {
              ->order_by_asc('e.description')
              ->find_many();
 
-    if ($useMemcache) {
-      mc_set($key, $entries);
-    }
     return $entries;
   }
 

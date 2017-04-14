@@ -18,7 +18,6 @@ class SmartyWrap {
       self::assign('currentYear', date("Y"));
       self::assign('suggestNoBanner', util_suggestNoBanner());
       self::assign('cfg', Config::getAll());
-      self::assign('GLOBALS', $GLOBALS);
     }
   }
 

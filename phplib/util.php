@@ -31,7 +31,6 @@ function util_initEverything() {
   util_defineConstants();
   db_init();
   session_init();
-  mc_init();
   if (!util_isAjax()) {
     FlashMessage::restoreFromSession();
   }
@@ -120,7 +119,6 @@ function util_requireOtherFiles() {
   require_once(StringUtil::portable("$root/phplib/third-party/idiorm/paris.php"));
   require_once(StringUtil::portable("$root/phplib/db.php"));
   require_once(StringUtil::portable("$root/phplib/session.php"));
-  require_once(StringUtil::portable("$root/phplib/memcache.php"));
 }
 
 function util_defineConstants() {

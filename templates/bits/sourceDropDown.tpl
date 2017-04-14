@@ -17,7 +17,7 @@
       {assign var="submitValue" value=$source->id}
     {/if}
     {if ($source->type != Source::TYPE_HIDDEN) ||
-        ($sUser && $sUser->moderator & $smarty.const.PRIV_VIEW_HIDDEN)}
+        ($sUser && $sUser->moderator & User::PRIV_VIEW_HIDDEN)}
       <option value="{$submitValue}"
               {if $sourceId == $source->id}selected="selected"{/if}>
         {* All the select2-searchable text must go here, not in data-* attributes *}

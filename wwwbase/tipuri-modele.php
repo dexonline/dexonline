@@ -1,6 +1,6 @@
 <?php
 require_once("../phplib/util.php"); 
-util_assertModerator(PRIV_EDIT);
+User::require(User::PRIV_EDIT);
 
 $showAddForm = Request::get('add');
 $editId = Request::get('editId');

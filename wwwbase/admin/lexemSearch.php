@@ -1,6 +1,6 @@
 <?php
 require_once("../../phplib/util.php"); 
-util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
+User::require(User::PRIV_EDIT | User::PRIV_STRUCT);
 util_assertNotMirror();
 
 $form = Request::get('form');

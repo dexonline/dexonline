@@ -146,31 +146,6 @@ function util_defineConstants() {
 
   define('LOCK_FULL_TEXT_INDEX', 'full_text_index');
   define('CURL_COOKIE_FILE', '/dexonline_cookie.txt');
-
-  define('PRIV_ADMIN', 0x01);
-  define('PRIV_LOC', 0x02);
-  define('PRIV_EDIT', 0x04);
-  define('PRIV_GUIDE', 0x08);
-  define('PRIV_WOTD', 0x10);
-  define('PRIV_SUPER', 0x20);
-  define('PRIV_STRUCT', 0x40);
-  define('PRIV_VISUAL', 0x80);
-
-  $GLOBALS['PRIV_NAMES'] = [
-    'administrator',
-    'LOC scrabble',
-    'moderator',
-    'nefolosit', // was: 'Editor al ghidului de exprimare'
-    'cuvântul zilei',
-    'nefolosit', // was: 'utilizator privilegiat'
-    'structurist al definițiilor',
-    'dicționarul vizual',
-  ];
-
-  define('NUM_PRIVILEGES', count($GLOBALS['PRIV_NAMES']));
-
-  define('PRIV_VIEW_HIDDEN', PRIV_ADMIN);
-  define('PRIV_ANY', (1 << NUM_PRIVILEGES) - 1);
 }
 
 function util_randomCapitalLetterString($length) {
@@ -242,20 +217,6 @@ function util_hideEmptyRequestParameters() {
   if ($needToRedirect) {
     util_redirect($_SERVER['PHP_SELF'] . $newQueryString);
   }
-}
-
-function util_assertModerator($type) {
-  if (!util_isModerator($type)) {
-    FlashMessage::add('Nu aveți privilegii suficiente pentru a accesa această pagină.');
-    util_redirect(util_getWwwRoot());
-  }
-}
-
-function util_isModerator($type) {
-  // Check the actual database, not the session user
-  $userId = session_getUserId();
-  $user = $userId ? User::get_by_id($userId) : null;
-  return $user ? ($user->moderator & $type) : false;
 }
 
 function util_assertNotMirror() {

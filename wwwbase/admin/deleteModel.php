@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php"); 
 ini_set('max_execution_time', '3600');
-util_assertModerator(PRIV_EDIT);
+User::require(User::PRIV_EDIT);
 util_assertNotMirror();
 DebugInfo::disable();
 
@@ -15,7 +15,7 @@ $model = Model::factory('FlexModel')
        ->find_one();
 $lexems = Lexem::loadByCanonicalModel($modelType, $modelNumber);
 
-$locPerm = util_isModerator(PRIV_LOC);
+$locPerm = User::can(User::PRIV_LOC);
 $numLoc = 0;
 foreach ($lexems as $l) {
   $numLoc += ($l->isLoc);

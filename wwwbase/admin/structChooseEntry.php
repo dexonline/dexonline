@@ -1,6 +1,6 @@
 <?php
 require_once("../../phplib/util.php"); 
-util_assertModerator(PRIV_STRUCT);
+User::require(User::PRIV_STRUCT);
 util_assertNotMirror();
 
 // Select entries that

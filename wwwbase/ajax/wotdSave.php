@@ -156,7 +156,7 @@ class wotdSave{
 }
 
 require_once("../../phplib/util.php");
-util_assertModerator(PRIV_WOTD);
+User::require(User::PRIV_WOTD);
 util_assertNotMirror();
 
 $oper = Request::get('oper');

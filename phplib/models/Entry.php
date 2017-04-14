@@ -233,13 +233,13 @@ class Entry extends BaseObject implements DatedObject {
 
     if (($this->structStatus == Entry::STRUCT_STATUS_DONE) &&
         ($original->structStatus != Entry::STRUCT_STATUS_DONE) &&
-        !util_isModerator(PRIV_EDIT)) {
+        !User::can(User::PRIV_EDIT)) {
       $errors['structStatus'][] = 'Doar moderatorii pot marca structurarea drept terminată. ' .
                                 'Vă rugăm să folosiți valoarea „așteaptă moderarea”.';
     }
 
     if ($this->structuristId != $original->structuristId) {
-      if (util_isModerator(PRIV_ADMIN)) {
+      if (User::can(User::PRIV_ADMIN)) {
         // Admins can modify this field
       } else if (($original->structuristId == session_getUserId()) &&
                  !$this->structuristId) {

@@ -109,7 +109,7 @@ $trees = [];
 $extra = [];
 
 $showWotd = session_isWotdMode()
-  && util_isModerator(PRIV_EDIT)
+  && User::can(User::PRIV_EDIT)
   && !Config::get('global.mirror');
 
 if ($isAllDigits) {
@@ -122,7 +122,7 @@ if ($isAllDigits) {
 // Definition.id search
 if ($defId) {
   $searchType = SEARCH_DEF_ID;
-  $statuses = util_isModerator(PRIV_VIEW_HIDDEN)
+  $statuses = User::can(User::PRIV_VIEW_HIDDEN)
             ? [Definition::ST_ACTIVE, Definition::ST_HIDDEN]
             : [Definition::ST_ACTIVE];
   $definitions = Model::factory('Definition')

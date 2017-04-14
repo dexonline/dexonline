@@ -1,7 +1,7 @@
 <?php
 
 require_once("../../phplib/util.php");
-util_assertModerator(PRIV_WOTD | PRIV_EDIT);
+User::require(User::PRIV_WOTD | User::PRIV_EDIT);
 util_assertNotMirror();
 
 $query = Request::get('term');

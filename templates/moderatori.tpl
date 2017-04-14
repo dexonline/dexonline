@@ -22,13 +22,11 @@
 
           <td>
             <select name="priv_{$user->id}[]" class="form-control" multiple>
-              {section name="bit" loop=$smarty.const.NUM_PRIVILEGES}
-                {$i=$smarty.section.bit.index}
-                {math equation="1 << x" x=$i assign="mask"}
+              {foreach User::$PRIV_NAMES as $mask => $privName}
                 <option value="{$mask}" {if $user->moderator & $mask}selected{/if}>
-                  {$GLOBALS['PRIV_NAMES'][$i]}
+                  {$privName}
                 </option>
-              {/section}
+              {/foreach}
             </select>
           </td>
         </tr>
@@ -40,14 +38,11 @@
         </td>
         <td>
           <select name="newPriv[]" class="form-control" multiple>
-            {section name="bit" loop=$smarty.const.NUM_PRIVILEGES}
-              {$i=$smarty.section.bit.index}
-              {math equation="1 << x" x=$i assign="mask"}
-              {math equation="1 << x" x=$smarty.section.bit.index assign="mask"}
+            {foreach User::$PRIV_NAMES as $mask => $privName}
               <option value="{$mask}">
-                {$GLOBALS['PRIV_NAMES'][$i]}
+                {$privName}
               </option>
-            {/section}
+            {/foreach}
           </select>
         </td>
       </tr>

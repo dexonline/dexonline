@@ -1,7 +1,7 @@
 <?php
 require_once("../phplib/util.php");
 
-util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
+User::require(User::PRIV_EDIT | User::PRIV_STRUCT);
 
 $id = Request::get('id');
 $saveButton = Request::has('saveButton');
@@ -165,8 +165,8 @@ $oss = $original->structStatus; // syntactic sugar
 $canEdit = [
   'structStatus' => in_array($oss,
                              [ Entry::STRUCT_STATUS_NEW, Entry::STRUCT_STATUS_IN_PROGRESS ])
-  || util_isModerator(PRIV_EDIT),
-  'structuristId' => util_isModerator(PRIV_ADMIN),
+  || User::can(User::PRIV_EDIT),
+  'structuristId' => User::can(User::PRIV_ADMIN),
 ];
 
 $homonyms = Entry::getHomonyms([ $e ]);

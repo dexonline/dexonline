@@ -1,6 +1,6 @@
 <?php
 require_once("../../phplib/util.php");
-util_assertModerator(PRIV_VISUAL);
+User::require(User::PRIV_VISUAL);
 util_assertNotMirror();
 RecentLink::add('Dicționarul vizual');
 

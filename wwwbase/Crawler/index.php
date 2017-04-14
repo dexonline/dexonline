@@ -2,7 +2,7 @@
 
 require_once '../../phplib/util.php';
 
-//util_assertModerator(PRIV_ADMIN);
+//User::require(User::PRIV_ADMIN);
 
 $rows = CrawledPage::getListOfDomains();
 

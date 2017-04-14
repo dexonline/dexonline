@@ -75,7 +75,7 @@
       {/if}
 
       {if $showId}
-        {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT)}
+        {if $sUser && ($sUser->moderator & User::PRIV_EDIT)}
           <li>
             ID: {$def->id}
           </li>
@@ -83,7 +83,7 @@
       {/if}
 
       {if $showEditLink}
-        {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT) && !$cfg.global.mirror}
+        {if $sUser && ($sUser->moderator & User::PRIV_EDIT) && !$cfg.global.mirror}
           <li>
             <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}">
               editează
@@ -191,7 +191,7 @@
             {/if}
 
             {if $showHistory}
-              {if $sUser && ($sUser->moderator & $smarty.const.PRIV_EDIT) && !$cfg.global.mirror}
+              {if $sUser && ($sUser->moderator & User::PRIV_EDIT) && !$cfg.global.mirror}
                 <li>
                   <a href="{$wwwRoot}istoria-definitiei?id={$def->id}">
                     <i class="glyphicon glyphicon-time"></i>

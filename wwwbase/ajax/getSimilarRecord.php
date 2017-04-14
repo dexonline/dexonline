@@ -1,7 +1,7 @@
 <?php
 /* Htmlizes the definition and comment, then builds the SimilarRecord */
 require_once("../../phplib/util.php");
-util_assertModerator(PRIV_EDIT);
+User::require(User::PRIV_EDIT);
 util_assertNotMirror();
 
 $definitionId = Request::get('definitionId');

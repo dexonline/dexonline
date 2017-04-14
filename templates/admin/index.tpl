@@ -7,7 +7,7 @@
 
   {include "bits/phpConstants.tpl"}
 
-  {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+  {if $sUser->moderator & User::PRIV_EDIT}
     <div class="panel panel-default">
       <div class="panel-heading">
         Rapoarte
@@ -40,7 +40,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+  {if $sUser->moderator & User::PRIV_EDIT}
     <div class="panel panel-default quickNav">
       <div class="panel-heading">
         Navigare rapidă
@@ -80,7 +80,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+  {if $sUser->moderator & User::PRIV_EDIT}
     <div class="row">
       <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="panel panel-default">
@@ -245,7 +245,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+  {if $sUser->moderator & User::PRIV_EDIT}
     <div class="panel panel-default">
       <div class="panel-heading">
         Modele de flexiune
@@ -305,7 +305,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & $smarty.const.PRIV_ADMIN}
+  {if $sUser->moderator & User::PRIV_ADMIN}
     <div class="panel panel-default">
       <div class="panel-heading">
         Înlocuiește în definiții
@@ -380,7 +380,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & $smarty.const.PRIV_EDIT}
+  {if $sUser->moderator & User::PRIV_EDIT}
     <div class="panel panel-default">
       <div class="panel-heading">
         Unelte diverse
@@ -411,7 +411,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & $smarty.const.PRIV_STRUCT}
+  {if $sUser->moderator & User::PRIV_STRUCT}
     <div class="panel panel-default">
       <div class="panel-heading">
         Structurare
@@ -445,7 +445,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & $smarty.const.PRIV_VISUAL}
+  {if $sUser->moderator & User::PRIV_VISUAL}
     <div class="panel panel-default">
       <div class="panel-heading">
         Dicționarul vizual
@@ -457,7 +457,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & $smarty.const.PRIV_WOTD}
+  {if $sUser->moderator & User::PRIV_WOTD}
     <div class="panel panel-default">
       <div class="panel-heading">
         Cuvântul + imaginea zilei

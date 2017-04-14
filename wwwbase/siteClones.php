@@ -1,7 +1,7 @@
 <?php
 
 require_once("../phplib/util.php");
-util_assertModerator(PRIV_EDIT);
+User::require(User::PRIV_EDIT);
 
 # Select random definition to search.
 $count = db_getSingleValue("select count(*) from Definition where status = 0 and length(internalRep) > 250;");

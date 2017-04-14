@@ -86,12 +86,11 @@
         <div class="panel-heading">Privilegii</div>
         <div class="panel-body">
           <ul>
-            {section name="bit" loop=$smarty.const.NUM_PRIVILEGES}
-              {math equation="1 << x" x=$smarty.section.bit.index assign="mask"}
+            {foreach User::$PRIV_NAMES as $mask => $privName}
               {if $sUser->moderator & $mask}
-                <li>{$privilegeNames[$smarty.section.bit.index]}</li>
+                <li>{$privName}</li>
               {/if}
-            {/section}
+            {/foreach}
           </ul>
         </div>
       </div>

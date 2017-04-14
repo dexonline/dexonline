@@ -2,7 +2,7 @@
 require_once('../../phplib/util.php');
 ini_set('memory_limit', '512M');
 util_hideEmptyRequestParameters();
-util_assertModerator(PRIV_EDIT);
+User::require(User::PRIV_EDIT);
 util_assertNotMirror();
 
 $sourceId = Request::get('source');

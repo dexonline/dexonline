@@ -1,6 +1,6 @@
 <?php
 require_once("../phplib/util.php");
-util_assertModerator(PRIV_EDIT);
+User::require(User::PRIV_EDIT);
 
 $DEF_LIMIT = 20;
 $LEXEM_LIMIT = 100;

@@ -51,6 +51,7 @@ mysql_loc_prefix = LOC_
 
 ; Seasonal pranks FTW
 aprilFoolsDay = 0
+typewriterEnabled = 0
 
 ; Call to action for occasional activism. Specify a template to include, or false to turn off.
 callToAction = false

@@ -12,9 +12,15 @@
   {/if}
 {/block}
 
+{block "banner"}{/block}
+
 {block "content"}
   {assign var="declensionText" value=$declensionText|default:null}
   {assign var="showParadigm" value=$showParadigm|default:false}
+
+  <div id="definitionBanner">
+    {include "bits/banner.tpl"}
+  </div>
 
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" {if !$showParadigm}class="active"{/if}>

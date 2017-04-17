@@ -2,7 +2,7 @@
 require_once '../phplib/util.php';
 require_once '../phplib/third-party/PHPMailer/PHPMailerAutoload.php';
 
-User::require(User::PRIV_ADMIN);
+User::require(User::PRIV_DONATION);
 
 define('OTRS_DONATION_EMAIL_REGEX',
        '/^Mesaj raspuns: Approved.*' .

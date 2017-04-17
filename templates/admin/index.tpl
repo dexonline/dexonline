@@ -380,7 +380,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & User::PRIV_EDIT}
+  {if $sUser->moderator & (User::PRIV_EDIT + User::PRIV_DONATION)}
     <div class="panel panel-default">
       <div class="panel-heading">
         Unelte diverse
@@ -388,24 +388,32 @@
       
       <div class="panel-body">
         <ul>
-          <li>
-            <a href="../admin/deTool.php">reasociere D. Enciclopedic</a>
-            <span class="text-muted">
-              o interfață mai rapidă pentru asocierea de lexeme și modificarea modelelor
-              acestora
-            </span>
-          </li>
+          {if $sUser->moderator & User::PRIV_EDIT}
+            <li>
+              <a href="../admin/deTool.php">reasociere D. Enciclopedic</a>
+              <span class="text-muted">
+                o interfață mai rapidă pentru asocierea de lexeme și modificarea modelelor
+                acestora
+              </span>
+            </li>
 
-          <li>
-            <a href="../admin/placeAccents.php">plasarea asistată a accentelor</a>
-            <span class="text-muted">
-              pentru lexeme alese la întâmplare
-            </span>
-          </li>
+            <li>
+              <a href="../admin/placeAccents.php">plasarea asistată a accentelor</a>
+              <span class="text-muted">
+                pentru lexeme alese la întâmplare
+              </span>
+            </li>
 
-          <li>
-            <a href="{$wwwRoot}acuratete">verificarea acurateței editorilor</a>
-          </li>
+            <li>
+              <a href="{$wwwRoot}acuratete">verificarea acurateței editorilor</a>
+            </li>
+          {/if}
+
+          {if $sUser->moderator & User::PRIV_DONATION}
+            <li>
+              <a href="{$wwwRoot}proceseaza-donatii">procesează donații</a>
+            </li>
+          {/if}
         </ul>
       </div>
     </div>

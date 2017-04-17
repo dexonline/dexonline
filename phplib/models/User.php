@@ -9,7 +9,8 @@ class User extends BaseObject {
   const PRIV_WOTD = 0x08;
   const PRIV_STRUCT = 0x10;
   const PRIV_VISUAL = 0x20;
-  const NUM_PRIVILEGES = 6;
+  const PRIV_DONATION = 0x40;
+  const NUM_PRIVILEGES = 7;
 
   static $PRIV_NAMES = [
     self::PRIV_ADMIN => 'administrator',
@@ -18,6 +19,7 @@ class User extends BaseObject {
     self::PRIV_WOTD => 'cuvântul zilei',
     self::PRIV_STRUCT => 'structurist al definițiilor',
     self::PRIV_VISUAL => 'dicționarul vizual',
+    self::PRIV_DONATION => 'procesare donații',
   ];
 
   const PRIV_VIEW_HIDDEN = self::PRIV_ADMIN;

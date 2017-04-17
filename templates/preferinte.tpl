@@ -81,13 +81,13 @@
       </div>
     </div>
 
-    {if $sUser && $sUser->moderator > 0}
+    {if User::can(User::PRIV_ANY)}
       <div class="panel panel-default">
         <div class="panel-heading">Privilegii</div>
         <div class="panel-body">
           <ul>
             {foreach User::$PRIV_NAMES as $mask => $privName}
-              {if $sUser->moderator & $mask}
+              {if User::can($mask)}
                 <li>{$privName}</li>
               {/if}
             {/foreach}

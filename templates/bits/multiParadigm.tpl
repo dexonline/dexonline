@@ -4,7 +4,7 @@
   <div class="panel-heading">
     Intrare: <strong>{$entry->description}</strong>
 
-    {if $sUser && ($sUser->moderator & (User::PRIV_EDIT + User::PRIV_STRUCT))}
+    {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
       <div class="pull-right">
         <a href="{$wwwRoot}editEntry.php?id={$entry->id}">
           <i class="glyphicon glyphicon-pencil"></i>
@@ -28,7 +28,7 @@
 
           {include "bits/locInfo.tpl" isLoc=$lexem->isLoc}
 
-          {if $sUser && ($sUser->moderator & (User::PRIV_EDIT + User::PRIV_STRUCT))}
+          {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
             <a class="btn btn-link" href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexem->id}">
               <i class="glyphicon glyphicon-pencil"></i>
               editează

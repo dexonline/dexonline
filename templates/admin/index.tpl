@@ -7,7 +7,7 @@
 
   {include "bits/phpConstants.tpl"}
 
-  {if $sUser->moderator & User::PRIV_EDIT}
+  {if User::can(User::PRIV_EDIT)}
     <div class="panel panel-default">
       <div class="panel-heading">
         Rapoarte
@@ -29,7 +29,7 @@
 
       <table class="table table-condensed table-hover">
         {foreach $reports as $r}
-          {if $r.count && ($sUser->moderator & $r.privilege)}
+          {if $r.count && User::can($r.privilege)}
             <tr>
               <td>{$r.text}</td>
               <td><a href="{$wwwRoot}{$r.url}">{$r.count}</a></td>
@@ -40,7 +40,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & User::PRIV_EDIT}
+  {if User::can(User::PRIV_EDIT)}
     <div class="panel panel-default quickNav">
       <div class="panel-heading">
         Navigare rapidă
@@ -80,7 +80,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & User::PRIV_EDIT}
+  {if User::can(User::PRIV_EDIT)}
     <div class="row">
       <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="panel panel-default">
@@ -245,7 +245,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & User::PRIV_EDIT}
+  {if User::can(User::PRIV_EDIT)}
     <div class="panel panel-default">
       <div class="panel-heading">
         Modele de flexiune
@@ -305,7 +305,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & User::PRIV_ADMIN}
+  {if User::can(User::PRIV_ADMIN)}
     <div class="panel panel-default">
       <div class="panel-heading">
         Înlocuiește în definiții
@@ -380,7 +380,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & (User::PRIV_EDIT + User::PRIV_DONATION)}
+  {if User::can(User::PRIV_EDIT + User::PRIV_DONATION)}
     <div class="panel panel-default">
       <div class="panel-heading">
         Unelte diverse
@@ -388,7 +388,7 @@
       
       <div class="panel-body">
         <ul>
-          {if $sUser->moderator & User::PRIV_EDIT}
+          {if User::can(User::PRIV_EDIT)}
             <li>
               <a href="../admin/deTool.php">reasociere D. Enciclopedic</a>
               <span class="text-muted">
@@ -409,7 +409,7 @@
             </li>
           {/if}
 
-          {if $sUser->moderator & User::PRIV_DONATION}
+          {if User::can(User::PRIV_DONATION)}
             <li>
               <a href="{$wwwRoot}proceseaza-donatii">procesează donații</a>
             </li>
@@ -419,7 +419,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & User::PRIV_STRUCT}
+  {if User::can(User::PRIV_STRUCT)}
     <div class="panel panel-default">
       <div class="panel-heading">
         Structurare
@@ -453,7 +453,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & User::PRIV_VISUAL}
+  {if User::can(User::PRIV_VISUAL)}
     <div class="panel panel-default">
       <div class="panel-heading">
         Dicționarul vizual
@@ -465,7 +465,7 @@
     </div>
   {/if}
 
-  {if $sUser->moderator & User::PRIV_WOTD}
+  {if User::can(User::PRIV_WOTD)}
     <div class="panel panel-default">
       <div class="panel-heading">
         Cuvântul + imaginea zilei

@@ -2,7 +2,7 @@
   <div class="panel panel-default tree">
     <div class="panel-heading">
       {$t->description}
-      {if $sUser && $sUser->moderator & (User::PRIV_EDIT + User::PRIV_STRUCT)}
+      {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
         <a href="{$wwwRoot}editTree.php?id={$t->id}" class="pull-right">
           <i class="glyphicon glyphicon-pencil"></i>
           editează

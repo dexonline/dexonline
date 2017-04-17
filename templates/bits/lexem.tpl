@@ -7,7 +7,7 @@
   ({$lexem->modelType}{$lexem->modelNumber})
 {/if}
 
-{if $sUser && ($sUser->moderator & User::PRIV_EDIT)}
+{if User::can(User::PRIV_EDIT)}
   <a href="{$wwwRoot}admin/dispatchModelAction.php?editModel=1&amp;modelType={$lexem->modelType}&amp;modelNumber={$lexem->modelNumber}"
      title="editează modelul">
     <i class="glyphicon glyphicon-pencil"></i>    

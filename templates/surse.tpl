@@ -8,8 +8,11 @@
 
   <div class="alert alert-info">
     <p>Duceți cursorul deasupra unui nume de dicționar pentru a vedea mai multe detalii</p>
-    {if $sUser && $sUser->moderator & User::PRIV_EDIT}
-      <p>Pentru a reordona sursele, apucați de un rând, dar nu de o zonă cu text. La sfârșit, nu uitați să salvați.</p>
+    {if $editable}
+      <p>
+        Pentru a reordona sursele, apucați de un rând, dar nu de o zonă cu text.
+        La sfârșit, nu uitați să salvați.
+      </p>
     {/if}
   </div>
 
@@ -18,13 +21,13 @@
       <thead>
         <tr>
           <th class="abbreviation">Nume scurt</th>
-          {if $sUser && $sUser->moderator & User::PRIV_EDIT}
+          {if $editable}
           <th class="type">Categorie</th>
           <th class="manager">Manager</th>
           {/if}
           <th class="nick">Nume</th>
           <th>% utilizat</th>
-          {if $sUser && $sUser->moderator & User::PRIV_EDIT}
+          {if $editable}
             <th>Acțiuni</th>
           {/if}
         </tr>
@@ -40,7 +43,7 @@
                   <span class="sourceShortName">{$s->shortName}</span>
                 {/if}
               </td>
-              {if $sUser && $sUser->moderator & User::PRIV_EDIT}
+              {if $editable}
               <td class="type">
                 <span class="sourceType">{if $s->sourceTypeId}{SourceType::getField('name', $s->sourceTypeId)}{else}{/if}</span>
               </td>
@@ -59,7 +62,7 @@
                       Autor: {$s->author}<br/>
                       Editură: {$s->publisher}<br/>
                       Anul apariției: {$s->year}<br/>
-                      {if $sUser && $sUser->moderator & User::PRIV_EDIT}
+                      {if $editable}
                         {if $s->importType}
                       <br/>
                       Import {$s->getImportTypeLabel()}
@@ -70,7 +73,7 @@
                 </span>
               </td>
               <td data-text="{$s->percentComplete}">{include "bits/sourcePercentComplete.tpl" s=$s}</td>
-              {if $sUser && $sUser->moderator & User::PRIV_EDIT}
+              {if $editable}
                 <td><a href="editare-sursa?id={$s->id}">editează</a></td>
               {/if}
             </tr>
@@ -79,7 +82,7 @@
       </tbody>
     </table>
 
-    {if $sUser && $sUser->moderator & User::PRIV_EDIT}
+    {if $editable}
       <button class="btn btn-success" type="submit" name="saveButton">
         <i class="glyphicon glyphicon-floppy-disk"></i>
         <u>s</u>alvează
@@ -101,7 +104,7 @@
   </script>
 
   {* Drag-and-drop reordering of rows, only for admins *}
-  {if $sUser && $sUser->moderator & User::PRIV_EDIT}
+  {if $editable}
     <script>
      jQuery(document).ready(function() {
        $("#sources").tableDnD();

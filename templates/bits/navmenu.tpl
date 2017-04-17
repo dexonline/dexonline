@@ -133,7 +133,7 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              {if $sUser && $sUser->moderator}
+              {if User::can(User::PRIV_ANY)}
                 <li>
                   <a href="{$wwwRoot}admin">
                     <i class="glyphicon glyphicon-king"></i>
@@ -141,7 +141,7 @@
                   </a>
                 </li>
               {/if}
-              {if $sUser && $sUser->moderator & User::PRIV_EDIT}
+              {if User::can(User::PRIV_EDIT)}
                 <li>
                   <a href="#" data-toggle="modal" data-target="#hotkeysModal">
                     <i class="glyphicon glyphicon-hand-up"></i>
@@ -199,7 +199,7 @@
   </div>
 </nav>
 
-{if $sUser && $sUser->moderator & User::PRIV_EDIT}
+{if User::can(User::PRIV_EDIT)}
   <div class="modal fade" id="hotkeysModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

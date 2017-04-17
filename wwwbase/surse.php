@@ -29,6 +29,7 @@ if (User::can(User::PRIV_VIEW_HIDDEN)) {
 }
 
 SmartyWrap::assign('src', $sources);
+SmartyWrap::assign('editable', User::can(User::PRIV_ADMIN));
 SmartyWrap::addCss('admin');
 SmartyWrap::addJs('jqTableDnd', 'tablesorter');
 SmartyWrap::display('surse.tpl');

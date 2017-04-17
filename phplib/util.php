@@ -31,7 +31,6 @@ function util_initEverything() {
   util_defineConstants();
   db_init();
   session_init();
-  mc_init();
   if (!util_isAjax()) {
     FlashMessage::restoreFromSession();
   }
@@ -120,7 +119,6 @@ function util_requireOtherFiles() {
   require_once(StringUtil::portable("$root/phplib/third-party/idiorm/paris.php"));
   require_once(StringUtil::portable("$root/phplib/db.php"));
   require_once(StringUtil::portable("$root/phplib/session.php"));
-  require_once(StringUtil::portable("$root/phplib/memcache.php"));
 }
 
 function util_defineConstants() {
@@ -146,33 +144,6 @@ function util_defineConstants() {
 
   define('LOCK_FULL_TEXT_INDEX', 'full_text_index');
   define('CURL_COOKIE_FILE', '/dexonline_cookie.txt');
-
-#TODO clean up here
-  define('PRIV_ADMIN', 0x01);
-  define('PRIV_LOC', 0x02);
-  define('PRIV_EDIT', 0x04);
-  define('PRIV_GUIDE', 0x08);
-  define('PRIV_WOTD', 0x10);
-  define('PRIV_SUPER', 0x20);
-  define('PRIV_STRUCT', 0x40);
-  define('PRIV_VISUAL', 0x80);
-
-  $GLOBALS['PRIV_MAP_NAMES'] = [
-    PRIV_ADMIN  => 'Administrator',
-    PRIV_LOC    => 'Moderator LOC',
-    PRIV_EDIT   => 'Moderator',
-    PRIV_GUIDE  => 'Editor al ghidului de exprimare',
-    PRIV_WOTD   =>' Editor al cuvântului zilei',
-    PRIV_SUPER  => 'Utilizator privilegiat',
-    PRIV_STRUCT => '«Structurist» al definițiilor',
-    PRIV_VISUAL => 'Moderator imagini definiții'
-  ];
-
-  $GLOBALS['PRIV_NAMES'] = array_values($GLOBALS['PRIV_MAP_NAMES']);
-  define('NUM_PRIVILEGES', count($GLOBALS['PRIV_NAMES']));
-
-  define('PRIV_VIEW_HIDDEN', PRIV_ADMIN);
-  define('PRIV_ANY', (1 << NUM_PRIVILEGES) - 1);
 }
 
 function util_randomCapitalLetterString($length) {
@@ -244,20 +215,6 @@ function util_hideEmptyRequestParameters() {
   if ($needToRedirect) {
     util_redirect($_SERVER['PHP_SELF'] . $newQueryString);
   }
-}
-
-function util_assertModerator($type) {
-  if (!util_isModerator($type)) {
-    FlashMessage::add('Nu aveți privilegii suficiente pentru a accesa această pagină.');
-    util_redirect(util_getWwwRoot());
-  }
-}
-
-function util_isModerator($type) {
-  // Check the actual database, not the session user
-  $userId = session_getUserId();
-  $user = $userId ? User::get_by_id($userId) : null;
-  return $user ? ($user->moderator & $type) : false;
 }
 
 function util_assertNotMirror() {
@@ -401,16 +358,16 @@ function util_fetchUrl($url) {
   $data = curl_exec($ch);
   $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   curl_close($ch);
-  return array($data, $httpCode);
+  return [$data, $httpCode];
 }
 
-function util_makePostRequest($url, $data, $useCookies = false) {
+function util_makeRequest($url, $data, $method = 'POST', $useCookies = false) {
   $ch = curl_init($url);
   if ($useCookies) {
     curl_setopt($ch, CURLOPT_COOKIEFILE, Config::get('global.tempDir') . CURL_COOKIE_FILE);
     curl_setopt($ch, CURLOPT_COOKIEJAR, Config::get('global.tempDir') . CURL_COOKIE_FILE);
   }
-  curl_setopt($ch, CURLOPT_POST, true);
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
   curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
   // For JSON data, set the content type
   if (is_string($data) && is_object(json_decode($data))) {
@@ -422,8 +379,9 @@ function util_makePostRequest($url, $data, $useCookies = false) {
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($ch, CURLOPT_USERAGENT, 'dexonline.ro');
   $result = curl_exec($ch);
+  $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
   curl_close($ch);
-  return $result;
+  return [$result, $httpCode];
 }
 
 /* Returns $obj->$prop for every $obj in $a */

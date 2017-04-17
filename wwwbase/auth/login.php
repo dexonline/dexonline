@@ -26,7 +26,7 @@ if ($fakeUserNick) {
     $user->name = $fakeUserNick;
   }
   if ($allPriv) {
-    $user->moderator = (1 << NUM_PRIVILEGES) - 1;
+    $user->moderator = User::PRIV_ANY;
   } else {
     $user->moderator = array_sum($priv);
   }
@@ -88,7 +88,6 @@ if ($openid) {
 
 if ($devel) {
   SmartyWrap::assign('allowFakeUsers', true);
-  SmartyWrap::assign('privilegeNames', $PRIV_NAMES);
   SmartyWrap::assign('fakeUserNick', 'test' . rand(10000, 99999));
 }
 

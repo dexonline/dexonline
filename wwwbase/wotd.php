@@ -59,7 +59,7 @@ if ($type == 'rss' || $type == 'blog') {
 }
 
 if (($date < $bigBang) ||
-    (($date > $today) && !util_isModerator(PRIV_ADMIN))) {
+    (($date > $today) && !User::can(User::PRIV_WOTD))) {
   FlashMessage::add('Nu puteți vedea cuvântul acelei zile.', 'warning');
   util_redirect(util_getWwwRoot() . 'cuvantul-zilei');
 }
@@ -79,7 +79,7 @@ if (!$wotd) {
 $reason = '';
 if ($wotd) {
   $reason = $wotd->description;
-  if (util_isModerator(PRIV_ADMIN) || ($date <= $maxReasonDate)) {
+  if (User::can(User::PRIV_WOTD) || ($date <= $maxReasonDate)) {
     SmartyWrap::assign('reason', $reason);
   }
 }
@@ -103,7 +103,7 @@ if ($date > $bigBang) {
   SmartyWrap::assign('prevDay', false);
 }
 
-if ($date < $today || util_isModerator(PRIV_ADMIN)) {
+if ($date < $today || User::can(User::PRIV_ADMIN)) {
   $nextDay = $date->add(new DateInterval('P1D'))->format('Y/m/d');
   SmartyWrap::assign('nextDay', $nextDay);
 } else {

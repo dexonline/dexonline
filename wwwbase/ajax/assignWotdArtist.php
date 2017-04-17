@@ -1,6 +1,6 @@
 <?php
 require_once('../../phplib/util.php');
-util_assertModerator(PRIV_WOTD);
+User::require(User::PRIV_WOTD);
 
 $year = Request::get('year');
 $month = Request::get('month');

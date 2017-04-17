@@ -197,4 +197,14 @@
     })();
   };
 
+  App.run = function(onHomepage) {
+    var url_params = window.location.search;
+    var typewriter_enabled = url_params.indexOf('typewriter=1') != -1;
+
+    if (typewriter_enabled) {
+      onHomepage ? runOverlay() : runDefinitions();
+    }
+
+  };
+
 })();

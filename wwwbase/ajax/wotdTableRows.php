@@ -179,7 +179,7 @@ sql;
 }
 
 require_once("../../phplib/util.php");
-util_assertModerator(PRIV_WOTD);
+User::require(User::PRIV_WOTD);
 util_assertNotMirror();
 $app = new wotdTableRows($_GET['page'], $_GET['rows'], $_GET['sidx'], $_GET['sord'],
                          array_key_exists('filters', $_GET) ? json_decode($_GET['filters'], true) : null);

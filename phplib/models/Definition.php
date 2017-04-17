@@ -22,7 +22,7 @@ class Definition extends BaseObject implements DatedObject {
   /* For admins, returns the definition with the given ID. For regular users,
      return null rather than a hidden definition. */
   public static function getByIdNotHidden($id) {
-    if (util_isModerator(PRIV_ADMIN)) {
+    if (User::can(User::PRIV_ADMIN)) {
       return parent::get_by_id($id);
     } else {
       return Model::factory('Definition')->where('id',$id)->where_not_equal('status', self::ST_HIDDEN)->find_one();

@@ -47,7 +47,7 @@ class TopEntry {
       $clause = "not {$clause}";
     }
 
-    if (util_isModerator(PRIV_VIEW_HIDDEN)) {
+    if (User::can(User::PRIV_VIEW_HIDDEN)) {
       $statusClause = sprintf("status in (%d,%d)", Definition::ST_ACTIVE, Definition::ST_HIDDEN);
     } else {
       $statusClause = sprintf("status = %d", Definition::ST_ACTIVE);
@@ -88,7 +88,7 @@ class TopEntry {
   }
 
   private static function getUnsortedTopData($manual) {
-    $allowHidden = util_isModerator(PRIV_VIEW_HIDDEN); 
+    $allowHidden = User::can(User::PRIV_VIEW_HIDDEN);
     $data = FileCache::getTop($manual, $allowHidden);
     if (!$data) {
       $data = TopEntry::loadUnsortedTopData($manual);

@@ -230,46 +230,8 @@ class Lexem extends BaseObject implements DatedObject {
     return $q->find_many();
   }
 
-  public static function searchLike($search, $hasDiacritics, $useMemcache = false, $limit = 10) {
-    if ($useMemcache) {
-      $key = "like_" . ($hasDiacritics ? '1' : '0') . "_$search";
-      $result = mc_get($key);
-      if ($result) {
-        return $result;
-      }
-    }
-
-    $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-    $result = Model::factory('Lexem')
-      ->select('formNoAccent')
-      ->distinct()
-      ->where_like($field, $search)
-      ->order_by_asc('formNoAccent')
-      ->limit($limit)
-      ->find_array();
-
-    if ($useMemcache) {
-      mc_set($key, $result);
-    }
-    return $result;
-  }
-
-  public static function searchApproximate($cuv, $hasDiacritics, $useMemcache = false) {
-    if ($useMemcache) {
-      $key = "approx_" . ($hasDiacritics ? '1' : '0') . "_$cuv";
-      $result = mc_get($key);
-      if ($result) {
-        return $result;
-      }
-    }
-
-    $result = NGram::searchNGram($cuv);
-
-    if ($useMemcache) {
-      mc_set($key, $result);
-    }
-    return $result;
-
+  public static function searchApproximate($cuv) {
+    return NGram::searchNGram($cuv);
   }
 
   static function getRegexpQuery($regexp, $hasDiacritics, $sourceId) {
@@ -295,20 +257,7 @@ class Lexem extends BaseObject implements DatedObject {
     }
   }
 
-  static function searchRegexp($regexp, $hasDiacritics, $sourceId, $count = false,
-                               $useMemcache = true) {
-    if ($useMemcache) {
-      $key = sprintf('%s_%s_%s_%s',
-                     ($count ? 'regexpCount' : 'regexp'),
-                     ($hasDiacritics ? '1' : '0'),
-                     ($sourceId ? $sourceId : 0),
-                     $regexp);
-      $result = mc_get($key);
-      if ($result) {
-        return $result;
-      }
-    }
-
+  static function searchRegexp($regexp, $hasDiacritics, $sourceId, $count = false) {
     try {
       $q = self::getRegexpQuery($regexp, $hasDiacritics, $sourceId);
       if ($count) {
@@ -325,13 +274,9 @@ class Lexem extends BaseObject implements DatedObject {
                 ->find_many();
       }
     } catch (Exception $e) {
-      var_dump($e);
       $result = $count ? 0 : []; // Bad regexp
     }
 
-    if ($useMemcache) {
-      mc_set($key, $result);
-    }
     return $result;
   }
 

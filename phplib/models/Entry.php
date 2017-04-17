@@ -146,15 +146,7 @@ class Entry extends BaseObject implements DatedObject {
     return Model::factory('Entry')->raw_query($query)->find_many();
   }
   
-  static function searchInflectedForms($cuv, $hasDiacritics, $oldOrthography, $useMemcache = true) {
-    if ($useMemcache) {
-      $key = sprintf("inflected_%d_%d_%s", (int)$hasDiacritics, (int)$oldOrthography, $cuv);
-      $result = mc_get($key);
-      if ($result) {
-        return $result;
-      }
-    }
-
+  static function searchInflectedForms($cuv, $hasDiacritics, $oldOrthography) {
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     if ($oldOrthography) {
       $cuv = StringUtil::convertOrthography($cuv);
@@ -170,9 +162,6 @@ class Entry extends BaseObject implements DatedObject {
              ->order_by_asc('e.description')
              ->find_many();
 
-    if ($useMemcache) {
-      mc_set($key, $entries);
-    }
     return $entries;
   }
 
@@ -233,13 +222,13 @@ class Entry extends BaseObject implements DatedObject {
 
     if (($this->structStatus == Entry::STRUCT_STATUS_DONE) &&
         ($original->structStatus != Entry::STRUCT_STATUS_DONE) &&
-        !util_isModerator(PRIV_EDIT)) {
+        !User::can(User::PRIV_EDIT)) {
       $errors['structStatus'][] = 'Doar moderatorii pot marca structurarea drept terminată. ' .
                                 'Vă rugăm să folosiți valoarea „așteaptă moderarea”.';
     }
 
     if ($this->structuristId != $original->structuristId) {
-      if (util_isModerator(PRIV_ADMIN)) {
+      if (User::can(User::PRIV_ADMIN)) {
         // Admins can modify this field
       } else if (($original->structuristId == session_getUserId()) &&
                  !$this->structuristId) {

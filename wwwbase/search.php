@@ -109,7 +109,7 @@ $trees = [];
 $extra = [];
 
 $showWotd = session_isWotdMode()
-  && util_isModerator(PRIV_EDIT)
+  && User::can(User::PRIV_EDIT)
   && !Config::get('global.mirror');
 
 if ($isAllDigits) {
@@ -122,7 +122,7 @@ if ($isAllDigits) {
 // Definition.id search
 if ($defId) {
   $searchType = SEARCH_DEF_ID;
-  $statuses = util_isModerator(PRIV_VIEW_HIDDEN)
+  $statuses = User::can(User::PRIV_VIEW_HIDDEN)
             ? [Definition::ST_ACTIVE, Definition::ST_HIDDEN]
             : [Definition::ST_ACTIVE];
   $definitions = Model::factory('Definition')
@@ -208,7 +208,7 @@ if ($searchType == SEARCH_INFLECTED) {
   // successful search
   if (count($entries)) {
     if(SPOOF_ENABLED && $cuv_spoofed) {
-      $entries_spoofed = Entry::searchInflectedForms($cuv_spoofed, $cuv_spoofed_hasDiacritics, false);
+      $entries_spoofed = Entry::searchInflectedForms($cuv_spoofed, $cuv_spoofed_hasDiacritics);
       $definitions = Definition::loadForEntries($entries_spoofed, $sourceId, $cuv);
     }
     else {
@@ -244,7 +244,7 @@ if ($searchType == SEARCH_INFLECTED) {
   // fallback to approximate search
   if (empty($entries) && empty($definitions)) {
     $searchType = SEARCH_APPROXIMATE;
-    $entries = Lexem::searchApproximate($cuv, $hasDiacritics, true);
+    $entries = Lexem::searchApproximate($cuv);
     if (count($entries) == 1) {
       FlashMessage::add("Ați fost redirecționat automat la forma „{$entries[0]->description}”.");
     }

@@ -1,6 +1,6 @@
 <?php
 require_once("../phplib/util.php");
-util_assertModerator(PRIV_WOTD);
+User::require(User::PRIV_WOTD);
 
 $artists = Model::factory('WotdArtist')->find_many();
 

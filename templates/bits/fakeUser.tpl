@@ -7,16 +7,14 @@
     <input class="form-control" type="text" name="fakeUserNick" id="fakeUserNick" value="{$fakeUserNick}" size="20">
   </div>
   <div class="form-group">
-    {section name="p" loop=$smarty.const.NUM_PRIVILEGES}
-      {assign var="i" value=$smarty.section.p.index}
-      {math equation="1 << x" x=$i assign="mask"}
+    {foreach User::$PRIV_NAMES as $privValue => $privName}
       <div class="checkbox">
         <label>
-          <input type="checkbox" name="priv[]" value="{$mask}">
-          {$privilegeNames[$i]}
+          <input type="checkbox" name="priv[]" value="{$privValue}">
+          {$privName}
         </label>
       </div>
-    {/section}
+    {/foreach}
     <div class="checkbox">
       <label>
         <input id="allPriv" type="checkbox" name="allPriv" value="1">

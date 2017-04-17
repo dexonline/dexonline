@@ -1,7 +1,7 @@
 <?php
 
 require_once("../../phplib/util.php");
-util_assertModerator(PRIV_EDIT);
+User::require(User::PRIV_EDIT);
 
 $id = Request::get('id');
 $value = Request::get('value');

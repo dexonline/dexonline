@@ -2,7 +2,7 @@
 require_once("../../phplib/util.php"); 
 ini_set('memory_limit', '512M');
 ini_set('max_execution_time', '3600');
-util_assertModerator(PRIV_EDIT);
+User::require(User::PRIV_EDIT);
 util_assertNotMirror();
 DebugInfo::disable();
 
@@ -13,7 +13,7 @@ $previewButton = Request::has('previewButton');
 $saveButton = Request::has('saveButton');
 $shortList = Request::has('shortList');
 
-$locPerm = util_isModerator(PRIV_LOC);
+$locPerm = User::can(User::PRIV_LOC);
 
 $m = FlexModel::get_by_id($id);
 $pm = ParticipleModel::loadForModel($m);

@@ -141,7 +141,7 @@
                   </a>
                 </li>
               {/if}
-              {if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
+              {if $sUser && $sUser->moderator & User::PRIV_EDIT}
                 <li>
                   <a href="#" data-toggle="modal" data-target="#hotkeysModal">
                     <i class="glyphicon glyphicon-hand-up"></i>
@@ -199,7 +199,7 @@
   </div>
 </nav>
 
-{if $sUser && $sUser->moderator & $smarty.const.PRIV_EDIT}
+{if $sUser && $sUser->moderator & User::PRIV_EDIT}
   <div class="modal fade" id="hotkeysModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

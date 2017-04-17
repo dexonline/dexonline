@@ -20,7 +20,6 @@ $widgets = Preferences::getWidgets($user);
 
 SmartyWrap::assign('detailsVisible', $detailsVisible);
 SmartyWrap::assign('userPrefs', $userPrefs);
-SmartyWrap::assign('privilegeNames', $PRIV_NAMES);
 SmartyWrap::assign('widgets', $widgets);
 SmartyWrap::display('preferinte.tpl');
 

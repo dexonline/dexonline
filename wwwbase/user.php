@@ -8,7 +8,7 @@ $userId = Request::get('userId');
 $medalsGranted = Request::get('medalsGranted');
 
 if ($medalSaveButton) {
-  util_assertModerator(PRIV_ADMIN);
+  User::require(User::PRIV_ADMIN);
   $user = User::get_by_id($userId);
   $user->medalMask = Medal::getCanonicalMask(array_sum($medalsGranted));
   $user->save();
@@ -49,7 +49,7 @@ while ($rankChars < $numUsers && $topChars[$rankChars]->userNick != $nick) {
 
 $userData['rank_chars'] = $rankChars + 1;
 SmartyWrap::assign('medals', Medal::loadForUser($user));
-if (util_isModerator(PRIV_ADMIN)) {
+if (User::can(User::PRIV_ADMIN)) {
   // Admins can grant/revoke medals
   SmartyWrap::assign('allMedals', Medal::$DATA);
 }

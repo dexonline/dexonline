@@ -6,7 +6,7 @@ $saveButton = Request::has('saveButton');
 $jsonTags = Request::get('jsonTags');
 
 if ($saveButton) {
-  util_assertModerator(PRIV_ADMIN);
+  User::require(User::PRIV_ADMIN);
 
   // Build a map of all Tag IDs so we can delete those that are gone.
   $ids = Model::factory('Tag')

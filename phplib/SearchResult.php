@@ -64,7 +64,7 @@ class SearchResult {
     if ($suid = session_getUserId()) {
       $defIdString = implode(',', $defIds);
 
-      // This actually requires a stronger condition: that the user has PRIV_WOTD privileges;
+      // This actually requires a stronger condition: that the user has User::PRIV_WOTD privileges;
       // but that check would require a DB hit. So we check that the user is logged in, which
       // is cheap. The admin permission is checked in the template.
 
@@ -110,7 +110,7 @@ class SearchResult {
         // hide unofficial definitions
         $unofficialHidden = true;
         unset($searchResults[$i]);
-      } else if (!util_isModerator(PRIV_VIEW_HIDDEN) &&
+      } else if (!User::can(User::PRIV_VIEW_HIDDEN) &&
                  (($sr->source->type == Source::TYPE_HIDDEN) ||
                   ($sr->definition->status == Definition::ST_HIDDEN))) {
         // hide hidden definitions or definitions from hidden sources

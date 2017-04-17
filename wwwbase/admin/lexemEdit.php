@@ -1,6 +1,6 @@
 <?php
 require_once("../../phplib/util.php"); 
-util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
+User::require(User::PRIV_EDIT | User::PRIV_STRUCT);
 util_assertNotMirror();
 
 // We get some data as JSON because it is 2-dimensional (a list of lists)
@@ -132,16 +132,16 @@ $definitions = Definition::loadByEntryIds($lexem->getEntryIds());
 $searchResults = SearchResult::mapDefinitionArray($definitions);
 
 $canEdit = [
-  'general' => util_isModerator(PRIV_EDIT),
-  'description' => util_isModerator(PRIV_EDIT),
-  'form' => !$lexem->isLoc || util_isModerator(PRIV_LOC),
-  'hyphenations' => util_isModerator(PRIV_STRUCT | PRIV_EDIT),
-  'loc' => (int)util_isModerator(PRIV_LOC),
-  'paradigm' => util_isModerator(PRIV_EDIT),
-  'pronunciations' => util_isModerator(PRIV_STRUCT | PRIV_EDIT),
-  'sources' => util_isModerator(PRIV_LOC | PRIV_EDIT),
-  'stopWord' => util_isModerator(PRIV_ADMIN),
-  'tags' => util_isModerator(PRIV_LOC | PRIV_EDIT),
+  'general' => User::can(User::PRIV_EDIT),
+  'description' => User::can(User::PRIV_EDIT),
+  'form' => !$lexem->isLoc || User::can(User::PRIV_LOC),
+  'hyphenations' => User::can(User::PRIV_STRUCT | User::PRIV_EDIT),
+  'loc' => (int)User::can(User::PRIV_LOC),
+  'paradigm' => User::can(User::PRIV_EDIT),
+  'pronunciations' => User::can(User::PRIV_STRUCT | User::PRIV_EDIT),
+  'sources' => User::can(User::PRIV_LOC | User::PRIV_EDIT),
+  'stopWord' => User::can(User::PRIV_ADMIN),
+  'tags' => User::can(User::PRIV_LOC | User::PRIV_EDIT),
 ];
 
 // Prepare a list of model numbers, to be used in the paradigm drop-down.

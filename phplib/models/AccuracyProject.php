@@ -14,9 +14,9 @@ class AccuracyProject extends BaseObject implements DatedObject {
 
   // Who has read access to this project?
   const VIS_PRIVATE = 0;  // owner only
-  const VIS_ADMIN = 1;    // owner and PRIV_ADMIN's
-  const VIS_EDITOR = 2;   // owner, PRIV_ADMIN's and the editor being evaluated
-  const VIS_PUBLIC = 3;   // all PRIV_ADMIN's and PRIV_EDIT's
+  const VIS_ADMIN = 1;    // owner and User::PRIV_ADMIN's
+  const VIS_EDITOR = 2;   // owner, User::PRIV_ADMIN's and the editor being evaluated
+  const VIS_PUBLIC = 3;   // all User::PRIV_ADMIN's and User::PRIV_EDIT's
   static $VIS_NAMES = [
     self::VIS_PRIVATE => 'doar autorul proiectului',
     self::VIS_ADMIN => 'autorul proiectului și administratorii',
@@ -51,11 +51,11 @@ class AccuracyProject extends BaseObject implements DatedObject {
       case self::VIS_PRIVATE:
         return false;
       case self::VIS_ADMIN:
-        return $user->moderator & PRIV_ADMIN;
+        return $user->moderator & User::PRIV_ADMIN;
       case self::VIS_EDITOR:
-        return ($user->moderator & PRIV_ADMIN) || ($user->id == $this->userId);
+        return ($user->moderator & User::PRIV_ADMIN) || ($user->id == $this->userId);
       case self::VIS_PUBLIC:
-        return $user->moderator & (PRIV_ADMIN | PRIV_EDIT);
+        return $user->moderator & (User::PRIV_ADMIN | User::PRIV_EDIT);
     }
   }
 

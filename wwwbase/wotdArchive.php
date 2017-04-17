@@ -40,7 +40,7 @@ function createCalendar($year, $month) {
     $wotd = WordOfTheDay::get_by_displayDate($date);
     $wotdr = $wotd ? WordOfTheDayRel::get_by_wotdId($wotd->id) : null;
     $def = $wotdr ? Definition::get_by_id($wotdr->refId) : null;
-    $visible = $def && (($date <= $today) || util_isModerator(PRIV_WOTD));
+    $visible = $def && (($date <= $today) || User::can(User::PRIV_WOTD));
     $calendar[] = array('wotd' => $wotd,
                         'def' => $def,
                         'visible' => $visible,
@@ -64,7 +64,7 @@ SmartyWrap::assign('month', strftime("%B", strtotime("$year-$month-01")));
 SmartyWrap::assign('year', $year);
 
 $showPrev = (($year > 2011) || (($year == 2011) && ($month > 5))) ? 1 : 0;
-$showNext = util_isModerator(PRIV_ADMIN) || (time() >= mktime(0, 0, 0, $month + 1, 1, $year));
+$showNext = User::can(User::PRIV_ADMIN) || (time() >= mktime(0, 0, 0, $month + 1, 1, $year));
 
 SmartyWrap::assign('showPrev', $showPrev);
 SmartyWrap::assign('showNext', $showNext);

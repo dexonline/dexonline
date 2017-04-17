@@ -18,7 +18,6 @@ class SmartyWrap {
       self::assign('currentYear', date("Y"));
       self::assign('suggestNoBanner', util_suggestNoBanner());
       self::assign('cfg', Config::getAll());
-      self::assign('GLOBALS', $GLOBALS);
     }
   }
 
@@ -71,7 +70,7 @@ class SmartyWrap {
       self::addJs('callToAction', 'cookie');
       self::assign('callToAction', true);
     }
-    if (util_isModerator(PRIV_EDIT)) {
+    if (User::can(User::PRIV_EDIT)) {
       self::addJs('hotkeys');
     }
     self::addSameNameFiles($templateName);
@@ -82,7 +81,7 @@ class SmartyWrap {
                ->order_by_asc('displayOrder')
                ->find_many();
       self::assign('sources', $sources);
-      if (util_isModerator(PRIV_ANY)) {
+      if (User::can(User::PRIV_ANY)) {
         self::assign('recentLinks', RecentLink::load());
       }
     }

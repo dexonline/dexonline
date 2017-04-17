@@ -1,6 +1,6 @@
 <?php
 require_once("../phplib/util.php");
-util_assertModerator(PRIV_EDIT | PRIV_ADMIN);
+User::require(User::PRIV_EDIT | User::PRIV_ADMIN);
 
 $includePublic = Request::has('includePublic');
 $submitButton = Request::has('submitButton');
@@ -28,12 +28,12 @@ if ($submitButton) {
 }
 
 $aps = Model::factory('AccuracyProject');
-if ($includePublic && util_isModerator(PRIV_ADMIN)) {
+if ($includePublic && User::can(User::PRIV_ADMIN)) {
   $aps = $aps->where_raw(
     '((ownerId = ?) or (visibility != ?))',
     [ $user->id, AccuracyProject::VIS_PRIVATE ]
   );
-} else if ($includePublic && util_isModerator(PRIV_EDIT)) {
+} else if ($includePublic && User::can(User::PRIV_EDIT)) {
   $aps = $aps->where_raw(
     '((ownerId = ?) or ((visibility = ?) && (userId = ?)) or (visibility = ?))',
     [ $user->id, AccuracyProject::VIS_EDITOR, $user->id, AccuracyProject::VIS_PUBLIC ]

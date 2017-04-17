@@ -11,7 +11,7 @@ $today = date('Y-m-01', time()); // Always use the first of the month
 $timestamp = $date ? strtotime($date) : time();
 $mysqlDate = date("Y-m-01", $timestamp);
 
-if ($mysqlDate < WOTM_BIG_BANG || (($mysqlDate > $today) && !util_isModerator(PRIV_ADMIN))) {
+if ($mysqlDate < WOTM_BIG_BANG || (($mysqlDate > $today) && !User::can(User::PRIV_WOTD))) {
   util_redirect(util_getWwwRoot() . 'cuvantul-lunii');
 }
 
@@ -35,7 +35,7 @@ $prevTS = mktime(0, 0, 0, $cMonth - 1, 1, $cYear);
 if ($mysqlDate > WOTM_BIG_BANG) {
   SmartyWrap::assign('prevmon', date('Y/m', $prevTS));
 }
-if ($mysqlDate < $today || util_isModerator(PRIV_ADMIN)) {
+if ($mysqlDate < $today || User::can(User::PRIV_WOTD)) {
   SmartyWrap::assign('nextmon', date('Y/m', $nextTS));
 }
 

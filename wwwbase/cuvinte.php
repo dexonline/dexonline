@@ -1,7 +1,7 @@
 <?php
 
 require_once("../phplib/util.php"); 
-util_assertModerator(PRIV_SUPER);
+User::require(User::PRIV_ADMIN);
 
 define('DEBUG', 0);
 

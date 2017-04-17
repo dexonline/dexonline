@@ -4,7 +4,7 @@ require_once('../phplib/util.php');
 $saveButton = Request::has('saveButton');
 
 if ($saveButton) {
-  util_assertModerator(PRIV_ADMIN);
+  User::require(User::PRIV_ADMIN);
   $order = 1;
   $ids = Request::get('ids');
   foreach ($ids as $id) {
@@ -17,7 +17,7 @@ if ($saveButton) {
   util_redirect('surse');
 }
 
-if (util_isModerator(PRIV_VIEW_HIDDEN)) {
+if (User::can(User::PRIV_VIEW_HIDDEN)) {
   $sources = Model::factory('Source')
            ->order_by_asc('displayOrder')
            ->find_many();

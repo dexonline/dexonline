@@ -5,6 +5,7 @@
 {/block}
 
 {block "content"}
+  {$includeOtrs=$includeOtrs|default:1}
   <h3>Procesează donații</h3>
 
   <form class="form" method="post">
@@ -12,6 +13,15 @@
     <div class="panel panel-default">
       <div class="panel-heading">Donații OTRS</div>
       <div class="panel-body">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"
+                   name="includeOtrs"
+                   value="1"
+                   {if $includeOtrs}checked{/if}>
+            preia tichetele din OTRS
+          </label>
+        </div>
       </div>
     </div>
 

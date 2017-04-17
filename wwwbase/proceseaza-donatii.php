@@ -2,7 +2,7 @@
 require_once '../phplib/util.php';
 require_once '../phplib/third-party/PHPMailer/PHPMailerAutoload.php';
 
-util_assertModerator(PRIV_ADMIN);
+User::require(User::PRIV_ADMIN);
 
 define('OTRS_DONATION_EMAIL_REGEX',
        '/^Mesaj raspuns: Approved.*' .
@@ -12,8 +12,23 @@ define('OTRS_DONATION_EMAIL_REGEX',
 $previewButton = Request::has('previewButton');
 $processButton = Request::has('processButton');
 $backButton = Request::has('backButton');
+$includeOtrs = Request::has('includeOtrs');
 
 if ($processButton) {
+  if ($includeOtrs) {
+    $odp = new OtrsDonationProvider();
+    $odp->prepareDonors();
+
+    $processTicketIds = Request::get('processTicketId', []);
+    $messageTicketIds = Request::get('messageTicketId', []);
+    foreach ($odp->getDonors() as $d) {
+      if (in_array($d->ticketId, $processTicketIds)) {
+        $d->sendEmail = in_array($d->ticketId, $messageTicketIds);
+        $d->process();
+      }
+    }
+  }
+
   $mdp = readManualDonorData();
   $mdp->prepareDonors();
   $mdp->processDonors();
@@ -24,14 +39,17 @@ if ($processButton) {
   util_redirect('proceseaza-donatii.php');
 
 } else if ($previewButton) {
-  $odp = new OtrsDonationProvider();
-  // $otrsDonors = $odp->getDonors();
-  $otrsDonors = [];
+  if ($includeOtrs) {
+    $odp = new OtrsDonationProvider();
+    $odp->prepareDonors();
+    SmartyWrap::assign('otrsDonors', $odp->getDonors());
+  }
 
   $mdp = readManualDonorData();
   $mdp->prepareDonors();
-
   SmartyWrap::assign('manualDonors', $mdp->getDonors());
+  SmartyWrap::assign('includeOtrs', $includeOtrs);
+
   if (FlashMessage::hasErrors()) {
     SmartyWrap::display('proceseaza-donatii.tpl');
   } else {
@@ -42,6 +60,7 @@ if ($processButton) {
 
   $mdp = readManualDonorData();
   SmartyWrap::assign('manualDonors', $mdp->getDonors());
+  SmartyWrap::assign('includeOtrs', $includeOtrs);
   SmartyWrap::display('proceseaza-donatii.tpl');
 
 } else {
@@ -152,22 +171,41 @@ class Donor {
     $donation->email = $this->email;
     $donation->amount = $this->amount;
     $donation->date = $this->date;
+    $donation->userId = session_getUserId();
     $donation->source = $this->source;
     $donation->emailSent = $this->sendEmail;
     $donation->save();
   }
-
 
   function __toString() {
     return (string)$this->description;
   }
 }
 
+class OtrsDonor extends Donor {
+  public $ticketId;
+
+  function __construct($email, $amount, $date, $source, $sendEmail, $ticketId) {
+    parent::__construct($email, $amount, $date, $source, $sendEmail, $ticketId);
+    $this->ticketId = $ticketId;
+  }
+
+  function process() {
+    parent::process();
+    OtrsApiClient::closeTicket($this->ticketId);
+  }
+
+  function __toString() {
+    return "tichet ID={$this->ticketId}";
+  }
+}
+
 abstract class DonationProvider {
   protected $donors;
 
-  // must return an array of Donor objects
-  abstract function getDonors();
+  function getDonors() {
+    return $this->donors;
+  }
 
   function prepareDonors() {
     foreach ($this->donors as $d) {
@@ -183,45 +221,22 @@ abstract class DonationProvider {
 }
 
 class OtrsDonationProvider extends DonationProvider {
-  private $ticketIds = null;
 
-  function restQuery($page, $params) {
-    $getArgs = [];
-    foreach ($params as $key => $value) {
-      $getArgs[] = "{$key}=" . urlencode($value);
-    }
+  function __construct() {
 
-    $url = sprintf('%s/%s?%s',
-                   Config::get('otrs.restUrl'),
-                   $page,
-                   implode('&', $getArgs));
-
-    list($response, $httpCode) = util_fetchUrl($url);
-
-    if ($httpCode != 200) {
-      throw new Exception('Eroare la comunicarea cu OTRS');
-    }
-
-    return json_decode($response);
-  }
-
-  function getDonors() {
-    // get tickets ID from the donation queue and save them for postprocessing
-    $response = $this->restQuery('TicketSearch', [
-      'UserLogin' => Config::get('otrs.login'),
-      'Password' => Config::get('otrs.password'),
+    // get ticket IDs from the donation queue and save them for postprocessing
+    $response = OtrsApiClient::searchTickets([
       'Queues' => 'ONG',
       'States' => 'new',
-      'From' => 'office@euplatesc.ro', // TODO: test if it needs '%' regex
+      'From' => 'office@euplatesc.ro',
     ]);
-    $this->ticketIds = $response->TicketID;
 
-    $results = [];
+    $ticketIds = isset($response->TicketID) ? $response->TicketID : [];
+    $this->donors = [];
 
-    // get the body for each ticket and, if it matches a donation email, extract the email addresss
-    // and amount
-    foreach ($this->ticketIds as $tid) {
-      $ticket = $this->getTicket($tid);
+    // get the body for each ticket and, if it matches a donation email, build a new donor
+    foreach ($ticketIds as $tid) {
+      $ticket = OtrsApiClient::getTicket($tid);
       if (!$ticket ||
           !property_exists($ticket, 'Ticket') ||
           empty($ticket->Ticket) ||
@@ -230,29 +245,24 @@ class OtrsDonationProvider extends DonationProvider {
         throw new Exception('Răspuns incorect de la OTRS');
       }
       $article = $ticket->Ticket[0]->Article[0];
+      $created = $ticket->Ticket[0]->Created;
       $from = $article->From;
       $body = $article->Body;
 
       if (preg_match(OTRS_DONATION_EMAIL_REGEX, $body, $match)) {
 
-        $results[] = [
-          'email' => $match['email'],
-          'amount' => $match['amount'],
-        ];
+        $d = new OtrsDonor($match['email'],
+                           $match['amount'],
+                           explode(' ', $created)[0], // just the date part
+                           Donation::SOURCE_OTRS,
+                           true,
+                           $tid);
+        $d->validate();
+        $this->donors[] = $d;
       }
     }
-
-    return $results;
   }
 
-  function getTicket($ticketId) {
-    return $this->restQuery('TicketGet', [
-      'UserLogin' => Config::get('otrs.login'),
-      'Password' => Config::get('otrs.password'),
-      'TicketID' => $ticketId,
-      'AllArticles' => '1',
-    ]);
-  }
 }
 
 class ManualDonationProvider extends DonationProvider {
@@ -272,4 +282,60 @@ class ManualDonationProvider extends DonationProvider {
   function getDonors() {
     return $this->donors;
   }
+}
+
+class OtrsApiClient {
+  const METHOD_GET = 'GET';
+  const METHOD_POST = 'POST';
+  const METHOD_PATCH = 'PATCH';
+
+  static function restQuery($page, $params, $method = self::METHOD_GET) {
+    // add the login credentials
+    $params['UserLogin'] = Config::get('otrs.login');
+    $params['Password'] = Config::get('otrs.password');
+
+    $url = sprintf('%s/%s', Config::get('otrs.restUrl'), $page);
+
+    if ($method == SELF::METHOD_GET) {
+      // URL-encode the params
+      $getArgs = [];
+      foreach ($params as $key => $value) {
+        $getArgs[] = "{$key}=" . urlencode($value);
+      }
+
+      $url .= '?' . implode('&', $getArgs);
+      list($response, $httpCode) = util_fetchUrl($url);
+
+    } else {
+      $jsonData = json_encode($params);
+      list($response, $httpCode) = util_makeRequest($url, $jsonData, $method);
+    }
+
+    if ($httpCode != 200) {
+      throw new Exception('Eroare la comunicarea cu OTRS');
+    }
+
+    return json_decode($response);
+  }
+
+  static function getTicket($ticketId) {
+    return self::restQuery('TicketGet', [
+      'TicketID' => $ticketId,
+      'AllArticles' => '1',
+    ]);
+  }
+  
+  static function closeTicket($ticketId) {
+    return self::restQuery('TicketUpdate', [
+      'TicketID' => $ticketId,
+      'Ticket' => [
+        'State' => 'closed successful',
+      ],
+    ], self::METHOD_PATCH);
+  }
+
+  static function searchTickets($params) {
+    return self::restQuery('TicketSearch', $params);
+  }
+
 }

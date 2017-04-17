@@ -1,7 +1,7 @@
 <?php
 require_once("../phplib/util.php");
 
-util_assertModerator(PRIV_EDIT | PRIV_STRUCT);
+User::require(User::PRIV_EDIT | User::PRIV_STRUCT);
 
 $id = Request::get('id');
 $saveButton = Request::has('saveButton');
@@ -166,7 +166,7 @@ $canDelete = !$numMeanings && !$numRelations;
 SmartyWrap::assign('t', $t);
 SmartyWrap::assign('entryIds', $entryIds);
 SmartyWrap::assign('modelTypes', $modelTypes);
-// TODO: canEdit if STRUCT_STATUS_IN_PROGRESS) || util_isModerator(PRIV_EDIT)
+// TODO: canEdit if STRUCT_STATUS_IN_PROGRESS) || User::can(User::PRIV_EDIT)
 SmartyWrap::assign('canEdit', true);
 SmartyWrap::assign('canDelete', $canDelete);
 SmartyWrap::assign('relatedMeanings', $relatedMeanings);

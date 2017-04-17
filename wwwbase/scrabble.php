@@ -4,7 +4,7 @@ $form = Request::get('form');
 $locVersion = Request::get('locVersion');
 
 $locVersions = Config::getLocVersions();
-if (!util_isModerator(PRIV_LOC)) {
+if (!User::can(User::PRIV_LOC)) {
   $locVersions = array_slice($locVersions, 1); // remove the version in progress
 }
 

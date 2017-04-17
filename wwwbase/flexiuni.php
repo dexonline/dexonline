@@ -1,6 +1,6 @@
 <?php
 require_once("../phplib/util.php");
-util_assertModerator(PRIV_LOC);
+User::require(User::PRIV_LOC);
 
 $saveButton = Request::has('saveButton');
 $inflectionIds = Request::get('inflectionIds');

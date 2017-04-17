@@ -97,7 +97,7 @@ function parse($text) {
   $text = str_replace(['ş', 'Ş', 'ţ', 'Ţ'], ['ș', 'Ș', 'ț', 'Ț'], $text);
 
   // Actual parsing
-  $xmlString = util_makePostRequest(PARSER_URL, [
+  list($xmlString, $httpCode) = util_makeRequest(PARSER_URL, [
     'action' => 'parse',
     'text' => $text,
     'format' => 'xml',

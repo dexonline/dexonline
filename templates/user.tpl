@@ -63,14 +63,14 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       Medalii
-      {if $sUser && $sUser->moderator & $smarty.const.PRIV_ADMIN}
+      {if $sUser && $sUser->moderator & User::PRIV_ADMIN}
         <button class="btn btn-xs btn-default pull-right" data-toggle="collapse" data-target="#medalEditDiv">
           editează medaliile
         </button>
       {/if}
     </div>
     <div class="panel-body">
-      {if $sUser && $sUser->moderator & $smarty.const.PRIV_ADMIN}
+      {if $sUser && $sUser->moderator & User::PRIV_ADMIN}
         <form id="medalEditDiv" method="post" class="collapse">
           <div class="medalCheckboxes">
             <input type="hidden" name="userId" value="{$user->id}"/>

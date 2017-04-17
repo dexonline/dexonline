@@ -6,20 +6,16 @@ class User extends BaseObject {
   const PRIV_ADMIN = 0x01;
   const PRIV_LOC = 0x02;
   const PRIV_EDIT = 0x04;
-  const PRIV_GUIDE = 0x08;
-  const PRIV_WOTD = 0x10;
-  const PRIV_SUPER = 0x20;
-  const PRIV_STRUCT = 0x40;
-  const PRIV_VISUAL = 0x80;
-  const NUM_PRIVILEGES = 8;
+  const PRIV_WOTD = 0x08;
+  const PRIV_STRUCT = 0x10;
+  const PRIV_VISUAL = 0x20;
+  const NUM_PRIVILEGES = 6;
 
   static $PRIV_NAMES = [
     self::PRIV_ADMIN => 'administrator',
     self::PRIV_LOC => 'LOC scrabble',
     self::PRIV_EDIT => 'moderator',
-    self::PRIV_GUIDE => 'nefolosit', // was: 'Editor al ghidului de exprimare'
     self::PRIV_WOTD => 'cuvântul zilei',
-    self::PRIV_SUPER => 'nefolosit', // was: 'utilizator privilegiat'
     self::PRIV_STRUCT => 'structurist al definițiilor',
     self::PRIV_VISUAL => 'dicționarul vizual',
   ];

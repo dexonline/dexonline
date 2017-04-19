@@ -3,7 +3,7 @@
  * This script grants code, e-mail and volunteer medals.
  **/
 
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 define('CODE_AUTHORS_FILE', __DIR__ . '/../docs/codeAuthors.conf');
 
 /* Map of SVN usernames to User.id */

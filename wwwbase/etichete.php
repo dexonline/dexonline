@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 
 $value = Request::get('value');
 $saveButton = Request::has('saveButton');

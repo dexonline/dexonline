@@ -1,5 +1,5 @@
 <?php
 
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 
 Util::recount();

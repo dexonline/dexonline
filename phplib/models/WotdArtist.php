@@ -8,7 +8,7 @@ class WotdArtist extends BaseObject {
   static function getAllWotmCredits() {
     $result = [];
 
-    $lines = @file(util_getRootPath() . self::CREDITS_FILE_WOTM);
+    $lines = @file(Core::getRootPath() . self::CREDITS_FILE_WOTM);
     if ($lines) {
       foreach ($lines as $line) {
         $commentStart = strpos($line, '#');

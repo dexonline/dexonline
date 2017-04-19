@@ -1,16 +1,16 @@
 <?php
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 
 $user = Session::getUser();
 if (!$user) {
   FlashMessage::add('Nu puteți alege o imagine de profil dacă nu sunteți autentificat.');
-  Util::redirect(util_getWwwRoot());
+  Util::redirect(Core::getWwwRoot());
 }
 
 define('AVATAR_RESOLUTION', 48);
 define('AVATAR_QUALITY', 100);
 $AVATAR_REMOTE_FILE = "/img/user/{$user->id}.jpg";
-$AVATAR_RAW_GLOB = util_getRootPath() . "wwwbase/img/generated/{$user->id}_raw.*";
+$AVATAR_RAW_GLOB = Core::getRootPath() . "wwwbase/img/generated/{$user->id}_raw.*";
 
 $x0 = Request::get('x0');
 $y0 = Request::get('y0');
@@ -29,7 +29,7 @@ if ($delete) {
 $rawFileList = glob($AVATAR_RAW_GLOB);
 if (empty($rawFileList)) {
   FlashMessage::add('Imaginea dumneavoastră de profil nu mai există. Vă rugăm să o reîncărcați.');
-  Util::redirect(util_getWwwRoot());
+  Util::redirect(Core::getWwwRoot());
 }
 $rawFileName = $rawFileList[0];
 

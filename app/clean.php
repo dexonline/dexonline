@@ -3,7 +3,7 @@
  * Alin Ungureanu, 2013
  * alyn.cti@gmail.com
  */
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 
 function printUsage() {
 	echo "::Usage::" . PHP_EOL . "php clean.php [ -c | --crawler] [ -d | --diacritics]" . PHP_EOL;

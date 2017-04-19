@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/util.php"); 
+require_once("../../phplib/Core.php"); 
 ini_set('memory_limit', '256M');
 
 $modelType = Request::get('modelType');

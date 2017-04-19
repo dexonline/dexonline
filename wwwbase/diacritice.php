@@ -1,6 +1,6 @@
 <?php
 
-require_once '../phplib/util.php';
+require_once '../phplib/Core.php';
 require_once '../phplib/AppLog.php';
 require_once '../phplib/MemoryManagement.php';
 

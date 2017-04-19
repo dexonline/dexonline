@@ -38,13 +38,13 @@ class Request {
 
   static function isAjax() {
     return isset($_SERVER['REQUEST_URI']) &&
-      StringUtil::startsWith($_SERVER['REQUEST_URI'], util_getWwwRoot() . 'ajax/');
+      StringUtil::startsWith($_SERVER['REQUEST_URI'], Core::getWwwRoot() . 'ajax/');
   }
 
   static function getFullServerUrl() {
     $host = $_SERVER['SERVER_NAME'];
     $port =  $_SERVER['SERVER_PORT'];
-    $path = util_getWwwRoot();
+    $path = Core::getWwwRoot();
 
     return ($port == '80') ? "http://$host$path" : "http://$host:$port$path";
   }
@@ -79,21 +79,21 @@ class Request {
     } else if ($entryId) {
       $e = Entry::get_by_id($entryId);
       if (!$e) {
-        Util::redirect(util_getWwwRoot());
+        Util::redirect(Core::getWwwRoot());
       }
       $short = $e->getShortDescription();
       $url = "intrare{$sourcePart}/{$short}/{$e->id}/{$paradigmPart}";
     } else if ($lexemId) {
       $l = Lexem::get_by_id($lexemId);
       if (!$l) {
-        Util::redirect(util_getWwwRoot());
+        Util::redirect(Core::getWwwRoot());
       }
       $url = "lexem/{$l->formNoAccent}/{$l->id}";
     } else {
       $url = "definitie{$sourcePart}/{$cuv}{$paradigmPart}";
     }
 
-    Util::redirect(util_getWwwRoot() . $url . $allPart);
+    Util::redirect(Core::getWwwRoot() . $url . $allPart);
   }
 
 }

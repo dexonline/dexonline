@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 ini_set('max_execution_time', '3600');
 ini_set('memory_limit', '512M');
 assert_options(ASSERT_BAIL, 1);

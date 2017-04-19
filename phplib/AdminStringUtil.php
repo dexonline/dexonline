@@ -549,7 +549,7 @@ class AdminStringUtil {
   static function loadAbbreviationsIndex() {
     if (!self::$ABBREV_INDEX) {
       self::$ABBREV_INDEX = array();
-      $raw = parse_ini_file(util_getRootPath() . "docs/abbrev/abbrev.conf", true);
+      $raw = parse_ini_file(Core::getRootPath() . "docs/abbrev/abbrev.conf", true);
       foreach ($raw['sources'] as $sourceId => $sectionList) {
         self::$ABBREV_INDEX[$sourceId] = preg_split('/, */', $sectionList);
       }
@@ -582,7 +582,7 @@ class AdminStringUtil {
       if (array_key_exists($sourceId, self::$ABBREV_INDEX)) {
         $list = array();
         foreach (self::$ABBREV_INDEX[$sourceId] as $section) {
-          $raw = parse_ini_file(util_getRootPath() . "docs/abbrev/{$section}.conf", true);
+          $raw = parse_ini_file(Core::getRootPath() . "docs/abbrev/{$section}.conf", true);
           // If an abbreviation is defined in several sections, use the one that's defined later
           $list = array_merge($list, $raw[$section]);
         }

@@ -1,6 +1,6 @@
 <?php
 
-require_once('../phplib/util.php');
+require_once('../phplib/Core.php');
 require_once('../phplib/ads/adsModule.php');
 
 define('SEARCH_REGEXP', 0);
@@ -115,7 +115,7 @@ $showWotd = Session::isWotdMode()
 if ($isAllDigits) {
   $d = Definition::getByIdNotHidden($cuv);
   if ($d) {
-    Util::redirect(util_getWwwRoot() . "definitie/{$d->lexicon}/{$d->id}" . $format['tpl_path']);
+    Util::redirect(Core::getWwwRoot() . "definitie/{$d->lexicon}/{$d->id}" . $format['tpl_path']);
   }
 }
 
@@ -136,10 +136,10 @@ if ($lexemId) {
   $searchType = SEARCH_LEXEM_ID;
   $l = Lexem::get_by_id($lexemId);
   if (!$l || empty($l->getEntries())) {
-    Util::redirect(util_getWwwRoot());
+    Util::redirect(Core::getWwwRoot());
   }
   $e = $l->getEntries()[0];
-  Util::redirect(sprintf('%sintrare/%s/%s', util_getWwwRoot(), $e->getShortDescription(), $e->id));
+  Util::redirect(sprintf('%sintrare/%s/%s', Core::getWwwRoot(), $e->getShortDescription(), $e->id));
 }
 
 // Full-text search
@@ -257,7 +257,7 @@ if ($searchType == SEARCH_INFLECTED) {
       $sourcePart = $source ? "-{$source->urlName}" : '';
       Session::set('redirect', true);
       Session::set('init_word', $cuv);
-      Util::redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$l->formNoAccent}" . $format['tpl_path']);
+      Util::redirect(Core::getWwwRoot() . "definitie{$sourcePart}/{$l->formNoAccent}" . $format['tpl_path']);
     }
   }
 }

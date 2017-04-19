@@ -1,5 +1,5 @@
 <?php
-require_once('../../phplib/util.php');
+require_once('../../phplib/Core.php');
 ini_set('memory_limit', '512M');
 User::require(User::PRIV_EDIT);
 Util::assertNotMirror();

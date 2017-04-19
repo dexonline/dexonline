@@ -10,7 +10,7 @@
  *   table;
  **/
 
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 
 define('IMG_PREFIX', 'img/wotd/');
 define('THUMB_S_PREFIX', 'img/wotd/thumb' . WordOfTheDay::SIZE_S . '/');

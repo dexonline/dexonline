@@ -13,7 +13,7 @@ abstract class AdsModule {
     $adsModules = Config::get('global.adsModulesH');
     if ($adsModules) {
       foreach ($adsModules as $adsModule) {
-        require_once util_getRootPath() . "phplib/ads/{$adsModule}/{$adsModule}AdsModule.php";
+        require_once Core::getRootPath() . "phplib/ads/{$adsModule}/{$adsModule}AdsModule.php";
         $className = ucfirst($adsModule) . 'AdsModule';
         $module = new $className;
         $result = $module->run(empty($lexems) ? null : $lexems, empty($definitions) ? null : $definitions);

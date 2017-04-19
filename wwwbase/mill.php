@@ -1,5 +1,5 @@
 <?php
 
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 
 SmartyWrap::display("mill.tpl");

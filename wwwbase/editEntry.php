@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 
 User::require(User::PRIV_EDIT | User::PRIV_STRUCT);
 
@@ -16,7 +16,7 @@ if ($id) {
   $e = Entry::get_by_id($id);
   if (!$e) {
     FlashMessage::add('Intrarea nu există.');
-    Util::redirect(util_getWwwRoot());
+    Util::redirect(Core::getWwwRoot());
   }
   // Keep a copy so we can test whether certain fields have changed
   $original = Entry::get_by_id($id);
@@ -43,7 +43,7 @@ if ($mergeButton) {
     Util::redirect("?id={$e->id}");
   } else if (!$e->id) {
     FlashMessage::add('Nu puteți face unificarea la momentul creării.');
-    Util::redirect(util_getWwwRoot());
+    Util::redirect(Core::getWwwRoot());
   } else if ($other->id == $e->id) {
     FlashMessage::add('Nu puteți unifica intrarea cu ea însăși (serios!).');
     Util::redirect("?id={$e->id}");
@@ -69,7 +69,7 @@ if ($cloneButton) {
 if ($createTree) {
   if (!$id) {
     FlashMessage::add('Nu puteți crea un arbore de sensuri înainte să salvați intrarea.');
-    Util::redirect(util_getWwwRoot());
+    Util::redirect(Core::getWwwRoot());
   }
   $t = Tree::createAndSave($e->description);
   TreeEntry::associate($t->id, $e->id);
@@ -80,7 +80,7 @@ if ($createTree) {
 if ($delete) {
   $e->delete();
   FlashMessage::add('Am șters intrarea.', 'success');
-  Util::redirect(util_getWwwRoot());
+  Util::redirect(Core::getWwwRoot());
 }
 
 // Delete the entry, its T1 lexemes and its empty trees.
@@ -98,7 +98,7 @@ if ($deleteExt) {
 
   $e->delete();
   FlashMessage::add('Am șters intrarea extinsă.', 'success');
-  Util::redirect(util_getWwwRoot());
+  Util::redirect(Core::getWwwRoot());
 }
 
 if ($saveButton) {

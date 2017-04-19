@@ -1,6 +1,6 @@
 <?php
 
-set_include_path(util_getRootPath() . '/phplib/third-party' . PATH_SEPARATOR . get_include_path());
+set_include_path(Core::getRootPath() . '/phplib/third-party' . PATH_SEPARATOR . get_include_path());
 require_once 'Auth/OpenID/Consumer.php';
 require_once 'Auth/OpenID/FileStore.php';
 require_once 'Auth/OpenID/SReg.php';

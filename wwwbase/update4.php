@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 
 if (count($_GET) == 0) {
   Util::redirect("http://wiki.dexonline.ro/wiki/Protocol_de_exportare_a_datelor");

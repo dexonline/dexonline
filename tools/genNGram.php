@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 define('INSERT_SIZE', 10000);
 
 ini_set('max_execution_time', '3600');

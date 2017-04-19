@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 
 define('DATABASE_URL', Config::get('static.url') . 'download/mirrorAccess/dex-database.sql.gz');
 define('DATABASE_TMPFILE_GZIP', Config::get('global.tempDir') . '/dex-database.sql.gz');
@@ -35,7 +35,7 @@ if ($doDatabaseCopy) {
 }
 
 if ($doCodeUpdate) {
-  OS::executeAndAssert('cd ' . util_getRootPath() . '; /usr/bin/git pull --quiet');  
+  OS::executeAndAssert('cd ' . Core::getRootPath() . '; /usr/bin/git pull --quiet');  
 }
 
 Log::notice('finished');

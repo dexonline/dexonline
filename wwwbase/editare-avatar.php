@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 
 $file = Request::getFile('avatarFileName');
 $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
@@ -19,27 +19,27 @@ if (!$file) {
 
 if ($error) {
   FlashMessage::add($error);
-  Util::redirect(util_getWwwRoot() . 'preferinte');
+  Util::redirect(Core::getWwwRoot() . 'preferinte');
 }
 
 $user = Session::getUser();
 if (!$user) {
   FlashMessage::add('Nu puteți alege o imagine de profil dacă nu sunteți autentificat.');
-  Util::redirect(util_getWwwRoot());
+  Util::redirect(Core::getWwwRoot());
 }
 
 // Remove any old files (with different extensions)
-$oldFiles = glob(util_getRootPath() . "wwwbase/img/generated/{$user->id}_raw.*");
+$oldFiles = glob(Core::getRootPath() . "wwwbase/img/generated/{$user->id}_raw.*");
 foreach ($oldFiles as $oldFile) {
   unlink($oldFile);
 }
 
 $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-$destFileName = util_getRootPath() . "wwwbase/img/generated/{$user->id}_raw.{$ext}";
+$destFileName = Core::getRootPath() . "wwwbase/img/generated/{$user->id}_raw.{$ext}";
 
 if (!move_uploaded_file($file['tmp_name'], $destFileName)) {
   FlashMessage::add('A intervenit o eroare la copierea fișierului.');
-  Util::redirect(util_getWwwRoot() . 'preferinte');
+  Util::redirect(Core::getWwwRoot() . 'preferinte');
 }
 chmod($destFileName, 0666);
 

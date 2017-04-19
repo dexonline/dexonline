@@ -1,10 +1,10 @@
 <?php
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 
 Log::notice('started');
 $tmpDir = tempnam(Config::get('global.tempDir'), 'xpi_');
 Log::info('Setting up directories');
-chdir(util_getRootPath());
+chdir(Core::getRootPath());
 OS::executeAndAssert("rm $tmpDir");
 OS::executeAndAssert("mkdir $tmpDir");
 OS::executeAndAssert("mkdir $tmpDir/chrome");

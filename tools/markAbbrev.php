@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 $dbResult = DB::execute("select id from Definition where sourceId = 33 and status = 0 order by id", PDO::FETCH_ASSOC);
 
 $i = 0;

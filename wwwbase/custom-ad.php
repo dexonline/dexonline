@@ -1,6 +1,6 @@
 <?php
 header('Content-type: application/x-javascript');
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 require_once("../phplib/ads/adsModule.php");
 
 $provider = Request::get('provider'); // Display a banner for this provider
@@ -26,7 +26,7 @@ if ($provider == 'diverta') {
   $book->impressions++;
   $book->save();
   SmartyWrap::assign('book', $book);
-  SmartyWrap::assign('hasImage', file_exists(util_getRootPath() . "wwwbase/img/diverta/thumb/{$book->sku}.jpg"));
+  SmartyWrap::assign('hasImage', file_exists(Core::getRootPath() . "wwwbase/img/diverta/thumb/{$book->sku}.jpg"));
 }
 
 SmartyWrap::assign('clickurl', str_replace('__', '&', $clickurl));

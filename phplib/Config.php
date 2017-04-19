@@ -64,6 +64,6 @@ class Config {
   }
 }
 
-Config::load(util_getRootPath() . "dex.conf");
+Config::load(Core::getRootPath() . "dex.conf");
 
 ?>

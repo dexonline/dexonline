@@ -11,7 +11,7 @@ class WordOfTheDay extends BaseObject {
 
   public static function init() {
     self::$DEFAULT_IMAGE = "generic.jpg";
-    self::$IMAGE_CREDITS_DIR = util_getRootPath() . 'docs/imageCredits';
+    self::$IMAGE_CREDITS_DIR = Core::getRootPath() . 'docs/imageCredits';
   }
 
   public static function getRSSWotD($delay = 0) {

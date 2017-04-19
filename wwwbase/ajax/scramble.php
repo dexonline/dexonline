@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/util.php");
+require_once("../../phplib/Core.php");
 setlocale(LC_ALL, "ro_RO.utf8");
 ini_set('memory_limit','-1');
 

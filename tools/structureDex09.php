@@ -4,7 +4,7 @@
  * Structure definitions from DEX '98.
  **/
 
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 require_once __DIR__ . '/../phplib/third-party/PHP-parsing-tool/Parser.php';
 ini_set('memory_limit', '1024M');
 

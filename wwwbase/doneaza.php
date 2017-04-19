@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 
 $user = Session::getUser();
 $haveEuPlatescCredentials = Config::get('euplatesc.euPlatescMid') && Config::get('euplatesc.euPlatescKey');

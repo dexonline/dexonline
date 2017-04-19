@@ -2,7 +2,7 @@
 
 define('WOTM_BIG_BANG', '2012-04-01');
 
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 
 $date = Request::get('d');
 $type = Request::get('t');
@@ -12,7 +12,7 @@ $timestamp = $date ? strtotime($date) : time();
 $mysqlDate = date("Y-m-01", $timestamp);
 
 if ($mysqlDate < WOTM_BIG_BANG || (($mysqlDate > $today) && !User::can(User::PRIV_WOTD))) {
-  Util::redirect(util_getWwwRoot() . 'cuvantul-lunii');
+  Util::redirect(Core::getWwwRoot() . 'cuvantul-lunii');
 }
 
 $wotm = WordOfTheMonth::getWotM($mysqlDate);

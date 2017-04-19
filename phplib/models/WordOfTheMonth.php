@@ -42,6 +42,6 @@ class WordOfTheMonth extends BaseObject {
 
 }
 
-WordOfTheMonth::$IMAGE_CREDITS_DIR = util_getRootPath() . 'docs/imageCredits';
+WordOfTheMonth::$IMAGE_CREDITS_DIR = Core::getRootPath() . 'docs/imageCredits';
 
 ?>

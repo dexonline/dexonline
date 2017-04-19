@@ -48,7 +48,7 @@ class Session {
     $cookie->save();
     setcookie("prefs[lll]", $cookie->cookieString, time() + self::ONE_YEAR_IN_SECONDS, '/');
     Log::info('Logged in, IP=' . $_SERVER['REMOTE_ADDR']);
-    Util::redirect(util_getWwwRoot());
+    Util::redirect(Core::getWwwRoot());
   }
 
   static function logout() {
@@ -61,7 +61,7 @@ class Session {
     setcookie("prefs[lll]", NULL, time() - 3600, '/');
     unset($_COOKIE['prefs']['lll']);
     self::kill();
-    Util::redirect(util_getWwwRoot());
+    Util::redirect(Core::getWwwRoot());
   }
 
   // Try to load logging information from the long-lived cookie

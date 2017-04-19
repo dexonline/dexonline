@@ -1,11 +1,11 @@
 <?php
 
-require_once("../phplib/util.php"); 
+require_once("../phplib/Core.php"); 
 User::require(User::PRIV_ADMIN);
 
 define('DEBUG', 0);
 
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 $word_start = Request::get('i');
 $word_end = Request::get('e');
 $sources = Request::get('s');

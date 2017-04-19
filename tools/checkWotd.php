@@ -3,7 +3,7 @@
  * This script checks whether exactly one WotD is set and whether it has an image, for the upcoming N days.
  **/
 
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 
 Log::notice('started');
 

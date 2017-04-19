@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 
 $title = Request::get('title');
 $wikiTitle = WikiArticle::urlTitleToWikiTitle($title);

@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../phplib/util.php");
+require_once("../../phplib/Core.php");
 
 $internalRep = Request::get('internalRep');
 $sourceId = Request::get('sourceId');

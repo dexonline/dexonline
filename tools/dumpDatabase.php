@@ -1,10 +1,10 @@
 <?php
 
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 
 $SQL_FILE = Config::get('global.tempDir') . '/dex-database.sql';
 $GZ_FILE = Config::get('global.tempDir') . '/dex-database.sql.gz';
-$LICENSE = util_getRootPath() . '/tools/dumpDatabaseLicense.txt';
+$LICENSE = Core::getRootPath() . '/tools/dumpDatabaseLicense.txt';
 
 $parts = DB::splitDsn();
   // Skip the username/password here to avoid a Percona warning.

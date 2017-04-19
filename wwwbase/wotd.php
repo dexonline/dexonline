@@ -3,7 +3,7 @@
 define('WOTD_BIG_BANG', '2011/05/01');
 define('MAX_DATE_FOR_REASON_DISPLAY', '-2 days midnight'); // hide reason for newer words
 
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 $date = Request::get('d');
 $type = Request::get('t');
 $delay = Request::get('h', 0); //delay in minutes
@@ -61,7 +61,7 @@ if ($type == 'rss' || $type == 'blog') {
 if (($date < $bigBang) ||
     (($date > $today) && !User::can(User::PRIV_WOTD))) {
   FlashMessage::add('Nu puteți vedea cuvântul acelei zile.', 'warning');
-  Util::redirect(util_getWwwRoot() . 'cuvantul-zilei');
+  Util::redirect(Core::getWwwRoot() . 'cuvantul-zilei');
 }
 
 $mysqlDate = $date->format('Y-m-d');
@@ -70,7 +70,7 @@ $wotd = WordOfTheDay::get_by_displayDate($mysqlDate);
 if (!$wotd) {
   // We shouldn't have missing words since the Big Bang.
   if ($date != $today) {
-    Util::redirect(util_getWwwRoot() . 'cuvantul-zilei');
+    Util::redirect(Core::getWwwRoot() . 'cuvantul-zilei');
   }
   WordOfTheDay::updateTodaysWord();
   $wotd = WordOfTheDay::get_by_displayDate($mysqlDate);

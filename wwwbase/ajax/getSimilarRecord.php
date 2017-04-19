@@ -1,6 +1,6 @@
 <?php
 /* Htmlizes the definition and comment, then builds the SimilarRecord */
-require_once("../../phplib/util.php");
+require_once("../../phplib/Core.php");
 User::require(User::PRIV_EDIT);
 Util::assertNotMirror();
 

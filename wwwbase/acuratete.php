@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 User::require(User::PRIV_EDIT | User::PRIV_ADMIN);
 
 $includePublic = Request::has('includePublic');

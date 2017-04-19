@@ -1,5 +1,5 @@
 <?php
-require_once '../phplib/util.php';
+require_once '../phplib/Core.php';
 require_once '../phplib/third-party/PHPMailer/PHPMailerAutoload.php';
 
 User::require(User::PRIV_DONATION);

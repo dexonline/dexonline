@@ -1,11 +1,11 @@
 <?php
 // TODO: Convert to Idiorm if this is ever needed again
-require_once('phplib/util.php');
+require_once('phplib/Core.php');
 require_once('phplib/ads/adsModule.php');
 require_once('phplib/ads/diverta/divertaAdsModule.php');
 define('IMG_URL_PREFIX', 'http://www.dol.ro/wcsstore/DOL/');
 define('ORIG_FILE_PREFIX', Config::get('global.tempDir') . '/dol/big/');
-define('THUMB_PREFIX', util_getRootPath() . 'wwwbase/img/diverta/thumb/');
+define('THUMB_PREFIX', Core::getRootPath() . 'wwwbase/img/diverta/thumb/');
 define('IMG_NORMAL', 0);
 define('IMG_NOT_JPEG', 1);
 define('IMG_CORRUPT', 2);

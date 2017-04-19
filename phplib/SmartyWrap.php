@@ -7,12 +7,12 @@ class SmartyWrap {
 
   static function init() {
     self::$theSmarty = new Smarty();
-    self::$theSmarty->template_dir = util_getRootPath() . 'templates';
-    self::$theSmarty->compile_dir = util_getRootPath() . 'templates_c';
+    self::$theSmarty->template_dir = Core::getRootPath() . 'templates';
+    self::$theSmarty->compile_dir = Core::getRootPath() . 'templates_c';
     self::$theSmarty->inheritance_merge_compiled_includes = false; // This allows variable names in {include} tags
     if (Request::isWeb()) {
-      self::assign('wwwRoot', util_getWwwRoot());
-      self::assign('imgRoot', util_getImgRoot());
+      self::assign('wwwRoot', Core::getWwwRoot());
+      self::assign('imgRoot', Core::getImgRoot());
       self::assign('sUser', Session::getUser());
       self::assign('nick', Session::getUserNick());
       self::assign('currentYear', date("Y"));
@@ -27,14 +27,14 @@ class SmartyWrap {
 
     // Add {$template}.css if the file exists
     $cssFile = "autoload/{$baseName}.css";
-    $fileName = util_getRootPath() . 'wwwbase/css/' . $cssFile;
+    $fileName = Core::getRootPath() . 'wwwbase/css/' . $cssFile;
     if (file_exists($fileName)) {
       self::$cssFiles[] = $cssFile;
     }
 
     // Add {$template}.js if the file exists
     $jsFile = "autoload/{$baseName}.js";
-    $fileName = util_getRootPath() . 'wwwbase/js/' . $jsFile;
+    $fileName = Core::getRootPath() . 'wwwbase/js/' . $jsFile;
     if (file_exists($fileName)) {
       self::$jsFiles[] = $jsFile;
     }
@@ -43,7 +43,7 @@ class SmartyWrap {
   // Replace $key => $fileName with key => [ 'file' => $fileName, 'date' => $date ],
   // where date is the date + hour of the last modification of each file.
   static function copyTimestamps($v, $prefix) {
-    $path = util_getRootPath() . "wwwbase/{$prefix}/";
+    $path = Core::getRootPath() . "wwwbase/{$prefix}/";
     $result = [];
     foreach ($v as $key => $fileName) {
       $timetamp = filemtime($path . $fileName);
@@ -147,7 +147,7 @@ class SmartyWrap {
         case 'responsive':          self::$cssFiles[100] = 'responsive.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
-          Util::redirect(util_getWwwRoot());
+          Util::redirect(Core::getWwwRoot());
       }
     }
   }
@@ -199,7 +199,7 @@ class SmartyWrap {
         case 'callToAction':  self::$jsFiles[29] = 'callToAction.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
-          Util::redirect(util_getWwwRoot());
+          Util::redirect(Core::getWwwRoot());
       }
     }
   }

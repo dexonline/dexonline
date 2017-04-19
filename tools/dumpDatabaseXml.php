@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 ini_set('memory_limit', '512M');
 
 $TODAY = date("Y-m-d");
@@ -127,7 +127,7 @@ function dumpAbbrevs($remoteFile) {
   $sections = array();
 
   foreach ($sectionNames as $name) {
-    $raw_section = parse_ini_file(util_getRootPath() . "docs/abbrev/{$name}.conf", true);
+    $raw_section = parse_ini_file(Core::getRootPath() . "docs/abbrev/{$name}.conf", true);
     $section = array();
     foreach ($raw_section[$name] as $short => $long) {
       $abbrev_info = array('short' => $short, 'long' => $long, 'ambiguous' => false);

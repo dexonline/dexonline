@@ -43,7 +43,7 @@ class User extends BaseObject {
   static function require($priv) {
     if (!self::can($priv)) {
       FlashMessage::add('Nu aveți privilegii suficiente pentru a accesa această pagină.');
-      Util::redirect(util_getWwwRoot());
+      Util::redirect(Core::getWwwRoot());
     }
   }
 

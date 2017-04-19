@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 
 // Make sure we are in testing mode.
 Config::get('testing.enabled')

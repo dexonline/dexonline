@@ -3,7 +3,7 @@
 define('DEBUG', 0);
 if (DEBUG) echo "START\n";
 
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 Log::notice('started');
 
 define('ARTICLE_SECTONS_URL', 'http://wiki.dexonline.ro/api.php?action=query&list=allcategories&acprefix=Articole&format=xml');

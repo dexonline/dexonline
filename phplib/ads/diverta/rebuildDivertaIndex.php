@@ -1,6 +1,6 @@
 <?php
 // TODO: Convert to Idiorm if this is ever needed again
-require_once('phplib/util.php');
+require_once('phplib/Core.php');
 require_once('phplib/ads/adsModule.php');
 require_once('phplib/ads/diverta/divertaAdsModule.php');
 

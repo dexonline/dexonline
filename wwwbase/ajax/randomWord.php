@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/util.php");
+require_once("../../phplib/Core.php");
 
 // The seq field is guaranteed to be incremental from 1 to <number of rows>
 $count = Model::factory('RandomWord')->count();

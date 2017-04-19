@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 
 print "Acest script nu a fost adus la zi după introducerea și apoi eliminarea tabelei LexemModel.\n";
 print "Aduceți-l la zi înainte de a-l rula.\n";

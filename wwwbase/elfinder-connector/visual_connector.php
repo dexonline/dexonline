@@ -4,7 +4,7 @@ include_once __DIR__ . '/autoload.php';
 include_once __DIR__ . '/elFinderLogger.class.php';
 include_once __DIR__ . '/VisualElFinder.php';
 
-include_once __DIR__ . '/../../phplib/util.php';
+include_once __DIR__ . '/../../phplib/Core.php';
 
 $myLogger = new elFinderSimpleLogger(Config::get('logging.file'));
 

@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 
 // Parse or initialize the GET/POST arguments
 $nick = Request::get('n');
@@ -12,13 +12,13 @@ if ($medalSaveButton) {
   $user = User::get_by_id($userId);
   $user->medalMask = Medal::getCanonicalMask(array_sum($medalsGranted));
   $user->save();
-  Util::redirect(util_getWwwRoot() . "utilizator/{$user->nick}");
+  Util::redirect(Core::getWwwRoot() . "utilizator/{$user->nick}");
 }
 
 $user = User::get_by_nick($nick);
 if (!$user) {
   FlashMessage::add('Utilizatorul ' . htmlspecialchars($nick) . ' nu există.');
-  Util::redirect(util_getWwwRoot());
+  Util::redirect(Core::getWwwRoot());
 }
 
 $userData = array();

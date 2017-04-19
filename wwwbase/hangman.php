@@ -1,6 +1,6 @@
 <?php
 
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 
 define('maxFreq', 1);
 define('medium_easy', 0.90);

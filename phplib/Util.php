@@ -190,7 +190,7 @@ class Util {
 
   static function assertNotLoggedIn() {
     if (Session::getUser()) {
-      Util::redirect(util_getWwwRoot());
+      Util::redirect(Core::getWwwRoot());
     }
   }
 

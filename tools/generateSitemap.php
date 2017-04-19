@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../phplib/util.php';
+require_once __DIR__ . '/../phplib/Core.php';
 
 // TODO: Add user pages
 // TODO: Add inflection models (from modele-flexiune.php)
@@ -14,7 +14,7 @@ $g_curFileUrl = 0;
 
 Log::notice('started');
 
-chdir(util_getRootPath());
+chdir(Core::getRootPath());
 openNewFile();
 addOtherUrls();
 

@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 
 define('MIN_LIST_LENGTH', 10);
 define('MAX_LIST_LENGTH', 2500);

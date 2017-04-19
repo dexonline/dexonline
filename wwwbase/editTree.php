@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 
 User::require(User::PRIV_EDIT | User::PRIV_STRUCT);
 
@@ -13,7 +13,7 @@ if ($id) {
   $t = Tree::get_by_id($id);
   if (!$t) {
     FlashMessage::add('Arborele nu există.');
-    Util::redirect(util_getWwwRoot());
+    Util::redirect(Core::getWwwRoot());
   }
 } else {
   $t = Model::factory('Tree')->create();
@@ -68,7 +68,7 @@ if ($delete) {
   if ($te) {
     Util::redirect("editEntry.php?id={$te->entryId}");
   } else {
-    Util::redirect(util_getWwwRoot());
+    Util::redirect(Core::getWwwRoot());
   }
 }
 

@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/util.php");
+require_once("../phplib/Core.php");
 
 $restrictedSources = Model::factory('Source')
   ->where('canDistribute', 0)

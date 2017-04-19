@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/util.php");
+require_once("../../phplib/Core.php");
 
 $lexemId = Request::get('lexemId');
 $lexem = Lexem::get_by_id($lexemId);

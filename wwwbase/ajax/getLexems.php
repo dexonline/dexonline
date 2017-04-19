@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/util.php");
+require_once("../../phplib/Core.php");
 
 $query = Request::get('term');
 $parts = preg_split('/\(/', $query, 2);

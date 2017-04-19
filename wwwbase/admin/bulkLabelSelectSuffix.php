@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/util.php"); 
+require_once("../../phplib/Core.php"); 
 
 // Select suffixes and counts for temporary lexems.
 $dbResult = DB::execute("select reverse(substring(reverse, 1, 4)) as s, count(*) as c " .

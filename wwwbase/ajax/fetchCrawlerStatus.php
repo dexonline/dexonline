@@ -3,7 +3,7 @@
  * Alin Ungureanu, 2013
  * alyn.cti@gmail.com
  */
-require_once '../../phplib/util.php';
+require_once '../../phplib/Core.php';
 
 class FetchCrawlerStatus {
 	

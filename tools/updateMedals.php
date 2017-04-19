@@ -93,7 +93,7 @@ foreach ($dbResult as $r) {
 }
 
 // Volunteer medals
-$topData = TopEntry::getTopData(CRIT_CHARS, SORT_DESC, true);
+$topData = TopEntry::getTopData(TopEntry::SORT_CHARS, SORT_DESC, true);
 foreach ($topData as $e) {
   $user = User::get_by_nick($e->userNick);
   if ($user && $user->id) {

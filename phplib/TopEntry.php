@@ -1,6 +1,11 @@
 <?php
 
 class TopEntry {
+  const SORT_CHARS = 1;
+  const SORT_WORDS = 2;
+  const SORT_NICK = 3;
+  const SORT_DATE = 4;
+
   public $userNick;
   public $numChars;
   public $numDefinitions;
@@ -119,15 +124,15 @@ class TopEntry {
     }
     
     $ord = (int) $ord;
-    if ($crit == CRIT_CHARS) {
+    if ($crit == self::SORT_CHARS) {
       array_multisort($numChars, SORT_NUMERIC, $ord, $nick, SORT_ASC,
               $topEntries);
-    } else if ($crit == CRIT_WORDS) {
+    } else if ($crit == self::SORT_WORDS) {
       array_multisort($numWords, SORT_NUMERIC, $ord, $nick, SORT_ASC,
               $topEntries);
-    } else if ($crit == CRIT_NICK) {
+    } else if ($crit == self::SORT_NICK) {
       array_multisort($nick, $ord, $topEntries);
-    } else /* $crit == CRIT_DATE */ {
+    } else /* $crit == self::SORT_DATE */ {
       array_multisort($date, SORT_NUMERIC, $ord, $nick, SORT_ASC, $topEntries);
     }
     

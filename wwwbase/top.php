@@ -1,8 +1,11 @@
 <?php
 require_once("../phplib/util.php");
 
-SmartyWrap::assign('manualData', TopEntry::getTopData(CRIT_CHARS, SORT_DESC, true));
-SmartyWrap::assign('bulkData', TopEntry::getTopData(CRIT_CHARS, SORT_DESC, false));
+$manualData = TopEntry::getTopData(TopEntry::SORT_CHARS, SORT_DESC, true);
+$bulkData = TopEntry::getTopData(TopEntry::SORT_CHARS, SORT_DESC, false);
+
+SmartyWrap::assign('manualData', $manualData);
+SmartyWrap::assign('bulkData', $bulkData);
 SmartyWrap::addCss('tablesorter');
 SmartyWrap::addJs('tablesorter');
 SmartyWrap::display('top.tpl');

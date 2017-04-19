@@ -120,15 +120,6 @@ function util_requireOtherFiles() {
 }
 
 function util_defineConstants() {
-  define("DEFAULT_SOURCE", "none");
-
-  // Constants for the user top.
-  // Sorting criteria, default is number of chars
-  define("CRIT_CHARS", 1);
-  define("CRIT_WORDS", 2);
-  define("CRIT_NICK",  3);
-  define("CRIT_DATE",  4);
-
   define("ABBREV_NOT_REVIEWED", 0);
   define("ABBREV_AMBIGUOUS", 1);
   define("ABBREV_REVIEW_COMPLETE", 2);

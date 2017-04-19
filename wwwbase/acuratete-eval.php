@@ -17,9 +17,9 @@ if (!$project) {
   util_redirect('index.php');
 }
 
-$mine = session_getUserId() == $project->ownerId;
+$mine = Session::getUserId() == $project->ownerId;
 
-if (!$project->visibleTo(session_getUser())) {
+if (!$project->visibleTo(Session::getUser())) {
   FlashMessage::add('Nu aveți dreptul să vedeți acest proiect.', 'danger');
   util_redirect('index.php');
 }

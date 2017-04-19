@@ -23,7 +23,7 @@ if (!$pt) {
     FlashMessage::add('Acest cont a fost deja revendicat de o identitate OpenID.');
   } else {
     FlashMessage::add('Contul dumneavoastră a fost recuperat și unificat cu identitatea OpenID.', 'success');
-    session_login($user, $data);
+    Session::login($user, $data);
   }
 }
 SmartyWrap::display('auth/passwordRecoveryWrongData.tpl');

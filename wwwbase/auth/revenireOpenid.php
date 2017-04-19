@@ -11,7 +11,7 @@ if (!$data) {
 
 $user = User::get_by_identity($data['identity']);
 if ($user) {
-  session_login($user, $data);
+  Session::login($user, $data);
 } else {
   // First time logging in, must claim an existing account or create a new one
   $user = isset($data['email']) ? User::get_by_email($data['email']) : null;

@@ -50,7 +50,7 @@ class User extends BaseObject {
   // Check if the user has at least one privilege from the mask.
   static function can($priv) {
     // Check the actual database, not the session user
-    $userId = session_getUserId();
+    $userId = Session::getUserId();
     $user = $userId ? User::get_by_id($userId) : null;
     return $user ? ($user->moderator & $priv) : false;
   }

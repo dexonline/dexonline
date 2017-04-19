@@ -24,7 +24,7 @@ class Log {
       $line = $trace[$i]['line'];
       $date = date("Y-m-d H:i:s");
       $format = array_shift($args);
-      $user = session_getUser();
+      $user = Session::getUser();
 
       fprintf(self::$file, "[{$date}] [{$file}:{$line}] ");
       if ($user) {

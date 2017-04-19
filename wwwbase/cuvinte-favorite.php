@@ -1,7 +1,7 @@
 <?php
 require_once("../phplib/util.php");
 
-$user = session_getUser();
+$user = Session::getUser();
 if (!$user) {
   util_redirect('auth/login');
 }

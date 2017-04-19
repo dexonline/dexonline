@@ -23,13 +23,13 @@ class SearchLog {
     $this->query = $query;
     $this->queryBeforeRedirect = $queryBeforeRedirect;
     $this->searchType = $searchType;
-    if (session_variableExists('user')) {
+    if (Session::variableExists('user')) {
       $this->registeredUser = 'y';
       $this->preferences = $_SESSION['user']->preferences; 
     }
     else {
       $this->registeredUser = 'n';
-      $this->preferences = session_getCookieSetting('anonymousPrefs');
+      $this->preferences = Session::getCookieSetting('anonymousPrefs');
     }
     $this->resultCount = count($results);
     $this->redirect = ($redirect ? 'y' : 'n');

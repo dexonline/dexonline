@@ -7,7 +7,7 @@ if (rand(0, 99) < 50) {
   AdsModule::runAllModules(null, null);
 }
 
-$widgets = Preferences::getWidgets(session_getUser());
+$widgets = Preferences::getWidgets(Session::getUser());
 $numEnabledWidgets = array_reduce($widgets, function($result, $w) { return $result + $w['enabled']; });
 $wordCount = Definition::getWordCount();
 $wordCountRough = $wordCount - ($wordCount % 10000);

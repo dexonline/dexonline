@@ -1,7 +1,7 @@
 <?php
 require_once("../phplib/util.php");
 
-$user = session_getUser();
+$user = Session::getUser();
 $haveEuPlatescCredentials = Config::get('euplatesc.euPlatescMid') && Config::get('euplatesc.euPlatescKey');
 
 SmartyWrap::assign('haveEuPlatescCredentials', $haveEuPlatescCredentials);

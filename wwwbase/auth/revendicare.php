@@ -20,7 +20,7 @@ if (!$data) {
     } else if ($user->identity) {
       FlashMessage::add('Acest utilizator a fost deja revendicat de un alt OpenID.');
     } else {
-      session_login($user, $data);
+      Session::login($user, $data);
     }
   } else {
     $openidNick = ($loginType == 1) ? $data['fullname'] : (($loginType == 2) ? $data['nickname'] : $nick);
@@ -35,7 +35,7 @@ if (!$data) {
       FlashMessage::add('Numele de utilizator trebuie să conțină cel puțin o literă.');
     } else {
       $data['nickname'] = $openidNick;
-      session_login(null, $data);
+      Session::login(null, $data);
     }
   }
 }

@@ -380,7 +380,7 @@ class Definition extends BaseObject implements DatedObject {
   }
 
   public function save() {
-    $this->modUserId = session_getUserId();
+    $this->modUserId = Session::getUserId();
     return parent::save();
   }
 }

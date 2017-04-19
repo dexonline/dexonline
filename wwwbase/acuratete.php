@@ -6,7 +6,7 @@ $includePublic = Request::has('includePublic');
 $submitButton = Request::has('submitButton');
 $id = Request::get('id');
 
-$user = session_getUser();
+$user = Session::getUser();
 
 $p = Model::factory('AccuracyProject')->create(); // new project
 $p->ownerId = $user->id;

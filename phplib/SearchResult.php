@@ -61,7 +61,7 @@ class SearchResult {
       $results[$c->definitionId]->commentAuthor = User::get_by_id($c->userId);
     }
 
-    if ($suid = session_getUserId()) {
+    if ($suid = Session::getUserId()) {
       $defIdString = implode(',', $defIds);
 
       // This actually requires a stronger condition: that the user has User::PRIV_WOTD privileges;
@@ -103,7 +103,7 @@ class SearchResult {
   static function filter(&$searchResults) {
     $unofficialHidden = null;
     $sourcesHidden = null;
-    $excludeUnofficial = session_user_prefers(Preferences::EXCLUDE_UNOFFICIAL);
+    $excludeUnofficial = Session::user_prefers(Preferences::EXCLUDE_UNOFFICIAL);
 
     foreach ($searchResults as $i => &$sr) {
       if ($excludeUnofficial && ($sr->source->type == Source::TYPE_UNOFFICIAL)) {

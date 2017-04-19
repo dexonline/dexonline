@@ -93,7 +93,7 @@ class LDiff {
   // A clickable diff adds offset information to each <ins> and <del> tag.
   // Javascript can use this to, for example, fix typos with a single click.
   static function htmlDiff($old, $new, $clickable = false) {
-    $splitLevel = session_getSplitLevel();
+    $splitLevel = Session::getSplitLevel();
     $sep = LDiff::$SPLIT_LEVEL[$splitLevel];
 
     // Break the strings into words.

@@ -13,8 +13,8 @@ class SmartyWrap {
     if (util_isWebBasedScript()) {
       self::assign('wwwRoot', util_getWwwRoot());
       self::assign('imgRoot', util_getImgRoot());
-      self::assign('sUser', session_getUser());
-      self::assign('nick', session_getUserNick());
+      self::assign('sUser', Session::getUser());
+      self::assign('nick', Session::getUserNick());
       self::assign('currentYear', date("Y"));
       self::assign('suggestNoBanner', util_suggestNoBanner());
       self::assign('cfg', Config::getAll());
@@ -108,10 +108,10 @@ class SmartyWrap {
   }
 
   static function registerOutputFilters() {
-    if (session_user_prefers(Preferences::CEDILLA_BELOW)) {
+    if (Session::user_prefers(Preferences::CEDILLA_BELOW)) {
       self::$theSmarty->registerFilter('output', array('StringUtil', 'replace_st'));
     }
-    if (session_user_prefers(Preferences::OLD_ORTHOGRAPHY)) {
+    if (Session::user_prefers(Preferences::OLD_ORTHOGRAPHY)) {
       self::$theSmarty->registerFilter('output', array('StringUtil', 'replace_ai'));
     }
   }

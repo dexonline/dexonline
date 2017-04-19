@@ -7,14 +7,14 @@ $error = Request::get('error');
 $errorDescription = Request::get('error_description');
 $code = Request::get('code');
 $state = Request::get('state');
-$provider = session_get('openid_connect_provider');
+$provider = Session::get('openid_connect_provider');
 
 try {
   $oidc = new OpenIDConnect($provider);
   if ($error) {
     throw new OpenIDException($errorDescription);
   }
-  if (!$code || !$state || ($state != session_get('openid_connect_state'))) {
+  if (!$code || !$state || ($state != Session::get('openid_connect_state'))) {
     throw new OpenIDException('Răspuns incorect de la server');
   }
   if (!$provider) {
@@ -44,12 +44,12 @@ if (!$user && $oidc->getPlainOpenid()) {
   // OpenID 2.0 to OpenID Connect.
   $user = User::get_by_identity($oidc->getPlainOpenid());
   if ($user) {
-    $user->identity = null; // session_login will overwrite it
+    $user->identity = null; // Session::login will overwrite it
   }
 }
 
 if ($user) {
-  session_login($user, $data);
+  Session::login($user, $data);
 } else {
   // First time logging in, must claim an existing account or create a new one
   // TODO this duplicates code in revenireOpenid.php

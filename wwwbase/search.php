@@ -61,10 +61,10 @@ $showParadigm = Request::get('showParadigm');
 $format = checkFormat();
 $all = Request::get('all');
 
-$redirect = session_get('redirect');
-$redirectFrom = session_getWithDefault('init_word', '');
-session_unsetVariable('redirect');
-session_unsetVariable('init_word');
+$redirect = Session::get('redirect');
+$redirectFrom = Session::getWithDefault('init_word', '');
+Session::unset('redirect');
+Session::unset('init_word');
 
 if ($cuv && !$redirect) {
   $cuv = StringUtil::cleanupQuery($cuv);
@@ -76,11 +76,11 @@ util_redirectToFriendlyUrl($cuv, $entryId, $lexemId, $sourceUrlName, $text, $sho
 $paradigmLink = $_SERVER['REQUEST_URI'] . ($showParadigm ? '' : '/paradigma');
 
 $searchType = SEARCH_INFLECTED;
-$hasDiacritics = session_user_prefers(Preferences::FORCE_DIACRITICS);
-$oldOrthography = session_user_prefers(Preferences::OLD_ORTHOGRAPHY);
+$hasDiacritics = Session::user_prefers(Preferences::FORCE_DIACRITICS);
+$oldOrthography = Session::user_prefers(Preferences::OLD_ORTHOGRAPHY);
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
-$showParadigm = $showParadigm || session_user_prefers(Preferences::SHOW_PARADIGM);
+$showParadigm = $showParadigm || Session::user_prefers(Preferences::SHOW_PARADIGM);
 $all = $all || $showParadigm;
 
 $source = $sourceUrlName ? Source::get_by_urlName($sourceUrlName) : null;
@@ -108,7 +108,7 @@ $lexems = [];
 $trees = [];
 $extra = [];
 
-$showWotd = session_isWotdMode()
+$showWotd = Session::isWotdMode()
   && User::can(User::PRIV_EDIT)
   && !Config::get('global.mirror');
 
@@ -255,8 +255,8 @@ if ($searchType == SEARCH_INFLECTED) {
     $l = $entries[0]->getMainLexem();
     if ($cuv != $l->formNoAccent) {
       $sourcePart = $source ? "-{$source->urlName}" : '';
-      session_setVariable('redirect', true);
-      session_setVariable('init_word', $cuv);
+      Session::set('redirect', true);
+      Session::set('init_word', $cuv);
       util_redirect(util_getWwwRoot() . "definitie{$sourcePart}/{$l->formNoAccent}" . $format['tpl_path']);
     }
   }
@@ -423,7 +423,7 @@ SmartyWrap::assign('searchType', $searchType);
 SmartyWrap::assign('searchParams', $SEARCH_PARAMS[$searchType]);
 SmartyWrap::assign('sourceId', $sourceId);
 SmartyWrap::assign('showParadigm', $showParadigm);
-SmartyWrap::assign('locParadigm', session_user_prefers(Preferences::LOC_PARADIGM));
+SmartyWrap::assign('locParadigm', Session::user_prefers(Preferences::LOC_PARADIGM));
 SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('allDefinitions', $all);
 SmartyWrap::assign('showWotd', $showWotd);

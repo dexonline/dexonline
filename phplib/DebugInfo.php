@@ -25,7 +25,7 @@ class DebugInfo {
   }
 
   public static function isEnabled() {
-    return self::$enabled && (session_getUserNick() == Config::get('global.debugUser'));
+    return self::$enabled && (Session::getUserNick() == Config::get('global.debugUser'));
   }
 
   // Measures the time since the last clock reset and appends a message

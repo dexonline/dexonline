@@ -12,7 +12,7 @@ class Visual extends BaseObject implements DatedObject {
   static function createFromFile($fileName) {
     $v = Model::factory('Visual')->create();
     $v->path = $fileName;
-    $v->userId = session_getUserId();
+    $v->userId = Session::getUserId();
 
     $url = Config::get('static.url') . self::STATIC_DIR . $fileName;
     $dim = getimagesize($url);

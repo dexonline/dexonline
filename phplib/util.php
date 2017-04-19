@@ -30,7 +30,7 @@ function util_initEverything() {
   util_requireOtherFiles();
   util_defineConstants();
   db_init();
-  session_init();
+  Session::init();
   if (!util_isAjax()) {
     FlashMessage::restoreFromSession();
   }
@@ -44,7 +44,7 @@ function util_initEverything() {
 }
 
 function util_initAdvancedSearchPreference() {
-  $advancedSearch = session_user_prefers(Preferences::SHOW_ADVANCED);
+  $advancedSearch = Session::user_prefers(Preferences::SHOW_ADVANCED);
   SmartyWrap::assign('advancedSearch', $advancedSearch);
 }
 
@@ -118,7 +118,6 @@ function util_requireOtherFiles() {
   require_once(StringUtil::portable("$root/phplib/third-party/idiorm/idiorm.php"));
   require_once(StringUtil::portable("$root/phplib/third-party/idiorm/paris.php"));
   require_once(StringUtil::portable("$root/phplib/db.php"));
-  require_once(StringUtil::portable("$root/phplib/session.php"));
 }
 
 function util_defineConstants() {
@@ -225,7 +224,7 @@ function util_assertNotMirror() {
 }
 
 function util_assertNotLoggedIn() {
-  if (session_getUser()) {
+  if (Session::getUser()) {
     util_redirect(util_getWwwRoot());
   }
 }
@@ -341,7 +340,7 @@ function util_suggestNoBanner() {
   if (isset($_SERVER['REQUEST_URI']) && preg_match('/(masturba|fute)/', $_SERVER['REQUEST_URI'])) {
     return true; // No banners on certain obscene pages
   }
-  if (session_getUser() && session_getUser()->noAdsUntil > time()) {
+  if (Session::getUser() && Session::getUser()->noAdsUntil > time()) {
     return true; // User is an active donor
   }
   return false;

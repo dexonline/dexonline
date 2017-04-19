@@ -94,11 +94,11 @@ class OpenIDConnect {
     $url = $this->wellKnownConfig['authorization_endpoint'];
     $nonce = util_randomCapitalLetterString(32);
     $state = util_randomCapitalLetterString(32);
-    session_setVariable('openid_connect_nonce', $nonce);
-    session_setVariable('openid_connect_state', $state);
-    session_setVariable('openid_connect_provider', $this->provider);
-    session_setVariable('openid_connect_client', $clientId);
-    session_setVariable('openid_connect_secret', $secret);
+    Session::set('openid_connect_nonce', $nonce);
+    Session::set('openid_connect_state', $state);
+    Session::set('openid_connect_provider', $this->provider);
+    Session::set('openid_connect_client', $clientId);
+    Session::set('openid_connect_secret', $secret);
 
     $params = array(
       'client_id' => $clientId,
@@ -119,8 +119,8 @@ class OpenIDConnect {
    **/
   function requestToken($code) {
     $this->fetchWellKnownConfig();
-    $clientId = session_get('openid_connect_client');
-    $secret = session_get('openid_connect_secret');
+    $clientId = Session::get('openid_connect_client');
+    $secret = Session::get('openid_connect_secret');
     if (!$clientId || !$secret) {
       throw new OpenIDException('Autentificare eșuată.');
     }
@@ -152,7 +152,7 @@ class OpenIDConnect {
     // verify the claims
     if (($this->claims['iss'] != $this->wellKnownConfig['issuer']) ||
         ($clientId != $this->claims['aud'] && !in_array($clientId, $this->claims['aud'])) ||
-        ($this->claims['nonce'] != session_get('openid_connect_nonce'))) {
+        ($this->claims['nonce'] != Session::get('openid_connect_nonce'))) {
       throw new OpenIDException('Nu pot verifica tokenul. Posibilă încercare de interceptare a sesiunii!');
     }
 

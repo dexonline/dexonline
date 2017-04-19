@@ -8,7 +8,7 @@ $def = Request::get('def');
 $sendButton = Request::has('send');
 
 if ($sendButton) {
-  session_setSourceCookie($sourceId);
+  Session::setSourceCookie($sourceId);
   $ambiguousMatches = array();
   $def = AdminStringUtil::sanitize($def, $sourceId, $ambiguousMatches);
 
@@ -27,7 +27,7 @@ if ($sendButton) {
   } else {
     $definition = Model::factory('Definition')->create();
     $definition->status = Definition::ST_PENDING;
-    $definition->userId = session_getUserId();
+    $definition->userId = Session::getUserId();
     $definition->sourceId = $sourceId;
     $definition->internalRep = $def;
     $definition->htmlRep = AdminStringUtil::htmlize($def, $sourceId);
@@ -58,7 +58,7 @@ if ($sendButton) {
     util_redirect('contribuie');
   }
 } else {
-  SmartyWrap::assign('sourceId', session_getDefaultContribSourceId());
+  SmartyWrap::assign('sourceId', Session::getDefaultContribSourceId());
 }
 
 SmartyWrap::assign('lexemIds', $lexemIds);

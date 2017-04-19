@@ -5,7 +5,7 @@ require_once("../../phplib/util.php");
 $definitionId = Request::get('definitionId');
 
 $response = array();
-$userId = session_getUserId();
+$userId = Session::getUserId();
 if (!$userId) {
   $response['status'] = 'redirect';
   $response['url'] = 'login';

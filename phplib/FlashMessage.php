@@ -23,14 +23,14 @@ class FlashMessage {
 
   static function saveToSession() {
     if (count(self::$messages)) {
-      session_setVariable('flashMessages', self::$messages);
+      Session::set('flashMessages', self::$messages);
     }
   }
 
   static function restoreFromSession() {
-    if ($messages = session_get('flashMessages')) {
+    if ($messages = Session::get('flashMessages')) {
       self::$messages = $messages;
-      session_unsetVariable('flashMessages');
+      Session::unset('flashMessages');
     }
   }
 }

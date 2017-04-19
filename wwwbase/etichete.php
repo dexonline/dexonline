@@ -44,7 +44,7 @@ if ($saveButton) {
   }
   Log::notice('Saved tag tree');
   FlashMessage::add('Am salvat etichetele.', 'success');
-  util_redirect('etichete');
+  Util::redirect('etichete');
 }
 
 SmartyWrap::assign('tags', Tag::loadTree());

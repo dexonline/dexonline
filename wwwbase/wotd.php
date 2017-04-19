@@ -43,7 +43,7 @@ if ($type == 'rss' || $type == 'blog') {
         $item['description'] = SmartyWrap::fetch('bits/wotdRssItem.tpl');
     }
     $item['pubDate'] = date('D, d M Y H:i:s', $ts) . ' EEST';
-    $item['link'] = util_getFullServerUrl() . 'cuvantul-zilei/' . date('Y/m/d', $ts);
+    $item['link'] = Request::getFullServerUrl() . 'cuvantul-zilei/' . date('Y/m/d', $ts);
 
     $results[] = $item;
   }
@@ -61,7 +61,7 @@ if ($type == 'rss' || $type == 'blog') {
 if (($date < $bigBang) ||
     (($date > $today) && !User::can(User::PRIV_WOTD))) {
   FlashMessage::add('Nu puteți vedea cuvântul acelei zile.', 'warning');
-  util_redirect(util_getWwwRoot() . 'cuvantul-zilei');
+  Util::redirect(util_getWwwRoot() . 'cuvantul-zilei');
 }
 
 $mysqlDate = $date->format('Y-m-d');
@@ -70,7 +70,7 @@ $wotd = WordOfTheDay::get_by_displayDate($mysqlDate);
 if (!$wotd) {
   // We shouldn't have missing words since the Big Bang.
   if ($date != $today) {
-    util_redirect(util_getWwwRoot() . 'cuvantul-zilei');
+    Util::redirect(util_getWwwRoot() . 'cuvantul-zilei');
   }
   WordOfTheDay::updateTodaysWord();
   $wotd = WordOfTheDay::get_by_displayDate($mysqlDate);

@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php"); 
 User::require(User::PRIV_ADMIN);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $sourceId = Request::get('source');
 $editorId = Request::get('editor');

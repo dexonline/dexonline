@@ -12,13 +12,13 @@ if ($medalSaveButton) {
   $user = User::get_by_id($userId);
   $user->medalMask = Medal::getCanonicalMask(array_sum($medalsGranted));
   $user->save();
-  util_redirect(util_getWwwRoot() . "utilizator/{$user->nick}");
+  Util::redirect(util_getWwwRoot() . "utilizator/{$user->nick}");
 }
 
 $user = User::get_by_nick($nick);
 if (!$user) {
   FlashMessage::add('Utilizatorul ' . htmlspecialchars($nick) . ' nu există.');
-  util_redirect(util_getWwwRoot());
+  Util::redirect(util_getWwwRoot());
 }
 
 $userData = array();

@@ -4,7 +4,7 @@ require_once("../phplib/util.php");
 $user = Session::getUser();
 if (!$user) {
   FlashMessage::add('Nu puteți alege o imagine de profil dacă nu sunteți autentificat.');
-  util_redirect(util_getWwwRoot());
+  Util::redirect(util_getWwwRoot());
 }
 
 define('AVATAR_RESOLUTION', 48);
@@ -23,13 +23,13 @@ if ($delete) {
   $user->hasAvatar = 0;
   $user->save();
   FlashMessage::add('Am șters imaginea.', 'success');
-  util_redirect('preferinte');
+  Util::redirect('preferinte');
 }
 
 $rawFileList = glob($AVATAR_RAW_GLOB);
 if (empty($rawFileList)) {
   FlashMessage::add('Imaginea dumneavoastră de profil nu mai există. Vă rugăm să o reîncărcați.');
-  util_redirect(util_getWwwRoot());
+  Util::redirect(util_getWwwRoot());
 }
 $rawFileName = $rawFileList[0];
 
@@ -48,7 +48,7 @@ $user->hasAvatar = 1;
 $user->save();
 
 FlashMessage::add('Am salvat imaginea.', 'success');
-util_redirect('preferinte');
+Util::redirect('preferinte');
 
 /****************************************************************************/
 

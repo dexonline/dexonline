@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php"); 
 User::require(User::PRIV_EDIT | User::PRIV_STRUCT);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 // We get some data as JSON because it is 2-dimensional (a list of lists)
 // and PHP cannot parse the form data correctly.
@@ -51,7 +51,7 @@ $original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether ce
 if ($cloneButton) {
   $newLexem = $lexem->_clone();
   Log::notice("Cloned lexem {$lexem->id} ({$lexem->formNoAccent}), new id is {$newLexem->id}");
-  util_redirect("lexemEdit.php?lexemId={$newLexem->id}");
+  Util::redirect("lexemEdit.php?lexemId={$newLexem->id}");
 }
 
 if ($deleteButton) {
@@ -62,10 +62,10 @@ if ($deleteButton) {
   $lexem->delete();
   if ($homonym) {
     FlashMessage::add('Am șters lexemul și v-am redirectat la unul dintre omonime.', 'success');
-    util_redirect("?lexemId={$homonym->id}");
+    Util::redirect("?lexemId={$homonym->id}");
   } else {
     FlashMessage::add('Am șters lexemul.', 'success');
-    util_redirect('index.php');
+    Util::redirect('index.php');
   }
 }
 
@@ -112,7 +112,7 @@ if ($refreshButton || $saveButton) {
       }
 
       Log::notice("Saved lexem {$lexem->id} ({$lexem->formNoAccent})");
-      util_redirect("lexemEdit.php?lexemId={$lexem->id}");
+      Util::redirect("lexemEdit.php?lexemId={$lexem->id}");
     }
   } else {
     // Case 2: Validation failed

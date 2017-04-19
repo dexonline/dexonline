@@ -2,7 +2,7 @@
 require_once("../../phplib/util.php"); 
 ini_set('memory_limit', '512M');
 User::require(User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $lexems = Model::factory('Lexem')
   ->where('consistentAccent', 0)

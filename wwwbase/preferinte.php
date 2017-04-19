@@ -11,7 +11,7 @@ if ($saveButton) {
   $widgets = Request::get('widgets');
   Preferences::set($user, $detailsVisible, $userPrefs, array_sum($widgets));
   FlashMessage::add('Am salvat preferințele.', 'success');
-  util_redirect('preferinte');
+  Util::redirect('preferinte');
 }
 
 $detailsVisible = Preferences::getDetailsVisible($user);

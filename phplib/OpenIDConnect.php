@@ -32,7 +32,7 @@ class OpenIDConnect {
   }
 
   private function getReturnTo() {
-    return util_getFullServerUrl() . "auth/revenireOpenidConnect.php";
+    return Request::getFullServerUrl() . "auth/revenireOpenidConnect.php";
   }
 
   private function getWellKnownUrl() {
@@ -102,7 +102,7 @@ class OpenIDConnect {
 
     $params = array(
       'client_id' => $clientId,
-      'openid.realm' => util_getFullServerUrl(), // request old OpenID 2.0 identifier as well
+      'openid.realm' => Request::getFullServerUrl(), // request old OpenID 2.0 identifier as well
       'nonce' => $nonce,
       'redirect_uri' => $this->getReturnTo(),
       'response_type' => 'code',
@@ -111,7 +111,7 @@ class OpenIDConnect {
     );
 
     $url .= '?' . http_build_query($params, null, '&');
-    util_redirect($url);
+    Util::redirect($url);
   }
 
   /**

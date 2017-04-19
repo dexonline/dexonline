@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php"); 
 User::require(User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $suffix = Request::get('suffix');
 $saveButton = Request::has('saveButton');
@@ -28,7 +28,7 @@ if ($saveButton) {
       }
     }
   }
-  util_redirect("bulkLabel.php?suffix=$suffix");
+  Util::redirect("bulkLabel.php?suffix=$suffix");
 }
 
 $reverseSuffix = StringUtil::reverse($suffix);

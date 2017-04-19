@@ -21,7 +21,7 @@ if ($provider == 'diverta') {
   if ($go) {
     $book->clicks++;
     $book->save();
-    util_redirect($book->url);
+    Util::redirect($book->url);
   }
   $book->impressions++;
   $book->save();

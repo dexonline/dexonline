@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php"); 
 User::require(User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 define('RESULTS_PER_PAGE', 500);
 

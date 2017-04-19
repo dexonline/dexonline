@@ -8,7 +8,7 @@ $modelType = ModelType::get_by_code($modelType); // Use the ModelType object fro
 
 if (!$locVersion || !$modelType) {
   FlashMessage::add('Date incorecte.');
-  util_redirect('scrabble');
+  Util::redirect('scrabble');
 }
 
 LocVersion::changeDatabase($locVersion);

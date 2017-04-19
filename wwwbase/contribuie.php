@@ -1,6 +1,6 @@
 <?php
 require_once("../phplib/util.php");
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $lexemIds = Request::get('lexemIds');
 $sourceId = Request::get('source');
@@ -57,7 +57,7 @@ if ($sendButton) {
       }
     }
     FlashMessage::add('Am salvat definiția. Un moderator o va examina în scurt timp. Vă mulțumim!', 'success');
-    util_redirect('contribuie');
+    Util::redirect('contribuie');
   }
 } else {
   SmartyWrap::assign('sourceId', Session::getDefaultContribSourceId());

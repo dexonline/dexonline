@@ -14,9 +14,9 @@ $wordCountRough = $wordCount - ($wordCount % 10000);
 
 SmartyWrap::assign('onHomePage', '1');
 SmartyWrap::assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțuvwxyz'));
-SmartyWrap::assign('words_total', util_formatNumber($wordCount, 0));
-SmartyWrap::assign('words_rough', util_formatNumber($wordCountRough, 0));
-SmartyWrap::assign('words_last_month', util_formatNumber(Definition::getWordCountLastMonth(), 0));
+SmartyWrap::assign('words_total', StringUtil::formatNumber($wordCount, 0));
+SmartyWrap::assign('words_rough', StringUtil::formatNumber($wordCountRough, 0));
+SmartyWrap::assign('words_last_month', StringUtil::formatNumber(Definition::getWordCountLastMonth(), 0));
 SmartyWrap::assign('widgets', $widgets);
 SmartyWrap::assign('numEnabledWidgets', $numEnabledWidgets);
 

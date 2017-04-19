@@ -374,6 +374,11 @@ class StringUtil {
     }
     return $result;
   }
+
+  static function formatNumber($n, $decimals) {
+    return number_format($n, $decimals, ',', '.');
+  }
+
 }
 
 ?>

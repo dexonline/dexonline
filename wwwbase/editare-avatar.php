@@ -19,13 +19,13 @@ if (!$file) {
 
 if ($error) {
   FlashMessage::add($error);
-  util_redirect(util_getWwwRoot() . 'preferinte');
+  Util::redirect(util_getWwwRoot() . 'preferinte');
 }
 
 $user = Session::getUser();
 if (!$user) {
   FlashMessage::add('Nu puteți alege o imagine de profil dacă nu sunteți autentificat.');
-  util_redirect(util_getWwwRoot());
+  Util::redirect(util_getWwwRoot());
 }
 
 // Remove any old files (with different extensions)
@@ -39,7 +39,7 @@ $destFileName = util_getRootPath() . "wwwbase/img/generated/{$user->id}_raw.{$ex
 
 if (!move_uploaded_file($file['tmp_name'], $destFileName)) {
   FlashMessage::add('A intervenit o eroare la copierea fișierului.');
-  util_redirect(util_getWwwRoot() . 'preferinte');
+  Util::redirect(util_getWwwRoot() . 'preferinte');
 }
 chmod($destFileName, 0666);
 

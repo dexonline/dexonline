@@ -2,7 +2,7 @@
 
 require_once("../../phplib/util.php");
 User::require(User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $defs = Model::factory('Definition')
       ->table_alias('d')

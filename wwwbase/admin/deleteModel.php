@@ -2,7 +2,7 @@
 require_once("../../phplib/util.php"); 
 ini_set('max_execution_time', '3600');
 User::require(User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 DebugInfo::disable();
 
 $modelType = Request::get('modelType');
@@ -38,7 +38,7 @@ if ($deleteButton) {
   Log::warning("Deleting model {$model->id} ({$model})");
   $model->delete();
   FlashMessage::add('Am șters modelul.', 'success');
-  util_redirect('index.php');
+  Util::redirect('index.php');
 }
 
 SmartyWrap::assign('modelType', $modelType);

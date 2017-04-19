@@ -14,21 +14,21 @@ $project = AccuracyProject::get_by_id($projectId);
 
 if (!$project) {
   FlashMessage::add('Proiectul nu există.', 'danger');
-  util_redirect('index.php');
+  Util::redirect('index.php');
 }
 
 $mine = Session::getUserId() == $project->ownerId;
 
 if (!$project->visibleTo(Session::getUser())) {
   FlashMessage::add('Nu aveți dreptul să vedeți acest proiect.', 'danger');
-  util_redirect('index.php');
+  Util::redirect('index.php');
 }
 
 if ($recomputeSpeedButton) {
   $project->recomputeSpeedData();
   $project->save();
   FlashMessage::add('Am recalculat viteza.', 'success');
-  util_redirect("?projectId={$projectId}");
+  Util::redirect("?projectId={$projectId}");
 }
 
 if ($deleteButton) {
@@ -36,7 +36,7 @@ if ($deleteButton) {
     $project->delete();
   }
   FlashMessage::add('Am șters proiectul.', 'success');
-  util_redirect('acuratete');
+  Util::redirect('acuratete');
 }
 
 if ($editProjectButton) {
@@ -46,7 +46,7 @@ if ($editProjectButton) {
   if ($project->validate()) {
     $project->save();
     FlashMessage::add('Am actualizat datele.', 'success');
-    util_redirect("?projectId={$projectId}");
+    Util::redirect("?projectId={$projectId}");
   }
 }
 
@@ -59,7 +59,7 @@ if ($saveButton) {
   }
   $ar->errors = $errors;
   $ar->save();
-  util_redirect("?projectId={$projectId}");
+  Util::redirect("?projectId={$projectId}");
 }
 
 if ($defId) {

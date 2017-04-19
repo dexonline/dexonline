@@ -13,7 +13,7 @@ if ($id) {
   $t = Tree::get_by_id($id);
   if (!$t) {
     FlashMessage::add('Arborele nu există.');
-    util_redirect(util_getWwwRoot());
+    Util::redirect(util_getWwwRoot());
   }
 } else {
   $t = Model::factory('Tree')->create();
@@ -25,19 +25,19 @@ if ($mergeButton) {
 
   if (!$other) {
     FlashMessage::add('Arborele selectat nu există.');
-    util_redirect("?id={$t->id}");
+    Util::redirect("?id={$t->id}");
   }
 
   $treeMentions = Mention::getTreeMentions($t->id);
   if (count($treeMentions)) {
     FlashMessage::add('Nu puteți unifica acest arbore până nu rezolvați mențiunile despre el.');
-    util_redirect("?id={$t->id}");
+    Util::redirect("?id={$t->id}");
   }
 
   $t->mergeInto($other->id);
 
   FlashMessage::add('Am unificat arborii.', 'success');
-  util_redirect("?id={$other->id}");
+  Util::redirect("?id={$other->id}");
 }
 
 if ($clone) {
@@ -57,7 +57,7 @@ if ($clone) {
     FlashMessage::add('Am clonat arborele.', 'success');
   }
 
-  util_redirect("?id={$newt->id}");
+  Util::redirect("?id={$newt->id}");
 }
 
 if ($delete) {
@@ -66,9 +66,9 @@ if ($delete) {
   FlashMessage::add('Am șters arborele.', 'success');
 
   if ($te) {
-    util_redirect("editEntry.php?id={$te->entryId}");
+    Util::redirect("editEntry.php?id={$te->entryId}");
   } else {
-    util_redirect(util_getWwwRoot());
+    Util::redirect(util_getWwwRoot());
   }
 }
 
@@ -92,7 +92,7 @@ if ($saveButton) {
     Meaning::saveTree($meanings, $t);
 
     FlashMessage::add('Am salvat arborele.', 'success');
-    util_redirect("?id={$t->id}");
+    Util::redirect("?id={$t->id}");
   }
 } else {
   $t->getMeanings(); // ensure they are loaded

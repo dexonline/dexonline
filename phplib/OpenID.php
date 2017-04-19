@@ -26,7 +26,7 @@ class OpenID {
   }
 
   private static function getReturnTo() {
-    return util_getFullServerUrl() . "auth/revenireOpenid";
+    return Request::getFullServerUrl() . "auth/revenireOpenid";
   }
 
   /**
@@ -55,7 +55,7 @@ class OpenID {
 
     // For OpenID 1, send a redirect.  For OpenID 2, use a Javascript form to send a POST request to the server.
     if ($auth_request->shouldSendRedirect()) {
-      $redirect_url = $auth_request->redirectURL(util_getFullServerUrl(), self::getReturnTo());
+      $redirect_url = $auth_request->redirectURL(Request::getFullServerUrl(), self::getReturnTo());
 
       if (Auth_OpenID::isFailure($redirect_url)) {
         FlashMessage::add('Nu vă putem redirecționa către serverul OpenID: ' . $redirect_url->message);
@@ -66,7 +66,7 @@ class OpenID {
         exit;
       }
     } else {
-      $form_html = $auth_request->htmlMarkup(util_getFullServerUrl(), self::getReturnTo(), false, array('id' => 'openid_message'));
+      $form_html = $auth_request->htmlMarkup(Request::getFullServerUrl(), self::getReturnTo(), false, array('id' => 'openid_message'));
 
       if (Auth_OpenID::isFailure($form_html)) {
         FlashMessage::add('Nu vă putem redirecționa către serverul OpenID: ' . $form_html->message);

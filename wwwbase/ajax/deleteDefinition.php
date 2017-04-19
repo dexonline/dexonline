@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php");
 User::require(User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $defId = Request::get('id');
 $def = Definition::get_by_id($defId);

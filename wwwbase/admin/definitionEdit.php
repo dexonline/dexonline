@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php"); 
 User::require(User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $definitionId = Request::get('definitionId');
 
@@ -10,7 +10,7 @@ if (!$definitionId) {
   $ocr = OCR::getNext(Session::getUserId());
   if (!$ocr) {
     FlashMessage::add('Lista cu definiții OCR este goală.', 'warning');
-    util_redirect('index.php');
+    Util::redirect('index.php');
   }
 
   // Found one, create the Definition and update the OCR.
@@ -40,12 +40,12 @@ if (!$definitionId) {
   Log::notice("Imported definition {$d->id} ({$d->lexicon}) from OCR {$ocr->id}");
 
   // Redirect to the new Definition.
-  util_redirect("definitionEdit.php?definitionId={$d->id}&isOCR=1");
+  Util::redirect("definitionEdit.php?definitionId={$d->id}&isOCR=1");
 }
 
 if (!($d = Definition::get_by_id($definitionId))) {
   FlashMessage::add("Nu există nicio definiție cu ID-ul {$definitionId}.");
-  util_redirect("index.php");
+  Util::redirect("index.php");
 }
 
 $orig = Definition::get_by_id($definitionId); // for comparison
@@ -157,14 +157,14 @@ if ($saveButton || $nextOcrBut) {
   
     if ($nextOcrBut) {
       // cause the next OCR definition to load
-      util_redirect('definitionEdit.php');
+      Util::redirect('definitionEdit.php');
     } else {
       $url = "definitionEdit.php?definitionId={$d->id}";
       if ($isOCR) {
         // carry this around so the user can click "Save" any number of times, then "next OCR".
         $url .= "&isOCR=1";
       }
-      util_redirect($url);
+      Util::redirect($url);
     }
   } else {
     // There were errors saving.

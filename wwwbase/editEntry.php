@@ -16,7 +16,7 @@ if ($id) {
   $e = Entry::get_by_id($id);
   if (!$e) {
     FlashMessage::add('Intrarea nu există.');
-    util_redirect(util_getWwwRoot());
+    Util::redirect(util_getWwwRoot());
   }
   // Keep a copy so we can test whether certain fields have changed
   $original = Entry::get_by_id($id);
@@ -31,7 +31,7 @@ if ($dissociateButton) {
     EntryDefinition::dissociate($e->id, $defId);
     Log::info("Dissociated entry {$e->id} ({$e->description}) from definition {$defId}");
   }
-  util_redirect("?id={$e->id}");
+  Util::redirect("?id={$e->id}");
 }
 
 if ($mergeButton) {
@@ -40,19 +40,19 @@ if ($mergeButton) {
 
   if (!$other) {
     FlashMessage::add('Intrarea selectată nu există.');
-    util_redirect("?id={$e->id}");
+    Util::redirect("?id={$e->id}");
   } else if (!$e->id) {
     FlashMessage::add('Nu puteți face unificarea la momentul creării.');
-    util_redirect(util_getWwwRoot());
+    Util::redirect(util_getWwwRoot());
   } else if ($other->id == $e->id) {
     FlashMessage::add('Nu puteți unifica intrarea cu ea însăși (serios!).');
-    util_redirect("?id={$e->id}");
+    Util::redirect("?id={$e->id}");
   }
 
   $e->mergeInto($other->id);
 
   FlashMessage::add('Am unificat intrările.', 'success');
-  util_redirect("?id={$other->id}");
+  Util::redirect("?id={$other->id}");
 }
 
 if ($cloneButton) {
@@ -63,24 +63,24 @@ if ($cloneButton) {
   $newe = $e->_clone($cloneDefinitions, $cloneLexems, $cloneTrees);
   Log::info("Cloned entry {$e->id} ({$e->description}), new id {$newe->id}");
   FlashMessage::add('Am clonat intrarea.', 'success');
-  util_redirect("?id={$newe->id}");
+  Util::redirect("?id={$newe->id}");
 }
 
 if ($createTree) {
   if (!$id) {
     FlashMessage::add('Nu puteți crea un arbore de sensuri înainte să salvați intrarea.');
-    util_redirect(util_getWwwRoot());
+    Util::redirect(util_getWwwRoot());
   }
   $t = Tree::createAndSave($e->description);
   TreeEntry::associate($t->id, $e->id);
   FlashMessage::add("Am creat un arbore de sensuri pentru {$e->description}.", 'success');
-  util_redirect("editTree.php?id={$t->id}");
+  Util::redirect("editTree.php?id={$t->id}");
 }
 
 if ($delete) {
   $e->delete();
   FlashMessage::add('Am șters intrarea.', 'success');
-  util_redirect(util_getWwwRoot());
+  Util::redirect(util_getWwwRoot());
 }
 
 // Delete the entry, its T1 lexemes and its empty trees.
@@ -98,7 +98,7 @@ if ($deleteExt) {
 
   $e->delete();
   FlashMessage::add('Am șters intrarea extinsă.', 'success');
-  util_redirect(util_getWwwRoot());
+  Util::redirect(util_getWwwRoot());
 }
 
 if ($saveButton) {
@@ -134,7 +134,7 @@ if ($saveButton) {
     }
 
     FlashMessage::add('Am salvat intrarea.', 'success');
-    util_redirect("?id={$e->id}");
+    Util::redirect("?id={$e->id}");
   }
 } else {
   // Viewing the page, not saving

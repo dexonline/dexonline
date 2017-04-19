@@ -1,13 +1,13 @@
 <?php
 require_once('../../phplib/util.php');
 User::require(User::PRIV_ANY);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $recountButton = Request::has('recountButton');
 
 if ($recountButton) {
   Util::recount();
-  util_redirect('index.php');
+  Util::redirect('index.php');
 }
 
 $reports = [

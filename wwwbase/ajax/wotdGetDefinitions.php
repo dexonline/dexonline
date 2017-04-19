@@ -2,7 +2,7 @@
 
 require_once("../../phplib/util.php");
 User::require(User::PRIV_WOTD | User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $query = Request::get('term');
 $definitions = Model::factory('Definition')->where('status', Definition::ST_ACTIVE)->where_like('lexicon', "{$query}%")

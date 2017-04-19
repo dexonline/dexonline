@@ -3,7 +3,7 @@ require_once("../phplib/util.php");
 
 $user = Session::getUser();
 if (!$user) {
-  util_redirect('auth/login');
+  Util::redirect('auth/login');
 }
 $definitions = Model::factory('Definition')
   ->table_alias('d')

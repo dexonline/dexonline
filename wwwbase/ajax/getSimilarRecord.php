@@ -2,7 +2,7 @@
 /* Htmlizes the definition and comment, then builds the SimilarRecord */
 require_once("../../phplib/util.php");
 User::require(User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $definitionId = Request::get('definitionId');
 $definitionInternalRep = Request::get('definitionInternalRep');

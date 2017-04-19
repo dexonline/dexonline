@@ -2,7 +2,7 @@
 require_once("../phplib/util.php");
 
 if (count($_GET) == 0) {
-  util_redirect("http://wiki.dexonline.ro/wiki/Protocol_de_exportare_a_datelor");
+  Util::redirect("http://wiki.dexonline.ro/wiki/Protocol_de_exportare_a_datelor");
 }
 
 $x = new XmlDump(4);

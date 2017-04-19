@@ -2,7 +2,7 @@
 require_once("../../phplib/util.php"); 
 ini_set('max_execution_time', '3600');
 User::require(User::PRIV_ADMIN);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $MAX_AFFECTED = 1000;
 
@@ -58,7 +58,7 @@ foreach ($defs as $def) {
 
 if ($saveButton) {
   Log::notice("Replaced [{$search}] with [{$replace}] in source $sourceId");
-  util_redirect("index.php");
+  Util::redirect("index.php");
 }
 
 SmartyWrap::assign('search', $search);

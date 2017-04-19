@@ -1,7 +1,7 @@
 <?php 
 require_once("../../phplib/util.php");
-util_assertNotMirror();
-util_assertNotLoggedIn();
+Util::assertNotMirror();
+Util::assertNotLoggedIn();
 
 $error = Request::get('error');
 $errorDescription = Request::get('error_description');
@@ -27,7 +27,7 @@ try {
   }
 } catch (OpenIDException $e) {
   FlashMessage::add('Eroare la autentificare: ' . $e->getMessage());
-  util_redirect('login.php');
+  Util::redirect('login.php');
 }
 
 // With OpenID connect, the user is uniquely identified by (provider, sub).

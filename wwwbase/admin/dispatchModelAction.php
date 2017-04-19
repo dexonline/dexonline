@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php"); 
 User::require(User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $modelType = Request::get('modelType');
 $modelNumber = Request::get('modelNumber');
@@ -15,15 +15,15 @@ $args = sprintf("modelType=%s&modelNumber=%s",
                 urlencode($modelNumber));
 
 if ($showLexemsButton) {
-  util_redirect("viewLexemsByModel.php?$args");
+  Util::redirect("viewLexemsByModel.php?$args");
 } else if ($editModelButton) {
   $modelType = ModelType::canonicalize($modelType);
   $m = FlexModel::get_by_modelType_number($modelType, $modelNumber);
-  util_redirect("editModel.php?id={$m->id}");
+  Util::redirect("editModel.php?id={$m->id}");
 } else if ($cloneModelButton) {
-  util_redirect("cloneModel.php?$args");
+  Util::redirect("cloneModel.php?$args");
 } else if ($deleteModelButton) {
-  util_redirect("deleteModel.php?$args");
+  Util::redirect("deleteModel.php?$args");
 }
 
 ?>

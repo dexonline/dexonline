@@ -18,7 +18,7 @@ switch ($list) {
     break;
   default:
     FlashMessage::add('Ați introdus o listă incorectă.');
-    util_redirect('scrabble');
+    Util::redirect('scrabble');
 }
 
 $zipUrl = sprintf('%sdownload/scrabble/loc-dif-%s-%s-%s.zip',
@@ -27,7 +27,7 @@ $zipFile = tempnam(Config::get('global.tempDir'), 'loc_') . '.zip';
 $txtFile = tempnam(Config::get('global.tempDir'), 'loc_') . '.txt';
 if (!@copy($zipUrl, $zipFile)) {
   FlashMessage::add('Ați introdus o listă incorectă.');
-  util_redirect('scrabble');
+  Util::redirect('scrabble');
 }
 OS::executeAndAssert("unzip -p $zipFile > $txtFile");
 

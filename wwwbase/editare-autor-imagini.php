@@ -13,7 +13,7 @@ if ($deleteId) {
   WotdArtist::delete_all_by_id($deleteId);
   Log::info("Deleted author {$deleteId}");
   FlashMessage::add('Am șters autorul.', 'success');
-  util_redirect('autori-imagini.php');
+  Util::redirect('autori-imagini.php');
 }
 
 if ($saveButton) {
@@ -26,7 +26,7 @@ if ($saveButton) {
     $artist->save();
     Log::info("Added/saved author {$artist->id} ({$artist->name})");
     FlashMessage::add('Am salvat modificările.', 'success');
-    util_redirect('autori-imagini.php');
+    Util::redirect('autori-imagini.php');
   }
 }
 

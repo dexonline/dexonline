@@ -168,4 +168,39 @@ class Util {
     );
   }
 
+  static function redirect($location) {
+    // Fix an Android issue with redirects caused by diacritics
+    $location = str_replace(
+      ['ă', 'â', 'î', 'ș', 'ț', 'Ă', 'Â', 'Î', 'Ș', 'Ț'],
+      ['%C4%83', '%C3%A2', '%C3%AE', '%C8%99', '%C8%9B',
+       '%C4%82', '%C3%82', '%C3%8E', '%C8%98', '%C8%9A'],
+      $location);
+    FlashMessage::saveToSession();
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location: $location");
+    exit;
+  }
+
+  static function assertNotMirror() {
+    if (Config::get('global.mirror')) {
+      SmartyWrap::display('mirror_message.tpl');
+      exit;
+    }
+  }
+
+  static function assertNotLoggedIn() {
+    if (Session::getUser()) {
+      Util::redirect(util_getWwwRoot());
+    }
+  }
+
+  static function suggestNoBanner() {
+    if (isset($_SERVER['REQUEST_URI']) && preg_match('/(masturba|fute)/', $_SERVER['REQUEST_URI'])) {
+      return true; // No banners on certain obscene pages
+    }
+    if (Session::getUser() && Session::getUser()->noAdsUntil > time()) {
+      return true; // User is an active donor
+    }
+    return false;
+  }
 }

@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php"); 
 User::require(User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 DebugInfo::disable();
 
 $modelType = Request::get('modelType', 'M');
@@ -44,7 +44,7 @@ if ($saveButton) {
   foreach ($lexemsToDelete as $lexem) {
     $lexem->delete();
   }
-  util_redirect("mergeLexems.php?modelType={$modelType}");
+  Util::redirect("mergeLexems.php?modelType={$modelType}");
 }
 
 $PLURAL_INFLECTIONS = array(3, 11, 19, 27, 35);

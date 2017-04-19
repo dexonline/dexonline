@@ -2,7 +2,7 @@
 
 require_once("../../phplib/util.php"); 
 User::require(User::PRIV_ADMIN);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $submitButton = Request::has('submitButton');
 

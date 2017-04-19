@@ -8,4 +8,4 @@ Session::toggleWordHistoryDiffSplitLevel();
 $target = isset($_SERVER['HTTP_REFERER'])
     ? $_SERVER['HTTP_REFERER']
     : util_getWwwRoot();
-util_redirect($target);
+Util::redirect($target);

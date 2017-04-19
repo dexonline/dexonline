@@ -23,7 +23,7 @@ if ($submitButton) {
   if ($p->validate()) {
     $p->recomputeSpeedData();
     $p->save();
-    util_redirect("acuratete-eval?projectId={$p->id}");
+    Util::redirect("acuratete-eval?projectId={$p->id}");
   }
 }
 

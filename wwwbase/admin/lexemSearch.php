@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php"); 
 User::require(User::PRIV_EDIT | User::PRIV_STRUCT);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $form = Request::get('form');
 $sourceId = Request::get('source');

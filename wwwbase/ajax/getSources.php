@@ -2,7 +2,7 @@
 
 require_once("../../phplib/util.php");
 User::require(User::PRIV_STRUCT | User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $query = Request::get('term');
 // Latin alphabet comparisons - allow Ş or S instead of Ș

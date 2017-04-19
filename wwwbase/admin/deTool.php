@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php"); 
 User::require(User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 define('SOURCE_ID', 25); // Dicționarul enciclopedic
 $MODELS_TO_CAPITALIZE = ['I3', 'SP'];
@@ -61,7 +61,7 @@ if ($butPrev || $butNext) {
                       $other->id,
                       (int)$capitalize,
                       (int)$deleteOrphans);
-    util_redirect($target);
+    Util::redirect($target);
   } else {
     FlashMessage::add('Ați ajuns la capătul listei de definiții.');
   }
@@ -150,7 +150,7 @@ if ($saveButton) {
                     $def->id,
                     (int)$capitalize,
                     (int)$deleteOrphans);
-  util_redirect($target);
+  Util::redirect($target);
 
 } else if ($refreshButton) {
   try {

@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/util.php"); 
 User::require(User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $saveButton = Request::has('saveButton');
 
@@ -24,7 +24,7 @@ if ($saveButton) {
       }
     }
   }
-  util_redirect("placeAccents.php");
+  Util::redirect("placeAccents.php");
 }
 
 $chars = array();

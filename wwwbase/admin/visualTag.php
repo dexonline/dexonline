@@ -1,7 +1,7 @@
 <?php
 require_once('../../phplib/util.php');
 User::require(User::PRIV_VISUAL);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $fileName = Request::get('fileName');
 $id = Request::get('id');
@@ -22,7 +22,7 @@ if ($fileName) {
   if (!$v) {
     $v = Visual::createFromFile($fileName);
   }
-  util_redirect("?id={$v->id}");
+  Util::redirect("?id={$v->id}");
 }
 
 $v = Visual::get_by_id($id);
@@ -32,7 +32,7 @@ if ($saveButton) {
   $v->revised = $revised;
   $v->save();
   Log::notice("Saved image {$v->id} ({$v->path})");
-  util_redirect("?id={$v->id}");
+  Util::redirect("?id={$v->id}");
 }
 
 if ($addTagButton) {
@@ -46,7 +46,7 @@ if ($addTagButton) {
   $vt->imgYCoord = $imgYCoord;
   $vt->save();
   Log::info("Added tag {$vt->id} ({$vt->label}) to image {$v->id} ({$v->path})");
-  util_redirect("?id={$v->id}");
+  Util::redirect("?id={$v->id}");
 }
 
 SmartyWrap::assign('visual', $v);

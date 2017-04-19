@@ -3,7 +3,7 @@ require_once("../../phplib/util.php");
 ini_set('memory_limit', '512M');
 ini_set('max_execution_time', '3600');
 User::require(User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 DebugInfo::disable();
 
 define('SHORT_LIST_LIMIT', 10);
@@ -279,7 +279,7 @@ if (!$previewButton && !$saveButton) {
 
     $nm->save();
     Log::notice("Saving model {$nm->id} ({$nm}) done");
-    util_redirect('../admin/index.php');
+    Util::redirect('../admin/index.php');
   } else { // preview button
     if (!FlashMessage::hasErrors()) {
       FlashMessage::add('Examinați modificările și, dacă totul arată normal, apăsați ' .

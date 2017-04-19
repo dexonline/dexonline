@@ -1,7 +1,7 @@
 <?php 
 require_once("../../phplib/util.php");
-util_assertNotMirror();
-util_assertNotLoggedIn();
+Util::assertNotMirror();
+Util::assertNotLoggedIn();
 
 $data = OpenID::finishAuth();
 if (!$data) {

@@ -1,8 +1,8 @@
 <?php 
 
 require_once("../../phplib/util.php");
-util_assertNotMirror();
-util_assertNotLoggedIn();
+Util::assertNotMirror();
+Util::assertNotLoggedIn();
 
 $openid = Request::get('openid');
 $fakeUserNick = Request::get('fakeUserNick');
@@ -14,7 +14,7 @@ $devel = Config::get('global.developmentMode');
 if ($fakeUserNick) {
   if (!$devel) {
     FlashMessage::add('Conectarea cu utilizatori de test este permisă doar în development.');
-    util_redirect('login');
+    Util::redirect('login');
   }
   $user = User::get_by_nick($fakeUserNick);
   if (!$user) {

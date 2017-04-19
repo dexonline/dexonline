@@ -10,13 +10,13 @@ class SmartyWrap {
     self::$theSmarty->template_dir = util_getRootPath() . 'templates';
     self::$theSmarty->compile_dir = util_getRootPath() . 'templates_c';
     self::$theSmarty->inheritance_merge_compiled_includes = false; // This allows variable names in {include} tags
-    if (util_isWebBasedScript()) {
+    if (Request::isWeb()) {
       self::assign('wwwRoot', util_getWwwRoot());
       self::assign('imgRoot', util_getImgRoot());
       self::assign('sUser', Session::getUser());
       self::assign('nick', Session::getUserNick());
       self::assign('currentYear', date("Y"));
-      self::assign('suggestNoBanner', util_suggestNoBanner());
+      self::assign('suggestNoBanner', Util::suggestNoBanner());
       self::assign('cfg', Config::getAll());
     }
   }
@@ -147,7 +147,7 @@ class SmartyWrap {
         case 'responsive':          self::$cssFiles[100] = 'responsive.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
-          util_redirect(util_getWwwRoot());
+          Util::redirect(util_getWwwRoot());
       }
     }
   }
@@ -199,7 +199,7 @@ class SmartyWrap {
         case 'callToAction':  self::$jsFiles[29] = 'callToAction.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
-          util_redirect(util_getWwwRoot());
+          Util::redirect(util_getWwwRoot());
       }
     }
   }

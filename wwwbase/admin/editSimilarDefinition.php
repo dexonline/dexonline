@@ -2,7 +2,7 @@
 
 require_once("../../phplib/util.php"); 
 User::require(User::PRIV_EDIT);
-util_assertNotMirror();
+Util::assertNotMirror();
 
 $defId = Request::get('defId');
 $similarId = Request::get('similarId');
@@ -49,6 +49,6 @@ $to->internalRep = AdminStringUtil::sanitize($to->internalRep, $to->sourceId);
 $to->htmlRep = AdminStringUtil::htmlize($to->internalRep, $to->sourceId);
 $to->save();
 
-util_redirect("definitionEdit.php?definitionId={$defId}");
+Util::redirect("definitionEdit.php?definitionId={$defId}");
 
 ?>

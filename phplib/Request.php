@@ -29,6 +29,27 @@ class Request {
   }
 
   /**
+   * Returns true if this script is running in response to a web request, false
+   * otherwise.
+   */
+  static function isWeb() {
+    return isset($_SERVER['REMOTE_ADDR']);
+  }
+
+  static function isAjax() {
+    return isset($_SERVER['REQUEST_URI']) &&
+      StringUtil::startsWith($_SERVER['REQUEST_URI'], util_getWwwRoot() . 'ajax/');
+  }
+
+  static function getFullServerUrl() {
+    $host = $_SERVER['SERVER_NAME'];
+    $port =  $_SERVER['SERVER_PORT'];
+    $path = util_getWwwRoot();
+
+    return ($port == '80') ? "http://$host$path" : "http://$host:$port$path";
+  }
+
+  /**
    * Search engine friendly URLs used for the search page:
    * 1) https://dexonline.ro/definitie[-<sursa>]/<cuvânt>[/<defId>][/paradigma]
    * 2) https://dexonline.ro/lexem[-<sursa>]/<cuvânt>[/<lexemId>][/paradigma]
@@ -58,21 +79,21 @@ class Request {
     } else if ($entryId) {
       $e = Entry::get_by_id($entryId);
       if (!$e) {
-        util_redirect(util_getWwwRoot());
+        Util::redirect(util_getWwwRoot());
       }
       $short = $e->getShortDescription();
       $url = "intrare{$sourcePart}/{$short}/{$e->id}/{$paradigmPart}";
     } else if ($lexemId) {
       $l = Lexem::get_by_id($lexemId);
       if (!$l) {
-        util_redirect(util_getWwwRoot());
+        Util::redirect(util_getWwwRoot());
       }
       $url = "lexem/{$l->formNoAccent}/{$l->id}";
     } else {
       $url = "definitie{$sourcePart}/{$cuv}{$paradigmPart}";
     }
 
-    util_redirect(util_getWwwRoot() . $url . $allPart);
+    Util::redirect(util_getWwwRoot() . $url . $allPart);
   }
 
 }

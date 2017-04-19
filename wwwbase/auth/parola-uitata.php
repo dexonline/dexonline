@@ -1,8 +1,8 @@
 <?php
 
 require_once("../../phplib/util.php");
-util_assertNotMirror();
-util_assertNotLoggedIn();
+Util::assertNotMirror();
+Util::assertNotLoggedIn();
 
 $submitButton = Request::get('submitButton');
 $identity = Request::get('identity');
@@ -27,7 +27,7 @@ if ($submitButton) {
       $pt->save();
 
       // Send email
-      SmartyWrap::assign('homePage', util_getFullServerUrl());
+      SmartyWrap::assign('homePage', Request::getFullServerUrl());
       SmartyWrap::assign('token', $pt->token);
       $body = SmartyWrap::fetch('email/resetPassword.tpl');
       $ourEmail = Config::get('global.contact');

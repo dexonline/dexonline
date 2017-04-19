@@ -120,8 +120,8 @@ if (!$previewButton && !$saveButton) {
       $regenRow[$inflId] = [];
       foreach ($variants as $transforms) {
         $accentShift = array_pop($transforms);
-        if ($accentShift != UNKNOWN_ACCENT_SHIFT &&
-            $accentShift != NO_ACCENT_SHIFT) {
+        if ($accentShift != ModelDescription::UNKNOWN_ACCENT_SHIFT &&
+            $accentShift != ModelDescription::NO_ACCENT_SHIFT) {
           $accentedVowel = array_pop($transforms);
         } else {
           $accentedVowel = '';
@@ -163,7 +163,7 @@ if (!$previewButton && !$saveButton) {
       ModelDescription::delete_all_by_modelId_inflectionId($m->id, $inflId);
       foreach ($transformMatrix as $variant => $transforms) {
         $accentShift = array_pop($transforms);
-        if ($accentShift != UNKNOWN_ACCENT_SHIFT && $accentShift != NO_ACCENT_SHIFT) {
+        if ($accentShift != ModelDescription::UNKNOWN_ACCENT_SHIFT && $accentShift != ModelDescription::NO_ACCENT_SHIFT) {
           $accentedVowel = array_pop($transforms);
         } else {
           $accentedVowel = '';

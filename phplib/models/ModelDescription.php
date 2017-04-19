@@ -3,6 +3,9 @@
 class ModelDescription extends BaseObject {
   public static $_table = 'ModelDescription';
 
+  const UNKNOWN_ACCENT_SHIFT = 100;
+  const NO_ACCENT_SHIFT = 101;
+
   static function loadForModel($modelId) {
     return Model::factory('ModelDescription')
       ->where('modelId', $modelId)

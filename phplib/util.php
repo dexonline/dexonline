@@ -125,9 +125,6 @@ function util_defineConstants() {
   define("ABBREV_REVIEW_COMPLETE", 2);
 
   define("MAX_RECENT_LINKS", 20);
-  
-  define('UNKNOWN_ACCENT_SHIFT', 100);
-  define('NO_ACCENT_SHIFT', 101);
 }
 
 function util_randomCapitalLetterString($length) {

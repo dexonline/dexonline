@@ -245,8 +245,8 @@ function createModelDeep($type, $number, $description, $exponent, $paradigm) {
       $transforms = FlexStringUtil::extractTransforms($m->exponent, $form, false);
 
       $accentShift = array_pop($transforms);
-      if ($accentShift != UNKNOWN_ACCENT_SHIFT &&
-          $accentShift != NO_ACCENT_SHIFT) {
+      if ($accentShift != ModelDescription::UNKNOWN_ACCENT_SHIFT &&
+          $accentShift != ModelDescription::NO_ACCENT_SHIFT) {
         $accentedVowel = array_pop($transforms);
       } else {
         $accentedVowel = '';

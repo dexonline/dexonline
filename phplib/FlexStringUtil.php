@@ -170,14 +170,14 @@ class FlexStringUtil {
     }
     
     if (!$accentPosFrom || !$accentPosTo) {
-      $accentShift = UNKNOWN_ACCENT_SHIFT;
+      $accentShift = ModelDescription::UNKNOWN_ACCENT_SHIFT;
     } else if ($accentIndexFrom == $accentIndexTo &&
                mb_substr($from, 0, $accentIndexFrom + 1) ==
                mb_substr($to, 0, $accentIndexTo + 1)) {
       // Compare the beginning of $from and $to, up to and including the
       // accented character. Note that we have already removed the accent,
       // so we only add 1 above, not 2.
-      $accentShift = NO_ACCENT_SHIFT;
+      $accentShift = ModelDescription::NO_ACCENT_SHIFT;
     } else {
       $accentShift = $accentPosTo;
       $t[] = $accentedVowelTo;
@@ -413,14 +413,14 @@ class FlexStringUtil {
     }
   
     // Try to place the accent
-    if ($accentShift == NO_ACCENT_SHIFT) {
+    if ($accentShift == ModelDescription::NO_ACCENT_SHIFT) {
       // Place the accent exactly where it is in the lexem form, if there is
       // one.
       if ($accentIndex !== false) {
         $result = mb_substr($result, 0, $accentIndex) . "'" .
           mb_substr($result, $accentIndex);
       }
-    } else if ($accentShift != UNKNOWN_ACCENT_SHIFT) {
+    } else if ($accentShift != ModelDescription::UNKNOWN_ACCENT_SHIFT) {
       $result = self::placeAccent($result, $accentShift, $accentedVowel);
     }
     return $result;

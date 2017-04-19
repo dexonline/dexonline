@@ -3,6 +3,8 @@
 class RecentLink extends BaseObject {
   public static $_table = 'RecentLink';
 
+  const MAX_RECENT_LINKS = 20;
+
   public static function add($text) {
     $userId = Session::getUserId();
     $url = $_SERVER['REQUEST_URI'];
@@ -30,7 +32,7 @@ class RecentLink extends BaseObject {
                  ->where('userId', $userId)
                  ->order_by_desc('visitDate')
                  ->find_many();
-    while (count($recentLinks) > MAX_RECENT_LINKS) {
+    while (count($recentLinks) > self::MAX_RECENT_LINKS) {
       $deadLink = array_pop($recentLinks);
       $deadLink->delete();
     }

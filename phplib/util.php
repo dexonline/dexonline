@@ -123,8 +123,6 @@ function util_defineConstants() {
   define("ABBREV_NOT_REVIEWED", 0);
   define("ABBREV_AMBIGUOUS", 1);
   define("ABBREV_REVIEW_COMPLETE", 2);
-
-  define("MAX_RECENT_LINKS", 20);
 }
 
 function util_randomCapitalLetterString($length) {

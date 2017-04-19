@@ -6,7 +6,7 @@ assert_options(ASSERT_BAIL, 1);
 ORM::get_db()->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 
 Log::notice('started');
-if (!Lock::acquire(LOCK_FULL_TEXT_INDEX)) {
+if (!Lock::acquire(Lock::FULL_TEXT_INDEX)) {
   OS::errorAndExit('Lock already exists!');
   exit;
 }
@@ -78,7 +78,7 @@ Log::info("Importing file $fileName into table FullTextIndex");
 DB::executeFromOS("load data local infile \"$fileName\" into table FullTextIndex");
 util_deleteFile($fileName);
 
-if (!Lock::release(LOCK_FULL_TEXT_INDEX)) {
+if (!Lock::release(Lock::FULL_TEXT_INDEX)) {
   Log::warning('WARNING: could not release lock!');
 }
 Log::notice('finished; peak memory usage %d MB', round(memory_get_peak_usage() / 1048576, 1));

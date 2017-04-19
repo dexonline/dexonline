@@ -146,7 +146,7 @@ if ($lexemId) {
 if ($text) {
   $searchType = SEARCH_FULL_TEXT;
 
-  if (Lock::exists(LOCK_FULL_TEXT_INDEX)) {
+  if (Lock::exists(Lock::FULL_TEXT_INDEX)) {
     $extra['fullTextLock'] = true;
   } else {
     $words = preg_split('/ +/', $cuv);

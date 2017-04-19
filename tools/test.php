@@ -486,14 +486,14 @@ assert(Lock::release('test'));
 assert(!Lock::exists('test'));
 assert(!Lock::release('test'));
 
-assertEquals(0, util_findSnippet(array(array(1, 2, 10))));
-assertEquals(1, util_findSnippet(array(array(1, 2, 10),
-                                       array(5, 6, 9))));
-assertEquals(2, util_findSnippet(array(array(1, 2, 10),
-                                       array(5, 6, 8))));
-assertEquals(4, util_findSnippet(array(array(1, 2, 10),
-                                       array(6, 20),
-                                       array(8, 15))));
+assertEquals(0, Util::findSnippet(array(array(1, 2, 10))));
+assertEquals(1, Util::findSnippet(array(array(1, 2, 10),
+                                        array(5, 6, 9))));
+assertEquals(2, Util::findSnippet(array(array(1, 2, 10),
+                                        array(5, 6, 8))));
+assertEquals(4, Util::findSnippet(array(array(1, 2, 10),
+                                        array(6, 20),
+                                        array(8, 15))));
 
 assertEquals('$abc$ @def@', AdminStringUtil::formatLexem('$abc$ @def@')); // This is intentional -- lexem formatting is very lenient.
 assertEquals("m'am~a máre", AdminStringUtil::formatLexem("m'am~a máre  ")); // No shorthand conversions.

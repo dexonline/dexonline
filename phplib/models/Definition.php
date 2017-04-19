@@ -186,7 +186,7 @@ class Definition extends BaseObject implements DatedObject {
       ->find_many();
   }
 
-  public static function searchFullText($words, $hasDiacritics, $sourceId) {
+  static function searchFullText($words, $hasDiacritics, $sourceId) {
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     $intersection = null;
     $stopWords = [];
@@ -239,7 +239,7 @@ class Definition extends BaseObject implements DatedObject {
     $positionMap = FullTextIndex::loadPositionsByLexemIdsDefinitionIds($lexemMap, $intersection);
     $shortestIntervals = [];
     foreach ($intersection as $defId) {
-      $shortestIntervals[] = util_findSnippet($positionMap[$defId]);
+      $shortestIntervals[] = Util::findSnippet($positionMap[$defId]);
     }
 
     if ($intersection) {

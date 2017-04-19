@@ -3,6 +3,8 @@
 class Lock {
   private static $LOCK_PREFIX = '/lock_';
 
+  const FULL_TEXT_INDEX = 'full_text_index';
+
   static function exists($name) {
     return file_exists(Config::get('global.tempDir') . self::$LOCK_PREFIX . $name);
   }

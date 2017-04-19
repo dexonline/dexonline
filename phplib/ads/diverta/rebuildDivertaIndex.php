@@ -8,7 +8,7 @@ $books = Model::factory('DivertaBook')->order_by_asc('id')->find_many();
 $numBooks = count($books);
 print "Reindexing $numBooks book titles.\n";
 foreach ($books as $i => $book) {
-  db_execute("delete from diverta_Index where bookId = {$book->id}");
+  DB::execute("delete from diverta_Index where bookId = {$book->id}");
   $hasDiacritics = StringUtil::hasDiacritics($book->title);
   $title = mb_strtolower($book->title);
   $title = str_replace(array(',', '.'), '', $title);
@@ -18,7 +18,7 @@ foreach ($books as $i => $book) {
   foreach ($titleWords as $word) {
     if (!StringUtil::isStopWord($word, $hasDiacritics)) {
       $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-      $wordLexemIds = db_getArray(db_execute("select distinct lexemId from InflectedForm where $field = '" . addslashes($word) . "'"));
+      $wordLexemIds = DB::getArray(DB::execute("select distinct lexemId from InflectedForm where $field = '" . addslashes($word) . "'"));
       foreach ($wordLexemIds as $lexemId) {
         $lexemIds[$lexemId] = true;
       }

@@ -12,8 +12,8 @@ Config::get('global.developmentMode')
 
 // Drop and recreate the testing DB.
 // Execute this at PDO level, since idiorm cannot connect to a non-existing DB.
-$gdsn = db_splitDsn(Config::get('general.database'));
-$tdsn = db_splitDsn(Config::get('testing.database'));
+$gdsn = DB::splitDsn(Config::get('general.database'));
+$tdsn = DB::splitDsn(Config::get('testing.database'));
 
 $pdo = new PDO('mysql:host=' . $tdsn['host'], $tdsn['user'], $tdsn['password']);
 $pdo->query('drop database if exists ' . $tdsn['database']);

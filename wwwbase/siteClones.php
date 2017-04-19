@@ -4,11 +4,11 @@ require_once("../phplib/util.php");
 User::require(User::PRIV_EDIT);
 
 # Select random definition to search.
-$count = db_getSingleValue("select count(*) from Definition where status = 0 and length(internalRep) > 250;");
+$count = DB::getSingleValue("select count(*) from Definition where status = 0 and length(internalRep) > 250;");
 
 $nr = rand(1, $count);
 
-$definition = db_getSingleValue("select htmlRep from Definition where status = 0 and length(internalRep) > 200 limit $nr ,1;");
+$definition = DB::getSingleValue("select htmlRep from Definition where status = 0 and length(internalRep) > 200 limit $nr ,1;");
 
 # Parse definition and create string to search
 $v = explode(" ", strip_tags($definition));

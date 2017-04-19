@@ -175,7 +175,7 @@ class AccuracyProject extends BaseObject implements DatedObject {
 
   // Recomputes the total definition length and time spend
   function recomputeSpeedData() {
-    db_setBuffering(false);
+    DB::setBuffering(false);
 
     $defs = $this->getQuery(true)->find_many();
 
@@ -203,7 +203,7 @@ class AccuracyProject extends BaseObject implements DatedObject {
       $prev = $d->createDate;
     }
 
-    db_setBuffering(true);
+    DB::setBuffering(true);
   }
 
   // returns the speed in characters / hour

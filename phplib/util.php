@@ -29,7 +29,7 @@ function util_initEverything() {
   util_defineWwwRoot();
   util_requireOtherFiles();
   util_defineConstants();
-  db_init();
+  DB::init();
   Session::init();
   if (!util_isAjax()) {
     FlashMessage::restoreFromSession();
@@ -117,7 +117,6 @@ function util_requireOtherFiles() {
   require_once(StringUtil::portable("$root/phplib/third-party/smarty/Smarty.class.php"));
   require_once(StringUtil::portable("$root/phplib/third-party/idiorm/idiorm.php"));
   require_once(StringUtil::portable("$root/phplib/third-party/idiorm/paris.php"));
-  require_once(StringUtil::portable("$root/phplib/db.php"));
 }
 
 function util_defineConstants() {

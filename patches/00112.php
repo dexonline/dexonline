@@ -1,6 +1,6 @@
 <?php
 
-$lexemIds = db_getArray('select distinct lexemId from Meaning');
+$lexemIds = DB::getArray('select distinct lexemId from Meaning');
 
 foreach($lexemIds as $lexemId) {
   $t = Meaning::loadTree($lexemId);

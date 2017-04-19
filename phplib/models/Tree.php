@@ -172,7 +172,7 @@ class Tree extends BaseObject implements DatedObject {
    **/
   public static function countUnassociated() {
     $numTrees = Model::factory('Tree')->count();
-    $numAssociated = db_getSingleValue('select count(distinct treeId) from TreeEntry');
+    $numAssociated = DB::getSingleValue('select count(distinct treeId) from TreeEntry');
     return $numTrees - $numAssociated;
   }
 

@@ -35,7 +35,7 @@ class InflectedForm extends BaseObject {
   // The inflection ID implies the correct canonical model type
   public static function deleteByModelNumberInflectionId($modelNumber, $inflId) {
     // Idiorm doesn't support deletes with joins
-    db_execute(sprintf("
+    DB::execute(sprintf("
       delete i
       from InflectedForm i
       join Lexem l on i.lexemId = l.id

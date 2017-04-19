@@ -12,10 +12,10 @@ if (!Lock::acquire(LOCK_FULL_TEXT_INDEX)) {
 }
 
 Log::info("Clearing table FullTextIndex.");
-db_execute('truncate table FullTextIndex');
+DB::execute('truncate table FullTextIndex');
 
 // Build a map of stop words
-$stopWordForms = array_flip(db_getArray(
+$stopWordForms = array_flip(DB::getArray(
   'select distinct i.formNoAccent ' .
   'from Lexem l, InflectedForm i ' .
   'where l.id = i.lexemId ' .
@@ -23,7 +23,7 @@ $stopWordForms = array_flip(db_getArray(
 
 // Build a map of inflectedForm => list of (lexemId, inflectionId) pairs
 Log::info("Building inflected form map.");
-$dbResult = db_execute("select formNoAccent, lexemId, inflectionId from InflectedForm");
+$dbResult = DB::execute("select formNoAccent, lexemId, inflectionId from InflectedForm");
 $ifMap = [];
 foreach ($dbResult as $r) {
   $form = $r['formNoAccent'];
@@ -38,7 +38,7 @@ Log::info("Inflected form map has %d entries.", count($ifMap));
 Log::info("Memory used: %d MB", round(memory_get_usage() / 1048576, 1));
 
 // Process definitions
-$dbResult = db_execute('select id, internalRep from Definition where status = 0');
+$dbResult = DB::execute('select id, internalRep from Definition where status = 0');
 $defsSeen = 0;
 $indexSize = 0;
 $fileName = tempnam(Config::get('global.tempDir'), 'index_');
@@ -75,7 +75,7 @@ Log::info("Index size: $indexSize entries.");
 
 OS::executeAndAssert("chmod 666 $fileName");
 Log::info("Importing file $fileName into table FullTextIndex");
-db_executeFromOS("load data local infile \"$fileName\" into table FullTextIndex");
+DB::executeFromOS("load data local infile \"$fileName\" into table FullTextIndex");
 util_deleteFile($fileName);
 
 if (!Lock::release(LOCK_FULL_TEXT_INDEX)) {

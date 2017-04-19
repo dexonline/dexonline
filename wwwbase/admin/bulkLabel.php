@@ -43,7 +43,7 @@ $numLabeled = Model::factory('Lexem')
 // that no model has over 5%.
 $models = array();
 $hasInvariableModel = false;
-$dbResult = db_execute("select canonical, modelNumber, count(*) as c " .
+$dbResult = DB::execute("select canonical, modelNumber, count(*) as c " .
                        "from Lexem " .
                        "join ModelType on modelType = code " .
                        "where modelType != 'T' " .

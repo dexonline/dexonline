@@ -20,7 +20,7 @@ addOtherUrls();
 
 $query = 'select id, formNoAccent from Lexem order by formNoAccent';
 Log::info("Running mysql query: [$query]");
-$dbResult = db_execute($query);
+$dbResult = DB::execute($query);
 
 $rowB = array(null, null);
 $rowC = array(null, null);

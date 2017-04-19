@@ -13,7 +13,7 @@ $query = 'select h.*, u.nick as unick, mu.nick as munick, s.shortName ' .
        'left join Source s on h.SourceId = s.id ' .
        "where h.Id = $id " .
        'order by Version';
-$recordSet = db_execute($query);
+$recordSet = DB::execute($query);
 
 $prev = null;
 $changeSets = [];
@@ -41,7 +41,7 @@ if ($prev) {
          'left join User mu on d.modUserId = mu.id ' .
          'left join Source s on d.sourceId = s.id ' .
          "where d.id = $id ";
-  $recordSet = db_execute($query);
+  $recordSet = DB::execute($query);
 
   foreach ($recordSet as $row) { // just once, really
     compareVersions($prev, $row, $changeSets);

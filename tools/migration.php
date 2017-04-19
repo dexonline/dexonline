@@ -35,7 +35,7 @@ foreach ($argv as $i => $arg) {
 if ($dryRun) {
   print "---- DRY RUN ONLY ----\n";
 }
-$schemaVersion = db_tableExists('Variable') ? Variable::peek('Schema.version', '00000') : '00000';
+$schemaVersion = DB::tableExists('Variable') ? Variable::peek('Schema.version', '00000') : '00000';
 print "Current schema version is <$schemaVersion>\n";
 
 $patchFiles = getPatches(PATCH_DIR, $schemaVersion);
@@ -73,7 +73,7 @@ function runPatch($fileName, $dryRun) {
   if ($extension == '.sql') {
     print "$fileName -- executing with MySQL via OS\n";
     if (!$dryRun) {
-      db_executeSqlFile($fileName);
+      DB::executeSqlFile($fileName);
     }
   } else if ($extension == '.php') {
     print "$fileName -- executing with PHP\n";

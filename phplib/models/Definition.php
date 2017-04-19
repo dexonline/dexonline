@@ -128,7 +128,7 @@ class Definition extends BaseObject implements DatedObject {
     // We compute (3) as (all definitions) - (1) - (2).
     $all = Model::factory('Definition')->count();
     $deleted = Model::factory('Definition')->where('status', self::ST_DELETED)->count();
-    $associated = db_getSingleValue('select count(distinct definitionId) from EntryDefinition');
+    $associated = DB::getSingleValue('select count(distinct definitionId) from EntryDefinition');
     return $all - $deleted - $associated;
   }
 

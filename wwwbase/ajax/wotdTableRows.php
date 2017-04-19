@@ -126,7 +126,7 @@ sql;
 select count(*) from {$this->sql_base} {$this->where_condition}
 sql;
 
-    $count = db_getSingleValue($sql);
+    $count = DB::getSingleValue($sql);
 
     $sql = <<<sql
     select
@@ -140,7 +140,7 @@ sql;
       {$limit_from}, {$limit_to}
 sql;
 
-    $rows = db_execute($sql, PDO::FETCH_ASSOC);
+    $rows = DB::execute($sql, PDO::FETCH_ASSOC);
     $doc = new DOMDocument('1.0', 'UTF-8');
     $root = $doc->createElement('rows');
 

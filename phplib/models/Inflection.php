@@ -33,7 +33,7 @@ class Inflection extends BaseObject {
   }
 
   public function delete() {
-    db_execute("update Inflection set rank = rank - 1 where modelType = '{$this->modelType}' and rank > {$this->rank}");
+    DB::execute("update Inflection set rank = rank - 1 where modelType = '{$this->modelType}' and rank > {$this->rank}");
     parent::delete();
   }
 }

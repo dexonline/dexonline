@@ -13,8 +13,6 @@ function printUsage() {
 
 if (count($argv) == 1) printUsage();
 
-db_init();
-
 $db = ORM::get_db();
 $db->beginTransaction();
 

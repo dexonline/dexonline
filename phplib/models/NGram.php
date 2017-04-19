@@ -75,7 +75,7 @@ class NGram extends BaseObject {
     $ngramList = self::split($cuv);
     $hash = array();
     foreach ($ngramList as $i => $ngram) {
-      $lexemIdList = db_getArray(sprintf("select lexemId from NGram where ngram = '%s' and pos between %d and %d",
+      $lexemIdList = DB::getArray(sprintf("select lexemId from NGram where ngram = '%s' and pos between %d and %d",
                                          $ngram, $i - self::$MAX_MOVE, $i + self::$MAX_MOVE));
       $lexemIdList = array_unique($lexemIdList);
       foreach($lexemIdList as $lexemId) {

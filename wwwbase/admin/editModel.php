@@ -222,7 +222,7 @@ if (!$previewButton && !$saveButton) {
       }
       fclose($fp);
       chmod($fileName, 0666);
-      db_executeFromOS("
+      DB::executeFromOS("
         load data local infile \"{$fileName}\"
         into table InflectedForm
         fields terminated by \",\" optionally enclosed by \"\\\"\"
@@ -243,7 +243,7 @@ if (!$previewButton && !$saveButton) {
       where m.id = %s
       and md.applOrder = 0
     ", $m->id);
-    db_execute($q);
+    DB::execute($q);
 
     // Deal with changes in the model number
     if ($m->number != $nm->number) {

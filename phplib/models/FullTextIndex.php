@@ -21,7 +21,7 @@ class FullTextIndex extends BaseObject {
         "where lexemId in ($lexemString) " .
         "order by definitionId";
     }
-    return db_getArray($query);
+    return DB::getArray($query);
   }
 
   // For each defId, build an array of arrays of positions, one array for each lexemId
@@ -35,7 +35,7 @@ class FullTextIndex extends BaseObject {
                          'and definitionId in (%s) ' .
                          'order by definitionId, position',
                          implode(',', $lexemIds), implode(',', $defIds));
-        $results = db_getArrayOfRows($query, PDO::FETCH_NUM);
+        $results = DB::getArrayOfRows($query, PDO::FETCH_NUM);
         $results[] = [-1, -1]; // sentinel
 
         // Now iterate in defId order and collect position arrays

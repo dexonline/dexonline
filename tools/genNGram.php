@@ -9,9 +9,9 @@ ini_set('memory_limit', '1G');
 Log::notice('started');
 
 $start = microtime(true);
-db_execute("truncate table NGram"); // This should be fast
+DB::execute("truncate table NGram"); // This should be fast
 
-$dbResult = db_execute("select * from Lexem", PDO::FETCH_ASSOC);
+$dbResult = DB::execute("select * from Lexem", PDO::FETCH_ASSOC);
 
 $values = array();
 foreach ($dbResult as $cnt => $row) {
@@ -44,7 +44,7 @@ function dumpValues($values) {
     }
     $query .= sprintf("('%s', %d, %d)", addslashes($set[0]), $set[1], $set[2]);
   }
-  db_execute($query);
+  DB::execute($query);
 }
 
 ?>

@@ -41,10 +41,10 @@ if ( !is_int($noSkin) || $noSkin!=1 ){
 
 /*
   $query = sprintf('select id from Lexem order by rand() limit %d', $listLength);
-  $ids = db_getArray($query);
+  $ids = DB::getArray($query);
 
   $query = sprintf(RANDOM_WORDS_QUERY, $showSource?SOURCE_PART_RANDOM_WORDS:'', implode(",",$ids));
-  $forms = db_getArrayOfRows($query);
+  $forms = DB::getArrayOfRows($query);
 */
 
 $wotd = '';
@@ -54,7 +54,7 @@ if (is_null($wListLength)) {
   $query = sprintf(RANDOM_WOTD_QUERY, $wListLength);
   $wotd = ' ale zilei';
 }
-$forms = db_getArrayOfRows($query);
+$forms = DB::getArrayOfRows($query);
 
 $cnt = count($forms);
 

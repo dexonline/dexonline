@@ -18,7 +18,7 @@ foreach ($lexems as $l) {
 }
 
 Log::info("Scanning full text index");
-$dbResult = db_execute("select lexemId from FullTextIndex group by lexemId order by count(*)");
+$dbResult = DB::execute("select lexemId from FullTextIndex group by lexemId order by count(*)");
 $numLexems = $dbResult->rowCount();
 $i = 0;
 foreach ($dbResult as $row) {

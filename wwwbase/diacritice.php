@@ -5,7 +5,7 @@ require_once '../phplib/AppLog.php';
 require_once '../phplib/MemoryManagement.php';
 
 
-db_init();
+DB::init();
 
 $logFile = Config::get('crawler.diacritics_log');
 

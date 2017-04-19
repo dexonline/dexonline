@@ -57,11 +57,11 @@ if ($currentLv->freezeTimestamp) {
 // Now create a database for $lvToFreeze and copy the relevant tables there.
 $dbName = $locDbPrefix . $lvToFreeze->getDbName();
 print "Creating database $dbName\n";
-db_execute("create database $dbName");
+DB::execute("create database $dbName");
 $fileName = tempnam(Config::get('global.tempDir'), 'freeze_');
 print "Dumping tables to $fileName\n";
 $tablesToDump = "ConstraintMap Inflection Lexem ModelDescription ModelType Model ParticipleModel Transform InflectedForm";
-$parts = db_splitDsn();
+$parts = DB::splitDsn();
 $mysql = sprintf("mysqldump -h %s -u %s --password='%s' %s %s > %s", $parts['host'], $parts['user'], $parts['password'], $parts['database'], $tablesToDump, $fileName);
 OS::executeAndAssert($mysql);
 print "Importing $fileName to $dbName\n";

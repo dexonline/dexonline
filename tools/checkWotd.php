@@ -67,7 +67,7 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
                    "and char_length(lexicon) >= 4 " .
                    "and ((instr('%s', lexicon) > 0) or (lexicon like '%%%s%%'))",
                    $date, $def->lexicon, $def->lexicon);
-  $dups = db_getArrayOfRows($query);
+  $dups = DB::getArrayOfRows($query);
   if (count($dups)) {
     $msg = "Cuvântul {$def->lexicon} seamănă cu următoarele cuvinte deja propuse:";
     foreach ($dups as $dup) {

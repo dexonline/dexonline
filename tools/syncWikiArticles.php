@@ -78,7 +78,7 @@ foreach ($xml->query->pages->page as $page) {
 // Now delete all the pages on our side that aren't category members because
 //   (a) they have been deleted or
 //   (b) they have been removed from the category
-$ourIds = db_getArray('select pageId from WikiArticle');
+$ourIds = DB::getArray('select pageId from WikiArticle');
 foreach ($ourIds as $ourId) {
   if (!array_key_exists($ourId, $pageIdHash)) {
     $curPage = WikiArticle::get_by_pageId($ourId);

@@ -42,7 +42,7 @@ if ($saveButton) {
 
 // Tag inflections which can be safely deleted (only those that aren't being used by any model)
 $inflections = Model::factory('Inflection')->order_by_asc('modelType')->order_by_asc('rank')->find_many();
-$usedInflectionIds = db_getArray('select distinct inflectionId from ModelDescription');
+$usedInflectionIds = DB::getArray('select distinct inflectionId from ModelDescription');
 foreach ($inflections as $infl) {
   $infl->canDelete = !in_array($infl->id, $usedInflectionIds);
 }

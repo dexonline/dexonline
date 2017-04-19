@@ -8,8 +8,6 @@ require_once '../phplib/util.php';
 require_once util_getRootPath() . 'phplib/AppLog.php';
 require_once util_getRootPath() . 'phplib/MemoryManagement.php';
 
-db_init();
-
 $logFile = Config::get('app_log.diacritics_log');
 
 /*

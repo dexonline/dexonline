@@ -64,7 +64,7 @@ Log::notice('finished');
 /**************************************************************************/
 
 function getActiveUsers() {
-  $results = db_execute("SELECT id, nick FROM User WHERE id IN (SELECT DISTINCT userId FROM Definition)");
+  $results = DB::execute("SELECT id, nick FROM User WHERE id IN (SELECT DISTINCT userId FROM Definition)");
   $users = array();
   foreach ($results as $row) {
     $users[$row[0]] = $row[1];
@@ -149,10 +149,10 @@ function dumpAbbrevs($remoteFile) {
 function dumpDefinitions($query, $remoteFile, $message) {
   global $FTP, $USERS;
 
-  db_setBuffering(false);
+  DB::setBuffering(false);
 
   Log::info($message);
-  $results = db_execute($query);
+  $results = DB::execute($query);
   $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
@@ -169,14 +169,14 @@ function dumpDefinitions($query, $remoteFile, $message) {
   $FTP->staticServerPut($tmpFile, $remoteFile);
   unlink($tmpFile);
 
-  db_setBuffering(true);
+  DB::setBuffering(true);
 }
 
 function dumpEntries($query, $remoteFile, $message) {
   global $FTP;
 
   Log::info($message);
-  $results = db_execute($query);
+  $results = DB::execute($query);
   $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
@@ -196,7 +196,7 @@ function dumpLexems($query, $remoteFile, $message) {
   global $FTP;
 
   Log::info($message);
-  $results = db_execute($query);
+  $results = DB::execute($query);
   $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
@@ -216,7 +216,7 @@ function dumpEd($query, $remoteFile, $message) {
   global $FTP;
 
   Log::info($message);
-  $results = db_execute($query);
+  $results = DB::execute($query);
   $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");

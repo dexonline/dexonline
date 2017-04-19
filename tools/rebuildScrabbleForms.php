@@ -76,7 +76,7 @@ abstract class FormList {
   }
 
   function writeForms($fileName) {
-    $dbResult = db_execute($this->getQuery());
+    $dbResult = DB::execute($this->getQuery());
     $f = fopen($fileName, 'w');
     foreach ($dbResult as $r) {
       fprintf($f, $this->format($r) . "\r\n");

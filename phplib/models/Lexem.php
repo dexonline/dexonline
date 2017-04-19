@@ -300,7 +300,7 @@ class Lexem extends BaseObject implements DatedObject {
    **/
   public static function countUnassociated() {
     $numLexems = Model::factory('Lexem')->count();
-    $numAssociated = db_getSingleValue('select count(distinct lexemId) from EntryLexem');
+    $numAssociated = DB::getSingleValue('select count(distinct lexemId) from EntryLexem');
     return $numLexems - $numAssociated;
   }
 
@@ -352,7 +352,7 @@ class Lexem extends BaseObject implements DatedObject {
         // generate forms for simple lexemes
 
         $model = FlexModel::loadCanonicalByTypeNumber($this->modelType, $this->modelNumber);
-        $inflIds = db_getArray("select distinct inflectionId from ModelDescription " .
+        $inflIds = DB::getArray("select distinct inflectionId from ModelDescription " .
                                "where modelId = {$model->id} order by inflectionId");
 
         foreach ($inflIds as $inflId) {

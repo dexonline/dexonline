@@ -112,8 +112,8 @@ JOIN Source S ON X.sourceId=S.id
 GROUP BY U.nick, S.shortName"
 );
 
-SmartyWrap::assign("statsPrep", db_execute(OCR_PREP_STATS));
-SmartyWrap::assign("statsEditors", db_execute(OCR_EDITOR_STATS));
+SmartyWrap::assign("statsPrep", DB::execute(OCR_PREP_STATS));
+SmartyWrap::assign("statsEditors", DB::execute(OCR_EDITOR_STATS));
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/ocrInput.tpl');
 

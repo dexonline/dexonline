@@ -25,7 +25,7 @@ class WordOfTheDay extends BaseObject {
   }
 
   public static function updateTodaysWord() {
-    db_execute('update WordOfTheDay set displayDate=curdate() where displayDate is null order by priority, rand() limit 1');
+    DB::execute('update WordOfTheDay set displayDate=curdate() where displayDate is null order by priority, rand() limit 1');
   }
 
   public static function getPreviousYearsWotds($month, $day) {

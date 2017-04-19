@@ -65,7 +65,7 @@ class TopEntry {
   private static function loadUnsortedTopData($manual) {
     $statement = self::getSqlStatement($manual);
     
-    $dbResult = db_execute($statement);
+    $dbResult = DB::execute($statement);
     $topEntries = array();
     $now = time();
 

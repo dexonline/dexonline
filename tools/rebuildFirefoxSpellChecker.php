@@ -16,7 +16,7 @@ $mysqlFile = tempnam(Config::get('global.tempDir'), 'mysql_');
 unlink($mysqlFile);
 $query = "select distinct formNoAccent from InflectedForm where formNoAccent rlike '^[a-zăâîșț]+$' into outfile '$mysqlFile'";
 Log::info("Running mysql query: [$query]");
-db_execute($query);
+DB::execute($query);
 
 Log::info("Prepending line count");
 OS::executeAndAssert("wc -l $mysqlFile | cut -d ' ' -f 1 > $tmpDir/dictionaries/ro-dex.dic");

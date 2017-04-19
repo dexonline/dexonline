@@ -38,7 +38,7 @@ class WikiArticle extends BaseObject implements DatedObject {
   }
 
   public static function loadAllTitles() {
-    $rows = db_getArrayOfRows("select section, title from WikiArticle left join WikiSection using (pageId) order by section, title");
+    $rows = DB::getArrayOfRows("select section, title from WikiArticle left join WikiSection using (pageId) order by section, title");
     $result = array();
     foreach ($rows as $row) {
       $result[$row['section']][] = array($row['title'], WikiArticle::wikiTitleToUrlTitle($row['title']));

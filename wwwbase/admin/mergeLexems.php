@@ -57,7 +57,7 @@ if ($modelType == 'T') {
   $whereClause = '(modelType = "T") or (modelType in ("M", "F", "N") and restriction like "%P%")';
 }
 // TODO speed up the page for T lexems
-$dbResult = db_execute("select distinct l.* " .
+$dbResult = DB::execute("select distinct l.* " .
                        "from Lexem l " .
                        "where {$whereClause} " .
                        "order by formNoAccent",

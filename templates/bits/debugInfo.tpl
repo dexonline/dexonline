@@ -6,7 +6,7 @@
   </p>
 
   <div class="panel panel-default">
-    <div class="panel-heading">Interogări executate cu db_execute()</div>
+    <div class="panel-heading">Interogări executate cu DB::execute()</div>
     <div class="panel-body">
       {foreach DebugInfo::$debugInfo as $line}
         {$line|escape}<br/>

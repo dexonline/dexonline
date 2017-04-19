@@ -6,7 +6,7 @@ $SQL_FILE = Config::get('global.tempDir') . '/dex-database.sql';
 $GZ_FILE = Config::get('global.tempDir') . '/dex-database.sql.gz';
 $LICENSE = util_getRootPath() . '/tools/dumpDatabaseLicense.txt';
 
-$parts = db_splitDsn();
+$parts = DB::splitDsn();
   // Skip the username/password here to avoid a Percona warning.
   // Place them in my.cnf.
 $COMMON_COMMAND = sprintf("mysqldump -h %s %s ", $parts['host'], $parts['database']);
@@ -70,34 +70,34 @@ if (!$doFullDump) {
   // Anonymize the User table. Handle the case for id = 0 separately, since
   // "insert into _User_Copy set id = 0" doesn't work (it inserts an id of 1).
   Log::info('Anonymizing the User table');
-  db_execute("create table _User_Copy like User");
-  db_execute("insert into _User_Copy select * from User where id = 0");
-  db_execute("update _User_Copy set id = 0 where id = 1");
-  db_execute("insert into _User_Copy select * from User where id > 0");
-  db_execute("update _User_Copy set password = md5('1234'), email = concat(id, '@anonymous.com'), identity = null");
+  DB::execute("create table _User_Copy like User");
+  DB::execute("insert into _User_Copy select * from User where id = 0");
+  DB::execute("update _User_Copy set id = 0 where id = 1");
+  DB::execute("insert into _User_Copy select * from User where id > 0");
+  DB::execute("update _User_Copy set password = md5('1234'), email = concat(id, '@anonymous.com'), identity = null");
   OS::executeAndAssert("$COMMON_COMMAND _User_Copy | sed 's/_User_Copy/User/g' >> $SQL_FILE");
-  db_execute("drop table _User_Copy");
+  DB::execute("drop table _User_Copy");
 
   Log::info('Anonymizing the Source table');
-  db_execute("create table _Source_Copy like Source");
-  db_execute("insert into _Source_Copy select * from Source");
-  db_execute("update _Source_Copy set link = null");
+  DB::execute("create table _Source_Copy like Source");
+  DB::execute("insert into _Source_Copy select * from Source");
+  DB::execute("update _Source_Copy set link = null");
   OS::executeAndAssert("$COMMON_COMMAND _Source_Copy | sed 's/_Source_Copy/Source/g' >> $SQL_FILE");
-  db_execute("drop table _Source_Copy");
+  DB::execute("drop table _Source_Copy");
 
   // Dump only the Definitions for which we have redistribution rights
   Log::info('Filtering the Definition table');
-  db_execute("create table _Definition_Copy like Definition");
-  db_execute("insert into _Definition_Copy select * from Definition");
+  DB::execute("create table _Definition_Copy like Definition");
+  DB::execute("insert into _Definition_Copy select * from Definition");
   $query = <<<EOT
     update _Definition_Copy
     set internalRep = concat(left(internalRep, 20), '...'), 
         htmlRep = '[această definiție nu poate fi redistribuită]' 
     where sourceId in (select id from Source where !canDistribute)
 EOT;
-  db_execute($query);
+  DB::execute($query);
   OS::executeAndAssert("$COMMON_COMMAND _Definition_Copy | sed 's/_Definition_Copy/Definition/g' >> $SQL_FILE");
-  db_execute("drop table _Definition_Copy");
+  DB::execute("drop table _Definition_Copy");
 }
 
 OS::executeAndAssert("gzip -f $SQL_FILE");

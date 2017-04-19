@@ -35,7 +35,7 @@ $defs = Model::factory('Definition')
 $truePositives = $falsePositives = $trueNegatives = 0;
 
 foreach ($defs as $def) {
-  $entryIds = db_getArray("select distinct entryId from EntryDefinition where definitionId = {$def->id}");
+  $entryIds = DB::getArray("select distinct entryId from EntryDefinition where definitionId = {$def->id}");
   $similar = $def->loadSimilar($entryIds, $diffSize);
   if ($similar) {
     $correct = ($def->similarSource == 1) == ($diffSize == 0);

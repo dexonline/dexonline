@@ -22,8 +22,13 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=#resultsWrapper &gt; div.panel.panel-default &gt; div.panel-body</td>
-	<td>Niciun sau nici un Ghid de exprimare</td>
+	<td>link=Niciun sau nici un</td>
+	<td>Niciun sau nici un</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>xpath=(//a[contains(text(),'Ghid de exprimare')])[2]</td>
+	<td>Ghid de exprimare</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -42,7 +47,7 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=#resultsWrapper &gt; div.panel.panel-default &gt; div.panel-body</td>
+	<td>link=Niciun sau nici un</td>
 	<td>Niciun sau nici un</td>
 </tr>
 <tr>

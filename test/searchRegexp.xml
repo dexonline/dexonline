@@ -32,8 +32,8 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.panel-body</td>
-	<td>exact:4 rezultate pentru „*ă*”:</td>
+	<td>css=h3</td>
+	<td>exact:4 rezultate pentru *ă*</td>
 </tr>
 <tr>
 	<td>verifyText</td>

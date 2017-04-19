@@ -122,8 +122,8 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.panel-body</td>
-	<td>Din motive de copyright, doar administratorii site-ului pot vedea definițiile pentru „metal”&nbsp;&nbsp;&nbsp;▷ declinări</td>
+	<td>css=h3</td>
+	<td>Nicio definiție pentru metal</td>
 </tr>
 </tbody></table>
 </body>

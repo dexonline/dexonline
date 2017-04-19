@@ -17,12 +17,12 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//div[@id='resultsWrapper']/div/div</td>
+	<td>css=div.panel-body</td>
 	<td>Foarte foarte gustoasă - john</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>xpath=(//a[contains(text(),'john')])[2]</td>
+	<td>css=div.panel-body &gt; a</td>
 	<td>john</td>
 </tr>
 </tbody></table>

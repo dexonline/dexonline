@@ -17,8 +17,13 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.panel-body</td>
-	<td>Din motive de copyright, doar administratorii site-ului pot vedea definițiile pentru „ladă”&nbsp;&nbsp;&nbsp;▽ declinări ladă <br /> substantiv feminin (F62) nearticulat articulat nominativ-acuzativ singular ladă lada plural — — genitiv-dativ singular lăzi lăzii plural — — vocativ singular ladă, lado plural — <br /> Link către această paradigmă</td>
+	<td>css=ul.nav-tabs &gt; li.active</td>
+	<td>declinări</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=h3</td>
+	<td>Nicio definiție pentru ladă</td>
 </tr>
 <tr>
 	<td>verifyText</td>

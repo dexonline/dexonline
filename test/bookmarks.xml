@@ -52,22 +52,17 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>link=brânză</td>
-	<td>brânză</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>css=dd</td>
+	<td>css=p.def</td>
 	<td>Produs alimentar obținut prin coagularea și prelucrarea laptelui.</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>link=șterge</td>
-	<td>șterge</td>
+	<td>css=a.bookmarkRemoveButton &gt; span</td>
+	<td>șterge de la favorite</td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=șterge</td>
+	<td>css=a.bookmarkRemoveButton &gt; span</td>
 	<td></td>
 </tr>
 <tr>

@@ -22,7 +22,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=button.btn.btn-primary</td>
+	<td>id=advancedAnchor</td>
 	<td></td>
 </tr>
 <tr>
@@ -47,7 +47,7 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.panel-body</td>
+	<td>css=h3</td>
 	<td>O definiție cuprinde toate cuvintele căutate</td>
 </tr>
 <tr>

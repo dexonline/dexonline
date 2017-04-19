@@ -108,10 +108,10 @@ class SmartyWrap {
   }
 
   static function registerOutputFilters() {
-    if (Session::user_prefers(Preferences::CEDILLA_BELOW)) {
+    if (Session::userPrefers(Preferences::CEDILLA_BELOW)) {
       self::$theSmarty->registerFilter('output', array('StringUtil', 'replace_st'));
     }
-    if (Session::user_prefers(Preferences::OLD_ORTHOGRAPHY)) {
+    if (Session::userPrefers(Preferences::OLD_ORTHOGRAPHY)) {
       self::$theSmarty->registerFilter('output', array('StringUtil', 'replace_ai'));
     }
   }

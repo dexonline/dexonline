@@ -23,7 +23,7 @@ class SearchLog {
     $this->query = $query;
     $this->queryBeforeRedirect = $queryBeforeRedirect;
     $this->searchType = $searchType;
-    if (Session::variableExists('user')) {
+    if (Session::has('user')) {
       $this->registeredUser = 'y';
       $this->preferences = $_SESSION['user']->preferences; 
     }

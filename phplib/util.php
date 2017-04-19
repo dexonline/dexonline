@@ -44,7 +44,7 @@ function util_initEverything() {
 }
 
 function util_initAdvancedSearchPreference() {
-  $advancedSearch = Session::user_prefers(Preferences::SHOW_ADVANCED);
+  $advancedSearch = Session::userPrefers(Preferences::SHOW_ADVANCED);
   SmartyWrap::assign('advancedSearch', $advancedSearch);
 }
 

@@ -5,7 +5,7 @@ class Autocomplete extends BaseObject implements DatedObject {
 
   static function ac($prefix, $limit) {
     $hasDiacritics =
-      Session::user_prefers(Preferences::FORCE_DIACRITICS) ||
+      Session::userPrefers(Preferences::FORCE_DIACRITICS) ||
       StringUtil::hasDiacritics($prefix);
 
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';

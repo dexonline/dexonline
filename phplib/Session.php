@@ -66,36 +66,35 @@ class Session {
 
   // Try to load logging information from the long-lived cookie
   static function loadUserFromCookie() {
-    if (!isset($_COOKIE['prefs']) || !isset($_COOKIE['prefs']['lll'])) {
-      return;
-    }
-    $cookie = Cookie::get_by_cookieString($_COOKIE['prefs']['lll']);
-    $user = $cookie ? User::get_by_id($cookie->userId) : null;
-    if ($user && $user->identity) {
-      self::set('user', $user);
-    } else {
-      // The cookie is invalid or this account doesn't have an OpenID identity yet.
-      setcookie("prefs[lll]", NULL, time() - 3600, '/');
-      unset($_COOKIE['prefs']['lll']);
-      if ($cookie) {
-        $cookie->delete();
+    $lll = self::getCookieSetting('lll');
+    if ($lll) {
+      $cookie = Cookie::get_by_cookieString($lll);
+      $user = $cookie ? User::get_by_id($cookie->userId) : null;
+      if ($user) {
+        self::set('user', $user);
+      } else {
+        // The cookie is invalid.
+        setcookie("prefs[lll]", NULL, time() - 3600, '/');
+        unset($_COOKIE['prefs']['lll']);
+        if ($cookie) {
+          $cookie->delete();
+        }
       }
     }
   }
 
-  // TODO add a $default = false parameter
-  static function getCookieSetting($name) {
+  static function getCookieSetting($name, $default = '') {
     if (array_key_exists('prefs', $_COOKIE)) {
       $prefsCookie = $_COOKIE['prefs'];
       if (array_key_exists($name, $prefsCookie)) {
         return $prefsCookie[$name];
       }
     }
-    return FALSE;
+    return $default;
   }
 
   static function getUser() {
-    if (self::variableExists('user') &&
+    if (self::has('user') &&
         isset($_SESSION['user']->id)) {
       return $_SESSION['user'];
     } else {
@@ -104,16 +103,16 @@ class Session {
   }
 
   static function getUserNick() {
-    return self::variableExists('user') && isset($_SESSION['user']->nick)
+    return self::has('user') && isset($_SESSION['user']->nick)
       ? $_SESSION['user']->nick : "Anonim";
   }
 
   static function getUserId() {
-    return self::variableExists('user') && isset($_SESSION['user']->id)
+    return self::has('user') && isset($_SESSION['user']->id)
       ? $_SESSION['user']->id : 0;
   }
 
-  static function user_prefers($pref) {
+  static function userPrefers($pref) {
     if (isset($_SESSION['user'])) {
       return (isset($_SESSION['user']->preferences) &&
               in_array($pref, preg_split('/,/', $_SESSION['user']->preferences)));
@@ -129,12 +128,11 @@ class Session {
   }
 
   static function getAnonymousPrefs() {
-    $cookiePrefs = self::getCookieSetting('anonymousPrefs');
-    return $cookiePrefs ? $cookiePrefs : '';
+    return self::getCookieSetting('anonymousPrefs');
   }
 
   static function getWidgetMask() {
-    return self::getCookieSetting('widgetMask');
+    return self::getCookieSetting('widgetMask', 0);
   }
 
   static function setWidgetMask($widgetMask) {
@@ -143,7 +141,7 @@ class Session {
   }
 
   static function getWidgetCount() {
-    return self::getCookieSetting('widgetCount');
+    return self::getCookieSetting('widgetCount', 0);
   }
 
   static function setWidgetCount($widgetCount) {
@@ -156,17 +154,10 @@ class Session {
   }
 
   static function getDefaultContribSourceId() {
-    $value = self::getCookieSetting('source');
-    // Previously we stored some short name, not the source id -- just return
-    // FALSE in that case
-    return is_numeric($value) ? $value : FALSE;
+    return self::getCookieSetting('source');
   }
 
-  static function get($name) {
-    return self::getWithDefault($name, null);
-  }
-
-  static function getWithDefault($name, $default) {
+  static function get($name, $default = null) {
     if (isset($_SESSION)){
       if (array_key_exists($name, $_SESSION)) {
         return $_SESSION[$name];
@@ -194,7 +185,7 @@ class Session {
     }
   }
 
-  static function variableExists($var) {
+  static function has($var) {
     return isset($_SESSION) && isset($_SESSION[$var]);
   }
 
@@ -225,16 +216,8 @@ class Session {
     }
   }
 
-  static function isWordHistoryDiffSplitLevel() {
-    return isset($_COOKIE['prefs']['splitLevel']);
-  }
-
   static function getSplitLevel() {
-    if (self::isWordHistoryDiffSplitLevel()) {
-      return $_COOKIE['prefs']['splitLevel'];
-    } else {
-      return LDiff::DEFAULT_SPLIT_LEVEL;
-    }
+    return self::getCookieSetting('splitLevel', LDiff::DEFAULT_SPLIT_LEVEL);
   }
 
   static function toggleWordHistoryDiffSplitLevel() {

@@ -103,7 +103,7 @@ class SearchResult {
   static function filter(&$searchResults) {
     $unofficialHidden = null;
     $sourcesHidden = null;
-    $excludeUnofficial = Session::user_prefers(Preferences::EXCLUDE_UNOFFICIAL);
+    $excludeUnofficial = Session::userPrefers(Preferences::EXCLUDE_UNOFFICIAL);
 
     foreach ($searchResults as $i => &$sr) {
       if ($excludeUnofficial && ($sr->source->type == Source::TYPE_UNOFFICIAL)) {

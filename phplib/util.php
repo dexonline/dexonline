@@ -128,8 +128,6 @@ function util_defineConstants() {
   
   define('UNKNOWN_ACCENT_SHIFT', 100);
   define('NO_ACCENT_SHIFT', 101);
-
-  define('CURL_COOKIE_FILE', '/dexonline_cookie.txt');
 }
 
 function util_randomCapitalLetterString($length) {
@@ -299,43 +297,6 @@ function util_suggestNoBanner() {
     return true; // User is an active donor
   }
   return false;
-}
-
-// Returns a pair of ($data, $httpCode)
-function util_fetchUrl($url) {
-  $url = str_replace(' ', '%20', $url);
-
-  $ch = curl_init($url);
-  curl_setopt($ch, CURLOPT_HEADER, 0);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // follow redirects
-  $data = curl_exec($ch);
-  $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-  curl_close($ch);
-  return [$data, $httpCode];
-}
-
-function util_makeRequest($url, $data, $method = 'POST', $useCookies = false) {
-  $ch = curl_init($url);
-  if ($useCookies) {
-    curl_setopt($ch, CURLOPT_COOKIEFILE, Config::get('global.tempDir') . CURL_COOKIE_FILE);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, Config::get('global.tempDir') . CURL_COOKIE_FILE);
-  }
-  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-  curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-  // For JSON data, set the content type
-  if (is_string($data) && is_object(json_decode($data))) {
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                  "Content-Type: application/json",
-                  'Content-Length: ' . strlen($data)
-                ));
-  }
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($ch, CURLOPT_USERAGENT, 'dexonline.ro');
-  $result = curl_exec($ch);
-  $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-  curl_close($ch);
-  return [$result, $httpCode];
 }
 
 /* Returns $obj->$prop for every $obj in $a */

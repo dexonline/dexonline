@@ -73,7 +73,7 @@ class WordOfTheDay extends BaseObject {
     if (!$this->image) {
       return true; // Not the case since there is no image
     }
-    list($ignored, $httpCode) = util_fetchUrl($this->getImageUrl());
+    list($ignored, $httpCode) = Util::fetchUrl($this->getImageUrl());
     return $httpCode == 200;
   }
 }

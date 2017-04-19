@@ -67,7 +67,7 @@ while (($fields = fgetcsv($handle, 10000, CSV_DELIMITER)) !== false) {
     $haveFile = true;
   } else {
     $haveFile = false;
-    $img = util_fetchUrl($book->imageUrl);
+    $img = Util::fetchUrl($book->imageUrl);
     if ($img !== false) {
       // Dump the image to a file
       $file = fopen ($fileName, "w");

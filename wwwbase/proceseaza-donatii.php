@@ -304,11 +304,11 @@ class OtrsApiClient {
       }
 
       $url .= '?' . implode('&', $getArgs);
-      list($response, $httpCode) = util_fetchUrl($url);
+      list($response, $httpCode) = Util::fetchUrl($url);
 
     } else {
       $jsonData = json_encode($params);
-      list($response, $httpCode) = util_makeRequest($url, $jsonData, $method);
+      list($response, $httpCode) = Util::makeRequest($url, $jsonData, $method);
     }
 
     if ($httpCode != 200) {

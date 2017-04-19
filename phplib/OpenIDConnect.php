@@ -49,7 +49,7 @@ class OpenIDConnect {
     if (!$this->configFetched) {
       $this->configFetched = true;
       $url = $this->getWellKnownUrl() . '.well-known/openid-configuration';
-      list($contents, $responseCode) = util_fetchUrl($url);
+      list($contents, $responseCode) = Util::fetchUrl($url);
       $this->wellKnownConfig = ($contents && ($responseCode == 200))
         ? json_decode($contents, true)
       : null;
@@ -78,7 +78,7 @@ class OpenIDConnect {
       'redirect_uris' => array(self::getReturnTo()),
     );
     $url = $this->wellKnownConfig['registration_endpoint'];
-    list($jsonResult, $httpCode) = util_makeRequest($url, json_encode($json));
+    list($jsonResult, $httpCode) = Util::makeRequest($url, json_encode($json));
     $result = json_decode($jsonResult, true);
     if (!$result || !isset($result['client_secret'])) {
       return null;
@@ -138,7 +138,7 @@ class OpenIDConnect {
     );
 
     $query = http_build_query($params, null, '&');
-    list($jsonResult, $httpCode) = util_makeRequest($url, $query);
+    list($jsonResult, $httpCode) = Util::makeRequest($url, $query);
     $result = json_decode($jsonResult, true);
     if (!$result || isset($result['error'])) {
       throw new OpenIDException('Eroare la cererea unui token');
@@ -165,7 +165,7 @@ class OpenIDConnect {
     }
     $url = $this->wellKnownConfig['userinfo_endpoint'];
     $url .= "?schema=openid&access_token={$token}";
-    list($contents, $responseCode) = util_fetchUrl($url);
+    list($contents, $responseCode) = Util::fetchUrl($url);
     return ($contents && ($responseCode == 200))
       ? json_decode($contents, true)
       : null;

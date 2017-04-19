@@ -31,7 +31,7 @@ $apiKey = Config::get('global.googleSearchApiKey');
 $url = $urlGoogle . "&q=". urlencode($to_search) . "&key=" . $apiKey;
 
 
-$body = util_fetchUrl($url) ;
+$body = Util::fetchUrl($url) ;
 
 # now, process the JSON string
 $json = json_decode($body);

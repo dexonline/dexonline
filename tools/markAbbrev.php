@@ -21,7 +21,7 @@ foreach ($dbResult as $row) {
     $def->htmlRep = AdminStringUtil::htmlize($newRep, $def->sourceId);
   }
   if (count($ambiguousMatches)) {
-    $def->abbrevReview = ABBREV_AMBIGUOUS;
+    $def->abbrevReview = Definition::ABBREV_AMBIGUOUS;
     $ambiguousDefinitions++;
     $ambiguities += count($ambiguousMatches);
     print "  AMBIGUOUS:";
@@ -30,7 +30,7 @@ foreach ($dbResult as $row) {
     }
     print "\n";
   } else {
-    $def->abbrevReview = ABBREV_REVIEW_COMPLETE;
+    $def->abbrevReview = Definition::ABBREV_REVIEW_COMPLETE;
   }
   $def->save();
   $i++;

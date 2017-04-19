@@ -28,7 +28,6 @@ function util_initEverything() {
   util_defineRootPath();
   util_defineWwwRoot();
   util_requireOtherFiles();
-  util_defineConstants();
   DB::init();
   Session::init();
   if (!util_isAjax()) {
@@ -117,12 +116,6 @@ function util_requireOtherFiles() {
   require_once(StringUtil::portable("$root/phplib/third-party/smarty/Smarty.class.php"));
   require_once(StringUtil::portable("$root/phplib/third-party/idiorm/idiorm.php"));
   require_once(StringUtil::portable("$root/phplib/third-party/idiorm/paris.php"));
-}
-
-function util_defineConstants() {
-  define("ABBREV_NOT_REVIEWED", 0);
-  define("ABBREV_AMBIGUOUS", 1);
-  define("ABBREV_REVIEW_COMPLETE", 2);
 }
 
 function util_randomCapitalLetterString($length) {

@@ -45,10 +45,10 @@ foreach ($defs as $def) {
   $def->htmlRep = AdminStringUtil::htmlize($def->internalRep, $def->sourceId);
 
   // Complete or un-complete the abbreviation review
-  if (!count($ambiguousMatches) && $def->abbrevReview == ABBREV_AMBIGUOUS) {
-    $def->abbrevReview = ABBREV_REVIEW_COMPLETE;
-  } else if (count($ambiguousMatches) && $def->abbrevReview == ABBREV_REVIEW_COMPLETE) {
-    $def->abbrevReview = ABBREV_AMBIGUOUS;
+  if (!count($ambiguousMatches) && $def->abbrevReview == Definition::ABBREV_AMBIGUOUS) {
+    $def->abbrevReview = Definition::ABBREV_REVIEW_COMPLETE;
+  } else if (count($ambiguousMatches) && $def->abbrevReview == Definition::ABBREV_REVIEW_COMPLETE) {
+    $def->abbrevReview = Definition::ABBREV_AMBIGUOUS;
   }
 
   if ($saveButton) {

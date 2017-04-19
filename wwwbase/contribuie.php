@@ -32,7 +32,9 @@ if ($sendButton) {
     $definition->internalRep = $def;
     $definition->htmlRep = AdminStringUtil::htmlize($def, $sourceId);
     $definition->lexicon = AdminStringUtil::extractLexicon($definition);
-    $definition->abbrevReview = count($ambiguousMatches) ? ABBREV_AMBIGUOUS : ABBREV_REVIEW_COMPLETE;
+    $definition->abbrevReview = count($ambiguousMatches)
+                              ? Definition::ABBREV_AMBIGUOUS
+                              : Definition::ABBREV_REVIEW_COMPLETE;
     $definition->save();
     Log::notice("Added definition {$definition->id} ({$definition->lexicon})");
 

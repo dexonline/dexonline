@@ -32,13 +32,15 @@ if ($saveButton) {
   }
   $def->internalRep = $s;
   $def->htmlRep = AdminStringUtil::htmlize($def->internalRep, $def->sourceId);
-  $def->abbrevReview = ABBREV_REVIEW_COMPLETE;
+  $def->abbrevReview = Definition::ABBREV_REVIEW_COMPLETE;
   $def->save();
 }
 
 $MARKER = 'DEADBEEF'; // any string that won't occur naturally in a definition
 $def = null;
-$ids = DB::getArray(sprintf('select id from Definition where status != %d and abbrevReview = %d', Definition::ST_DELETED, ABBREV_AMBIGUOUS));
+$ids = DB::getArray(sprintf('select id from Definition where status != %d and abbrevReview = %d',
+                            Definition::ST_DELETED,
+                            Definition::ABBREV_AMBIGUOUS));
 if (count($ids)) {
   $defId = $ids[array_rand($ids, 1)];
   $def = Definition::get_by_id($defId);

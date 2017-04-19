@@ -27,7 +27,9 @@ if (!$definitionId) {
   $d->internalRep = $def;
   $d->htmlRep = AdminStringUtil::htmlize($def, $sourceId);
   $d->lexicon = AdminStringUtil::extractLexicon($d);
-  $d->abbrevReview = count($ambiguousMatches) ? ABBREV_AMBIGUOUS : ABBREV_REVIEW_COMPLETE;
+  $d->abbrevReview = count($ambiguousMatches)
+                   ? Definition::ABBREV_AMBIGUOUS
+                   : Definition::ABBREV_REVIEW_COMPLETE;
   $d->save();
 
   $ocr->definitionId = $d->id;

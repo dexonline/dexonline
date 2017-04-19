@@ -148,7 +148,7 @@ if ($saveButton || $nextOcrBut) {
     if ($d->status == Definition::ST_DELETED) {
       EntryDefinition::dissociateDefinition($d->id);
     } else {
-      EntryDefinition::wipeAndRecreate(util_objectProperty($entries, 'id'), $d->id);
+      EntryDefinition::wipeAndRecreate(Util::objectProperty($entries, 'id'), $d->id);
     }
 
     ObjectTag::wipeAndRecreate($d->id, ObjectTag::TYPE_DEFINITION, $tagIds);
@@ -175,10 +175,10 @@ if ($saveButton || $nextOcrBut) {
                           $d->lexicon, $d->getSource()->shortName, $d->id));
 
   $entries = $d->getEntries();
-  $entryIds = util_objectProperty($entries, 'id');
+  $entryIds = Util::objectProperty($entries, 'id');
 
   $dts = ObjectTag::getDefinitionTags($d->id);
-  $tagIds = util_objectProperty($dts, 'tagId');
+  $tagIds = Util::objectProperty($dts, 'tagId');
 }
 
 $typos = Model::factory('Typo')
@@ -194,7 +194,7 @@ if ($isOCR && empty($entryIds)) {
       ->join('EntryDefinition', ['d.id', '=', 'e.definitionId'], 'e')
       ->where('d.lexicon', $potentialLexicon)
       ->find_many();
-  $entryIds = array_unique(util_objectProperty($entries, 'entryId'));
+  $entryIds = array_unique(Util::objectProperty($entries, 'entryId'));
 }
 
 

@@ -1,7 +1,6 @@
 <?php
 require_once('../../phplib/util.php');
 ini_set('memory_limit', '512M');
-util_hideEmptyRequestParameters();
 User::require(User::PRIV_EDIT);
 util_assertNotMirror();
 

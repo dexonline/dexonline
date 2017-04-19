@@ -147,7 +147,7 @@ class Definition extends BaseObject implements DatedObject {
     if (!count($entries)) {
       return [];
     }
-    $entryIds = util_objectProperty($entries, 'id');
+    $entryIds = Util::objectProperty($entries, 'id');
 
     // Get the IDs first, then load the definitions. This prevents MySQL
     // from creating temporary tables on disk.
@@ -203,7 +203,7 @@ class Definition extends BaseObject implements DatedObject {
         ->distinct()
         ->where($field, $word)
         ->find_many();
-      $lexemIds = util_objectProperty($lexems, 'lexemId');
+      $lexemIds = Util::objectProperty($lexems, 'lexemId');
       $lexemMap[] = $lexemIds;
 
       // Get the FullTextIndex records for each form. Note that the FTI excludes stop words.
@@ -225,8 +225,8 @@ class Definition extends BaseObject implements DatedObject {
         $stopWords[] = $word;
       } else {
         $intersection = ($intersection === null)
-          ? $defIds
-          : util_intersectArrays($intersection, $defIds);
+                      ? $defIds
+                      : Util::intersectArrays($intersection, $defIds);
       }
     }
 

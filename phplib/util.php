@@ -1,8 +1,6 @@
 <?php
-mb_internal_encoding("UTF-8");
-setlocale(LC_ALL, "ro_RO.utf8");
 
-spl_autoload_register(); //clears the autoload stack
+util_init();
 
 function autoloadLibClass($className) {
   $filename = util_getRootPath() . 'phplib' . DIRECTORY_SEPARATOR . $className . '.php';
@@ -18,18 +16,19 @@ function autoloadModelsClass($className) {
   }
 }
 
-spl_autoload_register("autoloadLibClass", false, true);
-spl_autoload_register("autoloadModelsClass", false, true);
+function util_init() {
+  mb_internal_encoding("UTF-8");
+  setlocale(LC_ALL, "ro_RO.utf8");
 
-util_initEverything();
+  spl_autoload_register(); //clears the autoload stack
+  spl_autoload_register("autoloadLibClass", false, true);
+  spl_autoload_register("autoloadModelsClass", false, true);
 
-function util_initEverything() {
-  // smarty < session_start/end : smarty caches the person's nickname.
   util_defineRootPath();
   util_defineWwwRoot();
   util_requireOtherFiles();
   DB::init();
-  Session::init();
+  Session::init(); // init Session before SmartyWrap: SmartyWrap caches the person's nickname.
   if (!util_isAjax()) {
     FlashMessage::restoreFromSession();
   }
@@ -118,14 +117,6 @@ function util_requireOtherFiles() {
   require_once(StringUtil::portable("$root/phplib/third-party/idiorm/paris.php"));
 }
 
-function util_randomCapitalLetterString($length) {
-  $result = '';
-  for ($i = 0; $i < $length; $i++) {
-    $result .= chr(rand(0, 25) + ord("A"));
-  }
-  return $result;
-}
-
 /**
  * Returns true if this script is running in response to a web request, false
  * otherwise.
@@ -162,33 +153,6 @@ function util_redirect($location) {
   exit;
 }
 
-/**
- * Redirect to the same URL while removing empty GET parameters.
- */
-function util_hideEmptyRequestParameters() {
-  $needToRedirect = false;
-  $newQueryString = '';
-
-  $params = array_keys($_GET);
-  foreach ($params as $param) {
-    $value = $_GET[$param];
-    if ($value) {
-      if ($newQueryString) {
-        $newQueryString .= "&";
-      } else {
-        $newQueryString = "?";
-      }
-      $newQueryString .= "$param=$value";
-    } else {
-      $needToRedirect = true;
-    }
-  }
-
-  if ($needToRedirect) {
-    util_redirect($_SERVER['PHP_SELF'] . $newQueryString);
-  }
-}
-
 function util_assertNotMirror() {
   if (Config::get('global.mirror')) {
     SmartyWrap::display('mirror_message.tpl');
@@ -202,81 +166,6 @@ function util_assertNotLoggedIn() {
   }
 }
 
-// Assumes the arrays are sorted and do not contain duplicates.
-function util_intersectArrays($a, $b) {
-  $i = 0;
-  $j = 0;
-  $countA = count($a);
-  $countB = count($b);
-  $result = array();
-
-  while ($i < $countA && $j < $countB) {
-    if ($a[$i] < $b[$j]) {
-      $i++;
-    } else if ($a[$i] > $b[$j]) {
-      $j++;
-    } else {
-      $result[] = $a[$i];
-      $i++;
-      $j++;
-    }
-  }
-
-  return $result;
-}
-
-function util_deleteFile($fileName) {
-  if (file_exists($fileName)) {
-    unlink($fileName);
-  }
-}
-
-/**
- * Search engine friendly URLs used for the search page:
- * 1) https://dexonline.ro/definitie[-<sursa>]/<cuvânt>[/<defId>][/paradigma]
- * 2) https://dexonline.ro/lexem[-<sursa>]/<cuvânt>[/<lexemId>][/paradigma]
- * 3) https://dexonline.ro/text[-<sursa>]/<text>
- * Links of the old form (search.php?...) can only come via the search form and should not contain lexemId / definitionId.
- */
-function util_redirectToFriendlyUrl($cuv, $entryId, $lexemId, $sourceUrlName, $text, $showParadigm,
-                                    $format, $all) {
-  if (strpos($_SERVER['REQUEST_URI'], '/search.php?') === false) {
-    return;    // The url is already friendly.
-  }
-
-  if ($format['name'] != 'html') {
-    return;
-  }
-
-  $cuv = urlencode($cuv);
-  $sourceUrlName = urlencode($sourceUrlName);
-
-  $sourcePart = $sourceUrlName ? "-{$sourceUrlName}" : '';
-  $paradigmPart = $showParadigm ? '/paradigma' : '';
-  $allPart = ($all && !$showParadigm) ? '/expandat' : '';
-
-  if ($text) {
-    $url = "text{$sourcePart}/{$cuv}";
-  } else if ($entryId) {
-    $e = Entry::get_by_id($entryId);
-    if (!$e) {
-      util_redirect(util_getWwwRoot());
-    }
-    $short = $e->getShortDescription();
-    $url = "intrare{$sourcePart}/{$short}/{$e->id}/{$paradigmPart}";
-  } else if ($lexemId) {
-    $l = Lexem::get_by_id($lexemId);
-    if (!$l) {
-      util_redirect(util_getWwwRoot());
-    }
-    $url = "lexem/{$l->formNoAccent}/{$l->id}";
-  } else {
-    $url = "definitie{$sourcePart}/{$cuv}{$paradigmPart}";
-  }
-
-  util_redirect(util_getWwwRoot() . $url . $allPart);
-}
-
 function util_suggestNoBanner() {
   if (isset($_SERVER['REQUEST_URI']) && preg_match('/(masturba|fute)/', $_SERVER['REQUEST_URI'])) {
     return true; // No banners on certain obscene pages
@@ -286,85 +175,3 @@ function util_suggestNoBanner() {
   }
   return false;
 }
-
-/* Returns $obj->$prop for every $obj in $a */
-function util_objectProperty($a, $prop) {
-  $results = [];
-  foreach ($a as $obj) {
-    $results[] = $obj->$prop;
-  }
-  return $results;
-}
-
-/* Returns an array of { $v -> true } for every value $v in $a */
-function util_makeSet($a) {
-  $result = array();
-  if ($a) {
-    foreach ($a as $v) {
-      $result[$v] = true;
-    }
-  }
-  return $result;
-}
-
-function util_recount() {
-  Variable::poke(
-    'Count.pendingDefinitions',
-    Model::factory('Definition')->where('status', Definition::ST_PENDING)->count()
-  );
-  Variable::poke(
-    'Count.definitionsWithTypos',
-    Model::factory('Typo')->select('definitionId')->distinct()->count()
-  );
-  Variable::poke(
-    'Count.ambiguousAbbrevs',
-    Definition::countAmbiguousAbbrevs()
-  );
-  Variable::poke(
-    'Count.rawOcrDefinitions',
-    Model::factory('OCR')->where('status', 'raw')->count()
-  );
-  // this takes about 300 ms
-  Variable::poke(
-    'Count.unassociatedDefinitions',
-    Definition::countUnassociated()
-  );
-  Variable::poke(
-    'Count.unassociatedEntries',
-    count(Entry::loadUnassociated())
-  );
-  Variable::poke(
-    'Count.unassociatedLexems',
-    Lexem::countUnassociated()
-  );
-  Variable::poke(
-    'Count.unassociatedTrees',
-    Tree::countUnassociated()
-  );
-  Variable::poke(
-    'Count.ambiguousEntries',
-    count(Entry::loadAmbiguous())
-  );
-  Variable::poke(
-    'Count.lexemesWithoutAccent',
-    Model::factory('Lexem')->where('consistentAccent', 0)->count()
-  );
-  Variable::poke(
-    'Count.ambiguousLexemes',
-    count(Lexem::loadAmbiguous())
-  );
-  Variable::poke(
-    'Count.temporaryLexemes',
-    Model::factory('Lexem')->where('modelType', 'T')->count()
-  );
-  Variable::poke(
-    'Count.treeMentions',
-    Model::factory('Mention')->where('objectType', Mention::TYPE_TREE)->count()
-  );
-  Variable::poke(
-    'Count.lexemesWithComments',
-    Model::factory('Lexem')->where_not_null('comment')->count()
-  );
-}
-
-?>

@@ -35,7 +35,7 @@ foreach ($data as $r) {
     $relations = Relation::loadByMeaningId($r->id);
     $synonyms = $relations[Relation::TYPE_SYNONYM];
     $rep = sprintf('<i>sinonime:</i> %s',
-                   implode(', ', util_objectProperty($synonyms, 'description')));
+                   implode(', ', Util::objectProperty($synonyms, 'description')));
   }
   $results[] = [
     'description' => $r->description,

@@ -76,7 +76,7 @@ Log::info("Index size: $indexSize entries.");
 OS::executeAndAssert("chmod 666 $fileName");
 Log::info("Importing file $fileName into table FullTextIndex");
 DB::executeFromOS("load data local infile \"$fileName\" into table FullTextIndex");
-util_deleteFile($fileName);
+OS::deleteFile($fileName);
 
 if (!Lock::release(Lock::FULL_TEXT_INDEX)) {
   Log::warning('WARNING: could not release lock!');

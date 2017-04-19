@@ -261,7 +261,7 @@ assertEquals('e', $t[1]->transfFrom);
 assertEquals('', $t[1]->transfTo);
 assertEquals('', $t[2]->transfFrom);
 assertEquals('ând', $t[2]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
 $t = FlexStringUtil::extractTransforms('frumos', 'frumoasă', 0);
 assertEquals(3, count($t));
@@ -269,19 +269,19 @@ assertEquals('o', $t[0]->transfFrom);
 assertEquals('oa', $t[0]->transfTo);
 assertEquals('', $t[1]->transfFrom);
 assertEquals('ă', $t[1]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[2]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[2]);
 
 $t = FlexStringUtil::extractTransforms('fi', 'sunt', 0);
 assertEquals(2, count($t));
 assertEquals('fi', $t[0]->transfFrom);
 assertEquals('sunt', $t[0]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[1]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[1]);
 
 $t = FlexStringUtil::extractTransforms('abil', 'abilul', 0);
 assertEquals(2, count($t));
 assertEquals('', $t[0]->transfFrom);
 assertEquals('ul', $t[0]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[1]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[1]);
 
 $t = FlexStringUtil::extractTransforms('alamă', 'alămuri', 0);
 assertEquals(4, count($t));
@@ -291,7 +291,7 @@ assertEquals('ă', $t[1]->transfFrom);
 assertEquals('', $t[1]->transfTo);
 assertEquals('', $t[2]->transfFrom);
 assertEquals('uri', $t[2]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
 $t = FlexStringUtil::extractTransforms('sămânță', 'semințe', 0);
 assertEquals(4, count($t));
@@ -301,7 +301,7 @@ assertEquals('â', $t[1]->transfFrom);
 assertEquals('i', $t[1]->transfTo);
 assertEquals('ă', $t[2]->transfFrom);
 assertEquals('e', $t[2]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
 $t = FlexStringUtil::extractTransforms('deșert', 'deșartelor', 0);
 assertEquals(3, count($t));
@@ -309,7 +309,7 @@ assertEquals('e', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
 assertEquals('', $t[1]->transfFrom);
 assertEquals('elor', $t[1]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[2]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[2]);
 
 $t = FlexStringUtil::extractTransforms('cumătră', 'cumetrelor', 0);
 assertEquals(4, count($t));
@@ -319,7 +319,7 @@ assertEquals('ă', $t[1]->transfFrom);
 assertEquals('e', $t[1]->transfTo);
 assertEquals('', $t[2]->transfFrom);
 assertEquals('lor', $t[2]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
 $t = FlexStringUtil::extractTransforms('crăpa', 'crapă', 0);
 assertEquals(3, count($t));
@@ -327,7 +327,7 @@ assertEquals('ă', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
 assertEquals('a', $t[1]->transfFrom);
 assertEquals('ă', $t[1]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[2]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[2]);
 
 $t = FlexStringUtil::extractTransforms('stradă', 'străzi', 0);
 assertEquals(4, count($t));
@@ -337,7 +337,7 @@ assertEquals('d', $t[1]->transfFrom);
 assertEquals('z', $t[1]->transfTo);
 assertEquals('ă', $t[2]->transfFrom);
 assertEquals('i', $t[2]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
 $t = FlexStringUtil::extractTransforms('frumos', 'frumoasă', 0);
 assertEquals(3, count($t));
@@ -345,7 +345,7 @@ assertEquals('o', $t[0]->transfFrom);
 assertEquals('oa', $t[0]->transfTo);
 assertEquals('', $t[1]->transfFrom);
 assertEquals('ă', $t[1]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[2]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[2]);
 
 $t = FlexStringUtil::extractTransforms('groapă', 'gropilor', 0);
 assertEquals(4, count($t));
@@ -355,7 +355,7 @@ assertEquals('ă', $t[1]->transfFrom);
 assertEquals('i', $t[1]->transfTo);
 assertEquals('', $t[2]->transfFrom);
 assertEquals('lor', $t[2]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
 $t = FlexStringUtil::extractTransforms('căpăta', 'capăt', 0);
 assertEquals(4, count($t));
@@ -365,7 +365,7 @@ assertEquals('ă', $t[1]->transfFrom);
 assertEquals('ă', $t[1]->transfTo);
 assertEquals('a', $t[2]->transfFrom);
 assertEquals('', $t[2]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
 $t = FlexStringUtil::extractTransforms('răscrăcăra', 'răscracăr', 0);
 assertEquals(4, count($t));
@@ -375,7 +375,7 @@ assertEquals('ă', $t[1]->transfFrom);
 assertEquals('ă', $t[1]->transfTo);
 assertEquals('a', $t[2]->transfFrom);
 assertEquals('', $t[2]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[3]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
 $t = FlexStringUtil::extractTransforms('răscrăcăra', 'rascrăcăr', 0);
 assertEquals(5, count($t));
@@ -387,13 +387,13 @@ assertEquals('ă', $t[2]->transfFrom);
 assertEquals('ă', $t[2]->transfTo);
 assertEquals('a', $t[3]->transfFrom);
 assertEquals('', $t[3]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[4]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[4]);
 
 $t = FlexStringUtil::extractTransforms('foo', 'foo', 0);
 assertEquals(2, count($t));
 assertEquals('', $t[0]->transfFrom);
 assertEquals('', $t[0]->transfTo);
-assertEquals(UNKNOWN_ACCENT_SHIFT, $t[1]);
+assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[1]);
 
 // Try some accents
 $t = FlexStringUtil::extractTransforms("căpăt'a", "c'apăt", 0);
@@ -431,7 +431,7 @@ $t = FlexStringUtil::extractTransforms("n'ailon", "n'ailonului", 0);
 assertEquals(2, count($t));
 assertEquals('', $t[0]->transfFrom);
 assertEquals('ului', $t[0]->transfTo);
-assertEquals(NO_ACCENT_SHIFT, $t[1]);
+assertEquals(ModelDescription::NO_ACCENT_SHIFT, $t[1]);
 
 assertEquals(1, FlexStringUtil::countVowels('abc'));
 assertEquals(2, FlexStringUtil::countVowels('abcde'));
@@ -471,11 +471,11 @@ assertEqualArrays(array('ă', 'a', 'â', 'ș', 'ț'),
                   AdminStringUtil::unicodeExplode('ăaâșț'));
 
 assertEqualArrays(array(1, 5, 10),
-                  util_intersectArrays(array(1, 3, 5, 7, 9, 10),
-                                       array(1, 2, 4, 5, 6, 8, 10)));
+                  Util::intersectArrays([1, 3, 5, 7, 9, 10],
+                                        [1, 2, 4, 5, 6, 8, 10]));
 assertEqualArrays(array(),
-                  util_intersectArrays(array(2, 4, 6, 8),
-                                       array(1, 3, 5, 7)));
+                  Util::intersectArrays([2, 4, 6, 8],
+                                        [1, 3, 5, 7]));
 
 assert(!Lock::release('test'));
 assert(!Lock::exists('test'));

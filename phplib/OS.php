@@ -34,6 +34,11 @@ class OS {
     $files = scandir($path);
     return count($files) == 2;
   }
-}
 
-?>
+  static function deleteFile($fileName) {
+    if (file_exists($fileName)) {
+      unlink($fileName);
+    }
+  }
+
+}

@@ -50,7 +50,7 @@ class WikiArticle extends BaseObject implements DatedObject {
     if (!count($entries)) {
       return [];
     }
-    $entryIds = util_objectProperty($entries, 'id');
+    $entryIds = Util::objectProperty($entries, 'id');
 
     return Model::factory('WikiArticle')
       ->table_alias('wa')

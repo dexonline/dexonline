@@ -124,7 +124,7 @@ class Meaning extends BaseObject implements DatedObject {
 
     // Keep track of meanings that have incoming mentions
     $meaningsHavingMentions = Mention::getMeaningsHavingMentions($tree->id);
-    $meaningIdsHavingMentions = util_objectProperty($meaningsHavingMentions, 'id');
+    $meaningIdsHavingMentions = Util::objectProperty($meaningsHavingMentions, 'id');
 
     // Keep track of original reps, mapped by id.
     // Then we can give warnings when meanings with mentions change.

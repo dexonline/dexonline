@@ -2,7 +2,6 @@
 require_once("../../phplib/util.php"); 
 User::require(User::PRIV_EDIT);
 util_assertNotMirror();
-util_hideEmptyRequestParameters();
 DebugInfo::disable();
 
 $modelType = Request::get('modelType', 'M');
@@ -118,7 +117,7 @@ SmartyWrap::display('admin/mergeLexems.tpl');
 /** Returns an array containing only the accented forms, not the entire InflectedForm objects **/
 function loadIfArray($lexem) {
   $ifs = $lexem->loadInflectedForms();
-  return util_objectProperty($ifs, 'form');
+  return Util::objectProperty($ifs, 'form');
 }
 
 ?>

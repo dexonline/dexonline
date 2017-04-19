@@ -16,7 +16,7 @@ function getSimpleDefinitionsForLexemIds($lexemIds) {
           ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
           ->where_in('l.id', $lexemIds)
           ->find_many();
-  $defIds = util_objectProperty($defIds, 'definitionId');
+  $defIds = Util::objectProperty($defIds, 'definitionId');
     
   $defs = Model::factory('DefinitionSimple')
         ->where_in('definitionId', $defIds)

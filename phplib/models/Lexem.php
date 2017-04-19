@@ -127,7 +127,7 @@ class Lexem extends BaseObject implements DatedObject {
   }
 
   function getSourceIds() {
-    return util_objectProperty($this->getSources(), 'id');
+    return Util::objectProperty($this->getSources(), 'id');
   }
 
   function getEntryLexems() {
@@ -152,7 +152,7 @@ class Lexem extends BaseObject implements DatedObject {
   }
 
   function getEntryIds() {
-    return util_objectProperty($this->getEntries(), 'id');
+    return Util::objectProperty($this->getEntries(), 'id');
   }
 
   function getObjectTags() {

@@ -75,7 +75,7 @@ class Visual extends BaseObject implements DatedObject {
     }
 
     $map = [];
-    $entryIds = util_objectProperty($entries, 'id');
+    $entryIds = Util::objectProperty($entries, 'id');
 
     $vs = Model::factory('Visual')
         ->where_in('entryId', $entryIds)

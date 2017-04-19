@@ -76,7 +76,7 @@ $dbl = Model::factory('Lexem')
   ->where('ed.definitionId', $def->id)
   ->order_by_asc('formNoAccent')
   ->find_many();
-$dblIds = util_objectProperty($dbl, 'id');
+$dblIds = Util::objectProperty($dbl, 'id');
 
 $passedTests = false;
 

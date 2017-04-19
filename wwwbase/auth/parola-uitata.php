@@ -23,7 +23,7 @@ if ($submitButton) {
       // Create the token
       $pt = Model::factory('PasswordToken')->create();
       $pt->userId = $user->id;
-      $pt->token = util_randomCapitalLetterString(20);
+      $pt->token = StringUtil::randomCapitalLetters(20);
       $pt->save();
 
       // Send email

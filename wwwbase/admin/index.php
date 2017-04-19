@@ -1,13 +1,13 @@
 <?php
-require_once("../../phplib/util.php");
+require_once('../../phplib/util.php');
 User::require(User::PRIV_ANY);
 util_assertNotMirror();
 
 $recountButton = Request::has('recountButton');
 
 if ($recountButton) {
-  util_recount();
-  util_redirect("index.php");
+  Util::recount();
+  util_redirect('index.php');
 }
 
 $reports = [
@@ -28,7 +28,7 @@ $reports = [
   ],
   ['text' => 'Definiții OCR neverificate',
    'url' => 'admin/definitionEdit',
-   'count' => sprintf("%d (disponibile: %d)",
+   'count' => sprintf('%d (disponibile: %d)',
                       Variable::peek('Count.rawOcrDefinitions'),
                       OCR::countAvailable(Session::getUserId())),
    'privilege' => User::PRIV_EDIT

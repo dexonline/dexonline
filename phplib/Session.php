@@ -44,7 +44,7 @@ class Session {
     self::set('user', $user);
     $cookie = Model::factory('Cookie')->create();
     $cookie->userId = $user->id;
-    $cookie->cookieString = util_randomCapitalLetterString(12);
+    $cookie->cookieString = StringUtil::randomCapitalLetters(12);
     $cookie->save();
     setcookie("prefs[lll]", $cookie->cookieString, time() + self::ONE_YEAR_IN_SECONDS, '/');
     Log::info('Logged in, IP=' . $_SERVER['REMOTE_ADDR']);

@@ -366,6 +366,14 @@ class StringUtil {
                         "<span class=\"accented\">\$1</span>",
                         $s);
   }
+
+  static function randomCapitalLetters($length) {
+    $result = '';
+    for ($i = 0; $i < $length; $i++) {
+      $result .= chr(rand(0, 25) + ord('A'));
+    }
+    return $result;
+  }
 }
 
 ?>

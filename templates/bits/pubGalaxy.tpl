@@ -5,15 +5,15 @@
 </script>
 <div id='div-pg-ad-1490338946-0'>
   <script type='text/javascript'>
-   if (getWidth() >= 800) {
-     googletag.cmd.push(function() { googletag.pubads().display('/8095840/.2_8651.3_dexonline.ro_tier1', [728, 90], 'div-pg-ad-1490338946-0'); });
+    if (getWidth() >= 800) {
+      googletag.cmd.push(function() { googletag.pubads().display('/8095840/.2_8651.3_dexonline.ro_tier1', [728, 90], 'div-pg-ad-1490338946-0'); });
    }
   </script>
 </div>
-<div id='div-pg-ad-1490338946-1'>
+<div id='div-pg-ad-1492680472-1'>
   <script type='text/javascript'>
-   if (getWidth() < 800) {
-     googletag.cmd.push(function() { googletag.pubads().display('/8095840/.2_8803.5_dexonline.ro_tier1', [320, 50], 'div-pg-ad-1490338946-1'); });
-   }
+    if (getWidth() < 800) {
+      googletag.cmd.push(function() { googletag.pubads().display('/8095840/.2_9288.28_dexonline.ro_tier1', [320, 100], 'div-pg-ad-1492680472-1'); });
+    }
   </script>
 </div>

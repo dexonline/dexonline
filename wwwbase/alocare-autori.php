@@ -1,6 +1,6 @@
 <?php
 require_once("../phplib/Core.php");
-User::require(User::PRIV_WOTD);
+User::mustHave(User::PRIV_WOTD);
 
 $artists = Model::factory('WotdArtist')->find_many();
 

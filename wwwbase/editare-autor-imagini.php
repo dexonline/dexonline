@@ -1,6 +1,6 @@
 <?php
 require_once('../phplib/Core.php');
-User::require(User::PRIV_WOTD);
+User::mustHave(User::PRIV_WOTD);
 
 $id = Request::get('id');
 $deleteId = Request::get('deleteId');

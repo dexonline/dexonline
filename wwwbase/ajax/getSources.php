@@ -1,7 +1,7 @@
 <?php
 
 require_once("../../phplib/Core.php");
-User::require(User::PRIV_STRUCT | User::PRIV_EDIT);
+User::mustHave(User::PRIV_STRUCT | User::PRIV_EDIT);
 Util::assertNotMirror();
 
 $query = Request::get('term');

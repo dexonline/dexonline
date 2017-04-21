@@ -8,7 +8,7 @@ $userId = Request::get('userId');
 $medalsGranted = Request::get('medalsGranted');
 
 if ($medalSaveButton) {
-  User::require(User::PRIV_ADMIN);
+  User::mustHave(User::PRIV_ADMIN);
   $user = User::get_by_id($userId);
   $user->medalMask = Medal::getCanonicalMask(array_sum($medalsGranted));
   $user->save();

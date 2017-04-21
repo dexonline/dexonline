@@ -2,7 +2,7 @@
 require_once("../../phplib/Core.php"); 
 ini_set('memory_limit', '512M');
 ini_set('max_execution_time', '3600');
-User::require(User::PRIV_EDIT);
+User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 DebugInfo::disable();
 

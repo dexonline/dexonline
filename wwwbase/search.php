@@ -63,8 +63,8 @@ $all = Request::get('all');
 
 $redirect = Session::get('redirect');
 $redirectFrom = Session::get('init_word', '');
-Session::unset('redirect');
-Session::unset('init_word');
+Session::unsetVar('redirect');
+Session::unsetVar('init_word');
 
 if ($cuv && !$redirect) {
   $cuv = StringUtil::cleanupQuery($cuv);

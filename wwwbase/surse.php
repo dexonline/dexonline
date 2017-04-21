@@ -4,7 +4,7 @@ require_once('../phplib/Core.php');
 $saveButton = Request::has('saveButton');
 
 if ($saveButton) {
-  User::require(User::PRIV_ADMIN);
+  User::mustHave(User::PRIV_ADMIN);
   $order = 1;
   $ids = Request::get('ids');
   foreach ($ids as $id) {

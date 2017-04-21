@@ -1,6 +1,6 @@
 <?php
 require_once("../phplib/Core.php");
-User::require(User::PRIV_ADMIN);
+User::mustHave(User::PRIV_ADMIN);
 
 $userIds = Request::get('userIds', []);
 $newNick = Request::get('newNick');

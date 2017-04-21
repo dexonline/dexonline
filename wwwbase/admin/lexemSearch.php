@@ -1,6 +1,6 @@
 <?php
 require_once("../../phplib/Core.php"); 
-User::require(User::PRIV_EDIT | User::PRIV_STRUCT);
+User::mustHave(User::PRIV_EDIT | User::PRIV_STRUCT);
 Util::assertNotMirror();
 
 $form = Request::get('form');

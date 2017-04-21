@@ -174,7 +174,7 @@ class Session {
     $_SESSION[$var] = $value;
   }
 
-  static function unset($var) {
+  static function unsetVar($var) {
     if (isset($_SESSION)) {
       unset($_SESSION[$var]);
       if (!count($_SESSION)) {

@@ -30,7 +30,7 @@ class FlashMessage {
   static function restoreFromSession() {
     if ($messages = Session::get('flashMessages')) {
       self::$messages = $messages;
-      Session::unset('flashMessages');
+      Session::unsetVar('flashMessages');
     }
   }
 }

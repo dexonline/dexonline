@@ -1,6 +1,6 @@
 <?php
 require_once("../phplib/Core.php");
-User::require(User::PRIV_EDIT);
+User::mustHave(User::PRIV_EDIT);
 
 $DEF_LIMIT = 20;
 $LEXEM_LIMIT = 100;

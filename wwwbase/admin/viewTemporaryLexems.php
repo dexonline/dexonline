@@ -1,7 +1,7 @@
 <?php
 require_once('../../phplib/Core.php');
 ini_set('memory_limit', '512M');
-User::require(User::PRIV_EDIT);
+User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
 $sourceId = Request::get('source');

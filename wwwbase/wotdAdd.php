@@ -1,7 +1,7 @@
 <?php
 
 require_once("../phplib/Core.php");
-User::require(User::PRIV_WOTD);
+User::mustHave(User::PRIV_WOTD);
 Util::assertNotMirror();
 
 $defId = Request::get('defId');

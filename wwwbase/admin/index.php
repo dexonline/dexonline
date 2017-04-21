@@ -1,6 +1,6 @@
 <?php
 require_once('../../phplib/Core.php');
-User::require(User::PRIV_ANY);
+User::mustHave(User::PRIV_ANY);
 Util::assertNotMirror();
 
 $recountButton = Request::has('recountButton');

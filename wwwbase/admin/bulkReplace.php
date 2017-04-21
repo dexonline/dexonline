@@ -1,7 +1,7 @@
 <?php
 require_once("../../phplib/Core.php"); 
 ini_set('max_execution_time', '3600');
-User::require(User::PRIV_ADMIN);
+User::mustHave(User::PRIV_ADMIN);
 Util::assertNotMirror();
 
 $MAX_AFFECTED = 1000;

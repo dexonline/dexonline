@@ -1,6 +1,6 @@
 <?php
 require_once("../phplib/Core.php");
-User::require(User::PRIV_EDIT | User::PRIV_ADMIN);
+User::mustHave(User::PRIV_EDIT | User::PRIV_ADMIN);
 
 $projectId = Request::get('projectId');
 $saveButton = Request::has('saveButton');

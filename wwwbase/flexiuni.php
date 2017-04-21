@@ -1,6 +1,6 @@
 <?php
 require_once("../phplib/Core.php");
-User::require(User::PRIV_LOC);
+User::mustHave(User::PRIV_LOC);
 
 $saveButton = Request::has('saveButton');
 $inflectionIds = Request::get('inflectionIds');

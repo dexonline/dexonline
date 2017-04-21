@@ -40,7 +40,7 @@ class User extends BaseObject {
   }
 
   // If the user does not have at least one privilege from the mask, redirect to the home page.
-  static function require($priv) {
+  static function mustHave($priv) {
     if (!self::can($priv)) {
       FlashMessage::add('Nu aveți privilegii suficiente pentru a accesa această pagină.');
       Util::redirect(Core::getWwwRoot());

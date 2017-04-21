@@ -1,7 +1,7 @@
 <?php
 
 require_once("../phplib/Core.php");
-User::require(User::PRIV_EDIT);
+User::mustHave(User::PRIV_EDIT);
 
 # Select random definition to search.
 $count = DB::getSingleValue("select count(*) from Definition where status = 0 and length(internalRep) > 250;");

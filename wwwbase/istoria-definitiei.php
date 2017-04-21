@@ -1,7 +1,7 @@
 <?php
 require_once("../phplib/Core.php");
 
-User::require(User::PRIV_EDIT);
+User::mustHave(User::PRIV_EDIT);
 
 $id = Request::get('id');
 $def = Definition::get_by_id($id);

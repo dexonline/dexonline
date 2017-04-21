@@ -10,7 +10,7 @@
 {/if}
 
 {if !$suggestNoBanner && $skinVariables.banner}
-  <section class="row topBanner" id="banner_{$id}">
+  <section class="row" id="banner_{$id}">
     <div id="bannerWrapper" class="center-block text-center">
       {if $adsProvider == 'diverta'}
         {* TODO: edit revive.tpl to make this work *}

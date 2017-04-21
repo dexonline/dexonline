@@ -309,13 +309,22 @@
           <option value="1" selected>abreviat</option>
         </select>
 
+        <div class="checkbox">
+          <label>
+            <input id="structurableFilter" type="checkbox"> numai definițiile de structurat
+          </label>
+        </div>
+
       </div>
     </form>
 
     <form method="post" role="form">
       {foreach $searchResults as $row}
         {$def=$row->definition}
-        <div class="defWrapper {if $def->structured}structured{else}unstructured{/if}" id="def_{$def->id}">
+        <div class="defWrapper
+                    {if $def->structured}structured{/if}
+                    {if $row->source->structurable}structurable{/if}"
+             id="def_{$def->id}">
           <div data-code="0" class="rep internal hiddenRep">{$def->internalRepAbbrev|escape}</div>
           <div data-code="1" class="rep hiddenRep">{$def->htmlRepAbbrev}</div>
           <div data-code="2" class="rep internal hiddenRep">{$def->internalRep|escape}</div>

@@ -31,7 +31,7 @@ $(function() {
     $('.toggleRepLink').click(toggleRepClick);
     $('.toggleRepSelect').click(toggleRepChange);
     $('.toggleStructuredLink').click(toggleStructuredClick);
-    $('#defFilterSelect').click(defFilterChange);
+    $('#defFilterSelect, #structurableFilter').click(defFilterChange);
     $('#treeFilterSelect').change(treeFilterChange);
 
     $('button[name="delete"]').click(function() {
@@ -82,10 +82,8 @@ $(function() {
     var id = parent.attr('id').split('_')[1];
     if (parent.hasClass('structured')) {
       parent.removeClass('structured');
-      parent.addClass('unstructured');
       var value = 0;
     } else {
-      parent.removeClass('unstructured');
       parent.addClass('structured');
       var value = 1;
     }
@@ -105,16 +103,19 @@ $(function() {
   }
 
   function defFilterChange() {
-    if ($(this).val() == 'structured') {
-      $('.defWrapper.unstructured').hide('slow');
-    } else {
-      $('.defWrapper.unstructured').show('slow');
-    }
-    if ($(this).val() == 'unstructured') {
-      $('.defWrapper.structured').hide('slow');
-    } else {
-      $('.defWrapper.structured').show('slow');
-    }
+    var status = $('#defFilterSelect').val();
+    var structurable = $('#structurableFilter').is(':checked');
+    
+    $('.defWrapper').each(function() {
+      var show = true;
+      if (((status == 'structured') && $(this).is(':not(.structured)')) ||
+          ((status == 'unstructured') && $(this).is('.structured')) ||
+          (structurable && !$(this).is('.structurable'))) {
+        show = false;
+      }
+
+      $(this).toggle(show);
+    });
   }
 
   init();

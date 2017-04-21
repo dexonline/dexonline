@@ -2,6 +2,9 @@
 
 class Core {
 
+  private static $wwwRoot;
+  private static $rootPath;
+
   static function autoloadLibClass($className) {
     $filename = self::getRootPath() . 'phplib' . DIRECTORY_SEPARATOR . $className . '.php';
     if (file_exists($filename)) {
@@ -61,14 +64,14 @@ class Core {
     if ($pos === FALSE) {
       $pos = strrpos($fileName, "{$ds}app{$ds}");
     }
-    $GLOBALS['util_rootPath'] = substr($fileName, 0, $pos + 1);
+    self::$rootPath = substr($fileName, 0, $pos + 1);
   }
 
   /**
    * Returns the absolute path of the dexonline folder in the file system.
    */
   static function getRootPath() {
-    return $GLOBALS['util_rootPath'];
+    return self::$rootPath;
   }
 
   /**
@@ -92,14 +95,14 @@ class Core {
         $result = '/';
       }
     }
-    $GLOBALS['util_wwwRoot'] = $result;
+    self::$wwwRoot = $result;
   }
 
   /**
    * Returns the root URL for dexonline (since it could be running in a subdirectory).
    */
   static function getWwwRoot() {
-    return $GLOBALS['util_wwwRoot'];
+    return self::$wwwRoot;
   }
 
   static function getImgRoot() {

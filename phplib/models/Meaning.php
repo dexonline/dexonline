@@ -184,7 +184,7 @@ class Meaning extends BaseObject implements DatedObject {
   }
 
   /* Deletes all the meanings associated with $treeId that aren't in the $meaningIds set */
-  public static function deleteNotInSet($meaningIds, $treeId) {
+  static function deleteNotInSet($meaningIds, $treeId) {
     $meanings = self::get_all_by_treeId($treeId);
     foreach ($meanings as $m) {
       if (!in_array($m->id, $meaningIds)) {
@@ -193,7 +193,7 @@ class Meaning extends BaseObject implements DatedObject {
     }
   }
 
-  public function save() {
+  function save() {
     parent::save();
 
     // extract and save all mentions contained in this meaning
@@ -207,7 +207,7 @@ class Meaning extends BaseObject implements DatedObject {
     Mention::wipeAndRecreate($this->id, Mention::TYPE_MEANING, $u);
   }
 
-  public function delete() {
+  function delete() {
     MeaningSource::delete_all_by_meaningId($this->id);
     ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_MEANING);
     Relation::delete_all_by_meaningId($this->id);

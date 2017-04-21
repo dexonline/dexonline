@@ -14,7 +14,7 @@ class ConstraintMap extends BaseObject {
   /**
    * Given a restriction like 'PT', and an inflection, returns true iff the inflection ID is valid under all the restrictions.
    */
-  public static function validInflection($inflId, $restr, $variant = self::ALL_VARIANTS) {
+  static function validInflection($inflId, $restr, $variant = self::ALL_VARIANTS) {
     $count = Model::factory('ConstraintMap')
            ->where_raw("locate(code, binary '$restr') > 0")
            ->where('inflectionId', $inflId)
@@ -36,7 +36,7 @@ class ConstraintMap extends BaseObject {
   /**
    * @$restriction is a string of 0 or more restrictions
    **/
-  public static function allows($restriction, $inflId, $variant) {
+  static function allows($restriction, $inflId, $variant) {
     self::buildMap();
     if (!isset(self::$map[$inflId])) {
       return true; // Nothing forbids this inflection

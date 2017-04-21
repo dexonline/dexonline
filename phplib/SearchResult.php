@@ -17,7 +17,7 @@ class SearchResult {
   public $wotdType;
   public $wotdDate;
 
-  public static function mapDefinitionArray($definitionArray) {
+  static function mapDefinitionArray($definitionArray) {
     if (empty($definitionArray)) {
       return [];
     }

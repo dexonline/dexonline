@@ -5,7 +5,7 @@ class EntryDefinition extends Association implements DatedObject {
   static $classes = ['Entry', 'Definition'];
   static $fields = ['entryId', 'definitionId'];
 
-  public static function dissociateDefinition($definitionId) {
+  static function dissociateDefinition($definitionId) {
     // If by deleting this definition, any associated entries become unassociated, delete them
     $eds = EntryDefinition::get_all_by_definitionId($definitionId);
     EntryDefinition::delete_all_by_definitionId($definitionId);

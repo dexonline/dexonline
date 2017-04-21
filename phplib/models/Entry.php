@@ -122,7 +122,7 @@ class Entry extends BaseObject implements DatedObject {
     return $map;
   }
 
-  public static function loadUnassociated() {
+  static function loadUnassociated() {
     $query = 'select * from Entry ' .
            'where id not in (select entryId from EntryLexem) ' .
            'or id not in (select entryId from EntryDefinition)';
@@ -134,7 +134,7 @@ class Entry extends BaseObject implements DatedObject {
   /**
    * For every set of entries having the same case-sensitive description, load one of them at random.
    */
-  public static function loadAmbiguous() {
+  static function loadAmbiguous() {
     // The key here is to create a subquery of all the case-insensitiv descriptions
     // appearing at least twice.
     $query = 'select * from Entry ' .
@@ -253,7 +253,7 @@ class Entry extends BaseObject implements DatedObject {
     return $errors;
   }
 
-  public function deleteEmptyTrees() {
+  function deleteEmptyTrees() {
     foreach ($this->getTrees() as $t) {
       $meaning = Meaning::get_by_treeId($t->id);
       if (!$meaning) {
@@ -262,7 +262,7 @@ class Entry extends BaseObject implements DatedObject {
     }
   }
 
-  public function mergeInto($otherId) {
+  function mergeInto($otherId) {
     $this->deleteEmptyTrees();
 
     EntryDefinition::copy($this->id, $otherId, 1);
@@ -284,7 +284,7 @@ class Entry extends BaseObject implements DatedObject {
     $this->delete();
   }
 
-  public function delete() {
+  function delete() {
     EntryDefinition::delete_all_by_entryId($this->id);
     EntryLexem::delete_all_by_entryId($this->id);
     TreeEntry::delete_all_by_entryId($this->id);
@@ -306,7 +306,7 @@ class Entry extends BaseObject implements DatedObject {
     parent::delete();
   }
 
-  public function __toString() {
+  function __toString() {
     return $this->description;
   }
 

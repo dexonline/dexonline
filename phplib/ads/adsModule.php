@@ -7,9 +7,9 @@ abstract class AdsModule {
   // The caller is responsible for passing these on to Smarty, then including
   // the corresponding Smarty template.
   // Returns null if the implementing class cannot serve a relevant ad.
-  abstract public function run($lexems, $definitions);
+  abstract function run($lexems, $definitions);
 
-  public static function runAllModules($lexems, $definitions) {
+  static function runAllModules($lexems, $definitions) {
     $adsModules = Config::get('global.adsModulesH');
     if ($adsModules) {
       foreach ($adsModules as $adsModule) {

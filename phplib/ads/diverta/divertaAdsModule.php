@@ -1,7 +1,7 @@
 <?php
 class DivertaAdsModule extends AdsModule {
 
-  public function run($lexems, $definitions) {
+  function run($lexems, $definitions) {
     if (empty($lexems) && empty($definitions)) {
       // If we are called from a page with no keywords, display one of the top 10 highest CTR books.
       $random = rand(0, 9);

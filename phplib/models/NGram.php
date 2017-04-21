@@ -15,7 +15,7 @@ class NGram extends BaseObject {
   }
 
   // Returns an array of n-grams.
-  public static function split($s) {
+  static function split($s) {
     $s = self::canonicalize($s);
     $s = str_repeat('#', self::$NGRAM_SIZE - 1) . $s . str_repeat('%', self::$NGRAM_SIZE - 1);
     $len = mb_strlen($s);
@@ -26,7 +26,7 @@ class NGram extends BaseObject {
     return $results;
   }
 
-  public static function searchNGram($cuv) {
+  static function searchNGram($cuv) {
     $cuv = self::canonicalize($cuv);
     $leng = mb_strlen($cuv);
     
@@ -71,7 +71,7 @@ class NGram extends BaseObject {
   }
   
   /* Find lexems with at least 50% matching n-grams */
-  public static function searchLexemIds($cuv) {
+  static function searchLexemIds($cuv) {
     $ngramList = self::split($cuv);
     $hash = array();
     foreach ($ngramList as $i => $ngram) {

@@ -16,15 +16,15 @@ class Inflection extends BaseObject {
   const ARTICLE_NONE = 1;
   const ARTICLE_DEFINITE = 2;
 
-  public static function loadParticiple() {
+  static function loadParticiple() {
     return Model::factory('Inflection')->where_like('description', '%participiu%')->find_one();
   }
 
-  public static function loadLongInfinitive() {
+  static function loadLongInfinitive() {
     return Model::factory('Inflection')->where_like('description', '%infinitiv lung%')->find_one();
   }
 
-  public static function mapById($inflections) {
+  static function mapById($inflections) {
     $result = array();
     foreach ($inflections as $i) {
       $result[$i->id] = $i;
@@ -32,7 +32,7 @@ class Inflection extends BaseObject {
     return $result;
   }
 
-  public function delete() {
+  function delete() {
     DB::execute("update Inflection set rank = rank - 1 where modelType = '{$this->modelType}' and rank > {$this->rank}");
     parent::delete();
   }

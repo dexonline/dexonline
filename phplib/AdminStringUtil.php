@@ -138,7 +138,7 @@ class AdminStringUtil {
     return ctype_alpha($char) || in_array($char, StringUtil::$LETTERS['unicode']);
   }
 
-  public static function formatLexem($s) {
+  static function formatLexem($s) {
     return self::process($s, ['trim', 'strip_tags', 'StringUtil::stripHtmlEscapeCodes']);
   }
 
@@ -526,7 +526,7 @@ class AdminStringUtil {
     return $result;
   }
 
-  public static function removeAccents($s) {
+  static function removeAccents($s) {
     return str_replace(self::$ACCENTS['accented'], self::$ACCENTS['unaccented'], $s);
   }
 
@@ -705,7 +705,7 @@ class AdminStringUtil {
     return $s;
   }
 
-  public static function expandAbbreviations($s, $sourceId) {
+  static function expandAbbreviations($s, $sourceId) {
     $abbrevs = self::loadAbbreviations($sourceId);
     $matches = array();
     preg_match_all("/#([^#]*)#/", $s, $matches, PREG_OFFSET_CAPTURE);

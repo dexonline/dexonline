@@ -4,7 +4,7 @@ class LocVersion {
   public $name;
   public $freezeTimestamp;
 
-  public function getDate() {
+  function getDate() {
     if (!$this->freezeTimestamp) {
       return 'curentă';
     } else {
@@ -12,11 +12,11 @@ class LocVersion {
     }
   }
 
-  public function getDbName() {
+  function getDbName() {
     return str_replace('.', '_', $this->name);
   }
 
-  public static function changeDatabase($versionName) {
+  static function changeDatabase($versionName) {
     $lvs = Config::getLocVersions();
     if ($versionName == $lvs[0]->name || !$versionName) {
       $dbInfo = DB::splitDsn();

@@ -15,7 +15,7 @@ class SearchLog {
    * @access public
    * @return void
    **/
-  public function __construct($query, $queryBeforeRedirect, $searchType, $redirect = false, &$results = null) {
+  function __construct($query, $queryBeforeRedirect, $searchType, $redirect = false, &$results = null) {
     if (!Config::get('search-log.enabled') || lcg_value() > Config::get('search-log.fraction')) {
       $this->query = null;
       return false;
@@ -49,7 +49,7 @@ class SearchLog {
    * @access public
    * @return boolean
    **/
-  public function logData() {
+  function logData() {
     //If we decide to put the logged data into a table, then call $this->insert()
     if (!$this->query) {
       return false;

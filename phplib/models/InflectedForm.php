@@ -3,7 +3,7 @@
 class InflectedForm extends BaseObject {
   public static $_table = 'InflectedForm';
 
-  public static function create($form = null, $lexemId = null, $inflectionId = null,
+  static function create($form = null, $lexemId = null, $inflectionId = null,
                                 $variant = null, $recommended = 1) {
     $if = Model::factory('InflectedForm')->create();
     $if->form = $form;
@@ -16,11 +16,11 @@ class InflectedForm extends BaseObject {
     return $if;
   }
 
-  public function getHtmlForm() {
+  function getHtmlForm() {
     return StringUtil::highlightAccent($this->form);
   }
 
-  public static function mapByInflectionRank($ifs) {
+  static function mapByInflectionRank($ifs) {
     $result = array();
     foreach ($ifs as $if) {
       $inflection = Inflection::get_by_id($if->inflectionId);
@@ -33,7 +33,7 @@ class InflectedForm extends BaseObject {
   }
 
   // The inflection ID implies the correct canonical model type
-  public static function deleteByModelNumberInflectionId($modelNumber, $inflId) {
+  static function deleteByModelNumberInflectionId($modelNumber, $inflId) {
     // Idiorm doesn't support deletes with joins
     DB::execute(sprintf("
       delete i
@@ -43,7 +43,7 @@ class InflectedForm extends BaseObject {
     ", addslashes($modelNumber), $inflId));
   }
 
-  public function save() {
+  function save() {
     $this->formUtf8General = $this->formNoAccent;
     parent::save();
   }  

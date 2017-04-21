@@ -33,16 +33,16 @@ class Source extends BaseObject implements DatedObject {
    **/
   public static $UNKNOWN_PERCENT = -1.0;
 
-  public function getTypeName() {
+  function getTypeName() {
     return self::$TYPE_NAMES[$this->type];
   }
 
-  public function getImportTypeLabel() {
+  function getImportTypeLabel() {
     return self::$IMPORT_TYPE_LABELS[$this->importType];
   }
 
 
-  public function updatePercentComplete() {
+  function updatePercentComplete() {
     switch ($this->defCount) {
     case self::$UNKNOWN_DEF_COUNT: $this->percentComplete = self::$UNKNOWN_PERCENT; break;
     case 0: $this->percentComplete = 0; break;
@@ -50,7 +50,7 @@ class Source extends BaseObject implements DatedObject {
     }
   }
 
-  public function isUnknownPercentComplete() {
+  function isUnknownPercentComplete() {
     return $this->percentComplete == self::$UNKNOWN_PERCENT;
   }
 }

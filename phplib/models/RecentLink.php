@@ -5,7 +5,7 @@ class RecentLink extends BaseObject {
 
   const MAX_RECENT_LINKS = 20;
 
-  public static function add($text) {
+  static function add($text) {
     $userId = Session::getUserId();
     $url = $_SERVER['REQUEST_URI'];
     $rl = Model::factory('RecentLink')
@@ -26,7 +26,7 @@ class RecentLink extends BaseObject {
   }
 
   // Also deletes the ones in excess of MAX_RECENT_LINKS
-  public static function load() {
+  static function load() {
     $userId = Session::getUserId();
     $recentLinks = Model::factory('RecentLink')
                  ->where('userId', $userId)

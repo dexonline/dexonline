@@ -41,7 +41,7 @@ class Levenshtein {
     return self::$DIST_OTHER;
   }
 
-  public static function dist($s1, $s2) {
+  static function dist($s1, $s2) {
     $s1 = mb_strtolower(StringUtil::unicodeToLatin($s1));
     $s2 = mb_strtolower(StringUtil::unicodeToLatin($s2));
 

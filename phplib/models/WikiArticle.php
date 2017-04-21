@@ -3,7 +3,7 @@
 class WikiArticle extends BaseObject implements DatedObject {
   public static $_table = 'WikiArticle';
 
-  public function extractKeywords() {
+  function extractKeywords() {
     $result = array();
 
     // Capture the {{CuvinteCheie|...}} template
@@ -25,19 +25,19 @@ class WikiArticle extends BaseObject implements DatedObject {
     return $result;
   }
 
-  public function getUrlTitle() {
+  function getUrlTitle() {
     return self::wikiTitleToUrlTitle($this->title);
   }
 
-  public static function urlTitleToWikiTitle($urlTitle) {
+  static function urlTitleToWikiTitle($urlTitle) {
     return str_replace('_', ' ', $urlTitle);
   }
 
-  public static function wikiTitleToUrlTitle($wikiTitle) {
+  static function wikiTitleToUrlTitle($wikiTitle) {
     return urlencode(str_replace(' ', '_', $wikiTitle));
   }
 
-  public static function loadAllTitles() {
+  static function loadAllTitles() {
     $rows = DB::getArrayOfRows("select section, title from WikiArticle left join WikiSection using (pageId) order by section, title");
     $result = array();
     foreach ($rows as $row) {
@@ -46,7 +46,7 @@ class WikiArticle extends BaseObject implements DatedObject {
     return $result;
   }
 
-  public static function loadForEntries($entries) {
+  static function loadForEntries($entries) {
     if (!count($entries)) {
       return [];
     }
@@ -64,11 +64,11 @@ class WikiArticle extends BaseObject implements DatedObject {
       ->find_many();
   }
 
-  public static function getRss() {
+  static function getRss() {
     return Model::factory('WikiArticle')->order_by_desc('modDate')->limit(25)->find_many();
   }
 
-  public function delete() {
+  function delete() {
     WikiKeyword::deleteByWikiArticleId($this->id);
     parent::delete();
   }

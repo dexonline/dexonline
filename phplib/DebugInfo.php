@@ -6,7 +6,7 @@ class DebugInfo {
   private static $enabled = true;
   public static $debugInfo = [];
 
-  public static function init() {
+  static function init() {
     self::$startTimestamp = self::$lastClockReset = self::getTimeInMillis();
   }
 
@@ -15,21 +15,21 @@ class DebugInfo {
     return (int)($seconds * 1000);
   }
 
-  public static function resetClock() {
+  static function resetClock() {
     self::$lastClockReset = self::getTimeInMillis();
   }
 
   // Certain scripts produce a lot of debug info and need a way to disable debugging.
-  public static function disable() {
+  static function disable() {
     self::$enabled = false;
   }
 
-  public static function isEnabled() {
+  static function isEnabled() {
     return self::$enabled && (Session::getUserNick() == Config::get('global.debugUser'));
   }
 
   // Measures the time since the last clock reset and appends a message
-  public static function stopClock($message) {
+  static function stopClock($message) {
     if (self::$enabled) {
       $delta = self::getTimeInMillis() - self::$lastClockReset;
       self::$debugInfo[] = "$delta ms: [$message]";
@@ -37,7 +37,7 @@ class DebugInfo {
     }
   }
 
-  public static function getRunningTimeInMillis() {
+  static function getRunningTimeInMillis() {
     return self::getTimeInMillis() - self::$startTimestamp;
   }
 }

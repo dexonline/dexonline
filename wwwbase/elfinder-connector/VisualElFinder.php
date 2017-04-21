@@ -1,7 +1,7 @@
 <?php
 
 class VisualElFinder extends elFinder {
-	public function __construct($opts) {
+	function __construct($opts) {
     parent::__construct($opts);
     $this->commands['tagimage'] = array('target' => true);
   }

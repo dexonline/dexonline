@@ -59,7 +59,7 @@ class wotdTableRows{
    * @access public
    * @return void
    **/
-  public function __construct($page, $limit, $sidx, $sord, $filters = null){
+  function __construct($page, $limit, $sidx, $sord, $filters = null){
     $this->page = $page;
     $this->limit = $limit;
     $this->sidx = $sidx;
@@ -170,7 +170,7 @@ sql;
    * @access public
    * @return void
    * */
-  public function run() {
+  function run() {
     header('Content-Type: text/xml; charset=UTF-8');
     echo $this->getRows();
   }

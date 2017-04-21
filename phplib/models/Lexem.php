@@ -27,7 +27,7 @@ class Lexem extends BaseObject implements DatedObject {
     $this->reverse = StringUtil::reverse($this->formNoAccent);
   }
   
-  public static function create($form, $modelType = '', $modelNumber = '', $restriction = '',
+  static function create($form, $modelType = '', $modelNumber = '', $restriction = '',
                                 $isLoc = false) {
     $l = Model::factory('Lexem')->create();
     $l->setForm($form);
@@ -201,7 +201,7 @@ class Lexem extends BaseObject implements DatedObject {
     $this->animate = $animate;
   }
 
-  public static function loadByExtendedName($extName) {
+  static function loadByExtendedName($extName) {
     $parts = preg_split('/\(/', $extName, 2);
     $name = addslashes(trim($parts[0]));
     if (count($parts) == 2) {
@@ -214,7 +214,7 @@ class Lexem extends BaseObject implements DatedObject {
   }
 
   // For V1, this loads all lexem models in (V1, VT1)
-  public static function loadByCanonicalModel($modelType, $modelNumber, $limit = 0) {
+  static function loadByCanonicalModel($modelType, $modelNumber, $limit = 0) {
     $q = Model::factory('Lexem')
       ->table_alias('l')
       ->select('l.*')
@@ -230,7 +230,7 @@ class Lexem extends BaseObject implements DatedObject {
     return $q->find_many();
   }
 
-  public static function searchApproximate($cuv) {
+  static function searchApproximate($cuv) {
     return NGram::searchNGram($cuv);
   }
 
@@ -283,7 +283,7 @@ class Lexem extends BaseObject implements DatedObject {
   /**
    * For every set of lexems having the same form and no description, load one of them at random.
    */
-  public static function loadAmbiguous() {
+  static function loadAmbiguous() {
     // The key here is to create a subquery of all the forms appearing at least twice
     // This takes about 0.6s
     $query = 'select * from Lexem ' .
@@ -298,7 +298,7 @@ class Lexem extends BaseObject implements DatedObject {
   /**
    * Counts lexems not associated with any entries.
    **/
-  public static function countUnassociated() {
+  static function countUnassociated() {
     $numLexems = Model::factory('Lexem')->count();
     $numAssociated = DB::getSingleValue('select count(distinct lexemId) from EntryLexem');
     return $numLexems - $numAssociated;
@@ -544,7 +544,7 @@ class Lexem extends BaseObject implements DatedObject {
     }
   }
 
-  public function regenerateDependentLexems() {
+  function regenerateDependentLexems() {
     if ($this->modelType == 'VT') {
       $this->regeneratePastParticiple();
     }
@@ -553,7 +553,7 @@ class Lexem extends BaseObject implements DatedObject {
     }
   }
 
-  public function regeneratePastParticiple() {
+  function regeneratePastParticiple() {
     $infl = Inflection::loadParticiple();
 
     $pm = ParticipleModel::get_by_verbModel($this->modelNumber);
@@ -591,7 +591,7 @@ class Lexem extends BaseObject implements DatedObject {
     }
   }
 
-  public function regenerateLongInfinitive() {
+  function regenerateLongInfinitive() {
     $infl = Inflection::loadLongInfinitive();
     $f107 = FlexModel::get_by_modelType_number('F', '107');
     $f113 = FlexModel::get_by_modelType_number('F', '113');
@@ -636,7 +636,7 @@ class Lexem extends BaseObject implements DatedObject {
    * Called when the model type of a lexem changes from VT to something else.
    * Only deletes participles that do not have their own definitions.
    */
-  public function deleteParticiple() {
+  function deleteParticiple() {
     if ($this->modelType == 'V' || $this->modelType == 'VT') {
       $infl = Inflection::loadParticiple();
       $pm = ParticipleModel::get_by_verbModel($this->modelNumber);
@@ -648,7 +648,7 @@ class Lexem extends BaseObject implements DatedObject {
    * Called when the model type of a lexem changes from V/VT to something else.
    * Only deletes long infinitives that do not have their own definitions.
    */
-  public function deleteLongInfinitive() {
+  function deleteLongInfinitive() {
     $infl = Inflection::loadLongInfinitive();
     $this->_deleteDependentModels($infl->id, 'F', ['107', '113']);
   }
@@ -702,7 +702,7 @@ class Lexem extends BaseObject implements DatedObject {
     }
   }
 
-  public function delete() {
+  function delete() {
     if ($this->id) {
       if ($this->modelType == 'VT') {
         $this->deleteParticiple();
@@ -723,7 +723,7 @@ class Lexem extends BaseObject implements DatedObject {
     parent::delete();
   }
 
-  public function save() {
+  function save() {
     $this->formUtf8General = $this->formNoAccent;
     $this->reverse = StringUtil::reverse($this->formNoAccent);
     $this->charLength = mb_strlen($this->formNoAccent);
@@ -773,11 +773,11 @@ class Lexem extends BaseObject implements DatedObject {
     }
   }
 
-  public function __toString() {
+  function __toString() {
     return $this->description ? "{$this->formNoAccent} ({$this->description})" : $this->formNoAccent;
   }
 
-  public function _clone() {
+  function _clone() {
     $clone = $this->parisClone();
     $clone->description = ($this->description) ? "CLONĂ {$this->description}" : "CLONĂ";
     $clone->verifSp = false;

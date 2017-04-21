@@ -3,7 +3,7 @@
 class FullTextIndex extends BaseObject {
   public static $_table = 'FullTextIndex';
 
-  public static function loadDefinitionIdsForLexems($lexemIds, $sourceId) {
+  static function loadDefinitionIdsForLexems($lexemIds, $sourceId) {
     if (empty($lexemIds)) {
       return [];
     }
@@ -25,7 +25,7 @@ class FullTextIndex extends BaseObject {
   }
 
   // For each defId, build an array of arrays of positions, one array for each lexemId
-  public static function loadPositionsByLexemIdsDefinitionIds($lexemMap, $defIds) {
+  static function loadPositionsByLexemIdsDefinitionIds($lexemMap, $defIds) {
     $positionMap = [];
     foreach ($lexemMap as $lexemIds) {
       if (!empty($lexemIds)) {

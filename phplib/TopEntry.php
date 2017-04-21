@@ -109,7 +109,7 @@ class TopEntry {
    * @param crit  Criterion to sorty by
    * @param ord  Order to sort in (ascending/descending)
    */
-  public static function getTopData($crit, $ord, $manual) {
+  static function getTopData($crit, $ord, $manual) {
     $topEntries = TopEntry::getUnsortedTopData($manual);
 
     $nick = array();

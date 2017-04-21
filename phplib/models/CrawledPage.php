@@ -5,7 +5,7 @@ class CrawledPage  extends BaseObject implements DatedObject {
   public static $_table = 'CrawledPage';
 
   // Salveaza informatiile despre pagina curent crawl-ata in tabelul CrawledPage
-  public static function savePage2DB($url, $httpStatus, $rawPage, $parsedText, $rawPagePath, $parsedTextPath, $timestamp) {
+  static function savePage2DB($url, $httpStatus, $rawPage, $parsedText, $rawPagePath, $parsedTextPath, $timestamp) {
     @mkdir(dirname($rawPagePath), 0777, true);
     @mkdir(dirname($parsedTextPath), 0777, true);
     file_put_contents($rawPagePath, $rawPage);
@@ -28,7 +28,7 @@ class CrawledPage  extends BaseObject implements DatedObject {
   }
 
   //intoarce o lista cu domeniile parsate
-  public static function getListOfDomains() {
+  static function getListOfDomains() {
 
     //return Model::factory(self::$_table)->raw_query("select id, substr(substring_index(url, '/', 3),8) as domain from CrawledPage group by domain order by id asc;")->find_many();
     return Model::factory(self::$_table)->raw_query("select id, domain from

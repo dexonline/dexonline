@@ -61,7 +61,7 @@ class wotdSave{
    * @access public
    * @return void
    **/
-  public function __construct($id, $displayDate = null, $priority = null, $refId = null, $refType = null, $image = null, $description = null) {
+  function __construct($id, $displayDate = null, $priority = null, $refId = null, $refType = null, $image = null, $description = null) {
     $this->id = $id;
     $this->displayDate = $displayDate;
     $this->priority = $priority;
@@ -142,7 +142,7 @@ class wotdSave{
    * @access public
    * @return void
    * */
-  public function run($oper) {
+  function run($oper) {
     header('Content-Type: text/plain; charset=UTF-8');
     if ($oper == 'edit' || $oper == 'add'){
       echo $this->doSave();

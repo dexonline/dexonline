@@ -70,13 +70,13 @@ class Tag extends BaseObject implements DatedObject {
     return $result;
   }
 
-  public function delete() {
+  function delete() {
     ObjectTag::delete_all_by_tagId($this->id);
     parent::delete();
     Log::warning("Deleted tag {$this->id} ({$this->value})");
   }
 
-  public function __toString() {
+  function __toString() {
     return "[{$this->value}]";
   }
 }

@@ -49,7 +49,7 @@ class StringUtil {
 
   // Convert old (î) orthography to new (â) orthography.
   // Assumes $s uses diacritics (if needed).
-  public static function convertOrthography($s) {
+  static function convertOrthography($s) {
     if (preg_match('/^sînt(em|eți)?$/ui', $s)) {
       return str_replace(['î', 'Î'], ['u', 'U'], $s);
     } else {
@@ -64,7 +64,7 @@ class StringUtil {
     }
   }
 
-  public static function unicodeToLatin($s) {
+  static function unicodeToLatin($s) {
     return iconv('UTF-8', 'ASCII//TRANSLIT', $s);
   }
 

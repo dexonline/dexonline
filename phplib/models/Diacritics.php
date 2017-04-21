@@ -45,7 +45,7 @@ class Diacritics  extends BaseObject implements DatedObject {
 	}
 
 
-	public static function insertRow($before, $middle, $after, $diacritic) {
+	static function insertRow($before, $middle, $after, $diacritic) {
 
 		try {
 			
@@ -67,7 +67,7 @@ class Diacritics  extends BaseObject implements DatedObject {
 		}
 	}
 
-	public static function entryExists($before, $middle, $after) {
+	static function entryExists($before, $middle, $after) {
 		
 		$before = strtolower(self::stripDiacritics($before));
 		$middle = strtolower(self::stripDiacritics($middle));
@@ -77,7 +77,7 @@ class Diacritics  extends BaseObject implements DatedObject {
 				 `before` = '$before' and `middle` = '$middle' and `after` = '$after';")->find_one();
 	}
 	
-	public static function updateRow($before, $middle, $after, $diacritic) {
+	static function updateRow($before, $middle, $after, $diacritic) {
 	
 		try {	
 			$tableObj = Model::factory(self::$_table)->raw_query("Select * from Diacritics where
@@ -103,7 +103,7 @@ class Diacritics  extends BaseObject implements DatedObject {
 	}
 
 
-	public static function save2Db($before, $middle, $after) {
+	static function save2Db($before, $middle, $after) {
 
 		$diacritic = mb_substr($middle, 0, 1);
 

@@ -96,7 +96,7 @@ class DiacriticsFixer {
 	}
 
 
-	public function fix($text) {
+	function fix($text) {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
 		if (mb_strlen($text) > Config::get('crawler.diacritics_buffer_limit')) {
 			return "Dimensiune text prea mare, limita este de " .
@@ -203,7 +203,7 @@ class DiacriticsFixer {
 		$this->lastOffset = $this->currOffset;
 	}
 
-	public function getAllCharForms($tableObj, $middle) {
+	function getAllCharForms($tableObj, $middle) {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
 		$ch = $tableObj->middle;
 		//$ch = self::$a['circumflexForm'];

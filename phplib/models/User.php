@@ -25,7 +25,7 @@ class User extends BaseObject {
   const PRIV_VIEW_HIDDEN = self::PRIV_ADMIN;
   const PRIV_ANY = (1 << self::NUM_PRIVILEGES) - 1;
 
-  public function __toString() {
+  function __toString() {
     return $this->nick;
   }
 

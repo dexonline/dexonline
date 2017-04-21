@@ -170,7 +170,7 @@ class Tree extends BaseObject implements DatedObject {
   /**
    * Counts trees not associated with any entries.
    **/
-  public static function countUnassociated() {
+  static function countUnassociated() {
     $numTrees = Model::factory('Tree')->count();
     $numAssociated = DB::getSingleValue('select count(distinct treeId) from TreeEntry');
     return $numTrees - $numAssociated;
@@ -203,7 +203,7 @@ class Tree extends BaseObject implements DatedObject {
     return $errors;
   }
 
-  public function mergeInto($otherId) {
+  function mergeInto($otherId) {
     // Meanings will be renumbered, increasing their displayOrder and breadcrumb values
     $deltaDisplayOrder = Model::factory('Meaning')
                        ->where('treeId', $otherId)
@@ -278,7 +278,7 @@ class Tree extends BaseObject implements DatedObject {
   /**
    * This should only be called on trees with no meanings and no relations.
    **/
-  public function delete() {
+  function delete() {
     Meaning::delete_all_by_treeId($this->id);
     Relation::delete_all_by_treeId($this->id);
     TreeEntry::delete_all_by_treeId($this->id);

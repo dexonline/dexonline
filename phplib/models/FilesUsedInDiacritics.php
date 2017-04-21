@@ -5,7 +5,7 @@ class FilesUsedInDiacritics  extends BaseObject implements DatedObject {
 	
 	public static $_table = 'FilesUsedInDiacritics';
 
-	public static function save2Db($fileId) {
+	static function save2Db($fileId) {
 
 		try {
 			$tableObj = Model::factory(self::$_table);

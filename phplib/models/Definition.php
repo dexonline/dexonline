@@ -25,7 +25,7 @@ class Definition extends BaseObject implements DatedObject {
 
   /* For admins, returns the definition with the given ID. For regular users,
      return null rather than a hidden definition. */
-  public static function getByIdNotHidden($id) {
+  static function getByIdNotHidden($id) {
     if (User::can(User::PRIV_ADMIN)) {
       return parent::get_by_id($id);
     } else {
@@ -33,11 +33,11 @@ class Definition extends BaseObject implements DatedObject {
     }
   }
 
-  public function getStatusName() {
+  function getStatusName() {
     return self::$STATUS_NAMES[$this->status];
   }
 
-  public function getSource() {
+  function getSource() {
     if ($this->source === null) {
       $this->source = Source::get_by_id($this->sourceId);
     }
@@ -64,7 +64,7 @@ class Definition extends BaseObject implements DatedObject {
     return $this->entries;
   }
 
-  public static function loadByEntryIds($entryIds) {
+  static function loadByEntryIds($entryIds) {
     if (!count($entryIds)) {
       return [];
     }
@@ -112,7 +112,7 @@ class Definition extends BaseObject implements DatedObject {
     return $result;
   }
 
-  public static function getListOfWordsFromSources($wordStart, $wordEnd, $sources) {
+  static function getListOfWordsFromSources($wordStart, $wordEnd, $sources) {
     return Model::factory('Definition')
       ->select('Definition.*')
       ->where_gte('lexicon', $wordStart)
@@ -124,7 +124,7 @@ class Definition extends BaseObject implements DatedObject {
       ->find_many();
   }
 
-  public static function countUnassociated() {
+  static function countUnassociated() {
     // There are three disjoint types of definitions:
     // (1) deleted -- these are never associated with entries
     // (2) not deleted, associated
@@ -136,14 +136,14 @@ class Definition extends BaseObject implements DatedObject {
     return $all - $deleted - $associated;
   }
 
-  public static function countAmbiguousAbbrevs() {
+  static function countAmbiguousAbbrevs() {
     return Model::factory('Definition')
       ->where_not_equal('status', self::ST_DELETED)
       ->where('abbrevReview', self::ABBREV_AMBIGUOUS)
       ->count();
   }
 
-  public static function loadForEntries(&$entries, $sourceId, $preferredWord) {
+  static function loadForEntries(&$entries, $sourceId, $preferredWord) {
     if (!count($entries)) {
       return [];
     }
@@ -176,7 +176,7 @@ class Definition extends BaseObject implements DatedObject {
     return $defs;
   }
 
-  public static function searchEntry($entry) {
+  static function searchEntry($entry) {
     return Model::factory('Definition')
       ->table_alias('d')
       ->select('d.*')
@@ -254,7 +254,7 @@ class Definition extends BaseObject implements DatedObject {
     return [$intersection, $stopWords];
   }
 
-  public static function highlight($words, &$definitions) {
+  static function highlight($words, &$definitions) {
     $res = array_fill_keys($words, []);
 
     foreach ($res as $key => &$words) {
@@ -294,7 +294,7 @@ class Definition extends BaseObject implements DatedObject {
     }
   }
 
-  public static function searchModerator($cuv, $hasDiacritics, $sourceId, $status, $userId,
+  static function searchModerator($cuv, $hasDiacritics, $sourceId, $status, $userId,
                                          $beginTime, $endTime, $page, $resultsPerPage) {
     $regexp = StringUtil::dexRegexpToMysqlRegexp($cuv);
     $sourceClause = $sourceId ? "and Definition.sourceId = $sourceId" : '';
@@ -337,7 +337,7 @@ class Definition extends BaseObject implements DatedObject {
   }
 
   // Return definitions that are associated with at least two of the lexems
-  public static function searchMultipleWords($words, $hasDiacritics, $oldOrthography, $sourceId) {
+  static function searchMultipleWords($words, $hasDiacritics, $oldOrthography, $sourceId) {
     $defCounts = [];
     foreach ($words as $word) {
       $entries = Entry::searchInflectedForms($word, $hasDiacritics, $oldOrthography);
@@ -362,7 +362,7 @@ class Definition extends BaseObject implements DatedObject {
     return $result;
   }
 
-  public static function getWordCount() {
+  static function getWordCount() {
     $cachedWordCount = FileCache::getWordCount();
     if ($cachedWordCount) {
       return $cachedWordCount;
@@ -372,7 +372,7 @@ class Definition extends BaseObject implements DatedObject {
     return $result;
   }
 
-  public static function getWordCountLastMonth() {
+  static function getWordCountLastMonth() {
     $cachedWordCountLastMonth = FileCache::getWordCountLastMonth();
     if ($cachedWordCountLastMonth) {
       return $cachedWordCountLastMonth;
@@ -383,7 +383,7 @@ class Definition extends BaseObject implements DatedObject {
     return $result;
   }
 
-  public function save() {
+  function save() {
     $this->modUserId = Session::getUserId();
     return parent::save();
   }

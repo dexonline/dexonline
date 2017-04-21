@@ -4,7 +4,7 @@
 class FlexModel extends BaseObject {
   public static $_table = 'Model';
 
-  public static function create($modelType = '', $number = '', $description = '', $exponent = '') {
+  static function create($modelType = '', $number = '', $description = '', $exponent = '') {
     $fm = Model::factory('FlexModel')->create();
     $fm->modelType = $modelType;
     $fm->number = $number;
@@ -14,11 +14,11 @@ class FlexModel extends BaseObject {
     return $fm;
   }
 
-  public function getHtmlExponent() {
+  function getHtmlExponent() {
     return StringUtil::highlightAccent($this->exponent);
   }
 
-  public static function loadByType($type) {
+  static function loadByType($type) {
     $type = ModelType::canonicalize($type);
     // Need a raw query here because order_by_asc() expects a field, nothing more
     return Model::factory('FlexModel')
@@ -28,12 +28,12 @@ class FlexModel extends BaseObject {
       ->find_many();
   }
 
-  public static function loadCanonicalByTypeNumber($type, $number) {
+  static function loadCanonicalByTypeNumber($type, $number) {
     $type = ModelType::canonicalize($type);
     return Model::factory('FlexModel')->where('modelType', $type)->where('number', $number)->find_one();
   }
 
-  public function delete() {
+  function delete() {
     $mds = ModelDescription::get_by_modelId($this->id);
     foreach ($mds as $md) {
       $md->delete();
@@ -46,7 +46,7 @@ class FlexModel extends BaseObject {
   }
 
   /** Returns an array containing the type, number and restrictions **/
-  public static function splitName($name) {
+  static function splitName($name) {
     $result = array();
     $len = strlen($name);
     $i = 0;
@@ -63,7 +63,7 @@ class FlexModel extends BaseObject {
     return $result;
   }
 
-  public function __toString() {
+  function __toString() {
     return $this->modelType . $this->number;
   }
 }

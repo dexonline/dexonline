@@ -5,7 +5,7 @@ class MemoryManagement {
 	/*
 	 * cleans lost memory refferences
 	 */
-	public static function clean($print = false) {
+	static function clean($print = false) {
 
 			gc_enable(); // Enable Garbage Collector
 			if ($print) {
@@ -15,7 +15,7 @@ class MemoryManagement {
 			gc_disable(); // Disable Garbage Collector
 	}
 
-	public static function showUsage($message = '', $realUsage = false, $units = "B") {
+	static function showUsage($message = '', $realUsage = false, $units = "B") {
 
 		$truncate = 1;
 		switch($units) {

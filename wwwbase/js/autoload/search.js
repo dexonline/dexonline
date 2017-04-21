@@ -16,7 +16,8 @@ $(function() {
 
     // Move the banner a few definitions down, but
     // * not lower than 2/3 of the window height;
-    // * only if followed by more definitions.
+    // * only if followed by more definitions;
+    // * only if there are no images to show.
     $('#resultsTab .defWrapper:not(:first)').slice(0,3).each(function() {
       var top = $(this).offset().top;
       if (top + 100 < 2 * h / 3) {
@@ -24,7 +25,7 @@ $(function() {
       }
     });
 
-    if (pos) {
+    if (pos && !$('#gallery').length) {
       $('#definitionBanner').children().insertBefore(pos);
     } else {
       $('#definitionBanner').show();

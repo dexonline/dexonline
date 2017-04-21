@@ -81,6 +81,10 @@
 
 /*********** banner ***********/
 
+#bannerWrapper {
+  overflow: hidden;
+}
+
 #definitionBanner {
   margin-bottom: 25px;
 }
@@ -178,11 +182,12 @@ abbr[title] {
 }
 
 .callout {
-  padding: 10px 20px;
-  margin: 20px 0;
   border: 1px solid #eee;
   border-left-width: 5px;
   border-radius: 3px;
+  margin: 20px 0;
+  overflow: hidden;
+  padding: 10px 20px;
 }
 
 .callout-info {

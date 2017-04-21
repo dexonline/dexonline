@@ -1,9 +1,12 @@
 #gallery {
   float: right;
+  padding-left: 10px;
 }
 
 #gallery img {
+  box-shadow: 2px 2px 10px gray;
   display: block;
+  margin-bottom: 5px;
 }
 
 #prototypeCanvas, 
@@ -23,4 +26,17 @@
   right: 5px;
   background-color: #fff;
   cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  #gallery {
+    float: none;
+    margin-top: 10px;
+    padding-left: 0;
+  }
+
+  #gallery img {
+    display: inline;
+    margin-bottom: 5px;
+  }
 }

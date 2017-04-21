@@ -1,6 +1,6 @@
 {foreach $trees as $t}
-  <div class="panel panel-default tree">
-    <div class="panel-heading">
+  <div class="tree">
+    <div class="tree-heading">
       {$t->description}
       {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
         <a href="{$wwwRoot}editTree.php?id={$t->id}" class="pull-right">
@@ -9,7 +9,7 @@
         </a>
       {/if}
     </div>
-    <div class="panel-body">
+    <div class="tree-body">
       {include "bits/meaningTree.tpl" meanings=$t->getMeanings()}
 
       <h4 class="etymology">Etimologie:</h4>

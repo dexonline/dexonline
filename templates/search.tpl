@@ -85,6 +85,9 @@
 
       {* entry ID search *}
       {elseif $searchType == $smarty.const.SEARCH_ENTRY_ID}
+
+        {include "search/gallery.tpl"}
+
         {if !count($entries)}
           <h3>Nu există nicio intrare cu ID-ul căutat.</h3>
         {else}
@@ -118,7 +121,6 @@
             </h3>
           {/if}
 
-          {include "search/gallery.tpl"}
           {include "search/missingDefinitionWarnings.tpl"}
           {include "search/definitionList.tpl"}
         {/if}
@@ -147,6 +149,9 @@
 
       {* normal search (inflected form search) *}
       {elseif $searchType == $smarty.const.SEARCH_INFLECTED}
+
+        {include "search/gallery.tpl"}
+
         {if count($entries) > 1}
           <h3>{$entries|count} intrări</h3>
 
@@ -175,7 +180,6 @@
         {/if}
 
         {include "search/wikiArticles.tpl"}
-        {include "search/gallery.tpl"}
         {include "search/trees.tpl"}
 
         {* another <h3> for the definition list, if needed *}

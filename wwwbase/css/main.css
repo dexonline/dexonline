@@ -123,7 +123,7 @@ abbr[title] {
   line-height: 1.6;
 }
 
-p.def {
+.def {
   color: black;
   cursor: pointer;
   margin: 0; /* remove paragraph margin */

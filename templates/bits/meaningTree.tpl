@@ -15,11 +15,7 @@
               {/if}
               
               {if count($t.tags)}
-                <span class="tag-group">
-                  {foreach $t.tags as $tag}
-                    <span class="label label-tag">{$tag->value}</span>
-                  {/foreach}
-                </span>
+                {include "bits/meaningTags.tpl" tags=$t.tags}
                 {$tagsShown=true}
               {/if}
             {else}
@@ -39,23 +35,6 @@
                 {$tagsShown=true}
               {/if}
             </span>
-
-            {if !empty($t.examples)}
-              {$collapseId="exampleCollapse_{$t.meaning->id}"}
-              <a data-toggle="collapse"
-                 class="exampleLink"
-                 href="#{$collapseId}"
-                 aria-controls="{$collapseId}">
-                <i class="glyphicon glyphicon-paperclip"></i>
-
-                {include "bits/count.tpl"
-                displayed=count($t.examples)
-                one="un exemplu"
-                many="exemple"}
-
-                <span class="caret"></span>
-              </a>
-            {/if}
 
           </div>
 
@@ -77,6 +56,24 @@
             {if !$relationsShown}
               {include "bits/meaningRelations.tpl" relations=$t.relations title=true}
             {/if}
+
+            {if !empty($t.examples)}
+              {$collapseId="exampleCollapse_{$t.meaning->id}"}
+              <a data-toggle="collapse"
+                 class="exampleLink"
+                 href="#{$collapseId}"
+                 aria-controls="{$collapseId}">
+                <i class="glyphicon glyphicon-paperclip"></i>
+
+                {include "bits/count.tpl"
+                displayed=count($t.examples)
+                one="un exemplu"
+                many="exemple"}
+
+                <span class="caret"></span>
+              </a>
+            {/if}
+
           </div>
 
         </div>

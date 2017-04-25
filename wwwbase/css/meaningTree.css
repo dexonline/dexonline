@@ -55,8 +55,8 @@
 }
 
 .meaningTree .label-tag {
-  background: #1e83c2;
-  color: white;
+  border: 1px solid #ddd;
+  color: #555;
   font-weight: normal;
 }
 

@@ -55,7 +55,7 @@ if (typeof jQuery.ui != 'undefined') {
       track: true
     });
 
-    $('.mention').tooltip().each(resolveMention);
+    $('.mention').hover(mentionHoverIn, mentionHoverOut);
   });
 }
 
@@ -270,14 +270,27 @@ function deleteDefinition() {
   return false;
 }
 
-function resolveMention() {
+function mentionHoverIn() {
   var elem = $(this);
-  var meaningId = elem.data('originalTitle');
-  $.getJSON(wwwRoot + 'ajax/getMeaningById', { id: meaningId })
-    .done(function(resp) {
-      elem.attr('data-original-title',
-                '<b>' + resp.description + '</b> (' + resp.breadcrumb + '): ' + resp.htmlRep);
-    });
+
+  if (elem.data('loaded')) {
+    $(this).popover('show');
+  } else {
+    var meaningId = elem.attr('title');
+    $.getJSON(wwwRoot + 'ajax/getMeaningById', { id: meaningId })
+      .done(function(resp) {
+        elem.removeAttr('title');
+        elem.data('loaded', 1);
+        elem.popover({
+          content: resp.htmlRep,
+          title: resp.description + ' (' + resp.breadcrumb + ')',
+        }).popover('show');
+      });
+  }
+}
+
+function mentionHoverOut() {
+  $(this).popover('hide');
 }
 
 function trim(str) {

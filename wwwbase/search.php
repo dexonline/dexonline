@@ -316,6 +316,7 @@ if ($SEARCH_PARAMS[$searchType]['trees'] && !$sourceId) {
       foreach ($e->getTrees() as $t) {
         if (($t->status == Tree::ST_VISIBLE) &&
             count($t->getMeanings())) {
+          $t->extractExamples();
           $t->extractEtymologies();
           $trees[$t->id] = $t;
         }

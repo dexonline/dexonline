@@ -103,11 +103,6 @@
   width: 500px;
 }
 
-.meaningTree .htmlRep.meaningBody,
-.meaningContainer .bc {
-  padding-top: 25px;
-}
-
 .etymologyBc {
   font-weight: bold;
 }
@@ -138,8 +133,23 @@
   padding-left: 42px;
 }
 
+.exampleLink {
+  color: #555;
+}
+
 .exampleBody {
   color: #555;
+}
+
+.examples {
+  overflow: hidden;
+  padding-left: 42px;
+  padding-top: 10px;
+}
+
+.examples ul {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
 }
 
 .tree-heading {

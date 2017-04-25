@@ -40,6 +40,23 @@
               {/if}
             </span>
 
+            {if !empty($t.examples)}
+              {$collapseId="exampleCollapse_{$t.meaning->id}"}
+              <a data-toggle="collapse"
+                 class="exampleLink"
+                 href="#{$collapseId}"
+                 aria-controls="{$collapseId}">
+                <i class="glyphicon glyphicon-paperclip"></i>
+
+                {include "bits/count.tpl"
+                displayed=count($t.examples)
+                one="un exemplu"
+                many="exemple"}
+
+                <span class="caret"></span>
+              </a>
+            {/if}
+
           </div>
 
           <div class="defDetails"">
@@ -63,6 +80,18 @@
           </div>
 
         </div>
+
+        {if !empty($t.examples)}
+          <div class="examples collapse" id="{$collapseId}">
+            <div class="panel panel-default">
+              <div class="panel-heading">exemple</div>
+              <div class="panel-body">
+                {include "bits/meaningTree.tpl" meanings=$t.examples root=false}
+              </div>
+            </div>
+          </div>
+        {/if}
+
         {include "bits/meaningTree.tpl" meanings=$t.children root=false}
       </li>
     {/foreach}

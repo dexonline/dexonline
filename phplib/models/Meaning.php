@@ -12,7 +12,7 @@ class Meaning extends BaseObject implements DatedObject {
   static $DISPLAY_NAMES = [
     self::TYPE_MEANING => '',
     self::TYPE_ETYMOLOGY => 'etimologie',
-    self::TYPE_EXAMPLE => 'exemplu',
+    self::TYPE_EXAMPLE => '',
     self::TYPE_COMMENT => 'comentariu',
     self::TYPE_DIFF => 'diferențiere',
   ];
@@ -22,6 +22,7 @@ class Meaning extends BaseObject implements DatedObject {
     self::TYPE_ETYMOLOGY => 'etymologyBody',
     self::TYPE_EXAMPLE => 'exampleBody',
     self::TYPE_COMMENT => 'commentBody',
+    self::TYPE_DIFF => 'diffBody',
   ];
 
   public static $FIELD_NAMES = [

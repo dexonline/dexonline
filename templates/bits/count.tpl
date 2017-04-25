@@ -1,4 +1,5 @@
 {$total=$total|default:$displayed}
+{$common=$common|default:''}
 
 {if !$total}
   {$none} {$common}

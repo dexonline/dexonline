@@ -144,6 +144,26 @@ class Tree extends BaseObject implements DatedObject {
     }
   }
 
+  /* When displaying search results, examples are special, so we separate them from the
+   * other child meanings. */
+  function extractExamples() {
+    $this->getMeanings();
+    $this->extractExamplesHelper($this->meanings);
+  }
+
+  function extractExamplesHelper(&$meanings) {
+    foreach ($meanings as &$t) {
+      $this->extractExamplesHelper($t['children']);
+      $t['examples'] = [];
+      foreach ($t['children'] as $i => $child) {
+        if ($child['meaning']->type == Meaning::TYPE_EXAMPLE) {
+          $t['examples'][] = $child;
+          unset($t['children'][$i]);
+        }
+      }
+    }
+  }
+
   /* Return meanings that are in relation with this tree. */
   function getRelatedMeanings() {
     return Model::factory('Meaning')

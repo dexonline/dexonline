@@ -153,15 +153,15 @@
 }
 
 .tree-heading {
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 3px;
+  border-bottom: 1px solid #999;
+  font-weight: bold;
   overflow: hidden;
-  padding: 10px 15px;
+  padding-bottom: 10px;
 }
 
 .tree-body {
-  padding-top: 0;
+  margin-bottom: 40px;
+  padding-left: 20px;
 }
 
 .tab-pane h3,

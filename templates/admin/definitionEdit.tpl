@@ -101,7 +101,7 @@
         {if $commentUser}
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="preserveCommentUser" value="1" checked="checked">
+              <input type="checkbox" name="preserveCommentUser" value="1" checked>
               Păstrează autorul comentariului original ({$commentUser->nick|escape})
             </label>
           </div>
@@ -110,14 +110,14 @@
         {** These aren't logically connected, but we like them vertically compressed **}
         <div class="checkbox" {if !$sim->source}style="display:none"{/if}>
           <label>
-            <input type="checkbox" name="similarSource" value="1" {if $def->similarSource}checked="checked"{/if}>
+            <input type="checkbox" name="similarSource" value="1" {if $def->similarSource}checked{/if}>
             Definiție identică cu cea din <span class="similarSourceName"></span>
           </label>
         </div>
 
         <div class="checkbox">
           <label>
-            <input type="checkbox" name="structured" value="1" {if $def->structured}checked="checked"{/if}>
+            <input type="checkbox" name="structured" value="1" {if $def->structured}checked{/if}>
             Definiția a fost structurată
           </label>
         </div>

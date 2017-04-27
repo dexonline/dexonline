@@ -81,7 +81,7 @@
                          name="medalsGranted[]"
                          id="cb_{$mask}"
                          value="{$mask}"
-                         {if array_key_exists($mask, $medals)}checked="checked"{/if}>
+                         {if array_key_exists($mask, $medals)}checked{/if}>
                   {$params.name} {$params.description}
                 </label>
               </div>

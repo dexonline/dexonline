@@ -68,7 +68,7 @@
                        type="radio"
                        name="lexem_{$l->id}"
                        value="0"
-                       checked="checked">
+                       checked>
                 Ignoră
               </label>
             </div>

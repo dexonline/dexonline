@@ -32,7 +32,7 @@
           <label>
             <input type="checkbox"
                    name="text"
-                   {if $text}checked="checked"{/if}/>
+                   {if $text}checked{/if}/>
             Caută în tot textul definițiilor
           </label>
 

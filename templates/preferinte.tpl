@@ -39,7 +39,7 @@
         <div class="panel-body">
           <div class="checkbox">
             <label>
-              <input type="checkbox" id="detailsVisible" name="detailsVisible" value="1" {if $detailsVisible}checked="checked"{/if} />
+              <input type="checkbox" name="detailsVisible" value="1" {if $detailsVisible}checked{/if}>
               Datele mele sunt vizibile public
               <span class="help-block">
                 Identitatea OpenID, numele și adresa de email furnizate de OpenID vor apărea în <a href="{$wwwRoot}utilizator/{$sUser->nick}">profilul dumneavoastră</a>.
@@ -77,7 +77,7 @@
         {foreach $widgets as $value => $w}
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="widgets[]" id="widget{$value}" value="{$value}" {if $w.enabled}checked="checked"{/if}/>
+              <input type="checkbox" name="widgets[]" value="{$value}" {if $w.enabled}checked{/if}>
               {$w.name}
             </label>
           </div>

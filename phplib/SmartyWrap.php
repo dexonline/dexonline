@@ -17,6 +17,7 @@ class SmartyWrap {
       self::assign('nick', Session::getUserNick());
       self::assign('currentYear', date("Y"));
       self::assign('suggestNoBanner', Util::suggestNoBanner());
+      self::assign('privateMode', Session::userPrefers(Preferences::PRIVATE_MODE));
       self::assign('cfg', Config::getAll());
     }
   }

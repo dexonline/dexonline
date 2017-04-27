@@ -9,38 +9,51 @@ class Preferences {
   const SHOW_PARADIGM = 'SHOW_PARADIGM';
   const LOC_PARADIGM = 'LOC_PARADIGM';
   const SHOW_ADVANCED = 'SHOW_ADVANCED';
+  const PRIVATE_MODE = 'PRIVATE_MODE';
 
   // Set of all customizable user preferences
-  public static $allPrefs = array(
-    self::CEDILLA_BELOW => array(
+  public static $allPrefs = [
+    self::CEDILLA_BELOW => [
+      'enabled' => true,
       'label' => 'Folosește ş și ţ cu sedilă (în loc de virguliță)',
       'comment' => 'Scrierea corectă este cu &#x219; și &#x21b; în loc de ş și ţ, dar este posibil ca aceste simboluri să nu fie afișate corect în browserul dumneavoastră.',
-    ),
-    self::FORCE_DIACRITICS => array(
+    ],
+    self::FORCE_DIACRITICS => [
+      'enabled' => true,
       'label' => 'Pun eu diacritice în căutare',
       'comment' => 'Fără această opțiune, o căutare după „mal” va returna și rezultatele pentru „mâl”. Cu această opțiune, rezultatele pentru „mâl” nu mai sunt returnate decât când căutați explicit „mâl”.',
-    ),
-    self::OLD_ORTHOGRAPHY => array(
+    ],
+    self::OLD_ORTHOGRAPHY => [
+      'enabled' => true,
       'label' => 'Folosesc ortografia folosită pînă în 1993 (î din i)',
       'comment' => 'Până în 1993, „&#xe2;” era folosit doar în cuvântul „român”, în cuvintele derivate și în unele nume proprii.',
-    ),
-    self::EXCLUDE_UNOFFICIAL => array(
+    ],
+    self::EXCLUDE_UNOFFICIAL => [
+      'enabled' => true,
       'label' => 'Ascunde definițiile neoficiale',
       'comment' => 'Sursele neoficiale nu au girul niciunei instituții acreditate de Academia Română sau al vreunei edituri de prestigiu.', 
-    ),
-    self::SHOW_PARADIGM => array(
+    ],
+    self::SHOW_PARADIGM => [
+      'enabled' => true,
       'label' => 'Expandează flexiunile',
       'comment' => 'Implicit, flexiunile sunt ascunse.', 
-    ),
-    self::LOC_PARADIGM => array(
+    ],
+    self::LOC_PARADIGM => [
+      'enabled' => true,
       'label' => 'Arată formele ilegale la jocul de scrabble',
       'comment' => 'La afișarea paradigmei, aceste forme flexionare vor apărea cu roșu.', 
-    ),
-    self::SHOW_ADVANCED => array(
+    ],
+    self::SHOW_ADVANCED => [
+      'enabled' => true,
       'label' => 'Afișează meniul de căutare avansată în mod implicit',
       'comment' => 'În mod implicit, meniul de căutare avansată (marcat cu \'opțiuni\') va fi afișat pe toate paginile.', 
-    ),
-  );
+    ],
+    self::PRIVATE_MODE => [
+      'enabled' => false,
+      'label' => 'Modul privat',
+      'comment' => 'Dezactivează caseta Facebook, reclamele AdSense și alte elemente care divulgă informații despre dumneavoastră unor terțe părți. Modul privat este disponibil timp de un an celor care <a href="doneaza">donează</a> minim 50 de lei.',
+    ],
+  ];
 
   static function getDetailsVisible($user) {
     return $user ? $user->detailsVisible : false;
@@ -60,6 +73,11 @@ class Preferences {
           $copy[$pref]['checked'] = true;
         }
       }
+    }
+    // activate the private mode preference for donors
+    // TODO: script to revoke private mode upon expiration
+    if ($user && $user->noAdsUntil > time()) {
+      $copy[self::PRIVATE_MODE]['enabled'] = true;
     }
     return $copy;
   }

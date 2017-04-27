@@ -15,8 +15,12 @@
       <meta property="og:title" content="dexonline" />
       <link rel="image_src" href="{$imgRoot}/logo/logo-og.png" />
     {/block}
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,b,i,bi"
-          rel="stylesheet" type="text/css">
+    {if $privateMode}
+      <link href="{$wwwRoot}css/opensans.css" rel="stylesheet" type="text/css">
+    {else}
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,b,i,bi"
+            rel="stylesheet" type="text/css">
+    {/if}
     {include "bits/cssJs.tpl"}
     <link rel="search" type="application/opensearchdescription+xml" href="https://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
     <link href="https://plus.google.com/100407552237543221945" rel="publisher" />
@@ -55,7 +59,7 @@
         <div class="col-md-12">
 
           {block "footer"}
-            {if $skinVariables.fbLarge}
+            {if $skinVariables.fbLarge && !$privateMode}
               <hr />
               {include "bits/facebook.tpl"}
               <hr />

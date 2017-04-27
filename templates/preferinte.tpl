@@ -55,9 +55,13 @@
       <div class="panel-heading">Preferințe</div>
       <div class="panel-body">
         {foreach $userPrefs as $value => $i}
-          <div class="checkbox">
+          <div class="checkbox {if !$i.enabled}disabled{/if}">
             <label>
-              <input type="checkbox" name="userPrefs[]" id="cb_{$value}" value="{$value}" class="cbOption" {if $i.checked}checked="checked"{/if}/>
+              <input type="checkbox"
+                     name="userPrefs[]"
+                     value="{$value}"
+                     {if !$i.enabled}disabled{/if}
+                     {if $i.checked}checked{/if}/>
               {$i.label}
               <span class="help-block">{$i.comment}</span>
             </label>

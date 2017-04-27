@@ -23,10 +23,10 @@
       <label>tipul lexemului</label>
       <select name="modelType" class="form-control">
         <option value="">Toate (lent)</option>
-        <option value="M" {if $modelType == 'M'}selected="selected"{/if}>M</option>
-        <option value="F" {if $modelType == 'F'}selected="selected"{/if}>F</option>
-        <option value="N" {if $modelType == 'N'}selected="selected"{/if}>N</option>
-        <option value="T" {if $modelType == 'T'}selected="selected"{/if}>T (lent)</option>
+        <option value="M" {if $modelType == 'M'}selected{/if}>M</option>
+        <option value="F" {if $modelType == 'F'}selected{/if}>F</option>
+        <option value="N" {if $modelType == 'N'}selected{/if}>N</option>
+        <option value="T" {if $modelType == 'T'}selected{/if}>T (lent)</option>
       </select>
     </div>
     <button type="submit" class="btn btn-primary">

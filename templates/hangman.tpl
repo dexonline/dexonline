@@ -24,7 +24,7 @@
 
           <div class="output">
             {section name="ignored" start=0 loop=$wordLength}
-              <input style="width:15pt" class="letters" name="out[]" type="text" readonly="readonly" size="1" value="" />
+              <input style="width:15pt" class="letters" name="out[]" type="text" readonly size="1">
             {/section}
           </div>
         </div>

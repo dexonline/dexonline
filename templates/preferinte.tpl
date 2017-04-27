@@ -15,7 +15,7 @@
             <label for="avatarFileName">Fișier:</label>
             <input id="avatarFileName" type="file" name="avatarFileName">
           </div>
-          <input id="avatarSubmit" class="btn btn-default" type="submit" name="submit" value="Editează" disabled="disabled">
+          <input id="avatarSubmit" class="btn btn-default" type="submit" name="submit" value="Editează" disabled>
           {* TODO: Hide this when the user does not have an avatar *}
           <a href="salvare-avatar?delete=1"
              class="btn btn-link"

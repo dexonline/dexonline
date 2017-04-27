@@ -54,7 +54,7 @@
                 name="deleteButton"
                 onclick="return confirm('Confirmați ștergerea acestui lexem?');"
                 class="btn btn-danger pull-right"
-                {if $lexem->isLoc}disabled="disabled"{/if}>
+                {if $lexem->isLoc}disabled{/if}>
           <i class="glyphicon glyphicon-trash"></i>
           șterge
         </button>

@@ -55,13 +55,13 @@
 
           <div class="form-group">
             <label>cod</label>
-            <input type="text" value="{$editModelType->code}" disabled="disabled" class="form-control" />
+            <input type="text" value="{$editModelType->code}" disabled class="form-control" />
           </div>
 
           {if $editModelType->code != $editModelType->canonical}
             <div class="form-group">
               <label>cod canonic</label>
-              <input type="text" value="{$editModelType->canonical}" disabled="disabled" class="form-control" />
+              <input type="text" value="{$editModelType->canonical}" disabled class="form-control" />
             </div>
             {/if}
 

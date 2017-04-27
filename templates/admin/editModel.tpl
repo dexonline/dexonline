@@ -40,7 +40,7 @@
               <select class="form-control" name="participleNumber">
                 {foreach $adjModels as $am}
                   <option value="{$am->number}"
-                          {if $pm && $pm->adjectiveModel == $am->number}selected="selected"{/if}
+                          {if $pm && $pm->adjectiveModel == $am->number}selected{/if}
                           >{$am->number} ({$am->exponent})
                   </option>
                 {/foreach}

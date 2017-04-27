@@ -38,7 +38,7 @@
             în versiunea
             <select name="locVersion" class="form-control">
               {foreach $locVersions as $lv}
-                <option value="{$lv->name|escape}" {if $lv->name == $selectedLocVersion}selected="selected"{/if}>
+                <option value="{$lv->name|escape}" {if $lv->name == $selectedLocVersion}selected{/if}>
                   {$lv->name|escape} ({$lv->freezeTimestamp|date_format:"%d %B %Y"|default:"în lucru"})
                 </option>
               {/foreach}

@@ -18,8 +18,7 @@
     {/if}
     {if ($source->type != Source::TYPE_HIDDEN) ||
         User::can(User::PRIV_VIEW_HIDDEN)}
-      <option value="{$submitValue}"
-              {if $sourceId == $source->id}selected="selected"{/if}>
+      <option value="{$submitValue}" {if $sourceId == $source->id}selected{/if}>
         {* All the select2-searchable text must go here, not in data-* attributes *}
         ({$source->shortName|escape})
         {$source->name|escape}

@@ -50,7 +50,7 @@
         <button type="submit"
                 class="btn btn-success"
                 name="saveButton"
-                {if count($ambiguities)}disabled="disabled"{/if}>
+                {if count($ambiguities)}disabled{/if}>
           <i class="glyphicon glyphicon-floppy-disk"></i>
           <u>s</u>alvează
         </button>

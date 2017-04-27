@@ -26,6 +26,7 @@ if ($saveButton) {
   $src->canContribute = Request::has('canContribute');
   $src->canModerate = Request::has('canModerate');
   $src->canDistribute = Request::has('canDistribute');
+  $src->structurable = Request::has('structurable');
   $src->defCount = Request::get('defCount');
 
   if (validate($src)) {

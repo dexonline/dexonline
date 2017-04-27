@@ -149,30 +149,37 @@
         </div>
 
         <div class="checkbox">
-          <label for="cbIsActive">
-            <input type="checkbox" id="cbIsActive" name="isActive" {if $src->isActive}checked="checked"{/if} />
-            Sursa este activă (și vizibilă tuturor utilizatorilor)
+          <label>
+            <input type="checkbox" name="isActive" {if $src->isActive}checked{/if}>
+            sursă activă și vizibilă tuturor utilizatorilor
           </label>
         </div>
 
         <div class="checkbox">
-          <label for="cbCanContribute">
-            <input type="checkbox" id="cbCanContribute" name="canContribute" {if $src->canContribute}checked="checked"{/if} />
-            Deschisă pentru contribuții
+          <label>
+            <input type="checkbox" name="canContribute" {if $src->canContribute}checked{/if}>
+            deschisă pentru contribuții
           </label>
         </div>
 
         <div class="checkbox">
-          <label for="cbCanModerate">
-            <input type="checkbox" id="cbCanModerate" name="canModerate" {if $src->canModerate}checked="checked"{/if} />
-            Poate fi aleasă de moderatori
+          <label>
+            <input type="checkbox" name="canModerate" {if $src->canModerate}checked{/if}>
+            poate fi aleasă de moderatori
           </label>
         </div>
 
         <div class="checkbox">
-          <label for="cbCanDistribute">
-            <input type="checkbox" id="cbCanDistribute" name="canDistribute" {if $src->canDistribute}checked="checked"{/if} />
-            Poate fi redistribuită
+          <label>
+            <input type="checkbox" name="canDistribute" {if $src->canDistribute}checked{/if}>
+            poate fi redistribuită
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="structurable" {if $src->structurable}checked{/if}>
+            de structurat în primă fază
           </label>
         </div>
 

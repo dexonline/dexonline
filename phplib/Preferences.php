@@ -35,8 +35,8 @@ class Preferences {
     ],
     self::SHOW_PARADIGM => [
       'enabled' => true,
-      'label' => 'Expandează flexiunile',
-      'comment' => 'Implicit, flexiunile sunt ascunse.', 
+      'label' => 'Deschide fila de flexiuni',
+      'comment' => 'Implicit, prima filă vizibilă la căutări este cea cu definiții.', 
     ],
     self::LOC_PARADIGM => [
       'enabled' => true,

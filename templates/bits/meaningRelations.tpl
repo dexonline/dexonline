@@ -1,7 +1,10 @@
+{$labels=$labels|default:true}
 {foreach $relations as $type => $treeList}
   {if !empty($treeList)}
     <span class="tag-group">
-      <span class="text-muted">{Relation::$TYPE_NAMES[$type]}:</span>
+      {if $labels}
+        <span class="text-muted">{Relation::$TYPE_NAMES[$type]}:</span>
+      {/if}
       {foreach $treeList as $tree}
         {$entries=$tree->getEntries()}
         <span class="label label-relation-{$type}">

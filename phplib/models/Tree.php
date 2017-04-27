@@ -103,7 +103,6 @@ class Tree extends BaseObject implements DatedObject {
       'sources' => MeaningSource::loadSourcesByMeaningId($meaningId),
       'tags' => Tag::loadByMeaningId($meaningId),
       'relations' => Relation::loadByMeaningId($meaningId),
-      'hasRelations' => (Relation::get_by_meaningId($meaningId) != null),
       'children' => [],
       // Meaningful for etymologies: the breadcrumb of the lowest ancestor of TYPE_MEANING.
       // Populated by Tree::extractEtymologies().

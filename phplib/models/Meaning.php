@@ -51,6 +51,20 @@ class Meaning extends BaseObject implements DatedObject {
   }
 
   /**
+   * Returns true iff we should display the relations alongside the htmlRep. This happens when:
+   * - htmlRep is empty;
+   * - htmlRep is a parenthesis;
+   * - htmlRep ends in an '=' sign;
+   **/
+  function includeRelations() {
+    return (
+     !$this->htmlRep ||
+     (StringUtil::startsWith($this->htmlRep, '(') && StringUtil::endsWith($this->htmlRep, ')')) ||
+     StringUtil::endsWith($this->htmlRep, '=')
+    );
+  }
+
+  /**
    * Increases the first part of the breadcrumb by $x, so 3.5.1 increased by 7 becomes 10.5.1.
    **/
   function increaseBreadcrumb($x) {

@@ -138,7 +138,7 @@ assertEquals('<span class="spaced">unu, doi</span>', AdminStringUtil::internalTo
 assertEquals('<span class="spaced">ab <b>cd</b></span>', AdminStringUtil::internalToHtml('%ab @cd@%', FALSE));
 assertEquals("okely\ndokely",
 	     AdminStringUtil::internalToHtml("okely\ndokely", FALSE));
-assertEquals("okely<br/>\ndokely",
+assertEquals("okely<br>\ndokely",
 	     AdminStringUtil::internalToHtml("okely\ndokely", TRUE));
 
 assertEquals("@FILLER@ #adj. dem.# (antepus), art.", AdminStringUtil::markAbbreviations("@FILLER@ adj. dem. (antepus), art.", 1));

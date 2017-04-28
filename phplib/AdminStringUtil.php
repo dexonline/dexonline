@@ -339,7 +339,7 @@ class AdminStringUtil {
   }
 
   // Converts the text to html. If $obeyNewlines is true, replaces \n with
-  // <br/>\n; otherwise leaves \n as \n. Collects unrecoverable errors in $errors.
+  // <br>\n; otherwise leaves \n as \n. Collects unrecoverable errors in $errors.
   static function htmlize($s, $sourceId, &$errors = null, $obeyNewlines = false) {
     $s = htmlspecialchars($s, ENT_NOQUOTES);
     $s = self::convertReferencesToHtml($s);
@@ -433,7 +433,7 @@ class AdminStringUtil {
         $inItalic = !$inItalic;
         $result .= $inItalic ? '<i>' : '</i>';
       } else if ($c == "\n") {
-        $result .= $obeyNewlines ? "<br/>\n" : "\n";
+        $result .= $obeyNewlines ? "<br>\n" : "\n";
       } else if ($c == '%') {
         $inSpaced = !$inSpaced;
         $result .= $inSpaced ? '<span class="spaced">' : '</span>';

@@ -25,7 +25,7 @@
     {/foreach}
   </p>
 
-  <small class="defDetails text-muted">
+  <div class="defDetails small text-muted">
     <ul class="list-inline dropup">
       {if $showSource}
         <li>
@@ -206,7 +206,7 @@
       {/if}
 
     </ul>
-  </small>
+  </div>
 
   {if $row->comment}
     <div class="panel panel-default panel-comment">

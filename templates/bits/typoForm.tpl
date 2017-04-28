@@ -30,7 +30,7 @@
 
           <div class="modal-footer">
             <button class="btn btn-primary" id="typoSubmit" type="submit">trimite</button>
-            <button class="btn btn-link" href="#" data-dismiss="modal">anulează</button>
+            <button class="btn btn-link" data-dismiss="modal">anulează</button>
           </div>
         </form>
       </div>
@@ -53,7 +53,7 @@
         </div>
 
         <div class="modal-footer">
-          <button class="btn btn-link" href="#" data-dismiss="modal">închide</button>
+          <button class="btn btn-link" data-dismiss="modal">închide</button>
         </div>
       </div>
     </div>

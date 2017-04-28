@@ -9,7 +9,7 @@
     <div class="panel-heading">Interogări executate cu DB::execute()</div>
     <div class="panel-body">
       {foreach DebugInfo::$debugInfo as $line}
-        {$line|escape}<br/>
+        {$line|escape}<br>
       {/foreach}
       </div>
   </div>
@@ -18,7 +18,7 @@
     <div class="panel-heading">Interogări Idiorm</div>
     <div class="panel-body">
       {foreach ORM::get_query_log() as $query}
-        Idiorm query: {$query}<br/>
+        Idiorm query: {$query}<br>
       {foreachelse}
         Nu există interogări Idiorm. Ați decomentat linia
         <code>ORM::configure('logging', true);</code> în <code>phplib/db.php</code>?

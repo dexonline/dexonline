@@ -6,7 +6,7 @@
 
 {block "pageDescription"}
   <meta name="description"
-        content="Cuvântul lunii {$timestamp|date_format:'%B %Y'} la dexonline: {$searchResult->definition->lexicon}"/>
+        content="Cuvântul lunii {$timestamp|date_format:'%B %Y'} la dexonline: {$searchResult->definition->lexicon}">
 {/block}
 
 {block "openGraph"}
@@ -39,7 +39,7 @@
       showHistory=1}
 
       {if $imageUrl}
-        <img class="img-responsive center-block" src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
+        <img class="img-responsive center-block" src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}">
         <div class="text-muted pull-right">
           {$artist->credits|default:''}
         </div>

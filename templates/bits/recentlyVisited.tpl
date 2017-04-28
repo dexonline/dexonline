@@ -11,7 +11,7 @@
         <div class="modal-body">
 
           {foreach $recentLinks as $rl}
-            <a href="{$rl->url|escape}">{$rl->text|escape}</a><br/>
+            <a href="{$rl->url|escape}">{$rl->text|escape}</a><br>
           {/foreach}
 
         </div>

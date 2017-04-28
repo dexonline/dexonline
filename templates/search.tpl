@@ -8,7 +8,7 @@
 
 {block "pageDescription"}
   {if isset($pageDescription)}
-    <meta name="description" content="{$pageDescription}"/>
+    <meta name="description" content="{$pageDescription}">
   {/if}
 {/block}
 

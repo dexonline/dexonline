@@ -6,8 +6,8 @@
   <h3>Ștergere model {$modelType}{$modelNumber}</h3>
 
   <form method="post">
-    <input type="hidden" name="modelType" value="{$modelType}"/>
-    <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
+    <input type="hidden" name="modelType" value="{$modelType}">
+    <input type="hidden" name="modelNumber" value="{$modelNumber}">
 
     {if count($lexems)}
       <div class="alert alert-warning alert-dismissible" role="alert">
@@ -29,9 +29,9 @@
       <small class="text-muted">({$l->modelType}{$l->modelNumber})</small>
       &nbsp;&nbsp;
       <a href="../admin/lexemEdit.php?lexemId={$l->id}">editează</a>
-      <br/>
+      <br>
     {/foreach}
-    <br/>
+    <br>
 
     <!-- We want to disable the button on click, but still submit a value -->
     {if $locPerm}

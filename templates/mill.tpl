@@ -29,7 +29,7 @@
           <span class="questionImage">
             <img id="statusImage{$smarty.section.round.index}"
                  src="{$imgRoot}/mill/pending.png"
-                 alt="imagine pentru runda {$smarty.section.round.index}"/>
+                 alt="imagine pentru runda {$smarty.section.round.index}">
             <span class="questionNumber">{$smarty.section.round.index}</span>
           </span>
         {/section}

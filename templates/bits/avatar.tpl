@@ -5,4 +5,4 @@
      src="{$imgRoot}/avatar_user.png"
   {/if}
      alt="imagine de profil: {$user->nick|escape}"
-/>
+>

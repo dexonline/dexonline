@@ -9,8 +9,8 @@
       <div class="panel-body">
         <form action="editare-avatar" method="post" enctype="multipart/form-data">
           {include "bits/avatar.tpl" user=$sUser}
-          <br />
-          <br />
+          <br>
+          <br>
           <div class="form-group">
             <label for="avatarFileName">Fișier:</label>
             <input id="avatarFileName" type="file" name="avatarFileName">
@@ -43,7 +43,7 @@
               Datele mele sunt vizibile public
               <span class="help-block">
                 Identitatea OpenID, numele și adresa de email furnizate de OpenID vor apărea în <a href="{$wwwRoot}utilizator/{$sUser->nick}">profilul dumneavoastră</a>.
-                <em>dexonline</em> nu permite editarea directă a acestor date. <br />Ele sunt preluate din identitatea OpenID.
+                <em>dexonline</em> nu permite editarea directă a acestor date. <br>Ele sunt preluate din identitatea OpenID.
               </span>
             </label>
           </div>
@@ -61,7 +61,7 @@
                      name="userPrefs[]"
                      value="{$value}"
                      {if !$i.enabled}disabled{/if}
-                     {if $i.checked}checked{/if}/>
+                     {if $i.checked}checked{/if}>
               {$i.label}
               <span class="help-block">{$i.comment}</span>
             </label>

@@ -52,19 +52,19 @@
               </td>
               {/if}
               <td class="nick">
-                <input type="hidden" name="ids[]" value="{$s->id}"/>
+                <input type="hidden" name="ids[]" value="{$s->id}">
                 <span class="sourceName">
                   {$s->name}
                   <div class="popover bottom">
                     <div class="arrow"></div>
                     <h3 class="popover-title">{$s->name}</h3>
                     <div class="popover-content">
-                      Autor: {$s->author}<br/>
-                      Editură: {$s->publisher}<br/>
-                      Anul apariției: {$s->year}<br/>
+                      Autor: {$s->author}<br>
+                      Editură: {$s->publisher}<br>
+                      Anul apariției: {$s->year}<br>
                       {if $editable}
                         {if $s->importType}
-                      <br/>
+                      <br>
                       Import {$s->getImportTypeLabel()}
                         {/if}
                       {/if}

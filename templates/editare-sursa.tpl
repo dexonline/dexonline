@@ -19,16 +19,16 @@
     <div class="panel-body">
 
       <form method="post" action="editare-sursa">
-        <input type="hidden" name="id" value="{$src->id}" />
+        <input type="hidden" name="id" value="{$src->id}">
 
         <div class="form-group">
           <label>Nume</label>
-          <input type="text" name="name" value="{$src->name}" class="form-control" />
+          <input type="text" name="name" value="{$src->name}" class="form-control">
         </div>
 
         <div class="form-group">
           <label>Nume scurt</label>
-          <input type="text" name="shortName" value="{$src->shortName}" class="form-control" />
+          <input type="text" name="shortName" value="{$src->shortName}" class="form-control">
           <p class="help-block">
             Numele sursei prezentat după fiecare definiție.
           </p>
@@ -36,7 +36,7 @@
 
         <div class="form-group">
           <label>Nume URL</label>
-          <input type="text" name="urlName" value="{$src->urlName}" class="form-control" />
+          <input type="text" name="urlName" value="{$src->urlName}" class="form-control">
           <p class="help-block">
             Numele care apare în URL la căutarea într-o anumită sursă, cum ar fi
             https://dexonline.ro/definitie-<strong>der</strong>/copil
@@ -45,17 +45,17 @@
 
         <div class="form-group">
           <label>Autor</label>
-          <input type="text" name="author" value="{$src->author}" class="form-control" />
+          <input type="text" name="author" value="{$src->author}" class="form-control">
         </div>
 
         <div class="form-group">
           <label>Editură</label>
-          <input type="text" name="publisher" value="{$src->publisher}" class="form-control" />
+          <input type="text" name="publisher" value="{$src->publisher}" class="form-control">
         </div>
 
         <div class="form-group">
           <label>An</label>
-          <input type="text" name="year" value="{$src->year}" class="form-control" />
+          <input type="text" name="year" value="{$src->year}" class="form-control">
         </div>
 
         <div class="form-group">
@@ -107,12 +107,12 @@
 
         <div class="form-group">
           <label>Notă</label>
-          <input type="text" name="remark" value="{$src->remark}" class="form-control" />
+          <input type="text" name="remark" value="{$src->remark}" class="form-control">
         </div>
 
         <div class="form-group">
           <label>Legătura către formatul scanat</label>
-          <input type="text" name="link" value="{$src->link}" class="form-control" />
+          <input type="text" name="link" value="{$src->link}" class="form-control">
         </div>
 
         <div class="form-group">
@@ -142,7 +142,7 @@
 
         <div class="form-group">
           <label>Număr de definiții (-1 pentru „necunoscut”)</label>
-          <input type="text" name="defCount" value="{$src->defCount}" class="form-control" />
+          <input type="text" name="defCount" value="{$src->defCount}" class="form-control">
           <p class="help-block">
             din care digitizate: {$src->ourDefCount}; procent de completare: {$src->percentComplete|string_format:"%.2f"}.
           </p>

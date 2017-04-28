@@ -84,7 +84,7 @@
     {/if}
   </div>
 
-  <br/>
+  <br>
 
   <h3>Exemplu</h3>
 

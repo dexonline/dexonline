@@ -33,7 +33,7 @@
           {if $user->detailsVisible && $user->email}
             <dt>Adresă de e-mail</dt>
             <dd>{$user->email|escape}</dd>
-            <br/>
+            <br>
           {/if}
         </dl>
       </div>
@@ -73,7 +73,7 @@
       {if User::can(User::PRIV_ADMIN)}
         <form id="medalEditDiv" method="post" class="collapse">
           <div class="medalCheckboxes">
-            <input type="hidden" name="userId" value="{$user->id}"/>
+            <input type="hidden" name="userId" value="{$user->id}">
             {foreach $allMedals as $mask => $params}
               <div class="checkbox">
                 <label>
@@ -87,14 +87,14 @@
               </div>
             {/foreach}
           </div>
-          <input class="btn btn-default" type="submit" name="medalSaveButton" value="Salvează"/>
+          <input class="btn btn-default" type="submit" name="medalSaveButton" value="Salvează">
         </form>
       {/if}
 
       {if $medals}
         <div class="text-center">
           {foreach $medals as $params}
-            <img src="{$imgRoot}/medals/{$params.pic}" alt="{$params.name}" title="{$params.name} {$params.description}"/>
+            <img src="{$imgRoot}/medals/{$params.pic}" alt="{$params.name}" title="{$params.name} {$params.description}">
           {/foreach}
         </div>
       {else}

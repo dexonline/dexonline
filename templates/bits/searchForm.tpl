@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-sm-12 col-sm-11">
           <div class="input-group">
-            <input type="text" class="form-control searchField" name="cuv" placeholder="cuvânt" id="searchField" value="{$cuv|escape}" maxlength="50"/>
+            <input type="text" class="form-control searchField" name="cuv" placeholder="cuvânt" id="searchField" value="{$cuv|escape}" maxlength="50">
             <span class="input-group-btn">
               <button type="submit" value="caută" id="searchButton" class="btn btn-primary">
                 <span class="glyphicon glyphicon-search"></span>
@@ -32,7 +32,7 @@
           <label>
             <input type="checkbox"
                    name="text"
-                   {if $text}checked{/if}/>
+                   {if $text}checked{/if}>
             Caută în tot textul definițiilor
           </label>
 

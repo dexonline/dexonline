@@ -6,8 +6,8 @@
   <h3>Clonare model {$modelType}{$modelNumber}</h3>
 
   <form method="post">
-    <input type="hidden" name="modelType" value="{$modelType}"/>
-    <input type="hidden" name="modelNumber" value="{$modelNumber}"/>
+    <input type="hidden" name="modelType" value="{$modelType}">
+    <input type="hidden" name="modelNumber" value="{$modelNumber}">
 
     <div class="form-group form-inline">
       <label class="control-label">număr nou de model</label>

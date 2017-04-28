@@ -25,7 +25,7 @@
       {assign var=srArray value=$searchResults[$lexemId]}
 
       <div>
-        <input type="hidden" name="position_{$l->id}" value="-1"/>
+        <input type="hidden" name="position_{$l->id}" value="-1">
 
         <span class="apLexemForm">
           {foreach $charArray as $cIndex => $char}

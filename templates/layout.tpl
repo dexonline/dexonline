@@ -6,14 +6,14 @@
 
   <head>
     <title>{block "title"}Dicționare ale limbii române{/block} | dexonline</title>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" name="viewport">
     {block "pageDescription"}{/block}
     {block "openGraph"}
-      <meta property="og:image" content="{$imgRoot}/logo/logo-og.png" />
-      <meta property="og:type" content="website" />
-      <meta property="og:title" content="dexonline" />
-      <link rel="image_src" href="{$imgRoot}/logo/logo-og.png" />
+      <meta property="og:image" content="{$imgRoot}/logo/logo-og.png">
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="dexonline">
+      <link rel="image_src" href="{$imgRoot}/logo/logo-og.png">
     {/block}
     {if $privateMode}
       <link href="{$wwwRoot}css/opensans.css" rel="stylesheet" type="text/css">
@@ -22,13 +22,13 @@
             rel="stylesheet" type="text/css">
     {/if}
     {include "bits/cssJs.tpl"}
-    <link rel="search" type="application/opensearchdescription+xml" href="https://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro"/>
-    <link href="https://plus.google.com/100407552237543221945" rel="publisher" />
+    <link rel="search" type="application/opensearchdescription+xml" href="https://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro">
+    <link href="https://plus.google.com/100407552237543221945" rel="publisher">
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="https://dexonline.ro/rss/cuvantul-zilei">
     <link rel="apple-touch-icon" href="{$imgRoot}/apple-touch-icon.png">
     {if $typewriterEnabled}
-        <link rel="prefetch" href="{$wwwRoot}typewriter/font/FuckinGwenhwyfar.ttf" />
-        <link rel="stylesheet" type="text/css" href="{$wwwRoot}typewriter/run.css" />
+        <link rel="prefetch" href="{$wwwRoot}typewriter/font/FuckinGwenhwyfar.ttf">
+        <link rel="stylesheet" type="text/css" href="{$wwwRoot}typewriter/run.css">
     {/if}
   </head>
 
@@ -60,9 +60,9 @@
 
           {block "footer"}
             {if $skinVariables.fbLarge && !$privateMode}
-              <hr />
+              <hr>
               {include "bits/facebook.tpl"}
-              <hr />
+              <hr>
             {/if}
           {/block}
 

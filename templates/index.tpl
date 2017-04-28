@@ -8,7 +8,7 @@
 {block "content"}
   <header>
     <div class="siteIdentity">
-      <img class='siteLogo' src='{$wwwRoot}img/svg/logo-dexonline.svg' alt='dexonline'/>
+      <img class='siteLogo' src='{$wwwRoot}img/svg/logo-dexonline.svg' alt='dexonline'>
       <div class="tagline">Dicționare ale limbii române</div>
     </div>
   </header>

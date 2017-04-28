@@ -7,7 +7,7 @@
 
 		<script src='../js/crawler_ajax.js'></script>
 
-		<link rel="StyleSheet" type="text/css" href="../css/crawler.css"/>
+		<link rel="StyleSheet" type="text/css" href="../css/crawler.css">
 
 	</head>
 	<body>
@@ -47,7 +47,7 @@
 			</div>
 		</div>
 
-		<img id="logo" src="../img/logo/logo-og.png"/>
+		<img id="logo" src="../img/logo/logo-og.png">
 
 	</body>
 </html>

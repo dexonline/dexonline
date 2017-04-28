@@ -49,7 +49,7 @@
         </div>
       </form>
 
-      <br />
+      <br>
 
       {if isset($data)}
           {if !count($data)}
@@ -146,7 +146,7 @@
           {/foreach}
         </select>
         </div>
-        <input type="submit" name="submitButton" value="compară" class="btn btn-primary" />
+        <input type="submit" name="submitButton" value="compară" class="btn btn-primary">
       </form>
     </div>
   </div>

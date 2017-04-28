@@ -27,7 +27,7 @@
         {foreach $inflections as $infl}
           <tr>
             <td class="nick">
-              <input type="hidden" name="inflectionIds[]" value="{$infl->id}"/>
+              <input type="hidden" name="inflectionIds[]" value="{$infl->id}">
               {$infl->description}
             </td>
             <td>{$infl->modelType}</td>
@@ -37,7 +37,7 @@
         {/foreach}
         <tr>
           <td class="nick">
-            <input type="text" name="newDescription" value="" class="form-control" placeholder="Adaugă" />
+            <input type="text" name="newDescription" value="" class="form-control" placeholder="Adaugă">
           </td>
           <td>
             <select class="form-control" name="newModelType">

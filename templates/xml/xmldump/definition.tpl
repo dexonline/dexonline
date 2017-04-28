@@ -5,7 +5,7 @@
       <SourceId>{$def->sourceId}</SourceId>
       <Text>{$def->internalRep}</Text>
     {else}
-      <Deleted/>
+      <Deleted>
     {/if}
   </Definition>
 

@@ -6,7 +6,7 @@
 
   {if $categories}
     {if $row->source->type == Source::TYPE_SPECIALIZED && !$displayedSpec}
-      <br/>
+      <br>
       <div class="callout callout-info">
         <h3>Definiții din dicționare specializate</h3>
         <p class="text-muted">
@@ -15,7 +15,7 @@
       </div>
       {$displayedSpec=true}
     {elseif $row->source->type == Source::TYPE_UNOFFICIAL && !$displayedUnofficial}
-      <br/>
+      <br>
       <div class="callout callout-info">
         <h3>Definiții din dicționare neoficiale</h3>
         <p class="text-muted">

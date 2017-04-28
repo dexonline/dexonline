@@ -28,7 +28,7 @@
       </tr>
     {/foreach}
   </table>
-  <br/>
+  <br>
 
   <h3>Pentru restul dicționarelor</h3>
 

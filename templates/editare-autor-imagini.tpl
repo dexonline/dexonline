@@ -20,23 +20,23 @@
 
     <div class="panel-body">
       <form method="post">
-        <input type="hidden" name="id" value="{$artist->id}"/>
+        <input type="hidden" name="id" value="{$artist->id}">
 
         <div class="form-group">
           <label>Nume</label>
-          <input type="text" name="name" value="{$artist->name}" size="50" class="form-control" />
+          <input type="text" name="name" value="{$artist->name}" size="50" class="form-control">
         </div>
         <div class="form-group">
           <label>E-mail</label>
-          <input type="text" name="email" value="{$artist->email}" size="50" class="form-control" />
+          <input type="text" name="email" value="{$artist->email}" size="50" class="form-control">
         </div>
         <div class="form-group">
           <label>Cod</label>
-          <input type="text" name="label" value="{$artist->label}" size="30" class="form-control" />
+          <input type="text" name="label" value="{$artist->label}" size="30" class="form-control">
         </div>
         <div class="form-group">
           <label>Credite</label>
-          <input type="text" name="credits" value="{$artist->credits|escape}" size="80" class="form-control" />
+          <input type="text" name="credits" value="{$artist->credits|escape}" size="80" class="form-control">
         </div>
 
         <button class="btn btn-success" type="submit" name="saveButton">

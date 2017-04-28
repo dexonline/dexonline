@@ -10,7 +10,7 @@
   <h3>Editare model {$m->modelType}{$m->number}</h3>
 
   <form id="modelForm" method="post">
-    <input type="hidden" name="id" value="{$m->id}"/>
+    <input type="hidden" name="id" value="{$m->id}">
 
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -21,7 +21,7 @@
         <div class="form-group">
           <label class="col-sm-3 control-label">număr de model</label>
           <div class="col-sm-9">
-            <input class="form-control" type="text" name="number" value="{$m->number|escape}"/>
+            <input class="form-control" type="text" name="number" value="{$m->number|escape}">
             <small class="text-muted">poate conține orice caractere</small>
           </div>
         </div>
@@ -29,7 +29,7 @@
         <div class="form-group">
           <label class="col-sm-3 control-label">descriere</label>
           <div class="col-sm-9">
-            <input class="form-control" type="text" name="description" value="{$m->description|escape}"/>
+            <input class="form-control" type="text" name="description" value="{$m->description|escape}">
           </div>
         </div>
 
@@ -52,7 +52,7 @@
         <div class="form-group">
           <label class="col-sm-3 control-label">exponent</label>
           <div class="col-sm-9">
-            <input class="form-control" type="text" name="exponent" value="{$m->exponent|escape}"/>
+            <input class="form-control" type="text" name="exponent" value="{$m->exponent|escape}">
           </div>
         </div>
 

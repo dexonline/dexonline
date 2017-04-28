@@ -18,7 +18,7 @@
     <div class="form-group">
       <label>
         OpenID:
-        <input class="form-control" type="text" name="openid" value="{$openid}" size="50" autofocus/>
+        <input class="form-control" type="text" name="openid" value="{$openid}" size="50" autofocus>
       </label>
 
       <button class="btn btn-primary" type="submit">
@@ -45,7 +45,7 @@
   <h3>Ce este OpenID?</h3>
 
   <div>
-    <img src="{$imgRoot}/openid/openid.png" alt="Logo OpenID"/>
+    <img src="{$imgRoot}/openid/openid.png" alt="Logo OpenID">
 
     <span>este o modalitate mai rapidă și mai ușoară de a vă autentifica pe un site web.</span>
   </div>

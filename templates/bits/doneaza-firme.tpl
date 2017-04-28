@@ -9,7 +9,7 @@
   </ul>
 
   Cheltuielile ce depășesc aceste limite pot fi înregistrate în contabilitate drept cheltuieli nedeductibile. Sponsorizările se pot face în orice
-  perioadă a anului, sumele urmând să figureze în documentele contabile la următoarea dată a raportării impozitului pe profit.<br /><br />
+  perioadă a anului, sumele urmând să figureze în documentele contabile la următoarea dată a raportării impozitului pe profit.<br><br>
 
   <b>Detalii</b>:
 

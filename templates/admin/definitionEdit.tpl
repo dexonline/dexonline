@@ -21,8 +21,8 @@
   </h3>
 
   <form action="definitionEdit.php" method="post" class="form-horizontal">
-    <input type="hidden" name="definitionId" value="{$def->id}"/>
-    <input type="hidden" name="isOCR" value="{$isOCR}"/>
+    <input type="hidden" name="definitionId" value="{$def->id}">
+    <input type="hidden" name="isOCR" value="{$isOCR}">
 
     <div class="row">
       <div class="col-md-6">
@@ -32,7 +32,7 @@
             {if $source->canModerate}
               {include "bits/sourceDropDown.tpl" sources=$allModeratorSources sourceId=$def->sourceId skipAnySource=true}
             {else}
-              <input type="hidden" name="source" value="{$def->sourceId}"/>
+              <input type="hidden" name="source" value="{$def->sourceId}">
               <input class="form-control" type="text" disabled value="{$source->shortName}">
             {/if}
           </div>

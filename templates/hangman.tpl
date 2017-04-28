@@ -31,15 +31,15 @@
 
         <div class="controls">
           {foreach $letters as $letter}
-            <input class="letterButtons btn" type="button" value="{$letter|mb_strtoupper}"/>
+            <input class="letterButtons btn" type="button" value="{$letter|mb_strtoupper}">
           {/foreach}
-          <input id="hintButton" type="button" value="Dă-mi un indiciu" class="btn" />
+          <input id="hintButton" type="button" value="Dă-mi un indiciu" class="btn">
         </div>
 
         <div class="newGameControls">
           <label>Joc nou:</label>
           <button class="btn btn-info" type="button" data-level="1">ușor</button>
-          <button class="btn btn-info" type="button" data-level="2">mediu</button><br/>
+          <button class="btn btn-info" type="button" data-level="2">mediu</button><br>
           <button class="btn btn-info" type="button" data-level="3">dificil</button>
           <button class="btn btn-info" type="button" data-level="4">expert</button>
         </div>

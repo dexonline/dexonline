@@ -12,9 +12,9 @@
   </div>
 
   <form>
-    <input type="hidden" name="search" value="{$search|escape}"/>
-    <input type="hidden" name="replace" value="{$replace|escape}"/>
-    <input type="hidden" name="sourceId" value="{$sourceId}"/>
+    <input type="hidden" name="search" value="{$search|escape}">
+    <input type="hidden" name="replace" value="{$replace|escape}">
+    <input type="hidden" name="sourceId" value="{$sourceId}">
     <button type="submit" class="btn btn-success" name="saveButton">
       <i class="glyphicon glyphicon-floppy-disk"></i>
       <u>s</u>alvează

@@ -3,7 +3,7 @@
 {block "title"}Corector diacritice{/block}
 
 {block "content"}
-  <link rel="StyleSheet" type="text/css" href="/DEX/wwwbase/css/diacritics_fix.css"/>
+  <link rel="StyleSheet" type="text/css" href="/DEX/wwwbase/css/diacritics_fix.css">
 
   <div id="textareaSubtitle">
 	  <center><span>Corector diacritice</span></center>

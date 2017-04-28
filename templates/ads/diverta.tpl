@@ -7,7 +7,7 @@
    href="{$clickurl}" target="_blank">
   {if $hasImage}
     <img style="border: 0px; float: left; height: {$book->thumbHeight}px; padding: 3px 0px 3px 10px; width: {$book->thumbWidth}px;"
-         src="{$imgRoot}/diverta/thumb/{$book->sku}.jpg" alt="imagine copertă"/>
+         src="{$imgRoot}/diverta/thumb/{$book->sku}.jpg" alt="imagine copertă">
   {/if}
   <div style="float: left; height: 90px; overflow: hidden; padding: 0 10px; text-align: center; width: {$textWidth}px;">
     <div style="font-size: 20px; margin-top: 10px;">{$book->title|truncate:58}</div>

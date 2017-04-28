@@ -7,7 +7,7 @@
 {block "pageDescription"}
   {$lexicon=$searchResult->definition->lexicon}
   <meta name="description"
-        content="Cuvântul zilei de {$day} {$monthName} {$year} la dexonline: {$lexicon}"/>
+        content="Cuvântul zilei de {$day} {$monthName} {$year} la dexonline: {$lexicon}">
 {/block}
 
 {block "openGraph"}
@@ -21,12 +21,12 @@
 
   {if $skinVariables.wotdSubscribe}
     <div id="wotdSocialMedia">
-          <a href="#toggleContents" data-toggle="collapse"><img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"/></a>
-          <a type="application/rss+xml" href="https://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"/></a>
-          <a href="https://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"/></a>
+          <a href="#toggleContents" data-toggle="collapse"><img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"></a>
+          <a type="application/rss+xml" href="https://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"></a>
+          <a href="https://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"></a>
     </div>
     <div id="toggleContents" class="collapse">
-      <br />
+      <br>
       <div class="panel panel-default">
         <div class="panel-body">
           <i>dexonline</i> nu oferă cuvântul zilei direct prin email. Există însă
@@ -38,7 +38,7 @@
     </div>
   {/if}
 
-  <br />
+  <br>
 
   <div class="container panel panel-default">
     <div class="row panel-heading">
@@ -68,7 +68,7 @@
       showHistory=1}
 
       {if $imageUrl}
-        <img class="img-responsive center-block" src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}"/>
+        <img class="img-responsive center-block" src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}">
         <div class="text-muted pull-right">
           {$artist->credits|default:''}
         </div>
@@ -82,7 +82,7 @@
   </div>
 
   {if $skinVariables.wotdArchive}
-    <br />
+    <br>
     <h3>Arhiva cuvintelor zilei</h3>
 
     <div id="wotdArchive" class="wotdArchive"></div>
@@ -94,7 +94,7 @@
         <div class="panel-body">
           <img class="pull-right"
                src="{$r.wotd->getSmallThumbUrl()}"
-               alt="iconița cuvântului zilei" />
+               alt="iconița cuvântului zilei">
           <p>
             <strong>{$r.wotd->displayDate|date_format:'%Y'}:</strong>
             <a href="{$wwwRoot}cuvantul-zilei/{$r.wotd->displayDate|date_format:'%Y/%m/%d'}">

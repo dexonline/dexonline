@@ -21,7 +21,7 @@
           </dd>
           <dt><label for="toggleD">Diacritice?</label></dt>
           <dd>
-            <input id="toggleD" type="checkbox" />
+            <input id="toggleD" type="checkbox">
           </dd>
         </dl>
       </form>
@@ -37,9 +37,9 @@
 
       <div class="drawArea">
         <canvas class="canvasArea" width='480' height='280' ></canvas>
-        <br/>
+        <br>
         <button class="wordBtn btn btn-default" type="button">Dă-mi cuvintele</button>
-        <br />
+        <br>
         <table class="table table-responsive wordArea" style="display:none;">
           <caption>Cuvintele posibile sunt</caption>
           <tr class="wordList"></tr>

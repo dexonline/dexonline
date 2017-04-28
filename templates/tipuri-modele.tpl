@@ -13,10 +13,10 @@
         </p>
 
         <form method="post" action="tipuri-modele.php">
-          <input type="hidden" name="id" value="0" />
+          <input type="hidden" name="id" value="0">
           <div class="form-group">
             <label>cod</label>
-            <input type="text" name="code" value="{$addModelType->code}" size="10" class="form-control" />
+            <input type="text" name="code" value="{$addModelType->code}" size="10" class="form-control">
           </div>
 
           <div class="form-group">
@@ -30,7 +30,7 @@
 
           <div class="form-group">
             <label>descriere</label>
-            <input type="text" name="description" value="{$addModelType->description}" class="form-control" />
+            <input type="text" name="description" value="{$addModelType->description}" class="form-control">
           </div>
 
           <button class="btn btn-success" type="submit" name="saveButton">
@@ -51,23 +51,23 @@
       <div class="panel-body">
 
         <form method="post" action="tipuri-modele.php">
-          <input type="hidden" name="id" value="{$editModelType->id}" />
+          <input type="hidden" name="id" value="{$editModelType->id}">
 
           <div class="form-group">
             <label>cod</label>
-            <input type="text" value="{$editModelType->code}" disabled class="form-control" />
+            <input type="text" value="{$editModelType->code}" disabled class="form-control">
           </div>
 
           {if $editModelType->code != $editModelType->canonical}
             <div class="form-group">
               <label>cod canonic</label>
-              <input type="text" value="{$editModelType->canonical}" disabled class="form-control" />
+              <input type="text" value="{$editModelType->canonical}" disabled class="form-control">
             </div>
             {/if}
 
           <div class="form-group">
             <label>descriere</label>
-            <input type="text" name="description" value="{$editModelType->description}" class="form-control" />
+            <input type="text" name="description" value="{$editModelType->description}" class="form-control">
           </div>
 
           <button class="btn btn-success" type="submit" name="saveButton">

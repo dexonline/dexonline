@@ -10,7 +10,7 @@
 
   {if $def}
     <form action="" method="post">
-      <input type="hidden" name="definitionId" value="{$def->id}"/>
+      <input type="hidden" name="definitionId" value="{$def->id}">
 
       <p>
         {foreach $text as $i => $chunk name=iter}
@@ -62,7 +62,7 @@
       </div>
     </form>
   {else}
-    Nu există definiții de revizuit deocamdată. Ura!<br/>
+    Nu există definiții de revizuit deocamdată. Ura!<br>
   {/if}
 
   <div class="alert alert-info alert-dismissible">
@@ -82,5 +82,5 @@
     la o altă definiție aleatoare.
   </div>
 
-    <br/>
+    <br>
 {/block}

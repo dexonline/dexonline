@@ -29,7 +29,7 @@
                name="startDate"
                value="{$startDate|default:''}"
                class="form-control"
-               placeholder="AAAA-LL-ZZ" />
+               placeholder="AAAA-LL-ZZ">
         {include "bits/fieldErrors.tpl" errors=$errors.startDate|default:null}
       </div>
     </div>
@@ -42,7 +42,7 @@
                name="endDate"
                value="{$endDate|default:''}"
                class="form-control"
-               placeholder="AAAA-LL-ZZ" />
+               placeholder="AAAA-LL-ZZ">
         {include "bits/fieldErrors.tpl" errors=$errors.endDate|default:null}
       </div>
     </div>

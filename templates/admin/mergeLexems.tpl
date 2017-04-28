@@ -35,7 +35,7 @@
   </form>
 
   <form class="voffset4" method="post">
-    <input type="hidden" name="modelType" value="{$modelType}"/>
+    <input type="hidden" name="modelType" value="{$modelType}">
 
     {foreach $lexems as $lIter => $l}
       <div class="panel panel-default">
@@ -68,7 +68,7 @@
               <div class="checkbox">
                 {assign var="checkboxId" value="merge_`$l->id`_`$match->id`"}
                 <label> 
-                  <input type="checkbox" name="{$checkboxId}" value="1"/>
+                  <input type="checkbox" name="{$checkboxId}" value="1">
                   Unifică cu <strong>{$match->form}</strong>
                   {$match->modelType}{$match->modelNumber}{$match->restriction}
                 </label>

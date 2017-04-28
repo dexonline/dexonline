@@ -294,7 +294,7 @@
           </p>
         </div>
 
-        {include "search/definitionList.tpl" results=$structuredResults}
+        {include "search/definitionList.tpl" results=$structuredResults typoForm=false}
 
       </div>
     {/if}

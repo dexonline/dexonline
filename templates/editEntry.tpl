@@ -103,7 +103,7 @@
           </div>
         </div>
 
-        <div class="form-group"">
+        <div class="form-group">
           <label for="treeIds" class="col-md-2 control-label">
             arbori
           </label>

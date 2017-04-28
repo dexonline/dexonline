@@ -26,7 +26,7 @@
 
     <div class="row">
       <div class="col-md-6">
-        <div class="form-group"">
+        <div class="form-group">
           <label class="col-sm-4 control-label">sursă</label>
           <div class="col-sm-8">
             {if $source->canModerate}
@@ -58,7 +58,7 @@
           </div>
         </div>
 
-        <div class="form-group"">
+        <div class="form-group">
           <label for="entryIds" class="col-sm-2 control-label">intrări</label>
           <div class="col-sm-10">
             <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>

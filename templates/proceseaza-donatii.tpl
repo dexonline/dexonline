@@ -37,7 +37,7 @@
               <div class="col-md-4">
                 <input type="email"
                        name="email[]"
-                       value="{$donor->email|default:''}""
+                       value="{$donor->email|default:''}"
                        class="form-control"
                        placeholder="email">
               </div>
@@ -46,14 +46,14 @@
                        min="0"
                        step="1"
                        name="amount[]"
-                       value="{$donor->amount|default:''}""
+                       value="{$donor->amount|default:''}"
                        class="form-control"
                        placeholder="suma">
               </div>
               <div class="col-md-4">
                 <input type="date"
                        name="date[]"
-                       value="{$donor->date|default:''}""
+                       value="{$donor->date|default:''}"
                        class="form-control"
                        placeholder="data">
               </div>

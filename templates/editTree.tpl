@@ -70,7 +70,7 @@
       </div>
 
       <div class="col-md-6">
-        <div class="form-group"">
+        <div class="form-group">
           <label for="entryIds" class="col-md-2 control-label">intrări</label>
           <div class="col-md-10">
             <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
@@ -446,7 +446,7 @@
 
                 <select id="relationType" class="form-control editorObj" disabled>
                   {foreach Relation::$TYPE_NAMES as $type => $name}
-                    <option value="{$type}"" title="{$name}">{$name}</option>
+                    <option value="{$type}" title="{$name}">{$name}</option>
                   {/foreach}
                 </select>
 

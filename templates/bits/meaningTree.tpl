@@ -39,7 +39,7 @@
 
           </div>
 
-          <div class="defDetails"">
+          <div class="defDetails">
             {if count($t.sources)}
               <span class="tag-group">
                 <span class="text-muted">surse:</span>

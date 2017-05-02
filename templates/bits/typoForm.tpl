@@ -1,4 +1,6 @@
-{if $skinVariables.typo}
+{* Include this template only once by setting a global lock. *}
+{if $skinVariables.typo && !isset($typoFormShown)}
+  {$typoFormShown=true scope=global}
   <div id="typoModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">

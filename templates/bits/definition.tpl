@@ -15,6 +15,10 @@
 {$showUser=$showUser|default:true}
 {$showWotd=$showWotd|default:false}
 
+{if $showFlagTypo}
+  {include "bits/typoForm.tpl"}  
+{/if}
+
 {$def=$row->definition}
 
 <div class="defWrapper">

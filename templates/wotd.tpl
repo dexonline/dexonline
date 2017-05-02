@@ -106,6 +106,4 @@
       </div>
     {/foreach}
   {/if}
-
-  {include "bits/typoForm.tpl"}
 {/block}

@@ -1,5 +1,4 @@
 {$categories=$categories|default:true}
-{$typoForm=$typoForm|default:true}
 {$displayedUnofficial=false}
 {$displayedSpec=false}
 
@@ -36,7 +35,3 @@
   showWotd=$showWotd}
 
 {/foreach}
-
-{if $typoForm}
-  {include "bits/typoForm.tpl"}
-{/if}

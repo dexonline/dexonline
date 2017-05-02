@@ -50,8 +50,8 @@ class Preferences {
     ],
     self::PRIVATE_MODE => [
       'enabled' => false,
-      'label' => 'Modul privat',
-      'comment' => 'Dezactivează caseta Facebook, reclamele AdSense și alte elemente care divulgă informații despre dumneavoastră unor terțe părți. Modul privat este disponibil timp de un an celor care <a href="doneaza">donează</a> minim 50 de lei.',
+      'label' => 'Modul confidențial',
+      'comment' => 'Dezactivează caseta Facebook, reclamele AdSense și alte elemente care divulgă informații despre dumneavoastră unor terțe părți. Modul confidențial este disponibil timp de un an celor care <a href="doneaza">donează</a> minim 50 de lei.',
     ],
   ];
 

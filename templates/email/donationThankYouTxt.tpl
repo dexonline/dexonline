@@ -7,19 +7,20 @@ folosi acești bani pentru unul dintre proiectele noastre [1].
 Dorim să răsplătim gestul dumneavoastră după cum urmează:
 
 * {Donor::AMOUNT_MEDAL} de lei -- medalii (virtuale) pentru donatori;
-* {Donor::AMOUNT_NO_BANNERS} de lei -- în plus, pagini fără reclame timp de un an;
+* {Donor::AMOUNT_NO_BANNERS} de lei -- în plus, pagini fără reclame și preferință pentru
+  modul confidențial [2] timp de un an;
 * {Donor::AMOUNT_STICKER} de lei -- în plus, trei autocolante cu dexonline;
 * {Donor::AMOUNT_TEE} de lei -- în plus, un tricou cu dexonline.
 
 {if !$donor->user}
 Dacă doriți să beneficiați de premiile virtuale (medalie și/sau pagini fără
-reclame), aveți nevoie de un cont pe dexonline. Vă puteți autentifica [2]
+reclame), aveți nevoie de un cont pe dexonline. Vă puteți autentifica [3]
 folosind orice OpenID, care include orice cont de Google sau Yahoo.
 Apoi, dați-ne de știre.
 {elseif $donor->amount < Donor::AMOUNT_NO_BANNERS}
-V-am acordat medalia în contul dumneavoastră [2].
+V-am acordat medalia în contul dumneavoastră [3].
 {else}
-V-am acordat medalia și am ascuns reclamele în contul dumneavoastră [2].
+V-am acordat medalia și am ascuns reclamele în contul dumneavoastră [3].
 Dacă încă observați reclame, vă rugăm să vă deconectați și reconectați în cont.
 {/if}
 
@@ -35,8 +36,9 @@ Din partea echipei dexonline,
 
 ----
 [1] https://dexonline.ro/doneaza
+[2] http://wiki.dexonline.ro/wiki/Modul_confiden%C8%9Bial
 {if $donor->user}
-[2] https://dexonline.ro/utilizator/{$donor->user->nick|escape:url}
+[3] https://dexonline.ro/utilizator/{$donor->user->nick|escape:url}
 {else}
-[2] https://dexonline.ro/auth/login
+[3] https://dexonline.ro/auth/login
 {/if}

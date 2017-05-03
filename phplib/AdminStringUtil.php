@@ -154,9 +154,18 @@ class AdminStringUtil {
     return $text;
   }
 
-  // Sanitizes a definition or meaning
+  // Generic purpose cleanup of a string. This should be true of all columns of all tables.
+  static function cleanup($s) {
+    $s = trim($s);    
+    $s = str_replace([ 'ş', 'Ş', 'ţ', 'Ţ' ],
+                     [ 'ș', 'Ș', 'ț', 'Ț' ],
+                     $s);
+    return $s;
+  }
+
+  // Sanitizes a definition or meaning. This is more elaborate than cleanup().
   static function sanitize($s, $sourceId = null, &$ambiguousMatches = null) {
-    $s = trim($s);
+    $s = self::cleanup($s);
     $s = str_replace([ '$$', '@@', '%%' ], '', $s);
     $s = self::shorthandToUnicode($s);
     $s = self::migrateFormatChars($s);

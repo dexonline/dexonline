@@ -7,7 +7,7 @@ class Request {
   /* Reads a request parameter. */
   static function get($name, $default = null) {
     return array_key_exists($name, $_REQUEST)
-      ? $_REQUEST[$name]
+      ? AdminStringUtil::cleanup($_REQUEST[$name])
       : $default;
   }
 

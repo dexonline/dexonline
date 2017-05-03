@@ -30,10 +30,10 @@ class Session {
       $user->openidConnectSub = $openidData['sub'];
     }
     if (!$user->nick && isset($openidData['nickname'])) {
-      $user->nick = $openidData['nickname'];
+      $user->nick = AdminStringUtil::cleanup($openidData['nickname']);
     }
     if (isset($openidData['fullname'])) {
-      $user->name = $openidData['fullname'];
+      $user->name = AdminStringUtil::cleanup($openidData['fullname']);
     }
     if (isset($openidData['email'])) {
       $user->email = $openidData['email'];

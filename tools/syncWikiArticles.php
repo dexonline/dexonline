@@ -51,7 +51,7 @@ foreach ($xml->query->pages->page as $page) {
     $curPage->revId = $lastRevId;
     $curPage->title = $title;
     $curPage->fullUrl = $fullUrl;
-    $curPage->wikiContents = file_get_contents($pageRawUrl);
+    $curPage->wikiContents = AdminStringUtil::cleanup(file_get_contents($pageRawUrl));
     if ($curPage->wikiContents === false) {
       Log::error("Cannot fetch raw page from $pageRawUrl");
       exit(1);

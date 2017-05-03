@@ -85,6 +85,10 @@
   overflow: hidden;
 }
 
+.meaningTree #bannerWrapper {
+  margin-top: 10px;
+}
+
 #definitionBanner {
   margin-bottom: 25px;
 }

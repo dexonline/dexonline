@@ -60,4 +60,10 @@
       </div>
     </div>
   </div>
+
+  <script>
+   $(function() {
+     $('#typoModal, #typoConfModal').detach().appendTo('body');
+   });
+  </script>
 {/if}

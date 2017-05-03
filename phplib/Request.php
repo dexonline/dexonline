@@ -6,9 +6,13 @@
 class Request {
   /* Reads a request parameter. */
   static function get($name, $default = null) {
-    return array_key_exists($name, $_REQUEST)
-      ? AdminStringUtil::cleanup($_REQUEST[$name])
-      : $default;
+    if (!array_key_exists($name, $_REQUEST)) {
+      return $default;
+    } else if (is_string($_REQUEST[$name])) {
+      return AdminStringUtil::cleanup($_REQUEST[$name]);
+    } else {
+      return $_REQUEST[$name];
+    }
   }
 
   /* Reads a file record from $_FILES. */

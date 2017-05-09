@@ -6,8 +6,8 @@ Util::assertNotMirror();
 
 $MAX_AFFECTED = 1000;
 
-$search = Request::get('search');
-$replace = Request::get('replace');
+$search = Request::getRaw('search');
+$replace = Request::getRaw('replace');
 $sourceId = Request::get('sourceId');
 $saveButton = Request::has('saveButton');
 

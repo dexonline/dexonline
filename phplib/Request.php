@@ -15,6 +15,15 @@ class Request {
     }
   }
 
+  /* Reads a request parameter. Performs no cleanup. */
+  static function getRaw($name, $default = null) {
+    if (!array_key_exists($name, $_REQUEST)) {
+      return $default;
+    } else {
+      return $_REQUEST[$name];
+    }
+  }
+
   /* Reads a file record from $_FILES. */
   static function getFile($name, $default = null) {
     return array_key_exists($name, $_FILES)

@@ -159,6 +159,8 @@ class Entry extends BaseObject implements DatedObject {
              ->join('EntryLexem', 'e.id = el.entryId', 'el')
              ->join('InflectedForm', 'el.lexemId = f.lexemId', 'f')
              ->where("f.$field", $cuv)
+             ->order_by_expr("(e.description != '{$cuv}')") // exact match
+             ->order_by_expr("(e.description not like concat ('{$cuv}', ' (%'))") // partial match
              ->order_by_asc('e.description')
              ->find_many();
 

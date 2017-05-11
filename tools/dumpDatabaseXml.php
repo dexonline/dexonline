@@ -36,9 +36,18 @@ dumpEd("SELECT ed.entryId, ed.definitionId FROM EntryDefinition ed " .
        "WHERE d.sourceId in (SELECT id FROM Source WHERE canDistribute) " .
        "AND d.status = 0 " .
        "AND ed.modDate < $TODAY_TIMESTAMP " .
-       "ORDER BY ed.entryId, ed.definitionId",
+       "ORDER BY ed.entryId, ed.id",
        "$REMOTE_FOLDER/$TODAY-edm.xml.gz",
        'dumping entry-definition map');
+dumpEl("SELECT el.entryId, el.lexemId FROM EntryLexem el " .
+       "JOIN Entry e on e.id = el.entryId " .
+       "JOIN Lexem l on l.id = el.lexemId " .
+       "WHERE el.modDate < $TODAY_TIMESTAMP " .
+       "AND e.modDate < $TODAY_TIMESTAMP " .
+       "AND l.modDate < $TODAY_TIMESTAMP " .
+       "ORDER BY el.entryId, el.id",
+       "$REMOTE_FOLDER/$TODAY-elm.xml.gz",
+       'dumping entry-lexem map');
 
 if ($LAST_DUMP) {
   dumpDefinitions("SELECT * FROM Definition WHERE sourceId IN (SELECT id FROM Source WHERE canDistribute) " .
@@ -54,7 +63,17 @@ if ($LAST_DUMP) {
              "$REMOTE_FOLDER/$TODAY-lexems-diff.xml.gz",
              'dumping lexems and inflected forms diff');
 
-  dumpEdDiff("$REMOTE_FOLDER/$LAST_DUMP-edm.xml.gz", "$REMOTE_FOLDER/$TODAY-edm.xml.gz", "$REMOTE_FOLDER/$TODAY-edm-diff.xml.gz");
+  dumpDiff("$REMOTE_FOLDER/$LAST_DUMP-edm.xml.gz",
+           "$REMOTE_FOLDER/$TODAY-edm.xml.gz",
+           "$REMOTE_FOLDER/$TODAY-edm-diff.xml.gz",
+           'EntryDefinition',
+           'dumping entry-definition map diff');           
+
+  dumpDiff("$REMOTE_FOLDER/$LAST_DUMP-elm.xml.gz",
+           "$REMOTE_FOLDER/$TODAY-elm.xml.gz",
+           "$REMOTE_FOLDER/$TODAY-elm-diff.xml.gz",
+           'EntryLexem',
+           'dumping entry-lexem map diff');           
 }
 
 removeOldDumps($REMOTE_FOLDER, $TODAY, $LAST_DUMP);
@@ -65,7 +84,7 @@ Log::notice('finished');
 
 function getActiveUsers() {
   $results = DB::execute("SELECT id, nick FROM User WHERE id IN (SELECT DISTINCT userId FROM Definition)");
-  $users = array();
+  $users = [];
   foreach ($results as $row) {
     $users[$row[0]] = $row[1];
   }
@@ -76,9 +95,9 @@ function getLastDumpDate($folder) {
   global $STATIC_FILES;
 
   // Group existing files by date, excluding the diff files
-  $map = array();
+  $map = [];
   foreach ($STATIC_FILES as $file) {
-    $matches = array();
+    $matches = [];
     if (preg_match(":^{$folder}/(\\d\\d\\d\\d-\\d\\d-\\d\\d)-[a-z]+.xml.gz:", $file, $matches)) {
       if (array_key_exists($matches[1], $map)) {
         $map[$matches[1]]++;
@@ -88,11 +107,11 @@ function getLastDumpDate($folder) {
     }
   }
 
-  // Now check if the most recent date has 7 dump files
+  // Now check if the most recent date has at least 7 dump files
   if (count($map)) {
     krsort($map);
     $date = key($map); // First key
-    return ($map[$date] == 7) ? $date : null;
+    return ($map[$date] >= 7) ? $date : null;
   } else {  
     return null;
   }
@@ -124,13 +143,13 @@ function dumpAbbrevs($remoteFile) {
   Log::info("dumping abbreviations");
   $sources = AdminStringUtil::loadAbbreviationsIndex();
   $sectionNames = AdminStringUtil::getAbbrevSectionNames();
-  $sections = array();
+  $sections = [];
 
   foreach ($sectionNames as $name) {
     $raw_section = parse_ini_file(Core::getRootPath() . "docs/abbrev/{$name}.conf", true);
-    $section = array();
+    $section = [];
     foreach ($raw_section[$name] as $short => $long) {
-      $abbrev_info = array('short' => $short, 'long' => $long, 'ambiguous' => false);
+      $abbrev_info = ['short' => $short, 'long' => $long, 'ambiguous' => false];
       if (substr($short, 0, 1) == "*") {
         $abbrev_info['short'] = substr($short, 1);
         $abbrev_info['ambiguous'] = true;
@@ -230,10 +249,28 @@ function dumpEd($query, $remoteFile, $message) {
   unlink($tmpFile);
 }
 
-function dumpEdDiff($oldRemoteFile, $newRemoteFile, $diffRemoteFile) {
+function dumpEl($query, $remoteFile, $message) {
   global $FTP;
 
-  Log::info('dumping entry-definition map diff');
+  Log::info($message);
+  $results = DB::execute($query);
+  $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');
+  $file = gzopen($tmpFile, 'wb9');
+  gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+  gzwrite($file, "<EntryLexem>\n");
+  foreach ($results as $row) {
+    gzwrite($file, "  <Map entryId=\"{$row[0]}\" lexemId=\"{$row[1]}\"/>\n");
+  }
+  gzwrite($file, "</EntryLexem>\n");
+  gzclose($file);
+  $FTP->staticServerPut($tmpFile, $remoteFile);
+  unlink($tmpFile);
+}
+
+function dumpDiff($oldRemoteFile, $newRemoteFile, $diffRemoteFile, $elementName, $message) {
+  global $FTP;
+
+  Log::info($message);
 
   // Transfer the files locally
   $oldXml = wgetAndGunzip(Config::get('static.url') . '/' . $oldRemoteFile);
@@ -243,7 +280,7 @@ function dumpEdDiff($oldRemoteFile, $newRemoteFile, $diffRemoteFile) {
   $tmpFile = tempnam(Config::get('global.tempDir'), 'xmldump_');  
   $file = gzopen($tmpFile, 'wb9');
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-  gzwrite($file, "<EntryDefinition>\n");
+  gzwrite($file, "<{$elementName}>\n");
   foreach ($output as $line) {
     if (substr($line, 0, 2) == '< ') {
       gzwrite($file, preg_replace('/<Map /', '<Unmap ', substr($line, 2)) . "\n"); // Deleted line
@@ -251,7 +288,7 @@ function dumpEdDiff($oldRemoteFile, $newRemoteFile, $diffRemoteFile) {
       gzwrite($file, substr($line, 2) . "\n"); // Added line
     }
   }
-  gzwrite($file, "</EntryDefinition>\n");
+  gzwrite($file, "</{$elementName}>\n");
   gzclose($file);
   $FTP->staticServerPut($tmpFile, $diffRemoteFile);
   unlink($tmpFile);
@@ -273,9 +310,11 @@ function removeOldDumps($folder, $today, $lastDump) {
 
   Log::info('removing old dumps');
   foreach ($STATIC_FILES as $file) {
-    $matches = array();
+    $matches = [];
     $file = trim($file);
-    if (preg_match(":^{$folder}/(\\d\\d\\d\\d-\\d\\d-\\d\\d)-(abbrevs|definitions|inflections|edm|lexems|sources).xml.gz$:", $file, $matches)) {
+    if (preg_match(":^{$folder}/(\\d\\d\\d\\d-\\d\\d-\\d\\d)-" .
+                   "(abbrevs|definitions|entries|inflections|edm|elm|lexems|sources).xml.gz$:",
+                   $file, $matches)) {
       $date = $matches[1];
       if ($date != $today && $date != $lastDump) {
         Log::info("  deleting $file");

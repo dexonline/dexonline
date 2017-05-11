@@ -107,11 +107,11 @@ function getLastDumpDate($folder) {
     }
   }
 
-  // Now check if the most recent date has at least 7 dump files
+  // Now check if the most recent date has 8 dump files
   if (count($map)) {
     krsort($map);
     $date = key($map); // First key
-    return ($map[$date] >= 7) ? $date : null;
+    return ($map[$date] == 8) ? $date : null;
   } else {  
     return null;
   }

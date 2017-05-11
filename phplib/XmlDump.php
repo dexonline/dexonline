@@ -21,8 +21,8 @@ class XmlDump {
         break;
       case 5:
         $this->remoteFolder = 'download/xmldump/v5';
-        $this->numFiles = 7;
-        $this->numDiffFiles = 4;
+        $this->numFiles = 8;
+        $this->numDiffFiles = 5;
         break;
     }
     $this->staticFiles = file(Config::get('static.url') . 'fileList.txt');

@@ -10,6 +10,7 @@
       <Entries>{$url}/{$lastDump}-entries.xml.gz</Entries>
       <Lexems>{$url}/{$lastDump}-lexems.xml.gz</Lexems>
       <EntryDefinitionMap>{$url}/{$lastDump}-edm.xml.gz</EntryDefinitionMap>
+      <EntryLexemMap>{$url}/{$lastDump}-elm.xml.gz</EntryLexemMap>
     {/if}
   </Full>
   <Diffs>
@@ -19,6 +20,7 @@
       <Entries>{$url}/{$date}-entries-diff.xml.gz</Entries>
       <Lexems>{$url}/{$date}-lexems-diff.xml.gz</Lexems>
       <EntryDefinitionMap>{$url}/{$date}-edm-diff.xml.gz</EntryDefinitionMap>
+      <EntryLexemMap>{$url}/{$date}-elm-diff.xml.gz</EntryLexemMap>
     </Diff>
     {/foreach}
   </Diffs>

@@ -147,6 +147,10 @@ class Util {
       count(Entry::loadAmbiguous())
     );
     Variable::poke(
+      'Count.entriesWithDefinitionsToStructure',
+      count(Entry::loadWithDefinitionsToStructure())
+    );
+    Variable::poke(
       'Count.lexemesWithoutAccent',
       Model::factory('Lexem')->where('consistentAccent', 0)->count()
     );

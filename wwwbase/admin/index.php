@@ -58,6 +58,11 @@ $reports = [
    'count' => Variable::peek('Count.ambiguousEntries'),
    'privilege' => User::PRIV_EDIT
   ],
+  ['text' => 'Intrări cu definiții de structurat',
+   'url' => 'admin/viewEntriesWithDefinitionsToStructure',
+   'count' => Variable::peek('Count.entriesWithDefinitionsToStructure'),
+   'privilege' => User::PRIV_STRUCT
+  ],
   ['text' => 'Lexeme cu comentarii',
    'url' => 'admin/viewLexemsWithComments',
    'count' => Variable::peek('Count.lexemesWithComments'),

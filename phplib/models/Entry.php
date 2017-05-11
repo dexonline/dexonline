@@ -145,7 +145,27 @@ class Entry extends BaseObject implements DatedObject {
            'order by description';
     return Model::factory('Entry')->raw_query($query)->find_many();
   }
-  
+
+  /**
+   * Load entries marked as under review or structured having definitions that still need to
+   * be structured.
+   **/
+  static function loadWithDefinitionsToStructure() {
+    return Model::factory('Entry')
+      ->table_alias('e')
+      ->select('e.*')
+      ->distinct()
+      ->join('EntryDefinition', ['e.id', '=', 'ed.entryId'], 'ed')
+      ->join('Definition', ['ed.definitionId', '=', 'd.id'], 'd')
+      ->join('Source', ['d.sourceId', '=', 's.id'], 's')
+      ->where_in('e.structStatus', [self::STRUCT_STATUS_UNDER_REVIEW, self::STRUCT_STATUS_DONE])
+      ->where('d.structured', 0)
+      ->where_in('d.status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
+      ->where('s.structurable', 1)
+      ->order_by_asc('e.description')
+      ->find_many();
+  }
+
   static function searchInflectedForms($cuv, $hasDiacritics, $oldOrthography) {
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     if ($oldOrthography) {

@@ -375,13 +375,13 @@ do {
           //     $tuples = array_merge($tuples1, $tuples2);
           //     makeTree($tuples, $d);
         } else {
-          Log::error('Cannot parse meaning for [%s]: [%s] %s%d',
-          $d->lexicon, $meaning, EDIT_URL, $d->id);
+          // Log::error('Cannot parse meaning for [%s]: [%s] %s%d',
+          //            $d->lexicon, $meaning, EDIT_URL, $d->id);
         }
       } else if ($reference) {
-        //   mergeVariant($d, $reference);
+        mergeVariant($d, $reference);
       } else {
-        // Log::error('No meaning nor reference: %s %s%d', $rep, EDIT_URL, $d->id);
+        Log::error('No meaning nor reference: %s %s%d', $rep, EDIT_URL, $d->id);
       }
     }
     // exit;
@@ -467,26 +467,33 @@ function mergeVariant($def, $reference) {
               ->where('ed.definitionId', $def->id)
               ->find_many();
   if (count($defEntries) != 1) {
-    // Log::error('Cannot merge %s into %s because %s has %d entries.',
-    //            $def->lexicon, $form, $def->lexicon, count($defEntries));
+    Log::error('Cannot merge %s into %s because %s has %d entries.',
+               $def->lexicon, $form, $def->lexicon, count($defEntries));
     return;
   }
 
   $formEntries = Model::Factory('Entry')
                ->table_alias('e')
                ->select('e.*')
+               ->distinct()
                ->join('EntryLexem', ['el.entryId', '=', 'e.id'], 'el')
                ->join('Lexem', ['l.id', '=', 'el.lexemId'], 'l')
                ->where_raw('(l.formNoAccent = binary ?)', [ $form ])
                ->find_many();
   if (count($formEntries) != 1) {
-    // Log::error('Cannot merge %s into %s because %s has %d entries.',
-    //            $def->lexicon, $form, $form, count($formEntries));
+    Log::error('Cannot merge %s into %s because %s has %d entries.',
+               $def->lexicon, $form, $form, count($formEntries));
     return;
   }
 
   if ($defEntries[0]->id == $formEntries[0]->id) {
     // nothing to do, already in the same entry
+    return;
+  }
+
+  if ($defEntries[0]->structuristId || $formEntries[0]->structuristId) {
+    Log::error('Cannot merge %s into %s because there is a structuristId.',
+               $def->lexicon, $form);
     return;
   }
 

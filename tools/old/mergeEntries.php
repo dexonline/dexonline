@@ -4,7 +4,7 @@
  * Merge entries mapped to the exact same set of definitions.
  **/
 
-require_once __DIR__ . '/../phplib/Core.php';
+require_once __DIR__ . '/../../phplib/Core.php';
 
 Log::info('started');
 

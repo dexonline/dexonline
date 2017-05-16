@@ -121,7 +121,7 @@ class BaseObject extends Model {
     return $clone;
   }
 
-  static function getField ($colname, $id) {
+  static function getField($colname, $id) {
     $result = Model::factory(get_called_class())
         ->select_many($colname)
         ->find_one($id);

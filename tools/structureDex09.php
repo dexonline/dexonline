@@ -9,6 +9,7 @@ require_once __DIR__ . '/../phplib/third-party/PHP-parsing-tool/Parser.php';
 ini_set('memory_limit', '1024M');
 
 define('SOURCE_ID', 27);
+define('PREVIOUS_SOURCE_ID', 1);
 define('MY_USER_ID', 1);
 define('BATCH_SIZE', 10000);
 define('START_AT', '');
@@ -336,10 +337,6 @@ $tagMap['substantivat'] = $tagMap['(și) substantivat'];
 $tagMap['termen bisericesc'] = $tagMap['(termen) bisericesc'];
 $tagMap['termen militar'] = $tagMap['(termen) militar'];
 
-// store meaning synonyms - we can only associate them at the end, once
-// we have all the trees
-$synMap = [];
-
 $parser = makeParser($GRAMMAR);
 $meaningParser = makeParser($MEANING_GRAMMAR);
 $etymologyParser = makeParser($ETYMOLOGY_GRAMMAR);
@@ -350,6 +347,7 @@ do {
   $defs = Model::factory('Definition')
         ->where('sourceId', SOURCE_ID)
         ->where('status', Definition::ST_ACTIVE)
+        ->where('structured', false)
         ->where_gte('lexicon', START_AT)
         ->order_by_asc('lexicon')
         ->limit(BATCH_SIZE)
@@ -361,7 +359,7 @@ do {
 
     $parsed = $parser->parse($rep);
     if (!$parsed) {
-      // Log::error('Cannot parse: %s %s%d', $rep, EDIT_URL, $d->id);
+      Log::error('Cannot parse: %s %s%d', $rep, EDIT_URL, $d->id);
     } else {
       $meaning = $parsed->findFirst('meaning');
       $etymology = $parsed->findFirst('etymology');
@@ -370,13 +368,13 @@ do {
       if ($meaning) {
         $parsed = $meaningParser->parse($meaning);
         if ($parsed) {
-          //     $tuples1 = createMeanings($parsed, $d);
-          //     $tuples2 = createEtymologies($etymology, $etymologyParser, $d);
-          //     $tuples = array_merge($tuples1, $tuples2);
-          //     makeTree($tuples, $d);
+          $tuples1 = createMeanings($parsed, $d);
+          $tuples2 = createEtymologies($etymology, $etymologyParser, $d);
+          $tuples = array_merge($tuples1, $tuples2);
+          makeTree($tuples, $d);
         } else {
-          // Log::error('Cannot parse meaning for [%s]: [%s] %s%d',
-          //            $d->lexicon, $meaning, EDIT_URL, $d->id);
+          Log::error('Cannot parse meaning for [%s]: [%s] %s%d',
+                     $d->lexicon, $meaning, EDIT_URL, $d->id);
         }
       } else if ($reference) {
         mergeVariant($d, $reference);
@@ -390,47 +388,6 @@ do {
   $offset += BATCH_SIZE;
   Log::info("Processed $offset definitions.");
 } while (count($defs));
-
-Log::info('associating synonyms');
-
-foreach ($synMap as $meaningId => $synList) {
-  foreach ($synList as $form) {
-    // lookup by main form first
-    $trees = Model::factory('Tree')
-           ->table_alias('t')
-           ->select('t.*')
-           ->distinct()
-           ->join('TreeEntry', ['t.id', '=', 'te.treeId'], 'te')
-           ->join('EntryLexem', ['te.entryId', '=', 'el.entryId'], 'el')
-           ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
-           ->where('l.formNoAccent', $form)
-           ->find_many();
-
-    // lookup by inflected form next
-    $trees = Model::factory('Tree')
-           ->table_alias('t')
-           ->select('t.*')
-           ->distinct()
-           ->join('TreeEntry', ['t.id', '=', 'te.treeId'], 'te')
-           ->join('EntryLexem', ['te.entryId', '=', 'el.entryId'], 'el')
-           ->join('InflectedForm', ['el.lexemId', '=', 'i.lexemId'], 'i')
-           ->where('i.formNoAccent', $form)
-           ->find_many();
-
-    if (count($trees)) {
-      foreach ($trees as $t) {
-        $r = Model::factory('Relation')->create();
-        $r->meaningId = $meaningId;
-        $r->treeId = $t->id;
-        $r->type = Relation::TYPE_SYNONYM;
-        $r->save();
-        Log::info('tree [%s], synonym [%s] for meaning %s', $t->description, $form, $meaningId);
-      }
-    } else {
-      Log::info('no trees for synonym [%s] for meaning %s', $form, $meaningId);
-    }
-  }
-}
 
 Log::info('ended');
 
@@ -499,6 +456,8 @@ function mergeVariant($def, $reference) {
 
   Log::info('Merging %s into %s.', $def->lexicon, $form);
   $defEntries[0]->mergeInto($formEntries[0]->id);
+  $def->structured = true;
+  $def->save();
 }
 
 function createMeanings($parsed, $def) {
@@ -818,7 +777,6 @@ function makeEtymology($internalRep, $tags) {
 }
 
 function makeTree($tuples, $def) {
-  global $synMap;
 
   $entries = Model::factory('Entry')
            ->table_alias('e')
@@ -835,68 +793,115 @@ function makeTree($tuples, $def) {
   foreach ($entries as $e) {
     $minStructStatus = min($minStructStatus, $e->structStatus);
   }
-  if ($minStructStatus > Entry::STRUCT_STATUS_NEW) {
+  if ($minStructStatus > Entry::STRUCT_STATUS_IN_PROGRESS) {
     Log::error('All entries have been structured for [%s]', $def->lexicon);
     return;
   }
 
-  // Look for an empty tree...
+  // Look for a tree where all meanings are labeled with [DEX '98]
   $t = null;
+  $maxNumMeanings = -1;
   foreach ($entries as $e) {
     foreach ($e->getTrees() as $tree) {
-      if (!Meaning::get_by_treeId($tree->id)) {
+      $numMeanings = Model::factory('Meaning')
+                   ->where('treeId', $tree->id)
+                   ->count();
+      $numDex98Meanings = Model::factory('Meaning')
+                        ->table_alias('m')
+                        ->join('MeaningSource', ['m.id', '=', 'ms.meaningId'], 'ms')
+                        ->where('treeId', $tree->id)
+                        ->where('ms.sourceId', PREVIOUS_SOURCE_ID)
+                        ->count();
+      if (($numMeanings == $numDex98Meanings) && // all meanings are labeled with [DEX '98]
+          ($numMeanings > $maxNumMeanings)) {    // pick the tree with most meanings
         $t = $tree;
+        $maxNumMeanings = $numMeanings;
       }
     }
   }
+  // About 70 instances have no usable tree at this point (mostly because the tree
+  // that we created automatically from DEX '98 was extended manually).
 
   // ...or create one...
   if (!$t) {
     $t = Model::factory('Tree')->create();
     $t->description = $entries[0]->description;
     $t->save();
+
+    // ... and associate it with all the entries
+    foreach ($entries as $e) {
+      TreeEntry::associate($t->id, $e->id);
+    }
   }
   if ($t->status == Tree::ST_HIDDEN) {
     $t->status = Tree::ST_VISIBLE;
     $t->save();
   }
 
-  // ... and associate it with all the entries
-  foreach ($entries as $e) {
-    TreeEntry::associate($t->id, $e->id);
+  $origMeanings = Model::factory('Meaning')
+            ->where('treeId', $tree->id)
+            ->order_by_asc('displayOrder')
+            ->find_many();
+  $numOrigMeanings = count($origMeanings);
+
+  // count the primary meanings so we can add new meanings starting from that number
+  $order = count($origMeanings);
+  $primaryMeanings = 0;
+  foreach ($origMeanings as $origMeaning) {
+    if ($origMeaning->type == Meaning::TYPE_MEANING) {
+      $primaryMeanings++;
+    }
   }
 
-  // printf("*** [%s] [%s]\n", $def->lexicon, $def->internalRep);
-  $order = 0;
+  printf("*** [%s] [%s]\n", $def->lexicon, $def->internalRep);
   foreach ($tuples as $tuple) {
     $m = $tuple['meaning'];
-    $m->parentId = 0;
-    $m->userId = MY_USER_ID;
-    $m->treeId = $t->id;
-    $m->internalRep = expandAllAbbreviations($m->internalRep);
-    $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
-    $m->displayOrder = ++$order;
-    if ($m->type == Meaning::TYPE_MEANING) {
-      $m->breadcrumb = "{$m->displayOrder}.";
+
+    // see if any of the existing meanings match this meaning exactly
+    $internalRep = expandAllAbbreviations($m->internalRep);
+    $matching = null;
+    foreach ($origMeanings as $origMeaning) {
+      if ($origMeaning->internalRep == $internalRep) {
+        $matching = $origMeaning;
+      }
+    }
+
+    if ($matching) {
+      Log::info('Reusing meaning [ID:%s] [%s] for [%s]',
+                $matching->id, $matching->breadcrumb, $m->internalRep);
+      $m = $matching;
     } else {
-      $m->breadcrumb = '';
-    }
-    // printf("[%s] %s %s [%s]\n",
-    //        $def->lexicon,
-    //        $m->getDisplayTypeName(),
-    //        implode(' ', $tuple['tags']),
-    //        $m->internalRep);
-    $m->save();
+      Log::info('Creating new meaning for [%s]', $m->internalRep);
+      $m->parentId = 0;
+      $m->userId = MY_USER_ID;
+      $m->treeId = $t->id;
+      $m->internalRep = $internalRep;
+      $m->htmlRep = AdminStringUtil::htmlize($internalRep, 0);
+      $m->displayOrder = ++$order;
+      if ($m->type == Meaning::TYPE_MEANING) {
+        $m->breadcrumb = "{$primaryMeanings}.";
+        $primaryMeanings++;
+      } else {
+        $m->breadcrumb = '';
+      }
+      printf("[%s] %s %s [%s]\n",
+             $def->lexicon,
+             $m->getDisplayTypeName(),
+             implode(' ', $tuple['tags']),
+             $m->internalRep);
+      $m->save();
 
-    // We cannot associate synonyms here because the target trees may not yet exist.
-    // Store them for the end.
-    if (count($tuple['synonyms'])) {
-      $synMap[$m->id] = $tuple['synonyms'];
+      // We cannot associate synonyms here because the target trees may not yet exist.
+      // Store them for the end.
+      foreach ($tuple['synonyms'] as $synForm) {
+        associateSynonym($m->id, $synForm);
+      }
+
+      foreach($tuple['tags'] as $tag) {
+        ObjectTag::associate(ObjectTag::TYPE_MEANING, $m->id, $tag->id);
+      }
     }
 
-    foreach($tuple['tags'] as $tag) {
-      ObjectTag::associate(ObjectTag::TYPE_MEANING, $m->id, $tag->id);
-    }
     MeaningSource::associate($m->id, SOURCE_ID);
   }
 
@@ -905,6 +910,9 @@ function makeTree($tuples, $def) {
     $e->structStatus = Entry::STRUCT_STATUS_IN_PROGRESS;
     $e->save();
   }
+
+  $def->structured = 1;
+  $def->save();
 
   Log::info('saved tree for [%s]', $def->lexicon);
 }
@@ -928,4 +936,43 @@ function getTag($value, $assert = true) {
 function expandAndGetTag($value) {
   $value = expandAllAbbreviations($value);
   return getTag($value);
+}
+
+function associateSynonym($meaningId, $form) {
+  // lookup by main form first
+  $trees = Model::factory('Tree')
+         ->table_alias('t')
+         ->select('t.*')
+         ->distinct()
+         ->join('TreeEntry', ['t.id', '=', 'te.treeId'], 'te')
+         ->join('EntryLexem', ['te.entryId', '=', 'el.entryId'], 'el')
+         ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
+         ->where('l.formNoAccent', $form)
+         ->find_many();
+
+  // lookup by inflected form next
+  if (!count($trees)) {
+    $trees = Model::factory('Tree')
+           ->table_alias('t')
+           ->select('t.*')
+           ->distinct()
+           ->join('TreeEntry', ['t.id', '=', 'te.treeId'], 'te')
+           ->join('EntryLexem', ['te.entryId', '=', 'el.entryId'], 'el')
+           ->join('InflectedForm', ['el.lexemId', '=', 'i.lexemId'], 'i')
+           ->where('i.formNoAccent', $form)
+           ->find_many();
+  }
+
+  if (count($trees)) {
+    foreach ($trees as $t) {
+      $r = Model::factory('Relation')->create();
+      $r->meaningId = $meaningId;
+      $r->treeId = $t->id;
+      $r->type = Relation::TYPE_SYNONYM;
+      $r->save();
+      Log::info('tree [%s], synonym [%s] for meaning %s', $t->description, $form, $meaningId);
+    }
+  } else {
+    Log::info('no trees for synonym [%s] for meaning %s', $form, $meaningId);
+  }
 }

@@ -28,6 +28,7 @@ if ($saveButton) {
   $src->canDistribute = Request::has('canDistribute');
   $src->structurable = Request::has('structurable');
   $src->defCount = Request::get('defCount');
+  $tagIds = Request::get('tagIds', []);
 
   if (validate($src)) {
     // For new sources, set displayOrder to the highest available + 1
@@ -36,16 +37,24 @@ if ($saveButton) {
     }
     $src->updatePercentComplete();
     $src->save();
+    ObjectTag::wipeAndRecreate($src->id, ObjectTag::TYPE_SOURCE, $tagIds);
+
     Log::notice("Added/saved source {$src->id} ({$src->shortName})");
     FlashMessage::add('Am salvat modificările.', 'success');
     Util::redirect("editare-sursa?id={$src->id}");
   }
 }
 
+$ots = ObjectTag::getSourceTags($src->id);
+$tagIds = Util::objectProperty($ots, 'tagId');
+
+
 SmartyWrap::assign('src', $src);
+SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign("managers", Model::factory('User')->where_raw('moderator & 4')->order_by_asc('id')->find_many());
 SmartyWrap::assign("sourceTypes", Model::factory('SourceType')->order_by_asc('id')->find_many());
 SmartyWrap::assign("reforms", Model::factory('OrthographicReforms')->order_by_asc('id')->find_many());
+SmartyWrap::addJs('select2Dev');
 SmartyWrap::display('editare-sursa.tpl');
 
 /**

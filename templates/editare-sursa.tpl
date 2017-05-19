@@ -22,12 +22,12 @@
         <input type="hidden" name="id" value="{$src->id}">
 
         <div class="form-group">
-          <label>Nume</label>
+          <label>nume</label>
           <input type="text" name="name" value="{$src->name}" class="form-control">
         </div>
 
         <div class="form-group">
-          <label>Nume scurt</label>
+          <label>nume scurt</label>
           <input type="text" name="shortName" value="{$src->shortName}" class="form-control">
           <p class="help-block">
             Numele sursei prezentat după fiecare definiție.
@@ -35,7 +35,7 @@
         </div>
 
         <div class="form-group">
-          <label>Nume URL</label>
+          <label>nume URL</label>
           <input type="text" name="urlName" value="{$src->urlName}" class="form-control">
           <p class="help-block">
             Numele care apare în URL la căutarea într-o anumită sursă, cum ar fi
@@ -44,22 +44,22 @@
         </div>
 
         <div class="form-group">
-          <label>Autor</label>
+          <label>autor</label>
           <input type="text" name="author" value="{$src->author}" class="form-control">
         </div>
 
         <div class="form-group">
-          <label>Editură</label>
+          <label>editură</label>
           <input type="text" name="publisher" value="{$src->publisher}" class="form-control">
         </div>
 
         <div class="form-group">
-          <label>An</label>
+          <label>an</label>
           <input type="text" name="year" value="{$src->year}" class="form-control">
         </div>
 
         <div class="form-group">
-          <label>Tipul sursei</label>
+          <label>tipul sursei</label>
           <select class="form-control" name="sourceTypeId">
             <option>Fără categorie</option>
             {foreach $sourceTypes as $type}
@@ -71,7 +71,7 @@
         </div>
 
         <div class="form-group">
-          <label>Managerul dicționarului</label>
+          <label>managerul dicționarului</label>
           <select class="form-control" name="managerId">
             <option>Fără moderator</option>
             {foreach $managers as $manager}
@@ -83,7 +83,7 @@
         </div>
 
         <div class="form-group">
-          <label>Tipul importului</label>
+          <label>tipul importului</label>
           <select class="form-control" name="importType">
             {foreach Source::$IMPORT_TYPE_LABELS as $importType => $label}
               <option value="{$importType}" {if $src->importType == $importType}selected{/if}>
@@ -94,7 +94,7 @@
         </div>
 
         <div class="form-group">
-          <label>Reforma ortografică</label>
+          <label>reforma ortografică</label>
           <select class="form-control" name="reformId">
             <option>Fără categorie</option>
             {foreach $reforms as $reform}
@@ -106,17 +106,17 @@
         </div>
 
         <div class="form-group">
-          <label>Notă</label>
+          <label>notă</label>
           <input type="text" name="remark" value="{$src->remark}" class="form-control">
         </div>
 
         <div class="form-group">
-          <label>Legătura către formatul scanat</label>
+          <label>legătura către formatul scanat</label>
           <input type="text" name="link" value="{$src->link}" class="form-control">
         </div>
 
         <div class="form-group">
-          <label>Legătura către editură/autor</label>
+          <label>legătura către editură/autor</label>
           <input type="text" name="courtesyLink" value="{$src->courtesyLink}" class="form-control">
           <p class="help-block">
             Trebuie să fie o valoare <code>skey</code> din tabela AdsLink, de exemplu „logos”
@@ -125,12 +125,12 @@
         </div>
 
         <div class="form-group">
-          <label>Textul pentru legătura către editură/autor</label>
+          <label>textul pentru legătura către editură/autor</label>
           <input type="text" name="courtesyText" value="{$src->courtesyText}" class="form-control">
         </div>
 
         <div class="form-group">
-          <label>Tip</label>
+          <label>tip</label>
           <select class="form-control" name="type">
             {foreach Source::$TYPE_NAMES as $type => $name}
               <option value="{$type}" {if $src->type == $type}selected{/if}>
@@ -141,11 +141,20 @@
         </div>
 
         <div class="form-group">
-          <label>Număr de definiții (-1 pentru „necunoscut”)</label>
+          <label>număr de definiții (-1 pentru „necunoscut”)</label>
           <input type="text" name="defCount" value="{$src->defCount}" class="form-control">
           <p class="help-block">
             din care digitizate: {$src->ourDefCount}; procent de completare: {$src->percentComplete|string_format:"%.2f"}.
           </p>
+        </div>
+
+        <div class="form-group">
+          <label>etichete</label>
+          <select id="tagIds" name="tagIds[]" class="form-control" multiple>
+            {foreach $tagIds as $tagId}
+              <option value="{$tagId}" selected></option>
+            {/foreach}
+          </select>
         </div>
 
         <div class="checkbox">

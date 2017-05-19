@@ -284,7 +284,8 @@ list($extra['unofficialHidden'], $extra['sourcesHidden'])
   = SearchResult::filter($results);
 
 // Filter out structured definitions if we are displaying trees
-if ($SEARCH_PARAMS[$searchType]['trees']) {
+// unless there is a source filter
+if ($SEARCH_PARAMS[$searchType]['trees'] && !$sourceId) {
   foreach ($results as $i => $sr) {
     if ($sr->definition->structured) {
       $structuredResults[] = $sr;

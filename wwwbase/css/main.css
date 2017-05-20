@@ -62,6 +62,12 @@
   margin-top: 6px;
 }
 
+#select2-sourceDropDown-results li {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* autocomplete options */
 #ui-id-1 {
   background: #FFF;

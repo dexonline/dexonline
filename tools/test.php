@@ -31,25 +31,10 @@ function assertAbbreviations($typed, $internal, $html, $sourceId) {
 /********************* Tests for stringUtil.php ************************/
 
 // Check that we've got the shorthand->Unicode mappings right
-assertEquals(AdminStringUtil::shorthandToUnicode("~a"), 'ă');
-assertEquals(AdminStringUtil::shorthandToUnicode("~a^a^i,s,t"), 'ăâîșț');
-assertEquals(AdminStringUtil::shorthandToUnicode("'^a'^A^'a^'A"), 'ấẤấẤ');
-assertEquals(AdminStringUtil::shorthandToUnicode("'~a'~A~'a~'A"), 'ắẮắẮ');
-assertEquals(AdminStringUtil::shorthandToUnicode("~a~A^a^A'a'A"), 'ăĂâÂáÁ');
-assertEquals(AdminStringUtil::shorthandToUnicode("`a`A:a:A"), 'àÀäÄ');
-assertEquals(AdminStringUtil::shorthandToUnicode(",c,C'c'C~c~C"), 'çÇćĆčČ');
-assertEquals(AdminStringUtil::shorthandToUnicode("'e'E`e`E^e^E"), 'éÉèÈêÊ');
-assertEquals(AdminStringUtil::shorthandToUnicode(":e:E~e~E~g~G"), 'ëËĕĔğĞ');
-assertEquals(AdminStringUtil::shorthandToUnicode("'^i'^I^'i^'I"), 'î́Î́î́Î́');
-assertEquals(AdminStringUtil::shorthandToUnicode("'i'I`i`I^i^I"), 'íÍìÌîÎ');
-assertEquals(AdminStringUtil::shorthandToUnicode(":i:I~i~I~n~N"), 'ïÏĭĬñÑ');
-assertEquals(AdminStringUtil::shorthandToUnicode("'o'O`o`O^o^O"), 'óÓòÒôÔ');
-assertEquals(AdminStringUtil::shorthandToUnicode(":o:O~o~O~r~R"), 'öÖõÕřŘ');
-assertEquals(AdminStringUtil::shorthandToUnicode("~s~S,s,S,t,T"), 'šŠșȘțȚ');
-assertEquals(AdminStringUtil::shorthandToUnicode("'u'U`u`U^u^U"), 'úÚùÙûÛ');
-assertEquals(AdminStringUtil::shorthandToUnicode(":u:U~u~U"), 'üÜŭŬ');
-assertEquals(AdminStringUtil::shorthandToUnicode("'y'Y:y:Y~z~Z"), 'ýÝÿŸžŽ');
-
+assertEquals(AdminStringUtil::shorthandToUnicode("~a^a^i,s,t"), '~a^a^i,s,t');
+assertEquals(AdminStringUtil::shorthandToUnicode("'a'e'i'o'u'y"), 'áéíóúý');
+assertEquals(AdminStringUtil::shorthandToUnicode("'A'E'I'O'U'Y"), 'ÁÉÍÓÚÝ');
+assertEquals(AdminStringUtil::shorthandToUnicode("'ă'Ă'â'Â'î'Î"), 'ắẮấẤî́Î́');
 assertEquals('acegyzACEGYZ', StringUtil::unicodeToLatin("ắčèğýžẮČÈĞÝŽ"));
 
 assertEquals('mama', mb_strtolower('mama'));
@@ -171,7 +156,7 @@ assertEqualArrays(array(0 => 'Abreviere necunoscută: «brrb. ghhg.». Verifica�
 
 $internalRep = '@MÁRE^2,@ $mări,$ #s. f.# Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu |oceanul|ocean| printr-o |strâmtoare|strâmtoare|; parte a oceanului de lângă |țărm|țărm|; $#p. ext.#$ ocean. * #Expr.# $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** #Fig.# Suprafață vastă; întindere mare; imensitate. ** #Fig.# Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is.@';
 assertEquals($internalRep,
-             AdminStringUtil::sanitize('@M\'ARE^2@, $m~ari$, s. f. Nume generic dat vastelor ^intinderi de ap~a st~at~atoare, ad^anci ,si s~arate, de pe suprafa,ta |P~am^antului|-|, care de obicei sunt unite cu |oceanul|-| printr-o |str^amtoare||; parte a oceanului de l^ang~a |,t~arm||; $p.ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A v^antura m~ari ,si ,t~ari$ = a c~al~atori mult. $A ^incerca marea cu degetul$ = a face o ^incercare, chiar dac~a ,sansele de reu,sit~a sunt minime. $Peste (nou~a) m~ari ,si (nou~a) ,t~ari$ = foarte departe. ** Fig. Suprafa,t~a vast~a; ^intindere mare; imensitate. ** Fig. Mul,time (nesf^ar,sit~a), cantitate foarte mare. - Lat. @mare, -is@.', 1));
+             AdminStringUtil::sanitize('@M\'ARE^2@, $mări$, s. f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|-|, care de obicei sunt unite cu |oceanul|-| printr-o |strâmtoare||; parte a oceanului de lângă |țărm||; $p.ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.', 1));
 assertEquals('<b>MÁRE<sup>2</sup>,</b> <i>mări,</i> <abbr class="abbrev" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu <a class="ref" href="/definitie/ocean">oceanul</a> printr-o <a class="ref" href="/definitie/strâmtoare">strâmtoare</a>; parte a oceanului de lângă <a class="ref" href="/definitie/țărm">țărm</a>; <i><abbr class="abbrev" title="prin extensiune">p. ext.</abbr></i> ocean. &#x25ca; <abbr class="abbrev" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is.</b>',
              AdminStringUtil::htmlize($internalRep, 1));
 assertEquals($internalRep, AdminStringUtil::sanitize($internalRep, 1));
@@ -205,8 +190,8 @@ assertEquals('@$%spaced% text$@', AdminStringUtil::migrateFormatChars('@$ % spac
 assertEquals('40\% dolomite', AdminStringUtil::migrateFormatChars('40\% dolomite'));
 assertEquals('40 %dolomite%', AdminStringUtil::migrateFormatChars('40% dolomite%'));
 
-assertEquals('cățel', AdminStringUtil::internalizeWordName("C~A,t'EL"));
-assertEquals('ă', AdminStringUtil::internalizeWordName("~~A~~!@#$%^&*()123456790"));
+assertEquals('cățel', AdminStringUtil::internalizeWordName("CĂț'EL"));
+assertEquals('ă', AdminStringUtil::internalizeWordName("~Ă~~!@#$%^&*()123456790"));
 
 assertEquals('casă', AdminStringUtil::removeAccents('cásă'));
 
@@ -214,8 +199,8 @@ assertEquals('mama', StringUtil::cleanupQuery("'mama'"));
 assertEquals('mama', StringUtil::cleanupQuery('"mama"'));
 assertEquals('aăbcdef', StringUtil::cleanupQuery("aăbc<mamă foo bar>def"));
 assertEquals('AĂBCDEF', StringUtil::cleanupQuery("AĂBC<MAMĂ FOO BAR>DEF"));
-assertEquals('a~abcdef', StringUtil::cleanupQuery("a~abc<mam~a foo bar>def"));
-assertEquals('a~ABcdef', StringUtil::cleanupQuery("a~ABc<mam~a foo bar>def"));
+assertEquals('aăbcdef', StringUtil::cleanupQuery("aăbc<mamă foo bar>def"));
+assertEquals('aĂBcdef', StringUtil::cleanupQuery("aĂBc<mamă foo bar>def"));
 assertEquals('1234', StringUtil::cleanupQuery('12&qweasd;34'));
 
 assert(StringUtil::hasDiacritics('mamă'));
@@ -227,8 +212,11 @@ $def->internalRep = 'abcd';
 assertEquals('abcd', AdminStringUtil::extractLexicon($def));
 $def->internalRep = 'wxyz';
 assertEquals('wxyz', AdminStringUtil::extractLexicon($def));
-$def->internalRep = 'mamă';
-assertEquals('mamă', AdminStringUtil::extractLexicon($def));
+$def->sourceId = 7;
+$def->internalRep = '@A SE JUCÁ@ lalala';
+assertEquals('juca', AdminStringUtil::extractLexicon($def));
+$def->internalRep = '@ȚARĂ^1@ lalala';
+assertEquals('țară', AdminStringUtil::extractLexicon($def));
 
 assert(StringUtil::hasRegexp('asd[0-9]'));
 assert(!StringUtil::hasRegexp('ăâîșț'));
@@ -437,8 +425,8 @@ assertEquals(1, FlexStringUtil::countVowels('abc'));
 assertEquals(2, FlexStringUtil::countVowels('abcde'));
 assertEquals(8, FlexStringUtil::countVowels('aeiouăâî'));
 
-assertEquals('cásă', AdminStringUtil::internalize("c'as~a", false));
-assertEquals("c'asă", AdminStringUtil::internalize("c'as~a", true));
+assertEquals('cásă', AdminStringUtil::internalize("c'asă", false));
+assertEquals("c'asă", AdminStringUtil::internalize("c'asă", true));
 
 assertEquals("cas'ă", FlexStringUtil::placeAccent("casă", 1, ''));
 assertEquals("c'asă", FlexStringUtil::placeAccent("casă", 2, ''));
@@ -496,6 +484,6 @@ assertEquals(4, Util::findSnippet(array(array(1, 2, 10),
                                         array(8, 15))));
 
 assertEquals('$abc$ @def@', AdminStringUtil::formatLexem('$abc$ @def@')); // This is intentional -- lexem formatting is very lenient.
-assertEquals("m'am~a máre", AdminStringUtil::formatLexem("m'am~a máre  ")); // No shorthand conversions.
+assertEquals("m'amă máre", AdminStringUtil::formatLexem("m'amă máre  ")); // No shorthand conversions.
 
 ?>

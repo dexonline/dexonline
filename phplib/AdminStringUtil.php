@@ -1,20 +1,24 @@
 <?php
 
 class AdminStringUtil {
-  private static $HTML_SYMBOLS = array('internal' => array(' - ', ' ** ', ' * '),
-                                       'html' => array(' &#x2013; ', ' &#x2666; ', ' &#x25ca; '));
+  private static $HTML_SYMBOLS = [
+    'internal' => [' - ', ' ** ', ' * '],
+    'html' => [' &#x2013; ', ' &#x2666; ', ' &#x25ca; '],
+  ];
 
-  private static $ACCENTS = array('accented' => array('á', 'Á', 'ắ', 'Ắ', 'ấ', 'Ấ',
-                                                      'é', 'É', 'í', 'Í', 'î́', 'Î́',
-                                                      'ó', 'Ó', 'ú', 'Ú', 'ý', 'Ý'),
-                                  'unaccented' => array('a', 'A', 'ă', 'Ă', 'â', 'Â',
-                                                        'e', 'E', 'i', 'I', 'î', 'Î',
-                                                        'o', 'O', 'u', 'U', 'y', 'Y'));
+  private static $ACCENTS = [
+    'accented' => [
+      'á', 'Á', 'ắ', 'Ắ', 'ấ', 'Ấ', 'é', 'É', 'í', 'Í', 'î́', 'Î́', 'ó', 'Ó', 'ú', 'Ú', 'ý', 'Ý',
+    ],
+    'unaccented' => [
+      'a', 'A', 'ă', 'Ă', 'â', 'Â', 'e', 'E', 'i', 'I', 'î', 'Î', 'o', 'O', 'u', 'U', 'y', 'Y',
+    ],
+  ];
 
   private static $ILLEGAL_NAME_CHARS = '!@#$%^&*()_+=\\|[]{},.<>/?;:\'"`~0123456789';
 
   private static $ABBREV_INDEX = null; // These will be loaded lazily
-  private static $ABBREVS = array();
+  private static $ABBREVS = [];
 
   private static function process($s, $ops) {
     foreach ($ops as $op) {
@@ -135,7 +139,8 @@ class AdminStringUtil {
   }
 
   private static function isUnicodeLetter($char) {
-    return ctype_alpha($char) || in_array($char, StringUtil::$LETTERS['unicode']);
+    // according to http://php.net/manual/en/regexp.reference.unicode.php
+    return preg_match('/^\p{L}*$/u', $char);
   }
 
   static function formatLexem($s) {

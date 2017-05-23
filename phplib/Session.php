@@ -114,12 +114,14 @@ class Session {
 
   static function userPrefers($pref) {
     if (isset($_SESSION['user'])) {
-      return (isset($_SESSION['user']->preferences) &&
-              in_array($pref, preg_split('/,/', $_SESSION['user']->preferences)));
+      $preferences = $_SESSION['user']->preferences;
     } else {
-      $prefs = self::getCookieSetting('anonymousPrefs');
-      return in_array($pref, preg_split('/,/', $prefs));
+      $preferences = self::getCookieSetting('anonymousPrefs');
     }
+
+    $preferences = Preferences::convert($preferences);
+
+    return $preferences & $pref;
   }
 
   static function setAnonymousPrefs($pref) {

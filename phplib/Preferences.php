@@ -2,17 +2,28 @@
 
 class Preferences {
   // TODO: We should work with numeric constants, but this will break existing cookies.
-  const CEDILLA_BELOW = 'CEDILLA_BELOW';
-  const FORCE_DIACRITICS = 'FORCE_DIACRITICS';
-  const OLD_ORTHOGRAPHY = 'OLD_ORTHOGRAPHY';
-  const EXCLUDE_UNOFFICIAL = 'EXCLUDE_UNOFFICIAL';
-  const SHOW_PARADIGM = 'SHOW_PARADIGM';
-  const LOC_PARADIGM = 'LOC_PARADIGM';
-  const SHOW_ADVANCED = 'SHOW_ADVANCED';
-  const PRIVATE_MODE = 'PRIVATE_MODE';
+  const CEDILLA_BELOW = 0x01;
+  const FORCE_DIACRITICS = 0x02;
+  const OLD_ORTHOGRAPHY = 0x04;
+  const EXCLUDE_UNOFFICIAL = 0x08;
+  const SHOW_PARADIGM = 0x10;
+  const LOC_PARADIGM = 0x20;
+  const SHOW_ADVANCED = 0x40;
+  const PRIVATE_MODE = 0x80;
+
+  static $NAMES = [
+    self::CEDILLA_BELOW => 'CEDILLA_BELOW',
+    self::FORCE_DIACRITICS => 'FORCE_DIACRITICS',
+    self::OLD_ORTHOGRAPHY => 'OLD_ORTHOGRAPHY',
+    self::EXCLUDE_UNOFFICIAL => 'EXCLUDE_UNOFFICIAL',
+    self::SHOW_PARADIGM => 'SHOW_PARADIGM',
+    self::LOC_PARADIGM => 'LOC_PARADIGM',
+    self::SHOW_ADVANCED => 'SHOW_ADVANCED',
+    self::PRIVATE_MODE => 'PRIVATE_MODE',
+  ];
 
   // Set of all customizable user preferences
-  public static $allPrefs = [
+  static $allPrefs = [
     self::CEDILLA_BELOW => [
       'enabled' => true,
       'label' => 'Folosește ş și ţ cu sedilă (în loc de virguliță)',
@@ -67,10 +78,12 @@ class Preferences {
     foreach ($copy as $key => $value) {
       $copy[$key]['checked'] = false;
     }
+
+    $userPrefs = self::convert($userPrefs);
     if ($userPrefs) {
-      foreach (preg_split('/,/', $userPrefs) as $pref) {
-        if (isset($copy[$pref])) {
-          $copy[$pref]['checked'] = true;
+      foreach (self::$allPrefs as $key => $value) {
+        if ($userPrefs & $key) {
+          $copy[$key]['checked'] = true;
         }
       }
     }
@@ -107,6 +120,23 @@ class Preferences {
         Session::setWidgetCount(Widget::WIDGET_COUNT);
       }
     }
+  }
+
+  // converts a historical, comma-delimited preferences set to a numeric mask
+  // TODO (after 05/2018) remove this code
+  static function convert($textPreferences) {
+    if (is_numeric($textPreferences)) {
+      return ($textPreferences); // already converted
+    }
+    $map = array_flip(self::$NAMES);
+
+    $result = 0;
+    if ($textPreferences) { // explode() doesn't work well on empty strings
+      foreach (explode(',', $textPreferences) as $pref) {
+        $result += $map[$pref];
+      }
+    }
+    return $result;
   }
 }
 

@@ -7,9 +7,9 @@ $user = Session::getUser();
 
 if ($saveButton) {
   $detailsVisible = Request::get('detailsVisible', 0);
-  $userPrefs = implode(Request::get('userPrefs'), ',');
+  $userPrefs = Request::get('userPrefs');
   $widgets = Request::get('widgets');
-  Preferences::set($user, $detailsVisible, $userPrefs, array_sum($widgets));
+  Preferences::set($user, $detailsVisible, array_sum($userPrefs), array_sum($widgets));
   FlashMessage::add('Am salvat preferințele.', 'success');
   Util::redirect('preferinte');
 }

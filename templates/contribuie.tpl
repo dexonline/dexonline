@@ -96,9 +96,10 @@
     <tr>
       <td>
         <tt>
-          @HAIDUC'IE,@ $haiducii,$ #s. f.# @1.@ Lupt~a armat~a a unor cete de haiduci (@1@) ^impotriva asupritorilor, frecvent~a la
-          sf^ar,situl evului mediu ^in ,t~arile rom^ane,sti ,si ^in Peninsula Balcanic~a. @2.@ Via,t~a sau ^indeletnicire de haiduc
-          (@1@). @3.@ Purtare, deprindere de haiduc (@1@). - @Haiduc@ + #suf.# $-ie.$
+          @HAIDUC'IE,@ $haiducii,$ #s. f.# @1.@ Luptă armată a unor cete de haiduci (@1@)
+          împotriva asupritorilor, frecventă la sfârșitul evului mediu în țările românești și
+          în Peninsula Balcanică. @2.@ Viață sau îndeletnicire de haiduc (@1@). @3.@ Purtare,
+          deprindere de haiduc (@1@). - @Haiduc@ + #suf.# $-ie.$
         </tt>
       </td>
 

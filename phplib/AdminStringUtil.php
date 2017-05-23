@@ -147,7 +147,7 @@ class AdminStringUtil {
     return self::process($s, ['trim', 'strip_tags', 'StringUtil::stripHtmlEscapeCodes']);
   }
 
-  // If preserveAccent is true, then c'as~a is converted to c'asă, but not to cásă.
+  // If preserveAccent is true, then c'asă is not converted to cásă.
   static function internalize($text, $preserveAccent) {
     if ($preserveAccent) {
       $text = str_replace("'", "*****", $text);
@@ -327,7 +327,7 @@ class AdminStringUtil {
   }
 
   /**
-   * Replace shorthand notations like ~a with Unicode symbols like ă.
+   * Replace shorthand notations like 'a with Unicode symbols like á.
    * These are convenience symbols the user might type in, but we don't
    * want to store them as such in the database.
    */
@@ -339,8 +339,8 @@ class AdminStringUtil {
     $s = str_replace(chr(0xc2) . chr(0xa0), ' ', $s);
     $s = str_replace(chr(0xc2) . chr(0xad), '', $s);
   
-    // A bit of a hack: We should not replace \~e with \ĕ, therefore we isolate
-    // the \~ compound first and restore it at the end.
+    // A bit of a hack: We should not replace \'a with \á, therefore we isolate
+    // the \' compound first and restore it at the end.
     $s = preg_replace('/\\\\(.)/', '[[[$1]]]', $s);
     $s = str_replace(StringUtil::$LETTERS['shorthand'], StringUtil::$LETTERS['unicode'], $s);
     $s = preg_replace('/\\[\\[\\[(.)\\]\\]\\]/', '\\\\$1', $s);

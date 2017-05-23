@@ -10,7 +10,9 @@ class Preferences {
   const LOC_PARADIGM = 0x20;
   const SHOW_ADVANCED = 0x40;
   const PRIVATE_MODE = 0x80;
+  const NO_TREES = 0x100;
 
+  // keep around for historic reasons (existing cookies use these)
   static $NAMES = [
     self::CEDILLA_BELOW => 'CEDILLA_BELOW',
     self::FORCE_DIACRITICS => 'FORCE_DIACRITICS',
@@ -63,6 +65,11 @@ class Preferences {
       'enabled' => false,
       'label' => 'Modul confidențial',
       'comment' => 'Dezactivează caseta Facebook, reclamele AdSense și alte elemente care divulgă informații despre dumneavoastră unor terțe părți. Modul confidențial este disponibil timp de un an celor care <a href="doneaza">donează</a> minim 50 de lei.',
+    ],
+    self::NO_TREES => [
+      'enabled' => true,
+      'label' => 'Nu arăta definiții structurate',
+      'comment' => 'dexonline lucrează la o reprezentare proprie a definițiilor, structurată pe sensuri și subsensuri. Cu această opțiune puteți reveni la formatul original din dicționare.',
     ],
   ];
 

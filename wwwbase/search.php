@@ -30,6 +30,7 @@ $DEFAULT_SEARCH_PARAMS = [
   'paradigm' => false,
   'trees' => false,
 ];
+$showTrees = Config::get('search.showTrees') && !Session::userPrefers(Preferences::NO_TREES);
 
 $SEARCH_PARAMS = [
   SEARCH_REGEXP => $DEFAULT_SEARCH_PARAMS,
@@ -39,13 +40,13 @@ $SEARCH_PARAMS = [
   SEARCH_INFLECTED => array_replace($DEFAULT_SEARCH_PARAMS, [
     'defLimit' => PREVIEW_LIMIT,
     'paradigm' => true,
-    'trees' => Config::get('search.showTrees'),
+    'trees' => $showTrees,
   ]),
   SEARCH_APPROXIMATE => $DEFAULT_SEARCH_PARAMS,
   SEARCH_DEF_ID => $DEFAULT_SEARCH_PARAMS,
   SEARCH_ENTRY_ID => array_replace($DEFAULT_SEARCH_PARAMS, [
     'paradigm' => true,
-    'trees' => Config::get('search.showTrees'),
+    'trees' => $showTrees,
   ]),
   // there is a limit for full-text searches, but we handle it separately for memory reasons
   SEARCH_FULL_TEXT => $DEFAULT_SEARCH_PARAMS,

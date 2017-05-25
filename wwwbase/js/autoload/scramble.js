@@ -1,34 +1,81 @@
 $(document).ready(function() {
+  const WORD_LIST_DIA_URL = 'https://dexonline.ro/static/download/game-word-list-dia.txt';
+  const WORD_LIST_URL = 'https://dexonline.ro/static/download/game-word-list.txt';
+  const ALPHABET = 'aăâbcdefghiîjklmnopqrsștțuvwxyz';
 
-  function GetWordAsync(level)
-  {
-    var result;
-     $.ajax({
-        type: "POST",
-        url: wwwRoot + "ajax/scramble.php",
-        data: 'difficulty=' + level + "&diacritic=" + check,
-        datatype: "html",
-      })
-      .done(function(response) {
-        result = $.parseJSON(response);
-        console.log(result);
-        lettersPressed = [];
-        totalWords = result.everyWord;
+  var score = 0;
+  var lettersPressed = new String(); // in acest array se retin literele tastate
+  var check; // Check is diacritics are to be used.
+  var randomWord; // word chosen at random from wordList, constrained by difficulty
+  var legalWords; // the possible words that can be made from the randomWord.
+  var difficulty; // initial selected difficulty
+  var layers = []; // Array of currently drawn layers.
+  var upLayers = []; // Letters in the top
+  var downLayers = []; // Letters in the bottom
+  var threshold = 120; // y axis limit for moving letters
+  var layerSpeed = 200; //Global animation speed
+  var wordList; // word list downloaded from the server
 
-        for(var i = 0; i < totalWords.length; i++)
-        {
-          totalWords[i] = totalWords[i].toLowerCase();
+  function init() {
+    $('#mainMenu button').click(function() {
+      difficulty = $(this).val();
+      $('#mainMenu').slideToggle();
+      $('#gameArea').slideToggle();
+      check = $("#toggleD").prop('checked');
+      GetWordAsync(difficulty);
+    });
+  }
+
+  function getLettersAndLegalWords() {
+    // choose a random word
+    do {
+      randomWord = wordList[Math.floor(Math.random() * wordList.length)];
+    } while (randomWord.length != difficulty);
+
+    // build a frequency table
+    var f = [];
+    for (var i = 0; i < ALPHABET.length; i++) {
+      f[ALPHABET[i]] = 0;
+    }
+    for (var i = 0; i < randomWord.length; i++) {
+      f[randomWord[i]]++;
+    }
+
+    // iterate through words and select legal ones
+    legalWords = [];
+    for (var i in wordList) {
+      var legal = true;
+      var fcopy = jQuery.extend({}, f);
+      // decrement frequencies for the word being examined
+      for (var j = 0; j < wordList[i].length; j++) {
+        if (--fcopy[wordList[i][j]] < 0) {
+          legal = false;
         }
+      }
+      if (legal) {
+        legalWords.push(wordList[i]);
+      }
+    }
+  }
 
-        $("#maxWords").html(result.everyWord.length);
-        drawLetters(result.randomWord);
+  function GetWordAsync() {
+
+    $.get(check ? WORD_LIST_DIA_URL : WORD_LIST_URL)
+      .done(function(result) {
+        wordList = result.split("\n");
+        getLettersAndLegalWords();
+
+        lettersPressed = [];
+
+        $("#maxWords").html(legalWords.length);
+        drawLetters(randomWord);
         //Fire keyboard event checker
-
+        
         //Start Timer
         startTimer(difficulty);
         //Fire Enter key checker
         checkWord();
-
+        
         initLayerArrays();
         $(".wordArea").hide().find('tr').remove();
         hide = 0;
@@ -68,31 +115,6 @@ $(document).ready(function() {
       array[pos2] = tmp;
     }
      return array;
-  }
-
-  var score = 0;
-  var cnt = 0;
-  var searchWord;
-  var lettersPressed = new String(); // in acest array se retin literele tastate
-  var check; // Check is diacritics are to be used.
-  var totalWords = new Array(); // the possible words that can be made from the randomWord.
-  var difficulty; // initial selected difficulty
-  var layers = []; // Array of currently drawn layers.
-  var upLayers = []; // Letters in the top
-  var downLayers = []; // Letters in the bottom
-  var threshold = 120; // y axis limit for moving letters
-  var layerSpeed = 200; //Global animation speed
-
-  function selectDifficulty() {
-
-    $("#scramble").find('button').on("click", function() {
-      // this e pentru a prelua valoarea butonului tocmai apasat, si nu a unuia oarecare
-      difficulty = $(this).attr("value");
-      $(this).blur();
-      check = $("#toggleD").prop('checked');
-      GetWordAsync(difficulty);
-
-    });
   }
 
   function initialPosition()
@@ -143,9 +165,9 @@ $(document).ready(function() {
 
       if(!hide)
       {
-        for(var i = 0; i <= totalWords.length; i++)
+        for(var i = 0; i <= legalWords.length; i++)
         {
-          if( i % 5 == 0 || (i == totalWords.length && totalWords.length % 5 != 0))
+          if( i % 5 == 0 || (i == legalWords.length && legalWords.length % 5 != 0))
           {
             stop = i;
             var td = "td" + i;
@@ -154,13 +176,13 @@ $(document).ready(function() {
             $('<ul></ul>', { "class" : ulist + ' list-unstyled'}).appendTo("." + td);
             for(var k = start; k < stop; k++)
             {
-              if(typeof totalWords[k] === "undefined")
+              if(typeof legalWords[k] === "undefined")
               {
                 break;
               }
               else
               {
-                var list = "<li>" + totalWords[k] + "</li>";
+                var list = "<li>" + legalWords[k] + "</li>";
                 $("." + ulist).append(list);
               }
             }
@@ -272,8 +294,8 @@ $(document).ready(function() {
 
       if (key == 13 && lettersPressed.length) {
         console.log("checkWord este " + lettersPressed);
-        for (var i = 0; i < totalWords.length; i++) {
-          if (totalWords[i] == lettersPressed) {
+        for (var i = 0; i < legalWords.length; i++) {
+          if (legalWords[i] == lettersPressed) {
             found = 1;
             break;
           }
@@ -282,7 +304,6 @@ $(document).ready(function() {
           scoreSystem(lettersPressed, lettersPressed.length);
         }
         $("#score").html(score);
-        cnt = 0;
       }
     });
   }
@@ -301,7 +322,7 @@ $(document).ready(function() {
   }
 
 
-  var wordsFound = new Array();   // store words we have already found
+  var wordsFound = [];   // store words we have already found
   var hasFound = 0;
   function scoreSystem(newWord, wordLength) {
     var wPresent = 0; // signals if the word has already been found and scored
@@ -377,8 +398,9 @@ $(document).ready(function() {
           {
             counter = setInterval(timeLeft, 1000); // auto reload values
             count = countReload;
-            var autoWord = GetWordAsync(difficulty);
-            totalWords = autoWord.everyWord;
+            var autoWord = GetWordAsync();
+            console.log(autoWord);
+            legalWords = autoWord.everyWord;
             $("#maxWords").html(autoWord.everyWord.length);
             $("#result").html(autoWord.randomWord);
             drawLetters(autoWord.randomWord);
@@ -386,7 +408,6 @@ $(document).ready(function() {
             $(".wordArea").hide().find('tr').remove(); // Empty displayed words
             hide = 0;
             //console.log(autoWord.randomWord);
-            cnt = 0;
           }
           else
           {
@@ -909,7 +930,8 @@ $(document).ready(function() {
         }, layerSpeed);
       }
     }
-  selectDifficulty();
+
+  init();
   inputListen();
   ShowWordsAndEnd();
 });

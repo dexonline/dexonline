@@ -2,30 +2,45 @@
 
 {block "title"}Omleta Cuvintelor{/block}
 
+{block "search"}{/block}
+
 {block "content"}
-  <div class="panel panel-default">
+  <div id="mainMenu" class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Omleta cuvintelor</h3>
+      Omleta cuvintelor
     </div>
+
     <div class="panel-body">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">dificultate</label>
+          <div class="col-sm-10">
+            <button class="btn btn-info" type="button" value="4">foarte ușor</button>
+            <button class="btn btn-info" type="button" value="5">ușor</button>
+            <button class="btn btn-info" type="button" value="6">normal</button>
+            <button class="btn btn-info" type="button" value="7">greu</button>
+          </div>
+        </div>
 
-      <form id="scramble" action="">
-        <dl class="dl-horizontal">
-          <dt>Nivel dificultate</dt>
-          <dd>
-            <button class="btn btn-info" type="button" value="1">Foarte usor</button>
-            <button class="btn btn-info" type="button" value="2">Usor</button>
-            <button class="btn btn-info" type="button" value="3">Normal</button>
-            <button class="btn btn-info" type="button" value="4">Greu</button>
-            <button class="btn btn-warning" type="button" value="5">"Sunt dictionar"</button>
-          </dd>
-          <dt><label for="toggleD">Diacritice?</label></dt>
-          <dd>
-            <input id="toggleD" type="checkbox">
-          </dd>
-        </dl>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+              <label>
+                <input id="toggleD" type="checkbox"> diacritice
+              </label>
+            </div>
+          </div>
+        </div>
       </form>
+    </div>
+  </div>
 
+  <div id="gameArea" class="panel panel-default">
+    <div class="panel-heading">
+      Omleta cuvintelor
+    </div>
+
+    <div class="panel-body">
       <div id="resultSearch" align="center">
         <span>Timp ramas: </span>
         <span id="timer"> 0 </span>

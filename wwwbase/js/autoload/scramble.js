@@ -21,8 +21,8 @@ $(document).ready(function() {
   var letters;    // letter set
   var legalWords; // words that can be made from the letter set
   var wordsFound; // boolean array indicating which legal words the user has found
-  var upLayers;   // top row rectangles
-  var downLayers; // bottom row rectangles
+  var upLayers;   // top row tiles
+  var downLayers; // bottom row tiles
 
   function init() {
     $('#startGameButton').click(startGame);
@@ -178,7 +178,7 @@ $(document).ready(function() {
   }
 
   // move the letter at position pos on row1 to the first open slot on row2
-  function moveLetter(pos, row1, row2, top) {
+  function moveTile(pos, row1, row2, top) {
     if (row1[pos]) {
       var i = 0;
       while (row2[i]) {
@@ -193,12 +193,12 @@ $(document).ready(function() {
 
   // move the letter at position pos on the top row to the first open slot on the bottom row
   function gather(pos) {
-    moveLetter(pos, upLayers, downLayers, false);
+    moveTile(pos, upLayers, downLayers, false);
   }
 
   // send the letter at position pos on the bottom row back to the top row
   function scatter(pos) {
-    moveLetter(pos, downLayers, upLayers, true);
+    moveTile(pos, downLayers, upLayers, true);
   }
 
   // send letters on the bottom row back to the top row
@@ -236,6 +236,7 @@ $(document).ready(function() {
     }
   }
 
+  // called when a drag goes beyond the canvas
   function dragCancel(layer) {
     // if a letter was dragged, get the corresponding rectangle layer
     layer = $('canvas').getLayer(layer.data.tile);
@@ -251,137 +252,38 @@ $(document).ready(function() {
       }
     }
   }
-  
+
+  // called when a drag terminates normally
   function dragStop(layer) {
     // if a letter was dragged, get the corresponding rectangle layer
     layer = $('canvas').getLayer(layer.data.tile);
 
+    var srcTop; // was the tile originally top or bottom?
+    var destTop = (layer.y < THRESHOLD_Y); // was the tile dragged to the top or bottom?
     var move = false;
 
-    //Switch position area
-    for(var i = 0 ; i < downLayers.length; i++)
-    {
-      if(downLayers[i] != 0 && layer== downLayers[i])
-      {
-        for(var j = 0; j < downLayers.length; j++)
-        {
-          if(layer.x < downLayers[j].x && (layer.y < 235 && layer.y > 175))
-          {
+    var index = 0;
+    while ((index < upLayers.length) && (upLayers[index] != layer)) {
+      index++;
+    }
 
-            for(var l = 0; l < downLayers.length; l++)
-            {
-              if(downLayers[l] != 0)
-              {
-                $('canvas').animateLayerGroup(downLayers[l].groups[0],{
-                  x: getTileX(l),
-                  y: BOTTOM_Y,
-                }, ANIMATION_SPEED);
-              }
-            }
-            break;
-          }
-          if(layer.x > downLayers[j].x && (layer.y < 235 && layer.y > 175) && j == downLayers.length - 1)
-          {
-            for(var l = 0; l < downLayers.length; l++)
-            {
-              if(downLayers[l] != 0)
-              {
-                $('canvas').animateLayerGroup(downLayers[l].groups[0],{
-                  x: getTileX(l),
-                  y: BOTTOM_Y,
-                }, ANIMATION_SPEED);
-              }
-            }
-          }
-        }
-        break;
+    if (index < upLayers.length) {
+      srcTop = true;
+    } else {
+      srcTop = false;
+      index = 0;
+      while (downLayers[index] != layer) {
+        index++;
       }
     }
-    //Drag down area
-    if(layer.y > THRESHOLD_Y)  // Move and animate the letter down
-    {
-      for(var i = 0 ; i < downLayers.length; i++) // Check and reposition back into place if draged on the same area
-      {
-        if(downLayers[i] == layer)
-        {
-          $('canvas').animateLayerGroup(layer.groups[0],{
-            x: getTileX(i),
-            y: BOTTOM_Y,
-          }, ANIMATION_SPEED);
-          move = false;
-          break;
-        }
-        else
-        {
-          move = true;
-        }
-      }
-      if(move)
-      {
-        for(var i = 0 ; i < upLayers.length; i++)
-        {
-          if(upLayers[i] == layer)
-          {
-            for(var j = 0; j < downLayers.length; j++)
-            {
-              if(downLayers[j] == 0)
-              {
-                downLayers[j] = layer;
-                upLayers[i] = 0;
 
-                $('canvas').animateLayerGroup(layer.groups[0],{
-                  x: getTileX(j),
-                  y: BOTTOM_Y,
-                }, ANIMATION_SPEED);
-                break;
-              }
-            }
-            break;
-          }
-        }
-      }
-    }
-    else // Move and animate the letter up
-    {
-      for(var i = 0 ; i < upLayers.length; i++) // Check and reposition back into place if draged on the same area
-      {
-        if(upLayers[i] == layer)
-        {
-          $('canvas').animateLayerGroup(layer.groups[0],{
-            x: getTileX(i),
-            y: TOP_Y,
-          }, ANIMATION_SPEED);
-          move = false;
-          break;
-        }
-        else
-        {
-          move = true;
-        }
-      }
-      if(move)
-      {
-        for(var i = 0 ; i < downLayers.length; i++)
-        {
-          if(downLayers[i] == layer)
-          {
-            for(var j = 0; j < upLayers.length; j++)
-            {
-              if(upLayers[j] == 0)
-              {
-                upLayers[j] = layer;
-                downLayers[i] = 0;
-                $('canvas').animateLayerGroup(layer.groups[0],{
-                  x: getTileX(j),
-                  y: TOP_Y,
-                }, ANIMATION_SPEED);
-                break;
-              }
-            }
-            break;
-          }
-        }
-      }
+    if (srcTop == destTop) {
+      // tile dragged on the same row -- just send it back
+      animateTile(layer, index, srcTop);
+    } else if (destTop) {
+      scatter(index);
+    } else {
+      gather(index);
     }
   }
 
@@ -392,18 +294,13 @@ $(document).ready(function() {
 
     for (var i = 0; i < letters.length; i++) {
 
-      var posX = getTileX(i);
-
       $('canvas').drawRect({
-        layer: true,
-        draggable: true,
         strokeStyle: 'black',
         strokeWidth: 4,
         name: 'rect' + i,
         fillStyle: '#cceeff',
-        groups: ['boggle' + i],
-        dragGroups: ['boggle' + i],
-        x: 500, y: TOP_Y,
+        groups: ['group' + i],
+        dragGroups: ['group' + i],
         width: TILE_WIDTH,
         height: TILE_HEIGHT,
         cornerRadius: 4,
@@ -411,33 +308,34 @@ $(document).ready(function() {
           letter: letters[i],
           tile: 'rect' + i, // self
         },
-        dragcancel: dragCancel,
-        dragstop: dragStop,
       })
         .drawText({
-          layer: true,
-          draggable: true,
           name: 'letter' + i,
-          groups: ['boggle' + i],
-          dragGroups: ['boggle' + i],
+          groups: ['group' + i],
+          dragGroups: ['group' + i],
           fillStyle: 'black',
           strokeStyle: 'black',
           strokeWidth: 1,
-          x: 500, y: TOP_Y,
           fontSize: TILE_FONT_SIZE,
           fontFamily: 'Verdana, sans-serif',
           text: letters[i].toUpperCase(),
           data: {
             tile: 'rect' + i,
           },
-          dragcancel: dragCancel,
-          dragstop: dragStop,
-        })
-        .animateLayerGroup('boggle' + i, {
-          x: getTileX(i), y: TOP_Y
-        }, ANIMATION_SPEED);
+        });
 
-      upLayers.push($('canvas').getLayer('rect' + i));
+      $('canvas').setLayerGroup('group' + i, {
+        layer: true,
+        draggable: true,
+        dragcancel: dragCancel,
+        dragstop: dragStop,
+        x: 0,
+        y: TOP_Y,
+      });
+
+      var l = $('canvas').getLayer('rect' + i);
+      animateTile(l, i, true);
+      upLayers.push(l);
       downLayers.push(0);
     }
   }
@@ -488,23 +386,23 @@ $(document).ready(function() {
       var wordArea = $('.wordArea');
       wordArea.show();
 
-      for(var i = 0; i <= legalWords.length; i++)
+      for (var i = 0; i <= legalWords.length; i++)
       {
-        if( i % 5 == 0 || (i == legalWords.length && legalWords.length % 5 != 0))
+        if ( i % 5 == 0 || (i == legalWords.length && legalWords.length % 5 != 0))
         {
           stop = i;
           var td = 'td' + i;
           var ulist = 'ulist' + i;
           $('<td></td>', { 'class' : td }).appendTo('.' + currentTR);
           $('<ul></ul>', { 'class' : ulist + ' list-unstyled'}).appendTo('.' + td);
-          for(var k = start; k < stop; k++) {
+          for (var k = start; k < stop; k++) {
             var list = '<li>' + legalWords[k] + '</li>';
             $('.' + ulist).append(list);
           }
           ul++;
           start = stop;
         }
-        if($('.' + currentTR).children().length % 9 == 0)
+        if ($('.' + currentTR).children().length % 9 == 0)
         {
           currentTR = initialTR + i;
           $('<tr></tr>', {'class' : currentTR}).appendTo(wordArea);

@@ -13,22 +13,45 @@
     <div class="panel-body">
       <form class="form-horizontal">
         <div class="form-group">
-          <label class="col-sm-2 control-label">dificultate</label>
+          <label class="col-sm-2 control-label">nivel</label>
           <div class="col-sm-10">
-            <button class="btn btn-info" type="button" value="4">foarte ușor</button>
-            <button class="btn btn-info" type="button" value="5">ușor</button>
-            <button class="btn btn-info" type="button" value="6">normal</button>
-            <button class="btn btn-info" type="button" value="7">greu</button>
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-info">
+                <input type="radio" name="level" value="4" checked> 4 litere
+              </label>
+              <label class="btn btn-info active">
+                <input type="radio" name="level" value="5"> 5 litere
+              </label>
+              <label class="btn btn-info">
+                <input type="radio" name="level" value="6"> 6 litere
+              </label>
+              <label class="btn btn-info">
+                <input type="radio" name="level" value="7"> 7 litere
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">diacritice</label>
+          <div class="col-sm-10">
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-info active">
+                <input type="radio" name="useDiacritics" value="0" checked> nu
+              </label>
+              <label class="btn btn-info">
+                <input type="radio" name="useDiacritics" value="1" checked> da
+              </label>
+            </div>
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <div class="checkbox">
-              <label>
-                <input id="toggleD" type="checkbox"> diacritice
-              </label>
-            </div>
+            <button id="startGameButton" class="btn btn-success" type="button">
+              <i class="glyphicon glyphicon-play"></i>
+              începe
+            </button>
           </div>
         </div>
       </form>
@@ -42,12 +65,9 @@
 
     <div class="panel-body">
       <div id="resultSearch" align="center">
-        <span>Timp ramas: </span>
-        <span id="timer"> 0 </span>
-        <span>Scor: </span>
-        <span id="score"> 0 </span>
-        <span>Nr. cuvinte:</span>
-        <span id="maxWords">0</span>
+        Timp rămas: <span id="timer">0</span> secunde |
+        Scor: <span id="score">0</span> |
+        Nr. cuvinte: <span id="maxWords">0</span>
       </div>
 
       <div class="drawArea">

@@ -18,43 +18,68 @@ $(document).ready(function() {
   const SECONDS = 180;
 
   var score = 0;
-  var secondsLeft;
-  var check; // Check is diacritics are to be used.
-  var randomWord; // word chosen at random from wordList, constrained by difficulty
-  var legalWords; // the possible words that can be made from the randomWord.
+  var letters;    // letter set
+  var legalWords; // words that can be made from the letter set
   var wordsFound; // boolean array indicating which legal words the user has found
-  var difficulty;
-  var upLayers = []; // Letters in the top
-  var downLayers = []; // Letters in the bottom
-  var wordList; // word list downloaded from the server
+  var upLayers;   // top row rectangles
+  var downLayers; // bottom row rectangles
 
   function init() {
-    $('#mainMenu button').click(function() {
-      difficulty = parseInt($(this).val());
-      check = $('#toggleD').prop('checked');
-      $('#mainMenu').slideToggle();
-      $('#gameArea').slideToggle();
-      GetWordAsync(difficulty);
-    });
-
-    // TODO initialize these only after game starts; unbind at game end
-    $(document).keypress(letterHandler);
-    $(document).keydown(specialKeyHandler);
+    $('#startGameButton').click(startGame);
   }
 
-  function getLettersAndLegalWords() {
-    // choose a random word
+  function startGame() {
+    var level = parseInt($('.active input[name="level"]').val());
+    var useDiacritics = parseInt($('.active input[name="useDiacritics"]').val());
+    $('#mainMenu').slideToggle();
+    $('#gameArea').slideToggle();
+
+    $.get(useDiacritics ? WORD_LIST_DIA_URL : WORD_LIST_URL)
+      .done(function(result) {
+        var wordList = result.trim().split('\n');
+        getLettersAndLegalWords(wordList, level);
+
+        $('#maxWords').html(legalWords.length);
+        drawLetters();
+        
+        $(document).keypress(letterHandler);
+        $(document).keydown(specialKeyHandler);
+        startTimer();
+      })
+      .fail(function() {
+        console.log('Nu pot descărca lista de cuvinte.');
+      });
+  }
+
+  // shuffles the letters of a string
+  function shuffleLetters(s) {
+    var a = s.split("");
+
+    for (var i = a.length - 1; i; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+
+    return a.join("");
+  }
+
+  // chooses a letter set and finds all legal words for that set
+  function getLettersAndLegalWords(wordList, level) {
+    // choose a random word and shuffle its letters
     do {
-      randomWord = wordList[Math.floor(Math.random() * wordList.length)];
-    } while (randomWord.length != difficulty);
+      letters = wordList[Math.floor(Math.random() * wordList.length)];
+    } while (letters.length != level);
+    letters = shuffleLetters(letters);
 
     // build a frequency table
     var limit = [];
     for (var i = 0; i < ALPHABET.length; i++) {
       limit[ALPHABET[i]] = 0;
     }
-    for (var i = 0; i < randomWord.length; i++) {
-      limit[randomWord[i]]++;
+    for (var i = 0; i < letters.length; i++) {
+      limit[letters[i]]++;
     }
 
     // iterate through words and select legal ones
@@ -62,12 +87,12 @@ $(document).ready(function() {
     wordsFound = [];
 
     for (var i in wordList) {
+      var len = wordList[i].length;
       var legal = true;
       var f = [];
+
       // increment frequencies for the word being examined
-      var len = wordList[i].length;
       var j = 0;
-      var legal = true;
       while ((j < len) && legal) {
         var char = wordList[i][j];
         f[char] = 1 + ((char in f) ? f[char] : 0);
@@ -83,79 +108,10 @@ $(document).ready(function() {
     }
   }
 
-  function GetWordAsync() {
-
-    $.get(check ? WORD_LIST_DIA_URL : WORD_LIST_URL)
-      .done(function(result) {
-        wordList = result.trim().split('\n');
-        getLettersAndLegalWords();
-
-        $('#maxWords').html(legalWords.length);
-        drawLetters(randomWord);
-        
-        startTimer();
-        
-        $('.wordArea').hide().find('tr').remove();
-        hide = 0;
-      })
-      .fail(function() {
-        console.log('Nu merge');
-      });
-  }
-
+  // returns the X coordinate for a tile in the index-th position
   function getTileX(index) {
     var wp = TILE_WIDTH + TILE_PADDING;
-    return (CANVAS_WIDTH + wp * (2 * index - difficulty + 1)) / 2;
-  }
-
-  hide = 0;
-  function ShowWordsAndEnd() {
-    $('.wordBtn').on('click', function() {
-      $(this).blur();
-
-      var ul = 0;
-      var initialTR = 'wordList';
-      var currentTR = initialTR;
-      var start = 0;
-      var stop;
-
-      drawEnd(); //Draw Game Over
-
-      var wordArea = $('.wordArea');
-      wordArea.show();
-
-      if(!hide)
-      {
-        for(var i = 0; i <= legalWords.length; i++)
-        {
-          if( i % 5 == 0 || (i == legalWords.length && legalWords.length % 5 != 0))
-          {
-            stop = i;
-            var td = 'td' + i;
-            var ulist = 'ulist' + i;
-            $('<td></td>', { 'class' : td }).appendTo('.' + currentTR);
-            $('<ul></ul>', { 'class' : ulist + ' list-unstyled'}).appendTo('.' + td);
-            for(var k = start; k < stop; k++) {
-              var list = '<li>' + legalWords[k] + '</li>';
-              $('.' + ulist).append(list);
-            }
-            ul++;
-            start = stop;
-          }
-          if($('.' + currentTR).children().length % 9 == 0)
-          {
-            currentTR = initialTR + i;
-            $('<tr></tr>', {'class' : currentTR}).appendTo(wordArea);
-          }
-        }
-        hide = 1;
-      }
-      else
-      {
-        $('.wordArea').hide().find('tr').remove();
-        hide = 0;
-      }
-    });
+    return (CANVAS_WIDTH + wp * (2 * index - letters.length + 1)) / 2;
   }
 
   function letterHandler(event) {
@@ -195,7 +151,6 @@ $(document).ready(function() {
         word += downLayers[k].data.letter;
       }
     }
-    console.log('looking up [' + word + ']');
 
     // look for a legal word that the user has not already found
     var i = 0;
@@ -213,8 +168,17 @@ $(document).ready(function() {
     }
   }
 
+  // animates the given layer on the index-th position on the top row (top = true)
+  // or bottom row (top = false)
+  function animateTile(layer, index, top) {
+    $('canvas').animateLayerGroup(layer.groups[0], {
+      x: getTileX(index),
+      y: (top ? TOP_Y : BOTTOM_Y),
+    }, ANIMATION_SPEED);
+  }
+
   // move the letter at position pos on row1 to the first open slot on row2
-  function moveLetter(pos, row1, row2, y) {
+  function moveLetter(pos, row1, row2, top) {
     if (row1[pos]) {
       var i = 0;
       while (row2[i]) {
@@ -223,21 +187,18 @@ $(document).ready(function() {
       row2[i] = row1[pos];
       row1[pos] = 0;
 
-      $('canvas').animateLayerGroup(row2[i].groups[0], {
-        x: getTileX(i),
-        y: y,
-      }, ANIMATION_SPEED);
+      animateTile(row2[i], i, top);
     }
   }
 
   // move the letter at position pos on the top row to the first open slot on the bottom row
   function gather(pos) {
-    moveLetter(pos, upLayers, downLayers, BOTTOM_Y);
+    moveLetter(pos, upLayers, downLayers, false);
   }
 
   // send the letter at position pos on the bottom row back to the top row
   function scatter(pos) {
-    moveLetter(pos, downLayers, upLayers, TOP_Y);
+    moveLetter(pos, downLayers, upLayers, true);
   }
 
   // send letters on the bottom row back to the top row
@@ -261,80 +222,40 @@ $(document).ready(function() {
   }
 
   function startTimer() {
-
-    secondsLeft = SECONDS;
+    var secondsLeft = SECONDS;
     var timer = setInterval(decrementTimer, 1000);
+    $('#timer').html(secondsLeft);
 
     function decrementTimer() {
       secondsLeft--;
-      $('#timer').html(secondsLeft + ' secunde');
+      $('#timer').html(secondsLeft);
       if (!secondsLeft) {
         clearInterval(timer);
-        drawEnd();
+        endGame();
       }
     }
-  }
-
-  //Draw end screen message
-  function drawEnd()
-  {
-    $('canvas').removeLayers();
-
-    $('canvas').drawText({
-      layer: true,
-      draggable: true,
-      name: 'gameOverText',
-      groups: 'gameOver',
-      dragGroups: 'gameOver',
-      fillStyle: function(layer) {
-        var value = Math.round(layer.x / this.width * 360);
-        value = Math.min(value, 360);
-        return 'hsl(' + value + ', 50%, 50%)';
-      },
-      strokeStyle: 'black',
-      strokeWidth: 2,
-      x: 800, y: 120,
-      fontSize: 60,
-      fontFamily: 'Verdana, sans-serif',
-      text: 'Sfârșit',
-
-    })
-      .animateLayer('gameOverText', {
-        x: CANVAS_WIDTH / 2,
-        y: CANVAS_HEIGHT / 2,
-        rotate: '+=360',
-      }, ANIMATION_SPEED);
   }
 
   function dragCancel(layer) {
     // if a letter was dragged, get the corresponding rectangle layer
     layer = $('canvas').getLayer(layer.data.tile);
 
-    for(var i = 0; i < upLayers.length; i++)
-    {
-      if(upLayers[i] == layer)
-      {
-        $('canvas').animateLayerGroup(layer.groups[0],{
-          x: getTileX(i),
-          y: TOP_Y,
-        }, ANIMATION_SPEED);
-        break;
+    for (var i in upLayers) {
+      if (upLayers[i] == layer) {
+        animateTile(layer, i, true);
       }
     }
-    for(var j = 0; j < downLayers.length; j++)
-    {
-      if(downLayers[j] == layer)
-      {
-        $('canvas').animateLayerGroup(layer.groups[0],{
-          x: getTileX(j),
-          y: BOTTOM_Y,
-        }, ANIMATION_SPEED);
-        break;
+    for (var i in downLayers) {
+      if (downLayers[i] == layer) {
+        animateTile(layer, i, false);
       }
     }
   }
   
   function dragStop(layer) {
+    // if a letter was dragged, get the corresponding rectangle layer
+    layer = $('canvas').getLayer(layer.data.tile);
+
     var move = false;
 
     //Switch position area
@@ -466,12 +387,10 @@ $(document).ready(function() {
 
   // printeaza literele cuvantului random din baza de date
   function drawLetters() {
-    $('canvas').removeLayers();
-
     upLayers = [];
     downLayers = [];
 
-    for (var i = 0; i < randomWord.length; i++) {
+    for (var i = 0; i < letters.length; i++) {
 
       var posX = getTileX(i);
 
@@ -489,7 +408,7 @@ $(document).ready(function() {
         height: TILE_HEIGHT,
         cornerRadius: 4,
         data: {
-          letter: randomWord[i],
+          letter: letters[i],
           tile: 'rect' + i, // self
         },
         dragcancel: dragCancel,
@@ -507,7 +426,7 @@ $(document).ready(function() {
           x: 500, y: TOP_Y,
           fontSize: TILE_FONT_SIZE,
           fontFamily: 'Verdana, sans-serif',
-          text: randomWord[i].toUpperCase(),
+          text: letters[i].toUpperCase(),
           data: {
             tile: 'rect' + i,
           },
@@ -523,6 +442,82 @@ $(document).ready(function() {
     }
   }
 
+  //Draw end screen message
+  function drawEnd()
+  {
+    $('canvas').removeLayers();
+
+    $('canvas').drawText({
+      layer: true,
+      draggable: true,
+      name: 'gameOverText',
+      groups: 'gameOver',
+      dragGroups: 'gameOver',
+      fillStyle: function(layer) {
+        var value = Math.round(layer.x / this.width * 360);
+        value = Math.min(value, 360);
+        return 'hsl(' + value + ', 50%, 50%)';
+      },
+      strokeStyle: 'black',
+      strokeWidth: 2,
+      x: 800, y: 120,
+      fontSize: 60,
+      fontFamily: 'Verdana, sans-serif',
+      text: 'Sfârșit',
+
+    })
+      .animateLayer('gameOverText', {
+        x: CANVAS_WIDTH / 2,
+        y: CANVAS_HEIGHT / 2,
+        rotate: '+=360',
+      }, ANIMATION_SPEED);
+  }
+
+  function ShowWordsAndEnd() {
+    $('.wordBtn').on('click', function() {
+      $(this).blur();
+
+      var ul = 0;
+      var initialTR = 'wordList';
+      var currentTR = initialTR;
+      var start = 0;
+      var stop;
+
+      drawEnd(); //Draw Game Over
+
+      var wordArea = $('.wordArea');
+      wordArea.show();
+
+      for(var i = 0; i <= legalWords.length; i++)
+      {
+        if( i % 5 == 0 || (i == legalWords.length && legalWords.length % 5 != 0))
+        {
+          stop = i;
+          var td = 'td' + i;
+          var ulist = 'ulist' + i;
+          $('<td></td>', { 'class' : td }).appendTo('.' + currentTR);
+          $('<ul></ul>', { 'class' : ulist + ' list-unstyled'}).appendTo('.' + td);
+          for(var k = start; k < stop; k++) {
+            var list = '<li>' + legalWords[k] + '</li>';
+            $('.' + ulist).append(list);
+          }
+          ul++;
+          start = stop;
+        }
+        if($('.' + currentTR).children().length % 9 == 0)
+        {
+          currentTR = initialTR + i;
+          $('<tr></tr>', {'class' : currentTR}).appendTo(wordArea);
+        }
+      }
+    });
+  }
+
+  function endGame() {
+    $(document).unbind('keypress', letterHandler);
+    $(document).unbind('keydown', specialKeyHandler);
+    drawEnd();
+  }
+
   init();
-  ShowWordsAndEnd();
 });

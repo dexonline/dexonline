@@ -58,29 +58,44 @@
     </div>
   </div>
 
-  <div id="gameArea" class="panel panel-default">
+  <div id="gamePanel" class="panel panel-default">
     <div class="panel-heading">
       Omleta cuvintelor
     </div>
 
     <div class="panel-body">
-      <div id="resultSearch" align="center">
-        Timp rămas: <span id="timer">0</span> secunde |
-        Scor: <span id="score">0</span> |
-        Nr. cuvinte: <span id="maxWords">0</span>
-      </div>
+      <canvas width="480" height="280"></canvas>
 
-      <div class="drawArea">
-        <canvas class="canvasArea" width='480' height='280' ></canvas>
-        <br>
-        <button class="wordBtn btn btn-default" type="button">Dă-mi cuvintele</button>
-        <br>
-        <table class="table table-responsive wordArea" style="display:none;">
-          <caption>Cuvintele posibile sunt</caption>
-          <tr class="wordList"></tr>
-        </table>
+      <div id="gameStats">
+        <div class="pull-left">
+          <i class="glyphicon glyphicon-hourglass"></i>
+          <span id="timer">0</span>
+        </div>
+        <i class="glyphicon glyphicon-piggy-bank"></i>
+        <span id="score">0</span>
+        <div class="pull-right">
+          <i class="glyphicon glyphicon-eye-open"></i>
+          <span id="foundWords">0</span> /
+          <span id="maxWords">0</span>
+        </div>
       </div>
+    </div>
+  </div>
 
+  <div id="wordListPanel" class="panel panel-default">
+    <div class="panel-heading">
+      Cuvinte posibile
+    </div>
+
+    <div class="panel-body">
+      <div id="legalWords" class="row">
+        <div id="wordStem" class="col-xs-6 col-sm-3 col-md-2">
+          <a href="{$wwwRoot}definitie/" target="_blank" class="text-danger">
+            <i class="glyphicon glyphicon-remove"></i>
+            <span></span>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 {/block}

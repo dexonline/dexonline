@@ -1,21 +1,16 @@
-#gameArea {
+#gamePanel, #wordListPanel {
   display: none;
 }
 
-.drawArea {
-  text-align: center;
-  max-width: 600px;
+canvas {
+  border: 1px solid;
+  display: block;
   margin: 0 auto;
 }
 
-.canvasArea{
-  border: 1px solid;
-}
-
-#resultSearch span {
-  font-size: 16px;
-  margin-top: 20px;
-  padding-left:  10px;
-  display: inline-block;
-
+#gameStats {
+  font-size: 30px;
+  margin: 0 auto;
+  text-align: center;
+  width: 480px;
 }

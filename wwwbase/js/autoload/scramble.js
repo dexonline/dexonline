@@ -19,7 +19,6 @@ $(function() {
 
   const SECONDS = 180;
 
-  var score = 0;
   var letters;    // letter set
   var legalWords; // words that can be made from the letter set
   var wordsFound; // boolean array indicating which legal words the user has found
@@ -29,6 +28,7 @@ $(function() {
 
   function init() {
     $('#startGameButton').click(startGame);
+    $('#restartGameButton').click(restartGame);
     wordStem = $('#wordStem').detach().removeAttr('id');
   }
 
@@ -44,7 +44,9 @@ $(function() {
         getLettersAndLegalWords(wordList, level);
         writeLegalWords();
 
-        $('#maxWords').html(legalWords.length);
+        $('#score').text('0');
+        $('#foundWords').text('0');
+        $('#maxWords').text(legalWords.length);
         drawLetters();
         
         $(document).keypress(letterHandler);
@@ -169,8 +171,7 @@ $(function() {
     if (i < legalWords.length) {
       // found one
       wordsFound[i] = true;
-      score += word.length * 5;
-      $('#score').html(score);
+      $('#score').text(word.length * 5 + parseInt($('#score').text()));
       $('#foundWords').text(1 + parseInt($('#foundWords').text()));
       $('#legalWord-' + i)
         .find('a')
@@ -315,6 +316,8 @@ $(function() {
     upLayers = [];
     downLayers = [];
 
+    $('canvas').removeLayers();
+
     for (var i = 0; i < letters.length; i++) {
 
       $('canvas').drawRect({
@@ -385,6 +388,8 @@ $(function() {
     // show the legal words
     $('#wordListPanel').slideDown();
 
+    $('#restartGameButton').show();
+
     // animate the 'The end' text
     $('canvas')
       .removeLayers()
@@ -405,6 +410,14 @@ $(function() {
         y: CANVAS_HEIGHT / 2,
         rotate: '+=360',
       }, GAME_OVER_ANIMATION_SPEED);
+  }
+
+  function restartGame() {
+    $('#mainMenu').show();
+    $('#gamePanel').hide();    
+    $('#wordListPanel').hide();
+    $('#restartGameButton').hide();
+    $('#legalWords').empty();
   }
 
   init();

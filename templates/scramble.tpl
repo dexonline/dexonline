@@ -43,6 +43,10 @@
                 <input type="radio" name="useDiacritics" value="1" checked> da
               </label>
             </div>
+            <div class="help-block">
+              Când alegeți „da”, literele Ă, Â, Î, Ș și Ț au valoare
+              proprie și nu pot fi interschimbate cu A, I, S și T.
+            </div>
           </div>
         </div>
 
@@ -54,6 +58,26 @@
             </button>
           </div>
         </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">descriere</label>
+          <div class="col-sm-10 checkbox">
+            <p>
+              Veți primi un set de litere. Aveți la dispoziție trei
+              minute ca să formați câte cuvinte puteți folosind minim
+              trei litere.
+            </p>
+
+            <p>
+              Dacă folosiți tastatura, tastați pur și simplu
+              literele. Tasta Enter verifică cuvântul, tasta Backspace
+              șterge ultima literă, iar tasta Esc șterge toate
+              literele. Atenție, dacă ați optat pentru diacritice, va
+              trebui să le tastați ca atare.
+            </p>
+          </div>
+        </div>
+
       </form>
     </div>
   </div>
@@ -69,15 +93,22 @@
       <div id="gameStats">
         <div class="pull-left">
           <i class="glyphicon glyphicon-hourglass"></i>
-          <span id="timer">0</span>
+          <span id="timer"></span>
         </div>
         <i class="glyphicon glyphicon-piggy-bank"></i>
-        <span id="score">0</span>
+        <span id="score"></span>
         <div class="pull-right">
           <i class="glyphicon glyphicon-eye-open"></i>
-          <span id="foundWords">0</span> /
-          <span id="maxWords">0</span>
+          <span id="foundWords"></span> /
+          <span id="maxWords"></span>
         </div>
+      </div>
+
+      <div class="text-center">
+        <button id="restartGameButton" class="btn btn-success" type="button">
+          <i class="glyphicon glyphicon-repeat"></i>
+          joacă din nou
+        </button>
       </div>
     </div>
   </div>

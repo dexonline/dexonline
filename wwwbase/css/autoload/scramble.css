@@ -1,4 +1,6 @@
-#gamePanel, #wordListPanel {
+#gamePanel,
+#wordListPanel,
+#restartGameButton {
   display: none;
 }
 

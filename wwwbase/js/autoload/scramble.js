@@ -2,7 +2,9 @@ $(function() {
   const WORD_LIST_DIA_URL = 'https://dexonline.ro/static/download/game-word-list-dia.txt';
   const WORD_LIST_URL = 'https://dexonline.ro/static/download/game-word-list.txt';
   const ALPHABET = 'aăâbcdefghiîjklmnopqrsștțuvwxyz';
-  const MINIMUM_LENGTH = 3;
+
+  const MODE_WORD_SEARCH = 0;
+  const MODE_ANAGRAM = 1;
   
   const CANVAS_WIDTH = 480;
   const CANVAS_HEIGHT = 280;
@@ -25,41 +27,60 @@ $(function() {
   var upLayers;   // top row tiles
   var downLayers; // bottom row tiles
   var wordStem;   // div to be cloned for every legal word
+  var wordList, wordListDia; // word lists downloaded from server, without and with diacritics
+  var gameParams; // main menu options
 
+  // runs only once on page load
   function init() {
     $('#startGameButton').click(startGame);
     $('#restartGameButton').click(restartGame);
     wordStem = $('#wordStem').detach().removeAttr('id');
-  }
 
-  function startGame() {
-    var level = parseInt($('.active input[name="level"]').val());
-    var useDiacritics = parseInt($('.active input[name="useDiacritics"]').val());
-    $('#mainMenu').hide();
-    $('#gamePanel').show();
-
-    $.get(useDiacritics ? WORD_LIST_DIA_URL : WORD_LIST_URL)
-      .done(function(result) {
-        var wordList = result.trim().split('\n');
-        getLettersAndLegalWords(wordList, level);
-        writeLegalWords();
-
-        $('#score').text('0');
-        $('#foundWords').text('0');
-        $('#maxWords').text(legalWords.length);
-        drawLetters();
-        
-        $(document).keypress(letterHandler);
-        $(document).keydown(specialKeyHandler);
-        startTimer();
+    // download word lists
+    $.when($.get(WORD_LIST_URL),
+           $.get(WORD_LIST_DIA_URL))
+      .then(function(result, resultDia) {
+        wordList = result[0].trim().split('\n');
+        wordListDia = resultDia[0].trim().split('\n');
+        $('#startGameButton').prop('disabled', false);
       })
       .fail(function() {
-        console.log('Nu pot descărca lista de cuvinte.');
+        console.log('Nu pot descărca listele de cuvinte.');
       });
   }
 
-  // shuffles the letters of a string
-  function shuffleLetters(s) {
+  // runs whenever a new game starts
+  function startGame() {
+    gameParams = {
+      mode: parseInt($('.active input[name="mode"]').val()),
+      level: parseInt($('.active input[name="level"]').val()),
+      useDiacritics: parseInt($('.active input[name="useDiacritics"]').val()),
+    };
+
+    getNewLetters();
+
+    $('#wordCountDiv').toggle(gameParams.mode == MODE_WORD_SEARCH);
+    $('#mainMenu').hide();
+    $('#gamePanel').show();
+    $('#score').text('0');
+    $('#foundWords').text('0');
+    $('#maxWords').text(legalWords.length);
+        
+    $(document).keypress(letterHandler);
+    $(document).keydown(specialKeyHandler);
+    startTimer();
+  }
+
+  // generate a letter set
+  function getLetters(wordList, level) {
+    var s;
+
+    // choose a random word
+    do {
+      s = wordList[Math.floor(Math.random() * wordList.length)];
+    } while (s.length != level);
+
+    // shuffles the letters
     var a = s.split('');
 
     for (var i = a.length - 1; i; i--) {
@@ -72,30 +93,29 @@ $(function() {
     return a.join('');
   }
 
-  // chooses a letter set and finds all legal words for that set
-  function getLettersAndLegalWords(wordList, level) {
-    // choose a random word and shuffle its letters
-    do {
-      letters = wordList[Math.floor(Math.random() * wordList.length)];
-    } while (letters.length != level);
-    letters = shuffleLetters(letters);
+  // builds the frequency table of a string
+  function frequencyTable(s) {
+    var f = [];
 
-    // build a frequency table
-    var limit = [];
     for (var i = 0; i < ALPHABET.length; i++) {
-      limit[ALPHABET[i]] = 0;
+      f[ALPHABET[i]] = 0;
     }
-    for (var i = 0; i < letters.length; i++) {
-      limit[letters[i]]++;
+    for (var i = 0; i < s.length; i++) {
+      f[s[i]]++;
     }
 
-    // iterate through words and select legal ones
+    return f;
+  }
+
+  // builds the legal words list constrained by the frequency table
+  function getLegalWords(wordList, limit) {
     legalWords = [];
     wordsFound = [];
 
     for (var i in wordList) {
       var len = wordList[i].length;
-      if (len >= MINIMUM_LENGTH) {
+
+      if ((gameParams.mode != MODE_ANAGRAM) || (len == letters.length)) {
         var legal = true;
         var f = [];
 
@@ -117,6 +137,16 @@ $(function() {
     }
   }
 
+  // generate new letters at the game start or in anagram mode
+  function getNewLetters() {
+    var wl = gameParams.useDiacritics ? wordListDia : wordList;
+    letters = getLetters(wl, gameParams.level);
+    var limit = frequencyTable(letters);
+    getLegalWords(wl, limit);
+    writeLegalWords();
+    drawLetters();
+  }
+
   // returns the X coordinate for a tile in the index-th position
   function getTileX(index) {
     var wp = TILE_WIDTH + TILE_PADDING;
@@ -127,7 +157,7 @@ $(function() {
     var key = String.fromCharCode(event.charCode).toLowerCase();
 
     if (key.match(/[a-zăîșțâ]/g)) {
-      // handle letters: move a letter down if one exists
+      // move a tile down if the letter matches
       var i = 0;
       while ((i < upLayers.length) &&
              (!upLayers[i] || (upLayers[i].data.letter != key))) {
@@ -171,14 +201,21 @@ $(function() {
     if (i < legalWords.length) {
       // found one
       wordsFound[i] = true;
-      $('#score').text(word.length * 5 + parseInt($('#score').text()));
-      $('#foundWords').text(1 + parseInt($('#foundWords').text()));
-      $('#legalWord-' + i)
-        .find('a')
-        .removeClass('text-danger').addClass('text-success')
-        .find('i')
-        .removeClass('glyphicon-remove').addClass('glyphicon-ok');
-      scatterBottomRow();
+
+      var score = (gameParams.mode == MODE_ANAGRAM) ? 1 : (5 * word.length);
+      $('#score').text(score + parseInt($('#score').text()));
+
+      if (gameParams.mode == MODE_WORD_SEARCH) {
+        $('#foundWords').text(1 + parseInt($('#foundWords').text()));
+        $('#legalWord-' + i)
+          .find('a')
+          .removeClass('text-danger').addClass('text-success')
+          .find('i')
+          .removeClass('glyphicon-remove').addClass('glyphicon-ok');
+        scatterBottomRow();
+      } else {
+        getNewLetters();
+      }
     }
   }
 
@@ -329,6 +366,8 @@ $(function() {
         dragGroups: ['group' + i],
         width: TILE_WIDTH,
         height: TILE_HEIGHT,
+        x: getTileX(i),
+        y: TOP_Y,
         cornerRadius: 4,
         data: {
           letter: letters[i],
@@ -339,6 +378,8 @@ $(function() {
           name: 'letter' + i,
           groups: ['group' + i],
           dragGroups: ['group' + i],
+          x: getTileX(i),
+          y: TOP_Y,
           fillStyle: 'black',
           strokeStyle: 'black',
           strokeWidth: 1,
@@ -355,8 +396,6 @@ $(function() {
         draggable: true,
         dragcancel: dragCancel,
         dragstop: dragStop,
-        x: 0,
-        y: TOP_Y,
       });
 
       var l = $('canvas').getLayer('rect' + i);
@@ -367,6 +406,8 @@ $(function() {
   }
 
   function writeLegalWords() {
+    $('#legalWords').empty();
+
     for (var i in legalWords) {
       var w = legalWords[i];
       var div = wordStem.clone(true)
@@ -417,7 +458,6 @@ $(function() {
     $('#gamePanel').hide();    
     $('#wordListPanel').hide();
     $('#restartGameButton').hide();
-    $('#legalWords').empty();
   }
 
   init();

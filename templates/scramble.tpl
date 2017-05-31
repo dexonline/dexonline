@@ -13,6 +13,27 @@
     <div class="panel-body">
       <form class="form-horizontal">
         <div class="form-group">
+          <label class="col-sm-2 control-label">mod</label>
+          <div class="col-sm-10">
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-info active">
+                <input type="radio" name="mode" value="0" checked> toate cuvintele
+              </label>
+              <label class="btn btn-info">
+                <input type="radio" name="mode" value="1" checked> doar anagrame
+              </label>
+            </div>
+            <div class="help-block">
+              <b>Toate cuvintele:</b> găsiți toate cuvintele de cel puțin trei litere.
+            </div>
+            <div class="help-block">
+              <b>Doar anagrame:</b> găsiți un cuvânt care folosește
+              toate literele, apoi primiți alt set de litere.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
           <label class="col-sm-2 control-label">nivel</label>
           <div class="col-sm-10">
             <div class="btn-group" data-toggle="buttons">
@@ -52,7 +73,7 @@
 
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button id="startGameButton" class="btn btn-success" type="button">
+            <button id="startGameButton" class="btn btn-success" type="button" disabled>
               <i class="glyphicon glyphicon-play"></i>
               începe
             </button>
@@ -63,9 +84,7 @@
           <label class="col-sm-2 control-label">descriere</label>
           <div class="col-sm-10 checkbox">
             <p>
-              Veți primi un set de litere. Aveți la dispoziție trei
-              minute ca să formați câte cuvinte puteți folosind minim
-              trei litere.
+              Aveți la dispoziție trei minute ca să formați câte cuvinte puteți.
             </p>
 
             <p>
@@ -95,16 +114,20 @@
           <i class="glyphicon glyphicon-hourglass"></i>
           <span id="timer"></span>
         </div>
-        <i class="glyphicon glyphicon-piggy-bank"></i>
-        <span id="score"></span>
-        <div class="pull-right">
+
+        <span id="wordCountDiv">
           <i class="glyphicon glyphicon-eye-open"></i>
           <span id="foundWords"></span> /
           <span id="maxWords"></span>
+        </span>
+
+        <div class="pull-right">
+          <i class="glyphicon glyphicon-piggy-bank"></i>
+          <span id="score"></span>
         </div>
       </div>
 
-      <div class="text-center">
+      <div class="text-center" style="clear: both">
         <button id="restartGameButton" class="btn btn-success" type="button">
           <i class="glyphicon glyphicon-repeat"></i>
           joacă din nou

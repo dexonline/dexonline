@@ -19,8 +19,6 @@ $(function() {
   const ANIMATION_SPEED = 200;
   const GAME_OVER_ANIMATION_SPEED = 600;
 
-  const SECONDS = 180;
-
   var letters;    // letter set
   var legalWords; // words that can be made from the letter set
   var wordsFound; // boolean array indicating which legal words the user has found
@@ -55,6 +53,7 @@ $(function() {
       mode: parseInt($('.active input[name="mode"]').val()),
       level: parseInt($('.active input[name="level"]').val()),
       useDiacritics: parseInt($('.active input[name="useDiacritics"]').val()),
+      seconds: parseInt($('.active input[name="seconds"]').val()),
     };
 
     getNewLetters();
@@ -282,7 +281,7 @@ $(function() {
   }
 
   function startTimer() {
-    var secondsLeft = SECONDS;
+    var secondsLeft = gameParams.seconds;
     var timer = setInterval(decrementTimer, 1000);
 
     $('#timer').text(minutesAndSeconds(secondsLeft));

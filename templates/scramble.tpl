@@ -17,10 +17,10 @@
           <div class="col-sm-10">
             <div class="btn-group" data-toggle="buttons">
               <label class="btn btn-info active">
-                <input type="radio" name="mode" value="0" checked> toate cuvintele
+                <input type="radio" name="mode" value="0"> toate cuvintele
               </label>
               <label class="btn btn-info">
-                <input type="radio" name="mode" value="1" checked> doar anagrame
+                <input type="radio" name="mode" value="1"> doar anagrame
               </label>
             </div>
             <div class="help-block">
@@ -38,7 +38,7 @@
           <div class="col-sm-10">
             <div class="btn-group" data-toggle="buttons">
               <label class="btn btn-info">
-                <input type="radio" name="level" value="4" checked> 4 litere
+                <input type="radio" name="level" value="4"> 4 litere
               </label>
               <label class="btn btn-info active">
                 <input type="radio" name="level" value="5"> 5 litere
@@ -58,15 +58,38 @@
           <div class="col-sm-10">
             <div class="btn-group" data-toggle="buttons">
               <label class="btn btn-info active">
-                <input type="radio" name="useDiacritics" value="0" checked> nu
+                <input type="radio" name="useDiacritics" value="0"> nu
               </label>
               <label class="btn btn-info">
-                <input type="radio" name="useDiacritics" value="1" checked> da
+                <input type="radio" name="useDiacritics" value="1"> da
               </label>
             </div>
             <div class="help-block">
               Când alegeți „da”, literele Ă, Â, Î, Ș și Ț au valoare
               proprie și nu pot fi interschimbate cu A, I, S și T.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">timp</label>
+          <div class="col-sm-10">
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-info">
+                <input type="radio" name="seconds" value="60"> un minut
+              </label>
+              <label class="btn btn-info">
+                <input type="radio" name="seconds" value="120"> 2 minute
+              </label>
+              <label class="btn btn-info active">
+                <input type="radio" name="seconds" value="180"> 3 minute
+              </label>
+              <label class="btn btn-info">
+                <input type="radio" name="seconds" value="240"> 4 minute
+              </label>
+              <label class="btn btn-info">
+                <input type="radio" name="seconds" value="300"> 5 minute
+              </label>
             </div>
           </div>
         </div>

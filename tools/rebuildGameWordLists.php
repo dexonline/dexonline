@@ -7,7 +7,6 @@
 require_once __DIR__ . '/../phplib/Core.php';
 
 define('STATIC_SERVER_DIR', '/download/scrabble');
-$SOURCES = ['dex', 'dex09', 'dex12', 'dex16', 'doom2', 'dor', 'mdn00'];
 
 Log::notice('started');
 
@@ -17,14 +16,9 @@ $forms = Model::factory('InflectedForm')
        ->select('i.formNoAccent')
        ->distinct()
        ->join('Lexem', ['i.lexemId', '=', 'l.id'], 'l')
-       ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
-       ->join('EntryDefinition', ['el.entryId', '=', 'ed.entryId'], 'ed')
-       ->join('Definition', ['ed.definitionId', '=', 'd.id'], 'd')
-       ->join('Source', ['d.sourceId', '=', 's.id'], 's')
-       ->where_in('s.urlName', $SOURCES)
-       ->where_in('d.status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
+       ->where('l.isLoc', 1)
        ->where_raw('binary i.formNoAccent rlike "^[a-zăâîșț]+$"') // no caps - chemical symbols etc.
-       ->where_raw('char_length(i.formNoAccent) between 2 and 7')
+       ->where_raw('char_length(i.formNoAccent) between 3 and 7')
        ->order_by_asc('i.formNoAccent')
        ->find_many();
 $joined = implode("\n", Util::objectProperty($forms, 'formNoAccent'));
@@ -44,5 +38,10 @@ Log::info('uploading files to static server');
 $f = new FtpUtil();
 $f->staticServerPut($diaFileName, 'download/game-word-list-dia.txt');
 $f->staticServerPut($noDiaFileName, 'download/game-word-list.txt');
+
+// cleanup
+unlink($diaFileName);
+unlink($tmpFileName);
+unlink($noDiaFileName);
 
 Log::notice('finished');

@@ -346,7 +346,7 @@ $(function() {
     upLayers = [];
     downLayers = [];
 
-    $('canvas').removeLayers();
+    $('canvas').removeLayers().drawLayers();
 
     for (var i = 0; i < letters.length; i++) {
 
@@ -412,6 +412,7 @@ $(function() {
     // animate the 'The end' text
     $('canvas')
       .removeLayers()
+      .drawLayers()
       .drawText({
         layer: true,
         name: 'gameOverText',

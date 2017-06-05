@@ -124,7 +124,7 @@
     </div>
 
     <div class="panel-body">
-      <canvas width="480" height="280"></canvas>
+      <canvas width="480" height="320"></canvas>
 
       <div id="gameStats">
         <div class="pull-left">

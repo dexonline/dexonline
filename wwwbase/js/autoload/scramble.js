@@ -7,14 +7,14 @@ $(function() {
   const MODE_ANAGRAM = 1;
   
   const CANVAS_WIDTH = 480;
-  const CANVAS_HEIGHT = 280;
+  const CANVAS_HEIGHT = 320;
   const TILE_WIDTH = 55;
-  const TILE_HEIGHT = 75;
   const TILE_PADDING = 10;
-  const TILE_FONT_SIZE = 60;
+  const END_FONT_SIZE = 60;
   const TOP_Y = 50;
   const BOTTOM_Y = 200;
   const THRESHOLD_Y = 120;
+  const VERIFY_BUTTON_Y = 290;
 
   const ANIMATION_SPEED = 200;
   const GAME_OVER_ANIMATION_SPEED = 600;
@@ -221,7 +221,7 @@ $(function() {
   // animates the given layer on the index-th position on the top row (top = true)
   // or bottom row (top = false)
   function animateTile(layer, index, top) {
-    $('canvas').animateLayerGroup(layer.groups[0], {
+    $('canvas').animateLayer(layer, {
       x: getTileX(index),
       y: (top ? TOP_Y : BOTTOM_Y),
     }, ANIMATION_SPEED);
@@ -298,9 +298,6 @@ $(function() {
 
   // called when a drag goes beyond the canvas
   function dragCancel(layer) {
-    // if a letter was dragged, get the corresponding rectangle layer
-    layer = $('canvas').getLayer(layer.data.tile);
-
     for (var i in upLayers) {
       if (upLayers[i] == layer) {
         animateTile(layer, i, true);
@@ -315,9 +312,6 @@ $(function() {
 
   // called when a drag terminates normally
   function dragStop(layer) {
-    // if a letter was dragged, get the corresponding rectangle layer
-    layer = $('canvas').getLayer(layer.data.tile);
-
     var srcTop; // was the tile originally top or bottom?
     var destTop = (layer.y < THRESHOLD_Y); // was the tile dragged to the top or bottom?
     var move = false;
@@ -356,52 +350,37 @@ $(function() {
 
     for (var i = 0; i < letters.length; i++) {
 
-      $('canvas').drawRect({
-        strokeStyle: 'black',
-        strokeWidth: 4,
-        name: 'rect' + i,
-        fillStyle: '#cceeff',
-        groups: ['group' + i],
-        dragGroups: ['group' + i],
-        width: TILE_WIDTH,
-        height: TILE_HEIGHT,
+      $('canvas').drawImage({
+        name: 'tile' + i,
+        layer: true,
+        source: wwwRoot + 'img/scramble/' + letters[i] + '.png',
         x: getTileX(i),
         y: TOP_Y,
-        cornerRadius: 4,
         data: {
           letter: letters[i],
-          tile: 'rect' + i, // self
         },
-      })
-        .drawText({
-          name: 'letter' + i,
-          groups: ['group' + i],
-          dragGroups: ['group' + i],
-          x: getTileX(i),
-          y: TOP_Y,
-          fillStyle: 'black',
-          strokeStyle: 'black',
-          strokeWidth: 1,
-          fontSize: TILE_FONT_SIZE,
-          fontFamily: 'Verdana, sans-serif',
-          text: letters[i].toUpperCase(),
-          data: {
-            tile: 'rect' + i,
-          },
-        });
-
-      $('canvas').setLayerGroup('group' + i, {
-        layer: true,
         draggable: true,
         dragcancel: dragCancel,
         dragstop: dragStop,
+        bringToFront: true,
       });
 
-      var l = $('canvas').getLayer('rect' + i);
-      animateTile(l, i, true);
+      var l = $('canvas').getLayer('tile' + i);
       upLayers.push(l);
       downLayers.push(0);
     }
+
+    drawVerifyButton();
+  }
+
+  function drawVerifyButton() {
+    $('canvas').drawImage({
+      layer: true,
+      source: wwwRoot + 'img/scramble/verify-button.png',
+      x: CANVAS_WIDTH / 2,
+      y: VERIFY_BUTTON_Y,
+      click: scoreWord,
+    });
   }
 
   function writeLegalWords() {
@@ -440,7 +419,7 @@ $(function() {
         strokeStyle: '#222',
         x: 2 * CANVAS_WIDTH,
         y: CANVAS_HEIGHT,
-        fontSize: TILE_FONT_SIZE,
+        fontSize: END_FONT_SIZE,
         fontFamily: 'Verdana, sans-serif',
         text: 'Sfârșit',
 

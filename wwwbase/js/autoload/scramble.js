@@ -380,6 +380,7 @@ $(function() {
       x: CANVAS_WIDTH / 2,
       y: VERIFY_BUTTON_Y,
       click: scoreWord,
+      touchend: scoreWord,
     });
   }
 

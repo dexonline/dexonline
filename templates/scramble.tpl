@@ -104,19 +104,13 @@
         </div>
 
         <div class="form-group">
-          <label class="col-sm-2 control-label">descriere</label>
+          <label class="col-sm-2 control-label">ajutor</label>
           <div class="col-sm-10 checkbox">
-            <p>
-              Aveți la dispoziție trei minute ca să formați câte cuvinte puteți.
-            </p>
-
-            <p>
-              Dacă folosiți tastatura, tastați pur și simplu
-              literele. Tasta Enter verifică cuvântul, tasta Backspace
-              șterge ultima literă, iar tasta Esc șterge toate
-              literele. Atenție, dacă ați optat pentru diacritice, va
-              trebui să le tastați ca atare.
-            </p>
+            Dacă folosiți tastatura, tastați pur și simplu
+            literele. Tasta Enter verifică cuvântul, tasta Backspace
+            șterge ultima literă, iar tasta Esc șterge toate
+            literele. Atenție, dacă ați optat pentru diacritice, va
+            trebui să le tastați ca atare.
           </div>
         </div>
 

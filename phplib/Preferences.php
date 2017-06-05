@@ -1,7 +1,6 @@
 <?php
 
 class Preferences {
-  // TODO: We should work with numeric constants, but this will break existing cookies.
   const CEDILLA_BELOW = 0x01;
   const FORCE_DIACRITICS = 0x02;
   const OLD_ORTHOGRAPHY = 0x04;

@@ -20,6 +20,7 @@
 }
 
 .navbar-default .avatar {
+  border-radius: 4px;
   margin: -16px 5px -14px;
 }
 

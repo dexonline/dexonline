@@ -4,4 +4,4 @@ To produce one PNG tile for every letter, proceed as follows.
 2. Install phantomjs
 3. Create a rasterize.js file telling phantomjs to rasterize letters.html into letters.png
 4. Run "phantomjs rasterize.js"
-5. Create a Bash script to crop each individual tile PNG from letters.png
+5. optipng letters.png

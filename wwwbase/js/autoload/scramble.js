@@ -9,6 +9,7 @@ $(function() {
   const CANVAS_WIDTH = 480;
   const CANVAS_HEIGHT = 320;
   const TILE_WIDTH = 55;
+  const TILE_HEIGHT = 75;
   const TILE_PADDING = 10;
   const END_FONT_SIZE = 60;
   const TOP_Y = 50;
@@ -349,13 +350,21 @@ $(function() {
     $('canvas').removeLayers().drawLayers();
 
     for (var i = 0; i < letters.length; i++) {
+      var pos = ALPHABET.indexOf(letters[i]);
 
       $('canvas').drawImage({
         name: 'tile' + i,
         layer: true,
-        source: wwwRoot + 'img/scramble/' + letters[i] + '.png',
+        source: wwwRoot + 'img/scramble/letters.png',
         x: getTileX(i),
         y: TOP_Y,
+
+        // cropping
+        sWidth: TILE_WIDTH,
+        sHeight: TILE_HEIGHT,
+        sx: 0,
+        sy: TILE_HEIGHT * pos,
+
         data: {
           letter: letters[i],
         },

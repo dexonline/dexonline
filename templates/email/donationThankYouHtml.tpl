@@ -42,8 +42,7 @@
   {else}
     V-am acordat medalia și am ascuns reclamele în
     <a href="{$wwwRoot}utilizator/{$donor->user->nick|escape:url}"
-       >contul dumneavoastră</a>. Dacă încă observați reclame, vă rugăm să vă deconectați și
-    reconectați în cont.
+       >contul dumneavoastră</a>.
   {/if}
 </p>
 

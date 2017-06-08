@@ -21,7 +21,6 @@ Apoi, dați-ne de știre.
 V-am acordat medalia în contul dumneavoastră [3].
 {else}
 V-am acordat medalia și am ascuns reclamele în contul dumneavoastră [3].
-Dacă încă observați reclame, vă rugăm să vă deconectați și reconectați în cont.
 {/if}
 
 {if $donor->amount >= Donor::AMOUNT_STICKER}

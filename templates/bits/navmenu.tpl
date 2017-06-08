@@ -128,7 +128,11 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                role="button" aria-haspopup="true" aria-expanded="false">
-              <span class="glyphicon glyphicon-user"></span>
+              {if $sUser}
+                {include "bits/avatar.tpl" user=$sUser}
+              {else}
+                <i class="glyphicon glyphicon-user"></i>
+              {/if}
               {$nick|escape}
               <span class="caret"></span>
             </a>

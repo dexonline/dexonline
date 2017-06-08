@@ -19,6 +19,9 @@
   margin-top: 16px;
 }
 
+.navbar-default .avatar {
+  margin: -15px 5px;
+}
 
 /* Accomodate non-collapsible donate link. */
 .navbar-toggle {

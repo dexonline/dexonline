@@ -34,10 +34,10 @@
       </thead>
       <tbody>
         {foreach $src as $s}
-          {if $s->isActive || ($sUser && $sUser->moderator & User::PRIV_EDIT)}
+          {if $s->isActive || User::can(User::PRIV_EDIT)}
             <tr>
               <td class="abbreviation">
-                {if $s->link && $sUser && $sUser->moderator & User::PRIV_EDIT}
+                {if $s->link && User::can(User::PRIV_EDIT)}
                   <a href="{$s->link}" target="_blank"><span class="sourceShortName">{$s->shortName}</span></a>
                 {else}
                   <span class="sourceShortName">{$s->shortName}</span>

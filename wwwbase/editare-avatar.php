@@ -22,7 +22,7 @@ if ($error) {
   Util::redirect(Core::getWwwRoot() . 'preferinte');
 }
 
-$user = Session::getUser();
+$user = User::getActive();
 if (!$user) {
   FlashMessage::add('Nu puteți alege o imagine de profil dacă nu sunteți autentificat.');
   Util::redirect(Core::getWwwRoot());

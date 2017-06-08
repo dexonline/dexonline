@@ -171,7 +171,7 @@ class Donor {
     $donation->email = $this->email;
     $donation->amount = $this->amount;
     $donation->date = $this->date;
-    $donation->userId = Session::getUserId();
+    $donation->userId = User::getActiveId();
     $donation->source = $this->source;
     $donation->emailSent = $this->sendEmail;
     $donation->save();

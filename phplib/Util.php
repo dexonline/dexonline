@@ -193,7 +193,7 @@ class Util {
   }
 
   static function assertNotLoggedIn() {
-    if (Session::getUser()) {
+    if (User::getActive()) {
       Util::redirect(Core::getWwwRoot());
     }
   }
@@ -202,7 +202,7 @@ class Util {
     if (isset($_SERVER['REQUEST_URI']) && preg_match('/(masturba|fute)/', $_SERVER['REQUEST_URI'])) {
       return true; // No banners on certain obscene pages
     }
-    if (Session::getUser() && Session::getUser()->noAdsUntil > time()) {
+    if (User::getActive() && User::getActive()->noAdsUntil > time()) {
       return true; // User is an active donor
     }
     return false;

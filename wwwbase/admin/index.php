@@ -30,7 +30,7 @@ $reports = [
    'url' => 'admin/definitionEdit',
    'count' => sprintf('%d (disponibile: %d)',
                       Variable::peek('Count.rawOcrDefinitions'),
-                      OCR::countAvailable(Session::getUserId())),
+                      OCR::countAvailable(User::getActiveId())),
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Definiții neasociate cu nicio intrare',

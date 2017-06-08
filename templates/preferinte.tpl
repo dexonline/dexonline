@@ -3,12 +3,12 @@
 {block "title"}Preferințe{/block}
 
 {block "content"}
-  {if $sUser}
+  {if User::getActive()}
     <div class="panel panel-default">
       <div class="panel-heading">Imagine</div>
       <div class="panel-body">
         <form action="editare-avatar" method="post" enctype="multipart/form-data">
-          {include "bits/avatar.tpl" user=$sUser}
+          {include "bits/avatar.tpl" user=User::getActive()}
           <br>
           <br>
           <div class="form-group">
@@ -24,7 +24,8 @@
           </a>
 
           <p class="text-muted">
-            Imaginea profilului dumneavoastră are rezoluția de 48x48 pixeli. Pe ecranul următor puteți edita poza încărcată.
+            Imaginea profilului dumneavoastră are rezoluția de 48x48 pixeli.
+            Pe ecranul următor puteți edita poza încărcată.
           </p>
         </form>
       </div>
@@ -33,7 +34,7 @@
 
 
   <form method="post" action="preferinte" name="accountForm">
-    {if $sUser}
+    {if User::getActive()}
       <div class="panel panel-default">
         <div class="panel-heading">Date personale</div>
         <div class="panel-body">
@@ -42,8 +43,10 @@
               <input type="checkbox" name="detailsVisible" value="1" {if $detailsVisible}checked{/if}>
               Datele mele sunt vizibile public
               <span class="help-block">
-                Identitatea OpenID, numele și adresa de email furnizate de OpenID vor apărea în <a href="{$wwwRoot}utilizator/{$sUser->nick}">profilul dumneavoastră</a>.
-                <em>dexonline</em> nu permite editarea directă a acestor date. <br>Ele sunt preluate din identitatea OpenID.
+                Identitatea OpenID, numele și adresa de email furnizate de OpenID vor apărea în
+                <a href="{$wwwRoot}utilizator/{User::getActive()}">profilul dumneavoastră</a>.
+                <em>dexonline</em> nu permite editarea directă a acestor date.<br>
+                Ele sunt preluate din identitatea OpenID.
               </span>
             </label>
           </div>
@@ -104,8 +107,8 @@
       <i class="glyphicon glyphicon-floppy-disk"></i>
       salvează
     </button>
-    {if $sUser}
-      <a class="btn btn-link" href="{$wwwRoot}utilizator/{$sUser->nick|escape}">renunță</a>
+    {if User::getActive()}
+      <a class="btn btn-link" href="{$wwwRoot}utilizator/{User::getActive()|escape}">renunță</a>
     {/if}
 
   </form>

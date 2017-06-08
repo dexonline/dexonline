@@ -3,7 +3,7 @@
 {block "title"}Cuvinte favorite{/block}
 
 {block "content"}
-  <h3>Lista cuvintelor favorite pentru {$sUser->nick} ({$sUser->name})</h3>
+  <h3>Lista cuvintelor favorite pentru {User::getActive()} ({User::getActive()->name})</h3>
 
   <dl class="favoriteDefs">
     {if $results}

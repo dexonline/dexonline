@@ -5,16 +5,12 @@ class Session {
   const ONE_MONTH_IN_SECONDS = 30 * 86400;
   const ONE_YEAR_IN_SECONDS = 365 * 86400;
 
-  private $user;
-
   static function init() {
     if (isset($_COOKIE[session_name()])) {
       session_start();
     }
     if (Request::isWeb()) {
-      if (!self::getUser()) {
-        self::loadUserFromCookie();
-      }
+      self::setActiveUser();
     }
     // Otherwise we're being called by a local script, not a web-based one.
   }
@@ -41,12 +37,11 @@ class Session {
     $user->password = null; // no longer necessary after the first OpenID login
     $user->save();
 
-    self::set('user', $user);
-    $cookie = Model::factory('Cookie')->create();
-    $cookie->userId = $user->id;
-    $cookie->cookieString = StringUtil::randomCapitalLetters(12);
-    $cookie->save();
+    self::set('userId', $user->id);
+    $cookie = Cookie::create($user->id);
     setcookie("prefs[lll]", $cookie->cookieString, time() + self::ONE_YEAR_IN_SECONDS, '/');
+    User::setActive($user->id); // for logging purposes only
+
     Log::info('Logged in, IP=' . $_SERVER['REMOTE_ADDR']);
     Util::redirect(Core::getWwwRoot());
   }
@@ -71,7 +66,8 @@ class Session {
       $cookie = Cookie::get_by_cookieString($lll);
       $user = $cookie ? User::get_by_id($cookie->userId) : null;
       if ($user) {
-        self::set('user', $user);
+        self::set('userId', $user->id);
+        User::setActive($user->id);
       } else {
         // The cookie is invalid.
         setcookie("prefs[lll]", NULL, time() - 3600, '/');
@@ -93,28 +89,18 @@ class Session {
     return $default;
   }
 
-  static function getUser() {
-    if (self::has('user') &&
-        isset($_SESSION['user']->id)) {
-      return $_SESSION['user'];
+  static function setActiveUser() {
+    if ($userId = self::get('userId')) {
+      User::setActive($userId);
     } else {
-      return null;
+      self::loadUserFromCookie();
     }
   }
 
-  static function getUserNick() {
-    return self::has('user') && isset($_SESSION['user']->nick)
-      ? $_SESSION['user']->nick : "Anonim";
-  }
-
-  static function getUserId() {
-    return self::has('user') && isset($_SESSION['user']->id)
-      ? $_SESSION['user']->id : 0;
-  }
-
   static function userPrefers($pref) {
-    if (isset($_SESSION['user'])) {
-      $preferences = $_SESSION['user']->preferences;
+    $u = User::getActive();
+    if ($u) {
+      $preferences = $u->preferences;
     } else {
       $preferences = self::getCookieSetting('anonymousPrefs');
     }

@@ -435,7 +435,7 @@
           </li>
 
           <li>
-            <a href="lexemSearch.php?structStatus={Entry::STRUCT_STATUS_IN_PROGRESS}&amp;structuristId={$sUser->id}">
+            <a href="lexemSearch.php?structStatus={Entry::STRUCT_STATUS_IN_PROGRESS}&amp;structuristId={User::getActiveId()}">
               Lexemele mele în curs de structurare
             </a>
           </li>

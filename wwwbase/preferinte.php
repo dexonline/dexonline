@@ -3,7 +3,7 @@ require_once("../phplib/Core.php");
 
 $saveButton = Request::has('saveButton');
 
-$user = Session::getUser();
+$user = User::getActive();
 
 if ($saveButton) {
   $detailsVisible = Request::get('detailsVisible', 0);

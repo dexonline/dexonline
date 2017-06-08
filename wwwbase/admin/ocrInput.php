@@ -15,7 +15,7 @@ if ($_FILES && $_FILES["file"]) {
     $message =  "Eroare: " . $_FILES["file"]["error"];
   }
   else {
-    $userId = Session::getUserId();
+    $userId = User::getActiveId();
     $ocrLot = Model::factory('OCRLot')->create();
     $ocrLot->userId = $userId;
     $ocrLot->sourceId = $sourceId;

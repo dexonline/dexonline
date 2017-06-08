@@ -12,7 +12,7 @@
     <div class="panel-heading">
       {include "bits/avatar.tpl" user=$user}
       <span>{$user->nick|escape}</span>
-      {if $sUser && $user->id == $sUser->id}
+      {if $user->id == User::getActiveId()}
         <a class="btn btn-default btn-sm pull-right" href="{$wwwRoot}preferinte">editează profilul</a>
       {/if}
 

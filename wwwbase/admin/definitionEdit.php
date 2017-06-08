@@ -4,10 +4,11 @@ User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
 $definitionId = Request::get('definitionId');
+$userId = User::getActiveId();
 
 if (!$definitionId) {
   // User requested an OCR definition. Try to find one.
-  $ocr = OCR::getNext(Session::getUserId());
+  $ocr = OCR::getNext($userId);
   if (!$ocr) {
     FlashMessage::add('Lista cu definiții OCR este goală.', 'warning');
     Util::redirect('index.php');
@@ -20,7 +21,7 @@ if (!$definitionId) {
 
   $d = Model::factory('Definition')->create();
   $d->status = Definition::ST_ACTIVE;
-  $d->userId = Session::getUserId();
+  $d->userId = $userId;
   $d->sourceId = $sourceId;
   $d->similarSource = 0;
   $d->structured = 0;
@@ -33,7 +34,7 @@ if (!$definitionId) {
   $d->save();
 
   $ocr->definitionId = $d->id;
-  $ocr->editorId = Session::getUserId();
+  $ocr->editorId = $userId;
   $ocr->status = 'published';
   $ocr->save();
 
@@ -95,13 +96,13 @@ if ($saveButton || $nextOcrBut) {
       $comment->contents = $newContents;
       $comment->htmlContents = AdminStringUtil::htmlize($comment->contents, $sourceId);
       if (!$preserveCommentUser) {
-        $comment->userId = Session::getUserId();
+        $comment->userId = $userId;
       }
     }
   } else if ($comment) {
     // User wiped out the existing comment, set status to DELETED.
     $comment->status = Definition::ST_DELETED;
-    $comment->userId = Session::getUserId();  
+    $comment->userId = $userId;  
   }
 
   if (!FlashMessage::hasErrors()) {

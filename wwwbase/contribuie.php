@@ -27,7 +27,7 @@ if ($sendButton) {
   } else {
     $definition = Model::factory('Definition')->create();
     $definition->status = Definition::ST_PENDING;
-    $definition->userId = Session::getUserId();
+    $definition->userId = User::getActiveId();
     $definition->sourceId = $sourceId;
     $definition->internalRep = $def;
     $definition->htmlRep = AdminStringUtil::htmlize($def, $sourceId);

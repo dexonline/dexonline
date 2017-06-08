@@ -114,10 +114,11 @@ class Preferences {
       $user->widgetMask = $widgetMask;
       $user->widgetCount = Widget::WIDGET_COUNT;
       $user->save();
-      Session::set('user', $user);
     } else {
       Session::setAnonymousPrefs($userPrefs);
-      // Set the widgetMask / widgetCount cookies. This is a bit complex because we want to delete the cookie when the settings are all default.
+      // Set the widgetMask / widgetCount cookies.
+      // This is a bit complex, because we want to delete the cookie when the settings
+      // are all default.
       if ($widgetMask == Widget::getDefaultWidgetMask()) {
         Session::setWidgetMask(null);
         Session::setWidgetCount(null);

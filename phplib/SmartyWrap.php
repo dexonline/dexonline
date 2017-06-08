@@ -13,8 +13,6 @@ class SmartyWrap {
     if (Request::isWeb()) {
       self::assign('wwwRoot', Core::getWwwRoot());
       self::assign('imgRoot', Core::getImgRoot());
-      self::assign('sUser', Session::getUser());
-      self::assign('nick', Session::getUserNick());
       self::assign('currentYear', date("Y"));
       self::assign('suggestNoBanner', Util::suggestNoBanner());
       self::assign('privateMode', Session::userPrefers(Preferences::PRIVATE_MODE));

@@ -152,7 +152,7 @@
             {/if}
 
             {if $showBookmark}
-              {if $sUser}
+              {if User::getActive()}
                 {if $row->bookmark}
                   <li class="disabled">
                     <a href="#">

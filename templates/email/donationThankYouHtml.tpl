@@ -60,5 +60,5 @@
 
 <p>
   Din partea echipei dexonline,<br>
-  {$sUser->name}
+  {User::getActive()->name}
 </p>

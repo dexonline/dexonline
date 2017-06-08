@@ -165,7 +165,7 @@ class Meaning extends BaseObject implements DatedObject {
       $m->parentId = $tuple->level ? $meaningStack[$tuple->level - 1] : 0;
       $m->displayOrder = $displayOrder++;
       $m->breadcrumb = $tuple->breadcrumb;
-      $m->userId = Session::getUserId();
+      $m->userId = User::getActiveId();
       $m->treeId = $tree->id;
       $m->internalRep = AdminStringUtil::sanitize($tuple->internalRep);
       $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);

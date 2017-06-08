@@ -11,7 +11,9 @@
   </p>
 
   <div id="rawAvatarContainer">
-    <img id="jcropTarget" src="{$imgRoot}/generated/{$rawFileName}?cb={1000000000|rand:9999999999}" alt="imaginea utilizatorului {$sUser->nick|escape}">
+    <img id="jcropTarget"
+         src="{$imgRoot}/generated/{$rawFileName}?cb={1000000000|rand:9999999999}"
+         alt="imaginea utilizatorului {User::getActive()|escape}">
   </div>
 
   <h3>Rezultat</h3>

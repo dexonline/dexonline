@@ -252,16 +252,16 @@ class Entry extends BaseObject implements DatedObject {
     if ($this->structuristId != $original->structuristId) {
       if (User::can(User::PRIV_ADMIN)) {
         // Admins can modify this field
-      } else if (($original->structuristId == Session::getUserId()) &&
+      } else if (($original->structuristId == User::getActiveId()) &&
                  !$this->structuristId) {
         // Structurists can remove themselves
       } else if (!$original->structuristId &&
-                 ($this->structuristId == Session::getUserId()) &&
+                 ($this->structuristId == User::getActiveId()) &&
                  ($original->structStatus == Entry::STRUCT_STATUS_NEW) &&
                  ($this->structStatus == Entry::STRUCT_STATUS_IN_PROGRESS)) {
         // The system silently assigns structurists when they start the process
       } else if (!$original->structuristId &&
-                 ($this->structuristId == Session::getUserId()) &&
+                 ($this->structuristId == User::getActiveId()) &&
                  ($original->structStatus == Entry::STRUCT_STATUS_IN_PROGRESS) &&
                  ($this->structStatus == Entry::STRUCT_STATUS_IN_PROGRESS)) {
         // Structurists can claim orphan entries

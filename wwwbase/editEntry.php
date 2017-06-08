@@ -117,7 +117,7 @@ if ($saveButton) {
     // Possibly overwrite the structuristId according to the structStatus change
     if (($original->structStatus == Entry::STRUCT_STATUS_NEW) &&
         ($e->structStatus == Entry::STRUCT_STATUS_IN_PROGRESS)) {
-      $e->structuristId = Session::getUserId();
+      $e->structuristId = User::getActiveId();
     }
 
     $e->save();

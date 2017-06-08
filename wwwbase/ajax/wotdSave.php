@@ -81,7 +81,7 @@ class wotdSave{
       $wotd = WordOfTheDay::get_by_id($this->id);
     } else {
       $wotd = Model::factory('WordOfTheDay')->create();
-      $wotd->userId = Session::getUserId();
+      $wotd->userId = User::getActiveId();
     }
 
     $today = date('Y-m-d', time());

@@ -10,7 +10,7 @@ $status = WordOfTheDay::getStatus($defId);
 
 if (is_null($status)) {
   $wotd = Model::factory('WordOfTheDay')->create();
-  $wotd->userId = Session::getUserId();
+  $wotd->userId = User::getActiveId();
   $wotd->priority = 0;
   $wotd->save();
 

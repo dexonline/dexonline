@@ -128,12 +128,12 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                role="button" aria-haspopup="true" aria-expanded="false">
-              {if $sUser}
-                {include "bits/avatar.tpl" user=$sUser}
+              {if User::getActive()->hasAvatar|default:false}
+                {include "bits/avatar.tpl" user=User::getActive()}
               {else}
                 <i class="glyphicon glyphicon-user"></i>
               {/if}
-              {$nick|escape}
+              {User::getActive()|escape|default:'Anonim'}
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
@@ -167,9 +167,9 @@
                   Preferințe
                 </a>
               </li>
-              {if $sUser}
+              {if User::getActive()}
                 <li>
-                  <a href="{$wwwRoot}utilizator/{$sUser->nick}">
+                  <a href="{$wwwRoot}utilizator/{User::getActive()}">
                     <i class="glyphicon glyphicon-user"></i>
                     Profilul meu
                   </a>

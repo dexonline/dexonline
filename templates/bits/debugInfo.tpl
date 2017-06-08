@@ -21,7 +21,7 @@
         Idiorm query: {$query}<br>
       {foreachelse}
         Nu există interogări Idiorm. Ați decomentat linia
-        <code>ORM::configure('logging', true);</code> în <code>phplib/db.php</code>?
+        <code>ORM::configure('logging', true);</code> în <code>phplib/DB.php</code>?
       {/foreach}
     </div>
   </div>

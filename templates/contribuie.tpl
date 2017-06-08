@@ -8,7 +8,7 @@
 
   <h3>Trimiteți o definiție</h3>
 
-  {if !$sUser}
+  {if !User::getActive()}
     <div class="alert alert-warning alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       Dacă doriți să primiți credit pentru definițiile trimise, vă recomandăm să vă <a href="{$wwwRoot}auth/login">autentificați</a>.

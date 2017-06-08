@@ -25,6 +25,8 @@ class User extends BaseObject {
   const PRIV_VIEW_HIDDEN = self::PRIV_ADMIN;
   const PRIV_ANY = (1 << self::NUM_PRIVILEGES) - 1;
 
+  private static $active = null; // user currently logged in
+
   function __toString() {
     return $this->nick;
   }
@@ -49,12 +51,22 @@ class User extends BaseObject {
 
   // Check if the user has at least one privilege from the mask.
   static function can($priv) {
-    // Check the actual database, not the session user
-    $userId = Session::getUserId();
-    $user = $userId ? User::get_by_id($userId) : null;
-    return $user ? ($user->moderator & $priv) : false;
+    return self::$active
+      ? (self::$active->moderator & $priv)
+      : false;
   }
 
+  static function getActive() {
+    return self::$active;
+  }
+
+  static function getActiveId() {
+    return self::$active ? self::$active->id : 0;
+  }
+
+  static function setActive($userId) {
+    self::$active = User::get_by_id($userId);
+  }
 }
 
 ?>

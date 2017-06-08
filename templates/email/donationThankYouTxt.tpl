@@ -32,7 +32,7 @@ să ne trimiteți adresa pe care doriți să le primiți.
 Vă mulțumim încă o dată călduros și promitem să folosim la maximum donația dumneavoastră!
 
 Din partea echipei dexonline,
-{$sUser->name}
+{User::getActive()->name}
 
 ----
 [1] https://dexonline.ro/doneaza

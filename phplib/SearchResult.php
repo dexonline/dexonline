@@ -61,9 +61,7 @@ class SearchResult {
       $results[$c->definitionId]->commentAuthor = User::get_by_id($c->userId);
     }
 
-    if ($suid = Session::getUserId()) {
-      $defIdString = implode(',', $defIds);
-
+    if ($suid = User::getActiveId()) {
       // This actually requires a stronger condition: that the user has User::PRIV_WOTD privileges;
       // but that check would require a DB hit. So we check that the user is logged in, which
       // is cheap. The admin permission is checked in the template.

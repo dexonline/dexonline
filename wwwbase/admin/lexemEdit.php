@@ -178,7 +178,7 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   if (StringUtil::startsWith($lexem->comment, $original->comment) &&
       $lexem->comment != $original->comment &&
       !StringUtil::endsWith($lexem->comment, ']]')) {
-    $lexem->comment .= " [[" . Session::getUser() . ", " . strftime("%d %b %Y %H:%M") . "]]";
+    $lexem->comment .= " [[" . User::getActive() . ", " . strftime("%d %b %Y %H:%M") . "]]";
   }
   $lexem->noAccent = !$needsAccent;
   $lexem->main = $main;

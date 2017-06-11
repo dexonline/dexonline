@@ -491,12 +491,11 @@ class AdminStringUtil {
     return mb_strtoupper(StringUtil::getCharAt($s, 0)) . mb_substr($s, 1);
   }
 
-  private static function chr($u) {
+  static function chr($u) {
     return mb_convert_encoding(pack('N', $u), 'UTF-8', 'UCS-4BE');
   }
 
-  private static function ord($s) {
-    // TODO: this looks broken, test.php fails
+  static function ord($s) {
     $arr = unpack('N', mb_convert_encoding($s, 'UCS-4BE', 'UTF-8'));
     return $arr[1];
   }

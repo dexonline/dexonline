@@ -62,6 +62,14 @@ assertEquals('cba', StringUtil::reverse('abc'));
 assertEquals('țșîâă', StringUtil::reverse('ăâîșț'));
 assertEquals('ȚȘÎÂĂ', StringUtil::reverse('ĂÂÎȘȚ'));
 
+// Test ord() and chr()
+assertEquals(AdminStringUtil::ord('A'), 65);
+assertEquals(AdminStringUtil::chr(65), 'A');
+assertEquals(AdminStringUtil::ord("\n"), 10);
+assertEquals(AdminStringUtil::chr(10), "\n");
+assertEquals(AdminStringUtil::ord('ă'), 259);
+assertEquals(AdminStringUtil::chr(259), 'ă');
+
 // Check suffix removals
 assertEquals(AdminStringUtil::removeKnownSuffixes(''), '');
 assertEquals(AdminStringUtil::removeKnownSuffixes('mama'), 'mama');

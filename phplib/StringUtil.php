@@ -209,12 +209,12 @@ class StringUtil {
   }
 
   static function replace_ai($tpl_output) {
-    $char_map = array(
-                      'â' => 'î',
-                      'Â' => 'Î',
-                      'ấ'  => '\'î',
-                      'Ấ' => '\'Î',
-                      );
+    $char_map = [
+      'â' => 'î',
+      'Â' => 'Î',
+      'ấ'  => 'î́',
+      'Ấ' => 'Î́',
+    ];
 
     foreach ($char_map as $a => $i) {
       // workaround for the fact that /\b{$a}\b/u doesn't work.
@@ -225,9 +225,19 @@ class StringUtil {
     }
 
     // sunt(em,eți) -> sînt(em,eți)
-    // TODO: This still doesn't work well for the search 'fi' when the paradigm is expanded.
-    // The paradigm contains some apostrophes which trip the regexp.
     $tpl_output = preg_replace("/(\W)sunt(em|eți)?/i", "\${1}sînt\${2}", $tpl_output);
+
+    // Handle some accented letters in paradigms. Accents are denoted by a class.
+    $a = "<span class=\"accented\">â</span>";
+    $i = "<span class=\"accented\">î</span>";
+    $u = "<span class=\"accented\">u</span>";
+
+    // â -> î
+    $tpl_output = str_replace($a, $i, $tpl_output);
+    
+    // súnt(em,eți) -> s'înt(em,eți)
+    $tpl_output = preg_replace("#(\W)s{$u}nt(em|eți)?#i", "\${1}s{$i}nt\${2}", $tpl_output);
+
     return $tpl_output;
   }
 
@@ -278,12 +288,6 @@ class StringUtil {
     return (stristr($s, '[url=') !== false) ||
       (stristr($s, 'http://') !== false);
   }
-
-  /** Like the standard explode(), but filters out zero-length components **/
-  static function explode($delimiter, $s) {
-    return array_values(array_filter(explode($delimiter, $s), 'strlen'));
-  }
-
 
   /** Kudos http://www.php.net/manual/pt_BR/function.parse-url.php#107291 **/
   static function parseUtf8Url($url) {

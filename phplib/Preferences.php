@@ -94,7 +94,6 @@ class Preferences {
       }
     }
     // activate the private mode preference for donors
-    // TODO: script to revoke private mode upon expiration
     if ($user && $user->noAdsUntil > time()) {
       $copy[self::PRIVATE_MODE]['enabled'] = true;
     }

@@ -10,10 +10,13 @@ $lastDump = $x->getLastDumpDate();
 
 $lastClientUpdate = Request::get('last', '0');
 if ($lastClientUpdate == '0') {
-  // Dump the freshest full dump we have
-  // TODO: return an error if there is no full dump
-  SmartyWrap::assign('serveFullDump', true);
-  $lastClientUpdate = $lastDump;
+  if (!$lastDump) {
+    SmartyWrap::assign('noFullDump', true);
+  } else {
+    // Dump the freshest full dump we have
+    SmartyWrap::assign('serveFullDump', true);
+    $lastClientUpdate = $lastDump;
+  }
 }
 
 SmartyWrap::assign('lastDump', $lastDump);

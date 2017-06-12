@@ -15,15 +15,20 @@
             <label for="avatarFileName">Fișier:</label>
             <input id="avatarFileName" type="file" name="avatarFileName">
           </div>
-          <input id="avatarSubmit" class="btn btn-default" type="submit" name="submit" value="Editează" disabled>
-          {* TODO: Hide this when the user does not have an avatar *}
-          <a href="salvare-avatar?delete=1"
-             class="btn btn-link"
-             onclick="return confirm('Confirmați ștergerea imaginii?');">
-            șterge imaginea
-          </a>
+          <button id="avatarSubmit" class="btn btn-default" type="submit" name="submit" disabled>
+            <i class="glyphicon glyphicon-pencil"></i>
+            editează
+          </button>
+          {if User::getActive()->hasAvatar}
+            <a href="salvare-avatar?delete=1"
+               class="btn btn-danger"
+               onclick="return confirm('Confirmați ștergerea imaginii?');">
+              <i class="glyphicon glyphicon-trash"></i>
+              șterge imaginea
+            </a>
+          {/if}
 
-          <p class="text-muted">
+          <p class="help-block">
             Imaginea profilului dumneavoastră are rezoluția de 48x48 pixeli.
             Pe ecranul următor puteți edita poza încărcată.
           </p>

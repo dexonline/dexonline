@@ -18,5 +18,3 @@ foreach ($ids as $id) {
 
 header('Content-Type: application/json');
 print json_encode($data);
-
-?>

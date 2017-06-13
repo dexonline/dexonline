@@ -45,7 +45,6 @@ function drawOnCanvas(visualId) {
     url: wwwRoot + 'ajax/visualGetImageTags.php',
     data: { visualId: visualId, usage: 'gallery' }
   }).done(function(data) {
-    data = JSON.parse(data);
     var widthScale = parseInt(canvas.attr('width')) / data.dims.width,
         heightScale = parseInt(canvas.attr('height')) / data.dims.height,
         word = $('input[name="cuv"]').val();
@@ -125,7 +124,7 @@ function drawTag(canvas, tagNo, tagData, colorText) {
       mouseover: 'pointer'
     },
     click: function() {
-      window.open(wwwRoot + 'definitie/' + tagData.lexem, '_self');
+      window.open(wwwRoot + 'intrare/' + tagData.entry + '/' + tagData.entryId, '_self');
     }
   });
 }

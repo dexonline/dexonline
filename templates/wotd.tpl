@@ -17,28 +17,34 @@
 {block "content"}
   {assign var="reason" value=$reason|default:''}
 
-<h3>Cuvântul zilei, {$day} {$monthName} {$year}</h3>
+  <h3>
+    Cuvântul zilei, {$day} {$monthName} {$year}
 
-  {if $skinVariables.wotdSubscribe}
-    <div id="wotdSocialMedia">
+    {if $skinVariables.wotdSubscribe}
+      <div id="wotdSocialMedia" class="pull-right">
+        <div>
           <a href="#toggleContents" data-toggle="collapse"><img src="{$imgRoot}/social-media/email-29.png" alt="iconiță email"></a>
           <a type="application/rss+xml" href="https://dexonline.ro/rss/cuvantul-zilei"><img src="{$imgRoot}/social-media/rss-29.png" alt="iconiță RSS"></a>
           <a href="https://www.facebook.com/dexonline"><img src="{$imgRoot}/social-media/facebook-29.png" alt="iconiță Facebook"></a>
-    </div>
-    <div id="toggleContents" class="collapse">
-      <br>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <i>dexonline</i> nu oferă cuvântul zilei direct prin email. Există însă
-          <a href="http://www.google.com/search?q=rss+by+email">numeroase site-uri</a>
-          care fac acest lucru pentru orice RSS. Vă recomandăm
-          <a href="https://ifttt.com/recipes/147561-rss-feed-to-email">IFTTT</a> (RSS feed to email).
         </div>
       </div>
-    </div>
-  {/if}
+    {/if}
+  </h3>
 
-  <br>
+  <div id="toggleContents" class="collapse voffset2">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <i>dexonline</i> nu oferă cuvântul zilei direct prin email. Există însă
+        <a href="http://www.google.com/search?q=rss+by+email">numeroase site-uri</a>
+        care fac acest lucru pentru orice RSS. Vă recomandăm
+        <a href="https://ifttt.com/recipes/147561-rss-feed-to-email">IFTTT</a> (RSS feed to email).
+      </div>
+    </div>
+  </div>
+
+  {if $wotd->sponsor}
+    {include "wotd-sponsors/{$wotd->sponsor}"}
+  {/if}
 
   <div class="container panel panel-default">
     <div class="row panel-heading">

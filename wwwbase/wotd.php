@@ -133,6 +133,8 @@ foreach ($prevWotds as $w) {
   }
 }
 
+// TODO: remove $wotd->* fields assigned individually
+SmartyWrap::assign('wotd', $wotd);
 SmartyWrap::assign('imageUrl', $wotd->getImageUrl());
 SmartyWrap::assign('artist', $wotd->getArtist());
 SmartyWrap::assign('year', $year);

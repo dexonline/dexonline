@@ -37,6 +37,7 @@ default :
 }
 
 $count = Model::factory('Lexem')
+  ->where('isLoc', 1)
   ->where_gte('frequency', $minFreq)
   ->where_lte('frequency', $maxFreq)
   ->where_raw('char_length(formUtf8General) >= 5')
@@ -45,10 +46,11 @@ $count = Model::factory('Lexem')
 
 do {
   $lexem = Model::factory('Lexem')
+    ->where('isLoc', 1)
     ->where_gte('frequency', $minFreq)
     ->where_lte('frequency', $maxFreq)
     ->where_raw('char_length(formUtf8General) >= 5')
-    ->where_raw('char_length(formUtf8General) <= '.$maxLength)
+    ->where_raw('char_length(formUtf8General) <= '. $maxLength)
     ->limit(1)
     ->offset(rand(0, $count - 1))
     ->find_one();
@@ -76,7 +78,5 @@ SmartyWrap::assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțu
 SmartyWrap::assign('word', $word);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('difficulty', $difficulty);
-// TODO replace jqnotice with Bootstrap
-SmartyWrap::addJs('jqnotice');
 SmartyWrap::display("hangman.tpl");
 ?>

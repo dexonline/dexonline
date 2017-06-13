@@ -43,13 +43,34 @@
           <button class="btn btn-info" type="button" data-level="3">dificil</button>
           <button class="btn btn-info" type="button" data-level="4">expert</button>
         </div>
-
-        <div id="resultsWrapper">
-          {foreach $searchResults as $row}
-            {include "bits/definition.tpl" showBookmark=1}
-          {/foreach}
-        </div>
       </form>
     </div>
   </div>
+
+  <div id="resultsWrapper" class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Definiții</h3>
+    </div>
+    <div class="panel-body">
+      {foreach $searchResults as $row}
+        {include "bits/definition.tpl" showBookmark=1}
+      {/foreach}
+    </div>
+  </div>
+
+  <div id="endModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="win text-success">
+            Felicitări, ai câștigat!
+          </div>
+          <div class="lose text-danger">
+            Ne pare rău, ai pierdut.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 {/block}

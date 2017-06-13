@@ -35,18 +35,24 @@ $(function() {
 
   function gameOver() {
     if (!lives || !lettersLeft) {
-      jQuery.noticeAdd({
-        text: lives ? 'Felicitări, ai câștigat!' : 'Ne pare rău, ai pierdut.',
-        stayTime: 2000,
-      });
+      if (lives) {
+        $('#endModal .lose').hide();
+      } else {
+        $('#endModal .win').hide();
+      }
+
+      $('#endModal').modal('show');
+      setTimeout(function() {
+        $("#endModal").hide();
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+      }, 2000);
+
       $('.letters').each(function(index) {
         $(this).val(word.charAt(index));
       });
-      $('#hintButton').attr('disabled', 'disabled');
-      $('.letterButtons').each(function() {
-        $(this).attr('disabled', 'disabled');
-      });
-      $('#resultsWrapper').stop().slideToggle();
+      $('#hintButton, .letterButtons').attr('disabled', 'disabled');
+      $('#resultsWrapper').show();
     }
   }
 

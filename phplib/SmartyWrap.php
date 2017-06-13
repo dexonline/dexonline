@@ -163,40 +163,39 @@ class SmartyWrap {
           self::$jsFiles[4] = 'third-party/grid.locale-en.js';
           self::$jsFiles[5] = 'third-party/jquery.jqGrid.min.js';
           break;
-        case 'jqnotice':      self::$jsFiles[6] = 'third-party/jquery.notice.js'; break;
-        case 'jqTableDnd':    self::$jsFiles[7] = 'third-party/jquery.tablednd.0.8.min.js'; break;
+        case 'jqTableDnd':    self::$jsFiles[6] = 'third-party/jquery.tablednd.0.8.min.js'; break;
         case 'tablesorter':
-          self::$jsFiles[8] = 'third-party/tablesorter/jquery.tablesorter.min.js';
-          self::$jsFiles[9] = 'third-party/tablesorter/jquery.tablesorter.widgets.js';
-          self::$jsFiles[10] = 'third-party/tablesorter/jquery.tablesorter.pager.min.js';
+          self::$jsFiles[7] = 'third-party/tablesorter/jquery.tablesorter.min.js';
+          self::$jsFiles[8] = 'third-party/tablesorter/jquery.tablesorter.widgets.js';
+          self::$jsFiles[9] = 'third-party/tablesorter/jquery.tablesorter.pager.min.js';
           break;
-        case 'elfinder':      self::$jsFiles[11] = 'third-party/elfinder.min.js'; break;
-        case 'cookie':        self::$jsFiles[12] = 'third-party/jquery.cookie.js'; break;
-        case 'dex':           self::$jsFiles[13] = 'dex.js'; break;
-        case 'jcrop':         self::$jsFiles[14] = 'third-party/jquery.Jcrop.min.js'; break;
+        case 'elfinder':      self::$jsFiles[10] = 'third-party/elfinder.min.js'; break;
+        case 'cookie':        self::$jsFiles[11] = 'third-party/jquery.cookie.js'; break;
+        case 'dex':           self::$jsFiles[12] = 'dex.js'; break;
+        case 'jcrop':         self::$jsFiles[13] = 'third-party/jquery.Jcrop.min.js'; break;
         case 'select2':
-          self::$jsFiles[15] = 'third-party/select2/select2.min.js';
-          self::$jsFiles[16] = 'third-party/select2/i18n/ro.js';
+          self::$jsFiles[14] = 'third-party/select2/select2.min.js';
+          self::$jsFiles[15] = 'third-party/select2/i18n/ro.js';
           break;
-        case 'select2Dev':    self::$jsFiles[17] = 'select2Dev.js'; break;
-        case 'jcanvas':       self::$jsFiles[18] = 'third-party/jcanvas.min.js'; break;
+        case 'select2Dev':    self::$jsFiles[16] = 'select2Dev.js'; break;
+        case 'jcanvas':       self::$jsFiles[17] = 'third-party/jcanvas.min.js'; break;
         case 'gallery':
-          self::$jsFiles[19] = 'third-party/colorbox/jquery.colorbox-min.js';
-          self::$jsFiles[20] = 'third-party/colorbox/jquery.colorbox-ro.js';
-          self::$jsFiles[21] = 'dexGallery.js';
+          self::$jsFiles[18] = 'third-party/colorbox/jquery.colorbox-min.js';
+          self::$jsFiles[19] = 'third-party/colorbox/jquery.colorbox-ro.js';
+          self::$jsFiles[20] = 'dexGallery.js';
           break;
-        case 'modelDropdown': self::$jsFiles[22] = 'modelDropdown.js'; break;
-        case 'textComplete':  self::$jsFiles[23] = 'third-party/jquery.textcomplete.min.js'; break;
+        case 'modelDropdown': self::$jsFiles[21] = 'modelDropdown.js'; break;
+        case 'textComplete':  self::$jsFiles[22] = 'third-party/jquery.textcomplete.min.js'; break;
         case 'tinymce':
-          self::$jsFiles[24] = 'third-party/tinymce-4.4.0/tinymce.min.js';
-          self::$jsFiles[25] = 'tinymce.js';
+          self::$jsFiles[23] = 'third-party/tinymce-4.4.0/tinymce.min.js';
+          self::$jsFiles[24] = 'tinymce.js';
           break;
-        case 'meaningTree':   self::$jsFiles[26] = 'meaningTree.js'; break;
+        case 'meaningTree':   self::$jsFiles[25] = 'meaningTree.js'; break;
         case 'hotkeys':
-          self::$jsFiles[27] = 'third-party/jquery.hotkeys.js';
-          self::$jsFiles[28] = 'hotkeys.js';
+          self::$jsFiles[26] = 'third-party/jquery.hotkeys.js';
+          self::$jsFiles[27] = 'hotkeys.js';
           break;
-        case 'callToAction':  self::$jsFiles[29] = 'callToAction.js'; break;
+        case 'callToAction':  self::$jsFiles[28] = 'callToAction.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           Util::redirect(Core::getWwwRoot());

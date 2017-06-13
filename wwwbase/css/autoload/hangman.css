@@ -136,31 +136,10 @@
   color: #FFF;
 }
 
-#hangman #resultsWrapper {
+#resultsWrapper {
   display: none;
-  clear: both;
 }
 
-.notice-item {  /* jQuery custom selector */
-  background: #333;
-  border: 2px solid #999;
-  border-radius: 6px;
-  color: #eee;
-  display: block;
-  font-size: 16px;
-  padding: 6px;
-  text-align: center;
-  line-height: 38px;
-
-  /* Center of the screen */
-  position: absolute;
-  left: 50%;
-  top: 300px;
-  height: 60px;
-  width: 300px;
-  margin-left: -100px;
-}
-
-.notice-item-close { /* jQuery custom selector */
-  display: none;
+.modal-dialog {
+  top: 30%;
 }

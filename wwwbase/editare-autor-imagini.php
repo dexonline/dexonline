@@ -44,9 +44,6 @@ function validate($artist) {
   if (!$artist->label) {
     FlashMessage::add('Codul nu poate fi vid (îl folosim încă la cuvântul lunii).');
   }
-  if (!$artist->credits) {
-    FlashMessage::add('Creditele nu pot fi vide.');
-  }
 
   $other = Model::factory('WotdArtist')
          ->where('label', $artist->label)

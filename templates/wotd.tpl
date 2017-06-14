@@ -74,7 +74,11 @@
       showHistory=1}
 
       {if $imageUrl}
-        <img class="img-responsive center-block" src="{$imageUrl}" alt="{$searchResult->definition->lexicon}" title="{$searchResult->definition->lexicon}">
+        <a {if $wotd->url}href="{$wotd->url}"{/if} target="_blank">
+          <img class="img-responsive center-block"
+               src="{$imageUrl}" alt="{$searchResult->definition->lexicon}"
+               title="{$searchResult->definition->lexicon}">
+        </a>
         <div class="text-muted pull-right">
           {$artist->credits|default:''}
         </div>

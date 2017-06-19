@@ -1,7 +1,7 @@
 $(function() {
 
   $('ins, del').each(function() {
-    $(this).text($(this).text().split(' ').join('␣'));
+    $(this).html($(this).text().split(' ').join('␣&#8203;'));
   });
 
 });

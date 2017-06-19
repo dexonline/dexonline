@@ -10,11 +10,11 @@
 
       <div class="panel-heading">
         <i class="glyphicon glyphicon-user"></i>
-        {$c.new.munick|default:"necunoscut"}
+        {$c.user}
 
         <div class="pull-right">
           <i class="glyphicon glyphicon-calendar"></i>
-          {$c.new.createDate|date_format:"%e %B %Y %T"}
+          {$c.new->createDate|date_format:"%e %B %Y %T"}
         </div>
 
       </div>
@@ -26,34 +26,37 @@
       {/if}
 
       <ul class="list-group">
-        {if $c.old.sourceId != $c.new.sourceId}
+        {if $c.old->sourceId != $c.new->sourceId}
           <li class="list-group-item">
             <strong>sursa:</strong>
-            <span class="label label-danger">{$c.old.shortName|default:"necunoscută"}</span>
+            <span class="label label-danger">{$c.oldSource->shortName|default:"necunoscută"}</span>
             <i class="glyphicon glyphicon-arrow-right"></i>
-            <span class="label label-success">{$c.new.shortName|default:"necunoscută"}</span>
+            <span class="label label-success">{$c.newSource->shortName|default:"necunoscută"}</span>
           </li>
         {/if}
-        {if $c.old.status != $c.new.status}
+        {if $c.old->status != $c.new->status}
           <li class="list-group-item">
             <strong>starea:</strong>
-            <span class="label label-danger">{$c.oldStatusName|default:"necunoscută"}</span>
+            <span class="label label-danger">{$c.old->getStatusName()|default:"necunoscută"}</span>
             <i class="glyphicon glyphicon-arrow-right"></i>
-            <span class="label label-success">{$c.newStatusName|default:"necunoscută"}</span>
+            <span class="label label-success">{$c.new->getStatusName()|default:"necunoscută"}</span>
           </li>
         {/if}
-        {if $c.old.lexicon != $c.new.lexicon}
+        {if $c.old->lexicon != $c.new->lexicon}
           <li class="list-group-item">
             <strong>lexicon:</strong>
-            <span class="label label-danger">{$c.old.lexicon}</span>
+            <span class="label label-danger">{$c.old->lexicon}</span>
             <i class="glyphicon glyphicon-arrow-right"></i>
-            <span class="label label-success">{$c.new.lexicon}</span>
+            <span class="label label-success">{$c.new->lexicon}</span>
           </li>
         {/if}
       </ul>
 
     </div>
   {foreachelse}
-    <p>Nu există modificări la această definiție.</p>
+    <p>
+      Nu există modificări la această definiție (sau ultimele modificări s-au întâmplat
+      înainte să începem să stocăm istoricul definițiilor).
+    </p>
   {/foreach}
 {/block}

@@ -6,42 +6,30 @@ User::mustHave(User::PRIV_EDIT);
 $id = Request::get('id');
 $def = Definition::get_by_id($id);
 
-$query = 'select dv.*, mu.nick as munick, s.shortName ' .
-       'from DefinitionVersion dv ' .
-       'left join User mu on dv.modUserId = mu.id ' .
-       'left join Source s on dv.sourceId = s.id ' .
-       "where dv.definitionId = $id " .
-       'order by id';
-$recordSet = DB::execute($query);
+if (!$def) {
+  FlashMessage::add("Nu există nicio definiție cu ID-ul {$id}.");
+  Util::redirect("index.php");
+}
 
 $prev = null;
 $changeSets = [];
 
-foreach ($recordSet as $row) {
+$dvs = Model::factory('DefinitionVersion')
+     ->where('definitionId', $id)
+     ->order_by_asc('id')
+     ->find_many();
+
+foreach ($dvs as $dv) {
   if ($prev) {
-    compareVersions($prev, $row, $changeSets);
+    compareVersions($prev, $dv, $changeSets);
   }
-  $prev = $row;
+  $prev = $dv;
 }
 
 // And once more for the current version
 if ($prev) {
-  $query = 'select d.sourceId as sourceId, ' .
-         'd.status as status, ' .
-         'd.lexicon as lexicon, ' .
-         'd.internalRep as internalRep, ' .
-         'd.modDate as createDate, ' .
-         'mu.nick as munick, ' .
-         's.shortName as shortName ' .
-         'from Definition d ' .
-         'left join User mu on d.modUserId = mu.id ' .
-         'left join Source s on d.sourceId = s.id ' .
-         "where d.id = $id ";
-  $recordSet = DB::execute($query);
-
-  foreach ($recordSet as $row) { // just once, really
-    compareVersions($prev, $row, $changeSets);
-  }
+  $current = DefinitionVersion::current($def);
+  compareVersions($prev, $current, $changeSets);
 }
 
 $changeSets = array_reverse($changeSets); // newest changes first
@@ -53,32 +41,25 @@ SmartyWrap::display('istoria-definitiei.tpl');
 /*************************************************************************/
 
 function compareVersions(&$old, &$new, &$changeSets) {
-  $changeSet = [];
-  $numChanges = 0;
 
-  if ($old['sourceId'] !== $new['sourceId']) {
-    $numChanges++;
-  }
+  if (($old->sourceId != $new->sourceId) ||
+      ($old->status != $new->status) ||
+      ($old->lexicon != $new->lexicon) ||
+      ($old->internalRep != $new->internalRep)) {
 
-  if ($old['status'] !== $new['status']) {
-    $statuses = Definition::$STATUS_NAMES;
-    $changeSet['oldStatusName'] = $statuses[$old['status']];
-    $changeSet['newStatusName'] = $statuses[$new['status']];
-    $numChanges++;
-  }
+    $changeSet = [
+      'old' => $old,
+      'new' => $new,
+      'user' => User::get_by_id($new->modUserId),
+      'oldSource' => Source::get_by_id($old->sourceId),
+      'newSource' => Source::get_by_id($new->sourceId),
+    ];
 
-  if ($old['lexicon'] !== $new['lexicon']) {
-    $numChanges++;
-  }
+    if ($old->internalRep != $new->internalRep) {
+      $changeSet['diff'] = LDiff::htmlDiff($old->internalRep, $new->internalRep);
+    }
 
-  if ($old['internalRep'] !== $new['internalRep']) {
-    $changeSet['diff'] = LDiff::htmlDiff($old['internalRep'], $new['internalRep']);
-    $numChanges++;
-  }
-
-  if ($numChanges) {
-    $changeSet['old'] = $old;
-    $changeSet['new'] = $new;
     $changeSets[] = $changeSet;
   }
+
 }

@@ -16,7 +16,7 @@ alter table DefinitionVersion
 
 update DefinitionVersion
   set action = if (actionEnum = 'UPDATE', 0, 1),
-      createDate = newDate;
+      createDate = ModDate;
 
 alter table DefinitionVersion
   add id int primary key auto_increment first,
@@ -44,18 +44,7 @@ for each row
     internalRep = OLD.internalRep,
     htmlRep = OLD.htmlRep,
     status = OLD.status,
-    createDate = NEW.modDate,
+    createDate = OLD.modDate,
     modUserId = OLD.modUserId;
 
 drop trigger if exists deleteDef;
-create trigger deleteDef before delete on Definition
-for each row
-  insert into DefinitionVersion set
-    definitionId = OLD.Id,
-    action = 1,
-    sourceId = OLD.sourceId,
-    lexicon = OLD.lexicon,
-    internalRep = OLD.internalRep,
-    htmlRep = OLD.htmlRep,
-    status = OLD.status,
-    createDate = unix_timestamp();

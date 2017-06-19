@@ -29,4 +29,29 @@ class DefinitionVersion extends BaseObject {
     return $dv;
   }
 
+  static function compare(&$old, &$new) {
+
+    if (($old->sourceId == $new->sourceId) &&
+        ($old->status == $new->status) &&
+        ($old->lexicon == $new->lexicon) &&
+        ($old->internalRep == $new->internalRep)) {
+      return null;
+    }
+
+    $result = [
+      'old' => $old,
+      'new' => $new,
+      'user' => User::get_by_id($new->modUserId),
+      'oldSource' => Source::get_by_id($old->sourceId),
+      'newSource' => Source::get_by_id($new->sourceId),
+      'tags' => ObjectTag::getDefinitionVersionTags($old->id),
+    ];
+
+    if ($old->internalRep != $new->internalRep) {
+      $result['diff'] = LDiff::htmlDiff($old->internalRep, $new->internalRep);
+    }
+    
+    return $result;
+  }
+
 }

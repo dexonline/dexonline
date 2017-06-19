@@ -7,6 +7,7 @@ class ObjectTag extends BaseObject implements DatedObject {
   const TYPE_LEXEM = 2;
   const TYPE_MEANING = 3;
   const TYPE_SOURCE = 4;
+  const TYPE_DEFINITION_VERSION = 5;
 
   static function getAllByIdType($objectId, $objectType) {
     return Model::factory('ObjectTag')
@@ -30,6 +31,18 @@ class ObjectTag extends BaseObject implements DatedObject {
 
   static function getSourceTags($sourceId) {
     return self::getAllByIdType($sourceId, self::TYPE_SOURCE);
+  }
+
+  // Loads the actual tags, not the ObjectTags
+  static function getDefinitionVersionTags($dvId) {
+    return Model::factory('Tag')
+      ->table_alias('t')
+      ->select('t.*')
+      ->join('ObjectTag', ['t.id', '=', 'ot.tagId'], 'ot')
+      ->where('ot.objectType', ObjectTag::TYPE_DEFINITION_VERSION)
+      ->where('ot.objectId', $dvId)
+      ->order_by_asc('ot.id')
+      ->find_many();
   }
 
   static function associate($objectType, $objectId, $tagId) {

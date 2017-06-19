@@ -21,7 +21,7 @@ $dvs = Model::factory('DefinitionVersion')
 
 foreach ($dvs as $dv) {
   if ($prev) {
-    compareVersions($prev, $dv, $changeSets);
+    $changeSets[] = DefinitionVersion::compare($prev, $dv, $changeSets);
   }
   $prev = $dv;
 }
@@ -29,37 +29,12 @@ foreach ($dvs as $dv) {
 // And once more for the current version
 if ($prev) {
   $current = DefinitionVersion::current($def);
-  compareVersions($prev, $current, $changeSets);
+  $changeSets[] = DefinitionVersion::compare($prev, $current, $changeSets);
 }
 
+$changeSets = array_filter($changeSets); // remove NOPs
 $changeSets = array_reverse($changeSets); // newest changes first
 
 SmartyWrap::assign('def', $def);
 SmartyWrap::assign('changeSets', $changeSets);
 SmartyWrap::display('istoria-definitiei.tpl');
-
-/*************************************************************************/
-
-function compareVersions(&$old, &$new, &$changeSets) {
-
-  if (($old->sourceId != $new->sourceId) ||
-      ($old->status != $new->status) ||
-      ($old->lexicon != $new->lexicon) ||
-      ($old->internalRep != $new->internalRep)) {
-
-    $changeSet = [
-      'old' => $old,
-      'new' => $new,
-      'user' => User::get_by_id($new->modUserId),
-      'oldSource' => Source::get_by_id($old->sourceId),
-      'newSource' => Source::get_by_id($new->sourceId),
-    ];
-
-    if ($old->internalRep != $new->internalRep) {
-      $changeSet['diff'] = LDiff::htmlDiff($old->internalRep, $new->internalRep);
-    }
-
-    $changeSets[] = $changeSet;
-  }
-
-}

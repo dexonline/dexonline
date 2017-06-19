@@ -10,7 +10,7 @@
     {include "bits/definition.tpl"
     showDate=1
     showDeleteLink=1
-    showDropup=0}
+    showHistory=1}
   {/foreach}
 
 {/block}

@@ -16,11 +16,11 @@ $schemaOnly = [
   'AccuracyRecord',
   'Cookie',
   'DefinitionSimple',
+  'DefinitionVersion',
   'Donation',
   'RecentLink',
   'UserWordBookmark',
   'history_Comment',
-  'history_Definition',
 ];
 $currentYear = date("Y");
 

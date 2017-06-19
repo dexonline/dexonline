@@ -6,13 +6,12 @@ User::mustHave(User::PRIV_EDIT);
 $id = Request::get('id');
 $def = Definition::get_by_id($id);
 
-$query = 'select h.*, u.nick as unick, mu.nick as munick, s.shortName ' .
-       'from history_Definition h ' .
-       'left join User u on h.UserId = u.id ' .
-       'left join User mu on h.ModUserId = mu.id ' .
-       'left join Source s on h.SourceId = s.id ' .
-       "where h.Id = $id " .
-       'order by Version';
+$query = 'select dv.*, mu.nick as munick, s.shortName ' .
+       'from DefinitionVersion dv ' .
+       'left join User mu on dv.modUserId = mu.id ' .
+       'left join Source s on dv.sourceId = s.id ' .
+       "where dv.definitionId = $id " .
+       'order by id';
 $recordSet = DB::execute($query);
 
 $prev = null;
@@ -27,17 +26,14 @@ foreach ($recordSet as $row) {
 
 // And once more for the current version
 if ($prev) {
-  $query = 'select d.userId as UserId, ' .
-         'd.sourceId as SourceId, ' .
-         'd.status as Status, ' .
-         'd.lexicon as Lexicon, ' .
-         'd.internalRep as InternalRep, ' .
-         'd.modDate as NewDate, ' .
-         'u.nick as unick, ' .
+  $query = 'select d.sourceId as sourceId, ' .
+         'd.status as status, ' .
+         'd.lexicon as lexicon, ' .
+         'd.internalRep as internalRep, ' .
+         'd.modDate as createDate, ' .
          'mu.nick as munick, ' .
          's.shortName as shortName ' .
          'from Definition d ' .
-         'left join User u on d.userId = u.id ' .
          'left join User mu on d.modUserId = mu.id ' .
          'left join Source s on d.sourceId = s.id ' .
          "where d.id = $id ";
@@ -60,27 +56,23 @@ function compareVersions(&$old, &$new, &$changeSets) {
   $changeSet = [];
   $numChanges = 0;
 
-  if($old['UserId'] !== $new['UserId']) {
+  if ($old['sourceId'] !== $new['sourceId']) {
     $numChanges++;
   }
 
-  if ($old['SourceId'] !== $new['SourceId']) {
-    $numChanges++;
-  }
-
-  if ($old['Status'] !== $new['Status']) {
+  if ($old['status'] !== $new['status']) {
     $statuses = Definition::$STATUS_NAMES;
-    $changeSet['OldStatusName'] = $statuses[$old['Status']];
-    $changeSet['NewStatusName'] = $statuses[$new['Status']];
+    $changeSet['oldStatusName'] = $statuses[$old['status']];
+    $changeSet['newStatusName'] = $statuses[$new['status']];
     $numChanges++;
   }
 
-  if ($old['Lexicon'] !== $new['Lexicon']) {
+  if ($old['lexicon'] !== $new['lexicon']) {
     $numChanges++;
   }
 
-  if ($old['InternalRep'] !== $new['InternalRep']) {
-    $changeSet['diff'] = LDiff::htmlDiff($old['InternalRep'], $new['InternalRep']);
+  if ($old['internalRep'] !== $new['internalRep']) {
+    $changeSet['diff'] = LDiff::htmlDiff($old['internalRep'], $new['internalRep']);
     $numChanges++;
   }
 

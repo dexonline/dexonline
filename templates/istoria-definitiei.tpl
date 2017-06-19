@@ -14,7 +14,7 @@
 
         <div class="pull-right">
           <i class="glyphicon glyphicon-calendar"></i>
-          {$c.new.NewDate|date_format:"%e %B %Y %T"}
+          {$c.new.createDate|date_format:"%e %B %Y %T"}
         </div>
 
       </div>
@@ -26,15 +26,7 @@
       {/if}
 
       <ul class="list-group">
-        {if $c.old.UserId != $c.new.UserId}
-          <li class="list-group-item">
-            <strong>utilizator:</strong>
-            <span class="label label-danger">{$c.old.unick|default:"necunoscut"}</span>
-            <i class="glyphicon glyphicon-arrow-right"></i>
-            <span class="label label-success">{$c.new.unick|default:"necunoscut"}</span>
-          </li>
-        {/if}
-        {if $c.old.SourceId != $c.new.SourceId}
+        {if $c.old.sourceId != $c.new.sourceId}
           <li class="list-group-item">
             <strong>sursa:</strong>
             <span class="label label-danger">{$c.old.shortName|default:"necunoscută"}</span>
@@ -42,20 +34,20 @@
             <span class="label label-success">{$c.new.shortName|default:"necunoscută"}</span>
           </li>
         {/if}
-        {if $c.old.Status != $c.new.Status}
+        {if $c.old.status != $c.new.status}
           <li class="list-group-item">
             <strong>starea:</strong>
-            <span class="label label-danger">{$c.OldStatusName|default:"necunoscută"}</span>
+            <span class="label label-danger">{$c.oldStatusName|default:"necunoscută"}</span>
             <i class="glyphicon glyphicon-arrow-right"></i>
-            <span class="label label-success">{$c.NewStatusName|default:"necunoscută"}</span>
+            <span class="label label-success">{$c.newStatusName|default:"necunoscută"}</span>
           </li>
         {/if}
-        {if $c.old.Lexicon != $c.new.Lexicon}
+        {if $c.old.lexicon != $c.new.lexicon}
           <li class="list-group-item">
             <strong>lexicon:</strong>
-            <span class="label label-danger">{$c.old.Lexicon}</span>
+            <span class="label label-danger">{$c.old.lexicon}</span>
             <i class="glyphicon glyphicon-arrow-right"></i>
-            <span class="label label-success">{$c.new.Lexicon}</span>
+            <span class="label label-success">{$c.new.lexicon}</span>
           </li>
         {/if}
       </ul>

@@ -86,14 +86,14 @@
           </div>
         </div>
 
-        {if $treesFromSameEntries}
+        {if $homonyms}
           <div class="form-group">
             <label class="col-md-2">omonime</label>
             <div class="col-md-10">
 
-              {foreach $treesFromSameEntries as $tfse}
+              {foreach $homonyms as $h}
                 <div>
-                  <a href="editTree.php?id={$tfse->id}">{$tfse->description}</a>
+                  <a href="editTree.php?id={$h->id}">{$h->description}</a>
                 </div>
               {/foreach}
 

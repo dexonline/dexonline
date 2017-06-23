@@ -153,7 +153,7 @@ $frequentTags = Model::factory('Tag')
               ->limit(4)
               ->find_many();
 
-$treesFromSameEntries = $t->getTreesFromSameEntries();
+$homonyms = array_merge($t->getHomonyms(), $t->getTreesFromSameEntries());
 
 $numMeanings = Model::factory('Meaning')
   ->where('treeId', $t->id)
@@ -175,7 +175,7 @@ SmartyWrap::assign('treeMentions', $treeMentions);
 SmartyWrap::assign('meaningMentions', $meaningMentions);
 SmartyWrap::assign('frequentSources', $frequentSources);
 SmartyWrap::assign('frequentTags', $frequentTags);
-SmartyWrap::assign('treesFromSameEntries', $treesFromSameEntries);
+SmartyWrap::assign('homonyms', $homonyms);
 SmartyWrap::assign('statusNames', Tree::$STATUS_NAMES);
 SmartyWrap::addCss('editableMeaningTree', 'textComplete', 'admin');
 SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete');

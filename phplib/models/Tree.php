@@ -174,6 +174,19 @@ class Tree extends BaseObject implements DatedObject {
       ->find_many();
   }
 
+  function getHomonyms() {
+    // get the part before the parenthesis (if any)
+    $parts = explode('(', $this->description);
+    $desc = trim($parts[0]);
+
+    return Model::factory('Tree')
+      ->where_any_is([['description' => $desc],
+                      ['description' => "{$desc} (%"]],
+                     'like')
+      ->where_not_equal('id', $this->id)
+      ->find_many();
+  }
+
   function getTreesFromSameEntries() {
     return Model::factory('Tree')
       ->table_alias('t')

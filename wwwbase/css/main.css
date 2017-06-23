@@ -46,6 +46,12 @@
   border-bottom-left-radius: 4px;
 }
 
+#searchClear {
+  color: #761818;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
 #advancedAnchor {
   float: left;
   text-decoration: underline;

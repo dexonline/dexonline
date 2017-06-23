@@ -7,8 +7,16 @@ $(function() {
   $('.def').click(searchClickedWord);
   $('#typoModal').on('shown.bs.modal', shownTypoModal);
 
-  $('.searchField').select();
-
+  $('#searchField').select();
+  $('#searchClear').click(function(){
+    $('#searchField').val('').focus();
+  });
+  if ($('#searchField').val()) {
+    // Make it visible all the time. Otherwise it's only visible when the field loses focus,
+    // which is bad for us, because we focus the field on page load.
+    $('#searchClear').css('z-index', 3);
+  }
+  
   $('.sourceDropDown').select2({
     templateResult: formatSource,
     templateSelection: formatSource,
@@ -121,7 +129,7 @@ function searchSubmit() {
 function searchInitAutocomplete(acMinChars){
 
   var searchForm = $('#searchForm');
-  var searchInput = $('.searchField');
+  var searchInput = $('#searchField');
   var searchCache = {};
   var queryURL = wwwRoot + 'ajax/searchComplete.php';
 

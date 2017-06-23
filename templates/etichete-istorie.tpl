@@ -21,6 +21,20 @@
           <option value="{$t->id}" selected></option>
         {/foreach}
       </select>
+
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"
+                 name="applyToDefinition"
+                 value="1"
+                 checked>
+          aplică noile etichete și pe definiția însăși
+        </label>
+        <p class="help-block">
+          Doar etichetele adăugate sunt preluate pe definiție. Dacă doriți să ștergeți
+          etichete de pe definiție, trebuie să le ștergeți manual.
+        </p>
+      </div>
     </div>
 
     <div>

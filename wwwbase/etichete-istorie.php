@@ -12,15 +12,22 @@ if (!$dv) {
   Util::redirect("index.php");
 }
 
+$def = Definition::get_by_id($dv->definitionId);
+
 if ($saveButton) {
   $tagIds = Request::get('tagIds', []);
+  $applyToDefinition = Request::has('applyToDefinition');
+
   ObjectTag::wipeAndRecreate($dv->id, ObjectTag::TYPE_DEFINITION_VERSION, $tagIds);
+  if ($applyToDefinition) {
+    foreach ($tagIds as $tagId) {
+      ObjectTag::associate(ObjectTag::TYPE_DEFINITION, $def->id, $tagId);
+    }
+  }
   Log::notice("Saved new tags on DefinitionVersion {$dv->id}");
   FlashMessage::add('Am salvat etichetele.', 'success');
   Util::redirect("etichete-istorie?id={$dv->id}");
 }
-
-$def = Definition::get_by_id($dv->definitionId);
 
 $next = Model::factory('DefinitionVersion')
   ->where('definitionId', $dv->definitionId)

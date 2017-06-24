@@ -39,20 +39,38 @@ class SmartyWrap {
     }
   }
 
-  // Replace $key => $fileName with key => [ 'file' => $fileName, 'date' => $date ],
-  // where date is the date + hour of the last modification of each file.
-  static function copyTimestamps($v, $prefix) {
-    $path = Core::getRootPath() . "wwwbase/{$prefix}/";
-    $result = [];
-    foreach ($v as $key => $fileName) {
-      $timetamp = filemtime($path . $fileName);
-      $date = date('YmdH', $timetamp);
-      $result[$key] = [
-        'file' => $fileName,
-        'date' => $date,
-      ];
+  static function mergeResources($files, $type) {
+    // compute the full file names and get the latest timestamp
+    $full = [];
+    $maxTimestamp = 0;
+    foreach ($files as $file) {
+      $name = sprintf('%swwwbase/%s/%s', Core::getRootPath(), $type, $file);
+      $full[] = $name;
+      $timestamp = filemtime($name);
+      $maxTimestamp = max($maxTimestamp, $timestamp);
     }
-    return $result;
+
+    // compute the output file name
+    $hash = md5(implode(',', $full));
+    $output = sprintf('%swwwbase/%s/merged/%s.%s', Core::getRootPath(), $type, $hash, $type);
+
+    // generate the output file if it doesn't exist or if it's too old
+    if (!file_exists($output) || (filemtime($output) < $maxTimestamp)) {
+      $tmpFile = tempnam('/tmp', 'merge_');
+      foreach ($full as $f) {
+        file_put_contents($tmpFile, file_get_contents($f), FILE_APPEND);
+      }
+      rename($tmpFile, $output);
+      chmod($output, 0666);
+    }
+
+    // return the URL path and the timestamp
+    $path = sprintf('%s%s/merged/%s.%s', Core::getWwwRoot(), $type, $hash, $type);
+    $date = date('YmdHis', filemtime($output));
+    return [
+      'path' => $path,
+      'date' => $date,
+    ];
   }
 
   /* Prepare and display a template. */
@@ -97,8 +115,8 @@ class SmartyWrap {
   static function fetch($templateName) {
     ksort(self::$cssFiles);
     ksort(self::$jsFiles);
-    self::assign('cssFiles', self::copyTimestamps(self::$cssFiles, 'css'));
-    self::assign('jsFiles', self::copyTimestamps(self::$jsFiles, 'js'));
+    self::assign('cssFile', self::mergeResources(self::$cssFiles, 'css'));
+    self::assign('jsFile', self::mergeResources(self::$jsFiles, 'js'));
     self::assign('flashMessages', FlashMessage::getMessages());
     return self::$theSmarty->fetch($templateName);
   }
@@ -121,7 +139,7 @@ class SmartyWrap {
     foreach (func_get_args() as $id) {
       switch($id) {
         case 'jqueryui':            self::$cssFiles[1] = 'third-party/smoothness-1.10.4/jquery-ui-1.10.4.custom.min.css'; break;
-        case 'bootstrap':           self::$cssFiles[2] = 'bootstrap.min.css'; break;
+        case 'bootstrap':           self::$cssFiles[2] = 'third-party/bootstrap.min.css'; break;
         case 'jqgrid':              self::$cssFiles[3] = 'third-party/ui.jqgrid.css'; break;
         case 'tablesorter':
           self::$cssFiles[4] = 'third-party/tablesorter/theme.bootstrap.css';
@@ -144,7 +162,6 @@ class SmartyWrap {
         case 'meaningTree':         self::$cssFiles[16] = 'meaningTree.css'; break;
         case 'editableMeaningTree': self::$cssFiles[17] = 'editableMeaningTree.css'; break;
         case 'callToAction':        self::$cssFiles[18] = 'callToAction.css'; break;
-        case 'responsive':          self::$cssFiles[100] = 'responsive.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           Util::redirect(Core::getWwwRoot());

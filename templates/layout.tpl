@@ -21,7 +21,8 @@
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,b,i,bi"
             rel="stylesheet" type="text/css">
     {/if}
-    {include "bits/cssJs.tpl"}
+    <link href="{$cssFile.path}?v={$cssFile.date}" rel="stylesheet" type="text/css">
+    <script src="{$jsFile.path}?v={$jsFile.date}"></script>
     <link rel="search" type="application/opensearchdescription+xml" href="https://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro">
     <link href="https://plus.google.com/100407552237543221945" rel="publisher">
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="https://dexonline.ro/rss/cuvantul-zilei">

@@ -38,6 +38,9 @@ chmod 777 templates_c
 # Allow the webserver to store images here (e.g. for Elfinder thumbs).
 chmod 777 wwwbase/img/generated
 
+# Allow PHP scripts to generate merged CSS/JS files
+chmod 777 wwwbase/css/merged wwwbase/js/merged
+
 # Symlink hooks unless they already exist
 if [ ! -e .git/hooks/pre-commit ]; then
   echo "* symlinking tools/git-hooks/pre-commit.php as .git/hooks/pre-commit"

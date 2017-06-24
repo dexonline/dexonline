@@ -58,7 +58,7 @@ class SmartyWrap {
     if (!file_exists($output) || (filemtime($output) < $maxTimestamp)) {
       $tmpFile = tempnam('/tmp', 'merge_');
       foreach ($full as $f) {
-        file_put_contents($tmpFile, file_get_contents($f), FILE_APPEND);
+        file_put_contents($tmpFile, file_get_contents($f) . "\n", FILE_APPEND);
       }
       rename($tmpFile, $output);
       chmod($output, 0666);

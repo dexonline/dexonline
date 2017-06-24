@@ -7,12 +7,12 @@ $(function() {
       minimumInputLength: 1,
       templateSelection: formatLexemWithEditLink,
     });
-            
+
     initSelect2('#treeIds', 'ajax/getTreesById.php', {
       ajax: { url: wwwRoot + 'ajax/getTrees.php' },
       minimumInputLength: 1,
     });
-            
+
     $('#mergeEntryId').select2({
       ajax: {
         url: wwwRoot + 'ajax/getEntries.php',

@@ -426,7 +426,7 @@ $(function() {
     if ($.fn.popover.Constructor.VERSION == "3.3.7") {
       $('[data-toggle="popover"]').on("hidden.bs.popover", function() {
         $(this).data("bs.popover").inState.click = false
-      })
+      });
     }
   }
 

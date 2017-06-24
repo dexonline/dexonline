@@ -14,10 +14,6 @@ h3 .variantList {
   font-weight: bold;
 }
 
-#definitionBanner {
-  display: none;
-}
-
 /* Full text highlight. Keep the number of colors in sync with Definition::highlight(). */
 .fth {
   color: #FFF;

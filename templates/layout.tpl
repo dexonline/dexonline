@@ -22,7 +22,7 @@
             rel="stylesheet" type="text/css">
     {/if}
     <link href="{$cssFile.path}?v={$cssFile.date}" rel="stylesheet" type="text/css">
-    <script async src="{$jsFile.path}?v={$jsFile.date}"></script>
+    <script src="{$jsFile.path}?v={$jsFile.date}"></script>
     <link rel="search" type="application/opensearchdescription+xml" href="https://dexonline.ro/download/dex.xml" title="Căutare dexonline.ro">
     <link href="https://plus.google.com/100407552237543221945" rel="publisher">
     <link rel="alternate" type="application/rss+xml" title="Cuvântul zilei" href="https://dexonline.ro/rss/cuvantul-zilei">

@@ -404,7 +404,6 @@ $(function() {
   }
 
   function handleAjaxResponse(data, anchor, successCallback, errorCallback) {
-    console.log(data);
     if (data.status == 'success') {
       successCallback(anchor);
     } else if (data.status == 'redirect') {

@@ -15,6 +15,10 @@
   box-shadow: 0 0 8px 0 rgba(0,0,0,.1);
 }
 
+#logo-nav {
+  width: 173px;
+}
+
 .hamburger-menu {
   margin-top: 16px;
 }

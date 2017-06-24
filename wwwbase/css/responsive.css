@@ -2,22 +2,33 @@
     Do Not use this stylesheet for tweaks applied to only a page, use the specific page stylesheet instead */
 
 @media (max-width: 767px) {
+  .logo-wrapper {
+    margin-left: 15px;
+    margin-top: 9px;
+  }
+
+  .navbar-brand {
+    margin-left: -15px;
+  }
+
   .navbar-collapse {
-     clear:both;
+    clear: both;
   }
 
   .navbar-default .navbar-collapse {
     background-color: #f8f8f8;
   }
 
-  #logo-narrow {
-    margin-top: -4px;
+  #advancedAnchor {
+    float: right;
+    padding: 9px 9px 5px 0px;
   }
 }
 
 @media (max-width: 992px) {
-  #logo-wide {
-    display: none;
+  .logo-wrapper {
+    overflow: hidden;
+    width: 44px;
   }
 
   .navbar-brand > img {
@@ -26,10 +37,6 @@
 }
 
 @media (min-width: 993px) {
-  #logo-narrow {
-    display: none;
-  }
-
   header .container {
     padding: 0;
   }
@@ -42,12 +49,5 @@
 @media (min-width: 768px) {
   .navbar-right {
     margin-right: 0;
-  }
-}
-
-@media (max-width: 767px) {
-  #advancedAnchor {
-    float: right;
-    padding: 9px 9px 5px 0px;
   }
 }

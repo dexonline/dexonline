@@ -2,16 +2,13 @@
   <div class="container">
     <div class="navbar-header navbar-left pull-left">
       {if !$onHomePage}
-        <a class="navbar-brand" href="{$wwwRoot}" title="Prima pagină">
-          <img id="logo-wide"
-               alt="logo dexonline"
-               src="{$wwwRoot}img/svg/logo-nav-wide.svg"
-               width="173">
-          <img id="logo-narrow"
-               alt="logo dexonline"
-               src="{$wwwRoot}img/svg/logo-nav-narrow.svg"
-               width='44'>
-        </a>
+        <div class="logo-wrapper">
+          <a class="navbar-brand" href="{$wwwRoot}" title="Prima pagină">
+            <img id="logo-nav"
+                 alt="logo dexonline"
+                 src="{$wwwRoot}img/svg/logo-nav.svg">
+          </a>
+        </div>
       {/if}
     </div>
 

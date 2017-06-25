@@ -18,7 +18,8 @@ $lexems = [];
 foreach ($models as $m) {
   $lexems[] = getLexem($m->exponent, $modelType->code, $m->number);
 }
-  
+DB::changeDatabase(DB::$database);
+
 SmartyWrap::addCss('paradigm');
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('lexems', $lexems);

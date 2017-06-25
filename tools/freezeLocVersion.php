@@ -61,8 +61,8 @@ DB::execute("create database $dbName");
 $fileName = tempnam(Config::get('global.tempDir'), 'freeze_');
 print "Dumping tables to $fileName\n";
 $tablesToDump = "ConstraintMap Inflection Lexem ModelDescription ModelType Model ParticipleModel Transform InflectedForm";
-$parts = DB::splitDsn();
-$mysql = sprintf("mysqldump -h %s -u %s --password='%s' %s %s > %s", $parts['host'], $parts['user'], $parts['password'], $parts['database'], $tablesToDump, $fileName);
+$mysql = sprintf("mysqldump -h %s -u %s --password='%s' %s %s > %s",
+                 DB::$host, DB::$user, DB::$password, DB::$database, $tablesToDump, $fileName);
 OS::executeAndAssert($mysql);
 print "Importing $fileName to $dbName\n";
 $import = sprintf("mysql -h %s -u %s --password='%s' %s < %s", $parts['host'], $parts['user'], $parts['password'], $dbName, $fileName);

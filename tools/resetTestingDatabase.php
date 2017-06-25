@@ -12,7 +12,7 @@ Config::get('global.developmentMode')
 
 // Drop and recreate the testing DB.
 // Execute this at PDO level, since idiorm cannot connect to a non-existing DB.
-$gdsn = DB::splitDsn(Config::get('general.database'));
+$gdsn = DB::splitDsn(Config::get('global.database'));
 $tdsn = DB::splitDsn(Config::get('testing.database'));
 
 $pdo = new PDO('mysql:host=' . $tdsn['host'], $tdsn['user'], $tdsn['password']);
@@ -32,9 +32,12 @@ if ($gdsn['password'] || $tdsn['password']) {
 
 // Copy the schema from the regular DB.
 // Use sed to remove AUTO_INCREMENT values - we want to start at 1.
-exec(sprintf('mysqldump -h %s -u %s %s -d | sed -e "s/AUTO_INCREMENT=[[:digit:]]* //" | mysql -h %s -u %s %s',
-             $gdsn['host'], $gdsn['user'], $gdsn['database'],
-             $tdsn['host'], $tdsn['user'], $tdsn['database']));
+$command = sprintf('mysqldump -h %s -u %s %s -d ' .
+                   '| sed -e "s/AUTO_INCREMENT=[[:digit:]]* //" ' .
+                   '| mysql -h %s -u %s %s',
+                   $gdsn['host'], $gdsn['user'], $gdsn['database'],
+                   $tdsn['host'], $tdsn['user'], $tdsn['database']);
+exec($command);
 
 // Create some data.
 

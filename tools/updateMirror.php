@@ -26,9 +26,8 @@ Log::notice('started with databaseCopy:%s codeUpdate:%s',
 if ($doDatabaseCopy) {
   $wget = sprintf("wget -q -O %s %s" , DATABASE_TMPFILE_GZIP, DATABASE_URL);
   OS::executeAndAssert($wget);
-  $parts = DB::splitDsn();
   $mysql = sprintf("zcat %s | mysql -h %s -u %s --password='%s' %s",
-                   DATABASE_TMPFILE_GZIP, $parts['host'], $parts['user'], $parts['password'], $parts['database']);
+                   DATABASE_TMPFILE_GZIP, DB::$host, DB::$user, DB::$password, DB::$database);
   OS::executeAndAssert($mysql);
   $rm = sprintf("rm -f %s", DATABASE_TMPFILE_GZIP);
   OS::executeAndAssert($rm);

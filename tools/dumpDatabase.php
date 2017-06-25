@@ -6,10 +6,9 @@ $SQL_FILE = Config::get('global.tempDir') . '/dex-database.sql';
 $GZ_FILE = Config::get('global.tempDir') . '/dex-database.sql.gz';
 $LICENSE = Core::getRootPath() . '/tools/dumpDatabaseLicense.txt';
 
-$parts = DB::splitDsn();
   // Skip the username/password here to avoid a Percona warning.
   // Place them in my.cnf.
-$COMMON_COMMAND = sprintf("mysqldump -h %s %s ", $parts['host'], $parts['database']);
+$COMMON_COMMAND = sprintf("mysqldump -h %s %s ", DB::$host, DB::$database);
 
 $schemaOnly = [
   'AccuracyProject',
@@ -40,7 +39,7 @@ for ($i = 1; $i < count($argv); $i++) {
 
 Log::notice('started with argument %s', ($doFullDump ? 'full' : 'public'));
 
-$dbName = $parts['database'];
+$dbName = DB::$database;
 $tablesToIgnore = '';
 foreach ($schemaOnly as $table) {
   $tablesToIgnore .= "--ignore-table=$dbName.$table ";

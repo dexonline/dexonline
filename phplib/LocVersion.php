@@ -19,8 +19,7 @@ class LocVersion {
   static function changeDatabase($versionName) {
     $lvs = Config::getLocVersions();
     if ($versionName == $lvs[0]->name || !$versionName) {
-      $dbInfo = DB::splitDsn();
-      $dbName = $dbInfo['database'];
+      $dbName = DB::$database;
     } else {
       $lv = new LocVersion();
       $lv->name = $versionName;

@@ -32,6 +32,7 @@ if ($locVersion && $form) {
     ->where('MD.isLoc', 1)
     ->order_by_asc('L.formNoAccent')
     ->find_array();
+  DB::changeDatabase(DB::$database);
 
   SmartyWrap::assign('form', $form);
   SmartyWrap::assign('selectedLocVersion', $locVersion);

@@ -1,16 +1,25 @@
 <?php
 
 class DB {
+  static $dsn;
+  static $user;
+  static $password;
+  static $host;
+  static $database;
 
   static function init() {
-    $dsn = Config::get('testing.enabled')
-         ? Config::get('testing.database')
-         : Config::get('global.database');
+    self::$dsn = Config::get('testing.enabled')
+               ? Config::get('testing.database')
+               : Config::get('global.database');
+    $parts = self::splitDsn(self::$dsn);
+    self::$user = $parts['user'];
+    self::$password = $parts['password'];
+    self::$host = $parts['host'];
+    self::$database = $parts['database'];
 
-    $parts = self::splitDsn($dsn);
-    ORM::configure(sprintf("mysql:host=%s;dbname=%s", $parts['host'], $parts['database']));
-    ORM::configure('username', $parts['user']);
-    ORM::configure('password', $parts['password']);
+    ORM::configure(sprintf('mysql:host=%s;dbname=%s', self::$host, self::$database));
+    ORM::configure('username', self::$user);
+    ORM::configure('password', self::$password);
     // This allows var_dump(ORM::get_query_log()) or var_dump(ORM::get_last_query())
     // ORM::configure('logging', true);
     ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
@@ -41,26 +50,17 @@ class DB {
   static function executeFromOS($query) {
     $query = str_replace("\n", ' ', $query);
 
-    $dsn = Config::get('testing.enabled')
-         ? Config::get('testing.database')
-         : Config::get('global.database');
-    $parts = self::splitDsn($dsn);
     // Skip the username/password here to avoid a Percona warning.
     // Place them in my.cnf (remeber this command runs as the webserver user).
-    $command = sprintf("mysql -h %s %s -e '%s'",
-                       $parts['host'],
-                       $parts['database'],
-                       $query);
+    $command = sprintf("mysql -h %s %s -e '%s'", self::$host, self::$database, $query);
     OS::executeAndAssert($command);
   }
 
   static function executeSqlFile($filename) {
-    $dsn = Config::get('global.database');
-    $parts = self::splitDsn($dsn);
     $command = sprintf("cat {$filename} | mysql -u %s %s %s",
-                       $parts['user'],
-                       $parts['database'],
-                       $parts['password'] ? ("-p" . $parts['password']) : '');
+                       self::$user,
+                       self::$database,
+                       self::$passwordd ? ("-p" . self::$password) : '');
     OS::executeAndAssert($command);
   }
 
@@ -71,12 +71,11 @@ class DB {
   }
 
   /**
-   * Returns an array mapping user, password, host and database to their respective values.
+   * Extracts the user, password, host and database from a DSN
    **/
   static function splitDsn($dsn = null) {
-    $result = array();
     if (!$dsn) {
-      $dsn = Config::get('global.database');
+      $dsn = self::$dsn;
     }
     $prefix = 'mysql://';
     assert(StringUtil::startsWith($dsn, $prefix));
@@ -86,17 +85,20 @@ class DB {
     assert(count($parts) == 3 || count($parts) == 4);
 
     if (count($parts) == 4) {
-      $result['user'] = $parts[0];
-      $result['password'] = $parts[1];
-      $result['host'] = $parts[2];
-      $result['database'] = $parts[3];
+      return [
+        'user' => $parts[0],
+        'password' => $parts[1],
+        'host' => $parts[2],
+        'database' => $parts[3],
+      ];
     } else {
-      $result['user'] = $parts[0];
-      $result['host'] = $parts[1];
-      $result['database'] = $parts[2];
-      $result['password'] = '';
+      return [
+        'user' => $parts[0],
+        'password' => '',
+        'host' => $parts[1],
+        'database' => $parts[2],
+      ];
     }
-    return $result;
   }
 
   // Idiorm has no way of returning a result set, so we do this at the PDO level;

@@ -4,7 +4,7 @@
     <ul class="list-games">
       <li><a href="{$wwwRoot}spanzuratoarea">spânzurătoarea</a></li>
       <li><a href="{$wwwRoot}moara">moara cuvintelor</a></li>
-      {* <li><a href="{$wwwRoot}omleta">omleta cuvintelor</a></li>*}
+      <li><a href="{$wwwRoot}omleta">omleta cuvintelor</a></li>
     </ul>
   </div>
   <div class="col-lg-4 col-md-12 col-sm-12 col-xs-6 widget-thumbnail">

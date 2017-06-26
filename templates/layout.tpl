@@ -15,9 +15,7 @@
       <meta property="og:title" content="dexonline">
       <link rel="image_src" href="{$imgRoot}/logo/logo-og.png">
     {/block}
-    {if $privateMode}
-      <link href="{$wwwRoot}css/opensans.css" rel="stylesheet" type="text/css">
-    {else}
+    {if !$privateMode}
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,b,i,bi"
             rel="stylesheet" type="text/css">
     {/if}

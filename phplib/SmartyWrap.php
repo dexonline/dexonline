@@ -52,13 +52,24 @@ class SmartyWrap {
 
     // compute the output file name
     $hash = md5(implode(',', $full));
-    $output = sprintf('%swwwbase/%s/merged/%s.%s', Core::getRootPath(), $type, $hash, $type);
+    $outputDir = sprintf('%swwwbase/%s/merged/', Core::getRootPath(), $type);
+    $output = sprintf('%s%s.%s', $outputDir, $hash, $type);
 
     // generate the output file if it doesn't exist or if it's too old
     if (!file_exists($output) || (filemtime($output) < $maxTimestamp)) {
       $tmpFile = tempnam('/tmp', 'merge_');
       foreach ($full as $f) {
-        file_put_contents($tmpFile, file_get_contents($f) . "\n", FILE_APPEND);
+        $contents = file_get_contents($f);
+        if ($type == 'css') {
+          // replace image references
+          $contents = preg_replace_callback(
+            '/url\([\'"]?([^\'")]+)[\'"]?\)/',
+            function($match) use ($f, $outputDir) {
+              return self::convertImages($f, $outputDir, $match[1]);
+            },
+            $contents);
+        }
+        file_put_contents($tmpFile,  $contents . "\n", FILE_APPEND);
       }
       rename($tmpFile, $output);
       chmod($output, 0666);
@@ -71,6 +82,37 @@ class SmartyWrap {
       'path' => $path,
       'date' => $date,
     ];
+  }
+
+  // Copy an image file and return a reference to it.
+  // Assumes that $cssFile is being moved to $outputDir.
+  // $url is the contents between parentheses in "url(...)"
+  static function convertImages($cssFile, $outputDir, $url) {
+    // only handle third-party files; do nothing for data URIs, fonts, own CSS files etc.
+    if ((strpos($cssFile, 'third-party') !== false) &&
+        !StringUtil::startsWith($url, 'data:')){
+      // get the absolute and relative source image filename
+      $absSrcImage = realpath(dirname($cssFile) . '/' . $url);
+      $relImage = basename($absSrcImage);
+
+      // get the relative and absolute destination directory
+      $basename = basename($cssFile, '.custom.min.css');
+      $basename = basename($basename, '.min.css');
+      $basename = basename($basename, '.css');
+      $relImageDir = $basename . '/';
+      $absImageDir = $outputDir . $relImageDir;
+
+      // get the relative and absolute image target filename
+      $relDestImage = $relImageDir . $relImage;
+      $absDestImage = $absImageDir . $relImage;
+
+      if (!file_exists($absDestImage)) {
+        @mkdir($absImageDir);
+        copy($absSrcImage, $absDestImage);
+      }
+      $url = $relDestImage;
+    }
+    return "url($url)";
   }
 
   /* Prepare and display a template. */
@@ -89,6 +131,9 @@ class SmartyWrap {
     }
     if (User::can(User::PRIV_EDIT)) {
       self::addJs('hotkeys');
+    }
+    if (Session::userPrefers(Preferences::PRIVATE_MODE)) {
+      self::addCss('privateMode');
     }
     self::addSameNameFiles($templateName);
     self::$cssFiles[] = "responsive.css";
@@ -162,6 +207,7 @@ class SmartyWrap {
         case 'meaningTree':         self::$cssFiles[16] = 'meaningTree.css'; break;
         case 'editableMeaningTree': self::$cssFiles[17] = 'editableMeaningTree.css'; break;
         case 'callToAction':        self::$cssFiles[18] = 'callToAction.css'; break;
+        case 'privateMode':         self::$cssFiles[19] = 'opensans.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           Util::redirect(Core::getWwwRoot());

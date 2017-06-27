@@ -153,7 +153,7 @@ $frequentTags = Model::factory('Tag')
               ->limit(4)
               ->find_many();
 
-$homonyms = array_merge($t->getHomonyms(), $t->getTreesFromSameEntries());
+$homonyms = $t->getRelatedTrees();
 
 $numMeanings = Model::factory('Meaning')
   ->where('treeId', $t->id)

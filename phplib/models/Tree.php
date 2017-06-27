@@ -199,6 +199,20 @@ class Tree extends BaseObject implements DatedObject {
       ->find_many();
   }
 
+  // returns homonyms and trees from the same entries, but removes duplicates
+  function getRelatedTrees() {
+    $result = $this->getHomonyms();
+    $ids = Util::objectProperty($result, 'id');
+
+    foreach ($this->getTreesFromSameEntries() as $t) {
+      if (!in_array($t->id, $ids)) {
+        $result[] = $t;
+      }
+    }
+
+    return $result;
+  }
+
   /**
    * Counts trees not associated with any entries.
    **/

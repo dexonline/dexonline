@@ -350,6 +350,7 @@ $(function() {
           letter: letters[i],
         },
         click: letterClick,
+        touchend: letterClick,
       });
 
       var l = $('canvas').getLayer('tile' + i);
@@ -415,11 +416,10 @@ $(function() {
   }
 
   function flashMessage(name) {
-    $('canvas').setLayer(name, {
-        opacity: 1,
-    }).animateLayer(name, {
-      opacity: 0,
-    });
+    $('canvas')
+      .setLayer(name, { opacity: 1, })
+      .stopLayer(name)
+      .animateLayer(name, { opacity: 0, }, 1000);
   }
 
   function writeLegalWords() {

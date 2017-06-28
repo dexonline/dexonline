@@ -4,15 +4,33 @@
   display: none;
 }
 
-canvas {
-  border: 1px solid;
-  display: block;
+#canvasWrap {
+  height: auto;
   margin: 0 auto;
+  max-width: 480px;
+  position: relative;
+  width: 100%;
+}
+
+canvas {
+  border: 1px solid black;
+  height: auto;
+  max-width: 480;
+  width: 100%;
+}
+
+#overlay {
+  height: 100%;
+  left: 0; 
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 #gameStats {
   font-size: 30px;
   margin: 0 auto;
+  max-width: 480px;
   text-align: center;
-  width: 480px;
+  width: 100%;
 }

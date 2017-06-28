@@ -47,6 +47,8 @@ $(function() {
       });
 
     drawCanvasElements();
+
+    $('#overlay').on('click touchend', scaleClick);
   }
 
   // runs whenever a new game starts
@@ -477,6 +479,17 @@ $(function() {
         x: 2 * CANVAS_WIDTH,
         y: CANVAS_HEIGHT,
       });
+  }
+
+  // Mouse coordinates don't scale when the canvas scales.
+  // Scale them and pass the event to the canvas.
+  function scaleClick(e) {
+    var scale = $('canvas').width() / CANVAS_WIDTH;
+    var scaledX = parseInt(e.offsetX / scale);
+    var scaledY = parseInt(e.offsetY / scale);
+    e.offsetX = scaledX;
+    e.offsetY = scaledY;
+    $('canvas').triggerHandler(e);
   }
 
   init();

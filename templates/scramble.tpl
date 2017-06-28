@@ -171,7 +171,10 @@
     </div>
 
     <div class="panel-body">
-      <canvas width="480" height="320"></canvas>
+      <div id="canvasWrap">
+        <canvas width="480" height="320"></canvas>
+        <div id="overlay"></div> {* this will intercept canvas clicks for scaling *}
+      </div>
 
       <div id="gameStats">
         <div class="pull-left">

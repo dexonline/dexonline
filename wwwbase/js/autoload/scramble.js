@@ -14,7 +14,6 @@ $(function() {
   const END_FONT_SIZE = 60;
   const TOP_Y = 50;
   const BOTTOM_Y = 200;
-  const THRESHOLD_Y = 120;
   const VERIFY_BUTTON_Y = 290;
 
   const ANIMATION_SPEED = 200;
@@ -221,13 +220,15 @@ $(function() {
     }
   }
 
-  // animates the given layer on the index-th position on the top row (top = true)
+  // animates the given layer to the index-th position on the top row (top = true)
   // or bottom row (top = false)
   function animateTile(layer, index, top) {
     $('canvas').animateLayer(layer, {
       x: getTileX(index),
       y: (top ? TOP_Y : BOTTOM_Y),
     }, ANIMATION_SPEED);
+    layer.data.top = top;
+    layer.data.index = index;
   }
 
   // moves the letter at position pos on row1 to the first open slot on row2
@@ -299,48 +300,11 @@ $(function() {
     }
   }
 
-  // called when a drag goes beyond the canvas
-  function dragCancel(layer) {
-    for (var i in upLayers) {
-      if (upLayers[i] == layer) {
-        animateTile(layer, i, true);
-      }
-    }
-    for (var i in downLayers) {
-      if (downLayers[i] == layer) {
-        animateTile(layer, i, false);
-      }
-    }
-  }
-
-  // called when a drag terminates normally
-  function dragStop(layer) {
-    var srcTop; // was the tile originally top or bottom?
-    var destTop = (layer.y < THRESHOLD_Y); // was the tile dragged to the top or bottom?
-    var move = false;
-
-    var index = 0;
-    while ((index < upLayers.length) && (upLayers[index] != layer)) {
-      index++;
-    }
-
-    if (index < upLayers.length) {
-      srcTop = true;
+  function letterClick(layer) {
+    if (layer.data.top) {
+      gather(layer.data.index);
     } else {
-      srcTop = false;
-      index = 0;
-      while (downLayers[index] != layer) {
-        index++;
-      }
-    }
-
-    if (srcTop == destTop) {
-      // tile dragged on the same row -- just send it back
-      animateTile(layer, index, srcTop);
-    } else if (destTop) {
-      scatter(index);
-    } else {
-      gather(index);
+      scatter(layer.data.index);
     }
   }
 
@@ -368,12 +332,11 @@ $(function() {
         sy: TILE_HEIGHT * pos,
 
         data: {
+          top: true,
+          index: i,
           letter: letters[i],
         },
-        draggable: true,
-        dragcancel: dragCancel,
-        dragstop: dragStop,
-        bringToFront: true,
+        click: letterClick,
       });
 
       var l = $('canvas').getLayer('tile' + i);

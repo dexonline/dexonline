@@ -264,16 +264,20 @@ dd.favoriteDefs {
 
 /*********** misc helpers ***********/
 
-p.text-small {
+.text-small {
   font-size: 10px;
 }
 
-p.text-medium {
+.text-medium {
   font-size: 18px;
 }
 
-p.text-big {
-  font-size: 20px;
+.text-big {
+  font-size: 24px;
+}
+
+.vcenter {
+  vertical-align: middle;
 }
 
 /* vertical spacing */

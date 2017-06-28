@@ -59,6 +59,7 @@ $(function() {
 
     getNewLetters();
 
+    $('#optionsDiv').collapse('hide');
     $('#wordCountDiv').toggle(gameParams.mode == MODE_WORD_SEARCH);
     $('#mainMenu').hide();
     $('#gamePanel').show();
@@ -176,6 +177,7 @@ $(function() {
     if (keyCode == 13) { // enter
       scoreWord();
     } else if (keyCode == 8) { // backspace
+      event.preventDefault(); // disable the various things Firefox does
       scatterLastBottom();
     } else if (keyCode == 27) { // esc
       scatterBottomRow();

@@ -14,7 +14,7 @@ $(function() {
   const END_FONT_SIZE = 60;
   const TOP_Y = 50;
   const BOTTOM_Y = 200;
-  const VERIFY_BUTTON_Y = 290;
+  const CONTROLS_Y = 290;
 
   const ANIMATION_SPEED = 200;
   const GAME_OVER_ANIMATION_SPEED = 600;
@@ -45,6 +45,8 @@ $(function() {
       .fail(function() {
         console.log('Nu pot descărca listele de cuvinte.');
       });
+
+    drawCanvasElements();
   }
 
   // runs whenever a new game starts
@@ -192,15 +194,25 @@ $(function() {
       }
     }
 
-    // look for a legal word that the user has not already found
+    if (word == '') {
+      return;
+    }
+
+    // look for a legal word
     var i = 0;
-    while ((i < legalWords.length) &&
-           ((legalWords[i] != word) || wordsFound[i])) {
+    while ((i < legalWords.length) && (legalWords[i] != word)) {
       i++;
     }
 
-    if (i < legalWords.length) {
-      // found one
+    if (i == legalWords.length) {
+      // no such word
+      flashMessage('msgError');
+    } else if (wordsFound[i]) {
+      // word already found
+      flashMessage('msgWarning');
+    } else {
+      // found a new word
+      flashMessage('msgSuccess');
       wordsFound[i] = true;
 
       var score = (gameParams.mode == MODE_ANAGRAM) ? 1 : (5 * word.length);
@@ -313,7 +325,7 @@ $(function() {
     upLayers = [];
     downLayers = [];
 
-    $('canvas').removeLayers().drawLayers();
+    $('canvas').removeLayerGroup('letters');
 
     for (var i = 0; i < letters.length; i++) {
       var pos = ALPHABET.indexOf(letters[i]);
@@ -321,6 +333,7 @@ $(function() {
       $('canvas').drawImage({
         name: 'tile' + i,
         layer: true,
+        groups: ['letters'],
         source: wwwRoot + 'img/scramble/letters.png',
         x: getTileX(i),
         y: TOP_Y,
@@ -344,17 +357,68 @@ $(function() {
       downLayers.push(0);
     }
 
-    drawVerifyButton();
+    $('canvas').drawLayers();
   }
 
-  function drawVerifyButton() {
+  function drawCanvasElements() {
+    // verify button
     $('canvas').drawImage({
       layer: true,
+      name: 'verifyButton',
       source: wwwRoot + 'img/scramble/verify-button.png',
       x: CANVAS_WIDTH / 2,
-      y: VERIFY_BUTTON_Y,
+      y: CONTROLS_Y,
       click: scoreWord,
       touchend: scoreWord,
+    });
+
+    // flash messages
+    var commonProps = {
+      layer: true,
+      strokeWidth: 1,
+      x: CANVAS_WIDTH * 4 / 5,
+      y: CONTROLS_Y,
+      fontSize: 24,
+      fontFamily: 'Verdana, sans-serif',
+      opacity: 0,
+    }
+    $('canvas').drawText(Object.assign(commonProps, {
+      name: 'msgSuccess',
+      fillStyle: '#3c763d',
+      strokeStyle: '#3c763d',
+      text: 'corect!'
+    }));
+    $('canvas').drawText(Object.assign(commonProps, {
+      name: 'msgWarning',
+      fillStyle: '#8a6b3d',
+      strokeStyle: '#8a6b3d',
+      text: 'deja găsit'
+    }));
+    $('canvas').drawText(Object.assign(commonProps, {
+      name: 'msgError',
+      fillStyle: '#a94442',
+      strokeStyle: '#a94442',
+      text: 'incorect'
+    }));
+
+    $('canvas').drawText({
+      layer: true,
+      name: 'gameOverText',
+      fillStyle: '#ddd',
+      strokeStyle: '#222',
+      x: 2 * CANVAS_WIDTH,
+      y: CANVAS_HEIGHT,
+      fontSize: END_FONT_SIZE,
+      fontFamily: 'Verdana, sans-serif',
+      text: 'Sfârșit',
+    });
+  }
+
+  function flashMessage(name) {
+    $('canvas').setLayer(name, {
+        opacity: 1,
+    }).animateLayer(name, {
+      opacity: 0,
     });
   }
 
@@ -384,27 +448,18 @@ $(function() {
 
     $('#restartGameButton').show();
 
-    // animate the 'The end' text
+    // hide/remove some layers
     $('canvas')
-      .removeLayers()
-      .drawLayers()
-      .drawText({
-        layer: true,
-        name: 'gameOverText',
-        fillStyle: '#ddd',
-        strokeStyle: '#222',
-        x: 2 * CANVAS_WIDTH,
-        y: CANVAS_HEIGHT,
-        fontSize: END_FONT_SIZE,
-        fontFamily: 'Verdana, sans-serif',
-        text: 'Sfârșit',
+      .removeLayerGroup('letters')
+      .setLayer('verifyButton', { opacity: 0 })
+      .drawLayers();
 
-      })
-      .animateLayer('gameOverText', {
-        x: CANVAS_WIDTH / 2,
-        y: CANVAS_HEIGHT / 2,
-        rotate: '+=360',
-      }, GAME_OVER_ANIMATION_SPEED);
+    // animate the 'The end' text
+    $('canvas').animateLayer('gameOverText', {
+      x: CANVAS_WIDTH / 2,
+      y: CANVAS_HEIGHT / 2,
+      rotate: '+=360',
+    }, GAME_OVER_ANIMATION_SPEED);
   }
 
   function restartGame() {
@@ -412,6 +467,16 @@ $(function() {
     $('#gamePanel').hide();    
     $('#wordListPanel').hide();
     $('#restartGameButton').hide();
+
+    // show/reset some layers
+    $('canvas')
+      .setLayer('verifyButton', {
+        opacity: 1,
+      })
+      .setLayer('gameOverText', {
+        x: 2 * CANVAS_WIDTH,
+        y: CANVAS_HEIGHT,
+      });
   }
 
   init();

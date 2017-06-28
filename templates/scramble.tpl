@@ -31,8 +31,8 @@
         <div id="optionsDiv" class="voffset3 collapse">
 
           <div class="form-group">
-            <label class="col-sm-1 control-label">mod</label>
-            <div class="col-sm-11">
+            <label class="col-sm-2 control-label">mod</label>
+            <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-info active">
                   <input type="radio" name="mode" value="0"> toate cuvintele
@@ -45,8 +45,8 @@
           </div>
 
           <div class="form-group">
-            <label class="col-sm-1 control-label">nivel</label>
-            <div class="col-sm-11">
+            <label class="col-sm-2 control-label">nivel</label>
+            <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-info">
                   <input type="radio" name="level" value="4"> 4 litere
@@ -65,8 +65,8 @@
           </div>
 
           <div class="form-group">
-            <label class="col-sm-1 control-label">diacritice</label>
-            <div class="col-sm-11">
+            <label class="col-sm-2 control-label">diacritice</label>
+            <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-info active">
                   <input type="radio" name="useDiacritics" value="0"> nu
@@ -79,8 +79,8 @@
           </div>
 
           <div class="form-group">
-            <label class="col-sm-1 control-label">timp</label>
-            <div class="col-sm-11">
+            <label class="col-sm-2 control-label">timp</label>
+            <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-info">
                   <input type="radio" name="seconds" value="60"> un minut

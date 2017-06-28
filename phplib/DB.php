@@ -60,7 +60,7 @@ class DB {
     $command = sprintf("cat {$filename} | mysql -u %s %s %s",
                        self::$user,
                        self::$database,
-                       self::$passwordd ? ("-p" . self::$password) : '');
+                       self::$password ? ("-p" . self::$password) : '');
     OS::executeAndAssert($command);
   }
 

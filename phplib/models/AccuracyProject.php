@@ -129,9 +129,23 @@ class AccuracyProject extends BaseObject implements DatedObject {
 
   // Finds a definition covered by the project that wasn't already evaluated in the same project.
   function getDefinition() {
-    return $this->getQuery()
-      ->where_raw("id not in (select definitionId from AccuracyRecord where projectId = {$this->id})")
-      ->find_one();
+    $evaled = "select definitionId from AccuracyRecord where projectId = {$this->id}";
+    $q = $this->getQuery()
+       ->where_raw("id not in ({$evaled})");
+
+    // handle the step parameter; does not apply to METHOD_RANDOM
+    if (($this->step > 1) &&
+        ($this->lastCreateDate) &&
+        ($this->method != self::METHOD_RANDOM)) {
+      if ($this->method == self::METHOD_NEWEST) {
+        $q = $q->where_lt('createDate', $this->lastCreateDate);
+      } else {
+        $q = $q->where_gt('createDate', $this->lastCreateDate);
+      }
+      $q = $q->offset($this->step - 1);
+    }
+
+    return $q->find_one();
   }
 
   // Returns an array of (id, lexicon) for all evaluated definitions.
@@ -228,6 +242,9 @@ class AccuracyProject extends BaseObject implements DatedObject {
     }
     if ($this->endDate && !preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $this->endDate)) {
       FlashMessage::add('Data de sfârșit trebuie să aibă formatul AAAA-LL-ZZ');
+    }
+    if ($this->step < 1) {
+      FlashMessage::add('Pasul trebuie să fie pozitiv.');
     }
 
     // Count the characters in all the applicable definitions

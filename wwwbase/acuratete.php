@@ -18,6 +18,7 @@ if ($submitButton) {
   $p->startDate = Request::get('startDate');
   $p->endDate = Request::get('endDate');
   $p->method = Request::get('method');
+  $p->step = Request::get('step');
   $p->visibility = Request::get('visibility');
 
   if ($p->validate()) {

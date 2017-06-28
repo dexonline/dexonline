@@ -42,6 +42,7 @@ if ($deleteButton) {
 if ($editProjectButton) {
   $project->name = Request::get('name');
   $project->method = Request::get('method');
+  $project->step = Request::get('step');
   $project->visibility = Request::get('visibility');
   if ($project->validate()) {
     $project->save();
@@ -56,6 +57,11 @@ if ($saveButton) {
     $ar = Model::factory('AccuracyRecord')->create();
     $ar->projectId = $projectId;
     $ar->definitionId = $defId;
+
+    // update the project to reflect the last createDate
+    $def = Definition::get_by_id($defId);
+    $project->lastCreateDate = $def->createDate;
+    $project->save();
   }
   $ar->errors = $errors;
   $ar->save();

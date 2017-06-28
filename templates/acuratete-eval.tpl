@@ -178,6 +178,17 @@
           </div>
 
           <div class="form-group">
+            <label class="col-sm-2 control-label">cu pasul</label>
+            <div class="col-sm-10">
+              <input type="number"
+                     class="form-control"
+                     name="step"
+                     value="{$project->step}"
+                     {if !$mine}disabled{/if}>
+            </div>
+          </div>
+
+          <div class="form-group">
             <label class="col-sm-2 control-label">vizibilitate</label>
             <div class="col-sm-10">
               {include "bits/dropdown.tpl"

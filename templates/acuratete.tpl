@@ -106,6 +106,17 @@
         </div>
 
         <div class="form-group">
+          <label class="col-sm-3 control-label">cu pasul</label>
+          <div class="col-sm-9">
+            <input type="number"
+                   name="step"
+                   value="{$p->step|default:1}"
+                   placeholder="din câte în câte definiții veți primi"
+                   class="form-control">
+          </div>
+        </div>
+
+        <div class="form-group">
           <label class="col-sm-3 control-label">vizibilitate</label>
           <div class="col-sm-9">
             {include "bits/dropdown.tpl"

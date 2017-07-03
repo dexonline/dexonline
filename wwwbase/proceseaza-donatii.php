@@ -34,7 +34,7 @@ if ($processButton) {
   $mdp->processDonors();
   FlashMessage::add('Am procesat donațiile. Dacă au existat utilizatori care au primit ' .
                     'medalii și/sau scutiri de bannere, nu uitați să goliți parțial cache-ul ' .
-                    'lui Varnish: sudo varnishadm ban.url ^/utilizator',
+                    'lui Varnish: <b>sudo varnishadm ban req.url "~" ^/utilizator</b>',
                     'success');
   Util::redirect('proceseaza-donatii.php');
 

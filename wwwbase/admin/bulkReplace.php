@@ -37,12 +37,18 @@ $defs = $query
 
 $searchResults = SearchResult::mapDefinitionArray($defs);
 
+$diffs = [];
+
 foreach ($defs as $def) {
+  $olddef = unserialize(serialize($def));
+
   $def->internalRep = str_replace($search, $replace, $def->internalRep);
   $ambiguousMatches = [];
   $def->internalRep = AdminStringUtil::sanitize(
-    $def->internalRep, $def->sourceId, $ambiguousMatches);
+      $def->internalRep, $def->sourceId, $ambiguousMatches);
   $def->htmlRep = AdminStringUtil::htmlize($def->internalRep, $def->sourceId);
+
+  $diffs[] = LDiff::htmlDiff($olddef->internalRep, $def->internalRep);
 
   // Complete or un-complete the abbreviation review
   if (!count($ambiguousMatches) && $def->abbrevReview == Definition::ABBREV_AMBIGUOUS) {
@@ -64,7 +70,9 @@ if ($saveButton) {
 SmartyWrap::assign('search', $search);
 SmartyWrap::assign('replace', $replace);
 SmartyWrap::assign('sourceId', $sourceId);
+SmartyWrap::assign('modUser', User::getActive());
 SmartyWrap::assign('searchResults', $searchResults);
+SmartyWrap::assign('diffs', $diffs);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/bulkReplace.tpl');
 

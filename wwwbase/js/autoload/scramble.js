@@ -77,7 +77,119 @@ $(function() {
   var gameScene;
   var gameOverScene;
 
-  // runs only once on page load
+  class Tile extends PIXI.Sprite {
+    constructor(letter, pos) {
+      // create the sprite
+      var index = ALPHABET.indexOf(letter);
+      var rectangle = new PIXI.Rectangle(0, TILE_HEIGHT * index, TILE_WIDTH, TILE_HEIGHT);
+      var texture = new PIXI.Texture(PIXI.loader.resources[LETTERS_URL].texture, rectangle);
+      super(texture);
+
+      // set custom fields
+      this.letter = letter;
+      this.top = true;
+      this.pos = pos;
+
+      this.anchor.set(0.5, 0.5);
+      this.position.set(this.getX(), TOP_Y);
+      this.interactive = true;
+      this.buttonMode = true;
+      this.on('pointerup', this.clickTile);
+    }
+
+    // returns the X coordinate for this tile
+    getX() {
+      var wp = TILE_WIDTH + TILE_PADDING;
+      return (CANVAS_WIDTH + wp * (2 * this.pos - letters.length + 1)) / 2;
+    }
+
+    getY() {
+      return this.top ? TOP_Y : BOTTOM_Y;
+    }
+
+    // sets up the animation to the pos-th position on the top row (top = true)
+    // or bottom row (top = false)
+    startAnimation(pos) {
+      this.top = !this.top;
+      this.pos = pos;
+
+      this.deltaX = this.getX() - this.position.x;
+      this.deltaY = this.getY() - this.position.y;
+      this.steps = ANIMATION_STEPS;
+
+      this.interactive = false; // disable clicks during moves
+    }
+
+    animate() {
+      if ('steps' in this) {
+        // this tile is going somewhere -- take the next step
+        this.steps--;
+        var x = this.getX() - this.deltaX * this.steps / ANIMATION_STEPS;
+        var y = this.getY() - this.deltaY * this.steps / ANIMATION_STEPS;
+
+        this.position.set(x, y);
+        if (!this.steps) {
+          delete this.deltaX;
+          delete this.deltaY;
+          delete this.steps;
+          this.interactive = true; // re-enable clicks
+        }
+      }
+    }
+
+    // moves the tile at position pos on row1 to the first open slot on row2
+    move(row1, row2) {
+      if (row1[this.pos] != NIL) {
+        var i = 0;
+        while (row2[i] != NIL) {
+          i++;
+        }
+        row2[i] = row1[this.pos];
+        row1[this.pos] = NIL;
+        
+        this.startAnimation(i);
+      }
+    }
+
+    // moves the tile to the first open slot on the bottom row
+    gather() {
+      this.move(topTiles, bottomTiles);
+    }
+
+    // moves the tile to the first open slot on the top row
+    scatter() {
+      this.move(bottomTiles, topTiles);
+    }
+
+    // sends letters on the bottom row back to the top row
+    static scatterLastBottom() {
+      var j = bottomTiles.length - 1;
+      while ((j >= 0) && (bottomTiles[j] == NIL)) {
+        j--;
+      }
+      if (j >= 0) {
+        tiles[bottomTiles[j]].scatter();
+      }
+    }
+
+    // sends letters on the bottom row back to the top row
+    static scatterBottomRow() {
+      for (var j = 0; j < bottomTiles.length; j++) {
+        if (bottomTiles[j] != NIL) {
+          tiles[bottomTiles[j]].scatter();
+        }
+      }
+    }
+
+    clickTile() {
+      if (this.top) {
+        this.gather();
+      } else {
+        this.scatter();
+      }
+    }
+  }
+
   function init() {
     // initialize Pixi
     renderer = PIXI.autoDetectRenderer({
@@ -218,12 +330,6 @@ $(function() {
     drawLetters();
   }
 
-  // returns the X coordinate for a tile in the index-th position
-  function getTileX(pos) {
-    var wp = TILE_WIDTH + TILE_PADDING;
-    return (CANVAS_WIDTH + wp * (2 * pos - letters.length + 1)) / 2;
-  }
-
   function letterHandler(event) {
     var key = String.fromCharCode(event.charCode).toLowerCase();
 
@@ -231,12 +337,12 @@ $(function() {
       // move a tile down if the letter matches
       var i = 0;
       while ((i < topTiles.length) &&
-             ((topTiles[i] == NIL) || (tiles[topTiles[i]].custom.letter != key))) {
+             ((topTiles[i] == NIL) || (tiles[topTiles[i]].letter != key))) {
         i++;
       }
 
       if (i < topTiles.length) {
-        gather(i);
+        tiles[topTiles[i]].gather();
       }
     }
   }
@@ -248,9 +354,9 @@ $(function() {
       scoreWord();
     } else if (keyCode == 8) { // backspace
       event.preventDefault(); // disable the various things Firefox does
-      scatterLastBottom();
+      Tile.scatterLastBottom();
     } else if (keyCode == 27) { // esc
-      scatterBottomRow();
+      Tile.scatterBottomRow();
     }
   }
 
@@ -259,7 +365,7 @@ $(function() {
     var word = '';
     for (var k = 0; k < bottomTiles.length; k++) {
       if (bottomTiles[k] != NIL) {
-        word += tiles[bottomTiles[k]].custom.letter;
+        word += tiles[bottomTiles[k]].letter;
       }
     }
 
@@ -297,25 +403,11 @@ $(function() {
           .removeClass('text-danger').addClass('text-success')
           .find('i')
           .removeClass('glyphicon-remove').addClass('glyphicon-ok');
-        scatterBottomRow();
+        Tile.scatterBottomRow();
       } else {
         getNewLetters();
       }
     }
-  }
-
-  // animates the given tile to the index-th position on the top row (top = true)
-  // or bottom row (top = false)
-  function animateTile(tile, pos, top) {
-    tile.custom.top = top;
-    tile.custom.pos = pos;
-
-    tile.custom.srcX = tile.position.x;
-    tile.custom.srcY = tile.position.y;
-    tile.custom.destX = getTileX(pos);
-    tile.custom.destY = top ? TOP_Y : BOTTOM_Y;
-    tile.custom.steps = ANIMATION_STEPS;
-    tile.interactive = false; // disable clicks during moves
   }
 
   function animateMessage(key) {
@@ -340,35 +432,7 @@ $(function() {
       row2[i] = row1[pos];
       row1[pos] = NIL;
 
-      animateTile(tiles[row2[i]], i, top);
-    }
-  }
-
-  // moves the letter at position pos on the top row to the first open slot on the bottom row
-  function gather(pos) {
-    moveTile(pos, topTiles, bottomTiles, false);
-  }
-
-  // sends the letter at position pos on the bottom row back to the top row
-  function scatter(pos) {
-    moveTile(pos, bottomTiles, topTiles, true);
-  }
-
-  // sends letters on the bottom row back to the top row
-  function scatterLastBottom() {
-    var j = bottomTiles.length - 1;
-    while ((j >= 0) && (bottomTiles[j] == NIL)) {
-      j--;
-    }
-    if (j >= 0) {
-      scatter(j);
-    }
-  }
-
-  // sends letters on the bottom row back to the top row
-  function scatterBottomRow() {
-    for (var j = 0; j < bottomTiles.length; j++) {
-      scatter(j);
+      tiles[row2[i]].startAnimation(i, top);
     }
   }
 
@@ -397,14 +461,6 @@ $(function() {
     }
   }
 
-  function letterClick() {
-    if (this.custom.top) {
-      gather(this.custom.pos);
-    } else {
-      scatter(this.custom.pos);
-    }
-  }
-
   // creates letter tiles
   function drawLetters() {
     // remove the old tiles, if any
@@ -417,31 +473,12 @@ $(function() {
     bottomTiles = [];
 
     for (var i = 0; i < letters.length; i++) {
-      var pos = ALPHABET.indexOf(letters[i]);
-
-      var rectangle = new PIXI.Rectangle(0, TILE_HEIGHT * pos, TILE_WIDTH, TILE_HEIGHT);
-      var texture = new PIXI.Texture(PIXI.loader.resources[LETTERS_URL].texture, rectangle);
-      var l = new PIXI.Sprite(texture);
-      l.anchor.set(0.5, 0.5);
-      l.position.set(getTileX(i), TOP_Y);
-
-      l.interactive = true;
-      l.buttonMode = true;
-      l.on('pointerup', letterClick);
-
-      l.custom = {
-        letter: letters[i],
-        top: true,
-        pos: i,
-      };
-      
-      gameScene.addChild(l);
-      tiles.push(l);
+      var t = new Tile(letters[i], i);
+      gameScene.addChild(t);
+      tiles.push(t);
       topTiles.push(i);
       bottomTiles.push(NIL);
     }
-
-    renderer.render(stage);
   }
 
   function drawCanvasElements() {
@@ -456,7 +493,6 @@ $(function() {
         vb.on('pointerup', scoreWord);
 
         gameScene.addChild(vb);
-        renderer.render(stage);
       });
 
     messages = [];
@@ -505,7 +541,6 @@ $(function() {
 
     // show the legal words
     $('#wordListPanel').slideDown();
-
     $('#restartGameButton').show();
 
     // switch scenes
@@ -562,24 +597,7 @@ $(function() {
 
     if (gameScene.visible) {
       for (var i = 0; i < tiles.length; i++) {
-        var t = tiles[i];
-        var c = t.custom;
-
-        if ('destX' in c) {
-          // this tile is going somewhere -- take the next step
-          c.steps--;
-          var x = (c.srcX * c.steps + c.destX * (ANIMATION_STEPS - c.steps)) / ANIMATION_STEPS;
-          var y = (c.srcY * c.steps + c.destY * (ANIMATION_STEPS - c.steps)) / ANIMATION_STEPS;
-          t.position.set(x, y);
-          if (!c.steps) {
-            delete c.srcX;
-            delete c.srcY;
-            delete c.destX;
-            delete c.destY;
-            delete c.steps;
-            t.interactive = true; // re-enable clicks
-          }
-        }
+        tiles[i].animate();
       }
 
       for (var k in messages) {

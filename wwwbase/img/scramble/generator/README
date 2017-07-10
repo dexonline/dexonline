@@ -1,7 +1,7 @@
-To produce one PNG tile for every letter, proceed as follows.
+To produce a PNG tileset, proceed as follows.
 
-1. Create a file letters.html containing the CSS buttons.
+1. Create a file tileset.html containing the CSS buttons.
 2. Install phantomjs
-3. Create a rasterize.js file telling phantomjs to rasterize letters.html into letters.png
+3. Create a rasterize.js file telling phantomjs to rasterize tileset.html into tileset.png
 4. Run "phantomjs rasterize.js"
-5. optipng letters.png
+5. optipng tileset.png

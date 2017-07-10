@@ -1,5 +1,5 @@
 var page = require('webpage').create();
-page.open('letters.html', function() {
-  page.render('letters.png');
+page.open('tileset.html', function() {
+  page.render('tileset.png');
   phantom.exit();
 });

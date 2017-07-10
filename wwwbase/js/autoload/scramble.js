@@ -8,20 +8,27 @@ $(function() {
 
   const MINIMUM_WORD_LENGTH = 3;
   
-  const CANVAS_WIDTH = 480;
-  const CANVAS_HEIGHT = 320;
-  const TILE_WIDTH = 55;
-  const TILE_HEIGHT = 75;
-  const TILE_PADDING = 10;
-  const TOP_Y = 50;
-  const BOTTOM_Y = 200;
-  const CONTROLS_Y = 290;
+  const CANVAS_WIDTH = 640;
+  const CANVAS_HEIGHT = 480;
+  const TILE_WIDTH = 75;
+  const TILE_HEIGHT = 105;
+  const TILE_PADDING = 14;
+  const SEARCH_WIDTH = 200;
+  const SHUFFLE_WIDTH = 70;
+  const RESIGN_WIDTH = 70;
+  const BUTTON_HEIGHT = 55;
+
+  const MESSAGES_X = 100;
+  const SHUFFLE_X = 512;
+  const RESIGN_X = 590;
+  const TOP_Y = 80;
+  const BOTTOM_Y = 280;
+  const CONTROLS_Y = 440;
   const STATS_HEIGHT = 40; // keep this many pixels vertically when scaling
 
   const ANIMATION_STEPS = 10; // for letter moves
 
-  const VERIFY_BUTTON_URL = wwwRoot + 'img/scramble/verify-button.png';
-  const LETTERS_URL = wwwRoot + 'img/scramble/letters.png';
+  const TILESET_URL = wwwRoot + 'img/scramble/tileset.png';
 
   const MESSAGES = {
     MSG_CORRECT: {
@@ -58,31 +65,33 @@ $(function() {
     strokeThickness: 1,
   };
 
-  const NIL = -1;
-
-  var letters;    // letter set
-  var legalWords; // words that can be made from the letter set
-  var wordsFound; // boolean array indicating which legal words the user has found
-  var tiles;      // PIXI sprites
-  var topTiles;   // indices into tiles[] or NIL for empty spaces
+  var letters;     // letter set
+  var legalWords;  // words that can be made from the letter set
+  var wordsFound;  // boolean array indicating which legal words the user has found
+  var tiles;       // PIXI sprites
+  var topTiles;    // tiles on the top row (null for empty spaces)
   var bottomTiles; // ditto
-  var wordStem;   // div to be cloned for every legal word
+  var wordStem;    // div to be cloned for every legal word
   var wordList, wordListDia; // word lists downloaded from server, without and with diacritics
-  var gameParams; // main menu options
+  var gameParams;  // main menu options
 
   var stage;
   var renderer;
   var messages;
+  var resigned = false;
   var gameOverText;
   var gameScene;
   var gameOverScene;
 
+  /**
+   * A Tile is a Sprite that can move between the top and bottom rows.
+   **/
   class Tile extends PIXI.Sprite {
     constructor(letter, pos) {
       // create the sprite
       var index = ALPHABET.indexOf(letter);
       var rectangle = new PIXI.Rectangle(0, TILE_HEIGHT * index, TILE_WIDTH, TILE_HEIGHT);
-      var texture = new PIXI.Texture(PIXI.loader.resources[LETTERS_URL].texture, rectangle);
+      var texture = new PIXI.Texture(PIXI.loader.resources[TILESET_URL].texture, rectangle);
       super(texture);
 
       // set custom fields
@@ -149,11 +158,11 @@ $(function() {
       }
 
       var i = 0;
-      while (dest[i] != NIL) {
+      while (dest[i]) {
         i++;
       }
-      dest[i] = src[this.pos];
-      src[this.pos] = NIL;
+      dest[i] = this;
+      src[this.pos] = null;
 
       this.startAnimation(i);
     }
@@ -161,21 +170,126 @@ $(function() {
     // sends the last tile on the bottom row back to the top row
     static scatterLastBottom() {
       var j = bottomTiles.length - 1;
-      while ((j >= 0) && (bottomTiles[j] == NIL)) {
+      while ((j >= 0) && !bottomTiles[j]) {
         j--;
       }
       if (j >= 0) {
-        tiles[bottomTiles[j]].toggle();
+        bottomTiles[j].toggle();
       }
     }
 
-    // sends letters on the bottom row back to the top row
+    // sends all the tiles on the bottom row back to the top row
     static scatterBottomRow() {
       for (var j = 0; j < bottomTiles.length; j++) {
-        if (bottomTiles[j] != NIL) {
-          tiles[bottomTiles[j]].toggle();
+        if (bottomTiles[j]) {
+          bottomTiles[j].toggle();
         }
       }
+    }
+
+    static shuffle() {
+      // send all the tiles to the bottom row...
+      for (var j = 0; j < topTiles.length; j++) {
+        if (topTiles[j]) {
+          topTiles[j].toggle();
+        }
+      }
+
+      // ... then send them back up in random order
+      for (var i = 0; i < bottomTiles.length; i++) {
+        var j;
+        do {
+          j = Math.floor(Math.random() * bottomTiles.length);
+        } while (!bottomTiles[j]);
+        bottomTiles[j].toggle();
+      }
+      
+    }
+  }
+
+  /**
+   * A flash message featuring a text, color and opacity.
+   **/
+  class Message extends PIXI.Text {
+    constructor(key) {
+      var data = MESSAGES[key];
+      var style = Object.assign(MESSAGES_COMMON_STYLE, data.style);
+      super(data.text, style);
+
+      this.anchor.set(0.5, 0.5);
+      this.position.set(MESSAGES_X, CONTROLS_Y);
+      this.alpha = 0;
+
+      gameScene.addChild(this);
+    }
+
+    startAnimation() {
+      // stop all other animations
+      for (var k in messages) {
+        messages[k].alpha = 0;
+      }
+      this.alpha = 1;
+    }
+
+    animate() {
+      if (this.alpha) {
+        this.alpha -= 0.01;
+      }
+    }
+  }
+
+  /**
+   * A text that appears once at the end of the game.
+   **/
+  class GameOverText extends PIXI.Text {
+    constructor() {
+      super('STIRFÂȘ :-)', {
+        fill: '#761818',
+        stroke: '#400',
+        font: '60px Verdana, sans-serif',
+        fontWeight: 'bold',
+        strokeThickness: 1,
+      });
+      this.anchor.set(0.5, 0.5);
+      this.position.set(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+    }
+
+    startAnimation() {
+      this.scale.set(0, 0);
+    }
+
+    animate() {
+      if (this.scale.x < 1) {
+        var s = this.scale.x + 0.04;
+        this.scale.set(s, s);
+        this.rotation = -2 * Math.PI * s; // do a 360 while the scale goes from 0 to 1
+      }
+    }
+
+    reset() {
+      this.scale.set(1, 1);
+      this.rotation = 0;
+    }
+  }
+
+  class Button extends PIXI.Sprite {
+
+    // x: on-screen X coordinate
+    // width: on-screen (and tileset) width
+    // cropY: tileset cropping position
+    // click: click handler
+    constructor(x, width, cropY, click) {
+      var rectangle = new PIXI.Rectangle(0, cropY, width, BUTTON_HEIGHT);
+      var texture = new PIXI.Texture(PIXI.loader.resources[TILESET_URL].texture, rectangle);
+      super(texture);
+
+      this.anchor.set(0.5, 0.5);
+      this.position.set(x, CONTROLS_Y);
+      this.interactive = true;
+      this.buttonMode = true;
+      this.on('pointerup', click);
+
+      gameScene.addChild(this);
     }
   }
 
@@ -326,12 +440,12 @@ $(function() {
       // move a tile down if the letter matches
       var i = 0;
       while ((i < topTiles.length) &&
-             ((topTiles[i] == NIL) || (tiles[topTiles[i]].letter != key))) {
+             (!topTiles[i] || (topTiles[i].letter != key))) {
         i++;
       }
 
       if (i < topTiles.length) {
-        tiles[topTiles[i]].toggle();
+        topTiles[i].toggle();
       }
     }
   }
@@ -344,6 +458,8 @@ $(function() {
     } else if (keyCode == 8) { // backspace
       event.preventDefault(); // disable the various things Firefox does
       Tile.scatterLastBottom();
+    } else if (keyCode == 191) { // slash
+      Tile.shuffle();
     } else if (keyCode == 27) { // esc
       Tile.scatterBottomRow();
     }
@@ -353,15 +469,15 @@ $(function() {
     // assemble the word
     var word = '';
     for (var k = 0; k < bottomTiles.length; k++) {
-      if (bottomTiles[k] != NIL) {
-        word += tiles[bottomTiles[k]].letter;
+      if (bottomTiles[k]) {
+        word += bottomTiles[k].letter;
       }
     }
 
     if (word == '') {
       return;
     } else if (word.length < MINIMUM_WORD_LENGTH) {
-      animateMessage('MSG_TOO_SHORT');
+      messages['MSG_TOO_SHORT'].startAnimation();
       return;
     }
 
@@ -373,13 +489,13 @@ $(function() {
 
     if (i == legalWords.length) {
       // no such word
-      animateMessage('MSG_WRONG');
+      messages['MSG_WRONG'].startAnimation();
     } else if (wordsFound[i]) {
       // word already found
-      animateMessage('MSG_ALREADY_FOUND');
+      messages['MSG_ALREADY_FOUND'].startAnimation();
     } else {
       // found a new word
-      animateMessage('MSG_CORRECT');
+      messages['MSG_CORRECT'].startAnimation();
       wordsFound[i] = true;
 
       var score = (gameParams.mode == MODE_ANAGRAM) ? 1 : (5 * word.length);
@@ -396,32 +512,6 @@ $(function() {
       } else {
         getNewLetters();
       }
-    }
-  }
-
-  function animateMessage(key) {
-    // stop all other animations
-    for (k in messages) {
-      messages[k].alpha = 0;
-    }
-    messages[key].alpha = 1;
-  }
-
-  function animateGameOverText() {
-    gameOverText.scale.set(0, 0);
-  }
-
-  // moves the tile at position pos on row1 to the first open slot on row2
-  function moveTile(pos, row1, row2, top) {
-    if (row1[pos] != NIL) {
-      var i = 0;
-      while (row2[i] != NIL) {
-        i++;
-      }
-      row2[i] = row1[pos];
-      row1[pos] = NIL;
-
-      tiles[row2[i]].startAnimation(i, top);
     }
   }
 
@@ -443,11 +533,15 @@ $(function() {
     function decrementTimer() {
       secondsLeft--;
       $('#timer').text(minutesAndSeconds(secondsLeft));
-      if (!secondsLeft) {
+      if (!secondsLeft || resigned) {
         clearInterval(timer);
         endGame();
       }
     }
+  }
+
+  function resign() {
+    resigned = true;
   }
 
   // creates letter tiles
@@ -465,45 +559,27 @@ $(function() {
       var t = new Tile(letters[i], i);
       gameScene.addChild(t);
       tiles.push(t);
-      topTiles.push(i);
-      bottomTiles.push(NIL);
+      topTiles.push(t);
+      bottomTiles.push(null);
     }
   }
 
   function drawCanvasElements() {
     PIXI.loader
-      .add([ VERIFY_BUTTON_URL, LETTERS_URL, ])
+      .add(TILESET_URL)
       .load(function() {
-        var vb = new PIXI.Sprite(PIXI.loader.resources[VERIFY_BUTTON_URL].texture);
-        vb.anchor.set(0.5, 0.5);
-        vb.position.set(CANVAS_WIDTH / 2, CONTROLS_Y);
-        vb.interactive = true;
-        vb.buttonMode = true;
-        vb.on('pointerup', scoreWord);
-
-        gameScene.addChild(vb);
+        var btnOffset = TILE_HEIGHT * ALPHABET.length;
+        new Button(CANVAS_WIDTH / 2, SEARCH_WIDTH, btnOffset, scoreWord);
+        new Button(SHUFFLE_X, SHUFFLE_WIDTH, btnOffset + BUTTON_HEIGHT, Tile.shuffle);
+        new Button(RESIGN_X, RESIGN_WIDTH, btnOffset + 2 * BUTTON_HEIGHT, resign);
       });
 
     messages = [];
     for (key in MESSAGES) {
-      var data = MESSAGES[key];
-      var style = Object.assign(MESSAGES_COMMON_STYLE, data.style);
-      var m = new PIXI.Text(data.text, style);
-      m.anchor.set(0.5, 0.5);
-      m.position.set(CANVAS_WIDTH * 4 / 5, CONTROLS_Y);
-      m.alpha = 0;
-      gameScene.addChild(m);
-      messages[key] = m;
+      messages[key] = new Message(key);
     }
 
-    gameOverText = new PIXI.Text('Stirfâș', {
-      fill: '#aaa',
-      stroke: '#000',
-      font: '60px Verdana, sans-serif',
-      strokeThickness: 1,
-    });
-    gameOverText.anchor.set(0.5, 0.5);
-    gameOverText.position.set(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+    gameOverText = new GameOverText();
     gameOverScene.addChild(gameOverText);
   }
 
@@ -535,7 +611,7 @@ $(function() {
     // switch scenes
     gameScene.visible = false;
     gameOverScene.visible = true;
-    animateGameOverText();
+    gameOverText.startAnimation();
   }
 
   function restartGame() {
@@ -544,10 +620,10 @@ $(function() {
     $('#wordListPanel').hide();
     $('#restartGameButton').hide();
 
+    resigned = false;
     gameScene.visible = true;
     gameOverScene.visible = false;
-    gameOverText.scale.set(1, 1);
-    gameOverText.rotation = 0;
+    gameOverText.reset();
   }
 
   // Scroll the canvas into view unless it is already entirely in the viewport
@@ -590,18 +666,12 @@ $(function() {
       }
 
       for (var k in messages) {
-        if (messages[k].alpha) {
-          messages[k].alpha -= 0.01;
-        }
+        messages[k].animate();
       }
     }
 
     if (gameOverScene.visible) {
-      if (gameOverText.scale.x < 1) {
-        var s = gameOverText.scale.x + 0.02;
-        gameOverText.scale.set(s, s);
-        gameOverText.rotation = -2 * Math.PI * s; // do a 360 while the scale goes from 0 to 1
-      }
+      gameOverText.animate();
     }
 
     renderer.render(stage);

@@ -127,7 +127,8 @@
         <h3>Instrucțiuni</h3>
         <p>
           Dacă folosiți tastatura, tastați pur și simplu
-          literele. Dacă folosiți mouse-ul, dați click pe litere.
+          literele. Dacă folosiți mouse-ul, dați clic pe litere, apoi
+          pe lupă pentru a verifica un cuvânt.
         </p>
 
         <p>
@@ -138,9 +139,15 @@
         </p>
 
         <p>
-          Tasta Enter verifică cuvântul, tasta Backspace șterge ultima
-          literă, iar tasta Esc șterge toate literele. 
+          Taste speciale:
         </p>
+
+        <ul>
+          <li><i>Enter</i> verifică cuvântul;</li>
+          <li><i>Backspace</i> șterge ultima literă;</li>
+          <li><i>Escape</i> șterge toate literele;</li>
+          <li><i>slash (/)</i> amestecă literele.</li>
+        </ul>
 
         <p>
           Sub zona de joc se află:

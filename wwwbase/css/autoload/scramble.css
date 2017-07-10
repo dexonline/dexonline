@@ -7,7 +7,7 @@
 #canvasWrap {
   height: auto;
   margin: 0 auto;
-  max-width: 480px;
+  max-width: 640px;
   width: 100%;
 }
 
@@ -18,7 +18,7 @@ canvas {
 #gameStats {
   font-size: 30px;
   margin: 0 auto;
-  max-width: 480px;
+  max-width: 640px;
   text-align: center;
   width: 100%;
 }

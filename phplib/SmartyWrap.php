@@ -242,23 +242,24 @@ class SmartyWrap {
           break;
         case 'select2Dev':    self::$jsFiles[16] = 'select2Dev.js'; break;
         case 'jcanvas':       self::$jsFiles[17] = 'third-party/jcanvas.min.js'; break;
+        case 'pixijs':        self::$jsFiles[18] = 'third-party/pixi.min.js'; break;
         case 'gallery':
-          self::$jsFiles[18] = 'third-party/colorbox/jquery.colorbox-min.js';
-          self::$jsFiles[19] = 'third-party/colorbox/jquery.colorbox-ro.js';
-          self::$jsFiles[20] = 'dexGallery.js';
+          self::$jsFiles[19] = 'third-party/colorbox/jquery.colorbox-min.js';
+          self::$jsFiles[20] = 'third-party/colorbox/jquery.colorbox-ro.js';
+          self::$jsFiles[21] = 'dexGallery.js';
           break;
-        case 'modelDropdown': self::$jsFiles[21] = 'modelDropdown.js'; break;
-        case 'textComplete':  self::$jsFiles[22] = 'third-party/jquery.textcomplete.min.js'; break;
+        case 'modelDropdown': self::$jsFiles[22] = 'modelDropdown.js'; break;
+        case 'textComplete':  self::$jsFiles[23] = 'third-party/jquery.textcomplete.min.js'; break;
         case 'tinymce':
-          self::$jsFiles[23] = 'third-party/tinymce-4.4.0/tinymce.min.js';
-          self::$jsFiles[24] = 'tinymce.js';
+          self::$jsFiles[24] = 'third-party/tinymce-4.4.0/tinymce.min.js';
+          self::$jsFiles[25] = 'tinymce.js';
           break;
-        case 'meaningTree':   self::$jsFiles[25] = 'meaningTree.js'; break;
+        case 'meaningTree':   self::$jsFiles[26] = 'meaningTree.js'; break;
         case 'hotkeys':
-          self::$jsFiles[26] = 'third-party/jquery.hotkeys.js';
-          self::$jsFiles[27] = 'hotkeys.js';
+          self::$jsFiles[27] = 'third-party/jquery.hotkeys.js';
+          self::$jsFiles[28] = 'hotkeys.js';
           break;
-        case 'callToAction':  self::$jsFiles[28] = 'callToAction.js'; break;
+        case 'callToAction':  self::$jsFiles[29] = 'callToAction.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           Util::redirect(Core::getWwwRoot());

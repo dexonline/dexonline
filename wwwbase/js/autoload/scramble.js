@@ -1,4 +1,6 @@
 $(function() {
+  "use strict";
+
   const WORD_LIST_DIA_URL = 'https://dexonline.ro/static/download/game-word-list-dia.txt';
   const WORD_LIST_URL = 'https://dexonline.ro/static/download/game-word-list.txt';
   const ALPHABET = 'aăâbcdefghiîjklmnopqrsștțuvwxyz';
@@ -7,7 +9,7 @@ $(function() {
   const MODE_ANAGRAM = 1;
 
   const MINIMUM_WORD_LENGTH = 3;
-  
+
   const CANVAS_WIDTH = 640;
   const CANVAS_HEIGHT = 480;
   const TILE_WIDTH = 75;
@@ -547,7 +549,7 @@ $(function() {
   // creates letter tiles
   function drawLetters() {
     // remove the old tiles, if any
-    for (i in tiles) {
+    for (var i in tiles) {
       gameScene.removeChild(tiles[i]);
     }
 
@@ -575,7 +577,7 @@ $(function() {
       });
 
     messages = [];
-    for (key in MESSAGES) {
+    for (var key in MESSAGES) {
       messages[key] = new Message(key);
     }
 

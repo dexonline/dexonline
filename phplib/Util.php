@@ -199,7 +199,7 @@ class Util {
   }
 
   static function suggestNoBanner() {
-    if (isset($_SERVER['REQUEST_URI']) && preg_match('/(masturba|fute)/', $_SERVER['REQUEST_URI'])) {
+    if (isset($_SERVER['REQUEST_URI']) && preg_match('/(masturba|fute|condom)/', $_SERVER['REQUEST_URI'])) {
       return true; // No banners on certain obscene pages
     }
     if (User::getActive() && User::getActive()->noAdsUntil > time()) {

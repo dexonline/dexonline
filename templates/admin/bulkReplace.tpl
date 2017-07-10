@@ -6,9 +6,21 @@
   <h3>Înlocuire în masă: {$searchResults|count} de definiții</h3>
 
   <div class="panel-admin">
-    {foreach $searchResults as $row}
-      {include "bits/definition.tpl" showDropup=0 showStatus=1 showUser=0}
-    {/foreach}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <i class="glyphicon glyphicon-user"></i>
+            {$modUser}
+        </div>
+
+      {foreach $diffs as $d}
+      {if isset($d)}
+        <div class="panel-body">
+          <p>{$d}</p>
+        </div>
+      {/if}
+      {/foreach}
+
+      </div>
   </div>
 
   <form>

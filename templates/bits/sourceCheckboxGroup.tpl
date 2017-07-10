@@ -1,9 +1,9 @@
 {foreach $sources as $source}
-  <div>
+  <span>
     <input type="checkbox"
            name="s[]"
            value="{$source->id}"
            id="s_{$source->id}">
     {$source->shortName|escape}
-  </div>
+  </span>
 {/foreach}

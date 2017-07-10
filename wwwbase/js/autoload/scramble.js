@@ -94,7 +94,7 @@ $(function() {
       this.position.set(this.getX(), TOP_Y);
       this.interactive = true;
       this.buttonMode = true;
-      this.on('pointerup', this.clickTile);
+      this.on('pointerup', this.toggle);
     }
 
     // returns the X coordinate for this tile
@@ -137,38 +137,35 @@ $(function() {
       }
     }
 
-    // moves the tile at position pos on row1 to the first open slot on row2
-    move(row1, row2) {
-      if (row1[this.pos] != NIL) {
-        var i = 0;
-        while (row2[i] != NIL) {
-          i++;
-        }
-        row2[i] = row1[this.pos];
-        row1[this.pos] = NIL;
-        
-        this.startAnimation(i);
+    // moves the tile to the first open slot on the other row
+    toggle() {
+      var src, dest;
+      if (this.top) {
+        src = topTiles;
+        dest = bottomTiles;
+      } else {
+        src = bottomTiles;
+        dest = topTiles;
       }
+
+      var i = 0;
+      while (dest[i] != NIL) {
+        i++;
+      }
+      dest[i] = src[this.pos];
+      src[this.pos] = NIL;
+
+      this.startAnimation(i);
     }
 
-    // moves the tile to the first open slot on the bottom row
-    gather() {
-      this.move(topTiles, bottomTiles);
-    }
-
-    // moves the tile to the first open slot on the top row
-    scatter() {
-      this.move(bottomTiles, topTiles);
-    }
-
-    // sends letters on the bottom row back to the top row
+    // sends the last tile on the bottom row back to the top row
     static scatterLastBottom() {
       var j = bottomTiles.length - 1;
       while ((j >= 0) && (bottomTiles[j] == NIL)) {
         j--;
       }
       if (j >= 0) {
-        tiles[bottomTiles[j]].scatter();
+        tiles[bottomTiles[j]].toggle();
       }
     }
 
@@ -176,16 +173,8 @@ $(function() {
     static scatterBottomRow() {
       for (var j = 0; j < bottomTiles.length; j++) {
         if (bottomTiles[j] != NIL) {
-          tiles[bottomTiles[j]].scatter();
+          tiles[bottomTiles[j]].toggle();
         }
-      }
-    }
-
-    clickTile() {
-      if (this.top) {
-        this.gather();
-      } else {
-        this.scatter();
       }
     }
   }
@@ -342,7 +331,7 @@ $(function() {
       }
 
       if (i < topTiles.length) {
-        tiles[topTiles[i]].gather();
+        tiles[topTiles[i]].toggle();
       }
     }
   }

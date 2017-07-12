@@ -1,6 +1,7 @@
 #gamePanel,
 #wordListPanel,
-#restartGameButton {
+#restartGameButton,
+#gameIdPanel {
   display: none;
 }
 
@@ -21,4 +22,8 @@ canvas {
   max-width: 640px;
   text-align: center;
   width: 100%;
+}
+
+#gameId {
+  font-weight: bold;
 }

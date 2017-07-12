@@ -260,6 +260,7 @@ class SmartyWrap {
           self::$jsFiles[28] = 'hotkeys.js';
           break;
         case 'callToAction':  self::$jsFiles[29] = 'callToAction.js'; break;
+        case 'seedrandom':    self::$jsFiles[30] = 'third-party/seedrandom.min.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           Util::redirect(Core::getWwwRoot());

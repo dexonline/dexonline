@@ -12,6 +12,8 @@ $(function() {
 
   const MINIMUM_WORD_LENGTH = 3;
 
+  const GAME_ID_LENGTH = 8; // excluding the encoded params
+
   const CANVAS_WIDTH = 640;
   const CANVAS_HEIGHT = 480;
   const TILE_WIDTH = 75;
@@ -33,6 +35,12 @@ $(function() {
   const ANIMATION_STEPS = 10; // for letter moves
 
   const COOKIE_NAME = 'scramble';
+
+  // maps 0-based HTML field values to parameter values
+  const PARAM_VALUES = {
+    level: [ 4, 5, 6, 7 ],
+    seconds: [ 60, 120, 180, 240, 300 ],
+  }
 
   // game states
   const ST_PLAYING = 0;
@@ -286,6 +294,51 @@ $(function() {
     }
   }
 
+  function toBase36(d) {
+    return (d < 10)
+      ? String.fromCharCode('0'.charCodeAt(0) + d)
+      : String.fromCharCode('A'.charCodeAt(0) + d - 10);
+  }
+
+  function fromBase36(d) {
+    return (d >= '0') && (d <= '9')
+      ? d.charCodeAt(0) - '0'.charCodeAt(0)
+      : d.charCodeAt(0) - 'A'.charCodeAt(0) + 10;
+  }
+
+  // encode each game parameter in base 6, then output a base-36 string
+  function encodeGameParams() {
+    return toBase36(gameParams.mode * 6 + gameParams.level) +
+      toBase36(gameParams.useDiacritics * 6 + gameParams.seconds);
+  }
+
+  function decodeGameParams(gameId) {
+    var code = gameId.substr(-2);
+    var d1 = fromBase36(code[0]);
+    var d2 = fromBase36(code[1]);
+
+    return {
+      mode: Math.floor(d1 / 6),
+      level: d1 % 6,
+      useDiacritics: Math.floor(d2 / 6),
+      seconds: d2 % 6,
+    }
+  }
+
+  // generates a random game ID, which includes the game parameters in a recoverable way
+  function generateGameId(params) {
+    // generate GAME_ID_LENGTH base-36 digits
+    var s = '';
+    for (var i = 0; i < GAME_ID_LENGTH; i++) {
+      s += toBase36(Math.floor(Math.random() * 36));
+    }
+
+    // append the encoded parameters
+    s += encodeGameParams();
+
+    return s;
+  }
+
   function init() {
     // initialize Pixi
     renderer = PIXI.autoDetectRenderer({
@@ -319,16 +372,22 @@ $(function() {
         console.log('Nu pot descărca listele de cuvinte.');
       });
 
-    // set HTML fields according to cookie
-    var cookie = $.cookie(COOKIE_NAME);
-    if (cookie) {
-      cookie = JSON.parse(cookie);
+    // look for preset options in (a) game ID then (b) cookie
+    var params = null;
+    if (window.location.hash) {
+      params = decodeGameParams(window.location.hash);
+    } else if ($.cookie(COOKIE_NAME)) {
+      params = JSON.parse($.cookie(COOKIE_NAME));
+    }
+    if (params) {
       $('#optionsDiv .active input').each(function() {
         var name = $(this).attr('name');
-        var sel = '.btn-group input[name="' + name + '"][value="' + cookie[name] + '"]';
+        var sel = '.btn-group input[name="' + name + '"][value="' + params[name] + '"]';
         $(sel).closest('.btn').button('toggle');
       });
     }
+    // any further option changes will cause the fragment (hash) to disappear
+    $('#optionsDiv input').change(removeHash);
 
     drawCanvasElements();
   }
@@ -341,6 +400,17 @@ $(function() {
       useDiacritics: parseInt($('.active input[name="useDiacritics"]').val()),
       seconds: parseInt($('.active input[name="seconds"]').val()),
     };
+
+    var gameId = window.location.hash.split('#')[1];
+    if (gameId) {
+      gameId = gameId.substr(1); // strip the # itself
+    } else {
+      gameId = generateGameId();
+      window.location.hash = gameId;
+    }
+    $('#gameId').text(gameId);
+    Math.seedrandom(gameId);
+
     $.cookie(COOKIE_NAME, JSON.stringify(gameParams), { expires: 3650, path: '/' });
 
     getNewLetters();
@@ -349,6 +419,7 @@ $(function() {
     $('#wordCountDiv').toggle(gameParams.mode != MODE_ONE_ANAGRAM);
     $('#mainMenu').hide();
     $('#gamePanel').show();
+    $('#gameIdPanel').show();
     $('#score').text('0');
 
     gameScene.visible = true;
@@ -365,13 +436,14 @@ $(function() {
   }
 
   // generate a letter set
-  function getLetters(wordList, level) {
+  function getLetters(wordList) {
+    var targetLength = PARAM_VALUES.level[gameParams.level];
     var s;
 
     // choose a random word
     do {
       s = wordList[Math.floor(Math.random() * wordList.length)];
-    } while (s.length != level);
+    } while (s.length != targetLength);
 
     // shuffles the letters
     var a = s.split('');
@@ -435,7 +507,7 @@ $(function() {
   // generate new letters at the game start or in anagram mode
   function getNewLetters() {
     var wl = gameParams.useDiacritics ? wordListDia : wordList;
-    letters = getLetters(wl, gameParams.level);
+    letters = getLetters(wl);
     var limit = frequencyTable(letters);
     getLegalWords(wl, limit);
     writeLegalWords();
@@ -544,7 +616,7 @@ $(function() {
   }
 
   function startTimer() {
-    var secondsLeft = gameParams.seconds;
+    var secondsLeft = PARAM_VALUES.seconds[gameParams.seconds];
     var timer = setInterval(decrementTimer, 1000);
 
     $('#timer').text(minutesAndSeconds(secondsLeft));
@@ -636,12 +708,19 @@ $(function() {
 
   }
 
+  function removeHash () { 
+    history.pushState('', document.title, window.location.pathname
+                      + window.location.search);
+  }
+
   // this handles div visibility only; game mechanics are in startGame()
   function restartGame() {
     $('#mainMenu').show();
     $('#gamePanel').hide();    
     $('#wordListPanel').hide();
     $('#restartGameButton').hide();
+    $('#gameIdPanel').hide();
+    removeHash();
   }
 
   // Scroll the canvas into view unless it is already entirely in the viewport

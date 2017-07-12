@@ -52,16 +52,16 @@
             <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-info">
-                  <input type="radio" name="level" value="4"> 4 litere
+                  <input type="radio" name="level" value="0"> 4 litere
                 </label>
                 <label class="btn btn-info active">
-                  <input type="radio" name="level" value="5"> 5 litere
+                  <input type="radio" name="level" value="1"> 5 litere
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="level" value="6"> 6 litere
+                  <input type="radio" name="level" value="2"> 6 litere
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="level" value="7"> 7 litere
+                  <input type="radio" name="level" value="3"> 7 litere
                 </label>
               </div>
             </div>
@@ -86,19 +86,19 @@
             <div class="col-sm-10">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="60"> un minut
+                  <input type="radio" name="seconds" value="0"> un minut
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="120"> 2 minute
+                  <input type="radio" name="seconds" value="1"> 2 minute
                 </label>
                 <label class="btn btn-info active">
-                  <input type="radio" name="seconds" value="180"> 3 minute
+                  <input type="radio" name="seconds" value="2"> 3 minute
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="240"> 4 minute
+                  <input type="radio" name="seconds" value="3"> 4 minute
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="seconds" value="300"> 5 minute
+                  <input type="radio" name="seconds" value="4"> 5 minute
                 </label>
               </div>
             </div>
@@ -234,4 +234,10 @@
       </div>
     </div>
   </div>
-{/block}
+
+  <div id="gameIdPanel" class="panel panel-default">
+    <div class="panel-body">
+      ID joc: <span id="gameId"></span>
+    </div>
+  </div>
+</div>{/block}

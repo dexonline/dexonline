@@ -20,7 +20,13 @@ $forms = Model::factory('InflectedForm')
        ->select('i.formNoAccent')
        ->distinct()
        ->join('Lexem', ['i.lexemId', '=', 'l.id'], 'l')
+       ->join('ModelType', ['l.modelType', '=', 'mt.code'], 'mt')
+       ->join('Model', 'mt.canonical = m.modelType and l.modelNumber = m.number', 'm')
+       ->join('ModelDescription',
+              'm.id = md.modelId and i.variant = md.variant and i.inflectionId = md.inflectionId',
+              'md')
        ->where('l.isLoc', 1)
+       ->where('md.isLoc', 1)
        ->where_raw('binary i.formNoAccent rlike "^[a-zăâîșț]+$"') // no caps - chemical symbols etc.
        ->where_raw('char_length(i.formNoAccent) between 3 and 7')
        ->order_by_asc('i.formNoAccent')

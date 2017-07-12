@@ -10,6 +10,10 @@ define('STATIC_SERVER_DIR', '/download/scrabble');
 
 Log::notice('started');
 
+$locVersions = Config::getLocVersions();
+$lv = $locVersions[1]->name; // use the last frozen one
+LocVersion::changeDatabase($lv);
+
 Log::info('collecting forms');
 $forms = Model::factory('InflectedForm')
        ->table_alias('i')

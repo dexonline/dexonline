@@ -237,7 +237,16 @@
 
   <div id="gameIdPanel" class="panel panel-default">
     <div class="panel-body">
-      ID joc: <span id="gameId"></span>
+      Permalink:
+      <a id="permalink" href="#">
+        <i class="glyphicon glyphicon-link"></i>
+        <span></span>
+      </a>
+
+      <p class="help-block">
+        Puteți trimite această adresă prietenilor dumneavoastră pentru
+        a vă compara scorurile pe exact aceleași combinații de litere.
+      </p>
     </div>
   </div>
 </div>{/block}

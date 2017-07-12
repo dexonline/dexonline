@@ -401,14 +401,15 @@ $(function() {
       seconds: parseInt($('.active input[name="seconds"]').val()),
     };
 
-    var gameId = window.location.hash.split('#')[1];
+    var gameId = window.location.hash;
     if (gameId) {
       gameId = gameId.substr(1); // strip the # itself
     } else {
       gameId = generateGameId();
       window.location.hash = gameId;
     }
-    $('#gameId').text(gameId);
+    $('#permalink').attr('href', window.location.href);
+    $('#permalink span').text(window.location.href);
     Math.seedrandom(gameId);
 
     $.cookie(COOKIE_NAME, JSON.stringify(gameParams), { expires: 3650, path: '/' });

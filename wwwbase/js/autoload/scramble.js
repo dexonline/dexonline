@@ -32,6 +32,8 @@ $(function() {
 
   const ANIMATION_STEPS = 10; // for letter moves
 
+  const COOKIE_NAME = 'scramble';
+
   // game states
   const ST_PLAYING = 0;
   const ST_RESIGNED = 1;
@@ -317,6 +319,17 @@ $(function() {
         console.log('Nu pot descărca listele de cuvinte.');
       });
 
+    // set HTML fields according to cookie
+    var cookie = $.cookie(COOKIE_NAME);
+    if (cookie) {
+      cookie = JSON.parse(cookie);
+      $('#optionsDiv .active input').each(function() {
+        var name = $(this).attr('name');
+        var sel = '.btn-group input[name="' + name + '"][value="' + cookie[name] + '"]';
+        $(sel).closest('.btn').button('toggle');
+      });
+    }
+
     drawCanvasElements();
   }
 
@@ -328,6 +341,7 @@ $(function() {
       useDiacritics: parseInt($('.active input[name="useDiacritics"]').val()),
       seconds: parseInt($('.active input[name="seconds"]').val()),
     };
+    $.cookie(COOKIE_NAME, JSON.stringify(gameParams), { expires: 3650, path: '/' });
 
     getNewLetters();
 

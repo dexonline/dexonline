@@ -3,6 +3,7 @@ $(function() {
 
   const WORD_LIST_DIA_URL = 'https://dexonline.ro/static/download/game-word-list-dia.txt';
   const WORD_LIST_URL = 'https://dexonline.ro/static/download/game-word-list.txt';
+  const TILESET_URL = wwwRoot + 'img/scramble/tileset.png';
   const ALPHABET = 'aăâbcdefghiîjklmnopqrsștțuvwxyz';
 
   const MODE_WORD_SEARCH = 0;
@@ -30,7 +31,11 @@ $(function() {
 
   const ANIMATION_STEPS = 10; // for letter moves
 
-  const TILESET_URL = wwwRoot + 'img/scramble/tileset.png';
+  // game states
+  const ST_PLAYING = 0;
+  const ST_RESIGNED = 1;
+  const ST_TIMEOUT = 2;
+  const ST_WON = 3;
 
   const MESSAGES = {
     MSG_CORRECT: {
@@ -67,21 +72,21 @@ $(function() {
     strokeThickness: 1,
   };
 
-  var letters;     // letter set
-  var legalWords;  // words that can be made from the letter set
-  var wordsFound;  // boolean array indicating which legal words the user has found
-  var tiles;       // PIXI sprites
-  var topTiles;    // tiles on the top row (null for empty spaces)
-  var bottomTiles; // ditto
-  var wordStem;    // div to be cloned for every legal word
+  var letters;       // letter set
+  var legalWords;    // words that can be made from the letter set
+  var wordsFound;    // boolean array indicating which legal words the user has found
+  var numWordsLeft;  // number of words left to find
+  var tiles;         // PIXI sprites
+  var topTiles;      // tiles on the top row (null for empty spaces)
+  var bottomTiles;   // ditto
+  var wordStem;      // div to be cloned for every legal word
   var wordList, wordListDia; // word lists downloaded from server, without and with diacritics
-  var gameParams;  // main menu options
+  var gameParams;    // main menu options
 
   var stage;
   var renderer;
   var messages;
-  var resigned = false;
-  var gameOverText;
+  var state;
   var gameScene;
   var gameOverScene;
 
@@ -244,10 +249,10 @@ $(function() {
    * A text that appears once at the end of the game.
    **/
   class GameOverText extends PIXI.Text {
-    constructor() {
-      super('STIRFÂȘ :-)', {
-        fill: '#761818',
-        stroke: '#400',
+    constructor(text, color) {
+      super(text, {
+        fill: color,
+        stroke: '#444',
         font: '60px Verdana, sans-serif',
         fontWeight: 'bold',
         strokeThickness: 1,
@@ -266,11 +271,6 @@ $(function() {
         this.scale.set(s, s);
         this.rotation = -2 * Math.PI * s; // do a 360 while the scale goes from 0 to 1
       }
-    }
-
-    reset() {
-      this.scale.set(1, 1);
-      this.rotation = 0;
     }
   }
 
@@ -351,6 +351,7 @@ $(function() {
     $('#foundWords').text('0');
     $('#maxWords').text(legalWords.length);
 
+    state = ST_PLAYING;
     resize();
     scrollIntoView();
     $(document).keypress(letterHandler);
@@ -423,6 +424,8 @@ $(function() {
         }
       }
     }
+
+    numWordsLeft = legalWords.length;
   }
 
   // generate new letters at the game start or in anagram mode
@@ -511,6 +514,10 @@ $(function() {
           .find('i')
           .removeClass('glyphicon-remove').addClass('glyphicon-ok');
         Tile.scatterBottomRow();
+
+        if (!--numWordsLeft) {
+          state = ST_WON;
+        }
       } else {
         getNewLetters();
       }
@@ -535,7 +542,7 @@ $(function() {
     function decrementTimer() {
       secondsLeft--;
       $('#timer').text(minutesAndSeconds(secondsLeft));
-      if (!secondsLeft || resigned) {
+      if (!secondsLeft || (state != ST_PLAYING)) {
         clearInterval(timer);
         endGame();
       }
@@ -543,7 +550,7 @@ $(function() {
   }
 
   function resign() {
-    resigned = true;
+    state = ST_RESIGNED;
   }
 
   // creates letter tiles
@@ -580,9 +587,6 @@ $(function() {
     for (var key in MESSAGES) {
       messages[key] = new Message(key);
     }
-
-    gameOverText = new GameOverText();
-    gameOverScene.addChild(gameOverText);
   }
 
   function writeLegalWords() {
@@ -610,10 +614,16 @@ $(function() {
     $('#wordListPanel').slideDown();
     $('#restartGameButton').show();
 
+    var gameOverText = (state == ST_WON)
+        ? new GameOverText('Felicitări!', '#4cae4c')
+        : new GameOverText('STIRFÂȘ :-)', '#761818')
+    gameOverScene.addChild(gameOverText);
+
     // switch scenes
     gameScene.visible = false;
     gameOverScene.visible = true;
     gameOverText.startAnimation();
+
   }
 
   function restartGame() {
@@ -622,10 +632,10 @@ $(function() {
     $('#wordListPanel').hide();
     $('#restartGameButton').hide();
 
-    resigned = false;
+    state = ST_PLAYING;
     gameScene.visible = true;
     gameOverScene.visible = false;
-    gameOverText.reset();
+    gameOverScene.removeChildren();
   }
 
   // Scroll the canvas into view unless it is already entirely in the viewport
@@ -673,7 +683,7 @@ $(function() {
     }
 
     if (gameOverScene.visible) {
-      gameOverText.animate();
+      gameOverScene.getChildAt(0).animate();
     }
 
     renderer.render(stage);

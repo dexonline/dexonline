@@ -40,36 +40,20 @@ $(function() {
   const MESSAGES = {
     MSG_CORRECT: {
       text: 'corect',
-      style: {
-        fill: '#3c763d',
-        stroke: '#3c763d',
-      },
+      color: '#3c763d',
     },
     MSG_ALREADY_FOUND: {
       text: 'deja găsit',
-      style: {
-        fill: '#8a6b3d',
-        stroke: '#8a6b3d',
-      },
+      color: '#8a6b3d',
     },
     MSG_WRONG: {
       text: 'incorect',
-      style: {
-        fill: '#a94442',
-        stroke: '#a94442',
-      },
+      color: '#a94442',
     },
     MSG_TOO_SHORT: {
       text: 'prea scurt',
-      style: {
-        fill: '#a94442',
-        stroke: '#a94442',
-      },
+      color: '#a94442',
     },
-  };
-  const MESSAGES_COMMON_STYLE = {
-    font: '24px Verdana, sans-serif',
-    strokeThickness: 1,
   };
 
   var letters;       // letter set
@@ -220,8 +204,12 @@ $(function() {
   class Message extends PIXI.Text {
     constructor(key) {
       var data = MESSAGES[key];
-      var style = Object.assign(MESSAGES_COMMON_STYLE, data.style);
-      super(data.text, style);
+      super(data.text, {
+        font: '24px Verdana, sans-serif',
+        fill: data.color,
+        stroke: data.color,
+        strokeThickness: 1,
+      });
 
       this.anchor.set(0.5, 0.5);
       this.position.set(MESSAGES_X, CONTROLS_Y);

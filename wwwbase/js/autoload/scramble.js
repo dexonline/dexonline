@@ -7,7 +7,8 @@ $(function() {
   const ALPHABET = 'aăâbcdefghiîjklmnopqrsștțuvwxyz';
 
   const MODE_WORD_SEARCH = 0;
-  const MODE_ANAGRAM = 1;
+  const MODE_ONE_ANAGRAM = 1;
+  const MODE_ALL_ANAGRAMS = 2;
 
   const MINIMUM_WORD_LENGTH = 3;
 
@@ -331,12 +332,10 @@ $(function() {
     getNewLetters();
 
     $('#optionsDiv').collapse('hide');
-    $('#wordCountDiv').toggle(gameParams.mode == MODE_WORD_SEARCH);
+    $('#wordCountDiv').toggle(gameParams.mode != MODE_ONE_ANAGRAM);
     $('#mainMenu').hide();
     $('#gamePanel').show();
     $('#score').text('0');
-    $('#foundWords').text('0');
-    $('#maxWords').text(legalWords.length);
 
     gameScene.visible = true;
     gameOverScene.visible = false;
@@ -395,7 +394,7 @@ $(function() {
     for (var i in wordList) {
       var len = wordList[i].length;
 
-      if ((gameParams.mode != MODE_ANAGRAM) || (len == letters.length)) {
+      if ((gameParams.mode == MODE_WORD_SEARCH) || (len == letters.length)) {
         var legal = true;
         var f = [];
 
@@ -427,6 +426,8 @@ $(function() {
     getLegalWords(wl, limit);
     writeLegalWords();
     drawLetters();
+    $('#foundWords').text('0');
+    $('#maxWords').text(legalWords.length);
   }
 
   function letterHandler(event) {
@@ -494,10 +495,12 @@ $(function() {
       messages['MSG_CORRECT'].startAnimation();
       wordsFound[i] = true;
 
-      var score = (gameParams.mode == MODE_ANAGRAM) ? 1 : (5 * word.length);
+      var score = (gameParams.mode == MODE_WORD_SEARCH) ? (5 * word.length) : 1;
       $('#score').text(score + parseInt($('#score').text()));
 
-      if (gameParams.mode == MODE_WORD_SEARCH) {
+      if (gameParams.mode == MODE_ONE_ANAGRAM) {
+        getNewLetters();
+      } else {
         $('#foundWords').text(1 + parseInt($('#foundWords').text()));
         $('#legalWord-' + i)
           .find('a')
@@ -507,10 +510,12 @@ $(function() {
         Tile.scatterBottomRow();
 
         if (!--numWordsLeft) {
-          state = ST_WON;
+          if (gameParams.mode == MODE_ALL_ANAGRAMS) {
+            getNewLetters();
+          } else {
+            state = ST_WON;
+          }
         }
-      } else {
-        getNewLetters();
       }
     }
   }

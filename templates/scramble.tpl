@@ -38,7 +38,10 @@
                   <input type="radio" name="mode" value="0"> toate cuvintele
                 </label>
                 <label class="btn btn-info">
-                  <input type="radio" name="mode" value="1"> doar anagrame
+                  <input type="radio" name="mode" value="1"> o anagramă
+                </label>
+                <label class="btn btn-info">
+                  <input type="radio" name="mode" value="2"> toate anagramele
                 </label>
               </div>
             </div>
@@ -109,7 +112,7 @@
         </p>
 
         <p>
-          Sunt două moduri de joc:
+          Sunt trei moduri de joc:
         </p>
 
         <ol>
@@ -118,9 +121,16 @@
             găsiți toate cuvintele de cel puțin trei litere.
           </li>
           <li>
-            <b>Doar anagrame:</b>
+            <b>O anagramă:</b>
             găsiți un cuvânt care folosește toate literele, apoi
             primiți alt set de litere.
+          </li>
+          <li>
+            <b>Toate anagramele:</b>
+            găsiți toate cuvintele care folosesc toate literele, apoi
+            primiți alt set de litere. De exemplu, pentru grupul AINTT
+            trebuie să ghiciți toate cele trei anagrame <i>(tanti, titan, țintă)</i> pentru
+            a trece la următorul set.
           </li>
         </ol>
 

@@ -296,7 +296,6 @@ $(function() {
     gameOverScene = new PIXI.Container();
     stage.addChild(gameScene);
     stage.addChild(gameOverScene);
-    gameOverScene.visible = false;
 
     // automatic scaling
     $(window).resize(resize);
@@ -338,6 +337,10 @@ $(function() {
     $('#score').text('0');
     $('#foundWords').text('0');
     $('#maxWords').text(legalWords.length);
+
+    gameScene.visible = true;
+    gameOverScene.visible = false;
+    gameOverScene.removeChildren(); // remove the game over text from the previous play
 
     state = ST_PLAYING;
     resize();
@@ -614,16 +617,12 @@ $(function() {
 
   }
 
+  // this handles div visibility only; game mechanics are in startGame()
   function restartGame() {
     $('#mainMenu').show();
     $('#gamePanel').hide();    
     $('#wordListPanel').hide();
     $('#restartGameButton').hide();
-
-    state = ST_PLAYING;
-    gameScene.visible = true;
-    gameOverScene.visible = false;
-    gameOverScene.removeChildren();
   }
 
   // Scroll the canvas into view unless it is already entirely in the viewport

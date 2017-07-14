@@ -8,6 +8,11 @@ $(function() {
       placeholder: 'caută o etichetă',
       width: '100%',
     });
+
+    $('.colorpicker-component').colorpicker({
+      align: 'left',
+      format: 'hex',
+    });
   }
 
   init();

@@ -208,6 +208,9 @@ class SmartyWrap {
         case 'editableMeaningTree': self::$cssFiles[17] = 'editableMeaningTree.css'; break;
         case 'callToAction':        self::$cssFiles[18] = 'callToAction.css'; break;
         case 'privateMode':         self::$cssFiles[19] = 'opensans.css'; break;
+        case 'colorpicker':
+          self::$cssFiles[20] = 'third-party/bootstrap-colorpicker.min.css';
+          break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           Util::redirect(Core::getWwwRoot());
@@ -261,6 +264,7 @@ class SmartyWrap {
           break;
         case 'callToAction':  self::$jsFiles[29] = 'callToAction.js'; break;
         case 'seedrandom':    self::$jsFiles[30] = 'third-party/seedrandom.min.js'; break;
+        case 'colorpicker':   self::$jsFiles[31] = 'third-party/bootstrap-colorpicker.min.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           Util::redirect(Core::getWwwRoot());

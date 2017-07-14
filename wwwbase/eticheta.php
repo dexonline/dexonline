@@ -14,6 +14,8 @@ $tag = Tag::get_by_id($id);
 if ($saveButton) {
   $tag->value = Request::get('value');
   $tag->parentId = Request::get('parentId');
+  $tag->color = Request::get('color');
+  $tag->background = Request::get('background');
 
   $errors = $tag->validate();
   if ($errors) {
@@ -79,8 +81,8 @@ SmartyWrap::assign('lexemCount', $lexemCount);
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('meaningCount', $meaningCount);
 SmartyWrap::assign('meanings', $meanings);
-SmartyWrap::addCss('admin');
-SmartyWrap::addJs('select2Dev');
+SmartyWrap::addCss('admin', 'colorpicker');
+SmartyWrap::addJs('select2Dev', 'colorpicker');
 SmartyWrap::display('eticheta.tpl');
 
 ?>

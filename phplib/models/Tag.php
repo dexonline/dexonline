@@ -3,9 +3,20 @@
 class Tag extends BaseObject implements DatedObject {
   public static $_table = 'Tag';
 
+  const DEFAULT_COLOR = '#ffffff';
+  const DEFAULT_BACKGROUND = '#1e83c2';
+
   // fields populated during loadTree()
   public $canDelete = 1;
   public $children = [];
+
+  function getColor() {
+    return $this->color ? $this->color : self::DEFAULT_COLOR;
+  }
+
+  function getBackground() {
+    return $this->background ? $this->background : self::DEFAULT_BACKGROUND;
+  }
 
   static function loadByObject($objectType, $objectId) {
     return Model::factory('Tag')

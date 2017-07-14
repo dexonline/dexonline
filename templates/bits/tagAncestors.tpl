@@ -2,5 +2,5 @@
   {if $i}
     <i class="glyphicon glyphicon-chevron-right"></i>
   {/if}
-  <a href="{$wwwRoot}eticheta.php?id={$t->id}" class="label label-info">{$t->value}</a>
+  {include "bits/tag.tpl" link=true}
 {/foreach}

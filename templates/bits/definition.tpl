@@ -25,7 +25,7 @@
   <p class="def" title="Clic pentru a naviga la acest cuvânt">
     {$def->htmlRep}
     {foreach $row->tags as $t}
-      <label class="label label-info">{$t->value}</label>
+      {include "bits/tag.tpl"}
     {/foreach}
   </p>
 

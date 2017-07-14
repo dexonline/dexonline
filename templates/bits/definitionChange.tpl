@@ -48,7 +48,7 @@
   <div class="panel-footer clearfix">
     etichete:
     {foreach $c.tags as $t}
-      <label class="label label-info">{$t->value}</label>
+      {include "bits/tag.tpl"}
     {/foreach}
 
 

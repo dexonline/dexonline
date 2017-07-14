@@ -23,7 +23,7 @@
           <span class="lexemName">{include "bits/lexemName.tpl" lexem=$lexem}</span>
 
           {foreach $lexem->getTags() as $t}
-            <label class="label label-info">{$t->value}</label>
+            {include "bits/tag.tpl"}
           {/foreach}
 
           {include "bits/locInfo.tpl" isLoc=$lexem->isLoc}

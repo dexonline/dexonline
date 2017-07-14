@@ -1,5 +1,5 @@
 <span class="tag-group">
   {foreach $tags as $tag}
-    <span class="label label-tag">{$tag->value}</span>
+    {include "bits/tag.tpl" t=$tag}
   {/foreach}
 </span>

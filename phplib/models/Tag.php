@@ -6,8 +6,7 @@ class Tag extends BaseObject implements DatedObject {
   const DEFAULT_COLOR = '#ffffff';
   const DEFAULT_BACKGROUND = '#1e83c2';
 
-  // fields populated during loadTree()
-  public $canDelete = 1;
+  // populated during loadTree()
   public $children = [];
 
   function getColor() {
@@ -59,9 +58,9 @@ class Tag extends BaseObject implements DatedObject {
     return self::loadByObject(ObjectTag::TYPE_MEANING, $meaningId);
   }
 
-  // Returns an array of root tags with their $children and $canDelete fields populated
+  // Returns an array of root tags with their $children fields populated
   static function loadTree() {
-    $tags = Model::factory('Tag')->order_by_asc('displayOrder')->find_many();
+    $tags = Model::factory('Tag')->order_by_asc('value')->find_many();
 
     // Map the tags by id
     $map = [];
@@ -69,20 +68,11 @@ class Tag extends BaseObject implements DatedObject {
       $map[$t->id] = $t;
     }
 
-    // Mark tags which can be deleted
-    $usedIds = Model::factory('ObjectTag')
-             ->select('tagId')
-             ->distinct()
-             ->find_many();
-    foreach ($usedIds as $rec) {
-      $map[$rec->tagId]->canDelete = 0;
-    }
-
     // Make each tag its parent's child
     foreach ($tags as $t) {
       if ($t->parentId) {
         $p = $map[$t->parentId];
-        $p->children[$t->displayOrder] = $t;
+        $p->children[] = $t;
       }
     }
 

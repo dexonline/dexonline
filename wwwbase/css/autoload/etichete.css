@@ -1,45 +1,15 @@
-.tip {
-  margin: 10px;
-  text-align: center;
+#tagTree {
+  line-height: 200%;
 }
 
-.tip span {
-  background: #e3f2fa;
-  border: 1px solid #90c9e8;
-  border-radius: 8px;
-  padding: 10px;
+#tagTree > ul {
+  padding-left: 0px;
 }
 
 #tagTree li {
-  cursor: pointer;
   list-style: none;
 }
 
-.expand {
-  float: left;
-  width: 24px;
-  height: 24px;
-}
-
-.value {
-  min-height: 35px;
-}
-
-#valueBox {
-  max-height: 2em;
-}
-
-#tagTree .selected ul {
-  background: #e3f2fa;
-}
-
-#menuBar {
-  background-color: #90c9e8;
-  display: none;
-  line-height: 2.5em;
-}
-
-#menuActions {
-  float: right;
-  margin-right: 5px;
+#tagTree .glyphicon {
+  cursor: pointer;
 }

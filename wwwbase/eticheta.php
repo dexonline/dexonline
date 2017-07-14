@@ -9,11 +9,15 @@ $MEANING_LIMIT = 50;
 $id = Request::get('id');
 $saveButton = Request::has('saveButton');
 
-$tag = Tag::get_by_id($id);
+if ($id) {
+  $tag = Tag::get_by_id($id);
+} else {
+  $tag = Model::factory('Tag')->create();
+}
 
 if ($saveButton) {
   $tag->value = Request::get('value');
-  $tag->parentId = Request::get('parentId');
+  $tag->parentId = Request::get('parentId', 0);
   $tag->setColor(Request::get('color'));
   $tag->setBackground(Request::get('background'));
 

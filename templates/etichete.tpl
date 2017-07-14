@@ -60,5 +60,10 @@
       <u>s</u>alvează
     </button>
 
+    <a class="btn btn-default" href="eticheta">
+      <i class="glyphicon glyphicon-plus"></i>
+      adaugă o etichetă
+    </a>
+
   </form>
 {/block}

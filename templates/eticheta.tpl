@@ -3,7 +3,11 @@
 {block "title"}Eticheta {$t->value}{/block}
 
 {block "content"}
-  <h3>Eticheta {$t->value}</h3>
+  {if $t->id}
+    <h3>Eticheta {$t->value}</h3>
+  {else}
+    <h3>Adaugă o etichetă</h3>
+  {/if}
 
   {include "bits/tagAncestors.tpl" tag=$t}
 
@@ -91,6 +95,11 @@
       <i class="glyphicon glyphicon-floppy-disk"></i>
       <u>s</u>alvează
     </button>
+
+    <a class="btn btn-default" href="etichete">
+      <i class="glyphicon glyphicon-arrow-left"></i>
+      înapoi la lista de etichete
+    </a>
 
     <a class="btn btn-link" href="{if $t->id}?id={$t->id}{/if}">
       renunță

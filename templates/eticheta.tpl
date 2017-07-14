@@ -28,6 +28,25 @@
             </div>
           </div>
         </div>
+
+        <div class="form-group {if isset($errors.parentId)}has-error{/if}">
+          <label for="parentId" class="col-md-2 control-label">
+            părinte
+          </label>
+          <div class="col-md-10">
+            <div>
+              <select id="parentId" name="parentId" class="form-control">
+                {if $t->parentId}
+                  <option value="{$t->parentId}" selected></option>
+                {/if}
+              </select>
+              {include "bits/fieldErrors.tpl" errors=$errors.parentId|default:null}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
       </div>
     </div>
 

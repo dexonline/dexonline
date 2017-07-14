@@ -80,6 +80,15 @@ class Tag extends BaseObject implements DatedObject {
       $errors['value'][] = 'Numele nu poate fi vid.';
     }
 
+    // make sure the chosen parent is not also a descendat - no cycles allowed
+    $p = $this;
+    do {
+      $p = Tag::get_by_id($p->parentId);
+    } while ($p && ($p->id != ($this->id)));
+    if ($p) {
+      $errors['parentId'][] = 'Nu puteți selecta drept părinte un descendent al etichetei.';
+    }
+
     return $errors;
   }
 

@@ -13,6 +13,7 @@ $tag = Tag::get_by_id($id);
 
 if ($saveButton) {
   $tag->value = Request::get('value');
+  $tag->parentId = Request::get('parentId');
 
   $errors = $tag->validate();
   if ($errors) {
@@ -78,6 +79,8 @@ SmartyWrap::assign('lexemCount', $lexemCount);
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('meaningCount', $meaningCount);
 SmartyWrap::assign('meanings', $meanings);
+SmartyWrap::addCss('admin');
+SmartyWrap::addJs('select2Dev');
 SmartyWrap::display('eticheta.tpl');
 
 ?>

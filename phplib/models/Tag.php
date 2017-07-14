@@ -70,6 +70,19 @@ class Tag extends BaseObject implements DatedObject {
     return $result;
   }
 
+  /**
+   * Validates a tag for correctness. Returns an array of { field => array of errors }.
+   **/
+  function validate() {
+    $errors = [];
+
+    if (!$this->value) {
+      $errors['value'][] = 'Numele nu poate fi vid.';
+    }
+
+    return $errors;
+  }
+
   function delete() {
     ObjectTag::delete_all_by_tagId($this->id);
     parent::delete();

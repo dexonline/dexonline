@@ -7,6 +7,41 @@
 
   {include "bits/tagAncestors.tpl" tag=$t}
 
+  <form class="form-horizontal voffset3" method="post" role="form">
+    <input type="hidden" name="id" value="{$t->id}">
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <div class="form-group {if isset($errors.value)}has-error{/if}">
+          <label for="value" class="col-md-2 control-label">
+            nume
+          </label>
+          <div class="col-md-10">
+            <div>
+              <input type="text"
+                     class="form-control"
+                     id="value"
+                     name="value"
+                     value="{$t->value}">
+              {include "bits/fieldErrors.tpl" errors=$errors.value|default:null}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success" name="saveButton">
+      <i class="glyphicon glyphicon-floppy-disk"></i>
+      <u>s</u>alvează
+    </button>
+
+    <a class="btn btn-link" href="{if $t->id}?id={$t->id}{/if}">
+      renunță
+    </a>
+
+  </form>
+
   {if count($homonyms)}
     <h3>Ononime</h3>
 

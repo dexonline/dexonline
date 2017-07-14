@@ -7,8 +7,23 @@ $LEXEM_LIMIT = 100;
 $MEANING_LIMIT = 50;
 
 $id = Request::get('id');
+$saveButton = Request::has('saveButton');
 
 $tag = Tag::get_by_id($id);
+
+if ($saveButton) {
+  $tag->value = Request::get('value');
+
+  $errors = $tag->validate();
+  if ($errors) {
+    SmartyWrap::assign('errors', $errors);
+  } else {
+    $tag->save();
+
+    FlashMessage::add('Am salvat eticheta.', 'success');
+    Util::redirect("?id={$tag->id}");
+  }
+}
 
 $homonyms = Model::factory('Tag')
           ->where('value', $tag->value)

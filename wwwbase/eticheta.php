@@ -14,8 +14,8 @@ $tag = Tag::get_by_id($id);
 if ($saveButton) {
   $tag->value = Request::get('value');
   $tag->parentId = Request::get('parentId');
-  $tag->color = Request::get('color');
-  $tag->background = Request::get('background');
+  $tag->setColor(Request::get('color'));
+  $tag->setBackground(Request::get('background'));
 
   $errors = $tag->validate();
   if ($errors) {
@@ -27,6 +27,16 @@ if ($saveButton) {
     Util::redirect("?id={$tag->id}");
   }
 }
+
+$frequentColors = [
+  'color' => Tag::getFrequentValues('color', Tag::DEFAULT_COLOR),
+  'background' => Tag::getFrequentValues('background', Tag::DEFAULT_BACKGROUND),
+];
+
+$children = Model::factory('Tag')
+          ->where('parentId', $tag->id)
+          ->order_by_asc('value')
+          ->find_many();
 
 $homonyms = Model::factory('Tag')
           ->where('value', $tag->value)
@@ -74,6 +84,7 @@ $meanings = Model::factory('Meaning')
           ->find_many();
 
 SmartyWrap::assign('t', $tag);
+SmartyWrap::assign('children', $children);
 SmartyWrap::assign('homonyms', $homonyms);
 SmartyWrap::assign('defCount', $defCount);
 SmartyWrap::assign('searchResults', $searchResults);
@@ -81,6 +92,7 @@ SmartyWrap::assign('lexemCount', $lexemCount);
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('meaningCount', $meaningCount);
 SmartyWrap::assign('meanings', $meanings);
+SmartyWrap::assign('frequentColors', $frequentColors);
 SmartyWrap::addCss('admin', 'colorpicker');
 SmartyWrap::addJs('select2Dev', 'colorpicker');
 SmartyWrap::display('eticheta.tpl');

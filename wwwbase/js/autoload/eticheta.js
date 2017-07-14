@@ -9,10 +9,24 @@ $(function() {
       width: '100%',
     });
 
-    $('.colorpicker-component').colorpicker({
+    $('#color').closest('.colorpicker-component').colorpicker({
       align: 'left',
+      colorSelectors: collectFrequentColors('#frequent-color'),
       format: 'hex',
     });
+    $('#background').closest('.colorpicker-component').colorpicker({
+      align: 'left',
+      colorSelectors: collectFrequentColors('#frequent-background'),
+      format: 'hex',
+    });
+  }
+
+  function collectFrequentColors(sel) {
+    var result = [];
+    $(sel).find('div').each(function() {
+      result.push($(this).text());
+    });
+    return result;
   }
 
   init();

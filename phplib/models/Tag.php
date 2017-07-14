@@ -14,8 +14,31 @@ class Tag extends BaseObject implements DatedObject {
     return $this->color ? $this->color : self::DEFAULT_COLOR;
   }
 
+  function setColor($color) {
+    $this->color = ($color == self::DEFAULT_COLOR) ? '' : $color;
+  }
+
   function getBackground() {
     return $this->background ? $this->background : self::DEFAULT_BACKGROUND;
+  }
+
+  function setBackground($background) {
+    $this->background = ($background == self::DEFAULT_BACKGROUND) ? '' : $background;
+  }
+
+  function getFrequentValues($field, $default) {
+    $data = Model::factory('Tag')
+          ->select($field)
+          ->group_by($field)
+          ->order_by_expr('count(*) desc')
+          ->limit(10)
+          ->find_many();
+
+    $results = [];
+    foreach ($data as $row) {
+      $results[] = $row->$field ? $row->$field : $default;
+    }
+    return $results;
   }
 
   static function loadByObject($objectType, $objectId) {

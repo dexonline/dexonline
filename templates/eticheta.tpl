@@ -98,6 +98,14 @@
 
   </form>
 
+  {if count($children)}
+    <h3>Descendenți direcți</h3>
+
+    {foreach $children as $c}
+      {include "bits/tag.tpl" t=$c link=true}
+    {/foreach}
+  {/if}
+
   {if count($homonyms)}
     <h3>Ononime</h3>
 
@@ -173,4 +181,13 @@
       showStatus=1}
     {/foreach}
   {/if}
+
+  {* frequent colors to be used by the color pickers *}
+  {foreach $frequentColors as $color => $list}
+    <div id="frequent-{$color}">
+      {foreach $list as $color}
+        <div>{$color}</div>
+      {/foreach}
+    </div>
+  {/foreach}
 {/block}

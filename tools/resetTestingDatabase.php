@@ -203,10 +203,10 @@ createWikiKeyword($article2->id, 'metal');
 createWikiKeyword($article1->id, 'din');
 
 // Tags
-$tag1 = createTag('expresie', 0, 1);
-$tag2 = createTag('registru stilistic', 0, 2);
-$tag21 = createTag('argou', $tag2->id, 1);
-$tag22 = createTag('familiar', $tag2->id, 2);
+$tag1 = createTag('expresie', 0);
+$tag2 = createTag('registru stilistic', 0);
+$tag21 = createTag('argou', $tag2->id);
+$tag22 = createTag('familiar', $tag2->id);
 
 // run some preprocessing
 require_once __DIR__ . '/../tools/genNGram.php';
@@ -360,11 +360,10 @@ function createWikiKeyword($wikiArticleId, $keyword) {
   $wk->save();
 }
 
-function createTag($value, $parentId, $displayOrder) {
+function createTag($value, $parentId) {
   $t = Model::factory('Tag')->create();
   $t->value = $value;
   $t->parentId = $parentId;
-  $t->displayOrder = $displayOrder;
   $t->save();
   return $t;
 }

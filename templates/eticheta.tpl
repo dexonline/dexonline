@@ -105,6 +105,17 @@
       renunță
     </a>
 
+    <button type="submit"
+            name="deleteButton"
+            class="btn btn-danger pull-right"
+            {if !$canDelete}
+            disabled
+            title="Nu puteți șterge eticheta deoarece (1) are descendenți sau (2) este folosită."
+            {/if}
+            >
+      <i class="glyphicon glyphicon-trash"></i>
+      șterge
+    </button>
   </form>
 
   {if count($children)}

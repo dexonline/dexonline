@@ -8,6 +8,7 @@ $MEANING_LIMIT = 50;
 
 $id = Request::get('id');
 $saveButton = Request::has('saveButton');
+$deleteButton = Request::has('deleteButton');
 
 if ($id) {
   $tag = Tag::get_by_id($id);
@@ -41,6 +42,23 @@ $children = Model::factory('Tag')
           ->where('parentId', $tag->id)
           ->order_by_asc('value')
           ->find_many();
+
+$used = ObjectTag::get_by_tagId($tag->id);
+
+// tags can be deleted if (1) they have no children and (2) no objects use them
+$canDelete = empty($children) && !$used;
+
+if ($deleteButton) {
+  if ($canDelete) {
+    $tag->delete();
+    FlashMessage::add("Am șters eticheta «{$tag->value}».", 'success');
+    Util::redirect('etichete');
+  } else {
+    FlashMessage::add('Nu puteți șterge eticheta deoarece (1) are descendenți sau (2) este folosită',
+                      'danger');
+    Util::redirect("?id={$tag->id}");
+  }
+}
 
 $homonyms = Model::factory('Tag')
           ->where('value', $tag->value)
@@ -89,6 +107,7 @@ $meanings = Model::factory('Meaning')
 
 SmartyWrap::assign('t', $tag);
 SmartyWrap::assign('children', $children);
+SmartyWrap::assign('canDelete', $canDelete);
 SmartyWrap::assign('homonyms', $homonyms);
 SmartyWrap::assign('defCount', $defCount);
 SmartyWrap::assign('searchResults', $searchResults);

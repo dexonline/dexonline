@@ -47,7 +47,12 @@
         </button>
       {/if}
 
-      <a href="?lexemId={$lexem->id}">renunță</a>
+      <a class="btn btn-default" href="{$wwwRoot}definitie/{$lexem->formNoAccent}">
+        <i class="glyphicon glyphicon-search"></i>
+        caută
+      </a>
+
+      <a class="btn btn-link" href="?lexemId={$lexem->id}">renunță</a>
 
       {if $canEdit.loc || !$lexem->isLoc}
         <button type="submit"

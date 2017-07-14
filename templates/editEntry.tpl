@@ -163,6 +163,13 @@
       </a>
     {/if}
 
+    {if count($e->getLexems())}
+      <a class="btn btn-default" href="{$wwwRoot}definitie/{$e->getMainLexem()->formNoAccent}">
+        <i class="glyphicon glyphicon-search"></i>
+        caută
+      </a>
+    {/if}
+
     <a class="btn btn-link" href="{if $e->id}?id={$e->id}{/if}">
       renunță
     </a>

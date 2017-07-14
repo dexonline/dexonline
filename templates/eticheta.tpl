@@ -48,6 +48,31 @@
             </div>
           </div>
         </div>
+
+        <div class="form-group">
+          <label for="icon" class="col-md-2 control-label">
+            iconiță
+          </label>
+          <div class="col-md-10">
+            <div class="input-group">
+              <input type="text"
+                     class="form-control"
+                     id="icon"
+                     name="icon"
+                     value="{$t->icon}">
+              <span class="input-group-addon">
+                {if $t->icon}
+                  <i class="glyphicon glyphicon-{$t->icon}"></i>
+                {/if}
+              </span>
+            </div>
+            <p class="help-block">
+              Opțional, un nume de <a href="http://getbootstrap.com/components/#glyphicons">
+              glyphicon</a>. Copiați doar fragmentul de după <em>glyphicon-</em>, de exemplu
+              <em>plus</em> sau <em>euro</em>.
+            </p>
+          </div>
+        </div>
       </div>
 
       <div class="col-md-6">
@@ -57,15 +82,13 @@
             culoare
           </label>
           <div class="col-md-10">
-            <div>
-              <div class="input-group colorpicker-component">
-                <span class="input-group-addon"><i></i></span>
-                <input type="text"
-                       class="form-control"
-                       id="color"
-                       name="color"
-                       value="{$t->getColor()}">
-              </div>
+            <div class="input-group colorpicker-component">
+              <span class="input-group-addon"><i></i></span>
+              <input type="text"
+                     class="form-control"
+                     id="color"
+                     name="color"
+                     value="{$t->getColor()}">
             </div>
           </div>
         </div>
@@ -75,15 +98,13 @@
             fundal
           </label>
           <div class="col-md-10">
-            <div>
-              <div class="input-group colorpicker-component">
-                <span class="input-group-addon"><i></i></span>
-                <input type="text"
-                       class="form-control"
-                       id="background"
-                       name="background"
-                       value="{$t->getBackground()}">
-              </div>
+            <div class="input-group colorpicker-component">
+              <span class="input-group-addon"><i></i></span>
+              <input type="text"
+                     class="form-control"
+                     id="background"
+                     name="background"
+                     value="{$t->getBackground()}">
             </div>
           </div>
         </div>

@@ -154,7 +154,6 @@ abbr[title] {
 .def {
   color: black;
   cursor: pointer;
-  margin: 0; /* remove paragraph margin */
 }
 
 .defDetails {
@@ -274,6 +273,14 @@ dd.favoriteDefs {
 
 .text-big {
   font-size: 24px;
+}
+
+a.disabled {
+  pointer-events: none;  
+}
+
+.tagIcon {
+  padding-right: 5px;
 }
 
 .vcenter {

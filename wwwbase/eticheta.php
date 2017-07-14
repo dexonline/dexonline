@@ -21,6 +21,7 @@ if ($saveButton) {
   $tag->parentId = Request::get('parentId', 0);
   $tag->setColor(Request::get('color'));
   $tag->setBackground(Request::get('background'));
+  $tag->icon = Request::get('icon');
 
   $errors = $tag->validate();
   if ($errors) {

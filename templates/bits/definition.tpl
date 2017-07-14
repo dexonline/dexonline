@@ -22,8 +22,10 @@
 {$def=$row->definition}
 
 <div class="defWrapper">
-  <p class="def" title="Clic pentru a naviga la acest cuvânt">
-    {$def->htmlRep}
+  <p>
+    <span class="def" title="Clic pentru a naviga la acest cuvânt">
+      {$def->htmlRep}
+    </span>
     {foreach $row->tags as $t}
       {include "bits/tag.tpl"}
     {/foreach}

@@ -8,8 +8,13 @@
    {if !$link}disabled tabindex="-1"{/if}
    style="{$style}">
   {if $t->icon}
-    <i class="tagIcon glyphicon glyphicon-{$t->icon}"></i>
+    <i class="glyphicon glyphicon-{$t->icon}"></i>
   {/if}
-  {$t->value}
+  {if $t->icon && !$t->iconOnly}
+    &nbsp;
+  {/if}
+  {if !$t->iconOnly}
+    {$t->value}
+  {/if}
 </a>
 {/strip}

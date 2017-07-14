@@ -22,6 +22,7 @@ if ($saveButton) {
   $tag->setColor(Request::get('color'));
   $tag->setBackground(Request::get('background'));
   $tag->icon = Request::get('icon');
+  $tag->iconOnly = Request::has('iconOnly');
 
   $errors = $tag->validate();
   if ($errors) {

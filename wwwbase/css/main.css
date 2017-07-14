@@ -279,10 +279,6 @@ a.disabled {
   pointer-events: none;  
 }
 
-.tagIcon {
-  padding-right: 5px;
-}
-
 .vcenter {
   vertical-align: middle;
 }

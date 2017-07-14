@@ -66,11 +66,23 @@
                 {/if}
               </span>
             </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"
+                       name="iconOnly"
+                       value="1"
+                       {if $t->iconOnly}checked{/if}>
+                arată doar iconița fără text
+              </label>
+            </div>
+
             <p class="help-block">
               Opțional, un nume de <a href="http://getbootstrap.com/components/#glyphicons">
               glyphicon</a>. Copiați doar fragmentul de după <em>glyphicon-</em>, de exemplu
               <em>plus</em> sau <em>euro</em>.
             </p>
+
           </div>
         </div>
       </div>

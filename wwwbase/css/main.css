@@ -279,6 +279,10 @@ a.disabled {
   pointer-events: none;  
 }
 
+.tag-tooltip {
+  cursor: help;
+}
+
 .vcenter {
   vertical-align: middle;
 }

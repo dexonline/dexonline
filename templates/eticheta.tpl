@@ -33,6 +33,22 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label for="tooltip" class="col-md-2 control-label">
+            detalii
+          </label>
+          <div class="col-md-10">
+            <div>
+              <input type="text"
+                     class="form-control"
+                     id="tooltip"
+                     name="tooltip"
+                     value="{$t->tooltip}"
+                     placeholder="opționale; apar la survolarea cu mouse-ul">
+            </div>
+          </div>
+        </div>
+
         <div class="form-group {if isset($errors.parentId)}has-error{/if}">
           <label for="parentId" class="col-md-2 control-label">
             părinte
@@ -45,6 +61,42 @@
                 {/if}
               </select>
               {include "bits/fieldErrors.tpl" errors=$errors.parentId|default:null}
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-6">
+
+        <div class="form-group"">
+          <label for="color" class="col-md-2 control-label">
+            culoare
+          </label>
+          <div class="col-md-10">
+            <div class="input-group colorpicker-component">
+              <span class="input-group-addon"><i></i></span>
+              <input type="text"
+                     class="form-control"
+                     id="color"
+                     name="color"
+                     value="{$t->getColor()}">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group"">
+          <label for="background" class="col-md-2 control-label">
+            fundal
+          </label>
+          <div class="col-md-10">
+            <div class="input-group colorpicker-component">
+              <span class="input-group-addon"><i></i></span>
+              <input type="text"
+                     class="form-control"
+                     id="background"
+                     name="background"
+                     value="{$t->getBackground()}">
             </div>
           </div>
         </div>
@@ -85,42 +137,6 @@
 
           </div>
         </div>
-      </div>
-
-      <div class="col-md-6">
-
-        <div class="form-group"">
-          <label for="color" class="col-md-2 control-label">
-            culoare
-          </label>
-          <div class="col-md-10">
-            <div class="input-group colorpicker-component">
-              <span class="input-group-addon"><i></i></span>
-              <input type="text"
-                     class="form-control"
-                     id="color"
-                     name="color"
-                     value="{$t->getColor()}">
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group"">
-          <label for="background" class="col-md-2 control-label">
-            fundal
-          </label>
-          <div class="col-md-10">
-            <div class="input-group colorpicker-component">
-              <span class="input-group-addon"><i></i></span>
-              <input type="text"
-                     class="form-control"
-                     id="background"
-                     name="background"
-                     value="{$t->getBackground()}">
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 

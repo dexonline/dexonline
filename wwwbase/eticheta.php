@@ -23,6 +23,7 @@ if ($saveButton) {
   $tag->setBackground(Request::get('background'));
   $tag->icon = Request::get('icon');
   $tag->iconOnly = Request::has('iconOnly');
+  $tag->tooltip = Request::get('tooltip');
 
   $errors = $tag->validate();
   if ($errors) {

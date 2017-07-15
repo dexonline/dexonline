@@ -10,6 +10,8 @@
   list-style: none;
 }
 
-#tagTree .glyphicon {
+.expand {
   cursor: pointer;
+  vertical-align: middle;
+  width: 20px;
 }

@@ -3,10 +3,8 @@
   <ul>
     {foreach $tags as $t}
       <li>
+        <i class="expand glyphicon {if count($t->children)}glyphicon-chevron-down{/if}"></i>
         {include "bits/tag.tpl" link=true}
-        {if count($t->children)}
-          <i class="expand glyphicon glyphicon-chevron-down"></i>
-        {/if}
         {include "bits/tagTree.tpl" tags=$t->children}
       </li>
     {/foreach}

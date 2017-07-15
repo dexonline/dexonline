@@ -143,15 +143,7 @@ $frequentSources = Model::factory('Source')
                  ->limit(5)
                  ->find_many();
 
-$frequentTags = Model::factory('Tag')
-              ->table_alias('t')
-              ->select('t.*')
-              ->join('ObjectTag', ['t.id', '=', 'ot.tagId'], 'ot')
-              ->where('ot.objectType', ObjectTag::TYPE_MEANING)
-              ->group_by('t.id')
-              ->order_by_expr('count(*) desc')
-              ->limit(4)
-              ->find_many();
+$frequentTags = Tag::getFrequent(ObjectTag::TYPE_MEANING, 4);
 
 $homonyms = $t->getRelatedTrees();
 

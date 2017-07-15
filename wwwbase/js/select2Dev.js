@@ -238,3 +238,19 @@ function adminIndexInit() {
     $(this).closest('form').submit();
   });
 }
+
+// Some Select2 objects have lists of frequently used values underneath,
+// in order to facilitate one-click selection.
+function frequentObjectClick(obj, target) {
+  var id = obj.data('id');
+  var text = obj.data('text');
+
+  var opt = target.children('option[value="' + id + '"]');
+  if (opt.length) {
+    // option already exists, just make it selected
+    opt.prop('selected', true);
+  } else {
+    target.append(new Option(text, id, true, true))
+  }
+  target.trigger('change');
+}

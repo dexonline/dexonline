@@ -47,16 +47,6 @@
       </div>
 
       <div class="col-md-6">
-        <div class="form-group">
-          <label class="col-sm-2 control-label">etichete</label>
-          <div class="col-sm-10">
-            <select id="tagIds" name="tagIds[]" class="form-control" multiple>
-              {foreach $tagIds as $t}
-                <option value="{$t}" selected></option>
-              {/foreach}
-            </select>
-          </div>
-        </div>
 
         <div class="form-group">
           <label for="entryIds" class="col-sm-2 control-label">intrări</label>
@@ -68,6 +58,31 @@
             </select>
           </div>
         </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">etichete</label>
+          <div class="col-sm-10">
+            <select id="tagIds" name="tagIds[]" class="form-control" multiple>
+              {foreach $tagIds as $t}
+                <option value="{$t}" selected></option>
+              {/foreach}
+            </select>
+
+            {* show a few frequent tags *}
+            <div class="pull-right voffset1">
+              frecvente:
+              {foreach $frequentTags as $ft}
+                <button class="btn btn-default btn-xs frequentTag"
+                        type="button"
+                        data-id="{$ft->id}"
+                        data-text="{$ft->value}">
+                  {$ft->value}
+                </button>
+              {/foreach}
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 

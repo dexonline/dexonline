@@ -244,20 +244,6 @@ $(function() {
     frequentObjectClick($(this), $('#editorTags'));
   }
 
-  function frequentObjectClick(obj, target) {
-    var id = obj.data('id');
-    var text = obj.data('text');
-
-    var opt = target.children('option[value="' + id + '"]');
-    if (opt.length) {
-      // option already exists, just make it selected
-      opt.prop('selected', true);
-    } else {
-      target.append(new Option(text, id, true, true))
-    }
-    target.trigger('change');
-  }
-
   function beginMeaningEdit() {
     var c = $('#meaningTree li.selected > .meaningContainer');
 

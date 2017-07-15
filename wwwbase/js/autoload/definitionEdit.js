@@ -25,6 +25,7 @@ $(function() {
     $('#entryIds, #sourceDropDown').change(updateFieldsJson);
     $('#refreshButton').click(updateFieldsJson);
     $('#similarDiff ins, #similarDiff del').click(definitionCopyFromSimilar);
+    $('.frequentTag').click(frequentTagClick);
   }
 
   function updateFieldsJson() {
@@ -86,6 +87,10 @@ $(function() {
         '&dlen=' + $(this).parent().data('len2') +
         '&ins=' + ins;
     window.location = url;
+  }
+
+  function frequentTagClick() {
+    frequentObjectClick($(this), $('#tagIds'));
   }
 
   init();

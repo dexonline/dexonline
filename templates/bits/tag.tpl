@@ -1,4 +1,5 @@
 {$link=$link|default:false}
+{$colors=$colors|default:true}
 
 {$style="color: {$t->getColor()}; background: {$t->getBackground()};"}
 
@@ -7,7 +8,7 @@
   <a href="{$wwwRoot}eticheta.php?id={$t->id}"
      class="label label-default {if !$link}disabled{/if}"
      {if !$link}disabled tabindex="-1"{/if}
-     style="{$style}">
+     {if $colors}style="{$style}"{/if}>
     {if $t->icon}
       <i class="glyphicon glyphicon-{$t->icon}"></i>
     {/if}

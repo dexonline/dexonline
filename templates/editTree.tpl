@@ -399,18 +399,11 @@
                 <div>
                   <label for="editorSources">surse</label>
 
-                  {* show a few frequent sources *}
-                  <div class="pull-right">
-                    {foreach $frequentSources as $fs}
-                      <button class="btn btn-default btn-xs frequentSource editorObj"
-                              type="button"
-                              data-id="{$fs->id}"
-                              data-text="{$fs->shortName}"
-                              disabled>
-                        {$fs->shortName}
-                      </button>
-                    {/foreach}
-                  </div>
+                  {include "bits/select2Suggestions.tpl"
+                           list=$frequentSources
+                           text="shortName"
+                           classes="frequentSource editorObj"
+                           disabled=true}
                 </div>
 
                 <select id="editorSources" class="editorObj" multiple disabled>
@@ -424,18 +417,11 @@
                 <div>
                   <label for="editorTags">etichete</label>
 
-                  {* show a few frequent tags *}
-                  <div class="pull-right">
-                    {foreach $frequentTags as $ft}
-                      <button class="btn btn-default btn-xs frequentTag editorObj"
-                              type="button"
-                              data-id="{$ft->id}"
-                              data-text="{$ft->value}"
-                              disabled>
-                        {$ft->value}
-                      </button>
-                    {/foreach}
-                  </div>
+                  {include "bits/select2Suggestions.tpl"
+                           list=$frequentTags
+                           text="value"
+                           classes="frequentTag editorObj"
+                           disabled=true}
                 </div>
                 
                 <select id="editorTags" class="editorObj" multiple disabled></select>

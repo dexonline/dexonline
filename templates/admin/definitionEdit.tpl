@@ -57,18 +57,10 @@
               {/foreach}
             </select>
 
-            {* show a few frequent tags *}
-            <div class="pull-right voffset1">
-              frecvente:
-              {foreach $frequentTags as $ft}
-                <button class="btn btn-default btn-xs frequentTag"
-                        type="button"
-                        data-id="{$ft->id}"
-                        data-text="{$ft->value}">
-                  {$ft->value}
-                </button>
-              {/foreach}
-            </div>
+            {include "bits/select2Suggestions.tpl"
+                     list=$frequentTags
+                     text="value"
+                     classes="frequentTag voffset"}
           </div>
         </div>
 

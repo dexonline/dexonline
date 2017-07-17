@@ -27,8 +27,8 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label class="col-sm-4 control-label">sursă</label>
-          <div class="col-sm-8">
+          <label class="col-sm-2 col-md-4 control-label">sursă</label>
+          <div class="col-sm-10 col-md-8">
             {if $source->canModerate}
               {include "bits/sourceDropDown.tpl" sources=$allModeratorSources sourceId=$def->sourceId skipAnySource=true}
             {else}
@@ -39,25 +39,14 @@
         </div>
 
         <div class="form-group">
-          <label class="col-sm-4 control-label">stare</label>
-          <div class="col-sm-8">
+          <label class="col-sm-2 col-md-4 control-label">stare</label>
+          <div class="col-sm-10 col-md-8">
             {include "bits/statusDropDown.tpl" name="status" selectedStatus=$def->status}
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
-
-        <div class="form-group">
-          <label for="entryIds" class="col-sm-2 control-label">intrări</label>
-          <div class="col-sm-10">
-            <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
-              {foreach $entryIds as $e}
-                <option value="{$e}" selected></option>
-              {/foreach}
-            </select>
-          </div>
-        </div>
 
         <div class="form-group">
           <label class="col-sm-2 control-label">etichete</label>
@@ -80,6 +69,17 @@
                 </button>
               {/foreach}
             </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="entryIds" class="col-sm-2 control-label">intrări</label>
+          <div class="col-sm-10">
+            <select id="entryIds" name="entryIds[]" style="width: 100%" multiple>
+              {foreach $entryIds as $e}
+                <option value="{$e}" selected></option>
+              {/foreach}
+            </select>
           </div>
         </div>
 

@@ -116,4 +116,7 @@
       </div>
     {/foreach}
   {/if}
+
+  <h3>Comentarii</h3>
+  <fb:comments href="https://dexonline.ro/cuvantul-zilei/{$year}/{$month}/{$day}"></fb:comments>
 {/block}

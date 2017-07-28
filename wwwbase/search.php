@@ -252,12 +252,15 @@ if ($searchType == SEARCH_INFLECTED) {
 
   if (count($entries) == 1) {
     // Convenience redirect when there is only one correct form. We want all pages to be canonical.
-    $l = $entries[0]->getMainLexem();
+    $e = $entries[0];
+    $l = $e->getMainLexem();
     if ($cuv != $l->formNoAccent) {
-      $sourcePart = $source ? "-{$source->urlName}" : '';
       Session::set('redirect', true);
       Session::set('init_word', $cuv);
-      Util::redirect(Core::getWwwRoot() . "definitie{$sourcePart}/{$l->formNoAccent}" . $format['tpl_path']);
+      Util::redirect(sprintf('%sintrare/%s/%s',
+                             Core::getWwwRoot(),
+                             $e->getShortDescription(),
+                             $e->id));
     }
   }
 }

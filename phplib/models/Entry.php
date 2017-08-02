@@ -100,7 +100,7 @@ class Entry extends BaseObject implements DatedObject {
 
   // Returns the description up to the first parenthesis (if any).
   function getShortDescription() {
-    return preg_split('/\s+\(/', $this->description)[0];
+    return preg_split('/\s+[(\/]/', $this->description)[0];
   }
 
   /**

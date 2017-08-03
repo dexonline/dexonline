@@ -111,7 +111,7 @@ $(function (){
       {name: 'name', index: 'u.name', width: userWidth},
       {name: 'priority', index: 'priority', editable: true, width: priorWidth},
       {name: 'refType', index: 'refType', editable: true, edittype: 'select', editoptions: {value: 'Definition:Definition'}, hidden: true},
-      {name: 'image', index: 'w.image', editable: true, edittype: 'select', editoptions: {value: 'x:x'}, width: imageWidth},
+      {name: 'image', index: 'w.image', editable: true, edittype: 'select', editoptions: {value: ':'}, width: imageWidth},
       {name: 'description', index: 'description', editable: true, edittype: 'textarea', hidden: false, width: descWidth},
       {name: 'definitionId', index: 'definitionId', editable: true, hidden: true}
     ],

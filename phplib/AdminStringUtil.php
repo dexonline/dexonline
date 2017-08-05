@@ -8,10 +8,12 @@ class AdminStringUtil {
 
   private static $ACCENTS = [
     'accented' => [
-      'á', 'Á', 'ắ', 'Ắ', 'ấ', 'Ấ', 'é', 'É', 'í', 'Í', 'î́', 'Î́', 'ó', 'Ó', 'ú', 'Ú', 'ý', 'Ý',
+      'á', 'Á', 'ắ', 'Ắ', 'ấ', 'Ấ', 'é', 'É', 'í', 'Í', 'î́', 'Î́',
+      'ó', 'Ó', 'ú', 'Ú', 'ǘ', 'Ǘ', 'ý', 'Ý',
     ],
     'unaccented' => [
-      'a', 'A', 'ă', 'Ă', 'â', 'Â', 'e', 'E', 'i', 'I', 'î', 'Î', 'o', 'O', 'u', 'U', 'y', 'Y',
+      'a', 'A', 'ă', 'Ă', 'â', 'Â', 'e', 'E', 'i', 'I', 'î', 'Î',
+      'o', 'O', 'u', 'U', 'ü', 'Ü', 'y', 'Y',
     ],
   ];
 
@@ -28,8 +30,14 @@ class AdminStringUtil {
   }
 
   static function internalizeWordName($name) {
-    return self::process($name, array('self::shorthandToUnicode', 'self::removeAccents', 'strip_tags', 'mb_strtolower',
-                                      'StringUtil::stripHtmlEscapeCodes', 'self::stripIllegalCharacters'));
+    return self::process($name, [
+      'self::shorthandToUnicode',
+      'self::removeAccents',
+      'strip_tags',
+      'mb_strtolower',
+      'StringUtil::stripHtmlEscapeCodes',
+      'self::stripIllegalCharacters',
+    ]);
   }
 
   /**
@@ -41,6 +49,61 @@ class AdminStringUtil {
     $portion = self::extractLexiconHelper($def);
     $portion = self::internalizeWordName($portion);
     return $portion;
+  }
+
+  static function extractLexiconNew($def) {
+    if (preg_match('|^[^@]*@([^@,/]+)|', $def->internalRep, $matches)) {
+      $s = $matches[1];
+    } else {
+      $s = '';
+    }
+
+    $s = self::removeAccents($s);
+    $s = preg_replace('/^[-!*]+/', '', $s);
+    $s = str_replace("\\'", "'", $s);
+    $s = str_replace('$', '', $s);
+
+    if (in_array($def->sourceId, [ 7, 9, ])) {
+      // Strip 'a ', 'a se ' and 'a (se) ' from verbs
+      $s = preg_replace('/^(a se |a \(se\) |a-și |a )/i', '', $s);
+    }
+
+    if (in_array($def->sourceId, [8, 9, 16, 17, 19])) {
+      // Throw away alternate forms in parentheses
+      $s = preg_split('/\(/', $s)[0];
+    }
+
+    if (in_array($def->sourceId, [9, ])) {
+      // Parts of expressions are followed by a ': '
+      $s = explode(':', $s)[0];
+
+      // Throw away inflected forms
+      preg_match('/^([-A-ZĂÂÎȘȚÜ^0-9 ]+)( [a-zăâîșț\\\\~1. ]+)?$/', $s, $matches);
+      if ($matches) {
+        $s = $matches[1];
+      }
+    }
+
+    if (in_array($def->sourceId, [1, 10, 12])) {
+      $s = preg_split('/ \(/', $s)[0];
+      $s = str_replace(['(', ')'], '', $s);
+    }
+    
+    if (in_array($def->sourceId, [21])) {
+      // Remove parentheses but keep their contents
+      $s = str_replace(['(', ')'], '', $s);
+      // $s = explode(' ', $s)[0];
+    }
+
+    $s = trim($s);
+    $s = mb_strtolower($s);
+
+    // Strip homonyms and some final characters (in either order)
+    $s = preg_replace('/[-!]$/', '', $s);
+    $s = preg_replace('/\^[0-9]+$/', '', $s);
+    $s = preg_replace('/[-!]$/', '', $s);
+
+    return $s;
   }
 
   private static function extractLexiconHelper($def) {
@@ -96,7 +159,7 @@ class AdminStringUtil {
           break;
         }
       } else if ($c == '-') {
-        if($prevChar == ' ' || $prevChar == '(') {
+        if ($prevChar == ' ' || $prevChar == '(') {
           // Done -- it's a situation like @abstractiv -ă@ or @beldar (-re)@
           break;
         }

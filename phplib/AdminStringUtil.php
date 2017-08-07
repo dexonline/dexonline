@@ -46,10 +46,10 @@ class AdminStringUtil {
    * cases to deal with the formatting.
    */
   static function extractLexicon($def) {
-    if (preg_match('|^[^@]*@([^@,]+)|', $def->internalRep, $matches)) {
+    if (preg_match('/^[^@]*@([^@,]+)/', $def->internalRep, $matches)) {
       $s = $matches[1];
     } else {
-      $s = '';
+      return '';
     }
 
     $s = self::removeAccents($s);
@@ -67,45 +67,35 @@ class AdminStringUtil {
     $s = preg_replace('/^[-* 0-9).]+/', '', $s);
 
     if (in_array($def->sourceId, [7, 9, 38, 62])) {
-      // Strip 'a ', 'a se ' and 'a (se) ' from verbs
+      // Strip 'a ', 'a se ' etc. from verbs
       $s = preg_replace('/^(a se |a \(se\) |a-și |a )/i', '', $s);
     }
 
-    if (in_array($def->sourceId, [8, 9, 16, 17, 19])) {
-      // Throw away alternate forms in parentheses
-      $s = preg_split('/\(/', $s)[0];
-    }
-
-    if (in_array($def->sourceId, [9, ])) {
-      // Parts of expressions are followed by a ': '
+    if ($def->sourceId == 9) {
+      // parts of expressions are followed by a ': '
       $s = explode(':', $s)[0];
 
-      // Throw away inflected forms
-      preg_match('/^([-A-ZĂÂÎȘȚÜ^0-9 ]+)( [a-zăâîșț\\\\~1. ]+)?$/', $s, $matches);
+      // throw away inflected forms
+      preg_match('/^([-A-ZĂÂÎȘȚÜ^0-9 ]+)( [a-zăâîșț()\\\\~1. ]+)?$/', $s, $matches);
       if ($matches) {
         $s = $matches[1];
       }
     }
 
-    if (in_array($def->sourceId, [71])) {
-      $s = preg_split('/\. /', $s)[0]; // D. Epitete includes "Epitete" in the title
+    if ($def->sourceId == 71) {
+      $s = preg_split('/\. /', $s)[0]; // D. Epitete includes ". Epitete" in the title
     }
-
-    // Remove parentheses preceded by a space
-    $s = preg_split('/ [\[\(]/', $s)[0];
-    // Remove other parentheses but keep their contents
-    $s = str_replace(['(', ')'], '', $s);
 
     $s = trim($s);
     $s = mb_strtolower($s);
 
-    // strip runaway abbreviations (DTM)
-    $s = str_replace('#', '', $s);
+    // remove parentheses preceded by a space
+    $s = preg_split('/ [\[\(]/', $s)[0];
 
-    // strip some final characters
+    // strip some more characters
     $s = preg_replace('/[-:]+$/', '', $s);
     $s = preg_replace('/ [1i]\.$/', '', $s);
-    $s = str_replace(['®', '!'], '', $s);
+    $s = str_replace(['(', ')', '®', '!', '#'], '', $s);
 
     // if there is only one final dot, strip it
     $s = preg_replace("/^([^.]+)\.$/", '$1', $s);

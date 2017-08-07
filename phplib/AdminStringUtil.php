@@ -52,18 +52,27 @@ class AdminStringUtil {
   }
 
   static function extractLexiconNew($def) {
-    if (preg_match('|^[^@]*@([^@,/]+)|', $def->internalRep, $matches)) {
+    if (preg_match('|^[^@]*@([^@,]+)|', $def->internalRep, $matches)) {
       $s = $matches[1];
     } else {
       $s = '';
     }
 
     $s = self::removeAccents($s);
+
+    $s = preg_replace('# (-|\X)+/$#', '', $s); // strip pronunciations (MDN)
+    $s = explode('/', $s)[0]; // ignore everything after other slashes
+    $s = preg_split('/\. *[\r\n]/', $s)[0]; // DAS is formatted on multiple lines
+
     $s = preg_replace('/^[-!*]+/', '', $s);
     $s = str_replace("\\'", "'", $s);
-    $s = str_replace('$', '', $s);
+    $s = str_replace(['$', '\\|', '|'], '', $s); // Onomastic uses |
+    $s = preg_replace('/[_^]{?[0-9]+}?/', '', $s); // strip homonym numbering and subscripts
 
-    if (in_array($def->sourceId, [ 7, 9, ])) {
+    // strip homonyms and asterisks (Scriban)
+    $s = preg_replace('/^[-* 0-9).]+/', '', $s);
+
+    if (in_array($def->sourceId, [7, 9, 38, 62])) {
       // Strip 'a ', 'a se ' and 'a (se) ' from verbs
       $s = preg_replace('/^(a se |a \(se\) |a-și |a )/i', '', $s);
     }
@@ -84,24 +93,28 @@ class AdminStringUtil {
       }
     }
 
-    if (in_array($def->sourceId, [1, 10, 12])) {
-      $s = preg_split('/ \(/', $s)[0];
-      $s = str_replace(['(', ')'], '', $s);
+    if (in_array($def->sourceId, [71])) {
+      $s = preg_split('/\. /', $s)[0]; // D. Epitete includes "Epitete" in the title
     }
-    
-    if (in_array($def->sourceId, [21])) {
-      // Remove parentheses but keep their contents
-      $s = str_replace(['(', ')'], '', $s);
-      // $s = explode(' ', $s)[0];
-    }
+
+    // Remove parentheses preceded by a space
+    $s = preg_split('/ [\[\(]/', $s)[0];
+    // Remove other parentheses but keep their contents
+    $s = str_replace(['(', ')'], '', $s);
 
     $s = trim($s);
     $s = mb_strtolower($s);
 
-    // Strip homonyms and some final characters (in either order)
-    $s = preg_replace('/[-!]$/', '', $s);
-    $s = preg_replace('/\^[0-9]+$/', '', $s);
-    $s = preg_replace('/[-!]$/', '', $s);
+    // strip runaway abbreviations (DTM)
+    $s = str_replace('#', '', $s);
+
+    // strip some final characters
+    $s = preg_replace('/[-:]+$/', '', $s);
+    $s = preg_replace('/ [1i]\.$/', '', $s);
+    $s = str_replace(['®', '!'], '', $s);
+
+    // if there is only one final dot, strip it
+    $s = preg_replace("/^([^.]+)\.$/", '$1', $s);
 
     return $s;
   }

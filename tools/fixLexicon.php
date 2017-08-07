@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../phplib/Core.php';
 
 define('MIN_SOURCE_ID', 1);
-define('MAX_SOURCE_ID', 1);
+define('MAX_SOURCE_ID', 100);
 define('DRY_RUN', true);
 
 ini_set('memory_limit','512M');
@@ -27,12 +27,13 @@ foreach ($sources as $s) {
   foreach ($defs as $d) {
     $newLexicon = AdminStringUtil::extractLexiconNew($d);
     if ($newLexicon != $d->lexicon) {
-      printf("source %s def ID %7d lexicon [%s] -> [%s] rep = [%s]\n",
-             $s->shortName,
-             $d->id,
-             AdminStringUtil::padRight($d->lexicon, 20),
-             AdminStringUtil::padRight($newLexicon, 20),
-             mb_substr($d->internalRep, 0, 50));
+      printf(
+        "https://dexonline.ro/admin/definitionEdit.php?definitionId=%s [%s] -> [%s] rep = [%s]\n",
+        $d->id,
+        AdminStringUtil::padRight($d->lexicon, 20),
+        AdminStringUtil::padRight($newLexicon, 20),
+        mb_substr($d->internalRep, 0, 50)
+      );
       if (!DRY_RUN) {
         $d->lexicon = $newLexicon;
         $d->save();

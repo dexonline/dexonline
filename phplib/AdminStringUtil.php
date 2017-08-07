@@ -46,12 +46,6 @@ class AdminStringUtil {
    * cases to deal with the formatting.
    */
   static function extractLexicon($def) {
-    $portion = self::extractLexiconHelper($def);
-    $portion = self::internalizeWordName($portion);
-    return $portion;
-  }
-
-  static function extractLexiconNew($def) {
     if (preg_match('|^[^@]*@([^@,]+)|', $def->internalRep, $matches)) {
       $s = $matches[1];
     } else {
@@ -117,76 +111,6 @@ class AdminStringUtil {
     $s = preg_replace("/^([^.]+)\.$/", '$1', $s);
 
     return $s;
-  }
-
-  private static function extractLexiconHelper($def) {
-    $internalRep = $def->internalRep;
-    if ($def->sourceId == 7 || $def->sourceId == 9 || $def->sourceId == 38) {
-      // Some sources write @A se iubi@ instead of just @iubi@.
-      if (StringUtil::startsWith($internalRep, '@A se ')) {
-        $internalRep = '@' . substr($internalRep, 6);
-      } else if (StringUtil::startsWith($internalRep, '@A (se) ')) {
-        $internalRep = '@' . substr($internalRep, 8);
-      } else if (StringUtil::startsWith($internalRep, '@a (se) ')) {
-        $internalRep = '@' . substr($internalRep, 8);
-      } else if (StringUtil::startsWith($internalRep, '@A SE ')) {
-        $internalRep = '@' . substr($internalRep, 6);
-      } else if (StringUtil::startsWith($internalRep, '@a se ')) {
-        $internalRep = '@' . substr($internalRep, 6);
-      } else if (StringUtil::startsWith($internalRep, '@A ')) {
-        $internalRep = '@' . substr($internalRep, 3);
-      } else if (StringUtil::startsWith($internalRep, '@a ')) {
-        $internalRep = '@' . substr($internalRep, 3);
-      }
-    }
-    if ($def->sourceId == 9) {
-      // Sources separate the root with //, like @ZOOTEHNI//C ~ca (~ci, ~ce)
-      $internalRep = str_replace('//', '', $internalRep);
-    }
-    $portion = '';
-
-    $len = mb_strlen($internalRep);
-    $begun = false;
-    $inBold = false;
-    $prevChar = '';
-    for ($i = 0; $i < $len; $i++) {
-      $c = StringUtil::getCharAt($internalRep, $i);
-
-      if ($c == '@') {
-        if ($inBold) {
-          break;
-        }
-        $inBold = true;
-      } else if (self::isUnicodeLetter($c)) {
-        $begun = true;
-        $portion .= $c;
-      } else if ($inBold && $c == ' ') {
-        // Ok in some sources, bad in others
-        if ($def->sourceId == 9) {
-          break;
-        }
-      } else if ($c == '(' || $c == ')') {
-        // Continue in situations like @ABER(O)-@ (we should return ABERO),
-        // break otherwise.
-        if ($prevChar == ' ') {
-          break;
-        }
-      } else if ($c == '-') {
-        if ($prevChar == ' ' || $prevChar == '(') {
-          // Done -- it's a situation like @abstractiv -ă@ or @beldar (-re)@
-          break;
-        }
-      } else if ($c == "'" or $c == "́") {
-        // Ok -- probably used as an accent where we don't have a Unicode
-        // character to represent it, such as @Î'NCOT, @ $încote$...
-      } else if ($c == '.') {
-        // Ok -- for example, @S.O.S@
-      } else if ($begun) {
-        break;
-      }
-      $prevChar = $c;
-    }
-    return $portion;
   }
 
   /**

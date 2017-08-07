@@ -25,7 +25,7 @@ foreach ($sources as $s) {
         ->find_many();
 
   foreach ($defs as $d) {
-    $newLexicon = AdminStringUtil::extractLexiconNew($d);
+    $newLexicon = AdminStringUtil::extractLexicon($d);
     if ($newLexicon != $d->lexicon) {
       printf(
         "https://dexonline.ro/admin/definitionEdit.php?definitionId=%s [%s] -> [%s] rep = [%s]\n",

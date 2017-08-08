@@ -199,12 +199,8 @@ class Util {
   }
 
   static function suggestNoBanner() {
-    if (isset($_SERVER['REQUEST_URI']) && preg_match('/(masturba|fute|condom)/', $_SERVER['REQUEST_URI'])) {
-      return true; // No banners on certain obscene pages
-    }
-    if (User::getActive() && User::getActive()->noAdsUntil > time()) {
-      return true; // User is an active donor
-    }
-    return false;
+    return
+      !Config::get('skin.banner') ||                                 // disabled by config file
+      (User::getActive() && User::getActive()->noAdsUntil > time()); // user is an active donor
   }
 }

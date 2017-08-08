@@ -9,7 +9,7 @@
   {$id='otherPages'}
 {/if}
 
-{if !$suggestNoBanner && $skinVariables.banner && !$adult}
+{if !$suggestNoBanner && empty($adult)}
   <section class="row" id="banner_{$id}">
     <div id="bannerWrapper" class="center-block text-center">
       {if $adsProvider == 'diverta'}

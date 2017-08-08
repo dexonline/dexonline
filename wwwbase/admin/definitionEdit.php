@@ -191,13 +191,15 @@ $frequentTags = Tag::getFrequent(ObjectTag::TYPE_DEFINITION, 3);
 
 if ($isOCR && empty($entryIds)) {
   $potentialLexicon = AdminStringUtil::extractLexicon($d);
-  $entries = Model::factory('Definition')
-      ->table_alias('d')
-      ->distinct('e.entryId')
-      ->join('EntryDefinition', ['d.id', '=', 'e.definitionId'], 'e')
-      ->where('d.lexicon', $potentialLexicon)
-      ->find_many();
-  $entryIds = array_unique(Util::objectProperty($entries, 'entryId'));
+  if ($potentialLexicon) {
+      $entries = Model::factory('Definition')
+          ->table_alias('d')
+          ->distinct('e.entryId')
+          ->join('EntryDefinition', ['d.id', '=', 'e.definitionId'], 'e')
+          ->where('d.lexicon', $potentialLexicon)
+          ->find_many();
+      $entryIds = array_unique(Util::objectProperty($entries, 'entryId'));
+  }
 }
 
 

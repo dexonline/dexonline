@@ -423,6 +423,11 @@ if (count($images)) {
 $showParadigm = ($showParadigm || Session::userPrefers(Preferences::SHOW_PARADIGM))
   && $SEARCH_PARAMS[$searchType]['paradigm'];
 
+$adult = false;
+foreach ($entries as $e) {
+  $adult |= $e->adult;
+}
+
 SmartyWrap::assign('entries', $entries);
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('results', $results);
@@ -438,6 +443,7 @@ SmartyWrap::assign('locParadigm', Session::userPrefers(Preferences::LOC_PARADIGM
 SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('allDefinitions', $all);
 SmartyWrap::assign('showWotd', $showWotd);
+SmartyWrap::assign('adult', $adult);
 if ($text || $sourceId) {
   // must show the advanced search menu regardless of preference
   SmartyWrap::assign('advancedSearch', true);

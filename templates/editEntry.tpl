@@ -113,6 +113,13 @@
                 <option value="{$t}" selected></option>
               {/foreach}
             </select>
+
+            <div class="checkbox">
+              <label title="cauzează ascunderea reclamelor">
+                <input type="checkbox" name="adult" value="1" {if $e->adult}checked{/if}>
+                conține definiții pentru adulți
+              </label>
+            </div>
           </div>
         </div>
 

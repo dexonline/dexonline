@@ -105,6 +105,7 @@ if ($saveButton) {
   $e->description = Request::get('description');
   $e->structStatus = Request::get('structStatus');
   $e->structuristId = Request::get('structuristId');
+  $e->adult = Request::has('adult');
   $lexemIds = Request::get('lexemIds');
   $treeIds = Request::get('treeIds');
   $renameTrees = Request::has('renameTrees');

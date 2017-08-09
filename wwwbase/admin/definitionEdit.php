@@ -145,6 +145,11 @@ if ($saveButton || $nextOcrBut) {
                         'vă rugăm să modificați corespunzător și arborele de sensuri.',
                         'warning');
     }
+    if (!$d->lexicon) {
+      FlashMessage::add('Câmpul lexicon este vid. Aceasta se întâmplă de obicei când omiteți ' .
+                        'să încadrați cuvântul-titlu între @...@.',
+                        'warning');
+    }
 
     if ($d->status == Definition::ST_DELETED) {
       EntryDefinition::dissociateDefinition($d->id);

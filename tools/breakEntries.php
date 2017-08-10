@@ -1,7 +1,6 @@
 <?php
 /**
- * Check if lexemes from an Entry can be easily mapped to trees from the same entry.
- * I'm investigating how to simplify search results.
+ * Load entries having multiple trees and try to split them into single-tree entries.
  **/
 
 require_once __DIR__ . '/../phplib/Core.php';
@@ -9,12 +8,25 @@ require_once __DIR__ . '/../phplib/Core.php';
 Log::notice('started');
 
 $entries = Model::factory('Entry')
-         ->where_gte('structStatus', Entry::STRUCT_STATUS_UNDER_REVIEW)
+         ->select('Entry.*')
+         ->join('TreeEntry', ['Entry.id', '=', 'TreeEntry.entryId'])
+         ->where_in('structStatus', [Entry::STRUCT_STATUS_UNDER_REVIEW, Entry::STRUCT_STATUS_DONE])
+         ->group_by('Entry.id')
+         ->having_raw('count(*) > 1')
          ->order_by_asc('description')
          ->find_many();
+
 foreach ($entries as $e) {
   $lexems = $e->getLexems();
   $trees = $e->getTrees();
+
+  if (count($trees) < 2) {
+    Log::warning('skipping [%s] with %d trees', $e, count($trees));
+    continue;
+  }
+
+  printf("[%s] with %d trees and %d lexemes\n", $e, count($trees), count($lexems));
+  continue;
 
   // keep track of how many lexemes each tree receives
   $count = [];
@@ -29,21 +41,19 @@ foreach ($entries as $e) {
 
   $orphans = false;
 
-  if (count($trees) > 1) {
-    foreach ($lexems as $l) {
-      $found = false;
+  foreach ($lexems as $l) {
+    $found = false;
 
-      foreach ($trees as $t) {
-        if (mb_strtolower($l->formNoAccent) == $desc[$t->id]) {
-          $count[$t->id]++;
-          $found = true;
-        }
+    foreach ($trees as $t) {
+      if (mb_strtolower($l->formNoAccent) == $desc[$t->id]) {
+        $count[$t->id]++;
+        $found = true;
       }
+    }
 
-      if (!$found) {
-        $l->orphan = true;
-        $orphans = true;
-      }
+    if (!$found) {
+      $l->orphan = true;
+      $orphans = true;
     }
 
     foreach ($trees as $t) {

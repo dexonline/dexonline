@@ -59,8 +59,9 @@ if ($cloneButton) {
   $cloneDefinitions = Request::has('cloneDefinitions');
   $cloneLexems = Request::has('cloneLexems');
   $cloneTrees = Request::has('cloneTrees');
+  $cloneStructurist = Request::has('cloneStructurist');
 
-  $newe = $e->_clone($cloneDefinitions, $cloneLexems, $cloneTrees);
+  $newe = $e->_clone($cloneDefinitions, $cloneLexems, $cloneTrees, $cloneStructurist);
   Log::info("Cloned entry {$e->id} ({$e->description}), new id {$newe->id}");
   FlashMessage::add('Am clonat intrarea.', 'success');
   Util::redirect("?id={$newe->id}");

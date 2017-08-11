@@ -29,10 +29,13 @@ class Entry extends BaseObject implements DatedObject {
     return $e;
   }
 
-  function _clone($cloneDefinitions, $cloneLexems, $cloneTrees) {
+  function _clone($cloneDefinitions, $cloneLexems, $cloneTrees, $cloneStructurist) {
     $e = $this->parisClone();
-    $e->structStatus = self::STRUCT_STATUS_NEW;
-    $e->structuristId = 0;
+
+    if (!$cloneStructurist) {
+      $e->structStatus = self::STRUCT_STATUS_NEW;
+      $e->structuristId = 0;
+    }
     $e->save();
 
     if ($cloneDefinitions) {

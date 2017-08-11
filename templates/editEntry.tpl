@@ -258,6 +258,12 @@
                 copiază asocierile cu arbori
               </label>
             </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="cloneStructurist" checked>
+                copiază starea structurării și structuristul
+              </label>
+            </div>
           </div>
 
           <div class="modal-footer">

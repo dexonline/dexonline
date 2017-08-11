@@ -79,6 +79,7 @@ abstract class Association extends BaseObject {
 
     $associations = Model::factory(static::$_table)
                   ->where(static::$fields[$f], $srcId)
+                  ->order_by_asc('id')
                   ->find_many();
 
     foreach ($associations as $a) {

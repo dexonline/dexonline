@@ -257,10 +257,22 @@ if ($searchType == SEARCH_INFLECTED) {
     if ($cuv != $l->formNoAccent) {
       Session::set('redirect', true);
       Session::set('init_word', $cuv);
-      Util::redirect(sprintf('%sintrare/%s/%s',
-                             Core::getWwwRoot(),
-                             $e->getShortDescription(),
-                             $e->id));
+
+      // Try to redirect to the canonical /definitie page. However, if that result would return
+      // multiple entries, then redirect to the specific entry.
+      $candidates = Entry::searchInflectedForms($l->formNoAccent, true, false);
+      if (count($candidates) > 1) {
+        Util::redirect(sprintf('%sintrare/%s/%s',
+                               Core::getWwwRoot(),
+                               $e->getShortDescription(),
+                               $e->id));
+      } else {
+        $sourcePart = $source ? "-{$source->urlName}" : '';		
+        Util::redirect(sprintf('%sdefinitie%s/%s',
+                               Core::getWwwRoot(),
+                               $sourcePart,
+                               $l->formNoAccent));
+      }
     }
   }
 }

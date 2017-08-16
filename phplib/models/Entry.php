@@ -5,6 +5,7 @@ class Entry extends BaseObject implements DatedObject {
 
   private $lexems = null;
   private $trees = null;
+  private $definitions = null;
 
   const STRUCT_STATUS_NEW = 1;
   const STRUCT_STATUS_IN_PROGRESS = 2;
@@ -99,6 +100,19 @@ class Entry extends BaseObject implements DatedObject {
     foreach ($this->getTrees() as $t) {
       $t->getMeanings();
     }
+  }
+
+  function getDefinitions() {
+    if ($this->definitions === null) {
+      $this->definitions = Model::factory('Definition')
+                         ->table_alias('d')
+                         ->select('d.*')
+                         ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
+                         ->where('ed.entryId', $this->id)
+                         ->order_by_asc('ed.id')
+                         ->find_many();
+    }
+    return $this->definitions;
   }
 
   // Returns the description up to the first parenthesis (if any).

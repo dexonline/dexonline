@@ -321,6 +321,16 @@ class Tree extends BaseObject implements DatedObject {
     }
   }
 
+  function canDelete() {
+    $numMeanings = Model::factory('Meaning')
+                 ->where('treeId', $this->id)
+                 ->count();
+    $numRelations = Model::factory('Relation')
+                  ->where('treeId', $this->id)
+                  ->count();
+    return !$numMeanings && !$numRelations;
+  }
+
   /**
    * This should only be called on trees with no meanings and no relations.
    **/

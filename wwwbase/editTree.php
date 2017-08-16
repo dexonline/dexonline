@@ -147,20 +147,12 @@ $frequentTags = Tag::getFrequent(ObjectTag::TYPE_MEANING, 4);
 
 $homonyms = $t->getRelatedTrees();
 
-$numMeanings = Model::factory('Meaning')
-  ->where('treeId', $t->id)
-  ->count();
-$numRelations = Model::factory('Relation')
-  ->where('treeId', $t->id)
-  ->count();
-$canDelete = !$numMeanings && !$numRelations;
-
 SmartyWrap::assign('t', $t);
 SmartyWrap::assign('entryIds', $entryIds);
 SmartyWrap::assign('modelTypes', $modelTypes);
 // TODO: canEdit if STRUCT_STATUS_IN_PROGRESS) || User::can(User::PRIV_EDIT)
 SmartyWrap::assign('canEdit', true);
-SmartyWrap::assign('canDelete', $canDelete);
+SmartyWrap::assign('canDelete', $t->canDelete());
 SmartyWrap::assign('relatedMeanings', $relatedMeanings);
 SmartyWrap::assign('entryTrees', $entryTrees);
 SmartyWrap::assign('treeMentions', $treeMentions);

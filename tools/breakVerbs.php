@@ -118,8 +118,7 @@ foreach ($entries as $e) {
     }
   }
   if ($numTrees != count($trees)) {
-    $e->trees = null;
-    $trees = $e->getTrees();
+    $trees = $e->getTrees(true);
     Log::warning("%d trees left", count($trees));
   }
 
@@ -186,10 +185,8 @@ foreach ($entries as $e) {
   }
 
   // if the new entries have no trees or definitions of their own, use the infinitive ones
-  $e->trees = null;
-  $trees = $e->getTrees();
-  $e->definitions = null;
-  $defs = $e->getDefinitions();
+  $trees = $e->getTrees(true);
+  $defs = $e->getDefinitions(true);
 
   if ($longInfE && !$anyLongInfTrees) {
     foreach ($trees as $t) {

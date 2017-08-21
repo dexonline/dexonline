@@ -75,8 +75,8 @@ class Entry extends BaseObject implements DatedObject {
     return $result;
   }
 
-  function getTrees() {
-    if ($this->trees === null) {
+  function getTrees($force = false) {
+    if (($this->trees === null) || $force) {
       $this->trees = Model::factory('Tree')
                    ->table_alias('t')
                    ->select('t.*')
@@ -102,8 +102,8 @@ class Entry extends BaseObject implements DatedObject {
     }
   }
 
-  function getDefinitions() {
-    if ($this->definitions === null) {
+  function getDefinitions($force = false) {
+    if (($this->definitions === null) || $force) {
       $this->definitions = Model::factory('Definition')
                          ->table_alias('d')
                          ->select('d.*')

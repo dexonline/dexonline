@@ -262,16 +262,18 @@ if ($searchType == SEARCH_INFLECTED) {
       // multiple entries, then redirect to the specific entry.
       $candidates = Entry::searchInflectedForms($l->formNoAccent, true, false);
       if (count($candidates) > 1) {
-        Util::redirect(sprintf('%sintrare/%s/%s',
+        Util::redirect(sprintf('%sintrare/%s/%s%s',
                                Core::getWwwRoot(),
                                $e->getShortDescription(),
-                               $e->id));
+                               $e->id,
+                               $format['tpl_path']));
       } else {
         $sourcePart = $source ? "-{$source->urlName}" : '';		
-        Util::redirect(sprintf('%sdefinitie%s/%s',
+        Util::redirect(sprintf('%sdefinitie%s/%s%s',
                                Core::getWwwRoot(),
                                $sourcePart,
-                               $l->formNoAccent));
+                               $l->formNoAccent,
+                               $format['tpl_path']));
       }
     }
   }
@@ -486,11 +488,13 @@ if (Config::get('search-log.enabled')) {
 /*************************************************************************/
 
 function checkFormat() {
-  if (Request::get('xml') && Config::get('global.xmlApi')) {
-    return array('name' => 'xml', 'tpl_path' => '/xml');
+  $f = Request::get('format', 'html');
+  $path = '';
+  if (($f == 'xml') && Config::get('global.xmlApi')) {
+    $path = '/xml';
   }
-  if (Request::get('json') && Config::get('global.jsonApi')) {
-    return array('name' => 'json', 'tpl_path' => '/json');
+  if (($f == 'json') && Config::get('global.jsonApi')) {
+    $path = '/json';
   }
-  return array('name' => 'html', 'tpl_path' => '');
+  return ['name' => $f, 'tpl_path' => $path];
 }

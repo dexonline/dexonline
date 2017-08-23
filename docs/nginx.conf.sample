@@ -17,8 +17,8 @@ server {
     rewrite ^/text(-([^/]+))?/(.*)$ /search.php?cuv=$3&source=$2&text=1 last;
     rewrite ^/spre/(.*)$ /goto.php?key=$1 last;
     rewrite ^/utilizator/(.*)$ /user.php?n=$1 last;
-    rewrite ^/definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)?(/expandat)?(/(xml|json))$ /search.php?cuv=$3&source=$2&defId=$5&showParadigm=$6&all=$7&format=$9 last;
-    rewrite ^/intrare(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)?(/(xml|json))$ /search.php?cuv=$3&source=$2&entryId=$5&showParadigm=$6&format=$8 last;
+    rewrite ^/definitie(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)?(/expandat)?(/(xml|json))?$ /search.php?cuv=$3&source=$2&defId=$5&showParadigm=$6&all=$7&format=$9 last;
+    rewrite ^/intrare(-([^/]+))?/([^/]+)(/([0-9]+))?(/paradigma)?(/(xml|json))?$ /search.php?cuv=$3&source=$2&entryId=$5&showParadigm=$6&format=$8 last;
     rewrite ^/lexem/([^/]+)(/([0-9]+))?$ /search.php?cuv=$1&lexemId=$3 last;
 
     # Rewrites for old syntax used by dex-online.ro

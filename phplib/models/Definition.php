@@ -76,6 +76,7 @@ class Definition extends BaseObject implements DatedObject {
       ->join('Source', ['s.id', '=', 'd.sourceId'], 's')
       ->where_in('ed.entryId', $entryIds)
       ->where_not_equal('status', self::ST_DELETED)
+      ->order_by_desc('structurable')
       ->order_by_asc('displayOrder')
       ->find_many();
   }

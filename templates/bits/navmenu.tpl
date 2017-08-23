@@ -60,7 +60,7 @@
               </a>
             </li>
             <li><a href="{$wwwRoot}contact">Contact</a></li>
-            <li><a href="http://dexonline.blogspot.ro">Blogul nostru</a></li>
+            <li><a href="https://dexonline.blogspot.ro">Blogul nostru</a></li>
           </ul>
 
         </li>

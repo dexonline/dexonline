@@ -8,7 +8,7 @@
       	</a>
       </li>
       <li>
-      	<a href="http://dexonline.blogspot.ro">
+      	<a href="https://dexonline.blogspot.ro">
       		<img src='./img/svg/blogger.svg' width='32' height='32' alt='Iconiță Blogger' title='Urmărește-ne pe Blogger'>
       	</a>
       </li>

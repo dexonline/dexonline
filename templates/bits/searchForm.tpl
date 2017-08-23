@@ -50,7 +50,7 @@
             Caută în tot textul definițiilor
           </label>
 
-          <a href="http://wiki.dexonline.ro/wiki/Ajutor_pentru_căutare"
+          <a href="https://wiki.dexonline.ro/wiki/Ajutor_pentru_căutare"
              class="pull-right"
              target="_blank">
             <i class="glyphicon glyphicon-question-sign"></i>

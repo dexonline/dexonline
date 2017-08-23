@@ -28,7 +28,7 @@
       </li>
 
       <li class="list-group-item">
-        <a href="http://wiki.dexonline.ro/wiki/Imagini_pentru_cuv%C3%A2ntul_zilei">instrucțiuni</a>
+        <a href="https://wiki.dexonline.ro/wiki/Imagini_pentru_cuv%C3%A2ntul_zilei">instrucțiuni</a>
       </li>
 
     </ul>

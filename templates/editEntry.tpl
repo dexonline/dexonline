@@ -162,7 +162,7 @@
     </button>
 
     {if $e->id}
-      <a href="http://wiki.dexonline.ro/wiki/Intrare:{$e->id}?description={$e->description|escape}"
+      <a href="https://wiki.dexonline.ro/wiki/Intrare:{$e->id}?description={$e->description|escape}"
          class="btn btn-default"
          target="_blank">
         <i class="glyphicon glyphicon-comment"></i>

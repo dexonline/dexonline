@@ -18,7 +18,7 @@
   </li>
   <li {if $donor->amount < Donor::AMOUNT_NO_BANNERS}style="color: #999"{/if}>
     {Donor::AMOUNT_NO_BANNERS} de lei -- în plus, pagini fără reclame și preferință pentru
-    <a href="http://wiki.dexonline.ro/wiki/Modul_confiden%C8%9Bial">modul confidențial</a>
+    <a href="https://wiki.dexonline.ro/wiki/Modul_confiden%C8%9Bial">modul confidențial</a>
     timp de un an;
   </li>
   <li {if $donor->amount < Donor::AMOUNT_STICKER}style="color: #999"{/if}>

@@ -8,7 +8,7 @@
 
     <p>
       Dacă ați ajuns pe această pagină, probabil că știți deja ce este <i>dexonline</i>
-      (dacă nu, puteți afla din <a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii"
+      (dacă nu, puteți afla din <a href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii"
                                    target="_blank">pagina de informații</a>).
       Puteți contribui la dezvoltarea proiectului <i>dexonline</i> și prin donarea unei sume de bani.
     </p>

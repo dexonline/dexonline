@@ -17,7 +17,7 @@
     </li>
 
     <li>
-      <a href="http://wiki.dexonline.ro/wiki/Imagini_pentru_cuv%C3%A2ntul_zilei"
+      <a href="https://wiki.dexonline.ro/wiki/Imagini_pentru_cuv%C3%A2ntul_zilei"
          >instrucțiuni</a>
     </li>
 

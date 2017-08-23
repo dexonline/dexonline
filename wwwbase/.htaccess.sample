@@ -48,7 +48,7 @@ RewriteRule ^lista/cuvintele-zilei-aleatoare/(\d+)$ randomList.php?w=$1 [PT,L]
 # Non-search pages
 RewriteRule ^404$ simple.php?p=404 [PT,L]
 RewriteRule ^contact$ simple.php?p=contact [PT,L]
-RewriteRule ^informatii$ http://wiki.dexonline.ro/wiki/Informații [R,L]
+RewriteRule ^informatii$ https://wiki.dexonline.ro/wiki/Informații [R,L]
 RewriteRule ^legaturi$ simple.php?p=links [PT,L]
 RewriteRule ^publicitate$ simple.php?p=ads [PT,L]
 RewriteRule ^articol/(.*)$ wikiArticle.php?title=$1 [PT,L]
@@ -58,7 +58,7 @@ RewriteRule ^moara$ mill.php [PT,L]
 RewriteRule ^omleta$ scramble.php [PT,L]
 
 # Redirect old php pages to new ones (only where we care about the link / pagerank)
-RewriteRule ^faq.php$ http://wiki.dexonline.ro/wiki/Informații [R=301,L]
+RewriteRule ^faq.php$ https://wiki.dexonline.ro/wiki/Informații [R=301,L]
 RewriteRule ^contact.php$ /contact [R=301,L]
 RewriteRule ^contrib.php$ /contribuie [R=301,L]
 RewriteRule ^corect.php$ /articol/Ghid_de_exprimare_corectă [R=301,L]

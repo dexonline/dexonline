@@ -9,7 +9,7 @@
       Dicționarul vizual
     </h3>
 
-    <a href="http://wiki.dexonline.ro/wiki/Ghidul_dic%C8%9Bionarului_vizual">
+    <a href="https://wiki.dexonline.ro/wiki/Ghidul_dic%C8%9Bionarului_vizual">
       <i class="glyphicon glyphicon-question-sign"></i>
       ajutor
     </a>

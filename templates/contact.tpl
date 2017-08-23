@@ -17,7 +17,7 @@
 
   <ul>
     <li>
-      <a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii#Ce_nu_este_dexonline">
+      <a href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii#Ce_nu_este_dexonline">
         Ce <b>nu</b> este dexonline
       </a>
       (când nu vă putem ajuta).
@@ -28,7 +28,7 @@
     </li>
 
     <li>
-      Puteți descărca o <a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii#Desc.C4.83rcare">copie a bazei de date</a>.
+      Puteți descărca o <a href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii#Desc.C4.83rcare">copie a bazei de date</a>.
     </li>
   </ul>
 

@@ -3,7 +3,7 @@
 require_once __DIR__ . "/../phplib/Core.php";
 Log::notice('started');
 
-define('WIKI_BASE', 'http://wiki.dexonline.ro');
+define('WIKI_BASE', 'https://wiki.dexonline.ro');
 define('CATEGORY_LISTING_URL', WIKI_BASE . '/api.php?action=query&list=categorymembers&cmtitle=Categorie:Sincronizare&cmlimit=max&cmsort=timestamp&cmdir=desc&format=xml');
 define('PAGE_LISTING_URL', WIKI_BASE . '/api.php?action=query&pageids=%s&prop=info&inprop=url&format=xml');
 define('PARSER_URL', WIKI_BASE . '/api.php');
@@ -164,7 +164,7 @@ function parse($text) {
   $html = str_replace('href="/wiki/', 'href="/articol/', $html);
 
   // Fully qualify links to index.php. Most likely, these are link to non-existant articles.
-  $html = str_replace('href="/index.php', 'href="http://wiki.dexonline.ro/index.php', $html);
+  $html = str_replace('href="/index.php', 'href="https://wiki.dexonline.ro/index.php', $html);
 
   return $html;
 }

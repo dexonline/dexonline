@@ -50,7 +50,7 @@
     implicită de vandabilitate sau conformitate unui anumit scop. Citiți Licența Publică Generală Affero pentru detalii.
   </p>
   <p>
-    Pentru instrucțiuni privind descărcarea și instalarea codului-sursă, vizitați pagina <a href="http://wiki.dexonline.ro/wiki/Instruc%C8%9Biuni_de_instalare">Acces la codul-sursă</a>.
+    Pentru instrucțiuni privind descărcarea și instalarea codului-sursă, vizitați pagina <a href="https://wiki.dexonline.ro/wiki/Instruc%C8%9Biuni_de_instalare">Acces la codul-sursă</a>.
   </p>
 
   <h3>Explicație</h3>

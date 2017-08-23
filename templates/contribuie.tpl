@@ -28,7 +28,7 @@
           lista de surse acceptate
         </a>
 
-        <a href="http://wiki.dexonline.ro/wiki/Ghidul_voluntarului" target="_blank">
+        <a href="https://wiki.dexonline.ro/wiki/Ghidul_voluntarului" target="_blank">
           <i class="glyphicon glyphicon-book" aria-hidden="true"></i>
           instrucțiuni de formatare
         </a>

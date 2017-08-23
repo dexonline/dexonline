@@ -6,8 +6,8 @@ if (DEBUG) echo "START\n";
 require_once __DIR__ . '/../phplib/Core.php';
 Log::notice('started');
 
-define('ARTICLE_SECTONS_URL', 'http://wiki.dexonline.ro/api.php?action=query&list=allcategories&acprefix=Articole&format=xml');
-define('SECTION_PAGES_TMPL_URL', 'http://wiki.dexonline.ro/api.php?action=query&list=categorymembers&cmtitle=Categorie:%s&cmlimit=max&format=xml&cmsort=timestamp&cmdir=desc');
+define('ARTICLE_SECTONS_URL', 'https://wiki.dexonline.ro/api.php?action=query&list=allcategories&acprefix=Articole&format=xml');
+define('SECTION_PAGES_TMPL_URL', 'https://wiki.dexonline.ro/api.php?action=query&list=categorymembers&cmtitle=Categorie:%s&cmlimit=max&format=xml&cmsort=timestamp&cmdir=desc');
 
 //Preluăm toate secțiunile prefixate cu Articole:
 $xml = simplexml_load_file(ARTICLE_SECTONS_URL);

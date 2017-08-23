@@ -106,7 +106,7 @@
         <dt>forme reduse</dt>
         <dd>lista de cuvinte între 2 și 15 litere, fără diacritice</dd>
         <dt>forme de bază</dt>
-        <dd>lista de cuvinte ordonată alfabetic (<a href="http://wiki.dexonline.ro/wiki/Preciz%C4%83ri_privind_LOC" target="_blank">legenda notațiilor</a>)</dd>
+        <dd>lista de cuvinte ordonată alfabetic (<a href="https://wiki.dexonline.ro/wiki/Preciz%C4%83ri_privind_LOC" target="_blank">legenda notațiilor</a>)</dd>
         <dt>forme flexionare</dt>
         <dd>lista de cuvinte cu conjugările/declinările lor</dd>
       </dl>

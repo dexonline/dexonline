@@ -54,7 +54,7 @@
 
           <ul class="dropdown-menu">
             <li>
-              <a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii"
+              <a href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii"
                  target="_blank">
                 Informații
               </a>
@@ -81,7 +81,7 @@
             <li><a href="{$wwwRoot}contribuie">Contribuie cu definiții</a></li>
             <li><a href="{$wwwRoot}top">Topul voluntarilor</a></li>
             <li>
-              <a href="http://wiki.dexonline.ro/wiki/Informa%C8%9Bii_pentru_programatori">
+              <a href="https://wiki.dexonline.ro/wiki/Informa%C8%9Bii_pentru_programatori">
                 Informații pentru programatori
               </a>
             </li>
@@ -103,7 +103,7 @@
 
           <ul class="dropdown-menu">
             <li>
-              <a href="http://wiki.dexonline.ro/wiki/Abrevieri" target="_blank">
+              <a href="https://wiki.dexonline.ro/wiki/Abrevieri" target="_blank">
                 Abrevieri folosite
               </a>
             </li>

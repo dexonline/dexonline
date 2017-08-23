@@ -9,7 +9,7 @@
     Editare lexem: {$lexem->form}
     <span class="pull-right">
       <small>
-        <a href="http://wiki.dexonline.ro/wiki/Editarea_lexemelor">
+        <a href="https://wiki.dexonline.ro/wiki/Editarea_lexemelor">
           <i class="glyphicon glyphicon-question-sign"></i>
           instrucțiuni
         </a>

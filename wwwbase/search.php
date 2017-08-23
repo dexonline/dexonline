@@ -488,7 +488,11 @@ if (Config::get('search-log.enabled')) {
 /*************************************************************************/
 
 function checkFormat() {
-  $f = Request::get('format', 'html');
+  $f = Request::get('format');
+  if (!$f) {
+    $f = 'html';
+  }
+
   $path = '';
   if (($f == 'xml') && Config::get('global.xmlApi')) {
     $path = '/xml';
@@ -496,5 +500,6 @@ function checkFormat() {
   if (($f == 'json') && Config::get('global.jsonApi')) {
     $path = '/json';
   }
+
   return ['name' => $f, 'tpl_path' => $path];
 }

@@ -14,7 +14,14 @@
 
     <ul>
       {foreach $extra.sourcesHidden as $sh}
-        <li>{$sh->name}, {$sh->publisher}, {$sh->year}</li>
+        <li>
+          {strip}
+          <b>[{$sh->shortName}] </b>
+          {$sh->name}
+          {if $sh->publisher}, {$sh->publisher}{/if}
+          {if $sh->year}, {$sh->year}{/if}
+          {/strip}
+        </li>
       {/foreach}
     </ul>
   {/if}

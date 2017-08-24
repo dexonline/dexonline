@@ -25,7 +25,9 @@ foreach ($entries as $e) {
     continue;
   }
 
-  printf("[%s] with %d trees and %d lexemes\n", $e, count($trees), count($lexems));
+  if (count($lexems) > 1) {
+    printf("[%s] with %d trees and %d lexemes\n", $e, count($trees), count($lexems));
+  }
   continue;
 
   // keep track of how many lexemes each tree receives

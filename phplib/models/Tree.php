@@ -24,6 +24,11 @@ class Tree extends BaseObject implements DatedObject {
     return $t;
   }
 
+  // Returns the description up to the first parenthesis (if any).
+  function getShortDescription() {
+    return preg_split('/\s+[(\/]/', $this->description)[0];
+  }
+
   function getEntries() {
     if ($this->entries === null) {
       $this->entries = Model::factory('Entry')
@@ -211,6 +216,25 @@ class Tree extends BaseObject implements DatedObject {
     }
 
     return $result;
+  }
+
+  /**
+   * Collects the lexemes of all entries associated with this tree.
+   * Returns the list of lexemes sorted with main lexemes first.
+   * Excludes duplicate lexemes and lexemes that have a form equal to the tree's description.
+   **/
+  function getPrintableLexems() {
+    $lexemes = Model::factory('Lexem')
+             ->table_alias('l')
+             ->select('l.*')
+             ->distinct()
+             ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+             ->join('TreeEntry', ['el.entryId', '=', 'te.entryId'], 'te')
+             ->where('te.treeId', $this->id)
+             ->order_by_asc('el.id')
+             ->find_many();
+
+    return Lexem::getVariantList($lexemes, $this->getShortDescription());
   }
 
   /**

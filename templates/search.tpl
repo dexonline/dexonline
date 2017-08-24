@@ -93,8 +93,6 @@
         {else}
 
           {if count($trees)}
-            <h3>{include "bits/entry.tpl" entry=$entries[0] variantList=true}</h3>
-
             {include "search/trees.tpl"}
 
             {if count($results)}
@@ -152,31 +150,30 @@
 
         {include "search/gallery.tpl"}
 
-        {if count($entries) > 1}
-          <h3>{$entries|count} intrări</h3>
+        {if empty($trees)}
+          {if count($entries) > 1}
+            <h3>{$entries|count} intrări</h3>
 
-          {include "search/entryToc.tpl"}
-        {else if count($trees)}
-          <h3>{include "bits/entry.tpl" entry=$entries[0] variantList=true}</h3>
-        {else}
-          {capture "common"}
-          pentru {include "bits/entry.tpl" entry=$entries[0] variantList=true}
-          {/capture}
+            {include "search/entryToc.tpl"}
+          {else}
+            {capture "common"}
+            pentru {include "bits/entry.tpl" entry=$entries[0] variantList=true}
+            {/capture}
 
-          <h3>
-            {include "bits/count.tpl"
-            displayed=count($results)
-            total=$extra.numDefinitions
-            none="Nicio definiție"
-            one="O definiție"
-            many="definiții"
-            common=$smarty.capture.common}
-          </h3>
+            <h3>
+              {include "bits/count.tpl"
+              displayed=count($results)
+              total=$extra.numDefinitions
+              none="Nicio definiție"
+              one="O definiție"
+              many="definiții"
+              common=$smarty.capture.common}
+            </h3>
 
-          {if !count($results) && !count($structuredResults) && count($entries) && $sourceId}
-            {include "search/extendToAllSources.tpl"}
+            {if !count($results) && !count($structuredResults) && count($entries) && $sourceId}
+              {include "search/extendToAllSources.tpl"}
+            {/if}
           {/if}
-
         {/if}
 
         {include "search/wikiArticles.tpl"}

@@ -1,6 +1,15 @@
 {foreach $trees as $t}
-  <h4 class="tree-heading">
+  <h3 class="tree-heading">
     {$t->description}
+
+  <span class="variantList">
+    {foreach $t->getPrintableLexems() as $l}
+      <span {if !$l->main}class="text-muted"{/if}>
+        {$l->formNoAccent}
+      </span>
+    {/foreach}
+  </span>
+
     {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
       <small>
         <a href="{$wwwRoot}editTree.php?id={$t->id}" class="pull-right">
@@ -9,7 +18,7 @@
         </a>
       </small>
     {/if}
-  </h4>
+  </h3>
 
   <div class="tree-body">
     {include "bits/meaningTree.tpl" meanings=$t->getMeanings()}

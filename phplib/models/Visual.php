@@ -61,12 +61,6 @@ class Visual extends BaseObject implements DatedObject {
     unlink($localThumbFile);
   }
 
-  function ensureThumb() {
-    if (!$this->thumbExists() && Config::get('static.user') && Config::get('static.password')) {
-      $this->createThumb();
-    }
-  }
-
   // Loads all Visuals that are associated with one of the entries,
   // either directly or through a VisualTag.
   static function loadAllForEntries($entries) {
@@ -90,10 +84,6 @@ class Visual extends BaseObject implements DatedObject {
     foreach ($vts as $vt) {
       $v = Visual::get_by_id($vt->imageId);
       $map[$v->id] = $v;
-    }
-
-    foreach ($map as $v) {
-      $v->ensureThumb();
     }
 
     return array_values($map);

@@ -192,24 +192,25 @@ class SmartyWrap {
           break;
         case 'elfinder':
           self::$cssFiles[6] = 'third-party/elfinder/css/elfinder.min.css';
+          self::$cssFiles[7] = 'third-party/elfinder/css/theme.css';
           break;
-        case 'main':                self::$cssFiles[7] = 'main.css'; break;
-        case 'admin':               self::$cssFiles[8] = 'admin.css'; break;
-        case 'paradigm':            self::$cssFiles[9] = 'paradigm.css'; break;
-        case 'jcrop':               self::$cssFiles[10] = 'third-party/jcrop/jquery.Jcrop.min.css'; break;
-        case 'select2':             self::$cssFiles[11] = 'third-party/select2.min.css'; break;
+        case 'main':                self::$cssFiles[8] = 'main.css'; break;
+        case 'admin':               self::$cssFiles[9] = 'admin.css'; break;
+        case 'paradigm':            self::$cssFiles[10] = 'paradigm.css'; break;
+        case 'jcrop':               self::$cssFiles[11] = 'third-party/jcrop/jquery.Jcrop.min.css'; break;
+        case 'select2':             self::$cssFiles[12] = 'third-party/select2.min.css'; break;
         case 'gallery':
-          self::$cssFiles[12] = 'third-party/colorbox/colorbox.css';
-          self::$cssFiles[13] = 'gallery.css';
+          self::$cssFiles[13] = 'third-party/colorbox/colorbox.css';
+          self::$cssFiles[14] = 'gallery.css';
           break;
-        case 'textComplete':        self::$cssFiles[14] = 'third-party/jquery.textcomplete.css'; break;
-        case 'tinymce':             self::$cssFiles[15] = 'tinymce.css'; break;
-        case 'meaningTree':         self::$cssFiles[16] = 'meaningTree.css'; break;
-        case 'editableMeaningTree': self::$cssFiles[17] = 'editableMeaningTree.css'; break;
-        case 'callToAction':        self::$cssFiles[18] = 'callToAction.css'; break;
-        case 'privateMode':         self::$cssFiles[19] = 'opensans.css'; break;
+        case 'textComplete':        self::$cssFiles[15] = 'third-party/jquery.textcomplete.css'; break;
+        case 'tinymce':             self::$cssFiles[16] = 'tinymce.css'; break;
+        case 'meaningTree':         self::$cssFiles[17] = 'meaningTree.css'; break;
+        case 'editableMeaningTree': self::$cssFiles[18] = 'editableMeaningTree.css'; break;
+        case 'callToAction':        self::$cssFiles[19] = 'callToAction.css'; break;
+        case 'privateMode':         self::$cssFiles[20] = 'opensans.css'; break;
         case 'colorpicker':
-          self::$cssFiles[20] = 'third-party/bootstrap-colorpicker.min.css';
+          self::$cssFiles[21] = 'third-party/bootstrap-colorpicker.min.css';
           break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");

@@ -18,7 +18,7 @@ $().ready(function() {
   }
 
   $('#fileManager').elfinder({
-    url: '../elfinder-connector/visual_connector.php',
+    url: '../elfinderConnectors/visual.php',
     lang: 'en',
     uiOptions: {
       toolbar: [

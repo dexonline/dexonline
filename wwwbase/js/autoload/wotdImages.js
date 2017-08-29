@@ -1,7 +1,7 @@
 $(function() {
 
   $('#fileManager').elfinder({
-    url: '../elfinder-connector/wotd_connector.php',
+    url: '../elfinderConnectors/wotd.php',
     lang: 'en',
   }).elfinder('instance');
 

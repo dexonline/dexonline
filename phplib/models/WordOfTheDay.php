@@ -9,6 +9,7 @@ class WordOfTheDay extends BaseObject {
   const SIZE_S = 48;
   const SIZE_M = 88;
   const SIZE_L = 300;
+  const THUMBNAIL_SIZES = [ self::SIZE_S, self::SIZE_M, self::SIZE_L ];
 
   static function init() {
     self::$DEFAULT_IMAGE = "generic.jpg";

@@ -12,13 +12,11 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-// TODO remove triplicate code for S/M/L thumbs
 define('IMG_PREFIX', 'img/wotd/');
-define('THUMB_S_PREFIX', 'img/wotd/thumb' . WordOfTheDay::SIZE_S . '/');
-define('THUMB_M_PREFIX', 'img/wotd/thumb' . WordOfTheDay::SIZE_M . '/');
-define('THUMB_L_PREFIX', 'img/wotd/thumb' . WordOfTheDay::SIZE_L . '/');
-define('WOTM_PREFIX', 'img/wotd/cuvantul-lunii/');
+define('THUMB_PREFIX', 'img/wotd/thumb%s/');
 define('UNUSED_PREFIX', 'nefolosite/');
+$thumbSizes = WordOfTheDay::THUMBNAIL_SIZES;
+
 $IGNORED = [
   'cuvantul-lunii' => 1,
   'cuvantul-lunii/generic.jpg' => 1,
@@ -27,10 +25,10 @@ $IGNORED = [
   'misc/aleator.jpg' => 1,
   'misc/papirus.png' => 1,
   'nefolosite' => 1,
-  'thumb' . WordOfTheDay::SIZE_S => 1,
-  'thumb' . WordOfTheDay::SIZE_M => 1,
-  'thumb' . WordOfTheDay::SIZE_L => 1,
 ];
+foreach ($thumbSizes as $size) {
+  $IGNORED['thumb' . $size] = 1;
+}
 
 $fix = false;
 foreach ($argv as $i => $arg) {
@@ -46,25 +44,32 @@ $staticFiles = file(Config::get('static.url') . 'fileList.txt');
 
 // Grab images and thumbs from the static server file list.
 $imgs = [];
-$thumbsS = [];
-$thumbsM = [];
-$thumbsL = [];
+$thumbs = [];
+foreach ($thumbSizes as $size) {
+  $thumbs[$size] = [];
+}
 
 foreach ($staticFiles as $file) {
   $file = trim($file);
 
   if (isMonthYearDirectory($file)) {
     Log::debug("Ignoring directory: {$file}");
-  } else if (StringUtil::startsWith($file, THUMB_S_PREFIX)) {
-    $thumbsS[substr($file, strlen(THUMB_S_PREFIX))] = 1;
-  } else if (StringUtil::startsWith($file, THUMB_M_PREFIX)) {
-    $thumbsM[substr($file, strlen(THUMB_M_PREFIX))] = 1;
-  } else if (StringUtil::startsWith($file, THUMB_L_PREFIX)) {
-    $thumbsL[substr($file, strlen(THUMB_L_PREFIX))] = 1;
-  } else if (StringUtil::startsWith($file, IMG_PREFIX)) {
-    $imgs[substr($file, strlen(IMG_PREFIX))] = 1;
   } else {
-    // Ignore files outside the img/wotd/ directory
+
+    $isThumb = false;
+    foreach ($thumbSizes as $size) {
+      $prefix = sprintf(THUMB_PREFIX, $size);
+      if (StringUtil::startsWith($file, $prefix)) {
+        $thumbs[$size][substr($file, strlen($prefix))] = 1;
+        $isThumb = true;
+      }
+    }
+
+    if (!$isThumb && StringUtil::startsWith($file, IMG_PREFIX)) {
+      $imgs[substr($file, strlen(IMG_PREFIX))] = 1;
+    } else {
+      // Ignore files outside the img/wotd/ directory
+    }
   }
 }
 
@@ -90,55 +95,27 @@ $ftp = new FtpUtil();
 
 // Report images without thumbnails.
 foreach ($imgs as $img => $ignored) {
-  if (!isset($thumbsS[$img]) &&
-      !isset($IGNORED[$img])) {
-    print "Image without a small thumbnail: {$img}\n";
-    if ($fix) {
-      generateThumbnail($ftp, $img, WordOfTheDay::SIZE_S, THUMB_S_PREFIX);
-    }
-  }
-
-  if (!isset($thumbsM[$img]) &&
-      !isset($IGNORED[$img])) {
-    print "Image without a medium thumbnail: {$img}\n";
-    if ($fix) {
-      generateThumbnail($ftp, $img, WordOfTheDay::SIZE_M, THUMB_M_PREFIX);
-    }
-  }
-
-  if (!isset($thumbsL[$img]) &&
-      !isset($IGNORED[$img])) {
-    print "Image without a large thumbnail: {$img}\n";
-    if ($fix) {
-      generateThumbnail($ftp, $img, WordOfTheDay::SIZE_L, THUMB_L_PREFIX);
+  foreach ($thumbSizes as $size) {
+    $prefix = sprintf(THUMB_PREFIX, $size);
+    if (!isset($thumbs[$size][$img]) &&
+        !isset($IGNORED[$img])) {
+      print "Image without a {$size}px thumbnail: {$img}\n";
+      if ($fix) {
+        generateThumbnail($ftp, $img, $size, $prefix);
+      }
     }
   }
 }
 
 // Report thumbnails without images (orphan thumbnails).
-foreach ($thumbsS as $thumb => $ignored) {
-  if (!isset($imgs[$thumb])) {
-    print "Small thumbnail without an image: {$thumb}\n";
-    if ($fix) {
-      deleteOrphanThumbnail($ftp, $thumb, THUMB_S_PREFIX);
-    }
-  }
-}
-
-foreach ($thumbsM as $thumb => $ignored) {
-  if (!isset($imgs[$thumb])) {
-    print "Medium thumbnail without an image: {$thumb}\n";
-    if ($fix) {
-      deleteOrphanThumbnail($ftp, $thumb, THUMB_M_PREFIX);
-    }
-  }
-}
-
-foreach ($thumbsL as $thumb => $ignored) {
-  if (!isset($imgs[$thumb])) {
-    print "Large thumbnail without an image: {$thumb}\n";
-    if ($fix) {
-      deleteOrphanThumbnail($ftp, $thumb, THUMB_L_PREFIX);
+foreach ($thumbs as $size => $thumbList) {
+  $prefix = sprintf(THUMB_PREFIX, $size);
+  foreach ($thumbList as $thumb => $ignored) {
+    if (!isset($imgs[$thumb])) {
+      print "{$size}px thumbnail without an image: {$thumb}\n";
+      if ($fix) {
+        deleteOrphanThumbnail($ftp, $thumb, $prefix);
+      }
     }
   }
 }
@@ -177,9 +154,17 @@ function generateThumbnail($ftp, $img, $size, $prefix) {
 
     OS::executeAndAssert("rm -f /tmp/a.{$extension} /tmp/t.{$extension}");
     OS::executeAndAssert("wget -q -O /tmp/a.{$extension} '$url'");
-    OS::executeAndAssert(
-      "convert -strip -geometry {$size}x{$size} -sharpen 1x1 " .
-      "/tmp/a.{$extension} /tmp/t.{$extension}");
+
+    $output = OS::executeAndReturnOutput("identify -format '%wx%h' /tmp/a.{$extension}");
+    $resolution = $output[0];
+
+    if ($resolution == "{$size}x{$size}") {
+      copy("/tmp/a.{$extension}", "/tmp/t.{$extension}");
+    } else {
+      OS::executeAndAssert(
+        "convert -strip -geometry {$size}x{$size} -sharpen 1x1 " .
+        "/tmp/a.{$extension} /tmp/t.{$extension}");
+    }
 
     if ($extension == 'png') {
       OS::executeAndAssert('optipng /tmp/t.png');

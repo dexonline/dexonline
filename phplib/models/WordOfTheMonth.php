@@ -28,10 +28,19 @@ class WordOfTheMonth extends BaseObject {
     return null;
   }
 
-  function getThumbUrl() {
+  // TODO: this duplicates code from WordOfTheDay.php
+  function getThumbUrl($size) {
     $pic = $this->image ? $this->image : self::$DEFAULT_IMAGE;
-    // WotM only uses medium thumbs
-    return Config::get('static.url') . 'img/wotd/thumb88/cuvantul-lunii/' . $pic;
+    return sprintf('%simg/wotd/thumb%s/cuvantul-lunii/%s',
+                   Config::get('static.url'),  $size, $pic);
+  }
+
+  function getMediumThumbUrl() {
+    return $this->getThumbUrl(WordOfTheDay::SIZE_M);
+  }
+
+  function getLargeThumbUrl() {
+    return $this->getThumbUrl(WordOfTheDay::SIZE_L);
   }
 
   function getArtist() {

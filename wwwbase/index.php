@@ -41,7 +41,7 @@ if (!$wotm) {
   $wotm = Model::factory('WordOfTheMonth')->create(); // generic WotM
 }
 $def = Model::factory('Definition')->where('id', $wotm->definitionId)->where('status', Definition::ST_ACTIVE)->find_one();
-SmartyWrap::assign('thumbUrlM', $wotm->getThumbUrl());
+SmartyWrap::assign('thumbUrlM', $wotm->getMediumThumbUrl());
 SmartyWrap::assign('articol', $wotm->article);
 SmartyWrap::assign('wotmDef', $def);
 SmartyWrap::assign('todayM', date('Y/m'));

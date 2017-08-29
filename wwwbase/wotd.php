@@ -31,7 +31,7 @@ if ($type == 'rss' || $type == 'blog') {
 
     SmartyWrap::assign('def', $def);
     SmartyWrap::assign('source', $source);
-    SmartyWrap::assign('imageUrl', $w->getImageUrl());
+    SmartyWrap::assign('imageUrl', $w->getLargeThumbUrl());
     if ($type == 'blog') {
         $curDate = strftime("%e %B", $ts);
         SmartyWrap::assign('curDate', $curDate);
@@ -135,7 +135,7 @@ foreach ($prevWotds as $w) {
 
 // TODO: remove $wotd->* fields assigned individually
 SmartyWrap::assign('wotd', $wotd);
-SmartyWrap::assign('imageUrl', $wotd->getImageUrl());
+SmartyWrap::assign('imageUrl', $wotd->getLargeThumbUrl());
 SmartyWrap::assign('artist', $wotd->getArtist());
 SmartyWrap::assign('year', $year);
 SmartyWrap::assign('month', $month);

@@ -12,9 +12,11 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
+// TODO remove triplicate code for S/M/L thumbs
 define('IMG_PREFIX', 'img/wotd/');
 define('THUMB_S_PREFIX', 'img/wotd/thumb' . WordOfTheDay::SIZE_S . '/');
 define('THUMB_M_PREFIX', 'img/wotd/thumb' . WordOfTheDay::SIZE_M . '/');
+define('THUMB_L_PREFIX', 'img/wotd/thumb' . WordOfTheDay::SIZE_L . '/');
 define('WOTM_PREFIX', 'img/wotd/cuvantul-lunii/');
 define('UNUSED_PREFIX', 'nefolosite/');
 $IGNORED = [
@@ -27,6 +29,7 @@ $IGNORED = [
   'nefolosite' => 1,
   'thumb' . WordOfTheDay::SIZE_S => 1,
   'thumb' . WordOfTheDay::SIZE_M => 1,
+  'thumb' . WordOfTheDay::SIZE_L => 1,
 ];
 
 $fix = false;
@@ -45,6 +48,7 @@ $staticFiles = file(Config::get('static.url') . 'fileList.txt');
 $imgs = [];
 $thumbsS = [];
 $thumbsM = [];
+$thumbsL = [];
 
 foreach ($staticFiles as $file) {
   $file = trim($file);
@@ -55,6 +59,8 @@ foreach ($staticFiles as $file) {
     $thumbsS[substr($file, strlen(THUMB_S_PREFIX))] = 1;
   } else if (StringUtil::startsWith($file, THUMB_M_PREFIX)) {
     $thumbsM[substr($file, strlen(THUMB_M_PREFIX))] = 1;
+  } else if (StringUtil::startsWith($file, THUMB_L_PREFIX)) {
+    $thumbsL[substr($file, strlen(THUMB_L_PREFIX))] = 1;
   } else if (StringUtil::startsWith($file, IMG_PREFIX)) {
     $imgs[substr($file, strlen(IMG_PREFIX))] = 1;
   } else {
@@ -99,9 +105,26 @@ foreach ($imgs as $img => $ignored) {
       generateThumbnail($ftp, $img, WordOfTheDay::SIZE_M, THUMB_M_PREFIX);
     }
   }
+
+  if (!isset($thumbsL[$img]) &&
+      !isset($IGNORED[$img])) {
+    print "Image without a large thumbnail: {$img}\n";
+    if ($fix) {
+      generateThumbnail($ftp, $img, WordOfTheDay::SIZE_L, THUMB_L_PREFIX);
+    }
+  }
 }
 
 // Report thumbnails without images (orphan thumbnails).
+foreach ($thumbsS as $thumb => $ignored) {
+  if (!isset($imgs[$thumb])) {
+    print "Small thumbnail without an image: {$thumb}\n";
+    if ($fix) {
+      deleteOrphanThumbnail($ftp, $thumb, THUMB_S_PREFIX);
+    }
+  }
+}
+
 foreach ($thumbsM as $thumb => $ignored) {
   if (!isset($imgs[$thumb])) {
     print "Medium thumbnail without an image: {$thumb}\n";
@@ -111,11 +134,11 @@ foreach ($thumbsM as $thumb => $ignored) {
   }
 }
 
-foreach ($thumbsS as $thumb => $ignored) {
+foreach ($thumbsL as $thumb => $ignored) {
   if (!isset($imgs[$thumb])) {
-    print "Small thumbnail without an image: {$thumb}\n";
+    print "Large thumbnail without an image: {$thumb}\n";
     if ($fix) {
-      deleteOrphanThumbnail($ftp, $thumb, THUMB_S_PREFIX);
+      deleteOrphanThumbnail($ftp, $thumb, THUMB_L_PREFIX);
     }
   }
 }

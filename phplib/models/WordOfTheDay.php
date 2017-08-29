@@ -8,6 +8,7 @@ class WordOfTheDay extends BaseObject {
   // Thumbnail sizes
   const SIZE_S = 48;
   const SIZE_M = 88;
+  const SIZE_L = 300;
 
   static function init() {
     self::$DEFAULT_IMAGE = "generic.jpg";
@@ -60,6 +61,10 @@ class WordOfTheDay extends BaseObject {
 
   function getMediumThumbUrl() {
     return $this->getThumbUrl(self::SIZE_M);
+  }
+
+  function getLargeThumbUrl() {
+    return $this->getThumbUrl(self::SIZE_L);
   }
 
   function getArtist() {

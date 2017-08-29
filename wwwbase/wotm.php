@@ -39,7 +39,7 @@ if ($mysqlDate < $today || User::can(User::PRIV_WOTD)) {
   SmartyWrap::assign('nextmon', date('Y/m', $nextTS));
 }
 
-SmartyWrap::assign('imageUrl', $wotm->getImageUrl());
+SmartyWrap::assign('imageUrl', $wotm->getLargeThumbUrl());
 SmartyWrap::assign('artist', $wotm->getArtist());
 SmartyWrap::assign('timestamp', $timestamp);
 SmartyWrap::assign('searchResult', array_pop($searchResults));

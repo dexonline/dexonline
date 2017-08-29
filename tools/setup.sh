@@ -25,14 +25,8 @@ else
   echo "* wwwbase/.htaccess already exists, skipping"
 fi
 
-# Make the logs and the Smarty compiled templates directory world-writable
+# Make the Smarty compiled templates directory world-writable
 echo "* making some directories and files world-writable"
-chmod 777 log
-touch log/wotdelflog
-chmod 666 log/wotdelflog
-touch log/visuallog
-chmod 666 log/visuallog
-
 chmod 777 templates_c
 
 # Allow the webserver to store images here (e.g. for Elfinder thumbs).

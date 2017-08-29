@@ -7,7 +7,7 @@
  * @author Dmitry (dio) Levashov
  **/
 
-class elFinderSimpleLogger {
+class ElfinderSimpleLogger {
     
     /**
      * Log file path

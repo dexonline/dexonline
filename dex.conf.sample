@@ -253,6 +253,19 @@ password = ""
 path = ""
 timeout = 30
 
+; settings for Elfinder, the web file manager
+[elfinder]
+
+; driver can be:
+; * "ftp", which uses the FTP server configuration in the [static] section;
+; * "local", which uses the local path and URL defined below.
+driver = local
+
+; path and URL are only meaningful when driver = local.
+; Path needs to be accessible and writable by the web server.
+path = /srv/http/elfinder/
+url = http://localhost/elfinder/
+
 ; connection info for OTRS (used to process donations automatically)
 ; NOTE: passwords are sent unencrypted. Do not run this from the outside.
 [otrs]

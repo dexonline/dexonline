@@ -1,41 +1,91 @@
 <?php
 
-include_once __DIR__ . '/autoload.php';
-include_once __DIR__ . '/elFinderLogger.class.php';
-include_once __DIR__ . '/VisualElFinder.php';
+require_once __DIR__ . '/../../phplib/Core.php';
+require_once __DIR__ . '/../../phplib/third-party/elfinder/autoload.php';
 
-include_once __DIR__ . '/../../phplib/Core.php';
+/**
+ * Triggers for some commands.
+ **/
+class VisualElFinder extends elFinder {
+	function __construct($opts) {
+    parent::__construct($opts);
+    $this->commands['tagimage'] = array('target' => true);
+  }
 
-$myLogger = new elFinderSimpleLogger(Config::get('logging.file'));
+  private function getPath($target) {
+    $volume = $this->volume($target);
+    $path = $volume->path($target);
 
-// https://github.com/Studio-42/elFinder/wiki/Connector-configuration-options
-$opts = [
-  'bind'  => [
-    'mkdir mkfile rename duplicate upload rm paste' => [$myLogger, 'log'],
-  ],
-  'roots' => [
-    [
-      'driver'        => 'FTP',
-      'host'          => Config::get('static.host'),
-      'user'          => Config::get('static.user'),
-      'pass'          => Config::get('static.password'),
-      'path'          => Config::get('static.path') . 'img/visual/',
-      'timeout'       => Config::get('static.timeout'),
-      'URL'           => Config::get('static.url') . 'img/visual/',
-      'alias'         => 'Dicționarul vizual',
-      'uploadAllow'   => ['image'], // mimetypes allowed to upload
-      'disabled'      => ['resize', 'mkfile', 'duplicate'], // list of not allowed commands
-      'imgLib'        => 'gd',
+    // Ignore the volume name (and leading /, if present)
+    $pos = strpos($path, '/');
+    if ($pos === FALSE) {
+      return '';
+    } else {
+      return substr($path, 1 + $pos);
+    }
+  }
 
-      // Thumbnails are still stored locally
-      'tmbPath'       => '../img/generated',
-      'tmbURL'        => '../img/generated',
-    ],
-  ],
-];
+  protected function paste($args) {
+    $result = parent::paste($args);
+    $dest  = $this->getPath($args['dst']);
+		$cut  = !empty($args['cut']);
+
+    if ($cut) {
+      foreach ($args['targets'] as $target) {
+        // If the image has a corresponding Visual, update its .path field and move its thumbnail.
+        $path = $this->getPath($target);
+        $v = Visual::get_by_path($path);
+        if ($v) {
+          $base = basename($path);
+          $v->path = $dest ? "$dest/$base" : $base;
+          $v->save();
+        }
+      }
+    }
+
+    return $result;
+  }
+
+  protected function rename($args) {
+    $result = parent::rename($args);
+    $path  = $this->getPath($args['target']);
+    $name = $args['name'];
+
+    // If the image has a corresponding Visual, update its .path field and rename its thumbnail.
+    $v = Visual::get_by_path($path);
+    if ($v) {
+      $dir = dirname($v->path);
+      $v->path = ($dir == '.') ? $name : "$dir/$name";
+      $v->save();
+    }
+
+    return $result;
+  }
+
+  protected function rm($args) {
+    $result = parent::rm($args);
+
+    foreach ($args['targets'] as $target) {
+      // If the image has a corresponding Visual, remove it
+      $path = $this->getPath($target);
+      $v = Visual::get_by_path($path);
+      if ($v) {
+        $v->delete();
+      }
+    }
+
+    return $result;
+  }
+
+  protected function tagimage($args) {
+		$target = $args['target'];
+    $path = $this->getPath($args['target']);
+    return array('path' => $path);
+  }
+}
+
+$opts = ElfinderUtil::getOptions('img/visual/', 'Dicționarul vizual');
 
 // run elFinder
 $connector = new elFinderConnector(new VisualElFinder($opts));
 $connector->run();
-
-?>

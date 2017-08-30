@@ -1,0 +1,24 @@
+[global]
+
+path = /tmp/crawler/
+
+[site-mysite1]
+
+url = http://my.site.com/
+articleLinkSelector[] = "div.some-teaser a"
+articleLinkSelector[] = "div.some-other-teaser a"
+
+authorSelector = "div.somediv h3.author"
+authorRegexp = "/^(.*)$/"
+titleSelector = "div.some-container h2.title"
+bodySelector = "div.some-container div.body"
+
+[site-mysite2]
+
+url = http://my.other.site.com/
+articleLinkSelector[] = "div.some-teaser a"
+
+authorSelector = "div.somediv h3.author"
+authorRegexp = "/^(.*)$/"
+titleSelector = "div.some-container h2.title"
+bodySelector = "div.some-container div.body"

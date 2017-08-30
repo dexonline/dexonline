@@ -22,7 +22,9 @@ class CrawlerUrl extends BaseObject implements DatedObject {
       throw new CrawlerException("could not fetch {$this->url}");
     }
 
-    $this->parser = str_get_html($this->rawHtml);
+    // insert spaces so that plaintext doesn't concatenate paragraphs.
+    $s = str_replace ( "</" , " </" , $this->rawHtml);
+    $this->parser = str_get_html($s);
   }
 
   function extractAuthor($selector, $regexp) {
@@ -31,7 +33,7 @@ class CrawlerUrl extends BaseObject implements DatedObject {
     if (count($authors) > 1) {
       throw new CrawlerException('expected 1 author, got ' . count($authors));
     } else if (!empty($authors)) {
-      $authorWrapper = $authors[0]->plaintext;
+      $authorWrapper = trim($authors[0]->plaintext);
 
       if (!preg_match($regexp, $authorWrapper, $matches)) {
         throw new CrawlerException("Cannot extract author from string [{$authorWrapper}]");
@@ -63,7 +65,15 @@ class CrawlerUrl extends BaseObject implements DatedObject {
     if (count($bodies) != 1) {
       throw new CrawlerException('expected 1 body, got ' . count($bodies));
     }
+
     $this->body = trim($bodies[0]->plaintext);
+    $this->sanitizeBody();
+  }
+
+  function sanitizeBody() {
+    $this->body = AdminStringUtil::cleanup($this->body);
+    $this->body = html_entity_decode($this->body);
+    $this->body = preg_replace('/\s\s+/', ' ', $this->body);
   }
 
   function fetchAndExtract($authorSelector, $authorRegexp, $titleSelector, $bodySelector) {

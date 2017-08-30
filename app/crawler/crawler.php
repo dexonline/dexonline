@@ -22,6 +22,10 @@ foreach ($config as $section => $vars) {
     foreach ($linkSelectors as $linkSel) {
       $links = $html->find($linkSel);
 
+      if (empty($links)) {
+        Log::warning("link selector [{$linkSel}] returns no matches on site {$siteId}");
+      }
+
       foreach ($links as $link) {
         $articleUrl = $base->join($link->href);
 
@@ -40,7 +44,7 @@ class CrawlerException extends Exception {
 }
 
 function fetch($url, $siteId, $vars, $path) {
-  Log::info("fetching {$url}");
+  Log::info('fetching %s', urldecode($url));
 
   try {
 

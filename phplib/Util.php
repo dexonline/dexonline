@@ -115,7 +115,7 @@ class Util {
     );
     Variable::poke(
       'Count.definitionsWithTypos',
-      Model::factory('Typo')->select('definitionId')->distinct()->count()
+      Model::factory('Typo')->select('definitionId')->distinct()->find_result_set()->count()
     );
     Variable::poke(
       'Count.ambiguousAbbrevs',

@@ -37,4 +37,6 @@ $changeSets = array_reverse($changeSets); // newest changes first
 
 SmartyWrap::assign('def', $def);
 SmartyWrap::assign('changeSets', $changeSets);
+SmartyWrap::addJs('diff');
+SmartyWrap::addCss('diff');
 SmartyWrap::display('istoria-definitiei.tpl');

@@ -5,6 +5,12 @@ class FlashMessage {
   static $messages = [];
   static $hasErrors = false;
 
+  /**
+   *Adds messages to a messageQueue
+   * 
+   *@param string $message
+   *@param string $type success, warning, danger (default)
+   */
   static function add($message, $type = 'danger') {
     self::$messages[] = [
       'text' => $message,

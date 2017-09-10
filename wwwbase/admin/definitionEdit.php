@@ -221,7 +221,7 @@ SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('typos', $typos);
 SmartyWrap::assign('frequentTags', $frequentTags);
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
-SmartyWrap::addCss('tinymce', 'admin');
+SmartyWrap::addCss('tinymce', 'admin', 'diff');
 SmartyWrap::addJs('select2Dev', 'tinymce', 'cookie');
 SmartyWrap::display('admin/definitionEdit.tpl');
 

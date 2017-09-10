@@ -309,6 +309,14 @@ function trim(str) {
 	return str.slice(0, i + 1);
 }
 
+function hideAmountPreposition(amount){ 
+  if (parseInt(amount)===0) {
+    return true;
+  }
+  var de = parseInt(amount.slice(-2));
+  return de > 0 && de < 20;
+}
+
 /************************* Bookmark-related code ***************************/
 $(function() {
 
@@ -412,6 +420,6 @@ $(function() {
       errorCallback(anchor, data.msg);
     }
   }
-
+  
   init();
 });

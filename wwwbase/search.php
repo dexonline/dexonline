@@ -245,6 +245,7 @@ if ($searchType == SEARCH_INFLECTED) {
   if (empty($entries) && empty($definitions)) {
     $searchType = SEARCH_APPROXIMATE;
     $entries = Lexem::searchApproximate($cuv);
+    SmartyWrap::assign('suggestNoBanner', true);
     if (count($entries) == 1) {
       FlashMessage::add("Ați fost redirecționat automat la forma „{$entries[0]->description}”.");
     }
@@ -281,7 +282,7 @@ if ($searchType == SEARCH_INFLECTED) {
 
 $results = SearchResult::mapDefinitionArray($definitions);
 
-if(SPOOF_ENABLED && $cuv_spoofed) {
+if (SPOOF_ENABLED && $cuv_spoofed) {
 
   function replaceSpoofedWord($definition, $cuv) {
     $pattern = '/<b>(.*)<\/b>(.*?)/U';

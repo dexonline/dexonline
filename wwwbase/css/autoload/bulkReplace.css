@@ -1,15 +1,16 @@
-del,
-ins {
-    color: white;
-    font-weight: bold;
-    padding: 0px 3px;
-    text-decoration: none;
+.checkbox-inline {
+    float: right;
 }
 
-del {
-    background: #d9534f;
+.panel-admin .defWrapper {
+    padding: 0 30px 0 3px;
+    border-bottom: 1px solid #CCC;
 }
 
-ins {
-    background: #5cb85c;
+.defWrapper.onlyDeletions  ins {
+    display: none;
+}
+
+.defWrapper.onlyInsertions  del {
+    display: none;
 }

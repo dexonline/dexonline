@@ -369,6 +369,15 @@ class StringUtil {
     return number_format($n, $decimals, ',', '.');
   }
 
+    /**
+   * Returns the preposition needed for numerals ending with 20->99 
+   * @param string $amount
+   * @return string either ␣ or ␣de␣
+   */
+  static function getAmountPreposition($amount) {
+    $de = substr($amount, -2);
+    return ($de > 0 && $de < 20) ? "" : " de";
+  }
 }
 
 ?>

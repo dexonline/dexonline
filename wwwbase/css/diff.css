@@ -1,0 +1,14 @@
+del,
+ins {
+  color: white;
+  padding: 0px 2px;
+  text-decoration: none;
+}
+
+del {
+  background: #d9534f;
+}
+
+ins {
+  background: #5cb85c;
+}

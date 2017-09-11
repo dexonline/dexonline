@@ -43,5 +43,6 @@ $change = DefinitionVersion::compare($dv, $next);
 SmartyWrap::assign('def', $def);
 SmartyWrap::assign('dv', $dv);
 SmartyWrap::assign('change', $change);
-SmartyWrap::addJs('select2Dev');
+SmartyWrap::addCss('diff');
+SmartyWrap::addJs('select2Dev', 'diff');
 SmartyWrap::display('etichete-istorie.tpl');

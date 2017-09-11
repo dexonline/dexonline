@@ -219,9 +219,9 @@ class Session {
     }
 
     if ($newLevel == LDiff::SPLIT_LEVEL_LETTER) {
-      FlashMessage::add('Diferențe la nivel de litere', 'warning');
+      FlashMessage::add('LDiff - Diferențe la nivel de litere', 'warning');
     } else {
-      FlashMessage::add('Diferențe la nivel de cuvinte', 'success');
+      FlashMessage::add('LDiff - Diferențe la nivel de cuvinte', 'success');
     }
   }
 }

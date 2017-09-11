@@ -98,7 +98,7 @@ $timeAgo = time() - $minModDate;
 SmartyWrap::assign('structurists', User::getStructurists());
 SmartyWrap::assign('reports', $reports);
 SmartyWrap::assign('timeAgo', $timeAgo);
-SmartyWrap::addCss('admin');
-SmartyWrap::addJs('select2Dev', 'modelDropdown');
+SmartyWrap::addCss('admin', 'bootstrap-spinedit');
+SmartyWrap::addJs('select2Dev', 'modelDropdown', 'diffSelector', 'bootstrap-spinedit');
 SmartyWrap::display('admin/index.tpl');
 ?>

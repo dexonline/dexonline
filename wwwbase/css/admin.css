@@ -8,6 +8,7 @@ main a:visited {
 }
 
 .panel-admin .defWrapper {
+  padding: 0 3px;
   font-size: 1em;
   margin-top: 0;
   margin-bottom: 0.8em;

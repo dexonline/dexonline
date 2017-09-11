@@ -335,6 +335,38 @@
           </div>
 
           <div class="form-group">
+            <label class="col-sm-3 control-label">motor</label>
+            <div class="col-sm-9">
+              {include "bits/diffEngineDropDown.tpl" name="engine" canEdit=true}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label">granularitate</label>
+            <div class="col-sm-9" id="granularity">
+              {include "bits/diffGranularityRadio.tpl" name="granularity" canEdit=true selected=1}
+            </div>
+             <div class="col-sm-9" id="message" hidden="true">
+              <p class="help-block">în cazul motorului LDiff schimbarea granularității se face apăsând Alt+Shift+W</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label">max rezultate</label>
+            <div class="col-sm-2" id="maxaffected">
+                <div class="input-group spinner">
+                  <input type="text" name="maxaffected" class="form-control" value="1000" min="100" max="1000" step="100">
+                  <div class="input-group-btn-vertical">
+                    <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-up"></i></button>
+                    <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-down"></i></button>
+                  </div>
+                </div>
+                <p class="help-block">Min 100 - Max 1000.</p>
+            </div>
+          </div>
+
+    
+          <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9">
               <button type="submit" class="btn btn-primary" name="previewButton">
                 previzualizează
@@ -348,8 +380,7 @@
           doilea în toate definițiile, făcând diferența între litere mari și mici
           (case-sensitive) și fără expresii regulate (textul este căutat ca
           atare). Vor fi modificate maximum 1.000 de definiții. Veți putea vedea
-          lista de modificări propuse și să o acceptați. Din păcate, nu avem
-          posibilitatea să subliniem exact porțiunile din text modificate.
+          lista de modificări propuse și să o acceptați.
         </p>
       </div>
     </div>
@@ -482,7 +513,9 @@
     </div>
   {/if}
 
+  {literal}
   <script>
    $(adminIndexInit);
   </script>
+  {/literal}
 {/block}

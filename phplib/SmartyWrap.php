@@ -57,7 +57,7 @@ class SmartyWrap {
 
     // generate the output file if it doesn't exist or if it's too old
     if (!file_exists($output) || (filemtime($output) < $maxTimestamp)) {
-      $tmpFile = tempnam('/tmp', 'merge_');
+      $tmpFile = @tempnam('/tmp', 'merge_');
       foreach ($full as $f) {
         $contents = file_get_contents($f);
         if ($type == 'css') {
@@ -212,6 +212,8 @@ class SmartyWrap {
         case 'colorpicker':
           self::$cssFiles[21] = 'third-party/bootstrap-colorpicker.min.css';
           break;
+        case 'diff':                self::$cssFiles[22] = 'diff.css'; break;
+        case 'bootstrap-spinedit':  self::$cssFiles[23] = 'third-party/bootstrap-spinedit.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           Util::redirect(Core::getWwwRoot());
@@ -266,6 +268,9 @@ class SmartyWrap {
         case 'callToAction':  self::$jsFiles[29] = 'callToAction.js'; break;
         case 'seedrandom':    self::$jsFiles[30] = 'third-party/seedrandom.min.js'; break;
         case 'colorpicker':   self::$jsFiles[31] = 'third-party/bootstrap-colorpicker.min.js'; break;
+        case 'diff':          self::$jsFiles[32] = 'diff.js'; break;
+        case 'diffSelector':  self::$jsFiles[33] = 'diffSelector.js'; break;
+        case 'bootstrap-spinedit':  self::$jsFiles[34] = 'third-party/bootstrap-spinedit.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           Util::redirect(Core::getWwwRoot());

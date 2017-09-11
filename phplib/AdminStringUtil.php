@@ -407,6 +407,8 @@ class AdminStringUtil {
     $inItalic = false;
     $inQuotes = false;
     $inSpaced = false;
+    $inDeleted = false;
+    $inInserted = false;
 
     $result = '';
     $len = mb_strlen($s);
@@ -441,6 +443,12 @@ class AdminStringUtil {
       } else if ($c == '%') {
         $inSpaced = !$inSpaced;
         $result .= $inSpaced ? '<span class="spaced">' : '</span>';
+      } else if ($c == "†") {
+        $inDeleted = !$inDeleted;
+        $result .= $inDeleted ? "<del>" : "</del>";
+      } else if ($c == "‡") {
+        $inInserted = !$inInserted;
+        $result .= $inInserted ? "<ins>" : "</ins>";
       } else {
         $result .= $c;
       }

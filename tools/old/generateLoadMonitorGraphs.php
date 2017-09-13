@@ -20,7 +20,7 @@ generatePngs(DATA_FILENAME, PNG_FILENAME);
 /*************************************************************************/
 
 function loadLogFile($filename) {
-  $tmpFilename = tempnam('/tmp', 'tail_');
+  $tmpFilename = tempnam(Core::getTempPath(), 'tail_');
   exec(sprintf("tail -n %d %s > %s", TAIL_LINES, $filename, $tmpFilename));
   $lines = file($tmpFilename, FILE_IGNORE_NEW_LINES);
   $records = array();

@@ -3,7 +3,7 @@ $(function(){
     $('.spinner .btn:first-of-type').on('click', function() {
       var btn = $(this);
       var input = btn.closest('.spinner').find('input');
-      var step = input.attr('step');
+      var step = parseInt(input.attr('step'));
       if (input.attr('max') == undefined || parseInt(input.val()) < parseInt(input.attr('max'))) {    
         input.val(parseInt(input.val(), 10) + step);
       } else {
@@ -13,7 +13,7 @@ $(function(){
     $('.spinner .btn:last-of-type').on('click', function() {
       var btn = $(this);
       var input = btn.closest('.spinner').find('input');
-      var step = input.attr('step');
+      var step = parseInt(input.attr('step'));
       if (input.attr('min') == undefined || parseInt(input.val()) > parseInt(input.attr('min'))) {    
         input.val(parseInt(input.val(), 10) - step);
       } else {

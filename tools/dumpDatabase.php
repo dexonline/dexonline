@@ -20,6 +20,7 @@ $schemaOnly = [
   'RecentLink',
   'UserWordBookmark',
   'history_Comment',
+  'Typo',                // site-based... no need to distribute
 ];
 $currentYear = date("Y");
 

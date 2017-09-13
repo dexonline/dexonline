@@ -4,6 +4,7 @@ class Core {
 
   private static $wwwRoot;
   private static $rootPath;
+  private static $tempPath;
 
   static function autoloadLibClass($className) {
     $filename = self::getRootPath() . 'phplib' . DIRECTORY_SEPARATOR . $className . '.php';
@@ -30,6 +31,7 @@ class Core {
 
     self::defineRootPath();
     self::defineWwwRoot();
+    self::defineTempPath();
     self::requireOtherFiles();
     DB::init();
     Session::init(); // init Session before SmartyWrap: SmartyWrap caches the person's nickname.
@@ -120,6 +122,18 @@ class Core {
     require_once StringUtil::portable("$root/phplib/third-party/idiorm/paris.php");
   }
 
+  static function getTempPath() {
+    return self::$tempPath;
+  }
+  
+  static function defineTempPath() {
+    $temp = Config::get('global.tempDir', sys_get_temp_dir());
+    if ( is_dir( $temp ) && is_writable( $temp ) ) {
+      self::$tempPath = $temp;
+    } else {
+      throw new Exception('Directorul temporar specificat nu poate fi accesat.');    
+    }
+  }
 }
 
 Core::init();

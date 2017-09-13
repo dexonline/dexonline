@@ -146,32 +146,33 @@ function generateThumbnail($ftp, $img, $size, $prefix) {
 
   $extension = @pathinfo($img)['extension']; // may be missing entirely
   $extension = strtolower($extension);
+  $tempDir = sys_get_temp_dir();
 
   if (in_array($extension, [ 'gif', 'jpeg', 'jpg', 'png' ])) {
     Log::info("Generating {$size}x{$size} thumbnail for $img");
     $url = Config::get('static.url') . IMG_PREFIX . $img;
     Log::info("Fetching $url");
 
-    OS::executeAndAssert("rm -f /tmp/a.{$extension} /tmp/t.{$extension}");
-    OS::executeAndAssert("wget -q -O /tmp/a.{$extension} '$url'");
+    OS::executeAndAssert("rm -f {$tempDir}/a.{$extension} {$tempDir}/t.{$extension}");
+    OS::executeAndAssert("wget -q -O {$tempDir}/a.{$extension} '$url'");
 
-    $output = OS::executeAndReturnOutput("identify -format '%wx%h' /tmp/a.{$extension}");
+    $output = OS::executeAndReturnOutput("identify -format '%wx%h' {$tempDir}/a.{$extension}");
     $resolution = $output[0];
 
     if ($resolution == "{$size}x{$size}") {
-      copy("/tmp/a.{$extension}", "/tmp/t.{$extension}");
+      copy("{$tempDir}/a.{$extension}", "{$tempDir}/t.{$extension}");
     } else {
       OS::executeAndAssert(
         "convert -strip -geometry {$size}x{$size} -sharpen 1x1 " .
-        "/tmp/a.{$extension} /tmp/t.{$extension}");
+        "{$tempDir}/a.{$extension} {$tempDir}/t.{$extension}");
     }
 
     if ($extension == 'png') {
-      OS::executeAndAssert('optipng /tmp/t.png');
+      OS::executeAndAssert("optipng {$tempDir}/t.png");
     }
 
-    Log::info("FTP upload: /tmp/t.{$extension} => " . Config::get('static.url') . $prefix . $img);
-    $ftp->staticServerPut("/tmp/t.{$extension}", $prefix . $img);
+    Log::info("FTP upload: {$tempDir}/t.{$extension} => " . Config::get('static.url') . $prefix . $img);
+    $ftp->staticServerPut("{$tempDir}/t.{$extension}", $prefix . $img);
   }
 }
 

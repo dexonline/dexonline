@@ -372,9 +372,11 @@ class StringUtil {
     /**
    * Returns the preposition needed for numerals ending with 20->99 
    * @param string $amount
-   * @return string either ␣ or ␣de␣
+   * @return string either ␣ or ␣de
    */
-  static function getAmountPreposition($amount) {
+  // TODO - return singular (in case of 1) or plural (in every other cases, including 0) of $article for specified $amount
+  // TODO - do we needed it for negative numbers?
+  static function getAmountPreposition($amount, $article = null) {
     $de = substr($amount, -2);
     return ($de > 0 && $de < 20) ? "" : " de";
   }

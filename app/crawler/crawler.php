@@ -10,6 +10,7 @@ foreach ($config as $section => $vars) {
   if (StringUtil::startsWith($section, 'site-')) {
     $siteId = explode('-', $section, 2)[1];
     $rootUrl = $vars['url'];
+    $rootDomain = parse_url($rootUrl, PHP_URL_HOST);
     $linkSelectors = $vars['articleLinkSelector'];
     Log::info("crawling site: {$siteId}, root URL: {$rootUrl}");
 
@@ -28,10 +29,13 @@ foreach ($config as $section => $vars) {
 
       foreach ($links as $link) {
         $articleUrl = $base->join($link->href);
+        $articleDomain = parse_url($articleUrl, PHP_URL_HOST);
 
-        $rec = CrawlerUrl::get_by_url($articleUrl);
-        if (!$rec) {
-          fetch($articleUrl, $siteId, $vars, $config['global']['path']);
+        if ($articleDomain == $rootDomain) { // skip cross-domain links
+          $rec = CrawlerUrl::get_by_url($articleUrl);
+          if (!$rec) {
+            fetch($articleUrl, $siteId, $vars, $config['global']['path']);
+          }
         }
       }
     }

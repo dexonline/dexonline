@@ -30,9 +30,13 @@ class CrawlerUrl extends BaseObject implements DatedObject {
   function extractAuthor($selector, $regexp) {
     $authors = $this->parser->find($selector);
 
-    if (count($authors) > 1) {
-      throw new CrawlerException('expected 1 author, got ' . count($authors));
-    } else if (!empty($authors)) {
+    if (empty($authors)) {
+      Log::warning('no authors found');
+      $this->author = '';
+    } else {
+      if (count($authors) > 1) {
+        Log::warning('%s authors found, using the first one', count($authors));
+      }
       $authorWrapper = trim($authors[0]->plaintext);
 
       if (!preg_match($regexp, $authorWrapper, $matches)) {

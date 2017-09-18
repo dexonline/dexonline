@@ -53,6 +53,8 @@ $(function() {
     $('#fragmentContainer').on('click', '.deleteFragmentButton', deleteFragment);
 
     initSelect2('.fragment', 'ajax/getLexemsById.php', fragmentOptions);
+
+    $('.frequentTag').click(frequentTagClick);
   }
 
   function saveEverything() {
@@ -133,6 +135,10 @@ $(function() {
 
   function showRenameDiv() {
     $('#renameDiv').removeClass('hidden');
+  }
+
+  function frequentTagClick() {
+    frequentObjectClick($(this), $('#tagIds'));
   }
 
   init();

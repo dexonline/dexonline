@@ -176,6 +176,13 @@
                   {/foreach}
                 </select>
 
+                <div class="clearfix">
+                  {include "bits/select2Suggestions.tpl"
+                           list=$frequentTags
+                           text="value"
+                           classes="frequentTag"}
+                </div>
+
                 <div class="checkbox">
                   <label>
                     <input type="checkbox" name="main" value="1" {if $lexem->main}checked{/if}>

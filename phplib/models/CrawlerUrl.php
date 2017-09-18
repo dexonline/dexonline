@@ -50,18 +50,23 @@ class CrawlerUrl extends BaseObject implements DatedObject {
   function extractTitle($selector) {
     $titles = $this->parser->find($selector);
 
-    if (count($titles) != 1) {
-      throw new CrawlerException('expected 1 title, got ' . count($titles));
+    if (empty($titles)) {
+      Log::warning('no titles found');
+      $this->title = '';
+    } else {
+      if (count($titles) > 1) {
+        Log::warning('%s titles found, using the first one', count($titles));
+      }
+
+      $titleWrapper = $titles[0];
+
+      // strip away all the children nodes
+      foreach ($titleWrapper->children() as $child ) {
+        $child->outertext = '';
+      }
+
+      $this->title = trim($titleWrapper->innertext);
     }
-
-    $titleWrapper = $titles[0];
-
-    // strip away all the children nodes
-    foreach ($titleWrapper->children() as $child ) {
-      $child->outertext = '';
-    }
-
-    $this->title = trim($titleWrapper->innertext);
   }
 
   function extractBody($selector) {
@@ -92,7 +97,9 @@ class CrawlerUrl extends BaseObject implements DatedObject {
       throw new CrawlerException('cannot save data before the CrawlerUrl object has an ID');
     }
     @mkdir(dirname($file), 0777, true);
-    file_put_contents($file, $data);
+    if (file_put_contents($file, $data) === false) {
+      throw new CrawlerException('Cannot save crawled page; please check your config parameters.');
+    }
   }
 
   function saveBody($path) {

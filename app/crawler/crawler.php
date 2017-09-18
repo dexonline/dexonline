@@ -50,17 +50,28 @@ class CrawlerException extends Exception {
 function fetch($url, $siteId, $vars, $path) {
   Log::info('fetching %s', urldecode($url));
 
+  $cu = null;
   try {
 
     $cu = CrawlerUrl::create($url, $siteId);
     $cu->fetchAndExtract($vars['authorSelector'], $vars['authorRegexp'], $vars['titleSelector'],
                          $vars['bodySelector']);
     $cu->save();
-    $cu->saveHtml($path);
-    $cu->saveBody($path);
+
+    Log::info("saved as CrawlerUrl ID # {$cu->id}");
 
   } catch (CrawlerException $e) {
     Log::warning('crawler exception: %s', $e->getMessage());
+  }
+
+  if ($cu->id) {
+    try {
+      $cu->saveHtml($path);
+      $cu->saveBody($path);
+    } catch (CrawlerException $e) {
+      Log::critical('crawler exception: %s', $e->getMessage());
+      exit;
+    }
   }
 
   sleep(2);

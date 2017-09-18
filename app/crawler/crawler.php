@@ -33,7 +33,8 @@ foreach ($config as $section => $vars) {
 
         if ($articleDomain == $rootDomain) { // skip cross-domain links
           $rec = CrawlerUrl::get_by_url($articleUrl);
-          if (!$rec) {
+          $ignored = CrawlerIgnoredUrl::isIgnored($articleUrl);
+          if (!$rec && !$ignored) {
             fetch($articleUrl, $siteId, $vars, $config['global']['path']);
           }
         }
@@ -62,6 +63,7 @@ function fetch($url, $siteId, $vars, $path) {
 
   } catch (CrawlerException $e) {
     Log::warning('crawler exception: %s', $e->getMessage());
+    CrawlerIgnoredUrl::incrementFailures($url);
   }
 
   if ($cu->id) {

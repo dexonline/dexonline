@@ -152,12 +152,15 @@ $homonyms = Model::factory('Lexem')
           ->where_not_equal('id', $lexem->id)
           ->find_many();
 
+$frequentTags = Tag::getFrequent(ObjectTag::TYPE_LEXEM, 4);
+
 SmartyWrap::assign('lexem', $lexem);
 SmartyWrap::assign('homonyms', $homonyms);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('canEdit', $canEdit);
+SmartyWrap::assign('frequentTags', $frequentTags);
 SmartyWrap::addCss('paradigm', 'admin');
 SmartyWrap::addJs('select2Dev', 'modelDropdown');
 SmartyWrap::display('admin/lexemEdit.tpl');

@@ -33,7 +33,8 @@ foreach ($config as $section => $vars) {
 
         if ($articleDomain == $rootDomain) { // skip cross-domain links
           $rec = CrawlerUrl::get_by_url($articleUrl);
-          if (!$rec) {
+          $ignored = CrawlerIgnoredUrl::isIgnored($articleUrl);
+          if (!$rec && !$ignored) {
             fetch($articleUrl, $siteId, $vars, $config['global']['path']);
           }
         }
@@ -50,17 +51,29 @@ class CrawlerException extends Exception {
 function fetch($url, $siteId, $vars, $path) {
   Log::info('fetching %s', urldecode($url));
 
+  $cu = null;
   try {
 
     $cu = CrawlerUrl::create($url, $siteId);
     $cu->fetchAndExtract($vars['authorSelector'], $vars['authorRegexp'], $vars['titleSelector'],
                          $vars['bodySelector']);
     $cu->save();
-    $cu->saveHtml($path);
-    $cu->saveBody($path);
+
+    Log::info("saved as CrawlerUrl ID # {$cu->id}");
 
   } catch (CrawlerException $e) {
     Log::warning('crawler exception: %s', $e->getMessage());
+    CrawlerIgnoredUrl::incrementFailures($url);
+  }
+
+  if ($cu->id) {
+    try {
+      $cu->saveHtml($path);
+      $cu->saveBody($path);
+    } catch (CrawlerException $e) {
+      Log::critical('crawler exception: %s', $e->getMessage());
+      exit;
+    }
   }
 
   sleep(2);

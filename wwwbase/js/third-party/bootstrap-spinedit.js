@@ -1,3 +1,5 @@
+// snippet fetched from https://bootsnipp.com/snippets/featured/input-spinner-with-min-and-max-values
+// @ added stepping functionality
 $(function(){
 
     $('.spinner .btn:first-of-type').on('click', function() {

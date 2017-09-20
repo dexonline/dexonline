@@ -146,7 +146,7 @@ function generateThumbnail($ftp, $img, $size, $prefix) {
 
   $extension = @pathinfo($img)['extension']; // may be missing entirely
   $extension = strtolower($extension);
-  $tempDir = sys_get_temp_dir();
+  $tempDir = Core::getTempPath();
 
   if (in_array($extension, [ 'gif', 'jpeg', 'jpg', 'png' ])) {
     Log::info("Generating {$size}x{$size} thumbnail for $img");

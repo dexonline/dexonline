@@ -6,7 +6,7 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-const START_AT = 'puchițek';
+const START_AT = '';
 const FEMININE_INFLECTION_ID = 33;
 
 // MF model => [ M model, list of F models ]

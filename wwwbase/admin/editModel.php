@@ -204,7 +204,7 @@ if (!$previewButton && !$saveButton) {
     // Regenerate the affected inflections for every lexem
     Log::debug('Regenerating modified inflections');
     if (count($regenTransforms)) {
-      $fileName = tempnam('/tmp', 'editModel_');
+      $fileName = tempnam(Core::getTempPath(), 'editModel_');
       $fp = fopen($fileName, 'w');
       foreach ($regenForms as $i => $regenRow) {
         $l = $lexems[$i];

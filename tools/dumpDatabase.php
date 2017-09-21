@@ -17,9 +17,10 @@ $schemaOnly = [
   'DefinitionSimple',
   'DefinitionVersion',
   'Donation',
-  'RecentLink',
-  'UserWordBookmark',
   'history_Comment',
+  'RecentLink',
+  'Typo',                // site-based... no need to distribute
+  'UserWordBookmark',
 ];
 $currentYear = date("Y");
 

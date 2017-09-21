@@ -13,6 +13,7 @@ Log::notice('started');
 $locVersions = Config::getLocVersions();
 $lv = $locVersions[1]->name; // use the last frozen one
 LocVersion::changeDatabase($lv);
+$tempDir = Core::getTempPath();
 
 Log::info('collecting forms');
 $forms = Model::factory('InflectedForm')
@@ -33,12 +34,12 @@ $forms = Model::factory('InflectedForm')
        ->find_many();
 $joined = implode("\n", Util::objectProperty($forms, 'formNoAccent'));
 
-$diaFileName = '/tmp/game-word-list-dia.txt';
+$diaFileName = $tempDir.'/game-word-list-dia.txt';
 Log::info('writing forms to %s', $diaFileName);
 file_put_contents($diaFileName, $joined);
 
-$tmpFileName = '/tmp/game-word-list-tmp.txt';
-$noDiaFileName = '/tmp/game-word-list.txt';
+$tmpFileName = $tempDir.'/game-word-list-tmp.txt';
+$noDiaFileName = $tempDir.'/game-word-list.txt';
 Log::info('writing Latin forms to %s', $noDiaFileName);
 $latin = StringUtil::unicodeToLatin($joined);
 file_put_contents($tmpFileName, $latin);

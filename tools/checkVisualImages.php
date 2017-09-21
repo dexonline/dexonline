@@ -103,26 +103,27 @@ function generateThumbnail($ftp, $img) {
   $extension = @pathinfo($img)['extension']; // may be missing entirely
   $extension = strtolower($extension);
   $size = Visual::THUMB_SIZE;
-
+  $tempDir = Core::getTempPath();
+  
   if (in_array($extension, [ 'gif', 'jpeg', 'jpg', 'png' ])) {
     Log::info("Generating {$size}x{$size} thumbnail for $img");
     $url = Config::get('static.url') . IMG_PREFIX . $img;
     Log::info("Fetching $url");
 
-    OS::executeAndAssert("rm -f /tmp/a.{$extension} /tmp/t.{$extension}");
-    OS::executeAndAssert("wget -q -O /tmp/a.{$extension} '$url'");
+    OS::executeAndAssert("rm -f {$tempDir}/a.{$extension} {$tempDir}/t.{$extension}");
+    OS::executeAndAssert("wget -q -O {$tempDir}/a.{$extension} '$url'");
 
     OS::executeAndAssert(
       "convert -strip -geometry {$size}x{$size} -sharpen 1x1 " .
-      "/tmp/a.{$extension} /tmp/t.{$extension}");
+      "{$tempDir}/a.{$extension} {$tempDir}/t.{$extension}");
 
 
     if ($extension == 'png') {
-      OS::executeAndAssert('optipng /tmp/t.png');
+      OS::executeAndAssert("optipng {$tempDir}/t.png");
     }
 
-    Log::info("FTP upload: /tmp/t.{$extension} => " . Config::get('static.url') . THUMB_PREFIX . $img);
-    $ftp->staticServerPut("/tmp/t.{$extension}", THUMB_PREFIX . $img);
+    Log::info("FTP upload: {$tempDir}/t.{$extension} => " . Config::get('static.url') . THUMB_PREFIX . $img);
+    $ftp->staticServerPut("{$tempDir}/t.{$extension}", THUMB_PREFIX . $img);
   }
 }
 

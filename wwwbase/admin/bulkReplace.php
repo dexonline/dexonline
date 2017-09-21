@@ -12,11 +12,9 @@ $sourceId = Request::get('sourceId');
 $engine = Request::get('engine');
 $granularity = Request::get('granularity');
 $lastId = intval(Request::get('lastId')); // id of definition for further search
-$maxaffected = Request::get('maxaffected'); // ids excluded from changes
-$excludedIds = Request::get('excludedIds'); // ids excluded from changes
+$maxaffected = Request::get('maxaffected'); // max possible number of definitions that will be changed
+$excludedIds = Request::get('excludedIds'); // array of definition ids excluded from changes
 $saveButton = Request::has('saveButton');
-
-//$MAX_AFFECTED = 100; // this could be a _REQUEST parameter
 
 if (DebugInfo::isEnabled()){  DebugInfo::init(); }
 
@@ -62,12 +60,11 @@ if ($saveButton) {
   $defs = $querySave->find_many();
   DebugInfo::stopClock("BulkReplace - AfterQuery +SaveButton");
   
-  //$excludedIds = explode($excludedIds); // get the array of IDs
-  $excludedIds = preg_split('/,/', $excludedIds, null, PREG_SPLIT_NO_EMPTY);
+  $excludedIds = filter_var_array(preg_split('/,/', $excludedIds, null, PREG_SPLIT_NO_EMPTY), FILTER_SANITIZE_NUMBER_INT);
   $excludedDefs += count($excludedIds);
   
   foreach ($defs as $def) {
-    $lastId = $def->id;                     // $lastId gets will get the final defId
+    $lastId = $def->id;                     // $lastId will get the final defId
     if (in_array($def->id, $excludedIds)) {
       continue;                             // don't process exluded Ids
     }

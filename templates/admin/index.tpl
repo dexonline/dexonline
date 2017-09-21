@@ -314,48 +314,43 @@
       <div class="panel-body">
         <form class="form-horizontal" action="bulkReplace.php">
           <div class="form-group">
-            <label class="control-label col-sm-3">caută</label>
-            <div class="col-sm-9">
+            <label class="control-label col-xs-1">caută</label>
+            <div class="col-xs-5">
               <input class="form-control" type="text" name="search">
             </div>
-          </div>
 
-          <div class="form-group">
-            <label class="control-label col-sm-3">înlocuiește cu</label>
-            <div class="col-sm-9">
-              <input class="form-control" type="text" name="replace">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-3 control-label">sursa</label>
-            <div class="col-sm-9">
-              {include "bits/sourceDropDown.tpl" name="sourceId"}
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-3 control-label">motor</label>
-            <div class="col-sm-9">
+            <label class="control-label col-xs-1">motor</label>
+            <div class="col-xs-5">
               {include "bits/diffEngineDropDown.tpl" name="engine" canEdit=true}
             </div>
+            
           </div>
 
           <div class="form-group">
-            <label class="col-sm-3 control-label">granularitate</label>
-            <div class="col-sm-9" id="granularity">
+            <label class="control-label col-xs-1">substituie cu</label>
+            <div class="col-xs-5">
+              <input class="form-control" type="text" name="replace">
+            </div>
+            <label class="control-label col-xs-1">detaliere</label>
+            <div class="col-xs-5" id="granularity">
               {include "bits/diffGranularityRadio.tpl" name="granularity" canEdit=true selected=1}
             </div>
-             <div class="col-sm-9" id="message" hidden="true">
-              <p class="help-block">în cazul motorului LDiff schimbarea granularității se face apăsând Alt+Shift+W</p>
+             <div class="col-xs-5" id="message" hidden="true">
+              <p class="help-block">în cazul LDiff schimbarea detalierii se face apăsând Alt+Shift+W</p>
             </div>
+
           </div>
 
           <div class="form-group">
-            <label class="col-sm-3 control-label">max rezultate</label>
+            <label class="control-label col-xs-1">sursa</label>
+            <div class="col-xs-5">
+              {include "bits/sourceDropDown.tpl" name="sourceId"}
+            </div>
+
+            <label class="control-label col-xs-1">rezultate</label>
             <div class="col-sm-2" id="maxaffected">
                 <div class="input-group spinner">
-                  <input type="text" name="maxaffected" class="form-control" value="1000" min="100" max="1000" step="100">
+                  <input type="numeric" name="maxaffected" readonly class="form-control" value="1000" min="100" max="1000" step="100">
                   <div class="input-group-btn-vertical">
                     <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-up"></i></button>
                     <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-down"></i></button>
@@ -367,7 +362,7 @@
 
     
           <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-9">
+            <div class="col-xs-5 col-xs-offset-1">
               <button type="submit" class="btn btn-primary" name="previewButton">
                 previzualizează
               </button>
@@ -513,9 +508,7 @@
     </div>
   {/if}
 
-  {literal}
   <script>
    $(adminIndexInit);
   </script>
-  {/literal}
 {/block}

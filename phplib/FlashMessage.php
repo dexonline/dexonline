@@ -9,7 +9,7 @@ class FlashMessage {
    *Adds messages to a messageQueue
    * 
    *@param string $message
-   *@param string $type success, warning, danger (default)
+   *@param string $type info, success, warning, danger (default)
    */
   static function add($message, $type = 'danger') {
     self::$messages[] = [

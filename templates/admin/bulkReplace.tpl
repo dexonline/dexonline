@@ -11,21 +11,21 @@
           <i class="glyphicon glyphicon-user"></i>
             {$modUser}
           <div class="checkbox-inline">
-              <input type="checkbox" name="checkbox-all" id="checkbox-all" />
+              <input type="checkbox" name="checkbox-all" id="defall" checked />
           </div>
         </div>
         <div class="panel-body" id="panel-body">
             {foreach $searchResults as $row}
-              <div class="checkbox-inline" id="checkbox">
-                  <input type="checkbox" name="checkbox" id="{$row->definition->id}" value="{$row->definition->id}" />
+              <div class="checkbox-inline">
+                  <input type="checkbox" name="checkbox-def" id="def{$row->definition->id}" value="{$row->definition->id}" checked />
               </div>
-              {include "bits/definition.tpl" showDropup=0 showStatus=1 showUser=0}
+              {include "bits/definition.tpl" showDropup=1 showStatus=1 showFlagTypo=1 showUser=0}
             {/foreach}
         </div>
         <div class="panel-footer">
             <i class="glyphicon glyphicon-filter"></i>
             <label class="radio-inline">
-                <input type="radio" name="radiodiff" checked="checked" >Toate diferențele
+                <input type="radio" name="radiodiff" checked >Toate diferențele
             </label>
             <label class="radio-inline">
                 <input type="radio" name="radiodiff" value="onlyDeletions" >Doar ștergerile
@@ -57,7 +57,7 @@
     </button>
     <button type="button" class="btn btn-primary" name="backButton">
       <i class="glyphicon glyphicon-step-backward"></i>
-      <u>î</u>napoi la pagina moderatorului
+      înapoi la pagina moderatorului
     </button>
   </form>
 {/block}

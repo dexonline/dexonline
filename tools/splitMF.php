@@ -8,6 +8,7 @@ require_once __DIR__ . '/../phplib/Core.php';
 
 const START_AT = '';
 const FEMININE_INFLECTION_ID = 33;
+const LONG_INFINITIVE_MODEL_IDS = [ 284, 290 ]; // F107 and F113
 
 // MF model => [ M model, list of F models ]
 const TYPE_MAP = [
@@ -131,81 +132,170 @@ $entries = Model::factory('Entry')
          ->distinct()
          ->join('EntryLexem', ['e.id', '=', 'el.entryId'], 'el')
          ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
-         ->where_in('l.modelType', ['MF', 'A'])
+         ->where_in('l.modelType', [ 'MF', 'A' ])
          ->where_gt('e.description', START_AT)
          ->order_by_asc('e.description')
          ->find_many();
 
-foreach ($entries as $em) {
+foreach ($entries as $e) {
   // Split the entry if it has any noun-type lexemes. This is OK to do, because either it
   // has an MF lexeme or it has an A lexeme (per the above query) and a noun lexeme.
+  // Skip long infinitive lexems, which indicate a verb + participle + long infinitive entry.
   $toSplit = Model::factory('Lexem')
            ->table_alias('l') 
            ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
-           ->where('el.entryId', $em->id)
-           ->where_in('l.modelType', [ 'MF', 'M', 'F', ])
+           ->join('ModelType', 'l.modelType = mt.code', 'mt')
+           ->join('Model', 'mt.canonical = m.modelType and l.modelNumber = m.number', 'm')
+           ->where('el.entryId', $e->id)
+           ->where_in('l.modelType', [ 'MF', 'M', 'F' ])
+           ->where_not_in('m.id', LONG_INFINITIVE_MODEL_IDS)
            ->count();
 
   if ($toSplit) {
 
-    printf("==== procesez intrarea [$em]\n");
+    printf("==== procesez intrarea [$e]\n");
 
-    $femForm = getFeminineForm($em);
+    $femForm = getFeminineForm($e);
 
     if (!$femForm) {
-      printf("  * EROARE: nu pot deduce forma de feminin pentru [{$em}](ID intrare={$em->id})\n");
+      printf("  * EROARE: nu pot deduce forma de feminin pentru [{$e}](ID intrare={$e->id})\n");
     } else {
-      $shortDesc = $em->getShortDescription();
-      $femDesc = str_replace($shortDesc, $femForm, $em->description);
-      printf("  * creez intrarea pentru feminin: [{$femDesc}]\n");
-      $ef = $em->_clone(true, false, true, true); // do not clone lexeme associations
-      $ef->description = $femDesc;
-      $ef->save();
-      foreach ($em->getLexems() as $l) {
-        switch ($l->modelType) {
-          case 'M':
-            // do nothing: lexeme already properly associated with the masculine entry
-            printf("  * lexemul [$l] rămâne asociat cu intrarea la masculin\n");
-            break;
-
-          case 'F':
-            // move lexeme to the feminine entry
-            printf("  * lexemul [$l] se mută la intrarea la feminin\n");
-            EntryLexem::dissociate($em->id, $l->id);
-            EntryLexem::associate($em->id, $l->id);
-            break;
-
-          case 'A':
-          case 'MF':
-            // break into M and F lexemes
-            splitLexeme($l, $em, $ef);
-
-            // keep a copy of the MF/A lexeme if it is an adjective
-            if (($l->modelType == 'A') || hasAdjectiveTag($l)) {
-              printf("  * păstrez o copie a lui {$l} A{$l->modelNumber}, asociat " .
-                     "cu ambele intrări\n");
-              $l->modelType = 'A';
-              $l->save(); // no need to regenerate the paradigm
-              EntryLexem::associate($ef->id, $l->id);
-            } else {
-              $l->delete();
-            }
-            break;
-
-          default:
-            printf("  * nu recunosc tipul de model pentru {$l} {$l->modelType}{$l->modelNumber}; " .
-                   "îl las asociat cu intrarea la masculin\n");
-        }
-      }
+      list($em, $ef, $ea) = createEntries($e, $femForm);
+      assignLexemes($em, $ef, $ea, $e->getLexems());
+      printf("  * șterg intrarea originală\n");
+      $e->delete();
     }
+    exit;
 
   } else {
-    // printf("skipping $em\n");
+    // printf("skipping $e\n");
   }
   
 }
 
 /*************************************************************************/
+
+function createEntries($e, $femForm) {
+  global $tags;
+
+  $em = $ef = $ea = null;
+
+  // collect model types from the lexeme modelType and from relevant tags
+  $modelTypes = [];
+  foreach ($e->getLexems() as $l) {
+    $modelTypes[$l->modelType] = true;
+    foreach ($tags as $modelType => $ignored) {
+      if (hasTag($l, $modelType)) {
+        $modelTypes[$modelType] = true;
+      }
+    }
+  }
+
+  // create entries
+  if (isset($modelTypes['MF']) || isset($modelTypes['M'])) {
+    printf("  * creez intrarea pentru s.m.: [{$e->description}]\n");
+    $em = $e->_clone(true, false, true, true); // do not clone lexeme associations
+  }
+  if (isset($modelTypes['MF']) || isset($modelTypes['F'])) {
+    $shortDesc = $e->getShortDescription();
+    $femDesc = str_replace($shortDesc, $femForm, $e->description);
+    printf("  * creez intrarea pentru s.f.: [{$femDesc}]\n");
+    $ef = $e->_clone(true, false, true, true);
+    $ef->description = $femDesc;
+    $ef->save();
+  }
+  if (isset($modelTypes['A'])) {
+    printf("  * creez intrarea pentru adj.: [{$e->description}]\n");
+    $ea = $e->_clone(true, false, true, true);
+  }
+
+  // disambiguate the masculine and adjective entries if both exist
+  if ($em && $ea) {
+    if (!preg_match('/s\. ?m\./', $em->description)) {
+      $newDesc = $em->description . ' (s.m.)';
+      printf("  * dezambiguizez intrarea pentru s.m.: [{$newDesc}]\n");
+      $em->description = $newDesc;
+      $em->save();
+    }
+    if (!preg_match('/adj\./', $ea->description)) {
+      $newDesc = $ea->description . ' (adj.)';
+      printf("  * dezambiguizez intrarea pentru adj.: [{$newDesc}]\n");
+      $ea->description = $newDesc;
+      $ea->save();
+    }
+  }
+
+  return [$em, $ef, $ea];
+}
+
+// Distribute the lexemes from the original entry among the new entries.
+// Create new lexemes where necessary.
+function assignLexemes($em, $ef, $ea, $lexemes) {
+  global $tags;
+
+  // first distribute the M, F and A lexemes
+  $mSatisfied = $fSatisfied = $aSatisfied = false;
+  foreach ($lexemes as $l) {
+    switch ($l->modelType) {
+      case 'M':
+        assert($em);
+        printf("  * asociez lexemul existent [$l] cu intrarea de s.m.\n");
+        EntryLexem::associate($em->id, $l->id);
+        $mSatisfied = true;
+        if (!hasTag($l, 'M')) {
+          printf("  * etichetez lexemul existent [$l] cu [substantiv masculin]\n");
+          ObjectTag::associate(ObjectTag::TYPE_LEXEM, $l->id, $tags['M']->id);
+        }
+        break;
+
+      case 'F':
+        assert($ef);
+        printf("  * asociez lexemul existent [$l] cu intrarea de s.f.\n");
+        EntryLexem::associate($ef->id, $l->id);
+        $fSatisfied = true;
+        if (!hasTag($l, 'F')) {
+          printf("  * etichetez lexemul existent [$l] cu [substantiv feminin]\n");
+          ObjectTag::associate(ObjectTag::TYPE_LEXEM, $l->id, $tags['F']->id);
+        }
+        break;
+
+      case 'A':
+        assert($ea);
+        printf("  * asociez lexemul existent [$l] cu intrarea de adj.\n");
+        EntryLexem::associate($ea->id, $l->id);
+        $aSatisfied = true;
+        if (!hasTag($l, 'A')) {
+          printf("  * etichetez lexemul existent [$l] cu [adjectiv]\n");
+          ObjectTag::associate(ObjectTag::TYPE_LEXEM, $l->id, $tags['A']->id);
+        }
+        break;
+
+      case 'MF':
+        // nothing yet
+        break;
+
+      default:
+        printf("  * nu recunosc tipul de model pentru {$l} {$l->modelType}{$l->modelNumber}; " .
+               "îl asociez cu toate intrările\n");
+        if ($em) {
+          EntryLexem::associate($em->id, $l->id);
+        }
+        if ($ef) {
+          EntryLexem::associate($ef->id, $l->id);
+        }
+        if ($ea) {
+          EntryLexem::associate($ea->id, $l->id);
+        }
+    }
+  }
+
+  // now split the MF lexemes, but only if the M and F entries don't already have lexemes
+  foreach ($lexemes as $l) {
+    if ($l->modelType == 'MF') {
+      splitLexeme($l, $em, $ef, $ea, $mSatisfied, $fSatisfied, $aSatisfied);
+    }
+  }
+}
 
 // figure out the feminine form for the new entry's description
 function getFeminineForm($e) {
@@ -229,36 +319,57 @@ function getFeminineForm($e) {
 }
 
 // splits an MF or A lexeme into M and F lexemes and associates them with the M and F entries
-function splitLexeme($l, $em, $ef) {
+function splitLexeme($l, $em, $ef, $ea, $mSatisfied, $fSatisfied, $aSatisfied) {
+  global $tags;
+
   if (!array_key_exists($l->modelNumber, TYPE_MAP)) {
     printf("  * EROARE: nu știu cum să sparg lexemul {$l} {$l->modelType}{$l->modelNumber}\n");
     return;
   }
 
-  $mascNumber = TYPE_MAP[$l->modelNumber][0];
-  printf("  * creez lexemul [{$l->form}] M{$mascNumber} asociat cu intrarea la masculin\n");
-  $masc = cloneLexeme($l, $l->form, 'M', $mascNumber);
-  EntryLexem::associate($em->id, $masc->id);
+  if ($em && !$mSatisfied) {
+    $mascNumber = TYPE_MAP[$l->modelNumber][0];
+    printf("  * creez lexemul [{$l->form}] M{$mascNumber} asociat cu intrarea s.m. " .
+           "și etichetat cu [s.m.]\n");
+    $masc = cloneLexeme($l, $l->form, 'M', $mascNumber);
+    EntryLexem::associate($em->id, $masc->id);
+    ObjectTag::associate(ObjectTag::TYPE_LEXEM, $masc->id, $tags['M']->id);
+  }
 
-  foreach (TYPE_MAP[$l->modelNumber][1] as $variant => $femNumber) {
-    $femForm = InflectedForm::get_by_lexemId_inflectionId_variant(
-      $l->id, FEMININE_INFLECTION_ID, $variant);
-    printf("  * creez lexemul [{$femForm->form}] F{$femNumber} asociat cu intrarea la feminin\n");
-    $fem = cloneLexeme($l, $femForm->form, 'F', $femNumber);
-    EntryLexem::associate($ef->id, $fem->id);
+  if ($ef && !$fSatisfied) {
+    foreach (TYPE_MAP[$l->modelNumber][1] as $variant => $femNumber) {
+      $femForm = InflectedForm::get_by_lexemId_inflectionId_variant(
+        $l->id, FEMININE_INFLECTION_ID, $variant);
+      printf("  * creez lexemul [{$femForm->form}] F{$femNumber} asociat cu intrarea s.f. " .
+             "și etichetat cu [s.f.]\n");
+      $fem = cloneLexeme($l, $femForm->form, 'F', $femNumber);
+      EntryLexem::associate($ef->id, $fem->id);
+      ObjectTag::associate(ObjectTag::TYPE_LEXEM, $fem->id, $tags['F']->id);
+    }
+  }
+
+  if ($ea && !$aSatisfied) {
+    printf("  * schimb tipul lexemului {$l} {$l->modelType}{$l->modelNumber} în A, " .
+           "îl asociez cu intrarea adj. și îl etichetez cu [adjectiv]\n");
+    $l->modelType = 'A';
+    $l->save(); // no need to regenerate the paradigm
+    EntryLexem::associate($ea->id, $l->id);
+    ObjectTag::associate(ObjectTag::TYPE_LEXEM, $l->id, $tags['A']->id);
+  } else {
+    $l->delete();
   }
 }
 
-// returns true iff the lexeme has an [adjective] tag
-function hasAdjectiveTag($l) {
+// returns true iff the lexeme has a tag specific to the model type, e.g. [adjective] for 'A'
+function hasTag($l, $modelType) {
   global $tags;
 
   $ot = ObjectTag::get_by_objectId_objectType_tagId(
     $l->id,
     ObjectTag::TYPE_LEXEM,
-    $tags['A']->value
+    $tags[$modelType]->id
   );
-  return ($ot !== null);
+  return $ot;
 }
 
 // different use case than Lexem::_clone()

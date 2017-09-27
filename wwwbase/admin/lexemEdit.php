@@ -207,6 +207,16 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
     $lexem->modelType = $modelType;
     $lexem->modelNumber = $modelNumber;
     $lexem->restriction = $restriction;
+
+    $autoTypes = Config::get('tags.lexemeAutoType', []);
+    foreach ($autoTypes as $at) {
+      list($fromModelType, $toModelType, $tagValue) = explode('|', $at);
+      $tag = Tag::get_by_value($tagValue);
+      if (($lexem->modelType == $fromModelType) &&
+          in_array($tag->id, $tagIds)) {
+        $lexem->modelType = $toModelType;
+      }
+    }
   }
 
   // create EntryLexems

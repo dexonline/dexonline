@@ -285,3 +285,7 @@ credentials[example.com] = "client_id|client_secret"
 
 ; Animate lexemes have forms for the vocative case
 animateLexeme[] = "admite vocativul"
+
+; When editing a lexeme, change its model type from MT1 to MT2 if it has a tag named T
+lexemeAutoType[] = "F|IL|infinitiv lung"
+lexemeAutoType[] = "A|PT|participiu"

@@ -165,7 +165,6 @@ foreach ($entries as $e) {
       printf("  * șterg intrarea originală\n");
       $e->delete();
     }
-    exit;
 
   } else {
     // printf("skipping $e\n");

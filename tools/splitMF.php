@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Merge duplicate meanings from DEX '98 and DEX '09.
+ * Split MF entries / lexemes into M / F / A
  **/
 
 require_once __DIR__ . '/../phplib/Core.php';

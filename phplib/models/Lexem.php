@@ -603,6 +603,18 @@ class Lexem extends BaseObject implements DatedObject {
         $entry = Entry::createAndSave($if->formNoAccent);
         EntryLexem::associate($entry->id, $l->id);
 
+        // Also tag the lexeme with the appropriate tag
+        $autoTypes = Config::get('tags.lexemeAutoType', []);
+        foreach ($autoTypes as $at) {
+          list($fromModelType, $toModelType, $tagValue) = explode('|', $at);
+          if ($dedicatedType == $toModelType) {
+            $tag = Tag::get_by_value($tagValue);
+            if ($tag) {
+              ObjectTag::associate(ObjectTag::TYPE_LEXEM, $l->id, $tag->id);
+            }
+          }
+        }
+
         // Also associate the new entry with the same definitions as $this.
         $eds = EntryDefinition::getForLexem($this);
         foreach ($eds as $ed) {

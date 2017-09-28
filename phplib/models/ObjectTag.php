@@ -56,6 +56,10 @@ class ObjectTag extends BaseObject implements DatedObject {
     }
   }
 
+  static function dissociate($objectType, $objectId, $tagId) {
+    ObjectTag::delete_all_by_objectType_objectId_tagId($objectType, $objectId, $tagId);
+  }
+
   // Deletes the old tags and adds the new tags.
   static function wipeAndRecreate($objectId, $objectType, $tagIds) {
     self::delete_all_by_objectId_objectType($objectId, $objectType);

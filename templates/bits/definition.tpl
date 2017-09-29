@@ -234,7 +234,9 @@
             <span class="text-warning">
               {$typo->problem|escape}
             </span>
-            
+            <span class="text-muted">
+              [{$typo->userName}]
+            </span>
             <a href="#"
                title="Ignoră această raportare"
                onclick="return ignoreTypo('typo{$typo->id}', {$typo->id});">

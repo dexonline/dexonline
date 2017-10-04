@@ -470,7 +470,7 @@ class AdminStringUtil {
   }
 
   private static function _ordReplace($matches) {
-    return '&#x' . dechex(self::ord($matches[0])) . ';';
+    return '&#x' . dechex(self::ord($matches[1])) . ';';
   }
 
   static function xmlizeRequired($s) {

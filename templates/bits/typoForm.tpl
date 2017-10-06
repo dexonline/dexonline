@@ -4,7 +4,7 @@
   <div id="typoModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form id="typoHtmlForm" method="post" onsubmit="return submitTypoForm()">
+        <form id="typoHtmlForm" method="post" onsubmit="return submitTypoForm();">
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -15,8 +15,8 @@
 
           <div class="modal-body">
             <textarea class="form-control"
-                      id="typoTextarea" cols="40" rows="3"
-                      placeholder="descrieți problema aici..."></textarea>
+                      id="typoTextarea" cols="40" rows="3" maxlength="400"
+                      placeholder="descrieți problema aici în maximum 400 de caractere..."></textarea>
             <input type="hidden" name="definitionId" value="">
 
             <div>Note:</div>

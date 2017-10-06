@@ -90,7 +90,7 @@ if ($saveButton) {
       Session::unsetVar('totalDefs');
       Session::unsetVar('changedDefs');
       Session::unsetVar('excludedDefs');
-      FlashMessage::add("".$totalDefs.StringUtil::getAmountPreposition($totalDefs)." ocurențe: [".$search."] au fost înlocuite cu [".$replace."].", 'success');
+      FlashMessage::add("".$changedDefs.StringUtil::getAmountPreposition($changedDefs)." ocurențe [".$search."] din totalul de ".$totalDefs." au fost înlocuite cu [".$replace."].", 'success');
       Util::redirect("index.php"); 
   }
 }

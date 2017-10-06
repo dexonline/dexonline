@@ -10,5 +10,6 @@ if ($text && $definitionId) {
   $typo = Model::factory('Typo')->create();
   $typo->definitionId = $definitionId;
   $typo->problem = $text;
+  $typo->userName = User::getActive();
   $typo->save();
 }

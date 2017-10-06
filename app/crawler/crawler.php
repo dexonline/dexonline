@@ -18,24 +18,28 @@ foreach ($config as $section => $vars) {
     $base = phpUri::parse($rootUrl);
 
     $contents = file_get_contents($rootUrl);
-    $html = str_get_html($contents);
+    if ($contents === FALSE) {
+      Log::warning("could not crawl root URL {$rootUrl}, skipping site");
+    } else {
+      $html = str_get_html($contents);
 
-    foreach ($linkSelectors as $linkSel) {
-      $links = $html->find($linkSel);
+      foreach ($linkSelectors as $linkSel) {
+        $links = $html->find($linkSel);
 
-      if (empty($links)) {
-        Log::warning("link selector [{$linkSel}] returns no matches on site {$siteId}");
-      }
+        if (empty($links)) {
+          Log::warning("link selector [{$linkSel}] returns no matches on site {$siteId}");
+        }
 
-      foreach ($links as $link) {
-        $articleUrl = $base->join($link->href);
-        $articleDomain = parse_url($articleUrl, PHP_URL_HOST);
+        foreach ($links as $link) {
+          $articleUrl = $base->join($link->href);
+          $articleDomain = parse_url($articleUrl, PHP_URL_HOST);
 
-        if ($articleDomain == $rootDomain) { // skip cross-domain links
-          $rec = CrawlerUrl::get_by_url($articleUrl);
-          $ignored = CrawlerIgnoredUrl::isIgnored($articleUrl);
-          if (!$rec && !$ignored) {
-            fetch($articleUrl, $siteId, $vars, $config['global']['path']);
+          if ($articleDomain == $rootDomain) { // skip cross-domain links
+            $rec = CrawlerUrl::get_by_url($articleUrl);
+            $ignored = CrawlerIgnoredUrl::isIgnored($articleUrl);
+            if (!$rec && !$ignored) {
+              fetch($articleUrl, $siteId, $vars, $config['global']['path']);
+            }
           }
         }
       }

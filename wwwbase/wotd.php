@@ -124,7 +124,13 @@ foreach ($prevWotds as $w) {
     if ($currentYear != $year) {
       $defId = WordOfTheDayRel::getRefId($w->id);
       $def = Definition::get_by_id_status($defId, Definition::ST_ACTIVE);
-
+      
+      // removing reason description for newer words in $otherYears
+      $dateWotd = new DateTimeImmutable($w->displayDate);
+      if ($dateWotd > $maxReasonDate) {
+        $w->description = '';
+      } 
+      
       $otherYears[] = [
         'wotd' => $w,
         'word' => $def->lexicon,

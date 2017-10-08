@@ -119,7 +119,7 @@ $day = $date->format('j');
 $prevWotds = WordOfTheDay::getPreviousYearsWotds($month, $day);
 $otherYears = [];
 foreach ($prevWotds as $w) {
-  if ($w->displayDate < $today) {
+  if ($w->displayDate < $today->format('Y-m-d')) {
     $currentYear = substr($w->displayDate, 0, 4);
     if ($currentYear != $year) {
       $defId = WordOfTheDayRel::getRefId($w->id);

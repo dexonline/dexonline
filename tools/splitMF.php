@@ -151,7 +151,7 @@ foreach ($entries as $e) {
            ->count();
 
 
-  // Also split the entry if any of its lexemes have the MF tag
+  // Also split the entry if any of its lexemes have a noun tag
   if (!$toSplit) {
     $toSplit = Model::factory('Lexem')
              ->table_alias('l') 
@@ -159,7 +159,7 @@ foreach ($entries as $e) {
              ->join('ObjectTag', ['ot.objectId', '=', 'l.id'], 'ot')
              ->where('el.entryId', $e->id)
              ->where('ot.objectType', ObjectTag::TYPE_LEXEM)
-             ->where('ot.tagId', $tags['MF']->id)
+             ->where_in('ot.tagId', [$tags['MF']->id, $tags['M']->id, $tags['F']->id])
              ->count();
   }
 

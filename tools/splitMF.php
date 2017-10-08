@@ -175,7 +175,6 @@ foreach ($entries as $e) {
       }
     }
   }
-  continue;
 
   if ($toSplit) {
 

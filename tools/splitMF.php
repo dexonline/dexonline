@@ -121,7 +121,6 @@ $tags = [
   'MF' => Tag::get_by_value('substantiv masculin și feminin'),
   'M' => Tag::get_by_value('substantiv masculin'),
   'F' => Tag::get_by_value('substantiv feminin'),
-  'N' => Tag::get_by_value('substantiv neutru'),
   'A' => Tag::get_by_value('adjectiv'),
 ];
 
@@ -144,12 +143,25 @@ foreach ($entries as $e) {
   $toSplit = Model::factory('Lexem')
            ->table_alias('l') 
            ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
-           ->join('ModelType', 'l.modelType = mt.code', 'mt')
+           ->join('ModelType', ['l.modelType', '=',  'mt.code'], 'mt')
            ->join('Model', 'mt.canonical = m.modelType and l.modelNumber = m.number', 'm')
            ->where('el.entryId', $e->id)
            ->where_in('l.modelType', [ 'MF', 'M', 'F' ])
            ->where_not_in('m.id', LONG_INFINITIVE_MODEL_IDS)
            ->count();
+
+
+  // Also split the entry if any of its lexemes have the MF tag
+  if (!$toSplit) {
+    $toSplit = Model::factory('Lexem')
+             ->table_alias('l') 
+             ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+             ->join('ObjectTag', ['ot.objectId', '=', 'l.id'], 'ot')
+             ->where('el.entryId', $e->id)
+             ->where('ot.objectType', ObjectTag::TYPE_LEXEM)
+             ->where('ot.tagId', $tags['MF']->id)
+             ->count();
+  }
 
   if ($toSplit) {
 
@@ -230,10 +242,10 @@ function createEntries($e, $femForm) {
 // Distribute the lexemes from the original entry among the new entries.
 // Create new lexemes where necessary.
 function assignLexemes($em, $ef, $ea, $lexemes) {
-  global $tags;
 
   // first distribute the M, F and A lexemes
   $mSatisfied = $fSatisfied = $aSatisfied = false;
+  $hasMFLexeme = false;
   foreach ($lexemes as $l) {
     switch ($l->modelType) {
       case 'M':
@@ -243,8 +255,8 @@ function assignLexemes($em, $ef, $ea, $lexemes) {
         $mSatisfied = true;
         if (!hasTag($l, 'M')) {
           printf("  * etichetez lexemul existent [$l] cu [substantiv masculin]\n");
-          ObjectTag::associate(ObjectTag::TYPE_LEXEM, $l->id, $tags['M']->id);
         }
+        updateTags($l, ['M'], ['A', 'F', 'MF']);
         break;
 
       case 'F':
@@ -254,8 +266,8 @@ function assignLexemes($em, $ef, $ea, $lexemes) {
         $fSatisfied = true;
         if (!hasTag($l, 'F')) {
           printf("  * etichetez lexemul existent [$l] cu [substantiv feminin]\n");
-          ObjectTag::associate(ObjectTag::TYPE_LEXEM, $l->id, $tags['F']->id);
         }
+        updateTags($l, ['F'], ['A', 'M', 'MF']);
         break;
 
       case 'A':
@@ -265,12 +277,13 @@ function assignLexemes($em, $ef, $ea, $lexemes) {
         $aSatisfied = true;
         if (!hasTag($l, 'A')) {
           printf("  * etichetez lexemul existent [$l] cu [adjectiv]\n");
-          ObjectTag::associate(ObjectTag::TYPE_LEXEM, $l->id, $tags['A']->id);
         }
+        updateTags($l, ['A'], ['F', 'M', 'MF']);
         break;
 
       case 'MF':
-        // nothing yet
+        $hasMFLexeme = true;
+        // nothing else yet
         break;
 
       default:
@@ -288,9 +301,11 @@ function assignLexemes($em, $ef, $ea, $lexemes) {
     }
   }
 
-  // now split the MF lexemes, but only if the M and F entries don't already have lexemes
+  // Now split the MF lexemes, but only if the M and F entries don't already have lexemes.
+  // If there are no MF lexemes, use the A lexemes instead.
+  $splitModelType = $hasMFLexeme ? 'MF' : 'A';
   foreach ($lexemes as $l) {
-    if ($l->modelType == 'MF') {
+    if ($l->modelType == $splitModelType) {
       splitLexeme($l, $em, $ef, $ea, $mSatisfied, $fSatisfied, $aSatisfied);
     }
   }
@@ -319,7 +334,6 @@ function getFeminineForm($e) {
 
 // splits an MF or A lexeme into M and F lexemes and associates them with the M and F entries
 function splitLexeme($l, $em, $ef, $ea, $mSatisfied, $fSatisfied, $aSatisfied) {
-  global $tags;
 
   if (!array_key_exists($l->modelNumber, TYPE_MAP)) {
     printf("  * EROARE: nu știu cum să sparg lexemul {$l} {$l->modelType}{$l->modelNumber}\n");
@@ -332,7 +346,7 @@ function splitLexeme($l, $em, $ef, $ea, $mSatisfied, $fSatisfied, $aSatisfied) {
            "și etichetat cu [s.m.]\n");
     $masc = cloneLexeme($l, $l->form, 'M', $mascNumber);
     EntryLexem::associate($em->id, $masc->id);
-    ObjectTag::associate(ObjectTag::TYPE_LEXEM, $masc->id, $tags['M']->id);
+    updateTags($masc, ['M'], ['A', 'F', 'MF']);
   }
 
   if ($ef && !$fSatisfied) {
@@ -343,7 +357,7 @@ function splitLexeme($l, $em, $ef, $ea, $mSatisfied, $fSatisfied, $aSatisfied) {
              "și etichetat cu [s.f.]\n");
       $fem = cloneLexeme($l, $femForm->form, 'F', $femNumber);
       EntryLexem::associate($ef->id, $fem->id);
-      ObjectTag::associate(ObjectTag::TYPE_LEXEM, $fem->id, $tags['F']->id);
+      updateTags($fem, ['F'], ['A', 'M', 'MF']);
     }
   }
 
@@ -353,8 +367,9 @@ function splitLexeme($l, $em, $ef, $ea, $mSatisfied, $fSatisfied, $aSatisfied) {
     $l->modelType = 'A';
     $l->save(); // no need to regenerate the paradigm
     EntryLexem::associate($ea->id, $l->id);
-    ObjectTag::associate(ObjectTag::TYPE_LEXEM, $l->id, $tags['A']->id);
-  } else {
+    updateTags($l, ['A'], ['F', 'M', 'MF']);
+  } else if ($l->modelType == 'MF') {
+    // keep adjective lexemes
     $l->delete();
   }
 }
@@ -371,6 +386,17 @@ function hasTag($l, $modelType) {
   return $ot;
 }
 
+function updateTags($l, $associate, $dissociate) {
+  global $tags;
+
+  foreach ($associate as $modelType) {
+    ObjectTag::associate(ObjectTag::TYPE_LEXEM, $l->id, $tags[$modelType]->id);
+  }
+  foreach ($dissociate as $modelType) {
+    ObjectTag::dissociate(ObjectTag::TYPE_LEXEM, $l->id, $tags[$modelType]->id);
+  }
+}
+
 // different use case than Lexem::_clone()
 function cloneLexeme($l, $form, $modelType, $modelNumber) {
   $c = $l->parisClone();
@@ -379,13 +405,16 @@ function cloneLexeme($l, $form, $modelType, $modelNumber) {
   $c->modelNumber = $modelNumber;
   $c->restriction = '';
   $c->save();
-  $c->regenerateParadigm();
 
   // copy sources and tags
   LexemSource::copy($l->id, $c->id, 1);
   foreach ($l->getObjectTags() as $ot) {
     ObjectTag::associate(ObjectTag::TYPE_LEXEM, $c->id, $ot->tagId);
   }
+
+  // only now can we regenerate the paradigm, because certain tags dictate paradigm forms (e.g.
+  // [admite vocativul] allows vocative forms.
+  $c->regenerateParadigm();
 
   return $c;
 }

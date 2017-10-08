@@ -163,6 +163,7 @@ class SmartyWrap {
     self::assign('cssFile', self::mergeResources(self::$cssFiles, 'css'));
     self::assign('jsFile', self::mergeResources(self::$jsFiles, 'js'));
     self::assign('flashMessages', FlashMessage::getMessages());
+    self::$theSmarty->loadFilter('output', 'trimwhitespace');
     return self::$theSmarty->fetch($templateName);
   }
 

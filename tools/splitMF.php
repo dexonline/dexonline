@@ -115,6 +115,7 @@ const TYPE_MAP = [
   120 => [ 78, [ 129 ] ],
   121 => [ 78, [ 129 ] ],
   122 => [ 78, [ 130 ] ],
+  125 => [ 999, [ 999 ] ],
 ];
 
 $tags = [
@@ -162,6 +163,19 @@ foreach ($entries as $e) {
              ->where_in('ot.tagId', [$tags['MF']->id, $tags['M']->id, $tags['F']->id])
              ->count();
   }
+
+  // However, don't split it if any A / MF lexemes have model numbers we don't know how to split
+  if ($toSplit) {
+    foreach ($e->getLexems() as $l) {
+      if (in_array($l->modelType, ['A', 'MF']) &&
+          !isset(TYPE_MAP[$l->modelNumber])) {
+        printf("==== Sar peste intrarea [$e] deoarece nu știu să sparg modelul " .
+               "{$l->modelType}{$l->modelNumber}\n");
+        $toSplit = false;
+      }
+    }
+  }
+  continue;
 
   if ($toSplit) {
 

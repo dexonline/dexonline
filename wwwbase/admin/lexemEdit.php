@@ -162,7 +162,7 @@ SmartyWrap::assign('models', $models);
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('frequentTags', $frequentTags);
 SmartyWrap::addCss('paradigm', 'admin');
-SmartyWrap::addJs('select2Dev', 'modelDropdown');
+SmartyWrap::addJs('select2Dev', 'modelDropdown', 'frequentObjects');
 SmartyWrap::display('admin/lexemEdit.tpl');
 
 /**************************************************************************/

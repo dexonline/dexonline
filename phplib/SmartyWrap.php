@@ -272,6 +272,7 @@ class SmartyWrap {
         case 'diff':          self::$jsFiles[32] = 'diff.js'; break;
         case 'diffSelector':  self::$jsFiles[33] = 'diffSelector.js'; break;
         case 'bootstrap-spinedit':  self::$jsFiles[34] = 'third-party/bootstrap-spinedit.js'; break;
+        case 'frequentObjects':  self::$jsFiles[35] = 'frequentObjects.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           Util::redirect(Core::getWwwRoot());

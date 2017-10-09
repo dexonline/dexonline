@@ -161,7 +161,7 @@ SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('frequentTags', $frequentTags);
-SmartyWrap::addCss('paradigm', 'admin');
+SmartyWrap::addCss('paradigm', 'admin', 'frequentObjects');
 SmartyWrap::addJs('select2Dev', 'modelDropdown', 'frequentObjects');
 SmartyWrap::display('admin/lexemEdit.tpl');
 

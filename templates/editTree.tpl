@@ -399,7 +399,7 @@
                 <div>
                   <label for="editorSources">surse</label>
 
-                  {include "bits/select2Suggestions.tpl"
+                  {include "bits/frequentObjects.tpl"
                            list=$frequentSources
                            text="shortName"
                            classes="frequentSource editorObj"
@@ -417,7 +417,7 @@
                 <div>
                   <label for="editorTags">etichete</label>
 
-                  {include "bits/select2Suggestions.tpl"
+                  {include "bits/frequentObjects.tpl"
                            list=$frequentTags
                            text="value"
                            classes="frequentTag editorObj"

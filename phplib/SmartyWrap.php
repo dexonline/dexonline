@@ -163,7 +163,7 @@ class SmartyWrap {
     self::assign('cssFile', self::mergeResources(self::$cssFiles, 'css'));
     self::assign('jsFile', self::mergeResources(self::$jsFiles, 'js'));
     self::assign('flashMessages', FlashMessage::getMessages());
-    self::$theSmarty->loadFilter('output', 'trimwhitespace');
+    self::$theSmarty->registerFilter('output', array('SmartyWrap', 'minifyOutput'));
     return self::$theSmarty->fetch($templateName);
   }
 
@@ -279,6 +279,24 @@ class SmartyWrap {
     }
   }
 
+  static function minifyOutput($source, Smarty_Internal_Template $smarty)
+  {
+      // Unify Line-Breaks to \n
+      $source = preg_replace("/\015\012|\015|\012/", "\n", $source);
+
+      // Strip all HTML-Comments
+      // yes, even the ones in <script> - see http://stackoverflow.com/a/808850/515124
+      $source = preg_replace( '#<!--.*?-->#ms', '', $source );
+
+      $expressions = array(
+          '#\n#Ss' => '',
+          '#\s+#Ss' => ' ',
+      );
+
+      $source = preg_replace( array_keys($expressions), array_values($expressions), $source );
+
+      return $source;
+  }
 }
 
 ?>

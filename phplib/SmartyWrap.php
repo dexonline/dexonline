@@ -215,6 +215,7 @@ class SmartyWrap {
           break;
         case 'diff':                self::$cssFiles[22] = 'diff.css'; break;
         case 'bootstrap-spinedit':  self::$cssFiles[23] = 'third-party/bootstrap-spinedit.css'; break;
+        case 'frequentObjects':     self::$cssFiles[24] = 'frequentObjects.css'; break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           Util::redirect(Core::getWwwRoot());

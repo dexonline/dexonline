@@ -36,11 +36,6 @@
 	<td>× Codul nu poate fi vid (îl folosim încă la cuvântul lunii).</td>
 </tr>
 <tr>
-	<td>verifyText</td>
-	<td>//div/div/div[3]</td>
-	<td>× Creditele nu pot fi vide.</td>
-</tr>
-<tr>
 	<td>type</td>
 	<td>name=name</td>
 	<td>Ion Popescu-Gopo</td>

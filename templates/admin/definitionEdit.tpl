@@ -57,7 +57,7 @@
               {/foreach}
             </select>
 
-            {include "bits/select2Suggestions.tpl"
+            {include "bits/frequentObjects.tpl"
                      list=$frequentTags
                      text="value"
                      classes="frequentTag voffset"}

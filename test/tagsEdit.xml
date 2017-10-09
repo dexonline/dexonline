@@ -17,7 +17,7 @@
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>css=div.expand.closed</td>
+	<td>css=i.expand.glyphicon-chevron-down</td>
 	<td></td>
 </tr>
 <tr>
@@ -27,268 +27,128 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//ul[@id='tagTree']/li[2]/div</td>
+	<td>//div[@id='tagTree']/ul/li[2]/i</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>css=div.expand.open</td>
+	<td>css=i.expand.glyphicon-chevron-up</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyVisible</td>
-	<td>//ul[@id='tagTree']/li[2]/ul/li/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//ul[@id='tagTree']/li[2]/ul/li[2]/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=butLeft</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>200</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=valueBox</td>
-	<td>familiar2</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=butUp</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>200</td>
+	<td>link=argou</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>id=butSave</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//ul[@id='tagTree']/li[3]/div</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>css=div.value</td>
-	<td>expresie</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//ul[@id='tagTree']/li[2]/div[2]</td>
-	<td>familiar2</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//ul[@id='tagTree']/li[3]/div[2]</td>
-	<td>registru stilistic</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//ul[@id='tagTree']/li[3]/ul/li/div[2]</td>
-	<td>argou</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//ul[@id='tagTree']/li[2]/div[2]</td>
+	<td>link=argou</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=valueBox</td>
-	<td>familiar</td>
+	<td>id=value</td>
+	<td>argou2</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>id=butDown</td>
-	<td></td>
+	<td>type</td>
+	<td>id=tooltip</td>
+	<td>diverse detalii</td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>200</td>
-	<td></td>
+	<td>type</td>
+	<td>id=color</td>
+	<td>#ffff00</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>id=butRight</td>
-	<td></td>
+	<td>type</td>
+	<td>id=background</td>
+	<td>#1e832c</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=icon</td>
+	<td>home</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>id=butSave</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>200</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//ul[@id='tagTree']/li[2]/div</td>
+	<td>name=saveButton</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.value</td>
-	<td>expresie</td>
+	<td>link=argou2</td>
+	<td>argou2</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>link=argou2@style</td>
+	<td>*color: rgb(255, 255, 0); background: rgb(30, 131, 44)*</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id=value</td>
+	<td>argou2</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id=tooltip</td>
+	<td>diverse detalii</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//ul[@id='tagTree']/li[2]/div[2]</td>
-	<td>registru stilistic</td>
+	<td>id=select2-parentId-container</td>
+	<td>×registru stilistic</td>
 </tr>
 <tr>
-	<td>verifyText</td>
-	<td>//ul[@id='tagTree']/li[2]/ul/li/div[2]</td>
-	<td>argou</td>
+	<td>verifyValue</td>
+	<td>id=color</td>
+	<td>#ffff00</td>
 </tr>
 <tr>
-	<td>verifyText</td>
-	<td>//ul[@id='tagTree']/li[2]/ul/li[2]/div[2]</td>
-	<td>familiar</td>
+	<td>verifyValue</td>
+	<td>id=background</td>
+	<td>#1e832c</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>//ul[@id='tagTree']/li[2]/div[2]</td>
-	<td></td>
+	<td>verifyValue</td>
+	<td>id=icon</td>
+	<td>home</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>id=butAddSibling</td>
+	<td>verifyElementPresent</td>
+	<td>css=span.input-group-addon &gt; i.glyphicon.glyphicon-home</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=valueBox</td>
-	<td>frate</td>
+	<td>id=value</td>
+	<td>argou</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>//ul[@id='tagTree']/li[2]/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=butAddChild</td>
-	<td></td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>200</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=butUp</td>
+	<td>type</td>
+	<td>id=tooltip</td>
 	<td></td>
 </tr>
 <tr>
 	<td>type</td>
-	<td>id=valueBox</td>
-	<td>fiu</td>
+	<td>id=color</td>
+	<td>#ffffff</td>
 </tr>
 <tr>
-	<td>clickAndWait</td>
-	<td>id=butSave</td>
-	<td></td>
+	<td>type</td>
+	<td>id=background</td>
+	<td>#1e83c2</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>//ul[@id='tagTree']/li[2]/div</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>css=div.value</td>
-	<td>expresie</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//ul[@id='tagTree']/li[2]/div[2]</td>
-	<td>registru stilistic</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//ul[@id='tagTree']/li[2]/ul/li/div[2]</td>
-	<td>argou</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//ul[@id='tagTree']/li[2]/ul/li[2]/div[2]</td>
-	<td>fiu</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//ul[@id='tagTree']/li[2]/ul/li[3]/div[2]</td>
-	<td>familiar</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//ul[@id='tagTree']/li[3]/div[2]</td>
-	<td>frate</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//ul[@id='tagTree']/li[3]/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=butDelete</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//ul[@id='tagTree']/li[2]/ul/li[2]/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=butDelete</td>
+	<td>type</td>
+	<td>id=icon</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>id=butSave</td>
+	<td>name=saveButton</td>
 	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//ul[@id='tagTree']/li[2]/div</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>css=div.value</td>
-	<td>expresie</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//ul[@id='tagTree']/li[2]/div[2]</td>
-	<td>registru stilistic</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//ul[@id='tagTree']/li[2]/ul/li/div[2]</td>
-	<td>argou</td>
-</tr>
-<tr>
-	<td>verifyText</td>
-	<td>//ul[@id='tagTree']/li[2]/ul/li[2]/div[2]</td>
-	<td>familiar</td>
 </tr>
 </tbody></table>
 </body>

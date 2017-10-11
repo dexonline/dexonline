@@ -178,9 +178,10 @@
 
                 <div class="clearfix">
                   {include "bits/frequentObjects.tpl"
+                           name="lexemeTags"
+                           target="#tagIds"
                            list=$frequentTags
-                           text="value"
-                           classes="frequentTag"}
+                           text="value"}
                 </div>
 
                 <div class="checkbox">

@@ -40,18 +40,6 @@ class Tag extends BaseObject implements DatedObject {
     return $results;
   }
 
-  static function getFrequent($type, $count) {
-    return Model::factory('Tag')
-      ->table_alias('t')
-      ->select('t.*')
-      ->join('ObjectTag', ['t.id', '=', 'ot.tagId'], 'ot')
-      ->where('ot.objectType', $type)
-      ->group_by('t.id')
-      ->order_by_expr('count(*) desc')
-      ->limit($count)
-      ->find_many();
-  }
-
   static function loadByObject($objectType, $objectId) {
     return Model::factory('Tag')
       ->select('Tag.*')

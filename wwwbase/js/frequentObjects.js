@@ -1,8 +1,12 @@
 $(function() {
   var stem; /* a stem frequent object to be cloned for each addition */
-  var trigger; /* which '+' button opened us */
+  var trigger; /* .frequentObjects div containing the most recently used '+' button */
 
   const COOKIE_NAME = 'frequentObjects';
+  const DATA_SOURCES = {
+    sources: 'ajax/getSources.php',
+    tags: 'ajax/getTags.php',
+  }
 
   function init() {
     stem = $('#frequentObjectStem').detach().removeAttr('id');
@@ -15,20 +19,29 @@ $(function() {
 
     $('#frequentObjectAdd').click(frequentObjectAddClick);
 
+    $('#frequentObjectModal').on('shown.bs.modal', modalOpen);
+    $('#frequentObjectModal').on('hidden.bs.modal', modalClose);
+  }
+
+  function modalOpen(e) {
+    trigger = $(e.relatedTarget).closest('.frequentObjects');
+    var type = trigger.data('type');
+
     $('#addObjectId').select2({
       ajax: {
-        url: wwwRoot + 'ajax/getTags.php',
+        url: wwwRoot + DATA_SOURCES[type],
       },
       minimumInputLength: 1,
       placeholder: 'alegeți un obiect',
       width: '100%',
     });
 
-    $('#frequentObjectModal').on('shown.bs.modal', function (e) {
-      trigger = $(e.relatedTarget);
-      $('#addObjectId').select2('val', '');
-      $('#addObjectId').select2('open');
-    });
+    $('#addObjectId').select2('open');
+  }
+
+  function modalClose(e) {
+    $('#addObjectId').val('');
+    $('#addObjectId').select2('destroy');
   }
 
   function loadFromCookie() {
@@ -79,13 +92,17 @@ $(function() {
   }
 
   function frequentObjectAddClick() {
-    $('#frequentObjectModal').modal('hide');
     var id = $('#addObjectId').val();
     var text = $("#addObjectId option:selected").text();
+    $('#frequentObjectModal').modal('hide');
+
     if (id) {
-      var target = trigger.closest('.frequentObjects');
-      frequentObjectAdd(id, text, target);
-      saveToCookie(target);
+      // add the selected object unless it is already in the list
+      var exists = trigger.find('button[data-id="' + id + '"]').length;
+      if (!exists) {
+        frequentObjectAdd(id, text, trigger);
+        saveToCookie(trigger);
+      }
     }
   }
 

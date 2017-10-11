@@ -59,8 +59,8 @@
 
             {include "bits/frequentObjects.tpl"
                      name="definitionTags"
-                     target="#tagIds"
-                     text="value"}
+                     type="tags"
+                     target="#tagIds"}
           </div>
         </div>
 

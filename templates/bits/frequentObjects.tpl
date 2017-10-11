@@ -1,21 +1,21 @@
 {**
  * Arguments:
- * name: a unique name for cookie saving/loading
- * $list: list of suggestions;
- * $text: text (display value) field;
+ * $name: a unique name for cookie saving/loading
+ * $type: what data to autocomplete (tags, sources etc.)
  * $target: target select2 element
  **}
 <div class="clearfix">
   <div class="btn-toolbar pull-right frequentObjects"
-       data-target="{$target}"
-       data-name="{$name}">
+       data-name="{$name}"
+       data-type="{$type}"
+       data-target="{$target}">
 
     <div class="btn-group btn-group-xs frequentObjectAddDiv">
       <button type="button"
               class="btn btn-default"
               data-toggle="modal"
               data-target="#frequentObjectModal"
-              title="adaugă un obiect favorit">
+              title="adaugă un obiect folosit frecvent">
         <i class="glyphicon glyphicon-plus"></i>
       </button>
     </div>
@@ -58,7 +58,9 @@
   <div id="frequentObjectStem" class="btn-group btn-group-xs">
     <button class="btn btn-default frequentObject" type="button">
     </button>
-    <button type="button" class="btn btn-default frequentObjectDelete">
+    <button type="button"
+            class="btn btn-default frequentObjectDelete"
+            title="șterge obiectul din listă">
       <i class="glyphicon glyphicon-trash"></i>
     </button>
   </div>

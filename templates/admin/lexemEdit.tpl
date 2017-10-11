@@ -178,8 +178,8 @@
 
                 {include "bits/frequentObjects.tpl"
                          name="lexemeTags"
-                         target="#tagIds"
-                         text="value"}
+                         type="tags"
+                         target="#tagIds"}
 
                 <div class="checkbox">
                   <label>
@@ -361,6 +361,12 @@
                     <option value="{$lsId}" selected></option>
                   {/foreach}
                 </select>
+
+                {include "bits/frequentObjects.tpl"
+                         name="lexemeSources"
+                         type="sources"
+                         target="#sourceIds"}
+
               </div>
             </div>
 

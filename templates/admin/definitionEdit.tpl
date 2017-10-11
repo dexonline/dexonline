@@ -186,7 +186,7 @@
     </div>
   </div>
 
-  <pre id="similarRecord"><!--{$sim->getJson()}--></pre>
+  <pre id="similarRecord">{$sim->getJson()|escape}</pre>
 
   <div id="similarSourceMessageYes">
     <div class="panel panel-default">

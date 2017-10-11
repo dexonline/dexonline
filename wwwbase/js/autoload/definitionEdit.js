@@ -5,7 +5,11 @@ $(function() {
 
   function init() {
     // Show/hide elements related to the similar source and definition
-    var c = $('#similarRecord').html().replace(/^<!--(.*)-->$/, '$1');
+    var c = $('#similarRecord').html();
+
+    // unescape HTML entities
+    c = $("<div/>").html(c).text();
+
     similarRecord = JSON.parse(c);
     updateFields(similarRecord);
 

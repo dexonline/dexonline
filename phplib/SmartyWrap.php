@@ -163,6 +163,7 @@ class SmartyWrap {
     self::assign('cssFile', self::mergeResources(self::$cssFiles, 'css'));
     self::assign('jsFile', self::mergeResources(self::$jsFiles, 'js'));
     self::assign('flashMessages', FlashMessage::getMessages());
+    self::$theSmarty->registerFilter('output', array('SmartyWrap', 'minifyOutput'));
     return self::$theSmarty->fetch($templateName);
   }
 
@@ -278,6 +279,58 @@ class SmartyWrap {
     }
   }
 
-}
+  // Based on `third-party/smarty/plugins/outputfilter.trimwhitespace.php`.
+  // This one doesn't strip IE comments (there are none in the templates)
+  // and removes spaces more aggressively --- the templates don't contain
+  // the errors the original function was attempting to work around.
+  static function minifyOutput($source, Smarty_Internal_Template $smarty)
+  {
+    $store = array();
+    $_store = 0;
+    $_offset = 0;
 
+    // Unify Line-Breaks to \n.
+    $source = preg_replace("/\015\012|\015|\012/", "\n", $source);
+
+    // Remove HTML comments.
+    $source = preg_replace( '#<!--.*?-->#ms', '', $source );
+
+    // Capture html elements not to be messed with. For example, whitespace
+    // is used in `textarea` content by editors in order to more nicely format
+    // their definitions.
+    $_offset = 0;
+    if (preg_match_all('#<(script|pre|textarea)[^>]*>.*?</\\1>#is', $source, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
+        foreach ($matches as $match) {
+            $store[] = $match[0][0];
+            $_length = strlen($match[0][0]);
+            $replace = '@!@SMARTY:' . $_store . ':SMARTY@!@';
+            $source = substr_replace($source, $replace, $match[0][1] - $_offset, $_length);
+
+            $_offset += $_length - strlen($replace);
+            $_store++;
+        }
+    }
+
+    $expressions = array(
+        '#\n+#Ss' => ' ',
+        '#\s+#Ss' => ' ',
+    );
+
+    $source = preg_replace( array_keys($expressions), array_values($expressions), $source );
+
+    $_offset = 0;
+    if (preg_match_all('#@!@SMARTY:([0-9]+):SMARTY@!@#is', $source, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
+        foreach ($matches as $match) {
+            $_length = strlen($match[0][0]);
+            $replace = $store[$match[1][0]];
+            $source = substr_replace($source, $replace, $match[0][1] + $_offset, $_length);
+
+            $_offset += strlen($replace) - $_length;
+            $_store++;
+        }
+    }
+
+    return $source;
+  }
+}
 ?>

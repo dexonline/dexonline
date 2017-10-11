@@ -158,7 +158,7 @@ SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('canEdit', $canEdit);
-SmartyWrap::addCss('paradigm', 'admin', 'frequentObjects');
+SmartyWrap::addCss('paradigm', 'admin');
 SmartyWrap::addJs('select2Dev', 'modelDropdown', 'cookie', 'frequentObjects');
 SmartyWrap::display('admin/lexemEdit.tpl');
 

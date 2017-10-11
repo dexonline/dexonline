@@ -176,13 +176,10 @@
                   {/foreach}
                 </select>
 
-                <div class="clearfix">
-                  {include "bits/frequentObjects.tpl"
-                           name="lexemeTags"
-                           target="#tagIds"
-                           list=$frequentTags
-                           text="value"}
-                </div>
+                {include "bits/frequentObjects.tpl"
+                         name="lexemeTags"
+                         target="#tagIds"
+                         text="value"}
 
                 <div class="checkbox">
                   <label>

@@ -37,7 +37,6 @@ $(function() {
     });
 
     $('.frequentSource').click(frequentSourceClick);
-    $('.frequentTag').click(frequentTagClick);
 
     initSelect2('.editorRelation', 'ajax/getTreesById.php', {
       ajax: { url: wwwRoot + 'ajax/getTrees.php' },
@@ -240,14 +239,10 @@ $(function() {
     frequentObjectClick($(this), $('#editorSources'));
   }
 
-  function frequentTagClick() {
-    frequentObjectClick($(this), $('#editorTags'));
-  }
-
   function beginMeaningEdit() {
     var c = $('#meaningTree li.selected > .meaningContainer');
 
-    $('.editorObj').removeProp('disabled');
+    $('.editorObj, .frequentObjects button').removeProp('disabled');
 
     var type = c.find('.type').text();
     $('.editorType[value="' + type + '"]').prop('checked', true);
@@ -326,7 +321,7 @@ $(function() {
   }
 
   function clearEditor() {
-    $('.editorObj').prop('disabled', true);
+    $('.editorObj, .frequentObjects button').prop('disabled', true);
     $('.editorType').prop('checked', false);
     $('#editorRep').val('');
     $('#editorSources option:selected').removeAttr('selected');

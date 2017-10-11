@@ -2,44 +2,25 @@
  * Arguments:
  * name: a unique name for cookie saving/loading
  * $list: list of suggestions;
- * $id: ID field;
  * $text: text (display value) field;
- * $classes: CSS classes;
- * $disabled: whether the field starts disabled;
  * $target: target select2 element
  **}
-{$id=$id|default:'id'}
-{$disabled=$disabled|default:false}
-<div class="btn-toolbar pull-right frequentObjects"
-     data-target="{$target}"
-     data-name="{$name}">
+<div class="clearfix">
+  <div class="btn-toolbar pull-right frequentObjects"
+       data-target="{$target}"
+       data-name="{$name}">
 
-  {foreach $list as $i}
-    <div class="btn-group btn-group-xs">
-      <button class="btn btn-default frequentObject {$classes}"
-              type="button"
-              data-id="{$i->$id}"
-              data-text="{$i->$text}"
-              {if $disabled}disabled{/if}>
-        {$i->$text}
-      </button>
-      <button type="button" class="btn btn-default frequentObjectDelete">
-        <i class="glyphicon glyphicon-trash"></i>
+    <div class="btn-group btn-group-xs frequentObjectAddDiv">
+      <button type="button"
+              class="btn btn-default"
+              data-toggle="modal"
+              data-target="#frequentObjectModal"
+              title="adaugă un obiect favorit">
+        <i class="glyphicon glyphicon-plus"></i>
       </button>
     </div>
-  {/foreach}
-
-  <div class="btn-group btn-group-xs frequentObjectAddDiv">
-    <button type="button"
-            class="btn btn-default"
-            data-toggle="modal"
-            data-target="#frequentObjectModal"
-            title="adaugă un obiect favorit">
-      <i class="glyphicon glyphicon-plus"></i>
-    </button>
   </div>
 </div>
-
 
 {* one-time only components *}
 {if !$FREQUENT_OBJECT_ONCE}

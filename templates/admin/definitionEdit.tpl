@@ -58,9 +58,9 @@
             </select>
 
             {include "bits/frequentObjects.tpl"
-                     list=$frequentTags
-                     text="value"
-                     classes="frequentTag voffset"}
+                     name="definitionTags"
+                     target="#tagIds"
+                     text="value"}
           </div>
         </div>
 

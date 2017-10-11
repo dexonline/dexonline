@@ -192,8 +192,6 @@ $typos = Model::factory('Typo')
   ->order_by_asc('id')
   ->find_many();
 
-$frequentTags = Tag::getFrequent(ObjectTag::TYPE_DEFINITION, 3);
-
 if ($isOCR && empty($entryIds)) {
   $potentialLexicon = AdminStringUtil::extractLexicon($d);
   if ($potentialLexicon) {
@@ -219,10 +217,9 @@ SmartyWrap::assign('commentUser', $commentUser);
 SmartyWrap::assign('entryIds', $entryIds);
 SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('typos', $typos);
-SmartyWrap::assign('frequentTags', $frequentTags);
 SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canModerate', true)->order_by_asc('displayOrder')->find_many());
 SmartyWrap::addCss('tinymce', 'admin', 'diff');
-SmartyWrap::addJs('select2Dev', 'tinymce', 'cookie');
+SmartyWrap::addJs('select2Dev', 'tinymce', 'cookie', 'frequentObjects');
 SmartyWrap::display('admin/definitionEdit.tpl');
 
 ?>

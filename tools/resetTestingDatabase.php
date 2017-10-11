@@ -137,6 +137,16 @@ createModelDeep('N', '1', '', "f'ir", [
   [ "f'irule", "f'ire" ],
   [ "f'irelor" ],
 ]);
+createModelDeep('F', '107', '', "spați'ere", [
+  [ "spați'ere" ],
+  [ "spați'eri" ],
+  [ "spați'eri" ],
+  [ "spați'eri" ],
+  [ "spați'erea" ],
+  [ "spați'erii" ],
+  [ "spați'erile" ],
+  [ "spați'erilor" ],
+]);
 
 // inflection constraints
 createConstraints('S', '%plural%', '%', -1);
@@ -151,6 +161,8 @@ $l4 = createLexemDeep("d'in", 'T', '1', '', true);
 $l5 = createLexemDeep("d'in", 'N', '1', '', true); // fictitious
 $l6 = createLexemDeep("l'adă", 'F', '62', 'S', true);
 $l7 = createLexemDeep("ogr'adă", 'F', '62', 'W', true);
+// for testing whitespace preservation when minifying
+$l8 = createLexemDeep("spați'ere", 'F', '107', '', true);
 $l1->frequency = 0.95; // for the Hangman game
 $l1->save();
 
@@ -167,12 +179,18 @@ $d3 = createDefinition(
 $d4 = createDefinition(
   'O dină, două dine, definiție fictivă pentru a avea lexeme omonime.',
   'din', $john->id, $klingon->id, Definition::ST_ACTIVE);
+$d5 = createDefinition(
+  'Definiție
+        pe mai multe
+linii    pentru a    testa spațierea.',
+  'spațiere', $john->id, $klingon->id, Definition::ST_ACTIVE);
 
 // lexem-definition maps
 EntryDefinition::associate($l1->getEntries()[0]->id, $d1->id);
 EntryDefinition::associate($l2->getEntries()[0]->id, $d2->id);
 EntryDefinition::associate($l4->getEntries()[0]->id, $d3->id);
 EntryDefinition::associate($l5->getEntries()[0]->id, $d4->id);
+EntryDefinition::associate($l8->getEntries()[0]->id, $d5->id);
 
 // comments
 createComment('Foarte foarte gustoasă',
@@ -254,7 +272,7 @@ function createModelDeep($type, $number, $description, $exponent, $paradigm) {
       } else {
         $accentedVowel = '';
       }
-    
+
       $order = count($transforms);
       foreach ($transforms as $t) {
         $t = Transform::createOrLoad($t->transfFrom, $t->transfTo);

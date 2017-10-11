@@ -40,6 +40,7 @@
 <tr><td><a href="wotdArtistAddEditDelete.xml">wotdArtistAddEditDelete</a></td></tr>
 <tr><td><a href="wotdAssignment.xml">wotdAssignment</a></td></tr>
 <tr><td><a href="wotdArtistDeleteAssigned.xml">wotdArtistDeleteAssigned</a></td></tr>
+<tr><td><a href="definitionRepWhitespace.xml">definitionRepWhitespace</a></td></tr>
 <tr><td><a href="logout.xml">logout</a></td></tr>
 </tbody></table>
 </body>

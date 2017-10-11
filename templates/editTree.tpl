@@ -414,17 +414,14 @@
               </div>
 
               <div class="form-group">
-                <div>
-                  <label for="editorTags">etichete</label>
+                <label for="editorTags">etichete</label>
 
-                  {include "bits/frequentObjects.tpl"
-                           list=$frequentTags
-                           text="value"
-                           classes="frequentTag editorObj"
-                           disabled=true}
-                </div>
-                
                 <select id="editorTags" class="editorObj" multiple disabled></select>
+
+                {include "bits/frequentObjects.tpl"
+                         name="meaningTags"
+                         target="#editorTags"
+                         text="value"}
               </div>
 
               <div class="form-group">

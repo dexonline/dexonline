@@ -143,8 +143,6 @@ $frequentSources = Model::factory('Source')
                  ->limit(5)
                  ->find_many();
 
-$frequentTags = Tag::getFrequent(ObjectTag::TYPE_MEANING, 4);
-
 $homonyms = $t->getRelatedTrees();
 
 SmartyWrap::assign('t', $t);
@@ -158,11 +156,10 @@ SmartyWrap::assign('entryTrees', $entryTrees);
 SmartyWrap::assign('treeMentions', $treeMentions);
 SmartyWrap::assign('meaningMentions', $meaningMentions);
 SmartyWrap::assign('frequentSources', $frequentSources);
-SmartyWrap::assign('frequentTags', $frequentTags);
 SmartyWrap::assign('homonyms', $homonyms);
 SmartyWrap::assign('statusNames', Tree::$STATUS_NAMES);
 SmartyWrap::addCss('editableMeaningTree', 'textComplete', 'admin');
-SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete');
+SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete', 'cookie', 'frequentObjects');
 SmartyWrap::display('editTree.tpl');
 
 ?>

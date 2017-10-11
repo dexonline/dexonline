@@ -32,7 +32,7 @@ $(function() {
         url: wwwRoot + DATA_SOURCES[type],
       },
       minimumInputLength: 1,
-      placeholder: 'alegeți un obiect',
+      placeholder: 'alegeți o valoare',
       width: '100%',
     });
 

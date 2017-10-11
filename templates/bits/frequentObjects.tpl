@@ -5,7 +5,7 @@
  * $target: target select2 element
  **}
 <div class="clearfix">
-  <div class="btn-toolbar pull-right frequentObjects"
+  <div class="btn-toolbar pull-right voffset frequentObjects"
        data-name="{$name}"
        data-type="{$type}"
        data-target="{$target}">
@@ -15,7 +15,7 @@
               class="btn btn-default"
               data-toggle="modal"
               data-target="#frequentObjectModal"
-              title="adaugă un obiect folosit frecvent">
+              title="adaugă o valoare folosită frecvent">
         <i class="glyphicon glyphicon-plus"></i>
       </button>
     </div>
@@ -27,6 +27,7 @@
   {$FREQUENT_OBJECT_ONCE=1 scope="global"}
 
   {* Bootstrap modal *}
+
   <div class="modal fade" id="frequentObjectModal" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -34,7 +35,7 @@
           <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h4 class="modal-title">Adaugă un obiect...</h4>
+          <h4 class="modal-title">Adaugă o valoare...</h4>
         </div>
 
         <div class="modal-body">
@@ -60,7 +61,7 @@
     </button>
     <button type="button"
             class="btn btn-default frequentObjectDelete"
-            title="șterge obiectul din listă">
+            title="șterge valoarea din listă">
       <i class="glyphicon glyphicon-trash"></i>
     </button>
   </div>

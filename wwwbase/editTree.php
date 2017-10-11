@@ -132,17 +132,6 @@ $entryTrees = Model::factory('Tree')
 $treeMentions = Mention::getDetailedTreeMentions($t->id);
 $meaningMentions = Mention::getDetailedMeaningMentions($t->id);
 
-$excludedSources = [ "DEX '98" ];
-$frequentSources = Model::factory('Source')
-                 ->table_alias('s')
-                 ->select('s.*')
-                 ->join('MeaningSource', ['s.id', '=', 'ms.sourceId'], 'ms')
-                 ->where_not_in('shortName', $excludedSources)
-                 ->group_by('s.id')
-                 ->order_by_expr('count(*) desc')
-                 ->limit(5)
-                 ->find_many();
-
 $homonyms = $t->getRelatedTrees();
 
 SmartyWrap::assign('t', $t);
@@ -155,11 +144,8 @@ SmartyWrap::assign('relatedMeanings', $relatedMeanings);
 SmartyWrap::assign('entryTrees', $entryTrees);
 SmartyWrap::assign('treeMentions', $treeMentions);
 SmartyWrap::assign('meaningMentions', $meaningMentions);
-SmartyWrap::assign('frequentSources', $frequentSources);
 SmartyWrap::assign('homonyms', $homonyms);
 SmartyWrap::assign('statusNames', Tree::$STATUS_NAMES);
 SmartyWrap::addCss('editableMeaningTree', 'textComplete', 'admin');
 SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete', 'cookie', 'frequentObjects');
 SmartyWrap::display('editTree.tpl');
-
-?>

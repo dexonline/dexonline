@@ -396,21 +396,18 @@
 
             <div class="col-md-4">
               <div class="form-group">
-                <div>
-                  <label for="editorSources">surse</label>
-
-                  {include "bits/frequentObjects.tpl"
-                           list=$frequentSources
-                           text="shortName"
-                           classes="frequentSource editorObj"
-                           disabled=true}
-                </div>
+                <label for="editorSources">surse</label>
 
                 <select id="editorSources" class="editorObj" multiple disabled>
                   {foreach $sources as $s}
                     <option value="{$s->id}">{$s->shortName}</option>
                   {/foreach}
                 </select>
+
+                {include "bits/frequentObjects.tpl"
+                         name="meaningSources"
+                         type="sources"
+                         target="#editorSources"}
               </div>
 
               <div class="form-group">
@@ -420,8 +417,8 @@
 
                 {include "bits/frequentObjects.tpl"
                          name="meaningTags"
-                         target="#editorTags"
-                         text="value"}
+                         type="tags"
+                         target="#editorTags"}
               </div>
 
               <div class="form-group">

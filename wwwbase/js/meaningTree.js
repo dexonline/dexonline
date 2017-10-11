@@ -36,8 +36,6 @@ $(function() {
       width: '100%',
     });
 
-    $('.frequentSource').click(frequentSourceClick);
-
     initSelect2('.editorRelation', 'ajax/getTreesById.php', {
       ajax: { url: wwwRoot + 'ajax/getTrees.php' },
       minimumInputLength: 1,
@@ -233,10 +231,6 @@ $(function() {
     $(this).addClass('selected');
     $('.meaningAction').prop('disabled', false);
     beginMeaningEdit();
-  }
-
-  function frequentSourceClick() {
-    frequentObjectClick($(this), $('#editorSources'));
   }
 
   function beginMeaningEdit() {

@@ -281,22 +281,49 @@ class SmartyWrap {
 
   static function minifyOutput($source, Smarty_Internal_Template $smarty)
   {
-      // Unify Line-Breaks to \n
-      $source = preg_replace("/\015\012|\015|\012/", "\n", $source);
+    $store = array();
+    $_store = 0;
+    $_offset = 0;
 
-      // Strip all HTML-Comments
-      // yes, even the ones in <script> - see http://stackoverflow.com/a/808850/515124
-      $source = preg_replace( '#<!--.*?-->#ms', '', $source );
+    // Unify Line-Breaks to \n
+    $source = preg_replace("/\015\012|\015|\012/", "\n", $source);
 
-      $expressions = array(
-          '#\n#Ss' => '',
-          '#\s+#Ss' => ' ',
-      );
+    $source = preg_replace( '#<!--.*?-->#ms', '', $source );
 
-      $source = preg_replace( array_keys($expressions), array_values($expressions), $source );
+    // capture html elements not to be messed with
+    $_offset = 0;
+    if (preg_match_all('#<(script|pre|textarea)[^>]*>.*?</\\1>#is', $source, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
+        foreach ($matches as $match) {
+            $store[] = $match[0][0];
+            $_length = strlen($match[0][0]);
+            $replace = '@!@SMARTY:' . $_store . ':SMARTY@!@';
+            $source = substr_replace($source, $replace, $match[0][1] - $_offset, $_length);
 
-      return $source;
+            $_offset += $_length - strlen($replace);
+            $_store++;
+        }
+    }
+
+    $expressions = array(
+        '#\n+#Ss' => ' ',
+        '#\s+#Ss' => ' ',
+    );
+
+    $source = preg_replace( array_keys($expressions), array_values($expressions), $source );
+
+    $_offset = 0;
+    if (preg_match_all('#@!@SMARTY:([0-9]+):SMARTY@!@#is', $source, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
+        foreach ($matches as $match) {
+            $_length = strlen($match[0][0]);
+            $replace = $store[$match[1][0]];
+            $source = substr_replace($source, $replace, $match[0][1] + $_offset, $_length);
+
+            $_offset += strlen($replace) - $_length;
+            $_store++;
+        }
+    }
+
+    return $source;
   }
 }
-
 ?>

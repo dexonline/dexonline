@@ -13,7 +13,7 @@
       {assign var="selectedLocVersion" value=$selectedLocVersion|default:null}
 
       <p>
-        Joci Scrabble și prietenii tăi nu cred că <em>kwyjibo</em> este un cuvânt perfect legal? Tastează cuvântul tău ca să le arăți cine e șeful.
+        Joci Scrabble și prietenii tăi nu cred că <em>schwyz</em> este un cuvânt perfect legal? Tastează cuvântul tău ca să le arăți cine e șeful.
       </p>
 
       <form action="scrabble" method="get">
@@ -24,7 +24,7 @@
           {else}
             <div class="form-group">
           {/if}
-          <input class="scrabbleSearchField form-control" type="text" name="form" placeholder="kwyjibo" value="{$form|default:""|escape}" autofocus>
+          <input class="scrabbleSearchField form-control" type="text" name="form" placeholder="schwyz" value="{$form|default:""|escape}" autofocus>
           {if isset($data)}
             {if count($data)}
               <span class="form-control-feedback glyphicon glyphicon-ok"></span>

@@ -116,6 +116,7 @@ class SmartyWrap {
   }
 
   /* Prepare and display a template. */
+  /* $hardened = assume nothing about the availability of the database */
   static function display($templateName, $hardened = false) {
     self::addCss('main', 'bootstrap', 'select2');
     self::addJs('jquery', 'dex', 'bootstrap', 'select2');
@@ -157,13 +158,12 @@ class SmartyWrap {
     print self::fetch($templateName);
   }
 
-  static function fetch($templateName) {
+static function fetch($templateName) {
     ksort(self::$cssFiles);
     ksort(self::$jsFiles);
     self::assign('cssFile', self::mergeResources(self::$cssFiles, 'css'));
     self::assign('jsFile', self::mergeResources(self::$jsFiles, 'js'));
     self::assign('flashMessages', FlashMessage::getMessages());
-    self::$theSmarty->registerFilter('output', array('SmartyWrap', 'minifyOutput'));
     return self::$theSmarty->fetch($templateName);
   }
 
@@ -173,11 +173,12 @@ class SmartyWrap {
 
   static function registerOutputFilters() {
     if (Session::userPrefers(Preferences::CEDILLA_BELOW)) {
-      self::$theSmarty->registerFilter('output', array('StringUtil', 'replace_st'));
+      self::$theSmarty->registerFilter('output', ['StringUtil', 'replace_st']);
     }
     if (Session::userPrefers(Preferences::OLD_ORTHOGRAPHY)) {
-      self::$theSmarty->registerFilter('output', array('StringUtil', 'replace_ai'));
+      self::$theSmarty->registerFilter('output', ['StringUtil', 'replace_ai']);
     }
+    self::$theSmarty->registerFilter('output', ['SmartyWrap', 'minifyOutput']);
   }
 
  static function addCss(/* Variable-length argument list */) {

@@ -17,13 +17,12 @@ $joins = [];
 // Process the $form argument
 if ($form) {
   list ($hasDiacritics, $hasRegexp, $ignored) = StringUtil::analyzeQuery($form);
-  $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
   if ($hasRegexp) {
     $fieldValue = StringUtil::dexRegexpToMysqlRegexp($form);
   } else {
     $fieldValue = "= '{$form}'";
   }
-  $where[] = "{$field} {$fieldValue}";
+  $where[] = "formNoAccent {$fieldValue}";
 }
 
 // Process the $sourceId argument

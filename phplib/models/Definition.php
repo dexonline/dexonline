@@ -296,7 +296,7 @@ class Definition extends BaseObject implements DatedObject {
   }
 
   static function searchModerator($cuv, $hasDiacritics, $sourceId, $status, $userId,
-                                         $beginTime, $endTime, $page, $resultsPerPage) {
+                                  $startTs, $endTs, $page, $resultsPerPage) {
     $regexp = StringUtil::dexRegexpToMysqlRegexp($cuv);
     $sourceClause = $sourceId ? "and Definition.sourceId = $sourceId" : '';
     $userClause = $userId ? "and Definition.userId = $userId" : '';
@@ -306,8 +306,10 @@ class Definition extends BaseObject implements DatedObject {
       // Deleted definitions are not associated with any lexem
       $collate = $hasDiacritics ? '' : 'collate utf8_general_ci';
       return Model::factory('Definition')
-        ->raw_query("select * from Definition where lexicon $collate $regexp and status = " . self::ST_DELETED . " and createDate between $beginTime and $endTime " .
-                    "$sourceClause $userClause order by lexicon, sourceId limit $offset, $resultsPerPage")->find_many();
+        ->raw_query("select * from Definition where lexicon $collate $regexp " .
+                    "and status = " . self::ST_DELETED . " and createDate between $startTs and $endTs " .
+                    "$sourceClause $userClause " .
+                    "order by lexicon, sourceId limit $offset, $resultsPerPage")->find_many();
     } else {
       $q = Model::factory('Definition')
          ->table_alias('d')
@@ -318,8 +320,8 @@ class Definition extends BaseObject implements DatedObject {
          ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
          ->where_raw("l.formNoAccent  $regexp")
          ->where('d.status', $status)
-         ->where_gte('d.createDate', $beginTime)
-         ->where_lte('d.createDate', $endTime);
+         ->where_gte('d.createDate', $startTs)
+         ->where_lte('d.createDate', $endTs);
 
       if ($sourceId) {
         $q = $q->where('d.sourceId', $sourceId);

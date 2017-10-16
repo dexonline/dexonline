@@ -216,6 +216,9 @@ static function fetch($templateName) {
           break;
         case 'diff':                self::$cssFiles[22] = 'diff.css'; break;
         case 'bootstrap-spinedit':  self::$cssFiles[23] = 'third-party/bootstrap-spinedit.css'; break;
+        case 'bootstrap-datepicker':
+          self::$cssFiles[24] = 'third-party/bootstrap-datepicker3.min.css';
+          break;
         default:
           FlashMessage::add("Cannot load CSS file {$id}");
           Util::redirect(Core::getWwwRoot());
@@ -274,6 +277,11 @@ static function fetch($templateName) {
         case 'diffSelector':  self::$jsFiles[33] = 'diffSelector.js'; break;
         case 'bootstrap-spinedit':  self::$jsFiles[34] = 'third-party/bootstrap-spinedit.js'; break;
         case 'frequentObjects':  self::$jsFiles[35] = 'frequentObjects.js'; break;
+        case 'bootstrap-datepicker':
+          self::$jsFiles[36] = 'third-party/bootstrap-datepicker.min.js';
+          self::$jsFiles[37] = 'third-party/bootstrap-datepicker.ro.min.js';
+          break;
+        case 'adminIndex':    self::$jsFiles[38] = 'adminIndex.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           Util::redirect(Core::getWwwRoot());

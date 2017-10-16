@@ -3,18 +3,15 @@ require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
+define('SECONDS_PER_DAY', 86400);
 define('RESULTS_PER_PAGE', 500);
 
 $name = Request::get('name');
 $status = Request::get('status');
 $nick = Request::get('nick');
 $sourceId = Request::get('sourceId');
-$yr1 = Request::get('yr1');
-$mo1 = Request::get('mo1');
-$da1 = Request::get('da1');
-$yr2 = Request::get('yr2');
-$mo2 = Request::get('mo2');
-$da2 = Request::get('da2');
+$startDate = Request::get('startDate');
+$endDate = Request::get('endDate');
 $page = Request::get('page', 1);
 $prevPageButton = Request::has('prevPageButton');
 $nextPageButton = Request::has('nextPageButton');
@@ -45,12 +42,22 @@ if ($searchButton || $prevPageButton || $nextPageButton) {
       $userId = $user->id;
     }
   }
-  $beginTime = mktime(0, 0, 0, $mo1, $da1, $yr1);
-  $endTime = mktime(23, 59, 59, $mo2, $da2, $yr2);
-  
+
+  if ($startDate) {
+    $startTs = DateTime::createFromFormat('Y-m-d', $startDate)->getTimestamp();
+  } else {
+    $startTs = 0;
+  }
+
+  if ($endDate) {
+    $endTs = SECONDS_PER_DAY + DateTime::createFromFormat('Y-m-d', $endDate)->getTimestamp();
+  } else {
+    $endTs = 4000000000;
+  }
+
   // Query the database and output the results
   $defs = Definition::searchModerator($name, $hasDiacritics, $sourceId, $status, $userId,
-                                      $beginTime, $endTime, $page, RESULTS_PER_PAGE);
+                                      $startTs, $endTs, $page, RESULTS_PER_PAGE);
   $searchResults = SearchResult::mapDefinitionArray($defs);
 
   $args = [
@@ -58,12 +65,8 @@ if ($searchButton || $prevPageButton || $nextPageButton) {
     'status' => $status,
     'nick' => $nick,
     'sourceId' => $sourceId,
-    'yr1' => $yr1,
-    'mo1' => $mo1,
-    'da1' => $da1,
-    'yr2' => $yr2,
-    'mo2' => $mo2,
-    'da2' => $da2,
+    'startDate' => $startDate,
+    'endDate' => $endDate,
     'page' => $page
   ];
 

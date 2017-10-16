@@ -120,23 +120,17 @@
                 </div>
               </div>
 
-              {assign var="nextYear" value=$currentYear+1}
               <div class="form-group">
                 <label class="col-sm-4 control-label">între</label>
-                <div class="col-sm-8 form-inline">
-                  {include "bits/numericDropDown.tpl" name="yr1" start=2001 end=$nextYear}
-                  {include "bits/numericDropDown.tpl" name="mo1" start=1 end=13}
-                  {include "bits/numericDropDown.tpl" name="da1" start=1 end=32}
+                <div class="col-sm-8">
+                  <input type="text" name="startDate" class="form-control calendar">
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="col-sm-4 control-label">și</label>
-                <div class="col-sm-8 form-inline">
-                  {include "bits/numericDropDown.tpl" name="yr2" start=2001 end=$nextYear
-                  selected=$currentYear}
-                  {include "bits/numericDropDown.tpl" name="mo2" start=1 end=13 selected=12}
-                  {include "bits/numericDropDown.tpl" name="da2" start=1 end=32 selected=31}
+                <div class="col-sm-8">
+                  <input type="text" name="endDate" class="form-control calendar">
                 </div>
               </div>
 
@@ -543,8 +537,4 @@
       </div>
     </div>
   {/if}
-
-  <script>
-   $(adminIndexInit);
-  </script>
 {/block}

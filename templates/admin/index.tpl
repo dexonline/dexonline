@@ -82,7 +82,7 @@
 
   {if User::can(User::PRIV_EDIT)}
     <div class="row">
-      <div class="col-sm-6 col-md-6 col-lg-6">
+      <div class="col-sm-4 col-md-4 col-lg-4">
         <div class="panel panel-default">
           <div class="panel-heading">
             Caută definiții
@@ -91,15 +91,15 @@
           <div class="panel-body">
             <form class="form-horizontal" action="definitionLookup.php" method="post">
               <div class="form-group">
-                <label class="col-sm-3 control-label">lexem</label>
-                <div class="col-sm-9">
+                <label class="col-sm-4 control-label">lexem</label>
+                <div class="col-sm-8">
                   <input id="definitionName" class="form-control" type="text" name="name" value="*">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-sm-3 control-label">starea</label>
-                <div class="col-sm-9">
+                <label class="col-sm-4 control-label">starea</label>
+                <div class="col-sm-8">
                   {include "bits/statusDropDown.tpl"
                   name="status"
                   selectedStatus=Definition::ST_ACTIVE}
@@ -107,23 +107,23 @@
               </div>
 
               <div class="form-group">
-                <label class="col-sm-3 control-label">trimise de</label>
-                <div class="col-sm-9">
+                <label class="col-sm-4 control-label">trimise de</label>
+                <div class="col-sm-8">
                   <input class="form-control" type="text" name="nick">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-sm-3 control-label">sursa</label>
-                <div class="col-sm-9">
+                <label class="col-sm-4 control-label">sursa</label>
+                <div class="col-sm-8">
                   {include "bits/sourceDropDown.tpl" name="sourceId"}
                 </div>
               </div>
 
               {assign var="nextYear" value=$currentYear+1}
               <div class="form-group">
-                <label class="col-sm-3 control-label">între</label>
-                <div class="col-sm-9 form-inline">
+                <label class="col-sm-4 control-label">între</label>
+                <div class="col-sm-8 form-inline">
                   {include "bits/numericDropDown.tpl" name="yr1" start=2001 end=$nextYear}
                   {include "bits/numericDropDown.tpl" name="mo1" start=1 end=13}
                   {include "bits/numericDropDown.tpl" name="da1" start=1 end=32}
@@ -131,8 +131,8 @@
               </div>
 
               <div class="form-group">
-                <label class="col-sm-3 control-label">și</label>
-                <div class="col-sm-9 form-inline">
+                <label class="col-sm-4 control-label">și</label>
+                <div class="col-sm-8 form-inline">
                   {include "bits/numericDropDown.tpl" name="yr2" start=2001 end=$nextYear
                   selected=$currentYear}
                   {include "bits/numericDropDown.tpl" name="mo2" start=1 end=13 selected=12}
@@ -141,7 +141,7 @@
               </div>
 
               <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-9">
+                <div class="col-sm-offset-4 col-sm-8">
                   <button type="submit" class="btn btn-primary" name="searchButton">
                     <i class="glyphicon glyphicon-search"></i>
                     caută
@@ -153,7 +153,52 @@
         </div>
       </div>
 
-      <div class="col-sm-6 col-md-6 col-lg-6">
+      <div class="col-sm-4 col-md-4 col-lg-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Caută intrări
+          </div>
+
+          <div class="panel-body">
+            <form class="form-horizontal" action="entrySearch.php">
+              <div class="form-group">
+                <label class="col-sm-4 control-label">descriere</label>
+                <div class="col-sm-8">
+                  <input type="text"
+                         class="form-control"
+                         name="description"
+                         placeholder="acceptă expresii regulate">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label">structurare</label>
+                <div class="col-sm-8">
+                  {include "bits/structStatus.tpl" anyOption=true}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label">structurist</label>
+                <div class="col-sm-8">
+                  {include "bits/structurist.tpl"}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-8">
+                  <button type="submit" class="btn btn-primary" name="searchButton">
+                    <i class="glyphicon glyphicon-search"></i>
+                    caută
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-md-4 col-lg-4">
         <div class="panel panel-default">
           <div class="panel-heading">
             Caută lexeme
@@ -162,10 +207,9 @@
           <div class="panel-body">
             <form class="form-horizontal" action="lexemSearch.php">
               <div class="form-group">
-                <label class="col-sm-3 control-label">forma</label>
-                <div class="col-sm-9">
-                  <input id="lexemForm"
-                         class="form-control"
+                <label class="col-sm-4 control-label">forma</label>
+                <div class="col-sm-8">
+                  <input class="form-control"
                          type="text"
                          name="form"
                          placeholder="acceptă expresii regulate">
@@ -173,15 +217,15 @@
               </div>
 
               <div class="form-group">
-                <label class="col-sm-3 control-label">sursa</label>
-                <div class="col-sm-9">
+                <label class="col-sm-4 control-label">sursa</label>
+                <div class="col-sm-8">
                   {include "bits/sourceDropDown.tpl"}
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-sm-3 control-label">în LOC</label>
-                <div class="col-sm-9">
+                <label class="col-sm-4 control-label">în LOC</label>
+                <div class="col-sm-8">
                   <select class="form-control" name="loc">
                     <option value="2">indiferent</option>
                     <option value="1">da</option>
@@ -191,8 +235,8 @@
               </div>
 
               <div class="form-group">
-                <label class="col-sm-3 control-label">paradigmă</label>
-                <div class="col-sm-9">
+                <label class="col-sm-4 control-label">paradigmă</label>
+                <div class="col-sm-8">
                   <select class="form-control" name="paradigm">
                     <option value="2">indiferent</option>
                     <option value="1">da</option>
@@ -202,36 +246,28 @@
               </div>
 
               <div class="form-group">
-                <label class="col-sm-3 control-label">structurare</label>
-                <div class="col-sm-9">
-                  {include "bits/structStatus.tpl" canEdit=true anyOption=true}
+                <label class="col-sm-4 control-label">structurare</label>
+                <div class="col-sm-8">
+                  {include "bits/structStatus.tpl" anyOption=true}
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-sm-3 control-label">structurist</label>
-                <div class="col-sm-9">
-                  <select name="structuristId" class="form-control">
-                    <option value="{Entry::STRUCTURIST_ID_ANY}">oricare</option>
-                    <option value="{Entry::STRUCTURIST_ID_NONE}">niciunul</option>
-                    {foreach $structurists as $s}
-                      <option value="{$s->id}">
-                        {$s->nick} ({$s->name})
-                      </option>
-                    {/foreach}
-                  </select>
+                <label class="col-sm-4 control-label">structurist</label>
+                <div class="col-sm-8">
+                  {include "bits/structurist.tpl"}
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-sm-3 control-label">trimise de</label>
-                <div class="col-sm-9">
+                <label class="col-sm-4 control-label">trimise de</label>
+                <div class="col-sm-8">
                   <input class="form-control" type="text" name="nick">
                 </div>
               </div>
 
               <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-9">
+                <div class="col-sm-offset-4 col-sm-8">
                   <button type="submit" class="btn btn-primary" name="searchButton">
                     <i class="glyphicon glyphicon-search"></i>
                     caută

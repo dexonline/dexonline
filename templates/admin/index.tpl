@@ -102,7 +102,7 @@
                 <div class="col-sm-9">
                   {include "bits/statusDropDown.tpl"
                   name="status"
-                  selectedStatus=Definition::ST_PENDING}
+                  selectedStatus=Definition::ST_ACTIVE}
                 </div>
               </div>
 

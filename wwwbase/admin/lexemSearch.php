@@ -81,8 +81,7 @@ $query = Model::factory('Lexem')
   ->table_alias('l')
   ->select('l.*')
   ->distinct()
-  ->order_by_asc('formNoAccent')
-  ->limit(10000);
+  ->order_by_asc('formNoAccent');
 
 // ... and joins
 foreach ($joins as $join => $ignored) {
@@ -108,8 +107,10 @@ foreach ($where as $clause) {
   $query = $query->where_raw("({$clause})");
 }
 
-$lexems = $query->find_many();
+$count = $query->count();
+$lexems = $query->limit(10000)->find_many();
 
+SmartyWrap::assign('count', $count);
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/lexemSearch.tpl');

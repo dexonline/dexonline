@@ -4,7 +4,12 @@
 
 {block "content"}
 
-  <h3>{$lexems|count} rezultate</h3>
+  <h3>
+    {$count} rezultate
+    {if $count > count($lexems)}
+      (maximum {$lexems|count} afișate)
+    {/if}
+  </h3>
 
   {include "bits/lexemList.tpl"}
 

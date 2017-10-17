@@ -79,7 +79,6 @@ if ($nick) {
 // Assemble the query
 $query = Model::factory('Lexem')
   ->table_alias('l')
-  ->select('l.*')
   ->distinct()
   ->order_by_asc('formNoAccent');
 
@@ -107,8 +106,15 @@ foreach ($where as $clause) {
   $query = $query->where_raw("({$clause})");
 }
 
-$count = $query->count();
-$lexems = $query->limit(10000)->find_many();
+// Idiorm's count(distinct *) doesn't work
+$countResult = $query
+  ->select_expr('count(distinct l.id)', 'count')
+  ->find_array();
+$count = $countResult[0]['count'];
+$lexems = $query
+        ->select('l.*')
+        ->limit(10000)
+        ->find_many();
 
 SmartyWrap::assign('count', $count);
 SmartyWrap::assign('lexems', $lexems);

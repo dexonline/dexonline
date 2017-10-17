@@ -9,9 +9,6 @@ $structuristId = Request::get('structuristId');
 
 $query = Model::factory('Entry');
 
-$where = [];
-$joins = [];
-
 // Process the $form argument
 if ($description) {
   if (StringUtil::hasRegexp($description)) {

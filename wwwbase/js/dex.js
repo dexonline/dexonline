@@ -23,6 +23,12 @@ $(function() {
     width: '100%',
   });
 
+  initSelect2('.select2Tags', 'ajax/getTagsById.php', {
+    ajax: { url: wwwRoot + 'ajax/getTags.php' },
+    minimumInputLength: 1,
+    width: '100%',
+  });
+
   var d = $('#autocompleteEnabled');
   if (d.length) {
     searchInitAutocomplete(d.data('minChars'));

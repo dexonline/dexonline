@@ -13,11 +13,6 @@ $(function() {
       minimumInputLength: 1,
     });
 
-    initSelect2('#tagIds', 'ajax/getTagsById.php', {
-      ajax: { url: wwwRoot + 'ajax/getTags.php' },
-      minimumInputLength: 1,
-    });
-
     $('#mergeEntryId').select2({
       ajax: {
         url: wwwRoot + 'ajax/getEntries.php',

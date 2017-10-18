@@ -89,7 +89,7 @@
         <div class="form-group">
           <label class="col-md-2 control-label">etichete</label>
           <div class="col-md-10">
-            <select id="tagIds" name="tagIds[]" class="form-control" multiple>
+            <select name="tagIds[]" class="form-control select2Tags" multiple>
               {foreach $tagIds as $tagId}
                 <option value="{$tagId}" selected></option>
               {/foreach}
@@ -424,7 +424,7 @@
               <div class="form-group">
                 <label for="editorTags">etichete</label>
 
-                <select id="editorTags" class="editorObj" multiple disabled></select>
+                <select id="editorTags" class="editorObj select2Tags" multiple disabled></select>
 
                 {include "bits/frequentObjects.tpl"
                          name="meaningTags"

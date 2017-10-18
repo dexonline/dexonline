@@ -25,7 +25,7 @@ class Tag extends BaseObject implements DatedObject {
     $this->background = ($background == self::DEFAULT_BACKGROUND) ? '' : $background;
   }
 
-  function getFrequentValues($field, $default) {
+  static function getFrequentValues($field, $default) {
     $data = Model::factory('Tag')
           ->select($field)
           ->group_by($field)

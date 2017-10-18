@@ -14,9 +14,9 @@
     <input type="hidden" name="id" value="{$dv->id}">
 
     <div class="form-group">
-      <label for="tagIds">etichete</label>
+      <label>etichete</label>
 
-      <select id="tagIds" name="tagIds[]" class="form-control" multiple>
+      <select name="tagIds[]" class="form-control select2Tags" multiple>
         {foreach $change.tags as $t}
           <option value="{$t->id}" selected></option>
         {/foreach}

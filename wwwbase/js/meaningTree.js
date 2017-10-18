@@ -29,13 +29,6 @@ $(function() {
       width: '100%',
     });
 
-    initSelect2('#editorTags', 'ajax/getTagsById.php', {
-      ajax: { url: wwwRoot + 'ajax/getTags.php' },
-      minimumInputLength: 1,
-      placeholder: 'adaugă o etichetă...',
-      width: '100%',
-    });
-
     initSelect2('.editorRelation', 'ajax/getTreesById.php', {
       ajax: { url: wwwRoot + 'ajax/getTrees.php' },
       minimumInputLength: 1,

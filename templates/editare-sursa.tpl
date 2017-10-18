@@ -150,7 +150,7 @@
 
         <div class="form-group">
           <label>etichete</label>
-          <select id="tagIds" name="tagIds[]" class="form-control" multiple>
+          <select name="tagIds[]" class="form-control select2Tags" multiple>
             {foreach $tagIds as $tagId}
               <option value="{$tagId}" selected></option>
             {/foreach}

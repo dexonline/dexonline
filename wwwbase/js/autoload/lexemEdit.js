@@ -31,11 +31,6 @@ $(function() {
       width: '100%',
     });
 
-    initSelect2('#tagIds', 'ajax/getTagsById.php', {
-      ajax: { url: wwwRoot + 'ajax/getTags.php' },
-      minimumInputLength: 1,
-    });
-            
     $('.lexemEditSaveButton').click(saveEverything);
 
     $('#lexemForm').on('change input paste', showRenameDiv);

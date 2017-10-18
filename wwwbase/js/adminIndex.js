@@ -43,11 +43,6 @@ $(function() {
       $(this).closest('form').submit();
     });
 
-    initSelect2('#entryTagIds, #lexemTagIds', 'ajax/getTagsById.php', {
-      ajax: { url: wwwRoot + 'ajax/getTags.php' },
-      minimumInputLength: 1,
-    });
-
     initSelect2('.userId', 'ajax/getUsersById.php', {
       ajax: createUserAjaxStruct(),
       minimumInputLength: 3,

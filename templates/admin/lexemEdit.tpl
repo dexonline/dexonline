@@ -170,7 +170,7 @@
             <div class="form-group">
               <label for="tagIds" class="col-md-2 control-label">etichete</label>
               <div class="col-md-10">
-                <select id="tagIds" name="tagIds[]" class="form-control" multiple>
+                <select id="tagIds" name="tagIds[]" class="form-control select2Tags" multiple>
                   {foreach $lexem->getTagIds() as $tagId}
                     <option value="{$tagId}" selected></option>
                   {/foreach}

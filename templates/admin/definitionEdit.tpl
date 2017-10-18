@@ -51,7 +51,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">etichete</label>
           <div class="col-sm-10">
-            <select id="tagIds" name="tagIds[]" class="form-control" multiple>
+            <select id="tagIds" name="tagIds[]" class="form-control select2Tags" multiple>
               {foreach $tagIds as $t}
                 <option value="{$t}" selected></option>
               {/foreach}

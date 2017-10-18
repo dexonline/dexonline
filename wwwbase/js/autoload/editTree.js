@@ -8,6 +8,11 @@ $(function() {
       templateSelection: formatEntryWithEditLink,
     });
             
+    initSelect2('#tagIds', 'ajax/getTagsById.php', {
+      ajax: { url: wwwRoot + 'ajax/getTags.php' },
+      minimumInputLength: 1,
+    });
+
     $('#deleteMeaningButton').popover({
       container: 'body',
       content: function() {

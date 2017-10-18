@@ -76,6 +76,7 @@ if ($saveButton) {
   $t->description = Request::get('description');
   $t->status = Request::get('status');
   $entryIds = Request::get('entryIds');
+  $tagIds = Request::get('tagIds', []);
   $jsonMeanings = Request::get('jsonMeanings');
   $meanings = json_decode($jsonMeanings);
 
@@ -88,6 +89,7 @@ if ($saveButton) {
     $t->save();
 
     TreeEntry::wipeAndRecreate($t->id, $entryIds);
+    ObjectTag::wipeAndRecreate($t->id, ObjectTag::TYPE_TREE, $tagIds);
 
     Meaning::saveTree($meanings, $t);
 
@@ -97,6 +99,8 @@ if ($saveButton) {
 } else {
   $t->getMeanings(); // ensure they are loaded
   $entryIds = $t->getEntryIds();
+  $ots = ObjectTag::getTreeTags($t->id);
+  $tagIds = Util::objectProperty($ots, 'tagId');
   RecentLink::add("Arbore: {$t->description} (ID={$t->id})");
 }
 
@@ -136,6 +140,7 @@ $homonyms = $t->getRelatedTrees();
 
 SmartyWrap::assign('t', $t);
 SmartyWrap::assign('entryIds', $entryIds);
+SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('modelTypes', $modelTypes);
 // TODO: canEdit if STRUCT_STATUS_IN_PROGRESS) || User::can(User::PRIV_EDIT)
 SmartyWrap::assign('canEdit', true);

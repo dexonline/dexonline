@@ -86,6 +86,17 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label class="col-md-2 control-label">etichete</label>
+          <div class="col-md-10">
+            <select id="tagIds" name="tagIds[]" class="form-control" multiple>
+              {foreach $tagIds as $tagId}
+                <option value="{$tagId}" selected></option>
+              {/foreach}
+            </select>
+          </div>
+        </div>
+
         {if $homonyms}
           <div class="form-group">
             <label class="col-md-2">omonime</label>

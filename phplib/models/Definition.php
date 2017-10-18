@@ -295,50 +295,6 @@ class Definition extends BaseObject implements DatedObject {
     }
   }
 
-  static function searchModerator($cuv, $hasDiacritics, $sourceId, $status, $userId,
-                                  $startTs, $endTs, $page, $resultsPerPage) {
-    $regexp = StringUtil::dexRegexpToMysqlRegexp($cuv);
-    $sourceClause = $sourceId ? "and Definition.sourceId = $sourceId" : '';
-    $userClause = $userId ? "and Definition.userId = $userId" : '';
-    $offset = ($page - 1) * $resultsPerPage;
-
-    if ($status == self::ST_DELETED) {
-      // Deleted definitions are not associated with any lexem
-      $collate = $hasDiacritics ? '' : 'collate utf8_general_ci';
-      return Model::factory('Definition')
-        ->raw_query("select * from Definition where lexicon $collate $regexp " .
-                    "and status = " . self::ST_DELETED . " and createDate between $startTs and $endTs " .
-                    "$sourceClause $userClause " .
-                    "order by lexicon, sourceId limit $offset, $resultsPerPage")->find_many();
-    } else {
-      $q = Model::factory('Definition')
-         ->table_alias('d')
-         ->select('d.*')
-         ->distinct()
-         ->join('EntryDefinition', ['ed.definitionId', '=', 'd.id'], 'ed')
-         ->join('EntryLexem', ['el.entryId', '=', 'ed.entryId'], 'el')
-         ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
-         ->where_raw("l.formNoAccent  $regexp")
-         ->where('d.status', $status)
-         ->where_gte('d.createDate', $startTs)
-         ->where_lte('d.createDate', $endTs);
-
-      if ($sourceId) {
-        $q = $q->where('d.sourceId', $sourceId);
-      }
-      if ($userId) {
-        $q = $q->where('d.userId', $userId);
-      }
-
-      return $q
-        ->order_by_asc('lexicon')
-        ->order_by_asc('sourceId')
-        ->limit($resultsPerPage)
-        ->offset($offset)
-        ->find_many();
-    }
-  }
-
   // Return definitions that are associated with at least two of the lexems
   static function searchMultipleWords($words, $hasDiacritics, $oldOrthography, $sourceId) {
     $defCounts = [];

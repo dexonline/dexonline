@@ -23,7 +23,7 @@
 </div>
 
 {* one-time only components *}
-{if !$FREQUENT_OBJECT_ONCE}
+{if !isset($FREQUENT_OBJECT_ONCE)}
   {$FREQUENT_OBJECT_ONCE=1 scope="global"}
 
   {* Bootstrap modal *}

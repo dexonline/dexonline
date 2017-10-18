@@ -30,7 +30,6 @@ $defs = $defs
   ->find_many();
 
 $searchResults = SearchResult::mapDefinitionArray($defs);
-FileCache::putModeratorQueryResults($ip, $searchResults);
 
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::addCss('admin');

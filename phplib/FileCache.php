@@ -70,20 +70,4 @@ class FileCache {
     $var = $hidden ?  self::$CKEY_TOP_ALL : self::$CKEY_TOP;
     self::put($var . ($manual ? '1' : '0'), $value);
   }
-
-  private static function getKeyForModeratorIp($ip) {
-    return "moderator_$ip";
-  }
-
-  static function getModeratorQueryResults($ip) {
-    $key = self::getKeyForModeratorIp($ip);
-    return self::get($key);
-  }
-
-  static function putModeratorQueryResults($ip, $queryData) {
-    $key = self::getKeyForModeratorIp($ip);
-    self::put($key, $queryData);
-  }
 }
-
-?>

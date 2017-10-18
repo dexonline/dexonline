@@ -142,3 +142,7 @@ a.widget,
 .quickNav form {
   margin-bottom: 5px;
 }
+
+.form-control.calendar {
+  width: 45%;
+}

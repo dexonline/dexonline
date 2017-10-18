@@ -215,17 +215,14 @@
 
                 <div class="form-group">
                   <label class="col-xs-4 control-label">între</label>
-                  <div class="col-xs-8">
+
+                  <div class="col-xs-8 form-inline">
                     <input type="text" name="startDate" class="form-control calendar">
+                    <label class="control-label">și</label>
+                    <input type="text" name="endDate" class="form-control calendar pull-right">
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label class="col-xs-4 control-label">și</label>
-                  <div class="col-xs-8">
-                    <input type="text" name="endDate" class="form-control calendar">
-                  </div>
-                </div>
               </fieldset>
             </div>
           </div>

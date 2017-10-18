@@ -29,12 +29,6 @@ $(function() {
       width: '100%',
     });
 
-    initSelect2('.editorRelation', 'ajax/getTreesById.php', {
-      ajax: { url: wwwRoot + 'ajax/getTrees.php' },
-      minimumInputLength: 1,
-      width: '100%',
-    });
-
     $('#relationType').change(selectRelationType).change();
 
     $('.editorObj').bind(

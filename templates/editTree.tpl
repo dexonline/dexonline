@@ -442,19 +442,19 @@
                 </select>
 
                 <span class="relationWrapper" data-type="1">
-                  <select class="form-control editorRelation editorObj" multiple disabled>
+                  <select class="form-control editorRelation select2Trees editorObj" multiple disabled>
                   </select>
                 </span>
                 <span class="relationWrapper" data-type="2">
-                  <select class="form-control editorRelation editorObj" multiple disabled>
+                  <select class="form-control editorRelation select2Trees editorObj" multiple disabled>
                   </select>
                 </span>
                 <span class="relationWrapper" data-type="3">
-                  <select class="form-control editorRelation editorObj" multiple disabled>
+                  <select class="form-control editorRelation select2Trees editorObj" multiple disabled>
                   </select>
                 </span>
                 <span class="relationWrapper" data-type="4">
-                  <select class="form-control editorRelation editorObj" multiple disabled>
+                  <select class="form-control editorRelation select2Trees editorObj" multiple disabled>
                   </select>
                 </span>
               </div>

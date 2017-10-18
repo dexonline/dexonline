@@ -66,9 +66,9 @@
         </div>
 
         <div class="form-group">
-          <label for="userId" class="col-sm-3 control-label">utilizator</label>
+          <label class="col-sm-3 control-label">utilizator</label>
           <div class="col-sm-9">
-            <select id="userId" name="userId" class="form-control">
+            <select name="userId" class="form-control select2Users">
               <option value="{$p->userId}" selected></option>
             </select>
           </div>

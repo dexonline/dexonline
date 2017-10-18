@@ -12,9 +12,9 @@
   <form class="form-horizontal" method="post">
 
     <div class="form-group {if isset($errors.userId)}has-error{/if}">
-      <label for="userId" class="col-sm-2 control-label">utilizator</label>
+      <label class="col-sm-2 control-label">utilizator</label>
       <div class="col-sm-10">
-        <select id="userId" name="userId" class="form-control">
+        <select name="userId" class="form-control select2Users">
           <option value="{$userId|default:''}" selected></option>
         </select>
         {include "bits/fieldErrors.tpl" errors=$errors.userId|default:null}

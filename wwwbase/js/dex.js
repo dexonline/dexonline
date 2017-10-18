@@ -29,6 +29,18 @@ $(function() {
     width: '100%',
   });
 
+  initSelect2('.select2Trees', 'ajax/getTreesById.php', {
+    ajax: { url: wwwRoot + 'ajax/getTrees.php' },
+    minimumInputLength: 1,
+    width: '100%',
+  });
+
+  initSelect2('.select2Users', 'ajax/getUsersById.php', {
+    ajax: createUserAjaxStruct(),
+    minimumInputLength: 3,
+    placeholder: '',
+  });
+
   var d = $('#autocompleteEnabled');
   if (d.length) {
     searchInitAutocomplete(d.data('minChars'));

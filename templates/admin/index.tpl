@@ -226,7 +226,7 @@
                 <div class="form-group">
                   <label class="col-xs-4 control-label">trimise de</label>
                   <div class="col-xs-8">
-                    <select name="userId" class="form-control userId"></select>
+                    <select name="userId" class="form-control select2Users"></select>
                   </div>
                 </div>
 

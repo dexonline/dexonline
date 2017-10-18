@@ -120,7 +120,7 @@
             arbori
           </label>
           <div class="col-md-10">
-            <select id="treeIds" name="treeIds[]" style="width: 100%" multiple>
+            <select name="treeIds[]" class="select2Trees" multiple>
               {foreach $treeIds as $t}
                 <option value="{$t}" selected></option>
               {/foreach}

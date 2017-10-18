@@ -43,12 +43,6 @@ $(function() {
       $(this).closest('form').submit();
     });
 
-    initSelect2('.userId', 'ajax/getUsersById.php', {
-      ajax: createUserAjaxStruct(),
-      minimumInputLength: 3,
-      placeholder: 'alegeți un utilizator',
-    });
-
     $('.calendar').datepicker({
       autoclose: true,
       format: 'yyyy-mm-dd',

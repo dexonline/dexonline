@@ -83,6 +83,18 @@
             {include "bits/fieldErrors.tpl" errors=$errors.structuristId|default:null}
           </div>
         </div>
+
+        <div class="form-group">
+          <label class="col-md-2 control-label">etichete</label>
+          <div class="col-md-10">
+            <select id="tagIds" name="tagIds[]" class="form-control" multiple>
+              {foreach $tagIds as $tagId}
+                <option value="{$tagId}" selected></option>
+              {/foreach}
+            </select>
+          </div>
+        </div>
+
       </div>
 
       <div class="col-md-6">

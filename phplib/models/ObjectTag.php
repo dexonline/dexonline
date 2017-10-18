@@ -8,6 +8,7 @@ class ObjectTag extends BaseObject implements DatedObject {
   const TYPE_MEANING = 3;
   const TYPE_SOURCE = 4;
   const TYPE_DEFINITION_VERSION = 5;
+  const TYPE_ENTRY = 6;
 
   static function getAllByIdType($objectId, $objectType) {
     return Model::factory('ObjectTag')
@@ -31,6 +32,10 @@ class ObjectTag extends BaseObject implements DatedObject {
 
   static function getSourceTags($sourceId) {
     return self::getAllByIdType($sourceId, self::TYPE_SOURCE);
+  }
+
+  static function getEntryTags($entryId) {
+    return self::getAllByIdType($entryId, self::TYPE_ENTRY);
   }
 
   // Loads the actual tags, not the ObjectTags

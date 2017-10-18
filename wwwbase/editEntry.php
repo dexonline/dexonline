@@ -110,6 +110,7 @@ if ($saveButton) {
   $lexemIds = Request::get('lexemIds');
   $treeIds = Request::get('treeIds');
   $renameTrees = Request::has('renameTrees');
+  $tagIds = Request::get('tagIds', []);
 
   $errors = $e->validate($original);
   if ($errors) {
@@ -124,9 +125,10 @@ if ($saveButton) {
 
     $e->save();
 
-    // dissociate old lexems and trees and associate new ones
+    // dissociate old lexems, trees and tags and associate new ones
     EntryLexem::wipeAndRecreate($e->id, $lexemIds);
     TreeEntry::wipeAndRecreate($treeIds, $e->id);
+    ObjectTag::wipeAndRecreate($e->id, ObjectTag::TYPE_ENTRY, $tagIds);
 
     if ($renameTrees) {
       foreach ($e->getTrees() as $t) {
@@ -142,6 +144,8 @@ if ($saveButton) {
   // Viewing the page, not saving
   $lexemIds = $e->getLexemIds();
   $treeIds = $e->getTreeIds();
+  $ots = ObjectTag::getEntryTags($e->id);
+  $tagIds = Util::objectProperty($ots, 'tagId');
   $e->loadMeanings();
   RecentLink::add("Intrare: {$e->description} (ID={$e->id})");
 }
@@ -177,6 +181,7 @@ SmartyWrap::assign('e', $e);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('lexemIds', $lexemIds);
 SmartyWrap::assign('treeIds', $treeIds);
+SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::assign('homonyms', $homonyms);

@@ -132,6 +132,15 @@
                     </select>
                   </div>
                 </div>
+
+                <div class="form-group">
+                  <label class="col-xs-4 control-label">etichete</label>
+                  <div class="col-xs-8">
+                    <select id="entryTagIds" name="entryTagIds[]" class="form-control" multiple>
+                    </select>
+                  </div>
+                </div>
+
               </fieldset>
             </div>
 
@@ -168,6 +177,14 @@
                       <option value="">indiferent</option>
                       <option value="1">da</option>
                       <option value="0">nu</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-xs-4 control-label">etichete</label>
+                  <div class="col-xs-8">
+                    <select id="lexemTagIds" name="lexemTagIds[]" class="form-control" multiple>
                     </select>
                   </div>
                 </div>

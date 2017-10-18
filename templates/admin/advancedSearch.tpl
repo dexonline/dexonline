@@ -8,7 +8,13 @@
 
     <form method="post">
       {foreach $args as $name => $value}
-        <input type="hidden" name="{$name}" value="{$value}">
+        {if is_array($value)}
+          {foreach $value as $element}
+            <input type="hidden" name="{$name}[]" value="{$element}">
+          {/foreach}
+        {else}
+          <input type="hidden" name="{$name}" value="{$value}">
+        {/if}
       {/foreach}
 
       <div class="panel panel-default voffset2">

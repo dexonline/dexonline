@@ -9,11 +9,13 @@ define('SECONDS_PER_DAY', 86400);
 $description = Request::get('description');
 $structStatus = Request::get('structStatus');
 $structuristId = Request::get('structuristId');
+$entryTagIds = Request::get('entryTagIds', []);
 
 // lexeme parameters
 $formNoAccent = Request::get('formNoAccent');
 $isLoc = Request::get('isLoc');
 $paradigm = Request::get('paradigm');
+$lexemTagIds = Request::get('lexemTagIds', []);
 
 // definition parameters
 $lexicon = Request::get('lexicon');
@@ -32,6 +34,7 @@ $submitButton = Request::has('submitButton');
 
 $q = Model::factory($view);
 $joinEntry = $joinLexem = $joinDefinition = false;
+$joinEntryTag = $joinLexemTag = false;
 
 // process entry parameters
 if ($description) {
@@ -47,6 +50,20 @@ if ($structStatus) {
 if ($structuristId != Entry::STRUCTURIST_ID_ANY) {
   $joinEntry = true;
   $q = $q->where('e.structuristId', $structuristId);
+}
+
+if (!empty($entryTagIds)) {
+  $joinEntry = $joinEntryTag = true;
+  $q = $q
+     ->where('eot.objectType', ObjectTag::TYPE_ENTRY)
+     ->where_in('eot.tagId', $entryTagIds);
+}
+
+if (!empty($lexemTagIds)) {
+  $joinLexem = $joinLexemTag = true;
+  $q = $q
+     ->where('lot.objectType', ObjectTag::TYPE_LEXEM)
+     ->where_in('lot.tagId', $lexemTagIds);
 }
 
 // process lexeme parameters
@@ -142,6 +159,14 @@ switch ($view) {
          ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l');
     }
     break;
+}
+
+if ($joinEntryTag) {
+  $q = $q->join('ObjectTag', ['e.id', '=', 'eot.objectId'], 'eot');
+}
+
+if ($joinLexemTag) {
+  $q = $q->join('ObjectTag', ['l.id', '=', 'lot.objectId'], 'lot');
 }
 
 $VIEW_DATA = [

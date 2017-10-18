@@ -194,3 +194,24 @@ function allowNewOptions(data) {
     text: data.term + ' (cuvânt nou)',
   };
 };
+
+$(function() {
+  initSelect2('.select2Tags', 'ajax/getTagsById.php', {
+    ajax: { url: wwwRoot + 'ajax/getTags.php' },
+    minimumInputLength: 1,
+    width: '100%',
+  });
+
+  initSelect2('.select2Trees', 'ajax/getTreesById.php', {
+    ajax: { url: wwwRoot + 'ajax/getTrees.php' },
+    minimumInputLength: 1,
+    width: '100%',
+  });
+
+  initSelect2('.select2Users', 'ajax/getUsersById.php', {
+    ajax: createUserAjaxStruct(),
+    minimumInputLength: 3,
+    placeholder: '',
+  });
+});
+

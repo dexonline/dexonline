@@ -194,8 +194,8 @@
                   <label class="col-xs-4 control-label">starea</label>
                   <div class="col-xs-8">
                     {include "bits/statusDropDown.tpl"
-                    name="status"
-                    anyOption=true}
+                             name="status"
+                             anyOption=true}
                   </div>
                 </div>
 
@@ -209,7 +209,7 @@
                 <div class="form-group">
                   <label class="col-xs-4 control-label">trimise de</label>
                   <div class="col-xs-8">
-                    <input class="form-control" type="text" name="nick">
+                    <select name="userId" class="form-control userId"></select>
                   </div>
                 </div>
 

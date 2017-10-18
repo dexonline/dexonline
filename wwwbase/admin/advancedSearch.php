@@ -19,7 +19,7 @@ $paradigm = Request::get('paradigm');
 $lexicon = Request::get('lexicon');
 $status = Request::get('status');
 $sourceId = Request::get('sourceId');
-$nick = Request::get('nick');
+$userId = Request::get('userId');
 $startDate = Request::get('startDate');
 $endDate = Request::get('endDate');
 
@@ -85,12 +85,9 @@ if ($sourceId) {
   $q = $q->where('d.sourceId', $sourceId);
 }
 
-if ($nick) {
-  $user = User::get_by_nick($nick);
-  if ($user) {
-    $joinDefinition = true;
-    $q = $q->where('d.userId', $user->id);
-  }
+if ($userId) {
+  $joinDefinition = true;
+  $q = $q->where('d.userId', $userId);
 }
 
 if ($startDate) {

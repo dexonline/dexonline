@@ -43,7 +43,11 @@ $(function() {
       $(this).closest('form').submit();
     });
 
-    console.log($.datepicker);
+    initSelect2('.userId', 'ajax/getUsersById.php', {
+      ajax: createUserAjaxStruct(),
+      minimumInputLength: 3,
+      placeholder: 'alegeți un utilizator',
+    });
 
     $('.calendar').datepicker({
       autoclose: true,

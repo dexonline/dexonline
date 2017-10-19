@@ -49,9 +49,6 @@ foreach ($config as $section => $vars) {
 
 /*************************************************************************/
 
-class CrawlerException extends Exception {
-}
-
 function fetch($url, $siteId, $vars, $path) {
   Log::info('fetching %s', urldecode($url));
 

@@ -3,7 +3,6 @@
 class CrawlerUrl extends BaseObject implements DatedObject {
   static $_table = 'CrawlerUrl';
 
-  private $siteId = null;
   private $rawHtml = null;
   private $parser = null;
   private $body = null;
@@ -83,6 +82,7 @@ class CrawlerUrl extends BaseObject implements DatedObject {
     $this->body = AdminStringUtil::cleanup($this->body);
     $this->body = html_entity_decode($this->body);
     $this->body = preg_replace('/\s\s+/', ' ', $this->body);
+    $this->body = str_replace('­', '', $this->body); // remove soft hyphens, Unicode 00AD
   }
 
   function fetchAndExtract($authorSelector, $authorRegexp, $titleSelector, $bodySelector) {
@@ -92,23 +92,57 @@ class CrawlerUrl extends BaseObject implements DatedObject {
     $this->extractBody($bodySelector);
   }
 
+  function loadData($file) {
+    if (!$this->id) {
+      throw new CrawlerException('cannot load data before the CrawlerUrl object has an ID');
+    }
+    $data = file_get_contents($file);
+    if ($data === false) {
+      throw new CrawlerException('Cannot load crawled page; please check your config parameters.');
+    }
+    if (StringUtil::endsWith($file, '.gz')) {
+      $data = gzdecode($data);
+    }
+    if ($data === false) {
+      throw new CrawlerException("Cannot gunzip $file .");
+    }
+    return $data;
+  }
+
   function saveData($data, $file) {
     if (!$this->id) {
       throw new CrawlerException('cannot save data before the CrawlerUrl object has an ID');
     }
     @mkdir(dirname($file), 0777, true);
+    if (StringUtil::endsWith($file, '.gz')) {
+      $data = gzencode($data);
+    }
     if (file_put_contents($file, $data) === false) {
       throw new CrawlerException('Cannot save crawled page; please check your config parameters.');
     }
   }
 
-  function saveBody($path) {
-    $fileName = sprintf('%s/%s/body/%s.txt', $path, $this->siteId, $this->id);
-    $this->saveData($this->body, $fileName);
+  function getBodyFileName($root) {
+    return sprintf('%s/%s/body/%s.txt', $root, $this->siteId, $this->id);
   }
 
-  function saveHtml($path) {
-    $fileName = sprintf('%s/%s/raw/%s.html', $path, $this->siteId, $this->id);
-    $this->saveData($this->rawHtml, $fileName);
+  function getHtmlFileName($root) {
+    return sprintf('%s/%s/raw/%s.html.gz', $root, $this->siteId, $this->id);
+  }
+
+  function loadBody($root) {
+    $this->body = $this->loadData($this->getBodyFileName($root));
+  }
+
+  function loadHtml($root) {
+    $this->rawHtml = $this->loadData($this->getHtmlFileName($root));
+  }
+
+  function saveBody($root) {
+    $this->saveData($this->body, $this->getBodyFileName($root));
+  }
+
+  function saveHtml($root) {
+    $this->saveData($this->rawHtml, $this->getHtmlFileName($root));
   }
 }

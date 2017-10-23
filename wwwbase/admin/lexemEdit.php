@@ -205,6 +205,7 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
     $lexem->modelNumber = $modelNumber;
     $lexem->restriction = $restriction;
 
+    // set / clear the model type when the right tag is present / absent
     $autoTypes = Config::get('tags.lexemeAutoType', []);
     foreach ($autoTypes as $at) {
       list($fromModelType, $toModelType, $tagValue) = explode('|', $at);
@@ -212,6 +213,9 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
       if (($lexem->modelType == $fromModelType) &&
           in_array($tag->id, $tagIds)) {
         $lexem->modelType = $toModelType;
+      } else if (($lexem->modelType == $toModelType) &&
+          !in_array($tag->id, $tagIds)) {
+        $lexem->modelType = $fromModelType;
       }
     }
   }

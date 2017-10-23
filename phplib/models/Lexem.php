@@ -603,6 +603,16 @@ class Lexem extends BaseObject implements DatedObject {
         $entry = Entry::createAndSave($if->formNoAccent);
         EntryLexem::associate($entry->id, $l->id);
 
+        // copy trees and structure information from one of the lexeme's entries
+        $infEntries = $this->getEntries();
+        if (!empty($infEntries)) {
+          $infEntry = $infEntries[0];
+          TreeEntry::copy($infEntry->id, $entry->id, 2);
+          $entry->structStatus = $infEntry->structStatus;
+          $entry->structuristId = $infEntry->structuristId;
+          $entry->save();
+        }
+
         // Also tag the lexeme with the appropriate tag
         $autoTypes = Config::get('tags.lexemeAutoType', []);
         foreach ($autoTypes as $at) {

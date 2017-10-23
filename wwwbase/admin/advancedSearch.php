@@ -190,13 +190,20 @@ $VIEW_DATA = [
 // order the results
 $alias = $VIEW_DATA[$view]['alias'];
 $order = $VIEW_DATA[$view]['order'];
-$q = $q->table_alias($alias)->order_by_asc($order);
+$q = $q->table_alias($alias);
 
-// count the results (note: Idiorm's count(distinct *) doesn't work)
+if ($joinEntryTag || $joinLexemTag) {
+  $expectedCount = (count($entryTagIds) ?: 1) * (count($lexemTagIds) ?: 1);
+  $q = $q
+     ->group_by("{$alias}.id")
+     ->having_raw("count(*) = {$expectedCount}");
+}
+
+// Count the results. Note: we cannot use the count() method, because of the grouping above.
 $countResult = $q
-  ->select_expr("count(distinct {$alias}.id)", 'count')
+  ->select("{$alias}.id")
   ->find_array();
-$count = $countResult[0]['count'];
+$count = count($countResult);
 
 // fetch a page of data
 if ($prevPageButton && $page > 1) {
@@ -212,6 +219,7 @@ $offset = ($page - 1) * $pageSize;
 $data = $q
       ->select("{$alias}.*")
       ->distinct()
+      ->order_by_asc($order)
       ->offset($offset)
       ->limit($pageSize)
       ->find_many();

@@ -21,6 +21,7 @@ $lexemTagIds = Request::get('lexemTagIds', []);
 $lexicon = Request::get('lexicon');
 $status = Request::get('status');
 $sourceId = Request::get('sourceId');
+$structured = Request::get('structured');
 $userId = Request::get('userId');
 $startDate = Request::get('startDate');
 $endDate = Request::get('endDate');
@@ -100,6 +101,11 @@ if ($status != '') {
 if ($sourceId) {
   $joinDefinition = true;
   $q = $q->where('d.sourceId', $sourceId);
+}
+
+if ($structured !== '') {
+  $joinDefinition = true;
+  $q = $q->where('d.structured', $structured);
 }
 
 if ($userId) {

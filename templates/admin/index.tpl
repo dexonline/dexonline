@@ -224,6 +224,17 @@
                 </div>
 
                 <div class="form-group">
+                  <label class="col-xs-4 control-label">structurată</label>
+                  <div class="col-xs-8">
+                    <select class="form-control" name="structured">
+                      <option value="">indiferent</option>
+                      <option value="1">da</option>
+                      <option value="0">nu</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
                   <label class="col-xs-4 control-label">trimise de</label>
                   <div class="col-xs-8">
                     <select name="userId" class="form-control select2Users"></select>
@@ -363,7 +374,7 @@
             <div class="col-xs-5" id="granularity">
               {include "bits/diffGranularityRadio.tpl" name="granularity" canEdit=true selected=1}
             </div>
-             <div class="col-xs-5" id="message" hidden="true">
+            <div class="col-xs-5" id="message" hidden="true">
               <p class="help-block">în cazul LDiff schimbarea detalierii se face apăsând Alt+Shift+W</p>
             </div>
 
@@ -377,18 +388,18 @@
 
             <label class="control-label col-xs-1">rezultate</label>
             <div class="col-sm-2" id="maxaffected">
-                <div class="input-group spinner">
-                  <input type="numeric" name="maxaffected" readonly class="form-control" value="1000" min="100" max="1000" step="100">
-                  <div class="input-group-btn-vertical">
-                    <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-up"></i></button>
-                    <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-down"></i></button>
-                  </div>
+              <div class="input-group spinner">
+                <input type="numeric" name="maxaffected" readonly class="form-control" value="1000" min="100" max="1000" step="100">
+                <div class="input-group-btn-vertical">
+                  <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-up"></i></button>
+                  <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-down"></i></button>
                 </div>
-                <p class="help-block">Min 100 - Max 1000.</p>
+              </div>
+              <p class="help-block">Min 100 - Max 1000.</p>
             </div>
           </div>
 
-    
+          
           <div class="form-group">
             <div class="col-xs-5 col-xs-offset-1">
               <button type="submit" class="btn btn-primary" name="previewButton">

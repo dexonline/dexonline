@@ -1,7 +1,7 @@
 <?php
 
 require_once("../phplib/Core.php"); 
-User::mustHave(User::PRIV_ADMIN);
+User::mustHave(User::PRIV_EDIT);
 
 define('DEBUG', 0);
 

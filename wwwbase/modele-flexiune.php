@@ -1,17 +1,16 @@
 <?php
 require_once("../phplib/Core.php"); 
 
-$locVersion = Request::get('locVersion');
+$locVersion = Request::get('locVersion') || NULL;
 $modelType = Request::get('modelType');
 
 $modelType = ModelType::get_by_code($modelType); // Use the ModelType object from this point on
 
-if (!$locVersion || !$modelType) {
+if (!$modelType) {
   FlashMessage::add('Date incorecte.');
   Util::redirect('scrabble');
 }
-
-LocVersion::changeDatabase($locVersion);
+if ($locVersion) LocVersion::changeDatabase($locVersion);
 $models = FlexModel::loadByType($modelType->code);
 
 $lexems = [];
@@ -52,5 +51,3 @@ function getLexem($form, $modelType, $modelNumber) {
   }
   return $l;
 }
-
-?>

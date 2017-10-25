@@ -27,6 +27,7 @@ if ($saveButton) {
   $src->canModerate = Request::has('canModerate');
   $src->canDistribute = Request::has('canDistribute');
   $src->structurable = Request::has('structurable');
+  $src->hasPagePdfs = Request::has('hasPagePdfs');
   $src->defCount = Request::get('defCount');
   $tagIds = Request::get('tagIds', []);
 

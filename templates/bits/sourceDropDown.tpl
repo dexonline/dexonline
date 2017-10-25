@@ -2,10 +2,12 @@
 {assign var="skipAnySource" value=$skipAnySource|default:''}
 {assign var="sourceId" value=$sourceId|default:null}
 {assign var="urlName" value=$urlName|default:false}
+{assign var="width" value=$width|default:'100%'}
 {assign var="autosubmit" value=$autosubmit|default:false}
 <select name="{$name}"
         id="sourceDropDown"
         class="form-control sourceDropDown"
+        style="width: {$width}"
         {if $autosubmit}onchange="this.form.submit();"{/if}>
   {if !$skipAnySource}
     <option value="">Toate dicționarele</option>

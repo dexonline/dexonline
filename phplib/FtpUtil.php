@@ -23,6 +23,12 @@ class FtpUtil {
     return $this->conn != null;
   }
 
+  function staticServerGet($remoteFile, $localFile) {
+    if ($this->conn) {
+      ftp_get($this->conn, $localFile, Config::get('static.path') . $remoteFile, FTP_BINARY);
+    }
+  }
+
   function staticServerPut($localFile, $remoteFile) {
     if ($this->conn) {
       // Create the directory recursively

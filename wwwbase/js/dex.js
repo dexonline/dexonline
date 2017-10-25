@@ -20,7 +20,6 @@ $(function() {
   $('.sourceDropDown').select2({
     templateResult: formatSource,
     templateSelection: formatSource,
-    width: '100%',
   });
 
   var d = $('#autocompleteEnabled');

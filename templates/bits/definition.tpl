@@ -8,6 +8,7 @@
 {$showFlagTypo=$showFlagTypo|default:false}
 {$showHistory=$showHistory|default:false}
 {$showId=$showId|default:true}
+{$showPageLink=$showPageLink|default:true}
 {$showPermalink=$showPermalink|default:true}
 {$showSource=$showSource|default:true}
 {$showStatus=$showStatus|default:false}
@@ -39,7 +40,7 @@
           <a class="ref"
              href="{$wwwRoot}surse"
              title="{$row->source->name|escape}, {$row->source->year|escape}"
-             >{$row->source->shortName|escape}
+          >{$row->source->shortName|escape}
             {if $row->source->year}
               ({$row->source->year|regex_replace:"/ .*$/":""})
             {/if}
@@ -196,6 +197,17 @@
               {/if}
             {/if}
 
+            {if $showPageLink && $row->source->hasPagePdfs && User::can(User::PRIV_EDIT)}
+              <li>
+                <a href="{$wwwRoot}showPage.php?sourceId={$def->sourceId}&amp;word={$def->lexicon}"
+                   title="link către pagina PDF cu această definiție"
+                   target="_blank">
+                  <i class="glyphicon glyphicon-file"></i>
+                  arată originalul
+                </a>
+              </li>
+            {/if}
+
             {if $showHistory}
               {if User::can(User::PRIV_EDIT) && !$cfg.global.mirror}
                 <li>
@@ -220,7 +232,7 @@
         <i class="glyphicon glyphicon-comment"></i>
         {$row->comment->htmlContents} -
         <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}"
-           >{$row->commentAuthor->nick|escape}</a>
+        >{$row->commentAuthor->nick|escape}</a>
       </div>
     </div>
   {/if}

@@ -296,4 +296,8 @@
       </div>
     {/if}
   </div>
+
+  {if $pageModal}
+    {include "bits/pageModal.tpl"}
+  {/if}
 {/block}

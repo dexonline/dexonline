@@ -221,6 +221,10 @@ abbr[title] {
   color: #1e83c2;
 }
 
+#pageModal .modal-dialog {
+  width: 90%;
+}
+
 
 /*********** tables ***********/
 

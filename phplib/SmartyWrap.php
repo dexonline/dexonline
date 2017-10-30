@@ -282,6 +282,7 @@ static function fetch($templateName) {
           self::$jsFiles[37] = 'third-party/bootstrap-datepicker.ro.min.js';
           break;
         case 'adminIndex':    self::$jsFiles[38] = 'adminIndex.js'; break;
+        case 'pageModal':     self::$jsFiles[39] = 'pageModal.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           Util::redirect(Core::getWwwRoot());

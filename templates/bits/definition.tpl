@@ -199,9 +199,12 @@
 
             {if $showPageLink && $row->source->hasPagePdfs && User::can(User::PRIV_EDIT)}
               <li>
-                <a href="{$wwwRoot}showPage.php?sourceId={$def->sourceId}&amp;word={$def->lexicon}"
-                   title="link către pagina PDF cu această definiție"
-                   target="_blank">
+                <a href="#"
+                   title="link către pagina originală cu această definiție"
+                   data-toggle="modal"
+                   data-target="#pageModal"
+                   data-sourceId="{$def->sourceId}"
+                   data-word="{$def->lexicon|escape}">
                   <i class="glyphicon glyphicon-file"></i>
                   arată originalul
                 </a>

@@ -361,46 +361,52 @@
           <div data-code="1" class="rep hiddenRep">{$def->htmlRepAbbrev}</div>
           <div data-code="2" class="rep internal hiddenRep">{$def->internalRep|escape}</div>
           <div data-code="3" data-active class="rep">{$def->htmlRep}</div>
-          <p class="defDetails text-muted">
-            id: {$def->id}
-            | sursa: {$row->source->shortName|escape}
-            | starea: {$def->getStatusName()}
-            | <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}">editează</a>
-            {** TODO merge with definition.tpl **}
-            {if $row->source->hasPagePdfs}
+          <div class="defDetails text-muted row">
+
+            <div class="col-xs-6">
+              id: {$def->id}
+              | sursa: {$row->source->shortName|escape}
+              | starea: {$def->getStatusName()}
+              | <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}">editează</a>
+              {** TODO merge with definition.tpl **}
+              {if $row->source->hasPagePdfs}
+                |
+                <a href="#"
+                   title="arată pagina originală cu această definiție"
+                   data-toggle="modal"
+                   data-target="#pageModal"
+                   data-sourceId="{$def->sourceId}"
+                   data-word="{$def->lexicon|escape}">
+                  <i class="glyphicon glyphicon-file"></i>
+                  arată originalul
+                </a>
+              {/if}
+            </div>
+
+            <div class="col-xs-6">
+              <label class="checkbox-inline">
+                <input type="checkbox" name="dissociateDefinitionIds[]" value="{$def->id}">
+                disociază
+              </label>
+              | <a href="#" class="toggleRepLink" title="comută între notația internă și HTML"
+                   data-value="1" data-order="1" data-other-text="html">text</a>
+              | <a href="#" class="toggleRepLink" title="contractează sau expandează abrevierile"
+                   data-value="1" data-order="2" data-other-text="abreviat">expandat</a>
+
               |
               <a href="#"
-                 title="arată pagina originală cu această definiție"
-                 data-toggle="modal"
-                 data-target="#pageModal"
-                 data-sourceId="{$def->sourceId}"
-                 data-word="{$def->lexicon|escape}">
-                <i class="glyphicon glyphicon-file"></i>
-                arată originalul
+                 title="comută definiția între structurată și nestructurată"
+                 >
+                <span class="toggleStructuredLink" {if !$def->structured}style="display: none"{/if}>
+                  <i class="glyphicon glyphicon-ok"></i> structurată
+                </span>
+                <span class="toggleStructuredLink" {if $def->structured}style="display: none"{/if}>
+                  <i class="glyphicon glyphicon-remove"></i> nestructurată
+                </span>
               </a>
-            {/if}
-            |
-            <label class="checkbox-inline">
-              <input type="checkbox" name="dissociateDefinitionIds[]" value="{$def->id}">
-              disociază
-            </label>
-            | <a href="#" class="toggleRepLink" title="comută între notația internă și HTML"
-                 data-value="1" data-order="1" data-other-text="html">text</a>
-            | <a href="#" class="toggleRepLink" title="contractează sau expandează abrevierile"
-                 data-value="1" data-order="2" data-other-text="abreviat">expandat</a>
+            </div>
 
-            |
-            <a href="#"
-               title="comută definiția între structurată și nestructurată"
-               >
-              <span class="toggleStructuredLink" {if !$def->structured}style="display: none"{/if}>
-                <i class="glyphicon glyphicon-ok"></i> structurată
-              </span>
-              <span class="toggleStructuredLink" {if $def->structured}style="display: none"{/if}>
-                <i class="glyphicon glyphicon-remove"></i> nestructurată
-              </span>
-            </a>
-          </p>
+          </div>
 
           {if $row->comment}
             <div class="commentInternalRep">

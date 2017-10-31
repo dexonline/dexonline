@@ -366,6 +366,19 @@
             | sursa: {$row->source->shortName|escape}
             | starea: {$def->getStatusName()}
             | <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}">editează</a>
+            {** TODO merge with definition.tpl **}
+            {if $row->source->hasPagePdfs}
+              |
+              <a href="#"
+                 title="arată pagina originală cu această definiție"
+                 data-toggle="modal"
+                 data-target="#pageModal"
+                 data-sourceId="{$def->sourceId}"
+                 data-word="{$def->lexicon|escape}">
+                <i class="glyphicon glyphicon-file"></i>
+                arată originalul
+              </a>
+            {/if}
             |
             <label class="checkbox-inline">
               <input type="checkbox" name="dissociateDefinitionIds[]" value="{$def->id}">
@@ -407,4 +420,6 @@
 
     </form>
   {/if}
+
+  {include "bits/pageModal.tpl"}
 {/block}

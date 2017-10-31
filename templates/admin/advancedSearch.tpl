@@ -33,7 +33,7 @@
             {include "bits/lexemList.tpl" lexems=$data}
           {elseif $view == 'Definition'}
             {foreach $data as $row}
-              {include "bits/definition.tpl" showDropup=0}
+              {include "bits/definition.tpl"}
             {/foreach}
           {/if}
 

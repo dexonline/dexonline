@@ -200,7 +200,7 @@
             {if $showPageLink && $row->source->hasPagePdfs && User::can(User::PRIV_EDIT)}
               <li>
                 <a href="#"
-                   title="link către pagina originală cu această definiție"
+                   title="arată pagina originală cu această definiție"
                    data-toggle="modal"
                    data-target="#pageModal"
                    data-sourceId="{$def->sourceId}"
@@ -264,3 +264,7 @@
     {/if}
   {/if}
 </div>
+
+{if $showPageLink && $row->source->hasPagePdfs && User::can(User::PRIV_EDIT)}
+  {include "bits/pageModal.tpl"}
+{/if}

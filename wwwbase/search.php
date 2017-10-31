@@ -443,16 +443,6 @@ foreach ($entries as $e) {
   $adult |= $e->adult;
 }
 
-$pageModal = false;
-if (User::can(User::PRIV_EDIT)) {
-  foreach ($results as $r) {
-    $pageModal |= $r->source->hasPagePdfs;
-  }
-  if ($pageModal) {
-    SmartyWrap::addJs('pageModal');
-  }
-}
-
 SmartyWrap::assign('entries', $entries);
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('results', $results);
@@ -469,7 +459,6 @@ SmartyWrap::assign('paradigmLink', $paradigmLink);
 SmartyWrap::assign('allDefinitions', $all);
 SmartyWrap::assign('showWotd', $showWotd);
 SmartyWrap::assign('adult', $adult);
-SmartyWrap::assign('pageModal', $pageModal);
 if ($text || $sourceId) {
   // must show the advanced search menu regardless of preference
   SmartyWrap::assign('advancedSearch', true);

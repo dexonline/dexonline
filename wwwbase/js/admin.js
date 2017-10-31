@@ -1,4 +1,5 @@
 $(function() {
+  /* Page modal code (loading and displaying original (scanned) images of dictionary pages) */
   const SPINNER_WIDTH = 70;
   var sourceId;
   var word;

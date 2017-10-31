@@ -157,6 +157,20 @@
         {/if}
 
         <div class="btn-group pull-right" id="tinymceButtonWrapper">
+
+          {if $source->hasPagePdfs}
+            <a class="btn btn-link"
+               href="#"
+               title="arată pagina originală cu această definiție"
+               data-toggle="modal"
+               data-target="#pageModal"
+               data-sourceId="{$def->sourceId}"
+               data-word="{$def->lexicon|escape}">
+              <i class="glyphicon glyphicon-file"></i>
+              arată originalul
+            </a>
+          {/if}
+
           <button id="tinymceToggleButton"
                   type="button"
                   class="btn btn-default"
@@ -170,6 +184,8 @@
     </div>
 
   </form>
+
+  {include "bits/pageModal.tpl"}
 
   <div class="panel panel-default">
     <div class="panel-heading">

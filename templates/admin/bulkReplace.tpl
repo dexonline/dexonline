@@ -19,7 +19,7 @@
               <div class="checkbox-inline">
                   <input type="checkbox" name="checkbox-def" id="def{$row->definition->id}" value="{$row->definition->id}" checked />
               </div>
-              {include "bits/definition.tpl" showDropup=1 showStatus=1 showFlagTypo=1 showUser=0}
+              {include "bits/definition.tpl" showStatus=1 showFlagTypo=1 showUser=0}
             {/foreach}
         </div>
         <div class="panel-footer">

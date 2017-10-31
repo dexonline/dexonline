@@ -22,10 +22,14 @@ try {
         ->order_by_desc('word')
         ->find_one();
 
-    if (!$pi) {
+    if ($pi) {
+      Util::redirect("?sourceId={$sourceId}&volume={$pi->volume}&page={$pi->page}");
+    } else {
       throw new Exception('Indexul de pagini pentru această sursă este incomplet definit.');
     }
-  } else if ($source && $page) {
+  }
+  
+  if ($source && $page) {
     $pi = PageIndex::get_by_sourceId_volume_page($sourceId, $volume, $page);
 
     if (!$pi) {
@@ -45,6 +49,10 @@ if ($pi) {
   unlink($tmpFilePath);
   
   header('Content-Type: application/json');
+  header('Cache-Control: public, max-age=31536000'); // one year
+  header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + 31536000)); // onee year
+  header_remove('Pragma');
+
   print(json_encode([
     'volume' => $pi->volume,
     'page' => $pi->page,

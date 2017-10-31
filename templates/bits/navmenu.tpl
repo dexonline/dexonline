@@ -142,7 +142,7 @@
                   </a>
                 </li>
               {/if}
-              {if User::can(User::PRIV_EDIT)}
+              {if User::can(User::PRIV_ANY)}
                 <li>
                   <a href="#" data-toggle="modal" data-target="#hotkeysModal">
                     <i class="glyphicon glyphicon-hand-up"></i>
@@ -200,7 +200,7 @@
   </div>
 </nav>
 
-{if User::can(User::PRIV_EDIT)}
+{if User::can(User::PRIV_ANY)}
   <div class="modal fade" id="hotkeysModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

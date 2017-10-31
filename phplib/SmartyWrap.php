@@ -130,11 +130,8 @@ class SmartyWrap {
       self::addJs('callToAction', 'cookie');
       self::assign('callToAction', true);
     }
-    if (User::can(User::PRIV_EDIT)) {
-      self::addJs('hotkeys');
-    }
     if (User::can(User::PRIV_ANY)) {
-      self::addJs('admin');
+      self::addJs('admin', 'hotkeys');
     }
     if (Session::userPrefers(Preferences::PRIVATE_MODE)) {
       self::addCss('privateMode');

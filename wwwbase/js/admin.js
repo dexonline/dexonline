@@ -8,17 +8,26 @@ $(function() {
   
   function init() {
     $('#pageModal').on('shown.bs.modal', modalShown);
+    $('#pageModal').on('hidden.bs.modal', modalHidden);
     $('#prevPage').click(prevPageClick);
     $('#nextPage').click(nextPageClick);
   }
 
   function modalShown(event) {
+    $(document).bind('keydown', 'left', prevPageClick);
+    $(document).bind('keydown', 'right', nextPageClick);
+
     var link = $(event.relatedTarget); // link that triggered the modal
     sourceId = link.attr('data-sourceId');
     word = link.attr('data-word');
     volume = '';
     page =  '';
     loadPage();
+  }
+
+  function modalHidden() {
+    $(document).unbind('keydown', prevPageClick);
+    $(document).unbind('keydown', nextPageClick);
   }
 
   function prevPageClick() {

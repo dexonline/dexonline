@@ -262,18 +262,19 @@ if ($searchType == SEARCH_INFLECTED) {
       // Try to redirect to the canonical /definitie page. However, if that result would return
       // multiple entries, then redirect to the specific entry.
       $candidates = Entry::searchInflectedForms($l->formNoAccent, true, false);
-      if (count($candidates) > 1) {
-        Util::redirect(sprintf('%sintrare/%s/%s%s',
-                               Core::getWwwRoot(),
-                               $e->getShortDescription(),
-                               $e->id,
-                               $format['tpl_path']));
-      } else {
+      if (count($candidates) == 1) {
         $sourcePart = $source ? "-{$source->urlName}" : '';		
         Util::redirect(sprintf('%sdefinitie%s/%s%s',
                                Core::getWwwRoot(),
                                $sourcePart,
                                $l->formNoAccent,
+                               $format['tpl_path']));
+      } else if (!$sourceId) {
+        // if the source is set, then the lesser evil is to just leave the search word unaltered
+        Util::redirect(sprintf('%sintrare/%s/%s%s',
+                               Core::getWwwRoot(),
+                               $e->getShortDescription(),
+                               $e->id,
                                $format['tpl_path']));
       }
     }

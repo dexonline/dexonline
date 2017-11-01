@@ -232,9 +232,12 @@
           </ul>
 
           <h4>Pagina moderatorului</h4>
+
+          <ul>
             <li><b>Alt-Z</b> = navigare rapidă - imaginile cuvintelor zilei</li>
             <li><b>Alt-X</b> = navigare rapidă - asignare autori</li>
             <li><b>Alt-C</b> = navigare rapidă - cuvintele zilei</li>
+          </ul>
 
           <h4>Etichetarea imaginilor</h4>
           

@@ -246,6 +246,9 @@ interval = 31
 
 url = https://dexonline.ro/static/
 
+; URL pattern for page images
+pageUrlPattern = ""
+
 ; the remaining settings are only necessary for FTP upload
 host = static.dexonline.ro
 user = ""

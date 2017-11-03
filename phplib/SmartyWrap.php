@@ -131,7 +131,7 @@ class SmartyWrap {
       self::assign('callToAction', true);
     }
     if (User::can(User::PRIV_ANY)) {
-      self::addJs('admin', 'hotkeys');
+      self::addJs('admin', 'hotkeys', 'sprintf');
     }
     if (Session::userPrefers(Preferences::PRIVATE_MODE)) {
       self::addCss('privateMode');
@@ -283,6 +283,7 @@ static function fetch($templateName) {
           break;
         case 'adminIndex':    self::$jsFiles[38] = 'adminIndex.js'; break;
         case 'admin':         self::$jsFiles[39] = 'admin.js'; break;
+        case 'sprintf':       self::$jsFiles[40] = 'third-party/sprintf.min.js'; break;
         default:
           FlashMessage::add("Cannot load JS script {$id}");
           Util::redirect(Core::getWwwRoot());

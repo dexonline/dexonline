@@ -1,8 +1,7 @@
 $(function() {
   /* Page modal code (loading and displaying original (scanned) images of dictionary pages) */
-  const SPINNER_WIDTH = 70;
+  var urlPattern;
   var sourceId;
-  var word;
   var volume;
   var page;
   
@@ -19,10 +18,20 @@ $(function() {
 
     var link = $(event.relatedTarget); // link that triggered the modal
     sourceId = link.attr('data-sourceId');
-    word = link.attr('data-word');
-    volume = '';
-    page =  '';
-    loadPage();
+    var word = link.attr('data-word');
+
+    // resolve the sourceId + word to a volume + page
+    $.get(wwwRoot + 'ajax/getPage.php', { sourceId: sourceId, word: word, })
+      .done(function(data) {
+        urlPattern = data.urlPattern;
+        volume = data.volume;
+        page = data.page;
+        loadPage();
+      })
+      .fail(function(e) {
+        $('#pageImage').hide();
+        $('#pageModal .alert').text(e.responseText).show();
+      });
   }
 
   function modalHidden() {
@@ -32,41 +41,26 @@ $(function() {
 
   function prevPageClick() {
     page--;
-    word = '';
     loadPage();
   }
 
   function nextPageClick() {
     page++;
-    word = '';
     loadPage();
   }
 
   function loadPage() {
-    $('#pageImage')
-      .attr('src', wwwRoot + 'img/spinning-circles.svg')
-      .width(SPINNER_WIDTH)
-      .show();
     $('#pageModal .alert').hide();
+    $('#pageModalSpinner').show();
 
-    $.get(wwwRoot + 'ajax/getPage.php',
-          {
-            sourceId: sourceId,
-            word: word,
-            volume: volume,
-            page: page,
-          })
-      .done(function(data) {
-        $('#pageImage')
-          .attr('src', 'data:image/png;base64,' + data.img)
-          .width('100%');
-        volume = data.volume;
-        page = data.page;
-      })
-      .fail(function(e) {
-        $('#pageImage').hide();
-        $('#pageModal .alert').text(e.responseText).show();
-      });
+    var url = sprintf(urlPattern, sourceId, volume, page);
+
+    $('#pageImage').one('load', function() {
+      $('#pageModalSpinner').hide();
+    }).one('error', function() {
+      $('#pageModal .alert').text('Pagina cerută nu există.').show();
+      $('#pageModalSpinner').hide();
+    }).attr('src', url);
   }
 
   init();

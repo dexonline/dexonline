@@ -30,4 +30,9 @@
       </div>
     </div>
   </div>
+
+  <div id="pageModalSpinner">
+    <img src="{$imgRoot}/spinning-circles.svg">
+  </div>
+
 {/if}

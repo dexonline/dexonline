@@ -221,8 +221,25 @@ abbr[title] {
   color: #1e83c2;
 }
 
+/************** scanned page modal **************/
+
 #pageModal .modal-dialog {
-  width: 90%;
+  width: 95%;
+}
+
+#pageImage {
+  width: 100%;
+}
+
+#pageModalSpinner {
+  display: none;
+  height: 70px;
+  left: 50%;
+  margin-left: -35px;
+  position: fixed;
+  top: 20%;
+  width: 70px;
+  z-index: 2000;
 }
 
 

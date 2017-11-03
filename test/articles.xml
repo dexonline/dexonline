@@ -22,7 +22,7 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=#linguisticArticles &gt; ul &gt; li &gt; a</td>
+	<td>xpath=(//a[contains(text(),'Ghid de exprimare')])[2]</td>
 	<td>Ghid de exprimare</td>
 </tr>
 <tr>
@@ -37,7 +37,7 @@
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>css=#linguisticArticles &gt; ul &gt; li &gt; a</td>
+	<td>xpath=(//a[contains(text(),'Ghid de exprimare')])[2]</td>
 	<td></td>
 </tr>
 <tr>

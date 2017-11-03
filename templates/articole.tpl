@@ -6,12 +6,12 @@
   <h1>Articole lingvistice</h1>
 
   <div id="linguisticArticles">
-    {foreach $wikiTitles as $k => $v}
-      <h3>{$k|escape:'html'}</h3>
+    {foreach $wikiTitles as $section => $articles}
+      <h3>{$section|escape:'html'}</h3>
       <ul>
-        {foreach $v as $titlePair}
+        {foreach $articles as $wa}
           <li>
-            <a href="{$wwwRoot}articol/{$titlePair[1]}">{$titlePair[0]}</a>
+            <a href="{$wwwRoot}articol/{$wa->getUrlTitle()}">{$wa->title}</a>
           </li>
         {/foreach}
       </ul>

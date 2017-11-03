@@ -48,7 +48,6 @@ truncate table Visual;
 truncate table VisualTag;
 truncate table WikiArticle;
 truncate table WikiKeyword;
-truncate table WikiSection;
 truncate table WordOfTheDay;
 truncate table WordOfTheDayRel;
 truncate table WordOfTheMonth;

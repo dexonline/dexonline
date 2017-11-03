@@ -215,7 +215,8 @@ $artist2 = createWotdArtist('artist2', 'Luceafărul grafittiului românesc', 'lu
 
 // Wiki articles, sections and keywords
 $article1 = createWikiArticle(17, 123, 'Niciun sau nici un', 'Conținutul articolului 1.', 'Exprimare corectă');
-$article2 = createWikiArticle(27, 345, 'Ghid de exprimare', 'Conținutul articolului 2.', null);
+$article2 = createWikiArticle(27, 345, 'Ghid de exprimare', 'Conținutul articolului 2.', 'Exprimare corectă');
+$article3 = createWikiArticle(37, 567, 'Articol fără secțiune', 'Conținutul articolului 3.', '');
 createWikiKeyword($article1->id, 'metal');
 createWikiKeyword($article2->id, 'metal');
 createWikiKeyword($article1->id, 'din');
@@ -356,17 +357,11 @@ function createWikiArticle($pageId, $revId, $title, $body, $section) {
   $a->pageId = $pageId;
   $a->revId = $revId;
   $a->title = $title;
+  $a->section = $section;
   $a->fullUrl = '';
   $a->wikiContents = $body;
   $a->htmlContents = $body;
   $a->save();
-
-  if ($section) {
-    $s = Model::factory('WikiSection')->create();
-    $s->pageId = $pageId;
-    $s->section = $section;
-    $s->save();
-  }
 
   return $a;
 }

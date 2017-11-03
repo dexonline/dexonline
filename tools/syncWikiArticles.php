@@ -4,41 +4,45 @@ require_once __DIR__ . "/../phplib/Core.php";
 Log::notice('started');
 
 define('WIKI_BASE', 'https://wiki.dexonline.ro');
-define('CATEGORY_LISTING_URL', WIKI_BASE . '/api.php?action=query&list=categorymembers&cmtitle=Categorie:Sincronizare&cmlimit=max&cmsort=timestamp&cmdir=desc&format=xml');
-define('PAGE_LISTING_URL', WIKI_BASE . '/api.php?action=query&pageids=%s&prop=info&inprop=url&format=xml');
+define('PREFIX_LISTING_URL', WIKI_BASE . '/api.php?action=query&list=allpages&apprefix=Articol/&aplimit=max&format=json');
+define('PAGE_LISTING_URL', WIKI_BASE . '/api.php?action=query&pageids=%s&prop=info&inprop=url&format=json');
 define('PARSER_URL', WIKI_BASE . '/api.php');
 define('PAGE_RAW_URL', WIKI_BASE . '/index.php?action=raw&curid=%d');
 
 $options = getopt('', ['force']);
 $force = array_key_exists('force', $options);
 
-// Get the most recently edited category members
-$xml = simplexml_load_file(CATEGORY_LISTING_URL);
-if ($xml === false) {
-  Log::error('Cannot get category listing from ' . CATEGORY_LISTING_URL);
+// Get the article list sorted alphabetically
+$json = @file_get_contents(PREFIX_LISTING_URL);
+if (!$json) {
+  Log::error('Cannot get prefix listing from ' . PREFIX_LISTING_URL);
   exit(1);
 }
+$data = json_decode($json);
 
 $pageIds = [];
 $pageIdHash = [];
-foreach ($xml->query->categorymembers->cm as $cm) {
-  $pageId = (string)$cm->attributes()->pageid;
+foreach ($data->query->allpages as $p) {
+  $pageId = (string)$p->pageid;
   $pageIds[] = $pageId;
   $pageIdHash[$pageId] = true;
 }
 
 // Now get the latest revision for each page and, if it's newer than what we have (or if we don't have it at all), fetch it
 $pageListingUrl = sprintf(PAGE_LISTING_URL, implode('|', $pageIds));
-$xml = simplexml_load_file($pageListingUrl);
-if ($xml === false) {
-  Log::error('Cannot get page info from ' . PAGE_LISTING_URL);
+$json = @file_get_contents($pageListingUrl);
+if (!$json) {
+  Log::error('Cannot get page info from ' . $pageListingUrl);
   exit(1);
 }
-foreach ($xml->query->pages->page as $page) {
-  $pageId = (int)$page->attributes()->pageid;
-  $title = (string)$page->attributes()->title;
-  $lastRevId = (int)$page->attributes()->lastrevid;
-  $fullUrl = (string)$page->attributes()->fullurl;
+$data = json_decode($json);
+
+// TODO Figure out if an article is really just a section (i.e., it has subpages)
+foreach ($data->query->pages as $page) {
+  $pageId = (int)$page->pageid;
+  $title = (string)$page->title;
+  $lastRevId = (int)$page->lastrevid;
+  $fullUrl = (string)$page->fullurl;
 
   $curPage = WikiArticle::get_by_pageId($pageId);
   if (!$curPage || $curPage->revId < $lastRevId || $force) {
@@ -49,35 +53,44 @@ foreach ($xml->query->pages->page as $page) {
       $curPage->pageId = $pageId;
     }
     $curPage->revId = $lastRevId;
-    $curPage->title = $title;
-    $curPage->fullUrl = $fullUrl;
-    $curPage->wikiContents = AdminStringUtil::cleanup(file_get_contents($pageRawUrl));
-    if ($curPage->wikiContents === false) {
-      Log::error("Cannot fetch raw page from $pageRawUrl");
-      exit(1);
-    }
-    $curPage->htmlContents = parse($curPage->wikiContents);
-    if ($curPage->htmlContents === false) {
-      Log::error("Cannot parse page");
-      exit(1);
-    }
-    $curPage->save();
 
-    WikiKeyword::deleteByWikiArticleId($curPage->id);
-    $keywords = $curPage->extractKeywords();
-    foreach ($keywords as $keyword) {
-      $wk = Model::factory('WikiKeyword')->create();
-      $wk->wikiArticleId = $curPage->id;
-      $wk->keyword = $keyword;
-      $wk->save();
+    $parts = explode('/', $title);
+    array_shift($parts); // throw away the 'Articol/' root;
+    $curPage->title = array_pop($parts); // the title is the last fragment
+    $curPage->section = implode(' : ', $parts); // other fragments are the section title
+
+    if ($curPage->section) {
+      $curPage->fullUrl = $fullUrl;
+      $curPage->wikiContents = AdminStringUtil::cleanup(file_get_contents($pageRawUrl));
+      if ($curPage->wikiContents === false) {
+        Log::error("Cannot fetch raw page from $pageRawUrl");
+        exit(1);
+      }
+      $curPage->htmlContents = parse($curPage->wikiContents);
+      if ($curPage->htmlContents === false) {
+        Log::error("Cannot parse page");
+        exit(1);
+      }
+      $curPage->save();
+
+      WikiKeyword::deleteByWikiArticleId($curPage->id);
+      $keywords = $curPage->extractKeywords();
+      foreach ($keywords as $keyword) {
+        $wk = Model::factory('WikiKeyword')->create();
+        $wk->wikiArticleId = $curPage->id;
+        $wk->keyword = $keyword;
+        $wk->save();
+      }
+      Log::info("Saved page #{$pageId} \"{$title}\"");
+    } else {
+      Log::warning("Skipping section #{$pageId} \"{$title}\"");
     }
-    Log::info("Saved page #{$pageId} \"{$title}\"");
   }
 }
 
 // Now delete all the pages on our side that aren't category members because
 //   (a) they have been deleted or
-//   (b) they have been removed from the category
+//   (b) they have been renamed to a different prefix
 $ourIds = DB::getArray('select pageId from WikiArticle');
 foreach ($ourIds as $ourId) {
   if (!array_key_exists($ourId, $pageIdHash)) {
@@ -160,7 +173,7 @@ function parse($text) {
   $html = preg_replace('/href="\/(.*?)\.(jpg|png|gif)"/', 'href="' . WIKI_BASE . '/$1.$2"', $html);
   $html = preg_replace('/srcset="(.*?)"/', '', $html);
 
-  // Convert links to other articles, even if they are not under [[Categorie:Sincronizare]]
+  // Convert links to other articles
   $html = str_replace('href="/wiki/', 'href="/articol/', $html);
 
   // Fully qualify links to index.php. Most likely, these are link to non-existant articles.

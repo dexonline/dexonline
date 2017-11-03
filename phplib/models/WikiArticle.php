@@ -26,22 +26,24 @@ class WikiArticle extends BaseObject implements DatedObject {
   }
 
   function getUrlTitle() {
-    return self::wikiTitleToUrlTitle($this->title);
+    return urlencode(str_replace(' ', '_', $this->title));
   }
 
   static function urlTitleToWikiTitle($urlTitle) {
     return str_replace('_', ' ', $urlTitle);
   }
 
-  static function wikiTitleToUrlTitle($wikiTitle) {
-    return urlencode(str_replace(' ', '_', $wikiTitle));
-  }
-
+  // returns article titles grouped by section
   static function loadAllTitles() {
-    $rows = DB::getArrayOfRows("select section, title from WikiArticle left join WikiSection using (pageId) order by section, title");
-    $result = array();
-    foreach ($rows as $row) {
-      $result[$row['section']][] = array($row['title'], WikiArticle::wikiTitleToUrlTitle($row['title']));
+    $was = Model::factory('WikiArticle')
+         ->select('section')
+         ->select('title')
+         ->order_by_asc('section')
+         ->order_by_asc('title')
+         ->find_many();
+    $result = [];
+    foreach ($was as $wa) {
+      $result[$wa->section][] = $wa;
     }
     return $result;
   }

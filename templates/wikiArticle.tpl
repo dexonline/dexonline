@@ -16,13 +16,13 @@
 
   <h3>Alte articole lingvistice</h3>
 
-  {foreach $wikiTitles as $k => $v}
-    <h4>{$k|escape:'html'}</h4>
+  {foreach $wikiTitles as $section => $articles}
+    <h4>{$section|escape:'html'}</h4>
     <ul>
-      {foreach $v as $titlePair}
-        {if $titlePair[0] != $title}
+      {foreach $articles as $wa}
+        {if $wa->title != $title}
           <li>
-            <a href="{$wwwRoot}articol/{$titlePair[1]}">{$titlePair[0]}</a>
+            <a href="{$wwwRoot}articol/{$wa->getUrlTitle()}">{$wa->title}</a>
           </li>
         {/if}
       {/foreach}

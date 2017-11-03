@@ -6,8 +6,7 @@ DEXONLINE_PATH=/path/to/DEX
 ###########################################################################
 
 # Run on: main site
-# Import wiki articles and sections
-20 1 * * * php $DEXONLINE_PATH/tools/syncWikiSections.php
+# Import wiki articles
 50 1 * * * php $DEXONLINE_PATH/tools/syncWikiArticles.php
 
 # Run on: main site

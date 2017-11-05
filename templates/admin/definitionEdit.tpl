@@ -158,7 +158,7 @@
 
         <div class="btn-group pull-right" id="tinymceButtonWrapper">
 
-          {if $source->hasPagePdfs}
+          {if $source->hasPageImages}
             <a class="btn btn-link"
                href="#"
                title="arată pagina originală cu această definiție"

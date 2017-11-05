@@ -180,7 +180,7 @@
             <div class="checkbox">
               <label>
                 <input type="checkbox" name="canModerate" {if $src->canModerate}checked{/if}>
-                poate fi aleasă de moderatori
+                moderatorii pot muta definiții în/din această sursă
               </label>
             </div>
 
@@ -200,8 +200,8 @@
 
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="hasPagePdfs" {if $src->hasPagePdfs}checked{/if}>
-                are PDF-uri pentru fiecare pagină
+                <input type="checkbox" name="hasPageImages" {if $src->hasPageImages}checked{/if}>
+                are imagini pentru fiecare pagină
               </label>
             </div>
 

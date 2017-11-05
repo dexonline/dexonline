@@ -369,7 +369,7 @@
               | starea: {$def->getStatusName()}
               | <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}">editează</a>
               {** TODO merge with definition.tpl **}
-              {if $row->source->hasPagePdfs}
+              {if $row->source->hasPageImages}
                 |
                 <a href="#"
                    title="arată pagina originală cu această definiție"

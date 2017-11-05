@@ -197,7 +197,7 @@
               {/if}
             {/if}
 
-            {if $showPageLink && $row->source->hasPagePdfs && User::can(User::PRIV_EDIT)}
+            {if $showPageLink && $row->source->hasPageImages && User::can(User::PRIV_EDIT)}
               <li>
                 <a href="#"
                    title="arată pagina originală cu această definiție"
@@ -265,6 +265,6 @@
   {/if}
 </div>
 
-{if $showPageLink && $row->source->hasPagePdfs && User::can(User::PRIV_EDIT)}
+{if $showPageLink && $row->source->hasPageImages && User::can(User::PRIV_EDIT)}
   {include "bits/pageModal.tpl"}
 {/if}

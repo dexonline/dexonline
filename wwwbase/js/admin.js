@@ -6,6 +6,9 @@ $(function() {
   var page;
   
   function init() {
+    // move the modal outside of any tabs
+    $('#pageModal').appendTo('body');
+
     $('#pageModal').on('shown.bs.modal', modalShown);
     $('#pageModal').on('hidden.bs.modal', modalHidden);
     $('#prevPage').click(prevPageClick);

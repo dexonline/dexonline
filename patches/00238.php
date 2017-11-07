@@ -3,6 +3,7 @@
 $definitions = Model::factory('Definition')
              ->select('id')
              ->select('internalRep')
+             ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
              ->where_like('internalRep', '%|%|%|%')
              ->find_many();
 

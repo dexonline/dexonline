@@ -7,7 +7,6 @@ $definitions = Model::factory('Definition')
              ->where_like('internalRep', '%|%|%|%')
              ->find_many();
 
-file_put_contents("exact_match.txt", "Cuvânt și definiție sunt identice\n\n", FILE_APPEND);
 file_put_contents("def_in_word.txt", "Definiție este subșir al lui cuvânt\n\n", FILE_APPEND);
 file_put_contents("levenshtein.txt", "Distanță suficient de mică\n\n", FILE_APPEND);
 file_put_contents("same_lexem.txt", "Același lexem\n\n", FILE_APPEND);
@@ -25,10 +24,7 @@ foreach ($definitions as $d) {
         } else {
             foreach (explode(" ", $words) as $word_string) {
                 $fname = "no_change.txt";
-                if (strcasecmp($word_string, $definition_string) === 0) {
-                    $fname = "exact_match.txt";
-                    break;
-                } else if (strcasecmp(substr($word_string, 0, strlen($definition_string)), $definition_string) === 0) {
+                if (strcasecmp(substr($word_string, 0, strlen($definition_string)), $definition_string) === 0) {
                     $fname = "def_in_word.txt";
                     break;
                 } else {

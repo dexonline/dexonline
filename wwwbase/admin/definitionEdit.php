@@ -114,7 +114,7 @@ if ($saveButton || $nextOcrBut) {
         // create a new lexem and entry
         $form = substr($entryId, 1);
         $l = Lexem::create($form, 'T', '1');
-        $e = Entry::createAndSave($l->formNoAccent);
+        $e = Entry::createAndSave($l, true);
         $l->save();
         $l->regenerateParadigm();
         EntryLexem::associate($e->id, $l->id);

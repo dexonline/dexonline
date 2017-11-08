@@ -30,8 +30,16 @@ class Lexem extends BaseObject implements DatedObject {
   static function create($form, $modelType = '', $modelNumber = '', $restriction = '',
                                 $isLoc = false) {
     $l = Model::factory('Lexem')->create();
-    $l->setForm($form);
-    $l->description = '';
+
+    $form = trim($form);
+    if (preg_match('/^(.*) \((.*)\)$/', $form, $matches)) {
+      $l->setForm($matches[1]);
+      $l->description = $matches[2];
+    } else {
+      $l->setForm($form);
+      $l->description = '';
+    }
+
     $l->comment = null;
     $l->noAccent = false;
     $l->modelType = $modelType;

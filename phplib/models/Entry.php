@@ -22,11 +22,18 @@ class Entry extends BaseObject implements DatedObject {
     self::STRUCT_STATUS_DONE => 'terminată',
   ];
 
-  static function createAndSave($description) {
+  // create and associate and empty tree if $tree == true
+  static function createAndSave($description, $tree = false) {
     $e = Model::factory('Entry')->create();
     $e->description = $description;
     $e->structStatus = self::STRUCT_STATUS_NEW;
     $e->save();
+
+    if ($tree) {
+      $t = Tree::createAndSave($description);
+      TreeEntry::associate($t->id, $e->id);
+    }
+
     return $e;
   }
 

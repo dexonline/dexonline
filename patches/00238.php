@@ -1,16 +1,11 @@
 <?php
 
 $definitions = Model::factory('Definition')
-             ->select('id')
-             ->select('internalRep')
-             ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
-             ->where_like('internalRep', '%|%|%|%')
-             ->find_many();
-
-file_put_contents("def_in_word.txt", "Definiție este subșir al lui cuvânt\n\n", FILE_APPEND);
-file_put_contents("levenshtein.txt", "Distanță suficient de mică\n\n", FILE_APPEND);
-file_put_contents("same_lexem.txt", "Același lexem\n\n", FILE_APPEND);
-file_put_contents("no_change.txt", "Nu s-a efectuat nicio modificare\n\n", FILE_APPEND);
+->select('id')
+->select('internalRep')
+->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
+->where_like('internalRep', '%|%|%|%')
+->find_many();
 
 foreach ($definitions as $d) {
     preg_match_all("/\|([^\|]+)\|([^\|]+)\|/", $d->internalRep, $links, PREG_SET_ORDER);
@@ -18,48 +13,78 @@ foreach ($definitions as $d) {
         $words = trim($l[1], "$#@^_0123456789");
         $definition_string = trim($l[2], "$#@^_0123456789");
 
-        $levDist = Levenshtein::dist($words, $definition_string);
-        if ($levDist <= 50) {
-            $fname = "levenshtein.txt";
-        } else {
-            foreach (explode(" ", $words) as $word_string) {
-                $fname = "no_change.txt";
-                if (strcasecmp(substr($word_string, 0, strlen($definition_string)), $definition_string) === 0) {
-                    $fname = "def_in_word.txt";
-                    break;
-                } else {
-                    $word_lexem_ids = Model::factory('InflectedForm')
-                     ->select('lexemId')
-                     ->where('formNoAccent', $word_string)
-                     ->find_many();
+        $verdict = "nemodificat";
 
-                    $def_lexem_ids = Model::factory('InflectedForm')
-                     ->select('lexemId')
-                     ->where('formNoAccent', $definition_string)
-                     ->find_many();
+        foreach (explode(" ", $words) as $word_string) {
+            $word_lexem_ids = Model::factory('InflectedForm')
+                ->select('lexemId')
+                ->where('formNoAccent', $word_string)
+                ->find_many();
 
-                    if (empty($def_lexem_ids)) {
-                        $fname = "same_lexem.txt";
-                        break;
-                    }
+            $def_lexem_id = Model::factory('Lexem')
+                ->select('id')
+                ->where('formNoAccent', $definition_string)
+                ->find_one();
 
-                    $lexem_match = false;
-                    foreach ($word_lexem_ids as $word_lexem_id) {
-                        foreach ($def_lexem_ids as $def_lexem_id) {
-                            if (abs($word_lexem_id->lexemId - $def_lexem_id->lexemId) <= 5) {
-                                $lexem_match = true;
-                            }
+            // Trimitere către forma de bază
+            //
+            if (empty($def_lexem_id)) {
+                $verdict = "forma_baza";
+                break;
+            }
+
+            $found = false;
+            foreach ($word_lexem_ids as $word_lexem_id) {
+                if ($word_lexem_id->lexemId === $def_lexem_id->id) {
+                    $found = true;
+                }
+            }
+
+            if ($found === true) {
+                $verdict = "forma_baza";
+                break;
+            }
+
+            // Infinitiv lung / adjectiv / participiu
+            //
+            $found = false;
+
+            foreach ($word_lexem_ids as $word_lexem_id) {
+                $lexem_model = Model::factory('Lexem')
+                    ->select('formNoAccent')
+                    ->select('modelType')
+                    ->select('modelNumber')
+                    ->where_id_is($word_lexem_id->lexemId)
+                    ->find_one();
+
+                if ($lexem_model->modelType === "IL" ||
+                    $lexem_model->modelType === "PT" ||
+                    $lexem_model->modelType === "A" ||
+                    ($lexem_model->modelType === "F" &&
+                    ($lexem_model->modelNumber === "107" ||
+                    $lexem_model->modelNumber === "113"))) {
+                    $nextstep = Model::factory('InflectedForm')
+                        ->select('lexemId')
+                        ->where('formNoAccent', $lexem_model->formNoAccent)
+                        ->find_many();
+
+                    foreach ($nextstep as $one) {
+                        if ($one->lexemId === $def_lexem_id->id) {
+                            $found = true;
+                            break;
                         }
-                    }
-
-                    if ($lexem_match === true) {
-                        $fname = "same_lexem.txt";
-                        break;
                     }
                 }
             }
+
+            if ($found === true) {
+                $verdict = "inf_lung";
+                break;
+            }
         }
 
-        file_put_contents($fname, $words . "," . $definition_string . " (id: " . $d->id . ") (lev: " . $levDist . ")\n", FILE_APPEND);
+        print $words . "," . $definition_string . "," . $d->id . "," . $verdict . "\n";
     }
 }
+
+?>

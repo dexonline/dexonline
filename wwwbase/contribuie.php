@@ -44,7 +44,7 @@ if ($sendButton) {
         // create a new lexem
         $lexem = Lexem::create(substr($lexemId, 1), 'T', '1');
         $lexem->deepSave();
-        $entry = Entry::createAndSave($lexem->formNoAccent);
+        $entry = Entry::createAndSave($lexem);
         EntryLexem::associate($entry->id, $lexem->id);
         EntryDefinition::associate($entry->id, $definition->id);
         Log::notice("Created lexem {$lexem->id} ({$lexem->form}) for definition {$definition->id}");

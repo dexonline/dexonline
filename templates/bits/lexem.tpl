@@ -1,13 +1,13 @@
 {* Argument: $lexem *}
-{$lexem->getPartOfSpeeech()}
-
-{if $lexem->compound}
-  compus
-{else}
-  ({$lexem->modelType}{$lexem->modelNumber})
-{/if}
-
 {if User::can(User::PRIV_EDIT)}
+  {$lexem->getPartOfSpeeech()}
+
+  {if $lexem->compound}
+    compus
+  {else}
+    ({$lexem->modelType}{$lexem->modelNumber})
+  {/if}
+
   <a href="{$wwwRoot}admin/dispatchModelAction.php?editModel=1&amp;modelType={$lexem->modelType}&amp;modelNumber={$lexem->modelNumber}"
      title="editează modelul">
     <i class="glyphicon glyphicon-pencil"></i>    

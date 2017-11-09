@@ -357,10 +357,15 @@
                     {if $def->structured}structured{/if}
                     {if $row->source->structurable}structurable{/if}"
              id="def_{$def->id}">
-          <div data-code="0" class="rep internal hiddenRep">{$def->internalRepAbbrev|escape}</div>
-          <div data-code="1" class="rep hiddenRep">{$def->htmlRepAbbrev}</div>
-          <div data-code="2" class="rep internal hiddenRep">{$def->internalRep|escape}</div>
-          <div data-code="3" data-active class="rep">{$def->htmlRep}</div>
+          <div>
+            <span data-code="0" class="rep internal hiddenRep">{$def->internalRepAbbrev|escape}</span>
+            <span data-code="1" class="rep hiddenRep">{$def->htmlRepAbbrev}</span>
+            <span data-code="2" class="rep internal hiddenRep">{$def->internalRep|escape}</span>
+            <span data-code="3" data-active class="rep">{$def->htmlRep}</span>
+            {foreach $row->tags as $t}
+              {include "bits/tag.tpl"}
+            {/foreach}
+          </div>
           <div class="defDetails text-muted row">
 
             <div class="col-xs-6">
@@ -409,8 +414,8 @@
           </div>
 
           {if $row->comment}
-            <div class="commentInternalRep">
-              Comentariu: {$row->comment->contents} -
+            <div class="commentHtmlRep">
+              Comentariu: {$row->comment->htmlContents} -
               <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}">{$row->commentAuthor->nick|escape}</a>
             </div>
           {/if}

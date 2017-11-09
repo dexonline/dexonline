@@ -45,16 +45,16 @@ $(function() {
   /* Definitions can be shown as internal or HTML notation, with abbreviations expanded
    * or collapsed. This gives rise to four combinations, coded on two bits each.
    * Clicking on the "show / hide HTML" and show / hide abbreviations" fiddles some bits
-   * and sets the "visible" class on the appropriate div. */
+   * and sets the "visible" class on the appropriate element. */
   function toggleRepClick() {
     // Hide the old definition
-    var oldActive = $(this).closest('.defDetails').prevAll('[data-active]');
-    oldActive.stop().slideToggle().removeAttr('data-active');
+    var oldActive = $(this).closest('.defWrapper').find('[data-active]');
+    oldActive.stop().hide().removeAttr('data-active');
 
     // Recalculate the code and show the new definition
     var code = oldActive.attr('data-code') ^ $(this).attr('data-order');
-    var newActive = $(this).closest('.defDetails').prevAll('[data-code=' + code + ']');
-    newActive.stop().slideToggle().attr('data-active', '');
+    var newActive = $(this).closest('.defWrapper').find('[data-code=' + code + ']');
+    newActive.stop().show().attr('data-active', '');
 
     // Toggle the link text and data-value attribute
     var tmp = $(this).text();

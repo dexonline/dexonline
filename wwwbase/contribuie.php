@@ -2,43 +2,41 @@
 require_once("../phplib/Core.php");
 Util::assertNotMirror();
 
-$lexemIds = Request::get('lexemIds');
-$sourceId = Request::get('source');
-$def = Request::get('def');
-$activate = Request::has('activate');
+$lexemIds = Request::get('lexemIds', []);
+$sourceId = Request::get('sourceId');
+$internalRep = Request::get('internalRep');
+$status = Request::get('status', Definition::ST_PENDING);
 $sendButton = Request::has('send');
+
+$d = Model::factory('Definition')->create();
 
 if ($sendButton) {
   Session::setSourceCookie($sourceId);
-  $ambiguousMatches = array();
-  $def = AdminStringUtil::sanitize($def, $sourceId, $ambiguousMatches);
+  $ambiguousMatches = [];
+
+  $d->status = $status;
+  $d->userId = User::getActiveId();
+  $d->sourceId = $sourceId;
+  $d->internalRep = AdminStringUtil::sanitize($internalRep, $sourceId, $ambiguousMatches);
+  $d->htmlRep = AdminStringUtil::htmlize($d->internalRep, $d->sourceId);
+  $d->lexicon = AdminStringUtil::extractLexicon($d);
+  $d->abbrevReview = count($ambiguousMatches)
+                   ? Definition::ABBREV_AMBIGUOUS
+                   : Definition::ABBREV_REVIEW_COMPLETE;
 
   if (!count($lexemIds)) {
     FlashMessage::add('Trebuie să introduceți un cuvânt-titlu.');
-  } else if (!$def) {
+  } else if (!$d->internalRep) {
     FlashMessage::add('Trebuie să introduceți o definiție.');
-  } else if (StringUtil::isSpam($def)) {
+  } else if (StringUtil::isSpam($d->internalRep)) {
     FlashMessage::add('Definiția dumneavoastră este spam.');
   }
 
   if (FlashMessage::hasErrors()) {
-    SmartyWrap::assign('sourceId', $sourceId);
-    SmartyWrap::assign('def', $def);
-    SmartyWrap::assign('activate', $activate);
-    SmartyWrap::assign('previewDivContent', AdminStringUtil::htmlize($def, $sourceId));
+    SmartyWrap::assign('lexemIds', $lexemIds);
   } else {
-    $definition = Model::factory('Definition')->create();
-    $definition->status = $activate ? Definition::ST_ACTIVE : Definition::ST_PENDING;
-    $definition->userId = User::getActiveId();
-    $definition->sourceId = $sourceId;
-    $definition->internalRep = $def;
-    $definition->htmlRep = AdminStringUtil::htmlize($def, $sourceId);
-    $definition->lexicon = AdminStringUtil::extractLexicon($definition);
-    $definition->abbrevReview = count($ambiguousMatches)
-                              ? Definition::ABBREV_AMBIGUOUS
-                              : Definition::ABBREV_REVIEW_COMPLETE;
-    $definition->save();
-    Log::notice("Added definition {$definition->id} ({$definition->lexicon})");
+    $d->save();
+    Log::notice("Added definition {$d->id} ({$d->lexicon})");
 
     foreach ($lexemIds as $lexemId) {
       $lexemId = AdminStringUtil::formatLexem($lexemId);
@@ -48,17 +46,17 @@ if ($sendButton) {
         $lexem->deepSave();
         $entry = Entry::createAndSave($lexem);
         EntryLexem::associate($entry->id, $lexem->id);
-        EntryDefinition::associate($entry->id, $definition->id);
-        Log::notice("Created lexem {$lexem->id} ({$lexem->form}) for definition {$definition->id}");
+        EntryDefinition::associate($entry->id, $d->id);
+        Log::notice("Created lexem {$lexem->id} ({$lexem->form}) for definition {$d->id}");
       } else {
         $lexem = Lexem::get_by_id($lexemId);
         foreach ($lexem->getEntries() as $e) {
-          EntryDefinition::associate($e->id, $definition->id);
+          EntryDefinition::associate($e->id, $d->id);
         }
-        Log::notice("Associating definition {$definition->id} with lexem {$lexem->id} ({$lexem->form})");
+        Log::notice("Associating definition {$d->id} with lexem {$lexem->id} ({$lexem->form})");
       }
     }
-    if ($activate) {
+    if ($d->status == Definition::ST_ACTIVE) {
       FlashMessage::add('Am salvat definiția și am activat-o.', 'success');
     } else {
       FlashMessage::add('Am salvat definiția. Un moderator o va examina în scurt timp. Vă mulțumim!',
@@ -67,7 +65,8 @@ if ($sendButton) {
     Util::redirect('contribuie');
   }
 } else {
-  SmartyWrap::assign('sourceId', Session::getDefaultContribSourceId());
+  $d->sourceId = Session::getDefaultContribSourceId();
+  $d->status = User::can(User::PRIV_EDIT) ? Definition::ST_ACTIVE : Definition::ST_PENDING;
 }
 
 $sourceClauses = User::can(User::PRIV_EDIT)
@@ -79,10 +78,8 @@ $sources = Model::factory('Source')
          ->order_by_asc('displayOrder')
          ->find_many();
 
-SmartyWrap::assign('lexemIds', $lexemIds);
+SmartyWrap::assign('d', $d);
 SmartyWrap::assign('contribSources', $sources);
 SmartyWrap::addCss('tinymce');
 SmartyWrap::addJs('select2Dev', 'tinymce', 'cookie');
 SmartyWrap::display('contribuie.tpl');
-
-?>

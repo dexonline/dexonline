@@ -3,9 +3,7 @@
 {block "title"}Contribuie cu definiții{/block}
 
 {block "content"}
-  {$def=$def|default:null}
-  {$previewDivContent=$previewDivContent|default:null}
-  {$activate=$activate|default:false}
+  {$d=$d|default:null}
 
   <h3>Trimiteți o definiție</h3>
 
@@ -22,7 +20,11 @@
 
       <div class="form-group col-md-6">
         <label for="sourceDropDown">Sursa</label>
-        {include "bits/sourceDropDown.tpl" sources=$contribSources skipAnySource=1}
+        {include "bits/sourceDropDown.tpl"
+                 name="sourceId"
+                 sources=$contribSources
+                 sourceId=$d->sourceId
+                 skipAnySource=1}
 
         <a href="surse">
           <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i>
@@ -46,9 +48,9 @@
           <div class="checkbox">
             <label title="altfel definiția va fi trimisă în starea temporară">
               <input type="checkbox"
-                     name="activate"
-                     value="1"
-                     {if $activate}checked{/if}>
+                     name="status"
+                     value="{Definition::ST_ACTIVE}"
+                     {if $d->status == Definition::ST_ACTIVE}checked{/if}>
               activează direct definiția
             </label>
           </div>
@@ -59,7 +61,11 @@
 
     <div class="form-group">
       <label for="defTextarea">Definiția</label>
-      <textarea class="form-control" id="defTextarea" name="def" rows="15" cols="90">{$def|escape}</textarea>
+      {strip}
+      <textarea class="form-control" id="defTextarea" name="internalRep" rows="15" cols="90">
+        {$d->internalRep|escape}
+      </textarea>
+      {/strip}
     </div>
 
     <button type="submit" name="send" class="btn btn-success">
@@ -89,8 +95,8 @@
   <h3>Rezultat</h3>
 
   <div id="previewDiv" class="contribPreview">
-    {if $previewDivContent}
-      {$previewDivContent}
+    {if $d->htmlRep}
+      {$d->htmlRep}
     {else}
       Aici puteți vedea rezultatul (se actualizează automat la fiecare 5 secunde).
     {/if}

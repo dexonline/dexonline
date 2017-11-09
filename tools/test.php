@@ -207,8 +207,8 @@ assertEquals('mama', StringUtil::cleanupQuery("'mama'"));
 assertEquals('mama', StringUtil::cleanupQuery('"mama"'));
 assertEquals('aăbcdef', StringUtil::cleanupQuery("aăbc<mamă foo bar>def"));
 assertEquals('AĂBCDEF', StringUtil::cleanupQuery("AĂBC<MAMĂ FOO BAR>DEF"));
-assertEquals('aăbcdef', StringUtil::cleanupQuery("aăbc<mamă foo bar>def"));
-assertEquals('aĂBcdef', StringUtil::cleanupQuery("aĂBc<mamă foo bar>def"));
+             assertEquals('aăbcdef', StringUtil::cleanupQuery("aăbc<mamă foo bar>def"));
+             assertEquals('aĂBcdef', StringUtil::cleanupQuery("aĂBc<mamă foo bar>def"));
 assertEquals('1234', StringUtil::cleanupQuery('12&qweasd;34'));
 
 assert(StringUtil::hasDiacritics('mamă'));
@@ -216,15 +216,15 @@ assert(!StringUtil::hasDiacritics('mama'));
 
 $def = Model::factory('Definition')->create();
 $def->sourceId = 1;
-$def->internalRep = 'abcd';
-assertEquals('abcd', AdminStringUtil::extractLexicon($def));
-$def->internalRep = 'wxyz';
-assertEquals('wxyz', AdminStringUtil::extractLexicon($def));
+$def->internalRep = '@abcd@';
+assertEquals('abcd', $def->extractLexicon());
+$def->internalRep = '@$wxyz$@';
+assertEquals('wxyz', $def->extractLexicon());
 $def->sourceId = 7;
 $def->internalRep = '@A SE JUCÁ@ lalala';
-assertEquals('juca', AdminStringUtil::extractLexicon($def));
+assertEquals('juca', $def->extractLexicon());
 $def->internalRep = '@ȚARĂ^1@ lalala';
-assertEquals('țară', AdminStringUtil::extractLexicon($def));
+assertEquals('țară', $def->extractLexicon());
 
 assert(StringUtil::hasRegexp('asd[0-9]'));
 assert(!StringUtil::hasRegexp('ăâîșț'));

@@ -19,10 +19,10 @@ if ($sendButton) {
   $d->sourceId = $sourceId;
   $d->internalRep = AdminStringUtil::sanitize($internalRep, $sourceId, $ambiguousMatches);
   $d->htmlRep = AdminStringUtil::htmlize($d->internalRep, $d->sourceId);
-  $d->lexicon = AdminStringUtil::extractLexicon($d);
   $d->abbrevReview = count($ambiguousMatches)
                    ? Definition::ABBREV_AMBIGUOUS
                    : Definition::ABBREV_REVIEW_COMPLETE;
+  $d->extractLexicon();
 
   if (!count($lexemIds)) {
     FlashMessage::add('Trebuie să introduceți un cuvânt-titlu.');

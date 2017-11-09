@@ -63,8 +63,17 @@ if ($sendButton) {
   SmartyWrap::assign('sourceId', Session::getDefaultContribSourceId());
 }
 
+$sourceClauses = User::can(User::PRIV_EDIT)
+  ? [['canContribute' => true], ['canModerate' => true]]
+  : [['canContribute' => true]];
+$sources = Model::factory('Source')
+         ->where_any_is($sourceClauses)
+         ->order_by_desc('dropdownOrder')
+         ->order_by_asc('displayOrder')
+         ->find_many();
+
 SmartyWrap::assign('lexemIds', $lexemIds);
-SmartyWrap::assign('contribSources', Model::factory('Source')->where('canContribute', true)->order_by_asc('displayOrder')->find_many());
+SmartyWrap::assign('contribSources', $sources);
 SmartyWrap::addCss('tinymce');
 SmartyWrap::addJs('select2Dev', 'tinymce', 'cookie');
 SmartyWrap::display('contribuie.tpl');

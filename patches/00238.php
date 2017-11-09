@@ -21,21 +21,31 @@ foreach ($definitions as $d) {
                 ->where('formNoAccent', $word_string)
                 ->find_many();
 
-            $def_lexem_id = Model::factory('Lexem')
+            // Interogari separate pentru formNoAccent și formUtf8General
+            // pentru ca Idiorm nu suporta OR in clauze WHERE.
+            //
+            $def_lexem_id_by_noAccent = Model::factory('Lexem')
                 ->select('id')
                 ->where('formNoAccent', $definition_string)
                 ->find_one();
 
-            // Trimitere către forma de bază
+            $def_lexem_id_by_utf8General = Model::factory('Lexem')
+                ->select('id')
+                ->where('formUtf8General', $definition_string)
+                ->find_one();
+
+            // Nu exista lexem cu forma din definitie.
             //
-            if (empty($def_lexem_id)) {
-                $verdict = "forma_baza";
+            if (empty($def_lexem_id_by_utf8General)) {
+                $verdict = "no_link";
                 break;
             }
 
+            // Trimitere catre forma de baza.
+            //
             $found = false;
             foreach ($word_lexem_ids as $word_lexem_id) {
-                if ($word_lexem_id->lexemId === $def_lexem_id->id) {
+                if ($word_lexem_id->lexemId === $def_lexem_id_by_noAccent->id) {
                     $found = true;
                 }
             }
@@ -45,7 +55,7 @@ foreach ($definitions as $d) {
                 break;
             }
 
-            // Infinitiv lung / adjectiv / participiu
+            // Infinitiv lung / adjectiv / participiu.
             //
             $found = false;
 
@@ -69,7 +79,7 @@ foreach ($definitions as $d) {
                         ->find_many();
 
                     foreach ($nextstep as $one) {
-                        if ($one->lexemId === $def_lexem_id->id) {
+                        if ($one->lexemId === $def_lexem_id_by_noAccent->id) {
                             $found = true;
                             break;
                         }
@@ -83,7 +93,9 @@ foreach ($definitions as $d) {
             }
         }
 
-        print $words . "," . $definition_string . "," . $d->id . "," . $verdict . "\n";
+        print $l[1] . "," . $l[2] . "," . $d->id . "," . $verdict . ",";
+        print "[definiție]" . "(https://dexonline.ro/definitie/" . $d->id . "),";
+        print "[editează]" . "(https://dexonline.ro/admin/definitionEdit.php?definitionId=" . $d->id . ")\n";
     }
 }
 

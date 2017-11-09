@@ -8,16 +8,25 @@ $(function() {
       templateSelection: formatLexemWithEditLink,
     });
 
-    $('#mergeEntryId').select2({
-      ajax: {
-        url: wwwRoot + 'ajax/getEntries.php',
-        data: function(params) {
-          params['exclude'] = $('#mergeModal input[name="id"]').val();
-          return params;
-        },
+    var entryAjax = {
+      url: wwwRoot + 'ajax/getEntries.php',
+      data: function(params) {
+        params['exclude'] = $('#entryId').val();
+        return params;
       },
+    }
+
+    $('#mergeEntryId').select2({
+      ajax: entryAjax,
       minimumInputLength: 1,
       placeholder: 'alegeți o intrare',
+      width: '100%',
+    });
+
+    $('#associateEntryIds').select2({
+      ajax: entryAjax,
+      minimumInputLength: 1,
+      placeholder: 'alegeți una sau mai multe intrări',
       width: '100%',
     });
 
@@ -35,6 +44,12 @@ $(function() {
 
     $('#mergeModal').on('shown.bs.modal', function () {
       $('#mergeEntryId').select2('open');
+    });
+
+    $('#associateModal').on('shown.bs.modal', associateModalShown);
+
+    $('#dissociateButton').click(function () {
+      return confirm('Confirmați disocierea?');
     });
   }
 
@@ -111,6 +126,16 @@ $(function() {
 
       $(this).toggle(show);
     });
+  }
+
+  function associateModalShown() {
+    // copy definition ids from checked checkboxes
+    var checkboxes = $('input[name="selectedDefIds[]"]:checked');
+    var ids = checkboxes.map(function() {return $(this).val(); });
+    var idString = ids.get().join();
+
+    $('input[name="associateDefinitionIds"]').val(idString);
+    $('#associateEntryIds').select2('open');
   }
 
   init();

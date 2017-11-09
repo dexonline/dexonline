@@ -5,6 +5,7 @@ Util::assertNotMirror();
 $lexemIds = Request::get('lexemIds');
 $sourceId = Request::get('source');
 $def = Request::get('def');
+$activate = Request::has('activate');
 $sendButton = Request::has('send');
 
 if ($sendButton) {
@@ -23,10 +24,11 @@ if ($sendButton) {
   if (FlashMessage::hasErrors()) {
     SmartyWrap::assign('sourceId', $sourceId);
     SmartyWrap::assign('def', $def);
+    SmartyWrap::assign('activate', $activate);
     SmartyWrap::assign('previewDivContent', AdminStringUtil::htmlize($def, $sourceId));
   } else {
     $definition = Model::factory('Definition')->create();
-    $definition->status = Definition::ST_PENDING;
+    $definition->status = $activate ? Definition::ST_ACTIVE : Definition::ST_PENDING;
     $definition->userId = User::getActiveId();
     $definition->sourceId = $sourceId;
     $definition->internalRep = $def;
@@ -56,7 +58,12 @@ if ($sendButton) {
         Log::notice("Associating definition {$definition->id} with lexem {$lexem->id} ({$lexem->form})");
       }
     }
-    FlashMessage::add('Am salvat definiția. Un moderator o va examina în scurt timp. Vă mulțumim!', 'success');
+    if ($activate) {
+      FlashMessage::add('Am salvat definiția și am activat-o.', 'success');
+    } else {
+      FlashMessage::add('Am salvat definiția. Un moderator o va examina în scurt timp. Vă mulțumim!',
+                        'success');
+    }
     Util::redirect('contribuie');
   }
 } else {

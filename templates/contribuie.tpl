@@ -3,8 +3,9 @@
 {block "title"}Contribuie cu definiții{/block}
 
 {block "content"}
-  {assign var="def" value=$def|default:null}
-  {assign var="previewDivContent" value=$previewDivContent|default:null}
+  {$def=$def|default:null}
+  {$previewDivContent=$previewDivContent|default:null}
+  {$activate=$activate|default:false}
 
   <h3>Trimiteți o definiție</h3>
 
@@ -41,6 +42,17 @@
             <option value="{$l}" selected></option>
           {/foreach}
         </select>
+        {if User::can(User::PRIV_EDIT)}
+          <div class="checkbox">
+            <label title="altfel definiția va fi trimisă în starea temporară">
+              <input type="checkbox"
+                     name="activate"
+                     value="1"
+                     {if $activate}checked{/if}>
+              activează direct definiția
+            </label>
+          </div>
+        {/if}
       </div>
 
     </div>

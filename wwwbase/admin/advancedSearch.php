@@ -115,13 +115,14 @@ if ($userId) {
 
 if ($startDate) {
   $joinDefinition = true;
-  $startTs = DateTime::createFromFormat('Y-m-d', $startDate)->getTimestamp();
+  // the "!" sets the hh:mm:ss to 0
+  $startTs = DateTime::createFromFormat('!Y-m-d', $startDate)->getTimestamp();
   $q = $q->where_gte('d.createDate', $startTs);
 }
 
 if ($endDate) {
   $joinDefinition = true;
-  $endTs = DateTime::createFromFormat('Y-m-d', $endDate)->getTimestamp();
+  $endTs = DateTime::createFromFormat('!Y-m-d', $endDate)->getTimestamp();
   $q = $q->where_lt('d.createDate', $endTs + SECONDS_PER_DAY);
 }
 

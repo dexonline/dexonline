@@ -27,10 +27,10 @@ if (!$definitionId) {
   $d->structured = 0;
   $d->internalRep = $def;
   $d->htmlRep = AdminStringUtil::htmlize($def, $sourceId);
-  $d->lexicon = AdminStringUtil::extractLexicon($d);
   $d->abbrevReview = count($ambiguousMatches)
                    ? Definition::ABBREV_AMBIGUOUS
                    : Definition::ABBREV_REVIEW_COMPLETE;
+  $d->extractLexicon();
   $d->save();
 
   $ocr->definitionId = $d->id;
@@ -81,7 +81,7 @@ if ($saveButton || $nextOcrBut) {
   $d->sourceId = (int)$sourceId;
   $d->similarSource = $similarSource;
   $d->structured = $structured;
-  $d->lexicon = AdminStringUtil::extractLexicon($d);
+  $d->extractLexicon();
 
   if ($commentContents) {
     if (!$comment) {
@@ -193,13 +193,13 @@ $typos = Model::factory('Typo')
   ->find_many();
 
 if ($isOCR && empty($entryIds)) {
-  $potentialLexicon = AdminStringUtil::extractLexicon($d);
-  if ($potentialLexicon) {
+  $d->extractLexicon();
+  if ($d->lexicon) {
       $entries = Model::factory('Definition')
           ->table_alias('d')
           ->distinct('e.entryId')
           ->join('EntryDefinition', ['d.id', '=', 'e.definitionId'], 'e')
-          ->where('d.lexicon', $potentialLexicon)
+          ->where('d.lexicon', $d->lexicon)
           ->find_many();
       $entryIds = array_unique(Util::objectProperty($entries, 'entryId'));
   }

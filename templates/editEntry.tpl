@@ -22,7 +22,7 @@
   {include "bits/phpConstants.tpl"}
 
   <form class="form-horizontal" method="post" role="form">
-    <input type="hidden" name="id" value="{$e->id}">
+    <input id="entryId" type="hidden" name="id" value="{$e->id}">
 
     <div class="row">
 
@@ -239,6 +239,37 @@
     </div>
   </div>
 
+  <div class="modal fade" id="associateModal" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form method="post" role="form">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Asociază definițiile cu...</h4>
+          </div>
+
+          <div class="modal-body">
+            {* we need the entry ID so we know where to return *}
+            <input type="hidden" name="id" value="{$e->id}">
+            <input type="hidden" name="associateDefinitionIds" value="{$e->id}">
+            <select id="associateEntryIds" name="associateEntryIds[]" class="form-control" multiple>
+            </select>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" name="associateButton">
+              <i class="glyphicon glyphicon-resize-small"></i>
+              asociază
+            </button>
+            <button type="button" class="btn btn-link" data-dismiss="modal">renunță</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <div class="modal fade" id="cloneModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -390,8 +421,8 @@
 
             <div class="col-xs-6">
               <label class="checkbox-inline">
-                <input type="checkbox" name="dissociateDefinitionIds[]" value="{$def->id}">
-                disociază
+                <input type="checkbox" name="selectedDefIds[]" value="{$def->id}">
+                selectează
               </label>
               | <a href="#" class="toggleRepLink" title="comută între notația internă și HTML"
                    data-value="1" data-order="1" data-other-text="html">text</a>
@@ -423,9 +454,16 @@
       {/foreach}
 
       <div>
-        <button type="submit" class="btn btn-success" name="dissociateButton">
+        <button type="button"
+                class="btn btn-default"
+                data-toggle="modal"
+                data-target="#associateModal">
+          <i class="glyphicon glyphicon-resize-small"></i>
+          asociază...
+        </button>
+        <button id="dissociateButton" type="submit" class="btn btn-default" name="dissociateButton">
           <i class="glyphicon glyphicon-resize-full"></i>
-          disociază
+          disociază...
         </button>
       </div>
 

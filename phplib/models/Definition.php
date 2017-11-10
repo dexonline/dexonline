@@ -342,6 +342,70 @@ class Definition extends BaseObject implements DatedObject {
     return $result;
   }
 
+  /**
+   * Extracts and returns the term that the definition is *probably* defining.
+   * That is, more or less, the first word in the definition, but we have lots of
+   * special cases to deal with the formatting.
+   */
+  function extractLexicon() {
+    if (!preg_match('/^[^@]*@([^@,]+)/', $this->internalRep, $matches)) {
+      $this->lexicon = '';
+      return '';
+    }
+
+    $s = $matches[1];
+    $s = AdminStringUtil::removeAccents($s);
+
+    $s = preg_replace('# (-|\X)+/$#', '', $s); // strip pronunciations (MDN)
+    $s = explode('/', $s)[0]; // ignore everything after other slashes
+    $s = preg_split('/\. *[\r\n]/', $s)[0]; // DAS is formatted on multiple lines
+
+    $s = preg_replace('/^[-!*]+/', '', $s);
+    $s = str_replace("\\'", "'", $s);
+    $s = str_replace(['$', '\\|', '|'], '', $s); // Onomastic uses |
+    $s = preg_replace('/[_^]{?[0-9]+}?/', '', $s); // strip homonym numbering and subscripts
+
+    // strip homonyms and asterisks (Scriban)
+    $s = preg_replace('/^[-* 0-9).]+/', '', $s);
+
+    if (in_array($this->sourceId, [7, 9, 38, 62])) {
+      // Strip 'a ', 'a se ' etc. from verbs
+      $s = preg_replace('/^(a se |a \(se\) |a-și |a )/i', '', $s);
+    }
+
+    if ($this->sourceId == 9) {
+      // parts of expressions are followed by a ': '
+      $s = explode(':', $s)[0];
+
+      // throw away inflected forms
+      preg_match('/^([-A-ZĂÂÎȘȚÜ^0-9 ]+)( [a-zăâîșț()\\\\~1. ]+)?$/', $s, $matches);
+      if ($matches) {
+        $s = $matches[1];
+      }
+    }
+
+    if ($this->sourceId == 71) {
+      $s = preg_split('/\. /', $s)[0]; // D. Epitete includes ". Epitete" in the title
+    }
+
+    $s = trim($s);
+    $s = mb_strtolower($s);
+
+    // remove parentheses preceded by a space
+    $s = preg_split('/ [\[\(]/', $s)[0];
+
+    // strip some more characters
+    $s = preg_replace('/[-:]+$/', '', $s);
+    $s = preg_replace('/ [1i]\.$/', '', $s);
+    $s = str_replace(['(', ')', '®', '!', '#'], '', $s);
+
+    // if there is only one final dot, strip it
+    $s = preg_replace("/^([^.]+)\.$/", '$1', $s);
+
+    $this->lexicon = $s;
+    return $s;
+  }
+
   function save() {
     $this->modUserId = User::getActiveId();
     return parent::save();

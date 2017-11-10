@@ -7,6 +7,7 @@ $id = Request::get('id');
 $saveButton = Request::has('saveButton');
 $mergeButton = Request::has('mergeButton');
 $cloneButton = Request::has('cloneButton');
+$associateButton = Request::has('associateButton');
 $dissociateButton = Request::has('dissociateButton');
 $createTree = Request::has('createTree');
 $delete = Request::has('delete');
@@ -25,8 +26,24 @@ if ($id) {
   $original = Model::factory('Entry')->create();
 }
 
+if ($associateButton) {
+  $defIds = Request::get('associateDefinitionIds');
+  $defIds = array_filter(explode(',', $defIds));
+  $entryIds = Request::get('associateEntryIds', []);
+  foreach ($defIds as $defId) {
+    foreach ($entryIds as $entryId) {
+      EntryDefinition::associate($entryId, $defId);
+      Log::info("Associated entry {$entryId} with definition {$defId}");
+    }
+  }
+  FlashMessage::add(sprintf('Am asociat %d definiții cu %d intrări.',
+                            count($defIds), count($entryIds)),
+                    'success');
+  Util::redirect("?id={$e->id}");
+}
+
 if ($dissociateButton) {
-  $defIds = Request::get('dissociateDefinitionIds', []);
+  $defIds = Request::get('selectedDefIds', []);
   foreach ($defIds as $defId) {
     EntryDefinition::dissociate($e->id, $defId);
     Log::info("Dissociated entry {$e->id} ({$e->description}) from definition {$defId}");

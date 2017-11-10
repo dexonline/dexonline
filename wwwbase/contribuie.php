@@ -56,12 +56,20 @@ if ($sendButton) {
         Log::notice("Associating definition {$d->id} with lexem {$lexem->id} ({$lexem->form})");
       }
     }
+
+    foreach (AdminStringUtil::findRedundantLinks($d->internalRep) as $processedLink) {
+      if ($processedLink["short_reason"] !== "nemodificat") {
+        FlashMessage::add('Legătura de la "' . $processedLink["original_word"] . '" la "' . $processedLink["linked_lexem"] . '" este considerată redundantă. (Motiv: ' . $processedLink["reason"] . ')', 'warning');
+      }
+    }
+
     if ($d->status == Definition::ST_ACTIVE) {
       FlashMessage::add('Am salvat definiția și am activat-o.', 'success');
     } else {
       FlashMessage::add('Am salvat definiția. Un moderator o va examina în scurt timp. Vă mulțumim!',
                         'success');
     }
+
     Util::redirect('contribuie');
   }
 } else {

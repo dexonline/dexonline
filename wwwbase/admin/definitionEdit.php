@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
@@ -102,7 +102,7 @@ if ($saveButton || $nextOcrBut) {
   } else if ($comment) {
     // User wiped out the existing comment, set status to DELETED.
     $comment->status = Definition::ST_DELETED;
-    $comment->userId = $userId;  
+    $comment->userId = $userId;
   }
 
   if (!FlashMessage::hasErrors()) {
@@ -133,6 +133,12 @@ if ($saveButton || $nextOcrBut) {
                         'warning');
     }
 
+    foreach (AdminStringUtil::findRedundantLinks($d->internalRep) as $processedLink) {
+      if ($processedLink["short_reason"] !== "nemodificat") {
+        FlashMessage::add('Legătura de la "' . $processedLink["original_word"] . '" la "' . $processedLink["linked_lexem"] . '" este considerată redundantă. (Motiv: ' . $processedLink["reason"] . ')', 'warning');
+      }
+    }
+
     // Save the definition and delete the typos associated with it.
     $d->save();
     Typo::delete_all_by_definitionId($d->id);
@@ -160,7 +166,7 @@ if ($saveButton || $nextOcrBut) {
     ObjectTag::wipeAndRecreate($d->id, ObjectTag::TYPE_DEFINITION, $tagIds);
 
     Log::notice("Saved definition {$d->id} ({$d->lexicon})");
-  
+
     if ($nextOcrBut) {
       // cause the next OCR definition to load
       Util::redirect('definitionEdit.php');

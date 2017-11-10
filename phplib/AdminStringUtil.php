@@ -724,8 +724,8 @@ class AdminStringUtil {
 
       // Remove formatting from around the words.
       // For example, @label@ becomes label, but im@]prieteni stays the same.
-      $words = trim($l[1], "$#@^_0123456789");
-      $definition_string = trim($l[2], "$#@^_0123456789");
+      $words = StringUtil::convertOrthography(trim($l[1], "$#@^_0123456789"));
+      $definition_string = StringUtil::convertOrthography(trim($l[2], "$#@^_0123456789"));
 
       $processedLinks = array();
 

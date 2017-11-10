@@ -22,7 +22,7 @@ foreach ($definitions as $d) {
     print "[editează]" . "(https://dexonline.ro/admin/definitionEdit.php?definitionId=" . $d->id . ")\n";
 
     if ($link[short_reason] !== "nemodificat") {
-      str_replace(
+      $d->internalRep = str_replace(
         "|" . $link["original_word"] . "|" . $link["linked_lexem"] . "|",
         $link["original_word"],
         $d->internalRep

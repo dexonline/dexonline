@@ -1,7 +1,9 @@
 <?php
 
 define('WOTD_BIG_BANG', '2011/05/01');
-define('MAX_DATE_FOR_REASON_DISPLAY', '-2 days midnight'); // hide reason for newer words
+// hide reason for newer words
+define('HIDE_REASON', false);
+define('MAX_DATE_FOR_REASON_DISPLAY', '-2 days midnight');
 
 require_once("../phplib/Core.php");
 $date = Request::get('d');
@@ -15,7 +17,7 @@ if (!$date) {
 $date = new DateTimeImmutable($date);
 $today = new DateTimeImmutable('today midnight');
 $bigBang = new DateTimeImmutable(WOTD_BIG_BANG);
-$maxReasonDate = new DateTimeImmutable(MAX_DATE_FOR_REASON_DISPLAY);
+$maxReasonDate = HIDE_REASON ? new DateTimeImmutable(MAX_DATE_FOR_REASON_DISPLAY) : $today;
 
 // RSS stuff - could be separated from the rest
 // TODO optimize & factorize

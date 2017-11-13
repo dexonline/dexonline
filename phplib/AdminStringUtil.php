@@ -88,7 +88,7 @@ class AdminStringUtil {
 
   // Generic purpose cleanup of a string. This should be true of all columns of all tables.
   static function cleanup($s) {
-    $s = trim($s);    
+    $s = trim($s);
     $s = str_replace([ 'ş', 'Ş', 'ţ', 'Ţ' ],
                      [ 'ș', 'Ș', 'ț', 'Ț' ],
                      $s);
@@ -265,7 +265,7 @@ class AdminStringUtil {
     // Remove non-breaking spaces and soft hyphens.
     $s = str_replace(chr(0xc2) . chr(0xa0), ' ', $s);
     $s = str_replace(chr(0xc2) . chr(0xad), '', $s);
-  
+
     // A bit of a hack: We should not replace \'a with \á, therefore we isolate
     // the \' compound first and restore it at the end.
     $s = preg_replace('/\\\\(.)/', '[[[$1]]]', $s);
@@ -301,7 +301,7 @@ class AdminStringUtil {
   static function minimalInternalToHtml($s) {
     return str_replace(self::$HTML_SYMBOLS['internal'], self::$HTML_SYMBOLS['html'], $s);
   }
-  
+
   static function convertReferencesToHtml($s) {
     // Require that the first pipe character is not escaped (preceded by a backslash)
     return preg_replace('/([^\\\\])\|([^|]*)\|([^|]*)\|/', '$1<a class="ref" href="/definitie/$3">$2</a>', $s);
@@ -707,5 +707,140 @@ class AdminStringUtil {
     return $bits[2][$arabic % 1000 / 100] . $bits[1][$arabic % 100 / 10] . $bits[0][$arabic % 10];
   }
 
+  // Returns an array of redundant links found in the internalRep of a
+  // definition. Called when editing a definition, and also used by patch 00238.
+  // Each entry is an array of the form
+  // (original_word, linked_lexem, reason, short_reason).
+  //
+  // For more information, check out issue #632 and pull requeset #637.
+  static function findRedundantLinks($internalRep) {
+
+    // Find all instances of |original_word|linked_lexem|.
+    preg_match_all("/\|([^\|]+)\|([^\|]+)\|/", $internalRep, $links, PREG_SET_ORDER);
+
+    foreach ($links as $l) {
+
+      $linkAdded = false;
+
+      // Remove formatting from around the words.
+      // For example, @label@ becomes label, but im@]prieteni stays the same.
+      $words = StringUtil::convertOrthography(trim($l[1], "$#@^_0123456789"));
+      $definition_string = StringUtil::convertOrthography(trim($l[2], "$#@^_0123456789"));
+
+      $processedLinks = array();
+
+      foreach (explode(" ", $words) as $word_string) {
+
+        $word_lexem_ids = Model::factory('InflectedForm')
+          ->select('lexemId')
+          ->where('formNoAccent', $word_string)
+          ->find_many();
+
+        // Separate queries for formNoAccent and formUtf8General
+        // since Idiorm does not support OR'ing WHERE clauses.
+        $field = StringUtil::hasDiacritics($definition_string) ? 'formNoAccent' : 'formUtf8General';
+        $def_lexem_id_by_noAccent = Model::factory('Lexem')
+          ->select('id')
+          ->where($field, $definition_string)
+          ->find_one();
+
+        $def_lexem_id_by_utf8General = Model::factory('Lexem')
+          ->select('id')
+          ->where('formUtf8General', $definition_string)
+          ->find_one();
+
+        // Linked lexem was not found in the database.
+        if (empty($def_lexem_id_by_utf8General)) {
+          $currentLink = array(
+            "original_word" => $l[1],
+            "linked_lexem" => $l[2],
+            "reason" => "Trimiterea nu a fost găsită în baza de date.",
+            "short_reason" => "no_link"
+          );
+          array_push($processedLinks, $currentLink);
+
+          $linkAdded = true;
+          break;
+        }
+
+        // Linking to base form.
+        $found = false;
+        foreach ($word_lexem_ids as $word_lexem_id) {
+          if ($word_lexem_id->lexemId === $def_lexem_id_by_noAccent->id) {
+            $found = true;
+          }
+        }
+
+        if ($found === true) {
+          $currentLink = array(
+            "original_word" => $l[1],
+            "linked_lexem" => $l[2],
+            "reason" => "Trimitere către forma de bază a cuvântului.",
+            "short_reason" => "forma_baza"
+          );
+          array_push($processedLinks, $currentLink);
+
+          $linkAdded = true;
+          break;
+        }
+
+        // Infinitiv lung / adjectiv / participiu.
+        $found = false;
+
+        foreach ($word_lexem_ids as $word_lexem_id) {
+          $lexem_model = Model::factory('Lexem')
+            ->select('formNoAccent')
+            ->select('modelType')
+            ->select('modelNumber')
+            ->where_id_is($word_lexem_id->lexemId)
+            ->find_one();
+
+          if ($lexem_model->modelType === "IL" ||
+            $lexem_model->modelType === "PT" ||
+            $lexem_model->modelType === "A" ||
+            ($lexem_model->modelType === "F" &&
+            ($lexem_model->modelNumber === "107" ||
+            $lexem_model->modelNumber === "113"))) {
+            $nextstep = Model::factory('InflectedForm')
+              ->select('lexemId')
+              ->where('formNoAccent', $lexem_model->formNoAccent)
+              ->find_many();
+
+            foreach ($nextstep as $one) {
+              if ($one->lexemId === $def_lexem_id_by_noAccent->id) {
+                $found = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if ($found === true) {
+          $currentLink = array(
+            "original_word" => $l[1],
+            "linked_lexem" => $l[2],
+            "reason" => "Cuvântul este infinitiv lung.",
+            "short_reason" => "inf_lung"
+          );
+          array_push($processedLinks, $currentLink);
+
+          $linkAdded = true;
+          break;
+        }
+      }
+
+      if ($linkAdded === false) {
+        $currentLink = array(
+          "original_word" => $l[1],
+          "linked_lexem" => $l[2],
+          "reason" => "Trimiterea nu are nevoie de modificări.",
+          "short_reason" => "nemodificat"
+        );
+        array_push($processedLinks, $currentLink);
+      }
+    }
+
+    return $processedLinks;
+  }
 }
 ?>

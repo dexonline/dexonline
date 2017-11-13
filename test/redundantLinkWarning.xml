@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>RedundantLinkWarning</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">testRedundantWarning</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=searchField</td>
+	<td>spatiere</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=searchButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=editează</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=internalRep</td>
+	<td>Definiție<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pe mai multe<br />linii&nbsp;&nbsp;&nbsp;&nbsp;pentru a&nbsp;&nbsp;&nbsp;&nbsp;testa spațierea.<br /><br />|vibrarea|vibra|</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=saveButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//main/div/div/div/div</td>
+	<td>× Legătura de la &quot;vibrarea&quot; la &quot;vibra&quot; este considerată redundantă. (Motiv: Trimiterea nu a fost găsită în baza de date.)</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

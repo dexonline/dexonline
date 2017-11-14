@@ -3,6 +3,7 @@ $(function() {
   var stem = null;
   var anyChanges = false;
   var editable = $('#editable').length;
+  var clickedButton = null; // which submit button was clicked?
 
   function init() {
     if (editable) {
@@ -65,6 +66,9 @@ $(function() {
     });
 
     $('form').submit(saveEverything);
+    $('button[type="submit"]').click(function() {
+      clickedButton = $(this);
+    });
 
     window.onbeforeunload = function(e) {
       return anyChanges
@@ -355,14 +359,17 @@ $(function() {
   }
 
   function saveEverything() {
-    window.onbeforeunload = null;
+    // allow saves, but still give warnings on other submit buttons
+    if (clickedButton.attr('name') == 'saveButton') {
+      window.onbeforeunload = null;
 
-    acceptMeaningEdit();
+      acceptMeaningEdit();
 
-    // convert meanings to JSON
-    var results = new Array();
-    meaningTreeWalk($('#meaningTree'), results, 0);
-    $('input[name=jsonMeanings]').val(JSON.stringify(results));
+      // convert meanings to JSON
+      var results = new Array();
+      meaningTreeWalk($('#meaningTree'), results, 0);
+      $('input[name=jsonMeanings]').val(JSON.stringify(results));
+    }
   }
 
   function meaningMention(term, callback) {

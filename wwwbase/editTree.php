@@ -6,7 +6,7 @@ User::mustHave(User::PRIV_EDIT | User::PRIV_STRUCT);
 $id = Request::get('id');
 $saveButton = Request::has('saveButton');
 $mergeButton = Request::has('mergeButton');
-$clone = Request::has('clone');
+$cloneButton = Request::has('cloneButton');
 $delete = Request::has('delete');
 
 if ($id) {
@@ -40,7 +40,7 @@ if ($mergeButton) {
   Util::redirect("?id={$other->id}");
 }
 
-if ($clone) {
+if ($cloneButton) {
   $newt = $t->_clone();
   Log::info("Cloned tree {$t->id} ({$t->description}), new id {$newt->id}");
 

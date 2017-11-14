@@ -131,7 +131,7 @@
           unifică cu...
         </button>
 
-        <button type="submit" class="btn btn-default" name="clone">
+        <button type="submit" class="btn btn-default" name="cloneButton">
           <i class="glyphicon glyphicon-duplicate"></i>
           clonează
         </button>

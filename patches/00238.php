@@ -17,11 +17,11 @@ foreach ($definitions as $d) {
     print $link["original_word"] . ",";
     print $link["linked_lexem"] . ",";
     print $d->id . ",";
-    print $link[short_reason] . ",";
+    print $link['short_reason'] . ",";
     print "[definiție]" . "(https://dexonline.ro/definitie/" . $d->id . "),";
     print "[editează]" . "(https://dexonline.ro/admin/definitionEdit.php?definitionId=" . $d->id . ")\n";
 
-    if ($link[short_reason] !== "nemodificat") {
+    if ($link['short_reason'] !== "nemodificat") {
       $d->internalRep = str_replace(
         "|" . $link["original_word"] . "|" . $link["linked_lexem"] . "|",
         $link["original_word"],

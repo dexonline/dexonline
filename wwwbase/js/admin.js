@@ -13,6 +13,7 @@ $(function() {
     $('#pageModal').on('hidden.bs.modal', modalHidden);
     $('.prevPage').click(prevPageClick);
     $('.nextPage').click(nextPageClick);
+    $('.pageForWord').keypress(pageForWordKeypress);
   }
 
   function modalShown(event) {
@@ -52,6 +53,27 @@ $(function() {
     loadPage();
   }
 
+  function pageForWordKeypress(e) {
+    if (e.which == 13) {
+      var word = $(this).val().trim();
+
+      if (word) {
+        $.get(wwwRoot + 'ajax/getPage.php', { sourceId: sourceId, word: word, })
+          .done(function(data) {
+            volume = data.volume;
+            page = data.page;
+            loadPage();
+          })
+          .fail(function(e) {
+            $('#pageImage').hide();
+            $('#pageModal .alert').text(e.responseText).show();
+          });
+      }
+
+      return false;
+    }
+  }
+
   function loadPage() {
     $('#pageModal .alert').hide();
     $('#pageModalSpinner').show();
@@ -59,8 +81,10 @@ $(function() {
     var url = sprintf(urlPattern, sourceId, volume, page);
 
     $('#pageImage').one('load', function() {
+      $('#pageImage').show();
       $('#pageModalSpinner').hide();
     }).one('error', function() {
+      $('#pageImage').hide();
       $('#pageModal .alert').text('Pagina cerută nu există.').show();
       $('#pageModalSpinner').hide();
     }).attr('src', url);

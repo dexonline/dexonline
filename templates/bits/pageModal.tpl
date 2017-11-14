@@ -10,14 +10,9 @@
             <span aria-hidden="true">&times;</span>
           </button>
 
-          <h4 class="modal-title">
-            <a id="prevPage" class="btn btn-link" title="pagina anterioară">
-              <i class="glyphicon glyphicon-chevron-left"></i>
-            </a>
+          <h4 class="modal-title text-center">
+            {include "bits/pageModalActions.tpl"}
             Pagina originală
-            <a id="nextPage" class="btn btn-link" title="pagina următoare">
-              <i class="glyphicon glyphicon-chevron-right"></i>
-            </a>
           </h4>
 
         </div>
@@ -25,6 +20,12 @@
         <div class="modal-body text-center">
           <img id="pageImage">
           <div class="alert alert-danger" role="alert"></div>
+        </div>
+
+        <div class="modal-footer">
+          <h4>
+            {include "bits/pageModalActions.tpl"}
+          </h4>
         </div>
 
       </div>

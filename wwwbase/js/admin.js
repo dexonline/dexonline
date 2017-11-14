@@ -11,8 +11,8 @@ $(function() {
 
     $('#pageModal').on('shown.bs.modal', modalShown);
     $('#pageModal').on('hidden.bs.modal', modalHidden);
-    $('#prevPage').click(prevPageClick);
-    $('#nextPage').click(nextPageClick);
+    $('.prevPage').click(prevPageClick);
+    $('.nextPage').click(nextPageClick);
   }
 
   function modalShown(event) {

@@ -185,13 +185,29 @@ class Entry extends BaseObject implements DatedObject {
       $cuv = StringUtil::convertOrthography($cuv);
     }
 
+    // load lexemes from two sources:
+    // * simple lexemes that generate this form;
+    // * comppound lexemes that have a fragment that generates this form
+
+    $simple = 'select l.id ' .
+            'from Lexem l ' .
+            'join InflectedForm i on l.id = i.lexemId ' .
+            "where i.$field = :form";
+    $compound = 'select l.id ' .
+              'from Lexem l ' .
+              'join Fragment f on l.id = f.lexemId ' .
+              'join InflectedForm i on f.partId = i.lexemId ' .
+              "where i.$field = :form";
+    $subquery = "{$simple} union {$compound}";
+
+    // load entries for the above lexemes
+    $query = 'select distinct e.* ' .
+           'from Entry e ' .
+           'join EntryLexem el on e.id = el.entryId ' .
+           "join ({$subquery}) l on el.lexemId = l.id";
+
     $entries = Model::factory('Entry')
-             ->table_alias('e')
-             ->select('e.*')
-             ->distinct()
-             ->join('EntryLexem', 'e.id = el.entryId', 'el')
-             ->join('InflectedForm', 'el.lexemId = f.lexemId', 'f')
-             ->where("f.$field", $cuv)
+             ->raw_query($query, ['form' => $cuv])
              ->order_by_expr("(e.description != '{$cuv}')") // exact match
              ->order_by_expr("(e.description not like concat ('{$cuv}', ' (%'))") // partial match
              ->order_by_asc('e.description')

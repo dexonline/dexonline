@@ -94,6 +94,15 @@ if ($saveButton) {
     Meaning::saveTree($meanings, $t);
 
     FlashMessage::add('Am salvat arborele.', 'success');
+
+    foreach ($meanings as $m) {
+      foreach (AdminStringUtil::findRedundantLinks($m->internalRep) as $link) {
+        if ($link["short_reason"] !== "nemodificat") {
+          FlashMessage::add('Legătura de la "' . $link["original_word"] . '" la "' . $link["linked_lexem"] . '" este considerată redundantă. (Motiv: ' . $link["reason"] . ')', 'warning');
+        }
+      }
+    }
+
     Util::redirect("?id={$t->id}");
   }
 } else {

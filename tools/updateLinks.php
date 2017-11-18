@@ -35,10 +35,13 @@ function updateEntity($e, $isDefinition)
   $links = AdminStringUtil::findRedundantLinks($e->internalRep);
 
   foreach ($links as $link) {
+    $entityName = $isDefinition ? "definiție" : "sens";
+
     file_put_contents('php://stderr', $link["original_word"] . ",", FILE_APPEND);
     file_put_contents('php://stderr', $link["linked_lexem"] . ",", FILE_APPEND);
     file_put_contents('php://stderr', $e->id . ",", FILE_APPEND);
     file_put_contents('php://stderr', $link["short_reason"] . ",", FILE_APPEND);
+    file_put_contents('php://stderr', $entityName . ",", FILE_APPEND);
     file_put_contents('php://stderr', "[definiție](https://dexonline.ro/definitie/" . $e->id . "),", FILE_APPEND);
     if ($isDefinition) {
       file_put_contents('php://stderr', "[editează](https://dexonline.ro/admin/definitionEdit.php?definitionId=" . $e->id . ")\n", FILE_APPEND);

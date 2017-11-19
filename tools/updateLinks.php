@@ -21,7 +21,8 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
-define('DEF_CHECKPT_FILE', '/tmp/updateLinksCheckpt.txt');
+define('DEF_CHECKPT_FILE', '/tmp/updateLinksDefCheckpt.txt');
+define('MEANING_CHECKPT_FILE', '/tmp/updateLinksMeaningCheckpt.txt');
 define('CREATE_PATCH_FILE', false);
 define('URL', 'https://dexonline.ro/');
 
@@ -41,16 +42,16 @@ function updateEntity($e, $isDefinition)
   foreach ($links as $link) {
     $entityName = $isDefinition ? "definiție" : "sens";
 
-    file_put_contents('php://stderr', $link["original_word"] . ",", FILE_APPEND);
-    file_put_contents('php://stderr', $link["linked_lexem"] . ",", FILE_APPEND);
-    file_put_contents('php://stderr', $e->id . ",", FILE_APPEND);
-    file_put_contents('php://stderr', $link["short_reason"] . ",", FILE_APPEND);
-    file_put_contents('php://stderr', $entityName . ",", FILE_APPEND);
-    file_put_contents('php://stderr', "[definiție](" . URL . "definitie/" . $e->id . "),", FILE_APPEND);
+    fprintf(STDERR, $link["original_word"] . ",");
+    fprintf(STDERR, $link["linked_lexem"] . ",");
+    fprintf(STDERR, $e->id . ",");
+    fprintf(STDERR, $link["short_reason"] . ",");
+    fprintf(STDERR, $entityName . ",");
     if ($isDefinition) {
-      file_put_contents('php://stderr', "[editează](" . URL . "admin/definitionEdit.php?definitionId=" . $e->id . ")\n", FILE_APPEND);
+      fprintf(STDERR, "[definiție](" . URL . "definitie/" . $e->id . "),");
+      fprintf(STDERR, "[editează](" . URL . "admin/definitionEdit.php?definitionId=" . $e->id . ")\n");
     } else {
-      file_put_contents('php://stderr', "[editează](". URL . "editTree.php?id=" . $e->id . ")\n", FILE_APPEND);
+      fprintf(STDERR, "[arbore](". URL . "editTree.php?id=" . $e->treeId . ")\n");
     }
 
     $originalLink = "|" . $link["original_word"] . "|" . $link["linked_lexem"] . "|";
@@ -94,8 +95,8 @@ function updateEntity($e, $isDefinition)
     }
 
     if ($didChange) {
-      // TODO meanings have no sourceId field
-      $e->htmlRep = AdminStringUtil::htmlize($e->internalRep, $e->sourceId);
+      $sourceId = $isDefinition ? $e->sourceId : 0;
+      $e->htmlRep = AdminStringUtil::htmlize($e->internalRep, $sourceId);
       $e->save();
 
       $tableName = $isDefinition ? 'Definition' : 'Meaning';
@@ -127,14 +128,19 @@ foreach ($definitions as $d) {
   file_put_contents(DEF_CHECKPT_FILE, $d->id);
 }
 
-$meanings = Model::factory('Meaning')
-->where_like('internalRep', '%|%|%|%')
-->find_many();
+$lastMeaningId = @file_get_contents(MEANING_CHECKPT_FILE);
 
-print "Prelucrare sensuri\n";
+$meanings = Model::factory('Meaning')
+  ->where_like('internalRep', '%|%|%|%')
+  ->where_gt('id', $lastMeaningId)
+  ->order_by_asc('id')
+  ->find_many();
+
+printf("Prelucrare sensuri (%d)\n", count($meanings));
 print "==================\n";
 
 foreach ($meanings as $m) {
   updateEntity($m, false);
+  file_put_contents(MEANING_CHECKPT_FILE, $m->id);
 }
 

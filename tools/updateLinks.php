@@ -21,6 +21,10 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
+define('DEF_CHECKPT_FILE', '/tmp/updateLinksCheckpt.txt');
+define('CREATE_PATCH_FILE', false);
+define('URL', 'https://dexonline.ro/');
+
 /* determine name for new patch */
 $lastPatch = scandir(__DIR__ . '/../patches', $sorting_order=SCANDIR_SORT_DESCENDING)[0];
 $newPatchNumber = intval(explode('.', $lastPatch)[0], $base=10) + 1;
@@ -42,11 +46,11 @@ function updateEntity($e, $isDefinition)
     file_put_contents('php://stderr', $e->id . ",", FILE_APPEND);
     file_put_contents('php://stderr', $link["short_reason"] . ",", FILE_APPEND);
     file_put_contents('php://stderr', $entityName . ",", FILE_APPEND);
-    file_put_contents('php://stderr', "[definiție](https://dexonline.ro/definitie/" . $e->id . "),", FILE_APPEND);
+    file_put_contents('php://stderr', "[definiție](" . URL . "definitie/" . $e->id . "),", FILE_APPEND);
     if ($isDefinition) {
-      file_put_contents('php://stderr', "[editează](https://dexonline.ro/admin/definitionEdit.php?definitionId=" . $e->id . ")\n", FILE_APPEND);
+      file_put_contents('php://stderr', "[editează](" . URL . "admin/definitionEdit.php?definitionId=" . $e->id . ")\n", FILE_APPEND);
     } else {
-      file_put_contents('php://stderr', "[editează](https://dexonline.ro/editTree.php?id=" . $e->id . ")\n", FILE_APPEND);
+      file_put_contents('php://stderr', "[editează](". URL . "editTree.php?id=" . $e->id . ")\n", FILE_APPEND);
     }
 
     $originalLink = "|" . $link["original_word"] . "|" . $link["linked_lexem"] . "|";
@@ -90,26 +94,37 @@ function updateEntity($e, $isDefinition)
     }
 
     if ($didChange) {
+      // TODO meanings have no sourceId field
       $e->htmlRep = AdminStringUtil::htmlize($e->internalRep, $e->sourceId);
       $e->save();
 
       $tableName = $isDefinition ? 'Definition' : 'Meaning';
 
-      file_put_contents($newPatch, "UPDATE " . $tableName . " SET internalRep = '" . $e->internalRep . "', htmlRep = '" . $e->htmlRep . "' WHERE id = " . $e->id . ";\n", FILE_APPEND);
+      if (CREATE_PATCH_FILE) {
+        $line = sprintf("UPDATE %s SET internalRep = '%s', htmlRep = '%s' WHERE id = %s;\n",
+                        $tableName, $e->internalRep, $e->htmlRep, $e->id);
+        file_put_contents($newPatch, $line, FILE_APPEND);
+      }
     }
   }
 }
 
-$definitions = Model::factory('Definition')
-->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
-->where_like('internalRep', '%|%|%|%')
-->find_many();
+// read the checkpoint file or use 0 if the file does not exist
+$lastDefId = @file_get_contents(DEF_CHECKPT_FILE);
 
-print "Prelucrare definiții\n";
+$definitions = Model::factory('Definition')
+  ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
+  ->where_like('internalRep', '%|%|%|%')
+  ->where_gt('id', $lastDefId)
+  ->order_by_asc('id')
+  ->find_many();
+
+printf("Prelucrare definiții (%d)\n", count($definitions));
 print "====================\n";
 
 foreach ($definitions as $d) {
   updateEntity($d, true);
+  file_put_contents(DEF_CHECKPT_FILE, $d->id);
 }
 
 $meanings = Model::factory('Meaning')

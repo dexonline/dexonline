@@ -145,7 +145,7 @@
                 name="delete"
                 {if !$canDelete}
                 disabled
-                title="Nu puteți șterge acest arbore, deoarece el are sensuri și/sau relații."
+                title="Nu puteți șterge acest arbore, deoarece el are sensuri, mențiuni și/sau relații."
                 {/if}>
           <i class="glyphicon glyphicon-trash"></i>
           șterge

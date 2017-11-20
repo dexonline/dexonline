@@ -352,7 +352,17 @@ class Tree extends BaseObject implements DatedObject {
     $numRelations = Model::factory('Relation')
                   ->where('treeId', $this->id)
                   ->count();
-    return !$numMeanings && !$numRelations;
+    $numMeaningMentions = Model::factory('Mention')
+                        ->table_alias('m')
+                        ->join('Meaning', ['m.objectId', '=', 'mg.id'], 'mg')
+                        ->where('m.objectType', Mention::TYPE_MEANING)
+                        ->where('mg.treeId', $this->id)
+                        ->count();
+    $numTreeMentions = Model::factory('Mention')
+                     ->where('objectType', Mention::TYPE_TREE)
+                     ->where('objectId', $this->id)
+                     ->count();
+    return !$numMeanings && !$numRelations && !$numMeaningMentions && !$numTreeMentions;
   }
 
   /**

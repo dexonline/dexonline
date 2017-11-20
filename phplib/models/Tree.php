@@ -103,6 +103,8 @@ class Tree extends BaseObject implements DatedObject {
    * 'children': a recursive dictionary containing this meaning's children
    **/
   private function buildTree(&$map, $meaningId, &$children) {
+    $mention = Mention::get_by_objectType_objectId(Mention::TYPE_MEANING, $meaningId);
+    
     $results = [
       'meaning' => $map[$meaningId],
       'sources' => MeaningSource::loadSourcesByMeaningId($meaningId),
@@ -112,6 +114,8 @@ class Tree extends BaseObject implements DatedObject {
       // Meaningful for etymologies: the breadcrumb of the lowest ancestor of TYPE_MEANING.
       // Populated by Tree::extractEtymologies().
       'lastBreadcrumb' => null,
+      // meanings with incoming mentions cannot be deleted
+      'canDelete' => !$mention,
     ];
     foreach ($children[$meaningId] as $childId) {
       $results['children'][] = self::buildTree($map, $childId, $children);

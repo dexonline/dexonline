@@ -268,6 +268,7 @@
             <th>arbore-sursă</th>
             <th>sens-sursă</th>
             <th>sens-destinație</th>
+            <th>șterge</th>
           </tr>
         </thead>
 
@@ -279,6 +280,15 @@
               </td>
               <td><b>{$m->srcBreadcrumb}</b> {$m->srcRep}</td>
               <td><b>{$m->destBreadcrumb}</b></td>
+              <td>
+                <a href="#"
+                   class="deleteMeaningMention"
+                   title="șterge mențiunea din sensul-sursă, lăsând restul sensului intact"
+                   data-mention-id="{$m->id}"
+                   data-meaning-id="{$m->destId}">
+                  <i class="glyphicon glyphicon-trash"></i>
+                </a>
+              </td>
             </tr>
           {/foreach}
         </tbody>
@@ -416,9 +426,9 @@
                 </select>
 
                 {include "bits/frequentObjects.tpl"
-                         name="meaningSources"
-                         type="sources"
-                         target="#editorSources"}
+                name="meaningSources"
+                type="sources"
+                target="#editorSources"}
               </div>
 
               <div class="form-group">
@@ -427,9 +437,9 @@
                 <select id="editorTags" class="editorObj select2Tags" multiple disabled></select>
 
                 {include "bits/frequentObjects.tpl"
-                         name="meaningTags"
-                         type="tags"
-                         target="#editorTags"}
+                name="meaningTags"
+                type="tags"
+                target="#editorTags"}
               </div>
 
               <div class="form-group">

@@ -67,8 +67,10 @@ class Mention extends BaseObject implements DatedObject {
   static function getDetailedMeaningMentions($treeId) {
     return Model::factory('Mention')
       ->table_alias('m')
+      ->select('m.id', 'id')
       ->select('msrc.htmlRep', 'srcRep')
       ->select('msrc.breadcrumb', 'srcBreadcrumb')
+      ->select('mdest.id', 'destId')
       ->select('mdest.breadcrumb', 'destBreadcrumb')
       ->select('tsrc.id', 'tsrcId')
       ->select('tsrc.description', 'tsrcDesc')

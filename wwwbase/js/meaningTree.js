@@ -22,6 +22,7 @@ $(function() {
     $('#meaningDownButton').click(meaningDown);
     $('#meaningLeftButton').click(meaningLeft);
     $('#meaningRightButton').click(meaningRight);
+    $('.deleteMeaningMention').click(deleteMeaningMention);
 
     stem = $('#stemNode li').detach();
 
@@ -224,10 +225,25 @@ $(function() {
     beginMeaningEdit();
   }
 
+  // disable the delete button when the meaning or its submeanings have mentions
+  function updateDeleteButtonState() {
+    var noDelete = $('#meaningTree li.selected').find('[data-no-delete]').length;
+
+    if (noDelete) {
+      $('#deleteMeaningButton').prop({
+        disabled: true,
+        title: 'Acest sens nu poate fi șters deoarece există mențiuni despre el.',
+      });
+    } else {
+      $('#deleteMeaningButton').removeProp('disabled').prop('title', '');
+    }
+  }
+
   function beginMeaningEdit() {
     var c = $('#meaningTree li.selected > .meaningContainer');
 
     $('.editorObj, .frequentObjects button').removeProp('disabled');
+    updateDeleteButtonState();
 
     var type = c.find('.type').text();
     $('.editorType[value="' + type + '"]').prop('checked', true);
@@ -386,6 +402,35 @@ $(function() {
       .fail(function () {
         callback([]); // Callback must be invoked even if something went wrong.
       });
+  }
+
+  function deleteMeaningMention() {
+    if (confirm('Confirmați ștergerea mențiunii?')) {
+      var mentionId = $(this).data('mentionId');
+      var meaningId = $(this).data('meaningId');
+      var table = $(this).closest('table');
+
+      // make Ajax call to delete the mention
+      $.get(sprintf('%sajax/deleteMeaningMention.php?id=%s', wwwRoot, mentionId));
+
+      // delete the row
+      $(this).closest('tr').hide('normal', function() {
+        $(this).remove();
+
+        // remove the 'data-no-delete' attribute from the meaning if there are no more mentions
+        // of this meaning
+        var remaining = table.find(sprintf('a[data-meaning-id="%d"]', meaningId)).length;
+        if (!remaining) {
+          var div = $(sprintf('#meaningTree div[data-meaning-id="%d"]', meaningId));
+          div.removeAttr('data-no-delete');
+
+          // enable the delete meaning button if the currently selected row became deletable
+          updateDeleteButtonState();
+        }
+      });
+
+    }
+    return false;
   }
 
   // Compensate for a bug in Bootstrap 3.3.7:

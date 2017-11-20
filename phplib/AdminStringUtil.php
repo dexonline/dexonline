@@ -308,13 +308,15 @@ class AdminStringUtil {
   }
 
   static function convertMeaningMentionsToHtml($s) {
+    $html = '<span data-toggle="popover" data-html="true" data-placement="auto right" ' .
+          'class="%s" title="$2">$1</span>';
     $s = preg_replace(
       '/([-a-zăâîșț]+)\[\[([0-9]+)\]\]/i',
-      '<span data-toggle="popover" data-html="true" class="treeMention" title="$2">$1</span>',
+      sprintf($html, 'treeMention'),
       $s);
     $s = preg_replace(
       '/([-a-zăâîșț]+)\[([0-9]+)\]/i',
-      '<span data-toggle="popover" data-html="true" class="mention" title="$2">$1</span>',
+      sprintf($html, 'mention'),
       $s);
     return $s;
   }

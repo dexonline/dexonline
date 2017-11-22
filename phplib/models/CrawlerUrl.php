@@ -42,7 +42,7 @@ class CrawlerUrl extends BaseObject implements DatedObject {
         throw new CrawlerException("Cannot extract author from string [{$authorWrapper}]");
       }
 
-      $this->author = $matches[1];
+      $this->author = AdminStringUtil::cleanup($matches[1]);
     }
   }
 
@@ -65,6 +65,7 @@ class CrawlerUrl extends BaseObject implements DatedObject {
       }
 
       $this->title = trim($titleWrapper->innertext);
+      $this->title = AdminStringUtil::cleanup($this->title);
     }
   }
 

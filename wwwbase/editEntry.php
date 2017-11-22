@@ -139,6 +139,11 @@ if ($saveButton) {
         ($e->structStatus == Entry::STRUCT_STATUS_IN_PROGRESS)) {
       $e->structuristId = User::getActiveId();
     }
+    // Make ourselves the structurist if we are in structurist mode
+    if (!$e->structuristId && Session::isStructureMode()) {
+      $e->structuristId = User::getActiveId();
+    }
+    
 
     $e->save();
 

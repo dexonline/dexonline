@@ -23,6 +23,8 @@ $(function() {
     $(document).bind('keydown', 'alt+shift+w', function() { toggleMode('diffLevel'); });
 
     $(document).bind('keydown', 'alt+p', clickPreviewTags);
+
+    $('a.hotkeyLink').click(hotkeyLinkClick);
   }
 
   function redirectToAdmin() {
@@ -78,6 +80,11 @@ $(function() {
   function clickPreviewTags() {
     $('#previewTags').click();
     return false;
+  }
+
+  function hotkeyLinkClick() {
+    var mode = $(this).data('mode');
+    toggleMode(mode);
   }
 
   init();

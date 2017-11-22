@@ -3,8 +3,8 @@ Testing procedure:
 ### One-time setup
 
 1. Configure your testing database in the `[testing]` section of `dex.conf`.
-2. Install the [Selenium IDE addon for Firefox](https://addons.mozilla.org/en-US/firefox/addon/selenium-ide/).
-3. Type Ctrl+Alt+S to open the Selenium IDE. You will need to install Firefox ESR, since Selenium (and many other addons) no longer work in the latest Firefox.
+2. Install the [Selenium IDE addon for Firefox](https://addons.mozilla.org/en-US/firefox/addon/selenium-ide/). You will need to install Firefox ESR, since Selenium (and many other addons) no longer work in the latest Firefox.
+3. Type Ctrl+Alt+S to open the Selenium IDE.
 4. Set the Base URL to the root URL of your dexonline installation (e.g. `http://localhost/dexonline/wwwbase/`). We cannot hardcode this in the test suite because it varies for each installation.
 
 ### Running the test suite

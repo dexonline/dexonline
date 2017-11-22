@@ -17,7 +17,7 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.panel-heading</td>
+	<td>//div[@id='resultsTab']/h3[2]</td>
 	<td>Articole pe această temă:</td>
 </tr>
 <tr>
@@ -42,7 +42,7 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.panel-heading</td>
+	<td>//div[@id='resultsTab']/h3[2]</td>
 	<td>Articole pe această temă:</td>
 </tr>
 <tr>

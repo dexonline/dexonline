@@ -1,5 +1,9 @@
 $(function() {
 
+  // when adding (sub)meanings of this type, we'll copy some extra
+  // information from the selected meaning.
+  const EXAMPLE_TYPE = 2;
+
   var stem = null;
   var anyChanges = false;
   var editable = $('#editable').length;
@@ -126,11 +130,16 @@ $(function() {
 
   // copy some data when we add a (sub)meaning
   function copyMeaningData(src, dest) {
-    const classes = [ '.type', '.sources', '.sourceIds'];
-    classes.forEach(function(x) {
-      var html = src.find('> .meaningContainer > ' + x).html();
-      dest.find(x).html(html);
-    });
+    var type = src.find('> .meaningContainer > .type').html();
+    dest.find('.type').html(type);
+
+    if (type == EXAMPLE_TYPE) {
+      const classes = [ '.sources', '.sourceIds'];
+      classes.forEach(function(x) {
+        var html = src.find('> .meaningContainer > ' + x).html();
+        dest.find(x).html(html);
+      });
+    };
   }
 
   function addMeaning() {

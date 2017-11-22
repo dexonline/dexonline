@@ -5,9 +5,18 @@ require_once("../../phplib/Core.php");
 $mode = Request::get('mode');
 
 switch ($mode) {
+  case 'structure':
+    User::mustHave(User::PRIV_STRUCT);
+    Session::toggleMode('structureMode',
+                        'Modul structurist activat.',
+                        'Modul structurist dezactivat.');
+    break;
+
   case 'wotd':
     User::mustHave(User::PRIV_WOTD);
-    Session::toggleWotdMode();
+    Session::toggleMode('wotdMode',
+                        'Modul WotD activat.',
+                        'Modul WotD dezactivat.');
     break;
 
   case 'diffLevel':

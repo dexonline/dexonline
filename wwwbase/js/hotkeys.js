@@ -18,6 +18,7 @@ $(function() {
     $(document).bind('keydown', 'alt+c', redirectToWotDTable);
     $(document).bind('keydown', 'alt+z', redirectToWotDImage);
     $(document).bind('keydown', 'alt+x', redirectToWotDAuthorAssign);
+    $(document).bind('keydown', 'alt+t', function() { toggleMode('structure'); });
     $(document).bind('keydown', 'alt+w', function() { toggleMode('wotd'); });
     $(document).bind('keydown', 'alt+shift+w', function() { toggleMode('diffLevel'); });
 

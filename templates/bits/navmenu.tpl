@@ -215,12 +215,21 @@
           <h4>Globale</h4>
 
           <ul>
-            <li><b>Alt-A</b> = pagina moderatorului</li>
             <li><b>Alt-R</b> = reafișează (unde este cazul)</li>
             <li><b>Alt-S</b> = salvează</li>
             <li><b>Alt-V</b> = pagini vizitate recent</li>
+            <li><b>Alt-T</b> = intră/ieși din modul structurist</li>
             <li><b>Alt-W</b> = intră/ieși din modul WotD</li>
             <li><b>Alt-Shift-W</b> = istoricul definiției la nivel de cuvânt/literă</li>
+          </ul>
+
+          <h4>Salt la pagină</h4>
+
+          <ul>
+            <li><b>Alt-A</b> = pagina moderatorului</li>
+            <li><b>Alt-C</b> = cuvintele zilei</li>
+            <li><b>Alt-X</b> = asignare autori</li>
+            <li><b>Alt-Z</b> = imaginile cuvintelor zilei</li>
           </ul>
 
           <h4>Pagina moderatorului</h4>
@@ -229,14 +238,6 @@
             <li><b>Alt-D</b> = navigare rapidă - definiții</li>
             <li><b>Alt-I</b> = navigare rapidă - intrări</li>
             <li><b>Alt-L</b> = navigare rapidă - lexeme</li>
-          </ul>
-
-          <h4>Pagina moderatorului</h4>
-
-          <ul>
-            <li><b>Alt-Z</b> = navigare rapidă - imaginile cuvintelor zilei</li>
-            <li><b>Alt-X</b> = navigare rapidă - asignare autori</li>
-            <li><b>Alt-C</b> = navigare rapidă - cuvintele zilei</li>
           </ul>
 
           <h4>Etichetarea imaginilor</h4>

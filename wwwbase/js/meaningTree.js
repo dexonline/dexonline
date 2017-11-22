@@ -124,15 +124,22 @@ $(function() {
     }
   }
 
+  // copy some data when we add a (sub)meaning
+  function copyMeaningData(src, dest) {
+    const classes = [ '.type', '.sources', '.sourceIds'];
+    classes.forEach(function(x) {
+      var html = src.find('> .meaningContainer > ' + x).html();
+      dest.find(x).html(html);
+    });
+  }
+
   function addMeaning() {
     acceptMeaningEdit();
     var newNode = stem.clone(true);
-    var node = $('#meaningTree li.selected');
-    if (node.length) {
-      // give the new meaning the same type as its sibling
-      var text = node.find('> .meaningContainer > .type').text();
-      newNode.find('.type').text(text);
-      newNode.insertAfter(node);
+    var sel = $('#meaningTree li.selected');
+    if (sel.length) {
+      copyMeaningData(sel, newNode);
+      newNode.insertAfter(sel);
     } else {
       newNode.appendTo($('#meaningTree'));
     }
@@ -146,9 +153,7 @@ $(function() {
     var newNode = stem.clone(true);
     var sel = $('#meaningTree li.selected');
 
-    // give the new meaning the same type as its parent
-    var text = sel.find('> .meaningContainer > .type').text();
-    newNode.find('.type').text(text);
+    copyMeaningData(sel, newNode);
 
     var ul = ensureUl(sel);
     newNode.prependTo(ul);

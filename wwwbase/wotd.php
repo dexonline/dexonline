@@ -153,5 +153,3 @@ SmartyWrap::assign('otherYears', $otherYears);
 SmartyWrap::assign('searchResult', array_pop($searchResults));
 
 SmartyWrap::display('wotd.tpl');
-
-?>

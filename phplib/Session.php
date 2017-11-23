@@ -188,19 +188,23 @@ class Session {
     }
   }
 
+  static function isStructureMode() {
+    return isset($_COOKIE['prefs']['structureMode']);
+  }
+
   static function isWotdMode() {
     return isset($_COOKIE['prefs']['wotdMode']);
   }
 
-  static function toggleWotdMode() {
-    $on = !self::isWotdMode();
+  static function toggleMode($cookieName, $onMessage, $offMessage) {
+    $on = !isset($_COOKIE['prefs'][$cookieName]);
 
     if ($on) {
-      setcookie('prefs[wotdMode]', '1', time() + self::ONE_YEAR_IN_SECONDS, '/');
-      FlashMessage::add('Modul WotD activat', 'success');
+      setcookie("prefs[{$cookieName}]", '1', time() + self::ONE_YEAR_IN_SECONDS, '/');
+      FlashMessage::add($onMessage, 'success');
     } else {
-      setcookie('prefs[wotdMode]', '', time() - 3600, '/');
-      FlashMessage::add('Modul WotD dezactivat', 'warning');
+      setcookie("prefs[{$cookieName}]", '', time() - 3600, '/');
+      FlashMessage::add($offMessage, 'warning');
     }
   }
 

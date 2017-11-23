@@ -304,12 +304,26 @@ class Lexem extends BaseObject implements DatedObject {
   }
 
   /**
-   * Counts lexems not associated with any entries.
+   * Counts lexemes not associated with any entries.
    **/
   static function countUnassociated() {
-    $numLexems = Model::factory('Lexem')->count();
-    $numAssociated = DB::getSingleValue('select count(distinct lexemId) from EntryLexem');
-    return $numLexems - $numAssociated;
+    return count(self::getUnassociated());
+  }
+
+  /**
+   * Returns lexemes not associated with any entries. Lexemes can be associated directly or they can
+   * be fragments of associated lexemes.
+   **/
+  static function getUnassociated() {
+    $direct = 'select lexemId as id from EntryLexem';
+    $fragments = 'select partId as id from Fragment';
+    $subquery = "$direct union $fragments";
+    $query = 'select l.* ' .
+           'from Lexem l ' .
+           "left outer join ($subquery) used on l.id = used.id " .
+           'where used.id is null';
+
+    return Model::factory('Lexem')->raw_query($query)->find_many();
   }
 
   static function getVariantList($lexemes, $baseForm) {

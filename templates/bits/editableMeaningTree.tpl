@@ -2,8 +2,10 @@
 {if $meanings || $id}
   <ul {if $id}id="{$id}" class="meaningTree"{/if}>
     {foreach $meanings as $t}
-      <li>{strip}
-        <div class="meaningContainer">
+      <li>
+        <div class="meaningContainer"
+             data-meaning-id="{$t.meaning->id}"
+             {if !$t.canDelete}data-no-delete{/if}>
           <span class="bc"></span>
           <span class="type">{$t.meaning->type}</span>
           <span class="typeName">{$t.meaning->getDisplayTypeName()}</span>

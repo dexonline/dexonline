@@ -348,6 +348,7 @@ if ($SEARCH_PARAMS[$searchType]['trees'] && !$sourceId) {
 
   if (count($trees)) {
     SmartyWrap::addCss('meaningTree');
+    usort($trees, [new TreeComparator($cuv), 'cmp']);
   }
 }
 
@@ -504,4 +505,26 @@ function checkFormat() {
   }
 
   return ['name' => $f, 'tpl_path' => $path];
+}
+
+class TreeComparator {
+  private $query;
+
+  function __construct($query) {
+    $this->query = $query;
+  }
+
+  function cmp($a, $b) {
+    // lower precedence: natural sort order
+    $score = (strcoll($a->description, $b->description) > 0);
+
+    // higher precedence: prefer trees that exactly match the query
+    if ($a->getShortDescription() != $this->query) {
+      $score += 2;
+    }
+    if ($b->getShortDescription() != $this->query) {
+      $score -= 2;
+    }
+    return $score;
+  }
 }

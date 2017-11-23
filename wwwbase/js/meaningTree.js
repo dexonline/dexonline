@@ -1,5 +1,9 @@
 $(function() {
 
+  // when adding (sub)meanings of this type, we'll copy some extra
+  // information from the selected meaning.
+  const EXAMPLE_TYPE = 2;
+
   var stem = null;
   var anyChanges = false;
   var editable = $('#editable').length;
@@ -22,6 +26,7 @@ $(function() {
     $('#meaningDownButton').click(meaningDown);
     $('#meaningLeftButton').click(meaningLeft);
     $('#meaningRightButton').click(meaningRight);
+    $('.deleteMeaningMention').click(deleteMeaningMention);
 
     stem = $('#stemNode li').detach();
 
@@ -123,15 +128,27 @@ $(function() {
     }
   }
 
+  // copy some data when we add a (sub)meaning
+  function copyMeaningData(src, dest) {
+    var type = src.find('> .meaningContainer > .type').html();
+    dest.find('.type').html(type);
+
+    if (type == EXAMPLE_TYPE) {
+      const classes = [ '.sources', '.sourceIds'];
+      classes.forEach(function(x) {
+        var html = src.find('> .meaningContainer > ' + x).html();
+        dest.find(x).html(html);
+      });
+    };
+  }
+
   function addMeaning() {
     acceptMeaningEdit();
     var newNode = stem.clone(true);
-    var node = $('#meaningTree li.selected');
-    if (node.length) {
-      // give the new meaning the same type as its sibling
-      var text = node.find('> .meaningContainer > .type').text();
-      newNode.find('.type').text(text);
-      newNode.insertAfter(node);
+    var sel = $('#meaningTree li.selected');
+    if (sel.length) {
+      copyMeaningData(sel, newNode);
+      newNode.insertAfter(sel);
     } else {
       newNode.appendTo($('#meaningTree'));
     }
@@ -145,9 +162,7 @@ $(function() {
     var newNode = stem.clone(true);
     var sel = $('#meaningTree li.selected');
 
-    // give the new meaning the same type as its parent
-    var text = sel.find('> .meaningContainer > .type').text();
-    newNode.find('.type').text(text);
+    copyMeaningData(sel, newNode);
 
     var ul = ensureUl(sel);
     newNode.prependTo(ul);
@@ -224,10 +239,25 @@ $(function() {
     beginMeaningEdit();
   }
 
+  // disable the delete button when the meaning or its submeanings have mentions
+  function updateDeleteButtonState() {
+    var noDelete = $('#meaningTree li.selected').find('[data-no-delete]').length;
+
+    if (noDelete) {
+      $('#deleteMeaningButton').prop({
+        disabled: true,
+        title: 'Acest sens nu poate fi șters deoarece există mențiuni despre el.',
+      });
+    } else {
+      $('#deleteMeaningButton').removeProp('disabled').prop('title', '');
+    }
+  }
+
   function beginMeaningEdit() {
     var c = $('#meaningTree li.selected > .meaningContainer');
 
     $('.editorObj, .frequentObjects button').removeProp('disabled');
+    updateDeleteButtonState();
 
     var type = c.find('.type').text();
     $('.editorType[value="' + type + '"]').prop('checked', true);
@@ -386,6 +416,35 @@ $(function() {
       .fail(function () {
         callback([]); // Callback must be invoked even if something went wrong.
       });
+  }
+
+  function deleteMeaningMention() {
+    if (confirm('Confirmați ștergerea mențiunii?')) {
+      var mentionId = $(this).data('mentionId');
+      var meaningId = $(this).data('meaningId');
+      var table = $(this).closest('table');
+
+      // make Ajax call to delete the mention
+      $.get(sprintf('%sajax/deleteMeaningMention.php?id=%s', wwwRoot, mentionId));
+
+      // delete the row
+      $(this).closest('tr').hide('normal', function() {
+        $(this).remove();
+
+        // remove the 'data-no-delete' attribute from the meaning if there are no more mentions
+        // of this meaning
+        var remaining = table.find(sprintf('a[data-meaning-id="%d"]', meaningId)).length;
+        if (!remaining) {
+          var div = $(sprintf('#meaningTree div[data-meaning-id="%d"]', meaningId));
+          div.removeAttr('data-no-delete');
+
+          // enable the delete meaning button if the currently selected row became deletable
+          updateDeleteButtonState();
+        }
+      });
+
+    }
+    return false;
   }
 
   // Compensate for a bug in Bootstrap 3.3.7:

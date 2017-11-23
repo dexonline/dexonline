@@ -4,12 +4,18 @@
  * This class reads request parameters.
  **/
 class Request {
-  /* Reads a request parameter. */
+  /* Reads a request parameter. Cleans up string and array values. */
   static function get($name, $default = null) {
     if (!array_key_exists($name, $_REQUEST)) {
       return $default;
     } else if (is_string($_REQUEST[$name])) {
       return AdminStringUtil::cleanup($_REQUEST[$name]);
+    } else if (is_array($_REQUEST[$name])) {
+      $a = $_REQUEST[$name];
+      foreach ($a as $key => $value) {
+        $a[$key] = AdminStringUtil::cleanup($value);
+      }
+      return $a;
     } else {
       return $_REQUEST[$name];
     }

@@ -53,6 +53,14 @@ class Source extends BaseObject implements DatedObject {
   function isUnknownPercentComplete() {
     return $this->percentComplete == self::$UNKNOWN_PERCENT;
   }
+
+  static function getSourcesWithPageImages() {
+    return Model::factory('Source')
+      ->where('hasPageImages', 1)
+      ->order_by_desc('dropdownOrder')
+      ->order_by_asc('displayOrder')
+      ->find_many();
+  }
 }
 
 ?>

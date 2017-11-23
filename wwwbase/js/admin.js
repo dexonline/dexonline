@@ -24,6 +24,8 @@ $(function() {
     sourceId = link.attr('data-sourceId');
     var word = link.attr('data-word');
 
+    $('#pageModal .sourceDropDown').val(sourceId).trigger('change');
+
     // resolve the sourceId + word to a volume + page
     $.get(wwwRoot + 'ajax/getPage.php', { sourceId: sourceId, word: word, })
       .done(function(data) {
@@ -56,6 +58,7 @@ $(function() {
   function pageForWordKeypress(e) {
     if (e.which == 13) {
       var word = $(this).val().trim();
+      sourceId = $(this).siblings('.sourceDropDown').val();
 
       if (word) {
         $.get(wwwRoot + 'ajax/getPage.php', { sourceId: sourceId, word: word, })
@@ -77,6 +80,7 @@ $(function() {
   function loadPage() {
     $('#pageModal .alert').hide();
     $('#pageModalSpinner').show();
+    $('#pageModal .sourceDropDown').val(sourceId).trigger('change');
 
     var url = sprintf(urlPattern, sourceId, volume, page);
 

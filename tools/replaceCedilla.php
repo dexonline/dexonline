@@ -6,6 +6,16 @@
 
 require_once __DIR__ . '/../phplib/Core.php';
 
+$fix = false;
+foreach ($argv as $i => $arg) {
+  if ($i) {
+    switch ($arg) {
+      case '--fix': $fix = true; break;
+      default: print "Unknown flag $arg -- aborting\n"; exit;
+    }
+  }
+}
+
 $files = glob(__DIR__ . '/../phplib/models/*.php');
 
 foreach ($files as $file) {
@@ -42,10 +52,15 @@ foreach ($files as $file) {
                   ->where_raw("binary $column rlike '(ş|Ş|ţ|Ţ)'")
                   ->find_many();
             if (count($data)) {
-              Log::notice("Replacing column %s.%s (%d occurrences)", $table, $column, count($data));
-              foreach ($data as $rec) {
-                $rec->$column = AdminStringUtil::cleanup($rec->$column);
-                $rec->save();
+              if ($fix) {
+                Log::notice("Replacing column %s.%s (%d occurrences)", $table, $column, count($data));
+                foreach ($data as $rec) {
+                  $rec->$column = AdminStringUtil::cleanup($rec->$column);
+                  $rec->save();
+                }
+              } else {
+                Log::notice("%d occurrences in column %s.%s (run with --fix to fix)",
+                            count($data), $table, $column);
               }
             }
           }

@@ -227,6 +227,10 @@ abbr[title] {
   width: 95%;
 }
 
+#pageModal .alert {
+  display: none;
+}
+
 #pageImage {
   width: 100%;
 }
@@ -241,7 +245,6 @@ abbr[title] {
   width: 70px;
   z-index: 2000;
 }
-
 
 /*********** tables ***********/
 

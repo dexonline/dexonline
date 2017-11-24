@@ -35,6 +35,9 @@
       <div class="col-sm-10">
         <input class="form-control" type="file" name="file">
       </div>
+      <span class="col-sm-offset-2 col-sm-10 text-danger">
+            Important! Asigurați-vă că fișierul este codificat ASCII sau UTF-8. Alte codificări vor genera erori la import!
+      </span>
     </div>
 
     <div class="form-group">

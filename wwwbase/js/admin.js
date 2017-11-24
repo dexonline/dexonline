@@ -14,6 +14,12 @@ $(function() {
     $('.prevPage').click(prevPageClick);
     $('.nextPage').click(nextPageClick);
     $('.pageForWord').keypress(pageForWordKeypress);
+
+    // We need tabindex="-1" on the modal so that it closes when we press Escape,
+    // but that makes us unable to type in the select2 within the modal.
+    // This seems to fix it. See:
+    // https://github.com/select2/select2/issues/600#issuecomment-102857595
+    $.fn.modal.Constructor.prototype.enforceFocus = $.noop;
   }
 
   function modalShown(event) {

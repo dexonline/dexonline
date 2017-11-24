@@ -1,7 +1,7 @@
 {if !isset($PAGE_MODAL_ONCE)}
   {$PAGE_MODAL_ONCE=1 scope="global"}
 
-  <div id="pageModal" class="modal" role="dialog">
+  <div id="pageModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
 

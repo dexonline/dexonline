@@ -36,6 +36,14 @@
         </a>
       </li>
     {/if}
+
+    {if count($trees)}
+      <li role="presentation">
+        <a href="#treeTab" aria-controls="treeTab" role="tab" data-toggle="tab">
+          sinteză
+        </a>
+      </li>
+    {/if}
   </ul>
 
   <div class="tab-content">
@@ -84,41 +92,25 @@
           <h3>Nu există nicio intrare cu ID-ul căutat.</h3>
         {else}
 
-          {if count($trees)}
-            {include "search/trees.tpl"}
+          <h3>
+            {include "bits/count.tpl"
+            displayed=count($results)
+            none="Nicio definiție"
+            one="O definiție"
+            many="definiții"
+            common="pentru"}
 
-            {if count($results)}
-              <h3>
-                {include "bits/count.tpl"
-                displayed=count($results)
-                none=""
-                one="O definiție"
-                many="definiții"
-                common=""}
-              </h3>
-            {/if}
-          {else}
-
-            <h3>
-              {include "bits/count.tpl"
-              displayed=count($results)
-              none="Nicio definiție"
-              one="O definiție"
-              many="definiții"
-              common="pentru"}
-
-              {include "bits/entry.tpl" entry=$entries[0] variantList=true}
-            </h3>
-          {/if}
+            {include "bits/entry.tpl" entry=$entries[0] variantList=true}
+          </h3>
 
           {include "search/missingDefinitionWarnings.tpl"}
           {include "search/definitionList.tpl"}
         {/if}
 
-      {* regular expression search *}
+        {* regular expression search *}
       {elseif $searchType == $smarty.const.SEARCH_REGEXP}
         {capture "common"}
-          pentru <strong>{$cuv|escape}</strong>
+        pentru <strong>{$cuv|escape}</strong>
         {/capture}
 
         <h3>
@@ -137,53 +129,48 @@
 
         {include "search/lexemList.tpl"}
 
-      {* normal search (inflected form search) *}
+        {* normal search (inflected form search) *}
       {elseif $searchType == $smarty.const.SEARCH_INFLECTED}
 
         {include "search/gallery.tpl"}
 
-        {if empty($trees)}
-          {if count($entries) > 1}
-            <h3>{$entries|count} intrări</h3>
+        {if count($entries) > 1}
+          <h3>{$entries|count} intrări</h3>
 
-            {include "search/entryToc.tpl"}
-          {else}
-            {capture "common"}
-            pentru {include "bits/entry.tpl" entry=$entries[0] variantList=true}
-            {/capture}
+          {include "search/entryToc.tpl"}
+        {else}
+          {capture "common"}
+          pentru {include "bits/entry.tpl" entry=$entries[0] variantList=true}
+          {/capture}
 
-            <h3>
-              {include "bits/count.tpl"
-              displayed=count($results)
-              total=$extra.numDefinitions
-              none="Nicio definiție"
-              one="O definiție"
-              many="definiții"
-              common=$smarty.capture.common}
-            </h3>
+          <h3>
+            {include "bits/count.tpl"
+            displayed=count($results)
+            total=$extra.numDefinitions
+            none="Nicio definiție"
+            one="O definiție"
+            many="definiții"
+            common=$smarty.capture.common}
+          </h3>
 
-            {if !count($results) && count($entries) && $sourceId}
-              {include "search/extendToAllSources.tpl"}
-            {/if}
+          {if !count($results) && count($entries) && $sourceId}
+            {include "search/extendToAllSources.tpl"}
           {/if}
         {/if}
 
         {include "search/wikiArticles.tpl"}
-        {include "search/trees.tpl"}
 
         {* another <h3> for the definition list, if needed *}
-        {if count($trees) || (count($entries) > 1)}
-          {if count($results)}
-            <h3>
-              {include "bits/count.tpl"
-              displayed=count($results)
-              total=$extra.numDefinitions
-              none=""
-              one="O definiție"
-              many="definiții"
-              common=""}
-            </h3>
-          {/if}
+        {if (count($entries) > 1) && count($results)}
+          <h3>
+            {include "bits/count.tpl"
+            displayed=count($results)
+            total=$extra.numDefinitions
+            none=""
+            one="O definiție"
+            many="definiții"
+            common=""}
+          </h3>
         {/if}
 
         {include "search/missingDefinitionWarnings.tpl"}
@@ -191,7 +178,7 @@
         {include "search/showAllLink.tpl"}
         {include "search/definitionList.tpl"}
 
-      {* multiword search *}
+        {* multiword search *}
       {elseif $searchType == $smarty.const.SEARCH_MULTIWORD}
         <h3>
           {include "bits/count.tpl"
@@ -223,7 +210,7 @@
         {include "search/showAllLink.tpl"}
         {include "search/definitionList.tpl" categories=false}
 
-      {* approximate search *}
+        {* approximate search *}
       {elseif $searchType == $smarty.const.SEARCH_APPROXIMATE}
         {if count($entries)}
           <h3>
@@ -260,6 +247,13 @@
             Link către această paradigmă
           </a>
         </div>
+      </div>
+    {/if}
+
+    {* tree tab *}
+    {if count($trees)}
+      <div role="tabpanel" class="tab-pane" id="treeTab">
+        {include "search/trees.tpl"}
       </div>
     {/if}
 

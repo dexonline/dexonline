@@ -322,7 +322,8 @@ if ($SEARCH_PARAMS[$searchType]['trees'] && !$sourceId) {
     if (in_array($e->structStatus, $statuses)) {
       foreach ($e->getTrees() as $t) {
         if (($t->status == Tree::ST_VISIBLE) &&
-            count($t->getMeanings())) {
+            count($t->getMeanings()) &&
+            !isset($trees[$t->id])) {
           $t->extractExamples();
           $t->extractEtymologies();
           $trees[$t->id] = $t;

@@ -36,14 +36,6 @@
         </a>
       </li>
     {/if}
-
-    {if count($structuredResults)}
-      <li role="presentation">
-        <a href="#structuredTab" aria-controls="structuredTab" role="tab" data-toggle="tab">
-          alte definiții
-        </a>
-      </li>
-    {/if}
   </ul>
 
   <div class="tab-content">
@@ -170,7 +162,7 @@
               common=$smarty.capture.common}
             </h3>
 
-            {if !count($results) && !count($structuredResults) && count($entries) && $sourceId}
+            {if !count($results) && count($entries) && $sourceId}
               {include "search/extendToAllSources.tpl"}
             {/if}
           {/if}
@@ -271,29 +263,5 @@
       </div>
     {/if}
 
-    {* structured definitions tab *}
-    {if count($structuredResults)}
-      <div role="tabpanel" class="tab-pane" id="structuredTab">
-
-        <div class="callout callout-info">
-          <h3>
-            {include "bits/count.tpl"
-            displayed=count($structuredResults)
-            none="Nicio definiție încorporată"
-            one="O definiție încorporată"
-            many="definiții încorporate"
-            common=""}
-          </h3>
-
-          <p class="text-muted">
-            Aceste definiții sunt deja încorporate în filele „rezultate” și
-            „{$declensionText|default:"declinări"}”. Le prezentăm pentru edificare.
-          </p>
-        </div>
-
-        {include "search/definitionList.tpl" results=$structuredResults}
-
-      </div>
-    {/if}
   </div>
 {/block}

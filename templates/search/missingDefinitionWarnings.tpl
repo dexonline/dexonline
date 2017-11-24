@@ -1,4 +1,4 @@
-{if !count($results) && !count($structuredResults)}
+{if !count($results)}
 
   {if isset($extra.unofficialHidden)}
     <p class="text-warning">

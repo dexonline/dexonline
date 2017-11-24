@@ -297,24 +297,9 @@ if (SPOOF_ENABLED && $cuv_spoofed) {
   }
 }
 
-$structuredResults = [];
-
 // Filter out hidden definitions
 list($extra['unofficialHidden'], $extra['sourcesHidden'])
   = SearchResult::filter($results);
-
-// Filter out structured definitions if we are displaying trees
-// unless there is a source filter or the output is in JSON/XML
-if ($SEARCH_PARAMS[$searchType]['trees'] &&
-    !$sourceId &&
-    ($format['name'] == 'html')) {
-  foreach ($results as $i => $sr) {
-    if ($sr->definition->structured) {
-      $structuredResults[] = $sr;
-      unset($results[$i]);
-    }
-  }
-}
 
 // Keep only a maximum number of definitions
 $defLimit = $SEARCH_PARAMS[$searchType]['defLimit'];
@@ -395,9 +380,6 @@ $sourceList = [];
 foreach ($results as $row) {
   $sourceList[$row->source->shortName] = true;
 }
-foreach ($structuredResults as $row) {
-  $sourceList[$row->source->shortName] = true;
-}
 $sourceList = array_keys($sourceList);
 SmartyWrap::assign('sourceList', $sourceList);
 
@@ -449,7 +431,6 @@ SmartyWrap::assign('entries', $entries);
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('results', $results);
 SmartyWrap::assign('trees', $trees);
-SmartyWrap::assign('structuredResults', $structuredResults);
 SmartyWrap::assign('extra', $extra);
 SmartyWrap::assign('text', $text);
 SmartyWrap::assign('searchType', $searchType);

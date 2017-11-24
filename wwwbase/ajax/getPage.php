@@ -18,6 +18,12 @@ try {
     throw new Exception('Parametri incorecți.');
   }
 
+  // source-specific fixes
+  if ($sourceId == 42) {
+    // Șăineanu disregards diacritics when sorting, so convert the word as well.
+    $word = StringUtil::unicodeToLatin($word);
+  }
+
   $pi = Model::factory('PageIndex')
       ->where('sourceId', $sourceId)
       ->where_lte('word', $word)

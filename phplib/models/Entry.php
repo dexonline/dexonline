@@ -304,11 +304,20 @@ class Entry extends BaseObject implements DatedObject {
     return $errors;
   }
 
+  // delete empty trees that are not associated with any other entries
   function deleteEmptyTrees() {
     foreach ($this->getTrees() as $t) {
       $meaning = Meaning::get_by_treeId($t->id);
       if (!$meaning) {
-        $t->delete();
+
+        $otherAssoc = Model::factory('TreeEntry')
+                    ->where('treeId', $t->id)
+                    ->where_not_equal('entryId', $this->id)
+                    ->find_one();
+
+        if (!$otherAssoc) {
+          $t->delete();
+        }
       }
     }
   }

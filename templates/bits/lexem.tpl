@@ -1,21 +1,31 @@
 {* Argument: $lexem *}
 {if User::can(User::PRIV_EDIT)}
-  {$lexem->getPartOfSpeeech()}
+  <div>
+    {$lexem->getPartOfSpeeech()}
 
-  {if $lexem->compound}
-    compus
-  {else}
-    ({$lexem->modelType}{$lexem->modelNumber})
-  {/if}
-
-  <a href="{$wwwRoot}admin/dispatchModelAction.php?editModel=1&amp;modelType={$lexem->modelType}&amp;modelNumber={$lexem->modelNumber}"
-     title="editează modelul">
-    <i class="glyphicon glyphicon-pencil"></i>    
-  </a>
+    {if $lexem->compound}
+      compus
+    {else}
+      {strip}
+      (
+      <a href="{"%sadmin/dispatchModelAction.php?editModel=1&amp;modelType=%s&amp;modelNumber=%s"|sprintf
+               :$wwwRoot:$lexem->modelType:$lexem->modelNumber}"
+         title="editează modelul">
+        {$lexem->modelType}{$lexem->modelNumber}
+      </a>
+      )
+      {/strip}
+    {/if}
+  </div>
 {/if}
+
 {if $lexem->notes}
-  <br>
-  <span class="lexemNotes">{$lexem->notes|escape}</span>
+  <div class="lexemNotes">{$lexem->notes|escape}</div>
 {/if}
-{include "bits/locInfo.tpl" isLoc=$lexem->isLoc}
-{include "bits/lexemSources.tpl" lexem=$lexem}
+
+{assign var=s value=$lexem->getSourceNames()}
+{if $s}
+  <div class="lexemSources">
+    Surse flexiune: {$s}
+  </div>
+{/if}

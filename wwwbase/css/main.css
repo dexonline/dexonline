@@ -221,6 +221,18 @@ abbr[title] {
   color: #1e83c2;
 }
 
+
+/************** labels inside headers **************/
+
+h3 .tagList {
+  margin-left: 10px;
+}
+
+h3 .label {
+  font-size: 12px;
+  vertical-align: middle;
+}
+
 /************** scanned page modal **************/
 
 #pageModal .modal-dialog {

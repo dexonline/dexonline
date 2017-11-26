@@ -1,6 +1,7 @@
 {$editLink=$editLink|default:false}
 {$link=$link|default:false}
 {$variantList=$variantList|default:false}
+{$tagList=$tagList|default:false}
 
 {if $editLink}
   <a href="{$wwwRoot}editEntry.php?id={$entry->id}" title="editează">
@@ -20,6 +21,14 @@
       <span {if !$l->main}class="text-muted"{/if}>
         {$l->formNoAccent}
       </span>
+    {/foreach}
+  </span>
+{/if}
+
+{if $tagList}
+  <span class="tagList">
+    {foreach $entry->getTags() as $t}
+      {include "bits/tag.tpl"}
     {/foreach}
   </span>
 {/if}

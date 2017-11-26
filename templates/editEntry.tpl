@@ -338,6 +338,13 @@
       <div class="panel panel-default tree tree-status-{$t->status}">
         <div class="panel-heading">
           {$t->description}
+
+          <span class="tagList">
+            {foreach $t->getTags() as $tag}
+              {include "bits/tag.tpl" t=$tag}
+            {/foreach}
+          </span>
+
           <a href="editTree.php?id={$t->id}" class="pull-right">
             <i class="glyphicon glyphicon-pencil"></i>
             editează

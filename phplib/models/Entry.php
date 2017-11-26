@@ -6,6 +6,7 @@ class Entry extends BaseObject implements DatedObject {
   private $lexems = null;
   private $trees = null;
   private $definitions = null;
+  private $tags = null;
 
   const STRUCT_STATUS_NEW = 1;
   const STRUCT_STATUS_IN_PROGRESS = 2;
@@ -125,6 +126,13 @@ class Entry extends BaseObject implements DatedObject {
   // Returns the description up to the first parenthesis (if any).
   function getShortDescription() {
     return preg_split('/\s+[(\/]/', $this->description)[0];
+  }
+
+  function getTags() {
+    if ($this->tags === null) {
+      $this->tags = ObjectTag::getTags($this->id, ObjectTag::TYPE_ENTRY);
+    }
+    return $this->tags;
   }
 
   /**

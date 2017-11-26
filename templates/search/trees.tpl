@@ -2,13 +2,19 @@
   <h3 class="tree-heading">
     {$t->description}
 
-  <span class="variantList">
-    {foreach $t->getPrintableLexems() as $l}
-      <span {if !$l->main}class="text-muted"{/if}>
-        {$l->formNoAccent}
-      </span>
-    {/foreach}
-  </span>
+    <span class="variantList">
+      {foreach $t->getPrintableLexems() as $l}
+        <span {if !$l->main}class="text-muted"{/if}>
+          {$l->formNoAccent}
+        </span>
+      {/foreach}
+    </span>
+
+    <span class="tagList">
+      {foreach $t->getTags() as $tag}
+        {include "bits/tag.tpl" t=$tag}
+      {/foreach}
+    </span>
 
     {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
       <small>

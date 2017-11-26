@@ -44,13 +44,13 @@ class ObjectTag extends BaseObject implements DatedObject {
   }
 
   // Loads the actual tags, not the ObjectTags
-  static function getDefinitionVersionTags($dvId) {
+  static function getTags($objectId, $objectType) {
     return Model::factory('Tag')
       ->table_alias('t')
       ->select('t.*')
       ->join('ObjectTag', ['t.id', '=', 'ot.tagId'], 'ot')
-      ->where('ot.objectType', ObjectTag::TYPE_DEFINITION_VERSION)
-      ->where('ot.objectId', $dvId)
+      ->where('ot.objectId', $objectId)
+      ->where('ot.objectType', $objectType)
       ->order_by_asc('ot.id')
       ->find_many();
   }

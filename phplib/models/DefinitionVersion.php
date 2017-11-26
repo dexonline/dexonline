@@ -44,7 +44,7 @@ class DefinitionVersion extends BaseObject {
       'user' => User::get_by_id($new->modUserId),
       'oldSource' => Source::get_by_id($old->sourceId),
       'newSource' => Source::get_by_id($new->sourceId),
-      'tags' => ObjectTag::getDefinitionVersionTags($old->id),
+      'tags' => ObjectTag::getTags($old->id, ObjectTag::TYPE_DEFINITION_VERSION),
     ];
 
     if ($old->internalRep != $new->internalRep) {

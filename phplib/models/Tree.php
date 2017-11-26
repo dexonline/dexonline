@@ -13,6 +13,7 @@ class Tree extends BaseObject implements DatedObject {
 
   private $entries = null;
   private $meanings = null;
+  private $tags = null;
 
   // an array of etymologies extracted from $meanings[$i]
   private $etymologies = null;
@@ -48,6 +49,13 @@ class Tree extends BaseObject implements DatedObject {
       $result[] = $e->id;
     }
     return $result;
+  }
+
+  function getTags() {
+    if ($this->tags === null) {
+      $this->tags = ObjectTag::getTags($this->id, ObjectTag::TYPE_TREE);
+    }
+    return $this->tags;
   }
 
   function hasMeanings() {

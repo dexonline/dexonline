@@ -100,7 +100,7 @@
             many="definiții"
             common="pentru"}
 
-            {include "bits/entry.tpl" entry=$entries[0] variantList=true}
+            {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
           </h3>
 
           {include "search/missingDefinitionWarnings.tpl"}
@@ -140,7 +140,7 @@
           {include "search/entryToc.tpl"}
         {else}
           {capture "common"}
-          pentru {include "bits/entry.tpl" entry=$entries[0] variantList=true}
+          pentru {include "bits/entry.tpl" entry=$entries[0] variantList=true tagList=true}
           {/capture}
 
           <h3>

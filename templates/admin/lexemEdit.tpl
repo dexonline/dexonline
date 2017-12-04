@@ -142,7 +142,7 @@
               <label for="entryIds" class="col-md-2 control-label">intrări</label>
               <div class="col-md-10">
                 <select id="entryIds" name="entryIds[]" class="form-control" multiple>
-                  {foreach $lexem->getEntryIds() as $eid}
+                  {foreach $entryIds as $eid}
                     <option value="{$eid}" selected></option>
                   {/foreach}
                 </select>
@@ -357,8 +357,8 @@
                         name="sourceIds[]"
                         multiple
                         {if !$canEdit.sources}disabled{/if}>
-                  {foreach $lexem->getSourceIds() as $lsId}
-                    <option value="{$lsId}" selected></option>
+                  {foreach $sourceIds as $sId}
+                    <option value="{$sId}" selected></option>
                   {/foreach}
                 </select>
 

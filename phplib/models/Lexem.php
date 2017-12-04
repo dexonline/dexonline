@@ -4,8 +4,6 @@ class Lexem extends BaseObject implements DatedObject {
   public static $_table = 'Lexem';
 
   private $mt = null;  // ModelType object, but we call it $mt because there is already a DB field called 'modelType'
-  private $lexemSources = null;
-  private $sources = null;
   private $sourceNames = null;         // Comma-separated list of source names
   private $inflectedForms = null;
   private $inflectedFormMap = null;    // Mapped by various criteria depending on the caller
@@ -13,8 +11,6 @@ class Lexem extends BaseObject implements DatedObject {
   private $fragments = null;           // for compound lexemes
   private $compoundParts = null;
   private $tags = null;
-  private $entries = null;
-  private $entryLexems = null;
   private $animate = null;
 
   const METHOD_GENERATE = 1;
@@ -99,68 +95,13 @@ class Lexem extends BaseObject implements DatedObject {
     return $this->compoundParts;
   }
 
-  function getLexemSources() {
-    if ($this->lexemSources === null) {
-      $this->lexemSources = LexemSource::get_all_by_lexemId($this->id);
-    }
-    return $this->lexemSources;
-  }
-
-  function setLexemSources($lexemSources) {
-    $this->lexemSources = $lexemSources;
-  }
-
-  function getSources() {
-    if ($this->sources === null) {
-      // Load the Sources from the in-memory LexemSource records.
-      // These could be fresher than the database ones (see lexemEdit.php).
-      $this->sources = [];
-      foreach ($this->getLexemSources() as $ls) {
-        $this->sources[] = Source::get_by_id($ls->sourceId);
-      }
-    }
-    return $this->sources;
-  }
-
   function getSourceNames() {
     if ($this->sourceNames === null) {
       $sources = $this->getSources();
-      $results = array();
-      foreach ($sources as $s) {
-        $results[] = $s->shortName;
-      }
+      $results = Util::objectProperty($sources, 'shortName');
       $this->sourceNames = implode(', ', $results);
     }
     return $this->sourceNames;
-  }
-
-  function getSourceIds() {
-    return Util::objectProperty($this->getSources(), 'id');
-  }
-
-  function getEntryLexems() {
-    if ($this->entryLexems === null) {
-      $this->entryLexems = EntryLexem::get_all_by_lexemId($this->id);
-    }
-    return $this->entryLexems;
-  }
-
-  function setEntryLexems($entryLexems) {
-    $this->entryLexems = $entryLexems;
-  }
-
-  function getEntries() {
-    if ($this->entries === null) {
-      $this->entries = [];
-      foreach ($this->getEntryLexems() as $el) {
-        $this->entries[] = Entry::get_by_id($el->entryId);
-      }
-    }
-    return $this->entries;
-  }
-
-  function getEntryIds() {
-    return Util::objectProperty($this->getEntries(), 'id');
   }
 
   function getObjectTags() {
@@ -648,9 +589,10 @@ class Lexem extends BaseObject implements DatedObject {
         }
 
         // Also associate the new entry with the same definitions as $this.
-        $eds = EntryDefinition::getForLexem($this);
-        foreach ($eds as $ed) {
-          EntryDefinition::associate($entry->id, $ed->definitionId);
+        foreach ($this->getEntries() as $e) {
+          foreach ($e->getDefinitions() as $d) {
+            EntryDefinition::associate($entry->id, $d->id);
+          }
         }
         FlashMessage::add("Am creat automat lexemul {$l->formNoAccent} ({$dedicatedType}{$number}) " .
                           "și l-am asociat cu toate definițiile verbului.", 'info');
@@ -751,8 +693,6 @@ class Lexem extends BaseObject implements DatedObject {
 
     Fragment::delete_all_by_lexemId($this->id);
     InflectedForm::delete_all_by_lexemId($this->id);
-    LexemSource::delete_all_by_lexemId($this->id);
-    EntryLexem::delete_all_by_lexemId($this->id);
     ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_LEXEM);
 
     foreach ($this->getFragments() as $f) {
@@ -762,14 +702,6 @@ class Lexem extends BaseObject implements DatedObject {
     foreach ($this->generateInflectedForms() as $if) {
       $if->lexemId = $this->id;
       $if->save();
-    }
-    foreach ($this->getEntryLexems() as $el) {
-      $el->lexemId = $this->id;
-      $el->save();
-    }
-    foreach ($this->getLexemSources() as $ls) {
-      $ls->lexemId = $this->id;
-      $ls->save();
     }
     foreach ($this->getObjectTags() as $ot) {
       $ot->objectId = $this->id;

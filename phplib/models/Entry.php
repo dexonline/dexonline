@@ -3,9 +3,6 @@
 class Entry extends BaseObject implements DatedObject {
   public static $_table = 'Entry';
 
-  private $lexems = null;
-  private $trees = null;
-  private $definitions = null;
   private $tags = null;
 
   const STRUCT_STATUS_NEW = 1;
@@ -62,65 +59,10 @@ class Entry extends BaseObject implements DatedObject {
     return $e;
   }
 
-  function getLexems() {
-    if ($this->lexems === null) {
-      $this->lexems = Model::factory('Lexem')
-                    ->table_alias('l')
-                    ->select('l.*')
-                    ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
-                    ->where('el.entryId', $this->id)
-                    ->order_by_asc('el.id')
-                    ->find_many();
-    }
-    return $this->lexems;
-  }
-
-  function getLexemIds() {
-    $result = [];
-    foreach ($this->getLexems() as $l) {
-      $result[] = $l->id;
-    }
-    return $result;
-  }
-
-  function getTrees($force = false) {
-    if (($this->trees === null) || $force) {
-      $this->trees = Model::factory('Tree')
-                   ->table_alias('t')
-                   ->select('t.*')
-                   ->join('TreeEntry', ['te.treeId', '=', 't.id'], 'te')
-                   ->where('te.entryId', $this->id)
-                   ->order_by_asc('te.id')
-                   ->find_many();
-    }
-    return $this->trees;
-  }
-
-  function getTreeIds() {
-    $result = [];
-    foreach ($this->getTrees() as $t) {
-      $result[] = $t->id;
-    }
-    return $result;
-  }
-
   function loadMeanings() {
     foreach ($this->getTrees() as $t) {
       $t->getMeanings();
     }
-  }
-
-  function getDefinitions($force = false) {
-    if (($this->definitions === null) || $force) {
-      $this->definitions = Model::factory('Definition')
-                         ->table_alias('d')
-                         ->select('d.*')
-                         ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
-                         ->where('ed.entryId', $this->id)
-                         ->order_by_asc('ed.id')
-                         ->find_many();
-    }
-    return $this->definitions;
   }
 
   // Returns the description up to the first parenthesis (if any).
@@ -232,7 +174,7 @@ class Entry extends BaseObject implements DatedObject {
       ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
       ->where('el.entryId', $this->id)
       ->order_by_desc('l.main')
-      ->order_by_asc('el.id')
+      ->order_by_asc('el.lexemRank')
       ->find_one();
   }
 

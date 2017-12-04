@@ -20,8 +20,6 @@ class Definition extends BaseObject implements DatedObject {
   ];
 
   private $source = null;
-  private $entries = null;
-  private $entryDefinitions = null;
 
   /* For admins, returns the definition with the given ID. For regular users,
      return null rather than a hidden definition. */
@@ -42,26 +40,6 @@ class Definition extends BaseObject implements DatedObject {
       $this->source = Source::get_by_id($this->sourceId);
     }
     return $this->source;
-  }
-
-  function getEntryDefinitions() {
-    if ($this->entryDefinitions === null) {
-      $this->entryDefinitions = Model::factory('EntryDefinition')
-                              ->where('definitionId', $this->id)
-                              ->order_by_asc('id')
-                              ->find_many();
-    }
-    return $this->entryDefinitions;
-  }
-
-  function getEntries() {
-    if ($this->entries === null) {
-      $this->entries = [];
-      foreach ($this->getEntryDefinitions() as $ed) {
-        $this->entries[] = Entry::get_by_id($ed->entryId);
-      }
-    }
-    return $this->entries;
   }
 
   static function loadByEntryIds($entryIds) {

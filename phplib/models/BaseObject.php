@@ -5,17 +5,80 @@ class BaseObject extends Model {
   const ACTION_SELECT_ALL = 2;
   const ACTION_DELETE_ALL = 3;
 
-  /**
-   * Accept calls like User::get_by_email($email) and User::get_all_by_email($email)
-   **/
   function __call($name, $arguments) {
-    return self::callHandler($name, $arguments);
+    // Work around some strange behavior in PHP:
+    // Class Foo {
+    //   function bar() {
+    //     $x = Foo::get_by_id(17);
+    //     ... here get_by_id calls __call, not __callStatic
+    //   }
+    // }
+    if (preg_match('/^get[A-Z]/', $name)) {
+      return $this->associationHandler($name, $arguments);
+    } else {
+      return $this->callHandler($name, $arguments);
+    }
   }
 
   static function __callStatic($name, $arguments) {
     return self::callHandler($name, $arguments);
   }
 
+  // Handle calls like $foo->getBars() and $foo->getBarIds() for associated objects
+  function associationHandler($name, $arguments) {
+    $cleft = get_called_class(); // capitalized
+    $left = strtolower($cleft);
+    $cright = substr($name, 3);
+    $cacheKey = lcfirst($cright);
+
+    // 1. sanity checks
+    if (isset(Association::PLURALS[$cright])) {
+      // $foo->getBars()
+      $cright = Association::PLURALS[$cright];
+      $loadIds = false; // load whole objects
+    } else if (StringUtil::endsWith($cright, 'Ids')) {
+      $cright = substr($cright, 0, -3);
+      $loadIds = true;
+    } else {
+      self::_die('Cannot parse getter name', $name, $arguments);
+    }
+
+    if (!class_exists($cright)) {
+      self::_die("Class {$cright} does not exist", $name, $arguments);      
+    }
+
+    // get the association table name
+    if (class_exists($cleft . $cright)) {
+      $assoc = $cleft . $cright;
+    } else if (class_exists($cright . $cleft)) {
+      $assoc = $cright . $cleft;
+    } else {
+      self::_die("No association between {$cleft} and {$cright}", $name, $arguments);
+    }
+
+    // 2. cache lookup
+    if (!isset($this->$cacheKey)) {
+      $right = strtolower($cright);
+
+      $query = Model::factory($cright)
+             ->table_alias('obj')
+             ->join($assoc, ['obj.id', '=', "{$assoc}.{$right}Id"])
+             ->where("{$assoc}.{$left}Id", $this->id)
+             ->order_by_asc("{$assoc}.{$right}Rank")
+             ->order_by_asc("{$assoc}.id");
+      if ($loadIds) {
+        $results = $query->select('obj.id')->find_many();
+        $results = Util::objectProperty($results, 'id');
+      } else {
+        $results = $query->select('obj.*')->find_many();
+      }
+      $this->$cacheKey = $results;
+    }
+    return $this->$cacheKey;
+           
+  }
+
+  // Handle calls like User::get_by_email($email) and User::get_all_by_email($email)
   static function callHandler($name, $arguments) {
     if (substr($name, 0, 7) == 'get_by_') {
       return self::action(substr($name, 7), $arguments, self::ACTION_SELECT);
@@ -24,14 +87,14 @@ class BaseObject extends Model {
     } else if (substr($name, 0, 14) == 'delete_all_by_') {
       self::action(substr($name, 14), $arguments, self::ACTION_DELETE_ALL);
     } else {
-      self::__die('cannot handle method', $name, $arguments);
+      self::_die('cannot handle method', $name, $arguments);
     }
   }
 
   private static function action($fieldString, $arguments, $action) {
     $fields = explode('_', $fieldString);
     if (count($fields) != count($arguments)) {
-      self::__die('incorrect number of arguments', $action, $arguments);
+      self::_die('incorrect number of arguments', $action, $arguments);
     }
     $clause = Model::factory(get_called_class());
     foreach ($fields as $i => $field) {
@@ -126,6 +189,12 @@ class BaseObject extends Model {
         ->select_many($colname)
         ->find_one($id);
     return $result->$colname;
+  }
+
+  static function _die($error, $name, $arguments) {
+    printf("Error: %s in call to %s.%s, arguments: %s\n",
+           $error, get_called_class(), $name, print_r($arguments, true));
+    exit;
   }
 
 }

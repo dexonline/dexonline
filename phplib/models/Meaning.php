@@ -177,7 +177,7 @@ class Meaning extends BaseObject implements DatedObject {
         $modifiedMeaningsWithMentions[] = $m->breadcrumb;
       }
 
-      MeaningSource::updateList(['meaningId' => $m->id], 'sourceId', $tuple->sourceIds);
+      MeaningSource::update($m->id, $tuple->sourceIds);
       ObjectTag::wipeAndRecreate($m->id, ObjectTag::TYPE_MEANING, $tuple->tagIds);
       foreach ($tuple->relationIds as $type => $treeIds) {
         if ($type) {

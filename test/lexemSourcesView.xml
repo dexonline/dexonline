@@ -22,10 +22,9 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=span.lexemSources</td>
+	<td>css=div.lexemSources</td>
 	<td>Surse flexiune: Source 2</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

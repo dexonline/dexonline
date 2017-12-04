@@ -3,9 +3,6 @@ require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT | User::PRIV_STRUCT);
 Util::assertNotMirror();
 
-// We get some data as JSON because it is 2-dimensional (a list of lists)
-// and PHP cannot parse the form data correctly.
-
 // Lexem parameters
 $lexemId = Request::get('lexemId');
 $lexemForm = Request::get('lexemForm');
@@ -71,10 +68,10 @@ if ($deleteButton) {
 
 if ($refreshButton || $saveButton) {
   populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
-           $needsAccent, $main, $stopWord, $hyphenations, $pronunciations, $entryIds,
+           $needsAccent, $main, $stopWord, $hyphenations, $pronunciations,
            $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
            $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
-           $sourceIds, $tagIds);
+           $tagIds);
 
   if (validate($lexem, $original)) {
     // Case 1: Validation passed
@@ -88,6 +85,8 @@ if ($refreshButton || $saveButton) {
       }
       $lexem->deepSave();
       $lexem->regenerateDependentLexems();
+      LexemSource::update($lexem->id, $sourceIds);
+      EntryLexem::update($entryIds, $lexem->id);
 
       if ($renameRelated) {
         // Grab all the entries
@@ -124,11 +123,13 @@ if ($refreshButton || $saveButton) {
 } else {
   // Case 3: First time loading this page
   $lexem->loadInflectedFormMap();
+  $sourceIds = $lexem->getSourceIds();
+  $entryIds = $lexem->getEntryIds();
 
   RecentLink::add("Lexem: $lexem (ID={$lexem->id})");
 }
 
-$definitions = Definition::loadByEntryIds($lexem->getEntryIds());
+$definitions = Definition::loadByEntryIds($entryIds);
 $searchResults = SearchResult::mapDefinitionArray($definitions);
 
 $canEdit = [
@@ -153,6 +154,8 @@ $homonyms = Model::factory('Lexem')
           ->find_many();
 
 SmartyWrap::assign('lexem', $lexem);
+SmartyWrap::assign('entryIds', $entryIds);
+SmartyWrap::assign('sourceIds', $sourceIds);
 SmartyWrap::assign('homonyms', $homonyms);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('modelTypes', Model::factory('ModelType')->order_by_asc('code')->find_many());
@@ -166,10 +169,10 @@ SmartyWrap::display('admin/lexemEdit.tpl');
 
 // Populate lexem fields from request parameters.
 function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
-                  $needsAccent, $main, $stopWord, $hyphenations, $pronunciations, $entryIds,
+                  $needsAccent, $main, $stopWord, $hyphenations, $pronunciations,
                   $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
                   $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
-                  $sourceIds, $tagIds) {
+                  $tagIds) {
   $lexem->setForm(AdminStringUtil::formatLexem($lexemForm));
   $lexem->number = $lexemNumber;
   $lexem->description = AdminStringUtil::internalize($lexemDescription, false);
@@ -219,20 +222,6 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
       }
     }
   }
-
-  // create EntryLexems
-  $entryLexems = [];
-  foreach ($entryIds as $entryId) {
-    $entryLexems[] = EntryLexem::create($entryId, null);
-  }
-  $lexem->setEntryLexems($entryLexems);
-
-  // create LexemSources
-  $lexemSources = [];
-  foreach ($sourceIds as $sourceId) {
-    $lexemSources[] = LexemSource::create(null, $sourceId);
-  }
-  $lexem->setLexemSources($lexemSources);
 
   // create ObjectTags
   $objectTags = [];

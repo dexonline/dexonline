@@ -235,7 +235,6 @@ while ($i < count($lines)) {
         // Create a new lexem.
         $lexem = Lexem::create($name, 'T', '1');
         $entry = Entry::createAndSave($lexem->formNoAccent);
-        $lexem->entryId = $entry->id;
         $lexem->deepSave();
         if($verbose) echo("\t\tCreated lexem {$lexem->id} ({$lexem->form})\n");
       }

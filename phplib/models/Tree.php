@@ -11,7 +11,6 @@ class Tree extends BaseObject implements DatedObject {
     self::ST_HIDDEN  => 'ascuns',
   ];
 
-  private $entries = null;
   private $meanings = null;
   private $tags = null;
 
@@ -28,27 +27,6 @@ class Tree extends BaseObject implements DatedObject {
   // Returns the description up to the first parenthesis (if any).
   function getShortDescription() {
     return preg_split('/\s+[(\/]/', $this->description)[0];
-  }
-
-  function getEntries() {
-    if ($this->entries === null) {
-      $this->entries = Model::factory('Entry')
-                     ->table_alias('e')
-                     ->select('e.*')
-                     ->join('TreeEntry', ['te.entryId', '=', 'e.id'], 'te')
-                     ->where('te.treeId', $this->id)
-                     ->order_by_asc('te.id')
-                     ->find_many();
-    }
-    return $this->entries;
-  }
-
-  function getEntryIds() {
-    $result = [];
-    foreach ($this->getEntries() as $e) {
-      $result[] = $e->id;
-    }
-    return $result;
   }
 
   function getTags() {
@@ -112,10 +90,11 @@ class Tree extends BaseObject implements DatedObject {
    **/
   private function buildTree(&$map, $meaningId, &$children) {
     $mention = Mention::get_by_objectType_objectId(Mention::TYPE_MEANING, $meaningId);
-    
+    $meaning = $map[$meaningId];
+
     $results = [
-      'meaning' => $map[$meaningId],
-      'sources' => MeaningSource::loadSourcesByMeaningId($meaningId),
+      'meaning' => $meaning,
+      'sources' => $meaning->getSources(),
       'tags' => Tag::loadByMeaningId($meaningId),
       'relations' => Relation::loadByMeaningId($meaningId),
       'children' => [],
@@ -243,7 +222,7 @@ class Tree extends BaseObject implements DatedObject {
              ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
              ->join('TreeEntry', ['el.entryId', '=', 'te.entryId'], 'te')
              ->where('te.treeId', $this->id)
-             ->order_by_asc('el.id')
+             ->order_by_asc('el.lexemRank')
              ->find_many();
 
     return Lexem::getVariantList($lexemes, $this->getShortDescription());

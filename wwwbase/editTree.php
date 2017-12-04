@@ -88,7 +88,7 @@ if ($saveButton) {
   } else {
     $t->save();
 
-    TreeEntry::wipeAndRecreate($t->id, $entryIds);
+    TreeEntry::update($t->id, $entryIds);
     ObjectTag::wipeAndRecreate($t->id, ObjectTag::TYPE_TREE, $tagIds);
 
     Meaning::saveTree($meanings, $t);

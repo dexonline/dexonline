@@ -4,6 +4,7 @@ class EntryDefinition extends Association implements DatedObject {
   public static $_table = 'EntryDefinition';
   static $classes = ['Entry', 'Definition'];
   static $fields = ['entryId', 'definitionId'];
+  static $ranks = ['entryRank', 'definitionRank'];
 
   static function dissociateDefinition($definitionId) {
     // If by deleting this definition, any associated entries become unassociated, delete them
@@ -30,15 +31,4 @@ class EntryDefinition extends Association implements DatedObject {
     }
   }
 
-  static function getForLexem($l) {
-    return Model::factory('EntryDefinition')
-      ->table_alias('ed')
-      ->select('ed.*')
-      ->join('EntryLexem', ['ed.entryId', '=', 'el.entryId'], 'el')
-      ->where('el.lexemId', $l->id)
-      ->find_many();
-  }
-
 }
-
-?>

@@ -144,13 +144,12 @@ if ($saveButton) {
     if (!$e->structuristId && !$original->structuristId && Session::isStructureMode()) {
       $e->structuristId = User::getActiveId();
     }
-    
 
     $e->save();
 
     // dissociate old lexems, trees and tags and associate new ones
-    EntryLexem::wipeAndRecreate($e->id, $lexemIds);
-    TreeEntry::wipeAndRecreate($treeIds, $e->id);
+    EntryLexem::update($e->id, $lexemIds);
+    TreeEntry::update($treeIds, $e->id);
     ObjectTag::wipeAndRecreate($e->id, ObjectTag::TYPE_ENTRY, $tagIds);
 
     if ($renameTrees) {

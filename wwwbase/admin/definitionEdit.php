@@ -160,7 +160,7 @@ if ($saveButton || $nextOcrBut) {
     if ($d->status == Definition::ST_DELETED) {
       EntryDefinition::dissociateDefinition($d->id);
     } else {
-      EntryDefinition::wipeAndRecreate(Util::objectProperty($entries, 'id'), $d->id);
+      EntryDefinition::update(Util::objectProperty($entries, 'id'), $d->id);
     }
 
     ObjectTag::wipeAndRecreate($d->id, ObjectTag::TYPE_DEFINITION, $tagIds);

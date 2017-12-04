@@ -37,13 +37,7 @@ abstract class Association extends BaseObject {
     return $a;
   }
 
-  static function associate($id1, $id2, $swapped = false) {
-    if ($swapped) {
-      $tmp = $id1;
-      $id1 = $id2;
-      $id2 = $tmp;
-    }
-
+  static function associate($id1, $id2, $rank1 = self::LAST, $rank2 = self::LAST) {
     // The two objects should exist
     $object1 = Model::factory(static::$classes[0])->where('id', $id1)->find_one();
     $object2 = Model::factory(static::$classes[1])->where('id', $id2)->find_one();
@@ -57,7 +51,7 @@ abstract class Association extends BaseObject {
        ->where(static::$fields[1], $id2)
        ->find_one();
     if (!$a) {
-      $a = static::create($id1, $id2);
+      $a = static::create($id1, $id2, $rank1, $rank2);
       $a->save();
     }
 
@@ -72,7 +66,7 @@ abstract class Association extends BaseObject {
 
   /**
    * Copies all the associations of $srcId to $destId. $pos can be 1 (first field) or 2
-   * (second field). For example, to copy FooBars from foo #123 to bar #456, write
+   * (second field). For example, to copy FooBars from bar #123 to bar #456, write
    * FooBar::copy(123, 456, 2).
    **/
   static function copy($srcId, $destId, $pos) {
@@ -80,11 +74,27 @@ abstract class Association extends BaseObject {
 
     $associations = Model::factory(static::$_table)
                   ->where(static::$fields[$f], $srcId)
+                  ->order_by_asc(static::$ranks[1 - $f])
                   ->order_by_asc('id')
                   ->find_many();
 
+    // count existing Foos for this Bar so that new Foos are numbered incrementally
+    // we could also just set all new ranks to LAST, but this is more paranoid
+    $count = Model::factory(static::$_table)
+           ->where(static::$fields[$f], $destId)
+           ->count();
+
+    // For field $pos copy the rank (so that the destination remains at the same position in the list
+    // as the original. For the other field, number ranks incrementally.
     foreach ($associations as $a) {
-      self::associate($destId, $a->get(static::$fields[1 - $f]), $f);
+      if ($f) {
+        // swap order
+        self::associate($a->get(static::$fields[1 - $f]), $destId,
+                        ++$count, $a->get(static::$ranks[$f]));
+      } else {
+        self::associate($destId, $a->get(static::$fields[1 - $f]),
+                        $a->get(static::$ranks[$f]), ++$count);
+      }
     }
   }
 

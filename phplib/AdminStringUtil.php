@@ -720,6 +720,8 @@ class AdminStringUtil {
     // Find all instances of |original_word|linked_lexem|.
     preg_match_all("/\|([^\|]+)\|([^\|]+)\|/", $internalRep, $links, PREG_SET_ORDER);
 
+    $processedLinks = [];
+
     foreach ($links as $l) {
 
       $linkAdded = false;
@@ -728,8 +730,6 @@ class AdminStringUtil {
       // For example, @label@ becomes label, but im@]prieteni stays the same.
       $words = StringUtil::convertOrthography(trim($l[1], "$#@^_0123456789"));
       $definition_string = StringUtil::convertOrthography(trim($l[2], "$#@^_0123456789"));
-
-      $processedLinks = array();
 
       foreach (explode(" ", $words) as $word_string) {
 
@@ -759,7 +759,7 @@ class AdminStringUtil {
             "reason" => "Trimiterea nu a fost găsită în baza de date.",
             "short_reason" => "no_link"
           );
-          array_push($processedLinks, $currentLink);
+          $processedLinks[] = $currentLink;
 
           $linkAdded = true;
           break;
@@ -780,7 +780,7 @@ class AdminStringUtil {
             "reason" => "Trimitere către forma de bază a cuvântului.",
             "short_reason" => "forma_baza"
           );
-          array_push($processedLinks, $currentLink);
+          $processedLinks[] = $currentLink;
 
           $linkAdded = true;
           break;
@@ -824,7 +824,7 @@ class AdminStringUtil {
             "reason" => "Cuvântul este infinitiv lung.",
             "short_reason" => "inf_lung"
           );
-          array_push($processedLinks, $currentLink);
+          $processedLinks[] = $currentLink;
 
           $linkAdded = true;
           break;
@@ -838,7 +838,7 @@ class AdminStringUtil {
           "reason" => "Trimiterea nu are nevoie de modificări.",
           "short_reason" => "nemodificat"
         );
-        array_push($processedLinks, $currentLink);
+        $processedLinks[] = $currentLink;
       }
     }
 

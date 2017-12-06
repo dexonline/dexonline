@@ -561,6 +561,14 @@ class Lexem extends BaseObject implements DatedObject {
                             "automat în LOC.", 'info');
         }
       } else {
+        // if a lexeme exists with this form, but a different model, give a warning
+        $existing = Lexem::get_by_formNoAccent($if->formNoAccent);
+        if ($existing) {
+          FlashMessage::add(sprintf('Există deja lexemul %s (%s%s)', $existing->formNoAccent,
+                                    $existing->modelType, $existing->modelNumber),
+                            'warning');
+        }
+
         $l = Lexem::create($if->form, $dedicatedType, $number, '', $this->isLoc);
         $l->deepSave();
         $entry = Entry::createAndSave($if->formNoAccent);

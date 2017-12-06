@@ -300,29 +300,30 @@ class Tree extends BaseObject implements DatedObject {
 
     TreeEntry::copy($this->id, $newt->id, 1);
 
-    $this->cloneMeanings($this->getMeanings(), 0, $newt->id);
+    // Clone meanings in displayOrder. This guarantees that a parent is cloned before its children.
+    $meanings = Model::factory('Meaning')
+              ->where('treeId', $this->id)
+              ->order_by_asc('displayOrder')
+              ->find_many();
+    $meaningIdMap = []; // map original meaning IDs to clone IDs
 
-    return $newt;
-  }
-
-  function cloneMeanings($meanings, $parentId, $newTreeId) {
-    foreach ($meanings as $rec) {
-      $m = $rec['meaning'];
-
-      // update the treeId and parentId fields
+    foreach ($meanings as $m) {
       $newm = $m->parisClone();
-      $newm->parentId = $parentId;
-      $newm->treeId = $newTreeId;
+      $newm->treeId = $newt->id;
+      if ($newm->parentId) {
+        $newm->parentId = $meaningIdMap[$newm->parentId];
+      }
       $newm->save();
+      $meaningIdMap[$m->id] = $newm->id;
 
-      // copy the meaning sources, meaning tags and relations
-      foreach (['MeaningSource', 'Relation'] as $className) {
-        $oldSet = $className::get_all_by_meaningId($m->id);
-        foreach ($oldSet as $old) {
-          $new = $old->parisClone();
-          $new->meaningId = $newm->id;
-          $new->save();
-        }
+      // clone the meaning's sources, relations and tags
+      MeaningSource::copy($m->id, $newm->id, 1);
+      
+      $rels = Relation::get_all_by_meaningId($m->id);
+      foreach ($rels as $r) {
+        $newr = $r->parisClone();
+        $newr->meaningId = $newm->id;
+        $newr->save();
       }
 
       $ots = ObjectTag::getMeaningTags($m->id);
@@ -331,9 +332,8 @@ class Tree extends BaseObject implements DatedObject {
         $new->objectId = $newm->id;
         $new->save();
       }
-
-      $this->cloneMeanings($rec['children'], $newm->id, $newTreeId);
     }
+    return $newt;
   }
 
   function canDelete() {

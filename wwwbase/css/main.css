@@ -297,6 +297,12 @@ dd.favoriteDefs {
   margin-bottom: 1em;
 }
 
+/*********** links in alerts ***********/
+
+.alert .alert-link {
+  text-decoration: underline;
+}
+
 /*********** misc helpers ***********/
 
 .text-small {

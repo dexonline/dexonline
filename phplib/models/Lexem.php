@@ -557,16 +557,13 @@ class Lexem extends BaseObject implements DatedObject {
         if ($this->isLoc && !$l->isLoc) {
           $l->isLoc = true;
           $l->save();
-          FlashMessage::add("Lexemul {$l->formNoAccent}, care nu era în LOC, a fost inclus " .
-                            "automat în LOC.", 'info');
+          FlashMessage::addTemplate('lexemAddedToLoc.tpl', [ 'lexem' => $l ], 'info');
         }
       } else {
         // if a lexeme exists with this form, but a different model, give a warning
         $existing = Lexem::get_by_formNoAccent($if->formNoAccent);
         if ($existing) {
-          FlashMessage::add(sprintf('Există deja lexemul %s (%s%s)', $existing->formNoAccent,
-                                    $existing->modelType, $existing->modelNumber),
-                            'warning');
+          FlashMessage::addTemplate('lexemExists.tpl', [ 'lexem' => $existing ], 'warning');
         }
 
         $l = Lexem::create($if->form, $dedicatedType, $number, '', $this->isLoc);
@@ -602,8 +599,7 @@ class Lexem extends BaseObject implements DatedObject {
             EntryDefinition::associate($entry->id, $d->id);
           }
         }
-        FlashMessage::add("Am creat automat lexemul {$l->formNoAccent} ({$dedicatedType}{$number}) " .
-                          "și l-am asociat cu toate definițiile verbului.", 'info');
+        FlashMessage::addTemplate('dependentLexemCreated.tpl', [ 'lexem' => $l ], 'info');
       }
     }
   }

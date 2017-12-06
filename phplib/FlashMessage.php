@@ -19,6 +19,18 @@ class FlashMessage {
     self::$hasErrors |= ($type == 'danger');
   }
 
+  /**
+   * Adds a more complex message that requires some templating.
+   **/
+  static function addTemplate($template, $args, $type = 'danger') {
+    // TODO this overwrites previously assign variables. We really should instantiate a separate Smarty.
+    foreach ($args as $key => $value) {
+      SmartyWrap::assign($key, $value);
+    }
+    $message = SmartyWrap::fetch("alerts/{$template}");
+    self::add($message, $type);
+  }
+
   static function getMessages() {
     return self::$messages;
   }

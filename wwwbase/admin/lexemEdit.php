@@ -92,17 +92,19 @@ if ($refreshButton || $saveButton) {
         // Grab all the entries
         foreach ($lexem->getEntries() as $e) {
           if ($e->description == $original->formNoAccent) {
-            FlashMessage::add(sprintf('Am redenumit o intrare din „%s” în „%s”.',
-                                      $e->description, $lexem->formNoAccent),
-                              'warning');
+            FlashMessage::addTemplate('entryRenamed.tpl', [
+              'entry' => $e,
+              'newDescription' => $lexem->formNoAccent,
+            ], 'warning');
             $e->description = $lexem->formNoAccent;
             $e->save();
           }
           foreach ($e->getTrees() as $t) {
             if ($t->description == $original->formNoAccent) {
-              FlashMessage::add(sprintf('Am redenumit un arbore din „%s” în „%s”.',
-                                        $t->description, $lexem->formNoAccent),
-                                'warning');
+              FlashMessage::addTemplate('treeRenamed.tpl', [
+                't' => $t,
+                'newDescription' => $lexem->formNoAccent,
+              ], 'warning');
               $t->description = $lexem->formNoAccent;
               $t->save();
             }

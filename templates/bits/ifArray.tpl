@@ -1,7 +1,7 @@
 {assign var="locParadigm" value=$locParadigm|default:false}
 {* argument: $ifArray: array(InflectedForm) *}
 
-{if count($ifArray) == 0}
+{if empty($ifArray)}
   &mdash;
 {else}
   {strip}

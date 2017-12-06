@@ -383,16 +383,6 @@
             placeholder="explicații despre sursa flexiunii"
             readonly=!$canEdit.tags}
 
-            <div class="form-group">
-              <label class="col-md-2">comentariu (privat)</label>
-
-              <div class="col-md-10">
-                <textarea name="lexemComment" class="form-control" rows="4"
-                          placeholder="Comentarii și/sau greșeli observate în paradigmă"
-                          >{$lexem->comment|escape}</textarea>
-              </div>
-            </div>
-
           </div>
         </div>
       </div>

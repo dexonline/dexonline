@@ -22,9 +22,6 @@ if ($saveButton) {
         $lexem->restriction = Request::get('restr_' . $lexem->id);
         $lexem->save();
         $lexem->regenerateParadigm();
-      } else {
-        $lexem->comment = Request::get('comment_' . $lexem->id);
-        $lexem->save();
       }
     }
   }

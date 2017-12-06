@@ -36,7 +36,6 @@ class Lexem extends BaseObject implements DatedObject {
       $l->description = '';
     }
 
-    $l->comment = null;
     $l->noAccent = false;
     $l->modelType = $modelType;
     $l->modelNumber = $modelNumber;
@@ -679,10 +678,7 @@ class Lexem extends BaseObject implements DatedObject {
     $this->charLength = mb_strlen($this->formNoAccent);
     $this->consistentAccent = (strpos($this->form, "'") !== false) ^ $this->noAccent;
     // It is important for empty fields to be null, not "".
-    // This allows the admin report for lexems *with* comments to run faster.
-    if ($this->comment == '') {
-      $this->comment = null;
-    }
+    // This allows queries for records with non-null values to run faster.
     if (!$this->number) {
       $this->number = null;
     }

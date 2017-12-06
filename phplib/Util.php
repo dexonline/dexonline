@@ -166,10 +166,6 @@ class Util {
       'Count.treeMentions',
       Model::factory('Mention')->where('objectType', Mention::TYPE_TREE)->count()
     );
-    Variable::poke(
-      'Count.lexemesWithComments',
-      Model::factory('Lexem')->where_not_null('comment')->count()
-    );
   }
 
   static function redirect($location) {

@@ -8,7 +8,6 @@ $lexemId = Request::get('lexemId');
 $lexemForm = Request::get('lexemForm');
 $lexemNumber = Request::get('lexemNumber');
 $lexemDescription = Request::get('lexemDescription');
-$lexemComment = Request::get('lexemComment');
 $needsAccent = Request::has('needsAccent');
 $main = Request::has('main');
 $stopWord = Request::has('stopWord');
@@ -67,7 +66,7 @@ if ($deleteButton) {
 }
 
 if ($refreshButton || $saveButton) {
-  populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
+  populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription,
            $needsAccent, $main, $stopWord, $hyphenations, $pronunciations,
            $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
            $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
@@ -170,7 +169,7 @@ SmartyWrap::display('admin/lexemEdit.tpl');
 /**************************************************************************/
 
 // Populate lexem fields from request parameters.
-function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescription, $lexemComment,
+function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescription,
                   $needsAccent, $main, $stopWord, $hyphenations, $pronunciations,
                   $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
                   $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
@@ -178,13 +177,6 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   $lexem->setForm(AdminStringUtil::formatLexem($lexemForm));
   $lexem->number = $lexemNumber;
   $lexem->description = AdminStringUtil::internalize($lexemDescription, false);
-  $lexem->comment = trim(AdminStringUtil::internalize($lexemComment, false));
-  // Sign appended comments
-  if (StringUtil::startsWith($lexem->comment, $original->comment) &&
-      $lexem->comment != $original->comment &&
-      !StringUtil::endsWith($lexem->comment, ']]')) {
-    $lexem->comment .= " [[" . User::getActive() . ", " . strftime("%d %b %Y %H:%M") . "]]";
-  }
   $lexem->noAccent = !$needsAccent;
   $lexem->main = $main;
   $lexem->stopWord = $stopWord;

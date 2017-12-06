@@ -26,7 +26,6 @@
       </li>
       <li>
         Dacă ignorați un lexem, el nu va fi modificat și va continua să apară în listă.
-        Îi puteți adăuga un comentariu, dacă doriți.
       </li>
     </ul>
   </div>
@@ -74,19 +73,6 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-md-2 control-label">
-              comentariu
-            </label>
-
-            <div class="col-md-10">
-              <textarea name="comment_{$l->id}"
-                        rows="2"
-                        class="form-control"
-                        >{$l->comment|escape}</textarea>
-            </div>
-          </div>
-
           <!-- Restriction checkboxes, if applicable -->
           <div class="form-group">
             <label class="col-md-2 control-label">
@@ -103,7 +89,7 @@
           <!-- Definitions -->
           <div class="panel-admin">
             {foreach $searchResults[$lIter] as $row}
-              {include "bits/definition.tpl" showDropup=0 showUser=0}
+              {include "bits/definition.tpl" showDropup=0 showUser=0 showPageLink=false}
             {/foreach}
           </div>
 

@@ -360,121 +360,124 @@
 
     <h3>Definiții asociate ({$searchResults|count})</h3>
 
-    <form class="form-inline">
-      <div class="form-group">
+    {if count($searchResults)}
+      <form class="form-inline">
+        <div class="form-group">
 
-        <select id="defFilterSelect" class="form-control">
-          <option value="">toate</option>
-          <option value="structured">structurate</option>
-          <option value="unstructured">nestructurate</option>
-        </select>
+          <select id="defFilterSelect" class="form-control">
+            <option value="">toate</option>
+            <option value="structured">structurate</option>
+            <option value="unstructured">nestructurate</option>
+          </select>
 
-        <select class="toggleRepSelect form-control" data-order="1">
-          <option value="0">text</option>
-          <option value="1" selected>html</option>
-        </select>
+          <select class="toggleRepSelect form-control" data-order="1">
+            <option value="0">text</option>
+            <option value="1" selected>html</option>
+          </select>
 
-        <select class="toggleRepSelect form-control" data-order="2">
-          <option value="0">expandat</option>
-          <option value="1" selected>abreviat</option>
-        </select>
+          <select class="toggleRepSelect form-control" data-order="2">
+            <option value="0">expandat</option>
+            <option value="1" selected>abreviat</option>
+          </select>
 
-        <div class="checkbox">
-          <label>
-            <input id="structurableFilter" type="checkbox"> numai definițiile de structurat
-          </label>
-        </div>
-
-      </div>
-    </form>
-
-    <form method="post" role="form">
-      {foreach $searchResults as $row}
-        {$def=$row->definition}
-        <div class="defWrapper
-                    {if $def->structured}structured{/if}
-                    {if $row->source->structurable}structurable{/if}"
-             id="def_{$def->id}">
-          <div>
-            <span data-code="0" class="rep internal hiddenRep">{$def->internalRepAbbrev|escape}</span>
-            <span data-code="1" class="rep hiddenRep">{$def->htmlRepAbbrev}</span>
-            <span data-code="2" class="rep internal hiddenRep">{$def->internalRep|escape}</span>
-            <span data-code="3" data-active class="rep">{$def->htmlRep}</span>
-            {foreach $row->tags as $t}
-              {include "bits/tag.tpl"}
-            {/foreach}
+          <div class="checkbox">
+            <label>
+              <input id="structurableFilter" type="checkbox"> numai definițiile de structurat
+            </label>
           </div>
-          <div class="defDetails text-muted row">
 
-            <div class="col-xs-6">
-              id: {$def->id}
-              | sursa: {$row->source->shortName|escape}
-              | starea: {$def->getStatusName()}
-              | <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}">editează</a>
-              {** TODO merge with definition.tpl **}
-              {if $row->source->hasPageImages}
+        </div>
+      </form>
+
+      <form method="post" role="form">
+        {foreach $searchResults as $row}
+          {$def=$row->definition}
+          <div class="defWrapper
+                      {if $def->structured}structured{/if}
+                      {if $row->source->structurable}structurable{/if}"
+               id="def_{$def->id}">
+            <div>
+              <span data-code="0" class="rep internal hiddenRep">{$def->internalRepAbbrev|escape}</span>
+              <span data-code="1" class="rep hiddenRep">{$def->htmlRepAbbrev}</span>
+              <span data-code="2" class="rep internal hiddenRep">{$def->internalRep|escape}</span>
+              <span data-code="3" data-active class="rep">{$def->htmlRep}</span>
+              {foreach $row->tags as $t}
+                {include "bits/tag.tpl"}
+              {/foreach}
+            </div>
+            <div class="defDetails text-muted row">
+
+              <div class="col-xs-6">
+                id: {$def->id}
+                | sursa: {$row->source->shortName|escape}
+                | starea: {$def->getStatusName()}
+                | <a href="{$wwwRoot}admin/definitionEdit.php?definitionId={$def->id}">editează</a>
+                {** TODO merge with definition.tpl **}
+                {if $row->source->hasPageImages}
+                  |
+                  <a href="#"
+                     title="arată pagina originală cu această definiție"
+                     data-toggle="modal"
+                     data-target="#pageModal"
+                     data-sourceId="{$def->sourceId}"
+                     data-word="{$def->lexicon|escape}">
+                    <i class="glyphicon glyphicon-file"></i>
+                    arată originalul
+                  </a>
+                {/if}
+              </div>
+
+              <div class="col-xs-6">
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="selectedDefIds[]" value="{$def->id}">
+                  selectează
+                </label>
+                | <a href="#" class="toggleRepLink" title="comută între notația internă și HTML"
+                     data-value="1" data-order="1" data-other-text="html">text</a>
+                | <a href="#" class="toggleRepLink" title="contractează sau expandează abrevierile"
+                     data-value="1" data-order="2" data-other-text="abreviat">expandat</a>
+
                 |
                 <a href="#"
-                   title="arată pagina originală cu această definiție"
-                   data-toggle="modal"
-                   data-target="#pageModal"
-                   data-sourceId="{$def->sourceId}"
-                   data-word="{$def->lexicon|escape}">
-                  <i class="glyphicon glyphicon-file"></i>
-                  arată originalul
+                   title="comută definiția între structurată și nestructurată"
+                   >
+                  <span class="toggleStructuredLink" {if !$def->structured}style="display: none"{/if}>
+                    <i class="glyphicon glyphicon-ok"></i> structurată
+                  </span>
+                  <span class="toggleStructuredLink" {if $def->structured}style="display: none"{/if}>
+                    <i class="glyphicon glyphicon-remove"></i> nestructurată
+                  </span>
                 </a>
-              {/if}
+              </div>
+
             </div>
 
-            <div class="col-xs-6">
-              <label class="checkbox-inline">
-                <input type="checkbox" name="selectedDefIds[]" value="{$def->id}">
-                selectează
-              </label>
-              | <a href="#" class="toggleRepLink" title="comută între notația internă și HTML"
-                   data-value="1" data-order="1" data-other-text="html">text</a>
-              | <a href="#" class="toggleRepLink" title="contractează sau expandează abrevierile"
-                   data-value="1" data-order="2" data-other-text="abreviat">expandat</a>
-
-              |
-              <a href="#"
-                 title="comută definiția între structurată și nestructurată"
-                 >
-                <span class="toggleStructuredLink" {if !$def->structured}style="display: none"{/if}>
-                  <i class="glyphicon glyphicon-ok"></i> structurată
-                </span>
-                <span class="toggleStructuredLink" {if $def->structured}style="display: none"{/if}>
-                  <i class="glyphicon glyphicon-remove"></i> nestructurată
-                </span>
-              </a>
-            </div>
-
+            {if $row->comment}
+              <div class="commentHtmlRep">
+                Comentariu: {$row->comment->htmlContents} -
+                <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}">{$row->commentAuthor->nick|escape}</a>
+              </div>
+            {/if}
           </div>
+        {/foreach}
 
-          {if $row->comment}
-            <div class="commentHtmlRep">
-              Comentariu: {$row->comment->htmlContents} -
-              <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}">{$row->commentAuthor->nick|escape}</a>
-            </div>
-          {/if}
+        <div>
+          <button type="button"
+                  class="btn btn-default"
+                  data-toggle="modal"
+                  data-target="#associateModal">
+            <i class="glyphicon glyphicon-resize-small"></i>
+            asociază...
+          </button>
+          <button id="dissociateButton" type="submit" class="btn btn-default" name="dissociateButton">
+            <i class="glyphicon glyphicon-resize-full"></i>
+            disociază...
+          </button>
         </div>
-      {/foreach}
 
-      <div>
-        <button type="button"
-                class="btn btn-default"
-                data-toggle="modal"
-                data-target="#associateModal">
-          <i class="glyphicon glyphicon-resize-small"></i>
-          asociază...
-        </button>
-        <button id="dissociateButton" type="submit" class="btn btn-default" name="dissociateButton">
-          <i class="glyphicon glyphicon-resize-full"></i>
-          disociază...
-        </button>
-      </div>
-
-    </form>
+      </form>
+      
+    {/if}
   {/if}
 
   {include "bits/pageModal.tpl"}

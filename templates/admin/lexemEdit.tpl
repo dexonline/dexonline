@@ -47,6 +47,13 @@
         </button>
       {/if}
 
+      <a href="https://wiki.dexonline.ro/wiki/Lexem:{$lexem->id}?description={$lexem|escape}"
+         class="btn btn-default"
+         target="_blank">
+        <i class="glyphicon glyphicon-comment"></i>
+        wiki
+      </a>
+
       <a class="btn btn-default" href="{$wwwRoot}definitie/{$lexem->formNoAccent}">
         <i class="glyphicon glyphicon-search"></i>
         caută

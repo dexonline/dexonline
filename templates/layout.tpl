@@ -39,7 +39,7 @@
 
     <header>
       {block "banner"}
-        {include "bits/banner.tpl"}
+        {include "banner/banner.tpl"}
       {/block}
       {include "bits/navmenu.tpl"}
       {include "bits/recentlyVisited.tpl"}

@@ -14,7 +14,7 @@
   </header>
 
   {include "bits/searchForm.tpl"}
-  {include "bits/banner.tpl"}
+  {include "banner/banner.tpl"}
 
   <section class="row widgets">
     <div class="col-md-12">

@@ -116,7 +116,7 @@ euPlatescMid = 0
 
 ; Banner settings
 [banner]
-; Type of banner to be served. Choices are "revive", "adsense", "pubgalaxy", "fake" or "none".
+; Type of banner to be served. Choices are "revive", "adsense", "pubgalaxy", "dfp", "fake" or "none".
 ; The option "fake" displays a placeholder banner and can be used in development/beta
 ; (so as not to steal real impressions from campaigns).
 type = fake
@@ -129,6 +129,13 @@ placement = default
 adsense_home = ""
 adsense_search = ""
 adsense_other = ""
+
+dfp_slot_home = ""
+dfp_slot_search = ""
+dfp_slot_other = ""
+dfp_id_home = ""
+dfp_id_search = ""
+dfp_id_other = ""
 
 reviveUrl = "https://dexonline.ro/openx/www/delivery/asyncjs.php"
 reviveId = ""

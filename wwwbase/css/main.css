@@ -102,7 +102,12 @@
 /*********** banner ***********/
 
 .banner-section {
+  margin-bottom: 1.6em;
   overflow: hidden;
+}
+
+header .banner-section {
+  margin-bottom: 0;
 }
 
 .fakeBanner {

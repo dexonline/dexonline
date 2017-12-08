@@ -20,10 +20,13 @@ if (DebugInfo::isEnabled()){  DebugInfo::init(); }
 
 // Escape literal percent signs. Use | as escape character so that constructs like
 // \% (which in dexonline notation mean "literal percent sign") are unaffected.
-$mysqlSearch = str_replace('%', '|%', $search);
+$reservedChars = array('%', '_');
+$escapedChars = array('¦%', '¦_');
+$mysqlSearch = str_replace($reservedChars, $escapedChars, $search);
+
 $query = Model::factory('Definition')
        ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
-       ->where_raw('(binary internalRep like ? escape "|")', ["%{$mysqlSearch}%"]);
+       ->where_raw('(binary internalRep like ? escape "¦")', ["%{$mysqlSearch}%"]);
 if ($sourceId) {
   $query = $query->where('sourceId', $sourceId);
 }

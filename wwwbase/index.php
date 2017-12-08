@@ -12,7 +12,7 @@ $numEnabledWidgets = array_reduce($widgets, function($result, $w) { return $resu
 $wordCount = Definition::getWordCount();
 $wordCountRough = $wordCount - ($wordCount % 10000);
 
-SmartyWrap::assign('onHomePage', '1');
+SmartyWrap::assign('pageType', 'home');
 SmartyWrap::assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțuvwxyz'));
 SmartyWrap::assign('words_total', StringUtil::formatNumber($wordCount, 0));
 SmartyWrap::assign('words_rough', StringUtil::formatNumber($wordCountRough, 0));

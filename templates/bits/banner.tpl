@@ -1,14 +1,6 @@
 {assign var="adsProvider" value=$adsProvider|default:null}
 {assign var="adsProviderParams" value=$adsProviderParams|default:null}
 
-
-{** Expects corresponding values in the [banner] section of dex.conf. **}
-{if $onHomePage}
-  {$id='mainPage'}
-{else}
-  {$id='otherPages'}
-{/if}
-
 {if !$suggestNoBanner && empty($adult)}
   <section class="row banner-section" data-placement="{$cfg.banner.placement}">
     <div class="center-block text-center">
@@ -18,7 +10,8 @@
       {elseif $cfg.banner.type == 'revive'}
         {include "bits/revive.tpl"}
       {elseif $cfg.banner.type == 'adsense'}
-        {assign var="key" value="adsense_`$id`"}
+        {** Expects corresponding values in the [banner] section of dex.conf. **}
+        {assign var="key" value="adsense_`$pageType`"}
         {if $cfg.banner.$key}
           {include "bits/adsense.tpl" adUnitId=$cfg.banner.$key}
         {/if}

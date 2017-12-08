@@ -1,6 +1,6 @@
 {assign var="cuv" value=$cuv|default:''}
 {assign var="typewriterEnabled" value=$cfg.global.typewriterEnabled|default:false}
-{assign var="onHomePage" value=$onHomePage|default:false}
+{assign var="pageType" value=$pageType|default:'other'}
 <!DOCTYPE html>
 <html>
 
@@ -87,7 +87,7 @@
         id="aprilFools"
         src="{$wwwRoot}typewriter/run.js"
         data-sound="{$wwwRoot}typewriter/sound/"></script>
-    <script>typewriter.run({$onHomePage});</script>
+    <script>typewriter.run("{$pageType}");</script>
   {/if}
 
 </html>

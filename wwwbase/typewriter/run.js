@@ -197,12 +197,12 @@
     })();
   };
 
-  App.run = function(onHomepage) {
+  App.run = function(pageType) {
     var url_params = window.location.search;
     var typewriter_enabled = url_params.indexOf('typewriter=1') != -1;
 
     if (typewriter_enabled) {
-      onHomepage ? runOverlay() : runDefinitions();
+      (pageType == 'home') ? runOverlay() : runDefinitions();
     }
 
   };

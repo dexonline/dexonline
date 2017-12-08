@@ -126,8 +126,9 @@ type = fake
 ; * dynamic: (maybe) move the banner, e.g. between two definitions.
 placement = default
 
-adsense_mainPage = ""
-adsense_otherPages = ""
+adsense_home = ""
+adsense_search = ""
+adsense_other = ""
 
 reviveUrl = "https://dexonline.ro/openx/www/delivery/asyncjs.php"
 reviveId = ""

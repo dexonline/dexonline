@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default">
   <div class="container">
     <div class="navbar-header navbar-left pull-left">
-      {if !$onHomePage}
+      {if $pageType != 'home'}
         <div class="logo-wrapper">
           <a class="navbar-brand" href="{$wwwRoot}" title="Prima pagină">
             <img id="logo-nav"

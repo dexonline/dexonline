@@ -10,8 +10,8 @@
 {/if}
 
 {if !$suggestNoBanner && empty($adult)}
-  <section class="row" id="banner_{$id}">
-    <div id="bannerWrapper" class="center-block text-center">
+  <section class="row banner-section" data-placement="{$cfg.banner.placement}">
+    <div class="center-block text-center">
       {if $adsProvider == 'diverta'}
         {* TODO: edit revive.tpl to make this work *}
         {include "bits/revive.tpl" zoneId="" params=$adsProviderParams}

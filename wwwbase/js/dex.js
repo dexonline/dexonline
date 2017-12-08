@@ -86,7 +86,7 @@ function reviveInit() {
       width = reviveWidth3;
     }
     $('#theZone').attr('data-revive-zoneid', zoneId);
-    $('#bannerWrapper').width(width);
+    $('.banner-section').width(width);
     $.getScript(reviveUrl);
   }
 }

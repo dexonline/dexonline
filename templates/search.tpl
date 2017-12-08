@@ -18,9 +18,7 @@
   {assign var="declensionText" value=$declensionText|default:null}
   {assign var="showParadigm" value=$showParadigm|default:false}
 
-  <div id="definitionBanner">
-    {include "bits/banner.tpl"}
-  </div>
+  {include "bits/banner.tpl"}
 
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" {if !$showParadigm}class="active"{/if}>

@@ -117,8 +117,14 @@ euPlatescMid = 0
 ; Banner settings
 [banner]
 ; Type of banner to be served. Choices are "revive", "adsense", "pubgalaxy", "fake" or "none".
-; The option "fake" displays a placeholder banner and can be used in development/beta (so as not to steal real impressions from campaigns).
+; The option "fake" displays a placeholder banner and can be used in development/beta
+; (so as not to steal real impressions from campaigns).
 type = fake
+
+; Strategy for moving the banner using JS. Can be one of:
+; * default: do not move the banner; leave the banner wherever the HTML has it
+; * dynamic: (maybe) move the banner, e.g. between two definitions.
+placement = default
 
 adsense_mainPage = ""
 adsense_otherPages = ""

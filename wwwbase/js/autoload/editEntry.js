@@ -2,7 +2,7 @@ $(function() {
 
   function init() {
 
-    initSelect2('#lexemIds', 'ajax/getLexemsById.php', {
+    initSelect2('#mainLexemIds, #variantLexemIds', 'ajax/getLexemsById.php', {
       ajax: { url: wwwRoot + 'ajax/getLexems.php' },
       minimumInputLength: 1,
       templateSelection: formatLexemWithEditLink,

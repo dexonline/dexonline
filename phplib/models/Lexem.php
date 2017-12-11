@@ -266,21 +266,6 @@ class Lexem extends BaseObject implements DatedObject {
     return Model::factory('Lexem')->raw_query($query)->find_many();
   }
 
-  static function getVariantList($lexemes, $baseForm) {
-    $map = [];
-    foreach ($lexemes as $l) {
-      $map[$l->formNoAccent] = $l;
-    }
-
-    unset($map[$baseForm]);
-
-    usort($map, function($a, $b) {
-      return ($a->main < $b->main);
-    });
-
-    return $map;
-  }
-
   /**
    * Returns an array of InflectedForms. These can be loaded from the disk ($method = METHOD_LOAD)
    * or generated on the fly ($method = METHOD_GENERATE).

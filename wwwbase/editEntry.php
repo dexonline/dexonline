@@ -124,7 +124,8 @@ if ($saveButton) {
   $e->structStatus = Request::get('structStatus');
   $e->structuristId = Request::get('structuristId');
   $e->adult = Request::has('adult');
-  $lexemIds = Request::get('lexemIds');
+  $mainLexemIds = Request::get('mainLexemIds');
+  $variantLexemIds = Request::get('variantLexemIds');
   $treeIds = Request::get('treeIds');
   $renameTrees = Request::has('renameTrees');
   $tagIds = Request::get('tagIds', []);
@@ -147,8 +148,9 @@ if ($saveButton) {
 
     $e->save();
 
-    // dissociate old lexems, trees and tags and associate new ones
-    EntryLexem::update($e->id, $lexemIds);
+    // dissociate old lexemes, trees and tags and associate new ones
+    EntryLexem::update($e->id, $mainLexemIds, ['main' => true]);
+    EntryLexem::update($e->id, $variantLexemIds, ['main' => false]);
     TreeEntry::update($treeIds, $e->id);
     ObjectTag::wipeAndRecreate($e->id, ObjectTag::TYPE_ENTRY, $tagIds);
 
@@ -164,7 +166,8 @@ if ($saveButton) {
   }
 } else {
   // Viewing the page, not saving
-  $lexemIds = $e->getLexemIds();
+  $mainLexemIds = $e->getMainLexemIds();
+  $variantLexemIds = $e->getVariantLexemIds();
   $treeIds = $e->getTreeIds();
   $ots = ObjectTag::getEntryTags($e->id);
   $tagIds = Util::objectProperty($ots, 'tagId');
@@ -172,9 +175,9 @@ if ($saveButton) {
   RecentLink::add("Intrare: {$e->description} (ID={$e->id})");
 }
 
-// Load the distinct model types for the entry's lexems
+// Load the distinct model types for the entry's lexemes
 $modelTypes = [];
-foreach ($lexemIds as $lexemId) {
+foreach (array_merge($mainLexemIds, $variantLexemIds) as $lexemId) {
   $l = Lexem::get_by_id($lexemId);
   $modelTypes[] = $l->modelType;
 }
@@ -201,7 +204,8 @@ $homonyms = Entry::getHomonyms([ $e ]);
 
 SmartyWrap::assign('e', $e);
 SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('lexemIds', $lexemIds);
+SmartyWrap::assign('mainLexemIds', $mainLexemIds);
+SmartyWrap::assign('variantLexemIds', $variantLexemIds);
 SmartyWrap::assign('treeIds', $treeIds);
 SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('modelTypes', $modelTypes);
@@ -211,5 +215,3 @@ SmartyWrap::assign('structurists', User::getStructurists($e->structuristId));
 SmartyWrap::addCss('editableMeaningTree', 'admin');
 SmartyWrap::addJs('select2Dev', 'meaningTree', 'textComplete');
 SmartyWrap::display('editEntry.tpl');
-
-?>

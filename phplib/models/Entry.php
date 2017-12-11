@@ -49,7 +49,8 @@ class Entry extends BaseObject implements DatedObject {
     }
 
     if ($cloneLexems) {
-      EntryLexem::copy($this->id, $e->id, 1);
+      EntryLexem::copy($this->id, $e->id, 1, ['main' => true]);
+      EntryLexem::copy($this->id, $e->id, 1, ['main' => false]);
     }
 
     if ($cloneTrees) {
@@ -82,7 +83,18 @@ class Entry extends BaseObject implements DatedObject {
    * and lexemes that have a form equal to the entry's description.
    **/
   function getPrintableLexems() {
-    return Lexem::getVariantList($this->getLexems(), $this->getShortDescription());
+    return Model::factory('Lexem')
+      ->table_alias('l')
+      ->select('l.*')
+      ->select('el.main')
+      ->distinct()
+      ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+      ->where('el.entryId', $this->id)
+      ->where_not_equal('l.formNoAccent', $this->getShortDescription())
+      ->order_by_desc('el.main')
+      ->order_by_asc('l.formNoAccent')
+      ->find_many();
+    return $results;
   }
 
   static function loadUnassociated() {
@@ -173,9 +185,17 @@ class Entry extends BaseObject implements DatedObject {
       ->select('l.*')
       ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
       ->where('el.entryId', $this->id)
-      ->order_by_desc('l.main')
+      ->where('el.main', true)
       ->order_by_asc('el.lexemRank')
       ->find_one();
+  }
+
+  function getMainLexemIds() {
+    return $this->getLexemIds(['main' => true]);
+  }
+
+  function getVariantLexemIds() {
+    return $this->getLexemIds(['main' => false]);
   }
 
   static function getHomonyms($entries) {
@@ -276,7 +296,8 @@ class Entry extends BaseObject implements DatedObject {
     $this->deleteEmptyTrees();
 
     EntryDefinition::copy($this->id, $otherId, 1);
-    EntryLexem::copy($this->id, $otherId, 1);
+    EntryLexem::copy($this->id, $otherId, 1, ['main' => true]);
+    EntryLexem::copy($this->id, $otherId, 1, ['main' => false]);
     TreeEntry::copy($this->id, $otherId, 2);
 
     $visuals = Visual::get_all_by_entryId($this->id);

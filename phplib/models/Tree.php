@@ -215,17 +215,18 @@ class Tree extends BaseObject implements DatedObject {
    * Excludes duplicate lexemes and lexemes that have a form equal to the tree's description.
    **/
   function getPrintableLexems() {
-    $lexemes = Model::factory('Lexem')
-             ->table_alias('l')
-             ->select('l.*')
-             ->distinct()
-             ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
-             ->join('TreeEntry', ['el.entryId', '=', 'te.entryId'], 'te')
-             ->where('te.treeId', $this->id)
-             ->order_by_asc('el.lexemRank')
-             ->find_many();
-
-    return Lexem::getVariantList($lexemes, $this->getShortDescription());
+    return Model::factory('Lexem')
+      ->table_alias('l')
+      ->select('l.*')
+      ->select('el.main')
+      ->distinct()
+      ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+      ->join('TreeEntry', ['el.entryId', '=', 'te.entryId'], 'te')
+      ->where('te.treeId', $this->id)
+      ->where_not_equal('l.formNoAccent', $this->getShortDescription())
+      ->order_by_desc('el.main')
+      ->order_by_asc('l.formNoAccent')
+      ->find_many();
   }
 
   /**

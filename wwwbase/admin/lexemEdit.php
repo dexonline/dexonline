@@ -9,7 +9,6 @@ $lexemForm = Request::get('lexemForm');
 $lexemNumber = Request::get('lexemNumber');
 $lexemDescription = Request::get('lexemDescription');
 $needsAccent = Request::has('needsAccent');
-$main = Request::has('main');
 $stopWord = Request::has('stopWord');
 $hyphenations = Request::get('hyphenations');
 $pronunciations = Request::get('pronunciations');
@@ -67,7 +66,7 @@ if ($deleteButton) {
 
 if ($refreshButton || $saveButton) {
   populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription,
-           $needsAccent, $main, $stopWord, $hyphenations, $pronunciations,
+           $needsAccent, $stopWord, $hyphenations, $pronunciations,
            $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
            $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
            $tagIds);
@@ -170,7 +169,7 @@ SmartyWrap::display('admin/lexemEdit.tpl');
 
 // Populate lexem fields from request parameters.
 function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescription,
-                  $needsAccent, $main, $stopWord, $hyphenations, $pronunciations,
+                  $needsAccent, $stopWord, $hyphenations, $pronunciations,
                   $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
                   $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
                   $tagIds) {
@@ -178,7 +177,6 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
   $lexem->number = $lexemNumber;
   $lexem->description = AdminStringUtil::internalize($lexemDescription, false);
   $lexem->noAccent = !$needsAccent;
-  $lexem->main = $main;
   $lexem->stopWord = $stopWord;
   $lexem->hyphenations = $hyphenations;
   $lexem->pronunciations = $pronunciations;

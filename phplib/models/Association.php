@@ -8,6 +8,7 @@
  * - table name: FooBar, mapping Foos to Bars;
  * - foreign keys: fooId, barId;
  * - rank fields: fooRank, barRank.
+ * - possibly other fields called payload (e.g. EntryLexem.main)
  *
  * fooRank stores the rank of this Foo in the list of Foos for this
  * Bar. Ranks don't have to be consecutive, which speeds up deletions
@@ -28,16 +29,23 @@ abstract class Association extends BaseObject {
     'Trees' => 'Tree',
   ];
 
-  static function create($id1, $id2, $rank1 = self::LAST, $rank2 = self::LAST) {
+  static function create($id1,
+                         $id2,
+                         $payload = [],
+                         $rank1 = self::LAST,
+                         $rank2 = self::LAST) {
     $a = Model::factory(static::$_table)->create();
     $a->set(static::$fields[0], $id1);
     $a->set(static::$fields[1], $id2);
     $a->set(static::$ranks[0], $rank1);
     $a->set(static::$ranks[1], $rank2);
+    foreach ($payload as $key => $value) {
+      $a->set($key, $value);
+    }
     return $a;
   }
 
-  static function associate($id1, $id2, $rank1 = self::LAST, $rank2 = self::LAST) {
+  static function associate($id1, $id2, $payload = [], $rank1 = self::LAST, $rank2 = self::LAST) {
     // The two objects should exist
     $object1 = Model::factory(static::$classes[0])->where('id', $id1)->find_one();
     $object2 = Model::factory(static::$classes[1])->where('id', $id2)->find_one();
@@ -48,10 +56,13 @@ abstract class Association extends BaseObject {
     // The association itself should not exist
     $a = Model::factory(static::$_table)
        ->where(static::$fields[0], $id1)
-       ->where(static::$fields[1], $id2)
-       ->find_one();
+       ->where(static::$fields[1], $id2);
+    foreach ($payload as $key => $value) {
+      $a = $a->where($key, $value);
+    }
+    $a =$a->find_one();
     if (!$a) {
-      $a = static::create($id1, $id2, $rank1, $rank2);
+      $a = static::create($id1, $id2, $payload, $rank1, $rank2);
       $a->save();
     }
 
@@ -69,11 +80,15 @@ abstract class Association extends BaseObject {
    * (second field). For example, to copy FooBars from bar #123 to bar #456, write
    * FooBar::copy(123, 456, 2).
    **/
-  static function copy($srcId, $destId, $pos) {
+  static function copy($srcId, $destId, $pos, $payload = []) {
     $f = ($pos == 1) ? 0 : 1;
 
     $associations = Model::factory(static::$_table)
-                  ->where(static::$fields[$f], $srcId)
+                  ->where(static::$fields[$f], $srcId);
+    foreach ($payload as $key => $value) {
+      $associations = $associations->where($key, $value);
+    }
+    $associations = $associations
                   ->order_by_asc(static::$ranks[1 - $f])
                   ->order_by_asc('id')
                   ->find_many();
@@ -89,10 +104,10 @@ abstract class Association extends BaseObject {
     foreach ($associations as $a) {
       if ($f) {
         // swap order
-        self::associate($a->get(static::$fields[1 - $f]), $destId,
+        self::associate($a->get(static::$fields[1 - $f]), $destId, $payload,
                         ++$count, $a->get(static::$ranks[$f]));
       } else {
-        self::associate($destId, $a->get(static::$fields[1 - $f]),
+        self::associate($destId, $a->get(static::$fields[1 - $f]), $payload,
                         $a->get(static::$ranks[$f]), ++$count);
       }
     }
@@ -101,11 +116,12 @@ abstract class Association extends BaseObject {
   /**
    * $left is either a Foo ID or an array of Foo IDs.
    * $right is either a Bar ID or an array of Bar IDs.
+   * $payload is an array of key => values to filter the associations
    * exactly one of $left and $right is an array.
    * This function associates the numeric ID to every ID in the array.
    * Performs insertions / updates / deletions as necessary.
    **/
-  static function update($left, $right) {
+  static function update($left, $right, $payload = []) {
     // make sure that $left is numeric and $right is an array
     $swap = is_array($left) ? 1 : 0;
     if ($swap) {
@@ -116,8 +132,11 @@ abstract class Association extends BaseObject {
 
     // load existing associations
     $old = Model::factory(static::$_table)
-         ->where(static::$fields[$swap], $left)
-         ->find_many();
+         ->where(static::$fields[$swap], $left);
+    foreach ($payload as $key => $value) {
+      $old = $old->where($key, $value);
+    }
+    $old = $old->find_many();
 
     // map them by the IDs in the array
     $map = [];
@@ -137,8 +156,8 @@ abstract class Association extends BaseObject {
       } else {
         // create new association
         $a = $swap
-           ? self::create($id, $left, $rank, self::LAST)
-           : self::create($left, $id, self::LAST, $rank);
+           ? self::create($id, $left, $payload, $rank, self::LAST)
+           : self::create($left, $id, $payload, self::LAST, $rank);
         $a->save();
       }
       $rank++;

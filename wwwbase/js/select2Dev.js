@@ -59,13 +59,16 @@ function initSelect2(sel, url, options) {
     .done(function() {
       var s = $(sel);
       s.select2(options);
-      makeSortable(s);
-      makeClickable(s);
+      s.each(function() {
+        makeSortable($(this));
+        makeClickable($(this));
+      });
     });
 }
 
 // Make values sortable. The trick here is to make the <select> options mirror
 // the value order.
+// Pass a single object or dragging can move values between objects.
 function makeSortable(s) {
   s.parent().find('ul.select2-selection__rendered').sortable({
     containment: 'parent',
@@ -93,7 +96,8 @@ function makeSortable(s) {
   });
 }
 
-// Allow sorting of select2 options by clicking on them and using the arrow keys
+// Allow sorting of select2 options by clicking on them and using the arrow keys.
+// Pass a single object or arrow keys will move objects in all boxes simultaneously.
 function makeClickable(s) {
   s.parent().on('click', 'li.select2-selection__choice', function() {
     $(this).siblings().removeClass('select2-highlighted');

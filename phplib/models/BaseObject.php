@@ -25,6 +25,9 @@ class BaseObject extends Model {
   }
 
   // Handle calls like $foo->getBars() and $foo->getBarIds() for associated objects
+  // Optional arguments:
+  //   - $payLoad: array($field => $value, ...). If set, bypasses the cache.
+  // Example: $entry->getLexems(['main' => true])
   function associationHandler($name, $arguments) {
     $cleft = get_called_class(); // capitalized
     $left = strtolower($cleft);
@@ -56,26 +59,39 @@ class BaseObject extends Model {
       self::_die("No association between {$cleft} and {$cright}", $name, $arguments);
     }
 
-    // 2. cache lookup
-    if (!isset($this->$cacheKey)) {
-      $right = strtolower($cright);
+    // 2. cache lookup when there are no arguments
+    if (empty($arguments) && isset($this->$cacheKey)) {
+      return $this->$cacheKey;
+    }
 
-      $query = Model::factory($cright)
-             ->table_alias('obj')
-             ->join($assoc, ['obj.id', '=', "{$assoc}.{$right}Id"])
-             ->where("{$assoc}.{$left}Id", $this->id)
-             ->order_by_asc("{$assoc}.{$right}Rank")
-             ->order_by_asc("{$assoc}.id");
-      if ($loadIds) {
-        $results = $query->select('obj.id')->find_many();
-        $results = Util::objectProperty($results, 'id');
-      } else {
-        $results = $query->select('obj.*')->find_many();
+    // 3. backend query
+    $right = strtolower($cright);
+
+    $query = Model::factory($cright)
+           ->table_alias('obj')
+           ->join($assoc, ['obj.id', '=', "{$assoc}.{$right}Id"])
+           ->where("{$assoc}.{$left}Id", $this->id)
+           ->order_by_asc("{$assoc}.{$right}Rank")
+           ->order_by_asc("{$assoc}.id");
+
+    if (!empty($arguments)) {
+      // payload
+      foreach ($arguments[0] as $key => $value) {
+        $query = $query->where("{$assoc}.{$key}", $value);
       }
+    }
+
+    if ($loadIds) {
+      $results = $query->select('obj.id')->find_many();
+      $results = Util::objectProperty($results, 'id');
+    } else {
+      $results = $query->select('obj.*')->find_many();
+    }
+
+    if (empty($arguments)) {
       $this->$cacheKey = $results;
     }
-    return $this->$cacheKey;
-           
+    return $results;
   }
 
   // Handle calls like User::get_by_email($email) and User::get_all_by_email($email)

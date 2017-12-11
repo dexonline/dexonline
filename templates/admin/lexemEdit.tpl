@@ -189,13 +189,6 @@
 
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" name="main" value="1" {if $lexem->main}checked{/if}>
-                    formă principală
-                  </label>
-                </div>
-
-                <div class="checkbox">
-                  <label>
                     <input type="checkbox"
                            name="stopWord"
                            value="1"

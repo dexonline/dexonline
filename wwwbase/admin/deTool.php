@@ -17,10 +17,10 @@ $models = Request::get('model');
 $capitalize = Request::has('capitalize');
 $deleteOrphans = Request::has('deleteOrphans');
 
-if ($definitionId) {
+if ($definitionId && !$jumpPrefix) {
   $def = Definition::get_by_id($definitionId);
 } else {
-  // Load the first definition after $jumpPrefix from DE 
+  // Load the first definition after $jumpPrefix from DE
   $def = Model::factory('Definition')
        ->where('sourceId', SOURCE_ID)
        ->where('status', Definition::ST_ACTIVE)

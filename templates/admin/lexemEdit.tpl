@@ -389,7 +389,7 @@
     </div>
 
     <div class="panel panel-default">
-      <div class="panel-heading">Definitiții ({$searchResults|count})</div>
+      <div class="panel-heading">Definiții ({$searchResults|count})</div>
       <div class="panel-body panel-admin">
         {foreach $searchResults as $row}
           {include "bits/definition.tpl" showStatus=1}

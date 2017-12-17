@@ -91,8 +91,8 @@ if ($createTree) {
   }
   $t = Tree::createAndSave($e->description);
   TreeEntry::associate($t->id, $e->id);
-  FlashMessage::add("Am creat un arbore de sensuri pentru {$e->description}.", 'success');
-  Util::redirect("editTree.php?id={$t->id}");
+  FlashMessage::add('Am creat un arbore de sensuri.', 'success');
+  Util::redirect("?id={$e->id}");
 }
 
 if ($delete) {

@@ -323,6 +323,14 @@
                 adaugă subsens
               </button>
               <button type="button"
+                      class="btn btn-default btn-sm meaningAction"
+                      id="cloneMeaningButton"
+                      disabled
+                      title="Clonează sensul selectat">
+                <i class="glyphicon glyphicon-duplicate"></i>
+                clonează sens
+              </button>
+              <button type="button"
                       class="btn btn-danger btn-sm meaningAction"
                       id="deleteMeaningButton"
                       data-toggle="popover"

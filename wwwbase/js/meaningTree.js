@@ -20,6 +20,7 @@ $(function() {
     $('#meaningTree li, #stemNode li').click(meaningClick);
     $('#addMeaningButton').click(addMeaning);
     $('#addSubmeaningButton').click(addSubmeaning);
+    $('#cloneMeaningButton').click(cloneMeaning);
     $(document).on('click', '.deleteMeaningConfirmButton', deleteMeaning);
     $(document).on('click', '.deleteMeaningCancelButton', hidePopover);
     $('#meaningUpButton').click(meaningUp);
@@ -167,6 +168,16 @@ $(function() {
     var ul = ensureUl(sel);
     newNode.prependTo(ul);
     newNode.click();
+    renumber();
+    scroll();
+  }
+
+  function cloneMeaning() {
+    acceptMeaningEdit();
+    var sel = $('#meaningTree li.selected');
+    var newNode = sel.clone(true);
+    newNode.find('.id').text('');
+    newNode.insertAfter(sel).click();
     renumber();
     scroll();
   }

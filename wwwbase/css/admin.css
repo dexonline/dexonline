@@ -3,10 +3,6 @@
   margin-bottom: 0;
 }
 
-main a:visited {
-  color: #551a8b;
-}
-
 .panel-admin .defWrapper {
   padding: 0 3px;
   font-size: 1em;

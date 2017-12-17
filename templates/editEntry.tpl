@@ -349,7 +349,7 @@
 
     {foreach $e->getTrees() as $t}
       <div class="panel panel-default tree tree-status-{$t->status}">
-        <div class="panel-heading">
+        <div class="panel-heading clearfix">
           {$t->description}
 
           <span class="tagList">
@@ -358,10 +358,17 @@
             {/foreach}
           </span>
 
-          <a href="editTree.php?id={$t->id}" class="pull-right">
-            <i class="glyphicon glyphicon-pencil"></i>
-            editează
-          </a>
+          <div class="btn-group pull-right">
+            <a href="editTree.php?id={$t->id}" class="btn btn-sm btn-default">
+              <i class="glyphicon glyphicon-pencil"></i>
+              editează
+            </a>
+            <a href="?id={$e->id}&amp;deleteTreeId={$t->id}"
+               class="btn btn-sm btn-danger {if $t->hasMeanings()}disabled{/if}">
+              <i class="glyphicon glyphicon-trash"></i>
+              șterge
+            </a>
+          </div>
         </div>
         <div class="panel-body">
           {include "bits/editableMeaningTree.tpl"

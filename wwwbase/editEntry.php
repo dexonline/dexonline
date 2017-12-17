@@ -10,6 +10,7 @@ $cloneButton = Request::has('cloneButton');
 $associateButton = Request::has('associateButton');
 $dissociateButton = Request::has('dissociateButton');
 $createTree = Request::has('createTree');
+$deleteTreeId = Request::get('deleteTreeId');
 $delete = Request::has('delete');
 $deleteExt = Request::has('deleteExt');
 
@@ -92,6 +93,19 @@ if ($createTree) {
   $t = Tree::createAndSave($e->description);
   TreeEntry::associate($t->id, $e->id);
   FlashMessage::add('Am creat un arbore de sensuri.', 'success');
+  Util::redirect("?id={$e->id}");
+}
+
+if ($deleteTreeId) {
+  $t = Tree::get_by_id($deleteTreeId);
+  if (!$t) {
+    FlashMessage::add("Arborele cu ID-ul {$deleteTreeId} nu există.", 'danger');    
+  } else if ($t->hasMeanings()) {
+    FlashMessage::add("Arborele cu ID-ul {$deleteTreeId} nu este gol.", 'danger');    
+  } else {
+    $t->delete();
+    FlashMessage::add('Am șters arborele.', 'success');
+  }
   Util::redirect("?id={$e->id}");
 }
 

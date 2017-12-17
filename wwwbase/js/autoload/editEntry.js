@@ -51,6 +51,9 @@ $(function() {
     $('#dissociateButton').click(function () {
       return confirm('Confirmați disocierea?');
     });
+
+    $('#moveLexemesUp').click(function() { moveLexemes('#variantLexemIds', '#mainLexemIds'); });
+    $('#moveLexemesDown').click(function() { moveLexemes('#mainLexemIds', '#variantLexemIds'); });
   }
 
   function showRenameDiv() {
@@ -136,6 +139,16 @@ $(function() {
 
     $('input[name="associateDefinitionIds"]').val(idString);
     $('#associateEntryIds').select2('open');
+  }
+
+  function moveLexemes(fromId, toId) {
+    var from = $(fromId);
+    var to = $(toId);
+    from.val().forEach(function(lexemId) {
+      to.append(new Option('', lexemId, true, true));
+    });
+    from.val(null).trigger('change');
+    refreshSelect2(toId, 'ajax/getLexemsById.php');
   }
 
   init();

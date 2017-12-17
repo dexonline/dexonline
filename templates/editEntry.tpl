@@ -121,10 +121,27 @@
                 <option value="{$l}" selected></option>
               {/foreach}
             </select>
-            Tipuri de model:
-            {foreach $modelTypes as $mt}
-              <span class="label label-default">{$mt}</span>
-            {/foreach}
+            <div>
+              Tipuri de model:
+              {foreach $modelTypes as $mt}
+                <span class="label label-default">{$mt}</span>
+              {/foreach}
+
+              <div class="btn-group pull-right">
+                <button id="moveLexemesUp"
+                        type="button"
+                        class="btn btn-default btn-xs"
+                        title="mută toate variantele la principale">
+                  <i class="glyphicon glyphicon-chevron-up"></i>
+                </button>
+                <button id="moveLexemesDown"
+                        type="button"
+                        class="btn btn-default btn-xs"
+                        title="mută toate principalele la variante">
+                  <i class="glyphicon glyphicon-chevron-down"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 

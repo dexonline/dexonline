@@ -47,6 +47,11 @@ class Request {
     return explode(',', self::get($name, []));
   }
 
+  /* Use when the parameter is expected to have array type. */
+  static function getArray($name) {
+    return self::get($name, []);
+  }
+
   /**
    * Returns true if this script is running in response to a web request, false
    * otherwise.

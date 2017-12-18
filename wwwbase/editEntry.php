@@ -138,11 +138,11 @@ if ($saveButton) {
   $e->structStatus = Request::get('structStatus');
   $e->structuristId = Request::get('structuristId');
   $e->adult = Request::has('adult');
-  $mainLexemIds = Request::get('mainLexemIds');
-  $variantLexemIds = Request::get('variantLexemIds');
-  $treeIds = Request::get('treeIds');
+  $mainLexemIds = Request::getArray('mainLexemIds');
+  $variantLexemIds = Request::getArray('variantLexemIds');
+  $treeIds = Request::getArray('treeIds');
   $renameTrees = Request::has('renameTrees');
-  $tagIds = Request::get('tagIds', []);
+  $tagIds = Request::getArray('tagIds');
 
   $errors = $e->validate($original);
   if ($errors) {

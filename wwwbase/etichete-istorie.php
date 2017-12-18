@@ -15,7 +15,7 @@ if (!$dv) {
 $def = Definition::get_by_id($dv->definitionId);
 
 if ($saveButton) {
-  $tagIds = Request::get('tagIds', []);
+  $tagIds = Request::getArray('tagIds');
   $applyToDefinition = Request::has('applyToDefinition');
 
   ObjectTag::wipeAndRecreate($dv->id, ObjectTag::TYPE_DEFINITION_VERSION, $tagIds);

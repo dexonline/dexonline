@@ -29,7 +29,7 @@ if ($saveButton) {
   $src->structurable = Request::has('structurable');
   $src->hasPageImages = Request::has('hasPageImages');
   $src->defCount = Request::get('defCount');
-  $tagIds = Request::get('tagIds', []);
+  $tagIds = Request::getArray('tagIds');
 
   if (validate($src)) {
     // For new sources, set displayOrder to the highest available + 1

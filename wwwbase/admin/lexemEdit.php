@@ -12,13 +12,13 @@ $needsAccent = Request::has('needsAccent');
 $stopWord = Request::has('stopWord');
 $hyphenations = Request::get('hyphenations');
 $pronunciations = Request::get('pronunciations');
-$entryIds = Request::get('entryIds', []);
-$tagIds = Request::get('tagIds', []);
+$entryIds = Request::getArray('entryIds');
+$tagIds = Request::getArray('tagIds');
 $renameRelated = Request::has('renameRelated');
 
 // Paradigm parameters
 $compound = Request::has('compound');
-$sourceIds = Request::get('sourceIds', []);
+$sourceIds = Request::getArray('sourceIds');
 $notes = Request::get('notes');
 $isLoc = Request::has('isLoc');
 
@@ -30,8 +30,8 @@ $restriction = Request::get('restriction');
 // Compound lexeme parameters
 $compoundModelType = Request::get('compoundModelType');
 $compoundRestriction = Request::get('compoundRestriction');
-$partIds = Request::get('partIds', []);
-$declensions = Request::get('declensions', []);
+$partIds = Request::getArray('partIds');
+$declensions = Request::getArray('declensions');
 $capitalized = Request::get('capitalized');
 
 // Button parameters

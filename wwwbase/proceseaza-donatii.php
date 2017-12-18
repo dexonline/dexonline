@@ -19,8 +19,8 @@ if ($processButton) {
     $odp = new OtrsDonationProvider();
     $odp->prepareDonors();
 
-    $processTicketIds = Request::get('processTicketId', []);
-    $messageTicketIds = Request::get('messageTicketId', []);
+    $processTicketIds = Request::getArray('processTicketId');
+    $messageTicketIds = Request::getArray('messageTicketId');
     foreach ($odp->getDonors() as $d) {
       if (in_array($d->ticketId, $processTicketIds)) {
         $d->sendEmail = in_array($d->ticketId, $messageTicketIds);
@@ -72,9 +72,9 @@ if ($processButton) {
 /*************************************************************************/
 
 function readManualDonorData() {
-  $emails = Request::get('email', []);
-  $amounts = Request::get('amount', []);
-  $dates = Request::get('date', []);
+  $emails = Request::getArray('email');
+  $amounts = Request::getArray('amount');
+  $dates = Request::getArray('date');
 
   $sendEmail = [];
   foreach ($emails as $i => $e) {

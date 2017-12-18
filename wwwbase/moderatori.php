@@ -2,15 +2,15 @@
 require_once("../phplib/Core.php");
 User::mustHave(User::PRIV_ADMIN);
 
-$userIds = Request::get('userIds', []);
+$userIds = Request::getArray('userIds');
 $newNick = Request::get('newNick');
-$newPriv = Request::get("newPriv", []);
+$newPriv = Request::getArray('newPriv');
 $saveButton = Request::has('saveButton');
 
 if ($saveButton) {
   foreach ($userIds as $userId) {
     $user = User::get_by_id($userId);
-    $privs = Request::get("priv_{$userId}", []);
+    $privs = Request::getArray("priv_{$userId}");
     $newPerm = array_sum($privs);
 
     if ($newPerm != $user->moderator) {

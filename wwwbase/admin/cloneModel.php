@@ -9,7 +9,7 @@ DebugInfo::disable();
 $modelType = Request::get('modelType');
 $modelNumber = Request::get('modelNumber');
 $newModelNumber = Request::get('newModelNumber');
-$lexemIds = Request::get('lexemId', []);
+$lexemIds = Request::getArray('lexemId');
 $saveButton = Request::has('saveButton');
 
 if ($saveButton) {

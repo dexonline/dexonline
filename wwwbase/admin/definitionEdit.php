@@ -53,7 +53,7 @@ $orig = Definition::get_by_id($definitionId); // for comparison
 
 // Load request fields and buttons.
 $isOCR = Request::get('isOCR');
-$entryIds = Request::get('entryIds');
+$entryIds = Request::getArray('entryIds');
 $sourceId = Request::get('source');
 $similarSource = Request::has('similarSource');
 $structured = Request::has('structured');
@@ -61,7 +61,7 @@ $internalRep = Request::get('internalRep');
 $status = Request::get('status', null);
 $commentContents = Request::get('commentContents');
 $preserveCommentUser = Request::get('preserveCommentUser');
-$tagIds = Request::get('tagIds', []);
+$tagIds = Request::getArray('tagIds');
 
 $saveButton = Request::has('saveButton');
 $nextOcrBut = Request::has('but_next_ocr');

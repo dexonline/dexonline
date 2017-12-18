@@ -12,8 +12,8 @@ $refreshButton = Request::has('refreshButton');
 $saveButton = Request::has('saveButton');
 $butPrev = Request::has('butPrev');
 $butNext = Request::has('butNext');
-$lexemIds = Request::get('lexemId');
-$models = Request::get('model');
+$lexemIds = Request::getArray('lexemId');
+$models = Request::getArray('model');
 $capitalize = Request::has('capitalize');
 $deleteOrphans = Request::has('deleteOrphans');
 

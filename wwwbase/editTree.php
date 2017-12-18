@@ -75,8 +75,8 @@ if ($delete) {
 if ($saveButton) {
   $t->description = Request::get('description');
   $t->status = Request::get('status');
-  $entryIds = Request::get('entryIds');
-  $tagIds = Request::get('tagIds', []);
+  $entryIds = Request::getArray('entryIds');
+  $tagIds = Request::getArray('tagIds');
   $jsonMeanings = Request::get('jsonMeanings');
   $meanings = json_decode($jsonMeanings);
 

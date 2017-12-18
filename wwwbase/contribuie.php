@@ -2,7 +2,7 @@
 require_once("../phplib/Core.php");
 Util::assertNotMirror();
 
-$lexemIds = Request::get('lexemIds', []);
+$lexemIds = Request::getArray('lexemIds');
 $sourceId = Request::get('sourceId');
 $internalRep = Request::get('internalRep');
 $status = Request::get('status', Definition::ST_PENDING);

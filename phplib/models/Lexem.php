@@ -12,6 +12,7 @@ class Lexem extends BaseObject implements DatedObject {
   private $compoundParts = null;
   private $tags = null;
   private $animate = null;
+  public $entries = null;
 
   const METHOD_GENERATE = 1;
   const METHOD_LOAD = 2;

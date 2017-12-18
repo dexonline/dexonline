@@ -30,7 +30,7 @@ if ($id) {
 if ($associateButton) {
   $defIds = Request::get('associateDefinitionIds');
   $defIds = array_filter(explode(',', $defIds));
-  $entryIds = Request::get('associateEntryIds', []);
+  $entryIds = Request::getArray('associateEntryIds');
   foreach ($defIds as $defId) {
     foreach ($entryIds as $entryId) {
       EntryDefinition::associate($entryId, $defId);
@@ -44,7 +44,7 @@ if ($associateButton) {
 }
 
 if ($dissociateButton) {
-  $defIds = Request::get('selectedDefIds', []);
+  $defIds = Request::getArray('selectedDefIds');
   foreach ($defIds as $defId) {
     EntryDefinition::dissociate($e->id, $defId);
     Log::info("Dissociated entry {$e->id} ({$e->description}) from definition {$defId}");

@@ -9,13 +9,13 @@ define('SECONDS_PER_DAY', 86400);
 $description = Request::get('description');
 $structStatus = Request::get('structStatus');
 $structuristId = Request::get('structuristId');
-$entryTagIds = Request::get('entryTagIds', []);
+$entryTagIds = Request::getArray('entryTagIds');
 
 // lexeme parameters
 $formNoAccent = Request::get('formNoAccent');
 $isLoc = Request::get('isLoc');
 $paradigm = Request::get('paradigm');
-$lexemTagIds = Request::get('lexemTagIds', []);
+$lexemTagIds = Request::getArray('lexemTagIds');
 
 // definition parameters
 $lexicon = Request::get('lexicon');

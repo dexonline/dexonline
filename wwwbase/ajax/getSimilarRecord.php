@@ -8,7 +8,7 @@ $definitionId = Request::get('definitionId');
 $definitionInternalRep = Request::get('definitionInternalRep');
 $commentInternalRep = Request::get('commentInternalRep');
 $sourceId = Request::get('sourceId');
-$entryIds = Request::get('entryIds', []);
+$entryIds = Request::getArray('entryIds');
 
 $d = Definition::get_by_id($definitionId);
 $d->internalRep = AdminStringUtil::sanitize($definitionInternalRep, $sourceId);

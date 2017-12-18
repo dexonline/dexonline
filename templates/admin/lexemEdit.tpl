@@ -61,16 +61,18 @@
 
       <a class="btn btn-link" href="?lexemId={$lexem->id}">renunță</a>
 
-      {if $canEdit.loc || !$lexem->isLoc}
-        <button type="submit"
-                name="deleteButton"
-                onclick="return confirm('Confirmați ștergerea acestui lexem?');"
-                class="btn btn-danger pull-right"
-                {if $lexem->isLoc}disabled{/if}>
-          <i class="glyphicon glyphicon-trash"></i>
-          șterge
-        </button>
-      {/if}
+      {$canDelete=$lexem->canDelete()}
+      <button type="submit"
+              name="deleteButton"
+              onclick="return confirm('Confirmați ștergerea acestui lexem?');"
+              class="btn btn-danger pull-right"
+              {if $canDelete != Lexem::CAN_DELETE_OK}
+              disabled
+              title="{$canDelete}"
+              {/if}>
+        <i class="glyphicon glyphicon-trash"></i>
+        șterge
+      </button>
       
     </div>
 

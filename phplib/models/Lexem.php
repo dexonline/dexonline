@@ -17,6 +17,10 @@ class Lexem extends BaseObject implements DatedObject {
   const METHOD_GENERATE = 1;
   const METHOD_LOAD = 2;
 
+  const CAN_DELETE_OK = null;
+  const CAN_DELETE_LOC = 'lexemul nu poate fi șters deoarece este inclus în LOC';
+  const CAN_DELETE_FRAGMENT = 'lexemul nu poate fi șters deoarece este fragment al unui lexem compus';
+
   function setForm($form) {
     $this->form = $form;
     $this->formNoAccent = str_replace("'", '', $form);
@@ -635,6 +639,21 @@ class Lexem extends BaseObject implements DatedObject {
         $l->delete();
       }
     }
+  }
+
+  // returns one of the CAN_DELETE_* constants
+  function canDelete() {
+    // only LOC moderators can delete LOC lexemes
+    if ($this->isLoc && !User::can(User::PRIV_LOC)) {
+      return self::CAN_DELETE_LOC;
+    }
+
+    // cannot delete lexemes which are fragments of compound lexemes
+    if (Fragment::get_by_partId($this->id)) {
+      return self::CAN_DELETE_FRAGMENT;
+    }
+
+    return self::CAN_DELETE_OK;
   }
 
   function delete() {

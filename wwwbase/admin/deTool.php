@@ -139,7 +139,8 @@ if ($saveButton) {
           $e->delete();
         }
       }
-      if (!$keepLexem) {
+      if (!$keepLexem &&
+          ($l->canDelete() == Lexem::CAN_DELETE_OK)) {
         $l->delete();
       }
     }

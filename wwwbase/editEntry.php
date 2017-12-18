@@ -118,7 +118,8 @@ if ($delete) {
 // Delete the entry, its T1 lexemes and its empty trees.
 if ($deleteExt) {
   foreach ($e->getLexems() as $l) {
-    if ($l->modelType == 'T') {
+    if (($l->modelType == 'T') &&
+        ($l->canDelete() == Lexem::CAN_DELETE_OK)) {
       $l->delete();
     }
   }

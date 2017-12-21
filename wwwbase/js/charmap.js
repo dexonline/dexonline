@@ -1,5 +1,37 @@
 (function(){
 
+	// adapted from https://stackoverflow.com/questions/11076975/insert-text-into-textarea-at-cursor-position-javascript/41426040#41426040
+	function insertAtCursor(myField, myValue) {
+		//IE support
+		if (document.selection) {
+			myField.focus();
+			sel = document.selection.createRange();
+			sel.text = myValue;
+		}
+		// Microsoft Edge
+		else if(window.navigator.userAgent.indexOf("Edge") > -1) {
+			var startPos = myField.selectionStart;
+			var endPos = myField.selectionEnd;
+
+			myField.value = myField.value.substring(0, startPos)+ myValue
+				+ myField.value.substring(endPos, myField.value.length);
+
+			var pos = startPos + myValue.length;
+			myField.focus();
+			myField.setSelectionRange(pos, pos);
+		}
+		//MOZILLA and others
+		else if (myField.selectionStart || myField.selectionStart == '0') {
+			var startPos = myField.selectionStart;
+			var endPos = myField.selectionEnd;
+			myField.value = myField.value.substring(0, startPos)
+				+ myValue
+				+ myField.value.substring(endPos, myField.value.length);
+		} else {
+			myField.value += myValue;
+		}
+	}
+
 	var COOKIE = 'charmap';
 
 	var DEFAULT = ['á', 'à', 'ä'];
@@ -44,7 +76,10 @@
 
 		var target = this.target;
 		button.on('click', function() {
-			target.val(target.val() + chr);
+			// target is a jQuery element,
+			// insertAtCursor requires a DOM element
+			// so we use .get(0).
+			insertAtCursor(target.get(0), chr);
 		});
 
 		return button;

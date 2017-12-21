@@ -40,7 +40,15 @@ $canonicalGenus = [
 ];
 
 // genJson();
-$witness = loadJson();
+$witness = loadJson();  // $witness[$genus][$species] => true
+
+$scount = []; // $scount[$key] = number of occurrences of species under all genera
+foreach ($witness as $speciesMap) {
+  foreach ($speciesMap as $key => $ignored) {
+    $value = $scount[$key] ?? 0;
+    $scount[$key] = 1 + $value;
+  }
+}
 
 $defs = Model::factory('Definition')
       ->where('sourceId', SOURCE_ID)
@@ -84,8 +92,10 @@ foreach ($defs as $d) {
     $species = StringUtil::unicodeToLatin($species);
 
     if (!isset($witness[$genus][$species])) {
-      printf("Nu recunosc specia: [%s %s] %s%d %s%s+%s\n",
+      $count = $scount[$species] ?? 0;
+      printf("Nu recunosc specia: [%s %s]%s %s%d %s%%22%s+%s%%22\n",
              $genus, $species,
+             $count ? " ({$count} mențiuni în alte genuri)" : '',
              "https://dexonline.ro/admin/definitionEdit.php?definitionId=",
              $d->id,
              "https://www.google.com/search?q=",

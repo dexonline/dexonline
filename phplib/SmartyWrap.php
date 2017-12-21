@@ -4,6 +4,181 @@ class SmartyWrap {
   private static $theSmarty = null;
   private static $cssFiles = [];
   private static $jsFiles = [];
+	private static $includedCss = [];
+	private static $includedJs = [];
+	private static $cssMap = [
+		'jqueryui' => [
+			'third-party/smoothness-1.10.4/jquery-ui-1.10.4.custom.min.css'
+		],
+		'bootstrap' => [
+			'third-party/bootstrap.min.css'
+		],
+		'jqgrid' => [
+			'third-party/ui.jqgrid.css'
+		],
+		'tablesorter' => [
+			'third-party/tablesorter/theme.bootstrap.css',
+			'third-party/tablesorter/jquery.tablesorter.pager.min.css',
+		],
+		'elfinder' => [
+			'third-party/elfinder/css/elfinder.min.css',
+			'third-party/elfinder/css/theme.css',
+		],
+		'main' => [
+			'main.css'
+		],
+		'admin' => [
+			'admin.css'
+		],
+		'paradigm' => [
+			'paradigm.css'
+		],
+		'jcrop' => [
+			'third-party/jcrop/jquery.Jcrop.min.css'
+		],
+		'select2' => [
+			'third-party/select2.min.css'
+		],
+		'gallery' => [
+			'third-party/colorbox/colorbox.css',
+			'gallery.css',
+		],
+		'textComplete' => [
+			'third-party/jquery.textcomplete.css'
+		],
+		'tinymce' => [
+			'tinymce.css'
+		],
+		'meaningTree' => [
+			'meaningTree.css'
+		],
+		'editableMeaningTree' => [
+			'editableMeaningTree.css'
+		],
+		'callToAction' => [
+			'callToAction.css'
+		],
+		'privateMode' => [
+			'opensans.css'
+		],
+		'colorpicker' => [
+			'third-party/bootstrap-colorpicker.min.css'
+		],
+		'diff' => [
+			'diff.css'
+		],
+		'bootstrap-spinedit' => [
+			'third-party/bootstrap-spinedit.css'
+		],
+		'bootstrap-datepicker' => [
+			'third-party/bootstrap-datepicker3.min.css'
+		],
+	];
+  private static $jsMap = [
+		'jquery' => [
+			'third-party/jquery-1.12.4.min.js'
+		],
+		'jqueryui' => [
+			'third-party/jquery-ui-1.10.3.custom.min.js'
+		],
+		'bootstrap' => [
+			'third-party/bootstrap.min.js'
+		],
+		'jqgrid' => [
+			'third-party/grid.locale-en.js',
+			'third-party/jquery.jqGrid.min.js',
+		],
+		'jqTableDnd' => [
+			'third-party/jquery.tablednd.0.8.min.js'
+		],
+		'tablesorter' => [
+			'third-party/tablesorter/jquery.tablesorter.min.js',
+			'third-party/tablesorter/jquery.tablesorter.widgets.js',
+			'third-party/tablesorter/jquery.tablesorter.pager.min.js',
+		],
+		'elfinder' => [
+			'third-party/elfinder.min.js'
+		],
+		'cookie' => [
+			'third-party/jquery.cookie.js'
+		],
+		'dex' => [
+			'dex.js'
+		],
+		'jcrop' => [
+			'third-party/jquery.Jcrop.min.js'
+		],
+		'select2' => [
+			'third-party/select2/select2.min.js',
+			'third-party/select2/i18n/ro.js',
+		],
+		'select2Dev' => [
+			'select2Dev.js'
+		],
+		'jcanvas' => [
+			'third-party/jcanvas.min.js'
+		],
+		'pixijs' => [
+			'third-party/pixi.min.js'
+		],
+		'gallery' => [
+			'third-party/colorbox/jquery.colorbox-min.js',
+			'third-party/colorbox/jquery.colorbox-ro.js',
+			'dexGallery.js',
+		],
+		'modelDropdown' => [
+			'modelDropdown.js'
+		],
+		'textComplete' => [
+			'third-party/jquery.textcomplete.min.js'
+		],
+		'tinymce' => [
+			'third-party/tinymce-4.4.0/tinymce.min.js',
+			'tinymce.js',
+		],
+		'meaningTree' => [
+			'meaningTree.js'
+		],
+		'hotkeys' => [
+			'third-party/jquery.hotkeys.js',
+			'hotkeys.js',
+		],
+		'callToAction' => [
+			'callToAction.js'
+		],
+		'seedrandom' => [
+			'third-party/seedrandom.min.js'
+		],
+		'colorpicker' => [
+			'third-party/bootstrap-colorpicker.min.js'
+		],
+		'diff' => [
+			'diff.js'
+		],
+		'diffSelector' => [
+			'diffSelector.js'
+		],
+		'bootstrap-spinedit' => [
+			'third-party/bootstrap-spinedit.js'
+		],
+		'frequentObjects' => [
+			'frequentObjects.js'
+		],
+		'bootstrap-datepicker' => [
+			'third-party/bootstrap-datepicker.min.js',
+			'third-party/bootstrap-datepicker.ro.min.js',
+		],
+		'adminIndex' => [
+			'adminIndex.js'
+		],
+		'admin' => [
+			'admin.js'
+		],
+		'sprintf' => [
+			'third-party/sprintf.min.js'
+		],
+	];
+
 
   static function init() {
     self::$theSmarty = new Smarty();
@@ -38,6 +213,16 @@ class SmartyWrap {
       self::$jsFiles[] = $jsFile;
     }
   }
+
+	static function orderResources($mapping, $selected) {
+		$result = [];
+		foreach ($mapping as $name => $files) {
+			if (isset($selected[$name])) {
+				$result = array_merge($result, $files);
+			}
+		}
+		return $result;
+	}
 
   static function mergeResources($files, $type) {
     // compute the full file names and get the latest timestamp
@@ -159,12 +344,20 @@ class SmartyWrap {
   }
 
 static function fetch($templateName) {
-    ksort(self::$cssFiles);
-    ksort(self::$jsFiles);
-    self::assign('cssFile', self::mergeResources(self::$cssFiles, 'css'));
-    self::assign('jsFile', self::mergeResources(self::$jsFiles, 'js'));
-    self::assign('flashMessages', FlashMessage::getMessages());
-    return self::$theSmarty->fetch($templateName);
+	self::$cssFiles = array_merge(
+		self::orderResources(self::$cssMap, self::$includedCss),
+		self::$cssFiles
+	);
+	self::assign('cssFile', self::mergeResources(self::$cssFiles, 'css'));
+
+	self::$jsFiles = array_merge(
+		self::orderResources(self::$jsMap, self::$includedJs),
+		self::$jsFiles
+	);
+	self::assign('jsFile', self::mergeResources(self::$jsFiles, 'js'));
+
+	self::assign('flashMessages', FlashMessage::getMessages());
+	return self::$theSmarty->fetch($templateName);
   }
 
   static function assign($variable, $value) {
@@ -184,110 +377,22 @@ static function fetch($templateName) {
  static function addCss(/* Variable-length argument list */) {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
-      switch($id) {
-        case 'jqueryui':            self::$cssFiles[1] = 'third-party/smoothness-1.10.4/jquery-ui-1.10.4.custom.min.css'; break;
-        case 'bootstrap':           self::$cssFiles[2] = 'third-party/bootstrap.min.css'; break;
-        case 'jqgrid':              self::$cssFiles[3] = 'third-party/ui.jqgrid.css'; break;
-        case 'tablesorter':
-          self::$cssFiles[4] = 'third-party/tablesorter/theme.bootstrap.css';
-          self::$cssFiles[5] = 'third-party/tablesorter/jquery.tablesorter.pager.min.css';
-          break;
-        case 'elfinder':
-          self::$cssFiles[6] = 'third-party/elfinder/css/elfinder.min.css';
-          self::$cssFiles[7] = 'third-party/elfinder/css/theme.css';
-          break;
-        case 'main':                self::$cssFiles[8] = 'main.css'; break;
-        case 'admin':               self::$cssFiles[9] = 'admin.css'; break;
-        case 'paradigm':            self::$cssFiles[10] = 'paradigm.css'; break;
-        case 'jcrop':               self::$cssFiles[11] = 'third-party/jcrop/jquery.Jcrop.min.css'; break;
-        case 'select2':             self::$cssFiles[12] = 'third-party/select2.min.css'; break;
-        case 'gallery':
-          self::$cssFiles[13] = 'third-party/colorbox/colorbox.css';
-          self::$cssFiles[14] = 'gallery.css';
-          break;
-        case 'textComplete':        self::$cssFiles[15] = 'third-party/jquery.textcomplete.css'; break;
-        case 'tinymce':             self::$cssFiles[16] = 'tinymce.css'; break;
-        case 'meaningTree':         self::$cssFiles[17] = 'meaningTree.css'; break;
-        case 'editableMeaningTree': self::$cssFiles[18] = 'editableMeaningTree.css'; break;
-        case 'callToAction':        self::$cssFiles[19] = 'callToAction.css'; break;
-        case 'privateMode':         self::$cssFiles[20] = 'opensans.css'; break;
-        case 'colorpicker':
-          self::$cssFiles[21] = 'third-party/bootstrap-colorpicker.min.css';
-          break;
-        case 'diff':                self::$cssFiles[22] = 'diff.css'; break;
-        case 'bootstrap-spinedit':  self::$cssFiles[23] = 'third-party/bootstrap-spinedit.css'; break;
-        case 'bootstrap-datepicker':
-          self::$cssFiles[24] = 'third-party/bootstrap-datepicker3.min.css';
-          break;
-        default:
-          FlashMessage::add("Cannot load CSS file {$id}");
-          Util::redirect(Core::getWwwRoot());
-      }
+			if (!isset(self::$cssMap[$id])) {
+				FlashMessage::add("Cannot load CSS file {$id}");
+				Util::redirect(Core::getWwwRoot());
+			}
+			self::$includedCss[$id] = true;
     }
   }
 
   static function addJs(/* Variable-length argument list */) {
     // Note the priorities. This allows files to be added in any order, regardless of dependencies
     foreach (func_get_args() as $id) {
-      switch($id) {
-        case 'jquery':        self::$jsFiles[1] = 'third-party/jquery-1.12.4.min.js'; break;
-        case 'jqueryui':      self::$jsFiles[2] = 'third-party/jquery-ui-1.10.3.custom.min.js'; break;
-        case 'bootstrap':     self::$jsFiles[3] = 'third-party/bootstrap.min.js'; break;
-        case 'jqgrid':
-          self::$jsFiles[4] = 'third-party/grid.locale-en.js';
-          self::$jsFiles[5] = 'third-party/jquery.jqGrid.min.js';
-          break;
-        case 'jqTableDnd':    self::$jsFiles[6] = 'third-party/jquery.tablednd.0.8.min.js'; break;
-        case 'tablesorter':
-          self::$jsFiles[7] = 'third-party/tablesorter/jquery.tablesorter.min.js';
-          self::$jsFiles[8] = 'third-party/tablesorter/jquery.tablesorter.widgets.js';
-          self::$jsFiles[9] = 'third-party/tablesorter/jquery.tablesorter.pager.min.js';
-          break;
-        case 'elfinder':      self::$jsFiles[10] = 'third-party/elfinder.min.js'; break;
-        case 'cookie':        self::$jsFiles[11] = 'third-party/jquery.cookie.js'; break;
-        case 'dex':           self::$jsFiles[12] = 'dex.js'; break;
-        case 'jcrop':         self::$jsFiles[13] = 'third-party/jquery.Jcrop.min.js'; break;
-        case 'select2':
-          self::$jsFiles[14] = 'third-party/select2/select2.min.js';
-          self::$jsFiles[15] = 'third-party/select2/i18n/ro.js';
-          break;
-        case 'select2Dev':    self::$jsFiles[16] = 'select2Dev.js'; break;
-        case 'jcanvas':       self::$jsFiles[17] = 'third-party/jcanvas.min.js'; break;
-        case 'pixijs':        self::$jsFiles[18] = 'third-party/pixi.min.js'; break;
-        case 'gallery':
-          self::$jsFiles[19] = 'third-party/colorbox/jquery.colorbox-min.js';
-          self::$jsFiles[20] = 'third-party/colorbox/jquery.colorbox-ro.js';
-          self::$jsFiles[21] = 'dexGallery.js';
-          break;
-        case 'modelDropdown': self::$jsFiles[22] = 'modelDropdown.js'; break;
-        case 'textComplete':  self::$jsFiles[23] = 'third-party/jquery.textcomplete.min.js'; break;
-        case 'tinymce':
-          self::$jsFiles[24] = 'third-party/tinymce-4.4.0/tinymce.min.js';
-          self::$jsFiles[25] = 'tinymce.js';
-          break;
-        case 'meaningTree':   self::$jsFiles[26] = 'meaningTree.js'; break;
-        case 'hotkeys':
-          self::$jsFiles[27] = 'third-party/jquery.hotkeys.js';
-          self::$jsFiles[28] = 'hotkeys.js';
-          break;
-        case 'callToAction':  self::$jsFiles[29] = 'callToAction.js'; break;
-        case 'seedrandom':    self::$jsFiles[30] = 'third-party/seedrandom.min.js'; break;
-        case 'colorpicker':   self::$jsFiles[31] = 'third-party/bootstrap-colorpicker.min.js'; break;
-        case 'diff':          self::$jsFiles[32] = 'diff.js'; break;
-        case 'diffSelector':  self::$jsFiles[33] = 'diffSelector.js'; break;
-        case 'bootstrap-spinedit':  self::$jsFiles[34] = 'third-party/bootstrap-spinedit.js'; break;
-        case 'frequentObjects':  self::$jsFiles[35] = 'frequentObjects.js'; break;
-        case 'bootstrap-datepicker':
-          self::$jsFiles[36] = 'third-party/bootstrap-datepicker.min.js';
-          self::$jsFiles[37] = 'third-party/bootstrap-datepicker.ro.min.js';
-          break;
-        case 'adminIndex':    self::$jsFiles[38] = 'adminIndex.js'; break;
-        case 'admin':         self::$jsFiles[39] = 'admin.js'; break;
-        case 'sprintf':       self::$jsFiles[40] = 'third-party/sprintf.min.js'; break;
-        default:
-          FlashMessage::add("Cannot load JS script {$id}");
-          Util::redirect(Core::getWwwRoot());
-      }
+			if (!isset(self::$jsMap[$id])) {
+				FlashMessage::add("Cannot load JS script {$id}");
+				Util::redirect(Core::getWwwRoot());
+			}
+			self::$includedJs[$id] = true;
     }
   }
 

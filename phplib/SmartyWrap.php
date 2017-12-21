@@ -74,7 +74,7 @@ class SmartyWrap {
 			'third-party/bootstrap-datepicker3.min.css'
 		],
 	];
-  private static $jsMap = [
+	private static $jsMap = [
 		'jquery' => [
 			'third-party/jquery-1.12.4.min.js'
 		],
@@ -142,6 +142,9 @@ class SmartyWrap {
 		'hotkeys' => [
 			'third-party/jquery.hotkeys.js',
 			'hotkeys.js',
+		],
+		'charmap' => [
+			'charmap.js',
 		],
 		'callToAction' => [
 			'callToAction.js'
@@ -316,7 +319,7 @@ class SmartyWrap {
       self::assign('callToAction', true);
     }
     if (User::can(User::PRIV_ANY)) {
-      self::addJs('admin', 'hotkeys', 'sprintf');
+      self::addJs('admin', 'hotkeys', 'charmap', 'sprintf');
     }
     if (Session::userPrefers(Preferences::PRIVATE_MODE)) {
       self::addCss('privateMode');

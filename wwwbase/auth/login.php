@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once("../../phplib/Core.php");
 Util::assertNotMirror();
@@ -6,7 +6,7 @@ Util::assertNotLoggedIn();
 
 $openid = Request::get('openid');
 $fakeUserNick = Request::get('fakeUserNick');
-$priv = Request::get('priv');
+$priv = Request::getArray('priv');
 $allPriv = Request::get('allPriv');
 
 $devel = Config::get('global.developmentMode');

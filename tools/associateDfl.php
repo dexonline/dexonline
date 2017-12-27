@@ -49,7 +49,7 @@ function entryUrl($e) {
 
 function choice($prompt, $choices) {
   do {
-    $choice = readline($prompt);
+    $choice = readline($prompt . ' ');
   } while (!in_array($choice, $choices));
   return $choice;
 }
@@ -65,6 +65,14 @@ function countOutsideDefs($e) {
     ->count();
 }
 
+// counts the entries of $l except for $e
+function countOtherEntries($l, $e) {
+  return Model::factory('EntryLexem')
+    ->where('lexemId', $l->id)
+    ->where_not_equal('entryId', $e->id)
+    ->count();
+}
+
 // offers to delete all of $e's lexemes and merge it into $main
 function offerMerge($e, $main) {
   printf("Intrarea %s %s nu are definiții din afara DFL.\n", $e, entryUrl($e));
@@ -74,12 +82,27 @@ function offerMerge($e, $main) {
   }
   print("\n");
 
-  $c = choice('Șterg lexemele și unific intrarea? ', ['d', 'n']);
+  $c = choice('Șterg lexemele și unific intrarea?', ['d', 'n']);
   if ($c == 'd') {
     foreach ($e->getLexems() as $l) {
       $l->delete();
     }
     $e->mergeInto($main->id);
+  }
+}
+
+// offers to delete lexemes in this entry, except for the entry's main lexeme
+function offerDeleteLexemes($entry, $mainLexeme) {
+  foreach ($entry->getLexems() as $l) {
+    if (($l->id != $mainLexeme->id) && !$l->isLoc) {
+      $otherEntries = countOtherEntries($l, $entry);
+      $prompt = sprintf("Șterg lexemul %s (%s%s), asociat cu alte %s intrări?",
+                        $l, $l->modelType, $l->modelNumber, $otherEntries);
+      $c = choice($prompt, ['d', 'n']);
+      if ($c == 'd') {
+        $l->delete();
+      }
+    }
   }
 }
 
@@ -104,12 +127,37 @@ function fixGenus($d, $genus) {
   printf("Intrarea genului: %s <%s>\n", $main, entryUrl($main));
 
   // offer to merge other entries into $main under certain conditions
-  foreach ($d->getEntries() as $e) {
-    if ($e->id != $main->id) {
-      $outsideDefs = countOutsideDefs($e);
-      if (!$outsideDefs) {
-        offerMerge($e, $main);
-      }
-    }
+  /* foreach ($d->getEntries() as $e) { */
+  /*   if ($e->id != $main->id) { */
+  /*     $outsideDefs = countOutsideDefs($e); */
+  /*     if (!$outsideDefs) { */
+  /*       offerMerge($e, $main); */
+  /*     } */
+  /*   } */
+  /* } */
+
+  // capitalize the entry and add the "(gen de plante)" description
+  $desc = "{$genus} (gen de plante)";
+  if ($desc != $main->description) {
+    printf("Redenumesc intrarea în [{$desc}]\n");
+    $main->description = $desc;
+    $main->save();
   }
+
+  // get the matching lexem
+  $genusLexemes = Model::factory('Lexem')
+    ->tableAlias('l')
+    ->select('l.*')
+    ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+    ->where('el.entryId', $main->id)
+    ->where('l.formNoAccent', $genus)
+    ->find_many();
+  if (count($genusLexemes) != 1) {
+    printf("Genul nu are exact un lexem\n");
+    exit;
+  }
+  $lmain = $genusLexemes[0];
+
+  // offer to delete other lexemes
+  // offerDeleteLexemes($main, $lmain);
 }

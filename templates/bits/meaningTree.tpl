@@ -21,12 +21,10 @@
 
             {* When the meaning itself is empty, show something else *}
             <span class="def htmlRep {$t.meaning->getCssClass()}">
+              {$t.meaning->htmlRep}
               {if $t.meaning->includeRelations()}
-                {$t.meaning->htmlRep}
-                {include "bits/meaningRelations.tpl" relations=$t.relations labels=false}
+                {include "bits/meaningRelations.tpl" relations=$t.relations}
                 {$relationsShown=true}
-              {elseif $t.meaning->htmlRep}
-                {$t.meaning->htmlRep}
               {/if}
             </span>
 
@@ -44,7 +42,7 @@
             {/if}
 
             {if !$relationsShown}
-              {include "bits/meaningRelations.tpl" relations=$t.relations title=true}
+              {include "bits/meaningRelations.tpl" relations=$t.relations defaultLabel=true}
             {/if}
 
             {if !empty($t.examples)}

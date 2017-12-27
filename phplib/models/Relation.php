@@ -8,6 +8,9 @@ class Relation extends BaseObject implements DatedObject {
   const TYPE_AUGMENTATIVE = 4;
   const NUM_TYPES = 4;
 
+  // for display purposes (the word "synonym" can sometimes be ommitted)
+  const DEFAULT_TYPE = self::TYPE_SYNONYM;
+
   public static $TYPE_NAMES = [
     self::TYPE_SYNONYM  => 'sinonime',
     self::TYPE_ANTONYM  => 'antonime',

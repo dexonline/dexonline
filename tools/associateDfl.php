@@ -151,12 +151,27 @@ function fixGenus($d, $genus) {
     ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
     ->where('el.entryId', $main->id)
     ->where('l.formNoAccent', $genus)
+    ->where_in('l.modelType', ['T', 'I'])
     ->find_many();
-  if (count($genusLexemes) != 1) {
-    printf("Genul nu are exact un lexem\n");
+  if (count($genusLexemes) > 1) {
+    printf("Genul are mai multe lexeme posibile.\n");
     exit;
   }
-  $lmain = $genusLexemes[0];
+
+  if (empty($genusLexemes)) {
+    $l = Lexem::create($genus, 'I', '2.1');
+    printf("Creez lexemul %s (%s%s)\n", $l, $l->modelType, $l->modelNumber);
+  } else {
+    $l = $genusLexemes[0];
+    $l->setForm($genus);
+    $l->modelType = 'I';
+    $l->modelNumber = '2.1';
+  }
+
+  $l->description = 'gen de plante';
+  $l->noAccent = true;
+  $l->deepSave();
+  EntryLexem::associate($main->id, $l->id);
 
   // offer to delete other lexemes
   // offerDeleteLexemes($main, $lmain);

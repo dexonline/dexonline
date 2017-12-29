@@ -2,32 +2,39 @@
 
 	// adapted from https://stackoverflow.com/questions/11076975/insert-text-into-textarea-at-cursor-position-javascript/41426040#41426040
 	function insertAtCursor(myField, myValue) {
+
+		function _do_insert() {
+			var startPos = myField.selectionStart;
+			var endPos = myField.selectionEnd;
+
+			myField.value = myField.value.substring(0, startPos)
+				+ myValue
+				+ myField.value.substring(endPos, myField.value.length);
+
+			var pos = startPos + myValue.length;
+
+			myField.focus();
+			myField.setSelectionRange(pos, pos);
+		}
+
 		//IE support
 		if (document.selection) {
 			myField.focus();
 			sel = document.selection.createRange();
 			sel.text = myValue;
 		}
+
 		// Microsoft Edge
 		else if(window.navigator.userAgent.indexOf("Edge") > -1) {
-			var startPos = myField.selectionStart;
-			var endPos = myField.selectionEnd;
-
-			myField.value = myField.value.substring(0, startPos)+ myValue
-				+ myField.value.substring(endPos, myField.value.length);
-
-			var pos = startPos + myValue.length;
-			myField.focus();
-			myField.setSelectionRange(pos, pos);
+			_do_insert();
 		}
+
 		//MOZILLA and others
 		else if (myField.selectionStart || myField.selectionStart == '0') {
-			var startPos = myField.selectionStart;
-			var endPos = myField.selectionEnd;
-			myField.value = myField.value.substring(0, startPos)
-				+ myValue
-				+ myField.value.substring(endPos, myField.value.length);
-		} else {
+			_do_insert();
+		}
+
+		else {
 			myField.value += myValue;
 		}
 	}
@@ -45,21 +52,17 @@
 
 	Charmap.prototype.read = function() {
 		$.cookie.json = true;
-		var value = $.cookie(COOKIE) || [];
+		var cookie_value = $.cookie(COOKIE);
+		var value = (cookie_value && cookie_value.length > 0) ? cookie_value : DEFAULT;
 		$.cookie.json = this._cookie_json;
 		return value;
 	}
 
 	Charmap.prototype.edit = function(value) {
 		$.cookie.json = true;
-		$.cookie(COOKIE, value, { expires: 36500 });
+		$.cookie(COOKIE, value, { expires: 36500, path: '/' });
 		$.cookie.json = this._cookie_json;
 	}
-
-	Charmap.prototype.all = function() {
-		return DEFAULT.concat(this.read());
-	}
-
 
 	// charmap buttons
 	var CharmapButtons = function(target) {
@@ -93,7 +96,6 @@
 		this.buttons = buttons;
 
 		this.editArea = $('[data-role=edit]', this.target);
-		this.editArea.hide();
 
 		this.editBox = $('#editBox', this.target);
 		this.editButton = $('#editButton', this.target).on('click', this.edit.bind(this));
@@ -104,10 +106,14 @@
 
 	CharmapModal.prototype.update = function() {
 		$('[data-role=buttons]', this.target)
-			.html(this.buttons.buttons(this.charmap.all()));
+			.html(this.buttons.buttons(this.charmap.read()));
 	}
 
 	CharmapModal.prototype.show = function() {
+		// ensure initial state
+		this.editArea.hide();
+		this.editButton.show();
+
 		this.target.modal();
 	}
 

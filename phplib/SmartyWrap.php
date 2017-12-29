@@ -319,7 +319,7 @@ class SmartyWrap {
       self::assign('callToAction', true);
     }
     if (User::can(User::PRIV_ANY)) {
-      self::addJs('admin', 'hotkeys', 'charmap', 'sprintf');
+      self::addJs('admin', 'hotkeys', 'cookie', 'charmap', 'sprintf');
     }
     if (Session::userPrefers(Preferences::PRIVATE_MODE)) {
       self::addCss('privateMode');

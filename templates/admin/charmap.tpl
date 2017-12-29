@@ -7,11 +7,11 @@
 			</div>
 			<div class="modal-body">
 				<span data-role="buttons"></span>
-				<button type="button" id="editButton" class="btn btn-default">Editează</button>
+				<button type="button" id="editButton" class="btn btn-default">editează</button>
 				<div data-role="edit">
 					<p>Adaugă caracterele în căsuța de mai jos, unul pe linie.</p>
 					<textarea id="editBox" class="form-control" rows="10"></textarea>
-					<button type="button" id="saveButton" class="btn btn-default">Salveză</button>
+					<button type="button" id="saveButton" class="btn btn-default">salvează</button>
 				</div>
 			</div>
 		</div>

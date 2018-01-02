@@ -24,6 +24,8 @@ $(function() {
 
     $(document).bind('keydown', 'alt+p', clickPreviewTags);
 
+    $(document).bind('keydown', 'alt+ctrl+e', function(evt) { Charmap.show('#modal-charmap', evt.target); });
+
     $('a.hotkeyLink').click(hotkeyLinkClick);
   }
 

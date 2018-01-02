@@ -6,7 +6,13 @@
 require_once __DIR__ . '/../phplib/Core.php';
 
 define('SOURCE_ID', 63);
-define('START_AT', 'spiraea albiflora');
+define('START_AT', '');
+
+$xmarker = Lexem::get_by_form_modelType_modelNumber('x', 'I', '2');
+$xmarker or die("Nu găsesc lexemul x (I2).\n");
+
+$tag = Tag::get_by_value('nomenclatura binară');
+$tag or die("Nu găsesc eticheta [nomenclatura binară].\n");
 
 $defs = Model::factory('Definition')
       ->where('sourceId', SOURCE_ID)
@@ -18,12 +24,12 @@ $defs = Model::factory('Definition')
 foreach ($defs as $d) {
   
   if (preg_match('/^@(([A-Z][a-zéë]+) (x )?([-a-zë]+))@/', $d->internalRep, $matches)) {
-    // Genus species
-    $entryName = $matches[1];
+    // Identify elements. No hyphens.
+    $entryName = str_replace('-', '', $matches[1]);
     $genus = $matches[2];
-    $species = $matches[4];
+    $species = str_replace('-', '', $matches[4]);
     $hybrid = ($matches[3] != '');
-    printf("%s gen %s specie %s %s\n",
+    printf("**** %s gen %s specie %s %s\n",
            $entryName, $genus, $species, $hybrid ? 'hibrid' : '');
 
     // load or create the entry and associate it with the definition
@@ -33,6 +39,7 @@ foreach ($defs as $d) {
       $e = Entry::createAndSave($entryName);
     }
     EntryDefinition::associate($e->id, $d->id);
+    dissociateGenusEntries($d);
 
     // load the genus lexeme
     $glexeme = Lexem::get_by_formNoAccent_modelType_modelNumber($genus, 'I', '2.1');
@@ -42,8 +49,13 @@ foreach ($defs as $d) {
     $slexeme = getSpeciesLexeme($species);
     EntryLexem::dissociate($e->id, $slexeme->id);
 
-    // look for a compound lexeme
+    // load the compound lexeme or create it if it doesn't exist
     $clexeme = Lexem::get_by_form_compound($entryName, true);
+    if (!$clexeme) {
+      $clexeme = makeCompoundLexeme($entryName, $glexeme, $slexeme, $hybrid, $xmarker);
+    }
+    EntryLexem::associate($e->id, $clexeme->id);
+    ObjectTag::associate(ObjectTag::TYPE_LEXEM, $clexeme->id, $tag->id);
   }
 }
 
@@ -85,4 +97,32 @@ function getSpeciesLexeme($species) {
   $l->noAccent = true;
   $l->deepSave();
   return $l;
+}
+
+function makeCompoundLexeme($form, $glexeme, $slexeme, $hybrid, $xmarker) {
+  printf("Creez lexemul compus %s\n", $form);
+  $l = Lexem::create($form, 'I', '0');
+  $l->compound = true;
+  $l->noAccent = true;
+
+  $rank = 0;
+  $fragments = [];
+  $fragments[] = Fragment::create($glexeme->id, Fragment::DEC_INVARIABLE, true, $rank++);
+  if ($hybrid) {
+    $fragments[] = Fragment::create($xmarker->id, Fragment::DEC_INVARIABLE, false, $rank++);
+  }
+  $fragments[] = Fragment::create($slexeme->id, Fragment::DEC_INVARIABLE, false, $rank++);
+  $l->setFragments($fragments);
+
+  $l->deepSave();
+  return $l;
+}
+
+function dissociateGenusEntries($d) {
+  foreach ($d->getEntries() as $e) {
+    if (StringUtil::endsWith($e->description, '(gen de plante)')) {
+      printf("Disociez intrarea [%s] de definiția [%s]\n", $e->description, $d->lexicon);
+      EntryDefinition::dissociate($e->id, $d->id);
+    }
+  }
 }

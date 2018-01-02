@@ -217,6 +217,7 @@
           <ul>
             <li><b>Alt-R</b> = reafișează (unde este cazul)</li>
             <li><b>Alt-S</b> = salvează</li>
+            <li><b>Alt-Q</b> = tabel de glife</li>
             <li><b>Alt-V</b> = pagini vizitate recent</li>
             <li>
               <a href="#" class="hotkeyLink" data-mode="structure">Alt-T</a> =

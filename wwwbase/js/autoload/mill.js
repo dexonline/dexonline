@@ -21,7 +21,7 @@ $(function() {
       cache: false,
       error: function() {
         alert('Nu pot încărca următoarea întrebare. Vă redirectez la pagina principală.');
-        window.location = wwwRoot;      
+        window.location = wwwRoot;
       }
     }).done(function(data) {
       $('.word').html(data.word);
@@ -30,12 +30,12 @@ $(function() {
       }
       answer = data.answer;
       defId = data.defId;
-      
+
       var terms = definitions.map(function (def) {return def.term;});
       for (i = 1; i <= 4; i++) {
         definitions.push(data.definition[i]);
       }
-    });  
+    });
   }
 
   function optionPressed() {
@@ -50,16 +50,18 @@ $(function() {
       $('#statusImage'+round).attr('src', wwwRoot + 'img/mill/fail.png');
       guessed = 0;
     }
-    
+
     for(i = 1; i <= 4; i++) {
       $('#mill button[value="' + i + '"]').attr('disabled', true);
     }
-    
+
     if (round == 10) {
       setTimeout(function() {
         $('#questionPage').hide();
         $('#resultsPage').show();
         $('#answeredCorrect').html(answeredCorrect);
+        // track played game
+        $.post(wwwRoot + 'ajax/trackGame', { game: 'mill' });
       }, 2000);
     } else {
       round++;
@@ -80,7 +82,7 @@ $(function() {
     loadXMLDoc();
     $('#mainPage').hide();
     $('#questionPage').show();
-    
+
     document.addEventListener('keypress', function(event) {
       var c = String.fromCharCode(event.charCode);
       if (c >= '1' && c <= '4') {

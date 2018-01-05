@@ -47,6 +47,12 @@ $(function() {
 
     editor.on('init', function() {
 
+      var _doc = $(document);
+      // Trigger keyboard events on parent document.
+      // This is done so that keybindings work even when TinyMCE has focus.
+      // In this case evt.target will be .mce-content-body.
+      editor.on('keydown', function(evt) { _doc.trigger(evt); });
+
       // Register a "spaced" format
       editor.formatter.register('spaced', {
         inline : 'span',
@@ -100,7 +106,7 @@ $(function() {
     s = s.replace(/\\%/g, '~~~SAVE~~~'); // move \% out of the way
     s = s.replace(/%([^%]*)%/g, '<span class="spaced">$1</span>');
     s = s.replace(/~~~SAVE~~~/g, '\\%'); // restore \%
-      
+
     s = s.replace(/\^(\d)/g, '<sup>$1</sup>');
     s = s.replace(/_(\d)/g, '<sub>$1</sub>');
     s = s.replace(/\^\{([^}]*)\}/g, '<sup>$1</sup>');

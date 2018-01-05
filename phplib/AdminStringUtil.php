@@ -99,6 +99,11 @@ class AdminStringUtil {
   static function sanitize($s, $sourceId = null, &$ambiguousMatches = null) {
     $s = self::cleanup($s);
     $s = str_replace([ '$$', '@@', '%%' ], '', $s);
+
+    // Replace all kinds of double quotes with the ASCII ones.
+    // Do NOT alter ″ (double prime, 0x2033), which is used for inch and second symbols.
+    $s = str_replace([ '„', '”', '“', '‟'], '"', $s);
+
     $s = self::shorthandToUnicode($s);
     $s = self::migrateFormatChars($s);
     // Do not strip tags here. strip_tags will strip them even if they're not

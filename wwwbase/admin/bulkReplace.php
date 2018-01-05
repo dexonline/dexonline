@@ -122,14 +122,15 @@ if ($totalDefs > $changedDefs) {
     if ($engine == DiffUtil::DIFF_ENGINE_FINEDIFF) {
         $opcodes = FineDiff::getDiffOpcodes($def->internalRep, $def->htmlRep, $granularity);
         $diff = FineDiff::renderDiffToHTMLFromOpcodes($def->internalRep, $opcodes, null, false);
+        $def->htmlRep = AdminStringUtil::htmlize($diff, $def->sourceId);
     } else if ($engine == DiffUtil::DIFF_ENGINE_LDIFF) {
         // granularity is taken from Session preferences variable $SplitLevel, so we do not pass it
         $diff = LDiff::htmlDiff($def->internalRep, $def->htmlRep); 
+        $def->htmlRep = $diff;
     } else {
         //other engines
     }
     // replacing with the diff only for viewing purposes
-    $def->htmlRep = AdminStringUtil::htmlize($diff, $def->sourceId);
   }
   DebugInfo::stopClock("BulkReplace - AfterForEach +MoreToReplace");
 

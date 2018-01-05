@@ -283,10 +283,10 @@ class Definition extends BaseObject implements DatedObject {
   }
 
   // Return definitions that are associated with at least two of the lexems
-  static function searchMultipleWords($words, $hasDiacritics, $oldOrthography, $sourceId) {
+  static function searchMultipleWords($words, $hasDiacritics, $sourceId) {
     $defCounts = [];
     foreach ($words as $word) {
-      $entries = Entry::searchInflectedForms($word, $hasDiacritics, $oldOrthography);
+      $entries = Entry::searchInflectedForms($word, $hasDiacritics);
       if (count($entries)) {
         $definitions = self::loadForEntries($entries, $sourceId, $word);
         foreach ($definitions as $def) {

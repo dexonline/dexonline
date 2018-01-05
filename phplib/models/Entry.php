@@ -141,11 +141,8 @@ class Entry extends BaseObject implements DatedObject {
       ->find_many();
   }
 
-  static function searchInflectedForms($cuv, $hasDiacritics, $oldOrthography) {
+  static function searchInflectedForms($cuv, $hasDiacritics) {
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-    if ($oldOrthography) {
-      $cuv = StringUtil::convertOrthography($cuv);
-    }
 
     // load lexemes from two sources:
     // * simple lexemes that generate this form;

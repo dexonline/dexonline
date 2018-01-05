@@ -78,7 +78,6 @@ $paradigmLink = $_SERVER['REQUEST_URI'] . ($showParadigm ? '' : '/paradigma');
 
 $searchType = SEARCH_INFLECTED;
 $hasDiacritics = Session::userPrefers(Preferences::FORCE_DIACRITICS);
-$oldOrthography = Session::userPrefers(Preferences::OLD_ORTHOGRAPHY);
 $hasRegexp = FALSE;
 $isAllDigits = FALSE;
 $all = $all || $showParadigm;
@@ -185,7 +184,7 @@ if ($entryId) {
     $entries = [$entry];
     SmartyWrap::assign('cuv', $entry->getShortDescription());
     if (SPOOF_ENABLED && $cuv_spoofed) {
-      $entries_spoofed = Entry::searchInflectedForms($cuv_spoofed, $cuv_spoofed_hasDiacritics, $oldOrthography);
+      $entries_spoofed = Entry::searchInflectedForms($cuv_spoofed, $cuv_spoofed_hasDiacritics);
       $definitions = Definition::searchEntry($entries_spoofed[0]);
     }
     else {
@@ -204,7 +203,7 @@ if ($hasRegexp) {
 
 // If no search type requested so far, then normal search
 if ($searchType == SEARCH_INFLECTED) {
-  $entries = Entry::searchInflectedForms($cuv, $hasDiacritics, $oldOrthography);
+  $entries = Entry::searchInflectedForms($cuv, $hasDiacritics);
 
   // successful search
   if (count($entries)) {
@@ -239,7 +238,7 @@ if ($searchType == SEARCH_INFLECTED) {
     $extra['ignoredWords'] = array_slice($words, 5);
     $words = array_slice($words, 0, 5);
     $definitions = Definition::searchMultipleWords(
-      $words, $hasDiacritics, $oldOrthography, $sourceId);
+      $words, $hasDiacritics, $sourceId);
   }
 
   // fallback to approximate search

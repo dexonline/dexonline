@@ -107,6 +107,7 @@ $entries = [];
 $lexems = [];
 $trees = [];
 $extra = [];
+$adult = false;
 
 $showWotd = Session::isWotdMode()
   && User::can(User::PRIV_EDIT)
@@ -150,7 +151,7 @@ if ($text) {
     $extra['fullTextLock'] = true;
   } else {
     $words = preg_split('/ +/', $cuv);
-    list($defIds, $stopWords) = Definition::searchFullText($words, $hasDiacritics, $sourceId);
+    list($defIds, $stopWords, $adult) = Definition::searchFullText($words, $hasDiacritics, $sourceId);
 
     // enforce the limit before even loading the definitions to save memory
     // TODO: this can lead to a bug as follows: we load 100 definitions and filter them down
@@ -423,7 +424,6 @@ if (count($images)) {
 $showParadigm = ($showParadigm || Session::userPrefers(Preferences::SHOW_PARADIGM))
   && $SEARCH_PARAMS[$searchType]['paradigm'];
 
-$adult = false;
 foreach ($entries as $e) {
   $adult |= $e->adult;
 }

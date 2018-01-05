@@ -174,6 +174,7 @@ class Definition extends BaseObject implements DatedObject {
     $intersection = null;
     $stopWords = [];
     $lexemMap = [];
+    $adult = false;
 
     foreach ($words as $word) {
       // Get all lexems generating this form
@@ -200,6 +201,14 @@ class Definition extends BaseObject implements DatedObject {
         $isStopWord = false;
       }
 
+      // see if any entries for these lexemes are adult
+      $adult |= Model::factory('Entry')
+              ->table_alias('e')
+              ->join('EntryLexem', ['e.id', '=', 'el.entryId'], 'el')
+              ->where_in('el.lexemId', $lexemIds)
+              ->where('e.adult', true)
+              ->count();
+
       if ($isStopWord) {
         $stopWords[] = $word;
       } else {
@@ -210,11 +219,11 @@ class Definition extends BaseObject implements DatedObject {
     }
 
     if (empty($intersection)) { // This can happen when the query is all stopwords or the source selection produces no results
-      return [[], $stopWords];
+      return [[], $stopWords, $adult];
     }
     if (count($words) == 1) {
       // For single-word queries, let the caller do the sorting.
-      return [$intersection, $stopWords];
+      return [$intersection, $stopWords, $adult];
     }
 
     // Now compute a score for every definition
@@ -230,7 +239,7 @@ class Definition extends BaseObject implements DatedObject {
     }
     DebugInfo::stopClock("Computed score for every definition");
 
-    return [$intersection, $stopWords];
+    return [$intersection, $stopWords, $adult];
   }
 
   static function highlight($words, &$definitions) {

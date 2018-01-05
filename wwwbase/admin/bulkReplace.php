@@ -116,17 +116,17 @@ if ($totalDefs > $changedDefs) {
   // speeding up the display 
   foreach ($defs as $def) {
     // we temporary store the replaced internalRep
-    $def->htmlRep = str_replace($search, $replace, $def->internalRep);
+    $new = str_replace($search, $replace, $def->internalRep);
 
-    // getting the diff from $old (internalRep) -> $new (htmlRep)
+    // getting the diff from $old (internalRep) -> $new
     if ($engine == DiffUtil::DIFF_ENGINE_FINEDIFF) {
-        $opcodes = FineDiff::getDiffOpcodes($def->internalRep, $def->htmlRep, $granularity);
+      $fineDiffG = DiffUtil::getFineDiffGranularity($granularity);
+      $opcodes = FineDiff::getDiffOpcodes($def->internalRep, $new, $fineDiffG);
         $diff = FineDiff::renderDiffToHTMLFromOpcodes($def->internalRep, $opcodes, null, false);
-        $def->htmlRep = AdminStringUtil::htmlize($diff, $def->sourceId);
+        $def->htmlRep = $diff;
     } else if ($engine == DiffUtil::DIFF_ENGINE_LDIFF) {
         // granularity is taken from Session preferences variable $SplitLevel, so we do not pass it
-        $diff = LDiff::htmlDiff($def->internalRep, $def->htmlRep); 
-        $def->htmlRep = $diff;
+        $def->htmlRep = LDiff::htmlDiff($def->internalRep, $new);
     } else {
         //other engines
     }

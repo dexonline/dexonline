@@ -15,11 +15,8 @@ function assertEquals($expected, $actual) {
 
 function assertEqualArrays($expected, $actual) {
   assertEquals(count($expected), count($actual));
-  for ($i = 0; $i < count($expected); $i++) {
-    $elemE = each($expected);
-    $elemA = each($actual);
-    assertEquals($elemE[0], $elemA[0]);
-    assertEquals($elemE[1], $elemA[1]);
+  foreach ($expected as $key => $value) {
+    assertEquals($value, $actual[$key]);
   }
 }
 
@@ -465,6 +462,23 @@ assertEquals('ăâîșț', AdminStringUtil::padRight('ăâîșț', 3));
 assertEqualArrays(array('c', 'a', 'r'), AdminStringUtil::unicodeExplode('car'));
 assertEqualArrays(array('ă', 'a', 'â', 'ș', 'ț'),
                   AdminStringUtil::unicodeExplode('ăaâșț'));
+
+$orth = [
+  'pîine' => 'pâine',
+  'pîine mîine' => 'pâine mâine',
+  'reînnoi pîine' => 'reînnoi pâine',
+  'pîine reînnoi' => 'pâine reînnoi',
+  'anexînd' => 'anexând', // ex is not a prefix here
+  'înger' => 'înger',
+  'rîu înger' => 'râu înger',
+  'împlîntînd în' => 'împlântând în',
+  'sîntem astăzi sînt mîine' => 'suntem astăzi sunt mâine',
+  'sîntul așteaptă' => 'sântul așteaptă',
+];
+foreach ($orth as $old => $new) {
+  assertEquals($new, StringUtil::convertOrthography($old));
+  assertEquals(mb_strtoupper($new), StringUtil::convertOrthography(mb_strtoupper($old)));
+}
 
 assertEqualArrays(array(1, 5, 10),
                   Util::intersectArrays([1, 3, 5, 7, 9, 10],

@@ -36,18 +36,23 @@ class StringUtil {
   // Convert old (î) orthography to new (â) orthography.
   // Assumes $s uses diacritics (if needed).
   static function convertOrthography($s) {
-    if (preg_match('/^sînt(em|eți)?$/ui', $s)) {
-      return str_replace(['î', 'Î'], ['u', 'U'], $s);
-    } else {
-      // replace î with â unless it's at the beginning, the end or after a prefix
-      $r = '';
-      foreach (self::$I_PREFIXES as $p) {
-        $r .= "(?<!^{$p})";
-      }
-      $s = preg_replace("/(?<!^){$r}î(?=.)/u", 'â', $s);
-      $s = preg_replace("/(?<!^){$r}Î(?=.)/u", 'Â', $s);
-      return $s;
+    $s = preg_replace("/\bsînt(?=\b|em\b|\eți)/u", 'sunt', $s);
+    $s = preg_replace("/\bSÎNT(?=\b|EM\b|\EȚI)/u", 'SUNT', $s);
+
+    // replace î with â unless it's at the beginning, the end or after a prefix
+    $r = '\b';
+    foreach (self::$I_PREFIXES as $prefix) {
+      $r .= "|\b" . $prefix;
     }
+    $s = preg_replace("/(?<!{$r})î(?=.)/u", 'â', $s);
+
+    // same, but for uppercase
+    $r = '\b';
+    foreach (self::$I_PREFIXES as $prefix) {
+      $r .= "|\b" . mb_strtoupper($prefix);
+    }
+    $s = preg_replace("/(?<!{$r})Î(?=.)/u", 'Â', $s);
+    return $s;
   }
 
   static function unicodeToLatin($s) {

@@ -37,7 +37,11 @@
 		else {
 			myField.value += myValue;
 		}
-	}
+	};
+
+	function insertAtTinyMCECursor(editor, chr) {
+		editor.insertContent(chr);
+	};
 
 	var COOKIE = 'charmap';
 
@@ -80,7 +84,19 @@
 
 	// charmap buttons
 	var CharmapButtons = function(target) {
-		this.target = target;
+		var is_tinymce = target.hasClass('mce-content-body');
+		this.inserter = (
+			is_tinymce
+			? function(chr) {
+				insertAtTinyMCECursor(tinymce.activeEditor, chr);
+			}
+			: function(chr) {
+				// target is a jQuery element,
+				// insertAtCursor requires a DOM element
+				// so we use .get(0).
+				insertAtCursor(target.get(0), chr);
+			}
+		)
 	}
 
 	CharmapButtons.prototype.buttons = function(chars) {
@@ -91,13 +107,8 @@
 		var button = $(BUTTON);
 		button.text(chr);
 
-		var target = this.target;
-		button.on('click', function() {
-			// target is a jQuery element,
-			// insertAtCursor requires a DOM element
-			// so we use .get(0).
-			insertAtCursor(target.get(0), chr);
-		});
+		var inserter = this.inserter;
+		button.on('click', function() { inserter(chr) });
 
 		return button;
 	}

@@ -205,7 +205,7 @@ $(function() {
         } while (!bottomTiles[j]);
         bottomTiles[j].toggle();
       }
-      
+
     }
   }
 
@@ -707,9 +707,11 @@ $(function() {
     gameOverScene.visible = true;
     gameOverText.startAnimation();
 
+    // track played game
+    $.post(wwwRoot + 'ajax/trackGame', { game: 'scramble' });
   }
 
-  function removeHash () { 
+  function removeHash () {
     history.pushState('', document.title, window.location.pathname
                       + window.location.search);
   }
@@ -717,7 +719,7 @@ $(function() {
   // this handles div visibility only; game mechanics are in startGame()
   function restartGame() {
     $('#mainMenu').show();
-    $('#gamePanel').hide();    
+    $('#gamePanel').hide();
     $('#wordListPanel').hide();
     $('#restartGameButton').hide();
     $('#gameIdPanel').hide();

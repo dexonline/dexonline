@@ -11,7 +11,7 @@ $(function() {
     });
     revealLetters(difficulty);
     $('.letters').focus();
-    
+
     document.addEventListener('keypress', function(event) {
       var char = String.fromCharCode(event.charCode).toUpperCase();
       if(char == ' ') {
@@ -53,6 +53,9 @@ $(function() {
       });
       $('#hintButton, .letterButtons').attr('disabled', 'disabled');
       $('#resultsWrapper').show();
+
+      // track played game
+      $.post(wwwRoot + 'ajax/trackGame', { game: 'hangman' });
     }
   }
 
@@ -84,7 +87,7 @@ $(function() {
     field.attr('disabled', 'disabled');
     gameOver();
   }
-  
+
   function hint() {
     // Grab a random letter that wasn't revealed yet
     letters = $('.letters');

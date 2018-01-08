@@ -8,7 +8,7 @@ switch ($mode) {
   case 'structure':
     User::mustHave(User::PRIV_STRUCT);
     Session::toggleMode('structureMode',
-                        'Modul structurist activat. La salvarea unei intrări făra structurist, ' .
+                        'Modul structurist activat. La salvarea unei intrări fără structurist, ' .
                         'veți fi trecut ca structurist.',
                         'Modul structurist dezactivat.');
     break;

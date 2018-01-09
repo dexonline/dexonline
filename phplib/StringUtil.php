@@ -1,15 +1,6 @@
 <?php
 
 class StringUtil {
-  static $LETTERS = [
-    'shorthand' => ["'a", "'A", "'ă", "'Ă", "'â", "'Â", "'e", "'E", "'i", "'I",
-                    "'î", "'Î", "'o", "'O", "'ö", "'Ö", "'u", "'U", "'y", "'Y",
-                    '‑', '—', ' ◊ ', ' ♦ ', '„', '”'],
-    'unicode' => ['á', 'Á', 'ắ', 'Ắ', 'ấ', 'Ấ', 'é', 'É', 'í', 'Í',
-                  'î́', 'Î́', 'ó', 'Ó', "ö́", "Ö́", 'ú', 'Ú', 'ý', 'Ý',
-                  '-', '-', ' * ', ' ** ', '"', '"'],
-  ];
-
   // prefixes which should be followed by 'î', not 'â'
   static $I_PREFIXES = [
     'auto',
@@ -237,9 +228,9 @@ class StringUtil {
     $tpl_output = preg_replace("/(\W)sunt(em|eți)?/i", "\${1}sînt\${2}", $tpl_output);
 
     // Handle some accented letters in paradigms. Accents are denoted by a class.
-    $a = "<span class=\"accented\">â</span>";
-    $i = "<span class=\"accented\">î</span>";
-    $u = "<span class=\"accented\">u</span>";
+    $a = "<span class=\"tonic-accent\">â</span>";
+    $i = "<span class=\"tonic-accent\">î</span>";
+    $u = "<span class=\"tonic-accent\">u</span>";
 
     // â -> î
     $tpl_output = str_replace($a, $i, $tpl_output);
@@ -359,10 +350,10 @@ class StringUtil {
     return str_replace('/', DIRECTORY_SEPARATOR, $s);
   }
 
-  /* Place a css class around the accented letter */
+  /* Place a css class around the letter bearing the tonic accent */
   static function highlightAccent($s) {
     return preg_replace("/\'(a|e|i|o|u|ă|î|â)/i",
-                        "<span class=\"accented\">\$1</span>",
+                        "<span class=\"tonic-accent\">\$1</span>",
                         $s);
   }
 

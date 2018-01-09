@@ -1,9 +1,14 @@
 <?php
 
 class AdminStringUtil {
+  private static $LETTERS = [
+    'shorthand' => [ '‑', '—', ' ◊ ', ' ♦ ', ],
+    'unicode' => [ '-', '-', ' * ', ' ** ', ],
+  ];
+
   private static $HTML_SYMBOLS = [
-    'internal' => [' - ', ' ** ', ' * '],
-    'html' => [' &#x2013; ', ' &#x2666; ', ' &#x25ca; '],
+    'internal' => [' - ', ' ** ', ' * ', "'", ],
+    'html' => [' &#x2013; ', ' &#x2666; ', ' &#x25ca; ', '’' /* U+2019 */, ],
   ];
 
   private static $ACCENTS = [
@@ -102,7 +107,19 @@ class AdminStringUtil {
 
     // Replace all kinds of double quotes with the ASCII ones.
     // Do NOT alter ″ (double prime, 0x2033), which is used for inch and second symbols.
-    $s = str_replace([ '„', '”', '“', '‟'], '"', $s);
+    // TODO: Do not replace escaped characters.
+    $s = str_replace([
+      /* U+201E */ '„', /* U+201D */ '”', /* U+201C */ '“', /* U+201F */ '‟',
+    ], '"', $s);
+
+    // Replace all kinds of single quotes and acute accents with the ASCII apostrophe.
+    // Do NOT alter ′ (prime, 0x2032), which is used for foot and minute symbols.
+    $s = str_replace([
+      /* U+00B4 */ '´', /* U+2018 */ '‘', /* U+2019 */ '’',
+    ], "\\'", $s);
+
+    // Replace the ordinal indicator with the degree sign.
+    $s = str_replace(/* U+00BA */ 'º', /* U+00BA */ '°', $s);
 
     $s = self::shorthandToUnicode($s);
     $s = self::migrateFormatChars($s);
@@ -271,11 +288,7 @@ class AdminStringUtil {
     $s = str_replace(chr(0xc2) . chr(0xa0), ' ', $s);
     $s = str_replace(chr(0xc2) . chr(0xad), '', $s);
 
-    // A bit of a hack: We should not replace \'a with \á, therefore we isolate
-    // the \' compound first and restore it at the end.
-    $s = preg_replace('/\\\\(.)/', '[[[$1]]]', $s);
-    $s = str_replace(StringUtil::$LETTERS['shorthand'], StringUtil::$LETTERS['unicode'], $s);
-    $s = preg_replace('/\\[\\[\\[(.)\\]\\]\\]/', '\\\\$1', $s);
+    $s = str_replace(self::$LETTERS['shorthand'], self::$LETTERS['unicode'], $s);
     return $s;
   }
 
@@ -370,6 +383,12 @@ class AdminStringUtil {
         $i++;
         if ($i < $len) {
           $result .= StringUtil::getCharAt($s, $i);
+        }
+      } else  if ($c == "'") {
+        // Next character gets a tonic accent
+        $i++;
+        if ($i < $len) {
+          $result .= '<span class="tonic-accent">' . StringUtil::getCharAt($s, $i) . '</span>';
         }
       } else if ($c == '"') {
         $inQuotes = !$inQuotes;

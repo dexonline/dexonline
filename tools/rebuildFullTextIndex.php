@@ -8,7 +8,6 @@ ORM::get_db()->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 Log::notice('started');
 if (!Lock::acquire(Lock::FULL_TEXT_INDEX)) {
   OS::errorAndExit('Lock already exists!');
-  exit;
 }
 
 Log::info("Clearing table FullTextIndex.");
@@ -90,8 +89,11 @@ function extractWords($text) {
 
   $text = mb_strtolower($text);
   $text = AdminStringUtil::removeAccents($text);
-  $result = array();
 
+  // remove tonic accents (apostrophes not preceded by a backslash)
+  $text = preg_replace("/(?<!\\\\)'/", '', $text);
+
+  $result = [];
   $currentWord = '';
   $chars = AdminStringUtil::unicodeExplode($text);
   foreach ($chars as $c) {

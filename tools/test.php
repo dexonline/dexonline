@@ -65,13 +65,6 @@ assertEquals(AdminStringUtil::chr(10), "\n");
 assertEquals(AdminStringUtil::ord('ă'), 259);
 assertEquals(AdminStringUtil::chr(259), 'ă');
 
-assertEquals(AdminStringUtil::internalizeAllReferences('|foo|bar|'), '|foo|bar|');
-assertEquals(AdminStringUtil::internalizeAllReferences('|foo moo|bar|'), '|foo moo|bar|');
-assertEquals(AdminStringUtil::internalizeAllReferences('|foo moo (@1@)|bar|'),
-             '|foo moo (@1@)|bar|');
-assertEquals(AdminStringUtil::internalizeAllReferences('text 1 |foo|bar| text 2 |bib|baz| text 3'),
-             'text 1 |foo|bar| text 2 |bib|baz| text 3');
-
 assertEquals('zzz <a class="ref" href="/definitie/y">x</a>', AdminStringUtil::convertReferencesToHtml('zzz |x|y|'));
 assertEquals('zzz <a class="ref" href="/definitie/î">ă</a>', AdminStringUtil::convertReferencesToHtml('zzz |ă|î|'));
 assertEquals('zzz <a class="ref" href="/definitie/ab cd ef">ab cd ef</a>', AdminStringUtil::convertReferencesToHtml('zzz |ab cd ef|ab cd ef|'));

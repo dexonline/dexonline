@@ -103,7 +103,8 @@ class AdminStringUtil {
     if ($sourceId) {
       $s = self::markAbbreviations($s, $sourceId, $ambiguousMatches);
     }
-    return self::internalizeAllReferences($s);
+
+    return $s;
   }
 
   static function migrateFormatChars($s) {
@@ -167,50 +168,6 @@ class AdminStringUtil {
       $s = trim(preg_replace('/  +/', ' ', $s));
     }
     return $s;
-  }
-
-  /**
-   * Convert all user-entered references to the internal format, e.g.
-   * |foo|bar| -> |foo|bar| (unchanged)
-   * |foo moo|bar| -> |foo moo|bar| (unchanged)
-   * |foo moo (@1@)|bar| -> |foo moo (@1@)|bar| (unchanged)
-   * |foo|| -> |foo|foo|
-   * |foo moo|| -> |foo moo|moo|
-   * |foo moo (@1@)|| -> |foo moo (@1@)|moo|
-   * |dealului|-| -> deal
-   */
-  static function internalizeAllReferences($s) {
-    $result = '';
-    $text = '';
-    $ref = '';
-    $prevChar = '';
-    $mode = 0; // 0 = not between bars; 1 = text; 2 = reference
-    for ($i = 0; $i < strlen($s); $i++) {
-      $char = $s[$i];
-      if ($char == '|' && $prevChar != "\\") {
-        if ($mode == 2) {
-          $result .= "|$text|$ref|";
-          $text = '';
-          $ref = '';
-        }
-        $mode = ($mode + 1) % 3;
-      } else {
-        switch ($mode) {
-        case 0: $result .= $char; break;
-        case 1: $text .= $char; break;
-        case 2: $ref .= $char;
-        }
-      }
-      $prevChar = $char;
-    }
-
-    // If the number of pipes is not a multiple of three, escape the remaining pipes.
-    switch ($mode) {
-    case 0: break; // all good
-    case 1: $result .= "\\|" . $text; break;
-    case 2: $result .= "\\|" . $text . "\\|" . $ref; break;
-    }
-    return $result;
   }
 
   private static function _unicodeReplace($matches) {

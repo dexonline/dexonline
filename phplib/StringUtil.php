@@ -276,11 +276,7 @@ class StringUtil {
     return $result;
   }
 
-  static function formatNumber($n, $decimals) {
-    return number_format($n, $decimals, ',', '.');
-  }
-
-    /**
+  /**
    * Returns the preposition needed for numerals ending with 20->99 
    * @param string $amount
    * @return string either ␣ or ␣de

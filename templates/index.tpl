@@ -34,9 +34,14 @@
 
   <div class="col-md-6 col-md-offset-3 website-statement text-center">
     <p>
-      <i>dexonline</i> transpune pe Internet dicționare de prestigiu ale limbii române. Proiectul este întreținut de un colectiv de voluntari.
+
+      <i>dexonline</i> transpune pe Internet dicționare de prestigiu ale limbii române.
+      Proiectul este întreținut de un colectiv de voluntari.
       O parte din definiții pot fi descărcate liber și gratuit sub Licența Publică Generală GNU.<br>
-      Starea curentă: {$words_total} de definiții, din care {$words_last_month} învățate în ultima lună.
+
+      Starea curentă: {$wordsTotal|number_format:0:',':'.'} de definiții,
+      din care {$wordsLastMonth|number_format:0:',':'.'} învățate în ultima lună.
+
     </p>
   </div>
 

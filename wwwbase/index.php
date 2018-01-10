@@ -9,14 +9,11 @@ if (rand(0, 99) < 50) {
 
 $widgets = Preferences::getWidgets(User::getActive());
 $numEnabledWidgets = array_reduce($widgets, function($result, $w) { return $result + $w['enabled']; });
-$wordCount = Definition::getWordCount();
-$wordCountRough = $wordCount - ($wordCount % 10000);
 
 SmartyWrap::assign('pageType', 'home');
 SmartyWrap::assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțuvwxyz'));
-SmartyWrap::assign('words_total', StringUtil::formatNumber($wordCount, 0));
-SmartyWrap::assign('words_rough', StringUtil::formatNumber($wordCountRough, 0));
-SmartyWrap::assign('words_last_month', StringUtil::formatNumber(Definition::getWordCountLastMonth(), 0));
+SmartyWrap::assign('wordsTotal', Definition::getWordCount());
+SmartyWrap::assign('wordsLastMonth', Definition::getWordCountLastMonth());
 SmartyWrap::assign('widgets', $widgets);
 SmartyWrap::assign('numEnabledWidgets', $numEnabledWidgets);
 

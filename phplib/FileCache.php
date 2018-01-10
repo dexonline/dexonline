@@ -4,9 +4,9 @@ class FileCache {
   private static $CACHE_EXPIRATION_SECONDS = 86400;
   private static $CACHE_PREFIX = '/dexcache_';
   private static $CKEY_TOP = 'top';
-  private static $CKEY_TOP_ALL = 'top_all';
-  private static $CKEY_WORDS_ALL = 'words_all';
-  private static $CKEY_WORDS_LAST_MONTH = 'words_last_month';
+  private static $CKEY_TOP_ALL = 'topAll';
+  private static $CKEY_WORDS_ALL = 'wordsTotal';
+  private static $CKEY_WORDS_LAST_MONTH = 'wordsLastMonth';
 
   /**
    * Returns the cached value for this key, or NULL if the key isn't cached or

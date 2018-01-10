@@ -25,6 +25,12 @@ function assertAbbreviations($typed, $internal, $html, $sourceId) {
   assertEquals($html, AdminStringUtil::htmlize($internal, $sourceId));
 }
 
+function assertQuery($query, $hasDiacritics, $hasRegexp, $isAllDigits) {
+  assertEquals($hasDiacritics, StringUtil::hasDiacritics($query));
+  assertEquals($hasRegexp, StringUtil::hasRegexp($query));
+  assertEquals($isAllDigits, StringUtil::isAllDigits($query));
+}
+
 /********************* Tests for stringUtil.php ************************/
 
 // Check that we've got the shorthand->Unicode mappings right
@@ -197,12 +203,12 @@ assertEquals("rlike '^(cop[^a-z]l)$'", StringUtil::dexRegexpToMysqlRegexp('cop[^
 assertEquals("rlike '^(cop[â-z]l)$'", StringUtil::dexRegexpToMysqlRegexp('cop[â-z]l'));
 assertEquals("rlike '^(cop[â-z]l.*)$'", StringUtil::dexRegexpToMysqlRegexp('cop[â-z]l*'));
 
-assertEqualArrays(array(0, 0, 0), StringUtil::analyzeQuery('mama'));
-assertEqualArrays(array(1, 0, 0), StringUtil::analyzeQuery('mamă'));
-assertEqualArrays(array(0, 1, 0), StringUtil::analyzeQuery('cop?l'));
-assertEqualArrays(array(0, 1, 0), StringUtil::analyzeQuery('cop[cg]l'));
-assertEqualArrays(array(1, 1, 0), StringUtil::analyzeQuery('căț[cg]l'));
-assertEqualArrays(array(0, 0, 1), StringUtil::analyzeQuery('1234567'));
+assertQuery('mama', false, false, false);
+assertQuery('mamă', true, false, false);
+assertQuery('cop?l', false, true, false);
+assertQuery('cop[cg]l', false, true, false);
+assertQuery('căț[cg]l', true, true, false);
+assertQuery('1234567', false, false, true);
 
 /* assertEquals('&#x25;&#x7e;&#x24;&#x40;&#x27;', */
 /*              AdminStringUtil::xmlizeRequired('\\%\\~\\$\\@\\\'')); */

@@ -170,20 +170,11 @@ class StringUtil {
 
   static function dexRegexpToMysqlRegexp($s) {
     if (preg_match("/[|\[\]]/", $s)) {
-      return "rlike '^(" . str_replace(array("*", "?"), array(".*", "."), $s) .
+      return "rlike '^(" . str_replace(['*', '?'], ['.*', '.'], $s) .
         ")$'";
     } else {
-      return "like '" . str_replace(array("*", "?"), array("%", "_"), $s) . "'";
+      return "like '" . str_replace(['*', '?'], ['%', '_'], $s) . "'";
     }
-  }
-
-  /** Generates a set of clauses usable for counting or fetching results */
-  static function analyzeQuery($query) {
-    $hasDiacritics = self::hasDiacritics($query);
-    $hasRegexp = self::hasRegexp($query);
-    $isAllDigits = self::isAllDigits($query);
-
-    return array($hasDiacritics, $hasRegexp, $isAllDigits);
   }
 
   static function scrambleEmail($email) {

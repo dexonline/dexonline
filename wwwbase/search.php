@@ -87,17 +87,16 @@ $sourceId = $source ? $source->id : null;
 
 if ($cuv) {
   SmartyWrap::assign('cuv', $cuv);
-  $arr = StringUtil::analyzeQuery($cuv);
-  $hasDiacritics = $hasDiacritics || $arr[0];
-  $hasRegexp = $arr[1];
-  $isAllDigits = $arr[2];
+  $hasDiacritics |= StringUtil::hasDiacritics($cuv);
+  $hasRegexp = StringUtil::hasRegexp($cuv);
+  $isAllDigits = StringUtil::isAllDigits($cuv);
 }
 
 if(SPOOF_ENABLED && $cuv) {
   $cuv_normalized = SPOOF_NORMALIZE ? mb_strtolower(StringUtil::unicodeToLatin($cuv)) : $cuv;
   $cuv_spoofed = @SPOOF_WORDS[$cuv_normalized];
   if ($cuv_spoofed) {
-    $cuv_spoofed_hasDiacritics = $hasDiacritics || StringUtil::analyzeQuery($cuv_spoofed)[0];
+    $cuv_spoofed_hasDiacritics = $hasDiacritics || StringUtil::hasDiacritics($cuv_spoofed);
   }
 }
 

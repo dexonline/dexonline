@@ -263,7 +263,7 @@ class StringUtil {
 
   /* Place a css class around the letter bearing the tonic accent */
   static function highlightAccent($s) {
-    return preg_replace("/\'(.)/u",
+    return preg_replace("/(?<!\\\\)'(.)/u",
                         "<span class=\"tonic-accent\">\$1</span>",
                         $s);
   }

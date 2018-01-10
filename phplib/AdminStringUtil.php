@@ -108,26 +108,13 @@ class AdminStringUtil {
   // <br>\n; otherwise leaves \n as \n. Collects unrecoverable errors in $errors.
   static function htmlize($s, $sourceId, &$errors = null, $obeyNewlines = false) {
     $s = htmlspecialchars($s, ENT_NOQUOTES);
-    $s = self::convertReferencesToHtml($s);
-    $s = self::convertMeaningMentionsToHtml($s);
-    $s = self::insertSuperscripts($s);
     $s = self::internalToHtml($s, $obeyNewlines);
-    $s = self::emphasize($s);
+    $s = self::htmlizeMeaningMentions($s);
     $s = self::htmlizeAbbreviations($s, $sourceId, $errors);
-
-    $s = str_replace(Constant::HTML_REPLACEMENTS['internal'],
-                     Constant::HTML_REPLACEMENTS['html'],
-                     $s);
-
     return $s;
   }
 
-  static function convertReferencesToHtml($s) {
-    // Require that the first pipe character is not escaped (preceded by a backslash)
-    return preg_replace('/([^\\\\])\|([^|]*)\|([^|]*)\|/', '$1<a class="ref" href="/definitie/$3">$2</a>', $s);
-  }
-
-  static function convertMeaningMentionsToHtml($s) {
+  static function htmlizeMeaningMentions($s) {
     $html = '<span data-toggle="popover" data-html="true" data-placement="auto right" ' .
           'class="%s" title="$2">$1</span>';
     $s = preg_replace(
@@ -141,84 +128,50 @@ class AdminStringUtil {
     return $s;
   }
 
-  /**
-   * Replaces \^[-+]?[0-9]+ with <sup>...</sup>.
-   * Replaces \_[-+]?[0-9]+ with <sub>...</sub>.
-   */
-  static function insertSuperscripts($text) {
-    $patterns = ["/\^(\d)/", "/_(\d)/",
-                 "/\^\{([^}]*)\}/", "/_\{([^}]*)\}/"];
-    $replace = ["<sup>$1</sup>", "<sub>$1</sub>",
-                "<sup>$1</sup>", "<sub>$1</sub>"];
-    return preg_replace($patterns, $replace, $text);
-  }
-
-  /**
-   * The bulk of the HTML conversion. A few things happen in other places, such
-   * as insertSuperscripts(). This must be called before
-   * insertSuperscripts, or it may replace x^123 with x ^ 1 2 3.
-   */
+  // Converts various internal notations to HTML.
   static function internalToHtml($s, $obeyNewlines) {
-    // We can't have user-entered tags since we have called htmlspecialchars
-    // already. However, we can have tags like <sup> and <a>.
-    $inTag = false;
-    $inBold = false;
-    $inItalic = false;
-    $inQuotes = false;
-    $inSpaced = false;
 
-    $result = '';
-    $len = mb_strlen($s);
-    for ($i = 0; $i < $len; $i++) {
-      $c = StringUtil::getCharAt($s, $i);
-      if ($c == '<') {
-        $inTag = true;
-      } else if ($c == '>') {
-        $inTag = false;
-      }
+    $notation = [
+      '/(?<!\\\\)"([^"]*)"/' => '„$1”',                              // "x" => „x”
+      '/(?<!\\\\)%([^%]*)%/' => '<span class="spaced">$1</span>',    // %spaced%
+      '/(?<!\\\\)@([^@]*)@/' => '<b>$1</b>',                         // @bold@
+      '/(?<!\\\\)\\$([^$]*)\\$/' => '<i>$1</i>',                     // italic
+      '/\^(\d)/' => '<sup>$1</sup>',                                 // superscript ^123
+      '/\^\{([^}]*)\}/' => '<sup>$1</sup>',                          // superscript ^{a b c}
+      '/_(\d)/' => '<sub>$1</sub>',                                  // subscript _123
+      '/_\{([^}]*)\}/' => '<sub>$1</sub>',                           // superscript _{a b c}
 
-      if ($inTag) {
-        // Don't touch ANYTHING between < and >
-        $result .= $c;
-      } else  if ($c == '\\') {
-        // Next character is escaped
-        $i++;
-        if ($i < $len) {
-          $result .= StringUtil::getCharAt($s, $i);
-        }
-      } else  if ($c == "'") {
-        // Next character gets a tonic accent
-        $i++;
-        if ($i < $len) {
-          $result .= '<span class="tonic-accent">' . StringUtil::getCharAt($s, $i) . '</span>';
-        }
-      } else if ($c == '"') {
-        $inQuotes = !$inQuotes;
-        $result .= $inQuotes ? '„' : '”';
-      } else if ($c == '@') {
-        $inBold = !$inBold;
-        $result .= $inBold ? '<b>' : '</b>';
-      } else if ($c == '$') {
-        $inItalic = !$inItalic;
-        $result .= $inItalic ? '<i>' : '</i>';
-      } else if ($c == "\n") {
-        $result .= $obeyNewlines ? "<br>\n" : "\n";
-      } else if ($c == '%') {
-        $inSpaced = !$inSpaced;
-        $result .= $inSpaced ? '<span class="spaced">' : '</span>';
-      } else {
-        $result .= $c;
-      }
+      // |foo|bar| references
+      '/(?<!\\\\)\|([^|]*)\|([^|]*)\|/' => '<a class="ref" href="/definitie/$2">$1</a>',
+    ];
+
+    // preg_replace supports multiple patterns and replacements, but they may not overlap
+    foreach ($notation as $internal => $html) {
+      $s = preg_replace($internal, $html, $s);
     }
-    return $result;
-  }
 
-  static function emphasize($s) {
+    // __emphasized__ text
     $count = 0;
     $s = preg_replace('/__(.*?)__/', '<span class="emph">$1</span>', $s, -1, $count);
     if ($count) {
       $s = "<span class=\"deemph\">$s</span>";
     }
+
+    // t'onic 'accent
+    $s = StringUtil::highlightAccent($s);
+
+    if ($obeyNewlines) {
+      $s = str_replace("\n", "<br>\n", $s);
+    }
+
+    // various substitutions
+    $from = array_keys(Constant::HTML_REPLACEMENTS);
+    $to = array_values(Constant::HTML_REPLACEMENTS);
+    $s = str_replace($from, $to, $s);
+
+    // finally, remove the escape character -- we no longer need it
+    $s = preg_replace('/(?<!\\\\)\\\\/', '', $s);
+
     return $s;
   }
 

@@ -71,34 +71,86 @@ assertEquals(AdminStringUtil::chr(10), "\n");
 assertEquals(AdminStringUtil::ord('ă'), 259);
 assertEquals(AdminStringUtil::chr(259), 'ă');
 
-assertEquals('zzz <a class="ref" href="/definitie/y">x</a>', AdminStringUtil::convertReferencesToHtml('zzz |x|y|'));
-assertEquals('zzz <a class="ref" href="/definitie/î">ă</a>', AdminStringUtil::convertReferencesToHtml('zzz |ă|î|'));
-assertEquals('zzz <a class="ref" href="/definitie/ab cd ef">ab cd ef</a>', AdminStringUtil::convertReferencesToHtml('zzz |ab cd ef|ab cd ef|'));
-assertEquals('zzz <a class="ref" href="/definitie/ab cd ef (@1@)">ab cd ef (@1@)</a>', AdminStringUtil::convertReferencesToHtml('zzz |ab cd ef (@1@)|ab cd ef (@1@)|'));
-assertEquals('zzz <a class="ref" href="/definitie/ab cd õÕ (@1@)">ab cd õÕ (@1@)</a>', AdminStringUtil::convertReferencesToHtml('zzz |ab cd õÕ (@1@)|ab cd õÕ (@1@)|'));
-assertEquals('zzz <a class="ref" href="/definitie/y">x</a> foobar <a class="ref" href="/definitie/t">z</a>', AdminStringUtil::convertReferencesToHtml('zzz |x|y| foobar |z|t|'));
+$data = [
+  // references
+  'zzz |x|y|' =>
+  'zzz <a class="ref" href="/definitie/y">x</a>',
 
-assertEquals(AdminStringUtil::insertSuperscripts("copil^{+123}. copil_{-123}----"),
-	     "copil<sup>+123</sup>. copil<sub>-123</sub>----");
-assertEquals(AdminStringUtil::insertSuperscripts("copil^i^2"), "copil^i<sup>2</sup>");
+  'zzz |ă|î|' =>
+  'zzz <a class="ref" href="/definitie/î">ă</a>',
 
-assertEquals('„abc”„”',
-	     AdminStringUtil::internalToHtml('"abc"""', FALSE));
-assertEquals('<b><i>bold and italic</i> bold only</b> regular.',
-	     AdminStringUtil::internalToHtml('@$bold and italic$ bold only@ regular.',
-				  FALSE));
-assertEquals('<@bold, but inside tag@>',
-	     AdminStringUtil::internalToHtml('<@bold, but inside tag@>', FALSE));
-assertEquals('foo &lt; <i>bar</i>',
-	     AdminStringUtil::internalToHtml('foo &lt; $bar$', FALSE));
-assertEquals('<span class="spaced">cățel</span>', AdminStringUtil::internalToHtml('%cățel%', FALSE));
-assertEquals('foo <span class="spaced">bar &amp;</span> bib', AdminStringUtil::internalToHtml('foo %bar &amp;% bib', FALSE));
-assertEquals('<span class="spaced">unu, doi</span>', AdminStringUtil::internalToHtml('%unu, doi%', FALSE));
-assertEquals('<span class="spaced">ab <b>cd</b></span>', AdminStringUtil::internalToHtml('%ab @cd@%', FALSE));
-assertEquals("okely\ndokely",
-	     AdminStringUtil::internalToHtml("okely\ndokely", FALSE));
-assertEquals("okely<br>\ndokely",
-	     AdminStringUtil::internalToHtml("okely\ndokely", TRUE));
+  'zzz |ab cd ef|ab cd ef|' =>
+  'zzz <a class="ref" href="/definitie/ab cd ef">ab cd ef</a>',
+
+  'zzz |ab cd ef (1)|ab cd ef (1)|' =>
+  'zzz <a class="ref" href="/definitie/ab cd ef (1)">ab cd ef (1)</a>',
+
+  'zzz |ab cd õÕ (@1@)|ab cd õÕ|' =>
+  'zzz <a class="ref" href="/definitie/ab cd õÕ">ab cd õÕ (<b>1</b>)</a>',
+
+  'zzz |x|y| foobar |z|t|' =>
+  'zzz <a class="ref" href="/definitie/y">x</a> foobar <a class="ref" href="/definitie/t">z</a>',
+
+  // other internal notations
+  'mama\\tata' =>
+  'mamatata',
+
+  'mama\\@tata' =>
+  'mama@tata',
+
+  '@$bold and italic$ bold only@ regular.' =>
+  '<b><i>bold and italic</i> bold only</b> regular.',
+
+  'foo &lt; $bar$' =>
+  'foo &lt; <i>bar</i>',
+
+  '%cățel%' =>
+  '<span class="spaced">cățel</span>',
+
+  'foo %bar &amp;% bib' =>
+  'foo <span class="spaced">bar &amp;</span> bib',
+
+  '%unu, doi%' =>
+  '<span class="spaced">unu, doi</span>',
+
+  'A %unu% B %doi% C' =>
+  'A <span class="spaced">unu</span> B <span class="spaced">doi</span> C',
+
+  'A \\%unu% B %doi% C' =>
+  'A %unu<span class="spaced"> B </span>doi% C',
+
+  '%ab @cd@%' =>
+  '<span class="spaced">ab <b>cd</b></span>',
+  
+  "okely\ndokely" =>
+  "okely\ndokely",
+
+  "@ACC'ENT@" =>
+  '<b>ACC<span class="tonic-accent">E</span>NT</b>',
+
+  "@ACC\\'ENT@" =>
+  '<b>ACC’ENT</b>',
+
+  'copil^{+123}. copil_{-123}----' => 
+  'copil<sup>+123</sup>. copil<sub>-123</sub>----',
+
+  'copil^i^2' =>
+  'copil^i<sup>2</sup>',
+
+  'abc __de__ fgh' =>
+  '<span class="deemph">abc <span class="emph">de</span> fgh</span>',
+];
+foreach ($data as $before => $after) {
+  assertEquals($after, AdminStringUtil::internalToHtml($before, false));
+}
+
+$data = [
+  "okely\ndokely" =>
+  "okely<br>\ndokely",
+];
+foreach ($data as $before => $after) {
+  assertEquals($after, AdminStringUtil::internalToHtml($before, true));
+}
 
 assertEquals("@FILLER@ #adj. dem.# (antepus), art.", AdminStringUtil::markAbbreviations("@FILLER@ adj. dem. (antepus), art.", 1));
 assertEquals("@FILLER@ #adj. dem.# (antepus), art.", AdminStringUtil::markAbbreviations("@FILLER@ adj. dem. (antepus), art.", 1));
@@ -131,7 +183,7 @@ assertEqualArrays(array(0 => 'Abreviere necunoscută: «brrb. ghhg.». Verifica�
 $internalRep = '@M\'ARE^2,@ $mări,$ #s. f.# Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $#p. ext.#$ ocean. * #Expr.# $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** #Fig.# Suprafață vastă; întindere mare; imensitate. ** #Fig.# Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is.@';
 assertEquals($internalRep,
              AdminStringUtil::sanitize('@M\'ARE^2@, $mări$, s. f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $p.ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.', 1));
-assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup>,</b> <i>mări,</i> <abbr class="abbrev" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; <i><abbr class="abbrev" title="prin extensiune">p. ext.</abbr></i> ocean. &#x25ca; <abbr class="abbrev" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is.</b>',
+assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup>,</b> <i>mări,</i> <abbr class="abbrev" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; <i><abbr class="abbrev" title="prin extensiune">p. ext.</abbr></i> ocean. ◊ <abbr class="abbrev" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. ♦ <abbr class="abbrev" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. ♦ <abbr class="abbrev" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. – Lat. <b>mare, -is.</b>',
              AdminStringUtil::htmlize($internalRep, 1));
 assertEquals($internalRep, AdminStringUtil::sanitize($internalRep, 1));
 
@@ -152,7 +204,7 @@ assertAbbreviations("FILLER ED. FILLER", "FILLER #Ed.# FILLER", "FILLER <abbr cl
 
 // Abbreviation includes special characters
 assertAbbreviations("FILLER RRHA, TMC FILLER", "FILLER #RRHA, TMC# FILLER",
-		    "FILLER <abbr class=\"abbrev\" title=\"Revue Roumaine d’Histoire de l’Art, série Théâtre, Musique, Cinématographie\">RRHA, TMC</abbr> FILLER", 32);
+		    "FILLER <abbr class=\"abbrev\" title=\"Revue Roumaine d'Histoire de l'Art, série Théâtre, Musique, Cinématographie\">RRHA, TMC</abbr> FILLER", 32);
 assertAbbreviations("FILLER adj. interog.-rel. FILLER", "FILLER #adj. interog.-rel.# FILLER",
                     "FILLER <abbr class=\"abbrev\" title=\"adjectiv interogativ-relativ\">adj. interog.-rel.</abbr> FILLER", 1);
 

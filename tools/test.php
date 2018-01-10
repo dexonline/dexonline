@@ -29,9 +29,7 @@ function assertAbbreviations($typed, $internal, $html, $sourceId) {
 
 // Check that we've got the shorthand->Unicode mappings right
 assertEquals(AdminStringUtil::shorthandToUnicode("~a^a^i,s,t"), '~a^a^i,s,t');
-assertEquals(AdminStringUtil::shorthandToUnicode("'a'e'i'o'u'y"), 'áéíóúý');
-assertEquals(AdminStringUtil::shorthandToUnicode("'A'E'I'O'U'Y"), 'ÁÉÍÓÚÝ');
-assertEquals(AdminStringUtil::shorthandToUnicode("'ă'Ă'â'Â'î'Î"), 'ắẮấẤî́Î́');
+assertEquals(AdminStringUtil::shorthandToUnicode("'a'e'i'o'u'y"), "'a'e'i'o'u'y");
 assertEquals('acegyzACEGYZ', StringUtil::unicodeToLatin("ắčèğýžẮČÈĞÝŽ"));
 
 assertEquals('mama', mb_strtolower('mama'));
@@ -159,10 +157,10 @@ $errors = array();
 assertEquals("FOO <abbr class=\"abbrev\" title=\"abreviere necunoscută\">brrb. ghhg.</abbr> BAR", AdminStringUtil::htmlize("FOO #brrb. ghhg.# BAR", 1, $errors));
 assertEqualArrays(array(0 => 'Abreviere necunoscută: «brrb. ghhg.». Verificați că după fiecare punct există un spațiu.'), $errors);
 
-$internalRep = '@MÁRE^2,@ $mări,$ #s. f.# Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu |oceanul|ocean| printr-o |strâmtoare|strâmtoare|; parte a oceanului de lângă |țărm|țărm|; $#p. ext.#$ ocean. * #Expr.# $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** #Fig.# Suprafață vastă; întindere mare; imensitate. ** #Fig.# Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is.@';
+$internalRep = '@M\'ARE^2,@ $mări,$ #s. f.# Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu |oceanul|ocean| printr-o |strâmtoare|strâmtoare|; parte a oceanului de lângă |țărm|țărm|; $#p. ext.#$ ocean. * #Expr.# $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** #Fig.# Suprafață vastă; întindere mare; imensitate. ** #Fig.# Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is.@';
 assertEquals($internalRep,
              AdminStringUtil::sanitize('@M\'ARE^2@, $mări$, s. f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|-|, care de obicei sunt unite cu |oceanul|-| printr-o |strâmtoare||; parte a oceanului de lângă |țărm||; $p.ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.', 1));
-assertEquals('<b>MÁRE<sup>2</sup>,</b> <i>mări,</i> <abbr class="abbrev" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu <a class="ref" href="/definitie/ocean">oceanul</a> printr-o <a class="ref" href="/definitie/strâmtoare">strâmtoare</a>; parte a oceanului de lângă <a class="ref" href="/definitie/țărm">țărm</a>; <i><abbr class="abbrev" title="prin extensiune">p. ext.</abbr></i> ocean. &#x25ca; <abbr class="abbrev" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is.</b>',
+assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup>,</b> <i>mări,</i> <abbr class="abbrev" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu <a class="ref" href="/definitie/ocean">oceanul</a> printr-o <a class="ref" href="/definitie/strâmtoare">strâmtoare</a>; parte a oceanului de lângă <a class="ref" href="/definitie/țărm">țărm</a>; <i><abbr class="abbrev" title="prin extensiune">p. ext.</abbr></i> ocean. &#x25ca; <abbr class="abbrev" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is.</b>',
              AdminStringUtil::htmlize($internalRep, 1));
 assertEquals($internalRep, AdminStringUtil::sanitize($internalRep, 1));
 
@@ -183,7 +181,7 @@ assertAbbreviations("FILLER ED. FILLER", "FILLER #Ed.# FILLER", "FILLER <abbr cl
 
 // Abbreviation includes special characters
 assertAbbreviations("FILLER RRHA, TMC FILLER", "FILLER #RRHA, TMC# FILLER",
-		    "FILLER <abbr class=\"abbrev\" title=\"Revue Roumaine d'Histoire de l'Art, série Théâtre, Musique, Cinématographie\">RRHA, TMC</abbr> FILLER", 32);
+		    "FILLER <abbr class=\"abbrev\" title=\"Revue Roumaine d’Histoire de l’Art, série Théâtre, Musique, Cinématographie\">RRHA, TMC</abbr> FILLER", 32);
 assertAbbreviations("FILLER adj. interog.-rel. FILLER", "FILLER #adj. interog.-rel.# FILLER",
                     "FILLER <abbr class=\"abbrev\" title=\"adjectiv interogativ-relativ\">adj. interog.-rel.</abbr> FILLER", 1);
 
@@ -430,7 +428,7 @@ assertEquals(1, FlexStringUtil::countVowels('abc'));
 assertEquals(2, FlexStringUtil::countVowels('abcde'));
 assertEquals(8, FlexStringUtil::countVowels('aeiouăâî'));
 
-assertEquals('cásă', AdminStringUtil::internalize("c'asă", false));
+assertEquals("c'asă", AdminStringUtil::internalize("c'asă", false));
 assertEquals("c'asă", AdminStringUtil::internalize("c'asă", true));
 
 assertEquals("cas'ă", FlexStringUtil::placeAccent("casă", 1, ''));

@@ -399,8 +399,6 @@ assertEquals(1, FlexStringUtil::countVowels('abc'));
 assertEquals(2, FlexStringUtil::countVowels('abcde'));
 assertEquals(8, FlexStringUtil::countVowels('aeiouăâî'));
 
-assertEquals("c'asă", AdminStringUtil::internalize("c'asă"));
-
 assertEquals("cas'ă", FlexStringUtil::placeAccent("casă", 1, ''));
 assertEquals("c'asă", FlexStringUtil::placeAccent("casă", 2, ''));
 assertEquals("casă", FlexStringUtil::placeAccent("casă", 3, ''));
@@ -473,8 +471,5 @@ assertEquals(2, Util::findSnippet(array(array(1, 2, 10),
 assertEquals(4, Util::findSnippet(array(array(1, 2, 10),
                                         array(6, 20),
                                         array(8, 15))));
-
-assertEquals('$abc$ @def@', AdminStringUtil::formatLexem('$abc$ @def@')); // This is intentional -- lexem formatting is very lenient.
-assertEquals("m'amă máre", AdminStringUtil::formatLexem("m'amă máre  ")); // No shorthand conversions.
 
 ?>

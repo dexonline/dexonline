@@ -173,9 +173,9 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
                   $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
                   $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
                   $tagIds) {
-  $lexem->setForm(AdminStringUtil::formatLexem($lexemForm));
+  $lexem->setForm($lexemForm);
   $lexem->number = $lexemNumber;
-  $lexem->description = AdminStringUtil::internalize($lexemDescription);
+  $lexem->description = $lexemDescription;
   $lexem->noAccent = !$needsAccent;
   $lexem->stopWord = $stopWord;
   $lexem->hyphenations = $hyphenations;

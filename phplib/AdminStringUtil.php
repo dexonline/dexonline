@@ -37,16 +37,6 @@ class AdminStringUtil {
     return preg_match('/^\p{L}*$/u', $char);
   }
 
-  static function formatLexem($s) {
-    return self::process($s, ['trim', 'strip_tags', 'StringUtil::stripHtmlEscapeCodes']);
-  }
-
-  // If preserveAccent is true, then c'asă is not converted to cásă.
-  static function internalize($text) {
-    $text = self::process($text, array('self::shorthandToUnicode', 'trim', 'strip_tags', 'self::unixNewlines'));
-    return $text;
-  }
-
   // Generic purpose cleanup of a string. This should be true of all columns of all tables.
   static function cleanup($s) {
     $s = trim($s);

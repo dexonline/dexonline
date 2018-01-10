@@ -194,7 +194,7 @@ while ($i < count($lines)) {
   $definition->save();
   if($verbose) echo("\tAdded definition {$definition->id} ({$definition->lexicon})\n");
 
-  $lname = addslashes(AdminStringUtil::formatLexem($lname));
+  $lname = addslashes($lname);
   $names = preg_split("/[-\s,\/()]+/", $lname);
   foreach ($names as $name) {
     if ($name == '') continue;

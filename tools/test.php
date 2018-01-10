@@ -393,8 +393,7 @@ assertEquals(1, FlexStringUtil::countVowels('abc'));
 assertEquals(2, FlexStringUtil::countVowels('abcde'));
 assertEquals(8, FlexStringUtil::countVowels('aeiouăâî'));
 
-assertEquals("c'asă", AdminStringUtil::internalize("c'asă", false));
-assertEquals("c'asă", AdminStringUtil::internalize("c'asă", true));
+assertEquals("c'asă", AdminStringUtil::internalize("c'asă"));
 
 assertEquals("cas'ă", FlexStringUtil::placeAccent("casă", 1, ''));
 assertEquals("c'asă", FlexStringUtil::placeAccent("casă", 2, ''));

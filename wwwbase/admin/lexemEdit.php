@@ -175,7 +175,7 @@ function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescripti
                   $tagIds) {
   $lexem->setForm(AdminStringUtil::formatLexem($lexemForm));
   $lexem->number = $lexemNumber;
-  $lexem->description = AdminStringUtil::internalize($lexemDescription, false);
+  $lexem->description = AdminStringUtil::internalize($lexemDescription);
   $lexem->noAccent = !$needsAccent;
   $lexem->stopWord = $stopWord;
   $lexem->hyphenations = $hyphenations;

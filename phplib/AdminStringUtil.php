@@ -42,14 +42,8 @@ class AdminStringUtil {
   }
 
   // If preserveAccent is true, then c'asă is not converted to cásă.
-  static function internalize($text, $preserveAccent) {
-    if ($preserveAccent) {
-      $text = str_replace("'", "*****", $text);
-    }
+  static function internalize($text) {
     $text = self::process($text, array('self::shorthandToUnicode', 'trim', 'strip_tags', 'self::unixNewlines'));
-    if ($preserveAccent) {
-      $text = str_replace("*****", "'", $text);
-    }
     return $text;
   }
 

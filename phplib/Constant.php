@@ -9,11 +9,14 @@ class Constant {
     'Ş'   => 'Ș',
     'ţ'   => 'ț',
     'Ţ'   => 'Ț',
-    '‑'   => '-',     /* U+2011 non-breaking hyphen */
-    '—'   => '-',     /* U+2014 em dash */
+
     ' ◊ ' => ' * ',
     ' ♦ ' => ' **',
+
+    // hyphens and spaces
     ' '   => ' ',     /* U+00A0 non-breaking space */
+    '‑'   => '-',     /* U+2011 non-breaking hyphen */
+    '—'   => '-',     /* U+2014 em dash */
     '­'   => '',      /* U+00AD soft hyphen */
 
     // Replace all kinds of double quotes with the ASCII ones.
@@ -30,7 +33,9 @@ class Constant {
     '’'   => "'",     /* U+2019 */ 
 
     // Replace the ordinal indicator with the degree sign.
-    'º'   =>  '°', /* U+00BA => U+00B0 */
+    'º'   =>  '°',    /* U+00BA => U+00B0 */
+
+    "\r\n" => "\n"    /* Unix newlines only */
   ];
 
 }

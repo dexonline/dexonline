@@ -21,13 +21,6 @@ class AdminStringUtil {
   private static $ABBREV_INDEX = null; // These will be loaded lazily
   private static $ABBREVS = [];
 
-  private static function process($s, $ops) {
-    foreach ($ops as $op) {
-      $s = call_user_func($op, $s);
-    }
-    return $s;
-  }
-
   private static function isUnicodeLetter($char) {
     // according to http://php.net/manual/en/regexp.reference.unicode.php
     return preg_match('/^\p{L}*$/u', $char);
@@ -42,7 +35,12 @@ class AdminStringUtil {
     $s = str_replace($from, $to, $s);
 
     // Replace \abcd with the Unicode character 0xABCD
-    $s = preg_replace_callback('/\\\\([\dabcdef]{4,5})/i', 'self::_unicodeReplace', $s);
+    $s = preg_replace_callback(
+      '/\\\\([\dabcdef]{4,5})/i',
+      function ($matches) {
+        return self::chr(hexdec($matches[0]));
+      },
+      $s);
 
     return $s;
   }
@@ -122,15 +120,6 @@ class AdminStringUtil {
       // Collapse consecutive spaces and trim the string
       $s = trim(preg_replace('/  +/', ' ', $s));
     }
-    return $s;
-  }
-
-  private static function _unicodeReplace($matches) {
-    return self::chr(hexdec($matches[0]));
-  }
-
-  static function unixNewlines($s) {
-    $s = str_replace("\r\n", "\n", $s);
     return $s;
   }
 
@@ -261,15 +250,16 @@ class AdminStringUtil {
     return self::minimalInternalToHtml($s);
   }
 
-  private static function _ordReplace($matches) {
-    return '&#x5c;' . '&#x' . dechex(self::ord($matches[1])) . ';';
-  }
-
   static function xmlizeRequired($s) {
     // Escape <, > and &
     $s = htmlspecialchars($s, ENT_NOQUOTES);
     // Replace backslashed characters with their XML escape code
-    $s = preg_replace_callback('/\\\\(.)/', 'self::_ordReplace', $s);
+    $s = preg_replace_callback(
+      '/\\\\(.)/',
+      function ($matches) {
+        return '&#x5c;' . '&#x' . dechex(self::ord($matches[1])) . ';';
+      },
+      $s);
     return $s;
   }
 

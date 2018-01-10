@@ -1,10 +1,6 @@
 <?php
 
 class AdminStringUtil {
-  private static $LETTERS = [
-    'shorthand' => [ '‑', '—', ' ◊ ', ' ♦ ', ],
-    'unicode' => [ '-', '-', ' * ', ' ** ', ],
-  ];
 
   private static $HTML_SYMBOLS = [
     'internal' => [' - ', ' ** ', ' * ', "'", ],
@@ -40,9 +36,14 @@ class AdminStringUtil {
   // Generic purpose cleanup of a string. This should be true of all columns of all tables.
   static function cleanup($s) {
     $s = trim($s);
-    $s = str_replace([ 'ş', 'Ş', 'ţ', 'Ţ' ],
-                     [ 'ș', 'Ș', 'ț', 'Ț' ],
-                     $s);
+
+    $from = array_keys(Constant::CLEANUP_REPLACEMENTS);
+    $to = array_values(Constant::CLEANUP_REPLACEMENTS);
+    $s = str_replace($from, $to, $s);
+
+    // Replace \abcd with the Unicode character 0xABCD
+    $s = preg_replace_callback('/\\\\([\dabcdef]{4,5})/i', 'self::_unicodeReplace', $s);
+
     return $s;
   }
 
@@ -51,23 +52,6 @@ class AdminStringUtil {
     $s = self::cleanup($s);
     $s = str_replace([ '$$', '@@', '%%' ], '', $s);
 
-    // Replace all kinds of double quotes with the ASCII ones.
-    // Do NOT alter ″ (double prime, 0x2033), which is used for inch and second symbols.
-    // TODO: Do not replace escaped characters.
-    $s = str_replace([
-      /* U+201E */ '„', /* U+201D */ '”', /* U+201C */ '“', /* U+201F */ '‟',
-    ], '"', $s);
-
-    // Replace all kinds of single quotes and acute accents with the ASCII apostrophe.
-    // Do NOT alter ′ (prime, 0x2032), which is used for foot and minute symbols.
-    $s = str_replace([
-      /* U+00B4 */ '´', /* U+2018 */ '‘', /* U+2019 */ '’',
-    ], "\\'", $s);
-
-    // Replace the ordinal indicator with the degree sign.
-    $s = str_replace(/* U+00BA */ 'º', /* U+00BA */ '°', $s);
-
-    $s = self::shorthandToUnicode($s);
     $s = self::migrateFormatChars($s);
     // Do not strip tags here. strip_tags will strip them even if they're not
     // closed, so things like "< fr." will get stripped.
@@ -143,23 +127,6 @@ class AdminStringUtil {
 
   private static function _unicodeReplace($matches) {
     return self::chr(hexdec($matches[0]));
-  }
-
-  /**
-   * Replace shorthand notations like 'a with Unicode symbols like á.
-   * These are convenience symbols the user might type in, but we don't
-   * want to store them as such in the database.
-   */
-  static function shorthandToUnicode($s) {
-    // Replace \abcd with the Unicode character 0xABCD
-    $s = preg_replace_callback('/\\\\([\dabcdefABCDEF]{4,5})/', 'self::_unicodeReplace', $s);
-
-    // Remove non-breaking spaces and soft hyphens.
-    $s = str_replace(chr(0xc2) . chr(0xa0), ' ', $s);
-    $s = str_replace(chr(0xc2) . chr(0xad), '', $s);
-
-    $s = str_replace(self::$LETTERS['shorthand'], self::$LETTERS['unicode'], $s);
-    return $s;
   }
 
   static function unixNewlines($s) {

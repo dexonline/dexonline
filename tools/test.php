@@ -91,6 +91,15 @@ $data = [
   'zzz |x|y| foobar |z|t|' =>
   'zzz <a class="ref" href="/definitie/y">x</a> foobar <a class="ref" href="/definitie/t">z</a>',
 
+  // mentions
+  'măr pară[[12345]] prună' =>
+  'măr <span data-toggle="popover" data-html="true" data-placement="auto right" ' .
+  'class="treeMention" title="12345">pară</span> prună',
+
+  'măr pară[12345] prună' =>
+  'măr <span data-toggle="popover" data-html="true" data-placement="auto right" ' .
+  'class="mention" title="12345">pară</span> prună',
+
   // other internal notations
   'mama\\tata' =>
   'mamatata',
@@ -101,14 +110,14 @@ $data = [
   '@$bold and italic$ bold only@ regular.' =>
   '<b><i>bold and italic</i> bold only</b> regular.',
 
-  'foo &lt; $bar$' =>
+  'foo < $bar$' =>
   'foo &lt; <i>bar</i>',
 
   '%cățel%' =>
   '<span class="spaced">cățel</span>',
 
-  'foo %bar &amp;% bib' =>
-  'foo <span class="spaced">bar &amp;</span> bib',
+  'foo %bar <% bib' =>
+  'foo <span class="spaced">bar &lt;</span> bib',
 
   '%unu, doi%' =>
   '<span class="spaced">unu, doi</span>',
@@ -141,16 +150,12 @@ $data = [
   '<span class="deemph">abc <span class="emph">de</span> fgh</span>',
 ];
 foreach ($data as $before => $after) {
-  assertEquals($after, AdminStringUtil::internalToHtml($before, false));
+  assertEquals($after, AdminStringUtil::htmlize($before, 0));
 }
 
-$data = [
-  "okely\ndokely" =>
-  "okely<br>\ndokely",
-];
-foreach ($data as $before => $after) {
-  assertEquals($after, AdminStringUtil::internalToHtml($before, true));
-}
+$before = "okely\ndokely";
+$after = "okely<br>\ndokely";
+assertEquals($after, AdminStringUtil::htmlize($before, 0, $errors, true));
 
 assertEquals("@FILLER@ #adj. dem.# (antepus), art.", AdminStringUtil::markAbbreviations("@FILLER@ adj. dem. (antepus), art.", 1));
 assertEquals("@FILLER@ #adj. dem.# (antepus), art.", AdminStringUtil::markAbbreviations("@FILLER@ adj. dem. (antepus), art.", 1));

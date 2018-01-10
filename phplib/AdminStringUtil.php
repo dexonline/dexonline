@@ -104,49 +104,14 @@ class AdminStringUtil {
     return $s;
   }
 
-  // Converts the text to html. If $obeyNewlines is true, replaces \n with
+  // Converts $s to html. If $obeyNewlines is true, replaces \n with
   // <br>\n; otherwise leaves \n as \n. Collects unrecoverable errors in $errors.
   static function htmlize($s, $sourceId, &$errors = null, $obeyNewlines = false) {
     $s = htmlspecialchars($s, ENT_NOQUOTES);
-    $s = self::internalToHtml($s, $obeyNewlines);
-    $s = self::htmlizeMeaningMentions($s);
-    $s = self::htmlizeAbbreviations($s, $sourceId, $errors);
-    return $s;
-  }
 
-  static function htmlizeMeaningMentions($s) {
-    $html = '<span data-toggle="popover" data-html="true" data-placement="auto right" ' .
-          'class="%s" title="$2">$1</span>';
-    $s = preg_replace(
-      '/([-a-zăâîșț]+)\[\[([0-9]+)\]\]/i',
-      sprintf($html, 'treeMention'),
-      $s);
-    $s = preg_replace(
-      '/([-a-zăâîșț]+)\[([0-9]+)\]/i',
-      sprintf($html, 'mention'),
-      $s);
-    return $s;
-  }
-
-  // Converts various internal notations to HTML.
-  static function internalToHtml($s, $obeyNewlines) {
-
-    $notation = [
-      '/(?<!\\\\)"([^"]*)"/' => '„$1”',                              // "x" => „x”
-      '/(?<!\\\\)%([^%]*)%/' => '<span class="spaced">$1</span>',    // %spaced%
-      '/(?<!\\\\)@([^@]*)@/' => '<b>$1</b>',                         // @bold@
-      '/(?<!\\\\)\\$([^$]*)\\$/' => '<i>$1</i>',                     // italic
-      '/\^(\d)/' => '<sup>$1</sup>',                                 // superscript ^123
-      '/\^\{([^}]*)\}/' => '<sup>$1</sup>',                          // superscript ^{a b c}
-      '/_(\d)/' => '<sub>$1</sub>',                                  // subscript _123
-      '/_\{([^}]*)\}/' => '<sub>$1</sub>',                           // superscript _{a b c}
-
-      // |foo|bar| references
-      '/(?<!\\\\)\|([^|]*)\|([^|]*)\|/' => '<a class="ref" href="/definitie/$2">$1</a>',
-    ];
-
+    // various internal notations
     // preg_replace supports multiple patterns and replacements, but they may not overlap
-    foreach ($notation as $internal => $html) {
+    foreach (Constant::HTML_PATTERNS as $internal => $html) {
       $s = preg_replace($internal, $html, $s);
     }
 
@@ -168,6 +133,8 @@ class AdminStringUtil {
     $from = array_keys(Constant::HTML_REPLACEMENTS);
     $to = array_values(Constant::HTML_REPLACEMENTS);
     $s = str_replace($from, $to, $s);
+
+    $s = self::htmlizeAbbreviations($s, $sourceId, $errors);
 
     // finally, remove the escape character -- we no longer need it
     $s = preg_replace('/(?<!\\\\)\\\\/', '', $s);

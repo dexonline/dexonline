@@ -38,6 +38,30 @@ class Constant {
     "\r\n" => "\n"    /* Unix newlines only */
   ];
 
+  const HTML_PATTERNS = [
+    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                              // "x" => „x”
+    '/(?<!\\\\)%([^%]*)%/' => '<span class="spaced">$1</span>',    // %spaced%
+    '/(?<!\\\\)@([^@]*)@/' => '<b>$1</b>',                         // @bold@
+    '/(?<!\\\\)\\$([^$]*)\\$/' => '<i>$1</i>',                     // italic
+    '/\^(\d)/' => '<sup>$1</sup>',                                 // superscript ^123
+    '/\^\{([^}]*)\}/' => '<sup>$1</sup>',                          // superscript ^{a b c}
+    '/_(\d)/' => '<sub>$1</sub>',                                  // subscript _123
+    '/_\{([^}]*)\}/' => '<sub>$1</sub>',                           // superscript _{a b c}
+
+    // |foo|bar| references
+    '/(?<!\\\\)\|([^|]*)\|([^|]*)\|/' => '<a class="ref" href="/definitie/$2">$1</a>',
+
+    // tree mentions
+    '/([-a-zăâîșț]+)\[\[([0-9]+)\]\]/i' =>
+    '<span data-toggle="popover" data-html="true" data-placement="auto right" ' .
+    'class="treeMention" title="$2">$1</span>',
+
+    // meaning mentions
+    '/([-a-zăâîșț]+)\[([0-9]+)\]/i' =>
+    '<span data-toggle="popover" data-html="true" data-placement="auto right" ' .
+    'class="mention" title="$2">$1</span>',
+  ];
+
   const HTML_REPLACEMENTS = [
     ' - '  => ' – ',  /* U+2013 */
     ' ** ' => ' ♦ ',  /* U+2666 */

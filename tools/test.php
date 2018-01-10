@@ -148,6 +148,13 @@ $data = [
 
   'abc __de__ fgh' =>
   '<span class="deemph">abc <span class="emph">de</span> fgh</span>',
+
+  //escape characters
+  'abc\\$def$ghi' =>
+  'abc$def$ghi',
+
+  'abc\\^{def}ghi' =>
+  'abc^{def}ghi',
 ];
 foreach ($data as $before => $after) {
   assertEquals($after, AdminStringUtil::htmlize($before, 0));

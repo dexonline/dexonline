@@ -43,10 +43,10 @@ class Constant {
     '/(?<!\\\\)%([^%]*)%/' => '<span class="spaced">$1</span>',    // %spaced%
     '/(?<!\\\\)@([^@]*)@/' => '<b>$1</b>',                         // @bold@
     '/(?<!\\\\)\\$([^$]*)\\$/' => '<i>$1</i>',                     // italic
-    '/\^(\d)/' => '<sup>$1</sup>',                                 // superscript ^123
-    '/\^\{([^}]*)\}/' => '<sup>$1</sup>',                          // superscript ^{a b c}
-    '/_(\d)/' => '<sub>$1</sub>',                                  // subscript _123
-    '/_\{([^}]*)\}/' => '<sub>$1</sub>',                           // superscript _{a b c}
+    '/(?<!\\\\)\^(\d)/' => '<sup>$1</sup>',                        // superscript ^123
+    '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                 // superscript ^{a b c}
+    '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                         // subscript _123
+    '/(?<!\\\\)_\{([^}]*)\}/' => '<sub>$1</sub>',                  // superscript _{a b c}
 
     // |foo|bar| references
     '/(?<!\\\\)\|([^|]*)\|([^|]*)\|/' => '<a class="ref" href="/definitie/$2">$1</a>',

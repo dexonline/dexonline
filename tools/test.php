@@ -65,37 +65,12 @@ assertEquals(AdminStringUtil::chr(10), "\n");
 assertEquals(AdminStringUtil::ord('ă'), 259);
 assertEquals(AdminStringUtil::chr(259), 'ă');
 
-// Check suffix removals
-assertEquals(AdminStringUtil::removeKnownSuffixes(''), '');
-assertEquals(AdminStringUtil::removeKnownSuffixes('mama'), 'mama');
-assertEquals(AdminStringUtil::removeKnownSuffixes('farmaciei'), 'farmacie');
-assertEquals(AdminStringUtil::removeKnownSuffixes('dealului'), 'deal');
-assertEquals(AdminStringUtil::removeKnownSuffixes('dealul'), 'deal');
-assertEquals(AdminStringUtil::removeKnownSuffixes('dealuri'), 'deal');
-assertEquals(AdminStringUtil::removeKnownSuffixes('dealurilor'), 'deal');
-assertEquals(AdminStringUtil::removeKnownSuffixes('copacilor'), 'copac');
-assertEquals(AdminStringUtil::removeKnownSuffixes('bogată'), 'bogat');
-assertEquals(AdminStringUtil::removeKnownSuffixes('bogate'), 'bogat');
-
-assertEquals(AdminStringUtil::getLastWord(''), '');
-assertEquals(AdminStringUtil::getLastWord('foo'), 'foo');
-assertEquals(AdminStringUtil::getLastWord('foo bar'), 'bar');
-assertEquals(AdminStringUtil::getLastWord('foo bar (@1@)'), 'bar');
-assertEquals(AdminStringUtil::getLastWord('foo bar õÕ (@1@)'), 'õÕ');
-
 assertEquals(AdminStringUtil::internalizeAllReferences('|foo|bar|'), '|foo|bar|');
 assertEquals(AdminStringUtil::internalizeAllReferences('|foo moo|bar|'), '|foo moo|bar|');
 assertEquals(AdminStringUtil::internalizeAllReferences('|foo moo (@1@)|bar|'),
-	     '|foo moo (@1@)|bar|');
-assertEquals(AdminStringUtil::internalizeAllReferences('|foo||'), '|foo|foo|');
-assertEquals(AdminStringUtil::internalizeAllReferences('|foo moo||'), '|foo moo|moo|');
-assertEquals(AdminStringUtil::internalizeAllReferences('|foo moo (@1@)||'),
-	     '|foo moo (@1@)|moo|');
-assertEquals(AdminStringUtil::internalizeAllReferences('|dealului|-|'), '|dealului|deal|');
-assertEquals(AdminStringUtil::internalizeAllReferences('|vax albina|-|'),
-	     '|vax albina|vax albina|');
-assertEquals(AdminStringUtil::internalizeAllReferences('text 1 |foo|| text 2 |dealul|-| text 3'),
-	     'text 1 |foo|foo| text 2 |dealul|deal| text 3');
+             '|foo moo (@1@)|bar|');
+assertEquals(AdminStringUtil::internalizeAllReferences('text 1 |foo|bar| text 2 |bib|baz| text 3'),
+             'text 1 |foo|bar| text 2 |bib|baz| text 3');
 
 assertEquals('zzz <a class="ref" href="/definitie/y">x</a>', AdminStringUtil::convertReferencesToHtml('zzz |x|y|'));
 assertEquals('zzz <a class="ref" href="/definitie/î">ă</a>', AdminStringUtil::convertReferencesToHtml('zzz |ă|î|'));
@@ -157,10 +132,10 @@ $errors = array();
 assertEquals("FOO <abbr class=\"abbrev\" title=\"abreviere necunoscută\">brrb. ghhg.</abbr> BAR", AdminStringUtil::htmlize("FOO #brrb. ghhg.# BAR", 1, $errors));
 assertEqualArrays(array(0 => 'Abreviere necunoscută: «brrb. ghhg.». Verificați că după fiecare punct există un spațiu.'), $errors);
 
-$internalRep = '@M\'ARE^2,@ $mări,$ #s. f.# Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu |oceanul|ocean| printr-o |strâmtoare|strâmtoare|; parte a oceanului de lângă |țărm|țărm|; $#p. ext.#$ ocean. * #Expr.# $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** #Fig.# Suprafață vastă; întindere mare; imensitate. ** #Fig.# Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is.@';
+$internalRep = '@M\'ARE^2,@ $mări,$ #s. f.# Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $#p. ext.#$ ocean. * #Expr.# $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** #Fig.# Suprafață vastă; întindere mare; imensitate. ** #Fig.# Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is.@';
 assertEquals($internalRep,
-             AdminStringUtil::sanitize('@M\'ARE^2@, $mări$, s. f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|-|, care de obicei sunt unite cu |oceanul|-| printr-o |strâmtoare||; parte a oceanului de lângă |țărm||; $p.ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.', 1));
-assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup>,</b> <i>mări,</i> <abbr class="abbrev" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu <a class="ref" href="/definitie/ocean">oceanul</a> printr-o <a class="ref" href="/definitie/strâmtoare">strâmtoare</a>; parte a oceanului de lângă <a class="ref" href="/definitie/țărm">țărm</a>; <i><abbr class="abbrev" title="prin extensiune">p. ext.</abbr></i> ocean. &#x25ca; <abbr class="abbrev" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is.</b>',
+             AdminStringUtil::sanitize('@M\'ARE^2@, $mări$, s. f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $p.ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.', 1));
+assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup>,</b> <i>mări,</i> <abbr class="abbrev" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; <i><abbr class="abbrev" title="prin extensiune">p. ext.</abbr></i> ocean. &#x25ca; <abbr class="abbrev" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. &#x2666; <abbr class="abbrev" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. &#x2013; Lat. <b>mare, -is.</b>',
              AdminStringUtil::htmlize($internalRep, 1));
 assertEquals($internalRep, AdminStringUtil::sanitize($internalRep, 1));
 

@@ -45,31 +45,6 @@ class AdminStringUtil {
     ]);
   }
 
-  /**
-   * Returns the last word in a string (i.e., the last sequence of ASCII and/or
-   * unicode letters. If the string contains no letters, returns the empty
-   * string.
-   */
-  static function getLastWord($text) {
-    $len = mb_strlen($text);
-
-    $end = $len - 1;
-    while ($end >= 0 && !self::isUnicodeLetter(StringUtil::getCharAt($text, $end))) {
-      $end--;
-    }
-
-    if ($end == -1) {
-      return '';
-    }
-
-    $start = $end - 1;
-    while ($start >= 0 && self::isUnicodeLetter(StringUtil::getCharAt($text, $start))) {
-      $start--;
-    }
-
-    return mb_substr($text, $start + 1, $end - $start);
-  }
-
   private static function isUnicodeLetter($char) {
     // according to http://php.net/manual/en/regexp.reference.unicode.php
     return preg_match('/^\p{L}*$/u', $char);
@@ -214,8 +189,7 @@ class AdminStringUtil {
       $char = $s[$i];
       if ($char == '|' && $prevChar != "\\") {
         if ($mode == 2) {
-          $newRef = self::internalizeReference($text, $ref);
-          $result .= "|$text|$newRef|";
+          $result .= "|$text|$ref|";
           $text = '';
           $ref = '';
         }
@@ -237,38 +211,6 @@ class AdminStringUtil {
     case 2: $result .= "\\|" . $text . "\\|" . $ref; break;
     }
     return $result;
-  }
-
-  private static function internalizeReference($text, $ref) {
-    if ($ref == '-') {
-      return self::removeKnownSuffixes($text);
-    } else if ($ref == '') {
-      return self::getLastWord($text);
-    } else {
-      return $ref;
-    }
-  }
-
-  /**
-   * Strips out the suffix from a word, if possible. If no suffix matches,
-   * returns the original word.
-   */
-  static function removeKnownSuffixes($word) {
-    $suffixes = array('iei' => 'ie',
-                      'ului' => '',
-                      'ul' => '',
-                      'uri' => '',
-                      'urilor' => '',
-                      'ilor' => '',
-                      'i' => '',
-                      'ă' => '',
-                      'e' => '');
-    foreach ($suffixes as $suffix => $replacement) {
-      if (StringUtil::endsWith($word, $suffix)) {
-        return substr($word, 0, strlen($word) - strlen($suffix)) . $replacement;
-      }
-    }
-    return $word;
   }
 
   private static function _unicodeReplace($matches) {

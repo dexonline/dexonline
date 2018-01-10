@@ -51,8 +51,6 @@ class AdminStringUtil {
     $s = str_replace([ '$$', '@@', '%%' ], '', $s);
 
     $s = self::migrateFormatChars($s);
-    // Do not strip tags here. strip_tags will strip them even if they're not
-    // closed, so things like "< fr." will get stripped.
     if ($sourceId) {
       $s = self::markAbbreviations($s, $sourceId, $ambiguousMatches);
     }
@@ -65,7 +63,10 @@ class AdminStringUtil {
     $len = strlen($s);
     $i = 0;
     $state = [ '$' => false, '@' => false, '%' => false ];
-    $value = $len ? array_fill(0, $len, 4) : array(); // 0 = punctuation (.,;:), 1 = closing char, 2 = whitespace, 3 = opening char, 4 = other
+
+    // 0 = punctuation (.,;:), 1 = closing char, 2 = whitespace, 3 = opening char, 4 = other
+    $value = $len ? array_fill(0, $len, 4) : [];
+
     while ($i < $len) {
       $c = $s[$i];
       if ($c == '\\') {
@@ -90,7 +91,8 @@ class AdminStringUtil {
     // Now put all format chars in the right positions.
     // - opening chars need to more right past whitespace and punctuation (.,;:)
     // - closing chars need to move left past whitespace
-    // Therefore, take every string consisting of (w)hitespace, (p)unctuation, (o)pening chars and (c)losing chars and rearrange it as p,c,w,o
+    // Therefore, take every string consisting of (w)hitespace, (p)unctuation, (o)pening chars
+    // and (c)losing chars and rearrange it as p,c,w,o
     $matches = [];
     preg_match_all('/[ .,;:@$%]+/', $s, $matches, PREG_OFFSET_CAPTURE);
     if (count($matches)) {
@@ -170,10 +172,10 @@ class AdminStringUtil {
    * Replaces \_[-+]?[0-9]+ with <sub>...</sub>.
    */
   static function insertSuperscripts($text) {
-    $patterns = array("/\^(\d)/", "/_(\d)/",
-                      "/\^\{([^}]*)\}/", "/_\{([^}]*)\}/");
-    $replace = array("<sup>$1</sup>", "<sub>$1</sub>",
-                     "<sup>$1</sup>", "<sub>$1</sub>");
+    $patterns = ["/\^(\d)/", "/_(\d)/",
+                 "/\^\{([^}]*)\}/", "/_\{([^}]*)\}/"];
+    $replace = ["<sup>$1</sup>", "<sub>$1</sub>",
+                "<sup>$1</sup>", "<sub>$1</sub>"];
     return preg_replace($patterns, $replace, $text);
   }
 
@@ -288,7 +290,7 @@ class AdminStringUtil {
 
   // If you just extract each character with mb_substr, the complexity is O(N^2).
   static function unicodeExplode($s) {
-    $result = array();
+    $result = [];
     $len = strlen($s);
     $i = 0;
 
@@ -329,7 +331,7 @@ class AdminStringUtil {
    */
   static function loadAbbreviationsIndex() {
     if (!self::$ABBREV_INDEX) {
-      self::$ABBREV_INDEX = array();
+      self::$ABBREV_INDEX = [];
       $raw = parse_ini_file(Core::getRootPath() . "docs/abbrev/abbrev.conf", true);
       foreach ($raw['sources'] as $sourceId => $sectionList) {
         self::$ABBREV_INDEX[$sourceId] = preg_split('/, */', $sectionList);
@@ -340,7 +342,7 @@ class AdminStringUtil {
 
   static function getAbbrevSectionNames() {
     self::loadAbbreviationsIndex();
-    $sections = array();
+    $sections = [];
     foreach (self::$ABBREV_INDEX as $sectionList) {
       foreach ($sectionList as $s) {
         $sections[$s] = true;
@@ -358,10 +360,10 @@ class AdminStringUtil {
   private static function loadAbbreviations($sourceId) {
     if (!array_key_exists($sourceId, self::$ABBREVS)) {
       self::loadAbbreviationsIndex();
-      $result = array();
+      $result = [];
 
       if (array_key_exists($sourceId, self::$ABBREV_INDEX)) {
-        $list = array();
+        $list = [];
         foreach (self::$ABBREV_INDEX[$sourceId] as $section) {
           $raw = parse_ini_file(Core::getRootPath() . "docs/abbrev/{$section}.conf", true);
           // If an abbreviation is defined in several sections, use the one that's defined later
@@ -374,10 +376,16 @@ class AdminStringUtil {
             $from = substr($from, 1);
           }
           $numWords = 1 + substr_count($from, ' ');
-          $regexp = str_replace(array('.', ' '), array("\\.", ' *'), $from);
+          $regexp = str_replace(['.', ' '], ["\\.", ' *'], $from);
           $pattern = "\W({$regexp})(\W|$)";
           $hasCaps = ($from !== mb_strtolower($from));
-          $result[$from] = array('to' => $to, 'ambiguous' => $ambiguous, 'regexp' => $pattern, 'numWords' => $numWords, 'hasCaps' => $hasCaps);
+          $result[$from] = [
+            'to' => $to,
+            'ambiguous' => $ambiguous,
+            'regexp' => $pattern,
+            'numWords' => $numWords,
+            'hasCaps' => $hasCaps,
+          ];
         }
 
         // Sort the list by number of words, then by ambiguous
@@ -402,9 +410,9 @@ class AdminStringUtil {
     $abbrevs = self::loadAbbreviations($sourceId);
     $hashMap = self::constructHashMap($s);
     // Do not report two ambiguities at the same position, for example M. and m.
-    $positionsUsed = array();
+    $positionsUsed = [];
     foreach ($abbrevs as $from => $tuple) {
-      $matches = array();
+      $matches = [];
       // Perform a case-sensitive match if the pattern contains any uppercase, case-insensitive otherwise
       $modifier = $tuple['hasCaps'] ? "" : "i";
       preg_match_all("/{$tuple['regexp']}/u$modifier", $s, $matches, PREG_OFFSET_CAPTURE); // We always add the /u modifier for Unicode
@@ -416,7 +424,11 @@ class AdminStringUtil {
           if (!$hashMap[$position]) { // Don't replace anything if we are already between hash signs
             if ($tuple['ambiguous']) {
               if ($ambiguousMatches !== null && !array_key_exists($position, $positionsUsed)) {
-                $ambiguousMatches[] = array('abbrev' => $from, 'position' => $position, 'length' => strlen($orig));
+                $ambiguousMatches[] = [
+                  'abbrev' => $from,
+                  'position' => $position,
+                  'length' => strlen($orig),
+                ];
                 $positionsUsed[$position] = true;
               }
             } else {
@@ -434,7 +446,7 @@ class AdminStringUtil {
   /** Returns a parallel array of booleans. Each element is true if $s[$i] lies inside a pair of hash signs, false otherwise **/
   private static function constructHashMap($s) {
     $inHash = false;
-    $result = array();
+    $result = [];
     for ($i = 0; $i < strlen($s); $i++) {
       $c = $s[$i];
       if ($c == '#') {
@@ -465,7 +477,7 @@ class AdminStringUtil {
 
   private static function htmlizeAbbreviations($s, $sourceId, &$errors = null) {
     $abbrevs = self::loadAbbreviations($sourceId);
-    $matches = array();
+    $matches = [];
     preg_match_all("/#([^#]*)#/", $s, $matches, PREG_OFFSET_CAPTURE);
     if (count($matches[1])) {
       foreach (array_reverse($matches[1]) as $match) {
@@ -488,7 +500,7 @@ class AdminStringUtil {
 
   static function expandAbbreviations($s, $sourceId) {
     $abbrevs = self::loadAbbreviations($sourceId);
-    $matches = array();
+    $matches = [];
     preg_match_all("/#([^#]*)#/", $s, $matches, PREG_OFFSET_CAPTURE);
     if (count($matches[1])) {
       foreach (array_reverse($matches[1]) as $match) {
@@ -515,7 +527,7 @@ class AdminStringUtil {
     $len = strlen($roman);
     $oldValue = 100000;
     $result = 0;
-    $values = array('i' => 1, 'v' => 5, 'x' => 10, 'l' => 50, 'c' => 100, 'd' => 500, 'm' => 1000);
+    $values = [ 'i' => 1, 'v' => 5, 'x' => 10, 'l' => 50, 'c' => 100, 'd' => 500, 'm' => 1000, ];
 
     for ($i = 0; $i < $len; $i++) {
       $c = substr($roman, $i, 1);
@@ -534,9 +546,11 @@ class AdminStringUtil {
 
   // Converts an arabic number between 1 and 999 to its Roman notation
   static function arabicToRoman($arabic) {
-    $bits = array(array('', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'),
-                  array('', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'),
-                  array('', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM'));
+    $bits = [
+      ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'],
+      ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'],
+      ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM'],
+    ];
     return $bits[2][$arabic % 1000 / 100] . $bits[1][$arabic % 100 / 10] . $bits[0][$arabic % 10];
   }
 
@@ -565,31 +579,31 @@ class AdminStringUtil {
       foreach (explode(" ", $words) as $word_string) {
 
         $word_lexem_ids = Model::factory('InflectedForm')
-          ->select('lexemId')
-          ->where('formNoAccent', $word_string)
-          ->find_many();
+                        ->select('lexemId')
+                        ->where('formNoAccent', $word_string)
+                        ->find_many();
 
         // Separate queries for formNoAccent and formUtf8General
         // since Idiorm does not support OR'ing WHERE clauses.
         $field = StringUtil::hasDiacritics($definition_string) ? 'formNoAccent' : 'formUtf8General';
         $def_lexem_id_by_noAccent = Model::factory('Lexem')
-          ->select('id')
-          ->where($field, $definition_string)
-          ->find_one();
+                                  ->select('id')
+                                  ->where($field, $definition_string)
+                                  ->find_one();
 
         $def_lexem_id_by_utf8General = Model::factory('Lexem')
-          ->select('id')
-          ->where('formUtf8General', $definition_string)
-          ->find_one();
+                                     ->select('id')
+                                     ->where('formUtf8General', $definition_string)
+                                     ->find_one();
 
         // Linked lexem was not found in the database.
         if (empty($def_lexem_id_by_utf8General)) {
-          $currentLink = array(
+          $currentLink = [
             "original_word" => $l[1],
             "linked_lexem" => $l[2],
             "reason" => "Trimiterea nu a fost găsită în baza de date.",
-            "short_reason" => "no_link"
-          );
+            "short_reason" => "no_link",
+          ];
           $processedLinks[] = $currentLink;
 
           $linkAdded = true;
@@ -605,12 +619,12 @@ class AdminStringUtil {
         }
 
         if ($found === true) {
-          $currentLink = array(
+          $currentLink = [
             "original_word" => $l[1],
             "linked_lexem" => $l[2],
             "reason" => "Trimitere către forma de bază a cuvântului.",
-            "short_reason" => "forma_baza"
-          );
+            "short_reason" => "forma_baza",
+          ];
           $processedLinks[] = $currentLink;
 
           $linkAdded = true;
@@ -622,22 +636,22 @@ class AdminStringUtil {
 
         foreach ($word_lexem_ids as $word_lexem_id) {
           $lexem_model = Model::factory('Lexem')
-            ->select('formNoAccent')
-            ->select('modelType')
-            ->select('modelNumber')
-            ->where_id_is($word_lexem_id->lexemId)
-            ->find_one();
+                       ->select('formNoAccent')
+                       ->select('modelType')
+                       ->select('modelNumber')
+                       ->where_id_is($word_lexem_id->lexemId)
+                       ->find_one();
 
           if ($lexem_model->modelType === "IL" ||
-            $lexem_model->modelType === "PT" ||
-            $lexem_model->modelType === "A" ||
-            ($lexem_model->modelType === "F" &&
-            ($lexem_model->modelNumber === "107" ||
-            $lexem_model->modelNumber === "113"))) {
+              $lexem_model->modelType === "PT" ||
+              $lexem_model->modelType === "A" ||
+              ($lexem_model->modelType === "F" &&
+               ($lexem_model->modelNumber === "107" ||
+                $lexem_model->modelNumber === "113"))) {
             $nextstep = Model::factory('InflectedForm')
-              ->select('lexemId')
-              ->where('formNoAccent', $lexem_model->formNoAccent)
-              ->find_many();
+                      ->select('lexemId')
+                      ->where('formNoAccent', $lexem_model->formNoAccent)
+                      ->find_many();
 
             foreach ($nextstep as $one) {
               if ($one->lexemId === $def_lexem_id_by_noAccent->id) {
@@ -649,12 +663,12 @@ class AdminStringUtil {
         }
 
         if ($found === true) {
-          $currentLink = array(
+          $currentLink = [
             "original_word" => $l[1],
             "linked_lexem" => $l[2],
             "reason" => "Cuvântul este infinitiv lung.",
-            "short_reason" => "inf_lung"
-          );
+            "short_reason" => "inf_lung",
+          ];
           $processedLinks[] = $currentLink;
 
           $linkAdded = true;
@@ -663,12 +677,12 @@ class AdminStringUtil {
       }
 
       if ($linkAdded === false) {
-        $currentLink = array(
+        $currentLink = [
           "original_word" => $l[1],
           "linked_lexem" => $l[2],
           "reason" => "Trimiterea nu are nevoie de modificări.",
-          "short_reason" => "nemodificat"
-        );
+          "short_reason" => "nemodificat",
+        ];
         $processedLinks[] = $currentLink;
       }
     }
@@ -676,4 +690,3 @@ class AdminStringUtil {
     return $processedLinks;
   }
 }
-?>

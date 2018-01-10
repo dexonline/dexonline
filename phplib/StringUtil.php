@@ -170,15 +170,14 @@ class StringUtil {
 
   static function dexRegexpToMysqlRegexp($s) {
     if (preg_match("/[|\[\]]/", $s)) {
-      return "rlike '^(" . str_replace(['*', '?'], ['.*', '.'], $s) .
-        ")$'";
+      return "rlike '^(" . str_replace(['*', '?'], ['.*', '.'], $s) . ")$'";
     } else {
       return "like '" . str_replace(['*', '?'], ['%', '_'], $s) . "'";
     }
   }
 
   static function scrambleEmail($email) {
-    return str_replace(array("@", "."), array(" [AT] ", " [DOT] "), $email);
+    return str_replace(['@', '.'], [' [AT] ', ' [DOT] '], $email);
   }
 
   static function reverse($s) {
@@ -196,7 +195,7 @@ class StringUtil {
   }
 
   static function replace_st($tpl_output) {
-    return str_replace(array('ș', 'Ș', 'ț', 'Ț'), array('ş', 'Ş', 'ţ', 'Ţ'), $tpl_output);
+    return str_replace(['ș', 'Ș', 'ț', 'Ț'], ['ş', 'Ş', 'ţ', 'Ţ'], $tpl_output);
   }
 
   static function replace_ai($tpl_output) {
@@ -232,37 +231,9 @@ class StringUtil {
     return $tpl_output;
   }
 
-  // Post-filter for April Fools' Day, 2015
-  static function iNoGrammer($s) {
-    // Getting ready to remove hyphens
-    $s = preg_replace("/(\w)-(\w)/u", "\${1}###\${2}", $s);
-    $s = preg_replace("/(\W)ca(\W)/u", "\${1}k\${2}", $s);
-    $s = preg_replace("/(\W)sau(\W)/u", "\${1}s-au\${2}", $s);
-    $s = preg_replace("/(\W)la(\W)/u", "\${1}l-a\${2}", $s);
-    $s = preg_replace("/(\W)pe care(\W)/u", "\${1}care\${2}", $s);
-    $s = preg_replace("/(\W)de pe(\W)/u", "\${1}dupe\${2}", $s);
-    $s = preg_replace("/(\W)după(\W)/u", "\${1}dupe\${2}", $s);
-    $s = preg_replace("/(\w)uoas(\w)/u", "\${1}oas\${2}", $s); // respectuoasă
-    $s = preg_replace("/ua/", "oa", $s);
-    $s = preg_replace("/(\W)fi(\W)/u", "\${1}fiii\${2}", $s); // one of the i's will be removed below
-    $s = preg_replace("/(\w)ii/u", "\${1}i", $s);
-    $s = preg_replace("/înn(\w)/u", "în\${1}", $s);
-    $s = preg_replace("/(\W)sunt(em|eți)?/i", "\${1}sânt\${2}", $s);
-    $s = preg_replace("/(\W)numai(\W)/i", "\${1}decât\${2}", $s);
-    $s = preg_replace("/(\W)doar(\W)/i", "\${1}decât\${2}", $s);
-
-    if (rand(1,20) <= 10) {
-      $s = str_replace(array("ă", "â", "î", "ș", "ț"), array("a", "a", "i", "s", "t"), $s);
-    }
-
-     // Now remove hyphens, but keep the ones we added ourselves
-    $s = preg_replace("/(\w)###(\w)/u", "\${1}\${2}", $s);
-    return $s;
-  }
-
   /** Simple wrapper to call parse_str and return the array it produces **/
   static function parseStr($s) {
-    $result = array();
+    $result = [];
     parse_str($s, $result);
     return $result;
   }
@@ -280,57 +251,6 @@ class StringUtil {
       (stristr($s, 'http://') !== false);
   }
 
-  /** Kudos http://www.php.net/manual/pt_BR/function.parse-url.php#107291 **/
-  static function parseUtf8Url($url) {
-    static $keys = array('scheme'=>0,'user'=>0,'pass'=>0,'host'=>0,'port'=>0,'path'=>0,'query'=>0,'fragment'=>0);
-    if (is_string($url) && preg_match('~^((?P<scheme>[^:/?#]+):(//))?((\\3|//)?(?:(?P<user>[^:]+):(?P<pass>[^@]+)@)?(?P<host>[^/?:#]*))(:(?P<port>\\d+))?' .
-                                      '(?P<path>[^?#]*)(\\?(?P<query>[^#]*))?(#(?P<fragment>.*))?~u', $url, $matches)) {
-      return $matches;
-    }
-    return false;
-  }
-
-	/**
-   * Cleans up a URL in various ways:
-   * - trims any known index files and extensions (passed as arguments)
-   * - replaces consecutive slashes with a single slash;
-   * - trims any final slashes
-   * Assumes the URL includes a protocol.
-   * @param $indexFile Index file name (without extension)
-   * @param $indexExt Array of index file extensions
-   **/
-	static function urlCleanup($url, $indexFile, $indexExt) {
-    // Delete any fragment
-    $pos = strrpos($url, '#');
-    if ($pos !== false) {
-      $url = substr($url, 0, $pos);
-    }
-
-    // Scroll through the extension list until we find one that matches
-    $i = 0;
-    $found = false;
-    do {
-      $target = $indexFile . '.' . $indexExt[$i];
-			if (self::endsWith($url, $target)) {
-        $url = substr($url, 0, -strlen($target));
-        $found = true;
-      }
-      $i++;
-    } while (($i < count($indexExt)) && !$found);
-
-    // Save the protocol first
-    $parts = explode('//', $url, 2);
-
-    // Replace //+ by /
-    $parts[1] = preg_replace('#//+#', '/', $parts[1]);
-
-    // Delete any trailing slashes
-    $parts[1] = rtrim($parts[1], '/');
-
-    // Reassemble and return the URL
-		return implode('//', $parts);
-	}
-
   // Same as str_pad, but multibyte-safe
   static function pad($input, $padLength, $padString = ' ', $padType = STR_PAD_RIGHT) { 
     return str_pad($input, $padLength + strlen($input) - mb_strlen($input), $padString, $padType); 
@@ -343,7 +263,7 @@ class StringUtil {
 
   /* Place a css class around the letter bearing the tonic accent */
   static function highlightAccent($s) {
-    return preg_replace("/\'(a|e|i|o|u|ă|î|â)/i",
+    return preg_replace("/\'(.)/u",
                         "<span class=\"tonic-accent\">\$1</span>",
                         $s);
   }

@@ -3,7 +3,7 @@ require_once("../../phplib/Core.php");
 
 $query = Request::get('term');
 $parts = preg_split('/\(/', $query, 2);
-$name = AdminStringUtil::internalizeWordName(trim($parts[0]));
+$name = trim($parts[0]);
 $field = StringUtil::hasDiacritics($name) ? 'formNoAccent' : 'formUtf8General';
 
 if (count($parts) == 2) {

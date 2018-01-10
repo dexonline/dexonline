@@ -161,9 +161,6 @@ assertEquals('@$%spaced% text$@', AdminStringUtil::migrateFormatChars('@$ % spac
 assertEquals('40\% dolomite', AdminStringUtil::migrateFormatChars('40\% dolomite'));
 assertEquals('40 %dolomite%', AdminStringUtil::migrateFormatChars('40% dolomite%'));
 
-assertEquals('cățel', AdminStringUtil::internalizeWordName("CĂț'EL"));
-assertEquals('ă', AdminStringUtil::internalizeWordName("~Ă~~!@#$%^&*()123456790"));
-
 assertEquals('casă', AdminStringUtil::removeAccents('cásă'));
 
 assertEquals('mama', StringUtil::cleanupQuery("'mama'"));

@@ -22,8 +22,6 @@ class AdminStringUtil {
     ],
   ];
 
-  private static $ILLEGAL_NAME_CHARS = '!@#$%^&*()_+=\\|[]{},.<>/?;:\'"`~0123456789';
-
   private static $ABBREV_INDEX = null; // These will be loaded lazily
   private static $ABBREVS = [];
 
@@ -32,17 +30,6 @@ class AdminStringUtil {
       $s = call_user_func($op, $s);
     }
     return $s;
-  }
-
-  static function internalizeWordName($name) {
-    return self::process($name, [
-      'self::shorthandToUnicode',
-      'self::removeAccents',
-      'strip_tags',
-      'mb_strtolower',
-      'StringUtil::stripHtmlEscapeCodes',
-      'self::stripIllegalCharacters',
-    ]);
   }
 
   private static function isUnicodeLetter($char) {
@@ -393,18 +380,6 @@ class AdminStringUtil {
 
   static function removeAccents($s) {
     return str_replace(self::$ACCENTS['accented'], self::$ACCENTS['unaccented'], $s);
-  }
-
-  private static function stripIllegalCharacters($s) {
-    $result = '';
-    $len = mb_strlen($s);
-    for ($i = 0; $i < $len; $i++) {
-      $c = StringUtil::getCharAt($s, $i);
-      if (strstr(self::$ILLEGAL_NAME_CHARS, $c) === false) {
-        $result .= $c;
-      }
-    }
-    return $result;
   }
 
   /**

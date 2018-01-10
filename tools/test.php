@@ -34,8 +34,8 @@ function assertQuery($query, $hasDiacritics, $hasRegexp, $isAllDigits) {
 /********************* Tests for stringUtil.php ************************/
 
 // Check that we've got the shorthand->Unicode mappings right
-assertEquals(AdminStringUtil::shorthandToUnicode("~a^a^i,s,t"), '~a^a^i,s,t');
-assertEquals(AdminStringUtil::shorthandToUnicode("'a'e'i'o'u'y"), "'a'e'i'o'u'y");
+assertEquals(AdminStringUtil::cleanup("~a^a^i,s,t"), '~a^a^i,s,t');
+assertEquals(AdminStringUtil::cleanup("'a'e'i'o'u'y"), "'a'e'i'o'u'y");
 assertEquals('acegyzACEGYZ', StringUtil::unicodeToLatin("ắčèğýžẮČÈĞÝŽ"));
 
 assertEquals('mama', mb_strtolower('mama'));
@@ -81,9 +81,6 @@ assertEquals('zzz <a class="ref" href="/definitie/y">x</a> foobar <a class="ref"
 assertEquals(AdminStringUtil::insertSuperscripts("copil^{+123}. copil_{-123}----"),
 	     "copil<sup>+123</sup>. copil<sub>-123</sub>----");
 assertEquals(AdminStringUtil::insertSuperscripts("copil^i^2"), "copil^i<sup>2</sup>");
-
-assertEquals('xxx &#x25ca; &#x2666; < &#x2013; > yyy',
-             AdminStringUtil::minimalInternalToHtml('xxx * ** < - > yyy'));
 
 assertEquals('„abc”„”',
 	     AdminStringUtil::internalToHtml('"abc"""', FALSE));
@@ -210,10 +207,10 @@ assertQuery('cop[cg]l', false, true, false);
 assertQuery('căț[cg]l', true, true, false);
 assertQuery('1234567', false, false, true);
 
-/* assertEquals('&#x25;&#x7e;&#x24;&#x40;&#x27;', */
-/*              AdminStringUtil::xmlizeRequired('\\%\\~\\$\\@\\\'')); */
-/* assertEquals('&lt;&gt;&amp;', */
-/*              AdminStringUtil::xmlizeRequired('<>&')); */
+assertEquals('&#x5c;&#x25;&#x5c;&#x7e;&#x5c;&#x24;',
+             AdminStringUtil::xmlize('\\%\\~\\$'));
+assertEquals('A&lt;B&gt;C&amp;D',
+             AdminStringUtil::xmlize('A<B>C&D'));
 
 $t = FlexStringUtil::extractTransforms('arde', 'arzând', 0);
 assertEquals(4, count($t));

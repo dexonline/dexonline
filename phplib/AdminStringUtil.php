@@ -2,29 +2,8 @@
 
 class AdminStringUtil {
 
-  private static $HTML_SYMBOLS = [
-    'internal' => [' - ', ' ** ', ' * ', "'", ],
-    'html' => [' &#x2013; ', ' &#x2666; ', ' &#x25ca; ', '’' /* U+2019 */, ],
-  ];
-
-  private static $ACCENTS = [
-    'accented' => [
-      'á', 'Á', 'ắ', 'Ắ', 'ấ', 'Ấ', 'é', 'É', 'í', 'Í', 'î́', 'Î́',
-      'ó', 'Ó', 'ö́', 'Ö́', 'ú', 'Ú', 'ǘ', 'Ǘ', 'ý', 'Ý',
-    ],
-    'unaccented' => [
-      'a', 'A', 'ă', 'Ă', 'â', 'Â', 'e', 'E', 'i', 'I', 'î', 'Î',
-      'o', 'O', 'ö', 'Ö', 'u', 'U', 'ü', 'Ü', 'y', 'Y',
-    ],
-  ];
-
   private static $ABBREV_INDEX = null; // These will be loaded lazily
   private static $ABBREVS = [];
-
-  private static function isUnicodeLetter($char) {
-    // according to http://php.net/manual/en/regexp.reference.unicode.php
-    return preg_match('/^\p{L}*$/u', $char);
-  }
 
   // Generic purpose cleanup of a string. This should be true of all columns of all tables.
   static function cleanup($s) {
@@ -135,17 +114,12 @@ class AdminStringUtil {
     $s = self::internalToHtml($s, $obeyNewlines);
     $s = self::emphasize($s);
     $s = self::htmlizeAbbreviations($s, $sourceId, $errors);
-    $s = self::minimalInternalToHtml($s);
-    return $s;
-  }
 
-  /**
-   * Runs a simple set of substitutions from the internal notations to HTML.
-   * For example, replaces ** with &diams;. Does not look at bold/italic/spaced
-   * characters.
-   */
-  static function minimalInternalToHtml($s) {
-    return str_replace(self::$HTML_SYMBOLS['internal'], self::$HTML_SYMBOLS['html'], $s);
+    $s = str_replace(Constant::HTML_REPLACEMENTS['internal'],
+                     Constant::HTML_REPLACEMENTS['html'],
+                     $s);
+
+    return $s;
   }
 
   static function convertReferencesToHtml($s) {
@@ -248,13 +222,11 @@ class AdminStringUtil {
     return $s;
   }
 
-  static function xmlizeOptional($s) {
-    return self::minimalInternalToHtml($s);
-  }
-
-  static function xmlizeRequired($s) {
+  // Prepare the string for printing inside an XML document.
+  static function xmlize($s) {
     // Escape <, > and &
     $s = htmlspecialchars($s, ENT_NOQUOTES);
+
     // Replace backslashed characters with their XML escape code
     $s = preg_replace_callback(
       '/\\\\(.)/',
@@ -262,6 +234,7 @@ class AdminStringUtil {
         return '&#x5c;' . '&#x' . dechex(self::ord($matches[1])) . ';';
       },
       $s);
+
     return $s;
   }
 
@@ -322,7 +295,7 @@ class AdminStringUtil {
   }
 
   static function removeAccents($s) {
-    return str_replace(self::$ACCENTS['accented'], self::$ACCENTS['unaccented'], $s);
+    return str_replace(Constant::ACCENTS['accented'], Constant::ACCENTS['unaccented'], $s);
   }
 
   /**

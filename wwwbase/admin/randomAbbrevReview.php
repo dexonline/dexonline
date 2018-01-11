@@ -19,7 +19,7 @@ if ($saveButton) {
 
   // Collect the positions of ambiguous abbreviations
   $matches = array();
-  AdminStringUtil::markAbbreviations($def->internalRep, $def->sourceId, $matches);
+  Abbrev::markAbbreviations($def->internalRep, $def->sourceId, $matches);
   usort($matches, 'positionCmp');
 
   $s = $def->internalRep;
@@ -47,7 +47,7 @@ if (count($ids)) {
 
   // Collect the positions of ambiguous abbreviations
   $matches = array();
-  AdminStringUtil::markAbbreviations($def->internalRep, $def->sourceId, $matches);
+  Abbrev::markAbbreviations($def->internalRep, $def->sourceId, $matches);
   usort($matches, 'positionCmp');
 
   // Inject our marker around each ambiguity and htmlize the definition

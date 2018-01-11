@@ -253,7 +253,7 @@ $data = [
 ];
 foreach ($data as list($before, $after, $sourceId, $ambiguous)) {
   $a = [];
-  assertEquals($after, AdminStringUtil::markAbbreviations($before, $sourceId, $a));
+  assertEquals($after, Abbrev::markAbbreviations($before, $sourceId, $a));
   assertEqualArrays($a, $ambiguous);
 }
 
@@ -356,7 +356,7 @@ $data = [
   ],
 ];
 foreach ($data as list($raw, $internal, $html, $sourceId)) {
-  assertEquals($internal, AdminStringUtil::markAbbreviations($raw, $sourceId));
+  assertEquals($internal, Abbrev::markAbbreviations($raw, $sourceId));
   assertEquals($html, AdminStringUtil::htmlize($internal, $sourceId));
 }
 

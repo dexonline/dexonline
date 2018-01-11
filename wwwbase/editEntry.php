@@ -200,7 +200,7 @@ $modelTypes = array_unique($modelTypes);
 
 $definitions = Definition::loadByEntryIds([$e->id]);
 foreach ($definitions as $def) {
-  $def->internalRepAbbrev = AdminStringUtil::expandAbbreviations($def->internalRep, $def->sourceId);
+  $def->internalRepAbbrev = Abbrev::expandAbbreviations($def->internalRep, $def->sourceId);
   $def->htmlRepAbbrev = AdminStringUtil::htmlize($def->internalRepAbbrev, $def->sourceId);
 }
 $searchResults = SearchResult::mapDefinitionArray($definitions);

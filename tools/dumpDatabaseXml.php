@@ -141,8 +141,8 @@ function dumpAbbrevs($remoteFile) {
   global $FTP;
 
   Log::info("dumping abbreviations");
-  $sources = AdminStringUtil::loadAbbreviationsIndex();
-  $sectionNames = AdminStringUtil::getAbbrevSectionNames();
+  $sources = Abbrev::loadAbbreviationsIndex();
+  $sectionNames = Abbrev::getAbbrevSectionNames();
   $sections = [];
 
   foreach ($sectionNames as $name) {

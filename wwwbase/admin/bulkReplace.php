@@ -75,8 +75,9 @@ if ($saveButton) {
     }
     $def->internalRep = str_replace($search, $replace, $def->internalRep);
     $ambiguousMatches = [];
+    $errors = null;
     $def->internalRep = Str::sanitize(
-      $def->internalRep, $def->sourceId, $ambiguousMatches);
+      $def->internalRep, $def->sourceId, $errors, $ambiguousMatches);
     
     // Complete or un-complete the abbreviation review
     if (!count($ambiguousMatches) && $def->abbrevReview == Definition::ABBREV_AMBIGUOUS) {

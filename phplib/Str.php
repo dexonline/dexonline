@@ -285,7 +285,7 @@ class Str {
   }
 
   // Sanitizes a definition or meaning. This is more elaborate than cleanup().
-  static function sanitize($s, $sourceId = null, &$ambiguousMatches = null) {
+  static function sanitize($s, $sourceId = null, &$errors = null, &$ambiguousMatches = null) {
     $s = self::cleanup($s);
     $s = str_replace([ '$$', '@@', '%%' ], '', $s);
 
@@ -294,7 +294,58 @@ class Str {
       $s = Abbrev::markAbbreviations($s, $sourceId, $ambiguousMatches);
     }
 
+    if (is_array($errors)) {
+      self::reportSanitizationErrors($s, $errors);
+    }
+
     return $s;
+  }
+
+  // Checks that varios pairs of characters are nested properly in $s.
+  // Some pairs contain the same character for opening and closing blocks (e.g. '@').
+  static function reportSanitizationErrors($s, &$errors) {
+    $chars = self::unicodeExplode($s);
+    self::sanitizationStackTest($chars, $errors, '@$%#', [ '{}' ]);
+    self::sanitizationStackTest($chars, $errors, '', [ '()', '[]' ]);
+    self::sanitizationStackTest($chars, $errors, '"', [ '«»' ]);
+  }
+
+  private static function sanitizationStackTest($chars, &$errors, $same, $pairs) {
+    $match = [];
+    foreach ($pairs as $p) {
+      $match[$p[1]] = $p[0]; // e.g. '}' => '{'
+    }
+
+    $len = count($chars);
+    $i = 0;
+    $stack = [];
+    $anyErrors = false;
+
+    while (!$anyErrors && ($i < $len)) {
+      $c = $chars[$i];
+      if ($c == '\\') {                         // skip the next character
+        $i++;
+      } else if (strpos($same, $c) !== false) { // e.g. '@' or '$'
+        if ($c == end($stack)) {
+          array_pop($stack);
+        } else {
+          $stack[] = $c;
+        }
+      } else if (in_array($c, $match)) {        // e.g. '{' or '('
+        $stack[] = $c;
+      } else if (isset($match[$c])) {           // e.g. '}' or ')'
+        if (end($stack) == $match[$c]) {
+          array_pop($stack);
+        } else {
+          $anyErrors = true;
+        }
+      }
+      $i++;
+    }
+    if ($anyErrors || !empty($stack)) {
+      $distinct = $same . implode($pairs);
+      $errors[] = "Unele dintre caracterele {$distinct} nu sunt împerecheate corect.";
+    }
   }
 
   static function migrateFormatChars($s) {

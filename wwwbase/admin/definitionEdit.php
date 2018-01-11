@@ -17,7 +17,7 @@ if (!$definitionId) {
   // Found one, create the Definition and update the OCR.
   $ambiguousMatches = [];
   $sourceId = $ocr->sourceId;
-  $def = Str::sanitize($ocr->ocrText, $sourceId, $ambiguousMatches);
+  $def = Str::sanitize($ocr->ocrText, $sourceId, $errors = null, $ambiguousMatches);
 
   $d = Model::factory('Definition')->create();
   $d->status = Definition::ST_ACTIVE;
@@ -71,7 +71,12 @@ $commentUser = $comment ? User::get_by_id($comment->userId) : null;
 
 if ($saveButton || $nextOcrBut) {
   $errors = [];
-  $d->internalRep = Str::sanitize($internalRep, $sourceId);
+  $d->internalRep = Str::sanitize($internalRep, $sourceId, $errors);
+  foreach ($errors as $error) {
+    FlashMessage::add($error, 'warning');
+  }
+
+  $errors = [];
   $d->htmlRep = Str::htmlize($d->internalRep, $sourceId, $errors);
   foreach ($errors as $error) {
     FlashMessage::add($error);

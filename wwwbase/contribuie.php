@@ -17,8 +17,19 @@ if ($sendButton) {
   $d->status = $status;
   $d->userId = User::getActiveId();
   $d->sourceId = $sourceId;
-  $d->internalRep = Str::sanitize($internalRep, $sourceId, $ambiguousMatches);
-  $d->htmlRep = Str::htmlize($d->internalRep, $d->sourceId);
+
+  $errors = [];
+  $d->internalRep = Str::sanitize($internalRep, $sourceId, $errors, $ambiguousMatches);
+  foreach ($errors as $error) {
+    FlashMessage::add($error);
+  }
+
+  $errors = [];
+  $d->htmlRep = Str::htmlize($d->internalRep, $d->sourceId, $errors);
+  foreach ($errors as $error) {
+    FlashMessage::add($error);
+  }
+
   $d->abbrevReview = count($ambiguousMatches)
                    ? Definition::ABBREV_AMBIGUOUS
                    : Definition::ABBREV_REVIEW_COMPLETE;

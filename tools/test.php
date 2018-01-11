@@ -275,6 +275,30 @@ assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup>,</b> <i>măr
              Str::htmlize($internalRep, 1));
 assertEquals($internalRep, Str::sanitize($internalRep, 1));
 
+$msg1 = 'Unele dintre caracterele @$%#{} nu sunt împerecheate corect.';
+$msg2 = 'Unele dintre caracterele ()[] nu sunt împerecheate corect.';
+$msg3 = 'Unele dintre caracterele "«» nu sunt împerecheate corect.';
+$data = [
+  '@a^{bc}d@'      => [],
+  '@a^\\{bc}d@'    => [ $msg1 ],
+  '@a#bc@d#'    => [ $msg1 ],
+  'ab@cd$ef@gh$ij' => [ $msg1 ],
+  'ab@cd'          => [ $msg1 ],
+  'ab@cd@ef@gh'    => [ $msg1 ],
+  '((())'          => [ $msg2 ],
+  '[[]]]'          => [ $msg2 ],
+  '[(])'           => [ $msg2 ],
+  'a(b@c[)]d'      => [ $msg1, $msg2 ],
+  '"out «in» out"' => [],
+  '«out "in" out»' => [],
+  'ab"cd'          => [ $msg3 ],
+];
+foreach ($data as $s => $errors) {
+  $e = [];
+  Str::reportSanitizationErrors($s, $e);
+  assertEqualArrays($errors, $e);
+}
+
 // Test various capitalization combos with abbreviations
 // - When internalizing the definition, preserve the capitalization if
 //   the defined abbreviation is capitalized; otherwise, capitalize

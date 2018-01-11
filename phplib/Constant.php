@@ -4,38 +4,38 @@
 
 class Constant {
 
-  const CLEANUP_REPLACEMENTS = [
-    'ş'   => 'ș',
-    'Ş'   => 'Ș',
-    'ţ'   => 'ț',
-    'Ţ'   => 'Ț',
+  const CLEANUP_PATTERNS = [
+    '/(?<!\\\\)ş/'   => 'ș',
+    '/(?<!\\\\)Ş/'   => 'Ș',
+    '/(?<!\\\\)ţ/'   => 'ț',
+    '/(?<!\\\\)Ţ/'   => 'Ț',
 
-    ' ◊ ' => ' * ',
-    ' ♦ ' => ' **',
+    '/ ◊ /' => ' * ',
+    '/ ♦ /' => ' **',
 
     // hyphens and spaces
-    ' '   => ' ',     /* U+00A0 non-breaking space */
-    '‑'   => '-',     /* U+2011 non-breaking hyphen */
-    '—'   => '-',     /* U+2014 em dash */
-    '­'   => '',      /* U+00AD soft hyphen */
+    '/(?<!\\\\) /'   => ' ',     /* U+00A0 non-breaking space */
+    '/(?<!\\\\)‑/'   => '-',     /* U+2011 non-breaking hyphen */
+    '/(?<!\\\\)—/'   => '-',     /* U+2014 em dash */
+    '/(?<!\\\\)­/'   => '',      /* U+00AD soft hyphen */
 
     // Replace all kinds of double quotes with the ASCII ones.
     // Do NOT alter ″ (double prime, 0x2033), which is used for inch and second symbols.
-    '„'   => '"',     /* U+201E */
-    '”'   => '"',     /* U+201D */
-    '“'   => '"',     /* U+201C */
-    '‟'   => '"',     /* U+201F */
+    '/(?<!\\\\)„/'   => '"',     /* U+201E */
+    '/(?<!\\\\)”/'   => '"',     /* U+201D */
+    '/(?<!\\\\)“/'   => '"',     /* U+201C */
+    '/(?<!\\\\)‟/'   => '"',     /* U+201F */
 
     // Replace all kinds of single quotes and acute accents with the ASCII apostrophe.
     // Do NOT alter ′ (prime, 0x2032), which is used for foot and minute symbols.
-    '´'   => "'",     /* U+00B4 */
-    '‘'   => "'",     /* U+2018 */
-    '’'   => "'",     /* U+2019 */ 
+    '/(?<!\\\\)´/'   => "'",     /* U+00B4 */
+    '/(?<!\\\\)‘/'   => "'",     /* U+2018 */
+    '/(?<!\\\\)’/'   => "'",     /* U+2019 */ 
 
     // Replace the ordinal indicator with the degree sign.
-    'º'   =>  '°',    /* U+00BA => U+00B0 */
+    '/(?<!\\\\)º/'   =>  '°',    /* U+00BA => U+00B0 */
 
-    "\r\n" => "\n"    /* Unix newlines only */
+    "/(?<!\\\\)\r\n/" => "\n"    /* Unix newlines only */
   ];
 
   const HTML_PATTERNS = [

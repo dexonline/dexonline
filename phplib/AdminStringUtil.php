@@ -9,9 +9,9 @@ class AdminStringUtil {
   static function cleanup($s) {
     $s = trim($s);
 
-    $from = array_keys(Constant::CLEANUP_REPLACEMENTS);
-    $to = array_values(Constant::CLEANUP_REPLACEMENTS);
-    $s = str_replace($from, $to, $s);
+    $from = array_keys(Constant::CLEANUP_PATTERNS);
+    $to = array_values(Constant::CLEANUP_PATTERNS);
+    $s = preg_replace($from, $to, $s);
 
     // Replace \abcd with the Unicode character 0xABCD
     $s = preg_replace_callback(

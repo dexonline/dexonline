@@ -29,8 +29,14 @@ function assertQuery($query, $hasDiacritics, $hasRegexp, $isAllDigits) {
 /********************* Tests for stringUtil.php ************************/
 
 // Check that we've got the shorthand->Unicode mappings right
-assertEquals(AdminStringUtil::cleanup("~a^a^i,s,t"), '~a^a^i,s,t');
-assertEquals(AdminStringUtil::cleanup("'a'e'i'o'u'y"), "'a'e'i'o'u'y");
+$data = [
+  '~a^a^i,s,t' => '~a^a^i,s,t',
+  "'a'e'i'o'u'y" => "'a'e'i'o'u'y",
+  '\\ş ş \\º º' => '\\ş ș \\º °',
+];
+foreach ($data as $before => $after) {
+  assertEquals($after, AdminStringUtil::cleanup($before));
+}
 assertEquals('acegyzACEGYZ', StringUtil::unicodeToLatin("ắčèğýžẮČÈĞÝŽ"));
 
 assertEquals('mama', mb_strtolower('mama'));
@@ -357,8 +363,8 @@ assertEquals('mama', StringUtil::cleanupQuery("'mama'"));
 assertEquals('mama', StringUtil::cleanupQuery('"mama"'));
 assertEquals('aăbcdef', StringUtil::cleanupQuery("aăbc<mamă foo bar>def"));
 assertEquals('AĂBCDEF', StringUtil::cleanupQuery("AĂBC<MAMĂ FOO BAR>DEF"));
-             assertEquals('aăbcdef', StringUtil::cleanupQuery("aăbc<mamă foo bar>def"));
-             assertEquals('aĂBcdef', StringUtil::cleanupQuery("aĂBc<mamă foo bar>def"));
+assertEquals('aăbcdef', StringUtil::cleanupQuery("aăbc<mamă foo bar>def"));
+assertEquals('aĂBcdef', StringUtil::cleanupQuery("aĂBc<mamă foo bar>def"));
 assertEquals('1234', StringUtil::cleanupQuery('12&qweasd;34'));
 
 assert(StringUtil::hasDiacritics('mamă'));

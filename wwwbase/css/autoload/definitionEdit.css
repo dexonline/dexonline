@@ -1,3 +1,7 @@
+#similarDiff ins, #similarDiff del {
+  cursor: pointer;
+}
+
 #similarRecord {
   display: none;
 }

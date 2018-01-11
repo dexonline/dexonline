@@ -50,6 +50,10 @@ $(function() {
       $('#similarRep').html('');
     }
     $('#similarDiff').html(data.htmlDiff);
+    $('#similarDiff ins, #similarDiff del').attr(
+      'title',
+      'clic pentru a copia acest text și în cealaltă ediție');
+
     $('#similarIdentical').toggle(data.identical);
     var existsAndIsDifferent = (data.definition != null) && !data.identical;
     $('#similarNotIdentical').toggle(existsAndIsDifferent);

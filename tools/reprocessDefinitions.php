@@ -6,8 +6,8 @@ $i = 0;
 $modified = 0;
 foreach ($dbResult as $row) {
   $def = Model::factory('Definition')->create($row);
-  $newRep = StringUtil::sanitize($def->internalRep, $def->sourceId);
-  $newHtmlRep = StringUtil::htmlize($newRep, $def->sourceId);
+  $newRep = Str::sanitize($def->internalRep, $def->sourceId);
+  $newHtmlRep = Str::htmlize($newRep, $def->sourceId);
   if ($newRep !== $def->internalRep || $newHtmlRep !== $def->htmlRep) {
     $modified++;
     $def->internalRep = $newRep;

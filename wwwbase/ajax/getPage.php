@@ -21,7 +21,7 @@ try {
   // source-specific fixes
   if ($sourceId == 42) {
     // Șăineanu disregards diacritics when sorting, so convert the word as well.
-    $word = StringUtil::unicodeToLatin($word);
+    $word = Str::unicodeToLatin($word);
   }
 
   $pi = Model::factory('PageIndex')

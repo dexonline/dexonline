@@ -370,7 +370,7 @@ class Tree extends BaseObject implements DatedObject {
     foreach ($mentions as $ment) {
       $m = Meaning::get_by_id($ment->meaningId);
       $m->internalRep = str_replace("[[{$this->id}]]", '', $m->internalRep);
-      $m->htmlRep = StringUtil::htmlize($m->internalRep, 0);
+      $m->htmlRep = Str::htmlize($m->internalRep, 0);
       $m->save();
     }
     Mention::delete_all_by_objectId_objectType($this->id, Mention::TYPE_TREE);

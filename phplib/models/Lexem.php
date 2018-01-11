@@ -25,7 +25,7 @@ class Lexem extends BaseObject implements DatedObject {
     $this->form = $form;
     $this->formNoAccent = str_replace("'", '', $form);
     $this->formUtf8General = $this->formNoAccent;
-    $this->reverse = StringUtil::reverse($this->formNoAccent);
+    $this->reverse = Str::reverse($this->formNoAccent);
   }
   
   static function create($form, $modelType = '', $modelNumber = '', $restriction = '',
@@ -188,7 +188,7 @@ class Lexem extends BaseObject implements DatedObject {
   }
 
   static function getRegexpQuery($regexp, $hasDiacritics, $sourceId) {
-    $mysqlRegexp = StringUtil::dexRegexpToMysqlRegexp($regexp);
+    $mysqlRegexp = Str::dexRegexpToMysqlRegexp($regexp);
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
 
     if ($sourceId) {
@@ -402,10 +402,10 @@ class Lexem extends BaseObject implements DatedObject {
 
       if ($frag->capitalized) {
         // the first symbol could be an apostrophe
-        if (StringUtil::startsWith($f, "'")) {
-          $f = "'" . StringUtil::capitalize(substr($f, 1));
+        if (Str::startsWith($f, "'")) {
+          $f = "'" . Str::capitalize(substr($f, 1));
         } else {
-          $f = StringUtil::capitalize($f);
+          $f = Str::capitalize($f);
         }
       }
 
@@ -455,7 +455,7 @@ class Lexem extends BaseObject implements DatedObject {
           $transforms[] = Transform::get_by_id($mds[$i]->transformId);
         }
 
-        $result = FlexStringUtil::applyTransforms($form, $transforms, $accentShift, $vowel);
+        $result = FlexStr::applyTransforms($form, $transforms, $accentShift, $vowel);
         if (!$result) {
           throw new ParadigmException($inflId, 'Nu pot genera forma.');
         }
@@ -525,7 +525,7 @@ class Lexem extends BaseObject implements DatedObject {
 
       // there could be several forms - just load the first one
       $longInfinitive = InflectedForm::get_by_lexemId_inflectionId($this->id, $infl->id);
-      $are = $longInfinitive && StringUtil::endsWith($longInfinitive->formNoAccent, 'are');
+      $are = $longInfinitive && Str::endsWith($longInfinitive->formNoAccent, 'are');
       $number = $are ? 113 : 107;
 
       $this->_regenerateDependentLexemsHelper($infl, 'F', 'IL', $number);
@@ -679,7 +679,7 @@ class Lexem extends BaseObject implements DatedObject {
 
   function save() {
     $this->formUtf8General = $this->formNoAccent;
-    $this->reverse = StringUtil::reverse($this->formNoAccent);
+    $this->reverse = Str::reverse($this->formNoAccent);
     $this->charLength = mb_strlen($this->formNoAccent);
     $this->consistentAccent = (strpos($this->form, "'") !== false) ^ $this->noAccent;
     // It is important for empty fields to be null, not "".

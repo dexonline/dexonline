@@ -17,8 +17,8 @@ if ($sendButton) {
   $d->status = $status;
   $d->userId = User::getActiveId();
   $d->sourceId = $sourceId;
-  $d->internalRep = StringUtil::sanitize($internalRep, $sourceId, $ambiguousMatches);
-  $d->htmlRep = StringUtil::htmlize($d->internalRep, $d->sourceId);
+  $d->internalRep = Str::sanitize($internalRep, $sourceId, $ambiguousMatches);
+  $d->htmlRep = Str::htmlize($d->internalRep, $d->sourceId);
   $d->abbrevReview = count($ambiguousMatches)
                    ? Definition::ABBREV_AMBIGUOUS
                    : Definition::ABBREV_REVIEW_COMPLETE;
@@ -28,7 +28,7 @@ if ($sendButton) {
     FlashMessage::add('Trebuie să introduceți un cuvânt-titlu.');
   } else if (!$d->internalRep) {
     FlashMessage::add('Trebuie să introduceți o definiție.');
-  } else if (StringUtil::isSpam($d->internalRep)) {
+  } else if (Str::isSpam($d->internalRep)) {
     FlashMessage::add('Definiția dumneavoastră este spam.');
   }
 
@@ -39,7 +39,7 @@ if ($sendButton) {
     Log::notice("Added definition {$d->id} ({$d->lexicon})");
 
     foreach ($lexemIds as $lexemId) {
-      if (StringUtil::startsWith($lexemId, '@')) {
+      if (Str::startsWith($lexemId, '@')) {
         // create a new lexem
         $lexem = Lexem::create(substr($lexemId, 1), 'T', '1');
         $lexem->deepSave();
@@ -56,7 +56,7 @@ if ($sendButton) {
       }
     }
 
-    foreach (StringUtil::findRedundantLinks($d->internalRep) as $processedLink) {
+    foreach (Str::findRedundantLinks($d->internalRep) as $processedLink) {
       if ($processedLink["short_reason"] !== "nemodificat") {
         FlashMessage::add('Legătura de la "' . $processedLink["original_word"] . '" la "' . $processedLink["linked_lexem"] . '" este considerată redundantă. (Motiv: ' . $processedLink["reason"] . ')', 'warning');
       }

@@ -59,13 +59,13 @@ foreach ($staticFiles as $file) {
     $isThumb = false;
     foreach ($thumbSizes as $size) {
       $prefix = sprintf(THUMB_PREFIX, $size);
-      if (StringUtil::startsWith($file, $prefix)) {
+      if (Str::startsWith($file, $prefix)) {
         $thumbs[$size][substr($file, strlen($prefix))] = 1;
         $isThumb = true;
       }
     }
 
-    if (!$isThumb && StringUtil::startsWith($file, IMG_PREFIX)) {
+    if (!$isThumb && Str::startsWith($file, IMG_PREFIX)) {
       $imgs[substr($file, strlen(IMG_PREFIX))] = 1;
     } else {
       // Ignore files outside the img/wotd/ directory
@@ -130,7 +130,7 @@ foreach ($used as $u => $ignored) {
 // Report images on the static server that aren't used in WotD records
 foreach ($imgs as $img => $ignored) {
   if (!isset($used[$img]) &&
-      !StringUtil::startsWith($img, UNUSED_PREFIX) &&
+      !Str::startsWith($img, UNUSED_PREFIX) &&
       !isset($IGNORED[$img])) {
     print "Unused image: {$img}\n";
   }

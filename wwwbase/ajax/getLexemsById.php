@@ -8,7 +8,7 @@ $ids = json_decode($jsonIds);
 $data = [];
 
 foreach ($ids as $id) {
-  if (StringUtil::startsWith($id, '@')) {
+  if (Str::startsWith($id, '@')) {
     $data[] = [
       'id' => $id,
       'text' => substr($id, 1) . ' (cuvânt nou)',

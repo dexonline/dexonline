@@ -61,7 +61,7 @@ foreach ($data->query->pages as $page) {
 
     if ($curPage->section) {
       $curPage->fullUrl = $fullUrl;
-      $curPage->wikiContents = StringUtil::cleanup(file_get_contents($pageRawUrl));
+      $curPage->wikiContents = Str::cleanup(file_get_contents($pageRawUrl));
       if ($curPage->wikiContents === false) {
         Log::error("Cannot fetch raw page from $pageRawUrl");
         exit(1);

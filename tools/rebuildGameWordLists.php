@@ -41,7 +41,7 @@ file_put_contents($diaFileName, $joined);
 $tmpFileName = $tempDir.'/game-word-list-tmp.txt';
 $noDiaFileName = $tempDir.'/game-word-list.txt';
 Log::info('writing Latin forms to %s', $noDiaFileName);
-$latin = StringUtil::unicodeToLatin($joined);
+$latin = Str::unicodeToLatin($joined);
 file_put_contents($tmpFileName, $latin);
 exec("sort $tmpFileName | uniq > $noDiaFileName");
 

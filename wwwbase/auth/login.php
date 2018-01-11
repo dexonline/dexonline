@@ -41,8 +41,8 @@ switch ($openid) {
 
 if ($openid) {
   // Add protocol if missing
-  if (!StringUtil::startsWith($openid, 'http://') &&
-      !StringUtil::startsWith($openid, 'https://')) {
+  if (!Str::startsWith($openid, 'http://') &&
+      !Str::startsWith($openid, 'https://')) {
     $openid = "http://{$openid}";
   }
 

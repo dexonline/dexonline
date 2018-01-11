@@ -42,8 +42,8 @@ class Levenshtein {
   }
 
   static function dist($s1, $s2) {
-    $s1 = mb_strtolower(StringUtil::unicodeToLatin($s1));
-    $s2 = mb_strtolower(StringUtil::unicodeToLatin($s2));
+    $s1 = mb_strtolower(Str::unicodeToLatin($s1));
+    $s2 = mb_strtolower(Str::unicodeToLatin($s2));
 
     $len1 = mb_strlen($s1);
     $len2 = mb_strlen($s2);
@@ -51,11 +51,11 @@ class Levenshtein {
     // Split the strings into characters to minimize the number calls to getCharAt().
     $chars1 = array();
     for ($i = 0; $i < $len1; $i++) {
-      $chars1[] = StringUtil::getCharAt($s1, $i);
+      $chars1[] = Str::getCharAt($s1, $i);
     }
     $chars2 = array();
     for ($j = 0; $j < $len2; $j++) {
-      $chars2[] = StringUtil::getCharAt($s2, $j);
+      $chars2[] = Str::getCharAt($s2, $j);
     }
 
     // Initialize the first row and column of the matrix

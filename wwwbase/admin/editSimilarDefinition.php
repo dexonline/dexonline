@@ -45,8 +45,8 @@ $to->internalRep =
   substr($to->internalRep, 0, $tstart) .
   $mid .
   substr($to->internalRep, $tstart + $tlen);
-$to->internalRep = StringUtil::sanitize($to->internalRep, $to->sourceId);
-$to->htmlRep = StringUtil::htmlize($to->internalRep, $to->sourceId);
+$to->internalRep = Str::sanitize($to->internalRep, $to->sourceId);
+$to->htmlRep = Str::htmlize($to->internalRep, $to->sourceId);
 $to->save();
 
 Util::redirect("definitionEdit.php?definitionId={$defId}");

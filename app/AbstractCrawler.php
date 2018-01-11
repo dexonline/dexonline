@@ -32,7 +32,7 @@ abstract class AbstractCrawler {
     
     $this->accessTimes = array();
     foreach (Config::get('crawler.whiteList') as $startUrl) {
-      $rec = StringUtil::parseUtf8Url($startUrl);
+      $rec = Str::parseUtf8Url($startUrl);
       $this->accessTimes[$rec['host']] = 0;
     }
   }
@@ -63,7 +63,7 @@ abstract class AbstractCrawler {
     curl_close($this->ch);
 
     // Update access time for this page's host
-    $rec = StringUtil::parseUtf8Url($url);
+    $rec = Str::parseUtf8Url($url);
     $this->accessTimes[$rec['host']] = time();
 
     return $this->pageContent;
@@ -123,7 +123,7 @@ abstract class AbstractCrawler {
   function getNextLink() {
     $delay = Config::get('crawler.t_wait');
     foreach (Config::get('crawler.whiteList') as $startUrl) {
-      $rec = StringUtil::parseUtf8Url($startUrl);
+      $rec = Str::parseUtf8Url($startUrl);
       if ($this->accessTimes[$rec['host']] < time() - $delay) {
         $query = sprintf("select canonicalUrl from Link where domain = '%s' and canonicalUrl not in (select url from CrawledPage)", $rec['host']);
         $link = Model::factory('Link')->raw_query($query)->find_one();
@@ -172,7 +172,7 @@ abstract class AbstractCrawler {
   }
 
   function eligibleUrl($url) {
-    $resource = StringUtil::parseUtf8Url($url);
+    $resource = Str::parseUtf8Url($url);
     $pathInfo = pathinfo($resource['path']);
 
     if (isset($pathInfo['extension'])) {
@@ -197,13 +197,13 @@ abstract class AbstractCrawler {
     }
 
     //sterge slash-uri in plus si directory index file
-    $canonicalUrl = StringUtil::urlCleanup($url, $this->directoryIndexFile, $this->indexFileExt);
+    $canonicalUrl = Str::urlCleanup($url, $this->directoryIndexFile, $this->indexFileExt);
 
     if (!$this->eligibleUrl($url)) {
       return;
     }
 
-    $rec = StringUtil::parseUtf8Url($canonicalUrl);
+    $rec = Str::parseUtf8Url($canonicalUrl);
     if ($rec['host'] == $this->getDomain($url)) {
       Link::saveLink2DB($canonicalUrl, $this->getDomain($url), $this->currentPageId);
     }

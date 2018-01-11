@@ -78,7 +78,7 @@ class DB {
       $dsn = self::$dsn;
     }
     $prefix = 'mysql://';
-    assert(StringUtil::startsWith($dsn, $prefix));
+    assert(Str::startsWith($dsn, $prefix));
     $dsn = substr($dsn, strlen($prefix));
 
     $parts = preg_split("/[:@\/]/", $dsn);

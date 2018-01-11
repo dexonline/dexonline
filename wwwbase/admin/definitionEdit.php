@@ -17,7 +17,7 @@ if (!$definitionId) {
   // Found one, create the Definition and update the OCR.
   $ambiguousMatches = [];
   $sourceId = $ocr->sourceId;
-  $def = StringUtil::sanitize($ocr->ocrText, $sourceId, $ambiguousMatches);
+  $def = Str::sanitize($ocr->ocrText, $sourceId, $ambiguousMatches);
 
   $d = Model::factory('Definition')->create();
   $d->status = Definition::ST_ACTIVE;
@@ -26,7 +26,7 @@ if (!$definitionId) {
   $d->similarSource = 0;
   $d->structured = 0;
   $d->internalRep = $def;
-  $d->htmlRep = StringUtil::htmlize($def, $sourceId);
+  $d->htmlRep = Str::htmlize($def, $sourceId);
   $d->abbrevReview = count($ambiguousMatches)
                    ? Definition::ABBREV_AMBIGUOUS
                    : Definition::ABBREV_REVIEW_COMPLETE;
@@ -71,8 +71,8 @@ $commentUser = $comment ? User::get_by_id($comment->userId) : null;
 
 if ($saveButton || $nextOcrBut) {
   $errors = [];
-  $d->internalRep = StringUtil::sanitize($internalRep, $sourceId);
-  $d->htmlRep = StringUtil::htmlize($d->internalRep, $sourceId, $errors);
+  $d->internalRep = Str::sanitize($internalRep, $sourceId);
+  $d->htmlRep = Str::htmlize($d->internalRep, $sourceId, $errors);
   foreach ($errors as $error) {
     FlashMessage::add($error);
   }
@@ -90,11 +90,11 @@ if ($saveButton || $nextOcrBut) {
       $comment->status = Definition::ST_ACTIVE;
       $comment->definitionId = $d->id;
     }
-    $newContents = StringUtil::sanitize($commentContents, $sourceId);
+    $newContents = Str::sanitize($commentContents, $sourceId);
     if ($newContents != $comment->contents) {
       // Comment updated
       $comment->contents = $newContents;
-      $comment->htmlContents = StringUtil::htmlize($comment->contents, $sourceId);
+      $comment->htmlContents = Str::htmlize($comment->contents, $sourceId);
       if (!$preserveCommentUser) {
         $comment->userId = $userId;
       }
@@ -110,7 +110,7 @@ if ($saveButton || $nextOcrBut) {
     $noAccentNag = false;
     $entries = [];
     foreach ($entryIds as $entryId) {
-      if (StringUtil::startsWith($entryId, '@')) {
+      if (Str::startsWith($entryId, '@')) {
         // create a new lexem and entry
         $form = substr($entryId, 1);
         $l = Lexem::create($form, 'T', '1');
@@ -133,7 +133,7 @@ if ($saveButton || $nextOcrBut) {
                         'warning');
     }
 
-    foreach (StringUtil::findRedundantLinks($d->internalRep) as $processedLink) {
+    foreach (Str::findRedundantLinks($d->internalRep) as $processedLink) {
       if ($processedLink["short_reason"] !== "nemodificat") {
         FlashMessage::add('Legătura de la "' . $processedLink["original_word"] . '" la "' . $processedLink["linked_lexem"] . '" este considerată redundantă. (Motiv: ' . $processedLink["reason"] . ')', 'warning');
       }

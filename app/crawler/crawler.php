@@ -7,7 +7,7 @@ require_once __DIR__ . '/../../phplib/third-party/phpuri.php';
 $config = parse_ini_file('crawler.conf', true);
 
 foreach ($config as $section => $vars) {
-  if (StringUtil::startsWith($section, 'site-')) {
+  if (Str::startsWith($section, 'site-')) {
     $siteId = explode('-', $section, 2)[1];
     $rootUrl = $vars['url'];
     $rootDomain = parse_url($rootUrl, PHP_URL_HOST);

@@ -178,7 +178,7 @@ function dumpDefinitions($query, $remoteFile, $message) {
   gzwrite($file, "<Definitions>\n");
   foreach ($results as $row) {
     $def = Model::factory('Definition')->create($row);
-    $def->internalRep = StringUtil::xmlize($def->internalRep);
+    $def->internalRep = Str::xmlize($def->internalRep);
     SmartyWrap::assign('def', $def);
     SmartyWrap::assign('nick', $USERS[$def->userId]);
     gzwrite($file, SmartyWrap::fetch('xml/xmldump/definition.tpl'));

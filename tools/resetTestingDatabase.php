@@ -264,7 +264,7 @@ function createModelDeep($type, $number, $description, $exponent, $paradigm) {
     $infl = Inflection::get_by_modelType_rank($type, $i + 1);
 
     foreach ($forms as $variant => $form) {
-      $transforms = FlexStringUtil::extractTransforms($m->exponent, $form, false);
+      $transforms = FlexStr::extractTransforms($m->exponent, $form, false);
 
       $accentShift = array_pop($transforms);
       if ($accentShift != ModelDescription::UNKNOWN_ACCENT_SHIFT &&
@@ -323,7 +323,7 @@ function createDefinition($rep, $lexicon, $userId, $sourceId, $status) {
   $d->sourceId = $sourceId;
   $d->lexicon = $lexicon;
   $d->internalRep = $rep;
-  $d->htmlRep = StringUtil::htmlize($rep, $sourceId);
+  $d->htmlRep = Str::htmlize($rep, $sourceId);
   $d->status = $status;
   $d->save();
   return $d;
@@ -337,7 +337,7 @@ function createComment($rep, $definitionId, $userId, $status) {
   $c->userId = $userId;
   $c->status = $status;
   $c->contents = $rep;
-  $c->htmlContents = StringUtil::htmlize($rep, $d->sourceId);
+  $c->htmlContents = Str::htmlize($rep, $d->sourceId);
   $c->save();
   return $c;
 }

@@ -50,7 +50,7 @@ foreach($rezultate as $iter) {
 	#	continue;
 
 	$components = parse_url($iter->url);
-	if (StringUtil::endsWith($components['host'], 'dexonline.ro'))
+	if (Str::endsWith($components['host'], 'dexonline.ro'))
 		continue;
 	
 	$listAll[] = $iter ->url ;

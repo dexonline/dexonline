@@ -8,7 +8,7 @@ $saveButton = Request::has('saveButton');
 
 if ($saveButton) {
   foreach ($_REQUEST as $name => $modelId) {
-    if (StringUtil::startsWith($name, 'lexem_')) {
+    if (Str::startsWith($name, 'lexem_')) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
       assert($parts[0] == 'lexem');
@@ -28,7 +28,7 @@ if ($saveButton) {
   Util::redirect("bulkLabel.php?suffix=$suffix");
 }
 
-$reverseSuffix = StringUtil::reverse($suffix);
+$reverseSuffix = Str::reverse($suffix);
 
 $numLabeled = Model::factory('Lexem')
   ->where_not_equal('modelType', 'T')

@@ -59,8 +59,8 @@ class Meaning extends BaseObject implements DatedObject {
   function includeRelations() {
     return (
      !$this->htmlRep ||
-     (StringUtil::startsWith($this->htmlRep, '(') && StringUtil::endsWith($this->htmlRep, ')')) ||
-     StringUtil::endsWith($this->htmlRep, '=')
+     (Str::startsWith($this->htmlRep, '(') && Str::endsWith($this->htmlRep, ')')) ||
+     Str::endsWith($this->htmlRep, '=')
     );
   }
 
@@ -112,8 +112,8 @@ class Meaning extends BaseObject implements DatedObject {
          : Model::factory('Meaning')->create();
 
       $m->type = $tuple->type;
-      $m->internalRep = StringUtil::sanitize($tuple->internalRep);
-      $m->htmlRep = StringUtil::htmlize($m->internalRep, 0);
+      $m->internalRep = Str::sanitize($tuple->internalRep);
+      $m->htmlRep = Str::htmlize($m->internalRep, 0);
 
       $row['meaning'] = $m;
       $row['sources'] = Source::loadByIds($tuple->sourceIds);
@@ -167,8 +167,8 @@ class Meaning extends BaseObject implements DatedObject {
       $m->breadcrumb = $tuple->breadcrumb;
       $m->userId = User::getActiveId();
       $m->treeId = $tree->id;
-      $m->internalRep = StringUtil::sanitize($tuple->internalRep);
-      $m->htmlRep = StringUtil::htmlize($m->internalRep, 0);
+      $m->internalRep = Str::sanitize($tuple->internalRep);
+      $m->htmlRep = Str::htmlize($m->internalRep, 0);
       $m->save();
       $meaningStack[$tuple->level] = $m->id;
 
@@ -232,7 +232,7 @@ class Meaning extends BaseObject implements DatedObject {
     foreach ($mentions as $ment) {
       $m = Meaning::get_by_id($ment->meaningId);
       $m->internalRep = str_replace("[{$this->id}]", '', $m->internalRep);
-      $m->htmlRep = StringUtil::htmlize($m->internalRep, 0);
+      $m->htmlRep = Str::htmlize($m->internalRep, 0);
       $m->save();
     }
 

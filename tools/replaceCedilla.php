@@ -43,8 +43,8 @@ foreach ($files as $file) {
         foreach ($columns as $c) {
           $column = $c['Field'];
           $colType = $c['Type'];
-          if (StringUtil::startsWith($colType, 'char(') ||
-              StringUtil::startsWith($colType, 'varchar(') ||
+          if (Str::startsWith($colType, 'char(') ||
+              Str::startsWith($colType, 'varchar(') ||
               ($colType == 'mediumtext') ||
               ($colType == 'text')) {
             Log::info("Processing column {$table}.{$column} of type {$colType}");
@@ -55,7 +55,7 @@ foreach ($files as $file) {
               if ($fix) {
                 Log::notice("Replacing column %s.%s (%d occurrences)", $table, $column, count($data));
                 foreach ($data as $rec) {
-                  $rec->$column = StringUtil::cleanup($rec->$column);
+                  $rec->$column = Str::cleanup($rec->$column);
                   $rec->save();
                 }
               } else {

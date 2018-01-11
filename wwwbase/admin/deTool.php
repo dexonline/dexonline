@@ -89,7 +89,7 @@ if ($saveButton) {
       $m = $models[$i];
 
       // Create a new lexem or load the existing one
-      if (StringUtil::startsWith($lid, '@')) {
+      if (Str::startsWith($lid, '@')) {
         $lexem = Lexem::create(substr($lid, 1));
 
         // Create an entry
@@ -102,8 +102,8 @@ if ($saveButton) {
 
       $needsCaps = prefixMatch($m, $MODELS_TO_CAPITALIZE);
       if ($capitalize && $needsCaps) {
-        $lexem->setForm(StringUtil::capitalize($lexem->form));
-        $e->description = StringUtil::capitalize($e->description);
+        $lexem->setForm(Str::capitalize($lexem->form));
+        $e->description = Str::capitalize($e->description);
         $e->save();
       }
         
@@ -167,7 +167,7 @@ if ($saveButton) {
       }
 
       if ($lid) {
-        if (StringUtil::startsWith($lid, '@')) {
+        if (Str::startsWith($lid, '@')) {
           $lexem = Lexem::create(substr($lid, 1));
         } else {
           $lexem = Lexem::get_by_id($lid);
@@ -218,7 +218,7 @@ SmartyWrap::display('admin/deTool.tpl');
 // Returns true iff any string in $prefixes is a prefix of $s
 function prefixMatch($s, $prefixes) {
   foreach ($prefixes as $p) {
-    if (StringUtil::startsWith($s, $p)) {
+    if (Str::startsWith($s, $p)) {
       return true;
     }
   }

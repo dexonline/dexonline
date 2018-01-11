@@ -260,7 +260,7 @@ function validate($lexem, $original) {
   }
 
   for ($i = 0; $i < mb_strlen($lexem->restriction); $i++) {
-    $c = StringUtil::getCharAt($lexem->restriction, $i);
+    $c = Str::getCharAt($lexem->restriction, $i);
     if (!isset($restrMap[$c])) {
       FlashMessage::add("Restricția <strong>$c</strong> este nedefinită.");
     } else if (!isset($restrMap[$c][$lexem->modelType])) {

@@ -68,7 +68,7 @@ Session::unsetVar('redirect');
 Session::unsetVar('init_word');
 
 if ($cuv && !$redirect) {
-  $cuv = StringUtil::cleanupQuery($cuv);
+  $cuv = Str::cleanupQuery($cuv);
 }
 
 Request::redirectToFriendlyUrl($cuv, $entryId, $lexemId, $sourceUrlName, $text, $showParadigm,
@@ -87,16 +87,16 @@ $sourceId = $source ? $source->id : null;
 
 if ($cuv) {
   SmartyWrap::assign('cuv', $cuv);
-  $hasDiacritics |= StringUtil::hasDiacritics($cuv);
-  $hasRegexp = StringUtil::hasRegexp($cuv);
-  $isAllDigits = StringUtil::isAllDigits($cuv);
+  $hasDiacritics |= Str::hasDiacritics($cuv);
+  $hasRegexp = Str::hasRegexp($cuv);
+  $isAllDigits = Str::isAllDigits($cuv);
 }
 
 if(SPOOF_ENABLED && $cuv) {
-  $cuv_normalized = SPOOF_NORMALIZE ? mb_strtolower(StringUtil::unicodeToLatin($cuv)) : $cuv;
+  $cuv_normalized = SPOOF_NORMALIZE ? mb_strtolower(Str::unicodeToLatin($cuv)) : $cuv;
   $cuv_spoofed = @SPOOF_WORDS[$cuv_normalized];
   if ($cuv_spoofed) {
-    $cuv_spoofed_hasDiacritics = $hasDiacritics || StringUtil::hasDiacritics($cuv_spoofed);
+    $cuv_spoofed_hasDiacritics = $hasDiacritics || Str::hasDiacritics($cuv_spoofed);
   }
 }
 

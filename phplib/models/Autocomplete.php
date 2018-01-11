@@ -6,7 +6,7 @@ class Autocomplete extends BaseObject implements DatedObject {
   static function ac($prefix, $limit) {
     $hasDiacritics =
       Session::userPrefers(Preferences::FORCE_DIACRITICS) ||
-      StringUtil::hasDiacritics($prefix);
+      Str::hasDiacritics($prefix);
 
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     $results = Model::factory('Autocomplete')

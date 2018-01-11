@@ -107,7 +107,7 @@ class DiacriticsBuilder {
 		Applog::log("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__, 4);
 		while($this->currOffset <= $this->fileEndOffset) {
 			//daca urmatorul offset e a,i,s,t sau ă,â,î,ș,ț
-			if (self::isPossibleDiacritic(StringUtil::getCharAt($this->file, $this->currOffset))) {
+			if (self::isPossibleDiacritic(Str::getCharAt($this->file, $this->currOffset))) {
 				return $this->currOffset ++;
 			}
 			$this->currOffset ++;
@@ -125,7 +125,7 @@ class DiacriticsBuilder {
 	function leftAndRightPadding($offset) {
 		Applog::log("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__, 4);
 		$before = '';
-		$middle = StringUtil::getCharAt($this->file, $offset);
+		$middle = Str::getCharAt($this->file, $offset);
 		$after = '';
 		$infOffset = $offset - 1;
 		$supOffset = $offset + 1;
@@ -141,7 +141,7 @@ class DiacriticsBuilder {
 			}
 			else {
 				if (!$infPadding) {
-					$infCh = StringUtil::getCharAt($this->file, $infOffset);
+					$infCh = Str::getCharAt($this->file, $infOffset);
 					$infPadding = self::isSeparator($infCh);
 				}
 				if ($infPadding) {
@@ -160,7 +160,7 @@ class DiacriticsBuilder {
 			}
 			else {
 				if (!$supPadding) {
-					$supCh = StringUtil::getCharAt($this->file, $supOffset);
+					$supCh = Str::getCharAt($this->file, $supOffset);
 					$supPadding = self::isSeparator($supCh);
 				}
 				if ($supPadding) {

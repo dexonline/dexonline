@@ -9,11 +9,11 @@ class Request {
     if (!array_key_exists($name, $_REQUEST)) {
       return $default;
     } else if (is_string($_REQUEST[$name])) {
-      return StringUtil::cleanup($_REQUEST[$name]);
+      return Str::cleanup($_REQUEST[$name]);
     } else if (is_array($_REQUEST[$name])) {
       $a = $_REQUEST[$name];
       foreach ($a as $key => $value) {
-        $a[$key] = StringUtil::cleanup($value);
+        $a[$key] = Str::cleanup($value);
       }
       return $a;
     } else {
@@ -62,7 +62,7 @@ class Request {
 
   static function isAjax() {
     return isset($_SERVER['REQUEST_URI']) &&
-      StringUtil::startsWith($_SERVER['REQUEST_URI'], Core::getWwwRoot() . 'ajax/');
+      Str::startsWith($_SERVER['REQUEST_URI'], Core::getWwwRoot() . 'ajax/');
   }
 
   static function getFullServerUrl() {

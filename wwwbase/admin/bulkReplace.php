@@ -75,7 +75,7 @@ if ($saveButton) {
     }
     $def->internalRep = str_replace($search, $replace, $def->internalRep);
     $ambiguousMatches = [];
-    $def->internalRep = StringUtil::sanitize(
+    $def->internalRep = Str::sanitize(
       $def->internalRep, $def->sourceId, $ambiguousMatches);
     
     // Complete or un-complete the abbreviation review
@@ -84,7 +84,7 @@ if ($saveButton) {
     } else if (count($ambiguousMatches) && $def->abbrevReview == Definition::ABBREV_REVIEW_COMPLETE) {
       $def->abbrevReview = Definition::ABBREV_AMBIGUOUS;
     }    
-    $def->htmlRep = StringUtil::htmlize($def->internalRep, $def->sourceId);
+    $def->htmlRep = Str::htmlize($def->internalRep, $def->sourceId);
     $def->save();
     $changedDefs++;
   }
@@ -95,7 +95,7 @@ if ($saveButton) {
       Session::unsetVar('totalDefs');
       Session::unsetVar('changedDefs');
       Session::unsetVar('excludedDefs');
-      FlashMessage::add("".$changedDefs.StringUtil::getAmountPreposition($changedDefs)." ocurențe [".$search."] din totalul de ".$totalDefs." au fost înlocuite cu [".$replace."].", 'success');
+      FlashMessage::add("".$changedDefs.Str::getAmountPreposition($changedDefs)." ocurențe [".$search."] din totalul de ".$totalDefs." au fost înlocuite cu [".$replace."].", 'success');
       Util::redirect("index.php"); 
   }
 }
@@ -134,7 +134,7 @@ if ($totalDefs > $changedDefs) {
   }
   DebugInfo::stopClock("BulkReplace - AfterForEach +MoreToReplace");
 
-  $msgTotalDef = $totalDefs.StringUtil::getAmountPreposition($totalDefs)." definiții se potrivesc ::";
+  $msgTotalDef = $totalDefs.Str::getAmountPreposition($totalDefs)." definiții se potrivesc ::";
   $msgChangedDef = $changedDefs ? " ".$changedDefs." au fost modificate ::" : "";
   $msgExcludedDef = $excludedDefs ? " ".$excludedDefs." au fost excluse ::" : "";
   $msgWillChangeDef = " ".($totalDefs - $changedDefs > $maxaffected ? " maximum {$maxaffected}" : $totalDefs - $changedDefs);
@@ -151,7 +151,7 @@ SmartyWrap::assign('granularity', $granularity);
 SmartyWrap::assign('lastId', $lastId);
 SmartyWrap::assign('maxaffected', $maxaffected);
 SmartyWrap::assign('remainedDefs', $totalDefs - $changedDefs - $excludedDefs);
-SmartyWrap::assign('de', StringUtil::getAmountPreposition(count($searchResults)));
+SmartyWrap::assign('de', Str::getAmountPreposition(count($searchResults)));
 SmartyWrap::assign('modUser', User::getActive());
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::addJs('diff');

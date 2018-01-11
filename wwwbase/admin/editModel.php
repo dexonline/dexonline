@@ -96,7 +96,7 @@ if (!$previewButton && !$saveButton) {
         $m->exponent != $nm->exponent) {
       $regenTransforms[$infl->id] = [];
       foreach ($nforms[$infl->id] as $tuple) {
-        $transforms = FlexStringUtil::extractTransforms($nm->exponent, $tuple['form'], $isPronoun);
+        $transforms = FlexStr::extractTransforms($nm->exponent, $tuple['form'], $isPronoun);
         if ($transforms) {
           $regenTransforms[$infl->id][] = $transforms;
         } else {
@@ -126,7 +126,7 @@ if (!$previewButton && !$saveButton) {
         } else {
           $accentedVowel = '';
         }
-        $result = FlexStringUtil::applyTransforms($l->form, $transforms, $accentShift, $accentedVowel);
+        $result = FlexStr::applyTransforms($l->form, $transforms, $accentShift, $accentedVowel);
         $regenRow[$inflId][] = $result;
         if (!$result && ($errorCount < 3)) {
           FlashMessage::add(sprintf('Nu pot calcula una din formele lexemului %s.',
@@ -356,7 +356,7 @@ function loadParticiplesForVerbModel($model, $pm) {
 function readRequest(&$map) {
   foreach ($_REQUEST as $name => $value) {
     $parts = preg_split('/_/', $name);
-    if (StringUtil::startsWith($name, 'forms_')) {
+    if (Str::startsWith($name, 'forms_')) {
       assert(count($parts) == 3);
       $inflId = $parts[1];
       $variant = $parts[2];
@@ -364,14 +364,14 @@ function readRequest(&$map) {
       if ($form) {
         $map[$inflId][$variant] = ['form' => $form, 'isLoc' => false, 'recommended' => false];
       }
-    } else if (StringUtil::startsWith($name, 'isLoc_')) {
+    } else if (Str::startsWith($name, 'isLoc_')) {
       assert(count($parts) == 3);
       $inflId = $parts[1];
       $variant = $parts[2];
       if (array_key_exists($variant, $map[$inflId])) {
         $map[$inflId][$variant]['isLoc'] = true;
       }
-    } else if (StringUtil::startsWith($name, 'recommended_')) {
+    } else if (Str::startsWith($name, 'recommended_')) {
       assert(count($parts) == 3);
       $inflId = $parts[1];
       $variant = $parts[2];

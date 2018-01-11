@@ -278,7 +278,7 @@ class SmartyWrap {
   static function convertImages($cssFile, $outputDir, $url) {
     // only handle third-party files; do nothing for data URIs, fonts, own CSS files etc.
     if ((strpos($cssFile, 'third-party') !== false) &&
-        !StringUtil::startsWith($url, 'data:')){
+        !Str::startsWith($url, 'data:')){
       // get the absolute and relative source image filename
       $absSrcImage = realpath(dirname($cssFile) . '/' . $url);
       $relImage = basename($absSrcImage);
@@ -369,10 +369,10 @@ static function fetch($templateName) {
 
   static function registerOutputFilters() {
     if (Session::userPrefers(Preferences::CEDILLA_BELOW)) {
-      self::$theSmarty->registerFilter('output', ['StringUtil', 'replace_st']);
+      self::$theSmarty->registerFilter('output', ['Str', 'replace_st']);
     }
     if (Session::userPrefers(Preferences::OLD_ORTHOGRAPHY)) {
-      self::$theSmarty->registerFilter('output', ['StringUtil', 'replace_ai']);
+      self::$theSmarty->registerFilter('output', ['Str', 'replace_ai']);
     }
     self::$theSmarty->registerFilter('output', ['SmartyWrap', 'minifyOutput']);
   }

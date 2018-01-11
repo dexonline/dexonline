@@ -6,7 +6,7 @@ class Cookie extends BaseObject implements DatedObject {
   static function create($userId) {
     $c = Model::factory('Cookie')->create();
     $c->userId = $userId;
-    $c->cookieString = StringUtil::randomCapitalLetters(12);
+    $c->cookieString = Str::randomCapitalLetters(12);
     $c->save();
     return $c;
   }

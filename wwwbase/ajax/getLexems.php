@@ -4,7 +4,7 @@ require_once("../../phplib/Core.php");
 $query = Request::get('term');
 $parts = preg_split('/\(/', $query, 2);
 $name = trim($parts[0]);
-$field = StringUtil::hasDiacritics($name) ? 'formNoAccent' : 'formUtf8General';
+$field = Str::hasDiacritics($name) ? 'formNoAccent' : 'formUtf8General';
 
 if (count($parts) == 2) {
   $description = trim($parts[1]);

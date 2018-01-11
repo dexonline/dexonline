@@ -258,8 +258,8 @@ SmartyWrap::display('admin/advancedSearch.tpl');
 /*************************************************************************/
 
 function extendQueryWithRegexField(&$query, $fieldName, $value) {
-  if (StringUtil::hasRegexp($value)) {
-    $r = StringUtil::dexRegexpToMysqlRegexp($value);
+  if (Str::hasRegexp($value)) {
+    $r = Str::dexRegexpToMysqlRegexp($value);
     $query = $query->where_raw("{$fieldName} {$r}");
   } else {
     $query = $query->where($fieldName, $value);

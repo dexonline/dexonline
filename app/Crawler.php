@@ -64,7 +64,7 @@ class Crawler extends AbstractCrawler {
         $pageContent = $this->getPage($link->canonicalUrl);
         //setam url-ul curent pentru store in Database
         $this->currentUrl = $link->canonicalUrl;
-        $this->urlResource = StringUtil::parseUtf8Url($link->canonicalUrl);
+        $this->urlResource = Str::parseUtf8Url($link->canonicalUrl);
         $links = $this->processPage($pageContent);
 
         $this->setStorePageParams();
@@ -97,8 +97,8 @@ class Crawler extends AbstractCrawler {
     // Salvam întregul whiteList in tabelul Link pentru a incepe extragerea.
     // Aceste URL-uri nu vor avea o pagina din care sunt descoperite, deci crawledPageId va avea valoarea 0.
     foreach (Config::get('crawler.whiteList') as $startUrl) {
-      $startUrl = StringUtil::urlCleanup($startUrl, $this->directoryIndexFile, $this->indexFileExt);
-      $rec = StringUtil::parseUtf8Url($startUrl);
+      $startUrl = Str::urlCleanup($startUrl, $this->directoryIndexFile, $this->indexFileExt);
+      $rec = Str::parseUtf8Url($startUrl);
       Link::saveLink2DB($startUrl, $rec['host'], 0);
     }
 

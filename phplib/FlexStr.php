@@ -1,6 +1,6 @@
 <?php
 
-class FlexStringUtil {
+class FlexStr {
   private static $VOWELS = "aăâäåeéiîoöuüùy";
 
   private static $SUFFIX_PAIRS = array(array("'e", "e'a"),
@@ -154,7 +154,7 @@ class FlexStringUtil {
     $accentIndexFrom = mb_strpos($from, "'");
     $accentIndexTo = mb_strpos($to, "'");
     if ($accentIndexTo !== false) {
-      $accentedVowelTo = StringUtil::getCharAt($to, $accentIndexTo + 1);
+      $accentedVowelTo = Str::getCharAt($to, $accentIndexTo + 1);
     }
     
     $from = str_replace("'", '', $from);
@@ -243,7 +243,7 @@ class FlexStringUtil {
     }
 
     // Skip common first letter
-    if (StringUtil::getCharAt($from, 0) == StringUtil::getCharAt($to, 0)) {
+    if (Str::getCharAt($from, 0) == Str::getCharAt($to, 0)) {
       $result = self::extractTransformsHelper(mb_substr($from, 1),
                                               mb_substr($to, 1), $transforms,
                                               $places, $commonLength + 1);
@@ -254,7 +254,7 @@ class FlexStringUtil {
   
     // Try one of the predefined combinations
     foreach (self::$SUFFIX_PAIRS as $pair) {
-      if (StringUtil::startsWith($from, $pair[0]) && StringUtil::startsWith($to, $pair[1])) {
+      if (Str::startsWith($from, $pair[0]) && Str::startsWith($to, $pair[1])) {
         $transforms[] = Transform::create($pair[0], $pair[1]);
         $places[] = $commonLength;
         $newFrom = mb_substr($from, mb_strlen($pair[0]));
@@ -286,7 +286,7 @@ class FlexStringUtil {
       return 1;
     }
 
-    if (StringUtil::startsWith($to, $from)) {
+    if (Str::startsWith($to, $from)) {
       $t = Transform::create('', mb_substr($to, mb_strlen($from)));
       $transforms[] = $t;
       $places[] = mb_strlen($from);
@@ -294,14 +294,14 @@ class FlexStringUtil {
     }
 
     while (mb_strlen($from) > 1 && $to &&
-           StringUtil::getLastChar($from) == StringUtil::getLastChar($to)) {
-      $from = StringUtil::dropLastChar($from);
-      $to = StringUtil::dropLastChar($to);
+           Str::getLastChar($from) == Str::getLastChar($to)) {
+      $from = Str::dropLastChar($from);
+      $to = Str::dropLastChar($to);
     }
 
     $place = 0;
     while (mb_strlen($from) > 1 && $to &&
-           StringUtil::getCharAt($from, 0) == StringUtil::getCharAt($to, 0)) {
+           Str::getCharAt($from, 0) == Str::getCharAt($to, 0)) {
       $from = mb_substr($from, 1);
       $to = mb_substr($to, 1);
       $place++;
@@ -316,7 +316,7 @@ class FlexStringUtil {
     $count = 0;
     $len = mb_strlen($s);
     for ($i = 0; $i < $len; $i++) {
-      $c = StringUtil::getCharAt($s, $i);
+      $c = Str::getCharAt($s, $i);
       if (self::isVowel($c)) {
         $count++;
       }
@@ -340,7 +340,7 @@ class FlexStringUtil {
 
     while ($i && $pos) {
       $i--;
-      $c = StringUtil::getCharAt($s, $i);
+      $c = Str::getCharAt($s, $i);
       if (self::isVowel($c)) {
         $pos--;
       }
@@ -349,11 +349,11 @@ class FlexStringUtil {
     if (!$pos) {
       // Sometimes we have to move the accent forward or backward to account
       // for diphthongs
-      if ($vowel && StringUtil::getCharAt($s, $i) != $vowel) {
-        if ($i > 0 && StringUtil::getCharAt($s, $i - 1) == $vowel) {
+      if ($vowel && Str::getCharAt($s, $i) != $vowel) {
+        if ($i > 0 && Str::getCharAt($s, $i - 1) == $vowel) {
           $i--;
         } else if ($i < mb_strlen($s) - 1 &&
-                   StringUtil::getCharAt($s, $i + 1) == $vowel) {
+                   Str::getCharAt($s, $i + 1) == $vowel) {
           $i++;
         } else {
           //print "Nu pot găsi vocala $vowel la poziția $pos în șirul $s\n";

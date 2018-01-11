@@ -116,8 +116,8 @@ class Abbrev {
                 $positionsUsed[$position] = true;
               }
             } else {
-              $replacement = StringUtil::isUppercase(StringUtil::getCharAt($orig, 0))
-                           ? StringUtil::capitalize($from)
+              $replacement = Str::isUppercase(Str::getCharAt($orig, 0))
+                           ? Str::capitalize($from)
                            : $from;
               $s = substr_replace($s, "#$replacement#", $position, strlen($orig));
               array_splice($hashMap, $position, strlen($orig), array_fill(0, 2 + strlen($replacement), true));

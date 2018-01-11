@@ -19,7 +19,7 @@ class Config {
         self::traverseRecursivePreferences($value);
         $a[$key] = $value;
       } else if (strpos($value, '&') !== false) {
-        $a[$key] = StringUtil::parseStr($value);
+        $a[$key] = Str::parseStr($value);
       }
     }
   }

@@ -10,8 +10,8 @@ if (!User::can(User::PRIV_LOC)) {
 
 if ($locVersion && $form) {
   LocVersion::changeDatabase($locVersion);
-  $form = StringUtil::cleanupQuery($form);
-  $field = StringUtil::hasDiacritics($form) ? 'formNoAccent' : 'formUtf8General';
+  $form = Str::cleanupQuery($form);
+  $field = Str::hasDiacritics($form) ? 'formNoAccent' : 'formUtf8General';
   $data = Model::factory('InflectedForm')
     ->table_alias('I')
     ->select('I.form', 'inflectedForm')

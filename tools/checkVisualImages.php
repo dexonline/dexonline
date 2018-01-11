@@ -36,9 +36,9 @@ foreach ($staticFiles as $file) {
 
   if (isLetterDirectory($file)) {
     Log::debug("Ignoring directory: {$file}");
-  } else if (StringUtil::startsWith($file, THUMB_PREFIX)) {
+  } else if (Str::startsWith($file, THUMB_PREFIX)) {
     $thumbs[substr($file, strlen(THUMB_PREFIX))] = 1;
-  } else if (StringUtil::startsWith($file, IMG_PREFIX)) {
+  } else if (Str::startsWith($file, IMG_PREFIX)) {
     $imgs[substr($file, strlen(IMG_PREFIX))] = 1;
   } else {
     // Ignore files outside the img/visual/ directory

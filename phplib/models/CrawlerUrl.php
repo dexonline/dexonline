@@ -42,7 +42,7 @@ class CrawlerUrl extends BaseObject implements DatedObject {
         throw new CrawlerException("Cannot extract author from string [{$authorWrapper}]");
       }
 
-      $this->author = StringUtil::cleanup($matches[1]);
+      $this->author = Str::cleanup($matches[1]);
     }
   }
 
@@ -65,7 +65,7 @@ class CrawlerUrl extends BaseObject implements DatedObject {
       }
 
       $this->title = trim($titleWrapper->innertext);
-      $this->title = StringUtil::cleanup($this->title);
+      $this->title = Str::cleanup($this->title);
     }
   }
 
@@ -80,7 +80,7 @@ class CrawlerUrl extends BaseObject implements DatedObject {
   }
 
   function sanitizeBody() {
-    $this->body = StringUtil::cleanup($this->body);
+    $this->body = Str::cleanup($this->body);
     $this->body = html_entity_decode($this->body);
     $this->body = preg_replace('/\s\s+/', ' ', $this->body);
     $this->body = str_replace('­', '', $this->body); // remove soft hyphens, Unicode 00AD
@@ -101,7 +101,7 @@ class CrawlerUrl extends BaseObject implements DatedObject {
     if ($data === false) {
       throw new CrawlerException('Cannot load crawled page; please check your config parameters.');
     }
-    if (StringUtil::endsWith($file, '.gz')) {
+    if (Str::endsWith($file, '.gz')) {
       $data = gzdecode($data);
     }
     if ($data === false) {
@@ -115,7 +115,7 @@ class CrawlerUrl extends BaseObject implements DatedObject {
       throw new CrawlerException('cannot save data before the CrawlerUrl object has an ID');
     }
     @mkdir(dirname($file), 0777, true);
-    if (StringUtil::endsWith($file, '.gz')) {
+    if (Str::endsWith($file, '.gz')) {
       $data = gzencode($data);
     }
     if (file_put_contents($file, $data) === false) {

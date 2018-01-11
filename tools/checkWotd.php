@@ -177,7 +177,7 @@ function assignImageByName($wotd, $def) {
   $month = substr($wotd->displayDate, 5, 2);
   $strippedLexicon = stripImageName($def->lexicon);
   foreach ($staticFiles as $file) {
-    if (StringUtil::startsWith($file, "img/wotd/{$year}/{$month}/")) {
+    if (Str::startsWith($file, "img/wotd/{$year}/{$month}/")) {
       $file = basename(trim($file));
       $strippedFile = stripImageName($file);
       if (preg_match("/{$strippedLexicon}\\.(png|jpg|jpeg)/", $strippedFile)) {
@@ -190,7 +190,7 @@ function assignImageByName($wotd, $def) {
 
 // Convert to Latin-1 and strip '-' and ' '
 function stripImageName($fileName) {
-  $s = StringUtil::unicodeToLatin($fileName);
+  $s = Str::unicodeToLatin($fileName);
   $s = str_replace(array('-', ' ', 'ş', 'ţ', 'Ş', 'Ţ'), array('', '', 's', 't', 's', 't'), $s);
   $s = mb_strtolower($s);
   return $s;

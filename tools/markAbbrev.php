@@ -11,14 +11,14 @@ foreach ($dbResult as $row) {
   $ambiguousMatches = array();
   // Remove existing hash signs
   $newRep = str_replace('#', '', $def->internalRep);
-  $newRep = StringUtil::sanitize($newRep, $def->sourceId, $ambiguousMatches);
+  $newRep = Str::sanitize($newRep, $def->sourceId, $ambiguousMatches);
   if (count($ambiguousMatches) || ($newRep !== $def->internalRep)) {
     print "{$def->id} {$newRep}\n";
   }
   if ($newRep !== $def->internalRep) {
     $modified++;
     $def->internalRep = $newRep;
-    $def->htmlRep = StringUtil::htmlize($newRep, $def->sourceId);
+    $def->htmlRep = Str::htmlize($newRep, $def->sourceId);
   }
   if (count($ambiguousMatches)) {
     $def->abbrevReview = Definition::ABBREV_AMBIGUOUS;

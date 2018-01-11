@@ -55,9 +55,9 @@ class DiacriticsFixer {
 		
 		while($this->currOffset <= $this->textEndOffset) {
 			//daca urmatorul offset e a,i,s,t sau ă,â,î,ș,ț
-			crawlerLog(StringUtil::getCharAt($this->text, $this->currOffset) . ' - offset ' .$this->currOffset);
+			crawlerLog(Str::getCharAt($this->text, $this->currOffset) . ' - offset ' .$this->currOffset);
 
-			if (self::isPossibleDiacritic(StringUtil::getCharAt($this->text, $this->currOffset))) {
+			if (self::isPossibleDiacritic(Str::getCharAt($this->text, $this->currOffset))) {
 				return $this->currOffset ++;
 			}
 			$this->currOffset ++;
@@ -67,7 +67,7 @@ class DiacriticsFixer {
 
 	static function isSeparator($ch) {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
-		return !(ctype_alpha(StringUtil::unicodeToLatin($ch)) || $ch == '-');
+		return !(ctype_alpha(Str::unicodeToLatin($ch)) || $ch == '-');
 	}
 
 
@@ -122,7 +122,7 @@ class DiacriticsFixer {
 	function leftAndRightPadding($offset) {
 		crawlerLog("INSIDE " . __FILE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__ . '() - ' . 'line '.__LINE__ );
 		$before = '';
-		$middle = StringUtil::getCharAt($this->text, $offset);
+		$middle = Str::getCharAt($this->text, $offset);
 		$after = '';
 		$infOffset = $offset - 1;
 		$supOffset = $offset + 1;
@@ -138,7 +138,7 @@ class DiacriticsFixer {
 			}
 			else {
 				if (!$infPadding) {
-					$infCh = StringUtil::getCharAt($this->text, $infOffset);
+					$infCh = Str::getCharAt($this->text, $infOffset);
 					$infPadding = self::isSeparator($infCh);
 				}
 				if ($infPadding) {
@@ -157,7 +157,7 @@ class DiacriticsFixer {
 			}
 			else {
 				if (!$supPadding) {
-					$supCh = StringUtil::getCharAt($this->text, $supOffset);
+					$supCh = Str::getCharAt($this->text, $supOffset);
 					$supPadding = self::isSeparator($supCh);
 				}
 				if ($supPadding) {

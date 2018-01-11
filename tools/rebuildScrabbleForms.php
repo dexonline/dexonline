@@ -184,9 +184,9 @@ class BaseFormList extends FormList {
   }
 
   function format($row) {
-    return StringUtil::padRight($row['form'], 20) .
-      StringUtil::padRight($row['modelType'], 4) .
-      StringUtil::padRight($row['modelNumber'], 8) .
+    return Str::padRight($row['form'], 20) .
+      Str::padRight($row['modelType'], 4) .
+      Str::padRight($row['modelNumber'], 8) .
       $row['restriction'];
   }
 
@@ -271,7 +271,7 @@ class ReducedFormList extends FormList {
 
     Log::info('* removing diacritics');
     $s = file_get_contents($fileName);
-    $s = StringUtil::unicodeToLatin($s);
+    $s = Str::unicodeToLatin($s);
     file_put_contents($tmpFile, $s);
 
     Log::info('* removing duplicates and sorting');

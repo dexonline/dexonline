@@ -10,7 +10,7 @@ class SimilarRecord {
   static function create($definition, $entryIds) {
     // filter any $entryIds beginning with '@' (newly added entries)
     $entryIds = array_filter($entryIds, function($id) {
-      return !StringUtil::startsWith($id, '@');
+      return !Str::startsWith($id, '@');
     });
 
     $diffSize = 0;

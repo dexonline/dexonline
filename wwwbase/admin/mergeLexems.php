@@ -10,7 +10,7 @@ $saveButton = Request::has('saveButton');
 if ($saveButton) {
   $lexemsToDelete = [];
   foreach ($_REQUEST as $name => $value) {
-    if (StringUtil::startsWith($name, 'merge_') && $value) {
+    if (Str::startsWith($name, 'merge_') && $value) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 3);
       assert($parts[0] == 'merge');

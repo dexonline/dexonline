@@ -1,6 +1,6 @@
 <?php
 
-class StringUtil {
+class Str {
   // Convert old (î) orthography to new (â) orthography.
   // Assumes $s uses diacritics (if needed).
   static function convertOrthography($s) {

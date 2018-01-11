@@ -57,7 +57,7 @@ if ($user) {
   $loginType = $user ? 0 : (isset($data['fullname']) ? 1 : (isset($data['nickname']) ? 2 : 3));
 
   // Store the identity in a temporary file. Don't print it in the form, because then it can be faked on the next page.
-  $randString = StringUtil::randomCapitalLetters(20);
+  $randString = Str::randomCapitalLetters(20);
   FileCache::put($randString, $data);
 
   SmartyWrap::assign('data', $data);

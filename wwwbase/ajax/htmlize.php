@@ -4,8 +4,8 @@ require_once("../../phplib/Core.php");
 
 $internalRep = Request::get('internalRep');
 $sourceId = Request::get('sourceId');
-$reallyInternalRep = StringUtil::sanitize($internalRep, $sourceId);
-$htmlRep = StringUtil::htmlize($reallyInternalRep, $sourceId);
+$reallyInternalRep = Str::sanitize($internalRep, $sourceId);
+$htmlRep = Str::htmlize($reallyInternalRep, $sourceId);
 echo $htmlRep;
 
 ?>

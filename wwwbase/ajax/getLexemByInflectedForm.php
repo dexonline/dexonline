@@ -18,7 +18,7 @@ if ($l) {
   $resp = [
     'id' => $l->id,
     'text' => (string)$l,
-    'capitalized' => StringUtil::isUppercase($form),
+    'capitalized' => Str::isUppercase($form),
   ];
 } else {
   $resp = null;

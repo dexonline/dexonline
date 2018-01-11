@@ -31,13 +31,13 @@ function assertTransform($f, $extraArgs, $data) {
 /********************* Tests for stringUtil.php ************************/
 
 // Check that we've got the shorthand->Unicode mappings right
-assertTransform('StringUtil::cleanup', [], [
+assertTransform('Str::cleanup', [], [
   '~a^a^i,s,t' => '~a^a^i,s,t',
   "'a'e'i'o'u'y" => "'a'e'i'o'u'y",
   '\\ş ş \\º º' => '\\ş ș \\º °',
 ]);
 
-assertTransform('StringUtil::unicodeToLatin', [], [
+assertTransform('Str::unicodeToLatin', [], [
   'ắčèğýžẮČÈĞÝŽ' => 'acegyzACEGYZ',
 ]);
 
@@ -65,25 +65,25 @@ assertEquals(mb_strlen('íÍìÌîÎ'), 6);
 assertEquals(mb_substr('íÍìÌîÎ', 3, 2), 'Ìî');
 
 // Test string reversal
-assertTransform('StringUtil::reverse', [], [
+assertTransform('Str::reverse', [], [
   'abc' => 'cba',
   'ăâîșț' => 'țșîâă',
   'ĂÂÎȘȚ' => 'ȚȘÎÂĂ',
 ]);
 
 // Test ord() and chr()
-assertTransform('StringUtil::ord', [], [
+assertTransform('Str::ord', [], [
   'A' => 65,
   "\n" => 10,
   'ă' => 259,
 ]);
-assertTransform('StringUtil::chr', [], [
+assertTransform('Str::chr', [], [
   65 => 'A',
   10 => "\n",
   259 => 'ă',
 ]);
 
-assertTransform('StringUtil::htmlize', [ 0 ], [
+assertTransform('Str::htmlize', [ 0 ], [
   // references
   'zzz |x|y|' =>
   'zzz <a class="ref" href="/definitie/y">x</a>',
@@ -173,7 +173,7 @@ assertTransform('StringUtil::htmlize', [ 0 ], [
 ]);
 
 $errors = [];
-assertTransform('StringUtil::htmlize', [ 0, &$errors, true ], [
+assertTransform('Str::htmlize', [ 0, &$errors, true ], [
   "okely\ndokely" => "okely<br>\ndokely",
 ]);
 
@@ -258,22 +258,22 @@ foreach ($data as list($before, $after, $sourceId, $ambiguous)) {
 }
 
 assertEquals("FOO <abbr class=\"abbrev\" title=\"farmacie; farmacologie\">farm.</abbr> BAR",
-             StringUtil::htmlize("FOO #farm.# BAR", 1)); /** Semicolon in abbreviation **/
+             Str::htmlize("FOO #farm.# BAR", 1)); /** Semicolon in abbreviation **/
 assertEquals("FOO <abbr class=\"abbrev\" title=\"substantiv masculin\">s. m.</abbr> BAR",
-             StringUtil::htmlize("FOO #s. m.# BAR", 1));
+             Str::htmlize("FOO #s. m.# BAR", 1));
 $errors = [];
 assertEquals("FOO <abbr class=\"abbrev\" title=\"abreviere necunoscută\">brrb. ghhg.</abbr> BAR",
-             StringUtil::htmlize("FOO #brrb. ghhg.# BAR", 1, $errors));
+             Str::htmlize("FOO #brrb. ghhg.# BAR", 1, $errors));
 assertEqualArrays(
   ['Abreviere necunoscută: «brrb. ghhg.». Verificați că după fiecare punct există un spațiu.'],
   $errors);
 
 $internalRep = '@M\'ARE^2,@ $mări,$ #s. f.# Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $#p. ext.#$ ocean. * #Expr.# $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** #Fig.# Suprafață vastă; întindere mare; imensitate. ** #Fig.# Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is.@';
 assertEquals($internalRep,
-             StringUtil::sanitize('@M\'ARE^2@, $mări$, s. f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $p.ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.', 1));
+             Str::sanitize('@M\'ARE^2@, $mări$, s. f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $p.ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.', 1));
 assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup>,</b> <i>mări,</i> <abbr class="abbrev" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; <i><abbr class="abbrev" title="prin extensiune">p. ext.</abbr></i> ocean. ◊ <abbr class="abbrev" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. ♦ <abbr class="abbrev" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. ♦ <abbr class="abbrev" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. – Lat. <b>mare, -is.</b>',
-             StringUtil::htmlize($internalRep, 1));
-assertEquals($internalRep, StringUtil::sanitize($internalRep, 1));
+             Str::htmlize($internalRep, 1));
+assertEquals($internalRep, Str::sanitize($internalRep, 1));
 
 // Test various capitalization combos with abbreviations
 // - When internalizing the definition, preserve the capitalization if
@@ -357,21 +357,21 @@ $data = [
 ];
 foreach ($data as list($raw, $internal, $html, $sourceId)) {
   assertEquals($internal, Abbrev::markAbbreviations($raw, $sourceId));
-  assertEquals($html, StringUtil::htmlize($internal, $sourceId));
+  assertEquals($html, Str::htmlize($internal, $sourceId));
 }
 
-assertTransform('StringUtil::migrateFormatChars', [], [
+assertTransform('Str::migrateFormatChars', [], [
   '@MÁRE^2@, $mări$, s.f.' => '@MÁRE^2,@ $mări,$ s.f.',
   '@$ % spaced % text $@' => '@$%spaced% text$@',
   '40\% dolomite' => '40\% dolomite',
   '40% dolomite%' => '40 %dolomite%',
 ]);
 
-assertTransform('StringUtil::removeAccents', [], [
+assertTransform('Str::removeAccents', [], [
   'cásă' => 'casă',
 ]);
 
-assertTransform('StringUtil::cleanupQuery', [], [
+assertTransform('Str::cleanupQuery', [], [
   "'mama'" => 'mama',
   '"mama"' => 'mama',
   "aăbc<mamă foo bar>def" => 'aăbcdef',
@@ -381,8 +381,8 @@ assertTransform('StringUtil::cleanupQuery', [], [
   '12&qweasd;34' => '1234',
 ]);
 
-assert(StringUtil::hasDiacritics('mamă'));
-assert(!StringUtil::hasDiacritics('mama'));
+assert(Str::hasDiacritics('mamă'));
+assert(!Str::hasDiacritics('mama'));
 
 $def = Model::factory('Definition')->create();
 $def->sourceId = 1;
@@ -396,11 +396,11 @@ assertEquals('juca', $def->extractLexicon());
 $def->internalRep = '@ȚARĂ^1@ lalala';
 assertEquals('țară', $def->extractLexicon());
 
-assert(StringUtil::hasRegexp('asd[0-9]'));
-assert(!StringUtil::hasRegexp('ăâîșț'));
-assert(StringUtil::hasRegexp('cop?l'));
+assert(Str::hasRegexp('asd[0-9]'));
+assert(!Str::hasRegexp('ăâîșț'));
+assert(Str::hasRegexp('cop?l'));
 
-assertTransform('StringUtil::dexRegexpToMysqlRegexp', [], [
+assertTransform('Str::dexRegexpToMysqlRegexp', [], [
   'cop*l' => "like 'cop%l'",
   'cop?l' => "like 'cop_l'",
   'cop[a-z]l' => "rlike '^(cop[a-z]l)$'",
@@ -418,17 +418,17 @@ $data = [
   [ '1234567', false, false, true ],
 ];
 foreach ($data as list($query, $hasDiacritics, $hasRegexp, $isAllDigits)) {
-  assertEquals($hasDiacritics, StringUtil::hasDiacritics($query));
-  assertEquals($hasRegexp, StringUtil::hasRegexp($query));
-  assertEquals($isAllDigits, StringUtil::isAllDigits($query));
+  assertEquals($hasDiacritics, Str::hasDiacritics($query));
+  assertEquals($hasRegexp, Str::hasRegexp($query));
+  assertEquals($isAllDigits, Str::isAllDigits($query));
 }
 
-assertTransform('StringUtil::xmlize', [], [
+assertTransform('Str::xmlize', [], [
   '\\%\\~\\$' => '&#x5c;&#x25;&#x5c;&#x7e;&#x5c;&#x24;',
   'A<B>C&D' => 'A&lt;B&gt;C&amp;D',
 ]);
 
-$t = FlexStringUtil::extractTransforms('arde', 'arzând', 0);
+$t = FlexStr::extractTransforms('arde', 'arzând', 0);
 assertEquals(4, count($t));
 assertEquals('d', $t[0]->transfFrom);
 assertEquals('z', $t[0]->transfTo);
@@ -438,7 +438,7 @@ assertEquals('', $t[2]->transfFrom);
 assertEquals('ând', $t[2]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = FlexStringUtil::extractTransforms('frumos', 'frumoasă', 0);
+$t = FlexStr::extractTransforms('frumos', 'frumoasă', 0);
 assertEquals(3, count($t));
 assertEquals('o', $t[0]->transfFrom);
 assertEquals('oa', $t[0]->transfTo);
@@ -446,19 +446,19 @@ assertEquals('', $t[1]->transfFrom);
 assertEquals('ă', $t[1]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[2]);
 
-$t = FlexStringUtil::extractTransforms('fi', 'sunt', 0);
+$t = FlexStr::extractTransforms('fi', 'sunt', 0);
 assertEquals(2, count($t));
 assertEquals('fi', $t[0]->transfFrom);
 assertEquals('sunt', $t[0]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[1]);
 
-$t = FlexStringUtil::extractTransforms('abil', 'abilul', 0);
+$t = FlexStr::extractTransforms('abil', 'abilul', 0);
 assertEquals(2, count($t));
 assertEquals('', $t[0]->transfFrom);
 assertEquals('ul', $t[0]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[1]);
 
-$t = FlexStringUtil::extractTransforms('alamă', 'alămuri', 0);
+$t = FlexStr::extractTransforms('alamă', 'alămuri', 0);
 assertEquals(4, count($t));
 assertEquals('a', $t[0]->transfFrom);
 assertEquals('ă', $t[0]->transfTo);
@@ -468,7 +468,7 @@ assertEquals('', $t[2]->transfFrom);
 assertEquals('uri', $t[2]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = FlexStringUtil::extractTransforms('sămânță', 'semințe', 0);
+$t = FlexStr::extractTransforms('sămânță', 'semințe', 0);
 assertEquals(4, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('e', $t[0]->transfTo);
@@ -478,7 +478,7 @@ assertEquals('ă', $t[2]->transfFrom);
 assertEquals('e', $t[2]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = FlexStringUtil::extractTransforms('deșert', 'deșartelor', 0);
+$t = FlexStr::extractTransforms('deșert', 'deșartelor', 0);
 assertEquals(3, count($t));
 assertEquals('e', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
@@ -486,7 +486,7 @@ assertEquals('', $t[1]->transfFrom);
 assertEquals('elor', $t[1]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[2]);
 
-$t = FlexStringUtil::extractTransforms('cumătră', 'cumetrelor', 0);
+$t = FlexStr::extractTransforms('cumătră', 'cumetrelor', 0);
 assertEquals(4, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('e', $t[0]->transfTo);
@@ -496,7 +496,7 @@ assertEquals('', $t[2]->transfFrom);
 assertEquals('lor', $t[2]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = FlexStringUtil::extractTransforms('crăpa', 'crapă', 0);
+$t = FlexStr::extractTransforms('crăpa', 'crapă', 0);
 assertEquals(3, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
@@ -504,7 +504,7 @@ assertEquals('a', $t[1]->transfFrom);
 assertEquals('ă', $t[1]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[2]);
 
-$t = FlexStringUtil::extractTransforms('stradă', 'străzi', 0);
+$t = FlexStr::extractTransforms('stradă', 'străzi', 0);
 assertEquals(4, count($t));
 assertEquals('a', $t[0]->transfFrom);
 assertEquals('ă', $t[0]->transfTo);
@@ -514,7 +514,7 @@ assertEquals('ă', $t[2]->transfFrom);
 assertEquals('i', $t[2]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = FlexStringUtil::extractTransforms('frumos', 'frumoasă', 0);
+$t = FlexStr::extractTransforms('frumos', 'frumoasă', 0);
 assertEquals(3, count($t));
 assertEquals('o', $t[0]->transfFrom);
 assertEquals('oa', $t[0]->transfTo);
@@ -522,7 +522,7 @@ assertEquals('', $t[1]->transfFrom);
 assertEquals('ă', $t[1]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[2]);
 
-$t = FlexStringUtil::extractTransforms('groapă', 'gropilor', 0);
+$t = FlexStr::extractTransforms('groapă', 'gropilor', 0);
 assertEquals(4, count($t));
 assertEquals('a', $t[0]->transfFrom);
 assertEquals('', $t[0]->transfTo);
@@ -532,7 +532,7 @@ assertEquals('', $t[2]->transfFrom);
 assertEquals('lor', $t[2]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = FlexStringUtil::extractTransforms('căpăta', 'capăt', 0);
+$t = FlexStr::extractTransforms('căpăta', 'capăt', 0);
 assertEquals(4, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
@@ -542,7 +542,7 @@ assertEquals('a', $t[2]->transfFrom);
 assertEquals('', $t[2]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = FlexStringUtil::extractTransforms('răscrăcăra', 'răscracăr', 0);
+$t = FlexStr::extractTransforms('răscrăcăra', 'răscracăr', 0);
 assertEquals(4, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
@@ -552,7 +552,7 @@ assertEquals('a', $t[2]->transfFrom);
 assertEquals('', $t[2]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[3]);
 
-$t = FlexStringUtil::extractTransforms('răscrăcăra', 'rascrăcăr', 0);
+$t = FlexStr::extractTransforms('răscrăcăra', 'rascrăcăr', 0);
 assertEquals(5, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
@@ -564,14 +564,14 @@ assertEquals('a', $t[3]->transfFrom);
 assertEquals('', $t[3]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[4]);
 
-$t = FlexStringUtil::extractTransforms('foo', 'foo', 0);
+$t = FlexStr::extractTransforms('foo', 'foo', 0);
 assertEquals(2, count($t));
 assertEquals('', $t[0]->transfFrom);
 assertEquals('', $t[0]->transfTo);
 assertEquals(ModelDescription::UNKNOWN_ACCENT_SHIFT, $t[1]);
 
 // Try some accents
-$t = FlexStringUtil::extractTransforms("căpăt'a", "c'apăt", 0);
+$t = FlexStr::extractTransforms("căpăt'a", "c'apăt", 0);
 assertEquals(5, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
@@ -582,7 +582,7 @@ assertEquals('', $t[2]->transfTo);
 assertEquals('a', $t[3]);
 assertEquals(2, $t[4]);
 
-$t = FlexStringUtil::extractTransforms("c'ăpăta", "cap'ăt", 0);
+$t = FlexStr::extractTransforms("c'ăpăta", "cap'ăt", 0);
 assertEquals(5, count($t));
 assertEquals('ă', $t[0]->transfFrom);
 assertEquals('a', $t[0]->transfTo);
@@ -593,7 +593,7 @@ assertEquals('', $t[2]->transfTo);
 assertEquals('ă', $t[3]);
 assertEquals(1, $t[4]);
 
-$t = FlexStringUtil::extractTransforms("n'ailon", "nailo'ane", 0);
+$t = FlexStr::extractTransforms("n'ailon", "nailo'ane", 0);
 assertEquals(4, count($t));
 assertEquals('o', $t[0]->transfFrom);
 assertEquals('oa', $t[0]->transfTo);
@@ -602,46 +602,46 @@ assertEquals('e', $t[1]->transfTo);
 assertEquals('a', $t[2]);
 assertEquals(2, $t[3]);
 
-$t = FlexStringUtil::extractTransforms("n'ailon", "n'ailonului", 0);
+$t = FlexStr::extractTransforms("n'ailon", "n'ailonului", 0);
 assertEquals(2, count($t));
 assertEquals('', $t[0]->transfFrom);
 assertEquals('ului', $t[0]->transfTo);
 assertEquals(ModelDescription::NO_ACCENT_SHIFT, $t[1]);
 
-assertTransform('FlexStringUtil::countVowels', [], [
+assertTransform('FlexStr::countVowels', [], [
   'abc' => 1,
   'abcde' => 2,
   'aeiouăâî' => 8,
 ]);
 
-assertEquals("cas'ă", FlexStringUtil::placeAccent("casă", 1, ''));
-assertEquals("c'asă", FlexStringUtil::placeAccent("casă", 2, ''));
-assertEquals("casă", FlexStringUtil::placeAccent("casă", 3, ''));
-assertEquals("ap'ă", FlexStringUtil::placeAccent("apă", 1, ''));
-assertEquals("'apă", FlexStringUtil::placeAccent("apă", 2, ''));
-assertEquals("apă", FlexStringUtil::placeAccent("apă", 3, ''));
-assertEquals("'a", FlexStringUtil::placeAccent("a", 1, ''));
-assertEquals("a", FlexStringUtil::placeAccent("a", 2, ''));
+assertEquals("cas'ă", FlexStr::placeAccent("casă", 1, ''));
+assertEquals("c'asă", FlexStr::placeAccent("casă", 2, ''));
+assertEquals("casă", FlexStr::placeAccent("casă", 3, ''));
+assertEquals("ap'ă", FlexStr::placeAccent("apă", 1, ''));
+assertEquals("'apă", FlexStr::placeAccent("apă", 2, ''));
+assertEquals("apă", FlexStr::placeAccent("apă", 3, ''));
+assertEquals("'a", FlexStr::placeAccent("a", 1, ''));
+assertEquals("a", FlexStr::placeAccent("a", 2, ''));
 
-assertEquals("șa'ibă", FlexStringUtil::placeAccent("șaibă", 2, ''));
-assertEquals("ș'aibă", FlexStringUtil::placeAccent("șaibă", 3, ''));
-assertEquals("ș'aibă", FlexStringUtil::placeAccent("șaibă", 2, 'a'));
-assertEquals("ș'aibă", FlexStringUtil::placeAccent("șaibă", 3, 'a'));
-assertEquals("șa'ibă", FlexStringUtil::placeAccent("șaibă", 2, 'i'));
-assertEquals("șa'ibă", FlexStringUtil::placeAccent("șaibă", 3, 'i'));
+assertEquals("șa'ibă", FlexStr::placeAccent("șaibă", 2, ''));
+assertEquals("ș'aibă", FlexStr::placeAccent("șaibă", 3, ''));
+assertEquals("ș'aibă", FlexStr::placeAccent("șaibă", 2, 'a'));
+assertEquals("ș'aibă", FlexStr::placeAccent("șaibă", 3, 'a'));
+assertEquals("șa'ibă", FlexStr::placeAccent("șaibă", 2, 'i'));
+assertEquals("șa'ibă", FlexStr::placeAccent("șaibă", 3, 'i'));
 
-assertEquals("unfuckingbelievable", FlexStringUtil::insert("unbelievable", "fucking", 2));
-assertEquals("abcdef", FlexStringUtil::insert("cdef", "ab", 0));
-assertEquals("abcdef", FlexStringUtil::insert("abcd", "ef", 4));
+assertEquals("unfuckingbelievable", FlexStr::insert("unbelievable", "fucking", 2));
+assertEquals("abcdef", FlexStr::insert("cdef", "ab", 0));
+assertEquals("abcdef", FlexStr::insert("abcd", "ef", 4));
 
-assertEquals('mamă      ', StringUtil::padRight('mamă', 10));
-assertEquals('mama      ', StringUtil::padRight('mama', 10));
-assertEquals('ăâîșț   ', StringUtil::padRight('ăâîșț', 8));
-assertEquals('ăâîșț', StringUtil::padRight('ăâîșț', 5));
-assertEquals('ăâîșț', StringUtil::padRight('ăâîșț', 3));
+assertEquals('mamă      ', Str::padRight('mamă', 10));
+assertEquals('mama      ', Str::padRight('mama', 10));
+assertEquals('ăâîșț   ', Str::padRight('ăâîșț', 8));
+assertEquals('ăâîșț', Str::padRight('ăâîșț', 5));
+assertEquals('ăâîșț', Str::padRight('ăâîșț', 3));
 
-assertEqualArrays(['c', 'a', 'r'], StringUtil::unicodeExplode('car'));
-assertEqualArrays(['ă', 'a', 'â', 'ș', 'ț'], StringUtil::unicodeExplode('ăaâșț'));
+assertEqualArrays(['c', 'a', 'r'], Str::unicodeExplode('car'));
+assertEqualArrays(['ă', 'a', 'â', 'ș', 'ț'], Str::unicodeExplode('ăaâșț'));
 
 $orth = [
   'pîine' => 'pâine',
@@ -657,8 +657,8 @@ $orth = [
   'țîfnos țîrîi' => 'țâfnos țârâi', // UTF8 context
 ];
 foreach ($orth as $old => $new) {
-  assertEquals($new, StringUtil::convertOrthography($old));
-  assertEquals(mb_strtoupper($new), StringUtil::convertOrthography(mb_strtoupper($old)));
+  assertEquals($new, Str::convertOrthography($old));
+  assertEquals(mb_strtoupper($new), Str::convertOrthography(mb_strtoupper($old)));
 }
 
 assertEqualArrays([1, 5, 10],

@@ -48,7 +48,7 @@ try {
   }
 
   $contentType = $attachments[0]->content_type;
-  if (!StringUtil::startsWith($contentType, 'image/')) {
+  if (!Str::startsWith($contentType, 'image/')) {
     throw new Exception('Fișierul atașat nu este o imagine.');
   }
 
@@ -141,5 +141,5 @@ function getWotdFromSubject($subject) {
     throw new Exception("Parola {$parts[0]} este incorectă.");
   }
   // Transliterate the word to ASCII to avoid some trouble with diacritics.
-  return StringUtil::unicodeToLatin($parts[1]);
+  return Str::unicodeToLatin($parts[1]);
 }

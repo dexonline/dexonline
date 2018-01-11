@@ -39,7 +39,7 @@ class BaseObject extends Model {
       // $foo->getBars()
       $cright = Association::PLURALS[$cright];
       $loadIds = false; // load whole objects
-    } else if (StringUtil::endsWith($cright, 'Ids')) {
+    } else if (Str::endsWith($cright, 'Ids')) {
       $cright = substr($cright, 0, -3);
       $loadIds = true;
     } else {

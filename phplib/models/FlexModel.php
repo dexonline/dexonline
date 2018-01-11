@@ -15,7 +15,7 @@ class FlexModel extends BaseObject {
   }
 
   function getHtmlExponent() {
-    return StringUtil::highlightAccent($this->exponent);
+    return Str::highlightAccent($this->exponent);
   }
 
   static function loadByType($type) {

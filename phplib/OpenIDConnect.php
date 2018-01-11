@@ -92,8 +92,8 @@ class OpenIDConnect {
       throw new OpenIDException('Autentificare eșuată.');
     }
     $url = $this->wellKnownConfig['authorization_endpoint'];
-    $nonce = StringUtil::randomCapitalLetters(32);
-    $state = StringUtil::randomCapitalLetters(32);
+    $nonce = Str::randomCapitalLetters(32);
+    $state = Str::randomCapitalLetters(32);
     Session::set('openid_connect_nonce', $nonce);
     Session::set('openid_connect_state', $state);
     Session::set('openid_connect_provider', $this->provider);

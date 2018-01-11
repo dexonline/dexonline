@@ -20,59 +20,70 @@ function assertEqualArrays($expected, $actual) {
   }
 }
 
-function assertQuery($query, $hasDiacritics, $hasRegexp, $isAllDigits) {
-  assertEquals($hasDiacritics, StringUtil::hasDiacritics($query));
-  assertEquals($hasRegexp, StringUtil::hasRegexp($query));
-  assertEquals($isAllDigits, StringUtil::isAllDigits($query));
+// foreach $key => $value, asserts that f($key, $arg1, $arg2...) == $value
+function assertTransform($f, $extraArgs, $data) {
+  foreach ($data as $before => $after) {
+    $args = array_merge([ $before ], $extraArgs);
+    assertEquals($after, call_user_func_array($f, $args));
+  }
 }
 
 /********************* Tests for stringUtil.php ************************/
 
 // Check that we've got the shorthand->Unicode mappings right
-$data = [
+assertTransform('AdminStringUtil::cleanup', [], [
   '~a^a^i,s,t' => '~a^a^i,s,t',
   "'a'e'i'o'u'y" => "'a'e'i'o'u'y",
   '\\ş ş \\º º' => '\\ş ș \\º °',
-];
-foreach ($data as $before => $after) {
-  assertEquals($after, AdminStringUtil::cleanup($before));
-}
-assertEquals('acegyzACEGYZ', StringUtil::unicodeToLatin("ắčèğýžẮČÈĞÝŽ"));
+]);
 
-assertEquals('mama', mb_strtolower('mama'));
-assertEquals('mama', mb_strtolower('maMa'));
-assertEquals('mama', mb_strtolower('MAmA'));
-assertEquals('mamă', mb_strtolower('MAmă'));
-assertEquals('mamă', mb_strtolower('MAmĂ'));
-assertEquals('abcúùû', mb_strtolower('ABCÚÙÛ'));
-assertEquals('ÿ', mb_strtolower('Ÿ'));
+assertTransform('StringUtil::unicodeToLatin', [], [
+  'ắčèğýžẮČÈĞÝŽ' => 'acegyzACEGYZ',
+]);
 
-assertEquals('MAMA', mb_strtoupper('MAMA'));
-assertEquals('MAMA', mb_strtoupper('MAmA'));
-assertEquals('MAMA', mb_strtoupper('MAmA'));
-assertEquals('MAMĂ', mb_strtoupper('MamĂ'));
-assertEquals('MAMĂ', mb_strtoupper('maMă'));
-assertEquals('ABCÚÙÛ', mb_strtoupper('abcúùû'));
-assertEquals('Ÿ', mb_strtoupper('ÿ'));
+assertTransform('mb_strtolower', [], [
+  'mama' => 'mama',
+  'maMa' => 'mama',
+  'MAmA' => 'mama',
+  'MAmă' => 'mamă',
+  'MAmĂ' => 'mamă',
+  'ABCÚÙÛ' =>'abcúùû',
+  'Ÿ' =>  'ÿ',
+]);
+
+assertTransform('mb_strtoupper', [], [
+  'MAMA' => 'MAMA',
+  'MAmA' => 'MAMA',
+  'MamĂ' => 'MAMĂ',
+  'maMă' => 'MAMĂ',
+  'abcúùû' => 'ABCÚÙÛ',
+  'ÿ' => 'Ÿ',
+]);
 
 // Check that we're using the right encoding
 assertEquals(mb_strlen('íÍìÌîÎ'), 6);
 assertEquals(mb_substr('íÍìÌîÎ', 3, 2), 'Ìî');
 
 // Test string reversal
-assertEquals('cba', StringUtil::reverse('abc'));
-assertEquals('țșîâă', StringUtil::reverse('ăâîșț'));
-assertEquals('ȚȘÎÂĂ', StringUtil::reverse('ĂÂÎȘȚ'));
+assertTransform('StringUtil::reverse', [], [
+  'abc' => 'cba',
+  'ăâîșț' => 'țșîâă',
+  'ĂÂÎȘȚ' => 'ȚȘÎÂĂ',
+]);
 
 // Test ord() and chr()
-assertEquals(AdminStringUtil::ord('A'), 65);
-assertEquals(AdminStringUtil::chr(65), 'A');
-assertEquals(AdminStringUtil::ord("\n"), 10);
-assertEquals(AdminStringUtil::chr(10), "\n");
-assertEquals(AdminStringUtil::ord('ă'), 259);
-assertEquals(AdminStringUtil::chr(259), 'ă');
+assertTransform('AdminStringUtil::ord', [], [
+  'A' => 65,
+  "\n" => 10,
+  'ă' => 259,
+]);
+assertTransform('AdminStringUtil::chr', [], [
+  65 => 'A',
+  10 => "\n",
+  259 => 'ă',
+]);
 
-$data = [
+assertTransform('AdminStringUtil::htmlize', [ 0 ], [
   // references
   'zzz |x|y|' =>
   'zzz <a class="ref" href="/definitie/y">x</a>',
@@ -159,14 +170,12 @@ $data = [
 
   'abc\\^{def}ghi' =>
   'abc^{def}ghi',
-];
-foreach ($data as $before => $after) {
-  assertEquals($after, AdminStringUtil::htmlize($before, 0));
-}
+]);
 
-$before = "okely\ndokely";
-$after = "okely<br>\ndokely";
-assertEquals($after, AdminStringUtil::htmlize($before, 0, $errors, true));
+$errors = [];
+assertTransform('AdminStringUtil::htmlize', [ 0, &$errors, true ], [
+  "okely\ndokely" => "okely<br>\ndokely",
+]);
 
 $data = [
   [
@@ -351,21 +360,26 @@ foreach ($data as list($raw, $internal, $html, $sourceId)) {
   assertEquals($html, AdminStringUtil::htmlize($internal, $sourceId));
 }
 
+assertTransform('AdminStringUtil::migrateFormatChars', [], [
+  '@MÁRE^2@, $mări$, s.f.' => '@MÁRE^2,@ $mări,$ s.f.',
+  '@$ % spaced % text $@' => '@$%spaced% text$@',
+  '40\% dolomite' => '40\% dolomite',
+  '40% dolomite%' => '40 %dolomite%',
+]);
 
-assertEquals('@MÁRE^2,@ $mări,$ s.f.', AdminStringUtil::migrateFormatChars('@MÁRE^2@, $mări$, s.f.'));
-assertEquals('@$%spaced% text$@', AdminStringUtil::migrateFormatChars('@$ % spaced % text $@'));
-assertEquals('40\% dolomite', AdminStringUtil::migrateFormatChars('40\% dolomite'));
-assertEquals('40 %dolomite%', AdminStringUtil::migrateFormatChars('40% dolomite%'));
+assertTransform('AdminStringUtil::removeAccents', [], [
+  'cásă' => 'casă',
+]);
 
-assertEquals('casă', AdminStringUtil::removeAccents('cásă'));
-
-assertEquals('mama', StringUtil::cleanupQuery("'mama'"));
-assertEquals('mama', StringUtil::cleanupQuery('"mama"'));
-assertEquals('aăbcdef', StringUtil::cleanupQuery("aăbc<mamă foo bar>def"));
-assertEquals('AĂBCDEF', StringUtil::cleanupQuery("AĂBC<MAMĂ FOO BAR>DEF"));
-assertEquals('aăbcdef', StringUtil::cleanupQuery("aăbc<mamă foo bar>def"));
-assertEquals('aĂBcdef', StringUtil::cleanupQuery("aĂBc<mamă foo bar>def"));
-assertEquals('1234', StringUtil::cleanupQuery('12&qweasd;34'));
+assertTransform('StringUtil::cleanupQuery', [], [
+  "'mama'" => 'mama',
+  '"mama"' => 'mama',
+  "aăbc<mamă foo bar>def" => 'aăbcdef',
+  "AĂBC<MAMĂ FOO BAR>DEF" => 'AĂBCDEF',
+  "aăbc<mamă foo bar>def" => 'aăbcdef',
+  "aĂBc<mamă foo bar>def" => 'aĂBcdef',
+  '12&qweasd;34' => '1234',
+]);
 
 assert(StringUtil::hasDiacritics('mamă'));
 assert(!StringUtil::hasDiacritics('mama'));
@@ -386,24 +400,33 @@ assert(StringUtil::hasRegexp('asd[0-9]'));
 assert(!StringUtil::hasRegexp('ăâîșț'));
 assert(StringUtil::hasRegexp('cop?l'));
 
-assertEquals("like 'cop%l'", StringUtil::dexRegexpToMysqlRegexp('cop*l'));
-assertEquals("like 'cop_l'", StringUtil::dexRegexpToMysqlRegexp('cop?l'));
-assertEquals("rlike '^(cop[a-z]l)$'", StringUtil::dexRegexpToMysqlRegexp('cop[a-z]l'));
-assertEquals("rlike '^(cop[^a-z]l)$'", StringUtil::dexRegexpToMysqlRegexp('cop[^a-z]l'));
-assertEquals("rlike '^(cop[â-z]l)$'", StringUtil::dexRegexpToMysqlRegexp('cop[â-z]l'));
-assertEquals("rlike '^(cop[â-z]l.*)$'", StringUtil::dexRegexpToMysqlRegexp('cop[â-z]l*'));
+assertTransform('StringUtil::dexRegexpToMysqlRegexp', [], [
+  'cop*l' => "like 'cop%l'",
+  'cop?l' => "like 'cop_l'",
+  'cop[a-z]l' => "rlike '^(cop[a-z]l)$'",
+  'cop[^a-z]l' => "rlike '^(cop[^a-z]l)$'",
+  'cop[â-z]l' => "rlike '^(cop[â-z]l)$'",
+  'cop[â-z]l*' => "rlike '^(cop[â-z]l.*)$'",
+]);
 
-assertQuery('mama', false, false, false);
-assertQuery('mamă', true, false, false);
-assertQuery('cop?l', false, true, false);
-assertQuery('cop[cg]l', false, true, false);
-assertQuery('căț[cg]l', true, true, false);
-assertQuery('1234567', false, false, true);
+$data = [
+  [ 'mama', false, false, false ],
+  [ 'mamă', true, false, false ],
+  [ 'cop?l', false, true, false ],
+  [ 'cop[cg]l', false, true, false ],
+  [ 'căț[cg]l', true, true, false ],
+  [ '1234567', false, false, true ],
+];
+foreach ($data as list($query, $hasDiacritics, $hasRegexp, $isAllDigits)) {
+  assertEquals($hasDiacritics, StringUtil::hasDiacritics($query));
+  assertEquals($hasRegexp, StringUtil::hasRegexp($query));
+  assertEquals($isAllDigits, StringUtil::isAllDigits($query));
+}
 
-assertEquals('&#x5c;&#x25;&#x5c;&#x7e;&#x5c;&#x24;',
-             AdminStringUtil::xmlize('\\%\\~\\$'));
-assertEquals('A&lt;B&gt;C&amp;D',
-             AdminStringUtil::xmlize('A<B>C&D'));
+assertTransform('AdminStringUtil::xmlize', [], [
+  '\\%\\~\\$' => '&#x5c;&#x25;&#x5c;&#x7e;&#x5c;&#x24;',
+  'A<B>C&D' => 'A&lt;B&gt;C&amp;D',
+]);
 
 $t = FlexStringUtil::extractTransforms('arde', 'arzând', 0);
 assertEquals(4, count($t));
@@ -585,9 +608,11 @@ assertEquals('', $t[0]->transfFrom);
 assertEquals('ului', $t[0]->transfTo);
 assertEquals(ModelDescription::NO_ACCENT_SHIFT, $t[1]);
 
-assertEquals(1, FlexStringUtil::countVowels('abc'));
-assertEquals(2, FlexStringUtil::countVowels('abcde'));
-assertEquals(8, FlexStringUtil::countVowels('aeiouăâî'));
+assertTransform('FlexStringUtil::countVowels', [], [
+  'abc' => 1,
+  'abcde' => 2,
+  'aeiouăâî' => 8,
+]);
 
 assertEquals("cas'ă", FlexStringUtil::placeAccent("casă", 1, ''));
 assertEquals("c'asă", FlexStringUtil::placeAccent("casă", 2, ''));
@@ -615,9 +640,8 @@ assertEquals('ăâîșț   ', AdminStringUtil::padRight('ăâîșț', 8));
 assertEquals('ăâîșț', AdminStringUtil::padRight('ăâîșț', 5));
 assertEquals('ăâîșț', AdminStringUtil::padRight('ăâîșț', 3));
 
-assertEqualArrays(array('c', 'a', 'r'), AdminStringUtil::unicodeExplode('car'));
-assertEqualArrays(array('ă', 'a', 'â', 'ș', 'ț'),
-                  AdminStringUtil::unicodeExplode('ăaâșț'));
+assertEqualArrays(['c', 'a', 'r'], AdminStringUtil::unicodeExplode('car'));
+assertEqualArrays(['ă', 'a', 'â', 'ș', 'ț'], AdminStringUtil::unicodeExplode('ăaâșț'));
 
 $orth = [
   'pîine' => 'pâine',
@@ -637,10 +661,10 @@ foreach ($orth as $old => $new) {
   assertEquals(mb_strtoupper($new), StringUtil::convertOrthography(mb_strtoupper($old)));
 }
 
-assertEqualArrays(array(1, 5, 10),
+assertEqualArrays([1, 5, 10],
                   Util::intersectArrays([1, 3, 5, 7, 9, 10],
                                         [1, 2, 4, 5, 6, 8, 10]));
-assertEqualArrays(array(),
+assertEqualArrays([],
                   Util::intersectArrays([2, 4, 6, 8],
                                         [1, 3, 5, 7]));
 
@@ -653,11 +677,11 @@ assert(Lock::release('test'));
 assert(!Lock::exists('test'));
 assert(!Lock::release('test'));
 
-assertEquals(0, Util::findSnippet(array(array(1, 2, 10))));
-assertEquals(1, Util::findSnippet(array(array(1, 2, 10),
-                                        array(5, 6, 9))));
-assertEquals(2, Util::findSnippet(array(array(1, 2, 10),
-                                        array(5, 6, 8))));
-assertEquals(4, Util::findSnippet(array(array(1, 2, 10),
-                                        array(6, 20),
-                                        array(8, 15))));
+assertEquals(0, Util::findSnippet([[1, 2, 10]]));
+assertEquals(1, Util::findSnippet([[1, 2, 10],
+                                   [5, 6, 9]]));
+assertEquals(2, Util::findSnippet([[1, 2, 10],
+                                   [5, 6, 8]]));
+assertEquals(4, Util::findSnippet([[1, 2, 10],
+                                   [6, 20],
+                                   [8, 15]]));

@@ -276,7 +276,7 @@ assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup>,</b> <i>măr
 assertEquals($internalRep, Str::sanitize($internalRep, 1));
 
 $msg1 = 'Unele dintre caracterele @$%#{} nu sunt împerecheate corect.';
-$msg2 = 'Unele dintre caracterele ()[] nu sunt împerecheate corect.';
+$msg2 = 'Unele dintre caracterele [] nu sunt împerecheate corect.';
 $msg3 = 'Unele dintre caracterele "«» nu sunt împerecheate corect.';
 $data = [
   '@a^{bc}d@'      => [],
@@ -285,10 +285,9 @@ $data = [
   'ab@cd$ef@gh$ij' => [ $msg1 ],
   'ab@cd'          => [ $msg1 ],
   'ab@cd@ef@gh'    => [ $msg1 ],
-  '((())'          => [ $msg2 ],
+  '[[[]]'          => [ $msg2 ],
   '[[]]]'          => [ $msg2 ],
-  '[(])'           => [ $msg2 ],
-  'a(b@c[)]d'      => [ $msg1, $msg2 ],
+  'a[b@c[[]d'      => [ $msg1, $msg2 ],
   '"out «in» out"' => [],
   '«out "in" out»' => [],
   'ab"cd'          => [ $msg3 ],

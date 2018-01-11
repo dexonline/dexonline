@@ -303,10 +303,11 @@ class Str {
 
   // Checks that varios pairs of characters are nested properly in $s.
   // Some pairs contain the same character for opening and closing blocks (e.g. '@').
+  // We cannot check the nesting of () due the use of ) in "a), b), c)".
   static function reportSanitizationErrors($s, &$errors) {
     $chars = self::unicodeExplode($s);
     self::sanitizationStackTest($chars, $errors, '@$%#', [ '{}' ]);
-    self::sanitizationStackTest($chars, $errors, '', [ '()', '[]' ]);
+    self::sanitizationStackTest($chars, $errors, '', [ '[]' ]);
     self::sanitizationStackTest($chars, $errors, '"', [ '«»' ]);
   }
 
@@ -331,9 +332,9 @@ class Str {
         } else {
           $stack[] = $c;
         }
-      } else if (in_array($c, $match)) {        // e.g. '{' or '('
+      } else if (in_array($c, $match)) {        // e.g. '{' or '['
         $stack[] = $c;
-      } else if (isset($match[$c])) {           // e.g. '}' or ')'
+      } else if (isset($match[$c])) {           // e.g. '}' or ']'
         if (end($stack) == $match[$c]) {
           array_pop($stack);
         } else {

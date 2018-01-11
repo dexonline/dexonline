@@ -371,7 +371,7 @@ class AdminStringUtil {
   private static function htmlizeAbbreviations($s, $sourceId, &$errors = null) {
     $abbrevs = self::loadAbbreviations($sourceId);
     $matches = [];
-    preg_match_all("/#([^#]*)#/", $s, $matches, PREG_OFFSET_CAPTURE);
+    preg_match_all("/(?<!\\\\)#([^#]*)#/", $s, $matches, PREG_OFFSET_CAPTURE);
     if (count($matches[1])) {
       foreach (array_reverse($matches[1]) as $match) {
         $from = $match[0];

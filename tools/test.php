@@ -20,11 +20,6 @@ function assertEqualArrays($expected, $actual) {
   }
 }
 
-function assertAbbreviations($typed, $internal, $html, $sourceId) {
-  assertEquals($internal, AdminStringUtil::markAbbreviations($typed, $sourceId));
-  assertEquals($html, AdminStringUtil::htmlize($internal, $sourceId));
-}
-
 function assertQuery($query, $hasDiacritics, $hasRegexp, $isAllDigits) {
   assertEquals($hasDiacritics, StringUtil::hasDiacritics($query));
   assertEquals($hasRegexp, StringUtil::hasRegexp($query));
@@ -149,6 +144,9 @@ $data = [
   'abc __de__ fgh' =>
   '<span class="deemph">abc <span class="emph">de</span> fgh</span>',
 
+  'abc __de__ fgh __ij__ klm' =>
+  '<span class="deemph">abc <span class="emph">de</span> fgh <span class="emph">ij</span> klm</span>',
+
   //escape characters
   'abc\\$def$ghi' =>
   'abc$def$ghi',
@@ -164,33 +162,96 @@ $before = "okely\ndokely";
 $after = "okely<br>\ndokely";
 assertEquals($after, AdminStringUtil::htmlize($before, 0, $errors, true));
 
-assertEquals("@FILLER@ #adj. dem.# (antepus), art.", AdminStringUtil::markAbbreviations("@FILLER@ adj. dem. (antepus), art.", 1));
-assertEquals("@FILLER@ #adj. dem.# (antepus), art.", AdminStringUtil::markAbbreviations("@FILLER@ adj. dem. (antepus), art.", 1));
-assertEquals("@FILLER@ #loc. adv. și adj.# @MORE FILLER@", AdminStringUtil::markAbbreviations("@FILLER@ loc. adv. și adj. @MORE FILLER@", 1));
-assertEquals("@FILLER@ #arg.# șarg. catarg. ăarg. țarg. @FILLER@", AdminStringUtil::markAbbreviations("@FILLER@ arg. șarg. catarg. ăarg. țarg. @FILLER@", 1));
-assertEquals("@FILLER@ #et. nec.#", AdminStringUtil::markAbbreviations("@FILLER@ et. nec.", 1));
-assertEquals("@FILLER@ #Înv.# @MORE FILLER@", AdminStringUtil::markAbbreviations("@FILLER@ Înv. @MORE FILLER@", 1)); // Unicode uppercase
-assertEquals("@FILLER@ #art. hot.# @FILLER@", AdminStringUtil::markAbbreviations("@FILLER@ art.hot. @FILLER@", 1));
-assertEquals("@FILLER@ #art. hot.# @FILLER@", AdminStringUtil::markAbbreviations("@FILLER@ #art. hot.# @FILLER@", 1));
-assertEquals("FOO ornit. BAR", AdminStringUtil::markAbbreviations("FOO ornit. BAR", 99)); // Inexistent source
-assertEquals("FOO BAR", AdminStringUtil::markAbbreviations("FOO BAR", 1)); // No abbreviations
-assertEquals("FOO dat. BAR", AdminStringUtil::markAbbreviations("FOO dat. BAR", 1)); // Ambiguous abbreviations
-// A more complex example which also reports ambiguous matches
-$ambiguousMatches = array();
-assertEquals("FOO dat. #arh.# #loc. adv.# BAR", AdminStringUtil::markAbbreviations("FOO dat. arh. loc. adv. BAR", 1, $ambiguousMatches));
-assertEquals(1, count($ambiguousMatches));
-assertEqualArrays(array('abbrev' => 'dat.', 'position' => 4, 'length' => 4), $ambiguousMatches[0]);
+$data = [
+  [
+    '@FILLER@ adj. dem. (antepus), art.',
+    '@FILLER@ #adj. dem.# (antepus), art.',
+    1,
+    [['abbrev' => 'art.', 'position' => 32, 'length' => 4]],
+  ],
+  [
+    '@FILLER@ loc. adv. și adj. @MORE FILLER@',
+    '@FILLER@ #loc. adv. și adj.# @MORE FILLER@',
+    1,
+    [],
+  ],
+  [
+    '@FILLER@ arg. șarg. catarg. ăarg. țarg. @FILLER@',
+    '@FILLER@ #arg.# șarg. catarg. ăarg. țarg. @FILLER@',
+    1,
+    [],
+  ],
+  [
+    '@FILLER@ et. nec.',
+    '@FILLER@ #et. nec.#',
+    1,
+    [],
+  ],
+  [
+    '@FILLER@ Înv. @MORE FILLER@', // Unicode uppercase
+    '@FILLER@ #Înv.# @MORE FILLER@',
+    1,
+    [],
+  ],
+  [
+    '@FILLER@ art.hot. @FILLER@',
+    '@FILLER@ #art. hot.# @FILLER@',
+    1,
+    [],
+  ],
+  [
+    '@FILLER@ #art. hot.# @FILLER@',
+    '@FILLER@ #art. hot.# @FILLER@',
+    1,
+    [],
+  ],
+  [
+    'FOO ornit. BAR',
+    'FOO ornit. BAR',
+    99, // non-existent source
+    [],
+  ],
+  [
+    'FOO BAR', // no abbreviations
+    'FOO BAR',
+    1,
+    [],
+  ],
+  [
+    'FOO dat. BAR',  // ambiguous abbreviations
+    'FOO dat. BAR',
+    1,
+    [['abbrev' => 'dat.', 'position' => 4, 'length' => 4]],
+  ],
+  [
+    'FOO dat. arh. loc. adv. BAR',
+    'FOO dat. #arh.# #loc. adv.# BAR',
+    1,
+    [['abbrev' => 'dat.', 'position' => 4, 'length' => 4]],
+  ],
+  [
+    'FOO s-a dus BAR',
+    'FOO s-a dus BAR',
+    32,
+    [['abbrev' => 's', 'position' => 4, 'length' => 1]],
+  ],
+];
+foreach ($data as list($before, $after, $sourceId, $ambiguous)) {
+  $a = [];
+  assertEquals($after, AdminStringUtil::markAbbreviations($before, $sourceId, $a));
+  assertEqualArrays($a, $ambiguous);
+}
 
-$ambiguousMatches = array();
-assertEquals("FOO s-a dus BAR", AdminStringUtil::markAbbreviations("FOO s-a dus BAR", 32, $ambiguousMatches));
-assertEquals(1, count($ambiguousMatches));
-assertEqualArrays(['abbrev' => 's', 'position' => 4, 'length' => 1], $ambiguousMatches[0]);
-
-assertEquals("FOO <abbr class=\"abbrev\" title=\"farmacie; farmacologie\">farm.</abbr> BAR", AdminStringUtil::htmlize("FOO #farm.# BAR", 1)); /** Semicolon in abbreviation **/
-assertEquals("FOO <abbr class=\"abbrev\" title=\"substantiv masculin\">s. m.</abbr> BAR", AdminStringUtil::htmlize("FOO #s. m.# BAR", 1));
-$errors = array();
-assertEquals("FOO <abbr class=\"abbrev\" title=\"abreviere necunoscută\">brrb. ghhg.</abbr> BAR", AdminStringUtil::htmlize("FOO #brrb. ghhg.# BAR", 1, $errors));
-assertEqualArrays(array(0 => 'Abreviere necunoscută: «brrb. ghhg.». Verificați că după fiecare punct există un spațiu.'), $errors);
+assertEquals("FOO <abbr class=\"abbrev\" title=\"farmacie; farmacologie\">farm.</abbr> BAR",
+             AdminStringUtil::htmlize("FOO #farm.# BAR", 1)); /** Semicolon in abbreviation **/
+assertEquals("FOO <abbr class=\"abbrev\" title=\"substantiv masculin\">s. m.</abbr> BAR",
+             AdminStringUtil::htmlize("FOO #s. m.# BAR", 1));
+$errors = [];
+assertEquals("FOO <abbr class=\"abbrev\" title=\"abreviere necunoscută\">brrb. ghhg.</abbr> BAR",
+             AdminStringUtil::htmlize("FOO #brrb. ghhg.# BAR", 1, $errors));
+assertEqualArrays(
+  ['Abreviere necunoscută: «brrb. ghhg.». Verificați că după fiecare punct există un spațiu.'],
+  $errors);
 
 $internalRep = '@M\'ARE^2,@ $mări,$ #s. f.# Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $#p. ext.#$ ocean. * #Expr.# $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** #Fig.# Suprafață vastă; întindere mare; imensitate. ** #Fig.# Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is.@';
 assertEquals($internalRep,
@@ -200,28 +261,90 @@ assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup>,</b> <i>măr
 assertEquals($internalRep, AdminStringUtil::sanitize($internalRep, 1));
 
 // Test various capitalization combos with abbreviations
-// - When internalizing the definition, preserve the capitalization if the defined abbreviation is capitalized;
-//   otherwise, capitalize the first letter (if necessary) and convert the rest to lowercase
-// - If the defined abbreviation contains capital letters, then only match text with identical capitalization
-// - If the defined abbreviation does not contain capital letters, then match text regardless of capitalization
-// - When htmlizing the definition, use the expansion from the abbreviation that best matches the case.
-assertAbbreviations("FILLER adv. FILLER", "FILLER #adv.# FILLER", "FILLER <abbr class=\"abbrev\" title=\"adverb\">adv.</abbr> FILLER", 1);
-assertAbbreviations("FILLER Adv. FILLER", "FILLER #Adv.# FILLER", "FILLER <abbr class=\"abbrev\" title=\"adverb\">Adv.</abbr> FILLER", 1);
-assertAbbreviations("FILLER BWV FILLER", "FILLER #BWV# FILLER", "FILLER <abbr class=\"abbrev\" title=\"Bach-Werke-Verzeichnis\">BWV</abbr> FILLER", 32);
-assertAbbreviations("FILLER bwv FILLER", "FILLER bwv FILLER", "FILLER bwv FILLER", 32);
-assertAbbreviations("FILLER bWv FILLER", "FILLER bWv FILLER", "FILLER bWv FILLER", 32);
-assertAbbreviations("FILLER ed. FILLER", "FILLER #ed.# FILLER", "FILLER <abbr class=\"abbrev\" title=\"ediție, editat\">ed.</abbr> FILLER", 32);
-assertAbbreviations("FILLER Ed. FILLER", "FILLER #Ed.# FILLER", "FILLER <abbr class=\"abbrev\" title=\"Editura\">Ed.</abbr> FILLER", 32);
-assertAbbreviations("FILLER ED. FILLER", "FILLER #Ed.# FILLER", "FILLER <abbr class=\"abbrev\" title=\"Editura\">Ed.</abbr> FILLER", 32);
+// - When internalizing the definition, preserve the capitalization if
+//   the defined abbreviation is capitalized; otherwise, capitalize
+//   the first letter (if necessary) and convert the rest to lowercase
+// - If the defined abbreviation contains capital letters, then only
+//   match text with identical capitalization
+// - If the defined abbreviation does not contain capital letters,
+//   then match text regardless of capitalization
+// - When htmlizing the definition, use the expansion from the
+//   abbreviation that best matches the case.
+$data = [
+  [
+    'FILLER adv. FILLER',
+    'FILLER #adv.# FILLER',
+    'FILLER <abbr class="abbrev" title="adverb">adv.</abbr> FILLER',
+    1,
+  ],
+  [
+    'FILLER Adv. FILLER',
+    'FILLER #Adv.# FILLER',
+    'FILLER <abbr class="abbrev" title="adverb">Adv.</abbr> FILLER',
+    1,
+  ],
+  [
+    'FILLER BWV FILLER',
+    'FILLER #BWV# FILLER',
+    'FILLER <abbr class="abbrev" title="Bach-Werke-Verzeichnis">BWV</abbr> FILLER',
+    32,
+  ],
+  [
+    'FILLER bwv FILLER',
+    'FILLER bwv FILLER',
+    'FILLER bwv FILLER',
+    32,
+  ],
+  [
+    'FILLER bWv FILLER',
+    'FILLER bWv FILLER',
+    'FILLER bWv FILLER',
+    32,
+  ],
+  [
+    'FILLER ed. FILLER',
+    'FILLER #ed.# FILLER',
+    'FILLER <abbr class="abbrev" title="ediție, editat">ed.</abbr> FILLER',
+    32,
+  ],
+  [
+    'FILLER Ed. FILLER',
+    'FILLER #Ed.# FILLER',
+    'FILLER <abbr class="abbrev" title="Editura">Ed.</abbr> FILLER',
+    32,
+  ],
+  [
+    'FILLER ED. FILLER',
+    'FILLER #Ed.# FILLER',
+    'FILLER <abbr class="abbrev" title="Editura">Ed.</abbr> FILLER',
+    32,
+  ],
+  [
+    'FILLER RRHA, TMC FILLER', // abbreviation includes special characters
+    'FILLER #RRHA, TMC# FILLER',
+    "FILLER <abbr class=\"abbrev\" title=\"Revue Roumaine d'Histoire de l'Art, série " .
+    "Théâtre, Musique, Cinématographie\">RRHA, TMC</abbr> FILLER",
+    32,
+  ],
+  [
+    'FILLER adj. interog.-rel. FILLER',
+    'FILLER #adj. interog.-rel.# FILLER',
+    'FILLER <abbr class="abbrev" title="adjectiv interogativ-relativ">' .
+    'adj. interog.-rel.</abbr> FILLER',
+    1,
+  ],
+  [
+    'AGNUS DEI', // abbreviation is not delimited by spaces
+    'AGNUS DEI',
+    'AGNUS DEI',
+    32,
+  ],
+];
+foreach ($data as list($raw, $internal, $html, $sourceId)) {
+  assertEquals($internal, AdminStringUtil::markAbbreviations($raw, $sourceId));
+  assertEquals($html, AdminStringUtil::htmlize($internal, $sourceId));
+}
 
-// Abbreviation includes special characters
-assertAbbreviations("FILLER RRHA, TMC FILLER", "FILLER #RRHA, TMC# FILLER",
-		    "FILLER <abbr class=\"abbrev\" title=\"Revue Roumaine d'Histoire de l'Art, série Théâtre, Musique, Cinématographie\">RRHA, TMC</abbr> FILLER", 32);
-assertAbbreviations("FILLER adj. interog.-rel. FILLER", "FILLER #adj. interog.-rel.# FILLER",
-                    "FILLER <abbr class=\"abbrev\" title=\"adjectiv interogativ-relativ\">adj. interog.-rel.</abbr> FILLER", 1);
-
-// Abbreviation is not delimited by spaces
-assertAbbreviations("AGNUS DEI", "AGNUS DEI", "AGNUS DEI", 32);
 
 assertEquals('@MÁRE^2,@ $mări,$ s.f.', AdminStringUtil::migrateFormatChars('@MÁRE^2@, $mări$, s.f.'));
 assertEquals('@$%spaced% text$@', AdminStringUtil::migrateFormatChars('@$ % spaced % text $@'));
@@ -532,5 +655,3 @@ assertEquals(2, Util::findSnippet(array(array(1, 2, 10),
 assertEquals(4, Util::findSnippet(array(array(1, 2, 10),
                                         array(6, 20),
                                         array(8, 15))));
-
-?>

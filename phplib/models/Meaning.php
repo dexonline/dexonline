@@ -112,8 +112,8 @@ class Meaning extends BaseObject implements DatedObject {
          : Model::factory('Meaning')->create();
 
       $m->type = $tuple->type;
-      $m->internalRep = AdminStringUtil::sanitize($tuple->internalRep);
-      $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
+      $m->internalRep = StringUtil::sanitize($tuple->internalRep);
+      $m->htmlRep = StringUtil::htmlize($m->internalRep, 0);
 
       $row['meaning'] = $m;
       $row['sources'] = Source::loadByIds($tuple->sourceIds);
@@ -167,8 +167,8 @@ class Meaning extends BaseObject implements DatedObject {
       $m->breadcrumb = $tuple->breadcrumb;
       $m->userId = User::getActiveId();
       $m->treeId = $tree->id;
-      $m->internalRep = AdminStringUtil::sanitize($tuple->internalRep);
-      $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
+      $m->internalRep = StringUtil::sanitize($tuple->internalRep);
+      $m->htmlRep = StringUtil::htmlize($m->internalRep, 0);
       $m->save();
       $meaningStack[$tuple->level] = $m->id;
 
@@ -232,7 +232,7 @@ class Meaning extends BaseObject implements DatedObject {
     foreach ($mentions as $ment) {
       $m = Meaning::get_by_id($ment->meaningId);
       $m->internalRep = str_replace("[{$this->id}]", '', $m->internalRep);
-      $m->htmlRep = AdminStringUtil::htmlize($m->internalRep, 0);
+      $m->htmlRep = StringUtil::htmlize($m->internalRep, 0);
       $m->save();
     }
 

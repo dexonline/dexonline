@@ -42,7 +42,7 @@ class CrawlerUrl extends BaseObject implements DatedObject {
         throw new CrawlerException("Cannot extract author from string [{$authorWrapper}]");
       }
 
-      $this->author = AdminStringUtil::cleanup($matches[1]);
+      $this->author = StringUtil::cleanup($matches[1]);
     }
   }
 
@@ -65,7 +65,7 @@ class CrawlerUrl extends BaseObject implements DatedObject {
       }
 
       $this->title = trim($titleWrapper->innertext);
-      $this->title = AdminStringUtil::cleanup($this->title);
+      $this->title = StringUtil::cleanup($this->title);
     }
   }
 
@@ -80,7 +80,7 @@ class CrawlerUrl extends BaseObject implements DatedObject {
   }
 
   function sanitizeBody() {
-    $this->body = AdminStringUtil::cleanup($this->body);
+    $this->body = StringUtil::cleanup($this->body);
     $this->body = html_entity_decode($this->body);
     $this->body = preg_replace('/\s\s+/', ' ', $this->body);
     $this->body = str_replace('­', '', $this->body); // remove soft hyphens, Unicode 00AD

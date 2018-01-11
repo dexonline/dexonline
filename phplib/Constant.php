@@ -80,4 +80,27 @@ class Constant {
     ],
   ];
 
+  // prefixes which should be followed by 'î', not 'â'
+  const I_PREFIXES = [
+    'auto',
+    'bine',
+    'bun',
+    'cap',
+    'co',
+    'de',
+    'dez', // false positive: "dezânoaie"
+    'ex',
+    'ne',
+    'nemai',
+    'ori',
+    'prea',
+    'pre',
+    're',
+    'semi',
+    'sub',
+    'supra',
+    'ultra',
+    // false negatives: "altîncotro"
+  ];
+
 }

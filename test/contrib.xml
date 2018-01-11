@@ -17,7 +17,7 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>//main/div/div</td>
+	<td>//main/div/div[2]</td>
 	<td>× Dacă doriți să primiți credit pentru definițiile trimise, vă recomandăm să vă autentificați.</td>
 </tr>
 <tr>

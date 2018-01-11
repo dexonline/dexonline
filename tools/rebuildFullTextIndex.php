@@ -88,14 +88,14 @@ function extractWords($text) {
   $alphabet = 'abcdefghijklmnopqrstuvwxyzăâîșț';
 
   $text = mb_strtolower($text);
-  $text = AdminStringUtil::removeAccents($text);
+  $text = StringUtil::removeAccents($text);
 
   // remove tonic accents (apostrophes not preceded by a backslash)
   $text = preg_replace("/(?<!\\\\)'/", '', $text);
 
   $result = [];
   $currentWord = '';
-  $chars = AdminStringUtil::unicodeExplode($text);
+  $chars = StringUtil::unicodeExplode($text);
   foreach ($chars as $c) {
     if (strpos($alphabet, $c) !== false) {
       $currentWord .= $c;

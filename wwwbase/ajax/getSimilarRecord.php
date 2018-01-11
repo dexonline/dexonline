@@ -11,12 +11,12 @@ $sourceId = Request::get('sourceId');
 $entryIds = Request::getArray('entryIds');
 
 $d = Definition::get_by_id($definitionId);
-$d->internalRep = AdminStringUtil::sanitize($definitionInternalRep, $sourceId);
-$d->htmlRep = AdminStringUtil::htmlize($d->internalRep, $sourceId);
+$d->internalRep = StringUtil::sanitize($definitionInternalRep, $sourceId);
+$d->htmlRep = StringUtil::htmlize($d->internalRep, $sourceId);
 $d->sourceId = $sourceId;
 
-$commentInternalRep = AdminStringUtil::sanitize($commentInternalRep, $sourceId);
-$commentHtmlRep = AdminStringUtil::htmlize($commentInternalRep, $sourceId);
+$commentInternalRep = StringUtil::sanitize($commentInternalRep, $sourceId);
+$commentHtmlRep = StringUtil::htmlize($commentInternalRep, $sourceId);
 
 $sim = SimilarRecord::create($d, $entryIds);
 

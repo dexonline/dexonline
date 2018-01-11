@@ -37,7 +37,7 @@ function updateEntity($e, $isDefinition)
 
   $definitionShown = false;
 
-  $links = AdminStringUtil::findRedundantLinks($e->internalRep);
+  $links = StringUtil::findRedundantLinks($e->internalRep);
 
   foreach ($links as $link) {
     $entityName = $isDefinition ? "definiție" : "sens";
@@ -96,7 +96,7 @@ function updateEntity($e, $isDefinition)
 
     if ($didChange) {
       $sourceId = $isDefinition ? $e->sourceId : 0;
-      $e->htmlRep = AdminStringUtil::htmlize($e->internalRep, $sourceId);
+      $e->htmlRep = StringUtil::htmlize($e->internalRep, $sourceId);
       $e->save();
 
       $tableName = $isDefinition ? 'Definition' : 'Meaning';

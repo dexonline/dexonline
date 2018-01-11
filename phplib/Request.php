@@ -9,11 +9,11 @@ class Request {
     if (!array_key_exists($name, $_REQUEST)) {
       return $default;
     } else if (is_string($_REQUEST[$name])) {
-      return AdminStringUtil::cleanup($_REQUEST[$name]);
+      return StringUtil::cleanup($_REQUEST[$name]);
     } else if (is_array($_REQUEST[$name])) {
       $a = $_REQUEST[$name];
       foreach ($a as $key => $value) {
-        $a[$key] = AdminStringUtil::cleanup($value);
+        $a[$key] = StringUtil::cleanup($value);
       }
       return $a;
     } else {

@@ -341,7 +341,7 @@ class Definition extends BaseObject implements DatedObject {
     }
 
     $s = $matches[1];
-    $s = AdminStringUtil::removeAccents($s);
+    $s = StringUtil::removeAccents($s);
 
     $s = preg_replace('# (-|\X)+/$#', '', $s); // strip pronunciations (MDN)
     $s = explode('/', $s)[0]; // ignore everything after other slashes

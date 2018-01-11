@@ -31,7 +31,7 @@ function assertTransform($f, $extraArgs, $data) {
 /********************* Tests for stringUtil.php ************************/
 
 // Check that we've got the shorthand->Unicode mappings right
-assertTransform('AdminStringUtil::cleanup', [], [
+assertTransform('StringUtil::cleanup', [], [
   '~a^a^i,s,t' => '~a^a^i,s,t',
   "'a'e'i'o'u'y" => "'a'e'i'o'u'y",
   '\\ş ş \\º º' => '\\ş ș \\º °',
@@ -72,18 +72,18 @@ assertTransform('StringUtil::reverse', [], [
 ]);
 
 // Test ord() and chr()
-assertTransform('AdminStringUtil::ord', [], [
+assertTransform('StringUtil::ord', [], [
   'A' => 65,
   "\n" => 10,
   'ă' => 259,
 ]);
-assertTransform('AdminStringUtil::chr', [], [
+assertTransform('StringUtil::chr', [], [
   65 => 'A',
   10 => "\n",
   259 => 'ă',
 ]);
 
-assertTransform('AdminStringUtil::htmlize', [ 0 ], [
+assertTransform('StringUtil::htmlize', [ 0 ], [
   // references
   'zzz |x|y|' =>
   'zzz <a class="ref" href="/definitie/y">x</a>',
@@ -173,7 +173,7 @@ assertTransform('AdminStringUtil::htmlize', [ 0 ], [
 ]);
 
 $errors = [];
-assertTransform('AdminStringUtil::htmlize', [ 0, &$errors, true ], [
+assertTransform('StringUtil::htmlize', [ 0, &$errors, true ], [
   "okely\ndokely" => "okely<br>\ndokely",
 ]);
 
@@ -258,22 +258,22 @@ foreach ($data as list($before, $after, $sourceId, $ambiguous)) {
 }
 
 assertEquals("FOO <abbr class=\"abbrev\" title=\"farmacie; farmacologie\">farm.</abbr> BAR",
-             AdminStringUtil::htmlize("FOO #farm.# BAR", 1)); /** Semicolon in abbreviation **/
+             StringUtil::htmlize("FOO #farm.# BAR", 1)); /** Semicolon in abbreviation **/
 assertEquals("FOO <abbr class=\"abbrev\" title=\"substantiv masculin\">s. m.</abbr> BAR",
-             AdminStringUtil::htmlize("FOO #s. m.# BAR", 1));
+             StringUtil::htmlize("FOO #s. m.# BAR", 1));
 $errors = [];
 assertEquals("FOO <abbr class=\"abbrev\" title=\"abreviere necunoscută\">brrb. ghhg.</abbr> BAR",
-             AdminStringUtil::htmlize("FOO #brrb. ghhg.# BAR", 1, $errors));
+             StringUtil::htmlize("FOO #brrb. ghhg.# BAR", 1, $errors));
 assertEqualArrays(
   ['Abreviere necunoscută: «brrb. ghhg.». Verificați că după fiecare punct există un spațiu.'],
   $errors);
 
 $internalRep = '@M\'ARE^2,@ $mări,$ #s. f.# Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $#p. ext.#$ ocean. * #Expr.# $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** #Fig.# Suprafață vastă; întindere mare; imensitate. ** #Fig.# Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is.@';
 assertEquals($internalRep,
-             AdminStringUtil::sanitize('@M\'ARE^2@, $mări$, s. f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $p.ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.', 1));
+             StringUtil::sanitize('@M\'ARE^2@, $mări$, s. f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $p.ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.', 1));
 assertEquals('<b>M<span class="tonic-accent">A</span>RE<sup>2</sup>,</b> <i>mări,</i> <abbr class="abbrev" title="substantiv feminin">s. f.</abbr> Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața <a class="ref" href="/definitie/Pământ">Pământului</a>, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; <i><abbr class="abbrev" title="prin extensiune">p. ext.</abbr></i> ocean. ◊ <abbr class="abbrev" title="expresie">Expr.</abbr> <i>Marea cu sarea</i> = mult, totul; imposibilul. <i>A vântura mări și țări</i> = a călători mult. <i>A încerca marea cu degetul</i> = a face o încercare, chiar dacă șansele de reușită sunt minime. <i>Peste (nouă) mări și (nouă) țări</i> = foarte departe. ♦ <abbr class="abbrev" title="figurat">Fig.</abbr> Suprafață vastă; întindere mare; imensitate. ♦ <abbr class="abbrev" title="figurat">Fig.</abbr> Mulțime (nesfârșită), cantitate foarte mare. – Lat. <b>mare, -is.</b>',
-             AdminStringUtil::htmlize($internalRep, 1));
-assertEquals($internalRep, AdminStringUtil::sanitize($internalRep, 1));
+             StringUtil::htmlize($internalRep, 1));
+assertEquals($internalRep, StringUtil::sanitize($internalRep, 1));
 
 // Test various capitalization combos with abbreviations
 // - When internalizing the definition, preserve the capitalization if
@@ -357,17 +357,17 @@ $data = [
 ];
 foreach ($data as list($raw, $internal, $html, $sourceId)) {
   assertEquals($internal, Abbrev::markAbbreviations($raw, $sourceId));
-  assertEquals($html, AdminStringUtil::htmlize($internal, $sourceId));
+  assertEquals($html, StringUtil::htmlize($internal, $sourceId));
 }
 
-assertTransform('AdminStringUtil::migrateFormatChars', [], [
+assertTransform('StringUtil::migrateFormatChars', [], [
   '@MÁRE^2@, $mări$, s.f.' => '@MÁRE^2,@ $mări,$ s.f.',
   '@$ % spaced % text $@' => '@$%spaced% text$@',
   '40\% dolomite' => '40\% dolomite',
   '40% dolomite%' => '40 %dolomite%',
 ]);
 
-assertTransform('AdminStringUtil::removeAccents', [], [
+assertTransform('StringUtil::removeAccents', [], [
   'cásă' => 'casă',
 ]);
 
@@ -423,7 +423,7 @@ foreach ($data as list($query, $hasDiacritics, $hasRegexp, $isAllDigits)) {
   assertEquals($isAllDigits, StringUtil::isAllDigits($query));
 }
 
-assertTransform('AdminStringUtil::xmlize', [], [
+assertTransform('StringUtil::xmlize', [], [
   '\\%\\~\\$' => '&#x5c;&#x25;&#x5c;&#x7e;&#x5c;&#x24;',
   'A<B>C&D' => 'A&lt;B&gt;C&amp;D',
 ]);
@@ -634,14 +634,14 @@ assertEquals("unfuckingbelievable", FlexStringUtil::insert("unbelievable", "fuck
 assertEquals("abcdef", FlexStringUtil::insert("cdef", "ab", 0));
 assertEquals("abcdef", FlexStringUtil::insert("abcd", "ef", 4));
 
-assertEquals('mamă      ', AdminStringUtil::padRight('mamă', 10));
-assertEquals('mama      ', AdminStringUtil::padRight('mama', 10));
-assertEquals('ăâîșț   ', AdminStringUtil::padRight('ăâîșț', 8));
-assertEquals('ăâîșț', AdminStringUtil::padRight('ăâîșț', 5));
-assertEquals('ăâîșț', AdminStringUtil::padRight('ăâîșț', 3));
+assertEquals('mamă      ', StringUtil::padRight('mamă', 10));
+assertEquals('mama      ', StringUtil::padRight('mama', 10));
+assertEquals('ăâîșț   ', StringUtil::padRight('ăâîșț', 8));
+assertEquals('ăâîșț', StringUtil::padRight('ăâîșț', 5));
+assertEquals('ăâîșț', StringUtil::padRight('ăâîșț', 3));
 
-assertEqualArrays(['c', 'a', 'r'], AdminStringUtil::unicodeExplode('car'));
-assertEqualArrays(['ă', 'a', 'â', 'ș', 'ț'], AdminStringUtil::unicodeExplode('ăaâșț'));
+assertEqualArrays(['c', 'a', 'r'], StringUtil::unicodeExplode('car'));
+assertEqualArrays(['ă', 'a', 'â', 'ș', 'ț'], StringUtil::unicodeExplode('ăaâșț'));
 
 $orth = [
   'pîine' => 'pâine',

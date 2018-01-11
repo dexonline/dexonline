@@ -11,7 +11,7 @@ $definitions = Model::factory('Definition')
 
 foreach ($definitions as $d) {
 
-  $links = AdminStringUtil::findRedundantLinks($d->internalRep);
+  $links = StringUtil::findRedundantLinks($d->internalRep);
 
   foreach ($links as $link) {
     print $link["original_word"] . ",";
@@ -28,7 +28,7 @@ foreach ($definitions as $d) {
         $d->internalRep
       );
 
-      $d->htmlRep = AdminStringUtil::htmlize($d->internalRep, $d->sourceId);
+      $d->htmlRep = StringUtil::htmlize($d->internalRep, $d->sourceId);
       $d->save();
     }
   }

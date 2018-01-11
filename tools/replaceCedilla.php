@@ -55,7 +55,7 @@ foreach ($files as $file) {
               if ($fix) {
                 Log::notice("Replacing column %s.%s (%d occurrences)", $table, $column, count($data));
                 foreach ($data as $rec) {
-                  $rec->$column = AdminStringUtil::cleanup($rec->$column);
+                  $rec->$column = StringUtil::cleanup($rec->$column);
                   $rec->save();
                 }
               } else {

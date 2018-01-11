@@ -75,7 +75,7 @@ if ($saveButton) {
     }
     $def->internalRep = str_replace($search, $replace, $def->internalRep);
     $ambiguousMatches = [];
-    $def->internalRep = AdminStringUtil::sanitize(
+    $def->internalRep = StringUtil::sanitize(
       $def->internalRep, $def->sourceId, $ambiguousMatches);
     
     // Complete or un-complete the abbreviation review
@@ -84,7 +84,7 @@ if ($saveButton) {
     } else if (count($ambiguousMatches) && $def->abbrevReview == Definition::ABBREV_REVIEW_COMPLETE) {
       $def->abbrevReview = Definition::ABBREV_AMBIGUOUS;
     }    
-    $def->htmlRep = AdminStringUtil::htmlize($def->internalRep, $def->sourceId);
+    $def->htmlRep = StringUtil::htmlize($def->internalRep, $def->sourceId);
     $def->save();
     $changedDefs++;
   }

@@ -17,8 +17,8 @@ if ($sendButton) {
   $d->status = $status;
   $d->userId = User::getActiveId();
   $d->sourceId = $sourceId;
-  $d->internalRep = AdminStringUtil::sanitize($internalRep, $sourceId, $ambiguousMatches);
-  $d->htmlRep = AdminStringUtil::htmlize($d->internalRep, $d->sourceId);
+  $d->internalRep = StringUtil::sanitize($internalRep, $sourceId, $ambiguousMatches);
+  $d->htmlRep = StringUtil::htmlize($d->internalRep, $d->sourceId);
   $d->abbrevReview = count($ambiguousMatches)
                    ? Definition::ABBREV_AMBIGUOUS
                    : Definition::ABBREV_REVIEW_COMPLETE;
@@ -56,7 +56,7 @@ if ($sendButton) {
       }
     }
 
-    foreach (AdminStringUtil::findRedundantLinks($d->internalRep) as $processedLink) {
+    foreach (StringUtil::findRedundantLinks($d->internalRep) as $processedLink) {
       if ($processedLink["short_reason"] !== "nemodificat") {
         FlashMessage::add('Legătura de la "' . $processedLink["original_word"] . '" la "' . $processedLink["linked_lexem"] . '" este considerată redundantă. (Motiv: ' . $processedLink["reason"] . ')', 'warning');
       }

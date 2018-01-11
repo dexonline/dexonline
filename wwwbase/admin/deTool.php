@@ -102,8 +102,8 @@ if ($saveButton) {
 
       $needsCaps = prefixMatch($m, $MODELS_TO_CAPITALIZE);
       if ($capitalize && $needsCaps) {
-        $lexem->setForm(AdminStringUtil::capitalize($lexem->form));
-        $e->description = AdminStringUtil::capitalize($e->description);
+        $lexem->setForm(StringUtil::capitalize($lexem->form));
+        $e->description = StringUtil::capitalize($e->description);
         $e->save();
       }
         

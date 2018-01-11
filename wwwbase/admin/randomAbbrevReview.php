@@ -26,12 +26,12 @@ if ($saveButton) {
   foreach ($matches as $i => $m) {
     if ($choices[count($choices) - 1 - $i] == 'abbrev') {
       $orig = substr($s, $m['position'], $m['length']);
-      $replacement = StringUtil::isUppercase(StringUtil::getCharAt($orig, 0)) ? AdminStringUtil::capitalize($m['abbrev']) : $m['abbrev'];
+      $replacement = StringUtil::isUppercase(StringUtil::getCharAt($orig, 0)) ? StringUtil::capitalize($m['abbrev']) : $m['abbrev'];
       $s = substr_replace($s, "#{$replacement}#", $m['position'], $m['length']);
     }
   }
   $def->internalRep = $s;
-  $def->htmlRep = AdminStringUtil::htmlize($def->internalRep, $def->sourceId);
+  $def->htmlRep = StringUtil::htmlize($def->internalRep, $def->sourceId);
   $def->abbrevReview = Definition::ABBREV_REVIEW_COMPLETE;
   $def->save();
 }
@@ -55,7 +55,7 @@ if (count($ids)) {
   foreach ($matches as $m) {
     $s = substr($s, 0, $m['position']) . " $MARKER " . substr($s, $m['position'], $m['length']) . " $MARKER " . substr($s, $m['position'] + $m['length']);
   }
-  $s = AdminStringUtil::htmlize($s, $def->sourceId);
+  $s = StringUtil::htmlize($s, $def->sourceId);
 
   // Split the definition into n ambiguities and n+1 bits of text between the ambiguities
   $text = array();

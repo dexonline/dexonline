@@ -188,8 +188,8 @@ while ($i < count($lines)) {
   $definition->userId = $userId;
   $definition->sourceId = $sourceId;
   $definition->status = $status;
-  $definition->internalRep = AdminStringUtil::sanitize($def, $sourceId);
-  $definition->htmlRep = AdminStringUtil::htmlize($definition->internalRep, $sourceId);
+  $definition->internalRep = StringUtil::sanitize($def, $sourceId);
+  $definition->htmlRep = StringUtil::htmlize($definition->internalRep, $sourceId);
   $definition->extractLexicon();
   $definition->save();
   if($verbose) echo("\tAdded definition {$definition->id} ({$definition->lexicon})\n");

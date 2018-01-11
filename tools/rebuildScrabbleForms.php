@@ -184,9 +184,9 @@ class BaseFormList extends FormList {
   }
 
   function format($row) {
-    return AdminStringUtil::padRight($row['form'], 20) .
-      AdminStringUtil::padRight($row['modelType'], 4) .
-      AdminStringUtil::padRight($row['modelNumber'], 8) .
+    return StringUtil::padRight($row['form'], 20) .
+      StringUtil::padRight($row['modelType'], 4) .
+      StringUtil::padRight($row['modelNumber'], 8) .
       $row['restriction'];
   }
 

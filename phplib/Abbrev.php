@@ -117,7 +117,7 @@ class Abbrev {
               }
             } else {
               $replacement = StringUtil::isUppercase(StringUtil::getCharAt($orig, 0))
-                           ? AdminStringUtil::capitalize($from)
+                           ? StringUtil::capitalize($from)
                            : $from;
               $s = substr_replace($s, "#$replacement#", $position, strlen($orig));
               array_splice($hashMap, $position, strlen($orig), array_fill(0, 2 + strlen($replacement), true));

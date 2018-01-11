@@ -403,9 +403,9 @@ class Lexem extends BaseObject implements DatedObject {
       if ($frag->capitalized) {
         // the first symbol could be an apostrophe
         if (StringUtil::startsWith($f, "'")) {
-          $f = "'" . AdminStringUtil::capitalize(substr($f, 1));
+          $f = "'" . StringUtil::capitalize(substr($f, 1));
         } else {
-          $f = AdminStringUtil::capitalize($f);
+          $f = StringUtil::capitalize($f);
         }
       }
 

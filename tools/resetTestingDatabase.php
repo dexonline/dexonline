@@ -323,7 +323,7 @@ function createDefinition($rep, $lexicon, $userId, $sourceId, $status) {
   $d->sourceId = $sourceId;
   $d->lexicon = $lexicon;
   $d->internalRep = $rep;
-  $d->htmlRep = AdminStringUtil::htmlize($rep, $sourceId);
+  $d->htmlRep = StringUtil::htmlize($rep, $sourceId);
   $d->status = $status;
   $d->save();
   return $d;
@@ -337,7 +337,7 @@ function createComment($rep, $definitionId, $userId, $status) {
   $c->userId = $userId;
   $c->status = $status;
   $c->contents = $rep;
-  $c->htmlContents = AdminStringUtil::htmlize($rep, $d->sourceId);
+  $c->htmlContents = StringUtil::htmlize($rep, $d->sourceId);
   $c->save();
   return $c;
 }

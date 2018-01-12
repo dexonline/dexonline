@@ -398,5 +398,3 @@ class Definition extends BaseObject implements DatedObject {
     return parent::save();
   }
 }
-
-?>

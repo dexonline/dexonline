@@ -527,7 +527,13 @@ class Str {
   }
 
   static function removeAccents($s) {
-    return str_replace(Constant::ACCENTS['accented'], Constant::ACCENTS['unaccented'], $s);
+    // remove graphic accents
+    $s = str_replace(Constant::ACCENTS['accented'], Constant::ACCENTS['unaccented'], $s);
+
+    // remove tonic accents
+    $s = preg_replace("/(?<!\\\\)'/", '', $s);
+
+    return $s;
   }
 
   // Returns the numeric value of a Roman numeral or null on errors

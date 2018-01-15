@@ -11,7 +11,7 @@ class Constant {
     '/(?<!\\\\)Ţ/'   => 'Ț',
 
     '/ ◊ /' => ' * ',
-    '/ ♦ /' => ' **',
+    '/ ♦ /' => ' ** ',
 
     // hyphens and spaces
     '/(?<!\\\\) /'   => ' ',     /* U+00A0 non-breaking space */

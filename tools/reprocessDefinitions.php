@@ -12,8 +12,7 @@ do {
   $defs = Model::factory('Definition')
     ->where_in('status', [0, 3])
     ->where_gte('id', START_ID)
-//    ->where('sourceId', 53)
-    ->where_not_in('sourceId', EXCLUDE_SOURCES)
+//    ->where_not_in('sourceId', EXCLUDE_SOURCES)
     ->order_by_asc('id')
     ->limit(BATCH_SIZE)
     ->offset($offset)
@@ -22,17 +21,21 @@ do {
   foreach ($defs as $d) {
     $errors = [];
     $newRep = Str::sanitize($d->internalRep, $d->sourceId, $errors);
-    //    $newHtmlRep = Str::htmlize($newRep, $d->sourceId);
-    //    if ($newRep !== $d->internalRep || $newHtmlRep !== $d->htmlRep) {
-    // if ($newRep !== $d->internalRep) {
-    //   printf("%d\n[%s]\n[%s]\n\n", $d->id, $d->internalRep, $newRep);
-    //   $modified++;
-    //   // $d->internalRep = $newRep;
-    //   // $d->htmlRep = $newHtmlRep;
-    //   // $d->save();
-    // }
-    if (count($errors)) {
-      printf("**** %d %s %s\n", $d->id, defUrl($d), $d->lexicon);
+    $newHtmlRep = Str::htmlize($newRep, $d->sourceId);
+    if ($newRep !== $d->internalRep || $newHtmlRep !== $d->htmlRep) {
+//      printf("**** %d %3d %s %s\n", $d->id, $d->sourceId, defUrl($d), $d->lexicon);
+      /* for ($i = 0; $i < min(mb_strlen($d->htmlRep), mb_strlen($newHtmlRep)); $i++) { */
+      /*   printf("%d %d %d [%s] [%s]\n", */
+      /*   $i, */
+      /*   Str::ord(Str::getCharAt($d->htmlRep, $i)), */
+      /*   Str::ord(Str::getCharAt($newHtmlRep, $i)), */
+      /*   Str::getCharAt($d->htmlRep, $i), */
+      /*   Str::getCharAt($newHtmlRep, $i)); */
+      /* } */
+      $d->internalRep = $newRep;
+      $d->htmlRep = $newHtmlRep;
+      $d->save();
+      $modified++;
     }
   }
 

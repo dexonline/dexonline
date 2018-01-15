@@ -202,12 +202,14 @@ class Definition extends BaseObject implements DatedObject {
       }
 
       // see if any entries for these lexemes are adult
-      $adult |= Model::factory('Entry')
-              ->table_alias('e')
-              ->join('EntryLexem', ['e.id', '=', 'el.entryId'], 'el')
-              ->where_in('el.lexemId', $lexemIds)
-              ->where('e.adult', true)
-              ->count();
+      if (!empty($lexemIds)) {
+        $adult |= Model::factory('Entry')
+                ->table_alias('e')
+                ->join('EntryLexem', ['e.id', '=', 'el.entryId'], 'el')
+                ->where_in('el.lexemId', $lexemIds)
+                ->where('e.adult', true)
+                ->count();
+      }
 
       if ($isStopWord) {
         $stopWords[] = $word;

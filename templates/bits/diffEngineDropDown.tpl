@@ -6,7 +6,11 @@
 {assign var="canEdit" value=$canEdit|default:false}
 {assign var="anyOption" value=$anyOption|default:false}
 
-<select id="{$id}" name="{$name}" class="form-control" {if !$canEdit}disabled{/if}>
+<select id="{$id}"
+        name="{$name}"
+        class="form-control"
+        tabindex="-1"
+        {if !$canEdit}disabled{/if}>
   {if $anyOption}
     <option value="0">oricare</option>
   {/if}

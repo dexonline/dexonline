@@ -10,6 +10,7 @@
     <input type="radio"
            name="{$name}"
            value="{$i}"
+           tabindex="-1"
            {if $i == $selected}checked{/if}
            {if !$canEdit}disabled{/if}>
     {$s}

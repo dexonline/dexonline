@@ -289,7 +289,7 @@
       <div class="panel-heading">
         Modele de flexiune
       </div>
-      
+
       <div class="panel-body">
 
         <form class="form-inline" action="dispatchModelAction.php">
@@ -349,57 +349,85 @@
       <div class="panel-heading">
         Înlocuiește în definiții
       </div>
-      
+
       <div class="panel-body">
         <form class="form-horizontal" action="bulkReplace.php">
-          <div class="form-group">
-            <label class="control-label col-xs-1">caută</label>
-            <div class="col-xs-5">
-              <input class="form-control" type="text" name="search">
-            </div>
 
-            <label class="control-label col-xs-1">motor</label>
-            <div class="col-xs-5">
-              {include "bits/diffEngineDropDown.tpl" name="engine" canEdit=true}
-            </div>
-            
-          </div>
+          <div class="row">
 
-          <div class="form-group">
-            <label class="control-label col-xs-1">substituie cu</label>
-            <div class="col-xs-5">
-              <input class="form-control" type="text" name="replace">
-            </div>
-            <label class="control-label col-xs-1">detaliere</label>
-            <div class="col-xs-5" id="granularity">
-              {include "bits/diffGranularityRadio.tpl" name="granularity" canEdit=true selected=1}
-            </div>
-            <div class="col-xs-5" id="message" hidden="true">
-              <p class="help-block">în cazul LDiff schimbarea detalierii se face apăsând Alt+Shift+W</p>
-            </div>
+            <div class="col-md-6">
 
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-xs-1">sursa</label>
-            <div class="col-xs-5">
-              {include "bits/sourceDropDown.tpl" name="sourceId"}
-            </div>
-
-            <label class="control-label col-xs-1">rezultate</label>
-            <div class="col-sm-2" id="maxaffected">
-              <div class="input-group spinner">
-                <input type="numeric" name="maxaffected" readonly class="form-control" value="1000" min="100" max="1000" step="100">
-                <div class="input-group-btn-vertical">
-                  <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-up"></i></button>
-                  <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-chevron-down"></i></button>
+              <div class="form-group">
+                <label class="control-label col-xs-3">înlocuiește</label>
+                <div class="col-xs-9">
+                  <input class="form-control" type="text" name="search">
                 </div>
               </div>
-              <p class="help-block">Min 100 - Max 1000.</p>
+
+              <div class="form-group">
+                <label class="control-label col-xs-3">cu</label>
+                <div class="col-xs-9">
+                  <input class="form-control" type="text" name="replace">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-xs-3">sursa</label>
+                <div class="col-xs-9">
+                  {include "bits/sourceDropDown.tpl" name="sourceId"}
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="form-group">
+                <label class="control-label col-xs-3">motor</label>
+                <div class="col-xs-9">
+                  {include "bits/diffEngineDropDown.tpl" name="engine" canEdit=true}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-xs-3">detaliere</label>
+                <div class="col-xs-9" id="granularity">
+                  {include "bits/diffGranularityRadio.tpl" name="granularity" canEdit=true selected=1}
+                </div>
+                <div class="col-xs-9" id="message" hidden="true">
+                  <p class="help-block">
+                    în cazul LDiff schimbarea detalierii se face apăsând Alt+Shift+W
+                  </p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-xs-3">rezultate</label>
+                <div class="col-xs-9" id="maxaffected">
+                  <div class="input-group spinner">
+                    <input type="numeric"
+                           name="maxaffected"
+                           class="form-control"
+                           value="1000"
+                           min="100"
+                           max="1000"
+                           step="100"
+                           tabindex="-1">
+                    <div class="input-group-btn-vertical">
+                      <button class="btn btn-default" type="button" tabindex="-1"">
+                        <i class="glyphicon glyphicon-chevron-up"></i>
+                      </button>
+                      <button class="btn btn-default" type="button" tabindex="-1">
+                        <i class="glyphicon glyphicon-chevron-down"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <p class="help-block">Min 100 - Max 1000.</p>
+                </div>
+              </div>
             </div>
           </div>
 
-          
           <div class="form-group">
             <div class="col-xs-5 col-xs-offset-1">
               <button type="submit" class="btn btn-primary" name="previewButton">
@@ -423,7 +451,7 @@
       <div class="panel-heading">
         Legături
       </div>
-      
+
       <table class="table table-condensed">
         <tr>
           <td><a href="{$wwwRoot}moderatori">moderatori</a></td>
@@ -450,7 +478,7 @@
       <div class="panel-heading">
         Unelte diverse
       </div>
-      
+
       <div class="panel-body">
         <ul>
           {if User::can(User::PRIV_EDIT)}
@@ -489,7 +517,7 @@
       <div class="panel-heading">
         Structurare
       </div>
-      
+
       <div class="panel-body">
         <ul>
           <li>
@@ -508,7 +536,7 @@
       <div class="panel-heading">
         Dicționarul vizual
       </div>
-      
+
       <div class="panel-body">
         <a href="{$wwwRoot}admin/visual.php">dicționarul vizual</a>
       </div>
@@ -520,7 +548,7 @@
       <div class="panel-heading">
         Cuvântul + imaginea zilei
       </div>
-      
+
       <div class="panel-body">
         <ul>
           <li><a href="wotdTable.php">cuvântul zilei</a></li>

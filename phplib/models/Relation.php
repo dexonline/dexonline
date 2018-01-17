@@ -48,5 +48,3 @@ class Relation extends BaseObject implements DatedObject {
     return $results;
   }
 }
-
-?>

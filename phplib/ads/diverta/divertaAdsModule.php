@@ -65,5 +65,3 @@ class DivertaBook extends BaseObject implements DatedObject {
 class DivertaIndex extends BaseObject {
   public static $_table = 'diverta_Index';
 }
-
-?>

@@ -18,5 +18,3 @@ foreach ($definitions as $definition){
 
 header('Content-Type: application/json');
 echo json_encode($resp);
-
-?>

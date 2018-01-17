@@ -169,5 +169,3 @@ abstract class Association extends BaseObject {
     }
   }
 }
-
-?>

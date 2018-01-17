@@ -38,5 +38,3 @@ if ($doCodeUpdate) {
 }
 
 Log::notice('finished');
-
-?>

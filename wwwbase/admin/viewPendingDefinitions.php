@@ -34,4 +34,3 @@ $searchResults = SearchResult::mapDefinitionArray($defs);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/viewPendingDefinitions.tpl');
-?>

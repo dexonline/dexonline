@@ -60,5 +60,3 @@ class FullTextIndex extends BaseObject {
     return $positionMap;
   }
 }
-
-?>

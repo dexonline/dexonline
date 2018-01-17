@@ -20,4 +20,3 @@ SmartyWrap::assign('year', $year);
 SmartyWrap::assign('wotdSet', $wotdSet);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/wotdExport.tpl');
-?>

@@ -9,5 +9,3 @@ if ($typo) {
   Log::debug("Ignored typo {$typo->id} ({$typo->problem}) reported by [{$typo->userName}]");
   $typo->delete();
 }
-
-?>

@@ -96,5 +96,3 @@ class Mention extends BaseObject implements DatedObject {
     }
   }
 }
-
-?>

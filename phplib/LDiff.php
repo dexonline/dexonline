@@ -146,5 +146,3 @@ class LDiff {
     return $result;
   }
 }
-
-?>

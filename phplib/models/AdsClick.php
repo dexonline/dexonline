@@ -10,5 +10,3 @@ class AdsClick extends BaseObject {
     $ac->save();
   }
 }
-
-?>

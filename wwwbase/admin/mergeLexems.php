@@ -119,5 +119,3 @@ function loadIfArray($lexem) {
   $ifs = $lexem->loadInflectedForms();
   return Util::objectProperty($ifs, 'form');
 }
-
-?>

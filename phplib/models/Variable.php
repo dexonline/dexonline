@@ -18,5 +18,3 @@ class Variable extends BaseObject implements DatedObject {
     $v->save();
   }
 }
-
-?>

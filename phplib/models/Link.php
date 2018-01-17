@@ -31,5 +31,3 @@ class Link extends BaseObject implements DatedObject {
 		return null;
 	}
 }
-
-?>

@@ -124,5 +124,3 @@ class Medal {
     return $mask;
   }
 }
-
-?>

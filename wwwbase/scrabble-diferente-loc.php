@@ -50,5 +50,3 @@ SmartyWrap::assign('locVersions', $locVersions);
 SmartyWrap::assign('diff', $diff);
 SmartyWrap::assign('zipUrl', $zipUrl);
 SmartyWrap::display('scrabble-diferente-loc.tpl');
-
-?>

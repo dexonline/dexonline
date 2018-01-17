@@ -21,5 +21,3 @@ foreach ($sources as $s) {
 
 header('Content-Type: application/json');
 echo json_encode($resp);
-
-?>

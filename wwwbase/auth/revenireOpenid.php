@@ -26,5 +26,3 @@ if ($user) {
   SmartyWrap::assign('loginType', $loginType);
   SmartyWrap::display('auth/chooseIdentity.tpl');  
 }
-
-?>

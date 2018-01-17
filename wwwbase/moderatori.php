@@ -45,5 +45,3 @@ $moderators = Model::factory('User')
 SmartyWrap::assign('users', $moderators);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('moderatori.tpl');
-
-?>

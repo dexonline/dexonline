@@ -139,5 +139,3 @@ class TopEntry {
     return $topEntries;
   }
 }
-
-?>

@@ -75,5 +75,3 @@ class WikiArticle extends BaseObject implements DatedObject {
     parent::delete();
   }
 }
-
-?>

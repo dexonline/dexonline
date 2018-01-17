@@ -124,5 +124,3 @@ function generateIndexFile() {
   fprintf($f, "</sitemapindex>\n");
   fclose($f);
 }
-
-?>

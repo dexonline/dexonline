@@ -323,5 +323,3 @@ function removeOldDumps($folder, $today, $lastDump) {
     }
   }
 }
-
-?>

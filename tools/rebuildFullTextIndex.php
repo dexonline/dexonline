@@ -113,5 +113,3 @@ function extractWords($text) {
 
   return $result;
 }
-
-?>

@@ -734,5 +734,3 @@ class Lexem extends BaseObject implements DatedObject {
   }
 
 }
-
-?>

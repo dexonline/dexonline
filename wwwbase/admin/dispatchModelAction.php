@@ -25,5 +25,3 @@ if ($showLexemsButton) {
 } else if ($deleteModelButton) {
   Util::redirect("deleteModel.php?$args");
 }
-
-?>

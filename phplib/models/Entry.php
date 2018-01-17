@@ -339,5 +339,3 @@ class Entry extends BaseObject implements DatedObject {
   }
 
 }
-
-?>

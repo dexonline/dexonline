@@ -32,5 +32,3 @@ foreach ($data as $r) {
 }
 
 print json_encode($results);
-
-?>

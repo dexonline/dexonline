@@ -22,5 +22,3 @@ foreach ($artists as $a) {
 
 SmartyWrap::assign('artists', $artists);
 SmartyWrap::display('autori-imagini.tpl');
-
-?>

@@ -13,5 +13,3 @@ SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::assign('modelNumber', $modelNumber);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/viewLexemsByModel.tpl');
-
-?>

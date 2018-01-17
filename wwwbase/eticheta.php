@@ -122,5 +122,3 @@ SmartyWrap::assign('frequentColors', $frequentColors);
 SmartyWrap::addCss('admin', 'colorpicker');
 SmartyWrap::addJs('select2Dev', 'colorpicker');
 SmartyWrap::display('eticheta.tpl');
-
-?>

@@ -12,5 +12,3 @@ class ModelType extends BaseObject {
     return $mt->canonical;
   }
 }
-
-?>

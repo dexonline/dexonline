@@ -33,5 +33,3 @@ SmartyWrap::assign('editable', User::can(User::PRIV_ADMIN));
 SmartyWrap::addCss('admin');
 SmartyWrap::addJs('jqTableDnd', 'tablesorter');
 SmartyWrap::display('surse.tpl');
-
-?>

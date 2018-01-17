@@ -44,5 +44,3 @@ class DebugInfo {
     return self::getTimeInMillis() - self::$startTimestamp;
   }
 }
-
-?>

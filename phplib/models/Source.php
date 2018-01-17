@@ -62,5 +62,3 @@ class Source extends BaseObject implements DatedObject {
       ->find_many();
   }
 }
-
-?>

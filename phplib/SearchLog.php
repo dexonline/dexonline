@@ -74,5 +74,3 @@ class SearchLog {
     fclose($f);
   }
 }
-
-?>

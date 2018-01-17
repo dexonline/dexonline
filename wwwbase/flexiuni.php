@@ -52,5 +52,3 @@ SmartyWrap::assign('modelTypes', ModelType::loadCanonical());
 SmartyWrap::addCss('admin');
 SmartyWrap::addJs('jqTableDnd');
 SmartyWrap::display('flexiuni.tpl');
-
-?>

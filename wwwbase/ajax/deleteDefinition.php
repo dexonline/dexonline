@@ -12,5 +12,3 @@ if ($def && $def->id) {
   Typo::delete_all_by_definitionId($def->id);
   Log::notice("Marked definition {$def->id} ({$def->lexicon}) as deleted");
 }
-
-?>

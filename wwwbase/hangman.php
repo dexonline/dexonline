@@ -79,4 +79,3 @@ SmartyWrap::assign('word', $word);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('difficulty', $difficulty);
 SmartyWrap::display("hangman.tpl");
-?>

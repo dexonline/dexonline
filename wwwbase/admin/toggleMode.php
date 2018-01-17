@@ -30,5 +30,3 @@ $target = isset($_SERVER['HTTP_REFERER'])
         ? $_SERVER['HTTP_REFERER']
         : Core::getWwwRoot();
 Util::redirect($target);
-
-?>

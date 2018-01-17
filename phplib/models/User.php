@@ -68,5 +68,3 @@ class User extends BaseObject {
     self::$active = User::get_by_id($userId);
   }
 }
-
-?>

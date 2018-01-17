@@ -110,5 +110,3 @@ class AppLog {
 		else return '<br>';
 	}
 }
-
-?>

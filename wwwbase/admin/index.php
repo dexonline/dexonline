@@ -97,4 +97,3 @@ SmartyWrap::addCss('admin', 'bootstrap-spinedit', 'bootstrap-datepicker');
 SmartyWrap::addJs('select2Dev', 'adminIndex', 'modelDropdown', 'diffSelector', 'bootstrap-spinedit',
                   'bootstrap-datepicker');
 SmartyWrap::display('admin/index.tpl');
-?>

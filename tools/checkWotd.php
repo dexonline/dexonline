@@ -195,5 +195,3 @@ function stripImageName($fileName) {
   $s = mb_strtolower($s);
   return $s;
 }
-
-?>

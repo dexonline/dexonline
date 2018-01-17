@@ -83,5 +83,3 @@ class ObjectTag extends BaseObject implements DatedObject {
     }
   }
 }
-
-?>

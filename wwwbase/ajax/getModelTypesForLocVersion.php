@@ -16,5 +16,3 @@ foreach ($modelTypes as $m) {
   $resp[] = array('code' => $m->code, 'description' => $m->description);
 }
 print json_encode($resp);
-
-?>

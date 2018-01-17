@@ -7,4 +7,3 @@ RecentLink::add('Dicționarul vizual');
 SmartyWrap::addCss('elfinder', 'jqueryui', 'admin');
 SmartyWrap::addJs('elfinder', 'jqueryui');
 SmartyWrap::display('admin/visual.tpl');
-?>

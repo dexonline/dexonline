@@ -27,4 +27,3 @@ if (is_null($status)) {
 
 $where_to_go = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/';
 header("Location: {$where_to_go}");
-?>

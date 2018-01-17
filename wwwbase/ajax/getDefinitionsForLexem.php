@@ -8,5 +8,3 @@ $searchResults = SearchResult::mapDefinitionArray($defs);
 
 SmartyWrap::assign('results', $searchResults);
 SmartyWrap::displayWithoutSkin('ajax/getDefinitionsForLexem.tpl');
-
-?>

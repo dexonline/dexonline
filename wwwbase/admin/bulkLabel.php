@@ -113,5 +113,3 @@ SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('lMatrix', $lMatrix);
 SmartyWrap::addCss('paradigm', 'admin');
 SmartyWrap::display('admin/bulkLabel.tpl');
-
-?>

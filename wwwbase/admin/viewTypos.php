@@ -19,5 +19,3 @@ $defs = Model::factory('Definition')
 SmartyWrap::assign('searchResults', SearchResult::mapDefinitionArray($defs));
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/viewTypos.tpl');
-
-?>

@@ -1,5 +1,5 @@
 <?php
-require_once("../phplib/Core.php"); 
+require_once("../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT);
 
 $showAddForm = Request::get('add');
@@ -38,7 +38,7 @@ if ($saveButton && $id) {
   $mt->description = $description;
   if (validateEdit($mt)) {
     $mt->save();
-    Log::notice("Changed description for model type {$mt->code} ({$mt->description})");    
+    Log::notice("Changed description for model type {$mt->code} ({$mt->description})");
     FlashMessage::add('Am salvat descrierea.', 'success');
     Util::redirect('tipuri-modele.php');
   } else {
@@ -55,7 +55,7 @@ if ($deleteId) {
   $mt = ModelType::get_by_id($deleteId);
   if (validateDelete($mt)) {
     FlashMessage::add("Am șters tipul de model '{$mt->code}'.", 'success');
-    Log::notice("Deleted model type {$mt->code} ({$mt->description})");    
+    Log::notice("Deleted model type {$mt->code} ({$mt->description})");
     $mt->delete();
     Util::redirect('tipuri-modele.php');
   }
@@ -115,5 +115,3 @@ function validateDelete($mt) {
   }
   return !FlashMessage::hasErrors();
 }
-  
-?>

@@ -22,5 +22,3 @@ SmartyWrap::assign('detailsVisible', $detailsVisible);
 SmartyWrap::assign('userPrefs', $userPrefs);
 SmartyWrap::assign('widgets', $widgets);
 SmartyWrap::display('preferinte.tpl');
-
-?>

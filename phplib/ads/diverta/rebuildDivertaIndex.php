@@ -36,5 +36,3 @@ foreach ($books as $i => $book) {
     print ($i + 1) . " titles indexed.\n";
   }
 }
-
-?>

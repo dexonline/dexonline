@@ -12,4 +12,3 @@ class SimilarSource extends BaseObject {
   }
 
 }
-?>

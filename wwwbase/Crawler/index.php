@@ -24,5 +24,3 @@ SmartyWrap::assign('options', $options);
 //SmartyWrap::display('crawler/crawler.tpl');
 SmartyWrap::assign('jqueryLibPath', '../js/jquery-1.8.3.min.js');
 SmartyWrap::displayWithoutSkin('crawler/crawler.tpl');
-
-?>

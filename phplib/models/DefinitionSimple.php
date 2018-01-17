@@ -8,5 +8,3 @@ class DefinitionSimple extends BaseObject implements DatedObject {
     return ucfirst($this->definition);
   }
 }
-
-?>

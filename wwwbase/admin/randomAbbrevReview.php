@@ -84,5 +84,3 @@ SmartyWrap::display('admin/randomAbbrevReview.tpl');
 function positionCmp($a, $b) {
   return $b['position'] - $a['position'];
 }
-
-?>

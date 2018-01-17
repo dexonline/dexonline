@@ -27,5 +27,3 @@ class OCR extends BaseObject {
     return $ocr;
   }
 }
-
-?>

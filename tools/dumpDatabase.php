@@ -106,5 +106,3 @@ $f->staticServerPut($GZ_FILE, $remoteFile);
 unlink($GZ_FILE);
 
 Log::notice('finished');
-
-?>

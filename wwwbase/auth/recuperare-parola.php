@@ -27,5 +27,3 @@ if (!$pt) {
   }
 }
 SmartyWrap::display('auth/passwordRecoveryWrongData.tpl');
-
-?>

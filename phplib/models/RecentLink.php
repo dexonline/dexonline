@@ -39,5 +39,3 @@ class RecentLink extends BaseObject {
     return $recentLinks;
   }
 }
-
-?>

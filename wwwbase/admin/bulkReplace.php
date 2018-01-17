@@ -25,7 +25,7 @@ $replaceChars = array('%' => '|%',
                       '_' => '|_', 
                       '|' => '||'); 
 $mysqlSearch = strtr($search, array_combine(array_keys($replaceChars), array_values($replaceChars)));
-  
+
 $query = Model::factory('Definition')
        ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
        ->where_raw('(binary internalRep like ? escape "|")', ["%{$mysqlSearch}%"]);
@@ -35,19 +35,19 @@ if ($sourceId) {
 
 // we need the count only one time to speed up subsequent replace
 if (!$saveButton) {
-    $totalDefs = $query->count();
-    DebugInfo::stopClock("BulkReplace - Count - After search criteria");
+  $totalDefs = $query->count();
+  DebugInfo::stopClock("BulkReplace - Count - After search criteria");
 
-    // no records? we should not go any further
-    if (!$totalDefs) {
-      FlashMessage::add("Nu există nicio definiție care să conțină: [".$search."].", 'warning');
-      Util::redirect("index.php");
-    }
-    
-    // some records? setting up session variables
-    Session::set('totalDefs', $totalDefs);
-    Session::set('changedDefs', 0);
-    Session::set('excludedDefs', 0);
+  // no records? we should not go any further
+  if (!$totalDefs) {
+    FlashMessage::add("Nu există nicio definiție care să conțină: [".$search."].", 'warning');
+    Util::redirect("index.php");
+  }
+
+  // some records? setting up session variables
+  Session::set('totalDefs', $totalDefs);
+  Session::set('changedDefs', 0);
+  Session::set('excludedDefs', 0);
 }
 
 // variables should not be null
@@ -57,17 +57,17 @@ $excludedDefs = Session::get('excludedDefs');
 
 // preparing the main query object with global parameters
 $query = $query
-  ->order_by_asc('id')
-  ->limit($maxaffected);
+       ->order_by_asc('id')
+       ->limit($maxaffected);
 
 if ($saveButton) {
   $querySave = $query->where_gt('id', $lastId); // only those records that were previsualized
   $defs = $querySave->find_many();
   DebugInfo::stopClock("BulkReplace - AfterQuery +SaveButton");
-  
+
   $excludedIds = filter_var_array(preg_split('/,/', $excludedIds, null, PREG_SPLIT_NO_EMPTY), FILTER_SANITIZE_NUMBER_INT);
   $excludedDefs += count($excludedIds);
-  
+
   foreach ($defs as $def) {
     $lastId = $def->id;                     // $lastId will get the final defId
     if (in_array($def->id, $excludedIds)) {
@@ -78,7 +78,7 @@ if ($saveButton) {
     $errors = null;
     $def->internalRep = Str::sanitize(
       $def->internalRep, $def->sourceId, $errors, $ambiguousMatches);
-    
+
     // Complete or un-complete the abbreviation review
     if (!count($ambiguousMatches) && $def->abbrevReview == Definition::ABBREV_AMBIGUOUS) {
       $def->abbrevReview = Definition::ABBREV_REVIEW_COMPLETE;
@@ -90,13 +90,13 @@ if ($saveButton) {
     $changedDefs++;
   }
   DebugInfo::stopClock("BulkReplace - AfterForEach +SaveButton");
-    
+
   Log::notice("Replaced [".$changedDefs."] definitions - [{$search}] with [{$replace}] in source [$sourceId]");
   if ($totalDefs - $changedDefs - $excludedDefs == 0) { 
-      Session::unsetVar('totalDefs');
-      Session::unsetVar('changedDefs');
-      Session::unsetVar('excludedDefs');
-      FlashMessage::add("".$changedDefs.Str::getAmountPreposition($changedDefs)." ocurențe [".$search."] din totalul de ".$totalDefs." au fost înlocuite cu [".$replace."].", 'success');
+    Session::unsetVar('totalDefs');
+    Session::unsetVar('changedDefs');
+    Session::unsetVar('excludedDefs');
+    FlashMessage::add("".$changedDefs.Str::getAmountPreposition($changedDefs)." ocurențe [".$search."] din totalul de ".$totalDefs." au fost înlocuite cu [".$replace."].", 'success');
       Util::redirect("index.php"); 
   }
 }
@@ -109,11 +109,11 @@ if ($totalDefs > $changedDefs) {
   $queryRemain = $query->where_gt('id', $lastId);
   $defs = $queryRemain->find_many();
   DebugInfo::stopClock("BulkReplace - AfterQuery +MoreToReplace");
-  
+
   $searchResults = SearchResult::mapDefinitionArray($defs);
 
   DebugInfo::stopClock("BulkReplace - AfterMapDefinition");
-  
+
   // speeding up the display 
   foreach ($defs as $def) {
     // we temporary store the replaced internalRep
@@ -123,13 +123,13 @@ if ($totalDefs > $changedDefs) {
     if ($engine == DiffUtil::DIFF_ENGINE_FINEDIFF) {
       $fineDiffG = DiffUtil::getFineDiffGranularity($granularity);
       $opcodes = FineDiff::getDiffOpcodes($def->internalRep, $new, $fineDiffG);
-        $diff = FineDiff::renderDiffToHTMLFromOpcodes($def->internalRep, $opcodes, null, false);
-        $def->htmlRep = $diff;
+      $diff = FineDiff::renderDiffToHTMLFromOpcodes($def->internalRep, $opcodes, null, false);
+      $def->htmlRep = $diff;
     } else if ($engine == DiffUtil::DIFF_ENGINE_LDIFF) {
-        // granularity is taken from Session preferences variable $SplitLevel, so we do not pass it
-        $def->htmlRep = LDiff::htmlDiff($def->internalRep, $new);
+      // granularity is taken from Session preferences variable $SplitLevel, so we do not pass it
+      $def->htmlRep = LDiff::htmlDiff($def->internalRep, $new);
     } else {
-        //other engines
+      //other engines
     }
     // replacing with the diff only for viewing purposes
   }
@@ -160,5 +160,3 @@ SmartyWrap::addCss('admin', 'diff');
 SmartyWrap::display('admin/bulkReplace.tpl');
 
 Log::notice((memory_get_usage() - $startMemory)." bytes used");
-
-?>

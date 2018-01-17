@@ -116,5 +116,3 @@ SmartyWrap::assign("statsPrep", DB::execute(OCR_PREP_STATS));
 SmartyWrap::assign("statsEditors", DB::execute(OCR_EDITOR_STATS));
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/ocrInput.tpl');
-
-?>

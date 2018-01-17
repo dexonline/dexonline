@@ -81,4 +81,3 @@ function loadSimilar($def, &$diffSize = null) {
 
   return $result;
 }
-

@@ -10,5 +10,3 @@ class WikiKeyword extends BaseObject {
     }
   }
 }
-
-?>

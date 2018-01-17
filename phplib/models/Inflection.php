@@ -37,5 +37,3 @@ class Inflection extends BaseObject {
     parent::delete();
   }
 }
-
-?>

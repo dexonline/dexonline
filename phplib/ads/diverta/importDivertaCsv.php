@@ -158,5 +158,3 @@ function overwrite($book, $opts, $letter) {
   // Always allow overwrites when we create a new Book.
   return (!$book->id) || (strpos($opts['o'], $letter) !== false);
 }
-
-?>

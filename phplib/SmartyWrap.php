@@ -453,4 +453,3 @@ static function fetch($templateName) {
     return $source;
   }
 }
-?>

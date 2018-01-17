@@ -94,5 +94,3 @@ SmartyWrap::assign('def', $def);
 SmartyWrap::assign('errors', $errors);
 SmartyWrap::assign('definitionData', $defData);
 SmartyWrap::display('acuratete-eval.tpl');
-
-?>

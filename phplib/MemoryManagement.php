@@ -37,5 +37,3 @@ class MemoryManagement {
 		AppLog::log("Memory Usage $message: " . sprintf("%.0f", memory_get_usage($realUsage) / $truncate) . ' ' . $units, 1);
 	}
 }
-
-?>

@@ -25,5 +25,3 @@ $data['htmlRep'] = $d->htmlRep;
 $data['commentHtmlRep'] = $commentHtmlRep;
 
 print json_encode($data);
-
-?>

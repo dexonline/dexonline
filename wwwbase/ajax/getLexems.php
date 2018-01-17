@@ -27,5 +27,3 @@ foreach ($lexems as $l) {
 
 header('Content-Type: application/json');
 print json_encode($resp);
-
-?>

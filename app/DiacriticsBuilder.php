@@ -207,5 +207,3 @@ if (strstr( $_SERVER['SCRIPT_NAME'], 'DiacriticsBuilder.php')) {
 	$obj = new DiacriticsBuilder();
 	$obj->start();
 }
-
-?>

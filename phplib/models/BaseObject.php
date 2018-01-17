@@ -214,5 +214,3 @@ class BaseObject extends Model {
   }
 
 }
-
-?>

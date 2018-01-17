@@ -128,5 +128,3 @@ class SearchResult {
     return $result;
   }
 }
-
-?>

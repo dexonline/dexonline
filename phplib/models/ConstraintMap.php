@@ -52,5 +52,3 @@ class ConstraintMap extends BaseObject {
     return true;
   }
 }
-
-?>

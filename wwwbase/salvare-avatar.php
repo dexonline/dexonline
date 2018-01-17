@@ -75,5 +75,3 @@ function sharpenImage(&$i) {
   $divisor = array_sum(array_map('array_sum', $sharpen));
   imageconvolution($i, $sharpen, $divisor, 0);
 }
-
-?>

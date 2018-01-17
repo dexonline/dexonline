@@ -26,5 +26,3 @@ abstract class AdsModule {
     }
   }
 }
-
-?>

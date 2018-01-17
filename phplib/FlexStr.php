@@ -434,5 +434,3 @@ class FlexStr {
     return mb_substr($str, 0, $pos) . $substr . mb_substr($str, $pos);
   }
 }
-
-?>

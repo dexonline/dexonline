@@ -181,5 +181,3 @@ function parse($text) {
 
   return $html;
 }
-
-?>

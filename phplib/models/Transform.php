@@ -25,5 +25,3 @@ class Transform extends BaseObject {
     return "($from=>$to)";
   }
 }
-
-?>

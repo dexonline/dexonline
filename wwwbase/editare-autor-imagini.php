@@ -55,5 +55,3 @@ function validate($artist) {
 
   return !FlashMessage::hasErrors();
 }
-
-?>

@@ -93,5 +93,3 @@ if ($devel) {
 
 SmartyWrap::assign('openid', $openid);
 SmartyWrap::display('auth/login.tpl');
-
-?>

@@ -280,5 +280,3 @@ class ReducedFormList extends FormList {
     unlink($tmpFile);
   }
 }
-
-?>

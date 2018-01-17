@@ -117,5 +117,3 @@ class Diacritics  extends BaseObject implements DatedObject {
 		}
 	}
 }
-
-?>

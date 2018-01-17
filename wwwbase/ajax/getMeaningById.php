@@ -8,5 +8,3 @@ $results = array('description' => $t->description,
                  'breadcrumb' => $m->breadcrumb,
                  'htmlRep' => $m->htmlRep);
 print json_encode($results);
-
-?>

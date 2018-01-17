@@ -9,5 +9,3 @@ $t = Tree::get_by_id($id);
 if ($t) {
   $t->delete();
 }
-
-?>

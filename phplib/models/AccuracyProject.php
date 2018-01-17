@@ -287,5 +287,3 @@ class AccuracyProject extends BaseObject implements DatedObject {
     parent::delete();
   }
 }
-
-?>

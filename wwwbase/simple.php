@@ -13,4 +13,3 @@ switch($p) {
 }
 
 SmartyWrap::display("$p.tpl");
-?>

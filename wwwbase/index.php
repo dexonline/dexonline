@@ -45,4 +45,3 @@ SmartyWrap::assign('todayM', date('Y/m'));
 
 $page = 'index.tpl';
 SmartyWrap::display($page);
-?>

@@ -54,5 +54,3 @@ class Widget {
     return $result;    
   }
 }
-
-?>

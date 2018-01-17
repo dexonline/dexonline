@@ -67,5 +67,3 @@ class FlexModel extends BaseObject {
     return $this->modelType . $this->number;
   }
 }
-
-?>

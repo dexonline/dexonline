@@ -11,5 +11,3 @@ class Cookie extends BaseObject implements DatedObject {
     return $c;
   }
 }
-
-?>

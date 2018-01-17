@@ -100,5 +100,3 @@ function error($msg) {
   print $msg . "\n";
   exit(1);
 }
-
-?>

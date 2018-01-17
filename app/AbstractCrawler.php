@@ -238,5 +238,3 @@ abstract class AbstractCrawler {
   abstract function extractText($domNode);
   abstract function start();
 }
-
-?>

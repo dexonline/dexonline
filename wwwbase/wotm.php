@@ -45,5 +45,3 @@ SmartyWrap::assign('timestamp', $timestamp);
 SmartyWrap::assign('searchResult', array_pop($searchResults));
 
 SmartyWrap::display('wotm.tpl');
-
-?>

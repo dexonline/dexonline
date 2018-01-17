@@ -15,5 +15,3 @@ foreach ($models as $m) {
   $resp[] = array('id' => $m->id, 'number' => $m->number, 'exponent' => $m->exponent);
 }
 print json_encode($resp);
-
-?>

@@ -145,5 +145,3 @@ class Preferences {
     return $result;
   }
 }
-
-?>

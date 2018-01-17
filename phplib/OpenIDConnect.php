@@ -181,5 +181,3 @@ class OpenIDConnect {
 
 class OpenIDException extends Exception {
 }
-
-?>

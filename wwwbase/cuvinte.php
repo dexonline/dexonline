@@ -32,5 +32,3 @@ SmartyWrap::assign('i', $word_start);
 SmartyWrap::assign('e', $word_end);
 
 SmartyWrap::display('cuvinte.tpl');
-
-?>

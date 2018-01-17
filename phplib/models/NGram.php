@@ -94,5 +94,3 @@ class NGram extends BaseObject {
     return $hash;
   }
 }
-
-?>

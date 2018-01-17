@@ -143,4 +143,3 @@ foreach ($meanings as $m) {
   updateEntity($m, false);
   file_put_contents(MEANING_CHECKPT_FILE, $m->id);
 }
-

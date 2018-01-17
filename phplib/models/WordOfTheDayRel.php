@@ -12,5 +12,3 @@ class WordOfTheDayRel extends BaseObject {
     return $wotdr ? $wotdr->refId : null;
   }
 }
-
-?>

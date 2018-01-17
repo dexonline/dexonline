@@ -15,5 +15,3 @@ if (!$acEnable || strlen($term) < $acMinChars) {
 $forms = Autocomplete::ac($term, $acLimit);
 
 print json_encode($forms);
-
-?>

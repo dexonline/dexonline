@@ -28,5 +28,3 @@ class LocVersion {
     DB::changeDatabase($dbName);
   }
 }
-
-?>

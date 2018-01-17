@@ -78,5 +78,3 @@ function usage() {
   print "Sursa trebuie să aibă o sursă similară aferentă.\n";
   exit(1);
 }
-
-?>

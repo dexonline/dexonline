@@ -24,4 +24,3 @@ SmartyWrap::assign('imageList', $imageList);
 SmartyWrap::addCss('jqgrid', 'jqueryui', 'admin');
 SmartyWrap::addJs('jqgrid', 'jqueryui', 'select2Dev');
 SmartyWrap::display('admin/wotdTable.tpl');
-?>

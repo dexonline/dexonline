@@ -31,4 +31,3 @@ switch ($oper) {
   default:
     break;
 }
-?>

@@ -44,5 +44,3 @@ if ($locVersion && $form) {
 SmartyWrap::addJs('modelDropdown');
 SmartyWrap::assign('locVersions', $locVersions);
 SmartyWrap::display('scrabble.tpl');
-
-?>

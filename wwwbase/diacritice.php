@@ -341,5 +341,3 @@ if (strstr( $_SERVER['SCRIPT_NAME'], 'diacritice.php')) {
 
 	SmartyWrap::display('diacritics_fix/diacritics_fix.tpl');
 }
-
-?>

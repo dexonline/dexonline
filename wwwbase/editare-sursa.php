@@ -79,5 +79,3 @@ function validate($src) {
   }
   return !FlashMessage::hasErrors();
 }
-
-?>

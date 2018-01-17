@@ -119,4 +119,3 @@ SmartyWrap::assign('clients', $clients);
 SmartyWrap::assign('clientOptions', $clientOptions);
 SmartyWrap::assign('osNames', $osNames);
 SmartyWrap::display('unelte.tpl');
-?>

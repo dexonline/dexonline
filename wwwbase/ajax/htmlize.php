@@ -7,5 +7,3 @@ $sourceId = Request::get('sourceId');
 $reallyInternalRep = Str::sanitize($internalRep, $sourceId);
 $htmlRep = Str::htmlize($reallyInternalRep, $sourceId);
 echo $htmlRep;
-
-?>

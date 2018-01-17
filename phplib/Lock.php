@@ -27,5 +27,3 @@ class Lock {
     return true;
   }
 }
-
-?>

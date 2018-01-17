@@ -39,5 +39,3 @@ foreach ($dbResult as $row) {
   }
 }
 print "$i definitions reprocessed, $modified modified, $ambiguousDefinitions ambiguous with $ambiguities ambiguities.\n";
-
-?>

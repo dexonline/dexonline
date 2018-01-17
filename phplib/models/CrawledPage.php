@@ -41,5 +41,3 @@ class CrawledPage  extends BaseObject implements DatedObject {
   
 
 }
-
-?>

@@ -116,5 +116,3 @@ if (strstr( $_SERVER['SCRIPT_NAME'], 'Crawler.php')) {
 
   $obj->start();
 }
-
-?>

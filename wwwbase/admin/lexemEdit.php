@@ -276,5 +276,3 @@ function validate($lexem, $original) {
 
   return !FlashMessage::hasErrors();
 }
-
-?>

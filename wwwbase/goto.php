@@ -9,5 +9,3 @@ if ($url = AdsLink::get_by_skey($skey)->url) {
 } else {
   header("Location: https://www.facebook.com/dexonline");
 }
-
-?>

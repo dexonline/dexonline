@@ -36,5 +36,3 @@ foreach ($users as $u) {
 }
 
 Log::notice('finished');
-
-?>

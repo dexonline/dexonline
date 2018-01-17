@@ -93,5 +93,3 @@ if (isset($_POST['method']) && !empty($_POST['method'])) {
 		}
 	}
 }
-
-?>

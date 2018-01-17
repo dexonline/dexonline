@@ -56,4 +56,3 @@ if (User::can(User::PRIV_ADMIN)) {
 SmartyWrap::assign('user', $user);
 SmartyWrap::assign('userData', $userData);
 SmartyWrap::display('user.tpl');
-?>

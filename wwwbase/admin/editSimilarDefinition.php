@@ -50,5 +50,3 @@ $to->htmlRep = Str::htmlize($to->internalRep, $to->sourceId);
 $to->save();
 
 Util::redirect("definitionEdit.php?definitionId={$defId}");
-
-?>

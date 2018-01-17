@@ -95,5 +95,3 @@ class Visual extends BaseObject implements DatedObject {
     return parent::delete();
   }
 }
-
-?>

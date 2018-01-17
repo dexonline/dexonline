@@ -48,5 +48,3 @@ class InflectedForm extends BaseObject {
     parent::save();
   }  
 }
-
-?>

@@ -174,5 +174,3 @@ case 'del': $app = new wotdSave($id); break;
 case 'add': $app = new wotdSave(null, $displayDate, $priority, $definitionId, $refType, $image, $description); break;
 }
 $app->run($oper);
-
-?>

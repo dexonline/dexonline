@@ -37,4 +37,3 @@ if (count($bookmarks) < Config::get('global.maxBookmarks')) {
 }
 
 echo json_encode($response);
-?>

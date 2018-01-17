@@ -46,5 +46,3 @@ SmartyWrap::assign('modelNumber', $modelNumber);
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::assign('locPerm', $locPerm);
 SmartyWrap::display('admin/deleteModel.tpl');
-
-?>

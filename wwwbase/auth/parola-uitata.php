@@ -40,6 +40,3 @@ if ($submitButton) {
 } else {
   SmartyWrap::display('auth/parola-uitata.tpl');
 }
-
-
-?>

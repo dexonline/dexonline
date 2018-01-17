@@ -46,5 +46,3 @@ SmartyWrap::assign('password', $password);
 SmartyWrap::assign('randString', $randString);
 SmartyWrap::assign('loginType', $loginType);
 SmartyWrap::display('auth/chooseIdentity.tpl');  
-
-?>

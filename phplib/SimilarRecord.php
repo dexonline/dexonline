@@ -41,5 +41,3 @@ class SimilarRecord {
     return json_encode($this->getJsonFriendly());
   }
 }
-
-?>

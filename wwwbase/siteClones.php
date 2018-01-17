@@ -78,5 +78,3 @@ SmartyWrap::assign('alert', $messageAlert);
 # Print Blacklist items if any
 SmartyWrap::assign("blackList", $blackList);
 SmartyWrap::display("siteClones.tpl");
-
-?>

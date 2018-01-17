@@ -242,5 +242,3 @@ class Meaning extends BaseObject implements DatedObject {
     parent::delete();
   }
 }
-
-?>

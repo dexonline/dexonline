@@ -16,4 +16,3 @@ $results = SearchResult::mapDefinitionArray($definitions);
 
 SmartyWrap::assign('results', $results);
 SmartyWrap::display('cuvinte-favorite.tpl');
-?>

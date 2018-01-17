@@ -46,5 +46,3 @@ function dumpValues($values) {
   }
   DB::execute($query);
 }
-
-?>

@@ -9,4 +9,3 @@ SmartyWrap::assign('bulkData', $bulkData);
 SmartyWrap::addCss('tablesorter');
 SmartyWrap::addJs('tablesorter');
 SmartyWrap::display('top.tpl');
-?>

@@ -32,5 +32,3 @@ foreach ($dbResult as $row) {
 }
 
 Log::notice('finished');
-
-?>

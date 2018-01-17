@@ -22,4 +22,3 @@ if ($bookmark) {
 $response['status'] = 'success';
 
 echo json_encode($response);
-?>

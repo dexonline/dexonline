@@ -7,4 +7,3 @@ RecentLink::add('Imaginea zilei');
 SmartyWrap::addCss('elfinder', 'jqueryui', 'admin');
 SmartyWrap::addJs('elfinder', 'jqueryui');
 SmartyWrap::display('admin/wotdImages.tpl');
-?>

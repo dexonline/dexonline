@@ -65,5 +65,3 @@ class FtpUtil {
     return $file_list;
   }
 }
-
-?>

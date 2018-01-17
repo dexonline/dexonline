@@ -65,5 +65,3 @@ class Config {
 }
 
 Config::load(Core::getRootPath() . "dex.conf");
-
-?>

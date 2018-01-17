@@ -11,5 +11,3 @@ foreach (Model::factory('Source')->find_many() as $src) {
 }
 
 Log::notice('finished');
-
-?>

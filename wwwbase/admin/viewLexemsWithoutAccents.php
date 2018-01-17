@@ -13,5 +13,3 @@ $lexems = Model::factory('Lexem')
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/viewLexemsWithoutAccents.tpl');
-
-?>

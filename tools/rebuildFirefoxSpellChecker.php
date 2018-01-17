@@ -32,4 +32,3 @@ Log::notice('finished');
 
 // Note -- this leaves behind the temporary MySQL file created by "... into outfile...".
 // The file is owned by mysql so we cannot delete it.
-?>

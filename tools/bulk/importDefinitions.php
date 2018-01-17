@@ -255,5 +255,3 @@ if ($checkingDryrun) {
   fclose($existing);
   fclose($tobechecked);
 }
-
-?>

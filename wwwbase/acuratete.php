@@ -58,5 +58,3 @@ SmartyWrap::assign('includePublic', $includePublic);
 SmartyWrap::addCss('admin', 'tablesorter');
 SmartyWrap::addJs('select2Dev', 'tablesorter');
 SmartyWrap::display('acuratete.tpl');
-
-?>

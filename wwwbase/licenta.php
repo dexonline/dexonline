@@ -9,5 +9,3 @@ $restrictedSources = Model::factory('Source')
 
 SmartyWrap::assign('restrictedSources', $restrictedSources);
 SmartyWrap::display('licenta.tpl');
-
-?>

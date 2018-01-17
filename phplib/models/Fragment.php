@@ -86,5 +86,3 @@ class Fragment extends BaseObject implements DatedObject {
     return $query->order_by_asc('i.rank')->find_many();
   }
 }
-
-?>

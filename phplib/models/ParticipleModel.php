@@ -14,5 +14,3 @@ class ParticipleModel extends BaseObject {
     return $pm;
   }
 }
-
-?>

@@ -15,5 +15,3 @@ class ModelDescription extends BaseObject {
       ->find_many();
   }
 }
-
-?>

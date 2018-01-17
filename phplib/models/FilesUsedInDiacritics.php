@@ -19,5 +19,3 @@ class FilesUsedInDiacritics  extends BaseObject implements DatedObject {
 		}
 	}
 }
-
-?>

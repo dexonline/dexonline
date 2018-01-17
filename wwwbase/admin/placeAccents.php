@@ -50,5 +50,3 @@ SmartyWrap::assign('chars', $chars);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/placeAccents.tpl');
-
-?>

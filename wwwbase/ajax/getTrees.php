@@ -20,5 +20,3 @@ foreach ($trees as $t) {
 
 header('Content-Type: application/json');
 print json_encode($resp);
-
-?>

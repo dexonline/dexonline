@@ -47,5 +47,3 @@ SmartyWrap::addCss('jcrop');
 SmartyWrap::addJs('jcrop');
 SmartyWrap::assign('rawFileName', "{$user->id}_raw.{$ext}");
 SmartyWrap::display('editare-avatar.tpl');
-
-?>

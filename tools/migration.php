@@ -89,5 +89,3 @@ function stripExtension($fileName) {
   $dot = strrpos($fileName, '.');
   return ($dot === false) ? $fileName : substr($fileName, 0, $dot);
 }
-
-?>

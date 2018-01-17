@@ -66,4 +66,3 @@ else if ($argv[1] == '--diacritics' || $argv[1] == '-d') {
 }
 else printUsage(); 
 /**/
-?>

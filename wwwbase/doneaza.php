@@ -7,5 +7,3 @@ $haveEuPlatescCredentials = Config::get('euplatesc.euPlatescMid') && Config::get
 SmartyWrap::assign('haveEuPlatescCredentials', $haveEuPlatescCredentials);
 SmartyWrap::assign('defaultEmail', $user ? $user->email : '');
 SmartyWrap::display('doneaza.tpl');
-
-?>

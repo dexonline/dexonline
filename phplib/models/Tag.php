@@ -126,5 +126,3 @@ class Tag extends BaseObject implements DatedObject {
     return "[{$this->value}]";
   }
 }
-
-?>

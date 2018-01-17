@@ -14,5 +14,3 @@ foreach ($dbResult as $row) {
 SmartyWrap::assign('stats', $stats);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/bulkLabelSelectSuffix.tpl');
-
-?>

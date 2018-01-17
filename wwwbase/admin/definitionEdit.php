@@ -232,5 +232,3 @@ SmartyWrap::assign("allModeratorSources", Model::factory('Source')->where('canMo
 SmartyWrap::addCss('tinymce', 'admin', 'diff');
 SmartyWrap::addJs('select2Dev', 'tinymce', 'cookie', 'frequentObjects');
 SmartyWrap::display('admin/definitionEdit.tpl');
-
-?>

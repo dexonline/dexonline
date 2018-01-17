@@ -30,7 +30,7 @@ class Constant {
     // Do NOT alter ′ (prime, 0x2032), which is used for foot and minute symbols.
     '/(?<!\\\\)´/'   => "'",     /* U+00B4 */
     '/(?<!\\\\)‘/'   => "'",     /* U+2018 */
-    '/(?<!\\\\)’/'   => "'",     /* U+2019 */ 
+    '/(?<!\\\\)’/'   => "'",     /* U+2019 */
 
     // Replace the ordinal indicator with the degree sign.
     '/(?<!\\\\)º/'   =>  '°',    /* U+00BA => U+00B0 */
@@ -47,6 +47,8 @@ class Constant {
     '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                 // superscript ^{a b c}
     '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                         // subscript _123
     '/(?<!\\\\)_\{([^}]*)\}/' => '<sub>$1</sub>',                  // superscript _{a b c}
+    '/(?<!\\\\)\{-([^}]*)-\}/' => '<del>$1</del>',                 // deletions {-foo-}
+    '/(?<!\\\\)\{\+([^}]*)\+\}/' => '<ins>$1</ins>',               // insertions {+foo+}
 
     // |foo|bar| references
     '/(?<!\\\\)\|([^|]*)\|([^|]*)\|/' => '<a class="ref" href="/definitie/$2">$1</a>',

@@ -20,9 +20,9 @@ switch ($mode) {
                         'Modul WotD dezactivat.');
     break;
 
-  case 'diffLevel':
+  case 'granularity':
     User::mustHave(User::PRIV_ADMIN);
-    Session::toggleWordHistoryDiffSplitLevel();
+    Session::cycleDiffGranularity();
     break;
 }
 

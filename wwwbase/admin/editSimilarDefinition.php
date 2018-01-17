@@ -1,6 +1,7 @@
 <?php
 
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
+
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
@@ -47,6 +48,8 @@ $to->internalRep =
   substr($to->internalRep, $tstart + $tlen);
 $to->internalRep = Str::sanitize($to->internalRep, $to->sourceId);
 $to->htmlRep = Str::htmlize($to->internalRep, $to->sourceId);
-$to->save();
+
+// TODO: make this page work (it no longer works after switching to FineDiff)
+// $to->save();
 
 Util::redirect("definitionEdit.php?definitionId={$defId}");

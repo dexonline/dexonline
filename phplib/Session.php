@@ -208,24 +208,21 @@ class Session {
     }
   }
 
-  static function getSplitLevel() {
-    return self::getCookieSetting('splitLevel', LDiff::DEFAULT_SPLIT_LEVEL);
+  static function getDiffGranularity() {
+    return self::getCookieSetting('diffGranularity', DiffUtil::DEFAULT_GRANULARITY);
   }
 
-  static function toggleWordHistoryDiffSplitLevel() {
-    $currentLevel = self::getSplitLevel();
-    $newLevel = LDiff::SPLIT_LEVEL_LETTER + LDiff::SPLIT_LEVEL_WORD - $currentLevel;
+  static function cycleDiffGranularity() {
+    $currentLevel = self::getDiffGranularity();
+    $newLevel = ($currentLevel + 1) % DiffUtil::NUM_GRANULARITIES;
 
-    if ($newLevel != LDiff::DEFAULT_SPLIT_LEVEL) {
-      setcookie('prefs[splitLevel]', $newLevel, time() + self::ONE_YEAR_IN_SECONDS, '/');
+    if ($newLevel != DiffUtil::DEFAULT_GRANULARITY) {
+      setcookie('prefs[diffGranularity]', $newLevel, time() + self::ONE_YEAR_IN_SECONDS, '/');
     } else {
-      setcookie('prefs[splitLevel]', LDiff::SPLIT_LEVEL_LETTER, time() - 3600, '/');
+      setcookie('prefs[diffGranularity]', '', time() - 3600, '/');
     }
 
-    if ($newLevel == LDiff::SPLIT_LEVEL_LETTER) {
-      FlashMessage::add('LDiff - Diferențe la nivel de litere', 'warning');
-    } else {
-      FlashMessage::add('LDiff - Diferențe la nivel de cuvinte', 'success');
-    }
+    $name = DiffUtil::$GRANULARITY_NAMES[$newLevel];
+    FlashMessage::add("Diferențe la nivel de {$name}.", 'warning');
   }
 }

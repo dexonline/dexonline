@@ -228,7 +228,7 @@
               intră/ieși din modul WotD
             </li>
             <li>
-              <a href="#" class="hotkeyLink" data-mode="diffLevel">Alt-Shift-W</a> =
+              <a href="#" class="hotkeyLink" data-mode="granularity">Alt-Shift-W</a> =
               istoricul definiției la nivel de cuvânt/literă
             </li>
           </ul>
@@ -243,7 +243,7 @@
           </ul>
 
           <h4>Pagina moderatorului</h4>
-          
+
           <ul>
             <li><b>Alt-D</b> = navigare rapidă - definiții</li>
             <li><b>Alt-I</b> = navigare rapidă - intrări</li>
@@ -251,7 +251,7 @@
           </ul>
 
           <h4>Etichetarea imaginilor</h4>
-          
+
           <ul>
             <li><b>Alt-P</b> = previzualizarea etichetelor</li>
           </ul>

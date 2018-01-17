@@ -201,7 +201,7 @@ class Str {
 
     // â -> î
     $tpl_output = str_replace($a, $i, $tpl_output);
-    
+
     // súnt(em,eți) -> s'înt(em,eți)
     $tpl_output = preg_replace("#(\W)s{$u}nt(em|eți)?#i", "\${1}s{$i}nt\${2}", $tpl_output);
 
@@ -229,8 +229,8 @@ class Str {
   }
 
   // Same as str_pad, but multibyte-safe
-  static function pad($input, $padLength, $padString = ' ', $padType = STR_PAD_RIGHT) { 
-    return str_pad($input, $padLength + strlen($input) - mb_strlen($input), $padString, $padType); 
+  static function pad($input, $padLength, $padString = ' ', $padType = STR_PAD_RIGHT) {
+    return str_pad($input, $padLength + strlen($input) - mb_strlen($input), $padString, $padType);
   }
 
   /* Make a string portable across OS's by replacing '/' with DIRECTORY_SEPARATOR */
@@ -254,7 +254,7 @@ class Str {
   }
 
   /**
-   * Returns the preposition needed for numerals ending with 20->99 
+   * Returns the preposition needed for numerals ending with 20->99
    * @param string $amount
    * @return string either ␣ or ␣de
    */

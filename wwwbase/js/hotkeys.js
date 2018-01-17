@@ -20,7 +20,7 @@ $(function() {
     $(document).bind('keydown', 'alt+x', redirectToWotDAuthorAssign);
     $(document).bind('keydown', 'alt+t', function() { toggleMode('structure'); });
     $(document).bind('keydown', 'alt+w', function() { toggleMode('wotd'); });
-    $(document).bind('keydown', 'alt+shift+w', function() { toggleMode('diffLevel'); });
+    $(document).bind('keydown', 'alt+shift+w', function() { toggleMode('granularity'); });
 
     $(document).bind('keydown', 'alt+p', clickPreviewTags);
 

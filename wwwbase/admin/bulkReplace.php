@@ -1,7 +1,7 @@
 <?php
 $startMemory = memory_get_usage();
 
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 ini_set('max_execution_time', '3600');
 User::mustHave(User::PRIV_ADMIN);
 Util::assertNotMirror();
@@ -9,8 +9,6 @@ Util::assertNotMirror();
 $search = Request::getRaw('search');
 $replace = Request::getRaw('replace');
 $sourceId = Request::get('sourceId');
-$engine = Request::get('engine');
-$granularity = Request::get('granularity');
 $lastId = intval(Request::get('lastId')); // id of definition for further search
 $maxaffected = Request::get('maxaffected'); // max possible number of definitions that will be changed
 $excludedIds = Request::get('excludedIds'); // array of definition ids excluded from changes
@@ -19,11 +17,11 @@ $saveButton = Request::has('saveButton');
 if (DebugInfo::isEnabled()){  DebugInfo::init(); }
 
 // Use | to escape MySQL special characters so that constructs and chars like
-// \% , _ , | (which in dexonline notation means: "literal percent sign", latex 
+// \% , _ , | (which in dexonline notation means: "literal percent sign", latex
 // convention for subscript, the pipe itself) remains unaffected.
-$replaceChars = array('%' => '|%', 
-                      '_' => '|_', 
-                      '|' => '||'); 
+$replaceChars = array('%' => '|%',
+                      '_' => '|_',
+                      '|' => '||');
 $mysqlSearch = strtr($search, array_combine(array_keys($replaceChars), array_values($replaceChars)));
 
 $query = Model::factory('Definition')
@@ -84,7 +82,7 @@ if ($saveButton) {
       $def->abbrevReview = Definition::ABBREV_REVIEW_COMPLETE;
     } else if (count($ambiguousMatches) && $def->abbrevReview == Definition::ABBREV_REVIEW_COMPLETE) {
       $def->abbrevReview = Definition::ABBREV_AMBIGUOUS;
-    }    
+    }
     $def->htmlRep = Str::htmlize($def->internalRep, $def->sourceId);
     $def->save();
     $changedDefs++;
@@ -92,12 +90,12 @@ if ($saveButton) {
   DebugInfo::stopClock("BulkReplace - AfterForEach +SaveButton");
 
   Log::notice("Replaced [".$changedDefs."] definitions - [{$search}] with [{$replace}] in source [$sourceId]");
-  if ($totalDefs - $changedDefs - $excludedDefs == 0) { 
+  if ($totalDefs - $changedDefs - $excludedDefs == 0) {
     Session::unsetVar('totalDefs');
     Session::unsetVar('changedDefs');
     Session::unsetVar('excludedDefs');
     FlashMessage::add("".$changedDefs.Str::getAmountPreposition($changedDefs)." ocurențe [".$search."] din totalul de ".$totalDefs." au fost înlocuite cu [".$replace."].", 'success');
-      Util::redirect("index.php"); 
+    Util::redirect("index.php");
   }
 }
 
@@ -114,24 +112,14 @@ if ($totalDefs > $changedDefs) {
 
   DebugInfo::stopClock("BulkReplace - AfterMapDefinition");
 
-  // speeding up the display 
+  // speeding up the display
   foreach ($defs as $def) {
     // we temporary store the replaced internalRep
     $new = str_replace($search, $replace, $def->internalRep);
 
     // getting the diff from $old (internalRep) -> $new
-    if ($engine == DiffUtil::DIFF_ENGINE_FINEDIFF) {
-      $fineDiffG = DiffUtil::getFineDiffGranularity($granularity);
-      $opcodes = FineDiff::getDiffOpcodes($def->internalRep, $new, $fineDiffG);
-      $diff = FineDiff::renderDiffToHTMLFromOpcodes($def->internalRep, $opcodes, null, false);
-      $def->htmlRep = $diff;
-    } else if ($engine == DiffUtil::DIFF_ENGINE_LDIFF) {
-      // granularity is taken from Session preferences variable $SplitLevel, so we do not pass it
-      $def->htmlRep = LDiff::htmlDiff($def->internalRep, $new);
-    } else {
-      //other engines
-    }
-    // replacing with the diff only for viewing purposes
+    $diff = DiffUtil::internalDiff($def->internalRep, $new);
+    $def->htmlRep = Str::htmlize($diff, $def->sourceId);
   }
   DebugInfo::stopClock("BulkReplace - AfterForEach +MoreToReplace");
 
@@ -147,8 +135,6 @@ if ($totalDefs > $changedDefs) {
 SmartyWrap::assign('search', $search);
 SmartyWrap::assign('replace', $replace);
 SmartyWrap::assign('sourceId', $sourceId);
-SmartyWrap::assign('engine', $engine);
-SmartyWrap::assign('granularity', $granularity);
 SmartyWrap::assign('lastId', $lastId);
 SmartyWrap::assign('maxaffected', $maxaffected);
 SmartyWrap::assign('remainedDefs', $totalDefs - $changedDefs - $excludedDefs);

@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_ADMIN);
 Util::assertNotMirror();
 
@@ -60,7 +60,7 @@ if ($submitButton) {
 
       foreach ($defs as $d) {
         if ($d->definitionId) { // there exists a corresponding OCR record
-          $diffSize = count(LDiff::textDiff($d->internalRep, $d->ocrText));
+          $diffSize = DiffUtil::diffMeasure($d->internalRep, $d->ocrText);
           $changes[$d->sourceId] += $diffSize;
           $sumChanges += $diffSize;
         }

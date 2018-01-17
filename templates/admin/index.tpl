@@ -371,33 +371,14 @@
                 </div>
               </div>
 
-              <div class="form-group">
-                <label class="control-label col-xs-3">sursa</label>
-                <div class="col-xs-9">
-                  {include "bits/sourceDropDown.tpl" name="sourceId"}
-                </div>
-              </div>
-
             </div>
 
             <div class="col-md-6">
 
               <div class="form-group">
-                <label class="control-label col-xs-3">motor</label>
+                <label class="control-label col-xs-3">sursa</label>
                 <div class="col-xs-9">
-                  {include "bits/diffEngineDropDown.tpl" name="engine" canEdit=true}
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label col-xs-3">detaliere</label>
-                <div class="col-xs-9" id="granularity">
-                  {include "bits/diffGranularityRadio.tpl" name="granularity" canEdit=true selected=1}
-                </div>
-                <div class="col-xs-9" id="message" hidden="true">
-                  <p class="help-block">
-                    în cazul LDiff schimbarea detalierii se face apăsând Alt+Shift+W
-                  </p>
+                  {include "bits/sourceDropDown.tpl" name="sourceId"}
                 </div>
               </div>
 

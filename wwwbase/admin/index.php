@@ -94,6 +94,6 @@ SmartyWrap::assign('structurists', User::getStructurists());
 SmartyWrap::assign('reports', $reports);
 SmartyWrap::assign('timeAgo', $timeAgo);
 SmartyWrap::addCss('admin', 'bootstrap-spinedit', 'bootstrap-datepicker');
-SmartyWrap::addJs('select2Dev', 'adminIndex', 'modelDropdown', 'diffSelector', 'bootstrap-spinedit',
+SmartyWrap::addJs('select2Dev', 'adminIndex', 'modelDropdown', 'bootstrap-spinedit',
                   'bootstrap-datepicker');
 SmartyWrap::display('admin/index.tpl');

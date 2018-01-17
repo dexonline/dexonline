@@ -158,9 +158,6 @@ class SmartyWrap {
 		'diff' => [
 			'diff.js'
 		],
-		'diffSelector' => [
-			'diffSelector.js'
-		],
 		'bootstrap-spinedit' => [
 			'third-party/bootstrap-spinedit.js'
 		],

@@ -211,8 +211,8 @@
                   <label class="col-xs-4 control-label">starea</label>
                   <div class="col-xs-8">
                     {include "bits/statusDropDown.tpl"
-                             name="status"
-                             anyOption=true}
+                      name="status"
+                      anyOption=true}
                   </div>
                 </div>
 

@@ -1,10 +1,7 @@
 <?php
 require_once("../../phplib/Core.php");
 
-// Takes a JSON-encoded list of ids
-
-$jsonIds = Request::get('q');
-$ids = json_decode($jsonIds);
+$ids = Request::getJson('q', []);
 $data = [];
 
 foreach ($ids as $id) {

@@ -4,20 +4,34 @@
  * This class reads request parameters.
  **/
 class Request {
+
+  /* Cleans up a request parameter recursively. */
+  static function cleanup($x) {
+    if (is_string($x)) {
+      return Str::cleanup($x);
+    } else if (is_array($x)) {
+      $result = [];
+      foreach ($x as $key => $value) {
+        $result[$key] = self::cleanup($value);
+      }
+      return $result;
+    } else if (is_object($x)) { // for example, JSON decodes as objects
+      $result = new stdClass();
+      foreach ($x as $key => $value) {
+        $result->$key = self::cleanup($value);
+      }
+      return $result;
+    } else {
+      return $x;
+    }
+  }
+
   /* Reads a request parameter. Cleans up string and array values. */
   static function get($name, $default = null) {
     if (!array_key_exists($name, $_REQUEST)) {
       return $default;
-    } else if (is_string($_REQUEST[$name])) {
-      return Str::cleanup($_REQUEST[$name]);
-    } else if (is_array($_REQUEST[$name])) {
-      $a = $_REQUEST[$name];
-      foreach ($a as $key => $value) {
-        $a[$key] = Str::cleanup($value);
-      }
-      return $a;
     } else {
-      return $_REQUEST[$name];
+      return self::cleanup($_REQUEST[$name]);
     }
   }
 
@@ -50,6 +64,21 @@ class Request {
   /* Use when the parameter is expected to have array type. */
   static function getArray($name) {
     return self::get($name, []);
+  }
+
+  /**
+   * Use when the parameter is encoded JSON.
+   * Note that the JSON string must be decoded before cleanup. Otherwise entities like „”
+   * can be replaced with "", which will corrupt the JSON string.
+   **/
+  static function getJson($name, $default = null, $assoc = false) {
+    if (!array_key_exists($name, $_REQUEST)) {
+      return $default;
+    } else {
+      $json = $_REQUEST[$name];
+      $obj = json_decode($json, $assoc);
+      return self::cleanup($obj);
+    }
   }
 
   /**

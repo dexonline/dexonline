@@ -6,42 +6,42 @@ class wotdTableRows{
    * @access protected
    **/
   protected $page;
-  
+
   /**
    * The number of records to fetch
    * @var int $limit
    * @access protected
    **/
   protected $limit;
-  
+
   /**
    * The index row - i.e.: user click to sort
    * @var int $sidx
    * @access protected
    **/
   protected $sidx;
-  
+
   /**
    * The sort order
    * @var string $sord
    * @access protected
    **/
   protected $sord;
-  
+
   /**
    * The list of fields to select from the database
    * @var string $sql_fields
    * @access protected
    **/
   protected $sql_fields;
-  
+
   /**
    * The sql base
    * @var string $sql_base
    * @access protected
    **/
   protected $sql_base;
-  
+
   /**
    * The sql where condition
    * @param string $where_condition
@@ -59,7 +59,7 @@ class wotdTableRows{
    * @access public
    * @return void
    **/
-  function __construct($page, $limit, $sidx, $sord, $filters = null){
+  function __construct($page, $limit, $sidx, $sord, $filters = null) {
     $this->page = $page;
     $this->limit = $limit;
     $this->sidx = $sidx;
@@ -67,7 +67,7 @@ class wotdTableRows{
       $this->sidx = 'displayDate';
     }
     $this->sord = $sord;
-     
+
     $this->sql_fields = <<<sql
 w.id, d.lexicon, s.shortName, d.htmlRep, w.description as descr, w.displayDate, u.name, w.priority, wr.refType, w.image, w.description, d.id as definitionId
 sql;
@@ -181,6 +181,7 @@ sql;
 require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_WOTD);
 Util::assertNotMirror();
-$app = new wotdTableRows($_GET['page'], $_GET['rows'], $_GET['sidx'], $_GET['sord'],
-                         array_key_exists('filters', $_GET) ? json_decode($_GET['filters'], true) : null);
+
+$filters = Request::getJson('filters', null, true);
+$app = new wotdTableRows($_GET['page'], $_GET['rows'], $_GET['sidx'], $_GET['sord'], $filters);
 $app->run();

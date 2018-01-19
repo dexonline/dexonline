@@ -1,11 +1,8 @@
 <?php
 require_once("../../phplib/Core.php");
 
-// Takes a JSON-encoded list of model codes
-
-$jsonCodes = Request::get('q');
+$codes = Request::getJson('q', []);
 $fuzzy = Request::get('fuzzy');
-$codes = json_decode($jsonCodes);
 $data = [];
 
 foreach ($codes as $code) {

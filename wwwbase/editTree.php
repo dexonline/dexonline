@@ -77,8 +77,7 @@ if ($saveButton) {
   $t->status = Request::get('status');
   $entryIds = Request::getArray('entryIds');
   $tagIds = Request::getArray('tagIds');
-  $jsonMeanings = Request::get('jsonMeanings');
-  $meanings = json_decode($jsonMeanings);
+  $meanings = Request::getJson('jsonMeanings', []);
 
   $errors = $t->validate();
   if ($errors) {

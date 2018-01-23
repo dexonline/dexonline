@@ -396,7 +396,7 @@ static function fetch($templateName) {
     }
   }
 
-  // Based on `third-party/smarty/plugins/outputfilter.trimwhitespace.php`.
+  // Based on `third-party/smarty-*/plugins/outputfilter.trimwhitespace.php`.
   // This one doesn't strip IE comments (there are none in the templates)
   // and removes spaces more aggressively --- the templates don't contain
   // the errors the original function was attempting to work around.

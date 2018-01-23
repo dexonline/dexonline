@@ -117,7 +117,7 @@ class Core {
 
   static function requireOtherFiles() {
     $root = self::getRootPath();
-    require_once Str::portable("$root/phplib/third-party/smarty/Smarty.class.php");
+    require_once Str::portable("$root/phplib/third-party/smarty-3.1.30/Smarty.class.php");
     require_once Str::portable("$root/phplib/third-party/idiorm/idiorm.php");
     require_once Str::portable("$root/phplib/third-party/idiorm/paris.php");
   }

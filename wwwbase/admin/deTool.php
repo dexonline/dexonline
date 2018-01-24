@@ -175,7 +175,7 @@ if ($saveButton) {
 
         // Check that either the lexeme is not in LOC or the model list is unchanged
         if ($lexeme->isLoc && ($m != "{$lexeme->modelType}{$lexeme->modelNumber}")) {
-          throw new Exception("Nu puteți schimba modelul unui lexem inclus în loc: {$lexem}.");
+          throw new Exception("Nu puteți schimba modelul unui lexem inclus în loc: {$lexeme}.");
         }
 
         // Check that the lexeme works with the model

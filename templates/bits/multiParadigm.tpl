@@ -17,10 +17,10 @@
 
   <div class="panel-body">
 
-    {foreach $entry->getLexemes() as $lexem}
+    {foreach $entry->getLexemes() as $lexeme}
       <div class="paraLexeme">
         <div class="lexemeData">
-          <span class="lexemeName">{include "bits/lexemeName.tpl" lexeme=$lexem}</span>
+          <span class="lexemeName">{include "bits/lexemeName.tpl" lexeme=$lexeme}</span>
 
           {foreach $lexeme->getTags() as $t}
             {include "bits/tag.tpl"}
@@ -36,7 +36,7 @@
           {/if}
         </div>
 
-        {include "paradigm/paradigm.tpl" lexeme=$lexem}
+        {include "paradigm/paradigm.tpl" lexeme=$lexeme}
       </div>
     {/foreach}
 

@@ -242,7 +242,7 @@ while ($i < count($lines)) {
 
     // procedura de asociere a definiției cu lexemul de mai sus
     if($verbose) echo("\t\tAssociate entry {$entry->id} ({$entry->description}) " .
-                      "for lexeme {$lexeme->id} ({$lexem}) " .
+                      "for lexeme {$lexeme->id} ({$lexeme}) " .
                       "to definition ({$definition->id})\n");
     if (!$dryrun) {
       EntryDefinition::associate($entry->id, $definition->id);

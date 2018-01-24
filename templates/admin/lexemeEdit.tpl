@@ -386,7 +386,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Paradigmă</div>
       <div class="panel-body">
-        {include "paradigm/paradigm.tpl" lexeme=$lexem}
+        {include "paradigm/paradigm.tpl" lexeme=$lexeme}
       </div>
     </div>
 

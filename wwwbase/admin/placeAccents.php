@@ -29,7 +29,7 @@ if ($saveButton) {
 
 $chars = array();
 $searchResults = array();
-$lexemes = Model::factory('Lexeme')->raw_query("select * from Lexem where form not rlike '\'' and not noAccent order by rand() limit 10")
+$lexemes = Model::factory('Lexeme')->raw_query("select * from Lexeme where form not rlike '\'' and not noAccent order by rand() limit 10")
   ->find_many();
 foreach($lexemes as $l) {
   $charArray = array();

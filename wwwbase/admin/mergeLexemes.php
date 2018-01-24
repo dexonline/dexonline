@@ -57,7 +57,7 @@ if ($modelType == 'T') {
 }
 // TODO speed up the page for T lexemes
 $dbResult = DB::execute("select distinct l.* " .
-                       "from Lexem l " .
+                       "from Lexeme l " .
                        "where {$whereClause} " .
                        "order by formNoAccent",
                        PDO::FETCH_ASSOC);

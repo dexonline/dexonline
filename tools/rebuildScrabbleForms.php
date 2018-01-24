@@ -178,7 +178,7 @@ class BaseFormList extends FormList {
   function getQuery() {
     return
       'select form, modelType, modelNumber, restriction '.
-      'from Lexem ' .
+      'from Lexeme ' .
       'where isLoc ' .
       'order by formNoAccent asc, modelType asc, modelNumber asc';
   }
@@ -211,7 +211,7 @@ class InflectedFormList extends FormList {
   function getQuery() {
     return
       'select distinct I.formNoAccent ' .
-      'from InflectedForm I, Lexem L, Model M, ModelDescription MD, ModelType MT ' .
+      'from InflectedForm I, Lexeme L, Model M, ModelDescription MD, ModelType MT ' .
       'where I.lexemeId = L.id ' .
       'and L.modelType = MT.code ' .
       'and MT.canonical = M.modelType ' .
@@ -249,7 +249,7 @@ class ReducedFormList extends FormList {
   function getQuery() {
     return
       'select I.formNoAccent ' .
-      'from InflectedForm I, Lexem L, Model M, ModelDescription MD, ModelType MT ' .
+      'from InflectedForm I, Lexeme L, Model M, ModelDescription MD, ModelType MT ' .
       'where I.lexemeId = L.id ' .
       'and L.modelType = MT.code ' .
       'and MT.canonical = M.modelType ' .

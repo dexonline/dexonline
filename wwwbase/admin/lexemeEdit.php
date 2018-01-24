@@ -3,7 +3,7 @@ require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT | User::PRIV_STRUCT);
 Util::assertNotMirror();
 
-// Lexem parameters
+// Lexeme parameters
 $lexemeId = Request::get('lexemeId');
 $lexemeForm = Request::get('lexemeForm');
 $lexemeNumber = Request::get('lexemeNumber');
@@ -44,7 +44,7 @@ $lexeme = Lexeme::get_by_id($lexemeId);
 $original = Lexeme::get_by_id($lexemeId); // Keep a copy so we can test whether certain fields have changed
 
 if ($cloneButton) {
-  $newLexem = $lexeme->_clone();
+  $newLexeme = $lexeme->_clone();
   Log::notice("Cloned lexeme {$lexeme->id} ({$lexeme->formNoAccent}), new id is {$newLexem->id}");
   Util::redirect("lexemEdit.php?lexemeId={$newLexem->id}");
 }

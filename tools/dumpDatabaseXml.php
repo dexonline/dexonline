@@ -28,7 +28,7 @@ dumpDefinitions("SELECT * FROM Definition WHERE sourceId IN (SELECT id FROM Sour
 dumpEntries("SELECT * FROM Entry where modDate < $TODAY_TIMESTAMP",
             "$REMOTE_FOLDER/$TODAY-entries.xml.gz",
             'dumping entries');
-dumpLexemes("SELECT * FROM Lexem where modDate < $TODAY_TIMESTAMP",
+dumpLexemes("SELECT * FROM Lexeme where modDate < $TODAY_TIMESTAMP",
            "$REMOTE_FOLDER/$TODAY-lexems.xml.gz",
            'dumping lexemes and inflected forms');
 dumpEd("SELECT ed.entryId, ed.definitionId FROM EntryDefinition ed " .
@@ -41,7 +41,7 @@ dumpEd("SELECT ed.entryId, ed.definitionId FROM EntryDefinition ed " .
        'dumping entry-definition map');
 dumpEl("SELECT el.entryId, el.lexemeId FROM EntryLexeme el " .
        "JOIN Entry e on e.id = el.entryId " .
-       "JOIN Lexem l on l.id = el.lexemeId " .
+       "JOIN Lexeme l on l.id = el.lexemeId " .
        "WHERE el.modDate < $TODAY_TIMESTAMP " .
        "AND e.modDate < $TODAY_TIMESTAMP " .
        "AND l.modDate < $TODAY_TIMESTAMP " .
@@ -59,7 +59,7 @@ if ($LAST_DUMP) {
               "$REMOTE_FOLDER/$TODAY-entries-diff.xml.gz",
               'dumping entries diff');
 
-  dumpLexemes("SELECT * FROM Lexem where modDate >= $LAST_DUMP_TIMESTAMP AND modDate < $TODAY_TIMESTAMP",
+  dumpLexemes("SELECT * FROM Lexeme where modDate >= $LAST_DUMP_TIMESTAMP AND modDate < $TODAY_TIMESTAMP",
              "$REMOTE_FOLDER/$TODAY-lexems-diff.xml.gz",
              'dumping lexemes and inflected forms diff');
 

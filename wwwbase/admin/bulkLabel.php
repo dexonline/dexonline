@@ -41,7 +41,7 @@ $numLabeled = Model::factory('Lexeme')
 $models = array();
 $hasInvariableModel = false;
 $dbResult = DB::execute("select canonical, modelNumber, count(*) as c " .
-                       "from Lexem " .
+                       "from Lexeme " .
                        "join ModelType on modelType = code " .
                        "where modelType != 'T' " .
                        "and reverse like '{$reverseSuffix}%' " .

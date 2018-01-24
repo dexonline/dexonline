@@ -29,7 +29,7 @@ class FullTextIndex extends BaseObject {
     $positionMap = [];
     foreach ($lexemMap as $lexemeIds) {
       if (!empty($lexemeIds)) {
-        // Load all positions in all definitions for this Lexem set
+        // Load all positions in all definitions for this Lexeme set
         $query = sprintf('select distinct definitionId, position from FullTextIndex ' .
                          'where lexemeId in (%s) ' .
                          'and definitionId in (%s) ' .

@@ -130,16 +130,16 @@ if ($saveButton) {
   // Delete orphaned lexemes
   if ($deleteOrphans) {
     foreach ($dbl as $l) {
-      $keepLexem = false;
+      $keepLexeme = false;
       foreach ($l->getEntries() as $e) {
         $eds = EntryDefinition::get_all_by_entryId($e->id);
         if (count($eds)) {
-          $keepLexem = true;
+          $keepLexeme = true;
         } else {
           $e->delete();
         }
       }
-      if (!$keepLexem &&
+      if (!$keepLexeme &&
           ($l->canDelete() == Lexeme::CAN_DELETE_OK)) {
         $l->delete();
       }

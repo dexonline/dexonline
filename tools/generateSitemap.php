@@ -18,7 +18,7 @@ chdir(Core::getRootPath());
 openNewFile();
 addOtherUrls();
 
-$query = 'select id, formNoAccent from Lexem order by formNoAccent';
+$query = 'select id, formNoAccent from Lexeme order by formNoAccent';
 Log::info("Running mysql query: [$query]");
 $dbResult = DB::execute($query);
 

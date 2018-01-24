@@ -235,7 +235,7 @@ if (!$previewButton && !$saveButton) {
     Log::debug('Propagating the "recommended" bit from ModelDescriptions to InflectedForms');
     $q = sprintf("
       update InflectedForm i
-      join Lexem l on i.lexemeId = l.id
+      join Lexeme l on i.lexemeId = l.id
       join ModelType mt on l.modelType = mt.code
       join Model m on mt.canonical = m.modelType and l.modelNumber = m.number
       join ModelDescription md on m.id = md.modelId and i.inflectionId = md.inflectionId and i.variant = md.variant

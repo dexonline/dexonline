@@ -149,11 +149,11 @@ class Entry extends BaseObject implements DatedObject {
     // * comppound lexemes that have a fragment that generates this form
 
     $simple = 'select l.id ' .
-            'from Lexem l ' .
+            'from Lexeme l ' .
             'join InflectedForm i on l.id = i.lexemeId ' .
             "where i.$field = :form";
     $compound = 'select l.id ' .
-              'from Lexem l ' .
+              'from Lexeme l ' .
               'join Fragment f on l.id = f.lexemeId ' .
               'join InflectedForm i on f.partId = i.lexemeId ' .
               "where i.$field = :form";

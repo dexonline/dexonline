@@ -239,8 +239,8 @@ class Lexeme extends BaseObject implements DatedObject {
   static function loadAmbiguous() {
     // The key here is to create a subquery of all the forms appearing at least twice
     // This takes about 0.6s
-    $query = 'select * from Lexem ' .
-      'join (select binary form as f from Lexem group by form having count(*) > 1) dup ' .
+    $query = 'select * from Lexeme ' .
+      'join (select binary form as f from Lexeme group by form having count(*) > 1) dup ' .
       'on form = f ' .
       'where description = "" ' .
       'group by form ' .
@@ -264,7 +264,7 @@ class Lexeme extends BaseObject implements DatedObject {
     $fragments = 'select partId as id from Fragment';
     $subquery = "$direct union $fragments";
     $query = 'select l.* ' .
-           'from Lexem l ' .
+           'from Lexeme l ' .
            "left outer join ($subquery) used on l.id = used.id " .
            'where used.id is null';
 

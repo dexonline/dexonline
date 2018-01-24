@@ -40,7 +40,7 @@ if ( !is_int($noSkin) || $noSkin!=1 ){
 }
 
 /*
-  $query = sprintf('select id from Lexem order by rand() limit %d', $listLength);
+  $query = sprintf('select id from Lexeme order by rand() limit %d', $listLength);
   $ids = DB::getArray($query);
 
   $query = sprintf(RANDOM_WORDS_QUERY, $showSource?SOURCE_PART_RANDOM_WORDS:'', implode(",",$ids));

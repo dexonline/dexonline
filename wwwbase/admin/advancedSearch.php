@@ -34,7 +34,7 @@ $nextPageButton = Request::has('nextPageButton');
 $submitButton = Request::has('submitButton');
 
 $q = Model::factory($view);
-$joinEntry = $joinLexem = $joinDefinition = false;
+$joinEntry = $joinLexeme = $joinDefinition = false;
 $joinEntryTag = $joinLexemeTag = false;
 
 // process entry parameters
@@ -61,7 +61,7 @@ if (!empty($entryTagIds)) {
 }
 
 if (!empty($lexemeTagIds)) {
-  $joinLexem = $joinLexemeTag = true;
+  $joinLexeme = $joinLexemeTag = true;
   $q = $q
      ->where('lot.objectType', ObjectTag::TYPE_LEXEM)
      ->where_in('lot.tagId', $lexemeTagIds);
@@ -69,17 +69,17 @@ if (!empty($lexemeTagIds)) {
 
 // process lexeme parameters
 if ($formNoAccent) {
-  $joinLexem = true;
+  $joinLexeme = true;
   extendQueryWithRegexField($q, 'l.formNoAccent', $formNoAccent);
 }
 
 if ($isLoc !== '') {
-  $joinLexem = true;
+  $joinLexeme = true;
   $q = $q->where('l.isLoc', $isLoc);
 }
 
 if ($paradigm !== '') {
-  $joinLexem = true;
+  $joinLexeme = true;
   if ($paradigm) {
     $q = $q->where_not_equal('l.modelType', 'T');
   } else {

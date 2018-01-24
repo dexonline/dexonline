@@ -38,7 +38,7 @@ class InflectedForm extends BaseObject {
     DB::execute(sprintf("
       delete i
       from InflectedForm i
-      join Lexem l on i.lexemeId = l.id
+      join Lexeme l on i.lexemeId = l.id
       where l.modelNumber = '%s' and i.inflectionId = %d
     ", addslashes($modelNumber), $inflId));
   }

@@ -16,7 +16,7 @@ DB::execute('truncate table FullTextIndex');
 // Build a map of stop words
 $stopWordForms = array_flip(DB::getArray(
   'select distinct i.formNoAccent ' .
-  'from Lexem l, InflectedForm i ' .
+  'from Lexeme l, InflectedForm i ' .
   'where l.id = i.lexemeId ' .
   'and l.stopWord'));
 

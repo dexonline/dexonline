@@ -52,7 +52,7 @@
           </a>
           <a href="#"
              class="defToggle btn btn-link"
-             data-lexem-id="{$l->id}"
+             data-lexeme-id="{$l->id}"
              data-div-id="def_{$l->id}">
             <i class="glyphicon glyphicon-folder-open"></i>
             arată definițiile
@@ -67,7 +67,7 @@
             {foreach $l->matches as $match}
               <div class="checkbox">
                 {assign var="checkboxId" value="merge_`$l->id`_`$match->id`"}
-                <label> 
+                <label>
                   <input type="checkbox" name="{$checkboxId}" value="1">
                   Unifică cu <strong>{$match->form}</strong>
                   {$match->modelType}{$match->modelNumber}{$match->restriction}
@@ -84,7 +84,7 @@
 
                 <a href="#"
                    class="defToggle btn btn-link"
-                   data-lexem-id="{$match->id}"
+                   data-lexeme-id="{$match->id}"
                    data-div-id="def_{$match->id}">
                   <i class="glyphicon glyphicon-folder-open"></i>
                   arată definițiile

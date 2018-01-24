@@ -47,7 +47,7 @@
         </button>
       {/if}
 
-      <a href="https://wiki.dexonline.ro/wiki/Lexem:{$lexeme->id}?description={$lexem|escape}"
+      <a href="https://wiki.dexonline.ro/wiki/Lexem:{$lexeme->id}?description={$lexeme|escape}"
          class="btn btn-default"
          target="_blank">
         <i class="glyphicon glyphicon-comment"></i>
@@ -73,7 +73,7 @@
         <i class="glyphicon glyphicon-trash"></i>
         șterge
       </button>
-      
+
     </div>
 
     <div class="panel panel-default">
@@ -130,7 +130,7 @@
             label="număr"
             placeholder="opțional, pentru numerotarea omonimelor"
             readonly=!$canEdit.general}
-            
+
             {if $homonyms}
               <div class="form-group">
                 <label class="col-md-2">omonime</label>
@@ -156,7 +156,7 @@
                 </select>
               </div>
             </div>
-            
+
           </div>
 
           <div class="col-md-6 form-horizontal">
@@ -257,7 +257,7 @@
                           data-model-number
                           data-selected="{$lexeme->modelNumber}">
                   </select>
-                  
+
                   <input type="text"
                          class="form-control"
                          name="restriction"

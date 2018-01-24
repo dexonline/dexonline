@@ -577,7 +577,7 @@ class Str {
   // For more information, check out issue #632 and pull requeset #637.
   static function findRedundantLinks($internalRep) {
 
-    // Find all instances of |original_word|linked_lexem|.
+    // Find all instances of |original_word|linked_lexeme|.
     preg_match_all("/\|([^\|]+)\|([^\|]+)\|/", $internalRep, $links, PREG_SET_ORDER);
 
     $processedLinks = [];

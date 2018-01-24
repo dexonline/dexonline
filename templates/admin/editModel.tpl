@@ -133,7 +133,7 @@
 
             <tr>
               <th>lexem</th>
-              <th>Model</th>
+              <th>model</th>
               {foreach $regenTransforms as $inflId => $ignored}
                 <th>{$inflectionMap[$inflId]->description|escape}</th>
               {/foreach}

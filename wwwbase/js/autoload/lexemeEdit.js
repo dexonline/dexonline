@@ -2,7 +2,7 @@ $(function() {
 
   var stem = null;
 
-  var lexemSourceOptions = {
+  var lexemeSourceOptions = {
     ajax: { url: wwwRoot + 'ajax/getSources.php' },
     minimumInputLength: 1,
     placeholder: 'surse care atestă flexiunea',
@@ -35,7 +35,7 @@ $(function() {
 
     $('#lexemeForm').on('change input paste', showRenameDiv);
 
-    initSelect2('#sourceIds', 'ajax/getSourcesById.php', lexemSourceOptions);
+    initSelect2('#sourceIds', 'ajax/getSourcesById.php', lexemeSourceOptions);
 
     $('.similarLexem')
       .select2(similarLexemOptions)

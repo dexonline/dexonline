@@ -25,7 +25,7 @@
 
 {assign var=s value=$lexeme->getSourceNames()}
 {if $s}
-  <div class="lexemSources">
+  <div class="lexemeSources">
     Surse flexiune: {$s}
   </div>
 {/if}

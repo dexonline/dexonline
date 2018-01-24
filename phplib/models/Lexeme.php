@@ -666,7 +666,7 @@ class Lexeme extends BaseObject implements DatedObject {
       }
       InflectedForm::delete_all_by_lexemeId($this->id);
       EntryLexeme::delete_all_by_lexemeId($this->id);
-      LexemSource::delete_all_by_lexemeId($this->id);
+      LexemeSource::delete_all_by_lexemeId($this->id);
       ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_LEXEM);
       Fragment::delete_all_by_lexemeId($this->id);
       Fragment::delete_all_by_partId($this->id);

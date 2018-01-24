@@ -197,7 +197,7 @@ createComment('Foarte foarte gustoasă',
               $d1->id, $john->id, Definition::ST_ACTIVE);
 
 // lexeme sources
-$ls = Model::factory('LexemSource')->create();
+$ls = Model::factory('LexemeSource')->create();
 $ls->lexemeId = $l3->id;
 $ls->sourceId = $devil->id;
 $ls->save();

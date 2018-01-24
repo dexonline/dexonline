@@ -3,12 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>lexemSourcesView</title>
+<title>lexemeSourcesView</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">lexemSourcesView</td></tr>
+<tr><td rowspan="1" colspan="3">lexemeSourcesView</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
@@ -22,7 +22,7 @@
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.lexemSources</td>
+	<td>css=div.lexemeSources</td>
 	<td>Surse flexiune: Source 2</td>
 </tr>
 </tbody></table>

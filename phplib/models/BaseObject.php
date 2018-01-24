@@ -153,8 +153,8 @@ class BaseObject extends Model {
    * Saves a list of objects sharing a common foreign key. Reuses existing table rows:
    *   - deletes extra rows if the list is shrinking
    *   - creates extra rows if the list if growing
-   * Example: if a user edits a Lexem and adds/removes LexemSources, then we can save the new list of LexemSources with
-   *   LexemSource::updateList(['lexemeId' => $lexeme->id], 'sourceId', $sourceIds);
+   * Example: if a user edits a Lexem and adds/removes LexemeSources, then we can save the new list of LexemeSources with
+   *   LexemeSource::updateList(['lexemeId' => $lexeme->id], 'sourceId', $sourceIds);
    **/
   static function updateList($filters, $field, $newValues) {
     // Select the existing rows

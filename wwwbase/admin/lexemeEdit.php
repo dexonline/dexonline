@@ -83,7 +83,7 @@ if ($refreshButton || $saveButton) {
       }
       $lexeme->deepSave();
       $lexeme->regenerateDependentLexemes();
-      LexemSource::update($lexeme->id, $sourceIds);
+      LexemeSource::update($lexeme->id, $sourceIds);
       EntryLexeme::update($entryIds, $lexeme->id);
 
       if ($renameRelated) {

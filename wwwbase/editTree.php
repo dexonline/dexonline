@@ -97,7 +97,7 @@ if ($saveButton) {
     foreach ($meanings as $m) {
       foreach (Str::findRedundantLinks($m->internalRep) as $link) {
         if ($link["short_reason"] !== "nemodificat") {
-          FlashMessage::add('Legătura de la "' . $link["original_word"] . '" la "' . $link["linked_lexem"] . '" este considerată redundantă. (Motiv: ' . $link["reason"] . ')', 'warning');
+          FlashMessage::add('Legătura de la "' . $link["original_word"] . '" la "' . $link["linked_lexeme"] . '" este considerată redundantă. (Motiv: ' . $link["reason"] . ')', 'warning');
         }
       }
     }

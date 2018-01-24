@@ -615,7 +615,7 @@ class Str {
         if (empty($def_lexem_id_by_utf8General)) {
           $currentLink = [
             "original_word" => $l[1],
-            "linked_lexem" => $l[2],
+            "linked_lexeme" => $l[2],
             "reason" => "Trimiterea nu a fost găsită în baza de date.",
             "short_reason" => "no_link",
           ];
@@ -636,7 +636,7 @@ class Str {
         if ($found === true) {
           $currentLink = [
             "original_word" => $l[1],
-            "linked_lexem" => $l[2],
+            "linked_lexeme" => $l[2],
             "reason" => "Trimitere către forma de bază a cuvântului.",
             "short_reason" => "forma_baza",
           ];
@@ -680,7 +680,7 @@ class Str {
         if ($found === true) {
           $currentLink = [
             "original_word" => $l[1],
-            "linked_lexem" => $l[2],
+            "linked_lexeme" => $l[2],
             "reason" => "Cuvântul este infinitiv lung.",
             "short_reason" => "inf_lung",
           ];
@@ -694,7 +694,7 @@ class Str {
       if ($linkAdded === false) {
         $currentLink = [
           "original_word" => $l[1],
-          "linked_lexem" => $l[2],
+          "linked_lexeme" => $l[2],
           "reason" => "Trimiterea nu are nevoie de modificări.",
           "short_reason" => "nemodificat",
         ];

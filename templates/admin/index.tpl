@@ -264,7 +264,7 @@
                     <input type="radio" name="view" value="Entry" checked> intrări
                   </label>
                   <label class="btn btn-default">
-                    <input type="radio" name="view" value="Lexem"> lexeme
+                    <input type="radio" name="view" value="Lexeme"> lexeme
                   </label>
                   <label class="btn btn-default">
                     <input type="radio" name="view" value="Definition"> definiții

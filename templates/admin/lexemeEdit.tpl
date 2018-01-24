@@ -272,7 +272,7 @@
               {if !$readonly}
                 <div class="form-group">
                   <div class="col-md-offset-3 col-md-9">
-                    <select class="similarLexem"></select>
+                    <select class="similarLexeme"></select>
                   </div>
                 </div>
               {/if}

@@ -11,7 +11,7 @@ Log::notice('started');
 $start = microtime(true);
 DB::execute("truncate table NGram"); // This should be fast
 
-$dbResult = DB::execute("select * from Lexem", PDO::FETCH_ASSOC);
+$dbResult = DB::execute("select * from Lexeme", PDO::FETCH_ASSOC);
 
 $values = array();
 foreach ($dbResult as $cnt => $row) {

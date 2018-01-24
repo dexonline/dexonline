@@ -1,6 +1,6 @@
 {* Argument: $lexeme *}
 {assign var=ifMap value=$lexeme->loadInflectedFormMap()}
-<table class="lexem">
+<table class="lexeme">
   <tr>
     <td colspan="2">
       {include "bits/lexeme.tpl" lexem=$lexem}

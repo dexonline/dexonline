@@ -69,7 +69,7 @@ if ($sendButton) {
 
     foreach (Str::findRedundantLinks($d->internalRep) as $processedLink) {
       if ($processedLink["short_reason"] !== "nemodificat") {
-        FlashMessage::add('Legătura de la "' . $processedLink["original_word"] . '" la "' . $processedLink["linked_lexem"] . '" este considerată redundantă. (Motiv: ' . $processedLink["reason"] . ')', 'warning');
+        FlashMessage::add('Legătura de la "' . $processedLink["original_word"] . '" la "' . $processedLink["linked_lexeme"] . '" este considerată redundantă. (Motiv: ' . $processedLink["reason"] . ')', 'warning');
       }
     }
 

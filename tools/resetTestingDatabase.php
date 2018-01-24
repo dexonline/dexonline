@@ -153,7 +153,7 @@ createConstraints('S', '%plural%', '%', -1);
 createConstraints('W', '%vocativ, singular%', 'F', 1);
 createConstraints('w', '%vocativ, singular%', 'F', 0);
 
-// lexems
+// lexemes
 $l1 = createLexemDeep("br'ânză", 'F', '35', '', true);
 $l2 = createLexemDeep("c'adă", 'F', '62', '', true);
 $l3 = createLexemDeep("met'al", 'N', '1', '', true);

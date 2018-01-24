@@ -1,8 +1,8 @@
 <?php
 class DivertaAdsModule extends AdsModule {
 
-  function run($lexems, $definitions) {
-    if (empty($lexems) && empty($definitions)) {
+  function run($lexemes, $definitions) {
+    if (empty($lexemes) && empty($definitions)) {
       // If we are called from a page with no keywords, display one of the top 10 highest CTR books.
       $random = rand(0, 9);
       // TODO: Label books as mature
@@ -18,8 +18,8 @@ class DivertaAdsModule extends AdsModule {
     }
     
     $lexemeIds = array();
-    if (!empty($lexems)) {
-      foreach ($lexems as $l) {
+    if (!empty($lexemes)) {
+      foreach ($lexemes as $l) {
         $lexemeIds[] = $l->id;
       }
     }

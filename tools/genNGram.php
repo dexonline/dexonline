@@ -26,7 +26,7 @@ foreach ($dbResult as $cnt => $row) {
     $values = array();
   }
   if ($cnt % 1000 == 0) {
-    Log::info('%d lexems processed, %0.3f lexems/second.', $cnt, $cnt / (microtime(true) - $start));
+    Log::info('%d lexemes processed, %0.3f lexemes/second.', $cnt, $cnt / (microtime(true) - $start));
   }
 }
 dumpValues($values);

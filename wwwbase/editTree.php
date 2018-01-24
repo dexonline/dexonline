@@ -112,7 +112,7 @@ if ($saveButton) {
   RecentLink::add("Arbore: {$t->description} (ID={$t->id})");
 }
 
-// Load the distinct model types for the entries' lexems
+// Load the distinct model types for the entries' lexemes
 if (count($entryIds)) {
   $modelTypes = Model::factory('Lexeme')
               ->table_alias('l')

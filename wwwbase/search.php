@@ -102,7 +102,7 @@ if(SPOOF_ENABLED && $cuv) {
 
 $definitions = [];
 $entries = [];
-$lexems = [];
+$lexemes = [];
 $trees = [];
 $extra = [];
 $adult = false;
@@ -197,7 +197,7 @@ if ($entryId) {
 if ($hasRegexp) {
   $searchType = SEARCH_REGEXP;
   $extra['numLexemes'] = Lexeme::searchRegexp($cuv, $hasDiacritics, $sourceId, true);
-  $lexems = Lexeme::searchRegexp($cuv, $hasDiacritics, $sourceId);
+  $lexemes = Lexeme::searchRegexp($cuv, $hasDiacritics, $sourceId);
 }
 
 // If no search type requested so far, then normal search
@@ -309,7 +309,7 @@ if ($defLimit) {
   }
 }
 
-if (empty($entries) && empty($lexems) && empty($results)) {
+if (empty($entries) && empty($lexemes) && empty($results)) {
   header('HTTP/1.0 404 Not Found');
 }
 
@@ -427,7 +427,7 @@ foreach ($entries as $e) {
 }
 
 SmartyWrap::assign('entries', $entries);
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::assign('results', $results);
 SmartyWrap::assign('trees', $trees);
 SmartyWrap::assign('extra', $extra);

@@ -8,7 +8,7 @@ $modelType = Request::get('modelType', 'M');
 $saveButton = Request::has('saveButton');
 
 if ($saveButton) {
-  $lexemsToDelete = [];
+  $lexemesToDelete = [];
   foreach ($_REQUEST as $name => $value) {
     if (Str::startsWith($name, 'merge_') && $value) {
       $parts = preg_split('/_/', $name);
@@ -37,11 +37,11 @@ if ($saveButton) {
         $dest->save();
       }
 
-      // Delay the deletion because we might have to merge $src with other lexems.
-      $lexemsToDelete[] = $src;
+      // Delay the deletion because we might have to merge $src with other lexemes.
+      $lexemesToDelete[] = $src;
     }
   }
-  foreach ($lexemsToDelete as $lexem) {
+  foreach ($lexemesToDelete as $lexem) {
     $lexeme->delete();
   }
   Util::redirect("mergeLexemes.php?modelType={$modelType}");
@@ -55,14 +55,14 @@ if ($modelType == 'T') {
 } else {
   $whereClause = '(modelType = "T") or (modelType in ("M", "F", "N") and restriction like "%P%")';
 }
-// TODO speed up the page for T lexems
+// TODO speed up the page for T lexemes
 $dbResult = DB::execute("select distinct l.* " .
                        "from Lexem l " .
                        "where {$whereClause} " .
                        "order by formNoAccent",
                        PDO::FETCH_ASSOC);
 
-$lexems = [];
+$lexemes = [];
 foreach ($dbResult as $row) {
   $lexeme = Model::factory('Lexeme')->create($row);
 
@@ -102,12 +102,12 @@ foreach ($dbResult as $row) {
       $lexeme->addedForms = $addedForms;
       $lexeme->lostForms = $lostForms;
     }
-    $lexems[] = $lexem;
+    $lexemes[] = $lexem;
   }
 }
 
 SmartyWrap::assign('modelType', $modelType);
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/mergeLexemes.tpl');
 

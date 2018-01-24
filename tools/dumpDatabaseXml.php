@@ -30,7 +30,7 @@ dumpEntries("SELECT * FROM Entry where modDate < $TODAY_TIMESTAMP",
             'dumping entries');
 dumpLexemes("SELECT * FROM Lexem where modDate < $TODAY_TIMESTAMP",
            "$REMOTE_FOLDER/$TODAY-lexems.xml.gz",
-           'dumping lexems and inflected forms');
+           'dumping lexemes and inflected forms');
 dumpEd("SELECT ed.entryId, ed.definitionId FROM EntryDefinition ed " .
        "JOIN Definition d on d.id = ed.definitionId " .
        "WHERE d.sourceId in (SELECT id FROM Source WHERE canDistribute) " .
@@ -61,7 +61,7 @@ if ($LAST_DUMP) {
 
   dumpLexemes("SELECT * FROM Lexem where modDate >= $LAST_DUMP_TIMESTAMP AND modDate < $TODAY_TIMESTAMP",
              "$REMOTE_FOLDER/$TODAY-lexems-diff.xml.gz",
-             'dumping lexems and inflected forms diff');
+             'dumping lexemes and inflected forms diff');
 
   dumpDiff("$REMOTE_FOLDER/$LAST_DUMP-edm.xml.gz",
            "$REMOTE_FOLDER/$TODAY-edm.xml.gz",

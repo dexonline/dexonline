@@ -126,7 +126,7 @@
       {if count($regenTransforms)}
         <div class="panel panel-default">
           <div class="panel-heading">
-            Lexeme afectate ({$lexems|@count})
+            Lexeme afectate ({$lexemes|@count})
           </div>
 
           <table class="table table-condensed table-striped">
@@ -156,7 +156,7 @@
               {/foreach}
             </tr>
 
-            {foreach $lexems as $lIndex => $l}
+            {foreach $lexemes as $lIndex => $l}
               {assign var="inflArray" value=$regenForms[$lIndex]}
               <tr>
                 <td>{$l->form|escape}</td>

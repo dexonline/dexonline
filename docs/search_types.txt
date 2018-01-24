@@ -36,7 +36,7 @@ null      <source>     <number>   1           /definitie-dex//1234/paradigma    
 <cuv>     null         null       0           /definitie/copil                      Displays all definitions for copil
 <cuv>     null         null       1           /definitie/copil/paradigma            Displays all definitions and paradigms for copil
 <cuv>     null         <number>   0           /definitie/copil/8920                 Displays the definition with ID = 8920
-<cuv>     null         <number>   1           /definitie/copil/8920/paradigma       Displays the definition with ID = 8920 (no paradigm, as there are no lexems)
+<cuv>     null         <number>   1           /definitie/copil/8920/paradigma       Displays the definition with ID = 8920 (no paradigm, as there are no lexemes)
 <cuv>     <source>     null       0           /definitie-dex/copil                  Displays definitions for copil from DEX
 <cuv>     <source>     null       1           /definitie-dex/copil/paradigma        Displays definitions for copil from DEX and paradigms
 <cuv>     <source>     <number>   0           /definitie-dex/copil/8920             Displays the definition with ID = 8920 (source is ignored)

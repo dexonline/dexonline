@@ -30,7 +30,7 @@
     </div>
 
     <div class="row form-group">
-      {foreach $lexems as $l}
+      {foreach $lexemes as $l}
         <div class="checkbox col-xs-6 col-sm-4 col-md-3 col-lg-2">
           <label>
             <input type="checkbox" name="lexemeId[]" value="{$l->id}">

@@ -19,7 +19,7 @@
 
 
   <form action="placeAccents.php" method="post">
-    {foreach $lexems as $l}
+    {foreach $lexemes as $l}
       {assign var=lexemeId value=$l->id}
       {assign var=charArray value=$chars[$lexemeId]}
       {assign var=srArray value=$searchResults[$lexemeId]}

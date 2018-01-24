@@ -113,7 +113,7 @@
 
         <h3>
           {include "bits/count.tpl"
-          displayed=count($lexems)
+          displayed=count($lexemes)
           total=$extra.numLexemes|default:0
           none="Niciun rezultat"
           one="Un rezultat"
@@ -121,7 +121,7 @@
           common=$smarty.capture.common}
         </h3>
 
-        {if !count($lexems) && $sourceId}
+        {if !count($lexemes) && $sourceId}
           {include "search/extendToAllSources.tpl"}
         {/if}
 

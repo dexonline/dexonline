@@ -13,11 +13,11 @@ $model = Model::factory('FlexModel')
        ->where('modelType', $modelType)
        ->where('number', $modelNumber)
        ->find_one();
-$lexems = Lexeme::loadByCanonicalModel($modelType, $modelNumber);
+$lexemes = Lexeme::loadByCanonicalModel($modelType, $modelNumber);
 
 $locPerm = User::can(User::PRIV_LOC);
 $numLoc = 0;
-foreach ($lexems as $l) {
+foreach ($lexemes as $l) {
   $numLoc += ($l->isLoc);
 }
 
@@ -28,7 +28,7 @@ if ($numLoc && !$locPerm) {
 }
 
 if ($deleteButton) {
-  foreach ($lexems as $l) {
+  foreach ($lexemes as $l) {
     $l->modelType = 'T';
     $l->modelNumber = '1';
     $l->restriction = '';
@@ -43,6 +43,6 @@ if ($deleteButton) {
 
 SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::assign('modelNumber', $modelNumber);
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::assign('locPerm', $locPerm);
 SmartyWrap::display('admin/deleteModel.tpl');

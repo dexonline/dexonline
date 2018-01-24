@@ -32,7 +32,7 @@
 
   <form class="form-horizontal" method="post">
     <input type="hidden" name="suffix" value="{$suffix|escape}">
-    {foreach $lexems as $lIter => $l}
+    {foreach $lexemes as $lIter => $l}
       <div class="panel panel-default">
 
         <div class="panel-heading">

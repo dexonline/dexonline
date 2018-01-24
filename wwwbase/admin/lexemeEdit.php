@@ -238,7 +238,7 @@ function validate($lexem, $original) {
   }
 
   $numAccents = mb_substr_count($lexeme->form, "'");
-  // Note: we allow multiple accents for lexems like hárcea-párcea
+  // Note: we allow multiple accents for lexemes like hárcea-párcea
   if ($numAccents && $lexeme->noAccent) {
     FlashMessage::add('Ați indicat că lexemul nu necesită accent, dar forma conține un accent.');
   } else if (!$numAccents && !$lexeme->noAccent) {

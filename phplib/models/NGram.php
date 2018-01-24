@@ -38,7 +38,7 @@ class NGram extends BaseObject {
     $max = current($hash);
     $lexIds = array_keys($hash, $max);
 
-    $lexems = [];
+    $lexemes = [];
     foreach ($lexIds as $id) {
       $lexeme = Model::factory('Lexeme')
              ->where('id', $id)
@@ -46,23 +46,23 @@ class NGram extends BaseObject {
              ->where_lte('charLength', $leng + self::$LENGTH_DIF)
              ->find_one();
       if ($lexem) {
-        $lexems[] = $lexem;
-        if (count($lexems) == self::$MAX_RESULTS) {
+        $lexemes[] = $lexem;
+        if (count($lexemes) == self::$MAX_RESULTS) {
           break;
         }
       }
     }
 
-    // Sort the lexems by their Levenshtein distance from $cuv
+    // Sort the lexemes by their Levenshtein distance from $cuv
     $distances = [];
-    foreach ($lexems as $lexem) {
+    foreach ($lexemes as $lexem) {
       $distances[] = Levenshtein::dist($cuv, $lexeme->formNoAccent);
     }
-    array_multisort($distances, $lexems);
+    array_multisort($distances, $lexemes);
 
     // load the entries for each lexeme
     $entries = [];
-    foreach ($lexems as $l) {
+    foreach ($lexemes as $l) {
       $entries = array_merge($entries, $l->getEntries());
     }
     $entries = array_unique($entries, SORT_REGULAR);
@@ -70,7 +70,7 @@ class NGram extends BaseObject {
     return $entries;
   }
   
-  /* Find lexems with at least 50% matching n-grams */
+  /* Find lexemes with at least 50% matching n-grams */
   static function searchLexemeIds($cuv) {
     $ngramList = self::split($cuv);
     $hash = array();

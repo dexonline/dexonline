@@ -3,7 +3,7 @@
 {block "title"}Unificare lexeme{/block}
 
 {block "content"}
-  <h3>Unificare lexeme - {$lexems|@count} rezultate</h3>
+  <h3>Unificare lexeme - {$lexemes|@count} rezultate</h3>
 
   <div class="alert alert-info alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert">
@@ -37,7 +37,7 @@
   <form class="voffset4" method="post">
     <input type="hidden" name="modelType" value="{$modelType}">
 
-    {foreach $lexems as $lIter => $l}
+    {foreach $lexemes as $lIter => $l}
       <div class="panel panel-default">
 
         <div class="panel-heading">

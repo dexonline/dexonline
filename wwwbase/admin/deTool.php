@@ -67,7 +67,7 @@ if ($butPrev || $butNext) {
   }
 }
 
-// Load the database lexems
+// Load the database lexemes
 $dbl = Model::factory('Lexeme')
   ->table_alias('l')
   ->select('l.*')
@@ -127,7 +127,7 @@ if ($saveButton) {
     }
   }
 
-  // Delete orphaned lexems
+  // Delete orphaned lexemes
   if ($deleteOrphans) {
     foreach ($dbl as $l) {
       $keepLexem = false;

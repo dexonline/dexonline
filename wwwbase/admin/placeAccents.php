@@ -29,9 +29,9 @@ if ($saveButton) {
 
 $chars = array();
 $searchResults = array();
-$lexems = Model::factory('Lexeme')->raw_query("select * from Lexem where form not rlike '\'' and not noAccent order by rand() limit 10")
+$lexemes = Model::factory('Lexeme')->raw_query("select * from Lexem where form not rlike '\'' and not noAccent order by rand() limit 10")
   ->find_many();
-foreach($lexems as $l) {
+foreach($lexemes as $l) {
   $charArray = array();
   $form = mb_strtoupper($l->form);
   $len = mb_strlen($form);
@@ -45,7 +45,7 @@ foreach($lexems as $l) {
   $searchResults[$l->id] = SearchResult::mapDefinitionArray($definitions);
 }
 
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::assign('chars', $chars);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::addCss('admin');

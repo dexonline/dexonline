@@ -108,13 +108,13 @@ if (!$previewButton && !$saveButton) {
     }
   }
   
-  // Load the affected lexems. For each lexem, inflection and transform
+  // Load the affected lexemes. For each lexem, inflection and transform
   // list, generate a new form.
   $limit = ($shortList && !$saveButton) ? SHORT_LIST_LIMIT : 0;
-  $lexems = Lexeme::loadByCanonicalModel($m->modelType, $m->number, $limit);
+  $lexemes = Lexeme::loadByCanonicalModel($m->modelType, $m->number, $limit);
   $regenForms = [];
   $errorCount = 0; // Do not report thousands of similar errors.
-  foreach ($lexems as $l) {
+  foreach ($lexemes as $l) {
     $regenRow = [];
     foreach ($regenTransforms as $inflId => $variants) {
       $regenRow[$inflId] = [];
@@ -207,7 +207,7 @@ if (!$previewButton && !$saveButton) {
       $fileName = tempnam(Core::getTempPath(), 'editModel_');
       $fp = fopen($fileName, 'w');
       foreach ($regenForms as $i => $regenRow) {
-        $l = $lexems[$i];
+        $l = $lexemes[$i];
         foreach ($regenRow as $inflId => $formArray) {
           foreach ($formArray as $variant => $f) {
             if (ConstraintMap::allows($l->restriction, $inflId, $variant)) {
@@ -261,14 +261,14 @@ if (!$previewButton && !$saveButton) {
         }
       }
 
-      foreach ($lexems as $l) {
+      foreach ($lexemes as $l) {
         $l->modelNumber = $nm->number;
         $l->save();
       }
     }
 
     if ($pm && ($pm->adjectiveModel != $npm->adjectiveModel)) {
-      Log::debug('Regenerating participle lexems');
+      Log::debug('Regenerating participle lexemes');
       $npm->save();
 
       foreach ($participles as $p) { // $participles loaded before
@@ -292,7 +292,7 @@ if (!$previewButton && !$saveButton) {
   SmartyWrap::assign('m', $nm);
   SmartyWrap::assign('pm', $npm);
   SmartyWrap::assign('forms', $nforms);
-  SmartyWrap::assign('lexems', $lexems);
+  SmartyWrap::assign('lexemes', $lexemes);
   SmartyWrap::assign('regenForms', $regenForms);
   SmartyWrap::assign('regenTransforms', $regenTransforms);
 }
@@ -328,7 +328,7 @@ function equalArrays($a, $b) {
 }
 
 /**
- * Returns all lexems of model A$pm that have the same form as participle
+ * Returns all lexemes of model A$pm that have the same form as participle
  * InflectedForms of verbs of model VT$model.
  * Assumes that $pm is the correct participle (adjective) model for $model.
  **/

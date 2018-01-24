@@ -25,12 +25,12 @@ $dbResult = DB::execute($query);
 $rowB = array(null, null);
 $rowC = array(null, null);
 foreach ($dbResult as $dbRow) {
-  // Keep a moving window of 3 lexems that we can use to eliminate duplicates
+  // Keep a moving window of 3 lexemes that we can use to eliminate duplicates
   $rowA = $rowB;
   $rowB = $rowC;
   $rowC = $dbRow;
   if ($rowB[1] && $rowB[1] != $rowA[1]) {
-    // If 2 or more lexems have identical forms, only add a definition URL for the first one
+    // If 2 or more lexemes have identical forms, only add a definition URL for the first one
     addUrl('https://dexonline.ro/definitie/' . urlencode($rowB[1]));
   }
   if ($rowB[0] && ($rowB[1] == $rowA[1] || $rowB[1] == $rowC[1])) {

@@ -27,7 +27,7 @@
   <form method="post">
     <input type="hidden" name="definitionId" value="{$def->id}">
 
-    <table id="lexemsTable">
+    <table id="lexemesTable">
       <tr>
         <th>lexem</th>
         <th>model</th>

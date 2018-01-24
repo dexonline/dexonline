@@ -57,7 +57,7 @@ if ($saveButton) {
       $clonePm->save();
     }
 
-    // Migrate the selected lexems.
+    // Migrate the selected lexemes.
     foreach ($lexemeIds as $lexemeId) {
       $l = Lexeme::get_by_id($lexemeId);
       $l->modelNumber = $newModelNumber;
@@ -71,11 +71,11 @@ if ($saveButton) {
   $newModelNumber = $modelNumber . '.1';
 }
 
-$lexems = Lexeme::loadByCanonicalModel($modelType, $modelNumber);
+$lexemes = Lexeme::loadByCanonicalModel($modelType, $modelNumber);
 
 SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::assign('modelNumber', $modelNumber);
 SmartyWrap::assign('newModelNumber', $newModelNumber);
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/cloneModel.tpl');

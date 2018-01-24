@@ -4,7 +4,7 @@
 
 {block "content"}
 
-  <h3>{$lexems|count} lexeme neasociate</h3>
+  <h3>{$lexemes|count} lexeme neasociate</h3>
   
   {include "bits/lexemList.tpl"}
 

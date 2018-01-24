@@ -36,7 +36,7 @@ $numLabeled = Model::factory('Lexeme')
   ->count();
 
 // Collect all the models that appear in at least 5% of the already
-// labeled lexems. Always select at least one model, in the unlikely case
+// labeled lexemes. Always select at least one model, in the unlikely case
 // that no model has over 5%.
 $models = array();
 $hasInvariableModel = false;
@@ -78,7 +78,7 @@ foreach ($models as $m) {
   $modelTypes[] = ModelType::get_by_code($m->modelType);
 }
 
-$lexems = Model::factory('Lexeme')
+$lexemes = Model::factory('Lexeme')
   ->where('modelType', 'T')
   ->where_like('reverse', "{$reverseSuffix}%")
   ->order_by_asc('formNoAccent')
@@ -87,7 +87,7 @@ $lexems = Model::factory('Lexeme')
 
 // $lMatrix[$i][$j] = lexeme (with inflected forms) for lexeme $i and model $j
 $lMatrix = [];
-foreach ($lexems as $l) {
+foreach ($lexemes as $l) {
   $lArray = [];
   foreach ($models as $m) {
     // Force a reload
@@ -100,13 +100,13 @@ foreach ($lexems as $l) {
 
 // Load the definitions for each lexem
 $searchResults = array();
-foreach ($lexems as $l) {
+foreach ($lexemes as $l) {
   $definitions = Definition::loadByEntryIds($l->getEntryIds());
   $searchResults[] = SearchResult::mapDefinitionArray($definitions);
 }
 
 SmartyWrap::assign('suffix', $suffix);
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('searchResults', $searchResults);

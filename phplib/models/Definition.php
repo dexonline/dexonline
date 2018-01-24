@@ -177,13 +177,13 @@ class Definition extends BaseObject implements DatedObject {
     $adult = false;
 
     foreach ($words as $word) {
-      // Get all lexems generating this form
-      $lexems = Model::factory('InflectedForm')
+      // Get all lexemes generating this form
+      $lexemes = Model::factory('InflectedForm')
         ->select('lexemeId')
         ->distinct()
         ->where($field, $word)
         ->find_many();
-      $lexemeIds = Util::objectProperty($lexems, 'lexemeId');
+      $lexemeIds = Util::objectProperty($lexemes, 'lexemeId');
       $lexemMap[] = $lexemeIds;
 
       // Get the FullTextIndex records for each form. Note that the FTI excludes stop words.
@@ -284,7 +284,7 @@ class Definition extends BaseObject implements DatedObject {
     }
   }
 
-  // Return definitions that are associated with at least two of the lexems
+  // Return definitions that are associated with at least two of the lexemes
   static function searchMultipleWords($words, $hasDiacritics, $sourceId) {
     $defCounts = [];
     foreach ($words as $word) {

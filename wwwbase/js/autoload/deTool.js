@@ -49,7 +49,7 @@ $(function() {
   }
 
   function addRow() {
-    var r = stem.clone(true).appendTo('#lexemsTable');
+    var r = stem.clone(true).appendTo('#lexemesTable');
     r.find('.lexem').select2(lexemStruct);
     r.find('.model').select2(modelStruct);
     return false;

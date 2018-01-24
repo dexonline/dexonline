@@ -234,7 +234,7 @@ class Lexeme extends BaseObject implements DatedObject {
   }
 
   /**
-   * For every set of lexems having the same form and no description, load one of them at random.
+   * For every set of lexemes having the same form and no description, load one of them at random.
    */
   static function loadAmbiguous() {
     // The key here is to create a subquery of all the forms appearing at least twice
@@ -359,7 +359,7 @@ class Lexeme extends BaseObject implements DatedObject {
     }
 
     $fragments = $this->getFragments();
-    $parts = $this->getCompoundParts();  // lexems
+    $parts = $this->getCompoundParts();  // lexemes
     $chunks = preg_split('/[-\s]/', $this->formNoAccent);
 
     if (count($chunks) != count($fragments)) {
@@ -619,13 +619,13 @@ class Lexeme extends BaseObject implements DatedObject {
     // Iterate through all the forms of the desired inflection (participle / long infinitive)
     $ifs = InflectedForm::get_all_by_lexemeId_inflectionId($this->id, $inflId);
     foreach ($ifs as $if) {
-      // Examine all lexems having one of the above forms and model
-      $lexems = Model::factory('Lexeme')
+      // Examine all lexemes having one of the above forms and model
+      $lexemes = Model::factory('Lexeme')
               ->where('formNoAccent', $if->formNoAccent)
               ->where('modelType', $modelType)
               ->where_in('modelNumber', $modelNumbers)
               ->find_many();
-      foreach ($lexems as $l) {
+      foreach ($lexemes as $l) {
         FlashMessage::add("Am șters automat lexemul {$l} și toate intrările asociate.", 'info');
         $entries = Model::factory('Entry')
                  ->table_alias('e')

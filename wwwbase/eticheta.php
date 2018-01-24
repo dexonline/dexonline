@@ -86,7 +86,7 @@ $lexemCount = Model::factory('ObjectTag')
             ->where('objectType', ObjectTag::TYPE_LEXEM)
             ->where('tagId', $tag->id)
             ->count();
-$lexems = Model::factory('Lexeme')
+$lexemes = Model::factory('Lexeme')
         ->table_alias('l')
         ->select('l.*')
         ->join('ObjectTag', ['ot.objectId', '=', 'l.id'], 'ot')
@@ -115,7 +115,7 @@ SmartyWrap::assign('homonyms', $homonyms);
 SmartyWrap::assign('defCount', $defCount);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::assign('lexemCount', $lexemCount);
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::assign('meaningCount', $meaningCount);
 SmartyWrap::assign('meanings', $meanings);
 SmartyWrap::assign('frequentColors', $frequentColors);

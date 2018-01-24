@@ -4,7 +4,7 @@
 
 {block "content"}
 
-  <h3>{$lexems|count} lexeme ambigue (cu nume și descriere identice)</h3>
+  <h3>{$lexemes|count} lexeme ambigue (cu nume și descriere identice)</h3>
   
   {include "bits/lexemList.tpl"}
 

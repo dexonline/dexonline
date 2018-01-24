@@ -8,7 +8,7 @@ $sourceId = Request::get('source');
 
 if ($sourceId) {
   $source = Source::get_by_id($sourceId);
-  $lexems = Model::factory('Lexeme')
+  $lexemes = Model::factory('Lexeme')
           ->table_alias('l')
           ->select('l.*')
           ->distinct()
@@ -22,13 +22,13 @@ if ($sourceId) {
           ->limit(1000)
           ->find_many();
 } else {
-  $lexems = Model::factory('Lexeme')
+  $lexemes = Model::factory('Lexeme')
           ->where('modelType', 'T')
           ->order_by_asc('formNoAccent')
           ->limit(1000)
           ->find_many();
 }
 
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/viewTemporaryLexemes.tpl');

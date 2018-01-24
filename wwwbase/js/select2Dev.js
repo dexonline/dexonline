@@ -162,7 +162,7 @@ function formatLexemWithEditLink(lexem) {
   var html;
 
   if (startsWith(lexem.id, '@')) {
-    // don't show an edit link for soon-to-be created lexems
+    // don't show an edit link for soon-to-be created lexemes
     html = lexem.text;
   } else {
     html = lexem.text +

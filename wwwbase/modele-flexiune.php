@@ -13,15 +13,15 @@ if (!$modelType) {
 if ($locVersion) LocVersion::changeDatabase($locVersion);
 $models = FlexModel::loadByType($modelType->code);
 
-$lexems = [];
+$lexemes = [];
 foreach ($models as $m) {
-  $lexems[] = getLexem($m->exponent, $modelType->code, $m->number);
+  $lexemes[] = getLexem($m->exponent, $modelType->code, $m->number);
 }
 DB::changeDatabase(DB::$database);
 
 SmartyWrap::addCss('paradigm');
 SmartyWrap::assign('models', $models);
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::assign('locVersion', $locVersion);
 SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::display('modele-flexiune.tpl');

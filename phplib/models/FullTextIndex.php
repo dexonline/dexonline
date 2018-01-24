@@ -7,18 +7,18 @@ class FullTextIndex extends BaseObject {
     if (empty($lexemeIds)) {
       return [];
     }
-    $lexemString = implode(',', $lexemeIds);
+    $lexemeString = implode(',', $lexemeIds);
     if ($sourceId) {
       $query = "select distinct definitionId " .
         "from FullTextIndex F " .
         "join Definition D on D.id = F.definitionId " .
-        "where lexemeId in ($lexemString) " .
+        "where lexemeId in ($lexemeString) " .
         "and D.sourceId = $sourceId " .
         "order by definitionId";
     } else {
       $query = "select distinct definitionId " .
         "from FullTextIndex " .
-        "where lexemeId in ($lexemString) " .
+        "where lexemeId in ($lexemeString) " .
         "order by definitionId";
     }
     return DB::getArray($query);

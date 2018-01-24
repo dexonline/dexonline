@@ -8,7 +8,7 @@ $(function() {
     placeholder: 'surse care atestă flexiunea',
     width: '100%',
   };
-  var similarLexemOptions = {
+  var similarLexemeOptions = {
     ajax: { url: wwwRoot + 'ajax/getLexemes.php' },
     minimumInputLength: 1,
     placeholder: 'sau indicați un lexem similar',
@@ -38,8 +38,8 @@ $(function() {
     initSelect2('#sourceIds', 'ajax/getSourcesById.php', lexemeSourceOptions);
 
     $('.similarLexem')
-      .select2(similarLexemOptions)
-      .on('change', similarLexemChange);
+      .select2(similarLexemeOptions)
+      .on('change', similarLexemeChange);
 
     $('input[name="compound"]').click(compoundToggle);
     $('#addFragmentButton').click(addFragment);
@@ -59,7 +59,7 @@ $(function() {
     $('select[name="modelNumber"]').prop('disabled', false);
   }
 
-  function similarLexemChange() {
+  function similarLexemeChange() {
     var lexemeId = $(this).find('option:selected').val();
     var url = wwwRoot + 'ajax/getModelByLexemeId.php?id=' + lexemeId;
     $.get(url)

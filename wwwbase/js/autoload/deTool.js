@@ -2,7 +2,7 @@ $(function() {
   var stem = null;
   var stemOption = null;
 
-  var lexemStruct = {
+  var lexemeStruct = {
     ajax: {
       url: wwwRoot + 'ajax/getLexemes.php',
     },
@@ -36,9 +36,9 @@ $(function() {
   };
 
   function init() {
-    initSelect2('.lexem', 'ajax/getLexemesById.php', lexemStruct);
+    initSelect2('.lexem', 'ajax/getLexemesById.php', lexemeStruct);
     initSelect2('.model', 'ajax/getModelsByCodes.php', modelStruct);
-    $('.lexem').change(lexemChange);
+    $('.lexem').change(lexemeChange);
     $('.model').change(modelChange);
     $('.shortcutI3').click(shortcutI3);
     $('#addRow').click(addRow);
@@ -50,13 +50,13 @@ $(function() {
 
   function addRow() {
     var r = stem.clone(true).appendTo('#lexemesTable');
-    r.find('.lexem').select2(lexemStruct);
+    r.find('.lexem').select2(lexemeStruct);
     r.find('.model').select2(modelStruct);
     return false;
   }
 
   // Refresh the model list
-  function lexemChange() {
+  function lexemeChange() {
     var lexemeId = $(this).val();
     var m = $(this).closest('tr').find('.model');
     m.html('');

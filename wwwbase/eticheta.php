@@ -82,7 +82,7 @@ $defs = Model::factory('Definition')
       ->find_many();
 $searchResults = SearchResult::mapDefinitionArray($defs);
 
-$lexemCount = Model::factory('ObjectTag')
+$lexemeCount = Model::factory('ObjectTag')
             ->where('objectType', ObjectTag::TYPE_LEXEM)
             ->where('tagId', $tag->id)
             ->count();
@@ -114,7 +114,7 @@ SmartyWrap::assign('canDelete', $canDelete);
 SmartyWrap::assign('homonyms', $homonyms);
 SmartyWrap::assign('defCount', $defCount);
 SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('lexemCount', $lexemCount);
+SmartyWrap::assign('lexemeCount', $lexemeCount);
 SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::assign('meaningCount', $meaningCount);
 SmartyWrap::assign('meanings', $meanings);

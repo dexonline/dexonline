@@ -188,8 +188,8 @@
   {if count($lexemes)}
     <h3>
       Lexeme asociate
-      {if $lexemCount > count($lexemes)}
-        ({count($lexemes)} din {$lexemCount} afișate)
+      {if $lexemeCount > count($lexemes)}
+        ({count($lexemes)} din {$lexemeCount} afișate)
       {else}
         ({count($lexemes)})
       {/if}

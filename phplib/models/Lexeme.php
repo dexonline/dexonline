@@ -588,7 +588,7 @@ class Lexeme extends BaseObject implements DatedObject {
             EntryDefinition::associate($entry->id, $d->id);
           }
         }
-        FlashMessage::addTemplate('dependentLexemCreated.tpl', [ 'lexeme' => $l ], 'info');
+        FlashMessage::addTemplate('dependentLexemeCreated.tpl', [ 'lexeme' => $l ], 'info');
       }
     }
   }

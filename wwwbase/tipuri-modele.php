@@ -64,20 +64,20 @@ if ($deleteId) {
 // Load model type table data
 $modelTypes = Model::factory('ModelType')->order_by_asc('code')->find_many();
 $modelCounts = array();
-$lexemCounts = array();
+$lexemeCounts = array();
 $canDelete = array();
 foreach ($modelTypes as $mt) {
   $numLexemes = Model::factory('Lexeme')->where('modelType', $mt->code)->count();
   $numDependants = Model::factory('ModelType')->where('canonical', $mt->code)->count();
   $modelCounts[] = Model::factory('FlexModel')->where('modelType', $mt->code)->count();
-  $lexemCounts[] = $numLexemes;
+  $lexemeCounts[] = $numLexemes;
   $canDelete[] = ($numLexemes == 0) && ($numDependants <= 1);
 }
 
 SmartyWrap::assign('canonicalModelTypes', ModelType::loadCanonical());
 SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('modelCounts', $modelCounts);
-SmartyWrap::assign('lexemCounts', $lexemCounts);
+SmartyWrap::assign('lexemeCounts', $lexemeCounts);
 SmartyWrap::assign('canDelete', $canDelete);
 SmartyWrap::assign('showAddForm', $showAddForm);
 SmartyWrap::display('tipuri-modele.tpl');

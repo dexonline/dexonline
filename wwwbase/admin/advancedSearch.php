@@ -15,7 +15,7 @@ $entryTagIds = Request::getArray('entryTagIds');
 $formNoAccent = Request::get('formNoAccent');
 $isLoc = Request::get('isLoc');
 $paradigm = Request::get('paradigm');
-$lexemTagIds = Request::getArray('lexemTagIds');
+$lexemeTagIds = Request::getArray('lexemeTagIds');
 
 // definition parameters
 $lexicon = Request::get('lexicon');
@@ -35,7 +35,7 @@ $submitButton = Request::has('submitButton');
 
 $q = Model::factory($view);
 $joinEntry = $joinLexem = $joinDefinition = false;
-$joinEntryTag = $joinLexemTag = false;
+$joinEntryTag = $joinLexemeTag = false;
 
 // process entry parameters
 if ($description) {
@@ -60,11 +60,11 @@ if (!empty($entryTagIds)) {
      ->where_in('eot.tagId', $entryTagIds);
 }
 
-if (!empty($lexemTagIds)) {
-  $joinLexem = $joinLexemTag = true;
+if (!empty($lexemeTagIds)) {
+  $joinLexem = $joinLexemeTag = true;
   $q = $q
      ->where('lot.objectType', ObjectTag::TYPE_LEXEM)
-     ->where_in('lot.tagId', $lexemTagIds);
+     ->where_in('lot.tagId', $lexemeTagIds);
 }
 
 // process lexeme parameters
@@ -172,7 +172,7 @@ if ($joinEntryTag) {
   $q = $q->join('ObjectTag', ['e.id', '=', 'eot.objectId'], 'eot');
 }
 
-if ($joinLexemTag) {
+if ($joinLexemeTag) {
   $q = $q->join('ObjectTag', ['l.id', '=', 'lot.objectId'], 'lot');
 }
 
@@ -199,8 +199,8 @@ $alias = $VIEW_DATA[$view]['alias'];
 $order = $VIEW_DATA[$view]['order'];
 $q = $q->table_alias($alias);
 
-if ($joinEntryTag || $joinLexemTag) {
-  $expectedCount = (count($entryTagIds) ?: 1) * (count($lexemTagIds) ?: 1);
+if ($joinEntryTag || $joinLexemeTag) {
+  $expectedCount = (count($entryTagIds) ?: 1) * (count($lexemeTagIds) ?: 1);
   $q = $q
      ->group_by("{$alias}.id")
      ->having_raw("count(*) = {$expectedCount}");

@@ -20,7 +20,7 @@
 {/if}
 
 {if $lexeme->notes}
-  <div class="lexemNotes">{$lexeme->notes|escape}</div>
+  <div class="lexemeNotes">{$lexeme->notes|escape}</div>
 {/if}
 
 {assign var=s value=$lexeme->getSourceNames()}

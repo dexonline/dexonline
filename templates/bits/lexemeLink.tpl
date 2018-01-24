@@ -3,7 +3,7 @@
 {$model=$model|default:true}
 {strip}
   <a href="{$wwwRoot}admin/lexemEdit.php?lexemeId={$lexeme->id}" class="{$class}" title="editează">
-    {include "bits/lexemName.tpl"}
+    {include "bits/lexemeName.tpl"}
   </a>
 {/strip}
 

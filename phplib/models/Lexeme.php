@@ -110,7 +110,7 @@ class Lexeme extends BaseObject implements DatedObject {
 
   function getObjectTags() {
     if ($this->objectTags === null) {
-      $this->objectTags = ObjectTag::getLexemTags($this->id);
+      $this->objectTags = ObjectTag::getLexemeTags($this->id);
     }
     return $this->objectTags;
   }

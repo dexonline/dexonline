@@ -117,14 +117,14 @@
             </div>
 
             {include "bits/fhf.tpl"
-            field="lexemDescription"
+            field="lexemeDescription"
             value=$lexeme->description
             label="descriere"
             placeholder="opțională, pentru diferențierea omonimelor"
             readonly=!$canEdit.description}
 
             {include "bits/fhf.tpl"
-            field="lexemNumber"
+            field="lexemeNumber"
             type="number"
             value=$lexeme->number
             label="număr"

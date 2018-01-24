@@ -6,8 +6,8 @@ Util::assertNotMirror();
 // Lexem parameters
 $lexemeId = Request::get('lexemeId');
 $lexemeForm = Request::get('lexemeForm');
-$lexemNumber = Request::get('lexemNumber');
-$lexemDescription = Request::get('lexemDescription');
+$lexemeNumber = Request::get('lexemeNumber');
+$lexemeDescription = Request::get('lexemeDescription');
 $needsAccent = Request::has('needsAccent');
 $stopWord = Request::has('stopWord');
 $hyphenations = Request::get('hyphenations');
@@ -65,7 +65,7 @@ if ($deleteButton) {
 }
 
 if ($refreshButton || $saveButton) {
-  populate($lexem, $original, $lexemeForm, $lexemNumber, $lexemDescription,
+  populate($lexem, $original, $lexemeForm, $lexemeNumber, $lexemeDescription,
            $needsAccent, $stopWord, $hyphenations, $pronunciations,
            $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
            $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
@@ -168,14 +168,14 @@ SmartyWrap::display('admin/lexemEdit.tpl');
 /**************************************************************************/
 
 // Populate lexeme fields from request parameters.
-function populate(&$lexem, &$original, $lexemeForm, $lexemNumber, $lexemDescription,
+function populate(&$lexem, &$original, $lexemeForm, $lexemeNumber, $lexemeDescription,
                   $needsAccent, $stopWord, $hyphenations, $pronunciations,
                   $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
                   $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
                   $tagIds) {
   $lexeme->setForm($lexemeForm);
-  $lexeme->number = $lexemNumber;
-  $lexeme->description = $lexemDescription;
+  $lexeme->number = $lexemeNumber;
+  $lexeme->description = $lexemeDescription;
   $lexeme->noAccent = !$needsAccent;
   $lexeme->stopWord = $stopWord;
   $lexeme->hyphenations = $hyphenations;

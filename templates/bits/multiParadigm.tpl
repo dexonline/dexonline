@@ -19,8 +19,8 @@
 
     {foreach $entry->getLexemes() as $lexem}
       <div class="paraLexem">
-        <div class="lexemData">
-          <span class="lexemName">{include "bits/lexemName.tpl" lexem=$lexem}</span>
+        <div class="lexemeData">
+          <span class="lexemeName">{include "bits/lexemeName.tpl" lexem=$lexem}</span>
 
           {foreach $lexeme->getTags() as $t}
             {include "bits/tag.tpl"}

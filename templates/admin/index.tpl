@@ -184,7 +184,7 @@
                 <div class="form-group">
                   <label class="col-xs-4 control-label">etichete</label>
                   <div class="col-xs-8">
-                    <select name="lexemTagIds[]" class="form-control select2Tags" multiple>
+                    <select name="lexemeTagIds[]" class="form-control select2Tags" multiple>
                     </select>
                   </div>
                 </div>

@@ -213,7 +213,7 @@
     {/if}
 
     {if count($e->getLexemes())}
-      <a class="btn btn-default" href="{$wwwRoot}definitie/{$e->getMainLexem()->formNoAccent}">
+      <a class="btn btn-default" href="{$wwwRoot}definitie/{$e->getMainLexeme()->formNoAccent}">
         <i class="glyphicon glyphicon-search"></i>
         caută
       </a>

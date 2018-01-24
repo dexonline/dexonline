@@ -176,7 +176,7 @@ class Entry extends BaseObject implements DatedObject {
   }
 
   // Returns the first main lexeme (or the first lexeme if none of them are main).
-  function getMainLexem() {
+  function getMainLexeme() {
     return Model::factory('Lexeme')
       ->table_alias('l')
       ->select('l.*')

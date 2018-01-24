@@ -11,7 +11,7 @@ if (!$model) {
     Util::redirect('scrabble');
 }
 
-$lexeme = getLexem($model->exponent, $model->modelType, $model->number);
+$lexeme = getLexeme($model->exponent, $model->modelType, $model->number);
 
 SmartyWrap::addCss('paradigm');
 SmartyWrap::assign('model', $model);
@@ -23,7 +23,7 @@ SmartyWrap::display('model-flexiune.tpl');
 /**
  * Returns a lexeme for a given word and model. Creates one if one doesn't exist.
  **/
-function getLexem($form, $modelType, $modelNumber) {
+function getLexeme($form, $modelType, $modelNumber) {
     // Load by canonical model, so if $modelType is V, look for a lexeme with type V or VT.
     $l = Model::factory('Lexeme')
         ->table_alias('l')

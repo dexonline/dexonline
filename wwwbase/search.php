@@ -253,7 +253,7 @@ if ($searchType == SEARCH_INFLECTED) {
   if (count($entries) == 1) {
     // Convenience redirect when there is only one correct form. We want all pages to be canonical.
     $e = $entries[0];
-    $l = $e->getMainLexem();
+    $l = $e->getMainLexeme();
     if ($cuv != $l->formNoAccent) {
       Session::set('redirect', true);
       Session::set('init_word', $cuv);

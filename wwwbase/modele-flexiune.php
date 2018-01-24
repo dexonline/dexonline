@@ -15,7 +15,7 @@ $models = FlexModel::loadByType($modelType->code);
 
 $lexemes = [];
 foreach ($models as $m) {
-  $lexemes[] = getLexem($m->exponent, $modelType->code, $m->number);
+  $lexemes[] = getLexeme($m->exponent, $modelType->code, $m->number);
 }
 DB::changeDatabase(DB::$database);
 
@@ -31,7 +31,7 @@ SmartyWrap::display('modele-flexiune.tpl');
 /**
  * Returns a lexeme for a given word and model. Creates one if one doesn't exist.
  **/
-function getLexem($form, $modelType, $modelNumber) {
+function getLexeme($form, $modelType, $modelNumber) {
   // Load by canonical model, so if $modelType is V, look for a lexeme with type V or VT.
   $l = Model::factory('Lexeme')
      ->table_alias('l')

@@ -313,7 +313,7 @@ function createLexemDeep($form, $modelType, $modelNumber, $restriction, $isLoc) 
   $e = Entry::createAndSave($l->formNoAccent);
   EntryLexeme::associate($e->id, $l->id);
 
-  // reload to flush the $entryLexems field
+  // reload to flush the $entryLexemes field
   return Lexeme::get_by_id($l->id);
 }
 

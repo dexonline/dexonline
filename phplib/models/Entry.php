@@ -35,7 +35,7 @@ class Entry extends BaseObject implements DatedObject {
     return $e;
   }
 
-  function _clone($cloneDefinitions, $cloneLexems, $cloneTrees, $cloneStructurist) {
+  function _clone($cloneDefinitions, $cloneLexemes, $cloneTrees, $cloneStructurist) {
     $e = $this->parisClone();
 
     if (!$cloneStructurist) {
@@ -48,7 +48,7 @@ class Entry extends BaseObject implements DatedObject {
       EntryDefinition::copy($this->id, $e->id, 1);
     }
 
-    if ($cloneLexems) {
+    if ($cloneLexemes) {
       EntryLexeme::copy($this->id, $e->id, 1, ['main' => true]);
       EntryLexeme::copy($this->id, $e->id, 1, ['main' => false]);
     }
@@ -82,7 +82,7 @@ class Entry extends BaseObject implements DatedObject {
    * Returns the list of lexemes sorted with main lexemes first. Excludes duplicate lexemes
    * and lexemes that have a form equal to the entry's description.
    **/
-  function getPrintableLexems() {
+  function getPrintableLexemes() {
     return Model::factory('Lexeme')
       ->table_alias('l')
       ->select('l.*')
@@ -202,7 +202,7 @@ class Entry extends BaseObject implements DatedObject {
     foreach ($entries as $e) {
       $entryIds[] = $e->id;
 
-      foreach ($e->getLexems() as $l) {
+      foreach ($e->getLexemes() as $l) {
         $homonymEntries = Model::factory('EntryLexeme')
                         ->table_alias('el')
                         ->select('el.entryId')

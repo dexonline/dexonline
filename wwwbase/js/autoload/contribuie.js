@@ -5,8 +5,8 @@ $(function() {
   function init() {
     window.setInterval(updatePreview, 5000);
 
-    initSelect2('#lexemeIds', 'ajax/getLexemsById.php', {
-      ajax: { url: wwwRoot + 'ajax/getLexems.php' },
+    initSelect2('#lexemeIds', 'ajax/getLexemesById.php', {
+      ajax: { url: wwwRoot + 'ajax/getLexemes.php' },
       createTag: allowNewOptions,
       minimumInputLength: 1,
       tags: true,

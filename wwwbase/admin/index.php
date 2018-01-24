@@ -44,8 +44,8 @@ $reports = [
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Lexeme neasociate cu nicio intrare',
-   'url' => 'admin/viewUnassociatedLexems',
-   'count' => Variable::peek('Count.unassociatedLexems'),
+   'url' => 'admin/viewUnassociatedLexemes',
+   'count' => Variable::peek('Count.unassociatedLexemes'),
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Arbori neasociați cu nicio intrare',
@@ -64,17 +64,17 @@ $reports = [
    'privilege' => User::PRIV_STRUCT
   ],
   ['text' => 'Lexeme fără accent',
-   'url' => 'admin/viewLexemsWithoutAccents',
+   'url' => 'admin/viewLexemesWithoutAccents',
    'count' => Variable::peek('Count.lexemesWithoutAccent'),
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Lexeme ambigue',
-   'url' => 'admin/viewAmbiguousLexems',
+   'url' => 'admin/viewAmbiguousLexemes',
    'count' => Variable::peek('Count.ambiguousLexemes'),
    'privilege' => User::PRIV_EDIT
   ],
   ['text' => 'Lexeme fără paradigme',
-   'url' => 'admin/viewTemporaryLexems',
+   'url' => 'admin/viewTemporaryLexemes',
    'count' => Variable::peek('Count.temporaryLexemes'),
    'privilege' => User::PRIV_EDIT
   ],

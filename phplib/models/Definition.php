@@ -187,7 +187,7 @@ class Definition extends BaseObject implements DatedObject {
       $lexemMap[] = $lexemeIds;
 
       // Get the FullTextIndex records for each form. Note that the FTI excludes stop words.
-      $defIds = FullTextIndex::loadDefinitionIdsForLexems($lexemeIds, $sourceId);
+      $defIds = FullTextIndex::loadDefinitionIdsForLexemes($lexemeIds, $sourceId);
 
       // Determine whether the word is a stop word.
       if (empty($defIds)) {

@@ -7,4 +7,4 @@ $lexems = Lexeme::loadAmbiguous();
 
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewAmbiguousLexems.tpl');
+SmartyWrap::display('admin/viewAmbiguousLexemes.tpl');

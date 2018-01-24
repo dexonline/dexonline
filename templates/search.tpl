@@ -114,7 +114,7 @@
         <h3>
           {include "bits/count.tpl"
           displayed=count($lexems)
-          total=$extra.numLexems|default:0
+          total=$extra.numLexemes|default:0
           none="Niciun rezultat"
           one="Un rezultat"
           many="rezultate"

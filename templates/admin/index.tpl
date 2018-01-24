@@ -303,7 +303,7 @@
             </span>
 
             <div class="btn-group">
-              <button type="submit" class="btn btn-default" name="showLexems">
+              <button type="submit" class="btn btn-default" name="showLexemes">
                 arată toate lexemele
               </button>
               <button type="submit" class="btn btn-default" name="editModel">
@@ -325,7 +325,7 @@
         <div class="voffset2"></div>
 
         <p>
-          <a href="../admin/mergeLexems.php">unificare plural-singular</a>
+          <a href="../admin/mergeLexemes.php">unificare plural-singular</a>
 
           <span class="text-muted">
             pentru familiile de plante și animale și pentru alte lexeme care apar

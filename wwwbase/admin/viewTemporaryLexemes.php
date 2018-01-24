@@ -31,4 +31,4 @@ if ($sourceId) {
 
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewTemporaryLexems.tpl');
+SmartyWrap::display('admin/viewTemporaryLexemes.tpl');

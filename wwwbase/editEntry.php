@@ -75,11 +75,11 @@ if ($mergeButton) {
 
 if ($cloneButton) {
   $cloneDefinitions = Request::has('cloneDefinitions');
-  $cloneLexems = Request::has('cloneLexems');
+  $cloneLexemes = Request::has('cloneLexemes');
   $cloneTrees = Request::has('cloneTrees');
   $cloneStructurist = Request::has('cloneStructurist');
 
-  $newe = $e->_clone($cloneDefinitions, $cloneLexems, $cloneTrees, $cloneStructurist);
+  $newe = $e->_clone($cloneDefinitions, $cloneLexemes, $cloneTrees, $cloneStructurist);
   Log::info("Cloned entry {$e->id} ({$e->description}), new id {$newe->id}");
   FlashMessage::add('Am clonat intrarea.', 'success');
   Util::redirect("?id={$newe->id}");
@@ -117,7 +117,7 @@ if ($delete) {
 
 // Delete the entry, its T1 lexemes and its empty trees.
 if ($deleteExt) {
-  foreach ($e->getLexems() as $l) {
+  foreach ($e->getLexemes() as $l) {
     if (($l->modelType == 'T') &&
         ($l->canDelete() == Lexeme::CAN_DELETE_OK)) {
       $l->delete();

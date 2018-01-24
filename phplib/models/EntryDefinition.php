@@ -16,7 +16,7 @@ class EntryDefinition extends Association implements DatedObject {
       $otherEds = EntryDefinition::get_all_by_entryId($e->id);
       if (!count($otherEds)) {
         // Also delete any T1 lexems that are only associated with this entry.
-        $lexems = $e->getLexems();
+        $lexems = $e->getLexemes();
         foreach ($lexems as $l) {
           if (($l->modelType == 'T') &&
               (count($l->getEntries()) == 1)) {

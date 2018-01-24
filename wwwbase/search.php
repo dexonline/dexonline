@@ -196,7 +196,7 @@ if ($entryId) {
 // Count all the results, but load at most 1,000
 if ($hasRegexp) {
   $searchType = SEARCH_REGEXP;
-  $extra['numLexems'] = Lexeme::searchRegexp($cuv, $hasDiacritics, $sourceId, true);
+  $extra['numLexemes'] = Lexeme::searchRegexp($cuv, $hasDiacritics, $sourceId, true);
   $lexems = Lexeme::searchRegexp($cuv, $hasDiacritics, $sourceId);
 }
 
@@ -346,7 +346,7 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
   $conjugations = false;
   $declensions = false;
   foreach ($entries as $e) {
-    foreach ($e->getLexems() as $l) {
+    foreach ($e->getLexemes() as $l) {
       $isVerb = ($l->modelType == 'V') || ($l->modelType == 'VT');
       $conjugations |= $isVerb;
       $declensions |= !$isVerb;
@@ -360,7 +360,7 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
   // Check if any of the inflected forms are unrecommended
   $hasUnrecommendedForms = false;
   foreach ($entries as $e) {
-    foreach ($e->getLexems() as $l) {
+    foreach ($e->getLexemes() as $l) {
       $l->getModelType();
       $l->getSourceNames();
       $map = $l->loadInflectedFormMap();

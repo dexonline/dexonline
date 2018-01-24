@@ -19,15 +19,15 @@ foreach ($lexems as $l) {
 
 Log::info("Scanning full text index");
 $dbResult = DB::execute("select lexemeId from FullTextIndex group by lexemeId order by count(*)");
-$numLexems = $dbResult->rowCount();
+$numLexemes = $dbResult->rowCount();
 $i = 0;
 foreach ($dbResult as $row) {
   $lexeme = Lexeme::get_by_id($row[0]);
-  $lexeme->frequency = round($i / $numLexems + 0.005, 2);
+  $lexeme->frequency = round($i / $numLexemes + 0.005, 2);
   $lexeme->save();
   $i++;
   if ($i % 10000 == 0) {
-    Log::info("$i of $numLexems labeled");
+    Log::info("$i of $numLexemes labeled");
   }
 }
 

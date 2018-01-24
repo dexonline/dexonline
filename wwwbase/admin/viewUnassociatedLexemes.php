@@ -7,4 +7,4 @@ $lexems = Lexeme::getUnassociated();
 
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/viewUnassociatedLexems.tpl');
+SmartyWrap::display('admin/viewUnassociatedLexemes.tpl');

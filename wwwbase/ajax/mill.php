@@ -54,8 +54,8 @@ $options[$answer] = [
 ];
 $used[$maindef->definitionId] = 1;
 
-$closestLexemsDefinitionsCount = null;
-$closestLexemsDefinitions = null;
+$closestLexemesDefinitionsCount = null;
+$closestLexemesDefinitions = null;
 if ($difficulty > 1) {
   $nearLexemeIds = NGram::searchLexemeIds($word);
   arsort($nearLexemeIds);
@@ -63,12 +63,12 @@ if ($difficulty > 1) {
   $closestLexemeIds = array_slice($nearLexemeIds, 0, $lexemPoolSize, true);
   $closestLexemeIds = array_keys($closestLexemeIds);
   
-  $closestLexemsDefinitions = getSimpleDefinitionsForLexemeIds($closestLexemeIds);
-  $closestLexemsDefinitionsCount = count($closestLexemsDefinitions);
+  $closestLexemesDefinitions = getSimpleDefinitionsForLexemeIds($closestLexemeIds);
+  $closestLexemesDefinitionsCount = count($closestLexemesDefinitions);
   
   //if there are no close lexeme definitions to choose from 
   //then use easier difficulty
-  if ($closestLexemsDefinitionsCount == 0) {
+  if ($closestLexemesDefinitionsCount == 0) {
     $difficulty = 1;
   }
 }
@@ -81,16 +81,16 @@ for ($i = 1; $i <= 4; $i++) {
         $aux = rand(0, $count - 1);
         $def = Model::factory('DefinitionSimple')->limit(1)->offset($aux)->find_one();
       } else {
-        $aux = rand(0, $closestLexemsDefinitionsCount - 1);
-        $def = $closestLexemsDefinitions[$aux];
+        $aux = rand(0, $closestLexemesDefinitionsCount - 1);
+        $def = $closestLexemesDefinitions[$aux];
         
-        unset($closestLexemsDefinitions[$aux]);
-        $closestLexemsDefinitions = array_values($closestLexemsDefinitions);
-        $closestLexemsDefinitionsCount--;
+        unset($closestLexemesDefinitions[$aux]);
+        $closestLexemesDefinitions = array_values($closestLexemesDefinitions);
+        $closestLexemesDefinitionsCount--;
         
         //if we run out of close lexeme definitions to use 
         //then use easier difficulty
-        if ($closestLexemsDefinitionsCount == 0) {
+        if ($closestLexemesDefinitionsCount == 0) {
           $difficulty = 1;
         }
       }

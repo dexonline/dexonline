@@ -17,7 +17,7 @@
 
   <div class="panel-body">
 
-    {foreach $entry->getLexems() as $lexem}
+    {foreach $entry->getLexemes() as $lexem}
       <div class="paraLexem">
         <div class="lexemData">
           <span class="lexemName">{include "bits/lexemName.tpl" lexem=$lexem}</span>

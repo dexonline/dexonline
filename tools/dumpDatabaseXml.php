@@ -28,7 +28,7 @@ dumpDefinitions("SELECT * FROM Definition WHERE sourceId IN (SELECT id FROM Sour
 dumpEntries("SELECT * FROM Entry where modDate < $TODAY_TIMESTAMP",
             "$REMOTE_FOLDER/$TODAY-entries.xml.gz",
             'dumping entries');
-dumpLexems("SELECT * FROM Lexem where modDate < $TODAY_TIMESTAMP",
+dumpLexemes("SELECT * FROM Lexem where modDate < $TODAY_TIMESTAMP",
            "$REMOTE_FOLDER/$TODAY-lexems.xml.gz",
            'dumping lexems and inflected forms');
 dumpEd("SELECT ed.entryId, ed.definitionId FROM EntryDefinition ed " .
@@ -59,7 +59,7 @@ if ($LAST_DUMP) {
               "$REMOTE_FOLDER/$TODAY-entries-diff.xml.gz",
               'dumping entries diff');
 
-  dumpLexems("SELECT * FROM Lexem where modDate >= $LAST_DUMP_TIMESTAMP AND modDate < $TODAY_TIMESTAMP",
+  dumpLexemes("SELECT * FROM Lexem where modDate >= $LAST_DUMP_TIMESTAMP AND modDate < $TODAY_TIMESTAMP",
              "$REMOTE_FOLDER/$TODAY-lexems-diff.xml.gz",
              'dumping lexems and inflected forms diff');
 
@@ -211,7 +211,7 @@ function dumpEntries($query, $remoteFile, $message) {
   unlink($tmpFile);
 }
 
-function dumpLexems($query, $remoteFile, $message) {
+function dumpLexemes($query, $remoteFile, $message) {
   global $FTP;
 
   Log::info($message);

@@ -212,7 +212,7 @@
       </a>
     {/if}
 
-    {if count($e->getLexems())}
+    {if count($e->getLexemes())}
       <a class="btn btn-default" href="{$wwwRoot}definitie/{$e->getMainLexem()->formNoAccent}">
         <i class="glyphicon glyphicon-search"></i>
         caută
@@ -321,7 +321,7 @@
             </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="cloneLexems" checked>
+                <input type="checkbox" name="cloneLexemes" checked>
                 copiază asocierile cu lexeme
               </label>
             </div>

@@ -44,7 +44,7 @@ if ($saveButton) {
   foreach ($lexemsToDelete as $lexem) {
     $lexeme->delete();
   }
-  Util::redirect("mergeLexems.php?modelType={$modelType}");
+  Util::redirect("mergeLexemes.php?modelType={$modelType}");
 }
 
 $PLURAL_INFLECTIONS = array(3, 11, 19, 27, 35);
@@ -109,7 +109,7 @@ foreach ($dbResult as $row) {
 SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::addCss('admin');
-SmartyWrap::display('admin/mergeLexems.tpl');
+SmartyWrap::display('admin/mergeLexemes.tpl');
 
 
 /***************************************************/

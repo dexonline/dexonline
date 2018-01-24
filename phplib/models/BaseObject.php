@@ -27,7 +27,7 @@ class BaseObject extends Model {
   // Handle calls like $foo->getBars() and $foo->getBarIds() for associated objects
   // Optional arguments:
   //   - $payLoad: array($field => $value, ...). If set, bypasses the cache.
-  // Example: $entry->getLexems(['main' => true])
+  // Example: $entry->getLexemes(['main' => true])
   function associationHandler($name, $arguments) {
     $cleft = get_called_class(); // capitalized
     $left = strtolower($cleft);

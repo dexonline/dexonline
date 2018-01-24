@@ -67,11 +67,11 @@ $modelCounts = array();
 $lexemCounts = array();
 $canDelete = array();
 foreach ($modelTypes as $mt) {
-  $numLexems = Model::factory('Lexeme')->where('modelType', $mt->code)->count();
+  $numLexemes = Model::factory('Lexeme')->where('modelType', $mt->code)->count();
   $numDependants = Model::factory('ModelType')->where('canonical', $mt->code)->count();
   $modelCounts[] = Model::factory('FlexModel')->where('modelType', $mt->code)->count();
-  $lexemCounts[] = $numLexems;
-  $canDelete[] = ($numLexems == 0) && ($numDependants <= 1);
+  $lexemCounts[] = $numLexemes;
+  $canDelete[] = ($numLexemes == 0) && ($numDependants <= 1);
 }
 
 SmartyWrap::assign('canonicalModelTypes', ModelType::loadCanonical());
@@ -105,9 +105,9 @@ function validateEdit($mt) {
 }
 
 function validateDelete($mt) {
-  $numLexems = Model::factory('Lexeme')->where('modelType', $mt->code)->count();
-  if ($numLexems) {
-    FlashMessage::add("Nu pot șterge tipul '{$mt->code}', deoarece este folosit de {$numLexems} lexeme.");
+  $numLexemes = Model::factory('Lexeme')->where('modelType', $mt->code)->count();
+  if ($numLexemes) {
+    FlashMessage::add("Nu pot șterge tipul '{$mt->code}', deoarece este folosit de {$numLexemes} lexeme.");
   }
   $numDependants = Model::factory('ModelType')->where('canonical', $mt->code)->count();
   if ($numDependants > 1) {

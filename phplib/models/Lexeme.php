@@ -511,14 +511,14 @@ class Lexeme extends BaseObject implements DatedObject {
     }
   }
 
-  function regenerateDependentLexems() {
+  function regenerateDependentLexemes() {
     if ($this->modelType == 'VT') {
       $infl = Inflection::loadParticiple();
 
       $pm = ParticipleModel::get_by_verbModel($this->modelNumber);
       $number = $pm->adjectiveModel;
 
-      $this->_regenerateDependentLexemsHelper($infl, 'A', 'PT', $number);
+      $this->_regenerateDependentLexemesHelper($infl, 'A', 'PT', $number);
     }
     if (in_array($this->modelType, ['V', 'VT'])) {
       $infl = Inflection::loadLongInfinitive();
@@ -528,11 +528,11 @@ class Lexeme extends BaseObject implements DatedObject {
       $are = $longInfinitive && Str::endsWith($longInfinitive->formNoAccent, 'are');
       $number = $are ? 113 : 107;
 
-      $this->_regenerateDependentLexemsHelper($infl, 'F', 'IL', $number);
+      $this->_regenerateDependentLexemesHelper($infl, 'F', 'IL', $number);
     }
   }
 
-  private function _regenerateDependentLexemsHelper($infl, $genericType, $dedicatedType, $number) {
+  private function _regenerateDependentLexemesHelper($infl, $genericType, $dedicatedType, $number) {
     $ifs = InflectedForm::get_all_by_lexemeId_inflectionId($this->id, $infl->id);
 
     foreach ($ifs as $if) {

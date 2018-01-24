@@ -2,7 +2,7 @@
 $(function() {
   function init() {
     $('#lexemeId').select2({
-      ajax: { url: wwwRoot + 'ajax/getLexems.php', },
+      ajax: { url: wwwRoot + 'ajax/getLexemes.php', },
       minimumInputLength: 1,
       placeholder: 'caută un lexem',
       width: '100%',

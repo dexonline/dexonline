@@ -2,8 +2,8 @@ $(function() {
 
   function init() {
 
-    initSelect2('#mainLexemeIds, #variantLexemeIds', 'ajax/getLexemsById.php', {
-      ajax: { url: wwwRoot + 'ajax/getLexems.php' },
+    initSelect2('#mainLexemeIds, #variantLexemeIds', 'ajax/getLexemesById.php', {
+      ajax: { url: wwwRoot + 'ajax/getLexemes.php' },
       minimumInputLength: 1,
       templateSelection: formatLexemWithEditLink,
     });
@@ -148,7 +148,7 @@ $(function() {
       to.append(new Option('', lexemeId, true, true));
     });
     from.val(null).trigger('change');
-    refreshSelect2(toId, 'ajax/getLexemsById.php');
+    refreshSelect2(toId, 'ajax/getLexemesById.php');
   }
 
   init();

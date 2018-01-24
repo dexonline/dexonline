@@ -135,7 +135,7 @@ class Util {
       count(Entry::loadUnassociated())
     );
     Variable::poke(
-      'Count.unassociatedLexems',
+      'Count.unassociatedLexemes',
       Lexeme::countUnassociated()
     );
     Variable::poke(

@@ -5,7 +5,7 @@ Util::assertNotMirror();
 
 $modelType = Request::get('modelType');
 $modelNumber = Request::get('modelNumber');
-$showLexemsButton = Request::has('showLexems');
+$showLexemesButton = Request::has('showLexemes');
 $editModelButton = Request::has('editModel');
 $cloneModelButton = Request::has('cloneModel');
 $deleteModelButton = Request::has('deleteModel');
@@ -14,8 +14,8 @@ $args = sprintf("modelType=%s&modelNumber=%s",
                 urlencode($modelType),
                 urlencode($modelNumber));
 
-if ($showLexemsButton) {
-  Util::redirect("viewLexemsByModel.php?$args");
+if ($showLexemesButton) {
+  Util::redirect("viewLexemesByModel.php?$args");
 } else if ($editModelButton) {
   $modelType = ModelType::canonicalize($modelType);
   $m = FlexModel::get_by_modelType_number($modelType, $modelNumber);

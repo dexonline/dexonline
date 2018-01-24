@@ -82,7 +82,7 @@ if ($refreshButton || $saveButton) {
         $original->deleteLongInfinitive();
       }
       $lexeme->deepSave();
-      $lexeme->regenerateDependentLexems();
+      $lexeme->regenerateDependentLexemes();
       LexemSource::update($lexeme->id, $sourceIds);
       EntryLexeme::update($entryIds, $lexeme->id);
 

@@ -18,7 +18,7 @@
 
 {if $variantList}
   <span class="variantList">
-    {foreach $entry->getPrintableLexems() as $l}
+    {foreach $entry->getPrintableLexemes() as $l}
       <span {if !$l->main}class="text-muted"{/if}>
         {$l->formNoAccent}
       </span>

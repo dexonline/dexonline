@@ -4,7 +4,7 @@ $(function() {
 
   var lexemStruct = {
     ajax: {
-      url: wwwRoot + 'ajax/getLexems.php',
+      url: wwwRoot + 'ajax/getLexemes.php',
     },
     allowClear: true,
     createTag: allowNewOptions,
@@ -36,7 +36,7 @@ $(function() {
   };
 
   function init() {
-    initSelect2('.lexem', 'ajax/getLexemsById.php', lexemStruct);
+    initSelect2('.lexem', 'ajax/getLexemesById.php', lexemStruct);
     initSelect2('.model', 'ajax/getModelsByCodes.php', modelStruct);
     $('.lexem').change(lexemChange);
     $('.model').change(modelChange);

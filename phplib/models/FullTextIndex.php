@@ -3,7 +3,7 @@
 class FullTextIndex extends BaseObject {
   public static $_table = 'FullTextIndex';
 
-  static function loadDefinitionIdsForLexems($lexemeIds, $sourceId) {
+  static function loadDefinitionIdsForLexemes($lexemeIds, $sourceId) {
     if (empty($lexemeIds)) {
       return [];
     }

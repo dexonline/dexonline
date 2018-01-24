@@ -9,13 +9,13 @@ $(function() {
     width: '100%',
   };
   var similarLexemOptions = {
-    ajax: { url: wwwRoot + 'ajax/getLexems.php' },
+    ajax: { url: wwwRoot + 'ajax/getLexemes.php' },
     minimumInputLength: 1,
     placeholder: 'sau indicați un lexem similar',
     width: '250px',
   };
   var fragmentOptions = {
-    ajax: { url: wwwRoot + 'ajax/getLexems.php' },
+    ajax: { url: wwwRoot + 'ajax/getLexemes.php' },
     minimumInputLength: 1,
     placeholder: 'fragment',
     width: '180px',
@@ -47,7 +47,7 @@ $(function() {
     $('#fragmentContainer').on('click', '.capitalized', capitalizedToggle);
     $('#fragmentContainer').on('click', '.deleteFragmentButton', deleteFragment);
 
-    initSelect2('.fragment', 'ajax/getLexemsById.php', fragmentOptions);
+    initSelect2('.fragment', 'ajax/getLexemesById.php', fragmentOptions);
   }
 
   function saveEverything() {

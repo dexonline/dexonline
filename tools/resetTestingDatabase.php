@@ -185,7 +185,7 @@ $d5 = createDefinition(
 linii    pentru a    testa spațierea.',
   'spațiere', $john->id, $klingon->id, Definition::ST_ACTIVE);
 
-// lexem-definition maps
+// lexeme-definition maps
 EntryDefinition::associate($l1->getEntries()[0]->id, $d1->id);
 EntryDefinition::associate($l2->getEntries()[0]->id, $d2->id);
 EntryDefinition::associate($l4->getEntries()[0]->id, $d3->id);

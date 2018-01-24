@@ -36,9 +36,9 @@ $(function() {
   };
 
   function init() {
-    initSelect2('.lexem', 'ajax/getLexemesById.php', lexemeStruct);
+    initSelect2('.lexeme', 'ajax/getLexemesById.php', lexemeStruct);
     initSelect2('.model', 'ajax/getModelsByCodes.php', modelStruct);
-    $('.lexem').change(lexemeChange);
+    $('.lexeme').change(lexemeChange);
     $('.model').change(modelChange);
     $('.shortcutI3').click(shortcutI3);
     $('#addRow').click(addRow);
@@ -50,7 +50,7 @@ $(function() {
 
   function addRow() {
     var r = stem.clone(true).appendTo('#lexemesTable');
-    r.find('.lexem').select2(lexemeStruct);
+    r.find('.lexeme').select2(lexemeStruct);
     r.find('.model').select2(modelStruct);
     return false;
   }
@@ -60,7 +60,7 @@ $(function() {
     var lexemeId = $(this).val();
     var m = $(this).closest('tr').find('.model');
     m.html('');
-    
+
     if (lexemeId == null) {
       // lexeme field cleared
       m.trigger('change');

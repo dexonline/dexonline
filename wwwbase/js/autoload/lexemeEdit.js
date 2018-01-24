@@ -37,7 +37,7 @@ $(function() {
 
     initSelect2('#sourceIds', 'ajax/getSourcesById.php', lexemeSourceOptions);
 
-    $('.similarLexem')
+    $('.similarLexeme')
       .select2(similarLexemeOptions)
       .on('change', similarLexemeChange);
 

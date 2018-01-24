@@ -55,7 +55,7 @@ do {
     ->offset(rand(0, $count - 1))
     ->find_one();
 
-  // select all the definitions for the given lexem
+  // select all the definitions for the given lexeme
   $defs = Model::factory('Definition')
         ->table_alias('d')
         ->select('d.*')

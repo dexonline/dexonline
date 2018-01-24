@@ -51,7 +51,7 @@ if ($sendButton) {
 
     foreach ($lexemeIds as $lexemeId) {
       if (Str::startsWith($lexemeId, '@')) {
-        // create a new lexem
+        // create a new lexeme
         $lexeme = Lexeme::create(substr($lexemeId, 1), 'T', '1');
         $lexeme->deepSave();
         $entry = Entry::createAndSave($lexeme);

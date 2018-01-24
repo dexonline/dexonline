@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
@@ -98,7 +98,7 @@ foreach ($lexemes as $l) {
   $lMatrix[] = $lArray;
 }
 
-// Load the definitions for each lexem
+// Load the definitions for each lexeme
 $searchResults = array();
 foreach ($lexemes as $l) {
   $definitions = Definition::loadByEntryIds($l->getEntryIds());

@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 ini_set('memory_limit', '512M');
 ini_set('max_execution_time', '3600');
 User::mustHave(User::PRIV_EDIT);
@@ -107,7 +107,7 @@ if (!$previewButton && !$saveButton) {
       }
     }
   }
-  
+
   // Load the affected lexemes. For each lexeme, inflection and transform
   // list, generate a new form.
   $limit = ($shortList && !$saveButton) ? SHORT_LIST_LIMIT : 0;
@@ -156,7 +156,7 @@ if (!$previewButton && !$saveButton) {
 
   if ($saveButton) {
     Log::notice("Saving model {$m->id} ({$m}), this could take a while");
-    
+
     // Save the transforms and model descriptions
     Log::debug('Saving transforms and model descriptions');
     foreach ($regenTransforms as $inflId => $transformMatrix) {
@@ -201,7 +201,7 @@ if (!$previewButton && !$saveButton) {
       }
     }
 
-    // Regenerate the affected inflections for every lexem
+    // Regenerate the affected inflections for every lexeme
     Log::debug('Regenerating modified inflections');
     if (count($regenTransforms)) {
       $fileName = tempnam(Core::getTempPath(), 'editModel_');

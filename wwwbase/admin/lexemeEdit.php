@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT | User::PRIV_STRUCT);
 Util::assertNotMirror();
 
@@ -45,8 +45,8 @@ $original = Lexeme::get_by_id($lexemeId); // Keep a copy so we can test whether 
 
 if ($cloneButton) {
   $newLexeme = $lexeme->_clone();
-  Log::notice("Cloned lexeme {$lexeme->id} ({$lexeme->formNoAccent}), new id is {$newLexem->id}");
-  Util::redirect("lexemEdit.php?lexemeId={$newLexem->id}");
+  Log::notice("Cloned lexeme {$lexeme->id} ({$lexeme->formNoAccent}), new id is {$newLexeme->id}");
+  Util::redirect("lexemEdit.php?lexemeId={$newLexeme->id}");
 }
 
 if ($deleteButton) {
@@ -267,7 +267,7 @@ function validate($lexeme, $original) {
       FlashMessage::add("Restricția <strong>$c</strong> nu se aplică modelului <strong>{$lexeme->modelType}.</strong>");
     }
   }
-  
+
   try {
     $ifs = $lexeme->generateInflectedForms();
   } catch (ParadigmException $pe) {

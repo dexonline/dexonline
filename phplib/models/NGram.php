@@ -45,7 +45,7 @@ class NGram extends BaseObject {
              ->where_gte('charLength', $leng - self::$LENGTH_DIF)
              ->where_lte('charLength', $leng + self::$LENGTH_DIF)
              ->find_one();
-      if ($lexem) {
+      if ($lexeme) {
         $lexemes[] = $lexem;
         if (count($lexemes) == self::$MAX_RESULTS) {
           break;
@@ -55,7 +55,7 @@ class NGram extends BaseObject {
 
     // Sort the lexemes by their Levenshtein distance from $cuv
     $distances = [];
-    foreach ($lexemes as $lexem) {
+    foreach ($lexemes as $lexeme) {
       $distances[] = Levenshtein::dist($cuv, $lexeme->formNoAccent);
     }
     array_multisort($distances, $lexemes);

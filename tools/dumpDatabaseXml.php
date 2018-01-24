@@ -222,7 +222,7 @@ function dumpLexemes($query, $remoteFile, $message) {
   gzwrite($file, "<Lexems>\n");
   foreach($results as $row) {
     $lexeme = Model::factory('Lexeme')->create($row);
-    SmartyWrap::assign('lexeme', $lexem);
+    SmartyWrap::assign('lexeme', $lexeme);
     gzwrite($file, SmartyWrap::fetch('xml/xmldump/lexem.tpl'));
   }
   gzwrite($file, "</Lexems>\n");

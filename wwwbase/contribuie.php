@@ -54,7 +54,7 @@ if ($sendButton) {
         // create a new lexem
         $lexeme = Lexeme::create(substr($lexemeId, 1), 'T', '1');
         $lexeme->deepSave();
-        $entry = Entry::createAndSave($lexem);
+        $entry = Entry::createAndSave($lexeme);
         EntryLexeme::associate($entry->id, $lexeme->id);
         EntryDefinition::associate($entry->id, $d->id);
         Log::notice("Created lexeme {$lexeme->id} ({$lexeme->form}) for definition {$d->id}");

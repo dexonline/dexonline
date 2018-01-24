@@ -41,7 +41,7 @@ if ($saveButton) {
       $lexemesToDelete[] = $src;
     }
   }
-  foreach ($lexemesToDelete as $lexem) {
+  foreach ($lexemesToDelete as $lexeme) {
     $lexeme->delete();
   }
   Util::redirect("mergeLexemes.php?modelType={$modelType}");
@@ -80,7 +80,7 @@ foreach ($dbResult as $row) {
     // $lexeme->loadInflectedForms();
     // When a plural LOC lexeme is merged into a non-LOC singular, we end up losing some word forms from LOC.
     // Therefore, we have to add the singular lexeme to LOC as well. Matei says it is ok to expand LOC this way.
-    $srcIfs = loadIfArray($lexem);
+    $srcIfs = loadIfArray($lexeme);
     foreach ($lexeme->matches as $match) {
       $destIfs = loadIfArray($match);
       $addedForms = array();
@@ -115,7 +115,7 @@ SmartyWrap::display('admin/mergeLexemes.tpl');
 /***************************************************/
 
 /** Returns an array containing only the accented forms, not the entire InflectedForm objects **/
-function loadIfArray($lexem) {
+function loadIfArray($lexeme) {
   $ifs = $lexeme->loadInflectedForms();
   return Util::objectProperty($ifs, 'form');
 }

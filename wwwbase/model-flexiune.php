@@ -15,7 +15,7 @@ $lexeme = getLexeme($model->exponent, $model->modelType, $model->number);
 
 SmartyWrap::addCss('paradigm');
 SmartyWrap::assign('model', $model);
-SmartyWrap::assign('lexeme', $lexem);
+SmartyWrap::assign('lexeme', $lexeme);
 SmartyWrap::display('model-flexiune.tpl');
 
 /*************************************************************************/

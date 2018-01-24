@@ -129,7 +129,7 @@ if ($endDate) {
 // assemble the joins -- can't seem to do it any better than the naive way
 switch ($view) {
   case 'Entry':
-    if ($joinLexem) {
+    if ($joinLexeme) {
       $q = $q
          ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
          ->join('Lexeme', ['el.lexemeId', '=', 'l.id'], 'l');
@@ -155,12 +155,12 @@ switch ($view) {
     break;
 
   case 'Definition':
-    if ($joinEntry || $joinLexem) {
+    if ($joinEntry || $joinLexeme) {
       $q = $q
          ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
          ->join('Entry', ['ed.entryId', '=', 'e.id'], 'e');
     }
-    if ($joinLexem) {
+    if ($joinLexeme) {
       $q = $q
          ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
          ->join('Lexeme', ['el.lexemeId', '=', 'l.id'], 'l');

@@ -24,3 +24,7 @@ alter table NGram
 
 alter table diverta_Index
   change lexemId lexemeId int not null default 0;
+
+update Variable
+  set name = 'Count.unassociatedLexemes'
+  where name = 'Count.unassociatedLexems';

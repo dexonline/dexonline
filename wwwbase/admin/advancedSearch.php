@@ -63,7 +63,7 @@ if (!empty($entryTagIds)) {
 if (!empty($lexemeTagIds)) {
   $joinLexeme = $joinLexemeTag = true;
   $q = $q
-     ->where('lot.objectType', ObjectTag::TYPE_LEXEM)
+     ->where('lot.objectType', ObjectTag::TYPE_LEXEME)
      ->where_in('lot.tagId', $lexemeTagIds);
 }
 

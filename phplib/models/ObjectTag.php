@@ -4,7 +4,7 @@ class ObjectTag extends BaseObject implements DatedObject {
   public static $_table = 'ObjectTag';
 
   const TYPE_DEFINITION = 1;
-  const TYPE_LEXEM = 2;
+  const TYPE_LEXEME = 2;
   const TYPE_MEANING = 3;
   const TYPE_SOURCE = 4;
   const TYPE_DEFINITION_VERSION = 5;
@@ -24,7 +24,7 @@ class ObjectTag extends BaseObject implements DatedObject {
   }
 
   static function getLexemeTags($lexemeId) {
-    return self::getAllByIdType($lexemeId, self::TYPE_LEXEM);
+    return self::getAllByIdType($lexemeId, self::TYPE_LEXEME);
   }
 
   static function getMeaningTags($meaningId) {

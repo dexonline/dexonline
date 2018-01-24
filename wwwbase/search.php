@@ -10,7 +10,7 @@ define('SEARCH_APPROXIMATE', 3);
 define('SEARCH_DEF_ID', 4);
 define('SEARCH_ENTRY_ID', 5);
 define('SEARCH_FULL_TEXT', 6);
-define('SEARCH_LEXEM_ID', 7);
+define('SEARCH_LEXEME_ID', 7);
 
 define('LIMIT_FULLTEXT_DISPLAY', Config::get('limits.limitFulltextSearch', 500));
 define('PREVIEW_LIMIT', 20); // how many definitions to show by default
@@ -132,7 +132,7 @@ if ($defId) {
 
 // Lexem.id search
 if ($lexemeId) {
-  $searchType = SEARCH_LEXEM_ID;
+  $searchType = SEARCH_LEXEME_ID;
   $l = Lexeme::get_by_id($lexemeId);
   if (!$l || empty($l->getEntries())) {
     Util::redirect(Core::getWwwRoot());

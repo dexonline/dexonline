@@ -219,7 +219,7 @@ function populate(&$lexeme, &$original, $lexemeForm, $lexemeNumber, $lexemeDescr
   $objectTags = [];
   foreach ($tagIds as $tagId) {
     $ot = Model::factory('ObjectTag')->create();
-    $ot->objectType = ObjectTag::TYPE_LEXEM;
+    $ot->objectType = ObjectTag::TYPE_LEXEME;
     $ot->tagId = $tagId;
     $objectTags[] = $ot;
   }

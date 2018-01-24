@@ -28,7 +28,7 @@
       {include "bits/lexemeName.tpl" lexeme=$l}
       <small class="text-muted">({$l->modelType}{$l->modelNumber})</small>
       &nbsp;&nbsp;
-      <a href="../admin/lexemEdit.php?lexemeId={$l->id}">editează</a>
+      <a href="../admin/lexemeEdit.php?lexemeId={$l->id}">editează</a>
       <br>
     {/foreach}
     <br>

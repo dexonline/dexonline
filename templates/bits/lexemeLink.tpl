@@ -2,7 +2,7 @@
 {$class=$class|default:''}
 {$model=$model|default:true}
 {strip}
-  <a href="{$wwwRoot}admin/lexemEdit.php?lexemeId={$lexeme->id}" class="{$class}" title="editează">
+  <a href="{$wwwRoot}admin/lexemeEdit.php?lexemeId={$lexeme->id}" class="{$class}" title="editează">
     {include "bits/lexemeName.tpl"}
   </a>
 {/strip}

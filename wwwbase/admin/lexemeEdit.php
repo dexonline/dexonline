@@ -46,7 +46,7 @@ $original = Lexeme::get_by_id($lexemeId); // Keep a copy so we can test whether 
 if ($cloneButton) {
   $newLexeme = $lexeme->_clone();
   Log::notice("Cloned lexeme {$lexeme->id} ({$lexeme->formNoAccent}), new id is {$newLexeme->id}");
-  Util::redirect("lexemEdit.php?lexemeId={$newLexeme->id}");
+  Util::redirect("lexemeEdit.php?lexemeId={$newLexeme->id}");
 }
 
 if ($deleteButton) {
@@ -111,7 +111,7 @@ if ($refreshButton || $saveButton) {
       }
 
       Log::notice("Saved lexeme {$lexeme->id} ({$lexeme->formNoAccent})");
-      Util::redirect("lexemEdit.php?lexemeId={$lexeme->id}");
+      Util::redirect("lexemeEdit.php?lexemeId={$lexeme->id}");
     }
   } else {
     // Case 2: Validation failed
@@ -163,7 +163,7 @@ SmartyWrap::assign('models', $models);
 SmartyWrap::assign('canEdit', $canEdit);
 SmartyWrap::addCss('paradigm', 'admin');
 SmartyWrap::addJs('select2Dev', 'modelDropdown', 'cookie', 'frequentObjects');
-SmartyWrap::display('admin/lexemEdit.tpl');
+SmartyWrap::display('admin/lexemeEdit.tpl');
 
 /**************************************************************************/
 

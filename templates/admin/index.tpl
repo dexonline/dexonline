@@ -60,7 +60,7 @@
         </div>
 
         <div class="col-lg-4 col-md-6 col-sm-6">
-          <form action="lexemEdit.php">
+          <form action="lexemeEdit.php">
             <select id="lexemeId" name="lexemeId"></select>
           </form>
         </div>

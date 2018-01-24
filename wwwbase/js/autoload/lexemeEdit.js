@@ -31,7 +31,7 @@ $(function() {
       width: '100%',
     });
 
-    $('.lexemEditSaveButton').click(saveEverything);
+    $('.lexemeEditSaveButton').click(saveEverything);
 
     $('#lexemeForm').on('change input paste', showRenameDiv);
 

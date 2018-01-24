@@ -21,19 +21,19 @@
    canEdit = { 'paradigm': {$canEdit.paradigm}, 'loc': {$canEdit.loc} };
   </script>
 
-  <form action="lexemEdit.php" method="post">
+  <form action="lexemeEdit.php" method="post">
     <div class="form-group">
 
       <button type="submit"
               name="refreshButton"
-              class="lexemEditSaveButton btn btn-primary">
+              class="lexemeEditSaveButton btn btn-primary">
         <i class="glyphicon glyphicon-refresh"></i>
         <u>r</u>eafișează
       </button>
 
       <button type="submit"
               name="saveButton"
-              class="lexemEditSaveButton btn btn-success">
+              class="lexemeEditSaveButton btn btn-success">
         <i class="glyphicon glyphicon-floppy-disk"></i>
         <u>s</u>alvează
       </button>

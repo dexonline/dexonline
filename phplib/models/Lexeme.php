@@ -552,7 +552,7 @@ class Lexeme extends BaseObject implements DatedObject {
         // if a lexeme exists with this form, but a different model, give a warning
         $existing = Lexeme::get_by_formNoAccent($if->formNoAccent);
         if ($existing) {
-          FlashMessage::addTemplate('lexemExists.tpl', [ 'lexeme' => $existing ], 'warning');
+          FlashMessage::addTemplate('lexemeExists.tpl', [ 'lexeme' => $existing ], 'warning');
         }
 
         $l = Lexeme::create($if->form, $dedicatedType, $number, '', $this->isLoc);

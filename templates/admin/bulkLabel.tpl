@@ -37,7 +37,7 @@
 
         <div class="panel-heading">
           {$lIter+1}. {$l->formNoAccent|escape}
-          <a href="../admin/lexemEdit.php?lexemeId={$l->id}">
+          <a href="../admin/lexemeEdit.php?lexemeId={$l->id}">
             <i class="glyphicon glyphicon-pencil"></i>
             editează
           </a>

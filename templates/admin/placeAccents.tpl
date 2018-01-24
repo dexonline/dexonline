@@ -46,7 +46,7 @@
             <i class="glyphicon glyphicon-book"></i>
             <span data-other-text="ascunde definițiile">arată definițiile</span>
           </a>
-          <a class="btn btn-link" href="lexemEdit.php?lexemeId={$l->id}">
+          <a class="btn btn-link" href="lexemeEdit.php?lexemeId={$l->id}">
             <i class="glyphicon glyphicon-pencil"></i>
             editează
           </a>

@@ -1,2 +1,2 @@
 {* Argument: $lexeme *}
-{include "bits/lexeme.tpl" lexem=$lexem}
+{include "bits/lexeme.tpl" lexeme=$lexem}

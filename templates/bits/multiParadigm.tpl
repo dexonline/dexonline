@@ -20,7 +20,7 @@
     {foreach $entry->getLexemes() as $lexem}
       <div class="paraLexeme">
         <div class="lexemeData">
-          <span class="lexemeName">{include "bits/lexemeName.tpl" lexem=$lexem}</span>
+          <span class="lexemeName">{include "bits/lexemeName.tpl" lexeme=$lexem}</span>
 
           {foreach $lexeme->getTags() as $t}
             {include "bits/tag.tpl"}
@@ -36,7 +36,7 @@
           {/if}
         </div>
 
-        {include "paradigm/paradigm.tpl" lexem=$lexem}
+        {include "paradigm/paradigm.tpl" lexeme=$lexem}
       </div>
     {/foreach}
 

@@ -138,7 +138,7 @@
 
                   {foreach $homonyms as $h}
                     <div>
-                      {include "bits/lexemeLink.tpl" lexem=$h}
+                      {include "bits/lexemeLink.tpl" lexeme=$h}
                     </div>
                   {/foreach}
 
@@ -386,7 +386,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Paradigmă</div>
       <div class="panel-body">
-        {include "paradigm/paradigm.tpl" lexem=$lexem}
+        {include "paradigm/paradigm.tpl" lexeme=$lexem}
       </div>
     </div>
 

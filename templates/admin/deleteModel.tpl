@@ -25,7 +25,7 @@
     {/if}
 
     {foreach $lexemes as $l}
-      {include "bits/lexemeName.tpl" lexem=$l}
+      {include "bits/lexemeName.tpl" lexeme=$l}
       <small class="text-muted">({$l->modelType}{$l->modelNumber})</small>
       &nbsp;&nbsp;
       <a href="../admin/lexemEdit.php?lexemeId={$l->id}">editează</a>

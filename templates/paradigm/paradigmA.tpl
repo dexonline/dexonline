@@ -3,7 +3,7 @@
 <table class="lexeme">
   <tr>
     <td colspan="2" rowspan="2">
-      {include "bits/lexeme.tpl" lexem=$lexem}
+      {include "bits/lexeme.tpl" lexeme=$lexem}
     </td>
     <td colspan="2" class="inflection">masculin</td>
     <td colspan="2" class="inflection">feminin</td>

@@ -34,7 +34,7 @@
         <div class="checkbox col-xs-6 col-sm-4 col-md-3 col-lg-2">
           <label>
             <input type="checkbox" name="lexemeId[]" value="{$l->id}">
-            {include "bits/lexemeName.tpl" lexem=$l}
+            {include "bits/lexemeName.tpl" lexeme=$l}
             <small class="text-muted">({$l->modelType}{$l->modelNumber})</small>
           </label>
         </div>

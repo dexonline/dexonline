@@ -99,7 +99,7 @@
             {assign var="m" value=$models[$pIter]}
             {assign var="mt" value=$modelTypes[$pIter]}
             <div id="paradigm_{$lIter}_{$pIter}" class="paradigm">
-              {include "paradigm/paradigm.tpl" lexem=$l}
+              {include "paradigm/paradigm.tpl" lexeme=$l}
             </div>
           {/foreach}
         </div>

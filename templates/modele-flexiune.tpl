@@ -22,6 +22,6 @@
     <h4>
       {$m->number}. {$m->getHtmlExponent()}
     </h4>
-    {include "paradigm/paradigm.tpl" lexem=$l}
+    {include "paradigm/paradigm.tpl" lexeme=$l}
   {/foreach}
 {/block}

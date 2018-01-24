@@ -56,7 +56,7 @@ class NGram extends BaseObject {
     // Sort the lexems by their Levenshtein distance from $cuv
     $distances = [];
     foreach ($lexems as $lexem) {
-      $distances[] = Levenshtein::dist($cuv, $lexem->formNoAccent);
+      $distances[] = Levenshtein::dist($cuv, $lexeme->formNoAccent);
     }
     array_multisort($distances, $lexems);
 

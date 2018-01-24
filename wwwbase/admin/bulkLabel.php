@@ -17,11 +17,11 @@ if ($saveButton) {
       if ($modelId) {
         $parts = preg_split('/_/', $modelId);
         assert(count($parts) == 2);
-        $lexem->modelType = $parts[0];
-        $lexem->modelNumber = $parts[1];
-        $lexem->restriction = Request::get('restr_' . $lexem->id);
-        $lexem->save();
-        $lexem->regenerateParadigm();
+        $lexeme->modelType = $parts[0];
+        $lexeme->modelNumber = $parts[1];
+        $lexeme->restriction = Request::get('restr_' . $lexeme->id);
+        $lexeme->save();
+        $lexeme->regenerateParadigm();
       }
     }
   }

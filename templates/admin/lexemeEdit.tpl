@@ -1,12 +1,12 @@
 {extends "layout-admin.tpl"}
 
-{block "title"}Editare lexem: {$lexem->form}{/block}
+{block "title"}Editare lexem: {$lexeme->form}{/block}
 
 {block "content"}
   {$renameRelated=$renameRelated|default:false}
 
   <h3>
-    Editare lexem: {$lexem->form}
+    Editare lexem: {$lexeme->form}
     <span class="pull-right">
       <small>
         <a href="https://wiki.dexonline.ro/wiki/Editarea_lexemelor">
@@ -47,21 +47,21 @@
         </button>
       {/if}
 
-      <a href="https://wiki.dexonline.ro/wiki/Lexem:{$lexem->id}?description={$lexem|escape}"
+      <a href="https://wiki.dexonline.ro/wiki/Lexem:{$lexeme->id}?description={$lexem|escape}"
          class="btn btn-default"
          target="_blank">
         <i class="glyphicon glyphicon-comment"></i>
         wiki
       </a>
 
-      <a class="btn btn-default" href="{$wwwRoot}definitie/{$lexem->formNoAccent}">
+      <a class="btn btn-default" href="{$wwwRoot}definitie/{$lexeme->formNoAccent}">
         <i class="glyphicon glyphicon-search"></i>
         caută
       </a>
 
-      <a class="btn btn-link" href="?lexemeId={$lexem->id}">renunță</a>
+      <a class="btn btn-link" href="?lexemeId={$lexeme->id}">renunță</a>
 
-      {$canDelete=$lexem->canDelete()}
+      {$canDelete=$lexeme->canDelete()}
       <button type="submit"
               name="deleteButton"
               onclick="return confirm('Confirmați ștergerea acestui lexem?');"
@@ -81,7 +81,7 @@
       <div class="panel-heading">Proprietăți</div>
 
       <div class="panel-body">
-        <input type="hidden" name="lexemeId" value="{$lexem->id}">
+        <input type="hidden" name="lexemeId" value="{$lexeme->id}">
 
         <div class="row">
           <div class="col-md-6 form-horizontal">
@@ -93,7 +93,7 @@
                        class="form-control"
                        id="lexemeForm"
                        name="lexemeForm"
-                       value="{$lexem->form|escape}"
+                       value="{$lexeme->form|escape}"
                        {if !$canEdit.form}readonly{/if}>
 
                 <div id="renameDiv"
@@ -109,7 +109,7 @@
 
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" name="needsAccent" value="1" {if !$lexem->noAccent}checked{/if}>
+                    <input type="checkbox" name="needsAccent" value="1" {if !$lexeme->noAccent}checked{/if}>
                     necesită accent
                   </label>
                 </div>
@@ -118,7 +118,7 @@
 
             {include "bits/fhf.tpl"
             field="lexemDescription"
-            value=$lexem->description
+            value=$lexeme->description
             label="descriere"
             placeholder="opțională, pentru diferențierea omonimelor"
             readonly=!$canEdit.description}
@@ -126,7 +126,7 @@
             {include "bits/fhf.tpl"
             field="lexemNumber"
             type="number"
-            value=$lexem->number
+            value=$lexeme->number
             label="număr"
             placeholder="opțional, pentru numerotarea omonimelor"
             readonly=!$canEdit.general}
@@ -163,14 +163,14 @@
 
             {include "bits/fhf.tpl"
             field="hyphenations"
-            value=$lexem->hyphenations
+            value=$lexeme->hyphenations
             label="silabisiri"
             placeholder="opționale, despărțite prin virgule"
             readonly=!$canEdit.hyphenations}
 
             {include "bits/fhf.tpl"
             field="pronunciations"
-            value=$lexem->pronunciations
+            value=$lexeme->pronunciations
             label="pronunții"
             placeholder="opționale, despărțite prin virgule"
             readonly=!$canEdit.pronunciations}
@@ -179,7 +179,7 @@
               <label for="tagIds" class="col-md-2 control-label">etichete</label>
               <div class="col-md-10">
                 <select id="tagIds" name="tagIds[]" class="form-control select2Tags" multiple>
-                  {foreach $lexem->getTagIds() as $tagId}
+                  {foreach $lexeme->getTagIds() as $tagId}
                     <option value="{$tagId}" selected></option>
                   {/foreach}
                 </select>
@@ -194,7 +194,7 @@
                     <input type="checkbox"
                            name="stopWord"
                            value="1"
-                           {if $lexem->stopWord}checked{/if}
+                           {if $lexeme->stopWord}checked{/if}
                            {if !$canEdit.stopWord}disabled{/if}
                            >
                     ignoră la căutările full-text
@@ -217,7 +217,7 @@
         <div class="row">
           <div class="col-md-6 form-horizontal">
 
-            {assign var="readonly" value=!$canEdit.loc && $lexem->isLoc}
+            {assign var="readonly" value=!$canEdit.loc && $lexeme->isLoc}
 
             <div class="form-group">
               <label class="col-md-3 control-label">lexem compus</label>
@@ -228,7 +228,7 @@
                     <input type="checkbox"
                            name="compound"
                            value="1"
-                           {if $lexem->compound}checked{/if}
+                           {if $lexeme->compound}checked{/if}
                            {if $readonly}disabled{/if}
                            >
                   </label>
@@ -237,7 +237,7 @@
             </div>
 
             {* Fields for simple lexemes *}
-            <div id="modelDataSimple" {if $lexem->compound}style="display: none"{/if}>
+            <div id="modelDataSimple" {if $lexeme->compound}style="display: none"{/if}>
               <div class="form-group">
                 <label class="col-md-3 control-label">tip + număr</label>
 
@@ -248,20 +248,20 @@
                           class="form-control"
                           {if $readonly}disabled{/if}
                           data-model-type
-                          data-selected="{$lexem->modelType}">
+                          data-selected="{$lexeme->modelType}">
                   </select>
 
                   <select name="modelNumber"
                           class="form-control"
                           {if $readonly}disabled{/if}
                           data-model-number
-                          data-selected="{$lexem->modelNumber}">
+                          data-selected="{$lexeme->modelNumber}">
                   </select>
                   
                   <input type="text"
                          class="form-control"
                          name="restriction"
-                         value="{$lexem->restriction}"
+                         value="{$lexeme->restriction}"
                          size="5"
                          placeholder="restricții"
                          {if $readonly}readonly{/if}>
@@ -279,7 +279,7 @@
             </div>
 
             {* Fields for compound lexemes *}
-            <div id="modelDataCompound" {if !$lexem->compound}style="display: none"{/if}>
+            <div id="modelDataCompound" {if !$lexeme->compound}style="display: none"{/if}>
 
               <div class="form-group">
                 <label class="col-md-3 control-label">tip</label>
@@ -288,7 +288,7 @@
                   <select name="compoundModelType" class="form-control">
                     {foreach $modelTypes as $mt}
                       <option value="{$mt->code}"
-                              {if $lexem->modelType == $mt->code}selected{/if}>
+                              {if $lexeme->modelType == $mt->code}selected{/if}>
                         {$mt->code}
                       </option>
                     {/foreach}
@@ -297,7 +297,7 @@
                   <input type="text"
                          class="form-control"
                          name="compoundRestriction"
-                         value="{$lexem->restriction}"
+                         value="{$lexeme->restriction}"
                          size="5"
                          placeholder="restricții"
                          {if $readonly}readonly{/if}>
@@ -310,7 +310,7 @@
                 <div class="col-md-9">
                   <div id="fragmentContainer">
                     {include "bits/fragment.tpl" id="stem"}
-                    {foreach $lexem->getFragments() as $fragment}
+                    {foreach $lexeme->getFragments() as $fragment}
                       {include "bits/fragment.tpl"}
                     {/foreach}
                   </div>
@@ -337,7 +337,7 @@
                     <input type="checkbox"
                            name="isLoc"
                            value="1"
-                           {if $lexem->isLoc}checked{/if}
+                           {if $lexeme->isLoc}checked{/if}
                            {if !$canEdit.loc}disabled{/if}
                            >
                     inclus în LOC
@@ -373,7 +373,7 @@
 
             {include "bits/fhf.tpl"
             field="notes"
-            value=$lexem->notes
+            value=$lexeme->notes
             label="precizări"
             placeholder="explicații despre sursa flexiunii"
             readonly=!$canEdit.tags}

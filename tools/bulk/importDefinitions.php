@@ -227,22 +227,22 @@ while ($i < count($lines)) {
     if (count($lexems)) {
       // Reuse existing lexem.
       $lexeme = $lexems[0];
-      $entry = $lexem->getEntries()[0];
-      if($verbose) echo("\t\tReusing lexeme {$lexem->id} ({$lexem->form})\n");
+      $entry = $lexeme->getEntries()[0];
+      if($verbose) echo("\t\tReusing lexeme {$lexeme->id} ({$lexeme->form})\n");
     } else {
       if($verbose) echo("\t\tCreating a new lexeme for name {$name}\n");
       if (!$dryrun) {
         // Create a new lexem.
         $lexeme = Lexeme::create($name, 'T', '1');
-        $entry = Entry::createAndSave($lexem->formNoAccent);
-        $lexem->deepSave();
-        if($verbose) echo("\t\tCreated lexeme {$lexem->id} ({$lexem->form})\n");
+        $entry = Entry::createAndSave($lexeme->formNoAccent);
+        $lexeme->deepSave();
+        if($verbose) echo("\t\tCreated lexeme {$lexeme->id} ({$lexeme->form})\n");
       }
     }
 
     // procedura de asociere a definiției cu lexemul de mai sus
     if($verbose) echo("\t\tAssociate entry {$entry->id} ({$entry->description}) " .
-                      "for lexeme {$lexem->id} ({$lexem}) " .
+                      "for lexeme {$lexeme->id} ({$lexem}) " .
                       "to definition ({$definition->id})\n");
     if (!$dryrun) {
       EntryDefinition::associate($entry->id, $definition->id);

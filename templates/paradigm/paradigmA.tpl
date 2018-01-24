@@ -1,5 +1,5 @@
 {* Argument: $lexeme *}
-{assign var=ifMap value=$lexem->loadInflectedFormMap()}
+{assign var=ifMap value=$lexeme->loadInflectedFormMap()}
 <table class="lexem">
   <tr>
     <td colspan="2" rowspan="2">

@@ -16,10 +16,10 @@ $dbResult = DB::execute("select * from Lexem", PDO::FETCH_ASSOC);
 $values = array();
 foreach ($dbResult as $cnt => $row) {
   $lexeme = Model::factory('Lexem')->create($row);
-  $ngrams = NGram::split($lexem->formNoAccent);
+  $ngrams = NGram::split($lexeme->formNoAccent);
 
   foreach ($ngrams as $i => $ngram) {
-    $values[] = array($ngram, $i, $lexem->id);
+    $values[] = array($ngram, $i, $lexeme->id);
   }
   if (count($values) >= INSERT_SIZE) {
     dumpValues($values);

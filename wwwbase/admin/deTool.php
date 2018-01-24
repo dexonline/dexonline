@@ -93,34 +93,34 @@ if ($saveButton) {
         $lexeme = Lexeme::create(substr($lid, 1));
 
         // Create an entry
-        $e = Entry::createAndSave($lexem->formNoAccent);
+        $e = Entry::createAndSave($lexeme->formNoAccent);
 
       } else {
         $lexeme = Lexeme::get_by_id($lid);
-        $e = $lexem->getEntries()[0];
+        $e = $lexeme->getEntries()[0];
       }
 
       $needsCaps = prefixMatch($m, $MODELS_TO_CAPITALIZE);
       if ($capitalize && $needsCaps) {
-        $lexem->setForm(Str::capitalize($lexem->form));
+        $lexeme->setForm(Str::capitalize($lexeme->form));
         $e->description = Str::capitalize($e->description);
         $e->save();
       }
         
-      if ($m != "{$lexem->modelType}{$lexem->modelNumber}") {
+      if ($m != "{$lexeme->modelType}{$lexeme->modelNumber}") {
         $model = Model::factory('ModelType')
                ->select('code')
                ->select('number')
                ->join('Model', ['canonical', '=', 'modelType'])
                ->where_raw("concat(code, number) = ? ", [$m])
                ->find_one();
-        $lexem->modelType = $model->code;
-        $lexem->modelNumber = $model->number;
+        $lexeme->modelType = $model->code;
+        $lexeme->modelNumber = $model->number;
       }
 
-      $lexem->save();
-      $lexem->regenerateParadigm();
-      EntryLexeme::associate($e->id, $lexem->id);
+      $lexeme->save();
+      $lexeme->regenerateParadigm();
+      EntryLexeme::associate($e->id, $lexeme->id);
 
       // Associate the lexeme with the definition
       EntryDefinition::associate($e->id, $def->id);
@@ -174,7 +174,7 @@ if ($saveButton) {
         }
 
         // Check that either the lexeme is not in LOC or the model list is unchanged
-        if ($lexem->isLoc && ($m != "{$lexem->modelType}{$lexem->modelNumber}")) {
+        if ($lexeme->isLoc && ($m != "{$lexeme->modelType}{$lexeme->modelNumber}")) {
           throw new Exception("Nu puteți schimba modelul unui lexem inclus în loc: {$lexem}.");
         }
 
@@ -185,7 +185,7 @@ if ($saveButton) {
                ->join('Model', ['canonical', '=', 'modelType'])
                ->where_raw("concat(code, number) = ? ", [$m])
                ->find_one();
-        $l = Lexeme::create($lexem->form, $model->code, $model->number);
+        $l = Lexeme::create($lexeme->form, $model->code, $model->number);
         $ifs = $l->generateInflectedForms();
       }
     }

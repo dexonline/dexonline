@@ -23,8 +23,8 @@ $numLexems = $dbResult->rowCount();
 $i = 0;
 foreach ($dbResult as $row) {
   $lexeme = Lexeme::get_by_id($row[0]);
-  $lexem->frequency = round($i / $numLexems + 0.005, 2);
-  $lexem->save();
+  $lexeme->frequency = round($i / $numLexems + 0.005, 2);
+  $lexeme->save();
   $i++;
   if ($i % 10000 == 0) {
     Log::info("$i of $numLexems labeled");

@@ -1,17 +1,17 @@
 {* Argument: $lexeme *}
 {if User::can(User::PRIV_EDIT)}
   <div>
-    {$lexem->getPartOfSpeeech()}
+    {$lexeme->getPartOfSpeeech()}
 
-    {if $lexem->compound}
+    {if $lexeme->compound}
       compus
     {else}
       {strip}
       (
       <a href="{"%sadmin/dispatchModelAction.php?editModel=1&amp;modelType=%s&amp;modelNumber=%s"|sprintf
-               :$wwwRoot:$lexem->modelType:$lexem->modelNumber}"
+               :$wwwRoot:$lexeme->modelType:$lexeme->modelNumber}"
          title="editează modelul">
-        {$lexem->modelType}{$lexem->modelNumber}
+        {$lexeme->modelType}{$lexeme->modelNumber}
       </a>
       )
       {/strip}
@@ -19,11 +19,11 @@
   </div>
 {/if}
 
-{if $lexem->notes}
-  <div class="lexemNotes">{$lexem->notes|escape}</div>
+{if $lexeme->notes}
+  <div class="lexemNotes">{$lexeme->notes|escape}</div>
 {/if}
 
-{assign var=s value=$lexem->getSourceNames()}
+{assign var=s value=$lexeme->getSourceNames()}
 {if $s}
   <div class="lexemSources">
     Surse flexiune: {$s}

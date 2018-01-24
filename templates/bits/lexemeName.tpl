@@ -1,10 +1,10 @@
 {$accent=$accent|default:false}
 {strip}
   {if $accent}
-    {$lexem->form|escape}
+    {$lexeme->form|escape}
   {else}
-    {$lexem->formNoAccent|escape}
+    {$lexeme->formNoAccent|escape}
   {/if}
-  {if $lexem->description} ({$lexem->description|escape}){/if}
-  {if !$lexem->formNoAccent && !$lexem->description} [ID = {$lexem->id}]{/if}
+  {if $lexeme->description} ({$lexeme->description|escape}){/if}
+  {if !$lexeme->formNoAccent && !$lexeme->description} [ID = {$lexeme->id}]{/if}
 {/strip}

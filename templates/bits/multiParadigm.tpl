@@ -22,14 +22,14 @@
         <div class="lexemData">
           <span class="lexemName">{include "bits/lexemName.tpl" lexem=$lexem}</span>
 
-          {foreach $lexem->getTags() as $t}
+          {foreach $lexeme->getTags() as $t}
             {include "bits/tag.tpl"}
           {/foreach}
 
-          {include "bits/locInfo.tpl" isLoc=$lexem->isLoc}
+          {include "bits/locInfo.tpl" isLoc=$lexeme->isLoc}
 
           {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
-            <a class="btn btn-link" href="{$wwwRoot}admin/lexemEdit.php?lexemeId={$lexem->id}">
+            <a class="btn btn-link" href="{$wwwRoot}admin/lexemEdit.php?lexemeId={$lexeme->id}">
               <i class="glyphicon glyphicon-pencil"></i>
               editează
             </a>

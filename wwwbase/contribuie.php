@@ -53,17 +53,17 @@ if ($sendButton) {
       if (Str::startsWith($lexemeId, '@')) {
         // create a new lexem
         $lexeme = Lexeme::create(substr($lexemeId, 1), 'T', '1');
-        $lexem->deepSave();
+        $lexeme->deepSave();
         $entry = Entry::createAndSave($lexem);
-        EntryLexeme::associate($entry->id, $lexem->id);
+        EntryLexeme::associate($entry->id, $lexeme->id);
         EntryDefinition::associate($entry->id, $d->id);
-        Log::notice("Created lexeme {$lexem->id} ({$lexem->form}) for definition {$d->id}");
+        Log::notice("Created lexeme {$lexeme->id} ({$lexeme->form}) for definition {$d->id}");
       } else {
         $lexeme = Lexeme::get_by_id($lexemeId);
-        foreach ($lexem->getEntries() as $e) {
+        foreach ($lexeme->getEntries() as $e) {
           EntryDefinition::associate($e->id, $d->id);
         }
-        Log::notice("Associating definition {$d->id} with lexeme {$lexem->id} ({$lexem->form})");
+        Log::notice("Associating definition {$d->id} with lexeme {$lexeme->id} ({$lexeme->form})");
       }
     }
 

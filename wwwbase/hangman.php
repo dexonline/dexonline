@@ -62,7 +62,7 @@ do {
         ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
         ->join('EntryLexeme', ['ed.entryId', '=', 'el.entryId'], 'el')
         ->join('Source', ['s.id', '=', 'd.sourceId'], 's')
-        ->where('el.lexemeId', $lexem->id)
+        ->where('el.lexemeId', $lexeme->id)
         ->where('d.status', Definition::ST_ACTIVE)
         ->where('s.type', Source::TYPE_OFFICIAL)
         ->order_by_asc('s.displayOrder')
@@ -71,7 +71,7 @@ do {
 } while (!$defs);
 
 $searchResults = SearchResult::mapDefinitionArray($defs);
-$word = mb_strtoupper($lexem->formNoAccent);
+$word = mb_strtoupper($lexeme->formNoAccent);
 
 SmartyWrap::assign('wordLength', mb_strlen($word));
 SmartyWrap::assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțuvwxyz', null, PREG_SPLIT_NO_EMPTY));

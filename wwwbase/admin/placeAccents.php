@@ -12,15 +12,15 @@ if ($saveButton) {
       assert(count($parts) == 2);
       assert($parts[0] == 'position');
       $lexeme = Lexeme::get_by_id($parts[1]);
-      $noAccent = Request::get('noAccent_' . $lexem->id);
+      $noAccent = Request::get('noAccent_' . $lexeme->id);
 
       if ($noAccent) {
-        $lexem->noAccent = 1;
-        $lexem->save();
+        $lexeme->noAccent = 1;
+        $lexeme->save();
       } else if ($position != -1) {
-        $lexem->form = mb_substr($lexem->form, 0, $position) . "'" . mb_substr($lexem->form, $position);
-        $lexem->save();
-        $lexem->regenerateParadigm();
+        $lexeme->form = mb_substr($lexeme->form, 0, $position) . "'" . mb_substr($lexeme->form, $position);
+        $lexeme->save();
+        $lexeme->regenerateParadigm();
       }
     }
   }

@@ -44,17 +44,17 @@ $lexeme = Lexeme::get_by_id($lexemeId);
 $original = Lexeme::get_by_id($lexemeId); // Keep a copy so we can test whether certain fields have changed
 
 if ($cloneButton) {
-  $newLexem = $lexem->_clone();
-  Log::notice("Cloned lexeme {$lexem->id} ({$lexem->formNoAccent}), new id is {$newLexem->id}");
+  $newLexem = $lexeme->_clone();
+  Log::notice("Cloned lexeme {$lexeme->id} ({$lexeme->formNoAccent}), new id is {$newLexem->id}");
   Util::redirect("lexemEdit.php?lexemeId={$newLexem->id}");
 }
 
 if ($deleteButton) {
   $homonym = Model::factory('Lexem')
-           ->where('formNoAccent', $lexem->formNoAccent)
-           ->where_not_equal('id', $lexem->id)
+           ->where('formNoAccent', $lexeme->formNoAccent)
+           ->where_not_equal('id', $lexeme->id)
            ->find_one();
-  $lexem->delete();
+  $lexeme->delete();
   if ($homonym) {
     FlashMessage::add('Am șters lexemul și v-am redirectat la unul dintre omonime.', 'success');
     Util::redirect("?lexemeId={$homonym->id}");
@@ -74,44 +74,44 @@ if ($refreshButton || $saveButton) {
   if (validate($lexem, $original)) {
     // Case 1: Validation passed
     if ($saveButton) {
-      if (($original->modelType == 'VT') && ($lexem->modelType != 'VT')) {
+      if (($original->modelType == 'VT') && ($lexeme->modelType != 'VT')) {
         $original->deleteParticiple();
       }
       if (in_array($original->modelType, ['V', 'VT']) &&
-          !in_array($lexem->modelType, ['V', 'VT'])) {
+          !in_array($lexeme->modelType, ['V', 'VT'])) {
         $original->deleteLongInfinitive();
       }
-      $lexem->deepSave();
-      $lexem->regenerateDependentLexems();
-      LexemSource::update($lexem->id, $sourceIds);
-      EntryLexeme::update($entryIds, $lexem->id);
+      $lexeme->deepSave();
+      $lexeme->regenerateDependentLexems();
+      LexemSource::update($lexeme->id, $sourceIds);
+      EntryLexeme::update($entryIds, $lexeme->id);
 
       if ($renameRelated) {
         // Grab all the entries
-        foreach ($lexem->getEntries() as $e) {
+        foreach ($lexeme->getEntries() as $e) {
           if ($e->description == $original->formNoAccent) {
             FlashMessage::addTemplate('entryRenamed.tpl', [
               'entry' => $e,
-              'newDescription' => $lexem->formNoAccent,
+              'newDescription' => $lexeme->formNoAccent,
             ], 'warning');
-            $e->description = $lexem->formNoAccent;
+            $e->description = $lexeme->formNoAccent;
             $e->save();
           }
           foreach ($e->getTrees() as $t) {
             if ($t->description == $original->formNoAccent) {
               FlashMessage::addTemplate('treeRenamed.tpl', [
                 't' => $t,
-                'newDescription' => $lexem->formNoAccent,
+                'newDescription' => $lexeme->formNoAccent,
               ], 'warning');
-              $t->description = $lexem->formNoAccent;
+              $t->description = $lexeme->formNoAccent;
               $t->save();
             }
           }
         }
       }
 
-      Log::notice("Saved lexeme {$lexem->id} ({$lexem->formNoAccent})");
-      Util::redirect("lexemEdit.php?lexemeId={$lexem->id}");
+      Log::notice("Saved lexeme {$lexeme->id} ({$lexeme->formNoAccent})");
+      Util::redirect("lexemEdit.php?lexemeId={$lexeme->id}");
     }
   } else {
     // Case 2: Validation failed
@@ -122,11 +122,11 @@ if ($refreshButton || $saveButton) {
 
 } else {
   // Case 3: First time loading this page
-  $lexem->loadInflectedFormMap();
-  $sourceIds = $lexem->getSourceIds();
-  $entryIds = $lexem->getEntryIds();
+  $lexeme->loadInflectedFormMap();
+  $sourceIds = $lexeme->getSourceIds();
+  $entryIds = $lexeme->getEntryIds();
 
-  RecentLink::add("Lexem: $lexeme (ID={$lexem->id})");
+  RecentLink::add("Lexem: $lexeme (ID={$lexeme->id})");
 }
 
 $definitions = Definition::loadByEntryIds($entryIds);
@@ -135,7 +135,7 @@ $searchResults = SearchResult::mapDefinitionArray($definitions);
 $canEdit = [
   'general' => User::can(User::PRIV_EDIT),
   'description' => User::can(User::PRIV_EDIT),
-  'form' => !$lexem->isLoc || User::can(User::PRIV_LOC),
+  'form' => !$lexeme->isLoc || User::can(User::PRIV_LOC),
   'hyphenations' => User::can(User::PRIV_STRUCT | User::PRIV_EDIT),
   'loc' => (int)User::can(User::PRIV_LOC),
   'paradigm' => User::can(User::PRIV_EDIT),
@@ -146,11 +146,11 @@ $canEdit = [
 ];
 
 // Prepare a list of model numbers, to be used in the paradigm drop-down.
-$models = FlexModel::loadByType($lexem->modelType);
+$models = FlexModel::loadByType($lexeme->modelType);
 
 $homonyms = Model::factory('Lexem')
-          ->where('formNoAccent', $lexem->formNoAccent)
-          ->where_not_equal('id', $lexem->id)
+          ->where('formNoAccent', $lexeme->formNoAccent)
+          ->where_not_equal('id', $lexeme->id)
           ->find_many();
 
 SmartyWrap::assign('lexem', $lexem);
@@ -173,44 +173,44 @@ function populate(&$lexem, &$original, $lexemeForm, $lexemNumber, $lexemDescript
                   $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
                   $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
                   $tagIds) {
-  $lexem->setForm($lexemeForm);
-  $lexem->number = $lexemNumber;
-  $lexem->description = $lexemDescription;
-  $lexem->noAccent = !$needsAccent;
-  $lexem->stopWord = $stopWord;
-  $lexem->hyphenations = $hyphenations;
-  $lexem->pronunciations = $pronunciations;
+  $lexeme->setForm($lexemeForm);
+  $lexeme->number = $lexemNumber;
+  $lexeme->description = $lexemDescription;
+  $lexeme->noAccent = !$needsAccent;
+  $lexeme->stopWord = $stopWord;
+  $lexeme->hyphenations = $hyphenations;
+  $lexeme->pronunciations = $pronunciations;
 
-  $lexem->compound = $compound;
-  $lexem->notes = $notes;
-  $lexem->isLoc = $isLoc;
+  $lexeme->compound = $compound;
+  $lexeme->notes = $notes;
+  $lexeme->isLoc = $isLoc;
 
   if ($compound) {
-    $lexem->modelType = $compoundModelType;
-    $lexem->modelNumber = 0;
-    $lexem->restriction = $compoundRestriction;
+    $lexeme->modelType = $compoundModelType;
+    $lexeme->modelNumber = 0;
+    $lexeme->restriction = $compoundRestriction;
     // create Fragments
     $fragments = [];
     foreach ($partIds as $i => $partId) {
       $fragments[] = Fragment::create($partId, $declensions[$i], $capitalized[$i], $i);
     }
-    $lexem->setFragments($fragments);
+    $lexeme->setFragments($fragments);
   } else {
-    $lexem->modelType = $modelType;
-    $lexem->modelNumber = $modelNumber;
-    $lexem->restriction = $restriction;
+    $lexeme->modelType = $modelType;
+    $lexeme->modelNumber = $modelNumber;
+    $lexeme->restriction = $restriction;
 
     // set / clear the model type when the right tag is present / absent
     $autoTypes = Config::get('tags.lexemeAutoType', []);
     foreach ($autoTypes as $at) {
       list($fromModelType, $toModelType, $tagValue) = explode('|', $at);
       $tag = Tag::get_by_value($tagValue);
-      if (($lexem->modelType == $fromModelType) &&
+      if (($lexeme->modelType == $fromModelType) &&
           in_array($tag->id, $tagIds)) {
-        $lexem->modelType = $toModelType;
-      } else if (($lexem->modelType == $toModelType) &&
+        $lexeme->modelType = $toModelType;
+      } else if (($lexeme->modelType == $toModelType) &&
           !in_array($tag->id, $tagIds)) {
-        $lexem->modelType = $fromModelType;
+        $lexeme->modelType = $fromModelType;
       }
     }
   }
@@ -223,25 +223,25 @@ function populate(&$lexem, &$original, $lexemeForm, $lexemNumber, $lexemDescript
     $ot->tagId = $tagId;
     $objectTags[] = $ot;
   }
-  $lexem->setObjectTags($objectTags);
+  $lexeme->setObjectTags($objectTags);
 
   try {
-    $lexem->generateInflectedFormMap();
+    $lexeme->generateInflectedFormMap();
   } catch (ParadigmException $pe) {
     FlashMessage::add($pe->getMessage());
   }
 }
 
 function validate($lexem, $original) {
-  if (!$lexem->form) {
+  if (!$lexeme->form) {
     FlashMessage::add('Forma nu poate fi vidă.');
   }
 
-  $numAccents = mb_substr_count($lexem->form, "'");
+  $numAccents = mb_substr_count($lexeme->form, "'");
   // Note: we allow multiple accents for lexems like hárcea-párcea
-  if ($numAccents && $lexem->noAccent) {
+  if ($numAccents && $lexeme->noAccent) {
     FlashMessage::add('Ați indicat că lexemul nu necesită accent, dar forma conține un accent.');
-  } else if (!$numAccents && !$lexem->noAccent) {
+  } else if (!$numAccents && !$lexeme->noAccent) {
     FlashMessage::add('Adăugați un accent sau debifați câmpul „Necesită accent”.');
   }
 
@@ -259,17 +259,17 @@ function validate($lexem, $original) {
     $restrMap[$p['restr']][$p['modelType']] = true;
   }
 
-  for ($i = 0; $i < mb_strlen($lexem->restriction); $i++) {
-    $c = Str::getCharAt($lexem->restriction, $i);
+  for ($i = 0; $i < mb_strlen($lexeme->restriction); $i++) {
+    $c = Str::getCharAt($lexeme->restriction, $i);
     if (!isset($restrMap[$c])) {
       FlashMessage::add("Restricția <strong>$c</strong> este nedefinită.");
-    } else if (!isset($restrMap[$c][$lexem->modelType])) {
-      FlashMessage::add("Restricția <strong>$c</strong> nu se aplică modelului <strong>{$lexem->modelType}.</strong>");
+    } else if (!isset($restrMap[$c][$lexeme->modelType])) {
+      FlashMessage::add("Restricția <strong>$c</strong> nu se aplică modelului <strong>{$lexeme->modelType}.</strong>");
     }
   }
   
   try {
-    $ifs = $lexem->generateInflectedForms();
+    $ifs = $lexeme->generateInflectedForms();
   } catch (ParadigmException $pe) {
     FlashMessage::add($pe->getMessage());
   }

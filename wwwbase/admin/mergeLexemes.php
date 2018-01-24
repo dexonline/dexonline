@@ -42,7 +42,7 @@ if ($saveButton) {
     }
   }
   foreach ($lexemsToDelete as $lexem) {
-    $lexem->delete();
+    $lexeme->delete();
   }
   Util::redirect("mergeLexems.php?modelType={$modelType}");
 }
@@ -66,26 +66,26 @@ $lexems = [];
 foreach ($dbResult as $row) {
   $lexeme = Model::factory('Lexem')->create($row);
 
-  $lexem->matches = Model::factory('Lexem')
+  $lexeme->matches = Model::factory('Lexem')
     ->table_alias('l')
     ->select('l.*')
     ->distinct()
     ->join('InflectedForm', 'i.lexemeId = l.id', 'i')
-    ->where('i.formNoAccent', $lexem->formNoAccent)
+    ->where('i.formNoAccent', $lexeme->formNoAccent)
     ->where_in('i.inflectionId', $PLURAL_INFLECTIONS)
-    ->where_not_equal('l.id', $lexem->id)
+    ->where_not_equal('l.id', $lexeme->id)
     ->find_many();
 
-  if (count($lexem->matches)) {
-    // $lexem->loadInflectedForms();
+  if (count($lexeme->matches)) {
+    // $lexeme->loadInflectedForms();
     // When a plural LOC lexeme is merged into a non-LOC singular, we end up losing some word forms from LOC.
     // Therefore, we have to add the singular lexeme to LOC as well. Matei says it is ok to expand LOC this way.
     $srcIfs = loadIfArray($lexem);
-    foreach ($lexem->matches as $match) {
+    foreach ($lexeme->matches as $match) {
       $destIfs = loadIfArray($match);
       $addedForms = array();
       $lostForms = array();
-      if ($lexem->isLoc && !$match->isLoc) {
+      if ($lexeme->isLoc && !$match->isLoc) {
         // Forms that are going to be added to LOC
         foreach ($destIfs as $destIf) {
           if (!in_array($destIf, $srcIfs)) {
@@ -99,8 +99,8 @@ foreach ($dbResult as $row) {
           $lostForms[] = $srcIf;
         }
       }
-      $lexem->addedForms = $addedForms;
-      $lexem->lostForms = $lostForms;
+      $lexeme->addedForms = $addedForms;
+      $lexeme->lostForms = $lostForms;
     }
     $lexems[] = $lexem;
   }
@@ -116,6 +116,6 @@ SmartyWrap::display('admin/mergeLexems.tpl');
 
 /** Returns an array containing only the accented forms, not the entire InflectedForm objects **/
 function loadIfArray($lexem) {
-  $ifs = $lexem->loadInflectedForms();
+  $ifs = $lexeme->loadInflectedForms();
   return Util::objectProperty($ifs, 'form');
 }

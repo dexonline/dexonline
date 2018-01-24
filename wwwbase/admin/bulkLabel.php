@@ -11,7 +11,7 @@ if ($saveButton) {
     if (Str::startsWith($name, 'lexem_')) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
-      assert($parts[0] == 'lexem');
+      assert($parts[0] == 'lexeme');
       $lexeme = Lexeme::get_by_id($parts[1]);
 
       if ($modelId) {

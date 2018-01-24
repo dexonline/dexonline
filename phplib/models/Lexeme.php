@@ -546,13 +546,13 @@ class Lexeme extends BaseObject implements DatedObject {
         if ($this->isLoc && !$l->isLoc) {
           $l->isLoc = true;
           $l->save();
-          FlashMessage::addTemplate('lexemAddedToLoc.tpl', [ 'lexem' => $l ], 'info');
+          FlashMessage::addTemplate('lexemAddedToLoc.tpl', [ 'lexeme' => $l ], 'info');
         }
       } else {
         // if a lexeme exists with this form, but a different model, give a warning
         $existing = Lexeme::get_by_formNoAccent($if->formNoAccent);
         if ($existing) {
-          FlashMessage::addTemplate('lexemExists.tpl', [ 'lexem' => $existing ], 'warning');
+          FlashMessage::addTemplate('lexemExists.tpl', [ 'lexeme' => $existing ], 'warning');
         }
 
         $l = Lexeme::create($if->form, $dedicatedType, $number, '', $this->isLoc);
@@ -588,7 +588,7 @@ class Lexeme extends BaseObject implements DatedObject {
             EntryDefinition::associate($entry->id, $d->id);
           }
         }
-        FlashMessage::addTemplate('dependentLexemCreated.tpl', [ 'lexem' => $l ], 'info');
+        FlashMessage::addTemplate('dependentLexemCreated.tpl', [ 'lexeme' => $l ], 'info');
       }
     }
   }

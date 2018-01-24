@@ -153,7 +153,7 @@ $homonyms = Model::factory('Lexeme')
           ->where_not_equal('id', $lexeme->id)
           ->find_many();
 
-SmartyWrap::assign('lexem', $lexem);
+SmartyWrap::assign('lexeme', $lexem);
 SmartyWrap::assign('entryIds', $entryIds);
 SmartyWrap::assign('sourceIds', $sourceIds);
 SmartyWrap::assign('homonyms', $homonyms);

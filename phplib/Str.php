@@ -593,7 +593,7 @@ class Str {
 
       foreach (explode(" ", $words) as $word_string) {
 
-        $word_lexem_ids = Model::factory('InflectedForm')
+        $word_lexeme_ids = Model::factory('InflectedForm')
                         ->select('lexemeId')
                         ->where('formNoAccent', $word_string)
                         ->find_many();
@@ -601,18 +601,18 @@ class Str {
         // Separate queries for formNoAccent and formUtf8General
         // since Idiorm does not support OR'ing WHERE clauses.
         $field = self::hasDiacritics($definition_string) ? 'formNoAccent' : 'formUtf8General';
-        $def_lexem_id_by_noAccent = Model::factory('Lexeme')
+        $def_lexeme_id_by_noAccent = Model::factory('Lexeme')
                                   ->select('id')
                                   ->where($field, $definition_string)
                                   ->find_one();
 
-        $def_lexem_id_by_utf8General = Model::factory('Lexeme')
+        $def_lexeme_id_by_utf8General = Model::factory('Lexeme')
                                      ->select('id')
                                      ->where('formUtf8General', $definition_string)
                                      ->find_one();
 
         // Linked lexeme was not found in the database.
-        if (empty($def_lexem_id_by_utf8General)) {
+        if (empty($def_lexeme_id_by_utf8General)) {
           $currentLink = [
             "original_word" => $l[1],
             "linked_lexeme" => $l[2],
@@ -627,8 +627,8 @@ class Str {
 
         // Linking to base form.
         $found = false;
-        foreach ($word_lexem_ids as $word_lexem_id) {
-          if ($word_lexem_id->lexemeId === $def_lexem_id_by_noAccent->id) {
+        foreach ($word_lexeme_ids as $word_lexeme_id) {
+          if ($word_lexeme_id->lexemeId === $def_lexeme_id_by_noAccent->id) {
             $found = true;
           }
         }
@@ -649,27 +649,27 @@ class Str {
         // Infinitiv lung / adjectiv / participiu.
         $found = false;
 
-        foreach ($word_lexem_ids as $word_lexem_id) {
-          $lexem_model = Model::factory('Lexeme')
+        foreach ($word_lexeme_ids as $word_lexeme_id) {
+          $lexeme_model = Model::factory('Lexeme')
                        ->select('formNoAccent')
                        ->select('modelType')
                        ->select('modelNumber')
-                       ->where_id_is($word_lexem_id->lexemeId)
+                       ->where_id_is($word_lexeme_id->lexemeId)
                        ->find_one();
 
-          if ($lexem_model->modelType === "IL" ||
-              $lexem_model->modelType === "PT" ||
-              $lexem_model->modelType === "A" ||
-              ($lexem_model->modelType === "F" &&
-               ($lexem_model->modelNumber === "107" ||
-                $lexem_model->modelNumber === "113"))) {
+          if ($lexeme_model->modelType === "IL" ||
+              $lexeme_model->modelType === "PT" ||
+              $lexeme_model->modelType === "A" ||
+              ($lexeme_model->modelType === "F" &&
+               ($lexeme_model->modelNumber === "107" ||
+                $lexeme_model->modelNumber === "113"))) {
             $nextstep = Model::factory('InflectedForm')
                       ->select('lexemeId')
-                      ->where('formNoAccent', $lexem_model->formNoAccent)
+                      ->where('formNoAccent', $lexeme_model->formNoAccent)
                       ->find_many();
 
             foreach ($nextstep as $one) {
-              if ($one->lexemeId === $def_lexem_id_by_noAccent->id) {
+              if ($one->lexemeId === $def_lexeme_id_by_noAccent->id) {
                 $found = true;
                 break;
               }

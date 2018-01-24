@@ -27,7 +27,7 @@ class Lexeme extends BaseObject implements DatedObject {
     $this->formUtf8General = $this->formNoAccent;
     $this->reverse = Str::reverse($this->formNoAccent);
   }
-  
+
   static function create($form, $modelType = '', $modelNumber = '', $restriction = '',
                                 $isLoc = false) {
     $l = Model::factory('Lexeme')->create();
@@ -437,7 +437,7 @@ class Lexeme extends BaseObject implements DatedObject {
     while ($start < count($mds)) {
       $variant = $mds[$start]->variant;
       $recommended = $mds[$start]->recommended;
-      
+
       // Identify all the md's that differ only by the applOrder
       $end = $start + 1;
       while ($end < count($mds) && $mds[$end]->applOrder != 0) {
@@ -464,12 +464,12 @@ class Lexeme extends BaseObject implements DatedObject {
 
       $start = $end;
     }
-    
+
     return $ifs;
   }
 
   /**
-   * Deletes the lexem's old inflected forms, if they exist, then saves the new ones.
+   * Deletes the lexeme's old inflected forms, if they exist, then saves the new ones.
    * Throws ParadigmException if any inflection cannot be generated.
    **/
   function regenerateParadigm() {
@@ -546,7 +546,7 @@ class Lexeme extends BaseObject implements DatedObject {
         if ($this->isLoc && !$l->isLoc) {
           $l->isLoc = true;
           $l->save();
-          FlashMessage::addTemplate('lexemAddedToLoc.tpl', [ 'lexeme' => $l ], 'info');
+          FlashMessage::addTemplate('lexemeAddedToLoc.tpl', [ 'lexeme' => $l ], 'info');
         }
       } else {
         // if a lexeme exists with this form, but a different model, give a warning

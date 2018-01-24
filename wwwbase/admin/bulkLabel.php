@@ -8,7 +8,7 @@ $saveButton = Request::has('saveButton');
 
 if ($saveButton) {
   foreach ($_REQUEST as $name => $modelId) {
-    if (Str::startsWith($name, 'lexem_')) {
+    if (Str::startsWith($name, 'lexeme_')) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
       assert($parts[0] == 'lexeme');

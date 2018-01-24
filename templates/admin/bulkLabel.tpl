@@ -56,7 +56,7 @@
                 <label class="radio">
                   <input class="modelRadio"
                          type="radio"
-                         name="lexem_{$l->id}"
+                         name="lexeme_{$l->id}"
                          value="{$mId}"
                          data-paradigm-id="paradigm_{$lIter}_{$i}">
                   {$m->modelType}{$m->number} ({$m->exponent})
@@ -65,7 +65,7 @@
               <label class="radio">
                 <input class="modelRadio"
                        type="radio"
-                       name="lexem_{$l->id}"
+                       name="lexeme_{$l->id}"
                        value="0"
                        checked>
                 Ignoră

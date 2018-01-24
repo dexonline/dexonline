@@ -6,7 +6,7 @@ $(function() {
     $.hotkeys.options.filterContentEditable = false;
     $.hotkeys.options.filterTextInputs = false;
 
-    $(document).bind('keydown', 'alt+l', quickNavLexemFocus);
+    $(document).bind('keydown', 'alt+l', quickNavLexemeFocus);
     $(document).bind('keydown', 'alt+d', quickNavDefFocus);
     $(document).bind('keydown', 'alt+i', quickNavEntryFocus);
 
@@ -49,8 +49,8 @@ $(function() {
     window.location = wwwRoot + 'admin/toggleMode.php?mode=' + mode;
   }
 
-  function quickNavLexemFocus() {
-    $('.quickNav #lexemId').select2('open');
+  function quickNavLexemeFocus() {
+    $('.quickNav #lexemeId').select2('open');
     return false;
   }
 

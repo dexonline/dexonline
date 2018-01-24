@@ -30,7 +30,7 @@ class NGram extends BaseObject {
     $cuv = self::canonicalize($cuv);
     $leng = mb_strlen($cuv);
     
-    $hash = NGram::searchLexemIds($cuv);
+    $hash = NGram::searchLexemeIds($cuv);
     if (empty($hash)) {
       return [];
     }
@@ -38,31 +38,31 @@ class NGram extends BaseObject {
     $max = current($hash);
     $lexIds = array_keys($hash, $max);
 
-    $lexems = [];
+    $lexemes = [];
     foreach ($lexIds as $id) {
-      $lexem = Model::factory('Lexem')
+      $lexeme = Model::factory('Lexeme')
              ->where('id', $id)
              ->where_gte('charLength', $leng - self::$LENGTH_DIF)
              ->where_lte('charLength', $leng + self::$LENGTH_DIF)
              ->find_one();
-      if ($lexem) {
-        $lexems[] = $lexem;
-        if (count($lexems) == self::$MAX_RESULTS) {
+      if ($lexeme) {
+        $lexemes[] = $lexeme;
+        if (count($lexemes) == self::$MAX_RESULTS) {
           break;
         }
       }
     }
 
-    // Sort the lexems by their Levenshtein distance from $cuv
+    // Sort the lexemes by their Levenshtein distance from $cuv
     $distances = [];
-    foreach ($lexems as $lexem) {
-      $distances[] = Levenshtein::dist($cuv, $lexem->formNoAccent);
+    foreach ($lexemes as $lexeme) {
+      $distances[] = Levenshtein::dist($cuv, $lexeme->formNoAccent);
     }
-    array_multisort($distances, $lexems);
+    array_multisort($distances, $lexemes);
 
     // load the entries for each lexeme
     $entries = [];
-    foreach ($lexems as $l) {
+    foreach ($lexemes as $l) {
       $entries = array_merge($entries, $l->getEntries());
     }
     $entries = array_unique($entries, SORT_REGULAR);
@@ -70,19 +70,19 @@ class NGram extends BaseObject {
     return $entries;
   }
   
-  /* Find lexems with at least 50% matching n-grams */
-  static function searchLexemIds($cuv) {
+  /* Find lexemes with at least 50% matching n-grams */
+  static function searchLexemeIds($cuv) {
     $ngramList = self::split($cuv);
     $hash = array();
     foreach ($ngramList as $i => $ngram) {
-      $lexemIdList = DB::getArray(sprintf("select lexemId from NGram where ngram = '%s' and pos between %d and %d",
+      $lexemeIdList = DB::getArray(sprintf("select lexemeId from NGram where ngram = '%s' and pos between %d and %d",
                                          $ngram, $i - self::$MAX_MOVE, $i + self::$MAX_MOVE));
-      $lexemIdList = array_unique($lexemIdList);
-      foreach($lexemIdList as $lexemId) {
-        if (!isset($hash[$lexemId])) {
-          $hash[$lexemId] = 1;
+      $lexemeIdList = array_unique($lexemeIdList);
+      foreach($lexemeIdList as $lexemeId) {
+        if (!isset($hash[$lexemeId])) {
+          $hash[$lexemeId] = 1;
         } else {
-          $hash[$lexemId]++;
+          $hash[$lexemeId]++;
         }
       }
     }

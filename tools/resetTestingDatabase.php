@@ -153,16 +153,16 @@ createConstraints('S', '%plural%', '%', -1);
 createConstraints('W', '%vocativ, singular%', 'F', 1);
 createConstraints('w', '%vocativ, singular%', 'F', 0);
 
-// lexems
-$l1 = createLexemDeep("br'ânză", 'F', '35', '', true);
-$l2 = createLexemDeep("c'adă", 'F', '62', '', true);
-$l3 = createLexemDeep("met'al", 'N', '1', '', true);
-$l4 = createLexemDeep("d'in", 'T', '1', '', true);
-$l5 = createLexemDeep("d'in", 'N', '1', '', true); // fictitious
-$l6 = createLexemDeep("l'adă", 'F', '62', 'S', true);
-$l7 = createLexemDeep("ogr'adă", 'F', '62', 'W', true);
+// lexemes
+$l1 = createLexemeDeep("br'ânză", 'F', '35', '', true);
+$l2 = createLexemeDeep("c'adă", 'F', '62', '', true);
+$l3 = createLexemeDeep("met'al", 'N', '1', '', true);
+$l4 = createLexemeDeep("d'in", 'T', '1', '', true);
+$l5 = createLexemeDeep("d'in", 'N', '1', '', true); // fictitious
+$l6 = createLexemeDeep("l'adă", 'F', '62', 'S', true);
+$l7 = createLexemeDeep("ogr'adă", 'F', '62', 'W', true);
 // for testing whitespace preservation when minifying
-$l8 = createLexemDeep("spați'ere", 'F', '107', '', true);
+$l8 = createLexemeDeep("spați'ere", 'F', '107', '', true);
 $l1->frequency = 0.95; // for the Hangman game
 $l1->save();
 
@@ -185,7 +185,7 @@ $d5 = createDefinition(
 linii    pentru a    testa spațierea.',
   'spațiere', $john->id, $klingon->id, Definition::ST_ACTIVE);
 
-// lexem-definition maps
+// lexeme-definition maps
 EntryDefinition::associate($l1->getEntries()[0]->id, $d1->id);
 EntryDefinition::associate($l2->getEntries()[0]->id, $d2->id);
 EntryDefinition::associate($l4->getEntries()[0]->id, $d3->id);
@@ -196,9 +196,9 @@ EntryDefinition::associate($l8->getEntries()[0]->id, $d5->id);
 createComment('Foarte foarte gustoasă',
               $d1->id, $john->id, Definition::ST_ACTIVE);
 
-// lexem sources
-$ls = Model::factory('LexemSource')->create();
-$ls->lexemId = $l3->id;
+// lexeme sources
+$ls = Model::factory('LexemeSource')->create();
+$ls->lexemeId = $l3->id;
 $ls->sourceId = $devil->id;
 $ls->save();
 
@@ -307,14 +307,14 @@ function createConstraints($code, $inflectionRegexp, $modelTypeRegexp, $variant)
   }
 }
 
-function createLexemDeep($form, $modelType, $modelNumber, $restriction, $isLoc) {
-  $l = Lexem::create($form, $modelType, $modelNumber, $restriction, $isLoc);
+function createLexemeDeep($form, $modelType, $modelNumber, $restriction, $isLoc) {
+  $l = Lexeme::create($form, $modelType, $modelNumber, $restriction, $isLoc);
   $l->deepSave();
   $e = Entry::createAndSave($l->formNoAccent);
-  EntryLexem::associate($e->id, $l->id);
+  EntryLexeme::associate($e->id, $l->id);
 
-  // reload to flush the $entryLexems field
-  return Lexem::get_by_id($l->id);
+  // reload to flush the $entryLexemes field
+  return Lexeme::get_by_id($l->id);
 }
 
 function createDefinition($rep, $lexicon, $userId, $sourceId, $status) {

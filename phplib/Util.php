@@ -135,8 +135,8 @@ class Util {
       count(Entry::loadUnassociated())
     );
     Variable::poke(
-      'Count.unassociatedLexems',
-      Lexem::countUnassociated()
+      'Count.unassociatedLexemes',
+      Lexeme::countUnassociated()
     );
     Variable::poke(
       'Count.unassociatedTrees',
@@ -152,15 +152,15 @@ class Util {
     );
     Variable::poke(
       'Count.lexemesWithoutAccent',
-      Model::factory('Lexem')->where('consistentAccent', 0)->count()
+      Model::factory('Lexeme')->where('consistentAccent', 0)->count()
     );
     Variable::poke(
       'Count.ambiguousLexemes',
-      count(Lexem::loadAmbiguous())
+      count(Lexeme::loadAmbiguous())
     );
     Variable::poke(
       'Count.temporaryLexemes',
-      Model::factory('Lexem')->where('modelType', 'T')->count()
+      Model::factory('Lexeme')->where('modelType', 'T')->count()
     );
     Variable::poke(
       'Count.treeMentions',

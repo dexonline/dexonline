@@ -1,38 +1,38 @@
-.paraLexem {
+.paraLexeme {
   margin-bottom: 10px;
 }
 
-.lexemName {
+.lexemeName {
   font-weight: bold;
 }
 
-.lexem {
+.lexeme {
   border-collapse: collapse;
   margin-left: 0;
   margin-top: 5px;
 }
 
-.lexem td {
+.lexeme td {
   border: 1px solid #dddddd;
   padding: 0px 10px;
 }
 
-.lexem .inflection {
+.lexeme .inflection {
   color: #555555;
   font-style: italic;
   font-size: small;
   text-align: center;
 }
 
-.lexem .form {
+.lexeme .form {
   font-style: italic;
 }
 
-.lexem .spacer {
+.lexeme .spacer {
   height: 2px;
 }
 
-.lexem tr .person {
+.lexeme tr .person {
   text-align: right;
 }
 
@@ -49,8 +49,8 @@
   font-weight: bold;
 }
 
-.lexemNotes,
-.lexemSources {
+.lexemeNotes,
+.lexemeSources {
   font-size: 75%;
   color: green;
 }

@@ -15,7 +15,7 @@ $entryTagIds = Request::getArray('entryTagIds');
 $formNoAccent = Request::get('formNoAccent');
 $isLoc = Request::get('isLoc');
 $paradigm = Request::get('paradigm');
-$lexemTagIds = Request::getArray('lexemTagIds');
+$lexemeTagIds = Request::getArray('lexemeTagIds');
 
 // definition parameters
 $lexicon = Request::get('lexicon');
@@ -34,8 +34,8 @@ $nextPageButton = Request::has('nextPageButton');
 $submitButton = Request::has('submitButton');
 
 $q = Model::factory($view);
-$joinEntry = $joinLexem = $joinDefinition = false;
-$joinEntryTag = $joinLexemTag = false;
+$joinEntry = $joinLexeme = $joinDefinition = false;
+$joinEntryTag = $joinLexemeTag = false;
 
 // process entry parameters
 if ($description) {
@@ -60,26 +60,26 @@ if (!empty($entryTagIds)) {
      ->where_in('eot.tagId', $entryTagIds);
 }
 
-if (!empty($lexemTagIds)) {
-  $joinLexem = $joinLexemTag = true;
+if (!empty($lexemeTagIds)) {
+  $joinLexeme = $joinLexemeTag = true;
   $q = $q
-     ->where('lot.objectType', ObjectTag::TYPE_LEXEM)
-     ->where_in('lot.tagId', $lexemTagIds);
+     ->where('lot.objectType', ObjectTag::TYPE_LEXEME)
+     ->where_in('lot.tagId', $lexemeTagIds);
 }
 
 // process lexeme parameters
 if ($formNoAccent) {
-  $joinLexem = true;
+  $joinLexeme = true;
   extendQueryWithRegexField($q, 'l.formNoAccent', $formNoAccent);
 }
 
 if ($isLoc !== '') {
-  $joinLexem = true;
+  $joinLexeme = true;
   $q = $q->where('l.isLoc', $isLoc);
 }
 
 if ($paradigm !== '') {
-  $joinLexem = true;
+  $joinLexeme = true;
   if ($paradigm) {
     $q = $q->where_not_equal('l.modelType', 'T');
   } else {
@@ -129,10 +129,10 @@ if ($endDate) {
 // assemble the joins -- can't seem to do it any better than the naive way
 switch ($view) {
   case 'Entry':
-    if ($joinLexem) {
+    if ($joinLexeme) {
       $q = $q
-         ->join('EntryLexem', ['e.id', '=', 'el.entryId'], 'el')
-         ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l');
+         ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+         ->join('Lexeme', ['el.lexemeId', '=', 'l.id'], 'l');
     }
     if ($joinDefinition) {
       $q = $q
@@ -141,10 +141,10 @@ switch ($view) {
     }
     break;
 
-  case 'Lexem':
+  case 'Lexeme':
     if ($joinEntry || $joinDefinition) {
       $q = $q
-         ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+         ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
          ->join('Entry', ['el.entryId', '=', 'e.id'], 'e');
     }
     if ($joinDefinition) {
@@ -155,15 +155,15 @@ switch ($view) {
     break;
 
   case 'Definition':
-    if ($joinEntry || $joinLexem) {
+    if ($joinEntry || $joinLexeme) {
       $q = $q
          ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
          ->join('Entry', ['ed.entryId', '=', 'e.id'], 'e');
     }
-    if ($joinLexem) {
+    if ($joinLexeme) {
       $q = $q
-         ->join('EntryLexem', ['e.id', '=', 'el.entryId'], 'el')
-         ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l');
+         ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+         ->join('Lexeme', ['el.lexemeId', '=', 'l.id'], 'l');
     }
     break;
 }
@@ -172,7 +172,7 @@ if ($joinEntryTag) {
   $q = $q->join('ObjectTag', ['e.id', '=', 'eot.objectId'], 'eot');
 }
 
-if ($joinLexemTag) {
+if ($joinLexemeTag) {
   $q = $q->join('ObjectTag', ['l.id', '=', 'lot.objectId'], 'lot');
 }
 
@@ -187,7 +187,7 @@ $VIEW_DATA = [
     'order' => 'e.description',
     'pageSize' => 10000,
   ],
-  'Lexem' => [
+  'Lexeme' => [
     'alias' => 'l',
     'order' => 'l.formNoAccent',
     'pageSize' => 10000,
@@ -199,8 +199,8 @@ $alias = $VIEW_DATA[$view]['alias'];
 $order = $VIEW_DATA[$view]['order'];
 $q = $q->table_alias($alias);
 
-if ($joinEntryTag || $joinLexemTag) {
-  $expectedCount = (count($entryTagIds) ?: 1) * (count($lexemTagIds) ?: 1);
+if ($joinEntryTag || $joinLexemeTag) {
+  $expectedCount = (count($entryTagIds) ?: 1) * (count($lexemeTagIds) ?: 1);
   $q = $q
      ->group_by("{$alias}.id")
      ->having_raw("count(*) = {$expectedCount}");

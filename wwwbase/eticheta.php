@@ -3,7 +3,7 @@ require_once("../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT);
 
 $DEF_LIMIT = 20;
-$LEXEM_LIMIT = 100;
+$LEXEME_LIMIT = 100;
 $MEANING_LIMIT = 50;
 
 $id = Request::get('id');
@@ -82,17 +82,17 @@ $defs = Model::factory('Definition')
       ->find_many();
 $searchResults = SearchResult::mapDefinitionArray($defs);
 
-$lexemCount = Model::factory('ObjectTag')
-            ->where('objectType', ObjectTag::TYPE_LEXEM)
+$lexemeCount = Model::factory('ObjectTag')
+            ->where('objectType', ObjectTag::TYPE_LEXEME)
             ->where('tagId', $tag->id)
             ->count();
-$lexems = Model::factory('Lexem')
+$lexemes = Model::factory('Lexeme')
         ->table_alias('l')
         ->select('l.*')
         ->join('ObjectTag', ['ot.objectId', '=', 'l.id'], 'ot')
-        ->where('ot.objectType', ObjectTag::TYPE_LEXEM)
+        ->where('ot.objectType', ObjectTag::TYPE_LEXEME)
         ->where('ot.tagId', $tag->id)
-        ->limit($LEXEM_LIMIT)
+        ->limit($LEXEME_LIMIT)
         ->find_many();
 
 $meaningCount = Model::factory('ObjectTag')
@@ -114,8 +114,8 @@ SmartyWrap::assign('canDelete', $canDelete);
 SmartyWrap::assign('homonyms', $homonyms);
 SmartyWrap::assign('defCount', $defCount);
 SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('lexemCount', $lexemCount);
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemeCount', $lexemeCount);
+SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::assign('meaningCount', $meaningCount);
 SmartyWrap::assign('meanings', $meanings);
 SmartyWrap::assign('frequentColors', $frequentColors);

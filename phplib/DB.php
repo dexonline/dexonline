@@ -123,7 +123,7 @@ class DB {
   }
 
   // Normally you can do this with Idiorm's ->count() method, but that doesn't work
-  // for complicated queries, e.g. select count(distinct Lexem.id) from ...
+  // for complicated queries, e.g. select count(distinct Lexeme.id) from ...
   static function getSingleValue($query) {
     $recordSet = self::execute($query);
     $row = $recordSet->fetch();

@@ -60,7 +60,7 @@ print "Creating database $dbName\n";
 DB::execute("create database $dbName");
 $fileName = tempnam(Config::get('global.tempDir'), 'freeze_');
 print "Dumping tables to $fileName\n";
-$tablesToDump = "ConstraintMap Inflection Lexem ModelDescription ModelType Model ParticipleModel Transform InflectedForm";
+$tablesToDump = "ConstraintMap Inflection Lexeme ModelDescription ModelType Model ParticipleModel Transform InflectedForm";
 $mysql = sprintf("mysqldump -h %s -u %s --password='%s' %s %s > %s",
                  DB::$host, DB::$user, DB::$password, DB::$database, $tablesToDump, $fileName);
 OS::executeAndAssert($mysql);

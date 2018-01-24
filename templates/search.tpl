@@ -113,19 +113,19 @@
 
         <h3>
           {include "bits/count.tpl"
-          displayed=count($lexems)
-          total=$extra.numLexems|default:0
+          displayed=count($lexemes)
+          total=$extra.numLexemes|default:0
           none="Niciun rezultat"
           one="Un rezultat"
           many="rezultate"
           common=$smarty.capture.common}
         </h3>
 
-        {if !count($lexems) && $sourceId}
+        {if !count($lexemes) && $sourceId}
           {include "search/extendToAllSources.tpl"}
         {/if}
 
-        {include "search/lexemList.tpl"}
+        {include "search/lexemeList.tpl"}
 
         {* normal search (inflected form search) *}
       {elseif $searchType == $smarty.const.SEARCH_INFLECTED}

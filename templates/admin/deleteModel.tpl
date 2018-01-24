@@ -9,12 +9,12 @@
     <input type="hidden" name="modelType" value="{$modelType}">
     <input type="hidden" name="modelNumber" value="{$modelNumber}">
 
-    {if count($lexems)}
+    {if count($lexemes)}
       <div class="alert alert-warning alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert">
           <span aria-hidden="true">&times;</span>
         </button>
-        Există {$lexems|@count} lexem(e) etichetate cu acest model. Dacă
+        Există {$lexemes|@count} lexem(e) etichetate cu acest model. Dacă
         apăsați butonul "Confirmă", ele vor fi reetichetate cu modelul T1.
       </div>
     {else}
@@ -24,11 +24,11 @@
       </p>
     {/if}
 
-    {foreach $lexems as $l}
-      {include "bits/lexemName.tpl" lexem=$l}
+    {foreach $lexemes as $l}
+      {include "bits/lexemeName.tpl" lexeme=$l}
       <small class="text-muted">({$l->modelType}{$l->modelNumber})</small>
       &nbsp;&nbsp;
-      <a href="../admin/lexemEdit.php?lexemId={$l->id}">editează</a>
+      <a href="../admin/lexemeEdit.php?lexemeId={$l->id}">editează</a>
       <br>
     {/foreach}
     <br>

@@ -16,20 +16,20 @@ DB::execute('truncate table FullTextIndex');
 // Build a map of stop words
 $stopWordForms = array_flip(DB::getArray(
   'select distinct i.formNoAccent ' .
-  'from Lexem l, InflectedForm i ' .
-  'where l.id = i.lexemId ' .
+  'from Lexeme l, InflectedForm i ' .
+  'where l.id = i.lexemeId ' .
   'and l.stopWord'));
 
-// Build a map of inflectedForm => list of (lexemId, inflectionId) pairs
+// Build a map of inflectedForm => list of (lexemeId, inflectionId) pairs
 Log::info("Building inflected form map.");
-$dbResult = DB::execute("select formNoAccent, lexemId, inflectionId from InflectedForm");
+$dbResult = DB::execute("select formNoAccent, lexemeId, inflectionId from InflectedForm");
 $ifMap = [];
 foreach ($dbResult as $r) {
   $form = $r['formNoAccent'];
   $s = isset($ifMap[$form])
      ? ($ifMap[$form] . ',')
      : '';
-  $s .= $r['lexemId'] . ',' . $r['inflectionId'];
+  $s .= $r['lexemeId'] . ',' . $r['inflectionId'];
   $ifMap[$form] = $s;
 }
 unset($dbResult);
@@ -51,9 +51,9 @@ foreach ($dbResult as $dbRow) {
   foreach ($words as $position => $word) {
     if (!isset($stopWordForms[$word])) {
       if (array_key_exists($word, $ifMap)) {
-        $lexemList = preg_split('/,/', $ifMap[$word]);
-        for ($i = 0; $i < count($lexemList); $i += 2) {
-          fwrite($handle, $lexemList[$i] . "\t" . $lexemList[$i + 1] . "\t" . $dbRow[0] . "\t" . $position . "\n");
+        $lexemeList = preg_split('/,/', $ifMap[$word]);
+        for ($i = 0; $i < count($lexemeList); $i += 2) {
+          fwrite($handle, $lexemeList[$i] . "\t" . $lexemeList[$i + 1] . "\t" . $dbRow[0] . "\t" . $position . "\n");
           $indexSize++;
         }
       }

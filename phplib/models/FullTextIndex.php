@@ -3,38 +3,38 @@
 class FullTextIndex extends BaseObject {
   public static $_table = 'FullTextIndex';
 
-  static function loadDefinitionIdsForLexems($lexemIds, $sourceId) {
-    if (empty($lexemIds)) {
+  static function loadDefinitionIdsForLexemes($lexemeIds, $sourceId) {
+    if (empty($lexemeIds)) {
       return [];
     }
-    $lexemString = implode(',', $lexemIds);
+    $lexemeString = implode(',', $lexemeIds);
     if ($sourceId) {
       $query = "select distinct definitionId " .
         "from FullTextIndex F " .
         "join Definition D on D.id = F.definitionId " .
-        "where lexemId in ($lexemString) " .
+        "where lexemeId in ($lexemeString) " .
         "and D.sourceId = $sourceId " .
         "order by definitionId";
     } else {
       $query = "select distinct definitionId " .
         "from FullTextIndex " .
-        "where lexemId in ($lexemString) " .
+        "where lexemeId in ($lexemeString) " .
         "order by definitionId";
     }
     return DB::getArray($query);
   }
 
-  // For each defId, build an array of arrays of positions, one array for each lexemId
-  static function loadPositionsByLexemIdsDefinitionIds($lexemMap, $defIds) {
+  // For each defId, build an array of arrays of positions, one array for each lexemeId
+  static function loadPositionsByLexemeIdsDefinitionIds($lexemeMap, $defIds) {
     $positionMap = [];
-    foreach ($lexemMap as $lexemIds) {
-      if (!empty($lexemIds)) {
-        // Load all positions in all definitions for this Lexem set
+    foreach ($lexemeMap as $lexemeIds) {
+      if (!empty($lexemeIds)) {
+        // Load all positions in all definitions for this Lexeme set
         $query = sprintf('select distinct definitionId, position from FullTextIndex ' .
-                         'where lexemId in (%s) ' .
+                         'where lexemeId in (%s) ' .
                          'and definitionId in (%s) ' .
                          'order by definitionId, position',
-                         implode(',', $lexemIds), implode(',', $defIds));
+                         implode(',', $lexemeIds), implode(',', $defIds));
         $results = DB::getArrayOfRows($query, PDO::FETCH_NUM);
         $results[] = [-1, -1]; // sentinel
 

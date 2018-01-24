@@ -18,10 +18,10 @@
   </p>
 
   {foreach $models as $i => $m}
-    {assign var="l" value=$lexems[$i]}
+    {assign var="l" value=$lexemes[$i]}
     <h4>
       {$m->number}. {$m->getHtmlExponent()}
     </h4>
-    {include "paradigm/paradigm.tpl" lexem=$l}
+    {include "paradigm/paradigm.tpl" lexeme=$l}
   {/foreach}
 {/block}

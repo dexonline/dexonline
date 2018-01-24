@@ -43,7 +43,7 @@ function updateEntity($e, $isDefinition)
     $entityName = $isDefinition ? "definiție" : "sens";
 
     fprintf(STDERR, $link["original_word"] . ",");
-    fprintf(STDERR, $link["linked_lexem"] . ",");
+    fprintf(STDERR, $link["linked_lexeme"] . ",");
     fprintf(STDERR, $e->id . ",");
     fprintf(STDERR, $link["short_reason"] . ",");
     fprintf(STDERR, $entityName . ",");
@@ -54,7 +54,7 @@ function updateEntity($e, $isDefinition)
       fprintf(STDERR, "[arbore](". URL . "editTree.php?id=" . $e->treeId . ")\n");
     }
 
-    $originalLink = "|" . $link["original_word"] . "|" . $link["linked_lexem"] . "|";
+    $originalLink = "|" . $link["original_word"] . "|" . $link["linked_lexeme"] . "|";
 
     $didChange = ($link['short_reason'] !== "nemodificat");
 

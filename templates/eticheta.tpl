@@ -185,17 +185,17 @@
     {/foreach}
   {/if}
 
-  {if count($lexems)}
+  {if count($lexemes)}
     <h3>
       Lexeme asociate
-      {if $lexemCount > count($lexems)}
-        ({count($lexems)} din {$lexemCount} afișate)
+      {if $lexemeCount > count($lexemes)}
+        ({count($lexemes)} din {$lexemeCount} afișate)
       {else}
-        ({count($lexems)})
+        ({count($lexemes)})
       {/if}
     </h3>
 
-    {include "bits/lexemList.tpl"}
+    {include "bits/lexemeList.tpl"}
   {/if}
 
   {if count($meanings)}

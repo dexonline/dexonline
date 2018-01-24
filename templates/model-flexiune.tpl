@@ -19,5 +19,5 @@
     </h4>
 
     <b>Descriere: {$model->description}</b>
-    {include "paradigm/paradigm.tpl" lexem=$lexem}
+    {include "paradigm/paradigm.tpl" lexeme=$lexeme}
 {/block}

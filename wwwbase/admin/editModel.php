@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 ini_set('memory_limit', '512M');
 ini_set('max_execution_time', '3600');
 User::mustHave(User::PRIV_EDIT);
@@ -23,9 +23,9 @@ $inflections = Model::factory('Inflection')
              ->find_many();
 
 // Generate the forms
-$lexem = Lexem::create($m->exponent, $m->modelType, $m->number);
-$lexem->setAnimate(true);
-$ifs = $lexem->generateInflectedForms();
+$lexeme = Lexeme::create($m->exponent, $m->modelType, $m->number);
+$lexeme->setAnimate(true);
+$ifs = $lexeme->generateInflectedForms();
 
 // Load the model descriptions
 $mds = ModelDescription::loadForModel($m->id);
@@ -107,14 +107,14 @@ if (!$previewButton && !$saveButton) {
       }
     }
   }
-  
-  // Load the affected lexems. For each lexem, inflection and transform
+
+  // Load the affected lexemes. For each lexeme, inflection and transform
   // list, generate a new form.
   $limit = ($shortList && !$saveButton) ? SHORT_LIST_LIMIT : 0;
-  $lexems = Lexem::loadByCanonicalModel($m->modelType, $m->number, $limit);
+  $lexemes = Lexeme::loadByCanonicalModel($m->modelType, $m->number, $limit);
   $regenForms = [];
   $errorCount = 0; // Do not report thousands of similar errors.
-  foreach ($lexems as $l) {
+  foreach ($lexemes as $l) {
     $regenRow = [];
     foreach ($regenTransforms as $inflId => $variants) {
       $regenRow[$inflId] = [];
@@ -156,7 +156,7 @@ if (!$previewButton && !$saveButton) {
 
   if ($saveButton) {
     Log::notice("Saving model {$m->id} ({$m}), this could take a while");
-    
+
     // Save the transforms and model descriptions
     Log::debug('Saving transforms and model descriptions');
     foreach ($regenTransforms as $inflId => $transformMatrix) {
@@ -201,13 +201,13 @@ if (!$previewButton && !$saveButton) {
       }
     }
 
-    // Regenerate the affected inflections for every lexem
+    // Regenerate the affected inflections for every lexeme
     Log::debug('Regenerating modified inflections');
     if (count($regenTransforms)) {
       $fileName = tempnam(Core::getTempPath(), 'editModel_');
       $fp = fopen($fileName, 'w');
       foreach ($regenForms as $i => $regenRow) {
-        $l = $lexems[$i];
+        $l = $lexemes[$i];
         foreach ($regenRow as $inflId => $formArray) {
           foreach ($formArray as $variant => $f) {
             if (ConstraintMap::allows($l->restriction, $inflId, $variant)) {
@@ -226,7 +226,7 @@ if (!$previewButton && !$saveButton) {
         load data local infile \"{$fileName}\"
         into table InflectedForm
         fields terminated by \",\" optionally enclosed by \"\\\"\"
-        (form, formNoAccent, formUtf8General, lexemId, inflectionId, variant)
+        (form, formNoAccent, formUtf8General, lexemeId, inflectionId, variant)
       ");
       unlink($fileName);
     }
@@ -235,7 +235,7 @@ if (!$previewButton && !$saveButton) {
     Log::debug('Propagating the "recommended" bit from ModelDescriptions to InflectedForms');
     $q = sprintf("
       update InflectedForm i
-      join Lexem l on i.lexemId = l.id
+      join Lexeme l on i.lexemeId = l.id
       join ModelType mt on l.modelType = mt.code
       join Model m on mt.canonical = m.modelType and l.modelNumber = m.number
       join ModelDescription md on m.id = md.modelId and i.inflectionId = md.inflectionId and i.variant = md.variant
@@ -261,14 +261,14 @@ if (!$previewButton && !$saveButton) {
         }
       }
 
-      foreach ($lexems as $l) {
+      foreach ($lexemes as $l) {
         $l->modelNumber = $nm->number;
         $l->save();
       }
     }
 
     if ($pm && ($pm->adjectiveModel != $npm->adjectiveModel)) {
-      Log::debug('Regenerating participle lexems');
+      Log::debug('Regenerating participle lexemes');
       $npm->save();
 
       foreach ($participles as $p) { // $participles loaded before
@@ -292,7 +292,7 @@ if (!$previewButton && !$saveButton) {
   SmartyWrap::assign('m', $nm);
   SmartyWrap::assign('pm', $npm);
   SmartyWrap::assign('forms', $nforms);
-  SmartyWrap::assign('lexems', $lexems);
+  SmartyWrap::assign('lexemes', $lexemes);
   SmartyWrap::assign('regenForms', $regenForms);
   SmartyWrap::assign('regenTransforms', $regenTransforms);
 }
@@ -328,17 +328,17 @@ function equalArrays($a, $b) {
 }
 
 /**
- * Returns all lexems of model A$pm that have the same form as participle
+ * Returns all lexemes of model A$pm that have the same form as participle
  * InflectedForms of verbs of model VT$model.
  * Assumes that $pm is the correct participle (adjective) model for $model.
  **/
 function loadParticiplesForVerbModel($model, $pm) {
   $infl = Inflection::loadParticiple();
-  return Model::factory('Lexem')
+  return Model::factory('Lexeme')
     ->table_alias('part')
     ->select('part.*')
     ->join('InflectedForm', 'part.formNoAccent = i.formNoAccent', 'i')
-    ->join('Lexem', 'i.lexemId = infin.id', 'infin')
+    ->join('Lexeme', 'i.lexemeId = infin.id', 'infin')
     ->where('infin.modelType', 'VT')
     ->where('infin.modelNumber', $model->number)
     ->where('i.inflectionId', $infl->id)

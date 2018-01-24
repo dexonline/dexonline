@@ -97,7 +97,7 @@ if ($saveButton) {
     foreach ($meanings as $m) {
       foreach (Str::findRedundantLinks($m->internalRep) as $link) {
         if ($link["short_reason"] !== "nemodificat") {
-          FlashMessage::add('Legătura de la "' . $link["original_word"] . '" la "' . $link["linked_lexem"] . '" este considerată redundantă. (Motiv: ' . $link["reason"] . ')', 'warning');
+          FlashMessage::add('Legătura de la "' . $link["original_word"] . '" la "' . $link["linked_lexeme"] . '" este considerată redundantă. (Motiv: ' . $link["reason"] . ')', 'warning');
         }
       }
     }
@@ -112,13 +112,13 @@ if ($saveButton) {
   RecentLink::add("Arbore: {$t->description} (ID={$t->id})");
 }
 
-// Load the distinct model types for the entries' lexems
+// Load the distinct model types for the entries' lexemes
 if (count($entryIds)) {
-  $modelTypes = Model::factory('Lexem')
+  $modelTypes = Model::factory('Lexeme')
               ->table_alias('l')
               ->select('l.modelType')
               ->distinct()
-              ->join('EntryLexem', ['el.lexemId', '=', 'l.id'], 'el')
+              ->join('EntryLexeme', ['el.lexemeId', '=', 'l.id'], 'el')
               ->where_in('el.entryId', $entryIds)
               ->order_by_asc('modelType')
               ->find_many();

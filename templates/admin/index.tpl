@@ -60,8 +60,8 @@
         </div>
 
         <div class="col-lg-4 col-md-6 col-sm-6">
-          <form action="lexemEdit.php">
-            <select id="lexemId" name="lexemId"></select>
+          <form action="lexemeEdit.php">
+            <select id="lexemeId" name="lexemeId"></select>
           </form>
         </div>
 
@@ -184,7 +184,7 @@
                 <div class="form-group">
                   <label class="col-xs-4 control-label">etichete</label>
                   <div class="col-xs-8">
-                    <select name="lexemTagIds[]" class="form-control select2Tags" multiple>
+                    <select name="lexemeTagIds[]" class="form-control select2Tags" multiple>
                     </select>
                   </div>
                 </div>
@@ -264,7 +264,7 @@
                     <input type="radio" name="view" value="Entry" checked> intrări
                   </label>
                   <label class="btn btn-default">
-                    <input type="radio" name="view" value="Lexem"> lexeme
+                    <input type="radio" name="view" value="Lexeme"> lexeme
                   </label>
                   <label class="btn btn-default">
                     <input type="radio" name="view" value="Definition"> definiții
@@ -303,7 +303,7 @@
             </span>
 
             <div class="btn-group">
-              <button type="submit" class="btn btn-default" name="showLexems">
+              <button type="submit" class="btn btn-default" name="showLexemes">
                 arată toate lexemele
               </button>
               <button type="submit" class="btn btn-default" name="editModel">
@@ -325,7 +325,7 @@
         <div class="voffset2"></div>
 
         <p>
-          <a href="../admin/mergeLexems.php">unificare plural-singular</a>
+          <a href="../admin/mergeLexemes.php">unificare plural-singular</a>
 
           <span class="text-muted">
             pentru familiile de plante și animale și pentru alte lexeme care apar

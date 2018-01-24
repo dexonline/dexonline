@@ -7,14 +7,14 @@ function getWordForDefinitionId($defId) {
   return $def->lexicon;
 }
 
-function getSimpleDefinitionsForLexemIds($lexemIds) {
+function getSimpleDefinitionsForLexemeIds($lexemeIds) {
   $defIds = Model::factory('EntryDefinition')
           ->table_alias('ed')
           ->select('definitionId')
           ->distinct()
-          ->join('EntryLexem', ['ed.entryId', '=', 'el.entryId'], 'el')
-          ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
-          ->where_in('l.id', $lexemIds)
+          ->join('EntryLexeme', ['ed.entryId', '=', 'el.entryId'], 'el')
+          ->join('Lexeme', ['el.lexemeId', '=', 'l.id'], 'l')
+          ->where_in('l.id', $lexemeIds)
           ->find_many();
   $defIds = Util::objectProperty($defIds, 'definitionId');
     
@@ -54,21 +54,21 @@ $options[$answer] = [
 ];
 $used[$maindef->definitionId] = 1;
 
-$closestLexemsDefinitionsCount = null;
-$closestLexemsDefinitions = null;
+$closestLexemesDefinitionsCount = null;
+$closestLexemesDefinitions = null;
 if ($difficulty > 1) {
-  $nearLexemIds = NGram::searchLexemIds($word);
-  arsort($nearLexemIds);
-  $lexemPoolSize = 48 / $difficulty;
-  $closestLexemIds = array_slice($nearLexemIds, 0, $lexemPoolSize, true);
-  $closestLexemIds = array_keys($closestLexemIds);
+  $nearLexemeIds = NGram::searchLexemeIds($word);
+  arsort($nearLexemeIds);
+  $lexemePoolSize = 48 / $difficulty;
+  $closestLexemeIds = array_slice($nearLexemeIds, 0, $lexemePoolSize, true);
+  $closestLexemeIds = array_keys($closestLexemeIds);
   
-  $closestLexemsDefinitions = getSimpleDefinitionsForLexemIds($closestLexemIds);
-  $closestLexemsDefinitionsCount = count($closestLexemsDefinitions);
+  $closestLexemesDefinitions = getSimpleDefinitionsForLexemeIds($closestLexemeIds);
+  $closestLexemesDefinitionsCount = count($closestLexemesDefinitions);
   
-  //if there are no close lexem definitions to choose from 
+  //if there are no close lexeme definitions to choose from 
   //then use easier difficulty
-  if ($closestLexemsDefinitionsCount == 0) {
+  if ($closestLexemesDefinitionsCount == 0) {
     $difficulty = 1;
   }
 }
@@ -81,16 +81,16 @@ for ($i = 1; $i <= 4; $i++) {
         $aux = rand(0, $count - 1);
         $def = Model::factory('DefinitionSimple')->limit(1)->offset($aux)->find_one();
       } else {
-        $aux = rand(0, $closestLexemsDefinitionsCount - 1);
-        $def = $closestLexemsDefinitions[$aux];
+        $aux = rand(0, $closestLexemesDefinitionsCount - 1);
+        $def = $closestLexemesDefinitions[$aux];
         
-        unset($closestLexemsDefinitions[$aux]);
-        $closestLexemsDefinitions = array_values($closestLexemsDefinitions);
-        $closestLexemsDefinitionsCount--;
+        unset($closestLexemesDefinitions[$aux]);
+        $closestLexemesDefinitions = array_values($closestLexemesDefinitions);
+        $closestLexemesDefinitionsCount--;
         
-        //if we run out of close lexem definitions to use 
+        //if we run out of close lexeme definitions to use 
         //then use easier difficulty
-        if ($closestLexemsDefinitionsCount == 0) {
+        if ($closestLexemesDefinitionsCount == 0) {
           $difficulty = 1;
         }
       }

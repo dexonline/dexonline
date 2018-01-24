@@ -32,12 +32,12 @@
 
   <form class="form-horizontal" method="post">
     <input type="hidden" name="suffix" value="{$suffix|escape}">
-    {foreach $lexems as $lIter => $l}
+    {foreach $lexemes as $lIter => $l}
       <div class="panel panel-default">
 
         <div class="panel-heading">
           {$lIter+1}. {$l->formNoAccent|escape}
-          <a href="../admin/lexemEdit.php?lexemId={$l->id}">
+          <a href="../admin/lexemeEdit.php?lexemeId={$l->id}">
             <i class="glyphicon glyphicon-pencil"></i>
             editează
           </a>
@@ -56,7 +56,7 @@
                 <label class="radio">
                   <input class="modelRadio"
                          type="radio"
-                         name="lexem_{$l->id}"
+                         name="lexeme_{$l->id}"
                          value="{$mId}"
                          data-paradigm-id="paradigm_{$lIter}_{$i}">
                   {$m->modelType}{$m->number} ({$m->exponent})
@@ -65,7 +65,7 @@
               <label class="radio">
                 <input class="modelRadio"
                        type="radio"
-                       name="lexem_{$l->id}"
+                       name="lexeme_{$l->id}"
                        value="0"
                        checked>
                 Ignoră
@@ -99,7 +99,7 @@
             {assign var="m" value=$models[$pIter]}
             {assign var="mt" value=$modelTypes[$pIter]}
             <div id="paradigm_{$lIter}_{$pIter}" class="paradigm">
-              {include "paradigm/paradigm.tpl" lexem=$l}
+              {include "paradigm/paradigm.tpl" lexeme=$l}
             </div>
           {/foreach}
         </div>

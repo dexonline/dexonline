@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_STRUCT);
 Util::assertNotMirror();
 
@@ -19,7 +19,7 @@ $entries = Model::factory('Entry')
          ->limit(100)
          ->find_many();
 
-// Load the definitions for each lexem
+// Load the definitions for each lexeme
 $searchResults = [];
 foreach ($entries as $e) {
   $defs = Definition::loadByEntryIds([$e->id]);

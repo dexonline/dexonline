@@ -2,9 +2,9 @@ $(function() {
   var stem = null;
   var stemOption = null;
 
-  var lexemStruct = {
+  var lexemeStruct = {
     ajax: {
-      url: wwwRoot + 'ajax/getLexems.php',
+      url: wwwRoot + 'ajax/getLexemes.php',
     },
     allowClear: true,
     createTag: allowNewOptions,
@@ -36,9 +36,9 @@ $(function() {
   };
 
   function init() {
-    initSelect2('.lexem', 'ajax/getLexemsById.php', lexemStruct);
+    initSelect2('.lexeme', 'ajax/getLexemesById.php', lexemeStruct);
     initSelect2('.model', 'ajax/getModelsByCodes.php', modelStruct);
-    $('.lexem').change(lexemChange);
+    $('.lexeme').change(lexemeChange);
     $('.model').change(modelChange);
     $('.shortcutI3').click(shortcutI3);
     $('#addRow').click(addRow);
@@ -49,27 +49,27 @@ $(function() {
   }
 
   function addRow() {
-    var r = stem.clone(true).appendTo('#lexemsTable');
-    r.find('.lexem').select2(lexemStruct);
+    var r = stem.clone(true).appendTo('#lexemesTable');
+    r.find('.lexeme').select2(lexemeStruct);
     r.find('.model').select2(modelStruct);
     return false;
   }
 
   // Refresh the model list
-  function lexemChange() {
-    var lexemId = $(this).val();
+  function lexemeChange() {
+    var lexemeId = $(this).val();
     var m = $(this).closest('tr').find('.model');
     m.html('');
-    
-    if (lexemId == null) {
-      // lexem field cleared
+
+    if (lexemeId == null) {
+      // lexeme field cleared
       m.trigger('change');
-    } else if (lexemId.startsWith('@')) {
-      // new lexem form
+    } else if (lexemeId.startsWith('@')) {
+      // new lexeme form
       m.append(stemOption).trigger('change');
     } else {
       $.ajax({
-        url: wwwRoot + 'ajax/getModelByLexemId.php?id=' + lexemId,
+        url: wwwRoot + 'ajax/getModelByLexemeId.php?id=' + lexemeId,
         success: function(model) {
           var id = model.modelType + model.modelNumber;
           var text = model.modelType + model.modelNumber + ' (' + model.exponent + ')';
@@ -96,8 +96,8 @@ $(function() {
   }
 
   function endEdit() {
-    // make sure even empty lexemIds and models are being submitted
-    $('.lexem, .model').each(function() {
+    // make sure even empty lexemeIds and models are being submitted
+    $('.lexeme, .model').each(function() {
       if ($(this).val() == null) {
         $(this).append(new Option(0, 0, true, true));
       }

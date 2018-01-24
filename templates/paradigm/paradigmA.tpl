@@ -1,9 +1,9 @@
-{* Argument: $lexem *}
-{assign var=ifMap value=$lexem->loadInflectedFormMap()}
-<table class="lexem">
+{* Argument: $lexeme *}
+{assign var=ifMap value=$lexeme->loadInflectedFormMap()}
+<table class="lexeme">
   <tr>
     <td colspan="2" rowspan="2">
-      {include "bits/lexem.tpl" lexem=$lexem}
+      {include "bits/lexeme.tpl" lexeme=$lexeme}
     </td>
     <td colspan="2" class="inflection">masculin</td>
     <td colspan="2" class="inflection">feminin</td>

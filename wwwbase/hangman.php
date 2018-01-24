@@ -36,7 +36,7 @@ default :
   $maxLength = easyLength;
 }
 
-$count = Model::factory('Lexem')
+$count = Model::factory('Lexeme')
   ->where('isLoc', 1)
   ->where_gte('frequency', $minFreq)
   ->where_lte('frequency', $maxFreq)
@@ -45,7 +45,7 @@ $count = Model::factory('Lexem')
   ->count();
 
 do {
-  $lexem = Model::factory('Lexem')
+  $lexeme = Model::factory('Lexeme')
     ->where('isLoc', 1)
     ->where_gte('frequency', $minFreq)
     ->where_lte('frequency', $maxFreq)
@@ -55,23 +55,23 @@ do {
     ->offset(rand(0, $count - 1))
     ->find_one();
 
-  // select all the definitions for the given lexem
+  // select all the definitions for the given lexeme
   $defs = Model::factory('Definition')
         ->table_alias('d')
         ->select('d.*')
         ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
-        ->join('EntryLexem', ['ed.entryId', '=', 'el.entryId'], 'el')
+        ->join('EntryLexeme', ['ed.entryId', '=', 'el.entryId'], 'el')
         ->join('Source', ['s.id', '=', 'd.sourceId'], 's')
-        ->where('el.lexemId', $lexem->id)
+        ->where('el.lexemeId', $lexeme->id)
         ->where('d.status', Definition::ST_ACTIVE)
         ->where('s.type', Source::TYPE_OFFICIAL)
         ->order_by_asc('s.displayOrder')
         ->find_many();
-// loop untill you find a lexem with a definition
+// loop untill you find a lexeme with a definition
 } while (!$defs);
 
 $searchResults = SearchResult::mapDefinitionArray($defs);
-$word = mb_strtoupper($lexem->formNoAccent);
+$word = mb_strtoupper($lexeme->formNoAccent);
 
 SmartyWrap::assign('wordLength', mb_strlen($word));
 SmartyWrap::assign('letters', preg_split('//u', 'aăâbcdefghiîjklmnopqrsștțuvwxyz', null, PREG_SPLIT_NO_EMPTY));

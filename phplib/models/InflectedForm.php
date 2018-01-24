@@ -3,13 +3,13 @@
 class InflectedForm extends BaseObject {
   public static $_table = 'InflectedForm';
 
-  static function create($form = null, $lexemId = null, $inflectionId = null,
+  static function create($form = null, $lexemeId = null, $inflectionId = null,
                                 $variant = null, $recommended = 1) {
     $if = Model::factory('InflectedForm')->create();
     $if->form = $form;
     $if->formNoAccent = str_replace("'", '', $form);
     $if->formUtf8General = $if->formNoAccent;
-    $if->lexemId = $lexemId;
+    $if->lexemeId = $lexemeId;
     $if->inflectionId = $inflectionId;
     $if->variant = $variant;
     $if->recommended = $recommended;
@@ -38,7 +38,7 @@ class InflectedForm extends BaseObject {
     DB::execute(sprintf("
       delete i
       from InflectedForm i
-      join Lexem l on i.lexemId = l.id
+      join Lexeme l on i.lexemeId = l.id
       where l.modelNumber = '%s' and i.inflectionId = %d
     ", addslashes($modelNumber), $inflId));
   }

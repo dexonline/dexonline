@@ -63,7 +63,7 @@
                 {foreach $data as $r}
                   <dt>{$r.inflectedForm|escape}</dt>
                   <dd>provine din
-                    <a href="{$wwwRoot}definitie/{$r.lexemFormNoAccent|escape}">{$r.lexemForm|escape}</a>
+                    <a href="{$wwwRoot}definitie/{$r.lexemeFormNoAccent|escape}">{$r.lexemeForm|escape}</a>
                     {$r.modelType}{$r.modelNumber}{$r.restriction}
                     ({$r.inflection|escape})
                   </dd>

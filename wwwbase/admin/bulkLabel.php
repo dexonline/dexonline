@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
@@ -8,20 +8,20 @@ $saveButton = Request::has('saveButton');
 
 if ($saveButton) {
   foreach ($_REQUEST as $name => $modelId) {
-    if (Str::startsWith($name, 'lexem_')) {
+    if (Str::startsWith($name, 'lexeme_')) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
-      assert($parts[0] == 'lexem');
-      $lexem = Lexem::get_by_id($parts[1]);
+      assert($parts[0] == 'lexeme');
+      $lexeme = Lexeme::get_by_id($parts[1]);
 
       if ($modelId) {
         $parts = preg_split('/_/', $modelId);
         assert(count($parts) == 2);
-        $lexem->modelType = $parts[0];
-        $lexem->modelNumber = $parts[1];
-        $lexem->restriction = Request::get('restr_' . $lexem->id);
-        $lexem->save();
-        $lexem->regenerateParadigm();
+        $lexeme->modelType = $parts[0];
+        $lexeme->modelNumber = $parts[1];
+        $lexeme->restriction = Request::get('restr_' . $lexeme->id);
+        $lexeme->save();
+        $lexeme->regenerateParadigm();
       }
     }
   }
@@ -30,18 +30,18 @@ if ($saveButton) {
 
 $reverseSuffix = Str::reverse($suffix);
 
-$numLabeled = Model::factory('Lexem')
+$numLabeled = Model::factory('Lexeme')
   ->where_not_equal('modelType', 'T')
   ->where_like('reverse', "{$reverseSuffix}%")
   ->count();
 
 // Collect all the models that appear in at least 5% of the already
-// labeled lexems. Always select at least one model, in the unlikely case
+// labeled lexemes. Always select at least one model, in the unlikely case
 // that no model has over 5%.
 $models = array();
 $hasInvariableModel = false;
 $dbResult = DB::execute("select canonical, modelNumber, count(*) as c " .
-                       "from Lexem " .
+                       "from Lexeme " .
                        "join ModelType on modelType = code " .
                        "where modelType != 'T' " .
                        "and reverse like '{$reverseSuffix}%' " .
@@ -78,35 +78,35 @@ foreach ($models as $m) {
   $modelTypes[] = ModelType::get_by_code($m->modelType);
 }
 
-$lexems = Model::factory('Lexem')
+$lexemes = Model::factory('Lexeme')
   ->where('modelType', 'T')
   ->where_like('reverse', "{$reverseSuffix}%")
   ->order_by_asc('formNoAccent')
   ->limit(20)
   ->find_many();
 
-// $lMatrix[$i][$j] = lexem (with inflected forms) for lexem $i and model $j
+// $lMatrix[$i][$j] = lexeme (with inflected forms) for lexeme $i and model $j
 $lMatrix = [];
-foreach ($lexems as $l) {
+foreach ($lexemes as $l) {
   $lArray = [];
   foreach ($models as $m) {
     // Force a reload
-    $copy = Lexem::create($l->form, $m->modelType, $m->number);
+    $copy = Lexeme::create($l->form, $m->modelType, $m->number);
     $copy->generateInflectedFormMap();
     $lArray[] = $copy;
   }
   $lMatrix[] = $lArray;
 }
 
-// Load the definitions for each lexem
+// Load the definitions for each lexeme
 $searchResults = array();
-foreach ($lexems as $l) {
+foreach ($lexemes as $l) {
   $definitions = Definition::loadByEntryIds($l->getEntryIds());
   $searchResults[] = SearchResult::mapDefinitionArray($definitions);
 }
 
 SmartyWrap::assign('suffix', $suffix);
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::assign('models', $models);
 SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('searchResults', $searchResults);

@@ -75,11 +75,11 @@ if ($mergeButton) {
 
 if ($cloneButton) {
   $cloneDefinitions = Request::has('cloneDefinitions');
-  $cloneLexems = Request::has('cloneLexems');
+  $cloneLexemes = Request::has('cloneLexemes');
   $cloneTrees = Request::has('cloneTrees');
   $cloneStructurist = Request::has('cloneStructurist');
 
-  $newe = $e->_clone($cloneDefinitions, $cloneLexems, $cloneTrees, $cloneStructurist);
+  $newe = $e->_clone($cloneDefinitions, $cloneLexemes, $cloneTrees, $cloneStructurist);
   Log::info("Cloned entry {$e->id} ({$e->description}), new id {$newe->id}");
   FlashMessage::add('Am clonat intrarea.', 'success');
   Util::redirect("?id={$newe->id}");
@@ -117,9 +117,9 @@ if ($delete) {
 
 // Delete the entry, its T1 lexemes and its empty trees.
 if ($deleteExt) {
-  foreach ($e->getLexems() as $l) {
+  foreach ($e->getLexemes() as $l) {
     if (($l->modelType == 'T') &&
-        ($l->canDelete() == Lexem::CAN_DELETE_OK)) {
+        ($l->canDelete() == Lexeme::CAN_DELETE_OK)) {
       $l->delete();
     }
   }
@@ -139,8 +139,8 @@ if ($saveButton) {
   $e->structStatus = Request::get('structStatus');
   $e->structuristId = Request::get('structuristId');
   $e->adult = Request::has('adult');
-  $mainLexemIds = Request::getArray('mainLexemIds');
-  $variantLexemIds = Request::getArray('variantLexemIds');
+  $mainLexemeIds = Request::getArray('mainLexemeIds');
+  $variantLexemeIds = Request::getArray('variantLexemeIds');
   $treeIds = Request::getArray('treeIds');
   $renameTrees = Request::has('renameTrees');
   $tagIds = Request::getArray('tagIds');
@@ -164,8 +164,8 @@ if ($saveButton) {
     $e->save();
 
     // dissociate old lexemes, trees and tags and associate new ones
-    EntryLexem::update($e->id, $mainLexemIds, ['main' => true]);
-    EntryLexem::update($e->id, $variantLexemIds, ['main' => false]);
+    EntryLexeme::update($e->id, $mainLexemeIds, ['main' => true]);
+    EntryLexeme::update($e->id, $variantLexemeIds, ['main' => false]);
     TreeEntry::update($treeIds, $e->id);
     ObjectTag::wipeAndRecreate($e->id, ObjectTag::TYPE_ENTRY, $tagIds);
 
@@ -181,8 +181,8 @@ if ($saveButton) {
   }
 } else {
   // Viewing the page, not saving
-  $mainLexemIds = $e->getMainLexemIds();
-  $variantLexemIds = $e->getVariantLexemIds();
+  $mainLexemeIds = $e->getMainLexemeIds();
+  $variantLexemeIds = $e->getVariantLexemeIds();
   $treeIds = $e->getTreeIds();
   $ots = ObjectTag::getEntryTags($e->id);
   $tagIds = Util::objectProperty($ots, 'tagId');
@@ -192,8 +192,8 @@ if ($saveButton) {
 
 // Load the distinct model types for the entry's lexemes
 $modelTypes = [];
-foreach (array_merge($mainLexemIds, $variantLexemIds) as $lexemId) {
-  $l = Lexem::get_by_id($lexemId);
+foreach (array_merge($mainLexemeIds, $variantLexemeIds) as $lexemeId) {
+  $l = Lexeme::get_by_id($lexemeId);
   $modelTypes[] = $l->modelType;
 }
 $modelTypes = array_unique($modelTypes);
@@ -219,8 +219,8 @@ $homonyms = Entry::getHomonyms([ $e ]);
 
 SmartyWrap::assign('e', $e);
 SmartyWrap::assign('searchResults', $searchResults);
-SmartyWrap::assign('mainLexemIds', $mainLexemIds);
-SmartyWrap::assign('variantLexemIds', $variantLexemIds);
+SmartyWrap::assign('mainLexemeIds', $mainLexemeIds);
+SmartyWrap::assign('variantLexemeIds', $variantLexemeIds);
 SmartyWrap::assign('treeIds', $treeIds);
 SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('modelTypes', $modelTypes);

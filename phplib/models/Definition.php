@@ -173,27 +173,27 @@ class Definition extends BaseObject implements DatedObject {
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     $intersection = null;
     $stopWords = [];
-    $lexemMap = [];
+    $lexemeMap = [];
     $adult = false;
 
     foreach ($words as $word) {
-      // Get all lexems generating this form
-      $lexems = Model::factory('InflectedForm')
-        ->select('lexemId')
+      // Get all lexemes generating this form
+      $lexemes = Model::factory('InflectedForm')
+        ->select('lexemeId')
         ->distinct()
         ->where($field, $word)
         ->find_many();
-      $lexemIds = Util::objectProperty($lexems, 'lexemId');
-      $lexemMap[] = $lexemIds;
+      $lexemeIds = Util::objectProperty($lexemes, 'lexemeId');
+      $lexemeMap[] = $lexemeIds;
 
       // Get the FullTextIndex records for each form. Note that the FTI excludes stop words.
-      $defIds = FullTextIndex::loadDefinitionIdsForLexems($lexemIds, $sourceId);
+      $defIds = FullTextIndex::loadDefinitionIdsForLexemes($lexemeIds, $sourceId);
 
       // Determine whether the word is a stop word.
       if (empty($defIds)) {
         $isStopWord = Model::factory('InflectedForm')
           ->table_alias('i')
-          ->join('Lexem', 'i.lexemId = l.id', 'l')
+          ->join('Lexeme', 'i.lexemeId = l.id', 'l')
           ->where("i.{$field}", $word)
           ->where('l.stopWord', 1)
           ->count();
@@ -202,11 +202,11 @@ class Definition extends BaseObject implements DatedObject {
       }
 
       // see if any entries for these lexemes are adult
-      if (!empty($lexemIds)) {
+      if (!empty($lexemeIds)) {
         $adult |= Model::factory('Entry')
                 ->table_alias('e')
-                ->join('EntryLexem', ['e.id', '=', 'el.entryId'], 'el')
-                ->where_in('el.lexemId', $lexemIds)
+                ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+                ->where_in('el.lexemeId', $lexemeIds)
                 ->where('e.adult', true)
                 ->count();
       }
@@ -230,7 +230,7 @@ class Definition extends BaseObject implements DatedObject {
 
     // Now compute a score for every definition
     DebugInfo::resetClock();
-    $positionMap = FullTextIndex::loadPositionsByLexemIdsDefinitionIds($lexemMap, $intersection);
+    $positionMap = FullTextIndex::loadPositionsByLexemeIdsDefinitionIds($lexemeMap, $intersection);
     $shortestIntervals = [];
     foreach ($intersection as $defId) {
       $shortestIntervals[] = Util::findSnippet($positionMap[$defId]);
@@ -252,8 +252,8 @@ class Definition extends BaseObject implements DatedObject {
              ->table_alias('i1')
              ->select('i2.formNoAccent')
              ->distinct()
-             ->join('Lexem', ['i1.lexemId', '=', 'l.id'], 'l')
-             ->left_outer_join('InflectedForm', ['i2.lexemId', '=', 'l.id'], 'i2')
+             ->join('Lexeme', ['i1.lexemeId', '=', 'l.id'], 'l')
+             ->left_outer_join('InflectedForm', ['i2.lexemeId', '=', 'l.id'], 'i2')
              ->where('l.stopWord', 0)
              ->where('i1.formUtf8General', $key)
              ->find_many();
@@ -284,7 +284,7 @@ class Definition extends BaseObject implements DatedObject {
     }
   }
 
-  // Return definitions that are associated with at least two of the lexems
+  // Return definitions that are associated with at least two of the lexemes
   static function searchMultipleWords($words, $hasDiacritics, $sourceId) {
     $defCounts = [];
     foreach ($words as $word) {

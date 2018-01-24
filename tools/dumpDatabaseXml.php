@@ -28,9 +28,9 @@ dumpDefinitions("SELECT * FROM Definition WHERE sourceId IN (SELECT id FROM Sour
 dumpEntries("SELECT * FROM Entry where modDate < $TODAY_TIMESTAMP",
             "$REMOTE_FOLDER/$TODAY-entries.xml.gz",
             'dumping entries');
-dumpLexems("SELECT * FROM Lexem where modDate < $TODAY_TIMESTAMP",
+dumpLexemes("SELECT * FROM Lexeme where modDate < $TODAY_TIMESTAMP",
            "$REMOTE_FOLDER/$TODAY-lexems.xml.gz",
-           'dumping lexems and inflected forms');
+           'dumping lexemes and inflected forms');
 dumpEd("SELECT ed.entryId, ed.definitionId FROM EntryDefinition ed " .
        "JOIN Definition d on d.id = ed.definitionId " .
        "WHERE d.sourceId in (SELECT id FROM Source WHERE canDistribute) " .
@@ -39,15 +39,15 @@ dumpEd("SELECT ed.entryId, ed.definitionId FROM EntryDefinition ed " .
        "ORDER BY ed.entryId, ed.id",
        "$REMOTE_FOLDER/$TODAY-edm.xml.gz",
        'dumping entry-definition map');
-dumpEl("SELECT el.entryId, el.lexemId FROM EntryLexem el " .
+dumpEl("SELECT el.entryId, el.lexemeId FROM EntryLexeme el " .
        "JOIN Entry e on e.id = el.entryId " .
-       "JOIN Lexem l on l.id = el.lexemId " .
+       "JOIN Lexeme l on l.id = el.lexemeId " .
        "WHERE el.modDate < $TODAY_TIMESTAMP " .
        "AND e.modDate < $TODAY_TIMESTAMP " .
        "AND l.modDate < $TODAY_TIMESTAMP " .
        "ORDER BY el.entryId, el.id",
        "$REMOTE_FOLDER/$TODAY-elm.xml.gz",
-       'dumping entry-lexem map');
+       'dumping entry-lexeme map');
 
 if ($LAST_DUMP) {
   dumpDefinitions("SELECT * FROM Definition WHERE sourceId IN (SELECT id FROM Source WHERE canDistribute) " .
@@ -59,9 +59,9 @@ if ($LAST_DUMP) {
               "$REMOTE_FOLDER/$TODAY-entries-diff.xml.gz",
               'dumping entries diff');
 
-  dumpLexems("SELECT * FROM Lexem where modDate >= $LAST_DUMP_TIMESTAMP AND modDate < $TODAY_TIMESTAMP",
+  dumpLexemes("SELECT * FROM Lexeme where modDate >= $LAST_DUMP_TIMESTAMP AND modDate < $TODAY_TIMESTAMP",
              "$REMOTE_FOLDER/$TODAY-lexems-diff.xml.gz",
-             'dumping lexems and inflected forms diff');
+             'dumping lexemes and inflected forms diff');
 
   dumpDiff("$REMOTE_FOLDER/$LAST_DUMP-edm.xml.gz",
            "$REMOTE_FOLDER/$TODAY-edm.xml.gz",
@@ -73,7 +73,7 @@ if ($LAST_DUMP) {
            "$REMOTE_FOLDER/$TODAY-elm.xml.gz",
            "$REMOTE_FOLDER/$TODAY-elm-diff.xml.gz",
            'EntryLexem',
-           'dumping entry-lexem map diff');           
+           'dumping entry-lexeme map diff');           
 }
 
 removeOldDumps($REMOTE_FOLDER, $TODAY, $LAST_DUMP);
@@ -211,7 +211,7 @@ function dumpEntries($query, $remoteFile, $message) {
   unlink($tmpFile);
 }
 
-function dumpLexems($query, $remoteFile, $message) {
+function dumpLexemes($query, $remoteFile, $message) {
   global $FTP;
 
   Log::info($message);
@@ -221,9 +221,9 @@ function dumpLexems($query, $remoteFile, $message) {
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<Lexems>\n");
   foreach($results as $row) {
-    $lexem = Model::factory('Lexem')->create($row);
-    SmartyWrap::assign('lexem', $lexem);
-    gzwrite($file, SmartyWrap::fetch('xml/xmldump/lexem.tpl'));
+    $lexeme = Model::factory('Lexeme')->create($row);
+    SmartyWrap::assign('lexeme', $lexeme);
+    gzwrite($file, SmartyWrap::fetch('xml/xmldump/lexeme.tpl'));
   }
   gzwrite($file, "</Lexems>\n");
   gzclose($file);

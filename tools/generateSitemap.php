@@ -18,23 +18,23 @@ chdir(Core::getRootPath());
 openNewFile();
 addOtherUrls();
 
-$query = 'select id, formNoAccent from Lexem order by formNoAccent';
+$query = 'select id, formNoAccent from Lexeme order by formNoAccent';
 Log::info("Running mysql query: [$query]");
 $dbResult = DB::execute($query);
 
 $rowB = array(null, null);
 $rowC = array(null, null);
 foreach ($dbResult as $dbRow) {
-  // Keep a moving window of 3 lexems that we can use to eliminate duplicates
+  // Keep a moving window of 3 lexemes that we can use to eliminate duplicates
   $rowA = $rowB;
   $rowB = $rowC;
   $rowC = $dbRow;
   if ($rowB[1] && $rowB[1] != $rowA[1]) {
-    // If 2 or more lexems have identical forms, only add a definition URL for the first one
+    // If 2 or more lexemes have identical forms, only add a definition URL for the first one
     addUrl('https://dexonline.ro/definitie/' . urlencode($rowB[1]));
   }
   if ($rowB[0] && ($rowB[1] == $rowA[1] || $rowB[1] == $rowC[1])) {
-    // Only add a link to the lexem if it has homonyms. Otherwise, its page is identical to the definition page.
+    // Only add a link to the lexeme if it has homonyms. Otherwise, its page is identical to the definition page.
     addUrl("https://dexonline.ro/lexem/{$rowB[1]}/{$rowB[0]}");
   }
 }

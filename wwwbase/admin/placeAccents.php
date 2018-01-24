@@ -11,16 +11,16 @@ if ($saveButton) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
       assert($parts[0] == 'position');
-      $lexem = Lexem::get_by_id($parts[1]);
-      $noAccent = Request::get('noAccent_' . $lexem->id);
+      $lexeme = Lexeme::get_by_id($parts[1]);
+      $noAccent = Request::get('noAccent_' . $lexeme->id);
 
       if ($noAccent) {
-        $lexem->noAccent = 1;
-        $lexem->save();
+        $lexeme->noAccent = 1;
+        $lexeme->save();
       } else if ($position != -1) {
-        $lexem->form = mb_substr($lexem->form, 0, $position) . "'" . mb_substr($lexem->form, $position);
-        $lexem->save();
-        $lexem->regenerateParadigm();
+        $lexeme->form = mb_substr($lexeme->form, 0, $position) . "'" . mb_substr($lexeme->form, $position);
+        $lexeme->save();
+        $lexeme->regenerateParadigm();
       }
     }
   }
@@ -29,9 +29,9 @@ if ($saveButton) {
 
 $chars = array();
 $searchResults = array();
-$lexems = Model::factory('Lexem')->raw_query("select * from Lexem where form not rlike '\'' and not noAccent order by rand() limit 10")
+$lexemes = Model::factory('Lexeme')->raw_query("select * from Lexeme where form not rlike '\'' and not noAccent order by rand() limit 10")
   ->find_many();
-foreach($lexems as $l) {
+foreach($lexemes as $l) {
   $charArray = array();
   $form = mb_strtoupper($l->form);
   $len = mb_strlen($form);
@@ -45,7 +45,7 @@ foreach($lexems as $l) {
   $searchResults[$l->id] = SearchResult::mapDefinitionArray($definitions);
 }
 
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::assign('chars', $chars);
 SmartyWrap::assign('searchResults', $searchResults);
 SmartyWrap::addCss('admin');

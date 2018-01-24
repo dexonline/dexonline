@@ -5,13 +5,13 @@ $(function() {
   function init() {
     window.setInterval(updatePreview, 5000);
 
-    initSelect2('#lexemIds', 'ajax/getLexemsById.php', {
-      ajax: { url: wwwRoot + 'ajax/getLexems.php' },
+    initSelect2('#lexemeIds', 'ajax/getLexemesById.php', {
+      ajax: { url: wwwRoot + 'ajax/getLexemes.php' },
       createTag: allowNewOptions,
       minimumInputLength: 1,
       tags: true,
     }).done(function() {
-      $('#lexemIds').select2('focus');
+      $('#lexemeIds').select2('focus');
     });
   }
 

@@ -1,6 +1,6 @@
 <?php
 
-/* A fragment is a part of a compound lexem */
+/* A fragment is a part of a compound lexeme */
 
 class Fragment extends BaseObject implements DatedObject {
   public static $_table = 'Fragment';
@@ -23,7 +23,7 @@ class Fragment extends BaseObject implements DatedObject {
   // "null" means "the fragment mimics the compound inflection".
   public static $INV_RULES = [
     self::DEC_INVARIABLE => [
-      // special case, handled in Lexem.php
+      // special case, handled in Lexeme.php
     ],
     self::DEC_FULL => [
       'gender' => null,

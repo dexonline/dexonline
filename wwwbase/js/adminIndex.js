@@ -1,8 +1,8 @@
 // We cannot place this in autoload/index.js because the /index.php page would also load it.
 $(function() {
   function init() {
-    $('#lexemId').select2({
-      ajax: { url: wwwRoot + 'ajax/getLexems.php', },
+    $('#lexemeId').select2({
+      ajax: { url: wwwRoot + 'ajax/getLexemes.php', },
       minimumInputLength: 1,
       placeholder: 'caută un lexem',
       width: '100%',

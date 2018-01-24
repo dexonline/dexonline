@@ -30,11 +30,11 @@
     </div>
 
     <div class="row form-group">
-      {foreach $lexems as $l}
+      {foreach $lexemes as $l}
         <div class="checkbox col-xs-6 col-sm-4 col-md-3 col-lg-2">
           <label>
-            <input type="checkbox" name="lexemId[]" value="{$l->id}">
-            {include "bits/lexemName.tpl" lexem=$l}
+            <input type="checkbox" name="lexemeId[]" value="{$l->id}">
+            {include "bits/lexemeName.tpl" lexeme=$l}
             <small class="text-muted">({$l->modelType}{$l->modelNumber})</small>
           </label>
         </div>

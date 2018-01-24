@@ -100,7 +100,7 @@
         <td>{if $mt->code != $mt->canonical}{$mt->canonical}{/if}</td>
         <td>{$mt->description}</td>
         <td>{$modelCounts[$i]}</td>
-        <td>{$lexemCounts[$i]}</td>
+        <td>{$lexemeCounts[$i]}</td>
         <td>
           <a href="?editId={$mt->id}">editează</a>
           {if $canDelete[$i]}

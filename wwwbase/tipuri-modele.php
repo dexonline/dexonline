@@ -64,20 +64,20 @@ if ($deleteId) {
 // Load model type table data
 $modelTypes = Model::factory('ModelType')->order_by_asc('code')->find_many();
 $modelCounts = array();
-$lexemCounts = array();
+$lexemeCounts = array();
 $canDelete = array();
 foreach ($modelTypes as $mt) {
-  $numLexems = Model::factory('Lexem')->where('modelType', $mt->code)->count();
+  $numLexemes = Model::factory('Lexeme')->where('modelType', $mt->code)->count();
   $numDependants = Model::factory('ModelType')->where('canonical', $mt->code)->count();
   $modelCounts[] = Model::factory('FlexModel')->where('modelType', $mt->code)->count();
-  $lexemCounts[] = $numLexems;
-  $canDelete[] = ($numLexems == 0) && ($numDependants <= 1);
+  $lexemeCounts[] = $numLexemes;
+  $canDelete[] = ($numLexemes == 0) && ($numDependants <= 1);
 }
 
 SmartyWrap::assign('canonicalModelTypes', ModelType::loadCanonical());
 SmartyWrap::assign('modelTypes', $modelTypes);
 SmartyWrap::assign('modelCounts', $modelCounts);
-SmartyWrap::assign('lexemCounts', $lexemCounts);
+SmartyWrap::assign('lexemeCounts', $lexemeCounts);
 SmartyWrap::assign('canDelete', $canDelete);
 SmartyWrap::assign('showAddForm', $showAddForm);
 SmartyWrap::display('tipuri-modele.tpl');
@@ -105,9 +105,9 @@ function validateEdit($mt) {
 }
 
 function validateDelete($mt) {
-  $numLexems = Model::factory('Lexem')->where('modelType', $mt->code)->count();
-  if ($numLexems) {
-    FlashMessage::add("Nu pot șterge tipul '{$mt->code}', deoarece este folosit de {$numLexems} lexeme.");
+  $numLexemes = Model::factory('Lexeme')->where('modelType', $mt->code)->count();
+  if ($numLexemes) {
+    FlashMessage::add("Nu pot șterge tipul '{$mt->code}', deoarece este folosit de {$numLexemes} lexeme.");
   }
   $numDependants = Model::factory('ModelType')->where('canonical', $mt->code)->count();
   if ($numDependants > 1) {

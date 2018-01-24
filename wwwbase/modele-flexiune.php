@@ -13,15 +13,15 @@ if (!$modelType) {
 if ($locVersion) LocVersion::changeDatabase($locVersion);
 $models = FlexModel::loadByType($modelType->code);
 
-$lexems = [];
+$lexemes = [];
 foreach ($models as $m) {
-  $lexems[] = getLexem($m->exponent, $modelType->code, $m->number);
+  $lexemes[] = getLexeme($m->exponent, $modelType->code, $m->number);
 }
 DB::changeDatabase(DB::$database);
 
 SmartyWrap::addCss('paradigm');
 SmartyWrap::assign('models', $models);
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::assign('locVersion', $locVersion);
 SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::display('modele-flexiune.tpl');
@@ -29,11 +29,11 @@ SmartyWrap::display('modele-flexiune.tpl');
 /*************************************************************************/
 
 /**
- * Returns a lexem for a given word and model. Creates one if one doesn't exist.
+ * Returns a lexeme for a given word and model. Creates one if one doesn't exist.
  **/
-function getLexem($form, $modelType, $modelNumber) {
-  // Load by canonical model, so if $modelType is V, look for a lexem with type V or VT.
-  $l = Model::factory('Lexem')
+function getLexeme($form, $modelType, $modelNumber) {
+  // Load by canonical model, so if $modelType is V, look for a lexeme with type V or VT.
+  $l = Model::factory('Lexeme')
      ->table_alias('l')
      ->select('l.*')
      ->join('ModelType', 'modelType = code', 'mt')
@@ -45,7 +45,7 @@ function getLexem($form, $modelType, $modelNumber) {
   if ($l) {
     $l->loadInflectedFormMap();
   } else {
-    $l = Lexem::create($form, $modelType, $modelNumber);
+    $l = Lexeme::create($form, $modelType, $modelNumber);
     $l->setAnimate(true);
     $l->generateInflectedFormMap();
   }

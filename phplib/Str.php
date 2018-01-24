@@ -572,12 +572,12 @@ class Str {
   // Returns an array of redundant links found in the internalRep of a
   // definition. Called when editing a definition, and also used by patch 00238.
   // Each entry is an array of the form
-  // (original_word, linked_lexem, reason, short_reason).
+  // (original_word, linked_lexeme, reason, short_reason).
   //
   // For more information, check out issue #632 and pull requeset #637.
   static function findRedundantLinks($internalRep) {
 
-    // Find all instances of |original_word|linked_lexem|.
+    // Find all instances of |original_word|linked_lexeme|.
     preg_match_all("/\|([^\|]+)\|([^\|]+)\|/", $internalRep, $links, PREG_SET_ORDER);
 
     $processedLinks = [];
@@ -593,29 +593,29 @@ class Str {
 
       foreach (explode(" ", $words) as $word_string) {
 
-        $word_lexem_ids = Model::factory('InflectedForm')
-                        ->select('lexemId')
+        $word_lexeme_ids = Model::factory('InflectedForm')
+                        ->select('lexemeId')
                         ->where('formNoAccent', $word_string)
                         ->find_many();
 
         // Separate queries for formNoAccent and formUtf8General
         // since Idiorm does not support OR'ing WHERE clauses.
         $field = self::hasDiacritics($definition_string) ? 'formNoAccent' : 'formUtf8General';
-        $def_lexem_id_by_noAccent = Model::factory('Lexem')
+        $def_lexeme_id_by_noAccent = Model::factory('Lexeme')
                                   ->select('id')
                                   ->where($field, $definition_string)
                                   ->find_one();
 
-        $def_lexem_id_by_utf8General = Model::factory('Lexem')
+        $def_lexeme_id_by_utf8General = Model::factory('Lexeme')
                                      ->select('id')
                                      ->where('formUtf8General', $definition_string)
                                      ->find_one();
 
-        // Linked lexem was not found in the database.
-        if (empty($def_lexem_id_by_utf8General)) {
+        // Linked lexeme was not found in the database.
+        if (empty($def_lexeme_id_by_utf8General)) {
           $currentLink = [
             "original_word" => $l[1],
-            "linked_lexem" => $l[2],
+            "linked_lexeme" => $l[2],
             "reason" => "Trimiterea nu a fost găsită în baza de date.",
             "short_reason" => "no_link",
           ];
@@ -627,8 +627,8 @@ class Str {
 
         // Linking to base form.
         $found = false;
-        foreach ($word_lexem_ids as $word_lexem_id) {
-          if ($word_lexem_id->lexemId === $def_lexem_id_by_noAccent->id) {
+        foreach ($word_lexeme_ids as $word_lexeme_id) {
+          if ($word_lexeme_id->lexemeId === $def_lexeme_id_by_noAccent->id) {
             $found = true;
           }
         }
@@ -636,7 +636,7 @@ class Str {
         if ($found === true) {
           $currentLink = [
             "original_word" => $l[1],
-            "linked_lexem" => $l[2],
+            "linked_lexeme" => $l[2],
             "reason" => "Trimitere către forma de bază a cuvântului.",
             "short_reason" => "forma_baza",
           ];
@@ -649,27 +649,27 @@ class Str {
         // Infinitiv lung / adjectiv / participiu.
         $found = false;
 
-        foreach ($word_lexem_ids as $word_lexem_id) {
-          $lexem_model = Model::factory('Lexem')
+        foreach ($word_lexeme_ids as $word_lexeme_id) {
+          $lexeme_model = Model::factory('Lexeme')
                        ->select('formNoAccent')
                        ->select('modelType')
                        ->select('modelNumber')
-                       ->where_id_is($word_lexem_id->lexemId)
+                       ->where_id_is($word_lexeme_id->lexemeId)
                        ->find_one();
 
-          if ($lexem_model->modelType === "IL" ||
-              $lexem_model->modelType === "PT" ||
-              $lexem_model->modelType === "A" ||
-              ($lexem_model->modelType === "F" &&
-               ($lexem_model->modelNumber === "107" ||
-                $lexem_model->modelNumber === "113"))) {
+          if ($lexeme_model->modelType === "IL" ||
+              $lexeme_model->modelType === "PT" ||
+              $lexeme_model->modelType === "A" ||
+              ($lexeme_model->modelType === "F" &&
+               ($lexeme_model->modelNumber === "107" ||
+                $lexeme_model->modelNumber === "113"))) {
             $nextstep = Model::factory('InflectedForm')
-                      ->select('lexemId')
-                      ->where('formNoAccent', $lexem_model->formNoAccent)
+                      ->select('lexemeId')
+                      ->where('formNoAccent', $lexeme_model->formNoAccent)
                       ->find_many();
 
             foreach ($nextstep as $one) {
-              if ($one->lexemId === $def_lexem_id_by_noAccent->id) {
+              if ($one->lexemeId === $def_lexeme_id_by_noAccent->id) {
                 $found = true;
                 break;
               }
@@ -680,7 +680,7 @@ class Str {
         if ($found === true) {
           $currentLink = [
             "original_word" => $l[1],
-            "linked_lexem" => $l[2],
+            "linked_lexeme" => $l[2],
             "reason" => "Cuvântul este infinitiv lung.",
             "short_reason" => "inf_lung",
           ];
@@ -694,7 +694,7 @@ class Str {
       if ($linkAdded === false) {
         $currentLink = [
           "original_word" => $l[1],
-          "linked_lexem" => $l[2],
+          "linked_lexeme" => $l[2],
           "reason" => "Trimiterea nu are nevoie de modificări.",
           "short_reason" => "nemodificat",
         ];

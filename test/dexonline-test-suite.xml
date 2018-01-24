@@ -14,7 +14,7 @@
 <tr><td><a href="searchRegexp.xml">searchRegexp</a></td></tr>
 <tr><td><a href="searchFullText.xml">searchFullText</a></td></tr>
 <tr><td><a href="searchByDefinitionId.xml">searchByDefinitionId</a></td></tr>
-<tr><td><a href="searchByLexemId.xml">searchByLexemId</a></td></tr>
+<tr><td><a href="searchByLexemeId.xml">searchByLexemeId</a></td></tr>
 <tr><td><a href="adsLink.xml">adsLink</a></td></tr>
 <tr><td><a href="articles.xml">articles</a></td></tr>
 <tr><td><a href="articlesSearchResults.xml">articlesSearchResults</a></td></tr>
@@ -22,7 +22,7 @@
 <tr><td><a href="constraints.xml">constraints</a></td></tr>
 <tr><td><a href="contrib.xml">contrib</a></td></tr>
 <tr><td><a href="autocomplete.xml">autocomplete</a></td></tr>
-<tr><td><a href="lexemSourcesView.xml">lexemSourcesView</a></td></tr>
+<tr><td><a href="lexemeSourcesView.xml">lexemeSourcesView</a></td></tr>
 <tr><td><a href="sourcesViewAsAnonymous.xml">sourcesViewAsAnonymous</a></td></tr>
 <tr><td><a href="hangman.xml">hangman</a></td></tr>
 <tr><td><a href="loginFakeUser.xml">loginFakeUser</a></td></tr>

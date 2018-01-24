@@ -10,7 +10,7 @@ define('SEARCH_APPROXIMATE', 3);
 define('SEARCH_DEF_ID', 4);
 define('SEARCH_ENTRY_ID', 5);
 define('SEARCH_FULL_TEXT', 6);
-define('SEARCH_LEXEM_ID', 7);
+define('SEARCH_LEXEME_ID', 7);
 
 define('LIMIT_FULLTEXT_DISPLAY', Config::get('limits.limitFulltextSearch', 500));
 define('PREVIEW_LIMIT', 20); // how many definitions to show by default
@@ -54,7 +54,7 @@ $SEARCH_PARAMS = [
 
 $cuv = Request::get('cuv');
 $entryId = Request::get('entryId');
-$lexemId = Request::get('lexemId');
+$lexemeId = Request::get('lexemeId');
 $defId = Request::get('defId');
 $sourceUrlName = Request::get('source');
 $text = Request::has('text');
@@ -71,7 +71,7 @@ if ($cuv && !$redirect) {
   $cuv = Str::cleanupQuery($cuv);
 }
 
-Request::redirectToFriendlyUrl($cuv, $entryId, $lexemId, $sourceUrlName, $text, $showParadigm,
+Request::redirectToFriendlyUrl($cuv, $entryId, $lexemeId, $sourceUrlName, $text, $showParadigm,
                                $format, $all);
 
 $paradigmLink = $_SERVER['REQUEST_URI'] . ($showParadigm ? '' : '/paradigma');
@@ -102,7 +102,7 @@ if(SPOOF_ENABLED && $cuv) {
 
 $definitions = [];
 $entries = [];
-$lexems = [];
+$lexemes = [];
 $trees = [];
 $extra = [];
 $adult = false;
@@ -130,10 +130,10 @@ if ($defId) {
                ->find_many();
 }
 
-// Lexem.id search
-if ($lexemId) {
-  $searchType = SEARCH_LEXEM_ID;
-  $l = Lexem::get_by_id($lexemId);
+// Lexeme.id search
+if ($lexemeId) {
+  $searchType = SEARCH_LEXEME_ID;
+  $l = Lexeme::get_by_id($lexemeId);
   if (!$l || empty($l->getEntries())) {
     Util::redirect(Core::getWwwRoot());
   }
@@ -196,8 +196,8 @@ if ($entryId) {
 // Count all the results, but load at most 1,000
 if ($hasRegexp) {
   $searchType = SEARCH_REGEXP;
-  $extra['numLexems'] = Lexem::searchRegexp($cuv, $hasDiacritics, $sourceId, true);
-  $lexems = Lexem::searchRegexp($cuv, $hasDiacritics, $sourceId);
+  $extra['numLexemes'] = Lexeme::searchRegexp($cuv, $hasDiacritics, $sourceId, true);
+  $lexemes = Lexeme::searchRegexp($cuv, $hasDiacritics, $sourceId);
 }
 
 // If no search type requested so far, then normal search
@@ -243,7 +243,7 @@ if ($searchType == SEARCH_INFLECTED) {
   // fallback to approximate search
   if (empty($entries) && empty($definitions)) {
     $searchType = SEARCH_APPROXIMATE;
-    $entries = Lexem::searchApproximate($cuv);
+    $entries = Lexeme::searchApproximate($cuv);
     SmartyWrap::assign('suggestNoBanner', true);
     if (count($entries) == 1) {
       FlashMessage::add("Ați fost redirecționat automat la forma „{$entries[0]->description}”.");
@@ -253,7 +253,7 @@ if ($searchType == SEARCH_INFLECTED) {
   if (count($entries) == 1) {
     // Convenience redirect when there is only one correct form. We want all pages to be canonical.
     $e = $entries[0];
-    $l = $e->getMainLexem();
+    $l = $e->getMainLexeme();
     if ($cuv != $l->formNoAccent) {
       Session::set('redirect', true);
       Session::set('init_word', $cuv);
@@ -309,7 +309,7 @@ if ($defLimit) {
   }
 }
 
-if (empty($entries) && empty($lexems) && empty($results)) {
+if (empty($entries) && empty($lexemes) && empty($results)) {
   header('HTTP/1.0 404 Not Found');
 }
 
@@ -346,7 +346,7 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
   $conjugations = false;
   $declensions = false;
   foreach ($entries as $e) {
-    foreach ($e->getLexems() as $l) {
+    foreach ($e->getLexemes() as $l) {
       $isVerb = ($l->modelType == 'V') || ($l->modelType == 'VT');
       $conjugations |= $isVerb;
       $declensions |= !$isVerb;
@@ -360,7 +360,7 @@ if ($SEARCH_PARAMS[$searchType]['paradigm']) {
   // Check if any of the inflected forms are unrecommended
   $hasUnrecommendedForms = false;
   foreach ($entries as $e) {
-    foreach ($e->getLexems() as $l) {
+    foreach ($e->getLexemes() as $l) {
       $l->getModelType();
       $l->getSourceNames();
       $map = $l->loadInflectedFormMap();
@@ -427,7 +427,7 @@ foreach ($entries as $e) {
 }
 
 SmartyWrap::assign('entries', $entries);
-SmartyWrap::assign('lexems', $lexems);
+SmartyWrap::assign('lexemes', $lexemes);
 SmartyWrap::assign('results', $results);
 SmartyWrap::assign('trees', $trees);
 SmartyWrap::assign('extra', $extra);

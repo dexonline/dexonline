@@ -99,12 +99,12 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="mainLexemIds" class="col-md-2 control-label">
+          <label for="mainLexemeIds" class="col-md-2 control-label">
             lexeme
           </label>
           <div class="col-md-10">
-            <select id="mainLexemIds" name="mainLexemIds[]" style="width: 100%" multiple>
-              {foreach $mainLexemIds as $l}
+            <select id="mainLexemeIds" name="mainLexemeIds[]" style="width: 100%" multiple>
+              {foreach $mainLexemeIds as $l}
                 <option value="{$l}" selected></option>
               {/foreach}
             </select>
@@ -112,12 +112,12 @@
         </div>
 
         <div class="form-group">
-          <label for="variantLexemIds" class="col-md-2 control-label">
+          <label for="variantLexemeIds" class="col-md-2 control-label">
             variante
           </label>
           <div class="col-md-10">
-            <select id="variantLexemIds" name="variantLexemIds[]" style="width: 100%" multiple>
-              {foreach $variantLexemIds as $l}
+            <select id="variantLexemeIds" name="variantLexemeIds[]" style="width: 100%" multiple>
+              {foreach $variantLexemeIds as $l}
                 <option value="{$l}" selected></option>
               {/foreach}
             </select>
@@ -212,8 +212,8 @@
       </a>
     {/if}
 
-    {if count($e->getLexems())}
-      <a class="btn btn-default" href="{$wwwRoot}definitie/{$e->getMainLexem()->formNoAccent}">
+    {if count($e->getLexemes())}
+      <a class="btn btn-default" href="{$wwwRoot}definitie/{$e->getMainLexeme()->formNoAccent}">
         <i class="glyphicon glyphicon-search"></i>
         caută
       </a>
@@ -321,7 +321,7 @@
             </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="cloneLexems" checked>
+                <input type="checkbox" name="cloneLexemes" checked>
                 copiază asocierile cu lexeme
               </label>
             </div>

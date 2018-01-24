@@ -4,7 +4,7 @@ require_once('../../phplib/Core.php');
 $form = Request::get('form');
 $field = (strpos($form, "'") === false) ? 'formNoAccent' : 'form';
 
-$l = Model::factory('Lexem')
+$l = Model::factory('Lexeme')
    ->table_alias('l')
    ->select('l.*')
    ->join('InflectedForm', ['l.id', '=', 'f.lexemeId'], 'f')

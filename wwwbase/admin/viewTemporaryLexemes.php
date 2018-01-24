@@ -8,7 +8,7 @@ $sourceId = Request::get('source');
 
 if ($sourceId) {
   $source = Source::get_by_id($sourceId);
-  $lexems = Model::factory('Lexem')
+  $lexems = Model::factory('Lexeme')
           ->table_alias('l')
           ->select('l.*')
           ->distinct()
@@ -22,7 +22,7 @@ if ($sourceId) {
           ->limit(1000)
           ->find_many();
 } else {
-  $lexems = Model::factory('Lexem')
+  $lexems = Model::factory('Lexeme')
           ->where('modelType', 'T')
           ->order_by_asc('formNoAccent')
           ->limit(1000)

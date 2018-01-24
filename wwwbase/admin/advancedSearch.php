@@ -132,7 +132,7 @@ switch ($view) {
     if ($joinLexem) {
       $q = $q
          ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
-         ->join('Lexem', ['el.lexemeId', '=', 'l.id'], 'l');
+         ->join('Lexeme', ['el.lexemeId', '=', 'l.id'], 'l');
     }
     if ($joinDefinition) {
       $q = $q
@@ -141,7 +141,7 @@ switch ($view) {
     }
     break;
 
-  case 'Lexem':
+  case 'Lexeme':
     if ($joinEntry || $joinDefinition) {
       $q = $q
          ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
@@ -163,7 +163,7 @@ switch ($view) {
     if ($joinLexem) {
       $q = $q
          ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
-         ->join('Lexem', ['el.lexemeId', '=', 'l.id'], 'l');
+         ->join('Lexeme', ['el.lexemeId', '=', 'l.id'], 'l');
     }
     break;
 }
@@ -187,7 +187,7 @@ $VIEW_DATA = [
     'order' => 'e.description',
     'pageSize' => 10000,
   ],
-  'Lexem' => [
+  'Lexeme' => [
     'alias' => 'l',
     'order' => 'l.formNoAccent',
     'pageSize' => 10000,

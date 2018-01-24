@@ -29,7 +29,7 @@
               {include "bits/entry.tpl" entry=$e editLink=true}
               {if !$smarty.foreach.entryLoop.last} | {/if}
             {/foreach}
-          {elseif $view == 'Lexem'}
+          {elseif $view == 'Lexeme'}
             {include "bits/lexemList.tpl" lexems=$data}
           {elseif $view == 'Definition'}
             {foreach $data as $row}

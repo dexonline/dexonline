@@ -215,7 +215,7 @@ class Tree extends BaseObject implements DatedObject {
    * Excludes duplicate lexemes and lexemes that have a form equal to the tree's description.
    **/
   function getPrintableLexems() {
-    return Model::factory('Lexem')
+    return Model::factory('Lexeme')
       ->table_alias('l')
       ->select('l.*')
       ->select('el.main')

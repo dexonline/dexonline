@@ -601,12 +601,12 @@ class Str {
         // Separate queries for formNoAccent and formUtf8General
         // since Idiorm does not support OR'ing WHERE clauses.
         $field = self::hasDiacritics($definition_string) ? 'formNoAccent' : 'formUtf8General';
-        $def_lexem_id_by_noAccent = Model::factory('Lexem')
+        $def_lexem_id_by_noAccent = Model::factory('Lexeme')
                                   ->select('id')
                                   ->where($field, $definition_string)
                                   ->find_one();
 
-        $def_lexem_id_by_utf8General = Model::factory('Lexem')
+        $def_lexem_id_by_utf8General = Model::factory('Lexeme')
                                      ->select('id')
                                      ->where('formUtf8General', $definition_string)
                                      ->find_one();
@@ -650,7 +650,7 @@ class Str {
         $found = false;
 
         foreach ($word_lexem_ids as $word_lexem_id) {
-          $lexem_model = Model::factory('Lexem')
+          $lexem_model = Model::factory('Lexeme')
                        ->select('formNoAccent')
                        ->select('modelType')
                        ->select('modelNumber')

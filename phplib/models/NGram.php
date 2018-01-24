@@ -40,7 +40,7 @@ class NGram extends BaseObject {
 
     $lexems = [];
     foreach ($lexIds as $id) {
-      $lexeme = Model::factory('Lexem')
+      $lexeme = Model::factory('Lexeme')
              ->where('id', $id)
              ->where_gte('charLength', $leng - self::$LENGTH_DIF)
              ->where_lte('charLength', $leng + self::$LENGTH_DIF)

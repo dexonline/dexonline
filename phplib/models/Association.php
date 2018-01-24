@@ -23,7 +23,7 @@ abstract class Association extends BaseObject {
   const PLURALS = [
     'Definitions' => 'Definition',
     'Entries' => 'Entry',
-    'Lexems' => 'Lexem',
+    'Lexemes' => 'Lexeme',
     'Meanings' => 'Meaning',
     'Sources' => 'Source',
     'Trees' => 'Tree',

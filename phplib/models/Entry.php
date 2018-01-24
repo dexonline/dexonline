@@ -83,7 +83,7 @@ class Entry extends BaseObject implements DatedObject {
    * and lexemes that have a form equal to the entry's description.
    **/
   function getPrintableLexems() {
-    return Model::factory('Lexem')
+    return Model::factory('Lexeme')
       ->table_alias('l')
       ->select('l.*')
       ->select('el.main')
@@ -177,7 +177,7 @@ class Entry extends BaseObject implements DatedObject {
 
   // Returns the first main lexeme (or the first lexeme if none of them are main).
   function getMainLexem() {
-    return Model::factory('Lexem')
+    return Model::factory('Lexeme')
       ->table_alias('l')
       ->select('l.*')
       ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
@@ -206,7 +206,7 @@ class Entry extends BaseObject implements DatedObject {
         $homonymEntries = Model::factory('EntryLexeme')
                         ->table_alias('el')
                         ->select('el.entryId')
-                        ->join('Lexem', ['el.lexemeId', '=', 'l.id'], 'l')
+                        ->join('Lexeme', ['el.lexemeId', '=', 'l.id'], 'l')
                         ->where('l.formNoAccent', $l->formNoAccent)
                         ->find_array();
         foreach ($homonymEntries as $h) {

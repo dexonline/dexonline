@@ -211,7 +211,7 @@ while ($i < count($lines)) {
 
     if ($allowInflected) {
       if (!count($lexems)) {
-        $lexems = Model::factory('Lexem')
+        $lexems = Model::factory('Lexeme')
           ->table_alias('l')
           ->select('l.*')
           ->join('InflectedForm', 'l.id = i.lexemeId', 'i')

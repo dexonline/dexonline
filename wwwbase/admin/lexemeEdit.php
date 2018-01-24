@@ -50,7 +50,7 @@ if ($cloneButton) {
 }
 
 if ($deleteButton) {
-  $homonym = Model::factory('Lexem')
+  $homonym = Model::factory('Lexeme')
            ->where('formNoAccent', $lexeme->formNoAccent)
            ->where_not_equal('id', $lexeme->id)
            ->find_one();
@@ -148,7 +148,7 @@ $canEdit = [
 // Prepare a list of model numbers, to be used in the paradigm drop-down.
 $models = FlexModel::loadByType($lexeme->modelType);
 
-$homonyms = Model::factory('Lexem')
+$homonyms = Model::factory('Lexeme')
           ->where('formNoAccent', $lexeme->formNoAccent)
           ->where_not_equal('id', $lexeme->id)
           ->find_many();

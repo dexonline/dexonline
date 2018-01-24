@@ -25,7 +25,7 @@ SmartyWrap::display('model-flexiune.tpl');
  **/
 function getLexem($form, $modelType, $modelNumber) {
     // Load by canonical model, so if $modelType is V, look for a lexeme with type V or VT.
-    $l = Model::factory('Lexem')
+    $l = Model::factory('Lexeme')
         ->table_alias('l')
         ->select('l.*')
         ->join('ModelType', 'modelType = code', 'mt')

@@ -72,7 +72,7 @@ try {
     ->join('WordOfTheDayRel', 'wotd.id = rel.wotdId', 'rel')
     ->join('EntryDefinition', 'rel.refId = ed.definitionId', 'ed')
     ->join('EntryLexeme', 'ed.entryId = el.entryId', 'el')
-    ->join('Lexem', 'el.lexemeId = l.id', 'l')
+    ->join('Lexeme', 'el.lexemeId = l.id', 'l')
     ->join('InflectedForm', 'i.lexemeId = l.id', 'i')
     ->where('i.formUtf8General', $word)
     ->where_gte('wotd.displayDate', $dateMin)

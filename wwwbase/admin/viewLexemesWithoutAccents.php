@@ -4,7 +4,7 @@ ini_set('memory_limit', '512M');
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
-$lexems = Model::factory('Lexem')
+$lexems = Model::factory('Lexeme')
   ->where('consistentAccent', 0)
   ->order_by_asc('formNoAccent')
   ->limit(1000)

@@ -15,7 +15,7 @@ $dbResult = DB::execute("select * from Lexem", PDO::FETCH_ASSOC);
 
 $values = array();
 foreach ($dbResult as $cnt => $row) {
-  $lexeme = Model::factory('Lexem')->create($row);
+  $lexeme = Model::factory('Lexeme')->create($row);
   $ngrams = NGram::split($lexeme->formNoAccent);
 
   foreach ($ngrams as $i => $ngram) {

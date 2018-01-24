@@ -193,7 +193,7 @@ class Definition extends BaseObject implements DatedObject {
       if (empty($defIds)) {
         $isStopWord = Model::factory('InflectedForm')
           ->table_alias('i')
-          ->join('Lexem', 'i.lexemeId = l.id', 'l')
+          ->join('Lexeme', 'i.lexemeId = l.id', 'l')
           ->where("i.{$field}", $word)
           ->where('l.stopWord', 1)
           ->count();
@@ -252,7 +252,7 @@ class Definition extends BaseObject implements DatedObject {
              ->table_alias('i1')
              ->select('i2.formNoAccent')
              ->distinct()
-             ->join('Lexem', ['i1.lexemeId', '=', 'l.id'], 'l')
+             ->join('Lexeme', ['i1.lexemeId', '=', 'l.id'], 'l')
              ->left_outer_join('InflectedForm', ['i2.lexemeId', '=', 'l.id'], 'i2')
              ->where('l.stopWord', 0)
              ->where('i1.formUtf8General', $key)

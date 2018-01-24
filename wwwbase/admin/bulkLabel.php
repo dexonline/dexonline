@@ -30,7 +30,7 @@ if ($saveButton) {
 
 $reverseSuffix = Str::reverse($suffix);
 
-$numLabeled = Model::factory('Lexem')
+$numLabeled = Model::factory('Lexeme')
   ->where_not_equal('modelType', 'T')
   ->where_like('reverse', "{$reverseSuffix}%")
   ->count();
@@ -78,7 +78,7 @@ foreach ($models as $m) {
   $modelTypes[] = ModelType::get_by_code($m->modelType);
 }
 
-$lexems = Model::factory('Lexem')
+$lexems = Model::factory('Lexeme')
   ->where('modelType', 'T')
   ->where_like('reverse', "{$reverseSuffix}%")
   ->order_by_asc('formNoAccent')

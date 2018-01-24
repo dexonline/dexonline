@@ -21,7 +21,7 @@ if ($locVersion && $form) {
     ->select('L.modelNumber')
     ->select('L.restriction')
     ->select('Infl.description', 'inflection')
-    ->join('Lexem', 'I.lexemeId = L.id', 'L')
+    ->join('Lexeme', 'I.lexemeId = L.id', 'L')
     ->join('ModelType', 'L.modelType = MT.code', 'MT')
     ->join('Model', 'MT.canonical = M.modelType and L.modelNumber = M.number', 'M')
     ->join('ModelDescription', 'M.id = MD.modelId and I.variant = MD.variant and I.inflectionId = MD.inflectionId', 'MD')

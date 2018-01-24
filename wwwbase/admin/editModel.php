@@ -334,11 +334,11 @@ function equalArrays($a, $b) {
  **/
 function loadParticiplesForVerbModel($model, $pm) {
   $infl = Inflection::loadParticiple();
-  return Model::factory('Lexem')
+  return Model::factory('Lexeme')
     ->table_alias('part')
     ->select('part.*')
     ->join('InflectedForm', 'part.formNoAccent = i.formNoAccent', 'i')
-    ->join('Lexem', 'i.lexemeId = infin.id', 'infin')
+    ->join('Lexeme', 'i.lexemeId = infin.id', 'infin')
     ->where('infin.modelType', 'VT')
     ->where('infin.modelNumber', $model->number)
     ->where('i.inflectionId', $infl->id)

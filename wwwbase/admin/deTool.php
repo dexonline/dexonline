@@ -68,7 +68,7 @@ if ($butPrev || $butNext) {
 }
 
 // Load the database lexems
-$dbl = Model::factory('Lexem')
+$dbl = Model::factory('Lexeme')
   ->table_alias('l')
   ->select('l.*')
   ->join('EntryLexeme', ['el.lexemeId', '=', 'l.id'], 'el')

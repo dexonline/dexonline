@@ -86,7 +86,7 @@ $lexemCount = Model::factory('ObjectTag')
             ->where('objectType', ObjectTag::TYPE_LEXEM)
             ->where('tagId', $tag->id)
             ->count();
-$lexems = Model::factory('Lexem')
+$lexems = Model::factory('Lexeme')
         ->table_alias('l')
         ->select('l.*')
         ->join('ObjectTag', ['ot.objectId', '=', 'l.id'], 'ot')

@@ -64,9 +64,9 @@ $dbResult = DB::execute("select distinct l.* " .
 
 $lexems = [];
 foreach ($dbResult as $row) {
-  $lexeme = Model::factory('Lexem')->create($row);
+  $lexeme = Model::factory('Lexeme')->create($row);
 
-  $lexeme->matches = Model::factory('Lexem')
+  $lexeme->matches = Model::factory('Lexeme')
     ->table_alias('l')
     ->select('l.*')
     ->distinct()

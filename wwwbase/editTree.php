@@ -114,7 +114,7 @@ if ($saveButton) {
 
 // Load the distinct model types for the entries' lexems
 if (count($entryIds)) {
-  $modelTypes = Model::factory('Lexem')
+  $modelTypes = Model::factory('Lexeme')
               ->table_alias('l')
               ->select('l.modelType')
               ->distinct()

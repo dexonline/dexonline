@@ -13,7 +13,7 @@ function getSimpleDefinitionsForLexemeIds($lexemeIds) {
           ->select('definitionId')
           ->distinct()
           ->join('EntryLexeme', ['ed.entryId', '=', 'el.entryId'], 'el')
-          ->join('Lexem', ['el.lexemeId', '=', 'l.id'], 'l')
+          ->join('Lexeme', ['el.lexemeId', '=', 'l.id'], 'l')
           ->where_in('l.id', $lexemeIds)
           ->find_many();
   $defIds = Util::objectProperty($defIds, 'definitionId');

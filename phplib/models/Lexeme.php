@@ -1,7 +1,7 @@
 <?php
 
-class Lexem extends BaseObject implements DatedObject {
-  public static $_table = 'Lexem';
+class Lexeme extends BaseObject implements DatedObject {
+  public static $_table = 'Lexeme';
 
   private $mt = null;  // ModelType object, but we call it $mt because there is already a DB field called 'modelType'
   private $sourceNames = null;         // Comma-separated list of source names
@@ -30,7 +30,7 @@ class Lexem extends BaseObject implements DatedObject {
   
   static function create($form, $modelType = '', $modelNumber = '', $restriction = '',
                                 $isLoc = false) {
-    $l = Model::factory('Lexem')->create();
+    $l = Model::factory('Lexeme')->create();
 
     $form = trim($form);
     if (preg_match('/^(.*) \((.*)\)$/', $form, $matches)) {
@@ -163,12 +163,12 @@ class Lexem extends BaseObject implements DatedObject {
     } else {
       $description = '';
     }
-    return Model::factory('Lexem')->where('formNoAccent', $name)->where('description', $description)->find_many();
+    return Model::factory('Lexeme')->where('formNoAccent', $name)->where('description', $description)->find_many();
   }
 
   // For V1, this loads all lexeme models in (V1, VT1)
   static function loadByCanonicalModel($modelType, $modelNumber, $limit = 0) {
-    $q = Model::factory('Lexem')
+    $q = Model::factory('Lexeme')
       ->table_alias('l')
       ->select('l.*')
       ->join('ModelType', 'l.modelType = mt.code', 'mt')
@@ -196,7 +196,7 @@ class Lexem extends BaseObject implements DatedObject {
       // which trips on extra % signs.
       // TODO: count() works incorrectly here, because idiorm issues distinct count(*)
       // instead of count(distinct *).
-      return @Model::factory('Lexem')
+      return @Model::factory('Lexeme')
         ->table_alias('l')
         ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
         ->join('EntryDefinition', ['el.entryId', '=', 'ed.entryId'], 'ed')
@@ -204,7 +204,7 @@ class Lexem extends BaseObject implements DatedObject {
         ->where_raw("$field $mysqlRegexp")
         ->where('d.sourceId', $sourceId);
     } else {
-      return @Model::factory('Lexem')
+      return @Model::factory('Lexeme')
         ->table_alias('l')
         ->where_raw("$field $mysqlRegexp");
     }
@@ -245,7 +245,7 @@ class Lexem extends BaseObject implements DatedObject {
       'where description = "" ' .
       'group by form ' .
       'having count(*) > 1';
-    return Model::factory('Lexem')->raw_query($query)->find_many();
+    return Model::factory('Lexeme')->raw_query($query)->find_many();
   }
 
   /**
@@ -268,7 +268,7 @@ class Lexem extends BaseObject implements DatedObject {
            "left outer join ($subquery) used on l.id = used.id " .
            'where used.id is null';
 
-    return Model::factory('Lexem')->raw_query($query)->find_many();
+    return Model::factory('Lexeme')->raw_query($query)->find_many();
   }
 
   /**
@@ -490,7 +490,7 @@ class Lexem extends BaseObject implements DatedObject {
     $ids = Model::factory('InflectedForm')
       ->table_alias('i')
       ->select('i.id')
-      ->join('Lexem', 'i.lexemeId = l.id', 'l')
+      ->join('Lexeme', 'i.lexemeId = l.id', 'l')
       ->join('ModelType', 'l.modelType = mt.code', 'mt')
       ->join('Model', 'mt.canonical = m.modelType and l.modelNumber = m.number', 'm')
       ->join('ModelDescription', 'm.id = md.modelId and i.variant = md.variant and i.inflectionId = md.inflectionId', 'md')
@@ -537,7 +537,7 @@ class Lexem extends BaseObject implements DatedObject {
 
     foreach ($ifs as $if) {
       // look for an existing lexeme
-      $l = Model::factory('Lexem')
+      $l = Model::factory('Lexeme')
          ->where('formNoAccent', $if->formNoAccent)
          ->where_in('modelType', [$genericType, $dedicatedType])
          ->where('modelNumber', $number)
@@ -620,7 +620,7 @@ class Lexem extends BaseObject implements DatedObject {
     $ifs = InflectedForm::get_all_by_lexemeId_inflectionId($this->id, $inflId);
     foreach ($ifs as $if) {
       // Examine all lexems having one of the above forms and model
-      $lexems = Model::factory('Lexem')
+      $lexems = Model::factory('Lexeme')
               ->where('formNoAccent', $if->formNoAccent)
               ->where('modelType', $modelType)
               ->where_in('modelNumber', $modelNumbers)

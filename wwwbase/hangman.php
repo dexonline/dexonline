@@ -36,7 +36,7 @@ default :
   $maxLength = easyLength;
 }
 
-$count = Model::factory('Lexem')
+$count = Model::factory('Lexeme')
   ->where('isLoc', 1)
   ->where_gte('frequency', $minFreq)
   ->where_lte('frequency', $maxFreq)
@@ -45,7 +45,7 @@ $count = Model::factory('Lexem')
   ->count();
 
 do {
-  $lexeme = Model::factory('Lexem')
+  $lexeme = Model::factory('Lexeme')
     ->where('isLoc', 1)
     ->where_gte('frequency', $minFreq)
     ->where_lte('frequency', $maxFreq)

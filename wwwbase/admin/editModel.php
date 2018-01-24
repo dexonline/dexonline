@@ -108,7 +108,7 @@ if (!$previewButton && !$saveButton) {
     }
   }
   
-  // Load the affected lexemes. For each lexem, inflection and transform
+  // Load the affected lexemes. For each lexeme, inflection and transform
   // list, generate a new form.
   $limit = ($shortList && !$saveButton) ? SHORT_LIST_LIMIT : 0;
   $lexemes = Lexeme::loadByCanonicalModel($m->modelType, $m->number, $limit);

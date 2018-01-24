@@ -102,7 +102,7 @@ foreach ($dbResult as $row) {
       $lexeme->addedForms = $addedForms;
       $lexeme->lostForms = $lostForms;
     }
-    $lexemes[] = $lexem;
+    $lexemes[] = $lexeme;
   }
 }
 

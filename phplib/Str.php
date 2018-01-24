@@ -572,7 +572,7 @@ class Str {
   // Returns an array of redundant links found in the internalRep of a
   // definition. Called when editing a definition, and also used by patch 00238.
   // Each entry is an array of the form
-  // (original_word, linked_lexem, reason, short_reason).
+  // (original_word, linked_lexeme, reason, short_reason).
   //
   // For more information, check out issue #632 and pull requeset #637.
   static function findRedundantLinks($internalRep) {

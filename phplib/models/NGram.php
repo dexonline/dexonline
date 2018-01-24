@@ -46,7 +46,7 @@ class NGram extends BaseObject {
              ->where_lte('charLength', $leng + self::$LENGTH_DIF)
              ->find_one();
       if ($lexeme) {
-        $lexemes[] = $lexem;
+        $lexemes[] = $lexeme;
         if (count($lexemes) == self::$MAX_RESULTS) {
           break;
         }

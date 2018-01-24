@@ -17,7 +17,7 @@ truncate table EntryLexeme;
 truncate table FullTextIndex;
 -- truncate table InflectedForm;
 -- truncate table Inflection;
--- truncate table Lexem;
+-- truncate table Lexeme;
 -- truncate table LexemeSource;
 truncate table Link;
 truncate table Meaning;

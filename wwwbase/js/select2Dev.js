@@ -157,7 +157,7 @@ function createUserAjaxStruct(priv) {
  * - for initial elements, using HTML5 data attributes
  * - for dynamically added elements, using json parameters
  **/
-function formatLexemWithEditLink(lexeme) {
+function formatLexemeWithEditLink(lexeme) {
   var elementData = $(lexem.element).data();
   var html;
 

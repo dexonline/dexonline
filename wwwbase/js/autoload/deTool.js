@@ -97,7 +97,7 @@ $(function() {
 
   function endEdit() {
     // make sure even empty lexemeIds and models are being submitted
-    $('.lexem, .model').each(function() {
+    $('.lexeme, .model').each(function() {
       if ($(this).val() == null) {
         $(this).append(new Option(0, 0, true, true));
       }

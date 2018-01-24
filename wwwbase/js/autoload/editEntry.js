@@ -5,7 +5,7 @@ $(function() {
     initSelect2('#mainLexemeIds, #variantLexemeIds', 'ajax/getLexemesById.php', {
       ajax: { url: wwwRoot + 'ajax/getLexemes.php' },
       minimumInputLength: 1,
-      templateSelection: formatLexemWithEditLink,
+      templateSelection: formatLexemeWithEditLink,
     });
 
     var entryAjax = {

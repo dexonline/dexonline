@@ -65,13 +65,13 @@ if ($deleteButton) {
 }
 
 if ($refreshButton || $saveButton) {
-  populate($lexem, $original, $lexemeForm, $lexemeNumber, $lexemeDescription,
+  populate($lexeme, $original, $lexemeForm, $lexemeNumber, $lexemeDescription,
            $needsAccent, $stopWord, $hyphenations, $pronunciations,
            $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
            $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
            $tagIds);
 
-  if (validate($lexem, $original)) {
+  if (validate($lexeme, $original)) {
     // Case 1: Validation passed
     if ($saveButton) {
       if (($original->modelType == 'VT') && ($lexeme->modelType != 'VT')) {
@@ -168,7 +168,7 @@ SmartyWrap::display('admin/lexemEdit.tpl');
 /**************************************************************************/
 
 // Populate lexeme fields from request parameters.
-function populate(&$lexem, &$original, $lexemeForm, $lexemeNumber, $lexemeDescription,
+function populate(&$lexeme, &$original, $lexemeForm, $lexemeNumber, $lexemeDescription,
                   $needsAccent, $stopWord, $hyphenations, $pronunciations,
                   $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
                   $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
@@ -232,7 +232,7 @@ function populate(&$lexem, &$original, $lexemeForm, $lexemeNumber, $lexemeDescri
   }
 }
 
-function validate($lexem, $original) {
+function validate($lexeme, $original) {
   if (!$lexeme->form) {
     FlashMessage::add('Forma nu poate fi vidă.');
   }

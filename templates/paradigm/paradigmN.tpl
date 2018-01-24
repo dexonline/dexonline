@@ -3,7 +3,7 @@
 <table class="lexem">
   <tr>
     <td colspan="2">
-      {include "bits/lexem.tpl" lexem=$lexem}
+      {include "bits/lexeme.tpl" lexem=$lexem}
     </td>
     <td class="inflection">nearticulat</td>
     <td class="inflection">articulat</td>

@@ -158,20 +158,20 @@ function createUserAjaxStruct(priv) {
  * - for dynamically added elements, using json parameters
  **/
 function formatLexemeWithEditLink(lexeme) {
-  var elementData = $(lexem.element).data();
+  var elementData = $(lexeme.element).data();
   var html;
 
-  if (startsWith(lexem.id, '@')) {
+  if (startsWith(lexeme.id, '@')) {
     // don't show an edit link for soon-to-be created lexemes
-    html = lexem.text;
+    html = lexeme.text;
   } else {
-    html = lexem.text +
+    html = lexeme.text +
       ' <a class="glyphicon glyphicon-pencil" href="' + wwwRoot +
-      'admin/lexemEdit.php?lexemeId=' + lexem.id + '"></a>';
+      'admin/lexemEdit.php?lexemeId=' + lexeme.id + '"></a>';
   }
 
-  if ((lexem.consistentAccent == '0') ||
-      (lexem.hasParadigm === false) ||
+  if ((lexeme.consistentAccent == '0') ||
+      (lexeme.hasParadigm === false) ||
       (elementData.consistentAccent === '0') ||
       (elementData.hasParadigm === false)) {
     return $('<span class="text-danger">' + html + '</span>');

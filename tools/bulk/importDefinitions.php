@@ -225,14 +225,14 @@ while ($i < count($lines)) {
 
     // procedura de refolosire a lexemului sau de regenerare
     if (count($lexemes)) {
-      // Reuse existing lexem.
+      // Reuse existing lexeme.
       $lexeme = $lexemes[0];
       $entry = $lexeme->getEntries()[0];
       if($verbose) echo("\t\tReusing lexeme {$lexeme->id} ({$lexeme->form})\n");
     } else {
       if($verbose) echo("\t\tCreating a new lexeme for name {$name}\n");
       if (!$dryrun) {
-        // Create a new lexem.
+        // Create a new lexeme.
         $lexeme = Lexeme::create($name, 'T', '1');
         $entry = Entry::createAndSave($lexeme->formNoAccent);
         $lexeme->deepSave();

@@ -7,4 +7,4 @@ $defs = Definition::loadByEntryIds($lexeme->getEntryIds());
 $searchResults = SearchResult::mapDefinitionArray($defs);
 
 SmartyWrap::assign('results', $searchResults);
-SmartyWrap::displayWithoutSkin('ajax/getDefinitionsForLexem.tpl');
+SmartyWrap::displayWithoutSkin('ajax/getDefinitionsForLexeme.tpl');

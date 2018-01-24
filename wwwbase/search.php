@@ -130,7 +130,7 @@ if ($defId) {
                ->find_many();
 }
 
-// Lexem.id search
+// Lexeme.id search
 if ($lexemeId) {
   $searchType = SEARCH_LEXEME_ID;
   $l = Lexeme::get_by_id($lexemeId);

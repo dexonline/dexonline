@@ -32,52 +32,52 @@
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexem.1.2</td>
+	<td>css=table.lexeme.1.2</td>
 	<td>ladă</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexem.1.3</td>
+	<td>css=table.lexeme.1.3</td>
 	<td>lada</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexem.2.1</td>
+	<td>css=table.lexeme.2.1</td>
 	<td>—</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexem.2.2</td>
+	<td>css=table.lexeme.2.2</td>
 	<td>—</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexem.3.2</td>
+	<td>css=table.lexeme.3.2</td>
 	<td>lăzi</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexem.3.3</td>
+	<td>css=table.lexeme.3.3</td>
 	<td>lăzii</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexem.4.1</td>
+	<td>css=table.lexeme.4.1</td>
 	<td>—</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexem.4.2</td>
+	<td>css=table.lexeme.4.2</td>
 	<td>—</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexem.5.2</td>
+	<td>css=table.lexeme.5.2</td>
 	<td>ladă, lado</td>
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexem.6.1</td>
+	<td>css=table.lexeme.6.1</td>
 	<td>—</td>
 </tr>
 <tr>
@@ -87,7 +87,7 @@
 </tr>
 <tr>
 	<td>verifyTable</td>
-	<td>css=table.lexem.5.2</td>
+	<td>css=table.lexeme.5.2</td>
 	<td>ogradă</td>
 </tr>
 </tbody></table>

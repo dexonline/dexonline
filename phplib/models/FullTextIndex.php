@@ -25,9 +25,9 @@ class FullTextIndex extends BaseObject {
   }
 
   // For each defId, build an array of arrays of positions, one array for each lexemeId
-  static function loadPositionsByLexemeIdsDefinitionIds($lexemMap, $defIds) {
+  static function loadPositionsByLexemeIdsDefinitionIds($lexemeMap, $defIds) {
     $positionMap = [];
-    foreach ($lexemMap as $lexemeIds) {
+    foreach ($lexemeMap as $lexemeIds) {
       if (!empty($lexemeIds)) {
         // Load all positions in all definitions for this Lexeme set
         $query = sprintf('select distinct definitionId, position from FullTextIndex ' .

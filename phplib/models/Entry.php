@@ -183,7 +183,7 @@ class Entry extends BaseObject implements DatedObject {
       ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
       ->where('el.entryId', $this->id)
       ->where('el.main', true)
-      ->order_by_asc('el.lexemRank')
+      ->order_by_asc('el.lexemeRank')
       ->find_one();
   }
 

@@ -100,7 +100,7 @@ $(function() {
     // look up the fragments
     parts.forEach(function(form, i) {
       $.ajax({
-        url: wwwRoot + 'ajax/getLexemByInflectedForm.php?form=' + form,
+        url: wwwRoot + 'ajax/getLexemeByInflectedForm.php?form=' + form,
       }).done(function(data) {
         if (data) {
           $('.fragment')

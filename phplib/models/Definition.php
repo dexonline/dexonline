@@ -173,7 +173,7 @@ class Definition extends BaseObject implements DatedObject {
     $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
     $intersection = null;
     $stopWords = [];
-    $lexemMap = [];
+    $lexemeMap = [];
     $adult = false;
 
     foreach ($words as $word) {
@@ -184,7 +184,7 @@ class Definition extends BaseObject implements DatedObject {
         ->where($field, $word)
         ->find_many();
       $lexemeIds = Util::objectProperty($lexemes, 'lexemeId');
-      $lexemMap[] = $lexemeIds;
+      $lexemeMap[] = $lexemeIds;
 
       // Get the FullTextIndex records for each form. Note that the FTI excludes stop words.
       $defIds = FullTextIndex::loadDefinitionIdsForLexemes($lexemeIds, $sourceId);
@@ -230,7 +230,7 @@ class Definition extends BaseObject implements DatedObject {
 
     // Now compute a score for every definition
     DebugInfo::resetClock();
-    $positionMap = FullTextIndex::loadPositionsByLexemeIdsDefinitionIds($lexemMap, $intersection);
+    $positionMap = FullTextIndex::loadPositionsByLexemeIdsDefinitionIds($lexemeMap, $intersection);
     $shortestIntervals = [];
     foreach ($intersection as $defId) {
       $shortestIntervals[] = Util::findSnippet($positionMap[$defId]);

@@ -125,7 +125,7 @@
           {include "search/extendToAllSources.tpl"}
         {/if}
 
-        {include "search/lexemList.tpl"}
+        {include "search/lexemeList.tpl"}
 
         {* normal search (inflected form search) *}
       {elseif $searchType == $smarty.const.SEARCH_INFLECTED}

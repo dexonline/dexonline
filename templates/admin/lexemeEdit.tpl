@@ -138,7 +138,7 @@
 
                   {foreach $homonyms as $h}
                     <div>
-                      {include "bits/lexemLink.tpl" lexem=$h}
+                      {include "bits/lexemeLink.tpl" lexem=$h}
                     </div>
                   {/foreach}
 

@@ -51,9 +51,9 @@ foreach ($dbResult as $dbRow) {
   foreach ($words as $position => $word) {
     if (!isset($stopWordForms[$word])) {
       if (array_key_exists($word, $ifMap)) {
-        $lexemList = preg_split('/,/', $ifMap[$word]);
-        for ($i = 0; $i < count($lexemList); $i += 2) {
-          fwrite($handle, $lexemList[$i] . "\t" . $lexemList[$i + 1] . "\t" . $dbRow[0] . "\t" . $position . "\n");
+        $lexemeList = preg_split('/,/', $ifMap[$word]);
+        for ($i = 0; $i < count($lexemeList); $i += 2) {
+          fwrite($handle, $lexemeList[$i] . "\t" . $lexemeList[$i + 1] . "\t" . $dbRow[0] . "\t" . $position . "\n");
           $indexSize++;
         }
       }

@@ -59,8 +59,8 @@ $closestLexemesDefinitions = null;
 if ($difficulty > 1) {
   $nearLexemeIds = NGram::searchLexemeIds($word);
   arsort($nearLexemeIds);
-  $lexemPoolSize = 48 / $difficulty;
-  $closestLexemeIds = array_slice($nearLexemeIds, 0, $lexemPoolSize, true);
+  $lexemePoolSize = 48 / $difficulty;
+  $closestLexemeIds = array_slice($nearLexemeIds, 0, $lexemePoolSize, true);
   $closestLexemeIds = array_keys($closestLexemeIds);
   
   $closestLexemesDefinitions = getSimpleDefinitionsForLexemeIds($closestLexemeIds);

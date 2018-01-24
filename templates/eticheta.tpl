@@ -195,7 +195,7 @@
       {/if}
     </h3>
 
-    {include "bits/lexemList.tpl"}
+    {include "bits/lexemeList.tpl"}
   {/if}
 
   {if count($meanings)}

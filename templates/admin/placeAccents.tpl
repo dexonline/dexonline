@@ -27,7 +27,7 @@
       <div>
         <input type="hidden" name="position_{$l->id}" value="-1">
 
-        <span class="apLexemForm">
+        <span class="apLexemeForm">
           {foreach $charArray as $cIndex => $char}
             <span class="apLetter" data-order="{$cIndex}">{$char}</span>
           {/foreach}

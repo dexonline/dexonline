@@ -1,1 +1,1 @@
-Există deja lexemul {include "bits/lexemLink.tpl" class="alert-link"}.
+Există deja lexemul {include "bits/lexemeLink.tpl" class="alert-link"}.

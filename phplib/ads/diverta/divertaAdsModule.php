@@ -28,7 +28,7 @@ class DivertaAdsModule extends AdsModule {
       foreach ($definitions as $def) {
         $defIdString .= ",{$def->id}";
       }
-      $lexemeIds = DB::getArray("select distinct lexemeId from LexemDefinitionMap where DefinitionId in ($defIdString)");
+      $lexemeIds = DB::getArray("select distinct lexemeId from LexemeDefinitionMap where DefinitionId in ($defIdString)");
     }
     if (count($lexemeIds) == 0 || count($lexemeIds) >= 100) {
       return null; // No keywords or too many keywords (indicating a regexp search)

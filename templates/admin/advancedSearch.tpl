@@ -30,7 +30,7 @@
               {if !$smarty.foreach.entryLoop.last} | {/if}
             {/foreach}
           {elseif $view == 'Lexeme'}
-            {include "bits/lexemList.tpl" lexemes=$data}
+            {include "bits/lexemeList.tpl" lexemes=$data}
           {elseif $view == 'Definition'}
             {foreach $data as $row}
               {include "bits/definition.tpl"}

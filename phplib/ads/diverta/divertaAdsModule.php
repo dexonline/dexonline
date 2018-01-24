@@ -17,25 +17,25 @@ class DivertaAdsModule extends AdsModule {
       return array('bookId' => $book->id);
     }
     
-    $lexemIds = array();
+    $lexemeIds = array();
     if (!empty($lexems)) {
       foreach ($lexems as $l) {
-        $lexemIds[] = $l->id;
+        $lexemeIds[] = $l->id;
       }
     }
-    if (count($lexemIds) == 0 && !empty($definitions)) {
+    if (count($lexemeIds) == 0 && !empty($definitions)) {
       $defIdString = '-1';
       foreach ($definitions as $def) {
         $defIdString .= ",{$def->id}";
       }
-      $lexemIds = DB::getArray("select distinct lexemId from LexemDefinitionMap where DefinitionId in ($defIdString)");
+      $lexemeIds = DB::getArray("select distinct lexemeId from LexemDefinitionMap where DefinitionId in ($defIdString)");
     }
-    if (count($lexemIds) == 0 || count($lexemIds) >= 100) {
+    if (count($lexemeIds) == 0 || count($lexemeIds) >= 100) {
       return null; // No keywords or too many keywords (indicating a regexp search)
     }
-    $lexemIdString = implode(',', $lexemIds);
+    $lexemeIdString = implode(',', $lexemeIds);
     $books = Model::factory('DivertaBook')->table_alias('b')->select('b.*')->join(DivertaIndex::$_table, 'b.id = i.bookId', 'i')
-      ->where_in('i.lexemId', $lexemIds)->order_by_asc('impressions')->find_many();
+      ->where_in('i.lexemeId', $lexemeIds)->order_by_asc('impressions')->find_many();
 
     if (count($books)) {
       // 20% chance to serve the book with the fewest impressions / 80% chance to serve the book with the highest CTR

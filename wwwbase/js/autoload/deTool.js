@@ -57,19 +57,19 @@ $(function() {
 
   // Refresh the model list
   function lexemChange() {
-    var lexemId = $(this).val();
+    var lexemeId = $(this).val();
     var m = $(this).closest('tr').find('.model');
     m.html('');
     
-    if (lexemId == null) {
-      // lexem field cleared
+    if (lexemeId == null) {
+      // lexeme field cleared
       m.trigger('change');
-    } else if (lexemId.startsWith('@')) {
-      // new lexem form
+    } else if (lexemeId.startsWith('@')) {
+      // new lexeme form
       m.append(stemOption).trigger('change');
     } else {
       $.ajax({
-        url: wwwRoot + 'ajax/getModelByLexemId.php?id=' + lexemId,
+        url: wwwRoot + 'ajax/getModelByLexemeId.php?id=' + lexemeId,
         success: function(model) {
           var id = model.modelType + model.modelNumber;
           var text = model.modelType + model.modelNumber + ' (' + model.exponent + ')';
@@ -96,7 +96,7 @@ $(function() {
   }
 
   function endEdit() {
-    // make sure even empty lexemIds and models are being submitted
+    // make sure even empty lexemeIds and models are being submitted
     $('.lexem, .model').each(function() {
       if ($(this).val() == null) {
         $(this).append(new Option(0, 0, true, true));

@@ -7,7 +7,7 @@ $field = (strpos($form, "'") === false) ? 'formNoAccent' : 'form';
 $l = Model::factory('Lexem')
    ->table_alias('l')
    ->select('l.*')
-   ->join('InflectedForm', ['l.id', '=', 'f.lexemId'], 'f')
+   ->join('InflectedForm', ['l.id', '=', 'f.lexemeId'], 'f')
    ->join('Inflection', ['f.inflectionId', '=', 'i.id'], 'i')
    ->where("f.{$field}", $form)
    ->order_by_expr('i.modelType in ("V", "T", "I")')  // avoid some model types

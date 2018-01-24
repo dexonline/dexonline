@@ -38,9 +38,9 @@
       </div>
 
       <div class="form-group col-md-6">
-        <label for="lexemIds">Cuvântul definit</label>
-        <select id="lexemIds" name="lexemIds[]" style="width: 100%" multiple>
-          {foreach $lexemIds as $l}
+        <label for="lexemeIds">Cuvântul definit</label>
+        <select id="lexemeIds" name="lexemeIds[]" style="width: 100%" multiple>
+          {foreach $lexemeIds as $l}
             <option value="{$l}" selected></option>
           {/foreach}
         </select>

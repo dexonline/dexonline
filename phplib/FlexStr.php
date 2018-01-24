@@ -414,7 +414,7 @@ class FlexStr {
   
     // Try to place the accent
     if ($accentShift == ModelDescription::NO_ACCENT_SHIFT) {
-      // Place the accent exactly where it is in the lexem form, if there is
+      // Place the accent exactly where it is in the lexeme form, if there is
       // one.
       if ($accentIndex !== false) {
         $result = mb_substr($result, 0, $accentIndex) . "'" .

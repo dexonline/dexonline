@@ -61,7 +61,7 @@
 
         <div class="col-lg-4 col-md-6 col-sm-6">
           <form action="lexemEdit.php">
-            <select id="lexemId" name="lexemId"></select>
+            <select id="lexemeId" name="lexemeId"></select>
           </form>
         </div>
 

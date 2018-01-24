@@ -46,7 +46,7 @@
           {if $l->isLoc}
             <span class="label label-success">LOC</span>
           {/if}
-          <a href="../admin/lexemEdit.php?lexemId={$l->id}" class="btn btn-link">
+          <a href="../admin/lexemEdit.php?lexemeId={$l->id}" class="btn btn-link">
             <i class="glyphicon glyphicon-pencil"></i>
             editează
           </a>
@@ -77,7 +77,7 @@
                   <span class="label label-success">LOC</span>
                 {/if}
 
-                <a href="../admin/lexemEdit.php?lexemId={$match->id}" class="btn btn-link">
+                <a href="../admin/lexemEdit.php?lexemeId={$match->id}" class="btn btn-link">
                   <i class="glyphicon glyphicon-pencil"></i>
                   editează
                 </a>

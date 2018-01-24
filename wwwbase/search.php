@@ -54,7 +54,7 @@ $SEARCH_PARAMS = [
 
 $cuv = Request::get('cuv');
 $entryId = Request::get('entryId');
-$lexemId = Request::get('lexemId');
+$lexemeId = Request::get('lexemeId');
 $defId = Request::get('defId');
 $sourceUrlName = Request::get('source');
 $text = Request::has('text');
@@ -71,7 +71,7 @@ if ($cuv && !$redirect) {
   $cuv = Str::cleanupQuery($cuv);
 }
 
-Request::redirectToFriendlyUrl($cuv, $entryId, $lexemId, $sourceUrlName, $text, $showParadigm,
+Request::redirectToFriendlyUrl($cuv, $entryId, $lexemeId, $sourceUrlName, $text, $showParadigm,
                                $format, $all);
 
 $paradigmLink = $_SERVER['REQUEST_URI'] . ($showParadigm ? '' : '/paradigma');
@@ -131,9 +131,9 @@ if ($defId) {
 }
 
 // Lexem.id search
-if ($lexemId) {
+if ($lexemeId) {
   $searchType = SEARCH_LEXEM_ID;
-  $l = Lexem::get_by_id($lexemId);
+  $l = Lexeme::get_by_id($lexemeId);
   if (!$l || empty($l->getEntries())) {
     Util::redirect(Core::getWwwRoot());
   }
@@ -196,8 +196,8 @@ if ($entryId) {
 // Count all the results, but load at most 1,000
 if ($hasRegexp) {
   $searchType = SEARCH_REGEXP;
-  $extra['numLexems'] = Lexem::searchRegexp($cuv, $hasDiacritics, $sourceId, true);
-  $lexems = Lexem::searchRegexp($cuv, $hasDiacritics, $sourceId);
+  $extra['numLexems'] = Lexeme::searchRegexp($cuv, $hasDiacritics, $sourceId, true);
+  $lexems = Lexeme::searchRegexp($cuv, $hasDiacritics, $sourceId);
 }
 
 // If no search type requested so far, then normal search
@@ -243,7 +243,7 @@ if ($searchType == SEARCH_INFLECTED) {
   // fallback to approximate search
   if (empty($entries) && empty($definitions)) {
     $searchType = SEARCH_APPROXIMATE;
-    $entries = Lexem::searchApproximate($cuv);
+    $entries = Lexeme::searchApproximate($cuv);
     SmartyWrap::assign('suggestNoBanner', true);
     if (count($entries) == 1) {
       FlashMessage::add("Ați fost redirecționat automat la forma „{$entries[0]->description}”.");

@@ -1,6 +1,6 @@
 <?php
 
-/* A fragment is a part of a compound lexem */
+/* A fragment is a part of a compound lexeme */
 
 class Fragment extends BaseObject implements DatedObject {
   public static $_table = 'Fragment';

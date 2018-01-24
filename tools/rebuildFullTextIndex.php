@@ -17,19 +17,19 @@ DB::execute('truncate table FullTextIndex');
 $stopWordForms = array_flip(DB::getArray(
   'select distinct i.formNoAccent ' .
   'from Lexem l, InflectedForm i ' .
-  'where l.id = i.lexemId ' .
+  'where l.id = i.lexemeId ' .
   'and l.stopWord'));
 
-// Build a map of inflectedForm => list of (lexemId, inflectionId) pairs
+// Build a map of inflectedForm => list of (lexemeId, inflectionId) pairs
 Log::info("Building inflected form map.");
-$dbResult = DB::execute("select formNoAccent, lexemId, inflectionId from InflectedForm");
+$dbResult = DB::execute("select formNoAccent, lexemeId, inflectionId from InflectedForm");
 $ifMap = [];
 foreach ($dbResult as $r) {
   $form = $r['formNoAccent'];
   $s = isset($ifMap[$form])
      ? ($ifMap[$form] . ',')
      : '';
-  $s .= $r['lexemId'] . ',' . $r['inflectionId'];
+  $s .= $r['lexemeId'] . ',' . $r['inflectionId'];
   $ifMap[$form] = $s;
 }
 unset($dbResult);

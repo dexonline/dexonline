@@ -49,8 +49,8 @@ class Entry extends BaseObject implements DatedObject {
     }
 
     if ($cloneLexems) {
-      EntryLexem::copy($this->id, $e->id, 1, ['main' => true]);
-      EntryLexem::copy($this->id, $e->id, 1, ['main' => false]);
+      EntryLexeme::copy($this->id, $e->id, 1, ['main' => true]);
+      EntryLexeme::copy($this->id, $e->id, 1, ['main' => false]);
     }
 
     if ($cloneTrees) {
@@ -88,7 +88,7 @@ class Entry extends BaseObject implements DatedObject {
       ->select('l.*')
       ->select('el.main')
       ->distinct()
-      ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+      ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
       ->where('el.entryId', $this->id)
       ->where_not_equal('l.formNoAccent', $this->getShortDescription())
       ->order_by_desc('el.main')
@@ -99,7 +99,7 @@ class Entry extends BaseObject implements DatedObject {
 
   static function loadUnassociated() {
     $query = 'select * from Entry ' .
-           'where id not in (select entryId from EntryLexem) ' .
+           'where id not in (select entryId from EntryLexeme) ' .
            'or id not in (select entryId from EntryDefinition)';
     return Model::factory('Entry')
       ->raw_query($query)
@@ -150,20 +150,20 @@ class Entry extends BaseObject implements DatedObject {
 
     $simple = 'select l.id ' .
             'from Lexem l ' .
-            'join InflectedForm i on l.id = i.lexemId ' .
+            'join InflectedForm i on l.id = i.lexemeId ' .
             "where i.$field = :form";
     $compound = 'select l.id ' .
               'from Lexem l ' .
-              'join Fragment f on l.id = f.lexemId ' .
-              'join InflectedForm i on f.partId = i.lexemId ' .
+              'join Fragment f on l.id = f.lexemeId ' .
+              'join InflectedForm i on f.partId = i.lexemeId ' .
               "where i.$field = :form";
     $subquery = "{$simple} union {$compound}";
 
     // load entries for the above lexemes
     $query = 'select distinct e.* ' .
            'from Entry e ' .
-           'join EntryLexem el on e.id = el.entryId ' .
-           "join ({$subquery}) l on el.lexemId = l.id";
+           'join EntryLexeme el on e.id = el.entryId ' .
+           "join ({$subquery}) l on el.lexemeId = l.id";
 
     $entries = Model::factory('Entry')
              ->raw_query($query, ['form' => $cuv])
@@ -180,19 +180,19 @@ class Entry extends BaseObject implements DatedObject {
     return Model::factory('Lexem')
       ->table_alias('l')
       ->select('l.*')
-      ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+      ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
       ->where('el.entryId', $this->id)
       ->where('el.main', true)
       ->order_by_asc('el.lexemRank')
       ->find_one();
   }
 
-  function getMainLexemIds() {
-    return $this->getLexemIds(['main' => true]);
+  function getMainLexemeIds() {
+    return $this->getLexemeIds(['main' => true]);
   }
 
-  function getVariantLexemIds() {
-    return $this->getLexemIds(['main' => false]);
+  function getVariantLexemeIds() {
+    return $this->getLexemeIds(['main' => false]);
   }
 
   static function getHomonyms($entries) {
@@ -203,10 +203,10 @@ class Entry extends BaseObject implements DatedObject {
       $entryIds[] = $e->id;
 
       foreach ($e->getLexems() as $l) {
-        $homonymEntries = Model::factory('EntryLexem')
+        $homonymEntries = Model::factory('EntryLexeme')
                         ->table_alias('el')
                         ->select('el.entryId')
-                        ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
+                        ->join('Lexem', ['el.lexemeId', '=', 'l.id'], 'l')
                         ->where('l.formNoAccent', $l->formNoAccent)
                         ->find_array();
         foreach ($homonymEntries as $h) {
@@ -293,8 +293,8 @@ class Entry extends BaseObject implements DatedObject {
     $this->deleteEmptyTrees();
 
     EntryDefinition::copy($this->id, $otherId, 1);
-    EntryLexem::copy($this->id, $otherId, 1, ['main' => true]);
-    EntryLexem::copy($this->id, $otherId, 1, ['main' => false]);
+    EntryLexeme::copy($this->id, $otherId, 1, ['main' => true]);
+    EntryLexeme::copy($this->id, $otherId, 1, ['main' => false]);
     TreeEntry::copy($this->id, $otherId, 2);
 
     $visuals = Visual::get_all_by_entryId($this->id);
@@ -314,7 +314,7 @@ class Entry extends BaseObject implements DatedObject {
 
   function delete() {
     EntryDefinition::delete_all_by_entryId($this->id);
-    EntryLexem::delete_all_by_entryId($this->id);
+    EntryLexeme::delete_all_by_entryId($this->id);
     TreeEntry::delete_all_by_entryId($this->id);
 
     // orphan Visuals and VisualTags

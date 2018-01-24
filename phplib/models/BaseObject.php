@@ -154,7 +154,7 @@ class BaseObject extends Model {
    *   - deletes extra rows if the list is shrinking
    *   - creates extra rows if the list if growing
    * Example: if a user edits a Lexem and adds/removes LexemSources, then we can save the new list of LexemSources with
-   *   LexemSource::updateList(['lexemId' => $lexem->id], 'sourceId', $sourceIds);
+   *   LexemSource::updateList(['lexemeId' => $lexem->id], 'sourceId', $sourceIds);
    **/
   static function updateList($filters, $field, $newValues) {
     // Select the existing rows

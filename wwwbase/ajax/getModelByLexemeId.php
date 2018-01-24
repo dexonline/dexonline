@@ -3,7 +3,7 @@ require_once("../../phplib/Core.php");
 
 $id = Request::get('id');
 
-$l = Lexem::get_by_id($id);
+$l = Lexeme::get_by_id($id);
 $mt = ModelType::get_by_code($l->modelType);
 $m = FlexModel::get_by_modelType_number($mt->canonical, $l->modelNumber);
 

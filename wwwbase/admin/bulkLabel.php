@@ -12,7 +12,7 @@ if ($saveButton) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
       assert($parts[0] == 'lexem');
-      $lexem = Lexem::get_by_id($parts[1]);
+      $lexeme = Lexeme::get_by_id($parts[1]);
 
       if ($modelId) {
         $parts = preg_split('/_/', $modelId);
@@ -85,13 +85,13 @@ $lexems = Model::factory('Lexem')
   ->limit(20)
   ->find_many();
 
-// $lMatrix[$i][$j] = lexem (with inflected forms) for lexem $i and model $j
+// $lMatrix[$i][$j] = lexeme (with inflected forms) for lexeme $i and model $j
 $lMatrix = [];
 foreach ($lexems as $l) {
   $lArray = [];
   foreach ($models as $m) {
     // Force a reload
-    $copy = Lexem::create($l->form, $m->modelType, $m->number);
+    $copy = Lexeme::create($l->form, $m->modelType, $m->number);
     $copy->generateInflectedFormMap();
     $lArray[] = $copy;
   }

@@ -136,7 +136,7 @@ class Util {
     );
     Variable::poke(
       'Count.unassociatedLexems',
-      Lexem::countUnassociated()
+      Lexeme::countUnassociated()
     );
     Variable::poke(
       'Count.unassociatedTrees',
@@ -156,7 +156,7 @@ class Util {
     );
     Variable::poke(
       'Count.ambiguousLexemes',
-      count(Lexem::loadAmbiguous())
+      count(Lexeme::loadAmbiguous())
     );
     Variable::poke(
       'Count.temporaryLexemes',

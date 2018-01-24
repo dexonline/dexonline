@@ -13,21 +13,21 @@ foreach ($books as $i => $book) {
   $title = mb_strtolower($book->title);
   $title = str_replace(array(',', '.'), '', $title);
   $titleWords = preg_split("/\\s+/", $title);
-  $lexemIds = array();
+  $lexemeIds = array();
 
   foreach ($titleWords as $word) {
     if (!Str::isStopWord($word, $hasDiacritics)) {
       $field = $hasDiacritics ? 'formNoAccent' : 'formUtf8General';
-      $wordLexemIds = DB::getArray(DB::execute("select distinct lexemId from InflectedForm where $field = '" . addslashes($word) . "'"));
-      foreach ($wordLexemIds as $lexemId) {
-        $lexemIds[$lexemId] = true;
+      $wordLexemeIds = DB::getArray(DB::execute("select distinct lexemeId from InflectedForm where $field = '" . addslashes($word) . "'"));
+      foreach ($wordLexemeIds as $lexemeId) {
+        $lexemeIds[$lexemeId] = true;
       }
     }
   }
 
-  foreach ($lexemIds as $lexemId => $ignored) {
+  foreach ($lexemeIds as $lexemeId => $ignored) {
     $index = new DivertaIndex();
-    $index->lexemId = $lexemId;
+    $index->lexemeId = $lexemeId;
     $index->bookId = $book->id;
     $index->save();
   }

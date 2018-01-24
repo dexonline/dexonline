@@ -18,9 +18,9 @@ Options:
     -c check against sourceId
     -C just split the input file the new, existing and to be checked files (using sourceId)
     -t status (mandatory: 0 - active, 1 - temporary, 2 - deleted, 3 - hidden)
-    -i = use inflections for multilexem entries
+    -i = use inflections for multilexeme entries
     -x = exclude lexems beginning with
-    -p = split lexem using this char
+    -p = split lexeme using this char
     -b = verbs are defined using the particle 'a ' at the beginning
     -d = dry run
     -h = help
@@ -204,9 +204,9 @@ while ($i < count($lines)) {
 
     if($verbose) echo("\t * Process part: '{$name}'\n");
 
-    $lexems = Lexem::get_all_by_form($name);
+    $lexems = Lexeme::get_all_by_form($name);
     if (!count($lexems)) {
-      $lexems = Lexem::get_all_by_formNoAccent($name);
+      $lexems = Lexeme::get_all_by_formNoAccent($name);
     }
 
     if ($allowInflected) {
@@ -214,11 +214,11 @@ while ($i < count($lines)) {
         $lexems = Model::factory('Lexem')
           ->table_alias('l')
           ->select('l.*')
-          ->join('InflectedForm', 'l.id = i.lexemId', 'i')
+          ->join('InflectedForm', 'l.id = i.lexemeId', 'i')
           ->where('i.formNoAccent', $name)
           ->find_many();
         if ( count($lexems) ) {
-          if($verbose) echo("\t\tFound inflected form {$name} for lexem {$lexems[0]->id} ({$lexems[0]->form})\n");
+          if($verbose) echo("\t\tFound inflected form {$name} for lexeme {$lexems[0]->id} ({$lexems[0]->form})\n");
         }
       }
     }
@@ -226,23 +226,23 @@ while ($i < count($lines)) {
     // procedura de refolosire a lexemului sau de regenerare
     if (count($lexems)) {
       // Reuse existing lexem.
-      $lexem = $lexems[0];
+      $lexeme = $lexems[0];
       $entry = $lexem->getEntries()[0];
-      if($verbose) echo("\t\tReusing lexem {$lexem->id} ({$lexem->form})\n");
+      if($verbose) echo("\t\tReusing lexeme {$lexem->id} ({$lexem->form})\n");
     } else {
-      if($verbose) echo("\t\tCreating a new lexem for name {$name}\n");
+      if($verbose) echo("\t\tCreating a new lexeme for name {$name}\n");
       if (!$dryrun) {
         // Create a new lexem.
-        $lexem = Lexem::create($name, 'T', '1');
+        $lexeme = Lexeme::create($name, 'T', '1');
         $entry = Entry::createAndSave($lexem->formNoAccent);
         $lexem->deepSave();
-        if($verbose) echo("\t\tCreated lexem {$lexem->id} ({$lexem->form})\n");
+        if($verbose) echo("\t\tCreated lexeme {$lexem->id} ({$lexem->form})\n");
       }
     }
 
     // procedura de asociere a definiției cu lexemul de mai sus
     if($verbose) echo("\t\tAssociate entry {$entry->id} ({$entry->description}) " .
-                      "for lexem {$lexem->id} ({$lexem}) " .
+                      "for lexeme {$lexem->id} ({$lexem}) " .
                       "to definition ({$definition->id})\n");
     if (!$dryrun) {
       EntryDefinition::associate($entry->id, $definition->id);

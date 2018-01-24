@@ -13,7 +13,7 @@ foreach ($ids as $id) {
       'hasParadigm' => true,
     ];
   } else {
-    $l = Lexem::get_by_id($id);
+    $l = Lexeme::get_by_id($id);
 
     if ($l) {
       $data[] = [

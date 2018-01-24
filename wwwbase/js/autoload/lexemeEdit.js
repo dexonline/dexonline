@@ -33,7 +33,7 @@ $(function() {
 
     $('.lexemEditSaveButton').click(saveEverything);
 
-    $('#lexemForm').on('change input paste', showRenameDiv);
+    $('#lexemeForm').on('change input paste', showRenameDiv);
 
     initSelect2('#sourceIds', 'ajax/getSourcesById.php', lexemSourceOptions);
 
@@ -60,8 +60,8 @@ $(function() {
   }
 
   function similarLexemChange() {
-    var lexemId = $(this).find('option:selected').val();
-    var url = wwwRoot + 'ajax/getModelByLexemId.php?id=' + lexemId;
+    var lexemeId = $(this).find('option:selected').val();
+    var url = wwwRoot + 'ajax/getModelByLexemeId.php?id=' + lexemeId;
     $.get(url)
       .done(function(data) {
         $('select[name="modelType"]').data('selected', data.modelType);
@@ -85,10 +85,10 @@ $(function() {
   }
 
   function autoFragment() {
-    var parts = $('#lexemForm').val().split(/[-\s]+/);
+    var parts = $('#lexemeForm').val().split(/[-\s]+/);
 
-    // sync the needsAccent checkbox with the lexem form
-    var hasAccent = $('#lexemForm').val().indexOf("'") != -1;
+    // sync the needsAccent checkbox with the lexeme form
+    var hasAccent = $('#lexemeForm').val().indexOf("'") != -1;
     $('input[name="needsAccent"]').prop('checked', hasAccent);
 
     // remove all fragments and add parts.length new ones

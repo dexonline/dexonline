@@ -99,12 +99,12 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="mainLexemIds" class="col-md-2 control-label">
+          <label for="mainLexemeIds" class="col-md-2 control-label">
             lexeme
           </label>
           <div class="col-md-10">
-            <select id="mainLexemIds" name="mainLexemIds[]" style="width: 100%" multiple>
-              {foreach $mainLexemIds as $l}
+            <select id="mainLexemeIds" name="mainLexemeIds[]" style="width: 100%" multiple>
+              {foreach $mainLexemeIds as $l}
                 <option value="{$l}" selected></option>
               {/foreach}
             </select>
@@ -112,12 +112,12 @@
         </div>
 
         <div class="form-group">
-          <label for="variantLexemIds" class="col-md-2 control-label">
+          <label for="variantLexemeIds" class="col-md-2 control-label">
             variante
           </label>
           <div class="col-md-10">
-            <select id="variantLexemIds" name="variantLexemIds[]" style="width: 100%" multiple>
-              {foreach $variantLexemIds as $l}
+            <select id="variantLexemeIds" name="variantLexemeIds[]" style="width: 100%" multiple>
+              {foreach $variantLexemeIds as $l}
                 <option value="{$l}" selected></option>
               {/foreach}
             </select>

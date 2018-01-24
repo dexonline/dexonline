@@ -594,7 +594,7 @@ class Str {
       foreach (explode(" ", $words) as $word_string) {
 
         $word_lexem_ids = Model::factory('InflectedForm')
-                        ->select('lexemId')
+                        ->select('lexemeId')
                         ->where('formNoAccent', $word_string)
                         ->find_many();
 
@@ -611,7 +611,7 @@ class Str {
                                      ->where('formUtf8General', $definition_string)
                                      ->find_one();
 
-        // Linked lexem was not found in the database.
+        // Linked lexeme was not found in the database.
         if (empty($def_lexem_id_by_utf8General)) {
           $currentLink = [
             "original_word" => $l[1],
@@ -628,7 +628,7 @@ class Str {
         // Linking to base form.
         $found = false;
         foreach ($word_lexem_ids as $word_lexem_id) {
-          if ($word_lexem_id->lexemId === $def_lexem_id_by_noAccent->id) {
+          if ($word_lexem_id->lexemeId === $def_lexem_id_by_noAccent->id) {
             $found = true;
           }
         }
@@ -654,7 +654,7 @@ class Str {
                        ->select('formNoAccent')
                        ->select('modelType')
                        ->select('modelNumber')
-                       ->where_id_is($word_lexem_id->lexemId)
+                       ->where_id_is($word_lexem_id->lexemeId)
                        ->find_one();
 
           if ($lexem_model->modelType === "IL" ||
@@ -664,12 +664,12 @@ class Str {
                ($lexem_model->modelNumber === "107" ||
                 $lexem_model->modelNumber === "113"))) {
             $nextstep = Model::factory('InflectedForm')
-                      ->select('lexemId')
+                      ->select('lexemeId')
                       ->where('formNoAccent', $lexem_model->formNoAccent)
                       ->find_many();
 
             foreach ($nextstep as $one) {
-              if ($one->lexemId === $def_lexem_id_by_noAccent->id) {
+              if ($one->lexemeId === $def_lexem_id_by_noAccent->id) {
                 $found = true;
                 break;
               }

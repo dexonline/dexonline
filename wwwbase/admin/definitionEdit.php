@@ -116,13 +116,13 @@ if ($saveButton || $nextOcrBut) {
     $entries = [];
     foreach ($entryIds as $entryId) {
       if (Str::startsWith($entryId, '@')) {
-        // create a new lexem and entry
+        // create a new lexeme and entry
         $form = substr($entryId, 1);
-        $l = Lexem::create($form, 'T', '1');
+        $l = Lexeme::create($form, 'T', '1');
         $e = Entry::createAndSave($l, true);
         $l->save();
         $l->regenerateParadigm();
-        EntryLexem::associate($e->id, $l->id);
+        EntryLexeme::associate($e->id, $l->id);
 
         if (strpos($form, "'") === false) {
           $noAccentNag = true;

@@ -118,7 +118,7 @@ if (count($entryIds)) {
               ->table_alias('l')
               ->select('l.modelType')
               ->distinct()
-              ->join('EntryLexem', ['el.lexemId', '=', 'l.id'], 'el')
+              ->join('EntryLexeme', ['el.lexemeId', '=', 'l.id'], 'el')
               ->where_in('el.entryId', $entryIds)
               ->order_by_asc('modelType')
               ->find_many();

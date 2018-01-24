@@ -34,7 +34,7 @@ foreach ($dbResult as $dbRow) {
     addUrl('https://dexonline.ro/definitie/' . urlencode($rowB[1]));
   }
   if ($rowB[0] && ($rowB[1] == $rowA[1] || $rowB[1] == $rowC[1])) {
-    // Only add a link to the lexem if it has homonyms. Otherwise, its page is identical to the definition page.
+    // Only add a link to the lexeme if it has homonyms. Otherwise, its page is identical to the definition page.
     addUrl("https://dexonline.ro/lexem/{$rowB[1]}/{$rowB[0]}");
   }
 }

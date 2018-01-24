@@ -61,7 +61,7 @@ class WikiArticle extends BaseObject implements DatedObject {
       ->distinct()
       ->join('WikiKeyword', ['wa.id', '=', 'wk.wikiArticleId'], 'wk')
       ->join('Lexem', ['wk.keyword', '=', 'l.formNoAccent'], 'l')
-      ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+      ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
       ->where_in('el.entryId', $entryIds)
       ->find_many();
   }

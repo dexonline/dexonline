@@ -20,9 +20,9 @@
 
   <form action="placeAccents.php" method="post">
     {foreach $lexems as $l}
-      {assign var=lexemId value=$l->id}
-      {assign var=charArray value=$chars[$lexemId]}
-      {assign var=srArray value=$searchResults[$lexemId]}
+      {assign var=lexemeId value=$l->id}
+      {assign var=charArray value=$chars[$lexemeId]}
+      {assign var=srArray value=$searchResults[$lexemeId]}
 
       <div>
         <input type="hidden" name="position_{$l->id}" value="-1">
@@ -46,7 +46,7 @@
             <i class="glyphicon glyphicon-book"></i>
             <span data-other-text="ascunde definițiile">arată definițiile</span>
           </a>
-          <a class="btn btn-link" href="lexemEdit.php?lexemId={$l->id}">
+          <a class="btn btn-link" href="lexemEdit.php?lexemeId={$l->id}">
             <i class="glyphicon glyphicon-pencil"></i>
             editează
           </a>

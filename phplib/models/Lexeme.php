@@ -78,7 +78,7 @@ class Lexem extends BaseObject implements DatedObject {
   function getFragments() {
     if ($this->fragments === null) {
       $this->fragments = Model::factory('Fragment')
-                       ->where('lexemId', $this->id)
+                       ->where('lexemeId', $this->id)
                        ->order_by_asc('rank')
                        ->find_many();
     }
@@ -93,7 +93,7 @@ class Lexem extends BaseObject implements DatedObject {
     if ($this->compoundParts === null) {
       $this->compoundParts = [];
       foreach ($this->getFragments() as $f) {
-        $this->compoundParts[] = Lexem::get_by_id($f->partId);
+        $this->compoundParts[] = Lexeme::get_by_id($f->partId);
       }
     }
     return $this->compoundParts;
@@ -166,7 +166,7 @@ class Lexem extends BaseObject implements DatedObject {
     return Model::factory('Lexem')->where('formNoAccent', $name)->where('description', $description)->find_many();
   }
 
-  // For V1, this loads all lexem models in (V1, VT1)
+  // For V1, this loads all lexeme models in (V1, VT1)
   static function loadByCanonicalModel($modelType, $modelNumber, $limit = 0) {
     $q = Model::factory('Lexem')
       ->table_alias('l')
@@ -198,7 +198,7 @@ class Lexem extends BaseObject implements DatedObject {
       // instead of count(distinct *).
       return @Model::factory('Lexem')
         ->table_alias('l')
-        ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+        ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
         ->join('EntryDefinition', ['el.entryId', '=', 'ed.entryId'], 'ed')
         ->join('Definition', ['ed.definitionId', '=', 'd.id'], 'd')
         ->where_raw("$field $mysqlRegexp")
@@ -260,7 +260,7 @@ class Lexem extends BaseObject implements DatedObject {
    * be fragments of associated lexemes.
    **/
   static function getUnassociated() {
-    $direct = 'select lexemId as id from EntryLexem';
+    $direct = 'select lexemeId as id from EntryLexeme';
     $fragments = 'select partId as id from Fragment';
     $subquery = "$direct union $fragments";
     $query = 'select l.* ' .
@@ -285,7 +285,7 @@ class Lexem extends BaseObject implements DatedObject {
   function loadInflectedForms() {
     if ($this->inflectedForms === null) {
       $this->inflectedForms = Model::factory('InflectedForm')
-        ->where('lexemId', $this->id)
+        ->where('lexemeId', $this->id)
         ->order_by_asc('inflectionId')
         ->order_by_asc('variant')
         ->find_many();
@@ -379,7 +379,7 @@ class Lexem extends BaseObject implements DatedObject {
       if ($frag->declension == Fragment::DEC_INVARIABLE) {
         // make sure the corresponding chunk of $this->formNoAccent matches
         // one of the inflected forms of $p
-        $if = InflectedForm::get_by_lexemId_formNoAccent($p->id, $chunk);
+        $if = InflectedForm::get_by_lexemeId_formNoAccent($p->id, $chunk);
         if (!$if) {
           throw new ParadigmException(
             $infl->id,
@@ -393,7 +393,7 @@ class Lexem extends BaseObject implements DatedObject {
         $i = 0;
 
         do {
-          $if = InflectedForm::get_by_lexemId_inflectionId_variant($p->id, $inflections[$i]->id, 0);
+          $if = InflectedForm::get_by_lexemeId_inflectionId_variant($p->id, $inflections[$i]->id, 0);
           $i++;
         } while (!$if);
       }
@@ -474,10 +474,10 @@ class Lexem extends BaseObject implements DatedObject {
    **/
   function regenerateParadigm() {
     if ($this->id) {
-      InflectedForm::delete_all_by_lexemId($this->id);
+      InflectedForm::delete_all_by_lexemeId($this->id);
     }
     foreach ($this->generateInflectedForms() as $if) {
-      $if->lexemId = $this->id;
+      $if->lexemeId = $this->id;
       $if->save();
     }
   }
@@ -490,7 +490,7 @@ class Lexem extends BaseObject implements DatedObject {
     $ids = Model::factory('InflectedForm')
       ->table_alias('i')
       ->select('i.id')
-      ->join('Lexem', 'i.lexemId = l.id', 'l')
+      ->join('Lexem', 'i.lexemeId = l.id', 'l')
       ->join('ModelType', 'l.modelType = mt.code', 'mt')
       ->join('Model', 'mt.canonical = m.modelType and l.modelNumber = m.number', 'm')
       ->join('ModelDescription', 'm.id = md.modelId and i.variant = md.variant and i.inflectionId = md.inflectionId', 'md')
@@ -524,7 +524,7 @@ class Lexem extends BaseObject implements DatedObject {
       $infl = Inflection::loadLongInfinitive();
 
       // there could be several forms - just load the first one
-      $longInfinitive = InflectedForm::get_by_lexemId_inflectionId($this->id, $infl->id);
+      $longInfinitive = InflectedForm::get_by_lexemeId_inflectionId($this->id, $infl->id);
       $are = $longInfinitive && Str::endsWith($longInfinitive->formNoAccent, 'are');
       $number = $are ? 113 : 107;
 
@@ -533,7 +533,7 @@ class Lexem extends BaseObject implements DatedObject {
   }
 
   private function _regenerateDependentLexemsHelper($infl, $genericType, $dedicatedType, $number) {
-    $ifs = InflectedForm::get_all_by_lexemId_inflectionId($this->id, $infl->id);
+    $ifs = InflectedForm::get_all_by_lexemeId_inflectionId($this->id, $infl->id);
 
     foreach ($ifs as $if) {
       // look for an existing lexeme
@@ -550,15 +550,15 @@ class Lexem extends BaseObject implements DatedObject {
         }
       } else {
         // if a lexeme exists with this form, but a different model, give a warning
-        $existing = Lexem::get_by_formNoAccent($if->formNoAccent);
+        $existing = Lexeme::get_by_formNoAccent($if->formNoAccent);
         if ($existing) {
           FlashMessage::addTemplate('lexemExists.tpl', [ 'lexem' => $existing ], 'warning');
         }
 
-        $l = Lexem::create($if->form, $dedicatedType, $number, '', $this->isLoc);
+        $l = Lexeme::create($if->form, $dedicatedType, $number, '', $this->isLoc);
         $l->deepSave();
         $entry = Entry::createAndSave($if->formNoAccent);
-        EntryLexem::associate($entry->id, $l->id);
+        EntryLexeme::associate($entry->id, $l->id);
 
         // copy trees and structure information from one of the lexeme's entries
         $infEntries = $this->getEntries();
@@ -594,7 +594,7 @@ class Lexem extends BaseObject implements DatedObject {
   }
 
   /**
-   * Called when the lexem is deleted or its model type changes to a non-VT.
+   * Called when the lexeme is deleted or its model type changes to a non-VT.
    * Only deletes PT participles, not A participles.
    */
   function deleteParticiple() {
@@ -606,7 +606,7 @@ class Lexem extends BaseObject implements DatedObject {
   }
 
   /**
-   * Called when the lexem is deleted or its model type changes to a non-verb.
+   * Called when the lexeme is deleted or its model type changes to a non-verb.
    * Only deletes IL long infinitives, not F long infinitives.
    */
   function deleteLongInfinitive() {
@@ -617,7 +617,7 @@ class Lexem extends BaseObject implements DatedObject {
   // deletes dependent lexemes and their entries
   private function _deleteDependentLexemes($inflId, $modelType, $modelNumbers) {
     // Iterate through all the forms of the desired inflection (participle / long infinitive)
-    $ifs = InflectedForm::get_all_by_lexemId_inflectionId($this->id, $inflId);
+    $ifs = InflectedForm::get_all_by_lexemeId_inflectionId($this->id, $inflId);
     foreach ($ifs as $if) {
       // Examine all lexems having one of the above forms and model
       $lexems = Model::factory('Lexem')
@@ -630,8 +630,8 @@ class Lexem extends BaseObject implements DatedObject {
         $entries = Model::factory('Entry')
                  ->table_alias('e')
                  ->select('e.*')
-                 ->join('EntryLexem', ['e.id', '=', 'el.entryId'], 'el')
-                 ->where('el.lexemId', $l->id)
+                 ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+                 ->where('el.lexemeId', $l->id)
                  ->find_many();
         foreach ($entries as $e) {
           $e->delete();
@@ -664,16 +664,16 @@ class Lexem extends BaseObject implements DatedObject {
       if ($this->modelType == 'VT' || $this->modelType == 'V') {
         $this->deleteLongInfinitive();
       }
-      InflectedForm::delete_all_by_lexemId($this->id);
-      EntryLexem::delete_all_by_lexemId($this->id);
-      LexemSource::delete_all_by_lexemId($this->id);
+      InflectedForm::delete_all_by_lexemeId($this->id);
+      EntryLexeme::delete_all_by_lexemeId($this->id);
+      LexemSource::delete_all_by_lexemeId($this->id);
       ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_LEXEM);
-      Fragment::delete_all_by_lexemId($this->id);
+      Fragment::delete_all_by_lexemeId($this->id);
       Fragment::delete_all_by_partId($this->id);
-      // delete_all_by_lexemId doesn't work for FullTextIndex because it doesn't have an ID column
-      Model::factory('FullTextIndex')->where('lexemId', $this->id)->delete_many();
+      // delete_all_by_lexemeId doesn't work for FullTextIndex because it doesn't have an ID column
+      Model::factory('FullTextIndex')->where('lexemeId', $this->id)->delete_many();
     }
-    Log::warning("Deleted lexem {$this->id} ({$this->formNoAccent})");
+    Log::warning("Deleted lexeme {$this->id} ({$this->formNoAccent})");
     parent::delete();
   }
 
@@ -691,21 +691,21 @@ class Lexem extends BaseObject implements DatedObject {
   }
 
   /**
-   * Saves a lexem and its dependants.
+   * Saves a lexeme and its dependants.
    **/
   function deepSave() {
     $this->save();
 
-    Fragment::delete_all_by_lexemId($this->id);
-    InflectedForm::delete_all_by_lexemId($this->id);
+    Fragment::delete_all_by_lexemeId($this->id);
+    InflectedForm::delete_all_by_lexemeId($this->id);
     ObjectTag::delete_all_by_objectId_objectType($this->id, ObjectTag::TYPE_LEXEM);
 
     foreach ($this->getFragments() as $f) {
-      $f->lexemId = $this->id;
+      $f->lexemeId = $this->id;
       $f->save();
     }
     foreach ($this->generateInflectedForms() as $if) {
-      $if->lexemId = $this->id;
+      $if->lexemeId = $this->id;
       $if->save();
     }
     foreach ($this->getObjectTags() as $ot) {

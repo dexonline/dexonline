@@ -59,14 +59,14 @@
         caută
       </a>
 
-      <a class="btn btn-link" href="?lexemId={$lexem->id}">renunță</a>
+      <a class="btn btn-link" href="?lexemeId={$lexem->id}">renunță</a>
 
       {$canDelete=$lexem->canDelete()}
       <button type="submit"
               name="deleteButton"
               onclick="return confirm('Confirmați ștergerea acestui lexem?');"
               class="btn btn-danger pull-right"
-              {if $canDelete != Lexem::CAN_DELETE_OK}
+              {if $canDelete != Lexeme::CAN_DELETE_OK}
               disabled
               title="{$canDelete}"
               {/if}>
@@ -81,18 +81,18 @@
       <div class="panel-heading">Proprietăți</div>
 
       <div class="panel-body">
-        <input type="hidden" name="lexemId" value="{$lexem->id}">
+        <input type="hidden" name="lexemeId" value="{$lexem->id}">
 
         <div class="row">
           <div class="col-md-6 form-horizontal">
 
             <div class="form-group">
-              <label for="lexemForm" class="col-md-2 control-label">formă</label>
+              <label for="lexemeForm" class="col-md-2 control-label">formă</label>
               <div class="col-md-10">
                 <input type="text"
                        class="form-control"
-                       id="lexemForm"
-                       name="lexemForm"
+                       id="lexemeForm"
+                       name="lexemeForm"
                        value="{$lexem->form|escape}"
                        {if !$canEdit.form}readonly{/if}>
 

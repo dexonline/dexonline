@@ -7,14 +7,14 @@ function getWordForDefinitionId($defId) {
   return $def->lexicon;
 }
 
-function getSimpleDefinitionsForLexemIds($lexemIds) {
+function getSimpleDefinitionsForLexemeIds($lexemeIds) {
   $defIds = Model::factory('EntryDefinition')
           ->table_alias('ed')
           ->select('definitionId')
           ->distinct()
-          ->join('EntryLexem', ['ed.entryId', '=', 'el.entryId'], 'el')
-          ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l')
-          ->where_in('l.id', $lexemIds)
+          ->join('EntryLexeme', ['ed.entryId', '=', 'el.entryId'], 'el')
+          ->join('Lexem', ['el.lexemeId', '=', 'l.id'], 'l')
+          ->where_in('l.id', $lexemeIds)
           ->find_many();
   $defIds = Util::objectProperty($defIds, 'definitionId');
     
@@ -57,16 +57,16 @@ $used[$maindef->definitionId] = 1;
 $closestLexemsDefinitionsCount = null;
 $closestLexemsDefinitions = null;
 if ($difficulty > 1) {
-  $nearLexemIds = NGram::searchLexemIds($word);
-  arsort($nearLexemIds);
+  $nearLexemeIds = NGram::searchLexemeIds($word);
+  arsort($nearLexemeIds);
   $lexemPoolSize = 48 / $difficulty;
-  $closestLexemIds = array_slice($nearLexemIds, 0, $lexemPoolSize, true);
-  $closestLexemIds = array_keys($closestLexemIds);
+  $closestLexemeIds = array_slice($nearLexemeIds, 0, $lexemPoolSize, true);
+  $closestLexemeIds = array_keys($closestLexemeIds);
   
-  $closestLexemsDefinitions = getSimpleDefinitionsForLexemIds($closestLexemIds);
+  $closestLexemsDefinitions = getSimpleDefinitionsForLexemeIds($closestLexemeIds);
   $closestLexemsDefinitionsCount = count($closestLexemsDefinitions);
   
-  //if there are no close lexem definitions to choose from 
+  //if there are no close lexeme definitions to choose from 
   //then use easier difficulty
   if ($closestLexemsDefinitionsCount == 0) {
     $difficulty = 1;
@@ -88,7 +88,7 @@ for ($i = 1; $i <= 4; $i++) {
         $closestLexemsDefinitions = array_values($closestLexemsDefinitions);
         $closestLexemsDefinitionsCount--;
         
-        //if we run out of close lexem definitions to use 
+        //if we run out of close lexeme definitions to use 
         //then use easier difficulty
         if ($closestLexemsDefinitionsCount == 0) {
           $difficulty = 1;

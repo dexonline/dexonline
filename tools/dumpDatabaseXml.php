@@ -39,15 +39,15 @@ dumpEd("SELECT ed.entryId, ed.definitionId FROM EntryDefinition ed " .
        "ORDER BY ed.entryId, ed.id",
        "$REMOTE_FOLDER/$TODAY-edm.xml.gz",
        'dumping entry-definition map');
-dumpEl("SELECT el.entryId, el.lexemId FROM EntryLexem el " .
+dumpEl("SELECT el.entryId, el.lexemeId FROM EntryLexeme el " .
        "JOIN Entry e on e.id = el.entryId " .
-       "JOIN Lexem l on l.id = el.lexemId " .
+       "JOIN Lexem l on l.id = el.lexemeId " .
        "WHERE el.modDate < $TODAY_TIMESTAMP " .
        "AND e.modDate < $TODAY_TIMESTAMP " .
        "AND l.modDate < $TODAY_TIMESTAMP " .
        "ORDER BY el.entryId, el.id",
        "$REMOTE_FOLDER/$TODAY-elm.xml.gz",
-       'dumping entry-lexem map');
+       'dumping entry-lexeme map');
 
 if ($LAST_DUMP) {
   dumpDefinitions("SELECT * FROM Definition WHERE sourceId IN (SELECT id FROM Source WHERE canDistribute) " .
@@ -73,7 +73,7 @@ if ($LAST_DUMP) {
            "$REMOTE_FOLDER/$TODAY-elm.xml.gz",
            "$REMOTE_FOLDER/$TODAY-elm-diff.xml.gz",
            'EntryLexem',
-           'dumping entry-lexem map diff');           
+           'dumping entry-lexeme map diff');           
 }
 
 removeOldDumps($REMOTE_FOLDER, $TODAY, $LAST_DUMP);
@@ -221,7 +221,7 @@ function dumpLexems($query, $remoteFile, $message) {
   gzwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
   gzwrite($file, "<Lexems>\n");
   foreach($results as $row) {
-    $lexem = Model::factory('Lexem')->create($row);
+    $lexeme = Model::factory('Lexem')->create($row);
     SmartyWrap::assign('lexem', $lexem);
     gzwrite($file, SmartyWrap::fetch('xml/xmldump/lexem.tpl'));
   }

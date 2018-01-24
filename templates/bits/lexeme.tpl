@@ -1,4 +1,4 @@
-{* Argument: $lexem *}
+{* Argument: $lexeme *}
 {if User::can(User::PRIV_EDIT)}
   <div>
     {$lexem->getPartOfSpeeech()}

@@ -12,7 +12,7 @@ $refreshButton = Request::has('refreshButton');
 $saveButton = Request::has('saveButton');
 $butPrev = Request::has('butPrev');
 $butNext = Request::has('butNext');
-$lexemIds = Request::getArray('lexemId');
+$lexemeIds = Request::getArray('lexemeId');
 $models = Request::getArray('model');
 $capitalize = Request::has('capitalize');
 $deleteOrphans = Request::has('deleteOrphans');
@@ -71,7 +71,7 @@ if ($butPrev || $butNext) {
 $dbl = Model::factory('Lexem')
   ->table_alias('l')
   ->select('l.*')
-  ->join('EntryLexem', ['el.lexemId', '=', 'l.id'], 'el')
+  ->join('EntryLexeme', ['el.lexemeId', '=', 'l.id'], 'el')
   ->join('EntryDefinition', ['ed.entryId', '=', 'el.entryId'], 'ed')
   ->where('ed.definitionId', $def->id)
   ->order_by_asc('formNoAccent')
@@ -84,19 +84,19 @@ if ($saveButton) {
   // Dissociate all entries
   EntryDefinition::delete_all_by_definitionId($def->id);
 
-  foreach ($lexemIds as $i => $lid) {
+  foreach ($lexemeIds as $i => $lid) {
     if ($lid) {
       $m = $models[$i];
 
-      // Create a new lexem or load the existing one
+      // Create a new lexeme or load the existing one
       if (Str::startsWith($lid, '@')) {
-        $lexem = Lexem::create(substr($lid, 1));
+        $lexeme = Lexeme::create(substr($lid, 1));
 
         // Create an entry
         $e = Entry::createAndSave($lexem->formNoAccent);
 
       } else {
-        $lexem = Lexem::get_by_id($lid);
+        $lexeme = Lexeme::get_by_id($lid);
         $e = $lexem->getEntries()[0];
       }
 
@@ -120,9 +120,9 @@ if ($saveButton) {
 
       $lexem->save();
       $lexem->regenerateParadigm();
-      EntryLexem::associate($e->id, $lexem->id);
+      EntryLexeme::associate($e->id, $lexem->id);
 
-      // Associate the lexem with the definition
+      // Associate the lexeme with the definition
       EntryDefinition::associate($e->id, $def->id);
     }
   }
@@ -140,7 +140,7 @@ if ($saveButton) {
         }
       }
       if (!$keepLexem &&
-          ($l->canDelete() == Lexem::CAN_DELETE_OK)) {
+          ($l->canDelete() == Lexeme::CAN_DELETE_OK)) {
         $l->delete();
       }
     }
@@ -155,11 +155,11 @@ if ($saveButton) {
 
 } else if ($refreshButton) {
   try {
-    if (!count($lexemIds)) {
+    if (!count($lexemeIds)) {
       throw new Exception('Trebuie să asociați cel puțin un lexem.');
     }
 
-    foreach ($lexemIds as $i => $lid) {
+    foreach ($lexemeIds as $i => $lid) {
       $m = $models[$i];
 
       if (empty($lid) xor empty($m)) {
@@ -168,24 +168,24 @@ if ($saveButton) {
 
       if ($lid) {
         if (Str::startsWith($lid, '@')) {
-          $lexem = Lexem::create(substr($lid, 1));
+          $lexeme = Lexeme::create(substr($lid, 1));
         } else {
-          $lexem = Lexem::get_by_id($lid);
+          $lexeme = Lexeme::get_by_id($lid);
         }
 
-        // Check that either the lexem is not in LOC or the model list is unchanged
+        // Check that either the lexeme is not in LOC or the model list is unchanged
         if ($lexem->isLoc && ($m != "{$lexem->modelType}{$lexem->modelNumber}")) {
           throw new Exception("Nu puteți schimba modelul unui lexem inclus în loc: {$lexem}.");
         }
 
-        // Check that the lexem works with the model
+        // Check that the lexeme works with the model
         $model = Model::factory('ModelType')
                ->select('code')
                ->select('number')
                ->join('Model', ['canonical', '=', 'modelType'])
                ->where_raw("concat(code, number) = ? ", [$m])
                ->find_one();
-        $l = Lexem::create($lexem->form, $model->code, $model->number);
+        $l = Lexeme::create($lexem->form, $model->code, $model->number);
         $ifs = $l->generateInflectedForms();
       }
     }
@@ -193,7 +193,7 @@ if ($saveButton) {
   } catch (Exception $e) {
     FlashMessage::add($e->getMessage());
   }
-  SmartyWrap::assign('lexemIds', $lexemIds);
+  SmartyWrap::assign('lexemeIds', $lexemeIds);
   SmartyWrap::assign('models', $models);
 } else {
   $models = [];
@@ -201,7 +201,7 @@ if ($saveButton) {
     $models[] = "{$l->modelType}{$l->modelNumber}";
   }
 
-  SmartyWrap::assign('lexemIds', $dblIds);
+  SmartyWrap::assign('lexemeIds', $dblIds);
   SmartyWrap::assign('models', $models);
 }
 

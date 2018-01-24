@@ -45,7 +45,7 @@ $count = Model::factory('Lexem')
   ->count();
 
 do {
-  $lexem = Model::factory('Lexem')
+  $lexeme = Model::factory('Lexem')
     ->where('isLoc', 1)
     ->where_gte('frequency', $minFreq)
     ->where_lte('frequency', $maxFreq)
@@ -60,14 +60,14 @@ do {
         ->table_alias('d')
         ->select('d.*')
         ->join('EntryDefinition', ['d.id', '=', 'ed.definitionId'], 'ed')
-        ->join('EntryLexem', ['ed.entryId', '=', 'el.entryId'], 'el')
+        ->join('EntryLexeme', ['ed.entryId', '=', 'el.entryId'], 'el')
         ->join('Source', ['s.id', '=', 'd.sourceId'], 's')
-        ->where('el.lexemId', $lexem->id)
+        ->where('el.lexemeId', $lexem->id)
         ->where('d.status', Definition::ST_ACTIVE)
         ->where('s.type', Source::TYPE_OFFICIAL)
         ->order_by_asc('s.displayOrder')
         ->find_many();
-// loop untill you find a lexem with a definition
+// loop untill you find a lexeme with a definition
 } while (!$defs);
 
 $searchResults = SearchResult::mapDefinitionArray($defs);

@@ -11,7 +11,7 @@ if ($saveButton) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 2);
       assert($parts[0] == 'position');
-      $lexem = Lexem::get_by_id($parts[1]);
+      $lexeme = Lexeme::get_by_id($parts[1]);
       $noAccent = Request::get('noAccent_' . $lexem->id);
 
       if ($noAccent) {

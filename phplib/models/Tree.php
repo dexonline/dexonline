@@ -220,7 +220,7 @@ class Tree extends BaseObject implements DatedObject {
       ->select('l.*')
       ->select('el.main')
       ->distinct()
-      ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+      ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
       ->join('TreeEntry', ['el.entryId', '=', 'te.entryId'], 'te')
       ->where('te.treeId', $this->id)
       ->where_not_equal('l.formNoAccent', $this->getShortDescription())

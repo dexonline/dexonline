@@ -8,7 +8,7 @@
  * - table name: FooBar, mapping Foos to Bars;
  * - foreign keys: fooId, barId;
  * - rank fields: fooRank, barRank.
- * - possibly other fields called payload (e.g. EntryLexem.main)
+ * - possibly other fields called payload (e.g. EntryLexeme.main)
  *
  * fooRank stores the rank of this Foo in the list of Foos for this
  * Bar. Ranks don't have to be consecutive, which speeds up deletions

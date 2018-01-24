@@ -20,7 +20,7 @@ $forms = Model::factory('InflectedForm')
        ->table_alias('i')
        ->select('i.formNoAccent')
        ->distinct()
-       ->join('Lexem', ['i.lexemId', '=', 'l.id'], 'l')
+       ->join('Lexem', ['i.lexemeId', '=', 'l.id'], 'l')
        ->join('ModelType', ['l.modelType', '=', 'mt.code'], 'mt')
        ->join('Model', 'mt.canonical = m.modelType and l.modelNumber = m.number', 'm')
        ->join('ModelDescription',

@@ -35,7 +35,7 @@
       </tr>
       <tr id="stem">
         <td>
-          <select class="lexem" name="lexemId[]" style="width: 300px;">
+          <select class="lexem" name="lexemeId[]" style="width: 300px;">
           </select>
         </td>
         <td>
@@ -47,10 +47,10 @@
           <a class="shortcutI3" href="#">I3</a>
         </td>
       </tr>
-      {foreach $lexemIds as $i => $l}
+      {foreach $lexemeIds as $i => $l}
         <tr>
           <td>
-            <select class="lexem" name="lexemId[]" style="width: 300px;">
+            <select class="lexem" name="lexemeId[]" style="width: 300px;">
               <option value="{$l}" selected></option>
             </select>
           </td>

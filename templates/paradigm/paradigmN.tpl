@@ -1,4 +1,4 @@
-{* Argument: $lexem *}
+{* Argument: $lexeme *}
 {assign var=ifMap value=$lexem->loadInflectedFormMap()}
 <table class="lexem">
   <tr>

@@ -12,7 +12,7 @@ if ($sourceId) {
           ->table_alias('l')
           ->select('l.*')
           ->distinct()
-          ->join('EntryLexem', ['el.lexemId', '=', 'l.id'], 'el')
+          ->join('EntryLexeme', ['el.lexemeId', '=', 'l.id'], 'el')
           ->join('EntryDefinition', ['ed.entryId', '=', 'el.entryId'], 'ed')
           ->join('Definition', 'd.id = ed.definitionId', 'd')
           ->where('d.status', Definition::ST_ACTIVE)

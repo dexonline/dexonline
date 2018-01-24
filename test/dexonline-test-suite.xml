@@ -14,7 +14,7 @@
 <tr><td><a href="searchRegexp.xml">searchRegexp</a></td></tr>
 <tr><td><a href="searchFullText.xml">searchFullText</a></td></tr>
 <tr><td><a href="searchByDefinitionId.xml">searchByDefinitionId</a></td></tr>
-<tr><td><a href="searchByLexemId.xml">searchByLexemId</a></td></tr>
+<tr><td><a href="searchByLexemeId.xml">searchByLexemeId</a></td></tr>
 <tr><td><a href="adsLink.xml">adsLink</a></td></tr>
 <tr><td><a href="articles.xml">articles</a></td></tr>
 <tr><td><a href="articlesSearchResults.xml">articlesSearchResults</a></td></tr>

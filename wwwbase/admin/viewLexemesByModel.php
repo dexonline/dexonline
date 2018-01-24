@@ -4,7 +4,7 @@ ini_set('memory_limit', '256M');
 
 $modelType = Request::get('modelType');
 $modelNumber = Request::get('modelNumber');
-$lexems = Lexem::loadByCanonicalModel($modelType, $modelNumber);
+$lexems = Lexeme::loadByCanonicalModel($modelType, $modelNumber);
 
 RecentLink::add("Lexeme pentru modelul: {$modelType}{$modelNumber}");
 

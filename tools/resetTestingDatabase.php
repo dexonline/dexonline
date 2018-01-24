@@ -196,9 +196,9 @@ EntryDefinition::associate($l8->getEntries()[0]->id, $d5->id);
 createComment('Foarte foarte gustoasă',
               $d1->id, $john->id, Definition::ST_ACTIVE);
 
-// lexem sources
+// lexeme sources
 $ls = Model::factory('LexemSource')->create();
-$ls->lexemId = $l3->id;
+$ls->lexemeId = $l3->id;
 $ls->sourceId = $devil->id;
 $ls->save();
 
@@ -308,13 +308,13 @@ function createConstraints($code, $inflectionRegexp, $modelTypeRegexp, $variant)
 }
 
 function createLexemDeep($form, $modelType, $modelNumber, $restriction, $isLoc) {
-  $l = Lexem::create($form, $modelType, $modelNumber, $restriction, $isLoc);
+  $l = Lexeme::create($form, $modelType, $modelNumber, $restriction, $isLoc);
   $l->deepSave();
   $e = Entry::createAndSave($l->formNoAccent);
-  EntryLexem::associate($e->id, $l->id);
+  EntryLexeme::associate($e->id, $l->id);
 
   // reload to flush the $entryLexems field
-  return Lexem::get_by_id($l->id);
+  return Lexeme::get_by_id($l->id);
 }
 
 function createDefinition($rep, $lexicon, $userId, $sourceId, $status) {

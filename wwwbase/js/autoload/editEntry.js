@@ -2,7 +2,7 @@ $(function() {
 
   function init() {
 
-    initSelect2('#mainLexemIds, #variantLexemIds', 'ajax/getLexemsById.php', {
+    initSelect2('#mainLexemeIds, #variantLexemeIds', 'ajax/getLexemsById.php', {
       ajax: { url: wwwRoot + 'ajax/getLexems.php' },
       minimumInputLength: 1,
       templateSelection: formatLexemWithEditLink,
@@ -52,8 +52,8 @@ $(function() {
       return confirm('Confirmați disocierea?');
     });
 
-    $('#moveLexemesUp').click(function() { moveLexemes('#variantLexemIds', '#mainLexemIds'); });
-    $('#moveLexemesDown').click(function() { moveLexemes('#mainLexemIds', '#variantLexemIds'); });
+    $('#moveLexemesUp').click(function() { moveLexemes('#variantLexemeIds', '#mainLexemeIds'); });
+    $('#moveLexemesDown').click(function() { moveLexemes('#mainLexemeIds', '#variantLexemeIds'); });
   }
 
   function showRenameDiv() {
@@ -144,8 +144,8 @@ $(function() {
   function moveLexemes(fromId, toId) {
     var from = $(fromId);
     var to = $(toId);
-    from.val().forEach(function(lexemId) {
-      to.append(new Option('', lexemId, true, true));
+    from.val().forEach(function(lexemeId) {
+      to.append(new Option('', lexemeId, true, true));
     });
     from.val(null).trigger('change');
     refreshSelect2(toId, 'ajax/getLexemsById.php');

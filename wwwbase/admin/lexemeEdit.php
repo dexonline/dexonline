@@ -4,8 +4,8 @@ User::mustHave(User::PRIV_EDIT | User::PRIV_STRUCT);
 Util::assertNotMirror();
 
 // Lexem parameters
-$lexemId = Request::get('lexemId');
-$lexemForm = Request::get('lexemForm');
+$lexemeId = Request::get('lexemeId');
+$lexemeForm = Request::get('lexemeForm');
 $lexemNumber = Request::get('lexemNumber');
 $lexemDescription = Request::get('lexemDescription');
 $needsAccent = Request::has('needsAccent');
@@ -40,13 +40,13 @@ $saveButton = Request::has('saveButton');
 $cloneButton = Request::has('cloneButton');
 $deleteButton = Request::has('deleteButton');
 
-$lexem = Lexem::get_by_id($lexemId);
-$original = Lexem::get_by_id($lexemId); // Keep a copy so we can test whether certain fields have changed
+$lexeme = Lexeme::get_by_id($lexemeId);
+$original = Lexeme::get_by_id($lexemeId); // Keep a copy so we can test whether certain fields have changed
 
 if ($cloneButton) {
   $newLexem = $lexem->_clone();
-  Log::notice("Cloned lexem {$lexem->id} ({$lexem->formNoAccent}), new id is {$newLexem->id}");
-  Util::redirect("lexemEdit.php?lexemId={$newLexem->id}");
+  Log::notice("Cloned lexeme {$lexem->id} ({$lexem->formNoAccent}), new id is {$newLexem->id}");
+  Util::redirect("lexemEdit.php?lexemeId={$newLexem->id}");
 }
 
 if ($deleteButton) {
@@ -57,7 +57,7 @@ if ($deleteButton) {
   $lexem->delete();
   if ($homonym) {
     FlashMessage::add('Am șters lexemul și v-am redirectat la unul dintre omonime.', 'success');
-    Util::redirect("?lexemId={$homonym->id}");
+    Util::redirect("?lexemeId={$homonym->id}");
   } else {
     FlashMessage::add('Am șters lexemul.', 'success');
     Util::redirect('index.php');
@@ -65,7 +65,7 @@ if ($deleteButton) {
 }
 
 if ($refreshButton || $saveButton) {
-  populate($lexem, $original, $lexemForm, $lexemNumber, $lexemDescription,
+  populate($lexem, $original, $lexemeForm, $lexemNumber, $lexemDescription,
            $needsAccent, $stopWord, $hyphenations, $pronunciations,
            $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
            $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
@@ -84,7 +84,7 @@ if ($refreshButton || $saveButton) {
       $lexem->deepSave();
       $lexem->regenerateDependentLexems();
       LexemSource::update($lexem->id, $sourceIds);
-      EntryLexem::update($entryIds, $lexem->id);
+      EntryLexeme::update($entryIds, $lexem->id);
 
       if ($renameRelated) {
         // Grab all the entries
@@ -110,8 +110,8 @@ if ($refreshButton || $saveButton) {
         }
       }
 
-      Log::notice("Saved lexem {$lexem->id} ({$lexem->formNoAccent})");
-      Util::redirect("lexemEdit.php?lexemId={$lexem->id}");
+      Log::notice("Saved lexeme {$lexem->id} ({$lexem->formNoAccent})");
+      Util::redirect("lexemEdit.php?lexemeId={$lexem->id}");
     }
   } else {
     // Case 2: Validation failed
@@ -126,7 +126,7 @@ if ($refreshButton || $saveButton) {
   $sourceIds = $lexem->getSourceIds();
   $entryIds = $lexem->getEntryIds();
 
-  RecentLink::add("Lexem: $lexem (ID={$lexem->id})");
+  RecentLink::add("Lexem: $lexeme (ID={$lexem->id})");
 }
 
 $definitions = Definition::loadByEntryIds($entryIds);
@@ -167,13 +167,13 @@ SmartyWrap::display('admin/lexemEdit.tpl');
 
 /**************************************************************************/
 
-// Populate lexem fields from request parameters.
-function populate(&$lexem, &$original, $lexemForm, $lexemNumber, $lexemDescription,
+// Populate lexeme fields from request parameters.
+function populate(&$lexem, &$original, $lexemeForm, $lexemNumber, $lexemDescription,
                   $needsAccent, $stopWord, $hyphenations, $pronunciations,
                   $compound, $modelType, $modelNumber, $restriction, $compoundModelType,
                   $compoundRestriction, $partIds, $declensions, $capitalized, $notes, $isLoc,
                   $tagIds) {
-  $lexem->setForm($lexemForm);
+  $lexem->setForm($lexemeForm);
   $lexem->number = $lexemNumber;
   $lexem->description = $lexemDescription;
   $lexem->noAccent = !$needsAccent;

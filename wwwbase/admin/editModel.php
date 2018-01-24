@@ -23,7 +23,7 @@ $inflections = Model::factory('Inflection')
              ->find_many();
 
 // Generate the forms
-$lexem = Lexem::create($m->exponent, $m->modelType, $m->number);
+$lexeme = Lexeme::create($m->exponent, $m->modelType, $m->number);
 $lexem->setAnimate(true);
 $ifs = $lexem->generateInflectedForms();
 
@@ -111,7 +111,7 @@ if (!$previewButton && !$saveButton) {
   // Load the affected lexems. For each lexem, inflection and transform
   // list, generate a new form.
   $limit = ($shortList && !$saveButton) ? SHORT_LIST_LIMIT : 0;
-  $lexems = Lexem::loadByCanonicalModel($m->modelType, $m->number, $limit);
+  $lexems = Lexeme::loadByCanonicalModel($m->modelType, $m->number, $limit);
   $regenForms = [];
   $errorCount = 0; // Do not report thousands of similar errors.
   foreach ($lexems as $l) {
@@ -226,7 +226,7 @@ if (!$previewButton && !$saveButton) {
         load data local infile \"{$fileName}\"
         into table InflectedForm
         fields terminated by \",\" optionally enclosed by \"\\\"\"
-        (form, formNoAccent, formUtf8General, lexemId, inflectionId, variant)
+        (form, formNoAccent, formUtf8General, lexemeId, inflectionId, variant)
       ");
       unlink($fileName);
     }
@@ -235,7 +235,7 @@ if (!$previewButton && !$saveButton) {
     Log::debug('Propagating the "recommended" bit from ModelDescriptions to InflectedForms');
     $q = sprintf("
       update InflectedForm i
-      join Lexem l on i.lexemId = l.id
+      join Lexem l on i.lexemeId = l.id
       join ModelType mt on l.modelType = mt.code
       join Model m on mt.canonical = m.modelType and l.modelNumber = m.number
       join ModelDescription md on m.id = md.modelId and i.inflectionId = md.inflectionId and i.variant = md.variant
@@ -338,7 +338,7 @@ function loadParticiplesForVerbModel($model, $pm) {
     ->table_alias('part')
     ->select('part.*')
     ->join('InflectedForm', 'part.formNoAccent = i.formNoAccent', 'i')
-    ->join('Lexem', 'i.lexemId = infin.id', 'infin')
+    ->join('Lexem', 'i.lexemeId = infin.id', 'infin')
     ->where('infin.modelType', 'VT')
     ->where('infin.modelNumber', $model->number)
     ->where('i.inflectionId', $infl->id)

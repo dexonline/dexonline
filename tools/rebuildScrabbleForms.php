@@ -212,7 +212,7 @@ class InflectedFormList extends FormList {
     return
       'select distinct I.formNoAccent ' .
       'from InflectedForm I, Lexem L, Model M, ModelDescription MD, ModelType MT ' .
-      'where I.lexemId = L.id ' .
+      'where I.lexemeId = L.id ' .
       'and L.modelType = MT.code ' .
       'and MT.canonical = M.modelType ' .
       'and L.modelNumber = M.number ' .
@@ -250,7 +250,7 @@ class ReducedFormList extends FormList {
     return
       'select I.formNoAccent ' .
       'from InflectedForm I, Lexem L, Model M, ModelDescription MD, ModelType MT ' .
-      'where I.lexemId = L.id ' .
+      'where I.lexemeId = L.id ' .
       'and L.modelType = MT.code ' .
       'and MT.canonical = M.modelType ' .
       'and L.modelNumber = M.number ' .

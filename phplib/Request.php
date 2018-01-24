@@ -105,12 +105,12 @@ class Request {
   /**
    * Search engine friendly URLs used for the search page:
    * 1) https://dexonline.ro/definitie[-<sursa>]/<cuvânt>[/<defId>][/paradigma]
-   * 2) https://dexonline.ro/lexem[-<sursa>]/<cuvânt>[/<lexemId>][/paradigma]
+   * 2) https://dexonline.ro/lexem[-<sursa>]/<cuvânt>[/<lexemeId>][/paradigma]
    * 3) https://dexonline.ro/text[-<sursa>]/<text>
    * Links of the old form (search.php?...) can only come via the search form and
-   * should not contain lexemId / definitionId.
+   * should not contain lexemeId / definitionId.
    */
-  static function redirectToFriendlyUrl($cuv, $entryId, $lexemId, $sourceUrlName, $text,
+  static function redirectToFriendlyUrl($cuv, $entryId, $lexemeId, $sourceUrlName, $text,
                                         $showParadigm, $format, $all) {
     if (strpos($_SERVER['REQUEST_URI'], '/search.php?') === false) {
       return;    // The url is already friendly.
@@ -136,8 +136,8 @@ class Request {
       }
       $short = $e->getShortDescription();
       $url = "intrare{$sourcePart}/{$short}/{$e->id}/{$paradigmPart}";
-    } else if ($lexemId) {
-      $l = Lexem::get_by_id($lexemId);
+    } else if ($lexemeId) {
+      $l = Lexeme::get_by_id($lexemeId);
       if (!$l) {
         Util::redirect(Core::getWwwRoot());
       }

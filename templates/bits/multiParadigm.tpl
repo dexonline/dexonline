@@ -29,7 +29,7 @@
           {include "bits/locInfo.tpl" isLoc=$lexem->isLoc}
 
           {if User::can(User::PRIV_EDIT + User::PRIV_STRUCT)}
-            <a class="btn btn-link" href="{$wwwRoot}admin/lexemEdit.php?lexemId={$lexem->id}">
+            <a class="btn btn-link" href="{$wwwRoot}admin/lexemEdit.php?lexemeId={$lexem->id}">
               <i class="glyphicon glyphicon-pencil"></i>
               editează
             </a>

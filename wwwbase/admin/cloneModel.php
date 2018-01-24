@@ -9,7 +9,7 @@ DebugInfo::disable();
 $modelType = Request::get('modelType');
 $modelNumber = Request::get('modelNumber');
 $newModelNumber = Request::get('newModelNumber');
-$lexemIds = Request::getArray('lexemId');
+$lexemeIds = Request::getArray('lexemeId');
 $saveButton = Request::has('saveButton');
 
 if ($saveButton) {
@@ -58,8 +58,8 @@ if ($saveButton) {
     }
 
     // Migrate the selected lexems.
-    foreach ($lexemIds as $lexemId) {
-      $l = Lexem::get_by_id($lexemId);
+    foreach ($lexemeIds as $lexemeId) {
+      $l = Lexeme::get_by_id($lexemeId);
       $l->modelNumber = $newModelNumber;
       $l->save();
       // It is not necessary to regenerate the paradigm for now, since
@@ -71,7 +71,7 @@ if ($saveButton) {
   $newModelNumber = $modelNumber . '.1';
 }
 
-$lexems = Lexem::loadByCanonicalModel($modelType, $modelNumber);
+$lexems = Lexeme::loadByCanonicalModel($modelType, $modelNumber);
 
 SmartyWrap::assign('modelType', $modelType);
 SmartyWrap::assign('modelNumber', $modelNumber);

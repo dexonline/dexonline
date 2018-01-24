@@ -14,11 +14,11 @@ if ($saveButton) {
       $parts = preg_split('/_/', $name);
       assert(count($parts) == 3);
       assert($parts[0] == 'merge');
-      $src = Lexem::get_by_id($parts[1]);
-      $dest = Lexem::get_by_id($parts[2]);
+      $src = Lexeme::get_by_id($parts[1]);
+      $dest = Lexeme::get_by_id($parts[2]);
 
-      $srcEls = EntryLexem::get_all_by_lexemId($src->id);
-      $destEls = EntryLexem::get_all_by_lexemId($dest->id);
+      $srcEls = EntryLexeme::get_all_by_lexemeId($src->id);
+      $destEls = EntryLexeme::get_all_by_lexemeId($dest->id);
 
       // Merge $src into $dest
       foreach ($srcEls as $srcEl) {
@@ -64,13 +64,13 @@ $dbResult = DB::execute("select distinct l.* " .
 
 $lexems = [];
 foreach ($dbResult as $row) {
-  $lexem = Model::factory('Lexem')->create($row);
+  $lexeme = Model::factory('Lexem')->create($row);
 
   $lexem->matches = Model::factory('Lexem')
     ->table_alias('l')
     ->select('l.*')
     ->distinct()
-    ->join('InflectedForm', 'i.lexemId = l.id', 'i')
+    ->join('InflectedForm', 'i.lexemeId = l.id', 'i')
     ->where('i.formNoAccent', $lexem->formNoAccent)
     ->where_in('i.inflectionId', $PLURAL_INFLECTIONS)
     ->where_not_equal('l.id', $lexem->id)
@@ -78,8 +78,8 @@ foreach ($dbResult as $row) {
 
   if (count($lexem->matches)) {
     // $lexem->loadInflectedForms();
-    // When a plural LOC lexem is merged into a non-LOC singular, we end up losing some word forms from LOC.
-    // Therefore, we have to add the singular lexem to LOC as well. Matei says it is ok to expand LOC this way.
+    // When a plural LOC lexeme is merged into a non-LOC singular, we end up losing some word forms from LOC.
+    // Therefore, we have to add the singular lexeme to LOC as well. Matei says it is ok to expand LOC this way.
     $srcIfs = loadIfArray($lexem);
     foreach ($lexem->matches as $match) {
       $destIfs = loadIfArray($match);

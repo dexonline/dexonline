@@ -3,7 +3,7 @@ require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
-$lexems = Lexem::getUnassociated();
+$lexems = Lexeme::getUnassociated();
 
 SmartyWrap::assign('lexems', $lexems);
 SmartyWrap::addCss('admin');

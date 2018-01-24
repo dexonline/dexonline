@@ -1,8 +1,8 @@
 <?php
 
-class EntryLexem extends Association implements DatedObject {
-  public static $_table = 'EntryLexem';
+class EntryLexeme extends Association implements DatedObject {
+  public static $_table = 'EntryLexeme';
   static $classes = ['Entry', 'Lexem'];
-  static $fields = ['entryId', 'lexemId'];
+  static $fields = ['entryId', 'lexemeId'];
   static $ranks = ['entryRank', 'lexemRank'];
 }

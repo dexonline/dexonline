@@ -20,7 +20,7 @@ class EntryDefinition extends Association implements DatedObject {
         foreach ($lexems as $l) {
           if (($l->modelType == 'T') &&
               (count($l->getEntries()) == 1)) {
-            Log::warning("Deleting T1 lexem {$l->id} ({$l})");
+            Log::warning("Deleting T1 lexeme {$l->id} ({$l})");
             $l->delete();
           }
         }

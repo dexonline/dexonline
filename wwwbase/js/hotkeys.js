@@ -50,7 +50,7 @@ $(function() {
   }
 
   function quickNavLexemFocus() {
-    $('.quickNav #lexemId').select2('open');
+    $('.quickNav #lexemeId').select2('open');
     return false;
   }
 

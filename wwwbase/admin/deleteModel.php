@@ -13,7 +13,7 @@ $model = Model::factory('FlexModel')
        ->where('modelType', $modelType)
        ->where('number', $modelNumber)
        ->find_one();
-$lexems = Lexem::loadByCanonicalModel($modelType, $modelNumber);
+$lexems = Lexeme::loadByCanonicalModel($modelType, $modelNumber);
 
 $locPerm = User::can(User::PRIV_LOC);
 $numLoc = 0;

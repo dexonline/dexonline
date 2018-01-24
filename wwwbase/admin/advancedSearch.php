@@ -131,8 +131,8 @@ switch ($view) {
   case 'Entry':
     if ($joinLexem) {
       $q = $q
-         ->join('EntryLexem', ['e.id', '=', 'el.entryId'], 'el')
-         ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l');
+         ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+         ->join('Lexem', ['el.lexemeId', '=', 'l.id'], 'l');
     }
     if ($joinDefinition) {
       $q = $q
@@ -144,7 +144,7 @@ switch ($view) {
   case 'Lexem':
     if ($joinEntry || $joinDefinition) {
       $q = $q
-         ->join('EntryLexem', ['l.id', '=', 'el.lexemId'], 'el')
+         ->join('EntryLexeme', ['l.id', '=', 'el.lexemeId'], 'el')
          ->join('Entry', ['el.entryId', '=', 'e.id'], 'e');
     }
     if ($joinDefinition) {
@@ -162,8 +162,8 @@ switch ($view) {
     }
     if ($joinLexem) {
       $q = $q
-         ->join('EntryLexem', ['e.id', '=', 'el.entryId'], 'el')
-         ->join('Lexem', ['el.lexemId', '=', 'l.id'], 'l');
+         ->join('EntryLexeme', ['e.id', '=', 'el.entryId'], 'el')
+         ->join('Lexem', ['el.lexemeId', '=', 'l.id'], 'l');
     }
     break;
 }

@@ -15,7 +15,7 @@ $dbResult = DB::execute("select * from Lexem", PDO::FETCH_ASSOC);
 
 $values = array();
 foreach ($dbResult as $cnt => $row) {
-  $lexem = Model::factory('Lexem')->create($row);
+  $lexeme = Model::factory('Lexem')->create($row);
   $ngrams = NGram::split($lexem->formNoAccent);
 
   foreach ($ngrams as $i => $ngram) {
@@ -37,7 +37,7 @@ Log::notice('finished');
 
 function dumpValues($values) {
   // Assemble low-level MySQL query. Idiorm inserts records one by one, which is many times slower.
-  $query = 'insert into NGram(ngram, pos, lexemId) values ';
+  $query = 'insert into NGram(ngram, pos, lexemeId) values ';
   foreach ($values as $i => $set) {
     if ($i) {
       $query .= ',';

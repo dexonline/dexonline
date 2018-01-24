@@ -2,7 +2,7 @@
 require_once("../phplib/Core.php");
 Util::assertNotMirror();
 
-$lexemIds = Request::getArray('lexemIds');
+$lexemeIds = Request::getArray('lexemeIds');
 $sourceId = Request::get('sourceId');
 $internalRep = Request::get('internalRep');
 $status = Request::get('status', Definition::ST_PENDING);
@@ -35,7 +35,7 @@ if ($sendButton) {
                    : Definition::ABBREV_REVIEW_COMPLETE;
   $d->extractLexicon();
 
-  if (!count($lexemIds)) {
+  if (!count($lexemeIds)) {
     FlashMessage::add('Trebuie să introduceți un cuvânt-titlu.');
   } else if (!$d->internalRep) {
     FlashMessage::add('Trebuie să introduceți o definiție.');
@@ -44,26 +44,26 @@ if ($sendButton) {
   }
 
   if (FlashMessage::hasErrors()) {
-    SmartyWrap::assign('lexemIds', $lexemIds);
+    SmartyWrap::assign('lexemeIds', $lexemeIds);
   } else {
     $d->save();
     Log::notice("Added definition {$d->id} ({$d->lexicon})");
 
-    foreach ($lexemIds as $lexemId) {
-      if (Str::startsWith($lexemId, '@')) {
+    foreach ($lexemeIds as $lexemeId) {
+      if (Str::startsWith($lexemeId, '@')) {
         // create a new lexem
-        $lexem = Lexem::create(substr($lexemId, 1), 'T', '1');
+        $lexeme = Lexeme::create(substr($lexemeId, 1), 'T', '1');
         $lexem->deepSave();
         $entry = Entry::createAndSave($lexem);
-        EntryLexem::associate($entry->id, $lexem->id);
+        EntryLexeme::associate($entry->id, $lexem->id);
         EntryDefinition::associate($entry->id, $d->id);
-        Log::notice("Created lexem {$lexem->id} ({$lexem->form}) for definition {$d->id}");
+        Log::notice("Created lexeme {$lexem->id} ({$lexem->form}) for definition {$d->id}");
       } else {
-        $lexem = Lexem::get_by_id($lexemId);
+        $lexeme = Lexeme::get_by_id($lexemeId);
         foreach ($lexem->getEntries() as $e) {
           EntryDefinition::associate($e->id, $d->id);
         }
-        Log::notice("Associating definition {$d->id} with lexem {$lexem->id} ({$lexem->form})");
+        Log::notice("Associating definition {$d->id} with lexeme {$lexem->id} ({$lexem->form})");
       }
     }
 

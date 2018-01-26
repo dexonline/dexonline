@@ -428,7 +428,7 @@
                 <label for="editorSources">surse</label>
 
                 <select id="editorSources" class="editorObj" multiple disabled>
-                  {foreach $sources as $s}
+                  {foreach Source::getAll() as $s}
                     <option value="{$s->id}">{$s->shortName}</option>
                   {/foreach}
                 </select>

@@ -27,6 +27,17 @@ class Source extends BaseObject implements DatedObject {
     self::IMPORT_TYPE_SCRIPT => 'automat (script)',
   ];
 
+  const SORT_DISPLAY = 0;
+  const SORT_SEARCH = 1;
+
+  private static $SORT_CRITERIA = [
+    // prefer the drag-and-drop order in /surse.php
+    self::SORT_DISPLAY => [ 'displayOrder asc' ],
+
+    // prefer the search form favorites in the dropdownOrder field
+    self::SORT_SEARCH => [ 'dropdownOrder desc', 'displayOrder asc' ],
+  ];
+
   public static $UNKNOWN_DEF_COUNT = -1.0;
   /**
    * percentComplete has a special value of UNKNOWN when the defCount is unknown
@@ -40,7 +51,6 @@ class Source extends BaseObject implements DatedObject {
   function getImportTypeLabel() {
     return self::$IMPORT_TYPE_LABELS[$this->importType];
   }
-
 
   function updatePercentComplete() {
     switch ($this->defCount) {
@@ -60,5 +70,13 @@ class Source extends BaseObject implements DatedObject {
       ->order_by_desc('dropdownOrder')
       ->order_by_asc('displayOrder')
       ->find_many();
+  }
+
+  static function getAll($sort = self::SORT_DISPLAY) {
+    $query = Model::factory('Source');
+    foreach (self::$SORT_CRITERIA[$sort] as $expr) {
+      $query = $query->order_by_expr($expr);
+    }
+    return $query->find_many();
   }
 }

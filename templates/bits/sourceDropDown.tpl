@@ -12,7 +12,7 @@
   {if !$skipAnySource}
     <option value="">Toate dicționarele</option>
   {/if}
-  {foreach $sources as $source}
+  {foreach Source::getAll(Source::SORT_SEARCH) as $source}
     {if $urlName}
       {assign var="submitValue" value=$source->urlName}
     {else}

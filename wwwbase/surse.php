@@ -18,9 +18,7 @@ if ($saveButton) {
 }
 
 if (User::can(User::PRIV_VIEW_HIDDEN)) {
-  $sources = Model::factory('Source')
-           ->order_by_asc('displayOrder')
-           ->find_many();
+  $sources = Source::getAll();
 } else {
   $sources = Model::factory('Source')
            ->where_not_equal('type', Source::TYPE_HIDDEN)

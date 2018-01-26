@@ -325,11 +325,6 @@ class SmartyWrap {
     self::$cssFiles[] = "responsive.css";
     self::assign('skinVariables', Config::getSection('skin'));
     if (!$hardened) {
-      $sources = Model::factory('Source')
-               ->order_by_desc('dropdownOrder')
-               ->order_by_asc('displayOrder')
-               ->find_many();
-      self::assign('sources', $sources);
       if (User::can(User::PRIV_ANY)) {
         self::assign('recentLinks', RecentLink::load());
       }

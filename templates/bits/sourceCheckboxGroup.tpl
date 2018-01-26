@@ -1,4 +1,4 @@
-{foreach Source::getAll() as $source}
+{foreach Source::getAll(Source::SORT_SHORT_NAME) as $source}
   <span>
     <input type="checkbox"
            name="s[]"

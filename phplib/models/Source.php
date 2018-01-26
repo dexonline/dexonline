@@ -29,6 +29,7 @@ class Source extends BaseObject implements DatedObject {
 
   const SORT_DISPLAY = 0;
   const SORT_SEARCH = 1;
+  const SORT_SHORT_NAME = 2;
 
   private static $SORT_CRITERIA = [
     // prefer the drag-and-drop order in /surse.php
@@ -36,6 +37,8 @@ class Source extends BaseObject implements DatedObject {
 
     // prefer the search form favorites in the dropdownOrder field
     self::SORT_SEARCH => [ 'dropdownOrder desc', 'displayOrder asc' ],
+
+    self::SORT_SHORT_NAME => [ 'shortName asc' ],
   ];
 
   public static $UNKNOWN_DEF_COUNT = -1.0;

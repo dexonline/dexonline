@@ -9,7 +9,7 @@ $acLimit = Config::get("search.acLimit");
 $term = Request::get('term');
 
 if (!$acEnable || strlen($term) < $acMinChars) {
-  return print(json_encode(array()));
+  return print(json_encode([]));
 }
 
 $forms = Autocomplete::ac($term, $acLimit);

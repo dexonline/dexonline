@@ -2,7 +2,7 @@
 
 
 class Diacritics  extends BaseObject implements DatedObject {
-	
+
 	public static $_table = 'Diacritics';
 
 	//inlocuieste diactriticele
@@ -14,7 +14,7 @@ class Diacritics  extends BaseObject implements DatedObject {
 	/*
 	 * Am definit propria forma de diacritice
 	 * â,î		- circumflex
-	 * ă,ș,ț	- curbat (caciulita si virgulita) 
+	 * ă,ș,ț	- curbat (caciulita si virgulita)
 	 * a,i,s 	- default
 	 */
 
@@ -48,17 +48,17 @@ class Diacritics  extends BaseObject implements DatedObject {
 	static function insertRow($before, $middle, $after, $diacritic) {
 
 		try {
-			
+
 			$tableObj = Model::factory(self::$_table);
 			$tableObj->create();
-			
+
 			$tableObj->before	= $before;
 			$tableObj->middle	= $middle;
 			$tableObj->after	= $after;
 
 			list($tableObj->defaultForm, $tableObj->curvedForm,
 				$tableObj->circumflexForm) = self::getDiacriticForm($diacritic);
-			
+
 			$tableObj->save();
 		}
 		catch(Exception $ex) {
@@ -68,7 +68,7 @@ class Diacritics  extends BaseObject implements DatedObject {
 	}
 
 	static function entryExists($before, $middle, $after) {
-		
+
 		$before = strtolower(self::stripDiacritics($before));
 		$middle = strtolower(self::stripDiacritics($middle));
 		$after = strtolower(self::stripDiacritics($after));
@@ -76,20 +76,20 @@ class Diacritics  extends BaseObject implements DatedObject {
 		return Model::factory(self::$_table)->raw_query("Select * from Diacritics where
 				 `before` = '$before' and `middle` = '$middle' and `after` = '$after';")->find_one();
 	}
-	
+
 	static function updateRow($before, $middle, $after, $diacritic) {
-	
-		try {	
+
+		try {
 			$tableObj = Model::factory(self::$_table)->raw_query("Select * from Diacritics where
 				 `before` = '$before' and `middle` = '$middle' and `after` = '$after';")->find_one();
 			if (!$tableObj) {
 				return false;
 			}
 			else {
-				list($tableObj->defaultForm, $tableObj->curvedForm,
-					$tableObj->circumflexForm) = self::getDiacriticForm($diacritic,
-					array($tableObj->defaultForm, $tableObj->curvedForm,
-						$tableObj->circumflexForm));
+				list($tableObj->defaultForm, $tableObj->curvedForm,	$tableObj->circumflexForm)
+          = self::getDiacriticForm(
+            $diacritic,
+            [$tableObj->defaultForm, $tableObj->curvedForm, $tableObj->circumflexForm]);
 				$tableObj->save();
 			}
 			return true;
@@ -98,7 +98,7 @@ class Diacritics  extends BaseObject implements DatedObject {
 
 			echo $e;
 		}
-		
+
 		return false;
 	}
 
@@ -110,7 +110,7 @@ class Diacritics  extends BaseObject implements DatedObject {
 		$before = self::stripDiacritics($before);
 		$middle = self::stripDiacritics($middle);
 		$after = self::stripDiacritics($after);
-			
+
 		if (!self::updateRow($before, $middle, $after, $diacritic)) {
 
 			self::insertRow($before, $middle, $after, $diacritic);

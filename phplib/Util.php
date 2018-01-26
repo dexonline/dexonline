@@ -81,7 +81,7 @@ class Util {
   static function findSnippet($p) {
     $result = self::INFINITY;
     $n = count($p);
-    $indexes = array_pad(array(), $n, 0);
+    $indexes = array_pad([], $n, 0);
     $done = false;
 
     while (!$done) {

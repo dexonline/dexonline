@@ -1,14 +1,14 @@
 <?php
 require_once(__DIR__ . '/../../phplib/Core.php');
 
-$shortopts = "f:u:s:t:x:p:hvidbcC"; 
+$shortopts = "f:u:s:t:x:p:hvidbcC";
 $options = getopt($shortopts);
 $vverbose = true;
 $vvverbose = true;
 
 function HELP() {
   exit("
-Usage: From tools/ directory run: 
+Usage: From tools/ directory run:
     php bulk/importDefinitions.php options
 
 Options:
@@ -33,7 +33,7 @@ Example:
 }
 
 function CHECK($option, $c) {
-  if (!is_array($option)) 
+  if (!is_array($option))
     exit("Error reading options\n");
 
   if (!isset($option[$c])) {
@@ -43,8 +43,8 @@ function CHECK($option, $c) {
 }
 
 function remove_verbs_particle($verb) {
-  foreach(array('a se ', 'a (se) ', 'a ') as $part) {
-    if (strpos($verb, $part) === 0) { 
+  foreach(['a se ', 'a (se) ', 'a '] as $part) {
+    if (strpos($verb, $part) === 0) {
       return substr($verb, strlen($part));
     }
   }
@@ -60,7 +60,7 @@ function canonic_string($string) {
 if(isset($options['h'])) HELP();
 
 CHECK($options, 'u');
-$userId = $options['u']; 
+$userId = $options['u'];
 
 CHECK($options, 's');
 $sourceId = $options['s'];
@@ -134,7 +134,7 @@ while ($i < count($lines)) {
       continue;
   }
   $lname = $matches[1];
-  if($verbs_part && strpos($lname, 'a ')===0) { 
+  if($verbs_part && strpos($lname, 'a ')===0) {
     $lname = remove_verbs_particle($lname);
   }
   $lname = preg_replace("/[!*'^1234567890]/", "", $lname);

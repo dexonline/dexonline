@@ -11,7 +11,7 @@ foreach ($books as $i => $book) {
   DB::execute("delete from diverta_Index where bookId = {$book->id}");
   $hasDiacritics = Str::hasDiacritics($book->title);
   $title = mb_strtolower($book->title);
-  $title = str_replace(array(',', '.'), '', $title);
+  $title = str_replace([',', '.'], '', $title);
   $titleWords = preg_split("/\\s+/", $title);
   $lexemeIds = [];
 

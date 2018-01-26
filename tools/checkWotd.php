@@ -9,8 +9,8 @@ Log::notice('started');
 
 define('NUM_DAYS', 3);
 
-$rcptInfo = Config::get('WotD.rcpt-info',array());
-$rcptError = Config::get('WotD.rcpt-error',array());
+$rcptInfo = Config::get('WotD.rcpt-info', []);
+$rcptError = Config::get('WotD.rcpt-error', []);
 $sender = Config::get('WotD.sender', '');
 $replyto = Config::get('WotD.reply-to', '');
 $MAIL_HEADERS = ["From: $sender", "Reply-To: $replyto", 'Content-Type: text/plain; charset=UTF-8'];

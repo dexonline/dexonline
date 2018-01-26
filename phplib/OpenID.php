@@ -41,7 +41,7 @@ class OpenID {
       return null;
     }
 
-    $sreg_request = Auth_OpenID_SRegRequest::build(array('nickname'), ['fullname', 'email']);
+    $sreg_request = Auth_OpenID_SRegRequest::build(['nickname'], ['fullname', 'email']);
     if ($sreg_request) {
       $auth_request->addExtension($sreg_request);
     }

@@ -25,7 +25,7 @@ if ($type == 'url') {
   exit;
 }
 
-$searchResults = SearchResult::mapDefinitionArray(array($def));
+$searchResults = SearchResult::mapDefinitionArray([$def]);
 
 $cYear = date('Y', $timestamp);
 $cMonth = date('n', $timestamp);

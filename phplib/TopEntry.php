@@ -28,9 +28,9 @@ class TopEntry {
       ['siveco',       null,              null,                   null],
       ['RACAI',        null,              null,                   null],
     ];
-    $conditions = array();
+    $conditions = [];
     foreach ($bulk as $tuple) {
-      $parts = array();
+      $parts = [];
       if ($tuple[0]) {
         $user = User::get_by_nick($tuple[0]);
         $parts[] = "(userId = {$user->id})";
@@ -71,7 +71,7 @@ class TopEntry {
     $statement = self::getSqlStatement($manual);
     
     $dbResult = DB::execute($statement);
-    $topEntries = array();
+    $topEntries = [];
     $now = time();
 
     foreach($dbResult as $row) {
@@ -112,10 +112,10 @@ class TopEntry {
   static function getTopData($crit, $ord, $manual) {
     $topEntries = TopEntry::getUnsortedTopData($manual);
 
-    $nick = array();
-    $numWords = array();
-    $numChars = array();
-    $date = array();
+    $nick = [];
+    $numWords = [];
+    $numChars = [];
+    $date = [];
     foreach ($topEntries as $topEntry) {
       $nick[] = $topEntry->userNick;
       $numWords[] = $topEntry->numDefinitions;

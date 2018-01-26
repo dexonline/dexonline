@@ -6,7 +6,7 @@ $dbResult = DB::execute("select reverse(substring(reverse, 1, 4)) as s, count(*)
                        "from Lexeme " .
                        "where modelType = 'T' " .
                        "group by s having c >= 5 order by c desc, s", PDO::FETCH_ASSOC);
-$stats = array();
+$stats = [];
 foreach ($dbResult as $row) {
   $stats[] = array($row['s'], $row['c']);
 }

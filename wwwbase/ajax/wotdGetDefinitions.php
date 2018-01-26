@@ -7,7 +7,7 @@ Util::assertNotMirror();
 $query = Request::get('term');
 $definitions = Model::factory('Definition')->where('status', Definition::ST_ACTIVE)->where_like('lexicon', "{$query}%")
   ->order_by_asc('lexicon')->limit(20)->find_many();
-$resp = array('results' => array());
+$resp = array('results' => []);
 foreach ($definitions as $definition){
   $source = Source::get_by_id($definition->sourceId);
   $resp['results'][] = array('id' => $definition->id,

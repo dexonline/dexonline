@@ -5,7 +5,7 @@ class SyntaxTest extends PHPUnit_Framework_TestCase {
     {
         $php = PHP_BINARY;
         $folders = array('wwwbase', 'phplib', 'tools');
-        $errors = array();
+        $errors = [];
 
         foreach ($folders as $dir) {
             $directory = dirname(__DIR__) . "/$dir";

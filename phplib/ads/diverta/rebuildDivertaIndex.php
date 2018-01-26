@@ -13,7 +13,7 @@ foreach ($books as $i => $book) {
   $title = mb_strtolower($book->title);
   $title = str_replace(array(',', '.'), '', $title);
   $titleWords = preg_split("/\\s+/", $title);
-  $lexemeIds = array();
+  $lexemeIds = [];
 
   foreach ($titleWords as $word) {
     if (!Str::isStopWord($word, $hasDiacritics)) {

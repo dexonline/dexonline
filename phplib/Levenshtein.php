@@ -49,17 +49,17 @@ class Levenshtein {
     $len2 = mb_strlen($s2);
 
     // Split the strings into characters to minimize the number calls to getCharAt().
-    $chars1 = array();
+    $chars1 = [];
     for ($i = 0; $i < $len1; $i++) {
       $chars1[] = Str::getCharAt($s1, $i);
     }
-    $chars2 = array();
+    $chars2 = [];
     for ($j = 0; $j < $len2; $j++) {
       $chars2[] = Str::getCharAt($s2, $j);
     }
 
     // Initialize the first row and column of the matrix
-    $a = array();
+    $a = [];
     for ($i = 0; $i <= $len1; $i++) {
       $a[$i][0] = $i * self::$DIST_OTHER;
     }

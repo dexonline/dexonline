@@ -83,8 +83,8 @@ foreach ($dbResult as $row) {
     $srcIfs = loadIfArray($lexeme);
     foreach ($lexeme->matches as $match) {
       $destIfs = loadIfArray($match);
-      $addedForms = array();
-      $lostForms = array();
+      $addedForms = [];
+      $lostForms = [];
       if ($lexeme->isLoc && !$match->isLoc) {
         // Forms that are going to be added to LOC
         foreach ($destIfs as $destIf) {

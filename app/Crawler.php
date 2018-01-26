@@ -17,7 +17,7 @@ class Crawler extends AbstractCrawler {
   /* Returns an array of links */
   function processPage($pageContent) {
     try {
-      $links = array();
+      $links = [];
       $html = str_get_html($pageContent);
 
       //reparam html stricat

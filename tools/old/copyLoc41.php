@@ -9,7 +9,7 @@ define('FILENAME', '/tmp/DLRM-Dan.csv');
 define('CORRECTED_FILENAME', '/tmp/corectat.csv');
 
 // First build a hashmap of 4.1 lexems.
-$lexem41Map = array();
+$lexem41Map = [];
 $dbResult = db_execute("select id, form, isLoc, concat(modelType, modelNumber, restriction) from LOC_4_1.Lexem");
 while (!$dbResult->EOF) {
   $lexem41Map[$dbResult->fields[0]] = array($dbResult->fields[1], intval($dbResult->fields[2]), $dbResult->fields[3]);
@@ -17,7 +17,7 @@ while (!$dbResult->EOF) {
 }
 
 // Next, load the corrected file (Matei provided this as an errata to Dan's file)
-$lexemDlrmMap = array();
+$lexemDlrmMap = [];
 $f = fopen(CORRECTED_FILENAME, 'r');
 while (($fields = fgetcsv($f)) !== false) {
   $formNoAccent = locNotationToDexNotation($fields[0]);

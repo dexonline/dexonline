@@ -190,8 +190,8 @@ class FlexStr {
   private static function extractTransformsNoAccents($from, $to, $isPronoun) {
     //print "Extracting [$from] [$to]\n";
     
-    $transforms = array();
-    $places = array();
+    $transforms = [];
+    $places = [];
     $result = $isPronoun
       ? self::extractPronounTransforms($from, $to, $transforms, $places)
       : self::extractTransformsHelper($from, $to, $transforms, $places, 0);
@@ -377,7 +377,7 @@ class FlexStr {
     // Go backwards through the transforms list and figure out where each
     // of them will take place
     $pos = mb_strlen($s);
-    $places = array();
+    $places = [];
     for ($i = count($transforms) - 1; $i >= 0; $i--) {
       assert($transforms[$i]);
       $tfrom = $transforms[$i]->transfFrom;

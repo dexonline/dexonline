@@ -29,7 +29,7 @@ function main() {
     exit();
   }
   
-  $open = array();
+  $open = [];
   while(true) {
     // Accept a connection and receive a file descriptor
     $sock_array = array($sock);

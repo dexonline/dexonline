@@ -23,7 +23,7 @@ function loadLogFile($filename) {
   $tmpFilename = tempnam(Core::getTempPath(), 'tail_');
   exec(sprintf("tail -n %d %s > %s", TAIL_LINES, $filename, $tmpFilename));
   $lines = file($tmpFilename, FILE_IGNORE_NEW_LINES);
-  $records = array();
+  $records = [];
   foreach ($lines as $line) {
     $r = new Record;
     list($date, $loads) = preg_split("/\|/", $line);
@@ -44,7 +44,7 @@ function loadLogFile($filename) {
 }
 
 function outputGnuPlotData($records, $filename) {
-  $handles = array();
+  $handles = [];
   for ($i = 0; $i < NUM_DAYS; $i++) {
     $handles[] = fopen(sprintf($filename, $i), 'w');
   }

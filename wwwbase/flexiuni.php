@@ -17,7 +17,7 @@ if ($deleteInflectionId) {
 
 if ($saveButton) {
   // Re-rank the inflections according to the order in $inflectionIds
-  $modelTypeMap = array();
+  $modelTypeMap = [];
   foreach ($inflectionIds as $inflId) {
     $infl = Inflection::get_by_id($inflId);
     $rank = array_key_exists($infl->modelType, $modelTypeMap) ? $modelTypeMap[$infl->modelType] + 1 : 1;

@@ -21,7 +21,7 @@ if (!$user) {
   Util::redirect(Core::getWwwRoot());
 }
 
-$userData = array();
+$userData = [];
 $user->email = Str::scrambleEmail($user->email);
 
 // Find the rank of this user by number of words and number of characters

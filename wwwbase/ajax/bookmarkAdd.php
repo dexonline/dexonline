@@ -4,7 +4,7 @@ require_once("../../phplib/Core.php");
 
 $definitionId = Request::get('definitionId');
 
-$response = array();
+$response = [];
 $userId = User::getActiveId();
 if (!$userId) {
   $response['status'] = 'redirect';

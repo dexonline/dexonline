@@ -28,7 +28,7 @@ foreach ($argv as $i => $arg) {
 }
 
 $staticFiles = file(Config::get('static.url') . 'fileList.txt');
-$messages = array();
+$messages = [];
 $firstErrorDate = null;
 
 for ($d = 0; $d <= NUM_DAYS; $d++) {

@@ -30,7 +30,7 @@ abstract class AbstractCrawler {
     $this->indexFileExt = explode(',', Config::get('crawler.index_file_ext'));
     $this->fileExt = explode(',', Config::get('crawler.index_file_ext').',txt');
     
-    $this->accessTimes = array();
+    $this->accessTimes = [];
     foreach (Config::get('crawler.whiteList') as $startUrl) {
       $rec = Str::parseUtf8Url($startUrl);
       $this->accessTimes[$rec['host']] = 0;

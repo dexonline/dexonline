@@ -17,7 +17,7 @@ case 'adodb':
   $query = "select distinct D.* from Definition D, LexemDefinitionMap L where D.id = L.definitionId and L.lexemId = $lexemId and D.status = 0 order by D.lexicon";
   $defDbResult = $db->execute($query);
 
-  $defs = array();
+  $defs = [];
   while (!$defDbResult->EOF) {
     $def = new Definition();
     $def->set($defDbResult->fields);
@@ -26,7 +26,7 @@ case 'adodb':
   }
 
   // Load users, sources and comments for the definitions
-  $results = array();
+  $results = [];
   foreach ($defs as $def) {
     $user = new User();
     $user->load("id = {$def->userId}");
@@ -54,7 +54,7 @@ case 'idiorm':
   $defs = ORM::for_table('Definition')->raw_query($query, null)->find_many();
 
   // Load users, sources and comments for the definitions
-  $results = array();
+  $results = [];
   foreach ($defs as $def) {
     $results[] = array('def' => $def,
                        'user' => Model::factory('User')->find_one($def->userId),
@@ -107,7 +107,7 @@ function output($results) {
 function printIncludedFiles() {
   print "<pre>\n";
   $files = get_included_files();
-  $sizes = array();
+  $sizes = [];
   foreach ($files as $file) {
     $sizes[] = filesize($file);
   }

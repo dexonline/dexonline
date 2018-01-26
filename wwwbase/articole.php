@@ -5,7 +5,7 @@ $type = Request::get('t');
 
 if ($type == 'rss') {
   $articles = WikiArticle::getRss();
-  $results = array();
+  $results = [];
   foreach ($articles as $a) {
     $results[] = array('title' => $a->title,
                        'description' => $a->htmlContents,

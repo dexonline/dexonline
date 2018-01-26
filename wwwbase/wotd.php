@@ -23,9 +23,9 @@ $maxReasonDate = HIDE_REASON ? new DateTimeImmutable(MAX_DATE_FOR_REASON_DISPLAY
 // TODO optimize & factorize
 if ($type == 'rss' || $type == 'blog') {
   $words = WordOfTheDay::getRSSWotD($delay);
-  $results = array();
+  $results = [];
   foreach ($words as $w) {
-    $item = array();
+    $item = [];
     $ts = strtotime($w->displayDate);
     $defId = WordOfTheDayRel::getRefId($w->id);
     $def = Model::factory('Definition')->where('id', $defId)->where('status', Definition::ST_ACTIVE)->find_one();

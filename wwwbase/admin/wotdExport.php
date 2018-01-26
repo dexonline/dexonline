@@ -7,7 +7,7 @@ $year = Request::get('year');
 
 $month = sprintf("%02d", $month);
 $wotds = Model::factory('WordOfTheDay')->where_like('displayDate', "{$year}-{$month}-%")->order_by_asc('displayDate')->find_many();
-$wotdSet = array();
+$wotdSet = [];
 
 foreach($wotds as $wotd) {
   $wotdr = WordOfTheDayRel::get_by_wotdId($wotd->id);

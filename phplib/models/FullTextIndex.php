@@ -42,7 +42,7 @@ class FullTextIndex extends BaseObject {
         $i = 0;
         while ($i < count($results) - 1) {
           $defId = $results[$i][0];
-          $positions = array(); // collect positions here
+          $positions = []; // collect positions here
           $j = $i;
           while ($results[$j][0] == $defId) { // same defId
             $positions[] = $results[$j][1];

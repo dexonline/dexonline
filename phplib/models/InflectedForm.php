@@ -21,11 +21,11 @@ class InflectedForm extends BaseObject {
   }
 
   static function mapByInflectionRank($ifs) {
-    $result = array();
+    $result = [];
     foreach ($ifs as $if) {
       $inflection = Inflection::get_by_id($if->inflectionId);
       if (!array_key_exists($inflection->rank, $result)) {
-        $result[$inflection->rank] = array();
+        $result[$inflection->rank] = [];
       }
       $result[$inflection->rank][] = $if;
     }

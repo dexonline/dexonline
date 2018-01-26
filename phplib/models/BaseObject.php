@@ -131,7 +131,7 @@ class BaseObject extends Model {
 
   /* Loads a collection of objects with the given ids, preserving the order. */
   static function loadByIds($ids) {
-    $results = array();
+    $results = [];
     foreach ($ids as $id) {
       $results[] = Model::factory(get_called_class())->where('id', $id)->find_one();
     }

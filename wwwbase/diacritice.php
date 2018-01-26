@@ -302,8 +302,8 @@ class DiacriticsFixer {
 			if ($_POST['hiddenText'] == '')
 			return '';
 			else {
-				$search = array();
-				$replace = array();
+				$search = [];
+				$replace = [];
 
 				$buffer = $_POST['hiddenText'];
 				foreach($_POST as $key => $value) {

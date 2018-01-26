@@ -13,7 +13,7 @@ DB::execute("truncate table NGram"); // This should be fast
 
 $dbResult = DB::execute("select * from Lexeme", PDO::FETCH_ASSOC);
 
-$values = array();
+$values = [];
 foreach ($dbResult as $cnt => $row) {
   $lexeme = Model::factory('Lexeme')->create($row);
   $ngrams = NGram::split($lexeme->formNoAccent);
@@ -23,7 +23,7 @@ foreach ($dbResult as $cnt => $row) {
   }
   if (count($values) >= INSERT_SIZE) {
     dumpValues($values);
-    $values = array();
+    $values = [];
   }
   if ($cnt % 1000 == 0) {
     Log::info('%d lexemes processed, %0.3f lexemes/second.', $cnt, $cnt / (microtime(true) - $start));

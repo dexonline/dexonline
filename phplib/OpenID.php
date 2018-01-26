@@ -123,7 +123,7 @@ class OpenID {
         if (isset($data['http://axschema.org/namePerson']) && count($data['http://axschema.org/namePerson'])) {
           $result['fullname'] = $data['http://axschema.org/namePerson'][0];
         }
-        $names = array();
+        $names = [];
         if (isset($data['http://axschema.org/namePerson/first']) && count($data['http://axschema.org/namePerson/first'])) {
           $names[] = $data['http://axschema.org/namePerson/first'][0];
         }

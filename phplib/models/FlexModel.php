@@ -47,7 +47,7 @@ class FlexModel extends BaseObject {
 
   /** Returns an array containing the type, number and restrictions **/
   static function splitName($name) {
-    $result = array();
+    $result = [];
     $len = strlen($name);
     $i = 0;
     while ($i < $len && !ctype_digit($name[$i])) {

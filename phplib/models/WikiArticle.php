@@ -4,10 +4,10 @@ class WikiArticle extends BaseObject implements DatedObject {
   public static $_table = 'WikiArticle';
 
   function extractKeywords() {
-    $result = array();
+    $result = [];
 
     // Capture the {{CuvinteCheie|...}} template
-    $matches = array();
+    $matches = [];
     preg_match_all('/\{\{CuvinteCheie\|([^\}]+)\}\}/', $this->wikiContents, $matches);
     foreach ($matches[1] as $match) {
       $parts = explode(',', $match);

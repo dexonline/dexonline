@@ -8,7 +8,7 @@ $ambiguousDefinitions = 0;
 $ambiguities = 0;
 foreach ($dbResult as $row) {
   $def = Definition::get_by_id($row['id']);
-  $ambiguousMatches = array();
+  $ambiguousMatches = [];
   // Remove existing hash signs
   $newRep = str_replace('#', '', $def->internalRep);
   $newRep = Str::sanitize($newRep, $def->sourceId, $ambiguousMatches);

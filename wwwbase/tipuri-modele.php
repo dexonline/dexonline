@@ -63,9 +63,9 @@ if ($deleteId) {
 
 // Load model type table data
 $modelTypes = Model::factory('ModelType')->order_by_asc('code')->find_many();
-$modelCounts = array();
-$lexemeCounts = array();
-$canDelete = array();
+$modelCounts = [];
+$lexemeCounts = [];
+$canDelete = [];
 foreach ($modelTypes as $mt) {
   $numLexemes = Model::factory('Lexeme')->where('modelType', $mt->code)->count();
   $numDependants = Model::factory('ModelType')->where('canonical', $mt->code)->count();

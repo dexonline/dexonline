@@ -17,7 +17,7 @@ class DivertaAdsModule extends AdsModule {
       return array('bookId' => $book->id);
     }
     
-    $lexemeIds = array();
+    $lexemeIds = [];
     if (!empty($lexemes)) {
       foreach ($lexemes as $l) {
         $lexemeIds[] = $l->id;

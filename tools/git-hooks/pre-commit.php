@@ -80,9 +80,9 @@ function readRewriteRules($filename) {
     return false;
   }
 
-  $result = array();
+  $result = [];
   foreach ($lines as $line) {
-    $matches = array();
+    $matches = [];
     if (preg_match("/^(#+\s+)?RewriteRule\s+(.*)/", trim($line), $matches)) {
       $result[] = $matches[2];
     }

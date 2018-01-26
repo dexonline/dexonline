@@ -55,7 +55,7 @@ print "New schema version is <$schemaVersion>\n";
 /*****************************************************************/
 
 function getPatches($dir, $after) {
-  $result = array();
+  $result = [];
   if ($dirHandle = opendir($dir)) {
     while (($fileName = readdir($dirHandle)) !== false) {
       if (preg_match(PATCH_REGEXP, $fileName) && stripExtension($fileName) > $after && !Str::endsWith($fileName, '~')) {

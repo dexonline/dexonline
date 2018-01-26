@@ -10,7 +10,7 @@ function getDaysOfMonth($year, $month) {
 }
 
 function listDaysOfMonth($year, $month) {
-  $days = array();
+  $days = [];
   $last_day = getDaysOfMonth($year, $month);
   for ($day = 1; $day <= $last_day; $day++) {
     $days[] = sprintf("%04d-%02d-%02d", $year, $month, $day);
@@ -27,12 +27,12 @@ function createCalendar($year, $month) {
 
   $today = date('Y-m-d');
 
-  $calendar = array();
+  $calendar = [];
 
   // Pad beginning
   $startDow = date('N', strtotime("$year-$month-01"));
   for ($i = 1; $i < $startDow; $i++) {
-    $calendar[] = array();
+    $calendar[] = [];
   }
 
   // Create a record per day
@@ -49,11 +49,11 @@ function createCalendar($year, $month) {
 
   // Pad end
   while (count($calendar) % 7 != 0) {
-    $calendar[] = array();
+    $calendar[] = [];
   }
 
   // Wrap 7 records per line
-  $weeks = array();
+  $weeks = [];
   while (count($calendar)) {
     $weeks[] = array_splice($calendar, 0, 7);
   }

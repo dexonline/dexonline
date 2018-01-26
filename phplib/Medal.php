@@ -22,32 +22,32 @@ class Medal {
                        array('name' => 'Donator',
                              'description' => '',
                              'pic' => 'sponsor.png',
-                             'supersedes' => array()),
+                             'supersedes' => []),
                        self::MEDAL_SOCIAL =>
                        array('name' => 'Activist pe rețele sociale',
                              'description' => '',
                              'pic' => 'social.png',
-                             'supersedes' => array()),
+                             'supersedes' => []),
                        self::MEDAL_ARTICLES =>
                        array('name' => 'Editor de articole lingvistice',
                              'description' => '',
                              'pic' => 'articles.png',
-                             'supersedes' => array()),
+                             'supersedes' => []),
                        self::MEDAL_WOTD =>
                        array('name' => 'Editor al cuvântului zilei',
                              'description' => '',
                              'pic' => 'wotd.png',
-                             'supersedes' => array()),
+                             'supersedes' => []),
                        self::MEDAL_MODERATOR =>
                        array('name' => 'Moderator',
                              'description' => '',
                              'pic' => 'moderator.png',
-                             'supersedes' => array()),
+                             'supersedes' => []),
                        self::MEDAL_PROGRAMMER_1 =>
                        array('name' => 'Programator (nivel 1)',
                              'description' => 'peste 100 de linii de cod',
                              'pic' => 'programmer1.png',
-                             'supersedes' => array()),
+                             'supersedes' => []),
                        self::MEDAL_PROGRAMMER_2 =>
                        array('name' => 'Programator (nivel 2)',
                              'description' => 'peste 1.000 de linii de cod',
@@ -62,7 +62,7 @@ class Medal {
                        array('name' => 'Responsabil e-mail (nivel 1)',
                              'description' => 'peste 100 de mesaje procesate',
                              'pic' => 'email1.png',
-                             'supersedes' => array()),
+                             'supersedes' => []),
                        self::MEDAL_EMAIL_2 =>
                        array('name' => 'Responsabil e-mail (nivel 2)',
                              'description' => 'peste 500 de mesaje procesate',
@@ -77,7 +77,7 @@ class Medal {
                        array('name' => 'Voluntar (nivel 1)',
                              'description' => 'peste 1.000 de caractere trimise',
                              'pic' => 'volunteer1.png',
-                             'supersedes' => array()),
+                             'supersedes' => []),
                        self::MEDAL_VOLUNTEER_2 =>
                        array('name' => 'Voluntar (nivel 2)',
                              'description' => 'peste 10.000 de caractere trimise',
@@ -102,7 +102,7 @@ class Medal {
 
   /* Returns a subset of $DATA */
   static function loadForUser($user) {
-    $result = array();
+    $result = [];
     $medalMask = $user ? $user->medalMask : 0;
     foreach (self::$DATA as $mask => $params) {
       if ($mask & $medalMask) {

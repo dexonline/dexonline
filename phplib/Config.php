@@ -39,12 +39,12 @@ class Config {
 
   /* Returns an array containing all the variables in the given section, or the empty array if the section does not exist. */
   static function getSection($section) {
-    return array_key_exists($section, self::$config) ? self::$config[$section] : array();
+    return array_key_exists($section, self::$config) ? self::$config[$section] : [];
   }
 
   static function getLocVersions() {
     if (!self::$locVersions) {
-      $result = array();
+      $result = [];
       $locParts = self::get('global.locVersions');
       foreach ($locParts as $part) {
         $part = trim($part);

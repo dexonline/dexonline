@@ -498,7 +498,7 @@ class Lexeme extends BaseObject implements DatedObject {
       ->where('md.isLoc', 0)
       ->where('l.id', $this->id)
       ->find_array();
-    $map = array();
+    $map = [];
     foreach ($ids as $rec) {
       $map[$rec['id']] = 1;
     }

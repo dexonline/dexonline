@@ -81,7 +81,7 @@ sql;
     if (empty($filters) || empty($filters['rules'])){
       $this->where_condition = '';
     } else {
-      $filterClauses = array();
+      $filterClauses = [];
       foreach ($filters['rules'] as $filter) {
         // Treat all searches like substring searches
         $filterClauses[] = sprintf('(%s like "%%%s%%")', $filter['field'], $filter['data']);

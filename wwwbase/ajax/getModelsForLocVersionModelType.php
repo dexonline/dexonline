@@ -10,7 +10,7 @@ if ($locVersion) {
 
 $models = FlexModel::loadByType($modelType);
 
-$resp = array();
+$resp = [];
 foreach ($models as $m) {
   $resp[] = array('id' => $m->id, 'number' => $m->number, 'exponent' => $m->exponent);
 }

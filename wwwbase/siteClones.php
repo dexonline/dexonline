@@ -24,7 +24,7 @@ $to_search .= implode( " ",array_slice($v, $WORD_START,$WORD_NO )) ;
 $to_search .= "\"";
 
 $to_search = str_replace ( array( ",", "(", ")", "[", "]", "-", ";", "◊", "♦", "<", ">", "?", "\\", "/") ,
-				array_pad( array(), 14 ,'') ,$to_search) ; 
+				array_pad( [], 14 ,'') ,$to_search) ; 
 
 $urlGoogle = "https://ajax.googleapis.com/ajax/services/search/web?v=1.0";
 $apiKey = Config::get('global.googleSearchApiKey');
@@ -38,10 +38,10 @@ $json = json_decode($body);
 
 $rezultate = $json->responseData->results;
 
-$listAll = array();
+$listAll = [];
 $content = "";
-$messageAlert = array();
-$blackList = array();
+$messageAlert = [];
+$blackList = [];
 
 
 foreach($rezultate as $iter) {

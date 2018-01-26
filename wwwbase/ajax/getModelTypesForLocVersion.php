@@ -11,7 +11,7 @@ if ($canonical) {
   $modelTypes = Model::factory('ModelType')->order_by_asc('code')->find_many();
 }
 
-$resp = array();
+$resp = [];
 foreach ($modelTypes as $m) {
   $resp[] = array('code' => $m->code, 'description' => $m->description);
 }

@@ -22,7 +22,7 @@ log_scriptLog('killOrphanPhpProcesses.php done.');
 
 // ps gives us the running time in [[DD-]hh:]mm:ss format.
 function getRunningTime($string) {
-  $matches = array();
+  $matches = [];
   preg_match("/^(?:(?:(\\d+)-)?(\\d+):)?(\\d+):(\\d+)$/", $string, $matches);
   return $matches[1] * 86400 + $matches[2] * 3600 + $matches[3] * 60 + $matches[4];
 }

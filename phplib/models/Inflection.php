@@ -25,7 +25,7 @@ class Inflection extends BaseObject {
   }
 
   static function mapById($inflections) {
-    $result = array();
+    $result = [];
     foreach ($inflections as $i) {
       $result[$i->id] = $i;
     }

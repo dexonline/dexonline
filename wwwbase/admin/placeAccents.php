@@ -27,12 +27,12 @@ if ($saveButton) {
   Util::redirect("placeAccents.php");
 }
 
-$chars = array();
-$searchResults = array();
+$chars = [];
+$searchResults = [];
 $lexemes = Model::factory('Lexeme')->raw_query("select * from Lexeme where form not rlike '\'' and not noAccent order by rand() limit 10")
   ->find_many();
 foreach($lexemes as $l) {
-  $charArray = array();
+  $charArray = [];
   $form = mb_strtoupper($l->form);
   $len = mb_strlen($form);
   for ($i = 0; $i < $len; $i++) {

@@ -19,7 +19,7 @@ class NGram extends BaseObject {
     $s = self::canonicalize($s);
     $s = str_repeat('#', self::$NGRAM_SIZE - 1) . $s . str_repeat('%', self::$NGRAM_SIZE - 1);
     $len = mb_strlen($s);
-    $results = array();
+    $results = [];
     for ($i = 0; $i < $len - self::$NGRAM_SIZE + 1; $i++) {
       $results[] = mb_substr($s, $i, self::$NGRAM_SIZE);
     }
@@ -73,7 +73,7 @@ class NGram extends BaseObject {
   /* Find lexemes with at least 50% matching n-grams */
   static function searchLexemeIds($cuv) {
     $ngramList = self::split($cuv);
-    $hash = array();
+    $hash = [];
     foreach ($ngramList as $i => $ngram) {
       $lexemeIdList = DB::getArray(sprintf("select lexemeId from NGram where ngram = '%s' and pos between %d and %d",
                                          $ngram, $i - self::$MAX_MOVE, $i + self::$MAX_MOVE));

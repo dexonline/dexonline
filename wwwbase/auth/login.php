@@ -31,7 +31,7 @@ if ($fakeUserNick) {
     $user->moderator = array_sum($priv);
   }
   $user->save();
-  Session::login($user, array());
+  Session::login($user, []);
 }
 
 switch ($openid) {

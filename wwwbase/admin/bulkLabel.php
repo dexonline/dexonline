@@ -38,7 +38,7 @@ $numLabeled = Model::factory('Lexeme')
 // Collect all the models that appear in at least 5% of the already
 // labeled lexemes. Always select at least one model, in the unlikely case
 // that no model has over 5%.
-$models = array();
+$models = [];
 $hasInvariableModel = false;
 $dbResult = DB::execute("select canonical, modelNumber, count(*) as c " .
                        "from Lexeme " .
@@ -73,7 +73,7 @@ if (!$hasInvariableModel) {
   $models[] = Model::factory('FlexModel')->where('modelType', 'I')->where('number', '1')->find_one();
 }
 
-$modelTypes = array();
+$modelTypes = [];
 foreach ($models as $m) {
   $modelTypes[] = ModelType::get_by_code($m->modelType);
 }
@@ -99,7 +99,7 @@ foreach ($lexemes as $l) {
 }
 
 // Load the definitions for each lexeme
-$searchResults = array();
+$searchResults = [];
 foreach ($lexemes as $l) {
   $definitions = Definition::loadByEntryIds($l->getEntryIds());
   $searchResults[] = SearchResult::mapDefinitionArray($definitions);

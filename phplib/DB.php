@@ -106,7 +106,7 @@ class DB {
   // Example: full text search of the word 'mică'
   static function getArray($query) {
     $dbResult = ORM::get_db()->query($query);
-    $results = array();
+    $results = [];
     foreach ($dbResult as $row) {
       $results[] = $row[0];
     }
@@ -115,7 +115,7 @@ class DB {
 
   static function getArrayOfRows($query, $fetchStyle = PDO::FETCH_BOTH) {
     $dbResult = ORM::get_db()->query($query, $fetchStyle);
-    $results = array();
+    $results = [];
     foreach ($dbResult as $row) {
       $results[] = $row;
     }

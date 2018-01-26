@@ -397,7 +397,7 @@ static function fetch($templateName) {
   // the errors the original function was attempting to work around.
   static function minifyOutput($source, Smarty_Internal_Template $smarty)
   {
-    $store = array();
+    $store = [];
     $_store = 0;
     $_offset = 0;
 

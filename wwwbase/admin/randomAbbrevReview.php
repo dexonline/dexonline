@@ -10,7 +10,7 @@ if ($saveButton) {
   $def = Definition::get_by_id($defId);
 
   // Collect the user choices
-  $choices = array();
+  $choices = [];
   foreach ($_REQUEST as $name => $value) {
     if (Str::startsWith($name, 'radio_')) {
       $choices[substr($name, 6)] = $value;
@@ -18,7 +18,7 @@ if ($saveButton) {
   }
 
   // Collect the positions of ambiguous abbreviations
-  $matches = array();
+  $matches = [];
   Abbrev::markAbbreviations($def->internalRep, $def->sourceId, $matches);
   usort($matches, 'positionCmp');
 
@@ -46,7 +46,7 @@ if (count($ids)) {
   $def = Definition::get_by_id($defId);
 
   // Collect the positions of ambiguous abbreviations
-  $matches = array();
+  $matches = [];
   Abbrev::markAbbreviations($def->internalRep, $def->sourceId, $matches);
   usort($matches, 'positionCmp');
 
@@ -58,8 +58,8 @@ if (count($ids)) {
   $s = Str::htmlize($s, $def->sourceId);
 
   // Split the definition into n ambiguities and n+1 bits of text between the ambiguities
-  $text = array();
-  $ambiguities = array();
+  $text = [];
+  $ambiguities = [];
   while (($p = strpos($s, $MARKER)) !== false) {
     $chunk = trim(substr($s, 0, $p));
     $s = trim(substr($s, $p + strlen($MARKER)));

@@ -31,7 +31,7 @@ if (!@copy($zipUrl, $zipFile)) {
 }
 OS::executeAndAssert("unzip -p $zipFile > $txtFile");
 
-$diff = array();
+$diff = [];
 foreach (file($txtFile) as $line) {
   $line = trim($line);
   if ($line[0] == '<') {

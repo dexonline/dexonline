@@ -18,7 +18,7 @@ class Diacritics  extends BaseObject implements DatedObject {
 	 * a,i,s 	- default
 	 */
 
-	private static function getDiacriticForm($diacritic, $update = array()) {
+	private static function getDiacriticForm($diacritic, $update = []) {
 
 		$defaultForm	= '0';
 		$curvedForm 	= '0';

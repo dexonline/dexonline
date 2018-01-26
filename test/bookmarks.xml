@@ -66,6 +66,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
 	<td>open</td>
 	<td>./cuvinte-favorite</td>
 	<td></td>

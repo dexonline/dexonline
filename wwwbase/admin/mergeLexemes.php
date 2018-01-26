@@ -47,7 +47,7 @@ if ($saveButton) {
   Util::redirect("mergeLexemes.php?modelType={$modelType}");
 }
 
-$PLURAL_INFLECTIONS = array(3, 11, 19, 27, 35);
+$PLURAL_INFLECTIONS = [3, 11, 19, 27, 35];
 if ($modelType == 'T') {
   $whereClause = 'modelType = "T"';
 } else if ($modelType) {

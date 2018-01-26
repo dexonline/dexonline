@@ -9,7 +9,7 @@ foreach ($lines as $line) {
   $line = mb_strtolower(trim($line));
   if ($line) {
     $symbol = ($line[0] == '!') ? '!' : '*';
-    $line = str_replace(array('ş', 'ţ', '*', '!'), array('ș', 'ț', '', ''), $line);
+    $line = str_replace(['ş', 'ţ', '*', '!'), ['ș', 'ț', '', ''], $line);
     if (ctype_digit($line[0]) && !ctype_digit($line)) {
       $number = $line[0];
       $line = substr($line, 1);

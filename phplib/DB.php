@@ -22,8 +22,10 @@ class DB {
     ORM::configure('password', self::$password);
     // This allows var_dump(ORM::get_query_log()) or var_dump(ORM::get_last_query())
     // ORM::configure('logging', true);
-    ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-                                           PDO::MYSQL_ATTR_LOCAL_INFILE => true));
+    ORM::configure('driver_options', [
+      PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+      PDO::MYSQL_ATTR_LOCAL_INFILE => true,
+    ]);
   }
 
   // When false, PDO returns result sets and does not load the results in memory.

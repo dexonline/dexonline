@@ -51,8 +51,8 @@ function remove_verbs_particle($verb) {
 }
 
 function canonic_string($string) {
-  return str_replace(array(" ", "\n", "!", "*", ",", ".", "@", "$"), "", $string);
-  // str_replace(array("á","é","í","ó","ú"), array("'a","'e","'i","'o","'u"), $tstring);
+  return str_replace([" ", "\n", "!", "*", ",", ".", "@", "$"], "", $string);
+  // str_replace(["á","é","í","ó","ú"], ["'a","'e","'i","'o","'u"], $tstring);
 }
 
 /*** check options ***/

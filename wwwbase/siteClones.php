@@ -23,7 +23,7 @@ $to_search .= implode( " ",array_slice($v, $WORD_START,$WORD_NO )) ;
  
 $to_search .= "\"";
 
-$to_search = str_replace ( array( ",", "(", ")", "[", "]", "-", ";", "◊", "♦", "<", ">", "?", "\\", "/") ,
+$to_search = str_replace ( [ ",", "(", ")", "[", "]", "-", ";", "◊", "♦", "<", ">", "?", "\\", "/"] ,
 				array_pad( [], 14 ,'') ,$to_search) ; 
 
 $urlGoogle = "https://ajax.googleapis.com/ajax/services/search/web?v=1.0";

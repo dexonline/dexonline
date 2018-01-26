@@ -7,9 +7,9 @@ require_once '../../phplib/Core.php';
 $rows = CrawledPage::getListOfDomains();
 
 
-$options = array('all', 'most recent domain');
+$options = ['all', 'most recent domain'];
 $last = end($rows);
-$values = array('all', $last->domain);
+$values = ['all', $last->domain];
 
 
 foreach($rows as $obj) {

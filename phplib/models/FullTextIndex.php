@@ -51,7 +51,7 @@ class FullTextIndex extends BaseObject {
           if (array_key_exists($defId, $positionMap)) {
             $positionMap[$defId][] = $positions;
           } else {
-            $positionMap[$defId] = array($positions);
+            $positionMap[$defId] = [$positions];
           }
           $i = $j;
         }

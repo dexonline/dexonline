@@ -9,7 +9,7 @@
 
 require_once('../phplib/util.php');
 
-$goodSourceIds = array(Source::get("shortName = \"DEX '75\"")->id,
+$goodSourceIds = [Source::get("shortName = \"DEX '75\"")->id,
                        Source::get("shortName = \"DEX '84\"")->id,
                        Source::get("shortName = \"DEX '96\"")->id,
                        Source::get("shortName = \"DEX '98\"")->id,
@@ -18,7 +18,7 @@ $goodSourceIds = array(Source::get("shortName = \"DEX '75\"")->id,
                        Source::get("shortName = 'DMLR'")->id,
                        Source::get("shortName = 'DLRM'")->id,
                        Source::get("shortName = 'DOOM'")->id,
-                       Source::get("shortName = 'DOOM 2'")->id);
+                       Source::get("shortName = 'DOOM 2'")->id];
 
 // Select all the LOC lexems associated with definitions from DN / MDN.
 // Process verbs first because we will need to look at their participles / long infinitives later.

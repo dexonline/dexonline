@@ -7,10 +7,12 @@ if ($type == 'rss') {
   $articles = WikiArticle::getRss();
   $results = [];
   foreach ($articles as $a) {
-    $results[] = array('title' => $a->title,
-                       'description' => $a->htmlContents,
-                       'pubDate' => date('D, d M Y H:i:s', $a->modDate) . ' EEST',
-                       'link' => sprintf("http://%s/articol/%s", $_SERVER['HTTP_HOST'], $a->getUrlTitle()));
+    $results[] = [
+      'title' => $a->title,
+      'description' => $a->htmlContents,
+      'pubDate' => date('D, d M Y H:i:s', $a->modDate) . ' EEST',
+      'link' => sprintf("http://%s/articol/%s", $_SERVER['HTTP_HOST'], $a->getUrlTitle()),
+    ];
   }
 
   header("Content-type: application/rss+xml");

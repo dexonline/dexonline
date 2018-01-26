@@ -73,17 +73,17 @@ class OpenIDConnect {
     if (!$this->supportsDynamicRegistration()) {
       return null;
     }
-    $json = array(
+    $json = [
       'client_name' => 'Dexonline',
-      'redirect_uris' => array(self::getReturnTo()),
-    );
+      'redirect_uris' => [self::getReturnTo()],
+    ];
     $url = $this->wellKnownConfig['registration_endpoint'];
     list($jsonResult, $httpCode) = Util::makeRequest($url, json_encode($json));
     $result = json_decode($jsonResult, true);
     if (!$result || !isset($result['client_secret'])) {
       return null;
     }
-    return array($result['client_id'], $result['client_secret']);
+    return [$result['client_id'], $result['client_secret']];
   }
 
   function authenticate($clientId, $secret) {
@@ -100,7 +100,7 @@ class OpenIDConnect {
     Session::set('openid_connect_client', $clientId);
     Session::set('openid_connect_secret', $secret);
 
-    $params = array(
+    $params = [
       'client_id' => $clientId,
       'openid.realm' => Request::getFullServerUrl(), // request old OpenID 2.0 identifier as well
       'nonce' => $nonce,
@@ -108,7 +108,7 @@ class OpenIDConnect {
       'response_type' => 'code',
       'scope' => 'openid email',
       'state' => $state,
-    );
+    ];
 
     $url .= '?' . http_build_query($params, null, '&');
     Util::redirect($url);
@@ -129,13 +129,13 @@ class OpenIDConnect {
     }
     $url = $this->wellKnownConfig['token_endpoint'];
 
-    $params = array(
+    $params = [
       'client_id' => $clientId,
       'client_secret' => $secret,
       'code' => $code,
       'grant_type' => 'authorization_code',
       'redirect_uri' => $this->getReturnTo(),
-    );
+    ];
 
     $query = http_build_query($params, null, '&');
     list($jsonResult, $httpCode) = Util::makeRequest($url, $query);

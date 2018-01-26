@@ -4,14 +4,16 @@ require_once __DIR__ . '/../phplib/Core.php';
 
 define('MODEL_TYPE', 'SP');
 define('MODEL_TYPE_DESCRIPTION', 'Substantiv propriu');
-$INFLECTIONS = array(1 => 'Substantiv propriu, Nominativ-Acuzativ, singular, nearticulat',
-                     2 => 'Substantiv propriu, Genitiv-Dativ, singular, nearticulat',
-                     3 => 'Substantiv propriu, Nominativ-Acuzativ, plural, nearticulat',
-                     4 => 'Substantiv propriu, Genitiv-Dativ, plural, nearticulat',
-                     5 => 'Substantiv propriu, Nominativ-Acuzativ, singular, articulat',
-                     6 => 'Substantiv propriu, Genitiv-Dativ, singular, articulat',
-                     7 => 'Substantiv propriu, Nominativ-Acuzativ, plural, articulat',
-                     8 => 'Substantiv propriu, Genitiv-Dativ, plural, articulat'
+$INFLECTIONS = [
+  1 => 'Substantiv propriu, Nominativ-Acuzativ, singular, nearticulat',
+  2 => 'Substantiv propriu, Genitiv-Dativ, singular, nearticulat',
+  3 => 'Substantiv propriu, Nominativ-Acuzativ, plural, nearticulat',
+  4 => 'Substantiv propriu, Genitiv-Dativ, plural, nearticulat',
+  5 => 'Substantiv propriu, Nominativ-Acuzativ, singular, articulat',
+  6 => 'Substantiv propriu, Genitiv-Dativ, singular, articulat',
+  7 => 'Substantiv propriu, Nominativ-Acuzativ, plural, articulat',
+  8 => 'Substantiv propriu, Genitiv-Dativ, plural, articulat',
+];
                      );
 /** Also, don't forget to edit templates/paradigm/paradigm.tpl accordingly. **/
 

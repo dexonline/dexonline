@@ -85,7 +85,7 @@ class Core {
     $scriptName = $_SERVER['SCRIPT_NAME'];
     $fileName = realpath($_SERVER['SCRIPT_FILENAME']);
     $pos = strrpos($fileName, '/wwwbase/');
-  
+
     if ($pos === false) {
       $result = '/';     // This shouldn't be the case
     } else {
@@ -108,11 +108,11 @@ class Core {
   }
 
   static function getImgRoot() {
-    return self::getWwwRoot() . 'img'; 
+    return self::getWwwRoot() . 'img';
   }
 
   static function getCssRoot() {
-    return self::getWwwRoot() . 'css'; 
+    return self::getWwwRoot() . 'css';
   }
 
   static function requireOtherFiles() {
@@ -125,13 +125,13 @@ class Core {
   static function getTempPath() {
     return self::$tempPath;
   }
-  
+
   static function defineTempPath() {
     $temp = Config::get('global.tempDir', sys_get_temp_dir());
     if ( is_dir( $temp ) && is_writable( $temp ) ) {
       self::$tempPath = $temp;
     } else {
-      throw new Exception('Directorul temporar specificat nu poate fi accesat.');    
+      throw new Exception('Directorul temporar specificat nu poate fi accesat.');
     }
   }
 }

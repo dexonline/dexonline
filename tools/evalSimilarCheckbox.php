@@ -4,7 +4,7 @@ require_once __DIR__ . '/../phplib/Core.php';
 
 define('SERVER_URL', 'http://localhost/~cata/DEX/wwwbase');
 
-$opts = getopt('', array('user:', 'source:', 'date:'));
+$opts = getopt('', ['user:', 'source:', 'date:']);
 
 if (count($opts) != 3) {
   usage();

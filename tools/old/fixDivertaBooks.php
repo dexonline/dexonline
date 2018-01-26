@@ -11,30 +11,31 @@ if (count($opts) != 1) {
 }
 
 // Resolve some ambiguities automatically. List the form that is alphabetically first and specify what to return
-$PREFERRED_FORMS = array('a' => 'a',                 // not ă â
-                         'al' => 'al',               // not ăl
-                         'carte' => 'carte',         // not cârțe
-                         'cartea' => 'cartea',       // not cârtea
-                         'clasa' => 'clasa',         // not clasă
-                         'fara' => 'fără',           // not fara fară
-                         'i' => 'i',                 // as in Clasa I
-                         'ii' => 'ii',               // as in Clasa a II-a
-                         'in' => 'în',               // not in
-                         'la' => 'la',               // not lă
-                         'mai' => 'mai',             // not măi mâi
-                         'mare' => 'mare',           // not măre mâre
-                         'marea' => 'marea',         // not mărea
-                         'povesti' => 'povești',     // not povesti
-                         'print' => 'prinț',         // not print
-                         'printul' => 'prințul',     // not printul
-                         's' => 's',                 // not ș
-                         'sa' => 'să',               // not sa șa
-                         'si' => 'și',               // not si
-                         'teste' => 'teste',         // not țeste
-                         'ti' => 'ți',               // not ti
-                         'timp' => 'timp',           // not țimp
-                         'top' => 'top',             // not țop
-);
+$PREFERRED_FORMS = [
+  'a' => 'a',                 // not ă â
+  'al' => 'al',               // not ăl
+  'carte' => 'carte',         // not cârțe
+  'cartea' => 'cartea',       // not cârtea
+  'clasa' => 'clasa',         // not clasă
+  'fara' => 'fără',           // not fara fară
+  'i' => 'i',                 // as in Clasa I
+  'ii' => 'ii',               // as in Clasa a II-a
+  'in' => 'în',               // not in
+  'la' => 'la',               // not lă
+  'mai' => 'mai',             // not măi mâi
+  'mare' => 'mare',           // not măre mâre
+  'marea' => 'marea',         // not mărea
+  'povesti' => 'povești',     // not povesti
+  'print' => 'prinț',         // not print
+  'printul' => 'prințul',     // not printul
+  's' => 's',                 // not ș
+  'sa' => 'să',               // not sa șa
+  'si' => 'și',               // not si
+  'teste' => 'teste',         // not țeste
+  'ti' => 'ți',               // not ti
+  'timp' => 'timp',           // not țimp
+  'top' => 'top',             // not țop
+];
 
 $books = db_find(new DivertaBook(), "id >= {$opts['s']} order by id");
 foreach ($books as $book) {
@@ -66,8 +67,8 @@ foreach ($books as $book) {
   case '': $book->title = ''; break;
   case '': $book->title = ''; break;
   }
-  $book->title = str_replace(array('`', '…', '–', '’', ' .', ' ,', ' :', ' ?', ' !', 'intr-'),
-                             array("'", '...', '-', "'", '.', ',', ':', '?', '!', 'într-'), $book->title);
+  $book->title = str_replace(['`', '…', '–', '’', ' .', ' ,', ' :', ' ?', ' !', 'intr-'],
+                             ["'", '...', '-', "'", '.', ',', ':', '?', '!', 'într-'], $book->title);
   $book->title = preg_replace('/([IVX]+) a/', '$1-a', $book->title);
   $book->title = preg_replace('/([IVX]+) lea/', '$1-lea', $book->title);
   print "Prelim: {$book->id} [{$book->title}]\n";
@@ -97,7 +98,7 @@ foreach ($books as $book) {
   print "Final:  {$book->id} [{$book->title}]\n";
   if ($book->title != $origTitle) {
     do {
-      $response = kbdInput("Save? [Y]es/[n]o/[e]dit ", array('y', 'n', 'e', ''));
+      $response = kbdInput("Save? [Y]es/[n]o/[e]dit ", ['y', 'n', 'e', '']);
       if ($response == 'e') {
         $book->title = kbdInput("Enter new title: ", null);
         print "Final:  {$book->id} [{$book->title}]\n";
@@ -142,7 +143,7 @@ function matchCase($word, $like) {
 
 function choice($word, $forms) {
   $message = "<CR> {$word}    ";
-  $choices = array('');
+  $choices = [''];
   foreach ($forms as $i => $form) {
     $message .= sprintf("[%d] %s    ", $i + 1, $form);
     $choices[] = $i + 1;

@@ -41,7 +41,7 @@ class OpenID {
       return null;
     }
 
-    $sreg_request = Auth_OpenID_SRegRequest::build(array('nickname'), array('fullname', 'email'));
+    $sreg_request = Auth_OpenID_SRegRequest::build(array('nickname'), ['fullname', 'email']);
     if ($sreg_request) {
       $auth_request->addExtension($sreg_request);
     }
@@ -66,7 +66,11 @@ class OpenID {
         exit;
       }
     } else {
-      $form_html = $auth_request->htmlMarkup(Request::getFullServerUrl(), self::getReturnTo(), false, array('id' => 'openid_message'));
+      $form_html = $auth_request->htmlMarkup(
+        Request::getFullServerUrl(),
+        self::getReturnTo(),
+        false,
+        ['id' => 'openid_message']);
 
       if (Auth_OpenID::isFailure($form_html)) {
         FlashMessage::add('Nu vă putem redirecționa către serverul OpenID: ' . $form_html->message);
@@ -92,7 +96,7 @@ class OpenID {
       FlashMessage::add('Verificarea a eșuat: ' . $response->message);
       return null;
     } else if ($response->status == Auth_OpenID_SUCCESS) {
-      $result = array('email' => '', 'nickname' => '', 'fullname' => '');
+      $result = ['email' => '', 'nickname' => '', 'fullname' => ''];
       $result['identity'] = htmlentities($response->getDisplayIdentifier());
 
       if ($response->endpoint->canonicalID) {

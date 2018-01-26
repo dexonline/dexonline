@@ -13,7 +13,7 @@ $rcptInfo = Config::get('WotD.rcpt-info',array());
 $rcptError = Config::get('WotD.rcpt-error',array());
 $sender = Config::get('WotD.sender', '');
 $replyto = Config::get('WotD.reply-to', '');
-$MAIL_HEADERS = array("From: $sender", "Reply-To: $replyto", 'Content-Type: text/plain; charset=UTF-8');
+$MAIL_HEADERS = ["From: $sender", "Reply-To: $replyto", 'Content-Type: text/plain; charset=UTF-8'];
 
 $sendEmail = false;
 $quiet = false;
@@ -48,7 +48,7 @@ for ($d = 0; $d <= NUM_DAYS; $d++) {
     addError($date, count($rels) ? sprintf("Există %s definiții asociate", count($rels)) : "Nu există nicio definiție asociată");
     continue;
   }
-   
+
   // Check that the definition exists
   $def = Definition::get_by_id($rels[0]->refId);
   if (!$def) {
@@ -111,7 +111,7 @@ if (count($messages)) {
     $today = date("Y-m-d", strtotime("today"));
     $days = daysBetween($today, $firstErrorDate);
     switch ($days) {
-    case 0: 
+    case 0:
     case 1: $subject = 'ACUM'; break;
     case 2: $subject = 'ASTĂZI'; break;
     case 3: $subject = 'cel târziu mâine'; break;
@@ -156,7 +156,7 @@ function addInfo($date, $text) {
 function addMessage($type, $date, $text) {
   global $messages;
 
-  $messages[] = array('type' => $type, 'date' => $date, 'text' => $text);
+  $messages[] = ['type' => $type, 'date' => $date, 'text' => $text];
   Log::info("checkWotd: adding message [$type] [$date] [$text]");
 }
 
@@ -191,7 +191,7 @@ function assignImageByName($wotd, $def) {
 // Convert to Latin-1 and strip '-' and ' '
 function stripImageName($fileName) {
   $s = Str::unicodeToLatin($fileName);
-  $s = str_replace(array('-', ' ', 'ş', 'ţ', 'Ş', 'Ţ'), array('', '', 's', 't', 's', 't'), $s);
+  $s = str_replace(['-', ' ', 'ş', 'ţ', 'Ş', 'Ţ'], ['', '', 's', 't', 's', 't'], $s);
   $s = mb_strtolower($s);
   return $s;
 }

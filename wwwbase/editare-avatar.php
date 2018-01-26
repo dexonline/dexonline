@@ -9,11 +9,11 @@ if (!$file) {
   $error = 'Ați încărcat un fișier invalid.';
 } else if ($file['size'] > (1 << 21)) {
   $error = 'Dimensiunea maximă admisă este 2 MB.';
-} else if (!in_array($file['type'], array('image/gif', 'image/jpeg', 'image/png'))) {
+} else if (!in_array($file['type'], ['image/gif', 'image/jpeg', 'image/png'])) {
   $error = 'Sunt permise doar imagini jpeg, png sau gif.';
 } else if ($file['error']) {
   $error = 'A intervenit o eroare la încărcare.';
-} else if ((getimagesize($file['tmp_name']) === false) || !in_array($ext, array('png','jpg','gif'))) {
+} else if ((getimagesize($file['tmp_name']) === false) || !in_array($ext, ['png', 'jpg', 'gif'])) {
   $error = 'Sunt permise doar imagini jpeg, png sau gif.';
 }
 

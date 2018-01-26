@@ -14,7 +14,7 @@ class DivertaAdsModule extends AdsModule {
                     "and title not like '%glamour%' " . 
                     "order by clicks/impressions desc limit $random, 1")
         ->find_one();
-      return array('bookId' => $book->id);
+      return ['bookId' => $book->id];
     }
     
     $lexemeIds = [];
@@ -40,7 +40,7 @@ class DivertaAdsModule extends AdsModule {
     if (count($books)) {
       // 20% chance to serve the book with the fewest impressions / 80% chance to serve the book with the highest CTR
       if (rand(0, 99) < 20) {
-        return array('bookId' => $books[0]->id);
+        return ['bookId' => $books[0]->id];
       } else {
         $best = 0;
         $bestCtr = 0.00;
@@ -51,7 +51,7 @@ class DivertaAdsModule extends AdsModule {
             $best = $i;
           }
         }
-        return array('bookId' => $books[$best]->id);
+        return ['bookId' => $books[$best]->id];
       }
     }
     return null;

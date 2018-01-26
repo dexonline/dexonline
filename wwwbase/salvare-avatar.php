@@ -67,11 +67,11 @@ function loadImage($file) {
  * Code courtesy of http://adamhopkinson.co.uk/blog/2010/08/26/sharpen-an-image-using-php-and-gd/
  */
 function sharpenImage(&$i) {
-  $sharpen = array(
-    array(-1.2, -1.0, -1.2),
-    array(-1.0, 22.0, -1.0),
-    array(-1.2, -1.0, -1.2)
-  );
+  $sharpen = [
+    [-1.2, -1.0, -1.2],
+    [-1.0, 22.0, -1.0],
+    [-1.2, -1.0, -1.2]
+  ];
   $divisor = array_sum(array_map('array_sum', $sharpen));
   imageconvolution($i, $sharpen, $divisor, 0);
 }

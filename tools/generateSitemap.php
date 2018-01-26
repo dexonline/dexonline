@@ -22,8 +22,8 @@ $query = 'select id, formNoAccent from Lexeme order by formNoAccent';
 Log::info("Running mysql query: [$query]");
 $dbResult = DB::execute($query);
 
-$rowB = array(null, null);
-$rowC = array(null, null);
+$rowB = [null, null];
+$rowC = [null, null];
 foreach ($dbResult as $dbRow) {
   // Keep a moving window of 3 lexemes that we can use to eliminate duplicates
   $rowA = $rowB;

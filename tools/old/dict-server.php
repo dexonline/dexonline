@@ -32,7 +32,7 @@ function main() {
   $open = [];
   while(true) {
     // Accept a connection and receive a file descriptor
-    $sock_array = array($sock);
+    $sock_array = [$sock];
     $num_changed_sockets = socket_select($sock_array, $write = NULL,
                                          $exc = NULL, 0, 100000); // 0.1 sec
     if ($num_changed_sockets == 1) {

@@ -35,9 +35,9 @@ $diff = [];
 foreach (file($txtFile) as $line) {
   $line = trim($line);
   if ($line[0] == '<') {
-    $diff[] = array('del', substr($line, 2));
+    $diff[] = ['del', substr($line, 2)];
   } else {
-    $diff[] = array('ins', substr($line, 2));
+    $diff[] = ['ins', substr($line, 2)];
   }
 }
 

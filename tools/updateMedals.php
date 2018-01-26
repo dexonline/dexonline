@@ -7,17 +7,21 @@ require_once __DIR__ . '/../phplib/Core.php';
 define('CODE_AUTHORS_FILE', __DIR__ . '/../docs/codeAuthors.conf');
 
 /* Map of SVN usernames to User.id */
-$SVN_MAP = array('alex.grigoras' => 38493,
-                 'cata' => 1,
-                 'grigoroiualex' => 38357,
-                 'mihai17' => 38028,
-                 'radu' => 471,
-                 'sonia' => 38239,
-                 'vially' => 37587);
+$SVN_MAP = [
+  'alex.grigoras' => 38493,
+  'cata' => 1,
+  'grigoroiualex' => 38357,
+  'mihai17' => 38028,
+  'radu' => 471,
+  'sonia' => 38239,
+  'vially' => 37587,
+];
 
-$OTRS_MAP = array('cata' => 1,
-                  'Octavian.Mocanu' => 4,
-                  'radu_borza' => 471);
+$OTRS_MAP = [
+  'cata' => 1,
+  'Octavian.Mocanu' => 4,
+  'radu_borza' => 471,
+];
 
 Log::notice('started');
 

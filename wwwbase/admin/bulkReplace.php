@@ -19,9 +19,11 @@ if (DebugInfo::isEnabled()){  DebugInfo::init(); }
 // Use | to escape MySQL special characters so that constructs and chars like
 // \% , _ , | (which in dexonline notation means: "literal percent sign", latex
 // convention for subscript, the pipe itself) remains unaffected.
-$replaceChars = array('%' => '|%',
-                      '_' => '|_',
-                      '|' => '||');
+$replaceChars = [
+  '%' => '|%',
+  '_' => '|_',
+  '|' => '||',
+];
 $mysqlSearch = strtr($search, array_combine(array_keys($replaceChars), array_values($replaceChars)));
 
 $query = Model::factory('Definition')

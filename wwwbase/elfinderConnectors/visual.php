@@ -9,7 +9,7 @@ require_once __DIR__ . '/../../phplib/third-party/elfinder/autoload.php';
 class VisualElFinder extends elFinder {
 	function __construct($opts) {
     parent::__construct($opts);
-    $this->commands['tagimage'] = array('target' => true);
+    $this->commands['tagimage'] = ['target' => true];
   }
 
   private function getPath($target) {
@@ -80,7 +80,7 @@ class VisualElFinder extends elFinder {
   protected function tagimage($args) {
 		$target = $args['target'];
     $path = $this->getPath($args['target']);
-    return array('path' => $path);
+    return ['path' => $path];
   }
 }
 

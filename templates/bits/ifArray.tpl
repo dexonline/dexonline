@@ -1,5 +1,5 @@
 {assign var="locParadigm" value=$locParadigm|default:false}
-{* argument: $ifArray: array(InflectedForm) *}
+{* argument: $ifArray: array of InflectedForm *}
 
 {if empty($ifArray)}
   &mdash;

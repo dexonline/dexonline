@@ -41,10 +41,12 @@ function createCalendar($year, $month) {
     $wotdr = $wotd ? WordOfTheDayRel::get_by_wotdId($wotd->id) : null;
     $def = $wotdr ? Definition::get_by_id($wotdr->refId) : null;
     $visible = $def && (($date <= $today) || User::can(User::PRIV_WOTD));
-    $calendar[] = array('wotd' => $wotd,
-                        'def' => $def,
-                        'visible' => $visible,
-                        'dayOfMonth' => $i + 1);
+    $calendar[] = [
+      'wotd' => $wotd,
+      'def' => $def,
+      'visible' => $visible,
+      'dayOfMonth' => $i + 1,
+    ];
   }
 
   // Pad end

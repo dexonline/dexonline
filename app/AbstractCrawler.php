@@ -57,7 +57,7 @@ abstract class AbstractCrawler {
     if(!curl_errno($this->ch)) {
       $this->info = curl_getinfo($this->ch);
     } else{
-      $this->info = array('http_code' => 404);
+      $this->info = ['http_code' => 404];
     }
 
     curl_close($this->ch);

@@ -4,7 +4,7 @@ class SyntaxTest extends PHPUnit_Framework_TestCase {
     public function testPhpSyntax()
     {
         $php = PHP_BINARY;
-        $folders = array('wwwbase', 'phplib', 'tools');
+        $folders = ['wwwbase', 'phplib', 'tools'];
         $errors = [];
 
         foreach ($folders as $dir) {

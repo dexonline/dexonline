@@ -60,7 +60,7 @@ function outputGnuPlotData($records, $filename) {
 
 function generatePngs($dataFilename, $pngFilename) {
   $tmpFilename = '/tmp/gnuplot.conf';
-  $titles = array("1-minute", "5-minute", "15-minute");
+  $titles = ["1-minute", "5-minute", "15-minute"];
   for ($i = 0; $i < NUM_DAYS; $i++) {
     for ($j = 0; $j < 3; $j++) {
       $input = sprintf($dataFilename, $i);

@@ -3,145 +3,146 @@
 class FlexStr {
   private static $VOWELS = "aăâäåeéiîoöuüùy";
 
-  private static $SUFFIX_PAIRS = array(array("'e", "e'a"),
-                                       array("'ă", "'e"),
-                                       array("'ă", "e'a"),
-                                       array('a', 'e'),
-                                       array('a', 'ă'),
-                                       array('ă', 'a'),
-                                       array('a', ''), // tibia
-                                       array('ă', 'ea'),
-                                       array('ă', 'e'),
-                                       array('ă', 'i'), // plural
-                                       array('â', 'i'),
-                                       array('â', 'âi'), // mână
-                                       array('â', 'a'), // râmâne - rămase
-                                       array('â', 'ă'), // râmâne - rămăsei
-                                       array('ă', ''), // popă
-                                       array('b', 't'), // fierbe
-                                       array('c', 's'), // duce, aduce
-                                       array('c', 'che'), // bloca
-                                       array('g', 'ghe'), // naviga
-                                       array('d', 'g'), // ucide, purcede
-                                       array('d', 'j'), // trând
-                                       array('d', 's'), // arde, întinde
-                                       array('d', 'z'),
-                                       array('e', 'a'),
-                                       array('e', 'ă'), // enumera
-                                       array('el', 'ea'), // bălănel
-                                       array('iel', 'ic'), // bălăiel
-                                       array('iel', 'ia'), // bălăiel
-                                       array('e', 'ea'),
-                                       array('e', 'i'),
-                                       array('e', 'uri'), // scumpete
-                                       array('e', ''), // vale, femeie
-                                       array('ea', 'e'),
-                                       array('ea', 'ic'), // viorea
-                                       array('g', 's'), // merge, mulge
-                                       array('g', 'ps'), // frige, suge
-                                       array('g', 't'), // frânge, sparge
-                                       array('h', 'ș'), // leah
-                                       array('i', 'ă'), // dormi
-                                       array('i', 'e'),
-                                       array('i', 'â'), // vinde
-                                       array('i', 'o'), // veni / vino
-                                       array('i', 'u'), // cumpl'i / cumplu
-                                       array('ică', 'ele'), // păturică
-                                       array('î', 'ă'), // vârî, coborî
-                                       array('î', 'â'), // imambaialdî
-                                       array('î', 'i'), // vârî, coborî
-                                       array('î', 'e'), // vârî, coborî
-                                       array('î', 'a'), // vârî, coborî
-                                       array('k', 'c'), // tadjik / tadjici
-                                       array('k', ''), // gobseck / gobseci
-                                       array('l', 'i'),
-                                       array('n', 's'), // pune, rămâne
-                                       array('o', 'oa'),
-                                       array('o', 'e'), // sombrero
-                                       array('o', 'i'),
-                                       array('o', 'uri'), // agio
-                                       array('o', ''), // picolo
-                                       array('oa', 'e'),
-                                       array('oa', 'o'),
-                                       array('oa', 'u'), // coase
-                                       array('s', 'ș'),
-                                       array('sc', 'șt'), // mosc
-                                       array('sc', 'st'), // fantasc
-                                       array('ss', 'ș'), // gauss
-                                       array('șt', 'sc'), // naște
-                                       array('șc', 'șt'), // gălușcă
-                                       array('ș', 's'), // ieși
-                                       array('t', 'ț'),
-                                       array('t', 's'), // admite
-                                       array('tt', 'ț'), // watt
-                                       array('ț', 't'), // sughița
-                                       array('u', 'i'),
-                                       array('u', ''), // acațiu
-                                       array('u', 'o'), // turna
-                                       array('u', 'oa'), // turna
-                                       array('x', 'cș'),
-                                       array('z', 'j'),
-                                       array('z', 'd'), // auzi
+  private static $SUFFIX_PAIRS = [
+    ["'e", "e'a"],
+    ["'ă", "'e"],
+    ["'ă", "e'a"],
+    ['a', 'e'],
+    ['a', 'ă'],
+    ['ă', 'a'],
+    ['a', ''], // tibia
+    ['ă', 'ea'],
+    ['ă', 'e'],
+    ['ă', 'i'], // plural
+    ['â', 'i'],
+    ['â', 'âi'], // mână
+    ['â', 'a'], // râmâne - rămase
+    ['â', 'ă'], // râmâne - rămăsei
+    ['ă', ''], // popă
+    ['b', 't'], // fierbe
+    ['c', 's'], // duce, aduce
+    ['c', 'che'], // bloca
+    ['g', 'ghe'], // naviga
+    ['d', 'g'], // ucide, purcede
+    ['d', 'j'], // trând
+    ['d', 's'], // arde, întinde
+    ['d', 'z'],
+    ['e', 'a'],
+    ['e', 'ă'], // enumera
+    ['el', 'ea'], // bălănel
+    ['iel', 'ic'], // bălăiel
+    ['iel', 'ia'], // bălăiel
+    ['e', 'ea'],
+    ['e', 'i'],
+    ['e', 'uri'], // scumpete
+    ['e', ''], // vale, femeie
+    ['ea', 'e'],
+    ['ea', 'ic'], // viorea
+    ['g', 's'], // merge, mulge
+    ['g', 'ps'], // frige, suge
+    ['g', 't'], // frânge, sparge
+    ['h', 'ș'], // leah
+    ['i', 'ă'], // dormi
+    ['i', 'e'],
+    ['i', 'â'], // vinde
+    ['i', 'o'], // veni / vino
+    ['i', 'u'], // cumpl'i / cumplu
+    ['ică', 'ele'], // păturică
+    ['î', 'ă'], // vârî, coborî
+    ['î', 'â'], // imambaialdî
+    ['î', 'i'], // vârî, coborî
+    ['î', 'e'], // vârî, coborî
+    ['î', 'a'], // vârî, coborî
+    ['k', 'c'], // tadjik / tadjici
+    ['k', ''], // gobseck / gobseci
+    ['l', 'i'],
+    ['n', 's'], // pune, rămâne
+    ['o', 'oa'],
+    ['o', 'e'], // sombrero
+    ['o', 'i'],
+    ['o', 'uri'], // agio
+    ['o', ''], // picolo
+    ['oa', 'e'],
+    ['oa', 'o'],
+    ['oa', 'u'], // coase
+    ['s', 'ș'],
+    ['sc', 'șt'], // mosc
+    ['sc', 'st'], // fantasc
+    ['ss', 'ș'], // gauss
+    ['șt', 'sc'], // naște
+    ['șc', 'șt'], // gălușcă
+    ['ș', 's'], // ieși
+    ['t', 'ț'],
+    ['t', 's'], // admite
+    ['tt', 'ț'], // watt
+    ['ț', 't'], // sughița
+    ['u', 'i'],
+    ['u', ''], // acațiu
+    ['u', 'o'], // turna
+    ['u', 'oa'], // turna
+    ['x', 'cș'],
+    ['z', 'j'],
+    ['z', 'd'], // auzi
 
-                                       // Explicitly listed words
-                                       array('moale', 'moi'),
-                                       array('oră', 'urori'), // soră, noră
-                                       array('piele', 'piei'),
-                                       array('caro', 'carale'),
-                                       array('mânc', 'mănânc'),
-                                       array('usc', 'usuc'),
-                                       array('lua', 'ia'),
-                                       array('sări', 'sai'), // sări
-                                       array('sări', 'săi'), // sări
-                                       array('pieri', 'piei'),
-                                       array('veni', 'vi'), // veni
-                                       array('fi', 'sunt'),
-                                       array('fi', 'e'),
-                                       array('fi', 'îi'),
-                                       array('fi', 'îs'),
-                                       array('fi', 'erai'),
-                                       array('fi', 'erați'),
-                                       array('fi', 'fu'),
-                                       array('ii', 'iam'), // vâjii, scârții
-                                       array('ii', 'iai'), // vâjii, scârții
-                                       array('ii', 'ia'), // vâjii, scârții
-                                       array('ii', 'iați'), // vâjii, scârții
-                                       array('ii', 'iau'), // vâjii, scârții
-                                       array('părea', 'pai'),
-                                       array('avea', 'a'),
-                                       array('vrea', 'vom'),
-                                       array('vrea', 'veți'),
-                                       array('vrea', 'vor'),
-                                       array('vrea', 'vei'),
-                                       array('vrea', 'eți'),
-                                       array('vrea', 'voi'),
-                                       array('vrea', 'ei'),
-                                       array('vrea', 'va'),
-                                       array('vrea', 'ăți'),
-                                       array('vrea', 'oi'),
-                                       array('vrea', 'o'),
-                                       array('vrea', 'îi'),
-                                       array('vrea', 'a'),
-                                       array('vrea', 'îți'),
-                                       array('vrea', 'ăi'),
-                                       array('mânea', 'mas'),
-                                       array('mânea', 'mâie'),
-                                       array('mânea', 'măse'),
-                                       array('ține', 'ți'),
-                                       array('pune', 'pu'),
-                                       array('aduce', 'adă'),
-                                       array('rămâne', 'rămâie'),
-                                       array('rumpe', 'rum'),
-                                       array('fierbe', 'fierse'),
-                                       array('suge', 'supt'),
-                                       array('ige', 'ipt'), // frige, înfige
-                                       array('coace', 'copt'),
-                                       array('coace', 'copse'),
-                                       array('coace', 'coapse'),
-                                       array('vârî', 'vâră'),
-                                       array('zvârli', 'zvârlu'),
-                                       array('putea', 'poci'),
-                                       );
+    // Explicitly listed words
+    ['moale', 'moi'],
+    ['oră', 'urori'], // soră, noră
+    ['piele', 'piei'],
+    ['caro', 'carale'],
+    ['mânc', 'mănânc'],
+    ['usc', 'usuc'],
+    ['lua', 'ia'],
+    ['sări', 'sai'], // sări
+    ['sări', 'săi'], // sări
+    ['pieri', 'piei'],
+    ['veni', 'vi'], // veni
+    ['fi', 'sunt'],
+    ['fi', 'e'],
+    ['fi', 'îi'],
+    ['fi', 'îs'],
+    ['fi', 'erai'],
+    ['fi', 'erați'],
+    ['fi', 'fu'],
+    ['ii', 'iam'], // vâjii, scârții
+    ['ii', 'iai'], // vâjii, scârții
+    ['ii', 'ia'], // vâjii, scârții
+    ['ii', 'iați'], // vâjii, scârții
+    ['ii', 'iau'], // vâjii, scârții
+    ['părea', 'pai'],
+    ['avea', 'a'],
+    ['vrea', 'vom'],
+    ['vrea', 'veți'],
+    ['vrea', 'vor'],
+    ['vrea', 'vei'],
+    ['vrea', 'eți'],
+    ['vrea', 'voi'],
+    ['vrea', 'ei'],
+    ['vrea', 'va'],
+    ['vrea', 'ăți'],
+    ['vrea', 'oi'],
+    ['vrea', 'o'],
+    ['vrea', 'îi'],
+    ['vrea', 'a'],
+    ['vrea', 'îți'],
+    ['vrea', 'ăi'],
+    ['mânea', 'mas'],
+    ['mânea', 'mâie'],
+    ['mânea', 'măse'],
+    ['ține', 'ți'],
+    ['pune', 'pu'],
+    ['aduce', 'adă'],
+    ['rămâne', 'rămâie'],
+    ['rumpe', 'rum'],
+    ['fierbe', 'fierse'],
+    ['suge', 'supt'],
+    ['ige', 'ipt'], // frige, înfige
+    ['coace', 'copt'],
+    ['coace', 'copse'],
+    ['coace', 'coapse'],
+    ['vârî', 'vâră'],
+    ['zvârli', 'zvârlu'],
+    ['putea', 'poci'],
+  ];
 
   // Returns an array of transforms with the accent information at the end,
   // or null on errors.
@@ -149,26 +150,26 @@ class FlexStr {
     // Vowel count after the accent
     $accentPosFrom = self::findAccentPosition($from);
     $accentPosTo = self::findAccentPosition($to);
-    
+
     // String position of the accent
     $accentIndexFrom = mb_strpos($from, "'");
     $accentIndexTo = mb_strpos($to, "'");
     if ($accentIndexTo !== false) {
       $accentedVowelTo = Str::getCharAt($to, $accentIndexTo + 1);
     }
-    
+
     $from = str_replace("'", '', $from);
     $to = str_replace("'", '', $to);
-    
+
     $t = self::extractTransformsNoAccents($from, $to, $isPronoun);
     if ($t == null) {
       return null;
     }
-    
+
     if (!count($t)) {
       $t[] = Transform::createOrLoad('', '');
     }
-    
+
     if (!$accentPosFrom || !$accentPosTo) {
       $accentShift = ModelDescription::UNKNOWN_ACCENT_SHIFT;
     } else if ($accentIndexFrom == $accentIndexTo &&
@@ -185,11 +186,11 @@ class FlexStr {
     $t[] = $accentShift;
     return $t;
   }
-  
+
   // Returns an array of transforms, or null on errors
   private static function extractTransformsNoAccents($from, $to, $isPronoun) {
     //print "Extracting [$from] [$to]\n";
-    
+
     $transforms = [];
     $places = [];
     $result = $isPronoun
@@ -198,7 +199,7 @@ class FlexStr {
     if (!$result) {
       return null;
     }
-    
+
     if (count($transforms) == 0) {
       $transforms[] = Transform::create('', '');
       return $transforms;
@@ -219,7 +220,7 @@ class FlexStr {
         if ($posFound !== false && $posFound < $place2) {
           // Add another transform $bitFrom->$bitFrom, so that this newly found
           // occurrence does not "steal" the transform.
-          array_splice($transforms, $i + 1, 0, array(Transform::create($bitFrom, $bitFrom)));
+          array_splice($transforms, $i + 1, 0, [Transform::create($bitFrom, $bitFrom)]);
           array_splice($places, $i + 1, 0, $posFound);
           // print "Adding $bitFrom -> $bitFrom to [$from][$to]\n";
         }
@@ -251,7 +252,7 @@ class FlexStr {
         return 1;
       }
     }
-  
+
     // Try one of the predefined combinations
     foreach (self::$SUFFIX_PAIRS as $pair) {
       if (Str::startsWith($from, $pair[0]) && Str::startsWith($to, $pair[1])) {
@@ -389,7 +390,7 @@ class FlexStr {
         while ($pos >= 0 && mb_substr($s, $pos, $tlen) != $tfrom) {
           $pos--;
         }
-      
+
         // We should perhaps throw a nicer error, but for now just return
         // null;
         if ($pos < 0) {
@@ -399,7 +400,7 @@ class FlexStr {
       $places[$i] = $pos;
       $pos--;
     }
-  
+
     // Now go forward through the transforms and apply them
     $result = '';
     $previous = 0;
@@ -411,7 +412,7 @@ class FlexStr {
     if ($previous < mb_strlen($s)) {
       $result .= mb_substr($s, $previous);
     }
-  
+
     // Try to place the accent
     if ($accentShift == ModelDescription::NO_ACCENT_SHIFT) {
       // Place the accent exactly where it is in the lexeme form, if there is

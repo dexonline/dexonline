@@ -13,10 +13,10 @@ $logFile = Config::get('crawler.diacritics_log');
 class DiacriticsFixer {
 
 
-	private static $a = array('defaultForm' => 'a', 'curvedForm' => 'ă', 'circumflexForm' => 'â');
-	private static $i = array('defaultForm' => 'i', 'curvedForm' => null, 'circumflexForm' => 'î');
-	private static $s = array('defaultForm' => 's', 'curvedForm' => 'ș', 'circumflexForm' => null);
-	private static $t = array('defaultForm' => 't', 'curvedForm' => 'ț', 'circumflexForm' => null);
+	private static $a = ['defaultForm' => 'a', 'curvedForm' => 'ă', 'circumflexForm' => 'â'];
+	private static $i = ['defaultForm' => 'i', 'curvedForm' => null, 'circumflexForm' => 'î'];
+	private static $s = ['defaultForm' => 's', 'curvedForm' => 'ș', 'circumflexForm' => null];
+	private static $t = ['defaultForm' => 't', 'curvedForm' => 'ț', 'circumflexForm' => null];
 
 	private $resultText;
 	private $lastOffset;
@@ -275,11 +275,11 @@ class DiacriticsFixer {
 
 	private static function getCharOccurenceArray($tableObj) {
 
-		$array = array(
+		$array = [
 			'defaultForm' => $tableObj->defaultForm,
 			'curvedForm' => $tableObj->curvedForm,
 			'circumflexForm' => $tableObj->circumflexForm
-			);
+			];
 		//sort array desc
 		arsort($array);
 		return $array;

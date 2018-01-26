@@ -423,10 +423,10 @@ static function fetch($templateName) {
         }
     }
 
-    $expressions = array(
+    $expressions = [
         '#\n+#Ss' => ' ',
         '#\s+#Ss' => ' ',
-    );
+    ];
 
     $source = preg_replace( array_keys($expressions), array_values($expressions), $source );
 

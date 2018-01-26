@@ -19,7 +19,7 @@ foreach ($dbResult as $cnt => $row) {
   $ngrams = NGram::split($lexeme->formNoAccent);
 
   foreach ($ngrams as $i => $ngram) {
-    $values[] = array($ngram, $i, $lexeme->id);
+    $values[] = [$ngram, $i, $lexeme->id];
   }
   if (count($values) >= INSERT_SIZE) {
     dumpValues($values);

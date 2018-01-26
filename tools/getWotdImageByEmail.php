@@ -122,7 +122,7 @@ function replyToEmail($senderAddress, $subject, $message) {
 
   $sender = Config::get('WotD.sender');
   $replyto = Config::get('WotD.reply-to');
-  $headers = array("From: $sender", "Reply-To: $replyto", 'Content-Type: text/plain; charset=UTF-8');
+  $headers = ["From: $sender", "Reply-To: $replyto", 'Content-Type: text/plain; charset=UTF-8'];
 
   if ($dryRun) {
     print "---- DRY RUN ----\n";

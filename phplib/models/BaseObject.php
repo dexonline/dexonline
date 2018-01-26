@@ -26,7 +26,7 @@ class BaseObject extends Model {
 
   // Handle calls like $foo->getBars() and $foo->getBarIds() for associated objects
   // Optional arguments:
-  //   - $payLoad: array($field => $value, ...). If set, bypasses the cache.
+  //   - $payLoad: [$field => $value, ...]. If set, bypasses the cache.
   // Example: $entry->getLexemes(['main' => true])
   function associationHandler($name, $arguments) {
     $cleft = get_called_class(); // capitalized
@@ -47,7 +47,7 @@ class BaseObject extends Model {
     }
 
     if (!class_exists($cright)) {
-      self::_die("Class {$cright} does not exist", $name, $arguments);      
+      self::_die("Class {$cright} does not exist", $name, $arguments);
     }
 
     // get the association table name
@@ -121,10 +121,10 @@ class BaseObject extends Model {
       case self::ACTION_SELECT: return $clause->find_one();
       case self::ACTION_SELECT_ALL: return $clause->find_many();
       case self::ACTION_DELETE_ALL:
-        $objects = $clause->find_many();		
-        foreach ($objects as $o) {		
-          $o->delete();		
-        }		
+        $objects = $clause->find_many();
+        foreach ($objects as $o) {
+          $o->delete();
+        }
         break;
     }
   }
@@ -183,7 +183,7 @@ class BaseObject extends Model {
       }
       $old[$i]->save();
     }
-    
+
   }
 
   /**

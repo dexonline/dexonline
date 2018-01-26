@@ -10,25 +10,38 @@ class Widget {
   const WIDGET_COUNT = 6;
 
   // 'enabled' means "enabled by default". All widgets can later be enabled or disabled based on user prefs.
-  public static $DATA = array(self::WIDGET_WOTD        => array('name' => 'Cuvântul zilei',
-                                                                'template' => 'wotd.tpl',
-                                                                'enabled' => true),
-                              self::WIDGET_WOTM        => array('name' => 'Cuvântul lunii',
-                                                                'template' => 'wotm.tpl',
-                                                                'enabled' => true),
-                              self::WIDGET_RANDOM_WORD => array('name' => 'Cuvânt aleator',
-                                                                'template' => 'randomWord.tpl',
-                                                                'enabled' => true),
-                              self::WIDGET_AOTM        => array('name' => 'Articolul lunii',
-                                                                'template' => 'articleOfTheMonth.tpl',
-                                                                'enabled' => true),
-                              self::WIDGET_GAMES       => array('name' => 'Jocuri',
-                                                                'template' => 'games.tpl',
-                                                                'enabled' => true),
-                              self::WIDGET_SOCIAL      => array('name' => 'Rețele sociale',
-                                                                'template' => 'social.tpl',
-                                                                'enabled' => true),
-                              );
+  public static $DATA = [
+    self::WIDGET_WOTD => [
+      'name' => 'Cuvântul zilei',
+      'template' => 'wotd.tpl',
+      'enabled' => true,
+    ],
+    self::WIDGET_WOTM => [
+      'name' => 'Cuvântul lunii',
+      'template' => 'wotm.tpl',
+      'enabled' => true,
+    ],
+    self::WIDGET_RANDOM_WORD => [
+      'name' => 'Cuvânt aleator',
+      'template' => 'randomWord.tpl',
+      'enabled' => true,
+    ],
+    self::WIDGET_AOTM => [
+      'name' => 'Articolul lunii',
+      'template' => 'articleOfTheMonth.tpl',
+      'enabled' => true,
+    ],
+    self::WIDGET_GAMES => [
+      'name' => 'Jocuri',
+      'template' => 'games.tpl',
+      'enabled' => true,
+    ],
+    self::WIDGET_SOCIAL => [
+      'name' => 'Rețele sociale',
+      'template' => 'social.tpl',
+      'enabled' => true,
+    ],
+  ];
 
   /**
    * Returns a copy of DATA with the 'enabled' field modified where necessary.
@@ -51,6 +64,6 @@ class Widget {
         $result += $mask;
       }
     }
-    return $result;    
+    return $result;
   }
 }

@@ -8,7 +8,7 @@ $dbResult = DB::execute("select reverse(substring(reverse, 1, 4)) as s, count(*)
                        "group by s having c >= 5 order by c desc, s", PDO::FETCH_ASSOC);
 $stats = [];
 foreach ($dbResult as $row) {
-  $stats[] = array($row['s'], $row['c']);
+  $stats[] = [$row['s'], $row['c']];
 }
 
 SmartyWrap::assign('stats', $stats);

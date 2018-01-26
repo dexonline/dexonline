@@ -12,7 +12,7 @@ define('CORRECTED_FILENAME', '/tmp/corectat.csv');
 $lexem41Map = [];
 $dbResult = db_execute("select id, form, isLoc, concat(modelType, modelNumber, restriction) from LOC_4_1.Lexem");
 while (!$dbResult->EOF) {
-  $lexem41Map[$dbResult->fields[0]] = array($dbResult->fields[1], intval($dbResult->fields[2]), $dbResult->fields[3]);
+  $lexem41Map[$dbResult->fields[0]] = [$dbResult->fields[1], intval($dbResult->fields[2]), $dbResult->fields[3]];
   $dbResult->MoveNext();
 }
 
@@ -89,7 +89,7 @@ while (!$dbResult->EOF) {
 /*************************************************************************/
 
 function locNotationToDexNotation($s) {
-  $s = str_replace(array('ş', 'Ş', 'ţ', 'Ţ'), array('ș', 'Ș', 'ț', 'Ț'), $s);
+  $s = str_replace(['ş', 'Ş', 'ţ', 'Ţ'], ['ș', 'Ș', 'ț', 'Ț'], $s);
   $s = mb_strtolower($s);
   return $s;
 }

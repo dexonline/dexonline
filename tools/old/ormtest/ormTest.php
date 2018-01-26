@@ -34,10 +34,10 @@ case 'adodb':
     $comment->load("definitionId = {$def->id}");
     $source = new Source();
     $source->load("id = {$def->sourceId}");
-    $results[] = array('def' => $def,
+    $results[] = ['def' => $def,
                        'user' => $user,
                        'comment' => $comment,
-                       'source' => $source);
+                       'source' => $source];
   }
   break;
 
@@ -56,11 +56,11 @@ case 'idiorm':
   // Load users, sources and comments for the definitions
   $results = [];
   foreach ($defs as $def) {
-    $results[] = array('def' => $def,
+    $results[] = ['def' => $def,
                        'user' => Model::factory('User')->find_one($def->userId),
                        'comment' => Model::factory('Comment')->where('definitionId', $def->id)->find_one(),
                        'source' => Model::factory('Source')->find_one($def->sourceId),
-                       );
+                       ];
   }
   break;
 }
@@ -87,7 +87,7 @@ function initIdiorm() {
   ORM::configure('mysql:host=localhost;dbname=DEX');
   ORM::configure('username', 'root');
   ORM::configure('password', '');
-  ORM::configure('driver_options', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+  ORM::configure('driver_options', [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']);
 }
 
 function output($results) {

@@ -40,10 +40,10 @@ class Util {
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
     // For JSON data, set the content type
     if (is_string($data) && is_object(json_decode($data))) {
-      curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+      curl_setopt($ch, CURLOPT_HTTPHEADER, [
         "Content-Type: application/json",
         'Content-Length: ' . strlen($data)
-      ));
+      ]);
     }
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_USERAGENT, 'dexonline.ro');

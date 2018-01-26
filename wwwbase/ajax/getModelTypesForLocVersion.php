@@ -13,6 +13,6 @@ if ($canonical) {
 
 $resp = [];
 foreach ($modelTypes as $m) {
-  $resp[] = array('code' => $m->code, 'description' => $m->description);
+  $resp[] = ['code' => $m->code, 'description' => $m->description];
 }
 print json_encode($resp);

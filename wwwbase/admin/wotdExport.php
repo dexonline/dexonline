@@ -12,7 +12,7 @@ $wotdSet = [];
 foreach($wotds as $wotd) {
   $wotdr = WordOfTheDayRel::get_by_wotdId($wotd->id);
   $def = Definition::get_by_id($wotdr->refId);
-  $wotdSet[] = array('wotd' => $wotd, 'def' => $def);
+  $wotdSet[] = ['wotd' => $wotd, 'def' => $def];
 }
 
 SmartyWrap::assign('month', $month);

@@ -8,7 +8,7 @@ class Diacritics  extends BaseObject implements DatedObject {
 	//inlocuieste diactriticele
 	private static function stripDiacritics($str) {
 
-		return str_replace(array('ă','â','î','ș','ț'), array('a','a','i','s','t'), $str);
+		return str_replace(['ă','â','î','ș','ț'], ['a','a','i','s','t'], $str);
 	}
 
 	/*
@@ -40,7 +40,7 @@ class Diacritics  extends BaseObject implements DatedObject {
 
 			$defaultForm = intval($defaultForm) + 1;
 		}
-		return array($defaultForm, $curvedForm, $circumflexForm);
+		return [$defaultForm, $curvedForm, $circumflexForm];
 
 	}
 

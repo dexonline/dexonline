@@ -1,3 +1,0 @@
-SQLAlchemy==0.7.3
-WSGIProxy==0.2.2
-WebOb==1.2b2

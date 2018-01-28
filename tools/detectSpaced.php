@@ -212,8 +212,8 @@ do {
         $d->htmlRep = Str::htmlize($d->internalRep, $d->sourceId);
         $d->save();
       }
+      $found++;
     }
-    $found++;
 
     if ($case) {
       printf("%s case %d [%s] -> [%s]\n", defUrl($d), $case, $s, $d->internalRep);

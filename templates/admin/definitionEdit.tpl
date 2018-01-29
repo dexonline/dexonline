@@ -244,4 +244,16 @@
     Nu există o definiție similară în <span class="similarSourceName"></span>.
   </div>
 
+  <div id="diffPopover">
+    <button type="button" class="btn btn-default btn-sm diffButton" data-insert="1">
+      <i class="glyphicon glyphicon-plus"></i>
+      inserează textul și în <span class="similarSourceName"></span>
+    </button>
+    <button type="button" class="btn btn-default btn-sm diffButton" data-insert="0">
+      <i class="glyphicon glyphicon-minus"></i>
+      șterge textul din <span class="similarSourceName"></span>
+    </button>
+    <a href="#" class="btn btn-link btm-sm diffCancel">anulează</a>
+  </div>
+
 {/block}

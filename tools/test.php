@@ -28,7 +28,7 @@ function assertTransform($f, $extraArgs, $data) {
   }
 }
 
-/********************* Tests for stringUtil.php ************************/
+/********************* Tests for Str.php ************************/
 
 // Check that we've got the shorthand->Unicode mappings right
 assertTransform('Str::cleanup', [], [
@@ -142,7 +142,7 @@ assertTransform('Str::htmlize', [ 0 ], [
 
   '%ab @cd@%' =>
   '<span class="spaced">ab <b>cd</b></span>',
-  
+
   "okely\ndokely" =>
   "okely\ndokely",
 
@@ -152,7 +152,7 @@ assertTransform('Str::htmlize', [ 0 ], [
   "@ACC\\'ENT@" =>
   '<b>ACC’ENT</b>',
 
-  'copil^{+123}. copil_{-123}----' => 
+  'copil^{+123}. copil_{-123}----' =>
   'copil<sup>+123</sup>. copil<sub>-123</sub>----',
 
   'copil^i^2' =>
@@ -708,3 +708,51 @@ assertEquals(2, Util::findSnippet([[1, 2, 10],
 assertEquals(4, Util::findSnippet([[1, 2, 10],
                                    [6, 20],
                                    [8, 15]]));
+
+/************************* Test for DiffUtil.php *************************/
+
+// diff actions are used in definitionEdit.php. The user can click on the highlight
+// differences (red = deleted, green = inserted) to remove them from the definition
+// or to insert them in the similar definition from the previous edition
+function assertDiffAction($from, $to, $rank, $action, $expectedFrom, $expectedTo) {
+  $d1 = Model::factory('Definition')->create();
+  $d2 = Model::factory('Definition')->create();
+  $d1->internalRep = $from;
+  $d2->internalRep = $to;
+
+  DiffUtil::diffAction($d1, $d2, $rank, $action);
+
+  assertEquals($expectedFrom, $d1->internalRep);
+  assertEquals($expectedTo, $d2->internalRep);
+}
+
+$a = 'abc def ghi jkl modified text mno pqr stu vwx deleted text yz';
+$b = 'abc def inserted text ghi jkl other words mno pqr stu vwx yz';
+$granularity = DiffUtil::FINE_DIFF_GRANULARITY[DiffUtil::GRANULARITY_WORD];
+$opcodes = FineDiff::getDiffOpcodes($a, $b, $granularity);
+assertEquals($opcodes, 'c8i14:inserted text c8d14i12:other words c16d13c2');
+
+assertDiffAction($a, $b, 0, 0,
+                 $a,
+                 'abc def ghi jkl other words mno pqr stu vwx yz');
+assertDiffAction($a, $b, 0, 1,
+                 'abc def inserted text ghi jkl modified text mno pqr stu vwx deleted text yz',
+                 $b);
+assertDiffAction($a, $b, 1, 0,
+                 'abc def ghi jkl mno pqr stu vwx deleted text yz',
+                 $b);
+assertDiffAction($a, $b, 1, 1,
+                 $a,
+                 'abc def inserted text ghi jkl modified text other words mno pqr stu vwx yz');
+assertDiffAction($a, $b, 2, 0,
+                 $a,
+                 'abc def inserted text ghi jkl mno pqr stu vwx yz');
+assertDiffAction($a, $b, 2, 1,
+                 'abc def ghi jkl modified text other words mno pqr stu vwx deleted text yz',
+                 $b);
+assertDiffAction($a, $b, 3, 0,
+                 'abc def ghi jkl modified text mno pqr stu vwx yz',
+                 $b);
+assertDiffAction($a, $b, 3, 1,
+                 $a,
+                 'abc def inserted text ghi jkl other words mno pqr stu vwx deleted text yz');

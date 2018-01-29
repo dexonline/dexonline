@@ -2,6 +2,10 @@
   cursor: pointer;
 }
 
-#similarRecord {
+#similarRecord, #diffPopover {
   display: none;
+}
+
+.popover {
+  max-width: 100%;
 }

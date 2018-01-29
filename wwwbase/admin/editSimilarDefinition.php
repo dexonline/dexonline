@@ -7,49 +7,15 @@ Util::assertNotMirror();
 
 $defId = Request::get('defId');
 $similarId = Request::get('similarId');
-$dstart = Request::get('dstart');
-$dlen = Request::get('dlen');
-$sstart = Request::get('sstart');
-$slen = Request::get('slen');
-$ins = Request::get('ins');
+$rank = Request::get('rank');
+$action = Request::get('action');
 
 $def = Definition::get_by_id($defId);
 $similar = Definition::get_by_id($similarId);
 
-if ($ins) {
-  $from = $def;
-  $to = $similar;
-  $fstart = $dstart;
-  $flen = $dlen;
-  $tstart = $sstart;
-  $tlen = $slen;
-} else {
-  $from = $similar;
-  $to = $def;
-  $fstart = $sstart;
-  $flen = $slen;
-  $tstart = $dstart;
-  $tlen = $dlen;
-}
-
-// copy text from $from to $to
-$mid = substr($from->internalRep, $fstart, $flen);
-if (!$tlen) {
-  if ($tstart >= strlen($to->internalRep)) {
-    $mid = " {$mid}";
-  } else {
-    $mid = "{$mid} ";
-  }
-}
-
-$to->internalRep =
-  substr($to->internalRep, 0, $tstart) .
-  $mid .
-  substr($to->internalRep, $tstart + $tlen);
-$to->internalRep = Str::sanitize($to->internalRep, $to->sourceId);
-$to->htmlRep = Str::htmlize($to->internalRep, $to->sourceId);
-
-// TODO: make this page work (it no longer works after switching to FineDiff)
-// $to->save();
+$mod = DiffUtil::diffAction($similar, $def, $rank, $action);
+$mod->internalRep = Str::sanitize($mod->internalRep, $mod->sourceId);
+$mod->htmlRep = Str::htmlize($mod->internalRep, $mod->sourceId);
+$mod->save();
 
 Util::redirect("definitionEdit.php?definitionId={$defId}");

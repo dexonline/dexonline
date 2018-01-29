@@ -7,14 +7,14 @@ $(function() {
       minimumInputLength: 1,
       templateSelection: formatEntryWithEditLink,
     });
-            
+
     $('#deleteMeaningButton').popover({
       container: 'body',
       content: function() {
         return $('#deletePopoverContent').html();
       },
-      html : true,
-      trigger : 'click',
+      html: true,
+      trigger: 'click',
     });
 
     $('button[name="delete"]').click(function() {

@@ -47,8 +47,10 @@
         </button>
       {/if}
 
-      <a href="https://wiki.dexonline.ro/wiki/Lexem:{$lexeme->id}?description={$lexeme|escape}"
+      <a id="wikiLink"
+         href="https://wiki.dexonline.ro/wiki/Lexem:{$lexeme->id}?description={$lexeme|escape}"
          class="btn btn-default"
+         title="creează o pagină wiki pentru acest lexem"
          target="_blank">
         <i class="glyphicon glyphicon-comment"></i>
         wiki

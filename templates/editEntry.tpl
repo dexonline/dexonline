@@ -204,8 +204,10 @@
     </button>
 
     {if $e->id}
-      <a href="https://wiki.dexonline.ro/wiki/Intrare:{$e->id}?description={$e->description|escape}"
+      <a id="wikiLink"
+         href="https://wiki.dexonline.ro/wiki/Intrare:{$e->id}?description={$e->description|escape}"
          class="btn btn-default"
+         title="creează o pagină wiki pentru această intrare"
          target="_blank">
         <i class="glyphicon glyphicon-comment"></i>
         wiki
@@ -513,7 +515,7 @@
         </div>
 
       </form>
-      
+
     {/if}
   {/if}
 

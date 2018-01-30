@@ -24,6 +24,8 @@ $(function() {
   function init() {
     stem = $('#stem').detach();
 
+    checkLexemeWikiPage();
+
     initSelect2('#entryIds', 'ajax/getEntriesById.php', {
       ajax: { url: wwwRoot + 'ajax/getEntries.php' },
       minimumInputLength: 1,
@@ -128,6 +130,15 @@ $(function() {
 
   function showRenameDiv() {
     $('#renameDiv').removeClass('hidden');
+  }
+
+  function checkLexemeWikiPage() {
+    var lexemeId = $('input[name="lexemeId"]').val();
+    ifWikiPageExists('Lexem:' + lexemeId, function() {
+      $('#wikiLink')
+        .attr('title', 'lexemul are o pagină wiki')
+        .toggleClass('btn-default btn-warning');
+    });
   }
 
   init();

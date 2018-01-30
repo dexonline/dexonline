@@ -2,6 +2,8 @@ $(function() {
 
   function init() {
 
+    checkEntryWikiPage();
+
     initSelect2('#mainLexemeIds, #variantLexemeIds', 'ajax/getLexemesById.php', {
       ajax: { url: wwwRoot + 'ajax/getLexemes.php' },
       minimumInputLength: 1,
@@ -118,7 +120,7 @@ $(function() {
   function defFilterChange() {
     var status = $('#defFilterSelect').val();
     var structurable = $('#structurableFilter').is(':checked');
-    
+
     $('.defWrapper').each(function() {
       var show = true;
       if (((status == 'structured') && $(this).is(':not(.structured)')) ||
@@ -149,6 +151,15 @@ $(function() {
     });
     from.val(null).trigger('change');
     refreshSelect2(toId, 'ajax/getLexemesById.php');
+  }
+
+  function checkEntryWikiPage() {
+    var entryId = $('#entryId').val();
+    ifWikiPageExists('Intrare:' + entryId, function() {
+      $('#wikiLink')
+        .attr('title', 'intrarea are o pagină wiki')
+        .toggleClass('btn-default btn-warning');
+    });
   }
 
   init();

@@ -16,7 +16,7 @@ $(function() {
     // which is bad for us, because we focus the field on page load.
     $('#searchClear').css('z-index', 3);
   }
-  
+
   $('.sourceDropDown').select2({
     templateResult: formatSource,
     templateSelection: formatSource,
@@ -308,12 +308,29 @@ function trim(str) {
 	return str.slice(0, i + 1);
 }
 
-function hideAmountPreposition(amount){ 
+function hideAmountPreposition(amount){
   if (parseInt(amount)===0) {
     return true;
   }
   var de = parseInt(amount.slice(-2));
   return de > 0 && de < 20;
+}
+
+function ifWikiPageExists(title, callback) {
+  $.ajax({
+    url: 'https://wiki.dexonline.ro/api.php',
+    data: {
+      'action': 'query',
+      'titles': title,
+      'format': 'json',
+    },
+    success: function(data) {
+      // returns a -1 somewhere if the page does not exist
+      if (!('-1' in data.query.pages)) {
+        callback();
+      }
+    },
+  });
 }
 
 /************************* Bookmark-related code ***************************/
@@ -419,6 +436,6 @@ $(function() {
       errorCallback(anchor, data.msg);
     }
   }
-  
+
   init();
 });

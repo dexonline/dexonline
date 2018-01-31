@@ -39,12 +39,13 @@ if ($dryRun) {
 
 // OTRS medals
 if (!$skipOtrs) {
-  $query = "select users.login, count(*) as count from otrs.article, otrs.article_type, otrs.users " .
-         "where article_type_id = article_type.id " .
-         "and users.id = article.change_by " .
-         "and article_type.name = 'email-external' " .
-         "and users.id != 1 " .
-         "group by users.id";
+
+  $query = 'select users.login, count(*) as count ' .
+    'from otrs.users ' .
+    'join otrs.article on users.id = article.change_by ' .
+    'where users.id != 1 ' .
+    'group by users.id';
+
   $dbResult = DB::execute($query, PDO::FETCH_ASSOC);
   foreach ($dbResult as $r) {
     if (array_key_exists($r['login'], OTRS_MAP)) {

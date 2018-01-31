@@ -34,15 +34,19 @@
     Dacă doriți să beneficiați de premiile virtuale (medalie și/sau pagini fără reclame),
     aveți nevoie de un cont pe dexonline. Vă puteți
     <a href="{$wwwRoot}auth/login">autentifica</a> folosind orice OpenID,
-    care include orice cont de Google sau Yahoo. Apoi, dați-ne de știre.
+    care include orice cont de Google sau Yahoo.
   {elseif $donor->amount < Donor::AMOUNT_NO_BANNERS}
     V-am acordat medalia în
     <a href="{$wwwRoot}utilizator/{$donor->user->nick|escape:url}"
-       >contul dumneavoastră</a>.
+    >contul dumneavoastră</a>.
+    Dacă preferați ca donația dumneavoastră să fie anonimă, vă rugăm să ne
+    contactați.
   {else}
     V-am acordat medalia și am ascuns reclamele în
     <a href="{$wwwRoot}utilizator/{$donor->user->nick|escape:url}"
-       >contul dumneavoastră</a>.
+    >contul dumneavoastră</a>.
+    Dacă preferați ca donația dumneavoastră să fie anonimă, vă rugăm să ne
+    contactați.
   {/if}
 </p>
 

@@ -16,11 +16,13 @@ Dorim să răsplătim gestul dumneavoastră după cum urmează:
 Dacă doriți să beneficiați de premiile virtuale (medalie și/sau pagini fără
 reclame), aveți nevoie de un cont pe dexonline. Vă puteți autentifica [3]
 folosind orice OpenID, care include orice cont de Google sau Yahoo.
-Apoi, dați-ne de știre.
 {elseif $donor->amount < Donor::AMOUNT_NO_BANNERS}
-V-am acordat medalia în contul dumneavoastră [3].
+V-am acordat medalia în contul dumneavoastră [3]. Dacă preferați ca
+donația dumneavoastră să fie anonimă, vă rugăm să ne contactați.
 {else}
 V-am acordat medalia și am ascuns reclamele în contul dumneavoastră [3].
+Dacă preferați ca donația dumneavoastră să fie anonimă, vă rugăm să ne
+contactați.
 {/if}
 
 {if $donor->amount >= Donor::AMOUNT_STICKER}

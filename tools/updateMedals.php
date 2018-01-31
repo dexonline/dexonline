@@ -112,12 +112,13 @@ if (!$skipDonors) {
               ->select_expr('sum(d.amount)', 'total')
               ->distinct()
               ->join('Donation', ['d.email', '=', 'u.email'], 'd')
+              ->where('anonymousDonor', 0)
               ->where_raw('!(medalMask & ?)', Medal::MEDAL_SPONSOR)
               ->group_by('u.id')
               ->having_raw('total >= ?', MIN_DONATION_FOR_MEDAL)
               ->find_many();
   foreach ($needMedals as $u) {
-    Log::info("Granting {$user->id} {$u->nick} a sponsor medal");
+    Log::info("Granting {$u->id} {$u->nick} a sponsor medal");
     $u->medalMask |= Medal::MEDAL_SPONSOR;
     if (!$dryRun) {
       $u->save();

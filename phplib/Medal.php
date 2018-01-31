@@ -145,4 +145,8 @@ class Medal {
     }
     return $mask;
   }
+
+  static function getName($medal) {
+    return self::$DATA[$medal]['name'];
+  }
 }

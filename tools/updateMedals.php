@@ -4,18 +4,6 @@
  **/
 
 require_once __DIR__ . '/../phplib/Core.php';
-define('CODE_AUTHORS_FILE', __DIR__ . '/../docs/codeAuthors.conf');
-
-/* Map of SVN usernames to User.id */
-$SVN_MAP = [
-  'alex.grigoras' => 38493,
-  'cata' => 1,
-  'grigoroiualex' => 38357,
-  'mihai17' => 38028,
-  'radu' => 471,
-  'sonia' => 38239,
-  'vially' => 37587,
-];
 
 $OTRS_MAP = [
   'cata' => 1,
@@ -38,32 +26,6 @@ foreach ($argv as $i => $arg) {
 
 if ($dryRun) {
   print "---- DRY RUN ----\n";
-}
-
-// Code medals: code totals reside in $CODE_AUTHORS_FILE
-$ini = parse_ini_file(CODE_AUTHORS_FILE, true);
-if ($ini) {
-  foreach ($ini['authors'] as $svnName => $lines) {
-    if (array_key_exists($svnName, $SVN_MAP)) {
-      $user = User::get_by_id($SVN_MAP[$svnName]);
-      if ($user && $user->id) {
-        if (($lines >= 10000) && (!($user->medalMask & Medal::MEDAL_PROGRAMMER_3))) {
-          Log::info("Granting {$user->nick} a MEDAL_PROGRAMMER_3");
-          $user->medalMask |= Medal::MEDAL_PROGRAMMER_3;
-        } else if (($lines < 10000) && ($lines >= 1000) && (!($user->medalMask & Medal::MEDAL_PROGRAMMER_2))) {
-          Log::info("Granting {$user->nick} a MEDAL_PROGRAMMER_2");
-          $user->medalMask |= Medal::MEDAL_PROGRAMMER_2;
-        } else if (($lines < 1000) && ($lines >= 100) && (!($user->medalMask & Medal::MEDAL_PROGRAMMER_1))) {
-          Log::info("Granting {$user->nick} a MEDAL_PROGRAMMER_1");
-          $user->medalMask |= Medal::MEDAL_PROGRAMMER_1;
-        }
-        $user->medalMask = Medal::getCanonicalMask($user->medalMask);
-        if (!$dryRun) {
-          $user->save();
-        }
-      }
-    }
-  }
 }
 
 // OTRS medals

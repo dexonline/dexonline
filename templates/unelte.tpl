@@ -90,7 +90,17 @@
     </tbody>
   </table>
 
-  <div class="alert alert-info">
+  <div class="clearfix">
+    <a class="btn btn-link pull-right"
+      data-toggle="collapse"
+      href="#tableLicense"
+      aria-expanded="false"
+      aria-controls="tableLicense">
+      licență pe informațiile din acest tabel
+    </a>
+  </div>
+
+  <div id="tableLicense" class="alert alert-info collapse">
     <p>
       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
       <strong>Licență:</strong> Informațiile din acest tabel poartă o dublă licență: Licența Publică Generală GNU (care se aplică întregului site) și licența <a
@@ -108,13 +118,13 @@
   </div>
 
   <h3>Integrare în browser</h3>
-  
+
   <ul>
     <li>
-      Un 
+      Un
 
       <a href="{$cfg.static.url}download/dex-ff.xpi"
-           onclick="return installFirefoxSpellChecker(event);">
+         onclick="return installFirefoxSpellChecker(event);">
         corector ortografic
       </a>
 
@@ -130,29 +140,32 @@
       </ul>
     </li>
 
-    <li><a href="#" onclick="return addProvider('https://dexonline.ro/download/dex.xml')">Adăugați <i>dexonline</i> la motoarele de căutare</a> ale browserului
-      dumneavoastră. Mulțumiri lui Alexandru Lixandru.</li>
-
-    <li>Ați întâlnit cuvinte pe care nu le cunoașteți în pagini
-      românești? Acest modul Firefox vă permite să le căutați cu ușurință
-      în <i>dexonline</i>. Salvați <a href="download/dex-context-search.xml">acest
-      fișier</a> în directorul <tt>searchplugins/</tt> al aplicației
-      Firefox și reporniți Firefox. Acum, dacă selectați orice cuvânt și
-      dați clic-dreapta, veți avea opțiunea să-l căutați în <i>dexonline</i>.
-      Mulțumiri lui Radu George Mureșan.</li>
-
     <li>
-      Două extensii de Chrome pentru căutarea cu clic dreapta:
-      <a href="https://chrome.google.com/webstore/detail/mfbhbmjeaomdhmkcfhlldgedmohdpeml?hl=ro">
-        dexonline
+      <a href="#" onclick="return addProvider('https://dexonline.ro/download/dex.xml')">
+        Adăugați <i>dexonline</i> la motoarele de căutare
       </a>
-      •
-      <a href="https://chrome.google.com/webstore/detail/adpeehopdngemnfahceoeppdadkiagka?hl=ro">
-        Dex Online Search
-      </a>
+      ale browserului dumneavoastră. Mulțumiri lui Alexandru Lixandru.
     </li>
 
-    <li>Un <a href="https://wordpress.org/plugins/dexonline-searchbox/">modul WordPress</a> pentru blogul dumneavoastră.</li>
+    <li>
+      O
+      <a href="https://chrome.google.com/webstore/detail/mfbhbmjeaomdhmkcfhlldgedmohdpeml?hl=ro">
+        extensie de Chrome
+      </a>
+      pentru căutarea cu clic dreapta.
+    </li>
+
+    <li>
+      Un <a href="download/dex-context-search.xml">modul de Firefox</a> pentru
+      căutarea cu clic dreapta. Salvați fișierul în directorul <tt>searchplugins/</tt> al
+      aplicației Firefox și reporniți Firefox. Mulțumiri lui Radu
+      George Mureșan.
+    </li>
+
+    <li>
+      Un <a href="https://wordpress.org/plugins/dexonline-searchbox/">modul WordPress</a> pentru
+      blogul dumneavoastră.
+    </li>
 
   </ul>
 {/block}

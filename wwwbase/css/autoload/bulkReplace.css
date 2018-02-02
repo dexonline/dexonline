@@ -1,16 +1,8 @@
 .checkbox-inline {
-    float: right;
+  float: right;
 }
 
 .panel-admin .defWrapper {
-    padding: 0 30px 0 3px;
-    border-bottom: 1px solid #CCC;
-}
-
-.defWrapper.onlyDeletions  ins {
-    display: none;
-}
-
-.defWrapper.onlyInsertions  del {
-    display: none;
+  padding: 0 30px 0 3px;
+  border-bottom: 1px solid #CCC;
 }

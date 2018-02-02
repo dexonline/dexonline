@@ -1,20 +1,28 @@
 <?php
 $startMemory = memory_get_usage();
 
-require_once("../../phplib/Core.php");
+require_once('../../phplib/Core.php');
 ini_set('max_execution_time', '3600');
 User::mustHave(User::PRIV_ADMIN);
 Util::assertNotMirror();
 
+const TARGET_NAMES = [
+  1 => 'definiții',
+  2 => 'sensuri',
+];
+
 $search = Request::getRaw('search');
 $replace = Request::getRaw('replace');
+$target = Request::get('target');
 $sourceId = Request::get('sourceId');
-$lastId = intval(Request::get('lastId')); // id of definition for further search
-$maxaffected = Request::get('maxaffected'); // max possible number of definitions that will be changed
-$excludedIds = Request::get('excludedIds'); // array of definition ids excluded from changes
+$lastId = intval(Request::get('lastId')); // id of object for further search
+$limit = Request::get('limit'); // max possible number of objects that will be changed
+$excludedIds = Request::get('excludedIds'); // array of object IDs excluded from changes
 $saveButton = Request::has('saveButton');
 
-if (DebugInfo::isEnabled()){  DebugInfo::init(); }
+$targetName = TARGET_NAMES[$target];
+
+DebugInfo::init();
 
 // Use | to escape MySQL special characters so that constructs and chars like
 // \% , _ , | (which in dexonline notation means: "literal percent sign", latex
@@ -26,125 +34,190 @@ $replaceChars = [
 ];
 $mysqlSearch = strtr($search, array_combine(array_keys($replaceChars), array_values($replaceChars)));
 
-$query = Model::factory('Definition')
-       ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
-       ->where_raw('(binary internalRep like ? escape "|")', ["%{$mysqlSearch}%"]);
-if ($sourceId) {
-  $query = $query->where('sourceId', $sourceId);
+if ($target == 1) { // definitions
+  $query = Model::factory('Definition')
+         ->where_in('status', [Definition::ST_ACTIVE, Definition::ST_HIDDEN])
+         ->where_raw('(binary internalRep like ? escape "|")', ["%{$mysqlSearch}%"]);
+  if ($sourceId) {
+    $query = $query->where('sourceId', $sourceId);
+  }
+} else { // meanings
+  $query = Model::factory('Meaning')
+         ->where_raw('(binary internalRep like ? escape "|")', ["%{$mysqlSearch}%"]);
 }
 
-// we need the count only one time to speed up subsequent replace
+// we need the count only once to speed up subsequent replace
 if (!$saveButton) {
-  $totalDefs = $query->count();
-  DebugInfo::stopClock("BulkReplace - Count - After search criteria");
+  $objCount = $query->count();
+  DebugInfo::stopClock('BulkReplace - Count - After search criteria');
 
   // no records? we should not go any further
-  if (!$totalDefs) {
-    FlashMessage::add("Nu există nicio definiție care să conțină: [".$search."].", 'warning');
-    Util::redirect("index.php");
+  if (!$objCount) {
+    FlashMessage::add("Nu există {$targetName} care să conțină: [{$search}]", 'warning');
+    Util::redirect('index.php');
   }
 
   // some records? setting up session variables
-  Session::set('totalDefs', $totalDefs);
-  Session::set('changedDefs', 0);
-  Session::set('excludedDefs', 0);
+  Session::set('objCount', $objCount);
+  Session::set('objChanged', 0);
+  Session::set('objExcluded', 0);
 }
 
 // variables should not be null
-$totalDefs = Session::get('totalDefs');
-$changedDefs = Session::get('changedDefs');
-$excludedDefs = Session::get('excludedDefs');
+$objCount = Session::get('objCount');
+$objChanged = Session::get('objChanged');
+$objExcluded = Session::get('objExcluded');
 
 // preparing the main query object with global parameters
 $query = $query
        ->order_by_asc('id')
-       ->limit($maxaffected);
+       ->limit($limit);
 
 if ($saveButton) {
   $querySave = $query->where_gt('id', $lastId); // only those records that were previsualized
-  $defs = $querySave->find_many();
-  DebugInfo::stopClock("BulkReplace - AfterQuery +SaveButton");
+  $objects = $querySave->find_many();
+  DebugInfo::stopClock('BulkReplace - AfterQuery +SaveButton');
 
-  $excludedIds = filter_var_array(preg_split('/,/', $excludedIds, null, PREG_SPLIT_NO_EMPTY), FILTER_SANITIZE_NUMBER_INT);
-  $excludedDefs += count($excludedIds);
+  $excludedIds = filter_var_array(
+    preg_split('/,/', $excludedIds, null, PREG_SPLIT_NO_EMPTY),
+    FILTER_SANITIZE_NUMBER_INT);
+  $objExcluded += count($excludedIds);
 
-  foreach ($defs as $def) {
-    $lastId = $def->id;                     // $lastId will get the final defId
-    if (in_array($def->id, $excludedIds)) {
-      continue;                             // don't process exluded Ids
+  foreach ($objects as $obj) {
+    $lastId = $obj->id;                     // $lastId will get the final ID
+    if (in_array($obj->id, $excludedIds)) {
+      continue;                             // don't process exluded IDs
     }
-    $def->internalRep = str_replace($search, $replace, $def->internalRep);
-    $ambiguousMatches = [];
-    $errors = null;
-    $def->internalRep = Str::sanitize(
-      $def->internalRep, $def->sourceId, $errors, $ambiguousMatches);
 
-    // Complete or un-complete the abbreviation review
-    if (!count($ambiguousMatches) && $def->abbrevReview == Definition::ABBREV_AMBIGUOUS) {
-      $def->abbrevReview = Definition::ABBREV_REVIEW_COMPLETE;
-    } else if (count($ambiguousMatches) && $def->abbrevReview == Definition::ABBREV_REVIEW_COMPLETE) {
-      $def->abbrevReview = Definition::ABBREV_AMBIGUOUS;
+    if ($target == 1) { // $obj is a definition
+      definitionReplace($obj, $search, $replace);
+    } else { // $obj is a meaning
+      meaningReplace($obj, $search, $replace);
     }
-    $def->htmlRep = Str::htmlize($def->internalRep, $def->sourceId);
-    $def->save();
-    $changedDefs++;
+    $obj->save();
+    $objChanged++;
   }
-  DebugInfo::stopClock("BulkReplace - AfterForEach +SaveButton");
+  DebugInfo::stopClock('BulkReplace - AfterForEach +SaveButton');
 
-  Log::notice("Replaced [".$changedDefs."] definitions - [{$search}] with [{$replace}] in source [$sourceId]");
-  if ($totalDefs - $changedDefs - $excludedDefs == 0) {
-    Session::unsetVar('totalDefs');
-    Session::unsetVar('changedDefs');
-    Session::unsetVar('excludedDefs');
-    FlashMessage::add("".$changedDefs.Str::getAmountPreposition($changedDefs)." ocurențe [".$search."] din totalul de ".$totalDefs." au fost înlocuite cu [".$replace."].", 'success');
-    Util::redirect("index.php");
+  Log::notice('Replaced [%s] objects - [%s] with [%s] in source [%s]',
+              $objChanged, $search, $replace, $sourceId);
+  if ($objCount - $objChanged - $objExcluded == 0) {
+    Session::unsetVar('objCount');
+    Session::unsetVar('objChanged');
+    Session::unsetVar('objExcluded');
+
+    $msg = sprintf('%s %s ocurențe [%s] din totalul de %s au fost înlocuite cu [%s]',
+                   $objChanged,
+                   Str::getAmountPreposition($objChanged),
+                   $search,
+                   $objCount,
+                   $replace);
+    FlashMessage::add($msg, 'success');
+    Util::redirect('index.php');
   }
 }
 
-Session::set('changedDefs', $changedDefs);
-Session::set('excludedDefs', $excludedDefs);
+Session::set('objChanged', $objChanged);
+Session::set('objExcluded', $objExcluded);
 
 // more records? we need another query
-if ($totalDefs > $changedDefs) {
-  $queryRemain = $query->where_gt('id', $lastId);
-  $defs = $queryRemain->find_many();
-  DebugInfo::stopClock("BulkReplace - AfterQuery +MoreToReplace");
+$remaining = $objCount - $objChanged - $objExcluded;
+if ($remaining) {
+  $objects = $query
+           ->where_gt('id', $lastId)
+           ->find_many();
+  DebugInfo::stopClock('BulkReplace - AfterQuery +MoreToReplace');
 
-  $searchResults = SearchResult::mapDefinitionArray($defs);
-
-  DebugInfo::stopClock("BulkReplace - AfterMapDefinition");
-
-  // speeding up the display
-  foreach ($defs as $def) {
-    // we temporary store the replaced internalRep
-    $new = str_replace($search, $replace, $def->internalRep);
-
-    // getting the diff from $old (internalRep) -> $new
-    $diff = DiffUtil::internalDiff($def->internalRep, $new);
-    $def->htmlRep = Str::htmlize($diff, $def->sourceId);
+  if ($target == 1) {
+    // objects are SearchResults
+    $objects = createDefinitionDiffs($objects, $search, $replace);
+  } else {
+    // objects are Meanings
+    $objects = createMeaningDiffs($objects, $search, $replace);
   }
-  DebugInfo::stopClock("BulkReplace - AfterForEach +MoreToReplace");
 
-  $msgTotalDef = $totalDefs.Str::getAmountPreposition($totalDefs)." definiții se potrivesc ::";
-  $msgChangedDef = $changedDefs ? " ".$changedDefs." au fost modificate ::" : "";
-  $msgExcludedDef = $excludedDefs ? " ".$excludedDefs." au fost excluse ::" : "";
-  $msgWillChangeDef = " ".($totalDefs - $changedDefs > $maxaffected ? " maximum {$maxaffected}" : $totalDefs - $changedDefs);
-  $msgWillChangeDef .= " vor fi modificate.";
+  $msg = sprintf('%s %s %s se potrivesc ::',
+                 $objCount,
+                 Str::getAmountPreposition($objCount),
+                 $targetName);
+  if ($objCount) {
+    $msg .= " {$objChanged} au fost modificate ::";
+  }
+  if ($objExcluded) {
+    $msg .= " {$objExcluded} au fost excluse ::";
+  }
+  $msg .= sprintf(" %s vor fi modificate.",
+                  ($remaining > $limit) ? "maximum {$limit}" : $remaining);
 
-  FlashMessage::add($msgTotalDef.$msgChangedDef.$msgExcludedDef.$msgWillChangeDef, 'warning');
+  FlashMessage::add($msg, 'warning');
 }
 
 SmartyWrap::assign('search', $search);
 SmartyWrap::assign('replace', $replace);
+SmartyWrap::assign('target', $target);
+SmartyWrap::assign('targetName', $targetName);
 SmartyWrap::assign('sourceId', $sourceId);
 SmartyWrap::assign('lastId', $lastId);
-SmartyWrap::assign('maxaffected', $maxaffected);
-SmartyWrap::assign('remainedDefs', $totalDefs - $changedDefs - $excludedDefs);
-SmartyWrap::assign('de', Str::getAmountPreposition(count($searchResults)));
+SmartyWrap::assign('limit', $limit);
+SmartyWrap::assign('remaining', $remaining);
+SmartyWrap::assign('de', Str::getAmountPreposition(count($objects)));
 SmartyWrap::assign('modUser', User::getActive());
-SmartyWrap::assign('searchResults', $searchResults);
+SmartyWrap::assign('objects', $objects);
 SmartyWrap::addJs('diff');
 SmartyWrap::addCss('admin', 'diff');
 SmartyWrap::display('admin/bulkReplace.tpl');
 
-Log::notice((memory_get_usage() - $startMemory)." bytes used");
+Log::notice((memory_get_usage() - $startMemory).' bytes used');
+
+/*************************************************************************/
+
+function definitionReplace($d, $search, $replace) {
+  $d->internalRep = str_replace($search, $replace, $d->internalRep);
+  $ambiguousMatches = [];
+  $errors = null;
+  $d->internalRep = Str::sanitize(
+    $d->internalRep, $d->sourceId, $errors, $ambiguousMatches);
+
+  // complete or un-complete the abbreviation review
+  if (empty($ambiguousMatches)) {
+    $d->abbrevReview = Definition::ABBREV_REVIEW_COMPLETE;
+  } else if (count($ambiguousMatches) &&
+             ($d->abbrevReview == Definition::ABBREV_REVIEW_COMPLETE)) {
+    $d->abbrevReview = Definition::ABBREV_AMBIGUOUS;
+  }
+  $d->htmlRep = Str::htmlize($d->internalRep, $d->sourceId);
+}
+
+function meaningReplace($m, $search, $replace) {
+  $m->internalRep = str_replace($search, $replace, $m->internalRep);
+  $m->internalRep = Str::sanitize($m->internalRep);
+  $m->htmlRep = Str::htmlize($m->internalRep, 0);
+}
+
+function createDefinitionDiffs($defs, $search, $replace) {
+  $searchResults = SearchResult::mapDefinitionArray($defs);
+  DebugInfo::stopClock('BulkReplace - AfterMapDefinition');
+
+  foreach ($defs as $d) {
+    // we temporary store the replaced internalRep
+    $new = str_replace($search, $replace, $d->internalRep);
+
+    // getting the diff from $old (internalRep) -> $new
+    $diff = DiffUtil::internalDiff($d->internalRep, $new);
+    $d->htmlRep = Str::htmlize($diff, $d->sourceId);
+  }
+  DebugInfo::stopClock('BulkReplace - AfterForEach +MoreToReplace');
+
+  return $searchResults;
+}
+
+function createMeaningDiffs($meanings, $search, $replace) {
+  foreach ($meanings as $m) {
+    $new = str_replace($search, $replace, $m->internalRep);
+    $diff = DiffUtil::internalDiff($m->internalRep, $new);
+    $m->htmlRep = Str::htmlize($diff, 0);
+  }
+  DebugInfo::stopClock('BulkReplace - created meaning diffs');
+
+  return $meanings;
+}

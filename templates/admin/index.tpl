@@ -347,7 +347,7 @@
   {if User::can(User::PRIV_ADMIN)}
     <div class="panel panel-default">
       <div class="panel-heading">
-        Înlocuiește în definiții
+        Înlocuiește în masă
       </div>
 
       <div class="panel-body">
@@ -371,6 +371,15 @@
                 </div>
               </div>
 
+              <div class="form-group">
+                <label class="control-label col-xs-3">în</label>
+                <div class="col-xs-9">
+                  <select class="form-control" name="target">
+                    <option value="1">definiții</option>
+                    <option value="2">sensuri</option>
+                  </select>
+                </div>
+              </div>
             </div>
 
             <div class="col-md-6">
@@ -379,15 +388,18 @@
                 <label class="control-label col-xs-3">sursa</label>
                 <div class="col-xs-9">
                   {include "bits/sourceDropDown.tpl" name="sourceId"}
+                  <small class="text-muted">
+                    se aplică numai definițiilor
+                  </small>
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="control-label col-xs-3">rezultate</label>
-                <div class="col-xs-9" id="maxaffected">
+                <div class="col-xs-9">
                   <div class="input-group spinner">
                     <input type="numeric"
-                           name="maxaffected"
+                           name="limit"
                            class="form-control"
                            value="1000"
                            min="100"

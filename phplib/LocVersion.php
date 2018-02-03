@@ -16,6 +16,7 @@ class LocVersion {
     return str_replace('.', '_', $this->name);
   }
 
+  /* Returns the SQL database name on success, false on failure */
   static function changeDatabase($versionName) {
     $lvs = Config::getLocVersions();
     if ($versionName == $lvs[0]->name || !$versionName) {
@@ -25,6 +26,12 @@ class LocVersion {
       $lv->name = $versionName;
       $dbName = Config::get('global.mysql_loc_prefix') . $lv->getDbName();
     }
-    DB::changeDatabase($dbName);
+
+    try {
+      DB::changeDatabase($dbName);
+      return $dbName;
+    } catch (PDOException $e) {
+      return false;
+    }
   }
 }

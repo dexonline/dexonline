@@ -58,11 +58,14 @@ class DB {
     OS::executeAndAssert($command);
   }
 
-  static function executeSqlFile($filename) {
+  static function executeSqlFile($filename, $database = null) {
+    $database = $database ?? self::$database;
+
     $command = sprintf("cat {$filename} | mysql -u %s %s %s",
                        self::$user,
-                       self::$database,
+                       $database,
                        self::$password ? ("-p" . self::$password) : '');
+
     OS::executeAndAssert($command);
   }
 

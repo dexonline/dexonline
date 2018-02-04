@@ -6,6 +6,9 @@
 
 class Abbrev {
 
+  // do not mark abbreviations automatically unless followed by one of these
+  const FOLLOWERS = '([ @$%,;:)\]*"\/\n-]|$)';
+
   private static $ABBREV_INDEX = null; // These will be loaded lazily
   private static $ABBREVS = [];
 
@@ -59,16 +62,23 @@ class Abbrev {
           if ($ambiguous) {
             $from = substr($from, 1);
           }
+
           $numWords = 1 + substr_count($from, ' ');
+
           $regexp = str_replace(['.', ' '], ["\\.", ' *'], $from);
-          $pattern = "\W({$regexp})(\W|$)";
-          $hasCaps = ($from !== mb_strtolower($from));
+
+          // geol. will match [Gg]eol\\., but Geol. will only match Geol\\.
+          if (!Str::isUppercase($regexp)) {
+            $c = Str::getCharAt($regexp, 0);
+            $regexp = sprintf('[%s%s]%s', mb_strtoupper($c), $c, mb_substr($regexp, 1));
+          }
+
+          $regexp = sprintf('\W(%s)(?=%s)', $regexp, self::FOLLOWERS);
           $result[$from] = [
             'to' => $to,
             'ambiguous' => $ambiguous,
-            'regexp' => $pattern,
+            'regexp' => $regexp,
             'numWords' => $numWords,
-            'hasCaps' => $hasCaps,
           ];
         }
 
@@ -98,8 +108,8 @@ class Abbrev {
     foreach ($abbrevs as $from => $tuple) {
       $matches = [];
       // Perform a case-sensitive match if the pattern contains any uppercase, case-insensitive otherwise
-      $modifier = $tuple['hasCaps'] ? "" : "i";
-      preg_match_all("/{$tuple['regexp']}/u$modifier", $s, $matches, PREG_OFFSET_CAPTURE); // We always add the /u modifier for Unicode
+      $regexp = sprintf('/%s/u', $tuple['regexp']);
+      preg_match_all($regexp, $s, $matches, PREG_OFFSET_CAPTURE);
       if (count($matches[1])) {
         foreach (array_reverse($matches[1]) as $match) {
           $orig = $match[0];
@@ -149,16 +159,16 @@ class Abbrev {
   // E.g. the array keys can include both "Ed." (Editura) and "ed." (ediție), or
   // we may look for a specific capitalization (BWV, but not bwv; AM, but not am)
   private static function bestAbbrevMatch($s, $abbrevList) {
-    $lowS = mb_strtolower($s);
-    $bestMatch = null;
-    foreach ($abbrevList as $from => $tuple) {
-      if ($tuple['hasCaps'] && ($from == $s)) {
-        return $from;
-      } else if (!$tuple['hasCaps'] && ($from == $lowS)) {
-        $bestMatch = $from;
-      }
+    if (array_key_exists($s, $abbrevList)) {
+      return $s;
     }
-    return $bestMatch;
+
+    $s = mb_strtolower($s);
+    if (array_key_exists($s, $abbrevList)) {
+      return $s;
+    }
+
+    return null;
   }
 
   static function htmlizeAbbreviations($s, $sourceId, &$errors = null) {

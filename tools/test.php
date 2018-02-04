@@ -250,6 +250,30 @@ $data = [
     32,
     [['abbrev' => 's', 'position' => 4, 'length' => 1]],
   ],
+  [
+    "c'amătă",
+    "c'amătă", // not #c#'amătă
+    53,
+    [],
+  ],
+  [
+    'egal cu c^2',
+    'egal cu c^2',
+    53,
+    [],
+  ],
+  [
+    'ab @c@',
+    'ab @#c#@',
+    53,
+    [],
+  ],
+  [
+    "ab ltr\n",
+    "ab #ltr#\n",
+    53,
+    [],
+  ],
 ];
 foreach ($data as list($before, $after, $sourceId, $ambiguous)) {
   $a = [];
@@ -352,9 +376,9 @@ $data = [
     32,
   ],
   [
+    'FILLER ED. FILLER', // ED. does not match either ed. or Ed.
     'FILLER ED. FILLER',
-    'FILLER #Ed.# FILLER',
-    'FILLER <abbr class="abbrev" title="Editura">Ed.</abbr> FILLER',
+    'FILLER ED. FILLER',
     32,
   ],
   [

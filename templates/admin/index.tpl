@@ -421,11 +421,17 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="col-xs-5 col-xs-offset-1">
-              <button type="submit" class="btn btn-primary" name="previewButton">
-                previzualizează
-              </button>
+          <div class="row">
+
+            <div class="col-md-6">
+
+              <div class="form-group">
+                <div class="col-xs-9 col-xs-offset-3">
+                  <button type="submit" class="btn btn-primary" name="previewButton">
+                    previzualizează
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </form>

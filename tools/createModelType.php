@@ -14,7 +14,7 @@ $INFLECTIONS = [
   7 => 'Substantiv propriu, Nominativ-Acuzativ, plural, articulat',
   8 => 'Substantiv propriu, Genitiv-Dativ, plural, articulat',
 ];
-                     );
+
 /** Also, don't forget to edit templates/paradigm/paradigm.tpl accordingly. **/
 
 $existingMT = ModelType::get_by_code(MODEL_TYPE);

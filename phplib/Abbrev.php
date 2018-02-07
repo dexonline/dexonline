@@ -6,7 +6,8 @@
 
 class Abbrev {
 
-  // do not mark abbreviations automatically unless followed by one of these
+  // do not mark abbreviations automatically unless preceded and followed by one of these
+  const LEADERS = '[ @$%.(\[\/"~<\n-]';
   const FOLLOWERS = '([ @$%,;:)\]*"\/\n-]|$)';
 
   private static $ABBREV_INDEX = null; // These will be loaded lazily
@@ -73,7 +74,7 @@ class Abbrev {
             $regexp = sprintf('[%s%s]%s', mb_strtoupper($c), $c, mb_substr($regexp, 1));
           }
 
-          $regexp = sprintf('\W(%s)(?=%s)', $regexp, self::FOLLOWERS);
+          $regexp = sprintf('(?<=%s)(%s)(?=%s)', self::LEADERS, $regexp, self::FOLLOWERS);
           $result[$from] = [
             'to' => $to,
             'ambiguous' => $ambiguous,

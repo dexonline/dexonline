@@ -7,7 +7,7 @@
 class Abbrev {
 
   // do not mark abbreviations automatically unless preceded and followed by one of these
-  const LEADERS = '[ @$%.(\["<\n-]';
+  const LEADERS = '[ @$%(\["<\n-]';
   const FOLLOWERS = '([ @$%,;:)\]*"\/\n-]|$)';
 
   private static $ABBREV_INDEX = null; // These will be loaded lazily

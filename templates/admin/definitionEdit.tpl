@@ -92,8 +92,13 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">conținut</label>
       <div class="col-sm-10">
-        <textarea id="internalRep" name="internalRep" class="form-control" rows="10" autofocus
-                  >{$def->internalRep|escape}</textarea>
+        <textarea
+          id="internalRep"
+          name="internalRep"
+          class="form-control tinymceTextarea"
+          rows="10"
+          autofocus
+        >{$def->internalRep|escape}</textarea>
       </div>
     </div>
 
@@ -103,7 +108,12 @@
       </label>
 
       <div class="col-sm-10">
-        <textarea id="comment" name="commentContents" class="form-control" rows="3">{if $comment}{$comment->contents|escape}{/if}</textarea>
+        <textarea
+          id="comment"
+          name="commentContents"
+          class="form-control tinymceTextarea"
+          rows="3"
+        >{if $comment}{$comment->contents|escape}{/if}</textarea>
 
         {if $commentUser}
           <div class="checkbox">

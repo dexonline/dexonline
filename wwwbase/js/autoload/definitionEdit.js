@@ -1,7 +1,6 @@
 $(function() {
   similarRecord = [];
   var internalRep = $('#internalRep');
-  var comment = $('#comment');
   var lastDiffClicked = null; // keep track of the last <ins> or <del> the user clicked
 
   function init() {
@@ -52,8 +51,7 @@ $(function() {
   function updateFieldsJson() {
     var data = {
       definitionId: $('input[name="definitionId"]').val(),
-      definitionInternalRep: internalRep.val(),
-      commentInternalRep: comment.val(),
+      internalRep: internalRep.val(),
       sourceId: $('#sourceDropDown').val(),
       entryIds: $('#entryIds').val(),
     };
@@ -91,8 +89,12 @@ $(function() {
     if (typeof data.htmlRep != 'undefined') {
       $('#defPreview').html(data.htmlRep);
     }
-    if (typeof data.commentHtmlRep != 'undefined') {
-      $('#commentPreview').html(data.commentHtmlRep);
+    if (typeof data.footnotes != 'undefined') {
+      $('#footnotes').empty();
+      for (var i in data.footnotes) {
+        var li = $('<li/>').html(data.footnotes[i]);
+        li.appendTo($('#footnotes'));
+      }
     }
   }
 

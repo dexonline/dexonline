@@ -20,6 +20,7 @@ class Definition extends BaseObject implements DatedObject {
   ];
 
   private $source = null;
+  private $footnotes = null;
 
   /* For admins, returns the definition with the given ID. For regular users,
      return null rather than a hidden definition. */
@@ -40,6 +41,47 @@ class Definition extends BaseObject implements DatedObject {
       $this->source = Source::get_by_id($this->sourceId);
     }
     return $this->source;
+  }
+
+  function getFootnotes() {
+    if ($this->footnotes === null) {
+      $this->footnotes = Model::factory('Footnote')
+                       ->where('definitionId', $this->id)
+                       ->order_by_asc('rank')
+                       ->find_many();
+    }
+    return $this->footnotes;
+  }
+
+  // Single entry point for sanitize() / htmlize() / etc.
+  // $flash (boolean): if true, set flash messages for errors and warnings
+  // Returns an array of footnotes whose ID field is not set.
+  function process($flash = true) {
+    $errors = [];
+    $warnings = [];
+
+    // sanitize
+    list($this->internalRep, $ambiguousAbbreviations)
+      = Str::sanitize($this->internalRep, $this->sourceId, $warnings);
+
+    // htmlize + footnotes
+    list($this->htmlRep, $footnotes)
+      = Str::htmlize($this->internalRep, $this->sourceId, false, $errors, $warnings);
+
+    // lexicon
+    $this->extractLexicon();
+
+    if ($flash) {
+      foreach ($warnings as $warning) {
+        FlashMessage::add($warning, 'warning');
+      }
+
+      foreach ($errors as $error) {
+        FlashMessage::add($error);
+      }
+    }
+
+    return $footnotes;
   }
 
   static function loadByEntryIds($entryIds) {

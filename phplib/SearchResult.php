@@ -10,8 +10,7 @@ class SearchResult {
   public $user;
   public $source;
   public $typos;
-  public $comment;
-  public $commentAuthor = NULL;
+  public $footnotes;
   public $bookmark;
   public $tags;
   public $wotdType;
@@ -38,7 +37,7 @@ class SearchResult {
       $result->user = $userMap[$definition->userId];
       $result->source = $sourceMap[$definition->sourceId];
       $result->typos = [];
-      $result->comment = null;
+      $result->footnotes = $definition->getFootnotes();
       $result->wotdType = self::WOTD_NOT_IN_LIST;
       $result->wotdDate = null;
       $result->bookmark = false;
@@ -52,13 +51,6 @@ class SearchResult {
            ->find_many();
     foreach ($typos as $t) {
       $results[$t->definitionId]->typos[] = $t;
-    }
-
-    $comments = Model::factory('Comment')->where_in('definitionId', $defIds)->where('status', Definition::ST_ACTIVE)->find_many();
-    foreach ($comments as $c) {
-      $results[$c->definitionId]->comment = $c;
-      // We still run one query per comment author, but there are very few comments
-      $results[$c->definitionId]->commentAuthor = User::get_by_id($c->userId);
     }
 
     if ($suid = User::getActiveId()) {

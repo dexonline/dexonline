@@ -101,7 +101,11 @@ class Abbrev {
     }
   }
 
-  static function markAbbreviations($s, $sourceId, &$ambiguousMatches = null) {
+  // returns an array of
+  // - the modified strings
+  // - ambiguous matches encountered
+  static function markAbbreviations($s, $sourceId) {
+    $ambiguous = [];
     $abbrevs = self::loadAbbreviations($sourceId);
     $hashMap = self::constructHashMap($s);
     // Do not report two ambiguities at the same position, for example M. and m.
@@ -118,8 +122,8 @@ class Abbrev {
 
           if (!$hashMap[$position]) { // Don't replace anything if we are already between hash signs
             if ($tuple['ambiguous']) {
-              if ($ambiguousMatches !== null && !array_key_exists($position, $positionsUsed)) {
-                $ambiguousMatches[] = [
+              if (!array_key_exists($position, $positionsUsed)) {
+                $ambiguous[] = [
                   'abbrev' => $from,
                   'position' => $position,
                   'length' => strlen($orig),
@@ -137,7 +141,7 @@ class Abbrev {
         }
       }
     }
-    return $s;
+    return [$s, $ambiguous];
   }
 
   /** Returns a parallel array of booleans. Each element is true if $s[$i] lies inside a pair of hash signs, false otherwise **/
@@ -172,7 +176,7 @@ class Abbrev {
     return null;
   }
 
-  static function htmlizeAbbreviations($s, $sourceId, &$errors = null) {
+  static function htmlizeAbbreviations($s, $sourceId, &$errors) {
     $abbrevs = self::loadAbbreviations($sourceId);
     $matches = [];
     preg_match_all("/(?<!\\\\)#([^#]*)#/", $s, $matches, PREG_OFFSET_CAPTURE);
@@ -185,9 +189,7 @@ class Abbrev {
           $hint =  $abbrevs[$matchingKey]['to'];
         } else {
           $hint =  'abreviere necunoscută';
-          if ($errors !== null) {
-            $errors[] = "Abreviere necunoscută: «{$from}». Verificați că după fiecare punct există un spațiu.";
-          }
+          $errors[] = "Abreviere necunoscută: «{$from}». Verificați că după fiecare punct există un spațiu.";
         }
         $s = substr_replace($s, "<abbr class=\"abbrev\" title=\"$hint\">$from</abbr>", $position - 1, 2 + strlen($from));
       }

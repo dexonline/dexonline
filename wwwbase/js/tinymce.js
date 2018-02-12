@@ -21,7 +21,7 @@ $(function() {
         entity_encoding: 'raw',
         menubar: false,
         resize: 'both',
-        selector: 'tinymceTextarea',
+        selector: '.tinymceTextarea',
         setup: tinymceSetup,
         toolbar: 'undo redo | bold italic spaced superscript subscript',
         width: '100%',

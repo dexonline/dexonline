@@ -124,6 +124,7 @@
 
 		this.editBox = $('#editBox', this.target);
 		this.editButton = $('#editButton', this.target).on('click', this.edit.bind(this));
+		this.resetButton = $('#resetButton', this.target).on('click', this.reset.bind(this));
 		this.saveButton = $('#saveButton', this.target).on('click', this.save.bind(this));
 
 		this.update();
@@ -146,6 +147,14 @@
 		this.editButton.hide();
 		this.editBox.val(this.charmap.read().join('\n'));
 		this.editArea.show();
+	}
+
+	CharmapModal.prototype.reset = function() {
+    if (confirm('Confirmați resetarea glifelor la valorile inițiale?')) {
+		  $.removeCookie(COOKIE, { path: '/' });
+      this.update();
+      this.edit();
+    }
 	}
 
 	CharmapModal.prototype.save = function() {

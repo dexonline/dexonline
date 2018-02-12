@@ -2,17 +2,32 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
 				<h4 class="modal-title">Inserează glifă</h4>
 			</div>
 
 			<div class="modal-body">
 				<span data-role="buttons"></span>
 				<button type="button" id="editButton" class="btn btn-primary">editează</button>
+
 				<div data-role="edit">
 					<p>Adaugă glifele în căsuța de mai jos, unul pe linie.</p>
 					<textarea id="editBox" class="form-control" rows="10"></textarea>
 					<button type="button" id="saveButton" class="btn btn-success">salvează</button>
+
+				  <button
+            type="button"
+            id="resetButton"
+            class="btn btn-danger pull-right"
+            title="resetează lista la valorile inițiale"
+          >resetează</button>
+
 				</div>
 			</div>
 

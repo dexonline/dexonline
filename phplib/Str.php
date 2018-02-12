@@ -285,20 +285,25 @@ class Str {
   }
 
   // Sanitizes a definition or meaning. This is more elaborate than cleanup().
-  static function sanitize($s, $sourceId = null, &$errors = null, &$ambiguousMatches = null) {
+  // Returns an array of
+  // - the sanitized string
+  // - ambiguous abbreviations encountered
+  static function sanitize($s, $sourceId = null, &$warnings) {
     $s = self::cleanup($s);
     $s = str_replace([ '$$', '@@', '%%' ], '', $s);
 
     $s = self::migrateFormatChars($s);
     if ($sourceId) {
-      $s = Abbrev::markAbbreviations($s, $sourceId, $ambiguousMatches);
+      list($s, $ambiguousAbbrevs) = Abbrev::markAbbreviations($s, $sourceId);
+    } else {
+      $ambiguousAbbrevs = [];
     }
 
-    if (is_array($errors)) {
-      self::reportSanitizationErrors($s, $errors);
-    }
+    self::reportSanitizationErrors($s, $warnings);
 
-    return $s;
+    $s = self::attributeFootnotes($s);
+
+    return [$s, $ambiguousAbbrevs];
   }
 
   // Checks that varios pairs of characters are nested properly in $s.
@@ -347,6 +352,20 @@ class Str {
       $distinct = $same . implode($pairs);
       $errors[] = "Unele dintre caracterele {$distinct} nu sunt împerecheate corect.";
     }
+  }
+
+  // append /userId to {{footnotes}} that don't have one
+  static function attributeFootnotes($s) {
+    preg_match_all('/\{\{(.*)\}\}/U', $s, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+    foreach (array_reverse($matches) as $m) {
+      if (!preg_match('/\\/\d+$/', $m[1][0])) { // does not end in /number
+        $userId = User::getActiveId();
+        $at = $m[1][1] + strlen($m[1][0]);
+        $s = substr_replace($s, "/{$userId}", $at, 0);
+      }
+    }
+
+    return $s;
   }
 
   static function migrateFormatChars($s) {
@@ -417,9 +436,19 @@ class Str {
   }
 
   // Converts $s to html. If $obeyNewlines is true, replaces \n with
-  // <br>\n; otherwise leaves \n as \n. Collects unrecoverable errors in $errors.
-  static function htmlize($s, $sourceId, &$errors = null, $obeyNewlines = false) {
+  // <br>\n; otherwise leaves \n as \n.
+  // Returns an array of
+  // - HTML result
+  // - extracted footnotes
+  static function htmlize($s, $sourceId, $obeyNewlines = false, &$errors, &$warnings) {
     $s = htmlspecialchars($s, ENT_NOQUOTES);
+
+    // Htmlize footnotes early, or else they will begin to contain HTML and
+    // we'll end up with literal HTML. Htmlize each footnote separately,
+    // because formatting symbols may (incorrectly) be nested across footnotes.
+    list($s, $footnotes) = self::htmlizeFootnotes($s, $sourceId, $errors, $warnings);
+
+    self::findRedundantLinks($s, $warnings);
 
     // various internal notations
     // preg_replace supports multiple patterns and replacements, but they may not overlap
@@ -451,7 +480,40 @@ class Str {
     // finally, remove the escape character -- we no longer need it
     $s = preg_replace('/(?<!\\\\)\\\\/', '', $s);
 
-    return $s;
+    return [$s, $footnotes];
+  }
+
+  // returns an array of
+  // - modified string
+  // - extracted HTML footnotes
+  static function htmlizeFootnotes($s, $sourceId, &$errors, &$warnings) {
+    $footnotes = [];
+    preg_match_all('/\{\{(.*)\}\}/U', $s, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+    $rank = count($matches);
+
+    foreach (array_reverse($matches) as $m) {
+      // create and htmlize the footnote
+      $contents = $m[1][0];
+      $f = Model::factory('Footnote')->create();
+      $pipePos = strrpos($contents, '/');
+      if ($pipePos !== null) { // sanitize should have done this, but paranoia is good
+        $f->userId = substr($contents, $pipePos + 1);
+        $contents = substr($contents, 0, $pipePos);
+      }
+
+      list($f->htmlRep, $ignored) = self::htmlize($contents, $sourceId, false, $errors, $warnings);
+
+      $f->rank = $rank;
+      array_unshift($footnotes, $f);
+
+      // replace it with a [mark] in the definition
+      $at = $m[0][1];
+      $len = strlen($m[0][0]);
+      $replacement = sprintf('<sup class="footnote">%s</sup>', $rank--);
+      $s = substr_replace($s, $replacement, $at, $len);
+    }
+
+    return [$s, $footnotes];
   }
 
   // Prepare the string for printing inside an XML document.
@@ -575,7 +637,7 @@ class Str {
   // (original_word, linked_lexeme, reason, short_reason).
   //
   // For more information, check out issue #632 and pull requeset #637.
-  static function findRedundantLinks($internalRep) {
+  static function findRedundantLinks($internalRep, &$errors) {
 
     // Find all instances of |original_word|linked_lexeme|.
     preg_match_all("/\|([^\|]+)\|([^\|]+)\|/", $internalRep, $links, PREG_SET_ORDER);
@@ -702,6 +764,11 @@ class Str {
       }
     }
 
-    return $processedLinks;
+    foreach ($processedLinks as $pl) {
+      if ($pl['short_reason'] !== 'nemodificat') {
+        $errors[] = sprintf('Legătura de la "%s" la "%s" este considerată redundantă (motiv: %s)',
+                            $pl['original_word'], $pl['linked_lexeme'], $pl['reason']);
+      }
+    }
   }
 }

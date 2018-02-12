@@ -20,7 +20,9 @@ class SimilarRecord {
 
     if ($sr->definition) {
       $diff = DiffUtil::internalDiff($sr->definition->internalRep, $definition->internalRep);
-      $sr->htmlDiff = Str::htmlize($diff, $definition->sourceId);
+      $errors = [];
+      $warnings = [];
+      $sr->htmlDiff = Str::htmlize($diff, $definition->sourceId, false, $errors, $warnings);
     } else {
       $sr->htmlDiff = null;
     }

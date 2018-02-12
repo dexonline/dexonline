@@ -134,7 +134,7 @@ header .banner-section {
 
 /*********** definitions ***********/
 
-/* 
+/*
   Make Firefox abbr underlining consistent with other browsers.
   Reference: https://github.com/dexonline/dexonline/issues/485
 */
@@ -155,7 +155,7 @@ abbr[title] {
 
 .defDetails {
   margin: 0; /* remove paragraph margin */
-  font-size: 0.85em; 
+  font-size: 0.85em;
   line-height: 1.88; /* equivalent line height: 1.6 / 0.85em */
 }
 
@@ -183,16 +183,20 @@ abbr[title] {
   padding-right: 10px;
 }
 
-.panel-comment {
+sup.footnote {
+  color: #761818;
+}
+
+.panel-footnotes {
   margin-top: 20px;
   margin-left: 30px;
 }
 
-.panel-comment .panel-body {
+.panel-footnotes .panel-body {
   padding: 0px 15px 15px;
 }
 
-.panel-comment:before {
+.panel-footnotes:before {
   background-color: #FFF;
   box-shadow: -4px 2px 2px 0 #ddd;
   content: "\00a0";
@@ -319,7 +323,7 @@ dd.favoriteDefs {
 }
 
 a.disabled {
-  pointer-events: none;  
+  pointer-events: none;
 }
 
 .tag-tooltip {

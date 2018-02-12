@@ -17,7 +17,7 @@
 {$showWotd=$showWotd|default:false}
 
 {if $showFlagTypo}
-  {include "bits/typoForm.tpl"}  
+  {include "bits/typoForm.tpl"}
 {/if}
 
 {$def=$row->definition}
@@ -229,13 +229,18 @@
     </ul>
   </div>
 
-  {if $row->comment}
-    <div class="panel panel-default panel-comment">
+  {if count($row->footnotes)}
+    <div class="panel panel-default panel-footnotes">
       <div class="panel-body">
-        <i class="glyphicon glyphicon-comment"></i>
-        {$row->comment->htmlContents} -
-        <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}"
-        >{$row->commentAuthor->nick|escape}</a>
+        <ol>
+          {foreach $row->footnotes as $f}
+            <li>
+              {$f->htmlRep}
+              &mdash;
+              {include "bits/user.tpl" u=$f->getUser()}
+            </li>
+          {/foreach}
+        </ol>
       </div>
     </div>
   {/if}
@@ -245,7 +250,7 @@
       <ul>
         {foreach $row->typos as $typo}
           <li id="typo{$typo->id}">
-            
+
             <span class="text-warning">
               {$typo->problem|escape}
             </span>
@@ -257,7 +262,7 @@
                onclick="return ignoreTypo('typo{$typo->id}', {$typo->id});">
               ignoră
             </a>
-            
+
           </li>
         {/foreach}
       </ul>

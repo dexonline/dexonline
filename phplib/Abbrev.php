@@ -97,9 +97,9 @@ class Abbrev {
         // Sort the list by number of words, then by ambiguous
         uasort($abbrevs, 'self::abbrevCmp');
       }
-
       self::$ABBREVS[$sourceId] = $abbrevs;
-    }
+
+      }
     return self::$ABBREVS[$sourceId];
   }
 
@@ -114,8 +114,6 @@ class Abbrev {
   }
 
   static function markAbbreviations($s, $sourceId, &$ambiguousMatches = null) {
-    
-    error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
     
     $abbrevs = self::loadAbbreviations($sourceId);
     $hashMap = self::constructHashMap($s);

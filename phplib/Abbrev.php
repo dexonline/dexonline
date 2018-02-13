@@ -47,46 +47,58 @@ class Abbrev {
    */
   private static function loadAbbreviations($sourceId) {
     if (!array_key_exists($sourceId, self::$ABBREVS)) {
-      self::loadAbbreviationsIndex();
-      $result = [];
+      //self::loadAbbreviationsIndex();
+      $abbrevs = [];
 
-      if (array_key_exists($sourceId, self::$ABBREV_INDEX)) {
-        $list = [];
-        foreach (self::$ABBREV_INDEX[$sourceId] as $section) {
-          $raw = parse_ini_file(Core::getRootPath() . "docs/abbrev/{$section}.conf", true);
-          // If an abbreviation is defined in several sections, use the one that's defined later
-          $list = array_merge($list, $raw[$section]);
-        }
+      $results = Model::factory('Abbreviation')
+        ->select_many('id', 'short', 'long', 'ambiguous', 'caseSensitive', 'enforced')
+        ->where_like('sourceID', $sourceId)
+        ->order_by_asc('short')
+        ->find_array();
 
-        foreach ($list as $from => $to) {
-          $ambiguous = ($from[0] == '*');
-          if ($ambiguous) {
-            $from = substr($from, 1);
+      if (!empty($results)) {
+        foreach ($results as $abbrev) {
+          $numWords = 1 + substr_count($abbrev['short'], ' ');
+
+          // maybe there's no need for manually escaping dot - it will be done later with preg_quote
+          //$regexp = str_replace(['.', ' '], ["\\.", ' *'], $abbrev['short']);
+          $regexp = str_replace([' '], [' *'], $abbrev['short']);
+
+          // must escape main capturing group $regexp as it may containg regexp syntax!!
+          $regexp = preg_quote($regexp);
+
+          if ($abbrev['caseSensitive'] != '1') {
+            // geol. will match [Gg]eol\\., but Geol. will only match Geol\\.
+            if (!Str::isUppercase($regexp)) {
+              $i = 0;
+              while ($i < mb_strlen($regexp)) { // loop needed for those abbrevs starting with other than alpha_chars
+                $c = mb_substr($regexp, $i, 1);
+                if (ctype_alpha($c)) {
+                  $regexp = sprintf('%s[%s%s]%s', mb_substr($regexp, 0, $i), mb_strtoupper($c), $c, mb_substr($regexp, $i + 1));
+                  break;
+                }
+                $i++;
+              }
+            }
           }
-
-          $numWords = 1 + substr_count($from, ' ');
-
-          $regexp = str_replace(['.', ' '], ["\\.", ' *'], $from);
-
-          // geol. will match [Gg]eol\\., but Geol. will only match Geol\\.
-          if (!Str::isUppercase($regexp)) {
-            $c = Str::getCharAt($regexp, 0);
-            $regexp = sprintf('[%s%s]%s', mb_strtoupper($c), $c, mb_substr($regexp, 1));
-          }
-
+          
           $regexp = sprintf('(?<=%s)(%s)(?=%s)', self::LEADERS, $regexp, self::FOLLOWERS);
-          $result[$from] = [
-            'to' => $to,
-            'ambiguous' => $ambiguous,
+
+          $abbrevs[$abbrev['short']] = [
+            'id' => $abbrev['id'],
+            'to' => $abbrev['long'],
+            'enforced' => $abbrev['enforced'] == '1',
+            'ambiguous' => $abbrev['ambiguous'] == '1',
+            'caseSensitive' => $abbrev['caseSensitive'] == '1',
             'regexp' => $regexp,
             'numWords' => $numWords,
           ];
         }
-
         // Sort the list by number of words, then by ambiguous
-        uasort($result, 'self::abbrevCmp');
+        uasort($abbrevs, 'self::abbrevCmp');
       }
-      self::$ABBREVS[$sourceId] = $result;
+
+      self::$ABBREVS[$sourceId] = $abbrevs;
     }
     return self::$ABBREVS[$sourceId];
   }
@@ -102,6 +114,9 @@ class Abbrev {
   }
 
   static function markAbbreviations($s, $sourceId, &$ambiguousMatches = null) {
+    
+    error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+    
     $abbrevs = self::loadAbbreviations($sourceId);
     $hashMap = self::constructHashMap($s);
     // Do not report two ambiguities at the same position, for example M. and m.
@@ -127,9 +142,11 @@ class Abbrev {
                 $positionsUsed[$position] = true;
               }
             } else {
-              $replacement = Str::isUppercase(Str::getCharAt($orig, 0))
-                           ? Str::capitalize($from)
-                           : $from;
+              if ($tuple['enforced']) {
+                $replacement = Str::isUppercase(Str::getCharAt($orig, 0)) ? Str::capitalize($from) : $from;
+              } else {
+                $replacement = $orig;
+              }
               $s = substr_replace($s, "#$replacement#", $position, strlen($orig));
               array_splice($hashMap, $position, strlen($orig), array_fill(0, 2 + strlen($replacement), true));
             }
@@ -140,7 +157,7 @@ class Abbrev {
     return $s;
   }
 
-  /** Returns a parallel array of booleans. Each element is true if $s[$i] lies inside a pair of hash signs, false otherwise **/
+  /** Returns a parallel array of booleans. Each element is true if $s[$i] lies inside a pair of hash signs, false otherwise * */
   private static function constructHashMap($s) {
     $inHash = false;
     $result = [];
@@ -182,14 +199,15 @@ class Abbrev {
         $matchingKey = self::bestAbbrevMatch($from, $abbrevs);
         $position = $match[1];
         if ($matchingKey) {
-          $hint =  $abbrevs[$matchingKey]['to'];
+          $hint = $abbrevs[$matchingKey]['to'];
         } else {
-          $hint =  'abreviere necunoscută';
+          $hint = 'abreviere necunoscută';
           if ($errors !== null) {
-            $errors[] = "Abreviere necunoscută: «{$from}». Verificați că după fiecare punct există un spațiu.";
+            $errors[] = "Abreviere necunoscută: «{$from}».";
           }
         }
-        $s = substr_replace($s, "<abbr class=\"abbrev\" title=\"$hint\">$from</abbr>", $position - 1, 2 + strlen($from));
+        $hint = Str::htmlize($hint, $sourceId);
+        $s = substr_replace($s, "<abbr class=\"abbrev\" data-html=\"true\" title=\"$hint\">$from</abbr>", $position - 1, 2 + strlen($from));
       }
     }
     return $s;
@@ -205,7 +223,7 @@ class Abbrev {
         $matchingKey = self::bestAbbrevMatch($from, $abbrevs);
         $position = $match[1];
         if ($matchingKey) {
-          $to =  $abbrevs[$matchingKey]['to'];
+          $to = $abbrevs[$matchingKey]['to'];
           $s = substr_replace($s, $to, $position - 1, 2 + strlen($from));
         }
       }

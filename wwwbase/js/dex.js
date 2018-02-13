@@ -429,5 +429,11 @@ $(function() {
     }
   }
 
+  // bootstrap tooltip with html support
+  $('body').tooltip({
+    selector: '[class="abbrev"]',
+    html: true
+  });
+
   init();
 });

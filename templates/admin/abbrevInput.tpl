@@ -51,15 +51,17 @@
             </span>
 
           </div>
-        
-        <p class="text-muted">
-          Fișierul sursă trebuie să aibă pe primul rând capul de tabel <b>enforced|ambiguous|caseSensitive|short|long</b>, iar pe celelate rânduri 5(cinci) câmpuri delimitate, conform explicațiilor: </br>
-          <b>1.</b> abreviere impusă - nu ia în considerare forma editată - <i>valoare booleană 0/1</i></br>
-          <b>2.</b> abreviere ambiguă - <i>valoare booleană 0/1</i></br>
-          <b>3.</b> diferențiere între majuscule și minuscule- <i>valoare booleană 0/1</i></br>
-          <b>4.</b> abrevierea</br>
-          <b>5.</b> detalierea abrevierii - <i>permite formatare internă html $,@,%</i></br></br>
-        </p>
+
+          <p class="text-muted">
+            Fișierul sursă trebuie să aibă pe primul rând capul de tabel <b>enforced|ambiguous|caseSensitive|short|long</b>, iar pe celelate rânduri 5(cinci) câmpuri delimitate, conform explicațiilor: </br>
+          <ol> 
+            <li> abreviere impusă - nu ia în considerare forma editată și impune forma din câmpul short - <i>valoare booleană 0/1</i></li>
+            <li> abreviere ambiguă - <i>valoare booleană 0/1</i></li>
+            <li> diferențiere între majuscule și minuscule - <i>valoare booleană 0/1</i></li>
+            <li> abrevierea - <i>permite și alte semne de punctuație, nu doar „.”</i></li>
+            <li> detalierea abrevierii - <i>permite formatare internă html $,@,%</i></li>
+          </ol>
+          </p>
         {/if}
     </div>
   </div>

@@ -8,46 +8,39 @@ $sourceId = Request::get('source');
 $saveButton = Request::has('saveButton');
 $cancelButton = Request::has('cancelButton');
 $delimiter = Request::get('delimiter');
+$csvFile = Request::getFile('file');
+
 $class = "success";
 $message = "";
+$errCount = 0;
 
 $userId = User::getActiveId();
 $csv = Session::get('csv', NULL);
 
-if ($_FILES && $_FILES["file"]) {
-  if ($_FILES["file"]["tmp_name"] != '') {
-    if ($_FILES["file"]["error"] > 0) {
-      $class = "danger";
-      switch ($_FILES["file"]["error"]) {
-        case UPLOAD_ERR_OK:
-          break;
-        case UPLOAD_ERR_NO_FILE:
-          $errmess = "No file sent.";
-        case UPLOAD_ERR_INI_SIZE:
-        case UPLOAD_ERR_FORM_SIZE:
-          $errmess = "Exceeded filesize limit.";
-        default:
-          $errmess = "Unknown errors.";
-      }
-      $message = "Eroare: " . $errmess;
+try {
+  if ($csvFile) {
+    if ($csvFile["error"] !== UPLOAD_ERR_OK) {
+      throw new UploadException($csvFile['error']);
     } else {
-      //getting an array for csv file contents and counting lines without header
-      $csv = csv_to_array($_FILES["file"]["tmp_name"], $delimiter ?: '|');
+      if ($csvFile["tmp_name"] != '') {
+        //getting an array for csv file contents
+        $csv = csv_to_array($csvFile["tmp_name"], $delimiter ?: '|');
 
-      // stashing the array for saving operation
-      Session::set('csv', $csv);
+        // stashing the array for saving operation
+        Session::set('csv', $csv);
+      }
     }
   }
+} catch (Exception $e) {
+  $class = "danger";
+  $message .= $e->getMessage();
 }
 
-
 if ($saveButton) {
-  if (count($csv) > 0) { // precess the array only if we have some data
-    $errCount = 0;
+  if (count($csv) > 0) { // process the array only if we have some data
+    
 
     foreach ($csv as $row) { // handle each row
-      $ts = strtotime(date('Y-m-d H:i:s'));
-      
       $abbrev = Model::factory('Abbreviation')->create();
 
       $abbrev->sourceId = $sourceId;
@@ -56,8 +49,6 @@ if ($saveButton) {
       $abbrev->caseSensitive = $row['caseSensitive'];
       $abbrev->short = trim($row['short']);
       $abbrev->long = trim($row['long']);
-      $abbrev->createDate = $ts;
-      $abbrev->modDate = $ts;
       $abbrev->modUserId = $userId;
 
       try {
@@ -70,19 +61,18 @@ if ($saveButton) {
     }
 
     $message .= count($csv) - $errCount . " abrevieri au fost introduse în baza de date" .
-      ($class == "danger" ? ($errCount . " dintre ele au generat erori...") : "!");
+      ($errCount ? (" :: " . $errCount . " dintre ele au generat erori...") : "!");
   }
   $cancelButton = true;
-  
 } else {
-  if ($_FILES && $_FILES["file"]) {
-    $message .= "Fișierul " . $_FILES["file"]["name"] . " (" . count($csv) .
+  if ($csvFile["name"] != '' && $class != "danger") {
+    $message .= "Fișierul " . $csvFile["name"] . " (" . count($csv) .
       " linii) a fost încărcat" .
-      ($class == "danger" ? (" cu " . $errCount . " erori...") : "!");
+      ($errCount ? (" cu " . $errCount . " erori...") : "!");
   }
 }
 
-if ($cancelButton){
+if ($cancelButton) {
   Session::unsetVar('csv');
   $csv = array();
 }
@@ -97,21 +87,20 @@ SmartyWrap::addCss('admin');
 SmartyWrap::display('admin/abbrevInput.tpl');
 
 function csv_to_array($filename = '', $delimiter = '|') {
-  if (!file_exists($filename) || !is_readable($filename)) {
-    return array();
-  }
-
-  $header = NULL;
   $data = array();
-  if (($handle = fopen($filename, 'r')) !== FALSE) {
-    while (($row = fgetcsv($handle, 1000, $delimiter)) !== FALSE) {
-      if (!$header) {
-        $header = $row;
-      } else {
-        $data[] = array_combine($header, $row);
+
+  if (file_exists($filename) && is_readable($filename)) {
+    $header = NULL;
+    if (($handle = fopen($filename, 'r')) !== FALSE) {
+      while (($row = fgetcsv($handle, 1000, $delimiter)) !== FALSE) {
+        if (!$header) {
+          $header = $row;
+        } else {
+          $data[] = array_combine($header, $row);
+        }
       }
+      fclose($handle);
     }
-    fclose($handle);
   }
   return $data;
 }

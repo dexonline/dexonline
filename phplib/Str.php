@@ -110,7 +110,15 @@ class Str {
   static function isUppercase($s) {
     return $s != mb_strtolower($s);
   }
+  
+  static function isAllUppercase($s) {
+    return mb_strtoupper($s, 'utf-8') == $s; // maybe paranoid: mb_detect_encoding($s) as second argument
+  }
 
+  static function getUpperLowerString($s){
+    return mb_strtoupper($s) . mb_strtolower($s);
+  }
+  
   static function getCharAt($s, $index) {
     return mb_substr($s, $index, 1);
   }

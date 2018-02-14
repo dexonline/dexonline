@@ -1,6 +1,6 @@
 <?php
 
-class Abbreviation extends BaseObject {
+class Abbreviation extends BaseObject implements DatedObject {
   public static $_table = 'Abbreviation';
 
   static function countAvailable($sourceId) {

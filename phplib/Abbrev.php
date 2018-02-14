@@ -2,8 +2,7 @@
 
 /**
  * String manipulation functions related to abbreviations.
- **/
-
+ * */
 class Abbrev {
 
   // do not mark abbreviations automatically unless preceded and followed by one of these
@@ -51,8 +50,7 @@ class Abbrev {
       $abbrevs = [];
 
       $results = Model::factory('Abbreviation')
-        ->select_many('id', 'short', 'long', 'ambiguous', 'caseSensitive', 'enforced')
-        ->where_like('sourceID', $sourceId)
+        ->where_like('sourceId', $sourceId)
         ->order_by_asc('short')
         ->find_array();
 
@@ -61,27 +59,25 @@ class Abbrev {
           $numWords = 1 + substr_count($abbrev['short'], ' ');
 
           // maybe there's no need for manually escaping dot - it will be done later with preg_quote
-          //$regexp = str_replace(['.', ' '], ["\\.", ' *'], $abbrev['short']);
           $regexp = str_replace([' '], [' *'], $abbrev['short']);
 
           // must escape main capturing group $regexp as it may containg regexp syntax!!
           $regexp = preg_quote($regexp);
 
           if ($abbrev['caseSensitive'] != '1') {
-            // geol. will match [Gg]eol\\., but Geol. will only match Geol\\.
-            if (!Str::isUppercase($regexp)) {
-              $i = 0;
-              while ($i < mb_strlen($regexp)) { // loop needed for those abbrevs starting with other than alpha_chars
-                $c = mb_substr($regexp, $i, 1);
-                if (ctype_alpha($c)) {
-                  $regexp = sprintf('%s[%s%s]%s', mb_substr($regexp, 0, $i), mb_strtoupper($c), $c, mb_substr($regexp, $i + 1));
-                  break;
-                }
-                $i++;
+            $matches = [];
+            preg_match('/\p{L}/u', $regexp, $matches, PREG_OFFSET_CAPTURE);
+
+            if (!Str::isAllUppercase($regexp)) {
+              if (!empty($matches)) { // first letter of abbrev will become [Xx] -> geol. will match [Gg]eol.
+                $regexp = sprintf('%s[%s]%s', 
+                  mb_substr($regexp, 0, $matches[0][1]), 
+                  Str::getUpperLowerString($matches[0][0]), 
+                  mb_substr($regexp, $matches[0][1] + 1));
               }
             }
           }
-          
+
           $regexp = sprintf('(?<=%s)(%s)(?=%s)', self::LEADERS, $regexp, self::FOLLOWERS);
 
           $abbrevs[$abbrev['short']] = [
@@ -98,8 +94,7 @@ class Abbrev {
         uasort($abbrevs, 'self::abbrevCmp');
       }
       self::$ABBREVS[$sourceId] = $abbrevs;
-
-      }
+    }
     return self::$ABBREVS[$sourceId];
   }
 
@@ -114,7 +109,7 @@ class Abbrev {
   }
 
   static function markAbbreviations($s, $sourceId, &$ambiguousMatches = null) {
-    
+
     $abbrevs = self::loadAbbreviations($sourceId);
     $hashMap = self::constructHashMap($s);
     // Do not report two ambiguities at the same position, for example M. and m.
@@ -140,11 +135,7 @@ class Abbrev {
                 $positionsUsed[$position] = true;
               }
             } else {
-              if ($tuple['enforced']) {
-                $replacement = Str::isUppercase(Str::getCharAt($orig, 0)) ? Str::capitalize($from) : $from;
-              } else {
-                $replacement = $orig;
-              }
+              $replacement = $tuple['enforced'] ? $from : $orig;
               $s = substr_replace($s, "#$replacement#", $position, strlen($orig));
               array_splice($hashMap, $position, strlen($orig), array_fill(0, 2 + strlen($replacement), true));
             }
@@ -175,16 +166,19 @@ class Abbrev {
   // E.g. the array keys can include both "Ed." (Editura) and "ed." (ediție), or
   // we may look for a specific capitalization (BWV, but not bwv; AM, but not am)
   private static function bestAbbrevMatch($s, $abbrevList) {
-    if (array_key_exists($s, $abbrevList)) {
-      return $s;
+    $key = array_search($s, $abbrevList, true);
+    if (!is_numeric($key)) {
+      $abbrevListLower = array_map('mb_strtolower', $abbrevList);
+      $key = array_search($s, $abbrevListLower, true);
+      if (!is_numeric($key)) {
+        $s = mb_strtolower($s);
+        $key = array_search($s, $abbrevListLower, true);
+        if (!is_numeric($key)) {
+          return null; // every type of search failed
+        }
+      }
     }
-
-    $s = mb_strtolower($s);
-    if (array_key_exists($s, $abbrevList)) {
-      return $s;
-    }
-
-    return null;
+    return $abbrevList[$key];
   }
 
   static function htmlizeAbbreviations($s, $sourceId, &$errors = null) {
@@ -194,7 +188,7 @@ class Abbrev {
     if (count($matches[1])) {
       foreach (array_reverse($matches[1]) as $match) {
         $from = $match[0];
-        $matchingKey = self::bestAbbrevMatch($from, $abbrevs);
+        $matchingKey = self::bestAbbrevMatch($from, array_keys($abbrevs));
         $position = $match[1];
         if ($matchingKey) {
           $hint = $abbrevs[$matchingKey]['to'];
@@ -218,7 +212,7 @@ class Abbrev {
     if (count($matches[1])) {
       foreach (array_reverse($matches[1]) as $match) {
         $from = $match[0];
-        $matchingKey = self::bestAbbrevMatch($from, $abbrevs);
+        $matchingKey = self::bestAbbrevMatch($from, array_keys($abbrevs));
         $position = $match[1];
         if ($matchingKey) {
           $to = $abbrevs[$matchingKey]['to'];

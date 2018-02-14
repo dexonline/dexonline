@@ -62,8 +62,13 @@
     <div class="form-group">
       <label for="defTextarea">Definiția</label>
       {strip}
-      <textarea class="form-control" id="defTextarea" name="internalRep" rows="15" cols="90">
-        {$d->internalRep|escape}
+      <textarea
+        class="form-control tinymceTextarea"
+        id="defTextarea"
+        name="internalRep"
+        rows="15"
+        cols="90"
+      >{$d->internalRep|escape}
       </textarea>
       {/strip}
     </div>

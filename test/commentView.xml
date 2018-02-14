@@ -18,11 +18,11 @@
 <tr>
 	<td>verifyText</td>
 	<td>css=div.panel-body</td>
-	<td>Foarte foarte gustoasă - john</td>
+	<td>Foarte foarte gustos — john</td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>css=div.panel-body &gt; a</td>
+	<td>css=div.panel-body a</td>
 	<td>john</td>
 </tr>
 </tbody></table>

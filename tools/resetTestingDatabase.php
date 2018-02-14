@@ -168,7 +168,7 @@ $l1->save();
 
 // definitions
 $d1 = createDefinition(
-  'Produs alimentar obținut prin coagularea și prelucrarea laptelui.',
+  'Produs alimentar{{Foarte foarte gustos/1}} obținut prin coagularea și prelucrarea laptelui.',
   'brânză', $john->id, $klingon->id, Definition::ST_ACTIVE);
 $d2 = createDefinition(
   'Recipient mare, deschis, din lemn, din metal, din beton etc.',
@@ -191,10 +191,6 @@ EntryDefinition::associate($l2->getEntries()[0]->id, $d2->id);
 EntryDefinition::associate($l4->getEntries()[0]->id, $d3->id);
 EntryDefinition::associate($l5->getEntries()[0]->id, $d4->id);
 EntryDefinition::associate($l8->getEntries()[0]->id, $d5->id);
-
-// comments
-createComment('Foarte foarte gustoasă',
-              $d1->id, $john->id, Definition::ST_ACTIVE);
 
 // lexeme sources
 $ls = Model::factory('LexemeSource')->create();
@@ -321,25 +317,18 @@ function createDefinition($rep, $lexicon, $userId, $sourceId, $status) {
   $d = Model::factory('Definition')->create();
   $d->userId = $userId;
   $d->sourceId = $sourceId;
-  $d->lexicon = $lexicon;
   $d->internalRep = $rep;
-  $d->process(false);
   $d->status = $status;
+  $footnotes = $d->process(false);
+  $d->lexicon = $lexicon; // overwrite extracted lexicon
   $d->save();
+
+  foreach ($footnotes as $f) {
+    $f->definitionId = $d->id;
+    $f->save();
+  }
+
   return $d;
-}
-
-function createComment($rep, $definitionId, $userId, $status) {
-  $d = Definition::get_by_id($definitionId);
-
-  $c = Model::factory('Comment')->create();
-  $c->definitionId = $definitionId;
-  $c->userId = $userId;
-  $c->status = $status;
-  $c->contents = $rep;
-  $c->htmlContents = Str::htmlize($rep, $d->sourceId);
-  $c->save();
-  return $c;
 }
 
 function createWotdArtist($label, $name, $email, $credits) {

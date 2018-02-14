@@ -9,9 +9,14 @@ $comments = Model::factory('Comment')
           ->order_by_asc('definitionId')
           ->find_many();
 
-foreach ($comments as $c) {
+printf("Converting %d comments...\n", count($comments));
+
+foreach ($comments as $i => $c) {
+  if ($i && ($i % 500 == 0)) {
+    print "$i comments converted.\n";
+  }
   $d = Definition::get_by_id($c->definitionId);
-  $d->internalRep .= sprintf('{{%s|%s}}', $c->contents, $c->userId);
+  $d->internalRep .= sprintf('{{%s/%s}}', $c->contents, $c->userId);
 
   $footnotes = $d->process();
   $d->save();

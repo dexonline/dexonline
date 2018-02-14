@@ -184,7 +184,7 @@ abbr[title] {
 }
 
 sup.footnote {
-  cursor: help;
+  cursor: auto;
   padding-left: 2px;
 }
 

@@ -43,7 +43,7 @@ class FootnoteHtmlizer {
     $this->footnotes[] = $f;
 
     // return the replacement
-    $result = sprintf('<sup class="footnote" title="%s">[%s]</sup>', $f->htmlRep, $f->rank);
+    $result = sprintf('<sup class="footnote">[%s]</sup>', $f->rank);
     return $result;
   }
 }

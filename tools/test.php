@@ -189,6 +189,23 @@ assertTransform('Str::htmlize', [ 0, true ], [
   "okely\ndokely" => ["okely<br>\ndokely", []],
 ]);
 
+// htmlize with footnotes
+$internalRep = 'one two{{note/123}} three{{another note/456}} four';
+list($html, $footnotes) = Str::htmlize($internalRep, 1);
+assertEquals('one two<sup class="footnote" title="note">[1]</sup> three' .
+             '<sup class="footnote" title="another note">[2]</sup> four',
+             $html);
+
+assertEquals(2, count($footnotes));
+
+assertEquals(123, $footnotes[0]->userId);
+assertEquals(1, $footnotes[0]->rank);
+assertEquals('note', $footnotes[0]->htmlRep);
+
+assertEquals(456, $footnotes[1]->userId);
+assertEquals(2, $footnotes[1]->rank);
+assertEquals('another note', $footnotes[1]->htmlRep);
+
 $data = [
   [
     '@FILLER@ adj. dem. (antepus), art.',

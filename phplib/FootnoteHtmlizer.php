@@ -40,7 +40,7 @@ class FootnoteHtmlizer {
       = Str::htmlize($contents, $this->sourceId, false, $this->errors, $this->warnings);
 
     $f->rank = 1 + count($this->footnotes);
-    array_unshift($this->footnotes, $f);
+    $this->footnotes[] = $f;
 
     // return the replacement
     $result = sprintf('<sup class="footnote" title="%s">[%s]</sup>', $f->htmlRep, $f->rank);

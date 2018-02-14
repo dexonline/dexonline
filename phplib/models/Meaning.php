@@ -194,7 +194,7 @@ class Meaning extends BaseObject implements DatedObject {
       $m->userId = User::getActiveId();
       $m->treeId = $tree->id;
       $m->internalRep = $tuple->internalRep;
-      $m->process(false);
+      $m->process(true);
       $m->save();
       $meaningStack[$tuple->level] = $m->id;
 

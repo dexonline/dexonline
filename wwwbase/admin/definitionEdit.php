@@ -15,22 +15,14 @@ if (!$definitionId) {
   }
 
   // Found one, create the Definition and update the OCR.
-  $ambiguousMatches = [];
-  $sourceId = $ocr->sourceId;
-  $def = Str::sanitize($ocr->ocrText, $sourceId, $errors = null, $ambiguousMatches);
-
   $d = Model::factory('Definition')->create();
   $d->status = Definition::ST_ACTIVE;
   $d->userId = $userId;
-  $d->sourceId = $sourceId;
+  $d->sourceId = $ocr->sourceId;
   $d->similarSource = 0;
   $d->structured = 0;
-  $d->internalRep = $def;
-  $d->htmlRep = Str::htmlize($def, $sourceId);
-  $d->abbrevReview = count($ambiguousMatches)
-                   ? Definition::ABBREV_AMBIGUOUS
-                   : Definition::ABBREV_REVIEW_COMPLETE;
-  $d->extractLexicon();
+  $d->internalRep = $ocr->ocrText;
+  $d->process();
   $d->save();
 
   $ocr->definitionId = $d->id;

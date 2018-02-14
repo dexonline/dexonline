@@ -68,6 +68,11 @@ class Definition extends BaseObject implements DatedObject {
     list($this->htmlRep, $footnotes)
       = Str::htmlize($this->internalRep, $this->sourceId, false, $errors, $warnings);
 
+    // abbrevReview status
+    $this->abbrevReview = count($ambiguousAbbreviations)
+                        ? Definition::ABBREV_AMBIGUOUS
+                        : Definition::ABBREV_REVIEW_COMPLETE;
+
     // lexicon
     $this->extractLexicon();
 

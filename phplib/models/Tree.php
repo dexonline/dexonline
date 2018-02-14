@@ -319,7 +319,7 @@ class Tree extends BaseObject implements DatedObject {
 
       // clone the meaning's sources, relations and tags
       MeaningSource::copy($m->id, $newm->id, 1);
-      
+
       $rels = Relation::get_all_by_meaningId($m->id);
       foreach ($rels as $r) {
         $newr = $r->parisClone();
@@ -370,7 +370,7 @@ class Tree extends BaseObject implements DatedObject {
     foreach ($mentions as $ment) {
       $m = Meaning::get_by_id($ment->meaningId);
       $m->internalRep = str_replace("[[{$this->id}]]", '', $m->internalRep);
-      $m->htmlRep = Str::htmlize($m->internalRep, 0);
+      $m->process(false);
       $m->save();
     }
     Mention::delete_all_by_objectId_objectType($this->id, Mention::TYPE_TREE);

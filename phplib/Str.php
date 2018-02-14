@@ -288,7 +288,9 @@ class Str {
   // Returns an array of
   // - the sanitized string
   // - ambiguous abbreviations encountered
-  static function sanitize($s, $sourceId = null, &$warnings) {
+  static function sanitize($s, $sourceId = null, &$warnings = null) {
+    $warnings = $warnings ?? [];
+
     $s = self::cleanup($s);
     $s = str_replace([ '$$', '@@', '%%' ], '', $s);
 
@@ -440,7 +442,10 @@ class Str {
   // Returns an array of
   // - HTML result
   // - extracted footnotes
-  static function htmlize($s, $sourceId, $obeyNewlines = false, &$errors, &$warnings) {
+  static function htmlize($s, $sourceId, $obeyNewlines = false, &$errors = null, &$warnings = null) {
+    $errors = $errors ?? [];
+    $warnings = $warnings ?? [];
+
     $s = htmlspecialchars($s, ENT_NOQUOTES);
 
     self::findRedundantLinks($s, $warnings);
@@ -744,5 +749,7 @@ class Str {
                             $pl['original_word'], $pl['linked_lexeme'], $pl['reason']);
       }
     }
+
+    return $processedLinks;
   }
 }

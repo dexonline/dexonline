@@ -173,25 +173,12 @@ Log::notice((memory_get_usage() - $startMemory).' bytes used');
 
 function definitionReplace($d, $search, $replace) {
   $d->internalRep = str_replace($search, $replace, $d->internalRep);
-  $ambiguousMatches = [];
-  $errors = null;
-  $d->internalRep = Str::sanitize(
-    $d->internalRep, $d->sourceId, $errors, $ambiguousMatches);
-
-  // complete or un-complete the abbreviation review
-  if (empty($ambiguousMatches)) {
-    $d->abbrevReview = Definition::ABBREV_REVIEW_COMPLETE;
-  } else if (count($ambiguousMatches) &&
-             ($d->abbrevReview == Definition::ABBREV_REVIEW_COMPLETE)) {
-    $d->abbrevReview = Definition::ABBREV_AMBIGUOUS;
-  }
-  $d->htmlRep = Str::htmlize($d->internalRep, $d->sourceId);
+  $d->process(false);
 }
 
 function meaningReplace($m, $search, $replace) {
   $m->internalRep = str_replace($search, $replace, $m->internalRep);
-  $m->internalRep = Str::sanitize($m->internalRep);
-  $m->htmlRep = Str::htmlize($m->internalRep, 0);
+  $m->process(false);
 }
 
 function createDefinitionDiffs($defs, $search, $replace) {
@@ -204,7 +191,7 @@ function createDefinitionDiffs($defs, $search, $replace) {
 
     // getting the diff from $old (internalRep) -> $new
     $diff = DiffUtil::internalDiff($d->internalRep, $new);
-    $d->htmlRep = Str::htmlize($diff, $d->sourceId);
+    list($d->htmlRep, $ignored) = Str::htmlize($diff, $d->sourceId);
   }
   DebugInfo::stopClock('BulkReplace - AfterForEach +MoreToReplace');
 
@@ -215,7 +202,7 @@ function createMeaningDiffs($meanings, $search, $replace) {
   foreach ($meanings as $m) {
     $new = str_replace($search, $replace, $m->internalRep);
     $diff = DiffUtil::internalDiff($m->internalRep, $new);
-    $m->htmlRep = Str::htmlize($diff, 0);
+    list($m->htmlRep, $ignored) = Str::htmlize($diff, 0);
   }
   DebugInfo::stopClock('BulkReplace - created meaning diffs');
 

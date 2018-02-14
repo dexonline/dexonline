@@ -188,9 +188,8 @@ while ($i < count($lines)) {
   $definition->userId = $userId;
   $definition->sourceId = $sourceId;
   $definition->status = $status;
-  $definition->internalRep = Str::sanitize($def, $sourceId);
-  $definition->htmlRep = Str::htmlize($definition->internalRep, $sourceId);
-  $definition->extractLexicon();
+  $definition->internalRep = $def;
+  $definition->process(false);
   $definition->save();
   if($verbose) echo("\tAdded definition {$definition->id} ({$definition->lexicon})\n");
 

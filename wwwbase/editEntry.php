@@ -99,9 +99,9 @@ if ($createTree) {
 if ($deleteTreeId) {
   $t = Tree::get_by_id($deleteTreeId);
   if (!$t) {
-    FlashMessage::add("Arborele cu ID-ul {$deleteTreeId} nu există.", 'danger');    
+    FlashMessage::add("Arborele cu ID-ul {$deleteTreeId} nu există.", 'danger');
   } else if ($t->hasMeanings()) {
-    FlashMessage::add("Arborele cu ID-ul {$deleteTreeId} nu este gol.", 'danger');    
+    FlashMessage::add("Arborele cu ID-ul {$deleteTreeId} nu este gol.", 'danger');
   } else {
     $t->delete();
     FlashMessage::add('Am șters arborele.', 'success');
@@ -201,7 +201,8 @@ $modelTypes = array_unique($modelTypes);
 $definitions = Definition::loadByEntryIds([$e->id]);
 foreach ($definitions as $def) {
   $def->internalRepAbbrev = Abbrev::expandAbbreviations($def->internalRep, $def->sourceId);
-  $def->htmlRepAbbrev = Str::htmlize($def->internalRepAbbrev, $def->sourceId);
+  list($def->htmlRepAbbrev, $ignored)
+    = Str::htmlize($def->internalRepAbbrev, $def->sourceId);
 }
 $searchResults = SearchResult::mapDefinitionArray($definitions);
 

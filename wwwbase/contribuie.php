@@ -14,26 +14,12 @@ if ($sendButton) {
   Session::setSourceCookie($sourceId);
   $ambiguousMatches = [];
 
+  $d->internalRep = $internalRep;
   $d->status = $status;
   $d->userId = User::getActiveId();
   $d->sourceId = $sourceId;
 
-  $errors = [];
-  $d->internalRep = Str::sanitize($internalRep, $sourceId, $errors, $ambiguousMatches);
-  foreach ($errors as $error) {
-    FlashMessage::add($error);
-  }
-
-  $errors = [];
-  $d->htmlRep = Str::htmlize($d->internalRep, $d->sourceId, $errors);
-  foreach ($errors as $error) {
-    FlashMessage::add($error);
-  }
-
-  $d->abbrevReview = count($ambiguousMatches)
-                   ? Definition::ABBREV_AMBIGUOUS
-                   : Definition::ABBREV_REVIEW_COMPLETE;
-  $d->extractLexicon();
+  $d->process();
 
   if (!count($lexemeIds)) {
     FlashMessage::add('Trebuie să introduceți un cuvânt-titlu.');
@@ -64,12 +50,6 @@ if ($sendButton) {
           EntryDefinition::associate($e->id, $d->id);
         }
         Log::notice("Associating definition {$d->id} with lexeme {$lexeme->id} ({$lexeme->form})");
-      }
-    }
-
-    foreach (Str::findRedundantLinks($d->internalRep) as $processedLink) {
-      if ($processedLink["short_reason"] !== "nemodificat") {
-        FlashMessage::add('Legătura de la "' . $processedLink["original_word"] . '" la "' . $processedLink["linked_lexeme"] . '" este considerată redundantă. (Motiv: ' . $processedLink["reason"] . ')', 'warning');
       }
     }
 

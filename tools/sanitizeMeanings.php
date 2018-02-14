@@ -13,11 +13,10 @@ $meanings = Model::factory('Meaning')
           ->find_many();
 
 foreach ($meanings as $i => $m) {
-  $rep = Str::sanitize($m->internalRep);
-  if ($rep != $m->internalRep) {
-    Log::info("Modified\n[%s] into\n[%s]", $m->internalRep, $rep);
-    $m->internalRep = $rep;
-    $m->htmlRep = Str::htmlize($rep, 0);
+  $old = $m->internalRep;
+  $m->process(false);
+  if ($old != $m->internalRep) {
+    Log::info("Modified\n[%s] into\n[%s]", $old, $m->internalRep);
     $m->save();
   }
   if ($i % 10000 == 0) {

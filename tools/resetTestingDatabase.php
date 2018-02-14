@@ -323,7 +323,7 @@ function createDefinition($rep, $lexicon, $userId, $sourceId, $status) {
   $d->sourceId = $sourceId;
   $d->lexicon = $lexicon;
   $d->internalRep = $rep;
-  $d->htmlRep = Str::htmlize($rep, $sourceId);
+  $d->process(false);
   $d->status = $status;
   $d->save();
   return $d;

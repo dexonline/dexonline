@@ -102,7 +102,7 @@ class Abbrev {
   }
 
   // returns an array of
-  // - the modified strings
+  // - the modified string
   // - ambiguous matches encountered
   static function markAbbreviations($s, $sourceId) {
     $ambiguous = [];

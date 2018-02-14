@@ -184,7 +184,8 @@ abbr[title] {
 }
 
 sup.footnote {
-  color: #761818;
+  cursor: help;
+  padding-left: 2px;
 }
 
 .panel-footnotes {

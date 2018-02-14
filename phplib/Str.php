@@ -443,17 +443,24 @@ class Str {
   static function htmlize($s, $sourceId, $obeyNewlines = false, &$errors, &$warnings) {
     $s = htmlspecialchars($s, ENT_NOQUOTES);
 
-    // Htmlize footnotes early, or else they will begin to contain HTML and
-    // we'll end up with literal HTML. Htmlize each footnote separately,
-    // because formatting symbols may (incorrectly) be nested across footnotes.
-    list($s, $footnotes) = self::htmlizeFootnotes($s, $sourceId, $errors, $warnings);
-
     self::findRedundantLinks($s, $warnings);
+
+    // some things, e.g. footnotes, need to return extra information beside modifying $s
+    $payloads = [];
 
     // various internal notations
     // preg_replace supports multiple patterns and replacements, but they may not overlap
-    foreach (Constant::HTML_PATTERNS as $internal => $html) {
-      $s = preg_replace($internal, $html, $s);
+    foreach (Constant::HTML_PATTERNS as $internal => $replacement) {
+      if (is_string($replacement)) {
+        $s = preg_replace($internal, $replacement, $s);
+      } else if (is_array($replacement)) {
+        list ($className, $methodName) = $replacement;
+        $helper = new $className($sourceId, $errors, $warnings);
+        $s = preg_replace_callback($internal, [$helper, $methodName], $s);
+        $payloads[$helper->getKey()] = $helper->getPayload();
+      } else {
+        die('Unknown value type in HTML_PATTERNS.');
+      }
     }
 
     // __emphasized__ text
@@ -480,40 +487,7 @@ class Str {
     // finally, remove the escape character -- we no longer need it
     $s = preg_replace('/(?<!\\\\)\\\\/', '', $s);
 
-    return [$s, $footnotes];
-  }
-
-  // returns an array of
-  // - modified string
-  // - extracted HTML footnotes
-  static function htmlizeFootnotes($s, $sourceId, &$errors, &$warnings) {
-    $footnotes = [];
-    preg_match_all('/\{\{(.*)\}\}/U', $s, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
-    $rank = count($matches);
-
-    foreach (array_reverse($matches) as $m) {
-      // create and htmlize the footnote
-      $contents = $m[1][0];
-      $f = Model::factory('Footnote')->create();
-      $pipePos = strrpos($contents, '/');
-      if ($pipePos !== null) { // sanitize should have done this, but paranoia is good
-        $f->userId = substr($contents, $pipePos + 1);
-        $contents = substr($contents, 0, $pipePos);
-      }
-
-      list($f->htmlRep, $ignored) = self::htmlize($contents, $sourceId, false, $errors, $warnings);
-
-      $f->rank = $rank;
-      array_unshift($footnotes, $f);
-
-      // replace it with a [mark] in the definition
-      $at = $m[0][1];
-      $len = strlen($m[0][0]);
-      $replacement = sprintf('<sup class="footnote">%s</sup>', $rank--);
-      $s = substr_replace($s, $replacement, $at, $len);
-    }
-
-    return [$s, $footnotes];
+    return [$s, $payloads['footnotes']];
   }
 
   // Prepare the string for printing inside an XML document.

@@ -198,7 +198,7 @@ class Abbrev {
             $errors[] = "Abreviere necunoscută: «{$from}».";
           }
         }
-        $hint = Str::htmlize($hint, $sourceId);
+        $hint = htmlspecialchars(Str::htmlize($hint, $sourceId));
         $s = substr_replace($s, "<abbr class=\"abbrev\" data-html=\"true\" title=\"$hint\">$from</abbr>", $position - 1, 2 + strlen($from));
       }
     }

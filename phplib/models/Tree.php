@@ -265,6 +265,16 @@ class Tree extends BaseObject implements DatedObject {
     return $errors;
   }
 
+  function transferRelations($otherId) {
+    if ($otherId) {
+      $relations = Relation::get_all_by_treeId($this->id);
+      foreach ($relations as $r) {
+        $r->treeId = $otherId;
+        $r->save();
+      }
+    }
+  }
+
   function mergeInto($otherId) {
     // Meanings will be renumbered, increasing their displayOrder and breadcrumb values
     $deltaDisplayOrder = Model::factory('Meaning')
@@ -277,11 +287,7 @@ class Tree extends BaseObject implements DatedObject {
 
     TreeEntry::copy($this->id, $otherId, 1);
 
-    $relations = Relation::get_all_by_treeId($this->id);
-    foreach ($relations as $r) {
-      $r->treeId = $otherId;
-      $r->save();
-    }
+    $this->transferRelations($otherId);
 
     $meanings = Meaning::get_all_by_treeId($this->id);
     foreach ($meanings as $m) {
@@ -319,7 +325,7 @@ class Tree extends BaseObject implements DatedObject {
 
       // clone the meaning's sources, relations and tags
       MeaningSource::copy($m->id, $newm->id, 1);
-      
+
       $rels = Relation::get_all_by_meaningId($m->id);
       foreach ($rels as $r) {
         $newr = $r->parisClone();

@@ -9,6 +9,7 @@ class Core {
   private static $AUTOLOAD_PATHS = [
     'phplib',
     'phplib' . DIRECTORY_SEPARATOR . 'models',
+    'phplib' . DIRECTORY_SEPARATOR . 'htmlize',
   ];
 
   static function autoload($className) {

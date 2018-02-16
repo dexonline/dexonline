@@ -7,3 +7,6 @@ alter table Abbreviation
 	change column caseSensitive caseSensitive tinyint(1) not null default '0' after ambiguous;
 alter table Abbreviation
 	add column enforced tinyint(1) not null default '0' after `long`;
+alter table Abbreviation
+	change column `long` internalRep varchar(1000) null default null collate 'utf8_romanian_ci' after short,
+	add column htmlRep varchar(1000) null default null after internalRep;

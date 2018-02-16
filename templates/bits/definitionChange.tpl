@@ -16,6 +16,8 @@
     <div class="panel-body">
       <p>{$c.diff}</p>
     </div>
+
+    {include "bits/footnotes.tpl" footnotes=$c.footnotes}
   {/if}
 
   <ul class="list-group">

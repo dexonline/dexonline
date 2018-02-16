@@ -49,7 +49,8 @@ class DefinitionVersion extends BaseObject {
 
     if ($old->internalRep != $new->internalRep) {
       $diff = DiffUtil::internalDiff($old->internalRep, $new->internalRep);
-      list($result['diff'], $ignored) = Str::htmlize($diff, $new->sourceId);
+      list($result['diff'], $result['footnotes'])
+        = Str::htmlize($diff, $new->sourceId);
     }
 
     return $result;

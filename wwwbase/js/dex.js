@@ -62,6 +62,8 @@ if (typeof jQuery.ui != 'undefined') {
       track: true
     });
 
+    $('sup.footnote').tooltip({ html: true});
+
     $('.mention').hover(mentionHoverIn, mentionHoverOut);
   });
 }

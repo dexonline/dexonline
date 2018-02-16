@@ -34,20 +34,20 @@
           <div class="col-md-10">
             <div>
               <input type="text"
-                     class="form-control"
-                     id="description"
-                     name="description"
-                     value="{$e->description}">
+                class="form-control"
+                id="description"
+                name="description"
+                value="{$e->description}">
               {include "bits/fieldErrors.tpl" errors=$errors.description|default:null}
             </div>
 
             <div id="renameDiv"
-                 class="checkbox {if !$renameTrees}hidden{/if}">
+              class="checkbox {if !$renameTrees}hidden{/if}">
               <label>
                 <input type="checkbox"
-                       name="renameTrees"
-                       value="1"
-                       {if $renameTrees}checked{/if}>
+                  name="renameTrees"
+                  value="1"
+                  {if $renameTrees}checked{/if}>
                 redenumește și arborii la fel
               </label>
             </div>
@@ -60,8 +60,8 @@
           </label>
           <div class="col-md-10">
             {include "bits/structStatusRadio.tpl"
-            selected=$e->structStatus
-            canEdit=$canEdit.structStatus}
+              selected=$e->structStatus
+              canEdit=$canEdit.structStatus}
             {include "bits/fieldErrors.tpl" errors=$errors.structStatus|default:null}
           </div>
         </div>
@@ -75,7 +75,7 @@
               <option value="{Entry::STRUCTURIST_ID_NONE}">niciunul</option>
               {foreach $structurists as $s}
                 <option value="{$s->id}"
-                        {if $s->id == $e->structuristId}selected{/if}>
+                  {if $s->id == $e->structuristId}selected{/if}>
                   {$s->nick} ({$s->name})
                 </option>
               {/foreach}
@@ -129,15 +129,15 @@
 
               <div class="btn-group pull-right">
                 <button id="moveLexemesUp"
-                        type="button"
-                        class="btn btn-default btn-xs"
-                        title="mută toate variantele la principale">
+                  type="button"
+                  class="btn btn-default btn-xs"
+                  title="mută toate variantele la principale">
                   <i class="glyphicon glyphicon-chevron-up"></i>
                 </button>
                 <button id="moveLexemesDown"
-                        type="button"
-                        class="btn btn-default btn-xs"
-                        title="mută toate principalele la variante">
+                  type="button"
+                  class="btn btn-default btn-xs"
+                  title="mută toate principalele la variante">
                   <i class="glyphicon glyphicon-chevron-down"></i>
                 </button>
               </div>
@@ -205,10 +205,10 @@
 
     {if $e->id}
       <a id="wikiLink"
-         href="https://wiki.dexonline.ro/wiki/Intrare:{$e->id}?description={$e->description|escape}"
-         class="btn btn-default"
-         title="creează o pagină wiki pentru această intrare"
-         target="_blank">
+        href="https://wiki.dexonline.ro/wiki/Intrare:{$e->id}?description={$e->description|escape}"
+        class="btn btn-default"
+        title="creează o pagină wiki pentru această intrare"
+        target="_blank">
         <i class="glyphicon glyphicon-comment"></i>
         wiki
       </a>
@@ -232,9 +232,9 @@
       </button>
 
       <button type="submit"
-              class="btn btn-danger"
-              name="deleteExt"
-              title="șterge intrarea, lexemele de tip T și arborii goi">
+        class="btn btn-danger"
+        name="deleteExt"
+        title="șterge intrarea, lexemele de tip T și arborii goi">
         <i class="glyphicon glyphicon-trash"></i>
         <i class="glyphicon glyphicon-trash"></i>
         șterge extins
@@ -383,7 +383,7 @@
               editează
             </a>
             <a href="?id={$e->id}&amp;deleteTreeId={$t->id}"
-               class="btn btn-sm btn-danger {if $t->hasMeanings()}disabled{/if}">
+              class="btn btn-sm btn-danger {if $t->hasMeanings()}disabled{/if}">
               <i class="glyphicon glyphicon-trash"></i>
               șterge
             </a>
@@ -391,8 +391,8 @@
         </div>
         <div class="panel-body">
           {include "bits/editableMeaningTree.tpl"
-          meanings=$t->getMeanings()
-          id="meaningTree-{$t->id}"}
+            meanings=$t->getMeanings()
+            id="meaningTree-{$t->id}"}
         </div>
       </div>
     {/foreach}
@@ -432,9 +432,9 @@
         {foreach $searchResults as $row}
           {$def=$row->definition}
           <div class="defWrapper
-                      {if $def->structured}structured{/if}
-                      {if $row->source->structurable}structurable{/if}"
-               id="def_{$def->id}">
+            {if $def->structured}structured{/if}
+            {if $row->source->structurable}structurable{/if}"
+            id="def_{$def->id}">
             <div>
               <span data-code="0" class="rep internal hiddenRep">{$def->internalRepAbbrev|escape}</span>
               <span data-code="1" class="rep hiddenRep">{$def->htmlRepAbbrev}</span>
@@ -455,11 +455,11 @@
                 {if $row->source->hasPageImages}
                   |
                   <a href="#"
-                     title="arată pagina originală cu această definiție"
-                     data-toggle="modal"
-                     data-target="#pageModal"
-                     data-sourceId="{$def->sourceId}"
-                     data-word="{$def->lexicon|escape}">
+                    title="arată pagina originală cu această definiție"
+                    data-toggle="modal"
+                    data-target="#pageModal"
+                    data-sourceId="{$def->sourceId}"
+                    data-word="{$def->lexicon|escape}">
                     <i class="glyphicon glyphicon-file"></i>
                     arată originalul
                   </a>
@@ -472,13 +472,13 @@
                   selectează
                 </label>
                 | <a href="#" class="toggleRepLink" title="comută între notația internă și HTML"
-                     data-value="1" data-order="1" data-other-text="html">text</a>
+                    data-value="1" data-order="1" data-other-text="html">text</a>
                 | <a href="#" class="toggleRepLink" title="contractează sau expandează abrevierile"
-                     data-value="1" data-order="2" data-other-text="abreviat">expandat</a>
+                    data-value="1" data-order="2" data-other-text="abreviat">expandat</a>
 
                 |
                 <a href="#"
-                   title="comută definiția între structurată și nestructurată"
+                  title="comută definiția între structurată și nestructurată"
                 >
                   <span class="toggleStructuredLink" {if !$def->structured}style="display: none"{/if}>
                     <i class="glyphicon glyphicon-ok"></i> structurată
@@ -491,20 +491,16 @@
 
             </div>
 
-            {if $row->comment}
-              <div class="commentHtmlRep">
-                Comentariu: {$row->comment->htmlContents} -
-                <a href="{$wwwRoot}utilizator/{$row->commentAuthor->nick|escape:"url"}">{$row->commentAuthor->nick|escape}</a>
-              </div>
-            {/if}
+            {include "bits/footnotes.tpl" footnotes=$row->footnotes}
+
           </div>
         {/foreach}
 
         <div>
           <button type="button"
-                  class="btn btn-default"
-                  data-toggle="modal"
-                  data-target="#associateModal">
+            class="btn btn-default"
+            data-toggle="modal"
+            data-target="#associateModal">
             <i class="glyphicon glyphicon-resize-small"></i>
             asociază...
           </button>

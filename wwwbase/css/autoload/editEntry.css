@@ -13,10 +13,3 @@
 .defWrapper .hiddenRep {
   display: none;
 }
-
-.commentHtmlRep {
-  color: #333;
-  margin-left:15px;
-  margin-top: 5px;
-  padding: 5px;
-}

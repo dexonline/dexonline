@@ -15,22 +15,14 @@ if (!$definitionId) {
   }
 
   // Found one, create the Definition and update the OCR.
-  $ambiguousMatches = [];
-  $sourceId = $ocr->sourceId;
-  $def = Str::sanitize($ocr->ocrText, $sourceId, $errors = null, $ambiguousMatches);
-
   $d = Model::factory('Definition')->create();
   $d->status = Definition::ST_ACTIVE;
   $d->userId = $userId;
-  $d->sourceId = $sourceId;
+  $d->sourceId = $ocr->sourceId;
   $d->similarSource = 0;
   $d->structured = 0;
-  $d->internalRep = $def;
-  $d->htmlRep = Str::htmlize($def, $sourceId);
-  $d->abbrevReview = count($ambiguousMatches)
-                   ? Definition::ABBREV_AMBIGUOUS
-                   : Definition::ABBREV_REVIEW_COMPLETE;
-  $d->extractLexicon();
+  $d->internalRep = $ocr->ocrText;
+  $d->process();
   $d->save();
 
   $ocr->definitionId = $d->id;
@@ -59,56 +51,19 @@ $similarSource = Request::has('similarSource');
 $structured = Request::has('structured');
 $internalRep = Request::get('internalRep');
 $status = Request::get('status', null);
-$commentContents = Request::get('commentContents');
-$preserveCommentUser = Request::get('preserveCommentUser');
 $tagIds = Request::getArray('tagIds');
 
 $saveButton = Request::has('saveButton');
 $nextOcrBut = Request::has('but_next_ocr');
 
-$comment = Model::factory('Comment')->where('definitionId', $d->id)->where('status', Definition::ST_ACTIVE)->find_one();
-$commentUser = $comment ? User::get_by_id($comment->userId) : null;
-
 if ($saveButton || $nextOcrBut) {
-  $errors = [];
-  $d->internalRep = Str::sanitize($internalRep, $sourceId, $errors);
-  foreach ($errors as $error) {
-    FlashMessage::add($error, 'warning');
-  }
-
-  $errors = [];
-  $d->htmlRep = Str::htmlize($d->internalRep, $sourceId, $errors);
-  foreach ($errors as $error) {
-    FlashMessage::add($error);
-  }
-
+  $d->internalRep = $internalRep;
   $d->status = (int)$status;
   $d->sourceId = (int)$sourceId;
   $d->similarSource = $similarSource;
   $d->structured = $structured;
-  $d->extractLexicon();
 
-  if ($commentContents) {
-    if (!$comment) {
-      // Comment added
-      $comment = Model::factory('Comment')->create();
-      $comment->status = Definition::ST_ACTIVE;
-      $comment->definitionId = $d->id;
-    }
-    $newContents = Str::sanitize($commentContents, $sourceId);
-    if ($newContents != $comment->contents) {
-      // Comment updated
-      $comment->contents = $newContents;
-      $comment->htmlContents = Str::htmlize($comment->contents, $sourceId);
-      if (!$preserveCommentUser) {
-        $comment->userId = $userId;
-      }
-    }
-  } else if ($comment) {
-    // User wiped out the existing comment, set status to DELETED.
-    $comment->status = Definition::ST_DELETED;
-    $comment->userId = $userId;
-  }
+  $footnotes = $d->process();
 
   if (!FlashMessage::hasErrors()) {
     // Save the new entries, load the rest.
@@ -138,18 +93,14 @@ if ($saveButton || $nextOcrBut) {
                         'warning');
     }
 
-    foreach (Str::findRedundantLinks($d->internalRep) as $processedLink) {
-      if ($processedLink["short_reason"] !== "nemodificat") {
-        FlashMessage::add('Legătura de la "' . $processedLink["original_word"] . '" la "' . $processedLink["linked_lexeme"] . '" este considerată redundantă. (Motiv: ' . $processedLink["reason"] . ')', 'warning');
-      }
-    }
-
     // Save the definition and delete the typos associated with it.
     $d->save();
-    Typo::delete_all_by_definitionId($d->id);
-    if ($comment) {
-      $comment->save();
+    Footnote::delete_all_by_definitionId($d->id);
+    foreach ($footnotes as $f) {
+      $f->definitionId = $d->id;
+      $f->save();
     }
+    Typo::delete_all_by_definitionId($d->id);
 
     if ($d->structured && ($d->internalRep != $orig->internalRep)) {
       FlashMessage::add('Ați modificat o definiție deja structurată. Dacă se poate, ' .
@@ -223,8 +174,6 @@ SmartyWrap::assign('def', $d);
 SmartyWrap::assign('source', $d->getSource());
 SmartyWrap::assign('sim', SimilarRecord::create($d, $entryIds));
 SmartyWrap::assign('user', User::get_by_id($d->userId));
-SmartyWrap::assign('comment', $comment);
-SmartyWrap::assign('commentUser', $commentUser);
 SmartyWrap::assign('entryIds', $entryIds);
 SmartyWrap::assign('tagIds', $tagIds);
 SmartyWrap::assign('typos', $typos);

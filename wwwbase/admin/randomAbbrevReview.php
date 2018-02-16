@@ -1,5 +1,5 @@
 <?php
-require_once("../../phplib/Core.php"); 
+require_once("../../phplib/Core.php");
 User::mustHave(User::PRIV_EDIT);
 Util::assertNotMirror();
 
@@ -18,8 +18,8 @@ if ($saveButton) {
   }
 
   // Collect the positions of ambiguous abbreviations
-  $matches = [];
-  Abbrev::markAbbreviations($def->internalRep, $def->sourceId, $matches);
+  list($def->internalRep, $matches)
+    = Abbrev::markAbbreviations($def->internalRep, $def->sourceId, $matches);
   usort($matches, 'positionCmp');
 
   $s = $def->internalRep;
@@ -31,7 +31,7 @@ if ($saveButton) {
     }
   }
   $def->internalRep = $s;
-  $def->htmlRep = Str::htmlize($def->internalRep, $def->sourceId);
+  $def->process(false);
   $def->abbrevReview = Definition::ABBREV_REVIEW_COMPLETE;
   $def->save();
 }
@@ -46,8 +46,8 @@ if (count($ids)) {
   $def = Definition::get_by_id($defId);
 
   // Collect the positions of ambiguous abbreviations
-  $matches = [];
-  Abbrev::markAbbreviations($def->internalRep, $def->sourceId, $matches);
+  list ($def->internalRep, $matches)
+    = Abbrev::markAbbreviations($def->internalRep, $def->sourceId, $matches);
   usort($matches, 'positionCmp');
 
   // Inject our marker around each ambiguity and htmlize the definition
@@ -55,7 +55,7 @@ if (count($ids)) {
   foreach ($matches as $m) {
     $s = substr($s, 0, $m['position']) . " $MARKER " . substr($s, $m['position'], $m['length']) . " $MARKER " . substr($s, $m['position'] + $m['length']);
   }
-  $s = Str::htmlize($s, $def->sourceId);
+  list($s, $ignored) = Str::htmlize($s, $def->sourceId);
 
   // Split the definition into n ambiguities and n+1 bits of text between the ambiguities
   $text = [];

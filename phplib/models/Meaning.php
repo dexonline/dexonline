@@ -50,6 +50,32 @@ class Meaning extends BaseObject implements DatedObject {
     return $this->tree;
   }
 
+  // Single entry point for sanitize() / htmlize() / etc.
+  // $flash (boolean): if true, set flash messages for errors and warnings
+  // Simpler version of Definition->process()
+  function process($flash = true) {
+    $errors = [];
+    $warnings = [];
+
+    // sanitize
+    list($this->internalRep, $ambiguousAbbreviations)
+      = Str::sanitize($this->internalRep, 0, $warnings);
+
+    // htmlize + footnotes
+    list($this->htmlRep, $footnotes)
+      = Str::htmlize($this->internalRep, 0, false, $errors, $warnings);
+
+    if ($flash) {
+      foreach ($warnings as $warning) {
+        FlashMessage::add($warning, 'warning');
+      }
+
+      foreach ($errors as $error) {
+        FlashMessage::add($error);
+      }
+    }
+  }
+
   /**
    * Returns true iff we should display the relations alongside the htmlRep. This happens when:
    * - htmlRep is empty;
@@ -112,8 +138,8 @@ class Meaning extends BaseObject implements DatedObject {
          : Model::factory('Meaning')->create();
 
       $m->type = $tuple->type;
-      $m->internalRep = Str::sanitize($tuple->internalRep);
-      $m->htmlRep = Str::htmlize($m->internalRep, 0);
+      $m->internalRep = $tuple->internalRep;
+      $m->process(false);
 
       $row['meaning'] = $m;
       $row['sources'] = Source::loadByIds($tuple->sourceIds);
@@ -167,8 +193,8 @@ class Meaning extends BaseObject implements DatedObject {
       $m->breadcrumb = $tuple->breadcrumb;
       $m->userId = User::getActiveId();
       $m->treeId = $tree->id;
-      $m->internalRep = Str::sanitize($tuple->internalRep);
-      $m->htmlRep = Str::htmlize($m->internalRep, 0);
+      $m->internalRep = $tuple->internalRep;
+      $m->process(true);
       $m->save();
       $meaningStack[$tuple->level] = $m->id;
 
@@ -232,7 +258,7 @@ class Meaning extends BaseObject implements DatedObject {
     foreach ($mentions as $ment) {
       $m = Meaning::get_by_id($ment->meaningId);
       $m->internalRep = str_replace("[{$this->id}]", '', $m->internalRep);
-      $m->htmlRep = Str::htmlize($m->internalRep, 0);
+      $m->process(false);
       $m->save();
     }
 

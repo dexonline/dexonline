@@ -43,9 +43,8 @@
 <tr>
 	<td>assertText</td>
 	<td>//main/div/div/div/div</td>
-	<td>× Legătura de la &quot;vibrarea&quot; la &quot;vibra&quot; este considerată redundantă. (Motiv: Trimiterea nu a fost găsită în baza de date.)</td>
+	<td>× Legătura de la &quot;vibrarea&quot; la &quot;vibra&quot; este considerată redundantă (motiv: Trimiterea nu a fost găsită în baza de date.)</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

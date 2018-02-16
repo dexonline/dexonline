@@ -83,6 +83,7 @@ if ($saveButton) {
   if ($errors) {
     FlashMessage::add('Nu pot salva arborele datorită erorilor de mai jos.');
     SmartyWrap::assign('errors', $errors);
+    // TODO fix logic here - individual meanings can give errors too (e.g. due to abbreviations)
     $t->setMeanings(Meaning::convertTree($meanings));
   } else {
     $t->save();
@@ -93,14 +94,6 @@ if ($saveButton) {
     Meaning::saveTree($meanings, $t);
 
     FlashMessage::add('Am salvat arborele.', 'success');
-
-    foreach ($meanings as $m) {
-      foreach (Str::findRedundantLinks($m->internalRep) as $link) {
-        if ($link["short_reason"] !== "nemodificat") {
-          FlashMessage::add('Legătura de la "' . $link["original_word"] . '" la "' . $link["linked_lexeme"] . '" este considerată redundantă. (Motiv: ' . $link["reason"] . ')', 'warning');
-        }
-      }
-    }
 
     Util::redirect("?id={$t->id}");
   }

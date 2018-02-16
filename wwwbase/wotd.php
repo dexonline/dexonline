@@ -33,6 +33,7 @@ if ($type == 'rss' || $type == 'blog') {
 
     SmartyWrap::assign('def', $def);
     SmartyWrap::assign('source', $source);
+    SmartyWrap::assign('reason', $w->description);
     SmartyWrap::assign('imageUrl', $w->getLargeThumbUrl());
     if ($type == 'blog') {
         $curDate = strftime("%e %B", $ts);
@@ -53,7 +54,7 @@ if ($type == 'rss' || $type == 'blog') {
   header("Content-type: application/rss+xml; charset=utf-8");
   SmartyWrap::assign('rss_title', 'Cuvântul zilei');
   SmartyWrap::assign('rss_link', 'http://' . $_SERVER['HTTP_HOST'] . '/cuvantul-zilei/');
-  SmartyWrap::assign('rss_description', 'Doza zilnică de cuvinte de la DEXonline!');
+  SmartyWrap::assign('rss_description', 'Doza zilnică de cuvinte de la dexonline!');
   SmartyWrap::assign('rss_pubDate', date('D, d M Y H:i:s') . ' EEST');
   SmartyWrap::assign('results', $results);
   SmartyWrap::displayWithoutSkin('xml/rss.tpl');
@@ -126,13 +127,13 @@ foreach ($prevWotds as $w) {
     if ($currentYear != $year) {
       $defId = WordOfTheDayRel::getRefId($w->id);
       $def = Definition::get_by_id_status($defId, Definition::ST_ACTIVE);
-      
+
       // removing reason description for newer words in $otherYears
       $dateWotd = new DateTimeImmutable($w->displayDate);
       if ($dateWotd > $maxReasonDate) {
         $w->description = '';
-      } 
-      
+      }
+
       $otherYears[] = [
         'wotd' => $w,
         'word' => $def->lexicon,

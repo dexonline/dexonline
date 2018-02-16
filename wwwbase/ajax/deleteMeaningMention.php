@@ -9,7 +9,7 @@ $mention = Mention::get_by_id($id);
 if ($mention) {
   $m = Meaning::get_by_id($mention->meaningId);
   $m->internalRep = str_replace("[{$mention->objectId}]", '', $m->internalRep);
-  $m->htmlRep = Str::htmlize($m->internalRep, 0);
+  $m->process(false);
   $m->save();
 
   $mention->delete();

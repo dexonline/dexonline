@@ -20,6 +20,7 @@ class Definition extends BaseObject implements DatedObject {
   ];
 
   private $source = null;
+  private $footnotes = null;
 
   /* For admins, returns the definition with the given ID. For regular users,
      return null rather than a hidden definition. */
@@ -40,6 +41,52 @@ class Definition extends BaseObject implements DatedObject {
       $this->source = Source::get_by_id($this->sourceId);
     }
     return $this->source;
+  }
+
+  function getFootnotes() {
+    if ($this->footnotes === null) {
+      $this->footnotes = Model::factory('Footnote')
+                       ->where('definitionId', $this->id)
+                       ->order_by_asc('rank')
+                       ->find_many();
+    }
+    return $this->footnotes;
+  }
+
+  // Single entry point for sanitize() / htmlize() / etc.
+  // $flash (boolean): if true, set flash messages for errors and warnings
+  // Returns an array of footnotes whose ID field is not set.
+  function process($flash = true) {
+    $errors = [];
+    $warnings = [];
+
+    // sanitize
+    list($this->internalRep, $ambiguousAbbreviations)
+      = Str::sanitize($this->internalRep, $this->sourceId, $warnings);
+
+    // htmlize + footnotes
+    list($this->htmlRep, $footnotes)
+      = Str::htmlize($this->internalRep, $this->sourceId, false, $errors, $warnings);
+
+    // abbrevReview status
+    $this->abbrevReview = count($ambiguousAbbreviations)
+                        ? Definition::ABBREV_AMBIGUOUS
+                        : Definition::ABBREV_REVIEW_COMPLETE;
+
+    // lexicon
+    $this->extractLexicon();
+
+    if ($flash) {
+      foreach ($warnings as $warning) {
+        FlashMessage::add($warning, 'warning');
+      }
+
+      foreach ($errors as $error) {
+        FlashMessage::add($error);
+      }
+    }
+
+    return $footnotes;
   }
 
   static function loadByEntryIds($entryIds) {
@@ -386,7 +433,7 @@ class Definition extends BaseObject implements DatedObject {
     // strip some more characters
     $s = preg_replace('/[-:]+$/', '', $s);
     $s = preg_replace('/ [1i]\.$/', '', $s);
-    $s = str_replace(['(', ')', '®', '!', '#'], '', $s);
+    $s = str_replace(['(', ')', '®', '!', '#', '\\'], '', $s);
 
     // if there is only one final dot, strip it
     $s = preg_replace("/^([^.]+)\.$/", '$1', $s);

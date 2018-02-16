@@ -92,27 +92,13 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">conținut</label>
       <div class="col-sm-10">
-        <textarea id="internalRep" name="internalRep" class="form-control" rows="10" autofocus
-                  >{$def->internalRep|escape}</textarea>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="col-sm-2 control-label">
-        comentariu (public)
-      </label>
-
-      <div class="col-sm-10">
-        <textarea id="comment" name="commentContents" class="form-control" rows="3">{if $comment}{$comment->contents|escape}{/if}</textarea>
-
-        {if $commentUser}
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="preserveCommentUser" value="1" checked>
-              Păstrează autorul comentariului original ({$commentUser->nick|escape})
-            </label>
-          </div>
-        {/if}
+        <textarea
+          id="internalRep"
+          name="internalRep"
+          class="form-control tinymceTextarea"
+          rows="10"
+          autofocus
+        >{$def->internalRep|escape}</textarea>
 
         {** These aren't logically connected, but we like them vertically compressed **}
         <div class="checkbox" {if !$sim->source}style="display:none"{/if}>
@@ -197,8 +183,20 @@
     </div>
 
     <div class="panel-footer">
-      <i class="glyphicon glyphicon-comment"></i>
-      <span id="commentPreview">{$comment->htmlContents|default:''}</span>
+      <div class="row">
+        <div class="col-md-1">
+          <i class="glyphicon glyphicon-comment"></i>
+        </div>
+        <ol id="footnotes" class="col-md-11">
+          {foreach $def->getFootnotes() as $f}
+            <li>
+              {$f->htmlRep}
+              &mdash;
+              {include "bits/user.tpl" u=$f->getUser()}
+            </li>
+          {/foreach}
+        </ol>
+      </div>
     </div>
   </div>
 

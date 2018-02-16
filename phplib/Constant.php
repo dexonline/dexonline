@@ -41,7 +41,7 @@ class Constant {
   // will use preg_replace for string values, preg_replace_callback for arrays
   const HTML_PATTERNS = [
     '/(?<!\\\\)"([^"]*)"/' => '„$1”',                              // "x" => „x”
-    '/(?<!\\\\)\{\{(.*)\}\}/U' => ['FootnoteHtmlizer', 'htmlize'], // {{fotnote}}
+    '/(?<!\\\\)\{\{(.*)\}\}/U' => [ 'FootnoteHtmlizer' ],          // {{fotnote}}
     '/(?<!\\\\)%([^%]*)%/' => '<span class="spaced">$1</span>',    // %spaced%
     '/(?<!\\\\)@([^@]*)@/' => '<b>$1</b>',                         // @bold@
     '/(?<!\\\\)\\$([^$]*)\\$/' => '<i>$1</i>',                     // italic

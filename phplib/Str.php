@@ -459,9 +459,9 @@ class Str {
       if (is_string($replacement)) {
         $s = preg_replace($internal, $replacement, $s);
       } else if (is_array($replacement)) {
-        list ($className, $methodName) = $replacement;
+        $className = $replacement[0];
         $helper = new $className($sourceId, $errors, $warnings);
-        $s = preg_replace_callback($internal, [$helper, $methodName], $s);
+        $s = preg_replace_callback($internal, [$helper, 'htmlize'], $s);
         $payloads[$helper->getKey()] = $helper->getPayload();
       } else {
         die('Unknown value type in HTML_PATTERNS.');

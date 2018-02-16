@@ -386,7 +386,7 @@ class Definition extends BaseObject implements DatedObject {
     // strip some more characters
     $s = preg_replace('/[-:]+$/', '', $s);
     $s = preg_replace('/ [1i]\.$/', '', $s);
-    $s = str_replace(['(', ')', '®', '!', '#'], '', $s);
+    $s = str_replace(['(', ')', '®', '!', '#', '\\'], '', $s);
 
     // if there is only one final dot, strip it
     $s = preg_replace("/^([^.]+)\.$/", '$1', $s);

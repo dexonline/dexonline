@@ -70,9 +70,10 @@ class Constant {
 
     // will use preg_replace for string values, preg_replace_callback for arrays
   const HTML_ABBREV_PATTERNS = [
-    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                              // "x" => „x”
+    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                               // "x" => „x”
     '/(?<!\\\\)@([^@]*)@/' => '<b>$1</b>',                         // @bold@
-    '/(?<!\\\\)\\$([^$]*)\\$/' => '<i>$1</i>',                     // italic
+    '/(?<!\\\\)\\$([^$]*)\\$/' => '<i>$1</i>',                     // $italic$
+    '/(?<!\\\\)\\%([^$]*)\\%/' => '$1',                            // %spaced%
     '/(?<!\\\\)\^(\d)/' => '<sup>$1</sup>',                        // superscript ^123
     '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                 // superscript ^{a b c}
     '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                         // subscript _123

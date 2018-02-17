@@ -53,7 +53,7 @@
           </div>
 
           <p class="text-muted">
-            Fișierul sursă trebuie să aibă pe primul rând capul de tabel <b>enforced|ambiguous|caseSensitive|short|long</b>, iar pe celelate rânduri 5(cinci) câmpuri delimitate, conform explicațiilor: </br>
+            Fișierul sursă trebuie să aibă pe primul rând capul de tabel <b>enforced|ambiguous|caseSensitive|short|internalRep</b>, iar pe celelate rânduri 5(cinci) câmpuri delimitate, conform explicațiilor: </br>
           <ol> 
             <li> abreviere impusă - nu ia în considerare forma editată și impune forma din câmpul short - <i>valoare booleană 0/1</i></li>
             <li> abreviere ambiguă - <i>valoare booleană 0/1</i></li>
@@ -103,7 +103,7 @@
                 <td><span class="ambiguous">{$v.ambiguous}</span></td>
                 <td><span class="caseSensitive">{$v.caseSensitive}</td>
                 <td><span class="short">{$v.short}</span></td>
-                <td><span class="long">{$v.long}</span></td>
+                <td><span class="internalRep">{$v.internalRep}</span></td>
               </tr>
             {/foreach}
           </tbody>

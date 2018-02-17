@@ -461,6 +461,10 @@ class Str {
     // some things, e.g. footnotes, need to return extra information beside modifying $s
     $payloads = [];
 
+    // abbrevs must be htmlized before the definition body, as they may contain html
+    // and pure matching sequence will brake
+    $s = Abbrev::htmlizeAbbreviations($s, $sourceId, $errors);
+    
     // various internal notations
     // preg_replace supports multiple patterns and replacements, but they may not overlap
     foreach (Constant::HTML_PATTERNS as $internal => $replacement) {
@@ -489,13 +493,11 @@ class Str {
     if ($obeyNewlines) {
       $s = str_replace("\n", "<br>\n", $s);
     }
-
+    
     // various substitutions
     $from = array_keys(Constant::HTML_REPLACEMENTS);
     $to = array_values(Constant::HTML_REPLACEMENTS);
     $s = str_replace($from, $to, $s);
-
-    $s = Abbrev::htmlizeAbbreviations($s, $sourceId, $errors);
 
     // finally, remove the escape character -- we no longer need it
     $s = preg_replace('/(?<!\\\\)\\\\/', '', $s);

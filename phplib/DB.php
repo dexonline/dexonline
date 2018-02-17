@@ -60,8 +60,10 @@ class DB {
 
   static function executeSqlFile($filename, $database = null) {
     $database = $database ?? self::$database;
-
-    $command = sprintf("cat {$filename} | mysql -u %s %s %s",
+    
+    $cat = System::getCatCommand();
+    $filename = System::getCorrectPath($filename);
+    $command = sprintf("{$cat} {$filename} | mysql -u %s %s %s",
                        self::$user,
                        $database,
                        self::$password ? ("-p" . self::$password) : '');

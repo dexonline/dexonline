@@ -1,5 +1,9 @@
 <?php
 
+//function exception_error_handler($severity, $message, $file, $line) {
+//    throw new ErrorException($message, 0, $severity, $file, $line);
+//}
+//set_error_handler("exception_error_handler");
 /**
  * String manipulation functions related to abbreviations.
  * */
@@ -58,11 +62,8 @@ class Abbrev {
         foreach ($results as $abbrev) {
           $numWords = 1 + substr_count($abbrev['short'], ' ');
 
-          // maybe there's no need for manually escaping dot - it will be done later with preg_quote
-          $regexp = str_replace([' '], [' *'], $abbrev['short']);
-
-          // must escape main capturing group $regexp as it may containg regexp syntax!!
-          $regexp = preg_quote($regexp);
+          // must escape main capturing group $regexp as it may containg PCRE regexp syntax!!
+          $regexp = preg_quote($abbrev['short'], "/");
 
           if ($abbrev['caseSensitive'] != '1') {
             $matches = [];
@@ -70,10 +71,7 @@ class Abbrev {
 
             if (!Str::isAllUppercase($regexp)) {
               if (!empty($matches)) { // first letter of abbrev will become [Xx] -> geol. will match [Gg]eol.
-                $regexp = sprintf('%s[%s]%s', 
-                  mb_substr($regexp, 0, $matches[0][1]), 
-                  Str::getUpperLowerString($matches[0][0]), 
-                  mb_substr($regexp, $matches[0][1] + 1));
+                $regexp = sprintf('%s[%s]%s', mb_substr($regexp, 0, $matches[0][1]), Str::getUpperLowerString($matches[0][0]), mb_substr($regexp, $matches[0][1] + 1));
               }
             }
           }
@@ -82,7 +80,7 @@ class Abbrev {
 
           $abbrevs[$abbrev['short']] = [
             'id' => $abbrev['id'],
-            'to' => $abbrev['long'],
+            'to' => $abbrev['internalRep'],
             'enforced' => $abbrev['enforced'] == '1',
             'ambiguous' => $abbrev['ambiguous'] == '1',
             'caseSensitive' => $abbrev['caseSensitive'] == '1',
@@ -108,8 +106,8 @@ class Abbrev {
     }
   }
 
-  static function markAbbreviations($s, $sourceId, &$ambiguousMatches = null) {
-
+  static function markAbbreviations($s, $sourceId) {
+    $ambiguous = [];
     $abbrevs = self::loadAbbreviations($sourceId);
     $hashMap = self::constructHashMap($s);
     // Do not report two ambiguities at the same position, for example M. and m.
@@ -119,6 +117,7 @@ class Abbrev {
       // Perform a case-sensitive match if the pattern contains any uppercase, case-insensitive otherwise
       $regexp = sprintf('/%s/u', $tuple['regexp']);
       preg_match_all($regexp, $s, $matches, PREG_OFFSET_CAPTURE);
+
       if (count($matches[1])) {
         foreach (array_reverse($matches[1]) as $match) {
           $orig = $match[0];
@@ -198,7 +197,7 @@ class Abbrev {
             $errors[] = "Abreviere necunoscută: «{$from}».";
           }
         }
-        $hint = htmlspecialchars(Str::htmlize($hint, $sourceId));
+        //$hint = Str::htmlize($hint, $sourceId);
         $s = substr_replace($s, "<abbr class=\"abbrev\" data-html=\"true\" title=\"$hint\">$from</abbr>", $position - 1, 2 + strlen($from));
       }
     }

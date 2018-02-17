@@ -48,7 +48,11 @@ if ($saveButton) {
       $abbrev->ambiguous = $row['ambiguous'];
       $abbrev->caseSensitive = $row['caseSensitive'];
       $abbrev->short = trim($row['short']);
-      $abbrev->long = trim($row['long']);
+      $abbrev->internalRep = trim($row['internalRep']);
+      
+      $htmlRep = Str::htmlize(trim($row['internalRep']), $sourceId);
+      
+      $abbrev->htmlRep = $htmlRep[0];
       $abbrev->modUserId = $userId;
 
       try {

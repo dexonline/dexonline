@@ -35,12 +35,14 @@ class Constant {
     // Replace the ordinal indicator with the degree sign.
     '/(?<!\\\\)º/'   =>  '°',    /* U+00BA => U+00B0 */
 
+    // romanian quoting style
+    '/(?<!\\\\)"([^"]*)"/' => '„$1”',/* "x" => „x” */
+
     "/(?<!\\\\)\r\n/" => "\n"    /* Unix newlines only */
   ];
 
   // will use preg_replace for string values, preg_replace_callback for arrays
   const HTML_PATTERNS = [
-    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                              // "x" => „x”
     '/(?<!\\\\)\{\{(.*)\}\}/U' => ['FootnoteHtmlizer', 'htmlize'], // {{fotnote}}
     '/(?<!\\\\)%([^%]*)%/' => '<span class="spaced">$1</span>',    // %spaced%
     '/(?<!\\\\)@([^@]*)@/' => '<b>$1</b>',                         // @bold@
@@ -66,6 +68,17 @@ class Constant {
     'class="mention" title="$2">$1</span>',
   ];
 
+    // will use preg_replace for string values, preg_replace_callback for arrays
+  const HTML_ABBREV_PATTERNS = [
+    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                              // "x" => „x”
+    '/(?<!\\\\)@([^@]*)@/' => '<b>$1</b>',                         // @bold@
+    '/(?<!\\\\)\\$([^$]*)\\$/' => '<i>$1</i>',                     // italic
+    '/(?<!\\\\)\^(\d)/' => '<sup>$1</sup>',                        // superscript ^123
+    '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                 // superscript ^{a b c}
+    '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                         // subscript _123
+    '/(?<!\\\\)_\{([^}]*)\}/' => '<sub>$1</sub>',                  // superscript _{a b c}
+  ];
+  
   const HTML_REPLACEMENTS = [
     ' - '  => ' – ',  /* U+2013 */
     ' ** ' => ' ♦ ',  /* U+2666 */

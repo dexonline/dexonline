@@ -124,17 +124,31 @@ assertTransform('Str::htmlize', [ 0 ], [
   ],
 
   // mentions
-  'măr pară[[12345]] prună' =>
+  'măr pară[[1234567890]] prună' =>
   [
     'măr <span data-toggle="popover" data-html="true" data-placement="auto right" ' .
-    'class="treeMention" title="12345">pară</span> prună',
+    'class="treeMention" title="1234567890">pară</span> prună',
     [],
   ],
 
-  'măr pară[12345*] prună' =>
+  'măr pară[1234567890] prună' =>
   [
     'măr <span data-toggle="popover" data-html="true" data-placement="auto right" ' .
-    'class="mention" title="12345">pară</span> prună',
+    'class="mention" title="1234567890">pară (<b>?</b>)</span> prună',
+    [],
+  ],
+
+  'măr pară[1234567890*] prună' =>
+  [
+    'măr <span data-toggle="popover" data-html="true" data-placement="auto right" ' .
+    'class="mention" title="1234567890">pară</span> prună',
+    [],
+  ],
+
+  'măr pară[1234567890**] prună' =>
+  [
+    'măr <span data-toggle="popover" data-html="true" data-placement="auto right" ' .
+    'class="mention" title="1234567890">(<b>?</b>)</span> prună',
     [],
   ],
 

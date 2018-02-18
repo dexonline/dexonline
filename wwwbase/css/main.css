@@ -189,12 +189,14 @@ sup.footnote {
 }
 
 .panel-footnotes {
-  margin-top: 20px;
+  color: #444;
+  font-size: 85%;
   margin-left: 30px;
+  margin-top: 20px;
 }
 
 .panel-footnotes .panel-body {
-  padding: 0px 15px 15px;
+  padding: 0px 15px 5px;
 }
 
 .panel-footnotes:before {

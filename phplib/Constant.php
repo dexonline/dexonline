@@ -60,7 +60,7 @@ class Constant {
     '<span data-toggle="popover" data-html="true" data-placement="auto right" ' .
     'class="treeMention" title="$2">$1</span>',
 
-    '/([-a-zăâîșț]+)\[([0-9]+)\]/i' => [ 'MentionHtmlizer' ],      // meaning mentions
+    '/([-a-zăâîșț]+)\[([0-9]+)(\*{0,2})\]/i' => [ 'MentionHtmlizer' ],      // meaning mentions
   ];
 
   const HTML_REPLACEMENTS = [

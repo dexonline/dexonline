@@ -3,20 +3,37 @@
 require_once __DIR__ . '/../phplib/Core.php';
 assert_options(ASSERT_BAIL, 1);
 
-function assertEquals($expected, $actual) {
-  if ($expected != $actual) {
-    print "Assertion failed.\n";
-    print "  expected [$expected]\n";
-    print "  actual   [$actual]\n";
-    debug_print_backtrace();
-    exit;
-  }
+function fail($message) {
+  print "$message\n";
+  debug_print_backtrace();
+  exit;
 }
 
-function assertEqualArrays($expected, $actual) {
-  assertEquals(count($expected), count($actual));
-  foreach ($expected as $key => $value) {
-    assertEquals($value, $actual[$key]);
+function assertEquals($expected, $actual) {
+  if (is_array($expected) ^ is_array($actual)) {
+    fail("Only one argument is of type array.");
+  }
+
+  if (is_array($expected)) {
+    if (count($expected) != count($actual)) {
+      fail("Different array lengths.");
+    }
+
+    foreach ($expected as $key => $value) {
+      if (!isset($actual[$key])) {
+        fail("Missing key [{$key}] from actual results.");
+      }
+      assertEquals($value, $actual[$key]);
+    }
+  } else {
+    // scalar comparison
+    if ($expected != $actual) {
+      print "Assertion failed.\n";
+      print "  expected [$expected]\n";
+      print "  actual   [$actual]\n";
+      debug_print_backtrace();
+      exit;
+    }
   }
 }
 
@@ -307,7 +324,7 @@ $data = [
 foreach ($data as list($before, $after, $sourceId, $ambiguous)) {
   list($actual, $matches) = Abbrev::markAbbreviations($before, $sourceId);
   assertEquals($after, $actual);
-  assertEqualArrays($ambiguous, $matches);
+  assertEquals($ambiguous, $matches);
 }
 
 assertEquals(
@@ -320,7 +337,7 @@ $errors = [];
 assertEquals(
   ["FOO <abbr class=\"abbrev\" title=\"abreviere necunoscută\">brrb. ghhg.</abbr> BAR", []],
   Str::htmlize("FOO #brrb. ghhg.# BAR", 1, false, $errors));
-assertEqualArrays(
+assertEquals(
   ['Abreviere necunoscută: «brrb. ghhg.». Verificați că după fiecare punct există un spațiu.'],
   $errors);
 
@@ -328,7 +345,7 @@ $internalRep = '@M\'ARE^2,@ $mări,$ #s. f.# Nume generic dat vastelor întinder
 list ($actualRep, $ambiguous) =
   Str::sanitize('@M\'ARE^2@, $mări$, s. f. Nume generic dat vastelor întinderi de apă stătătoare, adânci și sărate, de pe suprafața |Pământului|Pământ|, care de obicei sunt unite cu oceanul printr-o strâmtoare; parte a oceanului de lângă țărm; $p.ext.$ ocean. * Expr. $Marea cu sarea$ = mult, totul; imposibilul. $A vântura mări și țări$ = a călători mult. $A încerca marea cu degetul$ = a face o încercare, chiar dacă șansele de reușită sunt minime. $Peste (nouă) mări și (nouă) țări$ = foarte departe. ** Fig. Suprafață vastă; întindere mare; imensitate. ** Fig. Mulțime (nesfârșită), cantitate foarte mare. - Lat. @mare, -is@.', 1);
 assertEquals($internalRep, $actualRep);
-assertEqualArrays([
+assertEquals([
   0 => [
     'abbrev' => 'lat.',
     'position' => 650,
@@ -361,7 +378,7 @@ $data = [
 foreach ($data as $s => $errors) {
   $e = [];
   Str::reportSanitizationErrors($s, $e);
-  assertEqualArrays($errors, $e);
+  assertEquals($errors, $e);
 }
 
 // Test various capitalization combos with abbreviations
@@ -447,7 +464,7 @@ $data = [
 foreach ($data as list($raw, $internal, $html, $sourceId)) {
   list($s, $ambiguous) = Abbrev::markAbbreviations($raw, $sourceId);
   assertEquals($internal, $s);
-  assertEqualArrays([], $ambiguous);
+  assertEquals([], $ambiguous);
 
   list ($s, $ignored) = Str::htmlize($internal, $sourceId, $errors);
   assertEquals($html, $s);
@@ -733,8 +750,8 @@ assertEquals('ăâîșț   ', Str::padRight('ăâîșț', 8));
 assertEquals('ăâîșț', Str::padRight('ăâîșț', 5));
 assertEquals('ăâîșț', Str::padRight('ăâîșț', 3));
 
-assertEqualArrays(['c', 'a', 'r'], Str::unicodeExplode('car'));
-assertEqualArrays(['ă', 'a', 'â', 'ș', 'ț'], Str::unicodeExplode('ăaâșț'));
+assertEquals(['c', 'a', 'r'], Str::unicodeExplode('car'));
+assertEquals(['ă', 'a', 'â', 'ș', 'ț'], Str::unicodeExplode('ăaâșț'));
 
 $orth = [
   'pîine' => 'pâine',
@@ -754,12 +771,12 @@ foreach ($orth as $old => $new) {
   assertEquals(mb_strtoupper($new), Str::convertOrthography(mb_strtoupper($old)));
 }
 
-assertEqualArrays([1, 5, 10],
-                  Util::intersectArrays([1, 3, 5, 7, 9, 10],
-                                        [1, 2, 4, 5, 6, 8, 10]));
-assertEqualArrays([],
-                  Util::intersectArrays([2, 4, 6, 8],
-                                        [1, 3, 5, 7]));
+assertEquals([1, 5, 10],
+             Util::intersectArrays([1, 3, 5, 7, 9, 10],
+                                   [1, 2, 4, 5, 6, 8, 10]));
+assertEquals([],
+             Util::intersectArrays([2, 4, 6, 8],
+                                   [1, 3, 5, 7]));
 
 assert(!Lock::release('test'));
 assert(!Lock::exists('test'));

@@ -262,7 +262,7 @@ if ($searchType == SEARCH_INFLECTED) {
       // multiple entries, then redirect to the specific entry.
       $candidates = Entry::searchInflectedForms($l->formNoAccent, true, false);
       if (count($candidates) == 1) {
-        $sourcePart = $source ? "-{$source->urlName}" : '';		
+        $sourcePart = $source ? "-{$source->urlName}" : '';
         Util::redirect(sprintf('%sdefinitie%s/%s%s',
                                Core::getWwwRoot(),
                                $sourcePart,
@@ -299,6 +299,8 @@ if (SPOOF_ENABLED && $cuv_spoofed) {
 // Filter out hidden definitions
 list($extra['unofficialHidden'], $extra['sourcesHidden'])
   = SearchResult::filter($results);
+
+$extra['numResults'] = count($results) ?: count($entries) ?: count($lexemes);
 
 // Keep only a maximum number of definitions
 $defLimit = $SEARCH_PARAMS[$searchType]['defLimit'];

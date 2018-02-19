@@ -23,7 +23,7 @@
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" {if !$showParadigm}class="active"{/if}>
       <a href="#resultsTab" aria-controls="resultsTab" role="tab" data-toggle="tab">
-        rezultate
+        rezultate ({$extra.numResults})
       </a>
     </li>
 
@@ -38,7 +38,7 @@
     {if count($trees)}
       <li role="presentation">
         <a href="#treeTab" aria-controls="treeTab" role="tab" data-toggle="tab">
-          sinteză
+          sinteză ({count($trees)})
         </a>
       </li>
     {/if}

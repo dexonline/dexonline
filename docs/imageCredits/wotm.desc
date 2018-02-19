@@ -4,11 +4,12 @@
 # Liniile sunt procesate de sus în jos până când un regex se potrivește cu o dată.
 # Este afișat creditul înregistrării WotdArtist cu eticheta respectivă.
 
-^201[6-8]::rb
+^2018-01::
 ^2017-05::ramona@miolk
 ^2016-12::cn
-^2016-02::andrea.homorodean
 ^2016-03::
+^2016-02::andrea.homorodean
+^2016-::rb
 ^2014-02::delacroix
 ^2012-(04|07|08)::va
 ^2013-07::rb

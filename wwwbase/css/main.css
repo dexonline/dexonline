@@ -203,14 +203,15 @@ sup.footnote {
 
 .panel-footnotes:before {
   background-color: #FFF;
-  box-shadow: -4px 2px 2px 0 #ddd;
+  border-left: 1px solid #ddd;
+  border-top: 1px solid #ddd;
   content: "\00a0";
   display: block;
   height: 20px;
   left: 20px;
   position: relative;
-  top: -6px;
-  transform: rotate( 135deg );
+  top: -11px;
+  transform: rotate(45deg);
   width: 20px;
 }
 

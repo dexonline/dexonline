@@ -26,16 +26,19 @@ class Constant {
     '/(?<!\\\\)“/'   => '"',     /* U+201C */
     '/(?<!\\\\)‟/'   => '"',     /* U+201F */
 
-    // Replace all kinds of single quotes and acute accents with the ASCII apostrophe.
-    // Do NOT alter ′ (prime, 0x2032), which is used for foot and minute symbols.
-    '/(?<!\\\\)´/'   => "'",     /* U+00B4 */
-    '/(?<!\\\\)‘/'   => "'",     /* U+2018 */
-    '/(?<!\\\\)’/'   => "'",     /* U+2019 */
-
     // Replace the ordinal indicator with the degree sign.
     '/(?<!\\\\)º/'   =>  '°',    /* U+00BA => U+00B0 */
 
     "/(?<!\\\\)\r\n/" => "\n"    /* Unix newlines only */
+  ];
+
+  const APOSTROPHE_CLEANUP_PATTERNS = [
+    // Replace all kinds of single quotes and acute accents with the ASCII apostrophe.
+    // Do NOT alter ′ (prime, 0x2032), which is used for foot and minute symbols.
+    // Apostrophes are different from other patterns because they double as accent indicators.
+    '/(?<!\\\\)´/'   => "'",     /* U+00B4 */
+    '/(?<!\\\\)‘/'   => "'",     /* U+2018 */
+    '/(?<!\\\\)’/'   => "'",     /* U+2019 */
   ];
 
   // will use preg_replace for string values, preg_replace_callback for arrays

@@ -52,7 +52,7 @@ $SEARCH_PARAMS = [
   SEARCH_FULL_TEXT => $DEFAULT_SEARCH_PARAMS,
 ];
 
-$cuv = Request::get('cuv');
+$cuv = Request::getWithApostrophes('cuv');
 $entryId = Request::get('entryId');
 $lexemeId = Request::get('lexemeId');
 $defId = Request::get('defId');

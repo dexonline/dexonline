@@ -16,11 +16,11 @@ $footnotes = $d->process(false);
 
 $sim = SimilarRecord::create($d, $entryIds);
 
+SmartyWrap::assign('footnotes', $footnotes);
+$footnoteHtml = SmartyWrap::fetch('bits/footnotes.tpl');
+
 $data = $sim->getJsonFriendly();
 $data['htmlRep'] = $d->htmlRep;
-$data['footnotes'] = [];
-foreach ($footnotes as $f) {
-  $data['footnotes'][] = $f->htmlRep;
-}
+$data['footnoteHtml'] = $footnoteHtml;
 
 print json_encode($data);

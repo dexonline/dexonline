@@ -181,23 +181,10 @@
     <div class="panel-body">
       <p class="def" id="defPreview">{$def->htmlRep}</p>
     </div>
+  </div>
 
-    <div class="panel-footer">
-      <div class="row">
-        <div class="col-md-1">
-          <i class="glyphicon glyphicon-comment"></i>
-        </div>
-        <ol id="footnotes" class="col-md-11">
-          {foreach $def->getFootnotes() as $f}
-            <li>
-              {$f->htmlRep}
-              &mdash;
-              {include "bits/user.tpl" u=$f->getUser()}
-            </li>
-          {/foreach}
-        </ol>
-      </div>
-    </div>
+  <div id="footnotes">
+    {include "bits/footnotes.tpl" footnotes=$def->getFootnotes()}
   </div>
 
   <pre id="similarRecord">{$sim->getJson()|escape}</pre>

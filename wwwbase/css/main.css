@@ -185,6 +185,8 @@ abbr[title] {
 
 sup.footnote {
   cursor: auto;
+  font-style: normal; /* do not inherit bold/italic */
+  font-weight: normal;
   padding-left: 2px;
 }
 

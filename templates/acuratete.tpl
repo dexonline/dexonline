@@ -75,6 +75,20 @@
         </div>
 
         <div class="form-group">
+          <label for="f_length" class="col-sm-3 control-label">lungime</label>
+          <div class="col-sm-9">
+            <input type="text"
+              id="f_length"
+              class="form-control"
+              name="length"
+              value="{$length}">
+            <div class="text-muted">
+              lungimea totală a definițiilor pe care doriți să le evaluați
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
           <label for="sourceDropDown" class="col-sm-3 control-label">sursă (opțional)</label>
           <div class="col-sm-9">
             {include "bits/sourceDropDown.tpl" name="sourceId" sourceId=$p->sourceId}

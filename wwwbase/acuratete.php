@@ -4,7 +4,7 @@ User::mustHave(User::PRIV_EDIT | User::PRIV_ADMIN);
 
 $includePublic = Request::has('includePublic');
 $submitButton = Request::has('submitButton');
-$id = Request::get('id');
+$length = Request::get('length');
 
 $user = User::getActive();
 
@@ -53,6 +53,7 @@ foreach ($aps as $ap) {
 
 SmartyWrap::assign('projects', $projects);
 SmartyWrap::assign('p', $p);
+SmartyWrap::assign('length', $length);
 SmartyWrap::assign('includePublic', $includePublic);
 SmartyWrap::addCss('admin', 'tablesorter');
 SmartyWrap::addJs('select2Dev', 'tablesorter');

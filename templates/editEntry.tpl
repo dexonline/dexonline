@@ -444,6 +444,9 @@
                 {include "bits/tag.tpl"}
               {/foreach}
             </div>
+
+            {include "bits/footnotes.tpl" footnotes=$row->footnotes}
+
             <div class="defDetails text-muted row">
 
               <div class="col-xs-6">
@@ -490,8 +493,6 @@
               </div>
 
             </div>
-
-            {include "bits/footnotes.tpl" footnotes=$row->footnotes}
 
           </div>
         {/foreach}

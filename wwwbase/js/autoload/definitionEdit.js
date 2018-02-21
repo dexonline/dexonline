@@ -89,12 +89,8 @@ $(function() {
     if (typeof data.htmlRep != 'undefined') {
       $('#defPreview').html(data.htmlRep);
     }
-    if (typeof data.footnotes != 'undefined') {
-      $('#footnotes').empty();
-      for (var i in data.footnotes) {
-        var li = $('<li/>').html(data.footnotes[i]);
-        li.appendTo($('#footnotes'));
-      }
+    if (typeof data.footnoteHtml != 'undefined') {
+      $('#footnotes').html(data.footnoteHtml);
     }
   }
 

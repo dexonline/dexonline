@@ -6,19 +6,20 @@
 class Request {
 
   /* Cleans up a request parameter recursively. */
-  static function cleanup($x) {
+  /* $apostrpohes: if true, clean them up. If false, leave them untouched. */
+  static function cleanup($x, $apostrophes = true) {
     if (is_string($x)) {
-      return Str::cleanup($x);
+      return Str::cleanup($x, $apostrophes);
     } else if (is_array($x)) {
       $result = [];
       foreach ($x as $key => $value) {
-        $result[$key] = self::cleanup($value);
+        $result[$key] = self::cleanup($value, $apostrophes);
       }
       return $result;
     } else if (is_object($x)) { // for example, JSON decodes as objects
       $result = new stdClass();
       foreach ($x as $key => $value) {
-        $result->$key = self::cleanup($value);
+        $result->$key = self::cleanup($value, $apostrophes);
       }
       return $result;
     } else {
@@ -32,6 +33,15 @@ class Request {
       return $default;
     } else {
       return self::cleanup($_REQUEST[$name]);
+    }
+  }
+
+  /* Same, but leaves apostrophes untouched. */
+  static function getWithApostrophes($name, $default = null) {
+    if (!array_key_exists($name, $_REQUEST)) {
+      return $default;
+    } else {
+      return self::cleanup($_REQUEST[$name], false);
     }
   }
 

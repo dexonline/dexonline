@@ -136,7 +136,7 @@ class Str {
     $query = mb_substr($query, 0, 40);   // put a hard limit on query length
     $query = str_replace(
       ['"', "'", 'ấ', 'Ấ', 'î́', 'Î́'],
-      ["", "", 'â', 'Â', 'î', 'Î'],
+      ['', '', 'â', 'Â', 'î', 'Î'],
       $query);
     if (self::startsWith($query, 'a se ')) {
       $query = substr($query, 5);
@@ -275,12 +275,18 @@ class Str {
   }
 
   // Generic purpose cleanup of a string. This should be true of all columns of all tables.
-  static function cleanup($s) {
+  static function cleanup($s, $apostrophes = true) {
     $s = trim($s);
 
     $from = array_keys(Constant::CLEANUP_PATTERNS);
     $to = array_values(Constant::CLEANUP_PATTERNS);
     $s = preg_replace($from, $to, $s);
+
+    if ($apostrophes) {
+      $from = array_keys(Constant::APOSTROPHE_CLEANUP_PATTERNS);
+      $to = array_values(Constant::APOSTROPHE_CLEANUP_PATTERNS);
+      $s = preg_replace($from, $to, $s);
+    }
 
     // Replace \abcd with the Unicode character 0xABCD
     $s = preg_replace_callback(
@@ -470,9 +476,9 @@ class Str {
       if (is_string($replacement)) {
         $s = preg_replace($internal, $replacement, $s);
       } else if (is_array($replacement)) {
-        list ($className, $methodName) = $replacement;
+        $className = $replacement[0];
         $helper = new $className($sourceId, $errors, $warnings);
-        $s = preg_replace_callback($internal, [$helper, $methodName], $s);
+        $s = preg_replace_callback($internal, [$helper, 'htmlize'], $s);
         $payloads[$helper->getKey()] = $helper->getPayload();
       } else {
         die('Unknown value type in HTML_PATTERNS.');

@@ -3,19 +3,8 @@
 /**
  * Helper class used to accumulate footnotes as we htmlize a string.
  * */
-class AbbrevHtmlizer {
-
-  private $sourceId;
-  private $ambiguous;
-  private $errors;
-  private $warnings;
-
-  function __construct($sourceId, &$errors, &$warnings) {
-    $this->sourceId = $sourceId;
-    $this->errors = &$errors;
-    $this->warnings = &$warnings;
-    $this->ambiguous = [];
-  }
+class AbbrevHtmlizer extends Htmlizer{
+  private $ambiguous = [];
 
   function getKey() {
     return 'abbrevs';

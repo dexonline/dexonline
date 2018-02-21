@@ -29,7 +29,7 @@ class NGram extends BaseObject {
   static function searchNGram($cuv) {
     $cuv = self::canonicalize($cuv);
     $leng = mb_strlen($cuv);
-    
+
     $hash = NGram::searchLexemeIds($cuv);
     if (empty($hash)) {
       return [];
@@ -69,16 +69,21 @@ class NGram extends BaseObject {
 
     return $entries;
   }
-  
+
   /* Find lexemes with at least 50% matching n-grams */
   static function searchLexemeIds($cuv) {
     $ngramList = self::split($cuv);
     $hash = [];
     foreach ($ngramList as $i => $ngram) {
-      $lexemeIdList = DB::getArray(sprintf("select lexemeId from NGram where ngram = '%s' and pos between %d and %d",
-                                         $ngram, $i - self::$MAX_MOVE, $i + self::$MAX_MOVE));
-      $lexemeIdList = array_unique($lexemeIdList);
-      foreach($lexemeIdList as $lexemeId) {
+      $lexemeIds = Model::factory('NGram')
+                 ->select('lexemeId')
+                 ->distinct()
+                 ->where('ngram', $ngram)
+                 ->where_raw('pos between ? and ?', [$i - self::$MAX_MOVE, $i + self::$MAX_MOVE])
+                 ->find_array();
+
+      foreach ($lexemeIds as $rec) {
+        $lexemeId = $rec['lexemeId'];
         if (!isset($hash[$lexemeId])) {
           $hash[$lexemeId] = 1;
         } else {
@@ -91,6 +96,7 @@ class NGram extends BaseObject {
     $hash = array_filter($hash, function($val) use($minLength) {
         return ($val >= $minLength);
       });
+
     return $hash;
   }
 }

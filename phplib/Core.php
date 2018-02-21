@@ -6,18 +6,19 @@ class Core {
   private static $rootPath;
   private static $tempPath;
 
-  static function autoloadLibClass($className) {
-    $filename = self::getRootPath() . 'phplib' . DIRECTORY_SEPARATOR . $className . '.php';
-    if (file_exists($filename)) {
-      require_once $filename;
-    }
-  }
+  private static $AUTOLOAD_PATHS = [
+    'phplib',
+    'phplib' . DIRECTORY_SEPARATOR . 'models',
+    'phplib' . DIRECTORY_SEPARATOR . 'htmlize',
+  ];
 
-  static function autoloadModelsClass($className) {
-    $filename = self::getRootPath() . 'phplib' . DIRECTORY_SEPARATOR . 'models' .
-              DIRECTORY_SEPARATOR . $className . '.php';
-    if (file_exists($filename)) {
-      require_once $filename;
+  static function autoload($className) {
+    foreach (self::$AUTOLOAD_PATHS as $path) {
+      $filename = self::getRootPath() . $path . DIRECTORY_SEPARATOR . $className . '.php';
+      if (file_exists($filename)) {
+        require_once $filename;
+        return;
+      }
     }
   }
 
@@ -26,8 +27,7 @@ class Core {
     setlocale(LC_ALL, 'ro_RO.utf8');
 
     spl_autoload_register(); // clear the autoload stack
-    spl_autoload_register('Core::autoloadLibClass', false, true);
-    spl_autoload_register('Core::autoloadModelsClass', false, true);
+    spl_autoload_register('Core::autoload', false, true);
 
     self::defineRootPath();
     self::defineWwwRoot();

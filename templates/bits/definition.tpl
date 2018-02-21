@@ -32,14 +32,16 @@
     {/foreach}
   </p>
 
+  {include "bits/footnotes.tpl" footnotes=$row->footnotes}
+
   <div class="defDetails small text-muted">
     <ul class="list-inline dropup">
       {if $showSource}
         <li>
           sursa:
           <a class="ref"
-             href="{$wwwRoot}surse"
-             title="{$row->source->name|escape}, {$row->source->year|escape}"
+            href="{$wwwRoot}surse"
+            title="{$row->source->name|escape}, {$row->source->year|escape}"
           >{$row->source->shortName|escape}
             {if $row->source->year}
               ({$row->source->year|regex_replace:"/ .*$/":""})
@@ -123,9 +125,9 @@
         {if $def->status == Definition::ST_PENDING}
           <li>
             <a href="#"
-               class="deleteLink"
-               title="Șterge această definiție"
-               data-id="{$def->id}">
+              class="deleteLink"
+              title="Șterge această definiție"
+              data-id="{$def->id}">
               șterge
             </a>
           </li>
@@ -144,9 +146,9 @@
               {if $skinVariables.typo && !$cfg.global.mirror}
                 <li>
                   <a href="#"
-                     data-definition-id="{$def->id}"
-                     data-toggle="modal"
-                     data-target="#typoModal">
+                    data-definition-id="{$def->id}"
+                    data-toggle="modal"
+                    data-target="#typoModal">
                     <i class="glyphicon glyphicon-flag"></i>
                     semnalează o greșeală
                   </a>
@@ -166,7 +168,7 @@
                 {else}
                   <li>
                     <a class="bookmarkAddButton"
-                       href="{$wwwRoot}ajax/bookmarkAdd.php?definitionId={$def->id}">
+                      href="{$wwwRoot}ajax/bookmarkAdd.php?definitionId={$def->id}">
                       <i class="glyphicon glyphicon-heart"></i>
                       <span>adaugă la favorite</span>
                     </a>
@@ -178,7 +180,7 @@
             {if $showRemoveBookmark}
               <li>
                 <a class="bookmarkRemoveButton"
-                   href="{$wwwRoot}ajax/bookmarkRemove.php?definitionId={$def->id}">
+                  href="{$wwwRoot}ajax/bookmarkRemove.php?definitionId={$def->id}">
                   <i class="glyphicon glyphicon-remove"></i>
                   <span>șterge de la favorite</span>
                 </a>
@@ -189,7 +191,7 @@
               {if $skinVariables.permalink}
                 <li>
                   <a href="{$wwwRoot}definitie/{$def->lexicon}/{$def->id}"
-                     title="link direct către această definiție">
+                    title="link direct către această definiție">
                     <i class="glyphicon glyphicon-link"></i>
                     permalink
                   </a>
@@ -200,11 +202,11 @@
             {if $showPageLink && $row->source->hasPageImages && User::can(User::PRIV_EDIT)}
               <li>
                 <a href="#"
-                   title="arată pagina originală cu această definiție"
-                   data-toggle="modal"
-                   data-target="#pageModal"
-                   data-sourceId="{$def->sourceId}"
-                   data-word="{$def->lexicon|escape}">
+                  title="arată pagina originală cu această definiție"
+                  data-toggle="modal"
+                  data-target="#pageModal"
+                  data-sourceId="{$def->sourceId}"
+                  data-word="{$def->lexicon|escape}">
                   <i class="glyphicon glyphicon-file"></i>
                   arată originalul
                 </a>
@@ -228,8 +230,6 @@
 
     </ul>
   </div>
-
-  {include "bits/footnotes.tpl" footnotes=$row->footnotes}
 
   {if $showTypos}
     {if count($row->typos)}

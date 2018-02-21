@@ -4,18 +4,8 @@
  * Helper class used to accumulate footnotes as we htmlize a string.
  **/
 
-class FootnoteHtmlizer {
-  private $sourceId;
-  private $footnotes;
-  private $errors;
-  private $warnings;
-
-  function __construct($sourceId, &$errors, &$warnings) {
-    $this->sourceId = $sourceId;
-    $this->errors = &$errors;
-    $this->warnings = &$warnings;
-    $this->footnotes = [];
-  }
+class FootnoteHtmlizer extends Htmlizer {
+  private $footnotes = [];
 
   function getKey() {
     return 'footnotes';

@@ -12,9 +12,9 @@
       <div class="checkbox">
         <label>
           <input type="checkbox"
-                 id="includePublic"
-                 {if $includePublic}checked{/if}
-                 value="1">
+            id="includePublic"
+            {if $includePublic}checked{/if}
+            value="1">
           include proiectele publice ale altor moderatori
         </label>
       </div>
@@ -82,6 +82,20 @@
         </div>
 
         <div class="form-group">
+          <label for="f_prefix" class="col-sm-3 control-label">prefix (opțional)</label>
+          <div class="col-sm-9">
+            <input type="text"
+              id="f_prefix"
+              class="form-control"
+              name="lexiconPrefix"
+              value="{$p->lexiconPrefix}">
+            <div class="text-muted">
+              selectează doar definiții care încep cu acest prefix
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
           <label for="f_startDate" class="col-sm-3 control-label">dată de început (opțional)</label>
           <div class="col-sm-9">
             <input type="text" id="f_startDate" name="startDate" value="{$p->startDate}" class="form-control" placeholder="AAAA-LL-ZZ">
@@ -99,9 +113,9 @@
           <label class="col-sm-3 control-label">metodă</label>
           <div class="col-sm-9">
             {include "bits/dropdown.tpl"
-            name="method"
-            data=AccuracyProject::getMethodNames()
-            selected=$p->method}
+              name="method"
+              data=AccuracyProject::getMethodNames()
+              selected=$p->method}
           </div>
         </div>
 
@@ -109,10 +123,10 @@
           <label class="col-sm-3 control-label">cu pasul</label>
           <div class="col-sm-9">
             <input type="number"
-                   name="step"
-                   value="{$p->step|default:1}"
-                   placeholder="din câte în câte definiții veți primi"
-                   class="form-control">
+              name="step"
+              value="{$p->step|default:1}"
+              placeholder="din câte în câte definiții veți primi"
+              class="form-control">
           </div>
         </div>
 
@@ -120,9 +134,9 @@
           <label class="col-sm-3 control-label">vizibilitate</label>
           <div class="col-sm-9">
             {include "bits/dropdown.tpl"
-            name="visibility"
-            data=AccuracyProject::$VIS_NAMES
-            selected=$p->visibility}
+              name="visibility"
+              data=AccuracyProject::$VIS_NAMES
+              selected=$p->visibility}
           </div>
         </div>
 

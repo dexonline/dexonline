@@ -29,17 +29,19 @@ class Constant {
     '/(?<!\\\\)„/'   => '"',     /* U+201E DOUBLE LOW-9 QUOTATION MARK */
     '/(?<!\\\\)‟/'   => '"',     /* U+201F DOUBLE HIGH-REVERSED-9 QUOTATION MARK */
 
-    // Replace all kinds of single quotes and acute accents with the ASCII apostrophe.
-    // Do NOT alter ′ (prime, 0x2032), which is used for foot and minute symbols.
-    '/(?<!\\\\)´/'   => "'",     /* U+00B4 ACUTE ACCENT */
-    '/(?<!\\\\)‘/'   => "'",     /* U+2018 LEFT SINGLE QUOTATION MARK */
-    '/(?<!\\\\)’/'   => "'",     /* U+2019 RIGHT SINGLE QUOTATION MARK */
-    '/(?<!\\\\)‛/'   => "'",     /* U+201B SINGLE HIGH-REVERSED-9 QUOTATION */
-
     // Replace the ordinal indicator with the degree sign.
     '/(?<!\\\\)º/'   =>  '°',    /* U+00BA => U+00B0 */
 
     "/(?<!\\\\)\r\n/" => "\n"    /* Unix newlines only */
+  ];
+
+  const APOSTROPHE_CLEANUP_PATTERNS = [
+    // Replace all kinds of single quotes and acute accents with the ASCII apostrophe.
+    // Do NOT alter ′ (prime, 0x2032), which is used for foot and minute symbols.
+    // Apostrophes are different from other patterns because they double as accent indicators.
+    '/(?<!\\\\)´/'   => "'",     /* U+00B4 */
+    '/(?<!\\\\)‘/'   => "'",     /* U+2018 */
+    '/(?<!\\\\)’/'   => "'",     /* U+2019 */
   ];
 
   // will use preg_replace for string values, preg_replace_callback for arrays
@@ -65,10 +67,7 @@ class Constant {
     '<span data-toggle="popover" data-html="true" data-placement="auto right" ' .
     'class="treeMention" title="$2">$1</span>',
 
-    // meaning mentions
-    '/([-a-zăâîșț]+)\[([0-9]+)\]/i' =>
-    '<span data-toggle="popover" data-html="true" data-placement="auto right" ' .
-    'class="mention" title="$2">$1</span>',
+    '/([-a-zăâîșț]+)\[([0-9]+)(\*{0,2})\]/i' => [ 'MentionHtmlizer' ],      // meaning mentions
   ];
 
     // will use preg_replace for string values, preg_replace_callback for arrays

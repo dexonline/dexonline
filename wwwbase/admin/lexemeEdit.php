@@ -5,7 +5,7 @@ Util::assertNotMirror();
 
 // Lexeme parameters
 $lexemeId = Request::get('lexemeId');
-$lexemeForm = Request::get('lexemeForm');
+$lexemeForm = Request::getWithApostrophes('lexemeForm');
 $lexemeNumber = Request::get('lexemeNumber');
 $lexemeDescription = Request::get('lexemeDescription');
 $needsAccent = Request::has('needsAccent');

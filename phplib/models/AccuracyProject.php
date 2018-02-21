@@ -102,12 +102,18 @@ class AccuracyProject extends BaseObject implements DatedObject {
     return $q;
   }
 
-  // Finds a definition covered by the project that wasn't already evaluated in the same project.
+  // Finds the alphabetically smallest definition covered by the project that
+  // wasn't already evaluated.
   function getDefinition() {
-    $evaled = "select definitionId from AccuracyRecord where projectId = {$this->id}";
-    return $this->getQuery()
-      ->where_raw("id not in ({$evaled})")
-      ->find_one();
+    $d = Model::factory('AccuracyRecord')
+       ->select('d.*')
+       ->table_alias('ar')
+       ->join('Definition', ['ar.definitionId', '=', 'd.id'], 'd')
+       ->where('projectId', $this->id)
+       ->where('reviewed', false)
+       ->order_by_asc('d.lexicon')
+       ->order_by_asc('d.createDate')
+       ->find_one();
   }
 
   // Returns an array of (id, lexicon) for all evaluated definitions.

@@ -24,9 +24,7 @@
 
         {if $mine}
           <form class="form-inline" method="post">
-            {if $def}
-              <input type="hidden" name="defId" value="{$def->id}">
-            {/if}
+            <input type="hidden" name="defId" value="{$def->id}">
             <input type="hidden" name="projectId" value="{$project->id}">
 
             <button id="butDown" type="button" class="btn btn-default">&ndash;</button>
@@ -48,18 +46,13 @@
         {/if}
 
         <div class="voffset2">
-          {if $def}
-            <p class="currentDef">
-              {$def->internalRep}
-            </p>
+          <p class="currentDef">
+            {$def->internalRep}
+          </p>
 
-            <p class="currentDef">
-              {$def->htmlRep}
-            </p>
-          {else}
-            Nu mai există definiții de evaluat. Dumneavoastră sau alt evaluator le-ați evaluat
-            pe toate.
-          {/if}
+          <p class="currentDef">
+            {$def->htmlRep}
+          </p>
         </div>
 
         <div>
@@ -78,6 +71,14 @@
           {/foreach}
         {/if}
 
+      </div>
+    </div>
+  {elseif $mine}
+    <div class="panel panel-default">
+      <div class="panel-heading">Definiția curentă</div>
+      <div class="panel-body">
+        Nu mai există definiții neevaluate. Puteți revizita una dintre
+        definițiile de mai jos.
       </div>
     </div>
   {/if}

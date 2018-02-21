@@ -3,15 +3,6 @@
 class AccuracyProject extends BaseObject implements DatedObject {
   static $_table = 'AccuracyProject';
 
-  const METHOD_NEWEST = 0;
-  const METHOD_OLDEST = 1;
-  const METHOD_RANDOM = 2;
-  static $METHOD_NAMES = [
-    self::METHOD_NEWEST => 'descrescător după dată',
-    self::METHOD_OLDEST => 'crescător după dată',
-    self::METHOD_RANDOM => 'ordine aleatorie',
-  ];
-
   // Who has read access to this project?
   const VIS_PRIVATE = 0;  // owner only
   const VIS_ADMIN = 1;    // owner and User::PRIV_ADMIN's
@@ -38,10 +29,6 @@ class AccuracyProject extends BaseObject implements DatedObject {
   public $defCount = 0;   // number of available definitions
   public $accuracy = 0;   // fraction of correct characters expressed as percentage
   public $errorRate = 0;  // errors per thousand characters
-
-  static function getMethodNames() {
-    return self::$METHOD_NAMES;
-  }
 
   function visibleTo($user) {
     if ($user->id == $this->ownerId) {
@@ -89,8 +76,7 @@ class AccuracyProject extends BaseObject implements DatedObject {
   }
 
   // Returns a ready-to-run idiorm query.
-  // When $forceNewest is true, sorts definitions by newest regardless of $method.
-  function getQuery($forceNewest = false) {
+  function getQuery() {
     $q = Model::factory('Definition')
        ->where_in('status', [ Definition::ST_ACTIVE, Definition::ST_HIDDEN ])
        ->where('userId', $this->userId);
@@ -113,43 +99,15 @@ class AccuracyProject extends BaseObject implements DatedObject {
       $q = $q->where_lte('createDate', $ts);
     }
 
-    $method = $forceNewest ? self::METHOD_NEWEST : $this->method;
-    switch ($method) {
-      case self::METHOD_NEWEST:
-        $q = $q->order_by_desc('createDate');
-        break;
-
-      case self::METHOD_OLDEST:
-        $q = $q->order_by_asc('createDate');
-        break;
-
-      case self::METHOD_RANDOM:
-        $q = $q->order_by_expr('rand()');
-        break;
-    }
-
     return $q;
   }
 
   // Finds a definition covered by the project that wasn't already evaluated in the same project.
   function getDefinition() {
     $evaled = "select definitionId from AccuracyRecord where projectId = {$this->id}";
-    $q = $this->getQuery()
-       ->where_raw("id not in ({$evaled})");
-
-    // handle the step parameter; does not apply to METHOD_RANDOM
-    if (($this->step > 1) &&
-        ($this->lastCreateDate) &&
-        ($this->method != self::METHOD_RANDOM)) {
-      if ($this->method == self::METHOD_NEWEST) {
-        $q = $q->where_lt('createDate', $this->lastCreateDate);
-      } else {
-        $q = $q->where_gt('createDate', $this->lastCreateDate);
-      }
-      $q = $q->offset($this->step - 1);
-    }
-
-    return $q->find_one();
+    return $this->getQuery()
+      ->where_raw("id not in ({$evaled})")
+      ->find_one();
   }
 
   // Returns an array of (id, lexicon) for all evaluated definitions.
@@ -195,7 +153,7 @@ class AccuracyProject extends BaseObject implements DatedObject {
   function recomputeSpeedData() {
     DB::setBuffering(false);
 
-    $defs = $this->getQuery(true)->find_many();
+    $defs = $this->getQuery()->order_by_desc('createDate')->find_many();
 
     $prev = 0; // timestamp of the *next* definition in chronological order
     $this->totalLength = 0;
@@ -246,9 +204,6 @@ class AccuracyProject extends BaseObject implements DatedObject {
     }
     if ($this->endDate && !preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $this->endDate)) {
       FlashMessage::add('Data de sfârșit trebuie să aibă formatul AAAA-LL-ZZ');
-    }
-    if ($this->step < 1) {
-      FlashMessage::add('Pasul trebuie să fie pozitiv.');
     }
 
     // Count the characters in all the applicable definitions

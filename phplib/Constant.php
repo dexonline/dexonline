@@ -21,7 +21,7 @@ class Constant {
 
     // Replace a quotation mark that may look like comma
     '/(?<!\\\\)‚/'   => ',',     /* U+201A SINGLE LOW-9 QUOTATION MARK */
-    
+
     // Replace all kinds of double quotes with the ASCII ones.
     // Do NOT alter ″ (double prime, 0x2033), which is used for inch and second symbols.
     '/(?<!\\\\)“/'   => '"',     /* U+201C LEFT DOUBLE QUOTATION MARK */
@@ -70,18 +70,6 @@ class Constant {
     '/([-a-zăâîșț]+)\[([0-9]+)(\*{0,2})\]/i' => [ 'MentionHtmlizer' ],      // meaning mentions
   ];
 
-    // will use preg_replace for string values, preg_replace_callback for arrays
-  const HTML_ABBREV_PATTERNS = [
-    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                               // "x" => „x”
-    '/(?<!\\\\)@([^@]*)@/' => '<b>$1</b>',                         // @bold@
-    '/(?<!\\\\)\\$([^$]*)\\$/' => '<i>$1</i>',                     // $italic$
-    '/(?<!\\\\)\\%([^$]*)\\%/' => '$1',                            // %spaced%
-    '/(?<!\\\\)\^(\d)/' => '<sup>$1</sup>',                        // superscript ^123
-    '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                 // superscript ^{a b c}
-    '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                         // subscript _123
-    '/(?<!\\\\)_\{([^}]*)\}/' => '<sub>$1</sub>',                  // superscript _{a b c}
-  ];
-  
   const HTML_REPLACEMENTS = [
     ' - '  => ' – ',  /* U+2013 */
     ' ** ' => ' ♦ ',  /* U+2666 */

@@ -10,8 +10,8 @@ class Constant {
     '/(?<!\\\\)ţ/'   => 'ț',
     '/(?<!\\\\)Ţ/'   => 'Ț',
 
-    '/ ◊ /' => ' * ',
-    '/ ♦ /' => ' ** ',
+    '/ ◊ /' => ' * ',  /* (U+25CA) LOZENGE ◊ */
+    '/ ♦ /' => ' ** ', /* (U+2666) BLACK DIAMOND SUIT ♦ */
 
     // hyphens and spaces
     '/(?<!\\\\) /'   => ' ',     /* U+00A0 non-breaking space */
@@ -19,12 +19,15 @@ class Constant {
     '/(?<!\\\\)—/'   => '-',     /* U+2014 em dash */
     '/(?<!\\\\)­/'   => '',      /* U+00AD soft hyphen */
 
+    // Replace a quotation mark that may look like comma
+    '/(?<!\\\\)‚/'   => ',',     /* U+201A SINGLE LOW-9 QUOTATION MARK */
+    
     // Replace all kinds of double quotes with the ASCII ones.
     // Do NOT alter ″ (double prime, 0x2033), which is used for inch and second symbols.
-    '/(?<!\\\\)„/'   => '"',     /* U+201E */
-    '/(?<!\\\\)”/'   => '"',     /* U+201D */
-    '/(?<!\\\\)“/'   => '"',     /* U+201C */
-    '/(?<!\\\\)‟/'   => '"',     /* U+201F */
+    '/(?<!\\\\)“/'   => '"',     /* U+201C LEFT DOUBLE QUOTATION MARK */
+    '/(?<!\\\\)”/'   => '"',     /* U+201D RIGHT DOUBLE QUOTATION MARK */
+    '/(?<!\\\\)„/'   => '"',     /* U+201E DOUBLE LOW-9 QUOTATION MARK */
+    '/(?<!\\\\)‟/'   => '"',     /* U+201F DOUBLE HIGH-REVERSED-9 QUOTATION MARK */
 
     // Replace the ordinal indicator with the degree sign.
     '/(?<!\\\\)º/'   =>  '°',    /* U+00BA => U+00B0 */
@@ -43,11 +46,12 @@ class Constant {
 
   // will use preg_replace for string values, preg_replace_callback for arrays
   const HTML_PATTERNS = [
-    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                              // "x" => „x”
-    '/(?<!\\\\)\{\{(.*)\}\}/U' => [ 'FootnoteHtmlizer' ],          // {{fotnote}}
+    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                               // "x" => „x” - romanian quoting style
+    '/(?<!\\\\)\{\{(.*)\}\}/U' => ['FootnoteHtmlizer', 'htmlize'], // {{fotnote}}
+    '/(?<!\\\\)#([^#]*)#/' => ['AbbrevHtmlizer', 'htmlize'],       // #abbreviation#
     '/(?<!\\\\)%([^%]*)%/' => '<span class="spaced">$1</span>',    // %spaced%
     '/(?<!\\\\)@([^@]*)@/' => '<b>$1</b>',                         // @bold@
-    '/(?<!\\\\)\\$([^$]*)\\$/' => '<i>$1</i>',                     // italic
+    '/(?<!\\\\)\\$([^$]*)\\$/' => '<i>$1</i>',                     // $italic$
     '/(?<!\\\\)\^(\d)/' => '<sup>$1</sup>',                        // superscript ^123
     '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                 // superscript ^{a b c}
     '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                         // subscript _123
@@ -66,6 +70,18 @@ class Constant {
     '/([-a-zăâîșț]+)\[([0-9]+)(\*{0,2})\]/i' => [ 'MentionHtmlizer' ],      // meaning mentions
   ];
 
+    // will use preg_replace for string values, preg_replace_callback for arrays
+  const HTML_ABBREV_PATTERNS = [
+    '/(?<!\\\\)"([^"]*)"/' => '„$1”',                               // "x" => „x”
+    '/(?<!\\\\)@([^@]*)@/' => '<b>$1</b>',                         // @bold@
+    '/(?<!\\\\)\\$([^$]*)\\$/' => '<i>$1</i>',                     // $italic$
+    '/(?<!\\\\)\\%([^$]*)\\%/' => '$1',                            // %spaced%
+    '/(?<!\\\\)\^(\d)/' => '<sup>$1</sup>',                        // superscript ^123
+    '/(?<!\\\\)\^\{([^}]*)\}/' => '<sup>$1</sup>',                 // superscript ^{a b c}
+    '/(?<!\\\\)_(\d)/' => '<sub>$1</sub>',                         // subscript _123
+    '/(?<!\\\\)_\{([^}]*)\}/' => '<sub>$1</sub>',                  // superscript _{a b c}
+  ];
+  
   const HTML_REPLACEMENTS = [
     ' - '  => ' – ',  /* U+2013 */
     ' ** ' => ' ♦ ',  /* U+2666 */

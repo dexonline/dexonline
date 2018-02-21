@@ -12,8 +12,8 @@ abstract class Htmlizer {
 
   function __construct($sourceId, &$errors, &$warnings) {
     $this->sourceId = $sourceId;
-    $this->errors = $errors;
-    $this->warnings = $warnings;
+    $this->errors = &$errors;
+    $this->warnings = &$warnings;
   }
 
   abstract function getKey();

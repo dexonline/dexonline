@@ -466,7 +466,7 @@
         </tr>
         <tr>
           <td><a href="{$wwwRoot}admin/contribTotals">contorizare contribuții</a></td>
-          <td></td>
+          <td><a href="{$wwwRoot}admin/abbrevInput">adaugă abrevieri</a></td>
         </tr>
       </table>
     </div>

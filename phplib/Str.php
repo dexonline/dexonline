@@ -1,6 +1,7 @@
 <?php
 
 class Str {
+
   // Convert old (î) orthography to new (â) orthography.
   // Assumes $s uses diacritics (if needed).
   static function convertOrthography($s) {
@@ -53,44 +54,44 @@ class Str {
     for ($i = 0; $i < $len; $i++) {
       $char = self::getCharAt($s, $i);
       switch ($state) {
-      case 0: // no special char seen so far
-        if ($char == '[') {
-          $count++;
-          $state = 2;
-        } else if ($char == ']') {
-          return false;
-        } else if ($char == '|' || $char == '?' || $char == '*') {
-          $state = 1;
-        }
-        break;
-      case 1: // normal state, specials were seen
-        if ($char == '[') {
-          $count++;
-          $state = 2;
-        } else if ($char == ']') {
-          if ($count == 0) {
+        case 0: // no special char seen so far
+          if ($char == '[') {
+            $count++;
+            $state = 2;
+          } else if ($char == ']') {
             return false;
+          } else if ($char == '|' || $char == '?' || $char == '*') {
+            $state = 1;
           }
-          $count--;
-        }
-        break;
-      case 2: // after a [; won't count ]
-        if ($char == '[') {
-          $count++;
-        } else if ($char == '^') {
-          $state = 3;
-        } else {
-          $state = 1;
-        }
-        break;
-      case 3: // after [^; still won't count ]
-        if ($char == '[') {
-          $count++;
-          $state = 2;
-        } else {
-          $state = 1;
-        }
-        break;
+          break;
+        case 1: // normal state, specials were seen
+          if ($char == '[') {
+            $count++;
+            $state = 2;
+          } else if ($char == ']') {
+            if ($count == 0) {
+              return false;
+            }
+            $count--;
+          }
+          break;
+        case 2: // after a [; won't count ]
+          if ($char == '[') {
+            $count++;
+          } else if ($char == '^') {
+            $state = 3;
+          } else {
+            $state = 1;
+          }
+          break;
+        case 3: // after [^; still won't count ]
+          if ($char == '[') {
+            $count++;
+            $state = 2;
+          } else {
+            $state = 1;
+          }
+          break;
       }
     }
     return $count == 0 && $state > 0;
@@ -109,6 +110,14 @@ class Str {
 
   static function isUppercase($s) {
     return $s != mb_strtolower($s);
+  }
+
+  static function isAllUppercase($s) {
+    return mb_strtoupper($s, 'utf-8') == $s; // maybe paranoid: mb_detect_encoding($s) as second argument
+  }
+
+  static function getUpperLowerString($s) {
+    return mb_strtoupper($s) . mb_strtolower($s);
   }
 
   static function getCharAt($s, $index) {
@@ -179,14 +188,14 @@ class Str {
     $char_map = [
       'â' => 'î',
       'Â' => 'Î',
-      'ấ'  => 'î́',
+      'ấ' => 'î́',
       'Ấ' => 'Î́',
     ];
 
     foreach ($char_map as $a => $i) {
       // workaround for the fact that /\b{$a}\b/u doesn't work.
       // see http://stackoverflow.com/questions/2432868/php-regex-word-boundary-matching-in-utf-8
-      $tpl_output = preg_replace("/(?<=[A-Za-zĂȘȚășț]){$a}(?=[A-Za-zĂȘȚășț])/",
+      $tpl_output = preg_replace("/(?<=[A-Za-zĂȘȚășț]){$a}(?=[A-Za-zĂȘȚășț])/", 
                                  "$1{$i}$2", $tpl_output);
       $tpl_output = preg_replace("/(r[ou]m)$i(n)/i", "\${1}$a\${2}", $tpl_output);
     }
@@ -240,8 +249,8 @@ class Str {
 
   /* Place a css class around the letter bearing the tonic accent */
   static function highlightAccent($s) {
-    return preg_replace("/(?<!\\\\)'(.)/u",
-                        "<span class=\"tonic-accent\">\$1</span>",
+    return preg_replace("/(?<!\\\\)'(.)/u", 
+                        "<span class=\"tonic-accent\">\$1</span>", 
                         $s);
   }
 
@@ -281,10 +290,10 @@ class Str {
 
     // Replace \abcd with the Unicode character 0xABCD
     $s = preg_replace_callback(
-      '/\\\\([\dabcdef]{4,5})/i',
+      '/\\\\([\dabcdef]{4,5})/i', 
       function ($matches) {
-        return self::chr(hexdec($matches[0]));
-      },
+      return self::chr(hexdec($matches[0]));
+      }, 
       $s);
 
     return $s;
@@ -298,7 +307,7 @@ class Str {
     $warnings = $warnings ?? [];
 
     $s = self::cleanup($s);
-    $s = str_replace([ '$$', '@@', '%%' ], '', $s);
+    $s = str_replace(['$$', '@@', '%%'], '', $s);
 
     $s = self::migrateFormatChars($s);
     if ($sourceId) {
@@ -319,9 +328,9 @@ class Str {
   // We cannot check the nesting of () due the use of ) in "a), b), c)".
   static function reportSanitizationErrors($s, &$errors) {
     $chars = self::unicodeExplode($s);
-    self::sanitizationStackTest($chars, $errors, '@$%#', [ '{}' ]);
-    self::sanitizationStackTest($chars, $errors, '', [ '[]' ]);
-    self::sanitizationStackTest($chars, $errors, '"', [ '«»' ]);
+    self::sanitizationStackTest($chars, $errors, '@$%#', ['{}']);
+    self::sanitizationStackTest($chars, $errors, '', ['[]']);
+    self::sanitizationStackTest($chars, $errors, '"', ['«»']);
   }
 
   private static function sanitizationStackTest($chars, &$errors, $same, $pairs) {
@@ -380,7 +389,7 @@ class Str {
     // First, check that all format chars come in pairs
     $len = strlen($s);
     $i = 0;
-    $state = [ '$' => false, '@' => false, '%' => false ];
+    $state = ['$' => false, '@' => false, '%' => false];
 
     // 0 = punctuation (.,;:), 1 = closing char, 2 = whitespace, 3 = opening char, 4 = other
     $value = $len ? array_fill(0, $len, 4) : [];
@@ -443,11 +452,13 @@ class Str {
     return $s;
   }
 
-  // Converts $s to html. If $obeyNewlines is true, replaces \n with
-  // <br>\n; otherwise leaves \n as \n.
-  // Returns an array of
-  // - HTML result
-  // - extracted footnotes
+  /**
+   * Converts $s to html. If $obeyNewlines is true, replaces \n with
+   * <br>\n; otherwise leaves \n as \n.
+   * @return Array an array of
+   * - HTML result
+   * - extracted footnotes
+   */
   static function htmlize($s, $sourceId, $obeyNewlines = false, &$errors = null, &$warnings = null) {
     $errors = $errors ?? [];
     $warnings = $warnings ?? [];
@@ -493,8 +504,6 @@ class Str {
     $to = array_values(Constant::HTML_REPLACEMENTS);
     $s = str_replace($from, $to, $s);
 
-    $s = Abbrev::htmlizeAbbreviations($s, $sourceId, $errors);
-
     // finally, remove the escape character -- we no longer need it
     $s = preg_replace('/(?<!\\\\)\\\\/', '', $s);
 
@@ -508,10 +517,10 @@ class Str {
 
     // Replace backslashed characters with their XML escape code
     $s = preg_replace_callback(
-      '/\\\\(.)/',
+      '/\\\\(.)/', 
       function ($matches) {
-        return '&#x5c;' . '&#x' . dechex(self::ord($matches[1])) . ';';
-      },
+      return '&#x5c;' . '&#x' . dechex(self::ord($matches[1])) . ';';
+      }, 
       $s);
 
     return $s;
@@ -589,7 +598,7 @@ class Str {
     $len = strlen($roman);
     $oldValue = 100000;
     $result = 0;
-    $values = [ 'i' => 1, 'v' => 5, 'x' => 10, 'l' => 50, 'c' => 100, 'd' => 500, 'm' => 1000, ];
+    $values = ['i' => 1, 'v' => 5, 'x' => 10, 'l' => 50, 'c' => 100, 'd' => 500, 'm' => 1000,];
 
     for ($i = 0; $i < $len; $i++) {
       $c = substr($roman, $i, 1);
@@ -641,22 +650,22 @@ class Str {
       foreach (explode(" ", $words) as $word_string) {
 
         $word_lexeme_ids = Model::factory('InflectedForm')
-                        ->select('lexemeId')
-                        ->where('formNoAccent', $word_string)
-                        ->find_many();
+          ->select('lexemeId')
+          ->where('formNoAccent', $word_string)
+          ->find_many();
 
         // Separate queries for formNoAccent and formUtf8General
         // since Idiorm does not support OR'ing WHERE clauses.
         $field = self::hasDiacritics($definition_string) ? 'formNoAccent' : 'formUtf8General';
         $def_lexeme_id_by_noAccent = Model::factory('Lexeme')
-                                  ->select('id')
-                                  ->where($field, $definition_string)
-                                  ->find_one();
+          ->select('id')
+          ->where($field, $definition_string)
+          ->find_one();
 
         $def_lexeme_id_by_utf8General = Model::factory('Lexeme')
-                                     ->select('id')
-                                     ->where('formUtf8General', $definition_string)
-                                     ->find_one();
+          ->select('id')
+          ->where('formUtf8General', $definition_string)
+          ->find_one();
 
         // Linked lexeme was not found in the database.
         if (empty($def_lexeme_id_by_utf8General)) {
@@ -698,22 +707,22 @@ class Str {
 
         foreach ($word_lexeme_ids as $word_lexeme_id) {
           $lexeme_model = Model::factory('Lexeme')
-                       ->select('formNoAccent')
-                       ->select('modelType')
-                       ->select('modelNumber')
-                       ->where_id_is($word_lexeme_id->lexemeId)
-                       ->find_one();
+            ->select('formNoAccent')
+            ->select('modelType')
+            ->select('modelNumber')
+            ->where_id_is($word_lexeme_id->lexemeId)
+            ->find_one();
 
           if ($lexeme_model->modelType === "IL" ||
-              $lexeme_model->modelType === "PT" ||
-              $lexeme_model->modelType === "A" ||
-              ($lexeme_model->modelType === "F" &&
-               ($lexeme_model->modelNumber === "107" ||
-                $lexeme_model->modelNumber === "113"))) {
+            $lexeme_model->modelType === "PT" ||
+            $lexeme_model->modelType === "A" ||
+            ($lexeme_model->modelType === "F" &&
+            ($lexeme_model->modelNumber === "107" ||
+            $lexeme_model->modelNumber === "113"))) {
             $nextstep = Model::factory('InflectedForm')
-                      ->select('lexemeId')
-                      ->where('formNoAccent', $lexeme_model->formNoAccent)
-                      ->find_many();
+              ->select('lexemeId')
+              ->where('formNoAccent', $lexeme_model->formNoAccent)
+              ->find_many();
 
             foreach ($nextstep as $one) {
               if ($one->lexemeId === $def_lexeme_id_by_noAccent->id) {
@@ -751,11 +760,12 @@ class Str {
 
     foreach ($processedLinks as $pl) {
       if ($pl['short_reason'] !== 'nemodificat') {
-        $errors[] = sprintf('Legătura de la "%s" la "%s" este considerată redundantă (motiv: %s)',
+        $errors[] = sprintf('Legătura de la "%s" la "%s" este considerată redundantă (motiv: %s)', 
                             $pl['original_word'], $pl['linked_lexeme'], $pl['reason']);
       }
     }
 
     return $processedLinks;
   }
+
 }

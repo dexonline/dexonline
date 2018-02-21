@@ -8,6 +8,7 @@ class Util {
   const INFINITY = 1000000000;
 
   /* Returns $obj->$prop for every $obj in $a */
+
   static function objectProperty($a, $prop) {
     $results = [];
     foreach ($a as $obj) {
@@ -110,71 +111,55 @@ class Util {
 
   static function recount() {
     Variable::poke(
-      'Count.pendingDefinitions',
-      Model::factory('Definition')->where('status', Definition::ST_PENDING)->count()
+      'Count.pendingDefinitions', Model::factory('Definition')->where('status', Definition::ST_PENDING)->count()
     );
     Variable::poke(
-      'Count.definitionsWithTypos',
-      Model::factory('Typo')->select('definitionId')->distinct()->find_result_set()->count()
+      'Count.definitionsWithTypos', Model::factory('Typo')->select('definitionId')->distinct()->find_result_set()->count()
     );
     Variable::poke(
-      'Count.ambiguousAbbrevs',
-      Definition::countAmbiguousAbbrevs()
+      'Count.ambiguousAbbrevs', Definition::countAmbiguousAbbrevs()
     );
     Variable::poke(
-      'Count.rawOcrDefinitions',
-      Model::factory('OCR')->where('status', 'raw')->count()
+      'Count.rawOcrDefinitions', Model::factory('OCR')->where('status', 'raw')->count()
     );
     // this takes about 300 ms
     Variable::poke(
-      'Count.unassociatedDefinitions',
-      Definition::countUnassociated()
+      'Count.unassociatedDefinitions', Definition::countUnassociated()
     );
     Variable::poke(
-      'Count.unassociatedEntries',
-      count(Entry::loadUnassociated())
+      'Count.unassociatedEntries', count(Entry::loadUnassociated())
     );
     Variable::poke(
-      'Count.unassociatedLexemes',
-      Lexeme::countUnassociated()
+      'Count.unassociatedLexemes', Lexeme::countUnassociated()
     );
     Variable::poke(
-      'Count.unassociatedTrees',
-      Tree::countUnassociated()
+      'Count.unassociatedTrees', Tree::countUnassociated()
     );
     Variable::poke(
-      'Count.ambiguousEntries',
-      count(Entry::loadAmbiguous())
+      'Count.ambiguousEntries', count(Entry::loadAmbiguous())
     );
     Variable::poke(
-      'Count.entriesWithDefinitionsToStructure',
-      count(Entry::loadWithDefinitionsToStructure())
+      'Count.entriesWithDefinitionsToStructure', count(Entry::loadWithDefinitionsToStructure())
     );
     Variable::poke(
-      'Count.lexemesWithoutAccent',
-      Model::factory('Lexeme')->where('consistentAccent', 0)->count()
+      'Count.lexemesWithoutAccent', Model::factory('Lexeme')->where('consistentAccent', 0)->count()
     );
     Variable::poke(
-      'Count.ambiguousLexemes',
-      count(Lexeme::loadAmbiguous())
+      'Count.ambiguousLexemes', count(Lexeme::loadAmbiguous())
     );
     Variable::poke(
-      'Count.temporaryLexemes',
-      Model::factory('Lexeme')->where('modelType', 'T')->count()
+      'Count.temporaryLexemes', Model::factory('Lexeme')->where('modelType', 'T')->count()
     );
     Variable::poke(
-      'Count.treeMentions',
-      Model::factory('Mention')->where('objectType', Mention::TYPE_TREE)->count()
+      'Count.treeMentions', Model::factory('Mention')->where('objectType', Mention::TYPE_TREE)->count()
     );
   }
 
   static function redirect($location) {
     // Fix an Android issue with redirects caused by diacritics
     $location = str_replace(
-      ['ă', 'â', 'î', 'ș', 'ț', 'Ă', 'Â', 'Î', 'Ș', 'Ț'],
-      ['%C4%83', '%C3%A2', '%C3%AE', '%C8%99', '%C8%9B',
-       '%C4%82', '%C3%82', '%C3%8E', '%C8%98', '%C8%9A'],
-      $location);
+      ['ă', 'â', 'î', 'ș', 'ț', 'Ă', 'Â', 'Î', 'Ș', 'Ț'], ['%C4%83', '%C3%A2', '%C3%AE', '%C8%99', '%C8%9B',
+      '%C4%82', '%C3%82', '%C3%8E', '%C8%98', '%C8%9A'], $location);
     FlashMessage::saveToSession();
     header("HTTP/1.1 301 Moved Permanently");
     header("Location: $location");
@@ -196,7 +181,20 @@ class Util {
 
   static function suggestNoBanner() {
     return
-      !Config::get('skin.banner') ||                                 // disabled by config file
+      !Config::get('skin.banner') || // disabled by config file
       (User::getActive() && User::getActive()->noAdsUntil > time()); // user is an active donor
   }
+
+  /**
+   * Calculates percentage
+   * @param integer $number Amount of something processed
+   * @param integer $total The total of something
+   * @param integer $decimals Decimal rounding unit
+   * 
+   * @return float
+   */
+  static function percentageOf($number, $total, $decimals = 2) {
+    return round($number / $total * 100, $decimals);
+  }
+
 }

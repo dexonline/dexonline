@@ -1,7 +1,6 @@
 <?php
 
-require_once '../phplib/Core.php';
-require_once '../phplib/third-party/parseIniFile.php';
+require_once __DIR__ . '/../phplib/third-party/parseIniFile.php';
 
 // special case of some sources
 const HTML_QIQ_PATTERN = [
@@ -48,19 +47,19 @@ foreach (array_keys($ABBREV_INDEX) as $sourceId) {
       $warnings[] = 'WARN: ' . 'commented line in sourceId ' . $sourceId . ' ::: ' . trim(substr($from, 1)) . " ::: ADDED!";
       $from = substr($from, 1);
     }
-    
+
     $to = str_replace(["'", "’"], "\'", $to);
     $result_csv[$from] = [
       'internalRep' => $to,
       'ambiguous' => $ambiguous,
     ];
   }
-  
+
   //if (count($result_csv)){
     $ABBREVS_CSV[$sourceId] = $result_csv;
     $abbrevCount += count($result_csv);
   //}
-  
+
 }
 
 $abbrevProcessed = 0;
@@ -76,7 +75,7 @@ foreach (array_keys($ABBREV_INDEX) as $sourceId) { // handle each source
     $abbrev->enforced = false;
     $abbrev->ambiguous = $values['ambiguous'];
     $abbrev->caseSensitive = false;
-    
+
     // some abbreviations are in html form e.g. „22”
     $abbrev->short = Str::cleanup($from);
 
@@ -87,7 +86,7 @@ foreach (array_keys($ABBREV_INDEX) as $sourceId) { // handle each source
         $internalRep = preg_replace($internal, $replacement, $internalRep);
       }
     }
-    
+
     // further cleaning string
     $abbrev->internalRep = Str::cleanup($internalRep);
 

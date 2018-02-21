@@ -99,6 +99,10 @@ class AccuracyProject extends BaseObject implements DatedObject {
       $q = $q->where('sourceId', $this->sourceId);
     }
 
+    if ($this->lexiconPrefix) {
+      $q = $q->where_like('lexicon', "{$this->lexiconPrefix}%");
+    }
+
     if ($this->hasStartDate()) {
       $ts = strtotime($this->startDate);
       $q = $q->where_gte('createDate', $ts);
@@ -267,6 +271,10 @@ class AccuracyProject extends BaseObject implements DatedObject {
     if ($this->sourceId) {
       $source = Source::get_by_id($this->sourceId);
       $result .= ", {$source->shortName}";
+    }
+
+    if ($this->lexiconPrefix) {
+      $result .= ", {$this->lexiconPrefix}*";
     }
 
     if ($this->hasStartDate()) {

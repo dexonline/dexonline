@@ -15,6 +15,7 @@ if ($submitButton) {
   $p->name = Request::get('name');
   $p->userId = Request::get('userId');
   $p->sourceId = Request::get('sourceId');
+  $p->lexiconPrefix = Request::get('lexiconPrefix');
   $p->startDate = Request::get('startDate');
   $p->endDate = Request::get('endDate');
   $p->method = Request::get('method');
